@@ -9,6 +9,15 @@ extends Resource
 @export var behavior: Script
 @export var is_boss: bool = false
 
+@export_group("Appearance")
+## 骨架外觀 id（art/characters/<id>）；空字串代表使用程式繪製外觀（機械類敵人）。
+@export var rig_skin: String = ""
+## 手持武器外觀 id（art/weapons/weapons.json）。
+@export var rig_weapon: String = ""
+@export var rig_two_handed: bool = true
+## 後手向前舉盾。
+@export var rig_shield: bool = false
+
 @export_group("Body")
 @export var body_size: Vector2 = Vector2(12, 20)
 @export var color: Color = Color(0.9, 0.4, 0.35)

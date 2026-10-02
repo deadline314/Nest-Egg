@@ -53,6 +53,10 @@ func _recover_tick(_delta: float) -> void:
 		fsm.transition(&"patrol")
 
 
+func _rig_aim() -> Vector2:
+	return _aim if fsm.is_in(&"aim") or fsm.is_in(&"recover") else Vector2(facing, 0.1).normalized()
+
+
 func _is_locked() -> bool:
 	return fsm.time_in_state >= data.telegraph_time * TRACK_RATIO
 

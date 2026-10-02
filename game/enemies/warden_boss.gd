@@ -26,6 +26,10 @@ var _summons: Array[WeakRef] = []
 var _vulnerable_left := 0.0
 
 
+func _rig_aim() -> Vector2:
+	return _direction_to_target() if _target() != null else Vector2(facing, 0.1).normalized()
+
+
 func _uses_activation_culling() -> bool:
 	return false
 
@@ -228,6 +232,8 @@ func _on_boss_health_changed(current: int, maximum: int) -> void:
 	EventBus.boss_health_changed.emit(current, maximum)
 	if _phase == 1 and current > 0 and current <= maximum / 2:
 		_phase = 2
+		if rig != null:
+			rig.modulate = Color(1.25, 0.8, 0.8)
 		if not fsm.is_in(&"leap"):
 			fsm.transition(&"phase_shift")
 
@@ -260,6 +266,16 @@ func _finish_death() -> void:
 # ---------------------------------------------------------------------------
 # 外觀
 # ---------------------------------------------------------------------------
+
+## 核心外露時在胸口畫出脈動的弱點光環（骨架外觀時使用）。
+func _draw_overlay() -> void:
+	if rig == null or _vulnerable_left <= 0.0:
+		return
+	var core := Vector2(0, -data.body_size.y * 0.62)
+	var pulse := 0.5 + 0.5 * sin(_anim_time * 20.0)
+	draw_circle(core, 7.0 + pulse * 2.0, Color(LightKit.glow(Palette.CYAN, 2.5), 0.35))
+	draw_arc(core, 10.0 + pulse * 3.0, 0.0, TAU, 24, LightKit.glow(Palette.CYAN, 3.0), 2.0)
+
 
 func _draw_body(color: Color) -> void:
 	var w := data.body_size.x

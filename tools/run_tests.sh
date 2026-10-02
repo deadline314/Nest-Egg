@@ -14,7 +14,9 @@ LOG="$(mktemp)"
 "$GODOT" --headless res://tests/smoke_test.tscn 2>&1 | tee "$LOG"
 STATUS=${PIPESTATUS[0]}
 
-if grep -qE "SCRIPT ERROR|^ERROR:|Parse Error" "$LOG"; then
+# 測試刻意觸發的錯誤（驗證缺圖／缺定義時的容錯）不算失敗。
+EXPECTED_ERRORS="missing_part|no_such_character"
+if grep -E "SCRIPT ERROR|^ERROR:|Parse Error" "$LOG" | grep -vqE "$EXPECTED_ERRORS"; then
 	echo "Detected script errors in output." >&2
 	STATUS=1
 fi

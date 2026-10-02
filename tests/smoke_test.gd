@@ -25,6 +25,7 @@ func _run() -> void:
 	_test_level_layout()
 	_test_state_machine()
 	_test_loadout()
+	await _test_rigs()
 	await _test_settings_and_bindings()
 	await _test_gameplay()
 	await _test_block_and_parry()
@@ -142,6 +143,58 @@ func _test_loadout() -> void:
 	_check(restored.slot_count() == 3 and restored.weapon_in(2) == laser, "snapshot round trip")
 	restored.restore({"weapons": ["res://missing.tres"], "ammo": "bad"}, rifle)
 	_check(restored.active_weapon() == rifle, "restore falls back on bad data")
+
+
+## 骨架角色：定義完整性、零件圖片、IK、裝甲脫落、缺圖容錯。
+func _test_rigs() -> void:
+	var skeleton := RigLibrary.load_json("res://art/rigs/humanoid.json")
+	var bone_names: Dictionary = {}
+	for bone: Dictionary in skeleton.get("bones", []):
+		bone_names[bone["name"]] = true
+	for id in ["rin", "trooper", "grenadier", "enforcer", "warden"]:
+		var skin := RigLibrary.character(id)
+		_check(not skin.is_empty(), "character definition loads: %s" % id)
+		var dir := RigLibrary.character_dir(id)
+		for tex_name: String in skin.get("textures", {}).keys():
+			var def: Dictionary = skin["textures"][tex_name]
+			_check(ResourceLoader.exists(dir.path_join(def["file"])), "part image exists: %s/%s" % [id, def["file"]])
+			if def.has("glow"):
+				_check(ResourceLoader.exists(dir.path_join(def["glow"])), "glow image exists: %s/%s" % [id, def["glow"]])
+		for part: Dictionary in skin.get("parts", []):
+			_check(bone_names.has(part["bone"]), "part bone exists: %s.%s" % [id, part["name"]])
+	for weapon_id: String in RigLibrary.weapons().get("weapons", {}).keys():
+		var wdef := RigLibrary.weapon(weapon_id)
+		_check(ResourceLoader.exists("res://art/weapons/".path_join(wdef["file"])), "weapon image exists: %s" % weapon_id)
+
+	var holder := Node2D.new()
+	get_tree().root.add_child(holder)
+	var rig := CharacterRig.new()
+	holder.add_child(rig)
+	_check(rig.setup("rin"), "rig builds")
+	rig.set_weapon("rifle")
+	var input := RigInput.new()
+	input.aim_dir = Vector2(1, -1).normalized()
+	for i in 30:
+		rig.animate(1.0 / 60.0, input)
+	await _frames(1)
+	var hand := rig.bone(&"hand_front").global_position
+	var grip := rig.weapon_root().global_position
+	_check(hand.distance_to(grip) < 1.5, "front hand IK reaches weapon grip (%.2f)" % hand.distance_to(grip))
+	_check(rig.muzzle_global().x > 8.0 and rig.muzzle_global().y < -30.0, "muzzle in front of rig when aiming up-right")
+	var armor := rig.armor_count()
+	_check(armor >= 4, "rig has breakable armor")
+	rig.set_armor_ratio(0.5, false)
+	var visible := 0
+	for node in rig.find_children("armor_*", "Sprite2D", true, false):
+		if (node as Sprite2D).visible:
+			visible += 1
+	_check(visible == ceili(armor * 0.5), "armor hides by health ratio")
+	holder.queue_free()
+
+	_check(RigLibrary.texture("res://art/missing_part.png", Vector2i(8, 8)) != null, "missing part falls back to placeholder")
+	var broken := CharacterRig.new()
+	_check(not broken.setup("no_such_character"), "unknown character fails gracefully")
+	broken.free()
 
 
 ## 設定與改鍵：改用測試專用設定檔，結束後還原，不影響玩家設定。
@@ -345,6 +398,11 @@ func _test_gameplay() -> void:
 	player.global_position = Vector2(player.global_position.x, player.fall_limit_y + 10.0)
 	await _frames(2)
 	_check(player.health.current < hp and player.global_position.y < player.fall_limit_y, "pit damages and respawns")
+	await _frames(2)
+	var debris := 0
+	for node in level.find_children("*", "RigDebris", true, false):
+		debris += 1
+	_check(debris > 0, "lost armor flies off as debris")
 	await _end_level(level)
 
 
@@ -359,11 +417,15 @@ func _test_block_and_parry() -> void:
 	var player := level.player
 	player.health.setup(10, 0.0)
 	player.global_position = Vector2(300, 320)
+	# 清掉關卡原有的敵人，讓格擋測試只受測試子彈影響。
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		node.free()
 	Input.action_press(&"aim_right")
 	await _frames(5)
 	Input.action_press(&"block")
 	await _frames(2)
 	_check(player.is_blocking and player.is_parry_window(), "block raises shield with parry window")
+
 
 	var parried := _shoot_at_player(player, Vector2(14, 0))
 	await _frames(3)
@@ -374,6 +436,14 @@ func _test_block_and_parry() -> void:
 	var blocked := _shoot_at_player(player, Vector2(14, 0))
 	await _frames(3)
 	_check(not blocked.active and player.health.current == 10 and player.guard < guard_before, "block stops bullet and drains guard")
+
+	# 敵人瞄準身體中心（低於肩膀）時也要擋得住。
+	await _frames(20)
+	var low_hp := player.health.current
+	var spec_low := load("res://data/projectiles/grunt_shot.tres") as ProjectileSpec
+	ProjectilePool.spawn(spec_low, player.global_position + Vector2(14, -22), Vector2.LEFT, Combat.Team.ENEMY)
+	await _frames(3)
+	_check(player.health.current == low_hp, "block covers shots aimed at body centre")
 
 	var behind := _shoot_at_player(player, Vector2(-14, 0))
 	await _frames(3)
@@ -391,6 +461,7 @@ func _test_block_and_parry() -> void:
 	_check(player.state == Player.State.STAGGERED and not player.is_blocking, "guard break staggers player")
 	await _frames(60)
 	_check(not player.is_blocking, "guard locked out after break")
+	Input.action_release(&"block")
 
 	await _frames(100)
 	Input.action_release(&"block")

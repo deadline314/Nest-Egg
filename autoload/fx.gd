@@ -129,6 +129,15 @@ func dust(position: Vector2, amount := 5, spread_x := 50.0) -> void:
 				randf_range(0.25, 0.45), randf_range(1.5, 2.5), -20.0, 3.0, ParticleField.Shape.DUST)
 
 
+## 把一個短生命週期的節點（例如脫落的裝甲片）放進世界特效層。沒有綁定關卡時直接釋放。
+func add_world_node(node: Node2D) -> bool:
+	if _container == null:
+		node.queue_free()
+		return false
+	_container.add_child.call_deferred(node)
+	return true
+
+
 # ---------------------------------------------------------------------------
 # 光源與爆炸
 # ---------------------------------------------------------------------------

@@ -7,7 +7,8 @@ extends CharacterBody2D
 ##           死亡與掉落、畫面外自動休眠、常用感知與攻擊輔助函式。
 ## 子類別負責：
 ##   _setup_states()      註冊狀態機（fsm）的各狀態並 start
-##   _draw_body(color)    繪製外觀（color 已處理受擊閃白）
+##   _draw_body(color)    繪製外觀（color 已處理受擊閃白）；有骨架外觀（data.rig_skin）時改用骨架，僅在骨架載入失敗時使用
+##   _rig_aim()           （可選）骨架手持武器的瞄準方向（世界座標單位向量）
 ##   _draw_overlay()      （可選）繪製預兆，如瞄準線、落點圈
 ##   _guard(info) -> Hurtbox.Guard （可選）格擋判定，例如盾牌
 ##   _on_stunned()        （可選）被暈眩時切回安全狀態
@@ -20,7 +21,8 @@ const MAX_FALL_SPEED := 520.0
 ## 畫面外此距離內仍保持運作，避免敵人在鏡頭邊緣卡住。
 const ACTIVATION_MARGIN := 80.0
 ## 瞄準玩家身體中心的高度偏移。
-const TARGET_HEIGHT := 11.0
+const TARGET_HEIGHT := 24.0
+const RIG_DEATH_TIME := 0.9
 
 ## 畫面外休眠的總開關（無頭測試等沒有畫面的環境會關閉）。
 static var activation_culling_enabled := true
@@ -31,6 +33,10 @@ var hurtbox: Hurtbox
 var contact: ContactHitbox
 var fsm := StateMachine.new()
 var facing: int = -1
+## 骨架外觀（人形敵人）；機械類敵人為 null，改用 _draw_body 程式繪製。
+var rig: CharacterRig
+
+var _rig_input := RigInput.new()
 
 var _gravity: float = 900.0
 var _flash_left := 0.0
@@ -91,10 +97,44 @@ func _build_components() -> void:
 	hurtbox.guard = _guard
 	hurtbox.hit_blocked.connect(_on_blocked)
 
+	if not data.rig_skin.is_empty():
+		_build_rig()
+
 	if data.contact_damage > 0:
 		contact = ContactHitbox.new()
 		add_child(contact)
 		contact.setup(Combat.Team.ENEMY, data.contact_damage, data.contact_source_id, size * 0.8, center)
+
+
+func _build_rig() -> void:
+	rig = CharacterRig.new()
+	rig.name = "Rig"
+	add_child(rig)
+	if not rig.setup(data.rig_skin):
+		push_error("[Enemy] %s 的骨架外觀載入失敗：%s，改用程式繪製。" % [data.id, data.rig_skin])
+		rig.queue_free()
+		rig = null
+		return
+	rig.set_weapon(data.rig_weapon)
+	# 骨架畫在敵人自身的疊加圖層（預兆線、標記）之下。
+	rig.show_behind_parent = true
+	_rig_input.two_handed = data.rig_two_handed
+	_rig_input.shield_forward = data.rig_shield
+	_rig_input.run_speed = maxf(40.0, data.move_speed * 2.0)
+
+
+func _drive_rig(delta: float) -> void:
+	if rig == null:
+		return
+	_rig_input.velocity = velocity
+	_rig_input.on_floor = is_on_floor() or not data.uses_gravity
+	_rig_input.facing = facing
+	_rig_input.aim_dir = _rig_aim()
+	_rig_input.staggered = _stun_left > 0.0
+	_rig_input.dead = _dying
+	rig.animate(delta, _rig_input)
+	_rig_input.recoil = 0.0
+	_rig_input.hurt = false
 
 
 # ---------------------------------------------------------------------------
@@ -113,6 +153,10 @@ func _guard(_info: DamageInfo) -> Hurtbox.Guard:
 
 
 @abstract func _draw_body(color: Color) -> void
+
+
+func _rig_aim() -> Vector2:
+	return Vector2(facing, 0.05).normalized()
 
 
 func _draw_overlay() -> void:
@@ -134,7 +178,12 @@ func _on_defeated(_info: DamageInfo) -> void:
 
 func _play_death() -> void:
 	var tween := create_tween()
-	tween.tween_property(self, "scale", Vector2(1.4, 0.1), 0.12)
+	if rig != null:
+		# 骨架角色：倒地動畫播完後淡出。
+		tween.tween_interval(RIG_DEATH_TIME)
+		tween.tween_property(self, "modulate:a", 0.0, 0.4)
+	else:
+		tween.tween_property(self, "scale", Vector2(1.4, 0.1), 0.12)
 	tween.tween_callback(queue_free)
 
 
@@ -144,6 +193,12 @@ func _play_death() -> void:
 
 func _physics_process(delta: float) -> void:
 	if _dying:
+		if rig != null:
+			velocity.x = move_toward(velocity.x, 0.0, 400.0 * delta)
+			if data.uses_gravity and not is_on_floor():
+				velocity.y = minf(velocity.y + _gravity * delta, MAX_FALL_SPEED)
+			move_and_slide()
+			_drive_rig(delta)
 		return
 	_anim_time += delta
 	_flash_left = maxf(0.0, _flash_left - delta)
@@ -158,14 +213,16 @@ func _physics_process(delta: float) -> void:
 		_telegraph_left = maxf(0.0, _telegraph_left - delta)
 		fsm.tick(delta)
 	move_and_slide()
+	_drive_rig(delta)
 	queue_redraw()
 
 
 func _draw() -> void:
 	if data == null:
 		return
-	var color := LightKit.glow(Palette.WHITE, 2.0) if _flash_left > 0.0 else data.color
-	_draw_body(color)
+	if rig == null:
+		var color := LightKit.glow(Palette.WHITE, 2.0) if _flash_left > 0.0 else data.color
+		_draw_body(color)
 	_draw_overlay()
 	var top := -data.body_size.y - 8.0
 	if is_telegraphing():
@@ -214,6 +271,10 @@ func stun(seconds: float) -> void:
 
 func _on_damaged(info: DamageInfo) -> void:
 	_flash_left = FLASH_TIME
+	if rig != null:
+		rig.flash()
+		rig.set_armor_ratio(health.ratio())
+		_rig_input.hurt = true
 	if info.knockback != Vector2.ZERO and data.knockback_scale > 0.0:
 		velocity += info.knockback * data.knockback_scale
 	if not _is_finishable and data.finish_health_ratio > 0.0 and health.current > 0 \
@@ -289,6 +350,8 @@ func _center() -> Vector2:
 
 
 func _muzzle() -> Vector2:
+	if rig != null and not data.rig_weapon.is_empty():
+		return rig.muzzle_global()
 	return _center() + Vector2(facing * data.body_size.x * 0.5, 0)
 
 
@@ -352,6 +415,7 @@ func _shoot(spec: ProjectileSpec, direction: Vector2, origin := Vector2.INF) -> 
 	if spec == null:
 		return
 	var from := _muzzle() if origin == Vector2.INF else origin
+	_rig_input.recoil = 1.0
 	if ProjectilePool.spawn(spec, from, direction, Combat.Team.ENEMY, _projectile_speed_multiplier()) != null:
 		Fx.flash_light(from, spec.color, 40.0, 0.9, 0.08)
 		Sfx.play(&"shot_enemy", -10.0)

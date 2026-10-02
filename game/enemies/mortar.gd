@@ -27,6 +27,13 @@ func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 
 
+## 開砲前把發射器往上舉成拋射角度。
+func _rig_aim() -> Vector2:
+	if fsm.is_in(&"aim"):
+		return Vector2(facing * 0.6, -0.8).normalized()
+	return Vector2(facing, 0.15).normalized()
+
+
 func _min_range() -> float:
 	return data.ability_radius
 

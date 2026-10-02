@@ -60,6 +60,8 @@ extends Resource
 @export var guard_cost_per_damage: float = 24.0
 @export var guard_regen_per_second: float = 40.0
 @export var guard_regen_delay: float = 0.6
+## 護盾能量低於此值時無法舉盾（避免破防後一回復就馬上再被打破）。
+@export var guard_min_to_raise: float = 20.0
 ## 破防後的硬直時間與無法再格擋的時間。
 @export var guard_break_stun: float = 0.6
 @export var guard_break_lockout: float = 1.6

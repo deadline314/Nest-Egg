@@ -1,0 +1,27 @@
+{
+  "id": "humanoid",
+  "description": "人形骨架（所有人形角色共用）。座標單位為世界像素，原點在腳底，角色面向右（+X），Y 軸向下。每根骨頭在靜止姿勢時沿 +Y 延伸（四肢朝下）；上半身骨頭（chest、neck、head）的貼圖往上畫即可。pos 為相對父骨頭的位置。",
+  "bones": [
+    {"name": "hip", "parent": "", "pos": [0, -24]},
+    {"name": "chest", "parent": "hip", "pos": [0, -2]},
+    {"name": "neck", "parent": "chest", "pos": [0, -12]},
+    {"name": "head", "parent": "neck", "pos": [0, -1]},
+    {"name": "hair_1", "parent": "head", "pos": [-4, -9]},
+    {"name": "hair_2", "parent": "hair_1", "pos": [0, 6]},
+    {"name": "arm_back_upper", "parent": "chest", "pos": [-1, -10]},
+    {"name": "arm_back_lower", "parent": "arm_back_upper", "pos": [0, 9]},
+    {"name": "hand_back", "parent": "arm_back_lower", "pos": [0, 8]},
+    {"name": "arm_front_upper", "parent": "chest", "pos": [1, -10]},
+    {"name": "arm_front_lower", "parent": "arm_front_upper", "pos": [0, 9]},
+    {"name": "hand_front", "parent": "arm_front_lower", "pos": [0, 8]},
+    {"name": "leg_back_upper", "parent": "hip", "pos": [-1.5, 1]},
+    {"name": "leg_back_lower", "parent": "leg_back_upper", "pos": [0, 11]},
+    {"name": "foot_back", "parent": "leg_back_lower", "pos": [0, 11]},
+    {"name": "leg_front_upper", "parent": "hip", "pos": [1.5, 1]},
+    {"name": "leg_front_lower", "parent": "leg_front_upper", "pos": [0, 11]},
+    {"name": "foot_front", "parent": "leg_front_lower", "pos": [0, 11]},
+    {"name": "coat_1", "parent": "hip", "pos": [-3, -1]},
+    {"name": "coat_2", "parent": "coat_1", "pos": [0, 7]}
+  ],
+  "weapon_anchor": {"bone": "chest", "pos": [1, -9], "reach": 8.5}
+}

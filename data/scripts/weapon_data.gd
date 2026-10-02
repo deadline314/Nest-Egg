@@ -29,6 +29,8 @@ extends Resource
 @export var bloom_per_shot: float = 0.15
 ## HUD 與武器欄顯示的簡短代號。
 @export var short_name: String = ""
+## 角色手上武器的外觀（art/weapons/weapons.json 的 id）。
+@export var visual_id: String = "rifle"
 
 
 func has_infinite_ammo() -> bool:

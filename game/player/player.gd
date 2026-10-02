@@ -5,8 +5,11 @@ extends CharacterBody2D
 
 enum State { NORMAL, DASH, FINISHER, MOUNTED, STAGGERED, DEAD }
 
-const BODY_SIZE := Vector2(10, 22)
-const CROUCH_HEIGHT := 13.0
+const BODY_SIZE := Vector2(12, 44)
+const CROUCH_HEIGHT := 30.0
+## 瞄準基準點（肩膀）的高度：站姿／蹲姿。
+const SHOULDER_HEIGHT := 35.0
+const CROUCH_SHOULDER_HEIGHT := 27.0
 const SAFE_GROUND_DELAY := 0.25
 const DROP_THROUGH_TIME := 0.25
 const MELEE_VISUAL_TIME := 0.12
@@ -61,6 +64,7 @@ var _guard_regen_delay_left := 0.0
 var _guard_lockout_left := 0.0
 var _stagger_left := 0.0
 var _contact_block_left := 0.0
+var _last_health := 0
 var _last_safe_position := Vector2.ZERO
 var _query_shape := RectangleShape2D.new()
 
@@ -104,10 +108,11 @@ func _ready() -> void:
 	_visual = PlayerVisual.new()
 	_visual.player = self
 	add_child(_visual)
+	_last_health = health.current
 
 	# 角色自帶柔光（含陰影），在暗處維持可讀性。
-	_light = LightKit.create_point_light(Palette.CYAN, 120.0, 0.75, true)
-	_light.position = Vector2(0, -14)
+	_light = LightKit.create_point_light(Palette.CYAN, 150.0, 0.75, true)
+	_light.position = Vector2(0, -30)
 	add_child(_light)
 
 	loadout.changed.connect(_on_loadout_changed)
@@ -128,12 +133,13 @@ func is_dead() -> bool:
 
 ## 瞄準的基準點（肩膀高度）。
 func aim_origin() -> Vector2:
-	var height := 8.0 if is_crouching else 14.0
+	var height := CROUCH_SHOULDER_HEIGHT if is_crouching else SHOULDER_HEIGHT
 	return global_position + Vector2(0, -height)
 
 
+## 子彈從手上武器的槍口射出（與畫面上的槍管一致）。
 func muzzle_position() -> Vector2:
-	return aim_origin() + aim_dir * 10.0
+	return _visual.muzzle_global() if _visual != null else aim_origin() + aim_dir * 12.0
 
 
 # ---------------------------------------------------------------------------
@@ -344,7 +350,7 @@ func _try_fire() -> void:
 	Fx.kick(-aim_dir, weapon.camera_kick)
 	Fx.shake(weapon.screen_shake, 0.08)
 	if weapon.ejects_casing:
-		Fx.casing(global_position + Vector2(0, -14), facing)
+		Fx.casing(aim_origin(), facing)
 	Sfx.play(weapon.fire_sound, -6.0)
 	if weapon.recoil > 0.0:
 		velocity -= aim_dir * weapon.recoil * (1.0 if not is_on_floor() else 0.3)
@@ -560,7 +566,9 @@ func _process_mounted() -> void:
 # ---------------------------------------------------------------------------
 
 func _update_blocking() -> void:
-	var wants := Input.is_action_pressed(&"block") and _guard_lockout_left <= 0.0 and guard > 0.0
+	var pressed := Input.is_action_pressed(&"block") and _guard_lockout_left <= 0.0
+	# 舉盾需要最低能量；已經舉著的盾可以一直撐到能量耗盡。
+	var wants := pressed and (guard >= tuning.guard_min_to_raise if not is_blocking else guard > 0.0)
 	if wants and not is_blocking:
 		_block_time = 0.0
 	is_blocking = wants
@@ -589,7 +597,10 @@ func is_parry_window() -> bool:
 func _guard(info: DamageInfo) -> Hurtbox.Guard:
 	if not is_blocking or state != State.NORMAL:
 		return Hurtbox.Guard.NONE
-	var incoming := info.origin - aim_origin()
+	# 來襲方向：子彈用飛行方向（反向），接觸攻擊用相對身體中心的位置。
+	var incoming := info.origin - (global_position + Vector2(0, -BODY_SIZE.y * 0.5))
+	if info.is_projectile and info.knockback.length_squared() > 0.0001:
+		incoming = -info.knockback
 	if incoming.length_squared() > 1.0 and rad_to_deg(absf(incoming.angle_to(aim_dir))) > tuning.block_arc_degrees * 0.5:
 		return Hurtbox.Guard.NONE
 	# 接觸攻擊每影格都會判定：短時間內重複的接觸只算一次，不會瞬間耗光能量。
@@ -660,7 +671,7 @@ func _on_damaged(info: DamageInfo) -> void:
 	velocity = Vector2(side * tuning.hurt_knockback.x, -tuning.hurt_knockback.y)
 	Fx.hitstop(0.07)
 	Fx.shake(4.0, 0.15)
-	Fx.flash_light(global_position + Vector2(0, -12), Palette.DANGER, 70.0, 1.5, 0.2)
+	Fx.flash_light(global_position + Vector2(0, -24), Palette.DANGER, 70.0, 1.5, 0.2)
 	Sfx.play(&"hurt", -2.0)
 	_visual.notify_hurt()
 
@@ -669,11 +680,11 @@ func _on_died(info: DamageInfo) -> void:
 	state = State.DEAD
 	hurtbox.enabled = false
 	is_crouching = false
-	Fx.burst(global_position + Vector2(0, -12), Palette.CYAN, 24, 200.0, 0.6)
-	Fx.burst(global_position + Vector2(0, -12), Palette.ARMOR, 12, 160.0, 0.5)
+	Fx.burst(global_position + Vector2(0, -24), Palette.CYAN, 24, 200.0, 0.6)
+	Fx.burst(global_position + Vector2(0, -24), Palette.ARMOR, 12, 160.0, 0.5)
 	Fx.shake(6.0, 0.3)
 	Fx.hitstop(0.14)
-	Fx.flash_light(global_position + Vector2(0, -12), Palette.CYAN, 160.0, 3.0, 0.6)
+	Fx.flash_light(global_position + Vector2(0, -24), Palette.CYAN, 160.0, 3.0, 0.6)
 	Sfx.play(&"explosion", -4.0)
 	_light.enabled = false
 	var cause: StringName = info.source_id if info != null and info.source_id != &"" else &"unknown"
@@ -681,10 +692,14 @@ func _on_died(info: DamageInfo) -> void:
 
 
 func _on_health_changed(current: int, maximum: int) -> void:
+	_visual.on_health_changed(float(current) / float(maxi(1, maximum)), current < _last_health)
+	_last_health = current
 	EventBus.player_health_changed.emit(current, maximum)
 
 
 func _on_loadout_changed() -> void:
+	var weapon := loadout.active_weapon()
+	_visual.set_weapon_visual(weapon.visual_id if weapon != null else "")
 	EventBus.player_loadout_changed.emit(loadout)
 
 

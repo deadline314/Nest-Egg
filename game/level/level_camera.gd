@@ -6,9 +6,11 @@ extends Camera2D
 ##   - trauma 震動：強度平方衰減 + 噪聲，比純隨機震動自然
 ##   - 射擊後座：方向性位移，快速回彈
 
-const LOOK_AHEAD := 56.0
+## 鏡頭拉近倍率：角色放大後仍保留足夠的前方視野。
+const ZOOM := 1.25
+const LOOK_AHEAD := 48.0
 const LOOK_AHEAD_SPEED := 2.5
-const VERTICAL_OFFSET := -28.0
+const VERTICAL_OFFSET := -36.0
 const DEADZONE_UP := 72.0
 const DEADZONE_DOWN := 24.0
 const MAX_SHAKE_OFFSET := 9.0
@@ -29,6 +31,7 @@ var _noise_time := 0.0
 
 
 func _ready() -> void:
+	zoom = Vector2.ONE * ZOOM
 	process_callback = Camera2D.CAMERA2D_PROCESS_PHYSICS
 	position_smoothing_enabled = true
 	position_smoothing_speed = 7.0

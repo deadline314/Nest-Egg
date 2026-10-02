@@ -210,6 +210,10 @@ class _Gauges:
 
 	func _draw() -> void:
 		_draw_guard()
+		_draw_health()
+		_draw_vehicle_and_boss()
+
+	func _draw_health() -> void:
 		if max_health > MAX_PIPS:
 			var ratio := float(health) / float(max_health)
 			draw_rect(Rect2(12, 10, 150, 8), Color(Palette.UI_PANEL, 0.9))
@@ -224,6 +228,8 @@ class _Gauges:
 			else:
 				points.append(points[0])
 				draw_polyline(points, Palette.CYAN_DIM, 1.0)
+
+	func _draw_vehicle_and_boss() -> void:
 		if vehicle_visible:
 			draw_rect(Rect2(12, 40, 90, 5), Color(Palette.UI_PANEL, 0.9))
 			draw_rect(Rect2(12, 40, 90 * vehicle_ratio, 5), LightKit.glow(Palette.WARNING, 1.4))

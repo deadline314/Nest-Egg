@@ -4,4 +4,5 @@
 |---|---|
 | [01-game-design.md](01-game-design.md) | 垂直切片的遊戲設計（核心循環、敵人設計原則、難度） |
 | [02-cyberpunk-overhaul/DESIGN.md](02-cyberpunk-overhaul/DESIGN.md) | 賽博龐克改版：操作、格擋、骨架角色、美術風格、劇情、第一關 |
+| [03-art-pipeline/ART_PIPELINE.md](03-art-pipeline/ART_PIPELINE.md) | 美術交付規格：骨架角色要畫哪些零件、尺寸、支點、ComfyUI 流程 |
 | [06-roadmap/open-questions.md](06-roadmap/open-questions.md) | 尚未決定的問題 |
