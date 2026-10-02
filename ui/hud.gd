@@ -5,7 +5,8 @@ extends CanvasLayer
 
 const TOAST_TIME := 2.2
 const CONTROLS_HINT_TIME := 14.0
-const CONTROLS_HINT := "移動 WASD/方向鍵　跳 K/Space　射擊 J　衝刺 L/Shift　近戰・終結 I　換武器 U　定點瞄準 O　搭乘 E　暫停 Esc"
+## {動作} 會換成玩家目前設定的按鍵（見 InputBindings.format）。
+const CONTROLS_TEMPLATE := "移動 {move_left}/{move_right}　跳 {jump}　射擊 {shoot}　衝刺 {dash}　近戰・終結 {melee}　換武器 {swap_weapon}　定點瞄準 {aim_lock}　搭乘 {interact}　暫停 {pause}"
 
 var _gauges: _Gauges
 var _weapon_labels: Array[Label] = []
@@ -60,7 +61,7 @@ func _ready() -> void:
 	_toast.modulate.a = 0.0
 	root.add_child(_toast)
 
-	_controls = UiKit.label(CONTROLS_HINT, 9, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_CENTER)
+	_controls = UiKit.label(controls_hint(), 9, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_CENTER)
 	_controls.position = Vector2(0, 344)
 	_controls.size = Vector2(640, 14)
 	root.add_child(_controls)
@@ -78,7 +79,16 @@ func _ready() -> void:
 	EventBus.boss_defeated.connect(_on_boss_defeated)
 	EventBus.toast_requested.connect(show_toast)
 	EventBus.lives_changed.connect(_on_lives_changed)
+	InputBindings.bindings_changed.connect(_refresh_controls)
 	_on_lives_changed(GameState.lives_left)
+
+
+func _refresh_controls() -> void:
+	_controls.text = controls_hint()
+
+
+static func controls_hint() -> String:
+	return InputBindings.format(CONTROLS_TEMPLATE)
 
 
 func _process(_delta: float) -> void:

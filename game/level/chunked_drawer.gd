@@ -1,3 +1,4 @@
+@abstract
 class_name ChunkedDrawer
 extends Node2D
 ## 分塊繪製框架：把大面積的靜態繪製切成多個區塊節點。
@@ -25,8 +26,7 @@ func build_chunks(bounds: Rect2) -> void:
 
 
 ## 子類別覆寫：只繪製落在 rect 內的內容（座標為本節點的區域座標）。
-func _draw_chunk(_canvas: CanvasItem, _rect: Rect2) -> void:
-	pass
+@abstract func _draw_chunk(canvas: CanvasItem, rect: Rect2) -> void
 
 
 class _Chunk:

@@ -11,7 +11,7 @@ var active := false
 
 var _life := 0.0
 var _pierce_left := 0
-var _hit_ids: Dictionary = {}
+var _hit_ids: Dictionary[int, bool] = {}
 var _shape := CircleShape2D.new()
 
 

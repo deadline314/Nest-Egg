@@ -18,8 +18,9 @@ extends Resource
 ## 每一段地圖的列數，所有分段必須一致。
 @export var height: int = 23
 ## 單一字元 -> Resource。
-@export var legend: Dictionary = {}
+@export var legend: Dictionary[String, Resource] = {}
 ## 教學看板文字，地圖字元 "1" 對應 hints[0]。請寫重點，一句話。
+## 提到按鍵時請用 {動作} 佔位符（例如 {jump}），玩家改鍵後提示會自動更新。
 @export var hints: PackedStringArray = PackedStringArray()
 ## 地圖 JSON 路徑，格式：{ "segments": [ ["列0", "列1", ...], [...] ] }，分段由左至右串接。
 @export_file("*.json") var layout_path: String = ""

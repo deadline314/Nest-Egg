@@ -69,7 +69,7 @@ func _ready() -> void:
 	add_child(_light)
 
 	_prompt = WorldPrompt.new()
-	_prompt.text = "互動鍵搭乘 %s：重火力、可承受傷害" % data.display_name
+	_prompt.text = "{interact} 搭乘 %s：重火力、可承受傷害" % data.display_name
 	_prompt.radius = 40.0
 	_prompt.offset = Vector2(0, -size.y - 14.0)
 	add_child(_prompt)
@@ -88,7 +88,7 @@ func mount(player: Player) -> void:
 	_light.energy = 0.7
 	EventBus.vehicle_mounted.emit(self)
 	EventBus.vehicle_health_changed.emit(health.current, health.max_health)
-	EventBus.toast_requested.emit("搭乘 %s（互動鍵離開）" % data.display_name)
+	EventBus.toast_requested.emit(InputBindings.format("搭乘 %s（{interact} 離開）" % data.display_name))
 	Sfx.play(&"pickup", -6.0)
 
 

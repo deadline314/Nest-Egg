@@ -53,6 +53,7 @@ func _ready() -> void:
 	_start_button = UiKit.button("開始任務", _on_start, "以選擇的難度開始")
 	box.add_child(_start_button)
 	box.add_child(UiKit.button("敗北圖鑑", _open_codex, "查看已解鎖的失敗紀錄與攻略"))
+	box.add_child(UiKit.button("設定", _open_settings, "音量與按鍵設定"))
 	box.add_child(UiKit.button("離開", quit_requested.emit, "關閉遊戲"))
 	_update_description()
 	_start_button.grab_focus.call_deferred()
@@ -78,6 +79,12 @@ func _update_description() -> void:
 
 func _on_start() -> void:
 	start_requested.emit(_selected)
+
+
+func _open_settings() -> void:
+	var settings := SettingsScreen.new()
+	settings.closed.connect(_start_button.grab_focus)
+	add_child(settings)
 
 
 func _open_codex() -> void:

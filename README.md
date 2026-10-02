@@ -5,7 +5,7 @@
 
 ## 執行
 
-1. 安裝 [Godot 4.3+](https://godotengine.org/download)（標準版即可，不需要 .NET）
+1. 安裝 [Godot 4.7](https://godotengine.org/download)（標準版即可，不需要 .NET）
 2. 用 Godot 開啟本資料夾的 `project.godot`，按 F5
 
 > 渲染器使用 Forward+ 並開啟 HDR 2D 泛光。若顯示卡不支援 Vulkan，可在
@@ -26,6 +26,8 @@
 | 暫停 | Esc、P | Start |
 
 ↓ + 跳躍：從單向平台落下。地面按 ↓ 為蹲下（閃避水平子彈）。
+
+所有按鍵都可在 **設定 → 按鍵** 重新綁定（每個動作 2 個鍵盤欄位 + 1 個手把按鈕，衝突時自動互換），音量在 **設定 → 音量**；設定存於 `user://settings.cfg`。
 
 ## 垂直切片內容
 
@@ -59,7 +61,7 @@
 ## 專案結構
 
 ```
-autoload/      全域服務：EventBus、GameState、DefeatCodex、Fx、Sfx、ProjectilePool、InputBindings
+autoload/      全域服務：Settings、InputBindings、EventBus、GameState、DefeatCodex、Fx、Sfx、ProjectilePool
 core/          可重用框架：StateMachine、HealthComponent、Hurtbox、ContactHitbox、WeaponSystem、LightKit、Palette
 data/          所有遊戲數值（.tres）、關卡地圖（JSON）、圖鑑卡片（JSON）
 game/          遊戲物件：player、enemies、vehicles、projectiles、pickups、hazards、level

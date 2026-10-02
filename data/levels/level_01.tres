@@ -18,7 +18,7 @@ id = &"level_01"
 display_name = "第一區　廢棄培育區"
 tile_size = 16
 height = 23
-legend = {
+legend = Dictionary[String, Resource]({
 "L": ExtResource("10_laser"),
 "M": ExtResource("11_bulwark"),
 "S": ExtResource("9_spread"),
@@ -29,6 +29,6 @@ legend = {
 "m": ExtResource("7_mortar"),
 "r": ExtResource("3_rusher"),
 "t": ExtResource("5_turret")
-}
-hints = PackedStringArray("移動 WASD／方向鍵，跳躍 K（按久跳更高）", "射擊 J，可 8 方向瞄準；按住 O 原地定點瞄準", "紅線變亮＝已鎖定：蹲下（S）或跳起閃避", "敵人頭上出現青色菱形：按 I 終結，回補彈藥", "盾衛犬正面擋子彈：跳過或衝刺（L）穿越，打背後", "↓＋跳躍 可從平台落下", "看到地面紅圈就移開；貼近迫擊兵牠就無法開砲", "按 E 搭乘機甲：爆炸彈頭無視盾牌", "打爆自爆蟲，爆炸會波及牠的同伴")
+})
+hints = PackedStringArray("移動 {move_left}/{move_right}，跳躍 {jump}（按久跳更高）", "射擊 {shoot}，可 8 方向瞄準；按住 {aim_lock} 原地定點瞄準", "紅線變亮＝已鎖定：蹲下（{move_down}）或跳起閃避", "敵人頭上出現青色菱形：按 {melee} 終結，回補彈藥", "盾衛犬正面擋子彈：跳過或衝刺（{dash}）穿越，打背後", "{move_down}＋{jump} 可從平台落下", "看到地面紅圈就移開；貼近迫擊兵牠就無法開砲", "按 {interact} 搭乘機甲：爆炸彈頭無視盾牌", "打爆自爆蟲，爆炸會波及牠的同伴")
 layout_path = "res://data/levels/level_01_map.json"

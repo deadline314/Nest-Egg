@@ -7,6 +7,8 @@ const MIX_RATE := 22050
 const VOICES := 24
 ## 同一音效的最短重播間隔，避免同一影格疊加造成爆音。
 const MIN_INTERVAL_MSEC := 25
+## 音量由設定選單控制（見 Settings.AUDIO_BUSES）。
+const BUS := &"SFX"
 
 ## 層參數：wave(sine/square/saw/tri/noise)、from/to(Hz，指數滑音)、time(秒)、
 ## volume、noise(0~1 混入噪音)、lowpass(0~0.95 平滑)、decay(包絡曲線指數)、attack(秒)
@@ -87,10 +89,10 @@ const OVERRIDES := {}
 
 var enabled := true
 
-var _streams: Dictionary = {}  # StringName -> AudioStream
+var _streams: Dictionary[StringName, AudioStream] = {}
 var _players: Array[AudioStreamPlayer] = []
 var _next_voice := 0
-var _last_play_msec: Dictionary = {}
+var _last_play_msec: Dictionary[StringName, int] = {}
 var _rng := RandomNumberGenerator.new()
 
 
@@ -99,10 +101,22 @@ func _ready() -> void:
 	_rng.seed = 7
 	for i in VOICES:
 		var player := AudioStreamPlayer.new()
+		player.bus = BUS
 		add_child(player)
 		_players.append(player)
 	for id: StringName in SOUNDS.keys():
 		_streams[id] = _load_or_synthesize(id)
+
+
+## 停止所有播放中的音效（切換場景或結束遊戲時呼叫，避免播放實例殘留）。
+func stop_all() -> void:
+	for player in _players:
+		player.stop()
+		player.stream = null
+
+
+func _exit_tree() -> void:
+	stop_all()
 
 
 func play(id: StringName, volume_db := 0.0, pitch_jitter := 0.06) -> void:

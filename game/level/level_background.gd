@@ -1,21 +1,26 @@
 class_name LevelBackground
-extends ParallaxBackground
-## 多層視差背景（程式產生廢墟設施剪影）。每層以固定亂數種子產生，畫面穩定且不需貼圖。
+extends Node2D
+## 多層視差背景（程式產生廢墟設施剪影），使用 Godot 4 的 Parallax2D。
+## 每層以固定亂數種子產生，畫面穩定且不需貼圖；不受場景光源影響（light_mask = 0）。
 
 const PATTERN_WIDTH := 1280.0
+const BACKGROUND_Z := -100
 
 
 func _ready() -> void:
-	layer = -10
+	z_as_relative = false
+	z_index = BACKGROUND_Z
 	_add_layer(0.0, _SkyLayer.new())
 	_add_layer(0.15, _SilhouetteLayer.new(11, Palette.BG_MID, 140.0, 260.0, 40.0, 0.0))
 	_add_layer(0.35, _SilhouetteLayer.new(23, Palette.BG_NEAR, 70.0, 180.0, 30.0, 0.6))
 
 
 func _add_layer(scale_factor: float, drawer: Node2D) -> void:
-	var parallax := ParallaxLayer.new()
-	parallax.motion_scale = Vector2(scale_factor, scale_factor * 0.5)
-	parallax.motion_mirroring = Vector2(PATTERN_WIDTH, 0) if scale_factor > 0.0 else Vector2.ZERO
+	var parallax := Parallax2D.new()
+	parallax.scroll_scale = Vector2(scale_factor, scale_factor * 0.5)
+	if scale_factor > 0.0:
+		parallax.repeat_size = Vector2(PATTERN_WIDTH, 0)
+	drawer.light_mask = 0
 	parallax.add_child(drawer)
 	add_child(parallax)
 

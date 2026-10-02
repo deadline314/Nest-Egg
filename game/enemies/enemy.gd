@@ -1,3 +1,4 @@
+@abstract
 class_name Enemy
 extends CharacterBody2D
 ## 敵人基底類別（框架）。
@@ -100,8 +101,7 @@ func _build_components() -> void:
 # 可覆寫的掛鉤
 # ---------------------------------------------------------------------------
 
-func _setup_states() -> void:
-	pass
+@abstract func _setup_states() -> void
 
 
 func _uses_activation_culling() -> bool:
@@ -112,8 +112,7 @@ func _guard(_info: DamageInfo) -> bool:
 	return false
 
 
-func _draw_body(_color: Color) -> void:
-	pass
+@abstract func _draw_body(color: Color) -> void
 
 
 func _draw_overlay() -> void:

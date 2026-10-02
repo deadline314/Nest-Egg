@@ -25,6 +25,7 @@ func _run() -> void:
 	_test_level_layout()
 	_test_state_machine()
 	_test_loadout()
+	await _test_settings_and_bindings()
 	await _test_gameplay()
 	await _test_enemy_behaviours()
 	await _test_boss_and_victory()
@@ -32,6 +33,8 @@ func _run() -> void:
 	print("checks: %d, failures: %d" % [_checks, _failures.size()])
 	for failure in _failures:
 		printerr("FAIL: " + failure)
+	Sfx.stop_all()
+	await _frames(2)
 	get_tree().quit(0 if _failures.is_empty() else 1)
 
 
@@ -126,6 +129,75 @@ func _test_loadout() -> void:
 	_check(restored.weapon_in(1) == spread and restored.ammo_in(1) == 0, "snapshot round trip")
 	restored.restore({"weapons": ["res://missing.tres"], "ammo": "bad"}, rifle)
 	_check(restored.active_weapon() == rifle, "restore falls back on bad data")
+
+
+## 設定與改鍵：改用測試專用設定檔，結束後還原，不影響玩家設定。
+func _test_settings_and_bindings() -> void:
+	var original_path := Settings.storage_path()
+	var test_path := "user://smoke_test_settings.cfg"
+	if FileAccess.file_exists(test_path):
+		DirAccess.remove_absolute(test_path)
+	Settings.use_storage(test_path)
+	InputBindings.reload_from_settings()
+
+	Settings.set_volume(&"SFX", 0.5)
+	var sfx_bus := AudioServer.get_bus_index(&"SFX")
+	_check(sfx_bus >= 0 and is_equal_approx(AudioServer.get_bus_volume_db(sfx_bus), linear_to_db(0.5)), "sfx volume applied")
+	Settings.set_volume(&"Master", 0.0)
+	_check(AudioServer.is_bus_mute(0), "zero volume mutes")
+
+	var swapped := InputBindings.set_key(&"jump", 0, KEY_J)
+	_check(swapped == &"shoot" and InputBindings.get_key(&"shoot", 0) == KEY_K, "rebinding swaps conflicting key")
+	var probe := InputEventKey.new()
+	probe.physical_keycode = KEY_J
+	_check(InputMap.event_is_action(probe, &"jump") and not InputMap.event_is_action(probe, &"shoot"), "InputMap updated after rebind")
+	_check(InputBindings.set_key(&"jump", 0, KEY_ESCAPE) == &"" and InputBindings.get_key(&"jump", 0) == KEY_J, "reserved key rejected")
+	_check(InputBindings.format("{jump}跳") == "J跳", "placeholder formatting")
+	_check(InputBindings.set_joy_button(&"jump", JOY_BUTTON_X) == &"shoot" and InputBindings.get_joy_button(&"shoot") == JOY_BUTTON_A, "gamepad swap")
+	InputBindings.set_key(&"melee", 0, KEY_NONE)
+	InputBindings.set_key(&"melee", 1, KEY_NONE)
+	_check(InputBindings.get_key(&"melee", 0) == KEY_I, "action never left unbound")
+
+	Settings.save_now()
+	var config := ConfigFile.new()
+	_check(config.load(test_path) == OK and int(config.get_value("input", "jump", {}).get("keys", [0])[0]) == KEY_J, "bindings persisted")
+	InputBindings.reload_from_settings()
+	_check(InputBindings.get_key(&"jump", 0) == KEY_J, "bindings reload from disk")
+	Settings.set_value("input", "dash", "garbage")
+	InputBindings.reload_from_settings()
+	_check(InputBindings.get_key(&"dash", 0) == KEY_L, "corrupt binding falls back to default")
+
+	var data := load(LEVEL_PATH) as LevelData
+	for hint in data.hints:
+		_check(not InputBindings.format(hint).contains("{"), "hint placeholder unresolved: %s" % hint)
+	_check(not Hud.controls_hint().contains("{"), "controls hint placeholder unresolved")
+
+	# 設定畫面：模擬點擊改鍵與 Esc 取消
+	var screen := SettingsScreen.new()
+	get_tree().root.add_child(screen)
+	await _frames(2)
+	screen._begin_capture(&"dash", 1)
+	var key := InputEventKey.new()
+	key.physical_keycode = KEY_Q
+	key.pressed = true
+	screen._input(key)
+	_check(InputBindings.get_key(&"dash", 1) == KEY_Q, "settings screen captures key")
+	screen._begin_capture(&"dash", 1)
+	var esc := InputEventKey.new()
+	esc.physical_keycode = KEY_ESCAPE
+	esc.pressed = true
+	screen._input(esc)
+	_check(InputBindings.get_key(&"dash", 1) == KEY_Q and not screen._capturing, "escape cancels capture")
+	screen.close()
+	await _frames(1)
+
+	InputBindings.reset_to_defaults()
+	_check(InputBindings.get_key(&"jump", 0) == KEY_K and InputBindings.get_joy_button(&"jump") == JOY_BUTTON_A, "reset to defaults")
+	Settings.reset_audio()
+	Settings.save_now()
+	Settings.use_storage(original_path)
+	InputBindings.reload_from_settings()
+	DirAccess.remove_absolute(test_path)
 
 
 # ---------------------------------------------------------------------------
@@ -324,5 +396,17 @@ func _test_death_flow() -> void:
 		if child is DeathScreen:
 			found = true
 	_check(found, "death screen shown")
+	# 暫停選單 → 設定 → 關閉
+	var pause_menu: PauseMenu = null
+	for child in level.get_children():
+		if child is PauseMenu:
+			pause_menu = child
+	pause_menu.open()
+	pause_menu._open_settings()
+	await _frames(2)
+	_check(is_instance_valid(pause_menu._settings) and get_tree().paused, "settings opens from pause menu")
+	pause_menu.close()
+	await _frames(2)
+	_check(not get_tree().paused and not is_instance_valid(pause_menu._settings), "closing pause also closes settings")
 	_check(GameState.deaths == 1, "death registered")
 	await _end_level(level)

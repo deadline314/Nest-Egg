@@ -7,9 +7,9 @@ const SAVE_PATH := "user://codex.cfg"
 const SAVE_SECTION := "unlocked"
 const FALLBACK_ID := &"unknown"
 
-var _cards: Dictionary = {}  # StringName -> Dictionary
+var _cards: Dictionary[StringName, Dictionary] = {}
 var _order: Array[StringName] = []
-var _unlocked: Dictionary = {}  # StringName -> true
+var _unlocked: Dictionary[StringName, bool] = {}
 
 
 func _ready() -> void:
@@ -85,7 +85,7 @@ func unlock(cause: StringName) -> Dictionary:
 		_unlocked[id] = true
 		_save_progress()
 	EventBus.codex_card_unlocked.emit(id, is_new)
-	var card: Dictionary = (_cards[id] as Dictionary).duplicate()
+	var card: Dictionary = _cards[id].duplicate()
 	card["is_new"] = is_new
 	card["number"] = _order.find(id) + 1
 	return card
@@ -95,7 +95,7 @@ func unlock(cause: StringName) -> Dictionary:
 func get_all_cards() -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	for i in _order.size():
-		var card: Dictionary = (_cards[_order[i]] as Dictionary).duplicate()
+		var card: Dictionary = _cards[_order[i]].duplicate()
 		card["unlocked"] = _unlocked.has(_order[i])
 		card["number"] = i + 1
 		result.append(card)

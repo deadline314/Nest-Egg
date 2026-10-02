@@ -1,3 +1,4 @@
+@abstract
 class_name Pickup
 extends Area2D
 ## 道具基底：玩家（或玩家駕駛的載具）碰到即觸發 _apply()；回傳 false 代表不需要（例如滿血），道具保留。
@@ -36,12 +37,11 @@ func hint_text() -> String:
 	return ""
 
 
-func _apply(_player: Player) -> bool:
-	return false
+## 回傳 false 代表玩家目前不需要（道具保留）。
+@abstract func _apply(player: Player) -> bool
 
 
-func _draw_icon() -> void:
-	pass
+@abstract func _draw_icon() -> void
 
 
 func _process(delta: float) -> void:
