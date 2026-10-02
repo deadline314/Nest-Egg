@@ -98,6 +98,31 @@ const SOUNDS := {
 		{"wave": "square", "from": 520.0, "to": 140.0, "time": 0.2, "volume": 0.25, "lowpass": 0.4, "decay": 1.5},
 		{"wave": "noise", "time": 0.08, "volume": 0.25, "lowpass": 0.3, "decay": 2.5},
 	],
+	&"crate_break": [
+		{"wave": "noise", "time": 0.16, "volume": 0.4, "lowpass": 0.45, "decay": 2.2},
+		{"wave": "square", "from": 240.0, "to": 90.0, "time": 0.1, "volume": 0.14, "decay": 2.0},
+	],
+	&"glass_break": [
+		{"wave": "noise", "time": 0.28, "volume": 0.3, "lowpass": 0.05, "decay": 1.6},
+		{"wave": "sine", "from": 4200.0, "to": 2600.0, "time": 0.2, "volume": 0.14, "decay": 2.2},
+		{"wave": "sine", "from": 3100.0, "to": 5200.0, "time": 0.14, "volume": 0.1, "decay": 2.5},
+	],
+	&"switch": [
+		{"wave": "square", "from": 420.0, "to": 300.0, "time": 0.05, "volume": 0.16, "decay": 2.0},
+		{"wave": "noise", "time": 0.04, "volume": 0.18, "lowpass": 0.3, "decay": 3.0},
+	],
+	&"gate": [
+		{"wave": "saw", "from": 90.0, "to": 60.0, "time": 0.45, "volume": 0.2, "lowpass": 0.25, "decay": 1.0, "attack": 0.05},
+		{"wave": "noise", "time": 0.4, "volume": 0.18, "lowpass": 0.4, "decay": 1.4},
+	],
+	&"power_down": [
+		{"wave": "saw", "from": 600.0, "to": 40.0, "time": 0.8, "volume": 0.22, "lowpass": 0.3, "decay": 1.0},
+		{"wave": "sine", "from": 120.0, "to": 30.0, "time": 0.9, "volume": 0.3, "decay": 1.2},
+	],
+	&"power_up": [
+		{"wave": "saw", "from": 60.0, "to": 520.0, "time": 0.6, "volume": 0.18, "lowpass": 0.3, "decay": 1.2, "attack": 0.1},
+		{"wave": "tri", "from": 330.0, "to": 660.0, "time": 0.2, "volume": 0.14, "decay": 1.5},
+	],
 	&"pickup": [
 		{"wave": "tri", "from": 660.0, "to": 660.0, "time": 0.07, "volume": 0.2, "decay": 1.0},
 		{"wave": "tri", "from": 990.0, "to": 1320.0, "time": 0.16, "volume": 0.2, "decay": 1.2, "attack": 0.06},

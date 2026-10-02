@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MechanismData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/mechanism_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"power_switch"
+kind = 3
+display_name = "電力開關"
+hint = "{interact} 切斷電源：這一區熄燈，雷射與砲台停擺"
+color = Color(0.35, 0.88, 1.0, 1.0)
+channel = &"power_a"
+power_range_tiles = Vector2i(8, 8)

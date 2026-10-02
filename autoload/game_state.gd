@@ -15,6 +15,8 @@ var difficulty: DifficultyData
 var has_checkpoint := false
 var checkpoint_position := Vector2.ZERO
 var checkpoint_loadout: Dictionary = {}
+## 檢查點當下的世界狀態（被打破的箱子、開關、閘門、電力…，見 WorldState），重生時還原。
+var checkpoint_world: Dictionary = {}
 
 var lives_left := -1
 var deaths := 0
@@ -55,10 +57,11 @@ func start_new_run(p_difficulty: DifficultyData) -> void:
 	EventBus.lives_changed.emit(lives_left)
 
 
-func set_checkpoint(position: Vector2, loadout_snapshot: Dictionary) -> void:
+func set_checkpoint(position: Vector2, loadout_snapshot: Dictionary, world_snapshot: Dictionary = {}) -> void:
 	has_checkpoint = true
 	checkpoint_position = position
 	checkpoint_loadout = loadout_snapshot.duplicate(true)
+	checkpoint_world = world_snapshot.duplicate(true)
 	EventBus.checkpoint_reached.emit(position)
 
 
@@ -66,6 +69,7 @@ func clear_checkpoint() -> void:
 	has_checkpoint = false
 	checkpoint_position = Vector2.ZERO
 	checkpoint_loadout = {}
+	checkpoint_world = {}
 
 
 ## 記錄一次死亡。回傳 true = 可從檢查點續玩；false = 殘機用盡，進度重置。

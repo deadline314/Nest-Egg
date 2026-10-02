@@ -13,6 +13,8 @@ var rect := Rect2()
 var phase := 0.0
 
 var _time := 0.0
+## 所在區域是否有電（電力開關切斷後柵欄停擺）。
+var _powered := true
 var _hitbox: ContactHitbox
 var _light: PointLight2D
 
@@ -37,16 +39,19 @@ func _ready() -> void:
 
 
 func is_on() -> bool:
-	return fmod(_time, ON_TIME + OFF_TIME) < ON_TIME
+	return _powered and fmod(_time, ON_TIME + OFF_TIME) < ON_TIME
 
 
 func _is_warning() -> bool:
+	if not _powered:
+		return false
 	var t := fmod(_time, ON_TIME + OFF_TIME)
 	return t >= ON_TIME + OFF_TIME - WARN_TIME
 
 
 func _physics_process(delta: float) -> void:
 	_time += delta
+	_powered = PowerGrid.is_powered(self)
 	var on := is_on()
 	_hitbox.active = on
 	_light.energy = 1.2 if on else (0.3 if _is_warning() else 0.0)

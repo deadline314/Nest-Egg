@@ -22,6 +22,8 @@ signal boss_started(display_name: String, max_health: int)
 signal boss_health_changed(current: int, maximum: int)
 signal boss_defeated
 
+## 機關頻道切換（開關 → 同頻道的閘門與升降梯）。
+signal mechanism_toggled(channel: StringName, active: bool)
 signal checkpoint_reached(position: Vector2)
 signal lives_changed(lives: int)
 signal codex_card_unlocked(card_id: StringName, is_new: bool)

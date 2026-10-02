@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BreakableData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/breakable_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"barrel"
+display_name = "油桶"
+look = 1
+hint = "油桶：打爆會連敵人帶你一起炸，保持距離"
+max_health = 2
+size_tiles = Vector2i(1, 2)
+color = Color(0.6, 0.18, 0.15, 1.0)
+explosion_radius = 64.0
+explosion_damage = 3
+explosion_source_id = &"explosive_barrel"

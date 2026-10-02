@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim、block、story、story_ch2、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
+## 情境：all（預設）、settings、mouse_aim、block、story、story_ch2、props、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -34,6 +34,10 @@ func _run() -> void:
 		return
 	if _scenario == "story_ch2":
 		await _run_story_ch2()
+		get_tree().quit()
+		return
+	if _scenario == "props":
+		await _run_props()
 		get_tree().quit()
 		return
 	if _scenario == "block":
@@ -213,6 +217,78 @@ func _run_story_ch2() -> void:
 
 func _show_chapter_card(level: Level, title: String, subtitle: String) -> void:
 	level._show_chapter_card(title, subtitle, false)
+
+
+## 可破壞物與環境機關：用測試地圖（tests/fixtures/props_map.json）拍破壞、爆炸、閘門、升降梯與斷電。
+func _run_props() -> void:
+	var data := PropsSuite.level_data()
+	var zone := LightingZone.new()
+	zone.start_tile = 0
+	zone.profile = load("res://data/lighting/facility.tres")
+	data.lighting_zones = [zone]
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(data)
+	add_child(level)
+	await _settle(20)
+	var player := level.player
+	player.health.setup(999, 0.0)
+	var feet := 19 * 16.0
+	player.global_position = Vector2(12 * 16.0, feet)
+	level_camera_snap()
+	await _wait(1.5)
+	_capture("props_overview")
+	# 玻璃牆：連打幾槍。
+	var wall := _prop_at(level, Breakable, 30)
+	var barrel := _prop_at(level, Breakable, 20)
+	var info := DamageInfo.create(2, Combat.Team.PLAYER, &"shot")
+	wall.hit_by_projectile(info)
+	await _wait(0.4)
+	_capture("props_glass_cracked")
+	wall.hit_by_projectile(DamageInfo.create(9, Combat.Team.PLAYER, &"shot"))
+	await _wait(0.25)
+	_capture("props_glass_broken")
+	# 油桶：爆炸瞬間。
+	player.global_position = Vector2(14 * 16.0, feet)
+	level_camera_snap()
+	barrel.hit_by_projectile(DamageInfo.create(9, Combat.Team.PLAYER, &"shot"))
+	await _wait(0.34)
+	_capture("props_barrel_blast")
+	await _wait(1.0)
+	# 開關與閘門。
+	var channel_switch := _prop_at(level, ChannelSwitch, 36)
+	player.global_position = Vector2(36 * 16.0, feet)
+	level_camera_snap()
+	await _wait(1.0)
+	_capture("props_gate_closed")
+	channel_switch.toggle()
+	await _wait(1.2)
+	_capture("props_gate_open")
+	# 升降梯：站上去。
+	var lift := _prop_at(level, Lift, 50)
+	player.global_position = lift.global_position + Vector2(0, -2)
+	level_camera_snap()
+	await _wait(2.6)
+	_capture("props_lift")
+	# 電力開關：斷電。
+	var power_switch := _prop_at(level, PowerSwitch, 56)
+	player.global_position = Vector2(55 * 16.0, feet)
+	level_camera_snap()
+	await _wait(1.0)
+	_capture("props_power_on")
+	power_switch.toggle()
+	await _wait(2.5)
+	_capture("props_power_cut")
+
+
+func _prop_at(level: Level, type: Script, column: int) -> Node:
+	var stack: Array[Node] = [level]
+	while not stack.is_empty():
+		var node: Node = stack.pop_back()
+		if node.get_script() == type and node.get("cell") != null and (node.get("cell") as Vector2i).x == column:
+			return node
+		stack.append_array(node.get_children())
+	return null
 
 
 ## 格擋：舉盾、完美格擋反彈、護盾能量條。

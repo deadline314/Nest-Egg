@@ -28,7 +28,7 @@ var covered_columns := PackedByteArray()
 var ground_y := 0.0
 ## { "text": String, "position": Vector2 }
 var hints: Array[Dictionary] = []
-## { "resource": Resource, "position": Vector2 }
+## { "resource": Resource, "position": Vector2（腳底）, "cell": Vector2i（所在格）}
 var spawns: Array[Dictionary] = []
 ## { "resource": EnemyData, "position": Vector2 }；空字典代表沒有頭目。
 var boss_spawn: Dictionary = {}

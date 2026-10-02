@@ -144,7 +144,7 @@ static func _add_spawn(resource: Variant, layout: LevelLayout, c: String, x: int
 	if res == null:
 		layout.warnings.append("legend '%s' 沒有指定資源" % c)
 		return
-	var entry := {"resource": res, "position": layout.cell_to_feet(x, y)}
+	var entry := {"resource": res, "position": layout.cell_to_feet(x, y), "cell": Vector2i(x, y)}
 	if res is EnemyData and (res as EnemyData).is_boss:
 		if not layout.boss_spawn.is_empty():
 			layout.warnings.append("有多個頭目，使用第一個")

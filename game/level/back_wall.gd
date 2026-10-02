@@ -59,6 +59,8 @@ func setup(layout: LevelLayout, p_seed := 1) -> void:
 			_facade_top[col] = _ground[col] - rng.randf_range(4.0, 9.0) * _tile
 		else:
 			_facade_top[col] = _facade_top[col - 1]
+		# 相鄰兩塊共用高度時，另一塊的地面可能更高（平台）：頂端不能低於地面，否則立面高度會是負的。
+		_facade_top[col] = minf(_facade_top[col], _ground[col] - 2.0 * _tile)
 	build_chunks(Rect2(Vector2.ZERO, size))
 
 

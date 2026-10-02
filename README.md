@@ -128,6 +128,8 @@ pm/            票券（需求、驗收、交付紀錄）
 
 **新增劇情**：在 `data/story/*.json` 加入場景（`mode` 為 `cinematic` 或 `radio`），關卡以 `Story.play(場景 id)` 播放。過場每段至多 6 句、通訊每段 1～2 句，講者要有頭像（`tools/art/paint_assets.tscn -- --only=portrait_<id>` 可產生暫代頭像），啟動時 `Story.validate()` 會檢查。新章節：新增 `chapter_XX.json`、把路徑加進 `Story.CHAPTER_PATHS`，場景 id 用章節前綴（`c2_…`）避免重複，關卡資料的 `chapter` 指向該章。
 
+**新增可破壞物與機關**：在 `data/props/` 複製 `BreakableData`（箱子、油桶、玻璃：血量、大小、爆炸、掉落）或 `MechanismData`（升降梯、閘門、開關、電力開關），再在關卡資料的 `legend` 把一個字元對應到它，就能在地圖上擺。開關與閘門用相同的 `channel` 連動；電力開關的 `channel` 是電力區域 id。要在檢查點存取狀態的新物件，加入 `WorldState.GROUP` 並實作 `state_key()`／`capture_state()`／`restore_state()`。會消耗電力的物件用 `PowerGrid.is_powered(self)` 判斷。
+
 **新增劇情道具**：複製 `data/story_items/*.tres` 修改名稱、說明與取得時機（開局、某個劇情場景播完、擊敗頭目，或由程式取得），圖示放在 `art/items/icons/<icon>.png`。道具跟著本輪進度：重開關卡與從檢查點重生都保留，開始新遊戲才重置。
 產生暫代圖示（消耗品、劇情道具、武器；不需要 GPU）：`godot --headless --path . res://tools/art/paint_icons.tscn`
 產生背包立繪（需要可渲染的環境）：`godot --path . res://tools/art/paint_portraits.tscn`
@@ -141,11 +143,12 @@ pm/            票券（需求、驗收、交付紀錄）
 GODOT=/path/to/godot tools/run_tests.sh
 ```
 
+測試分成冒煙測試（`tests/smoke_test.gd`）與功能套件（`tests/suite/test_*.gd`，繼承 `TestSuite`，新功能的測試放這裡，在 smoke_test 的 `_run` 登記一行即可）。
 測試會驗證所有資料檔、關卡解析、狀態機、武器配置、骨架與劇本，並實際跑一輪遊戲：移動射擊、撿武器、搭乘機甲、掉坑、
 六種敵人 AI、格擋與完美格擋反彈、終結技、每個檢查點、三種難度的頭目戰到過關、死亡畫面。輸出中出現腳本錯誤也會判定失敗。
 
 自動截圖（需要可渲染的環境）：
 
 ```bash
-godot --path . res://tools/screenshot.tscn -- --out=/absolute/output/dir [--scenario=all|settings|mouse_aim|block|story|inventory]
+godot --path . res://tools/screenshot.tscn -- --out=/absolute/output/dir [--scenario=all|settings|mouse_aim|block|story|story_ch2|props|inventory]
 ```

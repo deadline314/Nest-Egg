@@ -7,7 +7,7 @@ extends Node
 const LEVEL_PATH := "res://data/levels/level_01.tres"
 const ENEMY_DIR := "res://data/enemies"
 const WEAPON_DIR := "res://data/weapons"
-const HAZARD_SOURCES: Array[StringName] = [&"spikes", &"laser_fence", &"pit"]
+const HAZARD_SOURCES: Array[StringName] = [&"spikes", &"laser_fence", &"pit", &"explosive_barrel"]
 
 var _failures: PackedStringArray = []
 var _checks := 0
@@ -40,6 +40,7 @@ func _run() -> void:
 	await _test_boss_and_victory()
 	await _test_checkpoints_and_difficulties()
 	await _test_death_flow()
+	await PropsSuite.new(self).run()
 	print("checks: %d, failures: %d" % [_checks, _failures.size()])
 	for failure in _failures:
 		printerr("FAIL: " + failure)

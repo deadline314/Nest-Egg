@@ -33,6 +33,10 @@ var _lighting: LightingController
 var _post: PostProcess
 var _light_budget: LightBudget
 var _foreground: ForegroundLayer
+var _power_grid: PowerGrid
+## 資料裡的光影事件加上目前斷電區域的事件（斷電變化時重建）。
+var _lighting_event_list: Array[LightingEvent] = []
+var _lighting_event_ids: Dictionary[StringName, bool] = {}
 ## 正在生效中的光影事件（id -> true）。
 var _active_lighting_events: Dictionary[StringName, bool] = {}
 var _arena_triggered := false
@@ -97,8 +101,17 @@ func _ready() -> void:
 	hud = Hud.new()
 	add_child(hud)
 
+	_power_grid = PowerGrid.new()
+	_power_grid.name = "PowerGrid"
+	_power_grid.tile_size = _layout.tile_size
+	add_child(_power_grid)
+	_power_grid.zone_changed.connect(func(_zone: StringName, _powered: bool) -> void: _rebuild_lighting_events())
+
 	_spawn_static_entities()
 	_spawn_player()
+	# 從檢查點重生：還原被打破的箱子、開關、閘門與電力（要在光影設定之前，事件才會正確）。
+	WorldState.restore(get_tree(), GameState.checkpoint_world)
+	_rebuild_lighting_events()
 
 	for problem in data.validate_lighting():
 		push_error("[Level] %s" % problem)
@@ -178,12 +191,21 @@ func _show_chapter_card(title: String, subtitle: String, block: bool, hold := 2.
 	return card
 
 
-## 玩家進入／離開光影事件範圍（停電走廊…）時請求或結束覆蓋。fade_override >= 0 時用它當淡入時間。
+## 資料裡的光影事件加上斷電區域的事件；電力變化或還原檢查點後重建。
+func _rebuild_lighting_events() -> void:
+	_lighting_event_list.clear()
+	_lighting_event_list.append_array(data.lighting_events)
+	_lighting_event_list.append_array(_power_grid.blackout_events())
+	_lighting_event_ids.clear()
+	for event in _lighting_event_list:
+		if event != null:
+			_lighting_event_ids[event.id] = true
+
+
+## 玩家進入／離開光影事件範圍（停電走廊、斷電區域…）時請求或結束覆蓋。fade_override >= 0 時用它當淡入時間。
 func _update_lighting_events(fade_override := -1.0) -> void:
-	if data.lighting_events.is_empty():
-		return
 	var tile := player.global_position.x / float(_layout.tile_size)
-	for event in data.lighting_events:
+	for event in _lighting_event_list:
 		if event == null or event.profile == null:
 			continue
 		var inside := event.contains_tile(tile)
@@ -193,6 +215,19 @@ func _update_lighting_events(fade_override := -1.0) -> void:
 		elif not inside and _active_lighting_events.has(event.id):
 			_active_lighting_events.erase(event.id)
 			EventBus.lighting_override_cleared.emit(event.id, event.fade_out)
+	# 事件本身消失了（電力恢復）：結束仍在生效的覆蓋。
+	if _has_stale_active_event():
+		for id in _active_lighting_events.keys():
+			if not _lighting_event_ids.has(id):
+				_active_lighting_events.erase(id)
+				EventBus.lighting_override_cleared.emit(id, PowerGrid.BLACKOUT_FADE_OUT)
+
+
+func _has_stale_active_event() -> bool:
+	for id in _active_lighting_events:
+		if not _lighting_event_ids.has(id):
+			return true
+	return false
 
 
 ## 玩家越過 & 觸發點時播放對應的通訊（每輪只播一次，重生後不重播）。
@@ -244,7 +279,8 @@ func _spawn_static_entities() -> void:
 		sign.position = hint["position"]
 		_entities.add_child(sign)
 	for spawn in _layout.spawns:
-		var node := _create_entity(spawn["resource"])
+		var resource: Resource = spawn["resource"]
+		var node := _create_prop(spawn) if resource is BreakableData or resource is MechanismData else _create_entity(resource)
 		if node != null:
 			node.position = spawn["position"]
 			_entities.add_child(node)
@@ -319,6 +355,55 @@ func _create_entity(resource: Resource) -> Node2D:
 		return vehicle
 	push_warning("[Level] 不支援的 legend 資源：%s" % resource)
 	return null
+
+
+func _create_prop(spawn: Dictionary) -> Node2D:
+	var resource: Resource = spawn["resource"]
+	var cell: Vector2i = spawn["cell"]
+	if resource is BreakableData:
+		for problem in (resource as BreakableData).validate():
+			push_error("[Level] %s" % problem)
+		var breakable := Breakable.new()
+		breakable.configure(resource as BreakableData, cell, _layout.tile_size)
+		breakable.broken.connect(_on_breakable_broken)
+		return breakable
+	if resource is MechanismData:
+		var mechanism := resource as MechanismData
+		for problem in mechanism.validate():
+			push_error("[Level] %s" % problem)
+		match mechanism.kind:
+			MechanismData.Kind.LIFT:
+				var lift := Lift.new()
+				lift.configure(mechanism, cell, _layout.tile_size)
+				return lift
+			MechanismData.Kind.GATE:
+				var gate := Gate.new()
+				gate.configure(mechanism, cell, _layout.tile_size)
+				return gate
+			MechanismData.Kind.SWITCH:
+				var channel_switch := ChannelSwitch.new()
+				channel_switch.configure(mechanism, cell)
+				return channel_switch
+			MechanismData.Kind.POWER_SWITCH:
+				var power_switch := PowerSwitch.new()
+				power_switch.configure(mechanism, cell)
+				return power_switch
+	return null
+
+
+## 破壞後生成掉落物（依位置固定的隨機結果）。
+func _on_breakable_broken(breakable: Breakable) -> void:
+	var drop := breakable.roll_drop()
+	var position := breakable.world_center()
+	var item: Node2D = null
+	if drop["resource"] != null:
+		item = _create_entity(drop["resource"])
+	elif drop["health"]:
+		item = HealthPickup.new()
+	if item == null:
+		return
+	item.position = position
+	_entities.add_child.call_deferred(item)
 
 
 func _create_enemy(enemy_data: EnemyData) -> Enemy:

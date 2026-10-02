@@ -2,6 +2,7 @@ extends Enemy
 ## 哨戒砲台（固定狙擊）
 ## 行為：雷射瞄準線以有限轉速追蹤玩家 → 變粗變亮＝鎖定 → 發射高速子彈。
 ## 應對：鎖定瞬間立刻換位，或躲到掩體後切斷視線；本體耐打，也可以直接繞過。
+## 所在區域被電力開關切斷電力時停擺（不再瞄準與射擊）。
 
 const TURN_SPEED := 2.4
 const LOCK_TIME := 0.35
@@ -57,7 +58,7 @@ func _pivot() -> Vector2:
 func _idle_tick(delta: float) -> void:
 	velocity = Vector2.ZERO
 	_cooldown = maxf(0.0, _cooldown - delta)
-	if _cooldown <= 0.0 and _can_see_target(data.detect_range, 260.0):
+	if _cooldown <= 0.0 and PowerGrid.is_powered(self) and _can_see_target(data.detect_range, 260.0):
 		fsm.transition(&"track")
 
 
@@ -67,7 +68,7 @@ func _track_enter() -> void:
 
 func _track_tick(delta: float) -> void:
 	velocity = Vector2.ZERO
-	if not _has_line_of_sight():
+	if not _has_line_of_sight() or not PowerGrid.is_powered(self):
 		fsm.transition(&"idle")
 		return
 	_rotate_aim_toward(_target_point(), delta)
@@ -77,6 +78,9 @@ func _track_tick(delta: float) -> void:
 
 func _lock_tick(_delta: float) -> void:
 	velocity = Vector2.ZERO
+	if not PowerGrid.is_powered(self):
+		fsm.transition(&"idle")
+		return
 	if fsm.time_in_state >= LOCK_TIME:
 		_shoot(data.projectile, _aim)
 		_cooldown = _scaled_cooldown(data.attack_cooldown)

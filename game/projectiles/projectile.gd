@@ -87,14 +87,16 @@ func _on_area_entered(area: Area2D) -> void:
 	var hurtbox := area as Hurtbox
 	if hurtbox == null or hurtbox.team == team or not hurtbox.can_receive():
 		return
+	_strike(hurtbox)
+
+
+## 命中受擊框：造成傷害、格擋或反彈；傷害後依貫穿數決定是否繼續飛。
+func _strike(hurtbox: Hurtbox) -> void:
 	var id := hurtbox.get_instance_id()
 	if _hit_ids.has(id):
 		return
 	_hit_ids[id] = true
-	var info := DamageInfo.create(maxi(1, roundi(spec.damage * _damage_scale)), team, spec.source_id, velocity.normalized() * spec.knockback)
-	info.stagger = spec.stagger
-	info.origin = global_position
-	info.is_projectile = true
+	var info := _make_damage()
 	match hurtbox.receive(info):
 		Hurtbox.Result.DAMAGED:
 			Fx.impact(global_position, -velocity.normalized(), spec.color, 6)
@@ -118,9 +120,30 @@ func _on_area_entered(area: Area2D) -> void:
 		_finish(true)
 
 
-func _on_body_entered(_body: Node2D) -> void:
+func _make_damage() -> DamageInfo:
+	var info := DamageInfo.create(maxi(1, roundi(spec.damage * _damage_scale)), team, spec.source_id, velocity.normalized() * spec.knockback)
+	info.stagger = spec.stagger
+	info.origin = global_position
+	info.is_projectile = true
+	return info
+
+
+## 撞上實體：一般地形直接消失；可破壞物（有 hit_by_projectile）會受傷，貫穿彈打破後可以繼續飛。
+func _on_body_entered(body: Node2D) -> void:
 	if not active:
 		return
+	if body.has_method(&"hit_by_projectile"):
+		var id := body.get_instance_id()
+		if not _hit_ids.has(id):
+			_hit_ids[id] = true
+			var result: int = body.call(&"hit_by_projectile", _make_damage())
+			if result == Hurtbox.Result.DAMAGED:
+				Fx.impact(global_position, -velocity.normalized(), spec.color, 6)
+				if team == Combat.Team.PLAYER:
+					EventBus.hit_confirmed.emit(global_position, false)
+				if _pierce_left > 0:
+					_pierce_left -= 1
+					return
 	Fx.impact(global_position, -velocity.normalized(), _color.darkened(0.2), 4)
 	_finish(true)
 
