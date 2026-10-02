@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"wataru_photo"
+display_name = "航的照片"
+description = "邊角都磨白了。照片裡的航笑著，背景是一片藍天——他只在畫冊上看過。"
+color = Color(0.56, 0.82, 1.0, 1.0)
+order = 0
+trigger = 0
+trigger_scene = &""
+icon = "wataru_photo"

@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim、block、story、dynamic_hud、weapons、reload、consumables
+## 情境：all（預設）、settings、mouse_aim、block、story、dynamic_hud、weapons、reload、consumables、story_items
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -34,6 +34,10 @@ func _run() -> void:
 		return
 	if _scenario == "block":
 		await _run_block()
+		get_tree().quit()
+		return
+	if _scenario == "story_items":
+		await _run_story_items()
 		get_tree().quit()
 		return
 	if _scenario == "consumables":
@@ -176,6 +180,76 @@ func _run_block() -> void:
 	await _wait(0.12)
 	_capture("block_reflect")
 	Input.action_release(&"block")
+
+
+## 劇情道具：開場過場結束後取得委託單的提示、擊敗頭目取得資料碎片的提示、四個道具圖示。
+func _run_story_items() -> void:
+	Story.auto_skip = false
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _wait(1.0)
+	Story.skip_cinematic()
+	await _wait(0.9)
+	_capture("story_items_order")
+	var player := level.player
+	player.health.setup(999, 0.0)
+	# 直接傳送到戰場會連續觸發沿路的通訊，先標記為看過，避免通訊框蓋住提示。
+	for id: String in Story.scene_ids():
+		if id.begins_with("radio_"):
+			Story._seen[StringName(id)] = true
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	player.global_position = Vector2(level._layout.arena_x + 80.0, 300)
+	await _wait(2.0)
+	Story.skip_cinematic()
+	await _wait(1.0)
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		var enemy := node as Enemy
+		if enemy != null and enemy.data.is_boss:
+			var lethal := DamageInfo.create(9999, Combat.Team.PLAYER, &"test")
+			lethal.ignore_invulnerability = true
+			lethal.bypass_guard = true
+			enemy.health.take_damage(lethal)
+	# 等頭目倒下、取得資料碎片後，拍下提示。
+	for i in 120:
+		if StoryItems.owns(&"nest07_shard"):
+			break
+		await _wait(0.1)
+	await _wait(0.4)
+	_capture("story_items_shard")
+	level.queue_free()
+	await _settle(2)
+	await _capture_item_sheet()
+
+
+## 四個劇情道具圖示放大 4 倍排開（最近鄰），確認放大後依然銳利。
+func _capture_item_sheet() -> void:
+	var layer := CanvasLayer.new()
+	var root := UiKit.full_rect_root(layer)
+	add_child(layer)
+	var backdrop := ColorRect.new()
+	backdrop.color = Palette.BG_FAR
+	backdrop.set_anchors_preset(Control.PRESET_FULL_RECT)
+	root.add_child(backdrop)
+	var row := HBoxContainer.new()
+	row.position = Vector2(40, 90)
+	row.add_theme_constant_override(&"separation", 24)
+	root.add_child(row)
+	for item in StoryItems.catalog():
+		var column := VBoxContainer.new()
+		column.custom_minimum_size = Vector2(112, 0)
+		row.add_child(column)
+		var icon := TextureRect.new()
+		icon.texture = ItemIcons.item(item.icon)
+		icon.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		icon.custom_minimum_size = Vector2(ItemIcons.ICON_SIZE * 4)
+		column.add_child(icon)
+		column.add_child(UiKit.label(item.display_name, 11, item.color, HORIZONTAL_ALIGNMENT_CENTER))
+	await _settle(4)
+	_capture("story_items_icons")
+	layer.queue_free()
 
 
 ## 消耗品：屋頂上的醫療針與拾取提示、撿起後的 HUD 數量、受傷後快速使用。

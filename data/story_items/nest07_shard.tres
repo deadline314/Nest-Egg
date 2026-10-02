@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"nest07_shard"
+display_name = "NEST-07 資料碎片"
+description = "裡面是一個孩子的神經掃描——受試者：航。轉移進度：百分之六十二。"
+color = Color(0.21, 0.88, 1.0, 1.0)
+order = 3
+trigger = 2
+trigger_scene = &""
+icon = "nest07_shard"

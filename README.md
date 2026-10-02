@@ -120,6 +120,9 @@ pm/            票券（需求、驗收、交付紀錄）
 
 **新增劇情**：在 `data/story/*.json` 加入場景（`mode` 為 `cinematic` 或 `radio`），關卡以 `Story.play(場景 id)` 播放。
 
+**新增劇情道具**：複製 `data/story_items/*.tres` 修改名稱、說明與取得時機（開局、某個劇情場景播完、擊敗頭目，或由程式取得），圖示放在 `art/items/icons/<icon>.png`。道具跟著本輪進度：重開關卡與從檢查點重生都保留，開始新遊戲才重置。
+產生暫代圖示：`godot --headless --path . res://tools/art/paint_icons.tscn`（不需要 GPU；之後以同名 PNG 覆蓋即可換成手繪像素圖）。
+
 **換成正式音效**：在 `autoload/sfx.gd` 的 `OVERRIDES` 填入 `id → 音效檔路徑`，呼叫端不用改。
 
 ## 測試

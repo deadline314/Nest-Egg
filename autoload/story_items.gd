@@ -1,0 +1,86 @@
+extends Node
+## 劇情道具服務：道具種類從 data/story_items/ 讀取（新增道具不需改程式），記錄本輪取得了哪些。
+## 取得時機由道具資料決定（開局、劇情場景結束、擊敗頭目、程式呼叫），這裡只負責監聽並發放。
+## 道具跟著「本輪」進度，不隨檢查點回溯：劇情場景不會重播，回溯會讓道具永久遺失；
+## 因此重開關卡或從檢查點重生都保留，只有開始新的一輪才會重置。
+
+## 取得新道具時發出（背包、提示用）。
+signal acquired(item: StoryItemData)
+
+const DATA_DIR := "res://data/story_items"
+
+var _catalog: Array[StoryItemData] = []
+var _catalog_loaded := false
+var _owned: Dictionary[StringName, bool] = {}
+
+
+func _ready() -> void:
+	Story.scene_finished.connect(_on_scene_finished)
+	EventBus.boss_defeated.connect(_on_boss_defeated)
+
+
+## 所有劇情道具定義（依 order 排序）。讀取失敗的檔案記錄錯誤並略過。
+func catalog() -> Array[StoryItemData]:
+	if not _catalog_loaded:
+		_catalog_loaded = true
+		for res in ResourceCatalog.load_dir(DATA_DIR, StoryItemData, "StoryItems"):
+			_catalog.append(res as StoryItemData)
+	return _catalog
+
+
+func find(id: StringName) -> StoryItemData:
+	for item in catalog():
+		if item.id == id:
+			return item
+	return null
+
+
+func owns(id: StringName) -> bool:
+	return _owned.has(id)
+
+
+## 已取得的道具（依 order 排序）。
+func owned_items() -> Array[StoryItemData]:
+	var result: Array[StoryItemData] = []
+	for item in catalog():
+		if _owned.has(item.id):
+			result.append(item)
+	return result
+
+
+## 取得道具。announce = true 時跳出提示。未知或已持有的道具回傳 false。
+func acquire(id: StringName, announce := true) -> bool:
+	var item := find(id)
+	if item == null:
+		push_warning("[StoryItems] 找不到劇情道具：%s" % id)
+		return false
+	if _owned.has(id):
+		return false
+	_owned[id] = true
+	acquired.emit(item)
+	if announce:
+		EventBus.toast_requested.emit("取得 %s" % item.display_name)
+	return true
+
+
+## 開始新的一輪：清空，並發放開局就持有的道具（不跳提示）。
+func reset_run() -> void:
+	_owned.clear()
+	_grant(StoryItemData.Trigger.RUN_START, &"", false)
+
+
+func _on_scene_finished(scene_id: StringName) -> void:
+	_grant(StoryItemData.Trigger.SCENE_FINISHED, scene_id)
+
+
+func _on_boss_defeated() -> void:
+	_grant(StoryItemData.Trigger.BOSS_DEFEATED)
+
+
+func _grant(trigger: StoryItemData.Trigger, scene_id := &"", announce := true) -> void:
+	for item in catalog():
+		if item.trigger != trigger:
+			continue
+		if trigger == StoryItemData.Trigger.SCENE_FINISHED and item.trigger_scene != scene_id:
+			continue
+		acquire(item.id, announce)

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"nest_egg_chip"
+display_name = "巢蛋存款晶片"
+description = "四年、無數個夜班，換來的全部積蓄。老K說，再接一筆就滿了。"
+color = Color(1.0, 0.82, 0.29, 1.0)
+order = 1
+trigger = 0
+trigger_scene = &""
+icon = "nest_egg_chip"

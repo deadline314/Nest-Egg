@@ -15,18 +15,8 @@ var _counts: Dictionary[StringName, int] = {}
 ## 所有消耗品定義（依 order 排序）。讀取失敗的檔案記錄錯誤並略過。
 static func catalog() -> Array[ConsumableData]:
 	if _catalog.is_empty():
-		for file in DirAccess.get_files_at(DATA_DIR):
-			var path := DATA_DIR.path_join(file.trim_suffix(".remap"))
-			if not path.ends_with(".tres"):
-				continue
-			var data := load(path) as ConsumableData
-			if data == null:
-				push_error("[ConsumableBag] 無法讀取消耗品：%s" % path)
-				continue
-			for problem in data.validate():
-				push_error("[ConsumableBag] %s：%s" % [path, problem])
-			_catalog.append(data)
-		_catalog.sort_custom(func(a: ConsumableData, b: ConsumableData) -> bool: return a.order < b.order)
+		for res in ResourceCatalog.load_dir(DATA_DIR, ConsumableData, "ConsumableBag"):
+			_catalog.append(res as ConsumableData)
 	return _catalog
 
 

@@ -29,6 +29,7 @@ func _run() -> void:
 	await _test_rigs()
 	await _test_settings_and_bindings()
 	await _test_story()
+	await _test_story_items()
 	await _test_gameplay()
 	await _test_block_and_parry()
 	await _test_dynamic_hud()
@@ -299,6 +300,89 @@ func _test_story() -> void:
 
 
 ## 設定與改鍵：改用測試專用設定檔，結束後還原，不影響玩家設定。
+func _test_story_items() -> void:
+	var catalog := StoryItems.catalog()
+	_check(catalog.size() == 4, "story item catalog loads 4 items (got %d)" % catalog.size())
+	var ids: Dictionary[StringName, bool] = {}
+	var last_order := -INF
+	for item in catalog:
+		_check(item.validate().is_empty(), "story item valid: %s %s" % [item.id, item.validate()])
+		_check(not ids.has(item.id), "story item id unique: %s" % item.id)
+		ids[item.id] = true
+		_check(item.order >= last_order, "story items sorted by order: %s" % item.id)
+		last_order = item.order
+		_check(ResourceLoader.exists(ItemIcons.ICON_DIR.path_join(item.icon + ".png")), "story item icon exists: %s" % item.id)
+		if item.trigger == StoryItemData.Trigger.SCENE_FINISHED:
+			_check(Story.has_scene(item.trigger_scene), "story item scene exists: %s -> %s" % [item.id, item.trigger_scene])
+
+	# 開局只持有「開場就有」的道具，且不跳提示。
+	var toasts: Array[String] = []
+	var on_toast := func(text: String) -> void: toasts.append(text)
+	EventBus.toast_requested.connect(on_toast)
+	GameState.start_new_run(GameState.difficulties[1])
+	_check(StoryItems.owns(&"wataru_photo") and StoryItems.owns(&"nest_egg_chip"), "run start grants the starting items")
+	_check(not StoryItems.owns(&"old_k_order") and not StoryItems.owns(&"nest07_shard"), "later items not owned at run start")
+	_check(toasts.is_empty(), "starting items grant silently")
+	_check(StoryItems.owned_items().size() == 2, "owned items listed")
+
+	# 取得：未知與重複都安全回傳 false；提示只跳一次。
+	_check(not StoryItems.acquire(&"no_such_item"), "unknown story item is rejected")
+	_check(not StoryItems.acquire(&"wataru_photo"), "owned story item is not granted twice")
+	_check(StoryItems.acquire(&"old_k_order") and toasts.size() == 1 and toasts[0].contains("老K的委託單"), "acquire announces the item")
+	_check(not StoryItems.acquire(&"old_k_order") and toasts.size() == 1, "repeat acquire does not announce again")
+	GameState.start_new_run(GameState.difficulties[1])
+	_check(not StoryItems.owns(&"old_k_order"), "new run resets story items")
+
+	# 劇情場景播完才取得委託單。
+	Story.reset_progress()
+	_check(not StoryItems.owns(&"old_k_order"), "order not owned before the opening scene")
+	Story.play(&"prologue")
+	await _frames(3)
+	_check(StoryItems.owns(&"old_k_order"), "opening scene finishing grants the order")
+	_check(toasts.filter(func(t: String) -> bool: return t.contains("老K的委託單")).size() >= 1, "scene grant announces the item")
+	EventBus.toast_requested.disconnect(on_toast)
+
+	# 進關卡後持有開場道具；重開關卡（不重置一輪）保留已取得的道具。
+	var level := await _start_level()
+	await _frames(4)
+	_check(StoryItems.owns(&"wataru_photo") and StoryItems.owns(&"nest_egg_chip") and StoryItems.owns(&"old_k_order"), "level start holds photo, chip and order")
+	_check(not StoryItems.owns(&"nest07_shard"), "shard not owned before the boss")
+	await _end_level(level)
+	var retry := Level.new()
+	retry.configure(load(LEVEL_PATH))
+	get_tree().root.add_child(retry)
+	await _frames(4)
+	_check(StoryItems.owned_items().size() == 3, "reloading the level keeps acquired items")
+	await _end_level(retry)
+
+	# 資料目錄載入器：壞檔、型別不符、重複 id 都略過且不影響其他資料。
+	var dir := "user://test_catalog"
+	DirAccess.make_dir_recursive_absolute(dir)
+	for file in DirAccess.get_files_at(dir):
+		DirAccess.remove_absolute(dir.path_join(file))
+	var good := StoryItemData.new()
+	good.id = &"fixture_a"
+	good.display_name = "A"
+	good.description = "a"
+	good.order = 2
+	ResourceSaver.save(good, dir.path_join("a.tres"))
+	var early := StoryItemData.new()
+	early.id = &"fixture_b"
+	early.display_name = "B"
+	early.description = "b"
+	early.order = 1
+	ResourceSaver.save(early, dir.path_join("b.tres"))
+	var duplicate := StoryItemData.new()
+	duplicate.id = &"fixture_a"
+	ResourceSaver.save(duplicate, dir.path_join("c_duplicate.tres"))
+	ResourceSaver.save(ConsumableData.new(), dir.path_join("d_wrong_type.tres"))
+	var loaded := ResourceCatalog.load_dir(dir, StoryItemData, "test_catalog")
+	_check(loaded.size() == 2 and loaded[0].get(&"id") == &"fixture_b" and loaded[1].get(&"id") == &"fixture_a", "catalog sorts by order and skips duplicate and wrong-type files")
+	_check(ResourceCatalog.load_dir("user://no_such_catalog_dir", StoryItemData, "test_catalog").is_empty(), "missing catalog folder yields an empty list")
+	for file in DirAccess.get_files_at(dir):
+		DirAccess.remove_absolute(dir.path_join(file))
+
+
 func _test_settings_and_bindings() -> void:
 	var original_path := Settings.storage_path()
 	var test_path := "user://smoke_test_settings.cfg"
@@ -809,6 +893,7 @@ func _test_boss_and_victory() -> void:
 		if completed[0]:
 			break
 	_check(completed[0], "level completes after boss defeat")
+	_check(StoryItems.owns(&"nest07_shard"), "defeating the boss grants the NEST-07 shard")
 	await _end_level(level)
 
 

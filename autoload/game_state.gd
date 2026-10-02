@@ -51,6 +51,7 @@ func start_new_run(p_difficulty: DifficultyData) -> void:
 	finishers = 0
 	run_time = 0.0
 	Story.reset_progress()
+	StoryItems.reset_run()
 	EventBus.lives_changed.emit(lives_left)
 
 
