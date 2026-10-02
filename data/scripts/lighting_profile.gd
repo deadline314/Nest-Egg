@@ -32,6 +32,12 @@ const BLENDED: Array[StringName] = [
 @export var shadow_tint: Color = Color(1, 1, 1, 1)
 ## 亮部的色調：偏暖讓光源附近帶橘黃。
 @export var highlight_tint: Color = Color(1, 1, 1, 1)
+@export_group("Lamps")
+## 這個區段的場景燈風格（生成時套用，不插值）。
+@export var lamp_style: LampStyle
+## 這個區段霓虹招牌的色盤與亮度倍率（生成時套用）。沒有色盤時使用預設霓虹色。
+@export var neon_colors: PackedColorArray = PackedColorArray()
+@export_range(0.0, 3.0, 0.05) var neon_energy: float = 1.0
 @export_group("Screen")
 ## 暗角強度（0 = 沒有）：畫面邊緣壓暗。
 @export_range(0.0, 1.5, 0.01) var vignette: float = 0.0
@@ -56,6 +62,11 @@ func validate() -> PackedStringArray:
 		var tint: Color = get(color_name)
 		if tint.r < 0.0 or tint.g < 0.0 or tint.b < 0.0:
 			problems.append("%s 的 %s 有負值" % [id, color_name])
+	if lamp_style != null:
+		for problem in lamp_style.validate():
+			problems.append("%s：%s" % [id, problem])
+	if neon_energy < 0.0:
+		problems.append("%s 的霓虹亮度不能是負的" % id)
 	if saturation < 0.0 or contrast <= 0.0:
 		problems.append("%s 的飽和度不能是負的、對比必須大於 0" % id)
 	if vignette < 0.0 or grain < 0.0 or aberration < 0.0:

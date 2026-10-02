@@ -10,6 +10,8 @@ const REFLECTION_DEPTH := 26.0
 var text := "拉麵"
 var color := Palette.MAGENTA
 var vertical := true
+## 亮度倍率（光源能量與字的發光強度），由區段的霓虹亮度決定。
+var intensity := 1.0
 ## 招牌下方地面的世界 y 座標（用來畫倒影）；INF 代表不畫。
 var floor_y := INF
 
@@ -27,7 +29,7 @@ func _ready() -> void:
 	var count := text.length()
 	_size = Vector2(FONT_SIZE + PADDING * 2.0, count * CHAR_STEP + PADDING * 2.0) if vertical \
 			else Vector2(count * CHAR_STEP + PADDING * 2.0, FONT_SIZE + PADDING * 2.0)
-	_light = LightKit.create_point_light(color, maxf(_size.x, _size.y) * 1.6, 0.9)
+	_light = LightKit.create_point_light(color, maxf(_size.x, _size.y) * 1.6, 0.9 * intensity)
 	_light.position = _size * 0.5
 	add_child(_light)
 	_time = randf() * 10.0
@@ -41,7 +43,7 @@ func _process(delta: float) -> void:
 		_off_left -= delta
 	elif randf() < 0.004:
 		_off_left = randf_range(0.04, 0.25)
-	_light.energy = 0.15 if _off_left > 0.0 else 0.9 + sin(_time * 30.0) * 0.05
+	_light.energy = (0.15 if _off_left > 0.0 else 0.9 + sin(_time * 30.0) * 0.05) * intensity
 	queue_redraw()
 
 
@@ -55,7 +57,7 @@ func _draw() -> void:
 		var pos := Vector2(PADDING, PADDING + FONT_SIZE + i * CHAR_STEP - 2.0) if vertical \
 				else Vector2(PADDING + i * CHAR_STEP, PADDING + FONT_SIZE - 2.0)
 		var on := lit and not (i == _broken_index and fmod(_time, 1.7) < 0.9)
-		var glow := LightKit.glow(color, 2.6) if on else Color(color.darkened(0.6), 0.6)
+		var glow := LightKit.glow(color, 2.6 * intensity) if on else Color(color.darkened(0.6), 0.6)
 		if on:
 			draw_string_outline(_font, pos, ch, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE, 3, Color(color, 0.35))
 		draw_string(_font, pos, ch, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE, glow)

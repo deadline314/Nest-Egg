@@ -243,11 +243,12 @@ func _run_lighting() -> void:
 	# 每個區段取中段的一欄，站在該欄的地面上。
 	var layout: LevelLayout = level._layout
 	var spots := {}
-	for entry in [["rooftop", 30], ["market", 115], ["freight", 200], ["facility", 275], ["hangar", 330]]:
+	for entry in [["rooftop", 30], ["market", 115], ["freight", 200], ["facility", 252], ["corridor", 275], ["hangar", 330]]:
 		var tile: int = entry[1]
 		spots[entry[0]] = Vector2(tile * layout.tile_size + 8.0, layout.surface_heights[tile] - 2.0)
 	# 設施入口是室內，最上面的「地面」是天花板，改用檢查點的高度。
-	spots["facility"].y = layout.checkpoints[3].y - 2.0
+	for name in ["facility", "corridor"]:
+		spots[name].y = layout.checkpoints[3].y - 2.0
 	Input.action_press(&"aim_right")
 	for zone in spots:
 		player.global_position = spots[zone]

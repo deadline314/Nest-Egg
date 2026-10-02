@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=30 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=36 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_script"]
 [ext_resource type="Resource" path="res://data/enemies/grunt.tres" id="2_grunt"]
@@ -24,6 +24,9 @@
 [ext_resource type="Resource" path="res://data/lighting/facility.tres" id="23_facility"]
 [ext_resource type="Resource" path="res://data/lighting/hangar.tres" id="24_hangar"]
 [ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="30_zone"]
+[ext_resource type="Script" path="res://data/scripts/lighting_event.gd" id="31_event"]
+[ext_resource type="Resource" path="res://data/lighting/blackout.tres" id="32_blackout"]
+[ext_resource type="Resource" path="res://data/lighting/alarm.tres" id="33_alarm"]
 
 [sub_resource type="Resource" id="Resource_zone0"]
 script = ExtResource("30_zone")
@@ -54,6 +57,15 @@ script = ExtResource("30_zone")
 start_tile = 310
 blend_tiles = 8
 profile = ExtResource("24_hangar")
+
+[sub_resource type="Resource" id="Resource_event0"]
+script = ExtResource("31_event")
+id = &"facility_blackout"
+start_tile = 262
+end_tile = 292
+profile = ExtResource("32_blackout")
+fade_in = 1.2
+fade_out = 2.0
 
 [resource]
 script = ExtResource("1_script")
@@ -94,3 +106,5 @@ outro_scene = &"epilogue"
 story_triggers = PackedStringArray("radio_start", "radio_market", "radio_shield", "radio_mech", "radio_facility", "radio_last")
 layout_path = "res://data/levels/level_01_map.json"
 lighting_zones = Array[ExtResource("30_zone")]([SubResource("Resource_zone0"), SubResource("Resource_zone1"), SubResource("Resource_zone2"), SubResource("Resource_zone3"), SubResource("Resource_zone4")])
+lighting_events = Array[ExtResource("31_event")]([SubResource("Resource_event0")])
+boss_lighting = ExtResource("33_alarm")

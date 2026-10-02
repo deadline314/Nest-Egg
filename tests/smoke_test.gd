@@ -993,18 +993,20 @@ func _test_lighting() -> void:
 
 	# 環境光與背景、霧、泛光跟著玩家所在區段。
 	_check(ambient.color.is_equal_approx(zones[0].profile.ambient_color), "ambient light starts with the first zone")
-	level.player.global_position = Vector2(float(zones[4].start_tile + 12) * tile, level.player.global_position.y)
+	# 設施入口停電走廊之前的一段（頭目機庫會觸發警報覆蓋，另外測）。
+	var follow := 3
+	level.player.global_position = Vector2(252.0 * tile, level.player.global_position.y)
 	for i in 4:
 		await get_tree().process_frame
-	_check(ambient.color.is_equal_approx(zones[4].profile.ambient_color), "ambient light follows the player into the last zone")
-	_check(level._background.modulate.is_equal_approx(zones[4].profile.background_tint), "background tint follows the zone")
-	_check(is_equal_approx(level._fog.density, zones[4].profile.fog_density) and level._fog.color.is_equal_approx(zones[4].profile.fog_color), "fog follows the zone")
-	_check(is_equal_approx(LightKit.environment().glow_hdr_threshold, zones[4].profile.glow_threshold), "glow follows the zone")
+	_check(ambient.color.is_equal_approx(zones[follow].profile.ambient_color), "ambient light follows the player into the facility zone")
+	_check(level._background.modulate.is_equal_approx(zones[follow].profile.background_tint), "background tint follows the zone")
+	_check(is_equal_approx(level._fog.density, zones[follow].profile.fog_density) and level._fog.color.is_equal_approx(zones[follow].profile.fog_color), "fog follows the zone")
+	_check(is_equal_approx(LightKit.environment().glow_hdr_threshold, zones[follow].profile.glow_threshold), "glow follows the zone")
 
 	# 後製：調色、暗角、顆粒與色差跟著區段；畫在場景之上、介面之下。
 	var post: PostProcess = level._post
 	_check(post != null and post.is_active(), "post-processing is active")
-	var grade: LightingProfile = zones[4].profile
+	var grade: LightingProfile = zones[follow].profile
 	_check(is_equal_approx(post.parameter(&"vignette"), grade.vignette) and is_equal_approx(post.parameter(&"saturation"), grade.saturation)
 			and is_equal_approx(post.parameter(&"contrast"), grade.contrast) and is_equal_approx(post.parameter(&"grain"), grade.grain)
 			and is_equal_approx(post.parameter(&"aberration"), grade.aberration), "grade, vignette, grain and aberration follow the zone")
@@ -1032,7 +1034,7 @@ func _test_lighting() -> void:
 	_check(ambient.color.is_equal_approx(alarm.ambient_color), "override with the same id is replaced")
 	EventBus.lighting_override_cleared.emit(&"blackout", 0.2)
 	await get_tree().create_timer(0.5, true).timeout
-	_check(ambient.color.is_equal_approx(zones[4].profile.ambient_color) and not lighting.has_override(&"blackout"), "lighting returns to the zone after the override ends")
+	_check(ambient.color.is_equal_approx(zones[follow].profile.ambient_color) and not lighting.has_override(&"blackout"), "lighting returns to the zone after the override ends")
 
 	# 發光的東西不受環境光壓暗；地形受光。
 	var emissive := LightKit.emissive_material()
@@ -1048,8 +1050,86 @@ func _test_lighting() -> void:
 		_check((node as CanvasItem).material == emissive, "enemies are emissive: %s" % node.name)
 	_check(enemy_count > 0, "level has enemies to check")
 	_check((level.get_node("World/Terrain") as CanvasItem).material == null, "terrain is lit by ambient light")
+
+	# 色彩腳本：越深入環境光越暗，頭目機庫最暗、暗角最重；每個區段有自己的燈風格與霓虹色盤。
+	var luminances: Array[float] = []
+	for zone in zones:
+		var a: Color = zone.profile.ambient_color
+		luminances.append(a.r * 0.2126 + a.g * 0.7152 + a.b * 0.0722)
+	for i in range(1, luminances.size()):
+		_check(luminances[i] < luminances[i - 1], "ambient light gets darker zone by zone (zone %d)" % i)
+	var heaviest_vignette := true
+	for i in range(0, zones.size() - 1):
+		heaviest_vignette = heaviest_vignette and zones[zones.size() - 1].profile.vignette >= zones[i].profile.vignette
+	_check(heaviest_vignette, "the boss hangar has the heaviest vignette")
+	for i in zones.size():
+		var style: LampStyle = zones[i].profile.lamp_style
+		_check(style != null and style.validate().is_empty(), "zone %d has a valid lamp style" % i)
+	_check(data.profile_at_tile(0) == zones[0].profile and data.profile_at_tile(115) == zones[1].profile and data.profile_at_tile(330) == zones[4].profile, "profile lookup by tile")
+	_check(zones[1].profile.lamp_style.colors != zones[2].profile.lamp_style.colors, "zones use different lamp colors")
+
+	# 場景燈：每個區段有數盞燈，顏色與光池取自區段風格；有壞掉與會閃的燈，壞掉的燈沒有光源。
+	var lamps_per_zone: Array[int] = [0, 0, 0, 0, 0]
+	var dead_lamps := 0
+	var lamp_total := 0
+	for node in level._world.get_children():
+		var lamp := node as Lamp
+		if lamp == null:
+			continue
+		lamp_total += 1
+		var lamp_tile := int(lamp.position.x / tile)
+		var lamp_profile := data.profile_at_tile(lamp_tile)
+		var lamp_zone := zones.find_custom(func(z: LightingZone) -> bool: return z.profile == lamp_profile)
+		lamps_per_zone[lamp_zone] += 1
+		_check(lamp_profile.lamp_style.colors.has(lamp.color) and is_equal_approx(lamp.radius, lamp_profile.lamp_style.radius), "lamp uses its zone style (tile %d)" % lamp_tile)
+		var has_light := false
+		for child in lamp.get_children():
+			has_light = has_light or child is PointLight2D
+		_check(has_light != lamp.dead, "dead lamps have no light, working lamps do (tile %d)" % lamp_tile)
+		dead_lamps += 1 if lamp.dead else 0
+	for i in lamps_per_zone.size():
+		_check(lamps_per_zone[i] >= 2, "zone %d has at least two lamps (got %d)" % [i, lamps_per_zone[i]])
+	_check(dead_lamps > 0 and dead_lamps < lamp_total, "some but not all lamps are dead (%d of %d)" % [dead_lamps, lamp_total])
+	_check(zones[3].profile.lamp_style.flicker_chance > zones[1].profile.lamp_style.flicker_chance, "facility lamps flicker more than market lamps")
+	_check(zones[4].profile.lamp_style.pulse_hz > 0.0, "boss hangar lamps pulse")
+	var lamp_seed_a := Lamp.new()
+	var lamp_seed_b := Lamp.new()
+	lamp_seed_a.apply_style(zones[1].profile.lamp_style, 12345)
+	lamp_seed_b.apply_style(zones[1].profile.lamp_style, 12345)
+	_check(lamp_seed_a.color == lamp_seed_b.color and lamp_seed_a.dead == lamp_seed_b.dead, "lamp style is deterministic for the same seed")
+	lamp_seed_a.free()
+	lamp_seed_b.free()
+
+	# 光影事件：進入停電走廊時覆蓋，離開後淡回。
+	_check(data.lighting_events.size() == 1 and data.lighting_events[0].profile != null and data.boss_lighting != null, "level has a blackout event and boss lighting")
+	var event := data.lighting_events[0]
+	var player_y := level.player.global_position.y
+	level.player.global_position = Vector2(float(event.start_tile + 4) * tile, player_y)
+	await get_tree().create_timer(2.0, true).timeout
+	_check(lighting.has_override(event.id) and ambient.color.is_equal_approx(event.profile.ambient_color), "entering the blackout corridor dims the lights")
+	level.player.global_position = Vector2(float(event.end_tile + 6) * tile, player_y)
+	await get_tree().create_timer(3.5, true).timeout
+	_check(not lighting.has_override(event.id), "leaving the blackout corridor restores the lights")
+	var broken_event := LightingEvent.new()
+	broken_event.end_tile = -1
+	_check(broken_event.validate().size() >= 2, "invalid lighting event is reported")
+	var broken_style := LampStyle.new()
+	broken_style.colors = PackedColorArray()
+	_check(not broken_style.validate().is_empty(), "invalid lamp style is reported")
 	await _end_level(level)
 	_check(is_equal_approx(LightKit.environment().glow_hdr_threshold, LightKit.DEFAULT_GLOW_THRESHOLD), "leaving the level restores glow defaults")
+
+	# 從檢查點重生在停電走廊裡：一開始就是停電的光影。
+	GameState.start_new_run(GameState.difficulties[1])
+	GameState.set_checkpoint(Vector2(float(event.start_tile + 4) * tile, player_y), {})
+	var dark_respawn := Level.new()
+	dark_respawn.configure(data)
+	get_tree().root.add_child(dark_respawn)
+	for i in 3:
+		await get_tree().process_frame
+	_check((dark_respawn.get_node("Ambient") as CanvasModulate).color.is_equal_approx(event.profile.ambient_color), "respawning inside the blackout corridor starts dark")
+	GameState.clear_checkpoint()
+	await _end_level(dark_respawn)
 
 	# 從檢查點重生：一開始就是該位置的光影，不從別的區段漸變。
 	GameState.start_new_run(GameState.difficulties[1])
@@ -1153,6 +1233,7 @@ func _test_boss_and_victory() -> void:
 		await _end_level(level)
 		return
 	_check(level.camera.limit_left == int(layout.arena_x), "camera locked to arena")
+	_check(level._lighting.has_override(&"boss"), "boss fight switches to the alarm lighting")
 	var attacks := {}
 	for i in 600:
 		await get_tree().physics_frame

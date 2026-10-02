@@ -1,6 +1,16 @@
-[gd_resource type="Resource" script_class="LightingProfile" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="LightingProfile" load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/lighting_profile.gd" id="1_script"]
+[ext_resource type="Script" path="res://data/scripts/lamp_style.gd" id="2_lamp"]
+
+[sub_resource type="Resource" id="LampStyle_1"]
+script = ExtResource("2_lamp")
+colors = PackedColorArray(0.70,1.0,0.88,1)
+energy = 1.35
+radius = 185.0
+flicker_chance = 0.05
+dead_chance = 0.4
+pulse_hz = 0.0
 
 [resource]
 script = ExtResource("1_script")
@@ -18,3 +28,6 @@ highlight_tint = Color(0.95,1.04,1.0,1)
 vignette = 0.65
 grain = 0.04
 aberration = 0.0025
+lamp_style = SubResource("LampStyle_1")
+neon_colors = PackedColorArray(0.40,1.0,0.80,1)
+neon_energy = 0.5

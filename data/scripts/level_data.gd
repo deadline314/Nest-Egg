@@ -43,6 +43,10 @@ extends Resource
 @export_group("Lighting")
 ## 光影區段，依 start_tile 由小到大排列。沒有區段時整關使用預設（全亮）光影。
 @export var lighting_zones: Array[LightingZone] = []
+## 光影事件（停電、警報區段…）：玩家進入範圍時暫時覆蓋光影。
+@export var lighting_events: Array[LightingEvent] = []
+## 頭目戰開始時套用的光影（例如警報），擊敗頭目後淡回。
+@export var boss_lighting: LightingProfile
 ## 教學看板文字，地圖字元 "1" 對應 hints[0]。請寫重點，一句話。
 ## 提到按鍵時請用 {動作} 佔位符（例如 {jump}），玩家改鍵後提示會自動更新。
 @export var hints: PackedStringArray = PackedStringArray()
@@ -63,7 +67,25 @@ func validate_lighting() -> PackedStringArray:
 		if zone.start_tile < last_start:
 			problems.append("%s 的光影區段沒有依起點由小到大排列（起點 %d）" % [id, zone.start_tile])
 		last_start = maxi(last_start, zone.start_tile)
+	for event in lighting_events:
+		if event == null:
+			problems.append("%s 的光影事件清單裡有空項目" % id)
+			continue
+		for problem in event.validate():
+			problems.append("%s：%s" % [id, problem])
+	if boss_lighting != null:
+		for problem in boss_lighting.validate():
+			problems.append("%s：頭目光影：%s" % [id, problem])
 	return problems
+
+
+## 指定欄所在區段的光影設定（不插值，生成場景燈與招牌時用）。沒有區段時回傳 null。
+func profile_at_tile(tile: int) -> LightingProfile:
+	var result: LightingProfile = null
+	for zone in lighting_zones:
+		if zone != null and zone.profile != null and zone.start_tile <= tile:
+			result = zone.profile
+	return result
 
 
 ## 讀取地圖分段。失敗時回傳空陣列並輸出錯誤，不會讓遊戲崩潰。

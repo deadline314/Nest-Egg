@@ -14,6 +14,8 @@ const BOSS_SPAWN_DELAY := 0.8
 ## 進入戰場左界多少像素後觸發頭目戰。
 const ARENA_TRIGGER_MARGIN := 40.0
 const FALL_LIMIT_MARGIN := 48.0
+const BOSS_LIGHTING_ID := &"boss"
+const BOSS_LIGHTING_FADE := 1.5
 
 var data: LevelData
 var player: Player
@@ -29,6 +31,8 @@ var _background: LevelBackground
 var _fog: FogLayer
 var _lighting: LightingController
 var _post: PostProcess
+## 正在生效中的光影事件（id -> true）。
+var _active_lighting_events: Dictionary[StringName, bool] = {}
 var _arena_triggered := false
 var _finished := false
 var _next_story_trigger := 0
@@ -98,6 +102,9 @@ func _ready() -> void:
 	_lighting = LightingController.new()
 	add_child(_lighting)
 	_lighting.setup(data.lighting_zones, _layout.tile_size, player, ambient, _background, _fog, data.fog_color, _post)
+	# 從檢查點重生時若正好在事件範圍內，直接套用，不從區段光影漸變。
+	_update_lighting_events(0.0)
+	_lighting.snap()
 
 	camera = LevelCamera.new()
 	add_child(camera)
@@ -131,6 +138,7 @@ func _physics_process(_delta: float) -> void:
 	if _layout == null or not is_instance_valid(player):
 		return
 	_check_story_triggers()
+	_update_lighting_events()
 	if _arena_triggered or _layout.arena_x < 0.0:
 		return
 	if player.global_position.x > _layout.arena_x + ARENA_TRIGGER_MARGIN:
@@ -161,6 +169,23 @@ func _show_chapter_card(title: String, subtitle: String, block: bool, hold := 2.
 	card.hold = hold
 	add_child(card)
 	return card
+
+
+## 玩家進入／離開光影事件範圍（停電走廊…）時請求或結束覆蓋。fade_override >= 0 時用它當淡入時間。
+func _update_lighting_events(fade_override := -1.0) -> void:
+	if data.lighting_events.is_empty():
+		return
+	var tile := player.global_position.x / float(_layout.tile_size)
+	for event in data.lighting_events:
+		if event == null or event.profile == null:
+			continue
+		var inside := event.contains_tile(tile)
+		if inside and not _active_lighting_events.has(event.id):
+			_active_lighting_events[event.id] = true
+			EventBus.lighting_override_requested.emit(event.id, event.profile, event.fade_in if fade_override < 0.0 else maxf(0.01, fade_override))
+		elif not inside and _active_lighting_events.has(event.id):
+			_active_lighting_events.erase(event.id)
+			EventBus.lighting_override_cleared.emit(event.id, event.fade_out)
 
 
 ## 玩家越過 & 觸發點時播放對應的通訊（每輪只播一次，重生後不重播）。
@@ -197,8 +222,13 @@ func _spawn_static_entities() -> void:
 	for i in _layout.lamps.size():
 		var lamp := Lamp.new()
 		lamp.position = _layout.lamps[i] + Vector2(0, 2)
-		# 霓虹三原色交錯，增加畫面層次。
-		lamp.color = [Palette.CYAN, Palette.MAGENTA, Palette.NEON_YELLOW][i % 3]
+		# 風格由所在區段決定；沒有區段時維持霓虹三原色交錯。
+		var tile := int(lamp.position.x / _layout.tile_size)
+		var profile := data.profile_at_tile(tile)
+		if profile != null and profile.lamp_style != null:
+			lamp.apply_style(profile.lamp_style, hash(Vector2i(tile, int(lamp.position.y))))
+		else:
+			lamp.color = [Palette.CYAN, Palette.MAGENTA, Palette.NEON_YELLOW][i % 3]
 		_world.add_child(lamp)
 	for hint in _layout.hints:
 		var sign := HintSign.new()
@@ -220,13 +250,17 @@ func _spawn_decor() -> void:
 		var cell: Vector2i = entry["cell"]
 		var position: Vector2 = entry["position"]
 		var hash_value := absi(cell.x * 73856093 ^ cell.y * 19349663)
-		var neon: Color = Palette.NEON_COLORS[hash_value % Palette.NEON_COLORS.size()]
+		var zone_profile := data.profile_at_tile(cell.x)
+		var palette: PackedColorArray = zone_profile.neon_colors if zone_profile != null and not zone_profile.neon_colors.is_empty() else PackedColorArray(Palette.NEON_COLORS)
+		var neon: Color = palette[hash_value % palette.size()]
+		var neon_intensity := zone_profile.neon_energy if zone_profile != null else 1.0
 		match str(entry["kind"]):
 			"neon_sign", "neon_sign_h":
 				var sign := NeonSign.new()
 				sign.vertical = entry["kind"] == "neon_sign"
 				sign.text = data.sign_texts[hash_value % data.sign_texts.size()] if not data.sign_texts.is_empty() else "OPEN"
 				sign.color = neon
+				sign.intensity = neon_intensity
 				sign.position = position
 				sign.floor_y = _layout.floor_below(cell.x, cell.y)
 				_world.add_child(sign)
@@ -332,6 +366,8 @@ func _start_boss_fight() -> void:
 	gate_visual.size = Vector2(tile, _layout.pixel_size().y)
 	_world.add_child(gate_visual)
 	camera.lock_left(_layout.arena_x)
+	if data.boss_lighting != null:
+		EventBus.lighting_override_requested.emit(BOSS_LIGHTING_ID, data.boss_lighting, BOSS_LIGHTING_FADE)
 	Fx.shake(4.0, 0.4)
 	EventBus.toast_requested.emit("警告：偵測到大型反應")
 	if _layout.boss_spawn.is_empty():
@@ -378,6 +414,7 @@ func _on_player_died(cause: StringName) -> void:
 
 
 func _on_boss_defeated() -> void:
+	EventBus.lighting_override_cleared.emit(BOSS_LIGHTING_ID, BOSS_LIGHTING_FADE * 2.0)
 	if _finished:
 		return
 	_finished = true
