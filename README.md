@@ -128,6 +128,8 @@ pm/            票券（需求、驗收、交付紀錄）
 
 **新增劇情**：在 `data/story/*.json` 加入場景（`mode` 為 `cinematic` 或 `radio`），關卡以 `Story.play(場景 id)` 播放。過場每段至多 6 句、通訊每段 1～2 句，講者要有頭像（`tools/art/paint_assets.tscn -- --only=portrait_<id>` 可產生暫代頭像），啟動時 `Story.validate()` 會檢查。新章節：新增 `chapter_XX.json`、把路徑加進 `Story.CHAPTER_PATHS`，場景 id 用章節前綴（`c2_…`）避免重複，關卡資料的 `chapter` 指向該章。
 
+**新增敵人**：複製 `data/enemies/*.tres`（數值、`ability_*` 依行為解讀）；要新行為就寫一個繼承 `Enemy` 的腳本（預兆用 `_start_telegraph`、護盾由基底處理）。每個攻擊來源（`contact_source_id`、子彈的 `source_id`、程式裡改過的來源）都要在 `data/codex/defeat_cards.json` 有卡片，測試會檢查。迷彩獵手用 `LightKit.light_level_at()` 判斷被燈照到。
+
 **新增可破壞物與機關**：在 `data/props/` 複製 `BreakableData`（箱子、油桶、玻璃：血量、大小、爆炸、掉落）或 `MechanismData`（升降梯、閘門、開關、電力開關），再在關卡資料的 `legend` 把一個字元對應到它，就能在地圖上擺。開關與閘門用相同的 `channel` 連動；電力開關的 `channel` 是電力區域 id。要在檢查點存取狀態的新物件，加入 `WorldState.GROUP` 並實作 `state_key()`／`capture_state()`／`restore_state()`。會消耗電力的物件用 `PowerGrid.is_powered(self)` 判斷。
 
 **新增劇情道具**：複製 `data/story_items/*.tres` 修改名稱、說明與取得時機（開局、某個劇情場景播完、擊敗頭目，或由程式取得），圖示放在 `art/items/icons/<icon>.png`。道具跟著本輪進度：重開關卡與從檢查點重生都保留，開始新遊戲才重置。

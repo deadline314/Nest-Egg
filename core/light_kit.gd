@@ -66,6 +66,21 @@ static func create_point_light(color: Color, radius: float, energy: float, shado
 	return light
 
 
+## 場景光源在某個世界座標的照亮程度（0 = 沒被任何燈照到；光學迷彩敵人用它判斷要不要現形）。
+## 只計算受預算管理的場景燈（路燈、霓虹…），不含環境光；關掉的燈與停電的燈不算。
+static func light_level_at(tree: SceneTree, position: Vector2) -> float:
+	var level := 0.0
+	for node in tree.get_nodes_in_group(SCENE_LIGHTS):
+		var light := node as PointLight2D
+		if light == null or not light.enabled or light.energy <= 0.0 or not light.is_visible_in_tree():
+			continue
+		var radius := light.texture_scale * TEXTURE_SIZE * 0.5
+		var distance := light.global_position.distance_to(position)
+		if distance < radius:
+			level += light.energy * (1.0 - distance / radius)
+	return level
+
+
 ## 自發光材質（共用同一份）：不受環境光與光源影響，永遠維持原本的亮度。
 ## 環境光（CanvasModulate）會壓暗所有受光的東西；子彈、霓虹、危險物、敵人等需要永遠看得見的東西用這個。
 static func emissive_material() -> CanvasItemMaterial:

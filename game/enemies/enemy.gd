@@ -10,7 +10,7 @@ extends CharacterBody2D
 ##   _draw_body(color)    繪製外觀（color 已處理受擊閃白）；有骨架外觀（data.rig_skin）時改用骨架，僅在骨架載入失敗時使用
 ##   _rig_aim()           （可選）骨架手持武器的瞄準方向（世界座標單位向量）
 ##   _draw_overlay()      （可選）繪製預兆，如瞄準線、落點圈
-##   _guard(info) -> Hurtbox.Guard （可選）格擋判定，例如盾牌
+##   _guard(info) -> Hurtbox.Guard （可選）格擋判定，例如盾牌（支援型敵人給的護盾由基底處理，不需要寫在這裡）
 ##   _on_stunned()        （可選）被暈眩時切回安全狀態
 ##   _on_defeated(info)   （可選）死亡時的特殊效果，例如連鎖爆炸
 ##   _play_death()        （可選）自訂死亡演出
@@ -23,6 +23,8 @@ const ACTIVATION_MARGIN := 80.0
 ## 瞄準玩家身體中心的高度偏移。
 const TARGET_HEIGHT := 24.0
 const RIG_DEATH_TIME := 0.9
+## 護盾最多疊幾層（每層擋掉一次攻擊；爆炸與終結技無視護盾）。
+const MAX_SHIELD := 3
 
 ## 畫面外休眠的總開關（無頭測試等沒有畫面的環境會關閉）。
 static var activation_culling_enabled := true
@@ -33,6 +35,8 @@ var hurtbox: Hurtbox
 var contact: ContactHitbox
 var fsm := StateMachine.new()
 var facing: int = -1
+## 護盾層數（支援型敵人給的）：每層擋掉一次攻擊。
+var shield := 0
 ## 骨架外觀（人形敵人）；機械類敵人為 null，改用 _draw_body 程式繪製。
 var rig: CharacterRig
 
@@ -99,7 +103,7 @@ func _build_components() -> void:
 	hurtbox = Hurtbox.new()
 	add_child(hurtbox)
 	hurtbox.setup(Combat.Team.ENEMY, health, size, center)
-	hurtbox.guard = _guard
+	hurtbox.guard = _guard_with_shield
 	hurtbox.hit_blocked.connect(_on_blocked)
 
 	if not data.rig_skin.is_empty():
@@ -155,6 +159,16 @@ func _uses_activation_culling() -> bool:
 
 func _guard(_info: DamageInfo) -> Hurtbox.Guard:
 	return Hurtbox.Guard.NONE
+
+
+## 先扣護盾，再交給子類別的格擋判定。
+func _guard_with_shield(info: DamageInfo) -> Hurtbox.Guard:
+	if shield > 0:
+		shield -= 1
+		Fx.impact(_center(), Vector2(-signf(info.knockback.x) if info.knockback.x != 0.0 else -facing, -0.3), Palette.CYAN, 6)
+		Sfx.play(&"block", -4.0)
+		return Hurtbox.Guard.BLOCK
+	return _guard(info)
 
 
 @abstract func _draw_body(color: Color) -> void
@@ -231,6 +245,8 @@ func _draw() -> void:
 		_draw_body(color)
 	_draw_overlay()
 	var top := -data.body_size.y - 8.0
+	if shield > 0:
+		_draw_shield()
 	if is_telegraphing():
 		# 攻擊預兆：發光驚嘆號。
 		var red := LightKit.glow(Palette.DANGER, 2.5)
@@ -244,9 +260,32 @@ func _draw() -> void:
 		draw_colored_polygon(PackedVector2Array([p + Vector2(0, -4), p + Vector2(3, 0), p + Vector2(0, 4), p + Vector2(-3, 0)]), c)
 
 
+## 護盾外觀：身體外圍的青色六角形，層數越多越亮。
+func _draw_shield() -> void:
+	var radius := maxf(data.body_size.x, data.body_size.y) * 0.62
+	var center := Vector2(0, -data.body_size.y * 0.5)
+	var color := LightKit.glow(Palette.CYAN, 1.0 + 0.5 * shield + 0.3 * sin(_anim_time * 6.0))
+	color.a = 0.55 + 0.1 * shield
+	var points := PackedVector2Array()
+	for i in 7:
+		points.append(center + Vector2.RIGHT.rotated(TAU * i / 6.0 + PI / 6.0) * radius)
+	draw_polyline(points, color, 1.5)
+
+
 # ---------------------------------------------------------------------------
 # 受擊、破防、死亡
 # ---------------------------------------------------------------------------
+
+func is_dying() -> bool:
+	return _dying
+
+
+## 支援型敵人替這個敵人加護盾（上限 MAX_SHIELD 層）。
+func add_shield(layers: int) -> void:
+	if _dying:
+		return
+	shield = mini(MAX_SHIELD, shield + maxi(0, layers))
+
 
 func can_be_finished() -> bool:
 	return _is_finishable and not _dying

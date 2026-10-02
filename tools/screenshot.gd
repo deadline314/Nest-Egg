@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim、block、story、story_ch2、props、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
+## 情境：all（預設）、settings、mouse_aim、block、story、story_ch2、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -34,6 +34,10 @@ func _run() -> void:
 		return
 	if _scenario == "story_ch2":
 		await _run_story_ch2()
+		get_tree().quit()
+		return
+	if _scenario == "new_enemies":
+		await _run_new_enemies()
 		get_tree().quit()
 		return
 	if _scenario == "props":
@@ -217,6 +221,84 @@ func _run_story_ch2() -> void:
 
 func _show_chapter_card(level: Level, title: String, subtitle: String) -> void:
 	level._show_chapter_card(title, subtitle, false)
+
+
+## 第二章新敵人：切割者的蓄力與撲擊、迷彩獵手（暗處隱形／燈下現形）、維修機的光束與護盾、精銳保全。
+func _run_new_enemies() -> void:
+	var data := NewEnemiesSuite.arena_data()
+	var zone := LightingZone.new()
+	zone.start_tile = 0
+	zone.profile = load("res://data/lighting/facility.tres")
+	data.lighting_zones = [zone]
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(data)
+	add_child(level)
+	await _settle(20)
+	var player := level.player
+	player.health.setup(999, 0.0)
+	var floor_y := 20 * 16.0
+	player.global_position = Vector2(12 * 16.0, floor_y)
+	level_camera_snap()
+	var slasher := _spawn_enemy(level, "res://data/enemies/slasher.tres", 22.0)
+	while not slasher.fsm.is_in(&"windup"):
+		await _wait(0.05)
+	await _wait(0.3)
+	_capture("enemies2_slasher_windup")
+	while not slasher.fsm.is_in(&"leap"):
+		await _wait(0.03)
+	await _wait(0.12)
+	_capture("enemies2_slasher_leap")
+	slasher.queue_free()
+	# 兩隻迷彩獵手：右邊那隻站在燈下現形，左邊那隻在暗處隱形。
+	var hidden := _spawn_enemy(level, "res://data/enemies/stalker.tres", 16.5)
+	var lit := _spawn_enemy(level, "res://data/enemies/stalker.tres", 24.0)
+	for e in [hidden, lit]:
+		e.set_physics_process(false)
+	var lamp := LightKit.create_point_light(Color(1.0, 0.85, 0.6), 110.0, 1.6, false)
+	lamp.global_position = lit.global_position + Vector2(0, -40)
+	level.add_child(lamp)
+	player.global_position = Vector2(8 * 16.0, floor_y)
+	level_camera_snap()
+	for step in 40:
+		await _wait(0.05)
+		hidden._update_visibility(0.05)
+		lit._update_visibility(0.05)
+		hidden.queue_redraw()
+		lit.queue_redraw()
+	_capture("enemies2_stalker_cloak")
+	hidden.queue_free()
+	lit.queue_free()
+	lamp.queue_free()
+	# 維修機替保全加護盾。
+	var grunt := _spawn_enemy(level, "res://data/enemies/grunt.tres", 26.0)
+	var elite := _spawn_enemy(level, "res://data/enemies/elite_grunt.tres", 30.0)
+	var drone := _spawn_enemy(level, "res://data/enemies/repair_drone.tres", 28.0)
+	drone.position.y = floor_y - 70.0
+	player.global_position = Vector2(14 * 16.0, floor_y)
+	level_camera_snap()
+	for e in [grunt, elite]:
+		e.set_physics_process(false)
+	while not drone.fsm.is_in(&"channel"):
+		await _wait(0.05)
+		grunt.queue_redraw()
+		elite.queue_redraw()
+	await _wait(0.5)
+	_capture("enemies2_repair_beam")
+	while grunt.shield == 0 and elite.shield == 0:
+		await _wait(0.05)
+	for i in 6:
+		await _wait(0.1)
+		grunt.queue_redraw()
+		elite.queue_redraw()
+	_capture("enemies2_shielded")
+
+
+func _spawn_enemy(level: Level, path: String, x_tile: float) -> Enemy:
+	var enemy := level._create_enemy(load(path) as EnemyData)
+	enemy.position = Vector2(x_tile * 16.0, 20 * 16.0)
+	level._entities.add_child(enemy)
+	return enemy
 
 
 ## 可破壞物與環境機關：用測試地圖（tests/fixtures/props_map.json）拍破壞、爆炸、閘門、升降梯與斷電。

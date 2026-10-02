@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/repair_drone.gd" id="2_behavior"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"repair_drone"
+behavior = ExtResource("2_behavior")
+display_name = "維修機"
+body_size = Vector2(18, 16)
+color = Color(0.616, 0.906, 0.706, 1.0)
+uses_gravity = false
+max_health = 3
+move_speed = 80.0
+contact_damage = 1
+contact_source_id = &"medic_contact"
+detect_range = 300.0
+attack_cooldown = 3.0
+telegraph_time = 0.4
+ability_time = 0.9
+ability_radius = 220.0
+ability_damage = 1
+knockback_scale = 0.8
+finish_health_ratio = 0.0
+health_drop_chance = 0.2

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ProjectileSpec" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/projectile_spec.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+source_id = &"stalker_shot"
+speed = 230.0
+lifetime = 1.8
+damage = 1
+radius = 2.5
+length = 9.0
+color = Color(0.349, 0.906, 0.839, 1.0)

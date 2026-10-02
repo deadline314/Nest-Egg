@@ -41,6 +41,7 @@ func _run() -> void:
 	await _test_checkpoints_and_difficulties()
 	await _test_death_flow()
 	await PropsSuite.new(self).run()
+	await NewEnemiesSuite.new(self).run()
 	print("checks: %d, failures: %d" % [_checks, _failures.size()])
 	for failure in _failures:
 		printerr("FAIL: " + failure)

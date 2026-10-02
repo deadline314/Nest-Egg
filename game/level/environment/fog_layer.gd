@@ -59,6 +59,9 @@ func _draw() -> void:
 func _tinted(position: Vector2) -> Color:
 	var result := color
 	for light in _tint_sources:
+		# 清單每 0.25 秒才更新，期間燈可能已被移除（壞掉、關卡中途生成的臨時燈）。
+		if not is_instance_valid(light):
+			continue
 		var distance := light.global_position.distance_to(to_global(position))
 		if distance < TINT_RANGE:
 			var weight := (1.0 - distance / TINT_RANGE) * TINT_STRENGTH

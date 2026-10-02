@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/slasher.gd" id="2_behavior"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"slasher"
+behavior = ExtResource("2_behavior")
+display_name = "切割者"
+body_size = Vector2(14, 44)
+color = Color(1.0, 0.549, 0.169, 1.0)
+max_health = 5
+move_speed = 44.0
+contact_damage = 1
+contact_source_id = &"slasher_contact"
+detect_range = 170.0
+attack_cooldown = 1.3
+telegraph_time = 0.55
+ability_speed = 250.0
+ability_time = 0.85
+ability_damage = 2
+knockback_scale = 0.3
+finish_health_ratio = 0.4
+stagger_duration = 1.4
+health_drop_chance = 0.15

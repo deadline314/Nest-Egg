@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/grunt.gd" id="2_behavior"]
+[ext_resource type="Resource" path="res://data/projectiles/elite_shot.tres" id="3_proj"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"elite_grunt"
+behavior = ExtResource("2_behavior")
+projectile = ExtResource("3_proj")
+display_name = "精銳保全"
+body_size = Vector2(14, 44)
+color = Color(1.0, 0.784, 0.29, 1.0)
+max_health = 9
+move_speed = 46.0
+contact_damage = 1
+contact_source_id = &"grunt_contact"
+detect_range = 280.0
+attack_range = 260.0
+attack_cooldown = 1.2
+telegraph_time = 0.5
+knockback_scale = 0.25
+finish_health_ratio = 0.4
+stagger_duration = 1.2
+health_drop_chance = 0.3
+rig_skin = "trooper"
+rig_weapon = "rifle"
