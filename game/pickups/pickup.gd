@@ -72,7 +72,12 @@ func _on_body_entered(body: Node2D) -> void:
 		Fx.flash_light(global_position + Vector2(0, -8), Palette.CYAN, 60.0, 1.2, 0.25)
 		Sfx.play(&"pickup", -6.0)
 		set_deferred(&"monitoring", false)
-		queue_free()
+		_consume()
+
+
+## 撿起後的處理（預設移除）。需要保留節點的道具（例如要存進檢查點）可以覆寫。
+func _consume() -> void:
+	queue_free()
 
 
 ## 碰到的可能是玩家本人，或玩家正在駕駛的載具。

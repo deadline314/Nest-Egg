@@ -15,6 +15,9 @@ const MESSAGE_TIME := 2.4
 const MARGIN := Vector2(24, 10)
 const HEADER_HEIGHT := 34.0
 const FOOTER_HEIGHT := 24.0
+const TABS_LEFT := 96.0
+const TAB_GAP := 4
+const TAB_MAX_WIDTH := 104.0
 const LEGEND_TEMPLATE := "{inventory} 關閉　Q／E 切換分頁　↑↓ 選擇　Enter 確認"
 
 ## 死亡或過關時由關卡關閉，避免和結算畫面同時出現。
@@ -27,6 +30,7 @@ var _current := 0
 var _root: Control
 var _frame: Control
 var _scan: ColorRect
+var _tabs: HBoxContainer
 var _tab_buttons: Array[Button] = []
 var _page_host: Control
 var _hint_label: Label
@@ -129,6 +133,14 @@ func close() -> void:
 	closed.emit()
 
 
+## 某種分頁目前在第幾個位置（找不到回傳 -1）；測試與工具用它，不必寫死分頁順序。
+func page_index(page_type: Script) -> int:
+	for i in _pages.size():
+		if _pages[i].get_script() == page_type:
+			return i
+	return -1
+
+
 func select_tab(index: int) -> void:
 	if index == _current or index < 0 or index >= _pages.size():
 		return
@@ -158,15 +170,10 @@ func _build_layout() -> void:
 	title.position = Vector2(MARGIN.x, MARGIN.y + 2)
 	_frame.add_child(title)
 
-	var tabs := HBoxContainer.new()
-	tabs.position = Vector2(150, MARGIN.y)
-	tabs.add_theme_constant_override(&"separation", 6)
-	_frame.add_child(tabs)
-	_tab_buttons.clear()
-	for i in 4:
-		var button := _make_tab_button(i)
-		tabs.add_child(button)
-		_tab_buttons.append(button)
+	_tabs = HBoxContainer.new()
+	_tabs.position = Vector2(TABS_LEFT, MARGIN.y)
+	_tabs.add_theme_constant_override(&"separation", TAB_GAP)
+	_frame.add_child(_tabs)
 
 	_page_host = Control.new()
 	_page_host.position = Vector2(MARGIN.x, MARGIN.y + HEADER_HEIGHT + 8)
@@ -194,11 +201,11 @@ func _build_layout() -> void:
 	_root.add_child(_scan)
 
 
-func _make_tab_button(index: int) -> Button:
+func _make_tab_button(index: int, width: float) -> Button:
 	var button := Button.new()
 	button.toggle_mode = false
 	button.focus_mode = Control.FOCUS_NONE
-	button.custom_minimum_size = Vector2(104, 26)
+	button.custom_minimum_size = Vector2(width, 26)
 	button.pressed.connect(func() -> void: select_tab(index))
 	button.mouse_entered.connect(func() -> void: _show_hint(_pages[index].tab_tooltip()))
 	return button
@@ -206,8 +213,14 @@ func _make_tab_button(index: int) -> Button:
 
 ## 分頁清單。新增分頁在這裡加一行，標籤與切換會自動處理。
 func _create_pages() -> void:
-	var pages: Array[InventoryPage] = [WeaponsPage.new(), ConsumablesPage.new(), StoryItemsPage.new(), StatusPage.new()]
+	var pages: Array[InventoryPage] = [WeaponsPage.new(), UpgradesPage.new(), ConsumablesPage.new(), StoryItemsPage.new(), StatusPage.new()]
+	# 分頁標籤的寬度依分頁數量自動縮放，塞得進畫面。
+	var available := 640.0 - TABS_LEFT - MARGIN.x
+	var tab_width := minf(TAB_MAX_WIDTH, (available - TAB_GAP * (pages.size() - 1)) / pages.size())
 	for i in pages.size():
+		var button := _make_tab_button(i, tab_width)
+		_tabs.add_child(button)
+		_tab_buttons.append(button)
 		var page := pages[i]
 		page.bind(_context)
 		page.set_anchors_preset(Control.PRESET_FULL_RECT)

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WeaponUpgradeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/weapon_upgrade_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"quick_reload"
+display_name = "快速換彈"
+effect = 2
+amount = 0.25
+cost = 100
+description = "換彈時間縮短 25%"
+order = 2

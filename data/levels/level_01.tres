@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=40 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=42 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_script"]
 [ext_resource type="Resource" path="res://data/enemies/grunt.tres" id="2_grunt"]
@@ -22,6 +22,8 @@
 [ext_resource type="Resource" path="res://data/story_items/doc_cargo_manifest.tres" id="41_manifest"]
 [ext_resource type="Resource" path="res://data/story_items/rec_old_k_voicemail.tres" id="42_voicemail"]
 [ext_resource type="Resource" path="res://data/props/cracked_wall.tres" id="43_wall"]
+[ext_resource type="Resource" path="res://data/props/credits_small.tres" id="44_credits_small"]
+[ext_resource type="Resource" path="res://data/props/credits_large.tres" id="45_credits_large"]
 [ext_resource type="Resource" path="res://data/lighting/rooftop.tres" id="20_rooftop"]
 [ext_resource type="Resource" path="res://data/lighting/market.tres" id="21_market"]
 [ext_resource type="Resource" path="res://data/lighting/freight.tres" id="22_freight"]
@@ -87,12 +89,14 @@ legend = Dictionary[String, Resource]({
 "V": ExtResource("15_railgun"),
 "X": ExtResource("8_warden"),
 "b": ExtResource("6_bomber"),
+"c": ExtResource("44_credits_small"),
 "d": ExtResource("4_drone"),
 "e": ExtResource("17_cell"),
 "f": ExtResource("40_flyer"),
 "g": ExtResource("2_grunt"),
 "i": ExtResource("16_med"),
 "m": ExtResource("7_mortar"),
+"q": ExtResource("45_credits_large"),
 "r": ExtResource("3_rusher"),
 "t": ExtResource("5_turret"),
 "v": ExtResource("42_voicemail"),

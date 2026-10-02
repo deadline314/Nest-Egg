@@ -52,6 +52,8 @@ extends Resource
 @export_range(0.0, 1.0) var finish_health_ratio: float = 0.34
 @export var stagger_duration: float = 1.2
 @export_range(0.0, 1.0) var health_drop_chance: float = 0.1
+## 被玩家擊敗時掉落的信用點（0 = 不掉）。
+@export var credit_value: int = 0
 
 
 func find_projectile(source: StringName) -> ProjectileSpec:

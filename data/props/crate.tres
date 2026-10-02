@@ -16,3 +16,4 @@ color = Color(0.45, 0.4, 0.34, 1.0)
 drops = Array[Resource]([ExtResource("2_med"), ExtResource("3_cell")])
 drop_chance = 0.6
 health_drop_chance = 0.3
+credit_drop = 15

@@ -43,6 +43,7 @@ func _run() -> void:
 	await PropsSuite.new(self).run()
 	await NewEnemiesSuite.new(self).run()
 	await CollectiblesSuite.new(self).run()
+	await ProgressionSuite.new(self).run()
 	print("checks: %d, failures: %d" % [_checks, _failures.size()])
 	for failure in _failures:
 		printerr("FAIL: " + failure)
@@ -874,17 +875,18 @@ func _test_inventory() -> void:
 	await _press_action(&"pause")
 	_check(not inventory.is_open() and not get_tree().paused and not level._pause_menu._root.visible, "escape closes the bag without opening the pause menu")
 
-	# 分頁：四頁，Q／E 切換並循環，每頁都有標題與提示。
+	# 分頁：Q／E 切換並循環，每頁都有標題與提示。
 	await _press_action(&"inventory")
-	_check(inventory._pages.size() == 4, "bag has four tabs")
+	var tab_count: int = inventory._pages.size()
+	_check(tab_count >= 5, "bag has its tabs (%d)" % tab_count)
 	for page in inventory._pages:
 		_check(not page.tab_title().is_empty() and not page.tab_tooltip().is_empty(), "tab has a title and tooltip")
 	_check(inventory._current == 0, "bag opens on the weapons tab")
 	await _press_action(&"inventory_next_tab")
-	_check(inventory._current == 1, "next-tab key moves to consumables")
+	_check(inventory._current == 1, "next-tab key moves to the second tab")
 	await _press_action(&"inventory_prev_tab")
 	await _press_action(&"inventory_prev_tab")
-	_check(inventory._current == 3, "previous-tab key wraps to the status tab")
+	_check(inventory._current == tab_count - 1, "previous-tab key wraps around from the first tab")
 	inventory.select_tab(0)
 
 	# 武器分頁：四個欄位、手上武器標記、選另一把並確認後換成手上武器。
@@ -905,10 +907,10 @@ func _test_inventory() -> void:
 	_check(player.loadout.active_slot == held, "empty slot cannot be equipped")
 
 	# 消耗品分頁：滿血不會用掉；受傷後使用回血、數量減少。
-	inventory.select_tab(1)
+	inventory.select_tab(inventory.page_index(ConsumablesPage))
 	var med := ConsumableBag.find(&"med_injector")
 	player.consumables.add(med)
-	var consumables: ConsumablesPage = inventory._pages[1]
+	var consumables: ConsumablesPage = inventory._pages[inventory.page_index(ConsumablesPage)]
 	consumables.refresh()
 	consumables._select(0)
 	consumables.activate()
@@ -923,8 +925,8 @@ func _test_inventory() -> void:
 	_check(consumables._entries[0].dimmed and not consumables._entries[0].action_enabled, "empty consumable is dimmed and cannot be used")
 
 	# 劇情道具分頁：新取得的標 NEW，看過後取消。
-	inventory.select_tab(2)
-	var story_page: StoryItemsPage = inventory._pages[2]
+	inventory.select_tab(inventory.page_index(StoryItemsPage))
+	var story_page: StoryItemsPage = inventory._pages[inventory.page_index(StoryItemsPage)]
 	_check(story_page._entries.size() == StoryItems.owned_items().size() and story_page._entries.size() >= 2, "story tab lists owned items")
 	_check(story_page._entries[0].badge == "NEW" and StoryItems.new_count() > 0, "new story items are flagged")
 	var first_id := story_page._entries[0].id
@@ -933,8 +935,8 @@ func _test_inventory() -> void:
 	_check(story_page._entries[1].action_label.is_empty(), "story items have no action")
 
 	# 角色狀態分頁：數字取自這一輪的紀錄。
-	inventory.select_tab(3)
-	var status: StatusPage = inventory._pages[3]
+	inventory.select_tab(inventory.page_index(StatusPage))
+	var status: StatusPage = inventory._pages[inventory.page_index(StatusPage)]
 	GameState.kills = 7
 	status.refresh()
 	await get_tree().create_timer(0.1, true).timeout

@@ -15,7 +15,10 @@ const SNAPSHOT_VERSION := 2
 
 var active_slot := PRIMARY
 
+## 改裝後的實際武器（讀數值用）；沒有改裝時與 _bases 是同一個物件。
 var _weapons: Array[WeaponData] = []
+## 原始武器資料（存檔、比對 id 用）。
+var _bases: Array[WeaponData] = []
 var _mag: Array[int] = []
 ## -1 代表無限備彈。
 var _reserve: Array[int] = []
@@ -25,6 +28,7 @@ var _reload_total := 0.0
 
 func reset(primary: WeaponData) -> void:
 	_weapons.clear()
+	_bases.clear()
 	_mag.clear()
 	_reserve.clear()
 	_cancel_reload()
@@ -77,8 +81,9 @@ func equip(weapon: WeaponData) -> int:
 		slot = _weapons.size() - 1
 	else:
 		slot = active_slot if active_slot != PRIMARY else _weapons.size() - 1
-		_weapons[slot] = weapon
-		_mag[slot] = weapon.magazine_size
+		_bases[slot] = weapon
+		_weapons[slot] = _effective(weapon)
+		_mag[slot] = _weapons[slot].magazine_size
 		_reserve[slot] = weapon.max_reserve
 	_cancel_reload()
 	active_slot = slot
@@ -106,6 +111,19 @@ func select(slot: int) -> void:
 ## 這一欄可以換成手上武器嗎（有武器、有彈藥、而且不是目前這一把）。
 func can_select(slot: int) -> bool:
 	return slot != active_slot and _is_usable(slot)
+
+
+## 改裝變動後重新計算每把武器的實際數值。彈匣變大時，多出來的子彈直接補進彈匣。
+func retune() -> void:
+	for i in _weapons.size():
+		var before := _weapons[i]
+		var after := _effective(_bases[i])
+		if after.magazine_size > before.magazine_size:
+			_mag[i] += after.magazine_size - before.magazine_size
+		_weapons[i] = after
+		if after.has_magazine():
+			_mag[i] = mini(_mag[i], after.magazine_size)
+	changed.emit()
 
 
 # ---------------------------------------------------------------------------
@@ -192,7 +210,7 @@ func refill_ratio(ratio: float) -> void:
 
 func snapshot() -> Dictionary:
 	var paths: Array[String] = []
-	for weapon in _weapons:
+	for weapon in _bases:
 		paths.append(weapon.resource_path if weapon != null else "")
 	return {"version": SNAPSHOT_VERSION, "weapons": paths, "mag": _mag.duplicate(), "reserve": _reserve.duplicate(), "active": active_slot}
 
@@ -208,6 +226,7 @@ func restore(data: Dictionary, default_primary: WeaponData) -> void:
 	var reserves: Array = _int_array(data.get("reserve", []))
 	var legacy: Array = _int_array(data.get("ammo", [])) if not data.has("mag") else []
 	_weapons.clear()
+	_bases.clear()
 	_mag.clear()
 	_reserve.clear()
 	for i in mini(MAX_SLOTS, (paths as Array).size()):
@@ -224,9 +243,11 @@ func restore(data: Dictionary, default_primary: WeaponData) -> void:
 				_mag[slot] = clampi(int(mags[i]), 0, weapon.magazine_size)
 			if i < reserves.size():
 				_reserve[slot] = -1 if weapon.has_infinite_reserve() else clampi(int(reserves[i]), 0, weapon.max_reserve)
-	if _weapons.is_empty() or (default_primary != null and _weapons[0] != default_primary and find_slot(default_primary.id) < 0):
-		_weapons.insert(0, default_primary)
-		_mag.insert(0, default_primary.magazine_size)
+	if _weapons.is_empty() or (default_primary != null and _bases[0] != default_primary and find_slot(default_primary.id) < 0):
+		var primary := _effective(default_primary)
+		_bases.insert(0, default_primary)
+		_weapons.insert(0, primary)
+		_mag.insert(0, primary.magazine_size)
 		_reserve.insert(0, default_primary.max_reserve)
 	var wanted := int(data.get("active", PRIMARY))
 	active_slot = wanted if _is_usable(wanted) else PRIMARY
@@ -236,9 +257,15 @@ func restore(data: Dictionary, default_primary: WeaponData) -> void:
 # ---------------------------------------------------------------------------
 
 func _append(weapon: WeaponData) -> void:
-	_weapons.append(weapon)
-	_mag.append(weapon.magazine_size)
+	var effective := _effective(weapon)
+	_bases.append(weapon)
+	_weapons.append(effective)
+	_mag.append(effective.magazine_size)
 	_reserve.append(weapon.max_reserve)
+
+
+static func _effective(base: WeaponData) -> WeaponData:
+	return Progression.tuned(base)
 
 
 func _switch_to(slot: int) -> void:

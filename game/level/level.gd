@@ -55,6 +55,8 @@ func _ready() -> void:
 		menu_requested.emit.call_deferred()
 		return
 
+	# 成長進度（信用點、改裝）：從檢查點重生就還原成檢查點當下，否則還原成進入關卡時；要在玩家（武器欄）建立之前。
+	Progression.restore(GameState.checkpoint_progress if GameState.has_checkpoint else GameState.level_start_progress)
 	# 環境光：沒被光源照到的東西會被壓暗；發光的東西用自發光材質不受影響（見 LightKit.mark_emissive）。
 	var ambient := CanvasModulate.new()
 	ambient.name = "Ambient"
@@ -280,7 +282,7 @@ func _spawn_static_entities() -> void:
 		_entities.add_child(sign)
 	for spawn in _layout.spawns:
 		var resource: Resource = spawn["resource"]
-		var node := _create_prop(spawn) if resource is BreakableData or resource is MechanismData else _create_entity(resource)
+		var node := _create_prop(spawn) if resource is BreakableData or resource is MechanismData or resource is CreditPileData else _create_entity(resource)
 		if node != null:
 			node.position = spawn["position"]
 			_entities.add_child(node)
@@ -375,6 +377,13 @@ func _create_prop(spawn: Dictionary) -> Node2D:
 		breakable.configure(resource as BreakableData, cell, _layout.tile_size)
 		breakable.broken.connect(_on_breakable_broken)
 		return breakable
+	if resource is CreditPileData:
+		var pile := resource as CreditPileData
+		for problem in pile.validate():
+			push_error("[Level] %s" % problem)
+		var credits := CreditPickup.new()
+		credits.configure_pile(pile, cell)
+		return credits
 	if resource is MechanismData:
 		var mechanism := resource as MechanismData
 		for problem in mechanism.validate():
@@ -401,8 +410,13 @@ func _create_prop(spawn: Dictionary) -> Node2D:
 
 ## 破壞後生成掉落物（依位置固定的隨機結果）。
 func _on_breakable_broken(breakable: Breakable) -> void:
-	var drop := breakable.roll_drop()
 	var position := breakable.world_center()
+	if breakable.data.credit_drop > 0:
+		var credits := CreditPickup.new()
+		credits.value = breakable.data.credit_drop
+		credits.position = position
+		_entities.add_child.call_deferred(credits)
+	var drop := breakable.roll_drop()
 	var item: Node2D = null
 	if drop["resource"] != null:
 		item = _create_entity(drop["resource"])

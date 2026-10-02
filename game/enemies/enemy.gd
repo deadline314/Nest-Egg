@@ -361,12 +361,22 @@ func _on_died(info: DamageInfo) -> void:
 
 
 func _try_drop(by_finisher: bool) -> void:
+	_drop_credits()
 	var chance := data.health_drop_chance + (0.25 if by_finisher else 0.0)
 	if randf() >= chance or get_parent() == null:
 		return
 	var pickup := HealthPickup.new()
 	pickup.position = position + Vector2(0, -4)
 	get_parent().add_child.call_deferred(pickup)
+
+
+func _drop_credits() -> void:
+	if data.credit_value <= 0 or get_parent() == null:
+		return
+	var credits := CreditPickup.new()
+	credits.value = data.credit_value
+	credits.position = position + Vector2(randf_range(-6.0, 6.0), -4)
+	get_parent().add_child.call_deferred(credits)
 
 
 # ---------------------------------------------------------------------------

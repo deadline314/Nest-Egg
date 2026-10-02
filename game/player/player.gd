@@ -120,6 +120,11 @@ func _ready() -> void:
 	loadout.reload_started.connect(func() -> void: Sfx.play(&"reload_start", -4.0))
 	loadout.reload_finished.connect(func() -> void: Sfx.play(&"reload_done", -3.0))
 	loadout.restore(_loadout_snapshot, tuning.default_weapon)
+	# 武器改裝後重新計算實際數值；離開場景時解除（武器欄是 RefCounted，不解除會一直被單例持有）。
+	Progression.upgrades_changed.connect(loadout.retune)
+	tree_exiting.connect(func() -> void:
+		if Progression.upgrades_changed.is_connected(loadout.retune):
+			Progression.upgrades_changed.disconnect(loadout.retune))
 	consumables.changed.connect(func() -> void: EventBus.player_consumables_changed.emit(consumables))
 	consumables.restore(_loadout_snapshot.get("consumables", {}))
 	_last_safe_position = global_position

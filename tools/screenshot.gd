@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim、block、story、story_ch2、collectibles、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
+## 情境：all（預設）、settings、mouse_aim、block、story、story_ch2、collectibles、progression、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -38,6 +38,10 @@ func _run() -> void:
 		return
 	if _scenario == "new_enemies":
 		await _run_new_enemies()
+		get_tree().quit()
+		return
+	if _scenario == "progression":
+		await _run_progression()
 		get_tree().quit()
 		return
 	if _scenario == "collectibles":
@@ -227,6 +231,39 @@ func _show_chapter_card(level: Level, title: String, subtitle: String) -> void:
 	level._show_chapter_card(title, subtitle, false)
 
 
+## 成長系統：HUD 的信用點、背包改裝頁（金額不足、買得起、買完後）。
+func _run_progression() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _settle(20)
+	var player := level.player
+	player.health.setup(999, 0.0)
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	player.global_position = Vector2(14 * 16.0, 14 * 16.0)
+	level_camera_snap()
+	player.loadout.equip(load("res://data/weapons/rifle.tres"))
+	Progression.add_credits(85)
+	await _wait(1.0)
+	_capture("progress_hud")
+	var inventory: InventoryScreen = level._inventory
+	inventory.open()
+	var tab := inventory.page_index(UpgradesPage)
+	inventory.select_tab(tab)
+	await _wait(0.9)
+	_capture("progress_upgrades_poor")
+	Progression.add_credits(400)
+	inventory._pages[tab].refresh()
+	await _wait(0.5)
+	_capture("progress_upgrades_rich")
+	inventory._pages[tab].activate()
+	await _wait(0.6)
+	_capture("progress_upgrades_bought")
+	inventory.close()
+
+
 ## 背景故事收集：第一章的裂縫牆與隱藏房間、撿取提示、背包裡閱讀文件與收集進度。
 func _run_collectibles() -> void:
 	GameState.start_new_run(GameState.difficulties[1])
@@ -267,9 +304,10 @@ func _run_collectibles() -> void:
 	StoryItems.acquire(&"doc_cargo_manifest", false)
 	var inventory: InventoryScreen = level._inventory
 	inventory.open()
-	inventory.select_tab(2)
+	var story_tab := inventory.page_index(StoryItemsPage)
+	inventory.select_tab(story_tab)
 	await _wait(0.9)
-	inventory._pages[2]._select(inventory._pages[2]._entries.size() - 1)
+	inventory._pages[story_tab]._select(inventory._pages[story_tab]._entries.size() - 1)
 	await _wait(0.6)
 	_capture("collect_inventory")
 	inventory.close()
@@ -726,16 +764,17 @@ func _run_inventory() -> void:
 	inventory._pages[0]._select(1)
 	await _wait(0.5)
 	_capture("inventory_weapons")
-	inventory.select_tab(1)
+	var consumables_tab := inventory.page_index(ConsumablesPage)
+	inventory.select_tab(consumables_tab)
 	await _wait(0.6)
 	_capture("inventory_consumables")
-	inventory._pages[1].activate()
+	inventory._pages[consumables_tab].activate()
 	await _wait(0.2)
 	_capture("inventory_use")
-	inventory.select_tab(2)
+	inventory.select_tab(inventory.page_index(StoryItemsPage))
 	await _wait(0.6)
 	_capture("inventory_story")
-	inventory.select_tab(3)
+	inventory.select_tab(inventory.page_index(StatusPage))
 	await _wait(0.9)
 	_capture("inventory_status")
 	inventory.close()

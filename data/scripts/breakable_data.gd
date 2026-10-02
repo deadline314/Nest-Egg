@@ -34,6 +34,8 @@ enum Look {
 @export var drops: Array[Resource] = []
 @export_range(0.0, 1.0) var drop_chance: float = 0.0
 @export_range(0.0, 1.0) var health_drop_chance: float = 0.0
+## 破壞時一定會掉的信用點（0 = 不掉）。
+@export var credit_drop: int = 0
 
 
 func is_explosive() -> bool:
@@ -53,6 +55,8 @@ func validate() -> PackedStringArray:
 	for drop in drops:
 		if not (drop is WeaponData or drop is ConsumableData):
 			problems.append("%s 的掉落物必須是 WeaponData 或 ConsumableData" % id)
+	if credit_drop < 0:
+		problems.append("%s 的信用點掉落不能是負數" % id)
 	if (drop_chance > 0.0 and drops.is_empty()):
 		problems.append("%s 設定了掉落機率但沒有掉落物" % id)
 	return problems

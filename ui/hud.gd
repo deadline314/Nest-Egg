@@ -17,6 +17,8 @@ var _weapon_panel: Control
 var _items_label: Label
 var _lives_label: Label
 var _timer_label: Label
+var _credits_label: Label
+var _credits_tween: Tween
 var _boss_name: Label
 var _toast: Label
 var _controls: Label
@@ -65,6 +67,13 @@ func _ready() -> void:
 	_timer_label.size = Vector2(100, 16)
 	root.add_child(_timer_label)
 
+	_credits_label = UiKit.label("", 11, Palette.NEON_YELLOW, HORIZONTAL_ALIGNMENT_RIGHT)
+	_credits_label.position = Vector2(528, 22)
+	_credits_label.size = Vector2(100, 16)
+	_credits_label.mouse_filter = Control.MOUSE_FILTER_PASS
+	_credits_label.tooltip_text = "信用點：撿取與擊敗敵人取得，在背包改裝武器"
+	root.add_child(_credits_label)
+
 	_boss_name = UiKit.label("", 11, Palette.DANGER, HORIZONTAL_ALIGNMENT_CENTER)
 	_boss_name.position = Vector2(170, 4)
 	_boss_name.size = Vector2(300, 16)
@@ -100,6 +109,8 @@ func _ready() -> void:
 	EventBus.toast_requested.connect(show_toast)
 	EventBus.lives_changed.connect(_on_lives_changed)
 	InputBindings.bindings_changed.connect(_refresh_controls)
+	Progression.credits_changed.connect(_on_credits_changed)
+	_on_credits_changed(Progression.credits, 0)
 	_on_lives_changed(GameState.lives_left)
 
 
@@ -123,6 +134,19 @@ func show_toast(text: String) -> void:
 	_toast_tween = create_tween()
 	_toast_tween.tween_interval(TOAST_TIME)
 	_toast_tween.tween_property(_toast, "modulate:a", 0.0, 0.4)
+
+
+func _on_credits_changed(credits: int, delta: int) -> void:
+	_credits_label.text = "¥ %d" % credits
+	if delta == 0:
+		return
+	# 增加時閃一下金色，花費時閃一下紅色。
+	if _credits_tween != null and _credits_tween.is_valid():
+		_credits_tween.kill()
+	_credits_label.add_theme_color_override(&"font_color", Palette.WHITE if delta > 0 else Palette.DANGER)
+	_credits_tween = create_tween()
+	_credits_tween.tween_interval(0.12)
+	_credits_tween.tween_callback(func() -> void: _credits_label.add_theme_color_override(&"font_color", Palette.NEON_YELLOW))
 
 
 func _on_lives_changed(lives: int) -> void:

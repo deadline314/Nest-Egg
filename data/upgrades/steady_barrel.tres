@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WeaponUpgradeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/weapon_upgrade_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"steady_barrel"
+display_name = "穩定槍管"
+effect = 1
+amount = 0.3
+cost = 150
+description = "散佈減少 30%，中遠距離更準"
+order = 1

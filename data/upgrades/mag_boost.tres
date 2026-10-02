@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WeaponUpgradeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/weapon_upgrade_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"mag_boost"
+display_name = "擴充彈匣"
+effect = 0
+amount = 0.5
+cost = 120
+description = "彈匣容量 +50%，少換幾次彈"
+order = 0
