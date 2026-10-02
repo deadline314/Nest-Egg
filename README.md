@@ -68,7 +68,8 @@ game/          遊戲物件：player、enemies、vehicles、projectiles、pickup
 ui/            HUD 與各畫面（主選單、暫停、失敗、過關、圖鑑）
 tests/         無頭冒煙測試
 tools/         開發工具（測試腳本、自動截圖）
-docs/          遊戲設計文件
+design/        設計文件（決策與理由）
+pm/            票券（需求、驗收、交付紀錄）
 ```
 
 ## 架構重點

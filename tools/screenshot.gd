@@ -1,23 +1,31 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
-## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾
+## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
+## 情境：all（預設）、settings
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
 
 var _out_dir := "user://screenshots"
+var _scenario := "all"
 
 
 func _ready() -> void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--out="):
 			_out_dir = arg.trim_prefix("--out=")
+		elif arg.begins_with("--scenario="):
+			_scenario = arg.trim_prefix("--scenario=")
 	DirAccess.make_dir_recursive_absolute(_out_dir)
 	_run.call_deferred()
 
 
 func _run() -> void:
 	add_child(LightKit.create_environment())
+	if _scenario == "settings":
+		await _run_settings()
+		get_tree().quit()
+		return
 	var menu := MainMenu.new()
 	add_child(menu)
 	await _settle(30)
@@ -51,6 +59,20 @@ func _run() -> void:
 	await _wait(1.8)
 	_capture("07_death_card")
 	get_tree().quit()
+
+
+func _run_settings() -> void:
+	var settings := SettingsScreen.new()
+	add_child(settings)
+	await _settle(20)
+	_capture("settings_audio")
+	settings._tabs.current_tab = 1
+	await _settle(10)
+	settings._begin_capture(&"jump", 1)
+	await _settle(10)
+	_capture("settings_bindings")
+	settings._cancel_capture()
+	settings.queue_free()
 
 
 func _shoot_at(player: Player, position: Vector2, frames: int) -> void:
