@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim、block、story
+## 情境：all（預設）、settings、mouse_aim、block、story、dynamic_hud
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -34,6 +34,10 @@ func _run() -> void:
 		return
 	if _scenario == "block":
 		await _run_block()
+		get_tree().quit()
+		return
+	if _scenario == "dynamic_hud":
+		await _run_dynamic_hud()
 		get_tree().quit()
 		return
 	if _scenario == "mouse_aim":
@@ -160,6 +164,46 @@ func _run_block() -> void:
 	await _wait(0.12)
 	_capture("block_reflect")
 	Input.action_release(&"block")
+
+
+## 動態 HUD：受傷彈出（殘影碎裂）、低血量常駐、破防、彈藥環低彈藥。
+func _run_dynamic_hud() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _settle(20)
+	var player := level.player
+	player.global_position = Vector2(330, 320)
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	level_camera_snap()
+	# 用右搖桿瞄準，不受系統滑鼠位置影響。
+	Input.action_press(&"aim_right")
+	await _wait(3.5)
+	_capture("dynamic_hud_idle")
+	var info := DamageInfo.create(2, Combat.Team.ENEMY, &"test")
+	info.ignore_invulnerability = true
+	player.health.take_damage(info)
+	await _wait(0.12)
+	_capture("dynamic_hud_hit")
+	await _wait(0.6)
+	player.health.take_damage(info)
+	player.loadout.equip(load("res://data/weapons/spread.tres"))
+	Input.action_press(&"shoot")
+	await _wait(1.6)
+	Input.action_release(&"shoot")
+	await _wait(0.6)
+	_capture("dynamic_hud_low")
+	Input.action_press(&"block")
+	var spec := load("res://data/projectiles/grunt_shot.tres") as ProjectileSpec
+	await _wait(0.3)
+	player.guard = 1.0
+	ProjectilePool.spawn(spec, player.aim_origin() + Vector2(16, 0), Vector2.LEFT, Combat.Team.ENEMY)
+	await _wait(0.25)
+	_capture("dynamic_hud_break")
+	Input.action_release(&"block")
+	Input.action_release(&"aim_right")
 
 
 ## 滑鼠瞄準：準星、擴散、命中標記、武器欄。

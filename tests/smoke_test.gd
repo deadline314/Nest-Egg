@@ -31,6 +31,7 @@ func _run() -> void:
 	await _test_story()
 	await _test_gameplay()
 	await _test_block_and_parry()
+	await _test_dynamic_hud()
 	await _test_enemy_behaviours()
 	await _test_boss_and_victory()
 	await _test_checkpoints_and_difficulties()
@@ -545,6 +546,56 @@ func _test_block_and_parry() -> void:
 	await _frames(3)
 	_check(grunt.is_stunned(), "parrying a contact attack stuns the attacker")
 	Input.action_release(&"block")
+	await _end_level(level)
+
+
+## 動態 HUD：閒置淡出、變動彈出、危險常駐；彈藥環只跟著有限彈藥武器出現。
+func _test_dynamic_hud() -> void:
+	var presence := HudPresence.new()
+	presence.poke()
+	presence.update(0.5, false, true)
+	_check(presence.alpha > 0.9, "hud presence pops in after a change")
+	for i in 40:
+		presence.update(0.1, false, true)
+	_check(is_equal_approx(presence.alpha, presence.idle_alpha), "hud presence fades to idle")
+	presence.update(0.5, true, true)
+	_check(presence.alpha > 0.9, "hud presence holds while in danger")
+	presence.update(0.5, false, false)
+	_check(presence.alpha > 0.9, "hud presence stays visible when auto hide is off")
+	presence.update(0.5, false, true, true)
+	_check(presence.alpha < 0.01, "hud presence hides when hidden")
+
+	var level := await _start_level()
+	var player := level.player
+	var vitals := level.hud.vitals_tag
+	var ring := level.hud.ammo_ring
+	_check(vitals != null and ring != null, "hud creates dynamic widgets")
+	_check(vitals.max_health == player.health.max_health and vitals.health == player.health.current, "vitals tag mirrors health")
+	var info := DamageInfo.create(1, Combat.Team.ENEMY, &"test")
+	info.ignore_invulnerability = true
+	player.health.take_damage(info)
+	await _frames(2)
+	_check(vitals.health == player.health.current and vitals.presence.is_lingering(), "damage pops the vitals tag")
+	while player.health.current > 1:
+		player.health.take_damage(info)
+	await _frames(2)
+	_check(vitals.is_low_health(), "low health detected for persistent warning")
+
+	_check(not ring.is_showing_ammo(), "ammo ring hidden for infinite primary")
+	player.loadout.equip(load(WEAPON_DIR.path_join("spread.tres")) as WeaponData)
+	await _frames(1)
+	_check(ring.is_showing_ammo() and ring.ammo == ring.max_ammo, "ammo ring shows limited weapon")
+	var before := ring.ammo
+	player.loadout.consume_ammo()
+	_check(ring.ammo < before, "ammo ring follows consumption")
+	while player.loadout.active_slot != Loadout.PRIMARY:
+		player.loadout.consume_ammo()
+	_check(not ring.is_showing_ammo(), "ammo ring hides after weapon runs dry")
+
+	var original := Settings.get_hud_auto_hide()
+	Settings.set_hud_auto_hide(false)
+	_check(not vitals._auto_hide, "vitals tag follows auto hide setting")
+	Settings.set_hud_auto_hide(original)
 	await _end_level(level)
 
 

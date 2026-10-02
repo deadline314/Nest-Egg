@@ -4,10 +4,13 @@ extends Node
 ## 不需要各自管理檔案。寫入會延遲合併（拖動滑桿時不會每格都寫檔）。
 
 signal volume_changed(bus: StringName, linear: float)
+signal display_changed
 
 const DEFAULT_PATH := "user://settings.cfg"
 const SAVE_DELAY := 0.4
 const AUDIO_SECTION := "audio"
+const DISPLAY_SECTION := "display"
+const HUD_AUTO_HIDE_DEFAULT := true
 
 ## 設定選單顯示的音量項目。之後加入背景音樂時，在這裡加一筆 Music 即可。
 const AUDIO_BUSES: Array[Dictionary] = [
@@ -107,6 +110,21 @@ func set_volume(bus: StringName, linear: float) -> void:
 func reset_audio() -> void:
 	for entry in AUDIO_BUSES:
 		set_volume(entry["bus"], entry["default"])
+
+
+## 動態 HUD 閒置時是否自動淡出。設定檔內容損毀時退回預設值。
+func get_hud_auto_hide() -> bool:
+	var value: Variant = get_value(DISPLAY_SECTION, "hud_auto_hide", HUD_AUTO_HIDE_DEFAULT)
+	return value if typeof(value) == TYPE_BOOL else HUD_AUTO_HIDE_DEFAULT
+
+
+func set_hud_auto_hide(enabled: bool) -> void:
+	set_value(DISPLAY_SECTION, "hud_auto_hide", enabled)
+	display_changed.emit()
+
+
+func reset_display() -> void:
+	set_hud_auto_hide(HUD_AUTO_HIDE_DEFAULT)
 
 
 func _default_volume(bus: StringName) -> float:

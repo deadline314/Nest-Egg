@@ -1,6 +1,6 @@
 class_name SettingsScreen
 extends Control
-## 設定畫面（主選單與暫停選單共用）：音量、按鍵綁定。
+## 設定畫面（主選單與暫停選單共用）：音量、按鍵綁定、顯示。
 ## 所有變更即時生效並自動存檔。暫停中也能操作（process_mode = ALWAYS）。
 
 signal closed
@@ -13,6 +13,7 @@ var _tabs: TabContainer
 var _status: Label
 var _sliders: Dictionary[StringName, HSlider] = {}
 var _slider_values: Dictionary[StringName, Label] = {}
+var _hud_auto_hide: CheckButton
 ## "action:slot" -> Button
 var _binding_buttons: Dictionary[String, Button] = {}
 
@@ -50,6 +51,7 @@ func _ready() -> void:
 	layout.add_child(_tabs)
 	_tabs.add_child(_build_audio_tab())
 	_tabs.add_child(_build_bindings_tab())
+	_tabs.add_child(_build_display_tab())
 
 	_status = UiKit.label("", 10, Palette.UI_MUTED)
 	layout.add_child(_status)
@@ -122,6 +124,26 @@ func _update_volume_label(bus: StringName) -> void:
 	if _slider_values.has(bus):
 		var value := Settings.get_volume(bus)
 		_slider_values[bus].text = "靜音" if value <= 0.001 else "%d%%" % roundi(value * 100.0)
+
+
+# ---------------------------------------------------------------------------
+# 顯示
+# ---------------------------------------------------------------------------
+
+func _build_display_tab() -> Control:
+	var box := VBoxContainer.new()
+	box.name = "顯示"
+	box.add_theme_constant_override(&"separation", 10)
+	_hud_auto_hide = CheckButton.new()
+	_hud_auto_hide.text = "HUD 自動隱藏"
+	_hud_auto_hide.tooltip_text = "開啟：生命與護盾閒置時淡出，受傷或格擋時才出現；關閉：一律顯示"
+	_hud_auto_hide.focus_mode = Control.FOCUS_ALL
+	_hud_auto_hide.button_pressed = Settings.get_hud_auto_hide()
+	_hud_auto_hide.toggled.connect(func(on: bool) -> void:
+		Settings.set_hud_auto_hide(on)
+		Sfx.play(&"ui_confirm", -6.0, 0.0))
+	box.add_child(_hud_auto_hide)
+	return box
 
 
 # ---------------------------------------------------------------------------
@@ -248,9 +270,13 @@ func _reset_current_tab() -> void:
 			_sliders[bus].set_value_no_signal(roundf(Settings.get_volume(bus) * 100.0))
 			_update_volume_label(bus)
 		_set_status("音量已恢復預設。", Palette.CYAN)
-	else:
+	elif _tabs.current_tab == 1:
 		InputBindings.reset_to_defaults()
 		_set_status("按鍵已恢復預設。", Palette.CYAN)
+	else:
+		Settings.reset_display()
+		_hud_auto_hide.set_pressed_no_signal(Settings.get_hud_auto_hide())
+		_set_status("顯示已恢復預設。", Palette.CYAN)
 
 
 func _set_status(text: String, color := Palette.UI_MUTED) -> void:

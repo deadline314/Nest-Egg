@@ -10,7 +10,7 @@ const TICK_LENGTH := 5.0
 const HIT_TIME := 0.12
 const KILL_TIME := 0.28
 
-var _player_ref: WeakRef
+var _player_ref := PlayerRef.new()
 var _hit_left := 0.0
 var _kill_left := 0.0
 var _screen_point := Vector2.ZERO
@@ -26,21 +26,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_hit_left = maxf(0.0, _hit_left - delta)
 	_kill_left = maxf(0.0, _kill_left - delta)
-	var player := _player()
+	var player := _player_ref.get_player(get_tree())
 	visible = player != null and not player.is_dead()
 	if not visible:
 		return
 	_bloom = player.aim_bloom
 	_screen_point = get_viewport().get_canvas_transform() * player.aim_point
 	queue_redraw()
-
-
-func _player() -> Player:
-	var player: Player = _player_ref.get_ref() as Player if _player_ref != null else null
-	if player == null:
-		player = get_tree().get_first_node_in_group(&"player") as Player
-		_player_ref = weakref(player) if player != null else null
-	return player
 
 
 func _on_hit_confirmed(_world_position: Vector2, killed: bool) -> void:
