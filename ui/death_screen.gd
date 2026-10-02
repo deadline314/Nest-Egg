@@ -17,6 +17,7 @@ func setup(card: Dictionary, can_continue: bool) -> void:
 func _ready() -> void:
 	layer = 25
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	UiKit.set_cursor_visible(true)
 	var root := UiKit.full_rect_root(self)
 	var box := UiKit.centered_panel(root, 380.0, 0.5)
 	box.add_child(UiKit.label("任務失敗", 18, Palette.DANGER, HORIZONTAL_ALIGNMENT_CENTER))

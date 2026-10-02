@@ -6,7 +6,7 @@ extends CanvasLayer
 const TOAST_TIME := 2.2
 const CONTROLS_HINT_TIME := 14.0
 ## {動作} 會換成玩家目前設定的按鍵（見 InputBindings.format）。
-const CONTROLS_TEMPLATE := "移動 {move_left}/{move_right}　跳 {jump}　射擊 {shoot}　衝刺 {dash}　近戰・終結 {melee}　換武器 {swap_weapon}　定點瞄準 {aim_lock}　搭乘 {interact}　暫停 {pause}"
+const CONTROLS_TEMPLATE := "移動 {move_left}/{move_right}　跳 {jump}　射擊 {shoot}　格擋 {block}　衝刺 {dash}　終結 {melee}　換武器 {weapon_next}／1～4　搭乘 {interact}　暫停 {pause}"
 
 var _gauges: _Gauges
 var _weapon_labels: Array[Label] = []
@@ -35,14 +35,17 @@ func _ready() -> void:
 	root.add_child(_lives_label)
 
 	_weapon_panel = VBoxContainer.new()
-	_weapon_panel.position = Vector2(12, 312)
+	_weapon_panel.position = Vector2(12, 268)
+	_weapon_panel.add_theme_constant_override(&"separation", 0)
 	_weapon_panel.mouse_filter = Control.MOUSE_FILTER_PASS
 	root.add_child(_weapon_panel)
-	for i in Loadout.SLOT_COUNT:
+	for i in Loadout.MAX_SLOTS:
 		var l := UiKit.label("", 11)
 		l.mouse_filter = Control.MOUSE_FILTER_PASS
 		_weapon_panel.add_child(l)
 		_weapon_labels.append(l)
+
+	add_child(Crosshair.new())
 
 	_timer_label = UiKit.label("00:00.00", 11, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
 	_timer_label.position = Vector2(528, 8)
@@ -62,8 +65,12 @@ func _ready() -> void:
 	root.add_child(_toast)
 
 	_controls = UiKit.label(controls_hint(), 9, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_CENTER)
-	_controls.position = Vector2(0, 344)
-	_controls.size = Vector2(640, 14)
+	# 先開啟折行再設定尺寸，否則單行文字會把寬度撐開。
+	_controls.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_controls.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_controls.custom_minimum_size = Vector2(470, 0)
+	_controls.position = Vector2(160, 330)
+	_controls.size = Vector2(470, 26)
 	root.add_child(_controls)
 	var fade := create_tween()
 	fade.tween_interval(CONTROLS_HINT_TIME)
@@ -132,13 +139,13 @@ func _on_loadout_changed(loadout: Loadout) -> void:
 		var label := _weapon_labels[slot]
 		var weapon := loadout.weapon_in(slot)
 		if weapon == null:
-			label.text = "  —— 特殊武器空位"
-			label.add_theme_color_override(&"font_color", Palette.UI_MUTED)
-			label.tooltip_text = "撿取武器道具後放在這裡，換武器鍵切換"
+			label.text = "%d  ——" % (slot + 1)
+			label.add_theme_color_override(&"font_color", Color(Palette.UI_MUTED, 0.5))
+			label.tooltip_text = "撿取武器後放在這裡；滾輪或數字鍵切換"
 			continue
 		var ammo := loadout.ammo_in(slot)
 		var active := slot == loadout.active_slot
-		label.text = "%s %s  %s" % ["▶" if active else "  ", weapon.display_name, "∞" if ammo < 0 else str(ammo)]
+		label.text = "%d %s %s  %s" % [slot + 1, "▶" if active else " ", weapon.display_name, "∞" if ammo < 0 else str(ammo)]
 		label.add_theme_color_override(&"font_color", weapon.color if active else Palette.UI_MUTED)
 		label.tooltip_text = weapon.description
 

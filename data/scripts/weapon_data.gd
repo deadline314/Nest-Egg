@@ -25,6 +25,10 @@ extends Resource
 @export var recoil: float = 0.0
 @export var muzzle_light_energy: float = 1.2
 @export var ejects_casing: bool = true
+## 每發增加的準星擴散（0~1）。連射越久越不準，首發永遠精準。
+@export var bloom_per_shot: float = 0.15
+## HUD 與武器欄顯示的簡短代號。
+@export var short_name: String = ""
 
 
 func has_infinite_ammo() -> bool:

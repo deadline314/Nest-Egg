@@ -10,6 +10,8 @@ extends Resource
 @export var ground_deceleration: float = 1800.0
 @export var air_acceleration: float = 900.0
 @export var air_deceleration: float = 600.0
+## 背對準星移動時的速度倍率。
+@export var backpedal_multiplier: float = 0.85
 
 @export_group("Jump")
 @export var gravity: float = 900.0

@@ -30,5 +30,5 @@ legend = Dictionary[String, Resource]({
 "r": ExtResource("3_rusher"),
 "t": ExtResource("5_turret")
 })
-hints = PackedStringArray("移動 {move_left}/{move_right}，跳躍 {jump}（按久跳更高）", "射擊 {shoot}，可 8 方向瞄準；按住 {aim_lock} 原地定點瞄準", "紅線變亮＝已鎖定：蹲下（{move_down}）或跳起閃避", "敵人頭上出現青色菱形：按 {melee} 終結，回補彈藥", "盾衛犬正面擋子彈：跳過或衝刺（{dash}）穿越，打背後", "{move_down}＋{jump} 可從平台落下", "看到地面紅圈就移開；貼近迫擊兵牠就無法開砲", "按 {interact} 搭乘機甲：爆炸彈頭無視盾牌", "打爆自爆蟲，爆炸會波及牠的同伴")
+hints = PackedStringArray("移動 {move_left}/{move_right}，跳躍 {jump}（按久跳更高）", "滑鼠瞄準，{shoot} 射擊；{weapon_next} 或 1～4 換武器", "紅線變亮＝已鎖定：蹲下（{move_down}）或跳起閃避", "敵人頭上出現青色菱形：按 {melee} 終結，回補彈藥", "盾衛犬正面擋子彈：跳過或衝刺（{dash}）穿越，打背後", "{move_down}＋{jump} 可從平台落下", "看到地面紅圈就移開；貼近迫擊兵牠就無法開砲", "按 {interact} 搭乘機甲：爆炸彈頭無視盾牌", "打爆自爆蟲，爆炸會波及牠的同伴")
 layout_path = "res://data/levels/level_01_map.json"

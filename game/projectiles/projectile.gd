@@ -91,6 +91,8 @@ func _on_area_entered(area: Area2D) -> void:
 		Hurtbox.Result.DAMAGED:
 			Fx.impact(global_position, -velocity.normalized(), spec.color, 6)
 			Sfx.play(&"hit", -6.0)
+			if team == Combat.Team.PLAYER:
+				EventBus.hit_confirmed.emit(global_position, hurtbox.health.is_dead)
 		Hurtbox.Result.BLOCKED:
 			# 被格擋：火花反彈、子彈直接消失（即使可貫穿）。
 			Fx.impact(global_position, -velocity.normalized(), Palette.WHITE, 8)

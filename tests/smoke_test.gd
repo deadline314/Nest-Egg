@@ -117,16 +117,28 @@ func _test_state_machine() -> void:
 func _test_loadout() -> void:
 	var rifle := load("res://data/weapons/rifle.tres") as WeaponData
 	var spread := load("res://data/weapons/spread.tres") as WeaponData
+	var laser := load("res://data/weapons/laser.tres") as WeaponData
 	var loadout := Loadout.new()
 	loadout.reset(rifle)
-	loadout.equip_special(spread)
-	_check(loadout.active_weapon() == spread and loadout.ammo_in(1) == spread.max_ammo, "equip special")
+	loadout.equip(spread)
+	_check(loadout.active_weapon() == spread and loadout.ammo_in(1) == spread.max_ammo, "equip new weapon")
+	loadout.equip(laser)
+	_check(loadout.slot_count() == 3 and loadout.active_slot == 2, "weapons stack into slots")
+	loadout.cycle(1)
+	_check(loadout.active_slot == 0, "cycle wraps to primary")
+	loadout.cycle(-1)
+	_check(loadout.active_slot == 2, "cycle backwards")
+	loadout.select(1)
 	for i in spread.max_ammo:
 		loadout.consume_ammo()
 	_check(loadout.active_slot == Loadout.PRIMARY, "auto swap back when empty")
+	loadout.cycle(1)
+	_check(loadout.active_slot == 2, "cycling skips empty weapons")
+	loadout.equip(spread)
+	_check(loadout.slot_count() == 3 and loadout.ammo_in(1) == spread.max_ammo, "same weapon refills instead of duplicating")
 	var restored := Loadout.new()
 	restored.restore(loadout.snapshot(), rifle)
-	_check(restored.weapon_in(1) == spread and restored.ammo_in(1) == 0, "snapshot round trip")
+	_check(restored.slot_count() == 3 and restored.weapon_in(2) == laser, "snapshot round trip")
 	restored.restore({"weapons": ["res://missing.tres"], "ammo": "bad"}, rifle)
 	_check(restored.active_weapon() == rifle, "restore falls back on bad data")
 
@@ -146,26 +158,41 @@ func _test_settings_and_bindings() -> void:
 	Settings.set_volume(&"Master", 0.0)
 	_check(AudioServer.is_bus_mute(0), "zero volume mutes")
 
-	var swapped := InputBindings.set_key(&"jump", 0, KEY_J)
-	_check(swapped == &"shoot" and InputBindings.get_key(&"shoot", 0) == KEY_K, "rebinding swaps conflicting key")
+	var swapped := InputBindings.set_code(&"jump", 0, KEY_J)
+	_check(swapped == &"shoot" and InputBindings.get_code(&"shoot", 1) == KEY_SPACE, "rebinding swaps conflicting key")
 	var probe := InputEventKey.new()
 	probe.physical_keycode = KEY_J
 	_check(InputMap.event_is_action(probe, &"jump") and not InputMap.event_is_action(probe, &"shoot"), "InputMap updated after rebind")
-	_check(InputBindings.set_key(&"jump", 0, KEY_ESCAPE) == &"" and InputBindings.get_key(&"jump", 0) == KEY_J, "reserved key rejected")
+	_check(InputBindings.set_code(&"jump", 0, KEY_ESCAPE) == &"" and InputBindings.get_code(&"jump", 0) == KEY_J, "reserved key rejected")
+	_check(InputBindings.set_code(&"jump", 0, KEY_2) == &"", "weapon number keys reserved")
 	_check(InputBindings.format("{jump}跳") == "J跳", "placeholder formatting")
-	_check(InputBindings.set_joy_button(&"jump", JOY_BUTTON_X) == &"shoot" and InputBindings.get_joy_button(&"shoot") == JOY_BUTTON_A, "gamepad swap")
-	InputBindings.set_key(&"melee", 0, KEY_NONE)
-	InputBindings.set_key(&"melee", 1, KEY_NONE)
-	_check(InputBindings.get_key(&"melee", 0) == KEY_I, "action never left unbound")
+	_check(InputBindings.format("{shoot}") == "左鍵", "mouse button label")
+	var trigger := InputEventJoypadMotion.new()
+	trigger.axis = JOY_AXIS_TRIGGER_RIGHT
+	trigger.axis_value = 1.0
+	_check(InputMap.event_is_action(trigger, &"shoot") and InputBindings.joy_label(&"shoot") == "RT", "gamepad trigger shoots")
+	var swapped_mouse := InputBindings.set_code(&"melee", 1, -MOUSE_BUTTON_LEFT)
+	var click := InputEventMouseButton.new()
+	click.button_index = MOUSE_BUTTON_LEFT
+	_check(swapped_mouse == &"shoot" and InputMap.event_is_action(click, &"melee"), "mouse buttons bindable and swappable")
+	InputBindings.reset_to_defaults()
+	InputBindings.set_code(&"jump", 0, KEY_J)
+	_check(InputBindings.set_joy_button(&"jump", JOY_BUTTON_X) == &"interact" and InputBindings.get_joy_button(&"interact") == JOY_BUTTON_A, "gamepad swap")
+	InputBindings.set_code(&"melee", 0, InputBindings.NONE)
+	InputBindings.set_code(&"melee", 1, InputBindings.NONE)
+	_check(InputBindings.get_code(&"melee", 0) == KEY_F, "action never left unbound")
 
 	Settings.save_now()
 	var config := ConfigFile.new()
-	_check(config.load(test_path) == OK and int(config.get_value("input", "jump", {}).get("keys", [0])[0]) == KEY_J, "bindings persisted")
+	_check(config.load(test_path) == OK and int(config.get_value("input", "jump", {}).get("codes", [0])[0]) == KEY_J, "bindings persisted")
 	InputBindings.reload_from_settings()
-	_check(InputBindings.get_key(&"jump", 0) == KEY_J, "bindings reload from disk")
+	_check(InputBindings.get_code(&"jump", 0) == KEY_J, "bindings reload from disk")
 	Settings.set_value("input", "dash", "garbage")
 	InputBindings.reload_from_settings()
-	_check(InputBindings.get_key(&"dash", 0) == KEY_L, "corrupt binding falls back to default")
+	_check(InputBindings.get_code(&"dash", 0) == KEY_SHIFT, "corrupt binding falls back to default")
+	Settings.set_value("input", InputBindings.SCHEMA_KEY, 1)
+	InputBindings.reload_from_settings()
+	_check(InputBindings.get_code(&"jump", 0) == KEY_SPACE, "old-schema bindings replaced by new defaults")
 
 	var data := load(LEVEL_PATH) as LevelData
 	for hint in data.hints:
@@ -178,21 +205,27 @@ func _test_settings_and_bindings() -> void:
 	await _frames(2)
 	screen._begin_capture(&"dash", 1)
 	var key := InputEventKey.new()
-	key.physical_keycode = KEY_Q
+	key.physical_keycode = KEY_G
 	key.pressed = true
 	screen._input(key)
-	_check(InputBindings.get_key(&"dash", 1) == KEY_Q, "settings screen captures key")
+	_check(InputBindings.get_code(&"dash", 1) == KEY_G, "settings screen captures key")
+	screen._begin_capture(&"melee", 1)
+	var middle := InputEventMouseButton.new()
+	middle.button_index = MOUSE_BUTTON_MIDDLE
+	middle.pressed = true
+	screen._input(middle)
+	_check(InputBindings.get_code(&"melee", 1) == -MOUSE_BUTTON_MIDDLE, "settings screen captures mouse button")
 	screen._begin_capture(&"dash", 1)
 	var esc := InputEventKey.new()
 	esc.physical_keycode = KEY_ESCAPE
 	esc.pressed = true
 	screen._input(esc)
-	_check(InputBindings.get_key(&"dash", 1) == KEY_Q and not screen._capturing, "escape cancels capture")
+	_check(InputBindings.get_code(&"dash", 1) == KEY_G and not screen._capturing, "escape cancels capture")
 	screen.close()
 	await _frames(1)
 
 	InputBindings.reset_to_defaults()
-	_check(InputBindings.get_key(&"jump", 0) == KEY_K and InputBindings.get_joy_button(&"jump") == JOY_BUTTON_A, "reset to defaults")
+	_check(InputBindings.get_code(&"jump", 0) == KEY_SPACE and InputBindings.get_joy_button(&"jump") == JOY_BUTTON_A, "reset to defaults")
 	Settings.reset_audio()
 	Settings.save_now()
 	Settings.use_storage(original_path)
@@ -212,7 +245,7 @@ func _start_level() -> Level:
 
 
 func _end_level(level: Level) -> void:
-	for action in [&"move_right", &"shoot", &"jump", &"move_up", &"aim_lock"]:
+	for action in [&"move_right", &"shoot", &"jump", &"aim_right", &"aim_left"]:
 		Input.action_release(action)
 	if is_instance_valid(level):
 		get_tree().root.remove_child(level)
@@ -227,10 +260,15 @@ func _test_gameplay() -> void:
 	var player := level.player
 	_check(is_instance_valid(player), "player spawned")
 	var start_x := player.global_position.x
+	var hits := [0]
+	EventBus.hit_confirmed.connect(func(_p: Vector2, _k: bool) -> void: hits[0] += 1)
+	# 以右搖桿瞄準向右（無頭環境沒有滑鼠）。
+	Input.action_press(&"aim_right")
 	Input.action_press(&"move_right")
 	Input.action_press(&"shoot")
 	await _frames(30)
 	_check(ProjectilePool.active_count() > 0, "rifle spawns projectiles")
+	_check(player.aim_dir.x > 0.9 and player.facing == 1, "player aims and faces stick direction")
 	Input.action_press(&"jump")
 	await _frames(10)
 	Input.action_release(&"jump")
@@ -239,14 +277,44 @@ func _test_gameplay() -> void:
 	Input.action_release(&"shoot")
 	_check(player.global_position.x > start_x + 40.0, "player moves right")
 	_check(not player.is_dead(), "player alive after short run")
+	_check(hits[0] > 0, "hit markers fire when bullets land")
+	Input.action_release(&"aim_right")
+	Input.action_press(&"aim_left")
+	await _frames(3)
+	_check(player.facing == -1, "player turns to face aim")
+	# 衝刺期間無敵
+	Input.action_press(&"dash")
+	await _frames(2)
+	Input.action_release(&"dash")
+	var dash_hp := player.health.current
+	player.hurtbox.receive(DamageInfo.create(1, Combat.Team.ENEMY, &"grunt_shot"))
+	_check(player.state == Player.State.DASH and player.health.current == dash_hp, "dash grants invulnerability")
+	await _frames(20)
+	Input.action_release(&"aim_left")
+	Input.action_press(&"aim_right")
 
 	# 武器撿取與彈藥
 	var spread := load("res://data/weapons/spread.tres") as WeaponData
-	player.loadout.equip_special(spread)
+	player.loadout.equip(spread)
 	Input.action_press(&"shoot")
 	await _frames(20)
 	Input.action_release(&"shoot")
 	_check(player.loadout.ammo_in(1) < spread.max_ammo, "special weapon consumes ammo")
+	var wheel := InputEventMouseButton.new()
+	wheel.button_index = MOUSE_BUTTON_WHEEL_DOWN
+	wheel.pressed = true
+	Input.parse_input_event(wheel)
+	await _frames(2)
+	_check(player.loadout.active_slot == 0, "mouse wheel cycles weapons")
+	var two := InputEventKey.new()
+	two.physical_keycode = KEY_2
+	two.pressed = true
+	Input.parse_input_event(two)
+	await _frames(2)
+	_check(player.loadout.active_slot == 1, "number keys select weapon")
+	var two_up := two.duplicate() as InputEventKey
+	two_up.pressed = false
+	Input.parse_input_event(two_up)
 
 	# 載具：瞬移到機甲旁搭乘、射擊、下車
 	var vehicle: Vehicle = null

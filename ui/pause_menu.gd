@@ -45,6 +45,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func open() -> void:
 	Fx.reset_time()
 	get_tree().paused = true
+	UiKit.set_cursor_visible(true)
 	_root.visible = true
 	_controls_label.text = Hud.controls_hint().replace("　", "\n")
 	_resume_button.grab_focus()
@@ -55,6 +56,7 @@ func close() -> void:
 		_settings.close()
 	_root.visible = false
 	get_tree().paused = false
+	UiKit.set_cursor_visible(false)
 
 
 func _open_settings() -> void:

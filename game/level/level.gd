@@ -87,6 +87,9 @@ func _ready() -> void:
 	_pause_menu.menu_requested.connect(_request_menu)
 
 	EventBus.player_died.connect(_on_player_died)
+	# 遊戲中以準星取代系統游標；離開關卡時還原。
+	UiKit.set_cursor_visible(false)
+	tree_exiting.connect(UiKit.set_cursor_visible.bind(true))
 	EventBus.boss_defeated.connect(_on_boss_defeated)
 	if not GameState.has_checkpoint and not data.display_name.is_empty():
 		EventBus.toast_requested.emit(data.display_name)

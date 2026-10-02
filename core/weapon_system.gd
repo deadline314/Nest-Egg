@@ -4,11 +4,13 @@ extends RefCounted
 
 
 ## 依武器資料開火，回傳實際生成的子彈數（子彈池滿載時可能少於預期）。
-static func fire(weapon: WeaponData, origin: Vector2, direction: Vector2, team: Combat.Team, speed_multiplier := 1.0) -> int:
+## extra_random_degrees：額外的隨機散佈（例如連射造成的準星擴散）。
+static func fire(weapon: WeaponData, origin: Vector2, direction: Vector2, team: Combat.Team, speed_multiplier := 1.0,
+		extra_random_degrees := 0.0) -> int:
 	if weapon == null or not weapon.is_valid():
 		return 0
 	return fire_spread(weapon.projectile, origin, direction, weapon.pellets, weapon.spread_degrees,
-			weapon.random_spread_degrees, team, speed_multiplier)
+			weapon.random_spread_degrees + maxf(0.0, extra_random_degrees), team, speed_multiplier)
 
 
 ## 以扇形發射多顆子彈。count = 1 時即為單發。

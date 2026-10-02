@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings
+## 情境：all（預設）、settings、mouse_aim
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -24,6 +24,10 @@ func _run() -> void:
 	add_child(LightKit.create_environment())
 	if _scenario == "settings":
 		await _run_settings()
+		get_tree().quit()
+		return
+	if _scenario == "mouse_aim":
+		await _run_mouse_aim()
 		get_tree().quit()
 		return
 	var menu := MainMenu.new()
@@ -59,6 +63,39 @@ func _run() -> void:
 	await _wait(1.8)
 	_capture("07_death_card")
 	get_tree().quit()
+
+
+## 滑鼠瞄準：準星、擴散、命中標記、武器欄。
+func _run_mouse_aim() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _settle(20)
+	var player := level.player
+	player.health.setup(999, 0.0)
+	for path in ["res://data/weapons/spread.tres", "res://data/weapons/laser.tres"]:
+		player.loadout.equip(load(path))
+	player.loadout.select(0)
+	player.global_position = Vector2(330, 320)
+	level_camera_snap()
+	await _settle(10)
+	# 準星放在角色右上方（敵人方向），按住射擊。
+	var screen := get_viewport().get_canvas_transform() * (player.global_position + Vector2(110, -40))
+	Input.warp_mouse(screen * (Vector2(get_window().size) / get_viewport().get_visible_rect().size))
+	await _settle(4)
+	Input.action_press(&"shoot")
+	await _settle(14)
+	_capture("mouse_aim_firing")
+	Input.action_release(&"shoot")
+	var layer := CanvasLayer.new()
+	layer.layer = 40
+	add_child(layer)
+	var settings := SettingsScreen.new()
+	layer.add_child(settings)
+	settings._tabs.current_tab = 1
+	await _settle(10)
+	_capture("mouse_bindings")
 
 
 func _run_settings() -> void:

@@ -9,6 +9,8 @@ const MOUNT_INPUT_GRACE := 0.25
 const WRECK_LIFETIME := 4.0
 const FLASH_TIME := 0.08
 const STOMP_SHAKE_SPEED := 260.0
+## 砲管最低可向下壓的角度（弧度）。
+const MAX_DOWN_ANGLE := 0.35
 
 var data: VehicleData
 var driver: Player
@@ -134,10 +136,7 @@ func _physics_process(delta: float) -> void:
 
 func _drive(delta: float) -> void:
 	var input_x := Input.get_axis(&"move_left", &"move_right")
-	var input_y := Input.get_axis(&"move_up", &"move_down")
 	velocity.x = move_toward(velocity.x, input_x * data.move_speed, data.acceleration * delta)
-	if absf(input_x) > 0.2:
-		facing = 1 if input_x > 0.0 else -1
 	if is_on_floor():
 		_coyote = 0.1
 	if Input.is_action_just_pressed(&"jump"):
@@ -150,10 +149,13 @@ func _drive(delta: float) -> void:
 		Sfx.play(&"jump", -6.0, 0.02)
 	if Input.is_action_just_released(&"jump") and velocity.y < 0.0:
 		velocity.y *= 0.5
-	# 機甲瞄準：水平與斜上／正上（不能往下打，與步兵操作形成差異）。
-	var ax := 0.0 if absf(input_x) < 0.3 else signf(input_x)
-	var ay := -1.0 if input_y < -0.3 else 0.0
-	aim_dir = Vector2(facing, 0) if ax == 0.0 and ay == 0.0 else Vector2(ax, ay).normalized()
+	# 機甲瞄準：跟隨滑鼠／右搖桿，但砲管最低只能壓到水平下方 MAX_DOWN_ANGLE（與步兵操作形成差異）。
+	var pivot := global_position + Vector2(0, -data.body_size.y * 0.7)
+	var wanted := AimInput.direction_from(self, pivot, aim_dir)
+	if absf(wanted.x) > 0.05:
+		facing = 1 if wanted.x > 0.0 else -1
+	var angle := clampf(Vector2(absf(wanted.x), wanted.y).angle(), -PI * 0.5, MAX_DOWN_ANGLE)
+	aim_dir = Vector2(cos(angle) * facing, sin(angle))
 	if Input.is_action_pressed(&"shoot"):
 		_try_fire()
 	if _mount_grace <= 0.0 and Input.is_action_just_pressed(&"interact"):

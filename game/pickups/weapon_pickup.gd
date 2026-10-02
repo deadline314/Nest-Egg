@@ -24,7 +24,7 @@ func _ready() -> void:
 
 
 func _apply(player: Player) -> bool:
-	player.loadout.equip_special(weapon)
+	player.loadout.equip(weapon)
 	EventBus.toast_requested.emit("取得 %s" % weapon.display_name)
 	return true
 

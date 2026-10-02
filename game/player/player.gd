@@ -12,6 +12,9 @@ const DROP_THROUGH_TIME := 0.25
 const MELEE_VISUAL_TIME := 0.12
 ## 下車後短暫禁止再次上車（避免同一次按鍵下車又立刻上車）。
 const REMOUNT_COOLDOWN := 0.3
+## 準星擴散每秒回復量與最大額外散佈角度。
+const AIM_BLOOM_RECOVERY := 2.5
+const AIM_BLOOM_MAX_DEGREES := 4.0
 
 var tuning: PlayerTuning
 var health: HealthComponent
@@ -20,6 +23,10 @@ var loadout := Loadout.new()
 var state: State = State.NORMAL
 var facing := 1
 var aim_dir := Vector2.RIGHT
+## 準星所在的世界座標（HUD 準星與動畫用）。
+var aim_point := Vector2.ZERO
+## 連射造成的準星擴散（0~1），隨時間回復。
+var aim_bloom := 0.0
 var is_crouching := false
 var mounted_vehicle: Vehicle
 ## 低於此高度視為掉入深淵（由關卡設定）。
@@ -43,6 +50,7 @@ var _finisher_left := 0.0
 var _drop_through_left := 0.0
 var _safe_ground_time := 0.0
 var _remount_cooldown_left := 0.0
+var _dash_dir := 1
 var _last_safe_position := Vector2.ZERO
 var _query_shape := RectangleShape2D.new()
 
@@ -105,17 +113,42 @@ func is_dead() -> bool:
 	return state == State.DEAD
 
 
-func muzzle_position() -> Vector2:
+## 瞄準的基準點（肩膀高度）。
+func aim_origin() -> Vector2:
 	var height := 8.0 if is_crouching else 14.0
-	return global_position + Vector2(0, -height) + aim_dir * 10.0
+	return global_position + Vector2(0, -height)
+
+
+func muzzle_position() -> Vector2:
+	return aim_origin() + aim_dir * 10.0
 
 
 # ---------------------------------------------------------------------------
 # 主迴圈
 # ---------------------------------------------------------------------------
 
+func _input(event: InputEvent) -> void:
+	AimInput.observe(event)
+
+
+## 換武器用事件處理：滾輪的按下與放開發生在同一影格，用輪詢會漏掉。
+func _unhandled_input(event: InputEvent) -> void:
+	if state == State.DEAD or state == State.MOUNTED:
+		return
+	if event.is_action_pressed(&"weapon_next"):
+		loadout.cycle(1)
+	elif event.is_action_pressed(&"weapon_prev"):
+		loadout.cycle(-1)
+	else:
+		for slot in Loadout.MAX_SLOTS:
+			if event.is_action_pressed(StringName("weapon_slot_%d" % (slot + 1))):
+				loadout.select(slot)
+				break
+
+
 func _physics_process(delta: float) -> void:
 	_tick_timers(delta)
+	_update_aim(delta)
 	match state:
 		State.MOUNTED:
 			_process_mounted()
@@ -146,6 +179,7 @@ func _tick_timers(delta: float) -> void:
 	_melee_cooldown_left = maxf(0.0, _melee_cooldown_left - delta)
 	_melee_visual_left = maxf(0.0, _melee_visual_left - delta)
 	_remount_cooldown_left = maxf(0.0, _remount_cooldown_left - delta)
+	aim_bloom = move_toward(aim_bloom, 0.0, AIM_BLOOM_RECOVERY * delta)
 	if _drop_through_left > 0.0:
 		_drop_through_left -= delta
 		if _drop_through_left <= 0.0 and state != State.MOUNTED and state != State.DEAD:
@@ -154,21 +188,20 @@ func _tick_timers(delta: float) -> void:
 
 func _process_normal(delta: float) -> void:
 	var input_x := Input.get_axis(&"move_left", &"move_right")
-	var input_y := Input.get_axis(&"move_up", &"move_down")
-	var aim_locked := Input.is_action_pressed(&"aim_lock")
+	var down := Input.is_action_pressed(&"move_down")
 	var on_floor := is_on_floor()
 
 	var was_crouching := is_crouching
-	is_crouching = on_floor and input_y > 0.5 and not aim_locked
+	is_crouching = on_floor and down
 	if was_crouching != is_crouching:
 		_update_hurtbox_shape()
 
-	if absf(input_x) > 0.2:
-		facing = 1 if input_x > 0.0 else -1
-
 	var target_speed := 0.0
-	if not is_crouching and not (aim_locked and on_floor):
+	if not is_crouching:
 		target_speed = input_x * tuning.run_speed
+		# 背對準星移動（倒退）時稍慢，維持射擊時的控制感。
+		if signf(input_x) != 0.0 and signf(input_x) != float(facing):
+			target_speed *= tuning.backpedal_multiplier
 	var accel: float
 	if absf(target_speed) > 1.0:
 		accel = tuning.ground_acceleration if on_floor else tuning.air_acceleration
@@ -182,7 +215,7 @@ func _process_normal(delta: float) -> void:
 	if Input.is_action_just_pressed(&"jump"):
 		_jump_buffer_left = tuning.jump_buffer
 	if _jump_buffer_left > 0.0:
-		if on_floor and input_y > 0.5 and _is_standing_on_platform():
+		if on_floor and down and _is_standing_on_platform():
 			_start_drop_through()
 			_jump_buffer_left = 0.0
 		elif _coyote_left > 0.0:
@@ -196,10 +229,6 @@ func _process_normal(delta: float) -> void:
 		velocity.y *= tuning.jump_cut
 	_apply_gravity(delta)
 
-	aim_dir = _compute_aim(input_x, input_y, aim_locked, on_floor)
-
-	if Input.is_action_just_pressed(&"swap_weapon"):
-		loadout.swap()
 	if Input.is_action_just_pressed(&"interact") and _try_mount():
 		return
 	if Input.is_action_just_pressed(&"melee") and _try_melee():
@@ -253,15 +282,15 @@ func _apply_corner_correction(delta: float) -> void:
 				return
 
 
-## 8 方向瞄準。地面上按「下」是蹲下（仍向前射擊），按住鎖定鍵才可斜下射擊。
-func _compute_aim(input_x: float, input_y: float, aim_locked: bool, on_floor: bool) -> Vector2:
-	var ax := 0.0 if absf(input_x) < 0.3 else signf(input_x)
-	var ay := 0.0 if absf(input_y) < 0.3 else signf(input_y)
-	if ay > 0.0 and on_floor and not aim_locked:
-		ay = 0.0
-	if ax == 0.0 and ay == 0.0:
-		return Vector2(facing, 0)
-	return Vector2(ax, ay).normalized()
+## 滑鼠／右搖桿 360° 瞄準；角色永遠面向準星。
+func _update_aim(_delta: float) -> void:
+	if state == State.DEAD:
+		return
+	var origin := aim_origin()
+	aim_dir = AimInput.direction_from(self, origin, aim_dir)
+	aim_point = AimInput.target_point(self, origin, aim_dir)
+	if absf(aim_dir.x) > 0.05 and state != State.DASH and state != State.MOUNTED:
+		facing = 1 if aim_dir.x > 0.0 else -1
 
 
 func _update_hurtbox_shape() -> void:
@@ -283,7 +312,8 @@ func _try_fire() -> void:
 		return
 	_fire_cooldown_left = weapon.fire_interval
 	var muzzle := muzzle_position()
-	WeaponSystem.fire(weapon, muzzle, aim_dir, Combat.Team.PLAYER)
+	WeaponSystem.fire(weapon, muzzle, aim_dir, Combat.Team.PLAYER, 1.0, aim_bloom * AIM_BLOOM_MAX_DEGREES)
+	aim_bloom = minf(1.0, aim_bloom + weapon.bloom_per_shot)
 	# 射擊手感：槍口閃光 + 光源 + 鏡頭反向後座 + 彈殼 + 音效。
 	Fx.flash_light(muzzle, weapon.color, 56.0, weapon.muzzle_light_energy, 0.08)
 	Fx.kick(-aim_dir, weapon.camera_kick)
@@ -299,13 +329,13 @@ func _try_fire() -> void:
 func _try_dash(input_x: float) -> void:
 	if _dash_cooldown_left > 0.0 or (not is_on_floor() and _air_dash_used):
 		return
-	if absf(input_x) > 0.2:
-		facing = 1 if input_x > 0.0 else -1
+	# 衝刺方向以移動輸入為準（可往後閃），沒有輸入時朝面向。
+	_dash_dir = (1 if input_x > 0.0 else -1) if absf(input_x) > 0.2 else facing
 	if not is_on_floor():
 		_air_dash_used = true
 	state = State.DASH
 	_dash_left = tuning.dash_time
-	velocity = Vector2(facing * tuning.dash_speed, 0.0)
+	velocity = Vector2(_dash_dir * tuning.dash_speed, 0.0)
 	health.grant_invulnerability(tuning.dash_time + 0.05)
 	_visual.notify_dash()
 	Fx.dust(global_position, 4, 30.0)
@@ -344,6 +374,7 @@ func _try_melee() -> bool:
 		info.origin = global_position
 		if target_hurtbox.receive(info) != Hurtbox.Result.IGNORED:
 			landed = true
+			EventBus.hit_confirmed.emit(target_hurtbox.global_position, target_hurtbox.health.is_dead)
 			Fx.burst(target_hurtbox.global_position, Palette.CYAN, 6, 120.0, 0.2)
 	if landed:
 		Fx.hitstop(0.05)
@@ -383,7 +414,7 @@ func _start_finisher(target: Enemy) -> void:
 	Fx.shake(5.0, 0.2)
 	Fx.flash_light(target.global_position + Vector2(0, -10), Palette.CYAN, 120.0, 2.5, 0.3)
 	Sfx.play(&"finisher")
-	loadout.refill_special(tuning.finisher_ammo_refund)
+	loadout.refill_ratio(tuning.finisher_ammo_refund)
 
 
 func _process_finisher(delta: float) -> void:

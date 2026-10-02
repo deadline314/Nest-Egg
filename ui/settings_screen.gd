@@ -140,7 +140,7 @@ func _build_bindings_tab() -> Control:
 
 	var headers: Array[String] = ["動作"]
 	for slot in InputBindings.KEY_SLOTS:
-		headers.append("鍵盤 %d" % (slot + 1))
+		headers.append("鍵盤／滑鼠 %d" % (slot + 1))
 	headers.append("手把")
 	for header in headers:
 		grid.add_child(UiKit.label(header, 10, Palette.UI_MUTED))
@@ -151,8 +151,8 @@ func _build_bindings_tab() -> Control:
 		label.custom_minimum_size = Vector2(LABEL_WIDTH, 0)
 		grid.add_child(label)
 		for slot in InputBindings.KEY_SLOTS:
-			grid.add_child(_make_binding_button(action, slot, "點擊後按下新按鍵；Backspace 清除"))
-		grid.add_child(_make_binding_button(action, JOY_SLOT, "點擊後按下手把按鈕；搖桿方向固定不可改"))
+			grid.add_child(_make_binding_button(action, slot, "點擊後按下新按鍵或滑鼠鍵；Backspace 清除"))
+		grid.add_child(_make_binding_button(action, JOY_SLOT, "點擊後按下手把按鈕；搖桿與扳機固定不可改"))
 	return scroll
 
 
@@ -171,8 +171,8 @@ func _refresh_bindings() -> void:
 	for entry in InputBindings.ACTIONS:
 		var action: StringName = entry["id"]
 		for slot in InputBindings.KEY_SLOTS:
-			_binding_buttons[_binding_key(action, slot)].text = InputBindings.key_label(InputBindings.get_key(action, slot))
-		_binding_buttons[_binding_key(action, JOY_SLOT)].text = InputBindings.joy_label(InputBindings.get_joy_button(action))
+			_binding_buttons[_binding_key(action, slot)].text = InputBindings.code_label(InputBindings.get_code(action, slot))
+		_binding_buttons[_binding_key(action, JOY_SLOT)].text = InputBindings.joy_label(action)
 
 
 func _begin_capture(action: StringName, slot: int) -> void:
@@ -184,7 +184,7 @@ func _begin_capture(action: StringName, slot: int) -> void:
 	if slot == JOY_SLOT:
 		_set_status("為「%s」按下手把按鈕（Esc 取消）" % InputBindings.action_label(action), Palette.WARNING)
 	else:
-		_set_status("為「%s」按下鍵盤按鍵（Esc 取消、Backspace 清除）" % InputBindings.action_label(action), Palette.WARNING)
+		_set_status("為「%s」按下按鍵或滑鼠鍵（Esc 取消、Backspace 清除）" % InputBindings.action_label(action), Palette.WARNING)
 
 
 func _cancel_capture() -> void:
@@ -201,31 +201,30 @@ func _input(event: InputEvent) -> void:
 			close()
 			get_viewport().set_input_as_handled()
 		return
-	if event is InputEventKey and event.pressed and not event.echo:
+	var pressed_key: bool = event is InputEventKey and event.is_pressed() and not event.is_echo()
+	var pressed_mouse: bool = event is InputEventMouseButton and event.is_pressed()
+	if pressed_key or pressed_mouse:
 		get_viewport().set_input_as_handled()
-		_capture_key(event as InputEventKey)
+		_capture_code(InputBindings.code_from_event(event))
 	elif event is InputEventJoypadButton and event.pressed:
 		get_viewport().set_input_as_handled()
 		if _capture_slot == JOY_SLOT:
 			_finish_capture(InputBindings.set_joy_button(_capture_action, (event as InputEventJoypadButton).button_index))
-	elif event is InputEventMouseButton and event.pressed:
-		_cancel_capture()
 
 
-func _capture_key(event: InputEventKey) -> void:
-	var keycode := event.physical_keycode if event.physical_keycode != KEY_NONE else event.keycode
-	if keycode == KEY_ESCAPE:
+func _capture_code(code: int) -> void:
+	if code == KEY_ESCAPE:
 		_cancel_capture()
 		return
-	if _capture_slot == JOY_SLOT:
+	if _capture_slot == JOY_SLOT or code == InputBindings.NONE:
 		return
-	if keycode == KEY_BACKSPACE:
-		_finish_capture(InputBindings.set_key(_capture_action, _capture_slot, KEY_NONE))
+	if code == KEY_BACKSPACE:
+		_finish_capture(InputBindings.set_code(_capture_action, _capture_slot, InputBindings.NONE))
 		return
-	if keycode in InputBindings.RESERVED_KEYS:
-		_set_status("此按鍵保留給系統，請換一個。", Palette.DANGER)
+	if InputBindings.is_reserved(code):
+		_set_status("此按鍵保留給系統（Esc、數字鍵 1～4、F 鍵），請換一個。", Palette.DANGER)
 		return
-	_finish_capture(InputBindings.set_key(_capture_action, _capture_slot, keycode))
+	_finish_capture(InputBindings.set_code(_capture_action, _capture_slot, code))
 
 
 func _finish_capture(swapped: StringName) -> void:
