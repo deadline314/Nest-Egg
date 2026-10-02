@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim、block、story、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting
+## 情境：all（預設）、settings、mouse_aim、block、story、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -34,6 +34,10 @@ func _run() -> void:
 		return
 	if _scenario == "block":
 		await _run_block()
+		get_tree().quit()
+		return
+	if _scenario == "postfx":
+		await _run_postfx()
 		get_tree().quit()
 		return
 	if _scenario == "lighting":
@@ -188,6 +192,37 @@ func _run_block() -> void:
 	await _wait(0.12)
 	_capture("block_reflect")
 	Input.action_release(&"block")
+
+
+## 後製：同一個畫面開啟與關閉後製的對照，以及暫停選單（介面不受後製影響）。
+func _run_postfx() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _settle(20)
+	var player := level.player
+	player.health.setup(999, 0.0)
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	for id: String in Story.scene_ids():
+		if id.begins_with("radio_"):
+			Story._seen[StringName(id)] = true
+	var layout: LevelLayout = level._layout
+	player.global_position = Vector2(115 * layout.tile_size + 8.0, layout.surface_heights[115] - 2.0)
+	level_camera_snap()
+	Input.action_press(&"aim_right")
+	await _wait(4.6)
+	_capture("postfx_on")
+	level._post.visible = false
+	await _settle(4)
+	_capture("postfx_off")
+	level._post.visible = true
+	level._pause_menu.open()
+	await _wait(0.4)
+	_capture("postfx_menu")
+	level._pause_menu.close()
+	Input.action_release(&"aim_right")
 
 
 ## 光影：第一章五個區段各一張（環境光、光池、霧、背景），以及停電覆蓋。

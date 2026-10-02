@@ -28,6 +28,7 @@ var _inventory: InventoryScreen
 var _background: LevelBackground
 var _fog: FogLayer
 var _lighting: LightingController
+var _post: PostProcess
 var _arena_triggered := false
 var _finished := false
 var _next_story_trigger := 0
@@ -92,9 +93,11 @@ func _ready() -> void:
 
 	for problem in data.validate_lighting():
 		push_error("[Level] %s" % problem)
+	_post = PostProcess.new()
+	add_child(_post)
 	_lighting = LightingController.new()
 	add_child(_lighting)
-	_lighting.setup(data.lighting_zones, _layout.tile_size, player, ambient, _background, _fog, data.fog_color)
+	_lighting.setup(data.lighting_zones, _layout.tile_size, player, ambient, _background, _fog, data.fog_color, _post)
 
 	camera = LevelCamera.new()
 	add_child(camera)

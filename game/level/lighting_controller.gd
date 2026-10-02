@@ -15,6 +15,7 @@ var _target: Node2D
 var _modulate: CanvasModulate
 var _background: CanvasItem
 var _fog: FogLayer
+var _post: PostProcess
 var _neutral := LightingProfile.new()
 var _zone_state := LightingProfile.new()
 var _overrides: Array[_Override] = []
@@ -22,12 +23,13 @@ var _overrides: Array[_Override] = []
 
 ## zones 會被複製並排序；沒有有效區段時整關使用預設（全亮）光影，霧顏色取 fallback_fog。
 func setup(zones: Array[LightingZone], tile_size: int, target: Node2D, canvas_modulate: CanvasModulate,
-		background: CanvasItem, fog: FogLayer, fallback_fog: Color) -> void:
+		background: CanvasItem, fog: FogLayer, fallback_fog: Color, post: PostProcess = null) -> void:
 	_tile = float(maxi(1, tile_size))
 	_target = target
 	_modulate = canvas_modulate
 	_background = background
 	_fog = fog
+	_post = post
 	_neutral.id = &"neutral"
 	_neutral.fog_color = fallback_fog
 	_zones.clear()
@@ -156,6 +158,8 @@ func _apply() -> void:
 		_fog.color = current.fog_color
 		_fog.density = current.fog_density
 	LightKit.set_glow(current.glow_threshold, current.glow_intensity)
+	if is_instance_valid(_post):
+		_post.apply(current)
 
 
 ## 離開關卡時還原泛光預設，避免主選單沿用最後一個區段的設定。

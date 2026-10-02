@@ -6,6 +6,7 @@ extends Resource
 ## 所有可插值的欄位。新增欄位時加在這裡，插值與驗證會自動涵蓋。
 const BLENDED: Array[StringName] = [
 	&"ambient_color", &"background_tint", &"fog_color", &"fog_density", &"glow_threshold", &"glow_intensity",
+	&"saturation", &"contrast", &"shadow_tint", &"highlight_tint", &"vignette", &"grain", &"aberration",
 ]
 
 @export var id: StringName = &"lighting"
@@ -22,6 +23,22 @@ const BLENDED: Array[StringName] = [
 ## 泛光的 HDR 門檻：亮度超過它的東西才會暈開。越高，只有真正的發光體才會泛光。
 @export_range(0.5, 4.0, 0.05) var glow_threshold: float = 1.0
 @export_range(0.0, 3.0, 0.05) var glow_intensity: float = 0.9
+@export_group("Grade")
+## 飽和度（1 = 原色，0 = 黑白）。壓抑的畫面通常去飽和，霓虹本身仍然鮮豔。
+@export_range(0.0, 2.0, 0.01) var saturation: float = 1.0
+## 對比（1 = 不變）。提高會讓暗部更黑、亮部更突出。
+@export_range(0.5, 2.0, 0.01) var contrast: float = 1.0
+## 陰影的色調（乘上去，白色 = 不變）：偏冷讓暗部帶藍。
+@export var shadow_tint: Color = Color(1, 1, 1, 1)
+## 亮部的色調：偏暖讓光源附近帶橘黃。
+@export var highlight_tint: Color = Color(1, 1, 1, 1)
+@export_group("Screen")
+## 暗角強度（0 = 沒有）：畫面邊緣壓暗。
+@export_range(0.0, 1.5, 0.01) var vignette: float = 0.0
+## 底片顆粒強度（0 = 沒有）。
+@export_range(0.0, 0.3, 0.005) var grain: float = 0.0
+## 邊緣色差（螢幕寬度的比例，0 = 沒有）：只在畫面邊緣偏移紅藍通道。
+@export_range(0.0, 0.01, 0.0005) var aberration: float = 0.0
 
 
 ## 回傳問題清單（空代表沒問題）。
@@ -35,6 +52,14 @@ func validate() -> PackedStringArray:
 			problems.append("%s 的 %s 有負值" % [id, color_name])
 	if fog_density < 0.0:
 		problems.append("%s 的霧濃度不能是負的" % id)
+	for color_name in [&"shadow_tint", &"highlight_tint"]:
+		var tint: Color = get(color_name)
+		if tint.r < 0.0 or tint.g < 0.0 or tint.b < 0.0:
+			problems.append("%s 的 %s 有負值" % [id, color_name])
+	if saturation < 0.0 or contrast <= 0.0:
+		problems.append("%s 的飽和度不能是負的、對比必須大於 0" % id)
+	if vignette < 0.0 or grain < 0.0 or aberration < 0.0:
+		problems.append("%s 的暗角、顆粒、色差不能是負的" % id)
 	if glow_threshold <= 0.0:
 		problems.append("%s 的泛光門檻必須大於 0" % id)
 	return problems

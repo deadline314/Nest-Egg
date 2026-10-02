@@ -1001,6 +1001,26 @@ func _test_lighting() -> void:
 	_check(is_equal_approx(level._fog.density, zones[4].profile.fog_density) and level._fog.color.is_equal_approx(zones[4].profile.fog_color), "fog follows the zone")
 	_check(is_equal_approx(LightKit.environment().glow_hdr_threshold, zones[4].profile.glow_threshold), "glow follows the zone")
 
+	# 後製：調色、暗角、顆粒與色差跟著區段；畫在場景之上、介面之下。
+	var post: PostProcess = level._post
+	_check(post != null and post.is_active(), "post-processing is active")
+	var grade: LightingProfile = zones[4].profile
+	_check(is_equal_approx(post.parameter(&"vignette"), grade.vignette) and is_equal_approx(post.parameter(&"saturation"), grade.saturation)
+			and is_equal_approx(post.parameter(&"contrast"), grade.contrast) and is_equal_approx(post.parameter(&"grain"), grade.grain)
+			and is_equal_approx(post.parameter(&"aberration"), grade.aberration), "grade, vignette, grain and aberration follow the zone")
+	var shadow: Vector3 = post.parameter(&"shadow_tint")
+	_check(is_equal_approx(shadow.x, grade.shadow_tint.r) and is_equal_approx(shadow.z, grade.shadow_tint.b), "shadow tint follows the zone")
+	_check(post.layer < level.hud.layer and level.hud.layer < level._pause_menu.layer and level._pause_menu.layer < level._inventory.layer, "post-processing sits under the HUD and menus")
+	var shader_code := (post._material.shader as Shader).code
+	_check(shader_code.contains("hint_screen_texture") and shader_code.contains("uniform float vignette") and shader_code.contains("uniform float grain"), "post shader reads the screen and exposes grade parameters")
+	var bad_grade := LightingProfile.new()
+	bad_grade.grain = -0.1
+	bad_grade.contrast = 0.0
+	_check(bad_grade.validate().size() >= 2, "invalid grade values are reported")
+	var scratch := LightingProfile.new()
+	LightingProfile.blend_into(scratch, zones[0].profile, zones[1].profile, 0.5)
+	_check(is_equal_approx(scratch.vignette, lerpf(zones[0].profile.vignette, zones[1].profile.vignette, 0.5)), "grade values blend between zones")
+
 	# 事件覆蓋：淡入、取代同 id、淡出後回到區段光影。
 	var blackout := load("res://data/lighting/blackout.tres") as LightingProfile
 	EventBus.lighting_override_requested.emit(&"blackout", blackout, 0.2)

@@ -47,7 +47,7 @@ func open() -> void:
 	get_tree().paused = true
 	UiKit.set_cursor_visible(true)
 	_root.visible = true
-	_controls_label.text = Hud.controls_hint().replace("　", "\n")
+	_controls_label.text = _controls_text()
 	_resume_button.grab_focus()
 
 
@@ -59,6 +59,18 @@ func close() -> void:
 	UiKit.set_cursor_visible(false)
 
 
+## 操作提示排成兩欄，項目變多時暫停選單也不會撐滿畫面。
+func _controls_text() -> String:
+	var items := Hud.controls_hint().split("　", false)
+	var lines := PackedStringArray()
+	for i in range(0, items.size(), 2):
+		var pair := items[i]
+		if i + 1 < items.size():
+			pair += "　　　" + items[i + 1]
+		lines.append(pair)
+	return "\n".join(lines)
+
+
 func _open_settings() -> void:
 	_settings = SettingsScreen.new()
 	_settings.closed.connect(_on_settings_closed)
@@ -68,7 +80,7 @@ func _open_settings() -> void:
 func _on_settings_closed() -> void:
 	_settings = null
 	if _root.visible:
-		_controls_label.text = Hud.controls_hint().replace("　", "\n")
+		_controls_label.text = _controls_text()
 		_resume_button.grab_focus()
 
 
