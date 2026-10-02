@@ -65,12 +65,39 @@
 | `launcher.png` | 108×40 | (34, 26) | (66, 24) | (106, 14) |
 | `pistol.png` | 52×28 | (14, 18) | (14, 18) | (50, 9) |
 | `minigun.png` | 128×48 | (36, 30) | (72, 28) | (126, 22) |
+| `laser.png` | 112×36 | (32, 22) | (66, 20) | (110, 15) |
 
 握把、扶握處與槍口的位置可以依新畫的槍調整，改 `art/weapons/weapons.json` 即可。雙手會自動握到這兩個點上，子彈也會從槍口射出。
 
 ## 5. 建議的 ComfyUI 流程
 
 一致性是零件式角色最大的難題。推薦先畫全身、再拆零件，比逐張生成零件更容易維持風格一致。
+
+### 本機環境（2026-10-03 定案）
+
+> 來源：2026-10-03 使用者確認畫風採「A：動漫賽璐璐（Edgerunners 風）」，生成模型改用 Qwen Image 2.1 Uncensored，依立繪自動產生零件圖。
+
+| 項目 | 內容 |
+|---|---|
+| 安裝位置 | `C:\ComfyUI`（PyTorch XPU，Intel Arc B580 12GB） |
+| 模型 | `diffusion_models/qwen-image-2.1-UC-int8_convrot.safetensors`、`text_encoders/qwen3vl_8b_int8_convrot.safetensors`、`vae/qwen_image_2.1_vae_bf16.safetensors`；姿勢控制可用 `model_patches/qwen_image_2.1_fun_controlnet_union_int8_convrot.safetensors` |
+| 啟動 | `cd C:\ComfyUI && ./venv/Scripts/python main.py --listen 127.0.0.1 --port 8188 --bf16-unet --bf16-vae --bf16-text-enc --force-upcast-attention --reserve-vram 2.5 --disable-smart-memory` |
+| 速度 | 832×1216 約 50 秒一張（25 步、約 1.9 秒／步） |
+| 呼叫 | `tools/comfyui/comfy_api.py` 的 `qwen()`：文生圖，或帶參考圖進入編輯模式 |
+
+注意事項：
+- 少了 `--reserve-vram`、或 `QwenImage21Cache` 放在顯示記憶體時，會溢出到共用記憶體，一步要 160 秒。
+- Intel 顯卡偶爾會輸出全黑圖（數值溢位），`qwen()` 會自動偵測並換種子重畫。
+- INT8 ConvRot 是這張顯卡的最佳版本：FP8 沒有硬體加速、NVFP4 與 MLX 不支援、GGUF 每步解壓縮反而更慢。
+
+### 做法 C：參考姿勢 → Qwen 全身立繪 → 自動切零件（目前採用）
+
+1. `tools/comfyui/rig_reference.tscn` 把暫代角色擺成參考姿勢（前手抬起、前腳跨出、後側手腳隱藏），以貼圖 1px＝輸出 4px 的比例輸出 `body.png`（不含裝甲）、`armor.png`（含裝甲），並在同名 `.json` 記錄每個零件的繪製順序與「零件貼圖像素 → 輸出圖像素」的轉換。
+2. 以 Qwen 編輯模式，把參考姿勢圖當參考圖，生成同姿勢、同比例的 A 畫風全身立繪（背景純色）。
+3. 依 `.json` 把立繪逐零件反轉回零件畫布：輪廓沿用暫代圖的透明度（支點與尺寸不變），被其他零件遮住的區域自動補畫。
+4. 裝甲用 `armor` 那一輪的立繪切出；身體零件用 `body` 那一輪（裝甲底下的身體才會完整）。
+5. 發光層從新零件擷取高亮度、高彩度的青色與洋紅色像素，另存 `*_glow.png`。
+6. 縮回規格尺寸後先產生預覽（`tools/rig_preview.tscn` 截圖），確認後才覆蓋 `parts/`。
 
 ### 做法 A：全身圖 → 拆零件（推薦）
 
