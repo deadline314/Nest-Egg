@@ -36,6 +36,15 @@ const SOUNDS := {
 		{"wave": "noise", "time": 0.22, "volume": 0.35, "lowpass": 0.5, "decay": 2.0},
 		{"wave": "sine", "from": 130.0, "to": 40.0, "time": 0.26, "volume": 0.42, "decay": 1.6},
 	],
+	&"reload_start": [
+		{"wave": "square", "from": 900.0, "to": 700.0, "time": 0.03, "volume": 0.14, "decay": 3.0},
+		{"wave": "noise", "time": 0.05, "volume": 0.16, "lowpass": 0.5, "decay": 3.0},
+	],
+	&"reload_done": [
+		{"wave": "square", "from": 1300.0, "to": 900.0, "time": 0.025, "volume": 0.16, "decay": 3.0},
+		{"wave": "noise", "time": 0.04, "volume": 0.22, "lowpass": 0.3, "decay": 3.5},
+		{"wave": "sine", "from": 400.0, "to": 200.0, "time": 0.05, "volume": 0.18, "decay": 2.5},
+	],
 	&"shot_spread": [
 		{"wave": "noise", "time": 0.16, "volume": 0.45, "lowpass": 0.55, "decay": 2.5},
 		{"wave": "sine", "from": 180.0, "to": 60.0, "time": 0.12, "volume": 0.4, "decay": 2.0},

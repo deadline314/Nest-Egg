@@ -116,6 +116,8 @@ func _ready() -> void:
 	add_child(_light)
 
 	loadout.changed.connect(_on_loadout_changed)
+	loadout.reload_started.connect(func() -> void: Sfx.play(&"reload_start", -4.0))
+	loadout.reload_finished.connect(func() -> void: Sfx.play(&"reload_done", -3.0))
 	loadout.restore(_loadout_snapshot, tuning.default_weapon)
 	_last_safe_position = global_position
 	EventBus.player_spawned.emit(self)
@@ -158,6 +160,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		loadout.cycle(1)
 	elif event.is_action_pressed(&"weapon_prev"):
 		loadout.cycle(-1)
+	elif event.is_action_pressed(&"reload"):
+		loadout.start_reload()
 	else:
 		for slot in Loadout.MAX_SLOTS:
 			if event.is_action_pressed(StringName("weapon_slot_%d" % (slot + 1))):
@@ -207,6 +211,8 @@ func _tick_timers(delta: float) -> void:
 	_melee_visual_left = maxf(0.0, _melee_visual_left - delta)
 	_remount_cooldown_left = maxf(0.0, _remount_cooldown_left - delta)
 	aim_bloom = move_toward(aim_bloom, 0.0, AIM_BLOOM_RECOVERY * delta)
+	if state != State.DEAD and state != State.MOUNTED:
+		loadout.tick(delta)
 	_tick_guard(delta)
 	if _drop_through_left > 0.0:
 		_drop_through_left -= delta
@@ -701,6 +707,10 @@ func _on_loadout_changed() -> void:
 	var weapon := loadout.active_weapon()
 	_visual.set_weapon_visual(weapon.visual_id if weapon != null else "")
 	EventBus.player_loadout_changed.emit(loadout)
+
+
+func is_reloading() -> bool:
+	return loadout.is_reloading()
 
 
 ## 給視覺元件讀取（避免公開內部計時器）。

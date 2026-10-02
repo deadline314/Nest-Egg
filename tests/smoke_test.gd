@@ -136,13 +136,35 @@ func _test_state_machine() -> void:
 
 
 func _test_loadout() -> void:
-	var rifle := load("res://data/weapons/pistol.tres") as WeaponData
+	var pistol := load("res://data/weapons/pistol.tres") as WeaponData
 	var spread := load("res://data/weapons/spread.tres") as WeaponData
 	var laser := load("res://data/weapons/laser.tres") as WeaponData
 	var loadout := Loadout.new()
-	loadout.reset(rifle)
+	loadout.reset(pistol)
+	_check(loadout.mag_in(0) == 12 and loadout.reserve_in(0) < 0, "pistol starts with 12-round magazine and infinite reserve")
+	var fired := 0
+	for i in 12:
+		if loadout.consume_ammo():
+			fired += 1
+	_check(fired == 12, "pistol fires 12 shots per magazine")
+	_check(loadout.mag_in(0) == 0 and loadout.is_reloading(), "empty magazine starts reload automatically")
+	_check(not loadout.consume_ammo(), "cannot fire while reloading")
+	for i in 120:
+		loadout.tick(1.0 / 60.0)
+	_check(not loadout.is_reloading() and loadout.mag_in(0) == 12, "reload refills magazine")
+
 	loadout.equip(spread)
-	_check(loadout.active_weapon() == spread and loadout.ammo_in(1) == spread.max_ammo, "equip new weapon")
+	_check(loadout.active_weapon() == spread and loadout.mag_in(1) == spread.magazine_size and loadout.reserve_in(1) == spread.max_reserve, "equip new weapon")
+	loadout.consume_ammo()
+	_check(loadout.start_reload() and loadout.is_reloading(), "manual reload with partial magazine")
+	loadout.select(0)
+	_check(not loadout.is_reloading(), "switching weapons cancels reload")
+	loadout.select(1)
+	loadout.start_reload()
+	for i in 200:
+		loadout.tick(1.0 / 60.0)
+	_check(loadout.mag_in(1) == spread.magazine_size and loadout.reserve_in(1) == spread.max_reserve - 1, "reload takes rounds from reserve")
+	_check(not loadout.start_reload(), "full magazine does not reload")
 	loadout.equip(laser)
 	_check(loadout.slot_count() == 3 and loadout.active_slot == 2, "weapons stack into slots")
 	loadout.cycle(1)
@@ -150,21 +172,27 @@ func _test_loadout() -> void:
 	loadout.cycle(-1)
 	_check(loadout.active_slot == 2, "cycle backwards")
 	loadout.select(1)
-	for i in spread.max_ammo:
-		loadout.consume_ammo()
-	_check(loadout.active_slot == Loadout.PRIMARY, "auto swap back when empty")
+	var guard := 0
+	while loadout.active_slot == 1 and guard < 500:
+		guard += 1
+		if not loadout.consume_ammo():
+			loadout.tick(5.0)
+	_check(loadout.active_slot == Loadout.PRIMARY and loadout.mag_in(1) == 0 and loadout.reserve_in(1) == 0, "auto swap back when magazine and reserve run dry")
 	loadout.cycle(1)
 	_check(loadout.active_slot == 2, "cycling skips empty weapons")
 	loadout.equip(spread)
-	_check(loadout.slot_count() == 3 and loadout.ammo_in(1) == spread.max_ammo, "same weapon refills instead of duplicating")
+	_check(loadout.slot_count() == 3 and loadout.reserve_in(1) == spread.max_reserve, "same weapon refills reserve instead of duplicating")
+	loadout.refill_ratio(0.5)
 	var restored := Loadout.new()
-	restored.restore(loadout.snapshot(), rifle)
-	_check(restored.slot_count() == 3 and restored.weapon_in(2) == laser, "snapshot round trip")
-	restored.restore({"weapons": ["res://missing.tres"], "ammo": "bad"}, rifle)
-	_check(restored.active_weapon() == rifle, "restore falls back on bad data")
+	restored.restore(loadout.snapshot(), pistol)
+	_check(restored.slot_count() == 3 and restored.weapon_in(2) == laser and restored.mag_in(1) == loadout.mag_in(1)
+			and restored.reserve_in(1) == loadout.reserve_in(1), "snapshot round trip keeps magazine and reserve")
+	restored.restore({"weapons": ["res://data/weapons/pistol.tres", "res://data/weapons/spread.tres"], "ammo": [-1, 10], "active": 1}, pistol)
+	_check(restored.mag_in(1) == spread.magazine_size and restored.reserve_in(1) == 10 - spread.magazine_size, "legacy snapshot converts total ammo")
+	restored.restore({"weapons": ["res://missing.tres"], "mag": "bad"}, pistol)
+	_check(restored.active_weapon() == pistol, "restore falls back on bad data")
 
 
-## 骨架角色：定義完整性、零件圖片、IK、裝甲脫落、缺圖容錯。
 func _test_rigs() -> void:
 	var skeleton := RigLibrary.load_json("res://art/rigs/humanoid.json")
 	var bone_names: Dictionary = {}
@@ -425,7 +453,7 @@ func _test_gameplay() -> void:
 	Input.action_press(&"shoot")
 	await _frames(20)
 	Input.action_release(&"shoot")
-	_check(player.loadout.ammo_in(1) < spread.max_ammo, "special weapon consumes ammo")
+	_check(player.loadout.mag_in(1) < spread.magazine_size or player.loadout.reserve_in(1) < spread.max_reserve, "special weapon consumes ammo")
 	var wheel := InputEventMouseButton.new()
 	wheel.button_index = MOUSE_BUTTON_WHEEL_DOWN
 	wheel.pressed = true
@@ -595,16 +623,30 @@ func _test_dynamic_hud() -> void:
 	await _frames(2)
 	_check(vitals.is_low_health(), "low health detected for persistent warning")
 
-	_check(not ring.is_showing_ammo(), "ammo ring hidden for infinite primary")
+	_check(ring.is_showing_ammo() and ring.max_ammo == 12 and ring.reserve < 0, "ammo ring shows pistol magazine")
 	player.loadout.equip(load(WEAPON_DIR.path_join("spread.tres")) as WeaponData)
 	await _frames(1)
-	_check(ring.is_showing_ammo() and ring.ammo == ring.max_ammo, "ammo ring shows limited weapon")
+	_check(ring.is_showing_ammo() and ring.ammo == ring.max_ammo, "ammo ring shows new weapon magazine")
 	var before := ring.ammo
 	player.loadout.consume_ammo()
 	_check(ring.ammo < before, "ammo ring follows consumption")
-	while player.loadout.active_slot != Loadout.PRIMARY:
-		player.loadout.consume_ammo()
-	_check(not ring.is_showing_ammo(), "ammo ring hides after weapon runs dry")
+	var safety := 0
+	while player.loadout.active_slot != Loadout.PRIMARY and safety < 500:
+		safety += 1
+		if not player.loadout.consume_ammo():
+			player.loadout.tick(5.0)
+	_check(ring.max_ammo == 12, "ammo ring returns to pistol after weapon runs dry")
+	Input.action_press(&"reload")
+	player.loadout.consume_ammo()
+	var reload_event := InputEventAction.new()
+	reload_event.action = &"reload"
+	reload_event.pressed = true
+	Input.parse_input_event(reload_event)
+	await _frames(2)
+	Input.action_release(&"reload")
+	_check(player.is_reloading(), "reload key starts reload")
+	await _frames(70)
+	_check(not player.is_reloading() and player.loadout.mag_in(0) == 12, "reload finishes in game time")
 
 	var original := Settings.get_hud_auto_hide()
 	Settings.set_hud_auto_hide(false)

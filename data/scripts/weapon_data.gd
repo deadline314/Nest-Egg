@@ -7,8 +7,12 @@ extends Resource
 @export var color: Color = Color.WHITE
 @export var projectile: ProjectileSpec
 @export var fire_interval: float = 0.15
-## -1 代表無限彈藥。
-@export var max_ammo: int = -1
+## 彈匣容量；0 代表沒有彈匣、不需換彈（例如機甲加農砲）。
+@export var magazine_size: int = 0
+## 備彈上限；-1 代表無限。
+@export var max_reserve: int = -1
+## 換彈所需秒數。
+@export var reload_time: float = 1.2
 @export var ammo_per_shot: int = 1
 @export var pellets: int = 1
 @export var spread_degrees: float = 0.0
@@ -35,9 +39,13 @@ extends Resource
 @export var visual_id: String = "rifle"
 
 
-func has_infinite_ammo() -> bool:
-	return max_ammo < 0
+func has_magazine() -> bool:
+	return magazine_size > 0
+
+
+func has_infinite_reserve() -> bool:
+	return max_reserve < 0
 
 
 func is_valid() -> bool:
-	return projectile != null and fire_interval > 0.0
+	return projectile != null and fire_interval > 0.0 and magazine_size >= 0 and reload_time >= 0.0

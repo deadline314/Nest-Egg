@@ -7,7 +7,7 @@ extends CanvasLayer
 const TOAST_TIME := 2.2
 const CONTROLS_HINT_TIME := 14.0
 ## {動作} 會換成玩家目前設定的按鍵（見 InputBindings.format）。
-const CONTROLS_TEMPLATE := "移動 {move_left}/{move_right}　跳 {jump}　射擊 {shoot}　格擋 {block}　衝刺 {dash}　終結 {melee}　換武器 {weapon_next}／1～4　搭乘 {interact}　暫停 {pause}"
+const CONTROLS_TEMPLATE := "移動 {move_left}/{move_right}　跳 {jump}　射擊 {shoot}　格擋 {block}　衝刺 {dash}　終結 {melee}　換彈 {reload}　換武器 {weapon_next}／1～4　搭乘 {interact}　暫停 {pause}"
 
 var vitals_tag: VitalsTag
 var ammo_ring: AmmoRing
@@ -74,9 +74,9 @@ func _ready() -> void:
 	# 先開啟折行再設定尺寸，否則單行文字會把寬度撐開。
 	_controls.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_controls.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	_controls.custom_minimum_size = Vector2(470, 0)
-	_controls.position = Vector2(160, 330)
-	_controls.size = Vector2(470, 26)
+	_controls.custom_minimum_size = Vector2(500, 0)
+	_controls.position = Vector2(130, 330)
+	_controls.size = Vector2(500, 26)
 	root.add_child(_controls)
 	var fade := create_tween()
 	fade.tween_interval(CONTROLS_HINT_TIME)
@@ -132,9 +132,12 @@ func _on_loadout_changed(loadout: Loadout) -> void:
 			label.add_theme_color_override(&"font_color", Color(Palette.UI_MUTED, 0.5))
 			label.tooltip_text = "撿取武器後放在這裡；滾輪或數字鍵切換"
 			continue
-		var ammo := loadout.ammo_in(slot)
+		var reserve := loadout.reserve_in(slot)
+		var ammo_text := "∞"
+		if weapon.has_magazine():
+			ammo_text = "%d/%s" % [loadout.mag_in(slot), "∞" if reserve < 0 else str(reserve)]
 		var active := slot == loadout.active_slot
-		label.text = "%d %s %s  %s" % [slot + 1, "▶" if active else " ", weapon.display_name, "∞" if ammo < 0 else str(ammo)]
+		label.text = "%d %s %s  %s" % [slot + 1, "▶" if active else " ", weapon.display_name, ammo_text]
 		label.add_theme_color_override(&"font_color", weapon.color if active else Palette.UI_MUTED)
 		label.tooltip_text = weapon.description
 

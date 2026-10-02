@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim、block、story、dynamic_hud、weapons
+## 情境：all（預設）、settings、mouse_aim、block、story、dynamic_hud、weapons、reload
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -34,6 +34,10 @@ func _run() -> void:
 		return
 	if _scenario == "block":
 		await _run_block()
+		get_tree().quit()
+		return
+	if _scenario == "reload":
+		await _run_reload()
 		get_tree().quit()
 		return
 	if _scenario == "weapons":
@@ -168,6 +172,32 @@ func _run_block() -> void:
 	await _wait(0.12)
 	_capture("block_reflect")
 	Input.action_release(&"block")
+
+
+## 換彈：手槍彈匣偏低的換彈提示、打空後自動換彈（槍口壓低、彈藥環顯示進度）。
+func _run_reload() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _settle(20)
+	var player := level.player
+	player.health.setup(999, 0.0)
+	player.global_position = Vector2(330, 320)
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	level_camera_snap()
+	Input.action_press(&"aim_right")
+	await _wait(4.5)
+	for i in 10:
+		player.loadout.consume_ammo()
+	await _wait(0.3)
+	_capture("reload_low")
+	player.loadout.consume_ammo()
+	player.loadout.consume_ammo()
+	await _wait(0.45)
+	_capture("reload_progress")
+	Input.action_release(&"aim_right")
 
 
 ## 武器陣容：每把玩家武器各開火一段時間，拼成一張 4×2 的總覽圖。

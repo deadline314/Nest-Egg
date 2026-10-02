@@ -99,7 +99,8 @@ func _physics_process(delta: float) -> void:
 		return
 	_input.velocity = player.velocity
 	_input.on_floor = player.is_on_floor()
-	_input.aim_dir = player.aim_dir
+	# 換彈時槍口壓低朝前下方。
+	_input.aim_dir = player.aim_dir if not player.is_reloading() else Vector2(player.facing * 0.6, 0.8).normalized()
 	_input.facing = player.facing
 	_input.run_speed = player.tuning.run_speed
 	_input.crouching = player.is_crouching

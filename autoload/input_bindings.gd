@@ -14,7 +14,7 @@ const TRIGGER_DEADZONE := 0.3
 const KEY_SLOTS := 2
 const SETTINGS_SECTION := "input"
 ## 綁定格式版本。預設操作大改時遞增，舊存檔會自動改回新預設。
-const SCHEMA_VERSION := 2
+const SCHEMA_VERSION := 3
 const SCHEMA_KEY := "_schema"
 const NONE := 0
 
@@ -30,6 +30,7 @@ const ACTIONS: Array[Dictionary] = [
 	{"id": &"melee", "label": "近戰／終結"},
 	{"id": &"weapon_next", "label": "下一把武器"},
 	{"id": &"weapon_prev", "label": "上一把武器"},
+	{"id": &"reload", "label": "換彈"},
 	{"id": &"interact", "label": "搭乘／互動"},
 	{"id": &"pause", "label": "暫停"},
 ]
@@ -43,8 +44,9 @@ const DEFAULT_CODES: Dictionary[StringName, Array] = {
 	&"block": [-MOUSE_BUTTON_RIGHT, KEY_K],
 	&"dash": [KEY_SHIFT, KEY_L],
 	&"melee": [KEY_F, NONE],
-	&"weapon_next": [-MOUSE_BUTTON_WHEEL_DOWN, KEY_TAB],
-	&"weapon_prev": [-MOUSE_BUTTON_WHEEL_UP, KEY_Q],
+	&"weapon_next": [-MOUSE_BUTTON_WHEEL_DOWN, NONE],
+	&"weapon_prev": [-MOUSE_BUTTON_WHEEL_UP, NONE],
+	&"reload": [KEY_R, NONE],
 	&"interact": [KEY_E, NONE],
 	&"pause": [KEY_ESCAPE, KEY_P],
 }
@@ -60,6 +62,7 @@ const DEFAULT_JOY_BUTTONS: Dictionary[StringName, int] = {
 	&"melee": JOY_BUTTON_Y,
 	&"weapon_next": JOY_BUTTON_RIGHT_SHOULDER,
 	&"weapon_prev": JOY_BUTTON_LEFT_SHOULDER,
+	&"reload": JOY_BUTTON_RIGHT_STICK,
 	&"interact": JOY_BUTTON_X,
 	&"pause": JOY_BUTTON_START,
 }
