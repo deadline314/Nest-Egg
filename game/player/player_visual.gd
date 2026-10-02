@@ -16,6 +16,9 @@ const FINISHER_FLASH_TIME := 0.2
 ## 擠壓伸展回彈速度（越大回彈越快）。
 const SQUASH_RECOVERY := 14.0
 const RECOIL_KICK := 3.0
+const PARRY_FLASH_TIME := 0.25
+const BLOCK_FLASH_TIME := 0.1
+const SHIELD_RADIUS := 13.0
 
 var player: Player
 
@@ -24,6 +27,8 @@ var _fire_flash := 0.0
 var _fire_color := Palette.CYAN
 var _finisher_flash := 0.0
 var _last_plate_count := -1
+var _parry_flash := 0.0
+var _block_flash := 0.0
 var _squash := Vector2.ONE
 var _recoil := 0.0
 
@@ -41,6 +46,14 @@ func notify_jump() -> void:
 func notify_land(impact: float) -> void:
 	var amount := lerpf(0.12, 0.35, impact)
 	_squash = Vector2(1.0 + amount, 1.0 - amount)
+
+
+func notify_parry() -> void:
+	_parry_flash = PARRY_FLASH_TIME
+
+
+func notify_block() -> void:
+	_block_flash = BLOCK_FLASH_TIME
 
 
 func notify_dash() -> void:
@@ -65,6 +78,8 @@ func _process(delta: float) -> void:
 	_time += delta
 	_fire_flash = maxf(0.0, _fire_flash - delta)
 	_finisher_flash = maxf(0.0, _finisher_flash - delta)
+	_parry_flash = maxf(0.0, _parry_flash - delta)
+	_block_flash = maxf(0.0, _block_flash - delta)
 	_squash = _squash.lerp(Vector2.ONE, minf(1.0, SQUASH_RECOVERY * delta))
 	_recoil = move_toward(_recoil, 0.0, 40.0 * delta)
 	scale = _squash
@@ -136,6 +151,28 @@ func _draw() -> void:
 		var start := -PI * 0.5 if f > 0.0 else PI * 0.5
 		draw_arc(center, 13.0, start, start + PI * f, 12, Color(Palette.CYAN, 0.85), 3.0)
 
+	_draw_shield()
+
 	if _finisher_flash > 0.0:
 		var t := _finisher_flash / FINISHER_FLASH_TIME
 		draw_arc(Vector2(0, -12), 18.0 * (1.5 - t), 0.0, TAU, 24, Color(Palette.WHITE, t), 2.0)
+
+
+## 能量護盾：沿準星方向的弧形；剛舉起（完美格擋時間窗）時更亮，完美格擋成功時爆閃。
+func _draw_shield() -> void:
+	if not player.is_blocking and _parry_flash <= 0.0:
+		return
+	# 本節點會依面向左右翻轉，因此把準星方向換回本地座標。
+	var local_aim := Vector2(player.aim_dir.x * player.facing, player.aim_dir.y)
+	var center := Vector2(0, -14) + local_aim * 4.0
+	var angle := local_aim.angle()
+	var half_arc := deg_to_rad(player.tuning.block_arc_degrees * 0.5) * 0.8
+	var guard_ratio := clampf(player.guard / player.tuning.guard_max, 0.0, 1.0)
+	var intensity := 1.4 + (1.2 if player.is_parry_window() else 0.0) + _block_flash * 10.0 + _parry_flash * 8.0
+	var color := LightKit.glow(Palette.CYAN.lerp(Palette.DANGER, 1.0 - guard_ratio), intensity)
+	draw_arc(center, SHIELD_RADIUS, angle - half_arc, angle + half_arc, 14, Color(color, 0.25), 6.0)
+	draw_arc(center, SHIELD_RADIUS, angle - half_arc, angle + half_arc, 14, color, 1.5)
+	if _parry_flash > 0.0:
+		var t := _parry_flash / PARRY_FLASH_TIME
+		draw_arc(center, SHIELD_RADIUS + (1.0 - t) * 10.0, angle - half_arc, angle + half_arc, 14, Color(LightKit.glow(Palette.WHITE, 3.0), t), 2.0)
+

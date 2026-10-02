@@ -1,17 +1,22 @@
 class_name Hurtbox
 extends Area2D
 ## 受擊框：被動區域，接收攻擊後轉交 HealthComponent。
-## 可設定 guard（格擋判定）實作盾牌等「需要特定應對方式」的防禦機制。
+## 可設定 guard（格擋判定）實作盾牌、玩家格擋與完美反彈等防禦機制。
 
-enum Result { IGNORED, BLOCKED, DAMAGED }
+enum Result { IGNORED, BLOCKED, REFLECTED, DAMAGED }
+## guard 回呼的回傳值：不格擋／格擋（攻擊無效）／反彈（子彈改由我方擁有並飛回）。
+enum Guard { NONE, BLOCK, REFLECT }
 
 signal hit_received(info: DamageInfo)
 signal hit_blocked(info: DamageInfo)
+signal hit_reflected(info: DamageInfo)
 
 var team: Combat.Team = Combat.Team.ENEMY
 var health: HealthComponent
-## 回傳 true 代表此次攻擊被格擋（例如盾牌正面）。未設定則不格擋。
+## 格擋判定回呼：func(info: DamageInfo) -> Hurtbox.Guard。未設定則不格擋。
 var guard: Callable = Callable()
+## 反彈子彈時的飛行方向（例如玩家的準星方向）；零向量代表原路彈回。
+var reflect_direction: Vector2 = Vector2.ZERO
 ## 傷害倍率（例如頭目露出弱點時 > 1）。
 var damage_scale: float = 1.0
 ## 停用時不會被任何攻擊判定到（透過 deferred 切換，物理回呼中呼叫也安全）。
@@ -52,9 +57,14 @@ func can_receive(info: DamageInfo = null) -> bool:
 func receive(info: DamageInfo) -> Result:
 	if info == null or info.team == team or not can_receive(info):
 		return Result.IGNORED
-	if guard.is_valid() and not info.bypass_guard and bool(guard.call(info)):
-		hit_blocked.emit(info)
-		return Result.BLOCKED
+	if guard.is_valid() and not info.bypass_guard:
+		match int(guard.call(info)):
+			Guard.BLOCK:
+				hit_blocked.emit(info)
+				return Result.BLOCKED
+			Guard.REFLECT:
+				hit_reflected.emit(info)
+				return Result.REFLECTED
 	if damage_scale != 1.0:
 		info.amount = maxi(1, roundi(info.amount * damage_scale))
 	if health.take_damage(info):

@@ -4,6 +4,9 @@ extends Area2D
 
 signal expired(projectile: Projectile)
 
+const REFLECT_SPEED_SCALE := 1.35
+const REFLECT_DAMAGE_SCALE := 2.0
+
 var spec: ProjectileSpec
 var team: Combat.Team = Combat.Team.PLAYER
 var velocity := Vector2.ZERO
@@ -11,6 +14,9 @@ var active := false
 
 var _life := 0.0
 var _pierce_left := 0
+## 反彈後的傷害倍率與顏色（規格資源是共用的，所以覆寫值存在子彈本身）。
+var _damage_scale := 1.0
+var _color := Color.WHITE
 var _hit_ids: Dictionary[int, bool] = {}
 var _shape := CircleShape2D.new()
 
@@ -41,10 +47,10 @@ func activate(p_spec: ProjectileSpec, origin: Vector2, direction: Vector2, p_tea
 	_life = spec.lifetime
 	_pierce_left = spec.pierce
 	_hit_ids.clear()
+	_damage_scale = 1.0
+	_color = spec.color
 	_shape.radius = maxf(1.0, spec.radius)
-	collision_mask = Combat.hurtbox_mask_against(team)
-	if not spec.passes_walls:
-		collision_mask |= Layers.WORLD
+	_update_mask()
 	active = true
 	visible = true
 	set_physics_process(true)
@@ -84,15 +90,19 @@ func _on_area_entered(area: Area2D) -> void:
 	if _hit_ids.has(id):
 		return
 	_hit_ids[id] = true
-	var info := DamageInfo.create(spec.damage, team, spec.source_id, velocity.normalized() * spec.knockback)
+	var info := DamageInfo.create(maxi(1, roundi(spec.damage * _damage_scale)), team, spec.source_id, velocity.normalized() * spec.knockback)
 	info.stagger = spec.stagger
 	info.origin = global_position
+	info.is_projectile = true
 	match hurtbox.receive(info):
 		Hurtbox.Result.DAMAGED:
 			Fx.impact(global_position, -velocity.normalized(), spec.color, 6)
 			Sfx.play(&"hit", -6.0)
 			if team == Combat.Team.PLAYER:
 				EventBus.hit_confirmed.emit(global_position, hurtbox.health.is_dead)
+		Hurtbox.Result.REFLECTED:
+			_reflect(hurtbox.reflect_direction)
+			return
 		Hurtbox.Result.BLOCKED:
 			# 被格擋：火花反彈、子彈直接消失（即使可貫穿）。
 			Fx.impact(global_position, -velocity.normalized(), Palette.WHITE, 8)
@@ -110,13 +120,31 @@ func _on_area_entered(area: Area2D) -> void:
 func _on_body_entered(_body: Node2D) -> void:
 	if not active:
 		return
-	Fx.impact(global_position, -velocity.normalized(), spec.color.darkened(0.2), 4)
+	Fx.impact(global_position, -velocity.normalized(), _color.darkened(0.2), 4)
 	_finish(true)
+
+
+## 被完美格擋：改由對方陣營擁有，朝指定方向加速飛回，傷害加倍。
+func _reflect(direction: Vector2) -> void:
+	team = Combat.Team.PLAYER if team == Combat.Team.ENEMY else Combat.Team.ENEMY
+	var dir := direction.normalized() if direction.length_squared() > 0.0001 else -velocity.normalized()
+	velocity = dir * maxf(velocity.length(), spec.speed) * REFLECT_SPEED_SCALE
+	rotation = velocity.angle()
+	_damage_scale = REFLECT_DAMAGE_SCALE
+	_color = Palette.CYAN
+	_life = spec.lifetime
+	_hit_ids.clear()
+	_update_mask()
+	queue_redraw()
+
+
+func _update_mask() -> void:
+	set_deferred(&"collision_mask", Combat.hurtbox_mask_against(team) | (0 if spec.passes_walls else Layers.WORLD))
 
 
 func _finish(impact: bool) -> void:
 	if spec.explosion_radius > 0.0 and (impact or spec.explode_on_expire):
-		Fx.explosion(global_position, spec.explosion_radius, spec.explosion_damage, team, spec.source_id, spec.color)
+		Fx.explosion(global_position, spec.explosion_radius, roundi(spec.explosion_damage * _damage_scale), team, spec.source_id, _color)
 	deactivate()
 
 
@@ -126,8 +154,8 @@ func _draw() -> void:
 	# HDR 發光核心 + 外暈 + 速度拖尾，在泛光下呈現霓虹子彈。
 	var half := maxf(spec.length, spec.radius * 2.0) * 0.5
 	var tail := clampf(spec.speed * 0.02, 0.0, 14.0)
-	var glow := LightKit.glow(spec.color, 2.0)
-	draw_line(Vector2(-half - tail, 0), Vector2(-half, 0), Color(spec.color, 0.35), spec.radius)
+	var glow := LightKit.glow(_color, 2.0)
+	draw_line(Vector2(-half - tail, 0), Vector2(-half, 0), Color(_color, 0.35), spec.radius)
 	draw_line(Vector2(-half + spec.radius, 0), Vector2(half - spec.radius, 0), glow, spec.radius * 2.0)
 	draw_circle(Vector2(-half + spec.radius, 0), spec.radius, glow)
 	draw_circle(Vector2(half - spec.radius, 0), spec.radius, glow)

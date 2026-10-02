@@ -27,6 +27,7 @@ func _run() -> void:
 	_test_loadout()
 	await _test_settings_and_bindings()
 	await _test_gameplay()
+	await _test_block_and_parry()
 	await _test_enemy_behaviours()
 	await _test_boss_and_victory()
 	await _test_death_flow()
@@ -245,7 +246,7 @@ func _start_level() -> Level:
 
 
 func _end_level(level: Level) -> void:
-	for action in [&"move_right", &"shoot", &"jump", &"aim_right", &"aim_left"]:
+	for action in [&"move_right", &"shoot", &"jump", &"aim_right", &"aim_left", &"block"]:
 		Input.action_release(action)
 	if is_instance_valid(level):
 		get_tree().root.remove_child(level)
@@ -344,6 +345,78 @@ func _test_gameplay() -> void:
 	player.global_position = Vector2(player.global_position.x, player.fall_limit_y + 10.0)
 	await _frames(2)
 	_check(player.health.current < hp and player.global_position.y < player.fall_limit_y, "pit damages and respawns")
+	await _end_level(level)
+
+
+func _shoot_at_player(player: Player, from_offset: Vector2) -> Projectile:
+	var spec := load("res://data/projectiles/grunt_shot.tres") as ProjectileSpec
+	var origin := player.aim_origin() + from_offset
+	return ProjectilePool.spawn(spec, origin, (player.aim_origin() - origin).normalized(), Combat.Team.ENEMY)
+
+
+func _test_block_and_parry() -> void:
+	var level := await _start_level()
+	var player := level.player
+	player.health.setup(10, 0.0)
+	player.global_position = Vector2(300, 320)
+	Input.action_press(&"aim_right")
+	await _frames(5)
+	Input.action_press(&"block")
+	await _frames(2)
+	_check(player.is_blocking and player.is_parry_window(), "block raises shield with parry window")
+
+	var parried := _shoot_at_player(player, Vector2(14, 0))
+	await _frames(3)
+	_check(parried.team == Combat.Team.PLAYER and parried.velocity.x > 0.0 and player.health.current == 10, "perfect parry reflects bullet toward aim")
+
+	await _frames(15)
+	var guard_before := player.guard
+	var blocked := _shoot_at_player(player, Vector2(14, 0))
+	await _frames(3)
+	_check(not blocked.active and player.health.current == 10 and player.guard < guard_before, "block stops bullet and drains guard")
+
+	var behind := _shoot_at_player(player, Vector2(-14, 0))
+	await _frames(3)
+	_check(player.health.current == 9 and not behind.active, "attacks from behind are not blocked")
+
+	Input.action_press(&"shoot")
+	var ammo_projectiles := ProjectilePool.active_count()
+	await _frames(6)
+	_check(ProjectilePool.active_count() <= ammo_projectiles, "cannot shoot while blocking")
+	Input.action_release(&"shoot")
+
+	player.guard = 1.0
+	_shoot_at_player(player, Vector2(14, 0))
+	await _frames(3)
+	_check(player.state == Player.State.STAGGERED and not player.is_blocking, "guard break staggers player")
+	await _frames(60)
+	_check(not player.is_blocking, "guard locked out after break")
+
+	await _frames(100)
+	Input.action_release(&"block")
+	await _frames(2)
+	Input.action_press(&"block")
+	await _frames(2)
+	var hp := player.health.current
+	Fx.explosion(player.global_position + Vector2(10, -12), 30.0, 1, Combat.Team.ENEMY, &"bomber_blast")
+	await _frames(4)
+	_check(player.health.current == hp - 1, "explosions ignore the shield")
+
+	# 完美格擋接觸攻擊會讓攻擊者暈眩
+	Input.action_release(&"block")
+	await _frames(40)
+	var grunt_data := load(ENEMY_DIR.path_join("grunt.tres")) as EnemyData
+	var grunt := grunt_data.behavior.new() as Enemy
+	grunt.configure(grunt_data)
+	grunt.position = player.global_position + Vector2(30, 0)
+	player.get_parent().add_child(grunt)
+	await _frames(2)
+	Input.action_press(&"block")
+	await _frames(1)
+	grunt.global_position = player.global_position + Vector2(6, 0)
+	await _frames(3)
+	_check(grunt.is_stunned(), "parrying a contact attack stuns the attacker")
+	Input.action_release(&"block")
 	await _end_level(level)
 
 

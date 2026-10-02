@@ -9,7 +9,7 @@ extends CharacterBody2D
 ##   _setup_states()      註冊狀態機（fsm）的各狀態並 start
 ##   _draw_body(color)    繪製外觀（color 已處理受擊閃白）
 ##   _draw_overlay()      （可選）繪製預兆，如瞄準線、落點圈
-##   _guard(info) -> bool （可選）格擋判定，例如盾牌
+##   _guard(info) -> Hurtbox.Guard （可選）格擋判定，例如盾牌
 ##   _on_stunned()        （可選）被暈眩時切回安全狀態
 ##   _on_defeated(info)   （可選）死亡時的特殊效果，例如連鎖爆炸
 ##   _play_death()        （可選）自訂死亡演出
@@ -108,8 +108,8 @@ func _uses_activation_culling() -> bool:
 	return true
 
 
-func _guard(_info: DamageInfo) -> bool:
-	return false
+func _guard(_info: DamageInfo) -> Hurtbox.Guard:
+	return Hurtbox.Guard.NONE
 
 
 @abstract func _draw_body(color: Color) -> void

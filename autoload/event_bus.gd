@@ -6,6 +6,8 @@ signal player_spawned(player: Node2D)
 signal player_health_changed(current: int, maximum: int)
 signal player_loadout_changed(loadout: Loadout)
 signal player_died(cause_id: StringName)
+signal player_guard_changed(current: float, maximum: float, broken: bool)
+signal player_parried(world_position: Vector2)
 
 signal vehicle_mounted(vehicle: Node2D)
 signal vehicle_dismounted

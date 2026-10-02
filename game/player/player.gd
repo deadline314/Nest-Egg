@@ -3,7 +3,7 @@ extends CharacterBody2D
 ## 玩家「七號」：移動、跳躍、衝刺、8 方向射擊、近戰／終結技、騎乘載具。
 ## 所有手感參數集中在 PlayerTuning 資源；原點位於腳底。
 
-enum State { NORMAL, DASH, FINISHER, MOUNTED, DEAD }
+enum State { NORMAL, DASH, FINISHER, MOUNTED, STAGGERED, DEAD }
 
 const BODY_SIZE := Vector2(10, 22)
 const CROUCH_HEIGHT := 13.0
@@ -15,6 +15,8 @@ const REMOUNT_COOLDOWN := 0.3
 ## 準星擴散每秒回復量與最大額外散佈角度。
 const AIM_BLOOM_RECOVERY := 2.5
 const AIM_BLOOM_MAX_DEGREES := 4.0
+## 同一接觸攻擊重複格擋時的最短計費間隔。
+const CONTACT_BLOCK_INTERVAL := 0.35
 
 var tuning: PlayerTuning
 var health: HealthComponent
@@ -28,6 +30,9 @@ var aim_point := Vector2.ZERO
 ## 連射造成的準星擴散（0~1），隨時間回復。
 var aim_bloom := 0.0
 var is_crouching := false
+var is_blocking := false
+## 護盾能量（格擋消耗、放開後回復）。
+var guard := 100.0
 var mounted_vehicle: Vehicle
 ## 低於此高度視為掉入深淵（由關卡設定）。
 var fall_limit_y := INF
@@ -51,6 +56,11 @@ var _drop_through_left := 0.0
 var _safe_ground_time := 0.0
 var _remount_cooldown_left := 0.0
 var _dash_dir := 1
+var _block_time := 0.0
+var _guard_regen_delay_left := 0.0
+var _guard_lockout_left := 0.0
+var _stagger_left := 0.0
+var _contact_block_left := 0.0
 var _last_safe_position := Vector2.ZERO
 var _query_shape := RectangleShape2D.new()
 
@@ -87,7 +97,9 @@ func _ready() -> void:
 	hurtbox = Hurtbox.new()
 	add_child(hurtbox)
 	hurtbox.setup(Combat.Team.PLAYER, health, Vector2.ZERO)
+	hurtbox.guard = _guard
 	_update_hurtbox_shape()
+	guard = tuning.guard_max
 
 	_visual = PlayerVisual.new()
 	_visual.player = self
@@ -103,6 +115,7 @@ func _ready() -> void:
 	_last_safe_position = global_position
 	EventBus.player_spawned.emit(self)
 	_on_health_changed(health.current, health.max_health)
+	_emit_guard()
 
 
 func is_targetable() -> bool:
@@ -156,6 +169,14 @@ func _physics_process(delta: float) -> void:
 		State.FINISHER:
 			_process_finisher(delta)
 			return
+		State.STAGGERED:
+			_stagger_left -= delta
+			velocity.x = move_toward(velocity.x, 0.0, tuning.ground_deceleration * delta)
+			_apply_gravity(delta)
+			move_and_slide()
+			if _stagger_left <= 0.0:
+				state = State.NORMAL
+			return
 		State.DEAD:
 			velocity.x = move_toward(velocity.x, 0.0, tuning.ground_deceleration * delta)
 			_apply_gravity(delta)
@@ -180,6 +201,7 @@ func _tick_timers(delta: float) -> void:
 	_melee_visual_left = maxf(0.0, _melee_visual_left - delta)
 	_remount_cooldown_left = maxf(0.0, _remount_cooldown_left - delta)
 	aim_bloom = move_toward(aim_bloom, 0.0, AIM_BLOOM_RECOVERY * delta)
+	_tick_guard(delta)
 	if _drop_through_left > 0.0:
 		_drop_through_left -= delta
 		if _drop_through_left <= 0.0 and state != State.MOUNTED and state != State.DEAD:
@@ -191,8 +213,9 @@ func _process_normal(delta: float) -> void:
 	var down := Input.is_action_pressed(&"move_down")
 	var on_floor := is_on_floor()
 
+	_update_blocking()
 	var was_crouching := is_crouching
-	is_crouching = on_floor and down
+	is_crouching = on_floor and down and not is_blocking
 	if was_crouching != is_crouching:
 		_update_hurtbox_shape()
 
@@ -202,6 +225,8 @@ func _process_normal(delta: float) -> void:
 		# 背對準星移動（倒退）時稍慢，維持射擊時的控制感。
 		if signf(input_x) != 0.0 and signf(input_x) != float(facing):
 			target_speed *= tuning.backpedal_multiplier
+		if is_blocking:
+			target_speed *= tuning.block_speed_multiplier
 	var accel: float
 	if absf(target_speed) > 1.0:
 		accel = tuning.ground_acceleration if on_floor else tuning.air_acceleration
@@ -235,7 +260,7 @@ func _process_normal(delta: float) -> void:
 		return
 	if Input.is_action_just_pressed(&"dash"):
 		_try_dash(input_x)
-	if Input.is_action_pressed(&"shoot"):
+	if Input.is_action_pressed(&"shoot") and not is_blocking:
 		_try_fire()
 
 
@@ -529,6 +554,102 @@ func _process_mounted() -> void:
 # ---------------------------------------------------------------------------
 # 受傷與死亡
 # ---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
+# 格擋與完美反彈
+# ---------------------------------------------------------------------------
+
+func _update_blocking() -> void:
+	var wants := Input.is_action_pressed(&"block") and _guard_lockout_left <= 0.0 and guard > 0.0
+	if wants and not is_blocking:
+		_block_time = 0.0
+	is_blocking = wants
+	hurtbox.reflect_direction = aim_dir
+
+
+func _tick_guard(delta: float) -> void:
+	_guard_lockout_left = maxf(0.0, _guard_lockout_left - delta)
+	_contact_block_left = maxf(0.0, _contact_block_left - delta)
+	if is_blocking:
+		_block_time += delta
+	if state != State.NORMAL:
+		is_blocking = false
+	if _guard_regen_delay_left > 0.0:
+		_guard_regen_delay_left -= delta
+	elif not is_blocking and guard < tuning.guard_max:
+		guard = minf(tuning.guard_max, guard + tuning.guard_regen_per_second * delta)
+		_emit_guard()
+
+
+func is_parry_window() -> bool:
+	return is_blocking and _block_time <= tuning.parry_window
+
+
+## 受擊框的格擋判定：只擋準星方向扇形內的攻擊；剛舉盾的瞬間為完美格擋。
+func _guard(info: DamageInfo) -> Hurtbox.Guard:
+	if not is_blocking or state != State.NORMAL:
+		return Hurtbox.Guard.NONE
+	var incoming := info.origin - aim_origin()
+	if incoming.length_squared() > 1.0 and rad_to_deg(absf(incoming.angle_to(aim_dir))) > tuning.block_arc_degrees * 0.5:
+		return Hurtbox.Guard.NONE
+	# 接觸攻擊每影格都會判定：短時間內重複的接觸只算一次，不會瞬間耗光能量。
+	if not info.is_projectile and _contact_block_left > 0.0:
+		return Hurtbox.Guard.BLOCK
+	if not info.is_projectile:
+		_contact_block_left = CONTACT_BLOCK_INTERVAL
+	var shield_point := aim_origin() + aim_dir * 12.0
+	if is_parry_window():
+		_on_parry(info, shield_point)
+		return Hurtbox.Guard.REFLECT if info.is_projectile else Hurtbox.Guard.BLOCK
+	_on_block(info, shield_point)
+	return Hurtbox.Guard.BLOCK
+
+
+func _on_parry(info: DamageInfo, at: Vector2) -> void:
+	# 接觸攻擊無法反彈，改為讓攻擊者暈眩（例如盾衛犬的衝撞）。
+	if not info.is_projectile:
+		var enemy := info.get_attacker() as Enemy
+		if enemy != null:
+			enemy.stun(tuning.parry_stun)
+			enemy.velocity.x = signf(enemy.global_position.x - global_position.x) * 160.0
+	Fx.hitstop(0.08)
+	Fx.shake(3.0, 0.12)
+	Fx.impact(at, aim_dir, Palette.CYAN, 14)
+	Fx.flash_light(at, Palette.CYAN, 110.0, 2.6, 0.25)
+	Sfx.play(&"parry", -2.0, 0.03)
+	_visual.notify_parry()
+	EventBus.player_parried.emit(at)
+
+
+func _on_block(info: DamageInfo, at: Vector2) -> void:
+	guard -= maxf(1.0, float(info.amount)) * tuning.guard_cost_per_damage
+	_guard_regen_delay_left = tuning.guard_regen_delay
+	velocity.x -= aim_dir.x * 90.0
+	Fx.impact(at, aim_dir, Palette.WHITE, 6)
+	Sfx.play(&"block", -4.0)
+	_visual.notify_block()
+	if guard <= 0.0:
+		_guard_break()
+	_emit_guard()
+
+
+## 破防：短暫硬直且一段時間無法格擋。
+func _guard_break() -> void:
+	guard = 0.0
+	is_blocking = false
+	_guard_lockout_left = tuning.guard_break_lockout
+	_guard_regen_delay_left = tuning.guard_break_lockout
+	state = State.STAGGERED
+	_stagger_left = tuning.guard_break_stun
+	Fx.shake(4.0, 0.2)
+	Fx.burst(aim_origin(), Palette.CYAN, 18, 160.0, 0.4)
+	Sfx.play(&"hurt", -6.0, 0.0)
+	EventBus.toast_requested.emit("護盾破防")
+
+
+func _emit_guard() -> void:
+	EventBus.player_guard_changed.emit(guard, tuning.guard_max, _guard_lockout_left > 0.0)
+
 
 func _on_damaged(info: DamageInfo) -> void:
 	if state == State.DASH:

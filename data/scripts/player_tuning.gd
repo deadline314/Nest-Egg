@@ -48,6 +48,24 @@ extends Resource
 ## 終結技回補特殊武器彈藥的比例（相對最大彈藥）。
 @export var finisher_ammo_refund: float = 0.3
 
+@export_group("Block & Parry")
+## 格擋中的移動速度倍率。
+@export var block_speed_multiplier: float = 0.35
+## 可格擋的扇形角度（以準星方向為中心）。
+@export var block_arc_degrees: float = 120.0
+## 剛按下格擋後的「完美格擋」時間窗（秒）。
+@export var parry_window: float = 0.16
+@export var guard_max: float = 100.0
+## 每點傷害消耗的護盾能量。
+@export var guard_cost_per_damage: float = 24.0
+@export var guard_regen_per_second: float = 40.0
+@export var guard_regen_delay: float = 0.6
+## 破防後的硬直時間與無法再格擋的時間。
+@export var guard_break_stun: float = 0.6
+@export var guard_break_lockout: float = 1.6
+## 完美格擋接觸攻擊時，攻擊者被暈眩的秒數。
+@export var parry_stun: float = 1.4
+
 @export_group("Vehicle")
 @export var mount_range: float = 26.0
 @export var eject_invulnerability: float = 1.2

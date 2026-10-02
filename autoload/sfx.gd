@@ -70,6 +70,11 @@ const SOUNDS := {
 		{"wave": "tri", "from": 660.0, "to": 660.0, "time": 0.07, "volume": 0.2, "decay": 1.0},
 		{"wave": "tri", "from": 990.0, "to": 1320.0, "time": 0.16, "volume": 0.2, "decay": 1.2, "attack": 0.06},
 	],
+	&"parry": [
+		{"wave": "sine", "from": 3200.0, "to": 2600.0, "time": 0.22, "volume": 0.22, "decay": 2.0},
+		{"wave": "tri", "from": 900.0, "to": 1800.0, "time": 0.12, "volume": 0.2, "decay": 1.5},
+		{"wave": "noise", "time": 0.08, "volume": 0.3, "lowpass": 0.15, "decay": 3.0},
+	],
 	&"telegraph": [
 		{"wave": "square", "from": 1250.0, "to": 1250.0, "time": 0.06, "volume": 0.1, "decay": 1.0},
 	],

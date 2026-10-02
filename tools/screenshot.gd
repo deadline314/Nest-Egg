@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim
+## 情境：all（預設）、settings、mouse_aim、block
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -24,6 +24,10 @@ func _run() -> void:
 	add_child(LightKit.create_environment())
 	if _scenario == "settings":
 		await _run_settings()
+		get_tree().quit()
+		return
+	if _scenario == "block":
+		await _run_block()
 		get_tree().quit()
 		return
 	if _scenario == "mouse_aim":
@@ -63,6 +67,47 @@ func _run() -> void:
 	await _wait(1.8)
 	_capture("07_death_card")
 	get_tree().quit()
+
+
+## 格擋：舉盾、完美格擋反彈、護盾能量條。
+func _run_block() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _settle(20)
+	var player := level.player
+	player.health.setup(999, 0.0)
+	player.global_position = Vector2(340, 320)
+	# 清掉場上敵人，只留一個標靶，讓畫面只呈現格擋本身。
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	var dummy_data := load("res://data/enemies/grunt.tres") as EnemyData
+	var dummy := dummy_data.behavior.new() as Enemy
+	dummy.configure(dummy_data)
+	dummy.position = player.global_position + Vector2(150, 0)
+	player.get_parent().add_child(dummy)
+	dummy.set_physics_process(false)
+	level_camera_snap()
+	await _settle(10)
+	var screen := get_viewport().get_canvas_transform() * (player.global_position + Vector2(90, -16))
+	Input.warp_mouse(screen * (Vector2(get_window().size) / get_viewport().get_visible_rect().size))
+	await _settle(4)
+	var spec := load("res://data/projectiles/grunt_shot.tres") as ProjectileSpec
+	# 先擋一發消耗能量，再在完美格擋時間窗內反彈一發。
+	Input.action_press(&"block")
+	await _wait(0.3)
+	ProjectilePool.spawn(spec, player.aim_origin() + Vector2(16, 0), Vector2.LEFT, Combat.Team.ENEMY)
+	await _wait(0.2)
+	Input.action_release(&"block")
+	await _settle(2)
+	Input.action_press(&"block")
+	ProjectilePool.spawn(spec, player.aim_origin() + Vector2(14, -1), Vector2.LEFT, Combat.Team.ENEMY)
+	await _settle(3)
+	_capture("block_parry")
+	await _wait(0.12)
+	_capture("block_reflect")
+	Input.action_release(&"block")
 
 
 ## 滑鼠瞄準：準星、擴散、命中標記、武器欄。

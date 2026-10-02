@@ -30,8 +30,9 @@ func _ready() -> void:
 	root.add_child(_gauges)
 
 	_add_tooltip_zone(root, Rect2(8, 6, 110, 18), "生命：裝甲片剝落代表受傷，歸零即失敗")
+	_add_tooltip_zone(root, Rect2(8, 22, 110, 8), "護盾能量：格擋時消耗，放開後回復；耗盡會破防")
 	_lives_label = UiKit.label("", 10, Palette.UI_MUTED)
-	_lives_label.position = Vector2(12, 24)
+	_lives_label.position = Vector2(12, 30)
 	root.add_child(_lives_label)
 
 	_weapon_panel = VBoxContainer.new()
@@ -86,6 +87,7 @@ func _ready() -> void:
 	EventBus.boss_defeated.connect(_on_boss_defeated)
 	EventBus.toast_requested.connect(show_toast)
 	EventBus.lives_changed.connect(_on_lives_changed)
+	EventBus.player_guard_changed.connect(_on_guard_changed)
 	InputBindings.bindings_changed.connect(_refresh_controls)
 	_on_lives_changed(GameState.lives_left)
 
@@ -125,6 +127,12 @@ func _add_tooltip_zone(parent: Control, rect: Rect2, tooltip: String) -> Control
 func _on_health_changed(current: int, maximum: int) -> void:
 	_gauges.health = current
 	_gauges.max_health = maximum
+	_gauges.queue_redraw()
+
+
+func _on_guard_changed(current: float, maximum: float, broken: bool) -> void:
+	_gauges.guard_ratio = current / maxf(1.0, maximum)
+	_gauges.guard_broken = broken
 	_gauges.queue_redraw()
 
 
@@ -193,12 +201,15 @@ class _Gauges:
 	var vehicle_visible := false
 	var vehicle_ratio := 1.0
 	var boss_visible := false
+	var guard_ratio := 1.0
+	var guard_broken := false
 	var boss_ratio := 1.0
 
 	## 生命上限超過此數改用長條顯示，避免格子溢出畫面。
 	const MAX_PIPS := 12
 
 	func _draw() -> void:
+		_draw_guard()
 		if max_health > MAX_PIPS:
 			var ratio := float(health) / float(max_health)
 			draw_rect(Rect2(12, 10, 150, 8), Color(Palette.UI_PANEL, 0.9))
@@ -223,3 +234,10 @@ class _Gauges:
 			draw_rect(Rect2(170, 22, 300 * boss_ratio, 6), LightKit.glow(Palette.DANGER, 1.6))
 			draw_line(Vector2(320, 20), Vector2(320, 30), Palette.UI_MUTED, 1.0)
 			draw_rect(Rect2(170, 22, 300, 6), Palette.TERRAIN_TOP, false, 1.0)
+
+	func _draw_guard() -> void:
+		var rect := Rect2(12, 23, 90, 3)
+		draw_rect(rect, Color(Palette.UI_PANEL, 0.9))
+		var color := Palette.DANGER if guard_broken else LightKit.glow(Palette.CYAN, 1.2)
+		draw_rect(Rect2(rect.position, Vector2(rect.size.x * guard_ratio, rect.size.y)), color)
+

@@ -39,12 +39,15 @@ func _physics_process(_delta: float) -> void:
 		if hurtbox == null or hurtbox.team == team or not hurtbox.can_receive():
 			continue
 		var info := DamageInfo.create(damage, team, source_id)
-		var side := signf(hurtbox.global_position.x - global_position.x)
+		# 以碰撞形狀中心作為攻擊來源（而非節點原點／腳底），讓格擋方向判定準確。
+		var origin := _shape_node.global_position
+		var side := signf(hurtbox.global_position.x - origin.x)
 		if side == 0.0:
 			side = 1.0
 		if knockback_override != Vector2.ZERO:
 			info.knockback = Vector2(knockback_override.x * side, knockback_override.y)
 		else:
 			info.knockback = Vector2(side * knockback_force, -knockback_force * 0.6)
-		info.origin = global_position
+		info.origin = origin
+		info.attacker = weakref(get_parent())
 		hurtbox.receive(info)

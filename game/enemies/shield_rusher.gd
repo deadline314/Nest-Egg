@@ -26,11 +26,11 @@ func _on_stunned() -> void:
 
 
 ## 正面（面向方向）來的攻擊會被格擋；暈眩時盾牌失效。
-func _guard(info: DamageInfo) -> bool:
+func _guard(info: DamageInfo) -> Hurtbox.Guard:
 	if fsm.is_in(&"dazed") or is_stunned():
-		return false
+		return Hurtbox.Guard.NONE
 	var from_side := signf(info.origin.x - global_position.x)
-	return from_side == float(facing)
+	return Hurtbox.Guard.BLOCK if from_side == float(facing) else Hurtbox.Guard.NONE
 
 
 func _on_blocked(info: DamageInfo) -> void:
