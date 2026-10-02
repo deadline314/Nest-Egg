@@ -161,7 +161,7 @@ func set_weapon(visual_id: String) -> void:
 	var base_dir := RigLibrary.WEAPONS_PATH.get_base_dir()
 	var size := RigLibrary.vec2(_weapon_def.get("size"), Vector2(64, 24))
 	_weapon_scale = float(RigLibrary.weapons().get("texture_scale", 0.25))
-	_weapon_sprite.texture = RigLibrary.texture(base_dir.path_join(str(_weapon_def.get("file", ""))), Vector2i(size))
+	_weapon_sprite.texture = LitTextures.load_texture(base_dir.path_join(str(_weapon_def.get("file", ""))), Vector2i(size))
 	_weapon_sprite.offset = -RigLibrary.vec2(_weapon_def.get("grip"))
 	_weapon_sprite.scale = Vector2.ONE * _weapon_scale
 	var glow := RigLibrary.optional_texture(base_dir.path_join(str(_weapon_def.get("glow", ""))))
@@ -275,7 +275,7 @@ func _build_parts(skin: Dictionary) -> void:
 		var sprite := Sprite2D.new()
 		sprite.name = str(entry.get("name", tex_name))
 		sprite.centered = false
-		sprite.texture = RigLibrary.texture(base_dir.path_join(str(tex_def.get("file", ""))), Vector2i(size))
+		sprite.texture = LitTextures.load_texture(base_dir.path_join(str(tex_def.get("file", ""))), Vector2i(size))
 		sprite.offset = -RigLibrary.vec2(tex_def.get("pivot"))
 		sprite.scale = Vector2.ONE * _texture_scale
 		sprite.position = RigLibrary.vec2(entry.get("offset"))

@@ -11,6 +11,10 @@ const MAX_CHARACTER_FILL := 4.0
 const LIGHTNING_MIN_GAP := 6.0
 const LIGHTNING_COLOR := Color(0.72, 0.8, 1.0)
 const THUNDER_DELAY := Vector2(0.4, 1.5)
+## 輪廓光：光的範圍、高度（0 = 與畫面平行，只照亮傾斜的法線）、相對鏡頭中心的位置（右上方）。
+const RIM_LIGHT_RADIUS := 1500.0
+const RIM_LIGHT_HEIGHT := 0.0
+const RIM_LIGHT_OFFSET := Vector2(380.0, -300.0)
 
 ## 目前實際套用中的光影（唯讀）。
 var current := LightingProfile.new()
@@ -29,6 +33,7 @@ var _flash_color := Color.WHITE
 var _flash_level := 0.0
 var _flash_decay := 0.0
 var _lightning_gap := 0.0
+var _rim_light: PointLight2D
 
 
 ## zones 會被複製並排序；沒有有效區段時整關使用預設（全亮）光影，霧顏色取 fallback_fog。
@@ -57,6 +62,10 @@ func setup(zones: Array[LightingZone], tile_size: int, target: Node2D, canvas_mo
 	EventBus.lighting_override_requested.connect(set_override)
 	EventBus.lighting_override_cleared.connect(clear_override)
 	EventBus.ambient_flash_requested.connect(flash)
+	_rim_light = _create_rim_light()
+	add_child(_rim_light)
+	Settings.display_changed.connect(_on_display_changed)
+	_on_display_changed()
 	tree_exiting.connect(_on_exiting)
 	snap()
 
@@ -180,6 +189,21 @@ func _advance_overrides(delta: float) -> void:
 		i -= 1
 
 
+## 輪廓光：一盞很大的「高度 0」點光，放在鏡頭右上方遠處（效果像方向光）。平面（法線朝向鏡頭）幾乎不受影響，
+## 只有法線貼圖中朝向光的邊緣會被打亮，勾出角色與地形的輪廓。
+## 不用 DirectionalLight2D：它會讓不受光的背景層也被打亮，破壞背景的環境光壓暗。
+func _create_rim_light() -> PointLight2D:
+	var light := LightKit.create_point_light(Color.WHITE, RIM_LIGHT_RADIUS, 0.0, false, false)
+	light.name = "RimLight"
+	light.height = RIM_LIGHT_HEIGHT
+	return light
+
+
+## 光影品質改變：法線貼圖與輪廓光跟著開關。
+func _on_display_changed() -> void:
+	LitTextures.set_enabled(LightQuality.normal_maps())
+
+
 func _advance_flash(delta: float) -> void:
 	if _flash_level > 0.0:
 		_flash_level = maxf(0.0, _flash_level - _flash_decay * delta)
@@ -223,6 +247,13 @@ func _apply() -> void:
 	var ambient_luma := maxf(0.01, LightKit.luminance(current.ambient_color))
 	LightKit.character_fill = clampf(current.character_floor / ambient_luma, 1.0, MAX_CHARACTER_FILL)
 	LightKit.lamp_power = current.lamp_power
+	_rim_light.color = current.rim_color
+	_rim_light.energy = current.rim_energy
+	_rim_light.enabled = LightQuality.normal_maps() and current.rim_energy > 0.0
+	var viewport := get_viewport()
+	if viewport != null:
+		var center := viewport.get_canvas_transform().affine_inverse() * (viewport.get_visible_rect().size * 0.5)
+		_rim_light.global_position = center + RIM_LIGHT_OFFSET
 
 
 ## 離開關卡時還原泛光預設，避免主選單沿用最後一個區段的設定。
@@ -230,6 +261,7 @@ func _on_exiting() -> void:
 	LightKit.set_glow(LightKit.DEFAULT_GLOW_THRESHOLD, LightKit.DEFAULT_GLOW_INTENSITY)
 	LightKit.character_fill = 1.0
 	LightKit.lamp_power = 1.0
+	LitTextures.set_enabled(true)
 	if EventBus.lighting_override_requested.is_connected(set_override):
 		EventBus.lighting_override_requested.disconnect(set_override)
 	if EventBus.lighting_override_cleared.is_connected(clear_override):

@@ -6,7 +6,7 @@ extends Resource
 ## 所有可插值的欄位。新增欄位時加在這裡，插值與驗證會自動涵蓋。
 const BLENDED: Array[StringName] = [
 	&"ambient_color", &"background_tint", &"fog_color", &"fog_density", &"glow_threshold", &"glow_intensity",
-	&"saturation", &"contrast", &"shadow_tint", &"highlight_tint", &"vignette", &"grain", &"aberration", &"character_floor", &"lamp_power", &"lightning_rate",
+	&"saturation", &"contrast", &"shadow_tint", &"highlight_tint", &"vignette", &"grain", &"aberration", &"character_floor", &"lamp_power", &"lightning_rate", &"rim_color", &"rim_energy",
 ]
 
 ## 角色最低可讀亮度（0~1）：環境光再暗，角色補光後至少要有這個亮度。
@@ -39,6 +39,10 @@ const MIN_READABLE_CHARACTER_LUMA := 0.2
 ## 角色（主角與敵人）的最低可讀亮度：環境光比這個暗時，角色零件會被補亮到這個程度（0 = 不補）。
 ## 重度壓抑的畫面靠它維持公平：環境可以很暗，但角色永遠看得到。
 @export_range(0.0, 1.0, 0.01) var character_floor: float = 0.0
+@export_group("Rim")
+## 輪廓光（對有法線貼圖的角色與地形，只在邊緣打亮）：顏色與強度（0 = 沒有）。
+@export var rim_color: Color = Color(1, 1, 1, 1)
+@export_range(0.0, 3.0, 0.05) var rim_energy: float = 0.0
 @export_group("Weather")
 ## 每分鐘平均閃電次數（0 = 沒有閃電）。室外區段才有。
 @export_range(0.0, 20.0, 0.1) var lightning_rate: float = 0.0
@@ -82,6 +86,8 @@ func validate() -> PackedStringArray:
 	if lamp_style != null:
 		for problem in lamp_style.validate():
 			problems.append("%s：%s" % [id, problem])
+	if rim_energy < 0.0:
+		problems.append("%s 的輪廓光強度不能是負的" % id)
 	if lightning_rate < 0.0:
 		problems.append("%s 的閃電頻率不能是負的" % id)
 	if lamp_power < 0.0 or lamp_power > 1.0:

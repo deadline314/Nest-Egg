@@ -934,6 +934,16 @@ func _count_scene_lights() -> Array[int]:
 	return [lights, shadows]
 
 
+## 圓形的法線貼圖測試圖（16×16，中間一個實心圓，邊緣有透明）。
+func _make_blob_normal() -> Image:
+	var source := Image.create(16, 16, false, Image.FORMAT_RGBA8)
+	for y in 16:
+		for x in 16:
+			if Vector2(x + 0.5, y + 0.5).distance_to(Vector2(8, 8)) < 6.0:
+				source.set_pixel(x, y, Color(0.5, 0.5, 0.5, 1.0))
+	return NormalMapMaker.make(source, 2, 3.0, 0.0)
+
+
 func _test_lighting() -> void:
 	# 資料：所有光影設定與第一關的區段都有效。
 	var profile_count := 0
@@ -1135,6 +1145,8 @@ func _test_lighting() -> void:
 			all_on = all_on and lamp._light.enabled
 	_check(all_on, "restoring power switches every lamp back on")
 
+	var terrain := level.get_node("World/Terrain")
+
 	# 體積光：場景燈有光錐、光暈與地面倒影；砲台的光錐跟著瞄準；低品質關閉；霧被光源染色；前景剪影。
 	var shaft_count := 0
 	for node in level._world.get_children():
@@ -1273,6 +1285,49 @@ func _test_lighting() -> void:
 	DirAccess.remove_absolute("user://test_flash.cfg")
 	lighting._lightning_gap = 0.0
 
+	# 法線貼圖與輪廓光：每張零件、武器與地形材質都有法線貼圖，角色與地形用 CanvasTexture，品質低時關閉。
+	var missing_normals := 0
+	for skin_id in ["rin", "trooper", "grenadier", "enforcer", "warden"]:
+		var skin := RigLibrary.character(skin_id)
+		for tex_name: String in skin.get("textures", {}).keys():
+			var file := str(skin["textures"][tex_name].get("file", ""))
+			var normal_path := RigLibrary.character_dir(skin_id).path_join(file).get_basename() + "_n.png"
+			missing_normals += 0 if ResourceLoader.exists(normal_path) else 1
+	for visual_id: String in RigLibrary.weapons().get("weapons", {}).keys():
+		var weapon_file := str(RigLibrary.weapon(visual_id).get("file", ""))
+		missing_normals += 0 if ResourceLoader.exists(RigLibrary.WEAPONS_PATH.get_base_dir().path_join(weapon_file).get_basename() + "_n.png") else 1
+	missing_normals += 0 if ResourceLoader.exists("res://art/materials/metal_panel_n.png") else 1
+	_check(missing_normals == 0, "every part, weapon and terrain material has a normal map (%d missing)" % missing_normals)
+	var rig_part := level.player._visual.rig._part_sprites[0] as Sprite2D
+	_check(rig_part.texture is CanvasTexture and (rig_part.texture as CanvasTexture).normal_texture != null, "character parts use normal-mapped textures")
+	var panel_texture: Texture2D = terrain.get("_panel")
+	_check(panel_texture is CanvasTexture and (panel_texture as CanvasTexture).normal_texture != null, "terrain uses a normal-mapped metal panel")
+	var height_probe := LightKit.create_point_light(Color.WHITE, 50.0, 1.0, false, false)
+	_check(is_equal_approx(height_probe.height, LightKit.LIGHT_HEIGHT), "scene lights are lifted off the plane so normal maps light up")
+	height_probe.free()
+	var plain := LitTextures.load_texture("res://icon.svg", Vector2i(16, 16))
+	_check(not (plain is CanvasTexture), "a texture without a normal map falls back to the plain texture")
+	var rim: PointLight2D = lighting._rim_light
+	_check(rim != null and is_zero_approx(rim.height) and rim.color.is_equal_approx(lighting.current.rim_color), "the rim light is a flat, zone-colored light")
+	var normal_a := _make_blob_normal()
+	_check(normal_a.get_pixel(4, 8).r < 0.45 and normal_a.get_pixel(11, 8).r > 0.55, "normal map tilts left on the left edge and right on the right edge")
+	_check(normal_a.get_pixel(8, 4).g > 0.55 and normal_a.get_pixel(8, 11).g < 0.45, "normal map tilts up on the top edge and down on the bottom edge (Y up)")
+	_check(normal_a.get_pixel(8, 8).b > 0.9 and is_equal_approx(normal_a.get_pixel(8, 8).a, 1.0) and is_zero_approx(normal_a.get_pixel(0, 0).a), "normal map keeps the flat middle flat and the alpha of the source")
+	Settings.use_storage("user://test_normals.cfg")
+	Settings.set_light_quality(LightQuality.Tier.LOW)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(not LitTextures.is_enabled() and (rig_part.texture as CanvasTexture).normal_texture == null and not rim.enabled, "low quality turns off normal maps and the rim light")
+	Settings.set_light_quality(LightQuality.Tier.HIGH)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(LitTextures.is_enabled() and (rig_part.texture as CanvasTexture).normal_texture != null and rim.enabled == (lighting.current.rim_energy > 0.0), "high quality brings normal maps and the rim light back")
+	Settings.use_storage(saved_settings)
+	DirAccess.remove_absolute("user://test_normals.cfg")
+	var bad_rim := LightingProfile.new()
+	bad_rim.rim_energy = -1.0
+	_check(not bad_rim.validate().is_empty(), "invalid rim energy is reported")
+
 	# 發光的東西不受環境光壓暗；地形受光。
 	var emissive := LightKit.emissive_material()
 	_check(emissive.light_mode == CanvasItemMaterial.LIGHT_MODE_UNSHADED, "emissive material is unshaded")
@@ -1308,7 +1363,6 @@ func _test_lighting() -> void:
 	var rig: CharacterRig = level.player._visual.rig
 	_check(is_equal_approx(LightKit.character_fill, clampf(lighting.current.character_floor / LightKit.luminance(lighting.current.ambient_color), 1.0, LightingController.MAX_CHARACTER_FILL)), "character fill follows the current lighting")
 	_check(is_equal_approx(rig._fill, LightKit.character_fill), "player rig applies the character fill")
-	var terrain := level.get_node("World/Terrain")
 	var edge_chunks := 0
 	for chunk in terrain.get_node("Edges").get_children():
 		edge_chunks += 1

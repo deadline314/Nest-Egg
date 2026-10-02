@@ -1,13 +1,13 @@
 extends Node
 ## 開發工具：實際渲染第一章每個區段，量測暗場的可讀性（玩家輪廓與地面邊緣的對比），低於門檻就以非零代碼結束。
 ## 用法（需要可渲染的環境）：godot --path . res://tools/readability_check.tscn
-## 量測方式：對每個區段截圖（隱藏 HUD），比較「玩家身體範圍」與「周圍一圈」的平均亮度、
-##   「地面頂面亮邊」與「正下方 6 像素」的平均亮度。對比 = (內 − 外) / (外 + 0.02)。
+## 量測方式：對每個區段截圖（隱藏 HUD），比較「玩家身體範圍」的亮部（第 90 百分位亮度，看輪廓與亮處）與
+##   「周圍一圈」的平均亮度、「地面頂面亮邊」與「正下方 6 像素」的平均亮度。對比 = (內 − 外) / (外 + 0.02)。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
 ## 各區段取中段的一欄；設施入口後段是停電走廊，另外量測。
 const SPOTS: Array[Array] = [["屋頂巷弄", 30], ["霓虹市集", 115], ["貨運站", 200], ["設施入口", 252], ["停電走廊", 275], ["頭目機庫", 330]]
-const MIN_PLAYER_CONTRAST := 0.3
+const MIN_PLAYER_CONTRAST := 0.6
 const MIN_EDGE_CONTRAST := 1.0
 const PLAYER_BOX := Rect2(-9, -44, 18, 40)
 const RING := 20.0
@@ -69,12 +69,25 @@ func _run() -> void:
 
 ## 方框內平均亮度與外圈（向外擴 ring 像素）平均亮度的對比。
 func _contrast(image: Image, scale: float, to_screen: Transform2D, box: Rect2, ring: float) -> float:
-	var inner := _mean_luma(image, scale, to_screen, box)
+	var inner := _percentile_luma(image, scale, to_screen, box, 0.9)
 	var outer_box := box.grow(ring)
 	var outer_total := _luma_sum(image, scale, to_screen, outer_box) - _luma_sum(image, scale, to_screen, box)
 	var outer_count := _pixel_count(scale, outer_box) - _pixel_count(scale, box)
 	var outer := outer_total / maxf(1.0, outer_count)
 	return (inner - outer) / (outer + 0.02)
+
+
+## 方框內像素亮度的第 q 百分位（0~1）。
+func _percentile_luma(image: Image, scale: float, to_screen: Transform2D, world_rect: Rect2, q: float) -> float:
+	var rect := _screen_rect(scale, to_screen, world_rect).intersection(Rect2i(Vector2i.ZERO, image.get_size()))
+	var values: Array[float] = []
+	for y in range(rect.position.y, rect.end.y):
+		for x in range(rect.position.x, rect.end.x):
+			values.append(LightKit.luminance(image.get_pixel(x, y)))
+	if values.is_empty():
+		return 0.0
+	values.sort()
+	return values[clampi(int(float(values.size() - 1) * q), 0, values.size() - 1)]
 
 
 func _mean_luma(image: Image, scale: float, to_screen: Transform2D, world_rect: Rect2) -> float:

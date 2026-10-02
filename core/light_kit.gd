@@ -8,6 +8,9 @@ const DEFAULT_GLOW_THRESHOLD := 1.0
 const DEFAULT_GLOW_INTENSITY := 0.9
 ## 供電變化時，一盞燈從全亮到全滅的過渡寬度。
 const POWER_RAMP := 0.1
+## 一般點光源離畫面的高度（像素；0 = 與畫面平行）。有法線貼圖的表面要靠它才照得到：
+## 平面（法線朝向鏡頭）受光量取決於光有多「高」，太低角色會比沒有法線貼圖時更暗。
+const LIGHT_HEIGHT := 140.0
 
 static var _soft_texture: GradientTexture2D
 ## 角色（骨架零件）的補光倍率，由 LightingController 依環境光與區段的 character_floor 更新。
@@ -51,6 +54,7 @@ static func create_point_light(color: Color, radius: float, energy: float, shado
 	light.color = color
 	light.energy = energy
 	light.blend_mode = Light2D.BLEND_MODE_ADD
+	light.height = LIGHT_HEIGHT
 	light.shadow_enabled = shadows
 	light.set_meta(META_WANTS_SHADOW, shadows)
 	if managed:

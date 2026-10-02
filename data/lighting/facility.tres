@@ -31,4 +31,6 @@ aberration = 0.0025
 lamp_style = SubResource("LampStyle_1")
 neon_colors = PackedColorArray(0.40,1.0,0.80,1)
 neon_energy = 0.5
-character_floor = 0.24
+character_floor = 0.28
+rim_color = Color(0.45,1.0,0.8,1)
+rim_energy = 0.35

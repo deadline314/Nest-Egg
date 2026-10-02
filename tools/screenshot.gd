@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim、block、story、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light
+## 情境：all（預設）、settings、mouse_aim、block、story、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -34,6 +34,10 @@ func _run() -> void:
 		return
 	if _scenario == "block":
 		await _run_block()
+		get_tree().quit()
+		return
+	if _scenario == "normals":
+		await _run_normals()
 		get_tree().quit()
 		return
 	if _scenario == "combat_light":
@@ -204,6 +208,36 @@ func _run_block() -> void:
 	await _wait(0.12)
 	_capture("block_reflect")
 	Input.action_release(&"block")
+
+
+## 法線貼圖：凜旁邊放一盞暖色燈，對照高品質（法線貼圖＋輪廓光）與低品質（平面貼圖）。
+func _run_normals() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _settle(20)
+	var player := level.player
+	player.health.setup(999, 0.0)
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	for id: String in Story.scene_ids():
+		if id.begins_with("radio_"):
+			Story._seen[StringName(id)] = true
+	var layout: LevelLayout = level._layout
+	player.global_position = Vector2(20 * layout.tile_size + 8.0, layout.surface_heights[20] - 2.0)
+	level_camera_snap()
+	Input.action_press(&"aim_right")
+	var torch := LightKit.create_point_light(Color(1.0, 0.62, 0.3), 170.0, 1.8, false, false)
+	torch.global_position = player.global_position + Vector2(-70, -40)
+	level.add_child(torch)
+	await _wait(4.6)
+	_capture("normals_high")
+	Settings.set_light_quality(LightQuality.Tier.LOW)
+	await _wait(0.5)
+	_capture("normals_low")
+	Settings.set_light_quality(LightQuality.DEFAULT_TIER)
+	Input.action_release(&"aim_right")
 
 
 ## 戰鬥光影：爆炸閃光、閃電、低血量暗角、敵人攻擊預兆的紅光。

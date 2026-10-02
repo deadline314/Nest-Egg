@@ -3,13 +3,19 @@ extends ChunkedDrawer
 ## 地形：碰撞（合併後的矩形）、遮光體（讓光源投射陰影）與外觀繪製。
 ## 外觀採分塊繪製且只在建立時畫一次，不佔每影格效能。
 
+const PANEL_PATH := "res://art/materials/metal_panel.png"
+## 面板貼圖的邊長（像素）。實心矩形與區塊邊界都落在這個格線上，平鋪不會有接縫。
+const PANEL_TEXTURE_SIZE := 16
+
 var _solid_rects: Array[Rect2] = []
 var _platform_rects: Array[Rect2] = []
 var _tile := 16
+var _panel: Texture2D
 
 
 func build(layout: LevelLayout) -> void:
 	_tile = layout.tile_size
+	_panel = LitTextures.load_texture(PANEL_PATH, Vector2i(PANEL_TEXTURE_SIZE, PANEL_TEXTURE_SIZE))
 	var solid_body := StaticBody2D.new()
 	solid_body.name = "Solid"
 	solid_body.collision_layer = Layers.WORLD
@@ -65,7 +71,7 @@ func _draw_chunk(canvas: CanvasItem, area: Rect2) -> void:
 		var rect := full.intersection(area)
 		if rect.size.x <= 0.0 or rect.size.y <= 0.0:
 			continue
-		canvas.draw_rect(rect, Palette.TERRAIN_FILL)
+		canvas.draw_texture_rect(_panel, rect, true)
 		# 金屬面板接縫（每 2 格一條），讓大面積地形不單調。
 		var x := full.position.x + _tile * 2.0
 		while x < rect.end.x:
