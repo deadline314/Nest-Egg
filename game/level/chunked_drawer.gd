@@ -7,6 +7,9 @@ extends Node2D
 
 const CHUNK_WIDTH := 320.0
 
+## true 時區塊用自發光材質（不受環境光壓暗），例如地形的亮邊。
+var emissive := false
+
 var _bounds := Rect2()
 
 
@@ -20,6 +23,8 @@ func build_chunks(bounds: Rect2) -> void:
 	while x < bounds.end.x:
 		var chunk := _Chunk.new()
 		chunk.owner_drawer = self
+		if emissive:
+			LightKit.mark_emissive(chunk)
 		chunk.rect = Rect2(x, bounds.position.y, minf(CHUNK_WIDTH, bounds.end.x - x), bounds.size.y)
 		add_child(chunk)
 		x += CHUNK_WIDTH

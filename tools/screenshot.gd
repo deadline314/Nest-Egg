@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim、block、story、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx
+## 情境：all（預設）、settings、mouse_aim、block、story、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -34,6 +34,10 @@ func _run() -> void:
 		return
 	if _scenario == "block":
 		await _run_block()
+		get_tree().quit()
+		return
+	if _scenario == "brightness":
+		await _run_brightness()
 		get_tree().quit()
 		return
 	if _scenario == "postfx":
@@ -194,6 +198,41 @@ func _run_block() -> void:
 	Input.action_release(&"block")
 
 
+## 亮度設定：停電走廊在亮度 0%、50%（設計值）、100% 的對照，以及設定畫面的亮度滑桿。
+func _run_brightness() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _settle(20)
+	var player := level.player
+	player.health.setup(999, 0.0)
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	for id: String in Story.scene_ids():
+		if id.begins_with("radio_"):
+			Story._seen[StringName(id)] = true
+	var layout: LevelLayout = level._layout
+	player.global_position = Vector2(275 * layout.tile_size + 8.0, layout.checkpoints[3].y - 2.0)
+	level_camera_snap()
+	Input.action_press(&"aim_right")
+	await _wait(4.6)
+	for value in [0.0, 0.5, 1.0]:
+		Settings.set_brightness(value)
+		await _wait(0.4)
+		_capture("brightness_%d" % int(value * 100.0))
+	Settings.set_brightness(Settings.BRIGHTNESS_DEFAULT)
+	Input.action_release(&"aim_right")
+	var settings := SettingsScreen.new()
+	var layer := CanvasLayer.new()
+	layer.layer = 70
+	add_child(layer)
+	layer.add_child(settings)
+	settings._tabs.current_tab = 2
+	await _settle(10)
+	_capture("brightness_settings")
+
+
 ## 後製：同一個畫面開啟與關閉後製的對照，以及暫停選單（介面不受後製影響）。
 func _run_postfx() -> void:
 	GameState.start_new_run(GameState.difficulties[1])
@@ -247,7 +286,7 @@ func _run_lighting() -> void:
 		var tile: int = entry[1]
 		spots[entry[0]] = Vector2(tile * layout.tile_size + 8.0, layout.surface_heights[tile] - 2.0)
 	# 設施入口是室內，最上面的「地面」是天花板，改用檢查點的高度。
-	for name in ["facility", "corridor"]:
+	for name in ["facility", "corridor", "hangar"]:
 		spots[name].y = layout.checkpoints[3].y - 2.0
 	Input.action_press(&"aim_right")
 	for zone in spots:

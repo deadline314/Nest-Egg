@@ -33,6 +33,11 @@ func build(layout: LevelLayout) -> void:
 		_platform_rects.append(top)
 		platform_body.add_child(_make_shape(top, true))
 	build_chunks(Rect2(Vector2.ZERO, layout.pixel_size()))
+	# 亮邊自成一層，自發光；本體的頂面線改由它負責。
+	var edges := TerrainEdges.new()
+	edges.name = "Edges"
+	add_child(edges)
+	edges.build(_solid_rects, _platform_rects, Rect2(Vector2.ZERO, layout.pixel_size()))
 
 
 func _make_shape(rect: Rect2, one_way: bool) -> CollisionShape2D:
@@ -68,14 +73,11 @@ func _draw_chunk(canvas: CanvasItem, area: Rect2) -> void:
 				canvas.draw_line(Vector2(x, rect.position.y + 3), Vector2(x, rect.end.y), Color(Palette.TERRAIN_EDGE, 0.5), 1.0)
 			x += _tile * 2.0
 		canvas.draw_rect(rect, Palette.TERRAIN_EDGE, false, 1.0)
-		if is_equal_approx(rect.position.y, full.position.y):
-			canvas.draw_line(rect.position, Vector2(rect.end.x, rect.position.y), Palette.TERRAIN_TOP, 2.0)
 	for full in _platform_rects:
 		var rect := full.intersection(area)
 		if rect.size.x <= 0.0:
 			continue
 		canvas.draw_rect(Rect2(rect.position, Vector2(rect.size.x, 4)), Palette.PLATFORM)
-		canvas.draw_line(rect.position, Vector2(rect.end.x, rect.position.y), Palette.TERRAIN_TOP, 1.0)
 		var x := full.position.x + 4.0
 		while x < rect.end.x:
 			if x > rect.position.x:

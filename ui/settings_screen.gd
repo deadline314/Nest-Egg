@@ -14,6 +14,8 @@ var _status: Label
 var _sliders: Dictionary[StringName, HSlider] = {}
 var _slider_values: Dictionary[StringName, Label] = {}
 var _hud_auto_hide: CheckButton
+var _brightness_slider: HSlider
+var _brightness_value: Label
 ## "action:slot" -> Button
 var _binding_buttons: Dictionary[String, Button] = {}
 
@@ -143,7 +145,43 @@ func _build_display_tab() -> Control:
 		Settings.set_hud_auto_hide(on)
 		Sfx.play(&"ui_confirm", -6.0, 0.0))
 	box.add_child(_hud_auto_hide)
+	box.add_child(_build_brightness_row())
 	return box
+
+
+func _build_brightness_row() -> Control:
+	var tooltip := "調整暗場的明暗；預設（50%）就是設計的壓抑程度，覺得太暗可以調高"
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override(&"separation", 10)
+	row.tooltip_text = tooltip
+	var name_label := UiKit.label("亮度", 12)
+	name_label.custom_minimum_size = Vector2(LABEL_WIDTH, 0)
+	row.add_child(name_label)
+	_brightness_slider = HSlider.new()
+	_brightness_slider.min_value = 0
+	_brightness_slider.max_value = 100
+	_brightness_slider.step = 5
+	_brightness_slider.custom_minimum_size = Vector2(260, 16)
+	_brightness_slider.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	_brightness_slider.focus_mode = Control.FOCUS_ALL
+	_brightness_slider.tooltip_text = tooltip
+	_brightness_slider.value = roundf(Settings.get_brightness() * 100.0)
+	_brightness_slider.value_changed.connect(_on_brightness_changed)
+	row.add_child(_brightness_slider)
+	_brightness_value = UiKit.label("", 12, Palette.CYAN)
+	_brightness_value.custom_minimum_size = Vector2(48, 0)
+	row.add_child(_brightness_value)
+	_update_brightness_label()
+	return row
+
+
+func _on_brightness_changed(value: float) -> void:
+	Settings.set_brightness(value / 100.0)
+	_update_brightness_label()
+
+
+func _update_brightness_label() -> void:
+	_brightness_value.text = "%d%%" % roundi(Settings.get_brightness() * 100.0)
 
 
 # ---------------------------------------------------------------------------
@@ -276,6 +314,8 @@ func _reset_current_tab() -> void:
 	else:
 		Settings.reset_display()
 		_hud_auto_hide.set_pressed_no_signal(Settings.get_hud_auto_hide())
+		_brightness_slider.set_value_no_signal(roundf(Settings.get_brightness() * 100.0))
+		_update_brightness_label()
 		_set_status("顯示已恢復預設。", Palette.CYAN)
 
 

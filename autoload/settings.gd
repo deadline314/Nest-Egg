@@ -11,6 +11,9 @@ const SAVE_DELAY := 0.4
 const AUDIO_SECTION := "audio"
 const DISPLAY_SECTION := "display"
 const HUD_AUTO_HIDE_DEFAULT := true
+## 亮度滑桿（0~1）的預設值＝設計的壓抑程度；範圍的兩端是 gamma 2^(±0.6)。
+const BRIGHTNESS_DEFAULT := 0.5
+const BRIGHTNESS_RANGE := 1.2
 
 ## 設定選單顯示的音量項目。之後加入背景音樂時，在這裡加一筆 Music 即可。
 const AUDIO_BUSES: Array[Dictionary] = [
@@ -123,8 +126,27 @@ func set_hud_auto_hide(enabled: bool) -> void:
 	display_changed.emit()
 
 
+## 亮度滑桿位置（0~1）。設定檔內容損毀時退回預設值。
+func get_brightness() -> float:
+	var value: Variant = get_value(DISPLAY_SECTION, "brightness", BRIGHTNESS_DEFAULT)
+	if typeof(value) != TYPE_FLOAT and typeof(value) != TYPE_INT:
+		return BRIGHTNESS_DEFAULT
+	return clampf(float(value), 0.0, 1.0)
+
+
+func set_brightness(value: float) -> void:
+	set_value(DISPLAY_SECTION, "brightness", clampf(value, 0.0, 1.0))
+	display_changed.emit()
+
+
+## 亮度換算成後製的 gamma（1 = 設計值，大於 1 提亮暗部）。
+func brightness_gamma() -> float:
+	return pow(2.0, (get_brightness() - BRIGHTNESS_DEFAULT) * BRIGHTNESS_RANGE)
+
+
 func reset_display() -> void:
 	set_hud_auto_hide(HUD_AUTO_HIDE_DEFAULT)
+	set_brightness(BRIGHTNESS_DEFAULT)
 
 
 func _default_volume(bus: StringName) -> float:

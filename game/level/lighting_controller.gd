@@ -5,6 +5,8 @@ extends Node
 ## 插值全部就地寫進固定的 LightingProfile 實例，不會每影格配置物件。設計見 design/08-lighting/DESIGN.md。
 
 const MIN_FADE := 0.01
+## 角色補光倍率上限（避免環境光趨近全黑時補到過曝）。
+const MAX_CHARACTER_FILL := 4.0
 
 ## 目前實際套用中的光影（唯讀）。
 var current := LightingProfile.new()
@@ -160,11 +162,14 @@ func _apply() -> void:
 	LightKit.set_glow(current.glow_threshold, current.glow_intensity)
 	if is_instance_valid(_post):
 		_post.apply(current)
+	var ambient_luma := maxf(0.01, LightKit.luminance(current.ambient_color))
+	LightKit.character_fill = clampf(current.character_floor / ambient_luma, 1.0, MAX_CHARACTER_FILL)
 
 
 ## 離開關卡時還原泛光預設，避免主選單沿用最後一個區段的設定。
 func _on_exiting() -> void:
 	LightKit.set_glow(LightKit.DEFAULT_GLOW_THRESHOLD, LightKit.DEFAULT_GLOW_INTENSITY)
+	LightKit.character_fill = 1.0
 	if EventBus.lighting_override_requested.is_connected(set_override):
 		EventBus.lighting_override_requested.disconnect(set_override)
 	if EventBus.lighting_override_cleared.is_connected(clear_override):

@@ -29,6 +29,10 @@ var _rest: Dictionary[StringName, Vector2] = {}
 var _parent: Dictionary[StringName, StringName] = {}
 var _order: Array[StringName] = []
 var _armor: Array[Sprite2D] = []
+## 零件與它們的原始明暗（補光倍率套用在 self_modulate 上，發光層不受影響）。
+var _part_sprites: Array[Sprite2D] = []
+var _part_tints: PackedFloat32Array = PackedFloat32Array()
+var _fill := 1.0
 var _armor_visible := 0
 var _weapon_root: Node2D
 var _weapon_sprite: Sprite2D
@@ -118,11 +122,24 @@ func animate(delta: float, input: RigInput) -> void:
 	if not _valid:
 		return
 	facing = input.facing
+	_apply_fill(LightKit.character_fill)
 	animator.update(delta, input)
 	if _flash_left > 0.0:
 		_flash_left -= delta
 		if _flash_left <= 0.0:
 			_skeleton.modulate = Color.WHITE
+
+
+## 套用補光倍率（環境光很暗時把角色零件補亮，見 LightKit.character_fill）。
+func _apply_fill(fill: float) -> void:
+	if is_equal_approx(fill, _fill):
+		return
+	_fill = fill
+	for i in _part_sprites.size():
+		var tint := _part_tints[i] * fill
+		_part_sprites[i].self_modulate = Color(tint, tint, tint, 1.0)
+	if _weapon_sprite != null:
+		_weapon_sprite.self_modulate = Color(fill, fill, fill, 1.0)
 
 
 ## 受擊閃白（HDR，會帶一點泛光）。
@@ -266,6 +283,8 @@ func _build_parts(skin: Dictionary) -> void:
 		sprite.z_index = int(entry.get("z", 0))
 		var tint := float(entry.get("tint", 1.0))
 		sprite.self_modulate = Color(tint, tint, tint, 1.0)
+		_part_sprites.append(sprite)
+		_part_tints.append(tint)
 		target_bone.add_child(sprite)
 		var glow := RigLibrary.optional_texture(base_dir.path_join(str(tex_def.get("glow", ""))))
 		if glow != null:

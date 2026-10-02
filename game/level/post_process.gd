@@ -29,6 +29,9 @@ func _ready() -> void:
 	_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_rect.material = _material
 	add_child(_rect)
+	# 玩家的亮度設定即時生效。
+	Settings.display_changed.connect(_apply_brightness)
+	_apply_brightness()
 
 
 func is_active() -> bool:
@@ -46,6 +49,10 @@ func apply(profile: LightingProfile) -> void:
 	_write_param(&"vignette", profile.vignette)
 	_write_param(&"grain", profile.grain)
 	_write_param(&"aberration", profile.aberration)
+
+
+func _apply_brightness() -> void:
+	_write_param(&"brightness", Settings.brightness_gamma())
 
 
 ## 目前寫進 shader 的參數值（測試與除錯用）。

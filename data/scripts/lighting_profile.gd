@@ -6,8 +6,11 @@ extends Resource
 ## 所有可插值的欄位。新增欄位時加在這裡，插值與驗證會自動涵蓋。
 const BLENDED: Array[StringName] = [
 	&"ambient_color", &"background_tint", &"fog_color", &"fog_density", &"glow_threshold", &"glow_intensity",
-	&"saturation", &"contrast", &"shadow_tint", &"highlight_tint", &"vignette", &"grain", &"aberration",
+	&"saturation", &"contrast", &"shadow_tint", &"highlight_tint", &"vignette", &"grain", &"aberration", &"character_floor",
 ]
+
+## 角色最低可讀亮度（0~1）：環境光再暗，角色補光後至少要有這個亮度。
+const MIN_READABLE_CHARACTER_LUMA := 0.2
 
 @export var id: StringName = &"lighting"
 @export_group("Ambient")
@@ -32,6 +35,10 @@ const BLENDED: Array[StringName] = [
 @export var shadow_tint: Color = Color(1, 1, 1, 1)
 ## 亮部的色調：偏暖讓光源附近帶橘黃。
 @export var highlight_tint: Color = Color(1, 1, 1, 1)
+@export_group("Readability")
+## 角色（主角與敵人）的最低可讀亮度：環境光比這個暗時，角色零件會被補亮到這個程度（0 = 不補）。
+## 重度壓抑的畫面靠它維持公平：環境可以很暗，但角色永遠看得到。
+@export_range(0.0, 1.0, 0.01) var character_floor: float = 0.0
 @export_group("Lamps")
 ## 這個區段的場景燈風格（生成時套用，不插值）。
 @export var lamp_style: LampStyle
@@ -45,6 +52,11 @@ const BLENDED: Array[StringName] = [
 @export_range(0.0, 0.3, 0.005) var grain: float = 0.0
 ## 邊緣色差（螢幕寬度的比例，0 = 沒有）：只在畫面邊緣偏移紅藍通道。
 @export_range(0.0, 0.01, 0.0005) var aberration: float = 0.0
+
+
+## 角色在這份設定下實際的亮度：環境光與補光底線取大者。
+func character_luma() -> float:
+	return maxf(LightKit.luminance(ambient_color), character_floor)
 
 
 ## 回傳問題清單（空代表沒問題）。
@@ -65,6 +77,10 @@ func validate() -> PackedStringArray:
 	if lamp_style != null:
 		for problem in lamp_style.validate():
 			problems.append("%s：%s" % [id, problem])
+	if character_floor < 0.0 or character_floor > 1.0:
+		problems.append("%s 的角色最低亮度必須在 0~1 之間" % id)
+	if character_luma() < MIN_READABLE_CHARACTER_LUMA:
+		problems.append("%s 的角色亮度過低（%.2f < %.2f）：請調高環境光或 character_floor" % [id, character_luma(), MIN_READABLE_CHARACTER_LUMA])
 	if neon_energy < 0.0:
 		problems.append("%s 的霓虹亮度不能是負的" % id)
 	if saturation < 0.0 or contrast <= 0.0:

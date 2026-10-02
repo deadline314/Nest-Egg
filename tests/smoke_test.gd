@@ -1028,6 +1028,7 @@ func _test_lighting() -> void:
 	EventBus.lighting_override_requested.emit(&"blackout", blackout, 0.2)
 	await get_tree().create_timer(0.5, true).timeout
 	_check(ambient.color.is_equal_approx(blackout.ambient_color) and lighting.has_override(&"blackout"), "lighting override fades in")
+	_check(LightKit.character_fill > 2.0, "characters are lit up in the blackout (fill %.2f)" % LightKit.character_fill)
 	var alarm := load("res://data/lighting/alarm.tres") as LightingProfile
 	EventBus.lighting_override_requested.emit(&"blackout", alarm, 0.1)
 	await get_tree().create_timer(0.3, true).timeout
@@ -1050,6 +1051,57 @@ func _test_lighting() -> void:
 		_check((node as CanvasItem).material == emissive, "enemies are emissive: %s" % node.name)
 	_check(enemy_count > 0, "level has enemies to check")
 	_check((level.get_node("World/Terrain") as CanvasItem).material == null, "terrain is lit by ambient light")
+
+	# 可讀性：角色最低亮度、補光、地形亮邊、亮度設定。
+	var readable_profiles: Array[LightingProfile] = []
+	for zone in zones:
+		readable_profiles.append(zone.profile)
+	for lighting_event in data.lighting_events:
+		readable_profiles.append(lighting_event.profile)
+	readable_profiles.append(data.boss_lighting)
+	for readable in readable_profiles:
+		_check(readable.character_luma() >= LightingProfile.MIN_READABLE_CHARACTER_LUMA, "character stays readable in %s (%.2f)" % [readable.id, readable.character_luma()])
+		var wall := LightKit.luminance(Palette.TERRAIN_FILL) * LightKit.luminance(readable.ambient_color)
+		var edge := LightKit.luminance(Palette.TERRAIN_TOP) * TerrainEdges.SOLID_EDGE_ALPHA
+		_check((edge - wall) / (wall + 0.02) >= 2.0, "platform edges stand out in %s" % readable.id)
+	var too_dark := LightingProfile.new()
+	too_dark.ambient_color = Color(0.05, 0.05, 0.05)
+	_check(not too_dark.validate().is_empty(), "a profile that makes characters unreadable is reported")
+	too_dark.character_floor = 0.25
+	_check(too_dark.validate().is_empty(), "a character floor makes a dark profile readable")
+	var rig: CharacterRig = level.player._visual.rig
+	_check(is_equal_approx(LightKit.character_fill, clampf(zones[follow].profile.character_floor / LightKit.luminance(zones[follow].profile.ambient_color), 1.0, LightingController.MAX_CHARACTER_FILL)), "character fill follows the zone")
+	_check(is_equal_approx(rig._fill, LightKit.character_fill), "player rig applies the character fill")
+	var terrain := level.get_node("World/Terrain")
+	var edge_chunks := 0
+	for chunk in terrain.get_node("Edges").get_children():
+		edge_chunks += 1
+		_check((chunk as CanvasItem).material == LightKit.emissive_material(), "terrain edges are emissive")
+	_check(edge_chunks > 0, "terrain has edge chunks")
+	var lit_chunks := 0
+	for child in terrain.get_children():
+		if child is StaticBody2D or child is LightOccluder2D or child.name == &"Edges":
+			continue
+		lit_chunks += 1
+		_check((child as CanvasItem).material == null, "terrain body chunks stay lit")
+	_check(lit_chunks > 0, "terrain body stays lit")
+
+	# 亮度設定：預設是設計值，可調整、會存檔、損毀時退回預設，後製即時跟隨。
+	var settings_path := Settings.storage_path()
+	Settings.use_storage("user://test_brightness.cfg")
+	_check(is_equal_approx(Settings.get_brightness(), Settings.BRIGHTNESS_DEFAULT) and is_equal_approx(Settings.brightness_gamma(), 1.0), "brightness defaults to the designed look")
+	Settings.set_brightness(1.0)
+	_check(is_equal_approx(Settings.brightness_gamma(), pow(2.0, Settings.BRIGHTNESS_RANGE * 0.5)) and is_equal_approx(post.parameter(&"brightness"), Settings.brightness_gamma()), "brightness raises gamma and the post pass follows")
+	Settings.set_brightness(0.0)
+	_check(Settings.brightness_gamma() < 1.0 and is_equal_approx(post.parameter(&"brightness"), Settings.brightness_gamma()), "brightness can also darken")
+	Settings.set_value(Settings.DISPLAY_SECTION, "brightness", "oops")
+	_check(is_equal_approx(Settings.get_brightness(), Settings.BRIGHTNESS_DEFAULT), "corrupt brightness falls back to the default")
+	Settings.set_brightness(5.0)
+	_check(is_equal_approx(Settings.get_brightness(), 1.0), "brightness is clamped")
+	Settings.reset_display()
+	_check(is_equal_approx(Settings.get_brightness(), Settings.BRIGHTNESS_DEFAULT) and is_equal_approx(post.parameter(&"brightness"), 1.0), "reset restores the designed brightness")
+	Settings.use_storage(settings_path)
+	DirAccess.remove_absolute("user://test_brightness.cfg")
 
 	# 色彩腳本：越深入環境光越暗，頭目機庫最暗、暗角最重；每個區段有自己的燈風格與霓虹色盤。
 	var luminances: Array[float] = []

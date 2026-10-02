@@ -8,6 +8,9 @@ const DEFAULT_GLOW_THRESHOLD := 1.0
 const DEFAULT_GLOW_INTENSITY := 0.9
 
 static var _soft_texture: GradientTexture2D
+## 角色（骨架零件）的補光倍率，由 LightingController 依環境光與區段的 character_floor 更新。
+## 環境光很暗時把角色零件的亮度往上補，確保玩家與敵人永遠有最低可讀亮度。
+static var character_fill := 1.0
 static var _emissive_material: CanvasItemMaterial
 static var _environment: Environment
 
@@ -82,6 +85,11 @@ static func create_environment() -> WorldEnvironment:
 	var world_env := WorldEnvironment.new()
 	world_env.environment = env
 	return world_env
+
+
+## 亮度（0.2126 R + 0.7152 G + 0.0722 B）。
+static func luminance(color: Color) -> float:
+	return color.r * 0.2126 + color.g * 0.7152 + color.b * 0.0722
 
 
 ## 調整泛光（光影設定即時套用）。

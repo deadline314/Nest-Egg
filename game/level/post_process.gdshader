@@ -1,5 +1,5 @@
 shader_type canvas_item;
-// 全螢幕後製：邊緣色差 → 調色（去飽和、對比、陰影／亮部色調）→ 暗角 → 顆粒。
+// 全螢幕後製：邊緣色差 → 調色（去飽和、對比、陰影／亮部色調）→ 暗角 → 玩家亮度設定 → 顆粒。
 // 一個 pass 完成，讀取已繪製好的場景畫面；HUD 與選單畫在它上面，不受影響。
 // 輸出不夾在 0~1，保留 HDR 亮度讓泛光正常運作。
 
@@ -12,6 +12,7 @@ uniform float vignette = 0.0;
 uniform vec3 vignette_color = vec3(0.0);
 uniform float grain = 0.0;
 uniform float aberration = 0.0;
+uniform float brightness = 1.0;
 uniform float grain_seed = 0.0;
 
 const float CONTRAST_PIVOT = 0.3;
@@ -38,6 +39,9 @@ void fragment() {
 
 	float falloff = smoothstep(0.3, 1.05, length(centered) * 1.7);
 	color = mix(color, vignette_color, clamp(falloff * vignette, 0.0, 1.0));
+
+	// 玩家的亮度設定（gamma）：大於 1 提亮暗部，黑色與暗角的黑維持不變。
+	color = pow(max(color, vec3(0.0)), vec3(1.0 / brightness));
 
 	// 顆粒在暗部較明顯，亮部（子彈、霓虹）保持乾淨。
 	float noise = hash(floor(uv * vec2(640.0, 360.0)) + vec2(grain_seed)) - 0.5;
