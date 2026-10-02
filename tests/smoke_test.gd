@@ -1135,6 +1135,70 @@ func _test_lighting() -> void:
 			all_on = all_on and lamp._light.enabled
 	_check(all_on, "restoring power switches every lamp back on")
 
+	# 體積光：場景燈有光錐、光暈與地面倒影；砲台的光錐跟著瞄準；低品質關閉；霧被光源染色；前景剪影。
+	var shaft_count := 0
+	for node in level._world.get_children():
+		var lamp := node as Lamp
+		if lamp == null:
+			continue
+		var lamp_shaft: LightShaft = null
+		for child in lamp.get_children():
+			if child is LightShaft:
+				lamp_shaft = child
+		if lamp.dead:
+			_check(lamp_shaft == null, "dead lamps have no light shaft")
+			continue
+		shaft_count += 1
+		_check(lamp_shaft != null and lamp_shaft.source == lamp._light and lamp_shaft.floor_y == lamp.floor_y, "working lamps have a light shaft tied to their light")
+		_check(lamp_shaft.material == LightKit.additive_emissive_material(), "light shafts use the additive emissive material")
+	_check(shaft_count > 0, "level has light shafts")
+	var test_shaft := LightShaft.new()
+	get_tree().root.add_child(test_shaft)
+	test_shaft.intensity = 1.0
+	_check(test_shaft.visible == LightQuality.volumetrics(), "shaft shows when volumetrics are on")
+	test_shaft.intensity = 0.0
+	test_shaft._refresh_visibility()
+	_check(not test_shaft.visible, "a shaft with no intensity is hidden")
+	Settings.use_storage("user://test_volumetrics.cfg")
+	Settings.set_light_quality(LightQuality.Tier.LOW)
+	test_shaft.intensity = 1.0
+	test_shaft._refresh_visibility()
+	_check(not test_shaft.visible and not level._foreground.visible, "low quality hides shafts and the foreground layer")
+	Settings.set_light_quality(LightQuality.Tier.HIGH)
+	_check(level._foreground.visible and test_shaft.visible, "high quality shows shafts and the foreground layer")
+	Settings.use_storage(saved_settings)
+	DirAccess.remove_absolute("user://test_volumetrics.cfg")
+	get_tree().root.remove_child(test_shaft)
+	test_shaft.free()
+	_check(is_equal_approx(level._foreground.ground_y, level._layout.ground_y) and level._foreground.z_index > 8, "foreground layer sits in front of the play field")
+	var fog := FogLayer.new()
+	fog.color = Color(0.3, 0.3, 0.3)
+	var tint_light := LightKit.create_point_light(Color(1.0, 0.0, 0.0), 100.0, 1.0, false, false)
+	tint_light.global_position = Vector2(100, 100)
+	get_tree().root.add_child(tint_light)
+	fog._tint_sources.append(tint_light)
+	var near_tint := fog._tinted(Vector2(100, 100))
+	_check(near_tint.r > fog.color.r + 0.3 and near_tint.g < fog.color.g, "fog near a light takes the light's color")
+	_check(fog._tinted(Vector2(100 + FogLayer.TINT_RANGE + 50.0, 100)).is_equal_approx(fog.color), "fog far from lights keeps its own color")
+	get_tree().root.remove_child(tint_light)
+	tint_light.free()
+	fog.free()
+	var turret: Enemy = null
+	for enemy in get_tree().get_nodes_in_group(&"enemies"):
+		if (enemy as Enemy).data.id == &"turret":
+			turret = enemy
+	var turret_shaft: LightShaft = turret.get(&"_shaft") if turret != null else null
+	_check(turret_shaft != null, "turrets have a light shaft")
+	if turret_shaft != null:
+		turret.fsm.transition(&"lock")
+		await get_tree().process_frame
+		await get_tree().process_frame
+		_check(is_equal_approx(turret_shaft.intensity, 1.0) and turret_shaft.direction == turret.get(&"_aim"), "the turret's shaft brightens and follows its aim when locked")
+		turret.fsm.transition(&"idle")
+		await get_tree().process_frame
+		await get_tree().process_frame
+		_check(is_zero_approx(turret_shaft.intensity), "the turret's shaft goes out when idle")
+
 	# 發光的東西不受環境光壓暗；地形受光。
 	var emissive := LightKit.emissive_material()
 	_check(emissive.light_mode == CanvasItemMaterial.LIGHT_MODE_UNSHADED, "emissive material is unshaded")

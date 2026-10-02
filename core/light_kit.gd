@@ -16,6 +16,7 @@ static var character_fill := 1.0
 ## 場景燈的供電（0~1）：由 LightingController 依光影設定更新，每盞燈依自己的門檻依序熄滅／亮起。
 static var lamp_power := 1.0
 static var _emissive_material: CanvasItemMaterial
+static var _additive_material: CanvasItemMaterial
 static var _environment: Environment
 
 
@@ -68,6 +69,15 @@ static func emissive_material() -> CanvasItemMaterial:
 		_emissive_material = CanvasItemMaterial.new()
 		_emissive_material.light_mode = CanvasItemMaterial.LIGHT_MODE_UNSHADED
 	return _emissive_material
+
+
+## 加法混合的自發光材質（光錐、光暈、倒影用）：疊在畫面上只會變亮，不會被環境光壓暗。
+static func additive_emissive_material() -> CanvasItemMaterial:
+	if _additive_material == null:
+		_additive_material = CanvasItemMaterial.new()
+		_additive_material.light_mode = CanvasItemMaterial.LIGHT_MODE_UNSHADED
+		_additive_material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	return _additive_material
 
 
 ## 讓這個節點自發光（不受環境光壓暗）。已經指定自己材質的節點不會被覆蓋。

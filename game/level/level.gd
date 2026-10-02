@@ -32,6 +32,7 @@ var _fog: FogLayer
 var _lighting: LightingController
 var _post: PostProcess
 var _light_budget: LightBudget
+var _foreground: ForegroundLayer
 ## 正在生效中的光影事件（id -> true）。
 var _active_lighting_events: Dictionary[StringName, bool] = {}
 var _arena_triggered := false
@@ -89,6 +90,9 @@ func _ready() -> void:
 	Fx.bind_container(fx)
 
 	_spawn_atmosphere()
+	_foreground = ForegroundLayer.new()
+	_foreground.ground_y = _layout.ground_y
+	add_child(_foreground)
 
 	hud = Hud.new()
 	add_child(hud)
@@ -227,6 +231,7 @@ func _spawn_static_entities() -> void:
 		lamp.position = _layout.lamps[i] + Vector2(0, 2)
 		# 風格由所在區段決定；沒有區段時維持霓虹三原色交錯。
 		var tile := int(lamp.position.x / _layout.tile_size)
+		lamp.floor_y = _layout.floor_below(tile, int(lamp.position.y / _layout.tile_size))
 		var profile := data.profile_at_tile(tile)
 		if profile != null and profile.lamp_style != null:
 			lamp.apply_style(profile.lamp_style, hash(Vector2i(tile, int(lamp.position.y))))

@@ -12,8 +12,11 @@ var flicker_chance := FLICKER_CHANCE
 ## 亮度脈動頻率（Hz，0 = 不脈動）。
 var pulse_hz := 0.0
 var dead := false
+## 燈下地面的世界 y 座標（濕地倒影）；INF 代表不畫。
+var floor_y := INF
 
 var _light: PointLight2D
+var _shaft: LightShaft
 ## 供電門檻：供電低於它時這盞燈熄滅（讓停電時各盞燈依序熄滅）。
 var _power_threshold := randf_range(0.1, 0.95)
 var _gate := 1.0
@@ -44,6 +47,14 @@ func _ready() -> void:
 		return
 	_light = LightKit.create_point_light(color, radius, energy, true)
 	add_child(_light)
+	_shaft = LightShaft.new()
+	_shaft.color = color
+	_shaft.length = minf(radius * 0.7, 150.0)
+	_shaft.half_width = _shaft.length * 0.32
+	_shaft.floor_y = floor_y
+	_shaft.source = _light
+	_shaft.position = Vector2(0, 3)
+	add_child(_shaft)
 
 
 func _process(delta: float) -> void:
@@ -54,6 +65,7 @@ func _process(delta: float) -> void:
 		_light.enabled = gate > 0.0
 		queue_redraw()
 	if gate <= 0.0:
+		_shaft.intensity = 0.0
 		return
 	var level := energy * gate
 	if pulse_hz > 0.0:
@@ -65,6 +77,7 @@ func _process(delta: float) -> void:
 		_flicker_left = randf_range(0.1, 0.35)
 	else:
 		_light.energy = level
+	_shaft.intensity = clampf(_light.energy / maxf(energy, 0.01), 0.0, 1.5)
 	if pulse_hz > 0.0:
 		queue_redraw()
 
@@ -80,6 +93,3 @@ func _draw() -> void:
 		return
 	var pulse := (1.0 if pulse_hz <= 0.0 else 0.55 + 0.45 * sin(_time * TAU * pulse_hz)) * _gate
 	draw_rect(Rect2(-4, 1, 8, 2), LightKit.glow(color, 2.5 * pulse))
-	# 光錐（純裝飾，非常淡）
-	draw_colored_polygon(PackedVector2Array([Vector2(-4, 3), Vector2(4, 3), Vector2(40, 120), Vector2(-40, 120)]),
-			Color(color, 0.035 * pulse))

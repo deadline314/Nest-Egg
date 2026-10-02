@@ -9,6 +9,7 @@ const COOLDOWN_AFTER_FIRE := 0.4
 const LASER_LENGTH := 400.0
 
 var _aim := Vector2.LEFT
+var _shaft: LightShaft
 var _cooldown := 0.5
 
 
@@ -23,6 +24,22 @@ func _ready() -> void:
 	super._ready()
 	if data != null:
 		_aim = Vector2(facing, 0)
+		_shaft = LightShaft.new()
+		_shaft.color = Palette.DANGER
+		_shaft.length = LASER_LENGTH * 0.45
+		_shaft.half_width = 16.0
+		_shaft.halo_radius = 10.0
+		_shaft.intensity = 0.0
+		add_child(_shaft)
+
+
+## 光錐跟著砲口與瞄準方向：追蹤時淡、鎖定時亮，待機時熄滅。
+func _process(_delta: float) -> void:
+	if _shaft == null:
+		return
+	_shaft.position = to_local(_muzzle())
+	_shaft.direction = _aim
+	_shaft.intensity = 1.0 if fsm.is_in(&"lock") else (0.45 if fsm.is_in(&"track") else 0.0)
 
 
 func _on_stunned() -> void:
