@@ -8,4 +8,6 @@
 | [04-story/STORY.md](04-story/STORY.md) | 劇情設定：世界觀、角色、主題、第一章大綱 |
 | [05-dynamic-hud/DESIGN.md](05-dynamic-hud/DESIGN.md) | 動態玩家介面：生命、護盾、彈藥跟著角色與準星，閒置淡出、危險常駐 |
 | [07-weapons-inventory/DESIGN.md](07-weapons-inventory/DESIGN.md) | 實彈武器陣容、彈匣與換彈、消耗品、劇情道具、背包畫面 |
+| [08-lighting/DESIGN.md](08-lighting/DESIGN.md) | 光影設計：重度壓抑的調性、環境光與區段設定、光源分級、體積光、法線貼圖、後製、可讀性守則 |
+| [09-content/DESIGN.md](09-content/DESIGN.md) | 內容擴充：第二章、新敵人與頭目、場景互動與探索、成長系統 |
 | [06-roadmap/open-questions.md](06-roadmap/open-questions.md) | 尚未決定的問題 |
