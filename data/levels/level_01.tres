@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=19 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=30 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_script"]
 [ext_resource type="Resource" path="res://data/enemies/grunt.tres" id="2_grunt"]
@@ -17,6 +17,43 @@
 [ext_resource type="Resource" path="res://data/weapons/railgun.tres" id="15_railgun"]
 [ext_resource type="Resource" path="res://data/consumables/med_injector.tres" id="16_med"]
 [ext_resource type="Resource" path="res://data/consumables/shield_cell.tres" id="17_cell"]
+
+[ext_resource type="Resource" path="res://data/lighting/rooftop.tres" id="20_rooftop"]
+[ext_resource type="Resource" path="res://data/lighting/market.tres" id="21_market"]
+[ext_resource type="Resource" path="res://data/lighting/freight.tres" id="22_freight"]
+[ext_resource type="Resource" path="res://data/lighting/facility.tres" id="23_facility"]
+[ext_resource type="Resource" path="res://data/lighting/hangar.tres" id="24_hangar"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="30_zone"]
+
+[sub_resource type="Resource" id="Resource_zone0"]
+script = ExtResource("30_zone")
+start_tile = 0
+blend_tiles = 0
+profile = ExtResource("20_rooftop")
+
+[sub_resource type="Resource" id="Resource_zone1"]
+script = ExtResource("30_zone")
+start_tile = 70
+blend_tiles = 14
+profile = ExtResource("21_market")
+
+[sub_resource type="Resource" id="Resource_zone2"]
+script = ExtResource("30_zone")
+start_tile = 160
+blend_tiles = 14
+profile = ExtResource("22_freight")
+
+[sub_resource type="Resource" id="Resource_zone3"]
+script = ExtResource("30_zone")
+start_tile = 240
+blend_tiles = 10
+profile = ExtResource("23_facility")
+
+[sub_resource type="Resource" id="Resource_zone4"]
+script = ExtResource("30_zone")
+start_tile = 310
+blend_tiles = 8
+profile = ExtResource("24_hangar")
 
 [resource]
 script = ExtResource("1_script")
@@ -56,3 +93,4 @@ boss_scene = &"boss_intro"
 outro_scene = &"epilogue"
 story_triggers = PackedStringArray("radio_start", "radio_market", "radio_shield", "radio_mech", "radio_facility", "radio_last")
 layout_path = "res://data/levels/level_01_map.json"
+lighting_zones = Array[ExtResource("30_zone")]([SubResource("Resource_zone0"), SubResource("Resource_zone1"), SubResource("Resource_zone2"), SubResource("Resource_zone3"), SubResource("Resource_zone4")])

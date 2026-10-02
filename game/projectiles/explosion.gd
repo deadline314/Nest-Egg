@@ -52,6 +52,10 @@ func _apply_damage() -> void:
 		hurtbox.receive(info)
 
 
+func _ready() -> void:
+	LightKit.mark_emissive(self)
+
+
 func _draw() -> void:
 	var t := clampf(_age / DURATION, 0.0, 1.0)
 	draw_circle(Vector2.ZERO, radius * (0.35 + 0.65 * t), Color(color, 0.55 * (1.0 - t)))

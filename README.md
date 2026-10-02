@@ -124,6 +124,8 @@ pm/            票券（需求、驗收、交付紀錄）
 **新增 / 修改關卡**：`data/levels/level_01_map.json` 每列一個字串、可直接編輯；字元說明見 `data/scripts/level_data.gd`。教學看板文字在 `level_01.tres` 的 `hints`，劇情觸發點（地圖上的 `&`）對應 `story_triggers`。
 第一關地圖由產生器以區段組合而成，並自動檢查每段都跳得過去：`python3 tools/level/build_level_01.py`（改區段後重跑即可覆寫 JSON）。
 
+**新增光影設定**：複製 `data/lighting/*.tres` 修改環境光、背景色調、霧與泛光，再到關卡資料的 `lighting_zones` 指定「從哪一欄開始套用、過渡幾欄」。事件用 `EventBus.lighting_override_requested` 暫時覆蓋（停電、警報），`lighting_override_cleared` 結束。發光的東西（子彈、霓虹、危險物）請呼叫 `LightKit.mark_emissive(self)`，否則會被環境光壓暗。設計見 [光影設計](design/08-lighting/DESIGN.md)。
+
 **新增劇情**：在 `data/story/*.json` 加入場景（`mode` 為 `cinematic` 或 `radio`），關卡以 `Story.play(場景 id)` 播放。
 
 **新增劇情道具**：複製 `data/story_items/*.tres` 修改名稱、說明與取得時機（開局、某個劇情場景播完、擊敗頭目，或由程式取得），圖示放在 `art/items/icons/<icon>.png`。道具跟著本輪進度：重開關卡與從檢查點重生都保留，開始新遊戲才重置。

@@ -31,6 +31,7 @@ var _ghosts: Array[Vector3] = []  # x, y, 剩餘時間
 
 
 func _ready() -> void:
+	LightKit.mark_emissive(self)
 	rig = CharacterRig.new()
 	rig.name = "Rig"
 	add_child(rig)

@@ -23,6 +23,7 @@ func setup(p_rect: Rect2, p_phase := 0.0) -> void:
 
 
 func _ready() -> void:
+	LightKit.mark_emissive(self)
 	position = rect.position
 	_time = phase
 	_hitbox = ContactHitbox.new()

@@ -19,6 +19,7 @@ var _index := 0
 
 
 func _ready() -> void:
+	LightKit.mark_emissive(self)
 	_font = UiKit.font()
 	_light = LightKit.create_point_light(color, size.x * 1.2, 0.55)
 	_light.position = size * 0.5

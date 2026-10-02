@@ -29,3 +29,7 @@ signal codex_card_unlocked(card_id: StringName, is_new: bool)
 signal screen_shake(strength: float, duration: float)
 signal camera_kick(offset: Vector2)
 signal toast_requested(text: String)
+
+## 光影事件：暫時覆蓋區段光影（停電、警報…），id 相同的覆蓋會被取代；清除後平滑回到區段光影。
+signal lighting_override_requested(id: StringName, profile: LightingProfile, fade_time: float)
+signal lighting_override_cleared(id: StringName, fade_time: float)

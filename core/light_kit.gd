@@ -4,8 +4,12 @@ extends RefCounted
 ## 光源一律使用加法混合（ADD），不需整體壓暗畫面，維持遊戲可讀性。
 
 const TEXTURE_SIZE := 128
+const DEFAULT_GLOW_THRESHOLD := 1.0
+const DEFAULT_GLOW_INTENSITY := 0.9
 
 static var _soft_texture: GradientTexture2D
+static var _emissive_material: CanvasItemMaterial
+static var _environment: Environment
 
 
 ## 柔和的放射狀光暈貼圖（全部光源共用同一張）。
@@ -41,6 +45,21 @@ static func create_point_light(color: Color, radius: float, energy: float, shado
 	return light
 
 
+## 自發光材質（共用同一份）：不受環境光與光源影響，永遠維持原本的亮度。
+## 環境光（CanvasModulate）會壓暗所有受光的東西；子彈、霓虹、危險物、敵人等需要永遠看得見的東西用這個。
+static func emissive_material() -> CanvasItemMaterial:
+	if _emissive_material == null:
+		_emissive_material = CanvasItemMaterial.new()
+		_emissive_material.light_mode = CanvasItemMaterial.LIGHT_MODE_UNSHADED
+	return _emissive_material
+
+
+## 讓這個節點自發光（不受環境光壓暗）。已經指定自己材質的節點不會被覆蓋。
+static func mark_emissive(item: CanvasItem) -> void:
+	if item.material == null:
+		item.material = emissive_material()
+
+
 ## HDR 發光色：強度 > 1 時在 HDR 2D 下會產生泛光（bloom）。
 static func glow(color: Color, intensity: float) -> Color:
 	return Color(color.r * intensity, color.g * intensity, color.b * intensity, color.a)
@@ -49,13 +68,13 @@ static func glow(color: Color, intensity: float) -> Color:
 ## 2D 後製環境：HDR 泛光（bloom）。顏色強度 > 1 的子彈、槍口焰、爆炸會發光。
 ## 在 Compatibility 渲染器下不支援泛光，畫面仍可正常顯示（優雅降級）。
 static func create_environment() -> WorldEnvironment:
-	var env := Environment.new()
+	var env := environment()
 	env.background_mode = Environment.BG_CANVAS
 	env.glow_enabled = true
-	env.glow_intensity = 0.9
+	env.glow_intensity = DEFAULT_GLOW_INTENSITY
 	env.glow_strength = 1.0
 	env.glow_bloom = 0.0
-	env.glow_hdr_threshold = 1.0
+	env.glow_hdr_threshold = DEFAULT_GLOW_THRESHOLD
 	env.glow_hdr_scale = 2.0
 	env.glow_blend_mode = Environment.GLOW_BLEND_MODE_ADDITIVE
 	for level in 7:
@@ -63,3 +82,17 @@ static func create_environment() -> WorldEnvironment:
 	var world_env := WorldEnvironment.new()
 	world_env.environment = env
 	return world_env
+
+
+## 調整泛光（光影設定即時套用）。
+static func set_glow(threshold: float, intensity: float) -> void:
+	var env := environment()
+	env.glow_hdr_threshold = threshold
+	env.glow_intensity = intensity
+
+
+## 全遊戲共用的 Environment（泛光參數由光影設定即時調整，見 LightingController）。
+static func environment() -> Environment:
+	if _environment == null:
+		_environment = Environment.new()
+	return _environment

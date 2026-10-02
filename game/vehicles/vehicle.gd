@@ -39,6 +39,7 @@ func configure(p_data: VehicleData) -> void:
 
 
 func _ready() -> void:
+	LightKit.mark_emissive(self)
 	if data == null:
 		push_error("[Vehicle] 缺少 VehicleData，已移除。")
 		queue_free()

@@ -25,6 +25,9 @@ var _world: Node2D
 var _entities: Node2D
 var _pause_menu: PauseMenu
 var _inventory: InventoryScreen
+var _background: LevelBackground
+var _fog: FogLayer
+var _lighting: LightingController
 var _arena_triggered := false
 var _finished := false
 var _next_story_trigger := 0
@@ -41,7 +44,13 @@ func _ready() -> void:
 		menu_requested.emit.call_deferred()
 		return
 
-	add_child(LevelBackground.new())
+	# 環境光：沒被光源照到的東西會被壓暗；發光的東西用自發光材質不受影響（見 LightKit.mark_emissive）。
+	var ambient := CanvasModulate.new()
+	ambient.name = "Ambient"
+	add_child(ambient)
+
+	_background = LevelBackground.new()
+	add_child(_background)
 	_world = Node2D.new()
 	_world.name = "World"
 	add_child(_world)
@@ -80,6 +89,12 @@ func _ready() -> void:
 
 	_spawn_static_entities()
 	_spawn_player()
+
+	for problem in data.validate_lighting():
+		push_error("[Level] %s" % problem)
+	_lighting = LightingController.new()
+	add_child(_lighting)
+	_lighting.setup(data.lighting_zones, _layout.tile_size, player, ambient, _background, _fog, data.fog_color)
 
 	camera = LevelCamera.new()
 	add_child(camera)
@@ -228,11 +243,11 @@ func _spawn_decor() -> void:
 
 ## 雨與霧（畫在角色前方，低透明度）。
 func _spawn_atmosphere() -> void:
-	var fog := FogLayer.new()
-	fog.z_index = 7
-	fog.ground_y = _layout.ground_y
-	fog.color = data.fog_color
-	_world.add_child(fog)
+	_fog = FogLayer.new()
+	_fog.z_index = 7
+	_fog.ground_y = _layout.ground_y
+	_fog.color = data.fog_color
+	_world.add_child(_fog)
 	if data.rain:
 		var rain := RainLayer.new()
 		rain.z_index = 8
@@ -399,6 +414,9 @@ class _GateVisual:
 
 	var size := Vector2(16, 368)
 	var _time := 0.0
+
+	func _ready() -> void:
+		LightKit.mark_emissive(self)
 
 	func _process(delta: float) -> void:
 		_time += delta

@@ -13,6 +13,7 @@ var _base_energy := 1.5
 
 
 func _ready() -> void:
+	LightKit.mark_emissive(self)
 	_light = LightKit.create_point_light(color, radius, _base_energy, true)
 	add_child(_light)
 

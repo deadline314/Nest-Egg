@@ -34,6 +34,7 @@ func _init() -> void:
 
 
 func _ready() -> void:
+	LightKit.mark_emissive(self)
 	set_physics_process(active)
 
 

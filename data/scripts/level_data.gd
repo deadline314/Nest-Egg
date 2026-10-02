@@ -38,12 +38,32 @@ extends Resource
 @export var story_triggers: PackedStringArray = PackedStringArray()
 @export_group("Atmosphere")
 @export var rain := true
+## 沒有光影區段時使用的霧顏色（有 lighting_zones 時由各區段的光影設定決定）。
 @export var fog_color := Color(0.55, 0.45, 0.85, 1.0)
+@export_group("Lighting")
+## 光影區段，依 start_tile 由小到大排列。沒有區段時整關使用預設（全亮）光影。
+@export var lighting_zones: Array[LightingZone] = []
 ## 教學看板文字，地圖字元 "1" 對應 hints[0]。請寫重點，一句話。
 ## 提到按鍵時請用 {動作} 佔位符（例如 {jump}），玩家改鍵後提示會自動更新。
 @export var hints: PackedStringArray = PackedStringArray()
 ## 地圖 JSON 路徑，格式：{ "segments": [ ["列0", "列1", ...], [...] ] }，分段由左至右串接。
 @export_file("*.json") var layout_path: String = ""
+
+
+## 檢查光影區段的設定，回傳問題清單（空代表沒問題）。
+func validate_lighting() -> PackedStringArray:
+	var problems := PackedStringArray()
+	var last_start := -1
+	for zone in lighting_zones:
+		if zone == null:
+			problems.append("%s 的光影區段清單裡有空項目" % id)
+			continue
+		for problem in zone.validate():
+			problems.append("%s：%s" % [id, problem])
+		if zone.start_tile < last_start:
+			problems.append("%s 的光影區段沒有依起點由小到大排列（起點 %d）" % [id, zone.start_tile])
+		last_start = maxi(last_start, zone.start_tile)
+	return problems
 
 
 ## 讀取地圖分段。失敗時回傳空陣列並輸出錯誤，不會讓遊戲崩潰。

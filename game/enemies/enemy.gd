@@ -54,6 +54,7 @@ func configure(p_data: EnemyData) -> void:
 
 
 func _ready() -> void:
+	LightKit.mark_emissive(self)
 	if data == null:
 		push_error("[Enemy] %s 缺少 EnemyData，已移除。" % name)
 		queue_free()

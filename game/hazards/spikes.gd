@@ -14,6 +14,7 @@ func setup(p_rect: Rect2) -> void:
 
 
 func _ready() -> void:
+	LightKit.mark_emissive(self)
 	position = rect.position
 	var height := rect.size.y * HEIGHT_RATIO
 	var hitbox := ContactHitbox.new()

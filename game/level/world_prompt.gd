@@ -23,6 +23,7 @@ var _display_text := ""
 
 
 func _ready() -> void:
+	LightKit.mark_emissive(self)
 	z_index = 20
 	_font = UiKit.font()
 	position = offset

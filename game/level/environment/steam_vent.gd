@@ -7,6 +7,10 @@ const INTERVAL := 0.12
 var _timer := 0.0
 
 
+func _ready() -> void:
+	LightKit.mark_emissive(self)
+
+
 func _process(delta: float) -> void:
 	_timer -= delta
 	if _timer <= 0.0:

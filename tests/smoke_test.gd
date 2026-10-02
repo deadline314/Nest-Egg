@@ -35,6 +35,7 @@ func _run() -> void:
 	await _test_dynamic_hud()
 	await _test_consumables()
 	await _test_inventory()
+	await _test_lighting()
 	await _test_enemy_behaviours()
 	await _test_boss_and_victory()
 	await _test_checkpoints_and_difficulties()
@@ -920,6 +921,134 @@ func _test_inventory() -> void:
 	await _press_action(&"inventory")
 	_check(not inventory.is_open(), "bag cannot open after death")
 	await _end_level(level)
+
+
+func _test_lighting() -> void:
+	# 資料：所有光影設定與第一關的區段都有效。
+	var profile_count := 0
+	for file in DirAccess.get_files_at("res://data/lighting"):
+		var profile := load("res://data/lighting/".path_join(file.trim_suffix(".remap"))) as LightingProfile
+		_check(profile != null and profile.validate().is_empty(), "lighting profile valid: %s" % file)
+		profile_count += 1
+	_check(profile_count >= 8, "lighting profiles present (got %d)" % profile_count)
+	var data := load(LEVEL_PATH) as LevelData
+	_check(data.lighting_zones.size() == 5, "level 1 has five lighting zones")
+	_check(data.validate_lighting().is_empty(), "level lighting zones valid: %s" % [data.validate_lighting()])
+	var bad := LightingProfile.new()
+	bad.ambient_color = Color(-1, 0, 0)
+	bad.glow_threshold = 0.0
+	_check(bad.validate().size() >= 2, "invalid lighting profile is reported")
+	var unsorted := LevelData.new()
+	var late := LightingZone.new()
+	late.start_tile = 50
+	late.profile = LightingProfile.new()
+	var early := LightingZone.new()
+	early.start_tile = 10
+	early.profile = LightingProfile.new()
+	unsorted.lighting_zones = [late, early]
+	_check(not unsorted.validate_lighting().is_empty(), "unsorted lighting zones are reported")
+
+	# 控制器遇到壞區段不崩潰，退回預設（全亮）。
+	var broken := LightingController.new()
+	get_tree().root.add_child(broken)
+	var empty_zone := LightingZone.new()
+	empty_zone.start_tile = 987654
+	broken.setup([empty_zone], 16, null, null, null, null, Color.WHITE)
+	var probe := LightingProfile.new()
+	broken.zone_state_at(0.0, probe)
+	_check(probe.ambient_color == Color.WHITE, "broken lighting zone falls back to neutral lighting")
+	get_tree().root.remove_child(broken)
+	broken.free()
+
+	var level := await _start_level()
+	while get_tree().paused:
+		await get_tree().process_frame
+	await _frames(2)
+	var lighting: LightingController = level._lighting
+	var ambient := level.get_node("Ambient") as CanvasModulate
+	var tile := float(level._layout.tile_size)
+	var zones := data.lighting_zones
+	_check(lighting != null and ambient != null, "level builds the lighting controller and ambient light")
+
+	# 每個區段中段是該區段的設定；邊界上是兩者的中點；跨越邊界沒有跳變。
+	for i in zones.size():
+		var from_x := float(zones[i].start_tile) * tile + float(zones[i].blend_tiles) * tile
+		var to_x := float(zones[i + 1].start_tile) * tile - float(zones[i + 1].blend_tiles) * tile if i + 1 < zones.size() else from_x + 400.0
+		lighting.zone_state_at((from_x + to_x) * 0.5, probe)
+		_check(probe.ambient_color.is_equal_approx(zones[i].profile.ambient_color) and is_equal_approx(probe.fog_density, zones[i].profile.fog_density),
+				"zone %d settings apply in the middle of the zone" % i)
+	var boundary := float(zones[1].start_tile) * tile
+	lighting.zone_state_at(boundary, probe)
+	_check(probe.ambient_color.is_equal_approx(zones[0].profile.ambient_color.lerp(zones[1].profile.ambient_color, 0.5)), "zone boundary blends halfway")
+	var previous := Color.BLACK
+	var largest_step := 0.0
+	var x := boundary - 300.0
+	while x < boundary + 300.0:
+		lighting.zone_state_at(x, probe)
+		if x > boundary - 300.0:
+			largest_step = maxf(largest_step, absf(probe.ambient_color.r - previous.r) + absf(probe.ambient_color.g - previous.g) + absf(probe.ambient_color.b - previous.b))
+		previous = probe.ambient_color
+		x += 4.0
+	_check(largest_step < 0.03, "crossing a zone boundary changes lighting smoothly (largest step %.3f)" % largest_step)
+
+	# 環境光與背景、霧、泛光跟著玩家所在區段。
+	_check(ambient.color.is_equal_approx(zones[0].profile.ambient_color), "ambient light starts with the first zone")
+	level.player.global_position = Vector2(float(zones[4].start_tile + 12) * tile, level.player.global_position.y)
+	for i in 4:
+		await get_tree().process_frame
+	_check(ambient.color.is_equal_approx(zones[4].profile.ambient_color), "ambient light follows the player into the last zone")
+	_check(level._background.modulate.is_equal_approx(zones[4].profile.background_tint), "background tint follows the zone")
+	_check(is_equal_approx(level._fog.density, zones[4].profile.fog_density) and level._fog.color.is_equal_approx(zones[4].profile.fog_color), "fog follows the zone")
+	_check(is_equal_approx(LightKit.environment().glow_hdr_threshold, zones[4].profile.glow_threshold), "glow follows the zone")
+
+	# 事件覆蓋：淡入、取代同 id、淡出後回到區段光影。
+	var blackout := load("res://data/lighting/blackout.tres") as LightingProfile
+	EventBus.lighting_override_requested.emit(&"blackout", blackout, 0.2)
+	await get_tree().create_timer(0.5, true).timeout
+	_check(ambient.color.is_equal_approx(blackout.ambient_color) and lighting.has_override(&"blackout"), "lighting override fades in")
+	var alarm := load("res://data/lighting/alarm.tres") as LightingProfile
+	EventBus.lighting_override_requested.emit(&"blackout", alarm, 0.1)
+	await get_tree().create_timer(0.3, true).timeout
+	_check(ambient.color.is_equal_approx(alarm.ambient_color), "override with the same id is replaced")
+	EventBus.lighting_override_cleared.emit(&"blackout", 0.2)
+	await get_tree().create_timer(0.5, true).timeout
+	_check(ambient.color.is_equal_approx(zones[4].profile.ambient_color) and not lighting.has_override(&"blackout"), "lighting returns to the zone after the override ends")
+
+	# 發光的東西不受環境光壓暗；地形受光。
+	var emissive := LightKit.emissive_material()
+	_check(emissive.light_mode == CanvasItemMaterial.LIGHT_MODE_UNSHADED, "emissive material is unshaded")
+	var bullet := Projectile.new()
+	get_tree().root.add_child(bullet)
+	_check(bullet.material == emissive, "projectiles are emissive")
+	get_tree().root.remove_child(bullet)
+	bullet.free()
+	var enemy_count := 0
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		enemy_count += 1
+		_check((node as CanvasItem).material == emissive, "enemies are emissive: %s" % node.name)
+	_check(enemy_count > 0, "level has enemies to check")
+	_check((level.get_node("World/Terrain") as CanvasItem).material == null, "terrain is lit by ambient light")
+	await _end_level(level)
+	_check(is_equal_approx(LightKit.environment().glow_hdr_threshold, LightKit.DEFAULT_GLOW_THRESHOLD), "leaving the level restores glow defaults")
+
+	# 從檢查點重生：一開始就是該位置的光影，不從別的區段漸變。
+	GameState.start_new_run(GameState.difficulties[1])
+	var layout := LevelBuilder.parse(data)
+	GameState.set_checkpoint(layout.checkpoints[layout.checkpoints.size() - 1], {})
+	var respawn := Level.new()
+	respawn.configure(data)
+	get_tree().root.add_child(respawn)
+	for i in 3:
+		await get_tree().process_frame
+	var checkpoint_zone := 0
+	for i in zones.size():
+		if respawn.player.global_position.x > float(zones[i].start_tile) * tile + float(zones[i].blend_tiles) * tile * 0.5:
+			checkpoint_zone = i
+	lighting = respawn._lighting
+	lighting.zone_state_at(respawn.player.global_position.x, probe)
+	_check((respawn.get_node("Ambient") as CanvasModulate).color.is_equal_approx(probe.ambient_color), "respawn starts with the lighting of the checkpoint zone (zone %d)" % checkpoint_zone)
+	GameState.clear_checkpoint()
+	await _end_level(respawn)
 
 
 ## 把每種敵人放在玩家附近跑一段時間，走過各自的 AI 狀態與攻擊。

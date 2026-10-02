@@ -9,6 +9,7 @@ var _light: PointLight2D
 
 
 func _ready() -> void:
+	LightKit.mark_emissive(self)
 	collision_layer = 0
 	collision_mask = Layers.PLAYER
 	monitorable = false

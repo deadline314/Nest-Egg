@@ -22,6 +22,7 @@ var _size := Vector2.ZERO
 
 
 func _ready() -> void:
+	LightKit.mark_emissive(self)
 	_font = UiKit.font()
 	var count := text.length()
 	_size = Vector2(FONT_SIZE + PADDING * 2.0, count * CHAR_STEP + PADDING * 2.0) if vertical \

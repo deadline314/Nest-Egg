@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="LightingProfile" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/lighting_profile.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"alarm"
+ambient_color = Color(0.30,0.08,0.09,1)
+background_tint = Color(1.0,0.7,0.7,1)
+fog_color = Color(0.6,0.1,0.12,1)
+fog_density = 1.2
+glow_threshold = 1.1
+glow_intensity = 0.9

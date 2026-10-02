@@ -8,6 +8,7 @@ var _time := 0.0
 
 
 func _ready() -> void:
+	LightKit.mark_emissive(self)
 	var prompt := WorldPrompt.new()
 	prompt.text = text
 	prompt.radius = 64.0

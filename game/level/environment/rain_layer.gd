@@ -22,6 +22,10 @@ var _time := 0.0
 var _splash_budget := 0.0
 
 
+func _ready() -> void:
+	LightKit.mark_emissive(self)
+
+
 func _process(delta: float) -> void:
 	_time += delta
 	_splash_budget += SPLASHES_PER_SECOND * delta

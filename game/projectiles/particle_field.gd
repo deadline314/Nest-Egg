@@ -21,6 +21,7 @@ var _alive := 0
 
 
 func _ready() -> void:
+	LightKit.mark_emissive(self)
 	_pos.resize(CAPACITY)
 	_vel.resize(CAPACITY)
 	_life.resize(CAPACITY)
