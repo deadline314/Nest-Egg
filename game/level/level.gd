@@ -349,6 +349,14 @@ func _create_entity(resource: Resource) -> Node2D:
 		var item := ConsumablePickup.new()
 		item.configure(resource as ConsumableData)
 		return item
+	if resource is StoryItemData:
+		var collectible := resource as StoryItemData
+		# 已收集的不再出現（收集跟著本輪進度）。
+		if StoryItems.owns(collectible.id):
+			return null
+		var pickup := CollectiblePickup.new()
+		pickup.configure(collectible)
+		return pickup
 	if resource is VehicleData:
 		var vehicle := Vehicle.new()
 		vehicle.configure(resource as VehicleData)

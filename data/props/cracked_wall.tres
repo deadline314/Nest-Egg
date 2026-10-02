@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BreakableData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/breakable_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"cracked_wall"
+display_name = "裂縫牆"
+look = 3
+hint = "牆上有裂縫：打破它，後面可能有東西"
+max_health = 5
+size_tiles = Vector2i(1, 4)
+color = Color(0.3, 0.34, 0.4, 1.0)

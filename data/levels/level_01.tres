@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=36 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=40 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_script"]
 [ext_resource type="Resource" path="res://data/enemies/grunt.tres" id="2_grunt"]
@@ -18,6 +18,10 @@
 [ext_resource type="Resource" path="res://data/consumables/med_injector.tres" id="16_med"]
 [ext_resource type="Resource" path="res://data/consumables/shield_cell.tres" id="17_cell"]
 
+[ext_resource type="Resource" path="res://data/story_items/doc_sky_flyer.tres" id="40_flyer"]
+[ext_resource type="Resource" path="res://data/story_items/doc_cargo_manifest.tres" id="41_manifest"]
+[ext_resource type="Resource" path="res://data/story_items/rec_old_k_voicemail.tres" id="42_voicemail"]
+[ext_resource type="Resource" path="res://data/props/cracked_wall.tres" id="43_wall"]
 [ext_resource type="Resource" path="res://data/lighting/rooftop.tres" id="20_rooftop"]
 [ext_resource type="Resource" path="res://data/lighting/market.tres" id="21_market"]
 [ext_resource type="Resource" path="res://data/lighting/freight.tres" id="22_freight"]
@@ -85,11 +89,15 @@ legend = Dictionary[String, Resource]({
 "b": ExtResource("6_bomber"),
 "d": ExtResource("4_drone"),
 "e": ExtResource("17_cell"),
+"f": ExtResource("40_flyer"),
 "g": ExtResource("2_grunt"),
 "i": ExtResource("16_med"),
 "m": ExtResource("7_mortar"),
 "r": ExtResource("3_rusher"),
-"t": ExtResource("5_turret")
+"t": ExtResource("5_turret"),
+"v": ExtResource("42_voicemail"),
+"x": ExtResource("43_wall"),
+"y": ExtResource("41_manifest")
 })
 hints = PackedStringArray("移動 {move_left}/{move_right}，跳躍 {jump}（按久跳更高）", "滑鼠瞄準，{shoot} 射擊；{weapon_next} 或 1～4 換武器", "按住 {block} 舉盾；子彈到的瞬間舉盾＝完美反彈", "{move_down}＋{jump} 從平台落下；{dash} 衝刺時無敵", "監視蜂在頭頂：往斜上方瞄準射擊", "敵人頭上出現青色菱形：按 {melee} 終結，回補彈藥", "鎮暴員正面擋子彈：跳過或衝刺穿越，打背後", "按 {interact} 搭乘機甲：爆炸彈頭無視盾牌", "打爆自爆蟲，爆炸會波及牠的同伴")
 decor = Dictionary[String, String]({

@@ -10,6 +10,8 @@ enum Look {
 	BARREL,
 	## 玻璃牆：半透明，擋路但擋不住視線，碎裂時有碎片。
 	GLASS,
+	## 有裂縫的牆：外觀和地形一樣，只有裂紋與微弱的標示；打破後露出隱藏房間的入口。
+	WALL,
 }
 
 @export var id: StringName = &"breakable"

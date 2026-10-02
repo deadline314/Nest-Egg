@@ -179,6 +179,8 @@ func _draw() -> void:
 			_draw_barrel(rect)
 		BreakableData.Look.GLASS:
 			_draw_glass(rect)
+		BreakableData.Look.WALL:
+			_draw_wall(rect)
 	_draw_cracks(rect)
 	if _flash > 0.0:
 		draw_rect(rect, Color(1, 1, 1, 0.55 * _flash / FLASH_TIME))
@@ -219,6 +221,15 @@ func _draw_glass(rect: Rect2) -> void:
 		y += 18.0
 
 
+func _draw_wall(rect: Rect2) -> void:
+	draw_rect(rect, Palette.TERRAIN_FILL.lightened(0.04))
+	draw_rect(rect, Palette.TERRAIN_EDGE, false, 1.0)
+	# 本來就有的裂紋（受損後會再多幾條，見 _draw_cracks）。
+	var x := rect.position.x
+	draw_polyline(PackedVector2Array([Vector2(x + 3, rect.position.y + 6), Vector2(x + rect.size.x * 0.5, rect.position.y + 20),
+			Vector2(x + 4, rect.position.y + 32), Vector2(x + rect.size.x - 3, rect.position.y + 46)]), Color(0.03, 0.04, 0.06, 0.9), 1.0)
+
+
 func _draw_cracks(rect: Rect2) -> void:
 	if health == null or data.max_health <= 1:
 		return
@@ -238,6 +249,13 @@ class _Rim:
 
 	var owner_breakable: Breakable
 
+	func _ready() -> void:
+		# 只有裂縫牆的標示會閃動，其餘外觀是靜態的，不需要每影格重畫。
+		set_process(owner_breakable != null and owner_breakable.data != null and owner_breakable.data.look == BreakableData.Look.WALL)
+
+	func _process(_delta: float) -> void:
+		queue_redraw()
+
 	func _draw() -> void:
 		if owner_breakable == null or owner_breakable.data == null:
 			return
@@ -247,6 +265,11 @@ class _Rim:
 			BreakableData.Look.GLASS:
 				draw_rect(rect, Color(Palette.CYAN, 0.55), false, 1.0)
 				draw_line(rect.position + Vector2(2, 2), rect.position + Vector2(2, minf(rect.size.y - 2.0, 14.0)), LightKit.glow(Palette.CYAN, 1.6), 1.0)
+			BreakableData.Look.WALL:
+				# 裂縫處微弱的青色閃光：暗處也看得出這面牆不一樣。
+				var pulse := 0.25 + 0.15 * sin(Time.get_ticks_msec() * 0.003)
+				draw_polyline(PackedVector2Array([Vector2(rect.position.x + 3, rect.position.y + 6), Vector2(rect.get_center().x, rect.position.y + 20),
+						Vector2(rect.position.x + 4, rect.position.y + 32), Vector2(rect.end.x - 3, rect.position.y + 46)]), Color(Palette.CYAN, pulse), 1.0)
 			BreakableData.Look.BARREL:
 				draw_line(rect.position, Vector2(rect.end.x, rect.position.y), Color(Palette.WARNING, 0.85), 1.0)
 				draw_rect(Rect2(rect.get_center() + Vector2(-1, -1), Vector2(2, 2)), LightKit.glow(Palette.DANGER, 1.8))

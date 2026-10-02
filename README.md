@@ -132,6 +132,8 @@ pm/            票券（需求、驗收、交付紀錄）
 
 **新增可破壞物與機關**：在 `data/props/` 複製 `BreakableData`（箱子、油桶、玻璃：血量、大小、爆炸、掉落）或 `MechanismData`（升降梯、閘門、開關、電力開關），再在關卡資料的 `legend` 把一個字元對應到它，就能在地圖上擺。開關與閘門用相同的 `channel` 連動；電力開關的 `channel` 是電力區域 id。要在檢查點存取狀態的新物件，加入 `WorldState.GROUP` 並實作 `state_key()`／`capture_state()`／`restore_state()`。會消耗電力的物件用 `PowerGrid.is_powered(self)` 判斷。
 
+**新增收集品與隱藏房間**：文件與錄音就是 `category` 為文件／錄音的劇情道具（`chapter`、`body` 全文不超過 220 字、可選 `play_scene` 撿到時播通訊，取得時機固定 MANUAL），在關卡 legend 把字元對應到它就會變成可撿的收集品；已收集的不再出現，每章的總數由資料決定，背包與結算畫面會顯示進度。隱藏房間就是用裂縫牆（`data/props/cracked_wall.tres`）或開關閘門封起來的一間小室。
+
 **新增劇情道具**：複製 `data/story_items/*.tres` 修改名稱、說明與取得時機（開局、某個劇情場景播完、擊敗頭目，或由程式取得），圖示放在 `art/items/icons/<icon>.png`。道具跟著本輪進度：重開關卡與從檢查點重生都保留，開始新遊戲才重置。
 產生暫代圖示（消耗品、劇情道具、武器；不需要 GPU）：`godot --headless --path . res://tools/art/paint_icons.tscn`
 產生背包立繪（需要可渲染的環境）：`godot --path . res://tools/art/paint_portraits.tscn`

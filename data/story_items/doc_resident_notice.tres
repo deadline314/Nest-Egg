@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"doc_resident_notice"
+display_name = "夾層區居民通知"
+description = "貼在每一戶門口的公告。"
+color = Color(0.85, 0.9, 1.0, 1.0)
+category = 1
+chapter = &"chapter_02"
+body = "「為維護居住品質，夜間九點後請勿外出。本區居民享有集團醫療優惠，請定期前往轉運站『健康檢查』。」"
+play_scene = &""
+order = 32
+trigger = 3
+icon = "document"

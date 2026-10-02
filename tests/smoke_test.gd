@@ -42,6 +42,7 @@ func _run() -> void:
 	await _test_death_flow()
 	await PropsSuite.new(self).run()
 	await NewEnemiesSuite.new(self).run()
+	await CollectiblesSuite.new(self).run()
 	print("checks: %d, failures: %d" % [_checks, _failures.size()])
 	for failure in _failures:
 		printerr("FAIL: " + failure)
@@ -337,7 +338,7 @@ func _test_story() -> void:
 ## 設定與改鍵：改用測試專用設定檔，結束後還原，不影響玩家設定。
 func _test_story_items() -> void:
 	var catalog := StoryItems.catalog()
-	_check(catalog.size() == 7, "story item catalog loads 7 items (got %d)" % catalog.size())
+	_check(catalog.size() == 16, "story item catalog loads 16 items (got %d)" % catalog.size())
 	var ids: Dictionary[StringName, bool] = {}
 	var last_order := -INF
 	for item in catalog:

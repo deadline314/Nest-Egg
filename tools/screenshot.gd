@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim、block、story、story_ch2、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
+## 情境：all（預設）、settings、mouse_aim、block、story、story_ch2、collectibles、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -38,6 +38,10 @@ func _run() -> void:
 		return
 	if _scenario == "new_enemies":
 		await _run_new_enemies()
+		get_tree().quit()
+		return
+	if _scenario == "collectibles":
+		await _run_collectibles()
 		get_tree().quit()
 		return
 	if _scenario == "props":
@@ -221,6 +225,54 @@ func _run_story_ch2() -> void:
 
 func _show_chapter_card(level: Level, title: String, subtitle: String) -> void:
 	level._show_chapter_card(title, subtitle, false)
+
+
+## 背景故事收集：第一章的裂縫牆與隱藏房間、撿取提示、背包裡閱讀文件與收集進度。
+func _run_collectibles() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _settle(20)
+	var player := level.player
+	player.health.setup(999, 0.0)
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	for id: String in Story.scene_ids():
+		if id.begins_with("radio_"):
+			Story._seen[StringName(id)] = true
+	var floor_y := 20 * 16.0
+	player.global_position = Vector2(30 * 16.0, floor_y)
+	level_camera_snap()
+	await _wait(1.2)
+	_capture("collect_wall")
+	var wall: Breakable = null
+	var stack: Array[Node] = [level]
+	while not stack.is_empty():
+		var node: Node = stack.pop_back()
+		if node is Breakable and (node as Breakable).data.look == BreakableData.Look.WALL:
+			wall = node
+			break
+		stack.append_array(node.get_children())
+	wall.hit_by_projectile(DamageInfo.create(99, Combat.Team.PLAYER, &"shot"))
+	await _wait(0.8)
+	_capture("collect_room_open")
+	player.global_position = Vector2(35.0 * 16.0, floor_y)
+	level_camera_snap()
+	Input.action_press(&"move_right")
+	await _wait(0.8)
+	Input.action_release(&"move_right")
+	_capture("collect_pickup_toast")
+	StoryItems.acquire(&"doc_sky_flyer", false)
+	StoryItems.acquire(&"doc_cargo_manifest", false)
+	var inventory: InventoryScreen = level._inventory
+	inventory.open()
+	inventory.select_tab(2)
+	await _wait(0.9)
+	inventory._pages[2]._select(inventory._pages[2]._entries.size() - 1)
+	await _wait(0.6)
+	_capture("collect_inventory")
+	inventory.close()
 
 
 ## 第二章新敵人：切割者的蓄力與撲擊、迷彩獵手（暗處隱形／燈下現形）、維修機的光束與護盾、精銳保全。

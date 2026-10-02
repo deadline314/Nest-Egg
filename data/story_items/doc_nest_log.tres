@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"doc_nest_log"
+display_name = "NEST 實驗日誌"
+description = "藏在牆後的日誌，每一頁都編了號。"
+color = Color(0.85, 0.2, 0.3, 1.0)
+category = 1
+chapter = &"chapter_02"
+body = "「七號的義體相容率最高，建議列為轉移基準。十號之後的受試者全部標註『消耗品』。技師：K。」"
+play_scene = &""
+order = 35
+trigger = 3
+icon = "document"

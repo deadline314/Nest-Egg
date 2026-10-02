@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"rec_old_k_voicemail"
+display_name = "老K的語音留言"
+description = "老K在你出門前留下的一段話。"
+color = Color(1.0, 0.82, 0.25, 1.0)
+category = 2
+chapter = &"chapter_01"
+body = "「小鬼，如果你聽到這段，代表我又擔心了。拿到東西就回來，別逞英雄。航昨晚咳得很兇，我煮了粥放在桌上。」"
+play_scene = &""
+order = 22
+trigger = 3
+icon = "recording"

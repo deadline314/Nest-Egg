@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"doc_cargo_manifest"
+display_name = "貨運清單"
+description = "貨運站的出貨單，有一欄被塗黑了。"
+color = Color(1.0, 0.76, 0.29, 1.0)
+category = 1
+chapter = &"chapter_01"
+body = "編號 NEST-07：低溫貨櫃一只，收件單位「軌道醫院・第三研究所」。備註：嚴禁開啟，內容物為「生物相容資料」。"
+play_scene = &""
+order = 21
+trigger = 3
+icon = "document"

@@ -21,6 +21,9 @@ func _ready() -> void:
 		"終結技　　%d" % GameState.finishers,
 		"敗北圖鑑　%d / %d" % [DefeatCodex.unlocked_count(), DefeatCodex.total_count()],
 	]
+	var collection := StoryItems.overall_collection()
+	if collection.y > 0:
+		stats.append("背景收集　%d / %d" % [collection.x, collection.y])
 	for line in stats:
 		box.add_child(UiKit.label(line, 12))
 	var replay := UiKit.button("再玩一次", replay_requested.emit, "相同難度重新開始")

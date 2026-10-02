@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"doc_sky_flyer"
+display_name = "天穹宣傳單"
+description = "下層港區到處散發的廣告：天穹的承諾。"
+color = Color(0.21, 0.88, 1.0, 1.0)
+category = 1
+chapter = &"chapter_01"
+body = "「讓天空屬於每個人。軌道醫院全新療程，名額有限，費用請洽服務櫃檯。」背面有人用筆寫著：「櫃檯不收現金，只收晶片。」"
+play_scene = &""
+order = 20
+trigger = 3
+icon = "document"

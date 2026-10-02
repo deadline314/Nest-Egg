@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"doc_power_log"
+display_name = "電力室值班記錄"
+description = "值班員留下的手寫記錄。"
+color = Color(0.35, 0.88, 1.0, 1.0)
+category = 1
+chapter = &"chapter_02"
+body = "「今晚轉運站的負載又超標了，上面要求把整區的電都接過去。他們說只是『測試』。可是每次測試，三樓就會有人哭。」"
+play_scene = &""
+order = 33
+trigger = 3
+icon = "document"

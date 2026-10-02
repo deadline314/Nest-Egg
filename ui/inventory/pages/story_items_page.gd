@@ -8,7 +8,10 @@ func tab_title() -> String:
 
 
 func tab_tooltip() -> String:
-	return "回顧旅途中取得的關鍵物品"
+	var overall := StoryItems.overall_collection()
+	if overall.y == 0:
+		return "回顧旅途中取得的關鍵物品"
+	return "回顧關鍵物品與收集的文件、錄音（已收集 %d／%d）" % [overall.x, overall.y]
 
 
 func tab_has_alert() -> bool:
@@ -34,14 +37,31 @@ func _entry_for(item: StoryItemData) -> InventoryEntry:
 	entry.icon = ItemIcons.item(item.icon)
 	entry.card_icon_scale = 1
 	entry.detail_icon_scale = 3
-	entry.subtitle = "劇情道具"
+	var kind := _kind_name(item)
+	entry.subtitle = kind
 	if StoryItems.is_new(item.id):
 		entry.badge = "NEW"
 		entry.badge_color = Palette.MAGENTA
-	entry.detail_tag = "劇情道具"
-	entry.detail_body = item.description
-	entry.hint = "劇情道具只能查看，不會被消耗"
+	entry.detail_tag = kind
+	if item.is_collectible():
+		var chapter_title := str(Story.chapter_info(item.chapter).get("title", ""))
+		entry.detail_tag = "%s　%s" % [kind, chapter_title] if not chapter_title.is_empty() else kind
+		entry.detail_stats = PackedStringArray(["本章收集　%d／%d" % [StoryItems.collected_count(item.chapter), StoryItems.collectible_total(item.chapter)]])
+		entry.detail_body = item.body
+		entry.hint = "%s只能閱讀；散落在關卡裡，隱藏房間裡也有" % kind
+	else:
+		entry.detail_body = item.description
+		entry.hint = "劇情道具只能查看，不會被消耗"
 	return entry
+
+
+static func _kind_name(item: StoryItemData) -> String:
+	match item.category:
+		StoryItemData.Category.DOCUMENT:
+			return "文件"
+		StoryItemData.Category.RECORDING:
+			return "錄音"
+	return "劇情道具"
 
 
 func _on_selection_changed(previous: int, _current: int) -> void:

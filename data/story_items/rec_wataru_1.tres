@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"rec_wataru_1"
+display_name = "航的語音留言・一"
+description = "航在病房裡錄下的語音。"
+color = Color(0.56, 0.89, 0.6, 1.0)
+category = 2
+chapter = &"chapter_02"
+body = "「姐姐，護士說我明天能看窗外了。我想知道，天空是不是跟你說的一樣藍。」"
+play_scene = &"c2_radio_voice"
+order = 31
+trigger = 3
+icon = "recording"

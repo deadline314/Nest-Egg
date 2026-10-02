@@ -19,7 +19,7 @@ const MAGENTA := Color("ff2e88")
 
 
 static func ids() -> Array[String]:
-	return ["wataru_photo", "nest_egg_chip", "old_k_order", "nest07_shard", "med_injector", "shield_cell", "maintenance_pass", "nest_roster", "wataru_wristband"]
+	return ["wataru_photo", "nest_egg_chip", "old_k_order", "nest07_shard", "med_injector", "shield_cell", "maintenance_pass", "nest_roster", "wataru_wristband", "document", "recording"]
 
 
 ## 回傳畫好的圖示；未知 id 回傳 null。
@@ -35,6 +35,8 @@ static func paint(id: String) -> PixelCanvas:
 		"maintenance_pass": _pass(canvas)
 		"nest_roster": _roster(canvas)
 		"wataru_wristband": _wristband(canvas)
+		"document": _document(canvas)
+		"recording": _recording(canvas)
 		_:
 			push_warning("[ItemIconPainter] 沒有 %s 的圖示" % id)
 			return null
@@ -258,3 +260,31 @@ static func _wristband(c: PixelCanvas) -> void:
 	# 扣環。
 	c.rect(26, 15, 3, 4, Color("d6f7df"))
 	c.px(27, 16, Color("2a3a2f"))
+
+
+## 文件：折角的資料夾與文字行，右上角一枚小標籤（收集品共用圖示）。
+static func _document(c: PixelCanvas) -> void:
+	c.polygon(PackedVector2Array([Vector2(7, 4), Vector2(21, 4), Vector2(26, 9), Vector2(26, 28), Vector2(7, 28)]), Color("dfe6ea"))
+	c.polygon(PackedVector2Array([Vector2(21, 4), Vector2(26, 9), Vector2(21, 9)]), Color("9fb0b8"))
+	c.rect(25, 10, 1, 18, Color("a9b6bc"))
+	c.rect(8, 27, 18, 1, Color("a9b6bc"))
+	for i in 6:
+		var width := 14 if i % 3 != 2 else 9
+		c.rect(10, 11 + i * 3, width, 1, Color("56657e"))
+	c.rect(10, 7, 7, 2, CYAN)
+	c.px(20, 24, MAGENTA)
+	c.px(21, 24, MAGENTA)
+
+
+## 錄音：小型錄音晶片，中間一段音波。
+static func _recording(c: PixelCanvas) -> void:
+	c.rect_gradient(6, 8, 20, 17, Color("39475c"), Color("1d2431"))
+	c.rect(6, 8, 20, 1, Color("5d6f88"))
+	c.rect(8, 10, 16, 8, Color("0d1119"))
+	for i in 8:
+		var h: int = [2, 4, 6, 3, 5, 6, 3, 2][i]
+		c.rect(9 + i * 2, 14 - h / 2, 1, h, CYAN if i % 2 == 0 else Color("9ff3ff"))
+	c.circle(11.0, 21.5, 1.6, Color("56657e"))
+	c.circle(21.0, 21.5, 1.6, Color("56657e"))
+	c.rect(13, 21, 6, 1, Color("56657e"))
+	c.px(24, 10, MAGENTA)

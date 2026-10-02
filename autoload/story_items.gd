@@ -12,6 +12,43 @@ const DATA_DIR := "res://data/story_items"
 var _catalog: Array[StoryItemData] = []
 var _catalog_loaded := false
 var _owned: Dictionary[StringName, bool] = {}
+## 某一章的收集總數（文件與錄音）。
+func collectible_total(chapter: StringName) -> int:
+	var total := 0
+	for item in catalog():
+		if item.is_collectible() and item.chapter == chapter:
+			total += 1
+	return total
+
+
+## 某一章已收集的數量。
+func collected_count(chapter: StringName) -> int:
+	var count := 0
+	for item in catalog():
+		if item.is_collectible() and item.chapter == chapter and _owned.has(item.id):
+			count += 1
+	return count
+
+
+## 有收集品的章節 id（依目錄順序，不重複）。
+func collectible_chapters() -> Array[StringName]:
+	var result: Array[StringName] = []
+	for item in catalog():
+		if item.is_collectible() and not result.has(item.chapter):
+			result.append(item.chapter)
+	return result
+
+
+## 所有章節合計的收集進度：[已收集, 總數]。
+func overall_collection() -> Vector2i:
+	var collected := 0
+	var total := 0
+	for chapter in collectible_chapters():
+		collected += collected_count(chapter)
+		total += collectible_total(chapter)
+	return Vector2i(collected, total)
+
+
 ## 取得後還沒在背包看過的道具（背包標記 NEW 用）。
 var _unseen: Dictionary[StringName, bool] = {}
 
@@ -76,8 +113,15 @@ func acquire(id: StringName, announce := true) -> bool:
 	_unseen[id] = true
 	acquired.emit(item)
 	if announce:
-		EventBus.toast_requested.emit("取得 %s" % item.display_name)
+		EventBus.toast_requested.emit(_acquire_message(item))
 	return true
+
+
+func _acquire_message(item: StoryItemData) -> String:
+	if not item.is_collectible():
+		return "取得 %s" % item.display_name
+	var kind := "錄音" if item.category == StoryItemData.Category.RECORDING else "文件"
+	return "取得%s：%s（本章 %d／%d）" % [kind, item.display_name, collected_count(item.chapter), collectible_total(item.chapter)]
 
 
 ## 開始新的一輪：清空，並發放開局就持有的道具（不跳提示）。

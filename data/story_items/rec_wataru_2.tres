@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"rec_wataru_2"
+display_name = "航的語音留言・二"
+description = "航的第二段錄音，音質很差。"
+color = Color(0.56, 0.89, 0.6, 1.0)
+category = 2
+chapter = &"chapter_02"
+body = "「姐姐，今天他們說要帶我去『新房間』。他們說那裡可以看得更遠……我有點怕，可是我會乖。你別擔心。」"
+play_scene = &""
+order = 34
+trigger = 3
+icon = "recording"
