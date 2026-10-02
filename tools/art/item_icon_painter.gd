@@ -19,7 +19,7 @@ const MAGENTA := Color("ff2e88")
 
 
 static func ids() -> Array[String]:
-	return ["wataru_photo", "nest_egg_chip", "old_k_order", "nest07_shard"]
+	return ["wataru_photo", "nest_egg_chip", "old_k_order", "nest07_shard", "med_injector", "shield_cell"]
 
 
 ## 回傳畫好的圖示；未知 id 回傳 null。
@@ -30,6 +30,8 @@ static func paint(id: String) -> PixelCanvas:
 		"nest_egg_chip": _chip(canvas)
 		"old_k_order": _order(canvas)
 		"nest07_shard": _shard(canvas)
+		"med_injector": _injector(canvas)
+		"shield_cell": _cell(canvas)
 		_:
 			push_warning("[ItemIconPainter] 沒有 %s 的圖示" % id)
 			return null
@@ -146,3 +148,45 @@ static func _shard(c: PixelCanvas) -> void:
 		c.px(spark.x + 1, spark.y, Color(CYAN, 0.45))
 		c.px(spark.x, spark.y - 1, Color(CYAN, 0.45))
 		c.px(spark.x, spark.y + 1, Color(CYAN, 0.45))
+
+
+## 醫療針：自動注射器，粉紅色藥劑窗與醫療十字。
+static func _injector(c: PixelCanvas) -> void:
+	var fluid := Color("ff5c80")
+	# 針頭與護套。
+	c.line(Vector2i(2, 16), Vector2i(7, 16), Color("d8e2ec"))
+	c.rect(7, 14, 3, 5, Color("7a8798"))
+	# 筒身：上亮下暗的金屬，中間一段透明藥劑窗。
+	c.rect_gradient(10, 11, 15, 11, Color("e8f0f8"), Color("8c9aae"))
+	c.rect(12, 13, 10, 7, Color("1d2431"))
+	c.rect(13, 14, 8, 5, fluid)
+	c.rect(13, 14, 8, 1, Color("ff9ab0"))
+	c.rect(15, 15, 4, 1, Color.WHITE)
+	c.rect(17, 14, 1, 5, Color("ffb0c0"))
+	# 後端柱塞與握把。
+	c.rect(25, 12, 3, 9, Color("39475c"))
+	c.rect(28, 14, 2, 5, Color("56657e"))
+	c.rect(25, 12, 1, 9, Color("5d6f88"))
+	# 指環與醫療十字。
+	c.rect(9, 9, 2, 2, Color("56657e"))
+	c.rect(9, 22, 2, 2, Color("56657e"))
+
+
+## 護盾電池：青色能量槽、上方電極與閃電。
+static func _cell(c: PixelCanvas) -> void:
+	# 電極。
+	c.rect(13, 3, 6, 3, Color("9fb0c4"))
+	c.rect(14, 2, 4, 1, Color("c8d6e6"))
+	# 外殼。
+	c.rect_gradient(8, 6, 16, 23, Color("39475c"), Color("1d2431"))
+	c.rect(8, 6, 16, 1, Color("5d6f88"))
+	c.rect(8, 6, 1, 23, Color("4a5a73"))
+	# 能量槽（由下往上由深到亮的四格）。
+	var shades := [Color("0f7f99"), Color("1fb0cc"), Color("35e0ff"), Color("9ff3ff")]
+	for i in shades.size():
+		c.rect(11, 24 - i * 5, 10, 4, shades[i])
+	c.rect(11, 8, 10, 1, Color("0d1119"))
+	# 閃電。
+	var bolt := Color("fff8c0")
+	c.polygon(PackedVector2Array([Vector2(17, 9), Vector2(13, 17), Vector2(16, 17), Vector2(14, 24), Vector2(19, 15), Vector2(16, 15)]), bolt)
+	c.px(11, 28, Color("0d1119"))

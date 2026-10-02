@@ -24,6 +24,7 @@ var _layout: LevelLayout
 var _world: Node2D
 var _entities: Node2D
 var _pause_menu: PauseMenu
+var _inventory: InventoryScreen
 var _arena_triggered := false
 var _finished := false
 var _next_story_trigger := 0
@@ -90,6 +91,10 @@ func _ready() -> void:
 	add_child(_pause_menu)
 	_pause_menu.retry_requested.connect(_request_retry)
 	_pause_menu.menu_requested.connect(_request_menu)
+
+	_inventory = InventoryScreen.new()
+	_inventory.configure(player)
+	add_child(_inventory)
 
 	EventBus.player_died.connect(_on_player_died)
 	# 遊戲中以準星取代系統游標；離開關卡時還原。
@@ -341,7 +346,7 @@ func _on_player_died(cause: StringName) -> void:
 	if _finished:
 		return
 	_finished = true
-	_pause_menu.allowed = false
+	_close_menus()
 	var card := DefeatCodex.unlock(cause)
 	var can_continue := GameState.register_death()
 	await get_tree().create_timer(DEATH_SCREEN_DELAY, false).timeout
@@ -358,7 +363,7 @@ func _on_boss_defeated() -> void:
 	if _finished:
 		return
 	_finished = true
-	_pause_menu.allowed = false
+	_close_menus()
 	await get_tree().create_timer(VICTORY_DELAY, false).timeout
 	if not is_inside_tree():
 		return
@@ -371,6 +376,13 @@ func _on_boss_defeated() -> void:
 		await card.finished
 	if is_inside_tree():
 		completed.emit()
+
+
+## 死亡或過關時關閉並鎖住背包與暫停選單，避免和結算畫面同時出現。
+func _close_menus() -> void:
+	_pause_menu.allowed = false
+	_inventory.allowed = false
+	_inventory.close()
 
 
 func _request_retry() -> void:

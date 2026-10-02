@@ -34,6 +34,7 @@ func _run() -> void:
 	await _test_block_and_parry()
 	await _test_dynamic_hud()
 	await _test_consumables()
+	await _test_inventory()
 	await _test_enemy_behaviours()
 	await _test_boss_and_victory()
 	await _test_checkpoints_and_difficulties()
@@ -788,6 +789,136 @@ func _test_consumables() -> void:
 	player.consumables.add(med)
 	var snapshot := player.checkpoint_snapshot()
 	_check(snapshot.has("consumables") and int(snapshot["consumables"].get("med_injector", 0)) == 1, "checkpoint saves consumables")
+	await _end_level(level)
+
+
+## 模擬按下／放開一個動作（輸入事件在 idle 影格處理，所以等幾個 process 影格）。
+func _press_action(action: StringName) -> void:
+	for pressed in [true, false]:
+		var event := InputEventAction.new()
+		event.action = action
+		event.pressed = pressed
+		Input.parse_input_event(event)
+		for i in 3:
+			await get_tree().process_frame
+
+
+func _test_inventory() -> void:
+	# 資料：每個圖示、武器圖與立繪分層都存在，按鍵有預設值。
+	for item in ConsumableBag.catalog():
+		_check(ResourceLoader.exists(ItemIcons.ICON_DIR.path_join(item.icon + ".png")), "consumable icon exists: %s" % item.id)
+	for file in DirAccess.get_files_at(WEAPON_DIR):
+		var weapon := load(WEAPON_DIR.path_join(file)) as WeaponData
+		if weapon != null:
+			_check(ResourceLoader.exists(ItemIcons.WEAPON_DIR.path_join(weapon.visual_id + ".png")), "weapon icon exists: %s" % weapon.visual_id)
+	for layer in ItemIcons.PORTRAIT_LAYERS:
+		_check(ResourceLoader.exists(ItemIcons.PORTRAIT_DIR.path_join("rin_%s.png" % layer)), "portrait layer exists: %s" % layer)
+		_check(ItemIcons.portrait_layer("rin", layer).get_size() == Vector2(ItemIcons.PORTRAIT_SIZE), "portrait layer size: %s" % layer)
+	_check(ItemIcons.item("no_such_icon").get_size() == Vector2(ItemIcons.ICON_SIZE), "missing icon falls back to a placeholder of the same size")
+	_check(InputBindings.get_code(&"inventory", 0) == KEY_TAB and InputBindings.get_code(&"inventory", 1) == KEY_I, "inventory key defaults to Tab and I")
+	_check(InputMap.has_action(&"inventory_prev_tab") and InputMap.has_action(&"inventory_next_tab"), "inventory tab actions registered")
+
+	var level := await _start_level()
+	while get_tree().paused:
+		await get_tree().process_frame
+	await _frames(2)
+	var player := level.player
+	var inventory: InventoryScreen = level._inventory
+	var smg := load("res://data/weapons/smg.tres") as WeaponData
+	var spread := load("res://data/weapons/spread.tres") as WeaponData
+	player.loadout.equip(smg)
+	player.loadout.equip(spread)
+	_check(inventory != null and not inventory.is_open() and not get_tree().paused, "inventory starts closed")
+
+	# 開關：Tab 開啟並暫停，再按一次關閉並繼續。
+	await _press_action(&"inventory")
+	_check(inventory.is_open() and get_tree().paused, "inventory key opens the bag and pauses the game")
+	await _press_action(&"inventory")
+	_check(not inventory.is_open() and not get_tree().paused, "inventory key closes the bag and resumes")
+	await _press_action(&"inventory")
+	await _press_action(&"pause")
+	_check(not inventory.is_open() and not get_tree().paused and not level._pause_menu._root.visible, "escape closes the bag without opening the pause menu")
+
+	# 分頁：四頁，Q／E 切換並循環，每頁都有標題與提示。
+	await _press_action(&"inventory")
+	_check(inventory._pages.size() == 4, "bag has four tabs")
+	for page in inventory._pages:
+		_check(not page.tab_title().is_empty() and not page.tab_tooltip().is_empty(), "tab has a title and tooltip")
+	_check(inventory._current == 0, "bag opens on the weapons tab")
+	await _press_action(&"inventory_next_tab")
+	_check(inventory._current == 1, "next-tab key moves to consumables")
+	await _press_action(&"inventory_prev_tab")
+	await _press_action(&"inventory_prev_tab")
+	_check(inventory._current == 3, "previous-tab key wraps to the status tab")
+	inventory.select_tab(0)
+
+	# 武器分頁：四個欄位、手上武器標記、選另一把並確認後換成手上武器。
+	var weapons: WeaponsPage = inventory._pages[0]
+	_check(weapons._entries.size() == Loadout.MAX_SLOTS, "weapons tab lists every slot")
+	_check(weapons._entries[player.loadout.active_slot].badge == "手上", "active weapon is marked")
+	_check(weapons._entries[3].dimmed and weapons._entries[3].action_label.is_empty(), "empty slot is dimmed and has no action")
+	weapons._select(0)
+	_check(weapons._entries[0].action_enabled or player.loadout.active_slot == 0, "other weapons can be equipped")
+	await _press_action(&"ui_accept")
+	_check(player.loadout.active_slot == 0 and player.loadout.active_weapon().id == &"pistol", "confirming a weapon equips it")
+	weapons._select(1)
+	await _press_action(&"ui_accept")
+	_check(player.loadout.active_weapon() == smg, "bag swaps the held weapon")
+	weapons._select(3)
+	var held := player.loadout.active_slot
+	weapons.activate()
+	_check(player.loadout.active_slot == held, "empty slot cannot be equipped")
+
+	# 消耗品分頁：滿血不會用掉；受傷後使用回血、數量減少。
+	inventory.select_tab(1)
+	var med := ConsumableBag.find(&"med_injector")
+	player.consumables.add(med)
+	var consumables: ConsumablesPage = inventory._pages[1]
+	consumables.refresh()
+	consumables._select(0)
+	consumables.activate()
+	_check(player.consumables.count(med.id) == 1, "bag does not waste a med injector at full health")
+	var hurt := DamageInfo.create(3, Combat.Team.ENEMY, &"test")
+	hurt.ignore_invulnerability = true
+	player.health.take_damage(hurt)
+	var hp := player.health.current
+	consumables.activate()
+	_check(player.health.current == hp + med.heal_amount and player.consumables.count(med.id) == 0, "using a med injector in the bag heals")
+	consumables.activate()
+	_check(consumables._entries[0].dimmed and not consumables._entries[0].action_enabled, "empty consumable is dimmed and cannot be used")
+
+	# 劇情道具分頁：新取得的標 NEW，看過後取消。
+	inventory.select_tab(2)
+	var story_page: StoryItemsPage = inventory._pages[2]
+	_check(story_page._entries.size() == StoryItems.owned_items().size() and story_page._entries.size() >= 2, "story tab lists owned items")
+	_check(story_page._entries[0].badge == "NEW" and StoryItems.new_count() > 0, "new story items are flagged")
+	var first_id := story_page._entries[0].id
+	story_page.navigate(Vector2i(0, 1))
+	_check(not StoryItems.is_new(first_id) and story_page._entries[0].badge.is_empty(), "viewing a story item clears its NEW flag")
+	_check(story_page._entries[1].action_label.is_empty(), "story items have no action")
+
+	# 角色狀態分頁：數字取自這一輪的紀錄。
+	inventory.select_tab(3)
+	var status: StatusPage = inventory._pages[3]
+	GameState.kills = 7
+	status.refresh()
+	await get_tree().create_timer(0.1, true).timeout
+	_check(status._values[&"kills"].text.begins_with("7"), "status tab shows kills")
+	_check(status._values[&"health"].text == "%d / %d" % [player.health.current, player.health.max_health], "status tab shows health")
+	_check(status._values[&"difficulty"].text == GameState.difficulty.display_name, "status tab shows difficulty")
+	await _press_action(&"inventory")
+	_check(not inventory.is_open() and not get_tree().paused, "bag closes from any tab")
+
+	# 倒下時背包關閉並鎖住。
+	await _press_action(&"inventory")
+	_check(inventory.is_open(), "bag reopens")
+	var lethal := DamageInfo.create(999, Combat.Team.ENEMY, &"test")
+	lethal.ignore_invulnerability = true
+	player.health.take_damage(lethal)
+	await _frames(3)
+	_check(not inventory.is_open() and not inventory.allowed, "death closes and locks the bag")
+	await _press_action(&"inventory")
+	_check(not inventory.is_open(), "bag cannot open after death")
 	await _end_level(level)
 
 

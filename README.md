@@ -18,7 +18,10 @@
 | 瞄準 | 滑鼠（360°） | 右搖桿 |
 | 射擊 | 左鍵 | RT |
 | 格擋 | 右鍵（按住） | LT |
-| 換武器 | 滾輪、1～4 直選、Tab／Q | RB／LB |
+| 換武器 | 滾輪、1～4 直選 | RB／LB |
+| 換彈 | R | R3 |
+| 快速使用醫療針 | Q | 十字↑ |
+| 背包（暫停） | Tab、I | Back |
 | 衝刺（無敵） | Shift | B |
 | 跳躍（按久跳更高） | Space、W | A |
 | 蹲下／從平台落下 | S（＋跳躍） | 十字↓ |
@@ -47,7 +50,9 @@
 ## 遊戲內容
 
 - **3 種難度**：輔助／標準／硬核（生命、殘機、敵人節奏都由資料調整）
-- **4 把武器**：脈衝步槍、散射砲、貫穿光束、機甲加農砲（爆炸無視盾牌）
+- **8 種武器**：6 種實彈（手槍、衝鋒槍、突擊步槍、霰彈槍、榴彈發射器、機甲加農砲）與 2 種能量武器（貫穿光束、電磁軌道砲），有彈匣與換彈
+- **消耗品與劇情道具**：醫療針、護盾電池；航的照片、存款晶片、委託單、NEST-07 資料碎片
+- **背包**（Tab／I，開啟時暫停）：武器與彈藥、消耗品、劇情道具、角色狀態四個分頁，高解析像素風與動畫
 - **1 台機甲**：獨立血量、不同操作手感，被擊毀時彈出駕駛
 - **6 種敵人 + 1 頭目**，每種都有不同的攻擊方式與應對方式（見下表）
 - **敗北圖鑑**：每種死因解鎖一張卡片並附攻略，取代原作的成人向收集要素
@@ -81,7 +86,7 @@ core/          可重用框架：StateMachine、HealthComponent、Hurtbox、Cont
 art/           骨架、角色零件、武器、頭像（PNG + JSON）
 data/          所有遊戲數值（.tres）、關卡地圖、劇本、圖鑑卡片（JSON）
 game/          遊戲物件：player、enemies、vehicles、projectiles、pickups、hazards、level
-ui/            HUD 與各畫面（主選單、暫停、失敗、過關、圖鑑）
+ui/            HUD 與各畫面（主選單、暫停、失敗、過關、圖鑑），ui/inventory 是背包（分頁、卡片、詳情面板）
 tests/         無頭冒煙測試
 tools/         開發工具（測試腳本、自動截圖、美術繪製、關卡產生器）
 design/        設計文件（決策與理由）
@@ -92,6 +97,7 @@ pm/            票券（需求、驗收、交付紀錄）
 
 - **資料驅動**：武器、敵人數值、難度、玩家手感、關卡都是資源檔；新增內容大多不用改程式
 - **元件化戰鬥**：`HealthComponent` + `Hurtbox`（可設格擋 `guard` 與傷害倍率）+ `ContactHitbox`，玩家／敵人／載具／陷阱共用
+- **背包**：分頁是獨立的 `InventoryPage`，清單分頁共用 `CardListPage`（卡片＋詳情面板，資料轉成 `InventoryEntry`）；新增分頁只要繼承並在 `InventoryScreen._create_pages()` 加一行
 - **事件匯流排**：HUD、圖鑑、統計只透過 `EventBus` 溝通，遊戲物件被移除也不會出錯
 - **狀態機**：`StateMachine` 以 Callable 註冊狀態，所有敵人與頭目共用
 - **效能與記憶體**：子彈物件池（有上限）、單節點粒子場（固定容量環形緩衝）、固定數量光源池、地形矩形合併、靜態繪製分塊（光源只重繪附近區塊）、畫面外敵人休眠
@@ -121,7 +127,9 @@ pm/            票券（需求、驗收、交付紀錄）
 **新增劇情**：在 `data/story/*.json` 加入場景（`mode` 為 `cinematic` 或 `radio`），關卡以 `Story.play(場景 id)` 播放。
 
 **新增劇情道具**：複製 `data/story_items/*.tres` 修改名稱、說明與取得時機（開局、某個劇情場景播完、擊敗頭目，或由程式取得），圖示放在 `art/items/icons/<icon>.png`。道具跟著本輪進度：重開關卡與從檢查點重生都保留，開始新遊戲才重置。
-產生暫代圖示：`godot --headless --path . res://tools/art/paint_icons.tscn`（不需要 GPU；之後以同名 PNG 覆蓋即可換成手繪像素圖）。
+產生暫代圖示（消耗品、劇情道具、武器；不需要 GPU）：`godot --headless --path . res://tools/art/paint_icons.tscn`
+產生背包立繪（需要可渲染的環境）：`godot --path . res://tools/art/paint_portraits.tscn`
+之後用同名 PNG 覆蓋即可換成手繪像素圖（尺寸見 `core/item_icons.gd`）。
 
 **換成正式音效**：在 `autoload/sfx.gd` 的 `OVERRIDES` 填入 `id → 音效檔路徑`，呼叫端不用改。
 
@@ -137,5 +145,5 @@ GODOT=/path/to/godot tools/run_tests.sh
 自動截圖（需要可渲染的環境）：
 
 ```bash
-godot --path . res://tools/screenshot.tscn -- --out=/absolute/output/dir [--scenario=all|settings|mouse_aim|block|story]
+godot --path . res://tools/screenshot.tscn -- --out=/absolute/output/dir [--scenario=all|settings|mouse_aim|block|story|inventory]
 ```

@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim、block、story、dynamic_hud、weapons、reload、consumables、story_items
+## 情境：all（預設）、settings、mouse_aim、block、story、dynamic_hud、weapons、reload、consumables、story_items、inventory
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -34,6 +34,10 @@ func _run() -> void:
 		return
 	if _scenario == "block":
 		await _run_block()
+		get_tree().quit()
+		return
+	if _scenario == "inventory":
+		await _run_inventory()
 		get_tree().quit()
 		return
 	if _scenario == "story_items":
@@ -180,6 +184,56 @@ func _run_block() -> void:
 	await _wait(0.12)
 	_capture("block_reflect")
 	Input.action_release(&"block")
+
+
+## 背包：武器與彈藥、消耗品（使用醫療針）、劇情道具（NEW）、角色狀態，以及開啟動畫的中途畫面。
+func _run_inventory() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _settle(20)
+	var player := level.player
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	player.global_position = Vector2(330, 320)
+	level_camera_snap()
+	for path in ["res://data/weapons/smg.tres", "res://data/weapons/spread.tres", "res://data/weapons/laser.tres"]:
+		player.loadout.equip(load(path))
+	player.loadout.select(1)
+	for i in 14:
+		player.loadout.consume_ammo()
+	player.loadout.select(0)
+	player.consumables.add(ConsumableBag.find(&"med_injector"))
+	player.consumables.add(ConsumableBag.find(&"med_injector"))
+	var info := DamageInfo.create(3, Combat.Team.ENEMY, &"test")
+	info.ignore_invulnerability = true
+	player.health.take_damage(info)
+	GameState.kills = 17
+	GameState.finishers = 3
+	GameState.run_time = 312.4
+	await _wait(0.5)
+	var inventory: InventoryScreen = level._inventory
+	inventory.open()
+	await _wait(0.07)
+	_capture("inventory_opening")
+	await _wait(0.8)
+	inventory._pages[0]._select(1)
+	await _wait(0.5)
+	_capture("inventory_weapons")
+	inventory.select_tab(1)
+	await _wait(0.6)
+	_capture("inventory_consumables")
+	inventory._pages[1].activate()
+	await _wait(0.2)
+	_capture("inventory_use")
+	inventory.select_tab(2)
+	await _wait(0.6)
+	_capture("inventory_story")
+	inventory.select_tab(3)
+	await _wait(0.9)
+	_capture("inventory_status")
+	inventory.close()
 
 
 ## 劇情道具：開場過場結束後取得委託單的提示、擊敗頭目取得資料碎片的提示、四個道具圖示。

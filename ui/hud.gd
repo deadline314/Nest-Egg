@@ -7,7 +7,7 @@ extends CanvasLayer
 const TOAST_TIME := 2.2
 const CONTROLS_HINT_TIME := 14.0
 ## {動作} 會換成玩家目前設定的按鍵（見 InputBindings.format）。
-const CONTROLS_TEMPLATE := "移動 {move_left}/{move_right}　跳 {jump}　射擊 {shoot}　格擋 {block}　衝刺 {dash}　終結 {melee}　換彈 {reload}　換武器 {weapon_next}／1～4　搭乘 {interact}　暫停 {pause}"
+const CONTROLS_TEMPLATE := "移動 {move_left}/{move_right}　跳 {jump}　射擊 {shoot}　格擋 {block}　衝刺 {dash}　終結 {melee}　換彈 {reload}　換武器 {weapon_next}／1～4　搭乘 {interact}　背包 {inventory}　暫停 {pause}"
 
 var vitals_tag: VitalsTag
 var ammo_ring: AmmoRing

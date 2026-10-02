@@ -10,6 +10,78 @@ func _init(width: int, height: int) -> void:
 	image = Image.create(width, height, false, Image.FORMAT_RGBA8)
 
 
+## 把高解析圖「像素化」：裁掉透明邊、等比縮進 size（四周留 margin）、置中、透明度二值化、顏色限階。
+## gamma < 1 會提亮暗部（暗色武器在深色背包背景上才看得清楚）。
+## 用來把現有的高解析美術自動轉成低解析像素圖示（之後可直接用手繪像素圖覆蓋）。
+static func from_image_fit(source: Image, size: Vector2i, margin := 1, color_levels := 6, gamma := 1.0) -> PixelCanvas:
+	var canvas := PixelCanvas.new(size.x, size.y)
+	var used := source.get_used_rect()
+	if used.size.x <= 0 or used.size.y <= 0:
+		return canvas
+	var cropped := source.get_region(used)
+	var room := Vector2(size - Vector2i(margin * 2, margin * 2))
+	var factor := minf(room.x / float(used.size.x), room.y / float(used.size.y))
+	var fitted := Vector2i(maxi(1, roundi(used.size.x * factor)), maxi(1, roundi(used.size.y * factor)))
+	cropped.resize(fitted.x, fitted.y, Image.INTERPOLATE_LANCZOS)
+	var origin := (size - fitted) / 2
+	for y in fitted.y:
+		for x in fitted.x:
+			var color := cropped.get_pixel(x, y)
+			if color.a < 0.5:
+				continue
+			var lifted := Color(pow(color.r, gamma), pow(color.g, gamma), pow(color.b, gamma), 1.0)
+			canvas.px(origin.x + x, origin.y + y, _posterized(lifted, color_levels))
+	return canvas
+
+
+## 與 from_image_fit 類似，但不裁切、不置中：來源是 size 的整數倍（supersample 倍）解析度，
+## 直接縮回 size，位置與其他同尺寸圖層保持對齊（立繪分層用）。
+static func from_image_exact(source: Image, size: Vector2i, color_levels := 6) -> PixelCanvas:
+	var canvas := PixelCanvas.new(size.x, size.y)
+	var scaled := source.duplicate() as Image
+	scaled.resize(size.x, size.y, Image.INTERPOLATE_LANCZOS)
+	for y in size.y:
+		for x in size.x:
+			var color := scaled.get_pixel(x, y)
+			if color.a >= 0.5:
+				canvas.px(x, y, _posterized(Color(color, 1.0), color_levels))
+	return canvas
+
+
+## 把 glow 圖以加法疊到 base 上（自發光的霓虹線），回傳新圖。兩張圖尺寸需相同。
+static func add_glow(base: Image, glow: Image, strength := 0.8) -> Image:
+	var result := base.duplicate() as Image
+	if glow == null or glow.get_size() != base.get_size():
+		return result
+	for y in base.get_height():
+		for x in base.get_width():
+			var g := glow.get_pixel(x, y)
+			if g.a <= 0.0:
+				continue
+			var b := result.get_pixel(x, y)
+			var mixed := Color(minf(1.0, b.r + g.r * g.a * strength), minf(1.0, b.g + g.g * g.a * strength),
+					minf(1.0, b.b + g.b * g.a * strength), maxf(b.a, g.a))
+			result.set_pixel(x, y, mixed)
+	return result
+
+
+## 亮度只保留 levels 階、飽和度與色相也限階，得到有限的色盤（像素畫的單純色塊感）。
+func posterize(levels: int) -> void:
+	for y in height():
+		for x in width():
+			var color := image.get_pixel(x, y)
+			if color.a > 0.0:
+				image.set_pixel(x, y, _posterized(color, levels))
+
+
+static func _posterized(color: Color, levels: int) -> Color:
+	# 在 HSV 空間限階：灰色金屬維持純灰、霓虹色維持單純的色相，避免逐通道限階產生的雜色。
+	var steps := float(maxi(2, levels) - 1)
+	var saturation := roundf(color.s * 8.0) / 8.0
+	var hue := roundf(color.h * 24.0) / 24.0 if saturation > 0.0 else 0.0
+	return Color.from_hsv(hue, saturation, roundf(color.v * steps) / steps, color.a)
+
+
 func width() -> int:
 	return image.get_width()
 

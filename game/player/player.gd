@@ -753,6 +753,11 @@ func is_reloading() -> bool:
 	return loadout.is_reloading()
 
 
+## 護盾是否處於破防鎖定（暫時不能格擋）。
+func is_guard_broken() -> bool:
+	return _guard_lockout_left > 0.0
+
+
 ## 給視覺元件讀取（避免公開內部計時器）。
 func is_melee_swinging() -> bool:
 	return _melee_visual_left > 0.0

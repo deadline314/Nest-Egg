@@ -33,6 +33,7 @@ const ACTIONS: Array[Dictionary] = [
 	{"id": &"reload", "label": "換彈"},
 	{"id": &"use_item", "label": "使用醫療針"},
 	{"id": &"interact", "label": "搭乘／互動"},
+	{"id": &"inventory", "label": "背包"},
 	{"id": &"pause", "label": "暫停"},
 ]
 
@@ -50,6 +51,7 @@ const DEFAULT_CODES: Dictionary[StringName, Array] = {
 	&"reload": [KEY_R, NONE],
 	&"use_item": [KEY_Q, NONE],
 	&"interact": [KEY_E, NONE],
+	&"inventory": [KEY_TAB, KEY_I],
 	&"pause": [KEY_ESCAPE, KEY_P],
 }
 
@@ -67,6 +69,7 @@ const DEFAULT_JOY_BUTTONS: Dictionary[StringName, int] = {
 	&"reload": JOY_BUTTON_RIGHT_STICK,
 	&"use_item": JOY_BUTTON_DPAD_UP,
 	&"interact": JOY_BUTTON_X,
+	&"inventory": JOY_BUTTON_BACK,
 	&"pause": JOY_BUTTON_START,
 }
 
@@ -79,7 +82,8 @@ const JOY_AXES: Dictionary[StringName, Array] = {
 	&"block": [JOY_AXIS_TRIGGER_LEFT, 1.0],
 }
 
-## 不顯示在設定選單的固定動作（右搖桿瞄準、數字鍵直選武器）。
+## 不顯示在設定選單的固定動作（右搖桿瞄準、數字鍵直選武器、背包分頁切換）。
+## 規格：[&"axis", 軸, 方向]、[&"key", 鍵碼]、[&"button", 手把按鈕]。
 const FIXED_ACTIONS: Dictionary[StringName, Array] = {
 	&"aim_left": [[&"axis", JOY_AXIS_RIGHT_X, -1.0]],
 	&"aim_right": [[&"axis", JOY_AXIS_RIGHT_X, 1.0]],
@@ -89,6 +93,8 @@ const FIXED_ACTIONS: Dictionary[StringName, Array] = {
 	&"weapon_slot_2": [[&"key", KEY_2]],
 	&"weapon_slot_3": [[&"key", KEY_3]],
 	&"weapon_slot_4": [[&"key", KEY_4]],
+	&"inventory_prev_tab": [[&"key", KEY_Q], [&"button", JOY_BUTTON_LEFT_SHOULDER]],
+	&"inventory_next_tab": [[&"key", KEY_E], [&"button", JOY_BUTTON_RIGHT_SHOULDER]],
 }
 
 ## 無法被綁定的鍵（Esc 用於取消設定；F 鍵保留給系統／除錯；數字鍵用於直選武器）。
@@ -286,15 +292,20 @@ func _register_fixed_actions() -> void:
 			InputMap.add_action(action, DEADZONE)
 		InputMap.action_erase_events(action)
 		for spec: Array in FIXED_ACTIONS[action]:
-			if spec[0] == &"axis":
-				var motion := InputEventJoypadMotion.new()
-				motion.axis = spec[1]
-				motion.axis_value = spec[2]
-				InputMap.action_add_event(action, motion)
-			else:
-				var key := InputEventKey.new()
-				key.physical_keycode = spec[1]
-				InputMap.action_add_event(action, key)
+			match spec[0]:
+				&"axis":
+					var motion := InputEventJoypadMotion.new()
+					motion.axis = spec[1]
+					motion.axis_value = spec[2]
+					InputMap.action_add_event(action, motion)
+				&"button":
+					var button := InputEventJoypadButton.new()
+					button.button_index = spec[1]
+					InputMap.action_add_event(action, button)
+				_:
+					var key := InputEventKey.new()
+					key.physical_keycode = spec[1]
+					InputMap.action_add_event(action, key)
 
 
 func _load_defaults() -> void:

@@ -12,6 +12,8 @@ const DATA_DIR := "res://data/story_items"
 var _catalog: Array[StoryItemData] = []
 var _catalog_loaded := false
 var _owned: Dictionary[StringName, bool] = {}
+## 取得後還沒在背包看過的道具（背包標記 NEW 用）。
+var _unseen: Dictionary[StringName, bool] = {}
 
 
 func _ready() -> void:
@@ -48,6 +50,20 @@ func owned_items() -> Array[StoryItemData]:
 	return result
 
 
+## 取得後還沒在背包看過。
+func is_new(id: StringName) -> bool:
+	return _unseen.has(id)
+
+
+func new_count() -> int:
+	return _unseen.size()
+
+
+## 玩家在背包看過這個道具，移除 NEW 標記。
+func mark_seen(id: StringName) -> void:
+	_unseen.erase(id)
+
+
 ## 取得道具。announce = true 時跳出提示。未知或已持有的道具回傳 false。
 func acquire(id: StringName, announce := true) -> bool:
 	var item := find(id)
@@ -57,6 +73,7 @@ func acquire(id: StringName, announce := true) -> bool:
 	if _owned.has(id):
 		return false
 	_owned[id] = true
+	_unseen[id] = true
 	acquired.emit(item)
 	if announce:
 		EventBus.toast_requested.emit("取得 %s" % item.display_name)
@@ -66,6 +83,7 @@ func acquire(id: StringName, announce := true) -> bool:
 ## 開始新的一輪：清空，並發放開局就持有的道具（不跳提示）。
 func reset_run() -> void:
 	_owned.clear()
+	_unseen.clear()
 	_grant(StoryItemData.Trigger.RUN_START, &"", false)
 
 

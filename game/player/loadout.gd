@@ -99,8 +99,13 @@ func cycle(direction: int) -> void:
 
 
 func select(slot: int) -> void:
-	if slot != active_slot and _is_usable(slot):
+	if can_select(slot):
 		_switch_to(slot)
+
+
+## 這一欄可以換成手上武器嗎（有武器、有彈藥、而且不是目前這一把）。
+func can_select(slot: int) -> bool:
+	return slot != active_slot and _is_usable(slot)
 
 
 # ---------------------------------------------------------------------------

@@ -4,6 +4,10 @@
   "rig": "res://art/rigs/humanoid.json",
   "texture_scale": 0.25,
   "scale": 1.0,
+  "portrait": {
+    "description": "背包立繪的眨眼設定（頭部貼圖像素座標，含支點偏移前的原始座標）：part＝頭部零件名稱；eye＝要被抹成膚色的眼睛範圍（四邊形 x1,y1,…x4,y4）；lid＝閉眼時畫上的眼線（x1,y1,x2,y2）。",
+    "blink": {"part": "head", "eye": [31, 33, 40, 32, 41, 37, 32, 39], "lid": [31, 35.5, 40.5, 34.5]}
+  },
   "description": "外觀（skin）定義：textures 是美術要交付的圖片清單（尺寸、支點）；parts 是把圖片掛到骨頭上的方式。替換美術只要依 textures 的尺寸與支點畫好同名 PNG 覆蓋即可。",
   "textures": {
     "arm_lower": {

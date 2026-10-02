@@ -47,6 +47,13 @@ static func theme() -> Theme:
 	return t
 
 
+## 背包分頁標籤的外框：選取中亮青色底與邊，未選取暗色。
+static func tab_style(selected: bool) -> StyleBoxFlat:
+	var box := _box(Color(0.05, 0.22, 0.28, 0.96) if selected else Color(0.05, 0.08, 0.11, 0.9),
+			Palette.CYAN if selected else Palette.CYAN_DIM, 2 if selected else 1, 4)
+	return box
+
+
 static func _box(bg: Color, border: Color, border_width := 1, margin := 6) -> StyleBoxFlat:
 	var box := StyleBoxFlat.new()
 	box.bg_color = bg
