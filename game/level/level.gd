@@ -26,6 +26,7 @@ var _entities: Node2D
 var _pause_menu: PauseMenu
 var _arena_triggered := false
 var _finished := false
+var _next_story_trigger := 0
 
 
 func configure(p_data: LevelData) -> void:
@@ -95,8 +96,7 @@ func _ready() -> void:
 	UiKit.set_cursor_visible(false)
 	tree_exiting.connect(UiKit.set_cursor_visible.bind(true))
 	EventBus.boss_defeated.connect(_on_boss_defeated)
-	if not GameState.has_checkpoint and not data.display_name.is_empty():
-		EventBus.toast_requested.emit(data.display_name)
+	_begin_intro.call_deferred()
 
 
 func _process(delta: float) -> void:
@@ -105,10 +105,49 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if _arena_triggered or _layout == null or _layout.arena_x < 0.0 or not is_instance_valid(player):
+	if _layout == null or not is_instance_valid(player):
+		return
+	_check_story_triggers()
+	if _arena_triggered or _layout.arena_x < 0.0:
 		return
 	if player.global_position.x > _layout.arena_x + ARENA_TRIGGER_MARGIN:
 		_start_boss_fight()
+
+
+# ---------------------------------------------------------------------------
+# 劇情
+# ---------------------------------------------------------------------------
+
+## 開場：從關卡開頭進入時播放開場過場，接著顯示章節標題（從檢查點重生時略過）。
+func _begin_intro() -> void:
+	if GameState.has_checkpoint or not is_inside_tree():
+		return
+	if data.intro_scene != &"" and not Story.was_seen(data.intro_scene):
+		await Story.play_and_wait(data.intro_scene)
+		if not is_inside_tree():
+			return
+	var info := Story.chapter_info()
+	_show_chapter_card(str(info.get("title", data.display_name)), str(info.get("subtitle", "")), false)
+
+
+func _show_chapter_card(title: String, subtitle: String, block: bool, hold := 2.2) -> ChapterCard:
+	var card := ChapterCard.new()
+	card.title = title
+	card.subtitle = subtitle
+	card.block = block
+	card.hold = hold
+	add_child(card)
+	return card
+
+
+## 玩家越過 & 觸發點時播放對應的通訊（每輪只播一次，重生後不重播）。
+func _check_story_triggers() -> void:
+	while _next_story_trigger < _layout.story_triggers.size():
+		var trigger: Dictionary = _layout.story_triggers[_next_story_trigger]
+		if player.global_position.x < trigger["x"]:
+			return
+		Story.play(trigger["scene"])
+		_next_story_trigger += 1
 
 
 # ---------------------------------------------------------------------------
@@ -271,7 +310,12 @@ func _start_boss_fight() -> void:
 	if _layout.boss_spawn.is_empty():
 		push_warning("[Level] 有戰場標記 B 但沒有頭目")
 		return
-	get_tree().create_timer(BOSS_SPAWN_DELAY, false).timeout.connect(_spawn_boss)
+	await get_tree().create_timer(BOSS_SPAWN_DELAY, false).timeout
+	if not is_inside_tree():
+		return
+	await Story.play_and_wait(data.boss_scene)
+	if is_inside_tree():
+		_spawn_boss()
 
 
 func _spawn_boss() -> void:
@@ -311,8 +355,16 @@ func _on_boss_defeated() -> void:
 		return
 	_finished = true
 	_pause_menu.allowed = false
-	EventBus.toast_requested.emit("任務完成")
 	await get_tree().create_timer(VICTORY_DELAY, false).timeout
+	if not is_inside_tree():
+		return
+	await Story.play_and_wait(data.outro_scene)
+	if not is_inside_tree():
+		return
+	var info := Story.chapter_info()
+	if info.has("end_title"):
+		var card := _show_chapter_card(str(info["end_title"]), str(info.get("teaser", "")), true, 2.8)
+		await card.finished
 	if is_inside_tree():
 		completed.emit()
 

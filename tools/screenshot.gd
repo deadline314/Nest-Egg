@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim、block
+## 情境：all（預設）、settings、mouse_aim、block、story
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -24,6 +24,10 @@ func _run() -> void:
 	add_child(LightKit.create_environment())
 	if _scenario == "settings":
 		await _run_settings()
+		get_tree().quit()
+		return
+	if _scenario == "story":
+		await _run_story()
 		get_tree().quit()
 		return
 	if _scenario == "block":
@@ -67,6 +71,52 @@ func _run() -> void:
 	await _wait(1.8)
 	_capture("07_death_card")
 	get_tree().quit()
+
+
+## 劇情：開場過場、章節標題、通訊、頭目登場、結尾、章節結束。
+func _run_story() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _wait(1.0)
+	for i in 2:
+		Story._layer.advance()
+		Story._layer.advance()
+	await _wait(0.8)
+	_capture("story_prologue")
+	Story.skip_cinematic()
+	await _wait(1.2)
+	_capture("story_chapter_title")
+	var player := level.player
+	player.health.setup(999, 0.0)
+	player.global_position = Vector2(level._layout.story_triggers[4]["x"] + 30.0, 320)
+	level_camera_snap()
+	await _wait(1.6)
+	_capture("story_radio")
+	player.global_position = Vector2(level._layout.arena_x + 80.0, 300)
+	await _wait(2.0)
+	Story._layer.advance()
+	await _wait(0.6)
+	_capture("story_boss_intro")
+	Story.skip_cinematic()
+	await _wait(1.0)
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		var enemy := node as Enemy
+		if enemy != null and enemy.data.is_boss:
+			var lethal := DamageInfo.create(9999, Combat.Team.PLAYER, &"test")
+			lethal.ignore_invulnerability = true
+			lethal.bypass_guard = true
+			enemy.health.take_damage(lethal)
+	await _wait(4.6)
+	for i in 4:
+		Story._layer.advance()
+		Story._layer.advance()
+	await _wait(1.0)
+	_capture("story_epilogue")
+	Story.skip_cinematic()
+	await _wait(1.5)
+	_capture("story_chapter_end")
 
 
 ## 格擋：舉盾、完美格擋反彈、護盾能量條。

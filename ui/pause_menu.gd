@@ -32,7 +32,7 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	# 設定畫面開啟時由它自己處理輸入（Esc 會先關閉設定）。
-	if is_instance_valid(_settings):
+	if is_instance_valid(_settings) or Story.is_cinematic_active():
 		return
 	if event.is_action_pressed(&"pause") or (_root.visible and event.is_action_pressed(&"ui_cancel")):
 		if _root.visible:

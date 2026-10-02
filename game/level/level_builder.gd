@@ -12,6 +12,7 @@ const CHECKPOINT := "C"
 const HEALTH := "H"
 const ARENA := "B"
 const LAMP := "*"
+const STORY := "&"
 const EMPTY := "."
 
 
@@ -33,6 +34,7 @@ static func parse(data: LevelData) -> LevelLayout:
 	layout.spike_rects = _merge_cells(layout, SPIKES, true, false)
 	layout.laser_rects = _merge_cells(layout, LASER, false, true)
 	_compute_surfaces(layout)
+	_assign_story_triggers(data, layout)
 	if not layout.has_player_start:
 		layout.warnings.append("地圖缺少玩家起點 P")
 	for warning in layout.warnings:
@@ -80,6 +82,8 @@ static func _scan_cells(data: LevelData, layout: LevelLayout) -> void:
 					layout.checkpoints.append(layout.cell_to_feet(x, y))
 				HEALTH:
 					layout.health_pickups.append(layout.cell_to_feet(x, y))
+				STORY:
+					layout.story_triggers.append({"x": float(x * layout.tile_size), "scene": &""})
 				LAMP:
 					layout.lamps.append(Vector2((x + 0.5) * layout.tile_size, y * layout.tile_size))
 				ARENA:
@@ -96,6 +100,15 @@ static func _scan_cells(data: LevelData, layout: LevelLayout) -> void:
 					elif not unknown.has(c):
 						unknown[c] = true
 						layout.warnings.append("未知字元 '%s'（第 %d 列第 %d 欄），視為空氣" % [c, y, x])
+
+
+## & 字元由左至右對應 LevelData.story_triggers；數量不符時記錄警告。
+static func _assign_story_triggers(data: LevelData, layout: LevelLayout) -> void:
+	layout.story_triggers.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a["x"] < b["x"])
+	if layout.story_triggers.size() != data.story_triggers.size():
+		layout.warnings.append("劇情觸發點 & 有 %d 個，但 story_triggers 有 %d 筆" % [layout.story_triggers.size(), data.story_triggers.size()])
+	for i in layout.story_triggers.size():
+		layout.story_triggers[i]["scene"] = StringName(data.story_triggers[i]) if i < data.story_triggers.size() else &""
 
 
 ## 計算每欄的地表高度與是否有屋頂（雨、霧、背牆、倒影都依此判斷）。

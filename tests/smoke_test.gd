@@ -19,14 +19,16 @@ func _ready() -> void:
 
 func _run() -> void:
 	print("== Nest Egg smoke test ==")
-	# 無頭環境沒有畫面，關閉畫面外休眠以便敵人 AI 運作。
+	# 無頭環境沒有畫面，關閉畫面外休眠以便敵人 AI 運作；過場直接結束（劇情另有專門測試）。
 	Enemy.activation_culling_enabled = false
+	Story.auto_skip = true
 	_test_data()
 	_test_level_layout()
 	_test_state_machine()
 	_test_loadout()
 	await _test_rigs()
 	await _test_settings_and_bindings()
+	await _test_story()
 	await _test_gameplay()
 	await _test_block_and_parry()
 	await _test_enemy_behaviours()
@@ -195,6 +197,59 @@ func _test_rigs() -> void:
 	var broken := CharacterRig.new()
 	_check(not broken.setup("no_such_character"), "unknown character fails gracefully")
 	broken.free()
+
+
+func _test_story() -> void:
+	for id: String in Story.speaker_ids():
+		var portrait := str(Story.speaker(id).get("portrait", ""))
+		_check(ResourceLoader.exists(portrait), "speaker portrait exists: %s" % id)
+	for scene_id: String in Story.scene_ids():
+		for line: Dictionary in Story.scene_lines(StringName(scene_id)):
+			_check(Story.speaker_ids().has(line.get("speaker", "")), "scene %s uses known speaker" % scene_id)
+	var data := load(LEVEL_PATH) as LevelData
+	for scene_id in [data.intro_scene, data.boss_scene, data.outro_scene]:
+		_check(Story.has_scene(scene_id), "level scene exists: %s" % scene_id)
+	for scene_id in data.story_triggers:
+		_check(Story.has_scene(StringName(scene_id)), "trigger scene exists: %s" % scene_id)
+	var layout := LevelBuilder.parse(data)
+	_check(layout.story_triggers.size() == data.story_triggers.size(), "every & trigger mapped to a scene")
+
+	# 過場：暫停遊戲、可推進到結束、結束後恢復
+	Story.auto_skip = false
+	Story.reset_progress()
+	var finished := [&""]
+	var on_finished := func(id: StringName) -> void: finished[0] = id
+	Story.scene_finished.connect(on_finished)
+	_check(Story.play(&"prologue"), "cinematic starts")
+	await _frames(1)
+	_check(get_tree().paused and Story.is_cinematic_active(), "cinematic pauses the game")
+	for i in 40:
+		Story._layer.advance()
+	await _frames(1)
+	_check(finished[0] == &"prologue" and not get_tree().paused, "cinematic advances to the end and unpauses")
+	_check(not Story.play(&"prologue"), "seen scenes are not replayed")
+	Story.reset_progress()
+	Story.play(&"boss_intro")
+	await _frames(1)
+	var esc := InputEventAction.new()
+	esc.action = &"pause"
+	esc.pressed = true
+	Input.parse_input_event(esc)
+	await _frames(2)
+	_check(not Story.is_cinematic_active() and finished[0] == &"boss_intro", "escape skips the cinematic")
+	_check(Story.play(&"radio_start") and not get_tree().paused, "radio plays without pausing")
+	Story.scene_finished.disconnect(on_finished)
+	Story.auto_skip = true
+	Story.reset_progress()
+
+	# 關卡觸發點
+	var level := await _start_level()
+	var first: Dictionary = layout.story_triggers[0]
+	level.player.global_position = Vector2(first["x"] + 20.0, 300.0)
+	await _frames(3)
+	_check(Story.was_seen(first["scene"]), "map trigger plays its scene")
+	_check(Story.was_seen(data.intro_scene), "intro plays when entering the level")
+	await _end_level(level)
 
 
 ## 設定與改鍵：改用測試專用設定檔，結束後還原，不影響玩家設定。
@@ -587,7 +642,8 @@ func _test_boss_and_victory() -> void:
 		lethal.bypass_guard = true
 		lethal.ignore_invulnerability = true
 		boss.health.take_damage(lethal)
-	for i in 300:
+	# 擊敗後：延遲 → 結尾過場（測試中自動跳過）→ 章節結束卡 → 結算。
+	for i in 720:
 		await get_tree().physics_frame
 		if completed[0]:
 			break

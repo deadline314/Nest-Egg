@@ -1,11 +1,14 @@
 extends Node
 ## 開發工具：以程式繪製所有角色零件與武器的暫代圖，輸出成 PNG（含 *_glow.png 自發光層）。
-## 用法（需要可渲染的環境）：godot --path . res://tools/art/paint_assets.tscn [-- --only=rin,rifle] [--guides]
+## 用法（需要可渲染的環境）：godot --path . res://tools/art/paint_assets.tscn [-- --only=rin,rifle,portrait_mei] [--guides]
 ## 會覆蓋 art/ 底下的同名 PNG；已換成正式美術的角色請用 --only 指定要重畫的項目。
 ## --guides：另外輸出對位參考圖到 art/guides/humanoid/（紅十字＝支點、藍圈＝接下一個零件的關節、灰框＝畫布）。
 
 const HumanoidPainterScript := preload("res://tools/art/humanoid_painter.gd")
 const WeaponPainterScript := preload("res://tools/art/weapon_painter.gd")
+const PortraitPainterScript := preload("res://tools/art/portrait_painter.gd")
+const PORTRAITS: Array[String] = ["rin", "mei", "old_k", "warden", "system"]
+const PORTRAIT_DIR := "res://art/portraits"
 const CHARACTERS: Array[String] = ["rin", "trooper", "grenadier", "enforcer", "warden"]
 ## 以 2 倍解析度繪製再縮小，取得平滑邊緣。
 const SUPERSAMPLE := 2
@@ -37,6 +40,10 @@ func _run() -> void:
 	for weapon_id: String in defs.keys():
 		if _only.is_empty() or _only.has(weapon_id):
 			await _paint_weapon(weapon_id, defs[weapon_id])
+	for id in PORTRAITS:
+		if _only.is_empty() or _only.has("portrait_" + id):
+			var painter: Object = PortraitPainterScript.new()
+			await _render(PortraitPainterScript.SIZE, func(canvas: CanvasItem) -> void: painter.paint(canvas, id), PORTRAIT_DIR.path_join(id + ".png"))
 	if _guides:
 		await _paint_guides()
 	print("paint_assets: wrote %d files" % _written)

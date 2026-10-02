@@ -1,0 +1,55 @@
+{
+  "chapter": {"id": "chapter_01", "title": "第一章　雨夜", "subtitle": "沉港市・下層港區", "end_title": "第一章　雨夜　完", "teaser": "下一章 ——「天空的代價」"},
+  "speakers": {
+    "rin":    {"name": "凜", "color": "#ff3fa4", "portrait": "res://art/portraits/rin.png"},
+    "mei":    {"name": "芽", "color": "#a46bff", "portrait": "res://art/portraits/mei.png"},
+    "old_k":  {"name": "老K", "color": "#ffd23f", "portrait": "res://art/portraits/old_k.png"},
+    "warden": {"name": "監管者", "color": "#ff2a3d", "portrait": "res://art/portraits/warden.png"},
+    "system": {"name": "天穹廣播", "color": "#35e0ff", "portrait": "res://art/portraits/system.png"}
+  },
+  "scenes": {
+    "prologue": {"mode": "cinematic", "lines": [
+      {"speaker": "system", "text": "天穹集團提醒您：雨量警報第三級。下層港區居民請留在室內。讓天空屬於每個人。"},
+      {"speaker": "rin", "text": "沉港市的雨，從來沒有停過。有錢人住在雲上面，我們住在雨裡。"},
+      {"speaker": "rin", "text": "航的病，只有軌道醫院治得好。一張船票，加上手術費……我存了四年。"},
+      {"speaker": "old_k", "text": "最後一筆。天穹貨運站，一枚資料碎片，代號 NEST-07。拿到它，你的巢蛋就滿了。"},
+      {"speaker": "mei", "text": "我已經進了他們的監視網路。凜，記得——這次只要拿東西，不要逞英雄。"},
+      {"speaker": "rin", "text": "放心。我只想帶我弟去看一次真正的天空。"}
+    ]},
+    "radio_start": {"mode": "radio", "lines": [
+      {"speaker": "mei", "text": "巷口有兩個天穹保全。紅色瞄準線一亮就閃，或者舉盾擋回去。"},
+      {"speaker": "rin", "text": "知道了，老師。"}
+    ]},
+    "radio_market": {"mode": "radio", "lines": [
+      {"speaker": "mei", "text": "又是那句廣告。『讓天空屬於每個人』。"},
+      {"speaker": "rin", "text": "只要你付得起。"}
+    ]},
+    "radio_shield": {"mode": "radio", "lines": [
+      {"speaker": "mei", "text": "前面是鎮暴員，正面的盾打不穿。跳過去打背後，或騙他撞牆。"}
+    ]},
+    "radio_mech": {"mode": "radio", "lines": [
+      {"speaker": "old_k", "text": "那台『壁壘』是老貨了，但還能打。開走它，貨運站的大門可不會自己打開。"}
+    ]},
+    "radio_facility": {"mode": "radio", "lines": [
+      {"speaker": "mei", "text": "等等……他們的防火牆上掛著一個標籤：『七號』。凜，這是什麼？"},
+      {"speaker": "rin", "text": "……不重要。繼續。"}
+    ]},
+    "radio_last": {"mode": "radio", "lines": [
+      {"speaker": "mei", "text": "碎片就在前面的貨櫃裡。熱源……很大一個。小心。"}
+    ]},
+    "boss_intro": {"mode": "cinematic", "lines": [
+      {"speaker": "warden", "text": "七號。歡迎回家。"},
+      {"speaker": "rin", "text": "我不叫七號。"},
+      {"speaker": "warden", "text": "你的手臂記得。NEST 計畫的每一個孩子，我都記得。"},
+      {"speaker": "mei", "text": "凜，牠在讀你的義體序號——快動手！"}
+    ]},
+    "epilogue": {"mode": "cinematic", "lines": [
+      {"speaker": "warden", "text": "你以為……是你偷走了它？是它……在呼喚你。"},
+      {"speaker": "rin", "text": "碎片裡的資料……這是一個孩子的神經掃描。名字是——"},
+      {"speaker": "mei", "text": "『受試者：航。轉移進度：百分之六十二。』……凜，這不是治療。"},
+      {"speaker": "old_k", "text": "孩子，立刻離開那裡。他們已經知道你是誰了。"},
+      {"speaker": "rin", "text": "……巢蛋已經滿了，老K。"},
+      {"speaker": "rin", "text": "可是我要買的，從來就不是船票。"}
+    ]}
+  }
+}

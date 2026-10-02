@@ -16,6 +16,8 @@ var laser_rects: Array[Rect2i] = []
 var checkpoints := PackedVector2Array()
 var health_pickups := PackedVector2Array()
 var lamps := PackedVector2Array()
+## { "x": float（觸發的像素 x）, "scene": StringName }，依 x 排序。
+var story_triggers: Array[Dictionary] = []
 ## { "kind": String, "cell": Vector2i, "position": Vector2（格子左上角像素）}
 var decor: Array[Dictionary] = []
 ## 每一欄由上往下第一個地表（實心或平台）的像素高度；沒有則為 INF。

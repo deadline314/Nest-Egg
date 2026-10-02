@@ -15,7 +15,7 @@
 [resource]
 script = ExtResource("1_script")
 id = &"level_01"
-display_name = "第一區　廢棄培育區"
+display_name = "第一章　雨夜"
 tile_size = 16
 height = 23
 legend = Dictionary[String, Resource]({
@@ -39,4 +39,8 @@ decor = Dictionary[String, String]({
 })
 sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦", "茶", "修理", "網咖", "當舖", "夜市", "OPEN", "24H")
 billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人", "NEST 計畫|為了更好的明天", "軌道醫院|治癒，只差一張票", "天穹保全|您的安全，我們的承諾")
+intro_scene = &"prologue"
+boss_scene = &"boss_intro"
+outro_scene = &"epilogue"
+story_triggers = PackedStringArray("radio_start", "radio_market", "radio_shield", "radio_mech", "radio_facility", "radio_last")
 layout_path = "res://data/levels/level_01_map.json"
