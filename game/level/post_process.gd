@@ -7,10 +7,17 @@ const LAYER := 5
 const SHADER_PATH := "res://game/level/post_process.gdshader"
 ## 顆粒每秒更換幾次（太快會閃、太慢像貼圖）。
 const GRAIN_FPS := 24.0
+## 低血量：生命比例低於這個值就進入危險狀態（暗角收緊、紅色脈動）。
+const DANGER_HEALTH_RATIO := 1.0 / 3.0
+const DANGER_FADE_SPEED := 1.6
+const DANGER_PULSE_SPEED := 4.2
 
 var _material: ShaderMaterial
 var _rect: ColorRect
 var _grain_time := 0.0
+var _health_ratio := 1.0
+var _danger := 0.0
+var _pulse_time := 0.0
 ## 參數 -> 上一次寫進 shader 的值，沒變就不重寫。
 var _cache: Dictionary[StringName, Variant] = {}
 
@@ -32,6 +39,7 @@ func _ready() -> void:
 	# 玩家的亮度設定即時生效。
 	Settings.display_changed.connect(_apply_brightness)
 	_apply_brightness()
+	EventBus.player_health_changed.connect(_on_health_changed)
 
 
 func is_active() -> bool:
@@ -62,13 +70,33 @@ func parameter(name: StringName) -> Variant:
 	return _material.get_shader_parameter(name) if _material != null else null
 
 
+func _on_health_changed(current: int, maximum: int) -> void:
+	_health_ratio = float(current) / float(maxi(1, maximum))
+
+
+## 目前的危險程度（0~1，不含脈動；測試與除錯用）。
+func danger_level() -> float:
+	return _danger
+
+
 func _process(delta: float) -> void:
 	if _material == null:
 		return
+	_update_danger(delta)
 	_grain_time += delta
 	if _grain_time >= 1.0 / GRAIN_FPS:
 		_grain_time = fmod(_grain_time, 1.0 / GRAIN_FPS)
 		_material.set_shader_parameter(&"grain_seed", float(Time.get_ticks_msec() % 1000))
+
+
+## 低血量時平滑進入危險狀態並脈動；「減少閃光」時脈動幅度小很多，不會明暗劇烈起伏。
+func _update_danger(delta: float) -> void:
+	var target := 1.0 if _health_ratio <= DANGER_HEALTH_RATIO else 0.0
+	_danger = move_toward(_danger, target, DANGER_FADE_SPEED * delta)
+	_pulse_time += delta
+	var amplitude := 0.15 if Settings.get_reduce_flashes() else 0.4
+	var pulse := 1.0 - amplitude + amplitude * sin(_pulse_time * DANGER_PULSE_SPEED)
+	_write_param(&"danger", _danger * pulse)
 
 
 func _write_param(name: StringName, value: Variant) -> void:

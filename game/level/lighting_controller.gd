@@ -7,6 +7,10 @@ extends Node
 const MIN_FADE := 0.01
 ## 角色補光倍率上限（避免環境光趨近全黑時補到過曝）。
 const MAX_CHARACTER_FILL := 4.0
+## 閃電：兩次閃電之間的最短間隔（秒）、閃光顏色、雷聲延遲範圍（秒，距離感）。
+const LIGHTNING_MIN_GAP := 6.0
+const LIGHTNING_COLOR := Color(0.72, 0.8, 1.0)
+const THUNDER_DELAY := Vector2(0.4, 1.5)
 
 ## 目前實際套用中的光影（唯讀）。
 var current := LightingProfile.new()
@@ -21,6 +25,10 @@ var _post: PostProcess
 var _neutral := LightingProfile.new()
 var _zone_state := LightingProfile.new()
 var _overrides: Array[_Override] = []
+var _flash_color := Color.WHITE
+var _flash_level := 0.0
+var _flash_decay := 0.0
+var _lightning_gap := 0.0
 
 
 ## zones 會被複製並排序；沒有有效區段時整關使用預設（全亮）光影，霧顏色取 fallback_fog。
@@ -48,12 +56,15 @@ func setup(zones: Array[LightingZone], tile_size: int, target: Node2D, canvas_mo
 	_zones.sort_custom(func(a: LightingZone, b: LightingZone) -> bool: return a.start_tile < b.start_tile)
 	EventBus.lighting_override_requested.connect(set_override)
 	EventBus.lighting_override_cleared.connect(clear_override)
+	EventBus.ambient_flash_requested.connect(flash)
 	tree_exiting.connect(_on_exiting)
 	snap()
 
 
 func _process(delta: float) -> void:
 	_advance_overrides(delta)
+	_advance_flash(delta)
+	_update_lightning(delta)
 	_evaluate()
 	_apply()
 
@@ -111,6 +122,35 @@ func clear_override(id: StringName, fade_time := 0.8) -> void:
 		override.rate = 1.0 / maxf(MIN_FADE, fade_time)
 
 
+## 環境光瞬間閃亮（爆炸、閃電）：color 疊加到環境光上，strength 為峰值，duration 秒內線性衰減。
+## 更強的閃光取代較弱的；「減少閃光」設定開啟時強度大幅降低。
+func flash(color: Color, strength: float, duration: float) -> void:
+	var scaled := strength * Settings.flash_scale()
+	if scaled > _flash_level:
+		_flash_level = scaled
+		_flash_color = color
+		_flash_decay = scaled / maxf(0.05, duration)
+
+
+## 目前閃光的強度（0 = 沒有）。
+func flash_level() -> float:
+	return _flash_level
+
+
+## 打一次閃電：強烈的環境光閃亮與延遲的雷聲。距離上次閃電太近時回傳 false，什麼都不做。
+## 「減少閃光」開啟時只閃一次且較弱，不會連續閃爍。
+func strike() -> bool:
+	if _lightning_gap > 0.0:
+		return false
+	_lightning_gap = LIGHTNING_MIN_GAP
+	flash(LIGHTNING_COLOR, 1.0, 0.18)
+	if not Settings.get_reduce_flashes():
+		get_tree().create_timer(0.22, false).timeout.connect(flash.bind(LIGHTNING_COLOR, 0.5, 0.4))
+	var delay := randf_range(THUNDER_DELAY.x, THUNDER_DELAY.y)
+	get_tree().create_timer(delay, false).timeout.connect(Sfx.play.bind(&"thunder", -4.0))
+	return true
+
+
 func has_override(id: StringName) -> bool:
 	return _find_override(id) != null
 
@@ -140,6 +180,20 @@ func _advance_overrides(delta: float) -> void:
 		i -= 1
 
 
+func _advance_flash(delta: float) -> void:
+	if _flash_level > 0.0:
+		_flash_level = maxf(0.0, _flash_level - _flash_decay * delta)
+
+
+## 室外區段隨機打閃電（頻率來自光影設定）。劇情過場期間不打；暫停時控制器不執行，自然也不打。
+func _update_lightning(delta: float) -> void:
+	_lightning_gap = maxf(0.0, _lightning_gap - delta)
+	if current.lightning_rate <= 0.0 or _lightning_gap > 0.0 or Story.is_cinematic_active():
+		return
+	if randf() < current.lightning_rate / 60.0 * delta:
+		strike()
+
+
 func _evaluate() -> void:
 	if is_instance_valid(_target):
 		zone_state_at(_target.global_position.x, _zone_state)
@@ -149,6 +203,10 @@ func _evaluate() -> void:
 	for override in _overrides:
 		if override.weight > 0.0:
 			LightingProfile.blend_into(current, current, override.profile, override.weight)
+	if _flash_level > 0.0:
+		var lift := _flash_color * _flash_level
+		# 閃光最亮到全亮為止（不超過 1）。
+		current.ambient_color = Color(minf(1.0, current.ambient_color.r + lift.r), minf(1.0, current.ambient_color.g + lift.g), minf(1.0, current.ambient_color.b + lift.b), 1.0)
 
 
 func _apply() -> void:
@@ -176,6 +234,8 @@ func _on_exiting() -> void:
 		EventBus.lighting_override_requested.disconnect(set_override)
 	if EventBus.lighting_override_cleared.is_connected(clear_override):
 		EventBus.lighting_override_cleared.disconnect(clear_override)
+	if EventBus.ambient_flash_requested.is_connected(flash):
+		EventBus.ambient_flash_requested.disconnect(flash)
 
 
 ## 一個進行中的覆蓋：權重往目標值（1 = 完全覆蓋，0 = 淡出後移除）移動。

@@ -33,3 +33,5 @@ signal toast_requested(text: String)
 ## 光影事件：暫時覆蓋區段光影（停電、警報…），id 相同的覆蓋會被取代；清除後平滑回到區段光影。
 signal lighting_override_requested(id: StringName, profile: LightingProfile, fade_time: float)
 signal lighting_override_cleared(id: StringName, fade_time: float)
+## 環境光瞬間閃亮（爆炸、閃電）：顏色疊加到環境光上，strength 為峰值亮度，duration 秒內衰減回去。
+signal ambient_flash_requested(color: Color, strength: float, duration: float)

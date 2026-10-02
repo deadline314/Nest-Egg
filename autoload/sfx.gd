@@ -36,6 +36,10 @@ const SOUNDS := {
 		{"wave": "noise", "time": 0.22, "volume": 0.35, "lowpass": 0.5, "decay": 2.0},
 		{"wave": "sine", "from": 130.0, "to": 40.0, "time": 0.26, "volume": 0.42, "decay": 1.6},
 	],
+	&"thunder": [
+		{"wave": "noise", "time": 1.1, "volume": 0.5, "lowpass": 0.88, "decay": 1.1, "attack": 0.06},
+		{"wave": "sine", "from": 75.0, "to": 28.0, "time": 1.2, "volume": 0.5, "decay": 1.0, "attack": 0.05},
+	],
 	&"reload_start": [
 		{"wave": "square", "from": 900.0, "to": 700.0, "time": 0.03, "volume": 0.14, "decay": 3.0},
 		{"wave": "noise", "time": 0.05, "volume": 0.16, "lowpass": 0.5, "decay": 3.0},

@@ -13,6 +13,7 @@ uniform vec3 vignette_color = vec3(0.0);
 uniform float grain = 0.0;
 uniform float aberration = 0.0;
 uniform float brightness = 1.0;
+uniform float danger = 0.0;
 uniform float grain_seed = 0.0;
 
 const float CONTRAST_PIVOT = 0.3;
@@ -37,8 +38,10 @@ void fragment() {
 	color = max((color - vec3(CONTRAST_PIVOT)) * contrast + vec3(CONTRAST_PIVOT), vec3(0.0));
 	color *= mix(shadow_tint, highlight_tint, smoothstep(0.05, 0.6, luma));
 
-	float falloff = smoothstep(0.3, 1.05, length(centered) * 1.7);
-	color = mix(color, vignette_color, clamp(falloff * vignette, 0.0, 1.0));
+	// 危險（低血量）：暗角收緊並帶紅色，強度由程式端脈動。
+	float falloff = smoothstep(0.3 - danger * 0.12, 1.05 - danger * 0.2, length(centered) * 1.7);
+	vec3 edge_color = mix(vignette_color, vec3(0.32, 0.015, 0.03), clamp(danger, 0.0, 1.0));
+	color = mix(color, edge_color, clamp(falloff * (vignette + danger * 0.5), 0.0, 1.0));
 
 	// 玩家的亮度設定（gamma）：大於 1 提亮暗部，黑色與暗角的黑維持不變。
 	color = pow(max(color, vec3(0.0)), vec3(1.0 / brightness));

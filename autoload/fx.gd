@@ -20,6 +20,7 @@ var _hitstop_until_msec := 0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	EventBus.hit_confirmed.connect(_on_hit_confirmed)
 
 
 ## 由關卡呼叫：特效要放在哪個節點下。
@@ -182,6 +183,14 @@ func flash_light(position: Vector2, color: Color, radius: float, energy: float, 
 	_light_tweens[index] = tween
 
 
+## 命中與擊殺的短暫點光：命中是小而冷的白青光，擊殺更大更暖。
+func _on_hit_confirmed(world_position: Vector2, killed: bool) -> void:
+	if killed:
+		flash_light(world_position, Palette.WARNING, 90.0, 1.8, 0.22)
+	else:
+		flash_light(world_position, Palette.CYAN.lerp(Palette.WHITE, 0.5), 48.0, 0.9, 0.1)
+
+
 ## 範圍爆炸（延後一影格生效，避免在物理回呼中查詢空間）。damage = 0 時只有視覺。
 func explosion(position: Vector2, radius: float, damage: int, team: Combat.Team, source_id: StringName, color := Palette.WARNING) -> void:
 	if _container == null:
@@ -196,5 +205,7 @@ func explosion(position: Vector2, radius: float, damage: int, team: Combat.Team,
 	_container.add_child.call_deferred(blast)
 	burst(position, color, 18, radius * 7.0, 0.45)
 	flash_light(position, color, radius * 4.0, 2.2, 0.35)
+	# 整個環境光被閃亮一下：爆炸越大越亮。
+	EventBus.ambient_flash_requested.emit(color.lerp(Palette.WHITE, 0.5), clampf(0.12 + radius / 160.0, 0.2, 0.5), 0.3)
 	shake(clampf(radius / 6.0, 2.0, 8.0), 0.25)
 	Sfx.play(&"explosion", -2.0, 0.1)

@@ -1199,6 +1199,80 @@ func _test_lighting() -> void:
 		await get_tree().process_frame
 		_check(is_zero_approx(turret_shaft.intensity), "the turret's shaft goes out when idle")
 
+	# 戰鬥動態光影：爆炸閃光、命中與擊殺點光、低血量暗角、預兆紅光、閃電、減少閃光。
+	await get_tree().create_timer(0.6, true).timeout
+	var flash_before := ambient.color
+	EventBus.ambient_flash_requested.emit(Color(1, 0.8, 0.6), 0.5, 0.3)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(lighting.flash_level() > 0.3 and ambient.color.r > flash_before.r + 0.2, "an ambient flash lifts the ambient light")
+	await get_tree().create_timer(0.6, true).timeout
+	_check(is_zero_approx(lighting.flash_level()) and ambient.color.is_equal_approx(lighting.current.ambient_color), "the flash decays back to the zone lighting")
+	Fx.explosion(level.player.global_position + Vector2(240, 0), 40.0, 0, Combat.Team.ENEMY, &"test")
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(lighting.flash_level() > 0.1, "explosions flash the ambient light")
+	await get_tree().create_timer(0.5, true).timeout
+	EventBus.hit_confirmed.emit(level.player.global_position + Vector2(100, -30), true)
+	var kill_light := false
+	for fx_light: PointLight2D in Fx._lights:
+		kill_light = kill_light or (fx_light.enabled and fx_light.color.is_equal_approx(Palette.WARNING))
+	_check(kill_light, "a kill spawns a warm point light")
+	EventBus.hit_confirmed.emit(level.player.global_position + Vector2(100, -30), false)
+	var hit_light := false
+	for fx_light: PointLight2D in Fx._lights:
+		hit_light = hit_light or (fx_light.enabled and fx_light.texture_scale < 1.0)
+	_check(hit_light, "a hit spawns a small point light")
+
+	# 低血量：暗角收緊並紅色脈動，血量回復後淡出。
+	_check(is_zero_approx(post.danger_level()), "no danger vignette at full health")
+	EventBus.player_health_changed.emit(1, 6)
+	await get_tree().create_timer(1.2, true).timeout
+	_check(post.danger_level() > 0.9 and absf(float(post.parameter(&"danger"))) > 0.0, "low health tightens the vignette and turns it red")
+	EventBus.player_health_changed.emit(6, 6)
+	await get_tree().create_timer(1.2, true).timeout
+	_check(is_zero_approx(post.danger_level()), "danger fades out when health recovers")
+
+	# 攻擊預兆的紅光。
+	var teller: Enemy = null
+	for enemy in get_tree().get_nodes_in_group(&"enemies"):
+		if not (enemy as Enemy).data.is_boss:
+			teller = enemy
+	_check(teller != null, "level has an enemy to telegraph with")
+	if teller != null:
+		teller._start_telegraph(0.4)
+		await get_tree().create_timer(0.2, true).timeout
+		_check(teller._telegraph_light != null and teller._telegraph_light.enabled and teller._telegraph_light.energy > 0.1, "telegraphs glow red")
+		await get_tree().create_timer(0.7, true).timeout
+		_check(not teller._telegraph_light.enabled, "the telegraph light goes out afterwards")
+
+	# 閃電：強烈閃光、有最短間隔；只有室外區段會打；「減少閃光」大幅降低強度。
+	_check(zones[0].profile.lightning_rate > 0.0 and zones[3].profile.lightning_rate == 0.0 and zones[4].profile.lightning_rate == 0.0, "only outdoor zones have lightning")
+	var storm_before := lighting.flash_level()
+	_check(lighting.strike() and lighting.flash_level() > storm_before + 0.5, "a lightning strike flashes the whole scene")
+	_check(not lighting.strike(), "lightning respects the minimum gap")
+	await get_tree().create_timer(0.8, true).timeout
+	_check(is_zero_approx(lighting.flash_level()), "lightning fades out")
+	lighting._lightning_gap = 0.0
+	Settings.use_storage("user://test_flash.cfg")
+	_check(not Settings.get_reduce_flashes() and is_equal_approx(Settings.flash_scale(), 1.0), "flashes are at full strength by default")
+	Settings.set_reduce_flashes(true)
+	lighting.flash(Color.WHITE, 0.8, 0.2)
+	_check(is_equal_approx(lighting.flash_level(), 0.8 * Settings.REDUCED_FLASH_SCALE), "reduced flashes cut the flash strength")
+	await get_tree().create_timer(0.4, true).timeout
+	lighting._lightning_gap = 0.0
+	lighting.strike()
+	await get_tree().create_timer(0.5, true).timeout
+	_check(lighting.flash_level() < 0.1, "reduced flashes make lightning a single soft flash")
+	Settings.set_value(Settings.DISPLAY_SECTION, "reduce_flashes", "oops")
+	_check(not Settings.get_reduce_flashes(), "corrupt reduce-flashes value falls back to off")
+	Settings.set_reduce_flashes(true)
+	Settings.reset_display()
+	_check(not Settings.get_reduce_flashes(), "reset turns reduced flashes off")
+	Settings.use_storage(saved_settings)
+	DirAccess.remove_absolute("user://test_flash.cfg")
+	lighting._lightning_gap = 0.0
+
 	# 發光的東西不受環境光壓暗；地形受光。
 	var emissive := LightKit.emissive_material()
 	_check(emissive.light_mode == CanvasItemMaterial.LIGHT_MODE_UNSHADED, "emissive material is unshaded")

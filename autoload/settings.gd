@@ -13,6 +13,8 @@ const DISPLAY_SECTION := "display"
 const HUD_AUTO_HIDE_DEFAULT := true
 ## 亮度滑桿（0~1）的預設值＝設計的壓抑程度；範圍的兩端是 gamma 2^(±0.6)。
 const BRIGHTNESS_DEFAULT := 0.5
+## 「減少閃光」開啟時，爆炸與閃電的閃光強度乘上這個倍率。
+const REDUCED_FLASH_SCALE := 0.25
 const BRIGHTNESS_RANGE := 1.2
 
 ## 設定選單顯示的音量項目。之後加入背景音樂時，在這裡加一筆 Music 即可。
@@ -157,7 +159,24 @@ func set_light_quality(tier: int) -> void:
 	display_changed.emit()
 
 
+## 是否減少閃光（光敏感）：爆炸與閃電的畫面閃光大幅降低，閃電只閃一次。
+func get_reduce_flashes() -> bool:
+	var value: Variant = get_value(DISPLAY_SECTION, "reduce_flashes", false)
+	return value if typeof(value) == TYPE_BOOL else false
+
+
+func set_reduce_flashes(enabled: bool) -> void:
+	set_value(DISPLAY_SECTION, "reduce_flashes", enabled)
+	display_changed.emit()
+
+
+## 畫面閃光的強度倍率（1 = 設計值）。
+func flash_scale() -> float:
+	return REDUCED_FLASH_SCALE if get_reduce_flashes() else 1.0
+
+
 func reset_display() -> void:
+	set_reduce_flashes(false)
 	set_hud_auto_hide(HUD_AUTO_HIDE_DEFAULT)
 	set_brightness(BRIGHTNESS_DEFAULT)
 	set_light_quality(LightQuality.DEFAULT_TIER)

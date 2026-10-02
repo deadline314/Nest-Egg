@@ -41,7 +41,11 @@ var _rig_input := RigInput.new()
 var _gravity: float = 900.0
 var _flash_left := 0.0
 var _stun_left := 0.0
+const TELEGRAPH_LIGHT_RADIUS := 90.0
 var _telegraph_left := 0.0
+## 攻擊預兆的紅光（第一次預兆時才建立；不受預算管理，數量少、只在預兆期間亮）。
+var _telegraph_light: PointLight2D
+var _telegraph_time := 0.0
 var _anim_time := 0.0
 var _is_finishable := false
 var _dying := false
@@ -213,6 +217,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		_telegraph_left = maxf(0.0, _telegraph_left - delta)
 		fsm.tick(delta)
+	_update_telegraph_light(delta)
 	move_and_slide()
 	_drive_rig(delta)
 	queue_redraw()
@@ -397,7 +402,29 @@ func _is_ledge_ahead() -> bool:
 
 func _start_telegraph(seconds: float) -> void:
 	_telegraph_left = seconds
+	_ensure_telegraph_light()
 	Sfx.play(&"telegraph", -10.0)
+
+
+func _ensure_telegraph_light() -> void:
+	if _telegraph_light != null:
+		return
+	_telegraph_light = LightKit.create_point_light(Palette.DANGER, TELEGRAPH_LIGHT_RADIUS, 0.0, false, false)
+	_telegraph_light.position = Vector2(0, -data.body_size.y * 0.5)
+	_telegraph_light.enabled = false
+	add_child(_telegraph_light)
+
+
+## 預兆期間的紅光脈動，讓暗處也看得到「要出招了」。
+func _update_telegraph_light(delta: float) -> void:
+	if _telegraph_light == null:
+		return
+	if _telegraph_left > 0.0:
+		_telegraph_time += delta
+		_telegraph_light.enabled = true
+		_telegraph_light.energy = 1.1 + 0.5 * sin(_telegraph_time * 22.0)
+	elif _telegraph_light.enabled:
+		_telegraph_light.enabled = false
 
 
 func is_telegraphing() -> bool:

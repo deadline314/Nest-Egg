@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim、block、story、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality
+## 情境：all（預設）、settings、mouse_aim、block、story、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -34,6 +34,10 @@ func _run() -> void:
 		return
 	if _scenario == "block":
 		await _run_block()
+		get_tree().quit()
+		return
+	if _scenario == "combat_light":
+		await _run_combat_light()
 		get_tree().quit()
 		return
 	if _scenario == "quality":
@@ -200,6 +204,52 @@ func _run_block() -> void:
 	await _wait(0.12)
 	_capture("block_reflect")
 	Input.action_release(&"block")
+
+
+## 戰鬥光影：爆炸閃光、閃電、低血量暗角、敵人攻擊預兆的紅光。
+func _run_combat_light() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _settle(20)
+	var player := level.player
+	player.health.setup(999, 0.0)
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	for id: String in Story.scene_ids():
+		if id.begins_with("radio_"):
+			Story._seen[StringName(id)] = true
+	var layout: LevelLayout = level._layout
+	player.global_position = Vector2(30 * layout.tile_size + 8.0, layout.surface_heights[30] - 2.0)
+	level_camera_snap()
+	Input.action_press(&"aim_right")
+	await _wait(4.6)
+	_capture("combat_calm")
+	Fx.explosion(player.global_position + Vector2(130, -10), 44.0, 0, Combat.Team.ENEMY, &"test")
+	await _wait(0.06)
+	_capture("combat_explosion")
+	await _wait(0.8)
+	level._lighting._lightning_gap = 0.0
+	level._lighting.strike()
+	await _wait(0.05)
+	_capture("combat_lightning")
+	await _wait(1.5)
+	var dummy_data := load("res://data/enemies/grunt.tres") as EnemyData
+	var dummy := dummy_data.behavior.new() as Enemy
+	dummy.configure(dummy_data)
+	dummy.position = player.global_position + Vector2(140, 0)
+	player.get_parent().add_child(dummy)
+	await _settle(4)
+	dummy._start_telegraph(2.0)
+	await _wait(0.35)
+	_capture("combat_telegraph")
+	dummy.queue_free()
+	EventBus.player_health_changed.emit(1, 6)
+	await _wait(1.4)
+	_capture("combat_low_health")
+	EventBus.player_health_changed.emit(6, 6)
+	Input.action_release(&"aim_right")
 
 
 ## 光影品質：霓虹市集在高／低品質的對照、停電時場景燈熄滅，以及設定畫面的光影品質選項。

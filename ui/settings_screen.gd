@@ -15,6 +15,7 @@ var _sliders: Dictionary[StringName, HSlider] = {}
 var _slider_values: Dictionary[StringName, Label] = {}
 var _hud_auto_hide: CheckButton
 var _quality_option: OptionButton
+var _reduce_flashes: CheckButton
 var _brightness_slider: HSlider
 var _brightness_value: Label
 ## "action:slot" -> Button
@@ -148,6 +149,15 @@ func _build_display_tab() -> Control:
 	box.add_child(_hud_auto_hide)
 	box.add_child(_build_brightness_row())
 	box.add_child(_build_quality_row())
+	_reduce_flashes = CheckButton.new()
+	_reduce_flashes.text = "減少閃光"
+	_reduce_flashes.tooltip_text = "降低爆炸與閃電的畫面閃光強度，閃電只閃一次；對閃光敏感時開啟"
+	_reduce_flashes.focus_mode = Control.FOCUS_ALL
+	_reduce_flashes.button_pressed = Settings.get_reduce_flashes()
+	_reduce_flashes.toggled.connect(func(on: bool) -> void:
+		Settings.set_reduce_flashes(on)
+		Sfx.play(&"ui_confirm", -6.0, 0.0))
+	box.add_child(_reduce_flashes)
 	return box
 
 
@@ -350,6 +360,7 @@ func _reset_current_tab() -> void:
 		_brightness_slider.set_value_no_signal(roundf(Settings.get_brightness() * 100.0))
 		_update_brightness_label()
 		_select_quality_item()
+		_reduce_flashes.set_pressed_no_signal(Settings.get_reduce_flashes())
 		_quality_option.tooltip_text = LightQuality.DESCRIPTIONS[Settings.get_light_quality()]
 		_set_status("顯示已恢復預設。", Palette.CYAN)
 
