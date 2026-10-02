@@ -1,0 +1,55 @@
+; Engine configuration file.
+; 建議使用 Godot 4.3 以上版本開啟。
+
+config_version=5
+
+[application]
+
+config/name="Nest Egg"
+config/description="全年齡橫向捲軸動作射擊遊戲（垂直切片）"
+config/version="0.1.0"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+InputBindings="*res://autoload/input_bindings.gd"
+EventBus="*res://autoload/event_bus.gd"
+GameState="*res://autoload/game_state.gd"
+DefeatCodex="*res://autoload/defeat_codex.gd"
+Sfx="*res://autoload/sfx.gd"
+Fx="*res://autoload/fx.gd"
+ProjectilePool="*res://autoload/projectile_pool.gd"
+
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep"
+
+[layer_names]
+
+2d_physics/layer_1="world"
+2d_physics/layer_2="platform"
+2d_physics/layer_3="player"
+2d_physics/layer_4="enemy"
+2d_physics/layer_5="player_hurtbox"
+2d_physics/layer_6="enemy_hurtbox"
+2d_physics/layer_7="pickup"
+2d_physics/layer_8="vehicle"
+
+[physics]
+
+common/physics_ticks_per_second=60
+2d/default_gravity=900.0
+
+[rendering]
+
+renderer/rendering_method="forward_plus"
+renderer/rendering_method.mobile="mobile"
+viewport/hdr_2d=true
+environment/defaults/default_clear_color=Color(0.043, 0.063, 0.086, 1)

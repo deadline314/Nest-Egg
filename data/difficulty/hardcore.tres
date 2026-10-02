@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="DifficultyData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/difficulty_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"hardcore"
+display_name = "硬核"
+description = "生命少、殘機有限、敵人更兇猛，檢查點不回血"
+player_max_health = 4
+lives = 3
+enemy_cooldown_multiplier = 0.8
+enemy_projectile_speed_multiplier = 1.15
+checkpoint_heals = false

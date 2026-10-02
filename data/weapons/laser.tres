@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/weapon_data.gd" id="1_script"]
+[ext_resource type="Resource" path="res://data/projectiles/laser_beam.tres" id="2_proj"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"laser"
+projectile = ExtResource("2_proj")
+display_name = "貫穿光束"
+color = Color(0.761, 0.545, 1.000, 1.0)
+fire_interval = 0.3
+max_ammo = 24
+description = "穿透多個敵人，適合打成排或遠距離目標"
+fire_sound = &"shot_laser"
+screen_shake = 1.0
+camera_kick = 3.0
+recoil = 0.0
+muzzle_light_energy = 1.6
+ejects_casing = false

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ProjectileSpec" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/projectile_spec.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+source_id = &"grunt_shot"
+speed = 170.0
+lifetime = 2.2
+damage = 1
+radius = 3.0
+length = 7.0
+color = Color(1.000, 0.420, 0.353, 1.0)

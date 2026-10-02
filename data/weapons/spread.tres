@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/weapon_data.gd" id="1_script"]
+[ext_resource type="Resource" path="res://data/projectiles/spread_pellet.tres" id="2_proj"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"spread"
+projectile = ExtResource("2_proj")
+display_name = "散射砲"
+color = Color(1.000, 0.702, 0.278, 1.0)
+fire_interval = 0.4
+max_ammo = 30
+pellets = 5
+spread_degrees = 36.0
+random_spread_degrees = 4.0
+description = "近距離扇形五發，貼臉傷害最高"
+fire_sound = &"shot_spread"
+screen_shake = 1.5
+camera_kick = 4.0
+recoil = 60.0
+muzzle_light_energy = 1.8
+ejects_casing = true

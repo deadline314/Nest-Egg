@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ProjectileSpec" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/projectile_spec.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+source_id = &"player_laser"
+speed = 760.0
+lifetime = 0.55
+damage = 3
+knockback = 30.0
+pierce = 4
+radius = 3.0
+length = 24.0
+color = Color(0.761, 0.545, 1.000, 1.0)

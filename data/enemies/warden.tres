@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/warden_boss.gd" id="2_behavior"]
+[ext_resource type="Resource" path="res://data/projectiles/boss_burst.tres" id="3_proj"]
+[ext_resource type="Script" path="res://data/scripts/projectile_spec.gd" id="4_spec_script"]
+[ext_resource type="Resource" path="res://data/projectiles/boss_fan.tres" id="5_extra0"]
+[ext_resource type="Resource" path="res://data/projectiles/boss_shockwave.tres" id="5_extra1"]
+[ext_resource type="Resource" path="res://data/enemies/drone.tres" id="6_summon"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"warden"
+behavior = ExtResource("2_behavior")
+projectile = ExtResource("3_proj")
+extra_projectiles = Array[ExtResource("4_spec_script")]([ExtResource("5_extra0"), ExtResource("5_extra1")])
+summon = ExtResource("6_summon")
+display_name = "監管者 WARDEN"
+is_boss = true
+body_size = Vector2(34, 46)
+color = Color(0.604, 0.651, 0.722, 1.0)
+max_health = 90
+move_speed = 55.0
+contact_damage = 2
+contact_source_id = &"boss_contact"
+detect_range = 1000.0
+attack_range = 1000.0
+attack_cooldown = 1.1
+telegraph_time = 0.6
+knockback_scale = 0.0
+finish_health_ratio = 0.0
+health_drop_chance = 0.0

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/turret.gd" id="2_behavior"]
+[ext_resource type="Resource" path="res://data/projectiles/turret_snipe.tres" id="3_proj"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"turret"
+behavior = ExtResource("2_behavior")
+projectile = ExtResource("3_proj")
+display_name = "哨戒砲台"
+body_size = Vector2(16, 16)
+color = Color(1.000, 0.353, 0.478, 1.0)
+uses_gravity = false
+max_health = 10
+move_speed = 0.0
+contact_damage = 0
+detect_range = 360.0
+attack_cooldown = 2.2
+telegraph_time = 1.0
+knockback_scale = 0.0
+finish_health_ratio = 0.3
+stagger_duration = 1.6
+health_drop_chance = 0.25

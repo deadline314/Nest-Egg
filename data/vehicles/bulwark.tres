@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="VehicleData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/vehicle_data.gd" id="1_script"]
+[ext_resource type="Resource" path="res://data/weapons/mech_cannon.tres" id="2_weapon"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"bulwark"
+display_name = "壁壘 MK-II"
+weapon = ExtResource("2_weapon")
+color = Color(0.561, 0.722, 0.784, 1.0)
+body_size = Vector2(26, 32)
+max_health = 14
+hurt_invulnerability = 0.4
+move_speed = 100.0
+acceleration = 800.0
+jump_velocity = 290.0
+gravity = 900.0

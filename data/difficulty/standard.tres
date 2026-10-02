@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="DifficultyData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/difficulty_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"standard"
+display_name = "標準"
+description = "設計者預期的體驗"
+player_max_health = 6
+lives = -1
+enemy_cooldown_multiplier = 1.0
+enemy_projectile_speed_multiplier = 1.0
+checkpoint_heals = true

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ProjectileSpec" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/projectile_spec.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+source_id = &"mortar_shell"
+speed = 200.0
+gravity = 600.0
+lifetime = 3.0
+damage = 1
+radius = 4.0
+length = 6.0
+explosion_radius = 26.0
+explosion_damage = 2
+explode_on_expire = true
+color = Color(1.000, 0.627, 0.251, 1.0)

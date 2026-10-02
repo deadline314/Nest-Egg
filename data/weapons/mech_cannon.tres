@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/weapon_data.gd" id="1_script"]
+[ext_resource type="Resource" path="res://data/projectiles/cannon_shell.tres" id="2_proj"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"mech_cannon"
+projectile = ExtResource("2_proj")
+display_name = "重型加農砲"
+color = Color(1.000, 0.827, 0.361, 1.0)
+fire_interval = 0.24
+max_ammo = -1
+description = "爆炸彈頭，無視盾牌"
+fire_sound = &"shot_cannon"
+screen_shake = 2.5
+camera_kick = 5.0
+recoil = 0.0
+muzzle_light_energy = 2.2
+ejects_casing = true

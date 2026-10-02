@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/grunt.gd" id="2_behavior"]
+[ext_resource type="Resource" path="res://data/projectiles/grunt_shot.tres" id="3_proj"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"grunt"
+behavior = ExtResource("2_behavior")
+projectile = ExtResource("3_proj")
+display_name = "清掃兵"
+body_size = Vector2(12, 24)
+color = Color(0.816, 0.341, 0.310, 1.0)
+max_health = 4
+move_speed = 36.0
+contact_damage = 1
+contact_source_id = &"grunt_contact"
+detect_range = 260.0
+attack_range = 240.0
+attack_cooldown = 1.8
+telegraph_time = 0.6
+knockback_scale = 0.4
+finish_health_ratio = 0.5
+stagger_duration = 1.2
+health_drop_chance = 0.12

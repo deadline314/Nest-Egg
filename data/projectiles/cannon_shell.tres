@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ProjectileSpec" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/projectile_spec.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+source_id = &"player_cannon"
+speed = 430.0
+lifetime = 0.9
+damage = 3
+knockback = 120.0
+radius = 4.5
+length = 10.0
+explosion_radius = 24.0
+explosion_damage = 2
+color = Color(1.000, 0.827, 0.361, 1.0)

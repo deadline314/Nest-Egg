@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/bomber.gd" id="2_behavior"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"bomber"
+behavior = ExtResource("2_behavior")
+display_name = "自爆蟲"
+body_size = Vector2(12, 10)
+color = Color(1.000, 0.690, 0.000, 1.0)
+max_health = 2
+move_speed = 105.0
+contact_damage = 1
+contact_source_id = &"bomber_contact"
+detect_range = 210.0
+ability_time = 0.55
+ability_radius = 34.0
+ability_damage = 2
+knockback_scale = 0.6
+finish_health_ratio = 0.0
+health_drop_chance = 0.05

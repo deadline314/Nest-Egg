@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/drone.gd" id="2_behavior"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"drone"
+behavior = ExtResource("2_behavior")
+display_name = "監視蜂"
+body_size = Vector2(14, 10)
+color = Color(0.690, 0.420, 1.000, 1.0)
+uses_gravity = false
+max_health = 3
+move_speed = 90.0
+contact_damage = 1
+contact_source_id = &"drone_dive"
+detect_range = 260.0
+attack_range = 200.0
+attack_cooldown = 1.8
+telegraph_time = 0.5
+ability_speed = 320.0
+ability_time = 0.7
+knockback_scale = 0.8
+finish_health_ratio = 0.0
+health_drop_chance = 0.08

@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=13 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_script"]
+[ext_resource type="Resource" path="res://data/enemies/grunt.tres" id="2_grunt"]
+[ext_resource type="Resource" path="res://data/enemies/shield_rusher.tres" id="3_rusher"]
+[ext_resource type="Resource" path="res://data/enemies/drone.tres" id="4_drone"]
+[ext_resource type="Resource" path="res://data/enemies/turret.tres" id="5_turret"]
+[ext_resource type="Resource" path="res://data/enemies/bomber.tres" id="6_bomber"]
+[ext_resource type="Resource" path="res://data/enemies/mortar.tres" id="7_mortar"]
+[ext_resource type="Resource" path="res://data/enemies/warden.tres" id="8_warden"]
+[ext_resource type="Resource" path="res://data/weapons/spread.tres" id="9_spread"]
+[ext_resource type="Resource" path="res://data/weapons/laser.tres" id="10_laser"]
+[ext_resource type="Resource" path="res://data/vehicles/bulwark.tres" id="11_bulwark"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"level_01"
+display_name = "第一區　廢棄培育區"
+tile_size = 16
+height = 23
+legend = {
+"L": ExtResource("10_laser"),
+"M": ExtResource("11_bulwark"),
+"S": ExtResource("9_spread"),
+"X": ExtResource("8_warden"),
+"b": ExtResource("6_bomber"),
+"d": ExtResource("4_drone"),
+"g": ExtResource("2_grunt"),
+"m": ExtResource("7_mortar"),
+"r": ExtResource("3_rusher"),
+"t": ExtResource("5_turret")
+}
+hints = PackedStringArray("移動 WASD／方向鍵，跳躍 K（按久跳更高）", "射擊 J，可 8 方向瞄準；按住 O 原地定點瞄準", "紅線變亮＝已鎖定：蹲下（S）或跳起閃避", "敵人頭上出現青色菱形：按 I 終結，回補彈藥", "盾衛犬正面擋子彈：跳過或衝刺（L）穿越，打背後", "↓＋跳躍 可從平台落下", "看到地面紅圈就移開；貼近迫擊兵牠就無法開砲", "按 E 搭乘機甲：爆炸彈頭無視盾牌", "打爆自爆蟲，爆炸會波及牠的同伴")
+layout_path = "res://data/levels/level_01_map.json"

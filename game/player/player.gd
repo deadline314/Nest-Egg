@@ -1,0 +1,541 @@
+class_name Player
+extends CharacterBody2D
+## 玩家「七號」：移動、跳躍、衝刺、8 方向射擊、近戰／終結技、騎乘載具。
+## 所有手感參數集中在 PlayerTuning 資源；原點位於腳底。
+
+enum State { NORMAL, DASH, FINISHER, MOUNTED, DEAD }
+
+const BODY_SIZE := Vector2(10, 22)
+const CROUCH_HEIGHT := 13.0
+const SAFE_GROUND_DELAY := 0.25
+const DROP_THROUGH_TIME := 0.25
+const MELEE_VISUAL_TIME := 0.12
+## 下車後短暫禁止再次上車（避免同一次按鍵下車又立刻上車）。
+const REMOUNT_COOLDOWN := 0.3
+
+var tuning: PlayerTuning
+var health: HealthComponent
+var hurtbox: Hurtbox
+var loadout := Loadout.new()
+var state: State = State.NORMAL
+var facing := 1
+var aim_dir := Vector2.RIGHT
+var is_crouching := false
+var mounted_vehicle: Vehicle
+## 低於此高度視為掉入深淵（由關卡設定）。
+var fall_limit_y := INF
+
+var _visual: PlayerVisual
+var _light: PointLight2D
+var _was_on_floor := true
+var _fall_speed_before_move := 0.0
+var _max_health := 6
+var _loadout_snapshot: Dictionary = {}
+var _coyote_left := 0.0
+var _jump_buffer_left := 0.0
+var _dash_left := 0.0
+var _dash_cooldown_left := 0.0
+var _air_dash_used := false
+var _fire_cooldown_left := 0.0
+var _melee_cooldown_left := 0.0
+var _melee_visual_left := 0.0
+var _finisher_left := 0.0
+var _drop_through_left := 0.0
+var _safe_ground_time := 0.0
+var _remount_cooldown_left := 0.0
+var _last_safe_position := Vector2.ZERO
+var _query_shape := RectangleShape2D.new()
+
+
+## 加入場景樹前呼叫。
+func configure(p_tuning: PlayerTuning, max_health: int, loadout_snapshot: Dictionary) -> void:
+	tuning = p_tuning
+	_max_health = max_health
+	_loadout_snapshot = loadout_snapshot
+
+
+func _ready() -> void:
+	if tuning == null:
+		push_warning("[Player] 未指定 PlayerTuning，使用預設值。")
+		tuning = PlayerTuning.new()
+	add_to_group(&"player")
+	collision_layer = Layers.PLAYER
+	collision_mask = Layers.SOLID
+
+	var body := CollisionShape2D.new()
+	var body_shape := RectangleShape2D.new()
+	body_shape.size = BODY_SIZE
+	body.shape = body_shape
+	body.position = Vector2(0, -BODY_SIZE.y * 0.5)
+	add_child(body)
+
+	health = HealthComponent.new()
+	health.setup(_max_health, tuning.hurt_invulnerability)
+	add_child(health)
+	health.damaged.connect(_on_damaged)
+	health.died.connect(_on_died)
+	health.health_changed.connect(_on_health_changed)
+
+	hurtbox = Hurtbox.new()
+	add_child(hurtbox)
+	hurtbox.setup(Combat.Team.PLAYER, health, Vector2.ZERO)
+	_update_hurtbox_shape()
+
+	_visual = PlayerVisual.new()
+	_visual.player = self
+	add_child(_visual)
+
+	# 角色自帶柔光（含陰影），在暗處維持可讀性。
+	_light = LightKit.create_point_light(Palette.CYAN, 120.0, 0.75, true)
+	_light.position = Vector2(0, -14)
+	add_child(_light)
+
+	loadout.changed.connect(_on_loadout_changed)
+	loadout.restore(_loadout_snapshot, tuning.default_weapon)
+	_last_safe_position = global_position
+	EventBus.player_spawned.emit(self)
+	_on_health_changed(health.current, health.max_health)
+
+
+func is_targetable() -> bool:
+	return state != State.DEAD
+
+
+func is_dead() -> bool:
+	return state == State.DEAD
+
+
+func muzzle_position() -> Vector2:
+	var height := 8.0 if is_crouching else 14.0
+	return global_position + Vector2(0, -height) + aim_dir * 10.0
+
+
+# ---------------------------------------------------------------------------
+# 主迴圈
+# ---------------------------------------------------------------------------
+
+func _physics_process(delta: float) -> void:
+	_tick_timers(delta)
+	match state:
+		State.MOUNTED:
+			_process_mounted()
+			return
+		State.FINISHER:
+			_process_finisher(delta)
+			return
+		State.DEAD:
+			velocity.x = move_toward(velocity.x, 0.0, tuning.ground_deceleration * delta)
+			_apply_gravity(delta)
+			move_and_slide()
+			return
+		State.DASH:
+			_process_dash(delta)
+		State.NORMAL:
+			_process_normal(delta)
+	_fall_speed_before_move = velocity.y
+	_apply_corner_correction(delta)
+	move_and_slide()
+	_after_move(delta)
+
+
+func _tick_timers(delta: float) -> void:
+	_coyote_left = maxf(0.0, _coyote_left - delta)
+	_jump_buffer_left = maxf(0.0, _jump_buffer_left - delta)
+	_dash_cooldown_left = maxf(0.0, _dash_cooldown_left - delta)
+	_fire_cooldown_left = maxf(0.0, _fire_cooldown_left - delta)
+	_melee_cooldown_left = maxf(0.0, _melee_cooldown_left - delta)
+	_melee_visual_left = maxf(0.0, _melee_visual_left - delta)
+	_remount_cooldown_left = maxf(0.0, _remount_cooldown_left - delta)
+	if _drop_through_left > 0.0:
+		_drop_through_left -= delta
+		if _drop_through_left <= 0.0 and state != State.MOUNTED and state != State.DEAD:
+			collision_mask |= Layers.PLATFORM
+
+
+func _process_normal(delta: float) -> void:
+	var input_x := Input.get_axis(&"move_left", &"move_right")
+	var input_y := Input.get_axis(&"move_up", &"move_down")
+	var aim_locked := Input.is_action_pressed(&"aim_lock")
+	var on_floor := is_on_floor()
+
+	var was_crouching := is_crouching
+	is_crouching = on_floor and input_y > 0.5 and not aim_locked
+	if was_crouching != is_crouching:
+		_update_hurtbox_shape()
+
+	if absf(input_x) > 0.2:
+		facing = 1 if input_x > 0.0 else -1
+
+	var target_speed := 0.0
+	if not is_crouching and not (aim_locked and on_floor):
+		target_speed = input_x * tuning.run_speed
+	var accel: float
+	if absf(target_speed) > 1.0:
+		accel = tuning.ground_acceleration if on_floor else tuning.air_acceleration
+	else:
+		accel = tuning.ground_deceleration if on_floor else tuning.air_deceleration
+	velocity.x = move_toward(velocity.x, target_speed, accel * delta)
+
+	if on_floor:
+		_coyote_left = tuning.coyote_time
+		_air_dash_used = false
+	if Input.is_action_just_pressed(&"jump"):
+		_jump_buffer_left = tuning.jump_buffer
+	if _jump_buffer_left > 0.0:
+		if on_floor and input_y > 0.5 and _is_standing_on_platform():
+			_start_drop_through()
+			_jump_buffer_left = 0.0
+		elif _coyote_left > 0.0:
+			velocity.y = -tuning.jump_velocity
+			_coyote_left = 0.0
+			_jump_buffer_left = 0.0
+			_visual.notify_jump()
+			Fx.dust(global_position, 4, 40.0)
+			Sfx.play(&"jump", -8.0)
+	if Input.is_action_just_released(&"jump") and velocity.y < 0.0:
+		velocity.y *= tuning.jump_cut
+	_apply_gravity(delta)
+
+	aim_dir = _compute_aim(input_x, input_y, aim_locked, on_floor)
+
+	if Input.is_action_just_pressed(&"swap_weapon"):
+		loadout.swap()
+	if Input.is_action_just_pressed(&"interact") and _try_mount():
+		return
+	if Input.is_action_just_pressed(&"melee") and _try_melee():
+		return
+	if Input.is_action_just_pressed(&"dash"):
+		_try_dash(input_x)
+	if Input.is_action_pressed(&"shoot"):
+		_try_fire()
+
+
+func _after_move(delta: float) -> void:
+	if global_position.y > fall_limit_y:
+		_handle_pit()
+		return
+	var on_floor := is_on_floor()
+	if on_floor and not _was_on_floor and _fall_speed_before_move > 140.0:
+		var impact := clampf(_fall_speed_before_move / tuning.max_fall_speed, 0.0, 1.0)
+		_visual.notify_land(impact)
+		Fx.dust(global_position, 3 + int(impact * 5.0), 60.0)
+		Sfx.play(&"land", lerpf(-16.0, -6.0, impact))
+	_was_on_floor = on_floor
+	if state == State.NORMAL and is_on_floor() and not health.is_invulnerable():
+		_safe_ground_time += delta
+		if _safe_ground_time >= SAFE_GROUND_DELAY:
+			_last_safe_position = global_position
+	else:
+		_safe_ground_time = 0.0
+
+
+func _apply_gravity(delta: float) -> void:
+	if is_on_floor() and velocity.y >= 0.0:
+		return
+	var multiplier := tuning.fall_gravity_multiplier if velocity.y > 0.0 else 1.0
+	if absf(velocity.y) < tuning.apex_speed_threshold and Input.is_action_pressed(&"jump") and state == State.NORMAL:
+		multiplier = tuning.apex_gravity_multiplier
+	velocity.y = minf(velocity.y + tuning.gravity * multiplier * delta, tuning.max_fall_speed)
+
+
+## 上升時若只差幾像素撞到天花板邊角，自動側移讓玩家順利通過。
+func _apply_corner_correction(delta: float) -> void:
+	if velocity.y >= 0.0 or tuning.corner_correction <= 0:
+		return
+	var motion := Vector2(0.0, velocity.y * delta)
+	if not test_move(global_transform, motion):
+		return
+	for offset in range(1, tuning.corner_correction + 1):
+		for side: int in [1, -1]:
+			var shifted := global_transform.translated(Vector2(offset * side, 0.0))
+			if not test_move(global_transform, Vector2(offset * side, 0.0)) and not test_move(shifted, motion):
+				global_position.x += offset * side
+				return
+
+
+## 8 方向瞄準。地面上按「下」是蹲下（仍向前射擊），按住鎖定鍵才可斜下射擊。
+func _compute_aim(input_x: float, input_y: float, aim_locked: bool, on_floor: bool) -> Vector2:
+	var ax := 0.0 if absf(input_x) < 0.3 else signf(input_x)
+	var ay := 0.0 if absf(input_y) < 0.3 else signf(input_y)
+	if ay > 0.0 and on_floor and not aim_locked:
+		ay = 0.0
+	if ax == 0.0 and ay == 0.0:
+		return Vector2(facing, 0)
+	return Vector2(ax, ay).normalized()
+
+
+func _update_hurtbox_shape() -> void:
+	var height := CROUCH_HEIGHT if is_crouching else BODY_SIZE.y
+	hurtbox.resize(Vector2(BODY_SIZE.x * 0.8, height * 0.9), Vector2(0, -height * 0.5))
+
+
+# ---------------------------------------------------------------------------
+# 動作
+# ---------------------------------------------------------------------------
+
+func _try_fire() -> void:
+	if _fire_cooldown_left > 0.0:
+		return
+	var weapon := loadout.active_weapon()
+	if weapon == null or not weapon.is_valid():
+		return
+	if not loadout.consume_ammo():
+		return
+	_fire_cooldown_left = weapon.fire_interval
+	var muzzle := muzzle_position()
+	WeaponSystem.fire(weapon, muzzle, aim_dir, Combat.Team.PLAYER)
+	# 射擊手感：槍口閃光 + 光源 + 鏡頭反向後座 + 彈殼 + 音效。
+	Fx.flash_light(muzzle, weapon.color, 56.0, weapon.muzzle_light_energy, 0.08)
+	Fx.kick(-aim_dir, weapon.camera_kick)
+	Fx.shake(weapon.screen_shake, 0.08)
+	if weapon.ejects_casing:
+		Fx.casing(global_position + Vector2(0, -14), facing)
+	Sfx.play(weapon.fire_sound, -6.0)
+	if weapon.recoil > 0.0:
+		velocity -= aim_dir * weapon.recoil * (1.0 if not is_on_floor() else 0.3)
+	_visual.notify_fired(weapon.color)
+
+
+func _try_dash(input_x: float) -> void:
+	if _dash_cooldown_left > 0.0 or (not is_on_floor() and _air_dash_used):
+		return
+	if absf(input_x) > 0.2:
+		facing = 1 if input_x > 0.0 else -1
+	if not is_on_floor():
+		_air_dash_used = true
+	state = State.DASH
+	_dash_left = tuning.dash_time
+	velocity = Vector2(facing * tuning.dash_speed, 0.0)
+	health.grant_invulnerability(tuning.dash_time + 0.05)
+	_visual.notify_dash()
+	Fx.dust(global_position, 4, 30.0)
+	Sfx.play(&"dash", -8.0)
+	if is_crouching:
+		is_crouching = false
+		_update_hurtbox_shape()
+
+
+func _process_dash(delta: float) -> void:
+	_dash_left -= delta
+	velocity.y = 0.0
+	if Input.is_action_pressed(&"shoot"):
+		_try_fire()
+	if _dash_left <= 0.0 or is_on_wall():
+		state = State.NORMAL
+		_dash_cooldown_left = tuning.dash_cooldown
+		velocity.x *= 0.5
+
+
+## 近戰鍵：附近有破防敵人時發動終結技，否則普通斬擊。成功出招回傳 true。
+func _try_melee() -> bool:
+	if _melee_cooldown_left > 0.0:
+		return false
+	var target := _find_finisher_target()
+	if target != null:
+		_start_finisher(target)
+		return true
+	_melee_cooldown_left = tuning.melee_cooldown
+	_melee_visual_left = MELEE_VISUAL_TIME
+	var center := global_position + Vector2(facing * tuning.melee_range * 0.5, -BODY_SIZE.y * 0.55)
+	var landed := false
+	for target_hurtbox in _query_hurtboxes(center, Vector2(tuning.melee_range, BODY_SIZE.y)):
+		var info := DamageInfo.create(tuning.melee_damage, Combat.Team.PLAYER, &"melee", Vector2(facing * 180.0, -60.0))
+		info.stagger = 2
+		info.origin = global_position
+		if target_hurtbox.receive(info) != Hurtbox.Result.IGNORED:
+			landed = true
+			Fx.burst(target_hurtbox.global_position, Palette.CYAN, 6, 120.0, 0.2)
+	if landed:
+		Fx.hitstop(0.05)
+		Fx.shake(2.0, 0.08)
+		Sfx.play(&"hit", -3.0)
+	return true
+
+
+func _find_finisher_target() -> Enemy:
+	var best: Enemy = null
+	var best_distance := tuning.finisher_range
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		var enemy := node as Enemy
+		if enemy == null or not enemy.can_be_finished():
+			continue
+		var distance := enemy.global_position.distance_to(global_position)
+		if distance <= best_distance:
+			best = enemy
+			best_distance = distance
+	return best
+
+
+func _start_finisher(target: Enemy) -> void:
+	state = State.FINISHER
+	_finisher_left = tuning.finisher_duration
+	_melee_cooldown_left = tuning.melee_cooldown
+	health.grant_invulnerability(tuning.finisher_duration + 0.3)
+	velocity = Vector2.ZERO
+	facing = 1 if target.global_position.x >= global_position.x else -1
+	# 瞬移到目標身旁；被牆擋住就留在原地。
+	var destination := target.global_position + Vector2(-facing * 14.0, 0.0)
+	if not test_move(global_transform, destination - global_position):
+		global_position = destination
+	target.execute_finisher()
+	_visual.notify_finisher()
+	Fx.hitstop(tuning.finisher_hitstop)
+	Fx.shake(5.0, 0.2)
+	Fx.flash_light(target.global_position + Vector2(0, -10), Palette.CYAN, 120.0, 2.5, 0.3)
+	Sfx.play(&"finisher")
+	loadout.refill_special(tuning.finisher_ammo_refund)
+
+
+func _process_finisher(delta: float) -> void:
+	_finisher_left -= delta
+	velocity = Vector2.ZERO
+	if _finisher_left <= 0.0:
+		state = State.NORMAL
+
+
+func _query_hurtboxes(center: Vector2, size: Vector2) -> Array[Hurtbox]:
+	var result: Array[Hurtbox] = []
+	_query_shape.size = size
+	var params := PhysicsShapeQueryParameters2D.new()
+	params.shape = _query_shape
+	params.transform = Transform2D(0.0, center)
+	params.collision_mask = Layers.ENEMY_HURTBOX
+	params.collide_with_areas = true
+	params.collide_with_bodies = false
+	for hit in get_world_2d().direct_space_state.intersect_shape(params, 16):
+		var found := hit.get("collider") as Hurtbox
+		if found != null and not result.has(found):
+			result.append(found)
+	return result
+
+
+func _is_standing_on_platform() -> bool:
+	for i in get_slide_collision_count():
+		var collision := get_slide_collision(i)
+		var collider := collision.get_collider() as CollisionObject2D
+		if collider != null and collision.get_normal().y < -0.5 and (collider.collision_layer & Layers.PLATFORM) != 0:
+			return true
+	return false
+
+
+func _start_drop_through() -> void:
+	collision_mask &= ~Layers.PLATFORM
+	_drop_through_left = DROP_THROUGH_TIME
+	position.y += 2.0
+
+
+func _handle_pit() -> void:
+	var info := DamageInfo.create(tuning.pit_damage, Combat.Team.ENEMY, &"pit")
+	info.ignore_invulnerability = true
+	info.origin = global_position
+	health.take_damage(info)
+	if state != State.DEAD:
+		global_position = _last_safe_position
+		velocity = Vector2.ZERO
+		health.grant_invulnerability(tuning.hurt_invulnerability)
+
+
+# ---------------------------------------------------------------------------
+# 載具
+# ---------------------------------------------------------------------------
+
+func _try_mount() -> bool:
+	if _remount_cooldown_left > 0.0:
+		return false
+	for node in get_tree().get_nodes_in_group(&"vehicles"):
+		var vehicle := node as Vehicle
+		if vehicle != null and vehicle.can_mount() and vehicle.global_position.distance_to(global_position) <= tuning.mount_range:
+			mount_vehicle(vehicle)
+			return true
+	return false
+
+
+func mount_vehicle(vehicle: Vehicle) -> void:
+	if vehicle == null or state == State.DEAD:
+		return
+	state = State.MOUNTED
+	mounted_vehicle = vehicle
+	velocity = Vector2.ZERO
+	is_crouching = false
+	collision_layer = 0
+	collision_mask = 0
+	hurtbox.enabled = false
+	_visual.visible = false
+	vehicle.mount(self)
+
+
+## 離開載具。ejected = true 代表載具被擊毀而彈出，會給予無敵時間。
+func dismount_vehicle(ejected: bool) -> void:
+	if state != State.MOUNTED:
+		return
+	var vehicle := mounted_vehicle
+	mounted_vehicle = null
+	if is_instance_valid(vehicle):
+		vehicle.release_driver()
+		global_position = vehicle.global_position
+	state = State.NORMAL
+	_remount_cooldown_left = REMOUNT_COOLDOWN
+	collision_layer = Layers.PLAYER
+	collision_mask = Layers.SOLID
+	hurtbox.enabled = true
+	_visual.visible = true
+	velocity = Vector2(-facing * 60.0, -tuning.jump_velocity * 0.8)
+	_update_hurtbox_shape()
+	if ejected:
+		health.grant_invulnerability(tuning.eject_invulnerability)
+
+
+func _process_mounted() -> void:
+	if not is_instance_valid(mounted_vehicle):
+		dismount_vehicle(true)
+		return
+	global_position = mounted_vehicle.seat_position()
+	facing = mounted_vehicle.facing
+	if mounted_vehicle.is_on_floor():
+		_last_safe_position = mounted_vehicle.global_position
+
+
+# ---------------------------------------------------------------------------
+# 受傷與死亡
+# ---------------------------------------------------------------------------
+
+func _on_damaged(info: DamageInfo) -> void:
+	if state == State.DASH:
+		state = State.NORMAL
+	var side := signf(global_position.x - info.origin.x)
+	if side == 0.0:
+		side = -facing
+	velocity = Vector2(side * tuning.hurt_knockback.x, -tuning.hurt_knockback.y)
+	Fx.hitstop(0.07)
+	Fx.shake(4.0, 0.15)
+	Fx.flash_light(global_position + Vector2(0, -12), Palette.DANGER, 70.0, 1.5, 0.2)
+	Sfx.play(&"hurt", -2.0)
+	_visual.notify_hurt()
+
+
+func _on_died(info: DamageInfo) -> void:
+	state = State.DEAD
+	hurtbox.enabled = false
+	is_crouching = false
+	Fx.burst(global_position + Vector2(0, -12), Palette.CYAN, 24, 200.0, 0.6)
+	Fx.burst(global_position + Vector2(0, -12), Palette.ARMOR, 12, 160.0, 0.5)
+	Fx.shake(6.0, 0.3)
+	Fx.hitstop(0.14)
+	Fx.flash_light(global_position + Vector2(0, -12), Palette.CYAN, 160.0, 3.0, 0.6)
+	Sfx.play(&"explosion", -4.0)
+	_light.enabled = false
+	var cause: StringName = info.source_id if info != null and info.source_id != &"" else &"unknown"
+	EventBus.player_died.emit(cause)
+
+
+func _on_health_changed(current: int, maximum: int) -> void:
+	EventBus.player_health_changed.emit(current, maximum)
+
+
+func _on_loadout_changed() -> void:
+	EventBus.player_loadout_changed.emit(loadout)
+
+
+## 給視覺元件讀取（避免公開內部計時器）。
+func is_melee_swinging() -> bool:
+	return _melee_visual_left > 0.0

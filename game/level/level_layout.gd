@@ -1,0 +1,50 @@
+class_name LevelLayout
+extends RefCounted
+## LevelBuilder 解析後的純資料結構（不含任何節點），方便測試與重複使用。
+
+var tile_size := 16
+var width := 0
+var height := 0
+var rows := PackedStringArray()
+
+var has_player_start := false
+var player_start := Vector2.ZERO
+var solid_rects: Array[Rect2i] = []
+var platform_rects: Array[Rect2i] = []
+var spike_rects: Array[Rect2i] = []
+var laser_rects: Array[Rect2i] = []
+var checkpoints := PackedVector2Array()
+var health_pickups := PackedVector2Array()
+var lamps := PackedVector2Array()
+## { "text": String, "position": Vector2 }
+var hints: Array[Dictionary] = []
+## { "resource": Resource, "position": Vector2 }
+var spawns: Array[Dictionary] = []
+## { "resource": EnemyData, "position": Vector2 }；空字典代表沒有頭目。
+var boss_spawn: Dictionary = {}
+## 頭目戰場左界（像素）；< 0 代表沒有頭目戰。
+var arena_x := -1.0
+var warnings := PackedStringArray()
+
+
+func is_valid() -> bool:
+	return width > 0 and height > 0 and has_player_start
+
+
+func pixel_size() -> Vector2:
+	return Vector2(width, height) * tile_size
+
+
+func cells_to_pixels(rect: Rect2i) -> Rect2:
+	return Rect2(Vector2(rect.position) * tile_size, Vector2(rect.size) * tile_size)
+
+
+## 格子 → 腳底座標（格子底邊中點）。
+func cell_to_feet(x: int, y: int) -> Vector2:
+	return Vector2((x + 0.5) * tile_size, (y + 1) * tile_size)
+
+
+func cell(x: int, y: int) -> String:
+	if y < 0 or y >= rows.size() or x < 0 or x >= rows[y].length():
+		return "."
+	return rows[y][x]

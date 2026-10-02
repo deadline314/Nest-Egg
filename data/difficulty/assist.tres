@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="DifficultyData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/difficulty_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"assist"
+display_name = "輔助"
+description = "生命多、敵人攻擊慢，適合第一次接觸動作遊戲"
+player_max_health = 10
+lives = -1
+enemy_cooldown_multiplier = 1.4
+enemy_projectile_speed_multiplier = 0.8
+checkpoint_heals = true
