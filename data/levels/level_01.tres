@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=13 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_script"]
 [ext_resource type="Resource" path="res://data/enemies/grunt.tres" id="2_grunt"]
@@ -11,6 +11,10 @@
 [ext_resource type="Resource" path="res://data/weapons/spread.tres" id="9_spread"]
 [ext_resource type="Resource" path="res://data/weapons/laser.tres" id="10_laser"]
 [ext_resource type="Resource" path="res://data/vehicles/bulwark.tres" id="11_bulwark"]
+[ext_resource type="Resource" path="res://data/weapons/smg.tres" id="12_smg"]
+[ext_resource type="Resource" path="res://data/weapons/rifle.tres" id="13_rifle"]
+[ext_resource type="Resource" path="res://data/weapons/launcher.tres" id="14_launcher"]
+[ext_resource type="Resource" path="res://data/weapons/railgun.tres" id="15_railgun"]
 
 [resource]
 script = ExtResource("1_script")
@@ -19,9 +23,13 @@ display_name = "第一章　雨夜"
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
+"G": ExtResource("14_launcher"),
 "L": ExtResource("10_laser"),
 "M": ExtResource("11_bulwark"),
+"R": ExtResource("13_rifle"),
 "S": ExtResource("9_spread"),
+"U": ExtResource("12_smg"),
+"V": ExtResource("15_railgun"),
 "X": ExtResource("8_warden"),
 "b": ExtResource("6_bomber"),
 "d": ExtResource("4_drone"),

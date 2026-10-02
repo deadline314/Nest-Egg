@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim、block、story、dynamic_hud
+## 情境：all（預設）、settings、mouse_aim、block、story、dynamic_hud、weapons
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -34,6 +34,10 @@ func _run() -> void:
 		return
 	if _scenario == "block":
 		await _run_block()
+		get_tree().quit()
+		return
+	if _scenario == "weapons":
+		await _run_weapons()
 		get_tree().quit()
 		return
 	if _scenario == "dynamic_hud":
@@ -164,6 +168,46 @@ func _run_block() -> void:
 	await _wait(0.12)
 	_capture("block_reflect")
 	Input.action_release(&"block")
+
+
+## 武器陣容：每把玩家武器各開火一段時間，拼成一張 4×2 的總覽圖。
+func _run_weapons() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _settle(20)
+	var player := level.player
+	player.health.setup(999, 0.0)
+	player.global_position = Vector2(330, 320)
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	level_camera_snap()
+	Input.action_press(&"aim_right")
+	# 等章節標題淡出。
+	await _wait(4.5)
+	var ids := ["pistol", "smg", "rifle", "spread", "launcher", "laser", "railgun"]
+	var sheet := Image.create(1280, 360, false, Image.FORMAT_RGBA8)
+	sheet.fill(Color.BLACK)
+	for i in ids.size():
+		player.loadout.equip(load("res://data/weapons/%s.tres" % ids[i]))
+		await _settle(4)
+		Input.action_press(&"shoot")
+		await _wait(0.35)
+		var shot := get_viewport().get_texture().get_image()
+		Input.action_release(&"shoot")
+		shot.convert(Image.FORMAT_RGBA8)
+		# 以角色為中心裁一塊，縮成 1/4 格。
+		var center := get_viewport().get_canvas_transform() * (player.global_position + Vector2(70, -26))
+		var scale := float(shot.get_width()) / get_viewport().get_visible_rect().size.x
+		var crop := Rect2i(Vector2i((center * scale) - Vector2(240, 135)), Vector2i(480, 270)).intersection(Rect2i(Vector2i.ZERO, shot.get_size()))
+		var tile := shot.get_region(crop)
+		tile.resize(320, 180)
+		sheet.blit_rect(tile, Rect2i(Vector2i.ZERO, tile.get_size()), Vector2i((i % 4) * 320, (i / 4) * 180))
+		await _wait(0.4)
+	Input.action_release(&"aim_right")
+	var path := _out_dir.path_join("weapons_roster.png")
+	print("saved %s (%s)" % [path, error_string(sheet.save_png(path))])
 
 
 ## 動態 HUD：受傷彈出（殘影碎裂）、低血量常駐、破防、彈藥環低彈藥。

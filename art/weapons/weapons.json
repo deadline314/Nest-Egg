@@ -2,12 +2,173 @@
   "description": "武器外觀定義。單位為貼圖像素；texture_scale 換算成世界像素。grip＝前手握把（武器旋轉中心）、foregrip＝後手扶握處、muzzle＝槍口（子彈生成點）。槍口朝右。",
   "texture_scale": 0.25,
   "weapons": {
-    "rifle":    {"file": "rifle.png", "glow": "rifle_glow.png", "size": [104, 36], "grip": [30, 22], "foregrip": [64, 20], "muzzle": [102, 14], "style": "rifle"},
-    "shotgun":  {"file": "shotgun.png", "glow": "shotgun_glow.png", "size": [96, 36], "grip": [28, 22], "foregrip": [60, 21], "muzzle": [94, 15], "style": "shotgun"},
-    "railgun":  {"file": "railgun.png", "glow": "railgun_glow.png", "size": [120, 36], "grip": [32, 22], "foregrip": [70, 20], "muzzle": [118, 15], "style": "railgun"},
-    "smg":      {"file": "smg.png", "glow": "smg_glow.png", "size": [80, 32], "grip": [24, 20], "foregrip": [48, 18], "muzzle": [78, 12], "style": "smg"},
-    "launcher": {"file": "launcher.png", "glow": "launcher_glow.png", "size": [108, 40], "grip": [34, 26], "foregrip": [66, 24], "muzzle": [106, 14], "style": "launcher"},
-    "pistol":   {"file": "pistol.png", "glow": "pistol_glow.png", "size": [52, 28], "grip": [14, 18], "foregrip": [14, 18], "muzzle": [50, 9], "style": "pistol"},
-    "minigun":  {"file": "minigun.png", "glow": "minigun_glow.png", "size": [128, 48], "grip": [36, 30], "foregrip": [72, 28], "muzzle": [126, 22], "style": "minigun"}
+    "rifle": {
+      "file": "rifle.png",
+      "glow": "rifle_glow.png",
+      "size": [
+        104,
+        36
+      ],
+      "grip": [
+        30,
+        22
+      ],
+      "foregrip": [
+        64,
+        20
+      ],
+      "muzzle": [
+        102,
+        14
+      ],
+      "style": "rifle"
+    },
+    "shotgun": {
+      "file": "shotgun.png",
+      "glow": "shotgun_glow.png",
+      "size": [
+        96,
+        36
+      ],
+      "grip": [
+        28,
+        22
+      ],
+      "foregrip": [
+        60,
+        21
+      ],
+      "muzzle": [
+        94,
+        15
+      ],
+      "style": "shotgun"
+    },
+    "railgun": {
+      "file": "railgun.png",
+      "glow": "railgun_glow.png",
+      "size": [
+        120,
+        36
+      ],
+      "grip": [
+        32,
+        22
+      ],
+      "foregrip": [
+        70,
+        20
+      ],
+      "muzzle": [
+        118,
+        15
+      ],
+      "style": "railgun"
+    },
+    "smg": {
+      "file": "smg.png",
+      "glow": "smg_glow.png",
+      "size": [
+        80,
+        32
+      ],
+      "grip": [
+        24,
+        20
+      ],
+      "foregrip": [
+        48,
+        18
+      ],
+      "muzzle": [
+        78,
+        12
+      ],
+      "style": "smg"
+    },
+    "launcher": {
+      "file": "launcher.png",
+      "glow": "launcher_glow.png",
+      "size": [
+        108,
+        40
+      ],
+      "grip": [
+        34,
+        26
+      ],
+      "foregrip": [
+        66,
+        24
+      ],
+      "muzzle": [
+        106,
+        14
+      ],
+      "style": "launcher"
+    },
+    "pistol": {
+      "file": "pistol.png",
+      "glow": "pistol_glow.png",
+      "size": [
+        52,
+        28
+      ],
+      "grip": [
+        14,
+        18
+      ],
+      "foregrip": [
+        14,
+        18
+      ],
+      "muzzle": [
+        50,
+        9
+      ],
+      "style": "pistol"
+    },
+    "minigun": {
+      "file": "minigun.png",
+      "glow": "minigun_glow.png",
+      "size": [
+        128,
+        48
+      ],
+      "grip": [
+        36,
+        30
+      ],
+      "foregrip": [
+        72,
+        28
+      ],
+      "muzzle": [
+        126,
+        22
+      ],
+      "style": "minigun"
+    },
+    "laser": {
+      "file": "laser.png",
+      "glow": "laser_glow.png",
+      "size": [
+        112,
+        36
+      ],
+      "grip": [
+        32,
+        22
+      ],
+      "foregrip": [
+        66,
+        20
+      ],
+      "muzzle": [
+        110,
+        15
+      ],
+      "style": "laser"
+    }
   }
 }

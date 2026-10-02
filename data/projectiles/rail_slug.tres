@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ProjectileSpec" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/projectile_spec.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+source_id = &"player_railgun"
+speed = 1400.0
+lifetime = 0.45
+damage = 6
+stagger = 3
+knockback = 120.0
+pierce = 10
+radius = 3.0
+length = 42.0
+color = Color(0.45, 0.95, 1.0, 1.0)

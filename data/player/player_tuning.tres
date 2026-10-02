@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="PlayerTuning" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/player_tuning.gd" id="1_script"]
-[ext_resource type="Resource" path="res://data/weapons/rifle.tres" id="2_weapon"]
+[ext_resource type="Resource" path="res://data/weapons/pistol.tres" id="2_weapon"]
 
 [resource]
 script = ExtResource("1_script")

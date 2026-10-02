@@ -5,10 +5,10 @@
 [resource]
 script = ExtResource("1_script")
 source_id = &"player_spread"
-speed = 400.0
-lifetime = 0.3
+speed = 480.0
+lifetime = 0.32
 damage = 1
-knockback = 70.0
-radius = 2.5
+knockback = 50.0
+radius = 2.0
 length = 6.0
-color = Color(1.000, 0.702, 0.278, 1.0)
+color = Color(1.0, 0.72, 0.4, 1.0)

@@ -13,6 +13,8 @@ extends Resource
 @export var pellets: int = 1
 @export var spread_degrees: float = 0.0
 @export var random_spread_degrees: float = 0.0
+## 能量武器（光束、電磁砲）：不拋彈殼，換彈稱為「換電池」。其餘為實彈武器。
+@export var is_energy: bool = false
 ## 一句話說明，用於拾取提示與 HUD tooltip（講重點）。
 @export var description: String = ""
 

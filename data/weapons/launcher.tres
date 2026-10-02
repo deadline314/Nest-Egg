@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/weapon_data.gd" id="1_script"]
+[ext_resource type="Resource" path="res://data/projectiles/grenade.tres" id="2_proj"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"launcher"
+projectile = ExtResource("2_proj")
+display_name = "震爆榴彈發射器"
+color = Color(1.0, 0.55, 0.2, 1.0)
+fire_interval = 0.7
+max_ammo = 16
+pellets = 1
+spread_degrees = 0.0
+random_spread_degrees = 0.0
+description = "拋物線爆炸彈，打掩體後方與成群敵人"
+fire_sound = &"shot_launcher"
+screen_shake = 2.0
+camera_kick = 4.0
+recoil = 40.0
+muzzle_light_energy = 1.6
+ejects_casing = false
+bloom_per_shot = 0.0
+short_name = "GL"
+visual_id = "launcher"

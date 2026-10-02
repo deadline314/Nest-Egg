@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ProjectileSpec" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/projectile_spec.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+source_id = &"player_smg"
+speed = 540.0
+lifetime = 0.5
+damage = 1
+knockback = 25.0
+radius = 1.8
+length = 7.0
+color = Color(1.0, 0.78, 0.45, 1.0)

@@ -14,8 +14,27 @@ const BUS := &"SFX"
 ## volume、noise(0~1 混入噪音)、lowpass(0~0.95 平滑)、decay(包絡曲線指數)、attack(秒)
 const SOUNDS := {
 	&"shot_rifle": [
-		{"wave": "square", "from": 1400.0, "to": 260.0, "time": 0.07, "volume": 0.22, "noise": 0.25, "decay": 2.0},
-		{"wave": "noise", "time": 0.04, "volume": 0.25, "lowpass": 0.3, "decay": 3.0},
+		{"wave": "square", "from": 1400.0, "to": 260.0, "time": 0.07, "volume": 0.2, "noise": 0.35, "decay": 2.0},
+		{"wave": "noise", "time": 0.05, "volume": 0.28, "lowpass": 0.3, "decay": 3.0},
+		{"wave": "sine", "from": 180.0, "to": 70.0, "time": 0.07, "volume": 0.22, "decay": 2.0},
+	],
+	&"shot_pistol": [
+		{"wave": "square", "from": 1100.0, "to": 280.0, "time": 0.06, "volume": 0.2, "noise": 0.35, "decay": 2.2},
+		{"wave": "noise", "time": 0.05, "volume": 0.3, "lowpass": 0.2, "decay": 3.0},
+		{"wave": "sine", "from": 220.0, "to": 80.0, "time": 0.07, "volume": 0.28, "decay": 2.0},
+	],
+	&"shot_smg": [
+		{"wave": "square", "from": 1500.0, "to": 420.0, "time": 0.045, "volume": 0.15, "noise": 0.3, "decay": 2.2},
+		{"wave": "noise", "time": 0.035, "volume": 0.22, "lowpass": 0.15, "decay": 3.0},
+	],
+	&"shot_launcher": [
+		{"wave": "sine", "from": 260.0, "to": 110.0, "time": 0.16, "volume": 0.4, "decay": 1.8},
+		{"wave": "noise", "time": 0.11, "volume": 0.25, "lowpass": 0.65, "decay": 2.5},
+	],
+	&"shot_railgun": [
+		{"wave": "saw", "from": 300.0, "to": 3200.0, "time": 0.12, "volume": 0.16, "lowpass": 0.3, "decay": 1.2},
+		{"wave": "noise", "time": 0.22, "volume": 0.35, "lowpass": 0.5, "decay": 2.0},
+		{"wave": "sine", "from": 130.0, "to": 40.0, "time": 0.26, "volume": 0.42, "decay": 1.6},
 	],
 	&"shot_spread": [
 		{"wave": "noise", "time": 0.16, "volume": 0.45, "lowpass": 0.55, "decay": 2.5},

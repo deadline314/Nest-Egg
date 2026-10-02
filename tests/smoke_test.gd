@@ -63,6 +63,7 @@ func _test_data() -> void:
 		_check(weapon != null and weapon.is_valid(), "weapon invalid: %s" % file)
 		if weapon != null:
 			_check(not weapon.description.is_empty(), "weapon lacks description: %s" % file)
+			_check(RigLibrary.weapons().get("weapons", {}).has(weapon.visual_id), "weapon visual missing: %s" % weapon.visual_id)
 			_check(Sfx.SOUNDS.has(weapon.fire_sound), "weapon sound missing: %s" % weapon.fire_sound)
 			_check(DefeatCodex.has_card(weapon.projectile.source_id) or String(weapon.projectile.source_id).begins_with("player_"),
 					"weapon source id not registered: %s" % weapon.projectile.source_id)
@@ -85,7 +86,20 @@ func _test_data() -> void:
 		_check(DefeatCodex.has_card(source), "codex missing hazard card: %s" % source)
 	_check(DefeatCodex.has_card(&"rusher_charge") and DefeatCodex.has_card(&"bomber_blast"), "codex missing ability cards")
 	_check(GameState.difficulties.size() == 3, "expected 3 difficulties")
-	_check(load("res://data/player/player_tuning.tres") is PlayerTuning, "player tuning failed to load")
+	var tuning := load("res://data/player/player_tuning.tres") as PlayerTuning
+	_check(tuning != null, "player tuning failed to load")
+	if tuning != null:
+		_check(tuning.default_weapon.id == &"pistol", "default weapon is the pistol")
+	var ballistic := 0
+	var energy := 0
+	for file in DirAccess.get_files_at(WEAPON_DIR):
+		var weapon := load(WEAPON_DIR.path_join(file)) as WeaponData
+		if weapon != null:
+			if weapon.is_energy:
+				energy += 1
+			else:
+				ballistic += 1
+	_check(ballistic == 6 and energy == 2, "roster is 6 ballistic + 2 energy (got %d + %d)" % [ballistic, energy])
 
 
 func _test_level_layout() -> void:
@@ -122,7 +136,7 @@ func _test_state_machine() -> void:
 
 
 func _test_loadout() -> void:
-	var rifle := load("res://data/weapons/rifle.tres") as WeaponData
+	var rifle := load("res://data/weapons/pistol.tres") as WeaponData
 	var spread := load("res://data/weapons/spread.tres") as WeaponData
 	var laser := load("res://data/weapons/laser.tres") as WeaponData
 	var loadout := Loadout.new()

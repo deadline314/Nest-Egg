@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/weapon_data.gd" id="1_script"]
+[ext_resource type="Resource" path="res://data/projectiles/rail_slug.tres" id="2_proj"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"railgun"
+projectile = ExtResource("2_proj")
+display_name = "電磁軌道砲"
+color = Color(0.45, 0.95, 1.0, 1.0)
+fire_interval = 0.9
+max_ammo = 12
+pellets = 1
+spread_degrees = 0.0
+random_spread_degrees = 0.0
+description = "能量武器：單發重創，貫穿一整排"
+fire_sound = &"shot_railgun"
+screen_shake = 3.0
+camera_kick = 6.0
+recoil = 80.0
+muzzle_light_energy = 2.4
+ejects_casing = false
+is_energy = true
+bloom_per_shot = 0.0
+short_name = "RG"
+visual_id = "railgun"
