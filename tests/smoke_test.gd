@@ -33,6 +33,7 @@ func _run() -> void:
 	await _test_block_and_parry()
 	await _test_enemy_behaviours()
 	await _test_boss_and_victory()
+	await _test_checkpoints_and_difficulties()
 	await _test_death_flow()
 	print("checks: %d, failures: %d" % [_checks, _failures.size()])
 	for failure in _failures:
@@ -92,7 +93,8 @@ func _test_level_layout() -> void:
 	var layout := LevelBuilder.parse(data)
 	_check(layout.is_valid(), "level layout invalid")
 	_check(layout.warnings.is_empty(), "level warnings: %s" % [layout.warnings])
-	_check(layout.width == 240 and layout.height == 23, "unexpected level size %dx%d" % [layout.width, layout.height])
+	_check(layout.width == 350 and layout.height == 24, "unexpected level size %dx%d" % [layout.width, layout.height])
+	_check(layout.checkpoints.size() >= 4, "level has enough checkpoints")
 	_check(not layout.boss_spawn.is_empty() and layout.arena_x > 0.0, "boss arena missing")
 	_check(layout.hints.size() == data.hints.size(), "not every hint placed")
 	_check(layout.solid_rects.size() < 80, "solid rect merge ineffective: %d" % layout.solid_rects.size())
@@ -649,6 +651,48 @@ func _test_boss_and_victory() -> void:
 			break
 	_check(completed[0], "level completes after boss defeat")
 	await _end_level(level)
+
+
+## 每個檢查點都能站穩；三種難度都能打完頭目進入結算。
+func _test_checkpoints_and_difficulties() -> void:
+	var layout := LevelBuilder.parse(load(LEVEL_PATH))
+	var level := await _start_level()
+	for checkpoint in layout.checkpoints:
+		level.player.global_position = checkpoint + Vector2(0, -2)
+		level.player.velocity = Vector2.ZERO
+		await _frames(20)
+		_check(level.player.is_on_floor() and absf(level.player.global_position.y - checkpoint.y) < 4.0,
+				"player stands at checkpoint %s" % checkpoint)
+	await _end_level(level)
+	for difficulty in GameState.difficulties:
+		GameState.start_new_run(difficulty)
+		var run := Level.new()
+		run.configure(load(LEVEL_PATH))
+		get_tree().root.add_child(run)
+		await _frames(2)
+		var completed := [false]
+		run.completed.connect(func() -> void: completed[0] = true)
+		run.player.health.setup(999, 0.5)
+		run.player.global_position = Vector2(layout.arena_x + 80.0, 300.0)
+		var boss: Enemy = null
+		for i in 240:
+			await get_tree().physics_frame
+			for node in get_tree().get_nodes_in_group(&"enemies"):
+				if node is Enemy and (node as Enemy).data.is_boss:
+					boss = node
+			if boss != null:
+				break
+		if boss != null:
+			var lethal := DamageInfo.create(9999, Combat.Team.PLAYER, &"test")
+			lethal.ignore_invulnerability = true
+			lethal.bypass_guard = true
+			boss.health.take_damage(lethal)
+		for i in 720:
+			await get_tree().physics_frame
+			if completed[0]:
+				break
+		_check(completed[0], "level completes on %s difficulty" % difficulty.display_name)
+		await _end_level(run)
 
 
 func _test_death_flow() -> void:

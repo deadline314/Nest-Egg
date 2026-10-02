@@ -22,6 +22,8 @@ func _ready() -> void:
 
 func _run() -> void:
 	add_child(LightKit.create_environment())
+	# 劇情演出會暫停遊戲並蓋住畫面；只有 story 情境需要拍到演出。
+	Story.auto_skip = _scenario != "story"
 	if _scenario == "settings":
 		await _run_settings()
 		get_tree().quit()
@@ -51,15 +53,15 @@ func _run() -> void:
 	await _settle(20)
 	var player := level.player
 	player.health.setup(999, 0.0)
-	await _shoot_at(player, Vector2(300, 320), 25)
-	_capture("02_intro_shooting")
+	await _shoot_at(player, Vector2(250, 240), 25)
+	_capture("02_rooftop")
 	await _shoot_at(player, Vector2(1480, 320), 40)
-	_capture("03_spikes_drones")
-	await _shoot_at(player, Vector2(2050, 320), 20)
-	_capture("04_mech_zone")
+	_capture("03_neon_market")
 	await _shoot_at(player, Vector2(2780, 320), 20)
-	_capture("05_bombers")
-	player.global_position = Vector2(3330, 300)
+	_capture("04_freight_yard")
+	await _shoot_at(player, Vector2(4180, 320), 20)
+	_capture("05_facility")
+	player.global_position = Vector2(5040, 300)
 	await _wait(2.5)
 	Input.action_press(&"shoot")
 	await _settle(25)
