@@ -25,6 +25,7 @@ var tuning: PlayerTuning
 var health: HealthComponent
 var hurtbox: Hurtbox
 var loadout := Loadout.new()
+var consumables := ConsumableBag.new()
 var state: State = State.NORMAL
 var facing := 1
 var aim_dir := Vector2.RIGHT
@@ -119,6 +120,8 @@ func _ready() -> void:
 	loadout.reload_started.connect(func() -> void: Sfx.play(&"reload_start", -4.0))
 	loadout.reload_finished.connect(func() -> void: Sfx.play(&"reload_done", -3.0))
 	loadout.restore(_loadout_snapshot, tuning.default_weapon)
+	consumables.changed.connect(func() -> void: EventBus.player_consumables_changed.emit(consumables))
+	consumables.restore(_loadout_snapshot.get("consumables", {}))
 	_last_safe_position = global_position
 	EventBus.player_spawned.emit(self)
 	_on_health_changed(health.current, health.max_health)
@@ -162,6 +165,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		loadout.cycle(-1)
 	elif event.is_action_pressed(&"reload"):
 		loadout.start_reload()
+	elif event.is_action_pressed(&"use_item"):
+		var quick := consumables.quick_use_item()
+		if quick != null and not use_consumable(quick.id):
+			EventBus.toast_requested.emit("沒有%s" % quick.display_name if consumables.count(quick.id) <= 0 else "生命已滿")
 	else:
 		for slot in Loadout.MAX_SLOTS:
 			if event.is_action_pressed(StringName("weapon_slot_%d" % (slot + 1))):
@@ -707,6 +714,39 @@ func _on_loadout_changed() -> void:
 	var weapon := loadout.active_weapon()
 	_visual.set_weapon_visual(weapon.visual_id if weapon != null else "")
 	EventBus.player_loadout_changed.emit(loadout)
+
+
+## 檢查點存檔：武器欄＋消耗品。
+func checkpoint_snapshot() -> Dictionary:
+	var snapshot := loadout.snapshot()
+	snapshot["consumables"] = consumables.snapshot()
+	return snapshot
+
+
+## 使用一個消耗品。沒有存貨、或效果用不上（滿血、護盾已滿）時回傳 false，不會浪費。
+func use_consumable(id: StringName) -> bool:
+	var item := ConsumableBag.find(id)
+	if item == null or consumables.count(id) <= 0 or state == State.DEAD:
+		return false
+	var useful := false
+	if item.heal_amount > 0 and health.current < health.max_health:
+		useful = true
+	if item.restores_guard and (guard < tuning.guard_max or _guard_lockout_left > 0.0):
+		useful = true
+	if not useful:
+		return false
+	consumables.take(id)
+	if item.heal_amount > 0:
+		health.heal(item.heal_amount)
+	if item.restores_guard:
+		guard = tuning.guard_max
+		_guard_lockout_left = 0.0
+		_guard_regen_delay_left = 0.0
+		_emit_guard()
+	Fx.burst(global_position + Vector2(0, -24), item.color, 14, 90.0, 0.45)
+	Fx.flash_light(global_position + Vector2(0, -24), item.color, 70.0, 1.4, 0.25)
+	Sfx.play(&"pickup", -4.0)
+	return true
 
 
 func is_reloading() -> bool:

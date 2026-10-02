@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ConsumableData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/consumable_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"med_injector"
+display_name = "醫療針"
+description = "回復 2 格生命。滿血時不會使用。"
+color = Color(1.0, 0.36, 0.5, 1.0)
+order = 0
+max_carry = 3
+heal_amount = 2
+quick_use = true
+icon = "med_injector"

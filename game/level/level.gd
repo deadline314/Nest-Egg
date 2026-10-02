@@ -244,6 +244,10 @@ func _create_entity(resource: Resource) -> Node2D:
 		var pickup := WeaponPickup.new()
 		pickup.configure(resource as WeaponData)
 		return pickup
+	if resource is ConsumableData:
+		var item := ConsumablePickup.new()
+		item.configure(resource as ConsumableData)
+		return item
 	if resource is VehicleData:
 		var vehicle := Vehicle.new()
 		vehicle.configure(resource as VehicleData)

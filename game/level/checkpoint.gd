@@ -37,7 +37,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if player == null or activated or player.is_dead():
 		return
 	_set_active(true)
-	GameState.set_checkpoint(global_position, player.loadout.snapshot())
+	GameState.set_checkpoint(global_position, player.checkpoint_snapshot())
 	if GameState.difficulty.checkpoint_heals:
 		player.health.heal(player.health.max_health)
 	EventBus.toast_requested.emit("檢查點已記錄")

@@ -31,6 +31,7 @@ const ACTIONS: Array[Dictionary] = [
 	{"id": &"weapon_next", "label": "下一把武器"},
 	{"id": &"weapon_prev", "label": "上一把武器"},
 	{"id": &"reload", "label": "換彈"},
+	{"id": &"use_item", "label": "使用醫療針"},
 	{"id": &"interact", "label": "搭乘／互動"},
 	{"id": &"pause", "label": "暫停"},
 ]
@@ -47,6 +48,7 @@ const DEFAULT_CODES: Dictionary[StringName, Array] = {
 	&"weapon_next": [-MOUSE_BUTTON_WHEEL_DOWN, NONE],
 	&"weapon_prev": [-MOUSE_BUTTON_WHEEL_UP, NONE],
 	&"reload": [KEY_R, NONE],
+	&"use_item": [KEY_Q, NONE],
 	&"interact": [KEY_E, NONE],
 	&"pause": [KEY_ESCAPE, KEY_P],
 }
@@ -63,6 +65,7 @@ const DEFAULT_JOY_BUTTONS: Dictionary[StringName, int] = {
 	&"weapon_next": JOY_BUTTON_RIGHT_SHOULDER,
 	&"weapon_prev": JOY_BUTTON_LEFT_SHOULDER,
 	&"reload": JOY_BUTTON_RIGHT_STICK,
+	&"use_item": JOY_BUTTON_DPAD_UP,
 	&"interact": JOY_BUTTON_X,
 	&"pause": JOY_BUTTON_START,
 }

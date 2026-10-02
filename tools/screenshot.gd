@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim、block、story、dynamic_hud、weapons、reload
+## 情境：all（預設）、settings、mouse_aim、block、story、dynamic_hud、weapons、reload、consumables
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -34,6 +34,10 @@ func _run() -> void:
 		return
 	if _scenario == "block":
 		await _run_block()
+		get_tree().quit()
+		return
+	if _scenario == "consumables":
+		await _run_consumables()
 		get_tree().quit()
 		return
 	if _scenario == "reload":
@@ -172,6 +176,34 @@ func _run_block() -> void:
 	await _wait(0.12)
 	_capture("block_reflect")
 	Input.action_release(&"block")
+
+
+## 消耗品：屋頂上的醫療針與拾取提示、撿起後的 HUD 數量、受傷後快速使用。
+func _run_consumables() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _settle(20)
+	var player := level.player
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	Input.action_press(&"aim_right")
+	player.global_position = Vector2(760, 240)
+	level_camera_snap()
+	await _wait(4.5)
+	_capture("consumables_pickup")
+	player.global_position = Vector2(808, 240)
+	await _wait(0.6)
+	player.consumables.add(ConsumableBag.find(&"shield_cell"))
+	var info := DamageInfo.create(3, Combat.Team.ENEMY, &"test")
+	info.ignore_invulnerability = true
+	player.health.take_damage(info)
+	await _wait(0.8)
+	player.use_consumable(&"med_injector")
+	await _wait(0.12)
+	_capture("consumables_use")
+	Input.action_release(&"aim_right")
 
 
 ## 換彈：手槍彈匣偏低的換彈提示、打空後自動換彈（槍口壓低、彈藥環顯示進度）。

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=17 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=19 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_script"]
 [ext_resource type="Resource" path="res://data/enemies/grunt.tres" id="2_grunt"]
@@ -15,6 +15,8 @@
 [ext_resource type="Resource" path="res://data/weapons/rifle.tres" id="13_rifle"]
 [ext_resource type="Resource" path="res://data/weapons/launcher.tres" id="14_launcher"]
 [ext_resource type="Resource" path="res://data/weapons/railgun.tres" id="15_railgun"]
+[ext_resource type="Resource" path="res://data/consumables/med_injector.tres" id="16_med"]
+[ext_resource type="Resource" path="res://data/consumables/shield_cell.tres" id="17_cell"]
 
 [resource]
 script = ExtResource("1_script")
@@ -33,7 +35,9 @@ legend = Dictionary[String, Resource]({
 "X": ExtResource("8_warden"),
 "b": ExtResource("6_bomber"),
 "d": ExtResource("4_drone"),
+"e": ExtResource("17_cell"),
 "g": ExtResource("2_grunt"),
+"i": ExtResource("16_med"),
 "m": ExtResource("7_mortar"),
 "r": ExtResource("3_rusher"),
 "t": ExtResource("5_turret")

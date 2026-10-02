@@ -112,7 +112,8 @@ func _ammo_color() -> Color:
 		return LightKit.glow(Palette.DANGER, 1.4 + 0.8 * absf(sin(_time * 9.0)))
 	if is_low():
 		return LightKit.glow(Palette.NEON_YELLOW, 1.3 + 0.5 * absf(sin(_time * 5.0)))
-	return LightKit.glow(weapon_color, 1.5)
+	# 平常用 HUD 青色，讓黃（低彈藥）、紅（最後幾發）的警示一眼可辨。
+	return LightKit.glow(Palette.CYAN, 1.5)
 
 
 func _draw() -> void:

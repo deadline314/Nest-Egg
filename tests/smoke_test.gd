@@ -32,6 +32,7 @@ func _run() -> void:
 	await _test_gameplay()
 	await _test_block_and_parry()
 	await _test_dynamic_hud()
+	await _test_consumables()
 	await _test_enemy_behaviours()
 	await _test_boss_and_victory()
 	await _test_checkpoints_and_difficulties()
@@ -642,7 +643,8 @@ func _test_dynamic_hud() -> void:
 	reload_event.action = &"reload"
 	reload_event.pressed = true
 	Input.parse_input_event(reload_event)
-	await _frames(2)
+	for i in 4:
+		await get_tree().process_frame
 	Input.action_release(&"reload")
 	_check(player.is_reloading(), "reload key starts reload")
 	await _frames(70)
@@ -652,6 +654,56 @@ func _test_dynamic_hud() -> void:
 	Settings.set_hud_auto_hide(false)
 	_check(not vitals._auto_hide, "vitals tag follows auto hide setting")
 	Settings.set_hud_auto_hide(original)
+	await _end_level(level)
+
+
+## 消耗品：攜帶上限、快速使用、滿血不浪費、護盾電池、檢查點保存。
+func _test_consumables() -> void:
+	var catalog := ConsumableBag.catalog()
+	_check(catalog.size() >= 2, "consumable catalog loads")
+	for item in catalog:
+		_check(item.validate().is_empty(), "consumable invalid: %s" % item.id)
+	var med := ConsumableBag.find(&"med_injector")
+	var cell := ConsumableBag.find(&"shield_cell")
+	_check(med != null and cell != null and med.quick_use, "med injector and shield cell defined")
+	var bag := ConsumableBag.new()
+	for i in med.max_carry:
+		bag.add(med)
+	_check(not bag.add(med) and bag.count(med.id) == med.max_carry, "carry limit enforced")
+	var copy := ConsumableBag.new()
+	copy.restore(bag.snapshot())
+	_check(copy.count(med.id) == med.max_carry, "consumable snapshot round trip")
+	copy.restore({"med_injector": 99, "unknown": 3})
+	_check(copy.count(med.id) == med.max_carry, "restore clamps and ignores unknown items")
+
+	var level := await _start_level()
+	var player := level.player
+	# 等開場演出結束（演出期間遊戲暫停，不接受操作）。
+	while get_tree().paused:
+		await get_tree().process_frame
+	await _frames(2)
+	player.consumables.add(med)
+	player.consumables.add(cell)
+	_check(not player.use_consumable(med.id) and player.consumables.count(med.id) == 1, "med injector not wasted at full health")
+	var info := DamageInfo.create(2, Combat.Team.ENEMY, &"test")
+	info.ignore_invulnerability = true
+	player.health.take_damage(info)
+	var hurt_hp := player.health.current
+	var use_event := InputEventAction.new()
+	use_event.action = &"use_item"
+	use_event.pressed = true
+	Fx.reset_time()
+	Input.parse_input_event(use_event)
+	# 輸入事件在 idle 影格處理；只等物理影格可能還沒輪到。
+	for i in 4:
+		await get_tree().process_frame
+	_check(player.health.current == hurt_hp + med.heal_amount and player.consumables.count(med.id) == 0, "quick-use key heals with med injector")
+	player.guard = 0.0
+	player._guard_lockout_left = 1.0
+	_check(player.use_consumable(cell.id) and is_equal_approx(player.guard, player.tuning.guard_max) and player._guard_lockout_left == 0.0, "shield cell restores guard and clears break")
+	player.consumables.add(med)
+	var snapshot := player.checkpoint_snapshot()
+	_check(snapshot.has("consumables") and int(snapshot["consumables"].get("med_injector", 0)) == 1, "checkpoint saves consumables")
 	await _end_level(level)
 
 

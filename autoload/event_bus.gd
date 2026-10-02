@@ -5,6 +5,7 @@ extends Node
 signal player_spawned(player: Node2D)
 signal player_health_changed(current: int, maximum: int)
 signal player_loadout_changed(loadout: Loadout)
+signal player_consumables_changed(bag: ConsumableBag)
 signal player_died(cause_id: StringName)
 signal player_guard_changed(current: float, maximum: float, broken: bool)
 signal player_parried(world_position: Vector2)

@@ -14,6 +14,7 @@ var ammo_ring: AmmoRing
 var _gauges: _Gauges
 var _weapon_labels: Array[Label] = []
 var _weapon_panel: Control
+var _items_label: Label
 var _lives_label: Label
 var _timer_label: Label
 var _boss_name: Label
@@ -49,6 +50,12 @@ func _ready() -> void:
 
 	vitals_tag = VitalsTag.new()
 	root.add_child(vitals_tag)
+	_items_label = UiKit.label("", 10, Palette.UI_MUTED)
+	_items_label.position = Vector2(12, 254)
+	_items_label.mouse_filter = Control.MOUSE_FILTER_PASS
+	_items_label.tooltip_text = "攜帶的消耗品；快速鍵使用醫療針，其他在背包使用"
+	root.add_child(_items_label)
+
 	add_child(Crosshair.new())
 	ammo_ring = AmmoRing.new()
 	add_child(ammo_ring)
@@ -83,6 +90,7 @@ func _ready() -> void:
 	fade.tween_property(_controls, "modulate:a", 0.0, 1.0)
 
 	EventBus.player_loadout_changed.connect(_on_loadout_changed)
+	EventBus.player_consumables_changed.connect(_on_consumables_changed)
 	EventBus.vehicle_mounted.connect(_on_vehicle_mounted)
 	EventBus.vehicle_dismounted.connect(_on_vehicle_dismounted)
 	EventBus.vehicle_health_changed.connect(_on_vehicle_health_changed)
@@ -140,6 +148,15 @@ func _on_loadout_changed(loadout: Loadout) -> void:
 		label.text = "%d %s %s  %s" % [slot + 1, "▶" if active else " ", weapon.display_name, ammo_text]
 		label.add_theme_color_override(&"font_color", weapon.color if active else Palette.UI_MUTED)
 		label.tooltip_text = weapon.description
+
+
+func _on_consumables_changed(bag: ConsumableBag) -> void:
+	var parts := PackedStringArray()
+	for item in ConsumableBag.catalog():
+		var count := bag.count(item.id)
+		if count > 0:
+			parts.append("%s ×%d%s" % [item.display_name, count, InputBindings.format("　{use_item}") if item.quick_use else ""])
+	_items_label.text = "　".join(parts)
 
 
 func _on_vehicle_mounted(_vehicle: Node2D) -> void:
