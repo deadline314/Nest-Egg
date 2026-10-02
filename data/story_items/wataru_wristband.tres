@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"wataru_wristband"
+display_name = "航的醫療手環"
+description = "塑膠手環上印著受試者編號，摸起來還是暖的。他才剛被帶走。"
+color = Color(0.56, 0.89, 0.6, 1.0)
+order = 12
+trigger = 1
+trigger_scene = &"c2_epilogue"
+icon = "wataru_wristband"

@@ -19,7 +19,7 @@ const MAGENTA := Color("ff2e88")
 
 
 static func ids() -> Array[String]:
-	return ["wataru_photo", "nest_egg_chip", "old_k_order", "nest07_shard", "med_injector", "shield_cell"]
+	return ["wataru_photo", "nest_egg_chip", "old_k_order", "nest07_shard", "med_injector", "shield_cell", "maintenance_pass", "nest_roster", "wataru_wristband"]
 
 
 ## 回傳畫好的圖示；未知 id 回傳 null。
@@ -32,6 +32,9 @@ static func paint(id: String) -> PixelCanvas:
 		"nest07_shard": _shard(canvas)
 		"med_injector": _injector(canvas)
 		"shield_cell": _cell(canvas)
+		"maintenance_pass": _pass(canvas)
+		"nest_roster": _roster(canvas)
+		"wataru_wristband": _wristband(canvas)
 		_:
 			push_warning("[ItemIconPainter] 沒有 %s 的圖示" % id)
 			return null
@@ -190,3 +193,68 @@ static func _cell(c: PixelCanvas) -> void:
 	var bolt := Color("fff8c0")
 	c.polygon(PackedVector2Array([Vector2(17, 9), Vector2(13, 17), Vector2(16, 17), Vector2(14, 24), Vector2(19, 15), Vector2(16, 15)]), bolt)
 	c.px(11, 28, Color("0d1119"))
+
+
+## 維修員通行證：磨損的塑膠卡，橘色警示條、磁條與一個小小的頭像框。
+static func _pass(c: PixelCanvas) -> void:
+	c.rect_gradient(4, 7, 24, 18, Color("d8dde6"), Color("9aa3b2"))
+	c.rect(4, 7, 24, 1, Color("f1f4f8"))
+	# 橘色警示條與斜紋。
+	c.rect(4, 9, 24, 4, Color("ff7a1a"))
+	for i in 6:
+		c.line(Vector2i(5 + i * 4, 12), Vector2i(8 + i * 4, 9), Color("2a1608"))
+	# 頭像框與文字行。
+	c.rect(6, 15, 7, 8, Color("56657e"))
+	c.rect(7, 16, 5, 6, Color("1d2431"))
+	c.circle(9.5, 18.0, 1.5, Color("c9a58c"))
+	c.rect(8, 20, 3, 2, Color("c9a58c"))
+	c.rect(15, 16, 10, 1, Color("56657e"))
+	c.rect(15, 19, 8, 1, Color("56657e"))
+	# 磁條與磨損。
+	c.rect(4, 22, 24, 2, Color("2a3342"))
+	c.px(26, 8, Color("7a8493"))
+	c.px(25, 24, Color("7a8493"))
+	c.px(5, 24, Color("7a8493"))
+
+
+## NEST 名冊殘頁：燒焦的紙角，一列列名字，大部分被紅線劃掉。
+static func _roster(c: PixelCanvas) -> void:
+	c.polygon(PackedVector2Array([Vector2(7, 3), Vector2(22, 3), Vector2(25, 6), Vector2(25, 29), Vector2(9, 29), Vector2(7, 25)]), Color("d9d6cc"))
+	c.rect(24, 7, 1, 22, Color("a9a698"))
+	# 燒焦的邊緣。
+	c.polygon(PackedVector2Array([Vector2(7, 25), Vector2(9, 29), Vector2(13, 29), Vector2(10, 25)]), Color("3a2b22"))
+	c.px(8, 24, Color("6a4a30"))
+	c.px(14, 28, Color("6a4a30"))
+	# 名單：每行一個名字，劃掉的是紅線。
+	for i in 6:
+		var y := 7 + i * 3
+		c.rect(10, y, 11 - (i % 3) * 2, 1, Color("5a5a64"))
+		if i != 0:
+			c.rect(9, y, 14, 1, Color(0.85, 0.2, 0.22, 0.95))
+	# 第一行是「七」。
+	c.rect(10, 6, 4, 1, Color("ff3fa4"))
+	c.rect(11, 7, 1, 2, Color("ff3fa4"))
+	c.px(22, 26, Color("ff3fa4"))
+
+
+## 航的醫療手環：淡綠的塑膠環，一小塊印著編號的標籤。
+static func _wristband(c: PixelCanvas) -> void:
+	# 橢圓環：外圈淡綠，內側一圈較暗的內襯。
+	for y in 32:
+		for x in 32:
+			var dx := (x + 0.5 - 16.0) / 12.0
+			var dy := (y + 0.5 - 16.0) / 11.0
+			var d := dx * dx + dy * dy
+			if d <= 1.0 and d > 0.62:
+				c.px(x, y, Color("8fe39a") if d < 0.9 else Color("5fa56c"))
+			elif d <= 0.62 and d > 0.5:
+				c.px(x, y, Color("2a3a2f"))
+	# 標籤。
+	c.rect(10, 4, 12, 6, Color("f1f6ee"))
+	c.rect(10, 4, 12, 1, Color("ffffff"))
+	c.rect(11, 6, 6, 1, Color("5a6a60"))
+	c.rect(11, 8, 9, 1, Color("5a6a60"))
+	c.px(20, 6, Color("ff3fa4"))
+	# 扣環。
+	c.rect(26, 15, 3, 4, Color("d6f7df"))
+	c.px(27, 16, Color("2a3a2f"))

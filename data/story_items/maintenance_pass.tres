@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"maintenance_pass"
+display_name = "維修員通行證"
+description = "老K年輕時用的舊通行證。升降井的閘門還認得它，磁條邊緣磨得發白。"
+color = Color(1.0, 0.48, 0.1, 1.0)
+order = 10
+trigger = 1
+trigger_scene = &"c2_prologue"
+icon = "maintenance_pass"

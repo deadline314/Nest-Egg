@@ -126,7 +126,7 @@ pm/            票券（需求、驗收、交付紀錄）
 
 **新增光影設定**：複製 `data/lighting/*.tres` 修改環境光、背景色調、霧與泛光，再到關卡資料的 `lighting_zones` 指定「從哪一欄開始套用、過渡幾欄」。事件用 `EventBus.lighting_override_requested` 暫時覆蓋（停電、警報），`lighting_override_cleared` 結束。發光的東西（子彈、霓虹、危險物）請呼叫 `LightKit.mark_emissive(self)`，否則會被環境光壓暗。光源預算與品質：場景光源（`LightKit.create_point_light` 預設會加入預算群組）由 `LightBudget` 管理，上限與品質檔位見 `core/light_quality.gd`；新的光影效果請依 `LightQuality` 的查詢函式決定要不要啟用。暗場可讀性：每份光影設定要有 `character_floor`（角色最低亮度），`LightingProfile.validate()` 會檢查；改完光影後執行 `godot --path . res://tools/readability_check.tscn`（需要可渲染環境）量測每個區段的玩家與地面亮邊對比。法線貼圖：角色零件與地形面板旁放同名的 `<名稱>_n.png`，由 `LitTextures.load_texture` 組成 CanvasTexture；缺檔時改用平面貼圖並記錄一次提示。自動產生：`godot --headless --path . res://tools/art/paint_normals.tscn`（會覆蓋同名的 `_n.png`；換成手繪法線貼圖後，請用 `-- --only=rin,weapons,materials` 指定要重畫的範圍）。輪廓光由 `LightingController` 的一盞平面點光源提供，顏色與強度在光影設定的 `rim_color`／`rim_energy`；低品質檔位不使用法線貼圖。設計見 [光影設計](design/08-lighting/DESIGN.md)。
 
-**新增劇情**：在 `data/story/*.json` 加入場景（`mode` 為 `cinematic` 或 `radio`），關卡以 `Story.play(場景 id)` 播放。
+**新增劇情**：在 `data/story/*.json` 加入場景（`mode` 為 `cinematic` 或 `radio`），關卡以 `Story.play(場景 id)` 播放。過場每段至多 6 句、通訊每段 1～2 句，講者要有頭像（`tools/art/paint_assets.tscn -- --only=portrait_<id>` 可產生暫代頭像），啟動時 `Story.validate()` 會檢查。新章節：新增 `chapter_XX.json`、把路徑加進 `Story.CHAPTER_PATHS`，場景 id 用章節前綴（`c2_…`）避免重複，關卡資料的 `chapter` 指向該章。
 
 **新增劇情道具**：複製 `data/story_items/*.tres` 修改名稱、說明與取得時機（開局、某個劇情場景播完、擊敗頭目，或由程式取得），圖示放在 `art/items/icons/<icon>.png`。道具跟著本輪進度：重開關卡與從檢查點重生都保留，開始新遊戲才重置。
 產生暫代圖示（消耗品、劇情道具、武器；不需要 GPU）：`godot --headless --path . res://tools/art/paint_icons.tscn`

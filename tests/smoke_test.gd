@@ -248,6 +248,13 @@ func _test_rigs() -> void:
 	broken.free()
 
 
+func _filler_lines(count: int) -> Array:
+	var lines: Array = []
+	for i in count:
+		lines.append({"speaker": "rin", "text": "測試 %d" % i})
+	return lines
+
+
 func _test_story() -> void:
 	for id: String in Story.speaker_ids():
 		var portrait := str(Story.speaker(id).get("portrait", ""))
@@ -262,6 +269,30 @@ func _test_story() -> void:
 		_check(Story.has_scene(StringName(scene_id)), "trigger scene exists: %s" % scene_id)
 	var layout := LevelBuilder.parse(data)
 	_check(layout.story_triggers.size() == data.story_triggers.size(), "every & trigger mapped to a scene")
+
+	# 多章節：章節資訊分開、講者與場景合併、劇本守則（句數、講者、頭像）全部通過。
+	_check(Story.validate().is_empty(), "story passes validation %s" % Story.validate())
+	_check(Story.chapter_ids().has(&"chapter_01") and Story.chapter_ids().has(&"chapter_02"), "both chapters are loaded")
+	for chapter_id in Story.chapter_ids():
+		var info := Story.chapter_info(chapter_id)
+		for key in ["title", "subtitle", "end_title", "teaser"]:
+			_check(not str(info.get(key, "")).is_empty(), "chapter %s has %s" % [chapter_id, key])
+	_check(Story.chapter_info(&"chapter_02").get("title") != Story.chapter_info(&"chapter_01").get("title"), "chapters have their own titles")
+	_check(Story.has_scene(&"prologue") and Story.has_scene(&"c2_prologue"), "scenes of both chapters are available")
+	for scene_id in [&"c2_prologue", &"c2_boss_intro", &"c2_epilogue"]:
+		_check(str(Story._scenes[String(scene_id)].get("mode")) == "cinematic", "chapter 2 scene is a cinematic: %s" % scene_id)
+	for speaker_id in ["wataru", "reclaimer"]:
+		_check(Story.speaker_ids().has(speaker_id), "chapter 2 speaker defined: %s" % speaker_id)
+	# 守則檢查真的會抓到違規：過場太長、通訊太長、講者未定義。
+	Story._scenes["test_long_cinematic"] = {"mode": "cinematic", "lines": _filler_lines(7)}
+	Story._scenes["test_long_radio"] = {"mode": "radio", "lines": _filler_lines(3)}
+	Story._scenes["test_bad_speaker"] = {"mode": "radio", "lines": [{"speaker": "nobody", "text": "x"}]}
+	var problems := Story.validate()
+	_check(problems.size() == 3, "story validation catches 3 violations (got %d)" % problems.size())
+	for scene_id in ["test_long_cinematic", "test_long_radio", "test_bad_speaker"]:
+		Story._scenes.erase(scene_id)
+	_check(Story.validate().is_empty(), "story validation clean again")
+	_check(Story.chapter_info(&"no_such_chapter").is_empty(), "unknown chapter returns empty info")
 
 	# 過場：暫停遊戲、可推進到結束、結束後恢復
 	Story.auto_skip = false
@@ -304,7 +335,7 @@ func _test_story() -> void:
 ## 設定與改鍵：改用測試專用設定檔，結束後還原，不影響玩家設定。
 func _test_story_items() -> void:
 	var catalog := StoryItems.catalog()
-	_check(catalog.size() == 4, "story item catalog loads 4 items (got %d)" % catalog.size())
+	_check(catalog.size() == 7, "story item catalog loads 7 items (got %d)" % catalog.size())
 	var ids: Dictionary[StringName, bool] = {}
 	var last_order := -INF
 	for item in catalog:

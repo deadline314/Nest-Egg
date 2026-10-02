@@ -7,7 +7,7 @@ extends Node
 const HumanoidPainterScript := preload("res://tools/art/humanoid_painter.gd")
 const WeaponPainterScript := preload("res://tools/art/weapon_painter.gd")
 const PortraitPainterScript := preload("res://tools/art/portrait_painter.gd")
-const PORTRAITS: Array[String] = ["rin", "mei", "old_k", "warden", "system"]
+const PORTRAITS: Array[String] = ["rin", "mei", "old_k", "warden", "system", "wataru", "reclaimer"]
 const PORTRAIT_DIR := "res://art/portraits"
 const CHARACTERS: Array[String] = ["rin", "trooper", "grenadier", "enforcer", "warden"]
 ## 以 2 倍解析度繪製再縮小，取得平滑邊緣。

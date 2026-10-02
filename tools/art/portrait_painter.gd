@@ -19,6 +19,8 @@ func paint(canvas: CanvasItem, id: String) -> void:
 		"old_k": _old_k()
 		"warden": _warden()
 		"system": _system()
+		"wataru": _wataru()
+		"reclaimer": _reclaimer()
 		_: push_warning("[PortraitPainter] 沒有 %s 的頭像" % id)
 
 
@@ -129,3 +131,37 @@ func _system() -> void:
 	K.line(c, hexagon, Color("35e0ff"), 4.0)
 	c.draw_circle(center, 14.0, Color("35e0ff"))
 	c.draw_circle(center, 7.0, Color("e8fbff"))
+
+
+## 航：十一歲，病號服的淡綠領口、略顯蒼白，眼睛很大。
+func _wataru() -> void:
+	_shoulders(Color("5f9a7a"), Color("d6f7df"))
+	K.poly(c, _p([54, 84, 74, 84, 74, 98, 54, 98]), Color("ecd2c4"), O, 2.0)
+	_head(Color("f6e2d6"), Vector2(64, 56), 28, 30)
+	c.draw_circle(Vector2(80, 70), 5.0, Color(1.0, 0.6, 0.6, 0.22))
+	_eye(Vector2(78, 56), Color("4aa86b"))
+	K.line(c, _p([78, 80, 83, 80]), Color("a8606a"), 2.0)
+	# 蓬鬆的深色短髮與瀏海
+	var hair := _p([32, 70, 28, 44, 38, 24, 58, 14, 82, 16, 98, 30, 98, 48, 92, 44, 84, 36, 72, 44, 60, 38, 48, 44, 42, 58, 40, 74])
+	K.grad_poly(c, hair, Color("1c1a22"), Color("4a4458"), Vector2(0.4, -1), O, W)
+	K.line(c, _p([46, 26, 64, 20, 82, 24]), Color(1, 1, 1, 0.35), 3.0)
+	# 領口的醫療識別扣
+	c.draw_circle(Vector2(64, 108), 3.0, Color("8fe39a"))
+
+
+## 回收員：集團回收部的獵手，窄長的頭盔與橘色單眼視窗。
+func _reclaimer() -> void:
+	_shoulders(Color("23262e"), Color("ff7a1a"))
+	var armor := Color("5a606b")
+	var helmet := _p([36, 84, 30, 50, 40, 22, 66, 12, 92, 24, 102, 52, 94, 84, 72, 94, 50, 92])
+	K.grad_poly(c, helmet, armor.darkened(0.5), armor.lightened(0.12), Vector2.RIGHT, O, W)
+	K.line(c, _p([44, 28, 68, 18, 90, 30]), Color(1, 1, 1, 0.45), 3.0)
+	# 單眼視窗與面罩下的通風槽
+	K.poly(c, _p([58, 50, 102, 48, 102, 62, 62, 64]), Color("140a04"), O, 2.0)
+	K.line(c, _p([62, 56, 100, 55]), Color("ff7a1a"), 4.0)
+	c.draw_circle(Vector2(88, 55), 3.0, Color("ffe0b8"))
+	for i in 4:
+		K.line(c, _p([66 + i * 7, 76, 68 + i * 7, 86]), armor.darkened(0.6), 2.0)
+	# 頭頂天線
+	K.line(c, _p([52, 18, 46, 2]), armor.darkened(0.3), 2.5)
+	c.draw_circle(Vector2(46, 3), 2.5, Color("ff7a1a"))

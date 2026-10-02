@@ -164,7 +164,7 @@ func _begin_intro() -> void:
 		await Story.play_and_wait(data.intro_scene)
 		if not is_inside_tree():
 			return
-	var info := Story.chapter_info()
+	var info := Story.chapter_info(data.chapter)
 	_show_chapter_card(str(info.get("title", data.display_name)), str(info.get("subtitle", "")), false)
 
 
@@ -433,7 +433,7 @@ func _on_boss_defeated() -> void:
 	await Story.play_and_wait(data.outro_scene)
 	if not is_inside_tree():
 		return
-	var info := Story.chapter_info()
+	var info := Story.chapter_info(data.chapter)
 	if info.has("end_title"):
 		var card := _show_chapter_card(str(info["end_title"]), str(info.get("teaser", "")), true, 2.8)
 		await card.finished

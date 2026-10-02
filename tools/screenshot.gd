@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim、block、story、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
+## 情境：all（預設）、settings、mouse_aim、block、story、story_ch2、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -23,13 +23,17 @@ func _ready() -> void:
 func _run() -> void:
 	add_child(LightKit.create_environment())
 	# 劇情演出會暫停遊戲並蓋住畫面；只有 story 情境需要拍到演出。
-	Story.auto_skip = _scenario != "story"
+	Story.auto_skip = _scenario != "story" and _scenario != "story_ch2"
 	if _scenario == "settings":
 		await _run_settings()
 		get_tree().quit()
 		return
 	if _scenario == "story":
 		await _run_story()
+		get_tree().quit()
+		return
+	if _scenario == "story_ch2":
+		await _run_story_ch2()
 		get_tree().quit()
 		return
 	if _scenario == "block":
@@ -167,6 +171,48 @@ func _run_story() -> void:
 	Story.skip_cinematic()
 	await _wait(1.5)
 	_capture("story_chapter_end")
+
+
+## 第二章劇情：在第一章場景上播放第二章的過場與章節卡，檢查講者、頭像與文字。
+func _run_story_ch2() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _wait(0.5)
+	Story.skip_cinematic()
+	for id in [&"prologue"]:
+		Story._seen[id] = true
+	await _wait(0.5)
+	Story.play(&"c2_prologue")
+	await _wait(0.5)
+	for i in 2:
+		Story._layer.advance()
+		Story._layer.advance()
+	await _wait(0.8)
+	_capture("story2_prologue")
+	Story.skip_cinematic()
+	await _wait(0.5)
+	Story.play(&"c2_boss_intro")
+	await _wait(0.5)
+	for i in 2:
+		Story._layer.advance()
+		Story._layer.advance()
+	await _wait(0.8)
+	_capture("story2_boss_intro")
+	Story.skip_cinematic()
+	await _wait(0.5)
+	Story.play(&"c2_radio_voice")
+	await _wait(2.0)
+	_capture("story2_voice")
+	var info := Story.chapter_info(&"chapter_02")
+	_show_chapter_card(level, str(info["title"]), str(info["subtitle"]))
+	await _wait(1.6)
+	_capture("story2_chapter_title")
+
+
+func _show_chapter_card(level: Level, title: String, subtitle: String) -> void:
+	level._show_chapter_card(title, subtitle, false)
 
 
 ## 格擋：舉盾、完美格擋反彈、護盾能量條。

@@ -28,6 +28,8 @@ extends Resource
 ## 全像看板廣告，格式「標題|副標」。
 @export var billboard_ads: PackedStringArray = PackedStringArray(["天穹集團|讓天空屬於每個人"])
 @export_group("Story")
+## 這一關屬於哪一章（data/story/chapter_XX.json 的 chapter.id）：章節標題、結尾卡與預告取自該章。
+@export var chapter: StringName = &"chapter_01"
 ## 進入關卡（非從檢查點重生）時播放的過場。
 @export var intro_scene: StringName = &""
 ## 進入頭目戰場時播放的過場（播完才出現頭目）。
