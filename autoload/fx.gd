@@ -31,7 +31,7 @@ func bind_container(container: Node2D) -> void:
 	_lights.clear()
 	_light_tweens.clear()
 	for i in LIGHT_POOL_SIZE:
-		var light := LightKit.create_point_light(Palette.WARNING, 64.0, 0.0)
+		var light := LightKit.create_point_light(Palette.WARNING, 64.0, 0.0, false, false)
 		light.enabled = false
 		container.add_child(light)
 		_lights.append(light)

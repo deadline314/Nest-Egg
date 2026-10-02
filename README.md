@@ -124,7 +124,7 @@ pm/            票券（需求、驗收、交付紀錄）
 **新增 / 修改關卡**：`data/levels/level_01_map.json` 每列一個字串、可直接編輯；字元說明見 `data/scripts/level_data.gd`。教學看板文字在 `level_01.tres` 的 `hints`，劇情觸發點（地圖上的 `&`）對應 `story_triggers`。
 第一關地圖由產生器以區段組合而成，並自動檢查每段都跳得過去：`python3 tools/level/build_level_01.py`（改區段後重跑即可覆寫 JSON）。
 
-**新增光影設定**：複製 `data/lighting/*.tres` 修改環境光、背景色調、霧與泛光，再到關卡資料的 `lighting_zones` 指定「從哪一欄開始套用、過渡幾欄」。事件用 `EventBus.lighting_override_requested` 暫時覆蓋（停電、警報），`lighting_override_cleared` 結束。發光的東西（子彈、霓虹、危險物）請呼叫 `LightKit.mark_emissive(self)`，否則會被環境光壓暗。暗場可讀性：每份光影設定要有 `character_floor`（角色最低亮度），`LightingProfile.validate()` 會檢查；改完光影後執行 `godot --path . res://tools/readability_check.tscn`（需要可渲染環境）量測每個區段的玩家與地面亮邊對比。設計見 [光影設計](design/08-lighting/DESIGN.md)。
+**新增光影設定**：複製 `data/lighting/*.tres` 修改環境光、背景色調、霧與泛光，再到關卡資料的 `lighting_zones` 指定「從哪一欄開始套用、過渡幾欄」。事件用 `EventBus.lighting_override_requested` 暫時覆蓋（停電、警報），`lighting_override_cleared` 結束。發光的東西（子彈、霓虹、危險物）請呼叫 `LightKit.mark_emissive(self)`，否則會被環境光壓暗。光源預算與品質：場景光源（`LightKit.create_point_light` 預設會加入預算群組）由 `LightBudget` 管理，上限與品質檔位見 `core/light_quality.gd`；新的光影效果請依 `LightQuality` 的查詢函式決定要不要啟用。暗場可讀性：每份光影設定要有 `character_floor`（角色最低亮度），`LightingProfile.validate()` 會檢查；改完光影後執行 `godot --path . res://tools/readability_check.tscn`（需要可渲染環境）量測每個區段的玩家與地面亮邊對比。設計見 [光影設計](design/08-lighting/DESIGN.md)。
 
 **新增劇情**：在 `data/story/*.json` 加入場景（`mode` 為 `cinematic` 或 `radio`），關卡以 `Story.play(場景 id)` 播放。
 

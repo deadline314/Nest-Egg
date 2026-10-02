@@ -31,6 +31,7 @@ var _background: LevelBackground
 var _fog: FogLayer
 var _lighting: LightingController
 var _post: PostProcess
+var _light_budget: LightBudget
 ## 正在生效中的光影事件（id -> true）。
 var _active_lighting_events: Dictionary[StringName, bool] = {}
 var _arena_triggered := false
@@ -105,6 +106,8 @@ func _ready() -> void:
 	# 從檢查點重生時若正好在事件範圍內，直接套用，不從區段光影漸變。
 	_update_lighting_events(0.0)
 	_lighting.snap()
+	_light_budget = LightBudget.new()
+	add_child(_light_budget)
 
 	camera = LevelCamera.new()
 	add_child(camera)

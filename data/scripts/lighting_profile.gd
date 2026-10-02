@@ -6,7 +6,7 @@ extends Resource
 ## 所有可插值的欄位。新增欄位時加在這裡，插值與驗證會自動涵蓋。
 const BLENDED: Array[StringName] = [
 	&"ambient_color", &"background_tint", &"fog_color", &"fog_density", &"glow_threshold", &"glow_intensity",
-	&"saturation", &"contrast", &"shadow_tint", &"highlight_tint", &"vignette", &"grain", &"aberration", &"character_floor",
+	&"saturation", &"contrast", &"shadow_tint", &"highlight_tint", &"vignette", &"grain", &"aberration", &"character_floor", &"lamp_power",
 ]
 
 ## 角色最低可讀亮度（0~1）：環境光再暗，角色補光後至少要有這個亮度。
@@ -40,6 +40,8 @@ const MIN_READABLE_CHARACTER_LUMA := 0.2
 ## 重度壓抑的畫面靠它維持公平：環境可以很暗，但角色永遠看得到。
 @export_range(0.0, 1.0, 0.01) var character_floor: float = 0.0
 @export_group("Lamps")
+## 場景燈與招牌的供電（1 = 全亮，0 = 全滅）：降低時各盞燈依序熄滅，停電事件用。
+@export_range(0.0, 1.0, 0.01) var lamp_power: float = 1.0
 ## 這個區段的場景燈風格（生成時套用，不插值）。
 @export var lamp_style: LampStyle
 ## 這個區段霓虹招牌的色盤與亮度倍率（生成時套用）。沒有色盤時使用預設霓虹色。
@@ -77,6 +79,8 @@ func validate() -> PackedStringArray:
 	if lamp_style != null:
 		for problem in lamp_style.validate():
 			problems.append("%s：%s" % [id, problem])
+	if lamp_power < 0.0 or lamp_power > 1.0:
+		problems.append("%s 的燈供電必須在 0~1 之間" % id)
 	if character_floor < 0.0 or character_floor > 1.0:
 		problems.append("%s 的角色最低亮度必須在 0~1 之間" % id)
 	if character_luma() < MIN_READABLE_CHARACTER_LUMA:

@@ -14,6 +14,9 @@ var pulse_hz := 0.0
 var dead := false
 
 var _light: PointLight2D
+## 供電門檻：供電低於它時這盞燈熄滅（讓停電時各盞燈依序熄滅）。
+var _power_threshold := randf_range(0.1, 0.95)
+var _gate := 1.0
 var _flicker_left := 0.0
 var _time := 0.0
 
@@ -30,6 +33,7 @@ func apply_style(style: LampStyle, seed_value: int) -> void:
 	flicker_chance = style.flicker_chance
 	pulse_hz = style.pulse_hz
 	dead = rng.randf() < style.dead_chance
+	_power_threshold = rng.randf_range(0.1, 0.95)
 
 
 func _ready() -> void:
@@ -44,7 +48,14 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_time += delta
-	var level := energy
+	var gate := LightKit.power_gate(LightKit.lamp_power, _power_threshold)
+	if not is_equal_approx(gate, _gate):
+		_gate = gate
+		_light.enabled = gate > 0.0
+		queue_redraw()
+	if gate <= 0.0:
+		return
+	var level := energy * gate
 	if pulse_hz > 0.0:
 		level *= 0.55 + 0.45 * sin(_time * TAU * pulse_hz)
 	if _flicker_left > 0.0:
@@ -64,7 +75,10 @@ func _draw() -> void:
 		# 壞掉的燈：燈泡是暗的，沒有光錐。
 		draw_rect(Rect2(-4, 1, 8, 2), Color(color.darkened(0.7), 0.5))
 		return
-	var pulse := 1.0 if pulse_hz <= 0.0 else 0.55 + 0.45 * sin(_time * TAU * pulse_hz)
+	if _gate <= 0.0:
+		draw_rect(Rect2(-4, 1, 8, 2), Color(color.darkened(0.7), 0.5))
+		return
+	var pulse := (1.0 if pulse_hz <= 0.0 else 0.55 + 0.45 * sin(_time * TAU * pulse_hz)) * _gate
 	draw_rect(Rect2(-4, 1, 8, 2), LightKit.glow(color, 2.5 * pulse))
 	# 光錐（純裝飾，非常淡）
 	draw_colored_polygon(PackedVector2Array([Vector2(-4, 3), Vector2(4, 3), Vector2(40, 120), Vector2(-40, 120)]),

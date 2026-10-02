@@ -144,9 +144,23 @@ func brightness_gamma() -> float:
 	return pow(2.0, (get_brightness() - BRIGHTNESS_DEFAULT) * BRIGHTNESS_RANGE)
 
 
+## 光影品質檔位（LightQuality.Tier）。設定檔內容損毀或超出範圍時退回預設。
+func get_light_quality() -> int:
+	var value: Variant = get_value(DISPLAY_SECTION, "light_quality", LightQuality.DEFAULT_TIER)
+	if typeof(value) != TYPE_INT and typeof(value) != TYPE_FLOAT:
+		return LightQuality.DEFAULT_TIER
+	return clampi(int(value), LightQuality.Tier.LOW, LightQuality.Tier.HIGH)
+
+
+func set_light_quality(tier: int) -> void:
+	set_value(DISPLAY_SECTION, "light_quality", clampi(tier, LightQuality.Tier.LOW, LightQuality.Tier.HIGH))
+	display_changed.emit()
+
+
 func reset_display() -> void:
 	set_hud_auto_hide(HUD_AUTO_HIDE_DEFAULT)
 	set_brightness(BRIGHTNESS_DEFAULT)
+	set_light_quality(LightQuality.DEFAULT_TIER)
 
 
 func _default_volume(bus: StringName) -> float:

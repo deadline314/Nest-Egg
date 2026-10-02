@@ -112,7 +112,7 @@ func _ready() -> void:
 	_last_health = health.current
 
 	# 角色自帶柔光（含陰影），在暗處維持可讀性。
-	_light = LightKit.create_point_light(Palette.CYAN, 150.0, 0.75, true)
+	_light = LightKit.create_point_light(Palette.CYAN, 150.0, 0.75, true, false)
 	_light.position = Vector2(0, -30)
 	add_child(_light)
 

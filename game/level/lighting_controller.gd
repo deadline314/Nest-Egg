@@ -164,12 +164,14 @@ func _apply() -> void:
 		_post.apply(current)
 	var ambient_luma := maxf(0.01, LightKit.luminance(current.ambient_color))
 	LightKit.character_fill = clampf(current.character_floor / ambient_luma, 1.0, MAX_CHARACTER_FILL)
+	LightKit.lamp_power = current.lamp_power
 
 
 ## 離開關卡時還原泛光預設，避免主選單沿用最後一個區段的設定。
 func _on_exiting() -> void:
 	LightKit.set_glow(LightKit.DEFAULT_GLOW_THRESHOLD, LightKit.DEFAULT_GLOW_INTENSITY)
 	LightKit.character_fill = 1.0
+	LightKit.lamp_power = 1.0
 	if EventBus.lighting_override_requested.is_connected(set_override):
 		EventBus.lighting_override_requested.disconnect(set_override)
 	if EventBus.lighting_override_cleared.is_connected(clear_override):

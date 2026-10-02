@@ -17,8 +17,11 @@ var floor_y := INF
 
 var _font: Font
 var _light: PointLight2D
+var _gate := 1.0
 var _time := 0.0
 var _off_left := 0.0
+## 供電門檻：供電低於它時這塊招牌熄滅。
+var _power_threshold := randf_range(0.1, 0.95)
 var _broken_index := -1
 var _size := Vector2.ZERO
 
@@ -43,12 +46,14 @@ func _process(delta: float) -> void:
 		_off_left -= delta
 	elif randf() < 0.004:
 		_off_left = randf_range(0.04, 0.25)
-	_light.energy = (0.15 if _off_left > 0.0 else 0.9 + sin(_time * 30.0) * 0.05) * intensity
+	_gate = LightKit.power_gate(LightKit.lamp_power, _power_threshold)
+	_light.enabled = _gate > 0.0
+	_light.energy = (0.15 if _off_left > 0.0 else 0.9 + sin(_time * 30.0) * 0.05) * intensity * _gate
 	queue_redraw()
 
 
 func _draw() -> void:
-	var lit := _off_left <= 0.0
+	var lit := _off_left <= 0.0 and _gate > 0.0
 	# 外框與背板
 	draw_rect(Rect2(Vector2.ZERO, _size), Color("0b0d16"))
 	draw_rect(Rect2(Vector2.ZERO, _size), Color(color, 0.35 if lit else 0.12), false, 1.0)

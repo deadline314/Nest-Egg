@@ -923,6 +923,17 @@ func _test_inventory() -> void:
 	await _end_level(level)
 
 
+## 場景光源群組中目前啟用的光源數與開著陰影的光源數。
+func _count_scene_lights() -> Array[int]:
+	var lights := 0
+	var shadows := 0
+	for light: PointLight2D in get_tree().get_nodes_in_group(LightKit.SCENE_LIGHTS):
+		if light.visible and light.enabled and light.is_visible_in_tree():
+			lights += 1
+			shadows += 1 if light.shadow_enabled else 0
+	return [lights, shadows]
+
+
 func _test_lighting() -> void:
 	# 資料：所有光影設定與第一關的區段都有效。
 	var profile_count := 0
@@ -1029,6 +1040,14 @@ func _test_lighting() -> void:
 	await get_tree().create_timer(0.5, true).timeout
 	_check(ambient.color.is_equal_approx(blackout.ambient_color) and lighting.has_override(&"blackout"), "lighting override fades in")
 	_check(LightKit.character_fill > 2.0, "characters are lit up in the blackout (fill %.2f)" % LightKit.character_fill)
+	var working_lamps := 0
+	var lit_lamps := 0
+	for node in level._world.get_children():
+		var lamp := node as Lamp
+		if lamp != null and not lamp.dead:
+			working_lamps += 1
+			lit_lamps += 1 if lamp._light.enabled else 0
+	_check(working_lamps > 0 and lit_lamps == 0, "a blackout switches every working lamp off (%d of %d lit)" % [lit_lamps, working_lamps])
 	var alarm := load("res://data/lighting/alarm.tres") as LightingProfile
 	EventBus.lighting_override_requested.emit(&"blackout", alarm, 0.1)
 	await get_tree().create_timer(0.3, true).timeout
@@ -1036,6 +1055,85 @@ func _test_lighting() -> void:
 	EventBus.lighting_override_cleared.emit(&"blackout", 0.2)
 	await get_tree().create_timer(0.5, true).timeout
 	_check(ambient.color.is_equal_approx(zones[follow].profile.ambient_color) and not lighting.has_override(&"blackout"), "lighting returns to the zone after the override ends")
+
+	# 光源預算與品質：同時啟用的光源與陰影有上限、鏡頭外停用、停電時燈依序熄滅。
+	var budget: LightBudget = level._light_budget
+	_check(budget != null, "level builds the light budget")
+	_check(LightQuality.SETTINGS[LightQuality.Tier.LOW]["max_lights"] < LightQuality.SETTINGS[LightQuality.Tier.MEDIUM]["max_lights"]
+			and LightQuality.SETTINGS[LightQuality.Tier.MEDIUM]["max_lights"] < LightQuality.SETTINGS[LightQuality.Tier.HIGH]["max_lights"], "light budget grows with quality")
+	for tier in LightQuality.NAMES:
+		_check(not LightQuality.DESCRIPTIONS.get(tier, "").is_empty(), "every quality tier has a description")
+	_check(not get_tree().get_nodes_in_group(LightKit.SCENE_LIGHTS).has(level.player._light), "the player's own light is not budgeted")
+	_check(is_equal_approx(LightKit.power_gate(1.0, 0.9), 1.0) and is_equal_approx(LightKit.power_gate(0.0, 0.1), 0.0)
+			and LightKit.power_gate(0.5, 0.45) > LightKit.power_gate(0.5, 0.55), "power gate is monotonic")
+	var saved_settings := Settings.storage_path()
+	Settings.use_storage("user://test_quality.cfg")
+	_check(Settings.get_light_quality() == LightQuality.DEFAULT_TIER, "light quality defaults to high")
+	for spot_tile in [30, 115, 200, 252, 275, 330]:
+		level.player.global_position = Vector2(float(spot_tile) * tile, level.player.global_position.y)
+		await get_tree().create_timer(0.4, true).timeout
+		budget.refresh()
+		var counts := _count_scene_lights()
+		_check(counts[0] <= LightQuality.max_lights() and counts[1] <= LightQuality.shadow_lights() and counts[0] == budget.active_lights,
+				"light budget holds at tile %d (%d lights, %d shadows)" % [spot_tile, counts[0], counts[1]])
+	# 鏡頭外的燈停用、畫面內的燈啟用。
+	level.player.global_position = Vector2(30.0 * tile, level.player.global_position.y)
+	await get_tree().create_timer(0.5, true).timeout
+	budget.refresh()
+	var far_off := 0
+	var near_on := 0
+	var view_center := level.camera.get_screen_center_position()
+	for light: PointLight2D in get_tree().get_nodes_in_group(LightKit.SCENE_LIGHTS):
+		var dist := absf(light.global_position.x - view_center.x)
+		if dist > 900.0:
+			far_off += 0 if light.visible else 1
+			_check(not light.visible, "a light far outside the camera is switched off")
+		elif dist < 150.0 and light.enabled:
+			near_on += 1 if light.visible else 0
+	_check(far_off > 0 and near_on > 0, "lights far from the camera are off and lights in view are on (%d off, %d on)" % [far_off, near_on])
+	# 品質降到低：上限立刻變小，後製顆粒與色差關閉；回到高後恢復。
+	Settings.set_light_quality(LightQuality.Tier.LOW)
+	var low_counts := _count_scene_lights()
+	_check(low_counts[0] <= 8 and low_counts[1] <= 1, "low quality shrinks the light budget (%d lights, %d shadows)" % [low_counts[0], low_counts[1]])
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(is_zero_approx(post.parameter(&"grain")) and is_zero_approx(post.parameter(&"aberration")), "low quality turns off grain and aberration")
+	Settings.set_light_quality(LightQuality.Tier.HIGH)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(post.parameter(&"grain") > 0.0, "high quality brings grain back")
+	Settings.set_value(Settings.DISPLAY_SECTION, "light_quality", "oops")
+	_check(Settings.get_light_quality() == LightQuality.DEFAULT_TIER, "corrupt light quality falls back to the default")
+	Settings.set_light_quality(99)
+	_check(Settings.get_light_quality() == LightQuality.Tier.HIGH, "light quality is clamped")
+	Settings.reset_display()
+	_check(Settings.get_light_quality() == LightQuality.DEFAULT_TIER, "reset restores the light quality")
+	Settings.use_storage(saved_settings)
+	DirAccess.remove_absolute("user://test_quality.cfg")
+	# 部分供電：各盞燈依自己的門檻，有的亮有的滅；供電恢復後全部亮起。
+	var half_power := LightingProfile.new()
+	half_power.id = &"half_power"
+	half_power.lamp_power = 0.5
+	EventBus.lighting_override_requested.emit(&"half", half_power, 0.1)
+	await get_tree().create_timer(0.4, true).timeout
+	var half_on := 0
+	var half_off := 0
+	for node in level._world.get_children():
+		var lamp := node as Lamp
+		if lamp != null and not lamp.dead:
+			if lamp._light.enabled:
+				half_on += 1
+			else:
+				half_off += 1
+	_check(half_on > 0 and half_off > 0, "partial power switches some lamps off and keeps others on (%d on, %d off)" % [half_on, half_off])
+	EventBus.lighting_override_cleared.emit(&"half", 0.1)
+	await get_tree().create_timer(0.4, true).timeout
+	var all_on := true
+	for node in level._world.get_children():
+		var lamp := node as Lamp
+		if lamp != null and not lamp.dead:
+			all_on = all_on and lamp._light.enabled
+	_check(all_on, "restoring power switches every lamp back on")
 
 	# 發光的東西不受環境光壓暗；地形受光。
 	var emissive := LightKit.emissive_material()
@@ -1070,7 +1168,7 @@ func _test_lighting() -> void:
 	too_dark.character_floor = 0.25
 	_check(too_dark.validate().is_empty(), "a character floor makes a dark profile readable")
 	var rig: CharacterRig = level.player._visual.rig
-	_check(is_equal_approx(LightKit.character_fill, clampf(zones[follow].profile.character_floor / LightKit.luminance(zones[follow].profile.ambient_color), 1.0, LightingController.MAX_CHARACTER_FILL)), "character fill follows the zone")
+	_check(is_equal_approx(LightKit.character_fill, clampf(lighting.current.character_floor / LightKit.luminance(lighting.current.ambient_color), 1.0, LightingController.MAX_CHARACTER_FILL)), "character fill follows the current lighting")
 	_check(is_equal_approx(rig._fill, LightKit.character_fill), "player rig applies the character fill")
 	var terrain := level.get_node("World/Terrain")
 	var edge_chunks := 0

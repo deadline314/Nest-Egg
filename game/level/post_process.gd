@@ -47,8 +47,10 @@ func apply(profile: LightingProfile) -> void:
 	_write_param(&"shadow_tint", Vector3(profile.shadow_tint.r, profile.shadow_tint.g, profile.shadow_tint.b))
 	_write_param(&"highlight_tint", Vector3(profile.highlight_tint.r, profile.highlight_tint.g, profile.highlight_tint.b))
 	_write_param(&"vignette", profile.vignette)
-	_write_param(&"grain", profile.grain)
-	_write_param(&"aberration", profile.aberration)
+	# 顆粒與色差依光影品質縮放（中、低檔關閉）。
+	var effects := LightQuality.post_effects()
+	_write_param(&"grain", profile.grain * effects)
+	_write_param(&"aberration", profile.aberration * effects)
 
 
 func _apply_brightness() -> void:

@@ -14,6 +14,7 @@ var _status: Label
 var _sliders: Dictionary[StringName, HSlider] = {}
 var _slider_values: Dictionary[StringName, Label] = {}
 var _hud_auto_hide: CheckButton
+var _quality_option: OptionButton
 var _brightness_slider: HSlider
 var _brightness_value: Label
 ## "action:slot" -> Button
@@ -146,7 +147,39 @@ func _build_display_tab() -> Control:
 		Sfx.play(&"ui_confirm", -6.0, 0.0))
 	box.add_child(_hud_auto_hide)
 	box.add_child(_build_brightness_row())
+	box.add_child(_build_quality_row())
 	return box
+
+
+func _build_quality_row() -> Control:
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override(&"separation", 10)
+	row.tooltip_text = "光影品質：機器跑不順時調低；每一檔的差異見選項說明"
+	var name_label := UiKit.label("光影品質", 12)
+	name_label.custom_minimum_size = Vector2(LABEL_WIDTH, 0)
+	row.add_child(name_label)
+	_quality_option = OptionButton.new()
+	_quality_option.focus_mode = Control.FOCUS_ALL
+	_quality_option.custom_minimum_size = Vector2(120, 0)
+	for tier in [LightQuality.Tier.HIGH, LightQuality.Tier.MEDIUM, LightQuality.Tier.LOW]:
+		_quality_option.add_item(LightQuality.NAMES[tier], tier)
+		_quality_option.set_item_tooltip(_quality_option.item_count - 1, LightQuality.DESCRIPTIONS[tier])
+	_quality_option.tooltip_text = LightQuality.DESCRIPTIONS[Settings.get_light_quality()]
+	_select_quality_item()
+	_quality_option.item_selected.connect(_on_quality_selected)
+	row.add_child(_quality_option)
+	return row
+
+
+func _select_quality_item() -> void:
+	_quality_option.select(_quality_option.get_item_index(Settings.get_light_quality()))
+
+
+func _on_quality_selected(index: int) -> void:
+	var tier := _quality_option.get_item_id(index)
+	Settings.set_light_quality(tier)
+	_quality_option.tooltip_text = LightQuality.DESCRIPTIONS[tier]
+	_set_status("光影品質「%s」：%s" % [LightQuality.NAMES[tier], LightQuality.DESCRIPTIONS[tier]], Palette.CYAN)
 
 
 func _build_brightness_row() -> Control:
@@ -316,6 +349,8 @@ func _reset_current_tab() -> void:
 		_hud_auto_hide.set_pressed_no_signal(Settings.get_hud_auto_hide())
 		_brightness_slider.set_value_no_signal(roundf(Settings.get_brightness() * 100.0))
 		_update_brightness_label()
+		_select_quality_item()
+		_quality_option.tooltip_text = LightQuality.DESCRIPTIONS[Settings.get_light_quality()]
 		_set_status("顯示已恢復預設。", Palette.CYAN)
 
 

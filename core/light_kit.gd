@@ -6,11 +6,15 @@ extends RefCounted
 const TEXTURE_SIZE := 128
 const DEFAULT_GLOW_THRESHOLD := 1.0
 const DEFAULT_GLOW_INTENSITY := 0.9
+## 供電變化時，一盞燈從全亮到全滅的過渡寬度。
+const POWER_RAMP := 0.1
 
 static var _soft_texture: GradientTexture2D
 ## 角色（骨架零件）的補光倍率，由 LightingController 依環境光與區段的 character_floor 更新。
 ## 環境光很暗時把角色零件的亮度往上補，確保玩家與敵人永遠有最低可讀亮度。
 static var character_fill := 1.0
+## 場景燈的供電（0~1）：由 LightingController 依光影設定更新，每盞燈依自己的門檻依序熄滅／亮起。
+static var lamp_power := 1.0
 static var _emissive_material: CanvasItemMaterial
 static var _environment: Environment
 
@@ -32,8 +36,14 @@ static func soft_texture() -> GradientTexture2D:
 	return _soft_texture
 
 
-## 建立點光源。radius 為像素半徑；shadows 會讓地形投射陰影（較耗效能，只給重要光源）。
-static func create_point_light(color: Color, radius: float, energy: float, shadows := false) -> PointLight2D:
+## 場景光源群組：LightBudget 只管理這個群組裡的光源（鏡頭外停用、同時啟用與陰影數量有上限）。
+const SCENE_LIGHTS := &"scene_lights"
+## 光源「想要陰影」的標記（預算決定實際給不給）。
+const META_WANTS_SHADOW := &"wants_shadow"
+
+## 建立點光源。radius 為像素半徑；shadows 表示這盞燈想要陰影（較耗效能，實際由 LightBudget 依預算決定）。
+## managed = false 的光源不受預算管理（玩家自己的光、戰鬥特效的光源池）。
+static func create_point_light(color: Color, radius: float, energy: float, shadows := false, managed := true) -> PointLight2D:
 	var light := PointLight2D.new()
 	light.texture = soft_texture()
 	light.texture_scale = maxf(0.05, radius * 2.0 / TEXTURE_SIZE)
@@ -41,6 +51,9 @@ static func create_point_light(color: Color, radius: float, energy: float, shado
 	light.energy = energy
 	light.blend_mode = Light2D.BLEND_MODE_ADD
 	light.shadow_enabled = shadows
+	light.set_meta(META_WANTS_SHADOW, shadows)
+	if managed:
+		light.add_to_group(SCENE_LIGHTS)
 	if shadows:
 		light.shadow_filter = Light2D.SHADOW_FILTER_PCF5
 		light.shadow_filter_smooth = 2.0
@@ -85,6 +98,12 @@ static func create_environment() -> WorldEnvironment:
 	var world_env := WorldEnvironment.new()
 	world_env.environment = env
 	return world_env
+
+
+## 單盞燈在目前供電下的亮度比例（0~1）：供電低於這盞燈的門檻時熄滅，在門檻附近有一小段漸暗。
+## threshold 建議在 0.1~0.95 之間（供電 0 時所有燈都會熄滅、供電 1 時都亮）。
+static func power_gate(power: float, threshold: float) -> float:
+	return clampf((power - threshold) / POWER_RAMP + 1.0, 0.0, 1.0)
 
 
 ## 亮度（0.2126 R + 0.7152 G + 0.0722 B）。
