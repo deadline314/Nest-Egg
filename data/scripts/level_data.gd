@@ -8,6 +8,7 @@ extends Resource
 ##   |  雷射柵欄      P  玩家起點                  C  檢查點
 ##   H  回復道具      B  頭目戰場左界（進入後鎖鏡頭）
 ##   *  場景燈        1~9  教學看板（文字取自 hints[n-1]）
+## 裝飾字元由 decor 對應（例如 $ 直式霓虹招牌、% 橫式招牌、@ 全像看板、~ 排氣孔）。
 ##   .  或空白為空氣
 ## 其他字元由 legend 對應到 EnemyData / WeaponData / VehicleData。
 ## 實體字元代表「腳底所在的格子」。
@@ -19,6 +20,14 @@ extends Resource
 @export var height: int = 23
 ## 單一字元 -> Resource。
 @export var legend: Dictionary[String, Resource] = {}
+## 單一字元 -> 裝飾種類：neon_sign、neon_sign_h、billboard、steam_vent。
+@export var decor: Dictionary[String, String] = {}
+## 霓虹招牌文字（依位置固定挑選）。
+@export var sign_texts: PackedStringArray = PackedStringArray(["拉麵", "薬", "酒場", "義体", "電腦"])
+## 全像看板廣告，格式「標題|副標」。
+@export var billboard_ads: PackedStringArray = PackedStringArray(["天穹集團|讓天空屬於每個人"])
+@export var rain := true
+@export var fog_color := Color(0.55, 0.45, 0.85, 1.0)
 ## 教學看板文字，地圖字元 "1" 對應 hints[0]。請寫重點，一句話。
 ## 提到按鍵時請用 {動作} 佔位符（例如 {jump}），玩家改鍵後提示會自動更新。
 @export var hints: PackedStringArray = PackedStringArray()

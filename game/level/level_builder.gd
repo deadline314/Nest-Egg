@@ -32,6 +32,7 @@ static func parse(data: LevelData) -> LevelLayout:
 	layout.platform_rects = _merge_cells(layout, PLATFORM, true, false)
 	layout.spike_rects = _merge_cells(layout, SPIKES, true, false)
 	layout.laser_rects = _merge_cells(layout, LASER, false, true)
+	_compute_surfaces(layout)
 	if not layout.has_player_start:
 		layout.warnings.append("地圖缺少玩家起點 P")
 	for warning in layout.warnings:
@@ -87,11 +88,34 @@ static func _scan_cells(data: LevelData, layout: LevelLayout) -> void:
 				_:
 					if c.is_valid_int():
 						_add_hint(data, layout, c, x, y)
+					elif data.decor.has(c):
+						layout.decor.append({"kind": data.decor[c], "cell": Vector2i(x, y),
+								"position": Vector2(x, y) * layout.tile_size})
 					elif data.legend.has(c):
 						_add_spawn(data.legend[c], layout, c, x, y)
 					elif not unknown.has(c):
 						unknown[c] = true
 						layout.warnings.append("未知字元 '%s'（第 %d 列第 %d 欄），視為空氣" % [c, y, x])
+
+
+## 計算每欄的地表高度與是否有屋頂（雨、霧、背牆、倒影都依此判斷）。
+static func _compute_surfaces(layout: LevelLayout) -> void:
+	layout.surface_heights.resize(layout.width)
+	layout.covered_columns.resize(layout.width)
+	var heights: Array[float] = []
+	for x in layout.width:
+		var surface := INF
+		for y in layout.height:
+			var c := layout.cell(x, y)
+			if c == SOLID or c == PLATFORM:
+				surface = float(y * layout.tile_size)
+				break
+		layout.surface_heights[x] = surface
+		layout.covered_columns[x] = 1 if layout.cell(x, 0) == SOLID else 0
+		if surface != INF and surface > 0.0:
+			heights.append(surface)
+	heights.sort()
+	layout.ground_y = heights[heights.size() / 2] if not heights.is_empty() else layout.pixel_size().y
 
 
 static func _add_hint(data: LevelData, layout: LevelLayout, c: String, x: int, y: int) -> void:

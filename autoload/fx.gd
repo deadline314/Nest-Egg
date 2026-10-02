@@ -138,6 +138,23 @@ func add_world_node(node: Node2D) -> bool:
 	return true
 
 
+## 雨滴落地的小水花。
+func splash(position: Vector2) -> void:
+	if _particles == null:
+		return
+	for i in 2:
+		var velocity := Vector2(randf_range(-40.0, 40.0), randf_range(-70.0, -35.0))
+		_particles.emit(position, velocity, Color(0.7, 0.8, 1.0, 0.55), randf_range(0.12, 0.22), 1.0, 500.0, 1.0, ParticleField.Shape.SPARK)
+
+
+## 緩慢上升的蒸汽。
+func steam(position: Vector2) -> void:
+	if _particles == null:
+		return
+	var velocity := Vector2(randf_range(-6.0, 6.0), randf_range(-38.0, -22.0))
+	_particles.emit(position, velocity, Color(0.75, 0.78, 0.9, 0.12), randf_range(1.2, 2.0), randf_range(4.0, 7.0), -6.0, 0.4, ParticleField.Shape.DUST)
+
+
 # ---------------------------------------------------------------------------
 # 光源與爆炸
 # ---------------------------------------------------------------------------

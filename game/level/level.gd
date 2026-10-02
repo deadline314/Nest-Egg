@@ -48,6 +48,8 @@ func _ready() -> void:
 	_world.add_child(back_wall)
 	back_wall.setup(_layout, hash(data.id))
 
+	_spawn_decor()
+
 	var terrain := Terrain.new()
 	terrain.name = "Terrain"
 	_world.add_child(terrain)
@@ -68,6 +70,8 @@ func _ready() -> void:
 	fx.z_index = 6
 	_world.add_child(fx)
 	Fx.bind_container(fx)
+
+	_spawn_atmosphere()
 
 	hud = Hud.new()
 	add_child(hud)
@@ -131,8 +135,8 @@ func _spawn_static_entities() -> void:
 	for i in _layout.lamps.size():
 		var lamp := Lamp.new()
 		lamp.position = _layout.lamps[i] + Vector2(0, 2)
-		# 冷暖光交錯，增加畫面層次。
-		lamp.color = Palette.CYAN if i % 3 != 2 else Palette.WARM_LIGHT
+		# 霓虹三原色交錯，增加畫面層次。
+		lamp.color = [Palette.CYAN, Palette.MAGENTA, Palette.NEON_YELLOW][i % 3]
 		_world.add_child(lamp)
 	for hint in _layout.hints:
 		var sign := HintSign.new()
@@ -146,6 +150,51 @@ func _spawn_static_entities() -> void:
 			_entities.add_child(node)
 			if node is Vehicle:
 				(node as Vehicle).fall_limit_y = _fall_limit()
+
+
+## 招牌、看板、排氣孔等裝飾（畫在地形與角色之後方）。
+func _spawn_decor() -> void:
+	for entry in _layout.decor:
+		var cell: Vector2i = entry["cell"]
+		var position: Vector2 = entry["position"]
+		var hash_value := absi(cell.x * 73856093 ^ cell.y * 19349663)
+		var neon: Color = Palette.NEON_COLORS[hash_value % Palette.NEON_COLORS.size()]
+		match str(entry["kind"]):
+			"neon_sign", "neon_sign_h":
+				var sign := NeonSign.new()
+				sign.vertical = entry["kind"] == "neon_sign"
+				sign.text = data.sign_texts[hash_value % data.sign_texts.size()] if not data.sign_texts.is_empty() else "OPEN"
+				sign.color = neon
+				sign.position = position
+				sign.floor_y = _layout.floor_below(cell.x, cell.y)
+				_world.add_child(sign)
+			"billboard":
+				var board := HoloBillboard.new()
+				board.position = position
+				board.color = neon
+				board.ads = data.billboard_ads
+				_world.add_child(board)
+			"steam_vent":
+				var vent := SteamVent.new()
+				vent.position = position + Vector2(_layout.tile_size * 0.5, _layout.tile_size)
+				_world.add_child(vent)
+			_:
+				push_warning("[Level] 未知的裝飾種類：%s" % entry["kind"])
+
+
+## 雨與霧（畫在角色前方，低透明度）。
+func _spawn_atmosphere() -> void:
+	var fog := FogLayer.new()
+	fog.z_index = 7
+	fog.ground_y = _layout.ground_y
+	fog.color = data.fog_color
+	_world.add_child(fog)
+	if data.rain:
+		var rain := RainLayer.new()
+		rain.z_index = 8
+		rain.tile_size = _layout.tile_size
+		rain.surface_heights = _layout.surface_heights
+		_world.add_child(rain)
 
 
 ## 依資源型別建立對應實體；未知型別記錄警告並略過。

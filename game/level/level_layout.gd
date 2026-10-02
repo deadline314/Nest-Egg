@@ -16,6 +16,14 @@ var laser_rects: Array[Rect2i] = []
 var checkpoints := PackedVector2Array()
 var health_pickups := PackedVector2Array()
 var lamps := PackedVector2Array()
+## { "kind": String, "cell": Vector2i, "position": Vector2（格子左上角像素）}
+var decor: Array[Dictionary] = []
+## 每一欄由上往下第一個地表（實心或平台）的像素高度；沒有則為 INF。
+var surface_heights := PackedFloat32Array()
+## 每一欄是否在室內（最上方一列就是實心＝有屋頂）。
+var covered_columns := PackedByteArray()
+## 主要地面高度（各欄地表的中位數），霧氣與倒影使用。
+var ground_y := 0.0
 ## { "text": String, "position": Vector2 }
 var hints: Array[Dictionary] = []
 ## { "resource": Resource, "position": Vector2 }
@@ -42,6 +50,15 @@ func cells_to_pixels(rect: Rect2i) -> Rect2:
 ## 格子 → 腳底座標（格子底邊中點）。
 func cell_to_feet(x: int, y: int) -> Vector2:
 	return Vector2((x + 0.5) * tile_size, (y + 1) * tile_size)
+
+
+## 從格子 (x, y) 往下找到的第一個地表（實心或平台）的像素高度；沒有則為 INF。
+func floor_below(x: int, y: int) -> float:
+	for yy in range(maxi(0, y), height):
+		var c := cell(x, yy)
+		if c == "#" or c == "=":
+			return float(yy * tile_size)
+	return INF
 
 
 func cell(x: int, y: int) -> String:

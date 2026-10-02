@@ -31,4 +31,12 @@ legend = Dictionary[String, Resource]({
 "t": ExtResource("5_turret")
 })
 hints = PackedStringArray("移動 {move_left}/{move_right}，跳躍 {jump}（按久跳更高）", "滑鼠瞄準，{shoot} 射擊；{weapon_next} 或 1～4 換武器", "紅線變亮＝已鎖定：蹲下（{move_down}）或跳起閃避", "敵人頭上出現青色菱形：按 {melee} 終結，回補彈藥", "盾衛犬正面擋子彈：跳過或衝刺（{dash}）穿越，打背後", "{move_down}＋{jump} 可從平台落下", "看到地面紅圈就移開；貼近迫擊兵牠就無法開砲", "按 {interact} 搭乘機甲：爆炸彈頭無視盾牌", "打爆自爆蟲，爆炸會波及牠的同伴")
+decor = Dictionary[String, String]({
+"$": "neon_sign",
+"%": "neon_sign_h",
+"@": "billboard",
+"~": "steam_vent"
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦", "茶", "修理", "網咖", "當舖", "夜市", "OPEN", "24H")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人", "NEST 計畫|為了更好的明天", "軌道醫院|治癒，只差一張票", "天穹保全|您的安全，我們的承諾")
 layout_path = "res://data/levels/level_01_map.json"

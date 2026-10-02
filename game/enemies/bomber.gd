@@ -56,14 +56,23 @@ func _on_defeated(_info: DamageInfo) -> void:
 
 
 func _draw_body(color: Color) -> void:
+	# 霓虹機械風：蜘蛛型自爆機，黃黑警示環、內部核心光隨引信加速閃爍。
 	var w := data.body_size.x
 	var h := data.body_size.y
 	var fusing := fsm.is_in(&"fuse")
-	var blink := fusing and int(_anim_time * (10.0 + 30.0 * (1.0 - _telegraph_left / maxf(0.01, data.ability_time)))) % 2 == 0
-	var body_color := LightKit.glow(Palette.WARNING, 2.5) if blink else color
-	var squish := 1.0 + (sin(_anim_time * 24.0) * 0.1 if fsm.is_in(&"chase") else 0.0)
-	draw_circle(Vector2(0, -h * 0.5), w * 0.5 * squish, body_color)
-	draw_circle(Vector2(0, -h * 0.5), w * 0.25, LightKit.glow(Palette.WARNING, 1.6))
+	var rate := 10.0 + 30.0 * (1.0 - _telegraph_left / maxf(0.01, data.ability_time))
+	var blink := fusing and int(_anim_time * rate) % 2 == 0
+	var center := Vector2(0, -h * 0.55)
 	var leg := sin(_anim_time * 26.0) * 2.0
-	draw_line(Vector2(-w * 0.3, -2), Vector2(-w * 0.5 + leg, 0), color.darkened(0.4), 1.5)
-	draw_line(Vector2(w * 0.3, -2), Vector2(w * 0.5 - leg, 0), color.darkened(0.4), 1.5)
+	for side: float in [-1.0, 1.0]:
+		for i in 2:
+			var root := center + Vector2(side * w * 0.2, 2)
+			var knee := root + Vector2(side * (w * 0.35 + i * 2.0), -3.0 + leg * (1 if i == 0 else -1))
+			var foot := Vector2(side * (w * 0.55 + i * 3.0), 0)
+			draw_polyline(PackedVector2Array([root, knee, foot]), Color("3b4256"), 1.5)
+	var shell := Color("8d97ab") if color != Palette.WHITE else color
+	draw_circle(center, w * 0.45, shell.darkened(0.35))
+	draw_arc(center, w * 0.45, 0.0, TAU, 20, Color("07080d"), 1.0)
+	draw_arc(center, w * 0.32, 0.0, TAU, 16, Color(Palette.NEON_YELLOW, 0.9), 2.0)
+	var core := LightKit.glow(Palette.WARNING, 3.0) if blink else LightKit.glow(Palette.WARNING, 1.4)
+	draw_circle(center, w * 0.18, core)

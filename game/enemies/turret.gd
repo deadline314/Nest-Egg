@@ -92,11 +92,22 @@ func _draw_overlay() -> void:
 
 
 func _draw_body(color: Color) -> void:
+	# 霓虹機械風：警示條紋底座、鉻金屬砲塔、紅色感測眼。
 	var w := data.body_size.x
 	var h := data.body_size.y
-	draw_rect(Rect2(-w * 0.6, -h * 0.45, w * 1.2, h * 0.45), Palette.TERRAIN_EDGE)
+	var base := Rect2(-w * 0.6, -h * 0.45, w * 1.2, h * 0.45)
+	draw_rect(base, Color("232838"))
+	var stripe_x := base.position.x
+	while stripe_x < base.end.x - 3.0:
+		draw_colored_polygon(PackedVector2Array([Vector2(stripe_x, base.end.y), Vector2(stripe_x + 3, base.position.y),
+				Vector2(stripe_x + 6, base.position.y), Vector2(stripe_x + 3, base.end.y)]), Color(Palette.NEON_YELLOW, 0.75))
+		stripe_x += 8.0
+	draw_rect(base, Color("07080d"), false, 1.0)
 	var pivot := Vector2(0, -h * 0.7)
-	draw_circle(pivot, w * 0.45, color)
-	draw_line(pivot, pivot + _aim * 12.0, color.lightened(0.3), 3.0)
-	var eye := LightKit.glow(Palette.DANGER, 3.0 if fsm.is_in(&"lock") else 1.4)
-	draw_circle(pivot, 2.0, eye)
+	var chrome := Color("9aa5b8") if color != Palette.WHITE else color
+	draw_circle(pivot, w * 0.45, chrome.darkened(0.3))
+	draw_arc(pivot, w * 0.45, PI, TAU, 16, chrome.lightened(0.2), 1.5)
+	draw_line(pivot, pivot + _aim * 14.0, chrome.darkened(0.1), 4.0)
+	draw_line(pivot + _aim * 12.0, pivot + _aim * 15.0, Color("07080d"), 4.0)
+	var eye := LightKit.glow(Palette.DANGER, 3.4 if fsm.is_in(&"lock") else 1.6)
+	draw_circle(pivot, 2.6, eye)

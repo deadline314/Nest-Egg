@@ -81,13 +81,25 @@ func _draw_overlay() -> void:
 
 
 func _draw_body(color: Color) -> void:
+	# 霓虹機械風：鉻金屬機身、旋翼光暈、雙色導航燈。
 	var h := data.body_size.y
 	var w := data.body_size.x
 	var c := Vector2(0, -h * 0.5)
 	var blink := fsm.is_in(&"lock") and int(_anim_time * 18.0) % 2 == 0
-	draw_rect(Rect2(c.x - w * 0.5, c.y - h * 0.3, w, h * 0.6), LightKit.glow(Palette.WHITE, 1.8) if blink else color)
-	var rotor := absf(sin(_anim_time * 40.0)) * w * 0.6
-	draw_line(c + Vector2(-rotor, -h * 0.5), c + Vector2(rotor, -h * 0.5), Palette.TERRAIN_TOP, 1.0)
-	draw_line(c + Vector2(0, -h * 0.3), c + Vector2(0, -h * 0.5), Palette.TERRAIN_TOP, 1.0)
-	var eye := LightKit.glow(Palette.DANGER, 3.0 if is_telegraphing() or fsm.is_in(&"dive") else 1.5)
-	draw_circle(c + Vector2(facing * w * 0.25, 1), 1.8, eye)
+	var chrome := Color("8d97ab") if not blink else LightKit.glow(Palette.WHITE, 1.8)
+	var shell := PackedVector2Array([c + Vector2(-w * 0.5, 0), c + Vector2(-w * 0.3, -h * 0.35), c + Vector2(w * 0.35, -h * 0.35),
+			c + Vector2(w * 0.5, 0), c + Vector2(w * 0.3, h * 0.35), c + Vector2(-w * 0.3, h * 0.35)])
+	draw_colored_polygon(shell, chrome.darkened(0.35) if color != Palette.WHITE else chrome)
+	draw_polyline(shell + PackedVector2Array([shell[0]]), Color("07080d"), 1.0)
+	draw_line(c + Vector2(-w * 0.3, -h * 0.2), c + Vector2(w * 0.3, -h * 0.2), chrome.lightened(0.3), 1.0)
+	# 旋翼
+	var spin := absf(sin(_anim_time * 40.0)) * w * 0.7
+	for side: float in [-1.0, 1.0]:
+		var hub := c + Vector2(side * w * 0.45, -h * 0.55)
+		draw_line(hub + Vector2(-spin * 0.5, 0), hub + Vector2(spin * 0.5, 0), Color(Palette.NEON_PURPLE, 0.7), 1.0)
+		draw_arc(hub, w * 0.3, 0.0, TAU, 12, Color(LightKit.glow(Palette.NEON_PURPLE, 1.2), 0.25), 1.0)
+	# 眼與導航燈
+	var eye := LightKit.glow(Palette.DANGER, 3.2 if is_telegraphing() or fsm.is_in(&"dive") else 1.6)
+	draw_circle(c + Vector2(facing * w * 0.22, 1), 2.2, eye)
+	draw_circle(c + Vector2(-w * 0.45, 2), 1.0, LightKit.glow(Palette.MAGENTA, 1.6))
+	draw_circle(c + Vector2(w * 0.45, 2), 1.0, LightKit.glow(Palette.CYAN, 1.6))
