@@ -10,11 +10,11 @@
       "file": "parts/hair_back_2.png",
       "size": [
         109,
-        176
+        173
       ],
       "pivot": [
         66.72,
-        29.49
+        26.49
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -22,7 +22,7 @@
       "file": "parts/hair_back_1.png",
       "size": [
         94,
-        198
+        195
       ],
       "pivot": [
         53.4,
@@ -34,11 +34,11 @@
       "file": "parts/pelvis.png",
       "size": [
         153,
-        119
+        113
       ],
       "pivot": [
         68.56,
-        91.37
+        88.37
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
       "glow": "parts/pelvis_glow.png"
@@ -47,7 +47,7 @@
       "file": "parts/torso.png",
       "size": [
         170,
-        286
+        283
       ],
       "pivot": [
         47.51,
@@ -60,7 +60,7 @@
       "file": "parts/head.png",
       "size": [
         113,
-        131
+        120
       ],
       "pivot": [
         43.78,
@@ -72,23 +72,35 @@
     "jacket": {
       "file": "parts/jacket.png",
       "size": [
-        194,
-        285
+        131,
+        228
       ],
       "pivot": [
         109.51,
-        205.65
+        149.65
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "jacket_collar": {
+      "file": "parts/jacket_collar.png",
+      "size": [
+        69,
+        54
+      ],
+      "pivot": [
+        -22.22,
+        16.98
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "holster": {
       "file": "parts/holster.png",
       "size": [
-        119,
-        93
+        98,
+        94
       ],
       "pivot": [
-        43.35,
+        43.28,
         -35.81
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
@@ -96,36 +108,36 @@
     "leg_upper": {
       "file": "parts/leg_upper.png",
       "size": [
-        143,
-        215
+        127,
+        209
       ],
       "pivot": [
-        63.33,
-        -2.81
+        53.35,
+        -5.95
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_lower": {
       "file": "parts/leg_lower.png",
       "size": [
-        90,
-        193
+        76,
+        189
       ],
       "pivot": [
-        54.9,
-        14.18
+        54.63,
+        10.03
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "foot": {
       "file": "parts/foot.png",
       "size": [
-        150,
-        189
+        139,
+        180
       ],
       "pivot": [
         49.32,
-        70.51
+        61.51
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
       "glow": "parts/foot_glow.png"
@@ -134,11 +146,11 @@
       "file": "parts/arm_upper.png",
       "size": [
         79,
-        191
+        187
       ],
       "pivot": [
         25.05,
-        47.01
+        46.07
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
       "glow": "parts/arm_upper_glow.png"
@@ -146,12 +158,12 @@
     "arm_lower": {
       "file": "parts/arm_lower.png",
       "size": [
-        57,
-        154
+        52,
+        147
       ],
       "pivot": [
-        27.37,
-        12.31
+        27.3,
+        9.31
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
       "glow": "parts/arm_lower_glow.png"
@@ -259,6 +271,12 @@
       "name": "jacket",
       "texture": "jacket",
       "bone": "chest",
+      "z": 4
+    },
+    {
+      "name": "jacket_collar",
+      "texture": "jacket_collar",
+      "bone": "neck",
       "z": 4
     },
     {

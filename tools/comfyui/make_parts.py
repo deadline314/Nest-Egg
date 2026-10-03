@@ -232,12 +232,16 @@ def main() -> None:
             region &= dilate(V[pdef["within"]], pdef.get("within_grow", 3))
         if "not_within" in pdef:
             region &= ~dilate(V[pdef["not_within"]], pdef.get("within_grow", 3))
+        if "blob" in pdef:  # "main" = the largest connected piece of the region, "rest" = every other piece (e.g. a collar floating beside the neck)
+            n_, lab_, st_, _ = cv2.connectedComponentsWithStats(region.astype(np.uint8), connectivity=8)
+            main_ = lab_ == (1 + int(np.argmax(st_[1:, cv2.CC_STAT_AREA]))) if n_ > 1 else region
+            region = main_ if pdef["blob"] == "main" else region & ~main_
         parts[pname] = region
     # each part also gets `seam` px of its neighbours inside the same group, so joints can turn without cracks
     for pname, pdef in spec["parts"].items():
         grp = complete[pdef["group"]]
         region = parts[pname]
-        grown = dilate(region, seam) & (grp[:, :, 3] > 127)
+        grown = dilate(region, 2 if "blob" in pdef else seam) & (grp[:, :, 3] > 127)
         if "minus_group" in pdef:
             grown &= ~(complete[pdef["minus_group"]][:, :, 3] > 127)
         grown = largest_blobs(grown)

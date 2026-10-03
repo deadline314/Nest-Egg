@@ -11,7 +11,8 @@ Full description with pictures: design/03-art-pipeline/CHARACTER_PIPELINE.md. `w
   design    Qwen Image 2.1 (RGBA)      recipe.design.prompt                           work/01_design/design_s<seed>.png, work/base_rgba.png (transparent side view)
   pose      SAM 3D Body                work/base_rgba.png                             work/keypoints.json, work/02_pose/overlay.png   (reference for the joints in the spec)
   parts     SAM 3.1 + Qwen (peeling)   work/base_rgba.png, spec.groups / stages      work/sam/, work/04_stages/{A,B}.png, work/05_groups/*, work/06_parts/<part>.png
-  textures  cut_layers.py              work/06_parts/*.png, spec.joints / bones       art/characters/<id>/parts/*.png (+_glow), character.json, art/rigs/<rig>.json
+  refine    refine_parts.py            work/06_parts/*.png, spec.refine               work/07_refined/*.png   (far leg, stray lines, halo and specks removed)
+  textures  cut_layers.py              work/07_refined/*.png, spec.joints / bones     art/characters/<id>/parts/*.png (+_glow), character.json, art/rigs/<rig>.json
   normals   Godot paint_normals        art/characters/<id>/parts/*.png                parts/*_n.png
   import    Godot --editor --quit      art/characters/<id>                            .godot/imported (the engine sees the new PNGs)
   preview   Godot rig_preview          art/characters/<id>                            work/08_preview/{poses,closeup,head,damage}.png
@@ -31,7 +32,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
-STEPS = ["design", "pose", "parts", "textures", "normals", "import", "preview"]
+STEPS = ["design", "pose", "parts", "refine", "textures", "normals", "import", "preview"]
 COMFY_DIR = Path(os.environ.get("COMFYUI_DIR", "D:/ComfyUI"))
 GODOT = os.environ.get("GODOT", "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe")
 
@@ -144,6 +145,12 @@ class Build:
         cmd = [sys.executable, str(HERE / "make_parts.py"), "--spec", str(self.spec), "--work", str(self.work)]
         log("  " + (run(cmd, "parts").strip().splitlines() or [""])[-1])
         return [self.work / "06_parts", self.work / "06_parts/ownership.png"]
+
+    def step_refine(self) -> list[Path]:
+        self.need(self.work / "06_parts", "refine")
+        out = run([sys.executable, str(HERE / "refine_parts.py"), "--spec", str(self.spec), "--work", str(self.work)], "refine")
+        log("  " + (out.strip().splitlines() or [""])[-1])
+        return [self.work / "07_refined"]
 
     def step_textures(self) -> list[Path]:
         self.need(self.work / "06_parts", "textures")

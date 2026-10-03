@@ -34,7 +34,8 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
 | 1 | `design` | Qwen Image 2.1，文生圖，原生 RGBA | 配方的 `design.prompt` | `work/01_design/design_s<種子>.png`、**`work/base_rgba.png`**（透明背景側面全身圖，832×1216） |
 | 2 | `pose` | SAM 3D Body | `base_rgba.png`（墊灰底） | `work/keypoints.json`、`work/02_pose/overlay.png`。肩、肘、腕、髖、膝、踝的預測位置，用來填 spec 的 `joints` |
 | 3 | `parts` | SAM 3.1 ＋ Qwen 編輯 | `base_rgba.png`、spec 的 `groups` `stages` `parts` | `work/sam/`（遮罩）、`work/04_stages/A.png`（剝層圖）、`work/05_groups/<群組>*.png`、**`work/06_parts/<零件>.png`**（每個零件一張，座標與原圖相同）、`06_parts/ownership.png`（檢查用） |
-| 4 | `textures` | `cut_layers.py` | `06_parts/*.png`、spec 的 `joints` `bones` `parts` | **`art/characters/<id>/parts/<零件>.png`**（＋`_glow.png`）、`art/characters/<id>/character.json`、`art/rigs/humanoid_tall.json` |
+| 3b | `refine` | `refine_parts.py` | `06_parts/*.png`、spec 的 `refine` | **`work/07_refined/<零件>.png`**（同座標）。移除遠側腿與靴（Qwen 畫成一整條藍綠剪影）、把 Qwen 補全時畫在大腿上的口袋線抹平、半透明邊緣的白色光暈改成內側顏色、游離碎屑與零星白點／洋紅點、輪廓階梯鋸齒；另有 `erase` 多邊形可手動清掉特定碎片 |
+| 4 | `textures` | `cut_layers.py` | `07_refined/*.png`（沒有就用 `06_parts/`）、spec 的 `joints` `bones` `parts` | **`art/characters/<id>/parts/<零件>.png`**（＋`_glow.png`）、`art/characters/<id>/character.json`、`art/rigs/humanoid_tall.json` |
 | 5 | `normals` | Godot `tools/art/paint_normals.tscn` | `parts/*.png` | `parts/*_n.png`（法線貼圖，打光用） |
 | 6 | `import` | Godot `--headless --editor --quit` | `art/characters/<id>/` | `.godot/imported`。**必須在 normals 之後**，否則新的法線貼圖不會被匯入 |
 | 7 | `preview` | Godot `tools/rig_preview.tscn` | 角色 | `work/08_preview/{poses,closeup,head,damage}.png` |
@@ -64,12 +65,17 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
 | `leg_upper`、`leg_lower`、`foot` | `leg_front_*`／`foot_front`（z 3）與 `leg_back_*`／`foot_back`（z −5，亮度 0.62） | | 前後腿共用同一張圖 |
 | `holster` | `leg_front_upper` | 4 | **配件**：大腿槍套 |
 | `jacket` | `chest` | 4 | **配件**：披在肩上的夾克（含洋紅襯裡） |
+| `jacket_collar` | `neck` | 4 | **配件**：脖子旁的遠側翻領（原本是夾克上獨立的一塊，spec 用 `blob: "rest"` 分出） |
 | `head` | `head` | 5 | 臉、前髮、耳環 |
 | `arm_upper`、`arm_lower`、`hand` | `arm_front_*`／`hand_front`（z 8～10）與 `arm_back_*`／`hand_back`（z −7～−6，亮度 0.62） | | 金屬義肢 |
 
 每張圖旁邊還有 `<名稱>_glow.png`（霓虹發光層，加法混合）與 `<名稱>_n.png`（法線）。`character.json` 的 `textures` 記錄每張圖的尺寸與**支點**（旋轉中心），`parts` 記錄掛載（骨頭、z、亮度）。
 
 **配件（夾克、槍套）**目前各自一張圖掛在骨頭上，之後要加動畫（飄動、擺動）只要新增骨頭，或把它掛到 `coat_1`／`coat_2` 這兩根彈簧骨，不必重畫圖。
+
+**肢體偏移**：spec `bones` 的 `dx` 是骨頭相對關節的水平位移。圖是從同一張側面圖切出的，近側（前）手腳必須是 0，否則會和骨盆、夾克、衣服對不齊，切口沿線出現方框；遠側（後）手腳用負值讓兩條腿分得開。
+
+**切口不留透明邊**：spec `parts` 有 `y` 的零件（在關節處切開的），切口那一側不留透明邊，法線貼圖（會把每個透明邊緣做成圓邊）才不會沿切口打出亮邊。
 
 ## 4. 日後怎麼替換
 

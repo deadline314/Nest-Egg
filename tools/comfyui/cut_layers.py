@@ -3,7 +3,7 @@
     D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/cut_layers.py --spec tools/comfyui/specs/rin_side.json --work art_src/characters/rin2 \
         --char art/characters/rin --rig art/rigs/humanoid_tall.json
 
-Inputs : <work>/06_parts/<part>.png   full-canvas RGBA per part (same pixel coordinates as base_rgba.png)
+Inputs : <work>/07_refined/<part>.png (else 06_parts/)   full-canvas RGBA per part (same pixel coordinates as base_rgba.png)
          spec: joints, bones, parts (from / to / mode / pivot / uses), glow
 Outputs: <char>/parts/<part>.png (+ _glow.png)  each part rotated so its bone points down, cropped, pivot at its joint
          <char>/character.json                  textures (size, pivot) + parts (texture, bone, z, tint)
@@ -38,6 +38,7 @@ def main() -> None:
     k = spec["tex_px_per_wp"] / spec["illustration_px_per_wp"]
     px_wp = spec["tex_px_per_wp"]
     J = {n: np.array(p, float) * k for n, p in spec["joints"].items()}
+    src_dir = work / "07_refined" if (work / "07_refined").exists() else work / "06_parts"  # refine_parts.py output wins
     out_parts = Path(args.char) / "parts"
     out_parts.mkdir(parents=True, exist_ok=True)
     for old in out_parts.glob("*"):
@@ -45,7 +46,7 @@ def main() -> None:
 
     textures, transforms = {}, {}
     for name, p in spec["parts"].items():
-        src = Image.open(work / "06_parts" / f"{name}.png").convert("RGBA")
+        src = Image.open(src_dir / f"{name}.png").convert("RGBA")
         arr = np.array(src).astype(np.float32)
         pm = arr.copy(); pm[:, :, :3] *= pm[:, :, 3:4] / 255.0  # premultiplied resize keeps edges clean
         pm = cv2.resize(pm, None, fx=k, fy=k, interpolation=cv2.INTER_AREA)
@@ -61,7 +62,11 @@ def main() -> None:
         ex, ey = frame(p["mode"], a_pt, b_pt)
         rel = np.stack([xs, ys], 1) - pivot_pt
         u, v = rel @ ex, rel @ ey
-        umin, umax, vmin, vmax = u.min() - PAD, u.max() + PAD, v.min() - PAD, v.max() + PAD
+        # A side where make_parts cut the limb at a joint line (spec "y") is not a silhouette: keep no transparent margin there, so the
+        # normal map (which bevels every alpha edge) sees an open edge instead of lighting a bright rim along the cut.
+        lo, hi = p.get("y", (0, src.height))
+        pad_top, pad_bottom = (0 if lo > 0 else PAD), (0 if hi < src.height else PAD)
+        umin, umax, vmin, vmax = u.min() - PAD, u.max() + PAD, v.min() - pad_top, v.max() + pad_bottom
         cw, ch = int(math.ceil(umax - umin)), int(math.ceil(vmax - vmin))
         piv = np.array([-umin, -vmin])
         A = np.float32([[ex[0], ey[0], pivot_pt[0] - piv[0] * ex[0] - piv[1] * ey[0]],

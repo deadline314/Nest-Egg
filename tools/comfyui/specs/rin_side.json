@@ -244,7 +244,23 @@
           "z": 4
         }
       ],
-      "pivot": "waist"
+      "pivot": "waist",
+      "blob": "main"
+    },
+    "jacket_collar": {
+      "group": "jacket",
+      "blob": "rest",
+      "from": "neck",
+      "to": "head",
+      "mode": "upright",
+      "pivot": "neck",
+      "uses": [
+        {
+          "name": "jacket_collar",
+          "bone": "neck",
+          "z": 4
+        }
+      ]
     },
     "holster": {
       "group": "holster",
@@ -455,7 +471,7 @@
       "name": "arm_front_upper",
       "parent": "chest",
       "at": "shoulder",
-      "dx": 0.6,
+      "dx": 0.0,
       "tip": "elbow"
     },
     {
@@ -472,7 +488,7 @@
       "name": "leg_back_upper",
       "parent": "hip",
       "at": "hip",
-      "dx": -1.0,
+      "dx": -0.7,
       "tip": "knee"
     },
     {
@@ -488,7 +504,7 @@
       "name": "leg_front_upper",
       "parent": "hip",
       "at": "hip",
-      "dx": 1.0,
+      "dx": 0.0,
       "tip": "knee"
     },
     {
@@ -532,5 +548,239 @@
       "seed": 51,
       "prompt": "Remove the character's near-side chrome cybernetic arm and hand and the thigh holster completely, and paint what was behind them: the rest of the jacket, the torso, the hip and the thigh, in exactly the same art style and colors. The jacket stays. Keep everything else exactly unchanged."
     }
-  ]
+  ],
+  "refine": {
+    "far_side": {
+      "parts": [
+        "pelvis",
+        "leg_upper",
+        "leg_lower",
+        "foot",
+        "holster"
+      ],
+      "min_area": 300,
+      "y_min": 520
+    },
+    "repaint": [
+      {
+        "group": "body",
+        "parts": [
+          "leg_upper",
+          "pelvis"
+        ],
+        "y": [
+          540,
+          800
+        ],
+        "max_run": 160
+      }
+    ],
+    "defringe": {
+      "width": 2
+    },
+    "speckle": 30,
+    "erase": [
+      {
+        "part": "foot",
+        "poly": [
+          [
+            424,
+            998
+          ],
+          [
+            460,
+            998
+          ],
+          [
+            460,
+            1080
+          ],
+          [
+            424,
+            1080
+          ]
+        ]
+      },
+      {
+        "part": "foot",
+        "poly": [
+          [
+            492,
+            1138
+          ],
+          [
+            516,
+            1138
+          ],
+          [
+            516,
+            1186
+          ],
+          [
+            492,
+            1186
+          ]
+        ]
+      },
+      {
+        "part": "head",
+        "poly": [
+          [
+            330,
+            172
+          ],
+          [
+            520,
+            172
+          ],
+          [
+            520,
+            260
+          ],
+          [
+            330,
+            260
+          ]
+        ]
+      },
+      {
+        "part": "head",
+        "poly": [
+          [
+            378,
+            138
+          ],
+          [
+            391,
+            138
+          ],
+          [
+            391,
+            158
+          ],
+          [
+            378,
+            158
+          ]
+        ]
+      },
+      {
+        "part": "arm_lower",
+        "poly": [
+          [
+            330,
+            498
+          ],
+          [
+            349,
+            498
+          ],
+          [
+            353,
+            520
+          ],
+          [
+            357,
+            545
+          ],
+          [
+            360,
+            566
+          ],
+          [
+            363,
+            578
+          ],
+          [
+            330,
+            578
+          ]
+        ]
+      },
+      {
+        "part": "arm_lower",
+        "poly": [
+          [
+            388,
+            444
+          ],
+          [
+            400,
+            450
+          ],
+          [
+            400,
+            464
+          ],
+          [
+            388,
+            468
+          ]
+        ]
+      },
+      {
+        "part": "jacket",
+        "poly": [
+          [
+            394,
+            440
+          ],
+          [
+            418,
+            440
+          ],
+          [
+            418,
+            458
+          ],
+          [
+            394,
+            458
+          ]
+        ]
+      }
+    ],
+    "magenta_specks": {
+      "parts": [
+        "torso",
+        "pelvis",
+        "arm_upper",
+        "arm_lower",
+        "hand"
+      ],
+      "max_area": 80
+    },
+    "smooth_alpha": {
+      "parts": [
+        "arm_upper",
+        "arm_lower",
+        "hand",
+        "holster",
+        "jacket",
+        "leg_upper",
+        "leg_lower",
+        "foot",
+        "pelvis",
+        "torso",
+        "jacket_collar"
+      ],
+      "sigma": 1.0
+    },
+    "white_specks": {
+      "parts": [
+        "jacket",
+        "jacket_collar",
+        "holster",
+        "leg_upper",
+        "leg_lower"
+      ],
+      "max_area": 60
+    },
+    "close_fill": {
+      "parts": [
+        "holster"
+      ],
+      "radius": 10
+    }
+  }
 }
