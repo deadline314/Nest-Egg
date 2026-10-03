@@ -6,6 +6,7 @@ extends RefCounted
 const SCENARIOS := {
 	"characters": "res://tools/scenarios/characters_scenario.gd",
 	"recon_enemies": "res://tools/scenarios/recon_scenario.gd",
+	"heavy_enemies": "res://tools/scenarios/heavy_scenario.gd",
 	"placement": "res://tools/scenarios/placement_scenario.gd",
 }
 

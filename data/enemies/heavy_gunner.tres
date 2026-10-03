@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/heavy_gunner.gd" id="2_behavior"]
+[ext_resource type="Resource" path="res://data/projectiles/heavy_gunner_shot.tres" id="3_proj"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"heavy_gunner"
+behavior = ExtResource("2_behavior")
+projectile = ExtResource("3_proj")
+display_name = "重裝機槍手"
+body_size = Vector2(22, 56)
+color = Color(1.0, 0.18, 0.533, 1.0)
+max_health = 14
+move_speed = 20.0
+contact_damage = 1
+contact_source_id = &"heavy_gunner_contact"
+detect_range = 320.0
+attack_range = 300.0
+attack_cooldown = 2.2
+telegraph_time = 1.1
+ability_speed = 2.0
+ability_time = 2.4
+knockback_scale = 0.05
+finish_health_ratio = 0.25
+stagger_duration = 1.6
+health_drop_chance = 0.3
+rig_skin = "heavy_gunner"
+rig_weapon = "minigun"
+credit_value = 30
