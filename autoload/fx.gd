@@ -152,6 +152,11 @@ func is_slowmo() -> bool:
 	return _slowmo_until_msec > 0
 
 
+## 診斷：目前存活的粒子數（兩層粒子場加總）。
+func particle_count() -> int:
+	return (_glow.alive_count() if _glow != null else 0) + (_soft.alive_count() if _soft != null else 0)
+
+
 ## 診斷：目前被凍結的節點數。
 func frozen_count() -> int:
 	return _frozen.size()

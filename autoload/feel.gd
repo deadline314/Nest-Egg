@@ -27,6 +27,9 @@ var _reported: Dictionary = {}
 func _ready() -> void:
 	reload()
 	register_counter("hitstop_budget_left", Fx.hitstop_budget_left)
+	register_counter("particles", Fx.particle_count)
+	register_counter("fps", func() -> int: return int(Engine.get_frames_per_second()))
+	register_counter("frame_ms", func() -> float: return snappedf(Performance.get_monitor(Performance.TIME_PROCESS) * 1000.0, 0.1))
 	register_counter("flash_per_second", func() -> int: return FlashGuard.rate())
 	register_counter("flash_peak", func() -> float: return snappedf(FlashGuard.peak, 0.01))
 	register_counter("flash_dropped", func() -> int: return FlashGuard.dropped)
@@ -191,11 +194,18 @@ func register_counter(counter_name: String, reader: Callable) -> void:
 
 ## 目前所有計數：事件計數加上各系統註冊的即時數字。
 func read_counters() -> Dictionary:
-	var result := counters.duplicate()
+	var result: Dictionary = {}
+	read_counters_into(result)
+	return result
+
+
+## 把所有計數寫進呼叫端提供的字典（診斷面板每秒更新十次，重複使用同一個字典就不會每次配置新的）。
+func read_counters_into(out: Dictionary) -> void:
+	for key: String in counters.keys():
+		out[key] = counters[key]
 	for key: String in _gauges.keys():
 		var reader: Callable = _gauges[key]
-		result[key] = reader.call() if reader.is_valid() else 0
-	return result
+		out[key] = reader.call() if reader.is_valid() else 0
 
 
 func _count(key: String) -> void:

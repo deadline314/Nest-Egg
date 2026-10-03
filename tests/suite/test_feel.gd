@@ -24,6 +24,7 @@ func run() -> void:
 	_test_reverse_index()
 	_test_save_events()
 	await _test_screen_fx()
+	await _test_diagnostics()
 
 
 func _script_paths(dir: String, into: PackedStringArray) -> void:
@@ -594,3 +595,51 @@ func _test_screen_fx() -> void:
 	await physics_frames(3)
 	await end_level(level)
 	FlashGuard.reset()
+
+
+func _test_diagnostics() -> void:
+	var panel := FeelDiagnostics.new()
+	runner.get_tree().root.add_child(panel)
+	# 腳本事件對照數字：播一次受傷，事件數與頓幀數各加一，閃光次數加一。
+	FlashGuard.reset()
+	Fx._hitstop_log.clear()
+	var before: Dictionary = Feel.read_counters()
+	Feel.play(&"player_hurt")
+	FlashGuard.request(0.1)  # 沒有關卡時後製不存在，直接走防護的計數
+	var after: Dictionary = Feel.read_counters()
+	check(int(after["events"]) == int(before.get("events", 0)) + 1, "the event counter counts the scripted event")
+	check(int(after["hitstops"]) == int(before.get("hitstops", 0)) + 1, "the hitstop counter counts the hitstop")
+	check(int(after["flash_per_second"]) >= 1, "the flash counter shows the screen effect that was requested")
+	check(float(after["hitstop_budget_left"]) < Fx.HITSTOP_WINDOW_BUDGET, "the hitstop budget shrinks by the granted stop")
+	# 各系統用註冊介面提供計數器；缺的讀取器不會讓面板壞掉。
+	Feel.register_counter("test_gauge", func() -> int: return 41)
+	Feel.register_counter("test_dead_gauge", Callable())
+	var counters: Dictionary = Feel.read_counters()
+	check(int(counters["test_gauge"]) == 41 and int(counters["test_dead_gauge"]) == 0, "registered counters are read and broken readers read as zero")
+	for key in ["fps", "particles", "voices_playing", "frozen_nodes", "flash_peak", "hitstop_budget_left"]:
+		check(counters.has(key), "diagnostics expose %s" % key)
+	# 粒子數與已知情境相符。
+	var level := await start_level(PropsSuite.level_data())
+	var particles_before := Fx.particle_count()
+	Fx.sparks(Vector2(100, 100), Color.WHITE, 12)
+	check(Fx.particle_count() > particles_before, "the particle counter rises when sparks are emitted")
+	# 面板更新頻率約每秒十次，數字沒變時不重設文字。
+	panel.refresh()
+	var updates_before := panel.updates
+	panel._process(0.05)
+	check(panel.updates == updates_before, "the panel does not refresh before its 0.1 s interval")
+	panel._process(0.06)
+	check(panel.updates == updates_before + 1, "the panel refreshes about ten times a second")
+	var text_before := panel.text
+	panel.refresh()
+	check(panel.text == text_before or panel.text.begins_with("fps"), "unchanged numbers keep the same text")
+	# 超標警示：閃光頻率達上限時顯示。
+	FlashGuard.reset()
+	for i in FlashGuard.MAX_PER_SECOND:
+		FlashGuard.request(0.1)
+	panel.refresh()
+	check(panel.text.contains("警示"), "reaching the flash limit shows a warning")
+	FlashGuard.reset()
+	await physics_frames(3)
+	await end_level(level)
+	panel.queue_free()

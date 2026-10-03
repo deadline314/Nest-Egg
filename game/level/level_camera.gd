@@ -51,6 +51,8 @@ func _ready() -> void:
 	EventBus.screen_shake.connect(_on_screen_shake)
 	EventBus.camera_kick.connect(_on_camera_kick)
 	EventBus.camera_zoom_pulse.connect(_on_zoom_pulse)
+	Feel.register_counter("camera_shake_px", func() -> float: return snappedf(offset.length(), 0.1))
+	Feel.register_counter("camera_zoom", func() -> float: return snappedf(zoom.x, 0.001))
 	make_current()
 
 

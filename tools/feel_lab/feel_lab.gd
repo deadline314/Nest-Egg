@@ -22,13 +22,12 @@ var _weapon_option: OptionButton
 var _event_option: OptionButton
 var _sound_option: OptionButton
 var _material_option: OptionButton
-var _info: Label
+var _info: FeelDiagnostics
 var _preset_option: OptionButton
 var _param_box: VBoxContainer
 var _usage_label: Label
 var _pressure := false
 var _pressure_left := 0.0
-var _info_left := 0.0
 var _next_target_slot := 0
 
 
@@ -65,10 +64,6 @@ func _process(delta: float) -> void:
 			for i in PRESSURE_COUNT:
 				spawn_enemy("grunt" if i % 2 == 0 else "elite_grunt", 8.0 + float(i) * 2.0)
 	player.loadout.refill_all()
-	_info_left -= delta
-	if _info_left <= 0.0:
-		_info_left = 0.2
-		_refresh_info()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -195,7 +190,7 @@ func _build_panel() -> void:
 	_sound_option = _option(box, "聲音", PackedStringArray(Sfx.event_ids()), "單獨播放一個聲音事件")
 	box.add_child(_button("播放聲音", func() -> void: Sfx.play_event(StringName(_sound_option.get_item_text(_sound_option.selected))), "連按可以聽變體與連鎖升音"))
 	box.add_child(_button("材質回饋在準星", func() -> void: HitFeedback.play(StringName(_material_option.get_item_text(_material_option.selected)), player.aim_point, Vector2.UP, Palette.CYAN), "在準星位置播放選中的材質命中"))
-	_info = UiKit.label("", 5, Palette.UI_MUTED)
+	_info = FeelDiagnostics.new()
 	_info.position = Vector2(6.0, 60.0)
 	var info_layer := CanvasLayer.new()
 	info_layer.layer = 49
@@ -213,8 +208,7 @@ func _show_save_preview(dry_run: bool) -> void:
 	else:
 		lines.append("（預覽）" if dry_run else ("已儲存，備份在 %s" % result["backup"] if result["backup"] != "" else "沒有差異"))
 		lines.append_array(result["diff"])
-	_info.text = "\n".join(lines)
-	_info_left = 4.0
+	_info.show_message("\n".join(lines), 4.0)
 
 
 ## 依選中事件的資料自動產生滑桿；新增資料欄位不用改這裡。改動立刻寫進記憶體中的事件資料，按「播放回饋」就能看到。
@@ -295,20 +289,3 @@ func _slider(key: String, text: String, tooltip: String) -> Control:
 	slider.value_changed.connect(func(value: float) -> void: Settings.set_feel_scale(key, value / 100.0))
 	row.add_child(slider)
 	return row
-
-
-## 診斷：各系統計數與最近的回饋事件時間軸。
-func _refresh_info() -> void:
-	if _info == null:
-		return
-	var lines := PackedStringArray()
-	var counters := Feel.read_counters()
-	lines.append("FPS %d  粒子預算裁掉 %d" % [Engine.get_frames_per_second(), HitFeedback.trimmed_particles])
-	for key: String in counters.keys():
-		lines.append("%s: %s" % [key, counters[key]])
-	var warning := FlashGuard.warning()
-	if warning != "":
-		lines.append("警示：" + warning)
-	lines.append("— 最近事件 —")
-	lines.append_array(Feel.recent)
-	_info.text = "\n".join(lines)
