@@ -209,6 +209,15 @@ func _draw_body(color: Color) -> void:
 		draw_line(Vector2(rect.position.x + 2, -h * 0.5), Vector2(rect.end.x - 2, -h * 0.5), seam, 1.5)
 
 
+## 零件動畫：現形後的待機與預兆都用張嘴的外觀，偽裝時用緊閉的貨箱。
+func _creature_state() -> StringName:
+	if fsm.is_in(&"shake") and _revealed:
+		return &"shake_open"
+	if fsm.is_in(&"dormant") and _revealed:
+		return &"exposed"
+	return super._creature_state()
+
+
 func _facing_sign() -> float:
 	return float(facing)
 

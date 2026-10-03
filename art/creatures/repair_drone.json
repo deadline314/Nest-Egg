@@ -1,0 +1,131 @@
+{
+ "description": "維修機（PartCreature）：蛋形機身加兩條細長的維修臂。待機臂輕輕擺動，跟隨時臂收攏，修復（channel）時雙臂朝前伸出並顫動。",
+ "dir": "res://art/creatures/repair_drone/",
+ "texture_scale": 0.25,
+ "parts": [
+  {
+   "name": "body",
+   "file": "body.png",
+   "pivot": [
+    48,
+    38
+   ],
+   "pos": [
+    0,
+    -9
+   ],
+   "z": 0
+  },
+  {
+   "name": "arm_far",
+   "file": "arm.png",
+   "pivot": [
+    4,
+    3
+   ],
+   "pos": [
+    -3,
+    5
+   ],
+   "parent": "body",
+   "z": -1,
+   "tint": 0.7,
+   "rot": 0.12
+  },
+  {
+   "name": "arm_near",
+   "file": "arm.png",
+   "pivot": [
+    4,
+    3
+   ],
+   "pos": [
+    3,
+    5
+   ],
+   "parent": "body",
+   "z": 1,
+   "rot": -0.12
+  }
+ ],
+ "states": {
+  "idle": {
+   "root": {
+    "bob_amp": 1.0,
+    "bob_freq": 1.4,
+    "tilt": 0.15
+   },
+   "channels": [
+    {
+     "part": "arm_near",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.12,
+     "freq": 1.4
+    },
+    {
+     "part": "arm_far",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.12,
+     "freq": 1.4,
+     "phase": 1.5
+    }
+   ]
+  },
+  "follow": {
+   "root": {
+    "bob_amp": 1.2,
+    "bob_freq": 2.0,
+    "tilt": 0.3
+   },
+   "channels": [
+    {
+     "part": "arm_near",
+     "prop": "rot",
+     "base": 0.2,
+     "amp": 0.18,
+     "freq": 2.0
+    },
+    {
+     "part": "arm_far",
+     "prop": "rot",
+     "base": -0.1,
+     "amp": 0.18,
+     "freq": 2.0,
+     "phase": 1.5
+    }
+   ]
+  },
+  "channel": {
+   "root": {
+    "bob_amp": 0.5,
+    "bob_freq": 3.0
+   },
+   "channels": [
+    {
+     "part": "arm_near",
+     "prop": "rot",
+     "base": -1.1,
+     "amp": 0.1,
+     "freq": 9.0
+    },
+    {
+     "part": "arm_far",
+     "prop": "rot",
+     "base": -0.95,
+     "amp": 0.1,
+     "freq": 9.0,
+     "phase": 1.6
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": -0.06,
+     "amp": 0.03,
+     "freq": 6.0
+    }
+   ]
+  }
+ }
+}

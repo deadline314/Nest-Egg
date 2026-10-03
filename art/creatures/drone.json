@@ -1,0 +1,32 @@
+{
+ "description": "監視蜂（PartCreature 讀取）：蜂腹式機身加兩對翅膀（近側與遠側）。翅膀的鉸鏈在貼圖底部中央，朝上；拍翅是繞鉸鏈的來回轉動，狀態不同拍的頻率與幅度不同。",
+ "dir": "res://art/creatures/drone/",
+ "texture_scale": 0.25,
+ "parts": [
+  {"name": "body", "file": "body.png", "pivot": [60, 17], "pos": [0, -7], "z": 0, "muzzle": [12, -0.75]},
+  {"name": "wing_far", "file": "wing.png", "pivot": [6, 62], "pos": [-5, -3], "parent": "body", "z": -1, "tint": 0.72},
+  {"name": "wing_near", "file": "wing.png", "pivot": [6, 62], "pos": [-1, -3], "parent": "body", "z": 1}
+ ],
+ "states": {
+  "idle": {"root": {"bob_amp": 1.4, "bob_freq": 1.3}, "channels": [
+    {"part": "wing_near", "prop": "rot", "base": -0.4, "amp": 0.75, "freq": 17},
+    {"part": "wing_far", "prop": "rot", "base": -0.45, "amp": 0.75, "freq": 17, "phase": 1.6},
+    {"part": "body", "prop": "rot", "base": 0.0, "amp": 0.03, "freq": 1.3}]},
+  "hover": {"root": {"bob_amp": 1.8, "bob_freq": 1.7, "tilt": 0.0}, "channels": [
+    {"part": "wing_near", "prop": "rot", "base": -0.4, "amp": 0.85, "freq": 20},
+    {"part": "wing_far", "prop": "rot", "base": -0.45, "amp": 0.85, "freq": 20, "phase": 1.6},
+    {"part": "body", "prop": "rot", "base": 0.05, "amp": 0.05, "freq": 1.7}]},
+  "lock": {"root": {"bob_amp": 0.5, "bob_freq": 4.0}, "channels": [
+    {"part": "wing_near", "prop": "rot", "base": -0.5, "amp": 0.95, "freq": 26},
+    {"part": "wing_far", "prop": "rot", "base": -0.55, "amp": 0.95, "freq": 26, "phase": 1.6},
+    {"part": "body", "prop": "rot", "base": -0.18, "amp": 0.04, "freq": 8.0}]},
+  "dive": {"root": {"bob_amp": 0.0, "tilt": 0.0}, "channels": [
+    {"part": "wing_near", "prop": "rot", "base": -1.25, "amp": 0.18, "freq": 30},
+    {"part": "wing_far", "prop": "rot", "base": -1.3, "amp": 0.18, "freq": 30, "phase": 1.6},
+    {"part": "body", "prop": "rot", "base": 0.55, "amp": 0.0, "freq": 1.0}]},
+  "climb": {"root": {"bob_amp": 0.6, "bob_freq": 3.0}, "channels": [
+    {"part": "wing_near", "prop": "rot", "base": -0.3, "amp": 1.0, "freq": 24},
+    {"part": "wing_far", "prop": "rot", "base": -0.35, "amp": 1.0, "freq": 24, "phase": 1.6},
+    {"part": "body", "prop": "rot", "base": -0.3, "amp": 0.05, "freq": 3.0}]}
+ }
+}

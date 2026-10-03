@@ -1,0 +1,111 @@
+{
+ "description": "哨戒砲台（PartCreature）：警示條紋底座、砲塔頭與可後座的砲管。砲塔頭與砲管跟著瞄準方向轉（aim），開火時砲管往後縮再回復；鎖定時砲塔輕微顫動。",
+ "dir": "res://art/creatures/turret/",
+ "texture_scale": 0.25,
+ "parts": [
+  {
+   "name": "base",
+   "file": "base.png",
+   "pivot": [
+    48,
+    77
+   ],
+   "pos": [
+    0,
+    0
+   ],
+   "z": 0
+  },
+  {
+   "name": "head",
+   "file": "head.png",
+   "pivot": [
+    38,
+    31
+   ],
+   "pos": [
+    0,
+    -14
+   ],
+   "parent": "base",
+   "z": 1,
+   "aim": 1.0
+  },
+  {
+   "name": "barrel",
+   "file": "barrel.png",
+   "pivot": [
+    8,
+    8
+   ],
+   "pos": [
+    8,
+    0
+   ],
+   "parent": "head",
+   "z": -1,
+   "recoil": [
+    -3.0,
+    0.0
+   ],
+   "muzzle": [
+    22,
+    0
+   ]
+  }
+ ],
+ "states": {
+  "idle": {
+   "root": {
+    "bob_amp": 0.0,
+    "bob_freq": 1.0
+   },
+   "channels": [
+    {
+     "part": "head",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.02,
+     "freq": 0.8
+    }
+   ]
+  },
+  "track": {
+   "root": {
+    "bob_amp": 0.0,
+    "bob_freq": 1.0
+   },
+   "channels": [
+    {
+     "part": "head",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.01,
+     "freq": 2.0
+    }
+   ]
+  },
+  "lock": {
+   "root": {
+    "bob_amp": 0.0,
+    "bob_freq": 1.0
+   },
+   "channels": [
+    {
+     "part": "head",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.025,
+     "freq": 14.0
+    },
+    {
+     "part": "head",
+     "prop": "y",
+     "base": 0.0,
+     "amp": 0.25,
+     "freq": 17.0
+    }
+   ]
+  }
+ }
+}

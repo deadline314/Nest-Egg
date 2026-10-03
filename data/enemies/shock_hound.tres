@@ -8,6 +8,7 @@ script = ExtResource("1_script")
 id = &"shock_hound"
 behavior = ExtResource("2_behavior")
 display_name = "電擊犬"
+creature_skin = "shock_hound"
 body_size = Vector2(24, 14)
 color = Color(0.45, 0.78, 0.95, 1.0)
 max_health = 3

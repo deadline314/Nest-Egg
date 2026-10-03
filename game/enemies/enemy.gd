@@ -85,6 +85,8 @@ var facing: int = -1
 var shield := 0
 ## 骨架外觀（人形敵人）；機械類敵人為 null，改用 _draw_body 程式繪製。
 var rig: CharacterRig
+## 零件式外觀（非人形敵人）；載入失敗時為 null，改用 _draw_body 的程式繪製。
+var creature: PartCreature
 
 var _rig_input := RigInput.new()
 ## 部位受擊框的資料（box、bone、offset、size、mult），給 _update_hurt_parts 與弱點標記用。
@@ -173,12 +175,61 @@ func _build_components() -> void:
 
 	if not data.rig_skin.is_empty():
 		_build_rig()
+	if rig == null and not data.creature_skin.is_empty():
+		_build_creature()
 	_build_hurt_parts()
 
 	if data.contact_damage > 0:
 		contact = ContactHitbox.new()
 		add_child(contact)
 		contact.setup(Combat.Team.ENEMY, data.contact_damage, data.contact_source_id, size * 0.8, center)
+
+
+func _build_creature() -> void:
+	creature = PartCreature.new()
+	creature.name = "Creature"
+	add_child(creature)
+	if not creature.setup(data.creature_skin):
+		push_error("[Enemy] %s 的零件式外觀載入失敗：%s，改用程式繪製。" % [data.id, data.creature_skin])
+		creature.queue_free()
+		creature = null
+		return
+	creature.show_behind_parent = true
+
+
+## 目前零件動畫的狀態：資料對應的名稱，沒對應就用狀態機同名的動畫。
+func _creature_state() -> StringName:
+	return StringName(str(data.creature_states.get(String(fsm.current), String(fsm.current))))
+
+
+## （可選）零件動畫的瞄準角度（相對面向，弧度）。
+func _creature_aim() -> float:
+	return 0.0
+
+
+func _drive_creature(delta: float) -> void:
+	if creature == null:
+		return
+	var params := _body_kick_params()
+	creature.extra_position = params[0]
+	creature.extra_rotation = params[1]
+	creature.extra_scale = params[2]
+	creature.set_wear(data.color.lerp(Color.WHITE, 1.0).lerp(DAMAGE_WEAR_COLOR.lightened(0.55), DAMAGE_WEAR * _damage_stage))
+	creature.animate(delta, _creature_state(), velocity, facing, _creature_aim())
+
+
+## 依 hit_style 與目前受擊力道算出機械類身體反應的變換：[位移, 旋轉, 縮放]（繪製與零件式外觀共用）。
+func _body_kick_params() -> Array:
+	if _body_kick <= 0.0:
+		return [Vector2.ZERO, 0.0, Vector2.ONE]
+	var k := _body_kick
+	match data.hit_style:
+		"stall":
+			return [Vector2(0.0, k * 2.0), _body_kick_dir * k * 0.45 * data.hit_amount, Vector2.ONE]
+		"stumble":
+			var squash := 1.0 + 0.16 * k
+			return [Vector2(_body_kick_dir * k * data.hit_amount * 1.5, 0.0), 0.0, Vector2(squash, 2.0 - squash)]
+	return [Vector2(sin(_anim_time * BODY_WOBBLE_HZ) * k * data.hit_amount * 1.5, 0.0), 0.0, Vector2.ONE]
 
 
 ## 依資料建立部位受擊框（頭、核心等弱點）；資料有誤時記錄位置並略過那一筆。
@@ -309,6 +360,11 @@ func _draw_overlay() -> void:
 	pass
 
 
+## （可選）零件式外觀之外補畫的發光（眼睛、導航燈）。
+func _draw_creature_extras() -> void:
+	pass
+
+
 func _on_hit(_info: DamageInfo) -> void:
 	pass
 
@@ -401,6 +457,7 @@ func _physics_process(delta: float) -> void:
 	_update_telegraph_light(delta)
 	move_and_slide()
 	_drive_rig(delta)
+	_drive_creature(delta)
 	_update_hurt_parts()
 	queue_redraw()
 
@@ -408,11 +465,13 @@ func _physics_process(delta: float) -> void:
 func _draw() -> void:
 	if data == null:
 		return
-	if rig == null:
+	if rig == null and creature == null:
 		var color := LightKit.glow(data.color.lerp(Palette.WHITE, MACHINE_FLASH_WHITE), MACHINE_FLASH_GLOW) if _flash_left > 0.0 				else data.color.lerp(DAMAGE_WEAR_COLOR, DAMAGE_WEAR * _damage_stage)
 		_apply_body_kick_transform()
 		_draw_body(color)
 		draw_set_transform(Vector2.ZERO)
+	elif creature != null:
+		_draw_creature_extras()
 	_draw_overlay()
 	var top := -data.body_size.y - 8.0
 	if shield > 0:
@@ -440,18 +499,8 @@ func _draw() -> void:
 func _apply_body_kick_transform() -> void:
 	if _body_kick <= 0.0:
 		return
-	var k := _body_kick
-	match data.hit_style:
-		"stall":
-			# 失速：往被推的方向傾斜、往下沉一點。
-			var tilt := _body_kick_dir * k * 0.45 * data.hit_amount
-			draw_set_transform(Vector2(0.0, k * 2.0), tilt)
-		"stumble":
-			# 踉蹌：被推的方向歪一下、壓扁再彈回，腳底不動。
-			var squash := 1.0 + 0.16 * k
-			draw_set_transform(Vector2(_body_kick_dir * k * data.hit_amount * 1.5, 0.0), 0.0, Vector2(squash, 2.0 - squash))
-		_:
-			draw_set_transform(Vector2(sin(_anim_time * BODY_WOBBLE_HZ) * k * data.hit_amount * 1.5, 0.0), 0.0)
+	var params := _body_kick_params()
+	draw_set_transform(params[0], params[1], params[2])
 
 
 ## 損傷階段：生命比例降到 damage_states 的第幾個門檻以下（0＝完好）；進入新階段時噴一小團火花。
@@ -581,6 +630,8 @@ func _on_damaged(info: DamageInfo) -> void:
 	if info.weak_hit:
 		_weak_point_feedback(info)
 	var tier := _resolve_hit_tier(info) if health.current > 0 else HitTier.LIGHT
+	if creature != null:
+		creature.flash()
 	if rig == null:
 		_body_kick = maxf(_body_kick, BODY_KICK_BY_TIER[tier])
 		_body_kick_dir = -1.0 if info.knockback.x < 0.0 else 1.0
@@ -842,6 +893,8 @@ func _shoot(spec: ProjectileSpec, direction: Vector2, origin := Vector2.INF) -> 
 		return
 	var from := _muzzle() if origin == Vector2.INF else origin
 	_rig_input.recoil = 1.0
+	if creature != null:
+		creature.kick()
 	if ProjectilePool.spawn(spec, from, direction, Combat.Team.ENEMY, _projectile_speed_multiplier()) != null:
 		Fx.flash_light(from, spec.color, 40.0, 0.9, 0.08)
 		Fx.flare(from, spec.color, 12.0, 0.05)

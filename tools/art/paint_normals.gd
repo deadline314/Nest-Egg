@@ -7,6 +7,7 @@ extends Node
 const CHARACTERS_DIR := "res://art/characters"
 const WEAPONS_DIR := "res://art/weapons"
 const MATERIALS_DIR := "res://art/materials"
+const CREATURES_DIR := "res://art/creatures"
 const SKIP_SUFFIXES: Array[String] = ["_glow.png", "_n.png", "_guide.png"]
 const PANEL_SIZE := 16
 
@@ -25,6 +26,9 @@ func _run() -> void:
 	for character in DirAccess.get_directories_at(CHARACTERS_DIR):
 		if _only.is_empty() or _only.has(character):
 			_process_dir(CHARACTERS_DIR.path_join(character).path_join("parts"))
+	if _only.is_empty() or _only.has("creatures"):
+		for creature in DirAccess.get_directories_at(CREATURES_DIR):
+			_process_dir(CREATURES_DIR.path_join(creature))
 	if _only.is_empty() or _only.has("weapons"):
 		_process_dir(WEAPONS_DIR)
 	if _only.is_empty() or _only.has("materials"):

@@ -1,0 +1,184 @@
+{
+ "description": "偽裝箱（PartCreature）：閉合的貨箱與張開的利齒怪箱兩個零件，依狀態只顯示其中一個（show）。偽裝時只有微微的呼吸，預兆時箱身發抖，撲咬時張嘴伸長，硬直時張嘴喘息。",
+ "dir": "res://art/creatures/mimic/",
+ "texture_scale": 0.25,
+ "parts": [
+  {
+   "name": "closed",
+   "file": "closed.png",
+   "pivot": [
+    72,
+    77
+   ],
+   "pos": [
+    0,
+    0
+   ],
+   "z": 0
+  },
+  {
+   "name": "open",
+   "file": "open.png",
+   "pivot": [
+    72,
+    116
+   ],
+   "pos": [
+    0,
+    0
+   ],
+   "z": 0
+  }
+ ],
+ "states": {
+  "idle": {
+   "show": [
+    "closed"
+   ],
+   "channels": []
+  },
+  "dormant": {
+   "show": [
+    "closed"
+   ],
+   "root": {
+    "bob_amp": 0.0
+   },
+   "channels": []
+  },
+  "shake": {
+   "show": [
+    "closed"
+   ],
+   "root": {
+    "bob_amp": 0.0
+   },
+   "channels": [
+    {
+     "part": "closed",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.06,
+     "freq": 16.0
+    },
+    {
+     "part": "closed",
+     "prop": "x",
+     "base": 0.0,
+     "amp": 0.9,
+     "freq": 21.0
+    },
+    {
+     "part": "closed",
+     "prop": "sy",
+     "base": 0.0,
+     "amp": 0.04,
+     "freq": 12.0
+    }
+   ]
+  },
+  "lunge": {
+   "show": [
+    "open"
+   ],
+   "root": {
+    "bob_amp": 0.0
+   },
+   "channels": [
+    {
+     "part": "open",
+     "prop": "sx",
+     "base": 0.1,
+     "amp": 0.0,
+     "freq": 1.0
+    },
+    {
+     "part": "open",
+     "prop": "sy",
+     "base": -0.05,
+     "amp": 0.0,
+     "freq": 1.0
+    },
+    {
+     "part": "open",
+     "prop": "rot",
+     "base": -0.12,
+     "amp": 0.0,
+     "freq": 1.0
+    }
+   ]
+  },
+  "recover": {
+   "show": [
+    "open"
+   ],
+   "root": {
+    "bob_amp": 0.0
+   },
+   "channels": [
+    {
+     "part": "open",
+     "prop": "sy",
+     "base": 0.0,
+     "amp": 0.04,
+     "freq": 5.0
+    }
+   ]
+  },
+  "exposed": {
+   "show": [
+    "open"
+   ],
+   "root": {
+    "bob_amp": 0.0
+   },
+   "channels": [
+    {
+     "part": "open",
+     "prop": "sy",
+     "base": 0.0,
+     "amp": 0.05,
+     "freq": 3.0
+    },
+    {
+     "part": "open",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.03,
+     "freq": 2.0
+    }
+   ]
+  },
+  "shake_open": {
+   "show": [
+    "open"
+   ],
+   "root": {
+    "bob_amp": 0.0
+   },
+   "channels": [
+    {
+     "part": "open",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.05,
+     "freq": 16.0
+    },
+    {
+     "part": "open",
+     "prop": "x",
+     "base": 0.0,
+     "amp": 0.9,
+     "freq": 21.0
+    },
+    {
+     "part": "open",
+     "prop": "sy",
+     "base": 0.0,
+     "amp": 0.04,
+     "freq": 12.0
+    }
+   ]
+  }
+ }
+}

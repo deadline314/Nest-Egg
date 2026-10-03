@@ -8,6 +8,7 @@ script = ExtResource("1_script")
 id = &"bomber"
 behavior = ExtResource("2_behavior")
 display_name = "自爆蟲"
+creature_skin = "bomber"
 body_size = Vector2(16, 13)
 color = Color(1.000, 0.690, 0.000, 1.0)
 max_health = 2

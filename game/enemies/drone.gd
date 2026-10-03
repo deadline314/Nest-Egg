@@ -80,6 +80,16 @@ func _draw_overlay() -> void:
 		draw_line(from, from + _dive_dir * 140.0, color, 1.0)
 
 
+## 零件式外觀補畫的眼睛：紅色單眼隨預兆與俯衝變亮，鎖定時閃白；機尾兩盞導航燈。
+func _draw_creature_extras() -> void:
+	var blink := fsm.is_in(&"lock") and int(_anim_time * 18.0) % 2 == 0
+	var strong := is_telegraphing() or fsm.is_in(&"dive")
+	var eye := LightKit.glow(Palette.DANGER, 3.2 if strong else 1.6)
+	if blink:
+		eye = LightKit.glow(Palette.WHITE, 2.2)
+	draw_circle(to_local(creature.muzzle_global("body")), 1.9, eye)
+
+
 func _draw_body(color: Color) -> void:
 	# 霓虹機械風：鉻金屬機身、旋翼光暈、雙色導航燈。
 	var h := data.body_size.y

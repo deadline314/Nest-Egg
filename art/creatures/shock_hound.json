@@ -1,0 +1,209 @@
+{
+ "description": "電擊犬（PartCreature）：機械犬身加一條帶電的長尾。奔跑時身體上下起伏並前後俯仰，低吼時壓低身體，撲咬時整個身體伸長，尾巴隨狀態甩動。",
+ "dir": "res://art/creatures/shock_hound/",
+ "texture_scale": 0.25,
+ "parts": [
+  {
+   "name": "body",
+   "file": "body.png",
+   "pivot": [
+    68,
+    63
+   ],
+   "pos": [
+    0,
+    0
+   ],
+   "z": 0
+  },
+  {
+   "name": "tail",
+   "file": "tail.png",
+   "pivot": [
+    68,
+    6
+   ],
+   "pos": [
+    -12,
+    -9
+   ],
+   "parent": "body",
+   "z": -1
+  }
+ ],
+ "gait": {
+  "stride": 16,
+  "full_speed": 90,
+  "hop": 1.6,
+  "legs": []
+ },
+ "states": {
+  "idle": {
+   "root": {
+    "bob_amp": 0.3,
+    "bob_freq": 1.4
+   },
+   "channels": [
+    {
+     "part": "tail",
+     "prop": "rot",
+     "base": 0.1,
+     "amp": 0.18,
+     "freq": 1.2
+    },
+    {
+     "part": "body",
+     "prop": "sy",
+     "base": 0.0,
+     "amp": 0.015,
+     "freq": 1.4
+    }
+   ]
+  },
+  "prowl": {
+   "root": {
+    "bob_amp": 0.2,
+    "bob_freq": 2.0
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.04,
+     "amp": 0.05,
+     "freq": 3.0
+    },
+    {
+     "part": "tail",
+     "prop": "rot",
+     "base": 0.05,
+     "amp": 0.3,
+     "freq": 3.0
+    }
+   ]
+  },
+  "circle": {
+   "root": {
+    "bob_amp": 0.2,
+    "bob_freq": 2.4
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.06,
+     "amp": 0.06,
+     "freq": 4.0
+    },
+    {
+     "part": "tail",
+     "prop": "rot",
+     "base": 0.1,
+     "amp": 0.35,
+     "freq": 4.0
+    }
+   ]
+  },
+  "growl": {
+   "root": {
+    "bob_amp": 0.0,
+    "bob_freq": 1.0
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "sy",
+     "base": -0.1,
+     "amp": 0.02,
+     "freq": 14.0
+    },
+    {
+     "part": "body",
+     "prop": "sx",
+     "base": 0.07,
+     "amp": 0.0,
+     "freq": 1.0
+    },
+    {
+     "part": "body",
+     "prop": "x",
+     "base": 0.0,
+     "amp": 0.35,
+     "freq": 19.0
+    },
+    {
+     "part": "tail",
+     "prop": "rot",
+     "base": -0.5,
+     "amp": 0.12,
+     "freq": 9.0
+    }
+   ]
+  },
+  "pounce": {
+   "root": {
+    "bob_amp": 0.0,
+    "bob_freq": 1.0
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": -0.22,
+     "amp": 0.0,
+     "freq": 1.0
+    },
+    {
+     "part": "body",
+     "prop": "sx",
+     "base": 0.12,
+     "amp": 0.0,
+     "freq": 1.0
+    },
+    {
+     "part": "body",
+     "prop": "sy",
+     "base": -0.1,
+     "amp": 0.0,
+     "freq": 1.0
+    },
+    {
+     "part": "tail",
+     "prop": "rot",
+     "base": 0.7,
+     "amp": 0.1,
+     "freq": 10.0
+    }
+   ]
+  },
+  "recover": {
+   "root": {
+    "bob_amp": 0.4,
+    "bob_freq": 3.5
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "sy",
+     "base": -0.04,
+     "amp": 0.05,
+     "freq": 5.0
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.1,
+     "amp": 0.0,
+     "freq": 1.0
+    },
+    {
+     "part": "tail",
+     "prop": "rot",
+     "base": 0.35,
+     "amp": 0.08,
+     "freq": 2.0
+    }
+   ]
+  }
+ }
+}

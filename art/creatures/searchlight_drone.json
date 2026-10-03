@@ -1,0 +1,268 @@
+{
+ "description": "探照無人機（PartCreature）：飛碟形機身加左右兩具懸吊的推進燈。待機輕微上下漂浮，探照時穩住，警報時抖動，斷電時整台下垂、推進燈熄滅。",
+ "dir": "res://art/creatures/searchlight_drone/",
+ "texture_scale": 0.25,
+ "parts": [
+  {
+   "name": "body",
+   "file": "body.png",
+   "pivot": [
+    60,
+    17
+   ],
+   "pos": [
+    0,
+    -8
+   ],
+   "z": 0
+  },
+  {
+   "name": "thruster_far",
+   "file": "thruster.png",
+   "pivot": [
+    13,
+    3
+   ],
+   "pos": [
+    -8,
+    3
+   ],
+   "parent": "body",
+   "z": -1,
+   "tint": 0.7
+  },
+  {
+   "name": "thruster_near",
+   "file": "thruster.png",
+   "pivot": [
+    13,
+    3
+   ],
+   "pos": [
+    8,
+    3
+   ],
+   "parent": "body",
+   "z": 1
+  }
+ ],
+ "states": {
+  "idle": {
+   "root": {
+    "bob_amp": 1.2,
+    "bob_freq": 1.2,
+    "tilt": 0.18
+   },
+   "channels": [
+    {
+     "part": "thruster_near",
+     "prop": "sy",
+     "base": 0.0,
+     "amp": 0.12,
+     "freq": 9
+    },
+    {
+     "part": "thruster_far",
+     "prop": "sy",
+     "base": 0.0,
+     "amp": 0.12,
+     "freq": 9,
+     "phase": 1.4
+    },
+    {
+     "part": "thruster_near",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.05,
+     "freq": 1.2
+    },
+    {
+     "part": "thruster_far",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.05,
+     "freq": 1.2,
+     "phase": 2.0
+    }
+   ]
+  },
+  "patrol": {
+   "root": {
+    "bob_amp": 1.4,
+    "bob_freq": 1.4,
+    "tilt": 0.25
+   },
+   "channels": [
+    {
+     "part": "thruster_near",
+     "prop": "sy",
+     "base": 0.05,
+     "amp": 0.14,
+     "freq": 11
+    },
+    {
+     "part": "thruster_far",
+     "prop": "sy",
+     "base": 0.05,
+     "amp": 0.14,
+     "freq": 11,
+     "phase": 1.4
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.03,
+     "freq": 1.4
+    }
+   ]
+  },
+  "spot": {
+   "root": {
+    "bob_amp": 0.5,
+    "bob_freq": 2.0
+   },
+   "channels": [
+    {
+     "part": "thruster_near",
+     "prop": "sy",
+     "base": 0.1,
+     "amp": 0.08,
+     "freq": 14
+    },
+    {
+     "part": "thruster_far",
+     "prop": "sy",
+     "base": 0.1,
+     "amp": 0.08,
+     "freq": 14,
+     "phase": 1.4
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.015,
+     "freq": 3.0
+    }
+   ]
+  },
+  "alarm": {
+   "root": {
+    "bob_amp": 0.3,
+    "bob_freq": 6.0
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.08,
+     "freq": 9.0
+    },
+    {
+     "part": "body",
+     "prop": "x",
+     "base": 0.0,
+     "amp": 0.6,
+     "freq": 13.0
+    },
+    {
+     "part": "thruster_near",
+     "prop": "sy",
+     "base": 0.25,
+     "amp": 0.18,
+     "freq": 18
+    },
+    {
+     "part": "thruster_far",
+     "prop": "sy",
+     "base": 0.25,
+     "amp": 0.18,
+     "freq": 18,
+     "phase": 1.4
+    }
+   ]
+  },
+  "unpowered": {
+   "root": {
+    "bob_amp": 0.0,
+    "bob_freq": 1.0
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.22,
+     "amp": 0.03,
+     "freq": 2.5
+    },
+    {
+     "part": "body",
+     "prop": "y",
+     "base": 3.0,
+     "amp": 0.4,
+     "freq": 2.5
+    },
+    {
+     "part": "thruster_near",
+     "prop": "sy",
+     "base": -0.5,
+     "amp": 0.0,
+     "freq": 1.0
+    },
+    {
+     "part": "thruster_far",
+     "prop": "sy",
+     "base": -0.5,
+     "amp": 0.0,
+     "freq": 1.0
+    },
+    {
+     "part": "thruster_near",
+     "prop": "rot",
+     "base": 0.4,
+     "amp": 0.05,
+     "freq": 2.5
+    },
+    {
+     "part": "thruster_far",
+     "prop": "rot",
+     "base": -0.4,
+     "amp": 0.05,
+     "freq": 2.5
+    }
+   ]
+  },
+  "reboot": {
+   "root": {
+    "bob_amp": 0.8,
+    "bob_freq": 3.0
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.1,
+     "amp": 0.1,
+     "freq": 7.0
+    },
+    {
+     "part": "thruster_near",
+     "prop": "sy",
+     "base": 0.0,
+     "amp": 0.3,
+     "freq": 10
+    },
+    {
+     "part": "thruster_far",
+     "prop": "sy",
+     "base": 0.0,
+     "amp": 0.3,
+     "freq": 10,
+     "phase": 1.0
+    }
+   ]
+  }
+ }
+}

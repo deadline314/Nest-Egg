@@ -1,0 +1,220 @@
+{
+ "description": "自爆蟲（PartCreature）：圓頂機身加六條細腿，走路是蜘蛛式的交替步態；引信點燃時機身發抖。",
+ "dir": "res://art/creatures/bomber/",
+ "texture_scale": 0.25,
+ "parts": [
+  {
+   "name": "body",
+   "file": "body.png",
+   "pivot": [
+    36,
+    28
+   ],
+   "pos": [
+    0,
+    -7
+   ],
+   "z": 0
+  },
+  {
+   "name": "leg_0",
+   "file": "leg.png",
+   "pivot": [
+    3.5,
+    3
+   ],
+   "pos": [
+    -6,
+    6
+   ],
+   "parent": "body",
+   "z": -1,
+   "rot": 0.9,
+   "tint": 0.75
+  },
+  {
+   "name": "leg_1",
+   "file": "leg.png",
+   "pivot": [
+    3.5,
+    3
+   ],
+   "pos": [
+    -3.5,
+    6
+   ],
+   "parent": "body",
+   "z": 1,
+   "rot": 0.5,
+   "tint": 1.0
+  },
+  {
+   "name": "leg_2",
+   "file": "leg.png",
+   "pivot": [
+    3.5,
+    3
+   ],
+   "pos": [
+    -1,
+    6
+   ],
+   "parent": "body",
+   "z": -1,
+   "rot": 0.15,
+   "tint": 0.75
+  },
+  {
+   "name": "leg_3",
+   "file": "leg.png",
+   "pivot": [
+    3.5,
+    3
+   ],
+   "pos": [
+    1,
+    6
+   ],
+   "parent": "body",
+   "z": 1,
+   "rot": -0.15,
+   "tint": 1.0
+  },
+  {
+   "name": "leg_4",
+   "file": "leg.png",
+   "pivot": [
+    3.5,
+    3
+   ],
+   "pos": [
+    3.5,
+    6
+   ],
+   "parent": "body",
+   "z": -1,
+   "rot": -0.5,
+   "tint": 0.75
+  },
+  {
+   "name": "leg_5",
+   "file": "leg.png",
+   "pivot": [
+    3.5,
+    3
+   ],
+   "pos": [
+    6,
+    6
+   ],
+   "parent": "body",
+   "z": 1,
+   "rot": -0.9,
+   "tint": 1.0
+  }
+ ],
+ "gait": {
+  "stride": 9,
+  "full_speed": 60,
+  "hop": 0.9,
+  "legs": [
+   {
+    "part": "leg_0",
+    "phase": 0.0,
+    "swing": 0.45,
+    "lift": 1.6
+   },
+   {
+    "part": "leg_1",
+    "phase": 3.14159,
+    "swing": 0.45,
+    "lift": 1.6
+   },
+   {
+    "part": "leg_2",
+    "phase": 0.0,
+    "swing": 0.45,
+    "lift": 1.6
+   },
+   {
+    "part": "leg_3",
+    "phase": 3.14159,
+    "swing": 0.45,
+    "lift": 1.6
+   },
+   {
+    "part": "leg_4",
+    "phase": 0.0,
+    "swing": 0.45,
+    "lift": 1.6
+   },
+   {
+    "part": "leg_5",
+    "phase": 3.14159,
+    "swing": 0.45,
+    "lift": 1.6
+   }
+  ]
+ },
+ "states": {
+  "idle": {
+   "root": {
+    "bob_amp": 0.3,
+    "bob_freq": 1.6
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.02,
+     "freq": 1.6
+    }
+   ]
+  },
+  "chase": {
+   "root": {
+    "bob_amp": 0.0,
+    "bob_freq": 1.0
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.05,
+     "amp": 0.03,
+     "freq": 7.0
+    }
+   ]
+  },
+  "fuse": {
+   "root": {
+    "bob_amp": 0.0,
+    "bob_freq": 1.0
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "x",
+     "base": 0.0,
+     "amp": 0.5,
+     "freq": 17.0
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.07,
+     "freq": 13.0
+    },
+    {
+     "part": "body",
+     "prop": "sy",
+     "base": 0.06,
+     "amp": 0.05,
+     "freq": 15.0
+    }
+   ]
+  }
+ }
+}

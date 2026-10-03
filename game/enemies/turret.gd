@@ -48,10 +48,19 @@ func _on_stunned() -> void:
 
 
 func _muzzle() -> Vector2:
+	if creature != null:
+		return creature.muzzle_global("barrel")
 	return _pivot() + _aim * 10.0
 
 
+## 砲塔頭與砲管跟著瞄準方向轉（零件隨面向左右翻，所以垂直分量不翻、水平取絕對值）。
+func _creature_aim() -> float:
+	return atan2(_aim.y, absf(_aim.x))
+
+
 func _pivot() -> Vector2:
+	if creature != null:
+		return creature.muzzle_global("head")
 	return global_position + Vector2(0, -data.body_size.y * 0.7)
 
 

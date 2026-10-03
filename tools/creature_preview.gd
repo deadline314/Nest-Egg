@@ -8,6 +8,7 @@ extends Node2D
 const HIT_FRAMES: Array[String] = ["idle", "hit:0.05", "hit:0.15", "hit:0.3", "hit:0.6", "sever:0.3"]
 const STATES: Array[String] = ["idle", "alert", "crawl", "lash:0.0", "lash:0.3", "lash:0.55", "lash:0.8"]
 
+var _parts_id := ""
 var _creature_id := "test_creature"
 var _out := ""
 var _zoom := 0.9
@@ -30,6 +31,8 @@ func _ready() -> void:
 			_strip = true
 		elif arg == "--hit":
 			_hit = true
+		elif arg.begins_with("--parts="):
+			_parts_id = arg.trim_prefix("--parts=")
 		elif arg.begins_with("--state="):
 			_state = arg.trim_prefix("--state=")
 	add_child(LightKit.create_environment())
@@ -38,6 +41,11 @@ func _ready() -> void:
 	bg.size = Vector2(1280, 720)
 	bg.z_index = -10
 	add_child(bg)
+	if not _parts_id.is_empty():
+		_build_parts_sheet()
+		if not _out.is_empty():
+			_capture_parts.call_deferred()
+		return
 	var items: Array[String] = []
 	if _strip:
 		for i in 8:
@@ -61,6 +69,48 @@ func _ready() -> void:
 		_wanted.append(items[i])
 	if not _out.is_empty():
 		_capture.call_deferred()
+
+
+## --parts=<id>：看零件式生物（PartCreature）：每個狀態一列，由左到右是 0、0.04、0.08…秒的樣子（有步態的以滿速移動）。
+var _part_rows: Array[Dictionary] = []
+
+
+func _build_parts_sheet() -> void:
+	var probe := PartCreature.new()
+	if not probe.setup(_parts_id):
+		push_error("[creature_preview] 無法建立零件式生物：%s" % _parts_id)
+		probe.free()
+		return
+	var data := RigLibrary.load_json(PartCreature.PATH % _parts_id)
+	probe.free()
+	var states: Array = (data.get("states", {}) as Dictionary).keys()
+	var gait_speed := float((data.get("gait", {}) as Dictionary).get("full_speed", 80.0))
+	for row in states.size():
+		for col in 8:
+			var creature := PartCreature.new()
+			creature.setup(_parts_id)
+			creature.scale = Vector2.ONE * (_zoom if _zoom != 0.9 else 1.5)
+			creature.position = Vector2(40.0 + float(col) * 70.0, 40.0 + float(row) * 55.0)
+			add_child(creature)
+			_part_rows.append({"creature": creature, "state": StringName(states[row]), "steps": 30 + col * 3, "speed": gait_speed if str(states[row]).begins_with("run") or str(states[row]).begins_with("walk") or str(states[row]).begins_with("crawl") else 0.0})
+
+
+func _capture_parts() -> void:
+	for spot: Array in [[Vector2(130, 10), Palette.CYAN], [Vector2(420, 10), Color("ff2e88")], [Vector2(280, 180), Palette.WARM_LIGHT]]:
+		var light := LightKit.create_point_light(spot[1], 420.0, 1.4)
+		light.position = spot[0]
+		add_child(light)
+	var dt := 1.0 / 60.0
+	for entry in _part_rows:
+		var creature: PartCreature = entry["creature"]
+		for i in int(entry["steps"]):
+			creature.animate(dt, entry["state"], Vector2(float(entry["speed"]), 0.0), 1, 0.0)
+	for i in 4:
+		await get_tree().process_frame
+	var image := get_viewport().get_texture().get_image()
+	image.save_png(_out)
+	print("saved ", _out)
+	get_tree().quit()
 
 
 ## 讓每一隻跑到想看的狀態與時間點：先在 idle 跑 1 秒，再切到目標狀態跑（lash 跑到指定進度；strip 每格多跑 0.12 秒）。

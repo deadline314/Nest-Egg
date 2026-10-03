@@ -55,6 +55,15 @@ func _on_defeated(_info: DamageInfo) -> void:
 		Fx.explosion(_center(), data.ability_radius * 1.1, CHAIN_DAMAGE, Combat.Team.PLAYER, &"bomber_chain", Palette.CYAN)
 
 
+## 零件外觀：引信點燃後核心隨倒數越閃越快（和程式繪製版同一個節奏）。
+func _draw_creature_extras() -> void:
+	if not fsm.is_in(&"fuse"):
+		return
+	var rate := 10.0 + 30.0 * (1.0 - _telegraph_left / maxf(0.01, data.ability_time))
+	if int(_anim_time * rate) % 2 == 0:
+		draw_circle(Vector2(float(facing) * 2.0, -9.0), 3.0, Color(LightKit.glow(Palette.WARNING, 3.0), 0.8))
+
+
 func _draw_body(color: Color) -> void:
 	# 霓虹機械風：蜘蛛型自爆機，黃黑警示環、內部核心光隨引信加速閃爍。
 	var w := data.body_size.x
