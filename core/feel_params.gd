@@ -8,6 +8,11 @@ const PRESETS_PATH := "res://data/feel/presets.json"
 const RANGES := {
 	"px": [0.0, 12.0, 0.2], "time": [0.02, 1.0, 0.01], "hitstop": [0.0, 0.2, 0.005], "freeze": [0.0, 0.2, 0.005],
 	"scale": [0.1, 1.0, 0.05], "amount": [0.0, 0.08, 0.002], "max_enemies": [0.0, 20.0, 1.0],
+	# 近戰招式（NE-142）
+	"windup": [0.02, 0.4, 0.005], "active": [0.02, 0.2, 0.005], "recovery": [0.05, 0.6, 0.005], "cancel_after": [0.0, 0.4, 0.005],
+	"damage": [1.0, 10.0, 1.0], "range": [10.0, 60.0, 1.0], "advance": [0.0, 240.0, 5.0], "move_scale": [0.0, 1.0, 0.05],
+	"stagger": [0.0, 4.0, 1.0], "impact": [1.0, 14.0, 0.5], "life": [0.08, 0.12, 0.005], "width": [1.0, 8.0, 0.25],
+	"brightness": [0.5, 2.2, 0.05], "radius": [8.0, 40.0, 1.0], "arc": [40.0, 260.0, 5.0],
 }
 const SOURCE_DIRS: PackedStringArray = ["res://game", "res://ui", "res://autoload", "res://core"]
 const EXTRA_SOURCES: PackedStringArray = ["res://data/feel/melee.json"]

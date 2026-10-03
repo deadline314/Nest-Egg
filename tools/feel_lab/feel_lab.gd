@@ -181,7 +181,10 @@ func _build_panel() -> void:
 		box.add_child(_slider(entry[0], entry[1], entry[2]))
 	_preset_option = _option(box, "手感", PackedStringArray(FeelParams.presets().keys()), "預設組合：整體倍率一起改（標準、克制、厚重、街機、無障礙）")
 	_preset_option.item_selected.connect(func(index: int) -> void: Feel.set_preset(StringName(_preset_option.get_item_text(index))))
-	_event_option = _option(box, "回饋", PackedStringArray(Feel.event_ids()), "選一個回饋事件，下面會列出它所有可調的數值")
+	var event_items := PackedStringArray(Feel.event_ids())
+	for id: Variant in MeleeData.combo():
+		event_items.append("melee/" + str(id))
+	_event_option = _option(box, "回饋", event_items, "選一個回饋事件或近戰招式（melee/…），下面會列出它所有可調的數值")
 	_event_option.item_selected.connect(func(_i: int) -> void: rebuild_params())
 	box.add_child(_row([_button("預覽差異", func() -> void: _show_save_preview(true), "列出和檔案不同的參數，不寫入"),
 			_button("儲存", func() -> void: _show_save_preview(false), "驗證後寫回 data/feel/events.json（先備份）")]))
@@ -210,6 +213,14 @@ func _build_panel() -> void:
 
 
 func _play_event(id: StringName) -> void:
+	if String(id).begins_with("melee/"):
+		var combo := MeleeData.combo()
+		var index := combo.find(String(id).trim_prefix("melee/"))
+		if index >= 0 and player != null:
+			player._end_melee()
+			player._melee_index = index - 1
+			player._start_melee_attack(index > 0)
+		return
 	Feel.play(id, {"targets": [player]})
 
 
@@ -288,7 +299,7 @@ func rebuild_params() -> void:
 	for child in _param_box.get_children():
 		child.queue_free()
 	var id := StringName(_event_option.get_item_text(_event_option.selected))
-	var def := Feel.event_def(id)
+	var def := MeleeData.live_attack(String(id).trim_prefix("melee/")) if String(id).begins_with("melee/") else Feel.event_def(id)
 	for param: Dictionary in FeelParams.parameters(def):
 		var row := HBoxContainer.new()
 		row.add_child(UiKit.label(String(param["name"]), 7))
@@ -302,7 +313,7 @@ func rebuild_params() -> void:
 		slider.value_changed.connect(func(value: float) -> void: FeelParams.set_value(def, path, value))
 		row.add_child(slider)
 		_param_box.add_child(row)
-	var users := FeelParams.users_of(String(id))
+	var users := FeelParams.users_of(String(id)) if not String(id).begins_with("melee/") else ["res://data/feel/melee.json", "res://game/player/player.gd"]
 	_usage_label.text = "使用處：" + (", ".join(PackedStringArray(users.map(func(p: String) -> String: return p.get_file()))) if not users.is_empty() else "（沒有）")
 
 

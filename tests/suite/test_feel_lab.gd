@@ -75,6 +75,15 @@ func _test_lab_runs() -> void:
 	check(shooter.telegraph_left > 0.0, "the telegraph target warns before it fires")
 	await physics_frames(int(MaterialDummy.TELEGRAPH_TIME * 60.0) + 6)
 	check(ProjectilePool.active_count() > before_projectiles, "the telegraph target fires after its warning")
+	# 近戰招式也能在面板調：每個招式的數值都有已知範圍，改動即時影響下一次出招。
+	for id: Variant in MeleeData.combo():
+		for param in FeelParams.parameters(MeleeData.live_attack(str(id))):
+			check(bool(param["known"]), "melee parameter %s.%s has a known slider range" % [id, param["name"]])
+	var heavy := MeleeData.live_attack("heavy")
+	var windup_before := float(heavy["windup"])
+	FeelParams.set_value(heavy, ["windup"], 0.2)
+	check(is_equal_approx(float(MeleeData.attack("heavy")["windup"]), 0.2), "changing a melee parameter affects the next swing")
+	FeelParams.set_value(heavy, ["windup"], windup_before)
 	# 打得到靶：用正式受擊框收傷害，且打不死。
 	var info := DamageInfo.create(5, Combat.Team.PLAYER, &"lab_test")
 	mover.hurtbox.receive(info)

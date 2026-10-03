@@ -48,6 +48,13 @@ static func buffer_time() -> float:
 	return InputFeel.window("melee_buffer", 0.2)
 
 
+## 某一招的即時資料（實驗室直接改這份就會影響下一次出招）；不存在回傳空字典。
+static func live_attack(id: String) -> Dictionary:
+	_ensure_loaded()
+	var attacks: Dictionary = _data.get("attacks", {})
+	return attacks[id] if attacks.has(id) and typeof(attacks[id]) == TYPE_DICTIONARY else {}
+
+
 ## 某一招的資料（缺欄位補預設）；招式不存在時回傳預設並記錄一次。
 static func attack(id: String) -> Dictionary:
 	_ensure_loaded()
