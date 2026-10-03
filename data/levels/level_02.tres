@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=50 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=52 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_script"]
 [ext_resource type="Resource" path="res://data/story_items/doc_shaft_memo.tres" id="r1"]
@@ -43,6 +43,8 @@
 [ext_resource type="Resource" path="res://data/lighting/power_room.tres" id="r40"]
 [ext_resource type="Resource" path="res://data/lighting/transfer.tres" id="r41"]
 [ext_resource type="Resource" path="res://data/lighting/reclaimer_arena.tres" id="r42"]
+[ext_resource type="Resource" path="res://data/enemies/searchlight_drone.tres" id="ne_searchlight_drone"]
+[ext_resource type="Resource" path="res://data/enemies/sniper.tres" id="ne_sniper"]
 
 [sub_resource type="Resource" id="Resource_zone0"]
 script = ExtResource("r36")
@@ -81,6 +83,8 @@ display_name = "第二章　天空的代價"
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
+"Z": ExtResource("ne_sniper"),
+"A": ExtResource("ne_searchlight_drone"),
 "D": ExtResource("r1"),
 "E": ExtResource("r2"),
 "F": ExtResource("r3"),

@@ -6,8 +6,6 @@ const LINEUP: Array[String] = ["old_k", "mei", "wataru", "reclaimer", "sniper", 
 const WEAPONS := {
 	"old_k": "pistol", "mei": "smg", "wataru": "", "reclaimer": "rifle", "sniper": "sniper", "flamer": "flamethrower", "heavy_gunner": "minigun",
 }
-## 關卡開場的章節標題卡淡出需要的時間。
-const TITLE_CARD_TIME := 6.0
 const LIGHTING := {"transfer": "res://data/lighting/transfer.tres", "blackout": "res://data/lighting/blackout.tres"}
 
 
@@ -27,7 +25,7 @@ func run() -> void:
 			var lamp := LightKit.create_point_light(Color(1.0, 0.85, 0.6), 170.0, 1.5, false)
 			lamp.global_position = Vector2(27 * 16.0, FLOOR_Y - 64.0)
 			level.add_child(lamp)
-		await wait(TITLE_CARD_TIME)
+		await wait(1.0)
 		capture("NE-44-ingame-%s" % tag)
 		await finish()
 

@@ -4,6 +4,8 @@ extends Node
 ## 開空曠測試場地與生成敵人。每個情境一個檔案，覆寫 run()。
 
 const FLOOR_Y := 20 * 16.0
+## 關卡開場的章節標題卡淡出需要的時間（拍攝前要等它消失）。
+const TITLE_CARD_TIME := 3.8
 
 var out_dir := ""
 var level: Level
@@ -37,9 +39,10 @@ func snap_camera() -> void:
 		camera.snap_to_target()
 
 
-## 以空曠測試場地開一個關卡（套用指定的光影設定），玩家站在 x_tile。
-func open_arena(lighting_path: String, player_tile := 12.0) -> void:
-	var data := NewEnemiesSuite.arena_data()
+## 以測試場地開一個關卡（套用指定的光影設定），玩家站在 x_tile；預設是空曠場地，
+## 傳入 EnemySuiteBase.map_data() 則是有掩體牆與平台的場地。
+func open_arena(lighting_path: String, player_tile := 12.0, base_data: LevelData = null) -> void:
+	var data := base_data if base_data != null else NewEnemiesSuite.arena_data()
 	if not lighting_path.is_empty():
 		var zone := LightingZone.new()
 		zone.start_tile = 0
@@ -54,6 +57,7 @@ func open_arena(lighting_path: String, player_tile := 12.0) -> void:
 	player.health.setup(999, 0.0)
 	place_player(player_tile)
 	level.hud.visible = false
+	await wait(TITLE_CARD_TIME)
 
 
 func place_player(x_tile: float) -> void:
