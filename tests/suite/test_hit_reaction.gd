@@ -1,6 +1,7 @@
 class_name HitReactionSuite
 extends EnemySuiteBase
 ## 敵人受擊方向反應與依力道的死亡倒法（NE-103）也在這裡：正面／背面中彈身體往不同方向、倒法依方向與力道、屍體上限、脫落零件物件池。
+## 機械類與觸手生物的受擊反應、損傷狀態、斷肢（NE-105）也在這裡。
 ## 部位受擊框與弱點（NE-104）也在這裡：頭的傷害倍率、同一發只算一次、判定跟著姿勢、爆炸與近戰不分部位、壞資料的容錯。
 ## 敵人受擊分層與命中頓幀（NE-102）：輕擊只閃白、累積畏縮、重擊硬直、出招中的霸體、反應後的保護時間、
 ## 頭目幾乎不畏縮、局部頓幀只凍結指定節點且重疊取最長。
@@ -31,6 +32,10 @@ func run() -> void:
 	await _test_parts_follow_the_pose()
 	await _test_explosion_hits_once()
 	await _test_bad_part_data()
+	_test_machine_reaction_data()
+	await _test_machine_kick_and_stall()
+	await _test_damage_stages()
+	await _test_tentacle_wave_and_sever()
 
 
 ## 一發步槍彈等級的輕擊（傷害 1、擊退 40）。
@@ -388,4 +393,116 @@ func _test_bad_part_data() -> void:
 	level._entities.add_child(enemy)
 	await physics_frames(3)
 	check(enemy._parts.size() == 1 and (enemy._parts[0]["box"] as Hurtbox).part_id == &"ok", "a part with a missing bone falls back to a fixed position, an invalid one is skipped")
+	await end_level(level)
+
+
+const MACHINE_IDS := ["drone", "searchlight_drone", "repair_drone", "bomber", "shock_hound", "turret", "mimic"]
+
+
+func _test_machine_reaction_data() -> void:
+	var seen: Dictionary = {}
+	for id: String in MACHINE_IDS:
+		var data := load("res://data/enemies/%s.tres" % id) as EnemyData
+		check(["wobble", "stall", "stumble"].has(data.hit_style) and data.hit_amount > 0.0, "%s has a valid body reaction (%s, %.1f)" % [id, data.hit_style, data.hit_amount])
+		var key := "%s:%.1f" % [data.hit_style, data.hit_amount]
+		check(not seen.has(key), "%s does not share its reaction with another machine (%s)" % [id, key])
+		seen[key] = true
+		var sorted := true
+		for i in range(1, data.damage_states.size()):
+			sorted = sorted and data.damage_states[i] < data.damage_states[i - 1]
+		check(sorted and data.damage_states.size() >= 1, "%s has damage states from high to low" % id)
+
+
+func _test_machine_kick_and_stall() -> void:
+	await open_level(10.0)
+	var drone := _spawn_machine("drone", 60.0, FLOOR_Y - 52.0)
+	var hound := _spawn_machine("shock_hound", 66.0)
+	await physics_frames(2)
+	var vy := drone.velocity.y
+	drone.hurtbox.receive(_heavy(6.0))
+	hound.hurtbox.receive(_light())
+	check(drone._body_kick > 0.9 and hound._body_kick > 0.2 and hound._body_kick < drone._body_kick, "a heavier hit kicks a machine's body harder")
+	check(drone.velocity.y > vy + 50.0, "a flying machine loses lift when it is staggered (%.0f -> %.0f)" % [vy, drone.velocity.y])
+	for i in 90:
+		await physics_frames(1)
+	check(is_zero_approx(drone._body_kick) and is_zero_approx(hound._body_kick), "the body kick settles back to zero")
+	await end_level(level)
+
+
+func _spawn_machine(id: String, x_tile: float, y := FLOOR_Y) -> Enemy:
+	var enemy := spawn("res://data/enemies/%s.tres" % id, x_tile, y)
+	enemy.data = enemy.data.duplicate()
+	enemy.data.detect_range = 0.0
+	enemy.data.attack_range = 0.0
+	enemy.data.move_speed = 0.0
+	enemy.facing = -1
+	return enemy
+
+
+func _test_damage_stages() -> void:
+	await open_level(10.0)
+	var drone := _spawn_machine("drone", 60.0, FLOOR_Y - 52.0)
+	drone.data.finish_health_ratio = 0.0
+	check(drone._damage_stage == 0, "a fresh machine is undamaged")
+	drone.hurtbox.receive(hit(1))
+	check(drone._damage_stage == 1, "at about two thirds health the first damage state starts (%d)" % drone._damage_stage)
+	drone.hurtbox.receive(hit(1))
+	check(drone._damage_stage == 2, "at about one third health the second damage state starts (%d)" % drone._damage_stage)
+	for i in 120:
+		await physics_frames(1)
+	check(not drone.is_dying(), "a damaged machine keeps working while smoking")
+	var start_y := drone.position.y
+	_kill_with(drone, true, 1.0)
+	for i in 20:
+		await physics_frames(1)
+	check(absf(drone.rotation) > 1.0 and drone.position.y > start_y + 5.0, "a flying machine tumbles and falls when it is destroyed (%.1f rad, %.0f px)" % [drone.rotation, drone.position.y - start_y])
+	var humanoid := _spawn_still_trooper(70.0)
+	for i in 5:
+		humanoid.hurtbox.receive(hit(1))
+	check(humanoid._damage_stage == 0, "humanoids use armor shedding, not machine damage states")
+	await end_level(level)
+
+
+func _test_tentacle_wave_and_sever() -> void:
+	await open_level(10.0)
+	var control := ChainCreature.new()
+	var target := ChainCreature.new()
+	level.add_child(control)
+	level.add_child(target)
+	check(control.setup("test_creature") and target.setup("test_creature"), "the test creature loads")
+	var dt := 1.0 / 60.0
+	for i in 30:
+		control.animate(dt, &"idle")
+		target.animate(dt, &"idle")
+	var mid := target.bone_count() / 2
+	target.hit_wave(target.bone_of(2, mid).global_position, 1.0)
+	for i in 4:
+		control.animate(dt, &"idle")
+		target.animate(dt, &"idle")
+	var bend := absf(target.bone_of(2, mid).rotation - control.bone_of(2, mid).rotation)
+	var other := absf(target.bone_of(0, mid).rotation - control.bone_of(0, mid).rotation)
+	check(bend > 0.1, "a hit makes the struck tentacle whip near the hit (%.2f rad)" % bend)
+	check(other < 0.01, "the other tentacles are not disturbed by the wave (%.3f rad)" % other)
+	var tip_bend := 0.0
+	for i in 14:  # 波往尖端傳：約 0.23 秒後尖端附近也在擺
+		control.animate(dt, &"idle")
+		target.animate(dt, &"idle")
+		tip_bend = maxf(tip_bend, absf(target.bone_of(2, target.bone_count() - 2).rotation - control.bone_of(2, target.bone_count() - 2).rotation))
+	check(tip_bend > 0.08, "the wave travels towards the tip (%.2f rad)" % tip_bend)
+	for i in 80:
+		control.animate(dt, &"idle")
+		target.animate(dt, &"idle")
+	check(absf(target.bone_of(2, mid).rotation - control.bone_of(2, mid).rotation) < 0.02, "the wave dies out")
+	# 斷肢
+	check(target.alive_tentacles() == 5, "five tentacles at the start")
+	check(target.sever(2, Vector2.RIGHT) and target.alive_tentacles() == 4, "severing a tentacle removes exactly that one")
+	check(not target.sever(2) and not target.sever(99) and not target.sever(-1), "severing twice or a missing tentacle does nothing")
+	await physics_frames(3)
+	check(level.find_children("*", "RigDebris", true, false).size() >= 1, "the severed tentacle flies off as a pooled piece")
+	for i in 30:
+		target.animate(dt, &"lash")
+	check(target.alive_tentacles() == 4, "the creature keeps animating with a missing tentacle")
+	control.queue_free()
+	target.queue_free()
+	await physics_frames(2)
 	await end_level(level)

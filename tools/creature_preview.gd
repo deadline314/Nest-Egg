@@ -2,14 +2,17 @@ extends Node2D
 ## 開發工具：觸手生物的動作預覽（需要可渲染的環境）。
 ## 用法：godot --path . res://tools/creature_preview.tscn -- --creature=test_creature --out=/絕對路徑/檔名.png [--zoom=倍率]
 ## 並排顯示同一隻生物在 idle、alert、crawl 與鞭擊（進度 0、30%、55%、80%）的樣子；每一格都從 idle 開始跑到穩定。
+## --hit：改成看受擊：沒被打、第 3 條觸手被打到後 0.05／0.15／0.3／0.6 秒（受擊波往兩端傳），以及打斷那條觸手之後。
 ## --strip：改成同一個狀態（--state=名稱）在連續 8 個時間點的樣子，檢查行進波與收縮波怎麼往前傳。
 
+const HIT_FRAMES: Array[String] = ["idle", "hit:0.05", "hit:0.15", "hit:0.3", "hit:0.6", "sever:0.3"]
 const STATES: Array[String] = ["idle", "alert", "crawl", "lash:0.0", "lash:0.3", "lash:0.55", "lash:0.8"]
 
 var _creature_id := "test_creature"
 var _out := ""
-var _zoom := 1.6
+var _zoom := 0.9
 var _strip := false
+var _hit := false
 var _state := "crawl"
 var _creatures: Array[ChainCreature] = []
 var _wanted: Array[String] = []
@@ -25,6 +28,8 @@ func _ready() -> void:
 			_zoom = float(arg.trim_prefix("--zoom="))
 		elif arg == "--strip":
 			_strip = true
+		elif arg == "--hit":
+			_hit = true
 		elif arg.begins_with("--state="):
 			_state = arg.trim_prefix("--state=")
 	add_child(LightKit.create_environment())
@@ -37,12 +42,15 @@ func _ready() -> void:
 	if _strip:
 		for i in 8:
 			items.append("%s:%d" % [_state, i])
+	elif _hit:
+		items = HIT_FRAMES
 	else:
 		items = STATES
 	var count := items.size()
+	var width := get_viewport_rect().size.x
 	for i in count:
 		var creature := ChainCreature.new()
-		creature.position = Vector2(80.0 + float(i) * (1200.0 / float(count)) * 1.0, 150.0)
+		creature.position = Vector2(60.0 + float(i) * ((width - 120.0) / float(maxi(1, count - 1))), 110.0)
 		creature.scale = Vector2.ONE * _zoom
 		add_child(creature)
 		if not creature.setup(_creature_id):
@@ -62,6 +70,16 @@ func _run_to(creature: ChainCreature, want: String, index: int) -> void:
 		creature.animate(dt, &"idle")
 	var parts := want.split(":")
 	var state_name := parts[0]
+	if state_name == "hit" or state_name == "sever":
+		var target := creature.bone_of(2, creature.bone_count() / 2)
+		if state_name == "hit":
+			creature.hit_wave(target.global_position, 1.0)
+		else:
+			creature.hit_wave(target.global_position, 1.0)
+			creature.sever(2, Vector2.RIGHT)
+		for i in int(float(parts[1]) / dt):
+			creature.animate(dt, &"idle")
+		return
 	if _strip:
 		for i in int(1.5 / dt + float(index) * 0.12 / dt):
 			creature.animate(dt, StringName(state_name))

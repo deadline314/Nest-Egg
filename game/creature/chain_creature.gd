@@ -10,6 +10,13 @@ extends Node2D
 
 const PATH := "res://art/creatures/%s.json"
 const BLEND_SPEED := 6.0
+## 受擊波：同時最多幾道、傳遞速度（節／秒）、壽命（秒）、波寬（節）。
+const MAX_IMPULSES := 4
+const IMPULSE_SPEED := 14.0
+const IMPULSE_LIFE := 0.7
+const IMPULSE_WIDTH := 1.6
+## 斷肢飛出的速度。
+const SEVER_SPEED := Vector2(110.0, -140.0)
 const DEFAULT_STATE := {"amp": 0.15, "wavelength": 7.0, "speed": 1.6, "pulse": 0.05, "stretch": 0.02, "pulse_speed": 2.0, "curl": 0.0, "bob": 0.5, "duration": 0.8}
 
 var creature_id := ""
@@ -26,6 +33,8 @@ var _wave := 0.0
 var _pulse := 0.0
 var _time := 0.0
 var _segments := 8
+## 受擊波：{chain, at（骨頭序）, amp, age} 的固定容量陣列（重複使用，不每影格配置）。
+var _impulses: Array[Dictionary] = []
 
 
 ## 建立身體、骨頭與網格。回傳 false 代表資料無法使用（已記錄原因）。
@@ -140,7 +149,7 @@ func _add_tentacle(entry: Dictionary, tex: Texture2D, width: float, length: floa
 				weights[k][v] = 1.0
 	for i in _segments:
 		polygon.add_bone(polygon.get_path_to(bones[i]), weights[i])
-	_chains.append({"bones": bones, "angle": angle, "phase": float(entry.get("phase", 0.0)), "seg_len": seg_len, "scale": s, "polygon": polygon})
+	_chains.append({"index": _chains.size(), "bones": bones, "angle": angle, "phase": float(entry.get("phase", 0.0)), "seg_len": seg_len, "scale": s, "polygon": polygon})
 
 
 func set_state(new_state: StringName) -> void:
@@ -168,8 +177,11 @@ func animate(delta: float, new_state: StringName = &"") -> void:
 	_pulse += delta * float(_params["pulse_speed"])
 	var lashing := state == &"lash"
 	var progress := clampf(state_time / maxf(0.05, float(target["duration"])), 0.0, 1.0)
+	for impulse in _impulses:
+		impulse["age"] = float(impulse["age"]) + delta
 	for chain: Dictionary in _chains:
-		_pose_chain(chain, lashing, progress)
+		if not chain.get("severed", false):
+			_pose_chain(chain, lashing, progress)
 	if _body != null:
 		_body.position = _body_rest + Vector2(0, sin(_time * 2.1) * float(_params["bob"]))
 
@@ -195,6 +207,7 @@ func _pose_chain(chain: Dictionary, lashing: bool, progress: float) -> void:
 			var front := smoothstep(0.35, 1.0, progress) * float(n + 3)
 			var bump := exp(-pow((float(i) - front) / 2.0, 2.0))
 			a += 0.5 * windup * (0.5 + reach) - 1.1 * bump * (0.4 + reach)
+		a += _impulse_bend(chain, i)
 		var bone := bones[i]
 		bone.rotation = (chain["angle"] if i == 0 else 0.0) + a
 		var absolute := 1.0 + pulse * sin(TAU * float(i) / (wavelength * 0.7) - _pulse + phase)
@@ -202,6 +215,87 @@ func _pose_chain(chain: Dictionary, lashing: bool, progress: float) -> void:
 		previous_pulse = absolute
 		if i > 0:
 			bone.position = Vector2(0, seg_len * (1.0 + stretch * sin(TAU * float(i) / wavelength - _pulse * 1.1 + phase + 1.2)))
+
+
+## 被打到：在離 world_point 最近的那條觸手的最近一節產生一道波，往兩端傳（strength 約 0.3 輕～1.2 重）。
+## 已有最大數量的波時，覆蓋最舊的一道。
+func hit_wave(world_point: Vector2, strength: float) -> void:
+	var best_chain := -1
+	var best_bone := 0
+	var best_distance := INF
+	for c in _chains.size():
+		if _chains[c].get("severed", false):
+			continue
+		var bones: Array[Bone2D] = _chains[c]["bones"]
+		for i in bones.size():
+			var d := bones[i].global_position.distance_squared_to(world_point)
+			if d < best_distance:
+				best_distance = d
+				best_chain = c
+				best_bone = i
+	if best_chain < 0:
+		return
+	var slot := -1
+	for k in _impulses.size():
+		if float(_impulses[k]["age"]) >= IMPULSE_LIFE:
+			slot = k
+			break
+	if slot < 0:
+		if _impulses.size() < MAX_IMPULSES:
+			_impulses.append({})
+			slot = _impulses.size() - 1
+		else:
+			slot = 0
+			for k in _impulses.size():
+				if float(_impulses[k]["age"]) > float(_impulses[slot]["age"]):
+					slot = k
+	_impulses[slot] = {"chain": best_chain, "at": best_bone, "amp": clampf(strength, 0.0, 2.0) * 0.9, "age": 0.0}
+
+
+## 這條觸手在第 i 節受到的受擊波彎曲量：波包從受擊點往兩端以 IMPULSE_SPEED 傳，邊傳邊衰減。
+func _impulse_bend(chain: Dictionary, i: int) -> float:
+	var total := 0.0
+	for impulse in _impulses:
+		var age: float = impulse["age"]
+		if age >= IMPULSE_LIFE or int(impulse["chain"]) != int(chain["index"]):
+			continue
+		var front := age * IMPULSE_SPEED
+		var distance := absf(float(i) - float(impulse["at"]))
+		var packet := exp(-pow((distance - front) / IMPULSE_WIDTH, 2.0))
+		var decay := 1.0 - age / IMPULSE_LIFE
+		total += float(impulse["amp"]) * packet * decay * sin(age * 40.0 - distance * 1.3)
+	return total
+
+
+## 打斷第 index 條觸手：整條離開身體飛出去（用脫落零件的物件池，場上已滿就只消失），之後不再擺動。
+## impulse 是飛出的方向（世界座標，會被正規化）。回傳 false 代表這條已經斷了或編號不存在。
+func sever(index: int, impulse := Vector2.ZERO) -> bool:
+	if index < 0 or index >= _chains.size() or _chains[index].get("severed", false):
+		return false
+	var chain := _chains[index]
+	chain["severed"] = true
+	var polygon: Polygon2D = chain["polygon"]
+	polygon.visible = false
+	var tex := polygon.texture
+	if tex != null:
+		var verts := polygon.polygon
+		var origin := verts[0]
+		var x_axis := (verts[2] - verts[0]) / maxf(1.0, tex.get_size().x)
+		var y_axis := (verts[verts.size() - 3] - verts[0]) / maxf(1.0, tex.get_size().y)
+		var source := global_transform * Transform2D(x_axis, y_axis, origin)
+		var dir := impulse.normalized() if impulse != Vector2.ZERO else Vector2.RIGHT
+		var debris := RigDebris.spawn(tex, source, Vector2.ZERO, Vector2(dir.x * SEVER_SPEED.x, SEVER_SPEED.y) * randf_range(0.8, 1.2))
+		if debris != null and not Fx.add_world_node(debris):
+			debris.cancel()
+	return true
+
+
+func alive_tentacles() -> int:
+	var count := 0
+	for chain in _chains:
+		if not chain.get("severed", false):
+			count += 1
+	return count
 
 
 ## 每條觸手尖端的世界座標（傷害判定與落點預兆用）。
@@ -212,6 +306,11 @@ func tip_positions() -> PackedVector2Array:
 		var last := bones[bones.size() - 1]
 		out.append(last.to_global(Vector2(0, float(chain["seg_len"]))))
 	return out
+
+
+## 每條觸手有幾根骨頭。
+func bone_count() -> int:
+	return _segments
 
 
 func tentacle_count() -> int:

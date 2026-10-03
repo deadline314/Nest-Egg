@@ -32,6 +32,21 @@ const DEATH_FORCE_RANGE := 6.0
 const DEATH_HOP := 90.0
 ## 同時倒在場上的屍體上限，超過時最舊的快速淡出。
 const MAX_CORPSES := 8
+## 機械類身體反應：各層的力道、每秒衰減量與晃動頻率；損傷狀態的冒煙間隔（越嚴重越密）與外觀變舊的程度。
+const BODY_KICK_BY_TIER := [0.35, 0.8, 1.0]
+const BODY_KICK_DECAY := 4.0
+const BODY_WOBBLE_HZ := 55.0
+const STALL_DROP := 70.0
+## 飛行機墜落：旋轉的弧度、往下掉的像素與時間。
+const STALL_DEATH_SPIN := 9.0
+const STALL_DEATH_FALL := 46.0
+const STALL_DEATH_TIME := 0.5
+const DAMAGE_SMOKE_INTERVAL := [0.0, 1.3, 0.7]
+## 機械類的受擊閃白：往白色混多少、再提亮多少（外形與顏色仍然看得出來，不糊成一團白）。
+const MACHINE_FLASH_WHITE := 0.65
+const MACHINE_FLASH_GLOW := 1.25
+const DAMAGE_WEAR := 0.22
+const DAMAGE_WEAR_COLOR := Color(0.22, 0.14, 0.1)
 const CORPSE_FAST_FADE := 0.2
 const LIGHT_HURT_SCALE := 0.4
 const FLINCH_HURT_SCALE := 1.2
@@ -84,6 +99,11 @@ var _stun_left := 0.0
 ## 畏縮剩餘秒數、累積的衝擊力（韌性條），以及剛反應完不再被打斷的保護時間。
 var _flinch_left := 0.0
 var _death_tween: Tween
+## 機械類敵人（沒有骨架）的受擊身體反應：0~1 隨時間衰減，方向是被推的方向；損傷階段與冒煙計時。
+var _body_kick := 0.0
+var _body_kick_dir := 1.0
+var _damage_stage := 0
+var _damage_fx_left := 0.0
 var _poise_load := 0.0
 var _reaction_grace_left := 0.0
 const TELEGRAPH_LIGHT_RADIUS := 90.0
@@ -308,6 +328,15 @@ func _play_death() -> void:
 		_death_tween.tween_interval(RIG_DEATH_TIME)
 		_death_tween.tween_property(self, "modulate:a", 0.0, 0.4)
 		_register_corpse()
+	elif data.hit_style == "stall":
+		# 飛行機墜落：打轉、往下掉、淡出。
+		var spin := _body_kick_dir * STALL_DEATH_SPIN
+		_death_tween.set_parallel(true)
+		_death_tween.tween_property(self, "rotation", spin, STALL_DEATH_TIME).set_ease(Tween.EASE_IN)
+		_death_tween.tween_property(self, "position:y", position.y + STALL_DEATH_FALL, STALL_DEATH_TIME).set_ease(Tween.EASE_IN)
+		_death_tween.tween_property(self, "modulate:a", 0.0, STALL_DEATH_TIME * 0.6).set_delay(STALL_DEATH_TIME * 0.4)
+		_death_tween.chain().tween_callback(queue_free)
+		return
 	else:
 		_death_tween.tween_property(self, "scale", Vector2(1.4, 0.1), 0.12)
 	_death_tween.tween_callback(queue_free)
@@ -347,6 +376,8 @@ func _physics_process(delta: float) -> void:
 	_anim_time += delta
 	_flash_left = maxf(0.0, _flash_left - delta)
 	_alert_left = maxf(0.0, _alert_left - delta)
+	_body_kick = maxf(0.0, _body_kick - BODY_KICK_DECAY * delta)
+	_tick_damage_fx(delta)
 	_poise_load = maxf(0.0, _poise_load - POISE_RECOVER * delta)
 	_reaction_grace_left = maxf(0.0, _reaction_grace_left - delta)
 	if data.uses_gravity and not is_on_floor():
@@ -377,8 +408,10 @@ func _draw() -> void:
 	if data == null:
 		return
 	if rig == null:
-		var color := LightKit.glow(Palette.WHITE, 2.0) if _flash_left > 0.0 else data.color
+		var color := LightKit.glow(data.color.lerp(Palette.WHITE, MACHINE_FLASH_WHITE), MACHINE_FLASH_GLOW) if _flash_left > 0.0 				else data.color.lerp(DAMAGE_WEAR_COLOR, DAMAGE_WEAR * _damage_stage)
+		_apply_body_kick_transform()
 		_draw_body(color)
+		draw_set_transform(Vector2.ZERO)
 	_draw_overlay()
 	var top := -data.body_size.y - 8.0
 	if shield > 0:
@@ -400,6 +433,56 @@ func _draw() -> void:
 		var c := LightKit.glow(Palette.CYAN, 1.5 + pulse)
 		var p := Vector2(0, top - 2)
 		draw_colored_polygon(PackedVector2Array([p + Vector2(0, -4), p + Vector2(3, 0), p + Vector2(0, 4), p + Vector2(-3, 0)]), c)
+
+
+## 機械類敵人的身體反應：依 hit_style 讓整個外觀震動、傾斜下沉或踉蹌壓扁（每影格只改繪製變換，不配置物件）。
+func _apply_body_kick_transform() -> void:
+	if _body_kick <= 0.0:
+		return
+	var k := _body_kick
+	match data.hit_style:
+		"stall":
+			# 失速：往被推的方向傾斜、往下沉一點。
+			var tilt := _body_kick_dir * k * 0.45 * data.hit_amount
+			draw_set_transform(Vector2(0.0, k * 2.0), tilt)
+		"stumble":
+			# 踉蹌：被推的方向歪一下、壓扁再彈回，腳底不動。
+			var squash := 1.0 + 0.16 * k
+			draw_set_transform(Vector2(_body_kick_dir * k * data.hit_amount * 1.5, 0.0), 0.0, Vector2(squash, 2.0 - squash))
+		_:
+			draw_set_transform(Vector2(sin(_anim_time * BODY_WOBBLE_HZ) * k * data.hit_amount * 1.5, 0.0), 0.0)
+
+
+## 損傷階段：生命比例降到 damage_states 的第幾個門檻以下（0＝完好）；進入新階段時噴一小團火花。
+func _update_damage_stage() -> void:
+	if rig != null or data.damage_states.is_empty() or health.current <= 0:
+		return
+	var ratio := health.ratio()
+	var stage := 0
+	for threshold in data.damage_states:
+		if ratio <= threshold + 0.0001:
+			stage += 1
+	if stage > _damage_stage:
+		_damage_stage = stage
+		_damage_fx_left = 0.0
+		Fx.sparks(_center(), Palette.WARNING, 5, 130.0, 0.3)
+
+
+## 受損的機械持續冒煙與漏電（越嚴重越密，克制的數量）。
+func _tick_damage_fx(delta: float) -> void:
+	if _damage_stage <= 0 or _dying:
+		return
+	_damage_fx_left -= delta
+	if _damage_fx_left > 0.0:
+		return
+	var interval: float = DAMAGE_SMOKE_INTERVAL[mini(_damage_stage, DAMAGE_SMOKE_INTERVAL.size() - 1)]
+	if interval <= 0.0:
+		return
+	_damage_fx_left = interval * randf_range(0.8, 1.3)
+	var at := _center() + Vector2(randf_range(-0.3, 0.3) * data.body_size.x, -data.body_size.y * 0.2)
+	Fx.smoke(at, 1, 4.0, 0.9, 8.0)
+	if _damage_stage >= 2:
+		Fx.sparks(at, Palette.WARNING, 2, 90.0, 0.25)
 
 
 ## 弱點標記：弱點（傷害倍率大於 1 的部位）四角的小括弧，淡淡地呼吸，像義體的瞄準標記；開發檢查時（debug_hurtboxes）所有部位都畫出判定形狀。
@@ -497,6 +580,13 @@ func _on_damaged(info: DamageInfo) -> void:
 	if info.weak_hit:
 		_weak_point_feedback(info)
 	var tier := _resolve_hit_tier(info) if health.current > 0 else HitTier.LIGHT
+	if rig == null:
+		_body_kick = maxf(_body_kick, BODY_KICK_BY_TIER[tier])
+		_body_kick_dir = -1.0 if info.knockback.x < 0.0 else 1.0
+		if tier != HitTier.LIGHT and data.hit_style == "stall" and not data.uses_gravity:
+			velocity.y += STALL_DROP * (1.0 if tier == HitTier.FLINCH else 1.6)
+		queue_redraw()  # 頓幀凍結期間不會跑主迴圈，要先要求重畫，受擊的第一格才看得到反應
+	_update_damage_stage()
 	_flash_left = FLASH_TIME
 	if vfx != null:
 		vfx.play_hit(_center(), -info.knockback.normalized() if info.knockback != Vector2.ZERO else Vector2.UP)

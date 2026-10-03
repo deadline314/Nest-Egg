@@ -58,6 +58,14 @@ extends Resource
 ## 出招中的狀態：這些狀態下輕擊與累積都打不斷，只有單次衝擊達韌性 2.5 倍的重擊才會硬直（蓄力階段不在其中，所以蓄力可以被打斷）。
 @export var armor_states: PackedStringArray = ["leap", "charge", "dash", "burst", "fire", "pounce", "lunge", "burn", "dive"]
 
+@export_group("Body reaction")
+## 沒有骨架的敵人（機械類）被打到時身體的反應：wobble 震動（砲台、迫擊砲）、stall 失速傾斜下沉（飛行機）、
+## stumble 踉蹌壓扁（地面爬行的）。幅度 hit_amount 是像素（stall 是弧度的倍率）。人形敵人用骨架的受擊動作，不看這兩個欄位。
+@export_enum("wobble", "stall", "stumble") var hit_style: String = "wobble"
+@export var hit_amount: float = 1.5
+## 損傷狀態：生命比例降到這些值以下（約剩 2/3、1/3）時外觀變舊、冒煙與火花（由高到低）。空陣列＝沒有損傷狀態。
+@export var damage_states: PackedFloat32Array = [0.67, 0.34]
+
 @export_group("Hurt parts")
 ## 部位受擊框（頭、核心等弱點），依序、前面的優先。每筆 {"id": 部位名, "size": Vector2, "mult": 傷害倍率, "bone": 骨頭名（選填）, "offset": Vector2（選填）}。
 ## 有骨架且寫了 bone：判定跟著那根骨頭走（蹲下、倒下時一起降低），offset 是相對骨頭的位置（往面向的方向為正 x）；
