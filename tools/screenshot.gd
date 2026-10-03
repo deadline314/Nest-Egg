@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、ui、settings、mouse_aim、block、story、story_ch2、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
+## 情境：all（預設）、flow、transition、ui、settings、mouse_aim、block、story、story_ch2、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -24,6 +24,14 @@ func _run() -> void:
 	add_child(LightKit.create_environment())
 	# 劇情演出會暫停遊戲並蓋住畫面；只有 story 情境需要拍到演出。
 	Story.auto_skip = _scenario != "story" and _scenario != "story_ch2"
+	if _scenario == "flow":
+		await _run_flow()
+		get_tree().quit()
+		return
+	if _scenario == "transition":
+		await _run_transition()
+		get_tree().quit()
+		return
 	if _scenario == "ui":
 		await _run_ui()
 		get_tree().quit()
@@ -1184,6 +1192,49 @@ func _run_settings() -> void:
 	_capture("settings_bindings")
 	settings._cancel_capture()
 	settings.queue_free()
+
+
+## 真實流程：主選單 → 開始（掃描線）→ 關卡，確認轉場結束後遊戲恢復運作。
+func _run_flow() -> void:
+	Transition.instant = false
+	var main: Node = (load("res://scenes/main.tscn") as PackedScene).instantiate()
+	add_child(main)
+	await _settle(2)
+	while Transition.is_active() or Engine.get_frames_drawn() < 20:
+		await _settle(2)
+	await _settle(10)
+	main._on_start_requested(GameState.difficulties[1])
+	await _wait(0.3)
+	_capture("flow_scan_mid")
+	await _wait(1.0)
+	while Transition.is_active():
+		await _settle(2)
+	print("flow: paused=%s active=%s" % [get_tree().paused, Transition.is_active()])
+	_capture("flow_level")
+	main.queue_free()
+
+
+## 六種轉場的中途畫面（固定在 55% 進度，蓋住與揭開各拍一張）。
+func _run_transition() -> void:
+	var menu := MainMenu.new()
+	add_child(menu)
+	await _settle(20)
+	Transition.instant = false
+	Transition._rect.visible = true
+	for kind in Transition.Kind.values():
+		Transition._configure(kind, Vector2(0.5, 0.55), true)
+		Transition._set_progress(0.55, 0.37)
+		if kind == Transition.Kind.GLITCH:
+			Transition._set_caption("回溯 #3")
+			await _settle(12)
+		await _settle(3)
+		_capture("transition_%d_%s" % [kind, Transition.Kind.keys()[kind].to_lower()])
+		if kind == Transition.Kind.GLITCH:
+			Transition._set_caption("")
+			await _settle(12)
+	Transition._set_caption("")
+	Transition._rect.visible = false
+	menu.queue_free()
 
 
 ## 介面元件展示 + 各畫面截圖。

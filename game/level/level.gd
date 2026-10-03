@@ -21,6 +21,8 @@ var data: LevelData
 var player: Player
 var camera: LevelCamera
 var hud: Hud
+## 玩家死亡後為 true（Main 據此選擇重來的轉場）。
+var died := false
 
 var _layout: LevelLayout
 var _world: Node2D
@@ -525,6 +527,7 @@ func _on_player_died(cause: StringName) -> void:
 	if _finished:
 		return
 	_finished = true
+	died = true
 	_close_menus()
 	var card := DefeatCodex.unlock(cause)
 	var can_continue := GameState.register_death()
