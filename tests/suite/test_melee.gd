@@ -12,6 +12,7 @@ func run() -> void:
 	await _test_whiff_recovers_fully()
 	await _test_hit_cancel_and_combo()
 	await _test_dash_lock()
+	await _test_trails()
 	_test_bad_data()
 
 
@@ -134,3 +135,25 @@ func _test_dash_lock() -> void:
 func _test_bad_data() -> void:
 	var fallback := MeleeData.attack("test_no_such_attack")
 	check(float(fallback["windup"]) > 0.0 and int(fallback["damage"]) > 0, "an unknown attack falls back to safe defaults")
+
+
+func _test_trails() -> void:
+	await open_level(10.0)
+	var player := level.player
+	var visual: PlayerVisual = player._visual
+	var trail: Dictionary = MeleeData.attack("heavy")["trail"]
+	check(float(trail["life"]) >= MeleeData.TRAIL_LIFE_RANGE.x - 0.0001 and float(trail["life"]) <= MeleeData.TRAIL_LIFE_RANGE.y + 0.0001, "trail lasts 80 to 120 ms")
+	check(float(trail["brightness"]) <= MeleeData.TRAIL_BRIGHTNESS_MAX, "trail brightness stays under the cap")
+	for i in 5:
+		visual.notify_melee_swing(trail, 1)
+	check(visual._trails.size() <= MeleeData.MAX_TRAILS, "at most two trails at once (%d)" % visual._trails.size())
+	await physics_frames(3)
+	var life_frames := int(float(trail["life"]) * 60.0) + 12
+	for i in life_frames:
+		await frames(1)
+	check(visual._trails.is_empty(), "trails disappear after their life")
+	# 超過亮度上限的資料在檢查時被指出（過曝防護）。
+	var bad := MeleeData.attack("light_1").duplicate(true)
+	check(float((bad["trail"] as Dictionary)["brightness"]) <= MeleeData.TRAIL_BRIGHTNESS_MAX, "default trail is under the brightness cap")
+	await physics_frames(3)
+	await end_level(level)

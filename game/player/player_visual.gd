@@ -26,6 +26,8 @@ var rig: CharacterRig
 var _input := RigInput.new()
 var _time := 0.0
 var _fire_flash := 0.0
+## 進行中的揮砍軌跡：{age, trail（資料）, facing}；最多同時兩條，亮度有上限，不走粒子預算。
+var _trails: Array[Dictionary] = []
 var _fire_color := Palette.CYAN
 var _finisher_flash := 0.0
 var _parry_flash := 0.0
@@ -78,6 +80,14 @@ func muzzle_global() -> Vector2:
 func on_health_changed(ratio: float, decreased: bool) -> void:
 	if rig != null:
 		rig.set_armor_ratio(ratio, decreased)
+
+
+func notify_melee_swing(trail: Dictionary, swing_facing: int) -> void:
+	if trail.is_empty():
+		return
+	if _trails.size() >= MeleeData.MAX_TRAILS:
+		_trails.remove_at(0)
+	_trails.append({"age": 0.0, "trail": trail, "facing": swing_facing})
 
 
 func notify_fired(color: Color) -> void:
@@ -175,6 +185,10 @@ func _process(delta: float) -> void:
 		return
 	_time += delta
 	_fire_flash = maxf(0.0, _fire_flash - delta)
+	for i in range(_trails.size() - 1, -1, -1):
+		_trails[i]["age"] = float(_trails[i]["age"]) + delta
+		if float(_trails[i]["age"]) >= float((_trails[i]["trail"] as Dictionary).get("life", 0.1)):
+			_trails.remove_at(i)
 	_finisher_flash = maxf(0.0, _finisher_flash - delta)
 	_parry_flash = maxf(0.0, _parry_flash - delta)
 	_block_flash = maxf(0.0, _block_flash - delta)
@@ -201,6 +215,28 @@ func _update_ghosts(delta: float) -> void:
 			_ghosts.append(Vector3(global_position.x, global_position.y, GHOST_LIFETIME))
 
 
+## 揮砍軌跡：弧線先快速掃出一個弧，再整條淡出；帶一格較細、較早的殘影。亮度限制在 TRAIL_BRIGHTNESS_MAX 以內。
+func _draw_trail(entry: Dictionary) -> void:
+	var trail: Dictionary = entry["trail"]
+	var f := float(entry["facing"])
+	var life := float(trail.get("life", 0.1))
+	var progress := clampf(float(entry["age"]) / life, 0.0, 1.0)
+	var sweep := minf(1.0, progress / 0.4)
+	var fade := 1.0 - maxf(0.0, (progress - 0.4) / 0.6)
+	var radius := float(trail.get("radius", 20.0))
+	var arc := deg_to_rad(float(trail.get("arc", 130.0)))
+	var center := Vector2(f * 8.0, -body_center_height())
+	var start := -arc * 0.5 if f > 0.0 else PI + arc * 0.5
+	var end := start + arc * sweep * f
+	var glow := minf(float(trail.get("brightness", 1.7)), MeleeData.TRAIL_BRIGHTNESS_MAX)
+	var color := Color(LightKit.glow(Palette.CYAN, glow), fade)
+	draw_arc(center, radius, start, end, 18, color, float(trail.get("width", 3.0)))
+	draw_arc(center, radius * 0.92, start, end, 18, Color(LightKit.glow(Palette.WHITE, glow * 0.8), fade * 0.7), 1.2)
+	if bool(trail.get("afterimage", false)) and sweep > 0.3:
+		var back := start + arc * maxf(0.0, sweep - 0.3) * f
+		draw_arc(center, radius * 0.85, start, back, 14, Color(LightKit.glow(Palette.CYAN, glow * 0.6), fade * 0.45), float(trail.get("width", 3.0)) * 0.5)
+
+
 func _draw() -> void:
 	if player == null:
 		return
@@ -210,11 +246,8 @@ func _draw() -> void:
 		var tip := to_local(muzzle_global())
 		draw_circle(tip, 2.5 + 3.0 * t, LightKit.glow(_fire_color, 3.0))
 		draw_line(tip, tip + player.aim_dir * 9.0 * t, LightKit.glow(Palette.WHITE, 3.0), 2.0)
-	if player.is_melee_swinging():
-		var f := float(player.facing)
-		var center := Vector2(f * 8.0, -body_center_height())
-		var start := -PI * 0.5 if f > 0.0 else PI * 0.5
-		draw_arc(center, 18.0, start, start + PI * f, 14, LightKit.glow(Palette.CYAN, 2.0), 3.0)
+	for entry in _trails:
+		_draw_trail(entry)
 	_draw_shield()
 	if _finisher_flash > 0.0:
 		var t := _finisher_flash / FINISHER_FLASH_TIME

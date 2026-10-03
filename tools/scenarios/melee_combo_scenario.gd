@@ -4,8 +4,8 @@ extends ScenarioBase
 ## 用法：screenshot.tscn -- --out=<資料夾> --scenario=melee_combo
 
 const LIGHTING := "res://data/lighting/neutral.tres"
-const FRAMES := 16
-const STEP := 0.05
+const FRAMES := 24
+const STEP := 0.04
 
 
 func run() -> void:
@@ -20,7 +20,7 @@ func run() -> void:
 	await wait(0.4)
 	player.facing = -1
 	for i in FRAMES:
-		if i % 4 == 0:
+		if i % 5 == 0:
 			player._try_melee()
 		capture("melee_%02d" % i)
 		await wait(STEP)

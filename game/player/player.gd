@@ -568,6 +568,8 @@ func _end_melee() -> void:
 func _melee_strike() -> void:
 	var attack := _melee_attack
 	velocity.x += float(facing) * float(attack["advance"])
+	if _visual != null:
+		_visual.notify_melee_swing(attack.get("trail", {}), facing)
 	var reach := float(attack["range"])
 	var center := global_position + Vector2(facing * reach * 0.5, -BODY_SIZE.y * 0.55)
 	var knock: Array = attack["knockback"]

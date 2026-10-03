@@ -4,8 +4,12 @@ extends RefCounted
 ## 資料缺漏或損毀時記錄「檔案、招式、欄位」並退回內建的安全預設（單一輕斬），不崩潰。
 
 const PATH := "res://data/feel/melee.json"
-const FIELDS: PackedStringArray = ["windup", "active", "recovery", "cancel_after", "damage", "range", "advance", "move_scale", "stagger", "impact", "knockback", "event"]
-const DEFAULT_ATTACK := {"windup": 0.05, "active": 0.06, "recovery": 0.16, "cancel_after": 0.05, "damage": 2, "range": 26.0, "advance": 0.0, "move_scale": 0.4, "stagger": 2, "impact": 6.0, "knockback": [180.0, -60.0], "event": "player_melee_hit"}
+const FIELDS: PackedStringArray = ["windup", "active", "recovery", "cancel_after", "damage", "range", "advance", "move_scale", "stagger", "impact", "knockback", "event", "trail"]
+## 軌跡的限制：持續秒數範圍、峰值亮度上限（HDR 泛光下不過曝）、同時最多幾條。
+const TRAIL_LIFE_RANGE := Vector2(0.08, 0.12)
+const TRAIL_BRIGHTNESS_MAX := 2.2
+const MAX_TRAILS := 2
+const DEFAULT_ATTACK := {"windup": 0.05, "active": 0.06, "recovery": 0.16, "cancel_after": 0.05, "damage": 2, "range": 26.0, "advance": 0.0, "move_scale": 0.4, "stagger": 2, "impact": 6.0, "knockback": [180.0, -60.0], "event": "player_melee_hit", "trail": {"radius": 20.0, "arc": 130.0, "life": 0.09, "width": 3.0, "brightness": 1.7, "afterimage": true}}
 
 static var _data: Dictionary = {}
 static var _loaded := false
@@ -80,6 +84,15 @@ static func validate() -> PackedStringArray:
 		for key: String in (def as Dictionary).keys():
 			if not FIELDS.has(key) and not key.begins_with("_"):
 				errors.append("%s 的招式「%s」有不認得的欄位「%s」" % [PATH, id, key])
+		var trail: Variant = (def as Dictionary).get("trail")
+		if typeof(trail) != TYPE_DICTIONARY:
+			errors.append("%s 的招式「%s」沒有 trail" % [PATH, id])
+		else:
+			var life := float((trail as Dictionary).get("life", 0.0))
+			if life < TRAIL_LIFE_RANGE.x - 0.0001 or life > TRAIL_LIFE_RANGE.y + 0.0001:
+				errors.append("%s 的招式「%s」的 trail.life 要在 %s 秒之間" % [PATH, id, TRAIL_LIFE_RANGE])
+			if float((trail as Dictionary).get("brightness", 0.0)) > TRAIL_BRIGHTNESS_MAX:
+				errors.append("%s 的招式「%s」的 trail.brightness 不能超過 %s（過曝）" % [PATH, id, TRAIL_BRIGHTNESS_MAX])
 		var event := StringName(str((def as Dictionary).get("event", "")))
 		if event != &"" and not Feel.has_event(event):
 			errors.append("%s 的招式「%s」引用不存在的回饋事件「%s」" % [PATH, id, event])
