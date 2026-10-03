@@ -18,6 +18,7 @@ const FOOTER_HEIGHT := 24.0
 const TABS_LEFT := 96.0
 const TAB_GAP := 4
 const TAB_MAX_WIDTH := 104.0
+const LEGEND_WIDTH := 292.0
 const LEGEND_TEMPLATE := "{inventory} 關閉　Q／E 切換分頁　↑↓ 選擇　Enter 確認"
 
 ## 死亡或過關時由關卡關閉，避免和結算畫面同時出現。
@@ -183,12 +184,12 @@ func _build_layout() -> void:
 
 	_hint_label = UiKit.label("", 11, Palette.UI_TEXT)
 	_hint_label.position = Vector2(MARGIN.x, 360 - MARGIN.y - FOOTER_HEIGHT + 2)
-	_hint_label.size = Vector2(380, 18)
+	_hint_label.size = Vector2(320, 18)
 	_hint_label.clip_text = true
 	_frame.add_child(_hint_label)
 	_legend_label = UiKit.label("", 9, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
-	_legend_label.position = Vector2(640 - MARGIN.x - 230, 360 - MARGIN.y - FOOTER_HEIGHT + 4)
-	_legend_label.size = Vector2(230, 16)
+	_legend_label.position = Vector2(640 - MARGIN.x - LEGEND_WIDTH, 360 - MARGIN.y - FOOTER_HEIGHT + 4)
+	_legend_label.size = Vector2(LEGEND_WIDTH, 16)
 	_frame.add_child(_legend_label)
 
 	# 開啟時掃過畫面中央的亮線（CRT 開機）。

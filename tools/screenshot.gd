@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim、block、story、story_ch2、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
+## 情境：all（預設）、ui、settings、mouse_aim、block、story、story_ch2、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -24,6 +24,10 @@ func _run() -> void:
 	add_child(LightKit.create_environment())
 	# 劇情演出會暫停遊戲並蓋住畫面；只有 story 情境需要拍到演出。
 	Story.auto_skip = _scenario != "story" and _scenario != "story_ch2"
+	if _scenario == "ui":
+		await _run_ui()
+		get_tree().quit()
+		return
 	if _scenario == "settings":
 		await _run_settings()
 		get_tree().quit()
@@ -1180,6 +1184,83 @@ func _run_settings() -> void:
 	_capture("settings_bindings")
 	settings._cancel_capture()
 	settings.queue_free()
+
+
+## 介面元件展示 + 各畫面截圖。
+func _run_ui() -> void:
+	var layer := CanvasLayer.new()
+	add_child(layer)
+	var root := UiKit.full_rect_root(layer)
+	var backdrop := ColorRect.new()
+	backdrop.color = Palette.BG_FAR
+	backdrop.set_anchors_preset(Control.PRESET_FULL_RECT)
+	root.add_child(backdrop)
+	var panel := UiPanel.new("元件展示")
+	panel.position = Vector2(16, 12)
+	panel.custom_minimum_size = Vector2(300, 0)
+	root.add_child(panel)
+	panel.body.add_child(UiKit.button("開始任務", Callable(), "以選擇的難度開始"))
+	var disabled_button := UiKit.button("尚未解鎖", Callable(), "")
+	disabled_button.disabled = true
+	panel.body.add_child(disabled_button)
+	panel.body.add_child(UiDivider.new())
+	var bar := SegmentBar.new()
+	bar.segments = 12
+	panel.body.add_child(bar)
+	var shield := SegmentBar.new()
+	shield.color = Palette.MAGENTA
+	shield.segments = 8
+	panel.body.add_child(shield)
+	shield.set_ratio(0.6)
+	var check := CheckButton.new()
+	check.text = "減少閃光"
+	check.button_pressed = true
+	panel.body.add_child(check)
+	var slider := HSlider.new()
+	slider.value = 60
+	slider.custom_minimum_size = Vector2(200, 14)
+	panel.body.add_child(slider)
+	var tabs := TabContainer.new()
+	tabs.custom_minimum_size = Vector2(300, 70)
+	for tab_name in ["顯示", "音量", "操作"]:
+		var tab_page := UiKit.label(tab_name + "頁內容", 11)
+		tab_page.name = tab_name
+		tabs.add_child(tab_page)
+	root.add_child(tabs)
+	tabs.position = Vector2(330, 12)
+	var hint := UiHint.new()
+	root.add_child(hint)
+	hint.set_text("按 E 檢查")
+	hint.position = Vector2(340, 130)
+	var banner := UiBanner.new()
+	root.add_child(banner)
+	banner.position = Vector2(330, 160)
+	banner.show_text("取得：醫療包", UiBanner.Kind.ITEM, 5.0)
+	var warning := UiBanner.new()
+	root.add_child(warning)
+	warning.position = Vector2(330, 200)
+	warning.show_text("警告：回收部接近", UiBanner.Kind.WARNING, 5.0)
+	await _settle(4)
+	bar.set_ratio(0.4)
+	await _settle(30)
+	_capture("ui_kit_showcase")
+	layer.queue_free()
+	await _settle(2)
+	var menu := MainMenu.new()
+	add_child(menu)
+	await _settle(20)
+	_capture("ui_main_menu")
+	menu.queue_free()
+	var settings := SettingsScreen.new()
+	add_child(settings)
+	await _settle(20)
+	_capture("ui_settings")
+	settings.queue_free()
+	var codex := CodexScreen.new()
+	add_child(codex)
+	await _settle(20)
+	_capture("ui_codex")
+	codex.queue_free()
 
 
 func _shoot_at(player: Player, position: Vector2, frames: int) -> void:

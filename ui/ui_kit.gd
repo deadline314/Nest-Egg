@@ -3,11 +3,17 @@ extends RefCounted
 ## UI 共用工具：主題、字型、常用控制項。所有畫面共用同一份主題，確保風格一致且只建立一次。
 ## Tooltip 原則：一句話講重點（做什麼／怎麼用），不寫廢話。
 
+const FONT_PATH := "res://art/fonts/Cubic_11.ttf"
+## 系統備援字型（專案字體載入失敗，或遇到字體沒有的字時使用）。
 const FONT_NAMES: Array[String] = [
 	"Noto Sans CJK TC", "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", "Heiti TC",
 	"Source Han Sans TC", "Noto Sans CJK JP", "sans-serif",
 ]
-const BASE_FONT_SIZE := 12
+## 字級只用整數倍（像素字體只有整數倍才銳利）。新增畫面只從這三個挑。
+const FS_BODY := 11
+const FS_TITLE := 22
+const FS_DISPLAY := 33
+const BASE_FONT_SIZE := FS_BODY
 
 static var _theme: Theme
 static var _font: Font
@@ -15,56 +21,58 @@ static var _font: Font
 
 static func font() -> Font:
 	if _font == null:
-		var system_font := SystemFont.new()
-		system_font.font_names = PackedStringArray(FONT_NAMES)
-		system_font.antialiasing = TextServer.FONT_ANTIALIASING_GRAY
-		_font = system_font
+		_font = _load_font()
 	return _font
 
 
+## 先用專案字體；載入失敗時記錄並退回系統字型。系統字型同時掛為專案字體的備援，缺字不顯示方塊。
+static func _load_font() -> Font:
+	var system_font := SystemFont.new()
+	system_font.font_names = PackedStringArray(FONT_NAMES)
+	system_font.antialiasing = TextServer.FONT_ANTIALIASING_GRAY
+	var project_font := _load_project_font()
+	if project_font == null:
+		push_warning("UiKit: 專案字體載入失敗（%s），改用系統字型。" % FONT_PATH)
+		return system_font
+	project_font.fallbacks = [system_font]
+	return project_font
+
+
+static func _load_project_font() -> FontFile:
+	var loaded: Variant = load(FONT_PATH) if ResourceLoader.exists(FONT_PATH) else null
+	var font_file := loaded as FontFile
+	if font_file == null:
+		# 尚未匯入（例如新 clone 沒開過編輯器）時，直接讀檔案。
+		var bytes := FileAccess.get_file_as_bytes(FONT_PATH)
+		if bytes.is_empty():
+			return null
+		font_file = FontFile.new()
+		font_file.data = bytes
+	font_file.antialiasing = TextServer.FONT_ANTIALIASING_NONE
+	font_file.hinting = TextServer.HINTING_NONE
+	font_file.subpixel_positioning = TextServer.SUBPIXEL_POSITIONING_DISABLED
+	font_file.allow_system_fallback = true
+	return font_file
+
+
+## 任何字級對應到最近的設計字級（<=16 內文、<=27 標題、其餘大標）。
+static func snap_size(size: int) -> int:
+	if size <= 16:
+		return FS_BODY
+	if size <= 27:
+		return FS_TITLE
+	return FS_DISPLAY
+
+
 static func theme() -> Theme:
-	if _theme != null:
-		return _theme
-	var t := Theme.new()
-	t.default_font = font()
-	t.default_font_size = BASE_FONT_SIZE
-	t.set_stylebox(&"normal", &"Button", _box(Color(0.07, 0.11, 0.15, 0.92), Palette.CYAN_DIM))
-	t.set_stylebox(&"hover", &"Button", _box(Color(0.09, 0.17, 0.22, 0.95), Palette.CYAN))
-	t.set_stylebox(&"pressed", &"Button", _box(Color(0.05, 0.28, 0.35, 0.95), Palette.CYAN))
-	t.set_stylebox(&"focus", &"Button", _box(Color(0, 0, 0, 0), Palette.CYAN, 2))
-	t.set_stylebox(&"disabled", &"Button", _box(Color(0.06, 0.08, 0.1, 0.8), Palette.TERRAIN_EDGE))
-	t.set_color(&"font_color", &"Button", Palette.UI_TEXT)
-	t.set_color(&"font_hover_color", &"Button", Palette.CYAN)
-	t.set_color(&"font_focus_color", &"Button", Palette.CYAN)
-	t.set_color(&"font_pressed_color", &"Button", Palette.WHITE)
-	t.set_color(&"font_disabled_color", &"Button", Palette.UI_MUTED)
-	t.set_stylebox(&"panel", &"PanelContainer", _box(Palette.UI_PANEL, Palette.CYAN_DIM, 1, 10))
-	t.set_stylebox(&"panel", &"TooltipPanel", _box(Color(0.03, 0.05, 0.07, 0.96), Palette.CYAN_DIM, 1, 6))
-	t.set_color(&"font_color", &"TooltipLabel", Palette.UI_TEXT)
-	t.set_font_size(&"font_size", &"TooltipLabel", 10)
-	t.set_color(&"font_color", &"Label", Palette.UI_TEXT)
-	_theme = t
-	return t
+	if _theme == null:
+		_theme = UiTheme.build(font(), BASE_FONT_SIZE)
+	return _theme
 
 
-## 背包分頁標籤的外框：選取中亮青色底與邊，未選取暗色。
-static func tab_style(selected: bool) -> StyleBoxFlat:
-	var box := _box(Color(0.05, 0.22, 0.28, 0.96) if selected else Color(0.05, 0.08, 0.11, 0.9),
-			Palette.CYAN if selected else Palette.CYAN_DIM, 2 if selected else 1, 4)
-	return box
-
-
-static func _box(bg: Color, border: Color, border_width := 1, margin := 6) -> StyleBoxFlat:
-	var box := StyleBoxFlat.new()
-	box.bg_color = bg
-	box.border_color = border
-	box.set_border_width_all(border_width)
-	box.set_corner_radius_all(2)
-	box.content_margin_left = margin * 2
-	box.content_margin_right = margin * 2
-	box.content_margin_top = margin
-	box.content_margin_bottom = margin
-	return box
+## 頁籤外框：選取中亮青色底與邊、下沿與面板相連，未選取暗色。
+static func tab_style(selected: bool) -> StyleBox:
+	return UiTheme.tab_box(selected)
 
 
 static func label(text: String, size := BASE_FONT_SIZE, color := Palette.UI_TEXT,
@@ -72,23 +80,19 @@ static func label(text: String, size := BASE_FONT_SIZE, color := Palette.UI_TEXT
 	var l := Label.new()
 	l.text = text
 	l.horizontal_alignment = align
-	l.add_theme_font_size_override(&"font_size", size)
+	l.add_theme_font_size_override(&"font_size", snap_size(size))
 	l.add_theme_color_override(&"font_color", color)
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return l
 
 
-## 建立按鈕；tooltip 請寫一句重點。
+## 建立按鈕；tooltip 請寫一句重點。選取與確認的音效、動畫由 UiButton 負責。
 static func button(text: String, on_pressed: Callable, tooltip := "") -> Button:
-	var b := Button.new()
+	var b := UiButton.new()
 	b.text = text
 	b.tooltip_text = tooltip
-	b.focus_mode = Control.FOCUS_ALL
-	b.custom_minimum_size = Vector2(180, 0)
 	if on_pressed.is_valid():
 		b.pressed.connect(on_pressed)
-	b.pressed.connect(Sfx.play.bind(&"ui_confirm", -6.0, 0.0))
-	b.focus_entered.connect(Sfx.play.bind(&"ui_move", -14.0, 0.0))
 	return b
 
 

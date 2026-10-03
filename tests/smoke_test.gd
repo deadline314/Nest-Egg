@@ -22,6 +22,11 @@ func _run() -> void:
 	# 無頭環境沒有畫面，關閉畫面外休眠以便敵人 AI 運作；過場直接結束（劇情另有專門測試）。
 	Enemy.activation_culling_enabled = false
 	Story.auto_skip = true
+	var only := _only_suite()
+	if only != "":
+		await _run_suites(only)
+		await _finish()
+		return
 	_test_data()
 	_test_level_layout()
 	_test_state_machine()
@@ -40,19 +45,39 @@ func _run() -> void:
 	await _test_boss_and_victory()
 	await _test_checkpoints_and_difficulties()
 	await _test_death_flow()
-	await PropsSuite.new(self).run()
-	await NewEnemiesSuite.new(self).run()
-	await CollectiblesSuite.new(self).run()
-	await ProgressionSuite.new(self).run()
-	await SupplySuite.new(self).run()
-	await ReclaimerSuite.new(self).run()
-	await Chapter2Suite.new(self).run()
+	await _run_suites("")
+	await _finish()
+
+
+func _finish() -> void:
 	print("checks: %d, failures: %d" % [_checks, _failures.size()])
 	for failure in _failures:
 		printerr("FAIL: " + failure)
 	Sfx.stop_all()
 	await _frames(2)
 	get_tree().quit(0 if _failures.is_empty() else 1)
+
+
+## 功能套件（tests/suite/）。開發時可用 `-- --only=套件類別名` 只跑其中一份，例如 UiKitSuite。
+func _suites() -> Array[TestSuite]:
+	return [
+		PropsSuite.new(self), NewEnemiesSuite.new(self), CollectiblesSuite.new(self),
+		ProgressionSuite.new(self), SupplySuite.new(self), ReclaimerSuite.new(self),
+		Chapter2Suite.new(self), UiKitSuite.new(self),
+	]
+
+
+func _only_suite() -> String:
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--only="):
+			return arg.trim_prefix("--only=")
+	return ""
+
+
+func _run_suites(only: String) -> void:
+	for suite in _suites():
+		if only == "" or suite.get_script().get_global_name() == only:
+			await suite.run()
 
 
 func _check(condition: bool, message: String) -> void:

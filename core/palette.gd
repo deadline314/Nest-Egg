@@ -33,3 +33,8 @@ const BG_NEAR := Color("16202a")
 const UI_PANEL := Color(0.04, 0.07, 0.1, 0.9)
 const UI_TEXT := Color("e8f4f8")
 const UI_MUTED := Color("8aa0ad")
+## 介面色票：新增畫面一律從這裡取色，不另外挑。
+const UI_PANEL_HI := Color(0.06, 0.14, 0.18, 0.95)
+const UI_PANEL_SEL := Color(0.05, 0.26, 0.32, 0.96)
+const UI_PANEL_DEEP := Color(0.03, 0.05, 0.08, 0.96)
+const UI_LINE_OFF := Color("2b3946")
