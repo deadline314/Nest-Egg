@@ -1,0 +1,16 @@
+{
+ "_說明": "輸入手感：windows 是戰鬥與移動的輸入緩衝／取消窗口（秒，上限 0.3）：jump_buffer 起跳緩衝、coyote 離地後仍可起跳、dash_buffer 衝刺在冷卻或收招中提前按會排隊、melee_buffer 近戰出招中提前按會接下一招。aim_assist 只給手把：cone_degrees 錐形角度、strength 最大拉力（上限 0.6）、max_distance 距離、turn_cutoff 搖桿轉動角速度（弧度/秒）超過就關閉輔助（玩家輸入優先）。",
+ "windows": {
+  "jump_buffer": 0.12,
+  "coyote": 0.1,
+  "dash_buffer": 0.12,
+  "melee_buffer": 0.22
+ },
+ "aim_assist": {
+  "enabled": true,
+  "cone_degrees": 12.0,
+  "strength": 0.35,
+  "max_distance": 260.0,
+  "turn_cutoff": 6.0
+ }
+}

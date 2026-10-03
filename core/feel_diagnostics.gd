@@ -6,7 +6,7 @@ extends Label
 
 const UPDATE_INTERVAL := 0.1
 ## 計數顯示順序與標籤（沒列在這裡的計數會接在後面）。
-const ORDER: PackedStringArray = ["fps", "frame_ms", "hitstop_budget_left", "frozen_nodes", "slowmo_active", "camera_shake_px", "camera_zoom", "particles", "voices_playing", "sounds_dropped", "flash_per_second", "flash_peak", "flash_dropped"]
+const ORDER: PackedStringArray = ["fps", "frame_ms", "hitstop_budget_left", "frozen_nodes", "slowmo_active", "camera_shake_px", "camera_zoom", "input_latency_ms", "input_latency_avg_ms", "particles", "voices_playing", "sounds_dropped", "flash_per_second", "flash_peak", "flash_dropped"]
 
 var updates := 0
 var _counters: Dictionary = {}

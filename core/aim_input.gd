@@ -8,6 +8,7 @@ const STICK_DEADZONE := 0.3
 
 static var using_gamepad := false
 static var _last_stick_dir := Vector2.RIGHT
+static var _last_stick_msec := 0
 
 
 ## 由擁有輸入的節點在 _input 中呼叫，偵測目前使用的裝置。
@@ -25,7 +26,13 @@ static func direction_from(node: Node2D, origin: Vector2, fallback: Vector2) -> 
 	var stick := Input.get_vector(&"aim_left", &"aim_right", &"aim_up", &"aim_down", STICK_DEADZONE)
 	if stick != Vector2.ZERO:
 		using_gamepad = true
+		var now := Time.get_ticks_msec()
+		var dt := maxf(0.001, float(now - _last_stick_msec) * 0.001)
+		var turn_rate := absf(_last_stick_dir.angle_to(stick.normalized())) / dt if now - _last_stick_msec < 200 else 0.0
+		_last_stick_msec = now
 		_last_stick_dir = stick.normalized()
+		# 手把才有瞄準輔助；搖桿正在大幅轉動時輔助關閉（玩家輸入優先）。
+		return InputFeel.assist(origin, _last_stick_dir, node.get_tree().get_nodes_in_group(&"enemies"), turn_rate, true)
 	if using_gamepad:
 		return _last_stick_dir
 	var offset := node.get_global_mouse_position() - origin

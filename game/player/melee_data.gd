@@ -45,8 +45,7 @@ static func combo_window() -> float:
 
 
 static func buffer_time() -> float:
-	_ensure_loaded()
-	return float(_data.get("buffer", 0.2))
+	return InputFeel.window("melee_buffer", 0.2)
 
 
 ## 某一招的資料（缺欄位補預設）；招式不存在時回傳預設並記錄一次。

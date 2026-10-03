@@ -1,12 +1,11 @@
 {
- "_說明": "近戰三段：windup 前搖、active 出招（判定在出招開始時一次）、recovery 收招（秒）。命中後收招只需 cancel_after 秒就能接下一招／衝刺／射擊，揮空要吃滿 recovery。advance 是出招時往前衝的速度（像素/秒）、move_scale 是出招期間的移動倍率。combo 依序是連段（輕、輕、重），combo_window 是收招後仍可接下一段的秒數，buffer 是輸入緩衝秒數。命中回饋事件見 events.json。 trail 是揮砍軌跡：radius 半徑、arc 弧度（度）、life 持續秒數（0.08～0.12）、width 線寬、brightness 峰值亮度（有上限）、afterimage 是否帶一格殘影。",
+ "_說明": "近戰三段：windup 前搖、active 出招（判定在出招開始時一次）、recovery 收招（秒）。命中後收招只需 cancel_after 秒就能接下一招／衝刺／射擊，揮空要吃滿 recovery。advance 是出招時往前衝的速度（像素/秒）、move_scale 是出招期間的移動倍率。combo 依序是連段（輕、輕、重），combo_window 是收招後仍可接下一段的秒數，輸入緩衝在 data/feel/input.json 的 windows.melee_buffer。命中回饋事件見 events.json。 trail 是揮砍軌跡：radius 半徑、arc 弧度（度）、life 持續秒數（0.08～0.12）、width 線寬、brightness 峰值亮度（有上限）、afterimage 是否帶一格殘影。",
  "combo": [
   "light_1",
   "light_2",
   "heavy"
  ],
  "combo_window": 0.5,
- "buffer": 0.22,
  "attacks": {
   "light_1": {
    "windup": 0.05,

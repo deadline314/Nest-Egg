@@ -28,6 +28,8 @@ func _ready() -> void:
 	reload()
 	register_counter("hitstop_budget_left", Fx.hitstop_budget_left)
 	register_counter("particles", Fx.particle_count)
+	register_counter("input_latency_ms", func() -> float: return snappedf(InputFeel.last_ms, 0.1))
+	register_counter("input_latency_avg_ms", func() -> float: return snappedf(InputFeel.average_ms, 0.1))
 	register_counter("fps", func() -> int: return int(Engine.get_frames_per_second()))
 	register_counter("frame_ms", func() -> float: return snappedf(Performance.get_monitor(Performance.TIME_PROCESS) * 1000.0, 0.1))
 	register_counter("flash_per_second", func() -> int: return FlashGuard.rate())

@@ -63,6 +63,9 @@ var _max_health := 6
 var _loadout_snapshot: Dictionary = {}
 var _coyote_left := 0.0
 var _jump_buffer_left := 0.0
+var _dash_buffer_left := 0.0
+var _dash_buffer_x := 0.0
+const LATENCY_ACTIONS: Array[StringName] = [&"shoot", &"melee", &"jump", &"dash"]
 var _dash_left := 0.0
 var _dash_cooldown_left := 0.0
 var _air_dash_used := false
@@ -193,6 +196,10 @@ func muzzle_position() -> Vector2:
 
 func _input(event: InputEvent) -> void:
 	AimInput.observe(event)
+	# 輸入延遲量測：記下按下的時間，效果發生時再結算。
+	for action: StringName in LATENCY_ACTIONS:
+		if event.is_action_pressed(action):
+			InputFeel.mark(action)
 
 
 ## 換武器用事件處理：滾輪的按下與放開發生在同一影格，用輪詢會漏掉。
@@ -259,6 +266,10 @@ func _physics_process(delta: float) -> void:
 
 func _tick_timers(delta: float) -> void:
 	_coyote_left = maxf(0.0, _coyote_left - delta)
+	_dash_buffer_left = maxf(0.0, _dash_buffer_left - delta)
+	if _dash_buffer_left > 0.0 and _dash_cooldown_left <= 0.0 and not is_melee_locked() and (is_on_floor() or not _air_dash_used):
+		_dash_buffer_left = 0.0
+		_try_dash(_dash_buffer_x)
 	_jump_buffer_left = maxf(0.0, _jump_buffer_left - delta)
 	_dash_cooldown_left = maxf(0.0, _dash_cooldown_left - delta)
 	_fire_cooldown_left = maxf(0.0, _fire_cooldown_left - delta)
@@ -307,10 +318,10 @@ func _process_normal(delta: float) -> void:
 	velocity.x = move_toward(velocity.x, target_speed, accel * delta)
 
 	if on_floor:
-		_coyote_left = tuning.coyote_time
+		_coyote_left = InputFeel.window("coyote", tuning.coyote_time)
 		_air_dash_used = false
 	if Input.is_action_just_pressed(&"jump"):
-		_jump_buffer_left = tuning.jump_buffer
+		_jump_buffer_left = InputFeel.window("jump_buffer", tuning.jump_buffer)
 	if _jump_buffer_left > 0.0:
 		if on_floor and down and _is_standing_on_platform():
 			_start_drop_through()
@@ -322,6 +333,7 @@ func _process_normal(delta: float) -> void:
 			_visual.notify_jump()
 			Fx.dust(global_position, 4, 40.0)
 			Sfx.play(&"jump", -8.0)
+			InputFeel.resolve(&"jump")
 	if Input.is_action_just_released(&"jump") and velocity.y < 0.0:
 		velocity.y *= tuning.jump_cut
 	_apply_gravity(delta)
@@ -438,6 +450,7 @@ func _try_fire() -> void:
 			_dry_fire()
 		return
 	_fire_cooldown_left = weapon.fire_interval / cyber.fire_rate_scale()
+	InputFeel.resolve(&"shoot")
 	var muzzle := muzzle_position()
 	WeaponSystem.fire(weapon, muzzle, aim_dir, Combat.Team.PLAYER, 1.0, aim_bloom * AIM_BLOOM_MAX_DEGREES)
 	aim_bloom = minf(1.0, aim_bloom + weapon.bloom_per_shot)
@@ -453,7 +466,11 @@ func _try_fire() -> void:
 
 func _try_dash(input_x: float) -> void:
 	if _dash_cooldown_left > 0.0 or (not is_on_floor() and _air_dash_used) or is_melee_locked():
+		# 提前按：冷卻或收招結束的瞬間自動衝刺。
+		_dash_buffer_left = InputFeel.window("dash_buffer", 0.12)
+		_dash_buffer_x = input_x
 		return
+	InputFeel.resolve(&"dash")
 	if _melee_phase != MeleePhase.NONE:
 		_end_melee()
 	loadout.cancel_reload()
@@ -502,6 +519,7 @@ func _try_melee() -> bool:
 
 
 func _start_melee_attack(continue_combo: bool) -> void:
+	InputFeel.resolve(&"melee")
 	var combo := MeleeData.combo()
 	_melee_index = (_melee_index + 1) % combo.size() if continue_combo and _melee_index >= 0 else 0
 	_melee_attack = MeleeData.attack(str(combo[_melee_index]))
