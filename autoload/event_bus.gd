@@ -19,6 +19,8 @@ signal vehicle_health_changed(current: int, maximum: int)
 signal enemy_killed(enemy_id: StringName, by_finisher: bool)
 ## 玩家的攻擊命中（準星命中標記用）。
 signal hit_confirmed(world_position: Vector2, killed: bool)
+## 準星上的命中標記種類：hit（命中）、weak（弱點）、kill（擊殺）、blocked（被擋）。
+signal hit_marker(kind: StringName)
 
 signal boss_started(display_name: String, max_health: int)
 signal boss_health_changed(current: int, maximum: int)

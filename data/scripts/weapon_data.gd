@@ -30,6 +30,14 @@ extends Resource
 ## 後座力（像素／秒）：空中全額、地面 30%。
 @export var recoil: float = 0.0
 @export var muzzle_light_energy: float = 1.2
+## 槍口閃光大小（像素）、火花數量、光的範圍；重武器大、輕武器小。
+@export var muzzle_flare_size: float = 15.0
+@export var muzzle_spark_count: int = 3
+@export var muzzle_light_radius: float = 56.0
+## 槍口特效（閃光、火花、光）的最短間隔秒數：連發武器每隔一下才播，避免粒子與光爆量；0 = 每發都播。
+@export var muzzle_fx_interval: float = 0.0
+## 鏡頭震動的持續秒數。
+@export var screen_shake_time: float = 0.08
 @export var ejects_casing: bool = true
 ## 每發增加的準星擴散（0~1）。連射越久越不準，首發永遠精準。
 @export var bloom_per_shot: float = 0.15

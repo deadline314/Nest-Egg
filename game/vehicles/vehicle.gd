@@ -171,9 +171,7 @@ func _try_fire() -> void:
 	var muzzle := _muzzle()
 	WeaponSystem.fire(weapon, muzzle, aim_dir, Combat.Team.PLAYER)
 	_muzzle_flash = 0.07
-	Fx.flash_light(muzzle, weapon.color, 80.0, weapon.muzzle_light_energy, 0.1)
-	Fx.kick(-aim_dir, weapon.camera_kick)
-	Feel.shake_strength(weapon.screen_shake, 0.1)
+	WeaponSystem.muzzle_feedback(weapon, muzzle, aim_dir)
 	Sfx.play(weapon.fire_sound, -5.0)
 	if weapon.ejects_casing:
 		Fx.casing(global_position + Vector2(0, -data.body_size.y * 0.7), facing)

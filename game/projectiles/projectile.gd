@@ -106,6 +106,7 @@ func _strike(hurtbox: Hurtbox) -> void:
 			HitFeedback.play(hurtbox.material_id(), global_position, -velocity.normalized(), spec.color, {"weak": info.weak_hit})
 			if team == Combat.Team.PLAYER:
 				EventBus.hit_confirmed.emit(global_position, hurtbox.health.is_dead)
+				EventBus.hit_marker.emit(&"kill" if hurtbox.health.is_dead else (&"weak" if info.weak_hit else &"hit"))
 		Hurtbox.Result.REFLECTED:
 			_reflect(hurtbox.reflect_direction)
 			return
@@ -113,6 +114,8 @@ func _strike(hurtbox: Hurtbox) -> void:
 			# 被格擋：火花反彈、子彈直接消失（即使可貫穿）。
 			HitFeedback.play(hurtbox.material_id(), global_position, -velocity.normalized(), Palette.WHITE, {"ricochet": true})
 			Sfx.play(&"block", -4.0)
+			if team == Combat.Team.PLAYER:
+				EventBus.hit_marker.emit(&"blocked")
 			_finish(true)
 			return
 		_:

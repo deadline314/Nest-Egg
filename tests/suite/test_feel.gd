@@ -17,6 +17,7 @@ func run() -> void:
 	await _test_camera()
 	await _test_sound_events()
 	_test_hit_materials()
+	await _test_weapon_feel()
 
 
 func _script_paths(dir: String, into: PackedStringArray) -> void:
@@ -334,3 +335,38 @@ func _test_hit_materials() -> void:
 		wanted += 10
 	check(HitFeedback.trimmed_particles > 0 and HitFeedback.trimmed_particles < wanted, "particle budget trims bursts (%d of %d trimmed)" % [HitFeedback.trimmed_particles, wanted])
 	HitFeedback.reset_budget()
+
+
+func _test_weapon_feel() -> void:
+	var weapons: Dictionary = {}
+	for file in DirAccess.get_files_at("res://data/weapons"):
+		if file.ends_with(".tres"):
+			var weapon := load("res://data/weapons/" + file) as WeaponData
+			check(weapon != null and weapon.muzzle_flare_size > 0.0 and weapon.muzzle_light_radius > 0.0 and weapon.muzzle_spark_count >= 0 and weapon.screen_shake_time > 0.0, "%s has valid muzzle feedback data" % file)
+			if weapon != null:
+				weapons[weapon.id] = weapon
+	# 輕重武器明顯區分：槍口閃光、光範圍與鏡頭後座都是重武器大。
+	var light: WeaponData = weapons[&"smg"]
+	var heavy: WeaponData = weapons[&"railgun"]
+	check(heavy.muzzle_flare_size >= light.muzzle_flare_size * 2.5 and heavy.muzzle_light_radius > light.muzzle_light_radius * 1.5 and heavy.camera_kick > light.camera_kick * 3.0, "heavy weapons look and feel clearly heavier than light ones")
+	# 連發節流：間隔內的第二發不再播槍口特效，但鏡頭後座照樣有。
+	WeaponSystem._last_muzzle_fx.clear()
+	var kicks := [0]
+	var count := func(_o: Vector2) -> void: kicks[0] += 1
+	EventBus.camera_kick.connect(count)
+	var first := WeaponSystem.muzzle_feedback(light, Vector2.ZERO, Vector2.RIGHT)
+	var second := WeaponSystem.muzzle_feedback(light, Vector2.ZERO, Vector2.RIGHT)
+	check(first and not second and kicks[0] == 2, "rapid fire throttles muzzle effects but keeps the camera kick")
+	WeaponSystem._last_muzzle_fx[light.id] = int(WeaponSystem._last_muzzle_fx[light.id]) - int(light.muzzle_fx_interval * 1000.0) - 5  # 模擬時間過了間隔
+	check(WeaponSystem.muzzle_feedback(light, Vector2.ZERO, Vector2.RIGHT), "muzzle effects play again after the interval")
+	EventBus.camera_kick.disconnect(count)
+	WeaponSystem._last_muzzle_fx.clear()
+	# 命中標記四種都能畫出來。
+	var crosshair := Crosshair.new()
+	runner.get_tree().root.add_child(crosshair)
+	for kind in [&"hit", &"weak", &"kill", &"blocked"]:
+		EventBus.hit_marker.emit(kind)
+	crosshair.queue_redraw()
+	await runner.get_tree().process_frame
+	check(crosshair._weak_left > 0.0 and crosshair._blocked_left > 0.0, "weak and blocked hit markers are shown")
+	crosshair.queue_free()

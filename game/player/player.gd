@@ -382,11 +382,7 @@ func _try_fire() -> void:
 	WeaponSystem.fire(weapon, muzzle, aim_dir, Combat.Team.PLAYER, 1.0, aim_bloom * AIM_BLOOM_MAX_DEGREES)
 	aim_bloom = minf(1.0, aim_bloom + weapon.bloom_per_shot)
 	# 射擊手感：槍口閃光 + 光源 + 鏡頭反向後座 + 彈殼 + 音效。
-	Fx.flash_light(muzzle, weapon.color, 56.0, weapon.muzzle_light_energy, 0.08)
-	Fx.flare(muzzle, weapon.color, 15.0, 0.05)
-	Fx.sparks(muzzle, weapon.color, 3, 280.0, 0.14, aim_dir, 0.7, 240.0)
-	Fx.kick(-aim_dir, weapon.camera_kick)
-	Feel.shake_strength(weapon.screen_shake, 0.08, -aim_dir, muzzle)
+	WeaponSystem.muzzle_feedback(weapon, muzzle, aim_dir)
 	if weapon.ejects_casing:
 		Fx.casing(aim_origin(), facing)
 	Sfx.play(weapon.fire_sound, -6.0)
@@ -446,6 +442,7 @@ func _try_melee() -> bool:
 		if target_hurtbox.receive(info) != Hurtbox.Result.IGNORED:
 			landed = true
 			EventBus.hit_confirmed.emit(target_hurtbox.global_position, target_hurtbox.health.is_dead)
+			EventBus.hit_marker.emit(&"kill" if target_hurtbox.health.is_dead else (&"weak" if info.weak_hit else &"hit"))
 			Fx.burst(target_hurtbox.global_position, Palette.CYAN, 6, 120.0, 0.2)
 			HitFeedback.play(target_hurtbox.material_id(), target_hurtbox.global_position, Vector2(-facing, -0.2), Palette.CYAN, {"weak": info.weak_hit})
 	if landed:
