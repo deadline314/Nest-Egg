@@ -9,11 +9,12 @@ const CHARACTERS: Array[String] = ["rin"]
 const OUTLINE := Color("07080d")
 const SUPERSAMPLE := 4
 ## 角色放大倍數（骨架單位 → 立繪像素）與腳底位置。
-const ZOOM := 2.45
-const FEET := Vector2(46, 123)
+## 7.5 頭身的凜身高約 70 世界像素：放大 2.7 倍、腳放在畫面下方外面，剛好取到頭頂到大腿中段（頭與馬尾完整，臉約 30 像素寬）。
+const ZOOM := 2.7
+const FEET := Vector2(54, 193)
 const SETTLE_FRAMES := 90
 ## 空手站姿：手臂朝前下方自然垂放。
-const IDLE_AIM := Vector2(1.0, 0.75)
+const IDLE_AIM := Vector2(1.0, 0.45)
 const COLOR_LEVELS := 7
 ## 各層包含的零件（character.json 的 parts.name）；不在 HEAD 與 HAIR 裡的都算身體。
 const HEAD_PARTS: Array[String] = ["head", "hair_front"]

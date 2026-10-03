@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、stages、hud、spots（--scenario=spots:關卡檔:名稱）、environment、cutscene、screens、flow、transition、ui、settings、mouse_aim、block、story、story_ch2、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals、npc、death
+## 情境：all（預設）、stages、hud、spots（--scenario=spots:關卡檔:名稱）、environment、cutscene、screens、flow、transition、ui、settings、mouse_aim、block、story、story_ch2、portraits、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals、npc、death
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -86,6 +86,10 @@ func _run() -> void:
 		return
 	if _scenario == "story_ch2":
 		await _run_story_ch2()
+		get_tree().quit()
+		return
+	if _scenario == "portraits":
+		await _run_portraits()
 		get_tree().quit()
 		return
 	if _scenario == "new_enemies":
@@ -266,6 +270,20 @@ func _run_story() -> void:
 
 
 ## 第二章劇情：在第一章場景上播放第二章的過場與章節卡，檢查講者、頭像與文字。
+## 凜說話的對話框：無線電（芽先說、凜回答）停在凜的那一句，檢查對話頭像。
+func _run_portraits() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _wait(0.5)
+	Story.skip_cinematic()
+	await _wait(0.5)
+	Story.play(&"radio_start", false)
+	await _wait(5.6)  # 芽的第一句顯示並停留完，換凜回答
+	_capture("portrait_radio")
+
+
 func _run_story_ch2() -> void:
 	GameState.start_new_run(GameState.difficulties[1])
 	var level := Level.new()

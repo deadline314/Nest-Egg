@@ -13,6 +13,7 @@ Full description with pictures: design/03-art-pipeline/CHARACTER_PIPELINE.md. `w
   parts     SAM 3.1 + Qwen (peeling)   work/base_rgba.png, spec.groups / stages      work/sam/, work/04_stages/{A,B}.png, work/05_groups/*, work/06_parts/<part>.png
   refine    refine_parts.py            work/06_parts/*.png, spec.refine               work/07_refined/*.png   (far leg, stray lines, halo and specks removed)
   textures  cut_layers.py              work/07_refined/*.png, spec.joints / bones     art/characters/<id>/parts/*.png (+_glow), character.json, art/rigs/<rig>.json
+            (and make_portrait.py: spec.dialog_portrait -> art/portraits/<id>.png, the dialogue head)
   normals   Godot paint_normals        art/characters/<id>/parts/*.png                parts/*_n.png
   import    Godot --editor --quit      art/characters/<id>                            .godot/imported (the engine sees the new PNGs)
   preview   Godot rig_preview          art/characters/<id>                            work/08_preview/{poses,closeup,head,damage}.png
@@ -168,7 +169,11 @@ class Build:
             n += 1
         if n:
             log(f"  applied {n} hand-made override(s)")
-        return [self.char_dir / "character.json", self.rig, self.char_dir / "parts"]
+        outs = [self.char_dir / "character.json", self.rig, self.char_dir / "parts"]
+        if "dialog_portrait" in json.loads(self.spec.read_text(encoding="utf8")):
+            log("  " + run([sys.executable, str(HERE / "make_portrait.py"), "--spec", str(self.spec), "--work", str(self.work)], "portrait").strip())
+            outs.append(ROOT / "art/portraits" / f"{self.id}.png")
+        return outs
 
     def step_normals(self) -> list[Path]:
         out = godot("--headless", "res://tools/art/paint_normals.tscn", "--", f"--only={self.id}")

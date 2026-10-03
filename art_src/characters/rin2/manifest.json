@@ -1,9 +1,19 @@
 [
   {
-    "step": "import",
-    "seconds": 5.1,
+    "step": "textures",
+    "seconds": 1.7,
     "outputs": [
-      ".godot"
+      "art\\characters\\rin\\character.json",
+      "art\\rigs\\humanoid_tall.json",
+      "art\\characters\\rin\\parts",
+      "art\\portraits\\rin.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 2.0,
+    "outputs": [
+      "art\\characters\\rin\\parts"
     ]
   }
 ]

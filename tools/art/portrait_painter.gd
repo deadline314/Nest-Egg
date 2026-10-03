@@ -14,7 +14,6 @@ var c: CanvasItem
 func paint(canvas: CanvasItem, id: String) -> void:
 	c = canvas
 	match id:
-		"rin": _rin()
 		"mei": _mei()
 		"old_k": _old_k()
 		"warden": _warden()
@@ -48,25 +47,6 @@ func _shoulders(color: Color, trim: Color) -> void:
 	K.grad_poly(c, body, color.darkened(0.3), color.lightened(0.1), Vector2.RIGHT, O, W)
 	K.line(c, _p([40, 96, 54, 128]), trim, 2.0)
 	K.line(c, _p([84, 96, 72, 128]), trim, 2.0)
-
-
-func _rin() -> void:
-	_shoulders(Color("1a2232"), Color("2ef2ff"))
-	K.poly(c, _p([52, 82, 74, 82, 74, 98, 52, 98]), Color("e6c2b2"), O, 2.0)
-	K.poly(c, _p([50, 90, 76, 90, 76, 95, 50, 95]), Color("12151c"), O, 1.5)
-	_head(Color("f2d4c6"), Vector2(64, 54), 30, 32)
-	c.draw_circle(Vector2(80, 70), 5.0, Color(1.0, 0.45, 0.5, 0.25))
-	_eye(Vector2(78, 54), Color("2ef2ff"), true)
-	K.line(c, _p([60, 74, 70, 76, 74, 80]), Color("2ef2ff"), 2.0)
-	K.line(c, _p([88, 64, 90, 69, 87, 70]), Color("c79a8a"), 1.5)
-	K.line(c, _p([78, 82, 84, 81]), Color("7a3a44"), 2.0)
-	# 頭髮：白色短鮑伯＋洋紅髮尾
-	var hair := _p([30, 66, 26, 40, 36, 20, 56, 12, 80, 14, 96, 26, 100, 40, 98, 46, 93, 38, 89, 46, 84, 36, 79, 44, 74, 34, 64, 38, 50, 34, 44, 52, 38, 74])
-	K.grad_poly(c, hair, Color("c9d2e2"), Color("f4f7ff"), Vector2(0.3, -1), O, W)
-	for tri: Array in [[98, 46, 93, 38, 99, 39], [89, 46, 84, 36, 90, 40], [79, 44, 74, 34, 80, 37], [38, 74, 44, 52, 33, 62]]:
-		K.poly(c, _p(tri), Color("ff3fa4"))
-	K.line(c, _p([44, 26, 58, 18, 76, 18]), Color(1, 1, 1, 0.8), 3.0)
-	K.poly(c, _p([50, 28, 60, 25, 62, 30, 52, 33]), Color("ffd23f"), O, 1.5)
 
 
 func _mei() -> void:
