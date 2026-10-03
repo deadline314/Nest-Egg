@@ -21,6 +21,9 @@ signal enemy_killed(enemy_id: StringName, by_finisher: bool)
 signal hit_confirmed(world_position: Vector2, killed: bool)
 ## 準星上的命中標記種類：hit（命中）、weak（弱點）、kill（擊殺）、blocked（被擋）。
 signal hit_marker(kind: StringName)
+## 空槍（彈匣空了還扣扳機）與換彈完成：準星與彈藥提示做回饋用。
+signal dry_fired
+signal reload_completed
 
 signal boss_started(display_name: String, max_health: int)
 signal boss_health_changed(current: int, maximum: int)

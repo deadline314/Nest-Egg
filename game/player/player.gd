@@ -26,6 +26,13 @@ const AIM_BLOOM_MAX_DEGREES := 4.0
 ## 同一接觸攻擊重複格擋時的最短計費間隔。
 const CONTACT_BLOCK_INTERVAL := 0.35
 
+## 換彈到這個進度播第二拍（彈匣推入）；彈匣低於這個比例時開火音高降低；空槍連按的最短間隔。
+const RELOAD_MID_POINT := 0.55
+const LOW_AMMO_RATIO := 0.25
+const LOW_AMMO_PITCH := 0.88
+const DRY_FIRE_INTERVAL := 0.3
+var _reload_mid_played := false
+var _dry_fire_left := 0.0
 var tuning: PlayerTuning
 var health: HealthComponent
 var hurtbox: Hurtbox
@@ -125,8 +132,10 @@ func _ready() -> void:
 	add_child(_light)
 
 	loadout.changed.connect(_on_loadout_changed)
-	loadout.reload_started.connect(func() -> void: Sfx.play(&"reload_start", -4.0))
-	loadout.reload_finished.connect(func() -> void: Sfx.play(&"reload_done", -3.0))
+	loadout.reload_started.connect(func() -> void:
+		_reload_mid_played = false
+		Sfx.play(&"reload_start", -4.0))
+	loadout.reload_finished.connect(_on_reload_finished)
 	loadout.restore(_loadout_snapshot, tuning.default_weapon)
 	cyber = CyberSystem.new()
 	cyber.player = self
@@ -241,8 +250,12 @@ func _tick_timers(delta: float) -> void:
 	_melee_visual_left = maxf(0.0, _melee_visual_left - delta)
 	_remount_cooldown_left = maxf(0.0, _remount_cooldown_left - delta)
 	aim_bloom = move_toward(aim_bloom, 0.0, AIM_BLOOM_RECOVERY * delta)
+	_dry_fire_left = maxf(0.0, _dry_fire_left - delta)
 	if state != State.DEAD and state != State.MOUNTED:
 		loadout.tick(delta * cyber.reload_speed_scale())
+		if loadout.is_reloading() and not _reload_mid_played and loadout.reload_progress() >= RELOAD_MID_POINT:
+			_reload_mid_played = true
+			Sfx.play(&"reload_mid", -4.0)
 	_tick_guard(delta)
 	if _drop_through_left > 0.0:
 		_drop_through_left -= delta
@@ -369,13 +382,43 @@ func _update_hurtbox_shape() -> void:
 # 動作
 # ---------------------------------------------------------------------------
 
+## 空槍：喀一聲、準星抖一下，連按有節流。
+func _dry_fire() -> void:
+	if _dry_fire_left > 0.0:
+		return
+	_dry_fire_left = DRY_FIRE_INTERVAL
+	Sfx.play(&"empty", -4.0)
+	aim_bloom = minf(1.0, aim_bloom + 0.2)
+	EventBus.dry_fired.emit()
+
+
+## 換彈完成：槍口一個小閃光與準星提示（取消換彈時不會走到這裡）。
+func _on_reload_finished() -> void:
+	Sfx.play(&"reload_done", -3.0)
+	var weapon := loadout.active_weapon()
+	if weapon != null:
+		Fx.flare(muzzle_position(), weapon.color, 18.0, 0.08)
+	EventBus.reload_completed.emit()
+
+
+## 彈匣剩不到四分之一（還沒空）：開火聲音音高降低，提醒快沒子彈。
+func _is_low_ammo(weapon: WeaponData) -> bool:
+	if not weapon.has_magazine():
+		return false
+	var mag := loadout.mag_in(loadout.active_slot)
+	return mag > 0 and float(mag) / float(weapon.magazine_size) <= LOW_AMMO_RATIO
+
+
 func _try_fire() -> void:
 	if _fire_cooldown_left > 0.0:
 		return
 	var weapon := loadout.active_weapon()
 	if weapon == null or not weapon.is_valid():
 		return
+	var dry := loadout.is_dry() and loadout.reserve_in(loadout.active_slot) == 0
 	if not loadout.consume_ammo():
+		if dry:
+			_dry_fire()
 		return
 	_fire_cooldown_left = weapon.fire_interval / cyber.fire_rate_scale()
 	var muzzle := muzzle_position()
@@ -385,7 +428,7 @@ func _try_fire() -> void:
 	WeaponSystem.muzzle_feedback(weapon, muzzle, aim_dir)
 	if weapon.ejects_casing:
 		Fx.casing(aim_origin(), facing)
-	Sfx.play(weapon.fire_sound, -6.0)
+	Sfx.play(weapon.fire_sound, -6.0, 0.06, 0, LOW_AMMO_PITCH if _is_low_ammo(weapon) else 1.0)
 	if weapon.recoil > 0.0:
 		velocity -= aim_dir * weapon.recoil * (1.0 if not is_on_floor() else 0.3)
 	_visual.notify_fired(weapon.color)
@@ -394,6 +437,7 @@ func _try_fire() -> void:
 func _try_dash(input_x: float) -> void:
 	if _dash_cooldown_left > 0.0 or (not is_on_floor() and _air_dash_used):
 		return
+	loadout.cancel_reload()
 	# 衝刺方向以移動輸入為準（可往後閃），沒有輸入時朝面向。
 	_dash_dir = (1 if input_x > 0.0 else -1) if absf(input_x) > 0.2 else facing
 	if not is_on_floor():
@@ -425,6 +469,7 @@ func _process_dash(delta: float) -> void:
 func _try_melee() -> bool:
 	if _melee_cooldown_left > 0.0:
 		return false
+	loadout.cancel_reload()
 	var target := _find_finisher_target()
 	if target != null:
 		_start_finisher(target)

@@ -18,6 +18,7 @@ func run() -> void:
 	await _test_sound_events()
 	_test_hit_materials()
 	await _test_weapon_feel()
+	await _test_reload_feel()
 
 
 func _script_paths(dir: String, into: PackedStringArray) -> void:
@@ -370,3 +371,56 @@ func _test_weapon_feel() -> void:
 	await runner.get_tree().process_frame
 	check(crosshair._weak_left > 0.0 and crosshair._blocked_left > 0.0, "weak and blocked hit markers are shown")
 	crosshair.queue_free()
+
+
+func _test_reload_feel() -> void:
+	var weapon := load("res://data/weapons/spread.tres") as WeaponData
+	var loadout := Loadout.new()
+	loadout.reset(weapon)
+	var events := {"cancelled": 0, "finished": 0}
+	loadout.reload_cancelled.connect(func() -> void: events["cancelled"] += 1)
+	loadout.reload_finished.connect(func() -> void: events["finished"] += 1)
+	check(not loadout.cancel_reload(), "nothing to cancel when not reloading")
+	loadout.consume_ammo()
+	check(loadout.start_reload() and loadout.is_reloading(), "reload starts")
+	for i in 10:
+		loadout.tick(1.0 / 60.0)
+	check(loadout.cancel_reload() and not loadout.is_reloading() and events["cancelled"] == 1, "reload can be cancelled")
+	for i in 240:
+		loadout.tick(1.0 / 60.0)
+	check(events["finished"] == 0, "a cancelled reload never reports completion")
+	check(loadout.mag_in(0) < weapon.magazine_size, "a cancelled reload does not refill the magazine")
+	check(loadout.start_reload(), "reload can start again after a cancel")
+	for i in 600:
+		loadout.tick(1.0 / 60.0)
+	check(events["finished"] == 1 and loadout.mag_in(0) == weapon.magazine_size, "an uninterrupted reload completes once")
+	# 空槍：彈匣與備彈都沒了才算，而且連按有節流。
+	var empty := Loadout.new()
+	empty.reset(weapon)
+	check(not empty.is_dry(), "a loaded weapon is not dry")
+	var level := await start_level(PropsSuite.level_data())
+	var player := level.player
+	var dry_count := [0]
+	var count := func() -> void: dry_count[0] += 1
+	EventBus.dry_fired.connect(count)
+	player._dry_fire()
+	player._dry_fire()
+	check(dry_count[0] == 1, "mashing the trigger on an empty gun is throttled")
+	player._dry_fire_left = 0.0
+	player._dry_fire()
+	check(dry_count[0] == 2, "dry fire works again after the interval")
+	EventBus.dry_fired.disconnect(count)
+	# 低彈量開火音高降低；換彈完成才發出完成訊號。
+	var done := [0]
+	var on_done := func() -> void: done[0] += 1
+	EventBus.reload_completed.connect(on_done)
+	player.loadout.start_reload()
+	player.loadout.cancel_reload()
+	check(done[0] == 0, "cancelling does not announce a finished reload")
+	player._on_reload_finished()
+	check(done[0] == 1, "finishing a reload announces completion")
+	EventBus.reload_completed.disconnect(on_done)
+	var rifle := load("res://data/weapons/rifle.tres") as WeaponData
+	player.loadout.reset(rifle)
+	check(not player._is_low_ammo(rifle), "a full magazine is not low")
+	await end_level(level)

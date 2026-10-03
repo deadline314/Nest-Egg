@@ -129,6 +129,11 @@ const SOUNDS := {
 		{"wave": "sine", "from": 1900.0, "to": 2300.0, "time": 0.1, "volume": 0.18, "decay": 2.4},
 		{"wave": "sine", "from": 2850.0, "to": 3300.0, "time": 0.08, "volume": 0.1, "decay": 2.8},
 	],
+	&"reload_mid": [
+		{"wave": "noise", "time": 0.03, "volume": 0.3, "lowpass": 0.15, "decay": 3.0},
+		{"wave": "square", "from": 420.0, "to": 300.0, "time": 0.05, "volume": 0.14, "decay": 2.4},
+		{"wave": "sine", "from": 150.0, "to": 90.0, "time": 0.06, "volume": 0.2, "decay": 2.0},
+	],
 	&"block": [
 		{"wave": "sine", "from": 2600.0, "to": 2400.0, "time": 0.12, "volume": 0.2, "decay": 2.5},
 		{"wave": "sine", "from": 3900.0, "to": 3700.0, "time": 0.09, "volume": 0.12, "decay": 3.0},
@@ -347,8 +352,8 @@ func has_sound(id: StringName) -> bool:
 	return SOUNDS.has(id)
 
 
-func play(id: StringName, volume_db := 0.0, pitch_jitter := 0.06, priority := 0) -> void:
-	_play_voice(id, volume_db, 1.0 + randf_range(-pitch_jitter, pitch_jitter), priority)
+func play(id: StringName, volume_db := 0.0, pitch_jitter := 0.06, priority := 0, pitch_scale := 1.0) -> void:
+	_play_voice(id, volume_db, pitch_scale * (1.0 + randf_range(-pitch_jitter, pitch_jitter)), priority)
 
 
 ## 播一個發聲位；回傳是否真的播放。滿載時只搶優先級不高於自己的聲音，沒有可搶的就丟棄。

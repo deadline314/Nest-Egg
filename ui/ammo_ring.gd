@@ -11,6 +11,7 @@ const ARC_WIDTH := 2.5
 const LOW_RATIO := 0.25
 const NAME_TIME := 1.1
 const EMPTY_TIME := 0.9
+const DONE_TIME := 0.22
 
 var presence := HudPresence.new()
 var weapon_name := ""
@@ -31,6 +32,7 @@ var _name_left := 0.0
 var _empty_left := 0.0
 var _reload_progress := 0.0
 var _reloading := false
+var _done_left := 0.0
 
 
 func _ready() -> void:
@@ -39,6 +41,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	presence.idle_alpha = 1.0
 	EventBus.player_loadout_changed.connect(_on_loadout_changed)
+	EventBus.reload_completed.connect(func() -> void: _done_left = DONE_TIME)
 
 
 func is_showing_ammo() -> bool:
@@ -56,6 +59,7 @@ func _process(delta: float) -> void:
 	_time += delta
 	_name_left = maxf(0.0, _name_left - delta)
 	_empty_left = maxf(0.0, _empty_left - delta)
+	_done_left = maxf(0.0, _done_left - delta)
 	var player := _player_ref.get_player(get_tree())
 	var hidden := cinematic or player == null or player.is_dead() or player.mounted_vehicle != null
 	presence.update(delta, false, true, hidden or not (_has_mag or _name_left > 0.0 or _empty_left > 0.0))
@@ -101,6 +105,12 @@ func _draw() -> void:
 		_draw_reload_arc(p, alpha)
 		var label := "RECHARGE" if is_energy else "RELOAD"
 		_shadowed(p + Vector2(-16, 25), label, 8, Color(LightKit.glow(Palette.WHITE, 1.5), (0.7 + 0.3 * sin(_time * 12.0)) * alpha))
+	if _done_left > 0.0:
+		# 換彈完成：整圈亮一下。
+		var kd := _done_left / DONE_TIME
+		draw_arc(p, RADIUS + 1.0 * (1.0 - kd), 0.0, TAU, 32, Color(LightKit.glow(weapon_color, 2.2), kd * alpha), ARC_WIDTH)
+	elif _has_mag and not _reloading and is_low() and ammo > 0 and reserve != 0:
+		_shadowed(p + Vector2(-16, 25), "%s 換彈" % InputBindings.code_label(InputBindings.get_code(&"reload", 0)), 8, Color(LightKit.glow(Palette.WARNING, 1.6), 0.8 * alpha))
 	if _name_left > 0.0:
 		var k := minf(1.0, _name_left / 0.3)
 		_shadowed(p + Vector2(RADIUS + 5.0, -10.0 + 3.0 * (1.0 - k)), weapon_name, 8, Color(LightKit.glow(weapon_color, 1.4), k * alpha))

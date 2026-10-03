@@ -7,6 +7,7 @@ extends RefCounted
 signal changed
 signal reload_started
 signal reload_finished
+signal reload_cancelled
 
 const PRIMARY := 0
 const MAX_SLOTS := 4
@@ -304,6 +305,24 @@ func _finish_reload() -> void:
 		_reserve[active_slot] -= take
 	reload_finished.emit()
 	changed.emit()
+
+
+## 玩家主動取消換彈（衝刺、近戰）：回傳是否真的取消了一次換彈；不會觸發完成。
+func cancel_reload() -> bool:
+	if not is_reloading():
+		return false
+	_cancel_reload()
+	reload_cancelled.emit()
+	changed.emit()
+	return true
+
+
+## 彈匣空了、備彈也沒有（或沒在換彈時）扣扳機算空槍；傳回是否為空槍。
+func is_dry() -> bool:
+	var weapon := active_weapon()
+	if weapon == null or not weapon.has_magazine() or is_reloading():
+		return false
+	return _mag[active_slot] < maxi(1, weapon.ammo_per_shot)
 
 
 func _cancel_reload() -> void:

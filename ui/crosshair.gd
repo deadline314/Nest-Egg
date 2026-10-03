@@ -9,11 +9,13 @@ const BLOOM_GAP := 9.0
 const TICK_LENGTH := 5.0
 const HIT_TIME := 0.12
 const KILL_TIME := 0.28
+const DRY_TIME := 0.18
 
 var _player_ref := PlayerRef.new()
 var _hit_left := 0.0
 var _kill_left := 0.0
 var _weak_left := 0.0
+var _dry_left := 0.0
 var _blocked_left := 0.0
 var _screen_point := Vector2.ZERO
 var _bloom := 0.0
@@ -24,12 +26,14 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	EventBus.hit_confirmed.connect(_on_hit_confirmed)
 	EventBus.hit_marker.connect(_on_hit_marker)
+	EventBus.dry_fired.connect(func() -> void: _dry_left = DRY_TIME)
 
 
 func _process(delta: float) -> void:
 	_hit_left = maxf(0.0, _hit_left - delta)
 	_kill_left = maxf(0.0, _kill_left - delta)
 	_weak_left = maxf(0.0, _weak_left - delta)
+	_dry_left = maxf(0.0, _dry_left - delta)
 	_blocked_left = maxf(0.0, _blocked_left - delta)
 	var player := _player_ref.get_player(get_tree())
 	visible = player != null and not player.is_dead()
@@ -56,7 +60,7 @@ func _on_hit_confirmed(_world_position: Vector2, killed: bool) -> void:
 
 
 func _draw() -> void:
-	var p := _screen_point
+	var p := _screen_point + Vector2(sin(_dry_left * 80.0) * 3.0 * (_dry_left / DRY_TIME), 0.0)
 	var gap := BASE_GAP + _bloom * BLOOM_GAP
 	var color := LightKit.glow(Palette.CYAN, 1.6)
 	if _kill_left > 0.0:
