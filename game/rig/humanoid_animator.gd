@@ -25,7 +25,8 @@ const DEFAULT_SPRINGS: Array[Dictionary] = [
 ## 動作資料（art/motion/<角色>.json）缺的欄位用這份預設補（等於凜原本的手感）；每個角色都要有自己的檔案，測試會檢查不重複。
 const MOTION_PATH := "res://art/motion/%s.json"
 const DEFAULT_MOTION := {
-	"idle": {"breath_speed": 2.4, "breath_amp": 0.02, "hip_bob": 0.3, "chest": 0.0, "legs": [-0.12, 0.12, 0.2, 0.08]},
+	"grounding": false,
+	"idle": {"breath_speed": 2.4, "breath_amp": 0.02, "hip_bob": 0.3, "chest": 0.0, "legs": [-0.12, 0.12, 0.2, 0.08], "sway": 0.0, "sway_speed": 1.3},
 	"move": {"stride": 50.0, "swing": 0.8, "knee_bend": 1.2, "knee_base": 0.15, "hip_bounce": 1.4, "chest_lean": 0.12, "threshold": 0.08},
 	"crouch": {"hip_drop": 8.0, "chest": 0.18, "legs": [-1.25, 2.05, -0.55, 1.85]},
 	"air": {"rise": {"chest": 0.05, "legs": [-0.95, 1.4, 0.35, 0.7]}, "fall": {"chest": -0.05, "legs": [-0.35, 0.45, 0.45, 0.25]}},
@@ -34,14 +35,20 @@ const DEFAULT_MOTION := {
 	"hurt": {"stagger_chest": -0.35, "kick": 0.3},
 	"look": {"chest": 0.12, "neck": 0.12, "head": 0.3, "head_min": -0.35, "head_max": 0.3},
 	"npc": {"stand": {}, "talk_speed": 1.0, "talk_amp": 1.0},
+	"relax": {"aim": 0.75, "reach": 0.8, "chest": -0.04, "speed": 6.0},
+	"recoil": {"chest": 0.06, "reach": 2.5, "hip": 0.0, "decay": 9.0},
 	"death": {"duration": 0.45, "rotation": -1.56, "drop": 21.0, "hip_x": -6.0, "chest": 0.15, "head": 0.35, "fold": 0.0, "ease": "out_cubic",
 			"legs": [0.3, 0.1, 0.45, 0.05], "fold_legs": [-1.4, 2.0, -1.2, 1.9]},
 }
 const ACTIONS_PATH := "res://art/rigs/action_poses.json"
 const SPRING_MIN := -0.8
 const SPRING_MAX := 1.6
-const RECOIL_RECOVERY := 9.0
 const HURT_TIME := 0.22
+## 腳踩實地補償的上限（像素）。
+const GROUND_MAX_SHIFT := 16.0
+## 跑步落腳：身體至少下沉多少（膝蓋微彎）、IK 與關節動畫的切換速度（每秒）。
+const GAIT_MIN_SAG := 1.0
+const GAIT_BLEND_SPEED := 8.0
 ## 受擊時頭與骨盆跟著身體的幅度（頭是胸的比例，骨盆往後頂的像素 / 弧度）。
 const HURT_HEAD_RATIO := 0.6
 const HURT_HIP_PUSH := 8.0
@@ -64,6 +71,19 @@ var _hurt_dir := 1.0
 var _death_dir := 1.0
 var _death_force := 0.0
 var _death_time := 0.0
+## 腳踩實地（資料 grounding＝true 的角色）：腳底離地時整個身體上下補償；站在地上時最低的腳底高度（骨架空間）、目前的補償量。
+var _ground_y := 0.0
+var _leg_length := 25.0
+## 跑步的落腳（腳踩實地的角色）：這一格有沒有在跑、步伐幅度（腳在髖前後各移多遠）、踩地比例、抬腳高度、IK 權重與目前幅度。
+var _gait_on := false
+var _gait_amp := 0.0
+var _gait_amp_now := 0.0
+var _gait_duty := 0.55
+var _gait_lift := 5.0
+var _gait_w := 0.0
+var _ground_shift := 0.0
+## 放鬆程度 0（舉槍）～1（槍垂下）。
+var _relax := 0.0
 ## 專屬動作：目前（或剛結束、正在淡出）的動作、各骨頭的目標角度與權重。
 var _action_pose: Dictionary = {}
 var _action_w := 0.0
@@ -84,6 +104,10 @@ func _init(rig: CharacterRig) -> void:
 	_motion = _load_motion(rig.skin_id)
 	for bone_name in rig.bone_order():
 		_angles[bone_name] = 0.0
+	_forward_kinematics()
+	_ground_y = _lowest_foot_y()
+	if _global_pos.has(&"leg_front_upper"):
+		_leg_length = maxf(8.0, _ground_y - _global_pos[&"leg_front_upper"].y)
 	for entry in (rig.springs() if not rig.springs().is_empty() else DEFAULT_SPRINGS):
 		var bone_name := StringName(str(entry.get("bone", "")))
 		if not rig.has_bone(bone_name):
@@ -117,7 +141,7 @@ func update(delta: float, input: RigInput) -> void:
 	_time += delta
 	if input.recoil > _recoil:
 		_recoil = input.recoil
-	_recoil = move_toward(_recoil, 0.0, RECOIL_RECOVERY * delta)
+	_recoil = move_toward(_recoil, 0.0, float((_motion["recoil"] as Dictionary)["decay"]) * delta)
 	if input.hurt:
 		_hurt_left = HURT_TIME
 		_hurt_scale = input.hurt_scale
@@ -131,8 +155,14 @@ func update(delta: float, input: RigInput) -> void:
 	var local_velocity := Vector2(input.velocity.x * input.facing, input.velocity.y)
 	var local_aim := Vector2(input.aim_dir.x * input.facing, input.aim_dir.y)
 	var aim_angle := clampf(local_aim.angle(), -MAX_AIM_ANGLE, MAX_AIM_ANGLE)
+	var relax: Dictionary = _motion["relax"]
+	_relax = move_toward(_relax, 1.0 if input.relaxed and not input.dead else 0.0, float(relax["speed"]) * delta)
+	var look_angle := aim_angle * (1.0 - _relax)  # 頭與上身看前方，不跟著垂下的槍口低頭
+	aim_angle = lerpf(aim_angle, float(relax["aim"]), _relax)
 
-	var target := _body_pose(delta, input, local_velocity, aim_angle)
+	_gait_on = false
+	var target := _body_pose(delta, input, local_velocity, look_angle)
+	target[&"_hip_x"] = float(target.get(&"_hip_x", 0.0)) - _recoil * float((_motion["recoil"] as Dictionary)["hip"])  # 開火的後座把身體往後頂
 	_apply_action(delta, input, target)
 	var blend := 1.0 - exp(-POSE_SHARPNESS * delta)
 	for bone_name: StringName in target.keys():
@@ -142,8 +172,17 @@ func update(delta: float, input: RigInput) -> void:
 	_hip_offset = _hip_offset.lerp(Vector2(target.get(&"_hip_x", 0.0), target.get(&"_hip_y", 0.0)), blend)
 
 	_update_springs(delta, local_velocity, input)
+	_ground_shift = 0.0
 	_apply_body()
 	_forward_kinematics()
+	var can_plant := bool(_motion.get("grounding", false)) and input.on_floor and not input.dead and not input.dashing and not input.crouching
+	_gait_w = move_toward(_gait_w, 1.0 if _gait_on and can_plant else 0.0, GAIT_BLEND_SPEED * delta)
+	_gait_amp_now = lerpf(_gait_amp_now, _gait_amp if _gait_on else 0.0, 1.0 - exp(-10.0 * delta))
+	if bool(_motion.get("grounding", false)) and input.on_floor and not input.dead and not input.dashing:
+		if _gait_w > 0.01:
+			_step_legs()
+		else:
+			_plant_feet(delta)
 	if not input.dead:
 		_solve_arms(input, aim_angle)
 	else:
@@ -181,23 +220,35 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 		pose[&"chest"] = float(air["chest"])
 		_set_legs_from(pose, air["legs"])
 	elif speed_ratio > float(move["threshold"]):
-		_phase += v.x * TAU / maxf(8.0, float(move["stride"])) * delta
 		var swing := float(move["swing"]) * minf(speed_ratio, 1.0)
-		var front := sin(_phase)
-		var back := sin(_phase + PI)
-		var base := float(move["knee_base"])
-		var bend := float(move["knee_bend"])
-		pose[&"leg_front_upper"] = -front * swing
-		pose[&"leg_front_lower"] = base + maxf(0.0, cos(_phase)) * bend * swing
-		pose[&"leg_back_upper"] = -back * swing
-		pose[&"leg_back_lower"] = base + maxf(0.0, cos(_phase + PI)) * bend * swing
-		pose[&"_hip_y"] = -absf(sin(_phase)) * float(move["hip_bounce"]) * swing
-		pose[&"chest"] = float(move["chest_lean"]) * speed_ratio * signf(v.x)
+		var grounded := bool(m.get("grounding", false))
+		var stride := maxf(8.0, float(move["stride"]))
+		_phase += v.x * TAU / stride * delta
+		if grounded:
+			# 落腳：腳踩在地上時隨身體往後移（不滑），再抬起前擺；步伐幅度由資料的 stride 與踩地比例算出。
+			_gait_on = true
+			_gait_duty = clampf(float(move.get("duty", 0.55)), 0.4, 0.8)
+			_gait_amp = minf(stride * _gait_duty * 0.5, _leg_length * 0.75)
+			_gait_lift = float(move.get("lift", 5.0)) * (0.5 + 0.5 * minf(speed_ratio, 1.0))
+			pose[&"chest"] = float(move["chest_lean"]) * speed_ratio * signf(v.x)
+			pose[&"_hip_y"] = 0.0
+		else:
+			var front := sin(_phase)
+			var back := sin(_phase + PI)
+			var base := float(move["knee_base"])
+			var bend := float(move["knee_bend"])
+			pose[&"leg_front_upper"] = -front * swing
+			pose[&"leg_front_lower"] = base + maxf(0.0, cos(_phase)) * bend * swing
+			pose[&"leg_back_upper"] = -back * swing
+			pose[&"leg_back_lower"] = base + maxf(0.0, cos(_phase + PI)) * bend * swing
+			pose[&"_hip_y"] = -absf(sin(_phase)) * float(move["hip_bounce"]) * swing
+			pose[&"chest"] = float(move["chest_lean"]) * speed_ratio * signf(v.x)
 	else:
 		# 待機：微微呼吸、重心落在後腳（呼吸的快慢與幅度、站姿都是這個角色自己的）。
 		var breath := sin(_time * float(idle["breath_speed"]))
 		pose[&"chest"] = float(idle["chest"]) + breath * float(idle["breath_amp"])
 		pose[&"_hip_y"] = breath * float(idle["hip_bob"])
+		pose[&"_hip_x"] = sin(_time * float(idle["sway_speed"])) * float(idle["sway"])  # 重心左右微移
 		_set_legs_from(pose, idle["legs"])
 
 	var block: Dictionary = m["block"]
@@ -215,7 +266,7 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 		pose[&"_hip_x"] = float(pose.get(&"_hip_x", 0.0)) - kick * HURT_HIP_PUSH
 	# 上半身跟著準星微轉，頭看向準星。
 	var look: Dictionary = m["look"]
-	pose[&"chest"] = float(pose.get(&"chest", 0.0)) + aim_angle * float(look["chest"]) - _recoil * 0.06
+	pose[&"chest"] = float(pose.get(&"chest", 0.0)) + aim_angle * float(look["chest"]) - _recoil * float((_motion["recoil"] as Dictionary)["chest"])
 	pose[&"neck"] = aim_angle * float(look["neck"])
 	pose[&"head"] = clampf(aim_angle * float(look["head"]), float(look["head_min"]), float(look["head_max"]))
 	return pose
@@ -273,6 +324,89 @@ func _set_legs(pose: Dictionary, front_upper: float, front_lower: float, back_up
 # 2. 套用與正向運動學
 # ---------------------------------------------------------------------------
 
+## 跑步的落腳：兩隻腳各有一個踩地／前擺的循環，踩地時腳底貼地並隨身體往後移動，前擺時抬起畫弧；
+## 身體高度由腿能不能夠到地面決定（腿張最開時最低），兩段骨頭用 IK 夠到腳的位置，膝蓋朝前彎。
+func _step_legs() -> void:
+	var legs: Array = [
+		[&"leg_front_upper", &"leg_front_lower", &"foot_front", 0.0],
+		[&"leg_back_upper", &"leg_back_lower", &"foot_back", 0.5],
+	]
+	var offsets: Array[Vector2] = []
+	var reach := _leg_length * 0.985
+	var drop := GAIT_MIN_SAG
+	var cycle := fposmod(_phase / TAU, 1.0)
+	for leg in legs:
+		var p := fposmod(cycle + float(leg[3]), 1.0)
+		var x := 0.0
+		var lift := 0.0
+		if p < _gait_duty:
+			x = _gait_amp_now * (1.0 - 2.0 * p / _gait_duty)
+		else:
+			var t := (p - _gait_duty) / (1.0 - _gait_duty)
+			x = _gait_amp_now * (-1.0 + 2.0 * smoothstep(0.0, 1.0, t))
+			lift = _gait_lift * sin(PI * t)
+		offsets.append(Vector2(x, lift))
+		drop = maxf(drop, _leg_length - lift - sqrt(maxf(0.0, reach * reach - x * x)))
+	_ground_shift = minf(drop, GROUND_MAX_SHIFT)
+	_apply_body()
+	_forward_kinematics()
+	for i in legs.size():
+		var leg: Array = legs[i]
+		var upper: StringName = leg[0]
+		var lower: StringName = leg[1]
+		var foot: StringName = leg[2]
+		if not (_rig.has_bone(upper) and _rig.has_bone(lower) and _rig.has_bone(foot)):
+			continue
+		var before := [_rig.bone(upper).rotation, _rig.bone(lower).rotation, _rig.bone(foot).rotation]
+		var hip: Vector2 = _global_pos[upper]
+		var goal := Vector2(hip.x + offsets[i].x, _ground_y - offsets[i].y)
+		# 抬腳時腳尖微微下垂、踩地時腳掌放平。
+		var foot_angle := 0.25 * offsets[i].y / maxf(0.1, _gait_lift)
+		_reach_leg(upper, lower, foot, goal, foot_angle)
+		_rig.bone(upper).rotation = lerp_angle(before[0], _rig.bone(upper).rotation, _gait_w)
+		_rig.bone(lower).rotation = lerp_angle(before[1], _rig.bone(lower).rotation, _gait_w)
+		_rig.bone(foot).rotation = lerp_angle(before[2], _rig.bone(foot).rotation, _gait_w)
+	_forward_kinematics()
+
+
+## 腿的兩段 IK（和手臂相同，只是膝蓋朝前彎）；foot_angle 是腳掌的絕對角度（0＝放平）。
+func _reach_leg(upper: StringName, lower: StringName, foot: StringName, target: Vector2, foot_angle: float) -> void:
+	var hip: Vector2 = _global_pos[upper]
+	var length_upper := _rig.rest(lower).length()
+	var length_lower := _rig.rest(foot).length()
+	var to_target := target - hip
+	var distance := clampf(to_target.length(), 0.01, length_upper + length_lower - 0.01)
+	var base := to_target.angle()
+	var cos_alpha := clampf((length_upper * length_upper + distance * distance - length_lower * length_lower) / (2.0 * length_upper * distance), -1.0, 1.0)
+	var upper_dir := base - acos(cos_alpha)
+	var knee := hip + Vector2.RIGHT.rotated(upper_dir) * length_upper
+	var lower_dir := (target - knee).angle()
+	var parent_angle: float = _global_angle.get(_rig.parent_of(upper), 0.0)
+	var upper_global := upper_dir - PI * 0.5
+	var lower_global := lower_dir - PI * 0.5
+	_rig.bone(upper).rotation = upper_global - parent_angle
+	_rig.bone(lower).rotation = lower_global - upper_global
+	_rig.bone(foot).rotation = foot_angle - lower_global
+
+
+## 最低的腳底（骨架空間，往下為正）。
+func _lowest_foot_y() -> float:
+	var low := -INF
+	for foot: StringName in [&"foot_front", &"foot_back"]:
+		if _global_pos.has(foot):
+			low = maxf(low, _global_pos[foot].y)
+	return low if low > -INF else 0.0
+
+
+## 腳踩實地：量出最低的腳底離站立時的地面差多少，把整個身體上下補償回去，腳就不會懸空或陷進地裡；
+## 跑步時身體高度因此自然隨腿張開而起伏（腿張最開最低、腿併攏最高）。
+func _plant_feet(delta: float) -> void:
+	var needed := clampf(_ground_y - _lowest_foot_y(), -GROUND_MAX_SHIFT, GROUND_MAX_SHIFT)
+	_ground_shift = needed
+	_apply_body()
+	_forward_kinematics()
+
+
 func _apply_body() -> void:
 	for bone_name: StringName in _angles.keys():
 		var b := _rig.bone(bone_name)
@@ -280,7 +414,7 @@ func _apply_body() -> void:
 			b.rotation = _angles[bone_name]
 	var hip := _rig.bone(&"hip")
 	if hip != null:
-		hip.position = _rig.rest(&"hip") + _hip_offset
+		hip.position = _rig.rest(&"hip") + _hip_offset + Vector2(0.0, _ground_shift)
 	for bone_name: StringName in _spring_angle.keys():
 		_rig.bone(bone_name).rotation = _spring_angle[bone_name]
 
@@ -315,7 +449,7 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 	var anchor: Array = _rig.weapon_anchor()
 	var anchor_bone: StringName = anchor[0]
 	var anchor_point: Vector2 = _global_pos.get(anchor_bone, Vector2.ZERO) + (anchor[1] as Vector2).rotated(_global_angle.get(anchor_bone, 0.0))
-	var reach: float = anchor[2] * (0.7 if input.blocking else 1.0) - _recoil * 2.5
+	var reach: float = anchor[2] * (0.7 if input.blocking else 1.0) - _recoil * float((_motion["recoil"] as Dictionary)["reach"])
 	var aim := Vector2.RIGHT.rotated(aim_angle)
 	var grip := anchor_point + aim * reach
 

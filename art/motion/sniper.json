@@ -7,11 +7,13 @@
   "hip_bob": 0.15,
   "chest": 0.0,
   "legs": [
-   -0.2,
-   0.25,
-   0.3,
-   0.15
-  ]
+   -0.16,
+   0.2,
+   0.28,
+   0.16
+  ],
+  "sway": 0.7,
+  "sway_speed": 0.8
  },
  "move": {
   "stride": 58.0,
@@ -118,5 +120,18 @@
   "stand": {},
   "talk_speed": 1.0,
   "talk_amp": 1.0
+ },
+ "grounding": true,
+ "relax": {
+  "speed": 6.0,
+  "aim": 1.15,
+  "reach": 0.7,
+  "chest": 0.02
+ },
+ "recoil": {
+  "chest": 0.14,
+  "reach": 5.0,
+  "hip": 2.0,
+  "decay": 5.0
  }
 }

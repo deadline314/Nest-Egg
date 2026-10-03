@@ -28,4 +28,4 @@ health_drop_chance = 0.15
 credit_value = 12
 rig_skin = "slasher"
 rig_weapon = ""
-rig_actions = { "windup": "slasher.windup_slash", "leap": "slasher.slash" }
+rig_actions = { "windup": "slasher.windup_slash", "leap": "slasher.slash", "recover": "slasher.recover" }

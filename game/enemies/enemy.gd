@@ -235,6 +235,7 @@ func _drive_rig(delta: float) -> void:
 	_rig_input.facing = facing
 	_rig_input.aim_dir = _rig_aim()
 	_rig_input.staggered = _stun_left > 0.0
+	_rig_input.relaxed = _alert_left <= 0.0 and data.relaxed_states.has(String(fsm.current))
 	_rig_input.dead = _dying
 	_update_rig_action()
 	_rig_state(_rig_input)

@@ -19,6 +19,8 @@ extends Resource
 @export var rig_shield: bool = false
 ## 招式動作：狀態名稱 → 專屬動作名稱（art/rigs/action_poses.json 的 actions），在該狀態期間播放；沒列的狀態用一般動畫。
 @export var rig_actions: Dictionary = {}
+## 放鬆的狀態（還沒發現玩家）：這些狀態下武器自然垂下，其他狀態與被警報引來時才舉槍。
+@export var relaxed_states: PackedStringArray = ["patrol", "idle", "stalk"]
 
 @export_group("Body")
 @export var body_size: Vector2 = Vector2(12, 20)

@@ -4,6 +4,8 @@ extends Node2D
 ## --chars：改成每個角色一列，展示八種動作（站、跑、瞄準、蹲、跳、格擋、倒下、硬直），一次最多兩個角色。
 ## --closeup（搭配 --chars）：改成每個角色一張大的站姿，檢查臉、衣服與裝備的細節，一次最多四個角色。
 ## --head（搭配 --chars）：只放大頭與肩膀，檢查臉部與頭髮，一次最多四個角色；--zoom=倍率 可調整放大倍數。
+## --gait（搭配 --chars，用第一個角色）：並排看跑一個步伐週期的八個時間點（--speed=速度，預設 70），檢查落腳、腳底貼地與滑步。
+## --relaxed（搭配 --chars）：模擬還沒發現玩家的放鬆姿勢（槍垂下），舉槍與格擋除外。
 ## --bare（搭配 --damage）：不拿武器、手臂垂向前下方，看得到上半身的衣物。
 ## --cloth（搭配 --chars）：第一個角色放大排成一列（站、跑、上升、下落、蹲、仰射），檢查衣襬、頭髮、槍套等次級動態。
 ## --npc（搭配 --chars）：第一個角色用 NPC 動畫器排成一列：站、坐、靠牆、蹲、說話、聆聽、揮手、工作循環（--loop=名稱，預設 stir；--loop-pose=stand/sit/lean/squat）。
@@ -30,6 +32,9 @@ var _head_only := false
 var _damage := false
 var _cloth := false
 var _bare := false
+var _relaxed := false
+var _gait := false
+var _gait_speed := 70.0
 var _npc := false
 var _action := ""
 var _loop := "stir"
@@ -57,6 +62,12 @@ func _ready() -> void:
 			_cloth = true
 		elif arg == "--bare":
 			_bare = true
+		elif arg == "--relaxed":
+			_relaxed = true
+		elif arg == "--gait":
+			_gait = true
+		elif arg.begins_with("--speed="):
+			_gait_speed = float(arg.trim_prefix("--speed="))
 		elif arg.begins_with("--action="):
 			_action = arg.trim_prefix("--action=")
 		elif arg == "--npc":
@@ -85,6 +96,9 @@ func _ready() -> void:
 			_spawn("rin", "rifle", Vector2(42 + i * 88, 160), POSES[i], 2.4)
 		for i in CHARACTERS.size():
 			_spawn(CHARACTERS[i][0], CHARACTERS[i][1], Vector2(55 + i * 118, 340), "idle" if i != 4 else "aim_up", 1.6)
+	elif _gait:
+		for i in 8:
+			_spawn(_chars[0], str(SHEET_WEAPONS.get(_chars[0], "")), Vector2(44 + i * 76, 330), "gait:%d" % i, _zoom if _zoom != 6.5 else 2.2)
 	elif not _action.is_empty():
 		for i in 6:
 			_spawn(_chars[0], str(SHEET_WEAPONS.get(_chars[0], "")), Vector2(60 + i * 100, 330), "action:%d" % i, _zoom if _zoom != 6.5 else 2.4)
@@ -143,6 +157,7 @@ func _process(delta: float) -> void:
 		input.on_floor = true
 		input.velocity = Vector2.ZERO
 		input.crouching = false
+		input.relaxed = _relaxed and _poses[i] != "aim_up" and _poses[i] != "block"
 		input.blocking = false
 		input.staggered = false
 		input.dead = false
@@ -158,6 +173,9 @@ func _process(delta: float) -> void:
 		if str(_poses[i]).begins_with("action:"):
 			input.action = StringName(_action)
 			input.action_t = float(str(_poses[i]).trim_prefix("action:")) / 5.0
+		if str(_poses[i]).begins_with("gait:"):
+			input.velocity = Vector2(_gait_speed, 0)
+			input.run_speed = _gait_speed * 2.0
 		match _poses[i]:
 			"sit", "lean":
 				input.npc_pose = StringName(_poses[i])
@@ -194,7 +212,28 @@ func _process(delta: float) -> void:
 		_rigs[i].animate(delta, input)
 
 
+## --gait：先讓每一隻跑一整個週期的八分之 i 的時間，並排看一個步伐週期的八個時間點。
+func _preroll_gait() -> void:
+	var dt := 1.0 / 60.0
+	for i in _rigs.size():
+		var input := _inputs[i]
+		input.facing = 1
+		input.on_floor = true
+		input.velocity = Vector2(_gait_speed, 0)
+		input.run_speed = _gait_speed * 2.0
+		input.aim_dir = Vector2.RIGHT
+		input.relaxed = _relaxed
+		input.two_handed = true
+		var stride := float(_rigs[i].animator._motion["move"]["stride"])
+		var cycle_frames := stride / _gait_speed / dt
+		for k in 90 + int(cycle_frames * float(i) / 8.0):
+			_rigs[i].animate(dt, input)
+
+
 func _capture() -> void:
+	if _gait:
+		_preroll_gait()
+		set_process(false)
 	for i in 90:
 		await get_tree().process_frame
 	var image := get_viewport().get_texture().get_image()
