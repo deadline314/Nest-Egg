@@ -7,5 +7,6 @@ script = ExtResource("1_uf1ju")
 id = &"puddle"
 display_name = "積水"
 texture = "res://art/environment/props/puddle.png"
+ripple = true
 size = Vector2(40, 4)
 has_glow = true

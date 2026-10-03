@@ -100,15 +100,47 @@ description: 把免費（CC0）高解析度素材換進 Nest Egg 場景的完整
 - 夜景色盤：深藍紫底、洋紅與青色點綴，見 `core/palette.gd`；不要讓背景比角色搶眼。
 - 寫實背景與動漫賽璐璐角色的畫風落差由 NE-66（統一調色與光影整合）處理；落差太大時保留材質與天空，道具改回手繪輪廓。
 
-## 8. 尚未做、做法還沒驗證的部分
+## 8. 沒有免費模型的部分：用本機 Qwen Image 生成（2026-10-03 起）
 
-近景前景（NE-61 剩下的一層）、其餘過場舞台（NE-65：老 K 的舖子、機庫、轉運站走廊、電梯、白房間、藍天縫隙，做法同「雨夜沉港」：`sprite` 圖層加 `"filter": "linear"`，需要窗光動畫再加 `"life": true`）、沒有合適免費模型的道具（吊車、龍門吊、控制台、堆高機、閘門、水塔、販賣機…，要找其他來源或維持原圖）、以及統一調色與光影整合（NE-66）。做這些時回來更新這份 Skill。
+CC0 庫找不到的道具（吊車、龍門吊、控制台、堆高機、閘門、販賣機、看板、霓虹、麵攤…）、整張室內場景（過場舞台）、近景剪影條帶，改用本機 ComfyUI 的 **Qwen Image 2.1 非審查版（int8 ConvRot）** 生成。來源是自己的提示詞與種子，沒有第三方授權問題，但**提示詞與種子必須留在清單**（可重現）。啟動 ComfyUI 的參數與坑見記憶 `comfyui-intel-arc-setup`；`tools/comfyui/comfy_api.py` 的 `qwen()` 是唯一入口。
 
-## 9. 驗收清單
+工具與清單（全都由清單驅動，重跑只重新處理）：
 
-- [ ] 來源都在 `LICENSES.json`，且是 CC0
+| 工具 | 清單 | 產出 |
+|---|---|---|
+| `tools/assets/qwen_props.py` | `assets_src/pipeline/qwen_props.json` | `art/environment/props/<id>{,_n,_glow}.png`，並改 `.tres`（大小、發光、動畫欄位） |
+| `tools/assets/qwen_scenes.py` | `assets_src/pipeline/qwen_scenes.json` | 過場舞台背景 `art/environment/stages/*.webp`（1536×864，亮點抽成 `_glow.webp`）、近景條帶 `backdrop/fg_*.webp` |
+| `tools/assets/stage_defs.py` | （程式內） | `data/cutscene/stages/*.json`：背景圖＋脈動柔光＋塵粒＋顆粒 |
+| `tools/assets/procedural_props.py` | — | 水窪、地面警示線（模型畫不好的貼地小東西，程式畫） |
+| `tools/assets/qwen_matte.py` | — | 去背、法線、發光遮罩的共用函式 |
+
+做法與踩過的坑：
+- **透明背景用官方模板，不要白底去背**：提示詞套 `This is an RGBA image with transparency. <主體>. The image has alpha channel and the background is transparent.`（工具自動套），模型直接寫出真正的 alpha，支架、纜線之間都是真透明。編輯模式（給參考圖）也能用同一模板。輸出若沒有透明（alpha 最小值 > 0.98）工具會報錯，換種子重來。
+- **畫風：賽璐璐**（使用者 2026-10-03 決定，和凜、肖像同一國）。提示詞風格段（`styles`）寫「Anime cel-shaded … Cyberpunk Edgerunners：平塗、乾淨深色描邊、硬邊雙色陰影、冷白輪廓光」。**踩過的坑**：只寫夜景色調會得到全紫的圖，在深藍紫背景裡糊成一片、龍門吊幾乎看不見；要求「固有色（鏽褐、鋼灰、褪紅、青綠、暖黃）、明顯比深藍夜景亮」，並用 `grade` 略提亮。寫實版（Poly Haven 模型風）和動漫角色落差大，不採用；是否採用某種畫風要先用「同一批道具放進遊戲畫面」的前後對照來決定，不要只看單張圖。
+- **視角**要寫「正射、側面或正面立面、沒有透視、沒有地面與投影」。
+- **尺寸依真實高度**：`fit: meters` ＋ `height_m`（公尺）× `px_per_meter`（30；凜 1.7 m ≈ 44 px 碰撞高）。販賣機 1.9、閘門 2.5、長椅 0.85、水塔 3.8…；遊戲內太小的道具（20～30 px）描邊和細節都看不到。超大型道具與有平台的道具用 `fit: keep`。
+- **比例**：模型畫出的物件有自己的自然比例，不要硬拉成舊暫代圖的框。其他 `fit`：`height`／`width`（另一軸跟著圖）、`area`（自然比例、面積約等於原本，高度限制在 0.75～1.3 倍）、`keep`（拉伸，只在比例差 30% 內用，超過工具會警告）。提示詞裡寫「tall and narrow」會得到很瘦的東西，寫比例（「about five wide to seven tall」）。
+- **有單向平台的道具**（逃生梯、麵攤、雨棚）：`platform_align: true`，工具偵測圖裡第一條粗橫條（甲板、雨棚），再用透明邊框等比例補到平台資料的位置，平台碰撞不用改、關卡可站位置不變；`"contain"` 則把整張圖等比例放進原本的框內（不拉伸）並把甲板對到平台。模型畫出的比例和框差太多時用 `contain`，不要用 `keep` 硬拉。
+- **去雜訊**：`alpha_floor`（拉高可去掉模型畫的牆面陰影暈），工具自動刪掉小於最大塊 1% 的零碎透明度殘片，避免它們把外框撐大。
+- **編輯模式（給參考圖）吃顯示記憶體**：1536×864 級的參考圖曾讓 ComfyUI OOM 卡死；清晨版舖子改成 1152×648 生成再放大就穩了，逃生梯類改成純文生圖。編輯模式的工作排在批次最後。電腦重開機後第一次載入也可能 OOM，殺掉 ComfyUI 重啟一次即可。
+- **不要叫模型「沒有人」**：負面描述會被無視（第一版老 K 的舖子畫進兩個小孩）。改正面描述：「a completely deserted and uninhabited place where nobody is present, the floor strip is bare and empty」。
+- **編輯模式做變體**：清晨版舖子用 `ref` 指向夜晚版原圖，構圖一致、只改光線。
+- **窗光抽取**：`glow` 規則（`neon` 高亮高彩度、`beacon` 純紅、`screen` 亮面、`warm` 暖光窗、`console`…）從生成圖抽出發光層；純紅像素會被改成純紅，窗光生命著色器才會讓它明滅。
+- **動畫都是 `PropData` 欄位＋著色器**（清單的 `data` 寫進 `.tres`）：`sway`＋`sway_hang`（懸掛物頂端固定）、`glow_life`（信標明滅、區塊閃爍）、`glow_scan`（螢幕掃描帶）、`ripple`（水窪漣漪）、`steam`＋`steam_offset`（只在畫面內冒蒸汽）、`flicker`；舞台圖層有 `pulse`（柔光脈動）與 `motes`（塵粒）。新增動畫先看有沒有欄位可用，沒有再加欄位，不要寫每影格腳本。
+- **舞台圖要對齊地板**：`bg(name, dy=…)` 位移到圖中的地板線等於舞台的地板（角色腳底 y≈ 250～292）；圖偏暗時用 `modulate` 大於 1 提亮（HDR）。
+- **GPU 記憶體**：ComfyUI 跑的時候不要同時開 Godot 截圖／匯入（12 GB 會 OOM，ComfyUI 之後會卡死、佇列顯示 running 但不動）。卡死就殺掉重啟：`Stop-Process` 掉 `main.py --listen` 與 `qwen_*.py`。重啟後 `/system_stats` 通了再送工作（太早送會連線被拒）。第一次載入模型要 3～4 分鐘，之後每張 1.5～2.5 分鐘。
+- **清單檔會被執行中的工具改寫**（記住新錨點）：批次還在跑時不要編輯 `qwen_props.json`，等它結束。
+- 匯入後 `.import` 檔沒有對應圖的孤兒要刪掉（會讓關卡載入時噴 ERROR）。
+
+## 9. 還沒做的部分
+
+統一調色與光影整合（NE-66）；白房間那排「小腳」仍是多邊形（可用 `qwen_scenes.py` 的 `strip`＋`trim` 生成一條小腳貼圖取代）；室內道具（床、貨架、桌子、醫療床、電梯門…）只在過場舞台用過，舞台背景已含這些物件，舊的暫代圖沒有被使用，必要時再換。
+
+## 10. 驗收清單
+
+- [ ] 來源都在 `LICENSES.json`（CC0 素材），或在 `qwen_*.json` 留有提示詞與種子（生成素材）
 - [ ] `check_assets.py` 通過
 - [ ] 重新匯入後預覽畫廊與實景截圖看過，前後對照已存到 `pm/Nest-Egg/images/`
-- [ ] 暗場可讀性量測沒有比基準更差
-- [ ] 完整測試套件全部通過
+- [ ] 暗場可讀性量測沒有比基準更差（基準＝乾淨 worktree 在 HEAD 量一次）
+- [ ] 相關測試套件通過（`--only=EnvironmentSuite,CutsceneSuite,ChapterCutscenesSuite,PropsSuite`；使用者明說要才跑完整套件）
 - [ ] 票上的驗收條件逐條打勾、補 Commit 段落

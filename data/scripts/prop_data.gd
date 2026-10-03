@@ -32,6 +32,17 @@ const TEXTURE_SCALE := 4
 @export var platform: Rect2 = Rect2()
 ## 被風吹的搖動幅度（頂端的位移，邏輯像素；0 = 不搖）。植物用，由共用的著色器處理，不增加每影格的腳本。
 @export_range(0.0, 8.0) var sway: float = 0.0
+## 懸掛物（衣繩、燈籠串、纜線）：搖動改成頂端固定、底部擺動。
+@export var sway_hang: bool = false
+## 自發光層帶「窗光生命」：一部分區塊緩慢閃爍，純紅的點（信標、警示燈）規律明滅。
+@export var glow_life: bool = false
+## 螢幕掃描強度：自發光層上有一條較亮的橫帶緩慢上移（看板、螢幕、販賣機）。0 = 不掃描。
+@export_range(0.0, 1.0) var glow_scan: float = 0.0
+## 水窪：自發光層（霓虹倒影）上有雨滴漣漪向外擴散。
+@export var ripple: bool = false
+## 冒蒸汽（煙囪、通風管）；位置相對於道具左上角。
+@export var steam: bool = false
+@export var steam_offset: Vector2 = Vector2.ZERO
 ## 是否遮擋光線（產生影子）。
 @export var casts_shadow: bool = false
 ## 裝飾分類（預覽與檢查用）。

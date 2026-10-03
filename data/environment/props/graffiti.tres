@@ -7,5 +7,6 @@ script = ExtResource("1_c140g")
 id = &"graffiti"
 display_name = "塗鴉"
 texture = "res://art/environment/props/graffiti.png"
-size = Vector2(32, 24)
+flicker = 0.1
+size = Vector2(50.1, 60)
 has_glow = true

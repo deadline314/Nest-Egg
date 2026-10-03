@@ -18,6 +18,7 @@ const KINDS: Dictionary = {
 	"glow": ["pos", "radius", "color"],
 	"sprite": ["path", "pos"],
 	"rain": [],
+	"motes": [],
 	"grain": [],
 	"text": ["text", "pos"],
 	"stripes": ["rect", "color"],
@@ -53,6 +54,8 @@ static func create(def: Dictionary, where: String) -> Node2D:
 			node = _Sprite.new(def)
 		"rain":
 			node = _Rain.new(def)
+		"motes":
+			node = _Motes.new(def)
 		"grain":
 			node = _Grain.new(def)
 		"text":
@@ -197,11 +200,15 @@ class _Poly:
 			draw_colored_polygon(_points, _color)
 
 
-## 柔光團（燈、霓虹、窗光、投影機光束）。flicker > 0 時閃爍。
+## 柔光團（燈、霓虹、窗光、投影機光束）。flicker > 0 時閃爍；pulse > 0 時以該頻率（次／秒）明暗起伏（警報、呼吸燈），
+## pulse_depth 是最暗時降到多少（0 ~ 1，預設 0.7）。
 class _Glow:
 	extends Sprite2D
 	var _base: Color
 	var _flicker := 0.0
+	var _pulse := 0.0
+	var _pulse_depth := 0.7
+	var _phase := 0.0
 	var _t := 0.0
 
 	func _init(def: Dictionary) -> void:
@@ -214,12 +221,17 @@ class _Glow:
 		_base = StageLayers.lit(def["color"], float(def.get("intensity", 1.0)))
 		self_modulate = _base
 		_flicker = float(def.get("flicker", 0.0))
+		_pulse = float(def.get("pulse", 0.0))
+		_pulse_depth = clampf(float(def.get("pulse_depth", 0.7)), 0.0, 1.0)
+		_phase = float(def.get("phase", 0.0))
 		material = LightKit.additive_emissive_material()
-		set_process(_flicker > 0.0)
+		set_process(_flicker > 0.0 or _pulse > 0.0)
 
 	func _process(delta: float) -> void:
 		_t += delta
 		var k := 1.0 - _flicker * (0.5 + 0.5 * sin(_t * 31.0) * sin(_t * 7.3))
+		if _pulse > 0.0:
+			k *= 1.0 - _pulse_depth * (0.5 + 0.5 * sin((_t * _pulse + _phase) * TAU))
 		self_modulate = Color(_base.r * k, _base.g * k, _base.b * k, _base.a)
 
 
@@ -293,6 +305,49 @@ class _Rain:
 		for i in _drops.size():
 			var d := _drops[i]
 			draw_line(d, d + Vector2(_wind, 1.0).normalized() * _lengths[i], _color, 1.0)
+
+
+## 塵粒：在光裡緩慢漂浮的小亮點（灰塵、數據碎片、餘燼）。固定數量、同一批座標循環使用，不配置新物件。
+## 欄位：count（預設 40）、color、opacity、area [x, y, w, h]（預設整個畫面）、drift [vx, vy]（每秒，預設緩慢上飄）、size（像素，預設 1.5）。
+class _Motes:
+	extends Node2D
+	var _points := PackedVector2Array()
+	var _seeds := PackedFloat32Array()
+	var _color: Color
+	var _area: Rect2
+	var _drift: Vector2
+	var _size: float
+	var _t := 0.0
+
+	func _init(def: Dictionary) -> void:
+		var count := clampi(int(def.get("count", 40)), 0, 300)
+		_color = StageLayers.color_of(def.get("color", "#ffd9a0"))
+		_color.a = float(def.get("opacity", 0.5))
+		_area = StageLayers.rect_of(def.get("area"), Rect2(0, 0, 640, 360))
+		_drift = StageLayers.vec2_of(def.get("drift"), Vector2(2.0, -5.0))
+		_size = float(def.get("size", 1.5))
+		var rng := RandomNumberGenerator.new()
+		rng.seed = int(def.get("seed", 9))
+		for i in count:
+			_points.append(Vector2(rng.randf_range(0.0, _area.size.x), rng.randf_range(0.0, _area.size.y)))
+			_seeds.append(rng.randf_range(0.0, TAU))
+		material = LightKit.additive_emissive_material()
+
+	func _process(delta: float) -> void:
+		_t += delta
+		for i in _points.size():
+			var p := _points[i]
+			p += _drift * delta * (0.6 + 0.4 * sin(_seeds[i]))
+			p.x = fposmod(p.x, _area.size.x)
+			p.y = fposmod(p.y, _area.size.y)
+			_points[i] = p
+		queue_redraw()
+
+	func _draw() -> void:
+		for i in _points.size():
+			var wobble := Vector2(sin(_t * 0.7 + _seeds[i]) * 2.0, cos(_t * 0.5 + _seeds[i]) * 1.5)
+			var twinkle := 0.55 + 0.45 * sin(_t * 1.3 + _seeds[i] * 3.0)
+			draw_circle(_area.position + _points[i] + wobble, _size, Color(_color.r, _color.g, _color.b, _color.a * twinkle))
 
 
 ## 顆粒雜訊（老舊畫面、記憶、過曝）：每隔一小段時間重新撒點。

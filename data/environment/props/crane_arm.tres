@@ -7,6 +7,7 @@ script = ExtResource("1_08jys")
 id = &"crane_arm"
 display_name = "起重機"
 texture = "res://art/environment/props/crane_arm.png"
+glow_life = true
 size = Vector2(128, 72)
 has_glow = true
 flicker = 0.5

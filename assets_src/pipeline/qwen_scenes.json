@@ -1,0 +1,293 @@
+{
+ "styles": {
+  "scene": "Anime cel-shaded background painting in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, clean ink outlines, hard-edged two-tone cel shading, flat side-on view like a platformer stage set with no perspective distortion, a completely deserted and uninhabited place where nobody is present, the floor strip along the bottom fifth of the picture is bare and empty.",
+  "strip": "A photorealistic near-black silhouette foreground element for a 2D game, flat side view, very dark almost black materials with only faint edge highlights, small glowing LED indicator lights, no text."
+ },
+ "glow_presets": {
+  "bulb": [
+   {
+    "hue": [
+     15,
+     60
+    ],
+    "smin": 0.25,
+    "vmin": 0.88,
+    "soft": 2.0,
+    "boost": 1.0
+   }
+  ],
+  "window": [
+   {
+    "hue": [
+     260,
+     340
+    ],
+    "smin": 0.35,
+    "vmin": 0.55,
+    "soft": 1.5,
+    "boost": 1.0
+   }
+  ],
+  "red_lamps": [
+   {
+    "hue": [
+     345,
+     20
+    ],
+    "smin": 0.5,
+    "vmin": 0.8,
+    "soft": 2.0
+   },
+   {
+    "red_beacon": true
+   }
+  ],
+  "cyan": [
+   {
+    "hue": [
+     165,
+     215
+    ],
+    "smin": 0.35,
+    "vmin": 0.6,
+    "soft": 1.2
+   },
+   {
+    "hue": [
+     290,
+     340
+    ],
+    "smin": 0.4,
+    "vmin": 0.6,
+    "soft": 1.2
+   }
+  ],
+  "tubes": [
+   {
+    "smin": 0.0,
+    "vmin": 0.93,
+    "soft": 2.0
+   }
+  ],
+  "led": [
+   {
+    "smin": 0.55,
+    "vmin": 0.55,
+    "soft": 1.0
+   },
+   {
+    "red_beacon": true
+   }
+  ]
+ },
+ "defaults": {
+  "quality": 90
+ },
+ "images": [
+  {
+   "id": "fg_top",
+   "kind": "strip",
+   "style": "strip",
+   "seed": 5,
+   "gen": [
+    1536,
+    256
+   ],
+   "px": [
+    1536,
+    256
+   ],
+   "out": "art/environment/backdrop/fg_top.webp",
+   "glow": "led",
+   "grade": {
+    "brightness": 0.35,
+    "saturation": 0.6,
+    "tint": [
+     0.8,
+     0.95,
+     1.2
+    ],
+    "contrast": 1.0
+   },
+   "rim": {
+    "color": [
+     0.12,
+     0.3,
+     0.38
+    ],
+    "width": 3,
+    "strength": 0.8
+   },
+   "prompt": "An overhead industrial pipe rack along the very top edge of the frame, seen from the side: one thick horizontal pipe running straight across the whole width with support brackets, and many long cables, hoses and wires of different thickness hanging down from it in loose loops, some reaching more than halfway down the picture, a few small blinking LED lights, no pipe elbows or corners.",
+   "crop_x": [
+    0.07,
+    1.0
+   ]
+  },
+  {
+   "id": "fg_bottom",
+   "kind": "strip",
+   "style": "strip",
+   "seed": 4,
+   "gen": [
+    1536,
+    256
+   ],
+   "px": [
+    1536,
+    256
+   ],
+   "out": "art/environment/backdrop/fg_bottom.webp",
+   "glow": "led",
+   "grade": {
+    "brightness": 0.35,
+    "saturation": 0.6,
+    "tint": [
+     0.8,
+     0.95,
+     1.2
+    ],
+    "contrast": 1.0
+   },
+   "rim": {
+    "color": [
+     0.12,
+     0.3,
+     0.38
+    ],
+    "width": 3,
+    "strength": 0.8
+   },
+   "prompt": "A row of rusty steel railing posts with horizontal rails and sagging chains along the lower part of the frame, with a pipe and a cable bundle running along the ground, a few small LED lights, seen from the side, all hugging the bottom edge.",
+   "crop_x": [
+    0.05,
+    0.95
+   ]
+  },
+  {
+   "id": "stage_old_k_shop",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 11,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/stages/old_k_shop.webp",
+   "glow": "bulb",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "Interior of a cramped old back-alley general store at night: dark wooden plank floor in the bottom fifth, dark wooden walls, a rainy window on the left glowing purple and pink from the neon outside, wooden shelves full of canned goods and boxes in the middle, small crates and an old radio, a bare hanging light bulb at the centre top giving warm orange light, cosy cluttered and lived-in, warm orange and dark brown palette."
+  },
+  {
+   "id": "stage_old_k_shop_dawn",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 11,
+   "gen": [
+    1152,
+    648
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/stages/old_k_shop_dawn.webp",
+   "ref": "stage_old_k_shop",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "Edit the reference image: the same room at dawn after the night has ended, the hanging light bulb is switched off, cold blue-grey early morning light comes through the window, everything quiet, desaturated and cool, same layout and objects."
+  },
+  {
+   "id": "stage_hangar_red",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 8,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/stages/hangar_red.webp",
+   "glow": "red_lamps",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "Interior of a huge dark industrial aircraft hangar: wide empty concrete floor with yellow-black hazard stripes in the bottom fifth, massive steel trusses overhead, a big overhead gantry crane, hanging industrial lamps, rotating red alarm beacons, the whole scene lit in ominous deep red emergency light with drifting smoke."
+  },
+  {
+   "id": "stage_terminal_room",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 6,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/stages/terminal_room.webp",
+   "glow": "cyan",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "Interior of a secret data server room at night: tall black server racks with blinking cyan and magenta LEDs lining both left and right sides, a clear empty space in the middle with a low desk, dark glossy floor with faint reflections and cables, cyan teal lighting, high-tech and secretive."
+  },
+  {
+   "id": "stage_transfer_corridor",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 15,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/stages/transfer_corridor.webp",
+   "glow": "tubes",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 0.9
+   },
+   "prompt": "A long empty sterile underground facility corridor drawn like a hand-painted anime background with visible ink linework and flat colour areas: pale grey-blue tiled walls with drawn grout lines, a row of cold blue-white fluorescent tube lights on the ceiling, metal benches along the wall, a height-measuring chart painted on the wall at the far left, a glossy floor reflecting the lights, cold and clinical."
+  },
+  {
+   "id": "stage_white_room",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 7,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/stages/white_room.webp",
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 0.85
+   },
+   "prompt": "An empty sterile white room, overexposed soft white light, plain white walls and a pale floor where the wall meets the floor at about seventy percent of the picture height, minimal, dreamlike, slightly grainy, completely empty, like a memory."
+  }
+ ]
+}
