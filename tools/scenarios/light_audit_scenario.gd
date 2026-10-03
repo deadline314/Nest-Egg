@@ -4,13 +4,14 @@ extends ScenarioBase
 ## 每 0.5 秒取樣：每影格處理時間、繪製呼叫、畫面物件數、節點數、場景裡的光源數（全部／啟用中／預算管理／想要陰影）、
 ## 粒子場存活的粒子數，結束時印出每一項的最小、平均、最大值，並在幾個時間點截圖。
 ## 用法：screenshot.tscn -- --out=<資料夾> --scenario=light_audit [--lighting=transfer] [--weapon=rifle] [--enemies=10] [--seconds=14]
-##        [--level=level_01 --tile=115]（改在真實關卡的某一欄量測，敵人站在玩家前方；不給就用空曠場地）
+##        [--level=level_01 --tile=115] [--quality=low|medium|high]（改在真實關卡的某一欄量測，敵人站在玩家前方；不給就用空曠場地）
 
 var _lighting := "transfer"
 var _weapon := "rifle"
 var _enemies := 10
 var _seconds := 14.0
 var _level_id := ""
+var _quality := -1
 var _tile := 12.0
 var _series := {}
 var _frame_ms: Array[float] = []
@@ -27,10 +28,15 @@ func run() -> void:
 			_enemies = int(arg.trim_prefix("--enemies="))
 		elif arg.begins_with("--seconds="):
 			_seconds = float(arg.trim_prefix("--seconds="))
+		elif arg.begins_with("--quality="):
+			_quality = {"low": LightQuality.Tier.LOW, "medium": LightQuality.Tier.MEDIUM, "high": LightQuality.Tier.HIGH}.get(arg.trim_prefix("--quality="), -1)
 		elif arg.begins_with("--level="):
 			_level_id = arg.trim_prefix("--level=")
 		elif arg.begins_with("--tile="):
 			_tile = float(arg.trim_prefix("--tile="))
+	var original_quality := Settings.get_light_quality()  # 量測會暫時改設定檔裡的光影品質，結束時還原
+	if _quality >= 0:
+		Settings.set_light_quality(_quality)
 	if _level_id.is_empty():
 		await open_arena("res://data/lighting/%s.tres" % _lighting, 8.0)
 	else:
@@ -76,6 +82,7 @@ func run() -> void:
 				shots_captured += 1
 	_report()
 	_census()
+	Settings.set_light_quality(original_quality)
 	await finish()
 
 

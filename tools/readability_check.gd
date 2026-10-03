@@ -31,14 +31,18 @@ func _ready() -> void:
 func _run() -> void:
 	add_child(LightKit.create_environment())
 	Story.auto_skip = true
-	# --level=level_01 只量測指定的關卡（開發時加快迭代）。
+	# --level=level_01 只量測指定的關卡（開發時加快迭代）；--quality=low|medium|high 改用該光影品質檔位量測。
 	var only := ""
+	var original_quality := Settings.get_light_quality()  # 量測會暫時改設定檔裡的光影品質，結束時還原
 	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--quality="):
+			Settings.set_light_quality({"low": LightQuality.Tier.LOW, "medium": LightQuality.Tier.MEDIUM, "high": LightQuality.Tier.HIGH}.get(arg.trim_prefix("--quality="), LightQuality.Tier.HIGH))
 		if arg.begins_with("--level="):
 			only = arg.trim_prefix("--level=")
 	for entry in LEVELS:
 		if only == "" or str(entry["path"]).contains(only):
 			await _check_level(entry["path"], entry["spots"])
+	Settings.set_light_quality(original_quality)
 	get_tree().quit(1 if _failed else 0)
 
 
