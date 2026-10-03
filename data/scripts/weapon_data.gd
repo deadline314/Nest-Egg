@@ -35,6 +35,8 @@ extends Resource
 @export var bloom_per_shot: float = 0.15
 ## HUD 與武器欄顯示的簡短代號。
 @export var short_name: String = ""
+## 彈種圖示 id（art/ammo/<id>.png）：HUD、背包用來顯示這把武器的子彈。留空時依武器類型使用預設圖示。
+@export var ammo_icon: StringName = &""
 ## 角色手上武器的外觀（art/weapons/weapons.json 的 id）。
 @export var visual_id: String = "rifle"
 

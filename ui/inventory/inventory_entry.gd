@@ -15,6 +15,8 @@ var detail_icon_scale := 3
 ## 卡片右上角的小標籤（NEW、手上、×2…），空字串不顯示。
 var badge := ""
 var badge_color := Palette.CYAN
+## 彈種圖示（武器卡片用，null 不顯示）。
+var ammo_icon: Texture2D
 ## 沒有內容的項目（空欄位、數量 0）：整張卡片變暗。
 var dimmed := false
 ## 一句重點說明：卡片 tooltip 與畫面底部說明列都用這句。

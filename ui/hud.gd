@@ -12,8 +12,7 @@ const CONTROLS_TEMPLATE := "移動 {move_left}/{move_right}　跳 {jump}　射�
 var vitals_tag: VitalsTag
 var ammo_ring: AmmoRing
 var _gauges: _Gauges
-var _weapon_labels: Array[Label] = []
-var _weapon_panel: Control
+var weapon_bar: WeaponBar
 var _items_label: Label
 var _lives_label: Label
 var _timer_label: Label
@@ -40,16 +39,9 @@ func _ready() -> void:
 	_lives_label.position = Vector2(12, 6)
 	root.add_child(_lives_label)
 
-	_weapon_panel = VBoxContainer.new()
-	_weapon_panel.position = Vector2(12, 268)
-	_weapon_panel.add_theme_constant_override(&"separation", 0)
-	_weapon_panel.mouse_filter = Control.MOUSE_FILTER_PASS
-	root.add_child(_weapon_panel)
-	for i in Loadout.MAX_SLOTS:
-		var l := UiKit.label("", 11)
-		l.mouse_filter = Control.MOUSE_FILTER_PASS
-		_weapon_panel.add_child(l)
-		_weapon_labels.append(l)
+	weapon_bar = WeaponBar.new()
+	weapon_bar.position = Vector2(12, 262)
+	root.add_child(weapon_bar)
 
 	vitals_tag = VitalsTag.new()
 	root.add_child(vitals_tag)
@@ -171,22 +163,7 @@ func _on_lives_changed(lives: int) -> void:
 
 
 func _on_loadout_changed(loadout: Loadout) -> void:
-	for slot in _weapon_labels.size():
-		var label := _weapon_labels[slot]
-		var weapon := loadout.weapon_in(slot)
-		if weapon == null:
-			label.text = "%d  ——" % (slot + 1)
-			label.add_theme_color_override(&"font_color", Color(Palette.UI_MUTED, 0.5))
-			label.tooltip_text = "撿取武器後放在這裡；滾輪或數字鍵切換"
-			continue
-		var reserve := loadout.reserve_in(slot)
-		var ammo_text := "∞"
-		if weapon.has_magazine():
-			ammo_text = "%d/%s" % [loadout.mag_in(slot), "∞" if reserve < 0 else str(reserve)]
-		var active := slot == loadout.active_slot
-		label.text = "%d %s %s  %s" % [slot + 1, "▶" if active else " ", weapon.display_name, ammo_text]
-		label.add_theme_color_override(&"font_color", weapon.color if active else Palette.UI_MUTED)
-		label.tooltip_text = weapon.description
+	weapon_bar.update_from(loadout)
 
 
 func _on_consumables_changed(bag: ConsumableBag) -> void:

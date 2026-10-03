@@ -103,6 +103,9 @@ func _draw() -> void:
 			CARD_SIZE.x - text_x - 8.0, 12, Color(accent, dim) if selected else Color(Palette.UI_TEXT, dim))
 	draw_string(font, Vector2(text_x, rect.position.y + 34.0), entry.subtitle, HORIZONTAL_ALIGNMENT_LEFT,
 			CARD_SIZE.x - text_x - 8.0, 10, Color(Palette.UI_MUTED, dim))
+	if entry.ammo_icon != null:
+		var ammo_rect := Rect2(rect.position + Vector2(CARD_SIZE.x - 22.0, CARD_SIZE.y - 26.0), AmmoIcons.CELL * 1.3)
+		draw_texture_rect(entry.ammo_icon, ammo_rect, false, Color(1, 1, 1, dim))
 	if not entry.badge.is_empty():
 		PixelUi.badge(self, rect.position + Vector2(CARD_SIZE.x - 8.0, 6.0), entry.badge, entry.badge_color)
 	if _shine >= 0.0:

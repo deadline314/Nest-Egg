@@ -15,6 +15,7 @@ const BODY_MIN_WIDTH := 280.0
 var _plate: IconPlate
 var _title: Label
 var _tag: Label
+var _ammo_icon: TextureRect
 var _stats: VBoxContainer
 var _body: Label
 var _empty: Label
@@ -44,8 +45,17 @@ func _ready() -> void:
 	top.add_child(info)
 	_title = UiKit.label("", 16)
 	info.add_child(_title)
+	var tag_row := HBoxContainer.new()
+	tag_row.add_theme_constant_override(&"separation", 6)
+	info.add_child(tag_row)
 	_tag = UiKit.label("", 10, Palette.UI_MUTED)
-	info.add_child(_tag)
+	tag_row.add_child(_tag)
+	_ammo_icon = TextureRect.new()
+	_ammo_icon.custom_minimum_size = AmmoIcons.CELL * 1.5
+	_ammo_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_ammo_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	_ammo_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	tag_row.add_child(_ammo_icon)
 	_stats = VBoxContainer.new()
 	_stats.add_theme_constant_override(&"separation", 1)
 	info.add_child(_stats)
@@ -88,6 +98,8 @@ func show_entry(entry: InventoryEntry, empty_text := "", animate := true) -> voi
 	_title.text = entry.title
 	_title.add_theme_color_override(&"font_color", entry.accent)
 	_tag.text = entry.detail_tag
+	_ammo_icon.texture = entry.ammo_icon
+	_ammo_icon.visible = entry.ammo_icon != null
 	for child in _stats.get_children():
 		child.queue_free()
 	for line in entry.detail_stats:

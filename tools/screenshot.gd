@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、spots（--scenario=spots:關卡檔:名稱）、environment、cutscene、screens、flow、transition、ui、settings、mouse_aim、block、story、story_ch2、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
+## 情境：all（預設）、hud、spots（--scenario=spots:關卡檔:名稱）、environment、cutscene、screens、flow、transition、ui、settings、mouse_aim、block、story、story_ch2、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -26,6 +26,10 @@ func _run() -> void:
 	Story.auto_skip = _scenario != "story" and _scenario != "story_ch2"
 	if _scenario.begins_with("spots"):
 		await _run_spots()
+		get_tree().quit()
+		return
+	if _scenario == "hud":
+		await _run_hud()
 		get_tree().quit()
 		return
 	if _scenario == "environment":
@@ -1208,6 +1212,46 @@ func _run_settings() -> void:
 	_capture("settings_bindings")
 	settings._cancel_capture()
 	settings.queue_free()
+
+
+## 戰鬥介面：武器欄（彈種圖示）、彈匣、生命、信用點等，各種狀態。
+func _run_hud() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _settle(20)
+	var player := level.player
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	for id: String in Story.scene_ids():
+		Story._seen[StringName(id)] = true
+	for weapon_id in ["rifle", "spread", "railgun"]:
+		player.loadout.equip(load("res://data/weapons/%s.tres" % weapon_id))
+	player.global_position = Vector2(330, 320)
+	level_camera_snap()
+	Input.action_press(&"aim_right")
+	await _wait(1.0)
+	_capture("hud_idle")
+	player.loadout.select(0)
+	Input.action_press(&"shoot")
+	await _wait(0.55)
+	_capture("hud_firing")
+	await _wait(0.5)
+	Input.action_release(&"shoot")
+	await _wait(0.4)
+	_capture("hud_after")
+	Input.action_press(&"reload")
+	await _wait(0.35)
+	Input.action_release(&"reload")
+	_capture("hud_reload")
+	await _wait(1.6)
+	player.loadout.select(1)
+	await _wait(0.4)
+	_capture("hud_shotgun")
+	Input.action_release(&"aim_right")
+	level.queue_free()
+	await _settle(4)
 
 
 ## 關卡各區段實景：--scenario=spots:level_01:before，每個區段停在檢查點／代表位置截圖（隱藏 HUD、清掉敵人）。
