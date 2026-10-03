@@ -201,7 +201,7 @@ class _FacadeGlow:
 	var walls: BackWall
 
 	func _init() -> void:
-		emissive = true
+		chunk_material = LightKit.window_life_material()
 
 	func _draw_chunk(canvas: CanvasItem, rect: Rect2) -> void:
 		for modules: Array in walls._col_modules:

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"tree_pine_front"
+display_name = "前景松樹"
+texture = "res://art/environment/props/tree_pine_1.png"
+size = Vector2(54.3, 154)
+layer = 1
+front_alpha = 0.55
+sway = 1.8
+category = &"nature"

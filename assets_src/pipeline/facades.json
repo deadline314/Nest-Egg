@@ -67,8 +67,16 @@
      42
     ],
     [
-     33,
-     32
+     19,
+     21
+    ],
+    [
+     22,
+     23
+    ],
+    [
+     29,
+     31
     ]
    ],
    "cap": [
@@ -84,7 +92,32 @@
       0.24
      ]
     }
-   ]
+   ],
+   "decor": {
+    "body": {
+     "pipes": true,
+     "props": [
+      {
+       "prop": "ac_unit",
+       "chance": 0.45,
+       "height_frac": 0.34,
+       "y_frac": 0.62
+      }
+     ],
+     "led": true
+    },
+    "ground": {
+     "props": [
+      {
+       "prop": "camera_wall",
+       "chance": 0.5,
+       "height_frac": 0.12,
+       "y_frac": 0.12
+      }
+     ],
+     "hazard": true
+    }
+   }
   },
   {
    "id": "warehouse",
@@ -161,7 +194,32 @@
       0.24
      ]
     }
-   ]
+   ],
+   "decor": {
+    "body": {
+     "pipes": true,
+     "led": true,
+     "props": [
+      {
+       "prop": "emergency_light",
+       "chance": 0.5,
+       "height_frac": 0.14,
+       "y_frac": 0.18
+      }
+     ]
+    },
+    "ground": {
+     "hazard": true,
+     "props": [
+      {
+       "prop": "camera_wall",
+       "chance": 0.6,
+       "height_frac": 0.1,
+       "y_frac": 0.1
+      }
+     ]
+    }
+   }
   },
   {
    "id": "shutter_block",
@@ -239,7 +297,23 @@
       0.24
      ]
     }
-   ]
+   ],
+   "decor": {
+    "body": {
+     "pipes": true,
+     "props": [
+      {
+       "prop": "ac_unit_big",
+       "chance": 0.4,
+       "height_frac": 0.3,
+       "y_frac": 0.62
+      }
+     ]
+    },
+    "ground": {
+     "hazard": true
+    }
+   }
   },
   {
    "id": "apartment",
@@ -318,7 +392,31 @@
       0.24
      ]
     }
-   ]
+   ],
+   "decor": {
+    "body": {
+     "pipes": true,
+     "props": [
+      {
+       "prop": "ac_unit",
+       "chance": 0.5,
+       "height_frac": 0.3,
+       "y_frac": 0.66
+      }
+     ],
+     "led": false
+    },
+    "ground": {
+     "props": [
+      {
+       "prop": "emergency_light",
+       "chance": 0.5,
+       "height_frac": 0.12,
+       "y_frac": 0.15
+      }
+     ]
+    }
+   }
   },
   {
    "id": "shopfront",
@@ -397,7 +495,240 @@
       0.24
      ]
     }
-   ]
+   ],
+   "decor": {
+    "body": {
+     "pipes": true,
+     "props": [
+      {
+       "prop": "ac_unit",
+       "chance": 0.5,
+       "height_frac": 0.3,
+       "y_frac": 0.66
+      }
+     ],
+     "led": false
+    },
+    "ground": {
+     "props": [
+      {
+       "prop": "emergency_light",
+       "chance": 0.5,
+       "height_frac": 0.12,
+       "y_frac": 0.15
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "glass_tower",
+   "generated": {
+    "wall_material": "glass_curtain",
+    "tile_world": 48,
+    "windows": {
+     "ground": {
+      "cols": 4,
+      "rows": 1,
+      "w": 12,
+      "h": 24,
+      "chamfer": 0.28
+     },
+     "body": {
+      "cols": 8,
+      "rows": 3,
+      "w": 6,
+      "h": 7.5,
+      "glass": [
+       0.03,
+       0.07,
+       0.13
+      ],
+      "chamfer": 0.32
+     },
+     "cap": null
+    }
+   },
+   "grade": {
+    "brightness": 0.7,
+    "saturation": 0.9,
+    "tint": [
+     0.85,
+     0.95,
+     1.15
+    ]
+   },
+   "light_chance": 0.5,
+   "light_colors": [
+    [
+     0.3,
+     0.9,
+     1.0
+    ],
+    [
+     1.0,
+     0.35,
+     0.7
+    ],
+    [
+     1.0,
+     0.8,
+     0.3
+    ],
+    [
+     0.5,
+     1.0,
+     0.6
+    ]
+   ],
+   "ground": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "body": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "cap": [
+    [
+     0
+    ]
+   ],
+   "decor": {
+    "body": {
+     "traces": 3,
+     "led": true,
+     "pipes": false
+    },
+    "ground": {
+     "traces": 2,
+     "hazard": true,
+     "beacon": false
+    },
+    "cap": {
+     "led": true,
+     "beacon": true
+    }
+   }
+  },
+  {
+   "id": "facility_wall",
+   "generated": {
+    "wall_material": "facility_panel",
+    "tile_world": 48,
+    "windows": {
+     "ground": {
+      "cols": 2,
+      "rows": 1,
+      "w": 14,
+      "h": 18,
+      "chamfer": 0.2
+     },
+     "body": {
+      "cols": 3,
+      "rows": 1,
+      "w": 13,
+      "h": 3.5,
+      "glass": [
+       0.02,
+       0.05,
+       0.07
+      ],
+      "chamfer": 0.45
+     },
+     "cap": null
+    }
+   },
+   "grade": {
+    "brightness": 0.8,
+    "saturation": 0.8,
+    "tint": [
+     0.85,
+     1.0,
+     1.05
+    ]
+   },
+   "light_chance": 0.45,
+   "light_colors": [
+    [
+     0.3,
+     0.9,
+     1.0
+    ],
+    [
+     0.7,
+     1.0,
+     0.95
+    ],
+    [
+     1.0,
+     0.8,
+     0.3
+    ]
+   ],
+   "ground": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "body": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "cap": [
+    [
+     0
+    ]
+   ],
+   "decor": {
+    "body": {
+     "traces": 4,
+     "led": true,
+     "pipes": true
+    },
+    "ground": {
+     "traces": 2,
+     "hazard": true,
+     "props": [
+      {
+       "prop": "camera_wall",
+       "chance": 0.6,
+       "height_frac": 0.12,
+       "y_frac": 0.1
+      }
+     ]
+    },
+    "cap": {
+     "led": true
+    }
+   }
   }
  ]
 }

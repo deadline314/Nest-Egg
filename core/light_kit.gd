@@ -18,7 +18,10 @@ static var _soft_texture: GradientTexture2D
 static var character_fill := 1.0
 ## 場景燈的供電（0~1）：由 LightingController 依光影設定更新，每盞燈依自己的門檻依序熄滅／亮起。
 static var lamp_power := 1.0
+const WINDOW_LIFE_SHADER := preload("res://game/level/environment/window_life.gdshader")
+
 static var _emissive_material: CanvasItemMaterial
+static var _window_life_material: ShaderMaterial
 static var _additive_material: CanvasItemMaterial
 static var _environment: Environment
 
@@ -88,6 +91,15 @@ static func emissive_material() -> CanvasItemMaterial:
 		_emissive_material = CanvasItemMaterial.new()
 		_emissive_material.light_mode = CanvasItemMaterial.LIGHT_MODE_UNSHADED
 	return _emissive_material
+
+
+## 窗光的生命：自發光、不受環境光壓暗，一部分窗戶區塊緩慢閃爍、純紅的點（屋頂信標）規律明滅。
+## 全部是著色器、共用一份材質，靜態繪製的立面與背景因此也會動（見 window_life.gdshader）。
+static func window_life_material() -> ShaderMaterial:
+	if _window_life_material == null:
+		_window_life_material = ShaderMaterial.new()
+		_window_life_material.shader = WINDOW_LIFE_SHADER
+	return _window_life_material
 
 
 ## 加法混合的自發光材質（光錐、光暈、倒影用）：疊在畫面上只會變亮，不會被環境光壓暗。

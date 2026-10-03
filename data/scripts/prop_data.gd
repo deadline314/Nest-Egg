@@ -30,6 +30,8 @@ const TEXTURE_SCALE := 4
 @export var light_offset: Vector2 = Vector2.ZERO
 ## 單向平台（逃生梯平台、雨棚）：x、y、寬、高，相對道具左上角；寬度為 0 代表沒有。
 @export var platform: Rect2 = Rect2()
+## 被風吹的搖動幅度（頂端的位移，邏輯像素；0 = 不搖）。植物用，由共用的著色器處理，不增加每影格的腳本。
+@export_range(0.0, 8.0) var sway: float = 0.0
 ## 是否遮擋光線（產生影子）。
 @export var casts_shadow: bool = false
 ## 裝飾分類（預覽與檢查用）。

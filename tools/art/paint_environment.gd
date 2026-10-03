@@ -44,7 +44,8 @@ func _replaced(group: String, id: String) -> bool:
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
 	if not parsed is Dictionary:
 		return false
-	for entry in parsed.get(group, []):
+	# 背景層清單的欄位叫 layers（backdrop.json 也放天空），其他類別欄位名稱同類別。
+	for entry in parsed.get("layers" if group == "backdrop" else group, []):
 		if str(entry.get("id", "")) == id:
 			return true
 	return false

@@ -27,11 +27,27 @@ static func theme() -> EnvironmentTheme:
 		index += 1
 	for id in BACKDROP_IDS:
 		var layer := BackdropLayer.new()
-		layer.texture = "res://art/environment/backdrop/%s.png" % id
+		layer.texture = backdrop_path(id)
+		layer.texture_scale = backdrop_scale(layer.texture)
 		layer.scroll_scale = BACKDROP_SCROLL[id]
 		layer.bottom_y = BACKDROP_BOTTOM[id]
 		result.backdrop.append(layer)
 	return result
+
+
+## 背景層的貼圖路徑：免費素材加工的是 WebP，舊的程式暫代圖是 PNG；兩種都有時用 WebP。
+static func backdrop_path(id: String) -> String:
+	for extension in ["webp", "png"]:
+		var path := "res://art/environment/backdrop/%s.%s" % [id, extension]
+		if ResourceLoader.exists(path):
+			return path
+	return "res://art/environment/backdrop/%s.png" % id
+
+
+## 背景層一次重複涵蓋 640 邏輯像素，貼圖寬度 ÷ 640 就是解析度倍率。
+static func backdrop_scale(path: String) -> int:
+	var texture := load(path) as Texture2D if ResourceLoader.exists(path) else null
+	return maxi(1, roundi(float(texture.get_width()) / 640.0)) if texture != null else 2
 
 
 static func level_data(kind: String) -> LevelData:

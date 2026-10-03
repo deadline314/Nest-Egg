@@ -23,7 +23,13 @@
     0.5,
     0.8
    ],
-   "fit": "width"
+   "fit": "width",
+   "anchor": {
+    "size": [
+     24.0,
+     16.0
+    ]
+   }
   },
   {
    "id": "ac_unit_big",
@@ -34,7 +40,13 @@
     1.0,
     0.8
    ],
-   "fit": "width"
+   "fit": "width",
+   "anchor": {
+    "size": [
+     36.0,
+     22.0
+    ]
+   }
   },
   {
    "id": "street_lamp",
@@ -48,7 +60,17 @@
     0.9,
     0.7
    ],
-   "glow_through": true
+   "glow_through": true,
+   "anchor": {
+    "size": [
+     20.0,
+     60.0
+    ],
+    "light_offset": [
+     4.0,
+     6.0
+    ]
+   }
   },
   {
    "id": "utility_pole",
@@ -59,7 +81,13 @@
     0.14,
     1.0
    ],
-   "render_width": 1536
+   "render_width": 1536,
+   "anchor": {
+    "size": [
+     48.0,
+     80.0
+    ]
+   }
   },
   {
    "id": "camera_wall",
@@ -74,7 +102,17 @@
     1.0,
     0.2,
     0.2
-   ]
+   ],
+   "anchor": {
+    "size": [
+     14.0,
+     12.0
+    ],
+    "light_offset": [
+     10.0,
+     8.0
+    ]
+   }
   },
   {
    "id": "trash_can",
@@ -85,7 +123,370 @@
     0.5,
     1.0
    ],
-   "fit": "height"
+   "fit": "height",
+   "anchor": {
+    "size": [
+     12.0,
+     16.0
+    ]
+   }
+  },
+  {
+   "id": "fuel_tank",
+   "model": "ph_mod_barrel_01",
+   "fit": "height",
+   "anchor": {
+    "size": [
+     32.0,
+     40.0
+    ]
+   }
+  },
+  {
+   "id": "emergency_light",
+   "model": "ph_mod_industrial_wall_lamp",
+   "glow": [
+    "glass"
+   ],
+   "glow_color": [
+    1.0,
+    0.25,
+    0.25
+   ],
+   "fit": "height",
+   "anchor": {
+    "size": [
+     14.0,
+     8.0
+    ],
+    "light_offset": [
+     7.0,
+     6.0
+    ]
+   }
+  },
+  {
+   "id": "hangar_light",
+   "model": "ph_mod_security_light",
+   "glow": [
+    "bulb"
+   ],
+   "glow_color": [
+    1.0,
+    0.85,
+    0.6
+   ],
+   "glow_through": true,
+   "fit": "height",
+   "anchor": {
+    "size": [
+     20.0,
+     10.0
+    ],
+    "light_offset": [
+     10.0,
+     8.0
+    ]
+   }
+  },
+  {
+   "id": "radio_set",
+   "model": "ph_mod_boombox",
+   "fit": "width",
+   "anchor": {
+    "size": [
+     16.0,
+     11.0
+    ]
+   }
+  },
+  {
+   "id": "server_rack",
+   "model": "ph_mod_utility_box_01",
+   "fit": "height",
+   "anchor": {
+    "size": [
+     18.0,
+     40.0
+    ],
+    "light_offset": [
+     9.0,
+     20.0
+    ]
+   }
+  },
+  {
+   "id": "crates_stack",
+   "model": "ph_mod_plastic_crate_01",
+   "fit": "width",
+   "anchor": {
+    "size": [
+     32.0,
+     28.0
+    ]
+   }
+  },
+  {
+   "id": "lamp_warm",
+   "model": "ph_mod_industrial_pipe_lamp",
+   "glow": [
+    "glass"
+   ],
+   "glow_color": [
+    1.0,
+    0.8,
+    0.5
+   ],
+   "glow_through": true,
+   "fit": "height",
+   "render_width": 384,
+   "anchor": {
+    "size": [
+     16.0,
+     34.0
+    ],
+    "light_offset": [
+     8.0,
+     30.0
+    ]
+   }
+  },
+  {
+   "id": "pipe_vertical",
+   "model": "ph_mod_modular_industrial_pipes_01",
+   "kit_cell": 0,
+   "fit": "height",
+   "anchor": {
+    "size": [
+     6.0,
+     64.0
+    ]
+   }
+  },
+  {
+   "id": "pipe_horizontal",
+   "model": "ph_mod_modular_industrial_pipes_01",
+   "kit_cell": 0,
+   "rotate": 90,
+   "fit": "width",
+   "anchor": {
+    "size": [
+     64.0,
+     8.0
+    ]
+   }
+  },
+  {
+   "id": "facility_pipes",
+   "model": "ph_mod_modular_industrial_pipes_01",
+   "kit_cell": 6,
+   "rotate": 90,
+   "fit": "width",
+   "anchor": {
+    "size": [
+     64.0,
+     16.0
+    ]
+   }
+  },
+  {
+   "id": "tree_pine_1",
+   "model": "ph_mod_pine_tree_01",
+   "fit": "height",
+   "render_width": 1400,
+   "anchor": {
+    "size": [
+     66.0,
+     110
+    ]
+   },
+   "new": {
+    "display_name": "松樹",
+    "category": "nature",
+    "sway": 1.6
+   },
+   "crop": [
+    0,
+    0,
+    0.33,
+    1
+   ]
+  },
+  {
+   "id": "tree_pine_2",
+   "model": "ph_mod_pine_tree_01",
+   "fit": "height",
+   "render_width": 1400,
+   "anchor": {
+    "size": [
+     55.199999999999996,
+     92
+    ]
+   },
+   "new": {
+    "display_name": "矮松樹",
+    "category": "nature",
+    "sway": 1.6
+   },
+   "crop": [
+    0.64,
+    0,
+    1,
+    1
+   ]
+  },
+  {
+   "id": "tree_fir_1",
+   "model": "ph_mod_fir_tree_01",
+   "fit": "height",
+   "render_width": 1400,
+   "anchor": {
+    "size": [
+     60.0,
+     100
+    ]
+   },
+   "new": {
+    "display_name": "冷杉",
+    "category": "nature",
+    "sway": 1.4
+   },
+   "crop": [
+    0,
+    0,
+    0.348,
+    1
+   ]
+  },
+  {
+   "id": "tree_fir_2",
+   "model": "ph_mod_fir_tree_01",
+   "fit": "height",
+   "render_width": 1400,
+   "anchor": {
+    "size": [
+     50.4,
+     84
+    ]
+   },
+   "new": {
+    "display_name": "小冷杉",
+    "category": "nature",
+    "sway": 1.4
+   },
+   "crop": [
+    0.664,
+    0,
+    1,
+    1
+   ]
+  },
+  {
+   "id": "tree_island",
+   "model": "ph_mod_island_tree_01",
+   "fit": "height",
+   "render_width": 1400,
+   "anchor": {
+    "size": [
+     42.0,
+     70
+    ]
+   },
+   "new": {
+    "display_name": "歪脖子樹",
+    "category": "nature",
+    "sway": 2.0
+   }
+  },
+  {
+   "id": "tree_jacaranda",
+   "model": "ph_mod_jacaranda_tree",
+   "fit": "height",
+   "render_width": 1400,
+   "anchor": {
+    "size": [
+     38.4,
+     64
+    ]
+   },
+   "new": {
+    "display_name": "藍花楹",
+    "category": "nature",
+    "sway": 2.2
+   }
+  },
+  {
+   "id": "tree_quiver",
+   "model": "ph_mod_quiver_tree_01",
+   "fit": "height",
+   "render_width": 1400,
+   "anchor": {
+    "size": [
+     54.0,
+     90
+    ]
+   },
+   "new": {
+    "display_name": "箭袋樹",
+    "category": "nature",
+    "sway": 1.0
+   }
+  },
+  {
+   "id": "tree_stump",
+   "model": "ph_mod_tree_stump_01",
+   "fit": "height",
+   "render_width": 1400,
+   "anchor": {
+    "size": [
+     8.4,
+     14
+    ]
+   },
+   "new": {
+    "display_name": "樹墩",
+    "category": "nature",
+    "sway": 0
+   }
+  },
+  {
+   "id": "tree_branch",
+   "model": "ph_mod_dead_tree_trunk_02",
+   "fit": "height",
+   "render_width": 1400,
+   "anchor": {
+    "size": [
+     6.0,
+     10
+    ]
+   },
+   "new": {
+    "display_name": "枯枝",
+    "category": "nature",
+    "sway": 0
+   }
+  }
+ ],
+ "aliases": [
+  {
+   "id": "tree_pine_front",
+   "of": "tree_pine_1",
+   "display_name": "前景松樹",
+   "category": "nature",
+   "layer": 1,
+   "front_alpha": 0.55,
+   "sway": 1.8,
+   "scale": 1.4
+  },
+  {
+   "id": "tree_fir_front",
+   "of": "tree_fir_1",
+   "display_name": "前景冷杉",
+   "category": "nature",
+   "layer": 1,
+   "front_alpha": 0.55,
+   "sway": 1.6,
+   "scale": 1.4
   }
  ]
 }

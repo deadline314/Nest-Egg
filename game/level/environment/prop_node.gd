@@ -4,6 +4,11 @@ extends Node2D
 ## 位置是道具左上角（世界座標）。貼圖缺失時顯示替代圖並記錄具體路徑（由 LitTextures 負責）。
 ## 有光源的道具跟招牌一樣受電力影響：停電時熄滅。
 
+const SWAY_SHADER := preload("res://game/level/environment/sway.gdshader")
+
+## 搖動幅度 → 共用材質（同幅度的植物共用同一份，數量再多也只有幾份）。
+static var _sway_materials: Dictionary[float, ShaderMaterial] = {}
+
 var data: PropData
 var flip := false
 
@@ -30,6 +35,8 @@ func _ready() -> void:
 	sprite.centered = false
 	sprite.scale = _scale_for(tex)
 	_apply_flip(sprite)
+	if data.sway > 0.0:
+		sprite.material = _sway_material(data.sway)
 	add_child(sprite)
 	if data.layer == PropData.Layer.FRONT:
 		z_index = 3
@@ -44,6 +51,15 @@ func _ready() -> void:
 		_add_occluder()
 	set_process(data.has_glow or data.light_radius > 0.0)
 	_time = randf() * 10.0
+
+
+static func _sway_material(amplitude: float) -> ShaderMaterial:
+	if not _sway_materials.has(amplitude):
+		var material := ShaderMaterial.new()
+		material.shader = SWAY_SHADER
+		material.set_shader_parameter(&"amplitude", amplitude)
+		_sway_materials[amplitude] = material
+	return _sway_materials[amplitude]
 
 
 func _scale_for(tex: Texture2D) -> Vector2:

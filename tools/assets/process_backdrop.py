@@ -18,8 +18,9 @@ import random
 import sys
 from pathlib import Path
 
+import cv2
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageChops, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
 RAW = ROOT / "assets_src" / "raw"
@@ -80,48 +81,162 @@ def pano_skyline(spec: dict) -> tuple[np.ndarray, np.ndarray]:
     return np.concatenate([graded, alpha], axis=2), glow
 
 
+def soften(rgba: np.ndarray, sigma: float) -> np.ndarray:
+    """Soften a glow image: premultiplied blur (colours do not bleed to black) plus a wide faint halo, so lit windows
+    are not hard-edged rectangles."""
+    a = rgba[..., 3:4]
+    pre = np.concatenate([rgba[..., :3] * a, a], axis=2)
+    core = cv2.GaussianBlur(pre, (0, 0), sigma)
+    halo = cv2.GaussianBlur(pre, (0, 0), sigma * 3.0) * 0.45
+    out = np.maximum(core, halo)
+    alpha = np.clip(out[..., 3:4], 1e-4, 1.0)
+    return np.concatenate([np.clip(out[..., :3] / alpha, 0.0, 1.0), np.clip(out[..., 3:4], 0.0, 1.0)], axis=2)
+
+
+def shape_mask(width: int, height: int, shape: str, rng: random.Random) -> Image.Image:
+    """Silhouette of a building: not always a box. 'L' image, 255 inside."""
+    m = Image.new("L", (width, height), 0)
+    d = ImageDraw.Draw(m)
+    if shape == "stepped":
+        tiers = rng.choice([2, 3])
+        y = height
+        w = width
+        for t in range(tiers):
+            tier_h = height // tiers + (height % tiers if t == 0 else 0)
+            x0 = (width - w) // 2
+            d.rectangle((x0, y - tier_h, x0 + w, y), fill=255)
+            y -= tier_h
+            w = int(w * rng.uniform(0.62, 0.8))
+    elif shape == "slope":
+        drop = int(height * rng.uniform(0.12, 0.22))
+        left_high = rng.random() < 0.5
+        d.polygon([(0, 0 if left_high else drop), (width, drop if left_high else 0), (width, height), (0, height)], fill=255)
+    elif shape == "gable":
+        peak = int(height * rng.uniform(0.14, 0.24))
+        d.polygon([(0, peak), (width // 2, 0), (width, peak), (width, height), (0, height)], fill=255)
+    elif shape == "crown":
+        # a narrow tower rising out of the main block and ending in a spire
+        tw = int(width * 0.42)
+        x0 = (width - tw) // 2
+        spire = int(height * 0.14)
+        base = int(height * 0.2)
+        d.rectangle((0, base + spire, width, height), fill=255)
+        d.rectangle((x0, spire, x0 + tw, base + spire + 2), fill=255)
+        d.polygon([(x0, spire), (x0 + tw, spire), (x0 + tw // 2, 0)], fill=255)
+    elif shape == "chamfer":
+        c = int(min(width, height) * rng.uniform(0.18, 0.3))
+        d.polygon([(c, 0), (width - c, 0), (width, c), (width, height), (0, height), (0, c)], fill=255)
+    else:
+        d.rectangle((0, 0, width, height), fill=255)
+    return m
+
+
+def roof_decor(draw: ImageDraw.ImageDraw, glow_draw: ImageDraw.ImageDraw, cx: int, y_top: int, k: float, rng: random.Random, color: tuple) -> None:
+    """Silhouette clutter on a roof: antenna, water tank on legs, dish, vents. Keeps the skyline from being a row of boxes."""
+    kind = rng.choice(["antenna", "tank", "dish", "vents", "none", "antenna"])
+    line = max(1, int(k * 0.6))
+    if kind == "antenna":
+        h = int(rng.uniform(14, 30) * k)
+        draw.line((cx, y_top, cx, y_top - h), fill=color, width=line)
+        r = max(2, int(k * 0.9))
+        glow_draw.ellipse((cx - r, y_top - h - r, cx + r, y_top - h + r), fill=(255, 20, 20, 255))
+        for i in range(rng.choice([1, 2, 3])):
+            yy = y_top - int(h * (0.45 + 0.2 * i))
+            draw.line((cx - int(5 * k), yy, cx + int(5 * k), yy), fill=color, width=max(1, line - 1))
+    elif kind == "tank":
+        tw, th = int(rng.uniform(9, 14) * k), int(rng.uniform(8, 12) * k)
+        top = y_top - th - int(4 * k)
+        draw.ellipse((cx - tw // 2, top, cx + tw // 2, top + th), fill=color)
+        draw.rectangle((cx - tw // 2 + 2, top + th // 2, cx + tw // 2 - 2, top + th), fill=color)
+        for lx in (-tw // 3, tw // 3):
+            draw.line((cx + lx, top + th, cx + lx, y_top), fill=color, width=line)
+    elif kind == "dish":
+        r = int(rng.uniform(5, 8) * k)
+        draw.pieslice((cx - r, y_top - 2 * r, cx + r, y_top), 180, 360, fill=color)
+        draw.line((cx, y_top - r, cx + int(r * 0.7), y_top - int(r * 1.7)), fill=color, width=max(1, line - 1))
+    elif kind == "vents":
+        for i in range(rng.choice([2, 3])):
+            vw, vh = int(rng.uniform(3, 5) * k), int(rng.uniform(4, 8) * k)
+            vx = cx + i * int(7 * k)
+            draw.rounded_rectangle((vx, y_top - vh, vx + vw, y_top), radius=vw // 2, fill=color)
+
+
+def build_building(facade: str, width: int, floors: int, k: float, rng: random.Random):
+    """Stack the facade's ground / body / cap modules into one building image (RGBA colour + RGBA glow)."""
+    floor_h, cap_h, ground_h = 32 * k, 8 * k, 40 * k
+    parts = [("g", int(ground_h))] + [("b", int(floor_h))] * floors + [("cap", int(cap_h))]
+    total = sum(h for _, h in parts)
+    color = Image.new("RGBA", (width, total), (0, 0, 0, 0))
+    glow = Image.new("RGBA", (width, total), (0, 0, 0, 0))
+    y = total
+    for kind, height in parts:
+        files = sorted(FACADES.glob(f"{facade}_{kind}[0-9].png"))
+        if not files:
+            continue
+        src = rng.choice(files)
+        y -= height
+        color.paste(Image.open(src).convert("RGBA").resize((width, height), Image.LANCZOS), (0, y))
+        gp = FACADES / (src.stem + "_glow.png")
+        if gp.exists():
+            glow.paste(Image.open(gp).convert("RGBA").resize((width, height), Image.LANCZOS), (0, y))
+    return color, glow
+
+
+def paste_clipped(base: Image.Image, layer: Image.Image, x: int, y: int) -> None:
+    """alpha_composite that also accepts a negative x (building cut by the left edge)."""
+    if x < 0:
+        layer = layer.crop((-x, 0, layer.width, layer.height))
+        x = 0
+    base.alpha_composite(layer, (x, y))
+
+
 def city_blocks(spec: dict) -> tuple[np.ndarray, np.ndarray]:
     rng = random.Random(int(spec.get("seed", 1)))
-    out_w = int(TILE_LOGICAL * spec["texture_scale"])
-    out_h = int(spec["height_logical"] * spec["texture_scale"])
-    canvas = np.zeros((out_h, out_w, 4), dtype=np.float32)
-    glow = np.zeros((out_h, out_w, 4), dtype=np.float32)
-    kinds = spec["facades"]
-    k = float(spec["module_scale"]) * spec["texture_scale"]
-    mod_w, floor_h, cap_h, ground_h = 64 * k, 32 * k, 8 * k, 40 * k
-    x = 0.0
-    while x < out_w:
-        facade = rng.choice(kinds)
-        cols = rng.choice(spec.get("widths", [1, 1, 2]))
-        floors = rng.randint(*spec["floors"])
-        width = int(mod_w * cols)
-        if x + width > out_w:
-            width = out_w - int(x)
-            if width < mod_w * 0.4:
-                break
-        x0 = int(x)
-        y = out_h
-        parts = [("g", int(ground_h))] + [("b", int(floor_h))] * floors + [("cap", int(cap_h))]
-        for kind, height in parts:
-            files = sorted(FACADES.glob(f"{facade}_{kind}[0-9].png"))
-            if not files:
-                continue
-            src = rng.choice(files)
-            tile = Image.open(src).convert("RGBA").resize((max(1, width), max(1, height)), Image.LANCZOS)
-            y -= height
-            if y < -height:
-                break
-            ta = np.asarray(tile).astype(np.float32) / 255.0
-            ty0, ty1 = max(0, y), min(out_h, y + height)
-            canvas[ty0:ty1, x0:x0 + width] = ta[ty0 - y:ty1 - y, :width]
-            gp = FACADES / (src.stem + "_glow.png")
-            if gp.exists():
-                ga = np.asarray(Image.open(gp).convert("RGBA").resize((max(1, width), max(1, height)), Image.NEAREST)).astype(np.float32) / 255.0
-                glow[ty0:ty1, x0:x0 + width] = ga[ty0 - y:ty1 - y, :width]
-        x += width + int(rng.choice(spec.get("gaps", [0, 0, 6])) * spec["texture_scale"])
-    canvas[..., :3] = grade(canvas[..., :3], spec.get("grade", {}))
-    glow[..., :3] = grade(glow[..., :3], spec.get("glow_grade", {"brightness": 1.0}))
-    return canvas, glow
+    ts = int(spec["texture_scale"])
+    out_w, out_h = int(TILE_LOGICAL * ts), int(spec["height_logical"] * ts)
+    k = float(spec["module_scale"]) * ts
+    shapes = spec.get("shapes", ["flat", "stepped", "slope", "gable", "dome", "chamfer"])
+    canvas = Image.new("RGBA", (out_w, out_h), (0, 0, 0, 0))
+    glow = Image.new("RGBA", (out_w, out_h), (0, 0, 0, 0))
+    rows = [(float(spec.get("back_row_dim", 0.55)), 0.8, 0.5)] if spec.get("back_row", True) else []
+    rows.append((1.0, 1.0, 0.0))
+    for dim, height_factor, offset in rows:  # back row first (dimmer, lower), then the front row
+        x = -int(offset * 64 * k)
+        while x < out_w:
+            facade = rng.choice(spec["facades"])
+            width = int(64 * k * rng.choice(spec.get("widths", [1, 1, 2])) * rng.uniform(0.8, 1.15))
+            floors = max(2, int(rng.randint(*spec["floors"]) * height_factor))
+            building, bglow = build_building(facade, width, floors, k, rng)
+            if building.height > out_h:
+                building = building.crop((0, building.height - out_h, width, building.height))
+                bglow = bglow.crop((0, bglow.height - out_h, width, bglow.height))
+            mask = shape_mask(building.width, building.height, rng.choice(shapes), rng)
+            alpha = ImageChops.multiply(building.getchannel("A"), mask)
+            bglow.putalpha(ImageChops.multiply(bglow.getchannel("A"), mask))
+            dimmed = building.convert("RGB").point(lambda v: int(v * dim)).convert("RGBA")
+            dimmed.putalpha(alpha)
+            by = out_h - building.height
+            paste_clipped(canvas, dimmed, x, by)
+            if dim >= 1.0:
+                paste_clipped(glow, bglow, x, by)
+            bbox = alpha.getbbox()
+            if spec.get("decor", True) and bbox:
+                layer = Image.new("RGBA", (out_w, out_h), (0, 0, 0, 0))
+                glow_layer = Image.new("RGBA", (out_w, out_h), (0, 0, 0, 0))
+                col = int(building.width * rng.uniform(0.25, 0.75))
+                column = np.asarray(alpha.crop((col, 0, col + 1, alpha.height)))[:, 0]
+                filled = np.nonzero(column > 128)[0]
+                if len(filled):
+                    roof_decor(ImageDraw.Draw(layer), ImageDraw.Draw(glow_layer), x + col, by + int(filled[0]), k, rng, (10, 11, 20, 255))
+                canvas.alpha_composite(layer)
+                if dim >= 1.0:
+                    glow.alpha_composite(glow_layer)
+            x += width + int(rng.choice(spec.get("gaps", [0, 0, 6])) * ts)
+    c = np.asarray(canvas).astype(np.float32) / 255.0
+    g = np.asarray(glow).astype(np.float32) / 255.0
+    c[..., :3] = grade(c[..., :3], spec.get("grade", {}))
+    g[..., :3] = grade(g[..., :3], spec.get("glow_grade", {"brightness": 1.0}))
+    return c, soften(g, max(1.0, ts * 0.45))
 
 
 BUILDERS = {"pano_skyline": pano_skyline, "city_blocks": city_blocks}

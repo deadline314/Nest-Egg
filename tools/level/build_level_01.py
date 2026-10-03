@@ -245,6 +245,10 @@ props = [
     prop("gantry_crane", 316, False, 8), prop("hangar_light", 318, False, 4), prop("hangar_light", 330, False, 4),
     prop("hangar_light", 342, False, 4), prop("fuel_tank", 313), prop("fuel_tank", 345), prop("floor_marking", 322),
     prop("floor_marking", 336), prop("hazard_sign", 326, False, 14),
+    # 植物（NE-64）：屋頂花園與街角的樹，前景的樹半透明、不擋敵人與子彈
+    prop("tree_island", 7), prop("tree_pine_front", 27), prop("tree_quiver", 36), prop("tree_pine_1", 50),
+    prop("tree_jacaranda", 96), prop("tree_fir_1", 142), prop("tree_fir_front", 157),
+    prop("tree_stump", 205), prop("tree_branch", 217), prop("tree_pine_2", 233),
 ]
 
 grid.write("level_01", (os.path.dirname(__file__), '..', '..', 'data', 'levels', 'level_01_map.json'),

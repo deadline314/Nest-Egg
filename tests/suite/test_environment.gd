@@ -12,6 +12,7 @@ func run() -> void:
 	_test_theme()
 	_test_missing_texture()
 	_test_sky()
+	_test_trees()
 	await _test_level_with_environment()
 	await _test_level_without_environment()
 	_test_chapter_one()
@@ -60,7 +61,7 @@ func _test_props() -> void:
 		var tex := Vector2(_png_size(prop.texture))
 		check(tex.x >= prop.size.x * PropData.TEXTURE_SCALE - 1.0 and tex.y >= prop.size.y * PropData.TEXTURE_SCALE - 1.0, "道具 %s 貼圖至少是邏輯大小的 4 倍（%s）" % [prop.id, tex])
 		check(maxf(tex.x, tex.y) <= 1024.0, "道具 %s 貼圖不超過 1024 像素" % prop.id)
-		check(absf(tex.x / tex.y - prop.size.x / prop.size.y) < 0.04, "道具 %s 貼圖長寬比與邏輯大小一致" % prop.id)
+		check(absf(tex.x / tex.y - prop.size.x / prop.size.y) < 0.03 * prop.size.x / prop.size.y, "道具 %s 貼圖長寬比與邏輯大小一致" % prop.id)
 		if prop.has_glow:
 			glowing += 1
 		if prop.platform.size.x > 0.0:
@@ -76,9 +77,10 @@ func _test_props() -> void:
 
 func _test_backdrop() -> void:
 	for id in EnvGallery.BACKDROP_IDS:
-		var path := "res://art/environment/backdrop/%s.png" % id
-		check(_png_size(path) .x == 1280, "背景層 %s 寬 1280（640 邏輯像素 × 2）" % id)
-		check(ResourceLoader.exists(path.get_basename() + "_glow.png"), "背景層 %s 有窗光層" % id)
+		var path := EnvGallery.backdrop_path(id)
+		var width := _png_size(path).x
+		check(width >= 1280 and width <= 4096 and width % 640 == 0, "背景層 %s 寬是 640 邏輯像素的整數倍解析度（%d）" % [id, width])
+		check(ResourceLoader.exists(path.get_basename() + "_glow." + path.get_extension()), "背景層 %s 有窗光層" % id)
 
 
 func _test_theme() -> void:
@@ -134,6 +136,48 @@ func _test_sky() -> void:
 	check(fallback.get_child_count() == control.get_child_count(), "缺天空貼圖時退回程式天空，不多也不少一層")
 	for node in [control, with_sky, fallback]:
 		node.queue_free()
+
+
+## 樹木與植被（NE-64）：數量、前景樹半透明、搖動用共用著色器、不增加每影格開銷、第一章有擺放。
+func _test_trees() -> void:
+	var trees: Array[PropData] = []
+	for prop in PropLibrary.all():
+		if prop.category == &"nature":
+			trees.append(prop)
+	check(trees.size() >= 6, "樹與植被至少 6 種（%d）" % trees.size())
+	var swaying := 0
+	var front := 0
+	for prop in trees:
+		check(prop.validate().is_empty(), "植物 %s 資料與貼圖完整" % prop.id)
+		check(ResourceLoader.exists(prop.texture.get_basename() + "_n.png"), "植物 %s 有法線貼圖" % prop.id)
+		if prop.sway > 0.0:
+			swaying += 1
+		if prop.layer == PropData.Layer.FRONT:
+			front += 1
+			check(prop.front_alpha < 1.0, "前景植物 %s 半透明，不遮住敵人與子彈" % prop.id)
+	check(swaying >= 4, "會被風吹動的植物至少 4 種（%d）" % swaying)
+	check(front >= 1, "至少有一種前景植物")
+	var swaying_prop := PropLibrary.find(&"tree_island")
+	var first := PropNode.new()
+	first.setup(swaying_prop, Vector2(10, 10))
+	runner.add_child(first)
+	var second := PropNode.new()
+	second.setup(swaying_prop, Vector2(200, 10))
+	runner.add_child(second)
+	var sprite_a := first.get_child(0) as Sprite2D
+	var sprite_b := second.get_child(0) as Sprite2D
+	check(sprite_a.material is ShaderMaterial, "會搖動的植物用著色器搖動")
+	check(sprite_a.material == sprite_b.material, "同幅度的植物共用同一份材質（數量多也不增加配置）")
+	check(not first.is_processing(), "搖動由著色器處理，沒有每影格腳本")
+	first.queue_free()
+	second.queue_free()
+	var level_map: Array = JSON.parse_string(FileAccess.get_file_as_string("res://data/levels/level_01_map.json")).get("props", [])
+	var placed := 0
+	for entry: Dictionary in level_map:
+		var prop := PropLibrary.find(StringName(entry["id"]))
+		if prop != null and prop.category == &"nature":
+			placed += 1
+	check(placed >= 6, "第一章地圖擺了植物（%d）" % placed)
 
 
 func _test_level_with_environment() -> void:

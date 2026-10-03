@@ -11,6 +11,10 @@ Reads assets_src/pipeline/props.json. For every prop it
      aspect), light_offset (scaled with the size) and has_glow.
 Grading lives in the JSON. Set GODOT to the Godot executable (default: C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe).
 Props with a one-way platform must keep their aspect ("keep_size": true stretches to the old size instead).
+New props: an entry with "new": {display_name, category, layer, front_alpha, sway, casts_shadow} and an "anchor": {"size": [w, h]}
+creates data/environment/props/<id>.tres on first run (the size is then fitted to the model like any other prop).
+"aliases" entries (id, of, display_name, layer, front_alpha, scale) add another data file that reuses an existing prop's
+texture (e.g. a half-transparent foreground copy of a tree) without any new art.
 Kit pieces: an entry with "kit_cell": <n> skips its own render and cuts piece n (numbered by kit_cells.py) out of the
 kit render in assets_src/work/kits/<asset>.png (+ _n, _glow); "rotate": 90|180|270 turns the piece (normals included).
 """
@@ -135,9 +139,52 @@ def fmt(v: float) -> str:
     return f"{v:.1f}".rstrip("0").rstrip(".")
 
 
+TRES_TEMPLATE = '''[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"{id}"
+display_name = "{name}"
+texture = "{texture}"
+size = Vector2({w}, {h})
+'''
+
+
+def write_new_tres(path: Path, pid: str, new: dict, texture: str, size: tuple[float, float]) -> None:
+    text = TRES_TEMPLATE.format(id=pid, name=new.get("display_name", pid), texture=texture, w=fmt(size[0]), h=fmt(size[1]))
+    lines = []
+    if int(new.get("layer", 0)):
+        lines.append(f"layer = {int(new['layer'])}")
+    if "front_alpha" in new:
+        lines.append(f"front_alpha = {new['front_alpha']}")
+    if float(new.get("sway", 0)) > 0:
+        lines.append(f"sway = {new['sway']}")
+    if new.get("casts_shadow"):
+        lines.append("casts_shadow = true")
+    lines.append(f'category = &"{new.get("category", "street")}"')
+    path.write_text(text + "\n".join(lines) + "\n", encoding="utf-8")
+
+
+def make_aliases(cfg: dict) -> None:
+    for a in cfg.get("aliases", []):
+        base = DATA / f"{a['of']}.tres"
+        if not base.exists():
+            print(f"FAIL  {a['id']}: base prop {a['of']} not built yet", file=sys.stderr)
+            continue
+        w, h = read_size(base.read_text(encoding="utf-8"))
+        k = float(a.get("scale", 1.0))
+        write_new_tres(DATA / f"{a['id']}.tres", a["id"], a, f"res://art/environment/props/{a['of']}.png", (w * k, h * k))
+        print(f"ok    {a['id']:16} alias of {a['of']}")
+
+
 def process(e: dict, defaults: dict) -> bool:
     e = {**defaults, **e}
     pid = e["id"]
+    if e.get("new") and not (DATA / f"{pid}.tres").exists():
+        anchor_size = (e.get("anchor") or {}).get("size", [16.0, 16.0])
+        write_new_tres(DATA / f"{pid}.tres", pid, e["new"], f"res://art/environment/props/{pid}.png", (anchor_size[0], anchor_size[1]))
     tres_path = DATA / f"{pid}.tres"
     if not tres_path.exists():
         print(f"FAIL  {pid}: {tres_path} not found", file=sys.stderr)
@@ -154,7 +201,11 @@ def process(e: dict, defaults: dict) -> bool:
     glow = glow.crop(box) if glow is not None else None
 
     tres = tres_path.read_text(encoding="utf-8")
-    old_w, old_h = read_size(tres)
+    # "anchor" is the prop's size / light offset before the first replacement (kept in the JSON so a rerun does not
+    # compound the previous run's result); without one, the current data is taken and remembered.
+    anchor = e.get("anchor") or {"size": list(read_size(tres))}
+    e["anchor"] = anchor
+    old_w, old_h = anchor["size"]
     aspect = color.width / color.height
     if e.get("keep_size"):
         new_w, new_h = old_w, old_h
@@ -191,9 +242,13 @@ def process(e: dict, defaults: dict) -> bool:
         tres = set_field(tres, "has_glow", "true")
     elif re.search(r"^has_glow = true", tres, re.M):
         tres = set_field(tres, "has_glow", "false")  # the old hand-painted glow layer is gone; the data must not claim one
-    m = re.search(r"^light_offset = Vector2\(([-\d.]+), ([-\d.]+)\)", tres, re.M)
-    if m and old_w > 0 and old_h > 0:
-        tres = set_field(tres, "light_offset", f"Vector2({fmt(float(m.group(1)) * new_w / old_w)}, {fmt(float(m.group(2)) * new_h / old_h)})")
+    if "light_offset" not in anchor:
+        m = re.search(r"^light_offset = Vector2\(([-\d.]+), ([-\d.]+)\)", tres, re.M)
+        if m:
+            anchor["light_offset"] = [float(m.group(1)), float(m.group(2))]
+    if "light_offset" in anchor and old_w > 0 and old_h > 0:
+        lx, ly = anchor["light_offset"]
+        tres = set_field(tres, "light_offset", f"Vector2({fmt(lx * new_w / old_w)}, {fmt(ly * new_h / old_h)})")
     tres_path.write_text(tres, encoding="utf-8")
     print(f"ok    {pid:16} {px[0]}x{px[1]}px  size {fmt(new_w)}x{fmt(new_h)}  glow={has_glow}  <- {e['model']}")
     return True
@@ -215,6 +270,9 @@ def main() -> int:
         except Exception as ex:  # one bad entry must not block the rest
             failed += 1
             print(f"FAIL  {e.get('id')}: {ex}", file=sys.stderr)
+    if not args.only:
+        make_aliases(cfg)
+    PIPELINE.write_text(json.dumps(cfg, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")  # remembers new anchors
     return 1 if failed else 0
 
 

@@ -181,5 +181,89 @@
    "top_fade": 0.3
   }
  ],
- "backdrop": []
+ "backdrop": [],
+ "layers": [
+  {
+   "id": "far_skyline",
+   "type": "pano_skyline",
+   "source": "ph_hdr_shanghai_bund",
+   "yaw_deg": 190,
+   "span_deg": 100,
+   "elevation": [
+    -1,
+    24
+   ],
+   "texture_scale": 4,
+   "seam_blend": 0.12,
+   "top_fade": 0.35,
+   "glow_threshold": 0.72,
+   "grade": {
+    "brightness": 0.3,
+    "saturation": 0.9,
+    "tint": [
+     0.78,
+     0.85,
+     1.15
+    ],
+    "contrast": 1.15,
+    "gamma": 1.1
+   },
+   "glow_grade": {
+    "brightness": 0.9,
+    "saturation": 1.1
+   }
+  },
+  {
+   "id": "mid_buildings",
+   "type": "city_blocks",
+   "facades": [
+    "apartment",
+    "brick_block",
+    "warehouse",
+    "shutter_block"
+   ],
+   "seed": 7,
+   "module_scale": 0.55,
+   "floors": [
+    3,
+    9
+   ],
+   "widths": [
+    1,
+    1,
+    2
+   ],
+   "gaps": [
+    0,
+    0,
+    6
+   ],
+   "height_logical": 220,
+   "texture_scale": 4,
+   "grade": {
+    "brightness": 0.55,
+    "saturation": 0.8,
+    "tint": [
+     0.75,
+     0.82,
+     1.1
+    ]
+   },
+   "glow_grade": {
+    "brightness": 0.9
+   },
+   "back_row": true,
+   "decor": true,
+   "shapes": [
+    "flat",
+    "stepped",
+    "slope",
+    "gable",
+    "crown",
+    "chamfer",
+    "stepped",
+    "crown"
+   ]
+  }
+ ]
 }

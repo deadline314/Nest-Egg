@@ -83,6 +83,7 @@ func _add_textured_layer(layer: BackdropLayer) -> void:
 		glow_sprite.scale = sprite.scale
 		glow_sprite.position = sprite.position
 		glow_sprite.light_mask = 0
+		glow_sprite.material = LightKit.window_life_material()  # 窗光緩慢閃爍、屋頂信標明滅
 		glow_sprite.self_modulate = LightKit.glow(layer.tint, layer.glow_intensity)
 		parallax.add_child(glow_sprite)
 	add_child(parallax)

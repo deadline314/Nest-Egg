@@ -239,14 +239,19 @@ class _Sprite:
 		centered = bool(def.get("centered", false))
 		if def.has("modulate"):
 			modulate = StageLayers.color_of(def["modulate"])
-		texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		# 像素圖用最近點取樣；免費素材加工的照片背景要設 "filter": "linear"，否則放大會有鋸齒。
+		var filter := CanvasItem.TEXTURE_FILTER_LINEAR if str(def.get("filter", "nearest")) == "linear" else CanvasItem.TEXTURE_FILTER_NEAREST
+		texture_filter = filter
+		# "life": true 時本層顯示窗光閃爍與信標明滅（窗光層與本層同一份著色器）。
+		if bool(def.get("life", false)):
+			material = LightKit.window_life_material()
 		var glow_texture := RigLibrary.optional_texture(path.get_basename() + "_glow." + path.get_extension())
 		if glow_texture != null and bool(def.get("glow", true)):
 			var glow_sprite := Sprite2D.new()
 			glow_sprite.texture = glow_texture
 			glow_sprite.centered = centered
-			glow_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-			glow_sprite.material = LightKit.additive_emissive_material()
+			glow_sprite.texture_filter = filter
+			glow_sprite.material = LightKit.window_life_material() if bool(def.get("life", false)) else LightKit.additive_emissive_material()
 			glow_sprite.self_modulate = LightKit.glow(Color.WHITE, float(def.get("glow_intensity", 1.2)))
 			add_child(glow_sprite)
 
