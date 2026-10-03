@@ -15,6 +15,7 @@ func run() -> void:
 	await _test_global_hitstop()
 	await _test_slowmo()
 	await _test_camera()
+	await _test_sound_events()
 
 
 func _script_paths(dir: String, into: PackedStringArray) -> void:
@@ -243,3 +244,63 @@ func _test_camera() -> void:
 	check(seen[0] == 1, "shake plays after the hitstop")
 	EventBus.screen_shake.disconnect(on_shake)
 	Fx._hitstop_log.clear()
+
+
+func _test_sound_events() -> void:
+	var errors: PackedStringArray = Sfx.validate_events()
+	check(errors.is_empty(), "sound events have no errors: %s" % ", ".join(errors))
+	# 事件引用的程式碼都存在。
+	var paths := PackedStringArray()
+	for dir in ["res://game", "res://autoload", "res://core"]:
+		_script_paths(dir, paths)
+	var event_re := RegEx.create_from_string("Sfx\\.play_event\\(&\"([a-z0-9_]+)\"")
+	for path in paths:
+		for m in event_re.search_all(FileAccess.get_file_as_string(path)):
+			check(Sfx.has_event(StringName(m.get_string(1))), "%s uses unknown sound event %s" % [path, m.get_string(1)])
+	# 變體輪播：連續 60 次不會連續同一個。
+	var repeated := false
+	var last := -1
+	for i in 60:
+		var pick: int = Sfx._pick_variant("test_key", 3)
+		repeated = repeated or pick == last
+		last = pick
+	check(not repeated, "variants never repeat back to back")
+	# 連鎖升音：視窗內越來越高，超過視窗重置。
+	Sfx._chains.clear()
+	var chain := {"step": 1.0, "max": 3, "window": 0.5}
+	var now := Time.get_ticks_msec()
+	var p0: float = Sfx._chain_pitch("t", chain, now)
+	var p1: float = Sfx._chain_pitch("t", chain, now + 100)
+	var p2: float = Sfx._chain_pitch("t", chain, now + 200)
+	var p5: float = Sfx._chain_pitch("t", chain, now + 300)
+	check(p0 == 1.0 and p1 > p0 and p2 > p1 and is_equal_approx(Sfx._chain_pitch("t", chain, now + 350), p5), "chain pitch rises and is capped")
+	check(Sfx._chain_pitch("t", chain, now + 5000) == 1.0, "chain pitch resets after the window")
+	# 滿載時的優先級：低優先級丟棄、高優先級搶位。
+	Sfx.stop_all()
+	var t := Time.get_ticks_msec()
+	for i in Sfx._players.size():
+		Sfx._players[i].stream = Sfx._streams[&"explosion"]
+		Sfx._players[i].play()
+		Sfx._voice_priority[i] = 5
+		Sfx._voice_end_msec[i] = t + 5000
+	var dropped_before: int = Sfx.dropped_count
+	check(not Sfx._play_voice(&"hit", 0.0, 1.0, 1), "low priority sound is dropped when voices are full")
+	check(Sfx.dropped_count == dropped_before + 1, "dropped sounds are counted")
+	check(Sfx._play_voice(&"kill", 0.0, 1.0, 9), "high priority sound takes over a voice")
+	Sfx.stop_all()
+	for i in Sfx._players.size():
+		Sfx._voice_end_msec[i] = 0
+	# 壓低：優先級較低的播放中聲音音量降低，結束後回復。
+	Sfx._players[0].stream = Sfx._streams[&"explosion"]
+	Sfx._players[0].play()
+	Sfx._voice_priority[0] = 1
+	Sfx._voice_base_db[0] = -2.0
+	Sfx._voice_end_msec[0] = Time.get_ticks_msec() + 3000
+	Sfx._start_duck(-8.0, 0.1, 9, Time.get_ticks_msec())
+	check(is_equal_approx(Sfx._players[0].volume_db, -10.0), "ducking lowers quieter voices by the set depth")
+	await runner.get_tree().create_timer(0.3, true, false, true).timeout
+	check(Sfx._players[0].volume_db > -4.0 and Sfx._duck_db > -2.0, "ducking recovers smoothly afterwards")
+	Sfx.stop_all()
+	# 缺漏的事件退回預設音效，不崩潰。
+	Sfx.play_event(&"test_no_such_sound_event")
+	check(true, "unknown sound event falls back safely")

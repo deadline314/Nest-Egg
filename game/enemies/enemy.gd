@@ -662,7 +662,7 @@ func _weak_point_feedback(info: DamageInfo) -> void:
 		if (entry["box"] as Hurtbox).part_id == info.part:
 			at = global_position + (entry["box"] as Hurtbox).shape_offset()
 	Fx.sparks(at, Palette.WARNING, 6, 150.0, 0.25, -info.knockback.normalized() if info.knockback != Vector2.ZERO else Vector2.UP, 1.6)
-	Sfx.play(&"hit", 0.0)
+	Sfx.play_event(&"hit_enemy")
 
 
 ## 這一擊是不是從正面來（受力方向與面向相反）；沒有方向資訊時當作正面。

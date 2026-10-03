@@ -68,6 +68,24 @@ const SOUNDS := {
 		{"wave": "noise", "time": 0.035, "volume": 0.35, "lowpass": 0.1, "decay": 3.0},
 		{"wave": "square", "from": 900.0, "to": 600.0, "time": 0.03, "volume": 0.12, "decay": 2.0},
 	],
+	&"hit_a": [
+		{"wave": "noise", "time": 0.04, "volume": 0.34, "lowpass": 0.12, "decay": 3.0},
+		{"wave": "square", "from": 950.0, "to": 620.0, "time": 0.03, "volume": 0.12, "decay": 2.0},
+		{"wave": "sine", "from": 160.0, "to": 90.0, "time": 0.05, "volume": 0.2, "decay": 2.0},
+	],
+	&"hit_b": [
+		{"wave": "noise", "time": 0.035, "volume": 0.38, "lowpass": 0.28, "decay": 3.0},
+		{"wave": "square", "from": 760.0, "to": 480.0, "time": 0.035, "volume": 0.12, "decay": 2.0},
+		{"wave": "sine", "from": 200.0, "to": 100.0, "time": 0.05, "volume": 0.2, "decay": 2.0},
+	],
+	&"hit_c": [
+		{"wave": "noise", "time": 0.045, "volume": 0.3, "lowpass": 0.05, "decay": 2.6},
+		{"wave": "tri", "from": 1100.0, "to": 700.0, "time": 0.03, "volume": 0.14, "decay": 2.0},
+		{"wave": "sine", "from": 140.0, "to": 80.0, "time": 0.06, "volume": 0.22, "decay": 2.0},
+	],
+	&"hit_tail": [
+		{"wave": "noise", "time": 0.16, "volume": 0.12, "lowpass": 0.8, "decay": 2.4},
+	],
 	&"block": [
 		{"wave": "sine", "from": 2600.0, "to": 2400.0, "time": 0.12, "volume": 0.2, "decay": 2.5},
 		{"wave": "sine", "from": 3900.0, "to": 3700.0, "time": 0.09, "volume": 0.12, "decay": 3.0},
@@ -237,6 +255,21 @@ var _players: Array[AudioStreamPlayer] = []
 var _next_voice := 0
 var _last_play_msec: Dictionary[StringName, int] = {}
 var _rng := RandomNumberGenerator.new()
+## 每個發聲位的優先級、原本音量與預計結束時間（毫秒），給優先級搶位與壓低其他聲音用。
+var _voice_priority: Array[int] = []
+var _voice_base_db: Array[float] = []
+var _voice_end_msec: Array[int] = []
+var _events: Dictionary = {}
+var _fallback_sound: StringName = &"hit"
+var _last_variant: Dictionary = {}
+var _chains: Dictionary = {}
+var _duck_db := 0.0
+var _duck_until_msec := 0
+var _duck_release := 0.2
+var _duck_priority := 0
+var _reported: Dictionary = {}
+## 因發聲位滿載而被丟棄的次數（診斷用）。
+var dropped_count := 0
 
 
 func _ready() -> void:
@@ -247,8 +280,12 @@ func _ready() -> void:
 		player.bus = BUS
 		add_child(player)
 		_players.append(player)
+		_voice_priority.append(0)
+		_voice_base_db.append(0.0)
+		_voice_end_msec.append(0)
 	for id: StringName in SOUNDS.keys():
 		_streams[id] = _load_or_synthesize(id)
+	load_events()
 
 
 ## 停止所有播放中的音效（切換場景或結束遊戲時呼叫，避免播放實例殘留）。
@@ -267,23 +304,199 @@ func has_sound(id: StringName) -> bool:
 	return SOUNDS.has(id)
 
 
-func play(id: StringName, volume_db := 0.0, pitch_jitter := 0.06) -> void:
+func play(id: StringName, volume_db := 0.0, pitch_jitter := 0.06, priority := 0) -> void:
+	_play_voice(id, volume_db, 1.0 + randf_range(-pitch_jitter, pitch_jitter), priority)
+
+
+## 播一個發聲位；回傳是否真的播放。滿載時只搶優先級不高於自己的聲音，沒有可搶的就丟棄。
+func _play_voice(id: StringName, volume_db: float, pitch: float, priority: int) -> bool:
 	if not enabled:
-		return
+		return false
 	var stream: AudioStream = _streams.get(id)
 	if stream == null:
-		push_warning("[Sfx] 未定義的音效：%s" % id)
-		return
+		_report_once("sound:" + String(id), "[Sfx] 未定義的音效：%s" % id, false)
+		return false
 	var now := Time.get_ticks_msec()
 	if now - int(_last_play_msec.get(id, -1000)) < MIN_INTERVAL_MSEC:
-		return
+		return false
+	var index := _acquire_voice(priority, now)
+	if index < 0:
+		dropped_count += 1
+		return false
 	_last_play_msec[id] = now
-	var player := _players[_next_voice]
-	_next_voice = (_next_voice + 1) % _players.size()
+	var player := _players[index]
 	player.stream = stream
-	player.volume_db = volume_db
-	player.pitch_scale = 1.0 + randf_range(-pitch_jitter, pitch_jitter)
+	_voice_priority[index] = priority
+	_voice_base_db[index] = volume_db
+	_voice_end_msec[index] = now + int(stream.get_length() * 1000.0 / maxf(0.1, pitch))
+	player.volume_db = volume_db + (_duck_db if now < _duck_until_msec and priority < _duck_priority else 0.0)
+	player.pitch_scale = pitch
 	player.play()
+	return true
+
+
+## 找發聲位：先找空的；全滿時搶優先級不高於自己、最快播完的那一個；都比自己高就回傳 -1。
+func _acquire_voice(priority: int, now: int) -> int:
+	var best := -1
+	for step in _players.size():
+		var i := (_next_voice + step) % _players.size()
+		if not _players[i].playing or now >= _voice_end_msec[i]:
+			_next_voice = (i + 1) % _players.size()
+			return i
+		if _voice_priority[i] <= priority and (best < 0 or _voice_end_msec[i] < _voice_end_msec[best]):
+			best = i
+	return best
+
+
+func voices_playing() -> int:
+	var count := 0
+	var now := Time.get_ticks_msec()
+	for i in _players.size():
+		if _players[i].playing and now < _voice_end_msec[i]:
+			count += 1
+	return count
+
+
+# ---------------------------------------------------------------------------
+# 聲音事件（data/feel/sound_events.json）：多層、變體輪播、音高範圍、連鎖升音、壓低其他聲音、優先級
+# ---------------------------------------------------------------------------
+
+const EVENTS_PATH := "res://data/feel/sound_events.json"
+
+
+func load_events() -> void:
+	_events = {}
+	var json: JSON = load(EVENTS_PATH) as JSON if ResourceLoader.exists(EVENTS_PATH) else null
+	if json == null or typeof(json.data) != TYPE_DICTIONARY or typeof((json.data as Dictionary).get("events")) != TYPE_DICTIONARY:
+		_report_once("events", "[Sfx] 無法讀取聲音事件資料：%s（需要 events 字典）" % EVENTS_PATH)
+		return
+	_events = (json.data as Dictionary)["events"]
+	_fallback_sound = StringName(str((json.data as Dictionary).get("fallback_sound", "hit")))
+
+
+func has_event(id: StringName) -> bool:
+	return _events.has(String(id))
+
+
+func event_ids() -> Array:
+	return _events.keys()
+
+
+## 資料檢查：回傳錯誤訊息清單（空 = 沒問題）。
+func validate_events() -> PackedStringArray:
+	var errors := PackedStringArray()
+	if not has_sound(_fallback_sound):
+		errors.append("%s 的 fallback_sound「%s」不存在" % [EVENTS_PATH, _fallback_sound])
+	for id: String in _events.keys():
+		var def: Variant = _events[id]
+		var layers: Variant = (def as Dictionary).get("layers") if typeof(def) == TYPE_DICTIONARY else null
+		if typeof(layers) != TYPE_ARRAY or (layers as Array).is_empty():
+			errors.append("%s 的事件「%s」沒有 layers" % [EVENTS_PATH, id])
+			continue
+		for n in (layers as Array).size():
+			var layer: Variant = (layers as Array)[n]
+			var variants: Variant = (layer as Dictionary).get("sounds") if typeof(layer) == TYPE_DICTIONARY else null
+			if typeof(variants) != TYPE_ARRAY or (variants as Array).is_empty():
+				errors.append("%s 的事件「%s」第 %d 層沒有 sounds" % [EVENTS_PATH, id, n + 1])
+				continue
+			for sound: Variant in variants:
+				if not has_sound(StringName(str(sound))):
+					errors.append("%s 的事件「%s」第 %d 層引用不存在的音效「%s」" % [EVENTS_PATH, id, n + 1, sound])
+			var pitch: Variant = (layer as Dictionary).get("pitch", [1.0, 1.0])
+			if typeof(pitch) != TYPE_ARRAY or (pitch as Array).size() != 2 or float(pitch[0]) > float(pitch[1]) or float(pitch[0]) <= 0.0:
+				errors.append("%s 的事件「%s」第 %d 層的 pitch 要是 [最小, 最大]，且大於 0" % [EVENTS_PATH, id, n + 1])
+	return errors
+
+
+## 播放聲音事件。ctx：volume_db（整體增減）。事件不存在時記錄一次錯誤並播 fallback 音效。
+func play_event(id: StringName, ctx: Dictionary = {}) -> void:
+	var def: Variant = _events.get(String(id))
+	if typeof(def) != TYPE_DICTIONARY or typeof((def as Dictionary).get("layers")) != TYPE_ARRAY:
+		_report_once("event:" + String(id), "[Sfx] 沒有這個聲音事件「%s」（%s），改播「%s」" % [id, EVENTS_PATH, _fallback_sound])
+		play(_fallback_sound)
+		return
+	var d := def as Dictionary
+	var priority := int(d.get("priority", 0))
+	var now := Time.get_ticks_msec()
+	var chain_pitch := _chain_pitch(String(id), d.get("chain"), now)
+	var base_db := float(ctx.get("volume_db", 0.0)) + float(d.get("volume_db", 0.0))
+	var played := false
+	for n in (d["layers"] as Array).size():
+		var layer: Dictionary = (d["layers"] as Array)[n]
+		var variants: Array = layer.get("sounds", [])
+		if variants.is_empty():
+			continue
+		var pick := _pick_variant("%s:%d" % [id, n], variants.size())
+		var pitch_range: Array = layer.get("pitch", [1.0, 1.0])
+		var pitch := _random_between(float(pitch_range[0]), float(pitch_range[1])) * chain_pitch
+		var volume := base_db + float(layer.get("volume_db", 0.0))
+		var delay := float(layer.get("delay", 0.0))
+		var sound := StringName(str(variants[pick]))
+		if delay > 0.0:
+			get_tree().create_timer(delay, true, false, true).timeout.connect(_play_voice.bind(sound, volume, pitch, priority))
+		else:
+			played = _play_voice(sound, volume, pitch, priority) or played
+	var duck: Variant = d.get("duck")
+	if played and typeof(duck) == TYPE_DICTIONARY:
+		_start_duck(float((duck as Dictionary).get("db", -6.0)), float((duck as Dictionary).get("time", 0.15)), priority, now)
+
+
+func _random_between(low: float, high: float) -> float:
+	return low if is_equal_approx(low, high) else randf_range(low, high)
+
+
+## 變體輪播：有兩個以上變體時，不連續播同一個。
+func _pick_variant(key: String, count: int) -> int:
+	if count <= 1:
+		_last_variant[key] = 0
+		return 0
+	var pick := randi() % count
+	if pick == int(_last_variant.get(key, -1)):
+		pick = (pick + 1 + randi() % (count - 1)) % count
+	_last_variant[key] = pick
+	return pick
+
+
+## 連鎖升音：視窗內連續觸發同一事件，每次升 step 個半音，最多 max 次。
+func _chain_pitch(key: String, chain: Variant, now: int) -> float:
+	if typeof(chain) != TYPE_DICTIONARY:
+		return 1.0
+	var c := chain as Dictionary
+	var entry: Array = _chains.get(key, [0, -100000])
+	var count := int(entry[0]) + 1 if float(now - int(entry[1])) <= float(c.get("window", 0.6)) * 1000.0 else 0
+	count = mini(count, int(c.get("max", 5)))
+	_chains[key] = [count, now]
+	return pow(2.0, float(c.get("step", 1.0)) * float(count) / 12.0)
+
+
+## 壓低優先級低於這個事件的其他聲音：db 是深度、time 是持續秒數，結束後平滑回復。
+func _start_duck(db: float, time: float, priority: int, now: int) -> void:
+	_duck_db = minf(_duck_db, db) if now < _duck_until_msec else db
+	_duck_until_msec = now + int(time * 1000.0)
+	_duck_release = maxf(0.05, time * 0.5)
+	_duck_priority = priority
+	for i in _players.size():
+		if _players[i].playing and _voice_priority[i] < priority:
+			_players[i].volume_db = _voice_base_db[i] + _duck_db
+
+
+func _process(delta: float) -> void:
+	if _duck_db == 0.0 or Time.get_ticks_msec() < _duck_until_msec:
+		return
+	_duck_db = move_toward(_duck_db, 0.0, absf(_duck_db) / _duck_release * delta)
+	for i in _players.size():
+		if _players[i].playing and _voice_priority[i] < _duck_priority:
+			_players[i].volume_db = _voice_base_db[i] + _duck_db
+
+
+func _report_once(key: String, message: String, as_error := true) -> void:
+	if _reported.has(key):
+		return
+	_reported[key] = true
+	if as_error:
+		push_error(message)
+	else:
+		push_warning(message)
 
 
 func _load_or_synthesize(id: StringName) -> AudioStream:

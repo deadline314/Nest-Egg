@@ -22,6 +22,8 @@ var _reported: Dictionary = {}
 func _ready() -> void:
 	reload()
 	register_counter("hitstop_budget_left", Fx.hitstop_budget_left)
+	register_counter("voices_playing", Sfx.voices_playing)
+	register_counter("sounds_dropped", func() -> int: return Sfx.dropped_count)
 	register_counter("frozen_nodes", Fx.frozen_count)
 	register_counter("slowmo_active", func() -> int: return int(Fx.is_slowmo()))
 

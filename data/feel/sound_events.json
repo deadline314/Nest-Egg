@@ -1,0 +1,31 @@
+{
+ "_說明": "聲音事件：layers 每層有 sounds（變體，輪播且不連續重複）、pitch [最小,最大]、volume_db、delay；priority 越大越不會被丟棄；chain 連鎖升音（step 半音、max 最多幾次、window 秒）；duck 壓低優先級較低的其他聲音（db、time）。遊戲內用 Sfx.play_event(&\"事件名\")。",
+ "fallback_sound": "hit",
+ "events": {
+  "hit_enemy": {
+   "priority": 5,
+   "chain": {"step": 0.8, "max": 6, "window": 0.5},
+   "layers": [
+    {"sounds": ["hit_a", "hit_b", "hit_c"], "pitch": [0.95, 1.08]},
+    {"sounds": ["hit_tail"], "pitch": [0.9, 1.1], "volume_db": -12, "delay": 0.03}
+   ]
+  },
+  "hit_heavy": {
+   "priority": 8,
+   "duck": {"db": -6, "time": 0.2},
+   "layers": [
+    {"sounds": ["hit_a", "hit_b", "hit_c"], "pitch": [0.7, 0.8], "volume_db": 2},
+    {"sounds": ["kill"], "pitch": [1.0, 1.1], "volume_db": -8},
+    {"sounds": ["hit_tail"], "pitch": [0.7, 0.85], "volume_db": -8, "delay": 0.04}
+   ]
+  },
+  "kill_enemy": {
+   "priority": 9,
+   "duck": {"db": -5, "time": 0.25},
+   "layers": [
+    {"sounds": ["kill"], "pitch": [0.95, 1.05]},
+    {"sounds": ["hit_tail"], "pitch": [0.7, 0.8], "volume_db": -8, "delay": 0.05}
+   ]
+  }
+ }
+}
