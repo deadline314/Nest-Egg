@@ -14,3 +14,6 @@ Thumbs.db
 # Free-asset raw downloads (NE-56): re-fetch with tools/assets/fetch_assets.py
 /assets_src/raw/
 /assets_src/work/
+
+# Local git worktrees (parallel sessions)
+/.claude/worktrees/
