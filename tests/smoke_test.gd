@@ -708,8 +708,9 @@ func _test_block_and_parry() -> void:
 	await _frames(3)
 	_check(player.health.current == low_hp, "block covers shots aimed at body centre")
 
+	await _frames(8)  # 格擋有短暫頓幀，等它過去
 	var behind := _shoot_at_player(player, Vector2(-14, 0))
-	await _frames(3)
+	await _frames(8)
 	_check(player.health.current == 9 and not behind.active, "attacks from behind are not blocked")
 
 	Input.action_press(&"shoot")

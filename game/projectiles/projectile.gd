@@ -188,6 +188,11 @@ func _draw() -> void:
 	var half := maxf(spec.length, spec.radius * 2.0) * 0.5
 	var tail := clampf(spec.speed * 0.02, 0.0, 14.0)
 	var glow := LightKit.glow(_color, 2.0)
+	if _damage_scale > 1.0:
+		# 被完美格擋彈回的子彈：拖著一道漸細的青色長尾，一眼看出是被打回去的。
+		for i in 3:
+			var k := float(i) / 3.0
+			draw_line(Vector2(-half - 8.0 - 22.0 * k, 0), Vector2(-half - 22.0 * (k + 0.34), 0), Color(LightKit.glow(Palette.CYAN, 1.8), 0.55 * (1.0 - k)), spec.radius * (1.6 - k))
 	draw_line(Vector2(-half - tail, 0), Vector2(-half, 0), Color(_color, 0.35), spec.radius)
 	draw_line(Vector2(-half + spec.radius, 0), Vector2(half - spec.radius, 0), glow, spec.radius * 2.0)
 	draw_circle(Vector2(-half + spec.radius, 0), spec.radius, glow)

@@ -275,6 +275,10 @@ func _draw_shield() -> void:
 	var color := LightKit.glow(Palette.CYAN.lerp(Palette.DANGER, 1.0 - guard_ratio), intensity)
 	draw_arc(center, SHIELD_RADIUS, angle - half_arc, angle + half_arc, 16, Color(color, 0.25), 7.0)
 	draw_arc(center, SHIELD_RADIUS, angle - half_arc, angle + half_arc, 16, color, 1.5)
+	if player.is_parry_window():
+		# 窗口提示：外圈隨剩餘時間收進盾面，收到盾上就是窗口結束。
+		var left := clampf(1.0 - player._block_time / player.parry_window_length(), 0.0, 1.0)
+		draw_arc(center, SHIELD_RADIUS + 2.0 + 9.0 * left, angle - half_arc, angle + half_arc, 16, Color(LightKit.glow(Palette.WHITE, 2.0), 0.35 + 0.5 * left), 1.5)
 	if _parry_flash > 0.0:
 		var t := _parry_flash / PARRY_FLASH_TIME
 		draw_arc(center, SHIELD_RADIUS + (1.0 - t) * 12.0, angle - half_arc, angle + half_arc, 16, Color(LightKit.glow(Palette.WHITE, 3.0), t), 2.0)

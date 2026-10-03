@@ -84,6 +84,11 @@ var _safe_ground_time := 0.0
 var _remount_cooldown_left := 0.0
 var _dash_dir := 1
 var _block_time := 0.0
+var _since_block_release := 10.0
+var _window_scale := 1.0
+static var _block_hint_shown := false
+const PARRY_WINDOW_MIN := 0.14
+const PARRY_WINDOW_MAX := 0.22
 var _guard_regen_delay_left := 0.0
 var _guard_lockout_left := 0.0
 var _phone_left := 0.0
@@ -790,12 +795,17 @@ func _update_blocking() -> void:
 	var wants := pressed and (guard >= tuning.guard_min_to_raise if not is_blocking else guard > 0.0)
 	if wants and not is_blocking:
 		_block_time = 0.0
+		# 放開後很快又舉盾：完美格擋窗口縮短，不能狂按亂彈。
+		_window_scale = tuning.parry_window_repeat_scale if _since_block_release < tuning.parry_repeat_time else 1.0
+	if is_blocking and not wants:
+		_since_block_release = 0.0
 	is_blocking = wants
 	hurtbox.reflect_direction = aim_dir
 
 
 func _tick_guard(delta: float) -> void:
 	_guard_lockout_left = maxf(0.0, _guard_lockout_left - delta)
+	_since_block_release += delta
 	_contact_block_left = maxf(0.0, _contact_block_left - delta)
 	if is_blocking:
 		_block_time += delta
@@ -809,7 +819,12 @@ func _tick_guard(delta: float) -> void:
 
 
 func is_parry_window() -> bool:
-	return is_blocking and _block_time <= tuning.parry_window
+	return is_blocking and _block_time <= parry_window_length()
+
+
+## 目前有效的完美格擋窗口秒數（夾在 0.14～0.22，連按時縮短）。
+func parry_window_length() -> float:
+	return clampf(tuning.parry_window, PARRY_WINDOW_MIN, PARRY_WINDOW_MAX) * _window_scale
 
 
 ## 受擊框的格擋判定：只擋準星方向扇形內的攻擊；剛舉盾的瞬間為完美格擋。
@@ -851,6 +866,10 @@ func _on_parry(info: DamageInfo, at: Vector2) -> void:
 
 
 func _on_block(info: DamageInfo, at: Vector2) -> void:
+	Feel.play(&"player_block", {"dir": Vector2(-aim_dir.x, 0.0), "origin": at})
+	if not _block_hint_shown:
+		_block_hint_shown = true
+		EventBus.toast_requested.emit("剛舉盾的一瞬間被打中＝完美格擋，可反彈子彈")
 	guard -= maxf(1.0, float(info.amount)) * tuning.guard_cost_per_damage
 	_guard_regen_delay_left = tuning.guard_regen_delay
 	velocity.x -= aim_dir.x * 90.0
@@ -872,7 +891,7 @@ func _guard_break() -> void:
 	_stagger_left = tuning.guard_break_stun
 	Feel.play(&"player_guard_break")
 	Fx.burst(aim_origin(), Palette.CYAN, 18, 160.0, 0.4)
-	Sfx.play(&"hurt", -6.0, 0.0)
+	Sfx.play(&"guard_break", -3.0, 0.03)
 	EventBus.toast_requested.emit("護盾破防")
 
 

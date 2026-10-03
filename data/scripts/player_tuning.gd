@@ -54,7 +54,11 @@ extends Resource
 ## 可格擋的扇形角度（以準星方向為中心）。
 @export var block_arc_degrees: float = 120.0
 ## 剛按下格擋後的「完美格擋」時間窗（秒）。
+## 完美格擋窗口（秒）：只吃 0.14～0.22，超出範圍會被夾住。
 @export var parry_window: float = 0.16
+## 放開盾之後這段時間內再舉盾，完美格擋窗口縮短成這個比例（防止狂按亂彈）。
+@export var parry_window_repeat_scale: float = 0.5
+@export var parry_repeat_time: float = 0.35
 @export var guard_max: float = 100.0
 ## 每點傷害消耗的護盾能量。
 @export var guard_cost_per_damage: float = 24.0

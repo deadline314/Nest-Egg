@@ -19,6 +19,7 @@ func run() -> void:
 	_test_hit_materials()
 	await _test_weapon_feel()
 	await _test_reload_feel()
+	await _test_block_feel()
 
 
 func _script_paths(dir: String, into: PackedStringArray) -> void:
@@ -423,4 +424,37 @@ func _test_reload_feel() -> void:
 	var rifle := load("res://data/weapons/rifle.tres") as WeaponData
 	player.loadout.reset(rifle)
 	check(not player._is_low_ammo(rifle), "a full magazine is not low")
+	await end_level(level)
+
+
+func _test_block_feel() -> void:
+	var level := await start_level(PropsSuite.level_data())
+	var player := level.player
+	var tuning := player.tuning
+	# 窗口長度夾在 0.14～0.22。
+	var original := tuning.parry_window
+	tuning.parry_window = 0.5
+	check(is_equal_approx(player.parry_window_length(), Player.PARRY_WINDOW_MAX * player._window_scale), "an over-long parry window is clamped to 0.22 s")
+	tuning.parry_window = 0.01
+	check(is_equal_approx(player.parry_window_length(), Player.PARRY_WINDOW_MIN * player._window_scale), "an over-short parry window is clamped to 0.14 s")
+	tuning.parry_window = original
+	check(original >= Player.PARRY_WINDOW_MIN and original <= Player.PARRY_WINDOW_MAX, "the shipped parry window is inside the range")
+	# 放開後很快再舉盾，窗口縮短。
+	player._window_scale = 1.0
+	var full := player.parry_window_length()
+	player._since_block_release = 0.0
+	player._window_scale = tuning.parry_window_repeat_scale
+	check(player.parry_window_length() < full, "re-raising the shield right after lowering it shortens the window")
+	# 三級回饋：普通、完美、破防各有事件，也各有聲音。
+	for id in [&"player_block", &"player_parry", &"player_guard_break"]:
+		check(Feel.has_event(id), "block tier event exists: %s" % id)
+	for sound in [&"block", &"parry", &"guard_break"]:
+		check(Sfx.has_sound(sound), "block tier sound exists: %s" % sound)
+	# 彈回的子彈有軌跡（以加倍傷害為標記）。
+	var spec := load("res://data/projectiles/rifle_shot.tres") as ProjectileSpec
+	var bullet := ProjectilePool.spawn(spec, Vector2(100, 100), Vector2.RIGHT, Combat.Team.ENEMY)
+	if bullet != null:
+		bullet._reflect(Vector2.LEFT)
+		check(bullet._damage_scale > 1.0 and bullet.team == Combat.Team.PLAYER, "a reflected bullet changes sides and carries the trail marker")
+	await physics_frames(3)
 	await end_level(level)

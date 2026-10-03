@@ -134,6 +134,11 @@ const SOUNDS := {
 		{"wave": "square", "from": 420.0, "to": 300.0, "time": 0.05, "volume": 0.14, "decay": 2.4},
 		{"wave": "sine", "from": 150.0, "to": 90.0, "time": 0.06, "volume": 0.2, "decay": 2.0},
 	],
+	&"guard_break": [
+		{"wave": "noise", "time": 0.3, "volume": 0.5, "lowpass": 0.6, "decay": 1.8},
+		{"wave": "saw", "from": 900.0, "to": 120.0, "time": 0.26, "volume": 0.24, "noise": 0.3, "decay": 1.6},
+		{"wave": "sine", "from": 110.0, "to": 40.0, "time": 0.3, "volume": 0.4, "decay": 1.5},
+	],
 	&"block": [
 		{"wave": "sine", "from": 2600.0, "to": 2400.0, "time": 0.12, "volume": 0.2, "decay": 2.5},
 		{"wave": "sine", "from": 3900.0, "to": 3700.0, "time": 0.09, "volume": 0.12, "decay": 3.0},
