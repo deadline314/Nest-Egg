@@ -96,10 +96,10 @@
  },
  "death": {
   "duration": 0.9,
-  "rotation": -1.1,
+  "rotation": -1.25,
   "drop": 22,
   "hip_x": -3,
-  "chest": 0.4,
+  "chest": 0.6,
   "head": 0.35,
   "fold": 1.0,
   "ease": "in_cubic",
@@ -114,7 +114,8 @@
    2.0,
    -1.2,
    1.9
-  ]
+  ],
+  "fold_keep": 0.8
  },
  "npc": {
   "stand": {},

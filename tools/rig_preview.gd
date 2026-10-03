@@ -4,6 +4,7 @@ extends Node2D
 ## --chars：改成每個角色一列，展示八種動作（站、跑、瞄準、蹲、跳、格擋、倒下、硬直），一次最多兩個角色。
 ## --closeup（搭配 --chars）：改成每個角色一張大的站姿，檢查臉、衣服與裝備的細節，一次最多四個角色。
 ## --head（搭配 --chars）：只放大頭與肩膀，檢查臉部與頭髮，一次最多四個角色；--zoom=倍率 可調整放大倍數。
+## --death（搭配 --chars，最多三個角色）：四種最後一擊（正面輕、背面輕、正面重、背面重）倒下後的樣子。
 ## --gait（搭配 --chars，用第一個角色）：並排看跑一個步伐週期的八個時間點（--speed=速度，預設 70），檢查落腳、腳底貼地與滑步。
 ## --relaxed（搭配 --chars）：模擬還沒發現玩家的放鬆姿勢（槍垂下），舉槍與格擋除外。
 ## --bare（搭配 --damage）：不拿武器、手臂垂向前下方，看得到上半身的衣物。
@@ -34,6 +35,7 @@ var _cloth := false
 var _bare := false
 var _relaxed := false
 var _gait := false
+var _death := false
 var _gait_speed := 70.0
 var _npc := false
 var _action := ""
@@ -66,6 +68,8 @@ func _ready() -> void:
 			_relaxed = true
 		elif arg == "--gait":
 			_gait = true
+		elif arg == "--death":
+			_death = true
 		elif arg.begins_with("--speed="):
 			_gait_speed = float(arg.trim_prefix("--speed="))
 		elif arg.begins_with("--action="):
@@ -96,6 +100,10 @@ func _ready() -> void:
 			_spawn("rin", "rifle", Vector2(42 + i * 88, 160), POSES[i], 2.4)
 		for i in CHARACTERS.size():
 			_spawn(CHARACTERS[i][0], CHARACTERS[i][1], Vector2(55 + i * 118, 340), "idle" if i != 4 else "aim_up", 1.6)
+	elif _death:
+		for row in mini(_chars.size(), 3):
+			for i in 4:
+				_spawn(_chars[row], str(SHEET_WEAPONS.get(_chars[row], "")), Vector2(70 + i * 150, 140 + row * 110), "death:%d" % i, _zoom if _zoom != 6.5 else 2.0)
 	elif _gait:
 		for i in 8:
 			_spawn(_chars[0], str(SHEET_WEAPONS.get(_chars[0], "")), Vector2(44 + i * 76, 330), "gait:%d" % i, _zoom if _zoom != 6.5 else 2.2)
@@ -230,7 +238,29 @@ func _preroll_gait() -> void:
 			_rigs[i].animate(dt, input)
 
 
+## --death：每個角色四種最後一擊（正面輕、背面輕、正面重、背面重）倒下後 1.5 秒的樣子。
+func _preroll_death() -> void:
+	var dt := 1.0 / 60.0
+	for i in _rigs.size():
+		var input := _inputs[i]
+		var variant := int(str(_poses[i]).trim_prefix("death:"))
+		input.facing = 1
+		input.on_floor = true
+		input.aim_dir = Vector2.RIGHT
+		input.two_handed = true
+		for k in 30:
+			_rigs[i].animate(dt, input)
+		input.dead = true
+		input.death_dir = 1.0 if variant % 2 == 0 else -1.0
+		input.death_force = 0.0 if variant < 2 else 1.0
+		for k in 100:
+			_rigs[i].animate(dt, input)
+
+
 func _capture() -> void:
+	if _death:
+		_preroll_death()
+		set_process(false)
 	if _gait:
 		_preroll_gait()
 		set_process(false)

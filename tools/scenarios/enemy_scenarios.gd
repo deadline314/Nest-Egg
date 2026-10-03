@@ -19,6 +19,7 @@ const SCENARIOS := {
 	"hit_direction": "res://tools/scenarios/hit_direction_scenario.gd",
 	"hurt_parts": "res://tools/scenarios/hurt_parts_scenario.gd",
 	"machine_hit": "res://tools/scenarios/machine_hit_scenario.gd",
+	"enemy_flow": "res://tools/scenarios/enemy_flow_scenario.gd",
 }
 
 

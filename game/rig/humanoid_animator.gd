@@ -37,15 +37,18 @@ const DEFAULT_MOTION := {
 	"npc": {"stand": {}, "talk_speed": 1.0, "talk_amp": 1.0},
 	"relax": {"aim": 0.75, "reach": 0.8, "chest": -0.04, "speed": 6.0},
 	"recoil": {"chest": 0.06, "reach": 2.5, "hip": 0.0, "decay": 9.0},
-	"death": {"duration": 0.45, "rotation": -1.56, "drop": 21.0, "hip_x": -6.0, "chest": 0.15, "head": 0.35, "fold": 0.0, "ease": "out_cubic",
+	"death": {"duration": 0.45, "rotation": -1.56, "drop": 21.0, "hip_x": -6.0, "chest": 0.15, "head": 0.35, "fold": 0.0, "fold_keep": 0.4, "ease": "out_cubic",
 			"legs": [0.3, 0.1, 0.45, 0.05], "fold_legs": [-1.4, 2.0, -1.2, 1.9]},
 }
+const ARM_CHAINS: Array = [[&"arm_front_upper", &"arm_front_lower", &"hand_front"], [&"arm_back_upper", &"arm_back_lower", &"hand_back"]]
 const ACTIONS_PATH := "res://art/rigs/action_poses.json"
 const SPRING_MIN := -0.8
 const SPRING_MAX := 1.6
 const HURT_TIME := 0.22
 ## 腳踩實地補償的上限（像素）。
 const GROUND_MAX_SHIFT := 16.0
+## 躺平時骨頭中心離地的距離（肢體的厚度的一半）。
+const CORPSE_THICKNESS := 3.0
 ## 跑步落腳：身體至少下沉多少（膝蓋微彎）、IK 與關節動畫的切換速度（每秒）。
 const GAIT_MIN_SAG := 1.0
 const GAIT_BLEND_SPEED := 8.0
@@ -55,6 +58,8 @@ const HURT_HIP_PUSH := 8.0
 ## 重擊致死時倒下的時間縮短到幾倍、倒下角度加大幾倍。
 const DEATH_FORCE_TIME := 0.6
 const DEATH_FORCE_ROTATION := 1.12
+## 倒下的身體最多轉多少（超過 100° 腳會翹到空中）。
+const DEATH_MAX_ROTATION := 1.75
 const CROUCH_DROP := 8.0
 
 const LEGS: Array[StringName] = [&"leg_front_upper", &"leg_front_lower", &"leg_back_upper", &"leg_back_lower"]
@@ -183,8 +188,11 @@ func update(delta: float, input: RigInput) -> void:
 			_step_legs()
 		else:
 			_plant_feet(delta)
+	if input.dead:
+		_rest_corpse()
 	if not input.dead:
 		_solve_arms(input, aim_angle)
+		_forward_kinematics()  # 手臂 IK 之後重算一次，位置快取才是最終的姿勢
 	else:
 		_rig.weapon_root().visible = false
 
@@ -280,7 +288,7 @@ func _death_pose(pose: Dictionary, d: Dictionary) -> void:
 	var flipped := _death_dir < 0.0 and rotation < 0.0
 	var side := -1.0 if flipped else 1.0
 	var duration := float(d["duration"]) * lerpf(1.0, DEATH_FORCE_TIME, _death_force)
-	rotation *= lerpf(1.0, DEATH_FORCE_ROTATION, _death_force)
+	rotation = clampf(rotation * lerpf(1.0, DEATH_FORCE_ROTATION, _death_force), -DEATH_MAX_ROTATION, DEATH_MAX_ROTATION)
 	var t := clampf(_death_time / maxf(0.05, duration), 0.0, 1.0)
 	var fold := 0.0 if flipped else float(d["fold"])
 	var fold_t := 1.0 if fold <= 0.0 else clampf(t / 0.45, 0.0, 1.0)
@@ -294,9 +302,20 @@ func _death_pose(pose: Dictionary, d: Dictionary) -> void:
 	pose[&"chest"] = float(d["chest"]) * eased * side
 	pose[&"neck"] = 0.1
 	pose[&"head"] = float(d["head"]) * eased * side
+	# 手臂無力地順著身體放下（躺平時貼著身體、癱坐時垂在身前），前手比後手多彎一點；不撐著地面。
+	# 癱坐（腿一直折著）時手臂垂向地面，躺下時貼著身體。
+	var droop := 0.0
+	if fold > 0.9 and float(d["fold_keep"]) > 0.9:
+		droop = clampf(-(float(pose[&"hip"]) + float(pose[&"chest"])) * 0.8, -2.2, 2.2)
+	pose[&"arm_front_upper"] = droop + 0.18
+	pose[&"arm_front_lower"] = -0.3
+	pose[&"arm_back_upper"] = droop + 0.05
+	pose[&"arm_back_lower"] = -0.15
+	pose[&"hand_front"] = 0.0
+	pose[&"hand_back"] = 0.0
 	for i in 4:
 		var bone: StringName = [&"leg_front_upper", &"leg_front_lower", &"leg_back_upper", &"leg_back_lower"][i]
-		pose[bone] = lerpf(float(legs[i]), float(folded[i]), fold * fold_t * (1.0 - eased * 0.6))
+		pose[bone] = lerpf(float(legs[i]), float(folded[i]), fold * fold_t * (1.0 - eased * (1.0 - float(d["fold_keep"]))))
 
 
 static func _ease(t: float, kind: String) -> float:
@@ -389,6 +408,28 @@ func _reach_leg(upper: StringName, lower: StringName, foot: StringName, target: 
 	_rig.bone(foot).rotation = foot_angle - lower_global
 
 
+## 倒下的身體不陷進地裡：倒下途中只把陷進去的部分往上推，倒完（姿勢到位）後整個貼地躺平。
+func _rest_corpse() -> void:
+	var low := -INF
+	for bone_name in _rig.bone_order():
+		low = maxf(low, _global_pos[bone_name].y)
+	var target := _ground_y - CORPSE_THICKNESS
+	var settled := _death_time >= float(_motion["death"]["duration"]) * lerpf(1.0, DEATH_FORCE_TIME, _death_force) * 1.05
+	var shift := target - low
+	_ground_shift = shift if settled else minf(0.0, shift)
+	_apply_body()
+	_forward_kinematics()
+
+
+## 稽核用：骨頭目前的位置（骨架空間）與站立時的地面高度。
+func bone_pos(bone_name: StringName) -> Vector2:
+	return _global_pos.get(bone_name, Vector2.ZERO)
+
+
+func ground_level() -> float:
+	return _ground_y
+
+
 ## 最低的腳底（骨架空間，往下為正）。
 func _lowest_foot_y() -> float:
 	var low := -INF
@@ -439,13 +480,24 @@ func _forward_kinematics() -> void:
 func _solve_arms(input: RigInput, aim_angle: float) -> void:
 	var weapon := _rig.weapon_def()
 	var weapon_root := _rig.weapon_root()
-	if _action_skip_ik and _action_w > 0.3:
-		# 專屬動作自己決定手臂：武器跟著前手走，不再握槍瞄準。
+	var action_arms := {}
+	var action_hand := Vector2.ZERO
+	var action_weapon_angle := 0.0
+	if _action_skip_ik and _action_w > 0.001:
+		# 專屬動作自己決定手臂：武器跟著前手走，不再握槍瞄準。權重還沒滿（進出動作的過渡）時，
+		# 手臂在「動作姿勢」與「握槍瞄準」之間依權重混合，才不會瞬間跳位。
 		if _rig.has_bone(&"hand_front"):
 			weapon_root.visible = not weapon.is_empty()
-			weapon_root.position = _global_pos.get(&"hand_front", Vector2.ZERO)
-			weapon_root.rotation = _global_angle.get(&"hand_front", 0.0) - PI * 0.5 if is_nan(_action_weapon_angle) else _action_weapon_angle
-		return
+			action_hand = _global_pos.get(&"hand_front", Vector2.ZERO)
+			action_weapon_angle = _global_angle.get(&"hand_front", 0.0) - PI * 0.5 if is_nan(_action_weapon_angle) else _action_weapon_angle
+			if _action_w >= 0.999:
+				weapon_root.position = action_hand
+				weapon_root.rotation = action_weapon_angle
+				return
+			for arm: Array in ARM_CHAINS:
+				for bone_name: StringName in arm:
+					if _rig.has_bone(bone_name):
+						action_arms[bone_name] = _rig.bone(bone_name).rotation
 	var anchor: Array = _rig.weapon_anchor()
 	var anchor_bone: StringName = anchor[0]
 	var anchor_point: Vector2 = _global_pos.get(anchor_bone, Vector2.ZERO) + (anchor[1] as Vector2).rotated(_global_angle.get(anchor_bone, 0.0))
@@ -475,6 +527,12 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 		_set_rotation(&"arm_back_upper", 0.2 + swing)
 		_set_rotation(&"arm_back_lower", -0.3)
 		_set_rotation(&"hand_back", 0.0)
+	if not action_arms.is_empty():
+		var w := smoothstep(0.0, 1.0, _action_w)
+		for bone_name: StringName in action_arms.keys():
+			_rig.bone(bone_name).rotation = lerp_angle(_rig.bone(bone_name).rotation, float(action_arms[bone_name]), w)
+		weapon_root.position = weapon_root.position.lerp(action_hand, w)
+		weapon_root.rotation = lerp_angle(weapon_root.rotation, action_weapon_angle, w)
 
 
 ## 兩段骨頭的 IK：手肘朝下彎，目標超出臂長時手臂伸直指向目標。hand_angle 為手部最終角度（骨架空間）。
