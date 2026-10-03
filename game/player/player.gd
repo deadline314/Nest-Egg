@@ -375,6 +375,8 @@ func _try_fire() -> void:
 	aim_bloom = minf(1.0, aim_bloom + weapon.bloom_per_shot)
 	# 射擊手感：槍口閃光 + 光源 + 鏡頭反向後座 + 彈殼 + 音效。
 	Fx.flash_light(muzzle, weapon.color, 56.0, weapon.muzzle_light_energy, 0.08)
+	Fx.flare(muzzle, weapon.color, 15.0, 0.05)
+	Fx.sparks(muzzle, weapon.color, 3, 280.0, 0.14, aim_dir, 0.7, 240.0)
 	Fx.kick(-aim_dir, weapon.camera_kick)
 	Fx.shake(weapon.screen_shake, 0.08)
 	if weapon.ejects_casing:

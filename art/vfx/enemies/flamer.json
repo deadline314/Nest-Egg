@@ -32,8 +32,8 @@
   ],
   "light": {
    "color": "#ff8a1a",
-   "radius": 96,
-   "energy": 1.8,
+   "radius": 77,
+   "energy": 1.08,
    "time": 0.4
   },
   "shake": 3.0,
@@ -41,7 +41,21 @@
   "extras": [
    "embers",
    "smoke"
-  ]
+  ],
+  "dissolve": {
+   "time": 1.0,
+   "color": "#ff8a1a",
+   "rise": 1.0,
+   "edge": 0.14,
+   "delay": 0.45
+  },
+  "shock": {
+   "radius": 46,
+   "strength": 0.035,
+   "color": "#ff8a1a",
+   "time": 0.45
+  },
+  "accent": "#ff8a1a"
  },
  "states": {
   "ignite": {
@@ -56,8 +70,8 @@
    ],
    "light": {
     "color": "#ff8a1a",
-    "radius": 54,
-    "energy": 1.4,
+    "radius": 43,
+    "energy": 0.84,
     "time": 0.35
    }
   },
@@ -65,8 +79,8 @@
    "at": "muzzle",
    "light": {
     "color": "#ff6a10",
-    "radius": 90,
-    "energy": 2.0,
+    "radius": 72,
+    "energy": 1.2,
     "time": 0.5
    },
    "shake": 0.8

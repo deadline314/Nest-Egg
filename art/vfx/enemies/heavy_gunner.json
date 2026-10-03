@@ -29,8 +29,8 @@
   ],
   "light": {
    "color": "#ff2e88",
-   "radius": 90,
-   "energy": 1.6,
+   "radius": 72,
+   "energy": 0.96,
    "time": 0.35
   },
   "shake": 4.0,
@@ -39,7 +39,21 @@
    "steam",
    "dust",
    "smoke"
-  ]
+  ],
+  "dissolve": {
+   "time": 1.1,
+   "color": "#ff2e88",
+   "rise": 0.0,
+   "edge": 0.12,
+   "delay": 0.5
+  },
+  "shock": {
+   "radius": 56,
+   "strength": 0.04,
+   "color": "#ff2e88",
+   "time": 0.45
+  },
+  "accent": "#ff2e88"
  },
  "states": {
   "spin_up": {
@@ -54,8 +68,8 @@
    ],
    "light": {
     "color": "#ff2e88",
-    "radius": 44,
-    "energy": 1.2,
+    "radius": 35,
+    "energy": 0.72,
     "time": 0.5
    }
   },
@@ -65,8 +79,8 @@
    "shake": 1.0,
    "light": {
     "color": "#ff8a30",
-    "radius": 70,
-    "energy": 1.6,
+    "radius": 56,
+    "energy": 0.96,
     "time": 0.4
    }
   }

@@ -410,7 +410,7 @@ func _on_died(info: DamageInfo) -> void:
 	var by_finisher := info != null and info.is_finisher
 	var center := _center()
 	if vfx != null and not vfx.is_empty():
-		vfx.play_death(center, global_position)  # 這個敵人自己的死亡演出
+		vfx.play_death(center, global_position, self, rig)  # 這個敵人自己的死亡演出
 	else:
 		Fx.burst(center, data.color, 16, 170.0, 0.45)
 		Fx.flash_light(center, data.color, 70.0, 1.2, 0.25)
@@ -564,6 +564,8 @@ func _shoot(spec: ProjectileSpec, direction: Vector2, origin := Vector2.INF) -> 
 	_rig_input.recoil = 1.0
 	if ProjectilePool.spawn(spec, from, direction, Combat.Team.ENEMY, _projectile_speed_multiplier()) != null:
 		Fx.flash_light(from, spec.color, 40.0, 0.9, 0.08)
+		Fx.flare(from, spec.color, 12.0, 0.05)
+		Fx.sparks(from, spec.color, 2, 220.0, 0.12, direction, 0.7, 200.0)
 		Sfx.play(&"shot_enemy", -10.0)
 
 

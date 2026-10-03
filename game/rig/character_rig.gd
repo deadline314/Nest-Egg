@@ -13,6 +13,7 @@ const FLASH_TIME := 0.06
 ## 受擊閃白亮度（> 1 會帶泛光；太高在連續命中時會整隻變白）。
 const FLASH_BRIGHTNESS := 1.7
 const BREAK_IMPULSE := Vector2(80, -170)
+const DISSOLVE_SHADER := preload("res://art/shaders/dissolve.gdshader")
 ## 動畫器登記表：名稱 → 類別（需要繼承 HumanoidAnimator，建構時收到骨架）。外觀定義的 animator 欄位或 setup 的 animator_kind 用這些名稱；
 ## 特殊角色（專屬骨架、專屬攻擊動作）在這裡加一行即可，不需要動其他角色。
 static var ANIMATORS: Dictionary = {"humanoid": HumanoidAnimator, "npc": NpcAnimator}
@@ -39,6 +40,7 @@ var _under: Array[Sprite2D] = []
 ## 零件與它們的原始明暗（補光倍率套用在 self_modulate 上，發光層不受影響）。
 var _part_sprites: Array[Sprite2D] = []
 var _part_tints: PackedFloat32Array = PackedFloat32Array()
+var _dissolve_material: ShaderMaterial
 var _fill := 1.0
 var _armor_visible := 0
 var _weapon_root: Node2D
@@ -172,6 +174,39 @@ func _apply_fill(fill: float) -> void:
 		_part_sprites[i].self_modulate = Color(tint, tint, tint, 1.0)
 	if _weapon_sprite != null:
 		_weapon_sprite.self_modulate = Color(fill, fill, fill, 1.0)
+
+
+## 燒融：零件依世界座標的雜訊逐塊燒掉，邊緣發出炭火的光（art/shaders/dissolve.gdshader）。progress 0→1；
+## rise＞0 火從腳往上燒、＜0 從頭往下燒、0 沒有方向。發光層與武器隨進度淡出。回傳 false 代表沒有可以燒的零件。
+func set_dissolve(progress: float, edge_color := Color("ff7a1a"), rise := 0.0, edge_width := 0.1) -> bool:
+	if _part_sprites.is_empty():
+		return false
+	if _dissolve_material == null:
+		_dissolve_material = ShaderMaterial.new()
+		_dissolve_material.shader = DISSOLVE_SHADER
+		_dissolve_material.set_shader_parameter("noise_tex", VfxAtlas.noise_texture())
+		_dissolve_material.set_shader_parameter("foot_y", global_position.y)
+		_dissolve_material.set_shader_parameter("body_height", maxf(20.0, RigLibrary.standing_height(skin_id)))
+		for sprite in _part_sprites:
+			sprite.material = _dissolve_material
+	_dissolve_material.set_shader_parameter("progress", clampf(progress, 0.0, 1.0))
+	_dissolve_material.set_shader_parameter("edge_color", edge_color)
+	_dissolve_material.set_shader_parameter("rise", rise)
+	_dissolve_material.set_shader_parameter("edge_width", edge_width)
+	var fade := clampf(1.0 - progress * 2.2, 0.0, 1.0)
+	for sprite in _part_sprites:
+		for child in sprite.get_children():
+			if child is Sprite2D:
+				(child as Sprite2D).modulate.a = fade
+	if _weapon_root != null:
+		_weapon_root.modulate.a = clampf(1.0 - progress * 1.6, 0.0, 1.0)
+	return true
+
+
+## 世界座標的一個點落在這個角色身體的哪裡（燒融時沿著身體噴餘燼用）：以腳底為準，高度 0~1。
+func body_point(height01: float, spread := 6.0) -> Vector2:
+	var h := RigLibrary.standing_height(skin_id)
+	return global_position + Vector2(randf_range(-spread, spread), -h * clampf(height01, 0.0, 1.0))
 
 
 ## 受擊閃白（HDR，會帶一點泛光）。

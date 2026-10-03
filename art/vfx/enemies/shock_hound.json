@@ -32,8 +32,8 @@
   ],
   "light": {
    "color": "#35e0ff",
-   "radius": 80,
-   "energy": 2.0,
+   "radius": 64,
+   "energy": 1.2,
    "time": 0.3
   },
   "shake": 2.0,
@@ -41,7 +41,21 @@
   "extras": [
    "arc",
    "smoke"
-  ]
+  ],
+  "dissolve": {
+   "time": 0.55,
+   "color": "#35e0ff",
+   "rise": 0.0,
+   "edge": 0.12,
+   "delay": 0.1
+  },
+  "shock": {
+   "radius": 40,
+   "strength": 0.03,
+   "color": "#9ff4ff",
+   "time": 0.4
+  },
+  "accent": "#35e0ff"
  },
  "states": {
   "growl": {
@@ -58,8 +72,8 @@
    ],
    "light": {
     "color": "#35e0ff",
-    "radius": 48,
-    "energy": 1.4,
+    "radius": 38,
+    "energy": 0.84,
     "time": 0.4
    }
   },

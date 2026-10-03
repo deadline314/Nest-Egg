@@ -29,8 +29,8 @@
   ],
   "light": {
    "color": "#ff7a1a",
-   "radius": 74,
-   "energy": 1.4,
+   "radius": 59,
+   "energy": 0.84,
    "time": 0.26
   },
   "shake": 2.8,
@@ -38,15 +38,29 @@
   "extras": [
    "dust",
    "embers"
-  ]
+  ],
+  "dissolve": {
+   "time": 0.85,
+   "color": "#ff7a1a",
+   "rise": 1.0,
+   "edge": 0.09,
+   "delay": 0.25
+  },
+  "shock": {
+   "radius": 36,
+   "strength": 0.028,
+   "color": "#ff7a1a",
+   "time": 0.45
+  },
+  "accent": "#ff7a1a"
  },
  "states": {
   "aim": {
    "at": "muzzle",
    "light": {
     "color": "#ff7a1a",
-    "radius": 44,
-    "energy": 1.2,
+    "radius": 35,
+    "energy": 0.72,
     "time": 0.14
    }
   }

@@ -29,23 +29,37 @@
   ],
   "light": {
    "color": "#ffa050",
-   "radius": 64,
-   "energy": 1.1,
+   "radius": 51,
+   "energy": 0.66,
    "time": 0.22
   },
   "shake": 2.2,
   "hitstop": 0.03,
   "extras": [
    "dust"
-  ]
+  ],
+  "dissolve": {
+   "time": 0.8,
+   "color": "#ff9a40",
+   "rise": 1.0,
+   "edge": 0.09,
+   "delay": 0.25
+  },
+  "shock": {
+   "radius": 34,
+   "strength": 0.025,
+   "color": "#ffcf9a",
+   "time": 0.4
+  },
+  "accent": "#ff9a40"
  },
  "states": {
   "aim": {
    "at": "muzzle",
    "light": {
     "color": "#ffa050",
-    "radius": 36,
-    "energy": 0.9,
+    "radius": 29,
+    "energy": 0.54,
     "time": 0.15
    }
   }

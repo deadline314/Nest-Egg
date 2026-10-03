@@ -11,6 +11,7 @@ func run() -> void:
 	_test_every_enemy_has_its_own()
 	await _test_playback()
 	_test_missing_file_is_safe()
+	await _test_vfx2_pieces()
 
 
 func _enemy_ids() -> Array[String]:
@@ -71,3 +72,50 @@ func _test_missing_file_is_safe() -> void:
 	vfx.play_death(Vector2.ZERO, Vector2.ZERO)
 	vfx.tick_step(Vector2.ZERO, true)
 	check(true, "an empty vfx can be played safely")
+
+
+## VFX 2.0 的零件：圖集與雜訊貼圖能生成、粒子場的新介面、電弧、燒融的 shader 參數與骨架的燒融呼叫。
+func _test_vfx2_pieces() -> void:
+	var atlas := VfxAtlas.texture()
+	check(atlas != null and atlas.get_width() == VfxAtlas.CELL * VfxAtlas.COLUMNS, "the effect atlas is built")
+	var image := atlas.get_image()
+	for cell in 8:
+		var region := VfxAtlas.region(cell)
+		var opaque := 0
+		for y in range(int(region.position.y), int(region.end.y), 4):
+			for x in range(int(region.position.x), int(region.end.x), 4):
+				if image.get_pixel(x, y).a > 0.1:
+					opaque += 1
+		check(opaque > 12, "atlas cell %d is painted (%d samples)" % [cell, opaque])
+	var noise := VfxAtlas.noise_texture().get_image()
+	check(noise.get_width() == 128 and noise.get_pixel(10, 10).r >= 0.0, "the tileable noise exists")
+	var field := ParticleField.new()
+	field.additive = true
+	runner.get_tree().root.add_child(field)
+	await frames(1)
+	field.emit_ex(Vector2.ZERO, Vector2(50, -20), 0.5, VfxAtlas.Cell.STREAK, 4.0, 1.0, Color.WHITE, Color(1, 1, 1, 0), 100.0, 1.0, 0.0, 0.0, 0.04)
+	field.emit(Vector2.ZERO, Vector2(10, 10), Color.RED, 0.3, 2.0)
+	check(field.alive_count() == 2, "a particle field accepts the new and the legacy emit")
+	await frames(2)
+	field.queue_free()
+	var arcs := ArcField.new()
+	runner.get_tree().root.add_child(arcs)
+	await frames(1)
+	arcs.emit_arc(Vector2.ZERO, Vector2(60, 10), Color.CYAN, 0.2, 1.5, 0.15, 2)
+	check(arcs.alive_count() == 1, "an arc can be emitted")
+	await frames(3)
+	arcs.queue_free()
+	# 骨架的燒融：套上 shader，進度與邊緣色可以改，沒有零件時回傳 false。
+	var holder := Node2D.new()
+	runner.get_tree().root.add_child(holder)
+	var rig := CharacterRig.new()
+	holder.add_child(rig)
+	check(rig.setup("trooper"), "a rig builds for the dissolve check")
+	check(rig.set_dissolve(0.4, Color("ff7a1a"), 1.0, 0.1), "a rig can dissolve")
+	check(rig.set_dissolve(1.0), "a rig can dissolve completely")
+	await frames(2)
+	holder.queue_free()
+	var empty := CharacterRig.new()
+	check(not empty.set_dissolve(0.5), "a rig without parts reports it cannot dissolve")
+	empty.free()
+

@@ -9,9 +9,16 @@ extends Node
 
 const HITSTOP_TIME_SCALE := 0.05
 const LIGHT_POOL_SIZE := 10
+const RING_POOL_SIZE := 5
 
 var _container: Node2D
-var _particles: ParticleField
+var _glow: ParticleField  # 疊加（發光）層
+var _soft: ParticleField  # 一般混合層（煙、灰塵、碎片）
+var _arcs: ArcField
+var _rings: Array[ShockRing] = []
+var _next_ring := 0
+var _last_blast_msec := -1000
+var _last_blast_position := Vector2.INF
 var _lights: Array[PointLight2D] = []
 var _light_tweens: Array[Tween] = []
 var _next_light := 0
@@ -26,9 +33,23 @@ func _ready() -> void:
 ## 由關卡呼叫：特效要放在哪個節點下。
 func bind_container(container: Node2D) -> void:
 	_container = container
-	_particles = ParticleField.new()
-	_particles.z_index = 5
-	container.add_child(_particles)
+	_soft = ParticleField.new()
+	_soft.additive = false
+	_soft.z_index = 4
+	container.add_child(_soft)
+	_glow = ParticleField.new()
+	_glow.additive = true
+	_glow.z_index = 6
+	container.add_child(_glow)
+	_arcs = ArcField.new()
+	_arcs.z_index = 6
+	container.add_child(_arcs)
+	_rings.clear()
+	_next_ring = 0
+	for i in RING_POOL_SIZE:
+		var ring := ShockRing.new()
+		container.add_child(ring)
+		_rings.append(ring)
 	_lights.clear()
 	_light_tweens.clear()
 	for i in LIGHT_POOL_SIZE:
@@ -44,7 +65,10 @@ func _on_container_exiting(container: Node2D) -> void:
 	if container != _container:
 		return
 	_container = null
-	_particles = null
+	_glow = null
+	_soft = null
+	_arcs = null
+	_rings.clear()
 	_lights.clear()
 	_light_tweens.clear()
 	reset_time()
@@ -85,49 +109,143 @@ func kick(direction: Vector2, amount: float) -> void:
 
 
 # ---------------------------------------------------------------------------
-# 粒子
+# 粒子（VFX 2.0）：兩層粒子場（疊加發光層、一般混合層）、衝擊波環池、電弧；全部固定容量，零節點生成。
+# 高階特效（sparks / embers / smoke / fire / shards / flare / shock / arc / lightning）可以單獨呼叫，也由 burst、impact、explosion 與敵人專屬特效組合使用。
 # ---------------------------------------------------------------------------
 
-## 命中火花：沿 normal 方向噴出的錐形火花（HDR 發光）。
+## 火花：沿速度拉長的亮線，頭是近乎白熱的亮色、尾巴漸成顏色再淡出；有阻力與重力。dir＝主要方向（ZERO＝四面八方），spread＝散開角度（弧度）。
+func sparks(position: Vector2, color: Color, amount := 10, speed := 220.0, life := 0.4, dir := Vector2.ZERO, spread := TAU, gravity := 520.0) -> void:
+	if _glow == null:
+		return
+	var base := dir.angle() if dir != Vector2.ZERO else 0.0
+	var half := spread * 0.5 if dir != Vector2.ZERO else PI
+	for i in clampi(amount, 1, 80):
+		var angle := base + randf_range(-half, half)
+		var v := Vector2.RIGHT.rotated(angle) * speed * randf_range(0.3, 1.0)
+		var l := life * randf_range(0.55, 1.2)
+		var hot := Color(minf(2.0, color.r * 1.3 + 0.35), minf(2.0, color.g * 1.3 + 0.3), minf(2.0, color.b * 1.3 + 0.25), 1.0)
+		_glow.emit_ex(position, v, l, VfxAtlas.Cell.STREAK, randf_range(2.2, 4.2), 1.0, hot, Color(color.r * 1.4, color.g * 1.4, color.b * 1.4, 0.0),
+				gravity, 2.2, 0.0, 0.0, 0.045 + randf() * 0.02)
+
+
+## 餘燼：小亮點，慢慢往上飄並閃爍，顏色由亮橘漸成暗紅。
+func embers(position: Vector2, color: Color, amount := 8, speed := 70.0, life := 1.0, spread := 18.0) -> void:
+	if _glow == null:
+		return
+	for i in clampi(amount, 1, 60):
+		var v := Vector2(randf_range(-speed, speed) * 0.6, randf_range(-speed, -speed * 0.2))
+		var l := life * randf_range(0.6, 1.3)
+		_glow.emit_ex(position + Vector2(randf_range(-spread, spread), randf_range(-spread, spread * 0.5)), v, l, VfxAtlas.Cell.EMBER,
+				randf_range(4.0, 8.0), 1.5, Color(color.r * 2.0, color.g * 1.6, color.b * 1.2, 1.0), Color(color.r * 0.9, color.g * 0.25, color.b * 0.1, 0.0),
+				-14.0, 0.9, 0.0, 0.0, 0.0, 0.6)
+
+
+## 煙：柔邊的一團團，由深灰漸漸變大、變淡，緩緩上升。tint＝煙的基本色（預設暗灰藍）。
+func smoke(position: Vector2, amount := 6, spread := 14.0, life := 1.1, size := 18.0, tint := Color(0.2, 0.22, 0.28, 0.55)) -> void:
+	if _soft == null:
+		return
+	for i in clampi(amount, 1, 40):
+		var v := Vector2(randf_range(-18.0, 18.0), randf_range(-46.0, -14.0))
+		_soft.emit_ex(position + Vector2(randf_range(-spread, spread), randf_range(-spread * 0.4, spread * 0.4)), v, life * randf_range(0.7, 1.3),
+				VfxAtlas.Cell.PUFF_A if randf() < 0.5 else VfxAtlas.Cell.PUFF_B, size * 0.5, size * randf_range(1.6, 2.4),
+				tint, Color(tint.r * 0.7, tint.g * 0.7, tint.b * 0.75, 0.0), -10.0, 1.1, randf() * TAU, randf_range(-0.8, 0.8))
+
+
+## 火球：發光的團塊向外膨脹，顏色由近白的亮黃漸成橘、深紅再消失；（再疊上 smoke 就是爆炸的雲）。
+func fire(position: Vector2, radius: float, color: Color, amount := 8, life := 0.55) -> void:
+	if _glow == null:
+		return
+	for i in clampi(amount, 1, 30):
+		var dir := Vector2.RIGHT.rotated(randf() * TAU)
+		var v := dir * radius * randf_range(0.8, 3.2)
+		var l := life * randf_range(0.65, 1.2)
+		_glow.emit_ex(position + dir * radius * randf() * 0.3, v, l, VfxAtlas.Cell.PUFF_A if randf() < 0.5 else VfxAtlas.Cell.PUFF_B,
+				radius * 0.8, radius * randf_range(1.5, 2.3),
+				Color(minf(1.9, color.r * 1.2 + 0.6), minf(1.7, color.g * 1.2 + 0.4), minf(1.5, color.b * 1.2 + 0.2), 0.55),
+				Color(color.r * 0.7, color.g * 0.2, color.b * 0.1, 0.0), -30.0, 3.0, randf() * TAU, randf_range(-2.0, 2.0))
+
+
+## 碎片：不規則的金屬碎塊，帶重力與自轉，落下時漸漸變暗。
+func shards(position: Vector2, color: Color, amount := 6, speed := 200.0, life := 0.9, size := 7.0) -> void:
+	if _soft == null:
+		return
+	for i in clampi(amount, 1, 30):
+		var v := Vector2.RIGHT.rotated(randf() * TAU) * speed * randf_range(0.3, 1.0) + Vector2(0, -speed * 0.3)
+		var c := Color(color.r * 0.55 + 0.1, color.g * 0.55 + 0.1, color.b * 0.55 + 0.12, 1.0)
+		_soft.emit_ex(position, v, life * randf_range(0.7, 1.3), VfxAtlas.Cell.SHARD, size * randf_range(0.6, 1.3), size * 0.5, c,
+				Color(c.r * 0.35, c.g * 0.35, c.b * 0.35, 0.0), 620.0, 0.9, randf() * TAU, randf_range(-14.0, 14.0))
+
+
+## 星芒與光暈的閃光：一瞬間的十字星芒加一圈光暈（槍口、擊殺、鎖定）。
+func flare(position: Vector2, color: Color, size := 40.0, life := 0.14) -> void:
+	if _glow == null:
+		return
+	_glow.emit_ex(position, Vector2.ZERO, life, VfxAtlas.Cell.FLARE, size * 0.6, size, Color(minf(1.9, color.r * 1.3 + 0.4), minf(1.9, color.g * 1.3 + 0.35), minf(1.9, color.b * 1.3 + 0.3), 0.85),
+			Color(color.r, color.g, color.b, 0.0), 0.0, 0.0, randf() * 0.4)
+	_glow.emit_ex(position, Vector2.ZERO, life * 1.4, VfxAtlas.Cell.GLOW, size * 0.7, size * 1.6, Color(color.r * 1.3, color.g * 1.3, color.b * 1.3, 0.45),
+			Color(color.r, color.g, color.b, 0.0), 0.0, 0.0)
+
+
+## 衝擊波：環形折射加亮邊（需要畫面可渲染；沒有綁定關卡時不做事）。
+func shock(position: Vector2, radius := 60.0, strength := 0.04, color := Palette.WARNING, time := 0.5) -> void:
+	if _rings.is_empty():
+		return
+	var ring := _rings[_next_ring]
+	_next_ring = (_next_ring + 1) % _rings.size()
+	if is_instance_valid(ring):
+		ring.play(position, radius, strength, color, time)
+
+
+## 電弧：從一點到另一點的閃電（可帶分支）。
+func arc(from: Vector2, to: Vector2, color := Palette.CYAN, life := 0.18, width := 1.6, jag := 0.14, branches := 1) -> void:
+	if _arcs != null:
+		_arcs.emit_arc(from, to, color, life, width, jag, branches)
+
+
+## 電弧簇：從一點向四周打出 count 道短閃電（敵人被電、機械爆炸）。
+func lightning(position: Vector2, color := Palette.CYAN, count := 5, reach := 36.0, life := 0.2) -> void:
+	for i in count:
+		var angle := randf() * TAU
+		arc(position, position + Vector2.RIGHT.rotated(angle) * reach * randf_range(0.5, 1.2), color, life * randf_range(0.7, 1.2), 1.4, 0.2, 1)
+
+
+## 命中火花：沿 normal 方向噴出的錐形火花（HDR 發光），加一個小星芒與光暈。
 func impact(position: Vector2, normal: Vector2, color: Color, amount := 6) -> void:
-	if _particles == null:
+	if _glow == null:
 		return
 	var base := normal.normalized() if normal.length_squared() > 0.0001 else Vector2.UP
-	var hot := LightKit.glow(color, 2.2)
-	for i in amount:
-		var dir := base.rotated(randf_range(-0.7, 0.7))
-		_particles.emit(position, dir * randf_range(90.0, 260.0), hot, randf_range(0.12, 0.28), 1.5, 200.0, 4.0)
-	_particles.emit(position, Vector2.ZERO, LightKit.glow(color.lerp(Palette.WHITE, 0.6), 1.8), 0.05, 2.0, 0.0, 0.0, ParticleField.Shape.SQUARE)
+	sparks(position, color, amount + 2, 300.0, 0.3, base, 1.5, 420.0)
+	flare(position, color, 12.0 + float(amount), 0.07)
 
 
-## 全方向爆散（擊殺、受傷、裝甲剝落）。
+## 全方向爆散（擊殺、受傷、裝甲剝落）：火花、一圈光暈，量大時加星芒。
 func burst(position: Vector2, color: Color, amount := 8, speed := 120.0, lifetime := 0.35) -> void:
-	if _particles == null:
+	if _glow == null:
 		return
-	var hot := LightKit.glow(color, 1.3)
-	for i in clampi(amount, 1, 64):
-		var dir := Vector2.RIGHT.rotated(randf() * TAU)
-		var shape := ParticleField.Shape.SQUARE if i % 3 == 0 else ParticleField.Shape.SPARK
-		_particles.emit(position, dir * randf_range(speed * 0.35, speed), hot, lifetime * randf_range(0.6, 1.2),
-				randf_range(1.5, 3.0), 320.0, 1.5, shape)
+	sparks(position, color, amount, speed * 1.4, lifetime * 1.2)
+	_glow.emit_ex(position, Vector2.ZERO, lifetime * 0.5, VfxAtlas.Cell.GLOW, 6.0, 12.0 + float(amount) * 1.1, Color(color.r * 1.3, color.g * 1.3, color.b * 1.3, 0.3),
+			Color(color.r, color.g, color.b, 0.0), 0.0, 0.0)
+	if amount >= 12:
+		flare(position, color, 20.0 + float(amount), 0.1)
 
 
 ## 彈殼拋出（往射擊反方向上方）。
 func casing(position: Vector2, facing: int) -> void:
-	if _particles == null:
+	if _soft == null:
 		return
 	var velocity := Vector2(-facing * randf_range(40.0, 80.0), randf_range(-140.0, -90.0))
-	_particles.emit(position, velocity, Color("e0b45a"), 0.5, 1.2, 600.0, 0.5, ParticleField.Shape.CASING)
+	_soft.emit_ex(position, velocity, 0.55, VfxAtlas.Cell.SHARD, 4.5, 4.5, Color("e8c060"), Color(0.9, 0.7, 0.3, 0.0), 600.0, 0.5, randf() * TAU, randf_range(-18.0, 18.0))
 
 
-## 揚塵（起跳、落地、衝刺、急停）。
+## 揚塵（起跳、落地、衝刺、急停）：柔邊的灰塵團，往兩側擴散。
 func dust(position: Vector2, amount := 5, spread_x := 50.0) -> void:
-	if _particles == null:
+	if _soft == null:
 		return
 	for i in amount:
-		var velocity := Vector2(randf_range(-spread_x, spread_x), randf_range(-30.0, -5.0))
-		_particles.emit(position + Vector2(randf_range(-3.0, 3.0), 0), velocity, Color(0.75, 0.82, 0.88, 0.45),
-				randf_range(0.25, 0.45), randf_range(1.5, 2.5), -20.0, 3.0, ParticleField.Shape.DUST)
+		var velocity := Vector2(randf_range(-spread_x, spread_x), randf_range(-26.0, -4.0))
+		_soft.emit_ex(position + Vector2(randf_range(-3.0, 3.0), 0), velocity, randf_range(0.35, 0.6),
+				VfxAtlas.Cell.PUFF_A if randf() < 0.5 else VfxAtlas.Cell.PUFF_B, randf_range(5.0, 8.0), randf_range(14.0, 22.0),
+				Color(0.62, 0.68, 0.76, 0.34), Color(0.5, 0.56, 0.64, 0.0), -8.0, 3.2, randf() * TAU, randf_range(-1.5, 1.5))
 
 
 ## 把一個短生命週期的節點（例如脫落的裝甲片）放進世界特效層。沒有綁定關卡時直接釋放。
@@ -141,19 +259,20 @@ func add_world_node(node: Node2D) -> bool:
 
 ## 雨滴落地的小水花。
 func splash(position: Vector2) -> void:
-	if _particles == null:
+	if _glow == null:
 		return
 	for i in 2:
 		var velocity := Vector2(randf_range(-40.0, 40.0), randf_range(-70.0, -35.0))
-		_particles.emit(position, velocity, Color(0.7, 0.8, 1.0, 0.55), randf_range(0.12, 0.22), 1.0, 500.0, 1.0, ParticleField.Shape.SPARK)
+		_glow.emit_ex(position, velocity, randf_range(0.14, 0.24), VfxAtlas.Cell.STREAK, 3.0, 1.0, Color(0.8, 0.9, 1.3, 0.55), Color(0.7, 0.8, 1.0, 0.0), 500.0, 1.0, 0.0, 0.0, 0.05)
 
 
 ## 緩慢上升的蒸汽。
 func steam(position: Vector2) -> void:
-	if _particles == null:
+	if _soft == null:
 		return
 	var velocity := Vector2(randf_range(-6.0, 6.0), randf_range(-38.0, -22.0))
-	_particles.emit(position, velocity, Color(0.75, 0.78, 0.9, 0.12), randf_range(1.2, 2.0), randf_range(4.0, 7.0), -6.0, 0.4, ParticleField.Shape.DUST)
+	_soft.emit_ex(position, velocity, randf_range(1.2, 2.0), VfxAtlas.Cell.PUFF_B, randf_range(8.0, 12.0), randf_range(22.0, 34.0),
+			Color(0.78, 0.82, 0.92, 0.2), Color(0.75, 0.78, 0.9, 0.0), -6.0, 0.4, randf() * TAU, randf_range(-0.4, 0.4))
 
 
 # ---------------------------------------------------------------------------
@@ -186,7 +305,7 @@ func flash_light(position: Vector2, color: Color, radius: float, energy: float, 
 ## 命中與擊殺的短暫點光：命中是小而冷的白青光，擊殺更大更暖。
 func _on_hit_confirmed(world_position: Vector2, killed: bool) -> void:
 	if killed:
-		flash_light(world_position, Palette.WARNING, 90.0, 1.8, 0.22)
+		flash_light(world_position, Palette.WARNING, 80.0, 1.1, 0.2)
 	else:
 		flash_light(world_position, Palette.CYAN.lerp(Palette.WHITE, 0.5), 48.0, 0.9, 0.1)
 
@@ -203,9 +322,31 @@ func explosion(position: Vector2, radius: float, damage: int, team: Combat.Team,
 	blast.color = color
 	blast.position = position
 	_container.add_child.call_deferred(blast)
-	burst(position, color, 18, radius * 7.0, 0.45)
+	_explosion_visual(position, radius, color)
 	flash_light(position, color, radius * 4.0, 2.2, 0.35)
 	# 整個環境光被閃亮一下：爆炸越大越亮。
 	EventBus.ambient_flash_requested.emit(color.lerp(Palette.WHITE, 0.5), clampf(0.12 + radius / 160.0, 0.2, 0.5), 0.3)
 	shake(clampf(radius / 6.0, 2.0, 8.0), 0.25)
 	Sfx.play(&"explosion", -2.0, 0.1)
+
+
+## 爆炸的視覺：核心閃光、火球、煙、火花、餘燼、碎片、衝擊波（半徑越大越誇張）。
+func _explosion_visual(position: Vector2, radius: float, color: Color) -> void:
+	if _glow == null:
+		return
+	# 同一處同時間的第二次爆炸（玩家陣營與敵人陣營各炸一次）只畫一次。
+	var now := Time.get_ticks_msec()
+	if now - _last_blast_msec < 60 and position.distance_to(_last_blast_position) < 4.0:
+		return
+	_last_blast_msec = now
+	_last_blast_position = position
+	var r := maxf(8.0, radius)
+	_glow.emit_ex(position, Vector2.ZERO, 0.12, VfxAtlas.Cell.GLOW, r * 1.2, r * 2.4, Color(1.8, 1.5, 1.1, 0.6), Color(color.r * 1.4, color.g * 1.1, color.b, 0.0))
+	flare(position, color, r * 2.2, 0.14)
+	fire(position, r * 0.45, color, 8, 0.5)
+	smoke(position + Vector2(0, -r * 0.2), 7, r * 0.5, 1.4, r * 0.75)
+	sparks(position, color, 18, r * 9.0, 0.5)
+	embers(position, color, 10, r * 1.2, 1.1, r * 0.4)
+	shards(position, color, 6, r * 5.0, 1.0, maxf(5.0, r * 0.18))
+	shock(position, r * 3.2, 0.05, color.lerp(Palette.WHITE, 0.3), 0.55)
+

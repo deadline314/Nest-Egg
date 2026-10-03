@@ -6,7 +6,9 @@ extends RefCounted
 ## 檔案格式（所有欄位都可省略）：
 ##   step    {every: 腳步間隔（像素）, dust: 揚塵數量, spread: 揚塵散開, color: 揚塵顏色, shake: 每步鏡頭震動, spark: 腳底火花數量, spark_color}
 ##   hit     {color: 火花色, amount: 數量, speed: 速度, light: 受擊閃光強度, kind: spark|arc|smoke|steam}
-##   death   {bursts: [{color, amount, speed, life}], light: {color, radius, energy, time}, shake, hitstop, extras: [smoke|steam|arc|embers|coolant|dust], sound}
+##   death   {bursts: [{kind, color, amount, speed, life}], light: {color, radius, energy, time}, shake, hitstop, shock: {radius, strength}, flare, extras: [smoke|steam|arc|embers|coolant|dust|fire|shards|lightning],
+##            dissolve: {time, color, rise, edge, delay}（燒融：零件逐塊燒掉、邊緣發光、沿著身體噴餘燼）, sound}
+##   burst 的 kind：spark（預設，火花）、ember、smoke、fire（火球）、shard、flare、arc（電弧簇）；amount、speed、life 的意義依 kind 而定。
 ##   states  {狀態名稱: {bursts: [...], light: {...}, shake, dust, steam, sound, at: feet|center|muzzle}}   進入該狀態時播放一次
 ## 顏色用 "#rrggbb"。
 
@@ -76,26 +78,44 @@ func play_hit(at: Vector2, from_direction: Vector2) -> void:
 		Fx.flash_light(at, color, 36.0, float(hit["light"]), 0.06)
 
 
-func play_death(center: Vector2, feet: Vector2) -> void:
+func play_death(center: Vector2, feet: Vector2, host: Node = null, rig: CharacterRig = null) -> void:
 	var death: Dictionary = _data.get("death", {})
 	for burst: Variant in death.get("bursts", []):
 		_play_burst(burst as Dictionary, center)
 	var light: Dictionary = death.get("light", {})
 	if not light.is_empty():
 		Fx.flash_light(center, _color(light.get("color", "#ffffff")), float(light.get("radius", 70.0)), float(light.get("energy", 1.2)), float(light.get("time", 0.25)))
+	var flare: Dictionary = death.get("flare", {})
+	if not flare.is_empty():
+		Fx.flare(center, _color(flare.get("color", "#ffffff")), float(flare.get("size", 50.0)), float(flare.get("life", 0.16)))
+	var shock: Dictionary = death.get("shock", {})
+	if not shock.is_empty():
+		Fx.shock(center, float(shock.get("radius", 60.0)), float(shock.get("strength", 0.04)), _color(shock.get("color", "#ffd9a0")), float(shock.get("time", 0.5)))
+	var dissolve: Dictionary = death.get("dissolve", {})
+	if not dissolve.is_empty() and host != null and rig != null:
+		_start_dissolve(host, rig, dissolve)
+	var accent := _color(death.get("accent", "#ff8a2a"))
 	for extra: Variant in death.get("extras", []):
 		match str(extra):
 			"smoke":
-				Fx.dust(center, 10, 40.0)
+				Fx.smoke(center, 8, 12.0, 1.3, 20.0)
 			"steam":
-				Fx.steam(center)
+				for i in 5:
+					Fx.steam(center + Vector2(randf_range(-8.0, 8.0), randf_range(-6.0, 6.0)))
 			"arc":
-				Fx.burst(center, Color("35e0ff"), 14, 220.0, 0.22)
+				Fx.lightning(center, Color("35e0ff"), 6, 34.0, 0.22)
+			"lightning":
+				Fx.lightning(center, accent, 8, 44.0, 0.3)
 			"embers":
-				Fx.burst(center + Vector2(0, -4), Color("ff8a2a"), 18, 90.0, 0.8)
+				Fx.embers(center + Vector2(0, -4), Color("ff8a2a"), 12, 80.0, 1.2, 14.0)
+			"fire":
+				Fx.fire(center, 12.0, accent, 7, 0.5)
+			"shards":
+				Fx.shards(center, accent, 7, 220.0, 1.0, 7.0)
 			"coolant":
 				Fx.splash(feet)
-				Fx.burst(center, Color("7fe8ff"), 10, 110.0, 0.5)
+				Fx.sparks(center, Color("7fe8ff"), 10, 120.0, 0.5, Vector2.UP, 2.2)
+				Fx.smoke(center, 4, 10.0, 1.0, 16.0, Color(0.5, 0.8, 0.9, 0.35))
 			"dust":
 				Fx.dust(feet, 8, 60.0)
 			_:
@@ -146,7 +166,51 @@ func is_empty() -> bool:
 
 
 func _play_burst(def: Dictionary, at: Vector2) -> void:
-	Fx.burst(at, _color(def.get("color", "#ffffff")), int(def.get("amount", 8)), float(def.get("speed", 120.0)), float(def.get("life", 0.35)))
+	var color := _color(def.get("color", "#ffffff"))
+	var amount := int(def.get("amount", 8))
+	var speed := float(def.get("speed", 120.0))
+	var life := float(def.get("life", 0.35))
+	match str(def.get("kind", "spark")):
+		"ember":
+			Fx.embers(at, color, amount, speed * 0.5, life * 2.0)
+		"smoke":
+			Fx.smoke(at, amount, 10.0, life * 2.0, speed * 0.12, Color(color.r * 0.4, color.g * 0.4, color.b * 0.45, 0.5))
+		"fire":
+			Fx.fire(at, speed * 0.1, color, amount, life)
+		"shard":
+			Fx.shards(at, color, amount, speed, life * 2.0, 7.0)
+		"flare":
+			Fx.flare(at, color, speed, life)
+		"arc":
+			Fx.lightning(at, color, amount, speed * 0.25, life)
+		_:
+			Fx.burst(at, color, amount, speed, life)
+
+
+## 燒融：零件逐塊燒掉（邊緣發光），同時沿著身體噴餘燼與火星；進度由 host 上的補間驅動。
+func _start_dissolve(host: Node, rig: CharacterRig, def: Dictionary) -> void:
+	var time := maxf(0.2, float(def.get("time", 0.9)))
+	var edge := _color(def.get("color", "#ff7a1a"))
+	var rise := float(def.get("rise", 1.0))
+	var width := float(def.get("edge", 0.1))
+	var tween := host.create_tween()
+	var last := [0.0]
+	if float(def.get("delay", 0.0)) > 0.0:
+		tween.tween_interval(float(def["delay"]))
+	tween.tween_method(func(v: float) -> void:
+		if not is_instance_valid(rig):
+			return
+		rig.set_dissolve(v, edge, rise, width)
+		var step := v - float(last[0])
+		last[0] = v
+		var count := int(step * 90.0) + (1 if randf() < step * 90.0 - floorf(step * 90.0) else 0)
+		for i in count:
+			var at := rig.body_point(clampf(v + randf_range(-0.2, 0.2) if rise > 0.0 else 1.0 - v + randf_range(-0.2, 0.2), 0.0, 1.0), 9.0)
+			if randf() < 0.6:
+				Fx.embers(at, edge, 1, 55.0, 0.9, 2.0)
+			else:
+				Fx.sparks(at, edge, 1, 90.0, 0.35, Vector2.UP, 2.4, 80.0)
+		, 0.0, 1.0, time)
 
 
 static func _color(value: Variant) -> Color:

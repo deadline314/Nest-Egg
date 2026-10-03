@@ -35,8 +35,8 @@
   ],
   "light": {
    "color": "#ff5a5a",
-   "radius": 140,
-   "energy": 2.4,
+   "radius": 112,
+   "energy": 1.2,
    "time": 0.6
   },
   "shake": 6.0,
@@ -46,7 +46,26 @@
    "arc",
    "smoke",
    "dust"
-  ]
+  ],
+  "dissolve": {
+   "time": 1.1,
+   "color": "#ff4a4a",
+   "rise": -1.0,
+   "edge": 0.12,
+   "delay": 0.5
+  },
+  "shock": {
+   "radius": 110,
+   "strength": 0.06,
+   "color": "#ffd0d0",
+   "time": 0.8
+  },
+  "flare": {
+   "color": "#ff6a6a",
+   "size": 54,
+   "life": 0.25
+  },
+  "accent": "#ff4a4a"
  },
  "states": {
   "leap_windup": {
@@ -73,8 +92,8 @@
    "at": "muzzle",
    "light": {
     "color": "#ff2a3d",
-    "radius": 60,
-    "energy": 1.6,
+    "radius": 48,
+    "energy": 0.96,
     "time": 0.5
    }
   },
@@ -82,8 +101,8 @@
    "at": "muzzle",
    "light": {
     "color": "#ff2a3d",
-    "radius": 80,
-    "energy": 2.0,
+    "radius": 64,
+    "energy": 1.2,
     "time": 0.6
    }
   },
@@ -112,8 +131,8 @@
    ],
    "light": {
     "color": "#ffffff",
-    "radius": 120,
-    "energy": 2.5,
+    "radius": 96,
+    "energy": 1.2,
     "time": 0.4
    }
   }

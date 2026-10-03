@@ -30,15 +30,29 @@
   ],
   "light": {
    "color": "#ff2eb0",
-   "radius": 70,
-   "energy": 1.4,
+   "radius": 56,
+   "energy": 0.84,
    "time": 0.4
   },
   "shake": 1.4,
   "hitstop": 0.02,
   "extras": [
    "arc"
-  ]
+  ],
+  "dissolve": {
+   "time": 0.9,
+   "color": "#ff2eb0",
+   "rise": 1.0,
+   "edge": 0.16,
+   "delay": 0.2
+  },
+  "shock": {
+   "radius": 30,
+   "strength": 0.02,
+   "color": "#ff2eb0",
+   "time": 0.45
+  },
+  "accent": "#ff2eb0"
  },
  "states": {
   "aim": {
@@ -53,8 +67,8 @@
    ],
    "light": {
     "color": "#ff2eb0",
-    "radius": 44,
-    "energy": 1.6,
+    "radius": 35,
+    "energy": 0.96,
     "time": 0.3
    }
   },

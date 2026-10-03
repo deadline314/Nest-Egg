@@ -23,15 +23,29 @@
   ],
   "light": {
    "color": "#ff2a3d",
-   "radius": 60,
-   "energy": 1.0,
+   "radius": 48,
+   "energy": 0.6,
    "time": 0.35
   },
   "shake": 1.6,
   "hitstop": 0.02,
   "extras": [
    "smoke"
-  ]
+  ],
+  "dissolve": {
+   "time": 0.9,
+   "color": "#ff2a3d",
+   "rise": 1.0,
+   "edge": 0.08,
+   "delay": 0.45
+  },
+  "shock": {
+   "radius": 30,
+   "strength": 0.02,
+   "color": "#ff2a3d",
+   "time": 0.45
+  },
+  "accent": "#ff2a3d"
  },
  "states": {
   "lock": {
@@ -46,8 +60,8 @@
    ],
    "light": {
     "color": "#ff2a3d",
-    "radius": 50,
-    "energy": 1.8,
+    "radius": 40,
+    "energy": 1.08,
     "time": 0.3
    }
   }

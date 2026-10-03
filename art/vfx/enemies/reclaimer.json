@@ -32,8 +32,8 @@
   ],
   "light": {
    "color": "#ff7a1a",
-   "radius": 120,
-   "energy": 2.2,
+   "radius": 96,
+   "energy": 1.2,
    "time": 0.5
   },
   "shake": 5.0,
@@ -42,7 +42,21 @@
    "arc",
    "embers",
    "coolant"
-  ]
+  ],
+  "dissolve": {
+   "time": 0.95,
+   "color": "#ff7a1a",
+   "rise": -1.0,
+   "edge": 0.12,
+   "delay": 0.35
+  },
+  "shock": {
+   "radius": 80,
+   "strength": 0.05,
+   "color": "#ff7a1a",
+   "time": 0.45
+  },
+  "accent": "#ff7a1a"
  },
  "states": {
   "dash_windup": {
@@ -83,8 +97,8 @@
    ],
    "light": {
     "color": "#35e0ff",
-    "radius": 70,
-    "energy": 1.8,
+    "radius": 56,
+    "energy": 1.08,
     "time": 0.2
    }
   },
@@ -100,8 +114,8 @@
    ],
    "light": {
     "color": "#35e0ff",
-    "radius": 90,
-    "energy": 1.8,
+    "radius": 72,
+    "energy": 1.08,
     "time": 0.6
    }
   }
