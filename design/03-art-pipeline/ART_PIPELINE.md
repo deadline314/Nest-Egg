@@ -90,6 +90,24 @@
 - Intel 顯卡偶爾會輸出全黑圖（數值溢位），`qwen()` 會自動偵測並換種子重畫。
 - INT8 ConvRot 是這張顯卡的最佳版本：FP8 沒有硬體加速、NVFP4 與 MLX 不支援、GGUF 每步解壓縮反而更慢。
 
+### 本機環境二（2026-10-03，RTX 4070 SUPER 12GB，CUDA）
+
+| 項目 | 內容 |
+|---|---|
+| 安裝位置 | `D:\ComfyUI`（ComfyUI 0.37、PyTorch cu128；另裝 `opencv-python-headless` 給切零件工具用） |
+| 模型 | 同上三個 INT8 ConvRot 檔（主模型來自 `abenzerps/Qwen-Image-2.1-Uncensored-GGUF`，文字編碼器與 VAE 來自 `Comfy-Org/Qwen-Image-2.1`） |
+| 啟動 | `cd D:\ComfyUI && .venv/Scripts/python main.py --listen 127.0.0.1 --port 8188 --disable-auto-launch`（不需要任何 XPU 參數） |
+| 速度 | 832×1216 約 55–70 秒；編輯模式 1280×1856（`--resolution 1536`）約 300 秒 |
+
+編輯模式的輸出大小由 `resolution` 決定（約 resolution² 像素，長寬比會依參考圖微調），**不是**參考圖的大小，所以高解析度立繪一定要傳 `--resolution 1536`，切件時再用 `cut_parts.py` 對位。
+
+### 高解析度零件（凜：`texture_scale` 0.125）
+
+1. `rig_reference.tscn -- --zoom=24` 輸出 1248×1824 參考姿勢（`body` 要用**原本的暫代零件**輸出，覆蓋之前先輸出）。
+2. `tools/comfyui/gen_character_passes.py --ref <資料夾> --resolution 1536` 生成 body、armor 兩張立繪。
+3. `tools/comfyui/cut_parts.py --upscale 2` 切成 2 倍解析度零件（輪廓取立繪本身的外緣，不再沿用暫代零件的多邊形）。
+4. `character.json` 的 `texture_scale` 改 0.125，所有 `size`、`pivot` 與 `portrait.blink` 座標 ×2；重畫法線：`paint_normals.tscn -- --only=rin`。
+
 ### 做法 C：參考姿勢 → Qwen 全身立繪 → 自動切零件（目前採用）
 
 1. `tools/comfyui/rig_reference.tscn` 把暫代角色擺成參考姿勢（前手抬起、前腳跨出、後側手腳隱藏），以貼圖 1px＝輸出 4px 的比例輸出 `body.png`（不含裝甲）、`armor.png`（含裝甲），並在同名 `.json` 記錄每個零件的繪製順序與「零件貼圖像素 → 輸出圖像素」的轉換。

@@ -1,14 +1,15 @@
 extends Node
 ## 開發工具：把角色擺成參考姿勢、放大輸出，供 AI 生成「與骨架對齊」的全身立繪，再依零件切回零件圖。
-## 用法：godot --path . res://tools/comfyui/rig_reference.tscn -- --skin=rin --out=/絕對路徑/資料夾
+## 用法：godot --path . res://tools/comfyui/rig_reference.tscn -- --skin=rin --out=/絕對路徑/資料夾 [--zoom=24]
 ## 輸出：body.png（不含裝甲）、armor.png（含裝甲），以及同名 .json：每個零件的貼圖、繪製順序、
 ##       與「零件貼圖像素 → 輸出圖像素」的仿射轉換（切零件時反轉回零件畫布用）。
 ## 後側手腳隱藏（前後共用同一張貼圖，只需要前側）。
 
-const SIZE := Vector2i(832, 1216)
+## 預設輸出尺寸與腳底位置；用 --zoom=倍率 放大時等比放大。
+const BASE_SIZE := Vector2i(832, 1216)
 ## 世界座標 → 輸出圖的倍率（零件貼圖 1px = 世界 0.25px，所以 16 倍時貼圖 1px = 輸出 4px）。
-const ZOOM := 16.0
-const FEET := Vector2(400, 1140)
+const BASE_ZOOM := 16.0
+const BASE_FEET := Vector2(400, 1140)
 ## 參考姿勢（弧度，相對於靜止姿勢）：前手往前抬、前腳跨出，盡量減少零件互相遮擋。
 const POSE := {
 	&"arm_front_upper": -0.75, &"arm_front_lower": -0.45, &"hand_front": -0.2,
@@ -18,6 +19,7 @@ const HIDDEN_PREFIXES := ["arm_back", "leg_back", "foot_back", "hand_back", "arm
 
 var _skin := "rin"
 var _out := ""
+var _zoom := BASE_ZOOM
 
 
 func _ready() -> void:
@@ -26,6 +28,8 @@ func _ready() -> void:
 			_skin = arg.trim_prefix("--skin=")
 		elif arg.begins_with("--out="):
 			_out = arg.trim_prefix("--out=")
+		elif arg.begins_with("--zoom="):
+			_zoom = maxf(1.0, float(arg.trim_prefix("--zoom=")))
 	if _out.is_empty():
 		push_error("[rig_reference] 需要 --out=資料夾")
 		get_tree().quit(1)
@@ -38,13 +42,14 @@ func _ready() -> void:
 
 func _render_pass(pass_name: String, with_armor: bool) -> void:
 	var viewport := SubViewport.new()
-	viewport.size = SIZE
+	var ratio := _zoom / BASE_ZOOM
+	viewport.size = Vector2i(roundi(BASE_SIZE.x * ratio), roundi(BASE_SIZE.y * ratio))
 	viewport.transparent_bg = true
 	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	add_child(viewport)
 	var holder := Node2D.new()
-	holder.position = FEET
-	holder.scale = Vector2.ONE * ZOOM
+	holder.position = BASE_FEET * ratio
+	holder.scale = Vector2.ONE * _zoom
 	viewport.add_child(holder)
 	var rig := CharacterRig.new()
 	holder.add_child(rig)
@@ -83,7 +88,7 @@ func _render_pass(pass_name: String, with_armor: bool) -> void:
 	var image := viewport.get_texture().get_image()
 	image.save_png(_out.path_join(pass_name + ".png"))
 	var file := FileAccess.open(_out.path_join(pass_name + ".json"), FileAccess.WRITE)
-	file.store_string(JSON.stringify({"size": [SIZE.x, SIZE.y], "parts": parts}, "  "))
+	file.store_string(JSON.stringify({"size": [viewport.size.x, viewport.size.y], "zoom": _zoom, "parts": parts}, "  "))
 	file.close()
 	print("rig_reference: %s (%d parts)" % [pass_name, parts.size()])
 	viewport.queue_free()

@@ -1,0 +1,801 @@
+{
+  "description": "凜（7.5 頭身）的切件規格：座標是立繪圖片的像素。joints 是關節位置；parts 把每個零件對應到一段骨頭（from → to）與半徑，立繪的每個像素歸給「離哪段骨頭最近（距離 ÷ 半徑）」的零件。 sam_classes：SAM 3.1 用文字提示摳出的語意遮罩（依序比對，先中的先算），每一類只能分給 parts 列出的零件；沒被任何類別選中、又低於 drop_unclassified_below_y 的像素（遠側那條腿）捨棄。 pieces：完整版衣物片，從 source 零件的畫布裁出（同尺寸、同支點），受傷時依 armor_order 打飛，露出用 --damaged 破衣圖切出的底層。 脫落順序（armor_order）：外套 → 連身衣 → 絲襪，絲襪最後才掉。 never_cloth：不算衣物的類別（皮膚、頭髮、義肢、靴子、槍套）；pieces 的 rest 表示把該零件上其餘沒被歸類的衣物（腰帶、滾邊…）也算進這一片，確保血量 100% 時完整還原原圖。 sam_direct：SAM 能直接點名的部位（手）直接用它的遮罩當零件。實測 SAM 分不出關節：「前臂」遮罩是整條義肢（含肘以上）、「小腿」遮罩是整條腿、「大腿」只標到臀部，所以前臂／上臂、大腿／小腿仍用關節幾何切。 person_prompt：去背用 SAM 3.1 的整個人遮罩（顏色門檻法會留下頭髮縫隙裡的灰底與灰邊）。 sam_only：--sam-only 模式下，零件就是這些文字提示的 SAM 遮罩（先寫的優先）。 pose：--pose 給的骨架預測（SAM 3D Body）取代 joints 裡列出的幾個關節。sam_limbs：手臂三段用 SAM 點提示摳（正點在該段中點，負點在相鄰段中點），腿的上下段 SAM 切不開（絲襪腿是同質的一整塊），仍由關節位置決定。 chains：一條肢體上的連續零件，用垂直於骨架軸的直線在關節處切開（cuts），不用「最近骨頭」，避免 V 字形接縫。",
+  "illustration_px_per_wp": 23.66,
+  "tex_px_per_wp": 20,
+  "ground_y": 1195,
+  "scale": 1.4,
+  "id": "rin",
+  "display_name": "凜",
+  "joints": {
+    "hip": [
+      430,
+      608
+    ],
+    "waist": [
+      425,
+      470
+    ],
+    "neck": [
+      395,
+      188
+    ],
+    "head": [
+      400,
+      185
+    ],
+    "head_top": [
+      415,
+      12
+    ],
+    "hair_root": [
+      355,
+      42
+    ],
+    "hair_mid": [
+      268,
+      190
+    ],
+    "hair_tip": [
+      285,
+      335
+    ],
+    "shoulder": [
+      365,
+      240
+    ],
+    "elbow": [
+      295,
+      400
+    ],
+    "palm": [
+      362,
+      590
+    ],
+    "fingertip": [
+      352,
+      668
+    ],
+    "knee": [
+      405,
+      790
+    ],
+    "ankle": [
+      378,
+      1085
+    ],
+    "toe": [
+      425,
+      1170
+    ],
+    "crotch": [
+      430,
+      608
+    ]
+  },
+  "bones": [
+    {
+      "name": "hip",
+      "parent": "",
+      "from": "ground_hip"
+    },
+    {
+      "name": "chest",
+      "parent": "hip",
+      "at": "waist"
+    },
+    {
+      "name": "neck",
+      "parent": "chest",
+      "at": "neck"
+    },
+    {
+      "name": "head",
+      "parent": "neck",
+      "at": "head"
+    },
+    {
+      "name": "hair_1",
+      "parent": "head",
+      "at": "hair_root",
+      "tip": "hair_mid"
+    },
+    {
+      "name": "hair_2",
+      "parent": "hair_1",
+      "tip": "hair_tip"
+    },
+    {
+      "name": "arm_back_upper",
+      "parent": "chest",
+      "at": "shoulder",
+      "dx": -0.6,
+      "tip": "elbow"
+    },
+    {
+      "name": "arm_back_lower",
+      "parent": "arm_back_upper",
+      "tip": "palm"
+    },
+    {
+      "name": "hand_back",
+      "parent": "arm_back_lower",
+      "tip": "fingertip"
+    },
+    {
+      "name": "arm_front_upper",
+      "parent": "chest",
+      "at": "shoulder",
+      "dx": 0.6,
+      "tip": "elbow"
+    },
+    {
+      "name": "arm_front_lower",
+      "parent": "arm_front_upper",
+      "tip": "palm"
+    },
+    {
+      "name": "hand_front",
+      "parent": "arm_front_lower",
+      "tip": "fingertip"
+    },
+    {
+      "name": "leg_back_upper",
+      "parent": "hip",
+      "at": "hip",
+      "dx": -1.0,
+      "tip": "knee"
+    },
+    {
+      "name": "leg_back_lower",
+      "parent": "leg_back_upper",
+      "tip": "ankle"
+    },
+    {
+      "name": "foot_back",
+      "parent": "leg_back_lower"
+    },
+    {
+      "name": "leg_front_upper",
+      "parent": "hip",
+      "at": "hip",
+      "dx": 1.0,
+      "tip": "knee"
+    },
+    {
+      "name": "leg_front_lower",
+      "parent": "leg_front_upper",
+      "tip": "ankle"
+    },
+    {
+      "name": "foot_front",
+      "parent": "leg_front_lower"
+    },
+    {
+      "name": "coat_1",
+      "parent": "hip",
+      "fixed": [
+        -1.5,
+        -0.5
+      ]
+    },
+    {
+      "name": "coat_2",
+      "parent": "coat_1",
+      "fixed": [
+        0,
+        3
+      ]
+    }
+  ],
+  "weapon_anchor": {
+    "bone": "chest",
+    "from": "waist",
+    "to": "shoulder",
+    "dx": 0.8,
+    "dy": 0.6,
+    "reach": 7.5
+  },
+  "parts": [
+    {
+      "texture": "hair_back_2",
+      "from": "hair_mid",
+      "to": "hair_tip",
+      "radius": 70,
+      "mode": "bone",
+      "hair": true,
+      "uses": [
+        {
+          "name": "hair_back_2",
+          "bone": "hair_2",
+          "z": -9
+        }
+      ]
+    },
+    {
+      "texture": "hair_back_1",
+      "from": "hair_root",
+      "to": "hair_mid",
+      "radius": 60,
+      "mode": "bone",
+      "hair": true,
+      "uses": [
+        {
+          "name": "hair_back_1",
+          "bone": "hair_1",
+          "z": -9
+        }
+      ]
+    },
+    {
+      "texture": "pelvis",
+      "from": "waist",
+      "to": "hip",
+      "radius": 120,
+      "mode": "upright",
+      "pivot": "hip",
+      "uses": [
+        {
+          "name": "pelvis",
+          "bone": "hip",
+          "z": 0
+        }
+      ],
+      "occluded_by": [
+        "arm_upper",
+        "arm_lower",
+        "hand"
+      ]
+    },
+    {
+      "texture": "torso",
+      "from": "waist",
+      "to": "neck",
+      "radius": 135,
+      "mode": "upright",
+      "pivot": "waist",
+      "uses": [
+        {
+          "name": "torso",
+          "bone": "chest",
+          "z": 1
+        }
+      ],
+      "occluded_by": [
+        "arm_upper",
+        "arm_lower",
+        "hand"
+      ]
+    },
+    {
+      "texture": "head",
+      "from": "head",
+      "to": "head_top",
+      "radius": 120,
+      "mode": "upright",
+      "pivot": "head",
+      "uses": [
+        {
+          "name": "head",
+          "bone": "head",
+          "z": 5
+        }
+      ]
+    },
+    {
+      "texture": "leg_upper",
+      "from": "hip",
+      "to": "knee",
+      "radius": 85,
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "leg_back_upper",
+          "bone": "leg_back_upper",
+          "z": -5,
+          "tint": 0.62
+        },
+        {
+          "name": "leg_front_upper",
+          "bone": "leg_front_upper",
+          "z": 3
+        }
+      ],
+      "occluded_by": [
+        "hand",
+        "arm_lower"
+      ]
+    },
+    {
+      "texture": "leg_lower",
+      "from": "knee",
+      "to": "ankle",
+      "radius": 75,
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "leg_back_lower",
+          "bone": "leg_back_lower",
+          "z": -5,
+          "tint": 0.62
+        },
+        {
+          "name": "leg_front_lower",
+          "bone": "leg_front_lower",
+          "z": 3
+        }
+      ]
+    },
+    {
+      "texture": "foot",
+      "from": "ankle",
+      "to": "toe",
+      "radius": 120,
+      "mode": "upright",
+      "pivot": "ankle",
+      "uses": [
+        {
+          "name": "foot_back",
+          "bone": "foot_back",
+          "z": -5,
+          "tint": 0.62
+        },
+        {
+          "name": "foot_front",
+          "bone": "foot_front",
+          "z": 3
+        }
+      ]
+    },
+    {
+      "texture": "arm_upper",
+      "from": "shoulder",
+      "to": "elbow",
+      "radius": 70,
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "arm_back_upper",
+          "bone": "arm_back_upper",
+          "z": -7,
+          "tint": 0.62
+        },
+        {
+          "name": "arm_front_upper",
+          "bone": "arm_front_upper",
+          "z": 8
+        }
+      ]
+    },
+    {
+      "texture": "arm_lower",
+      "from": "elbow",
+      "to": "palm",
+      "radius": 50,
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "arm_back_lower",
+          "bone": "arm_back_lower",
+          "z": -7,
+          "tint": 0.62
+        },
+        {
+          "name": "arm_front_lower",
+          "bone": "arm_front_lower",
+          "z": 8
+        }
+      ]
+    },
+    {
+      "texture": "hand",
+      "from": "palm",
+      "to": "fingertip",
+      "radius": 45,
+      "mode": "hand",
+      "pivot": "palm",
+      "uses": [
+        {
+          "name": "hand_back",
+          "bone": "hand_back",
+          "z": -6,
+          "tint": 0.62
+        },
+        {
+          "name": "hand_front",
+          "bone": "hand_front",
+          "z": 10
+        }
+      ]
+    }
+  ],
+  "glow": {
+    "head": "c",
+    "torso": "c",
+    "arm_upper": "c",
+    "arm_lower": "c",
+    "hand": "c",
+    "foot": "m",
+    "cloth_suit_chest": "c"
+  },
+  "blink": {
+    "part": "head",
+    "eye": [
+      [
+        458,
+        108
+      ],
+      [
+        490,
+        112
+      ],
+      [
+        488,
+        127
+      ],
+      [
+        460,
+        125
+      ]
+    ],
+    "lid": [
+      [
+        460,
+        119
+      ],
+      [
+        490,
+        117
+      ]
+    ]
+  },
+  "sam_classes": [
+    {
+      "prompt": "thigh holster",
+      "parts": [
+        "leg_upper"
+      ]
+    },
+    {
+      "prompt": "boot",
+      "parts": [
+        "leg_lower",
+        "foot"
+      ]
+    },
+    {
+      "prompt": "chrome robotic arm",
+      "parts": [
+        "arm_upper",
+        "arm_lower",
+        "hand"
+      ]
+    },
+    {
+      "prompt": "jacket",
+      "parts": [
+        "arm_upper",
+        "torso"
+      ]
+    },
+    {
+      "prompt": "black stockings leg",
+      "parts": [
+        "pelvis",
+        "leg_upper",
+        "leg_lower"
+      ]
+    },
+    {
+      "prompt": "white leotard bodysuit",
+      "parts": [
+        "torso",
+        "pelvis"
+      ]
+    },
+    {
+      "prompt": "ponytail hair",
+      "parts": [
+        "hair_back_1",
+        "hair_back_2"
+      ]
+    },
+    {
+      "prompt": "hair",
+      "parts": [
+        "head",
+        "hair_back_1",
+        "hair_back_2"
+      ]
+    },
+    {
+      "prompt": "head and face",
+      "parts": [
+        "head"
+      ]
+    },
+    {
+      "prompt": "skin",
+      "parts": [
+        "head",
+        "torso",
+        "pelvis"
+      ]
+    }
+  ],
+  "drop_unclassified_below_y": 600,
+  "pieces": [
+    {
+      "texture": "cloth_jacket",
+      "source": "torso",
+      "classes": [
+        "jacket"
+      ],
+      "uses": [
+        {
+          "name": "cloth_jacket",
+          "bone": "chest",
+          "z": 3,
+          "armor_order": 2
+        }
+      ],
+      "rest": false
+    },
+    {
+      "texture": "cloth_sleeve",
+      "source": "arm_upper",
+      "classes": [
+        "jacket"
+      ],
+      "uses": [
+        {
+          "name": "cloth_sleeve_front",
+          "bone": "arm_front_upper",
+          "z": 9,
+          "armor_order": 1
+        },
+        {
+          "name": "cloth_sleeve_back",
+          "bone": "arm_back_upper",
+          "z": -6,
+          "tint": 0.62,
+          "armor_order": 1
+        }
+      ],
+      "rest": true
+    },
+    {
+      "texture": "cloth_stocking_thigh",
+      "source": "leg_upper",
+      "classes": [
+        "black stockings leg",
+        "thigh holster"
+      ],
+      "uses": [
+        {
+          "name": "cloth_stocking_thigh_front",
+          "bone": "leg_front_upper",
+          "z": 4,
+          "armor_order": 6
+        },
+        {
+          "name": "cloth_stocking_thigh_back",
+          "bone": "leg_back_upper",
+          "z": -4,
+          "tint": 0.62,
+          "armor_order": 6
+        }
+      ],
+      "rest": true
+    },
+    {
+      "texture": "cloth_stocking_shin",
+      "source": "leg_lower",
+      "classes": [
+        "black stockings leg"
+      ],
+      "uses": [
+        {
+          "name": "cloth_stocking_shin_front",
+          "bone": "leg_front_lower",
+          "z": 4,
+          "armor_order": 5
+        },
+        {
+          "name": "cloth_stocking_shin_back",
+          "bone": "leg_back_lower",
+          "z": -4,
+          "tint": 0.62,
+          "armor_order": 5
+        }
+      ],
+      "rest": true
+    },
+    {
+      "texture": "cloth_suit_hip",
+      "source": "pelvis",
+      "classes": [
+        "white leotard bodysuit",
+        "black stockings leg"
+      ],
+      "uses": [
+        {
+          "name": "cloth_suit_hip",
+          "bone": "hip",
+          "z": 2,
+          "armor_order": 3
+        }
+      ],
+      "rest": true
+    },
+    {
+      "texture": "cloth_suit_chest",
+      "source": "torso",
+      "classes": [
+        "white leotard bodysuit"
+      ],
+      "uses": [
+        {
+          "name": "cloth_suit_chest",
+          "bone": "chest",
+          "z": 4,
+          "armor_order": 4
+        }
+      ],
+      "rest": true
+    }
+  ],
+  "never_cloth": [
+    "skin",
+    "head and face",
+    "hair",
+    "ponytail hair",
+    "chrome robotic arm",
+    "boot"
+  ],
+  "sam_direct": [
+    {
+      "prompt": "hand",
+      "part": "hand"
+    }
+  ],
+  "person_prompt": "woman",
+  "sam_only": [
+    {
+      "prompt": "hand",
+      "part": "hand"
+    },
+    {
+      "prompt": "forearm",
+      "part": "arm_lower"
+    },
+    {
+      "prompt": "upper arm",
+      "part": "arm_upper"
+    },
+    {
+      "prompt": "ponytail",
+      "part": "hair_back_1"
+    },
+    {
+      "prompt": "head",
+      "part": "head"
+    },
+    {
+      "prompt": "boot",
+      "part": "foot"
+    },
+    {
+      "prompt": "lower leg calf",
+      "part": "leg_lower"
+    },
+    {
+      "prompt": "thigh",
+      "part": "leg_upper"
+    },
+    {
+      "prompt": "pelvis and hips",
+      "part": "pelvis"
+    },
+    {
+      "prompt": "torso",
+      "part": "torso"
+    }
+  ],
+  "pose": {
+    "near_side": "right",
+    "joints": {
+      "shoulder": "right_shoulder",
+      "elbow": "kp64",
+      "hip": "right_hip",
+      "knee": "right_knee",
+      "ankle": "right_ankle"
+    }
+  },
+  "sam_limbs": [
+    {
+      "part": "arm_upper",
+      "pos": [
+        [
+          "shoulder",
+          "elbow"
+        ]
+      ],
+      "neg": [
+        [
+          "elbow",
+          "palm"
+        ],
+        [
+          "palm",
+          "fingertip"
+        ]
+      ]
+    },
+    {
+      "part": "arm_lower",
+      "pos": [
+        [
+          "elbow",
+          "palm"
+        ]
+      ],
+      "neg": [
+        [
+          "shoulder",
+          "elbow"
+        ],
+        [
+          "palm",
+          "fingertip"
+        ]
+      ]
+    },
+    {
+      "part": "hand",
+      "pos": [
+        [
+          "palm",
+          "fingertip"
+        ]
+      ],
+      "neg": [
+        [
+          "elbow",
+          "palm"
+        ]
+      ]
+    }
+  ],
+  "chains": [
+    {
+      "parts": [
+        "pelvis",
+        "leg_upper",
+        "leg_lower",
+        "foot"
+      ],
+      "axis": [
+        "crotch",
+        "ankle"
+      ],
+      "cuts": [
+        "crotch",
+        "knee",
+        "ankle"
+      ]
+    },
+    {
+      "parts": [
+        "hair_back_1",
+        "hair_back_2"
+      ],
+      "axis": [
+        "hair_root",
+        "hair_tip"
+      ],
+      "cuts": [
+        "hair_mid"
+      ]
+    }
+  ]
+}

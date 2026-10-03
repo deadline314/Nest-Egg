@@ -8,7 +8,8 @@ const NEW_CHARACTERS: Array[String] = ["old_k", "mei", "wataru", "reclaimer", "s
 ## 會上場戰鬥的外觀：必須有可破壞裝甲。
 const COMBATANTS: Array[String] = ["reclaimer", "sniper", "flamer", "heavy_gunner"]
 const NEW_WEAPONS: Array[String] = ["sniper", "flamethrower"]
-const REFERENCE := "rin"
+## 規格基準（Q 版人形骨架的零件尺寸與支點）；凜已改用 7.5 頭身的專屬骨架，不再是基準。
+const REFERENCE := "old_k"
 const REQUIRED_PARTS: Array[String] = ["head", "torso", "pelvis", "arm_upper", "arm_lower", "hand", "leg_upper", "leg_lower", "foot"]
 ## 肢體零件要畫到下一個關節（規格書的「子關節」）：貼圖 → 從畫布左上角算起的位置。
 const LIMB_ENDS := {

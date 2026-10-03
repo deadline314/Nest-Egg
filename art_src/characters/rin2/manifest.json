@@ -1,0 +1,43 @@
+[
+  {
+    "step": "parts",
+    "seconds": 1.8,
+    "outputs": [
+      "art_src\\characters\\rin2\\06_parts",
+      "art_src\\characters\\rin2\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "textures",
+    "seconds": 1.4,
+    "outputs": [
+      "art\\characters\\rin\\character.json",
+      "art\\rigs\\humanoid_tall.json",
+      "art\\characters\\rin\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 2.0,
+    "outputs": [
+      "art\\characters\\rin\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 4.9,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "preview",
+    "seconds": 12.6,
+    "outputs": [
+      "art_src\\characters\\rin2\\08_preview\\poses.png",
+      "art_src\\characters\\rin2\\08_preview\\closeup.png",
+      "art_src\\characters\\rin2\\08_preview\\head.png",
+      "art_src\\characters\\rin2\\08_preview\\damage.png"
+    ]
+  }
+]

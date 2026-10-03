@@ -4,6 +4,7 @@ extends Node2D
 ## --chars：改成每個角色一列，展示八種動作（站、跑、瞄準、蹲、跳、格擋、倒下、硬直），一次最多兩個角色。
 ## --closeup（搭配 --chars）：改成每個角色一張大的站姿，檢查臉、衣服與裝備的細節，一次最多四個角色。
 ## --head（搭配 --chars）：只放大頭與肩膀，檢查臉部與頭髮，一次最多四個角色；--zoom=倍率 可調整放大倍數。
+## --damage（搭配 --chars）：第一個角色依生命比例 100%→0% 排成一列，檢查裝甲與衣物逐片脫落的樣子（--zoom 預設 3.0）。
 
 const CHARACTERS := [["rin", "rifle"], ["trooper", "smg"], ["grenadier", "launcher"], ["enforcer", "pistol"], ["warden", "minigun"]]
 const POSES := ["idle", "run", "aim_up", "crouch", "jump", "block", "dead"]
@@ -18,6 +19,7 @@ var _out := ""
 var _chars: PackedStringArray = []
 var _closeup := false
 var _head_only := false
+var _damage := false
 var _zoom := 6.5
 var _rigs: Array[CharacterRig] = []
 var _inputs: Array[RigInput] = []
@@ -35,6 +37,8 @@ func _ready() -> void:
 			_head_only = true
 		elif arg == "--closeup":
 			_closeup = true
+		elif arg == "--damage":
+			_damage = true
 		elif arg.begins_with("--chars="):
 			_chars = arg.trim_prefix("--chars=").split(",", false)
 	add_child(LightKit.create_environment())
@@ -55,6 +59,11 @@ func _ready() -> void:
 			_spawn("rin", "rifle", Vector2(42 + i * 88, 160), POSES[i], 2.4)
 		for i in CHARACTERS.size():
 			_spawn(CHARACTERS[i][0], CHARACTERS[i][1], Vector2(55 + i * 118, 340), "idle" if i != 4 else "aim_up", 1.6)
+	elif _damage:
+		var ratios := [1.0, 0.85, 0.65, 0.45, 0.3, 0.15, 0.0]
+		var scale_up := 3.0 if _zoom == 6.5 else _zoom
+		for i in ratios.size():
+			_spawn(_chars[0], str(SHEET_WEAPONS.get(_chars[0], "")), Vector2(50 + i * 90, 330), "idle", scale_up, ratios[i])
 	elif _head_only:
 		for i in mini(_chars.size(), 4):
 			_spawn(_chars[i], "", Vector2(320.0 + (i - (mini(_chars.size(), 4) - 1) * 0.5) * 20.0 * _zoom, 190 + 44.0 * _zoom), "idle", _zoom)
@@ -73,7 +82,7 @@ func _ready() -> void:
 		_capture.call_deferred()
 
 
-func _spawn(skin: String, weapon: String, pos: Vector2, pose: String, zoom: float) -> void:
+func _spawn(skin: String, weapon: String, pos: Vector2, pose: String, zoom: float, armor_ratio := 1.0) -> void:
 	var holder := Node2D.new()
 	holder.position = pos
 	holder.scale = Vector2.ONE * zoom
@@ -83,6 +92,7 @@ func _spawn(skin: String, weapon: String, pos: Vector2, pose: String, zoom: floa
 	if not rig.setup(skin):
 		return
 	rig.set_weapon(weapon)
+	rig.set_armor_ratio(armor_ratio, false)
 	var input := RigInput.new()
 	_rigs.append(rig)
 	_inputs.append(input)

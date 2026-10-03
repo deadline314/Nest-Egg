@@ -1,0 +1,96 @@
+# 角色製作流程：從一張透明背景的側面圖到 Godot
+
+> 來源：2026-10-03 使用者要求把「產出角色原圖 → 拆零件 → 放進 Godot」整條流程寫成腳本，並說明每一步的輸入輸出、零件放在哪裡、日後怎麼替換。凜（NE-17）是第一個依此流程製作的角色。
+
+## 0. 一句話
+
+Qwen Image 2.1 直接畫出**透明背景的側面全身圖** → SAM 3.1 用文字提示分出各部位 → 被擋住的部位請 Qwen 補全（只取缺口）→ 依關節切成零件 → 輸出零件圖、骨架與角色定義 → Godot 匯入。
+
+```
+D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            # 全部（已存在的 Qwen 圖不會重畫）
+... --from parts --to preview                                                   # 只跑一段
+... --only design --seed 34                                                     # 換一個種子畫新造型，再 --from pose
+... --list                                                                      # 印出步驟與輸入輸出
+```
+
+設定檔：`tools/comfyui/recipes/<角色>.json`（造型提示詞、種子、工作資料夾）與 `tools/comfyui/specs/<角色>_side.json`（分群、關節、零件掛載）。工作資料夾 `art_src/characters/<名稱>/`（有 `.gdignore`，Godot 不會匯入；中間產物都在這裡，可以直接打開看）。
+
+## 1. 需要的東西
+
+| 項目 | 位置 | 備註 |
+|---|---|---|
+| ComfyUI（CUDA） | `D:\ComfyUI` | 腳本會在沒啟動時自己啟動。環境變數 `COMFYUI_DIR` 可改位置 |
+| Qwen Image 2.1 Uncensored（int8） | `models/diffusion_models`、`text_encoders`、`vae` | 見 `ART_PIPELINE.md` |
+| SAM 3.1 | `models/checkpoints/sam3.1_multiplex_fp16.safetensors` | [Comfy-Org/sam3.1](https://huggingface.co/Comfy-Org/sam3.1)，1.75GB |
+| SAM 3D Body | `models/detection/sam_3d_body_dinov3_bf16.safetensors` | [Comfy-Org/sam-3d-body](https://huggingface.co/Comfy-Org/sam-3d-body)，2.83GB，只用來預測關節當參考 |
+| Godot | 環境變數 `GODOT` | 預設 `C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe` |
+
+## 2. 步驟、輸入、輸出
+
+`work` ＝ 配方裡的 `work`（凜是 `art_src/characters/rin2/`）。
+
+| # | 步驟 | 工具 | 輸入 | 輸出 |
+|---|---|---|---|---|
+| 1 | `design` | Qwen Image 2.1，文生圖，原生 RGBA | 配方的 `design.prompt` | `work/01_design/design_s<種子>.png`、**`work/base_rgba.png`**（透明背景側面全身圖，832×1216） |
+| 2 | `pose` | SAM 3D Body | `base_rgba.png`（墊灰底） | `work/keypoints.json`、`work/02_pose/overlay.png`。肩、肘、腕、髖、膝、踝的預測位置，用來填 spec 的 `joints` |
+| 3 | `parts` | SAM 3.1 ＋ Qwen 編輯 | `base_rgba.png`、spec 的 `groups` `stages` `parts` | `work/sam/`（遮罩）、`work/04_stages/A.png`（剝層圖）、`work/05_groups/<群組>*.png`、**`work/06_parts/<零件>.png`**（每個零件一張，座標與原圖相同）、`06_parts/ownership.png`（檢查用） |
+| 4 | `textures` | `cut_layers.py` | `06_parts/*.png`、spec 的 `joints` `bones` `parts` | **`art/characters/<id>/parts/<零件>.png`**（＋`_glow.png`）、`art/characters/<id>/character.json`、`art/rigs/humanoid_tall.json` |
+| 5 | `normals` | Godot `tools/art/paint_normals.tscn` | `parts/*.png` | `parts/*_n.png`（法線貼圖，打光用） |
+| 6 | `import` | Godot `--headless --editor --quit` | `art/characters/<id>/` | `.godot/imported`。**必須在 normals 之後**，否則新的法線貼圖不會被匯入 |
+| 7 | `preview` | Godot `tools/rig_preview.tscn` | 角色 | `work/08_preview/{poses,closeup,head,damage}.png` |
+
+每一步結束，腳本把輸出清單寫進 `work/manifest.json`。
+
+### 第 3 步細節：怎麼分、怎麼補
+
+1. **分群**（spec `groups`）：SAM 3.1 對每個文字提示（"hand"、"chrome robotic arm"、"jacket"、"ponytail"、"head"、"boot"、"thigh holster"、"torso"、"skin"、"black stockings leg"）給一張遮罩。前面的群組優先；沒被任何遮罩認領的零星像素分給最近的群組。
+2. **補全**：只有**被別的東西擋住**的群組需要。
+   - 手臂（肘被夾克袖子擋住）：把殘缺手臂裁出來當第一張參考圖，手臂附近的原圖當第二張，請 Qwen 補成完整一條。
+   - 身體（被手臂、夾克、槍套擋住）：同上，請 Qwen 補成完整的身體與腿。
+   - 夾克（被手臂擋住）：**剝層**。把整張圖交給 Qwen「移除義肢、手、槍套，並補完它們後面的東西」（階段 A），夾克的完整版 ＝ 階段 A 上 SAM 的夾克遮罩。
+   - 補全結果**只取缺口**（被前面群組遮住的範圍），其餘一律用原圖的像素；階段圖取像素時只用完全不透明的部分並往內縮 3px，避免 Qwen 重畫邊緣的淡色描邊變成光暈。
+   - 馬尾、頭、手、槍套、靴子不補全，零件就是原圖用 SAM 遮罩摳出的像素。
+3. **切開**：義肢與身體各自在關節處切成零件（spec `parts` 的 `y`），並多留 10px 重疊，關節轉動時才不會露縫。
+
+## 3. 零件在 Godot 的位置與掛載
+
+全部在 `art/characters/rin/`，由 `character.json` 描述；骨架在 `art/rigs/humanoid_tall.json`（`character.json` 的 `rig` 欄指向它）。
+
+| 零件圖 `parts/<名稱>.png` | 掛在哪根骨頭 | 圖層 z | 說明 |
+|---|---|---|---|
+| `hair_back_1`、`hair_back_2` | `hair_1`、`hair_2` | −9 | 馬尾上半、下半；跟著彈簧骨飄動 |
+| `pelvis` | `hip` | 0 | 骨盆、臀、絲襪上緣 |
+| `torso` | `chest` | 1 | 白色連身衣含頸部與裸肩 |
+| `leg_upper`、`leg_lower`、`foot` | `leg_front_*`／`foot_front`（z 3）與 `leg_back_*`／`foot_back`（z −5，亮度 0.62） | | 前後腿共用同一張圖 |
+| `holster` | `leg_front_upper` | 4 | **配件**：大腿槍套 |
+| `jacket` | `chest` | 4 | **配件**：披在肩上的夾克（含洋紅襯裡） |
+| `head` | `head` | 5 | 臉、前髮、耳環 |
+| `arm_upper`、`arm_lower`、`hand` | `arm_front_*`／`hand_front`（z 8～10）與 `arm_back_*`／`hand_back`（z −7～−6，亮度 0.62） | | 金屬義肢 |
+
+每張圖旁邊還有 `<名稱>_glow.png`（霓虹發光層，加法混合）與 `<名稱>_n.png`（法線）。`character.json` 的 `textures` 記錄每張圖的尺寸與**支點**（旋轉中心），`parts` 記錄掛載（骨頭、z、亮度）。
+
+**配件（夾克、槍套）**目前各自一張圖掛在骨頭上，之後要加動畫（飄動、擺動）只要新增骨頭，或把它掛到 `coat_1`／`coat_2` 這兩根彈簧骨，不必重畫圖。
+
+## 4. 日後怎麼替換
+
+**換單一零件（手繪或重畫）**
+1. 打開 `art/characters/rin/parts/<名稱>.png` 當底，**維持尺寸與支點位置不變**（支點在 `character.json` 的 `textures.<名稱>.pivot`），畫好覆蓋同名檔。
+2. 想讓日後重跑流程時不被蓋掉，同時存一份到 `work/overrides/<名稱>.png`（`textures` 步驟會自動複製過去；尺寸不符會警告並略過）。
+3. 發光層同理覆蓋 `<名稱>_glow.png`。
+4. 重新產生法線並匯入：
+   ```
+   godot --headless --path . res://tools/art/paint_normals.tscn -- --only=rin
+   godot --headless --editor --quit --path .
+   ```
+5. 用預覽檢查：`godot --path . res://tools/rig_preview.tscn -- --out=<絕對路徑>.png --chars=rin`（加 `--closeup`、`--head`、`--damage` 看特寫與受傷）。
+
+**換整個造型**：`--only design --seed <新種子>`（或改配方提示詞），再 `--from pose`；必要時依 `keypoints.json` 與 `ownership.png` 調 spec 的 `joints` 與切線。
+
+**新增角色**：複製 `recipes/rin.json`、`specs/rin_side.json`，改 `id`、`work`、提示詞、`joints`，執行 `build_character.py`。
+
+## 5. 已知限制
+
+- 關節位置（spec `joints`）是依 SAM 3D Body 的預測再人工微調；換新角色時要看 `overlay.png` 調一次。
+- 只有近側的手腳有圖，遠側用同一張圖調暗（骨架原本的做法）。
+- 受傷時衣物逐片脫落（裝甲脫落機制）與眨眼設定這張新流程還沒接；舊凜的破損底層在 NE-17 進度紀錄第 12～14 項。
+- 舊流程的腳本（`cut_parts.py`、`cut_rig_parts.py`、`gen_character_passes.py`）保留，新流程只借用 `cut_rig_parts.py` 裡的 `frame()` 與 `glow_layer()`。

@@ -1,0 +1,15 @@
+{
+  "description": "凜（7.5 頭身）的建置配方：build_character.py 依這份檔案從頭產出角色。每個步驟的輸入輸出見 design/03-art-pipeline/CHARACTER_PIPELINE.md。",
+  "id": "rin",
+  "spec": "tools/comfyui/specs/rin_side.json",
+  "rig": "art/rigs/humanoid_tall.json",
+  "work": "art_src/characters/rin2",
+  "design": {
+    "size": [
+      832,
+      1216
+    ],
+    "pick": 33,
+    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat colors, bold clean black outlines, hard-edged two-tone shading, saturated neon accents. Full body, strict side view facing right, standing relaxed with arms slightly bent. Tall elegant realistic 7.5-head-tall proportions, long legs, mature curvy figure with a large bust, narrow waist and wide hips. An adult woman mercenary in her mid twenties with a calm serious expression. Long white hair in a high ponytail with hot-pink dyed tips, cyan glowing eyes. Her right arm is a chrome military cybernetic prosthetic. She wears a high-cut white and black bodysuit with side cut-outs and thin cyan neon trim, black thigh-high stockings with a tactical thigh holster strap, black chunky-heeled combat boots with glowing pink soles, and a short dark navy open jacket with magenta lining hanging off her shoulders."
+  }
+}

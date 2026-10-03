@@ -1,0 +1,536 @@
+{
+  "description": "凜（7.5 頭身）的分件規格，來源是透明背景的側面圖（Qwen Image 2.1 RGBA）。groups：SAM 3.1 文字提示分出的群組（前面的優先），被別的群組擋住的群組由 Qwen 補全（complete）；parts：把群組在關節處切成零件（y 為水平切線），並指定每個零件怎麼轉正（from/to/mode/pivot）與掛在哪根骨頭（uses）。joints 是原圖像素座標。 沒有被擋住需要補的群組（馬尾、頭、手、槍套、靴子）不補全，零件就是原圖用 SAM 遮罩摳出的像素。",
+  "id": "rin",
+  "display_name": "凜",
+  "scale": 1.4,
+  "seam": 10,
+  "illustration_px_per_wp": 23.78,
+  "tex_px_per_wp": 20,
+  "ground_y": 1197,
+  "joints": {
+    "hip": [
+      418,
+      545
+    ],
+    "waist": [
+      412,
+      430
+    ],
+    "neck": [
+      404,
+      214
+    ],
+    "head": [
+      404,
+      208
+    ],
+    "head_top": [
+      415,
+      10
+    ],
+    "hair_root": [
+      372,
+      48
+    ],
+    "hair_mid": [
+      318,
+      230
+    ],
+    "hair_tip": [
+      293,
+      396
+    ],
+    "shoulder": [
+      372,
+      248
+    ],
+    "elbow": [
+      362,
+      405
+    ],
+    "palm": [
+      369,
+      560
+    ],
+    "fingertip": [
+      393,
+      657
+    ],
+    "knee": [
+      412,
+      790
+    ],
+    "ankle": [
+      388,
+      1060
+    ],
+    "toe": [
+      488,
+      1150
+    ]
+  },
+  "groups": {
+    "hand": {
+      "sam": [
+        "hand"
+      ]
+    },
+    "holster": {
+      "sam": [
+        "thigh holster"
+      ]
+    },
+    "arm": {
+      "sam": [
+        "chrome robotic arm"
+      ],
+      "complete": {
+        "what": "the chrome cybernetic arm: a straight shoulder joint ball at the top, the upper arm, the elbow and the forearm down to the wrist (without the hand)",
+        "hidden_by": "the jacket sleeve, which hides the upper arm and the elbow",
+        "occluders": [
+          "jacket"
+        ],
+        "avoid": "The arm hangs straight down. Output only this one arm on the same canvas, at the same position and the same scale as image 1. Do NOT draw the hand, the jacket, the body, the hair or any other person part.",
+        "seed": 92,
+        "ref_margin": [
+          0,
+          0
+        ]
+      }
+    },
+    "jacket": {
+      "sam": [
+        "jacket"
+      ],
+      "complete": {
+        "stage": "A",
+        "occluders": [
+          "arm",
+          "hand",
+          "holster"
+        ],
+        "near": 120
+      }
+    },
+    "hair": {
+      "sam": [
+        "ponytail"
+      ]
+    },
+    "boot": {
+      "sam": [
+        "boot"
+      ]
+    },
+    "head": {
+      "sam": [
+        "head"
+      ]
+    },
+    "body": {
+      "sam": [
+        "torso",
+        "skin",
+        "black stockings leg"
+      ],
+      "complete": {
+        "what": "the body: the neck, the shoulder, the torso in the white bodysuit, the hips and the black stockinged leg (thigh and calf), without the arm, the jacket, the head, the hair and the boot",
+        "hidden_by": "the chrome arm, the hand, the jacket and the thigh holster",
+        "occluders": [
+          "arm",
+          "hand",
+          "jacket",
+          "holster"
+        ],
+        "avoid": "Do NOT draw the arm, the hand, the jacket, the holster, the hair, the head or the boot.",
+        "seed": 91
+      }
+    }
+  },
+  "parts": {
+    "hair_back_2": {
+      "group": "hair",
+      "from": "hair_mid",
+      "to": "hair_tip",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "hair_back_2",
+          "bone": "hair_2",
+          "z": -9
+        }
+      ],
+      "y": [
+        215,
+        1300
+      ]
+    },
+    "hair_back_1": {
+      "group": "hair",
+      "from": "hair_root",
+      "to": "hair_mid",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "hair_back_1",
+          "bone": "hair_1",
+          "z": -9
+        }
+      ],
+      "y": [
+        0,
+        215
+      ]
+    },
+    "pelvis": {
+      "group": "body",
+      "from": "waist",
+      "to": "hip",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "pelvis",
+          "bone": "hip",
+          "z": 0
+        }
+      ],
+      "y": [
+        450,
+        565
+      ],
+      "pivot": "hip"
+    },
+    "torso": {
+      "group": "body",
+      "from": "waist",
+      "to": "neck",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "torso",
+          "bone": "chest",
+          "z": 1
+        }
+      ],
+      "y": [
+        0,
+        450
+      ],
+      "pivot": "waist"
+    },
+    "head": {
+      "group": "head",
+      "from": "head",
+      "to": "head_top",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "head",
+          "bone": "head",
+          "z": 5
+        }
+      ],
+      "pivot": "head"
+    },
+    "jacket": {
+      "group": "jacket",
+      "from": "waist",
+      "to": "neck",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "jacket",
+          "bone": "chest",
+          "z": 4
+        }
+      ],
+      "pivot": "waist"
+    },
+    "holster": {
+      "group": "holster",
+      "from": "hip",
+      "to": "knee",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "holster",
+          "bone": "leg_front_upper",
+          "z": 4
+        }
+      ],
+      "pivot": "hip"
+    },
+    "leg_upper": {
+      "group": "body",
+      "from": "hip",
+      "to": "knee",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "leg_back_upper",
+          "bone": "leg_back_upper",
+          "z": -5,
+          "tint": 0.62
+        },
+        {
+          "name": "leg_front_upper",
+          "bone": "leg_front_upper",
+          "z": 3
+        }
+      ],
+      "y": [
+        565,
+        790
+      ]
+    },
+    "leg_lower": {
+      "group": "body",
+      "from": "knee",
+      "to": "ankle",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "leg_back_lower",
+          "bone": "leg_back_lower",
+          "z": -5,
+          "tint": 0.62
+        },
+        {
+          "name": "leg_front_lower",
+          "bone": "leg_front_lower",
+          "z": 3
+        }
+      ],
+      "y": [
+        790,
+        1300
+      ]
+    },
+    "foot": {
+      "group": "boot",
+      "from": "ankle",
+      "to": "toe",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "foot_back",
+          "bone": "foot_back",
+          "z": -5,
+          "tint": 0.62
+        },
+        {
+          "name": "foot_front",
+          "bone": "foot_front",
+          "z": 3
+        }
+      ],
+      "pivot": "ankle"
+    },
+    "arm_upper": {
+      "group": "arm",
+      "from": "shoulder",
+      "to": "elbow",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "arm_back_upper",
+          "bone": "arm_back_upper",
+          "z": -7,
+          "tint": 0.62
+        },
+        {
+          "name": "arm_front_upper",
+          "bone": "arm_front_upper",
+          "z": 8
+        }
+      ],
+      "y": [
+        0,
+        405
+      ]
+    },
+    "arm_lower": {
+      "group": "arm",
+      "from": "elbow",
+      "to": "palm",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "arm_back_lower",
+          "bone": "arm_back_lower",
+          "z": -7,
+          "tint": 0.62
+        },
+        {
+          "name": "arm_front_lower",
+          "bone": "arm_front_lower",
+          "z": 8
+        }
+      ],
+      "y": [
+        405,
+        1300
+      ]
+    },
+    "hand": {
+      "group": "hand",
+      "from": "palm",
+      "to": "fingertip",
+      "mode": "hand",
+      "uses": [
+        {
+          "name": "hand_back",
+          "bone": "hand_back",
+          "z": -6,
+          "tint": 0.62
+        },
+        {
+          "name": "hand_front",
+          "bone": "hand_front",
+          "z": 10
+        }
+      ],
+      "pivot": "palm"
+    }
+  },
+  "glow": {
+    "head": "c",
+    "torso": "c",
+    "pelvis": "c",
+    "arm_upper": "c",
+    "arm_lower": "c",
+    "hand": "c",
+    "foot": "m"
+  },
+  "bones": [
+    {
+      "name": "hip",
+      "parent": "",
+      "from": "ground_hip"
+    },
+    {
+      "name": "chest",
+      "parent": "hip",
+      "at": "waist"
+    },
+    {
+      "name": "neck",
+      "parent": "chest",
+      "at": "neck"
+    },
+    {
+      "name": "head",
+      "parent": "neck",
+      "at": "head"
+    },
+    {
+      "name": "hair_1",
+      "parent": "head",
+      "at": "hair_root",
+      "tip": "hair_mid"
+    },
+    {
+      "name": "hair_2",
+      "parent": "hair_1",
+      "tip": "hair_tip"
+    },
+    {
+      "name": "arm_back_upper",
+      "parent": "chest",
+      "at": "shoulder",
+      "dx": -0.6,
+      "tip": "elbow"
+    },
+    {
+      "name": "arm_back_lower",
+      "parent": "arm_back_upper",
+      "tip": "palm"
+    },
+    {
+      "name": "hand_back",
+      "parent": "arm_back_lower",
+      "tip": "fingertip"
+    },
+    {
+      "name": "arm_front_upper",
+      "parent": "chest",
+      "at": "shoulder",
+      "dx": 0.6,
+      "tip": "elbow"
+    },
+    {
+      "name": "arm_front_lower",
+      "parent": "arm_front_upper",
+      "tip": "palm"
+    },
+    {
+      "name": "hand_front",
+      "parent": "arm_front_lower",
+      "tip": "fingertip"
+    },
+    {
+      "name": "leg_back_upper",
+      "parent": "hip",
+      "at": "hip",
+      "dx": -1.0,
+      "tip": "knee"
+    },
+    {
+      "name": "leg_back_lower",
+      "parent": "leg_back_upper",
+      "tip": "ankle"
+    },
+    {
+      "name": "foot_back",
+      "parent": "leg_back_lower"
+    },
+    {
+      "name": "leg_front_upper",
+      "parent": "hip",
+      "at": "hip",
+      "dx": 1.0,
+      "tip": "knee"
+    },
+    {
+      "name": "leg_front_lower",
+      "parent": "leg_front_upper",
+      "tip": "ankle"
+    },
+    {
+      "name": "foot_front",
+      "parent": "leg_front_lower"
+    },
+    {
+      "name": "coat_1",
+      "parent": "hip",
+      "fixed": [
+        -1.5,
+        -0.5
+      ]
+    },
+    {
+      "name": "coat_2",
+      "parent": "coat_1",
+      "fixed": [
+        0,
+        3
+      ]
+    }
+  ],
+  "weapon_anchor": {
+    "bone": "chest",
+    "from": "waist",
+    "to": "shoulder",
+    "dx": 0.8,
+    "dy": 0.6,
+    "reach": 7.5
+  },
+  "stages": [
+    {
+      "name": "A",
+      "from": null,
+      "seed": 51,
+      "prompt": "Remove the character's near-side chrome cybernetic arm and hand and the thigh holster completely, and paint what was behind them: the rest of the jacket, the torso, the hip and the thigh, in exactly the same art style and colors. The jacket stays. Keep everything else exactly unchanged."
+    }
+  ]
+}

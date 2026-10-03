@@ -14,7 +14,7 @@ const CHARACTERS_DIR := "res://art/characters"
 const SUPERSAMPLE := 2
 
 const GUIDE_DIR := "res://art/guides/humanoid"
-const GUIDE_SOURCE := "rin"
+const GUIDE_SOURCE := "old_k"
 const GUIDE_SCALE := 4
 
 var _only: PackedStringArray = []
