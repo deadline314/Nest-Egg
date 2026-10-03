@@ -1,0 +1,339 @@
+class_name StageLayers
+extends RefCounted
+## 過場場景的圖層工廠：依資料字典建立一層 Node2D。所有座標是 640×360 的舞台座標。
+## 新增場景只要在 data/cutscene/stages/*.json 組合這些圖層，不用改程式；要新圖層種類才加在這裡。
+##
+## 通用欄位：kind（種類）、parallax（1 = 跟舞台一起動，0 = 固定在畫面，預設 1）、depth（back／front，預設 back）、
+## alpha（整層透明度）、additive（加亮混合）。
+
+const SOFT_TEXTURE_SIZE := 128
+const FALLBACK_COLOR := Color("ff00ff")
+
+## 合法的圖層種類與必填欄位（檢查工具用）。
+const KINDS: Dictionary = {
+	"gradient": ["top", "bottom"],
+	"skyline": ["color"],
+	"rect": ["rect", "color"],
+	"poly": ["points", "color"],
+	"glow": ["pos", "radius", "color"],
+	"sprite": ["path", "pos"],
+	"rain": [],
+	"grain": [],
+	"text": ["text", "pos"],
+	"stripes": ["rect", "color"],
+}
+
+static var _soft_texture: GradientTexture2D
+
+
+## 建立一層。def 缺欄位或種類不明時回傳 null，並記錄 where（例如「場景 shop_night 第 3 層」）。
+static func create(def: Dictionary, where: String) -> Node2D:
+	var kind := str(def.get("kind", ""))
+	if not KINDS.has(kind):
+		push_error("[Stage] %s：未知的圖層種類「%s」" % [where, kind])
+		return null
+	for key in KINDS[kind]:
+		if not def.has(key):
+			push_error("[Stage] %s：%s 圖層缺少欄位「%s」" % [where, kind, key])
+			return null
+	var node: Node2D
+	match kind:
+		"gradient":
+			node = _Gradient.new(def)
+		"skyline":
+			node = _Skyline.new(def)
+		"rect":
+			node = _Rect.new(def)
+		"poly":
+			node = _Poly.new(def)
+		"glow":
+			node = _Glow.new(def)
+		"sprite":
+			node = _Sprite.new(def)
+		"rain":
+			node = _Rain.new(def)
+		"grain":
+			node = _Grain.new(def)
+		"text":
+			node = _Text.new(def)
+		"stripes":
+			node = _Stripes.new(def)
+	node.modulate.a = float(def.get("alpha", 1.0))
+	if bool(def.get("additive", false)):
+		node.material = LightKit.additive_emissive_material()
+	node.set_meta(&"kind", kind)
+	node.set_meta(&"parallax", float(def.get("parallax", 1.0)))
+	node.set_meta(&"depth", str(def.get("depth", "back")))
+	return node
+
+
+static func color_of(value: Variant, fallback := FALLBACK_COLOR) -> Color:
+	if typeof(value) == TYPE_COLOR:
+		return value
+	if typeof(value) == TYPE_STRING and Color.html_is_valid(str(value)):
+		return Color(str(value))
+	if typeof(value) == TYPE_ARRAY and (value as Array).size() >= 3:
+		var a: Array = value
+		return Color(float(a[0]), float(a[1]), float(a[2]), float(a[3]) if a.size() > 3 else 1.0)
+	return fallback
+
+
+static func vec2_of(value: Variant, fallback := Vector2.ZERO) -> Vector2:
+	if typeof(value) == TYPE_ARRAY and (value as Array).size() >= 2:
+		return Vector2(float(value[0]), float(value[1]))
+	return fallback
+
+
+static func rect_of(value: Variant, fallback := Rect2()) -> Rect2:
+	if typeof(value) == TYPE_ARRAY and (value as Array).size() >= 4:
+		return Rect2(float(value[0]), float(value[1]), float(value[2]), float(value[3]))
+	return fallback
+
+
+## 發光色（亮度可超過 1，經 HDR 泛光）。
+static func lit(value: Variant, intensity: float) -> Color:
+	return LightKit.glow(color_of(value), intensity)
+
+
+static func soft_texture() -> Texture2D:
+	if _soft_texture == null:
+		var gradient := Gradient.new()
+		gradient.colors = PackedColorArray([Color(1, 1, 1, 1), Color(1, 1, 1, 0)])
+		gradient.offsets = PackedFloat32Array([0.0, 1.0])
+		_soft_texture = GradientTexture2D.new()
+		_soft_texture.gradient = gradient
+		_soft_texture.fill = GradientTexture2D.FILL_RADIAL
+		_soft_texture.fill_from = Vector2(0.5, 0.5)
+		_soft_texture.fill_to = Vector2(1.0, 0.5)
+		_soft_texture.width = SOFT_TEXTURE_SIZE
+		_soft_texture.height = SOFT_TEXTURE_SIZE
+	return _soft_texture
+
+
+## 垂直漸層（可超出畫面，鏡頭平移與放大時不露邊）。
+class _Gradient:
+	extends Node2D
+	var _top: Color
+	var _bottom: Color
+	var _rect: Rect2
+
+	func _init(def: Dictionary) -> void:
+		_top = StageLayers.color_of(def["top"])
+		_bottom = StageLayers.color_of(def["bottom"])
+		_rect = StageLayers.rect_of(def.get("rect"), Rect2(-320, -180, 1280, 720))
+
+	func _draw() -> void:
+		var r := _rect
+		draw_polygon(PackedVector2Array([r.position, Vector2(r.end.x, r.position.y), r.end, Vector2(r.position.x, r.end.y)]),
+				PackedColorArray([_top, _top, _bottom, _bottom]))
+
+
+## 天際線：一排高低不同的建築，帶細密的窗光。
+class _Skyline:
+	extends Node2D
+	var _def: Dictionary
+
+	func _init(def: Dictionary) -> void:
+		_def = def
+
+	func _draw() -> void:
+		var rng := RandomNumberGenerator.new()
+		rng.seed = int(_def.get("seed", 1))
+		var color := StageLayers.color_of(_def["color"])
+		var base_y := float(_def.get("base_y", 280.0))
+		var min_h := float(_def.get("min_h", 60.0))
+		var max_h := float(_def.get("max_h", 160.0))
+		var step := float(_def.get("step_w", 36.0))
+		var from_x := float(_def.get("from_x", -160.0))
+		var to_x := float(_def.get("to_x", 800.0))
+		var density := float(_def.get("window_density", 0.25))
+		var window_colors: Array = _def.get("window_colors", ["#ffd070", "#6fe0ff", "#ff7ab0"])
+		var x := from_x
+		while x < to_x:
+			var w := rng.randf_range(step * 0.7, step * 1.3)
+			var h := rng.randf_range(min_h, max_h)
+			draw_rect(Rect2(x, base_y - h, w, h + 400.0), color)
+			if density > 0.0:
+				var wy := base_y - h + 6.0
+				while wy < base_y - 4.0:
+					var wx := x + 4.0
+					while wx < x + w - 5.0:
+						if rng.randf() < density:
+							var wc := StageLayers.color_of(window_colors[rng.randi() % window_colors.size()])
+							draw_rect(Rect2(wx, wy, 3, 3), StageLayers.lit(wc, 1.3))
+						wx += 7.0
+					wy += 8.0
+			x += w + rng.randf_range(0.0, 3.0)
+
+
+class _Rect:
+	extends Node2D
+	var _rect: Rect2
+	var _color: Color
+
+	func _init(def: Dictionary) -> void:
+		_rect = StageLayers.rect_of(def["rect"])
+		_color = StageLayers.lit(def["color"], float(def.get("intensity", 1.0)))
+
+	func _draw() -> void:
+		draw_rect(_rect, _color)
+
+
+class _Poly:
+	extends Node2D
+	var _points := PackedVector2Array()
+	var _color: Color
+
+	func _init(def: Dictionary) -> void:
+		for p: Variant in def["points"]:
+			_points.append(StageLayers.vec2_of(p))
+		_color = StageLayers.lit(def["color"], float(def.get("intensity", 1.0)))
+
+	func _draw() -> void:
+		if _points.size() >= 3:
+			draw_colored_polygon(_points, _color)
+
+
+## 柔光團（燈、霓虹、窗光、投影機光束）。flicker > 0 時閃爍。
+class _Glow:
+	extends Sprite2D
+	var _base: Color
+	var _flicker := 0.0
+	var _t := 0.0
+
+	func _init(def: Dictionary) -> void:
+		texture = StageLayers.soft_texture()
+		position = StageLayers.vec2_of(def["pos"])
+		var radius := float(def["radius"])
+		scale = Vector2.ONE * (radius * 2.0 / float(StageLayers.SOFT_TEXTURE_SIZE))
+		if def.has("stretch"):
+			scale *= StageLayers.vec2_of(def["stretch"], Vector2.ONE)
+		_base = StageLayers.lit(def["color"], float(def.get("intensity", 1.0)))
+		self_modulate = _base
+		_flicker = float(def.get("flicker", 0.0))
+		material = LightKit.additive_emissive_material()
+		set_process(_flicker > 0.0)
+
+	func _process(delta: float) -> void:
+		_t += delta
+		var k := 1.0 - _flicker * (0.5 + 0.5 * sin(_t * 31.0) * sin(_t * 7.3))
+		self_modulate = Color(_base.r * k, _base.g * k, _base.b * k, _base.a)
+
+
+class _Sprite:
+	extends Sprite2D
+
+	func _init(def: Dictionary) -> void:
+		var path := str(def["path"])
+		var tex := RigLibrary.optional_texture(path)
+		if tex == null:
+			push_error("[Stage] 找不到圖片：%s" % path)
+			tex = RigLibrary.texture(path, Vector2i(32, 32))
+		texture = tex
+		position = StageLayers.vec2_of(def["pos"])
+		scale = Vector2.ONE * float(def.get("scale", 1.0))
+		centered = bool(def.get("centered", false))
+		if def.has("modulate"):
+			modulate = StageLayers.color_of(def["modulate"])
+		texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+
+
+## 雨：固定數量的斜線，用同一批座標循環使用，不配置新物件。
+class _Rain:
+	extends Node2D
+	var _drops := PackedVector2Array()
+	var _speeds := PackedFloat32Array()
+	var _lengths := PackedFloat32Array()
+	var _color: Color
+	var _wind: float
+	var _area := Rect2(-80, -40, 800, 440)
+
+	func _init(def: Dictionary) -> void:
+		var count := clampi(int(def.get("count", 140)), 0, 600)
+		_color = StageLayers.color_of(def.get("color", "#9db8f2"))
+		_color.a = float(def.get("opacity", 0.38))
+		_wind = float(def.get("wind", -0.18))
+		var rng := RandomNumberGenerator.new()
+		rng.seed = int(def.get("seed", 5))
+		for i in count:
+			_drops.append(Vector2(rng.randf_range(_area.position.x, _area.end.x), rng.randf_range(_area.position.y, _area.end.y)))
+			_speeds.append(rng.randf_range(420.0, 640.0))
+			_lengths.append(rng.randf_range(6.0, 12.0))
+
+	func _process(delta: float) -> void:
+		for i in _drops.size():
+			var d := _drops[i]
+			d.y += _speeds[i] * delta
+			d.x += _speeds[i] * delta * _wind
+			if d.y > _area.end.y:
+				d.y = _area.position.y
+				d.x = fposmod(d.x - _area.position.x, _area.size.x) + _area.position.x
+			_drops[i] = d
+		queue_redraw()
+
+	func _draw() -> void:
+		for i in _drops.size():
+			var d := _drops[i]
+			draw_line(d, d + Vector2(_wind, 1.0).normalized() * _lengths[i], _color, 1.0)
+
+
+## 顆粒雜訊（老舊畫面、記憶、過曝）：每隔一小段時間重新撒點。
+class _Grain:
+	extends Node2D
+	var _amount: int
+	var _color: Color
+	var _t := 0.0
+	var _seed := 0
+
+	func _init(def: Dictionary) -> void:
+		_amount = clampi(int(def.get("amount", 160)), 0, 600)
+		_color = StageLayers.color_of(def.get("color", "#ffffff"))
+		_color.a = float(def.get("opacity", 0.18))
+
+	func _process(delta: float) -> void:
+		_t += delta
+		if _t >= 0.07:
+			_t = 0.0
+			_seed += 1
+			queue_redraw()
+
+	func _draw() -> void:
+		var rng := RandomNumberGenerator.new()
+		rng.seed = _seed
+		for i in _amount:
+			draw_rect(Rect2(rng.randf_range(-40.0, 680.0), rng.randf_range(-20.0, 380.0), 1.0, 1.0), _color)
+
+
+class _Text:
+	extends Node2D
+	var _text: String
+	var _color: Color
+	var _size: int
+
+	func _init(def: Dictionary) -> void:
+		_text = str(def["text"])
+		position = StageLayers.vec2_of(def["pos"])
+		_color = StageLayers.lit(def.get("color", "#35e0ff"), float(def.get("intensity", 1.5)))
+		_size = UiKit.snap_size(int(def.get("size", UiKit.FS_BODY)))
+
+	func _draw() -> void:
+		draw_string(UiKit.font(), Vector2.ZERO, _text, HORIZONTAL_ALIGNMENT_LEFT, -1, _size, _color)
+
+
+## 斜線警示條紋。
+class _Stripes:
+	extends Node2D
+	var _rect: Rect2
+	var _color: Color
+	var _gap: float
+
+	func _init(def: Dictionary) -> void:
+		_rect = StageLayers.rect_of(def["rect"])
+		_color = StageLayers.lit(def["color"], float(def.get("intensity", 1.0)))
+		_gap = maxf(4.0, float(def.get("gap", 10.0)))
+
+	func _draw() -> void:
+		var x := _rect.position.x - _rect.size.y
+		while x < _rect.end.x:
+			draw_line(Vector2(x, _rect.end.y), Vector2(x + _rect.size.y, _rect.position.y), _color, 3.0)
+			x += _gap

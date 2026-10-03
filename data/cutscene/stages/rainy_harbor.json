@@ -1,0 +1,14 @@
+{
+  "camera": {"pos": [320, 180], "zoom": 1.0},
+  "layers": [
+    {"kind": "gradient", "top": "#070a18", "bottom": "#3a1238", "parallax": 0.0},
+    {"kind": "glow", "pos": [320, 250], "radius": 260, "color": "#ff2e88", "intensity": 0.5, "alpha": 0.5, "parallax": 0.1, "additive": true},
+    {"kind": "poly", "points": [[300, 250], [312, -60], [328, -60], [340, 250]], "color": "#0c0a1c", "parallax": 0.2},
+    {"kind": "glow", "pos": [320, -52], "radius": 18, "color": "#ff3322", "intensity": 2.2, "flicker": 0.6, "parallax": 0.2},
+    {"kind": "skyline", "color": "#120e24", "seed": 11, "base_y": 262, "min_h": 70, "max_h": 170, "step_w": 28, "window_density": 0.22, "parallax": 0.35},
+    {"kind": "skyline", "color": "#181430", "seed": 23, "base_y": 292, "min_h": 40, "max_h": 120, "step_w": 42, "window_density": 0.32, "parallax": 0.7},
+    {"kind": "rect", "rect": [-200, 300, 1040, 200], "color": "#0e1220"},
+    {"kind": "rect", "rect": [-200, 298, 1040, 3], "color": "#35e0ff", "intensity": 0.5, "alpha": 0.35},
+    {"kind": "rain", "count": 150, "depth": "front", "parallax": 1.0}
+  ]
+}

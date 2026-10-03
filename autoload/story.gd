@@ -16,6 +16,8 @@ const CHAPTER_PATHS: Array[String] = [
 const DEFAULT_CHAPTER := &"chapter_01"
 const MODE_CINEMATIC := &"cinematic"
 const MODE_RADIO := &"radio"
+## 動畫過場（資料檔以 steps 描述，見 CutscenePlayer）：與過場一樣暫停遊戲並排隊。
+const MODE_ANIMATED := &"animated"
 ## 對話長度守則（見 design/04-story/STORY.md）：過場每段至多 6 句，通訊每段 1～2 句。
 const MAX_CINEMATIC_LINES := 6
 const MAX_RADIO_LINES := 2
@@ -31,6 +33,7 @@ var _seen: Dictionary[StringName, bool] = {}
 var _cinematic_queue: Array[StringName] = []
 var _current_cinematic: StringName = &""
 var _layer: DialogueLayer
+var _player: CutscenePlayer
 
 
 func _ready() -> void:
@@ -101,6 +104,9 @@ func validate() -> PackedStringArray:
 	for scene_id: String in _scenes.keys():
 		var scene: Dictionary = _scenes[scene_id]
 		var mode := str(scene.get("mode", "radio"))
+		if mode == String(MODE_ANIMATED):
+			problems.append_array(CutsceneChecker.validate(scene_id, scene, _speakers))
+			continue
 		var lines: Array = scene.get("lines", [])
 		var limit := MAX_CINEMATIC_LINES if mode == String(MODE_CINEMATIC) else MAX_RADIO_LINES
 		if lines.is_empty():
@@ -163,7 +169,7 @@ func play(id: StringName, once := true) -> bool:
 	_seen[id] = true
 	var scene: Dictionary = _scenes[String(id)]
 	var mode := StringName(str(scene.get("mode", "radio")))
-	if mode == MODE_CINEMATIC:
+	if mode == MODE_CINEMATIC or mode == MODE_ANIMATED:
 		if is_cinematic_active():
 			_cinematic_queue.append(id)
 		else:
@@ -186,15 +192,27 @@ func play_and_wait(id: StringName) -> void:
 
 ## 跳過目前的過場（與按 Esc 相同）。
 func skip_cinematic() -> void:
-	if is_cinematic_active():
+	if not is_cinematic_active():
+		return
+	if is_instance_valid(_player) and _player.is_running():
+		_player.skip()
+	else:
 		_layer.finish_cinematic()
 
 
 func _start_cinematic(id: StringName) -> void:
 	_current_cinematic = id
-	scene_started.emit(id, MODE_CINEMATIC)
-	if auto_skip:
+	var scene: Dictionary = _scenes.get(String(id), {})
+	var animated := str(scene.get("mode", "")) == String(MODE_ANIMATED)
+	scene_started.emit(id, MODE_ANIMATED if animated else MODE_CINEMATIC)
+	if auto_skip or Settings.get_skip_cutscenes():
 		_on_cinematic_finished.call_deferred(id)
+		return
+	if animated:
+		_player = CutscenePlayer.new()
+		add_child(_player)
+		_player.finished.connect(_on_cinematic_finished)
+		_player.play(id, scene)
 		return
 	_layer.start_cinematic(id, _resolve_lines(scene_lines(id)))
 

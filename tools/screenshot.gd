@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、screens、flow、transition、ui、settings、mouse_aim、block、story、story_ch2、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
+## 情境：all（預設）、cutscene、screens、flow、transition、ui、settings、mouse_aim、block、story、story_ch2、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -24,6 +24,10 @@ func _run() -> void:
 	add_child(LightKit.create_environment())
 	# 劇情演出會暫停遊戲並蓋住畫面；只有 story 情境需要拍到演出。
 	Story.auto_skip = _scenario != "story" and _scenario != "story_ch2"
+	if _scenario == "cutscene":
+		await _run_cutscene()
+		get_tree().quit()
+		return
 	if _scenario == "screens":
 		await _run_screens()
 		get_tree().quit()
@@ -1196,6 +1200,38 @@ func _run_settings() -> void:
 	_capture("settings_bindings")
 	settings._cancel_capture()
 	settings.queue_free()
+
+
+## 過場動畫範例：雨夜沉港舞台、凜（骨架）與老 K（剪影）、對話框、標題卡。
+func _run_cutscene() -> void:
+	var scene := {"steps": [
+		{"do": "scene", "id": "rainy_harbor", "fade": 0.3},
+		{"do": "letterbox", "on": true, "time": 0.3},
+		{"do": "actor", "id": "rin", "kind": "rin", "pos": [210, 292], "weapon": "rifle", "scale": 2.2},
+		{"do": "actor", "id": "k", "portrait": "res://art/portraits/old_k.png", "pos": [330, 292], "facing": -1, "scale": 1.6},
+		{"do": "camera", "pos": [300, 200], "zoom": 1.15, "time": 2.0},
+		{"do": "say", "speaker": "rin", "text": "多少。"},
+		{"do": "say", "speaker": "old_k", "text": "你鞋帶散了。", "style": "whisper"},
+		{"do": "title", "text": "第一章　雨夜", "sub": "沉港市・下層港區", "time": 4.0},
+	]}
+	var player := CutscenePlayer.new()
+	add_child(player)
+	player.play(&"shot", scene)
+	await _wait(2.4)
+	_capture("cutscene_dialogue")
+	var accept := InputEventAction.new()
+	accept.action = &"ui_accept"
+	accept.pressed = true
+	Input.parse_input_event(accept)
+	await _wait(1.6)
+	_capture("cutscene_whisper")
+	Input.parse_input_event(accept)
+	await _wait(0.5)
+	Input.parse_input_event(accept)
+	await _wait(1.6)
+	_capture("cutscene_title")
+	player.skip()
+	await _settle(4)
 
 
 ## 各介面畫面：主選單、難度、設定、圖鑑、暫停、死亡、結算。

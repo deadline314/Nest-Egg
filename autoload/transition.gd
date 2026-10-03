@@ -56,6 +56,12 @@ func _ready() -> void:
 	set_process_input(false)
 
 
+## 以名稱（fade、iris、scan…）取得轉場種類；不存在回傳 -1（資料檔指定轉場時用）。
+static func kind_from_name(kind_name: String) -> int:
+	var index := Kind.keys().find(kind_name.to_upper())
+	return index if index < 0 else Kind.values()[index]
+
+
 func is_active() -> bool:
 	return _active
 

@@ -16,6 +16,7 @@ var _slider_values: Dictionary[StringName, Label] = {}
 var _hud_auto_hide: CheckButton
 var _quality_option: OptionButton
 var _reduce_flashes: CheckButton
+var _skip_cutscenes: CheckButton
 var _brightness_slider: HSlider
 var _brightness_value: Label
 ## "action:slot" -> Button
@@ -171,6 +172,15 @@ func _build_display_tab() -> Control:
 		Settings.set_reduce_flashes(on)
 		Sfx.play(&"ui_confirm", -6.0, 0.0))
 	box.add_child(_reduce_flashes)
+	_skip_cutscenes = CheckButton.new()
+	_skip_cutscenes.text = "略過過場動畫"
+	_skip_cutscenes.tooltip_text = "開啟：每次都直接略過過場動畫與劇情對話；已看過的演出重來時本來就不會重播"
+	_skip_cutscenes.focus_mode = Control.FOCUS_ALL
+	_skip_cutscenes.button_pressed = Settings.get_skip_cutscenes()
+	_skip_cutscenes.toggled.connect(func(on: bool) -> void:
+		Settings.set_skip_cutscenes(on)
+		Sfx.play(&"ui_confirm", -6.0, 0.0))
+	box.add_child(_skip_cutscenes)
 	return box
 
 
@@ -374,6 +384,7 @@ func _reset_current_tab() -> void:
 		_update_brightness_label()
 		_select_quality_item()
 		_reduce_flashes.set_pressed_no_signal(Settings.get_reduce_flashes())
+		_skip_cutscenes.set_pressed_no_signal(Settings.get_skip_cutscenes())
 		_quality_option.tooltip_text = LightQuality.DESCRIPTIONS[Settings.get_light_quality()]
 		_set_status("顯示已恢復預設。", Palette.CYAN)
 

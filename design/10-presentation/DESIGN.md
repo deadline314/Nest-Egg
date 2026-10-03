@@ -91,6 +91,32 @@
 | C8 | 右臂雜訊 | 第一章設施 | 約 6 秒 | 畫面雜訊、義體線亮起、耳鳴，回到遊戲。 |
 | C9 | 回收燈幕登場 | 第二章 | 約 10 秒 | 警報，燈幕從背後推進。 |
 
+### 演出資料格式
+
+演出寫在章節劇本（`data/story/chapter_XX.json`）的 `scenes`，`mode` 為 `animated`，內容是 `steps` 陣列，每一步有 `do`（動作）與該動作的欄位。場景（舞台）放在 `data/cutscene/stages/<id>.json`，由圖層組成。座標都是 640×360 的舞台座標。
+
+| do | 欄位 | 說明 |
+|---|---|---|
+| `scene` | `id`、`fade`、`pos`、`zoom` | 換舞台；第一個場景自動從黑幕淡入 |
+| `letterbox` | `on`、`time` | 上下黑邊 |
+| `camera` | `pos`、`zoom`、`time`、`wait` | 推拉搖，`wait` 為 true 時等鏡頭到位 |
+| `actor` | `id`、`kind`（骨架外觀）或 `portrait`（剪影）、`pos`、`facing`、`pose`、`weapon`、`scale` | 放置角色 |
+| `pose` / `face` / `remove` | `id`… | 改動作、改面向、移除 |
+| `move` | `id`、`to`、`time`、`pose`、`then`、`wait` | 走到某處 |
+| `say` | `speaker`、`text`、`style`（normal／whisper／shout／noise）、`auto` | 台詞；`auto` 秒數後自動往下，否則等玩家推進 |
+| `narrate` | `lines`（1 到 3 行）、`time` | 畫面中央的旁白（氣象預報、系統訊息） |
+| `title` | `text`、`sub`、`time`、`color` | 標題卡 |
+| `fx` | `kind`（shake、flash、lightning、noise、tint、rain）、`time`… | 特效；「減少閃光」時自動降級 |
+| `sfx` | `id`、`volume` | 音效 |
+| `wait` | `time` | 等待 |
+| `fade` | `to`、`time`、`color` | 黑幕或白幕 |
+| `transition` | `kind`、`mode`（cover／reveal） | 使用全域轉場 |
+| `end` | | 提早結束 |
+
+圖層種類：`gradient`、`skyline`、`rect`、`poly`、`glow`、`sprite`、`rain`、`grain`、`text`、`stripes`；共通欄位 `parallax`（視差，0 固定在畫面）、`depth`（back／front）、`alpha`、`additive`。
+
+守則：整段最多 16 句台詞，連續台詞之間最多 3 句就要有演出或鏡頭；單句不超過 56 字。壞掉的步驟只會記錄「場景 id 第 n 步」並略過。
+
 ## 二、轉場
 
 | 轉場 | 外觀 | 用在 |

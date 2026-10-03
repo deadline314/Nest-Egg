@@ -170,12 +170,24 @@ func set_reduce_flashes(enabled: bool) -> void:
 	display_changed.emit()
 
 
+## 是否每次都跳過過場動畫（已看過的演出本來就不會重播）。
+func get_skip_cutscenes() -> bool:
+	var value: Variant = get_value(DISPLAY_SECTION, "skip_cutscenes", false)
+	return value if typeof(value) == TYPE_BOOL else false
+
+
+func set_skip_cutscenes(enabled: bool) -> void:
+	set_value(DISPLAY_SECTION, "skip_cutscenes", enabled)
+	display_changed.emit()
+
+
 ## 畫面閃光的強度倍率（1 = 設計值）。
 func flash_scale() -> float:
 	return REDUCED_FLASH_SCALE if get_reduce_flashes() else 1.0
 
 
 func reset_display() -> void:
+	set_skip_cutscenes(false)
 	set_reduce_flashes(false)
 	set_hud_auto_hide(HUD_AUTO_HIDE_DEFAULT)
 	set_brightness(BRIGHTNESS_DEFAULT)
