@@ -42,6 +42,12 @@ const SPRING_MIN := -0.8
 const SPRING_MAX := 1.6
 const RECOIL_RECOVERY := 9.0
 const HURT_TIME := 0.22
+## 受擊時頭與骨盆跟著身體的幅度（頭是胸的比例，骨盆往後頂的像素 / 弧度）。
+const HURT_HEAD_RATIO := 0.6
+const HURT_HIP_PUSH := 8.0
+## 重擊致死時倒下的時間縮短到幾倍、倒下角度加大幾倍。
+const DEATH_FORCE_TIME := 0.6
+const DEATH_FORCE_ROTATION := 1.12
 const CROUCH_DROP := 8.0
 
 const LEGS: Array[StringName] = [&"leg_front_upper", &"leg_front_lower", &"leg_back_upper", &"leg_back_lower"]
@@ -54,6 +60,9 @@ var _time := 0.0
 var _recoil := 0.0
 var _hurt_left := 0.0
 var _hurt_scale := 1.0
+var _hurt_dir := 1.0
+var _death_dir := 1.0
+var _death_force := 0.0
 var _death_time := 0.0
 ## 專屬動作：目前（或剛結束、正在淡出）的動作、各骨頭的目標角度與權重。
 var _action_pose: Dictionary = {}
@@ -112,8 +121,12 @@ func update(delta: float, input: RigInput) -> void:
 	if input.hurt:
 		_hurt_left = HURT_TIME
 		_hurt_scale = input.hurt_scale
+		_hurt_dir = input.hurt_dir
 	_hurt_left = maxf(0.0, _hurt_left - delta)
 	_death_time = _death_time + delta if input.dead else 0.0
+	if input.dead and _death_time <= delta:  # 剛死的那一格記下最後一擊的方向與力道
+		_death_dir = input.death_dir
+		_death_force = input.death_force
 
 	var local_velocity := Vector2(input.velocity.x * input.facing, input.velocity.y)
 	var local_aim := Vector2(input.aim_dir.x * input.facing, input.aim_dir.y)
@@ -196,7 +209,10 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 	if input.staggered:
 		pose[&"chest"] = float(hurt["stagger_chest"])
 	if _hurt_left > 0.0:
-		pose[&"chest"] = float(pose.get(&"chest", 0.0)) - float(hurt["kick"]) * _hurt_scale * (_hurt_left / HURT_TIME)
+		var kick := float(hurt["kick"]) * _hurt_scale * _hurt_dir * (_hurt_left / HURT_TIME)
+		pose[&"chest"] = float(pose.get(&"chest", 0.0)) - kick
+		pose[&"head"] = float(pose.get(&"head", 0.0)) - kick * HURT_HEAD_RATIO
+		pose[&"_hip_x"] = float(pose.get(&"_hip_x", 0.0)) - kick * HURT_HIP_PUSH
 	# 上半身跟著準星微轉，頭看向準星。
 	var look: Dictionary = m["look"]
 	pose[&"chest"] = float(pose.get(&"chest", 0.0)) + aim_angle * float(look["chest"]) - _recoil * 0.06
@@ -208,19 +224,25 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 ## 死亡姿勢（每個角色自己的死法）：fold＝先把腿折起來的程度（0＝直接倒，1＝先跪下／癱坐），rotation＝身體倒下的角度（負＝向後、正＝向前），
 ## ease＝倒下的節奏（out_cubic 先快後慢、linear、in_cubic 先慢後快）。
 func _death_pose(pose: Dictionary, d: Dictionary) -> void:
-	var t := clampf(_death_time / maxf(0.05, float(d["duration"])), 0.0, 1.0)
-	var fold := float(d["fold"])
+	var rotation := float(d["rotation"])
+	# 從背後中彈：向後倒的角色改成向前撲（腿不先折起來），其他倒法不變。
+	var flipped := _death_dir < 0.0 and rotation < 0.0
+	var side := -1.0 if flipped else 1.0
+	var duration := float(d["duration"]) * lerpf(1.0, DEATH_FORCE_TIME, _death_force)
+	rotation *= lerpf(1.0, DEATH_FORCE_ROTATION, _death_force)
+	var t := clampf(_death_time / maxf(0.05, duration), 0.0, 1.0)
+	var fold := 0.0 if flipped else float(d["fold"])
 	var fold_t := 1.0 if fold <= 0.0 else clampf(t / 0.45, 0.0, 1.0)
 	var fall_t := t if fold <= 0.0 else clampf((t - 0.3) / 0.7, 0.0, 1.0)
 	var eased := _ease(fall_t, str(d["ease"]))
 	var legs: Array = d["legs"]
 	var folded: Array = d["fold_legs"]
-	pose[&"hip"] = float(d["rotation"]) * eased
+	pose[&"hip"] = rotation * side
 	pose[&"_hip_y"] = float(d["drop"]) * (eased if fold <= 0.0 else lerpf(fold_t * 0.45, 1.0, eased))
-	pose[&"_hip_x"] = float(d["hip_x"]) * eased
-	pose[&"chest"] = float(d["chest"]) * eased
+	pose[&"_hip_x"] = float(d["hip_x"]) * eased * side
+	pose[&"chest"] = float(d["chest"]) * eased * side
 	pose[&"neck"] = 0.1
-	pose[&"head"] = float(d["head"]) * eased
+	pose[&"head"] = float(d["head"]) * eased * side
 	for i in 4:
 		var bone: StringName = [&"leg_front_upper", &"leg_front_lower", &"leg_back_upper", &"leg_back_lower"][i]
 		pose[bone] = lerpf(float(legs[i]), float(folded[i]), fold * fold_t * (1.0 - eased * 0.6))

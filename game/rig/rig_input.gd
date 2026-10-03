@@ -23,6 +23,11 @@ var shield_forward := false
 var hurt := false
 ## 受擊退縮的幅度倍率（輕擊小、畏縮大）。
 var hurt_scale := 1.0
+## 受擊方向：+1＝從正面來（身體後仰）、-1＝從背後來（身體前傾）。
+var hurt_dir := 1.0
+## 死亡時最後一擊的方向（-1＝從背後來，後倒的角色改成向前撲）與力道（0 輕擊～1 重擊：倒得更快、更用力）。
+var death_dir := 1.0
+var death_force := 0.0
 
 ## NPC 動畫（NpcAnimator）：基本姿勢 stand／sit／lean／crouch、工作循環名稱與強度，以及說話、聆聽、揮手。
 var npc_pose: StringName = &"stand"

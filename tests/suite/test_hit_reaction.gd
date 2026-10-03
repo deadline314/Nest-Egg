@@ -1,5 +1,6 @@
 class_name HitReactionSuite
 extends EnemySuiteBase
+## 敵人受擊方向反應與依力道的死亡倒法（NE-103）也在這裡：正面／背面中彈身體往不同方向、倒法依方向與力道、屍體上限、脫落零件物件池。
 ## 敵人受擊分層與命中頓幀（NE-102）：輕擊只閃白、累積畏縮、重擊硬直、出招中的霸體、反應後的保護時間、
 ## 頭目幾乎不畏縮、局部頓幀只凍結指定節點且重疊取最長。
 
@@ -19,6 +20,11 @@ func run() -> void:
 	await _test_no_lock_after_reaction()
 	await _test_boss_is_hard_to_move()
 	await _test_local_freeze()
+	await _test_hurt_direction()
+	await _test_death_direction_and_force()
+	await _test_corpse_cap()
+	await _test_debris_pool()
+	await _test_armor_still_flies_off()
 
 
 ## 一發步槍彈等級的輕擊（傷害 1、擊退 40）。
@@ -157,3 +163,141 @@ func _test_local_freeze() -> void:
 	check(not Fx._frozen.has(c), "a node freed during a freeze is dropped safely")
 	a.free()
 	b.free()
+
+
+## 還沒走動的步兵：面向左、不偵測、不移動，讓方向測試穩定。
+func _spawn_still_trooper(x_tile: float) -> Enemy:
+	var enemy := _spawn_trooper_at(x_tile)
+	enemy.data.detect_range = 0.0
+	enemy.data.attack_range = 0.0
+	enemy.data.move_speed = 0.0
+	enemy.facing = -1
+	return enemy
+
+
+func _spawn_trooper_at(x_tile: float) -> Enemy:
+	var enemy := spawn(GRUNT_PATH, x_tile)
+	enemy.data = enemy.data.duplicate()
+	enemy.health.setup(999, 0.0)
+	return enemy
+
+
+## 敵人面向左時，往右的受力＝從正面來。
+func _push(info: DamageInfo, to_right: bool) -> DamageInfo:
+	info.knockback = Vector2(40.0 if to_right else -40.0, 0.0)
+	return info
+
+
+func _test_hurt_direction() -> void:
+	await open_level(10.0)
+	var front := _spin_still(60.0)
+	var back := _spin_still(66.0)
+	front.hurtbox.receive(_push(hit(1), true))
+	back.hurtbox.receive(_push(hit(1), false))
+	check(front._rig_input.hurt_dir > 0.0 and back._rig_input.hurt_dir < 0.0, "a hit from the front and a hit from behind give opposite hurt directions")
+	await physics_frames(3)
+	var chest_front := front.rig.bone(&"chest").rotation
+	var chest_back := back.rig.bone(&"chest").rotation
+	check(chest_front < chest_back - 0.03, "hit from the front leans the chest back, from behind leans it forward (%.2f vs %.2f)" % [chest_front, chest_back])
+	await end_level(level)
+
+
+func _spin_still(x_tile: float) -> Enemy:
+	var enemy := _spawn_still_trooper(x_tile)
+	return enemy
+
+
+func _kill_with(enemy: Enemy, to_right: bool, impact: float) -> void:
+	var info := _push(hit(999), to_right)
+	info.impact = impact
+	enemy.hurtbox.receive(info)
+
+
+func _test_death_direction_and_force() -> void:
+	await open_level(10.0)
+	var front := _spawn_still_trooper(60.0)
+	var back := _spawn_still_trooper(66.0)
+	_kill_with(front, true, 1.0)
+	_kill_with(back, false, 1.0)
+	check(front._rig_input.death_dir > 0.0 and back._rig_input.death_dir < 0.0, "the last hit's direction is passed to the death animation")
+	for i in 40:
+		await physics_frames(1)
+	var hip_front := front.rig.bone(&"hip").rotation
+	var hip_back := back.rig.bone(&"hip").rotation
+	check(hip_front < -0.5 and hip_back > 0.5, "shot from the front falls backwards, shot from behind falls forwards (%.2f / %.2f)" % [hip_front, hip_back])
+	var light := _spawn_still_trooper(72.0)
+	var heavy := _spawn_still_trooper(78.0)
+	_kill_with(light, true, 1.0)
+	_kill_with(heavy, true, 7.0)
+	check(is_equal_approx(light._rig_input.death_force, 0.0) and is_equal_approx(heavy._rig_input.death_force, 1.0), "a heavy final blow has full death force, a light one none")
+	check(heavy.velocity.x > light.velocity.x and heavy.velocity.y < light.velocity.y, "a heavy kill is pushed further and hops up")
+	var blasted := _spawn_still_trooper(84.0)
+	var melee_kill := _spawn_still_trooper(90.0)
+	var blast_info := hit(999)
+	blast_info.impact = 7.0
+	blast_info.knockback = Vector2(180.0, -260.0)
+	var melee_info := hit(999)
+	melee_info.impact = 7.0
+	melee_info.knockback = Vector2(180.0, -60.0)
+	blasted.hurtbox.receive(blast_info)
+	melee_kill.hurtbox.receive(melee_info)
+	check(blasted.velocity.y < melee_kill.velocity.y - 20.0, "an explosion throws the victim higher than a melee blow does")
+	for i in 14:
+		await physics_frames(1)
+	check(absf(heavy.rig.bone(&"hip").rotation) > absf(light.rig.bone(&"hip").rotation) + 0.05, "a heavy kill falls faster and further than a light one")
+	await end_level(level)
+
+
+func _test_corpse_cap() -> void:
+	await open_level(10.0)
+	var group: Array[Enemy] = []
+	for i in Enemy.MAX_CORPSES + 5:
+		group.append(_spawn_still_trooper(40.0 + i * 3.0))
+	for enemy in group:
+		_kill_with(enemy, true, 1.0)
+	check(Enemy._corpses.size() <= Enemy.MAX_CORPSES, "at most %d corpses are tracked (%d)" % [Enemy.MAX_CORPSES, Enemy._corpses.size()])
+	for i in 24:
+		await physics_frames(1)
+	var standing := 0
+	for enemy in group:
+		if is_instance_valid(enemy) and not enemy.is_queued_for_deletion():
+			standing += 1
+	check(standing <= Enemy.MAX_CORPSES, "the oldest corpses fade out quickly once the cap is passed (%d left)" % standing)
+	await end_level(level)
+
+
+func _test_debris_pool() -> void:
+	await open_level(10.0)
+	var made: Array[RigDebris] = []
+	for i in RigDebris.MAX_ACTIVE + 6:
+		var debris := RigDebris.spawn(null, Transform2D.IDENTITY, Vector2.ZERO, Vector2.ZERO)
+		if debris != null:
+			made.append(debris)
+	check(made.size() == RigDebris.MAX_ACTIVE, "no more than %d debris pieces are active at once (%d)" % [RigDebris.MAX_ACTIVE, made.size()])
+	check(RigDebris.spawn(null, Transform2D.IDENTITY, Vector2.ZERO, Vector2.ZERO) == null, "a full pool refuses more debris instead of creating nodes")
+	for debris in made:
+		debris.cancel()
+		debris.free()
+	var first := RigDebris.spawn(null, Transform2D.IDENTITY, Vector2.ZERO, Vector2.ZERO)
+	check(first != null, "after pieces are released new ones can be taken again")
+	level.add_child(first)
+	first._recycle()
+	await physics_frames(2)
+	var again := RigDebris.spawn(null, Transform2D.IDENTITY, Vector2.ZERO, Vector2.ZERO)
+	check(again == first and first.get_parent() == null, "a finished piece leaves the tree and is reused")
+	again.cancel()
+	again.free()
+	await end_level(level)
+
+
+## 裝甲片仍然會飛出去（改用物件池之後）。
+func _test_armor_still_flies_off() -> void:
+	await open_level(10.0)
+	var enemy := _spawn_still_trooper(60.0)
+	enemy.health.setup(10, 0.0)
+	enemy.data.finish_health_ratio = 0.0
+	for i in 6:
+		enemy.hurtbox.receive(hit(1))
+	await physics_frames(3)
+	check(level.find_children("*", "RigDebris", true, false).size() > 0, "lost armor still flies off as debris")
+	await end_level(level)

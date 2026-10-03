@@ -405,7 +405,7 @@ func _make_glow_sprite() -> Sprite2D:
 
 
 func _spawn_debris(part: Sprite2D) -> void:
-	var debris := RigDebris.new()
-	debris.setup(part.texture, part.global_transform, part.offset, Vector2(BREAK_IMPULSE.x * -facing * randf_range(0.6, 1.2), BREAK_IMPULSE.y * randf_range(0.8, 1.2)))
-	Fx.add_world_node(debris)
+	var debris := RigDebris.spawn(part.texture, part.global_transform, part.offset, Vector2(BREAK_IMPULSE.x * -facing * randf_range(0.6, 1.2), BREAK_IMPULSE.y * randf_range(0.8, 1.2)))
+	if debris != null and not Fx.add_world_node(debris):
+		debris.cancel()
 	Fx.burst(part.global_position, Palette.ARMOR, 6, 120.0, 0.3)

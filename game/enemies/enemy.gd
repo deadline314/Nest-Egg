@@ -27,6 +27,12 @@ const FLINCH_FREEZE := 0.03
 const STAGGER_FREEZE := 0.06
 ## 擊殺的頓幀：比畏縮與硬直都長。
 const KILL_FREEZE := 0.07
+## 衝擊力 1（輕擊）到 1 + DEATH_FORCE_RANGE 之間算死亡力道 0～1；重擊致死時往上彈起的速度。
+const DEATH_FORCE_RANGE := 6.0
+const DEATH_HOP := 90.0
+## 同時倒在場上的屍體上限，超過時最舊的快速淡出。
+const MAX_CORPSES := 8
+const CORPSE_FAST_FADE := 0.2
 const LIGHT_HURT_SCALE := 0.4
 const FLINCH_HURT_SCALE := 1.2
 const STAGGER_HURT_SCALE := 2.2
@@ -44,6 +50,9 @@ const MAX_SHIELD := 3
 const ALERT_RANGE_SCALE := 1.5
 const ALERT_SPEED_SCALE := 1.5
 const ALERT_ARRIVE_DISTANCE := 28.0
+
+## 場上的屍體（由舊到新）。
+static var _corpses: Array[Enemy] = []
 
 ## 畫面外休眠的總開關（無頭測試等沒有畫面的環境會關閉）。
 static var activation_culling_enabled := true
@@ -69,6 +78,7 @@ var _flash_left := 0.0
 var _stun_left := 0.0
 ## 畏縮剩餘秒數、累積的衝擊力（韌性條），以及剛反應完不再被打斷的保護時間。
 var _flinch_left := 0.0
+var _death_tween: Tween
 var _poise_load := 0.0
 var _reaction_grace_left := 0.0
 const TELEGRAPH_LIGHT_RADIUS := 90.0
@@ -257,14 +267,33 @@ func _on_defeated(_info: DamageInfo) -> void:
 
 
 func _play_death() -> void:
-	var tween := create_tween()
+	_death_tween = create_tween()
 	if rig != null:
 		# 骨架角色：倒地動畫播完後淡出。
-		tween.tween_interval(RIG_DEATH_TIME)
-		tween.tween_property(self, "modulate:a", 0.0, 0.4)
+		_death_tween.tween_interval(RIG_DEATH_TIME)
+		_death_tween.tween_property(self, "modulate:a", 0.0, 0.4)
+		_register_corpse()
 	else:
-		tween.tween_property(self, "scale", Vector2(1.4, 0.1), 0.12)
-	tween.tween_callback(queue_free)
+		_death_tween.tween_property(self, "scale", Vector2(1.4, 0.1), 0.12)
+	_death_tween.tween_callback(queue_free)
+
+
+## 登記屍體；同時倒在場上的超過上限時，最舊的快速淡出。
+func _register_corpse() -> void:
+	for i in range(_corpses.size() - 1, -1, -1):
+		if not is_instance_valid(_corpses[i]):
+			_corpses.remove_at(i)
+	_corpses.append(self)
+	while _corpses.size() > MAX_CORPSES:
+		_corpses.pop_front()._fade_corpse_now()
+
+
+func _fade_corpse_now() -> void:
+	if _death_tween != null:
+		_death_tween.kill()
+	_death_tween = create_tween()
+	_death_tween.tween_property(self, "modulate:a", 0.0, CORPSE_FAST_FADE)
+	_death_tween.tween_callback(queue_free)
 
 
 # ---------------------------------------------------------------------------
@@ -412,6 +441,7 @@ func _on_damaged(info: DamageInfo) -> void:
 		rig.set_armor_ratio(health.ratio())
 		_rig_input.hurt = true
 		_rig_input.hurt_scale = [LIGHT_HURT_SCALE, FLINCH_HURT_SCALE, STAGGER_HURT_SCALE][tier]
+		_rig_input.hurt_dir = 1.0 if _hit_from_front(info) else -1.0
 	if info.knockback != Vector2.ZERO and data.knockback_scale > 0.0:
 		velocity += info.knockback * data.knockback_scale
 	if not _is_finishable and data.finish_health_ratio > 0.0 and health.current > 0 \
@@ -422,6 +452,16 @@ func _on_damaged(info: DamageInfo) -> void:
 	elif health.current > 0:
 		_apply_hit_tier(tier, info)
 	_on_hit(info)
+
+
+## 這一擊是不是從正面來（受力方向與面向相反）；沒有方向資訊時當作正面。
+func _hit_from_front(info: DamageInfo) -> bool:
+	if info == null:
+		return true
+	var push := info.knockback.x
+	if is_zero_approx(push) and info.origin != Vector2.ZERO:
+		push = global_position.x - info.origin.x
+	return is_zero_approx(push) or push * facing < 0.0
 
 
 ## 出招中（資料的 armor_states）：輕擊與累積都打不斷。
@@ -472,7 +512,15 @@ func _on_died(info: DamageInfo) -> void:
 	hurtbox.enabled = false
 	if contact != null:
 		contact.active = false
+	var force := clampf((info.get_impact() - 1.0) / DEATH_FORCE_RANGE, 0.0, 1.0) if info != null else 0.0
+	_rig_input.death_dir = 1.0 if _hit_from_front(info) else -1.0
+	_rig_input.death_force = force
+	# 倒下時順著最後一擊的方向被推走，越重推得越遠（頭目不被推）。
 	velocity = Vector2.ZERO
+	if rig != null and info != null and data.knockback_scale > 0.0:
+		# 向上的擊退（爆炸把人炸飛）也算進去；終結技沒有擊退，原地倒下。
+		velocity = Vector2(info.knockback.x * data.knockback_scale * lerpf(0.6, 1.4, force),
+				-DEATH_HOP * force + minf(0.0, info.knockback.y) * data.knockback_scale)
 	var by_player := info != null and info.team == Combat.Team.PLAYER
 	var by_finisher := info != null and info.is_finisher
 	var center := _center()
