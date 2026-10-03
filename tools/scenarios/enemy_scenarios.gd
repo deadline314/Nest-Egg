@@ -25,6 +25,7 @@ const SCENARIOS := {
 	"phone_booth": "res://tools/scenarios/phone_booth_scenario.gd",
 	"hit_materials": "res://tools/scenarios/hit_materials_scenario.gd",
 	"weapon_feel": "res://tools/scenarios/weapon_feel_scenario.gd",
+	"melee_combo": "res://tools/scenarios/melee_combo_scenario.gd",
 }
 
 
