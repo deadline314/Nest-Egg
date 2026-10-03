@@ -71,7 +71,7 @@
 | NE-78 | 白房間的一排小腳貼圖化 |
 | NE-79 | 室內道具改為賽璐璐畫風（第二章場景用） |
 | NE-80 | 道具法線改用深度估計（品質提升，優先度低） |
-| NE-81 | ComfyUI 啟動與卡死自動重試腳本 |
+| NE-81 | ComfyUI 啟動與卡死自動重試腳本（`tools/comfyui/start_comfyui.ps1`、`comfy_guard.py`） |
 
 ## 美術偏好（2026-10-03，使用者）
 
@@ -112,3 +112,14 @@
 | `steam`＋`steam_offset` | 在畫面內才冒蒸汽（粒子池重複使用） | 煙囪 |
 | 舞台 `pulse` | 柔光以固定頻率明暗起伏 | 機庫警報燈、終端室呼吸光 |
 | 舞台 `motes` 圖層 | 光裡漂浮的塵粒、數據碎片、餘燼 | 老 K 的舖子、機庫、終端室、白房間 |
+
+## 賽璐璐化的做法（NE-73～76，2026-10-04）
+
+地形材質、建築立面、遠中景樓群、天空都**用程式繪製**，不用 AI 生成：這些素材要求「左右／上下可無縫」與「窗光、信標、法線層與資料一一對應」，程式繪製天生無縫、可重跑、色盤與種子都在清單，也不占用 GPU。樹木與植被（NE-75）形狀自由，沿用 Qwen 生成（`assets_src/pipeline/qwen_props.json`，`nature` 畫風）。
+
+| 素材 | 工具 | 清單 |
+|---|---|---|
+| 地形材質 | `tools/assets/cel_tile.py`（`Tile` 與 9 種 `PAINTERS`）＋ `process_material.py` | `materials.json` 的 `cel` 區塊 |
+| 建築立面與遠中景 | `tools/assets/cel_facade.py`、`decor.py`、`build_facades.py`、`process_backdrop.py` | `facades.json`、`backdrop.json` 的 `layers` |
+| 天空 | `tools/assets/cel_sky.py` ＋ `process_sky.py` | `backdrop.json` 的 `skies` 的 `cel` 區塊 |
+| 樹木與植被 | `qwen_props.py` | `qwen_props.json`（風格 `nature`） |

@@ -3,274 +3,478 @@
   "texture_scale": 8,
   "top_height": 6,
   "side_width": 6,
-  "normal_strength": 1.0
+  "normal_strength": 8.0
  },
  "materials": [
   {
    "id": "asphalt",
-   "source": "ph_tex_asphalt_02",
    "tile_world": 64,
    "grade": {
-    "brightness": 0.8,
-    "saturation": 0.6,
+    "brightness": 1.0,
+    "saturation": 1.0,
     "tint": [
-     0.82,
-     0.92,
-     1.12
+     1,
+     1,
+     1
     ],
-    "contrast": 1.1,
+    "contrast": 1.0,
     "gamma": 1.0
    },
-   "normal_strength": 1.8
+   "normal_strength": 22,
+   "cel": {
+    "kind": "asphalt",
+    "pal": {
+     "ink": "#0a0d1a",
+     "base": "#2f3549",
+     "tones": [
+      "#383f57",
+      "#292e41",
+      "#343a52"
+     ],
+     "light": "#8c9bc8"
+    }
+   }
   },
   {
    "id": "rooftop",
-   "source": "ph_tex_asphalt_05",
    "tile_world": 64,
    "grade": {
-    "brightness": 0.75,
-    "saturation": 0.55,
+    "brightness": 1.0,
+    "saturation": 1.0,
     "tint": [
-     0.8,
-     0.85,
-     1.05
+     1,
+     1,
+     1
     ],
-    "contrast": 1.1,
+    "contrast": 1.0,
     "gamma": 1.0
    },
-   "normal_strength": 1.8
+   "normal_strength": 14,
+   "cel": {
+    "kind": "gravel",
+    "pal": {
+     "ink": "#0a0d1a",
+     "base": "#3a3c50",
+     "tones": [
+      "#4a4d63",
+      "#33354a",
+      "#545770"
+     ],
+     "light": "#a2a8cc",
+     "water": "#26426a"
+    },
+    "seams": 2
+   }
   },
   {
    "id": "concrete",
-   "source": "ph_tex_concrete_floor_worn_001",
    "tile_world": 64,
    "grade": {
-    "brightness": 0.8,
-    "saturation": 0.6,
+    "brightness": 1.0,
+    "saturation": 1.0,
     "tint": [
-     0.82,
-     0.92,
-     1.12
+     1,
+     1,
+     1
     ],
-    "contrast": 1.1,
+    "contrast": 1.0,
     "gamma": 1.0
    },
-   "normal_strength": 1.8
+   "normal_strength": 16,
+   "cel": {
+    "kind": "slabs",
+    "pal": {
+     "ink": "#10121f",
+     "tones": [
+      "#585d78",
+      "#4e536d",
+      "#626884"
+     ],
+     "light": "#b0b8d8"
+    },
+    "cols": 2,
+    "rows": 2,
+    "stagger": true
+   }
   },
   {
    "id": "brick",
-   "source": "ph_tex_brick_wall_07",
    "tile_world": 48,
    "grade": {
-    "brightness": 0.55,
-    "saturation": 0.75,
+    "brightness": 1.0,
+    "saturation": 1.0,
     "tint": [
-     0.95,
-     0.85,
-     1.0
+     1,
+     1,
+     1
     ],
-    "contrast": 1.1,
+    "contrast": 1.0,
     "gamma": 1.0
-   }
+   },
+   "cel": {
+    "kind": "bricks",
+    "pal": {
+     "ink": "#1a0f1a",
+     "tones": [
+      "#6a3b48",
+      "#7a4753",
+      "#5c3441",
+      "#845260"
+     ],
+     "light": "#d08f9c"
+    },
+    "rows": 12,
+    "per_row": 6
+   },
+   "normal_strength": 8.0
   },
   {
    "id": "container_blue",
-   "source": "ph_tex_corrugated_iron",
    "tile_world": 48,
    "grade": {
-    "brightness": 0.8,
-    "saturation": 1.0,
+    "brightness": 0.78,
+    "saturation": 0.85,
     "tint": [
-     0.38,
-     0.55,
-     0.95
+     1,
+     1,
+     1
     ],
-    "contrast": 1.1,
+    "contrast": 1.0,
     "gamma": 1.0
    },
-   "normal_strength": 3.0
+   "normal_strength": 8.0,
+   "cel": {
+    "kind": "corrugated",
+    "pal": {
+     "ink": "#0a0d1a",
+     "base": "#2f64a4",
+     "light": "#8cc2ff"
+    },
+    "ribs": 8
+   }
   },
   {
    "id": "container_green",
-   "source": "ph_tex_corrugated_iron",
    "tile_world": 48,
    "grade": {
-    "brightness": 0.75,
-    "saturation": 1.0,
+    "brightness": 0.78,
+    "saturation": 0.85,
     "tint": [
-     0.4,
-     0.78,
-     0.5
+     1,
+     1,
+     1
     ],
-    "contrast": 1.1,
+    "contrast": 1.0,
     "gamma": 1.0
    },
-   "normal_strength": 3.0
+   "normal_strength": 8.0,
+   "cel": {
+    "kind": "corrugated",
+    "pal": {
+     "ink": "#0a0d1a",
+     "base": "#397d58",
+     "light": "#92e0b0"
+    },
+    "ribs": 8
+   }
   },
   {
    "id": "container_red",
-   "source": "ph_tex_corrugated_iron",
    "tile_world": 48,
    "grade": {
-    "brightness": 0.75,
-    "saturation": 1.0,
+    "brightness": 0.78,
+    "saturation": 0.85,
     "tint": [
-     0.95,
-     0.34,
-     0.3
+     1,
+     1,
+     1
     ],
-    "contrast": 1.1,
+    "contrast": 1.0,
     "gamma": 1.0
    },
-   "normal_strength": 3.0
+   "normal_strength": 8.0,
+   "cel": {
+    "kind": "corrugated",
+    "pal": {
+     "ink": "#0a0d1a",
+     "base": "#a0403c",
+     "light": "#ff9c8c"
+    },
+    "ribs": 8
+   }
   },
   {
    "id": "container_rust",
-   "source": "ph_tex_rusty_corrugated_iron",
    "tile_world": 48,
    "grade": {
-    "brightness": 0.95,
-    "saturation": 0.9,
+    "brightness": 0.78,
+    "saturation": 0.85,
     "tint": [
-     1.0,
-     0.85,
-     0.8
+     1,
+     1,
+     1
     ],
-    "contrast": 1.1,
+    "contrast": 1.0,
     "gamma": 1.0
    },
-   "normal_strength": 3.0
+   "normal_strength": 12,
+   "cel": {
+    "kind": "corrugated",
+    "pal": {
+     "ink": "#0a0d1a",
+     "base": "#8a5434",
+     "rust": "#c4682c",
+     "light": "#f0b890"
+    },
+    "ribs": 8,
+    "rust": 9
+   }
   },
   {
    "id": "facility_floor",
-   "source": "acg_tex_metalplates017a",
    "tile_world": 48,
    "grade": {
-    "brightness": 0.6,
-    "saturation": 0.6,
+    "brightness": 1.0,
+    "saturation": 1.0,
     "tint": [
-     0.82,
-     0.92,
-     1.12
+     1,
+     1,
+     1
     ],
-    "contrast": 1.1,
+    "contrast": 1.0,
     "gamma": 1.0
-   }
+   },
+   "cel": {
+    "kind": "plates",
+    "pal": {
+     "ink": "#0a0d1a",
+     "tones": [
+      "#4b566c",
+      "#434d62",
+      "#516076"
+     ],
+     "light": "#b0c2e4",
+     "accent": "#2a9cb0"
+    },
+    "cols": 4,
+    "rows": 4,
+    "scratches": 4
+   },
+   "normal_strength": 8.0
   },
   {
    "id": "facility_panel",
-   "source": "acg_tex_metalplates006",
    "tile_world": 48,
    "grade": {
-    "brightness": 0.75,
-    "saturation": 0.8,
+    "brightness": 1.0,
+    "saturation": 1.0,
     "tint": [
-     0.82,
-     0.92,
-     1.12
+     1,
+     1,
+     1
     ],
-    "contrast": 1.1,
+    "contrast": 1.0,
     "gamma": 1.0
    },
-   "normal_strength": 1.8
+   "normal_strength": 8.0,
+   "cel": {
+    "kind": "plates",
+    "pal": {
+     "ink": "#0a0d1a",
+     "tones": [
+      "#53607a",
+      "#4a566e",
+      "#5b6984"
+     ],
+     "light": "#b8c8e8",
+     "accent": "#16a4b8"
+    },
+    "cols": 2,
+    "rows": 4,
+    "vent": true,
+    "stripe": 2,
+    "scratches": 2
+   }
   },
   {
    "id": "glass_curtain",
-   "source": "acg_tex_facade001",
    "tile_world": 48,
    "grade": {
-    "brightness": 0.7,
-    "saturation": 0.9,
+    "brightness": 0.85,
+    "saturation": 1.0,
     "tint": [
-     0.8,
-     1.0,
-     1.15
+     1,
+     1,
+     1
     ],
-    "contrast": 1.1,
+    "contrast": 1.0,
     "gamma": 1.0
-   }
+   },
+   "cel": {
+    "kind": "glass",
+    "pal": {
+     "ink": "#08101c",
+     "tones": [
+      "#2c6088",
+      "#26567c",
+      "#346c96"
+     ],
+     "light": "#9fdcf4",
+     "metal": "#8696b4"
+    },
+    "cols": 4,
+    "rows": 4
+   },
+   "normal_strength": 8.0
   },
   {
    "id": "grate",
-   "source": "acg_tex_metalwalkway014",
    "tile_world": 32,
    "grade": {
-    "brightness": 0.7,
-    "saturation": 0.65,
+    "brightness": 1.0,
+    "saturation": 1.0,
     "tint": [
-     0.85,
-     0.9,
-     1.05
+     1,
+     1,
+     1
     ],
-    "contrast": 1.1,
+    "contrast": 1.0,
     "gamma": 1.0
-   }
+   },
+   "cel": {
+    "kind": "grating",
+    "pal": {
+     "ink": "#0a0d1a",
+     "void": "#07091a",
+     "base": "#5b667f",
+     "light": "#bccae6"
+    },
+    "cells": 8
+   },
+   "normal_strength": 8.0
   },
   {
    "id": "hangar",
-   "source": "ph_tex_hangar_concrete_floor",
    "tile_world": 64,
    "grade": {
     "brightness": 1.0,
-    "saturation": 0.5,
+    "saturation": 1.0,
     "tint": [
-     1.0,
-     0.85,
-     0.8
+     1,
+     1,
+     1
     ],
-    "contrast": 1.1,
+    "contrast": 1.0,
     "gamma": 1.0
    },
-   "normal_strength": 1.8
+   "normal_strength": 16,
+   "cel": {
+    "kind": "slabs",
+    "pal": {
+     "ink": "#14101a",
+     "tones": [
+      "#6c545c",
+      "#614b53",
+      "#765d65"
+     ],
+     "light": "#dcbcb4",
+     "mark": "#d0a430"
+    },
+    "cols": 2,
+    "rows": 2,
+    "marks": true,
+    "stains": 10
+   }
   },
   {
    "id": "hangar_wall",
-   "source": "acg_tex_paintedmetal004",
-   "tile_world": 48,
-   "grade": {
-    "brightness": 0.4,
-    "saturation": 0.8,
-    "tint": [
-     1.0,
-     0.7,
-     0.7
-    ],
-    "contrast": 1.1,
-    "gamma": 1.0
-   }
-  },
-  {
-   "id": "old_metal",
-   "source": "ph_tex_rusty_metal_03",
-   "tile_world": 48,
-   "grade": {
-    "brightness": 0.6,
-    "saturation": 0.8,
-    "tint": [
-     0.95,
-     0.85,
-     0.85
-    ],
-    "contrast": 1.1,
-    "gamma": 1.0
-   }
-  },
-  {
-   "id": "steel_plate",
-   "source": "ph_tex_metal_plate",
    "tile_world": 48,
    "grade": {
     "brightness": 1.0,
-    "saturation": 0.5,
+    "saturation": 1.0,
     "tint": [
-     0.82,
-     0.92,
-     1.12
+     1,
+     1,
+     1
     ],
-    "contrast": 1.1,
+    "contrast": 1.0,
     "gamma": 1.0
    },
-   "normal_strength": 1.8
+   "cel": {
+    "kind": "plates",
+    "pal": {
+     "ink": "#1c0c10",
+     "tones": [
+      "#6e3234",
+      "#632c2f",
+      "#783a3c"
+     ],
+     "light": "#dc8c88",
+     "accent": "#d0a430"
+    },
+    "cols": 1,
+    "rows": 8,
+    "scratches": 4,
+    "gap": 0.7
+   },
+   "normal_strength": 8.0
+  },
+  {
+   "id": "old_metal",
+   "tile_world": 48,
+   "grade": {
+    "brightness": 0.85,
+    "saturation": 0.85,
+    "tint": [
+     1,
+     1,
+     1
+    ],
+    "contrast": 1.0,
+    "gamma": 1.0
+   },
+   "cel": {
+    "kind": "rust",
+    "pal": {
+     "ink": "#150e0e",
+     "base": "#5e4a48",
+     "rust": "#b4622c",
+     "light": "#d8b098"
+    }
+   },
+   "normal_strength": 24
+  },
+  {
+   "id": "steel_plate",
+   "tile_world": 48,
+   "grade": {
+    "brightness": 0.9,
+    "saturation": 1.0,
+    "tint": [
+     1,
+     1,
+     1
+    ],
+    "contrast": 1.0,
+    "gamma": 1.0
+   },
+   "normal_strength": 8.0,
+   "cel": {
+    "kind": "plates",
+    "pal": {
+     "ink": "#0a0d1a",
+     "tones": [
+      "#6b7b94",
+      "#617088",
+      "#75869e"
+     ],
+     "light": "#d4e4fa",
+     "accent": "#2a9cb0"
+    },
+    "cols": 2,
+    "rows": 2,
+    "scratches": 6
+   }
   }
  ]
 }

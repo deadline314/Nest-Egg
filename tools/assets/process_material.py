@@ -2,7 +2,9 @@
 
 Usage: python tools/assets/process_material.py [--only ID ...]
 
-Reads assets_src/pipeline/materials.json. For every entry writes, into art/environment/materials/:
+Reads assets_src/pipeline/materials.json. An entry with a "cel" block is painted by cel_tile.py (cel-shaded, flat colours
+with ink lines, seamless by construction, NE-73); one with a "source" is cut from a downloaded PBR texture (NE-58).
+For every entry writes, into art/environment/materials/:
   <id>_body.png  <id>_top.png  <id>_side.png   (+ _n.png normals, Godot 2D convention: Y+ up, OpenGL maps as-is)
 and patches data/environment/materials/<id>.tres with the texture_scale that matches the written size,
 so the game draws the texture at tile_world logical pixels per repeat.
@@ -13,10 +15,14 @@ import argparse
 import json
 import re
 import sys
+import zlib
 from pathlib import Path
 
 import cv2
 import numpy as np
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import cel_tile  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 RAW = ROOT / "assets_src" / "raw"
@@ -118,6 +124,37 @@ def build_side(body, nrm, k, side_w, spec):
     return img, v
 
 
+def _rows(img: np.ndarray, a: int, b: int, color: np.ndarray, t: float) -> None:
+    img[a:b] = img[a:b] * (1.0 - t) + color * t
+
+
+def build_top_cel(body, nrm, k, top_h, spec):
+    """Cel-shaded top strip: a dark ink outline at the very top, a bright rim light under it, then the body with a hard
+    two-tone step (the lower part darker). Normals tilt up at the lip as in the photo version."""
+    h = int(top_h * k)
+    img, v = body[:h].copy(), nrm[:h].copy()
+    ink = np.array(cel_tile.hexc(spec["cel"]["pal"]["ink"]), dtype=np.float32) / 255.0
+    r0, r1 = max(1, int(0.7 * k)), max(2, int(2.1 * k))
+    img[int(h * 0.62):] *= 0.78
+    _rows(img, r0, r1, lip_color(spec), 0.55)
+    img[:r0] = ink
+    v[..., 1] += 0.9 * bevel(h, k * 2.0)[:, None] - 0.6 * bevel(h, k * 1.0)[::-1][:, None]
+    return img, v
+
+
+def build_side_cel(body, nrm, k, side_w, spec):
+    """Cel-shaded side strip (mirror of the top strip, along the left edge)."""
+    w = int(side_w * k)
+    img, v = body[:, :w].copy(), nrm[:, :w].copy()
+    ink = np.array(cel_tile.hexc(spec["cel"]["pal"]["ink"]), dtype=np.float32) / 255.0
+    c0, c1 = max(1, int(0.7 * k)), max(2, int(2.1 * k))
+    img[:, int(w * 0.62):] *= 0.78
+    img[:, c0:c1] = img[:, c0:c1] * 0.45 + lip_color(spec) * 0.55
+    img[:, :c0] = ink
+    v[..., 0] -= 0.9 * bevel(w, k * 2.0)[None, :]
+    return img, v
+
+
 def patch_tres(path: Path, scale: int) -> None:
     text = path.read_text(encoding="utf-8")
     line = f"texture_scale = {scale}"
@@ -130,33 +167,43 @@ def patch_tres(path: Path, scale: int) -> None:
 
 def process(spec: dict, defaults: dict) -> bool:
     spec = {**defaults, **spec}
-    folder = RAW / spec["source"]
-    diffuse = find_map(folder, ["Diffuse", "_Color"])
-    normal = find_map(folder, ["nor_gl", "NormalGL"])
-    if diffuse is None:
-        print(f"FAIL  {spec['id']}: no diffuse map in {folder}", file=sys.stderr)
-        return False
     k, tile_world = int(spec["texture_scale"]), int(spec["tile_world"])
     px = k * tile_world
     if px > MAX_BODY_PX:
         print(f"FAIL  {spec['id']}: body {px}px exceeds budget {MAX_BODY_PX}px", file=sys.stderr)
         return False
-    col = make_square(load_rgb(diffuse))
-    ratio = seam_ratio(col)
-    if ratio > SEAM_LIMIT:
-        print(f"FAIL  {spec['id']}: seam ratio {ratio:.1f} > {SEAM_LIMIT} (source not tileable)", file=sys.stderr)
-        return False
-    body = grade(resize(col, px), spec.get("grade", {}))
-    if normal is not None:
-        nrm = to_vectors(resize(make_square(load_rgb(normal)), px), float(spec.get("normal_strength", 1.0)))
+    if "cel" in spec:
+        tile = cel_tile.paint(spec["cel"]["kind"], px, k, zlib.crc32(spec["id"].encode()), spec["cel"])
+        rgb, height = tile.finish()
+        ratio = seam_ratio(rgb)
+        body = grade(rgb, spec.get("grade", {}))
+        nrm = cel_tile.normals(height, float(spec.get("normal_strength", 8.0))) * 2.0 - 1.0
+        source = f"cel:{spec['cel']['kind']}"
     else:
-        print(f"warn  {spec['id']}: no normal map, using flat", file=sys.stderr)
-        nrm = np.zeros((px, px, 3), dtype=np.float32)
-        nrm[..., 2] = 1.0
+        folder = RAW / spec["source"]
+        diffuse = find_map(folder, ["Diffuse", "_Color"])
+        normal = find_map(folder, ["nor_gl", "NormalGL"])
+        if diffuse is None:
+            print(f"FAIL  {spec['id']}: no diffuse map in {folder}", file=sys.stderr)
+            return False
+        col = make_square(load_rgb(diffuse))
+        ratio = seam_ratio(col)
+        if ratio > SEAM_LIMIT:
+            print(f"FAIL  {spec['id']}: seam ratio {ratio:.1f} > {SEAM_LIMIT} (source not tileable)", file=sys.stderr)
+            return False
+        body = grade(resize(col, px), spec.get("grade", {}))
+        if normal is not None:
+            nrm = to_vectors(resize(make_square(load_rgb(normal)), px), float(spec.get("normal_strength", 1.0)))
+        else:
+            print(f"warn  {spec['id']}: no normal map, using flat", file=sys.stderr)
+            nrm = np.zeros((px, px, 3), dtype=np.float32)
+            nrm[..., 2] = 1.0
+        source = spec["source"]
+    top_fn, side_fn = (build_top_cel, build_side_cel) if "cel" in spec else (build_top, build_side)
     parts = {
         "body": (body, nrm),
-        "top": build_top(body, nrm, k, float(spec["top_height"]), spec),
-        "side": build_side(body, nrm, k, float(spec["side_width"]), spec),
+        "top": top_fn(body, nrm, k, float(spec["top_height"]), spec),
+        "side": side_fn(body, nrm, k, float(spec["side_width"]), spec),
     }
     for name, (img, v) in parts.items():
         v = v / np.maximum(np.linalg.norm(v, axis=2, keepdims=True), 1e-6)
@@ -167,7 +214,7 @@ def process(spec: dict, defaults: dict) -> bool:
         patch_tres(tres, k)
     else:
         print(f"warn  {spec['id']}: {tres.name} not found, texture_scale not patched", file=sys.stderr)
-    print(f"ok    {spec['id']:16} body {px}px  scale {k}  seam {ratio:.2f}  <- {spec['source']}")
+    print(f"ok    {spec['id']:16} body {px}px  scale {k}  seam {ratio:.2f}  <- {source}")
     return True
 
 

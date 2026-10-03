@@ -27,7 +27,9 @@ import numpy as np
 from PIL import Image, ImageDraw
 
 sys.path.insert(0, str(Path(__file__).parent))
-from build_props import DATA, MAX_SIDE_PX, OUT, ROOT, fmt, read_size, resize_rgba, set_field, write_new_tres  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "comfyui"))
+from comfy_guard import ComfyFailure  # noqa: E402
+from build_props import DATA, make_aliases, MAX_SIDE_PX, OUT, ROOT, fmt, read_size, resize_rgba, set_field, write_new_tres  # noqa: E402
 import qwen_matte as qm  # noqa: E402
 
 PIPELINE = ROOT / "assets_src" / "pipeline" / "qwen_props.json"
@@ -74,7 +76,7 @@ def generate(e: dict, cfg: dict, size: tuple[float, float], regen: bool) -> Path
         rp = RAW / f"_ref_{pid}.png"
         canvas.convert("RGB").resize((gw, gh), Image.LANCZOS).save(rp)
         refs.append(str(rp))
-    out = qwen(prompt, w=gw, h=gh, steps=want["steps"], seed=want["seed"], prefix=f"_gen_{pid}", images=refs)
+    out = qwen(prompt, w=gw, h=gh, steps=want["steps"], seed=want["seed"], prefix=f"_gen_{pid}", images=refs, reuse=not regen)
     Image.open(out[0]).convert("RGBA").save(path)
     meta.write_text(json.dumps(want, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"gen   {pid:18} {gw}x{gh}  seed {want['seed']}")
@@ -201,6 +203,9 @@ def process(e: dict, cfg: dict, regen: bool, no_gen: bool) -> bool:
     if e.get("platform_align"):
         rgba = align_platform(rgba, tres, old_h, pid, old_w if e["platform_align"] == "contain" else 0.0)
     aspect = rgba.shape[1] / rgba.shape[0]
+    if e.get("max_aspect") and aspect > float(e["max_aspect"]):  # keep the old footprint (see-through front trees must not grow over enemies): squeeze sideways
+        print(f"note  {pid}: aspect {aspect:.2f} squeezed to {e['max_aspect']}")
+        aspect = float(e["max_aspect"])
 
     fit = e.get("fit", "height")
     if fit == "keep":
@@ -294,10 +299,19 @@ def main() -> int:
     for e in entries:
         try:
             failed += 0 if process(e, cfg, args.regen, args.no_gen) else 1
+        except ComfyFailure as ex:  # the server stays broken after every retry: stop instead of failing every remaining entry
+            print(f"STOP  {e.get('id')}: {ex}", file=sys.stderr)
+            PIPELINE.write_text(json.dumps(cfg, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+            return 2
         except Exception as ex:  # one bad entry must not block the rest
             failed += 1
             print(f"FAIL  {e.get('id')}: {ex}", file=sys.stderr)
         PIPELINE.write_text(json.dumps(cfg, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")  # remembers anchors
+    # aliases (the see-through front trees) reuse a tree's picture; their size follows the tree's new proportions
+    made = {e["id"] for e in entries}
+    aliases = [a for a in json.loads((ROOT / "assets_src" / "pipeline" / "props.json").read_text(encoding="utf-8")).get("aliases", []) if a["of"] in made]
+    if aliases:
+        make_aliases({"aliases": aliases})
     if args.sheet:
         sheet([e["id"] for e in entries], Path(args.sheet))
     return 1 if failed else 0

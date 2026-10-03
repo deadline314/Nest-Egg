@@ -1,22 +1,28 @@
-"""Assemble building facade modules from rendered kit pieces and patch the facade data (NE-57 / NE-59).
+"""Paint the building facade modules in cel style and patch the facade data (NE-74; replaces the NE-57 / NE-59 model renders).
 
 Usage: python tools/assets/build_facades.py [--only ID ...]
 
-Needs the kit renders (render_model.tscn with a "glow" job, then kit_cells.py) in assets_src/work/kits/.
-Reads assets_src/pipeline/facades.json. A module is one or more kit cells laid side by side (the cell ids come from
-kit_cells.py's numbered preview), stretched to the module size (64 x 40 / 32 / 8 logical px, texture_scale pixels per px):
-  ground: storefront / garage / door       body: standard floor       cap: parapet strip
-Per module it writes art/environment/facades/<id>_g<i>|_b<i>|_cap<i>.png with _n.png (normals) and _glow.png (window light):
-every window in the kit's glass mask is lit with probability `light_chance`, in a colour picked from `light_colors` (scaled by `light_gain`: big bright windows next to the player flatten dark-scene readability, see check below)
-(fixed seed per module so a rebuild gives the same picture). Colour grading comes from the JSON.
-Then data/environment/facades/<id>.tres gets its ground / body / cap arrays rewritten.
-Facades with no kit (curtain-wall towers, facility walls) use "generated": a wall tiled from a processed terrain
-material (art/environment/materials/<wall_material>_body{,_n}.png) with a window grid drawn over it:
-  "generated": {"wall_material": "glass_curtain", "tile_world": 48,
-                "windows": {"ground": {...}, "body": {"cols": 8, "rows": 3, "w": 6.5, "h": 8, "glass": [r, g, b]}, "cap": null}}
-Windows are recessed boxes (frame, dark glass, bevelled normals) and are lit like kit windows (light_chance / colors / gain).
+Reads assets_src/pipeline/facades.json and paints every module with cel_facade.py / decor.py (flat colours, ink lines,
+hard two-tone shadows, chamfered octagon windows; no external art needed). A module is one of
+  ground: storefront / garage / door (64 x 40 logical px)   body: standard floor (64 x 32)   cap: roof edge with clutter (64 x 8)
+and is written as art/environment/facades/<id>_g<i>|_b<i>|_cap<i>.png with _n.png (normals, from the painted heights) and _glow.png
+(window light, LEDs, beacons) at texture_scale pixels per logical px. Then data/environment/facades/<id>.tres gets its ground /
+body / cap arrays rewritten, so the number of variants is whatever the JSON lists.
+
+facades.json, per facade:
+  id, light_chance, light_colors, pal {...}      palette (hex); keys in cel_facade.DEFAULT_PAL; "tones" is a list of wall tones
+  wall {"kind": plaster|brick|corrugated|slab|panel|curtain, ...painter parameters}
+  window {cols, rows, w, h, y, chamfer, panes [c, r], frame, sill, grill, blind, glare, row_gap, margin}   defaults for every body module
+  decor  {pipe, pipe_x [logical px], ac, balcony, led, traces, camera...}        chances / counts, can also be set per variant
+  body / ground / cap  lists of variant dicts; each is deep-merged over the facade defaults (window, wall, decor) and so
+                       can change the layout. ground variants hold "items": [{"t": shutter|door|shop|vent, "cx", "w", "h", ...}]
+                       cap variants hold {"kind": parapet|saw|pediment|stepped, "clutter": ["antenna", "vent", "dish", "tank", "mast"]}
+Every body module has at least one lit window (the data promises a glow layer). Fixed random seed per module name, so a
+rebuild gives the same picture. Lit windows are lit as a whole in a colour from light_colors scaled by light_gain (big bright
+windows next to the player flatten dark-scene readability).
 """
 import argparse
+import copy
 import json
 import random
 import re
@@ -24,241 +30,166 @@ import sys
 import zlib
 from pathlib import Path
 
-import cv2
-import numpy as np
-import decor
-from PIL import Image
-from scipy import ndimage
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import cel_facade as cf  # noqa: E402
+import decor  # noqa: E402
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))  # decor.py sits next to this script
 ROOT = Path(__file__).resolve().parents[2]
-KITS = ROOT / "assets_src" / "work" / "kits"
 PIPELINE = ROOT / "assets_src" / "pipeline" / "facades.json"
 OUT = ROOT / "art" / "environment" / "facades"
 DATA = ROOT / "data" / "environment" / "facades"
 MODULE_W = 64.0
 HEIGHTS = {"ground": 40.0, "body": 32.0, "cap": 8.0}
 SUFFIX = {"ground": "g", "body": "b", "cap": "cap"}
-LUMA = np.array([0.299, 0.587, 0.114], dtype=np.float32)
+PLINTH = 3.0
 
 
-class Kit:
-    def __init__(self, name: str):
-        self.color = Image.open(KITS / f"{name}.png").convert("RGBA")
-        self.normal = Image.open(KITS / f"{name}_n.png").convert("RGBA")
-        glow = KITS / f"{name}_glow.png"
-        self.glow = Image.open(glow).convert("RGBA") if glow.exists() else None
-        self.boxes = json.loads((KITS / f"{name}_cells.json").read_text(encoding="utf-8"))
-
-
-def compose(kit_image: Image.Image, boxes: list, cells: list[int], crop, size: tuple[int, int], resample) -> Image.Image:
-    """Lay the cells side by side, optionally crop (fractions), and stretch to size."""
-    pieces = []
-    for c in cells:
-        x0, y0, x1, y1 = boxes[c]
-        pieces.append(kit_image.crop((x0 + 2, y0 + 2, x1 - 2, y1 - 2)))
-    height = max(p.height for p in pieces)
-    width = sum(int(p.width * height / p.height) for p in pieces)
-    strip = Image.new("RGBA", (width, height))
-    x = 0
-    for p in pieces:
-        w = int(p.width * height / p.height)
-        strip.paste(p.resize((w, height), Image.LANCZOS), (x, 0))
-        x += w
-    if crop:
-        strip = strip.crop((int(crop[0] * width), int(crop[1] * height), int(crop[2] * width), int(crop[3] * height)))
-    return strip.resize(size, resample)
-
-
-def grade(a: np.ndarray, g: dict) -> np.ndarray:
-    a = a ** float(g.get("gamma", 1.0))
-    lum = a @ LUMA
-    a = lum[..., None] + (a - lum[..., None]) * float(g.get("saturation", 1.0))
-    a = (a - 0.5) * float(g.get("contrast", 1.0)) + 0.5
-    a = a * float(g.get("brightness", 1.0)) * np.array(g.get("tint", [1, 1, 1]), dtype=np.float32)
-    return np.clip(a, 0.0, 1.0)
-
-
-def soften(rgba: np.ndarray, sigma: float) -> np.ndarray:
-    """Soft-edged glow: premultiplied blur (colours do not bleed to black) plus a faint wide halo, so a lit window is
-    not a hard-edged rectangle."""
-    a = rgba[..., 3:4]
-    pre = np.concatenate([rgba[..., :3] * a, a], axis=2)
-    out = np.maximum(cv2.GaussianBlur(pre, (0, 0), sigma), cv2.GaussianBlur(pre, (0, 0), sigma * 3.0) * 0.4)
-    alpha = np.clip(out[..., 3:4], 1e-4, 1.0)
-    return np.concatenate([np.clip(out[..., :3] / alpha, 0.0, 1.0), np.clip(out[..., 3:4], 0.0, 1.0)], axis=2)
-
-
-def window_light(mask: np.ndarray, rng: random.Random, chance: float, colors: list, gain: float) -> np.ndarray:
-    """RGBA glow image: each connected window in `mask` is lit (or not) as a whole."""
-    # Panes of one window are separated by mullions: dilate first so a whole window is one lit/unlit unit.
-    labels, count = ndimage.label(ndimage.binary_dilation(mask, iterations=max(2, mask.shape[1] // 90)))
-    labels = labels * mask
-    out = np.zeros(mask.shape + (4,), dtype=np.float32)
-    ys = np.linspace(1.0, 0.7, mask.shape[0], dtype=np.float32)[:, None]
-    chosen = [i for i in range(1, count + 1) if rng.random() <= chance]
-    if count > 0 and not chosen:
-        chosen = [rng.randint(1, count)]  # a floor with windows never goes fully dark: the data promises a glow layer
-    for i in chosen:
-        sel = labels == i
-        if sel.sum() < 12:
-            continue
-        color = np.array(rng.choice(colors), dtype=np.float32) * rng.uniform(0.75, 1.0) * gain
-        out[sel, :3] = color
-        out[sel, 3] = (0.95 * np.broadcast_to(ys, mask.shape))[sel]
+def deep_merge(base: dict, over: dict) -> dict:
+    out = copy.deepcopy(base)
+    for k, v in over.items():
+        out[k] = deep_merge(out[k], v) if isinstance(v, dict) and isinstance(out.get(k), dict) else copy.deepcopy(v)
     return out
 
 
-MATERIALS = ROOT / "art" / "environment" / "materials"
+def chance(rng: random.Random, value) -> bool:
+    """decor entries are booleans or probabilities."""
+    if value is True:
+        return True
+    return bool(value) and rng.random() < float(value)
 
 
-def tile_to(image: Image.Image, size: tuple[int, int], period: int) -> Image.Image:
-    base = image.convert("RGBA").resize((period, period), Image.LANCZOS)
-    out = Image.new("RGBA", size)
-    for y in range(0, size[1], period):
-        for x in range(0, size[0], period):
-            out.paste(base, (x, y))
-    return out
+def paint_decor(c: cf.Canvas, p: dict, rng: random.Random, d: dict, colors: list, lit_boxes: list, boxes: list) -> None:
+    u, W, H = c.u, c.w, c.h
+    for b in boxes:  # things hung under windows
+        if chance(rng, d.get("balcony", 0)) and b[3] + 1.0 * u + 3.0 * u < H - 2.6 * u:
+            decor.balcony(c, p, b[0] - 0.8 * u, b[2] + 0.8 * u, b[3] + 2.4 * u)
+        elif chance(rng, d.get("ac", 0)) and b[3] + 3.4 * u + 4.5 * u < H - 2.4 * u:
+            decor.ac_unit(c, p, (b[0] + b[2]) / 2 - 3.5 * u, b[3] + 3.4 * u)
+    if chance(rng, d.get("pipe", 0)):  # one pipe per module, in a gap between windows or at the module edge
+        spots = [1.2 * u, W - 3.4 * u] + [(a[2] + b[0]) / 2 - 1.1 * u for a, b in zip(boxes, boxes[1:]) if b[0] > a[2]]
+        rng.shuffle(spots)
+        for x in spots:
+            if c.is_free(x - 0.6 * u, 0, x + 3.0 * u, H):
+                decor.pipe_run(c, p, x)
+                break
+    if d.get("traces"):
+        decor.circuit_traces(c, p, rng, colors, int(d["traces"]))
+    if chance(rng, d.get("led", 0)):
+        decor.led_row(c, p, rng, colors)
+    if chance(rng, d.get("camera", 0)):
+        decor.wall_camera(c, p, rng.uniform(0.1, 0.8) * W, rng.uniform(0.08, 0.2) * H)
+    if chance(rng, d.get("lamp", 0)):
+        decor.emergency_lamp(c, p, rng.uniform(0.1, 0.8) * W, rng.uniform(0.1, 0.25) * H)
 
 
-def _chamfer(x0: float, y0: float, x1: float, y1: float, cut: float) -> list[tuple[float, float]]:
-    """Rectangle with its four corners cut off (an octagon): the window shape used by generated facades."""
-    return [(x0 + cut, y0), (x1 - cut, y0), (x1, y0 + cut), (x1, y1 - cut), (x1 - cut, y1), (x0 + cut, y1), (x0, y1 - cut), (x0, y0 + cut)]
-
-
-def apply_decor(color_img: Image.Image, normal_img: Image.Image, glow_img: Image.Image, size: tuple[int, int], k: int,
-                rng: random.Random, e: dict, kind: str) -> None:
-    """Draw the facade's surface decoration (see decor.py); the config is e["decor"][kind] in facades.json."""
-    cfg = (e.get("decor") or {}).get(kind)
-    if not cfg:
-        return
-    colors = e.get("light_colors", [[1.0, 0.75, 0.4]])
-    glow_alpha = np.asarray(glow_img.getchannel("A"))
-    if cfg.get("pipes"):
-        decor.pipe_run(color_img, normal_img, size, k, rng)
-    if cfg.get("props"):
-        decor.paste_props(color_img, normal_img, glow_img, size, k, rng, cfg["props"], glow_alpha, float(cfg.get("prop_tone", 0.6)))
-    if cfg.get("hazard"):
-        decor.hazard_band(color_img, normal_img, size, k, float(cfg.get("hazard_y", 0.9)))
-    if cfg.get("traces"):
-        decor.circuit_traces(color_img, normal_img, glow_img, size, k, rng, colors, int(cfg["traces"]))
-    if cfg.get("led"):
-        decor.led_row(color_img, normal_img, glow_img, size, k, rng, colors)
-    if cfg.get("beacon"):
-        decor.beacon(glow_img, int(size[0] * rng.uniform(0.1, 0.9)), int(size[1] * 0.12), k)
-
-
-def build_generated(e: dict, kind: str, index: int) -> bool:
-    """A facade module drawn from a terrain material plus a window grid (see the module docstring)."""
-    from PIL import ImageDraw
-    g = e["generated"]
-    k = int(e["texture_scale"])
-    size = (int(MODULE_W * k), int(HEIGHTS[kind] * k))
-    period = int(g.get("tile_world", 48) * k)
-    wall = tile_to(Image.open(MATERIALS / f"{g['wall_material']}_body.png"), size, period)
-    wall_n = tile_to(Image.open(MATERIALS / f"{g['wall_material']}_body_n.png"), size, period)
-    color = np.asarray(wall.convert("RGB")).astype(np.float32) / 255.0
-    color = grade(color, e.get("grade", {}))
-    color_img = Image.fromarray((color * 255 + 0.5).astype(np.uint8), "RGB").convert("RGBA")
-    normal_img = wall_n.copy()
-    glow_img = Image.new("RGBA", size, (0, 0, 0, 0))
-    name = f"{e['id']}_{SUFFIX[kind]}{index}"
+def build_body(e: dict, v: dict, name: str, k: int):
     rng = random.Random(zlib.crc32(name.encode()))
-    win = (g.get("windows") or {}).get(kind)
-    cd, nd, gd = ImageDraw.Draw(color_img), ImageDraw.Draw(normal_img), ImageDraw.Draw(glow_img)
-    if win:
-        cols, rows, w, h = int(win["cols"]), int(win["rows"]), float(win["w"]) * k, float(win["h"]) * k
-        cell_w, cell_h = size[0] / cols, size[1] / rows
-        glass = tuple(int(c * 255) for c in win.get("glass", [0.03, 0.06, 0.1]))
-        frame = tuple(int(c * 255) for c in win.get("frame", [0.16, 0.18, 0.22]))
-        bevel = max(2, k // 2)
-        lit_chance, colors, gain = float(e.get("light_chance", 0.5)), e.get("light_colors", [[1.0, 0.75, 0.4]]), float(e.get("light_gain", 1.0))
-        any_lit, boxes = False, []
-        for r in range(rows):
-            for c in range(cols):
-                x0, y0 = c * cell_w + (cell_w - w) / 2, r * cell_h + (cell_h - h) / 2
-                boxes.append((int(x0), int(y0), int(x0 + w), int(y0 + h)))
-        lit = {i for i in range(len(boxes)) if rng.random() <= lit_chance}
-        if kind == "body" and not lit and boxes:
-            lit = {rng.randrange(len(boxes))}
-        for i, (x0, y0, x1, y1) in enumerate(boxes):
-            # Chamfered (cut-corner) windows with an inner mullion cross: neither plain rectangles nor plain arcs.
-            cut = max(2, int(min(x1 - x0, y1 - y0) * float(win.get("chamfer", 0.3))))
-            outer = _chamfer(x0 - bevel, y0 - bevel, x1 + bevel, y1 + bevel, cut + bevel)
-            inner = _chamfer(x0, y0, x1, y1, cut)
-            cd.polygon(outer, fill=frame + (255,))
-            cd.polygon(inner, fill=glass + (255,))
-            nd.polygon(outer, fill=(128, 128, 200, 255))  # the frame slope tilts away from the glass
-            nd.polygon(inner, fill=(128, 128, 255, 255))
-            mid_x, mid_y = (x0 + x1) // 2, (y0 + y1) // 2
-            bar = max(1, k // 3)
-            if (x1 - x0) > 5 * k:
-                cd.line((mid_x, y0, mid_x, y1), fill=frame + (255,), width=bar)
-            if (y1 - y0) > 6 * k:
-                cd.line((x0, mid_y, x1, mid_y), fill=frame + (255,), width=bar)
-            if i in lit:
-                col = [int(255 * min(1.0, c * gain * rng.uniform(0.75, 1.0))) for c in rng.choice(colors)]
-                gd.polygon(inner, fill=tuple(col) + (240,))
-                gd.line((mid_x, y0, mid_x, y1), fill=(0, 0, 0, 0), width=bar)  # the mullion is dark even when lit
-                any_lit = True
-        if not any_lit and kind == "body":
-            raise ValueError(f"{name}: no lit window")
+    p = cf.pal_of(e)
+    c = cf.Canvas(int(MODULE_W * k), int(HEIGHTS["body"] * k), k, p["ink"], rng)
+    cf.paint_wall(c, p, v["wall"])
+    spec = v["window"]
+    boxes, lit = cf.window_grid(c, p, spec, rng, e["light_colors"], float(e["light_chance"]), float(e["light_gain"]), float(spec.get("y", 0.44)))
+    cf.floor_edges(c, p)
+    paint_decor(c, p, rng, v.get("decor", {}), e["light_colors"], lit, boxes)
+    return c
+
+
+def build_ground(e: dict, v: dict, name: str, k: int):
+    rng = random.Random(zlib.crc32(name.encode()))
+    p = cf.pal_of(e)
+    c = cf.Canvas(int(MODULE_W * k), int(HEIGHTS["ground"] * k), k, p["ink"], rng)
+    cf.paint_wall(c, p, v["wall"])
+    cf.floor_edges(c, p, top_shadow=True, bottom_ledge=False)
+    H = c.h
+    bottom = H - PLINTH * k
+    colors, gain = e["light_colors"], float(e["light_gain"])
+
+    def color(scale: float = 1.0):
+        return cf.lit_color(rng, colors, gain * scale)
+
+    for it in v.get("items", []):
+        t, cx, w = it["t"], float(it["cx"]) * k, float(it["w"]) * k
+        h = float(it.get("h", 22)) * k
+        g = float(it.get("gain", 0.7))  # big ground-floor lights are dimmer than a floor of small windows
+        lit = color(g) if rng.random() < float(it.get("lit", e["light_chance"])) else None
+        if t == "shutter":
+            lamp = color(1.0) if it.get("lamp") else None
+            cf.shutter(c, p, cx, w, bottom - h, bottom, bool(it.get("hazard")), lamp)
+        elif t == "door":
+            cf.door(c, p, cx, w, bottom - h, bottom, lit, color(1.0) if it.get("sign") else None)
+        elif t == "shop":
+            awning = cf.hexc(it["awning"]) if it.get("awning") else None
+            cf.shop_window(c, p, cx, w, bottom - h, bottom - float(it.get("sill", 3.0)) * k, lit or color(g), rng, awning)
+        elif t == "vent":
+            cf.vent_grate(c, p, cx, w, bottom - h, bottom - float(it.get("sill", 4.0)) * k)
+        elif t == "window":
+            spec = deep_merge(e["window"], it.get("window", {}))
+            spec.update({k2: it[k2] for k2 in ("w", "h", "panes", "chamfer") if k2 in it})
+            y0 = bottom - h - float(it.get("sill", 7.0)) * k
+            cf.window(c, p, (cx - w / 2, y0, cx + w / 2, y0 + h), spec, lit, rng)
+        else:
+            raise KeyError(f"{name}: unknown ground item '{t}'")
+    cf.plinth(c, p, bottom)
+    d = v.get("decor", {})
+    if chance(rng, d.get("hazard", 0)):
+        decor.hazard_band(c, p, bottom + 0.9 * k, H - 0.5 * k)
+    paint_decor(c, p, rng, {kk: vv for kk, vv in d.items() if kk != "ac" and kk != "balcony"}, colors, [], [])
+    return c
+
+
+def build_cap(e: dict, v: dict, name: str, k: int):
+    rng = random.Random(zlib.crc32(name.encode()))
+    p = cf.pal_of(e)
+    c = cf.Canvas(int(MODULE_W * k), int(HEIGHTS["cap"] * k), k, p["ink"], rng, transparent=True)
+    cf.cap_module(c, p, v, rng)
+    return c
+
+
+BUILDERS = {"body": build_body, "ground": build_ground, "cap": build_cap}
+
+
+def variant_spec(e: dict, kind: str, v: dict) -> dict:
+    base = {"wall": e.get("wall", {}), "window": e.get("window", {}), "decor": (e.get("decor") or {}).get(kind, {})}
+    return deep_merge(base, v)
+
+
+def write_module(e: dict, kind: str, i: int) -> str:
+    k = int(e["texture_scale"])
+    name = f"{e['id']}_{SUFFIX[kind]}{i}"
+    v = variant_spec(e, kind, e[kind][i])
+    c = BUILDERS[kind](e, v, name, k)
+    color, normal, glow = c.finish(float(e.get("normal_strength", 4.0)), max(0.8, k * 0.2))
+    if kind == "body" and not glow.getbbox():
+        raise ValueError(f"{name}: no lit window")
     OUT.mkdir(parents=True, exist_ok=True)
-    if glow_img.getbbox():  # window light first (softened), then the crisp small decoration lights on top
-        soft = soften(np.asarray(glow_img).astype(np.float32) / 255.0, max(0.8, k * 0.22))
-        glow_img = Image.fromarray((soft * 255 + 0.5).astype(np.uint8), "RGBA")
-    apply_decor(color_img, normal_img, glow_img, size, k, rng, e, kind)
-    color_img.save(OUT / f"{name}.png", optimize=True)
-    normal_img.save(OUT / f"{name}_n.png", optimize=True)
+    color.save(OUT / f"{name}.png", optimize=True)
+    normal.save(OUT / f"{name}_n.png", optimize=True)
     glow_path = OUT / f"{name}_glow.png"
-    if glow_img.getbbox():
-        glow_img.save(glow_path, optimize=True)
+    if glow.getbbox():
+        glow.save(glow_path, optimize=True)
     elif glow_path.exists():
         glow_path.unlink()
-    return True
+    return name
 
 
-def build_module(kit: Kit, spec: dict, e: dict, kind: str, index: int) -> bool:
-    item = spec if isinstance(spec, dict) else {"cells": spec}
-    k = int(e["texture_scale"])
-    size = (int(MODULE_W * k), int(HEIGHTS[kind] * k))
-    crop = item.get("crop")
-    color = compose(kit.color, kit.boxes, item["cells"], crop, size, Image.LANCZOS)
-    normal = compose(kit.normal, kit.boxes, item["cells"], crop, size, Image.LANCZOS)
-    rgb = grade(np.asarray(color.convert("RGB")).astype(np.float32) / 255.0, e.get("grade", {}))
-    name = f"{e['id']}_{SUFFIX[kind]}{index}"
-    OUT.mkdir(parents=True, exist_ok=True)
-    color_img = Image.fromarray((rgb * 255 + 0.5).astype(np.uint8), "RGB").convert("RGBA")
-    nrm = np.asarray(normal).astype(np.float32) / 255.0
-    nrm[..., 3] = 1.0
-    normal_img = Image.fromarray((nrm * 255 + 0.5).astype(np.uint8), "RGBA")
-    glow_img = Image.new("RGBA", size, (0, 0, 0, 0))
-    rng = random.Random(zlib.crc32(name.encode()))
-    if kit.glow is not None and kind != "cap":
-        g = compose(kit.glow, kit.boxes, item["cells"], crop, size, Image.NEAREST)
-        mask = np.asarray(g)[..., :3].max(axis=2) > 90
-        light = window_light(mask, rng, float(e.get("light_chance", 0.5)), e.get("light_colors", [[1.0, 0.75, 0.4]]), float(e.get("light_gain", 1.0)))
-        if light[..., 3].max() > 0.0:
-            light = soften(light, max(0.8, int(e["texture_scale"]) * 0.22))
-            glow_img = Image.fromarray((light * 255 + 0.5).astype(np.uint8), "RGBA")
-    apply_decor(color_img, normal_img, glow_img, size, k, rng, e, kind)
-    color_img.save(OUT / f"{name}.png", optimize=True)
-    normal_img.save(OUT / f"{name}_n.png", optimize=True)
-    glow_path = OUT / f"{name}_glow.png"
-    if glow_img.getbbox():
-        glow_img.save(glow_path, optimize=True)
-    elif glow_path.exists():
-        glow_path.unlink()
-    return True
+def remove_stale(e: dict, counts: dict[str, int]) -> None:
+    """Delete variants of this facade that the JSON no longer lists (the .png.import files stay: Godot cleans them)."""
+    for kind, n in counts.items():
+        for path in OUT.glob(f"{e['id']}_{SUFFIX[kind]}[0-9]*.png"):
+            m = re.fullmatch(rf"{re.escape(e['id'])}_{SUFFIX[kind]}(\d+)(_n|_glow)?\.png", path.name)
+            if m and int(m.group(1)) >= n:
+                path.unlink()
 
 
 def patch_tres(e: dict, names: dict[str, list[str]]) -> None:
     path = DATA / f"{e['id']}.tres"
-    text = path.read_text(encoding="utf-8")
+    raw = path.read_bytes().decode("utf-8")
+    eol = "\r\n" if "\r\n" in raw else "\n"  # keep the file's own line ending
+    text = raw.replace("\r\n", "\n")
     for kind in ("ground", "body", "cap"):
         paths = ", ".join(f'"res://art/environment/facades/{n}.png"' for n in names[kind])
-        text = re.sub(rf"^{kind} = PackedStringArray\(.*\)$", f"{kind} = PackedStringArray({paths})", text, flags=re.M)
-    path.write_text(text, encoding="utf-8")
+        text = re.sub(rf"^{kind} = PackedStringArray\(.*\)$", lambda m, k=kind, v=paths: f"{k} = PackedStringArray({v})", text, flags=re.M)
+    path.write_bytes(text.replace("\n", eol).encode("utf-8"))
 
 
 def main() -> int:
@@ -266,30 +197,21 @@ def main() -> int:
     ap.add_argument("--only", nargs="*", default=[])
     args = ap.parse_args()
     cfg = json.loads(PIPELINE.read_text(encoding="utf-8"))
-    kits: dict[str, Kit] = {}
     failed = 0
     for spec in cfg["facades"]:
         if args.only and spec["id"] not in args.only:
             continue
         e = {**cfg["defaults"], **spec}
         try:
-            kit = kits.setdefault(e["kit"], Kit(e["kit"])) if "kit" in e else None
-            names = {}
-            for kind in ("ground", "body", "cap"):
-                names[kind] = []
-                for i, item in enumerate(e[kind]):
-                    if "generated" in e:
-                        build_generated(e, kind, i)
-                    else:
-                        build_module(kit, item, e, kind, i)
-                    names[kind].append(f"{e['id']}_{SUFFIX[kind]}{i}")
             if not (DATA / f"{e['id']}.tres").exists():
                 raise FileNotFoundError(f"{e['id']}.tres not found")
+            names = {kind: [write_module(e, kind, i) for i in range(len(e[kind]))] for kind in ("ground", "body", "cap")}
+            remove_stale(e, {kind: len(names[kind]) for kind in names})
             patch_tres(e, names)
-            print(f"ok    {e['id']:14} ground {len(names['ground'])} body {len(names['body'])} cap {len(names['cap'])}  <- {e.get('kit') or e['generated']['wall_material']}")
+            print(f"ok    {e['id']:14} ground {len(names['ground'])} body {len(names['body'])} cap {len(names['cap'])}  [{e['wall']['kind']}]")
         except Exception as ex:  # one bad facade must not block the rest
             failed += 1
-            print(f"FAIL  {spec.get('id')}: {ex}", file=sys.stderr)
+            print(f"FAIL  {spec.get('id')}: {ex!r}", file=sys.stderr)
     return 1 if failed else 0
 
 

@@ -81,12 +81,15 @@
 |---|---|
 | 安裝位置 | `C:\ComfyUI`（PyTorch XPU，Intel Arc B580 12GB） |
 | 模型 | `diffusion_models/qwen-image-2.1-UC-int8_convrot.safetensors`、`text_encoders/qwen3vl_8b_int8_convrot.safetensors`、`vae/qwen_image_2.1_vae_bf16.safetensors`；姿勢控制可用 `model_patches/qwen_image_2.1_fun_controlnet_union_int8_convrot.safetensors` |
-| 啟動 | `cd C:\ComfyUI && ./venv/Scripts/python main.py --listen 127.0.0.1 --port 8188 --bf16-unet --bf16-vae --bf16-text-enc --force-upcast-attention --reserve-vram 2.5 --disable-smart-memory` |
-| 速度 | 832×1216 約 50 秒一張（25 步、約 1.9 秒／步） |
+| 啟動 | `powershell -File tools/comfyui/start_comfyui.ps1`（固定參數 `--bf16-unet --bf16-vae --bf16-text-enc --force-upcast-attention --reserve-vram 2.5`，等伺服器可用才回傳；`-Restart` 重啟、`-Stop` 關閉、`-Safe` 加上 `--disable-smart-memory`）。生成工具會在伺服器沒開時自動啟動 |
+| 速度 | 832×1216 約 50 秒一張（25 步、約 1.9 秒／步）；第一次載入模型 2～3 分鐘 |
+| 卡死處理 | `comfy_api.run()` 偵測伺服器沒回應、5 分鐘沒進度、顯示記憶體不足、系統記憶體持續耗盡，自動重啟並重送（最多 3 次），仍失敗就記錄到 `assets_src/work/comfy_failures.log` 並停止；同一組參數的圖不重複生成。細節見 `tools/comfyui/comfy_guard.py` |
 | 呼叫 | `tools/comfyui/comfy_api.py` 的 `qwen()`：文生圖，或帶參考圖進入編輯模式 |
 
 注意事項：
 - 少了 `--reserve-vram`、或 `QwenImage21Cache` 放在顯示記憶體時，會溢出到共用記憶體，一步要 160 秒。
+- 不要加 `--disable-smart-memory`（每個工作後卸載模型，每張圖重讀約 16 GB、硬碟滿載、慢兩倍以上）；只有顯示記憶體反覆不足時才用 `-Safe`。
+- 用完執行 `start_comfyui.ps1 -Stop`：常駐的 ComfyUI 佔約 13 GB 記憶體。
 - Intel 顯卡偶爾會輸出全黑圖（數值溢位），`qwen()` 會自動偵測並換種子重畫。
 - INT8 ConvRot 是這張顯卡的最佳版本：FP8 沒有硬體加速、NVFP4 與 MLX 不支援、GGUF 每步解壓縮反而更慢。
 

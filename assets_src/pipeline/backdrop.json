@@ -2,205 +2,699 @@
  "skies": [
   {
    "id": "sky_rain_night",
-   "source": "ph_hdr_qwantani_night_puresky",
-   "elevation": [
-    2,
-    72
-   ],
-   "yaw_deg": 0,
-   "grade": {
-    "brightness": 0.55,
-    "saturation": 1.3,
-    "tint": [
-     0.8,
-     0.72,
-     1.1
+   "width": 4096,
+   "height": 796,
+   "top_fade": 0.3,
+   "cel": {
+    "seed": 101,
+    "bands": 7,
+    "wave": 14,
+    "palette": [
+     "#1a1236",
+     "#241845",
+     "#341f58",
+     "#4a2866",
+     "#5c2c70"
     ],
-    "contrast": 1.2,
-    "gamma": 1.15
-   },
-   "horizon_glow": {
-    "color": [
-     0.6,
-     0.14,
-     0.5
+    "stars": {
+     "count": 70,
+     "y": [
+      0.25,
+      0.75
+     ],
+     "color": "#a094cc",
+     "size": [
+      1,
+      2
+     ],
+     "sparkle": 0.08
+    },
+    "layers": [
+     {
+      "type": "stratus",
+      "count": 14,
+      "y": [
+       0.3,
+       0.62
+      ],
+      "width": [
+       500,
+       1100
+      ],
+      "height": [
+       40,
+       80
+      ],
+      "base": "#3a2a5e",
+      "shade": "#2c2048",
+      "alpha": 0.8,
+      "shade_depth": 0.35
+     },
+     {
+      "type": "bank",
+      "y": 0.62,
+      "radius": [
+       70,
+       200
+      ],
+      "rows": 3,
+      "base": "#42306c",
+      "shade": "#30244f",
+      "deep": "#1f1639",
+      "rim": "#5e4a8c",
+      "rim_width": 2,
+      "relief": 0.08,
+      "shade_depth": 0.2
+     }
     ],
-    "strength": 0.28,
-    "falloff": 2.2
-   },
-   "top_fade": 0.3
-  },
-  {
-   "id": "sky_city_glow",
-   "source": "ph_hdr_shanghai_bund",
-   "elevation": [
-    50,
-    86
-   ],
-   "yaw_deg": 0,
-   "grade": {
-    "brightness": 0.7,
-    "saturation": 1.1,
-    "tint": [
-     0.95,
-     0.8,
-     1.15
-    ],
-    "contrast": 1.1,
-    "gamma": 1.1
-   },
-   "horizon_glow": {
-    "color": [
-     0.5,
-     0.12,
-     0.45
-    ],
-    "strength": 0.18,
-    "falloff": 2.0
-   },
-   "top_fade": 0.3
-  },
-  {
-   "id": "sky_dawn",
-   "source": "ph_hdr_rooftop_night",
-   "elevation": [
-    26,
-    82
-   ],
-   "yaw_deg": 0,
-   "grade": {
-    "brightness": 0.75,
-    "saturation": 1.1,
-    "tint": [
-     1.0,
-     0.85,
-     1.05
-    ],
-    "contrast": 1.1,
-    "gamma": 1.05
-   },
-   "horizon_glow": {
-    "color": [
-     0.6,
-     0.3,
-     0.25
-    ],
-    "strength": 0.15,
-    "falloff": 2.0
-   },
-   "top_fade": 0.3
-  },
-  {
-   "id": "sky_haze",
-   "source": "ph_hdr_kloppenheim_02_puresky",
-   "elevation": [
-    3,
-    73
-   ],
-   "yaw_deg": 90,
-   "grade": {
-    "brightness": 0.5,
-    "saturation": 0.9,
-    "tint": [
-     0.75,
-     0.85,
-     1.1
-    ],
-    "contrast": 1.2,
-    "gamma": 1.2
-   },
-   "horizon_glow": {
-    "color": [
-     0.25,
-     0.3,
-     0.5
-    ],
-    "strength": 0.2,
-    "falloff": 2.0
-   },
-   "top_fade": 0.3
+    "horizon_glow": {
+     "color": [
+      0.6,
+      0.14,
+      0.5
+     ],
+     "strength": 0.28,
+     "falloff": 2.2,
+     "steps": 4,
+     "sway": 0.3
+    }
+   }
   },
   {
    "id": "sky_storm",
-   "source": "ph_hdr_kloofendal_overcast_puresky",
-   "elevation": [
-    4,
-    74
-   ],
-   "yaw_deg": 0,
-   "grade": {
-    "brightness": 0.4,
-    "saturation": 1.0,
-    "tint": [
-     0.95,
-     0.85,
-     1.15
+   "width": 4096,
+   "height": 796,
+   "top_fade": 0.3,
+   "cel": {
+    "seed": 202,
+    "bands": 7,
+    "wave": 12,
+    "palette": [
+     "#2c2150",
+     "#3a2a66",
+     "#4a3478",
+     "#623d82",
+     "#7d4590"
     ],
-    "contrast": 1.8,
-    "gamma": 1.1
-   },
-   "horizon_glow": {
-    "color": [
-     0.62,
-     0.12,
-     0.5
+    "layers": [
+     {
+      "type": "stratus",
+      "count": 10,
+      "y": [
+       0.2,
+       0.5
+      ],
+      "width": [
+       600,
+       1400
+      ],
+      "height": [
+       60,
+       110
+      ],
+      "base": "#54408a",
+      "shade": "#40306e",
+      "alpha": 0.9
+     },
+     {
+      "type": "bank",
+      "y": 0.4,
+      "radius": [
+       90,
+       260
+      ],
+      "rows": 3,
+      "base": "#4e3e84",
+      "shade": "#3a2c68",
+      "deep": "#2a2050",
+      "rim": "#7a64ac",
+      "rim_width": 2,
+      "relief": 0.14,
+      "shade_depth": 0.2
+     },
+     {
+      "type": "bank",
+      "y": 0.6,
+      "radius": [
+       80,
+       210
+      ],
+      "rows": 2,
+      "base": "#463676",
+      "shade": "#32265a",
+      "deep": "#20183c",
+      "rim": "#6e5aa0",
+      "rim_width": 2,
+      "relief": 0.06,
+      "shade_depth": 0.2
+     }
     ],
-    "strength": 0.3,
-    "falloff": 1.8
-   },
-   "top_fade": 0.3
+    "horizon_glow": {
+     "color": [
+      0.62,
+      0.12,
+      0.5
+     ],
+     "strength": 0.3,
+     "falloff": 1.8,
+     "steps": 4,
+     "sway": 0.25
+    }
+   }
+  },
+  {
+   "id": "sky_city_glow",
+   "width": 4096,
+   "height": 410,
+   "top_fade": 0.3,
+   "cel": {
+    "seed": 303,
+    "bands": 6,
+    "wave": 8,
+    "palette": [
+     "#150d30",
+     "#1e1240",
+     "#2c1750",
+     "#42205c",
+     "#5c2a68"
+    ],
+    "stars": {
+     "count": 40,
+     "y": [
+      0.1,
+      0.6
+     ],
+     "color": "#8a7ab5",
+     "size": [
+      1,
+      1.6
+     ],
+     "sparkle": 0.1
+    },
+    "orbs": [
+     {
+      "x": 0.31,
+      "y": 0.3,
+      "r": 26,
+      "color": "#bda8d8",
+      "dark": "#2a2050",
+      "crescent": [
+       0.45,
+       -0.2
+      ],
+      "halo": [
+       [
+        2.2,
+        0.07
+       ],
+       [
+        3.4,
+        0.04
+       ]
+      ],
+      "halo_color": "#a070c0"
+     }
+    ],
+    "layers": [
+     {
+      "type": "stratus",
+      "count": 10,
+      "y": [
+       0.35,
+       0.8
+      ],
+      "width": [
+       500,
+       1200
+      ],
+      "height": [
+       30,
+       60
+      ],
+      "base": "#503070",
+      "shade": "#36225c",
+      "rim": "#9566ac",
+      "rim_width": 2
+     }
+    ],
+    "horizon_glow": {
+     "color": [
+      0.5,
+      0.12,
+      0.45
+     ],
+     "strength": 0.22,
+     "falloff": 2.0,
+     "steps": 4,
+     "sway": 0.35
+    }
+   }
+  },
+  {
+   "id": "sky_dawn",
+   "width": 4096,
+   "height": 637,
+   "top_fade": 0.3,
+   "cel": {
+    "seed": 404,
+    "bands": 8,
+    "wave": 10,
+    "palette": [
+     "#201848",
+     "#32266a",
+     "#523580",
+     "#7e4488",
+     "#a85572",
+     "#c06a60"
+    ],
+    "stars": {
+     "count": 40,
+     "y": [
+      0.05,
+      0.35
+     ],
+     "color": "#d0c0e8",
+     "size": [
+      1,
+      1.5
+     ]
+    },
+    "orbs": [
+     {
+      "x": 0.62,
+      "y": 0.94,
+      "r": 70,
+      "color": "#ffd9a0",
+      "halo": [
+       [
+        1.8,
+        0.18
+       ],
+       [
+        2.8,
+        0.1
+       ],
+       [
+        4,
+        0.05
+       ]
+      ],
+      "halo_color": "#ff9a70"
+     }
+    ],
+    "layers": [
+     {
+      "type": "stratus",
+      "count": 14,
+      "y": [
+       0.45,
+       0.85
+      ],
+      "width": [
+       600,
+       1500
+      ],
+      "height": [
+       30,
+       70
+      ],
+      "base": "#b878a8",
+      "shade": "#8e5a92",
+      "rim": "#f2b090",
+      "rim_width": 2,
+      "alpha": 0.85
+     },
+     {
+      "type": "stratus",
+      "count": 8,
+      "y": [
+       0.6,
+       0.9
+      ],
+      "width": [
+       800,
+       1800
+      ],
+      "height": [
+       40,
+       90
+      ],
+      "base": "#d98a90",
+      "shade": "#a8648a",
+      "rim": "#ffc8a0",
+      "rim_width": 2,
+      "alpha": 0.9
+     }
+    ],
+    "horizon_glow": {
+     "color": [
+      0.6,
+      0.3,
+      0.25
+     ],
+     "strength": 0.15,
+     "falloff": 2.0,
+     "steps": 3
+    }
+   }
+  },
+  {
+   "id": "sky_haze",
+   "width": 4096,
+   "height": 796,
+   "top_fade": 0.3,
+   "cel": {
+    "seed": 505,
+    "bands": 7,
+    "wave": 12,
+    "palette": [
+     "#1a2644",
+     "#223357",
+     "#2d4268",
+     "#3a5078",
+     "#4a6086"
+    ],
+    "stars": {
+     "count": 25,
+     "y": [
+      0.15,
+      0.6
+     ],
+     "color": "#8da0c8",
+     "size": [
+      1,
+      1.6
+     ]
+    },
+    "orbs": [
+     {
+      "x": 0.78,
+      "y": 0.75,
+      "r": 36,
+      "color": "#9fb4d8",
+      "alpha": 0.8,
+      "halo": [
+       [
+        2,
+        0.1
+       ],
+       [
+        3.2,
+        0.06
+       ],
+       [
+        5,
+        0.04
+       ]
+      ],
+      "halo_color": "#6f88b8"
+     }
+    ],
+    "layers": [
+     {
+      "type": "stratus",
+      "count": 18,
+      "y": [
+       0.2,
+       0.85
+      ],
+      "width": [
+       700,
+       1800
+      ],
+      "height": [
+       40,
+       90
+      ],
+      "base": "#34476c",
+      "shade": "#2a3a5c",
+      "alpha": 0.7
+     },
+     {
+      "type": "stratus",
+      "count": 10,
+      "y": [
+       0.55,
+       0.9
+      ],
+      "width": [
+       900,
+       2000
+      ],
+      "height": [
+       50,
+       110
+      ],
+      "base": "#40557c",
+      "shade": "#303f64",
+      "rim": "#6f86b0",
+      "rim_width": 2,
+      "alpha": 0.8
+     }
+    ],
+    "horizon_glow": {
+     "color": [
+      0.25,
+      0.3,
+      0.5
+     ],
+     "strength": 0.2,
+     "falloff": 2.0,
+     "steps": 4
+    }
+   }
   },
   {
    "id": "sky_misty_dawn",
-   "source": "ph_hdr_kloofendal_misty_morning_puresky",
-   "elevation": [
-    4,
-    74
-   ],
-   "yaw_deg": 0,
-   "grade": {
-    "brightness": 0.4,
-    "saturation": 0.8,
-    "tint": [
-     0.85,
-     0.95,
-     1.15
+   "width": 4096,
+   "height": 796,
+   "top_fade": 0.3,
+   "cel": {
+    "seed": 606,
+    "bands": 7,
+    "wave": 12,
+    "palette": [
+     "#242c46",
+     "#323c58",
+     "#434f6c",
+     "#566580",
+     "#6c7a92"
     ],
-    "contrast": 1.3,
-    "gamma": 1.2
-   },
-   "horizon_glow": {
-    "color": [
-     0.3,
-     0.4,
-     0.5
+    "layers": [
+     {
+      "type": "stratus",
+      "count": 10,
+      "y": [
+       0.18,
+       0.5
+      ],
+      "width": [
+       800,
+       1800
+      ],
+      "height": [
+       50,
+       100
+      ],
+      "base": "#5c6c88",
+      "shade": "#48586f",
+      "rim": "#c8b4a8",
+      "rim_width": 2,
+      "alpha": 0.7
+     },
+     {
+      "type": "stratus",
+      "count": 8,
+      "y": [
+       0.45,
+       0.75
+      ],
+      "width": [
+       1200,
+       2600
+      ],
+      "height": [
+       90,
+       160
+      ],
+      "base": "#667690",
+      "shade": "#52627c",
+      "rim": "#d4c0b2",
+      "rim_width": 2,
+      "alpha": 0.75
+     },
+     {
+      "type": "stratus",
+      "count": 8,
+      "y": [
+       0.7,
+       1.0
+      ],
+      "width": [
+       1400,
+       3000
+      ],
+      "height": [
+       110,
+       200
+      ],
+      "base": "#72829c",
+      "shade": "#5a6a84",
+      "rim": "#dcc8ba",
+      "rim_width": 2,
+      "alpha": 0.8
+     }
     ],
-    "strength": 0.2,
-    "falloff": 2.0
-   },
-   "top_fade": 0.3
+    "horizon_glow": {
+     "color": [
+      0.55,
+      0.4,
+      0.35
+     ],
+     "strength": 0.18,
+     "falloff": 2.0,
+     "steps": 3
+    }
+   }
   },
   {
    "id": "sky_blue_clouds",
-   "source": "ph_hdr_kloofendal_48d_partly_cloudy_puresky",
-   "elevation": [
-    2,
-    76
-   ],
-   "yaw_deg": 0,
-   "grade": {
-    "brightness": 0.95,
-    "saturation": 1.05,
-    "tint": [
-     1.0,
-     1.0,
-     1.02
-    ],
-    "contrast": 1.1,
-    "gamma": 1.0
-   },
+   "width": 4096,
+   "height": 842,
    "top_fade": 0.0,
-   "quality": 86
+   "cel": {
+    "seed": 707,
+    "bands": 9,
+    "wave": 12,
+    "palette": [
+     "#2670d8",
+     "#3584e6",
+     "#4c9aee",
+     "#6fb2f4",
+     "#94c8f8",
+     "#b4dcfb"
+    ],
+    "orbs": [
+     {
+      "x": 0.48,
+      "y": 0.28,
+      "r": 60,
+      "color": "#fffbe0",
+      "halo": [
+       [
+        1.8,
+        0.28
+       ],
+       [
+        2.8,
+        0.16
+       ],
+       [
+        4.2,
+        0.08
+       ]
+      ],
+      "halo_color": "#ffffff"
+     }
+    ],
+    "layers": [
+     {
+      "type": "stratus",
+      "count": 10,
+      "y": [
+       0.1,
+       0.45
+      ],
+      "width": [
+       700,
+       1500
+      ],
+      "height": [
+       30,
+       60
+      ],
+      "base": "#dcecfb",
+      "shade": "#b4cdee",
+      "alpha": 0.85,
+      "rim": "#ffffff",
+      "rim_width": 2
+     },
+     {
+      "type": "cumulus",
+      "count": 9,
+      "y": [
+       0.42,
+       0.66
+      ],
+      "width": [
+       250,
+       450
+      ],
+      "height": [
+       60,
+       100
+      ],
+      "puffs": [
+       6,
+       9
+      ],
+      "base": "#eef5fc",
+      "shade": "#bcd2ee",
+      "shade_depth": 0.26,
+      "belly": 0.3
+     },
+     {
+      "type": "cumulus",
+      "count": 5,
+      "y": [
+       0.6,
+       0.84
+      ],
+      "width": [
+       550,
+       850
+      ],
+      "height": [
+       130,
+       200
+      ],
+      "puffs": [
+       9,
+       12
+      ],
+      "base": "#ffffff",
+      "shade": "#b8cdea",
+      "rim": "#ffffff",
+      "rim_width": 3,
+      "shade_depth": 0.24,
+      "belly": 0.3
+     },
+     {
+      "type": "cumulus",
+      "count": 3,
+      "y": [
+       0.9,
+       1.0
+      ],
+      "width": [
+       900,
+       1300
+      ],
+      "height": [
+       200,
+       280
+      ],
+      "puffs": [
+       11,
+       15
+      ],
+      "base": "#ffffff",
+      "shade": "#b0c6e6",
+      "shade_depth": 0.24,
+      "belly": 0.3
+     }
+    ]
+   }
   }
  ],
  "backdrop": [],
@@ -209,10 +703,12 @@
    "id": "far_skyline",
    "type": "city_blocks",
    "facades": [
-    "glass_tower",
-    "facility_wall",
     "apartment",
-    "warehouse"
+    "warehouse",
+    "facility_wall",
+    "shutter_block",
+    "glass_tower",
+    "apartment"
    ],
    "seed": 3,
    "module_scale": 0.3,
@@ -233,29 +729,41 @@
    "height_logical": 170,
    "texture_scale": 4,
    "back_row": true,
-   "back_row_dim": 0.6,
+   "back_row_dim": 0.8,
    "decor": true,
+   "clutter_scale": 1.5,
+   "outline": 0.5,
+   "haze": {
+    "color": "#1c2a55",
+    "back": 0.72,
+    "front": 0.5
+   },
+   "ink": "#0a0f26",
    "shapes": [
     "flat",
     "stepped",
     "slope",
     "crown",
     "chamfer",
+    "needle",
+    "twin",
+    "sidetower",
+    "cut",
+    "gable",
     "stepped",
-    "crown",
-    "gable"
+    "crown"
    ],
    "grade": {
-    "brightness": 0.6,
-    "saturation": 0.9,
+    "brightness": 0.5,
+    "saturation": 1.0,
     "tint": [
-     0.7,
-     0.8,
-     1.15
+     0.85,
+     0.9,
+     1.1
     ]
    },
    "glow_grade": {
-    "brightness": 0.85
+    "brightness": 0.5
    }
   },
   {
@@ -285,20 +793,17 @@
    ],
    "height_logical": 220,
    "texture_scale": 4,
-   "grade": {
-    "brightness": 0.55,
-    "saturation": 0.8,
-    "tint": [
-     0.75,
-     0.82,
-     1.1
-    ]
-   },
-   "glow_grade": {
-    "brightness": 0.9
-   },
    "back_row": true,
+   "back_row_dim": 0.8,
    "decor": true,
+   "clutter_scale": 1.3,
+   "outline": 0.5,
+   "haze": {
+    "color": "#18224a",
+    "back": 0.5,
+    "front": 0.25
+   },
+   "ink": "#070a1c",
    "shapes": [
     "flat",
     "stepped",
@@ -306,9 +811,25 @@
     "gable",
     "crown",
     "chamfer",
+    "sidetower",
+    "twin",
+    "needle",
+    "cut",
     "stepped",
     "crown"
-   ]
+   ],
+   "grade": {
+    "brightness": 0.5,
+    "saturation": 1.0,
+    "tint": [
+     0.85,
+     0.9,
+     1.1
+    ]
+   },
+   "glow_grade": {
+    "brightness": 0.75
+   }
   }
  ]
 }

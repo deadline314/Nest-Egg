@@ -25,6 +25,7 @@ from PIL import Image
 sys.path.insert(0, str(Path(__file__).parent))
 import qwen_matte as qm  # noqa: E402
 import qwen_props  # noqa: E402
+from comfy_guard import ComfyFailure  # noqa: E402  (qwen_props puts tools/comfyui on the path)
 from qwen_props import RAW, ROOT, generate  # noqa: E402
 
 PIPELINE = ROOT / "assets_src" / "pipeline" / "qwen_scenes.json"
@@ -145,6 +146,9 @@ def main() -> int:
     for e in entries:
         try:
             failed += 0 if process(e, cfg, args.regen, args.no_gen) else 1
+        except ComfyFailure as ex:  # the server stays broken after every retry: stop instead of failing every remaining entry
+            print(f"STOP  {e.get('id')}: {ex}", file=sys.stderr)
+            return 2
         except Exception as ex:  # one bad entry must not block the rest
             failed += 1
             print(f"FAIL  {e.get('id')}: {ex}", file=sys.stderr)

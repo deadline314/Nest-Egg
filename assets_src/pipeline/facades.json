@@ -1,22 +1,197 @@
 {
  "defaults": {
   "texture_scale": 6,
-  "light_gain": 0.5
+  "light_gain": 0.5,
+  "normal_strength": 4.0
  },
  "facades": [
   {
-   "id": "brick_block",
-   "kit": "modular_factory_facade",
-   "grade": {
-    "brightness": 0.48,
-    "saturation": 0.8,
-    "tint": [
-     0.95,
+   "id": "apartment",
+   "light_chance": 0.42,
+   "light_colors": [
+    [
+     1.0,
+     0.72,
+     0.35
+    ],
+    [
+     1.0,
+     0.9,
+     0.65
+    ],
+    [
+     0.4,
      0.85,
      1.0
     ],
-    "contrast": 1.05
+    [
+     1.0,
+     0.35,
+     0.6
+    ]
+   ],
+   "pal": {
+    "base": "#372a42",
+    "light": "#524366",
+    "dark": "#1f1829",
+    "mortar": "#17111e",
+    "tones": [
+     "#372a42"
+    ],
+    "frame": "#31364a",
+    "frame_light": "#616d8d",
+    "glass": "#0e1428",
+    "glass_light": "#26385a",
+    "metal": "#485161",
+    "metal_dark": "#2b3240",
+    "accent": "#b0782e",
+    "accent2": "#2c6e86"
    },
+   "wall": {
+    "kind": "plaster",
+    "groove": 8,
+    "stains": 5,
+    "cracks": 1
+   },
+   "window": {
+    "cols": 4,
+    "rows": 1,
+    "w": 8,
+    "h": 13,
+    "y": 0.43,
+    "chamfer": 0.28,
+    "panes": [
+     2,
+     2
+    ],
+    "blind": 0.4
+   },
+   "decor": {
+    "body": {
+     "pipe": 0.7,
+     "pipe_x": [
+      1.2,
+      60.6
+     ],
+     "led": 0.3
+    },
+    "ground": {
+     "lamp": 0.6,
+     "hazard": 0
+    }
+   },
+   "body": [
+    {},
+    {
+     "window": {
+      "cols": 3,
+      "w": 10,
+      "h": 13,
+      "panes": [
+       2,
+       3
+      ]
+     },
+     "decor": {
+      "balcony": 0.6
+     }
+    },
+    {
+     "window": {
+      "cols": 2,
+      "w": 16,
+      "h": 14,
+      "panes": [
+       3,
+       2
+      ],
+      "y": 0.42
+     },
+     "decor": {
+      "ac": 0.9
+     }
+    },
+    {
+     "window": {
+      "cols": 4,
+      "w": 7,
+      "h": 12,
+      "chamfer": 0.34
+     },
+     "decor": {
+      "ac": 0.55,
+      "led": 0.5
+     }
+    }
+   ],
+   "ground": [
+    {
+     "items": [
+      {
+       "t": "door",
+       "cx": 13,
+       "w": 10,
+       "h": 24,
+       "sign": true,
+       "lit": 0.7
+      },
+      {
+       "t": "shop",
+       "cx": 43,
+       "w": 30,
+       "h": 19,
+       "awning": "#8c3a64",
+       "sill": 4
+      }
+     ]
+    },
+    {
+     "items": [
+      {
+       "t": "window",
+       "cx": 11,
+       "w": 10,
+       "h": 14,
+       "lit": 0.6
+      },
+      {
+       "t": "door",
+       "cx": 32,
+       "w": 12,
+       "h": 25,
+       "sign": true,
+       "lit": 1
+      },
+      {
+       "t": "window",
+       "cx": 53,
+       "w": 10,
+       "h": 14,
+       "lit": 0.6
+      }
+     ]
+    }
+   ],
+   "cap": [
+    {
+     "kind": "pediment",
+     "clutter": [
+      {
+       "t": "antenna",
+       "x": 0.12,
+       "chance": 0.8
+      },
+      {
+       "t": "vent",
+       "x": 0.78,
+       "chance": 0.8
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "brick_block",
    "light_chance": 0.55,
    "light_colors": [
     [
@@ -40,98 +215,217 @@
      0.6
     ]
    ],
-   "ground": [
-    [
-     54,
-     55
+   "pal": {
+    "base": "#4a2a2e",
+    "light": "#8a5248",
+    "dark": "#26141a",
+    "mortar": "#170d12",
+    "tones": [
+     "#4a2a2e",
+     "#55302f",
+     "#432529",
+     "#4e2d31"
     ],
-    [
-     53
+    "frame": "#3c3a4c",
+    "frame_light": "#7c7a94",
+    "glass": "#0e1224",
+    "glass_light": "#26325a",
+    "metal": "#5a5e70",
+    "metal_dark": "#363a4a",
+    "accent": "#b0782e",
+    "accent2": "#2c6e86"
+   },
+   "wall": {
+    "kind": "brick",
+    "row_h": 2,
+    "brick_w": 8,
+    "chip": 0.1,
+    "stain": 0.1
+   },
+   "window": {
+    "cols": 4,
+    "rows": 1,
+    "w": 8,
+    "h": 14,
+    "y": 0.43,
+    "chamfer": 0.26,
+    "panes": [
+     2,
+     3
     ],
-    [
-     51,
-     57
-    ]
-   ],
-   "body": [
-    [
-     35,
-     45
-    ],
-    [
-     25,
-     34
-    ],
-    [
-     43,
-     42
-    ],
-    [
-     19,
-     21
-    ],
-    [
-     22,
-     23
-    ],
-    [
-     29,
-     31
-    ]
-   ],
-   "cap": [
-    {
-     "cells": [
-      8,
-      10
+    "grill": 3,
+    "blind": 0.3
+   },
+   "decor": {
+    "body": {
+     "pipe": 0.7,
+     "pipe_x": [
+      1.2,
+      60.6
      ],
-     "crop": [
-      0,
-      0,
-      1,
-      0.24
+     "led": 0.35
+    },
+    "ground": {
+     "hazard": 1,
+     "camera": 0.6
+    }
+   },
+   "body": [
+    {},
+    {
+     "window": {
+      "cols": 3,
+      "w": 10,
+      "h": 15,
+      "panes": [
+       2,
+       3
+      ],
+      "grill": 0
+     },
+     "decor": {
+      "ac": 0.6
+     }
+    },
+    {
+     "window": {
+      "cols": 2,
+      "rows": 1,
+      "w": 15,
+      "h": 15,
+      "panes": [
+       3,
+       3
+      ],
+      "grill": 4
+     }
+    },
+    {
+     "window": {
+      "cols": 4,
+      "w": 8,
+      "h": 11,
+      "panes": [
+       2,
+       2
+      ],
+      "grill": 0
+     },
+     "decor": {
+      "ac": 0.8
+     }
+    },
+    {
+     "window": {
+      "cols": 5,
+      "w": 6,
+      "h": 13,
+      "chamfer": 0.32,
+      "panes": [
+       1,
+       3
+      ],
+      "grill": 2
+     }
+    },
+    {
+     "window": {
+      "cols": 3,
+      "w": 8,
+      "h": 12,
+      "grill": 3
+     },
+     "decor": {
+      "ac": 0.5,
+      "led": 0.6
+     }
+    }
+   ],
+   "ground": [
+    {
+     "items": [
+      {
+       "t": "shutter",
+       "cx": 18,
+       "w": 24,
+       "h": 22,
+       "lamp": true
+      },
+      {
+       "t": "door",
+       "cx": 47,
+       "w": 11,
+       "h": 24,
+       "sign": true,
+       "lit": 0.8
+      }
+     ]
+    },
+    {
+     "items": [
+      {
+       "t": "door",
+       "cx": 14,
+       "w": 11,
+       "h": 24,
+       "lit": 0.7
+      },
+      {
+       "t": "window",
+       "cx": 32,
+       "w": 10,
+       "h": 13,
+       "lit": 0.6,
+       "grill": 3
+      },
+      {
+       "t": "door",
+       "cx": 50,
+       "w": 11,
+       "h": 24,
+       "sign": true
+      }
+     ]
+    },
+    {
+     "items": [
+      {
+       "t": "shop",
+       "cx": 20,
+       "w": 26,
+       "h": 19,
+       "awning": "#2e6f86",
+       "sill": 4
+      },
+      {
+       "t": "shutter",
+       "cx": 49,
+       "w": 22,
+       "h": 22
+      }
      ]
     }
    ],
-   "decor": {
-    "body": {
-     "pipes": true,
-     "props": [
+   "cap": [
+    {
+     "kind": "parapet",
+     "clutter": [
       {
-       "prop": "ac_unit",
-       "chance": 0.45,
-       "height_frac": 0.34,
-       "y_frac": 0.62
-      }
-     ],
-     "led": true
-    },
-    "ground": {
-     "props": [
+       "t": "vent",
+       "x": 0.2,
+       "chance": 0.9
+      },
       {
-       "prop": "camera_wall",
-       "chance": 0.5,
-       "height_frac": 0.12,
-       "y_frac": 0.12
+       "t": "tank",
+       "x": 0.6,
+       "chance": 0.7
       }
-     ],
-     "hazard": true
+     ]
     }
-   }
+   ]
   },
   {
    "id": "warehouse",
-   "kit": "modular_factory_facade",
-   "grade": {
-    "brightness": 0.4,
-    "saturation": 0.6,
-    "tint": [
-     0.95,
-     0.85,
-     1.0
-    ],
-    "contrast": 1.05
-   },
    "light_chance": 0.4,
    "light_colors": [
     [
@@ -155,85 +449,165 @@
      0.6
     ]
    ],
-   "ground": [
-    [
-     51
+   "pal": {
+    "base": "#242b37",
+    "light": "#424c5c",
+    "dark": "#131821",
+    "mortar": "#0c1018",
+    "tones": [
+     "#242b37"
     ],
-    [
-     53
-    ]
-   ],
-   "body": [
-    [
-     19,
-     21
+    "frame": "#1f242f",
+    "frame_light": "#485163",
+    "glass": "#0c1222",
+    "glass_light": "#26385a",
+    "metal": "#353c49",
+    "metal_dark": "#1e232d",
+    "accent": "#8a4a28",
+    "accent2": "#2c6e86"
+   },
+   "wall": {
+    "kind": "corrugated",
+    "ribs": 16,
+    "rust": 6,
+    "streaks": 7
+   },
+   "window": {
+    "cols": 3,
+    "rows": 1,
+    "w": 12,
+    "h": 9,
+    "y": 0.4,
+    "chamfer": 0.3,
+    "panes": [
+     3,
+     2
     ],
-    [
-     22,
-     23
-    ],
-    [
-     29,
-     31
-    ],
-    [
-     39,
-     41
-    ]
-   ],
-   "cap": [
-    {
-     "cells": [
-      28,
-      30
-     ],
-     "crop": [
-      0,
-      0,
-      1,
-      0.24
-     ]
-    }
-   ],
+    "blind": 0.3
+   },
    "decor": {
     "body": {
-     "pipes": true,
-     "led": true,
-     "props": [
+     "pipe": 0.8,
+     "pipe_x": [
+      1.2,
+      60.6
+     ],
+     "led": 0.5,
+     "lamp": 0.5
+    },
+    "ground": {
+     "hazard": 1,
+     "camera": 0.6
+    }
+   },
+   "body": [
+    {},
+    {
+     "window": {
+      "cols": 2,
+      "w": 18,
+      "h": 10,
+      "panes": [
+       4,
+       2
+      ]
+     }
+    },
+    {
+     "window": {
+      "cols": 4,
+      "w": 8,
+      "h": 8,
+      "panes": [
+       2,
+       2
+      ]
+     },
+     "decor": {
+      "ac": 0.5
+     }
+    },
+    {
+     "window": {
+      "cols": 3,
+      "rows": 2,
+      "w": 10,
+      "h": 6,
+      "row_gap": 2.5,
+      "y": 0.45,
+      "panes": [
+       2,
+       1
+      ]
+     }
+    },
+    {
+     "window": {
+      "cols": 1,
+      "w": 30,
+      "h": 8,
+      "panes": [
+       6,
+       2
+      ],
+      "chamfer": 0.28
+     }
+    },
+    {
+     "window": {
+      "cols": 3,
+      "w": 12,
+      "h": 9
+     },
+     "decor": {
+      "ac": 0.7,
+      "led": 0.7
+     }
+    }
+   ],
+   "ground": [
+    {
+     "items": [
       {
-       "prop": "emergency_light",
-       "chance": 0.5,
-       "height_frac": 0.14,
-       "y_frac": 0.18
+       "t": "shutter",
+       "cx": 22,
+       "w": 30,
+       "h": 24,
+       "hazard": true,
+       "lamp": true
+      },
+      {
+       "t": "door",
+       "cx": 52,
+       "w": 10,
+       "h": 22,
+       "sign": true,
+       "lit": 0.8
       }
      ]
     },
-    "ground": {
-     "hazard": true,
-     "props": [
+    {
+     "items": [
       {
-       "prop": "camera_wall",
-       "chance": 0.6,
-       "height_frac": 0.1,
-       "y_frac": 0.1
+       "t": "shutter",
+       "cx": 32,
+       "w": 44,
+       "h": 26,
+       "hazard": true,
+       "lamp": true
       }
      ]
     }
-   }
+   ],
+   "cap": [
+    {
+     "kind": "saw",
+     "teeth": 4
+    }
+   ]
   },
   {
    "id": "shutter_block",
-   "kit": "modular_factory_facade",
-   "grade": {
-    "brightness": 0.38,
-    "saturation": 0.8,
-    "tint": [
-     0.85,
-     0.85,
-     1.0
-    ],
-    "contrast": 1.05
-   },
    "light_chance": 0.3,
    "light_colors": [
     [
@@ -257,77 +631,150 @@
      0.6
     ]
    ],
-   "ground": [
-    [
-     51
+   "pal": {
+    "base": "#2a2c37",
+    "light": "#4a4e5f",
+    "dark": "#161822",
+    "mortar": "#0f1218",
+    "tones": [
+     "#2a2c37",
+     "#30323d",
+     "#262932"
     ],
-    [
-     56,
-     57
-    ]
-   ],
-   "body": [
-    [
-     24,
-     26
+    "frame": "#242935",
+    "frame_light": "#51586d",
+    "glass": "#0c1222",
+    "glass_light": "#26385a",
+    "metal": "#3e4251",
+    "metal_dark": "#232732",
+    "accent": "#a6742e",
+    "accent2": "#2c6e86"
+   },
+   "wall": {
+    "kind": "slab",
+    "cols": 4,
+    "rows": 2,
+    "stains": 7,
+    "cracks": 2
+   },
+   "window": {
+    "cols": 4,
+    "rows": 1,
+    "w": 6,
+    "h": 9,
+    "y": 0.4,
+    "chamfer": 0.32,
+    "panes": [
+     1,
+     2
     ],
-    [
-     34,
-     36
-    ],
-    [
-     14,
-     16
-    ],
-    [
-     15,
-     17
-    ]
-   ],
-   "cap": [
-    {
-     "cells": [
-      38,
-      40
-     ],
-     "crop": [
-      0,
-      0,
-      1,
-      0.24
-     ]
-    }
-   ],
+    "blind": 0.3
+   },
    "decor": {
     "body": {
-     "pipes": true,
-     "props": [
-      {
-       "prop": "ac_unit_big",
-       "chance": 0.4,
-       "height_frac": 0.3,
-       "y_frac": 0.62
-      }
+     "pipe": 0.8,
+     "pipe_x": [
+      1.2,
+      60.6
      ]
     },
     "ground": {
-     "hazard": true
+     "hazard": 1
     }
-   }
+   },
+   "body": [
+    {},
+    {
+     "window": {
+      "cols": 2,
+      "w": 10,
+      "h": 8,
+      "panes": [
+       2,
+       2
+      ]
+     },
+     "decor": {
+      "ac": 0.9
+     }
+    },
+    {
+     "window": {
+      "cols": 3,
+      "w": 8,
+      "h": 10,
+      "panes": [
+       2,
+       2
+      ]
+     }
+    },
+    {
+     "window": {
+      "cols": 4,
+      "w": 5,
+      "h": 8,
+      "panes": [
+       1,
+       2
+      ]
+     },
+     "decor": {
+      "ac": 0.5,
+      "led": 0.6
+     }
+    }
+   ],
+   "ground": [
+    {
+     "items": [
+      {
+       "t": "shutter",
+       "cx": 32,
+       "w": 46,
+       "h": 27,
+       "lamp": true
+      }
+     ]
+    },
+    {
+     "items": [
+      {
+       "t": "shutter",
+       "cx": 17,
+       "w": 24,
+       "h": 24,
+       "hazard": true
+      },
+      {
+       "t": "vent",
+       "cx": 47,
+       "w": 14,
+       "h": 14
+      }
+     ]
+    }
+   ],
+   "cap": [
+    {
+     "kind": "parapet",
+     "clutter": [
+      {
+       "t": "vent",
+       "x": 0.15,
+       "chance": 0.9
+      },
+      {
+       "t": "dish",
+       "x": 0.65,
+       "chance": 0.8
+      }
+     ]
+    }
+   ]
   },
   {
-   "id": "apartment",
-   "kit": "modular_urban_apartments_facade",
-   "grade": {
-    "brightness": 0.48,
-    "saturation": 0.65,
-    "tint": [
-     0.85,
-     0.85,
-     1.12
-    ],
-    "contrast": 1.05
-   },
+   "id": "shopfront",
    "light_chance": 0.5,
    "light_colors": [
     [
@@ -351,213 +798,152 @@
      0.6
     ]
    ],
-   "ground": [
-    [
-     26,
-     27
+   "pal": {
+    "base": "#273846",
+    "light": "#435a6d",
+    "dark": "#141f28",
+    "mortar": "#0e151c",
+    "tones": [
+     "#273846"
     ],
-    [
-     28,
-     29
-    ]
-   ],
-   "body": [
-    [
-     14,
-     15
-    ],
-    [
-     16,
-     17
-    ],
-    [
-     9,
-     10
-    ],
-    [
-     7,
-     8
-    ]
-   ],
-   "cap": [
-    {
-     "cells": [
-      19,
-      20
-     ],
-     "crop": [
-      0,
-      0,
-      1,
-      0.24
-     ]
-    }
-   ],
-   "decor": {
-    "body": {
-     "pipes": true,
-     "props": [
-      {
-       "prop": "ac_unit",
-       "chance": 0.5,
-       "height_frac": 0.3,
-       "y_frac": 0.66
-      }
-     ],
-     "led": false
-    },
-    "ground": {
-     "props": [
-      {
-       "prop": "emergency_light",
-       "chance": 0.5,
-       "height_frac": 0.12,
-       "y_frac": 0.15
-      }
-     ]
-    }
-   }
-  },
-  {
-   "id": "shopfront",
-   "kit": "modular_urban_apartments_facade",
-   "grade": {
-    "brightness": 0.48,
-    "saturation": 0.65,
-    "tint": [
-     0.9,
-     0.85,
-     1.05
-    ],
-    "contrast": 1.05
+    "frame": "#303c4d",
+    "frame_light": "#6b7994",
+    "glass": "#0c1426",
+    "glass_light": "#26385a",
+    "metal": "#4c566a",
+    "metal_dark": "#2a3343",
+    "accent": "#a6742e",
+    "accent2": "#8c3a64"
    },
-   "light_chance": 0.6,
-   "light_colors": [
-    [
-     1.0,
-     0.72,
-     0.35
+   "wall": {
+    "kind": "plaster",
+    "groove": 4,
+    "stains": 4,
+    "cracks": 1
+   },
+   "window": {
+    "cols": 3,
+    "rows": 1,
+    "w": 10,
+    "h": 13,
+    "y": 0.43,
+    "chamfer": 0.3,
+    "panes": [
+     2,
+     2
     ],
-    [
-     1.0,
-     0.9,
-     0.65
-    ],
-    [
-     0.4,
-     0.85,
-     1.0
-    ],
-    [
-     1.0,
-     0.35,
-     0.6
-    ]
+    "blind": 0.4
+   },
+   "decor": {
+    "body": {
+     "pipe": 0.6,
+     "pipe_x": [
+      1.2,
+      60.6
+     ],
+     "led": 0.3
+    },
+    "ground": {
+     "lamp": 0.5
+    }
+   },
+   "body": [
+    {},
+    {
+     "window": {
+      "cols": 4,
+      "w": 8,
+      "h": 12
+     },
+     "decor": {
+      "ac": 0.6
+     }
+    },
+    {
+     "window": {
+      "cols": 2,
+      "w": 16,
+      "h": 13,
+      "panes": [
+       3,
+       2
+      ]
+     },
+     "decor": {
+      "balcony": 0.7
+     }
+    },
+    {
+     "window": {
+      "cols": 3,
+      "w": 9,
+      "h": 14,
+      "chamfer": 0.34,
+      "panes": [
+       2,
+       3
+      ]
+     },
+     "decor": {
+      "ac": 0.4,
+      "led": 0.5
+     }
+    }
    ],
    "ground": [
-    [
-     26,
-     28
-    ],
-    [
-     27,
-     29
-    ]
-   ],
-   "body": [
-    [
-     0,
-     3
-    ],
-    [
-     2,
-     1
-    ],
-    [
-     11,
-     10
-    ],
-    [
-     4,
-     8
-    ]
+    {
+     "items": [
+      {
+       "t": "shop",
+       "cx": 22,
+       "w": 34,
+       "h": 20,
+       "awning": "#8c3a64",
+       "sill": 4
+      },
+      {
+       "t": "door",
+       "cx": 52,
+       "w": 10,
+       "h": 24,
+       "sign": true,
+       "lit": 0.8
+      }
+     ]
+    },
+    {
+     "items": [
+      {
+       "t": "shop",
+       "cx": 32,
+       "w": 50,
+       "h": 20,
+       "awning": "#2e6f86",
+       "sill": 4
+      }
+     ]
+    }
    ],
    "cap": [
     {
-     "cells": [
-      22,
-      23
-     ],
-     "crop": [
-      0,
-      0,
-      1,
-      0.24
-     ]
-    }
-   ],
-   "decor": {
-    "body": {
-     "pipes": true,
-     "props": [
+     "kind": "parapet",
+     "clutter": [
       {
-       "prop": "ac_unit",
-       "chance": 0.5,
-       "height_frac": 0.3,
-       "y_frac": 0.66
-      }
-     ],
-     "led": false
-    },
-    "ground": {
-     "props": [
+       "t": "antenna",
+       "x": 0.25,
+       "chance": 0.8
+      },
       {
-       "prop": "emergency_light",
-       "chance": 0.5,
-       "height_frac": 0.12,
-       "y_frac": 0.15
+       "t": "dish",
+       "x": 0.7,
+       "chance": 0.7
       }
      ]
     }
-   }
+   ]
   },
   {
    "id": "glass_tower",
-   "generated": {
-    "wall_material": "glass_curtain",
-    "tile_world": 48,
-    "windows": {
-     "ground": {
-      "cols": 4,
-      "rows": 1,
-      "w": 12,
-      "h": 24,
-      "chamfer": 0.28
-     },
-     "body": {
-      "cols": 8,
-      "rows": 3,
-      "w": 6,
-      "h": 7.5,
-      "glass": [
-       0.03,
-       0.07,
-       0.13
-      ],
-      "chamfer": 0.32
-     },
-     "cap": null
-    }
-   },
-   "grade": {
-    "brightness": 0.7,
-    "saturation": 0.9,
-    "tint": [
-     0.85,
-     0.95,
-     1.15
-    ]
-   },
    "light_chance": 0.5,
    "light_colors": [
     [
@@ -581,87 +967,199 @@
      0.6
     ]
    ],
-   "ground": [
-    [
-     0
+   "pal": {
+    "base": "#121b32",
+    "light": "#324a75",
+    "dark": "#0a1020",
+    "mortar": "#080d1b",
+    "tones": [
+     "#121b32",
+     "#15203a",
+     "#0e162b"
     ],
-    [
-     0
-    ]
-   ],
-   "body": [
-    [
-     0
+    "frame": "#2a354b",
+    "frame_light": "#63759a",
+    "glass": "#080e20",
+    "glass_light": "#24386a",
+    "metal": "#3b4863",
+    "metal_dark": "#222a40",
+    "accent": "#a6742e",
+    "accent2": "#2c6e86"
+   },
+   "wall": {
+    "kind": "curtain",
+    "cols": 4,
+    "rows": 2
+   },
+   "window": {
+    "cols": 8,
+    "rows": 1,
+    "w": 5,
+    "h": 14,
+    "y": 0.42,
+    "chamfer": 0.32,
+    "panes": [
+     1,
+     3
     ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "cap": [
-    [
-     0
-    ]
-   ],
+    "sill": false,
+    "blind": 0.35,
+    "frame": 0.7
+   },
    "decor": {
     "body": {
-     "traces": 3,
-     "led": true,
-     "pipes": false
+     "traces": 2,
+     "led": 0.5
     },
     "ground": {
-     "traces": 2,
-     "hazard": true,
-     "beacon": false
-    },
-    "cap": {
-     "led": true,
-     "beacon": true
+     "traces": 1,
+     "hazard": 1
     }
-   }
+   },
+   "body": [
+    {},
+    {
+     "window": {
+      "cols": 4,
+      "w": 10,
+      "h": 15,
+      "panes": [
+       2,
+       3
+      ],
+      "chamfer": 0.3
+     }
+    },
+    {
+     "window": {
+      "cols": 8,
+      "rows": 2,
+      "w": 5,
+      "h": 8,
+      "row_gap": 2.2,
+      "panes": [
+       1,
+       2
+      ],
+      "y": 0.44
+     }
+    },
+    {
+     "window": {
+      "cols": 6,
+      "w": 6.5,
+      "h": 14,
+      "panes": [
+       2,
+       3
+      ]
+     },
+     "decor": {
+      "traces": 3
+     }
+    }
+   ],
+   "ground": [
+    {
+     "items": [
+      {
+       "t": "window",
+       "cx": 9,
+       "w": 11,
+       "h": 26,
+       "panes": [
+        2,
+        3
+       ],
+       "lit": 0.8
+      },
+      {
+       "t": "window",
+       "cx": 23,
+       "w": 11,
+       "h": 26,
+       "panes": [
+        2,
+        3
+       ],
+       "lit": 0.8
+      },
+      {
+       "t": "door",
+       "cx": 40,
+       "w": 12,
+       "h": 26,
+       "sign": true,
+       "lit": 1
+      },
+      {
+       "t": "window",
+       "cx": 56,
+       "w": 11,
+       "h": 26,
+       "panes": [
+        2,
+        3
+       ],
+       "lit": 0.8
+      }
+     ]
+    },
+    {
+     "items": [
+      {
+       "t": "window",
+       "cx": 18,
+       "w": 26,
+       "h": 24,
+       "panes": [
+        4,
+        3
+       ],
+       "lit": 1
+      },
+      {
+       "t": "door",
+       "cx": 42,
+       "w": 12,
+       "h": 26,
+       "sign": true,
+       "lit": 1
+      },
+      {
+       "t": "window",
+       "cx": 56,
+       "w": 10,
+       "h": 24,
+       "panes": [
+        2,
+        3
+       ],
+       "lit": 0.7
+      }
+     ]
+    }
+   ],
+   "cap": [
+    {
+     "kind": "stepped",
+     "clutter": [
+      {
+       "t": "antenna",
+       "x": 0.14,
+       "chance": 1.0
+      },
+      {
+       "t": "vent",
+       "x": 0.8,
+       "chance": 0.8
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "facility_wall",
-   "generated": {
-    "wall_material": "facility_panel",
-    "tile_world": 48,
-    "windows": {
-     "ground": {
-      "cols": 2,
-      "rows": 1,
-      "w": 14,
-      "h": 18,
-      "chamfer": 0.2
-     },
-     "body": {
-      "cols": 3,
-      "rows": 1,
-      "w": 13,
-      "h": 3.5,
-      "glass": [
-       0.02,
-       0.05,
-       0.07
-      ],
-      "chamfer": 0.45
-     },
-     "cap": null
-    }
-   },
-   "grade": {
-    "brightness": 0.8,
-    "saturation": 0.8,
-    "tint": [
-     0.85,
-     1.0,
-     1.05
-    ]
-   },
    "light_chance": 0.45,
    "light_colors": [
     [
@@ -680,55 +1178,162 @@
      0.3
     ]
    ],
-   "ground": [
-    [
-     0
+   "pal": {
+    "base": "#1f3036",
+    "light": "#3d5a65",
+    "dark": "#0f181e",
+    "mortar": "#0a1216",
+    "tones": [
+     "#1f3036",
+     "#23353c",
+     "#1d2d34"
     ],
-    [
-     0
-    ]
-   ],
-   "body": [
-    [
-     0
+    "frame": "#223038",
+    "frame_light": "#536d75",
+    "glass": "#08121a",
+    "glass_light": "#244a5e",
+    "metal": "#384c54",
+    "metal_dark": "#1e2d34",
+    "accent": "#9a7a24",
+    "accent2": "#2c6e86"
+   },
+   "wall": {
+    "kind": "panel",
+    "cols": 4,
+    "rows": 4,
+    "rivets": true,
+    "vent": true
+   },
+   "window": {
+    "cols": 3,
+    "rows": 1,
+    "w": 13,
+    "h": 4,
+    "y": 0.36,
+    "chamfer": 0.42,
+    "panes": [
+     3,
+     1
     ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "cap": [
-    [
-     0
-    ]
-   ],
+    "sill": false,
+    "blind": 0.0
+   },
    "decor": {
     "body": {
-     "traces": 4,
-     "led": true,
-     "pipes": true
+     "traces": 3,
+     "led": 0.6,
+     "pipe": 0.7,
+     "pipe_x": [
+      1.2,
+      60.6
+     ]
     },
     "ground": {
      "traces": 2,
-     "hazard": true,
-     "props": [
+     "hazard": 1,
+     "camera": 0.7
+    },
+    "cap": {}
+   },
+   "body": [
+    {},
+    {
+     "window": {
+      "cols": 2,
+      "w": 18,
+      "h": 5,
+      "y": 0.34,
+      "panes": [
+       4,
+       1
+      ]
+     }
+    },
+    {
+     "window": {
+      "cols": 4,
+      "w": 9,
+      "h": 4,
+      "y": 0.38,
+      "panes": [
+       2,
+       1
+      ]
+     },
+     "decor": {
+      "traces": 4
+     }
+    },
+    {
+     "window": {
+      "cols": 3,
+      "rows": 2,
+      "w": 12,
+      "h": 3.5,
+      "row_gap": 3,
+      "y": 0.4,
+      "panes": [
+       3,
+       1
+      ]
+     }
+    }
+   ],
+   "ground": [
+    {
+     "items": [
       {
-       "prop": "camera_wall",
-       "chance": 0.6,
-       "height_frac": 0.12,
-       "y_frac": 0.1
+       "t": "vent",
+       "cx": 14,
+       "w": 14,
+       "h": 16
+      },
+      {
+       "t": "door",
+       "cx": 42,
+       "w": 14,
+       "h": 24,
+       "sign": true,
+       "lit": 0.9
+      },
+      {
+       "t": "vent",
+       "cx": 57,
+       "w": 9,
+       "h": 12
       }
      ]
     },
-    "cap": {
-     "led": true
+    {
+     "items": [
+      {
+       "t": "shutter",
+       "cx": 32,
+       "w": 38,
+       "h": 22,
+       "hazard": true,
+       "lamp": true
+      }
+     ]
     }
-   }
+   ],
+   "cap": [
+    {
+     "kind": "stepped",
+     "clutter": [
+      {
+       "t": "vent",
+       "x": 0.12,
+       "chance": 0.9
+      },
+      {
+       "t": "mast",
+       "x": 0.8,
+       "chance": 0.9
+      }
+     ]
+    }
+   ]
   }
  ]
 }

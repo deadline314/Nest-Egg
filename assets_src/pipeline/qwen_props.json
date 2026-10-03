@@ -1,7 +1,8 @@
 {
  "styles": {
   "dark": "Anime cel-shaded game prop in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, bold clean dark outlines, hard-edged two-tone cel shading with a bright cool-white rim light on the lit edges, natural local colours (rust brown, steel grey, faded red, teal, warm yellow) kept clearly lighter than a dark navy night background, small neon cyan and magenta accents, straight-on orthographic side elevation with no perspective, one single object centered, no ground, no cast shadow, no text.",
-  "neon": "Anime cel-shaded game prop in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, bold clean dark outlines, hard-edged two-tone cel shading with a bright cool-white rim light on the lit edges, natural local colours (rust brown, steel grey, faded red, teal, warm yellow) kept clearly lighter than a dark navy night background, small neon cyan and magenta accents, straight-on orthographic side elevation with no perspective, one single object centered, no ground, no cast shadow, no text."
+  "neon": "Anime cel-shaded game prop in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, bold clean dark outlines, hard-edged two-tone cel shading with a bright cool-white rim light on the lit edges, natural local colours (rust brown, steel grey, faded red, teal, warm yellow) kept clearly lighter than a dark navy night background, small neon cyan and magenta accents, straight-on orthographic side elevation with no perspective, one single object centered, no ground, no cast shadow, no text.",
+  "nature": "Anime cel-shaded game plant in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, bold clean dark outlines, hard-edged two-tone cel shading with a bright cool-white rim light on the lit edges, natural local colours (leaf green, teal green, olive, warm brown bark) kept clearly lighter than a dark navy night background, straight-on orthographic side elevation with no perspective, one single plant centered, no ground, no cast shadow, no text."
  },
  "glow_presets": {
   "neon": [
@@ -689,6 +690,125 @@
     ]
    },
    "height_m": 1.7
+  },
+  {
+   "id": "tree_pine_1",
+   "seed": 11,
+   "style": "nature",
+   "fit": "height",
+   "prompt": "A tall scots pine seen from the side: a long straight reddish-brown trunk with a few bare lower branches and a broad flat-topped crown made of several layered clumps of dark green needles, slightly windswept.",
+   "anchor": {
+    "size": [
+     66.0,
+     110
+    ]
+   },
+   "max_aspect": 0.353
+  },
+  {
+   "id": "tree_pine_2",
+   "seed": 12,
+   "style": "nature",
+   "fit": "height",
+   "prompt": "A smaller crooked pine tree seen from the side: a leaning slender brown trunk with two or three layered clumps of green needles near the top, a bit sparse and windswept.",
+   "anchor": {
+    "size": [
+     55.2,
+     92
+    ]
+   }
+  },
+  {
+   "id": "tree_fir_1",
+   "seed": 13,
+   "style": "nature",
+   "fit": "height",
+   "prompt": "A tall fir tree seen from the side: a narrow cone of many drooping layered tiers of dark teal-green branches, a thin brown trunk visible at the base, pointed top.",
+   "anchor": {
+    "size": [
+     60.0,
+     100
+    ]
+   },
+   "max_aspect": 0.345
+  },
+  {
+   "id": "tree_fir_2",
+   "seed": 14,
+   "style": "nature",
+   "fit": "height",
+   "prompt": "A young slim fir tree seen from the side: a narrow cone of layered tiers of green branches with a few snow-white highlights, a short thin trunk at the base.",
+   "anchor": {
+    "size": [
+     50.4,
+     84
+    ]
+   }
+  },
+  {
+   "id": "tree_island",
+   "seed": 15,
+   "style": "nature",
+   "fit": "height",
+   "prompt": "A small lone island tree seen from the side: a gnarled twisting trunk growing out of a small mossy rock, a rounded layered crown of olive-green leaves.",
+   "anchor": {
+    "size": [
+     42.0,
+     70
+    ]
+   }
+  },
+  {
+   "id": "tree_jacaranda",
+   "seed": 16,
+   "style": "nature",
+   "fit": "height",
+   "prompt": "A jacaranda tree in bloom seen from the side: a slender brown trunk splitting into branches under a wide rounded crown full of purple-violet flower clusters with a few green leaves.",
+   "anchor": {
+    "size": [
+     38.4,
+     64
+    ]
+   }
+  },
+  {
+   "id": "tree_quiver",
+   "seed": 17,
+   "style": "nature",
+   "fit": "height",
+   "prompt": "A quiver tree (kokerboom) seen from the side: a thick smooth pale-tan trunk with scaly ridges that forks repeatedly into stubby branches, each ending in a spiky rosette of blue-green leaves.",
+   "anchor": {
+    "size": [
+     54.0,
+     90
+    ]
+   }
+  },
+  {
+   "id": "tree_stump",
+   "seed": 38,
+   "style": "dark",
+   "fit": "height",
+   "prompt": "A sawn-off tree stump: a short wide dead wood log base, flat cut top with pale growth rings, rough dark bark sides, a few thick root flares. Only dead wood, no leaves, no plant, no moss.",
+   "anchor": {
+    "size": [
+     8.4,
+     14
+    ]
+   }
+  },
+  {
+   "id": "tree_branch",
+   "seed": 39,
+   "style": "dark",
+   "fit": "height",
+   "prompt": "A dead tree branch propped upright: a gnarled grey-brown dry wooden limb with three or four bare forking twigs. Only dead wood, absolutely no leaves, no green.",
+   "anchor": {
+    "size": [
+     6.0,
+     10
+    ]
+   }
   }
  ],
  "px_per_meter": 30

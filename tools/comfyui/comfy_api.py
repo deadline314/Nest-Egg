@@ -1,19 +1,28 @@
 """ComfyUI API client for Nest Egg art (Qwen Image 2.1 Uncensored, int8).
 
-Requires a running ComfyUI server (launch command: design/03-art-pipeline/ART_PIPELINE.md section 5).
+The server is started for you when it is down (tools/comfyui/start_comfyui.ps1), and a hung, crashed or out-of-memory
+server is restarted and the job re-queued (tools/comfyui/comfy_guard.py explains what counts as stuck). A job that still
+fails after COMFY_MAX_RETRIES restarts raises ComfyFailure and is appended to assets_src/work/comfy_failures.log.
 Usage:
     from comfy_api import qwen
     qwen("prompt", w=832, h=1216, seed=1, prefix="rin")                 # text-to-image
     qwen("prompt", images=["pose.png", "ref.png"], prefix="rin_pose")   # edit / reference mode
 Outputs go to ./out next to this file (override with the OUT_DIR env var).
 """
+import hashlib
 import json
 import os
 import random
+import sys
 import time
+import urllib.error
 import urllib.request
 import uuid
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+import comfy_guard  # noqa: E402
+from comfy_guard import ComfyFailure, ComfyStalled  # noqa: E402,F401  (re-exported for callers)
 
 HOST = os.environ.get("COMFY_HOST", "http://127.0.0.1:8188")
 OUT = Path(os.environ.get("OUT_DIR", Path(__file__).parent / "out"))
@@ -23,53 +32,113 @@ QWEN_CLIP = "qwen3vl_8b_int8_convrot.safetensors"
 QWEN_VAE = "qwen_image_2.1_vae_bf16.safetensors"
 
 
-def _post(path, data):
+def _post(path, data, timeout=60):
     req = urllib.request.Request(HOST + path, json.dumps(data).encode(), {"Content-Type": "application/json"})
-    return json.load(urllib.request.urlopen(req))
+    return json.load(urllib.request.urlopen(req, timeout=timeout))
 
 
-def _get(path):
-    return urllib.request.urlopen(HOST + path).read()
+def _get(path, timeout=30):
+    """Every request has a timeout: a frozen server still accepts connections but never answers, and waiting forever is the hang."""
+    return urllib.request.urlopen(HOST + path, timeout=timeout).read()
 
 
 def upload(path):
     """Upload a local image to the ComfyUI input folder; returns the stored name."""
     import requests
     with open(path, "rb") as f:
-        r = requests.post(HOST + "/upload/image", files={"image": (Path(path).name, f, "image/png")}, data={"overwrite": "true"})
+        r = requests.post(HOST + "/upload/image", files={"image": (Path(path).name, f, "image/png")}, data={"overwrite": "true"}, timeout=60)
     r.raise_for_status()
     return r.json()["name"]
 
 
-def run(graph, name):
-    """Queue an API-format graph, wait for it, and download its images to OUT/<name>_<i>.png."""
-    pid = _post("/prompt", {"prompt": graph, "client_id": str(uuid.uuid4())})["prompt_id"]
-    while True:
-        h = json.loads(_get(f"/history/{pid}"))
-        if pid in h:
-            break
-        time.sleep(1)
+def _run_once(graph, name):
+    """Queue the graph once and wait for it; raises ComfyStalled when the server hangs, dies or runs out of memory."""
+    comfy_guard.ensure_server()
+    client_id = str(uuid.uuid4())
+    watch = comfy_guard.Watchdog(client_id)
+    try:
+        try:
+            pid = _post("/prompt", {"prompt": graph, "client_id": client_id})["prompt_id"]
+        except urllib.error.HTTPError as ex:  # the server rejected the graph itself: retrying cannot help
+            raise RuntimeError(f"ComfyUI rejected the job: {ex.read().decode('utf-8', 'ignore')[:1500]}") from ex
+        except OSError as ex:
+            raise ComfyStalled(f"could not queue the job: {ex}") from ex
+        ok = True
+        while True:
+            try:
+                h = json.loads(_get(f"/history/{pid}", timeout=10))
+                ok = True
+            except (OSError, ValueError):
+                h, ok = {}, False
+            if pid in h:
+                break
+            watch.wait(2.0, ok)
+    finally:
+        watch.close()
     st = h[pid].get("status", {})
     if st.get("status_str") == "error":
-        raise RuntimeError(json.dumps(st, ensure_ascii=False)[:2000])
+        detail = json.dumps(st, ensure_ascii=False)[:2000]
+        if comfy_guard.is_oom_text(detail):
+            raise ComfyStalled(f"server reported out of memory: {detail[:200]}")
+        raise RuntimeError(detail)
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / ".gdignore").touch()  # keep Godot from importing generated images
     paths = []
-    for node in h[pid]["outputs"].values():
-        for i, im in enumerate(node.get("images", [])):
-            data = _get(f"/view?filename={im['filename']}&subfolder={im['subfolder']}&type={im['type']}")
-            p = OUT / f"{name}_{i}.png"
-            p.write_bytes(data)
-            paths.append(p)
+    try:
+        for node in h[pid]["outputs"].values():
+            for i, im in enumerate(node.get("images", [])):
+                data = _get(f"/view?filename={im['filename']}&subfolder={im['subfolder']}&type={im['type']}")
+                p = OUT / f"{name}_{i}.png"
+                p.write_bytes(data)
+                paths.append(p)
+    except OSError as ex:
+        raise ComfyStalled(f"server went away while downloading the result: {ex}") from ex
     return paths
 
 
-def qwen(prompt, w=1024, h=1024, steps=25, seed=None, prefix="qwen", images=(), resolution=1024, retries=4):
+def run(graph, name, retries=None):
+    """Queue an API-format graph, wait for it, and download its images to OUT/<name>_<i>.png.
+
+    A stuck server is restarted and the graph queued again, up to `retries` times (default COMFY_MAX_RETRIES); then
+    ComfyFailure is raised and the job is logged. Errors in the graph itself (RuntimeError) are not retried.
+    """
+    retries = comfy_guard.MAX_RETRIES if retries is None else retries
+    reasons = []
+    with comfy_guard.server_lock():
+        for attempt in range(retries + 1):
+            try:
+                return _run_once(graph, name)
+            except ComfyStalled as ex:
+                reasons.append(str(ex))
+                print(f"  [comfy] {name}: {ex} (attempt {attempt + 1}/{retries + 1})", flush=True)
+                if attempt < retries:
+                    comfy_guard.restart_server(f"{name}: {ex}")
+    raise ComfyFailure(comfy_guard.record_failure(name, reasons))
+
+
+def _job_key(prompt, w, h, steps, seed, resolution, images):
+    """Everything that decides the picture (same key = same image), so a finished job is never generated twice."""
+    refs = [hashlib.sha1(Path(p).read_bytes()).hexdigest() for p in images]
+    blob = json.dumps([QWEN_UNET, prompt, w, h, steps, seed, resolution, refs], ensure_ascii=False)
+    return hashlib.sha1(blob.encode("utf-8")).hexdigest()
+
+
+def qwen(prompt, w=1024, h=1024, steps=25, seed=None, prefix="qwen", images=(), resolution=1024, retries=4, reuse=True):
     """Text-to-image, or edit mode when reference images (local paths) are given.
 
     Intel Arc occasionally returns an all-black (NaN) image; it is detected and regenerated with seed+1.
+    With a fixed seed and reuse=True, an identical finished job (same prompt, size, steps, seed, references) is returned
+    from OUT instead of generated again, so re-running a batch after a failure only does the unfinished jobs.
     """
     from PIL import Image
+    key = _job_key(prompt, w, h, steps, seed, resolution, images) if seed is not None else None
+    meta = OUT / f"{prefix}.job.json"
+    if reuse and key and meta.exists() and json.loads(meta.read_text(encoding="utf-8")).get("key") == key:
+        cached = sorted(OUT.glob(f"{prefix}_[0-9].png"))
+        if cached:
+            print(f"  [comfy] {prefix}: already generated, reusing", flush=True)
+            return cached
+    comfy_guard.ensure_server()  # reference images are uploaded before the first job is queued
     names = [upload(p) for p in images]
     paths = []
     for attempt in range(retries):
@@ -97,6 +166,8 @@ def qwen(prompt, w=1024, h=1024, steps=25, seed=None, prefix="qwen", images=(), 
             del g["5"]
         paths = run(g, prefix)
         if Image.open(paths[0]).getextrema()[0] != (0, 0):
+            if key:
+                meta.write_text(json.dumps({"key": key, "seed": s}), encoding="utf-8")
             return paths
         print(f"  black output, retry {attempt + 1}", flush=True)
     return paths

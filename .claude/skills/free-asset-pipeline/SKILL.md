@@ -34,21 +34,23 @@ description: 把免費（CC0）高解析度素材換進 Nest Egg 場景的完整
 
 ## 3. 地形材質（`process_material.py`）
 
-清單：`assets_src/pipeline/materials.json`，每筆 `{id, source, tile_world, grade{brightness,saturation,tint,contrast,gamma}, normal_strength, lip}`。
+清單：`assets_src/pipeline/materials.json`，每筆 `{id, tile_world, normal_strength, grade, cel{kind, pal, ...}}`。**NE-73 起 16 種全部是程式繪製的賽璐璐畫風**（平塗色塊、深色墨線、硬邊兩色陰影、由左上打光的亮邊與暗邊），不再從 Poly Haven／ambientCG 的 PBR 照片裁切（舊的 `source` 路線程式還在，沒有 `cel` 區塊的項目仍走它）。
 
-- `id` 必須對應 `data/environment/materials/<id>.tres`（腳本會把 `texture_scale` 寫回資料）。
-- 解析度 = `texture_scale`（預設 8）× `tile_world`（一次重複涵蓋的邏輯像素）。上限 768 px，超過會報錯。
-- 輸出 `<id>_{body,top,side}.png` ＋ `_n.png`（OpenGL 法線，Y+ 向上，與 Godot 2D 相同，直接用）。頂面與側邊由本體裁切並加邊緣斜面。
-- 非正方形的無縫貼圖（例如 2:1）會堆疊成正方形，仍然無縫。
+- 畫法在 `tools/assets/cel_tile.py`：`Tile` 同時畫顏色與高度圖（高度圖算出法線），所有圖形環繞邊界所以**天生無縫**（接縫量測對線條規律的圖會誤報，例如格柵 `seam 14.99`，以拼 2×2 的實際畫面為準）。`kind`：`plates`（鋼板格：地板、牆板、鉚釘、散熱孔、色帶）、`bricks`、`corrugated`（波浪鋼板，可加鏽斑）、`slabs`（混凝土板、污漬、裂縫，可加塗裝標線）、`asphalt`、`gravel`（屋頂瀝青碎石）、`grating`（格柵）、`glass`（帷幕玻璃）、`rust`。新增種類就在 `PAINTERS` 加一個函式。
+- 色盤在 JSON（`pal`：`ink` 墨線色、`tones` 數個底色、`light` 亮邊色、其餘依種類），種子由 `id` 決定，重跑結果一致。色盤直接寫成最終顏色（`grade` 預設不調）；環境光會再壓暗，所以每種材質都要比夜景背景亮、但不搶眼。
+- 頂面與側邊：本體裁切後加一條墨線外框、一條冷白亮邊、下半部硬邊變暗（`build_top_cel`／`build_side_cel`）。
+- `id` 必須對應 `data/environment/materials/<id>.tres`（腳本會把 `texture_scale` 寫回資料）。解析度 = `texture_scale`（預設 8）× `tile_world`；上限 768 px，超過會報錯。
+- 輸出 `<id>_{body,top,side}.png` ＋ `_n.png`（OpenGL 法線，Y+ 向上，與 Godot 2D 相同，直接用）。法線太平就調高 `normal_strength`（有機形狀如柏油、混凝土、鏽蝕用 14～24，規則鋼板 8）。
 - 遊戲端：`TerrainMaterialData.texture_scale`、`EnvZone.interior_scale`（室內牆面貼圖用的是 `*_body.png`，倍率要跟著改）。
 
 ## 4. 天空（`process_sky.py`）
 
-清單：`assets_src/pipeline/backdrop.json` 的 `skies`，每筆 `{id, source(HDRI), elevation:[低,高], yaw_deg, grade, horizon_glow, top_fade}`。
+清單：`assets_src/pipeline/backdrop.json` 的 `skies`，每筆 `{id, width, height, top_fade, cel{seed, palette, bands, wave, stars, orbs, layers, horizon_glow}}`。**NE-76 起 7 張天空全是程式繪製的賽璐璐畫風**（`tools/assets/cel_sky.py`，欄位說明在檔頭 docstring）：硬邊色帶漸層、平塗的雲（雲底較暗的第二色、亮邊）、星星／月亮／太陽、階梯式地平線光暈。圖形都以 ±寬度環繞繪製或用整數個正弦週期，所以左右天生無縫。沒有 `cel` 區塊的項目仍走舊的 HDRI 路線（`source`、`elevation`、`grade`）。
 
-- 從 360° 全景切出「地平線以上」的長條，左右天生無縫；**低仰角會切到建築、樹與路燈**，把 `elevation` 下限拉高（城市全景要 ≥ 50°）。
-- 輸出 WebP（照片雜訊用 PNG 會好幾 MB）；`BackdropLayer.texture` 已允許 `.webp`。
-- 遠景天際線（`process_backdrop.py` 的 `pano_skyline`）：同一個 HDRI 取一段（`span_deg`、`elevation`），接縫處交叉淡化、上緣淡出；亮處（窗光、霓虹）另存 `_glow.webp`。中景樓群（`city_blocks`）用已建好的立面模組疊樓，兩排前後、輪廓用 `shape_mask`（階梯／斜屋頂／人字／切角／帶尖塔）、屋頂雜物貼在**該欄的屋頂線上**（不是整棟的最高點，否則斜屋頂上的雜物會漂浮）。
+- 輸出 WebP；cel 天空是無損 WebP（平塗色塊只有十幾～幾十 KB）。`BackdropLayer.texture` 已允許 `.webp`。
+- 夜空亮度以舊成品的平均亮度為上限（暴雨夜 0.15、城市夜空 0.17），藍天（過場動畫用）可以亮。
+- 舊的 HDRI 路線：從 360° 全景切出「地平線以上」的長條；**低仰角會切到建築、樹與路燈**，把 `elevation` 下限拉高（城市全景要 ≥ 50°）。
+- 遠景天際線（`process_backdrop.py` 的 `pano_skyline`）：同一個 HDRI 取一段（`span_deg`、`elevation`），接縫處交叉淡化、上緣淡出；亮處（窗光、霓虹）另存 `_glow.webp`。中景樓群（`city_blocks`）用已建好的立面模組疊樓，兩排前後（每排寬度加總剛好一個 tile，左右無縫；寬於一個模組的樓用多個模組並排）、輪廓用 `shape_mask`（階梯／斜屋頂／人字／切角／帶尖塔／側塔／雙塔／針尖／斜切）、每棟有墨線外框、左亮右暗的硬邊明暗，越遠的排用 `haze` 混合偏藍（越淡越偏藍）；屋頂雜物是賽璐璐畫的天線（頂端純紅信標）、水塔、碟型天線、通風管、煙囪、招牌（霓虹）、風管、屋頂雜物貼在**該欄的屋頂線上**（不是整棟的最高點，否則斜屋頂上的雜物會漂浮）。
 - 遊戲端：`EnvironmentTheme.sky`（`BackdropLayer`），`LevelBackground` 把它做成慢速視差層壓在程式天空上；缺圖退回程式天空並記錄路徑。
 - **背景會被環境光（`CanvasModulate`）與 `background_tint` 壓暗**：圖在遊戲裡看起來比預期暗很多。`BackdropLayer.tint` 可以大於 1（HDR），例如 `Color(1.4, 1.35, 1.5, 1)`。亮度先在圖裡調出細節（對比 1.5～2），tint 只做微調；tint 拉太高只會得到一整片飽和的色塊。
 
@@ -67,14 +69,15 @@ description: 把免費（CC0）高解析度素材換進 Nest Egg 場景的完整
 - **新增道具**：`props.json` 的項目加 `new: {display_name, category, sway, ...}` 與 `anchor.size`，首次執行會建立 `.tres`；`aliases` 可以不做新圖、只新增一份資料沿用既有貼圖（例如半透明的前景樹）。`anchor` 記住原本尺寸，重跑不會越縮越歪。
 - 植物會搖：`PropData.sway`＋`sway.gdshader`（頂端位移、依位置錯開相位、同幅度共用一份材質），不需要每影格腳本。前景植物放在**沒有敵人與危險物的欄**（既有擺放檢查會抓）。
 
-### 套件模型（立面、管線、電線桿：一個 glTF 裡排著很多件）
+### 建築立面（NE-74 起全部程式繪製的賽璐璐畫風，不再用 Poly Haven 立面套件渲染）
 
-1. 用 `render_model.tscn` 以大寬度（2400）渲染整個套件，`glow: ["_glass"]`。
-2. `kit_cells.py <名稱>` 偵測每一件、輸出編號預覽 `assets_src/work/kits/<名稱>_cells.png` 與 `_cells.json`。**用編號挑件，不要手量座標**。
-3. 立面用 `build_facades.py`（清單 `assets_src/pipeline/facades.json`）：一個模組＝一個或多個 cell 左右併排、拉伸到模組尺寸（寬 64、一樓高 40、標準樓層 32、女兒牆 8，× `texture_scale`）。窗戶：玻璃遮罩先膨脹再標記，**整扇窗**（不是每片玻璃）依 `light_chance` 亮或暗、顏色從 `light_colors` 抽、固定亂數種子（重跑結果一致）；保證每個標準樓層至少一扇亮窗（資料承諾有自發光層）。
-4. 牆面裝飾（`tools/assets/decor.py`，設定在 facades.json 的 `decor`）：`pipes`、`props`（把已建好的道具貼在**沒有亮窗的空位**，不然窗光層會蓋在它上面）、`hazard`、`traces`（電路走線）、`led`、`beacon`。沒有套件的立面（玻璃帷幕、設施牆面）用 `generated`：以地形材質平鋪當牆，畫切角窗與裝飾。
-5. 亮窗與信標的動畫：自發光層走 `LightKit.window_life_material()`（`window_life.gdshader`）：以世界座標切格，一部分區塊緩慢閃爍，純紅像素（r>0.7、g、b<0.35）當信標明滅。立面用 `ChunkedDrawer.chunk_material`，背景層的 glow sprite 與過場圖層（`"life": true`）也用同一份。**信標一定要畫純紅**，不然不會閃。
-6. **`light_gain` 要壓低（0.5）**：大面積亮窗在玩家附近會把暗場對比吃掉（貨運站區段玩家對比 1.35 → 0.1），調到 0.5 才回到 1.0 以上。
+- `build_facades.py`（清單 `assets_src/pipeline/facades.json`）直接畫圖，不依賴任何外部圖檔：牆面平塗（`cel_facade.py` 的 `plaster`、`brick`、`corrugated`、`slab`、`panel`、`curtain`）、墨線窗框、硬邊雙色陰影（光從左上）、切角八邊形窗加窗格與窗台；一個模組的畫布同時畫顏色、高度（轉成 `_n` 法線）與自發光（`_glow`）三層。尺寸：寬 64、一樓高 40、標準樓層 32、女兒牆 8（× `texture_scale`）。
+- 清單每個立面：`pal`（色票）、`wall`（牆面種類與參數）、`window`（預設窗格：cols、rows、w、h、y、chamfer、panes、grill、blind…）、`decor`（管線、冷氣機、陽台、LED、走線、攝影機、警示燈的機率）、`body`／`ground`／`cap` 的**變化清單**（每項深度合併蓋過立面預設；變化數量就是 `.tres` 陣列長度，腳本自動改寫 `.tres`，並刪掉多餘舊圖）。一樓用 `items`：`shutter`（鐵捲門，可 `hazard`、`lamp`）、`door`（門、舷窗、招牌）、`shop`（櫥窗加條紋雨棚）、`window`、`vent`。女兒牆 `kind`：`parapet`、`saw`（鋸齒屋頂）、`pediment`（山牆）、`stepped`（階梯），`clutter` 放天線、通風管、碟型天線、水塔、桅桿。
+- 每個標準樓層至少一扇亮窗；整扇窗依 `light_chance` 亮或暗、顏色從 `light_colors` 抽，乘 `light_gain`（0.5）；一樓大面積燈光再乘 item 的 `gain`（預設 0.7）。固定亂數種子（模組名稱的 crc32），重跑結果一致。**信標一定要畫純紅**（`decor.beacon`、天線頂端、攝影機 LED），窗光生命著色器才會讓它明滅。
+- 牆面裝飾在 `decor.py`：水管、冷氣機、攝影機、警示燈、陽台、電路走線、LED 列、警示條紋，全部是墨線加硬邊陰影，並用 `Canvas.occ` 避開窗戶。
+- 亮度基準：以舊版立面的平均亮度（約 0.12～0.19）為上限；調 `pal`，不要調 `light_gain` 以外的程式。
+- 立面模組左右可無縫相接（形狀會環繞），上下以樓板線與硬陰影相疊。
+- 其他套件模型（管線、電線桿）若還要用：`render_model.tscn` 以大寬度（2400）渲染整個套件、`glow: ["_glow"]`，再用 `kit_cells.py <名稱>` 偵測每一件、輸出編號預覽，用編號挑件，不要手量座標。立面已不走這條路。
 
 ## 6. 放進遊戲之後必做
 
@@ -102,7 +105,7 @@ description: 把免費（CC0）高解析度素材換進 Nest Egg 場景的完整
 
 ## 8. 沒有免費模型的部分：用本機 Qwen Image 生成（2026-10-03 起）
 
-CC0 庫找不到的道具（吊車、龍門吊、控制台、堆高機、閘門、販賣機、看板、霓虹、麵攤…）、整張室內場景（過場舞台）、近景剪影條帶，改用本機 ComfyUI 的 **Qwen Image 2.1 非審查版（int8 ConvRot）** 生成。來源是自己的提示詞與種子，沒有第三方授權問題，但**提示詞與種子必須留在清單**（可重現）。啟動 ComfyUI 的參數與坑見記憶 `comfyui-intel-arc-setup`；`tools/comfyui/comfy_api.py` 的 `qwen()` 是唯一入口。
+CC0 庫找不到的道具（吊車、龍門吊、控制台、堆高機、閘門、販賣機、看板、霓虹、麵攤…）、整張室內場景（過場舞台）、近景剪影條帶，改用本機 ComfyUI 的 **Qwen Image 2.1 非審查版（int8 ConvRot）** 生成。來源是自己的提示詞與種子，沒有第三方授權問題，但**提示詞與種子必須留在清單**（可重現）。啟動與重試見下方「啟動與卡死自動重試」；`tools/comfyui/comfy_api.py` 的 `qwen()` 是唯一入口。
 
 工具與清單（全都由清單驅動，重跑只重新處理）：
 
@@ -122,19 +125,20 @@ CC0 庫找不到的道具（吊車、龍門吊、控制台、堆高機、閘門�
 - **比例**：模型畫出的物件有自己的自然比例，不要硬拉成舊暫代圖的框。其他 `fit`：`height`／`width`（另一軸跟著圖）、`area`（自然比例、面積約等於原本，高度限制在 0.75～1.3 倍）、`keep`（拉伸，只在比例差 30% 內用，超過工具會警告）。提示詞裡寫「tall and narrow」會得到很瘦的東西，寫比例（「about five wide to seven tall」）。
 - **有單向平台的道具**（逃生梯、麵攤、雨棚）：`platform_align: true`，工具偵測圖裡第一條粗橫條（甲板、雨棚），再用透明邊框等比例補到平台資料的位置，平台碰撞不用改、關卡可站位置不變；`"contain"` 則把整張圖等比例放進原本的框內（不拉伸）並把甲板對到平台。模型畫出的比例和框差太多時用 `contain`，不要用 `keep` 硬拉。
 - **去雜訊**：`alpha_floor`（拉高可去掉模型畫的牆面陰影暈），工具自動刪掉小於最大塊 1% 的零碎透明度殘片，避免它們把外框撐大。
-- **編輯模式（給參考圖）吃顯示記憶體**：1536×864 級的參考圖曾讓 ComfyUI OOM 卡死；清晨版舖子改成 1152×648 生成再放大就穩了，逃生梯類改成純文生圖。編輯模式的工作排在批次最後。電腦重開機後第一次載入也可能 OOM，殺掉 ComfyUI 重啟一次即可。
+- **編輯模式（給參考圖）吃顯示記憶體**：1536×864 級的參考圖曾讓 ComfyUI OOM 卡死；清晨版舖子改成 1152×648 生成再放大就穩了，逃生梯類改成純文生圖。編輯模式的工作排在批次最後。
 - **不要叫模型「沒有人」**：負面描述會被無視（第一版老 K 的舖子畫進兩個小孩）。改正面描述：「a completely deserted and uninhabited place where nobody is present, the floor strip is bare and empty」。
 - **編輯模式做變體**：清晨版舖子用 `ref` 指向夜晚版原圖，構圖一致、只改光線。
 - **窗光抽取**：`glow` 規則（`neon` 高亮高彩度、`beacon` 純紅、`screen` 亮面、`warm` 暖光窗、`console`…）從生成圖抽出發光層；純紅像素會被改成純紅，窗光生命著色器才會讓它明滅。
 - **動畫都是 `PropData` 欄位＋著色器**（清單的 `data` 寫進 `.tres`）：`sway`＋`sway_hang`（懸掛物頂端固定）、`glow_life`（信標明滅、區塊閃爍）、`glow_scan`（螢幕掃描帶）、`ripple`（水窪漣漪）、`steam`＋`steam_offset`（只在畫面內冒蒸汽）、`flicker`；舞台圖層有 `pulse`（柔光脈動）與 `motes`（塵粒）。新增動畫先看有沒有欄位可用，沒有再加欄位，不要寫每影格腳本。
 - **舞台圖要對齊地板**：`bg(name, dy=…)` 位移到圖中的地板線等於舞台的地板（角色腳底 y≈ 250～292）；圖偏暗時用 `modulate` 大於 1 提亮（HDR）。
-- **GPU 記憶體**：ComfyUI 跑的時候不要同時開 Godot 截圖／匯入（12 GB 會 OOM，ComfyUI 之後會卡死、佇列顯示 running 但不動）。卡死就殺掉重啟：`Stop-Process` 掉 `main.py --listen` 與 `qwen_*.py`。重啟後 `/system_stats` 通了再送工作（太早送會連線被拒）。第一次載入模型要 3～4 分鐘，之後每張 1.5～2.5 分鐘。
+- **啟動與卡死自動重試（NE-81）**：不要手動敲啟動指令或手動殺程序。`powershell -File tools/comfyui/start_comfyui.ps1`（`-Restart`、`-Stop`、`-Safe`）用固定參數啟動並等到伺服器可用才回傳。生成工具經 `comfy_api.run()` 呼叫時，伺服器沒開會自動啟動；**伺服器沒回應、一段時間沒有任何進度（預設 300 秒，冷啟動 900 秒）、log 出現顯示記憶體不足、系統記憶體持續耗盡（低於 0.4 GB 超過 90 秒）**時，自動重啟並重送該工作，最多 3 次（`COMFY_MAX_RETRIES`）。記憶體不足後重啟會改用 `-Safe`（每個工作後卸載模型，慢但穩）。重試用完會丟 `ComfyFailure` 並把工作寫進 `assets_src/work/comfy_failures.log`，`qwen_props.py`／`qwen_scenes.py` 遇到就停止，不會無限等待。同一組種子、提示詞、尺寸、參考圖的圖已經生成過就直接重用，重跑批次只做沒做完的。同一時間只允許一個生成端（檔案鎖）。自我檢查：`python tools/comfyui/selftest.py [--kill-at N | --freeze-at N --stall-s 25]`。
+- **GPU 與記憶體**：預設參數**不加** `--disable-smart-memory`（2026-10-04 實測：模型常駐，小圖每張 18 秒，加了會每張 49 秒且每張從硬碟重讀約 16 GB，硬碟滿載）。第一次載入模型要 2～3 分鐘，那段時間系統可用記憶體會掉到接近 0，這是正常的尖峰，不要在這時候同時開別的重度程式。ComfyUI 跑的時候不要同時開 Godot 截圖／匯入（12 GB 顯示記憶體會 OOM）；**用完請 `start_comfyui.ps1 -Stop`**，它常駐會佔用約 13 GB 記憶體。
 - **清單檔會被執行中的工具改寫**（記住新錨點）：批次還在跑時不要編輯 `qwen_props.json`，等它結束。
 - 匯入後 `.import` 檔沒有對應圖的孤兒要刪掉（會讓關卡載入時噴 ERROR）。
 
 ## 9. 還沒做的部分
 
-統一調色與光影整合（NE-66）；白房間那排「小腳」仍是多邊形（可用 `qwen_scenes.py` 的 `strip`＋`trim` 生成一條小腳貼圖取代）；室內道具（床、貨架、桌子、醫療床、電梯門…）只在過場舞台用過，舞台背景已含這些物件，舊的暫代圖沒有被使用，必要時再換。
+統一調色與光影整合（NE-66）；白房間那排「小腳」仍是多邊形（NE-78）；舊的四個過場舞台（NE-77）與室內道具（NE-79）仍是寫實風或舊圖；道具法線品質（NE-80）。地形材質、立面、遠中景、天空（NE-73、74、76）與樹木（NE-75）已是賽璐璐畫風。
 
 ## 10. 驗收清單
 

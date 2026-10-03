@@ -1,9 +1,14 @@
-"""Turn Poly Haven HDRI previews into seamless parallax sky strips (NE-57 / NE-60).
+"""Build the seamless parallax sky strips (NE-57 / NE-60 / NE-76).
 
 Usage: python tools/assets/process_sky.py [--only ID ...]
 
-Reads assets_src/pipeline/backdrop.json ("skies" list). For every entry writes art/environment/backdrop/<id>.webp:
-a horizontally seamless strip cut from the equirectangular panorama between two elevation angles, rolled by yaw_deg,
+Reads assets_src/pipeline/backdrop.json ("skies" list). For every entry writes art/environment/backdrop/<id>.webp.
+
+Entries with a "cel" block (NE-76, the current look) are painted by tools/assets/cel_sky.py: flat colour bands, flat
+clouds with a hard shade colour, stepped horizon glow, left and right edges wrap by construction. Keys: width, height,
+top_fade, cel{...} (see cel_sky.py); output is lossless WebP because flat colour compresses small and keeps edges clean.
+
+Entries without "cel" (legacy, no longer used) take the HDRI path: a horizontally seamless strip cut from the equirectangular panorama between two elevation angles, rolled by yaw_deg,
 graded (brightness / contrast / saturation / tint / gamma live in the JSON), with an optional additive city-glow gradient
 at the horizon and a transparent fade at the top so it blends into the in-game gradient sky above it.
 Output is lossy WebP (photographic noise makes PNG several MB); the size budget is checked.
@@ -15,6 +20,9 @@ from pathlib import Path
 
 import numpy as np
 from PIL import Image
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import cel_sky  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 RAW = ROOT / "assets_src" / "raw"
@@ -35,7 +43,38 @@ def grade(a: np.ndarray, g: dict) -> np.ndarray:
     return np.clip(a, 0.0, 1.0)
 
 
+def save_webp(spec: dict, rgb: np.ndarray, note: str) -> bool:
+    height, width = rgb.shape[:2]
+    alpha = np.ones((height, width, 1), dtype=np.float32)
+    fade = int(height * float(spec.get("top_fade", 0.25)))
+    if fade > 0:
+        alpha[:fade, :, 0] = np.linspace(0.0, 1.0, fade, dtype=np.float32)[:, None]
+    rgba = np.concatenate([rgb, (alpha * 255.0 + 0.5).astype(np.uint8)], axis=2)
+    OUT.mkdir(parents=True, exist_ok=True)
+    path = OUT / f"{spec['id']}.webp"
+    if spec.get("cel") is not None:
+        Image.fromarray(rgba, "RGBA").save(path, "WEBP", lossless=True, quality=100, method=6)
+    else:
+        Image.fromarray(rgba, "RGBA").save(path, "WEBP", quality=int(spec.get("quality", 82)), method=6)
+    size = path.stat().st_size
+    if size > MAX_BYTES:
+        print(f"FAIL  {spec['id']}: {size} bytes exceeds budget {MAX_BYTES}", file=sys.stderr)
+        path.unlink()
+        return False
+    print(f"ok    {spec['id']:16} {width}x{height}  {size // 1024} KB  <- {note}")
+    return True
+
+
+def process_cel(spec: dict) -> bool:
+    width = min(int(spec.get("width", MAX_WIDTH)), MAX_WIDTH)
+    height = int(spec["height"])
+    rgb = cel_sky.render(spec["cel"], width, height)
+    return save_webp(spec, rgb, "cel_sky")
+
+
 def process(spec: dict) -> bool:
+    if spec.get("cel") is not None:
+        return process_cel(spec)
     folder = RAW / spec["source"]
     files = sorted(folder.glob("*.jpg"))
     if not files:
@@ -57,21 +96,7 @@ def process(spec: dict) -> bool:
         t = np.linspace(1.0, 0.0, height, dtype=np.float32)[:, None, None]  # 1 at the bottom (horizon)
         weight = np.clip(t ** float(glow.get("falloff", 2.0)), 0.0, 1.0) * float(glow.get("strength", 0.3))
         a = np.clip(a + weight * np.array(glow["color"], dtype=np.float32), 0.0, 1.0)
-    alpha = np.ones((height, width, 1), dtype=np.float32)
-    fade = int(height * float(spec.get("top_fade", 0.25)))
-    if fade > 0:
-        alpha[:fade, :, 0] = np.linspace(0.0, 1.0, fade, dtype=np.float32)[:, None]
-    rgba = (np.concatenate([a, alpha], axis=2) * 255.0 + 0.5).astype(np.uint8)
-    OUT.mkdir(parents=True, exist_ok=True)
-    path = OUT / f"{spec['id']}.webp"
-    Image.fromarray(rgba, "RGBA").save(path, "WEBP", quality=int(spec.get("quality", 82)), method=6)
-    size = path.stat().st_size
-    if size > MAX_BYTES:
-        print(f"FAIL  {spec['id']}: {size} bytes exceeds budget {MAX_BYTES}", file=sys.stderr)
-        path.unlink()
-        return False
-    print(f"ok    {spec['id']:16} {width}x{height}  {size // 1024} KB  <- {spec['source']}")
-    return True
+    return save_webp(spec, (a * 255.0 + 0.5).astype(np.uint8), spec["source"])
 
 
 def main() -> int:
