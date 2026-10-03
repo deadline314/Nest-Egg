@@ -1,0 +1,57 @@
+{
+ "description": "repair_drone 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "hit": {
+  "color": "#7aff9a",
+  "amount": 5,
+  "speed": 150,
+  "kind": "steam",
+  "light": 0.7
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#7aff9a",
+    "amount": 14,
+    "speed": 150,
+    "life": 0.5
+   },
+   {
+    "color": "#e8f4ec",
+    "amount": 8,
+    "speed": 110,
+    "life": 0.45
+   }
+  ],
+  "light": {
+   "color": "#7aff9a",
+   "radius": 70,
+   "energy": 1.4,
+   "time": 0.3
+  },
+  "shake": 1.2,
+  "hitstop": 0.02,
+  "extras": [
+   "steam",
+   "coolant"
+  ]
+ },
+ "states": {
+  "channel": {
+   "at": "center",
+   "bursts": [
+    {
+     "color": "#7aff9a",
+     "amount": 6,
+     "speed": 60,
+     "life": 0.5
+    }
+   ],
+   "light": {
+    "color": "#7aff9a",
+    "radius": 54,
+    "energy": 1.4,
+    "time": 0.5
+   }
+  }
+ }
+}

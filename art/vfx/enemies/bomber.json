@@ -1,0 +1,64 @@
+{
+ "description": "bomber 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "step": {
+  "every": 12,
+  "dust": 1,
+  "spread": 10,
+  "shake": 0.0,
+  "spark": 1,
+  "spark_color": "#ffd23f"
+ },
+ "hit": {
+  "color": "#ffd23f",
+  "amount": 5,
+  "speed": 170,
+  "light": 0.7
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#ffd23f",
+    "amount": 22,
+    "speed": 260,
+    "life": 0.5
+   },
+   {
+    "color": "#ff8a1a",
+    "amount": 14,
+    "speed": 180,
+    "life": 0.45
+   }
+  ],
+  "light": {
+   "color": "#ffd23f",
+   "radius": 90,
+   "energy": 2.0,
+   "time": 0.3
+  },
+  "shake": 3.0,
+  "hitstop": 0.05,
+  "extras": [
+   "smoke",
+   "embers"
+  ]
+ },
+ "states": {
+  "fuse": {
+   "at": "center",
+   "bursts": [
+    {
+     "color": "#ffd23f",
+     "amount": 8,
+     "speed": 110,
+     "life": 0.3
+    }
+   ],
+   "light": {
+    "color": "#ffd23f",
+    "radius": 60,
+    "energy": 1.6,
+    "time": 0.4
+   }
+  }
+ }
+}

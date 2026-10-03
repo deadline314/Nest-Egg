@@ -1,0 +1,81 @@
+{
+ "description": "shock_hound 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "step": {
+  "every": 14,
+  "dust": 2,
+  "spread": 22,
+  "shake": 0.0,
+  "spark": 1,
+  "spark_color": "#35e0ff"
+ },
+ "hit": {
+  "color": "#35e0ff",
+  "amount": 6,
+  "speed": 200,
+  "kind": "arc",
+  "light": 1.0
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#35e0ff",
+    "amount": 20,
+    "speed": 230,
+    "life": 0.4
+   },
+   {
+    "color": "#ffffff",
+    "amount": 8,
+    "speed": 260,
+    "life": 0.2
+   }
+  ],
+  "light": {
+   "color": "#35e0ff",
+   "radius": 80,
+   "energy": 2.0,
+   "time": 0.3
+  },
+  "shake": 2.0,
+  "hitstop": 0.03,
+  "extras": [
+   "arc",
+   "smoke"
+  ]
+ },
+ "states": {
+  "growl": {
+   "at": "feet",
+   "dust": 2,
+   "spread": 14,
+   "bursts": [
+    {
+     "color": "#35e0ff",
+     "amount": 8,
+     "speed": 110,
+     "life": 0.3
+    }
+   ],
+   "light": {
+    "color": "#35e0ff",
+    "radius": 48,
+    "energy": 1.4,
+    "time": 0.4
+   }
+  },
+  "pounce": {
+   "at": "feet",
+   "dust": 5,
+   "spread": 40,
+   "bursts": [
+    {
+     "color": "#35e0ff",
+     "amount": 10,
+     "speed": 200,
+     "life": 0.2
+    }
+   ],
+   "shake": 0.7
+  }
+ }
+}

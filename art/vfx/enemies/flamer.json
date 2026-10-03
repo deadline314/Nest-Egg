@@ -1,0 +1,75 @@
+{
+ "description": "flamer 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "step": {
+  "every": 20,
+  "dust": 3,
+  "spread": 26,
+  "shake": 0.25,
+  "spark": 1,
+  "spark_color": "#ff8a1a"
+ },
+ "hit": {
+  "color": "#ff8a1a",
+  "amount": 8,
+  "speed": 130,
+  "kind": "smoke",
+  "light": 0.9
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#ff8a1a",
+    "amount": 22,
+    "speed": 150,
+    "life": 0.7
+   },
+   {
+    "color": "#ffd070",
+    "amount": 10,
+    "speed": 220,
+    "life": 0.35
+   }
+  ],
+  "light": {
+   "color": "#ff8a1a",
+   "radius": 96,
+   "energy": 1.8,
+   "time": 0.4
+  },
+  "shake": 3.0,
+  "hitstop": 0.04,
+  "extras": [
+   "embers",
+   "smoke"
+  ]
+ },
+ "states": {
+  "ignite": {
+   "at": "muzzle",
+   "bursts": [
+    {
+     "color": "#ffd070",
+     "amount": 8,
+     "speed": 80,
+     "life": 0.3
+    }
+   ],
+   "light": {
+    "color": "#ff8a1a",
+    "radius": 54,
+    "energy": 1.4,
+    "time": 0.35
+   }
+  },
+  "burn": {
+   "at": "muzzle",
+   "light": {
+    "color": "#ff6a10",
+    "radius": 90,
+    "energy": 2.0,
+    "time": 0.5
+   },
+   "shake": 0.8
+  }
+ }
+}

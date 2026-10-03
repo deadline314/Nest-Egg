@@ -45,6 +45,9 @@ var shield := 0
 var rig: CharacterRig
 
 var _rig_input := RigInput.new()
+## 專屬特效（art/vfx/enemies/<id>.json）：腳步、受擊、死亡、招式狀態切換。
+var vfx: EnemyVfx
+var _vfx_state: StringName = &""
 
 var _gravity: float = 900.0
 var _flash_left := 0.0
@@ -87,6 +90,7 @@ func _ready() -> void:
 				size.x + ACTIVATION_MARGIN * 2.0, size.y + ACTIVATION_MARGIN * 2.0)
 		add_child(enabler)
 	_setup_states()
+	vfx = EnemyVfx.load_for(String(data.id))
 	if fsm.current == &"":
 		push_warning("[Enemy] %s 沒有啟動狀態機。" % data.id)
 
@@ -168,6 +172,16 @@ func _uses_activation_culling() -> bool:
 
 func _guard(_info: DamageInfo) -> Hurtbox.Guard:
 	return Hurtbox.Guard.NONE
+
+
+## 專屬特效：狀態一變就播進入特效、依移動距離播腳步。
+func _tick_vfx() -> void:
+	if vfx == null or vfx.is_empty():
+		return
+	if fsm.current != _vfx_state:
+		_vfx_state = fsm.current
+		vfx.play_state(_vfx_state, global_position, _center(), _muzzle())
+	vfx.tick_step(global_position, is_on_floor() and absf(velocity.x) > 8.0)
 
 
 ## 目前狀態有沒有對應的專屬動作（EnemyData.rig_actions）：有就依停留時間播放進度，沒有就清掉。
@@ -260,6 +274,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		_telegraph_left = maxf(0.0, _telegraph_left - delta)
 		fsm.tick(delta)
+	_tick_vfx()
 	_update_telegraph_light(delta)
 	move_and_slide()
 	_drive_rig(delta)
@@ -362,6 +377,8 @@ func stun(seconds: float) -> void:
 
 func _on_damaged(info: DamageInfo) -> void:
 	_flash_left = FLASH_TIME
+	if vfx != null:
+		vfx.play_hit(_center(), -info.knockback.normalized() if info.knockback != Vector2.ZERO else Vector2.UP)
 	if rig != null:
 		rig.flash()
 		rig.set_armor_ratio(health.ratio())
@@ -392,8 +409,11 @@ func _on_died(info: DamageInfo) -> void:
 	var by_player := info != null and info.team == Combat.Team.PLAYER
 	var by_finisher := info != null and info.is_finisher
 	var center := _center()
-	Fx.burst(center, data.color, 16, 170.0, 0.45)
-	Fx.flash_light(center, data.color, 70.0, 1.2, 0.25)
+	if vfx != null and not vfx.is_empty():
+		vfx.play_death(center, global_position)  # 這個敵人自己的死亡演出
+	else:
+		Fx.burst(center, data.color, 16, 170.0, 0.45)
+		Fx.flash_light(center, data.color, 70.0, 1.2, 0.25)
 	if by_finisher:
 		Fx.burst(center, Palette.CYAN, 24, 240.0, 0.5)
 	Fx.shake(2.5, 0.12)

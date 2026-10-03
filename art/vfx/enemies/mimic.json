@@ -1,0 +1,89 @@
+{
+ "description": "mimic 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "step": {
+  "every": 60,
+  "dust": 0,
+  "spread": 0,
+  "shake": 0.0
+ },
+ "hit": {
+  "color": "#ff7a40",
+  "amount": 7,
+  "speed": 150,
+  "kind": "smoke",
+  "light": 0.6
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#a07050",
+    "amount": 18,
+    "speed": 170,
+    "life": 0.5
+   },
+   {
+    "color": "#ffffff",
+    "amount": 8,
+    "speed": 120,
+    "life": 0.3
+   },
+   {
+    "color": "#ff4040",
+    "amount": 8,
+    "speed": 150,
+    "life": 0.4
+   }
+  ],
+  "light": {
+   "color": "#ff6040",
+   "radius": 74,
+   "energy": 1.4,
+   "time": 0.3
+  },
+  "shake": 3.2,
+  "hitstop": 0.05,
+  "extras": [
+   "dust",
+   "smoke"
+  ]
+ },
+ "states": {
+  "shake": {
+   "at": "feet",
+   "dust": 2,
+   "spread": 14,
+   "shake": 0.5
+  },
+  "lunge": {
+   "at": "center",
+   "dust": 6,
+   "spread": 44,
+   "bursts": [
+    {
+     "color": "#ffffff",
+     "amount": 6,
+     "speed": 180,
+     "life": 0.2
+    }
+   ],
+   "shake": 2.0
+  },
+  "exposed": {
+   "at": "center",
+   "bursts": [
+    {
+     "color": "#ff4040",
+     "amount": 8,
+     "speed": 90,
+     "life": 0.4
+    }
+   ],
+   "light": {
+    "color": "#ff4040",
+    "radius": 60,
+    "energy": 1.4,
+    "time": 0.4
+   }
+  }
+ }
+}

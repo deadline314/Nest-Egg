@@ -1,0 +1,74 @@
+{
+ "description": "heavy_gunner 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "step": {
+  "every": 26,
+  "dust": 3,
+  "spread": 30,
+  "shake": 0.9
+ },
+ "hit": {
+  "color": "#ff2e88",
+  "amount": 4,
+  "speed": 120,
+  "light": 0.6
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#ff2e88",
+    "amount": 20,
+    "speed": 160,
+    "life": 0.55
+   },
+   {
+    "color": "#3a3e48",
+    "amount": 14,
+    "speed": 90,
+    "life": 0.7
+   }
+  ],
+  "light": {
+   "color": "#ff2e88",
+   "radius": 90,
+   "energy": 1.6,
+   "time": 0.35
+  },
+  "shake": 4.0,
+  "hitstop": 0.06,
+  "extras": [
+   "steam",
+   "dust",
+   "smoke"
+  ]
+ },
+ "states": {
+  "spin_up": {
+   "at": "muzzle",
+   "bursts": [
+    {
+     "color": "#ff2e88",
+     "amount": 6,
+     "speed": 70,
+     "life": 0.4
+    }
+   ],
+   "light": {
+    "color": "#ff2e88",
+    "radius": 44,
+    "energy": 1.2,
+    "time": 0.5
+   }
+  },
+  "vent": {
+   "at": "center",
+   "steam": true,
+   "shake": 1.0,
+   "light": {
+    "color": "#ff8a30",
+    "radius": 70,
+    "energy": 1.6,
+    "time": 0.4
+   }
+  }
+ }
+}

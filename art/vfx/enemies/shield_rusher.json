@@ -1,0 +1,78 @@
+{
+ "description": "shield_rusher 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "step": {
+  "every": 18,
+  "dust": 3,
+  "spread": 34,
+  "shake": 0.5,
+  "spark": 1,
+  "spark_color": "#ffd000"
+ },
+ "hit": {
+  "color": "#ffd000",
+  "amount": 5,
+  "speed": 210,
+  "kind": "arc",
+  "light": 1.0
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#ffd000",
+    "amount": 14,
+    "speed": 200,
+    "life": 0.4
+   },
+   {
+    "color": "#2a3a60",
+    "amount": 8,
+    "speed": 120,
+    "life": 0.5
+   }
+  ],
+  "light": {
+   "color": "#ffd000",
+   "radius": 70,
+   "energy": 1.3,
+   "time": 0.25
+  },
+  "shake": 3.0,
+  "hitstop": 0.05,
+  "extras": [
+   "dust",
+   "arc"
+  ]
+ },
+ "states": {
+  "windup": {
+   "at": "feet",
+   "dust": 3,
+   "spread": 16,
+   "shake": 0.4
+  },
+  "charge": {
+   "at": "feet",
+   "dust": 6,
+   "spread": 50,
+   "shake": 1.2,
+   "bursts": [
+    {
+     "color": "#ffd000",
+     "amount": 6,
+     "speed": 120,
+     "life": 0.25
+    }
+   ]
+  },
+  "dazed": {
+   "bursts": [
+    {
+     "color": "#35e0ff",
+     "amount": 8,
+     "speed": 100,
+     "life": 0.4
+    }
+   ]
+  }
+ }
+}

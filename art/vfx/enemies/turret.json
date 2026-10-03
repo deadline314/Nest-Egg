@@ -1,0 +1,58 @@
+{
+ "description": "turret 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "hit": {
+  "color": "#ff2a3d",
+  "amount": 4,
+  "speed": 140,
+  "light": 0.6
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#ff2a3d",
+    "amount": 14,
+    "speed": 170,
+    "life": 0.5
+   },
+   {
+    "color": "#7a8294",
+    "amount": 14,
+    "speed": 120,
+    "life": 0.7
+   }
+  ],
+  "light": {
+   "color": "#ff5a3a",
+   "radius": 80,
+   "energy": 1.6,
+   "time": 0.4
+  },
+  "shake": 2.6,
+  "hitstop": 0.04,
+  "extras": [
+   "smoke",
+   "steam",
+   "embers"
+  ]
+ },
+ "states": {
+  "lock": {
+   "at": "muzzle",
+   "light": {
+    "color": "#ff2a3d",
+    "radius": 60,
+    "energy": 2.0,
+    "time": 0.4
+   }
+  },
+  "track": {
+   "at": "muzzle",
+   "light": {
+    "color": "#ff2a3d",
+    "radius": 36,
+    "energy": 0.9,
+    "time": 0.2
+   }
+  }
+ }
+}

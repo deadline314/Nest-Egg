@@ -1,0 +1,72 @@
+{
+ "description": "stalker 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "step": {
+  "every": 36,
+  "dust": 0,
+  "spread": 0,
+  "shake": 0.0
+ },
+ "hit": {
+  "color": "#ff2eb0",
+  "amount": 5,
+  "speed": 170,
+  "kind": "arc",
+  "light": 0.8
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#ff2eb0",
+    "amount": 14,
+    "speed": 150,
+    "life": 0.5
+   },
+   {
+    "color": "#35e0ff",
+    "amount": 12,
+    "speed": 120,
+    "life": 0.6
+   }
+  ],
+  "light": {
+   "color": "#ff2eb0",
+   "radius": 70,
+   "energy": 1.4,
+   "time": 0.4
+  },
+  "shake": 1.4,
+  "hitstop": 0.02,
+  "extras": [
+   "arc"
+  ]
+ },
+ "states": {
+  "aim": {
+   "at": "muzzle",
+   "bursts": [
+    {
+     "color": "#ff2eb0",
+     "amount": 6,
+     "speed": 70,
+     "life": 0.3
+    }
+   ],
+   "light": {
+    "color": "#ff2eb0",
+    "radius": 44,
+    "energy": 1.6,
+    "time": 0.3
+   }
+  },
+  "retreat": {
+   "bursts": [
+    {
+     "color": "#35e0ff",
+     "amount": 8,
+     "speed": 90,
+     "life": 0.25
+    }
+   ]
+  }
+ }
+}

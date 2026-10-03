@@ -1,0 +1,55 @@
+{
+ "description": "sniper 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "step": {
+  "every": 34,
+  "dust": 1,
+  "spread": 10,
+  "shake": 0.0
+ },
+ "hit": {
+  "color": "#ff2a3d",
+  "amount": 5,
+  "speed": 150,
+  "light": 0.7
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#ff2a3d",
+    "amount": 10,
+    "speed": 130,
+    "life": 0.5
+   }
+  ],
+  "light": {
+   "color": "#ff2a3d",
+   "radius": 60,
+   "energy": 1.0,
+   "time": 0.35
+  },
+  "shake": 1.6,
+  "hitstop": 0.02,
+  "extras": [
+   "smoke"
+  ]
+ },
+ "states": {
+  "lock": {
+   "at": "muzzle",
+   "bursts": [
+    {
+     "color": "#ff2a3d",
+     "amount": 6,
+     "speed": 60,
+     "life": 0.3
+    }
+   ],
+   "light": {
+    "color": "#ff2a3d",
+    "radius": 50,
+    "energy": 1.8,
+    "time": 0.3
+   }
+  }
+ }
+}

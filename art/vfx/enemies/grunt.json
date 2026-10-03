@@ -1,0 +1,53 @@
+{
+ "description": "grunt 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "step": {
+  "every": 22,
+  "dust": 2,
+  "spread": 22,
+  "shake": 0.0
+ },
+ "hit": {
+  "color": "#ffb060",
+  "amount": 6,
+  "speed": 180,
+  "light": 0.8
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#ffa050",
+    "amount": 14,
+    "speed": 170,
+    "life": 0.4
+   },
+   {
+    "color": "#c8d4e4",
+    "amount": 6,
+    "speed": 90,
+    "life": 0.5
+   }
+  ],
+  "light": {
+   "color": "#ffa050",
+   "radius": 64,
+   "energy": 1.1,
+   "time": 0.22
+  },
+  "shake": 2.2,
+  "hitstop": 0.03,
+  "extras": [
+   "dust"
+  ]
+ },
+ "states": {
+  "aim": {
+   "at": "muzzle",
+   "light": {
+    "color": "#ffa050",
+    "radius": 36,
+    "energy": 0.9,
+    "time": 0.15
+   }
+  }
+ }
+}

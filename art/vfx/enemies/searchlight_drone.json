@@ -1,0 +1,79 @@
+{
+ "description": "searchlight_drone 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "hit": {
+  "color": "#ffe070",
+  "amount": 5,
+  "speed": 150,
+  "kind": "arc",
+  "light": 0.8
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#ffe070",
+    "amount": 14,
+    "speed": 160,
+    "life": 0.45
+   },
+   {
+    "color": "#6a7890",
+    "amount": 10,
+    "speed": 120,
+    "life": 0.55
+   }
+  ],
+  "light": {
+   "color": "#ffe070",
+   "radius": 100,
+   "energy": 1.8,
+   "time": 0.45
+  },
+  "shake": 1.8,
+  "hitstop": 0.03,
+  "extras": [
+   "smoke",
+   "arc",
+   "dust"
+  ]
+ },
+ "states": {
+  "alarm": {
+   "at": "center",
+   "light": {
+    "color": "#ff3040",
+    "radius": 110,
+    "energy": 2.2,
+    "time": 0.5
+   },
+   "shake": 0.6
+  },
+  "unpowered": {
+   "at": "center",
+   "bursts": [
+    {
+     "color": "#35e0ff",
+     "amount": 8,
+     "speed": 100,
+     "life": 0.3
+    }
+   ]
+  },
+  "reboot": {
+   "at": "center",
+   "bursts": [
+    {
+     "color": "#ffe070",
+     "amount": 8,
+     "speed": 80,
+     "life": 0.4
+    }
+   ],
+   "light": {
+    "color": "#ffe070",
+    "radius": 80,
+    "energy": 1.6,
+    "time": 0.4
+   }
+  }
+ }
+}
