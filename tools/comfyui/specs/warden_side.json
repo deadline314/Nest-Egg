@@ -394,7 +394,6 @@
   },
   "glow": {
     "head": "r",
-    "torso": "r",
     "arm_lower": "r"
   },
   "bones": [
@@ -515,6 +514,12 @@
         "armor_knee"
       ],
       "sigma": 1.0
+    },
+    "fill_holes": {
+      "parts": [
+        "arm_lower"
+      ],
+      "max_area": 1000
     }
   },
   "stages": [

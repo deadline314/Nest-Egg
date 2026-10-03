@@ -86,10 +86,13 @@ def main() -> None:
         entry = {"file": f"parts/{name}.png", "size": [cw, ch], "pivot": [round(float(piv[0]), 2), round(float(piv[1]), 2)], "note": NOTE}
         kind = spec["glow"].get(name)
         if kind:
-            g = glow_layer(rgba[:, :, :3], rgba[:, :, 3], kind)
-            g = np.zeros((ch, cw, 4), np.uint8) if g is None else g
-            Image.fromarray(g).save(out_parts / f"{name}_glow.png")
-            entry["glow"] = f"parts/{name}_glow.png"
+            thr = spec.get("glow_threshold", {})
+            g = glow_layer(rgba[:, :, :3], rgba[:, :, 3], kind, thr.get("sat", 140), thr.get("val", 190))
+            if g is None:  # nothing glows on this part: no glow layer at all (an all-transparent one only costs a texture and a draw)
+                print(f"  WARN {name}: no '{kind}' glow pixels found, no glow layer written (lower spec.glow_threshold, or drop it from spec.glow)")
+            else:
+                Image.fromarray(g).save(out_parts / f"{name}_glow.png")
+                entry["glow"] = f"parts/{name}_glow.png"
         textures[name] = entry
         transforms[name] = (A, cw, ch)
         print(f"  {name}: {cw}x{ch} pivot=({piv[0]:.1f},{piv[1]:.1f})")

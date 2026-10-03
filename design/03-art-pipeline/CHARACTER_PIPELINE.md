@@ -150,3 +150,21 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py --recipe to
 
 **遠側的腿**：側面圖裡遠側腿常被畫成一整條暗色剪影，會跟著前腿走。提示詞已要求「遠側的腿藏在近側腿後面」；仍出現時在 spec 的 `refine.far_side` 設定（顏色與零件，見 `refine_parts.py`）。
 
+## 7. 零件切不對：現象、怎麼查、怎麼修（NE-90）
+
+先跑檢查，再看預覽。`python tools/comfyui/check_parts.py [角色 ...] [--normals]` 逐張貼圖找內部孔洞、游離碎片、空的或幾乎空的發光層、缺法線、支點離零件太遠，並指出是哪個零件；流程跑完 `textures` 步驟時會自動跑一次，印成 `WARN part texture ...`。預覽用 `rig_preview.tscn -- --chars=<id> --npc --loop=<循環> --loop-pose=<姿勢>`（NPC 的站、坐、靠牆、蹲、說話、聆聽、揮手、工作循環）與不加參數的八種動作。
+
+| 現象 | 原因 | 怎麼查 | 怎麼修 |
+|---|---|---|---|
+| 某個零件整塊不見、動作時手漂在半空（護理師坐姿前臂缺一段） | SAM 提示詞只抓到袖子，漏了裸露的前臂與手，`arm_lower` 在 `06_parts` 是空的，`character.json` 就沒有這個貼圖 | `06_parts/ownership.png` 看手臂區塊；`check_parts.py` 報「貼圖不存在」；`textures` 步驟印 `WARN empty part` | 換 `groups.arm.sam` 的提示詞（"arm sleeve" 加 "arm"，手用 "hand"），用 `sam_masks.py` 先試遮罩看範圍 |
+| 圍裙、工具包、大衣下襬變成一大塊跟著手臂甩（阿婆、老陳、老 K） | 這些東西被歸到手臂群組（SAM 的 "sleeve" 把衣襬或圍裙一起吃進去），手臂動它們就跟著動 | `ownership.png` 裡手臂顏色蓋到身體上；預覽手臂擺動時整片布料跟著轉 | 把手臂群組限縮到袖子與手臂（提示詞改成 "sleeve"、"arm"），圍裙、工具包、大衣放進 `body` 群組的 `sam`（例如 "apron"、"tool belt"、"brown coat"） |
+| 身體零件在手臂原本的位置是破洞或殘影，手一動就露出背景 | 手臂擋在身體前面，身體沒有補全 | `05_groups/body.png` 看手臂位置；`check_parts.py` 報孔洞 | 加 `P` 階段：請 Qwen「刪掉近側整條手臂，衣服留下空袖孔」（civilian 範本也要加 `stages` 與 `groups.body.complete`），身體群組 `sam` 加 "bare shoulder"（或 "armhole"） |
+| 補全後手臂的黑輪廓還留在身體上，變成一條虛線 | 補全只取缺口，原圖手臂邊緣的輪廓線不在缺口內 | 零件放大 2 倍看軀幹上有殘留的深色細線 | `groups.body.complete.trim`（把手臂邊緣外擴 N 像素改取階段圖）與 `mask_close`（先把 SAM 遮罩裂縫閉合） |
+| 腿旁邊浮著一片沒有連到腿的布（切割者之外的敵人，手臂擋住大腿的位置） | 階段圖 P 只拿掉了裝甲、手臂還在，所以手臂後面沒有東西可補 | `check_parts.py` 報「游離碎片」，零件放大 2 倍看腿旁是否有一片沒連上的布 | `groups.body.complete.fill_behind`（列出擋住的群組）：缺口那幾列用兩側身體顏色連成漸層補起來 |
+| 零件圖放大有孤立小亮點或細縫 | 兩條輪廓線之間夾著幾像素的透明洞 | `check_parts.py` 報「內部孔洞」 | `refine.fill_holes`（`parts`、`max_area`）：比 `max_area` 小的洞用周圍顏色補滿；大的洞通常是真的（頭髮空隙、袖孔），不要補 |
+| 孤立的小碎片（衣襬尖端被切線切成另一塊） | 零件切線剛好穿過衣襬 | `check_parts.py` 報「游離碎片」 | `refine.erase`（多邊形，原圖座標）清掉，或調 `parts.*.y` 切線 |
+| 發光層是全透明的空檔（老 K 的頭與軀幹） | `spec.glow` 列了零件，但該零件沒有夠亮的霓虹色（金色滾邊的亮度與飽和度不到門檻） | `check_parts.py` 報「發光層」；打開 `*_glow.png` 全黑 | 把零件從 `spec.glow` 拿掉；要保留就調低 `spec.glow_threshold`（`sat`、`val`），並用較寬的色彩字母（例如 "oy"）。`cut_layers.py` 現在不會寫出全空的發光層，也不會留舊檔 |
+| 深色衣物在暗處糊進背景（夜班工人、老 K） | 原圖衣服太暗 | 遊戲內光影或 `rig_preview` 看不到輪廓 | 把亮度寫進 `spec.parts.<零件>.uses[].tint`（遠側的肢體照 0.62 倍），不要手改 `character.json`（重建會被蓋掉）；霓虹反光衣這類本身很亮的零件不要乘，否則 HDR 泛光會把它燒成白色 |
+| 重建後對話頭像的衣領顏色變了 | `make_portrait.py` 以前把所有有 `tint` 的零件都當成遠側肢體跳過 | 頭像放大看衣服 | 只跳過名稱含 `_back` 且有 `tint` 的零件，前側零件的亮度會一併帶進頭像 |
+
+**改過規格之後**：只重跑受影響的步驟（`--from parts` 會清掉 `05_groups`／`06_parts`／`07_refined` 重新分；階段圖 `04_stages` 不會重畫，要換就刪掉對應檔再跑）。零件尺寸與支點是由立繪量出來的，重新分割後會變，骨架（骨頭長度）不受影響；`character.json` 的差異用版本控制看即可。

@@ -174,10 +174,12 @@ def cut_pass(ref: dict, gen: np.ndarray, orig_dir: Path, wanted: set, upscale: i
     return result
 
 
-def glow_layer(rgb: np.ndarray, alpha: np.ndarray, kinds: str) -> np.ndarray | None:
+def glow_layer(rgb: np.ndarray, alpha: np.ndarray, kinds: str, sat_min: int = 140, val_min: int = 190) -> np.ndarray | None:
+    """Pixels of the neon colours in `kinds` (c m p r o y g) that are saturated and bright enough (spec "glow_threshold" lowers the
+    limits for a character whose lit details are not neon, e.g. the golden piping of a coat). None when nothing qualifies."""
     hsv = cv2.cvtColor(rgb, cv2.COLOR_RGB2HSV)
     hue, sat, val = hsv[:, :, 0].astype(int) * 2, hsv[:, :, 1], hsv[:, :, 2]
-    bright = (sat > 140) & (val > 190)
+    bright = (sat > sat_min) & (val > val_min)
     mask = np.zeros(alpha.shape, bool)
     if "c" in kinds:
         mask |= bright & (hue >= 165) & (hue <= 205)

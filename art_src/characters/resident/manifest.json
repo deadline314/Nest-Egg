@@ -1,14 +1,24 @@
 [
   {
+    "step": "textures",
+    "seconds": 1.6,
+    "outputs": [
+      "art\\characters\\resident\\character.json",
+      "art\\rigs\\resident.json",
+      "art\\characters\\resident\\parts",
+      "art\\portraits\\resident.png"
+    ]
+  },
+  {
     "step": "normals",
-    "seconds": 2.2,
+    "seconds": 2.3,
     "outputs": [
       "art\\characters\\resident\\parts"
     ]
   },
   {
     "step": "import",
-    "seconds": 4.6,
+    "seconds": 5.1,
     "outputs": [
       ".godot"
     ]

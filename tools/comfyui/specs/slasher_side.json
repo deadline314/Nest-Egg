@@ -110,7 +110,12 @@
           "armor_shoulder",
           "armor_chest"
         ],
-        "near": 120
+        "near": 120,
+        "fill_behind": [
+          "arm",
+          "hand",
+          "armor_shoulder"
+        ]
       }
     }
   },
@@ -336,8 +341,7 @@
     }
   },
   "glow": {
-    "head": "r",
-    "torso": "r"
+    "head": "r"
   },
   "bones": [
     {

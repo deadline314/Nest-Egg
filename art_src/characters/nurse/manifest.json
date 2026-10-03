@@ -1,7 +1,29 @@
 [
   {
-    "step": "normals",
+    "step": "refine",
     "seconds": 1.8,
+    "outputs": [
+      "art_src\\characters\\nurse\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 1.5,
+    "outputs": [
+      "art\\characters\\nurse\\character.json",
+      "art\\rigs\\nurse.json",
+      "art\\characters\\nurse\\parts",
+      "art\\portraits\\nurse.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 1.7,
     "outputs": [
       "art\\characters\\nurse\\parts"
     ]

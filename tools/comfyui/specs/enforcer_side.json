@@ -514,6 +514,12 @@
         "armor_knee"
       ],
       "sigma": 1.0
+    },
+    "fill_holes": {
+      "parts": [
+        "torso"
+      ],
+      "max_area": 600
     }
   },
   "stages": [

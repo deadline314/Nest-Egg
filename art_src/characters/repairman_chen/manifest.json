@@ -1,5 +1,35 @@
 [
   {
+    "step": "parts",
+    "seconds": 2.4,
+    "outputs": [
+      "art_src\\characters\\repairman_chen\\06_parts",
+      "art_src\\characters\\repairman_chen\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 1.5,
+    "outputs": [
+      "art_src\\characters\\repairman_chen\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 1.5,
+    "outputs": [
+      "art\\characters\\repairman_chen\\character.json",
+      "art\\rigs\\repairman_chen.json",
+      "art\\characters\\repairman_chen\\parts",
+      "art\\portraits\\repairman_chen.png"
+    ]
+  },
+  {
     "step": "normals",
     "seconds": 2.3,
     "outputs": [
@@ -8,7 +38,7 @@
   },
   {
     "step": "import",
-    "seconds": 4.6,
+    "seconds": 4.8,
     "outputs": [
       ".godot"
     ]

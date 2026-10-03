@@ -1,14 +1,24 @@
 [
   {
+    "step": "textures",
+    "seconds": 1.5,
+    "outputs": [
+      "art\\characters\\wataru\\character.json",
+      "art\\rigs\\wataru.json",
+      "art\\characters\\wataru\\parts",
+      "art\\portraits\\wataru.png"
+    ]
+  },
+  {
     "step": "normals",
-    "seconds": 1.6,
+    "seconds": 1.8,
     "outputs": [
       "art\\characters\\wataru\\parts"
     ]
   },
   {
     "step": "import",
-    "seconds": 4.7,
+    "seconds": 5.1,
     "outputs": [
       ".godot"
     ]

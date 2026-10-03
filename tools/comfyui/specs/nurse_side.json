@@ -61,12 +61,13 @@
   "groups": {
     "hand": {
       "sam": [
-        "gloved hand"
+        "hand"
       ]
     },
     "arm": {
       "sam": [
-        "arm sleeve"
+        "arm sleeve",
+        "arm"
       ]
     },
     "boot": {
@@ -82,8 +83,17 @@
     "body": {
       "sam": [
         "torso",
-        "legs"
-      ]
+        "legs",
+        "bare shoulder"
+      ],
+      "complete": {
+        "stage": "P",
+        "occluders": [
+          "arm",
+          "hand"
+        ],
+        "near": 120
+      }
     }
   },
   "parts": {
@@ -387,6 +397,12 @@
         "hand"
       ],
       "sigma": 1.0
+    },
+    "fill_holes": {
+      "parts": [
+        "pelvis"
+      ],
+      "max_area": 600
     }
   },
   "dialog_portrait": {
@@ -397,5 +413,13 @@
       305
     ],
     "out": "art/portraits/nurse.png"
-  }
+  },
+  "stages": [
+    {
+      "name": "P",
+      "from": null,
+      "seed": 52,
+      "prompt": "Change the nurse into a sleeveless one: delete her near-side arm entirely, including the short sleeve and the cyan cuff, so the scrub top has a bare round armhole and the bare shoulder joint shows there, and delete the forearm and the hand. Paint the scrub top body, the clipped tablet and the trousers that were hidden behind the arm. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
+    }
+  ]
 }

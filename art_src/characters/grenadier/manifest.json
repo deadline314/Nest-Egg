@@ -1,27 +1,7 @@
 [
   {
-    "step": "parts",
-    "seconds": 78.6,
-    "outputs": [
-      "art_src\\characters\\grenadier\\06_parts",
-      "art_src\\characters\\grenadier\\06_parts\\ownership.png"
-    ]
-  },
-  {
-    "step": "refine",
-    "seconds": 2.1,
-    "outputs": [
-      "art_src\\characters\\grenadier\\07_refined"
-    ]
-  },
-  {
-    "step": "damage",
-    "seconds": 0.0,
-    "outputs": []
-  },
-  {
     "step": "textures",
-    "seconds": 1.7,
+    "seconds": 1.6,
     "outputs": [
       "art\\characters\\grenadier\\character.json",
       "art\\rigs\\grenadier.json",
@@ -30,26 +10,16 @@
   },
   {
     "step": "normals",
-    "seconds": 2.6,
+    "seconds": 2.2,
     "outputs": [
       "art\\characters\\grenadier\\parts"
     ]
   },
   {
     "step": "import",
-    "seconds": 5.1,
+    "seconds": 4.6,
     "outputs": [
       ".godot"
-    ]
-  },
-  {
-    "step": "preview",
-    "seconds": 13.1,
-    "outputs": [
-      "art_src\\characters\\grenadier\\08_preview\\poses.png",
-      "art_src\\characters\\grenadier\\08_preview\\closeup.png",
-      "art_src\\characters\\grenadier\\08_preview\\head.png",
-      "art_src\\characters\\grenadier\\08_preview\\damage.png"
     ]
   }
 ]

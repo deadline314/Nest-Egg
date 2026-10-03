@@ -50,7 +50,7 @@
       ],
       "pivot": [
         130.74,
-        -10.7
+        -10.35
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -81,23 +81,23 @@
     "arm_upper": {
       "file": "parts/arm_upper.png",
       "size": [
-        126,
-        236
+        124,
+        235
       ],
       "pivot": [
-        67.55,
-        30.52
+        65.65,
+        29.52
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "arm_lower": {
       "file": "parts/arm_lower.png",
       "size": [
-        150,
-        135
+        115,
+        164
       ],
       "pivot": [
-        98.24,
+        62.44,
         7.37
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
@@ -105,12 +105,12 @@
     "hand": {
       "file": "parts/hand.png",
       "size": [
-        184,
-        118
+        147,
+        89
       ],
       "pivot": [
-        69.47,
-        59.18
+        32.39,
+        42.69
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     }
@@ -169,8 +169,7 @@
       "name": "torso",
       "texture": "torso",
       "bone": "chest",
-      "z": 1,
-      "tint": 1.7
+      "z": 1
     },
     {
       "name": "leg_front_upper",

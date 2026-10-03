@@ -1,14 +1,24 @@
 [
   {
+    "step": "textures",
+    "seconds": 2.7,
+    "outputs": [
+      "art\\characters\\warden\\character.json",
+      "art\\rigs\\warden.json",
+      "art\\characters\\warden\\parts",
+      "art\\portraits\\warden.png"
+    ]
+  },
+  {
     "step": "normals",
-    "seconds": 5.9,
+    "seconds": 5.6,
     "outputs": [
       "art\\characters\\warden\\parts"
     ]
   },
   {
     "step": "import",
-    "seconds": 4.7,
+    "seconds": 4.5,
     "outputs": [
       ".godot"
     ]

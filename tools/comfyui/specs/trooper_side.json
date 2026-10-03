@@ -123,7 +123,13 @@
           "armor_knee",
           "armor_chest"
         ],
-        "near": 120
+        "near": 120,
+        "fill_behind": [
+          "arm",
+          "hand",
+          "armor_forearm",
+          "armor_shoulder"
+        ]
       }
     }
   },
@@ -392,12 +398,7 @@
       ]
     }
   },
-  "glow": {
-    "head": "o",
-    "torso": "o",
-    "arm_lower": "o",
-    "foot": "o"
-  },
+  "glow": {},
   "bones": [
     {
       "name": "hip",

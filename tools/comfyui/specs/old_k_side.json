@@ -61,12 +61,13 @@
   "groups": {
     "hand": {
       "sam": [
-        "gloved hand"
+        "hand"
       ]
     },
     "arm": {
       "sam": [
-        "arm sleeve"
+        "coat sleeve",
+        "robotic arm"
       ]
     },
     "boot": {
@@ -82,8 +83,20 @@
     "body": {
       "sam": [
         "torso",
-        "legs"
-      ]
+        "legs",
+        "brown coat",
+        "bare shoulder"
+      ],
+      "complete": {
+        "stage": "P",
+        "occluders": [
+          "arm",
+          "hand"
+        ],
+        "near": 120,
+        "trim": 4,
+        "mask_close": 5
+      }
     }
   },
   "parts": {
@@ -96,7 +109,8 @@
         {
           "name": "pelvis",
           "bone": "hip",
-          "z": 0
+          "z": 0,
+          "tint": 1.8
         }
       ],
       "y": [
@@ -114,7 +128,8 @@
         {
           "name": "torso",
           "bone": "chest",
-          "z": 1
+          "z": 1,
+          "tint": 1.8
         }
       ],
       "y": [
@@ -147,12 +162,13 @@
           "name": "leg_back_upper",
           "bone": "leg_back_upper",
           "z": -5,
-          "tint": 0.62
+          "tint": 1.116
         },
         {
           "name": "leg_front_upper",
           "bone": "leg_front_upper",
-          "z": 3
+          "z": 3,
+          "tint": 1.8
         }
       ],
       "y": [
@@ -170,12 +186,13 @@
           "name": "leg_back_lower",
           "bone": "leg_back_lower",
           "z": -5,
-          "tint": 0.62
+          "tint": 1.116
         },
         {
           "name": "leg_front_lower",
           "bone": "leg_front_lower",
-          "z": 3
+          "z": 3,
+          "tint": 1.8
         }
       ],
       "y": [
@@ -193,12 +210,13 @@
           "name": "foot_back",
           "bone": "foot_back",
           "z": -5,
-          "tint": 0.62
+          "tint": 1.116
         },
         {
           "name": "foot_front",
           "bone": "foot_front",
-          "z": 3
+          "z": 3,
+          "tint": 1.8
         }
       ],
       "pivot": "ankle"
@@ -213,12 +231,13 @@
           "name": "arm_back_upper",
           "bone": "arm_back_upper",
           "z": -7,
-          "tint": 0.62
+          "tint": 1.116
         },
         {
           "name": "arm_front_upper",
           "bone": "arm_front_upper",
-          "z": 8
+          "z": 8,
+          "tint": 1.8
         }
       ],
       "y": [
@@ -236,12 +255,13 @@
           "name": "arm_back_lower",
           "bone": "arm_back_lower",
           "z": -7,
-          "tint": 0.62
+          "tint": 1.116
         },
         {
           "name": "arm_front_lower",
           "bone": "arm_front_lower",
-          "z": 8
+          "z": 8,
+          "tint": 1.8
         }
       ],
       "y": [
@@ -271,8 +291,7 @@
     }
   },
   "glow": {
-    "head": "y",
-    "torso": "y"
+    "torso": "oy"
   },
   "bones": [
     {
@@ -398,5 +417,17 @@
       276
     ],
     "out": "art/portraits/old_k.png"
+  },
+  "stages": [
+    {
+      "name": "P",
+      "from": null,
+      "seed": 54,
+      "prompt": "Change the man's coat into a sleeveless one: delete his near-side arm entirely, including the whole short sleeve, the metal prosthetic arm and the hand, so the coat has a round armhole and the dark undershirt's shoulder shows there. No skin and no arm are drawn. Paint the coat body, the buttons, the golden trim, the dark shirt and the trousers that were hidden behind the arm. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
+    }
+  ],
+  "glow_threshold": {
+    "sat": 120,
+    "val": 125
   }
 }

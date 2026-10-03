@@ -1,14 +1,24 @@
 [
   {
+    "step": "textures",
+    "seconds": 1.9,
+    "outputs": [
+      "art\\characters\\reclaimer\\character.json",
+      "art\\rigs\\reclaimer.json",
+      "art\\characters\\reclaimer\\parts",
+      "art\\portraits\\reclaimer.png"
+    ]
+  },
+  {
     "step": "normals",
-    "seconds": 2.4,
+    "seconds": 2.3,
     "outputs": [
       "art\\characters\\reclaimer\\parts"
     ]
   },
   {
     "step": "import",
-    "seconds": 4.6,
+    "seconds": 4.7,
     "outputs": [
       ".godot"
     ]

@@ -37,6 +37,32 @@ def largest_blobs(mask: np.ndarray, min_share: float = 0.02) -> np.ndarray:
     return np.isin(lab, np.nonzero(areas >= areas.max() * min_share)[0] + 1)
 
 
+def row_fill(color: np.ndarray, region: np.ndarray, known: np.ndarray, blur: float = 3.0) -> np.ndarray:
+    """Colour every `region` pixel by a straight ramp along its row between the nearest `known` pixel on its left and on its right
+    (a run with a known pixel on one side only copies that side). The gap behind a limb is mostly flat cloth, so a ramp looks like cloth."""
+    H, W = region.shape
+    out = color.astype(np.float32).copy()
+    for y in np.nonzero(region.any(1))[0]:
+        xs = np.nonzero(region[y])[0]
+        start = 0
+        for i in range(1, len(xs) + 1):
+            if i < len(xs) and xs[i] == xs[i - 1] + 1:
+                continue
+            x0, x1 = xs[start], xs[i - 1]
+            start = i
+            left = x0 - 1 if x0 > 0 and known[y, x0 - 1] else None
+            right = x1 + 1 if x1 < W - 1 and known[y, x1 + 1] else None
+            if left is None and right is None:
+                continue
+            a = out[y, left] if left is not None else out[y, right]
+            b = out[y, right] if right is not None else out[y, left]
+            t = (np.arange(x0, x1 + 1) - x0 + 1.0) / (x1 - x0 + 2.0)
+            out[y, x0:x1 + 1] = a[None] * (1 - t[:, None]) + b[None] * t[:, None]
+    soft = cv2.GaussianBlur(out, (0, 0), sigmaX=blur, sigmaY=blur * 4)  # rows were filled one by one: even them out, more so along the limb
+    out = np.where(region[:, :, None], soft, out)
+    return np.clip(out, 0, 255).astype(np.uint8)
+
+
 def dilate(mask: np.ndarray, r: int) -> np.ndarray:
     if r <= 0:
         return mask
@@ -166,6 +192,8 @@ def main() -> None:
                     others |= V[other]
             # only fully opaque stage pixels, pulled in a few px from the stage picture's outer edge: Qwen's edit paints a pale
             # semi-transparent rim there that would show up as a halo around the completed part
+            if c.get("mask_close"):  # the dark outline strokes between two masked regions belong to no SAM mask: close those cracks
+                sm = cv2.morphologyEx(sm.astype(np.uint8), cv2.MORPH_CLOSE, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * c["mask_close"] + 1,) * 2)) > 0
             solid = sm & (stage_rgba[c["stage"]][:, :, 3] >= 250)
             solid = cv2.erode(solid.astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * c.get("edge_trim", 3) + 1,) * 2)) > 0
             if "reject_hue" in c:  # colours the hidden part can not have (e.g. the pale blue wisp Qwen paints at the tip of the hair)
@@ -173,9 +201,32 @@ def main() -> None:
                 hue = hsv[:, :, 0].astype(int) * 2
                 bad = (hue >= c["reject_hue"][0]) & (hue <= c["reject_hue"][1]) & (hsv[:, :, 1] > 25)
                 solid &= ~dilate(bad, 2)
-            gap = solid & dilate(occ, c.get("gap_grow", 14)) & ~others & ~V[name] & dilate(V[name], c.get("near", 120))
-            final = largest_blobs(cv2.morphologyEx((V[name] | gap).astype(np.uint8), cv2.MORPH_CLOSE, np.ones((7, 7), np.uint8)) > 0)
-            color = np.where(V[name][:, :, None], rgb, stage_rgba[c["stage"]][:, :, :3])
+            # trim: a ring of N px around the occluders is taken from the stage picture instead of the original, so the dark outline of the
+            # arm (or whatever sits in front) does not stay behind on the part as a dotted line
+            core = V[name] & ~dilate(occ, c["trim"]) if c.get("trim") else V[name]
+            gap = solid & dilate(occ, c.get("gap_grow", 14)) & ~others & ~core & dilate(core, c.get("near", 120))
+            final = largest_blobs(cv2.morphologyEx((core | gap).astype(np.uint8), cv2.MORPH_CLOSE, np.ones((7, 7), np.uint8)) > 0)
+            color = np.where(core[:, :, None], rgb, stage_rgba[c["stage"]][:, :, :3])
+            holes = ndimage.binary_fill_holes(final) & ~final  # enclosed gaps (a tool handle the SAM mask skipped): fill them from the stage picture
+            if holes.any():
+                st_ = stage_rgba[c["stage"]]
+                color = np.where(holes[:, :, None], np.where((st_[:, :, 3] > 127)[:, :, None], st_[:, :, :3], rgb), color)
+                final = final | holes
+            if c.get("fill_behind"):
+                # the stage picture still has the limb in front of the body (only armor was removed), so nothing was painted behind it:
+                # fill the rows between the body pixels on both sides of the limb, and the holes the limb left, with a colour ramp
+                hid = np.zeros((H, W), bool)
+                for o in c["fill_behind"]:
+                    hid |= V[o]
+                hid = dilate(hid, c.get("fill_grow", 3)) & ~final
+                if hid.any():
+                    first = np.where(final.any(1), final.argmax(1), W)
+                    last = np.where(final.any(1), W - 1 - final[:, ::-1].argmax(1), -1)
+                    span = (np.arange(W)[None, :] >= first[:, None]) & (np.arange(W)[None, :] <= last[:, None])
+                    gap_fill = hid & span
+                    gap_fill |= ndimage.binary_fill_holes(final | gap_fill) & ~final
+                    color = row_fill(color, gap_fill, final)
+                    final = final | gap_fill
             layer = np.dstack([color, (final * 255).astype(np.uint8)])
             Image.fromarray(layer).save(done)
             complete[name] = layer

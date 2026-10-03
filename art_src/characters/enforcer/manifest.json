@@ -1,44 +1,7 @@
 [
   {
-    "step": "design",
-    "seconds": 55.3,
-    "outputs": [
-      "art_src\\characters\\enforcer\\01_design\\design_s5.png",
-      "art_src\\characters\\enforcer\\base_rgba.png"
-    ]
-  },
-  {
-    "step": "pose",
-    "seconds": 14.1,
-    "outputs": [
-      "art_src\\characters\\enforcer\\keypoints.json",
-      "art_src\\characters\\enforcer\\02_pose\\overlay.png",
-      "art_src\\characters\\enforcer\\02_pose\\joints.png"
-    ]
-  },
-  {
-    "step": "parts",
-    "seconds": 81.5,
-    "outputs": [
-      "art_src\\characters\\enforcer\\06_parts",
-      "art_src\\characters\\enforcer\\06_parts\\ownership.png"
-    ]
-  },
-  {
-    "step": "refine",
-    "seconds": 2.2,
-    "outputs": [
-      "art_src\\characters\\enforcer\\07_refined"
-    ]
-  },
-  {
-    "step": "damage",
-    "seconds": 0.0,
-    "outputs": []
-  },
-  {
     "step": "textures",
-    "seconds": 1.8,
+    "seconds": 1.6,
     "outputs": [
       "art\\characters\\enforcer\\character.json",
       "art\\rigs\\enforcer.json",
@@ -47,26 +10,16 @@
   },
   {
     "step": "normals",
-    "seconds": 3.3,
+    "seconds": 2.7,
     "outputs": [
       "art\\characters\\enforcer\\parts"
     ]
   },
   {
     "step": "import",
-    "seconds": 6.3,
+    "seconds": 4.5,
     "outputs": [
       ".godot"
-    ]
-  },
-  {
-    "step": "preview",
-    "seconds": 13.0,
-    "outputs": [
-      "art_src\\characters\\enforcer\\08_preview\\poses.png",
-      "art_src\\characters\\enforcer\\08_preview\\closeup.png",
-      "art_src\\characters\\enforcer\\08_preview\\head.png",
-      "art_src\\characters\\enforcer\\08_preview\\damage.png"
     ]
   }
 ]

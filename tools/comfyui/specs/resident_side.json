@@ -61,12 +61,12 @@
   "groups": {
     "hand": {
       "sam": [
-        "gloved hand"
+        "hand"
       ]
     },
     "arm": {
       "sam": [
-        "arm sleeve"
+        "forearm"
       ]
     },
     "boot": {
@@ -81,9 +81,20 @@
     },
     "body": {
       "sam": [
-        "torso",
-        "legs"
-      ]
+        "sweater",
+        "legs",
+        "armhole"
+      ],
+      "complete": {
+        "stage": "P",
+        "occluders": [
+          "arm",
+          "hand"
+        ],
+        "near": 120,
+        "trim": 4,
+        "mask_close": 5
+      }
     }
   },
   "parts": {
@@ -395,5 +406,13 @@
       334
     ],
     "out": "art/portraits/resident.png"
-  }
+  },
+  "stages": [
+    {
+      "name": "P",
+      "from": null,
+      "seed": 54,
+      "prompt": "Change the man's blue sweater into a sleeveless one: delete his near-side arm entirely, including the whole long sleeve with its ribbed cuff and the hand, so the sweater has a round armhole and the dark undershirt's shoulder shows there. No skin and no arm are drawn. Paint the sweater body, the ribbed hem and the trousers that were hidden behind the arm. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
+    }
+  ]
 }

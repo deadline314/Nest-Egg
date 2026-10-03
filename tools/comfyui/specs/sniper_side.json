@@ -67,6 +67,9 @@
     "armor_shoulder": {
       "sam": [
         "shoulder armor pauldron"
+      ],
+      "minus": [
+        "chest armor plate"
       ]
     },
     "armor_forearm": {
@@ -123,7 +126,13 @@
           "armor_knee",
           "armor_chest"
         ],
-        "near": 120
+        "near": 120,
+        "fill_behind": [
+          "arm",
+          "hand",
+          "armor_forearm",
+          "armor_shoulder"
+        ]
       }
     }
   },
@@ -393,9 +402,7 @@
     }
   },
   "glow": {
-    "head": "r",
-    "torso": "r",
-    "arm_lower": "r"
+    "head": "r"
   },
   "bones": [
     {

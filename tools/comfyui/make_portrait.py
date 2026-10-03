@@ -3,7 +3,7 @@
     D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/make_portrait.py --spec tools/comfyui/specs/rin_side.json --work art_src/characters/rin2
 
 Inputs : <work>/07_refined/<part>.png (else 06_parts/), spec["dialog_portrait"] = {"box": [x0, y0, x1, y1], "out": "art/portraits/<id>.png"}
-         box is in pixel coordinates of base_rgba.png; every front part is stacked in z order (the dimmed far-side limb copies are skipped).
+         box is in pixel coordinates of base_rgba.png; every front part is stacked in z order (the dimmed far-side limb copies, named *_back* with a tint, are skipped).
 Output : the PNG named by "out" (what data/story/*.json speakers point at).
 """
 import argparse
@@ -25,7 +25,7 @@ def main() -> None:
     layers = []
     for part, p in spec["parts"].items():
         for use in p["uses"]:
-            if use.get("tint"):  # the dimmed copies for the far-side limbs
+            if use.get("tint") and "_back" in use["name"]:  # the dimmed copies for the far-side limbs (a front part can carry a tint too: a brightened coat)
                 continue
             layers.append((use["z"], part))
     first = Image.open(src / f"{layers[0][1]}.png")

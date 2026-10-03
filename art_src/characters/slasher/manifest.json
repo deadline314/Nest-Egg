@@ -1,25 +1,5 @@
 [
   {
-    "step": "parts",
-    "seconds": 77.1,
-    "outputs": [
-      "art_src\\characters\\slasher\\06_parts",
-      "art_src\\characters\\slasher\\06_parts\\ownership.png"
-    ]
-  },
-  {
-    "step": "refine",
-    "seconds": 1.7,
-    "outputs": [
-      "art_src\\characters\\slasher\\07_refined"
-    ]
-  },
-  {
-    "step": "damage",
-    "seconds": 0.0,
-    "outputs": []
-  },
-  {
     "step": "textures",
     "seconds": 1.4,
     "outputs": [
@@ -30,26 +10,16 @@
   },
   {
     "step": "normals",
-    "seconds": 2.0,
+    "seconds": 1.7,
     "outputs": [
       "art\\characters\\slasher\\parts"
     ]
   },
   {
     "step": "import",
-    "seconds": 4.7,
+    "seconds": 4.6,
     "outputs": [
       ".godot"
-    ]
-  },
-  {
-    "step": "preview",
-    "seconds": 12.9,
-    "outputs": [
-      "art_src\\characters\\slasher\\08_preview\\poses.png",
-      "art_src\\characters\\slasher\\08_preview\\closeup.png",
-      "art_src\\characters\\slasher\\08_preview\\head.png",
-      "art_src\\characters\\slasher\\08_preview\\damage.png"
     ]
   }
 ]

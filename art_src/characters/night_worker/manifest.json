@@ -1,14 +1,44 @@
 [
   {
+    "step": "parts",
+    "seconds": 6.5,
+    "outputs": [
+      "art_src\\characters\\night_worker\\06_parts",
+      "art_src\\characters\\night_worker\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 1.5,
+    "outputs": [
+      "art_src\\characters\\night_worker\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 1.5,
+    "outputs": [
+      "art\\characters\\night_worker\\character.json",
+      "art\\rigs\\night_worker.json",
+      "art\\characters\\night_worker\\parts",
+      "art\\portraits\\night_worker.png"
+    ]
+  },
+  {
     "step": "normals",
-    "seconds": 2.4,
+    "seconds": 2.3,
     "outputs": [
       "art\\characters\\night_worker\\parts"
     ]
   },
   {
     "step": "import",
-    "seconds": 4.7,
+    "seconds": 4.9,
     "outputs": [
       ".godot"
     ]

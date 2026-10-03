@@ -11,6 +11,8 @@ spec["refine"] (every key is optional):
   repaint    [{"parts": [...], "group": g, "y": [lo, hi]}] throw away what Qwen painted into the hidden gap of group g inside the y range and
                                                       refill it with a colour ramp from the visible pixels above and below (removes the seams drawn on the thigh)
   close_fill {"parts": [...], "radius": N}           close holes cut into a part by something in front of it (the holster behind the hand)
+  fill_holes {"parts": [...], "max_area": N}         paint enclosed transparent holes smaller than N px (default 200) from the colours around them:
+                                                      a sliver between two outlines would show the background as a bright dot (check_parts.py lists them)
   magenta_specks {"parts": [...], "max_area": N}     delete tiny magenta fringe flecks on the listed parts
   white_specks {"parts": [...], "max_area": N}       same for tiny near-white flecks (only use on dark parts)
   smooth_alpha {"parts": [...], "sigma": S}          round off the stair-stepped outline of the listed parts
@@ -25,6 +27,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 from PIL import Image
+from scipy import ndimage
 
 
 def ell(r: int) -> np.ndarray:
@@ -177,6 +180,19 @@ def main() -> None:
             L[:, :, :3] = cv2.inpaint(L[:, :, :3], new.astype(np.uint8) * 255, 5, cv2.INPAINT_TELEA)
             L[:, :, 3][new] = 255
             print(f"  close_fill {n}: +{int(new.sum())} px")
+
+    fh = cfg.get("fill_holes")
+    if fh:
+        for n in fh["parts"]:
+            L = layers[n]
+            solid = L[:, :, 3] > 127
+            holes, count = ndimage.label(ndimage.binary_fill_holes(solid) & ~solid)
+            small = np.isin(holes, [i for i in range(1, count + 1) if (holes == i).sum() < fh.get("max_area", 200)])
+            if small.any():
+                small = cv2.dilate(small.astype(np.uint8), ell(1)) > 0
+                L[:, :, :3] = cv2.inpaint(L[:, :, :3], small.astype(np.uint8) * 255, 5, cv2.INPAINT_TELEA)
+                L[:, :, 3][small] = 255
+                print(f"  fill_holes {n}: +{int(small.sum())} px")
 
     sm = cfg.get("smooth_alpha")
     for n, L in layers.items():

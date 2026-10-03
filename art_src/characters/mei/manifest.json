@@ -1,12 +1,16 @@
 [
   {
-    "step": "textures",
-    "seconds": 2.3,
+    "step": "normals",
+    "seconds": 2.2,
     "outputs": [
-      "art\\characters\\mei\\character.json",
-      "art\\rigs\\mei.json",
-      "art\\characters\\mei\\parts",
-      "art\\portraits\\mei.png"
+      "art\\characters\\mei\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 4.8,
+    "outputs": [
+      ".godot"
     ]
   }
 ]

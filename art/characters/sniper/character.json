@@ -22,14 +22,13 @@
       "file": "parts/torso.png",
       "size": [
         100,
-        224
+        225
       ],
       "pivot": [
         25.35,
-        198.36
+        199.36
       ],
-      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
-      "glow": "parts/torso_glow.png"
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "head": {
       "file": "parts/head.png",
@@ -52,7 +51,7 @@
       ],
       "pivot": [
         65.84,
-        -10.44
+        -10.3
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -87,8 +86,8 @@
         204
       ],
       "pivot": [
-        31.79,
-        16.69
+        31.82,
+        16.7
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -102,8 +101,7 @@
         33.04,
         7.6
       ],
-      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
-      "glow": "parts/arm_lower_glow.png"
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "hand": {
       "file": "parts/hand.png",
@@ -120,24 +118,24 @@
     "armor_chest": {
       "file": "parts/armor_chest.png",
       "size": [
-        27,
-        41
+        163,
+        191
       ],
       "pivot": [
-        12.35,
-        140.36
+        87.35,
+        259.36
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "armor_shoulder": {
       "file": "parts/armor_shoulder.png",
       "size": [
-        164,
-        191
+        73,
+        83
       ],
       "pivot": [
-        36.83,
-        67.65
+        25.81,
+        8.69
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },

@@ -61,12 +61,13 @@
   "groups": {
     "hand": {
       "sam": [
-        "gloved hand"
+        "hand"
       ]
     },
     "arm": {
       "sam": [
-        "arm sleeve"
+        "orange sleeve",
+        "arm"
       ]
     },
     "boot": {
@@ -82,8 +83,20 @@
     "body": {
       "sam": [
         "torso",
-        "legs"
-      ]
+        "legs",
+        "apron",
+        "bare shoulder"
+      ],
+      "complete": {
+        "stage": "P",
+        "occluders": [
+          "arm",
+          "hand"
+        ],
+        "near": 120,
+        "trim": 4,
+        "mask_close": 5
+      }
     }
   },
   "parts": {
@@ -395,5 +408,13 @@
       377
     ],
     "out": "art/portraits/ah_po.png"
-  }
+  },
+  "stages": [
+    {
+      "name": "P",
+      "from": null,
+      "seed": 52,
+      "prompt": "Change the old woman into a sleeveless one: delete her near-side arm entirely, including the orange sleeve, the rolled cuff, the bare forearm and the hand, so the blouse has a bare round armhole and the bare shoulder joint shows there. Paint the blouse body, the cream apron with its pocket, and the trousers that were hidden behind the arm. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
+    }
+  ]
 }

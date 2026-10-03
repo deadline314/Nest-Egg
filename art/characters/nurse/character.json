@@ -51,7 +51,7 @@
       ],
       "pivot": [
         61.25,
-        -10.81
+        -10.58
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -83,7 +83,7 @@
       "file": "parts/arm_upper.png",
       "size": [
         83,
-        166
+        188
       ],
       "pivot": [
         38.03,
@@ -91,14 +91,26 @@
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
+    "arm_lower": {
+      "file": "parts/arm_lower.png",
+      "size": [
+        54,
+        161
+      ],
+      "pivot": [
+        26.29,
+        7.37
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
     "hand": {
       "file": "parts/hand.png",
       "size": [
-        104,
+        90,
         61
       ],
       "pivot": [
-        24.27,
+        10.32,
         36.64
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
@@ -109,6 +121,13 @@
       "name": "arm_back_upper",
       "texture": "arm_upper",
       "bone": "arm_back_upper",
+      "z": -7,
+      "tint": 0.62
+    },
+    {
+      "name": "arm_back_lower",
+      "texture": "arm_lower",
+      "bone": "arm_back_lower",
       "z": -7,
       "tint": 0.62
     },
@@ -180,6 +199,12 @@
       "name": "arm_front_upper",
       "texture": "arm_upper",
       "bone": "arm_front_upper",
+      "z": 8
+    },
+    {
+      "name": "arm_front_lower",
+      "texture": "arm_lower",
+      "bone": "arm_front_lower",
       "z": 8
     },
     {

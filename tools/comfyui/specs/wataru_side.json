@@ -61,12 +61,13 @@
   "groups": {
     "hand": {
       "sam": [
-        "gloved hand"
+        "hand"
       ]
     },
     "arm": {
       "sam": [
-        "arm sleeve"
+        "arm",
+        "sleeve"
       ]
     },
     "boot": {
@@ -82,8 +83,19 @@
     "body": {
       "sam": [
         "torso",
-        "legs"
-      ]
+        "legs",
+        "bare shoulder"
+      ],
+      "complete": {
+        "stage": "P",
+        "occluders": [
+          "arm",
+          "hand"
+        ],
+        "near": 120,
+        "trim": 4,
+        "mask_close": 5
+      }
     }
   },
   "parts": {
@@ -395,5 +407,13 @@
       393
     ],
     "out": "art/portraits/wataru.png"
-  }
+  },
+  "stages": [
+    {
+      "name": "P",
+      "from": null,
+      "seed": 57,
+      "prompt": "Delete the boy's near-side arm completely from the picture: the whole long sleeve with its ribbed cuff, the bare hand and the arm inside it, nothing of the arm is left. The boy has no near-side arm at all, and the side of his jacket body is seen with a plain round armhole where the sleeve was, through which you see the mint-green shirt behind it. Paint the jacket body, the ribbed hem, the pocket and the trousers that were hidden behind the arm. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
+    }
+  ]
 }

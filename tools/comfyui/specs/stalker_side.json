@@ -111,7 +111,12 @@
           "armor_shoulder",
           "armor_knee"
         ],
-        "near": 120
+        "near": 120,
+        "fill_behind": [
+          "arm",
+          "hand",
+          "armor_shoulder"
+        ]
       }
     }
   },
@@ -344,8 +349,7 @@
     }
   },
   "glow": {
-    "head": "m",
-    "torso": "m"
+    "head": "m"
   },
   "bones": [
     {
@@ -463,7 +467,30 @@
         "armor_knee"
       ],
       "sigma": 1.0
-    }
+    },
+    "erase": [
+      {
+        "part": "leg_lower",
+        "poly": [
+          [
+            328,
+            795
+          ],
+          [
+            358,
+            795
+          ],
+          [
+            358,
+            848
+          ],
+          [
+            328,
+            848
+          ]
+        ]
+      }
+    ]
   },
   "stages": [
     {

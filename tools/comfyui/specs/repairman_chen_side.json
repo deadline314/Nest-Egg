@@ -61,12 +61,13 @@
   "groups": {
     "hand": {
       "sam": [
-        "gloved hand"
+        "glove"
       ]
     },
     "arm": {
       "sam": [
-        "arm sleeve"
+        "sleeve",
+        "arm"
       ]
     },
     "boot": {
@@ -82,8 +83,20 @@
     "body": {
       "sam": [
         "torso",
-        "legs"
-      ]
+        "legs",
+        "bare shoulder",
+        "tool belt"
+      ],
+      "complete": {
+        "stage": "P",
+        "occluders": [
+          "arm",
+          "hand"
+        ],
+        "near": 120,
+        "trim": 4,
+        "mask_close": 5
+      }
     }
   },
   "parts": {
@@ -270,9 +283,7 @@
       "pivot": "palm"
     }
   },
-  "glow": {
-    "torso": "o"
-  },
+  "glow": {},
   "bones": [
     {
       "name": "hip",
@@ -397,5 +408,13 @@
       292
     ],
     "out": "art/portraits/repairman_chen.png"
-  }
+  },
+  "stages": [
+    {
+      "name": "P",
+      "from": null,
+      "seed": 54,
+      "prompt": "Change the repairman's blue coverall into a sleeveless one: delete his near-side arm entirely, including the whole rolled sleeve, the bare forearm and the brown work glove, so the coverall has a round armhole and the dark undershirt's shoulder shows there. No skin and no arm are drawn. Paint the coverall body, the chest pocket, the tool belt with its wrenches, tools and pouches and the trousers that were hidden behind the arm. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
+    }
+  ]
 }

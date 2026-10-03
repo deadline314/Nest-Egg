@@ -15,6 +15,7 @@ Full description with pictures: design/03-art-pipeline/CHARACTER_PIPELINE.md. `w
   refine    refine_parts.py            work/06_parts/*.png, spec.refine               work/07_refined/*.png   (far leg, stray lines, halo and specks removed)
   damage    make_damage.py             work/04_stages/<spec.damage.stage>.png, 07_refined  work/07_refined/<part>_dmg.png   (the torn clothes underneath, same outline as the intact part)
   textures  cut_layers.py              work/07_refined/*.png, spec.joints / bones     art/characters/<id>/parts/*.png (+_glow), character.json, art/rigs/<rig>.json
+            (then check_parts.py lists holes, loose fragments and empty glow layers of the new textures as WARN lines)
             (and make_portrait.py: spec.dialog_portrait -> art/portraits/<id>.png, the dialogue head)
   normals   Godot paint_normals        art/characters/<id>/parts/*.png                parts/*_n.png
   import    Godot --editor --quit      art/characters/<id>                            .godot/imported (the engine sees the new PNGs)
@@ -200,6 +201,9 @@ class Build:
         if n:
             log(f"  applied {n} hand-made override(s)")
         outs = [self.char_dir / "character.json", self.rig, self.char_dir / "parts"]
+        from check_parts import check_character  # the usual cutting mistakes (holes, detached fragments, empty glow layers), with their place
+        for problem in check_character(self.id):
+            log(f"  WARN part texture {problem}")
         if "dialog_portrait" in json.loads(self.spec.read_text(encoding="utf8")):
             log("  " + run([sys.executable, str(HERE / "make_portrait.py"), "--spec", str(self.spec), "--work", str(self.work)], "portrait").strip())
             outs.append(ROOT / "art/portraits" / f"{self.id}.png")

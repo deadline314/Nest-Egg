@@ -28,8 +28,7 @@
         83.1,
         273.0
       ],
-      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
-      "glow": "parts/torso_glow.png"
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "head": {
       "file": "parts/head.png",
@@ -48,22 +47,22 @@
       "file": "parts/leg_upper.png",
       "size": [
         185,
-        254
+        255
       ],
       "pivot": [
         110.89,
-        -11.44
+        -11.42
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_lower": {
       "file": "parts/leg_lower.png",
       "size": [
-        223,
+        189,
         329
       ],
       "pivot": [
-        94.81,
+        60.36,
         8.33
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
