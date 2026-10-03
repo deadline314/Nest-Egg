@@ -14,6 +14,8 @@ To replace a texture by hand: paint a PNG with the SAME size and pivot and overw
 import argparse
 import json
 import math
+import os
+import shutil
 from pathlib import Path
 
 import cv2
@@ -39,10 +41,12 @@ def main() -> None:
     px_wp = spec["tex_px_per_wp"]
     J = {n: np.array(p, float) * k for n, p in spec["joints"].items()}
     src_dir = work / "07_refined" if (work / "07_refined").exists() else work / "06_parts"  # refine_parts.py output wins
-    out_parts = Path(args.char) / "parts"
+    final_parts = Path(args.char) / "parts"
+    out_parts = Path(args.char) / "parts.tmp"  # written here first; swapped in only when every part was cut (a failed run keeps the old textures)
+    if out_parts.exists():
+        shutil.rmtree(out_parts)
     out_parts.mkdir(parents=True, exist_ok=True)
-    for old in out_parts.glob("*"):
-        old.unlink()
+    (out_parts / ".gdignore").touch()  # a leftover temp folder must not be imported by the engine
 
     textures, transforms = {}, {}
     for name, p in spec["parts"].items():
@@ -123,7 +127,7 @@ def main() -> None:
            "bones": bones,
            **({"springs": spec["springs"]} if "springs" in spec else {}),
            "weapon_anchor": {"bone": ac["bone"], "pos": [round(float(anchor[0]) + ac["dx"], 2), round(float(anchor[1]) + ac["dy"], 2)], "reach": ac["reach"]}}
-    Path(args.rig).write_text(json.dumps(rig, ensure_ascii=False, indent=2) + "\n", encoding="utf8")
+    rig_text = json.dumps(rig, ensure_ascii=False, indent=2) + "\n"
 
     # ---- character -----------------------------------------------------------------------------------------------
     uses = []
@@ -146,6 +150,17 @@ def main() -> None:
     char["description"] = "外觀（skin）定義：textures 是零件圖片的尺寸與支點；parts 是把圖片掛到骨頭上的方式。" + NOTE + "。"
     char["textures"] = textures
     char["parts"] = [{"name": u["name"], "texture": u["texture"], "bone": u["bone"], "z": u["z"], **({"tint": u["tint"]} if "tint" in u else {}), **({"armor_order": u["armor_order"]} if "armor_order" in u else {}), **({"under": True} if u.get("under") else {})} for u in uses]
+    # swap in the new files only now that everything above worked
+    (out_parts / ".gdignore").unlink()
+    if final_parts.exists():
+        for imp in final_parts.glob("*.import"):  # keep the engine's import records (and their uids) of textures that still exist
+            png = imp.name[: -len(".import")]
+            base = png[: -len("_n.png")] + ".png" if png.endswith("_n.png") else png  # the normal maps are made again by the next step
+            if (out_parts / base).exists():
+                shutil.copy(imp, out_parts / imp.name)
+        shutil.rmtree(final_parts)
+    os.replace(out_parts, final_parts)
+    Path(args.rig).write_text(rig_text, encoding="utf8")
     (Path(args.char) / "character.json").write_text(json.dumps(char, ensure_ascii=False, indent=2) + "\n", encoding="utf8")
     print("rig bones:", len(bones), " textures:", len(textures), " parts:", len(char["parts"]))
 

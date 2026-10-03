@@ -33,6 +33,32 @@ static func character_dir(id: String) -> String:
 	return (CHARACTER_PATH % id).get_base_dir()
 
 
+## 外觀是否用自己的骨架（重畫過的角色）；共用的 Q 版骨架（humanoid.json）回傳 false。
+static func has_own_rig(id: String) -> bool:
+	return str(character(id).get("rig", "")).get_file() != "humanoid.json"
+
+
+## 站立時從腳底到頭頂的高度（世界像素，含整體縮放）：骨頭靜止位置加上頭部貼圖畫到支點上方的部分。
+static func standing_height(id: String) -> float:
+	var skin := character(id)
+	var rig := load_json(str(skin.get("rig", "")))
+	var head: Dictionary = (skin.get("textures", {}) as Dictionary).get("head", {})
+	if skin.is_empty() or rig.is_empty() or head.is_empty():
+		return 0.0
+	var parents: Dictionary = {}
+	var rests: Dictionary = {}
+	for bone: Dictionary in rig.get("bones", []):
+		parents[bone.get("name")] = bone.get("parent", "")
+		rests[bone.get("name")] = vec2(bone.get("pos"))
+	var y := 0.0
+	var name: Variant = "head"
+	while str(name) != "":
+		y += (rests.get(name, Vector2.ZERO) as Vector2).y
+		name = parents.get(name, "")
+	var pivot_y := vec2(head.get("pivot")).y
+	return (-y + pivot_y * float(skin.get("texture_scale", 0.25))) * float(skin.get("scale", 1.0))
+
+
 static func weapons() -> Dictionary:
 	return load_json(WEAPONS_PATH)
 

@@ -126,3 +126,27 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
 - 關節位置（spec `joints`）是依 SAM 3D Body 的預測再人工微調；換新角色時要看 `overlay.png` 調一次。
 - 只有近側的手腳有圖，遠側用同一張圖調暗（骨架原本的做法）。
 - 舊流程的腳本（`cut_parts.py`、`cut_rig_parts.py`、`gen_character_passes.py`）保留，新流程只借用 `cut_rig_parts.py` 裡的 `frame()` 與 `glow_layer()`。
+
+## 6. 新增一個角色（敵人與 NPC）
+
+不用手寫 JSON：範本幫你產生配方與規格，關節由流程從圖量出來，錯誤在慢的步驟開始前就擋下。
+
+```
+# 1. 產生配方與規格（armored＝有可破壞裝甲的士兵，civilian＝NPC，沒有裝甲）
+python tools/comfyui/new_character.py --id sniper --name 狙擊手 --height 56 --glow r --weapon sniper     --appearance "a sniper in a dark green-grey skin-tight suit with a hood mask and a single scope eye ..."
+# 2. 一鍵跑（會依序畫圖、量關節、分件、清理、法線、匯入、預覽）；先只跑到 pose 看關節對不對
+D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py --recipe tools/comfyui/recipes/sniper.json --to pose
+#    看 work/02_pose/joints.png；不對的關節直接在 specs/<id>_side.json 填數字（填過的不會被蓋掉）
+D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py --recipe tools/comfyui/recipes/sniper.json --from parts
+# 批次：幾個角色接著跑，其中一個失敗不影響其他的
+... build_character.py --recipe a.json b.json c.json        或  --all
+```
+
+**輸入**：`recipes/<id>.json`（`height` 站立身高世界像素、`scale`、`armor` 裝甲順序、`glow`／`glow_parts` 發光色字母 c m r o y g 與要發光的零件、`design.prompt` Qwen 提示詞與種子）。**輸出**：與凜相同（零件圖、`character.json`、骨架 `art/rigs/<id>.json`、法線、預覽）；每個角色有自己的骨架檔，骨頭長度與比例由立繪量出，所以不同體型的角色不需要改動畫程式。
+
+**裝甲**：armored 範本把裝甲做成獨立零件：肩甲、前臂護甲、護膝、胸甲，破壞順序就是 `armor` 的順序（預設肩 → 臂 → 膝 → 胸，一步 = 一組，前後側的同一種護甲一起飛走）。做法是請 Qwen 產生「移除所有裝甲、補完底下的內襯」的 `P` 階段圖，身體零件從 P 圖補，裝甲零件從原圖用 SAM 摳出。SAM 找不到時換 `spec.groups.<群組>.sam` 的提示詞；不需要的裝甲從 `armor` 拿掉。
+
+**檢查**：`check_spec.py`（流程會自動跑）指出具體位置，例如 `spec.parts.torso.from: unknown joint 'wiast'`；有錯該角色就停在慢的步驟之前，不會產生壞掉的檔案。貼圖步驟先寫到暫存資料夾，全部切完才換掉舊的，失敗時保留舊貼圖。
+
+**遠側的腿**：側面圖裡遠側腿常被畫成一整條暗色剪影，會跟著前腿走。提示詞已要求「遠側的腿藏在近側腿後面」；仍出現時在 spec 的 `refine.far_side` 設定（顏色與零件，見 `refine_parts.py`）。
+

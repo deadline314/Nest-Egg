@@ -1,6 +1,7 @@
 """One command from a character recipe to a character running in Godot.
 
     D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py --recipe tools/comfyui/recipes/rin.json [--from parts] [--to preview]
+    ... --recipe a.json b.json      several characters one after the other (one failing does not stop or touch the others); --all = every recipe
     ... --list                      print this page
     ... --only design --seed 34     one step only (e.g. try another design seed; then --from parts)
     ... --force                     regenerate pictures that already exist (Qwen steps are skipped when their output exists)
@@ -9,7 +10,7 @@ Full description with pictures: design/03-art-pipeline/CHARACTER_PIPELINE.md. `w
 
   step      tool                       input                                          output
   design    Qwen Image 2.1 (RGBA)      recipe.design.prompt                           work/01_design/design_s<seed>.png, work/base_rgba.png (transparent side view)
-  pose      SAM 3D Body                work/base_rgba.png                             work/keypoints.json, work/02_pose/overlay.png   (reference for the joints in the spec)
+  pose      SAM 3D Body + fit_joints   work/base_rgba.png                             work/keypoints.json, work/02_pose/{overlay,joints}.png; fills the EMPTY joints, scale numbers and cut heights of the spec
   parts     SAM 3.1 + Qwen (peeling)   work/base_rgba.png, spec.groups / stages      work/sam/, work/04_stages/{A,B}.png, work/05_groups/*, work/06_parts/<part>.png
   refine    refine_parts.py            work/06_parts/*.png, spec.refine               work/07_refined/*.png   (far leg, stray lines, halo and specks removed)
   damage    make_damage.py             work/04_stages/<spec.damage.stage>.png, 07_refined  work/07_refined/<part>_dmg.png   (the torn clothes underneath, same outline as the intact part)
@@ -88,7 +89,11 @@ def godot(*args: str) -> str:
 
 class Build:
     def __init__(self, recipe_path: Path, force: bool, seed: int | None) -> None:
-        self.recipe = json.loads(recipe_path.read_text(encoding="utf8"))
+        self.recipe_path = recipe_path
+        try:
+            self.recipe = json.loads(recipe_path.read_text(encoding="utf8"))
+        except (OSError, ValueError) as e:
+            sys.exit(f"[{recipe_path.name}] cannot read the recipe: {e}")
         self.id = self.recipe["id"]
         self.work = ROOT / self.recipe["work"]
         self.spec = ROOT / self.recipe["spec"]
@@ -107,6 +112,7 @@ class Build:
         return path
 
     def step_design(self) -> list[Path]:
+        self.check(joints=False)
         ensure_comfy()
         from comfy_api import qwen
         d = self.recipe["design"]
@@ -128,6 +134,16 @@ class Build:
             log(f"  base_rgba.png <- {target.name}")
         return [target, base]
 
+    def check(self, joints: bool) -> None:
+        """Validate the recipe and spec; any error stops this character before a slow step starts."""
+        cmd = [sys.executable, str(HERE / "check_spec.py"), "--recipe", str(self.recipe_path)] + (["--joints"] if joints else [])
+        r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace")
+        for line in r.stdout.strip().splitlines():
+            if line.startswith(("ERROR", "WARN")):
+                log("  " + line)
+        if r.returncode != 0:
+            sys.exit(f"[{self.id}] the spec has errors (listed above); fix them and run again")
+
     def step_pose(self) -> list[Path]:
         out = self.work / "02_pose"
         out.mkdir(exist_ok=True)
@@ -139,10 +155,12 @@ class Build:
         bg.convert("RGB").save(grey)
         run([sys.executable, str(HERE / "pose_keypoints.py"), "--image", str(grey), "--out", str(self.work / "keypoints.json"),
              "--overlay", str(out / "overlay.png")], "pose")
-        return [self.work / "keypoints.json", out / "overlay.png"]
+        log("  " + run([sys.executable, str(HERE / "fit_joints.py"), "--spec", str(self.spec), "--work", str(self.work)], "fit_joints").strip())
+        return [self.work / "keypoints.json", out / "overlay.png", out / "joints.png"]
 
     def step_parts(self) -> list[Path]:
         self.need(self.work / "base_rgba.png", "parts")
+        self.check(joints=True)
         ensure_comfy()
         cmd = [sys.executable, str(HERE / "make_parts.py"), "--spec", str(self.spec), "--work", str(self.work)]
         log("  " + (run(cmd, "parts").strip().splitlines() or [""])[-1])
@@ -166,6 +184,7 @@ class Build:
 
     def step_textures(self) -> list[Path]:
         self.need(self.work / "06_parts", "textures")
+        self.check(joints=True)
         out = run([sys.executable, str(HERE / "cut_layers.py"), "--spec", str(self.spec), "--work", str(self.work),
                    "--char", str(self.char_dir), "--rig", str(self.rig)], "textures")
         log("  " + (out.strip().splitlines() or [""])[-1])
@@ -217,7 +236,8 @@ class Build:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--recipe", default="tools/comfyui/recipes/rin.json")
+    ap.add_argument("--recipe", nargs="+", default=["tools/comfyui/recipes/rin.json"], help="one or more recipes; they run one after the other")
+    ap.add_argument("--all", action="store_true", help="every recipe in tools/comfyui/recipes (files starting with _ are skipped)")
     ap.add_argument("--from", dest="first", choices=STEPS, default=STEPS[0])
     ap.add_argument("--to", dest="last", choices=STEPS, default=STEPS[-1])
     ap.add_argument("--only", choices=STEPS)
@@ -229,7 +249,20 @@ def main() -> None:
         print(__doc__)
         return
     steps = [args.only] if args.only else STEPS[STEPS.index(args.first): STEPS.index(args.last) + 1]
-    Build(Path(args.recipe), args.force, args.seed).run(steps)
+    recipes = sorted(p for p in (HERE / "recipes").glob("*.json") if not p.name.startswith("_")) if args.all else [Path(r) for r in args.recipe]
+    failed: list[str] = []
+    for recipe in recipes:
+        log(f"=== {recipe.stem}")
+        try:
+            Build(recipe, args.force, args.seed).run(steps)
+        except SystemExit as e:  # a step reported a problem: remember it and go on with the next character
+            if e.code not in (None, 0):
+                log(f"FAILED {recipe.stem}: {e.code}")
+                failed.append(recipe.stem)
+    if len(recipes) > 1:
+        log(f"finished {len(recipes) - len(failed)}/{len(recipes)} characters" + (f"; failed: {', '.join(failed)}" if failed else ""))
+    if failed:
+        sys.exit(1)
 
 
 if __name__ == "__main__":

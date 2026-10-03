@@ -183,6 +183,14 @@ def glow_layer(rgb: np.ndarray, alpha: np.ndarray, kinds: str) -> np.ndarray | N
         mask |= bright & (hue >= 165) & (hue <= 205)
     if "m" in kinds:
         mask |= bright & (hue >= 295) & (hue <= 345)
+    if "r" in kinds:  # red
+        mask |= bright & ((hue >= 345) | (hue <= 12))
+    if "o" in kinds:  # orange
+        mask |= bright & (hue > 12) & (hue <= 40)
+    if "y" in kinds:  # yellow
+        mask |= bright & (hue > 40) & (hue <= 70)
+    if "g" in kinds:  # green
+        mask |= bright & (hue >= 90) & (hue <= 160)
     mask &= alpha > 128
     if not mask.any():
         return None

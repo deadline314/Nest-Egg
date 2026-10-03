@@ -65,9 +65,10 @@ func _test_definitions() -> void:
 			check(textures.has(part_name), "%s defines the required part %s" % [id, part_name])
 		for tex_name: String in textures.keys():
 			var def: Dictionary = textures[tex_name]
-			var spec := _reference_spec(tex_name)
-			check(not spec.is_empty(), "%s.%s is a part the rig spec knows" % [id, tex_name])
-			check(def.get("size") == spec.get("size") and def.get("pivot") == spec.get("pivot"), "%s.%s keeps the spec size and pivot" % [id, tex_name])
+			if not RigLibrary.has_own_rig(id):  # 重畫過的角色有自己的骨架與零件尺寸，不比對 Q 版規格
+				var spec := _reference_spec(tex_name)
+				check(not spec.is_empty(), "%s.%s is a part the rig spec knows" % [id, tex_name])
+				check(def.get("size") == spec.get("size") and def.get("pivot") == spec.get("pivot"), "%s.%s keeps the spec size and pivot" % [id, tex_name])
 			var size := RigLibrary.vec2(def.get("size"))
 			var file_path := dir.path_join(str(def.get("file")))
 			var image := _texture_image(file_path)
@@ -77,17 +78,20 @@ func _test_definitions() -> void:
 			if def.has("glow"):
 				var glow := _texture_image(dir.path_join(str(def["glow"])))
 				check(glow != null and Vector2(glow.get_size()) == size, "%s.%s has a glow layer of the same size" % [id, tex_name])
-		check(float(skin.get("texture_scale", 0.0)) == 0.25, "%s is drawn at 4x resolution" % id)
+		if RigLibrary.has_own_rig(id):
+			check(float(skin.get("texture_scale", 0.0)) > 0.0 and RigLibrary.standing_height(id) > 30.0, "%s has a texture scale and a plausible standing height (%.0f)" % [id, RigLibrary.standing_height(id)])
+		else:
+			check(float(skin.get("texture_scale", 0.0)) == 0.25, "%s is drawn at 4x resolution" % id)
 		var armor_orders: Array[int] = []
 		for part: Dictionary in skin.get("parts", []):
 			if int(part.get("armor_order", 0)) > 0:
 				armor_orders.append(int(part["armor_order"]))
 		if COMBATANTS.has(id):
 			check(armor_orders.size() >= 4, "%s has breakable armor (%d pieces)" % [id, armor_orders.size()])
-	check(float(RigLibrary.character("wataru").get("scale", 1.0)) <= 0.8, "wataru is drawn smaller (a child)")
+	check(RigLibrary.standing_height("wataru") <= 45.0, "wataru is drawn smaller (a child, %.0f)" % RigLibrary.standing_height("wataru"))
 	for id in ["old_k", "mei", "reclaimer", "sniper"]:
-		check(float(RigLibrary.character(id).get("scale", 1.0)) > float(RigLibrary.character("wataru").get("scale", 1.0)), "%s is taller than wataru" % id)
-	check(float(RigLibrary.character("heavy_gunner").get("scale", 1.0)) > float(RigLibrary.character("enforcer").get("scale", 1.0)), "the heavy gunner is bigger than an enforcer")
+		check(RigLibrary.standing_height(id) > RigLibrary.standing_height("wataru"), "%s is taller than wataru" % id)
+	check(RigLibrary.standing_height("heavy_gunner") > RigLibrary.standing_height("enforcer"), "the heavy gunner is bigger than an enforcer")
 
 
 ## 對位檢查：肢體零件的支點與下一個關節都有畫到東西（沒畫到就會在關節處出現縫隙），主要零件不是空圖。
@@ -97,7 +101,7 @@ func _test_alignment() -> void:
 		var dir := RigLibrary.character_dir(id)
 		var textures: Dictionary = skin.get("textures", {})
 		for tex_name: String in LIMB_ENDS.keys():
-			if not textures.has(tex_name):
+			if not textures.has(tex_name) or RigLibrary.has_own_rig(id):  # 肢體終點座標是 Q 版規格的數字
 				continue
 			var def: Dictionary = textures[tex_name]
 			var image := _texture_image(dir.path_join(str(def["file"])))
