@@ -4,6 +4,32 @@
   "rig": "res://art/rigs/mei.json",
   "texture_scale": 0.05,
   "scale": 1.0,
+  "portrait": {
+    "description": "背包立繪的眨眼設定（頭部貼圖像素座標）：part＝頭部零件名稱；eye＝要被抹成膚色的眼睛範圍（四邊形）；lid＝閉眼時畫上的眼線。",
+    "blink": {
+      "part": "head",
+      "eye": [
+        145.0,
+        94.1,
+        167.5,
+        94.1,
+        167.5,
+        110.3,
+        145.0,
+        110.3
+      ],
+      "lid": [
+        145.2,
+        98.9,
+        151.3,
+        101.5,
+        158.4,
+        102.8,
+        166.2,
+        101.5
+      ]
+    }
+  },
   "description": "外觀（skin）定義：textures 是零件圖片的尺寸與支點；parts 是把圖片掛到骨頭上的方式。由 tools/comfyui/cut_layers.py 依分件圖層切出。",
   "textures": {
     "pelvis": {

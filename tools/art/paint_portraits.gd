@@ -5,13 +5,16 @@ extends Node
 ## 會覆蓋 art/items/portraits/ 底下的同名 PNG；已換成手繪像素圖的角色請用 --only 指定要重畫的。
 ## 手繪替換：依 ItemIcons.PORTRAIT_LAYERS 畫四張同尺寸、位置對齊的 PNG 即可。
 
-const CHARACTERS: Array[String] = ["rin"]
+const CHARACTERS: Array[String] = ["rin", "mei"]
 const OUTLINE := Color("07080d")
 const SUPERSAMPLE := 4
-## 角色放大倍數（骨架單位 → 立繪像素）與腳底位置。
+## 取景：角色放大倍數（骨架單位 → 立繪像素）與腳底位置，依各角色身高與頭身比個別設定；沒列出的角色用 DEFAULT_FRAMING。
 ## 7.5 頭身的凜身高約 70 世界像素：放大 2.7 倍、腳放在畫面下方外面，剛好取到頭頂到大腿中段（頭與馬尾完整，臉約 30 像素寬）。
-const ZOOM := 2.7
-const FEET := Vector2(54, 193)
+const FRAMING := {
+	"rin": {"zoom": 2.7, "feet": Vector2(54, 193)},
+	"mei": {"zoom": 4.0, "feet": Vector2(44, 214)},
+}
+const DEFAULT_FRAMING := {"zoom": 2.7, "feet": Vector2(54, 193)}
 const SETTLE_FRAMES := 90
 ## 空手站姿：手臂朝前下方自然垂放。
 const IDLE_AIM := Vector2(1.0, 0.45)
@@ -50,9 +53,10 @@ func _paint_character(id: String) -> void:
 	viewport.transparent_bg = true
 	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	add_child(viewport)
+	var framing: Dictionary = FRAMING.get(id, DEFAULT_FRAMING)
 	var holder := Node2D.new()
-	holder.position = FEET * SUPERSAMPLE
-	holder.scale = Vector2.ONE * ZOOM * SUPERSAMPLE
+	holder.position = (framing["feet"] as Vector2) * SUPERSAMPLE
+	holder.scale = Vector2.ONE * float(framing["zoom"]) * SUPERSAMPLE
 	viewport.add_child(holder)
 	var rig := CharacterRig.new()
 	holder.add_child(rig)
@@ -141,7 +145,7 @@ func _canvas_points(sprite: Sprite2D, flat: Variant) -> PackedVector2Array:
 	return points
 
 
-## 眼睛範圍中心附近最常見的偏膚色顏色。
+## 眼睛範圍中心附近最常見的偏膚色顏色（色相涵蓋橘膚色與粉膚色）。
 func _skin_color(image: Image, area: PackedVector2Array) -> Color:
 	var low := Vector2(INF, INF)
 	var high := Vector2(-INF, -INF)
@@ -154,7 +158,7 @@ func _skin_color(image: Image, area: PackedVector2Array) -> Color:
 			if x < 0 or y < 0 or x >= image.get_width() or y >= image.get_height():
 				continue
 			var c := image.get_pixel(x, y)
-			if c.a > 0.0 and c.s > 0.08 and c.s < 0.45 and c.v > 0.6 and c.h < 0.12:
+			if c.a > 0.0 and c.s > 0.08 and c.s < 0.45 and c.v > 0.6 and (c.h < 0.12 or c.h > 0.88):
 				counts[c] = counts.get(c, 0) + 1
 	var best := Color("f2d4c6")
 	var best_count := 0
