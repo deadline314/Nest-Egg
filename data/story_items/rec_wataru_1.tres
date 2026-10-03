@@ -6,11 +6,11 @@
 script = ExtResource("1_script")
 id = &"rec_wataru_1"
 display_name = "航的語音留言・一"
-description = "航在病房裡錄下的語音。"
+description = "航在病房裡錄的語音。"
 color = Color(0.56, 0.89, 0.6, 1.0)
 category = 2
 chapter = &"chapter_02"
-body = "「姐姐，護士說我明天能看窗外了。我想知道，天空是不是跟你說的一樣藍。」"
+body = "姐，護士說我明天可以看窗外了。天空是不是真的很藍？我又夢到那個很大的房間，有人一直在哭。我想去陪她，你不要生氣。"
 play_scene = &"c2_radio_voice"
 order = 31
 trigger = 3

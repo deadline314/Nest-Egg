@@ -39,19 +39,23 @@
 | 編號 | 第一章 | 第二章 |
 |---|---|---|
 | F01 | 顯：`prologue`（氣象預報）、`epilogue`（芽說「停了」）。隱：`npc_ahpo_2`（阿婆沒看過雨停） | — |
-| F02 | 隱：`radio_start`（芽測麥克風時數了「一、二、三」） | — |
-| F03 | 顯：`radio_facility`（芽問要不要點，凜說別點）。隱：同一句的建立日期是七年前 | — |
-| F04 | 顯：`prologue`、`radio_last`（老K問手）。隱：`doc_cargo_manifest`（簽收人 K）、`old_k_order`（青色印章）、`radio_mech`（他知道鑰匙在哪）、`radio_last`（說到一半的「算了」） | — |
-| F05 | 顯：`prologue`（航問天空）。隱：`wataru_photo`（接縫、第七區景觀） | — |
+| F02 | 隱：`radio_start`（芽測麥克風時數了「一、二、三」） | 顯：`c2_radio_start`（說到「上面」停一下）、`c2_radio_corridor`（這條走廊我走過，我是說圖紙上）。隱：`c2_radio_wall`（芽說是管線，她聽不到哭聲） |
+| F03 | 顯：`radio_facility`（芽問要不要點，凜說別點）。隱：同一句的建立日期是七年前 | 隱：`doc_nest_log`（七號列為基準） |
+| F04 | 顯：`prologue`、`radio_last`（老K問手）。隱：`doc_cargo_manifest`（簽收人 K）、`old_k_order`（青色印章）、`radio_mech`（他知道鑰匙在哪）、`radio_last`（說到一半的「算了」） | 顯：`c2_prologue`（問手）、`c2_radio_k1`（這條井我天天爬）、`c2_radio_k2`（別回頭看我）、`c2_epilogue`（那條線是我接的）。隱：`doc_nest_log`（技師：K） |
+| F05 | 顯：`prologue`（航問天空）。隱：`wataru_photo`（接縫、第七區景觀） | 顯：`c2_radio_voice`（天空是不是真的很藍） |
 | F06 | 隱：`radio_market`（還沒決定嗎）、`radio_market_mei`（站了十一秒）、`radio_forecast`（氣象剛好講到市集） | — |
-| F07 | 顯：`boss_intro`（歡迎回家）。隱：監管者念名單到十六號 | — |
-| F08 | 顯：`radio_arm`（義體跳雜訊）。隱：線也亮了 | — |
-| F09 | 顯：`prologue`（四萬三）。隱：`nest_egg_chip`（43,000＋48,000＝91,000） | — |
-| F10 | 隱：`npc_ahpo_2`（十年前揹著兩個孩子）。顯：`boss_intro`（到十六號） | — |
-| F11 | 隱：`prologue`（航咳嗽之間哼歌） | — |
+| F07 | 顯：`boss_intro`（歡迎回家）。隱：監管者念名單到十六號 | 顯：`c2_memory`（電梯說歡迎回家）、`c2_reclaimer_glass`（回收員隔著玻璃說依規定該動手，今天不用）。隱：`nest_roster`（05 那行被圈起來） |
+| F08 | 顯：`radio_arm`（義體跳雜訊）。隱：線也亮了 | 顯：`c2_memory`（手在抖） |
+| F09 | 顯：`prologue`（四萬三）。隱：`nest_egg_chip`（43,000＋48,000＝91,000） | 隱：`nest_roster`（回收獎勵 91,000） |
+| F10 | 隱：`npc_ahpo_2`（十年前揹著兩個孩子）。顯：`boss_intro`（到十六號） | 顯：`c2_memory`（童聲數到十六）。隱：`c2_npc_chen_1`（推車上有人在數數）、`c2_obj_marks`（牆上的刻痕，07 那道到肩膀） |
+| F11 | 隱：`prologue`（航咳嗽之間哼歌） | 顯：`c2_radio_voice`、`rec_wataru_1`（很大的房間，有人一直在哭） |
 | F12 | 顯：`npc_ahpo_1`（他畫了一張）。隱：`doc_crayon_drawing`（窗後最淡的小人） | — |
 | F13 | 顯：`npc_worker_1`（上禮拜也有人來）。隱：`doc_shift_note`、`npc_worker_2`（這個月第三個） | — |
-| F14 | 顯：`epilogue`（粥還熱著）。隱：`rec_old_k_voicemail`（粥放桌上） | — |
+| F14 | 顯：`epilogue`（粥還熱著）。隱：`rec_old_k_voicemail`（粥放桌上） | 顯：`c2_prologue`（粥熱著，凜沒回）。隱：`maintenance_pass`（那碗粥已經涼了） |
+| F15 | — | 顯：`c2_npc_resident_1`（每晚九點帶孩子去健康檢查）。隱：`doc_resident_notice`、`nest_roster`（簽名欄是小孩的字）、`c2_npc_nurse_1`（您上次也這麼說） |
+| F16 | — | 顯：`c2_radio_wall`、`c2_npc_resident_2`（牆裡有聲音）。隱：`doc_power_log`（三樓有人哭）、`rec_wataru_2`（背景的哭聲） |
+| F17 | — | 顯：`c2_boss_intro`（我是五號，你是第六個）。隱：`nest_roster`（補完上傳） |
+| F18 | — | 顯：`c2_epilogue`（手環還是暖的）。隱：`c2_npc_nurse_1`（手環保持三十七度）、`doc_transfer_sheet`（遠端確認）、`wataru_wristband`（內側的接點，沒有電池） |
 
 ## 死亡次數的反應（F19）
 
