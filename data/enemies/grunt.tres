@@ -10,6 +10,7 @@ id = &"grunt"
 behavior = ExtResource("2_behavior")
 projectile = ExtResource("3_proj")
 display_name = "天穹保全"
+attack_category = &"ranged"
 hit_material = &"armor"
 body_size = Vector2(14, 44)
 color = Color(0.816, 0.341, 0.310, 1.0)

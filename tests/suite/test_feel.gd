@@ -25,6 +25,8 @@ func run() -> void:
 	_test_save_events()
 	await _test_screen_fx()
 	await _test_diagnostics()
+	_test_attack_language()
+	await _test_clear_out()
 
 
 func _script_paths(dir: String, into: PackedStringArray) -> void:
@@ -643,3 +645,71 @@ func _test_diagnostics() -> void:
 	await physics_frames(3)
 	await end_level(level)
 	panel.queue_free()
+
+
+func _test_attack_language() -> void:
+	var categories := ["ranged", "melee", "explosive", "beam", "charge", "support"]
+	var used := {}
+	for file in DirAccess.get_files_at("res://data/enemies"):
+		if not file.ends_with(".tres"):
+			continue
+		var data := load("res://data/enemies/" + file) as EnemyData
+		check(data != null and categories.has(String(data.attack_category)), "%s has an attack category (%s)" % [file, data.attack_category if data != null else "?"])
+		if data == null:
+			continue
+		used[String(data.attack_category)] = true
+		# 前搖至少 24 格（0.4 秒），例外要寫明理由。
+		check(data.telegraph_time >= 0.4 - 0.0001 or data.telegraph_exempt != "", "%s telegraphs at least 24 frames (%.2f s)" % [file, data.telegraph_time])
+	# 預兆聲音依類別共用：每個用到的類別都有事件，類別之間聽起來不同（音高不同）。
+	var base_pitches: Array[float] = []
+	for category: String in used.keys():
+		check(Sfx.has_event(StringName("telegraph_" + category)), "telegraph sound exists for category %s" % category)
+		var def: Dictionary = Sfx._events.get("telegraph_" + category, {})
+		if not def.is_empty() and category != "support":
+			base_pitches.append(float(((def["layers"] as Array)[0]["pitch"] as Array)[0]))
+	var distinct := {}
+	for pitch in base_pitches:
+		distinct[snappedf(pitch, 0.05)] = true
+	check(distinct.size() == base_pitches.size(), "each attack category has its own telegraph pitch (%s)" % str(base_pitches))
+	# 連殺升音有上限、清場慢動作走白名單。
+	var chain: Dictionary = Sfx._events["kill_enemy"]["chain"]
+	check(int(chain["max"]) <= 6 and int(chain["max"]) >= 1, "the kill streak pitch rise is capped (%d steps)" % int(chain["max"]))
+	var pitches: Array[float] = []
+	Sfx._chains.clear()
+	var now := Time.get_ticks_msec()
+	for i in 12:
+		pitches.append(Sfx._chain_pitch("kill_enemy", chain, now + i * 100))
+	check(is_equal_approx(pitches[11], pitches[int(chain["max"])]) and pitches[1] > pitches[0], "twelve quick kills stop rising at the cap")
+	check(Fx.SLOWMO_WHITELIST.has(str(Feel.event_def(&"clear_out")["slowmo"]["reason"])), "the clear-out slow motion is on the whitelist")
+
+
+func _test_clear_out() -> void:
+	var level := await start_level(PropsSuite.level_data())
+	for node in runner.get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	await physics_frames(3)
+	var spawned: Array[Enemy] = []
+	for i in 3:
+		var enemy := level._create_enemy(load("res://data/enemies/grunt.tres") as EnemyData)
+		enemy.position = level.player.global_position + Vector2(160.0 + float(i) * 30.0, 0.0)
+		level._entities.add_child(enemy)
+		spawned.append(enemy)
+	await physics_frames(3)
+	Enemy._recent_kills.clear()
+	Fx._slowmo_ready_msec = 0
+	Feel.recent.clear()
+	var kills := 0
+	for enemy in spawned:
+		var info := DamageInfo.create(999, Combat.Team.PLAYER, &"test")
+		info.ignore_invulnerability = true
+		info.bypass_guard = true
+		enemy.hurtbox.receive(info)
+		kills += 1
+		await physics_frames(2)
+		if kills < 3:
+			check(not " ".join(Feel.recent).contains("clear_out"), "no clear-out while enemies are still alive")
+	await physics_frames(3)
+	check(" ".join(Feel.recent).contains("clear_out"), "killing the last of a quick streak plays the clear-out punctuation")
+	Fx.reset_time()
+	await physics_frames(3)
+	await end_level(level)

@@ -9,6 +9,7 @@ id = &"searchlight_drone"
 behavior = ExtResource("2_behavior")
 display_name = "探照無人機"
 creature_skin = "searchlight_drone"
+attack_category = &"beam"
 hit_material = &"metal"
 body_size = Vector2(22, 16)
 color = Color(0.784, 0.929, 1.0, 1.0)

@@ -158,7 +158,12 @@ func play(id: StringName, ctx: Dictionary = {}) -> void:
 ## 慢動作只用在白名單情境（reason），可再限制場上敵人數量（max_enemies）；冷卻由 Fx 管理。
 func _play_slowmo(def: Dictionary) -> void:
 	var limit := int(def.get("max_enemies", 999))
-	if get_tree().get_nodes_in_group(&"enemies").size() > limit:
+	var alive := 0
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		var enemy := node as Enemy
+		if enemy == null or not enemy.is_dying():
+			alive += 1
+	if alive > limit:
 		return
 	if Fx.slowmo(str(def.get("reason", "")), float(def.get("scale", 1.0)), float(def.get("time", 0.0))):
 		_count("slowmos")

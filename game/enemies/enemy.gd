@@ -715,6 +715,28 @@ func _on_blocked(_info: DamageInfo) -> void:
 	_flash_left = FLASH_TIME * 0.5
 
 
+## 清場標點：幾秒內連殺數隻、場上沒有活著的敵人時播清場回饋（慢動作走白名單，有冷卻）。
+static var _recent_kills: Array[int] = []
+const CLEAR_OUT_KILLS := 3
+const CLEAR_OUT_WINDOW_MSEC := 6000
+
+
+func _note_kill() -> void:
+	var now := Time.get_ticks_msec()
+	_recent_kills.append(now)
+	while not _recent_kills.is_empty() and now - _recent_kills[0] > CLEAR_OUT_WINDOW_MSEC:
+		_recent_kills.pop_front()
+	if _recent_kills.size() < CLEAR_OUT_KILLS:
+		return
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		var other := node as Enemy
+		if other != null and other != self and not other.is_dying():
+			return
+	_recent_kills.clear()
+	Feel.play(&"clear_out")
+	Sfx.play_event(&"clear_out")
+
+
 func _on_died(info: DamageInfo) -> void:
 	if _dying:
 		return
@@ -743,8 +765,9 @@ func _on_died(info: DamageInfo) -> void:
 	if by_finisher:
 		Fx.burst(center, Palette.CYAN, 24, 240.0, 0.5)
 	Feel.play(&"enemy_kill", {"targets": [self, info.get_attacker() if info != null else null]})
-	Sfx.play(&"kill", -4.0)
+	Sfx.play_event(&"kill_enemy")
 	if by_player:
+		_note_kill()
 		EventBus.enemy_killed.emit(data.id, by_finisher)
 		_try_drop(by_finisher)
 	_on_defeated(info)
@@ -846,7 +869,11 @@ func _is_ledge_ahead() -> bool:
 func _start_telegraph(seconds: float) -> void:
 	_telegraph_left = seconds
 	_ensure_telegraph_light()
-	Sfx.play(&"telegraph", -10.0)
+	var event := StringName("telegraph_" + String(data.attack_category))
+	if Sfx.has_event(event):
+		Sfx.play_event(event)
+	else:
+		Sfx.play(&"telegraph", -10.0)
 
 
 func _ensure_telegraph_light() -> void:

@@ -182,6 +182,18 @@
     "px": 1.4,
     "time": 0.08
    }
+  },
+  "clear_out": {
+   "shake": {
+    "px": 2.0,
+    "time": 0.2
+   },
+   "slowmo": {
+    "reason": "clear_out",
+    "scale": 0.5,
+    "time": 0.4,
+    "max_enemies": 0.0
+   }
   }
  }
 }

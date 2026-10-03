@@ -8,6 +8,7 @@ script = ExtResource("1_script")
 id = &"shield_rusher"
 behavior = ExtResource("2_behavior")
 display_name = "天穹鎮暴員"
+attack_category = &"charge"
 hit_material = &"armor"
 body_size = Vector2(18, 46)
 color = Color(0.851, 0.541, 0.227, 1.0)

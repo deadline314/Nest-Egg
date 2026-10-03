@@ -17,6 +17,10 @@ extends Resource
 @export var rig_two_handed: bool = true
 ## 後手向前舉盾。
 @export var rig_shield: bool = false
+## 攻擊類別（預兆提示音與視覺語言依此共用）：ranged 遠程子彈、melee 近戰、explosive 爆炸、beam 光束／火焰／雷射、charge 衝撞撲咬、support 輔助（不造成傷害）。
+@export var attack_category: StringName = &"ranged"
+## 預兆短於 0.4 秒（24 格）時必須寫明理由；空字串＝沒有例外，資料檢查會要求預兆至少 0.4 秒。
+@export var telegraph_exempt: String = ""
 ## 命中材質（火花、碎屑與聲音依此變化）：flesh、armor、metal、glass、wood、concrete、energy；空字串用通用回饋。
 @export var hit_material: StringName = &""
 ## 零件式外觀（art/creatures/<id>.json，PartCreature）：機械類與動物類的非人形敵人用；空字串＝用骨架或程式繪製。

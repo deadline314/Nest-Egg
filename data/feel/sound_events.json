@@ -103,7 +103,12 @@
      "volume_db": -8,
      "delay": 0.05
     }
-   ]
+   ],
+   "chain": {
+    "step": 1.0,
+    "max": 6,
+    "window": 2.0
+   }
   },
   "mat_generic": {
    "priority": 4,
@@ -251,6 +256,159 @@
       1.05
      ],
      "volume_db": -2
+    }
+   ]
+  },
+  "telegraph_ranged": {
+   "priority": 6,
+   "layers": [
+    {
+     "sounds": [
+      "telegraph"
+     ],
+     "pitch": [
+      1.0,
+      1.03
+     ],
+     "volume_db": -6
+    }
+   ]
+  },
+  "telegraph_melee": {
+   "priority": 6,
+   "layers": [
+    {
+     "sounds": [
+      "telegraph"
+     ],
+     "pitch": [
+      0.78,
+      0.82
+     ],
+     "volume_db": -5
+    },
+    {
+     "sounds": [
+      "beep"
+     ],
+     "pitch": [
+      0.6,
+      0.62
+     ],
+     "volume_db": -12,
+     "delay": 0.06
+    }
+   ]
+  },
+  "telegraph_explosive": {
+   "priority": 6,
+   "layers": [
+    {
+     "sounds": [
+      "telegraph"
+     ],
+     "pitch": [
+      0.6,
+      0.64
+     ],
+     "volume_db": -5
+    },
+    {
+     "sounds": [
+      "beep"
+     ],
+     "pitch": [
+      1.5,
+      1.55
+     ],
+     "volume_db": -10,
+     "delay": 0.1
+    }
+   ]
+  },
+  "telegraph_beam": {
+   "priority": 6,
+   "layers": [
+    {
+     "sounds": [
+      "telegraph"
+     ],
+     "pitch": [
+      1.35,
+      1.4
+     ],
+     "volume_db": -7
+    }
+   ]
+  },
+  "telegraph_charge": {
+   "priority": 6,
+   "layers": [
+    {
+     "sounds": [
+      "telegraph"
+     ],
+     "pitch": [
+      0.9,
+      0.93
+     ],
+     "volume_db": -5
+    },
+    {
+     "sounds": [
+      "growl"
+     ],
+     "pitch": [
+      1.0,
+      1.05
+     ],
+     "volume_db": -14,
+     "delay": 0.05
+    }
+   ]
+  },
+  "telegraph_support": {
+   "priority": 3,
+   "layers": [
+    {
+     "sounds": [
+      "beep"
+     ],
+     "pitch": [
+      1.2,
+      1.25
+     ],
+     "volume_db": -12
+    }
+   ]
+  },
+  "clear_out": {
+   "priority": 10,
+   "duck": {
+    "db": -6,
+    "time": 0.4
+   },
+   "layers": [
+    {
+     "sounds": [
+      "kill"
+     ],
+     "pitch": [
+      1.1,
+      1.15
+     ],
+     "volume_db": -2
+    },
+    {
+     "sounds": [
+      "ability_ready"
+     ],
+     "pitch": [
+      1.0,
+      1.0
+     ],
+     "volume_db": -4,
+     "delay": 0.12
     }
    ]
   }
