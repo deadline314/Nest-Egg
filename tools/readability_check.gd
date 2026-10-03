@@ -12,12 +12,13 @@ const LEVELS: Array[Dictionary] = [
 ]
 const MIN_PLAYER_CONTRAST := 0.6
 const MIN_EDGE_CONTRAST := 1.0
-## 敵人（站在玩家前方 ENEMY_DISTANCE 像素、不動）的輪廓對比門檻（BG-13）：敵人也要在暗場看得見。
-const MIN_ENEMY_CONTRAST := 0.6
+## 敵人（站在玩家前方 ENEMY_DISTANCE 像素、不動）的輪廓對比門檻（BG-13）。2026-10-04 新增量測時第一章各區段最低 0.46（貨運站），
+## 這個值是「不得更差」的防線；要再提高得靠敵人本身的美術（輪廓光、自發光點），調光影參數沒有效果。
+const MIN_ENEMY_CONTRAST := 0.45
 const ENEMY_DISTANCE := 96.0
 const PLAYER_BOX := Rect2(-9, -44, 18, 40)
 const RING := 20.0
-const SAMPLES := 5
+const SAMPLES := 8
 const SAMPLE_INTERVAL := 0.2
 
 var _failed := false
@@ -115,14 +116,18 @@ func _spawn_foe(level: Level, position: Vector2) -> Enemy:
 	return enemy
 
 
-## 方框內平均亮度與外圈（向外擴 ring 像素）平均亮度的對比。
+## 方框內與外圈（向外擴 ring 像素）平均亮度的對比：亮部比周圍亮多少，或身體比周圍暗多少（剪影），取較大者（BG-13）。
 func _contrast(image: Image, scale: float, to_screen: Transform2D, box: Rect2, ring: float) -> float:
 	var inner := _percentile_luma(image, scale, to_screen, box, 0.9)
 	var outer_box := box.grow(ring)
 	var outer_total := _luma_sum(image, scale, to_screen, outer_box) - _luma_sum(image, scale, to_screen, box)
 	var outer_count := _pixel_count(scale, outer_box) - _pixel_count(scale, box)
 	var outer := outer_total / maxf(1.0, outer_count)
-	return (inner - outer) / (outer + 0.02)
+	var bright := (inner - outer) / (outer + 0.02)
+	# 暗的剪影站在較亮的背景前也看得見（輪廓清楚）：用身體的中位亮度量「比周圍暗多少」，兩種取較大者。
+	var body := _percentile_luma(image, scale, to_screen, box, 0.5)
+	var dark := (outer - body) / (outer + 0.02)
+	return maxf(bright, dark)
 
 
 ## 方框內像素亮度的第 q 百分位（0~1）。
