@@ -29,7 +29,8 @@ var _rest: Dictionary[StringName, Vector2] = {}
 var _parent: Dictionary[StringName, StringName] = {}
 var _order: Array[StringName] = []
 var _springs: Array[Dictionary] = []
-var _armor: Array[Sprite2D] = []
+## 會脫落的零件，依脫落順序（先掉在前）；同一個 armor_order 的零件算同一步，一起脫落（例如夾克的四片、前後腿的同一段絲襪）。
+var _armor: Array[Array] = []
 ## 零件與它們的原始明暗（補光倍率套用在 self_modulate 上，發光層不受影響）。
 var _part_sprites: Array[Sprite2D] = []
 var _part_tints: PackedFloat32Array = PackedFloat32Array()
@@ -185,20 +186,25 @@ func muzzle_global() -> Vector2:
 
 
 ## 依剩餘生命比例顯示裝甲；減少時脫落的裝甲會噴飛。
-## _armor 依 armor_order 由小到大排列：order 越小越先脫落，顯示中的是最後 _armor_visible 個。
+## _armor 依 armor_order 由小到大排列：order 越小越先脫落，顯示中的是最後 _armor_visible 步。
 func set_armor_ratio(ratio: float, burst := true) -> void:
 	var target := ceili(clampf(ratio, 0.0, 1.0) * _armor.size())
 	while _armor_visible > target:
-		var part := _armor[_armor.size() - _armor_visible]
+		var step := _armor[_armor.size() - _armor_visible]
 		_armor_visible -= 1
-		if part.visible:
-			part.visible = false
-			if burst:
-				_spawn_debris(part)
-			armor_broken.emit(StringName(part.name))
+		var broke := false
+		for part: Sprite2D in step:
+			if part.visible:
+				part.visible = false
+				broke = true
+				if burst:
+					_spawn_debris(part)
+		if broke:
+			armor_broken.emit(StringName((step[0] as Sprite2D).name))
 	while _armor_visible < target:
 		_armor_visible += 1
-		_armor[_armor.size() - _armor_visible].visible = true
+		for part: Sprite2D in _armor[_armor.size() - _armor_visible]:
+			part.visible = true
 
 
 func armor_count() -> int:
@@ -308,10 +314,14 @@ func _build_parts(skin: Dictionary) -> void:
 			sprite.add_child(glow_sprite)
 		if int(entry.get("armor_order", 0)) > 0:
 			armor_entries.append([int(entry["armor_order"]), sprite])
-	# 依脫落順序排序：order 小的先掉。_armor 由先掉到後掉。
+	# 依脫落順序排序：order 小的先掉，同一個 order 的零件放在同一步。_armor 由先掉到後掉。
 	armor_entries.sort_custom(func(a: Array, b: Array) -> bool: return a[0] < b[0])
+	var last_order := -1
 	for pair in armor_entries:
-		_armor.append(pair[1])
+		if int(pair[0]) != last_order:
+			_armor.append([])
+			last_order = int(pair[0])
+		_armor[_armor.size() - 1].append(pair[1])
 	_armor_visible = _armor.size()
 
 

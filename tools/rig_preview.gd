@@ -4,6 +4,7 @@ extends Node2D
 ## --chars：改成每個角色一列，展示八種動作（站、跑、瞄準、蹲、跳、格擋、倒下、硬直），一次最多兩個角色。
 ## --closeup（搭配 --chars）：改成每個角色一張大的站姿，檢查臉、衣服與裝備的細節，一次最多四個角色。
 ## --head（搭配 --chars）：只放大頭與肩膀，檢查臉部與頭髮，一次最多四個角色；--zoom=倍率 可調整放大倍數。
+## --bare（搭配 --damage）：不拿武器、手臂垂向前下方，看得到上半身的衣物。
 ## --cloth（搭配 --chars）：第一個角色放大排成一列（站、跑、上升、下落、蹲、仰射），檢查衣襬、頭髮、槍套等次級動態。
 ## --damage（搭配 --chars）：第一個角色依生命比例 100%→0% 排成一列，檢查裝甲與衣物逐片脫落的樣子（--zoom 預設 3.0）。
 
@@ -24,6 +25,7 @@ var _closeup := false
 var _head_only := false
 var _damage := false
 var _cloth := false
+var _bare := false
 var _zoom := 6.5
 var _rigs: Array[CharacterRig] = []
 var _inputs: Array[RigInput] = []
@@ -45,6 +47,8 @@ func _ready() -> void:
 			_damage = true
 		elif arg == "--cloth":
 			_cloth = true
+		elif arg == "--bare":
+			_bare = true
 		elif arg.begins_with("--chars="):
 			_chars = arg.trim_prefix("--chars=").split(",", false)
 	add_child(LightKit.create_environment())
@@ -72,7 +76,7 @@ func _ready() -> void:
 		var ratios := [1.0, 0.85, 0.65, 0.45, 0.3, 0.15, 0.0]
 		var scale_up := 3.0 if _zoom == 6.5 else _zoom
 		for i in ratios.size():
-			_spawn(_chars[0], str(SHEET_WEAPONS.get(_chars[0], "")), Vector2(50 + i * 90, 330), "idle", scale_up, ratios[i])
+			_spawn(_chars[0], "" if _bare else str(SHEET_WEAPONS.get(_chars[0], "")), Vector2(50 + i * 90, 330), "idle", scale_up, ratios[i])
 	elif _head_only:
 		for i in mini(_chars.size(), 4):
 			_spawn(_chars[i], "", Vector2(320.0 + (i - (mini(_chars.size(), 4) - 1) * 0.5) * 20.0 * _zoom, 190 + 44.0 * _zoom), "idle", _zoom)
@@ -113,7 +117,7 @@ func _process(delta: float) -> void:
 	for i in _rigs.size():
 		var input := _inputs[i]
 		input.facing = 1
-		input.aim_dir = Vector2.RIGHT
+		input.aim_dir = Vector2(1.0, 0.9).normalized() if _bare else Vector2.RIGHT
 		input.on_floor = true
 		input.velocity = Vector2.ZERO
 		input.crouching = false

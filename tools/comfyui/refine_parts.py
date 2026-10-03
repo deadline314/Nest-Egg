@@ -116,7 +116,7 @@ def main() -> None:
     H, W = base.shape[:2]
     yy = np.mgrid[0:H, 0:W][0]
 
-    layers = {n: np.array(Image.open(src_dir / f"{n}.png").convert("RGBA")) for n in spec["parts"]}
+    layers = {n: np.array(Image.open(src_dir / f"{n}.png").convert("RGBA")) for n, p in spec["parts"].items() if "damage_of" not in p}
 
     fs = cfg.get("far_side")
     if fs:

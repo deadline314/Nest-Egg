@@ -1,6 +1,6 @@
 class_name EnemyScenarios
 extends RefCounted
-## 角色外觀與第二批敵人的截圖情境登記（NE-44、NE-46～48）。
+## 角色外觀與第二批敵人的截圖情境登記（NE-44、NE-46～48、NE-70）。
 ## 用法：screenshot.tscn -- --out=<資料夾> --scenario=<名稱>；新增情境只要在 SCENARIOS 加一行。
 
 const SCENARIOS := {
@@ -9,6 +9,7 @@ const SCENARIOS := {
 	"heavy_enemies": "res://tools/scenarios/heavy_scenario.gd",
 	"assault_enemies": "res://tools/scenarios/assault_scenario.gd",
 	"placement": "res://tools/scenarios/placement_scenario.gd",
+	"rin_damage": "res://tools/scenarios/rin_damage_scenario.gd",
 }
 
 

@@ -65,7 +65,8 @@ def main() -> None:
         # A side where make_parts cut the limb at a joint line (spec "y") is not a silhouette: keep no transparent margin there, so the
         # normal map (which bevels every alpha edge) sees an open edge instead of lighting a bright rim along the cut.
         lo, hi = p.get("y", (0, src.height))
-        pad_top, pad_bottom = (0 if lo > 0 else PAD), (0 if hi < src.height else PAD)
+        # (-2: start two pixels inside the part, so the warp's half-covered edge row is cropped away and the first row is solid)
+        pad_top, pad_bottom = (-2 if lo > 0 else PAD), (-2 if hi < src.height else PAD)
         umin, umax, vmin, vmax = u.min() - PAD, u.max() + PAD, v.min() - pad_top, v.max() + pad_bottom
         cw, ch = int(math.ceil(umax - umin)), int(math.ceil(vmax - vmin))
         piv = np.array([-umin, -vmin])
@@ -144,7 +145,7 @@ def main() -> None:
                             "blink": {"part": blink["part"], "eye": sum((to_canvas(q) for q in blink["eye"]), []), "lid": sum((to_canvas(q) for q in blink["lid"]), [])}}
     char["description"] = "外觀（skin）定義：textures 是零件圖片的尺寸與支點；parts 是把圖片掛到骨頭上的方式。" + NOTE + "。"
     char["textures"] = textures
-    char["parts"] = [{"name": u["name"], "texture": u["texture"], "bone": u["bone"], "z": u["z"], **({"tint": u["tint"]} if "tint" in u else {})} for u in uses]
+    char["parts"] = [{"name": u["name"], "texture": u["texture"], "bone": u["bone"], "z": u["z"], **({"tint": u["tint"]} if "tint" in u else {}), **({"armor_order": u["armor_order"]} if "armor_order" in u else {})} for u in uses]
     (Path(args.char) / "character.json").write_text(json.dumps(char, ensure_ascii=False, indent=2) + "\n", encoding="utf8")
     print("rig bones:", len(bones), " textures:", len(textures), " parts:", len(char["parts"]))
 

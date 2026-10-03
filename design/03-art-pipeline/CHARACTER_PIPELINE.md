@@ -35,6 +35,7 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
 | 2 | `pose` | SAM 3D Body | `base_rgba.png`（墊灰底） | `work/keypoints.json`、`work/02_pose/overlay.png`。肩、肘、腕、髖、膝、踝的預測位置，用來填 spec 的 `joints` |
 | 3 | `parts` | SAM 3.1 ＋ Qwen 編輯 | `base_rgba.png`、spec 的 `groups` `stages` `parts` | `work/sam/`（遮罩）、`work/04_stages/A.png`（剝層圖）、`work/05_groups/<群組>*.png`、**`work/06_parts/<零件>.png`**（每個零件一張，座標與原圖相同）、`06_parts/ownership.png`（檢查用） |
 | 3b | `refine` | `refine_parts.py` | `06_parts/*.png`、spec 的 `refine` | **`work/07_refined/<零件>.png`**（同座標）。移除遠側腿與靴（Qwen 畫成一整條藍綠剪影）、把 Qwen 補全時畫在大腿上的口袋線抹平、半透明邊緣的白色光暈改成內側顏色、游離碎屑與零星白點／洋紅點、輪廓階梯鋸齒；另有 `erase` 多邊形可手動清掉特定碎片 |
+| 3c | `damage` | `make_damage.py` | `04_stages/D.png`、`07_refined/<零件>.png`、spec 的 `damage` 與 `damage_of` 零件 | **`work/07_refined/<零件>_dmg.png`**：撕裂衣物底層，輪廓用完整零件的、顏色取自 D 圖 |
 | 4 | `textures` | `cut_layers.py` | `07_refined/*.png`（沒有就用 `06_parts/`）、spec 的 `joints` `bones` `parts` | **`art/characters/<id>/parts/<零件>.png`**（＋`_glow.png`）、`art/characters/<id>/character.json`、`art/rigs/humanoid_tall.json` |
 | 5 | `normals` | Godot `tools/art/paint_normals.tscn` | `parts/*.png` | `parts/*_n.png`（法線貼圖，打光用） |
 | 6 | `import` | Godot `--headless --editor --quit` | `art/characters/<id>/` | `.godot/imported`。**必須在 normals 之後**，否則新的法線貼圖不會被匯入 |
@@ -64,6 +65,7 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
 | `torso` | `chest` | 1 | 白色連身衣含頸部與裸肩 |
 | `leg_upper`、`leg_lower`、`foot` | `leg_front_*`／`foot_front`（z 3）與 `leg_back_*`／`foot_back`（z −5，亮度 0.62） | | 前後腿共用同一張圖 |
 | `holster` | `leg_front_upper` | 4 | **配件**：大腿槍套 |
+| `torso_dmg`、`pelvis_dmg`、`thigh_dmg`／`calf_dmg`（含後腳）| 與完整零件同骨頭 | 完整零件 z−1 | **破損底層**：撕裂衣物版的身體，平時被完整零件蓋住，衣物飛走後露出來 |
 | `jacket` | `chest` | 4 | **配件**：披在肩上的夾克上半（含洋紅襯裡）；袖子不另外拆，手臂圖層比夾克高，夾克像披在肩上、手臂從裡面滑出來 |
 | `jacket_hem_1`、`jacket_hem_2` | `coat_1`、`coat_2` | 4 | **配件**：夾克下擺，兩段彈簧骨（`coat_1` 掛在胸骨的下擺根部，`coat_2` 掛在 `coat_1` 底下），跑步向後飄、上升下垂、下落掀起 |
 | `jacket_collar` | `neck` | 4 | **配件**：脖子旁的遠側翻領（原本是夾克上獨立的一塊，spec 用 `blob: "rest"` 分出） |
@@ -79,6 +81,22 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
 **肢體偏移**：spec `bones` 的 `dx` 是骨頭相對關節的水平位移。圖是從同一張側面圖切出的，近側（前）手腳必須是 0，否則會和骨盆、夾克、衣服對不齊，切口沿線出現方框；遠側（後）手腳用負值讓兩條腿分得開。
 
 **切口不留透明邊**：spec `parts` 有 `y` 的零件（在關節處切開的），切口那一側不留透明邊，法線貼圖（會把每個透明邊緣做成圓邊）才不會沿切口打出亮邊。
+
+## 3b. 受傷時衣物脫落
+
+遊戲內原有的裝甲脫落機制（`character.json` 零件的 `armor_order`，小的先掉；同一個 order 的零件算同一步、一起飛走；生命比例 → 還剩幾步）。凜把它用在衣物上，每一步 20%：
+
+| 步 | 飛走的零件 | 底下露出來的 |
+|---|---|---|
+| 1 | 夾克（領口、上半、兩段下擺） | 身體 |
+| 2 | 連身衣胸口（`armor_torso`） | 撕裂的胸口 |
+| 3 | 連身衣下半（`armor_pelvis`） | 撕裂的腰臀 |
+| 4 | 絲襪大腿（前後腳） | 撕裂的大腿 |
+| 5 | 絲襪小腿（前後腳） | 撕裂的小腿 |
+
+底層來自兩張 Qwen 編輯圖（spec `stages`）：**C** 把夾克、義肢、手、槍套整個移除並補完後面（身體完整可見），**D** 再把 C 的衣物撕裂（連身衣破洞與擦傷、絲襪大洞與脫線，仍留有碎布遮住胸口與下腹、絲襪殘片留在大腿與小腿）。兩張都保持姿勢與比例（和原圖對位誤差 0 像素），`make_damage.py` 再用完整零件的輪廓套上 D 的顏色。換破損樣子：在 spec 的 stage `D` 換 `seed` 或 `prompt`，刪掉 `04_stages/D.png` 後重跑 `--from parts`。
+
+預覽：`rig_preview.tscn -- --chars=rin --damage --zoom=3.0`（加 `--bare` 不拿武器、手臂垂下，看得到上半身）；遊戲內截圖情境 `rin_damage`。
 
 ## 4. 日後怎麼替換
 
@@ -101,5 +119,4 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
 
 - 關節位置（spec `joints`）是依 SAM 3D Body 的預測再人工微調；換新角色時要看 `overlay.png` 調一次。
 - 只有近側的手腳有圖，遠側用同一張圖調暗（骨架原本的做法）。
-- 受傷時衣物逐片脫落（裝甲脫落機制）這張新流程還沒接；舊凜的破損底層在 NE-17 進度紀錄第 12～14 項。
 - 舊流程的腳本（`cut_parts.py`、`cut_rig_parts.py`、`gen_character_passes.py`）保留，新流程只借用 `cut_rig_parts.py` 裡的 `frame()` 與 `glow_layer()`。

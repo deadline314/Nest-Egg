@@ -33,12 +33,12 @@
     "hair_back_2": {
       "file": "parts/hair_back_2.png",
       "size": [
-        109,
-        173
+        105,
+        167
       ],
       "pivot": [
         66.72,
-        26.49
+        19.87
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -46,7 +46,7 @@
       "file": "parts/hair_back_1.png",
       "size": [
         94,
-        195
+        182
       ],
       "pivot": [
         53.4,
@@ -58,20 +58,32 @@
       "file": "parts/pelvis.png",
       "size": [
         153,
-        113
+        109
       ],
       "pivot": [
         68.56,
-        88.37
+        86.37
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
       "glow": "parts/pelvis_glow.png"
+    },
+    "pelvis_dmg": {
+      "file": "parts/pelvis_dmg.png",
+      "size": [
+        153,
+        109
+      ],
+      "pivot": [
+        68.56,
+        86.37
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "torso": {
       "file": "parts/torso.png",
       "size": [
         170,
-        283
+        281
       ],
       "pivot": [
         47.51,
@@ -79,6 +91,18 @@
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
       "glow": "parts/torso_glow.png"
+    },
+    "torso_dmg": {
+      "file": "parts/torso_dmg.png",
+      "size": [
+        170,
+        281
+      ],
+      "pivot": [
+        47.51,
+        258.65
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "head": {
       "file": "parts/head.png",
@@ -97,7 +121,7 @@
       "file": "parts/jacket.png",
       "size": [
         122,
-        159
+        157
       ],
       "pivot": [
         100.51,
@@ -120,12 +144,12 @@
     "jacket_hem_1": {
       "file": "parts/jacket_hem_1.png",
       "size": [
-        103,
-        60
+        86,
+        36
       ],
       "pivot": [
-        40.77,
-        13.53
+        41.09,
+        -1.3
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -133,11 +157,11 @@
       "file": "parts/jacket_hem_2.png",
       "size": [
         66,
-        38
+        36
       ],
       "pivot": [
         44.75,
-        1.7
+        -0.3
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -156,12 +180,24 @@
     "leg_upper": {
       "file": "parts/leg_upper.png",
       "size": [
-        127,
-        209
+        126,
+        204
       ],
       "pivot": [
-        53.35,
-        -5.95
+        54.35,
+        -9.64
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "leg_upper_dmg": {
+      "file": "parts/leg_upper_dmg.png",
+      "size": [
+        126,
+        204
+      ],
+      "pivot": [
+        54.35,
+        -9.64
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -169,11 +205,23 @@
       "file": "parts/leg_lower.png",
       "size": [
         76,
-        189
+        186
       ],
       "pivot": [
         54.63,
-        10.03
+        7.23
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "leg_lower_dmg": {
+      "file": "parts/leg_lower_dmg.png",
+      "size": [
+        76,
+        186
+      ],
+      "pivot": [
+        54.63,
+        7.23
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -194,7 +242,7 @@
       "file": "parts/arm_upper.png",
       "size": [
         79,
-        187
+        185
       ],
       "pivot": [
         25.05,
@@ -207,11 +255,11 @@
       "file": "parts/arm_lower.png",
       "size": [
         52,
-        147
+        144
       ],
       "pivot": [
         27.3,
-        9.31
+        6.63
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
       "glow": "parts/arm_lower_glow.png"
@@ -258,6 +306,20 @@
       "tint": 0.62
     },
     {
+      "name": "leg_back_upper_dmg",
+      "texture": "leg_upper_dmg",
+      "bone": "leg_back_upper",
+      "z": -6,
+      "tint": 0.62
+    },
+    {
+      "name": "leg_back_lower_dmg",
+      "texture": "leg_lower_dmg",
+      "bone": "leg_back_lower",
+      "z": -6,
+      "tint": 0.62
+    },
+    {
       "name": "hand_back",
       "texture": "hand",
       "bone": "hand_back",
@@ -269,14 +331,16 @@
       "texture": "leg_upper",
       "bone": "leg_back_upper",
       "z": -5,
-      "tint": 0.62
+      "tint": 0.62,
+      "armor_order": 4
     },
     {
       "name": "leg_back_lower",
       "texture": "leg_lower",
       "bone": "leg_back_lower",
       "z": -5,
-      "tint": 0.62
+      "tint": 0.62,
+      "armor_order": 5
     },
     {
       "name": "foot_back",
@@ -286,28 +350,56 @@
       "tint": 0.62
     },
     {
-      "name": "pelvis",
+      "name": "pelvis_dmg",
+      "texture": "pelvis_dmg",
+      "bone": "hip",
+      "z": -1
+    },
+    {
+      "name": "armor_pelvis",
       "texture": "pelvis",
       "bone": "hip",
+      "z": 0,
+      "armor_order": 3
+    },
+    {
+      "name": "torso_dmg",
+      "texture": "torso_dmg",
+      "bone": "chest",
       "z": 0
     },
     {
-      "name": "torso",
+      "name": "armor_torso",
       "texture": "torso",
       "bone": "chest",
-      "z": 1
+      "z": 1,
+      "armor_order": 2
     },
     {
-      "name": "leg_front_upper",
+      "name": "thigh_dmg",
+      "texture": "leg_upper_dmg",
+      "bone": "leg_front_upper",
+      "z": 2
+    },
+    {
+      "name": "calf_dmg",
+      "texture": "leg_lower_dmg",
+      "bone": "leg_front_lower",
+      "z": 2
+    },
+    {
+      "name": "armor_thigh",
       "texture": "leg_upper",
       "bone": "leg_front_upper",
-      "z": 3
+      "z": 3,
+      "armor_order": 4
     },
     {
-      "name": "leg_front_lower",
+      "name": "armor_calf",
       "texture": "leg_lower",
       "bone": "leg_front_lower",
-      "z": 3
+      "z": 3,
+      "armor_order": 5
     },
     {
       "name": "foot_front",
@@ -316,28 +408,32 @@
       "z": 3
     },
     {
-      "name": "jacket",
+      "name": "armor_jacket",
       "texture": "jacket",
       "bone": "chest",
-      "z": 4
+      "z": 4,
+      "armor_order": 1
     },
     {
       "name": "jacket_collar",
       "texture": "jacket_collar",
       "bone": "neck",
-      "z": 4
+      "z": 4,
+      "armor_order": 1
     },
     {
       "name": "jacket_hem_1",
       "texture": "jacket_hem_1",
       "bone": "coat_1",
-      "z": 4
+      "z": 4,
+      "armor_order": 1
     },
     {
       "name": "jacket_hem_2",
       "texture": "jacket_hem_2",
       "bone": "coat_2",
-      "z": 4
+      "z": 4,
+      "armor_order": 1
     },
     {
       "name": "holster",

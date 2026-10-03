@@ -221,13 +221,23 @@ def main() -> None:
     seam = spec.get("seam", 10)
     parts: dict[str, np.ndarray] = {}
     for pname, pdef in spec["parts"].items():
+        if "damage_of" in pdef:
+            continue  # torn-clothes layers are made by make_damage.py
         grp = complete[pdef["group"]]
         region = grp[:, :, 3] > 127
         if "minus_group" in pdef:
             region &= ~(complete[pdef["minus_group"]][:, :, 3] > 127)
         if "y" in pdef:
             lo, hi = pdef["y"]
-            region &= (yy >= lo) & (yy < hi)
+            if pdef.get("mode") == "bone":
+                # Cut perpendicular to the bone, not along an image row: the limb is turned upright when it is cut into a texture, and a
+                # slanted cut edge there would be lit like a silhouette (a bright tick across the hip).
+                a_, b_ = np.array(spec["joints"][pdef["from"]], float), np.array(spec["joints"][pdef["to"]], float)
+                d_ = (b_ - a_) / np.linalg.norm(b_ - a_)
+                s_ = (xx - a_[0]) * d_[0] + (yy - a_[1]) * d_[1]
+                region &= (s_ >= (lo - a_[1]) / d_[1] if lo > 0 else True) & (s_ < (hi - a_[1]) / d_[1] if hi < H else True)
+            else:
+                region &= (yy >= lo) & (yy < hi)
         if "within" in pdef:  # keep the pixels of this group that fall inside another group's visible mask (e.g. the hand inside the arm group)
             region &= dilate(V[pdef["within"]], pdef.get("within_grow", 3))
         if "not_within" in pdef:
@@ -239,6 +249,8 @@ def main() -> None:
         parts[pname] = region
     # each part also gets `seam` px of its neighbours inside the same group, so joints can turn without cracks
     for pname, pdef in spec["parts"].items():
+        if "damage_of" in pdef:
+            continue
         grp = complete[pdef["group"]]
         region = parts[pname]
         grown = dilate(region, 2 if "blob" in pdef else seam) & (grp[:, :, 3] > 127)
