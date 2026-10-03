@@ -8,7 +8,7 @@ const PATH := "res://data/feel/events.json"
 ## 舊的震動「強度」換成像素的係數（強度 1 = 0.8 px）。
 const STRENGTH_TO_PX := 0.8
 const MAX_SHAKE_PX := 12.0
-const KNOWN_FIELDS: PackedStringArray = ["shake", "hitstop", "freeze", "slowmo", "zoom"]
+const KNOWN_FIELDS: PackedStringArray = ["shake", "hitstop", "freeze", "slowmo", "zoom", "screen"]
 ## 縮放脈衝只允許這些事件（重要時刻），避免畫面一直在縮放。
 const ZOOM_WHITELIST: PackedStringArray = ["player_parry", "player_finisher", "boss_death", "boss_phase_shift"]
 
@@ -27,6 +27,9 @@ var _reported: Dictionary = {}
 func _ready() -> void:
 	reload()
 	register_counter("hitstop_budget_left", Fx.hitstop_budget_left)
+	register_counter("flash_per_second", func() -> int: return FlashGuard.rate())
+	register_counter("flash_peak", func() -> float: return snappedf(FlashGuard.peak, 0.01))
+	register_counter("flash_dropped", func() -> int: return FlashGuard.dropped)
 	register_counter("voices_playing", Sfx.voices_playing)
 	register_counter("sounds_dropped", func() -> int: return Sfx.dropped_count)
 	register_counter("frozen_nodes", Fx.frozen_count)
@@ -99,6 +102,8 @@ func validate() -> PackedStringArray:
 			var s := slowmo as Dictionary if typeof(slowmo) == TYPE_DICTIONARY else {}
 			if not Fx.SLOWMO_WHITELIST.has(str(s.get("reason", ""))) or float(s.get("scale", 0.0)) <= 0.0 or float(s.get("time", 0.0)) <= 0.0:
 				errors.append("%s 的事件「%s」的 slowmo 要有白名單內的 reason（%s）與大於 0 的 scale、time" % [PATH, id, ", ".join(Fx.SLOWMO_WHITELIST)])
+		if (def as Dictionary).has("screen") and not PostProcess.effects().has(str((def as Dictionary)["screen"])):
+			errors.append("%s 的事件「%s」的 screen 引用不存在的全螢幕效果「%s」" % [PATH, id, (def as Dictionary)["screen"]])
 		var zoom: Variant = (def as Dictionary).get("zoom")
 		if zoom != null:
 			var z := zoom as Dictionary if typeof(zoom) == TYPE_DICTIONARY else {}
@@ -130,6 +135,8 @@ func play(id: StringName, ctx: Dictionary = {}) -> void:
 			get_tree().create_timer(delay, true, false, true).timeout.connect(self.shake.bind(px, time, direction, origin))
 		else:
 			self.shake(px, time, direction, origin)
+	if (def as Dictionary).has("screen"):
+		EventBus.screen_pulse.emit(StringName(str((def as Dictionary)["screen"])))
 	var zoom: Variant = (def as Dictionary).get("zoom")
 	if typeof(zoom) == TYPE_DICTIONARY and ZOOM_WHITELIST.has(String(id)) and Settings.zoom_pulse_active():
 		EventBus.camera_zoom_pulse.emit(float((zoom as Dictionary).get("amount", 0.0)) * scale * preset_scale("zoom"), float((zoom as Dictionary).get("time", 0.0)))

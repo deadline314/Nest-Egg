@@ -23,6 +23,7 @@ func run() -> void:
 	_test_params_and_presets()
 	_test_reverse_index()
 	_test_save_events()
+	await _test_screen_fx()
 
 
 func _script_paths(dir: String, into: PackedStringArray) -> void:
@@ -552,3 +553,44 @@ func _test_save_events() -> void:
 	FeelParams.set_value(boss, ["shake", "time"], time_before)
 	DirAccess.remove_absolute(path)
 	DirAccess.remove_absolute(path + ".bak")
+
+
+func _test_screen_fx() -> void:
+	var errors := PostProcess.validate_effects()
+	check(errors.is_empty(), "screen effects have no errors: %s" % ", ".join(errors))
+	# 閃光防護：峰值有上限，每秒最多三次，超過的丟棄。
+	FlashGuard.reset()
+	var t := 100000
+	var granted := FlashGuard.request(5.0, t)
+	check(granted <= FlashGuard.MAX_AMOUNT + 0.0001 and granted > 0.0, "flash peak is capped (%.2f)" % granted)
+	check(FlashGuard.request(0.2, t + 100) > 0.0 and FlashGuard.request(0.2, t + 200) > 0.0, "three flashes fit in a second")
+	check(FlashGuard.request(0.2, t + 300) == 0.0 and FlashGuard.dropped == 1, "the fourth flash within a second is dropped")
+	check(FlashGuard.warning() != "" or FlashGuard.rate(t + 300) >= FlashGuard.MAX_PER_SECOND, "reaching the frequency limit raises a warning")
+	check(FlashGuard.request(0.2, t + 1100) > 0.0, "flashes are accepted again after the window")
+	# 減少閃光降階。
+	var original := Settings.storage_path()
+	Settings.use_storage("user://test_feel_flash.cfg")
+	FlashGuard.reset()
+	var normal := FlashGuard.request(0.2, 200000)
+	Settings.set_reduce_flashes(true)
+	FlashGuard.reset()
+	var reduced := FlashGuard.request(0.2, 300000)
+	check(is_equal_approx(reduced, normal * Settings.REDUCED_FLASH_SCALE), "reduce flashes lowers every screen effect")
+	Settings.set_reduce_flashes(false)
+	Settings.use_storage(original)
+	DirAccess.remove_absolute("user://test_feel_flash.cfg")
+	FlashGuard.reset()
+	# 真的畫面：效果寫進 shader 並隨時間衰減回 0。
+	var level := await start_level(PropsSuite.level_data())
+	var post: PostProcess = level._post
+	if post != null and post.is_active():
+		EventBus.screen_pulse.emit(&"hurt")
+		check(post._pulse_amount > 0.0, "a screen effect is accepted")
+		post._update_pulse(0.016)
+		check(float(post.parameter(&"pulse_amount")) > 0.0, "a screen effect reaches the shader")
+		post._update_pulse(1.0)
+		post._update_pulse(0.016)
+		check(float(post.parameter(&"pulse_amount")) == 0.0, "the screen effect fades back to zero")
+	await physics_frames(3)
+	await end_level(level)
+	FlashGuard.reset()

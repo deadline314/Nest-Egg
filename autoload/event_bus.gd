@@ -37,6 +37,8 @@ signal codex_card_unlocked(card_id: StringName, is_new: bool)
 
 signal screen_shake(px: float, duration: float, direction: Vector2, origin: Vector2)
 signal camera_zoom_pulse(amount: float, duration: float)
+## 全螢幕效果（data/feel/screen_fx.json 的種類）；由 PostProcess 播放。
+signal screen_pulse(kind: StringName)
 signal camera_kick(offset: Vector2)
 signal toast_requested(text: String)
 

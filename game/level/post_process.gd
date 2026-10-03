@@ -20,6 +20,13 @@ var _danger := 0.0
 var _pulse_time := 0.0
 ## 參數 -> 上一次寫進 shader 的值，沒變就不重寫。
 var _cache: Dictionary[StringName, Variant] = {}
+## 目前的全螢幕效果：強度、總秒數、剩餘秒數與其資料；一次只播一個，新的取代舊的。
+var _pulse_amount := 0.0
+var _pulse_time_total := 0.0
+var _pulse_left := 0.0
+var _pulse_def: Dictionary = {}
+static var _effects: Dictionary = {}
+const EFFECTS_PATH := "res://data/feel/screen_fx.json"
 
 
 func _ready() -> void:
@@ -40,6 +47,7 @@ func _ready() -> void:
 	Settings.display_changed.connect(_apply_brightness)
 	_apply_brightness()
 	EventBus.player_health_changed.connect(_on_health_changed)
+	EventBus.screen_pulse.connect(pulse)
 
 
 func is_active() -> bool:
@@ -83,6 +91,7 @@ func _process(delta: float) -> void:
 	if _material == null:
 		return
 	_update_danger(delta)
+	_update_pulse(delta)
 	_grain_time += delta
 	if _grain_time >= 1.0 / GRAIN_FPS:
 		_grain_time = fmod(_grain_time, 1.0 / GRAIN_FPS)
@@ -97,6 +106,66 @@ func _update_danger(delta: float) -> void:
 	var amplitude := 0.15 if Settings.get_reduce_flashes() else 0.4
 	var pulse := 1.0 - amplitude + amplitude * sin(_pulse_time * DANGER_PULSE_SPEED)
 	_write_param(&"danger", _danger * pulse)
+
+
+## 全螢幕效果種類表（data/feel/screen_fx.json）；缺漏時回傳空字典並記錄一次。
+static func effects() -> Dictionary:
+	if _effects.is_empty():
+		var json: JSON = load(EFFECTS_PATH) as JSON if ResourceLoader.exists(EFFECTS_PATH) else null
+		if json == null or typeof(json.data) != TYPE_DICTIONARY or typeof((json.data as Dictionary).get("effects")) != TYPE_DICTIONARY:
+			push_error("[PostProcess] 無法讀取全螢幕效果資料：%s（需要 effects 字典）" % EFFECTS_PATH)
+			return {}
+		_effects = (json.data as Dictionary)["effects"]
+	return _effects
+
+
+## 資料檢查：回傳錯誤訊息清單。
+static func validate_effects() -> PackedStringArray:
+	var errors := PackedStringArray()
+	for id: String in effects().keys():
+		var def: Variant = effects()[id]
+		if typeof(def) != TYPE_DICTIONARY:
+			errors.append("%s 的效果「%s」不是字典" % [EFFECTS_PATH, id])
+			continue
+		if not str((def as Dictionary).get("color", "")).begins_with("#"):
+			errors.append("%s 的效果「%s」的 color 要是 #rrggbb" % [EFFECTS_PATH, id])
+		if float((def as Dictionary).get("amount", 0.0)) <= 0.0 or float((def as Dictionary).get("amount", 0.0)) > FlashGuard.MAX_AMOUNT:
+			errors.append("%s 的效果「%s」的 amount 要在 0 到 %s 之間（過曝上限）" % [EFFECTS_PATH, id, FlashGuard.MAX_AMOUNT])
+		if float((def as Dictionary).get("time", 0.0)) <= 0.0:
+			errors.append("%s 的效果「%s」的 time 要大於 0" % [EFFECTS_PATH, id])
+	return errors
+
+
+## 播放一個全螢幕效果：先過閃光防護（峰值上限、每秒最多三次、減少閃光降階），沒有 shader 或種類不存在時什麼都不做。
+func pulse(kind: StringName) -> void:
+	if _material == null:
+		return
+	var def: Variant = effects().get(String(kind))
+	if typeof(def) != TYPE_DICTIONARY:
+		return
+	var granted := FlashGuard.request(float((def as Dictionary).get("amount", 0.0)))
+	if granted <= 0.0:
+		return
+	_pulse_def = def as Dictionary
+	_pulse_amount = granted
+	_pulse_time_total = float(_pulse_def.get("time", 0.2))
+	_pulse_left = _pulse_time_total
+	_write_param(&"pulse_color", Vector3(Color.html(str(_pulse_def.get("color", "#ffffff"))).r, Color.html(str(_pulse_def.get("color", "#ffffff"))).g, Color.html(str(_pulse_def.get("color", "#ffffff"))).b))
+
+
+func _update_pulse(delta: float) -> void:
+	if _pulse_left <= 0.0:
+		if _cache.get(&"pulse_amount") != 0.0:
+			_write_param(&"pulse_amount", 0.0)
+			_write_param(&"pulse_aberration", 0.0)
+			_write_param(&"pulse_vignette", 0.0)
+		return
+	_pulse_left = maxf(0.0, _pulse_left - delta)
+	var k := _pulse_left / _pulse_time_total
+	var envelope := k * k
+	_write_param(&"pulse_amount", _pulse_amount * envelope)
+	_write_param(&"pulse_aberration", float(_pulse_def.get("aberration", 0.0)) * envelope * Settings.flash_scale())
+	_write_param(&"pulse_vignette", float(_pulse_def.get("vignette", 0.0)) * envelope * Settings.flash_scale())
 
 
 func _write_param(name: StringName, value: Variant) -> void:

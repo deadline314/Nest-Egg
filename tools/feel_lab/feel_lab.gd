@@ -306,6 +306,9 @@ func _refresh_info() -> void:
 	lines.append("FPS %d  粒子預算裁掉 %d" % [Engine.get_frames_per_second(), HitFeedback.trimmed_particles])
 	for key: String in counters.keys():
 		lines.append("%s: %s" % [key, counters[key]])
+	var warning := FlashGuard.warning()
+	if warning != "":
+		lines.append("警示：" + warning)
 	lines.append("— 最近事件 —")
 	lines.append_array(Feel.recent)
 	_info.text = "\n".join(lines)

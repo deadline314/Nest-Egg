@@ -28,6 +28,7 @@ const SCENARIOS := {
 	"melee_combo": "res://tools/scenarios/melee_combo_scenario.gd",
 	"block_feel": "res://tools/scenarios/block_feel_scenario.gd",
 	"feel_lab": "res://tools/scenarios/feel_lab_scenario.gd",
+	"screen_fx": "res://tools/scenarios/screen_fx_scenario.gd",
 }
 
 

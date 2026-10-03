@@ -1,0 +1,10 @@
+{
+ "_說明": "全螢幕效果（NE-146）：color 疊加色、amount 峰值強度（0～0.3，超過會被夾住）、aberration 邊緣色差、vignette 暗角加深、time 持續秒數（強度隨時間平方衰減）。由回饋事件的 screen 欄位觸發；閃光頻率由 FlashGuard 限制每秒最多三次，「減少閃光」會降階。",
+ "effects": {
+  "hurt":        {"color": "#ff2438", "amount": 0.26, "aberration": 0.014, "vignette": 0.32, "time": 0.28},
+  "parry":       {"color": "#7fe9ff", "amount": 0.16, "aberration": 0.006, "vignette": 0.0, "time": 0.16},
+  "guard_break": {"color": "#9fd8ff", "amount": 0.2, "aberration": 0.014, "vignette": 0.3, "time": 0.3},
+  "kill":        {"color": "#ffffff", "amount": 0.07, "aberration": 0.0, "vignette": 0.0, "time": 0.1},
+  "boss_death":  {"color": "#ffffff", "amount": 0.24, "aberration": 0.016, "vignette": 0.2, "time": 0.5}
+ }
+}
