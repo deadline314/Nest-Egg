@@ -76,11 +76,12 @@ func _on_level_completed(data: LevelData) -> void:
 	else:
 		if not data.next_level.is_empty():
 			push_error("[Main] 找不到下一關：%s，直接進入結算。" % data.next_level)
-		_show_victory()
+		_show_victory(data.chapter)
 
 
-func _show_victory() -> void:
+func _show_victory(chapter: StringName) -> void:
 	var screen := VictoryScreen.new()
+	screen.chapter = chapter
 	screen.replay_requested.connect(_on_start_requested.bind(GameState.difficulty), CONNECT_DEFERRED)
 	screen.menu_requested.connect(_show_main_menu, CONNECT_DEFERRED)
 	_switch_to(screen, Transition.Kind.BLINDS)

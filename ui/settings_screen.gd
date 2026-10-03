@@ -47,7 +47,8 @@ func _ready() -> void:
 	layout.offset_bottom = -12
 	layout.add_theme_constant_override(&"separation", 6)
 	add_child(layout)
-	layout.add_child(UiKit.label("設定", 16, Palette.CYAN))
+	layout.add_child(UiKit.label("設定", UiKit.FS_TITLE, Palette.CYAN))
+	layout.add_child(UiDivider.new())
 
 	_tabs = TabContainer.new()
 	_tabs.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -67,10 +68,22 @@ func _ready() -> void:
 	var back := UiKit.button("返回", close, "設定已自動儲存")
 	buttons.add_child(back)
 
+	_bind_hints(_tabs)
 	InputBindings.bindings_changed.connect(_refresh_bindings)
 	_refresh_bindings()
 	_set_status("所有變更即時生效並自動儲存。")
 	_focus_first.call_deferred()
+
+
+## 每個有說明的控制項，游標或焦點移上去時把那句說明顯示在底部（手把沒有 tooltip 也看得到）。
+func _bind_hints(node: Node) -> void:
+	if node is Control and (node as Control).tooltip_text != "":
+		var control := node as Control
+		var text := control.tooltip_text
+		control.focus_entered.connect(_set_status.bind(text))
+		control.mouse_entered.connect(_set_status.bind(text))
+	for child in node.get_children():
+		_bind_hints(child)
 
 
 func close() -> void:

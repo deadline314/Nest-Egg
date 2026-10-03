@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、flow、transition、ui、settings、mouse_aim、block、story、story_ch2、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
+## 情境：all（預設）、screens、flow、transition、ui、settings、mouse_aim、block、story、story_ch2、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -24,6 +24,10 @@ func _run() -> void:
 	add_child(LightKit.create_environment())
 	# 劇情演出會暫停遊戲並蓋住畫面；只有 story 情境需要拍到演出。
 	Story.auto_skip = _scenario != "story" and _scenario != "story_ch2"
+	if _scenario == "screens":
+		await _run_screens()
+		get_tree().quit()
+		return
 	if _scenario == "flow":
 		await _run_flow()
 		get_tree().quit()
@@ -1192,6 +1196,63 @@ func _run_settings() -> void:
 	_capture("settings_bindings")
 	settings._cancel_capture()
 	settings.queue_free()
+
+
+## 各介面畫面：主選單、難度、設定、圖鑑、暫停、死亡、結算。
+func _run_screens() -> void:
+	var menu := MainMenu.new()
+	add_child(menu)
+	await _wait(1.2)
+	_capture("screens_menu")
+	menu._open_difficulty()
+	await _wait(0.9)
+	_capture("screens_difficulty")
+	menu.queue_free()
+	var settings := SettingsScreen.new()
+	add_child(settings)
+	await _wait(0.4)
+	settings._set_status("音量：整體輸出大小，其他音量都依它換算")
+	_capture("screens_settings")
+	settings.queue_free()
+	var codex := CodexScreen.new()
+	add_child(codex)
+	await _wait(0.4)
+	_capture("screens_codex")
+	codex.queue_free()
+
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _settle(20)
+	GameState.run_time = 187.4
+	GameState.deaths = 3
+	Progression.credits = 1280
+	level._pause_menu.open()
+	await _wait(0.6)
+	_capture("screens_pause")
+	level._pause_menu.close()
+	var card := DefeatCodex.unlock(&"grunt_shot")
+	var death := DeathScreen.new()
+	death.setup(card, true)
+	level.add_child(death)
+	await _wait(0.2)
+	_capture("screens_death_noise")
+	await _wait(1.0)
+	_capture("screens_death")
+	death.queue_free()
+	level.queue_free()
+	await _settle(4)
+	GameState.kills = 17
+	GameState.finishers = 4
+	var victory := VictoryScreen.new()
+	victory.chapter = &"chapter_01"
+	add_child(victory)
+	await _wait(0.8)
+	_capture("screens_victory_partial")
+	await _wait(2.0)
+	_capture("screens_victory")
+	victory.queue_free()
 
 
 ## 真實流程：主選單 → 開始（掃描線）→ 關卡，確認轉場結束後遊戲恢復運作。

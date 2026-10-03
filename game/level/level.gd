@@ -137,6 +137,7 @@ func _ready() -> void:
 	camera.snap_to_target()
 
 	_pause_menu = PauseMenu.new()
+	_pause_menu.chapter = data.chapter
 	add_child(_pause_menu)
 	_pause_menu.retry_requested.connect(_request_retry)
 	_pause_menu.menu_requested.connect(_request_menu)
