@@ -2,7 +2,7 @@ class_name DialogueLayer
 extends CanvasLayer
 ## 對話介面（由 Story 服務持有）：
 ##   過場：暫停遊戲、上下黑邊、頭像＋講者名＋逐字顯示；點擊／Enter／射擊／互動鍵推進（第一下先顯示完整句子），Esc 跳過整段。
-##   通訊：畫面左上角的小面板，不暫停，逐字顯示後依字數停留再自動換下一句。
+##   通訊：畫面左上角的小面板，不暫停，逐字顯示後依字數停留再自動換下一句；台詞帶 delay 時先收起面板沉默那麼久。
 
 signal cinematic_finished(scene_id: StringName)
 signal radio_finished(scene_id: StringName)
@@ -34,6 +34,8 @@ var _radio_name: Label
 var _radio_text: Label
 var _radio_queue: Array[Dictionary] = []  # { id, line, last }
 var _radio_hold := 0.0
+## 這一句顯示前還要沉默幾秒（台詞的 delay）；沉默期間通訊框是收起來的。
+var _radio_wait := 0.0
 var _radio_active := false
 var _time := 0.0
 
@@ -151,9 +153,11 @@ func _next_radio() -> void:
 	_radio_text.visible_ratio = 0.0
 	_radio_portrait.texture = _portrait_texture(line["portrait"])
 	_radio_hold = RADIO_HOLD_BASE + str(line["text"]).length() * RADIO_HOLD_PER_CHAR
-	_radio_root.visible = not is_cinematic_active()
+	_radio_wait = float(line.get("delay", 0.0))
+	_radio_root.visible = not is_cinematic_active() and _radio_wait <= 0.0
 	_radio_root.modulate.a = 1.0
-	Sfx.play(&"telegraph", -18.0, 0.0)
+	if _radio_wait <= 0.0:
+		Sfx.play(&"telegraph", -18.0, 0.0)
 
 
 func _process(delta: float) -> void:
@@ -164,6 +168,12 @@ func _process(delta: float) -> void:
 		_continue.visible = _text.visible_ratio >= 1.0 and int(_time * 3.0) % 2 == 0
 		return
 	if not _radio_active or get_tree().paused:
+		return
+	if _radio_wait > 0.0:
+		_radio_wait -= delta
+		if _radio_wait <= 0.0:
+			_radio_root.visible = true
+			Sfx.play(&"telegraph", -18.0, 0.0)
 		return
 	_radio_root.visible = true
 	if _radio_text.visible_ratio < 1.0:

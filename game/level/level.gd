@@ -16,6 +16,8 @@ const ARENA_TRIGGER_MARGIN := 40.0
 const FALL_LIMIT_MARGIN := 48.0
 const BOSS_LIGHTING_ID := &"boss"
 const BOSS_LIGHTING_FADE := 1.5
+## 重生後多久播出「死亡次數的反應」通訊（等轉場揭開、玩家看清楚畫面）。
+const RESPAWN_REACTION_DELAY := 1.2
 
 var data: LevelData
 var player: Player
@@ -155,6 +157,7 @@ func _ready() -> void:
 	tree_exiting.connect(UiKit.set_cursor_visible.bind(true))
 	EventBus.boss_defeated.connect(_on_boss_defeated)
 	_begin_intro.call_deferred()
+	_begin_death_reactions.call_deferred()
 
 
 func _process(delta: float) -> void:
@@ -187,6 +190,15 @@ func _begin_intro() -> void:
 			return
 	var info := Story.chapter_info(data.chapter)
 	_show_chapter_card(str(info.get("title", data.display_name)), str(info.get("subtitle", "")), false)
+
+
+## 死亡重生後：累計死亡達到次數時，播出這一章設定的反應通訊（見 StoryReactions）。只改措辭，不影響流程與難度。
+func _begin_death_reactions() -> void:
+	if not GameState.consume_respawn() or not is_inside_tree():
+		return
+	await get_tree().create_timer(RESPAWN_REACTION_DELAY, false).timeout
+	if is_inside_tree():
+		Story.play_respawn_reactions(data.chapter)
 
 
 func _show_chapter_card(title: String, subtitle: String, block: bool, hold := 2.2) -> ChapterCard:

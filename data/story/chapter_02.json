@@ -8,6 +8,10 @@
     "nurse": {"name": "護理師", "color": "#bfe8e0", "portrait": "res://art/portraits/system.png"},
     "child": {"name": "童聲", "color": "#ffffff", "portrait": "res://art/portraits/system.png"}
   },
+  "respawn_scenes": [
+    {"scene": "c2_respawn_30", "min_deaths": 30, "repeat": true},
+    {"scene": "c2_respawn_50", "min_deaths": 50}
+  ],
   "scenes": {
     "c2_prologue": {"mode": "cinematic", "lines": [
       {"speaker": "system", "text": "天穹集團公告：下層港區即日起夜間管制。未登記人員禁止進入升降井。"},
@@ -28,6 +32,11 @@
     "c2_radio_k1": {"mode": "radio", "lines": [
       {"speaker": "old_k", "text": "這條井我天天爬喔。腿都爬出毛病了。"},
       {"speaker": "rin", "text": "你什麼時候爬的。"}
+    ], "variants": [
+      {"min_deaths": 15, "lines": [
+        {"speaker": "old_k", "text": "這條井我天天爬。你臉色很差。"},
+        {"speaker": "rin", "text": "你什麼時候爬的。"}
+      ]}
     ]},
     "c2_radio_cloak": {"mode": "radio", "lines": [
       {"speaker": "mei", "text": "欸，前面有人。我這邊看不到，可是熱源在動。"},
@@ -40,6 +49,11 @@
     "c2_radio_corridor": {"mode": "radio", "lines": [
       {"speaker": "mei", "text": "這條走廊我走過。……我是說圖紙上。"},
       {"speaker": "rin", "text": "嗯。"}
+    ], "variants": [
+      {"min_deaths": 8, "lines": [
+        {"speaker": "mei", "text": "這條走廊我走過。剛才……你是不是在這裡停過？"},
+        {"speaker": "rin", "text": "沒有。"}
+      ]}
     ]},
     "c2_radio_voice": {"mode": "radio", "lines": [
       {"speaker": "wataru", "text": "姐，護士說我明天可以看窗外了。天空是不是真的很藍？"},
@@ -56,14 +70,29 @@
     "c2_radio_medic": {"mode": "radio", "lines": [
       {"speaker": "mei", "text": "那台維修機好忙喔。人家都下班了，它還在加班。"},
       {"speaker": "rin", "text": "我也想下班。"}
+    ], "variants": [
+      {"min_deaths": 8, "lines": [
+        {"speaker": "mei", "text": "那台維修機好忙喔。剛才……你是不是在這裡停過？"},
+        {"speaker": "rin", "text": "沒有。"}
+      ]}
     ]},
     "c2_radio_k2": {"mode": "radio", "lines": [
       {"speaker": "old_k", "text": "凜，上面不管有什麼，別回頭看我喔。"},
       {"speaker": "rin", "text": "我不答應。"}
+    ], "variants": [
+      {"min_deaths": 15, "lines": [
+        {"speaker": "old_k", "text": "別回頭看我。你臉色很差。"},
+        {"speaker": "rin", "text": "我不答應。"}
+      ]}
     ]},
     "c2_radio_last": {"mode": "radio", "lines": [
       {"speaker": "mei", "text": "轉運站到了。這裡好安靜。"},
       {"speaker": "rin", "text": "太安靜。"}
+    ], "variants": [
+      {"min_deaths": 8, "lines": [
+        {"speaker": "mei", "text": "轉運站到了。剛才……你是不是在這裡停過？"},
+        {"speaker": "rin", "text": "沒有。"}
+      ]}
     ]},
     "c2_curtain": {"mode": "radio", "lines": [
       {"speaker": "system", "text": "回收部作業中，請勿停留。為您的安全，請持續前進。"},
@@ -149,6 +178,13 @@
       {"speaker": "mei", "text": "日誌寫，送去塔頂。電梯就在你後面。"},
       {"speaker": "old_k", "text": "凜。你右手裡那條線……是我接的。我沒跟你說過，對吧。"},
       {"speaker": "rin", "text": "上來再說。"}
+    ]},
+    "c2_respawn_30": {"mode": "radio", "lines": [
+      {"speaker": "system", "text": "天穹集團提醒您：剛剛的雨，在 {death_time}。"}
+    ]},
+    "c2_respawn_50": {"mode": "radio", "lines": [
+      {"speaker": "mei", "text": "我先關一下。"},
+      {"speaker": "mei", "text": "回來了。", "delay": 10}
     ]}
   }
 }

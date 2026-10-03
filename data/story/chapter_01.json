@@ -11,6 +11,13 @@
     "ah_po": {"name": "阿婆", "color": "#ffb066", "portrait": "res://art/portraits/system.png"},
     "worker": {"name": "工人", "color": "#c8d0d8", "portrait": "res://art/portraits/system.png"}
   },
+  "death_notes": [
+    {"min_deaths": 3, "text": "紀錄已寫入。"}
+  ],
+  "respawn_scenes": [
+    {"scene": "respawn_30", "min_deaths": 30, "repeat": true},
+    {"scene": "respawn_50", "min_deaths": 50}
+  ],
   "scenes": {
     "prologue": {"mode": "cinematic", "lines": [
       {"speaker": "system", "text": "天穹氣象台提醒您：今晚降雨持續。凌晨三點十二分起暫停降雨約一分鐘，系統例行校正。"},
@@ -35,10 +42,20 @@
     "radio_market_mei": {"mode": "radio", "lines": [
       {"speaker": "mei", "text": "你在那塊看板前面站了十一秒。我有數。"},
       {"speaker": "rin", "text": "沒有。"}
+    ], "variants": [
+      {"min_deaths": 8, "lines": [
+        {"speaker": "mei", "text": "你在那塊看板前面站了十一秒。剛才……你是不是在這裡停過？"},
+        {"speaker": "rin", "text": "沒有。"}
+      ]}
     ]},
     "radio_shield": {"mode": "radio", "lines": [
       {"speaker": "mei", "text": "盾牌那隻看起來很貴欸。"},
       {"speaker": "rin", "text": "貴的比較不會動。"}
+    ], "variants": [
+      {"min_deaths": 8, "lines": [
+        {"speaker": "mei", "text": "盾牌那隻看起來很貴欸。剛才……你是不是在這裡停過？"},
+        {"speaker": "rin", "text": "沒有。"}
+      ]}
     ]},
     "radio_forecast": {"mode": "radio", "lines": [
       {"speaker": "system", "text": "天穹氣象提醒：霓虹市集一帶降雨持續。為您準備的傘，已放在每一個轉角。"},
@@ -47,10 +64,20 @@
     "radio_mech": {"mode": "radio", "lines": [
       {"speaker": "old_k", "text": "壁壘的鑰匙在左邊輪胎上面。外套拉鍊拉起來，你喔，會著涼。"},
       {"speaker": "rin", "text": "你怎麼知道。"}
+    ], "variants": [
+      {"min_deaths": 15, "lines": [
+        {"speaker": "old_k", "text": "壁壘的鑰匙在左邊輪胎上面。你臉色很差。"},
+        {"speaker": "rin", "text": "你怎麼知道。"}
+      ]}
     ]},
     "radio_facility": {"mode": "radio", "lines": [
       {"speaker": "mei", "text": "防火牆上有個資料夾叫「七號」，建立日期是七年前。點開看看？"},
       {"speaker": "rin", "text": "別點。"}
+    ], "variants": [
+      {"min_deaths": 8, "lines": [
+        {"speaker": "mei", "text": "防火牆上有個資料夾叫「七號」。剛才……你是不是在這裡停過？"},
+        {"speaker": "rin", "text": "沒有。別點。"}
+      ]}
     ]},
     "radio_arm": {"mode": "radio", "lines": [
       {"speaker": "mei", "text": "你的義體剛剛跳了一下雜訊。線也亮了，我這邊看得到。"},
@@ -59,6 +86,11 @@
     "radio_last": {"mode": "radio", "lines": [
       {"speaker": "old_k", "text": "貨櫃在最裡面，進去直走。還有那個……算了。手沒事吧？"},
       {"speaker": "rin", "text": "你想說什麼。"}
+    ], "variants": [
+      {"min_deaths": 15, "lines": [
+        {"speaker": "old_k", "text": "貨櫃在最裡面，進去直走。你臉色很差。"},
+        {"speaker": "rin", "text": "你想說什麼。"}
+      ]}
     ]},
     "npc_ahpo_1": {"mode": "dialogue", "lines": [
       {"speaker": "ah_po", "text": "又瘦了喔。坐啦，雨這麼大，站著幹嘛。"},
@@ -113,6 +145,13 @@
       {"speaker": "old_k", "text": "出來吧，凜。晶片滿了就回來，粥還熱著喔。"},
       {"speaker": "rin", "text": "船票不買了。"},
       {"speaker": "mei", "text": "……停了。"}
+    ]},
+    "respawn_30": {"mode": "radio", "lines": [
+      {"speaker": "system", "text": "天穹集團提醒您：剛剛的雨，在 {death_time}。"}
+    ]},
+    "respawn_50": {"mode": "radio", "lines": [
+      {"speaker": "mei", "text": "我先關一下。"},
+      {"speaker": "mei", "text": "回來了。", "delay": 10}
     ]}
   }
 }

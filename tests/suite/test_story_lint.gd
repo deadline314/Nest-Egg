@@ -211,7 +211,11 @@ func _test_all_scripts_pass() -> void:
 	var scanned := 0
 	for chapter_id in Story.chapter_ids():
 		scanned += Story.text_units(chapter_id).size()
-	check(scanned == Story.scene_ids().size() + Story.chapter_ids().size(), "every scene is in exactly one chapter's scan (%d)" % scanned)
+	# 每個場景（加上它的死亡次數變化）與每張章節卡剛好各掃一次。
+	var expected := Story.scene_ids().size() + Story.chapter_ids().size()
+	for id: String in Story.scene_ids():
+		expected += StoryReactions.variants_of(Story._scenes[id]).size()
+	check(scanned == expected, "every scene, death variant and chapter card is scanned exactly once (%d of %d)" % [scanned, expected])
 	# 章節卡的預告文字沒有破折號。
 	for chapter_id in Story.chapter_ids():
 		check(not str(Story.chapter_info(chapter_id).get("teaser", "")).contains("——"), "the teaser has no dash: %s" % chapter_id)

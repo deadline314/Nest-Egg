@@ -2,6 +2,8 @@ extends Node
 ## 劇情服務：載入章節劇本（data/story/*.json）、播放過場／通訊對話、記錄本輪已看過的場景。
 ##   過場（cinematic）：暫停遊戲，一次一段，依序排隊。
 ##   通訊（radio）：不暫停遊戲，排隊自動播放。
+##   對話（dialogue）：場景人物，玩家主動觸發，暫停遊戲逐句推進（見 NpcActor）。
+## 場景可以帶 variants，依累計死亡次數改用不同的台詞（見 StoryReactions）；劇本品質檢查見 StoryLint。
 ## 台詞全部在資料檔，修改不需改程式；死亡重來時已看過的場景不會重播。
 ## 多章節：CHAPTER_PATHS 列出的劇本會合併成同一份講者與場景表（場景 id 全域唯一，慣例以 c2_ 等前綴區分章節），
 ## 關卡以 LevelData.chapter 指定自己屬於哪一章（章節標題、結尾卡、預告取自該章）。
@@ -34,6 +36,9 @@ var _speakers: Dictionary = {}
 var _scenes: Dictionary = {}
 ## 場景 id -> 所屬章節 id（劇本品質檢查依章節加總）。
 var _scene_chapter: Dictionary[String, StringName] = {}
+## 死亡畫面的小字（各章節合併）與各章節的重生通訊（章節 id -> 清單），見 StoryReactions。
+var _death_notes: Array = []
+var _respawn_scenes: Dictionary = {}
 var _seen: Dictionary[StringName, bool] = {}
 var _cinematic_queue: Array[StringName] = []
 var _current_cinematic: StringName = &""
@@ -60,6 +65,8 @@ func load_all() -> void:
 	_speakers.clear()
 	_scenes.clear()
 	_scene_chapter.clear()
+	_death_notes.clear()
+	_respawn_scenes.clear()
 	for path in CHAPTER_PATHS:
 		load_chapter(path)
 
@@ -85,6 +92,13 @@ func load_chapter(path: String) -> bool:
 				continue
 			_scenes[scene_id] = scenes[scene_id]
 			_scene_chapter[scene_id] = chapter_id
+	var notes: Variant = data.get("death_notes", [])
+	if typeof(notes) == TYPE_ARRAY:
+		_death_notes.append_array(notes)
+	elif data.has("death_notes"):
+		push_error("[Story] %s 的 death_notes 必須是陣列" % path)
+	if data.has("respawn_scenes"):
+		_respawn_scenes[chapter_id] = data["respawn_scenes"]
 	return true
 
 
@@ -118,6 +132,7 @@ func validate() -> PackedStringArray:
 			continue
 		var lines: Array = scene.get("lines", [])
 		var limit := _line_limit(mode)
+		problems.append_array(StoryReactions.validate_variants(scene_id, scene, limit, _speakers))
 		if lines.is_empty():
 			problems.append("場景 %s 沒有任何台詞" % scene_id)
 		elif lines.size() > limit:
@@ -130,6 +145,10 @@ func validate() -> PackedStringArray:
 				problems.append("場景 %s 的講者「%s」未定義" % [scene_id, entry.get("speaker", "")])
 			if str(entry.get("text", "")).is_empty():
 				problems.append("場景 %s 有一句沒有文字" % scene_id)
+	for chapter_id: StringName in _respawn_scenes:
+		problems.append_array(StoryReactions.validate_respawns(String(chapter_id), _respawn_scenes[chapter_id], has_scene))
+	if not _death_notes.is_empty():
+		problems.append_array(StoryReactions.validate_notes("（全部）", _death_notes))
 	for issue in StoryLint.errors_of(lint()):
 		problems.append(StoryLint.format(issue))
 	return problems
@@ -154,6 +173,8 @@ func text_units(chapter_id: StringName) -> Array[Dictionary]:
 		if _scene_chapter.get(scene_id, &"") != chapter_id:
 			continue
 		units.append({"id": scene_id, "lines": _scene_text_lines(_scenes[scene_id])})
+		for variant in StoryReactions.variants_of(_scenes[scene_id]):
+			units.append({"id": "%s（死亡 %d 次起）" % [scene_id, StoryReactions.threshold(variant)], "lines": variant["lines"]})
 	var card: Array = []
 	var info: Dictionary = _chapters.get(chapter_id, {})
 	for key in ["title", "subtitle", "end_title", "teaser"]:
@@ -210,6 +231,51 @@ func scene_lines(id: StringName) -> Array:
 	return (_scenes.get(String(id), {}) as Dictionary).get("lines", [])
 
 
+## 場景現在要念的台詞：累計死亡達到某個變化的門檻就改用那一組，否則用正常台詞。deaths < 0 代表用本輪的累計死亡。
+func lines_for(id: StringName, deaths := -1) -> Array:
+	var scene: Variant = _scenes.get(String(id), null)
+	if typeof(scene) != TYPE_DICTIONARY:
+		return []
+	var variant := StoryReactions.variant_lines(scene, GameState.deaths if deaths < 0 else deaths)
+	if not variant.is_empty():
+		return variant
+	var base: Variant = (scene as Dictionary).get("lines", [])
+	return base if typeof(base) == TYPE_ARRAY else []
+
+
+## lines_for 的結果換成顯示資料（名字、顏色、頭像，{death_time} 已填入）。
+func resolved_lines(id: StringName, deaths := -1) -> Array[Dictionary]:
+	return _resolve_lines(lines_for(id, deaths))
+
+
+## 死亡畫面的小字：累計死亡達到次數後才有，沒有回傳空字串。
+func death_note(deaths := -1) -> String:
+	return StoryReactions.pick_note(_death_notes, GameState.deaths if deaths < 0 else deaths)
+
+
+## 某章節在累計死亡 deaths 次時，重生後要播的通訊。
+func respawn_scene_ids(chapter: StringName, deaths := -1) -> Array[StringName]:
+	var ids: Array[StringName] = []
+	var entries: Variant = _respawn_scenes.get(chapter, [])
+	if typeof(entries) != TYPE_ARRAY:
+		return ids
+	for entry in StoryReactions.eligible_respawns(entries, GameState.deaths if deaths < 0 else deaths):
+		ids.append(StringName(str(entry["scene"])))
+	return ids
+
+
+## 死亡重生後播出該章節的反應通訊（repeat 的每次重生都播，其餘一輪只播一次）。回傳開始播的場景數。
+func play_respawn_reactions(chapter: StringName, deaths := -1) -> int:
+	var started := 0
+	var entries: Variant = _respawn_scenes.get(chapter, [])
+	if typeof(entries) != TYPE_ARRAY:
+		return started
+	for entry in StoryReactions.eligible_respawns(entries, GameState.deaths if deaths < 0 else deaths):
+		if play(StringName(str(entry["scene"])), not bool(entry.get("repeat", false))):
+			started += 1
+	return started
+
+
 func speaker(id: String) -> Dictionary:
 	return _speakers.get(id, {"name": id, "color": "#ffffff", "portrait": ""})
 
@@ -250,7 +316,7 @@ func play(id: StringName, once := true) -> bool:
 			_start_cinematic(id)
 	else:
 		scene_started.emit(id, MODE_RADIO)
-		_layer.enqueue_radio(id, _resolve_lines(scene.get("lines", [])))
+		_layer.enqueue_radio(id, resolved_lines(id))
 	return true
 
 
@@ -288,7 +354,7 @@ func _start_cinematic(id: StringName) -> void:
 		_player.finished.connect(_on_cinematic_finished)
 		_player.play(id, scene)
 		return
-	_layer.start_cinematic(id, _resolve_lines(scene_lines(id)))
+	_layer.start_cinematic(id, resolved_lines(id))
 
 
 func _on_cinematic_finished(id: StringName) -> void:
@@ -300,7 +366,7 @@ func _on_cinematic_finished(id: StringName) -> void:
 		_start_cinematic(_cinematic_queue.pop_front())
 
 
-## 把台詞的講者 id 換成顯示資料（名字、顏色、頭像）。
+## 把台詞的講者 id 換成顯示資料（名字、顏色、頭像），填入 {death_time}，帶上顯示前的沉默秒數 delay。
 func _resolve_lines(raw: Variant) -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	if typeof(raw) != TYPE_ARRAY:
@@ -309,10 +375,19 @@ func _resolve_lines(raw: Variant) -> Array[Dictionary]:
 		if typeof(entry) != TYPE_DICTIONARY:
 			continue
 		var info := speaker(str(entry.get("speaker", "")))
-		result.append({
+		var resolved := {
 			"name": str(info.get("name", "")),
 			"color": Color(str(info.get("color", "#ffffff"))),
 			"portrait": str(info.get("portrait", "")),
-			"text": str(entry.get("text", "")),
-		})
+			"text": StoryReactions.fill_placeholders(str(entry.get("text", "")), _death_clock()),
+		}
+		var delay := StoryReactions.line_delay(entry)
+		if delay > 0.0:
+			resolved["delay"] = delay
+		result.append(resolved)
 	return result
+
+
+## {death_time} 要填的世界時間：剛剛死亡的時間；還沒死過就用現在的。
+func _death_clock() -> String:
+	return GameState.last_death_clock if not GameState.last_death_clock.is_empty() else GameState.world_clock_text()
