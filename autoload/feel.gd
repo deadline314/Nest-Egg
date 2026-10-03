@@ -14,6 +14,11 @@ const ZOOM_WHITELIST: PackedStringArray = ["player_parry", "player_finisher", "b
 
 ## 各系統回報的計數（實驗室診斷用）：名稱 → 次數。
 var counters: Dictionary = {}
+## 最近播放的回饋、聲音與材質事件（實驗室的事件時間軸）：「秒數 種類 名稱」。
+var recent: PackedStringArray = []
+const RECENT_MAX := 10
+## 目前的手感預設組合（data/feel/presets.json）：對震動、頓幀、縮放脈衝的整體倍率；玩家設定再乘在上面。
+var preset: StringName = &"standard"
 var _events: Dictionary = {}
 var _gauges: Dictionary = {}
 var _reported: Dictionary = {}
@@ -35,6 +40,30 @@ func reload() -> void:
 		_report("load", "[Feel] 無法讀取回饋事件資料：%s（需要 events 字典）" % PATH)
 		return
 	_events = (json.data as Dictionary)["events"]
+
+
+## 記錄一筆事件到時間軸（各系統呼叫）。
+func record(kind: String, id: String) -> void:
+	recent.append("%.2f %s %s" % [Time.get_ticks_msec() * 0.001, kind, id])
+	while recent.size() > RECENT_MAX:
+		recent.remove_at(0)
+
+
+func set_preset(id: StringName) -> bool:
+	if not FeelParams.presets().has(String(id)):
+		_report("preset:" + String(id), "[Feel] 沒有這個預設組合「%s」（%s）" % [id, FeelParams.PRESETS_PATH])
+		return false
+	preset = id
+	return true
+
+
+func preset_scale(category: String) -> float:
+	return float((FeelParams.presets().get(String(preset), {}) as Dictionary).get(category, 1.0))
+
+
+## 事件的即時資料（實驗室直接改這份，立刻影響播放）；不存在回傳空字典。
+func event_def(id: StringName) -> Dictionary:
+	return _events.get(String(id), {})
 
 
 func has_event(id: StringName) -> bool:
@@ -83,6 +112,7 @@ func play(id: StringName, ctx: Dictionary = {}) -> void:
 		return
 	var scale := float(ctx.get("scale", 1.0))
 	_count("events")
+	record("回饋", String(id))
 	var shake: Variant = (def as Dictionary).get("shake")
 	if typeof(shake) == TYPE_DICTIONARY:
 		# 頓幀結束後才震：凍結中畫面不抖，放開的瞬間才有衝擊。
@@ -97,7 +127,7 @@ func play(id: StringName, ctx: Dictionary = {}) -> void:
 			self.shake(px, time, direction, origin)
 	var zoom: Variant = (def as Dictionary).get("zoom")
 	if typeof(zoom) == TYPE_DICTIONARY and ZOOM_WHITELIST.has(String(id)) and Settings.zoom_pulse_active():
-		EventBus.camera_zoom_pulse.emit(float((zoom as Dictionary).get("amount", 0.0)) * scale, float((zoom as Dictionary).get("time", 0.0)))
+		EventBus.camera_zoom_pulse.emit(float((zoom as Dictionary).get("amount", 0.0)) * scale * preset_scale("zoom"), float((zoom as Dictionary).get("time", 0.0)))
 		_count("zooms")
 	if (def as Dictionary).has("hitstop"):
 		hitstop(float((def as Dictionary)["hitstop"]) * scale)
@@ -122,7 +152,7 @@ func shake(px: float, time: float, direction := Vector2.ZERO, origin := Vector2.
 	if px <= 0.0 or time <= 0.0:
 		return
 	_count("shakes")
-	Fx.shake(minf(px * Settings.get_feel_scale("shake"), MAX_SHAKE_PX), time, direction, origin)
+	Fx.shake(minf(px * Settings.get_feel_scale("shake") * preset_scale("shake"), MAX_SHAKE_PX), time, direction, origin)
 
 
 ## 舊資料用「強度」表示的震動（武器、特效資料）。
@@ -133,13 +163,13 @@ func shake_strength(strength: float, time: float, direction := Vector2.ZERO, ori
 func hitstop(seconds: float) -> void:
 	if seconds > 0.0:
 		_count("hitstops")
-		Fx.hitstop(seconds * Settings.get_feel_scale("hitstop"))
+		Fx.hitstop(seconds * Settings.get_feel_scale("hitstop") * preset_scale("hitstop"))
 
 
 func freeze(nodes: Array, seconds: float) -> void:
 	if seconds > 0.0:
 		_count("freezes")
-		Fx.freeze(nodes, seconds * Settings.get_feel_scale("hitstop"))
+		Fx.freeze(nodes, seconds * Settings.get_feel_scale("hitstop") * preset_scale("hitstop"))
 
 
 ## 各系統註冊自己的即時計數（例如粒子數、同時發聲數）：name → Callable（回傳數字）。

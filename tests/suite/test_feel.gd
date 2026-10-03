@@ -20,6 +20,8 @@ func run() -> void:
 	await _test_weapon_feel()
 	await _test_reload_feel()
 	await _test_block_feel()
+	_test_params_and_presets()
+	_test_reverse_index()
 
 
 func _script_paths(dir: String, into: PackedStringArray) -> void:
@@ -458,3 +460,47 @@ func _test_block_feel() -> void:
 		check(bullet._damage_scale > 1.0 and bullet.team == Combat.Team.PLAYER, "a reflected bullet changes sides and carries the trail marker")
 	await physics_frames(3)
 	await end_level(level)
+
+
+func _test_params_and_presets() -> void:
+	# 參數自動從事件資料產生，每個數值都有範圍。
+	for id in Feel.event_ids():
+		var params := FeelParams.parameters(Feel.event_def(StringName(id)))
+		check(not params.is_empty(), "event %s exposes parameters" % id)
+		for param in params:
+			check(bool(param["known"]), "parameter %s.%s has a known slider range" % [id, param["name"]])
+	var boss := Feel.event_def(&"boss_land")
+	var before := float(boss["shake"]["px"])
+	check(FeelParams.set_value(boss, ["shake", "px"], 2.0) and is_equal_approx(float(Feel.event_def(&"boss_land")["shake"]["px"]), 2.0), "changing a parameter edits the live event")
+	check(not FeelParams.set_value(boss, ["shake", "no_such"], 1.0), "unknown parameter paths are refused")
+	FeelParams.set_value(boss, ["shake", "px"], before)
+	# 預設組合：切換後整體倍率改變，缺漏的預設退回並記錄。
+	var errors := FeelParams.validate_presets()
+	check(errors.is_empty(), "presets have no errors: %s" % ", ".join(errors))
+	var seen: Array[float] = []
+	var probe := _Probe.new()
+	EventBus.screen_shake.connect(probe.on_shake)
+	for name in ["standard", "restrained", "heavy", "arcade", "accessible"]:
+		check(Feel.set_preset(StringName(name)), "preset %s can be selected" % name)
+		probe.shakes.clear()
+		Feel.play(&"boss_land")
+		seen.append(probe.shakes[0] if not probe.shakes.is_empty() else 0.0)
+	EventBus.screen_shake.disconnect(probe.on_shake)
+	check(seen[1] < seen[0] and seen[2] > seen[0] and seen[4] == 0.0, "presets scale every event together (%s)" % str(seen))
+	check(not Feel.set_preset(&"test_no_such_preset") and Feel.preset == &"accessible", "an unknown preset is refused and the current one stays")
+	Feel.set_preset(&"standard")
+
+
+func _test_reverse_index() -> void:
+	var usage := FeelParams.usage(true)
+	# 已知的使用關係：玩家受傷事件來自玩家腳本；近戰事件來自近戰資料；頭目死亡來自頭目腳本。
+	check((usage["player_hurt"] as Array).has("res://game/player/player.gd"), "player_hurt is used by the player script")
+	check((usage["player_melee_heavy"] as Array).has("res://data/feel/melee.json"), "melee events are found through the attack data")
+	check((usage["boss_death"] as Array).has("res://game/enemies/warden_boss.gd"), "boss_death is used by the boss script")
+	# 反向索引與實際引用一致：每個索引出來的使用處真的含有該事件名。
+	for id: String in usage.keys():
+		for path: String in usage[id]:
+			check(FileAccess.get_file_as_string(path).contains(id), "%s really mentions %s" % [path, id])
+	# 完全沒被使用的事件要是已知的（有人加了事件卻沒接上就會在這裡被指出）。
+	var unused := FeelParams.unused_events()
+	check(unused.is_empty(), "no feel event is left unused: %s" % ", ".join(unused))

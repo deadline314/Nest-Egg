@@ -27,6 +27,7 @@ const SCENARIOS := {
 	"weapon_feel": "res://tools/scenarios/weapon_feel_scenario.gd",
 	"melee_combo": "res://tools/scenarios/melee_combo_scenario.gd",
 	"block_feel": "res://tools/scenarios/block_feel_scenario.gd",
+	"feel_lab": "res://tools/scenarios/feel_lab_scenario.gd",
 }
 
 
