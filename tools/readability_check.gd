@@ -12,6 +12,9 @@ const LEVELS: Array[Dictionary] = [
 ]
 const MIN_PLAYER_CONTRAST := 0.6
 const MIN_EDGE_CONTRAST := 1.0
+## 敵人（站在玩家前方 ENEMY_DISTANCE 像素、不動）的輪廓對比門檻（BG-13）：敵人也要在暗場看得見。
+const MIN_ENEMY_CONTRAST := 0.6
+const ENEMY_DISTANCE := 96.0
 const PLAYER_BOX := Rect2(-9, -44, 18, 40)
 const RING := 20.0
 const SAMPLES := 5
@@ -55,7 +58,7 @@ func _check_level(path: String, spots: Array) -> void:
 			Story._seen[StringName(id)] = true
 	var layout: LevelLayout = level._layout
 	print("== %s" % path.get_file())
-	print("%-8s  %-8s  %-8s" % ["區段", "玩家對比", "邊緣對比"])
+	print("%-8s  %-8s  %-8s  %-8s" % ["區段", "玩家對比", "邊緣對比", "敵人對比"])
 	for spot: Array in spots:
 		var tile: int = spot[1]
 		var y := layout.surface_heights[tile] - 2.0
@@ -70,10 +73,12 @@ func _check_level(path: String, spots: Array) -> void:
 			node.queue_free()
 		for i in 60:
 			await get_tree().process_frame
+		var foe := _spawn_foe(level, player.global_position + Vector2(ENEMY_DISTANCE, 0.0))
 		await get_tree().create_timer(1.2).timeout
 		# 警報與霓虹會閃爍：連續取樣幾張取平均，量測才穩定。
 		var player_contrast := 0.0
 		var edge_contrast := 0.0
+		var enemy_contrast := 0.0
 		for sample in SAMPLES:
 			var image := get_viewport().get_texture().get_image()
 			var scale := float(image.get_width()) / get_viewport().get_visible_rect().size.x
@@ -85,13 +90,29 @@ func _check_level(path: String, spots: Array) -> void:
 			var below_rect := Rect2(feet + Vector2(-24, 8), Vector2(48, 6))
 			var below := _mean_luma(image, scale, to_screen, below_rect)
 			edge_contrast += ((_mean_luma(image, scale, to_screen, edge_rect) - below) / (below + 0.02)) / float(SAMPLES)
+			if is_instance_valid(foe):
+				enemy_contrast += _contrast(image, scale, to_screen, Rect2(foe.global_position + PLAYER_BOX.position, PLAYER_BOX.size), RING) / float(SAMPLES)
 			await get_tree().create_timer(SAMPLE_INTERVAL).timeout
-		var ok := player_contrast >= MIN_PLAYER_CONTRAST and edge_contrast >= MIN_EDGE_CONTRAST
+		var ok := player_contrast >= MIN_PLAYER_CONTRAST and edge_contrast >= MIN_EDGE_CONTRAST and enemy_contrast >= MIN_ENEMY_CONTRAST
 		_failed = _failed or not ok
-		print("%-8s  %-8.2f  %-8.2f  %s" % [spot[0], player_contrast, edge_contrast, "OK" if ok else "太暗（門檻 %.1f / %.1f）" % [MIN_PLAYER_CONTRAST, MIN_EDGE_CONTRAST]])
+		print("%-8s  %-8.2f  %-8.2f  %-8.2f  %s" % [spot[0], player_contrast, edge_contrast, enemy_contrast, "OK" if ok else "太暗（門檻 %.1f / %.1f / %.1f）" % [MIN_PLAYER_CONTRAST, MIN_EDGE_CONTRAST, MIN_ENEMY_CONTRAST]])
 	remove_child(level)
 	level.free()
 	await get_tree().process_frame
+
+
+## 一隻站著不動的敵人（小兵），量測它的輪廓對比用。
+func _spawn_foe(level: Level, position: Vector2) -> Enemy:
+	var enemy := level._create_enemy(load("res://data/enemies/grunt.tres") as EnemyData)
+	enemy.data = enemy.data.duplicate()
+	enemy.data.detect_range = 0.0
+	enemy.data.attack_range = 0.0
+	enemy.data.move_speed = 0.0
+	enemy.position = position
+	enemy.facing = -1
+	level._entities.add_child(enemy)
+	enemy.health.setup(999, 0.0)
+	return enemy
 
 
 ## 方框內平均亮度與外圈（向外擴 ring 像素）平均亮度的對比。
