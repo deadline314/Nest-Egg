@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_q7nf8")
 id = &"brick"
+texture_scale = 8
 display_name = "老舊磚牆"
 body = "res://art/environment/materials/brick_body.png"
 top = "res://art/environment/materials/brick_top.png"

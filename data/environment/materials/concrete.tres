@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_jd4bp")
 id = &"concrete"
+texture_scale = 8
 display_name = "混凝土"
 body = "res://art/environment/materials/concrete_body.png"
 top = "res://art/environment/materials/concrete_top.png"

@@ -8,6 +8,8 @@ extends Resource
 @export_dir var prop_dir: String = "res://data/environment/props"
 ## 背景視差層（由遠到近）。空陣列時沿用程式繪製的天際線。
 @export var backdrop: Array[BackdropLayer] = []
+## 照片天空（左右無縫的長條，壓在程式天空漸層上）。空白時只用程式天空。
+@export var sky: BackdropLayer
 
 
 ## 指定欄所在的區段（from_tile 最大且 <= tile 者）。沒有區段時回傳 null。
@@ -23,6 +25,8 @@ func validate() -> PackedStringArray:
 	var problems := PackedStringArray()
 	if zones.is_empty():
 		problems.append("環境主題沒有任何區段")
+	if sky != null:
+		problems.append_array(sky.validate())
 	for layer in backdrop:
 		if layer == null:
 			problems.append("環境主題的背景層清單有空項目")

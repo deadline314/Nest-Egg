@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_bcmaw")
 id = &"container_blue"
+texture_scale = 8
 display_name = "藍色貨櫃"
 body = "res://art/environment/materials/container_blue_body.png"
 top = "res://art/environment/materials/container_blue_top.png"

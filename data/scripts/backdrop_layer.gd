@@ -2,7 +2,7 @@ class_name BackdropLayer
 extends Resource
 ## 背景視差層：一張可左右平鋪的貼圖（寬 640 邏輯像素）。有同名 `_glow.png` 時疊上自發光窗光。
 
-@export_file("*.png") var texture: String = ""
+@export_file("*.png", "*.webp") var texture: String = ""
 ## 隨鏡頭移動的比例（0 = 固定在畫面，1 = 跟世界一起）。越遠越小。
 @export_range(0.0, 1.0) var scroll_scale: float = 0.2
 ## 貼圖底邊的世界 y（邏輯像素）。

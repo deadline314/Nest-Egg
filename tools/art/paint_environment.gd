@@ -3,6 +3,7 @@ extends Node
 ## 並產生對應的資料檔（.tres）。只用 CPU，可以 --headless 執行。
 ## 用法：godot --headless --path . res://tools/art/paint_environment.tscn [-- --only=materials,facades,props,backdrop]
 ## 會覆蓋同名檔案；已換成手繪的項目請用 --only 指定要重畫的範圍（資料檔只在不存在時才建立，不會覆蓋手改的數值）。
+## 已換成免費素材的項目（列在 assets_src/pipeline/<類別>.json）一律略過，不會被暫代圖蓋掉。
 
 const ART_DIR := "res://art/environment"
 const DATA_DIR := "res://data/environment"
@@ -35,6 +36,20 @@ func _wanted(group: String) -> bool:
 	return _only.is_empty() or _only.has(group)
 
 
+## 這個項目已由免費素材流程接手（見 design/11-free-assets）：重畫暫代圖會把它蓋掉，所以略過。
+func _replaced(group: String, id: String) -> bool:
+	var path := "res://assets_src/pipeline/%s.json" % group
+	if not FileAccess.file_exists(path):
+		return false
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+	if not parsed is Dictionary:
+		return false
+	for entry in parsed.get(group, []):
+		if str(entry.get("id", "")) == id:
+			return true
+	return false
+
+
 # ---------------------------------------------------------------------------
 # 地形材質
 # ---------------------------------------------------------------------------
@@ -42,6 +57,8 @@ func _wanted(group: String) -> bool:
 func _paint_materials() -> void:
 	for spec in MaterialPainter.CATALOG:
 		var id := str(spec["id"])
+		if _replaced("materials", id):
+			continue
 		var images := MaterialPainter.paint(spec)
 		var paths := {}
 		for part: String in ["body", "top", "side"]:
@@ -70,6 +87,8 @@ func _paint_materials() -> void:
 func _paint_facades() -> void:
 	for spec in FacadePainter.CATALOG:
 		var id := str(spec["id"])
+		if _replaced("facades", id):
+			continue
 		var modules := FacadePainter.paint(spec)
 		var data := FacadeData.new()
 		data.id = StringName(id)
@@ -103,6 +122,8 @@ func _paint_facades() -> void:
 func _paint_props() -> void:
 	for spec in PropPainter.CATALOG:
 		var id := str(spec["id"])
+		if _replaced("props", id):
+			continue
 		var images := PropPainter.paint(spec)
 		var path := "%s/props/%s.png" % [ART_DIR, id]
 		var diffuse: EnvCanvas = images["diffuse"]
@@ -142,6 +163,8 @@ func _paint_props() -> void:
 func _paint_backdrop() -> void:
 	for spec in BackdropPainter.CATALOG:
 		var id := str(spec["id"])
+		if _replaced("backdrop", id):
+			continue
 		var images := BackdropPainter.paint(spec)
 		var path := "%s/backdrop/%s.png" % [ART_DIR, id]
 		var diffuse: EnvCanvas = images["diffuse"]

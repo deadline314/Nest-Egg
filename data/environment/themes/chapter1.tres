@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnvironmentTheme" load_steps=27 format=3]
+[gd_resource type="Resource" script_class="EnvironmentTheme" load_steps=28 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/env_zone.gd" id="1_env_zone"]
 [ext_resource type="Script" path="res://data/scripts/environment_theme.gd" id="2_environment_theme"]
@@ -55,6 +55,7 @@ from_tile = 240
 material = ExtResource("13_facility_floor")
 facades = Array[ExtResource("4_facade_data")]([ExtResource("14_facility_wall")])
 interior = "res://art/environment/materials/facility_panel_body.png"
+interior_scale = 8
 hole_chance = 0.0
 label = "設施入口"
 
@@ -64,6 +65,7 @@ from_tile = 262
 material = ExtResource("15_steel_plate")
 facades = Array[ExtResource("4_facade_data")]([ExtResource("14_facility_wall")])
 interior = "res://art/environment/materials/steel_plate_body.png"
+interior_scale = 8
 hole_chance = 0.0
 label = "停電走廊"
 
@@ -73,6 +75,7 @@ from_tile = 310
 material = ExtResource("16_hangar")
 facades = Array[ExtResource("4_facade_data")]([ExtResource("12_warehouse")])
 interior = "res://art/environment/materials/hangar_wall_body.png"
+interior_scale = 8
 hole_chance = 0.0
 label = "頭目機庫"
 
@@ -94,7 +97,16 @@ texture = "res://art/environment/backdrop/near_foreground.png"
 scroll_scale = 0.5
 bottom_y = 360.0
 
+[sub_resource type="Resource" id="Resource_sky"]
+script = ExtResource("3_backdrop_layer")
+texture = "res://art/environment/backdrop/sky_storm.webp"
+scroll_scale = 0.03
+bottom_y = 300.0
+texture_scale = 2
+tint = Color(1.4, 1.35, 1.5, 1)
+
 [resource]
 script = ExtResource("2_environment_theme")
 zones = Array[ExtResource("1_env_zone")]([SubResource("Resource_zone0"), SubResource("Resource_zone1"), SubResource("Resource_zone2"), SubResource("Resource_zone3"), SubResource("Resource_zone4"), SubResource("Resource_zone5"), SubResource("Resource_zone6")])
 backdrop = Array[ExtResource("3_backdrop_layer")]([SubResource("Resource_layer0"), SubResource("Resource_layer1"), SubResource("Resource_layer2")])
+sky = SubResource("Resource_sky")

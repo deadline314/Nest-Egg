@@ -8,6 +8,8 @@ const LEVEL_PATH := "res://data/levels/level_01.tres"
 
 var _out_dir := "user://screenshots"
 var _scenario := "all"
+## --brightness=0..1：拍攝時暫時調整亮度設定（看材質細節用；結束後還原）。-1 代表不動。
+var _brightness := -1.0
 
 
 func _ready() -> void:
@@ -16,6 +18,8 @@ func _ready() -> void:
 			_out_dir = arg.trim_prefix("--out=")
 		elif arg.begins_with("--scenario="):
 			_scenario = arg.trim_prefix("--scenario=")
+		elif arg.begins_with("--brightness="):
+			_brightness = float(arg.trim_prefix("--brightness="))
 	DirAccess.make_dir_recursive_absolute(_out_dir)
 	_run.call_deferred()
 
@@ -25,7 +29,11 @@ func _run() -> void:
 	# 劇情演出會暫停遊戲並蓋住畫面；只有 story 情境需要拍到演出。
 	Story.auto_skip = _scenario != "story" and _scenario != "story_ch2"
 	if _scenario.begins_with("spots"):
+		if _brightness >= 0.0:
+			Settings.set_brightness(_brightness)
 		await _run_spots()
+		if _brightness >= 0.0:
+			Settings.set_brightness(Settings.BRIGHTNESS_DEFAULT)
 		get_tree().quit()
 		return
 	if _scenario == "hud":

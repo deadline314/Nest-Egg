@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_qsf6i")
 id = &"facility_panel"
+texture_scale = 8
 display_name = "設施面板"
 body = "res://art/environment/materials/facility_panel_body.png"
 top = "res://art/environment/materials/facility_panel_top.png"

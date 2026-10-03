@@ -138,7 +138,8 @@ func _draw_interior(canvas: CanvasItem, col: int, rect: Rect2) -> void:
 		if cell.size.x <= 0.0:
 			continue
 		if texture != null:
-			canvas.draw_texture_rect_region(texture, cell, Rect2(cell.position * 4.0, cell.size * 4.0))
+			var texture_scale := float(zone.interior_scale)
+			canvas.draw_texture_rect_region(texture, cell, Rect2(cell.position * texture_scale, cell.size * texture_scale))
 			continue
 		canvas.draw_rect(cell, WALL_COLOR)
 		canvas.draw_rect(cell, SEAM_COLOR, false, 1.0)

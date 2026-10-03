@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_okl2s")
 id = &"hangar_wall"
+texture_scale = 8
 display_name = "機庫牆面"
 body = "res://art/environment/materials/hangar_wall_body.png"
 top = "res://art/environment/materials/hangar_wall_top.png"

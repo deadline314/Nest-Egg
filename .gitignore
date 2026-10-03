@@ -10,3 +10,7 @@ export_presets.cfg
 Thumbs.db
 .vscode/
 .idea/
+
+# Free-asset raw downloads (NE-56): re-fetch with tools/assets/fetch_assets.py
+/assets_src/raw/
+/assets_src/work/

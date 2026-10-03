@@ -1,0 +1,276 @@
+{
+ "defaults": {
+  "texture_scale": 8,
+  "top_height": 6,
+  "side_width": 6,
+  "normal_strength": 1.0
+ },
+ "materials": [
+  {
+   "id": "asphalt",
+   "source": "ph_tex_asphalt_02",
+   "tile_world": 64,
+   "grade": {
+    "brightness": 0.8,
+    "saturation": 0.6,
+    "tint": [
+     0.82,
+     0.92,
+     1.12
+    ],
+    "contrast": 1.1,
+    "gamma": 1.0
+   },
+   "normal_strength": 1.8
+  },
+  {
+   "id": "rooftop",
+   "source": "ph_tex_asphalt_05",
+   "tile_world": 64,
+   "grade": {
+    "brightness": 0.75,
+    "saturation": 0.55,
+    "tint": [
+     0.8,
+     0.85,
+     1.05
+    ],
+    "contrast": 1.1,
+    "gamma": 1.0
+   },
+   "normal_strength": 1.8
+  },
+  {
+   "id": "concrete",
+   "source": "ph_tex_concrete_floor_worn_001",
+   "tile_world": 64,
+   "grade": {
+    "brightness": 0.8,
+    "saturation": 0.6,
+    "tint": [
+     0.82,
+     0.92,
+     1.12
+    ],
+    "contrast": 1.1,
+    "gamma": 1.0
+   },
+   "normal_strength": 1.8
+  },
+  {
+   "id": "brick",
+   "source": "ph_tex_brick_wall_07",
+   "tile_world": 48,
+   "grade": {
+    "brightness": 0.55,
+    "saturation": 0.75,
+    "tint": [
+     0.95,
+     0.85,
+     1.0
+    ],
+    "contrast": 1.1,
+    "gamma": 1.0
+   }
+  },
+  {
+   "id": "container_blue",
+   "source": "ph_tex_corrugated_iron",
+   "tile_world": 48,
+   "grade": {
+    "brightness": 0.8,
+    "saturation": 1.0,
+    "tint": [
+     0.38,
+     0.55,
+     0.95
+    ],
+    "contrast": 1.1,
+    "gamma": 1.0
+   },
+   "normal_strength": 3.0
+  },
+  {
+   "id": "container_green",
+   "source": "ph_tex_corrugated_iron",
+   "tile_world": 48,
+   "grade": {
+    "brightness": 0.75,
+    "saturation": 1.0,
+    "tint": [
+     0.4,
+     0.78,
+     0.5
+    ],
+    "contrast": 1.1,
+    "gamma": 1.0
+   },
+   "normal_strength": 3.0
+  },
+  {
+   "id": "container_red",
+   "source": "ph_tex_corrugated_iron",
+   "tile_world": 48,
+   "grade": {
+    "brightness": 0.75,
+    "saturation": 1.0,
+    "tint": [
+     0.95,
+     0.34,
+     0.3
+    ],
+    "contrast": 1.1,
+    "gamma": 1.0
+   },
+   "normal_strength": 3.0
+  },
+  {
+   "id": "container_rust",
+   "source": "ph_tex_rusty_corrugated_iron",
+   "tile_world": 48,
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 0.9,
+    "tint": [
+     1.0,
+     0.85,
+     0.8
+    ],
+    "contrast": 1.1,
+    "gamma": 1.0
+   },
+   "normal_strength": 3.0
+  },
+  {
+   "id": "facility_floor",
+   "source": "acg_tex_metalplates017a",
+   "tile_world": 48,
+   "grade": {
+    "brightness": 0.6,
+    "saturation": 0.6,
+    "tint": [
+     0.82,
+     0.92,
+     1.12
+    ],
+    "contrast": 1.1,
+    "gamma": 1.0
+   }
+  },
+  {
+   "id": "facility_panel",
+   "source": "acg_tex_metalplates006",
+   "tile_world": 48,
+   "grade": {
+    "brightness": 0.75,
+    "saturation": 0.8,
+    "tint": [
+     0.82,
+     0.92,
+     1.12
+    ],
+    "contrast": 1.1,
+    "gamma": 1.0
+   },
+   "normal_strength": 1.8
+  },
+  {
+   "id": "glass_curtain",
+   "source": "acg_tex_facade001",
+   "tile_world": 48,
+   "grade": {
+    "brightness": 0.7,
+    "saturation": 0.9,
+    "tint": [
+     0.8,
+     1.0,
+     1.15
+    ],
+    "contrast": 1.1,
+    "gamma": 1.0
+   }
+  },
+  {
+   "id": "grate",
+   "source": "acg_tex_metalwalkway014",
+   "tile_world": 32,
+   "grade": {
+    "brightness": 0.7,
+    "saturation": 0.65,
+    "tint": [
+     0.85,
+     0.9,
+     1.05
+    ],
+    "contrast": 1.1,
+    "gamma": 1.0
+   }
+  },
+  {
+   "id": "hangar",
+   "source": "ph_tex_hangar_concrete_floor",
+   "tile_world": 64,
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 0.5,
+    "tint": [
+     1.0,
+     0.85,
+     0.8
+    ],
+    "contrast": 1.1,
+    "gamma": 1.0
+   },
+   "normal_strength": 1.8
+  },
+  {
+   "id": "hangar_wall",
+   "source": "acg_tex_paintedmetal004",
+   "tile_world": 48,
+   "grade": {
+    "brightness": 0.4,
+    "saturation": 0.8,
+    "tint": [
+     1.0,
+     0.7,
+     0.7
+    ],
+    "contrast": 1.1,
+    "gamma": 1.0
+   }
+  },
+  {
+   "id": "old_metal",
+   "source": "ph_tex_rusty_metal_03",
+   "tile_world": 48,
+   "grade": {
+    "brightness": 0.6,
+    "saturation": 0.8,
+    "tint": [
+     0.95,
+     0.85,
+     0.85
+    ],
+    "contrast": 1.1,
+    "gamma": 1.0
+   }
+  },
+  {
+   "id": "steel_plate",
+   "source": "ph_tex_metal_plate",
+   "tile_world": 48,
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 0.5,
+    "tint": [
+     0.82,
+     0.92,
+     1.12
+    ],
+    "contrast": 1.1,
+    "gamma": 1.0
+   },
+   "normal_strength": 1.8
+  }
+ ]
+}

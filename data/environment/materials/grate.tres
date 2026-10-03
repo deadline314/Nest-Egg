@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_mjqiu")
 id = &"grate"
+texture_scale = 8
 display_name = "格柵"
 body = "res://art/environment/materials/grate_body.png"
 top = "res://art/environment/materials/grate_top.png"

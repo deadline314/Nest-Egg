@@ -6,8 +6,10 @@ extends Resource
 @export var material: TerrainMaterialData
 ## 室外立面（街邊建築）；空陣列時退回原本的程式繪製。
 @export var facades: Array[FacadeData] = []
-## 室內牆面貼圖（64×64 可平鋪，4 倍解析度為 256）；空白時沿用預設金屬牆板。
+## 室內牆面貼圖（可平鋪）；空白時沿用預設金屬牆板。
 @export_file("*.png") var interior: String = ""
+## 室內牆面貼圖的解析度倍率（貼圖像素 ÷ 邏輯像素）。
+@export_range(1, 16) var interior_scale: int = 4
 ## 室內牆面鏤空（露出夜景）的機率。
 @export_range(0.0, 1.0) var hole_chance: float = 0.22
 ## 備註：這一段是什麼地方（例如「屋頂巷弄」）。

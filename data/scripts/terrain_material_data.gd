@@ -1,13 +1,16 @@
 class_name TerrainMaterialData
 extends Resource
 ## 地形材質：本體（可雙向平鋪）、頂面（沿頂端的橫條）、側邊（沿左右邊緣的直條）三張貼圖。
-## 貼圖以 4 倍解析度繪製：一格 16 像素的地形，本體貼圖是 64 像素。
+## 貼圖解析度由 texture_scale 決定（每個邏輯像素對應幾個貼圖像素，預設 4）：
+## 一格 16 像素的地形，預設本體貼圖是 64 像素；免費素材加工的高解析版本用 8（見 design/11-free-assets）。
 ## 每張貼圖可附同名的 `_n.png`（法線）；缺圖時顯示替代圖並記錄路徑。
 
 const TEXTURE_SCALE := 4
 
 @export var id: StringName = &""
 @export var display_name: String = ""
+## 貼圖像素 ÷ 邏輯像素。本體貼圖的邊長 = texture_scale × 每次重複涵蓋的邏輯像素。
+@export_range(1, 16) var texture_scale: int = TEXTURE_SCALE
 @export_file("*.png") var body: String = ""
 @export_file("*.png") var top: String = ""
 @export_file("*.png") var side: String = ""

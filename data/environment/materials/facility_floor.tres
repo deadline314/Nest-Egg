@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_ukt8x")
 id = &"facility_floor"
+texture_scale = 8
 display_name = "設施地板"
 body = "res://art/environment/materials/facility_floor_body.png"
 top = "res://art/environment/materials/facility_floor_top.png"

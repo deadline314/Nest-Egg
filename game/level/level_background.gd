@@ -13,12 +13,15 @@ const HORIZON := 300.0
 
 ## 環境主題的背景貼圖層（由遠到近）；空陣列時使用程式繪製的天際線。要在加入場景樹之前指定。
 var backdrop: Array[BackdropLayer] = []
+## 環境主題的照片天空；null 或貼圖缺失時只用程式天空。要在加入場景樹之前指定。
+var sky: BackdropLayer
 
 
 func _ready() -> void:
 	z_as_relative = false
 	z_index = BACKGROUND_Z
 	_add_layer(0.0, _Sky.new(), false)
+	_add_photo_sky()
 	_add_layer(0.03, _Arcology.new(), false)
 	_add_layer(0.05, _Searchlights.new(), false)
 	if backdrop.is_empty():
@@ -32,6 +35,29 @@ func _ready() -> void:
 		# 車流夾在遠景與中景之間。
 		if i == 0:
 			_add_layer(0.16, _Traffic.new(), true)
+
+
+## 照片天空：整圈全景切成的長條（左右無縫），慢速視差，上緣透明漸層接上程式天空。
+func _add_photo_sky() -> void:
+	if sky == null:
+		return
+	var texture := RigLibrary.optional_texture(sky.texture)
+	if texture == null:
+		push_warning("[LevelBackground] 找不到天空貼圖，改用程式天空：%s" % sky.texture)
+		return
+	var factor := 1.0 / float(maxi(1, sky.texture_scale))
+	var parallax := Parallax2D.new()
+	parallax.scroll_scale = Vector2(sky.scroll_scale, sky.scroll_scale * 0.4)
+	parallax.repeat_size = Vector2(float(texture.get_width()) * factor, 0.0)
+	var sprite := Sprite2D.new()
+	sprite.texture = texture
+	sprite.centered = false
+	sprite.scale = Vector2.ONE * factor
+	sprite.modulate = sky.tint
+	sprite.light_mask = 0
+	sprite.position = Vector2(0.0, sky.bottom_y - float(texture.get_height()) * factor)
+	parallax.add_child(sprite)
+	add_child(parallax)
 
 
 ## 貼圖背景層：左右無縫平鋪的圖（寬 640 邏輯像素）+ 自發光窗光。

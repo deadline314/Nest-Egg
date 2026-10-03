@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_jmine")
 id = &"asphalt"
+texture_scale = 8
 display_name = "濕柏油路"
 body = "res://art/environment/materials/asphalt_body.png"
 top = "res://art/environment/materials/asphalt_top.png"

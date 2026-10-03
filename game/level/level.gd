@@ -69,6 +69,7 @@ func _ready() -> void:
 	_background = LevelBackground.new()
 	if data.environment != null:
 		_background.backdrop = data.environment.backdrop
+		_background.sky = data.environment.sky
 	add_child(_background)
 	_world = Node2D.new()
 	_world.name = "World"

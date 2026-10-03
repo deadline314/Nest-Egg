@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_mohry")
 id = &"container_red"
+texture_scale = 8
 display_name = "紅色貨櫃"
 body = "res://art/environment/materials/container_red_body.png"
 top = "res://art/environment/materials/container_red_top.png"

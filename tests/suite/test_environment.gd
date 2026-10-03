@@ -11,6 +11,7 @@ func run() -> void:
 	_test_backdrop()
 	_test_theme()
 	_test_missing_texture()
+	_test_sky()
 	await _test_level_with_environment()
 	await _test_level_without_environment()
 	_test_chapter_one()
@@ -27,9 +28,10 @@ func _test_materials() -> void:
 	for res in list:
 		var m := res as TerrainMaterialData
 		check(m.validate().is_empty(), "材質 %s 的三張貼圖與法線都存在" % m.id)
-		check(_png_size(m.body) == Vector2i(64, 64), "材質 %s 本體是 64×64（4 倍解析度）" % m.id)
-		check(_png_size(m.top) == Vector2i(64, 24), "材質 %s 頂面是 64×24" % m.id)
-		check(_png_size(m.side) == Vector2i(24, 64), "材質 %s 側邊是 24×64" % m.id)
+		var body := _png_size(m.body)
+		check(body.x == body.y and body.x % m.texture_scale == 0 and body.x >= 64 and body.x <= 768, "材質 %s 本體是正方形、邊長是貼圖倍率的整數倍且在 64～768（%s）" % [m.id, body])
+		check(_png_size(m.top) == Vector2i(body.x, roundi(m.top_height * m.texture_scale)), "材質 %s 頂面寬同本體、高 = 頂面厚度 × 倍率" % m.id)
+		check(_png_size(m.side) == Vector2i(roundi(m.side_width * m.texture_scale), body.y), "材質 %s 側邊寬 = 側邊厚度 × 倍率、高同本體" % m.id)
 
 
 func _test_facades() -> void:
@@ -38,9 +40,11 @@ func _test_facades() -> void:
 	for res in list:
 		var f := res as FacadeData
 		check(f.validate().is_empty(), "立面 %s 的模組貼圖都存在" % f.id)
-		check(_png_size(f.ground[0]) == Vector2i(256, 160), "立面 %s 一樓模組是 256×160" % f.id)
-		check(_png_size(f.body[0]) == Vector2i(256, 128), "立面 %s 標準樓層是 256×128" % f.id)
-		check(_png_size(f.cap[0]) == Vector2i(256, 32), "立面 %s 女兒牆是 256×32" % f.id)
+		for group: Array in [[f.ground, FacadeData.GROUND_HEIGHT, "一樓"], [f.body, FacadeData.BODY_HEIGHT, "標準樓層"], [f.cap, FacadeData.CAP_HEIGHT, "女兒牆"]]:
+			for path: String in group[0]:
+				var size := Vector2(_png_size(path))
+				check(size.x >= FacadeData.MODULE_WIDTH * 4.0 and size.x <= 1024.0, "立面 %s %s模組寬度至少 4 倍解析度且不超過 1024（%s）" % [f.id, group[2], size])
+				check(absf(size.x / size.y - FacadeData.MODULE_WIDTH / float(group[1])) < 0.03, "立面 %s %s模組長寬比是 %d:%d（%s）" % [f.id, group[2], int(FacadeData.MODULE_WIDTH), int(group[1]), path.get_file()])
 		check(ResourceLoader.exists(FacadeData.glow_path(f.body[0])), "立面 %s 有自發光層" % f.id)
 		check(ResourceLoader.exists(f.body[0].get_basename() + "_n.png"), "立面 %s 有法線貼圖" % f.id)
 
@@ -53,7 +57,10 @@ func _test_props() -> void:
 	var categories: Dictionary[StringName, int] = {}
 	for prop in list:
 		check(prop.validate().is_empty(), "道具 %s 資料與貼圖完整" % prop.id)
-		check(_png_size(prop.texture) == Vector2i(prop.size) * PropData.TEXTURE_SCALE, "道具 %s 貼圖是邏輯大小的 4 倍" % prop.id)
+		var tex := Vector2(_png_size(prop.texture))
+		check(tex.x >= prop.size.x * PropData.TEXTURE_SCALE - 1.0 and tex.y >= prop.size.y * PropData.TEXTURE_SCALE - 1.0, "道具 %s 貼圖至少是邏輯大小的 4 倍（%s）" % [prop.id, tex])
+		check(maxf(tex.x, tex.y) <= 1024.0, "道具 %s 貼圖不超過 1024 像素" % prop.id)
+		check(absf(tex.x / tex.y - prop.size.x / prop.size.y) < 0.04, "道具 %s 貼圖長寬比與邏輯大小一致" % prop.id)
 		if prop.has_glow:
 			glowing += 1
 		if prop.platform.size.x > 0.0:
@@ -102,6 +109,31 @@ func _test_missing_texture() -> void:
 	var material := TerrainMaterialData.new()
 	material.id = &"test_missing_prop_material"
 	check(not material.validate().is_empty(), "缺貼圖的材質會被指出")
+
+
+## 照片天空（NE-60）：第一章主題有天空、貼圖規格正確；缺圖時退回程式天空而不是崩潰。
+func _test_sky() -> void:
+	var theme := load("res://data/environment/themes/chapter1.tres") as EnvironmentTheme
+	check(theme != null and theme.validate().is_empty(), "第一章主題（含天空）通過檢查")
+	check(theme.sky != null, "第一章主題指定了照片天空")
+	var tex := Vector2(_png_size(theme.sky.texture))
+	check(tex.x >= 2048.0 and tex.x <= 4096.0 and tex.y >= 200.0, "天空貼圖是左右環繞的長條，寬 2048～4096（%s）" % tex)
+	var control := LevelBackground.new()
+	runner.add_child(control)
+	var with_sky := LevelBackground.new()
+	with_sky.sky = theme.sky
+	runner.add_child(with_sky)
+	check(with_sky.get_child_count() == control.get_child_count() + 1, "有天空時多一層視差天空")
+	var broken := BackdropLayer.new()
+	broken.texture = "res://art/environment/backdrop/test_missing_prop_sky.webp"
+	check("
+".join(broken.validate()).contains("test_missing_prop_sky.webp"), "缺天空貼圖時檢查會指出具體路徑")
+	var fallback := LevelBackground.new()
+	fallback.sky = broken
+	runner.add_child(fallback)
+	check(fallback.get_child_count() == control.get_child_count(), "缺天空貼圖時退回程式天空，不多也不少一層")
+	for node in [control, with_sky, fallback]:
+		node.queue_free()
 
 
 func _test_level_with_environment() -> void:

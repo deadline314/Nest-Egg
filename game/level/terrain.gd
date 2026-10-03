@@ -166,7 +166,6 @@ func _draw_regions(canvas: CanvasItem, area: Rect2) -> void:
 
 ## 單向平台：用所在區段材質的頂面條，底下加一道陰影，讓「可以站」一眼看得出來。
 func _draw_themed_platforms(canvas: CanvasItem, area: Rect2) -> void:
-	var scale_factor := float(TerrainMaterialData.TEXTURE_SCALE)
 	for full in _platform_rects:
 		var rect := full.intersection(area)
 		if rect.size.x <= 0.0:
@@ -174,6 +173,7 @@ func _draw_themed_platforms(canvas: CanvasItem, area: Rect2) -> void:
 		var zone := _theme.zone_at(int(floor(rect.position.x / _tile)))
 		if zone == null or zone.material == null:
 			continue
+		var scale_factor := float(zone.material.texture_scale)
 		var top_h := zone.material.top_height
 		var dest := Rect2(rect.position, Vector2(rect.size.x, top_h))
 		canvas.draw_texture_rect_region(_material_texture(zone.material.top), dest,
@@ -182,7 +182,7 @@ func _draw_themed_platforms(canvas: CanvasItem, area: Rect2) -> void:
 
 
 func _draw_piece(canvas: CanvasItem, material: TerrainMaterialData, piece: Rect2, full: Rect2) -> void:
-	var scale_factor := float(TerrainMaterialData.TEXTURE_SCALE)
+	var scale_factor := float(material.texture_scale)
 	var body := _material_texture(material.body)
 	canvas.draw_texture_rect_region(body, piece, Rect2(piece.position * scale_factor, piece.size * scale_factor))
 	var top_h := material.top_height

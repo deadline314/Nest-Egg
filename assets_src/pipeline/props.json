@@ -1,0 +1,91 @@
+{
+ "defaults": {
+  "texture_scale": 8,
+  "grade": {
+   "brightness": 0.85,
+   "saturation": 0.85,
+   "tint": [
+    0.92,
+    0.97,
+    1.1
+   ],
+   "contrast": 1.05,
+   "gamma": 1.0
+  }
+ },
+ "props": [
+  {
+   "id": "ac_unit",
+   "model": "ph_mod_exterior_aircon_unit",
+   "crop": [
+    0.0,
+    0.0,
+    0.5,
+    0.8
+   ],
+   "fit": "width"
+  },
+  {
+   "id": "ac_unit_big",
+   "model": "ph_mod_exterior_aircon_unit",
+   "crop": [
+    0.5,
+    0.0,
+    1.0,
+    0.8
+   ],
+   "fit": "width"
+  },
+  {
+   "id": "street_lamp",
+   "model": "ph_mod_street_lamp_01",
+   "glow": [
+    "bulb"
+   ],
+   "render_width": 384,
+   "glow_color": [
+    1.0,
+    0.9,
+    0.7
+   ],
+   "glow_through": true
+  },
+  {
+   "id": "utility_pole",
+   "model": "ph_mod_modular_electricity_poles",
+   "crop": [
+    0.0,
+    0.0,
+    0.14,
+    1.0
+   ],
+   "render_width": 1536
+  },
+  {
+   "id": "camera_wall",
+   "model": "ph_mod_security_camera_01",
+   "glow": [
+    "glass"
+   ],
+   "fit": "width",
+   "render_width": 512,
+   "yaw": -90,
+   "glow_color": [
+    1.0,
+    0.2,
+    0.2
+   ]
+  },
+  {
+   "id": "trash_can",
+   "model": "ph_mod_metal_trash_can",
+   "crop": [
+    0.1,
+    0.0,
+    0.5,
+    1.0
+   ],
+   "fit": "height"
+  }
+ ]
+}

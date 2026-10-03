@@ -1,0 +1,185 @@
+{
+ "skies": [
+  {
+   "id": "sky_rain_night",
+   "source": "ph_hdr_qwantani_night_puresky",
+   "elevation": [
+    2,
+    72
+   ],
+   "yaw_deg": 0,
+   "grade": {
+    "brightness": 0.55,
+    "saturation": 1.3,
+    "tint": [
+     0.8,
+     0.72,
+     1.1
+    ],
+    "contrast": 1.2,
+    "gamma": 1.15
+   },
+   "horizon_glow": {
+    "color": [
+     0.6,
+     0.14,
+     0.5
+    ],
+    "strength": 0.28,
+    "falloff": 2.2
+   },
+   "top_fade": 0.3
+  },
+  {
+   "id": "sky_city_glow",
+   "source": "ph_hdr_shanghai_bund",
+   "elevation": [
+    50,
+    86
+   ],
+   "yaw_deg": 0,
+   "grade": {
+    "brightness": 0.7,
+    "saturation": 1.1,
+    "tint": [
+     0.95,
+     0.8,
+     1.15
+    ],
+    "contrast": 1.1,
+    "gamma": 1.1
+   },
+   "horizon_glow": {
+    "color": [
+     0.5,
+     0.12,
+     0.45
+    ],
+    "strength": 0.18,
+    "falloff": 2.0
+   },
+   "top_fade": 0.3
+  },
+  {
+   "id": "sky_dawn",
+   "source": "ph_hdr_rooftop_night",
+   "elevation": [
+    26,
+    82
+   ],
+   "yaw_deg": 0,
+   "grade": {
+    "brightness": 0.75,
+    "saturation": 1.1,
+    "tint": [
+     1.0,
+     0.85,
+     1.05
+    ],
+    "contrast": 1.1,
+    "gamma": 1.05
+   },
+   "horizon_glow": {
+    "color": [
+     0.6,
+     0.3,
+     0.25
+    ],
+    "strength": 0.15,
+    "falloff": 2.0
+   },
+   "top_fade": 0.3
+  },
+  {
+   "id": "sky_haze",
+   "source": "ph_hdr_kloppenheim_02_puresky",
+   "elevation": [
+    3,
+    73
+   ],
+   "yaw_deg": 90,
+   "grade": {
+    "brightness": 0.5,
+    "saturation": 0.9,
+    "tint": [
+     0.75,
+     0.85,
+     1.1
+    ],
+    "contrast": 1.2,
+    "gamma": 1.2
+   },
+   "horizon_glow": {
+    "color": [
+     0.25,
+     0.3,
+     0.5
+    ],
+    "strength": 0.2,
+    "falloff": 2.0
+   },
+   "top_fade": 0.3
+  },
+  {
+   "id": "sky_storm",
+   "source": "ph_hdr_kloofendal_overcast_puresky",
+   "elevation": [
+    4,
+    74
+   ],
+   "yaw_deg": 0,
+   "grade": {
+    "brightness": 0.4,
+    "saturation": 1.0,
+    "tint": [
+     0.95,
+     0.85,
+     1.15
+    ],
+    "contrast": 1.8,
+    "gamma": 1.1
+   },
+   "horizon_glow": {
+    "color": [
+     0.62,
+     0.12,
+     0.5
+    ],
+    "strength": 0.3,
+    "falloff": 1.8
+   },
+   "top_fade": 0.3
+  },
+  {
+   "id": "sky_misty_dawn",
+   "source": "ph_hdr_kloofendal_misty_morning_puresky",
+   "elevation": [
+    4,
+    74
+   ],
+   "yaw_deg": 0,
+   "grade": {
+    "brightness": 0.4,
+    "saturation": 0.8,
+    "tint": [
+     0.85,
+     0.95,
+     1.15
+    ],
+    "contrast": 1.3,
+    "gamma": 1.2
+   },
+   "horizon_glow": {
+    "color": [
+     0.3,
+     0.4,
+     0.5
+    ],
+    "strength": 0.2,
+    "falloff": 2.0
+   },
+   "top_fade": 0.3
+  }
+ ],
+ "backdrop": []
+}

@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_ulv3p")
 id = &"steel_plate"
+texture_scale = 8
 display_name = "鋼板"
 body = "res://art/environment/materials/steel_plate_body.png"
 top = "res://art/environment/materials/steel_plate_top.png"
