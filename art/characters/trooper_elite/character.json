@@ -1,0 +1,320 @@
+{
+  "id": "trooper_elite",
+  "display_name": "精銳保全",
+  "rig": "res://art/rigs/trooper_elite.json",
+  "texture_scale": 0.05,
+  "scale": 1.0,
+  "description": "外觀（skin）定義：textures 是零件圖片的尺寸與支點；parts 是把圖片掛到骨頭上的方式。由 tools/comfyui/cut_layers.py 依分件圖層切出。",
+  "textures": {
+    "pelvis": {
+      "file": "parts/pelvis.png",
+      "size": [
+        195,
+        135
+      ],
+      "pivot": [
+        86.29,
+        109.08
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "torso": {
+      "file": "parts/torso.png",
+      "size": [
+        202,
+        258
+      ],
+      "pivot": [
+        96.31,
+        232.04
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
+      "glow": "parts/torso_glow.png"
+    },
+    "head": {
+      "file": "parts/head.png",
+      "size": [
+        164,
+        204
+      ],
+      "pivot": [
+        64.13,
+        204.35
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
+      "glow": "parts/head_glow.png"
+    },
+    "leg_upper": {
+      "file": "parts/leg_upper.png",
+      "size": [
+        180,
+        239
+      ],
+      "pivot": [
+        82.66,
+        -11.12
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "leg_lower": {
+      "file": "parts/leg_lower.png",
+      "size": [
+        176,
+        337
+      ],
+      "pivot": [
+        73.54,
+        8.08
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "foot": {
+      "file": "parts/foot.png",
+      "size": [
+        135,
+        193
+      ],
+      "pivot": [
+        -31.23,
+        110.61
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
+      "glow": "parts/foot_glow.png"
+    },
+    "arm_upper": {
+      "file": "parts/arm_upper.png",
+      "size": [
+        137,
+        199
+      ],
+      "pivot": [
+        66.98,
+        21.44
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "arm_lower": {
+      "file": "parts/arm_lower.png",
+      "size": [
+        102,
+        134
+      ],
+      "pivot": [
+        48.41,
+        7.94
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
+      "glow": "parts/arm_lower_glow.png"
+    },
+    "hand": {
+      "file": "parts/hand.png",
+      "size": [
+        100,
+        84
+      ],
+      "pivot": [
+        -4.39,
+        55.49
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "armor_chest": {
+      "file": "parts/armor_chest.png",
+      "size": [
+        104,
+        192
+      ],
+      "pivot": [
+        -6.69,
+        237.04
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "armor_shoulder": {
+      "file": "parts/armor_shoulder.png",
+      "size": [
+        153,
+        161
+      ],
+      "pivot": [
+        75.75,
+        77.74
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "armor_forearm": {
+      "file": "parts/armor_forearm.png",
+      "size": [
+        114,
+        196
+      ],
+      "pivot": [
+        48.36,
+        24.31
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "armor_knee": {
+      "file": "parts/armor_knee.png",
+      "size": [
+        115,
+        114
+      ],
+      "pivot": [
+        60.71,
+        59.9
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    }
+  },
+  "parts": [
+    {
+      "name": "arm_back_upper",
+      "texture": "arm_upper",
+      "bone": "arm_back_upper",
+      "z": -7,
+      "tint": 0.62
+    },
+    {
+      "name": "arm_back_lower",
+      "texture": "arm_lower",
+      "bone": "arm_back_lower",
+      "z": -7,
+      "tint": 0.62
+    },
+    {
+      "name": "hand_back",
+      "texture": "hand",
+      "bone": "hand_back",
+      "z": -6,
+      "tint": 0.62
+    },
+    {
+      "name": "armor_shoulder_back",
+      "texture": "armor_shoulder",
+      "bone": "arm_back_upper",
+      "z": -6,
+      "tint": 0.62,
+      "armor_order": 1
+    },
+    {
+      "name": "armor_forearm_back",
+      "texture": "armor_forearm",
+      "bone": "arm_back_lower",
+      "z": -6,
+      "tint": 0.62,
+      "armor_order": 2
+    },
+    {
+      "name": "leg_back_upper",
+      "texture": "leg_upper",
+      "bone": "leg_back_upper",
+      "z": -5,
+      "tint": 0.62
+    },
+    {
+      "name": "leg_back_lower",
+      "texture": "leg_lower",
+      "bone": "leg_back_lower",
+      "z": -5,
+      "tint": 0.62
+    },
+    {
+      "name": "foot_back",
+      "texture": "foot",
+      "bone": "foot_back",
+      "z": -5,
+      "tint": 0.62
+    },
+    {
+      "name": "armor_knee_back",
+      "texture": "armor_knee",
+      "bone": "leg_back_lower",
+      "z": -4,
+      "tint": 0.62,
+      "armor_order": 3
+    },
+    {
+      "name": "pelvis",
+      "texture": "pelvis",
+      "bone": "hip",
+      "z": 0
+    },
+    {
+      "name": "torso",
+      "texture": "torso",
+      "bone": "chest",
+      "z": 1
+    },
+    {
+      "name": "armor_chest",
+      "texture": "armor_chest",
+      "bone": "chest",
+      "z": 2,
+      "armor_order": 4
+    },
+    {
+      "name": "leg_front_upper",
+      "texture": "leg_upper",
+      "bone": "leg_front_upper",
+      "z": 3
+    },
+    {
+      "name": "leg_front_lower",
+      "texture": "leg_lower",
+      "bone": "leg_front_lower",
+      "z": 3
+    },
+    {
+      "name": "foot_front",
+      "texture": "foot",
+      "bone": "foot_front",
+      "z": 3
+    },
+    {
+      "name": "armor_knee",
+      "texture": "armor_knee",
+      "bone": "leg_front_lower",
+      "z": 4,
+      "armor_order": 3
+    },
+    {
+      "name": "head",
+      "texture": "head",
+      "bone": "head",
+      "z": 5
+    },
+    {
+      "name": "arm_front_upper",
+      "texture": "arm_upper",
+      "bone": "arm_front_upper",
+      "z": 8
+    },
+    {
+      "name": "arm_front_lower",
+      "texture": "arm_lower",
+      "bone": "arm_front_lower",
+      "z": 8
+    },
+    {
+      "name": "armor_shoulder",
+      "texture": "armor_shoulder",
+      "bone": "arm_front_upper",
+      "z": 9,
+      "armor_order": 1
+    },
+    {
+      "name": "armor_forearm",
+      "texture": "armor_forearm",
+      "bone": "arm_front_lower",
+      "z": 9,
+      "armor_order": 2
+    },
+    {
+      "name": "hand_front",
+      "texture": "hand",
+      "bone": "hand_front",
+      "z": 10
+    }
+  ]
+}

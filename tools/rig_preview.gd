@@ -16,7 +16,7 @@ const POSES := ["idle", "run", "aim_up", "crouch", "jump", "block", "dead"]
 const SHEET_POSES := ["idle", "run", "aim_up", "crouch", "jump", "block", "stagger", "dead"]
 const SHEET_WEAPONS := {
 	"rin": "rifle", "trooper": "smg", "grenadier": "launcher", "enforcer": "pistol", "warden": "minigun",
-	"old_k": "pistol", "mei": "smg", "wataru": "", "reclaimer": "rifle", "sniper": "sniper", "flamer": "flamethrower", "heavy_gunner": "minigun",
+	"trooper_elite": "rifle", "old_k": "pistol", "mei": "smg", "wataru": "", "reclaimer": "rifle", "sniper": "sniper", "flamer": "flamethrower", "heavy_gunner": "minigun",
 }
 
 var _out := ""

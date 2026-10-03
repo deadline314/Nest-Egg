@@ -1,0 +1,55 @@
+[
+  {
+    "step": "parts",
+    "seconds": 81.5,
+    "outputs": [
+      "art_src\\characters\\trooper_elite\\06_parts",
+      "art_src\\characters\\trooper_elite\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.0,
+    "outputs": [
+      "art_src\\characters\\trooper_elite\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 1.7,
+    "outputs": [
+      "art\\characters\\trooper_elite\\character.json",
+      "art\\rigs\\trooper_elite.json",
+      "art\\characters\\trooper_elite\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 2.4,
+    "outputs": [
+      "art\\characters\\trooper_elite\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 4.8,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "preview",
+    "seconds": 12.3,
+    "outputs": [
+      "art_src\\characters\\trooper_elite\\08_preview\\poses.png",
+      "art_src\\characters\\trooper_elite\\08_preview\\closeup.png",
+      "art_src\\characters\\trooper_elite\\08_preview\\head.png",
+      "art_src\\characters\\trooper_elite\\08_preview\\damage.png"
+    ]
+  }
+]

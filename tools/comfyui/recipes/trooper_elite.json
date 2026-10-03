@@ -1,0 +1,33 @@
+{
+  "description": "精銳保全（trooper_elite）的建置配方：build_character.py 依這份檔案從頭產出角色。每個步驟的輸入輸出見 design/03-art-pipeline/CHARACTER_PIPELINE.md。",
+  "id": "trooper_elite",
+  "name": "精銳保全",
+  "template": "armored",
+  "spec": "tools/comfyui/specs/trooper_elite_side.json",
+  "rig": "art/rigs/trooper_elite.json",
+  "work": "art_src/characters/trooper_elite",
+  "height": 56.0,
+  "scale": 1.0,
+  "weapon": "rifle",
+  "armor": [
+    "shoulder",
+    "forearm",
+    "knee",
+    "chest"
+  ],
+  "glow": "o",
+  "glow_parts": [
+    "head",
+    "torso",
+    "arm_lower",
+    "foot"
+  ],
+  "design": {
+    "size": [
+      832,
+      1216
+    ],
+    "pick": 3,
+    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat colors, bold clean black outlines, hard-edged two-tone shading, saturated neon accents. Full body, strict side view facing right, standing upright with the arms relaxed at the sides and empty hands, the far-side leg hidden behind the near leg. an elite Skydome corporate security trooper, slightly taller and broader than a regular trooper, about seven heads tall: a darker charcoal-blue armored tactical uniform with an extra layered shoulder pauldron with a bright orange rank stripe, a heavier chest armor plate, a full closed helmet with a dark visor and a small antenna, forearm guards, knee pads, black combat boots, dark gloves."
+  }
+}
