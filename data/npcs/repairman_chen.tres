@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="NpcData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/npc_data.gd" id="1_npc"]
+[ext_resource type="Script" path="res://data/scripts/npc_talk.gd" id="2_talk"]
+[ext_resource type="Resource" path="res://data/consumables/shield_cell.tres" id="3_cell"]
+
+[sub_resource type="Resource" id="Talk_0"]
+script = ExtResource("2_talk")
+scene = &"c2_npc_chen_1"
+consumable = ExtResource("3_cell")
+
+[sub_resource type="Resource" id="Talk_1"]
+script = ExtResource("2_talk")
+scene = &"c2_npc_chen_2"
+min_talks = 1
+
+[resource]
+script = ExtResource("1_npc")
+id = &"repairman_chen"
+display_name = "維修員老陳"
+speaker = "chen"
+pose = &"crouch"
+facing = -1
+talks = Array[ExtResource("2_talk")]([SubResource("Talk_0"), SubResource("Talk_1")])

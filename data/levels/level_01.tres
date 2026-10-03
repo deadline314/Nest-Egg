@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=44 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=43 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_script"]
 [ext_resource type="Resource" path="res://data/enemies/grunt.tres" id="2_grunt"]
@@ -35,6 +35,8 @@
 [ext_resource type="Script" path="res://data/scripts/lighting_event.gd" id="31_event"]
 [ext_resource type="Resource" path="res://data/lighting/blackout.tres" id="32_blackout"]
 [ext_resource type="Resource" path="res://data/lighting/alarm.tres" id="33_alarm"]
+[ext_resource type="Resource" path="res://data/npcs/ah_po.tres" id="60_ahpo"]
+[ext_resource type="Resource" path="res://data/npcs/night_worker.tres" id="61_worker"]
 
 [sub_resource type="Resource" id="Resource_zone0"]
 script = ExtResource("30_zone")
@@ -82,6 +84,8 @@ display_name = "第一章　雨夜"
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
+"W": ExtResource("61_worker"),
+"A": ExtResource("60_ahpo"),
 "G": ExtResource("14_launcher"),
 "L": ExtResource("10_laser"),
 "M": ExtResource("11_bulwark"),
@@ -119,7 +123,7 @@ next_level = "res://data/levels/level_02.tres"
 intro_scene = &"prologue"
 boss_scene = &"boss_intro"
 outro_scene = &"epilogue"
-story_triggers = PackedStringArray("radio_start", "radio_market", "radio_shield", "radio_mech", "radio_facility", "radio_last")
+story_triggers = PackedStringArray("radio_start", "radio_roof", "radio_market", "radio_market_mei", "radio_shield", "radio_forecast", "radio_mech", "radio_facility", "radio_arm", "radio_last")
 environment = ExtResource("47_theme")
 layout_path = "res://data/levels/level_01_map.json"
 lighting_zones = Array[ExtResource("30_zone")]([SubResource("Resource_zone0"), SubResource("Resource_zone1"), SubResource("Resource_zone2"), SubResource("Resource_zone3"), SubResource("Resource_zone4")])

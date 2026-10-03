@@ -1,8 +1,8 @@
 class_name DialogueLayer
 extends CanvasLayer
 ## 對話介面（由 Story 服務持有）：
-##   過場：暫停遊戲、上下黑邊、頭像＋講者名＋逐字顯示；點擊／Enter／射擊鍵推進（第一下先顯示完整句子），Esc 跳過整段。
-##   通訊：畫面左上角的小面板，不暫停，逐字顯示後依字數停留再自動換下一句。
+##   過場：暫停遊戲、上下黑邊、頭像＋講者名＋逐字顯示；點擊／Enter／射擊／互動鍵推進（第一下先顯示完整句子），Esc 跳過整段。
+##   通訊：畫面左上角的小面板，不暫停，逐字顯示後依字數停留再自動換下一句；台詞帶 delay 時先收起面板沉默那麼久。
 
 signal cinematic_finished(scene_id: StringName)
 signal radio_finished(scene_id: StringName)
@@ -38,6 +38,8 @@ var _radio_slide: Tween
 var _radio_text: Label
 var _radio_queue: Array[Dictionary] = []  # { id, line, last }
 var _radio_hold := 0.0
+## 這一句顯示前還要沉默幾秒（台詞的 delay）；沉默期間通訊框是收起來的。
+var _radio_wait := 0.0
 var _radio_active := false
 var _time := 0.0
 
@@ -116,6 +118,7 @@ func _input(event: InputEvent) -> void:
 		finish_cinematic()
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed(&"ui_accept") or event.is_action_pressed(&"shoot") or event.is_action_pressed(&"jump") \
+			or event.is_action_pressed(&"interact") \
 			or (event is InputEventMouseButton and event.is_pressed() and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT):
 		advance()
 		get_viewport().set_input_as_handled()
@@ -155,13 +158,11 @@ func _next_radio() -> void:
 	_radio_text.visible_ratio = 0.0
 	_radio_portrait.texture = _portrait_texture(line["portrait"])
 	_radio_hold = RADIO_HOLD_BASE + str(line["text"]).length() * RADIO_HOLD_PER_CHAR
+	_radio_wait = float(line.get("delay", 0.0))
 	var was_hidden := not _radio_root.visible or _radio_root.modulate.a < 0.5
-	_radio_root.visible = not is_cinematic_active()
-	if was_hidden:
-		_slide_radio_in()
-	else:
-		_radio_root.modulate.a = 1.0
-	Sfx.play(&"telegraph", -18.0, 0.0)
+	_radio_root.visible = not is_cinematic_active() and _radio_wait <= 0.0
+	if _radio_wait <= 0.0:
+		_reveal_radio(was_hidden)
 
 
 func _process(delta: float) -> void:
@@ -172,6 +173,12 @@ func _process(delta: float) -> void:
 		_continue.visible = _text.visible_ratio >= 1.0 and int(_time * 3.0) % 2 == 0
 		return
 	if not _radio_active or get_tree().paused:
+		return
+	if _radio_wait > 0.0:
+		_radio_wait -= delta
+		if _radio_wait <= 0.0:
+			_radio_root.visible = true
+			_reveal_radio(true)
 		return
 	_radio_root.visible = true
 	if _radio_text.visible_ratio < 1.0:
@@ -272,6 +279,15 @@ func _build_radio() -> void:
 	_radio_text.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
 	_radio_text.custom_minimum_size = Vector2(240, 0)
 	column.add_child(_radio_text)
+
+
+## 顯示這一句通訊：面板原本隱藏時滑入，否則直接換字；兩者都有提示音。
+func _reveal_radio(slide: bool) -> void:
+	if slide:
+		_slide_radio_in()
+	else:
+		_radio_root.modulate.a = 1.0
+	Sfx.play(&"telegraph", -18.0, 0.0)
 
 
 ## 通訊面板從左側滑入（已經在顯示時不重播）。

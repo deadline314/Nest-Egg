@@ -47,6 +47,7 @@ put(3, 14, 'P')
 put(5, 14, '1')
 put(6, 14, '&')                           # radio_start
 put(13, 14, '2')
+put(20, 14, '&')                          # radio_roof
 put(22, 14, 'g')
 put(34, 14, '3')
 put(44, 14, 'g')
@@ -63,8 +64,10 @@ for x, y, c in [(29, 16, '$'), (24, 9, '@'), (47, 8, '%'), (60, 12, '$'), (66, 1
 # S2 霓虹市集（70..159）：雨棚上的保全、頭頂的監視蜂、霰彈槍、鎮暴員
 for x0 in (74, 88, 104, 126, 142):
     fill(x0, x0 + 6, 16, 16, '=')
-put(78, 15, 'g')
+put(91, 15, 'g')                          # （原本在 78：把麵攤前後留成沒有敵人的安全區）
+put(72, 19, 'A')                          # 麵攤阿婆（場景人物，說完給蠟筆畫與零錢）
 put(84, 19, '&')                          # radio_market
+put(90, 19, '&')                          # radio_market_mei
 put(92, 19, 'g')
 put(96, 19, '5')
 put(98, 8, 'd')
@@ -76,6 +79,7 @@ put(119, 19, '&')                         # radio_shield
 put(124, 19, 'r')
 put(130, 15, 'g')
 put(135, 19, 'H')
+put(137, 19, '&')                         # radio_forecast
 put(128, 19, 'e')                         # 護盾電池
 put(140, 19, 'C')
 put(146, 15, 'g')
@@ -89,6 +93,7 @@ for x, y, c in [(72, 11, '$'), (80, 12, '%'), (84, 4, '@'), (95, 11, '$'), (101,
 # ---------------------------------------------------------------------------
 # S3 貨運站（160..239）：突擊步槍、機甲、貨櫃上的砲台、自爆蟲群、擲彈兵、榴彈發射器
 put(162, 19, 'C')
+put(164, 19, 'W')                         # 夜班工人（場景人物，給交班紙條與醫療針）
 put(165, 19, '&')                         # radio_mech
 put(166, 19, 'R')                          # 突擊步槍（上機甲前）
 put(168, 19, 'M')
@@ -125,6 +130,7 @@ fill(257, 262, 16, 16, '=')
 fill(264, 270, 16, 16, '=')
 fill(258, 268, 19, 19, '^')
 put(272, 19, 't')
+put(274, 19, '&')                         # radio_arm
 fill(276, 276, 13, 19, '|')
 put(280, 19, 'g')
 put(282, 19, 'e')                         # 護盾電池
@@ -208,7 +214,7 @@ props = [
     prop("chimney_stack", 45), prop("trash_can", 55), prop("graffiti", 64, False, 18), prop("puddle", 60),
     prop("vending_machine", 67), prop("street_lamp", 52),
     # S2 霓虹市集：燈籠、麵攤、販賣機、路燈、電線桿、積水、候車亭
-    prop("lantern_string", 72, False, 10), prop("lantern_string", 120, False, 10), prop("noodle_stall", 96),
+    prop("lantern_string", 72, False, 10), prop("lantern_string", 120, False, 10), prop("noodle_stall", 70),
     prop("vending_machine", 87), prop("street_lamp", 82), prop("street_lamp", 128), prop("utility_pole", 75, dx=-16),
     prop("utility_pole", 156, dx=-16), prop("puddle", 100), prop("puddle", 118), prop("puddle", 136),
     prop("bus_stop", 134), prop("bench", 121), prop("dumpster", 114), prop("fire_escape", 106, False, 19),

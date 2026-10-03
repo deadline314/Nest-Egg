@@ -11,7 +11,7 @@ extends Resource
 ##   &  劇情通訊觸發點（由左至右依序對應 story_triggers）
 ## 裝飾字元由 decor 對應（例如 $ 直式霓虹招牌、% 橫式招牌、@ 全像看板、~ 排氣孔）。
 ##   .  或空白為空氣
-## 其他字元由 legend 對應到 EnemyData / WeaponData / VehicleData。
+## 其他字元由 legend 對應到 EnemyData / WeaponData / VehicleData / NpcData（場景人物）等資源。
 ## 實體字元代表「腳底所在的格子」。
 
 @export var id: StringName = &"level"

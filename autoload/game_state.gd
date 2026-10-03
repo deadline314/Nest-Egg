@@ -27,10 +27,20 @@ var level_start_loadout: Dictionary = {}
 var _carried_loadout: Dictionary = {}
 
 var lives_left := -1
+## 本輪累計死亡次數（死亡畫面的「NEST 回溯紀錄 #n」、劇情的措辭變化都看它）。
+## 屬於本輪進度，不存進檢查點：回溯、重開關卡、換關都不會歸零，只有開始新的一輪才歸零。
 var deaths := 0
+## 最近一次死亡當下的世界時間（廣播念出來用，見 world_clock_text）；還沒死過是空字串。
+var last_death_clock := ""
+## 剛死亡、下一次建立關卡就是重生（關卡建立時消耗，播出重生後的反應通訊）。
+var respawn_pending := false
 var kills := 0
 var finishers := 0
 var run_time := 0.0
+
+## 世界時鐘：一輪從晚上 21:00 開始，現實 1 秒是世界 10 秒（第一章結束時剛好是凌晨三點多）。
+const WORLD_CLOCK_START_MINUTES := 21 * 60
+const WORLD_SECONDS_PER_SECOND := 10.0
 
 
 func _ready() -> void:
@@ -57,6 +67,8 @@ func start_new_run(p_difficulty: DifficultyData) -> void:
 	clear_checkpoint()
 	lives_left = difficulty.lives
 	deaths = 0
+	last_death_clock = ""
+	respawn_pending = false
 	kills = 0
 	finishers = 0
 	run_time = 0.0
@@ -103,6 +115,8 @@ func enter_level() -> void:
 ## 記錄一次死亡。回傳 true = 可從檢查點續玩；false = 殘機用盡，進度重置。
 func register_death() -> bool:
 	deaths += 1
+	last_death_clock = world_clock_text()
+	respawn_pending = true
 	if not difficulty.has_limited_lives():
 		return true
 	lives_left -= 1
@@ -113,6 +127,20 @@ func register_death() -> bool:
 	lives_left = difficulty.lives
 	EventBus.lives_changed.emit(lives_left)
 	return false
+
+
+## 現在（或指定的遊玩秒數）的世界時間，格式「11 點 40 分」。
+func world_clock_text(seconds := -1.0) -> String:
+	var elapsed := run_time if seconds < 0.0 else seconds
+	var minutes := WORLD_CLOCK_START_MINUTES + int(elapsed * WORLD_SECONDS_PER_SECOND / 60.0)
+	return "%d 點 %d 分" % [(minutes / 60) % 24, minutes % 60]
+
+
+## 這次建立關卡是不是死亡後重生（只回傳一次）。
+func consume_respawn() -> bool:
+	var pending := respawn_pending
+	respawn_pending = false
+	return pending
 
 
 func _on_enemy_killed(_enemy_id: StringName, by_finisher: bool) -> void:

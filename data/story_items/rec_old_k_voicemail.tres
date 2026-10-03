@@ -6,11 +6,11 @@
 script = ExtResource("1_script")
 id = &"rec_old_k_voicemail"
 display_name = "老K的語音留言"
-description = "老K在你出門前留下的一段話。"
+description = "老K在你出門前留的語音。"
 color = Color(1.0, 0.82, 0.25, 1.0)
 category = 2
 chapter = &"chapter_01"
-body = "「小鬼，如果你聽到這段，代表我又擔心了。拿到東西就回來，別逞英雄。航昨晚咳得很兇，我煮了粥放在桌上。」"
+body = "小鬼，你聽到這段的時候，我大概又在擔心了。拿了東西就回來，別逞強。粥我煮好放桌上了。航昨晚咳得兇，你回來先看他。瓦斯又漲了，你喔。"
 play_scene = &""
 order = 22
 trigger = 3

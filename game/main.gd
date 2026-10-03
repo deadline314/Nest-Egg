@@ -3,7 +3,7 @@ extends Node
 ## 同一時間只存在一個畫面；切換時舊畫面完整釋放，避免記憶體累積。
 
 const FIRST_LEVEL := "res://data/levels/level_01.tres"
-const RETRY_CAPTION := "回溯 #%d"
+const RETRY_CAPTION := "NEST 回溯紀錄 #%d"
 const RETRY_HOLD := 0.22
 
 var _screen: Node

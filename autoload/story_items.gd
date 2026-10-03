@@ -67,6 +67,18 @@ func catalog() -> Array[StoryItemData]:
 	return _catalog
 
 
+## 道具文字（說明與內文）的劇本品質檢查（規則見 StoryLint），回傳錯誤與警告。
+func lint() -> Array[Dictionary]:
+	var units: Array[Dictionary] = []
+	for item in catalog():
+		var lines: Array = []
+		for text in [item.display_name, item.description, item.body]:
+			if not str(text).is_empty():
+				lines.append({"speaker": "", "text": str(text)})
+		units.append({"id": "道具 %s" % item.id, "lines": lines})
+	return StoryLint.check_chapter("道具文字", units, {})
+
+
 func find(id: StringName) -> StoryItemData:
 	for item in catalog():
 		if item.id == id:
@@ -113,11 +125,12 @@ func acquire(id: StringName, announce := true) -> bool:
 	_unseen[id] = true
 	acquired.emit(item)
 	if announce:
-		EventBus.toast_requested.emit(_acquire_message(item))
+		EventBus.toast_requested.emit(acquire_message(item))
 	return true
 
 
-func _acquire_message(item: StoryItemData) -> String:
+## 取得道具時的提示文字（人物給的獎勵也沿用）。
+func acquire_message(item: StoryItemData) -> String:
 	if not item.is_collectible():
 		return "取得 %s" % item.display_name
 	var kind := "錄音" if item.category == StoryItemData.Category.RECORDING else "文件"

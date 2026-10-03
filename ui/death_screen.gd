@@ -1,6 +1,7 @@
 class_name DeathScreen
 extends CanvasLayer
-## 失敗畫面：雜訊溶解進入、標題「回溯 #n」、敗北圖鑑卡片像檔案一樣展開。
+## 失敗畫面：雜訊溶解進入、標題「NEST 回溯紀錄 #n」（n 是本輪累計死亡次數）、敗北圖鑑卡片像檔案一樣展開。
+## 累計死亡達到章節劇本設定的次數後，標題下多一行小字（Story.death_note），不解釋。
 ## 每次死亡都有收穫：新卡片標示 NEW，附一句攻略。
 
 signal retry_requested
@@ -10,6 +11,7 @@ const NOISE_SHADER := "res://ui/transition/transition.gdshader"
 const NOISE_TIME := 0.45
 const CARD_OPEN_TIME := 0.28
 const CARD_WIDTH := 380.0
+const RECORD_TITLE := "NEST 回溯紀錄 #%d"
 
 var _card: Dictionary = {}
 var _can_continue := true
@@ -38,8 +40,11 @@ func _ready() -> void:
 	column.custom_minimum_size = Vector2(CARD_WIDTH, 0)
 	center.add_child(column)
 
-	column.add_child(UiKit.label("回溯 #%d" % GameState.deaths, UiKit.FS_DISPLAY, Palette.DANGER, HORIZONTAL_ALIGNMENT_CENTER))
+	column.add_child(UiKit.label(RECORD_TITLE % GameState.deaths, UiKit.FS_TITLE, Palette.DANGER, HORIZONTAL_ALIGNMENT_CENTER))
 	column.add_child(UiKit.label("任務失敗", UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_CENTER))
+	var note := Story.death_note()
+	if not note.is_empty():
+		column.add_child(UiKit.label(note, UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_CENTER))
 
 	var file := _make_file_card()
 	column.add_child(file)

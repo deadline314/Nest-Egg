@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="NpcData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/npc_data.gd" id="1_npc"]
+[ext_resource type="Script" path="res://data/scripts/npc_talk.gd" id="2_talk"]
+[ext_resource type="Resource" path="res://data/story_items/doc_crayon_drawing.tres" id="3_item"]
+
+[sub_resource type="Resource" id="Talk_0"]
+script = ExtResource("2_talk")
+scene = &"npc_ahpo_1"
+story_item = ExtResource("3_item")
+
+[sub_resource type="Resource" id="Talk_1"]
+script = ExtResource("2_talk")
+scene = &"npc_ahpo_2"
+min_talks = 1
+credits = 150
+reward_text = "阿婆把零錢塞進你口袋：信用點 +150"
+
+[resource]
+script = ExtResource("1_npc")
+id = &"ah_po"
+display_name = "麵攤阿婆"
+speaker = "ah_po"
+facing = -1
+talks = Array[ExtResource("2_talk")]([SubResource("Talk_0"), SubResource("Talk_1")])

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=50 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=53 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_script"]
 [ext_resource type="Resource" path="res://data/story_items/doc_shaft_memo.tres" id="r1"]
@@ -43,6 +43,10 @@
 [ext_resource type="Resource" path="res://data/lighting/power_room.tres" id="r40"]
 [ext_resource type="Resource" path="res://data/lighting/transfer.tres" id="r41"]
 [ext_resource type="Resource" path="res://data/lighting/reclaimer_arena.tres" id="r42"]
+[ext_resource type="Resource" path="res://data/npcs/repairman_chen.tres" id="60_chen"]
+[ext_resource type="Resource" path="res://data/npcs/resident.tres" id="61_resident"]
+[ext_resource type="Resource" path="res://data/npcs/nurse.tres" id="62_nurse"]
+[ext_resource type="Resource" path="res://data/npcs/height_marks.tres" id="63_marks"]
 
 [sub_resource type="Resource" id="Resource_zone0"]
 script = ExtResource("r36")
@@ -81,6 +85,10 @@ display_name = "第二章　天空的代價"
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
+"L": ExtResource("63_marks"),
+"I": ExtResource("62_nurse"),
+"G": ExtResource("61_resident"),
+"A": ExtResource("60_chen"),
 "D": ExtResource("r1"),
 "E": ExtResource("r2"),
 "F": ExtResource("r3"),
@@ -129,7 +137,7 @@ chapter = &"chapter_02"
 intro_scene = &"c2_prologue"
 boss_scene = &"c2_boss_intro"
 outro_scene = &"c2_epilogue"
-story_triggers = PackedStringArray("c2_radio_start", "c2_radio_barrel", "c2_radio_k1", "c2_radio_cloak", "c2_radio_power", "c2_radio_medic", "c2_radio_k2", "c2_radio_last")
+story_triggers = PackedStringArray("c2_radio_start", "c2_radio_barrel", "c2_radio_k1", "c2_memory", "c2_reclaimer_glass", "c2_radio_cloak", "c2_radio_wall", "c2_radio_corridor", "c2_radio_power", "c2_radio_medic", "c2_radio_k2", "c2_radio_last")
 rain = false
 fog_color = Color(0.42, 0.34, 0.26, 1)
 layout_path = "res://data/levels/level_02_map.json"

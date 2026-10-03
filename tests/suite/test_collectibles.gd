@@ -40,8 +40,8 @@ func _test_data() -> void:
 		per_chapter[item.chapter] = per_chapter.get(item.chapter, 0) + 1
 		if item.play_scene != &"":
 			check(Story.has_scene(item.play_scene), "collectible scene exists: %s -> %s" % [item.id, item.play_scene])
-	check(per_chapter.get(&"chapter_01", 0) == 3 and per_chapter.get(&"chapter_02", 0) == 6, "fixed collectible counts per chapter %s" % per_chapter)
-	check(StoryItems.collectible_total(&"chapter_02") == 6 and StoryItems.collectible_total(&"nope") == 0, "collectible_total counts per chapter")
+	check(per_chapter.get(&"chapter_01", 0) == 5 and per_chapter.get(&"chapter_02", 0) == 7, "fixed collectible counts per chapter %s" % per_chapter)
+	check(StoryItems.collectible_total(&"chapter_02") == 7 and StoryItems.collectible_total(&"nope") == 0, "collectible_total counts per chapter")
 	check(StoryItems.collectible_chapters().size() == 2, "two chapters have collectibles")
 	# 壞資料會被回報。
 	var bad := StoryItemData.new()
@@ -92,7 +92,7 @@ func _test_pickup_and_progress() -> void:
 	for text in toasts:
 		if text.contains("升降井維護備忘"):
 			message = text
-	check(message.contains("文件") and message.contains("1／6"), "pickup toast shows the chapter progress: %s" % message)
+	check(message.contains("文件") and message.contains("1／7"), "pickup toast shows the chapter progress: %s" % message)
 	check(StoryItems.is_new(OPEN_ITEM), "a new collectible is flagged NEW")
 	EventBus.toast_requested.disconnect(on_toast)
 	await end_level(level)
@@ -152,8 +152,8 @@ func _test_inventory_page() -> void:
 	check(by_id.has(OPEN_ITEM) and by_id.has(&"rec_wataru_1"), "inventory lists collected documents and recordings")
 	var doc: InventoryEntry = by_id[OPEN_ITEM]
 	check(doc.subtitle == "文件" and doc.detail_body == (load("res://data/story_items/%s.tres" % OPEN_ITEM) as StoryItemData).body, "document shows its full text")
-	check(doc.detail_stats.size() == 1 and doc.detail_stats[0].contains("2／6"), "document shows the chapter collection progress: %s" % [doc.detail_stats])
+	check(doc.detail_stats.size() == 1 and doc.detail_stats[0].contains("2／7"), "document shows the chapter collection progress: %s" % [doc.detail_stats])
 	check((by_id[&"rec_wataru_1"] as InventoryEntry).subtitle == "錄音", "recording is labelled as a recording")
-	check(page.tab_tooltip().contains("2／9"), "tab tooltip shows overall progress: %s" % page.tab_tooltip())
+	check(page.tab_tooltip().contains("2／12"), "tab tooltip shows overall progress: %s" % page.tab_tooltip())
 	check(not by_id.has(&"doc_nest_log"), "uncollected documents are not listed")
 	page.free()

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="NpcData" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/npc_data.gd" id="1_npc"]
+[ext_resource type="Script" path="res://data/scripts/npc_talk.gd" id="2_talk"]
+[ext_resource type="Resource" path="res://data/story_items/doc_shift_note.tres" id="3_item"]
+[ext_resource type="Resource" path="res://data/consumables/med_injector.tres" id="4_med"]
+
+[sub_resource type="Resource" id="Talk_0"]
+script = ExtResource("2_talk")
+scene = &"npc_worker_1"
+story_item = ExtResource("3_item")
+
+[sub_resource type="Resource" id="Talk_1"]
+script = ExtResource("2_talk")
+scene = &"npc_worker_2"
+min_talks = 1
+consumable = ExtResource("4_med")
+reward_text = "工人從抽屜翻出一支醫療針"
+
+[resource]
+script = ExtResource("1_npc")
+id = &"night_worker"
+display_name = "夜班工人"
+speaker = "worker"
+facing = -1
+talks = Array[ExtResource("2_talk")]([SubResource("Talk_0"), SubResource("Talk_1")])

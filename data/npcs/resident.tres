@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="NpcData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/npc_data.gd" id="1_npc"]
+[ext_resource type="Script" path="res://data/scripts/npc_talk.gd" id="2_talk"]
+[ext_resource type="Resource" path="res://data/consumables/med_injector.tres" id="3_med"]
+
+[sub_resource type="Resource" id="Talk_0"]
+script = ExtResource("2_talk")
+scene = &"c2_npc_resident_1"
+consumable = ExtResource("3_med")
+
+[sub_resource type="Resource" id="Talk_1"]
+script = ExtResource("2_talk")
+scene = &"c2_npc_resident_2"
+min_talks = 1
+
+[resource]
+script = ExtResource("1_npc")
+id = &"resident"
+display_name = "夾層區住戶"
+speaker = "resident"
+facing = 1
+talks = Array[ExtResource("2_talk")]([SubResource("Talk_0"), SubResource("Talk_1")])
