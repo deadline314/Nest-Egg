@@ -14,4 +14,5 @@
 | [08-lighting/DESIGN.md](08-lighting/DESIGN.md) | 光影設計：重度壓抑的調性、環境光與區段設定、光源分級、體積光、法線貼圖、後製、可讀性守則 |
 | [09-content/DESIGN.md](09-content/DESIGN.md) | 內容擴充：第二章、新敵人與頭目、場景互動與探索、成長系統 |
 | [10-presentation/DESIGN.md](10-presentation/DESIGN.md) | 演出與介面：過場動畫、轉場、UI 視覺語言、彈匣介面、環境美術元件、第一章改版、新敵人、第二章擴充 |
+| [12-cast-redraw/DESIGN.md](12-cast-redraw/DESIGN.md) | 敵人與 NPC 重畫：用凜的流程做出同等精細度的人形角色（範圍、各角色外觀與比例、芽的可操控規格、NPC 動畫、票的順序） |
 | [06-roadmap/open-questions.md](06-roadmap/open-questions.md) | 尚未決定的問題 |
