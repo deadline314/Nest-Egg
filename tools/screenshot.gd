@@ -204,7 +204,7 @@ func _run_story() -> void:
 	_capture("story_chapter_title")
 	var player := level.player
 	player.health.setup(999, 0.0)
-	player.global_position = Vector2(level._layout.story_triggers[4]["x"] + 30.0, 320)
+	player.global_position = Vector2(level._layout.story_triggers[7]["x"] + 30.0, 320)
 	level_camera_snap()
 	await _wait(1.6)
 	_capture("story_radio")

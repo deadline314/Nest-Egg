@@ -32,6 +32,8 @@ var auto_skip := false
 var _chapters: Dictionary[StringName, Dictionary] = {}
 var _speakers: Dictionary = {}
 var _scenes: Dictionary = {}
+## 場景 id -> 所屬章節 id（劇本品質檢查依章節加總）。
+var _scene_chapter: Dictionary[String, StringName] = {}
 var _seen: Dictionary[StringName, bool] = {}
 var _cinematic_queue: Array[StringName] = []
 var _current_cinematic: StringName = &""
@@ -48,6 +50,8 @@ func _ready() -> void:
 	load_all()
 	for problem in validate():
 		push_error("[Story] %s" % problem)
+	for issue in lint_warnings():
+		push_warning("[Story] %s" % StoryLint.format(issue))
 
 
 ## 載入 CHAPTER_PATHS 的所有章節（先清空）。單一章節壞掉只記錄錯誤，不影響其他章節。
@@ -55,6 +59,7 @@ func load_all() -> void:
 	_chapters.clear()
 	_speakers.clear()
 	_scenes.clear()
+	_scene_chapter.clear()
 	for path in CHAPTER_PATHS:
 		load_chapter(path)
 
@@ -79,6 +84,7 @@ func load_chapter(path: String) -> bool:
 				push_error("[Story] 場景 id「%s」重複（%s），已略過後者" % [scene_id, path])
 				continue
 			_scenes[scene_id] = scenes[scene_id]
+			_scene_chapter[scene_id] = chapter_id
 	return true
 
 
@@ -124,7 +130,63 @@ func validate() -> PackedStringArray:
 				problems.append("場景 %s 的講者「%s」未定義" % [scene_id, entry.get("speaker", "")])
 			if str(entry.get("text", "")).is_empty():
 				problems.append("場景 %s 有一句沒有文字" % scene_id)
+	for issue in StoryLint.errors_of(lint()):
+		problems.append(StoryLint.format(issue))
 	return problems
+
+
+## 劇本品質檢查（文本風格指南的自動檢查，見 StoryLint）：掃描所有場景台詞與章節卡文字，回傳錯誤與警告。
+func lint() -> Array[Dictionary]:
+	var issues: Array[Dictionary] = []
+	for chapter_id in _chapters:
+		issues.append_array(StoryLint.check_chapter(String(chapter_id), text_units(chapter_id), _speakers))
+	return issues
+
+
+func lint_warnings() -> Array[Dictionary]:
+	return StoryLint.warnings_of(lint())
+
+
+## 某一章所有要檢查的文本單元：每個場景的台詞，加上章節卡文字。動畫場景取其中的 say 與 narrate 步驟。
+func text_units(chapter_id: StringName) -> Array[Dictionary]:
+	var units: Array[Dictionary] = []
+	for scene_id: String in _scenes.keys():
+		if _scene_chapter.get(scene_id, &"") != chapter_id:
+			continue
+		units.append({"id": scene_id, "lines": _scene_text_lines(_scenes[scene_id])})
+	var card: Array = []
+	var info: Dictionary = _chapters.get(chapter_id, {})
+	for key in ["title", "subtitle", "end_title", "teaser"]:
+		if info.has(key):
+			card.append({"speaker": "", "text": str(info[key])})
+	units.append({"id": "%s 章節卡" % chapter_id, "lines": card})
+	return units
+
+
+func _scene_text_lines(scene: Variant) -> Array:
+	if typeof(scene) != TYPE_DICTIONARY:
+		return []
+	var result: Array = []
+	if str((scene as Dictionary).get("mode", "radio")) == String(MODE_ANIMATED):
+		var steps: Variant = (scene as Dictionary).get("steps", [])
+		if typeof(steps) != TYPE_ARRAY:
+			return result
+		for step: Variant in steps:
+			if typeof(step) != TYPE_DICTIONARY:
+				continue
+			match str(step.get("do", "")):
+				"say":
+					result.append({"speaker": str(step.get("speaker", "")), "text": str(step.get("text", ""))})
+				"narrate":
+					var narration: Variant = step.get("lines", [])
+					if typeof(narration) == TYPE_ARRAY:
+						for text: Variant in narration:
+							result.append({"speaker": "system", "text": str(text)})
+		return result
+	var lines: Variant = (scene as Dictionary).get("lines", [])
+	if typeof(lines) == TYPE_ARRAY:
+		result.append_array(lines)
+	return result
 
 
 func _line_limit(mode: String) -> int:

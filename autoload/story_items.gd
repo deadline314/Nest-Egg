@@ -67,6 +67,18 @@ func catalog() -> Array[StoryItemData]:
 	return _catalog
 
 
+## 道具文字（說明與內文）的劇本品質檢查（規則見 StoryLint），回傳錯誤與警告。
+func lint() -> Array[Dictionary]:
+	var units: Array[Dictionary] = []
+	for item in catalog():
+		var lines: Array = []
+		for text in [item.display_name, item.description, item.body]:
+			if not str(text).is_empty():
+				lines.append({"speaker": "", "text": str(text)})
+		units.append({"id": "道具 %s" % item.id, "lines": lines})
+	return StoryLint.check_chapter("道具文字", units, {})
+
+
 func find(id: StringName) -> StoryItemData:
 	for item in catalog():
 		if item.id == id:
