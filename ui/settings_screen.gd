@@ -17,6 +17,9 @@ var _hud_auto_hide: CheckButton
 var _quality_option: OptionButton
 var _reduce_flashes: CheckButton
 var _skip_cutscenes: CheckButton
+var _zoom_pulse: CheckButton
+var _feel_sliders: Dictionary[String, HSlider] = {}
+var _feel_values: Dictionary[String, Label] = {}
 var _brightness_slider: HSlider
 var _brightness_value: Label
 ## "action:slot" -> Button
@@ -151,7 +154,7 @@ func _update_volume_label(bus: StringName) -> void:
 func _build_display_tab() -> Control:
 	var box := VBoxContainer.new()
 	box.name = "顯示"
-	box.add_theme_constant_override(&"separation", 10)
+	box.add_theme_constant_override(&"separation", 4)
 	_hud_auto_hide = CheckButton.new()
 	_hud_auto_hide.text = "HUD 自動隱藏"
 	_hud_auto_hide.tooltip_text = "開啟：生命與護盾閒置時淡出，受傷或格擋時才出現；關閉：一律顯示"
@@ -181,7 +184,59 @@ func _build_display_tab() -> Control:
 		Settings.set_skip_cutscenes(on)
 		Sfx.play(&"ui_confirm", -6.0, 0.0))
 	box.add_child(_skip_cutscenes)
+	for entry: Array in FEEL_ROWS:
+		box.add_child(_build_feel_row(entry[0], entry[1], entry[2]))
+	_zoom_pulse = CheckButton.new()
+	_zoom_pulse.text = "縮放脈衝"
+	_zoom_pulse.tooltip_text = "命中時畫面微微縮放；畫面震動調到 0% 時一律關閉"
+	_zoom_pulse.focus_mode = Control.FOCUS_ALL
+	_zoom_pulse.button_pressed = Settings.get_zoom_pulse()
+	_zoom_pulse.toggled.connect(func(on: bool) -> void:
+		Settings.set_zoom_pulse(on)
+		Sfx.play(&"ui_confirm", -6.0, 0.0))
+	box.add_child(_zoom_pulse)
 	return box
+
+
+## 打擊回饋強度滑桿：[設定鍵, 名稱, 提示]。
+const FEEL_ROWS: Array[Array] = [
+	["shake", "畫面震動", "命中與爆炸時的畫面震動強度；怕暈可以調低，0% 時鏡頭後座仍保留約一半"],
+	["hitstop", "命中停頓", "打中時畫面的短暫停頓強度；0% 完全沒有停頓"],
+	["particles", "粒子", "火花與碎片的數量；機器跑不順或畫面太雜時調低"],
+]
+
+
+func _build_feel_row(key: String, label: String, tooltip: String) -> Control:
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override(&"separation", 10)
+	row.tooltip_text = tooltip
+	var name_label := UiKit.label(label, 12)
+	name_label.custom_minimum_size = Vector2(LABEL_WIDTH, 0)
+	row.add_child(name_label)
+	var slider := HSlider.new()
+	slider.min_value = 0
+	slider.max_value = 100
+	slider.step = 10
+	slider.custom_minimum_size = Vector2(260, 16)
+	slider.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	slider.focus_mode = Control.FOCUS_ALL
+	slider.tooltip_text = tooltip
+	slider.value = roundf(Settings.get_feel_scale(key) * 100.0)
+	slider.value_changed.connect(func(value: float) -> void:
+		Settings.set_feel_scale(key, value / 100.0)
+		_update_feel_label(key))
+	row.add_child(slider)
+	var value_label := UiKit.label("", 12, Palette.CYAN)
+	value_label.custom_minimum_size = Vector2(48, 0)
+	row.add_child(value_label)
+	_feel_sliders[key] = slider
+	_feel_values[key] = value_label
+	_update_feel_label(key)
+	return row
+
+
+func _update_feel_label(key: String) -> void:
+	_feel_values[key].text = "%d%%" % roundi(Settings.get_feel_scale(key) * 100.0)
 
 
 func _build_quality_row() -> Control:
@@ -385,6 +440,10 @@ func _reset_current_tab() -> void:
 		_select_quality_item()
 		_reduce_flashes.set_pressed_no_signal(Settings.get_reduce_flashes())
 		_skip_cutscenes.set_pressed_no_signal(Settings.get_skip_cutscenes())
+		_zoom_pulse.set_pressed_no_signal(Settings.get_zoom_pulse())
+		for key: String in _feel_sliders.keys():
+			_feel_sliders[key].set_value_no_signal(roundf(Settings.get_feel_scale(key) * 100.0))
+			_update_feel_label(key)
 		_quality_option.tooltip_text = LightQuality.DESCRIPTIONS[Settings.get_light_quality()]
 		_set_status("顯示已恢復預設。", Palette.CYAN)
 

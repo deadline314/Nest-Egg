@@ -80,7 +80,7 @@ func shake(px: float, time: float) -> void:
 	if px <= 0.0 or time <= 0.0:
 		return
 	_count("shakes")
-	Fx.shake(minf(px, MAX_SHAKE_PX), time)
+	Fx.shake(minf(px * Settings.get_feel_scale("shake"), MAX_SHAKE_PX), time)
 
 
 ## 舊資料用「強度」表示的震動（武器、特效資料）。
@@ -91,13 +91,13 @@ func shake_strength(strength: float, time: float) -> void:
 func hitstop(seconds: float) -> void:
 	if seconds > 0.0:
 		_count("hitstops")
-		Fx.hitstop(seconds)
+		Fx.hitstop(seconds * Settings.get_feel_scale("hitstop"))
 
 
 func freeze(nodes: Array, seconds: float) -> void:
 	if seconds > 0.0:
 		_count("freezes")
-		Fx.freeze(nodes, seconds)
+		Fx.freeze(nodes, seconds * Settings.get_feel_scale("hitstop"))
 
 
 ## 各系統註冊自己的即時計數（例如粒子數、同時發聲數）：name → Callable（回傳數字）。

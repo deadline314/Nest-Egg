@@ -148,9 +148,10 @@ func shake(px: float, duration: float) -> void:
 
 
 ## 方向性鏡頭後座（射擊時往反方向微推）。
+## 鏡頭後座：畫面震動調到 0 時仍保留約一半。
 func kick(direction: Vector2, amount: float) -> void:
 	if amount > 0.0:
-		EventBus.camera_kick.emit(direction.normalized() * amount)
+		EventBus.camera_kick.emit(direction.normalized() * amount * (0.5 + 0.5 * Settings.get_feel_scale("shake")))
 
 
 # ---------------------------------------------------------------------------
@@ -158,9 +159,17 @@ func kick(direction: Vector2, amount: float) -> void:
 # 高階特效（sparks / embers / smoke / fire / shards / flare / shock / arc / lightning）可以單獨呼叫，也由 burst、impact、explosion 與敵人專屬特效組合使用。
 # ---------------------------------------------------------------------------
 
+## 粒子數量：基準倍率乘上設定的粒子強度；設定為 0 時完全不產生，其他情況至少 1 顆。
+func _particle_count(amount: int) -> int:
+	var scale := Settings.get_feel_scale("particles")
+	return 0 if scale <= 0.0 else maxi(1, roundi(float(amount) * PARTICLE_SCALE * scale))
+
+
 ## 火花：沿速度拉長的亮線，頭是近乎白熱的亮色、尾巴漸成顏色再淡出；有阻力與重力。dir＝主要方向（ZERO＝四面八方），spread＝散開角度（弧度）。
 func sparks(position: Vector2, color: Color, amount := 10, speed := 220.0, life := 0.4, dir := Vector2.ZERO, spread := TAU, gravity := 520.0) -> void:
-	amount = maxi(1, roundi(float(amount) * PARTICLE_SCALE))
+	amount = _particle_count(amount)
+	if amount <= 0:
+		return
 	if _glow == null:
 		return
 	var base := dir.angle() if dir != Vector2.ZERO else 0.0
@@ -176,7 +185,9 @@ func sparks(position: Vector2, color: Color, amount := 10, speed := 220.0, life 
 
 ## 餘燼：小亮點，慢慢往上飄並閃爍，顏色由亮橘漸成暗紅。
 func embers(position: Vector2, color: Color, amount := 8, speed := 70.0, life := 1.0, spread := 18.0) -> void:
-	amount = maxi(1, roundi(float(amount) * PARTICLE_SCALE))
+	amount = _particle_count(amount)
+	if amount <= 0:
+		return
 	if _glow == null:
 		return
 	for i in clampi(amount, 1, 60):

@@ -10,6 +10,8 @@ const DEFAULT_PATH := "user://settings.cfg"
 const SAVE_DELAY := 0.4
 const AUDIO_SECTION := "audio"
 const DISPLAY_SECTION := "display"
+const FEEL_SECTION := "feel"
+const FEEL_KEYS: PackedStringArray = ["shake", "hitstop", "particles"]
 const HUD_AUTO_HIDE_DEFAULT := true
 ## 亮度滑桿（0~1）的預設值＝設計的壓抑程度；範圍的兩端是 gamma 2^(±0.6)。
 const BRIGHTNESS_DEFAULT := 0.5
@@ -186,7 +188,38 @@ func flash_scale() -> float:
 	return REDUCED_FLASH_SCALE if get_reduce_flashes() else 1.0
 
 
+## 打擊回饋的強度倍率（0~1，預設 1）：震動、命中停頓、粒子各一個；設定檔內容損毀時退回預設。
+func get_feel_scale(key: String) -> float:
+	var value: Variant = get_value(FEEL_SECTION, key, 1.0)
+	if typeof(value) != TYPE_FLOAT and typeof(value) != TYPE_INT:
+		return 1.0
+	return clampf(float(value), 0.0, 1.0)
+
+
+func set_feel_scale(key: String, value: float) -> void:
+	set_value(FEEL_SECTION, key, clampf(value, 0.0, 1.0))
+	display_changed.emit()
+
+
+## 縮放脈衝（命中時畫面微微縮放）是否開啟；畫面震動調到 0 時一律關閉。
+func get_zoom_pulse() -> bool:
+	var value: Variant = get_value(FEEL_SECTION, "zoom_pulse", true)
+	return value if typeof(value) == TYPE_BOOL else true
+
+
+func set_zoom_pulse(enabled: bool) -> void:
+	set_value(FEEL_SECTION, "zoom_pulse", enabled)
+	display_changed.emit()
+
+
+func zoom_pulse_active() -> bool:
+	return get_zoom_pulse() and get_feel_scale("shake") > 0.0
+
+
 func reset_display() -> void:
+	for key: String in FEEL_KEYS:
+		set_feel_scale(key, 1.0)
+	set_zoom_pulse(true)
 	set_skip_cutscenes(false)
 	set_reduce_flashes(false)
 	set_hud_auto_hide(HUD_AUTO_HIDE_DEFAULT)
