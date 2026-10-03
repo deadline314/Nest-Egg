@@ -67,6 +67,18 @@
     "toe": [
       488,
       1150
+    ],
+    "hem_root": [
+      345,
+      438
+    ],
+    "hem_mid": [
+      335,
+      480
+    ],
+    "hem_tip": [
+      335,
+      512
     ]
   },
   "groups": {
@@ -245,7 +257,11 @@
         }
       ],
       "pivot": "waist",
-      "blob": "main"
+      "blob": "main",
+      "y": [
+        0,
+        440
+      ]
     },
     "jacket_collar": {
       "group": "jacket",
@@ -260,6 +276,44 @@
           "bone": "neck",
           "z": 4
         }
+      ]
+    },
+    "jacket_hem_1": {
+      "group": "jacket",
+      "blob": "main",
+      "from": "hem_root",
+      "to": "hem_mid",
+      "mode": "bone",
+      "pivot": "hem_root",
+      "uses": [
+        {
+          "name": "jacket_hem_1",
+          "bone": "coat_1",
+          "z": 4
+        }
+      ],
+      "y": [
+        440,
+        480
+      ]
+    },
+    "jacket_hem_2": {
+      "group": "jacket",
+      "blob": "main",
+      "from": "hem_mid",
+      "to": "hem_tip",
+      "mode": "bone",
+      "pivot": "hem_mid",
+      "uses": [
+        {
+          "name": "jacket_hem_2",
+          "bone": "coat_2",
+          "z": 4
+        }
+      ],
+      "y": [
+        480,
+        1300
       ]
     },
     "holster": {
@@ -518,19 +572,13 @@
     },
     {
       "name": "coat_1",
-      "parent": "hip",
-      "fixed": [
-        -1.5,
-        -0.5
-      ]
+      "parent": "chest",
+      "at": "hem_root"
     },
     {
       "name": "coat_2",
       "parent": "coat_1",
-      "fixed": [
-        0,
-        3
-      ]
+      "at": "hem_mid"
     }
   ],
   "weapon_anchor": {
@@ -762,7 +810,9 @@
         "foot",
         "pelvis",
         "torso",
-        "jacket_collar"
+        "jacket_collar",
+        "jacket_hem_1",
+        "jacket_hem_2"
       ],
       "sigma": 1.0
     },
@@ -772,7 +822,9 @@
         "jacket_collar",
         "holster",
         "leg_upper",
-        "leg_lower"
+        "leg_lower",
+        "jacket_hem_1",
+        "jacket_hem_2"
       ],
       "max_area": 60
     },
@@ -826,5 +878,31 @@
       280
     ],
     "out": "art/portraits/rin.png"
-  }
+  },
+  "springs": [
+    {
+      "bone": "coat_1",
+      "rest": 0.0,
+      "gain": 0.7,
+      "stiffness": 120,
+      "damping": 9
+    },
+    {
+      "bone": "coat_2",
+      "rest": 0.0,
+      "gain": 0.5,
+      "stiffness": 100,
+      "damping": 7
+    },
+    {
+      "bone": "hair_1",
+      "rest": 0.25,
+      "gain": 0.5
+    },
+    {
+      "bone": "hair_2",
+      "rest": 0.0,
+      "gain": 0.4
+    }
+  ]
 }

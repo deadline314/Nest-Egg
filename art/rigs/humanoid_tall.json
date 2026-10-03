@@ -148,19 +148,45 @@
     },
     {
       "name": "coat_1",
-      "parent": "hip",
+      "parent": "chest",
       "pos": [
-        -1.5,
-        -0.5
+        -2.82,
+        0.34
       ]
     },
     {
       "name": "coat_2",
       "parent": "coat_1",
       "pos": [
-        0,
-        3
+        -0.42,
+        1.77
       ]
+    }
+  ],
+  "springs": [
+    {
+      "bone": "coat_1",
+      "rest": 0.0,
+      "gain": 0.7,
+      "stiffness": 120,
+      "damping": 9
+    },
+    {
+      "bone": "coat_2",
+      "rest": 0.0,
+      "gain": 0.5,
+      "stiffness": 100,
+      "damping": 7
+    },
+    {
+      "bone": "hair_1",
+      "rest": 0.25,
+      "gain": 0.5
+    },
+    {
+      "bone": "hair_2",
+      "rest": 0.0,
+      "gain": 0.4
     }
   ],
   "weapon_anchor": {

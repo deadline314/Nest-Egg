@@ -28,6 +28,7 @@ var _bones: Dictionary[StringName, Bone2D] = {}
 var _rest: Dictionary[StringName, Vector2] = {}
 var _parent: Dictionary[StringName, StringName] = {}
 var _order: Array[StringName] = []
+var _springs: Array[Dictionary] = []
 var _armor: Array[Sprite2D] = []
 ## 零件與它們的原始明暗（補光倍率套用在 self_modulate 上，發光層不受影響）。
 var _part_sprites: Array[Sprite2D] = []
@@ -91,6 +92,11 @@ func parent_of(name: StringName) -> StringName:
 
 func bone_order() -> Array[StringName]:
 	return _order
+
+
+## 骨架定義的次級動態（彈簧）設定；沒有定義時為空陣列（動畫器改用預設）。
+func springs() -> Array[Dictionary]:
+	return _springs
 
 
 func weapon_anchor() -> Array:
@@ -236,6 +242,13 @@ func _build_skeleton(definition: Dictionary) -> void:
 		_rest[bone_name] = pos
 		_parent[bone_name] = parent_name
 		_order.append(bone_name)
+	var springs: Variant = definition.get("springs", [])
+	if typeof(springs) == TYPE_ARRAY:
+		for entry: Variant in springs:
+			if typeof(entry) == TYPE_DICTIONARY and _bones.has(StringName(str(entry.get("bone", "")))):
+				_springs.append(entry)
+			else:
+				push_warning("[CharacterRig] %s 的 springs 有無效項目（需要存在的 bone）：%s" % [skin_id, entry])
 	var anchor: Variant = definition.get("weapon_anchor", {})
 	if typeof(anchor) == TYPE_DICTIONARY:
 		_anchor_bone = StringName(str(anchor.get("bone", "chest")))

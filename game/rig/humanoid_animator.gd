@@ -15,13 +15,23 @@ const STRIDE_PER_PIXEL := TAU / 50.0
 const MAX_AIM_ANGLE := deg_to_rad(105.0)
 const SPRING_STIFFNESS := 140.0
 const SPRING_DAMPING := 11.0
+## 次級動態（衣襬、頭髮）的預設設定；骨架定義（rig json）有 "springs" 時以它為準。
+## bone：彈簧骨；rest：靜止時的角度；gain：跟隨「移動造成的目標角度」的倍率；
+## trail／lift／wind：往前跑向後飄、上升下落、微風各自的倍率（預設 1）；stiffness／damping：彈簧硬度與阻尼；min／max：角度上下限。
+const DEFAULT_SPRINGS: Array[Dictionary] = [
+	{"bone": "coat_1", "rest": 0.15, "gain": 0.7},
+	{"bone": "coat_2", "rest": 0.0, "gain": 0.5},
+	{"bone": "hair_1", "rest": 0.25, "gain": 0.5},
+	{"bone": "hair_2", "rest": 0.0, "gain": 0.4},
+]
+const SPRING_MIN := -0.8
+const SPRING_MAX := 1.6
 const RECOIL_RECOVERY := 9.0
 const HURT_TIME := 0.22
 const CROUCH_DROP := 8.0
 const DEATH_DROP := 21.0
 
 const LEGS: Array[StringName] = [&"leg_front_upper", &"leg_front_lower", &"leg_back_upper", &"leg_back_lower"]
-const SPRING_BONES: Array[StringName] = [&"coat_1", &"coat_2", &"hair_1", &"hair_2"]
 
 var _rig: CharacterRig
 var _angles: Dictionary[StringName, float] = {}
@@ -31,6 +41,7 @@ var _time := 0.0
 var _recoil := 0.0
 var _hurt_left := 0.0
 var _death_time := 0.0
+var _springs: Array[Dictionary] = []
 var _spring_angle: Dictionary[StringName, float] = {}
 var _spring_velocity: Dictionary[StringName, float] = {}
 # FK 快取（骨架空間）
@@ -42,7 +53,11 @@ func _init(rig: CharacterRig) -> void:
 	_rig = rig
 	for bone_name in rig.bone_order():
 		_angles[bone_name] = 0.0
-	for bone_name in SPRING_BONES:
+	for entry in (rig.springs() if not rig.springs().is_empty() else DEFAULT_SPRINGS):
+		var bone_name := StringName(str(entry.get("bone", "")))
+		if not rig.has_bone(bone_name):
+			continue  # 這個骨架沒有這根骨頭（例如舊骨架的衣襬）：略過
+		_springs.append(entry)
 		_spring_angle[bone_name] = 0.0
 		_spring_velocity[bone_name] = 0.0
 
@@ -171,10 +186,8 @@ func _apply_body() -> void:
 	var hip := _rig.bone(&"hip")
 	if hip != null:
 		hip.position = _rig.rest(&"hip") + _hip_offset
-	for bone_name in SPRING_BONES:
-		var b := _rig.bone(bone_name)
-		if b != null:
-			b.rotation = _spring_angle[bone_name]
+	for bone_name: StringName in _spring_angle.keys():
+		_rig.bone(bone_name).rotation = _spring_angle[bone_name]
 
 
 func _forward_kinematics() -> void:
@@ -266,21 +279,22 @@ func _update_springs(delta: float, v: Vector2, input: RigInput) -> void:
 	var trail := clampf(v.x / 220.0, -0.4, 1.0) * 0.9
 	var lift := clampf(v.y / 420.0, -0.3, 1.0) * 0.6
 	var wind := sin(_time * 3.1) * 0.05
-	var base := trail + lift + wind
-	if input.dead:
-		base = 0.6
-	var targets := {
-		&"coat_1": 0.15 + base * 0.7,
-		&"coat_2": base * 0.5,
-		&"hair_1": 0.25 + base * 0.5,
-		&"hair_2": base * 0.4,
-	}
 	var steps := maxi(1, ceili(delta / (1.0 / 120.0)))
 	var dt := delta / steps
-	for i in steps:
-		for bone_name in SPRING_BONES:
-			var target: float = targets[bone_name]
-			var velocity: float = _spring_velocity[bone_name]
-			velocity += ((target - _spring_angle[bone_name]) * SPRING_STIFFNESS - velocity * SPRING_DAMPING) * dt
-			_spring_velocity[bone_name] = velocity
-			_spring_angle[bone_name] = clampf(_spring_angle[bone_name] + velocity * dt, -0.8, 1.6)
+	for spring in _springs:
+		var bone_name := StringName(str(spring.get("bone", "")))
+		var base := trail * float(spring.get("trail", 1.0)) + lift * float(spring.get("lift", 1.0)) + wind * float(spring.get("wind", 1.0))
+		if input.dead:
+			base = 0.6
+		var target := float(spring.get("rest", 0.0)) + base * float(spring.get("gain", 0.5))
+		var stiffness := float(spring.get("stiffness", SPRING_STIFFNESS))
+		var damping := float(spring.get("damping", SPRING_DAMPING))
+		var low := float(spring.get("min", SPRING_MIN))
+		var high := float(spring.get("max", SPRING_MAX))
+		var velocity: float = _spring_velocity[bone_name]
+		var angle: float = _spring_angle[bone_name]
+		for i in steps:
+			velocity += ((target - angle) * stiffness - velocity * damping) * dt
+			angle = clampf(angle + velocity * dt, low, high)
+		_spring_velocity[bone_name] = velocity
+		_spring_angle[bone_name] = angle

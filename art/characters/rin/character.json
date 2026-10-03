@@ -96,11 +96,11 @@
     "jacket": {
       "file": "parts/jacket.png",
       "size": [
-        131,
-        228
+        122,
+        159
       ],
       "pivot": [
-        109.51,
+        100.51,
         149.65
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
@@ -114,6 +114,30 @@
       "pivot": [
         -22.22,
         16.98
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "jacket_hem_1": {
+      "file": "parts/jacket_hem_1.png",
+      "size": [
+        103,
+        60
+      ],
+      "pivot": [
+        40.77,
+        13.53
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "jacket_hem_2": {
+      "file": "parts/jacket_hem_2.png",
+      "size": [
+        66,
+        38
+      ],
+      "pivot": [
+        44.75,
+        1.7
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -301,6 +325,18 @@
       "name": "jacket_collar",
       "texture": "jacket_collar",
       "bone": "neck",
+      "z": 4
+    },
+    {
+      "name": "jacket_hem_1",
+      "texture": "jacket_hem_1",
+      "bone": "coat_1",
+      "z": 4
+    },
+    {
+      "name": "jacket_hem_2",
+      "texture": "jacket_hem_2",
+      "bone": "coat_2",
       "z": 4
     },
     {

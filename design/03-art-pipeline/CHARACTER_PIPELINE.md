@@ -64,14 +64,17 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
 | `torso` | `chest` | 1 | 白色連身衣含頸部與裸肩 |
 | `leg_upper`、`leg_lower`、`foot` | `leg_front_*`／`foot_front`（z 3）與 `leg_back_*`／`foot_back`（z −5，亮度 0.62） | | 前後腿共用同一張圖 |
 | `holster` | `leg_front_upper` | 4 | **配件**：大腿槍套 |
-| `jacket` | `chest` | 4 | **配件**：披在肩上的夾克（含洋紅襯裡） |
+| `jacket` | `chest` | 4 | **配件**：披在肩上的夾克上半（含洋紅襯裡）；袖子不另外拆，手臂圖層比夾克高，夾克像披在肩上、手臂從裡面滑出來 |
+| `jacket_hem_1`、`jacket_hem_2` | `coat_1`、`coat_2` | 4 | **配件**：夾克下擺，兩段彈簧骨（`coat_1` 掛在胸骨的下擺根部，`coat_2` 掛在 `coat_1` 底下），跑步向後飄、上升下垂、下落掀起 |
 | `jacket_collar` | `neck` | 4 | **配件**：脖子旁的遠側翻領（原本是夾克上獨立的一塊，spec 用 `blob: "rest"` 分出） |
 | `head` | `head` | 5 | 臉、前髮、耳環 |
 | `arm_upper`、`arm_lower`、`hand` | `arm_front_*`／`hand_front`（z 8～10）與 `arm_back_*`／`hand_back`（z −7～−6，亮度 0.62） | | 金屬義肢 |
 
 每張圖旁邊還有 `<名稱>_glow.png`（霓虹發光層，加法混合）與 `<名稱>_n.png`（法線）。`character.json` 的 `textures` 記錄每張圖的尺寸與**支點**（旋轉中心），`parts` 記錄掛載（骨頭、z、亮度）。
 
-**配件（夾克、槍套）**目前各自一張圖掛在骨頭上，之後要加動畫（飄動、擺動）只要新增骨頭，或把它掛到 `coat_1`／`coat_2` 這兩根彈簧骨，不必重畫圖。
+**配件（夾克、槍套）**各自掛在骨頭上。槍套綁在大腿上，跟著 `leg_front_upper` 轉；夾克下擺與頭髮用彈簧骨做次級動態。
+
+**次級動態參數（資料，不寫在程式裡）**：骨架檔 `art/rigs/humanoid_tall.json` 的 `springs`（來源是 spec 的 `springs`，`cut_layers.py` 寫進去）。每一項：`bone` 彈簧骨；`rest` 靜止角度（夾克下擺要 0，才與原圖一致）；`gain` 跟隨移動的倍率（越大飄越遠）；`trail`／`lift`／`wind` 往前跑向後飄、上升下落、微風各自的倍率（預設 1）；`stiffness`／`damping` 彈簧硬度與阻尼（硬度高回彈快，阻尼高晃得少）；`min`／`max` 角度上下限。沒有 `springs` 的骨架（`humanoid.json`）用程式內的預設值。檢查：`rig_preview.tscn -- --chars=rin --cloth`（站、跑、上升、下落、蹲、仰射並排）。
 
 **肢體偏移**：spec `bones` 的 `dx` 是骨頭相對關節的水平位移。圖是從同一張側面圖切出的，近側（前）手腳必須是 0，否則會和骨盆、夾克、衣服對不齊，切口沿線出現方框；遠側（後）手腳用負值讓兩條腿分得開。
 
@@ -98,5 +101,5 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
 
 - 關節位置（spec `joints`）是依 SAM 3D Body 的預測再人工微調；換新角色時要看 `overlay.png` 調一次。
 - 只有近側的手腳有圖，遠側用同一張圖調暗（骨架原本的做法）。
-- 受傷時衣物逐片脫落（裝甲脫落機制）與眨眼設定這張新流程還沒接；舊凜的破損底層在 NE-17 進度紀錄第 12～14 項。
+- 受傷時衣物逐片脫落（裝甲脫落機制）這張新流程還沒接；舊凜的破損底層在 NE-17 進度紀錄第 12～14 項。
 - 舊流程的腳本（`cut_parts.py`、`cut_rig_parts.py`、`gen_character_passes.py`）保留，新流程只借用 `cut_rig_parts.py` 裡的 `frame()` 與 `glow_layer()`。

@@ -120,6 +120,7 @@ def main() -> None:
     rig = {"id": Path(args.rig).stem,
            "description": "人形骨架（7.5 頭身版）。座標單位為世界像素，原點在腳底，面向右（+X），Y 軸向下；骨頭靜止時沿 +Y 延伸。長度由立繪量出（" + NOTE + "）。",
            "bones": bones,
+           **({"springs": spec["springs"]} if "springs" in spec else {}),
            "weapon_anchor": {"bone": ac["bone"], "pos": [round(float(anchor[0]) + ac["dx"], 2), round(float(anchor[1]) + ac["dy"], 2)], "reach": ac["reach"]}}
     Path(args.rig).write_text(json.dumps(rig, ensure_ascii=False, indent=2) + "\n", encoding="utf8")
 
