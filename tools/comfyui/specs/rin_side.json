@@ -2,7 +2,7 @@
   "description": "凜（7.5 頭身）的分件規格，來源是透明背景的側面圖（Qwen Image 2.1 RGBA）。groups：SAM 3.1 文字提示分出的群組（前面的優先），被別的群組擋住的群組由 Qwen 補全（complete）；parts：把群組在關節處切成零件（y 為水平切線），並指定每個零件怎麼轉正（from/to/mode/pivot）與掛在哪根骨頭（uses）。joints 是原圖像素座標。 沒有被擋住需要補的群組（馬尾、頭、手、槍套、靴子）不補全，零件就是原圖用 SAM 遮罩摳出的像素。",
   "id": "rin",
   "display_name": "凜",
-  "scale": 1.4,
+  "scale": 1.15,
   "seam": 10,
   "illustration_px_per_wp": 23.78,
   "tex_px_per_wp": 20,
@@ -222,7 +222,8 @@
         {
           "name": "pelvis_dmg",
           "bone": "hip",
-          "z": -1
+          "z": -1,
+          "under": true
         }
       ],
       "y": [
@@ -260,7 +261,8 @@
         {
           "name": "torso_dmg",
           "bone": "chest",
-          "z": 0
+          "z": 0,
+          "under": true
         }
       ],
       "y": [
@@ -409,12 +411,14 @@
           "name": "leg_back_upper_dmg",
           "bone": "leg_back_upper",
           "z": -6,
-          "tint": 0.62
+          "tint": 0.62,
+          "under": true
         },
         {
           "name": "thigh_dmg",
           "bone": "leg_front_upper",
-          "z": 2
+          "z": 2,
+          "under": true
         }
       ],
       "y": [
@@ -458,12 +462,14 @@
           "name": "leg_back_lower_dmg",
           "bone": "leg_back_lower",
           "z": -6,
-          "tint": 0.62
+          "tint": 0.62,
+          "under": true
         },
         {
           "name": "calf_dmg",
           "bone": "leg_front_lower",
-          "z": 2
+          "z": 2,
+          "under": true
         }
       ],
       "y": [

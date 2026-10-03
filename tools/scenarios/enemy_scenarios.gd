@@ -10,6 +10,9 @@ const SCENARIOS := {
 	"assault_enemies": "res://tools/scenarios/assault_scenario.gd",
 	"placement": "res://tools/scenarios/placement_scenario.gd",
 	"rin_damage": "res://tools/scenarios/rin_damage_scenario.gd",
+	"rin_fit": "res://tools/scenarios/rin_fit_scenario.gd",
+	"rin_light": "res://tools/scenarios/rin_light_scenario.gd",
+	"rin_perf": "res://tools/scenarios/rin_perf_scenario.gd",
 }
 
 

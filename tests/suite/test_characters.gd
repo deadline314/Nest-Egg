@@ -9,7 +9,8 @@ const NEW_CHARACTERS: Array[String] = ["old_k", "mei", "wataru", "reclaimer", "s
 const COMBATANTS: Array[String] = ["reclaimer", "sniper", "flamer", "heavy_gunner"]
 const NEW_WEAPONS: Array[String] = ["sniper", "flamethrower"]
 ## 規格基準（Q 版人形骨架的零件尺寸與支點）；凜已改用 7.5 頭身的專屬骨架，不再是基準。
-const REFERENCE := "old_k"
+## 零件依序在這幾個角色裡找規格：老 K 有基本零件與衣襬、回收員有裝甲、芽有後髮。
+const REFERENCES: Array[String] = ["old_k", "reclaimer", "mei"]
 const REQUIRED_PARTS: Array[String] = ["head", "torso", "pelvis", "arm_upper", "arm_lower", "hand", "leg_upper", "leg_lower", "foot"]
 ## 肢體零件要畫到下一個關節（規格書的「子關節」）：貼圖 → 從畫布左上角算起的位置。
 const LIMB_ENDS := {
@@ -39,13 +40,21 @@ func run() -> void:
 	await _test_rigs()
 
 
+## 零件 tex_name 的規格（尺寸與支點），在 REFERENCES 裡找到的第一個；沒有就回傳空字典。
+func _reference_spec(tex_name: String) -> Dictionary:
+	for id in REFERENCES:
+		var def: Dictionary = RigLibrary.character(id).get("textures", {}).get(tex_name, {})
+		if not def.is_empty():
+			return def
+	return {}
+
+
 func _texture_image(path: String) -> Image:
 	var tex := load(path) as Texture2D if ResourceLoader.exists(path) else null
 	return tex.get_image() if tex != null else null
 
 
 func _test_definitions() -> void:
-	var reference := RigLibrary.character(REFERENCE)
 	for id in NEW_CHARACTERS:
 		var skin := RigLibrary.character(id)
 		check(not skin.is_empty() and str(skin.get("id")) == id, "character definition loads and id matches its folder: %s" % id)
@@ -56,7 +65,7 @@ func _test_definitions() -> void:
 			check(textures.has(part_name), "%s defines the required part %s" % [id, part_name])
 		for tex_name: String in textures.keys():
 			var def: Dictionary = textures[tex_name]
-			var spec: Dictionary = reference.get("textures", {}).get(tex_name, {})
+			var spec := _reference_spec(tex_name)
 			check(not spec.is_empty(), "%s.%s is a part the rig spec knows" % [id, tex_name])
 			check(def.get("size") == spec.get("size") and def.get("pivot") == spec.get("pivot"), "%s.%s keeps the spec size and pivot" % [id, tex_name])
 			var size := RigLibrary.vec2(def.get("size"))

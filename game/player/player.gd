@@ -8,6 +8,7 @@ enum State { NORMAL, DASH, FINISHER, MOUNTED, STAGGERED, DEAD }
 const BODY_SIZE := Vector2(12, 44)
 const CROUCH_HEIGHT := 30.0
 ## 瞄準基準點（肩膀）的高度：站姿／蹲姿。
+## 外觀載入失敗時才用的後備值；平常肩膀高度由骨架量出（PlayerVisual.shoulder_height）。
 const SHOULDER_HEIGHT := 35.0
 const CROUCH_SHOULDER_HEIGHT := 27.0
 const SAFE_GROUND_DELAY := 0.25
@@ -148,7 +149,8 @@ func is_dead() -> bool:
 
 ## 瞄準的基準點（肩膀高度）。
 func aim_origin() -> Vector2:
-	var height := CROUCH_SHOULDER_HEIGHT if is_crouching else SHOULDER_HEIGHT
+	var fallback := CROUCH_SHOULDER_HEIGHT if is_crouching else SHOULDER_HEIGHT
+	var height := _visual.shoulder_height(is_crouching, fallback) if _visual != null else fallback
 	return global_position + Vector2(0, -height)
 
 

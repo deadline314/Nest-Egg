@@ -41,6 +41,21 @@ func _ready() -> void:
 	rig.show_behind_parent = true
 
 
+## 身體中心離腳底的高度（近戰揮砍弧與終結技光環繞著它畫）：肩膀高度的約六成（原本 35 → 22）。
+func body_center_height() -> float:
+	return shoulder_height(false, 35.0) * 0.62
+
+
+## 持槍基準點（肩膀）離腳底的高度：直接由骨架量出，蹲下時扣掉骨盆下沉量。骨架載入失敗時回傳 fallback。
+func shoulder_height(crouching: bool, fallback: float) -> float:
+	if rig == null or not rig.is_valid():
+		return fallback
+	var height := rig.anchor_height()
+	if crouching:
+		height -= HumanoidAnimator.CROUCH_DROP * rig.body_scale()
+	return height
+
+
 func set_weapon_visual(visual_id: String) -> void:
 	if rig != null:
 		rig.set_weapon(visual_id)
@@ -156,13 +171,13 @@ func _draw() -> void:
 		draw_line(tip, tip + player.aim_dir * 9.0 * t, LightKit.glow(Palette.WHITE, 3.0), 2.0)
 	if player.is_melee_swinging():
 		var f := float(player.facing)
-		var center := Vector2(f * 8.0, -22)
+		var center := Vector2(f * 8.0, -body_center_height())
 		var start := -PI * 0.5 if f > 0.0 else PI * 0.5
 		draw_arc(center, 18.0, start, start + PI * f, 14, LightKit.glow(Palette.CYAN, 2.0), 3.0)
 	_draw_shield()
 	if _finisher_flash > 0.0:
 		var t := _finisher_flash / FINISHER_FLASH_TIME
-		draw_arc(Vector2(0, -22), 26.0 * (1.5 - t), 0.0, TAU, 28, Color(LightKit.glow(Palette.WHITE, 2.0), t), 2.0)
+		draw_arc(Vector2(0, -body_center_height()), 26.0 * (1.5 - t), 0.0, TAU, 28, Color(LightKit.glow(Palette.WHITE, 2.0), t), 2.0)
 
 
 ## 衝刺殘影：沿路徑留下漸淡的青色剪影。

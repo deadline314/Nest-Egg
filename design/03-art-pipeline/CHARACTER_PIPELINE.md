@@ -115,6 +115,12 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
 
 **新增角色**：複製 `recipes/rin.json`、`specs/rin_side.json`，改 `id`、`work`、提示詞、`joints`，執行 `build_character.py`。
 
+## 4b. 遊戲內大小與瞄準
+
+- 凜的整體縮放（spec `scale`）是 1.15：站姿身高約 56 世界像素，和其他人形（54～60）一致；碰撞框 12×44、受擊框約 10×40 沒有動（頭會探出碰撞框 12 像素，其他人形也是這樣）。關卡最矮的通道淨高 4 格（64），兩關都沒有非蹲不可的地方。
+- 瞄準起點（肩膀高度）不是寫死的數字：由骨架的武器掛點量出（`CharacterRig.anchor_height()`），換縮放或換骨架準星都會跟著手上的槍同高；子彈從畫面上的槍口射出。
+- 檢查工具：`screenshot.tscn -- --scenario=rin_fit`（各動作畫上碰撞框、受擊框、瞄準起點、槍口與瞄準方向，另有最矮通道站姿與蹲姿）、`rin_light`（三種光影）、`rin_perf`（同屏 N 個角色的處理時間與繪製呼叫數）、`rin_damage`（受傷）。
+
 ## 5. 已知限制
 
 - 關節位置（spec `joints`）是依 SAM 3D Body 的預測再人工微調；換新角色時要看 `overlay.png` 調一次。

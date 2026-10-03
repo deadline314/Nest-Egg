@@ -31,6 +31,8 @@ var _order: Array[StringName] = []
 var _springs: Array[Dictionary] = []
 ## 會脫落的零件，依脫落順序（先掉在前）；同一個 armor_order 的零件算同一步，一起脫落（例如夾克的四片、前後腿的同一段絲襪）。
 var _armor: Array[Array] = []
+## 衣物底下的破損層（character.json 零件的 under）：完整衣物都在時被蓋住，不需要畫，第一片脫落後才顯示。
+var _under: Array[Sprite2D] = []
 ## 零件與它們的原始明暗（補光倍率套用在 self_modulate 上，發光層不受影響）。
 var _part_sprites: Array[Sprite2D] = []
 var _part_tints: PackedFloat32Array = PackedFloat32Array()
@@ -93,6 +95,21 @@ func parent_of(name: StringName) -> StringName:
 
 func bone_order() -> Array[StringName]:
 	return _order
+
+
+## 站立時持槍基準點（武器掛點）離腳底的高度（世界像素）；瞄準的起點用它，準星才和手上的槍同高。
+func anchor_height() -> float:
+	var y := _anchor_pos.y
+	var bone_name := _anchor_bone
+	while bone_name != &"":
+		y += _rest.get(bone_name, Vector2.ZERO).y
+		bone_name = _parent.get(bone_name, &"")
+	return -y * _base_scale
+
+
+## 骨架整體縮放（不含面向的正負號）。
+func body_scale() -> float:
+	return _base_scale
 
 
 ## 骨架定義的次級動態（彈簧）設定；沒有定義時為空陣列（動畫器改用預設）。
@@ -205,6 +222,9 @@ func set_armor_ratio(ratio: float, burst := true) -> void:
 		_armor_visible += 1
 		for part: Sprite2D in _armor[_armor.size() - _armor_visible]:
 			part.visible = true
+	var broken := _armor_visible < _armor.size()
+	for part in _under:
+		part.visible = broken
 
 
 func armor_count() -> int:
@@ -314,6 +334,9 @@ func _build_parts(skin: Dictionary) -> void:
 			sprite.add_child(glow_sprite)
 		if int(entry.get("armor_order", 0)) > 0:
 			armor_entries.append([int(entry["armor_order"]), sprite])
+		if bool(entry.get("under", false)):
+			sprite.visible = false
+			_under.append(sprite)
 	# 依脫落順序排序：order 小的先掉，同一個 order 的零件放在同一步。_armor 由先掉到後掉。
 	armor_entries.sort_custom(func(a: Array, b: Array) -> bool: return a[0] < b[0])
 	var last_order := -1
