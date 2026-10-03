@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TerrainMaterialData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/terrain_material_data.gd" id="1_ryycv"]
+
+[resource]
+script = ExtResource("1_ryycv")
+id = &"container_rust"
+display_name = "鏽蝕貨櫃"
+body = "res://art/environment/materials/container_rust_body.png"
+top = "res://art/environment/materials/container_rust_top.png"
+side = "res://art/environment/materials/container_rust_side.png"

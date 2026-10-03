@@ -65,6 +65,8 @@ func _ready() -> void:
 	add_child(ambient)
 
 	_background = LevelBackground.new()
+	if data.environment != null:
+		_background.backdrop = data.environment.backdrop
 	add_child(_background)
 	_world = Node2D.new()
 	_world.name = "World"
@@ -72,14 +74,15 @@ func _ready() -> void:
 
 	var back_wall := BackWall.new()
 	_world.add_child(back_wall)
-	back_wall.setup(_layout, hash(data.id))
+	back_wall.setup(_layout, hash(data.id), data.environment)
 
 	_spawn_decor()
+	_spawn_props()
 
 	var terrain := Terrain.new()
 	terrain.name = "Terrain"
 	_world.add_child(terrain)
-	terrain.build(_layout)
+	terrain.build(_layout, data.environment)
 
 	_entities = Node2D.new()
 	_entities.name = "Entities"
@@ -324,7 +327,43 @@ func _spawn_decor() -> void:
 				vent.position = position + Vector2(_layout.tile_size * 0.5, _layout.tile_size)
 				_world.add_child(vent)
 			_:
-				push_warning("[Level] 未知的裝飾種類：%s" % entry["kind"])
+				var prop := PropLibrary.find(StringName(str(entry["kind"])), _prop_dir())
+				if prop == null:
+					push_warning("[Level] 未知的裝飾種類：%s" % entry["kind"])
+				else:
+					_place_prop(prop, position + Vector2(0.0, _layout.tile_size - prop.size.y), false)
+
+
+## 地圖 JSON 的 props 清單（見 LevelData.load_props）：以道具資料的 id 擺放。
+func _spawn_props() -> void:
+	var dir := _prop_dir()
+	for entry in data.load_props():
+		var prop := PropLibrary.find(StringName(str(entry["id"])), dir)
+		if prop == null:
+			continue
+		var tile := _layout.tile_size
+		var column := int(entry["x"])
+		var bottom := float((int(entry.get("y", 0)) + 1) * tile)
+		if bool(entry.get("ground", false)):
+			var center := clampi(column + int(prop.size.x / float(tile) * 0.5), 0, _layout.width - 1)
+			var surface := _layout.surface_heights[center]
+			if surface == INF:
+				push_warning("[Level] 道具 %s 第 %d 欄下方沒有地表，已略過" % [prop.id, column])
+				continue
+			bottom = surface
+		bottom += float(entry.get("dy", 0.0))
+		var left := float(column * tile) + float(entry.get("dx", 0.0))
+		_place_prop(prop, Vector2(left, bottom - prop.size.y), bool(entry.get("flip", false)))
+
+
+func _place_prop(prop: PropData, top_left: Vector2, flip: bool) -> void:
+	var node := PropNode.new()
+	node.setup(prop, top_left, flip)
+	_world.add_child(node)
+
+
+func _prop_dir() -> String:
+	return data.environment.prop_dir if data.environment != null else PropLibrary.DEFAULT_DIR
 
 
 ## 雨與霧（畫在角色前方，低透明度）。

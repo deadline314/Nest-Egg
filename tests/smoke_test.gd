@@ -63,7 +63,7 @@ func _suites() -> Array[TestSuite]:
 	return [
 		PropsSuite.new(self), NewEnemiesSuite.new(self), CollectiblesSuite.new(self),
 		ProgressionSuite.new(self), SupplySuite.new(self), ReclaimerSuite.new(self),
-		Chapter2Suite.new(self), UiKitSuite.new(self), TransitionSuite.new(self), UiScreensSuite.new(self), CutsceneSuite.new(self),
+		Chapter2Suite.new(self), UiKitSuite.new(self), TransitionSuite.new(self), UiScreensSuite.new(self), CutsceneSuite.new(self), EnvironmentSuite.new(self),
 	]
 
 

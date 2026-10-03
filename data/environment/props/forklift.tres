@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_gn5ir"]
+
+[resource]
+script = ExtResource("1_gn5ir")
+id = &"forklift"
+display_name = "堆高機"
+texture = "res://art/environment/props/forklift.png"
+size = Vector2(40, 26)
+has_glow = true
+category = &"cargo"

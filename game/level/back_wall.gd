@@ -24,11 +24,16 @@ var _holes := PackedByteArray()
 var _outdoor := PackedByteArray()
 var _facade_top := PackedFloat32Array()
 var _ground := PackedFloat32Array()
+## 環境主題（建築立面、室內牆面）；null 代表沿用程式繪製。
+var _theme: EnvironmentTheme
+## 每一欄的立面模組（由下往上）：{ "rect": Rect2, "path": String }。只在有立面主題時使用。
+var _col_modules: Array[Array] = []
 
 
-func setup(layout: LevelLayout, p_seed := 1) -> void:
+func setup(layout: LevelLayout, p_seed := 1, theme: EnvironmentTheme = null) -> void:
 	_tile = layout.tile_size
 	_seed = p_seed
+	_theme = theme
 	z_index = -1
 	var size := layout.pixel_size()
 	var panel := float(_tile * PANEL_TILES)
@@ -40,7 +45,7 @@ func setup(layout: LevelLayout, p_seed := 1) -> void:
 	for row in _rows:
 		for col in _columns:
 			var y := row * panel
-			var hole := y > panel and y < size.y - panel * 2.0 and rng.randf() < HOLE_CHANCE
+			var hole := y > panel and y < size.y - panel * 2.0 and rng.randf() < _hole_chance(col)
 			_holes[row * _columns + col] = 1 if hole else 0
 	_outdoor.resize(_columns)
 	_facade_top.resize(_columns)
@@ -61,7 +66,52 @@ func setup(layout: LevelLayout, p_seed := 1) -> void:
 			_facade_top[col] = _facade_top[col - 1]
 		# 相鄰兩塊共用高度時，另一塊的地面可能更高（平台）：頂端不能低於地面，否則立面高度會是負的。
 		_facade_top[col] = minf(_facade_top[col], _ground[col] - 2.0 * _tile)
+	if _theme != null:
+		_build_modules(layout)
 	build_chunks(Rect2(Vector2.ZERO, size))
+	if not _col_modules.is_empty():
+		var glow := _FacadeGlow.new()
+		glow.name = "FacadeGlow"
+		glow.walls = self
+		add_child(glow)
+		glow.build_chunks(Rect2(Vector2.ZERO, size))
+
+
+func _zone_of_col(col: int) -> EnvZone:
+	return _theme.zone_at(col * PANEL_TILES) if _theme != null else null
+
+
+func _hole_chance(col: int) -> float:
+	var zone := _zone_of_col(col)
+	return zone.hole_chance if zone != null else HOLE_CHANCE
+
+
+## 依各欄所在區段的立面清單，把每一欄的樓層模組（一樓、標準樓層、女兒牆）排好。
+## 相鄰兩欄共用同一種立面與樓層變化，看起來是一棟比較寬的樓。
+func _build_modules(layout: LevelLayout) -> void:
+	_col_modules.clear()
+	_col_modules.resize(_columns)
+	var panel := float(_tile * PANEL_TILES)
+	for col in _columns:
+		var zone := _zone_of_col(col)
+		if _outdoor[col] != 1 or zone == null or zone.facades.is_empty():
+			continue
+		var group := col / 2
+		var facade: FacadeData = zone.facades[(_seed + group * 7) % zone.facades.size()]
+		var key := _seed + group * 13
+		var ground := _ground[col]
+		var modules: Array[Dictionary] = []
+		var left := col * panel
+		var y := ground - FacadeData.GROUND_HEIGHT
+		modules.append({"rect": Rect2(left, y, panel, FacadeData.GROUND_HEIGHT), "path": FacadeData.pick(facade.ground, key)})
+		var building_h := ground - _facade_top[col]
+		var floors := maxi(1, int((building_h - FacadeData.GROUND_HEIGHT - FacadeData.CAP_HEIGHT) / FacadeData.BODY_HEIGHT))
+		for i in floors:
+			y -= FacadeData.BODY_HEIGHT
+			modules.append({"rect": Rect2(left, y, panel, FacadeData.BODY_HEIGHT), "path": FacadeData.pick(facade.body, key + i * 3 + col % 2)})
+		y -= FacadeData.CAP_HEIGHT
+		modules.append({"rect": Rect2(left, y, panel, FacadeData.CAP_HEIGHT), "path": FacadeData.pick(facade.cap, key)})
+		_col_modules[col] = modules
 
 
 func _draw_chunk(canvas: CanvasItem, rect: Rect2) -> void:
@@ -77,11 +127,18 @@ func _draw_chunk(canvas: CanvasItem, rect: Rect2) -> void:
 
 func _draw_interior(canvas: CanvasItem, col: int, rect: Rect2) -> void:
 	var panel := float(_tile * PANEL_TILES)
+	var zone := _zone_of_col(col)
+	var texture: Texture2D = null
+	if zone != null and not zone.interior.is_empty():
+		texture = LitTextures.load_texture(zone.interior, Vector2i(256, 256))
 	for row in _rows:
 		if _holes[row * _columns + col] == 1:
 			continue
 		var cell := Rect2(col * panel, row * panel, panel, panel).intersection(rect)
 		if cell.size.x <= 0.0:
+			continue
+		if texture != null:
+			canvas.draw_texture_rect_region(texture, cell, Rect2(cell.position * 4.0, cell.size * 4.0))
 			continue
 		canvas.draw_rect(cell, WALL_COLOR)
 		canvas.draw_rect(cell, SEAM_COLOR, false, 1.0)
@@ -93,6 +150,13 @@ func _draw_interior(canvas: CanvasItem, col: int, rect: Rect2) -> void:
 
 ## 街邊建築立面：店面玻璃（帶反光）、鐵捲門、冷氣機、招牌底座。
 func _draw_facade(canvas: CanvasItem, col: int, rect: Rect2) -> void:
+	if col < _col_modules.size() and not _col_modules[col].is_empty():
+		for module: Dictionary in _col_modules[col]:
+			var area: Rect2 = module["rect"]
+			if area.intersects(rect):
+				var texture := LitTextures.load_texture(str(module["path"]), Vector2i(area.size) * 4)
+				canvas.draw_texture_rect(texture, area, false)
+		return
 	var panel := float(_tile * PANEL_TILES)
 	var left := col * panel
 	var top := _facade_top[col]
@@ -127,3 +191,23 @@ func _draw_facade(canvas: CanvasItem, col: int, rect: Rect2) -> void:
 		if rng.randf() < 0.5:
 			canvas.draw_rect(Rect2(left + panel - 22, wy + 11, 12, 7), SHUTTER_COLOR)
 		wy += 24.0
+
+
+## 立面的自發光層（窗光、霓虹）：自發光材質，不受環境光壓暗。
+class _FacadeGlow:
+	extends ChunkedDrawer
+
+	var walls: BackWall
+
+	func _init() -> void:
+		emissive = true
+
+	func _draw_chunk(canvas: CanvasItem, rect: Rect2) -> void:
+		for modules: Array in walls._col_modules:
+			for module: Dictionary in modules:
+				var area: Rect2 = module["rect"]
+				if not area.intersects(rect):
+					continue
+				var glow := RigLibrary.optional_texture(FacadeData.glow_path(str(module["path"])))
+				if glow != null:
+					canvas.draw_texture_rect(glow, area, false, LightKit.glow(Color.WHITE, 1.25))

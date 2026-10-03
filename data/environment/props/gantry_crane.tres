@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_xcfij"]
+
+[resource]
+script = ExtResource("1_xcfij")
+id = &"gantry_crane"
+display_name = "龍門吊"
+texture = "res://art/environment/props/gantry_crane.png"
+size = Vector2(160, 80)
+has_glow = true
+flicker = 0.4
+light_color = Color(1, 0.3, 0.2, 1)
+light_radius = 60.0
+light_energy = 0.5
+light_offset = Vector2(20, 70)
+category = &"hangar"

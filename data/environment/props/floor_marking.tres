@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_yjoma"]
+
+[resource]
+script = ExtResource("1_yjoma")
+id = &"floor_marking"
+display_name = "地面標線"
+texture = "res://art/environment/props/floor_marking.png"
+size = Vector2(64, 4)
+category = &"facility"

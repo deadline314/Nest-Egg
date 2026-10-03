@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_2iger"]
+
+[resource]
+script = ExtResource("1_2iger")
+id = &"satellite_dish"
+display_name = "衛星天線"
+texture = "res://art/environment/props/satellite_dish.png"
+size = Vector2(22, 22)
+category = &"rooftop"

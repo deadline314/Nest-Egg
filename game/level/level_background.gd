@@ -11,16 +11,55 @@ const BACKGROUND_Z := -100
 const HORIZON := 300.0
 
 
+## 環境主題的背景貼圖層（由遠到近）；空陣列時使用程式繪製的天際線。要在加入場景樹之前指定。
+var backdrop: Array[BackdropLayer] = []
+
+
 func _ready() -> void:
 	z_as_relative = false
 	z_index = BACKGROUND_Z
 	_add_layer(0.0, _Sky.new(), false)
 	_add_layer(0.03, _Arcology.new(), false)
 	_add_layer(0.05, _Searchlights.new(), false)
-	_add_layer(0.1, _Skyline.new(11, Palette.CITY_FAR, 150.0, 260.0, 26.0, 0.55, 0.0), true)
-	_add_layer(0.16, _Traffic.new(), true)
-	_add_layer(0.24, _Skyline.new(23, Palette.CITY_MID, 80.0, 200.0, 40.0, 0.35, 0.5), true)
-	_add_layer(0.38, _Skyline.new(37, Palette.CITY_NEAR, 40.0, 120.0, 60.0, 0.15, 0.25), true)
+	if backdrop.is_empty():
+		_add_layer(0.1, _Skyline.new(11, Palette.CITY_FAR, 150.0, 260.0, 26.0, 0.55, 0.0), true)
+		_add_layer(0.16, _Traffic.new(), true)
+		_add_layer(0.24, _Skyline.new(23, Palette.CITY_MID, 80.0, 200.0, 40.0, 0.35, 0.5), true)
+		_add_layer(0.38, _Skyline.new(37, Palette.CITY_NEAR, 40.0, 120.0, 60.0, 0.15, 0.25), true)
+		return
+	for i in backdrop.size():
+		_add_textured_layer(backdrop[i])
+		# 車流夾在遠景與中景之間。
+		if i == 0:
+			_add_layer(0.16, _Traffic.new(), true)
+
+
+## 貼圖背景層：左右無縫平鋪的圖（寬 640 邏輯像素）+ 自發光窗光。
+func _add_textured_layer(layer: BackdropLayer) -> void:
+	var texture := RigLibrary.texture(layer.texture, Vector2i(int(PATTERN_WIDTH * 0.5), 400))
+	var parallax := Parallax2D.new()
+	parallax.scroll_scale = Vector2(layer.scroll_scale, layer.scroll_scale * 0.4)
+	parallax.repeat_size = Vector2(PATTERN_WIDTH * 0.5, 0.0)
+	var sprite := Sprite2D.new()
+	sprite.texture = texture
+	sprite.centered = false
+	var factor := 1.0 / float(maxi(1, layer.texture_scale))
+	sprite.scale = Vector2.ONE * factor
+	sprite.modulate = layer.tint
+	sprite.light_mask = 0
+	sprite.position = Vector2(0.0, layer.bottom_y - float(texture.get_height()) * factor)
+	parallax.add_child(sprite)
+	var glow := RigLibrary.optional_texture(layer.glow_path())
+	if glow != null:
+		var glow_sprite := Sprite2D.new()
+		glow_sprite.texture = glow
+		glow_sprite.centered = false
+		glow_sprite.scale = sprite.scale
+		glow_sprite.position = sprite.position
+		glow_sprite.light_mask = 0
+		glow_sprite.self_modulate = LightKit.glow(layer.tint, layer.glow_intensity)
+		parallax.add_child(glow_sprite)
+	add_child(parallax)
 
 
 func _add_layer(scale_factor: float, drawer: Node2D, repeat: bool) -> void:

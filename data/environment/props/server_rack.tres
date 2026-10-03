@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_1mwyb"]
+
+[resource]
+script = ExtResource("1_1mwyb")
+id = &"server_rack"
+display_name = "伺服器機櫃"
+texture = "res://art/environment/props/server_rack.png"
+size = Vector2(18, 40)
+has_glow = true
+light_color = Color(0.2, 0.88, 1, 1)
+light_radius = 40.0
+light_energy = 0.4
+light_offset = Vector2(9, 20)
+category = &"facility"

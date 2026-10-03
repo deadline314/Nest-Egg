@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_hsh04"]
+
+[resource]
+script = ExtResource("1_hsh04")
+id = &"dumpster"
+display_name = "大型垃圾箱"
+texture = "res://art/environment/props/dumpster.png"
+size = Vector2(40, 24)
+casts_shadow = true

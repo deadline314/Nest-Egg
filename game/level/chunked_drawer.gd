@@ -40,6 +40,10 @@ class _Chunk:
 	var owner_drawer: ChunkedDrawer
 	var rect := Rect2()
 
+	func _init() -> void:
+		# 材質用 draw_texture_rect_region 超出貼圖範圍的部分平鋪，需要開啟重複取樣。
+		texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
+
 	func _draw() -> void:
 		if owner_drawer != null:
 			owner_drawer._draw_chunk(self, rect)

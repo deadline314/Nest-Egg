@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_2xpv6"]
+
+[resource]
+script = ExtResource("1_2xpv6")
+id = &"lantern_string"
+display_name = "燈籠串"
+texture = "res://art/environment/props/lantern_string.png"
+size = Vector2(96, 16)
+has_glow = true
+light_color = Color(1, 0.6, 0.3, 1)
+light_radius = 80.0
+light_energy = 0.7
+light_offset = Vector2(48, 10)

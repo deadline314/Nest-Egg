@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_hdb0p"]
+
+[resource]
+script = ExtResource("1_hdb0p")
+id = &"utility_pole"
+display_name = "電線桿"
+texture = "res://art/environment/props/utility_pole.png"
+size = Vector2(48, 80)
+layer = 1

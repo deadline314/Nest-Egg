@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TerrainMaterialData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/terrain_material_data.gd" id="1_mohry"]
+
+[resource]
+script = ExtResource("1_mohry")
+id = &"container_red"
+display_name = "紅色貨櫃"
+body = "res://art/environment/materials/container_red_body.png"
+top = "res://art/environment/materials/container_red_top.png"
+side = "res://art/environment/materials/container_red_side.png"

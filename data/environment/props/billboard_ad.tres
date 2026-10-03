@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_k3i7j"]
+
+[resource]
+script = ExtResource("1_k3i7j")
+id = &"billboard_ad"
+display_name = "廣告看板"
+texture = "res://art/environment/props/billboard_ad.png"
+size = Vector2(64, 32)
+has_glow = true
+light_color = Color(0.55, 0.65, 1, 1)
+light_radius = 80.0
+light_energy = 0.6
+light_offset = Vector2(32, 16)

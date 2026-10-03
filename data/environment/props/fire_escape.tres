@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_ejtoj"]
+
+[resource]
+script = ExtResource("1_ejtoj")
+id = &"fire_escape"
+display_name = "逃生梯"
+texture = "res://art/environment/props/fire_escape.png"
+size = Vector2(48, 72)
+platform = Rect2(0, 26, 48, 4)

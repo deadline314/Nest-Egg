@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、cutscene、screens、flow、transition、ui、settings、mouse_aim、block、story、story_ch2、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
+## 情境：all（預設）、environment、cutscene、screens、flow、transition、ui、settings、mouse_aim、block、story、story_ch2、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -24,6 +24,10 @@ func _run() -> void:
 	add_child(LightKit.create_environment())
 	# 劇情演出會暫停遊戲並蓋住畫面；只有 story 情境需要拍到演出。
 	Story.auto_skip = _scenario != "story" and _scenario != "story_ch2"
+	if _scenario == "environment":
+		await _run_environment()
+		get_tree().quit()
+		return
 	if _scenario == "cutscene":
 		await _run_cutscene()
 		get_tree().quit()
@@ -1200,6 +1204,24 @@ func _run_settings() -> void:
 	_capture("settings_bindings")
 	settings._cancel_capture()
 	settings.queue_free()
+
+
+## 環境元件預覽：材質畫廊（15 種地形材質 + 立面）與道具畫廊，逐頁截圖。
+func _run_environment() -> void:
+	for entry in [["materials", 5], ["props", 5]]:
+		var data := EnvGallery.level_data(entry[0])
+		GameState.start_new_run(GameState.difficulties[1])
+		var level := Level.new()
+		level.configure(data)
+		add_child(level)
+		await _settle(25)
+		for page in int(entry[1]):
+			level.player.global_position = Vector2(320.0 + page * 640.0, 250.0)
+			level_camera_snap()
+			await _settle(14)
+			_capture("env_%s_%d" % [entry[0], page])
+		level.queue_free()
+		await _settle(6)
 
 
 ## 過場動畫範例：雨夜沉港舞台、凜（骨架）與老 K（剪影）、對話框、標題卡。

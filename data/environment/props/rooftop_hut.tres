@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_ghacn"]
+
+[resource]
+script = ExtResource("1_ghacn")
+id = &"rooftop_hut"
+display_name = "樓梯間"
+texture = "res://art/environment/props/rooftop_hut.png"
+size = Vector2(40, 32)
+has_glow = true
+light_radius = 56.0
+light_energy = 0.6
+light_offset = Vector2(20, 22)
+casts_shadow = true
+category = &"rooftop"

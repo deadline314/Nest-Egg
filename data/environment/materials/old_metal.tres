@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TerrainMaterialData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/terrain_material_data.gd" id="1_l8haw"]
+
+[resource]
+script = ExtResource("1_l8haw")
+id = &"old_metal"
+display_name = "老舊金屬"
+body = "res://art/environment/materials/old_metal_body.png"
+top = "res://art/environment/materials/old_metal_top.png"
+side = "res://art/environment/materials/old_metal_side.png"

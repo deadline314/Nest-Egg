@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TerrainMaterialData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/terrain_material_data.gd" id="1_jd4bp"]
+
+[resource]
+script = ExtResource("1_jd4bp")
+id = &"concrete"
+display_name = "混凝土"
+body = "res://art/environment/materials/concrete_body.png"
+top = "res://art/environment/materials/concrete_top.png"
+side = "res://art/environment/materials/concrete_side.png"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_a3jf2"]
+
+[resource]
+script = ExtResource("1_a3jf2")
+id = &"vent_stack"
+display_name = "排氣管"
+texture = "res://art/environment/props/vent_stack.png"
+size = Vector2(16, 32)
+category = &"rooftop"

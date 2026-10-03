@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_1l31p"]
+
+[resource]
+script = ExtResource("1_1l31p")
+id = &"container_back"
+display_name = "背景貨櫃"
+texture = "res://art/environment/props/container_back.png"
+size = Vector2(48, 24)
+category = &"cargo"

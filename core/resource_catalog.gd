@@ -49,8 +49,14 @@ static func _is_type(res: Resource, type: Script) -> bool:
 
 
 static func _by_order(a: Resource, b: Resource) -> bool:
-	var order_a := int(a.get(&"order"))
-	var order_b := int(b.get(&"order"))
+	# order 是可選欄位：沒有這個屬性的資料視為 0，再以 id 排序。
+	var order_a := _order_of(a)
+	var order_b := _order_of(b)
 	if order_a != order_b:
 		return order_a < order_b
 	return str(a.get(&"id")) < str(b.get(&"id"))
+
+
+static func _order_of(res: Resource) -> int:
+	var value: Variant = res.get(&"order")
+	return int(value) if typeof(value) == TYPE_INT or typeof(value) == TYPE_FLOAT else 0

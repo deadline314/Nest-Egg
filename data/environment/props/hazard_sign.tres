@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_dfdmb"]
+
+[resource]
+script = ExtResource("1_dfdmb")
+id = &"hazard_sign"
+display_name = "警示牌"
+texture = "res://art/environment/props/hazard_sign.png"
+has_glow = true
+category = &"facility"

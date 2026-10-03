@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_6m3h3"]
+
+[resource]
+script = ExtResource("1_6m3h3")
+id = &"crates_stack"
+display_name = "貨箱堆"
+texture = "res://art/environment/props/crates_stack.png"
+size = Vector2(32, 28)
+casts_shadow = true

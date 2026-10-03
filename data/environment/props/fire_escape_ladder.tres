@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_s3nii"]
+
+[resource]
+script = ExtResource("1_s3nii")
+id = &"fire_escape_ladder"
+display_name = "逃生爬梯"
+texture = "res://art/environment/props/fire_escape_ladder.png"
+size = Vector2(12, 56)

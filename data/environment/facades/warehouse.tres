@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="FacadeData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/facade_data.gd" id="1_lh8u7"]
+
+[resource]
+script = ExtResource("1_lh8u7")
+id = &"warehouse"
+display_name = "貨運倉庫"
+ground = PackedStringArray("res://art/environment/facades/warehouse_g0.png", "res://art/environment/facades/warehouse_g1.png")
+body = PackedStringArray("res://art/environment/facades/warehouse_b0.png", "res://art/environment/facades/warehouse_b1.png")
+cap = PackedStringArray("res://art/environment/facades/warehouse_cap0.png")

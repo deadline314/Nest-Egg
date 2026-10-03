@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="FacadeData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/facade_data.gd" id="1_h6sku"]
+
+[resource]
+script = ExtResource("1_h6sku")
+id = &"apartment"
+display_name = "老公寓"
+ground = PackedStringArray("res://art/environment/facades/apartment_g0.png", "res://art/environment/facades/apartment_g1.png")
+body = PackedStringArray("res://art/environment/facades/apartment_b0.png", "res://art/environment/facades/apartment_b1.png")
+cap = PackedStringArray("res://art/environment/facades/apartment_cap0.png")

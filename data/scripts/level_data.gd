@@ -40,6 +40,9 @@ extends Resource
 @export var outro_scene: StringName = &""
 ## 地圖上 & 字元由左至右對應的劇情場景 id。
 @export var story_triggers: PackedStringArray = PackedStringArray()
+@export_group("Environment")
+## 環境主題（地形材質、建築立面、道具、背景層）。留空時沿用單一金屬面板與程式繪製立面。
+@export var environment: EnvironmentTheme
 @export_group("Atmosphere")
 @export var rain := true
 ## 沒有光影區段時使用的霧顏色（有 lighting_zones 時由各區段的光影設定決定）。
@@ -56,6 +59,29 @@ extends Resource
 @export var hints: PackedStringArray = PackedStringArray()
 ## 地圖 JSON 路徑，格式：{ "segments": [ ["列0", "列1", ...], [...] ] }，分段由左至右串接。
 @export_file("*.json") var layout_path: String = ""
+
+
+## 讀取地圖 JSON 的 props 清單：{ "id": 道具 id, "x": 欄, "y": 底邊所在列, "flip": 是否左右翻轉, "ground": true 時 y 取該欄地表 }。
+## 壞掉的項目略過並記錄，不影響其他道具。
+func load_props() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	if layout_path.is_empty() or not ResourceLoader.exists(layout_path):
+		return result
+	var json := load(layout_path) as JSON
+	if json == null or typeof(json.data) != TYPE_DICTIONARY:
+		return result
+	var raw: Variant = (json.data as Dictionary).get("props", [])
+	if typeof(raw) != TYPE_ARRAY:
+		push_warning("[LevelData] %s 的 props 必須是陣列" % id)
+		return result
+	var index := 0
+	for entry: Variant in raw:
+		index += 1
+		if typeof(entry) != TYPE_DICTIONARY or not (entry as Dictionary).has("id") or not (entry as Dictionary).has("x"):
+			push_warning("[LevelData] %s 的第 %d 個道具缺少 id 或 x，已略過" % [id, index])
+			continue
+		result.append(entry)
+	return result
 
 
 ## 檢查光影區段的設定，回傳問題清單（空代表沒問題）。

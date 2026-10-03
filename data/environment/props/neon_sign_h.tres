@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_or2uq"]
+
+[resource]
+script = ExtResource("1_or2uq")
+id = &"neon_sign_h"
+display_name = "橫式霓虹招牌"
+texture = "res://art/environment/props/neon_sign_h.png"
+size = Vector2(40, 14)
+has_glow = true
+flicker = 0.15
+light_color = Color(0.2, 0.88, 1, 1)
+light_radius = 60.0
+light_offset = Vector2(20, 7)

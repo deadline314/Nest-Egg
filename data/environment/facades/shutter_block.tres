@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="FacadeData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/facade_data.gd" id="1_s6cmn"]
+
+[resource]
+script = ExtResource("1_s6cmn")
+id = &"shutter_block"
+display_name = "鐵捲門街屋"
+ground = PackedStringArray("res://art/environment/facades/shutter_block_g0.png", "res://art/environment/facades/shutter_block_g1.png")
+body = PackedStringArray("res://art/environment/facades/shutter_block_b0.png", "res://art/environment/facades/shutter_block_b1.png")
+cap = PackedStringArray("res://art/environment/facades/shutter_block_cap0.png")

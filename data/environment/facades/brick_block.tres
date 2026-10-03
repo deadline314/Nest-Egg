@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="FacadeData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/facade_data.gd" id="1_dj17h"]
+
+[resource]
+script = ExtResource("1_dj17h")
+id = &"brick_block"
+display_name = "磚造舊樓"
+ground = PackedStringArray("res://art/environment/facades/brick_block_g0.png", "res://art/environment/facades/brick_block_g1.png")
+body = PackedStringArray("res://art/environment/facades/brick_block_b0.png", "res://art/environment/facades/brick_block_b1.png")
+cap = PackedStringArray("res://art/environment/facades/brick_block_cap0.png")

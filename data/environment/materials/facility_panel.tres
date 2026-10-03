@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TerrainMaterialData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/terrain_material_data.gd" id="1_qsf6i"]
+
+[resource]
+script = ExtResource("1_qsf6i")
+id = &"facility_panel"
+display_name = "設施面板"
+body = "res://art/environment/materials/facility_panel_body.png"
+top = "res://art/environment/materials/facility_panel_top.png"
+side = "res://art/environment/materials/facility_panel_side.png"

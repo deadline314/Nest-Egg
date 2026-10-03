@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_sh2id"]
+
+[resource]
+script = ExtResource("1_sh2id")
+id = &"pallet_stack"
+display_name = "棧板堆"
+texture = "res://art/environment/props/pallet_stack.png"
+size = Vector2(28, 22)
+category = &"cargo"

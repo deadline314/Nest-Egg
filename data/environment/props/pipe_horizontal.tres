@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_iilbm"]
+
+[resource]
+script = ExtResource("1_iilbm")
+id = &"pipe_horizontal"
+display_name = "橫向管線"
+texture = "res://art/environment/props/pipe_horizontal.png"
+size = Vector2(64, 8)

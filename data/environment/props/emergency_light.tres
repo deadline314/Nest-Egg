@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_mf2er"]
+
+[resource]
+script = ExtResource("1_mf2er")
+id = &"emergency_light"
+display_name = "應急燈"
+texture = "res://art/environment/props/emergency_light.png"
+size = Vector2(14, 8)
+has_glow = true
+flicker = 0.45
+light_color = Color(1, 0.2, 0.15, 1)
+light_radius = 70.0
+light_energy = 0.9
+light_offset = Vector2(7, 6)
+category = &"facility"

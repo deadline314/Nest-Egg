@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_a0jk1"]
+
+[resource]
+script = ExtResource("1_a0jk1")
+id = &"noodle_stall"
+display_name = "麵攤"
+texture = "res://art/environment/props/noodle_stall.png"
+size = Vector2(64, 48)
+has_glow = true
+light_color = Color(1, 0.72, 0.4, 1)
+light_radius = 96.0
+light_energy = 1.0
+light_offset = Vector2(32, 28)
+platform = Rect2(2, 8, 60, 4)

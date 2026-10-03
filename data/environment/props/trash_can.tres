@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_arec8"]
+
+[resource]
+script = ExtResource("1_arec8")
+id = &"trash_can"
+display_name = "垃圾桶"
+texture = "res://art/environment/props/trash_can.png"
+size = Vector2(12, 16)

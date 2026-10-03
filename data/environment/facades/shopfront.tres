@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="FacadeData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/facade_data.gd" id="1_brkjv"]
+
+[resource]
+script = ExtResource("1_brkjv")
+id = &"shopfront"
+display_name = "街邊店面"
+ground = PackedStringArray("res://art/environment/facades/shopfront_g0.png", "res://art/environment/facades/shopfront_g1.png")
+body = PackedStringArray("res://art/environment/facades/shopfront_b0.png", "res://art/environment/facades/shopfront_b1.png")
+cap = PackedStringArray("res://art/environment/facades/shopfront_cap0.png")

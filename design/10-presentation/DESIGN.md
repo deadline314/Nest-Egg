@@ -229,6 +229,20 @@
 - 所有環境元件以 **4 倍解析度**繪製（一格 16 像素的地形，貼圖是 64 像素），遊戲裡縮回原尺寸顯示；與角色骨架的規格相同（`texture_scale = 0.25`）。
 - 有邊緣的元件都附 `_n` 法線貼圖（沿用法線工具）與 `_glow` 自發光層（窗戶、霓虹、指示燈）。
 - 美術由程式繪製工具輸出成 PNG（暫代美術），同名 PNG 覆蓋即可換成手繪，不用改程式。
+- 例外：背景視差層（遠景天際線、中景建築、近景前景）用 2 倍解析度，因為離鏡頭遠、又被霧與雨蓋住，4 倍會讓整條貼圖吃掉不必要的記憶體。
+
+### 資料與工具
+
+| 項目 | 位置 |
+|---|---|
+| 地形材質（body／top／side 三張）| `data/environment/materials/*.tres`、`art/environment/materials/` |
+| 建築立面（一樓／標準樓層／女兒牆模組，附 `_glow` 與 `_n`）| `data/environment/facades/*.tres`、`art/environment/facades/` |
+| 道具（貼圖、大小、圖層、光源、平台、遮光）| `data/environment/props/*.tres`、`art/environment/props/` |
+| 背景層 | `art/environment/backdrop/`，由環境主題的 `backdrop` 清單引用 |
+| 環境主題（區段 → 材質與立面）| `LevelData.environment`；沒指定時沿用原本的繪製 |
+| 擺放道具 | 地圖 JSON 的 `props` 清單：`{"id", "x", "y"／"ground", "flip", "dx", "dy"}` |
+| 重畫暫代圖 | `godot --headless --path . res://tools/art/paint_environment.tscn [-- --only=materials,facades,props,backdrop]`（資料檔已存在就不覆蓋） |
+| 預覽 | `screenshot.tscn -- --scenario=environment`：材質畫廊與道具畫廊 |
 
 ### 元件分類
 
