@@ -14,6 +14,9 @@ const CROUCH_SHOULDER_HEIGHT := 27.0
 const SAFE_GROUND_DELAY := 0.25
 const DROP_THROUGH_TIME := 0.25
 const MELEE_VISUAL_TIME := 0.12
+## 近戰的衝擊力（重擊，打得普通敵人硬直）與命中時玩家自己的頓幀。
+const MELEE_IMPACT := 6.0
+const MELEE_FREEZE := 0.05
 ## 下車後短暫禁止再次上車（避免同一次按鍵下車又立刻上車）。
 const REMOUNT_COOLDOWN := 0.3
 ## 準星擴散每秒回復量與最大額外散佈角度。
@@ -432,13 +435,15 @@ func _try_melee() -> bool:
 	for target_hurtbox in _query_hurtboxes(center, Vector2(tuning.melee_range, BODY_SIZE.y)):
 		var info := DamageInfo.create(tuning.melee_damage, Combat.Team.PLAYER, &"melee", Vector2(facing * 180.0, -60.0))
 		info.stagger = 2
+		info.impact = MELEE_IMPACT
+		info.attacker = weakref(self)
 		info.origin = global_position
 		if target_hurtbox.receive(info) != Hurtbox.Result.IGNORED:
 			landed = true
 			EventBus.hit_confirmed.emit(target_hurtbox.global_position, target_hurtbox.health.is_dead)
 			Fx.burst(target_hurtbox.global_position, Palette.CYAN, 6, 120.0, 0.2)
 	if landed:
-		Fx.hitstop(0.05)
+		Fx.freeze([self], MELEE_FREEZE)  # 被打到的敵人在 Enemy 裡依受擊層級自己凍結
 		Fx.shake(2.0, 0.08)
 		Sfx.play(&"hit", -3.0)
 	return true
@@ -471,7 +476,7 @@ func _start_finisher(target: Enemy) -> void:
 		global_position = destination
 	target.execute_finisher()
 	_visual.notify_finisher()
-	Fx.hitstop(tuning.finisher_hitstop)
+	Fx.freeze([self, target], tuning.finisher_hitstop)
 	Fx.shake(5.0, 0.2)
 	Fx.flash_light(target.global_position + Vector2(0, -10), Palette.CYAN, 120.0, 2.5, 0.3)
 	Sfx.play(&"finisher")

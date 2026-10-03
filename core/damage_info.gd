@@ -18,6 +18,13 @@ var bypass_guard: bool = false
 var is_projectile: bool = false
 ## 發動攻擊的節點（弱參照，可能已被移除）。
 var attacker: WeakRef = null
+## 衝擊力（決定被打的敵人畏縮、硬直或只閃白）。負值＝由傷害與擊退推算；近戰、爆炸、反彈等重擊直接指定。
+var impact := -1.0
+
+
+## 這次攻擊的衝擊力：沒指定時，傷害 + 擊退力道 / 100（手槍約 1.5、狙擊槍約 2.5、電磁砲約 7）。
+func get_impact() -> float:
+	return impact if impact >= 0.0 else float(amount) + knockback.length() / 100.0
 
 
 func get_attacker() -> Node:

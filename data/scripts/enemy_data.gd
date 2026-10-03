@@ -49,6 +49,15 @@ extends Resource
 @export var ability_radius: float = 0.0
 @export var ability_damage: int = 0
 
+@export_group("Reaction")
+## 韌性（耐打程度）：連續中彈累積的衝擊力達到此值就畏縮；單次衝擊達 1.5 倍就硬直（打斷動作）。頭目設很高就幾乎不畏縮。
+@export var poise: float = 4.0
+## 畏縮（動作暫停）與硬直（打斷動作）的秒數。
+@export var flinch_time: float = 0.18
+@export var stagger_time: float = 0.45
+## 出招中的狀態：這些狀態下輕擊與累積都打不斷，只有單次衝擊達韌性 2.5 倍的重擊才會硬直（蓄力階段不在其中，所以蓄力可以被打斷）。
+@export var armor_states: PackedStringArray = ["leap", "charge", "dash", "burst", "fire", "pounce", "lunge", "burn", "dive"]
+
 @export_group("Finisher")
 ## 生命低於此比例進入「破防」可被終結；0 代表不可終結。
 @export_range(0.0, 1.0) var finish_health_ratio: float = 0.34

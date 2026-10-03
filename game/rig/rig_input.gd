@@ -21,6 +21,8 @@ var two_handed := true
 var shield_forward := false
 ## 本影格受到攻擊（觸發一次退縮動作）。
 var hurt := false
+## 受擊退縮的幅度倍率（輕擊小、畏縮大）。
+var hurt_scale := 1.0
 
 ## NPC 動畫（NpcAnimator）：基本姿勢 stand／sit／lean／crouch、工作循環名稱與強度，以及說話、聆聽、揮手。
 var npc_pose: StringName = &"stand"

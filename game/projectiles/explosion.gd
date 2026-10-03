@@ -5,6 +5,8 @@ extends Node2D
 
 const DURATION := 0.3
 const MAX_TARGETS := 32
+## 爆炸的衝擊力（重擊，打得一般敵人硬直）。
+const BLAST_IMPACT := 7.0
 
 var radius := 24.0
 var damage := 1
@@ -49,6 +51,7 @@ func _apply_damage() -> void:
 		info.knockback = (away.normalized() if away.length_squared() > 1.0 else Vector2.UP) * 180.0 + Vector2(0, -80)
 		info.origin = global_position
 		info.bypass_guard = true
+		info.impact = BLAST_IMPACT
 		hurtbox.receive(info)
 
 

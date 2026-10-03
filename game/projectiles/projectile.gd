@@ -6,6 +6,8 @@ signal expired(projectile: Projectile)
 
 const REFLECT_SPEED_SCALE := 1.35
 const REFLECT_DAMAGE_SCALE := 2.0
+## 反彈子彈的衝擊力（重擊，打得一般敵人硬直）。
+const REFLECT_IMPACT := 6.0
 
 var spec: ProjectileSpec
 var team: Combat.Team = Combat.Team.PLAYER
@@ -125,6 +127,8 @@ func _make_damage() -> DamageInfo:
 	info.stagger = spec.stagger
 	info.origin = global_position
 	info.is_projectile = true
+	if _damage_scale > 1.0:
+		info.impact = REFLECT_IMPACT  # 反彈回去的子彈是重擊
 	return info
 
 

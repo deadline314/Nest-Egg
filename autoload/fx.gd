@@ -27,6 +27,8 @@ var _lights: Array[PointLight2D] = []
 var _light_tweens: Array[Tween] = []
 var _next_light := 0
 var _hitstop_until_msec := 0
+## 局部頓幀中的節點 → [結束時間（毫秒）, 原本的 process_mode]。
+var _frozen: Dictionary = {}
 
 
 func _ready() -> void:
@@ -76,11 +78,15 @@ func _on_container_exiting(container: Node2D) -> void:
 	_lights.clear()
 	_light_tweens.clear()
 	reset_time()
+	_clear_frozen()
 
 
 func _process(_delta: float) -> void:
-	if _hitstop_until_msec > 0 and Time.get_ticks_msec() >= _hitstop_until_msec:
+	var now := Time.get_ticks_msec()
+	if _hitstop_until_msec > 0 and now >= _hitstop_until_msec:
 		reset_time()
+	if not _frozen.is_empty():
+		_release_frozen(now)
 
 
 # ---------------------------------------------------------------------------
@@ -98,6 +104,37 @@ func hitstop(seconds: float) -> void:
 func reset_time() -> void:
 	_hitstop_until_msec = 0
 	Engine.time_scale = 1.0
+
+
+## 局部頓幀：只凍結指定的節點（攻擊方與被打方），其他敵人、粒子與介面照常動。重疊時取較長者，不相加。
+func freeze(nodes: Array, seconds: float) -> void:
+	if seconds <= 0.0 or get_tree().paused:
+		return
+	var until := Time.get_ticks_msec() + int(seconds * 1000.0)
+	for target: Variant in nodes:
+		if target == null or not is_instance_valid(target):
+			continue
+		var node: Node = target
+		var entry: Variant = _frozen.get(node)
+		if entry == null:
+			_frozen[node] = [until, node.process_mode]
+			node.process_mode = Node.PROCESS_MODE_DISABLED
+		else:
+			entry[0] = maxi(int(entry[0]), until)
+
+
+func _release_frozen(now: int) -> void:
+	for key: Variant in _frozen.keys():
+		var entry: Array = _frozen[key]
+		if is_instance_valid(key):
+			if now < int(entry[0]):
+				continue
+			(key as Node).process_mode = entry[1]
+		_frozen.erase(key)
+
+
+func _clear_frozen() -> void:
+	_release_frozen(1 << 60)
 
 
 ## 震動強度約 1（輕微）~ 8（巨大爆炸）。

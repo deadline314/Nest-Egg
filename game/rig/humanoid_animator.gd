@@ -53,6 +53,7 @@ var _phase := 0.0
 var _time := 0.0
 var _recoil := 0.0
 var _hurt_left := 0.0
+var _hurt_scale := 1.0
 var _death_time := 0.0
 ## 專屬動作：目前（或剛結束、正在淡出）的動作、各骨頭的目標角度與權重。
 var _action_pose: Dictionary = {}
@@ -110,6 +111,7 @@ func update(delta: float, input: RigInput) -> void:
 	_recoil = move_toward(_recoil, 0.0, RECOIL_RECOVERY * delta)
 	if input.hurt:
 		_hurt_left = HURT_TIME
+		_hurt_scale = input.hurt_scale
 	_hurt_left = maxf(0.0, _hurt_left - delta)
 	_death_time = _death_time + delta if input.dead else 0.0
 
@@ -194,7 +196,7 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 	if input.staggered:
 		pose[&"chest"] = float(hurt["stagger_chest"])
 	if _hurt_left > 0.0:
-		pose[&"chest"] = float(pose.get(&"chest", 0.0)) - float(hurt["kick"]) * (_hurt_left / HURT_TIME)
+		pose[&"chest"] = float(pose.get(&"chest", 0.0)) - float(hurt["kick"]) * _hurt_scale * (_hurt_left / HURT_TIME)
 	# 上半身跟著準星微轉，頭看向準星。
 	var look: Dictionary = m["look"]
 	pose[&"chest"] = float(pose.get(&"chest", 0.0)) + aim_angle * float(look["chest"]) - _recoil * 0.06

@@ -17,6 +17,21 @@ extends CharacterBody2D
 ## 原點位於腳底。
 
 const FLASH_TIME := 0.08
+## 受擊分層：累積的衝擊力每秒回復多少；單次衝擊達韌性的 STAGGER_RATIO 倍就硬直（出招中要 BREAK_RATIO 倍）；反應完有 REACTION_GRACE 秒不會再被畏縮或硬直（避免被連續射擊鎖死）。
+const POISE_RECOVER := 2.0
+const STAGGER_RATIO := 1.5
+const BREAK_RATIO := 2.5
+const REACTION_GRACE := 0.5
+## 各層的命中頓幀（只凍結攻擊方與被打方的秒數）與退縮幅度；輕擊沒有頓幀。
+const FLINCH_FREEZE := 0.03
+const STAGGER_FREEZE := 0.06
+## 擊殺的頓幀：比畏縮與硬直都長。
+const KILL_FREEZE := 0.07
+const LIGHT_HURT_SCALE := 0.4
+const FLINCH_HURT_SCALE := 1.2
+const STAGGER_HURT_SCALE := 2.2
+## 受擊反應的種類。
+enum HitTier { LIGHT, FLINCH, STAGGER }
 const MAX_FALL_SPEED := 520.0
 ## 畫面外此距離內仍保持運作，避免敵人在鏡頭邊緣卡住。
 const ACTIVATION_MARGIN := 80.0
@@ -52,6 +67,10 @@ var _vfx_state: StringName = &""
 var _gravity: float = 900.0
 var _flash_left := 0.0
 var _stun_left := 0.0
+## 畏縮剩餘秒數、累積的衝擊力（韌性條），以及剛反應完不再被打斷的保護時間。
+var _flinch_left := 0.0
+var _poise_load := 0.0
+var _reaction_grace_left := 0.0
 const TELEGRAPH_LIGHT_RADIUS := 90.0
 var _telegraph_left := 0.0
 ## 攻擊預兆的紅光（第一次預兆時才建立；不受預算管理，數量少、只在預兆期間亮）。
@@ -264,10 +283,18 @@ func _physics_process(delta: float) -> void:
 	_anim_time += delta
 	_flash_left = maxf(0.0, _flash_left - delta)
 	_alert_left = maxf(0.0, _alert_left - delta)
+	_poise_load = maxf(0.0, _poise_load - POISE_RECOVER * delta)
+	_reaction_grace_left = maxf(0.0, _reaction_grace_left - delta)
 	if data.uses_gravity and not is_on_floor():
 		velocity.y = minf(velocity.y + _gravity * delta, MAX_FALL_SPEED)
 	if _stun_left > 0.0:
 		_stun_left -= delta
+		velocity.x = move_toward(velocity.x, 0.0, 600.0 * delta)
+		if not data.uses_gravity:
+			velocity = velocity.move_toward(Vector2.ZERO, 600.0 * delta)
+	elif _flinch_left > 0.0:
+		# 畏縮：動作暫停（預兆與狀態計時一起停），之後從原處繼續。
+		_flinch_left -= delta
 		velocity.x = move_toward(velocity.x, 0.0, 600.0 * delta)
 		if not data.uses_gravity:
 			velocity = velocity.move_toward(Vector2.ZERO, 600.0 * delta)
@@ -376,13 +403,15 @@ func stun(seconds: float) -> void:
 
 
 func _on_damaged(info: DamageInfo) -> void:
+	var tier := _resolve_hit_tier(info) if health.current > 0 else HitTier.LIGHT
 	_flash_left = FLASH_TIME
 	if vfx != null:
 		vfx.play_hit(_center(), -info.knockback.normalized() if info.knockback != Vector2.ZERO else Vector2.UP)
 	if rig != null:
-		rig.flash()
+		rig.flash(0.5 if tier == HitTier.LIGHT else 1.0)
 		rig.set_armor_ratio(health.ratio())
 		_rig_input.hurt = true
+		_rig_input.hurt_scale = [LIGHT_HURT_SCALE, FLINCH_HURT_SCALE, STAGGER_HURT_SCALE][tier]
 	if info.knockback != Vector2.ZERO and data.knockback_scale > 0.0:
 		velocity += info.knockback * data.knockback_scale
 	if not _is_finishable and data.finish_health_ratio > 0.0 and health.current > 0 \
@@ -390,7 +419,45 @@ func _on_damaged(info: DamageInfo) -> void:
 		_is_finishable = true
 		stun(data.stagger_duration)
 		Fx.burst(_center(), Palette.CYAN, 8, 90.0)
+	elif health.current > 0:
+		_apply_hit_tier(tier, info)
 	_on_hit(info)
+
+
+## 出招中（資料的 armor_states）：輕擊與累積都打不斷。
+func _is_armored() -> bool:
+	return data.armor_states.has(String(fsm.current))
+
+
+## 這一擊造成哪一層反應：單次重擊 → 硬直；累積夠了 → 畏縮；其餘只有閃白。反應後有保護時間，不會被連續射擊鎖死。
+func _resolve_hit_tier(info: DamageInfo) -> HitTier:
+	var impact := info.get_impact()
+	var poise := maxf(0.1, data.poise)
+	var armored := _is_armored()
+	var stagger_at := poise * (BREAK_RATIO if armored else STAGGER_RATIO)
+	if impact >= stagger_at:
+		return HitTier.STAGGER
+	if _reaction_grace_left > 0.0:
+		return HitTier.LIGHT
+	_poise_load += impact
+	if not armored and _poise_load >= poise:
+		return HitTier.FLINCH
+	return HitTier.LIGHT
+
+
+func _apply_hit_tier(tier: HitTier, info: DamageInfo) -> void:
+	if tier == HitTier.LIGHT:
+		return
+	_poise_load = 0.0
+	if tier == HitTier.FLINCH:
+		_flinch_left = data.flinch_time
+		_reaction_grace_left = REACTION_GRACE + data.flinch_time
+		Fx.freeze([self, info.get_attacker()], FLINCH_FREEZE)
+		return
+	stun(data.stagger_time)
+	_reaction_grace_left = REACTION_GRACE + data.stagger_time
+	Fx.freeze([self, info.get_attacker()], STAGGER_FREEZE)
+	Fx.shake(1.2, 0.08)
 
 
 func _on_blocked(_info: DamageInfo) -> void:
@@ -417,7 +484,7 @@ func _on_died(info: DamageInfo) -> void:
 	if by_finisher:
 		Fx.burst(center, Palette.CYAN, 24, 240.0, 0.5)
 	Fx.shake(2.5, 0.12)
-	Fx.hitstop(0.03)
+	Fx.freeze([self, info.get_attacker() if info != null else null], KILL_FREEZE)
 	Sfx.play(&"kill", -4.0)
 	if by_player:
 		EventBus.enemy_killed.emit(data.id, by_finisher)

@@ -123,7 +123,7 @@ func play_death(center: Vector2, feet: Vector2, host: Node = null, rig: Characte
 	if float(death.get("shake", 0.0)) > 0.0:
 		Fx.shake(float(death["shake"]), 0.14)
 	if float(death.get("hitstop", 0.0)) > 0.0:
-		Fx.hitstop(float(death["hitstop"]))
+		Fx.freeze([host], float(death["hitstop"]))
 
 
 ## 進入狀態時的特效。at＝feet／center／muzzle 之一（預設 center）；muzzle 由呼叫者傳入。

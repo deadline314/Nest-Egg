@@ -11,7 +11,7 @@ signal armor_broken(part_name: StringName)
 const GLOW_INTENSITY := 2.4
 const FLASH_TIME := 0.06
 ## 受擊閃白亮度（> 1 會帶泛光；太高在連續命中時會整隻變白）。
-const FLASH_BRIGHTNESS := 1.7
+const FLASH_BRIGHTNESS := 1.4
 const BREAK_IMPULSE := Vector2(80, -170)
 const DISSOLVE_SHADER := preload("res://art/shaders/dissolve.gdshader")
 ## 動畫器登記表：名稱 → 類別（需要繼承 HumanoidAnimator，建構時收到骨架）。外觀定義的 animator 欄位或 setup 的 animator_kind 用這些名稱；
@@ -209,12 +209,13 @@ func body_point(height01: float, spread := 6.0) -> Vector2:
 	return global_position + Vector2(randf_range(-spread, spread), -h * clampf(height01, 0.0, 1.0))
 
 
-## 受擊閃白（HDR，會帶一點泛光）。
-func flash() -> void:
+## 受擊閃白（HDR，會帶一點泛光）。strength 0~1：輕擊用較弱的閃白。
+func flash(strength := 1.0) -> void:
 	if _skeleton == null:
 		return
 	_flash_left = FLASH_TIME
-	_skeleton.modulate = Color(FLASH_BRIGHTNESS, FLASH_BRIGHTNESS, FLASH_BRIGHTNESS, 1)
+	var level := lerpf(1.0, FLASH_BRIGHTNESS, clampf(strength, 0.0, 1.0))
+	_skeleton.modulate = Color(level, level, level, 1)
 
 
 ## 設定手持武器外觀（weapons.json 的 id）；空字串代表空手。
