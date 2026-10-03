@@ -18,4 +18,6 @@
 | [12-cast-redraw/ANIMATION.md](12-cast-redraw/ANIMATION.md) | 角色動畫系統：動畫器登記、敵人招式的專屬動作、NPC 動畫（姿勢、說話、工作循環）、新增特殊角色的步驟 |
 | [12-cast-redraw/CREATURES.md](12-cast-redraw/CREATURES.md) | 特殊敵人提案：爬行、飛行、觸手與蠕動（網格變形）、每章名單不重複、動作資料各自獨立、順序與待決定事項 |
 | [13-story-v2/README.md](13-story-v2/README.md) | 劇情重整（v2，完全重新設計）：參考作品拆解、世界觀「沉港市與再來一次」、大致情節（四幕九章）；取代 04-story |
+| [14-combat-variety/DESIGN.md](14-combat-variety/DESIGN.md) | 戰鬥多樣性：近戰與長距離近戰武器、敵人的非槍械攻擊型態素材庫 |
+| [15-combat-soulslike/DESIGN.md](15-combat-soulslike/DESIGN.md) | 戰鬥系統與打擊感（第二順位支柱）：魂系貫穿全遊戲、現況盤點、近戰動作組、失衡條與處決、預兆顏色語言、錨椅與死亡規則、打擊感管線與參數、輔助選項、每章學習曲線、票的拆分 |
 | [06-roadmap/open-questions.md](06-roadmap/open-questions.md) | 尚未決定的問題 |
