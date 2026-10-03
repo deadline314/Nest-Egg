@@ -20,6 +20,8 @@ var is_broken := false
 var size_px := Vector2(32, 32)
 var health: HealthComponent
 var hurtbox: Hurtbox
+## 外觀對應的命中材質。
+const MATERIAL_BY_LOOK := {BreakableData.Look.CRATE: &"wood", BreakableData.Look.BARREL: &"metal", BreakableData.Look.GLASS: &"glass", BreakableData.Look.WALL: &"concrete"}
 
 var _flash := 0.0
 var _shape_node: CollisionShape2D
@@ -55,6 +57,7 @@ func _ready() -> void:
 	hurtbox = Hurtbox.new()
 	add_child(hurtbox)
 	hurtbox.setup(Combat.Team.ENEMY, health, size_px + Vector2.ONE * HURTBOX_PADDING, Vector2(0, -size_px.y * 0.5))
+	hurtbox.hit_material = MATERIAL_BY_LOOK.get(data.look, &"")
 
 	_rim = _Rim.new()
 	_rim.owner_breakable = self

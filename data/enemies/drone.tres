@@ -8,6 +8,7 @@ script = ExtResource("1_script")
 id = &"drone"
 behavior = ExtResource("2_behavior")
 display_name = "監視蜂"
+hit_material = &"metal"
 body_size = Vector2(20, 14)
 color = Color(0.690, 0.420, 1.000, 1.0)
 uses_gravity = false

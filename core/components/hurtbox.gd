@@ -22,6 +22,8 @@ var damage_scale: float = 1.0
 ## 部位受擊框：掛在整體受擊框（main）底下，共用同一份生命與格擋，部位 id 與倍率各自設定。
 ## 同一個攻擊命中重疊的部位時，取 parts 排在前面的（較小、較重要的部位），而且只算一次傷害。
 var part_id: StringName = &""
+## 命中材質（data/feel/materials.json 的 id）；空字串＝用整體受擊框的，再沒有就用 generic。
+var hit_material: StringName = &""
 var main: Hurtbox
 var parts: Array[Hurtbox] = []
 ## 停用時不會被任何攻擊判定到（透過 deferred 切換，物理回呼中呼叫也安全）。
@@ -32,6 +34,12 @@ var enabled: bool = true:
 
 var _shape: RectangleShape2D
 var _shape_node: CollisionShape2D
+
+
+func material_id() -> StringName:
+	if hit_material != &"":
+		return hit_material
+	return main.material_id() if main != null and main != self else &""
 
 
 func setup(p_team: Combat.Team, p_health: HealthComponent, size: Vector2, offset := Vector2.ZERO) -> void:

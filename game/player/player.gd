@@ -447,6 +447,7 @@ func _try_melee() -> bool:
 			landed = true
 			EventBus.hit_confirmed.emit(target_hurtbox.global_position, target_hurtbox.health.is_dead)
 			Fx.burst(target_hurtbox.global_position, Palette.CYAN, 6, 120.0, 0.2)
+			HitFeedback.play(target_hurtbox.material_id(), target_hurtbox.global_position, Vector2(-facing, -0.2), Palette.CYAN, {"weak": info.weak_hit})
 	if landed:
 		Feel.play(&"player_melee_hit", {"targets": [self], "dir": aim_dir, "origin": global_position})  # 被打到的敵人在 Enemy 裡依受擊層級自己凍結
 		Sfx.play(&"hit", -3.0)

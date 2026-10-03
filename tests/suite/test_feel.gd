@@ -16,6 +16,7 @@ func run() -> void:
 	await _test_slowmo()
 	await _test_camera()
 	await _test_sound_events()
+	_test_hit_materials()
 
 
 func _script_paths(dir: String, into: PackedStringArray) -> void:
@@ -304,3 +305,32 @@ func _test_sound_events() -> void:
 	# 缺漏的事件退回預設音效，不崩潰。
 	Sfx.play_event(&"test_no_such_sound_event")
 	check(true, "unknown sound event falls back safely")
+
+
+func _test_hit_materials() -> void:
+	var errors: PackedStringArray = HitFeedback.validate()
+	check(errors.is_empty(), "hit materials have no errors: %s" % ", ".join(errors))
+	var ids := HitFeedback.material_ids()
+	check(ids.size() >= 7, "at least seven hit materials (%d)" % ids.size())
+	# 每份敵人資料的材質標籤都存在（或留空用通用）。
+	for file in DirAccess.get_files_at("res://data/enemies"):
+		if file.ends_with(".tres"):
+			var data := load("res://data/enemies/" + file) as EnemyData
+			if data != null and data.hit_material != &"":
+				check(ids.has(String(data.hit_material)), "%s uses an unknown hit material %s" % [file, data.hit_material])
+	# 缺標籤與不認得的標籤退回通用；每種材質、弱點、跳彈都能播。
+	check(HitFeedback.play(&"", Vector2.ZERO, Vector2.UP, Color.WHITE) == HitFeedback.FALLBACK, "missing material tag falls back to generic")
+	check(HitFeedback.play(&"test_no_such_material", Vector2.ZERO, Vector2.UP, Color.WHITE) == HitFeedback.FALLBACK, "unknown material falls back to generic")
+	for id in ids:
+		HitFeedback.play(StringName(id), Vector2.ZERO, Vector2.UP, Color.WHITE)
+	HitFeedback.play(&"armor", Vector2.ZERO, Vector2.UP, Color.WHITE, {"weak": true})
+	HitFeedback.play(&"metal", Vector2.ZERO, Vector2.UP, Color.WHITE, {"ricochet": true})
+	check(true, "every material, weak spots and ricochets play without errors")
+	# 預算：短時間大量命中，粒子被縮減，但每次仍保留至少一顆。
+	HitFeedback.reset_budget()
+	var wanted := 0
+	for i in 40:
+		HitFeedback._spend(10)
+		wanted += 10
+	check(HitFeedback.trimmed_particles > 0 and HitFeedback.trimmed_particles < wanted, "particle budget trims bursts (%d of %d trimmed)" % [HitFeedback.trimmed_particles, wanted])
+	HitFeedback.reset_budget()

@@ -10,6 +10,7 @@ id = &"flamer"
 behavior = ExtResource("2_behavior")
 projectile = ExtResource("3_proj")
 display_name = "火焰兵"
+hit_material = &"armor"
 body_size = Vector2(18, 50)
 color = Color(1.0, 0.541, 0.102, 1.0)
 max_health = 9

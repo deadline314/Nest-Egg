@@ -103,8 +103,7 @@ func _strike(hurtbox: Hurtbox) -> void:
 	var info := _make_damage()
 	match hurtbox.receive(info):
 		Hurtbox.Result.DAMAGED:
-			Fx.impact(global_position, -velocity.normalized(), spec.color, 6)
-			Sfx.play(&"hit", -6.0)
+			HitFeedback.play(hurtbox.material_id(), global_position, -velocity.normalized(), spec.color, {"weak": info.weak_hit})
 			if team == Combat.Team.PLAYER:
 				EventBus.hit_confirmed.emit(global_position, hurtbox.health.is_dead)
 		Hurtbox.Result.REFLECTED:
@@ -112,7 +111,7 @@ func _strike(hurtbox: Hurtbox) -> void:
 			return
 		Hurtbox.Result.BLOCKED:
 			# 被格擋：火花反彈、子彈直接消失（即使可貫穿）。
-			Fx.impact(global_position, -velocity.normalized(), Palette.WHITE, 8)
+			HitFeedback.play(hurtbox.material_id(), global_position, -velocity.normalized(), Palette.WHITE, {"ricochet": true})
 			Sfx.play(&"block", -4.0)
 			_finish(true)
 			return
@@ -144,13 +143,14 @@ func _on_body_entered(body: Node2D) -> void:
 			_hit_ids[id] = true
 			var result: int = body.call(&"hit_by_projectile", _make_damage())
 			if result == Hurtbox.Result.DAMAGED:
-				Fx.impact(global_position, -velocity.normalized(), spec.color, 6)
+				var box: Variant = body.get(&"hurtbox")
+				HitFeedback.play((box as Hurtbox).material_id() if box is Hurtbox else &"", global_position, -velocity.normalized(), spec.color)
 				if team == Combat.Team.PLAYER:
 					EventBus.hit_confirmed.emit(global_position, false)
 				if _pierce_left > 0:
 					_pierce_left -= 1
 					return
-	Fx.impact(global_position, -velocity.normalized(), _color.darkened(0.2), 4)
+	HitFeedback.play(&"concrete", global_position, -velocity.normalized(), _color.darkened(0.2))
 	_finish(true)
 
 

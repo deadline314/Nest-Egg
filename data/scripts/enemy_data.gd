@@ -17,6 +17,8 @@ extends Resource
 @export var rig_two_handed: bool = true
 ## 後手向前舉盾。
 @export var rig_shield: bool = false
+## 命中材質（火花、碎屑與聲音依此變化）：flesh、armor、metal、glass、wood、concrete、energy；空字串用通用回饋。
+@export var hit_material: StringName = &""
 ## 零件式外觀（art/creatures/<id>.json，PartCreature）：機械類與動物類的非人形敵人用；空字串＝用骨架或程式繪製。
 @export var creature_skin: String = ""
 ## 狀態名稱 → 零件動畫的狀態名稱；沒列的狀態用同名的動畫，找不到就用 idle。

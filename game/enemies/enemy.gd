@@ -165,6 +165,7 @@ func _build_components() -> void:
 	hurtbox = Hurtbox.new()
 	add_child(hurtbox)
 	hurtbox.setup(Combat.Team.ENEMY, health, size, center)
+	hurtbox.hit_material = data.hit_material
 	hurtbox.guard = _guard_with_shield
 	hurtbox.hit_blocked.connect(_on_blocked)
 

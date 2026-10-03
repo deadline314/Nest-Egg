@@ -86,6 +86,49 @@ const SOUNDS := {
 	&"hit_tail": [
 		{"wave": "noise", "time": 0.16, "volume": 0.12, "lowpass": 0.8, "decay": 2.4},
 	],
+	&"mat_generic": [
+		{"wave": "noise", "time": 0.04, "volume": 0.3, "lowpass": 0.2, "decay": 3.0},
+		{"wave": "sine", "from": 300.0, "to": 150.0, "time": 0.04, "volume": 0.15, "decay": 2.0},
+	],
+	&"mat_flesh": [
+		{"wave": "noise", "time": 0.06, "volume": 0.3, "lowpass": 0.7, "decay": 2.4},
+		{"wave": "sine", "from": 120.0, "to": 55.0, "time": 0.08, "volume": 0.34, "decay": 2.0},
+	],
+	&"mat_armor": [
+		{"wave": "noise", "time": 0.03, "volume": 0.25, "lowpass": 0.1, "decay": 3.0},
+		{"wave": "square", "from": 520.0, "to": 360.0, "time": 0.06, "volume": 0.14, "decay": 2.2},
+		{"wave": "sine", "from": 1500.0, "to": 1300.0, "time": 0.08, "volume": 0.1, "decay": 3.0},
+	],
+	&"mat_metal": [
+		{"wave": "noise", "time": 0.02, "volume": 0.22, "lowpass": 0.05, "decay": 3.0},
+		{"wave": "sine", "from": 2200.0, "to": 2000.0, "time": 0.14, "volume": 0.16, "decay": 2.6},
+		{"wave": "sine", "from": 3300.0, "to": 3100.0, "time": 0.1, "volume": 0.1, "decay": 3.0},
+	],
+	&"mat_glass": [
+		{"wave": "noise", "time": 0.07, "volume": 0.2, "lowpass": 0.0, "decay": 2.4},
+		{"wave": "sine", "from": 4200.0, "to": 3600.0, "time": 0.1, "volume": 0.14, "decay": 3.0},
+		{"wave": "sine", "from": 5600.0, "to": 5000.0, "time": 0.07, "volume": 0.09, "decay": 3.0},
+	],
+	&"mat_wood": [
+		{"wave": "noise", "time": 0.035, "volume": 0.28, "lowpass": 0.55, "decay": 3.0},
+		{"wave": "tri", "from": 260.0, "to": 130.0, "time": 0.06, "volume": 0.26, "decay": 2.2},
+	],
+	&"mat_concrete": [
+		{"wave": "noise", "time": 0.07, "volume": 0.34, "lowpass": 0.45, "decay": 2.6},
+		{"wave": "sine", "from": 180.0, "to": 90.0, "time": 0.06, "volume": 0.18, "decay": 2.0},
+	],
+	&"mat_energy": [
+		{"wave": "saw", "from": 1800.0, "to": 600.0, "time": 0.09, "volume": 0.14, "noise": 0.2, "decay": 2.2},
+		{"wave": "sine", "from": 900.0, "to": 1500.0, "time": 0.07, "volume": 0.1, "decay": 2.4},
+	],
+	&"ricochet": [
+		{"wave": "sine", "from": 3600.0, "to": 1800.0, "time": 0.16, "volume": 0.16, "decay": 2.2},
+		{"wave": "noise", "time": 0.03, "volume": 0.2, "lowpass": 0.0, "decay": 3.0},
+	],
+	&"hit_weak": [
+		{"wave": "sine", "from": 1900.0, "to": 2300.0, "time": 0.1, "volume": 0.18, "decay": 2.4},
+		{"wave": "sine", "from": 2850.0, "to": 3300.0, "time": 0.08, "volume": 0.1, "decay": 2.8},
+	],
 	&"block": [
 		{"wave": "sine", "from": 2600.0, "to": 2400.0, "time": 0.12, "volume": 0.2, "decay": 2.5},
 		{"wave": "sine", "from": 3900.0, "to": 3700.0, "time": 0.09, "volume": 0.12, "decay": 3.0},

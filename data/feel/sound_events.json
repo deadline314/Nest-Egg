@@ -4,27 +4,254 @@
  "events": {
   "hit_enemy": {
    "priority": 5,
-   "chain": {"step": 0.8, "max": 6, "window": 0.5},
+   "chain": {
+    "step": 0.8,
+    "max": 6,
+    "window": 0.5
+   },
    "layers": [
-    {"sounds": ["hit_a", "hit_b", "hit_c"], "pitch": [0.95, 1.08]},
-    {"sounds": ["hit_tail"], "pitch": [0.9, 1.1], "volume_db": -12, "delay": 0.03}
+    {
+     "sounds": [
+      "hit_a",
+      "hit_b",
+      "hit_c"
+     ],
+     "pitch": [
+      0.95,
+      1.08
+     ]
+    },
+    {
+     "sounds": [
+      "hit_tail"
+     ],
+     "pitch": [
+      0.9,
+      1.1
+     ],
+     "volume_db": -12,
+     "delay": 0.03
+    }
    ]
   },
   "hit_heavy": {
    "priority": 8,
-   "duck": {"db": -6, "time": 0.2},
+   "duck": {
+    "db": -6,
+    "time": 0.2
+   },
    "layers": [
-    {"sounds": ["hit_a", "hit_b", "hit_c"], "pitch": [0.7, 0.8], "volume_db": 2},
-    {"sounds": ["kill"], "pitch": [1.0, 1.1], "volume_db": -8},
-    {"sounds": ["hit_tail"], "pitch": [0.7, 0.85], "volume_db": -8, "delay": 0.04}
+    {
+     "sounds": [
+      "hit_a",
+      "hit_b",
+      "hit_c"
+     ],
+     "pitch": [
+      0.7,
+      0.8
+     ],
+     "volume_db": 2
+    },
+    {
+     "sounds": [
+      "kill"
+     ],
+     "pitch": [
+      1.0,
+      1.1
+     ],
+     "volume_db": -8
+    },
+    {
+     "sounds": [
+      "hit_tail"
+     ],
+     "pitch": [
+      0.7,
+      0.85
+     ],
+     "volume_db": -8,
+     "delay": 0.04
+    }
    ]
   },
   "kill_enemy": {
    "priority": 9,
-   "duck": {"db": -5, "time": 0.25},
+   "duck": {
+    "db": -5,
+    "time": 0.25
+   },
    "layers": [
-    {"sounds": ["kill"], "pitch": [0.95, 1.05]},
-    {"sounds": ["hit_tail"], "pitch": [0.7, 0.8], "volume_db": -8, "delay": 0.05}
+    {
+     "sounds": [
+      "kill"
+     ],
+     "pitch": [
+      0.95,
+      1.05
+     ]
+    },
+    {
+     "sounds": [
+      "hit_tail"
+     ],
+     "pitch": [
+      0.7,
+      0.8
+     ],
+     "volume_db": -8,
+     "delay": 0.05
+    }
+   ]
+  },
+  "mat_generic": {
+   "priority": 4,
+   "layers": [
+    {
+     "sounds": [
+      "mat_generic"
+     ],
+     "pitch": [
+      0.92,
+      1.1
+     ],
+     "volume_db": -3
+    }
+   ]
+  },
+  "mat_flesh": {
+   "priority": 4,
+   "layers": [
+    {
+     "sounds": [
+      "mat_flesh"
+     ],
+     "pitch": [
+      0.92,
+      1.1
+     ],
+     "volume_db": -3
+    }
+   ]
+  },
+  "mat_armor": {
+   "priority": 4,
+   "layers": [
+    {
+     "sounds": [
+      "mat_armor"
+     ],
+     "pitch": [
+      0.92,
+      1.1
+     ],
+     "volume_db": -3
+    }
+   ]
+  },
+  "mat_metal": {
+   "priority": 4,
+   "layers": [
+    {
+     "sounds": [
+      "mat_metal"
+     ],
+     "pitch": [
+      0.92,
+      1.1
+     ],
+     "volume_db": -3
+    }
+   ]
+  },
+  "mat_glass": {
+   "priority": 4,
+   "layers": [
+    {
+     "sounds": [
+      "mat_glass"
+     ],
+     "pitch": [
+      0.92,
+      1.1
+     ],
+     "volume_db": -3
+    }
+   ]
+  },
+  "mat_wood": {
+   "priority": 4,
+   "layers": [
+    {
+     "sounds": [
+      "mat_wood"
+     ],
+     "pitch": [
+      0.92,
+      1.1
+     ],
+     "volume_db": -3
+    }
+   ]
+  },
+  "mat_concrete": {
+   "priority": 4,
+   "layers": [
+    {
+     "sounds": [
+      "mat_concrete"
+     ],
+     "pitch": [
+      0.92,
+      1.1
+     ],
+     "volume_db": -3
+    }
+   ]
+  },
+  "mat_energy": {
+   "priority": 4,
+   "layers": [
+    {
+     "sounds": [
+      "mat_energy"
+     ],
+     "pitch": [
+      0.92,
+      1.1
+     ],
+     "volume_db": -3
+    }
+   ]
+  },
+  "ricochet": {
+   "priority": 6,
+   "layers": [
+    {
+     "sounds": [
+      "ricochet"
+     ],
+     "pitch": [
+      0.9,
+      1.15
+     ]
+    }
+   ]
+  },
+  "hit_weak": {
+   "priority": 7,
+   "layers": [
+    {
+     "sounds": [
+      "hit_weak"
+     ],
+     "pitch": [
+      0.95,
+      1.05
+     ],
+     "volume_db": -2
+    }
    ]
   }
  }

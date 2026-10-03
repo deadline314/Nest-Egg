@@ -11,6 +11,7 @@ behavior = ExtResource("2_behavior")
 projectile = ExtResource("3_proj")
 display_name = "回收員 RECLAIMER"
 is_boss = true
+hit_material = &"metal"
 body_size = Vector2(20, 46)
 color = Color(0.82, 0.5, 0.2, 1.0)
 max_health = 70

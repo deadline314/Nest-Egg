@@ -9,6 +9,7 @@ id = &"repair_drone"
 behavior = ExtResource("2_behavior")
 display_name = "維修機"
 creature_skin = "repair_drone"
+hit_material = &"metal"
 body_size = Vector2(18, 16)
 color = Color(0.616, 0.906, 0.706, 1.0)
 uses_gravity = false
