@@ -1,4 +1,4 @@
-"""Paint the building facade modules in cel style and patch the facade data (NE-74; replaces the NE-57 / NE-59 model renders).
+"""Paint the building facade modules in cel style and patch the facade data (NE-109; replaces the NE-57 / NE-59 model renders).
 
 Usage: python tools/assets/build_facades.py [--only ID ...]
 

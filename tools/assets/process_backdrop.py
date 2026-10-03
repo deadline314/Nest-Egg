@@ -8,7 +8,7 @@ plus <id>_glow.webp (window light) and a width of tile_logical_px x texture_scal
   pano_skyline  cut a band of a 360-degree HDRI preview (city skyline): span_deg wide, between two elevation angles,
                 cross-faded at the wrap so left and right edges meet; the top fades to transparent.
                 glow = the bright pixels of the source (lit windows, neon), kept as their own layer.
-  city_blocks   assemble buildings out of the already-built cel facade modules (art/environment/facades, NE-74): random widths
+  city_blocks   assemble buildings out of the already-built cel facade modules (art/environment/facades, NE-109): random widths
                 and heights from a fixed seed, two rows (back row hazier and lower), cel silhouettes with an ink outline, a lit left
                 edge and a shaded right side, cel roof clutter (antenna with a red beacon, tank, dish, vents, chimney, sign, duct),
                 haze that makes far rows paler and bluer; windows glow through the modules' _glow. Each row's widths sum to exactly

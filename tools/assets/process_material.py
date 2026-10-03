@@ -3,7 +3,7 @@
 Usage: python tools/assets/process_material.py [--only ID ...]
 
 Reads assets_src/pipeline/materials.json. An entry with a "cel" block is painted by cel_tile.py (cel-shaded, flat colours
-with ink lines, seamless by construction, NE-73); one with a "source" is cut from a downloaded PBR texture (NE-58).
+with ink lines, seamless by construction, NE-108); one with a "source" is cut from a downloaded PBR texture (NE-58).
 For every entry writes, into art/environment/materials/:
   <id>_body.png  <id>_top.png  <id>_side.png   (+ _n.png normals, Godot 2D convention: Y+ up, OpenGL maps as-is)
 and patches data/environment/materials/<id>.tres with the texture_scale that matches the written size,
