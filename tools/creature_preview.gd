@@ -1,0 +1,87 @@
+extends Node2D
+## 開發工具：觸手生物的動作預覽（需要可渲染的環境）。
+## 用法：godot --path . res://tools/creature_preview.tscn -- --creature=test_creature --out=/絕對路徑/檔名.png [--zoom=倍率]
+## 並排顯示同一隻生物在 idle、alert、crawl 與鞭擊（進度 0、30%、55%、80%）的樣子；每一格都從 idle 開始跑到穩定。
+## --strip：改成同一個狀態（--state=名稱）在連續 8 個時間點的樣子，檢查行進波與收縮波怎麼往前傳。
+
+const STATES: Array[String] = ["idle", "alert", "crawl", "lash:0.0", "lash:0.3", "lash:0.55", "lash:0.8"]
+
+var _creature_id := "test_creature"
+var _out := ""
+var _zoom := 1.6
+var _strip := false
+var _state := "crawl"
+var _creatures: Array[ChainCreature] = []
+var _wanted: Array[String] = []
+
+
+func _ready() -> void:
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--creature="):
+			_creature_id = arg.trim_prefix("--creature=")
+		elif arg.begins_with("--out="):
+			_out = arg.trim_prefix("--out=")
+		elif arg.begins_with("--zoom="):
+			_zoom = float(arg.trim_prefix("--zoom="))
+		elif arg == "--strip":
+			_strip = true
+		elif arg.begins_with("--state="):
+			_state = arg.trim_prefix("--state=")
+	add_child(LightKit.create_environment())
+	var bg := ColorRect.new()
+	bg.color = Color("121826")
+	bg.size = Vector2(1280, 720)
+	bg.z_index = -10
+	add_child(bg)
+	var items: Array[String] = []
+	if _strip:
+		for i in 8:
+			items.append("%s:%d" % [_state, i])
+	else:
+		items = STATES
+	var count := items.size()
+	for i in count:
+		var creature := ChainCreature.new()
+		creature.position = Vector2(80.0 + float(i) * (1200.0 / float(count)) * 1.0, 150.0)
+		creature.scale = Vector2.ONE * _zoom
+		add_child(creature)
+		if not creature.setup(_creature_id):
+			push_error("[creature_preview] 無法建立：%s" % _creature_id)
+			creature.queue_free()
+			continue
+		_creatures.append(creature)
+		_wanted.append(items[i])
+	if not _out.is_empty():
+		_capture.call_deferred()
+
+
+## 讓每一隻跑到想看的狀態與時間點：先在 idle 跑 1 秒，再切到目標狀態跑（lash 跑到指定進度；strip 每格多跑 0.12 秒）。
+func _run_to(creature: ChainCreature, want: String, index: int) -> void:
+	var dt := 1.0 / 60.0
+	for i in 60:
+		creature.animate(dt, &"idle")
+	var parts := want.split(":")
+	var state_name := parts[0]
+	if _strip:
+		for i in int(1.5 / dt + float(index) * 0.12 / dt):
+			creature.animate(dt, StringName(state_name))
+		return
+	if state_name == "lash":
+		var duration := 0.8
+		for i in int(float(parts[1]) * duration / dt):
+			creature.animate(dt, &"lash")
+		creature.animate(dt, &"lash")
+		return
+	for i in 150:
+		creature.animate(dt, StringName(state_name))
+
+
+func _capture() -> void:
+	for i in _creatures.size():
+		_run_to(_creatures[i], _wanted[i], i)
+	for i in 4:
+		await get_tree().process_frame
+	var image := get_viewport().get_texture().get_image()
+	image.save_png(_out)
+	print("saved ", _out)
+	get_tree().quit()

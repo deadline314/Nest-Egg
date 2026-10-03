@@ -1,0 +1,19 @@
+{
+  "description": "觸手生物原型（ChainCreature 讀取）：中央本體加數條觸手；每條觸手是一串骨頭，貼圖是一張連續的圖，用網格變形貼在骨頭鏈上（彎曲處沒有縫）。動作全部是這裡的參數：行進波（amp 幅度、wavelength 一個波長跨幾節、speed 波往尖端傳的速度）、收縮波（pulse 寬度起伏、stretch 長度起伏、pulse_speed）、curl 往一邊捲的程度；states 是各狀態的參數，切換時平滑過渡；lash＝鞭擊，波的包絡由根部傳到尖端。單位：世界像素，原點在本體中心。",
+  "texture_scale": 0.25,
+  "body": {"texture": "res://art/creatures/test_body.png", "offset": [-20, -16]},
+  "tentacle": {"texture": "res://art/creatures/test_tentacle.png", "segments": 10, "width": 16.0, "length": 96.0},
+  "tentacles": [
+    {"anchor": [-4, 4], "angle": -70, "scale": 0.9, "phase": 0.0, "z": -1},
+    {"anchor": [0, 8], "angle": -35, "scale": 1.0, "phase": 1.1, "z": -1},
+    {"anchor": [4, 10], "angle": -5, "scale": 1.0, "phase": 2.3, "z": 1},
+    {"anchor": [8, 8], "angle": 28, "scale": 0.95, "phase": 3.4, "z": 1},
+    {"anchor": [10, 4], "angle": 60, "scale": 0.85, "phase": 4.6, "z": -1}
+  ],
+  "states": {
+    "idle": {"amp": 0.16, "wavelength": 7.0, "speed": 1.7, "pulse": 0.06, "stretch": 0.03, "pulse_speed": 2.2, "curl": 0.04, "bob": 0.8},
+    "alert": {"amp": 0.3, "wavelength": 5.5, "speed": 3.2, "pulse": 0.1, "stretch": 0.05, "pulse_speed": 3.4, "curl": 0.1, "bob": 1.4},
+    "crawl": {"amp": 0.42, "wavelength": 4.5, "speed": 5.0, "pulse": 0.16, "stretch": 0.1, "pulse_speed": 5.0, "curl": 0.0, "bob": 2.2},
+    "lash": {"amp": 0.9, "wavelength": 9.0, "speed": 9.0, "pulse": 0.18, "stretch": 0.08, "pulse_speed": 6.0, "curl": -0.1, "bob": 3.0, "duration": 0.8}
+  }
+}
