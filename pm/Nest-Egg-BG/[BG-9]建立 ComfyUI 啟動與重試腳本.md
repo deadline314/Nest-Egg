@@ -1,4 +1,4 @@
-# [NE-116] 建立 ComfyUI 啟動與重試腳本
+# [BG-9] 建立 ComfyUI 啟動與重試腳本
 
 > 狀態：完成
 
@@ -51,4 +51,4 @@
 
 ### 截圖
 
-![自我檢查的執行結果](images/NE-116-selftest.png)
+![自我檢查的執行結果](images/BG-9-selftest.png)

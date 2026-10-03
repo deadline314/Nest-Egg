@@ -1,4 +1,4 @@
-"""Cel-shaded facade painter (NE-109): the canvas, wall painters, windows, ground-floor openings and roof caps.
+"""Cel-shaded facade painter (BG-2): the canvas, wall painters, windows, ground-floor openings and roof caps.
 
 A facade module is drawn on a Canvas: a colour image, a height image (it becomes the normal map) and a glow image
 (window light, indicator lights, beacons), all drawn at 3x and averaged down so cel edges are clean but not jagged.

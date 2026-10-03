@@ -1,4 +1,4 @@
-"""Procedural cel-shaded tile painter for terrain materials (NE-108) and generated facade walls (NE-109).
+"""Procedural cel-shaded tile painter for terrain materials (BG-1) and generated facade walls (BG-2).
 
 A Tile is a colour image plus a height image, painted with flat colours, clean dark ink lines and hard-edged two-tone
 shading (light from the upper left). Everything wraps around the edges, so a finished tile repeats without a seam,

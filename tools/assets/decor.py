@@ -1,4 +1,4 @@
-"""Cel-shaded surface decoration for facade modules (NE-59, redone for NE-109): pipe runs, AC units, wall cameras, emergency
+"""Cel-shaded surface decoration for facade modules (NE-59, redone for BG-2): pipe runs, AC units, wall cameras, emergency
 lamps, balconies, circuit traces, LED rows, hazard stripes and the rooftop beacon.
 
 Everything draws on a cel_facade.Canvas (colour, height and glow at once) in logical units (c.u = pixels per logical px),

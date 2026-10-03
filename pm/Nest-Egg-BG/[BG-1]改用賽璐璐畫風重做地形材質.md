@@ -1,4 +1,4 @@
-# [NE-108] 改用賽璐璐畫風重做地形材質
+# [BG-1] 改用賽璐璐畫風重做地形材質
 
 > 狀態：完成
 
@@ -51,8 +51,8 @@
 
 ### 截圖
 
-![16 種地形材質畫廊（受光與法線）](images/NE-108-materials-gallery.png)
+![16 種地形材質畫廊（受光與法線）](images/BG-1-materials-gallery.png)
 
-![第一章設施入口：設施牆板與地板](images/NE-108-facility-ingame.png)
+![第一章設施入口：設施牆板與地板](images/BG-1-facility-ingame.png)
 
-![第一章屋頂：磚牆與混凝土板](images/NE-108-brick-concrete-ingame.png)
+![第一章屋頂：磚牆與混凝土板](images/BG-1-brick-concrete-ingame.png)

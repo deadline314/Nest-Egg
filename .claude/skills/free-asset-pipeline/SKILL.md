@@ -34,7 +34,7 @@ description: 把免費（CC0）高解析度素材換進 Nest Egg 場景的完整
 
 ## 3. 地形材質（`process_material.py`）
 
-清單：`assets_src/pipeline/materials.json`，每筆 `{id, tile_world, normal_strength, grade, cel{kind, pal, ...}}`。**NE-108 起 16 種全部是程式繪製的賽璐璐畫風**（平塗色塊、深色墨線、硬邊兩色陰影、由左上打光的亮邊與暗邊），不再從 Poly Haven／ambientCG 的 PBR 照片裁切（舊的 `source` 路線程式還在，沒有 `cel` 區塊的項目仍走它）。
+清單：`assets_src/pipeline/materials.json`，每筆 `{id, tile_world, normal_strength, grade, cel{kind, pal, ...}}`。**BG-1 起 16 種全部是程式繪製的賽璐璐畫風**（平塗色塊、深色墨線、硬邊兩色陰影、由左上打光的亮邊與暗邊），不再從 Poly Haven／ambientCG 的 PBR 照片裁切（舊的 `source` 路線程式還在，沒有 `cel` 區塊的項目仍走它）。
 
 - 畫法在 `tools/assets/cel_tile.py`：`Tile` 同時畫顏色與高度圖（高度圖算出法線），所有圖形環繞邊界所以**天生無縫**（接縫量測對線條規律的圖會誤報，例如格柵 `seam 14.99`，以拼 2×2 的實際畫面為準）。`kind`：`plates`（鋼板格：地板、牆板、鉚釘、散熱孔、色帶）、`bricks`、`corrugated`（波浪鋼板，可加鏽斑）、`slabs`（混凝土板、污漬、裂縫，可加塗裝標線）、`asphalt`、`gravel`（屋頂瀝青碎石）、`grating`（格柵）、`glass`（帷幕玻璃）、`rust`。新增種類就在 `PAINTERS` 加一個函式。
 - 色盤在 JSON（`pal`：`ink` 墨線色、`tones` 數個底色、`light` 亮邊色、其餘依種類），種子由 `id` 決定，重跑結果一致。色盤直接寫成最終顏色（`grade` 預設不調）；環境光會再壓暗，所以每種材質都要比夜景背景亮、但不搶眼。
@@ -45,7 +45,7 @@ description: 把免費（CC0）高解析度素材換進 Nest Egg 場景的完整
 
 ## 4. 天空（`process_sky.py`）
 
-清單：`assets_src/pipeline/backdrop.json` 的 `skies`，每筆 `{id, width, height, top_fade, cel{seed, palette, bands, wave, stars, orbs, layers, horizon_glow}}`。**NE-111 起 7 張天空全是程式繪製的賽璐璐畫風**（`tools/assets/cel_sky.py`，欄位說明在檔頭 docstring）：硬邊色帶漸層、平塗的雲（雲底較暗的第二色、亮邊）、星星／月亮／太陽、階梯式地平線光暈。圖形都以 ±寬度環繞繪製或用整數個正弦週期，所以左右天生無縫。沒有 `cel` 區塊的項目仍走舊的 HDRI 路線（`source`、`elevation`、`grade`）。
+清單：`assets_src/pipeline/backdrop.json` 的 `skies`，每筆 `{id, width, height, top_fade, cel{seed, palette, bands, wave, stars, orbs, layers, horizon_glow}}`。**BG-4 起 7 張天空全是程式繪製的賽璐璐畫風**（`tools/assets/cel_sky.py`，欄位說明在檔頭 docstring）：硬邊色帶漸層、平塗的雲（雲底較暗的第二色、亮邊）、星星／月亮／太陽、階梯式地平線光暈。圖形都以 ±寬度環繞繪製或用整數個正弦週期，所以左右天生無縫。沒有 `cel` 區塊的項目仍走舊的 HDRI 路線（`source`、`elevation`、`grade`）。
 
 - 輸出 WebP；cel 天空是無損 WebP（平塗色塊只有十幾～幾十 KB）。`BackdropLayer.texture` 已允許 `.webp`。
 - 夜空亮度以舊成品的平均亮度為上限（暴雨夜 0.15、城市夜空 0.17），藍天（過場動畫用）可以亮。
@@ -69,7 +69,7 @@ description: 把免費（CC0）高解析度素材換進 Nest Egg 場景的完整
 - **新增道具**：`props.json` 的項目加 `new: {display_name, category, sway, ...}` 與 `anchor.size`，首次執行會建立 `.tres`；`aliases` 可以不做新圖、只新增一份資料沿用既有貼圖（例如半透明的前景樹）。`anchor` 記住原本尺寸，重跑不會越縮越歪。
 - 植物會搖：`PropData.sway`＋`sway.gdshader`（頂端位移、依位置錯開相位、同幅度共用一份材質），不需要每影格腳本。前景植物放在**沒有敵人與危險物的欄**（既有擺放檢查會抓）。
 
-### 建築立面（NE-109 起全部程式繪製的賽璐璐畫風，不再用 Poly Haven 立面套件渲染）
+### 建築立面（BG-2 起全部程式繪製的賽璐璐畫風，不再用 Poly Haven 立面套件渲染）
 
 - `build_facades.py`（清單 `assets_src/pipeline/facades.json`）直接畫圖，不依賴任何外部圖檔：牆面平塗（`cel_facade.py` 的 `plaster`、`brick`、`corrugated`、`slab`、`panel`、`curtain`）、墨線窗框、硬邊雙色陰影（光從左上）、切角八邊形窗加窗格與窗台；一個模組的畫布同時畫顏色、高度（轉成 `_n` 法線）與自發光（`_glow`）三層。尺寸：寬 64、一樓高 40、標準樓層 32、女兒牆 8（× `texture_scale`）。
 - 清單每個立面：`pal`（色票）、`wall`（牆面種類與參數）、`window`（預設窗格：cols、rows、w、h、y、chamfer、panes、grill、blind…）、`decor`（管線、冷氣機、陽台、LED、走線、攝影機、警示燈的機率）、`body`／`ground`／`cap` 的**變化清單**（每項深度合併蓋過立面預設；變化數量就是 `.tres` 陣列長度，腳本自動改寫 `.tres`，並刪掉多餘舊圖）。一樓用 `items`：`shutter`（鐵捲門，可 `hazard`、`lamp`）、`door`（門、舷窗、招牌）、`shop`（櫥窗加條紋雨棚）、`window`、`vent`。女兒牆 `kind`：`parapet`、`saw`（鋸齒屋頂）、`pediment`（山牆）、`stepped`（階梯），`clutter` 放天線、通風管、碟型天線、水塔、桅桿。
@@ -131,14 +131,14 @@ CC0 庫找不到的道具（吊車、龍門吊、控制台、堆高機、閘門�
 - **窗光抽取**：`glow` 規則（`neon` 高亮高彩度、`beacon` 純紅、`screen` 亮面、`warm` 暖光窗、`console`…）從生成圖抽出發光層；純紅像素會被改成純紅，窗光生命著色器才會讓它明滅。
 - **動畫都是 `PropData` 欄位＋著色器**（清單的 `data` 寫進 `.tres`）：`sway`＋`sway_hang`（懸掛物頂端固定）、`glow_life`（信標明滅、區塊閃爍）、`glow_scan`（螢幕掃描帶）、`ripple`（水窪漣漪）、`steam`＋`steam_offset`（只在畫面內冒蒸汽）、`flicker`；舞台圖層有 `pulse`（柔光脈動）與 `motes`（塵粒）。新增動畫先看有沒有欄位可用，沒有再加欄位，不要寫每影格腳本。
 - **舞台圖要對齊地板**：`bg(name, dy=…)` 位移到圖中的地板線等於舞台的地板（角色腳底 y≈ 250～292）；圖偏暗時用 `modulate` 大於 1 提亮（HDR）。
-- **啟動與卡死自動重試（NE-116）**：不要手動敲啟動指令或手動殺程序。`powershell -File tools/comfyui/start_comfyui.ps1`（`-Restart`、`-Stop`、`-Safe`）用固定參數啟動並等到伺服器可用才回傳。生成工具經 `comfy_api.run()` 呼叫時，伺服器沒開會自動啟動；**伺服器沒回應、一段時間沒有任何進度（預設 300 秒，冷啟動 900 秒）、log 出現顯示記憶體不足、系統記憶體持續耗盡（低於 0.4 GB 超過 90 秒）**時，自動重啟並重送該工作，最多 3 次（`COMFY_MAX_RETRIES`）。記憶體不足後重啟會改用 `-Safe`（每個工作後卸載模型，慢但穩）。重試用完會丟 `ComfyFailure` 並把工作寫進 `assets_src/work/comfy_failures.log`，`qwen_props.py`／`qwen_scenes.py` 遇到就停止，不會無限等待。同一組種子、提示詞、尺寸、參考圖的圖已經生成過就直接重用，重跑批次只做沒做完的。同一時間只允許一個生成端（檔案鎖）。自我檢查：`python tools/comfyui/selftest.py [--kill-at N | --freeze-at N --stall-s 25]`。
+- **啟動與卡死自動重試（BG-9）**：不要手動敲啟動指令或手動殺程序。`powershell -File tools/comfyui/start_comfyui.ps1`（`-Restart`、`-Stop`、`-Safe`）用固定參數啟動並等到伺服器可用才回傳。生成工具經 `comfy_api.run()` 呼叫時，伺服器沒開會自動啟動；**伺服器沒回應、一段時間沒有任何進度（預設 300 秒，冷啟動 900 秒）、log 出現顯示記憶體不足、系統記憶體持續耗盡（低於 0.4 GB 超過 90 秒）**時，自動重啟並重送該工作，最多 3 次（`COMFY_MAX_RETRIES`）。記憶體不足後重啟會改用 `-Safe`（每個工作後卸載模型，慢但穩）。重試用完會丟 `ComfyFailure` 並把工作寫進 `assets_src/work/comfy_failures.log`，`qwen_props.py`／`qwen_scenes.py` 遇到就停止，不會無限等待。同一組種子、提示詞、尺寸、參考圖的圖已經生成過就直接重用，重跑批次只做沒做完的。同一時間只允許一個生成端（檔案鎖）。自我檢查：`python tools/comfyui/selftest.py [--kill-at N | --freeze-at N --stall-s 25]`。
 - **GPU 與記憶體**：預設參數**不加** `--disable-smart-memory`（2026-10-04 實測：模型常駐，小圖每張 18 秒，加了會每張 49 秒且每張從硬碟重讀約 16 GB，硬碟滿載）。第一次載入模型要 2～3 分鐘，那段時間系統可用記憶體會掉到接近 0，這是正常的尖峰，不要在這時候同時開別的重度程式。ComfyUI 跑的時候不要同時開 Godot 截圖／匯入（12 GB 顯示記憶體會 OOM）；**用完請 `start_comfyui.ps1 -Stop`**，它常駐會佔用約 13 GB 記憶體。
 - **清單檔會被執行中的工具改寫**（記住新錨點）：批次還在跑時不要編輯 `qwen_props.json`，等它結束。
 - 匯入後 `.import` 檔沒有對應圖的孤兒要刪掉（會讓關卡載入時噴 ERROR）。
 
 ## 9. 還沒做的部分
 
-統一調色與光影整合（NE-66）；白房間那排「小腳」仍是多邊形（NE-113）；舊的四個過場舞台（NE-112）與室內道具（NE-114）仍是寫實風或舊圖；道具法線品質（NE-115）。地形材質、立面、遠中景、天空（NE-108、74、76）與樹木（NE-110）已是賽璐璐畫風。
+統一調色與光影整合（NE-66）；白房間那排「小腳」仍是多邊形（BG-6）；舊的四個過場舞台（BG-5）與室內道具（BG-7）仍是寫實風或舊圖；道具法線品質（BG-8）。地形材質、立面、遠中景、天空（BG-1、74、76）與樹木（BG-3）已是賽璐璐畫風。
 
 ## 10. 驗收清單
 

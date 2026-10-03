@@ -1,10 +1,10 @@
-"""Build the seamless parallax sky strips (NE-57 / NE-60 / NE-111).
+"""Build the seamless parallax sky strips (NE-57 / NE-60 / BG-4).
 
 Usage: python tools/assets/process_sky.py [--only ID ...]
 
 Reads assets_src/pipeline/backdrop.json ("skies" list). For every entry writes art/environment/backdrop/<id>.webp.
 
-Entries with a "cel" block (NE-111, the current look) are painted by tools/assets/cel_sky.py: flat colour bands, flat
+Entries with a "cel" block (BG-4, the current look) are painted by tools/assets/cel_sky.py: flat colour bands, flat
 clouds with a hard shade colour, stepped horizon glow, left and right edges wrap by construction. Keys: width, height,
 top_fade, cel{...} (see cel_sky.py); output is lossless WebP because flat colour compresses small and keeps edges clean.
 

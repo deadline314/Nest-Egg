@@ -1,4 +1,4 @@
-"""Procedural cel-shaded sky painter (NE-111).
+"""Procedural cel-shaded sky painter (BG-4).
 
 Paints one seamless sky strip with flat colour bands, flat-coloured clouds with a hard second shade colour and an
 optional bright rim, stars / sun / moon and a stepped horizon glow. Nothing is random per run: the seed lives in the
