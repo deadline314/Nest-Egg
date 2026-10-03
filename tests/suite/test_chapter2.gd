@@ -80,7 +80,13 @@ func _test_layout() -> void:
 		if data.legend[c] is StoryItemData and (data.legend[c] as StoryItemData).chapter == &"chapter_02":
 			check(counts.get(c, 0) == 1, "collectible placed exactly once: %s" % c)
 			collectibles += counts.get(c, 0)
-	check(collectibles == StoryItems.collectible_total(&"chapter_02"), "every chapter 2 collectible is in the level (%d)" % collectibles)
+	# 場景人物給的收集品不在地圖上，算進同一份總數。
+	for c in data.legend:
+		if data.legend[c] is NpcData:
+			for talk in (data.legend[c] as NpcData).talks:
+				if talk.story_item != null and talk.story_item.chapter == &"chapter_02":
+					collectibles += 1
+	check(collectibles == StoryItems.collectible_total(&"chapter_02"), "every chapter 2 collectible is in the level or given by a person (%d)" % collectibles)
 	# 安全示範：每種機關第一次出現的地方，附近沒有敵人。
 	for c in DEMO_CHARS:
 		var x: float = first_x.get(c, -1.0)

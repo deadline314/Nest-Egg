@@ -15,7 +15,7 @@ LOG="$(mktemp)"
 STATUS=${PIPESTATUS[0]}
 
 # 測試刻意觸發的錯誤（驗證缺圖／缺定義時的容錯）不算失敗。
-EXPECTED_ERRORS="missing_part|no_such_character|test_catalog|no_such_icon|起點 987654|test_bad_cutscene|no_such_stage|no_such_sfx|test_missing_prop"
+EXPECTED_ERRORS="missing_part|no_such_character|test_catalog|no_such_icon|起點 987654|test_bad_cutscene|no_such_stage|no_such_sfx|test_missing_prop|test_npc_bad"
 if grep -E "SCRIPT ERROR|^ERROR:|Parse Error" "$LOG" | grep -vqE "$EXPECTED_ERRORS"; then
 	echo "Detected script errors in output." >&2
 	STATUS=1

@@ -1,7 +1,7 @@
 class_name DialogueLayer
 extends CanvasLayer
 ## 對話介面（由 Story 服務持有）：
-##   過場：暫停遊戲、上下黑邊、頭像＋講者名＋逐字顯示；點擊／Enter／射擊鍵推進（第一下先顯示完整句子），Esc 跳過整段。
+##   過場：暫停遊戲、上下黑邊、頭像＋講者名＋逐字顯示；點擊／Enter／射擊／互動鍵推進（第一下先顯示完整句子），Esc 跳過整段。
 ##   通訊：畫面左上角的小面板，不暫停，逐字顯示後依字數停留再自動換下一句。
 
 signal cinematic_finished(scene_id: StringName)
@@ -112,6 +112,7 @@ func _input(event: InputEvent) -> void:
 		finish_cinematic()
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed(&"ui_accept") or event.is_action_pressed(&"shoot") or event.is_action_pressed(&"jump") \
+			or event.is_action_pressed(&"interact") \
 			or (event is InputEventMouseButton and event.is_pressed() and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT):
 		advance()
 		get_viewport().set_input_as_handled()

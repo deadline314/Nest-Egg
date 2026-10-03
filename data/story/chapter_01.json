@@ -1,11 +1,13 @@
 {
   "chapter": {"id": "chapter_01", "title": "第一章　雨夜", "subtitle": "沉港市・下層港區", "end_title": "第一章　雨夜　完", "teaser": "下一章 ——「天空的代價」"},
   "speakers": {
-    "rin":    {"name": "凜", "color": "#ff3fa4", "portrait": "res://art/portraits/rin.png"},
-    "mei":    {"name": "芽", "color": "#a46bff", "portrait": "res://art/portraits/mei.png"},
-    "old_k":  {"name": "老K", "color": "#ffd23f", "portrait": "res://art/portraits/old_k.png"},
-    "warden": {"name": "監管者", "color": "#ff2a3d", "portrait": "res://art/portraits/warden.png"},
-    "system": {"name": "天穹廣播", "color": "#35e0ff", "portrait": "res://art/portraits/system.png"}
+    "rin": {"name": "凜", "color": "#ff3fa4", "portrait": "res://art/portraits/rin.png"},
+    "mei": {"name": "芽", "color": "#a46bff", "portrait": "res://art/portraits/mei.png"},
+    "old_k": {"name": "老K", "color": "#ffd23f", "portrait": "res://art/portraits/old_k.png"},
+    "warden": {"name": "監管者", "color": "#ff2a3d", "portrait": "res://art/portraits/warden.png", "formal": true},
+    "system": {"name": "天穹廣播", "color": "#35e0ff", "portrait": "res://art/portraits/system.png", "formal": true},
+    "ah_po": {"name": "阿婆", "color": "#ffb066", "portrait": "res://art/portraits/system.png"},
+    "worker": {"name": "工人", "color": "#c8d0d8", "portrait": "res://art/portraits/system.png"}
   },
   "scenes": {
     "prologue": {"mode": "cinematic", "lines": [
@@ -50,6 +52,44 @@
       {"speaker": "old_k", "text": "孩子，立刻離開那裡。他們已經知道你是誰了。"},
       {"speaker": "rin", "text": "……巢蛋已經滿了，老K。"},
       {"speaker": "rin", "text": "可是我要買的，從來就不是船票。"}
+    ]},
+    "npc_ahpo_1": {"mode": "dialogue", "lines": [
+      {"speaker": "ah_po", "text": "又瘦了喔。坐啦，雨這麼大，站著幹嘛。"},
+      {"speaker": "rin", "text": "趕時間。"},
+      {"speaker": "ah_po", "text": "趕什麼，湯滾了啦。這碗我多放一顆蛋，不用錢。"},
+      {"speaker": "rin", "text": "多少。"},
+      {"speaker": "ah_po", "text": "說不用錢就不用錢。你弟呢？還咳嗎？"},
+      {"speaker": "rin", "text": "咳。"},
+      {"speaker": "ah_po", "text": "喔。上次他在我這桌畫了一張，我老花，看不懂畫什麼，你拿去。"},
+      {"speaker": "rin", "text": "嗯。"}
+    ]},
+    "npc_ahpo_2": {"mode": "dialogue", "lines": [
+      {"speaker": "ah_po", "text": "還沒走喔？蛋涼了我給你熱。"},
+      {"speaker": "rin", "text": "不用。"},
+      {"speaker": "ah_po", "text": "你們老K十年前也這樣。一邊揹一個，兩個小的坐我這吃麵。"},
+      {"speaker": "rin", "text": "十年前。"},
+      {"speaker": "ah_po", "text": "對啊，就是你們兩個。那時他還有頭髮。"},
+      {"speaker": "rin", "text": "我七年前才認識他。"},
+      {"speaker": "ah_po", "text": "是喔？老了，記錯啦。對了，電視說半夜要停雨。"},
+      {"speaker": "ah_po", "text": "活這麼大沒看過雨停。上面那邊講的，聽聽就好。這個你拿去。"}
+    ]},
+    "npc_worker_1": {"mode": "dialogue", "lines": [
+      {"speaker": "worker", "text": "欸，這個時間不該有人。你誰。"},
+      {"speaker": "rin", "text": "領貨。NEST-07。"},
+      {"speaker": "worker", "text": "又一個。"},
+      {"speaker": "rin", "text": "什麼又一個。"},
+      {"speaker": "worker", "text": "上禮拜也有人來領這個貨櫃。背包扛著，跟你差不多大。"},
+      {"speaker": "worker", "text": "沒回來。我連輪三個班，都沒看到他出來。"},
+      {"speaker": "rin", "text": "貨櫃在哪。"},
+      {"speaker": "worker", "text": "最裡面。這張你拿著，我寫的交班紙。上面的數字，我自己看不下去。"}
+    ]},
+    "npc_worker_2": {"mode": "dialogue", "lines": [
+      {"speaker": "worker", "text": "還沒進去喔。電鍋裡有飯，沒煮你的份。"},
+      {"speaker": "rin", "text": "不用。"},
+      {"speaker": "worker", "text": "這個月第三個了。我有在數。"},
+      {"speaker": "worker", "text": "你要是看到他的鞋，幫我帶出來。左腳的鞋帶是紅的。"},
+      {"speaker": "rin", "text": "好。"},
+      {"speaker": "worker", "text": "這支放著也過期了，你拿去。"}
     ]}
   }
 }

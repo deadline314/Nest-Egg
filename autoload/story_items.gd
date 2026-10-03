@@ -113,11 +113,12 @@ func acquire(id: StringName, announce := true) -> bool:
 	_unseen[id] = true
 	acquired.emit(item)
 	if announce:
-		EventBus.toast_requested.emit(_acquire_message(item))
+		EventBus.toast_requested.emit(acquire_message(item))
 	return true
 
 
-func _acquire_message(item: StoryItemData) -> String:
+## 取得道具時的提示文字（人物給的獎勵也沿用）。
+func acquire_message(item: StoryItemData) -> String:
 	if not item.is_collectible():
 		return "取得 %s" % item.display_name
 	var kind := "錄音" if item.category == StoryItemData.Category.RECORDING else "文件"

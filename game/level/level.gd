@@ -288,7 +288,7 @@ func _spawn_static_entities() -> void:
 		_entities.add_child(sign)
 	for spawn in _layout.spawns:
 		var resource: Resource = spawn["resource"]
-		var node := _create_prop(spawn) if resource is BreakableData or resource is MechanismData or resource is CreditPileData or resource is ShopData else _create_entity(resource)
+		var node := _create_prop(spawn) if resource is BreakableData or resource is MechanismData or resource is CreditPileData or resource is ShopData or resource is NpcData else _create_entity(resource)
 		if node != null:
 			node.position = spawn["position"]
 			_entities.add_child(node)
@@ -412,6 +412,10 @@ func _create_prop(spawn: Dictionary) -> Node2D:
 		breakable.configure(resource as BreakableData, cell, _layout.tile_size)
 		breakable.broken.connect(_on_breakable_broken)
 		return breakable
+	if resource is NpcData:
+		var npc := NpcActor.new()
+		npc.configure(resource as NpcData, cell)
+		return npc
 	if resource is ShopData:
 		var shop := resource as ShopData
 		for problem in shop.validate():

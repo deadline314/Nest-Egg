@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"doc_transfer_sheet"
+display_name = "十二號床交接單"
+description = "護理師塞給你的，簽名欄還空著。"
+color = Color(0.75, 0.92, 0.88, 1.0)
+category = 1
+chapter = &"chapter_02"
+body = "床位 12。受試者：航。21:00 轉送上層。家屬欄：七號，未到。床位保留。手環維持 37 度，每小時遠端確認一次。備註：七號回來的話，別讓她等太久。"
+play_scene = &""
+order = 36
+trigger = 3
+icon = "document"

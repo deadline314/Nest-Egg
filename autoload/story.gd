@@ -18,9 +18,12 @@ const MODE_CINEMATIC := &"cinematic"
 const MODE_RADIO := &"radio"
 ## 動畫過場（資料檔以 steps 描述，見 CutscenePlayer）：與過場一樣暫停遊戲並排隊。
 const MODE_ANIMATED := &"animated"
+## 場景人物對話（玩家主動觸發）：與過場一樣暫停遊戲、逐句推進，但句數上限較高，且不算「看過就不再播」。
+const MODE_DIALOGUE := &"dialogue"
 ## 對話長度守則（見 design/04-story/STORY.md）：過場每段至多 6 句，通訊每段 1～2 句。
 const MAX_CINEMATIC_LINES := 6
 const MAX_RADIO_LINES := 2
+const MAX_DIALOGUE_LINES := 8
 
 ## 測試用：過場立即結束（仍會發出開始／結束訊號）。
 var auto_skip := false
@@ -108,7 +111,7 @@ func validate() -> PackedStringArray:
 			problems.append_array(CutsceneChecker.validate(scene_id, scene, _speakers))
 			continue
 		var lines: Array = scene.get("lines", [])
-		var limit := MAX_CINEMATIC_LINES if mode == String(MODE_CINEMATIC) else MAX_RADIO_LINES
+		var limit := _line_limit(mode)
 		if lines.is_empty():
 			problems.append("場景 %s 沒有任何台詞" % scene_id)
 		elif lines.size() > limit:
@@ -122,6 +125,15 @@ func validate() -> PackedStringArray:
 			if str(entry.get("text", "")).is_empty():
 				problems.append("場景 %s 有一句沒有文字" % scene_id)
 	return problems
+
+
+func _line_limit(mode: String) -> int:
+	match mode:
+		String(MODE_CINEMATIC):
+			return MAX_CINEMATIC_LINES
+		String(MODE_DIALOGUE):
+			return MAX_DIALOGUE_LINES
+	return MAX_RADIO_LINES
 
 
 func has_scene(id: StringName) -> bool:
@@ -169,7 +181,7 @@ func play(id: StringName, once := true) -> bool:
 	_seen[id] = true
 	var scene: Dictionary = _scenes[String(id)]
 	var mode := StringName(str(scene.get("mode", "radio")))
-	if mode == MODE_CINEMATIC or mode == MODE_ANIMATED:
+	if mode == MODE_CINEMATIC or mode == MODE_ANIMATED or mode == MODE_DIALOGUE:
 		if is_cinematic_active():
 			_cinematic_queue.append(id)
 		else:
@@ -180,9 +192,9 @@ func play(id: StringName, once := true) -> bool:
 	return true
 
 
-## 播放並等待該場景結束（場景不存在或已看過時立即返回）。
-func play_and_wait(id: StringName) -> void:
-	if not play(id):
+## 播放並等待該場景結束（場景不存在，或 once 為 true 且已看過時立即返回）。
+func play_and_wait(id: StringName, once := true) -> void:
+	if not play(id, once):
 		return
 	while true:
 		var finished: StringName = await scene_finished

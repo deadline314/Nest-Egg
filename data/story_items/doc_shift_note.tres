@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"doc_shift_note"
+display_name = "夜班交班紙條"
+description = "工人寫給下一班的，字很用力。"
+color = Color(0.78, 0.82, 0.86, 1.0)
+category = 1
+chapter = &"chapter_01"
+body = "交班。巡三圈，鐵門鎖好，吊車斷電。NEST-07 的貨櫃又有人來領，這個月第三個。前兩個沒出來。主管說不要問。電鍋裡留了一碗飯，誰餓誰吃。"
+play_scene = &""
+order = 24
+trigger = 3
+icon = "document"

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=44 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=43 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_script"]
 [ext_resource type="Resource" path="res://data/enemies/grunt.tres" id="2_grunt"]
@@ -35,6 +35,8 @@
 [ext_resource type="Script" path="res://data/scripts/lighting_event.gd" id="31_event"]
 [ext_resource type="Resource" path="res://data/lighting/blackout.tres" id="32_blackout"]
 [ext_resource type="Resource" path="res://data/lighting/alarm.tres" id="33_alarm"]
+[ext_resource type="Resource" path="res://data/npcs/ah_po.tres" id="60_ahpo"]
+[ext_resource type="Resource" path="res://data/npcs/night_worker.tres" id="61_worker"]
 
 [sub_resource type="Resource" id="Resource_zone0"]
 script = ExtResource("30_zone")
@@ -82,6 +84,8 @@ display_name = "第一章　雨夜"
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
+"W": ExtResource("61_worker"),
+"A": ExtResource("60_ahpo"),
 "G": ExtResource("14_launcher"),
 "L": ExtResource("10_laser"),
 "M": ExtResource("11_bulwark"),

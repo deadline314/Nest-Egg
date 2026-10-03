@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="NpcData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/npc_data.gd" id="1_npc"]
+[ext_resource type="Script" path="res://data/scripts/npc_talk.gd" id="2_talk"]
+
+[sub_resource type="Resource" id="Talk_0"]
+script = ExtResource("2_talk")
+scene = &"c2_obj_marks"
+
+[resource]
+script = ExtResource("1_npc")
+id = &"height_marks"
+kind = 1
+display_name = "牆上的刻痕"
+facing = -1
+talks = Array[ExtResource("2_talk")]([SubResource("Talk_0")])

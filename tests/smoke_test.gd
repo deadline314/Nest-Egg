@@ -63,7 +63,7 @@ func _suites() -> Array[TestSuite]:
 	return [
 		PropsSuite.new(self), NewEnemiesSuite.new(self), CollectiblesSuite.new(self),
 		ProgressionSuite.new(self), SupplySuite.new(self), ReclaimerSuite.new(self),
-		Chapter2Suite.new(self), UiKitSuite.new(self), TransitionSuite.new(self), UiScreensSuite.new(self), CutsceneSuite.new(self), EnvironmentSuite.new(self),
+		Chapter2Suite.new(self), UiKitSuite.new(self), TransitionSuite.new(self), UiScreensSuite.new(self), CutsceneSuite.new(self), EnvironmentSuite.new(self), NpcSuite.new(self),
 	]
 
 
@@ -367,7 +367,7 @@ func _test_story() -> void:
 ## 設定與改鍵：改用測試專用設定檔，結束後還原，不影響玩家設定。
 func _test_story_items() -> void:
 	var catalog := StoryItems.catalog()
-	_check(catalog.size() == 16, "story item catalog loads 16 items (got %d)" % catalog.size())
+	_check(catalog.size() == 19, "story item catalog loads 19 items (got %d)" % catalog.size())
 	var ids: Dictionary[StringName, bool] = {}
 	var last_order := -INF
 	for item in catalog:
