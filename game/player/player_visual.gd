@@ -59,7 +59,7 @@ func shoulder_height(crouching: bool, fallback: float) -> float:
 		return fallback
 	var height := rig.anchor_height()
 	if crouching:
-		height -= HumanoidAnimator.CROUCH_DROP * rig.body_scale()
+		height -= (rig.animator.current_hip_drop() if rig.animator != null and bool(rig.animator._motion.get("grounding", false)) else HumanoidAnimator.CROUCH_DROP) * rig.body_scale()
 	return height
 
 

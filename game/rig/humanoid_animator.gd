@@ -421,6 +421,11 @@ func _rest_corpse() -> void:
 	_forward_kinematics()
 
 
+## 目前身體整個往下沉了多少（骨架空間，往下為正）：蹲下時槍口與準星的高度由它算出。
+func current_hip_drop() -> float:
+	return _hip_offset.y + _ground_shift
+
+
 ## 稽核用：骨頭目前的位置（骨架空間）與站立時的地面高度。
 func bone_pos(bone_name: StringName) -> Vector2:
 	return _global_pos.get(bone_name, Vector2.ZERO)
