@@ -190,10 +190,10 @@ func _test_pickups_and_checkpoint() -> void:
 	var level := await start_level(data)
 	var first := _pile_at(level, 12)
 	check(first != null and first.value == 10, "credit pile spawned from the legend")
-	check(level.hud._credits_label.text == "¥ 0", "HUD shows the credits")
+	check(level.hud.credits_tag.value() == 0, "HUD shows the credits")
 	await _touch(level, first)
 	check(Progression.credits == 10, "touching a pile adds its value (%d)" % Progression.credits)
-	check(level.hud._credits_label.text == "¥ 10", "HUD follows the credits")
+	check(level.hud.credits_tag.value() == 10, "HUD follows the credits")
 	check(_pile_at(level, 12) == null, "a collected pile disappears")
 	# 到檢查點存檔。
 	var checkpoint: Checkpoint = null

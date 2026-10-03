@@ -17,13 +17,11 @@ var weapon_bar: WeaponBar
 var _items_label: Label
 var _lives_label: Label
 var _timer_label: Label
-var _credits_label: Label
-var _cyber_gauge: _CyberGauge
-var _credits_tween: Tween
-var _boss_name: Label
-var _toast: Label
+var credits_tag: CreditsTag
+var cyber_gauge: CyberGauge
+var boss_bar: BossBar
+var toast_banner: UiBanner
 var _controls: Label
-var _toast_tween: Tween
 
 
 func _ready() -> void:
@@ -63,33 +61,26 @@ func _ready() -> void:
 	_timer_label.size = Vector2(100, 16)
 	root.add_child(_timer_label)
 
-	_credits_label = UiKit.label("", 11, Palette.NEON_YELLOW, HORIZONTAL_ALIGNMENT_RIGHT)
-	_credits_label.position = Vector2(528, 22)
-	_credits_label.size = Vector2(100, 16)
-	_credits_label.mouse_filter = Control.MOUSE_FILTER_PASS
-	_credits_label.tooltip_text = "信用點：撿取與擊敗敵人取得，在背包改裝武器"
-	root.add_child(_credits_label)
+	credits_tag = CreditsTag.new()
+	credits_tag.position = Vector2(518, 22)
+	root.add_child(credits_tag)
 
-	_cyber_gauge = _CyberGauge.new()
-	_cyber_gauge.position = Vector2(508, 40)
-	_cyber_gauge.size = Vector2(120, 22)
-	_cyber_gauge.visible = false
-	_cyber_gauge.mouse_filter = Control.MOUSE_FILTER_PASS
-	root.add_child(_cyber_gauge)
+	cyber_gauge = CyberGauge.new()
+	cyber_gauge.position = Vector2(508, 40)
+	cyber_gauge.visible = false
+	cyber_gauge.mouse_filter = Control.MOUSE_FILTER_PASS
+	root.add_child(cyber_gauge)
 
-	_boss_name = UiKit.label("", 11, Palette.DANGER, HORIZONTAL_ALIGNMENT_CENTER)
-	_boss_name.position = Vector2(170, 4)
-	_boss_name.size = Vector2(300, 16)
-	_boss_name.visible = false
-	root.add_child(_boss_name)
+	boss_bar = BossBar.new()
+	boss_bar.position = Vector2((640.0 - BossBar.SIZE.x) * 0.5, 8)
+	root.add_child(boss_bar)
 
-	_toast = UiKit.label("", 14, Palette.CYAN, HORIZONTAL_ALIGNMENT_CENTER)
-	_toast.position = Vector2(0, 64)
-	_toast.size = Vector2(640, 20)
-	_toast.modulate.a = 0.0
-	root.add_child(_toast)
+	toast_banner = UiBanner.new()
+	toast_banner.position = Vector2(220, 112)
+	toast_banner.center_x = 320.0
+	root.add_child(toast_banner)
 
-	_controls = UiKit.label(controls_hint(), 9, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_CENTER)
+	_controls = UiKit.label(controls_hint(), UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_CENTER)
 	# 先開啟折行再設定尺寸，否則單行文字會把寬度撐開。
 	_controls.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_controls.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
@@ -130,33 +121,27 @@ func _process(_delta: float) -> void:
 	_timer_label.text = UiKit.format_time(GameState.run_time)
 
 
+## 取得、檢查點、警告都用橫幅；種類依文字判斷（取得／警告），其餘是一般提示。
 func show_toast(text: String) -> void:
-	_toast.text = text
-	if _toast_tween != null and _toast_tween.is_valid():
-		_toast_tween.kill()
-	_toast.modulate.a = 1.0
-	_toast_tween = create_tween()
-	_toast_tween.tween_interval(TOAST_TIME)
-	_toast_tween.tween_property(_toast, "modulate:a", 0.0, 0.4)
+	toast_banner.show_text(text, _toast_kind(text), TOAST_TIME)
+
+
+static func _toast_kind(text: String) -> UiBanner.Kind:
+	if text.begins_with("取得") or text.begins_with("撿到") or text.contains("＋"):
+		return UiBanner.Kind.ITEM
+	if text.contains("警告") or text.contains("危險") or text.contains("失敗"):
+		return UiBanner.Kind.WARNING
+	return UiBanner.Kind.INFO
 
 
 func _on_credits_changed(credits: int, delta: int) -> void:
-	_credits_label.text = "¥ %d" % credits
-	if delta == 0:
-		return
-	# 增加時閃一下金色，花費時閃一下紅色。
-	if _credits_tween != null and _credits_tween.is_valid():
-		_credits_tween.kill()
-	_credits_label.add_theme_color_override(&"font_color", Palette.WHITE if delta > 0 else Palette.DANGER)
-	_credits_tween = create_tween()
-	_credits_tween.tween_interval(0.12)
-	_credits_tween.tween_callback(func() -> void: _credits_label.add_theme_color_override(&"font_color", Palette.NEON_YELLOW))
+	credits_tag.set_credits(credits, delta)
 
 
 func _on_cyber_changed(charge: float, ready: bool, ability_name: String, progress: float) -> void:
-	_cyber_gauge.visible = not ability_name.is_empty()
-	_cyber_gauge.update_state(charge, ready, ability_name, progress)
-	_cyber_gauge.tooltip_text = InputBindings.format("義體能力：{ability} 使用；電量隨時間與擊敗敵人回復")
+	cyber_gauge.visible = not ability_name.is_empty()
+	cyber_gauge.update_state(charge, ready, ability_name, progress)
+	cyber_gauge.tooltip_text = InputBindings.format("義體能力：{ability} 使用；電量隨時間與擊敗敵人回復")
 
 
 func _on_lives_changed(lives: int) -> void:
@@ -194,32 +179,23 @@ func _on_vehicle_health_changed(current: int, maximum: int) -> void:
 
 
 func _on_boss_started(display_name: String, max_health: int) -> void:
-	_boss_name.text = display_name
-	_boss_name.visible = true
-	_gauges.boss_visible = true
-	_gauges.boss_ratio = 1.0 if max_health > 0 else 0.0
-	_gauges.queue_redraw()
+	boss_bar.open(display_name, 1.0 if max_health > 0 else 0.0)
 
 
 func _on_boss_health_changed(current: int, maximum: int) -> void:
-	_gauges.boss_ratio = float(current) / maxf(1.0, float(maximum))
-	_gauges.queue_redraw()
+	boss_bar.set_ratio(float(current) / maxf(1.0, float(maximum)))
 
 
 func _on_boss_defeated() -> void:
-	_boss_name.visible = false
-	_gauges.boss_visible = false
-	_gauges.queue_redraw()
+	boss_bar.close()
 
 
-## 自繪量表：機甲耐久、頭目血條。
+## 自繪量表：機甲耐久。
 class _Gauges:
 	extends Control
 
 	var vehicle_visible := false
 	var vehicle_ratio := 1.0
-	var boss_visible := false
-	var boss_ratio := 1.0
 
 	func _draw() -> void:
 		_draw_vehicle_and_boss()
@@ -230,44 +206,3 @@ class _Gauges:
 			draw_rect(Rect2(12, 22, 90 * vehicle_ratio, 5), LightKit.glow(Palette.WARNING, 1.4))
 			draw_rect(Rect2(12, 22, 90, 5), Palette.TERRAIN_TOP, false, 1.0)
 			draw_string(UiKit.font(), Vector2(106, 28), "機甲", HORIZONTAL_ALIGNMENT_LEFT, -1, 9, Palette.WARNING)
-		if boss_visible:
-			draw_rect(Rect2(170, 22, 300, 6), Color(Palette.UI_PANEL, 0.9))
-			draw_rect(Rect2(170, 22, 300 * boss_ratio, 6), LightKit.glow(Palette.DANGER, 1.6))
-			draw_line(Vector2(320, 20), Vector2(320, 30), Palette.UI_MUTED, 1.0)
-			draw_rect(Rect2(170, 22, 300, 6), Palette.TERRAIN_TOP, false, 1.0)
-
-
-## 義體電量：能力名稱、電量條（可用時發亮）、冷卻或持續進度的細線。
-class _CyberGauge:
-	extends Control
-
-	const BAR_SIZE := Vector2(116, 5)
-
-	var _charge := 0.0
-	var _ready_to_use := false
-	var _name := ""
-	var _progress := 1.0
-	var _font: Font
-
-	func _ready() -> void:
-		_font = UiKit.font()
-
-	func update_state(charge: float, ready: bool, ability_name: String, progress: float) -> void:
-		_charge = charge
-		_ready_to_use = ready
-		_name = ability_name
-		_progress = progress
-		queue_redraw()
-
-	func _draw() -> void:
-		if _font == null:
-			return
-		var color := Palette.CYAN if _ready_to_use else Palette.UI_MUTED
-		var label := "%s%s" % [_name, "　就緒" if _ready_to_use else ""]
-		draw_string(_font, Vector2(size.x - _font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, 9).x, 9), label, HORIZONTAL_ALIGNMENT_LEFT, -1, 9, color)
-		var origin := Vector2(size.x - BAR_SIZE.x, 13)
-		draw_rect(Rect2(origin, BAR_SIZE), Color(Palette.UI_PANEL, 0.8))
-		draw_rect(Rect2(origin, Vector2(BAR_SIZE.x * clampf(_charge / 100.0, 0.0, 1.0), BAR_SIZE.y)), LightKit.glow(color, 1.4 if _ready_to_use else 0.8))
-		draw_rect(Rect2(origin, BAR_SIZE), Color(color, 0.6), false, 1.0)
-		if _progress < 1.0:
-			draw_line(origin + Vector2(0, BAR_SIZE.y + 2), origin + Vector2(BAR_SIZE.x * _progress, BAR_SIZE.y + 2), Palette.MAGENTA, 1.0)

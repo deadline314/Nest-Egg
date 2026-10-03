@@ -13,7 +13,9 @@ const RADIO_HOLD_BASE := 1.6
 const RADIO_HOLD_PER_CHAR := 0.055
 const BAR_HEIGHT := 34.0
 const PORTRAIT_SIZE := 56.0
-const RADIO_PORTRAIT_SIZE := 30.0
+const RADIO_PORTRAIT_SIZE := 32.0
+const RADIO_HOME := Vector2(170, 46)
+const RADIO_SLIDE := 28.0
 
 var _cinematic_root: Control
 var _top_bar: ColorRect
@@ -31,6 +33,8 @@ var _previous_mouse_mode := Input.MOUSE_MODE_VISIBLE
 var _radio_root: PanelContainer
 var _radio_portrait: TextureRect
 var _radio_name: Label
+var _radio_bar: ColorRect
+var _radio_slide: Tween
 var _radio_text: Label
 var _radio_queue: Array[Dictionary] = []  # { id, line, last }
 var _radio_hold := 0.0
@@ -146,12 +150,17 @@ func _next_radio() -> void:
 	var line: Dictionary = entry["line"]
 	_radio_name.text = line["name"]
 	_radio_name.add_theme_color_override(&"font_color", line["color"])
+	_radio_bar.color = line["color"]
 	_radio_text.text = line["text"]
 	_radio_text.visible_ratio = 0.0
 	_radio_portrait.texture = _portrait_texture(line["portrait"])
 	_radio_hold = RADIO_HOLD_BASE + str(line["text"]).length() * RADIO_HOLD_PER_CHAR
+	var was_hidden := not _radio_root.visible or _radio_root.modulate.a < 0.5
 	_radio_root.visible = not is_cinematic_active()
-	_radio_root.modulate.a = 1.0
+	if was_hidden:
+		_slide_radio_in()
+	else:
+		_radio_root.modulate.a = 1.0
 	Sfx.play(&"telegraph", -18.0, 0.0)
 
 
@@ -224,28 +233,56 @@ func _build_cinematic() -> void:
 func _build_radio() -> void:
 	_radio_root = PanelContainer.new()
 	_radio_root.theme = UiKit.theme()
-	_radio_root.position = Vector2(170, 34)
+	_radio_root.position = RADIO_HOME
 	_radio_root.custom_minimum_size = Vector2(300, 0)
 	_radio_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_radio_root.visible = false
+	var box := ChamferBox.make(Color(0.02, 0.04, 0.07, 0.9), Palette.CYAN_DIM, 4)
+	box.bracket = Palette.CYAN
+	box.scanlines = 0.1
+	box.margins(8, 6, 10, 6)
+	_radio_root.add_theme_stylebox_override(&"panel", box)
 	add_child(_radio_root)
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override(&"separation", 8)
 	_radio_root.add_child(row)
+	# 講者顏色條 + 頭像框（從側邊滑入時一起移動）。
+	_radio_bar = ColorRect.new()
+	_radio_bar.custom_minimum_size = Vector2(2, 0)
+	_radio_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	row.add_child(_radio_bar)
+	var frame := PanelContainer.new()
+	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var frame_box := ChamferBox.make(Color(0.03, 0.06, 0.09, 0.96), Palette.CYAN, 3, 2)
+	frame_box.margins(2, 2, 2, 2)
+	frame.add_theme_stylebox_override(&"panel", frame_box)
+	row.add_child(frame)
 	_radio_portrait = TextureRect.new()
 	_radio_portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	_radio_portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	_radio_portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	_radio_portrait.custom_minimum_size = Vector2(RADIO_PORTRAIT_SIZE, RADIO_PORTRAIT_SIZE)
-	row.add_child(_radio_portrait)
+	frame.add_child(_radio_portrait)
 	var column := VBoxContainer.new()
 	column.add_theme_constant_override(&"separation", 0)
 	row.add_child(column)
-	_radio_name = UiKit.label("", 9, Palette.CYAN)
+	_radio_name = UiKit.label("", UiKit.FS_BODY, Palette.CYAN)
 	column.add_child(_radio_name)
-	_radio_text = UiKit.label("", 10, Palette.UI_TEXT)
-	_radio_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_radio_text.custom_minimum_size = Vector2(250, 0)
+	_radio_text = UiKit.label("", UiKit.FS_BODY, Palette.UI_TEXT)
+	_radio_text.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
+	_radio_text.custom_minimum_size = Vector2(240, 0)
 	column.add_child(_radio_text)
+
+
+## 通訊面板從左側滑入（已經在顯示時不重播）。
+func _slide_radio_in() -> void:
+	if _radio_slide != null and _radio_slide.is_valid():
+		_radio_slide.kill()
+	_radio_root.position = RADIO_HOME + Vector2(-RADIO_SLIDE, 0)
+	_radio_root.modulate.a = 0.0
+	_radio_slide = create_tween().set_parallel(true)
+	_radio_slide.tween_property(_radio_root, "position", RADIO_HOME, 0.2).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	_radio_slide.tween_property(_radio_root, "modulate:a", 1.0, 0.15)
 
 
 ## 以錨點為基準放置控制項（rect 的座標相對於錨點，例如底部錨點時 y 為負值）。

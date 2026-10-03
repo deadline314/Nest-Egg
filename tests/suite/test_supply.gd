@@ -121,7 +121,7 @@ func _test_cyber_system() -> void:
 	check(reported[0] == false and is_equal_approx(cyber.charge, CyberSystem.MAX_CHARGE - emp.charge_cost), "activation consumes the charge")
 	check(not cyber.try_activate() and cyber.block_reason().contains("冷卻"), "cooldown blocks the next use")
 	EventBus.player_cyber_changed.disconnect(on_report)
-	check(level.hud._cyber_gauge.visible, "the HUD shows the cyber gauge while an ability is equipped")
+	check(level.hud.cyber_gauge.visible, "the HUD shows the cyber gauge while an ability is equipped")
 	# 倒下的玩家不能使用。
 	cyber._cooldown_left = 0.0
 	cyber.charge = 100.0
@@ -276,7 +276,7 @@ func _test_cyber_page_and_checkpoint() -> void:
 	await end_level(level)
 	level = await spawn_level(data)
 	check(Progression.is_ability_unlocked(emp.id) and not Progression.is_ability_unlocked(overclock.id), "respawning restores the unlocked abilities")
-	check(level.player.cyber.ability() == emp and level.hud._cyber_gauge.visible, "the player and HUD pick up the restored ability")
+	check(level.player.cyber.ability() == emp and level.hud.cyber_gauge.visible, "the player and HUD pick up the restored ability")
 	await end_level(level)
 	GameState.clear_checkpoint()
 	_fresh()

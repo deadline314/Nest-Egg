@@ -1262,6 +1262,49 @@ func _run_hud() -> void:
 	Input.action_release(&"aim_right")
 	level.queue_free()
 	await _settle(4)
+	await _run_hud_full()
+
+
+## 戰鬥介面全部元素：頭目血條、信用點、義體電量、橫幅、通訊面板、生命與護盾。
+func _run_hud_full() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _settle(20)
+	var player := level.player
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	for id: String in Story.scene_ids():
+		Story._seen[StringName(id)] = true
+	player.loadout.equip(load("res://data/weapons/rifle.tres"))
+	player.global_position = Vector2(330, 320)
+	level_camera_snap()
+	Progression.credits = 1280
+	Progression.credits_changed.emit(1280, 0)
+	EventBus.player_cyber_changed.emit(100.0, true, "EMP", 1.0)
+	Input.action_press(&"aim_right")
+	EventBus.boss_started.emit("監管者", 100)
+	await _wait(0.25)
+	_capture("hud_boss_open")
+	await _wait(0.5)
+	var info := DamageInfo.create(2, Combat.Team.ENEMY, &"test")
+	info.ignore_invulnerability = true
+	player.health.take_damage(info)
+	EventBus.boss_health_changed.emit(62, 100)
+	Progression.add_credits(120)
+	level.hud.show_toast("取得 醫療針")
+	Story._scenes["shot_radio"] = {"mode": "radio", "lines": [{"speaker": "mei", "text": "巷口兩個。你被打到我下個月的薪水就沒了。"}]}
+	Story.play(&"shot_radio", false)
+	await _wait(0.9)
+	_capture("hud_full_a")
+	EventBus.boss_health_changed.emit(48, 100)
+	await _wait(0.12)
+	_capture("hud_boss_phase")
+	await _wait(1.0)
+	Input.action_release(&"aim_right")
+	level.queue_free()
+	await _settle(4)
 
 
 ## 關卡各區段實景：--scenario=spots:level_01:before，每個區段停在檢查點／代表位置截圖（隱藏 HUD、清掉敵人）。

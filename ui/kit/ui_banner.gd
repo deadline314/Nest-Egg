@@ -8,6 +8,9 @@ enum Kind { INFO, ITEM, WARNING }
 const SLIDE := 28.0
 const SLIDE_TIME := 0.18
 
+## >= 0 時，橫幅水平置中於這個 x 座標（HUD 把它設在畫面中央）。
+var center_x := -1.0
+
 var _label: Label
 var _tween: Tween
 var _home_x: float = 0.0
@@ -36,6 +39,8 @@ func show_text(text: String, kind: Kind = Kind.INFO, hold: float = 2.0) -> void:
 	if not is_inside_tree():
 		return
 	reset_size()
+	if center_x >= 0.0:
+		position.x = roundf(center_x - size.x * 0.5)
 	_home_x = position.x
 	position.x = _home_x - SLIDE
 	modulate.a = 0.0
