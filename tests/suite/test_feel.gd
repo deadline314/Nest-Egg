@@ -14,6 +14,7 @@ func run() -> void:
 	_test_feel_settings()
 	await _test_global_hitstop()
 	await _test_slowmo()
+	await _test_camera()
 
 
 func _script_paths(dir: String, into: PackedStringArray) -> void:
@@ -57,7 +58,10 @@ func _test_shake_duration_is_honored() -> void:
 	Feel.shake(2.0, 0.2)
 	await runner.get_tree().physics_frame
 	await runner.get_tree().physics_frame
-	var early := camera._shake_magnitude(0.0)
+	var early := 0.0
+	for i in 12:
+		camera._noise_time += 7.0
+		early = maxf(early, camera._shake_magnitude(0.0))
 	check(early > 1.0, "small shake is visible right away (%.2f px)" % early)
 	for i in 30:
 		await runner.get_tree().physics_frame
@@ -82,7 +86,7 @@ class _Probe:
 	var shakes: Array[float] = []
 	var kicks: Array[float] = []
 
-	func on_shake(px: float, _time: float) -> void:
+	func on_shake(px: float, _time: float, _direction: Vector2, _origin: Vector2) -> void:
 		shakes.append(px)
 
 	func on_kick(offset: Vector2) -> void:
@@ -173,3 +177,69 @@ func _test_slowmo() -> void:
 		n.free()
 	Fx.reset_time()
 	Fx._slowmo_ready_msec = 0
+
+
+func _test_camera() -> void:
+	var camera := LevelCamera.new()
+	runner.get_tree().root.add_child(camera)
+	# 有方向的震動沿方向擺動、雜訊只佔一小部分。
+	camera._on_screen_shake(8.0, 0.3, Vector2.RIGHT, Vector2.INF)
+	var max_x := 0.0
+	var max_y := 0.0
+	for i in 18:
+		var o := camera._shake_offset(1.0 / 60.0)
+		max_x = maxf(max_x, absf(o.x))
+		max_y = maxf(max_y, absf(o.y))
+	check(max_x > 2.0 and max_y < max_x * 0.6, "directional shake mostly moves along its direction (%.2f vs %.2f)" % [max_x, max_y])
+	camera._shakes.clear()
+	# 距離衰減：遠處的來源震得比較小，最遠剩四分之一。
+	camera.global_position = Vector2.ZERO
+	camera._on_screen_shake(8.0, 0.3, Vector2.ZERO, Vector2(2000.0, 0.0))
+	check(is_equal_approx(float(camera._shakes[0][0]), 2.0), "far shakes fall off to 25%")
+	camera._shakes.clear()
+	camera._on_screen_shake(8.0, 0.3, Vector2.ZERO, Vector2(100.0, 0.0))
+	check(is_equal_approx(float(camera._shakes[0][0]), 8.0), "near shakes keep full strength")
+	camera._shakes.clear()
+	# 同時事件的位移有上限。
+	for i in 8:
+		camera._on_screen_shake(12.0, 1.0, Vector2.ZERO, Vector2.INF)
+	check(camera._shake_offset(0.0).length() <= LevelCamera.MAX_SHAKE_PX + 0.001, "stacked shakes are capped")
+	# 縮放脈衝：先拉近再回到原本。
+	camera._on_zoom_pulse(0.04, 0.2)
+	var peak := 0.0
+	for i in 8:
+		peak = maxf(peak, camera._pulse_amount(1.0 / 60.0))
+	check(peak > 0.02, "zoom pulse zooms in (%.3f)" % peak)
+	for i in 20:
+		camera._pulse_amount(1.0 / 60.0)
+	check(camera._pulse_amount(0.0) == 0.0, "zoom pulse returns to normal")
+	camera.queue_free()
+	# 縮放脈衝只給白名單事件；震動 0% 或開關關閉時不播。
+	var pulses := [0]
+	var count := func(_a: float, _t: float) -> void: pulses[0] += 1
+	EventBus.camera_zoom_pulse.connect(count)
+	Feel.play(&"player_parry")
+	check(pulses[0] == 1, "whitelisted event plays a zoom pulse")
+	Feel.play(&"enemy_kill")
+	check(pulses[0] == 1, "events outside the whitelist do not pulse")
+	var original := Settings.storage_path()
+	Settings.use_storage("user://test_feel_camera.cfg")
+	Settings.set_zoom_pulse(false)
+	Feel.play(&"player_parry")
+	check(pulses[0] == 1, "zoom pulse switch turns the pulse off")
+	Settings.reset_display()
+	Settings.use_storage(original)
+	DirAccess.remove_absolute("user://test_feel_camera.cfg")
+	EventBus.camera_zoom_pulse.disconnect(count)
+	# 頓幀結束後才震：有頓幀的事件震動延後。
+	await runner.get_tree().create_timer(0.3, true, false, true).timeout  # 先讓前面事件延後的震動播完
+	var seen := [0]
+	var on_shake := func(_p: float, _t: float, _d: Vector2, _o: Vector2) -> void: seen[0] += 1
+	EventBus.screen_shake.connect(on_shake)
+	Fx._hitstop_log.clear()
+	Feel.play(&"player_hurt")
+	check(seen[0] == 0, "shake waits for the hitstop to end")
+	await runner.get_tree().create_timer(0.2, true, false, true).timeout
+	check(seen[0] == 1, "shake plays after the hitstop")
+	EventBus.screen_shake.disconnect(on_shake)
+	Fx._hitstop_log.clear()

@@ -1,5 +1,5 @@
 {
- "_說明": "打擊回饋事件：slowmo = 慢動作（只限白名單情境，有冷卻，可限制場上敵人數）；shake = 鏡頭震動（px 峰值像素、time 秒，強度隨時間平方衰減）；hitstop = 全域頓幀秒數；freeze = 只凍結傳入節點（攻擊方與被打方）的秒數。遊戲內一律用 Feel.play(&\"事件名\") 播放。",
+ "_說明": "打擊回饋事件：zoom = 縮放脈衝（只限白名單事件）；slowmo = 慢動作（只限白名單情境，有冷卻，可限制場上敵人數）；shake = 鏡頭震動（px 峰值像素、time 秒，強度隨時間平方衰減）；hitstop = 全域頓幀秒數；freeze = 只凍結傳入節點（攻擊方與被打方）的秒數。遊戲內一律用 Feel.play(&\"事件名\") 播放。",
  "events": {
   "enemy_flinch":       {"freeze": 0.03},
   "enemy_stagger":      {"freeze": 0.06, "shake": {"px": 1.0, "time": 0.08}},
@@ -10,12 +10,12 @@
   "boss_arena_lock":    {"shake": {"px": 3.2, "time": 0.4}},
   "boss_recover_thud":  {"shake": {"px": 2.4, "time": 0.15}},
   "boss_land":          {"shake": {"px": 4.8, "time": 0.3}},
-  "boss_phase_shift":   {"shake": {"px": 5.6, "time": 0.6}},
+  "boss_phase_shift":   {"shake": {"px": 5.6, "time": 0.6}, "zoom": {"amount": 0.02, "time": 0.5}},
   "cyber_pulse":        {"shake": {"px": 2.4, "time": 0.2}},
   "player_melee_hit":   {"freeze": 0.05, "shake": {"px": 1.6, "time": 0.08}},
-  "player_finisher":    {"freeze": 0.1, "shake": {"px": 4.0, "time": 0.2}, "slowmo": {"reason": "finisher", "scale": 0.4, "time": 0.3, "max_enemies": 3}},
-  "boss_death":         {"shake": {"px": 5.6, "time": 0.6}, "slowmo": {"reason": "boss_death", "scale": 0.3, "time": 0.6}},
-  "player_parry":       {"hitstop": 0.08, "shake": {"px": 2.4, "time": 0.12}},
+  "player_finisher":    {"freeze": 0.1, "shake": {"px": 4.0, "time": 0.2}, "slowmo": {"reason": "finisher", "scale": 0.4, "time": 0.3, "max_enemies": 3}, "zoom": {"amount": 0.02, "time": 0.25}},
+  "boss_death":         {"shake": {"px": 5.6, "time": 0.6}, "slowmo": {"reason": "boss_death", "scale": 0.3, "time": 0.6}, "zoom": {"amount": 0.03, "time": 0.6}},
+  "player_parry":       {"hitstop": 0.08, "shake": {"px": 2.4, "time": 0.12}, "zoom": {"amount": 0.015, "time": 0.18}},
   "player_guard_break": {"shake": {"px": 3.2, "time": 0.2}},
   "player_hurt":        {"hitstop": 0.07, "shake": {"px": 3.2, "time": 0.15}},
   "player_death":       {"hitstop": 0.14, "shake": {"px": 4.8, "time": 0.3}},

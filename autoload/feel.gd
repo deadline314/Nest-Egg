@@ -8,7 +8,9 @@ const PATH := "res://data/feel/events.json"
 ## 舊的震動「強度」換成像素的係數（強度 1 = 0.8 px）。
 const STRENGTH_TO_PX := 0.8
 const MAX_SHAKE_PX := 12.0
-const KNOWN_FIELDS: PackedStringArray = ["shake", "hitstop", "freeze", "slowmo"]
+const KNOWN_FIELDS: PackedStringArray = ["shake", "hitstop", "freeze", "slowmo", "zoom"]
+## 縮放脈衝只允許這些事件（重要時刻），避免畫面一直在縮放。
+const ZOOM_WHITELIST: PackedStringArray = ["player_parry", "player_finisher", "boss_death", "boss_phase_shift"]
 
 ## 各系統回報的計數（實驗室診斷用）：名稱 → 次數。
 var counters: Dictionary = {}
@@ -61,6 +63,11 @@ func validate() -> PackedStringArray:
 			var s := slowmo as Dictionary if typeof(slowmo) == TYPE_DICTIONARY else {}
 			if not Fx.SLOWMO_WHITELIST.has(str(s.get("reason", ""))) or float(s.get("scale", 0.0)) <= 0.0 or float(s.get("time", 0.0)) <= 0.0:
 				errors.append("%s 的事件「%s」的 slowmo 要有白名單內的 reason（%s）與大於 0 的 scale、time" % [PATH, id, ", ".join(Fx.SLOWMO_WHITELIST)])
+		var zoom: Variant = (def as Dictionary).get("zoom")
+		if zoom != null:
+			var z := zoom as Dictionary if typeof(zoom) == TYPE_DICTIONARY else {}
+			if not ZOOM_WHITELIST.has(id) or float(z.get("amount", 0.0)) <= 0.0 or float(z.get("time", 0.0)) <= 0.0:
+				errors.append("%s 的事件「%s」的 zoom 只允許白名單事件（%s），且 amount、time 要大於 0" % [PATH, id, ", ".join(ZOOM_WHITELIST)])
 		for field in ["hitstop", "freeze"]:
 			if (def as Dictionary).has(field) and float((def as Dictionary)[field]) <= 0.0:
 				errors.append("%s 的事件「%s」的 %s 要大於 0" % [PATH, id, field])
@@ -76,7 +83,20 @@ func play(id: StringName, ctx: Dictionary = {}) -> void:
 	_count("events")
 	var shake: Variant = (def as Dictionary).get("shake")
 	if typeof(shake) == TYPE_DICTIONARY:
-		self.shake(float((shake as Dictionary).get("px", 0.0)) * scale, float((shake as Dictionary).get("time", 0.0)))
+		# 頓幀結束後才震：凍結中畫面不抖，放開的瞬間才有衝擊。
+		var delay := maxf(float((def as Dictionary).get("hitstop", 0.0)), float(ctx.get("freeze", (def as Dictionary).get("freeze", 0.0)))) * scale
+		var px := float((shake as Dictionary).get("px", 0.0)) * scale
+		var time := float((shake as Dictionary).get("time", 0.0))
+		var direction: Vector2 = ctx.get("dir", Vector2.ZERO)
+		var origin: Vector2 = ctx.get("origin", Vector2.INF)
+		if delay > 0.0:
+			get_tree().create_timer(delay, true, false, true).timeout.connect(self.shake.bind(px, time, direction, origin))
+		else:
+			self.shake(px, time, direction, origin)
+	var zoom: Variant = (def as Dictionary).get("zoom")
+	if typeof(zoom) == TYPE_DICTIONARY and ZOOM_WHITELIST.has(String(id)) and Settings.zoom_pulse_active():
+		EventBus.camera_zoom_pulse.emit(float((zoom as Dictionary).get("amount", 0.0)) * scale, float((zoom as Dictionary).get("time", 0.0)))
+		_count("zooms")
 	if (def as Dictionary).has("hitstop"):
 		hitstop(float((def as Dictionary)["hitstop"]) * scale)
 	var slowmo: Variant = (def as Dictionary).get("slowmo")
@@ -96,16 +116,16 @@ func _play_slowmo(def: Dictionary) -> void:
 
 
 ## 鏡頭震動：峰值像素與持續秒數，強度隨時間平方衰減。
-func shake(px: float, time: float) -> void:
+func shake(px: float, time: float, direction := Vector2.ZERO, origin := Vector2.INF) -> void:
 	if px <= 0.0 or time <= 0.0:
 		return
 	_count("shakes")
-	Fx.shake(minf(px * Settings.get_feel_scale("shake"), MAX_SHAKE_PX), time)
+	Fx.shake(minf(px * Settings.get_feel_scale("shake"), MAX_SHAKE_PX), time, direction, origin)
 
 
 ## 舊資料用「強度」表示的震動（武器、特效資料）。
-func shake_strength(strength: float, time: float) -> void:
-	shake(strength * STRENGTH_TO_PX, time)
+func shake_strength(strength: float, time: float, direction := Vector2.ZERO, origin := Vector2.INF) -> void:
+	shake(strength * STRENGTH_TO_PX, time, direction, origin)
 
 
 func hitstop(seconds: float) -> void:

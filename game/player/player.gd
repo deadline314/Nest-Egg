@@ -386,7 +386,7 @@ func _try_fire() -> void:
 	Fx.flare(muzzle, weapon.color, 15.0, 0.05)
 	Fx.sparks(muzzle, weapon.color, 3, 280.0, 0.14, aim_dir, 0.7, 240.0)
 	Fx.kick(-aim_dir, weapon.camera_kick)
-	Feel.shake_strength(weapon.screen_shake, 0.08)
+	Feel.shake_strength(weapon.screen_shake, 0.08, -aim_dir, muzzle)
 	if weapon.ejects_casing:
 		Fx.casing(aim_origin(), facing)
 	Sfx.play(weapon.fire_sound, -6.0)
@@ -448,7 +448,7 @@ func _try_melee() -> bool:
 			EventBus.hit_confirmed.emit(target_hurtbox.global_position, target_hurtbox.health.is_dead)
 			Fx.burst(target_hurtbox.global_position, Palette.CYAN, 6, 120.0, 0.2)
 	if landed:
-		Feel.play(&"player_melee_hit", {"targets": [self]})  # 被打到的敵人在 Enemy 裡依受擊層級自己凍結
+		Feel.play(&"player_melee_hit", {"targets": [self], "dir": aim_dir, "origin": global_position})  # 被打到的敵人在 Enemy 裡依受擊層級自己凍結
 		Sfx.play(&"hit", -3.0)
 	return true
 
@@ -742,7 +742,7 @@ func _on_damaged(info: DamageInfo) -> void:
 	if side == 0.0:
 		side = -facing
 	velocity = Vector2(side * tuning.hurt_knockback.x, -tuning.hurt_knockback.y)
-	Feel.play(&"player_hurt")
+	Feel.play(&"player_hurt", {"dir": Vector2(side, 0.0), "origin": info.origin if info.origin != Vector2.ZERO else Vector2.INF})
 	Fx.flash_light(global_position + Vector2(0, -24), Palette.DANGER, 70.0, 1.5, 0.2)
 	Sfx.play(&"hurt", -2.0)
 	_visual.notify_hurt()

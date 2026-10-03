@@ -211,9 +211,9 @@ func _clear_frozen() -> void:
 
 
 ## 鏡頭震動的底層：峰值像素與秒數。其他程式一律走 Feel。
-func shake(px: float, duration: float) -> void:
+func shake(px: float, duration: float, direction := Vector2.ZERO, origin := Vector2.INF) -> void:
 	if px > 0.0 and duration > 0.0:
-		EventBus.screen_shake.emit(px, duration)
+		EventBus.screen_shake.emit(px, duration, direction, origin)
 
 
 ## 方向性鏡頭後座（射擊時往反方向微推）。
