@@ -16,6 +16,7 @@ const CHAPTER_PATHS: Array[String] = [
 	"res://data/story/chapter_02.json",
 	# 動畫過場（只有 scenes，用 for_chapter 指明屬於哪一章）。
 	"res://data/story/cutscenes_ch1.json",
+	"res://data/story/cutscenes_ch2.json",
 ]
 const DEFAULT_CHAPTER := &"chapter_01"
 const MODE_CINEMATIC := &"cinematic"

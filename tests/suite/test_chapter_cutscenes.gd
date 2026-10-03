@@ -4,10 +4,11 @@ extends TestSuite
 ## 靜態劇本（prologue 等）保留為文字稿；動畫版的台詞必須涵蓋文字稿的每一句（系統旁白除外）。
 
 const CHAPTER_1_SCENES := [&"cut_c0_opening", &"cut_c1_shop", &"cut_c2_hangar", &"cut_c3_terminal", &"cut_c8_arm_noise"]
-const CHAPTER_2_SCENES := []
+const CHAPTER_2_SCENES := [&"cut_c4_dawn", &"cut_c5_memory", &"cut_c6_corridor", &"cut_c7_elevator", &"cut_c9_alarm"]
 ## 動畫版 -> 對應的文字稿。
 const SCRIPT_OF := {
 	"cut_c1_shop": "prologue", "cut_c2_hangar": "boss_intro", "cut_c3_terminal": "epilogue", "cut_c8_arm_noise": "radio_arm",
+	"cut_c4_dawn": "c2_prologue", "cut_c5_memory": "c2_memory", "cut_c6_corridor": "c2_boss_intro", "cut_c7_elevator": "c2_epilogue",
 }
 const MAX_SAYS := 16
 
@@ -39,7 +40,7 @@ func _test_scene_data() -> void:
 		check(not scene.is_empty() and str(scene.get("mode", "")) == "animated", "動畫過場存在：%s" % id)
 		check(CutsceneChecker.validate(String(id), scene, Story._speakers).is_empty(), "動畫過場通過檢查：%s" % id)
 		check(_says(scene).size() <= MAX_SAYS, "動畫過場台詞不超過 %d 句：%s" % [MAX_SAYS, id])
-	check(bool(_scene(&"cut_c8_arm_noise").get("overlay", false)), "右臂雜訊是疊加演出")
+	check(bool(_scene(&"cut_c8_arm_noise").get("overlay", false)) and bool(_scene(&"cut_c9_alarm").get("overlay", false)), "右臂雜訊與燈幕警報是疊加演出")
 	check(Story.chapter_ids().size() == 2, "只提供場景的檔案不會多出章節（%s）" % [Story.chapter_ids()])
 	check(not Story.chapter_info(&"chapter_01").is_empty() and not Story.chapter_info(&"chapter_02").is_empty(), "章節資訊沒有被場景檔覆蓋")
 
@@ -58,8 +59,11 @@ func _test_script_consistency() -> void:
 
 func _test_level_bindings() -> void:
 	var level_1 := load("res://data/levels/level_01.tres") as LevelData
+	var level_2 := load("res://data/levels/level_02.tres") as LevelData
 	check(level_1.intro_scene == &"cut_c0_opening" and level_1.boss_scene == &"cut_c2_hangar" and level_1.outro_scene == &"cut_c3_terminal", "第一章的開場、頭目、結尾使用動畫過場")
+	check(level_2.intro_scene == &"cut_c4_dawn" and level_2.boss_scene == &"cut_c6_corridor" and level_2.outro_scene == &"cut_c7_elevator", "第二章的開場、頭目、結尾使用動畫過場")
 	check(level_1.story_triggers.has("cut_c8_arm_noise"), "第一章設施裡有右臂雜訊演出")
+	check(level_2.story_triggers.has("cut_c5_memory"), "第二章升降井有記憶演出")
 	check(_scene(&"cut_c0_opening").get("then", "") == "cut_c1_shop", "片頭接開場")
 
 
