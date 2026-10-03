@@ -14,6 +14,8 @@ signal scene_finished(scene_id: StringName)
 const CHAPTER_PATHS: Array[String] = [
 	"res://data/story/chapter_01.json",
 	"res://data/story/chapter_02.json",
+	# 動畫過場（只有 scenes，用 for_chapter 指明屬於哪一章）。
+	"res://data/story/cutscenes_ch1.json",
 ]
 const DEFAULT_CHAPTER := &"chapter_01"
 const MODE_CINEMATIC := &"cinematic"
@@ -42,6 +44,8 @@ var _respawn_scenes: Dictionary = {}
 var _seen: Dictionary[StringName, bool] = {}
 var _cinematic_queue: Array[StringName] = []
 var _current_cinematic: StringName = &""
+## 剛結束的場景 -> 因 then 而自動接上的場景（play_and_wait 據此一路等到最後一段）。
+var _chained: Dictionary[StringName, StringName] = {}
 var _layer: DialogueLayer
 var _player: CutscenePlayer
 
@@ -79,8 +83,10 @@ func load_chapter(path: String) -> bool:
 		return false
 	var data: Dictionary = json.data
 	var info: Dictionary = data.get("chapter", {})
-	var chapter_id := StringName(str(info.get("id", path.get_file().get_basename())))
-	_chapters[chapter_id] = info
+	# 沒有 chapter 區塊的檔案只提供場景，並以 for_chapter 指定所屬章節（不覆蓋章節資訊）。
+	var chapter_id := StringName(str(info.get("id", data.get("for_chapter", path.get_file().get_basename()))))
+	if data.has("chapter") or not data.has("for_chapter"):
+		_chapters[chapter_id] = info
 	var speakers: Variant = data.get("speakers", {})
 	if typeof(speakers) == TYPE_DICTIONARY:
 		_speakers.merge(speakers, true)
@@ -145,12 +151,39 @@ func validate() -> PackedStringArray:
 				problems.append("場景 %s 的講者「%s」未定義" % [scene_id, entry.get("speaker", "")])
 			if str(entry.get("text", "")).is_empty():
 				problems.append("場景 %s 有一句沒有文字" % scene_id)
+	for scene_id: String in _scenes.keys():
+		problems.append_array(_validate_chain(scene_id, _scenes[scene_id]))
 	for chapter_id: StringName in _respawn_scenes:
 		problems.append_array(StoryReactions.validate_respawns(String(chapter_id), _respawn_scenes[chapter_id], has_scene))
 	if not _death_notes.is_empty():
 		problems.append_array(StoryReactions.validate_notes("（全部）", _death_notes))
 	for issue in StoryLint.errors_of(lint()):
 		problems.append(StoryLint.format(issue))
+	return problems
+
+
+## 接續場景（then）：只能接在過場／動畫過場之後，目標必須存在，且不能形成迴圈。
+func _validate_chain(scene_id: String, scene: Variant) -> PackedStringArray:
+	var problems := PackedStringArray()
+	if typeof(scene) != TYPE_DICTIONARY or not (scene as Dictionary).has("then"):
+		return problems
+	var mode := str((scene as Dictionary).get("mode", "radio"))
+	if mode != String(MODE_CINEMATIC) and mode != String(MODE_ANIMATED):
+		problems.append("場景 %s（%s）不能設定 then，只有過場與動畫過場可以接續" % [scene_id, mode])
+	var seen: Dictionary = {scene_id: true}
+	var next := str((scene as Dictionary)["then"])
+	while next != "":
+		if not _scenes.has(next):
+			problems.append("場景 %s 的接續場景「%s」不存在" % [scene_id, next])
+			break
+		if seen.has(next):
+			problems.append("場景 %s 的接續形成迴圈（%s）" % [scene_id, next])
+			break
+		var next_mode := str((_scenes[next] as Dictionary).get("mode", "radio"))
+		if next_mode != String(MODE_CINEMATIC) and next_mode != String(MODE_ANIMATED):
+			problems.append("場景 %s 的接續場景「%s」是 %s，只能接過場或動畫過場" % [scene_id, next, next_mode])
+		seen[next] = true
+		next = str((_scenes[next] as Dictionary).get("then", ""))
 	return problems
 
 
@@ -320,14 +353,16 @@ func play(id: StringName, once := true) -> bool:
 	return true
 
 
-## 播放並等待該場景結束（場景不存在，或 once 為 true 且已看過時立即返回）。
+## 播放並等待該場景結束，包含接在後面的 then 場景（場景不存在，或 once 為 true 且已看過時立即返回）。
 func play_and_wait(id: StringName, once := true) -> void:
 	if not play(id, once):
 		return
-	while true:
+	var current := id
+	while current != &"":
 		var finished: StringName = await scene_finished
-		if finished == id:
-			return
+		if finished == current:
+			current = _chained.get(current, &"")
+			_chained.erase(finished)
 
 
 ## 跳過目前的過場（與按 Esc 相同）。
@@ -361,9 +396,22 @@ func _on_cinematic_finished(id: StringName) -> void:
 	if _current_cinematic != id:
 		return
 	_current_cinematic = &""
+	_queue_chained_scene(id)
 	scene_finished.emit(id)
 	if not _cinematic_queue.is_empty():
 		_start_cinematic(_cinematic_queue.pop_front())
+
+
+## 場景設定了 then 時，結束後立刻接著播（排在佇列最前面）；玩家按 Esc 略過時整串都略過，已看過的場景不重播。
+func _queue_chained_scene(id: StringName) -> void:
+	var next := StringName(str((_scenes.get(String(id), {}) as Dictionary).get("then", "")))
+	if next == &"" or not has_scene(next) or _seen.has(next):
+		return
+	if is_instance_valid(_player) and _player.user_skipped:
+		return
+	_seen[next] = true
+	_cinematic_queue.push_front(next)
+	_chained[id] = next
 
 
 ## 把台詞的講者 id 換成顯示資料（名字、顏色、頭像），填入 {death_time}，帶上顯示前的沉默秒數 delay。

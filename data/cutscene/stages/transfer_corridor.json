@@ -1,0 +1,155 @@
+{
+ "camera": {
+  "pos": [
+   320,
+   180
+  ],
+  "zoom": 1.0
+ },
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#0c1218",
+   "bottom": "#18222c",
+   "parallax": 0.0
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    -100,
+    262,
+    840,
+    160
+   ],
+   "color": "#10181f"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    -100,
+    258,
+    840,
+    4
+   ],
+   "color": "#8ab8d8",
+   "intensity": 0.4,
+   "alpha": 0.4
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/height_marks.png",
+   "pos": [
+    36,
+    170
+   ],
+   "scale": 1.0
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/hospital_bed.png",
+   "pos": [
+    120,
+    236
+   ],
+   "scale": 0.42
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/hospital_bed.png",
+   "pos": [
+    220,
+    236
+   ],
+   "scale": 0.42
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/hospital_bed.png",
+   "pos": [
+    320,
+    236
+   ],
+   "scale": 0.42
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/hospital_bed.png",
+   "pos": [
+    420,
+    236
+   ],
+   "scale": 0.42
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/hospital_bed.png",
+   "pos": [
+    520,
+    236
+   ],
+   "scale": 0.42
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/hospital_bed.png",
+   "pos": [
+    620,
+    236
+   ],
+   "scale": 0.42
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    150,
+    60
+   ],
+   "radius": 160,
+   "color": "#cfe8ff",
+   "intensity": 0.9,
+   "additive": true,
+   "alpha": 0.35,
+   "flicker": 0.12
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    400,
+    60
+   ],
+   "radius": 180,
+   "color": "#cfe8ff",
+   "intensity": 0.9,
+   "additive": true,
+   "alpha": 0.35
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    100,
+    40,
+    120,
+    5
+   ],
+   "color": "#cfe8ff",
+   "intensity": 1.4
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    340,
+    40,
+    120,
+    5
+   ],
+   "color": "#cfe8ff",
+   "intensity": 1.4
+  },
+  {
+   "kind": "grain",
+   "amount": 50,
+   "opacity": 0.07,
+   "depth": "front"
+  }
+ ]
+}

@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、hud、spots（--scenario=spots:關卡檔:名稱）、environment、cutscene、screens、flow、transition、ui、settings、mouse_aim、block、story、story_ch2、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals、npc、death
+## 情境：all（預設）、stages、hud、spots（--scenario=spots:關卡檔:名稱）、environment、cutscene、screens、flow、transition、ui、settings、mouse_aim、block、story、story_ch2、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals、npc、death
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -34,6 +34,18 @@ func _run() -> void:
 		return
 	if _scenario == "environment":
 		await _run_environment()
+		get_tree().quit()
+		return
+	if _scenario == "stages":
+		await _run_stages()
+		get_tree().quit()
+		return
+	if _scenario == "overlays":
+		await _run_overlays()
+		get_tree().quit()
+		return
+	if _scenario.begins_with("cutscenes"):
+		await _run_cutscenes(_scenario.split(":")[1] if _scenario.contains(":") else "")
 		get_tree().quit()
 		return
 	if _scenario == "cutscene":
@@ -1359,7 +1371,7 @@ const SPOTS := {
 
 ## 環境元件預覽：材質畫廊（15 種地形材質 + 立面）與道具畫廊，逐頁截圖。
 func _run_environment() -> void:
-	for entry in [["materials", 5], ["props", 5]]:
+	for entry in [["materials", 7], ["props", 5]]:
 		var data := EnvGallery.level_data(entry[0])
 		GameState.start_new_run(GameState.difficulties[1])
 		var level := Level.new()
@@ -1373,6 +1385,90 @@ func _run_environment() -> void:
 			_capture("env_%s_%d" % [entry[0], page])
 		level.queue_free()
 		await _settle(6)
+
+
+## 所有過場場景（舞台）的預覽：各放幾個角色看構圖。
+func _run_stages() -> void:
+	var rin := {"do": "actor", "id": "rin", "kind": "rin", "pos": [210, 292], "weapon": "", "scale": 2.0}
+	var k := {"do": "actor", "id": "k", "portrait": "res://art/portraits/old_k.png", "pos": [330, 292], "facing": -1, "scale": 1.7}
+	var boy := {"do": "actor", "id": "boy", "portrait": "res://art/portraits/wataru.png", "pos": [520, 284], "facing": -1, "scale": 1.0}
+	var warden := {"do": "actor", "id": "w", "kind": "warden", "pos": [320, 250], "weapon": "minigun", "scale": 1.8}
+	var extras: Dictionary = {
+		"old_k_shop": [rin, k, boy], "old_k_shop_dawn": [rin, k],
+		"hangar_red": [warden, {"do": "actor", "id": "r", "kind": "rin", "pos": [150, 250], "weapon": "rifle", "scale": 1.8}],
+		"terminal_room": [{"do": "actor", "id": "r", "kind": "rin", "pos": [150, 268], "pose": "crouch", "scale": 2.0}],
+		"transfer_corridor": [{"do": "actor", "id": "r", "kind": "rin", "pos": [260, 276], "scale": 2.0}],
+		"elevator_rise": [{"do": "actor", "id": "r", "kind": "rin", "pos": [320, 340], "scale": 2.0}],
+		"white_room": [], "blue_sky_seam": [], "rainy_harbor": [],
+	}
+	var camera: Dictionary = {"shaft_descent": {"do": "camera", "pos": [320, 40], "zoom": 1.0}}
+	for id in extras.keys() + ["shaft_descent"]:
+		var steps: Array = [{"do": "scene", "id": id, "fade": 0.01}]
+		if camera.has(id):
+			steps.append(camera[id])
+		steps.append_array(extras.get(id, []))
+		steps.append({"do": "wait", "time": 30.0})
+		var player := CutscenePlayer.new()
+		add_child(player)
+		player.play(StringName("preview_" + id), {"steps": steps})
+		await _wait(1.6)
+		_capture("stage_" + id)
+		player.skip()
+		await _settle(4)
+
+
+## 疊加演出（右臂雜訊、燈幕警報）直接蓋在遊戲畫面上：各拍特效瞬間與台詞。
+func _run_overlays() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	for entry: Array in [["res://data/levels/level_01.tres", "cut_c8_arm_noise", 260], ["res://data/levels/level_02.tres", "cut_c9_alarm", 60]]:
+		var level := Level.new()
+		level.configure(load(entry[0]))
+		add_child(level)
+		await _wait(0.8)
+		Story.skip_cinematic()
+		level.player.global_position.x = float(entry[2]) * 16.0
+		await _wait(0.6)
+		var player := CutscenePlayer.new()
+		add_child(player)
+		var id: String = entry[1]
+		player.play(StringName(id), Story._scenes[id])
+		for i in 3:
+			await _wait(0.45)
+			if not is_instance_valid(player) or not player.is_running():
+				break
+			_capture("overlay_%s_%d" % [id, i])
+			player._advance_requested = true
+		if is_instance_valid(player) and player.is_running():
+			player.skip()
+		await _settle(4)
+		level.queue_free()
+		await _settle(4)
+
+
+## 逐段播放劇本裡的動畫過場並定時截圖（--scenario=cutscenes:場景id，不指定就全部）。台詞每 INTERVAL 秒自動推進。
+func _run_cutscenes(only: String) -> void:
+	const INTERVAL := 1.6
+	const MAX_FRAMES := 40
+	for id: String in Story.scene_ids():
+		var scene: Dictionary = Story._scenes[id]
+		if str(scene.get("mode", "")) != "animated" or bool(scene.get("overlay", false)):
+			continue
+		if not only.is_empty() and id != only:
+			continue
+		var player := CutscenePlayer.new()
+		add_child(player)
+		player.play(StringName(id), scene)
+		var frame := 0
+		while is_instance_valid(player) and player.is_running() and frame < MAX_FRAMES:
+			await _wait(INTERVAL)
+			if not is_instance_valid(player) or not player.is_running():
+				break
+			_capture("%s_%02d" % [id, frame])
+			player._advance_requested = true
+			frame += 1
+		if is_instance_valid(player) and player.is_running():
+			player.skip()
+		await _settle(4)
 
 
 ## 過場動畫範例：雨夜沉港舞台、凜（骨架）與老 K（剪影）、對話框、標題卡。

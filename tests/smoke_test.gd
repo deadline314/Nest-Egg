@@ -63,7 +63,7 @@ func _suites() -> Array[TestSuite]:
 	return [
 		PropsSuite.new(self), NewEnemiesSuite.new(self), CollectiblesSuite.new(self),
 		ProgressionSuite.new(self), SupplySuite.new(self), ReclaimerSuite.new(self),
-		Chapter2Suite.new(self), UiKitSuite.new(self), TransitionSuite.new(self), UiScreensSuite.new(self), CutsceneSuite.new(self), EnvironmentSuite.new(self), AmmoIconsSuite.new(self), AmmoTraySuite.new(self), CombatHudSuite.new(self),
+		Chapter2Suite.new(self), UiKitSuite.new(self), TransitionSuite.new(self), UiScreensSuite.new(self), CutsceneSuite.new(self), EnvironmentSuite.new(self), AmmoIconsSuite.new(self), AmmoTraySuite.new(self), CombatHudSuite.new(self), ChapterCutscenesSuite.new(self),
 		NpcSuite.new(self), StoryLintSuite.new(self), StoryContentSuite.new(self), DeathReactionSuite.new(self),
 		CharactersSuite.new(self), ReconEnemiesSuite.new(self), HeavyEnemiesSuite.new(self), AssaultEnemiesSuite.new(self),
 	]
@@ -405,7 +405,7 @@ func _test_story_items() -> void:
 	# 劇情場景播完才取得委託單。
 	Story.reset_progress()
 	_check(not StoryItems.owns(&"old_k_order"), "order not owned before the opening scene")
-	Story.play(&"prologue")
+	Story.play(&"cut_c1_shop")
 	await _frames(3)
 	_check(StoryItems.owns(&"old_k_order"), "opening scene finishing grants the order")
 	_check(toasts.filter(func(t: String) -> bool: return t.contains("老K的委託單")).size() >= 1, "scene grant announces the item")

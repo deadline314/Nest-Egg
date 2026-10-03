@@ -65,6 +65,21 @@ const CATALOG: Array[Dictionary] = [
 	{"id": "hazard_sign", "name": "警示牌", "size": [16, 16], "cat": "facility", "painter": "hazard", "glow": true},
 	{"id": "facility_pipes", "name": "設施管線", "size": [64, 16], "cat": "facility", "painter": "facility_pipes"},
 	{"id": "floor_marking", "name": "地面標線", "size": [64, 4], "cat": "facility", "painter": "marking"},
+	# 室內與演出（過場動畫的場景小物，也可以放進關卡）
+	{"id": "shop_shelf", "name": "雜貨架", "size": [64, 40], "cat": "interior", "painter": "shop_shelf"},
+	{"id": "shop_table", "name": "矮桌", "size": [44, 20], "cat": "interior", "painter": "shop_table"},
+	{"id": "porridge_pot", "name": "一鍋粥", "size": [16, 14], "cat": "interior", "painter": "pot", "glow": true, "light": [[1.0, 0.7, 0.4], 36.0, 0.5, [8, 4]]},
+	{"id": "shop_bed", "name": "床", "size": [52, 22], "cat": "interior", "painter": "bed"},
+	{"id": "shop_bed_made", "name": "鋪好的床", "size": [52, 22], "cat": "interior", "painter": "bed_made"},
+	{"id": "window_rain", "name": "雨窗", "size": [40, 44], "cat": "interior", "painter": "window_rain", "glow": true, "light": [[0.55, 0.45, 0.85], 70.0, 0.5, [20, 22]]},
+	{"id": "lamp_warm", "name": "吊燈", "size": [16, 34], "cat": "interior", "painter": "lamp", "glow": true, "light": [[1.0, 0.72, 0.4], 110.0, 0.9, [8, 30]], "flicker": 0.05},
+	{"id": "crayon_drawing", "name": "蠟筆畫", "size": [20, 16], "cat": "interior", "painter": "crayon"},
+	{"id": "photo_sky", "name": "藍天的照片", "size": [14, 12], "cat": "interior", "painter": "photo_sky"},
+	{"id": "radio_set", "name": "舊收音機", "size": [16, 11], "cat": "interior", "painter": "radio_set", "glow": true},
+	{"id": "terminal_holo", "name": "全像終端", "size": [40, 34], "cat": "interior", "painter": "terminal_holo", "glow": true, "light": [[0.2, 0.88, 1.0], 80.0, 0.8, [20, 14]]},
+	{"id": "hospital_bed", "name": "病床", "size": [48, 20], "cat": "interior", "painter": "hospital_bed"},
+	{"id": "height_marks", "name": "身高刻痕", "size": [18, 46], "cat": "interior", "painter": "height_marks"},
+	{"id": "elevator_door", "name": "電梯門", "size": [44, 60], "cat": "interior", "painter": "elevator_door", "glow": true, "light": [[0.2, 0.88, 1.0], 60.0, 0.5, [22, 6]]},
 	# 機庫
 	{"id": "gantry_crane", "name": "龍門吊", "size": [160, 80], "cat": "hangar", "painter": "gantry", "glow": true, "light": [[1.0, 0.3, 0.2], 60.0, 0.5, [20, 70]], "flicker": 0.4},
 	{"id": "hangar_light", "name": "機庫燈", "size": [20, 10], "cat": "hangar", "painter": "hangar_light", "glow": true, "light": [[1.0, 0.9, 0.7], 110.0, 0.9, [10, 8]]},
@@ -692,3 +707,216 @@ static func _p_tank(c: EnvCanvas, _g: EnvCanvas) -> void:
 	c.rect(w / 2 - 10, 4, 20, 8, STEEL)
 	for y in [60, 90]:
 		c.hline(y, Color("2a323c"), 4, w - 4, 3)
+
+
+# ---- 室內與演出 -----------------------------------------------------------
+
+static func _p_shop_shelf(c: EnvCanvas, _g: EnvCanvas) -> void:
+	var w := c.width()
+	var h := c.height()
+	c.rect(4, 0, 6, h, Color("3a2e26"))
+	c.rect(w - 10, 0, 6, h, Color("3a2e26"))
+	for y in [56, 108]:
+		c.rect(4, y, w - 8, 6, Color("4e3e32"))
+		c.rect(4, y, w - 8, 2, Color("6a5645"))
+	var colors := [Color("8a3a2a"), Color("3a5a6a"), Color("7a6a2a"), Color("5a4a6a"), Color("3a6a4a")]
+	for row in 3:
+		var y0 := 10 + row * 52
+		var x := 16
+		var i := 0
+		while x < w - 30:
+			var bw := 18 + int(c.noise(x, row, 4) * 16.0)
+			var bh := 26 + int(c.noise(row, x, 6) * 14.0)
+			c.rect(x, y0 + 40 - bh, bw, bh, colors[(i + row) % colors.size()])
+			c.rect(x, y0 + 40 - bh, bw, 3, colors[(i + row) % colors.size()].lightened(0.2))
+			c.rect(x + 3, y0 + 40 - bh + 8, bw - 6, 8, Color("d8d0b8").darkened(0.35))
+			x += bw + 5
+			i += 1
+
+
+static func _p_shop_table(c: EnvCanvas, _g: EnvCanvas) -> void:
+	var w := c.width()
+	var h := c.height()
+	c.rect(0, 14, w, 10, Color("5a4634"))
+	c.rect(0, 14, w, 3, Color("7a6048"))
+	c.rect(8, 24, 8, h - 24, Color("3a2e26"))
+	c.rect(w - 16, 24, 8, h - 24, Color("3a2e26"))
+	# 碗與筷子
+	for x in [30, 80, 126]:
+		c.ellipse(x + 10.0, 14.0, 12.0, 4.0, Color("b0a898"))
+		c.rect(x, 8, 20, 6, Color("b0a898").darkened(0.15))
+		c.ellipse(x + 10.0, 8.0, 10.0, 3.0, Color("e8e0d0").darkened(0.2))
+
+
+static func _p_pot(c: EnvCanvas, g: EnvCanvas) -> void:
+	var w := c.width()
+	var h := c.height()
+	c.rect(6, 22, w - 12, h - 22, Color("5a5e68"))
+	c.rect(6, 22, 6, h - 22, Color("7a7e88"))
+	c.ellipse(w / 2.0, 22.0, w / 2.0 - 4.0, 6.0, Color("8a8e98"))
+	c.ellipse(w / 2.0, 22.0, w / 2.0 - 10.0, 3.5, Color("d8c8a0"))
+	c.rect(0, 28, 6, 4, Color("3a3e48"))
+	c.rect(w - 6, 28, 6, 4, Color("3a3e48"))
+	g.ellipse(w / 2.0, 20.0, w / 2.0 - 8.0, 3.0, Color(1.0, 0.75, 0.45, 0.6))
+	# 蒸氣
+	for i in 3:
+		g.line(Vector2i(w / 2 - 10 + i * 10, 16), Vector2i(w / 2 - 6 + i * 10, 2), Color(1, 1, 1, 0.35))
+
+
+static func _bed_frame(c: EnvCanvas) -> void:
+	var w := c.width()
+	var h := c.height()
+	c.rect(0, 40, w, 8, Color("4a3a2c"))
+	c.rect(0, 40, w, 3, Color("6a5440"))
+	c.rect(6, 48, 8, h - 48, Color("3a2e26"))
+	c.rect(w - 14, 48, 8, h - 48, Color("3a2e26"))
+	c.rect(0, 20, 8, 28, Color("4a3a2c"))
+
+
+static func _p_bed(c: EnvCanvas, _g: EnvCanvas) -> void:
+	_bed_frame(c)
+	var w := c.width()
+	# 凌亂的毯子與枕頭
+	c.polygon(PackedVector2Array([Vector2(14, 40), Vector2(w - 10, 40), Vector2(w - 24, 18), Vector2(40, 12), Vector2(20, 24)]), Color("4a5a78"))
+	c.polygon(PackedVector2Array([Vector2(40, 12), Vector2(w - 24, 18), Vector2(w - 40, 26), Vector2(60, 22)]), Color("5a6a88"))
+	c.rect(12, 28, 28, 12, Color("c0b8a8").darkened(0.3))
+
+
+static func _p_bed_made(c: EnvCanvas, _g: EnvCanvas) -> void:
+	_bed_frame(c)
+	var w := c.width()
+	# 摺好的毯子、整齊的枕頭：這張床沒人睡過。
+	c.rect(12, 26, w - 24, 14, Color("4a5a78"))
+	c.rect(12, 26, w - 24, 3, Color("6a7a98"))
+	c.rect(12, 26, 4, 14, Color("3a4a68"))
+	c.rect(w - 44, 18, 30, 8, Color("c0b8a8").darkened(0.25))
+	c.hline(33, Color("3a4a68"), 16, w - 16, 2)
+
+
+static func _p_window_rain(c: EnvCanvas, g: EnvCanvas) -> void:
+	var w := c.width()
+	var h := c.height()
+	c.rect(0, 0, w, h, Color("2e2620"))
+	c.rect(8, 8, w - 16, h - 16, Color("12162a"))
+	c.rect_gradient(8, 8, w - 16, h - 16, Color("2a2450"), Color("3a1c3c"))
+	c.rect(w / 2 - 2, 8, 4, h - 16, Color("2e2620"))
+	c.rect(8, h / 2 - 2, w - 16, 4, Color("2e2620"))
+	for i in 18:
+		var x := 14 + int(c.noise(i, 3, 2) * float(w - 28))
+		var y := 12 + int(c.noise(i, 5, 3) * float(h - 40))
+		c.line(Vector2i(x, y), Vector2i(x - 2, y + 10 + int(c.noise(i, 9, 4) * 14.0)), Color(0.65, 0.75, 1.0, 0.5))
+	c.rect(0, h - 8, w, 8, Color("3e342c"))
+	g.rect_gradient(8, 8, w - 16, h - 16, Color(0.55, 0.4, 0.85, 0.35), Color(0.9, 0.3, 0.6, 0.45))
+	g.erase(w / 2 - 2, 8, 4, h - 16)
+	g.erase(8, h / 2 - 2, w - 16, 4)
+
+
+static func _p_lamp(c: EnvCanvas, g: EnvCanvas) -> void:
+	var w := c.width()
+	var h := c.height()
+	c.rect(w / 2 - 1, 0, 3, 40, Color("1a1814"))
+	c.polygon(PackedVector2Array([Vector2(8, 52), Vector2(w - 8, 52), Vector2(w - 16, 40), Vector2(16, 40)]), Color("5a4a34"))
+	c.ellipse(w / 2.0, 54.0, w / 2.0 - 8.0, 6.0, Color("b08a52"))
+	g.ellipse(w / 2.0, 58.0, w / 2.0 - 14.0, 7.0, Color(1.0, 0.85, 0.55, 1.0))
+	g.glow_blob(w / 2.0, 70.0, 34.0, Color(1.0, 0.75, 0.4, 1.0), 0.6)
+
+
+static func _p_crayon(c: EnvCanvas, _g: EnvCanvas) -> void:
+	var w := c.width()
+	var h := c.height()
+	c.rect(0, 0, w, h, Color("e8e0cc"))
+	c.frame(0, 0, w, h, Color("b8ae98"), 2)
+	# 兩個人撐一把傘（紅傘、藍與粉紅的衣服）
+	c.polygon(PackedVector2Array([Vector2(14, 28), Vector2(46, 28), Vector2(30, 12)]), Color("d84a3a"))
+	c.line(Vector2i(30, 28), Vector2i(30, 52), Color("6a4a3a"))
+	for p in [Vector2i(24, 40), Vector2i(36, 40)]:
+		c.circle(float(p.x), float(p.y), 4.0, Color("f0c8a0"))
+		c.rect(p.x - 4, p.y + 4, 8, 14, Color("4a7ad8") if p.x < 30 else Color("e0709a"))
+	# 窗戶後面的第三個小人，用最淡的顏色。
+	c.rect(54, 14, 20, 30, Color("a8b8c8"))
+	c.frame(54, 14, 20, 30, Color("8898a8"), 2)
+	c.circle(64.0, 30.0, 3.0, Color("d8d0c0", 0.9))
+	c.rect(61, 33, 6, 9, Color("d8d0c0", 0.9))
+	# 雨
+	for i in 8:
+		c.line(Vector2i(8 + i * 8, 4), Vector2i(6 + i * 8, 12), Color("6a8ad0", 0.8))
+
+
+static func _p_photo_sky(c: EnvCanvas, _g: EnvCanvas) -> void:
+	var w := c.width()
+	var h := c.height()
+	c.rect(0, 0, w, h, Color("d8d0c0"))
+	c.rect_gradient(4, 4, w - 8, h - 8, Color("5ab0f0"), Color("a8d8f8"))
+	# 天空上一條很細的接縫（F05）
+	c.hline(18, Color("7ac0f8", 0.9), 4, w - 4, 1)
+	c.rect(30, 30, 8, 14, Color("f0c8a0"))
+	c.line(Vector2i(34, 30), Vector2i(44, 16), Color("f0c8a0"))
+	c.frame(0, 0, w, h, Color("5a4a3a"), 3)
+
+
+static func _p_radio_set(c: EnvCanvas, g: EnvCanvas) -> void:
+	var w := c.width()
+	var h := c.height()
+	_metal(c, 0, 8, w, h - 8, Color("4a3a30"))
+	c.rect(8, 16, 20, 16, Color("12100c"))
+	g.rect(8, 16, 20, 16, Color(1.0, 0.7, 0.35, 0.6))
+	c.circle(w - 18.0, 24.0, 8.0, Color("1a1612"))
+	c.line(Vector2i(w - 10, 8), Vector2i(w - 2, -2), Color("8a8e98"))
+	c.hline(34, Color("1a1612"), 8, w - 32, 2)
+
+
+static func _p_terminal_holo(c: EnvCanvas, g: EnvCanvas) -> void:
+	var w := c.width()
+	var h := c.height()
+	_metal(c, 4, 76, w - 8, h - 76, Color("2a3442"))
+	c.rect(30, 66, w - 60, 12, Color("1a222e"))
+	# 全像投影錐與人形輪廓（航的掃描）
+	g.polygon(PackedVector2Array([Vector2(60, 66), Vector2(w - 60, 66), Vector2(w - 20, 6), Vector2(20, 6)]), Color(0.2, 0.88, 1.0, 0.12))
+	g.ellipse(w / 2.0, 20.0, 14.0, 6.0, Color(0.2, 0.88, 1.0, 0.5))
+	g.circle(w / 2.0, 22.0, 6.0, Color(0.5, 0.95, 1.0, 0.8))
+	g.rect(w / 2 - 6, 30, 12, 22, Color(0.5, 0.95, 1.0, 0.7))
+	for i in 5:
+		g.hline(24 + i * 8, Color(0.2, 0.88, 1.0, 0.6), 30, w - 30, 2)
+	for i in 6:
+		g.rect(18 + i * 22, 90, 12, 4, Color([CYAN, MAGENTA, YELLOW][i % 3], 0.95))
+
+
+static func _p_hospital_bed(c: EnvCanvas, _g: EnvCanvas) -> void:
+	var w := c.width()
+	var h := c.height()
+	c.rect(0, 30, w, 6, Color("8a9aa8"))
+	c.rect(0, 30, w, 2, Color("b0c0cc"))
+	c.rect(8, 36, 6, h - 36, Color("5a6672"))
+	c.rect(w - 14, 36, 6, h - 36, Color("5a6672"))
+	c.rect(4, 12, w - 8, 18, Color("c8d0d8").darkened(0.25))
+	c.rect(4, 12, w - 8, 4, Color("e0e8ee").darkened(0.15))
+	c.rect(8, 14, 26, 10, Color("e0e8ee").darkened(0.3))
+	c.rect(0, 6, 4, 30, Color("8a9aa8"))
+	c.rect(w - 4, 6, 4, 30, Color("8a9aa8"))
+
+
+static func _p_height_marks(c: EnvCanvas, _g: EnvCanvas) -> void:
+	var w := c.width()
+	var h := c.height()
+	c.rect(0, 0, w, h, Color("aab4bc").darkened(0.3))
+	c.speckle(0.05, Color("ffffff", 0.08), 5)
+	for i in 9:
+		var y := 12 + i * 18
+		var len := 28 if i % 3 == 0 else 20
+		c.hline(y, Color("2a2e36"), 8, 8 + len, 2)
+		c.hline(y, Color("6a707a", 0.5), 8, 8 + len, 1)
+	# 其中一道旁邊歪歪的小字（她的）
+	c.rect(40, 88, 14, 2, Color("d84a5a", 0.85))
+	c.rect(40, 92, 8, 2, Color("d84a5a", 0.6))
+
+
+static func _p_elevator_door(c: EnvCanvas, g: EnvCanvas) -> void:
+	var w := c.width()
+	var h := c.height()
+	_metal(c, 0, 0, w, h, Color("2e3844"))
+	c.rect(w / 2 - 2, 20, 4, h - 20, Color("12161e"))
+	c.rect(8, 24, w / 2 - 12, h - 32, Color("3a4654"))
+	c.rect(w / 2 + 4, 24, w / 2 - 12, h - 32, Color("3a4654"))
+	c.rect(w / 2 - 22, 4, 44, 14, Color("0a1018"))
+	g.rect(w / 2 - 20, 6, 40, 10, Color(0.2, 0.88, 1.0, 0.7))
+	g.rect(w / 2 - 2, 24, 4, h - 32, Color(0.2, 0.88, 1.0, 0.3))

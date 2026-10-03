@@ -1,0 +1,303 @@
+{
+ "camera": {
+  "pos": [
+   320,
+   180
+  ],
+  "zoom": 1.0
+ },
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#1a1410",
+   "bottom": "#2c2018",
+   "parallax": 0.0
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    -100,
+    60,
+    840,
+    230
+   ],
+   "color": "#241a14",
+   "alpha": 0.9
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    -100,
+    284,
+    840,
+    10
+   ],
+   "color": "#3a2c20"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    -100,
+    294,
+    840,
+    120
+   ],
+   "color": "#2e2218"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    -60,
+    294,
+    2,
+    120
+   ],
+   "color": "#1c140e",
+   "alpha": 0.7
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    -4,
+    294,
+    2,
+    120
+   ],
+   "color": "#1c140e",
+   "alpha": 0.7
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    52,
+    294,
+    2,
+    120
+   ],
+   "color": "#1c140e",
+   "alpha": 0.7
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    108,
+    294,
+    2,
+    120
+   ],
+   "color": "#1c140e",
+   "alpha": 0.7
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    164,
+    294,
+    2,
+    120
+   ],
+   "color": "#1c140e",
+   "alpha": 0.7
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    220,
+    294,
+    2,
+    120
+   ],
+   "color": "#1c140e",
+   "alpha": 0.7
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    276,
+    294,
+    2,
+    120
+   ],
+   "color": "#1c140e",
+   "alpha": 0.7
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    332,
+    294,
+    2,
+    120
+   ],
+   "color": "#1c140e",
+   "alpha": 0.7
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    388,
+    294,
+    2,
+    120
+   ],
+   "color": "#1c140e",
+   "alpha": 0.7
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    444,
+    294,
+    2,
+    120
+   ],
+   "color": "#1c140e",
+   "alpha": 0.7
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    500,
+    294,
+    2,
+    120
+   ],
+   "color": "#1c140e",
+   "alpha": 0.7
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    556,
+    294,
+    2,
+    120
+   ],
+   "color": "#1c140e",
+   "alpha": 0.7
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    612,
+    294,
+    2,
+    120
+   ],
+   "color": "#1c140e",
+   "alpha": 0.7
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/window_rain.png",
+   "pos": [
+    36,
+    84
+   ],
+   "scale": 0.55
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/shop_shelf.png",
+   "pos": [
+    190,
+    104
+   ],
+   "scale": 0.55
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/photo_sky.png",
+   "pos": [
+    372,
+    128
+   ],
+   "scale": 0.6
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/crayon_drawing.png",
+   "pos": [
+    420,
+    122
+   ],
+   "scale": 0.55
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/radio_set.png",
+   "pos": [
+    150,
+    252
+   ],
+   "scale": 0.55
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/shop_table.png",
+   "pos": [
+    236,
+    268
+   ],
+   "scale": 0.55
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/porridge_pot.png",
+   "pos": [
+    268,
+    248
+   ],
+   "scale": 0.6
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/shop_bed.png",
+   "pos": [
+    452,
+    242
+   ],
+   "scale": 0.62
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/lamp_warm.png",
+   "pos": [
+    310,
+    -10
+   ],
+   "scale": 0.6
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    318,
+    120
+   ],
+   "radius": 240,
+   "color": "#ffb066",
+   "intensity": 0.9,
+   "additive": true,
+   "alpha": 0.55,
+   "flicker": 0.05
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    100,
+    150
+   ],
+   "radius": 110,
+   "color": "#8a70d0",
+   "intensity": 0.5,
+   "additive": true,
+   "alpha": 0.35
+  },
+  {
+   "kind": "grain",
+   "amount": 50,
+   "opacity": 0.06,
+   "depth": "front"
+  }
+ ]
+}

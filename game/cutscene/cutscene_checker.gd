@@ -42,6 +42,7 @@ static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) 
 		problems.append("動畫場景 %s 沒有任何步驟" % scene_id)
 		return problems
 	var defined: Dictionary[String, bool] = {}
+	# 疊加演出（overlay）直接蓋在遊戲畫面上，不需要舞台。
 	var has_stage := false
 	var says := 0
 	var run := 0

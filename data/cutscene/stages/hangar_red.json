@@ -1,0 +1,175 @@
+{
+ "camera": {
+  "pos": [
+   320,
+   180
+  ],
+  "zoom": 1.0
+ },
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#120508",
+   "bottom": "#2a0c10",
+   "parallax": 0.0
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    -100,
+    250,
+    840,
+    170
+   ],
+   "color": "#1c0f13"
+  },
+  {
+   "kind": "stripes",
+   "rect": [
+    -100,
+    246,
+    840,
+    8
+   ],
+   "color": "#ffc94a",
+   "gap": 12,
+   "intensity": 0.5
+  },
+  {
+   "kind": "poly",
+   "points": [
+    [
+     200,
+     250
+    ],
+    [
+     200,
+     40
+    ],
+    [
+     440,
+     40
+    ],
+    [
+     440,
+     250
+    ]
+   ],
+   "color": "#0c0508"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/gantry_crane.png",
+   "pos": [
+    20,
+    -10
+   ],
+   "scale": 0.5
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    436,
+    40,
+    8,
+    210
+   ],
+   "color": "#ffc94a",
+   "intensity": 0.4,
+   "alpha": 0.8
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    196,
+    40,
+    8,
+    210
+   ],
+   "color": "#ffc94a",
+   "intensity": 0.4,
+   "alpha": 0.8
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/hangar_light.png",
+   "pos": [
+    110,
+    54
+   ],
+   "scale": 0.9
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/hangar_light.png",
+   "pos": [
+    300,
+    34
+   ],
+   "scale": 0.9
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/hangar_light.png",
+   "pos": [
+    500,
+    54
+   ],
+   "scale": 0.9
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    130,
+    80
+   ],
+   "radius": 200,
+   "color": "#ff3322",
+   "intensity": 0.9,
+   "additive": true,
+   "alpha": 0.5,
+   "flicker": 0.35
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    320,
+    60
+   ],
+   "radius": 230,
+   "color": "#ff3322",
+   "intensity": 1.0,
+   "additive": true,
+   "alpha": 0.55,
+   "flicker": 0.35
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    520,
+    80
+   ],
+   "radius": 200,
+   "color": "#ff3322",
+   "intensity": 0.9,
+   "additive": true,
+   "alpha": 0.5,
+   "flicker": 0.35
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/fuel_tank.png",
+   "pos": [
+    30,
+    200
+   ],
+   "scale": 0.6
+  },
+  {
+   "kind": "grain",
+   "amount": 60,
+   "opacity": 0.08,
+   "depth": "front"
+  }
+ ]
+}

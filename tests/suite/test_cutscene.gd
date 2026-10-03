@@ -42,6 +42,7 @@ func run() -> void:
 	await _test_broken_data()
 	await _test_pause_restored()
 	await _test_story_integration()
+	await _test_overlay_and_layers()
 	_test_real_data()
 
 
@@ -204,3 +205,31 @@ func _test_story_integration() -> void:
 
 func _test_real_data() -> void:
 	check(Story.validate().is_empty(), "所有章節劇本（含動畫場景）通過檢查")
+
+
+## 疊加演出（直接蓋在遊戲畫面上）、數字計數器、道具貼圖的自發光層。
+func _test_overlay_and_layers() -> void:
+	_finished_ids.clear()
+	var overlay := {"overlay": true, "steps": [{"do": "fx", "kind": "noise", "time": 0.1}, {"do": "wait", "time": 0.1}]}
+	check(CutsceneChecker.validate("overlay", overlay, _speakers()).is_empty(), "疊加演出不需要舞台也能通過檢查")
+	var player := _play(&"test_overlay", overlay, 1.0)
+	await frames(2)
+	var backdrop := player._root.get_child(0) as ColorRect
+	check(backdrop.color.a == 0.0 and player._fade.color.a == 0.0, "疊加演出不蓋黑底，遊戲畫面看得到")
+	player.speed = 40.0
+	check(await _wait_finished(&"test_overlay"), "疊加演出播完")
+
+	var counter := StageLayers.create({"kind": "counter", "pos": [0, 0], "from": 10, "to": 20, "time": 1.0}, "test counter")
+	check(counter != null and counter.call("current") == 10, "計數器從起始值開始")
+	counter.call("_process", 0.5)
+	check(counter.call("current") == 15, "計數器隨時間往上數")
+	counter.call("_process", 5.0)
+	check(counter.call("current") == 20, "計數器停在終點")
+	counter.free()
+
+	var sprite := StageLayers.create({"kind": "sprite", "path": "res://art/environment/props/window_rain.png", "pos": [0, 0], "scale": 0.5}, "test sprite")
+	check(sprite != null and sprite.get_child_count() == 1, "道具貼圖附帶自發光層")
+	sprite.free()
+	var plain := StageLayers.create({"kind": "sprite", "path": "res://art/environment/props/trash_can.png", "pos": [0, 0]}, "test sprite")
+	check(plain != null and plain.get_child_count() == 0, "沒有自發光層的道具不加多餘節點")
+	plain.free()

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_3dtmr"]
+
+[resource]
+script = ExtResource("1_3dtmr")
+id = &"porridge_pot"
+display_name = "一鍋粥"
+texture = "res://art/environment/props/porridge_pot.png"
+size = Vector2(16, 14)
+has_glow = true
+light_color = Color(1, 0.7, 0.4, 1)
+light_radius = 36.0
+light_energy = 0.5
+light_offset = Vector2(8, 4)
+category = &"interior"

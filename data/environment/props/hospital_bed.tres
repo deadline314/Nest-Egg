@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_wohrs"]
+
+[resource]
+script = ExtResource("1_wohrs")
+id = &"hospital_bed"
+display_name = "病床"
+texture = "res://art/environment/props/hospital_bed.png"
+size = Vector2(48, 20)
+category = &"interior"

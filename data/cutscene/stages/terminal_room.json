@@ -1,0 +1,102 @@
+{
+ "camera": {
+  "pos": [
+   320,
+   180
+  ],
+  "zoom": 1.0
+ },
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#060c12",
+   "bottom": "#10202c",
+   "parallax": 0.0
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    -100,
+    260,
+    840,
+    160
+   ],
+   "color": "#0c1620"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    -100,
+    258,
+    840,
+    3
+   ],
+   "color": "#35e0ff",
+   "intensity": 0.5,
+   "alpha": 0.35
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/server_rack.png",
+   "pos": [
+    40,
+    150
+   ],
+   "scale": 0.9
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/server_rack.png",
+   "pos": [
+    100,
+    150
+   ],
+   "scale": 0.9
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/server_rack.png",
+   "pos": [
+    520,
+    150
+   ],
+   "scale": 0.9
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/server_rack.png",
+   "pos": [
+    580,
+    150
+   ],
+   "scale": 0.9
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/terminal_holo.png",
+   "pos": [
+    230,
+    118
+   ],
+   "scale": 1.0
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    320,
+    150
+   ],
+   "radius": 180,
+   "color": "#35e0ff",
+   "intensity": 1.0,
+   "additive": true,
+   "alpha": 0.45
+  },
+  {
+   "kind": "grain",
+   "amount": 40,
+   "opacity": 0.07,
+   "depth": "front"
+  }
+ ]
+}

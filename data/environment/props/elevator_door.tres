@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_e26u5"]
+
+[resource]
+script = ExtResource("1_e26u5")
+id = &"elevator_door"
+display_name = "電梯門"
+texture = "res://art/environment/props/elevator_door.png"
+size = Vector2(44, 60)
+has_glow = true
+light_color = Color(0.2, 0.88, 1, 1)
+light_radius = 60.0
+light_energy = 0.5
+light_offset = Vector2(22, 6)
+category = &"interior"

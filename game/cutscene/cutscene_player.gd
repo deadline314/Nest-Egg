@@ -14,12 +14,16 @@ const CENTER := Vector2(320, 180)
 const BAR_HEIGHT := 34.0
 const NOISE_SHADER := "res://ui/transition/transition.gdshader"
 const TITLE_FADE := 0.5
+## 效果層（色調、閃光、雜訊、淡入淡出、黑邊、字幕、對話）的 z_index 起點，需高於任何角色零件。
+const EFFECT_Z := 200
 
 var scene_id: StringName = &""
 ## 播放速度倍率（測試用；1 = 正常）。
 var speed := 1.0
 ## 本段跳過（Esc 或設定要求）。
 var skipping := false
+## 玩家主動按了略過（與 end 步驟或播完不同；接續的場景據此一併略過）。
+var user_skipped := false
 var steps_run := 0
 
 var cam_pos: Vector2 = CENTER:
@@ -54,6 +58,8 @@ var _running := false
 var _was_paused := false
 var _previous_mouse_mode := Input.MOUSE_MODE_VISIBLE
 var _tweens: Array[Tween] = []
+## 疊加模式：不蓋黑底、不放舞台，直接在遊戲畫面上演出（右臂雜訊、警報等短演出）。
+var _overlay_mode := false
 ## 目前執行的步驟位置（錯誤訊息用）與下一步是否也是台詞（決定要不要收起對話框）。
 var _current_where := ""
 var _next_is_say := false
@@ -79,6 +85,7 @@ func play(id: StringName, scene: Dictionary) -> void:
 	scene_id = id
 	var raw: Variant = scene.get("steps", [])
 	_steps = raw if typeof(raw) == TYPE_ARRAY else []
+	_overlay_mode = bool(scene.get("overlay", false))
 	_build_ui()
 	_was_paused = get_tree().paused
 	_previous_mouse_mode = Input.mouse_mode
@@ -91,6 +98,7 @@ func play(id: StringName, scene: Dictionary) -> void:
 
 ## 跳到結尾。
 func skip() -> void:
+	user_skipped = true
 	skipping = true
 	_advance_requested = true
 
@@ -164,8 +172,9 @@ func _build_ui() -> void:
 	_root.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(_root)
 	var backdrop := ColorRect.new()
-	backdrop.color = Color.BLACK
+	backdrop.color = Color(0, 0, 0, 0.0 if _overlay_mode else 1.0)
 	backdrop.set_anchors_preset(Control.PRESET_FULL_RECT)
+	backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_root.add_child(backdrop)
 	_stage_holder = Node2D.new()
 	_root.add_child(_stage_holder)
@@ -173,7 +182,7 @@ func _build_ui() -> void:
 	_tint = _overlay(Color(0, 0, 0, 0))
 	_flash = _overlay(Color(1, 1, 1, 0))
 	_noise = _make_noise_rect()
-	_fade = _overlay(Color(0, 0, 0, 1))
+	_fade = _overlay(Color(0, 0, 0, 0.0 if _overlay_mode else 1.0))
 	_top_bar = _bar(true)
 	_bottom_bar = _bar(false)
 	_center_text = UiKit.label("", UiKit.FS_DISPLAY, Palette.UI_TEXT, HORIZONTAL_ALIGNMENT_CENTER)
@@ -197,6 +206,12 @@ func _build_ui() -> void:
 	_skip_hint.offset_right = -10
 	_skip_hint.offset_top = 6
 	_root.add_child(_skip_hint)
+	# 角色骨架的零件有自己的 z_index，會畫在同層的淡入淡出、黑邊與對話之上；效果層一律拉高。
+	var z := EFFECT_Z
+	for child in _root.get_children():
+		if child != _stage_holder and child != _root.get_child(0):
+			(child as CanvasItem).z_index = z
+			z += 1
 
 
 func _overlay(color: Color) -> ColorRect:

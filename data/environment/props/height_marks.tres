@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_ib3na"]
+
+[resource]
+script = ExtResource("1_ib3na")
+id = &"height_marks"
+display_name = "身高刻痕"
+texture = "res://art/environment/props/height_marks.png"
+size = Vector2(18, 46)
+category = &"interior"

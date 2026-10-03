@@ -235,7 +235,7 @@ func _exit_tree() -> void:
 
 ## 是否有這個音效（資料檔引用音效時檢查用）。
 func has_sound(id: StringName) -> bool:
-	return _streams.has(id)
+	return SOUNDS.has(id)
 
 
 func play(id: StringName, volume_db := 0.0, pitch_jitter := 0.06) -> void:

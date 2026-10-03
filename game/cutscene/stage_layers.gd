@@ -21,6 +21,7 @@ const KINDS: Dictionary = {
 	"grain": [],
 	"text": ["text", "pos"],
 	"stripes": ["rect", "color"],
+	"counter": ["pos", "from", "to"],
 }
 
 static var _soft_texture: GradientTexture2D
@@ -58,6 +59,8 @@ static func create(def: Dictionary, where: String) -> Node2D:
 			node = _Text.new(def)
 		"stripes":
 			node = _Stripes.new(def)
+		"counter":
+			node = _Counter.new(def)
 	node.modulate.a = float(def.get("alpha", 1.0))
 	if bool(def.get("additive", false)):
 		node.material = LightKit.additive_emissive_material()
@@ -223,6 +226,7 @@ class _Glow:
 class _Sprite:
 	extends Sprite2D
 
+	## 有同名 `_glow.png` 時疊上自發光層（加亮混合），道具的窗光、霓虹在演出裡也會亮。
 	func _init(def: Dictionary) -> void:
 		var path := str(def["path"])
 		var tex := RigLibrary.optional_texture(path)
@@ -236,6 +240,15 @@ class _Sprite:
 		if def.has("modulate"):
 			modulate = StageLayers.color_of(def["modulate"])
 		texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		var glow_texture := RigLibrary.optional_texture(path.get_basename() + "_glow." + path.get_extension())
+		if glow_texture != null and bool(def.get("glow", true)):
+			var glow_sprite := Sprite2D.new()
+			glow_sprite.texture = glow_texture
+			glow_sprite.centered = centered
+			glow_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			glow_sprite.material = LightKit.additive_emissive_material()
+			glow_sprite.self_modulate = LightKit.glow(Color.WHITE, float(def.get("glow_intensity", 1.2)))
+			add_child(glow_sprite)
 
 
 ## 雨：固定數量的斜線，用同一批座標循環使用，不配置新物件。
@@ -337,3 +350,41 @@ class _Stripes:
 		while x < _rect.end.x:
 			draw_line(Vector2(x, _rect.end.y), Vector2(x + _rect.size.y, _rect.position.y), _color, 3.0)
 			x += _gap
+
+
+## 數字計數器（電梯樓層）：舞台建立後經過 delay 秒開始，在 time 秒內從 from 數到 to。
+class _Counter:
+	extends Node2D
+	var _from: int
+	var _to: int
+	var _time: float
+	var _delay: float
+	var _color: Color
+	var _size: int
+	var _suffix: String
+	var _t := 0.0
+	var _last := -999
+
+	func _init(def: Dictionary) -> void:
+		position = StageLayers.vec2_of(def["pos"])
+		_from = int(def["from"])
+		_to = int(def["to"])
+		_time = maxf(0.1, float(def.get("time", 6.0)))
+		_delay = float(def.get("delay", 0.0))
+		_color = StageLayers.lit(def.get("color", "#35e0ff"), float(def.get("intensity", 1.6)))
+		_size = UiKit.snap_size(int(def.get("size", UiKit.FS_TITLE)))
+		_suffix = str(def.get("suffix", ""))
+
+	func _process(delta: float) -> void:
+		_t += delta
+		var value := current()
+		if value != _last:
+			_last = value
+			queue_redraw()
+
+	func current() -> int:
+		var k := clampf((_t - _delay) / _time, 0.0, 1.0)
+		return roundi(lerpf(float(_from), float(_to), k))
+
+	func _draw() -> void:
+		draw_string(UiKit.font(), Vector2.ZERO, "%d%s" % [current(), _suffix], HORIZONTAL_ALIGNMENT_LEFT, -1, _size, _color)

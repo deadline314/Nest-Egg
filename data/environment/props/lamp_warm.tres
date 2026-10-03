@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_mpod8"]
+
+[resource]
+script = ExtResource("1_mpod8")
+id = &"lamp_warm"
+display_name = "吊燈"
+texture = "res://art/environment/props/lamp_warm.png"
+size = Vector2(16, 34)
+has_glow = true
+flicker = 0.05
+light_color = Color(1, 0.72, 0.4, 1)
+light_radius = 110.0
+light_energy = 0.9
+light_offset = Vector2(8, 30)
+category = &"interior"

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_ai7vh"]
+
+[resource]
+script = ExtResource("1_ai7vh")
+id = &"window_rain"
+display_name = "雨窗"
+texture = "res://art/environment/props/window_rain.png"
+size = Vector2(40, 44)
+has_glow = true
+light_color = Color(0.55, 0.45, 0.85, 1)
+light_radius = 70.0
+light_energy = 0.5
+light_offset = Vector2(20, 22)
+category = &"interior"

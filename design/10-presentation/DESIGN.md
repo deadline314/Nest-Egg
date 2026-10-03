@@ -115,6 +115,16 @@
 
 圖層種類：`gradient`、`skyline`、`rect`、`poly`、`glow`、`sprite`、`rain`、`grain`、`text`、`stripes`；共通欄位 `parallax`（視差，0 固定在畫面）、`depth`（back／front）、`alpha`、`additive`。
 
+場景的整體欄位：
+
+| 欄位 | 說明 |
+|---|---|
+| `mode` | 固定為 `animated` |
+| `then` | 結束後立刻接著播的場景 id（只能接過場或動畫過場，不可形成迴圈）。玩家按 Esc 時整串一起略過；接續的場景若本輪已看過就不再播 |
+| `overlay` | 為 true 時不放舞台、不蓋黑底，直接疊在遊戲畫面上（右臂雜訊、燈幕警報這類短演出） |
+
+動畫過場放在 `data/story/cutscenes_ch1.json`、`cutscenes_ch2.json`：只有 `scenes`，以 `for_chapter` 標明所屬章節，不會覆蓋章節資訊。原本的靜態劇本（`prologue`、`boss_intro`、`epilogue`、`c2_*`）保留為文字稿，動畫版的每一句台詞都要涵蓋文字稿（系統旁白除外），由測試比對。收集品與關卡的觸發改綁動畫版的場景 id。
+
 守則：整段最多 16 句台詞，連續台詞之間最多 3 句就要有演出或鏡頭；單句不超過 56 字。壞掉的步驟只會記錄「場景 id 第 n 步」並略過。
 
 ## 二、轉場

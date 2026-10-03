@@ -1,0 +1,47 @@
+{
+ "camera": {
+  "pos": [
+   320,
+   180
+  ],
+  "zoom": 1.0
+ },
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#3a8ee8",
+   "bottom": "#a8d4f8",
+   "parallax": 0.0
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    -100,
+    128,
+    840,
+    2
+   ],
+   "color": "#7ec0ff",
+   "intensity": 1.1,
+   "alpha": 0.9
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    520,
+    70
+   ],
+   "radius": 120,
+   "color": "#ffffff",
+   "intensity": 1.0,
+   "additive": true,
+   "alpha": 0.5
+  },
+  {
+   "kind": "grain",
+   "amount": 30,
+   "opacity": 0.05,
+   "depth": "front"
+  }
+ ]
+}

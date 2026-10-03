@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_nvs3o"]
+
+[resource]
+script = ExtResource("1_nvs3o")
+id = &"shop_table"
+display_name = "矮桌"
+texture = "res://art/environment/props/shop_table.png"
+size = Vector2(44, 20)
+category = &"interior"
