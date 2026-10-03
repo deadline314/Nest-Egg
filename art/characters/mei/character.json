@@ -1,169 +1,306 @@
 {
   "id": "mei",
   "display_name": "芽",
-  "rig": "res://art/rigs/humanoid.json",
-  "texture_scale": 0.25,
-  "scale": 0.97,
-  "description": "外觀（skin）定義：textures 是美術要交付的圖片清單（尺寸、支點）；parts 是把圖片掛到骨頭上的方式。替換美術只要依 textures 的尺寸與支點畫好同名 PNG 覆蓋即可。",
+  "rig": "res://art/rigs/mei.json",
+  "texture_scale": 0.05,
+  "scale": 1.0,
+  "description": "外觀（skin）定義：textures 是零件圖片的尺寸與支點；parts 是把圖片掛到骨頭上的方式。由 tools/comfyui/cut_layers.py 依分件圖層切出。",
   "textures": {
-    "arm_lower": {
-      "file": "parts/arm_lower.png",
-      "size": [
-        22,
-        44
-      ],
-      "pivot": [
-        11,
-        5
-      ],
-      "note": "前臂，支點＝手肘，手腕在支點下方 32px。",
-      "glow": "parts/arm_lower_glow.png"
-    },
-    "arm_upper": {
-      "file": "parts/arm_upper.png",
-      "size": [
-        24,
-        48
-      ],
-      "pivot": [
-        12,
-        6
-      ],
-      "note": "上臂，支點＝肩關節，手肘在支點下方 36px。前後手共用（後手自動調暗）。",
-      "glow": "parts/arm_upper_glow.png"
-    },
-    "foot": {
-      "file": "parts/foot.png",
-      "size": [
-        36,
-        22
-      ],
-      "pivot": [
-        12,
-        4
-      ],
-      "note": "腳（鞋），支點＝腳踝，腳尖朝右。",
-      "glow": "parts/foot_glow.png"
-    },
-    "hair_back_1": {
-      "file": "parts/hair_back_1.png",
-      "size": [
-        36,
-        40
-      ],
-      "pivot": [
-        18,
-        6
-      ],
-      "note": "後髮第一段，支點在上緣。"
-    },
-    "hair_front": {
-      "file": "parts/hair_front.png",
-      "size": [
-        64,
-        64
-      ],
-      "pivot": [
-        28,
-        60
-      ],
-      "note": "瀏海與頭頂頭髮，與 head 同一個支點，蓋在臉上。"
-    },
-    "hand": {
-      "file": "parts/hand.png",
-      "size": [
-        22,
-        22
-      ],
-      "pivot": [
-        8,
-        8
-      ],
-      "note": "手（握拳，拳面朝右），支點＝手腕。"
-    },
-    "head": {
-      "file": "parts/head.png",
-      "size": [
-        56,
-        64
-      ],
-      "pivot": [
-        24,
-        60
-      ],
-      "note": "頭部（含臉），支點＝脖子根部。臉朝右。",
-      "glow": "parts/head_glow.png"
-    },
-    "leg_lower": {
-      "file": "parts/leg_lower.png",
-      "size": [
-        26,
-        56
-      ],
-      "pivot": [
-        12,
-        4
-      ],
-      "note": "小腿，支點＝膝蓋，腳踝在支點下方 44px。"
-    },
-    "leg_upper": {
-      "file": "parts/leg_upper.png",
-      "size": [
-        28,
-        56
-      ],
-      "pivot": [
-        14,
-        6
-      ],
-      "note": "大腿，支點＝髖關節，膝蓋在支點下方 44px。"
-    },
     "pelvis": {
       "file": "parts/pelvis.png",
       "size": [
-        52,
-        36
+        135,
+        121
       ],
       "pivot": [
-        26,
-        10
+        57.2,
+        97.24
       ],
-      "note": "骨盆與腰帶，支點＝髖部中心。"
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "pelvis_dmg": {
+      "file": "parts/pelvis_dmg.png",
+      "size": [
+        135,
+        121
+      ],
+      "pivot": [
+        57.2,
+        97.24
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "torso": {
       "file": "parts/torso.png",
       "size": [
-        56,
-        60
+        147,
+        254
       ],
       "pivot": [
-        28,
-        56
+        52.34,
+        230.48
       ],
-      "note": "軀幹，支點＝腰部；肩膀約在支點上方 40px。胸口朝右。",
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
       "glow": "parts/torso_glow.png"
+    },
+    "torso_dmg": {
+      "file": "parts/torso_dmg.png",
+      "size": [
+        147,
+        254
+      ],
+      "pivot": [
+        52.34,
+        230.48
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "head": {
+      "file": "parts/head.png",
+      "size": [
+        199,
+        182
+      ],
+      "pivot": [
+        103.07,
+        186.14
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
+      "glow": "parts/head_glow.png"
+    },
+    "jacket": {
+      "file": "parts/jacket.png",
+      "size": [
+        189,
+        396
+      ],
+      "pivot": [
+        122.34,
+        228.48
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "jacket_front": {
+      "file": "parts/jacket_front.png",
+      "size": [
+        34,
+        261
+      ],
+      "pivot": [
+        -67.66,
+        99.48
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "leg_upper": {
+      "file": "parts/leg_upper.png",
+      "size": [
+        126,
+        232
+      ],
+      "pivot": [
+        53.1,
+        -10.11
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "leg_upper_dmg": {
+      "file": "parts/leg_upper_dmg.png",
+      "size": [
+        126,
+        232
+      ],
+      "pivot": [
+        53.1,
+        -10.11
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "leg_lower": {
+      "file": "parts/leg_lower.png",
+      "size": [
+        95,
+        233
+      ],
+      "pivot": [
+        56.36,
+        7.45
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "leg_lower_dmg": {
+      "file": "parts/leg_lower_dmg.png",
+      "size": [
+        95,
+        233
+      ],
+      "pivot": [
+        56.36,
+        7.45
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "foot": {
+      "file": "parts/foot.png",
+      "size": [
+        179,
+        130
+      ],
+      "pivot": [
+        52.52,
+        49.6
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "arm_upper": {
+      "file": "parts/arm_upper.png",
+      "size": [
+        58,
+        190
+      ],
+      "pivot": [
+        14.01,
+        23.56
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "arm_upper_dmg": {
+      "file": "parts/arm_upper_dmg.png",
+      "size": [
+        58,
+        190
+      ],
+      "pivot": [
+        14.01,
+        23.56
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "arm_lower": {
+      "file": "parts/arm_lower.png",
+      "size": [
+        72,
+        186
+      ],
+      "pivot": [
+        26.33,
+        7.65
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "arm_lower_dmg": {
+      "file": "parts/arm_lower_dmg.png",
+      "size": [
+        72,
+        186
+      ],
+      "pivot": [
+        26.33,
+        7.65
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "sleeve_upper": {
+      "file": "parts/sleeve_upper.png",
+      "size": [
+        103,
+        184
+      ],
+      "pivot": [
+        43.03,
+        17.12
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "sleeve_lower": {
+      "file": "parts/sleeve_lower.png",
+      "size": [
+        121,
+        179
+      ],
+      "pivot": [
+        63.28,
+        7.65
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "hand": {
+      "file": "parts/hand.png",
+      "size": [
+        54,
+        59
+      ],
+      "pivot": [
+        -18.9,
+        32.1
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     }
   },
   "parts": [
     {
-      "name": "hair_back_1",
-      "texture": "hair_back_1",
-      "bone": "hair_1",
-      "z": -9
+      "name": "arm_back_upper_dmg",
+      "texture": "arm_upper_dmg",
+      "bone": "arm_back_upper",
+      "z": -9,
+      "tint": 0.62,
+      "under": true
+    },
+    {
+      "name": "arm_back_lower_dmg",
+      "texture": "arm_lower_dmg",
+      "bone": "arm_back_lower",
+      "z": -9,
+      "tint": 0.62,
+      "under": true
     },
     {
       "name": "arm_back_upper",
       "texture": "arm_upper",
       "bone": "arm_back_upper",
-      "z": -7,
-      "tint": 0.62
+      "z": -8,
+      "tint": 0.62,
+      "armor_order": 2
     },
     {
       "name": "arm_back_lower",
       "texture": "arm_lower",
       "bone": "arm_back_lower",
+      "z": -8,
+      "tint": 0.62,
+      "armor_order": 2
+    },
+    {
+      "name": "sleeve_back_upper",
+      "texture": "sleeve_upper",
+      "bone": "arm_back_upper",
       "z": -7,
-      "tint": 0.62
+      "tint": 0.62,
+      "armor_order": 1
+    },
+    {
+      "name": "sleeve_back_lower",
+      "texture": "sleeve_lower",
+      "bone": "arm_back_lower",
+      "z": -7,
+      "tint": 0.62,
+      "armor_order": 1
+    },
+    {
+      "name": "leg_back_upper_dmg",
+      "texture": "leg_upper_dmg",
+      "bone": "leg_back_upper",
+      "z": -6,
+      "tint": 0.62,
+      "under": true
+    },
+    {
+      "name": "leg_back_lower_dmg",
+      "texture": "leg_lower_dmg",
+      "bone": "leg_back_lower",
+      "z": -6,
+      "tint": 0.62,
+      "under": true
     },
     {
       "name": "hand_back",
@@ -177,14 +314,16 @@
       "texture": "leg_upper",
       "bone": "leg_back_upper",
       "z": -5,
-      "tint": 0.62
+      "tint": 0.62,
+      "armor_order": 4
     },
     {
       "name": "leg_back_lower",
       "texture": "leg_lower",
       "bone": "leg_back_lower",
       "z": -5,
-      "tint": 0.62
+      "tint": 0.62,
+      "armor_order": 5
     },
     {
       "name": "foot_back",
@@ -194,28 +333,60 @@
       "tint": 0.62
     },
     {
-      "name": "pelvis",
+      "name": "pelvis_dmg",
+      "texture": "pelvis_dmg",
+      "bone": "hip",
+      "z": -1,
+      "under": true
+    },
+    {
+      "name": "armor_pelvis",
       "texture": "pelvis",
       "bone": "hip",
-      "z": 0
+      "z": 0,
+      "armor_order": 3
     },
     {
-      "name": "torso",
+      "name": "torso_dmg",
+      "texture": "torso_dmg",
+      "bone": "chest",
+      "z": 0,
+      "under": true
+    },
+    {
+      "name": "armor_torso",
       "texture": "torso",
       "bone": "chest",
-      "z": 1
+      "z": 1,
+      "armor_order": 2
     },
     {
-      "name": "leg_front_upper",
+      "name": "thigh_dmg",
+      "texture": "leg_upper_dmg",
+      "bone": "leg_front_upper",
+      "z": 2,
+      "under": true
+    },
+    {
+      "name": "calf_dmg",
+      "texture": "leg_lower_dmg",
+      "bone": "leg_front_lower",
+      "z": 2,
+      "under": true
+    },
+    {
+      "name": "armor_thigh",
       "texture": "leg_upper",
       "bone": "leg_front_upper",
-      "z": 3
+      "z": 3,
+      "armor_order": 4
     },
     {
-      "name": "leg_front_lower",
+      "name": "armor_calf",
       "texture": "leg_lower",
       "bone": "leg_front_lower",
-      "z": 3
+      "z": 3,
+      "armor_order": 5
     },
     {
       "name": "foot_front",
@@ -224,28 +395,66 @@
       "z": 3
     },
     {
+      "name": "armor_jacket",
+      "texture": "jacket",
+      "bone": "chest",
+      "z": 4,
+      "armor_order": 1
+    },
+    {
+      "name": "jacket_front",
+      "texture": "jacket_front",
+      "bone": "chest",
+      "z": 4,
+      "armor_order": 1
+    },
+    {
       "name": "head",
       "texture": "head",
       "bone": "head",
       "z": 5
     },
     {
-      "name": "hair_front",
-      "texture": "hair_front",
-      "bone": "head",
-      "z": 6
+      "name": "arm_upper_dmg",
+      "texture": "arm_upper_dmg",
+      "bone": "arm_front_upper",
+      "z": 5,
+      "under": true
+    },
+    {
+      "name": "arm_lower_dmg",
+      "texture": "arm_lower_dmg",
+      "bone": "arm_front_lower",
+      "z": 5,
+      "under": true
     },
     {
       "name": "arm_front_upper",
       "texture": "arm_upper",
       "bone": "arm_front_upper",
-      "z": 8
+      "z": 6,
+      "armor_order": 2
     },
     {
       "name": "arm_front_lower",
       "texture": "arm_lower",
       "bone": "arm_front_lower",
-      "z": 8
+      "z": 6,
+      "armor_order": 2
+    },
+    {
+      "name": "sleeve_front_upper",
+      "texture": "sleeve_upper",
+      "bone": "arm_front_upper",
+      "z": 8,
+      "armor_order": 1
+    },
+    {
+      "name": "sleeve_front_lower",
+      "texture": "sleeve_lower",
+      "bone": "arm_front_lower",
+      "z": 8,
+      "armor_order": 1
     },
     {
       "name": "hand_front",
@@ -253,22 +462,5 @@
       "bone": "hand_front",
       "z": 10
     }
-  ],
-  "painter_style": {
-    "kind": "mei",
-    "skin": "#e8c7b5",
-    "hair": "#5f3d9c",
-    "coat": "#2a1f3d",
-    "coat_dark": "#1a1327",
-    "lining": "#a46bff",
-    "trim": "#a46bff",
-    "suit": "#1a1426",
-    "pants": "#1d1a2e",
-    "boots": "#2b2a3a",
-    "chrome": "#b4c0d0",
-    "armor": "#3a3050",
-    "eye": "#a46bff",
-    "accent": "#a46bff",
-    "outline": "#07080d"
-  }
+  ]
 }

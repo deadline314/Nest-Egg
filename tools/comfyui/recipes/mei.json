@@ -1,0 +1,26 @@
+{
+  "description": "芽（mei）的建置配方：build_character.py 依這份檔案從頭產出角色。每個步驟的輸入輸出見 design/03-art-pipeline/CHARACTER_PIPELINE.md。",
+  "id": "mei",
+  "name": "芽",
+  "template": "civilian",
+  "spec": "tools/comfyui/specs/mei_side.json",
+  "rig": "art/rigs/mei.json",
+  "work": "art_src/characters/mei",
+  "height": 52.0,
+  "scale": 1.0,
+  "weapon": "",
+  "armor": [],
+  "glow": "m",
+  "glow_parts": [
+    "head",
+    "torso"
+  ],
+  "design": {
+    "size": [
+      832,
+      1216
+    ],
+    "pick": 7,
+    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat colors, bold clean black outlines, hard-edged two-tone shading, saturated neon accents. Full body, strict side view facing right, standing upright with the arms relaxed at the sides and empty hands, the far-side leg hidden behind the near leg. Mei, a sharp-tongued but soft-hearted hacker girl in her early twenties, slim and slightly short, about seven heads tall: purple hair in a short messy bob, a large headset with a glowing violet microphone on the ear, a dark purple oversized techwear jacket with violet neon lines over a black bodysuit, fingerless gloves, dark leggings and sneakers. Empty hands."
+  }
+}

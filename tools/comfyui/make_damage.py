@@ -30,7 +30,10 @@ def main() -> None:
         if "damage_of" not in p:
             continue
         intact = np.array(Image.open(work / "07_refined" / f"{p['damage_of']}.png").convert("RGBA"))
-        use_stage = stage[:, :, 3] > 127  # where the torn picture has no pixels, keep the intact colours rather than a hole
+        # only the solid pixels of the torn picture, pulled in 2 px from its outline (Qwen paints a pale halo on the rim); elsewhere keep the intact colours
+        import cv2
+        solid = (stage[:, :, 3] >= 250).astype(np.uint8)
+        use_stage = cv2.erode(solid, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))) > 0  # where the torn picture has no pixels, keep the intact colours rather than a hole
         rgb = np.where(use_stage[:, :, None], stage[:, :, :3], intact[:, :, :3])
         Image.fromarray(np.dstack([rgb, intact[:, :, 3]])).save(work / "07_refined" / f"{name}.png")
         print(f"  {name}: torn layer of {p['damage_of']}")

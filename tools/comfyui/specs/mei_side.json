@@ -1,0 +1,1016 @@
+{
+  "description": "芽（mei）的分件規格，來源是透明背景的側面圖。穿著由外到內：深紫色寬鬆機能夾克（外）→ 黑色緊身連身衣（中）→ 黑色緊身褲（內）；受傷時依序脫落（armor_order）：1 夾克（帽子、前襟、兩隻袖子）→ 2 連身衣上半（胸、手臂）→ 3 連身衣下半 → 4 褲子大腿 → 5 褲子小腿，底下是 D 圖撕裂版（*_dmg）。夾克袖子是手臂骨頭上的獨立零件（sleeve_*），袖子裡的黑色手臂（arm_*）原圖看不到，由階段 C（移除夾克）取得；groups：SAM 3.1 文字提示分出的群組（前面的優先）；stages：Qwen 剝層圖（A＝只拿掉袖子、夾克身體留著，C＝夾克整件移除，E＝C 再拿掉手臂，D＝E（沒有手臂的身體）的衣物撕裂，所以破損底層不會把手臂烙在身體上）；parts：群組在關節處切成零件（y 為切線）並指定掛載。joints 與縮放數字由 fit_joints.py 填入，手動填的不會被蓋掉。",
+  "id": "mei",
+  "display_name": "芽",
+  "scale": 1.0,
+  "height": 52.0,
+  "seam": 10,
+  "illustration_px_per_wp": 22.83,
+  "tex_px_per_wp": 20,
+  "ground_y": 1208,
+  "joints": {
+    "hip": [
+      406.6,
+      587.0
+    ],
+    "waist": [
+      402.2,
+      464.0
+    ],
+    "neck": [
+      393.9,
+      235.6
+    ],
+    "head": [
+      393.9,
+      229.6
+    ],
+    "head_top": [
+      401.9,
+      21.0
+    ],
+    "shoulder": [
+      363.3,
+      274.9
+    ],
+    "elbow": [
+      353.1,
+      456.3
+    ],
+    "palm": [
+      380.7,
+      621.2
+    ],
+    "fingertip": [
+      397.8,
+      723.4
+    ],
+    "knee": [
+      404.0,
+      855.2
+    ],
+    "ankle": [
+      388.7,
+      1120.5
+    ],
+    "toe": [
+      509.6,
+      1164.6
+    ]
+  },
+  "groups": {
+    "arm": {
+      "sam": [
+        "gloved hand",
+        "arm"
+      ],
+      "y": [
+        641,
+        649
+      ],
+      "complete": {
+        "stage": "C",
+        "occluders": [
+          "sleeve",
+          "jacket"
+        ],
+        "near": 700,
+        "gap_grow": 30
+      }
+    },
+    "hand": {
+      "sam": [
+        "gloved hand"
+      ]
+    },
+    "sleeve": {
+      "sam": [
+        "jacket sleeve"
+      ]
+    },
+    "jacket": {
+      "sam": [
+        "dark purple jacket"
+      ],
+      "complete": {
+        "stage": "A",
+        "occluders": [
+          "sleeve",
+          "hand",
+          "arm"
+        ],
+        "near": 400
+      }
+    },
+    "boot": {
+      "sam": [
+        "sneaker"
+      ]
+    },
+    "head": {
+      "sam": [
+        "head"
+      ]
+    },
+    "body": {
+      "sam": [
+        "black bodysuit",
+        "black leggings"
+      ],
+      "complete": {
+        "stage": "E",
+        "occluders": [
+          "sleeve",
+          "jacket",
+          "arm",
+          "hand"
+        ],
+        "near": 400
+      }
+    }
+  },
+  "parts": {
+    "pelvis": {
+      "group": "body",
+      "from": "waist",
+      "to": "hip",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "armor_pelvis",
+          "bone": "hip",
+          "z": 0,
+          "armor_order": 3
+        }
+      ],
+      "y": [
+        484,
+        607
+      ],
+      "pivot": "hip"
+    },
+    "pelvis_dmg": {
+      "group": "body",
+      "from": "waist",
+      "to": "hip",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "pelvis_dmg",
+          "bone": "hip",
+          "z": -1,
+          "under": true
+        }
+      ],
+      "y": [
+        484,
+        607
+      ],
+      "pivot": "hip",
+      "damage_of": "pelvis"
+    },
+    "torso": {
+      "group": "body",
+      "from": "waist",
+      "to": "neck",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "armor_torso",
+          "bone": "chest",
+          "z": 1,
+          "armor_order": 2
+        }
+      ],
+      "y": [
+        0,
+        484
+      ],
+      "pivot": "waist"
+    },
+    "torso_dmg": {
+      "group": "body",
+      "from": "waist",
+      "to": "neck",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "torso_dmg",
+          "bone": "chest",
+          "z": 0,
+          "under": true
+        }
+      ],
+      "y": [
+        0,
+        484
+      ],
+      "pivot": "waist",
+      "damage_of": "torso"
+    },
+    "head": {
+      "group": "head",
+      "from": "head",
+      "to": "head_top",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "head",
+          "bone": "head",
+          "z": 5
+        }
+      ],
+      "pivot": "head"
+    },
+    "jacket": {
+      "group": "jacket",
+      "from": "waist",
+      "to": "neck",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "armor_jacket",
+          "bone": "chest",
+          "z": 4,
+          "armor_order": 1
+        }
+      ],
+      "pivot": "waist",
+      "blob": "main"
+    },
+    "jacket_front": {
+      "group": "jacket",
+      "blob": "rest",
+      "from": "waist",
+      "to": "neck",
+      "mode": "upright",
+      "pivot": "waist",
+      "uses": [
+        {
+          "name": "jacket_front",
+          "bone": "chest",
+          "z": 4,
+          "armor_order": 1
+        }
+      ]
+    },
+    "leg_upper": {
+      "group": "body",
+      "from": "hip",
+      "to": "knee",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "leg_back_upper",
+          "bone": "leg_back_upper",
+          "z": -5,
+          "tint": 0.62,
+          "armor_order": 4
+        },
+        {
+          "name": "armor_thigh",
+          "bone": "leg_front_upper",
+          "z": 3,
+          "armor_order": 4
+        }
+      ],
+      "y": [
+        607,
+        855
+      ]
+    },
+    "leg_upper_dmg": {
+      "group": "body",
+      "from": "hip",
+      "to": "knee",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "leg_back_upper_dmg",
+          "bone": "leg_back_upper",
+          "z": -6,
+          "tint": 0.62,
+          "under": true
+        },
+        {
+          "name": "thigh_dmg",
+          "bone": "leg_front_upper",
+          "z": 2,
+          "under": true
+        }
+      ],
+      "y": [
+        607,
+        855
+      ],
+      "damage_of": "leg_upper"
+    },
+    "leg_lower": {
+      "group": "body",
+      "from": "knee",
+      "to": "ankle",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "leg_back_lower",
+          "bone": "leg_back_lower",
+          "z": -5,
+          "tint": 0.62,
+          "armor_order": 5
+        },
+        {
+          "name": "armor_calf",
+          "bone": "leg_front_lower",
+          "z": 3,
+          "armor_order": 5
+        }
+      ],
+      "y": [
+        855,
+        4000
+      ]
+    },
+    "leg_lower_dmg": {
+      "group": "body",
+      "from": "knee",
+      "to": "ankle",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "leg_back_lower_dmg",
+          "bone": "leg_back_lower",
+          "z": -6,
+          "tint": 0.62,
+          "under": true
+        },
+        {
+          "name": "calf_dmg",
+          "bone": "leg_front_lower",
+          "z": 2,
+          "under": true
+        }
+      ],
+      "y": [
+        855,
+        4000
+      ],
+      "damage_of": "leg_lower"
+    },
+    "foot": {
+      "group": "boot",
+      "from": "ankle",
+      "to": "toe",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "foot_back",
+          "bone": "foot_back",
+          "z": -5,
+          "tint": 0.62
+        },
+        {
+          "name": "foot_front",
+          "bone": "foot_front",
+          "z": 3
+        }
+      ],
+      "pivot": "ankle"
+    },
+    "arm_upper": {
+      "group": "arm",
+      "from": "shoulder",
+      "to": "elbow",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "arm_back_upper",
+          "bone": "arm_back_upper",
+          "z": -8,
+          "tint": 0.62,
+          "armor_order": 2
+        },
+        {
+          "name": "arm_front_upper",
+          "bone": "arm_front_upper",
+          "z": 6,
+          "armor_order": 2
+        }
+      ],
+      "y": [
+        0,
+        456
+      ]
+    },
+    "arm_upper_dmg": {
+      "group": "arm",
+      "from": "shoulder",
+      "to": "elbow",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "arm_back_upper_dmg",
+          "bone": "arm_back_upper",
+          "z": -9,
+          "tint": 0.62,
+          "under": true
+        },
+        {
+          "name": "arm_upper_dmg",
+          "bone": "arm_front_upper",
+          "z": 5,
+          "under": true
+        }
+      ],
+      "y": [
+        0,
+        456
+      ],
+      "damage_of": "arm_upper"
+    },
+    "arm_lower": {
+      "group": "arm",
+      "from": "elbow",
+      "to": "palm",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "arm_back_lower",
+          "bone": "arm_back_lower",
+          "z": -8,
+          "tint": 0.62,
+          "armor_order": 2
+        },
+        {
+          "name": "arm_front_lower",
+          "bone": "arm_front_lower",
+          "z": 6,
+          "armor_order": 2
+        }
+      ],
+      "y": [
+        456,
+        4000
+      ]
+    },
+    "arm_lower_dmg": {
+      "group": "arm",
+      "from": "elbow",
+      "to": "palm",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "arm_back_lower_dmg",
+          "bone": "arm_back_lower",
+          "z": -9,
+          "tint": 0.62,
+          "under": true
+        },
+        {
+          "name": "arm_lower_dmg",
+          "bone": "arm_front_lower",
+          "z": 5,
+          "under": true
+        }
+      ],
+      "y": [
+        456,
+        4000
+      ],
+      "damage_of": "arm_lower"
+    },
+    "sleeve_upper": {
+      "group": "sleeve",
+      "from": "shoulder",
+      "to": "elbow",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "sleeve_back_upper",
+          "bone": "arm_back_upper",
+          "z": -7,
+          "tint": 0.62,
+          "armor_order": 1
+        },
+        {
+          "name": "sleeve_front_upper",
+          "bone": "arm_front_upper",
+          "z": 8,
+          "armor_order": 1
+        }
+      ],
+      "y": [
+        0,
+        456
+      ]
+    },
+    "sleeve_lower": {
+      "group": "sleeve",
+      "from": "elbow",
+      "to": "palm",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "sleeve_back_lower",
+          "bone": "arm_back_lower",
+          "z": -7,
+          "tint": 0.62,
+          "armor_order": 1
+        },
+        {
+          "name": "sleeve_front_lower",
+          "bone": "arm_front_lower",
+          "z": 8,
+          "armor_order": 1
+        }
+      ],
+      "y": [
+        456,
+        4000
+      ]
+    },
+    "hand": {
+      "group": "hand",
+      "from": "palm",
+      "to": "fingertip",
+      "mode": "hand",
+      "uses": [
+        {
+          "name": "hand_back",
+          "bone": "hand_back",
+          "z": -6,
+          "tint": 0.62
+        },
+        {
+          "name": "hand_front",
+          "bone": "hand_front",
+          "z": 10
+        }
+      ],
+      "pivot": "palm"
+    }
+  },
+  "glow": {
+    "head": "p",
+    "torso": "p"
+  },
+  "bones": [
+    {
+      "name": "hip",
+      "parent": "",
+      "from": "ground_hip"
+    },
+    {
+      "name": "chest",
+      "parent": "hip",
+      "at": "waist"
+    },
+    {
+      "name": "neck",
+      "parent": "chest",
+      "at": "neck"
+    },
+    {
+      "name": "head",
+      "parent": "neck",
+      "at": "head"
+    },
+    {
+      "name": "arm_back_upper",
+      "parent": "chest",
+      "at": "shoulder",
+      "dx": -0.6,
+      "tip": "elbow"
+    },
+    {
+      "name": "arm_back_lower",
+      "parent": "arm_back_upper",
+      "tip": "palm"
+    },
+    {
+      "name": "hand_back",
+      "parent": "arm_back_lower",
+      "tip": "fingertip"
+    },
+    {
+      "name": "arm_front_upper",
+      "parent": "chest",
+      "at": "shoulder",
+      "dx": 0.0,
+      "tip": "elbow"
+    },
+    {
+      "name": "arm_front_lower",
+      "parent": "arm_front_upper",
+      "tip": "palm"
+    },
+    {
+      "name": "hand_front",
+      "parent": "arm_front_lower",
+      "tip": "fingertip"
+    },
+    {
+      "name": "leg_back_upper",
+      "parent": "hip",
+      "at": "hip",
+      "dx": -0.7,
+      "tip": "knee"
+    },
+    {
+      "name": "leg_back_lower",
+      "parent": "leg_back_upper",
+      "tip": "ankle"
+    },
+    {
+      "name": "foot_back",
+      "parent": "leg_back_lower"
+    },
+    {
+      "name": "leg_front_upper",
+      "parent": "hip",
+      "at": "hip",
+      "dx": 0.0,
+      "tip": "knee"
+    },
+    {
+      "name": "leg_front_lower",
+      "parent": "leg_front_upper",
+      "tip": "ankle"
+    },
+    {
+      "name": "foot_front",
+      "parent": "leg_front_lower"
+    }
+  ],
+  "weapon_anchor": {
+    "bone": "chest",
+    "from": "waist",
+    "to": "shoulder",
+    "dx": 0.8,
+    "dy": 0.6,
+    "reach": 8.71
+  },
+  "refine": {
+    "defringe": {
+      "width": 2
+    },
+    "speckle": 30,
+    "smooth_alpha": {
+      "parts": [
+        "pelvis",
+        "torso",
+        "head",
+        "leg_upper",
+        "leg_lower",
+        "foot",
+        "arm_upper",
+        "arm_lower",
+        "hand",
+        "jacket",
+        "sleeve_upper",
+        "sleeve_lower"
+      ],
+      "sigma": 1.0
+    },
+    "white_specks": {
+      "parts": [
+        "jacket",
+        "sleeve_upper",
+        "sleeve_lower",
+        "arm_upper",
+        "arm_lower",
+        "torso",
+        "pelvis",
+        "leg_upper",
+        "leg_lower"
+      ],
+      "max_area": 60
+    },
+    "erase": [
+      {
+        "part": "leg_upper",
+        "poly": [
+          [
+            464,
+            603
+          ],
+          [
+            460,
+            632
+          ],
+          [
+            464,
+            632
+          ],
+          [
+            468,
+            610
+          ],
+          [
+            471,
+            608
+          ],
+          [
+            472,
+            621
+          ],
+          [
+            474,
+            622
+          ],
+          [
+            471,
+            624
+          ],
+          [
+            471,
+            631
+          ],
+          [
+            473,
+            632
+          ],
+          [
+            475,
+            631
+          ],
+          [
+            475,
+            624
+          ],
+          [
+            473,
+            623
+          ],
+          [
+            476,
+            621
+          ],
+          [
+            476,
+            607
+          ],
+          [
+            479,
+            603
+          ]
+        ]
+      },
+      {
+        "part": "leg_upper",
+        "poly": [
+          [
+            462,
+            648
+          ],
+          [
+            460,
+            647
+          ],
+          [
+            456,
+            651
+          ],
+          [
+            419,
+            648
+          ],
+          [
+            418,
+            673
+          ],
+          [
+            404,
+            696
+          ],
+          [
+            383,
+            694
+          ],
+          [
+            371,
+            688
+          ],
+          [
+            364,
+            680
+          ],
+          [
+            364,
+            686
+          ],
+          [
+            369,
+            691
+          ],
+          [
+            374,
+            691
+          ],
+          [
+            379,
+            697
+          ],
+          [
+            379,
+            721
+          ],
+          [
+            384,
+            721
+          ],
+          [
+            390,
+            714
+          ],
+          [
+            394,
+            715
+          ],
+          [
+            401,
+            710
+          ],
+          [
+            405,
+            710
+          ],
+          [
+            415,
+            684
+          ],
+          [
+            424,
+            674
+          ],
+          [
+            448,
+            675
+          ],
+          [
+            453,
+            665
+          ],
+          [
+            454,
+            657
+          ],
+          [
+            462,
+            652
+          ]
+        ]
+      },
+      {
+        "part": "pelvis",
+        "poly": [
+          [
+            486,
+            511
+          ],
+          [
+            478,
+            528
+          ],
+          [
+            476,
+            529
+          ],
+          [
+            475,
+            526
+          ],
+          [
+            471,
+            526
+          ],
+          [
+            473,
+            544
+          ],
+          [
+            482,
+            543
+          ],
+          [
+            484,
+            546
+          ],
+          [
+            476,
+            569
+          ],
+          [
+            474,
+            550
+          ],
+          [
+            470,
+            550
+          ],
+          [
+            471,
+            576
+          ],
+          [
+            469,
+            583
+          ],
+          [
+            468,
+            532
+          ],
+          [
+            464,
+            532
+          ],
+          [
+            463,
+            611
+          ],
+          [
+            468,
+            611
+          ],
+          [
+            471,
+            608
+          ],
+          [
+            472,
+            611
+          ],
+          [
+            476,
+            611
+          ],
+          [
+            479,
+            597
+          ],
+          [
+            484,
+            591
+          ],
+          [
+            484,
+            576
+          ],
+          [
+            487,
+            568
+          ],
+          [
+            485,
+            545
+          ]
+        ]
+      }
+    ],
+    "close_fill": {
+      "parts": [
+        "leg_upper",
+        "pelvis"
+      ],
+      "radius": 24
+    }
+  },
+  "stages": [
+    {
+      "name": "A",
+      "from": null,
+      "seed": 51,
+      "prompt": "Remove the character's near-side arm, the glove hand and the whole near-side jacket sleeve with its cuff completely, and paint what was behind them: the dark purple jacket's own side and back panel covering the torso down to the hem, with the hood behind the neck and the open front of the jacket with its violet neon lines, in exactly the same flat cel-shaded anime art style and colors. The jacket stays on the body like a sleeveless vest. Keep the headset, the purple hair, the face, the black bodysuit, the black leggings, the sneakers, the pose, the proportions and the position exactly unchanged."
+    },
+    {
+      "name": "C",
+      "from": null,
+      "seed": 61,
+      "prompt": "Remove the character's whole dark purple hooded jacket completely, including the hood, both sleeves and the cuffs, and paint what was behind it: the black long-sleeve turtleneck bodysuit on the torso and the arms, the shoulders, the back and the hip, with the black leggings and the black fingerless gloves, in exactly the same flat cel-shaded anime art style, black outlines and colors. The arm hangs straight down at her side as before. Keep the headset, the purple hair, the face, the leggings, the sneakers, the pose, the proportions and the position exactly unchanged."
+    },
+    {
+      "name": "E",
+      "from": "C",
+      "seed": 62,
+      "prompt": "Remove the character's near-side arm and hand completely, and paint what was behind them: the side and the back of the torso and the hip of the black bodysuit, in exactly the same flat cel-shaded anime art style, black outlines and colors. The other arm is hidden behind the body and not visible. Keep the headset, the purple hair, the face, the torso, the leggings, the sneakers, the pose, the proportions and the position exactly unchanged."
+    },
+    {
+      "name": "D",
+      "from": "E",
+      "seed": 73,
+      "prompt": "Make the character's clothes torn after a fight, keeping the pose, proportions, art style, outlines and colors exactly the same: the black turtleneck bodysuit has several ragged rips with frayed edges on the shoulder, the upper back, the side of the ribs and the waist, showing small patches of skin with light scratches, but the chest, the belly, the hip and the buttocks stay fully covered by black fabric that is only frayed and slashed at the edges; the black leggings have holes, ladder runs and dangling torn strips on the thighs and the calves showing small patches of skin, but most of the legging fabric remains on both thighs and both calves. She is never naked. Keep the headset, the hair, the face, the sneakers and the silhouette exactly unchanged."
+    }
+  ],
+  "damage": {
+    "stage": "D",
+    "description": "受傷時衣物逐片脫落：完整的衣物零件（armor_order）依序飛走，底下是 D 圖（撕裂的衣物）切出的同形零件（*_dmg）。順序：夾克（帽子、前襟、兩隻袖子）→ 連身衣上半（胸、手臂）→ 連身衣下半 → 褲子大腿 → 褲子小腿。"
+  },
+  "dialog_portrait": {
+    "box": [
+      229,
+      13,
+      529,
+      313
+    ],
+    "out": "art/portraits/mei.png"
+  }
+}
