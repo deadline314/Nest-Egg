@@ -84,6 +84,9 @@ def main() -> None:
             m |= M[p]
         for p in g.get("minus", []):
             m &= ~M[p]
+        if "y" in g:  # a group that SAM over-segments (a knee pad that swallows the whole shin) can be clipped to a pixel-row range
+            yy_ = np.mgrid[0:H, 0:W][0]
+            m &= (yy_ >= g["y"][0]) & (yy_ < g["y"][1])
         m &= ~taken
         m = largest_blobs(m)
         V[name] = m

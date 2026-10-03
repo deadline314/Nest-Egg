@@ -136,6 +136,12 @@ func _rig_aim() -> Vector2:
 	return _aim
 
 
+## 骨架外觀整隻一起淡入淡出（隱形時只剩微弱的輪廓）。
+func _rig_state(_input: RigInput) -> void:
+	if rig != null:
+		rig.modulate.a = _visibility
+
+
 func _draw_overlay() -> void:
 	if fsm.is_in(&"aim"):
 		var locked := fsm.time_in_state >= data.telegraph_time * TRACK_RATIO

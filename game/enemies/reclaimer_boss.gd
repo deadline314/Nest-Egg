@@ -46,10 +46,6 @@ func is_vulnerable() -> bool:
 	return _vulnerable
 
 
-func _rig_aim() -> Vector2:
-	return _direction_to_target() if _target() != null else Vector2(facing, 0.1).normalized()
-
-
 func _uses_activation_culling() -> bool:
 	return false
 
@@ -382,6 +378,8 @@ func _finish_death() -> void:
 # ---------------------------------------------------------------------------
 
 func _draw_overlay() -> void:
+	if rig != null:
+		_draw_blade()
 	# 瞬移前：在新位置畫出現身圓圈。
 	if fsm.is_in(&"blink_out"):
 		var t := clampf(fsm.time_in_state / BLINK_OUT_TIME, 0.0, 1.0)
@@ -407,6 +405,42 @@ func _draw_overlay() -> void:
 		var core := Vector2(0, -data.body_size.y * 0.62)
 		var pulse := 0.5 + 0.5 * sin(_anim_time * 20.0)
 		draw_arc(core, 9.0 + pulse * 3.0, 0.0, TAU, 24, LightKit.glow(Palette.CYAN, 3.0), 2.0)
+
+
+## 骨架外觀：衝刺蓄力時蹲低、刀臂舉到身後，衝刺時前伸；瞬移瞄準時舉槍，電軌預兆時高舉。
+func _rig_aim() -> Vector2:
+	if fsm.is_in(&"dash_windup"):
+		return Vector2(-facing * 0.6, -0.8).normalized()
+	if fsm.is_in(&"dash"):
+		return Vector2(facing, 0.05).normalized()
+	if fsm.is_in(&"blink_aim"):
+		return _direction_to_target()
+	if fsm.is_in(&"rail_windup"):
+		return Vector2(0.0, -1.0)
+	return _direction_to_target() if _target() != null else Vector2(facing, 0.9).normalized()
+
+
+func _rig_state(input: RigInput) -> void:
+	input.crouching = fsm.is_in(&"dash_windup")
+	input.two_handed = false
+	input.dashing = fsm.is_in(&"dash")
+	if rig != null:
+		var tint := Color.WHITE if _phase == 1 else Color(1.0, 0.88, 0.72)
+		rig.modulate = Color(tint, _alpha)
+
+
+## 刀刃接在骨架的前手上；衝刺蓄力與衝刺時發亮。
+func _draw_blade() -> void:
+	var hand := rig.bone(&"hand_front")
+	var forearm := rig.bone(&"arm_front_lower")
+	if hand == null or forearm == null:
+		return
+	var armed := fsm.is_in(&"dash_windup") or fsm.is_in(&"dash")
+	var from := to_local(hand.global_position)
+	var along := (hand.global_position - forearm.global_position).normalized()
+	var blade := LightKit.glow(Palette.WARNING, 3.2 if armed else 1.4)
+	blade.a = _alpha
+	draw_line(from, from + along * 18.0, blade, 2.5)
 
 
 func _draw_body(color: Color) -> void:

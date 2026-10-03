@@ -1,0 +1,32 @@
+{
+  "description": "擲彈兵（grenadier）的建置配方：build_character.py 依這份檔案從頭產出角色。每個步驟的輸入輸出見 design/03-art-pipeline/CHARACTER_PIPELINE.md。",
+  "id": "grenadier",
+  "name": "擲彈兵",
+  "template": "armored",
+  "spec": "tools/comfyui/specs/grenadier_side.json",
+  "rig": "art/rigs/grenadier.json",
+  "work": "art_src/characters/grenadier",
+  "height": 56.0,
+  "scale": 1.0,
+  "weapon": "launcher",
+  "armor": [
+    "shoulder",
+    "forearm",
+    "knee",
+    "chest"
+  ],
+  "glow": "y",
+  "glow_parts": [
+    "head",
+    "torso",
+    "arm_lower"
+  ],
+  "design": {
+    "size": [
+      832,
+      1216
+    ],
+    "pick": 5,
+    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat colors, bold clean black outlines, hard-edged two-tone shading, saturated neon accents. Full body, strict side view facing right, standing upright with the arms relaxed at the sides and empty hands, the far-side leg hidden behind the near leg. a grenadier, sturdy and compact, about six and a half heads tall: an olive-green military uniform with olive armor plates, a helmet with a dark visor, ammo pouches and grenade bandolier across the chest, shoulder pauldron, forearm guards and knee pads, black boots, dark gloves, amber yellow neon lines."
+  }
+}

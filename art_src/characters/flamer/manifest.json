@@ -1,0 +1,25 @@
+[
+  {
+    "step": "textures",
+    "seconds": 1.6,
+    "outputs": [
+      "art\\characters\\flamer\\character.json",
+      "art\\rigs\\flamer.json",
+      "art\\characters\\flamer\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 2.9,
+    "outputs": [
+      "art\\characters\\flamer\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 4.6,
+    "outputs": [
+      ".godot"
+    ]
+  }
+]

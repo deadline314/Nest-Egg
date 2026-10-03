@@ -75,7 +75,23 @@ func _recover_tick(delta: float) -> void:
 		fsm.transition(&"patrol")
 
 
+## 骨架外觀：蓄力時蹲伏、刀臂朝後上方；撲出時刀臂朝前。
+func _rig_aim() -> Vector2:
+	if fsm.is_in(&"windup"):
+		return Vector2(-facing * 0.6, -0.8).normalized()
+	if fsm.is_in(&"leap"):
+		return Vector2(facing, 0.1).normalized()
+	return Vector2(facing, 0.9).normalized()
+
+
+func _rig_state(input: RigInput) -> void:
+	input.crouching = fsm.is_in(&"windup")
+	input.two_handed = false
+
+
 func _draw_overlay() -> void:
+	if rig != null:
+		_draw_blade()
 	# 預兆：斬擊軌跡的預告線（蓄力越久越亮）。
 	if fsm.is_in(&"windup"):
 		var t := clampf(fsm.time_in_state / maxf(0.01, data.telegraph_time), 0.0, 1.0)
@@ -83,6 +99,19 @@ func _draw_overlay() -> void:
 		color.a = 0.25 + 0.5 * t
 		var from := Vector2(facing * 8.0, -data.body_size.y * 0.55)
 		draw_line(from, from + Vector2(facing * 90.0, -30.0), color, 1.0)
+
+
+## 刀刃：接在骨架的前手上，沿前臂方向延伸；蓄力與撲出時發亮。
+func _draw_blade() -> void:
+	var armed := fsm.is_in(&"windup") or fsm.is_in(&"leap")
+	var hand := rig.bone(&"hand_front")
+	var forearm := rig.bone(&"arm_front_lower")
+	if hand == null or forearm == null:
+		return
+	var from := to_local(hand.global_position)
+	var along := (hand.global_position - forearm.global_position).normalized()
+	var blade := LightKit.glow(Palette.DANGER if armed else Palette.WARNING, 3.0 if armed else 1.2)
+	draw_line(from, from + along * 16.0, blade, 2.0)
 
 
 func _draw_body(color: Color) -> void:

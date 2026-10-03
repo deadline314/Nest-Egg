@@ -1,0 +1,142 @@
+{
+  "id": "grenadier",
+  "description": "人形骨架（7.5 頭身版）。座標單位為世界像素，原點在腳底，面向右（+X），Y 軸向下；骨頭靜止時沿 +Y 延伸。長度由立繪量出（由 tools/comfyui/cut_layers.py 依分件圖層切出）。",
+  "bones": [
+    {
+      "name": "hip",
+      "parent": "",
+      "pos": [
+        0.0,
+        -28.22
+      ]
+    },
+    {
+      "name": "chest",
+      "parent": "hip",
+      "pos": [
+        -0.28,
+        -6.33
+      ]
+    },
+    {
+      "name": "neck",
+      "parent": "chest",
+      "pos": [
+        -0.52,
+        -11.76
+      ]
+    },
+    {
+      "name": "head",
+      "parent": "neck",
+      "pos": [
+        0.0,
+        -0.28
+      ]
+    },
+    {
+      "name": "arm_back_upper",
+      "parent": "chest",
+      "pos": [
+        -3.04,
+        -9.54
+      ]
+    },
+    {
+      "name": "arm_back_lower",
+      "parent": "arm_back_upper",
+      "pos": [
+        0.0,
+        8.89
+      ]
+    },
+    {
+      "name": "hand_back",
+      "parent": "arm_back_lower",
+      "pos": [
+        0.0,
+        8.01
+      ]
+    },
+    {
+      "name": "arm_front_upper",
+      "parent": "chest",
+      "pos": [
+        -2.44,
+        -9.54
+      ]
+    },
+    {
+      "name": "arm_front_lower",
+      "parent": "arm_front_upper",
+      "pos": [
+        0.0,
+        8.89
+      ]
+    },
+    {
+      "name": "hand_front",
+      "parent": "arm_front_lower",
+      "pos": [
+        0.0,
+        8.01
+      ]
+    },
+    {
+      "name": "leg_back_upper",
+      "parent": "hip",
+      "pos": [
+        -0.7,
+        0.0
+      ]
+    },
+    {
+      "name": "leg_back_lower",
+      "parent": "leg_back_upper",
+      "pos": [
+        0.0,
+        12.28
+      ]
+    },
+    {
+      "name": "foot_back",
+      "parent": "leg_back_lower",
+      "pos": [
+        0.0,
+        11.93
+      ]
+    },
+    {
+      "name": "leg_front_upper",
+      "parent": "hip",
+      "pos": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "leg_front_lower",
+      "parent": "leg_front_upper",
+      "pos": [
+        0.0,
+        12.28
+      ]
+    },
+    {
+      "name": "foot_front",
+      "parent": "leg_front_lower",
+      "pos": [
+        0.0,
+        11.93
+      ]
+    }
+  ],
+  "weapon_anchor": {
+    "bone": "chest",
+    "pos": [
+      -1.64,
+      -8.94
+    ],
+    "reach": 9.63
+  }
+}

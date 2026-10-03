@@ -1,0 +1,32 @@
+{
+  "description": "重裝機槍手（heavy_gunner）的建置配方：build_character.py 依這份檔案從頭產出角色。每個步驟的輸入輸出見 design/03-art-pipeline/CHARACTER_PIPELINE.md。",
+  "id": "heavy_gunner",
+  "name": "重裝機槍手",
+  "template": "armored",
+  "spec": "tools/comfyui/specs/heavy_gunner_side.json",
+  "rig": "art/rigs/heavy_gunner.json",
+  "work": "art_src/characters/heavy_gunner",
+  "height": 69.0,
+  "scale": 1.0,
+  "weapon": "minigun",
+  "armor": [
+    "shoulder",
+    "forearm",
+    "knee",
+    "chest"
+  ],
+  "glow": "m",
+  "glow_parts": [
+    "head",
+    "torso",
+    "arm_lower"
+  ],
+  "design": {
+    "size": [
+      832,
+      1216
+    ],
+    "pick": 5,
+    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat colors, bold clean black outlines, hard-edged two-tone shading, saturated neon accents. Full body, strict side view facing right, standing upright with the arms relaxed at the sides and empty hands, the far-side leg hidden behind the near leg. a heavy gunner, very large and broad, about five and a half heads tall: full-body heavy dark grey armor with bulky shoulder pauldrons, a thick chest plate, big forearm guards and knee armor, a closed helmet with a narrow magenta visor, an ammo belt, black boots, heavy gloves, hot-pink neon lines."
+  }
+}

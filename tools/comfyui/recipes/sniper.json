@@ -1,0 +1,32 @@
+{
+  "description": "狙擊手（sniper）的建置配方：build_character.py 依這份檔案從頭產出角色。每個步驟的輸入輸出見 design/03-art-pipeline/CHARACTER_PIPELINE.md。",
+  "id": "sniper",
+  "name": "狙擊手",
+  "template": "armored",
+  "spec": "tools/comfyui/specs/sniper_side.json",
+  "rig": "art/rigs/sniper.json",
+  "work": "art_src/characters/sniper",
+  "height": 56.0,
+  "scale": 1.0,
+  "weapon": "sniper",
+  "armor": [
+    "shoulder",
+    "forearm",
+    "knee",
+    "chest"
+  ],
+  "glow": "r",
+  "glow_parts": [
+    "head",
+    "torso",
+    "arm_lower"
+  ],
+  "design": {
+    "size": [
+      832,
+      1216
+    ],
+    "pick": 5,
+    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat colors, bold clean black outlines, hard-edged two-tone shading, saturated neon accents. Full body, strict side view facing right, standing upright with the arms relaxed at the sides and empty hands, the far-side leg hidden behind the near leg. a sniper, tall and lean, about eight heads tall: a dark green-grey skin-tight tactical suit, a hood mask covering the whole head with a single glowing red scope lens over one eye, light chest armor plate, shoulder pauldron, forearm guards and knee pads in dark green-grey, thin red neon lines, black boots, dark gloves."
+  }
+}

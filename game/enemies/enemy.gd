@@ -148,6 +148,7 @@ func _drive_rig(delta: float) -> void:
 	_rig_input.aim_dir = _rig_aim()
 	_rig_input.staggered = _stun_left > 0.0
 	_rig_input.dead = _dying
+	_rig_state(_rig_input)
 	rig.animate(delta, _rig_input)
 	_rig_input.recoil = 0.0
 	_rig_input.hurt = false
@@ -166,6 +167,11 @@ func _uses_activation_culling() -> bool:
 
 func _guard(_info: DamageInfo) -> Hurtbox.Guard:
 	return Hurtbox.Guard.NONE
+
+
+## （可選）骨架動畫輸入的補充（例如蓄力時蹲下），每影格在播放動畫前呼叫。
+func _rig_state(_input: RigInput) -> void:
+	pass
 
 
 ## 先扣護盾，再交給子類別的格擋判定。

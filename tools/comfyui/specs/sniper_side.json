@@ -1,0 +1,528 @@
+{
+  "description": "狙擊手（sniper）的分件規格，由 tools/comfyui/new_character.py 的 armored 範本產生。groups：SAM 3.1 文字提示分出的群組（前面的優先）；parts：把群組切成零件並指定掛載；y 是水平切線（像素）。joints 與縮放數字由 fit_joints.py 在 pose 步驟填入，手動填的不會被蓋掉。",
+  "id": "sniper",
+  "display_name": "狙擊手",
+  "scale": 1.0,
+  "height": 56.0,
+  "seam": 10,
+  "illustration_px_per_wp": 21.43,
+  "tex_px_per_wp": 20,
+  "ground_y": 1205,
+  "joints": {
+    "hip": [
+      411.7,
+      551.4
+    ],
+    "waist": [
+      405.4,
+      424.7
+    ],
+    "neck": [
+      393.6,
+      189.4
+    ],
+    "head": [
+      393.6,
+      183.4
+    ],
+    "head_top": [
+      401.6,
+      5.0
+    ],
+    "shoulder": [
+      351.3,
+      219.3
+    ],
+    "elbow": [
+      350.9,
+      410.7
+    ],
+    "palm": [
+      386.5,
+      588.5
+    ],
+    "fingertip": [
+      408.6,
+      698.7
+    ],
+    "knee": [
+      399.7,
+      822.9
+    ],
+    "ankle": [
+      368.6,
+      1110.5
+    ],
+    "toe": [
+      482.2,
+      1171.7
+    ]
+  },
+  "groups": {
+    "hand": {
+      "sam": [
+        "gloved hand"
+      ]
+    },
+    "armor_shoulder": {
+      "sam": [
+        "shoulder armor pauldron"
+      ]
+    },
+    "armor_forearm": {
+      "sam": [
+        "forearm armor guard"
+      ]
+    },
+    "armor_knee": {
+      "sam": [
+        "knee armor pad"
+      ]
+    },
+    "armor_chest": {
+      "sam": [
+        "chest armor plate"
+      ]
+    },
+    "arm": {
+      "sam": [
+        "arm sleeve"
+      ],
+      "complete": {
+        "stage": "P",
+        "occluders": [
+          "hand",
+          "armor_shoulder",
+          "armor_forearm"
+        ],
+        "near": 120
+      }
+    },
+    "boot": {
+      "sam": [
+        "boot"
+      ]
+    },
+    "head": {
+      "sam": [
+        "head"
+      ]
+    },
+    "body": {
+      "sam": [
+        "torso",
+        "legs"
+      ],
+      "complete": {
+        "stage": "P",
+        "occluders": [
+          "arm",
+          "hand",
+          "armor_shoulder",
+          "armor_forearm",
+          "armor_knee",
+          "armor_chest"
+        ],
+        "near": 120
+      }
+    }
+  },
+  "parts": {
+    "pelvis": {
+      "group": "body",
+      "from": "waist",
+      "to": "hip",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "pelvis",
+          "bone": "hip",
+          "z": 0
+        }
+      ],
+      "y": [
+        445,
+        571
+      ],
+      "pivot": "hip"
+    },
+    "torso": {
+      "group": "body",
+      "from": "waist",
+      "to": "neck",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "torso",
+          "bone": "chest",
+          "z": 1
+        }
+      ],
+      "y": [
+        0,
+        445
+      ],
+      "pivot": "waist"
+    },
+    "head": {
+      "group": "head",
+      "from": "head",
+      "to": "head_top",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "head",
+          "bone": "head",
+          "z": 5
+        }
+      ],
+      "pivot": "head"
+    },
+    "leg_upper": {
+      "group": "body",
+      "from": "hip",
+      "to": "knee",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "leg_back_upper",
+          "bone": "leg_back_upper",
+          "z": -5,
+          "tint": 0.62
+        },
+        {
+          "name": "leg_front_upper",
+          "bone": "leg_front_upper",
+          "z": 3
+        }
+      ],
+      "y": [
+        571,
+        823
+      ]
+    },
+    "leg_lower": {
+      "group": "body",
+      "from": "knee",
+      "to": "ankle",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "leg_back_lower",
+          "bone": "leg_back_lower",
+          "z": -5,
+          "tint": 0.62
+        },
+        {
+          "name": "leg_front_lower",
+          "bone": "leg_front_lower",
+          "z": 3
+        }
+      ],
+      "y": [
+        823,
+        4000
+      ]
+    },
+    "foot": {
+      "group": "boot",
+      "from": "ankle",
+      "to": "toe",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "foot_back",
+          "bone": "foot_back",
+          "z": -5,
+          "tint": 0.62
+        },
+        {
+          "name": "foot_front",
+          "bone": "foot_front",
+          "z": 3
+        }
+      ],
+      "pivot": "ankle"
+    },
+    "arm_upper": {
+      "group": "arm",
+      "from": "shoulder",
+      "to": "elbow",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "arm_back_upper",
+          "bone": "arm_back_upper",
+          "z": -7,
+          "tint": 0.62
+        },
+        {
+          "name": "arm_front_upper",
+          "bone": "arm_front_upper",
+          "z": 8
+        }
+      ],
+      "y": [
+        0,
+        411
+      ]
+    },
+    "arm_lower": {
+      "group": "arm",
+      "from": "elbow",
+      "to": "palm",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "arm_back_lower",
+          "bone": "arm_back_lower",
+          "z": -7,
+          "tint": 0.62
+        },
+        {
+          "name": "arm_front_lower",
+          "bone": "arm_front_lower",
+          "z": 8
+        }
+      ],
+      "y": [
+        411,
+        4000
+      ]
+    },
+    "hand": {
+      "group": "hand",
+      "from": "palm",
+      "to": "fingertip",
+      "mode": "hand",
+      "uses": [
+        {
+          "name": "hand_back",
+          "bone": "hand_back",
+          "z": -6,
+          "tint": 0.62
+        },
+        {
+          "name": "hand_front",
+          "bone": "hand_front",
+          "z": 10
+        }
+      ],
+      "pivot": "palm"
+    },
+    "armor_chest": {
+      "group": "armor_chest",
+      "from": "waist",
+      "to": "neck",
+      "mode": "upright",
+      "pivot": "waist",
+      "uses": [
+        {
+          "name": "armor_chest",
+          "bone": "chest",
+          "z": 2,
+          "armor_order": 4
+        }
+      ]
+    },
+    "armor_shoulder": {
+      "group": "armor_shoulder",
+      "from": "shoulder",
+      "to": "elbow",
+      "mode": "bone",
+      "pivot": "shoulder",
+      "uses": [
+        {
+          "name": "armor_shoulder_back",
+          "bone": "arm_back_upper",
+          "z": -6,
+          "tint": 0.62,
+          "armor_order": 1
+        },
+        {
+          "name": "armor_shoulder",
+          "bone": "arm_front_upper",
+          "z": 9,
+          "armor_order": 1
+        }
+      ]
+    },
+    "armor_forearm": {
+      "group": "armor_forearm",
+      "from": "elbow",
+      "to": "palm",
+      "mode": "bone",
+      "pivot": "elbow",
+      "uses": [
+        {
+          "name": "armor_forearm_back",
+          "bone": "arm_back_lower",
+          "z": -6,
+          "tint": 0.62,
+          "armor_order": 2
+        },
+        {
+          "name": "armor_forearm",
+          "bone": "arm_front_lower",
+          "z": 9,
+          "armor_order": 2
+        }
+      ]
+    },
+    "armor_knee": {
+      "group": "armor_knee",
+      "from": "knee",
+      "to": "ankle",
+      "mode": "bone",
+      "pivot": "knee",
+      "uses": [
+        {
+          "name": "armor_knee_back",
+          "bone": "leg_back_lower",
+          "z": -4,
+          "tint": 0.62,
+          "armor_order": 3
+        },
+        {
+          "name": "armor_knee",
+          "bone": "leg_front_lower",
+          "z": 4,
+          "armor_order": 3
+        }
+      ]
+    }
+  },
+  "glow": {
+    "head": "r",
+    "torso": "r",
+    "arm_lower": "r"
+  },
+  "bones": [
+    {
+      "name": "hip",
+      "parent": "",
+      "from": "ground_hip"
+    },
+    {
+      "name": "chest",
+      "parent": "hip",
+      "at": "waist"
+    },
+    {
+      "name": "neck",
+      "parent": "chest",
+      "at": "neck"
+    },
+    {
+      "name": "head",
+      "parent": "neck",
+      "at": "head"
+    },
+    {
+      "name": "arm_back_upper",
+      "parent": "chest",
+      "at": "shoulder",
+      "dx": -0.6,
+      "tip": "elbow"
+    },
+    {
+      "name": "arm_back_lower",
+      "parent": "arm_back_upper",
+      "tip": "palm"
+    },
+    {
+      "name": "hand_back",
+      "parent": "arm_back_lower",
+      "tip": "fingertip"
+    },
+    {
+      "name": "arm_front_upper",
+      "parent": "chest",
+      "at": "shoulder",
+      "dx": 0.0,
+      "tip": "elbow"
+    },
+    {
+      "name": "arm_front_lower",
+      "parent": "arm_front_upper",
+      "tip": "palm"
+    },
+    {
+      "name": "hand_front",
+      "parent": "arm_front_lower",
+      "tip": "fingertip"
+    },
+    {
+      "name": "leg_back_upper",
+      "parent": "hip",
+      "at": "hip",
+      "dx": -0.7,
+      "tip": "knee"
+    },
+    {
+      "name": "leg_back_lower",
+      "parent": "leg_back_upper",
+      "tip": "ankle"
+    },
+    {
+      "name": "foot_back",
+      "parent": "leg_back_lower"
+    },
+    {
+      "name": "leg_front_upper",
+      "parent": "hip",
+      "at": "hip",
+      "dx": 0.0,
+      "tip": "knee"
+    },
+    {
+      "name": "leg_front_lower",
+      "parent": "leg_front_upper",
+      "tip": "ankle"
+    },
+    {
+      "name": "foot_front",
+      "parent": "leg_front_lower"
+    }
+  ],
+  "weapon_anchor": {
+    "bone": "chest",
+    "from": "waist",
+    "to": "shoulder",
+    "dx": 0.8,
+    "dy": 0.6,
+    "reach": 9.91
+  },
+  "refine": {
+    "defringe": {
+      "width": 2
+    },
+    "speckle": 30,
+    "smooth_alpha": {
+      "parts": [
+        "pelvis",
+        "torso",
+        "head",
+        "leg_upper",
+        "leg_lower",
+        "foot",
+        "arm_upper",
+        "arm_lower",
+        "hand",
+        "armor_chest",
+        "armor_shoulder",
+        "armor_forearm",
+        "armor_knee"
+      ],
+      "sigma": 1.0
+    }
+  },
+  "stages": [
+    {
+      "name": "P",
+      "from": null,
+      "seed": 51,
+      "prompt": "Remove all the armor plates completely (the shoulder armor, the forearm guards, the knee pads and the chest plate) and paint the undersuit that was beneath them, in exactly the same art style and colors. Keep everything else exactly unchanged."
+    }
+  ]
+}

@@ -94,6 +94,23 @@ def main() -> None:
         transforms[name] = (A, cw, ch)
         print(f"  {name}: {cw}x{ch} pivot=({piv[0]:.1f},{piv[1]:.1f})")
 
+    # ---- carried-over textures (e.g. a riot shield drawn earlier): <dir>/<name>.png (+_glow.png) and <name>.json {size, pivot, factor, use} --------
+    extra_uses: list[dict] = []
+    for item in spec.get("carry_over", []):
+        src_dir_c = Path(item["dir"])
+        meta = json.loads((src_dir_c / f"{item['name']}.json").read_text(encoding="utf8"))
+        f = meta.get("factor", 1)
+        for suffix in ("", "_glow"):
+            src_png = src_dir_c / f"{item['name']}{suffix}.png"
+            if src_png.exists():
+                im = Image.open(src_png).convert("RGBA")
+                im.resize((im.width * f, im.height * f), Image.LANCZOS).save(out_parts / f"{item['name']}{suffix}.png")
+        entry = {"file": f"parts/{item['name']}.png", "size": [meta["size"][0] * f, meta["size"][1] * f], "pivot": [meta["pivot"][0] * f, meta["pivot"][1] * f], "note": NOTE}
+        if (src_dir_c / f"{item['name']}_glow.png").exists():
+            entry["glow"] = f"parts/{item['name']}_glow.png"
+        textures[item["name"]] = entry
+        extra_uses.append(dict(meta["use"], texture=item["name"]))
+
     # ---- rig -----------------------------------------------------------------------------------------------------
     ground = spec["ground_y"] * k
     by_name = {b["name"]: b for b in spec["bones"]}
@@ -134,6 +151,7 @@ def main() -> None:
     for name, p in spec["parts"].items():
         if name in textures:
             uses += [dict(u, texture=name) for u in p["uses"]]
+    uses += extra_uses
     uses.sort(key=lambda e: e["z"])
     char = {"id": spec["id"], "display_name": spec["display_name"], "rig": "res://art/rigs/" + Path(args.rig).name,
             "texture_scale": round(1.0 / px_wp, 5), "scale": spec["scale"]}
@@ -149,7 +167,7 @@ def main() -> None:
                             "blink": {"part": blink["part"], "eye": sum((to_canvas(q) for q in blink["eye"]), []), "lid": sum((to_canvas(q) for q in blink["lid"]), [])}}
     char["description"] = "外觀（skin）定義：textures 是零件圖片的尺寸與支點；parts 是把圖片掛到骨頭上的方式。" + NOTE + "。"
     char["textures"] = textures
-    char["parts"] = [{"name": u["name"], "texture": u["texture"], "bone": u["bone"], "z": u["z"], **({"tint": u["tint"]} if "tint" in u else {}), **({"armor_order": u["armor_order"]} if "armor_order" in u else {}), **({"under": True} if u.get("under") else {})} for u in uses]
+    char["parts"] = [{"name": u["name"], "texture": u["texture"], "bone": u["bone"], "z": u["z"], **({"tint": u["tint"]} if "tint" in u else {}), **({"armor_order": u["armor_order"]} if "armor_order" in u else {}), **({"under": True} if u.get("under") else {}), **({"offset": u["offset"]} if "offset" in u else {})} for u in uses]
     # swap in the new files only now that everything above worked
     (out_parts / ".gdignore").unlink()
     if final_parts.exists():

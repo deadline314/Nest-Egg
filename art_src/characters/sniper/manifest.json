@@ -1,0 +1,55 @@
+[
+  {
+    "step": "parts",
+    "seconds": 80.6,
+    "outputs": [
+      "art_src\\characters\\sniper\\06_parts",
+      "art_src\\characters\\sniper\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.0,
+    "outputs": [
+      "art_src\\characters\\sniper\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 1.7,
+    "outputs": [
+      "art\\characters\\sniper\\character.json",
+      "art\\rigs\\sniper.json",
+      "art\\characters\\sniper\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 2.2,
+    "outputs": [
+      "art\\characters\\sniper\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 5.3,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "preview",
+    "seconds": 13.0,
+    "outputs": [
+      "art_src\\characters\\sniper\\08_preview\\poses.png",
+      "art_src\\characters\\sniper\\08_preview\\closeup.png",
+      "art_src\\characters\\sniper\\08_preview\\head.png",
+      "art_src\\characters\\sniper\\08_preview\\damage.png"
+    ]
+  }
+]

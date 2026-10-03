@@ -1,0 +1,32 @@
+{
+  "description": "監管者（warden）的建置配方：build_character.py 依這份檔案從頭產出角色。每個步驟的輸入輸出見 design/03-art-pipeline/CHARACTER_PIPELINE.md。",
+  "id": "warden",
+  "name": "監管者",
+  "template": "armored",
+  "spec": "tools/comfyui/specs/warden_side.json",
+  "rig": "art/rigs/warden.json",
+  "work": "art_src/characters/warden",
+  "height": 97.0,
+  "scale": 1.0,
+  "weapon": "minigun",
+  "armor": [
+    "shoulder",
+    "forearm",
+    "knee",
+    "chest"
+  ],
+  "glow": "r",
+  "glow_parts": [
+    "head",
+    "torso",
+    "arm_lower"
+  ],
+  "design": {
+    "size": [
+      832,
+      1216
+    ],
+    "pick": 5,
+    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat colors, bold clean black outlines, hard-edged two-tone shading, saturated neon accents. Full body, strict side view facing right, standing upright with the arms relaxed at the sides and empty hands, the far-side leg hidden behind the near leg. a boss called Warden, huge and imposing, about six heads tall: massive silver-white heavy armor with enormous shoulder pauldrons, a very thick chest plate, huge forearm guards and knee armor, a smooth expressionless faceless helmet with a thin red visor line, black boots, big gloves, red neon lines."
+  }
+}

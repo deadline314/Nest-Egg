@@ -1,0 +1,55 @@
+[
+  {
+    "step": "parts",
+    "seconds": 78.5,
+    "outputs": [
+      "art_src\\characters\\heavy_gunner\\06_parts",
+      "art_src\\characters\\heavy_gunner\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.1,
+    "outputs": [
+      "art_src\\characters\\heavy_gunner\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 1.9,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\character.json",
+      "art\\rigs\\heavy_gunner.json",
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.4,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 5.0,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "preview",
+    "seconds": 13.2,
+    "outputs": [
+      "art_src\\characters\\heavy_gunner\\08_preview\\poses.png",
+      "art_src\\characters\\heavy_gunner\\08_preview\\closeup.png",
+      "art_src\\characters\\heavy_gunner\\08_preview\\head.png",
+      "art_src\\characters\\heavy_gunner\\08_preview\\damage.png"
+    ]
+  }
+]

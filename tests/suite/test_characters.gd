@@ -49,6 +49,14 @@ func _reference_spec(tex_name: String) -> Dictionary:
 	return {}
 
 
+## 目前顯示中的裝甲零件數（名稱以 armor_ 開頭的 Sprite2D）。
+func _visible_armor(rig: CharacterRig) -> int:
+	var visible := 0
+	for node in rig.find_children("armor_*", "Sprite2D", true, false):
+		visible += 1 if (node as Sprite2D).visible else 0
+	return visible
+
+
 func _texture_image(path: String) -> Image:
 	var tex := load(path) as Texture2D if ResourceLoader.exists(path) else null
 	return tex.get_image() if tex != null else null
@@ -128,6 +136,8 @@ func _test_alignment() -> void:
 func _test_portraits() -> void:
 	for id: String in PORTRAIT_SAMPLES.keys():
 		var style: Dictionary = RigLibrary.character(id).get("painter_style", {})
+		if style.is_empty():  # 重畫過的角色沒有程式繪製的設定，頭像由新立繪切出，不比對
+			continue
 		var portrait := _texture_image("res://art/portraits/%s.png" % id)
 		check(portrait != null, "portrait exists for %s" % id)
 		if portrait == null:
@@ -192,16 +202,11 @@ func _test_rigs() -> void:
 			check(rig.muzzle_global().x > rig.global_position.x + 6.0, "%s: muzzle is in front of the character" % id)
 		var armor := rig.armor_count()
 		if COMBATANTS.has(id):
+			var total := _visible_armor(rig)  # 一步可以有好幾片（前後側的同一種護甲），所以用零件數而不是步數比較
 			rig.set_armor_ratio(0.0, false)
-			var visible := 0
-			for node in rig.find_children("armor_*", "Sprite2D", true, false):
-				visible += 1 if (node as Sprite2D).visible else 0
-			check(visible == 0, "%s: all armor falls off at zero health" % id)
+			check(_visible_armor(rig) == 0, "%s: all armor falls off at zero health" % id)
 			rig.set_armor_ratio(1.0, false)
-			visible = 0
-			for node in rig.find_children("armor_*", "Sprite2D", true, false):
-				visible += 1 if (node as Sprite2D).visible else 0
-			check(visible == armor, "%s: armor is restored at full health" % id)
+			check(_visible_armor(rig) == total and total >= armor, "%s: armor is restored at full health" % id)
 		else:
 			check(armor == 0, "%s: civilians have no breakable armor" % id)
 		rig.queue_free()

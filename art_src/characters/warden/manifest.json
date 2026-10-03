@@ -1,0 +1,72 @@
+[
+  {
+    "step": "design",
+    "seconds": 55.2,
+    "outputs": [
+      "art_src\\characters\\warden\\01_design\\design_s5.png",
+      "art_src\\characters\\warden\\base_rgba.png"
+    ]
+  },
+  {
+    "step": "pose",
+    "seconds": 14.1,
+    "outputs": [
+      "art_src\\characters\\warden\\keypoints.json",
+      "art_src\\characters\\warden\\02_pose\\overlay.png",
+      "art_src\\characters\\warden\\02_pose\\joints.png"
+    ]
+  },
+  {
+    "step": "parts",
+    "seconds": 81.6,
+    "outputs": [
+      "art_src\\characters\\warden\\06_parts",
+      "art_src\\characters\\warden\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.3,
+    "outputs": [
+      "art_src\\characters\\warden\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.6,
+    "outputs": [
+      "art\\characters\\warden\\character.json",
+      "art\\rigs\\warden.json",
+      "art\\characters\\warden\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 6.0,
+    "outputs": [
+      "art\\characters\\warden\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 5.3,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "preview",
+    "seconds": 13.4,
+    "outputs": [
+      "art_src\\characters\\warden\\08_preview\\poses.png",
+      "art_src\\characters\\warden\\08_preview\\closeup.png",
+      "art_src\\characters\\warden\\08_preview\\head.png",
+      "art_src\\characters\\warden\\08_preview\\damage.png"
+    ]
+  }
+]
