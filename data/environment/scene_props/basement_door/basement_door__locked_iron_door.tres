@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"basement_door__locked_iron_door"
+display_name = "鎖著的地下室鐵門"
+texture = "res://art/environment/scene_props/basement_door/basement_door__locked_iron_door.png"
+light_energy = 0.5
+light_radius = 34
+light_color = Color(1.0, 0.8, 0.35, 1)
+flicker = 0.06
+light_offset = Vector2(15.5, 61.1)
+has_glow = true
+size = Vector2(31.1, 63)
+category = &"scene"

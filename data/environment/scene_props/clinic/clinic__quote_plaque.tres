@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"clinic__quote_plaque"
+display_name = "「讓每個人都有第二次」牆牌"
+texture = "res://art/environment/scene_props/clinic/clinic__quote_plaque.png"
+has_glow = true
+size = Vector2(55.4, 33)
+category = &"scene"

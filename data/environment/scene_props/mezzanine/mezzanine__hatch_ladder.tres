@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"mezzanine__hatch_ladder"
+display_name = "維修爬梯與頂艙"
+texture = "res://art/environment/scene_props/mezzanine/mezzanine__hatch_ladder.png"
+has_glow = true
+size = Vector2(15.6, 90)
+category = &"scene"

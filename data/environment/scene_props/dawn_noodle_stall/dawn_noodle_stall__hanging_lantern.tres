@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"dawn_noodle_stall__hanging_lantern"
+display_name = "掛著的小燈籠"
+texture = "res://art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__hanging_lantern.png"
+light_energy = 0.5
+light_radius = 36
+light_color = Color(1.0, 0.65, 0.3, 1)
+flicker = 0.05
+sway_hang = true
+sway = 1.0
+light_offset = Vector2(8.5, 21.4)
+has_glow = true
+size = Vector2(16.9, 33)
+category = &"scene"

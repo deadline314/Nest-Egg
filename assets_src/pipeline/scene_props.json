@@ -1,0 +1,3600 @@
+{
+ "styles": {
+  "dark": "Anime cel-shaded game prop in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, bold clean dark outlines, hard-edged two-tone cel shading with a bright cool-white rim light on the lit edges, natural local colours (rust brown, steel grey, faded red, teal, warm yellow) kept clearly lighter than a dark navy night background, small neon cyan and magenta accents, straight-on orthographic side elevation with no perspective, one single object centered, no ground, no cast shadow, no text.",
+  "neon": "Anime cel-shaded game prop in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, bold clean dark outlines, hard-edged two-tone cel shading with a bright cool-white rim light on the lit edges, natural local colours (rust brown, steel grey, faded red, teal, warm yellow) kept clearly lighter than a dark navy night background, small neon cyan and magenta accents, straight-on orthographic side elevation with no perspective, one single object centered, no ground, no cast shadow, no text.",
+  "nature": "Anime cel-shaded game plant in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, bold clean dark outlines, hard-edged two-tone cel shading with a bright cool-white rim light on the lit edges, natural local colours (leaf green, teal green, olive, warm brown bark) kept clearly lighter than a dark navy night background, straight-on orthographic side elevation with no perspective, one single plant centered, no ground, no cast shadow, no text.",
+  "dark_text": "Anime cel-shaded game prop in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, bold clean dark outlines, hard-edged two-tone cel shading with a bright cool-white rim light on the lit edges, natural local colours (rust brown, steel grey, faded red, teal, warm yellow) kept clearly lighter than a dark navy night background, small neon cyan and magenta accents, straight-on orthographic side elevation with no perspective, one single object centered, no ground, no cast shadow, any writing exactly as specified in the description.",
+  "day": "Anime cel-shaded game prop in the style of Studio Trigger's Cyberpunk Edgerunners, painted for a bright sunlit daytime scene: flat colour areas, bold clean dark outlines, hard-edged two-tone cel shading with a soft warm gold rim light on the lit edges, bright clean light colours (white, cream, pale grey, soft gold, sky blue, fresh green), straight-on orthographic side elevation with no perspective, one single object centered, no ground, no cast shadow, no text.",
+  "day_text": "Anime cel-shaded game prop in the style of Studio Trigger's Cyberpunk Edgerunners, painted for a bright sunlit daytime scene: flat colour areas, bold clean dark outlines, hard-edged two-tone cel shading with a soft warm gold rim light on the lit edges, bright clean light colours (white, cream, pale grey, soft gold, sky blue, fresh green), straight-on orthographic side elevation with no perspective, one single object centered, no ground, no cast shadow, any writing exactly as specified in the description.",
+  "indoor": "Anime cel-shaded game prop in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, bold clean dark outlines, hard-edged two-tone cel shading with a bright cool-white rim light on the lit edges, natural local colours kept bright and clearly readable against a dim room, straight-on orthographic side elevation with no perspective, one single object centered, no ground, no cast shadow, no text."
+ },
+ "defaults": {
+  "texture_scale": 6,
+  "grade": {
+   "brightness": 1.08,
+   "saturation": 1.05,
+   "tint": [
+    0.97,
+    1.0,
+    1.06
+   ],
+   "contrast": 1.05,
+   "gamma": 1.0
+  }
+ },
+ "props": [
+  {
+   "id": "pawnshop_front__tag_shelf",
+   "scene": "pawnshop_front",
+   "seed": 1093,
+   "fit": "meters",
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A tall wooden pawnshop shelf unit seen straight from the front, five shelves of warm brown wood in a plain frame crammed with second-hand goods: an alarm clock, a banjo, a desk lamp, glass jars, a toolbox, a toy robot, a kettle, a pair of boots, every single item with a small cream paper tag tied on with string and blank pencil-scribbled lines, proportions about five wide to six tall.",
+   "anchor": {
+    "size": [
+     60.0,
+     72.0
+    ]
+   },
+   "height_m": 2.4,
+   "new": {
+    "display_name": "貼滿標籤的高貨架",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "pawnshop_front__leak_bucket",
+   "scene": "pawnshop_front",
+   "seed": 7527,
+   "fit": "meters",
+   "style": "dark",
+   "glow": [
+    {
+     "hue": [
+      165,
+      215
+     ],
+     "smin": 0.25,
+     "vmin": 0.65,
+     "soft": 1.2
+    }
+   ],
+   "data": {
+    "ripple": true
+   },
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A leaking ceiling corner seen from the front: a short stub of rusty drain pipe at the top with a bright water drop falling from its end, and below it a dented grey galvanised metal bucket half full of water, the surface of the water shining pale cyan with a ripple ring, wet dark streaks on the pipe, proportions about three wide to five tall.",
+   "anchor": {
+    "size": [
+     25.2,
+     42.0
+    ]
+   },
+   "height_m": 1.4,
+   "new": {
+    "display_name": "漏水桶",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "pawnshop_front__pawn_sign",
+   "scene": "pawnshop_front",
+   "seed": 6713,
+   "fit": "meters",
+   "style": "dark_text",
+   "glow": "neon",
+   "data": {
+    "flicker": 0.1,
+    "light_color": "Color(1.0, 0.7, 0.3, 1)",
+    "light_radius": 40,
+    "light_energy": 0.6
+   },
+   "texture_scale": 8,
+   "prompt": "A wide hanging pawnshop sign: a weathered dark wooden board hung by two short chains, a glowing warm orange neon tube border and the Chinese words 什麼都收，不收命 written in large clear bright yellow-orange neon characters across the board, a small round pawn symbol of three balls at the left end, proportions about eleven wide to five tall.",
+   "anchor": {
+    "size": [
+     59.4,
+     27.0
+    ],
+    "light_offset": [
+     29.7,
+     13.5
+    ]
+   },
+   "height_m": 0.9,
+   "new": {
+    "display_name": "「什麼都收，不收命」招牌",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "pawnshop_kitchen__kettle_stove",
+   "scene": "pawnshop_kitchen",
+   "seed": 1497,
+   "fit": "meters",
+   "glow": "warm",
+   "data": {
+    "steam": true,
+    "steam_offset": "Vector2(14, 6)",
+    "flicker": 0.08,
+    "light_color": "Color(1.0, 0.65, 0.25, 1)",
+    "light_radius": 36,
+    "light_energy": 0.6
+   },
+   "texture_scale": 8,
+   "prompt": "A small old black cast-iron stove seen from the front with a dented aluminium kettle sitting on top, a small glowing orange fire visible behind the little stove door, a short stovepipe going up, a wooden stool of firewood beside it, proportions about four wide to five tall.",
+   "anchor": {
+    "size": [
+     22.8,
+     28.5
+    ],
+    "light_offset": [
+     10.3,
+     17.7
+    ]
+   },
+   "height_m": 0.95,
+   "new": {
+    "display_name": "燒水的鐵爐與壺",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "pawnshop_kitchen__dining_table",
+   "scene": "pawnshop_kitchen",
+   "seed": 8009,
+   "fit": "meters",
+   "texture_scale": 8,
+   "prompt": "A narrow old wooden dining table with two plain wooden chairs, seen from the side, two ceramic rice bowls with chopsticks, two small plates of simple home cooking and a tiny paper tag leaning on one dish, a worn checked cloth runner on the table, proportions about seven wide to four tall.",
+   "anchor": {
+    "size": [
+     44.6,
+     25.5
+    ]
+   },
+   "height_m": 0.85,
+   "new": {
+    "display_name": "兩副碗筷的小餐桌",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "pawnshop_kitchen__old_fridge",
+   "scene": "pawnshop_kitchen",
+   "seed": 9549,
+   "fit": "meters",
+   "texture_scale": 8,
+   "prompt": "An old cream-white 1980s refrigerator seen from the front, slightly yellowed and dented, its door covered with paper notes held by small magnets, shopping lists and scribbled reminders, a round chrome handle, rusty feet, proportions about two wide to three tall.",
+   "anchor": {
+    "size": [
+     32.0,
+     48.0
+    ]
+   },
+   "height_m": 1.6,
+   "new": {
+    "display_name": "貼滿紙條的老冰箱",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "basement_door__voice_lock",
+   "scene": "basement_door",
+   "seed": 5672,
+   "fit": "meters",
+   "glow": "beacon",
+   "data": {
+    "glow_life": true
+   },
+   "texture_scale": 14,
+   "prompt": "A small old wall-mounted intercom lock panel seen from the front: a dented grey metal plate with a round speaker grille, a small dark microphone hole, a single bright red indicator LED, two screws and a tiny paper label, a short cable going into the wall, proportions about four wide to five tall.",
+   "anchor": {
+    "size": [
+     16.8,
+     21.0
+    ]
+   },
+   "height_m": 0.7,
+   "new": {
+    "display_name": "聲音鎖面板",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "basement_door__wet_floor_sign",
+   "scene": "basement_door",
+   "seed": 2435,
+   "fit": "meters",
+   "texture_scale": 10,
+   "prompt": "A yellow folding A-frame wet floor warning sign seen from the front with a black slipping person pictogram, standing in a small shallow puddle drawn as flat pale blue-grey water with a ripple ring, a damp mop leaning on the right side of it, proportions about seven wide to six tall.",
+   "anchor": {
+    "size": [
+     26.2,
+     22.5
+    ]
+   },
+   "height_m": 0.75,
+   "new": {
+    "display_name": "「小心地滑」警示牌與積水",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "harbor_street__umbrella_stand",
+   "scene": "harbor_street",
+   "seed": 9005,
+   "fit": "meters",
+   "texture_scale": 8,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A rusty wire umbrella stand seen from the front, a tall round bucket-like basket holding eight folded umbrellas in different colours (black, faded red, yellow, clear plastic, striped blue, green, a floral one), wet and dripping, handles of different shapes poking out, proportions about one wide to one tall.",
+   "anchor": {
+    "size": [
+     30.0,
+     30.0
+    ]
+   },
+   "height_m": 1.0,
+   "new": {
+    "display_name": "門口的傘架",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "rooftop__torn_umbrella_tea",
+   "scene": "rooftop",
+   "seed": 4677,
+   "fit": "meters",
+   "glow": "warm",
+   "data": {
+    "steam": true,
+    "steam_offset": "Vector2(24, 18)"
+   },
+   "texture_scale": 8,
+   "prompt": "A small rooftop tea corner seen from the front: a big old black umbrella with a torn rip in the canopy held up by a stick planted in a bucket of sand, under it two little wooden stools and a wooden crate used as a table holding two white enamel cups with steam and a dented thermos, wet rain drips off the umbrella edge, proportions about six wide to five tall.",
+   "anchor": {
+    "size": [
+     54.0,
+     45.0
+    ]
+   },
+   "height_m": 1.5,
+   "new": {
+    "display_name": "破傘與兩杯茶",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "rooftop__stairwell_hut",
+   "scene": "rooftop",
+   "seed": 4381,
+   "fit": "meters",
+   "glow": "bulb",
+   "data": {
+    "flicker": 0.05,
+    "light_color": "Color(1.0, 0.75, 0.35, 1)",
+    "light_radius": 50,
+    "light_energy": 0.6
+   },
+   "texture_scale": 6,
+   "prompt": "A small rooftop stairwell hut with a flat concrete roof seen from the front: pale painted concrete walls with rain stains, a green metal door standing slightly open with warm yellow light spilling from the doorway, a caged wall lamp over the door, a vent pipe and an old antenna bracket on the roof edge, proportions about four wide to five tall.",
+   "anchor": {
+    "size": [
+     57.6,
+     72.0
+    ],
+    "light_offset": [
+     28.8,
+     39.6
+    ]
+   },
+   "height_m": 2.4,
+   "new": {
+    "display_name": "屋頂樓梯間",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "rooftop__cut_cable_box",
+   "scene": "rooftop",
+   "seed": 9137,
+   "fit": "meters",
+   "glow": "beacon",
+   "data": {
+    "glow_life": true,
+    "sway": 0.8,
+    "sway_hang": true
+   },
+   "texture_scale": 8,
+   "prompt": "A grey weatherproof electrical junction box mounted on a short steel post seen from the front, its door hanging open, four thick black cables cleanly cut off and dangling down with bare copper ends, a tiny red LED still blinking, a few drops of rain on it, proportions about three wide to five tall.",
+   "anchor": {
+    "size": [
+     27.0,
+     45.0
+    ]
+   },
+   "height_m": 1.5,
+   "new": {
+    "display_name": "被剪斷的電線盒",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "dock_warehouse__sluice_gate",
+   "scene": "dock_warehouse",
+   "seed": 9055,
+   "fit": "meters",
+   "glow": "beacon",
+   "data": {
+    "glow_life": true,
+    "light_color": "Color(1.0, 0.2, 0.15, 1)",
+    "light_radius": 34,
+    "light_energy": 0.5
+   },
+   "texture_scale": 6,
+   "prompt": "An industrial steel sluice gate seen from the front: a heavy riveted rusty blue-grey steel panel in a thick frame with a big red handwheel on top, a vertical depth scale with painted numbers on the left side, yellow-black hazard stripes along the frame, a small round red warning lamp on top, water stains and algae at the bottom, proportions about nine wide to ten tall.",
+   "anchor": {
+    "size": [
+     70.2,
+     78.0
+    ],
+    "light_offset": [
+     35.1,
+     2.3
+    ]
+   },
+   "height_m": 2.6,
+   "new": {
+    "display_name": "水位閘門與手輪",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "dock_warehouse__float_drum_crate",
+   "scene": "dock_warehouse",
+   "seed": 8816,
+   "fit": "meters",
+   "texture_scale": 8,
+   "prompt": "A floating cargo cluster seen from the side: a big blue plastic float drum with a rope handle tied to a wooden shipping crate with stencilled markings and metal corner straps, both with water-stain lines at the lower edge, a coil of rope on top, proportions about nine wide to five tall.",
+   "anchor": {
+    "size": [
+     54.0,
+     30.0
+    ]
+   },
+   "height_m": 1.0,
+   "new": {
+    "display_name": "浮筒與木箱",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "dock_warehouse__searchlight_post",
+   "scene": "dock_warehouse",
+   "seed": 3832,
+   "fit": "meters",
+   "glow": [
+    {
+     "smin": 0.0,
+     "vmin": 0.93,
+     "soft": 2.0
+    },
+    {
+     "red_beacon": true
+    }
+   ],
+   "data": {
+    "glow_life": true,
+    "light_color": "Color(0.85, 0.92, 1.0, 1)",
+    "light_radius": 80,
+    "light_energy": 0.8
+   },
+   "texture_scale": 8,
+   "prompt": "A tall dockside searchlight on a steel post seen from the side: a round chrome lamp housing with a very bright white glowing lens pointing left, a small red status light underneath, a ladder rung on the post, a cable running to the base, rust and hazard stripes, proportions about three wide to five tall.",
+   "anchor": {
+    "size": [
+     43.2,
+     72.0
+    ],
+    "light_offset": [
+     8.6,
+     13.0
+    ]
+   },
+   "height_m": 2.4,
+   "new": {
+    "display_name": "巡邏探照燈",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "revival_room__revival_slab",
+   "scene": "revival_room",
+   "seed": 9970,
+   "fit": "meters",
+   "glow": [
+    {
+     "hue": [
+      160,
+      200
+     ],
+     "smin": 0.25,
+     "vmin": 0.7,
+     "soft": 1.2
+    }
+   ],
+   "texture_scale": 8,
+   "prompt": "A stainless steel medical slab on a chrome pedestal seen from the side: a slightly curved brushed steel top with a raised edge and a drainage groove, two empty grey fabric straps hanging from the side, a thin pale-teal strip of light under the edge, pale cool white and grey tones, proportions about thirteen wide to five tall.",
+   "anchor": {
+    "size": [
+     74.1,
+     28.5
+    ]
+   },
+   "height_m": 0.95,
+   "new": {
+    "display_name": "復原台",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "revival_room__slogan_panel",
+   "scene": "revival_room",
+   "seed": 1908,
+   "fit": "meters",
+   "style": "dark_text",
+   "glow": "screen",
+   "data": {
+    "flicker": 0.05,
+    "light_color": "Color(0.6, 0.95, 0.95, 1)",
+    "light_radius": 50,
+    "light_energy": 0.5
+   },
+   "texture_scale": 10,
+   "prompt": "A wide wall-mounted backlit panel seen from the front: a slim white metal frame with a softly glowing pale teal light box and the Chinese words 再來一次，沒關係 in large clean white characters, a tiny caption line below in small characters, proportions about four wide to one tall.",
+   "anchor": {
+    "size": [
+     90.0,
+     22.5
+    ],
+    "light_offset": [
+     45.0,
+     11.2
+    ]
+   },
+   "height_m": 0.75,
+   "new": {
+    "display_name": "標語燈箱",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "revival_room__printing_tank",
+   "scene": "revival_room",
+   "seed": 1924,
+   "fit": "meters",
+   "glow": [
+    {
+     "hue": [
+      150,
+      205
+     ],
+     "smin": 0.2,
+     "vmin": 0.6,
+     "soft": 1.5
+    }
+   ],
+   "data": {
+    "flicker": 0.06,
+    "light_color": "Color(0.5, 0.95, 0.9, 1)",
+    "light_radius": 60,
+    "light_energy": 0.6
+   },
+   "texture_scale": 8,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A tall cylindrical glass medical tank seen from the front: a thick steel base and top cap with pipes and cables, the glass full of pale teal translucent liquid with rising bubbles and a faint pale silhouette-free glow, small indicator lights on the base, frost on the pipes, proportions about seven wide to ten tall.",
+   "anchor": {
+    "size": [
+     48.3,
+     69.0
+    ],
+    "light_offset": [
+     24.1,
+     34.5
+    ]
+   },
+   "height_m": 2.3,
+   "new": {
+    "display_name": "殼列印槽",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "anchor_phone_booth__phone_booth",
+   "scene": "anchor_phone_booth",
+   "seed": 3389,
+   "fit": "meters",
+   "glow": [
+    {
+     "hue": [
+      150,
+      215
+     ],
+     "smin": 0.25,
+     "vmin": 0.6,
+     "soft": 1.5
+    }
+   ],
+   "data": {
+    "flicker": 0.06,
+    "glow_life": true,
+    "light_color": "Color(0.45, 0.95, 0.95, 1)",
+    "light_radius": 70,
+    "light_energy": 0.8
+   },
+   "texture_scale": 8,
+   "prompt": "An old-fashioned public telephone booth seen straight from the front: a tall narrow weathered dark teal metal frame with a small roof and a lit sign panel above, glass panes with rain streaks, inside a glowing cyan-teal light and a black rotary payphone with a handset on the back wall, rust at the bottom, a small steel plate reading ANCHOR near the top, proportions about eleven wide to twenty-five tall.",
+   "anchor": {
+    "size": [
+     33.0,
+     75.0
+    ],
+    "light_offset": [
+     16.5,
+     37.5
+    ]
+   },
+   "height_m": 2.5,
+   "new": {
+    "display_name": "錨點電話亭",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "anchor_phone_booth__restore_arrow_sign",
+   "scene": "anchor_phone_booth",
+   "seed": 7041,
+   "fit": "meters",
+   "style": "dark_text",
+   "glow": "neon",
+   "data": {
+    "flicker": 0.08,
+    "light_color": "Color(0.5, 0.95, 0.95, 1)",
+    "light_radius": 40,
+    "light_energy": 0.5
+   },
+   "texture_scale": 8,
+   "prompt": "A street direction sign on a thin steel pole seen from the front: a rectangular dark sign board with a thick glowing cyan arrow pointing right and the Chinese words 復原室 in white characters, a small distance number below it, rust and old stickers on the pole, proportions about three wide to five tall.",
+   "anchor": {
+    "size": [
+     28.8,
+     48.0
+    ],
+    "light_offset": [
+     14.4,
+     12.0
+    ]
+   },
+   "height_m": 1.6,
+   "new": {
+    "display_name": "「復原室→」指示牌",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "anchor_phone_booth__backup_kiosk",
+   "scene": "anchor_phone_booth",
+   "seed": 9747,
+   "fit": "meters",
+   "glow": "console",
+   "data": {
+    "glow_life": true,
+    "glow_scan": 0.2
+   },
+   "texture_scale": 8,
+   "prompt": "A small free-standing roadside status kiosk seen from the front: a rounded grey metal cabinet with a narrow screen showing a green progress bar, a row of small round LED lights in green amber and red, a card slot, a little rain hood on top, scratches and stickers, proportions about three wide to five tall.",
+   "anchor": {
+    "size": [
+     25.2,
+     42.0
+    ]
+   },
+   "height_m": 1.4,
+   "new": {
+    "display_name": "備份狀態燈箱",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "revival_lounge__bar_counter",
+   "scene": "revival_lounge",
+   "seed": 6235,
+   "fit": "meters",
+   "glow": "warm",
+   "texture_scale": 6,
+   "prompt": "A long dark wooden bar counter with brass trim seen from the front, behind it a back-bar shelf with glowing bottles of coloured liquor and glasses and a small cash register, in front of it five round red-cushioned chrome stools, warm amber light, a small chalk price sign hanging on the side, proportions about seven wide to four tall.",
+   "anchor": {
+    "size": [
+     99.8,
+     57.0
+    ]
+   },
+   "height_m": 1.9,
+   "new": {
+    "display_name": "吧台與高腳凳",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "revival_lounge__menu_board",
+   "scene": "revival_lounge",
+   "seed": 4090,
+   "fit": "meters",
+   "style": "dark_text",
+   "glow": "neon",
+   "data": {
+    "flicker": 0.1,
+    "light_color": "Color(1.0, 0.35, 0.75, 1)",
+    "light_radius": 50,
+    "light_energy": 0.6
+   },
+   "texture_scale": 8,
+   "prompt": "A wall menu board seen from the front: a black board with a glowing pink neon border and the Chinese heading 復原餐 in large neon characters, below it a short list of simple dishes and drinks in small white handwriting (rice porridge, soup, noodles, tea, sake) with prices, a little neon bowl icon at the corner, proportions about eleven wide to ten tall.",
+   "anchor": {
+    "size": [
+     39.6,
+     36.0
+    ],
+    "light_offset": [
+     19.8,
+     14.4
+    ]
+   },
+   "height_m": 1.2,
+   "new": {
+    "display_name": "「復原餐」菜單看板",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "revival_lounge__booth_sofa",
+   "scene": "revival_lounge",
+   "seed": 3006,
+   "fit": "meters",
+   "glow": "warm",
+   "data": {
+    "flicker": 0.06,
+    "light_color": "Color(1.0, 0.7, 0.4, 1)",
+    "light_radius": 44,
+    "light_energy": 0.55
+   },
+   "texture_scale": 8,
+   "prompt": "A cosy diner booth seen from the front: a curved dark red leather sofa with a high padded back and a small round dark table in front of it, on the table a small glowing amber table lamp with a fringed shade and two empty glasses, a little pink neon heart-shaped sign on the wall behind it, proportions about nine wide to five tall.",
+   "anchor": {
+    "size": [
+     64.8,
+     36.0
+    ],
+    "light_offset": [
+     35.6,
+     16.2
+    ]
+   },
+   "height_m": 1.2,
+   "new": {
+    "display_name": "卡座沙發與小桌燈",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "dawn_noodle_stall__ali_noodle_cart",
+   "scene": "dawn_noodle_stall",
+   "seed": 7697,
+   "fit": "meters",
+   "glow": "warm",
+   "data": {
+    "steam": true,
+    "steam_offset": "Vector2(26, 14)",
+    "flicker": 0.06,
+    "light_color": "Color(1.0, 0.75, 0.35, 1)",
+    "light_radius": 50,
+    "light_energy": 0.6
+   },
+   "texture_scale": 6,
+   "prompt": "A small wooden noodle vendor cart seen from the front: a green-painted wooden counter on two bicycle wheels with a big steaming aluminium pot, stacked white bowls, bottles of sauces, jars of chopsticks, a corrugated tin roof canopy with a single warm yellow bare bulb, a blank white shop sign board hanging at the front, a little cloth curtain, proportions about eight wide to seven tall.",
+   "anchor": {
+    "size": [
+     75.4,
+     66.0
+    ],
+    "light_offset": [
+     37.7,
+     13.2
+    ]
+   },
+   "height_m": 2.2,
+   "new": {
+    "display_name": "阿梨的小麵攤車",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "dawn_noodle_stall__noodle_bowls_table",
+   "scene": "dawn_noodle_stall",
+   "seed": 7279,
+   "fit": "meters",
+   "glow": "warm",
+   "data": {
+    "steam": true,
+    "steam_offset": "Vector2(14, 8)"
+   },
+   "texture_scale": 10,
+   "prompt": "A low roadside folding table with two small plastic stools seen from the front, on the table two white china bowls of steaming ramen-style noodles with a soft egg and green onion, a pair of chopsticks resting across each bowl, a small bottle of chili oil, wisps of white steam rising, proportions about eight wide to five tall.",
+   "anchor": {
+    "size": [
+     40.8,
+     25.5
+    ]
+   },
+   "height_m": 0.85,
+   "new": {
+    "display_name": "矮桌與兩碗麵",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "dawn_noodle_stall__hanging_lantern",
+   "scene": "dawn_noodle_stall",
+   "seed": 6801,
+   "fit": "meters",
+   "glow": "lanterns",
+   "data": {
+    "sway": 1.0,
+    "sway_hang": true,
+    "flicker": 0.05,
+    "light_color": "Color(1.0, 0.65, 0.3, 1)",
+    "light_radius": 36,
+    "light_energy": 0.5
+   },
+   "texture_scale": 10,
+   "normal": {
+    "profile": "dome"
+   },
+   "prompt": "A single round paper lantern in warm orange-yellow hanging from a short wire hook seen from the front, a thin black cord at the top, wooden caps top and bottom, a small tassel below it, a faint glow, simple and sweet, proportions about three wide to five tall.",
+   "anchor": {
+    "size": [
+     19.8,
+     33.0
+    ],
+    "light_offset": [
+     9.9,
+     21.4
+    ]
+   },
+   "height_m": 1.1,
+   "new": {
+    "display_name": "掛著的小燈籠",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "basement_door__locked_iron_door",
+   "scene": "basement_door",
+   "seed": 2141,
+   "fit": "meters",
+   "style": "dark_text",
+   "glow": [
+    {
+     "hue": [
+      30,
+      65
+     ],
+     "smin": 0.3,
+     "vmin": 0.85,
+     "soft": 1.5
+    }
+   ],
+   "data": {
+    "flicker": 0.06,
+    "light_color": "Color(1.0, 0.8, 0.35, 1)",
+    "light_radius": 34,
+    "light_energy": 0.5
+   },
+   "texture_scale": 8,
+   "alpha_floor": 0.4,
+   "prompt": "A heavy old riveted grey iron door in a plain concrete door frame seen straight from the front, rust streaks, a big padlock and chain across it, a yellowed paper note taped to the door with the Chinese words 漏水，別開 hand-written in black marker, a thin bright strip of warm yellow light glowing along the bottom gap under the door, proportions about nine wide to twenty-one tall.",
+   "anchor": {
+    "size": [
+     27.0,
+     63.0
+    ],
+    "light_offset": [
+     13.5,
+     61.1
+    ]
+   },
+   "height_m": 2.1,
+   "new": {
+    "display_name": "鎖著的地下室鐵門",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "harbor_street__rebirth_billboard",
+   "scene": "harbor_street",
+   "seed": 4331,
+   "fit": "meters",
+   "style": "neon",
+   "glow": "screen",
+   "data": {
+    "glow_scan": 0.25,
+    "flicker": 0.08,
+    "light_color": "Color(0.6, 0.9, 0.95, 1)",
+    "light_radius": 70,
+    "light_energy": 0.7
+   },
+   "texture_scale": 6,
+   "prompt": "A large rooftop-style advertising billboard seen from the front: a dark metal frame and catwalk, a bright glowing screen showing the wrinkled face of a very old woman in her seventies with short silver-grey hair, deep smile lines and a calm stern gaze, in profile on a soft teal background and the Chinese slogan 再來一次，沒關係 in large clean white characters, small spotlights along the top edge, proportions about two wide to one tall.",
+   "anchor": {
+    "size": [
+     180.0,
+     90.0
+    ],
+    "light_offset": [
+     90.0,
+     45.0
+    ]
+   },
+   "height_m": 3.0,
+   "new": {
+    "display_name": "「再來一次」看板",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "harbor_street__tide_gauge",
+   "scene": "harbor_street",
+   "seed": 3311,
+   "fit": "meters",
+   "style": "dark_text",
+   "texture_scale": 10,
+   "normal": {
+    "profile": "flat"
+   },
+   "prompt": "A tall narrow wall-mounted tide level gauge seen straight from the front: a pale concrete pillar with a white enamel measuring scale, wide black bands and seven very large clear black digits 1 2 3 4 5 6 7 stacked one above the other, one digit per band, a wet stain line near the bottom and yellow-black hazard stripes at the top, proportions about one wide to six tall.",
+   "anchor": {
+    "size": [
+     11.0,
+     66.0
+    ]
+   },
+   "height_m": 2.2,
+   "new": {
+    "display_name": "水位標尺",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "neon_market__speech_screen",
+   "scene": "neon_market",
+   "seed": 5235,
+   "fit": "meters",
+   "style": "neon",
+   "glow": "screen",
+   "data": {
+    "glow_scan": 0.2,
+    "flicker": 0.06,
+    "light_color": "Color(0.55, 0.85, 0.95, 1)",
+    "light_radius": 80,
+    "light_energy": 0.7
+   },
+   "texture_scale": 6,
+   "prompt": "A big outdoor LED video screen on a steel frame seen from the front: a wide glowing screen showing a stern calm elderly woman with short grey hair and a plain dark jacket giving a speech, soft teal background with a small white cloud logo in the corner and a thin subtitle bar at the bottom, steel mounting frame with spotlights and cables, proportions about seventeen wide to ten tall.",
+   "anchor": {
+    "size": [
+     132.6,
+     78.0
+    ],
+    "light_offset": [
+     66.3,
+     39.0
+    ]
+   },
+   "height_m": 2.6,
+   "new": {
+    "display_name": "週年演說大螢幕",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "neon_market__weather_ticker",
+   "scene": "neon_market",
+   "seed": 1391,
+   "fit": "meters",
+   "style": "dark_text",
+   "glow": "neon",
+   "data": {
+    "glow_scan": 0.3,
+    "flicker": 0.1,
+    "light_color": "Color(1.0, 0.75, 0.3, 1)",
+    "light_radius": 40,
+    "light_energy": 0.5
+   },
+   "texture_scale": 10,
+   "prompt": "A wide black LED ticker board seen from the front, a slim steel-framed box with a row of glowing amber and white dot-matrix characters reading 今夜降雨量偏多　復原申請量高峰 and a small cloud with raindrops icon at the left end, little LED lights at the corners, proportions about six wide to one tall.",
+   "anchor": {
+    "size": [
+     144.0,
+     24.0
+    ],
+    "light_offset": [
+     72.0,
+     12.0
+    ]
+   },
+   "height_m": 0.8,
+   "new": {
+    "display_name": "氣象跑馬燈看板",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "neon_market__debt_desk",
+   "scene": "neon_market",
+   "seed": 2280,
+   "fit": "meters",
+   "glow": "warm",
+   "data": {
+    "light_color": "Color(1.0, 0.7, 0.35, 1)",
+    "light_radius": 36,
+    "light_energy": 0.5
+   },
+   "texture_scale": 8,
+   "prompt": "A folding table of a debt collector seen from the front covered with a red cloth: a thick open ledger book with ruled columns and red stamps, a stack of paper receipts held down by a stone, a wooden abacus, a black ink pad and a brush, a small desk lamp with a warm bulb, a folded black umbrella leaning on the table, proportions about eight wide to five tall.",
+   "anchor": {
+    "size": [
+     52.8,
+     33.0
+    ],
+    "light_offset": [
+     42.2,
+     9.9
+    ]
+   },
+   "height_m": 1.1,
+   "new": {
+    "display_name": "收帳人的桌子與債務簿",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "yong_hideout__ledger_wall",
+   "scene": "yong_hideout",
+   "seed": 3518,
+   "fit": "meters",
+   "texture_scale": 6,
+   "prompt": "A tall wall of wooden pigeonhole drawers and shelves seen straight from the front, filled with thick old ledger books whose spines carry handwritten Chinese names and dates, small drawer labels, a few red-stamped folders sticking out, a metal cash box on the middle shelf, a sliding ladder on the side, dark red-brown wood, proportions about seven wide to five tall.",
+   "anchor": {
+    "size": [
+     96.6,
+     69.0
+    ]
+   },
+   "height_m": 2.3,
+   "new": {
+    "display_name": "債務簿牆",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "yong_hideout__banker_desk",
+   "scene": "yong_hideout",
+   "seed": 9235,
+   "fit": "meters",
+   "glow": "warm",
+   "data": {
+    "flicker": 0.05,
+    "light_color": "Color(1.0, 0.8, 0.4, 1)",
+    "light_radius": 50,
+    "light_energy": 0.6
+   },
+   "texture_scale": 6,
+   "prompt": "A heavy oak banker's desk seen from the front: dark wood with brass corner plates, a green-shaded banker's lamp glowing warm, a large wooden abacus, a leather cash box with a padlock, a stack of ledgers, a pen stand and a hanging brass scale, a high-backed leather chair behind it, proportions about nine wide to five tall.",
+   "anchor": {
+    "size": [
+     64.8,
+     36.0
+    ],
+    "light_offset": [
+     16.2,
+     10.8
+    ]
+   },
+   "height_m": 1.2,
+   "new": {
+    "display_name": "阿勇的帳房大桌",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "yong_hideout__xiaowei_bed",
+   "scene": "yong_hideout",
+   "seed": 3898,
+   "fit": "meters",
+   "glow": "bulb",
+   "data": {
+    "flicker": 0.04,
+    "light_color": "Color(1.0, 0.8, 0.55, 1)",
+    "light_radius": 36,
+    "light_energy": 0.5
+   },
+   "texture_scale": 10,
+   "prompt": "A small child's single bed seen from the side: a simple white-painted wooden frame, a patchwork quilt with stars, a pillow, a worn pink plush rabbit sitting against the pillow, a little bedside stool with a glowing star-shaped night lamp and a picture book, tender and slightly faded, proportions about eight wide to five tall.",
+   "anchor": {
+    "size": [
+     40.8,
+     25.5
+    ],
+    "light_offset": [
+     35.9,
+     8.9
+    ]
+   },
+   "height_m": 0.85,
+   "new": {
+    "display_name": "小薇的小床與兔子玩偶",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "radio_workbench__radio_open_bench",
+   "scene": "radio_workbench",
+   "seed": 9223,
+   "fit": "meters",
+   "glow": "warm",
+   "data": {
+    "flicker": 0.08,
+    "light_color": "Color(1.0, 0.65, 0.3, 1)",
+    "light_radius": 36,
+    "light_energy": 0.5
+   },
+   "texture_scale": 8,
+   "prompt": "A vintage tube radio with its wooden back cover removed lying open on a small wooden bench seen from the front: glowing orange vacuum tubes inside, copper coils, a round dial with a lit warm yellow frequency scale and a red needle, a tuning knob, loose screws and a screwdriver on the bench beside it, proportions about nine wide to five tall.",
+   "anchor": {
+    "size": [
+     54.0,
+     30.0
+    ],
+    "light_offset": [
+     21.6,
+     12.0
+    ]
+   },
+   "height_m": 1.0,
+   "new": {
+    "display_name": "拆開的老收音機",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "radio_workbench__pegboard_tools",
+   "scene": "radio_workbench",
+   "seed": 2218,
+   "fit": "meters",
+   "texture_scale": 6,
+   "prompt": "A pegboard tool wall seen straight from the front: a pale brown perforated board with neatly hung pliers, screwdrivers, wrenches, a soldering iron on a stand, coils of coloured wire, a small magnifier lamp, painted white outlines showing where every tool belongs, one outline empty, proportions about four wide to three tall.",
+   "anchor": {
+    "size": [
+     60.0,
+     45.0
+    ]
+   },
+   "height_m": 1.5,
+   "new": {
+    "display_name": "掛滿工具的洞洞板",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "radio_workbench__oscilloscope",
+   "scene": "radio_workbench",
+   "seed": 4214,
+   "fit": "meters",
+   "glow": "screen",
+   "data": {
+    "glow_scan": 0.3,
+    "flicker": 0.1,
+    "light_color": "Color(0.5, 1.0, 0.6, 1)",
+    "light_radius": 30,
+    "light_energy": 0.5
+   },
+   "texture_scale": 12,
+   "prompt": "A small bulky vintage oscilloscope seen from the front: a grey metal box with a round glowing green CRT screen showing a bright green sine wave and grid lines, rows of black knobs and switches, a coiled probe cable, a few small red and green LEDs, scuffed paint, proportions about six wide to five tall.",
+   "anchor": {
+    "size": [
+     25.2,
+     21.0
+    ],
+    "light_offset": [
+     10.1,
+     8.4
+    ]
+   },
+   "height_m": 0.7,
+   "new": {
+    "display_name": "示波器",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "guest_book_room__guest_book_table",
+   "scene": "guest_book_room",
+   "seed": 7414,
+   "fit": "meters",
+   "glow": "warm",
+   "data": {
+    "flicker": 0.06,
+    "light_color": "Color(1.0, 0.7, 0.4, 1)",
+    "light_radius": 30,
+    "light_energy": 0.4
+   },
+   "texture_scale": 10,
+   "prompt": "A low round lacquered table seen from the side with two flat floor cushions, on the table a large open guest book with handwritten notes and small sketches, a fountain pen, a teapot with two little cups, a small candle in a glass, rain-darkened wood, proportions about nine wide to five tall.",
+   "anchor": {
+    "size": [
+     40.5,
+     22.5
+    ],
+    "light_offset": [
+     22.3,
+     6.8
+    ]
+   },
+   "height_m": 0.75,
+   "new": {
+    "display_name": "客人簿與矮桌",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "guest_book_room__paper_floor_lamp",
+   "scene": "guest_book_room",
+   "seed": 5616,
+   "fit": "meters",
+   "glow": "bulb",
+   "data": {
+    "flicker": 0.06,
+    "light_color": "Color(1.0, 0.7, 0.35, 1)",
+    "light_radius": 50,
+    "light_energy": 0.6
+   },
+   "texture_scale": 8,
+   "prompt": "A tall Japanese-style paper floor lamp seen from the front: a slim dark wooden frame with warm glowing orange-yellow rice-paper panels and a thin wooden base, subtle paper texture, a small tassel at the top, proportions about two wide to three tall.",
+   "anchor": {
+    "size": [
+     30.0,
+     45.0
+    ],
+    "light_offset": [
+     15.0,
+     20.2
+    ]
+   },
+   "height_m": 1.5,
+   "new": {
+    "display_name": "落地紙燈",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "guest_book_room__memorial_shelf",
+   "scene": "guest_book_room",
+   "seed": 9468,
+   "fit": "meters",
+   "glow": "warm",
+   "data": {
+    "flicker": 0.12,
+    "light_color": "Color(1.0, 0.7, 0.35, 1)",
+    "light_radius": 40,
+    "light_energy": 0.5
+   },
+   "texture_scale": 8,
+   "prompt": "A small dark wooden display cabinet seen from the front: three shelves holding framed old black-and-white photographs of faces too soft to recognise, a vase with white chrysanthemums, a small girl's hair ribbon, a woman's silver ring in a dish, three candles burning with warm flames, a folded paper crane, proportions about seven wide to nine tall.",
+   "anchor": {
+    "size": [
+     30.3,
+     39.0
+    ],
+    "light_offset": [
+     15.2,
+     19.5
+    ]
+   },
+   "height_m": 1.3,
+   "new": {
+    "display_name": "遺照與蠟燭小櫃",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "mezzanine__pipe_manifold",
+   "scene": "mezzanine",
+   "seed": 4844,
+   "fit": "meters",
+   "texture_scale": 6,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A tall industrial pipe manifold seen from the front: three thick vertical grey-green steel pipes with flanges and bolts joined by horizontal branch pipes with red and yellow handwheel valves and round pressure gauges, rust stains and dripping condensation, a few small valve tags, proportions about four wide to five tall.",
+   "anchor": {
+    "size": [
+     72.0,
+     90.0
+    ]
+   },
+   "height_m": 3.0,
+   "new": {
+    "display_name": "管線閥門組",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "mezzanine__amber_lamp_cluster",
+   "scene": "mezzanine",
+   "seed": 3096,
+   "fit": "meters",
+   "glow": [
+    {
+     "hue": [
+      15,
+      55
+     ],
+     "smin": 0.45,
+     "vmin": 0.75,
+     "soft": 1.5
+    }
+   ],
+   "data": {
+    "glow_life": true,
+    "flicker": 0.12,
+    "light_color": "Color(1.0, 0.65, 0.2, 1)",
+    "light_radius": 60,
+    "light_energy": 0.7
+   },
+   "texture_scale": 8,
+   "prompt": "A wall bracket with three round caged amber emergency lamps seen from the front, a dented grey metal back plate with a hazard stripe and a small stencilled number, glowing orange-amber lenses, one lamp half dark, a loose cable hanging underneath, proportions about seven wide to five tall.",
+   "anchor": {
+    "size": [
+     37.8,
+     27.0
+    ],
+    "light_offset": [
+     18.9,
+     12.2
+    ]
+   },
+   "height_m": 0.9,
+   "new": {
+    "display_name": "琥珀色緊急燈組",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "mezzanine__hatch_ladder",
+   "scene": "mezzanine",
+   "seed": 8775,
+   "fit": "meters",
+   "glow": [
+    {
+     "smin": 0.0,
+     "vmin": 0.9,
+     "soft": 2.0
+    }
+   ],
+   "texture_scale": 8,
+   "normal": {
+    "profile": "flat"
+   },
+   "prompt": "A tall narrow steel maintenance ladder with round rungs bolted to a pale concrete shaft wall seen from the front, at the top a round steel hatch hanging half open with a thin beam of pale white daylight coming down from it, safety cage hoops around the ladder, rust and drips, proportions about three wide to eight tall.",
+   "anchor": {
+    "size": [
+     33.8,
+     90.0
+    ]
+   },
+   "height_m": 3.0,
+   "new": {
+    "display_name": "維修爬梯與頂艙",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "sunlit_district__glass_window_wall",
+   "scene": "sunlit_district",
+   "seed": 7606,
+   "fit": "meters",
+   "style": "day",
+   "glow": "screen",
+   "texture_scale": 6,
+   "prompt": "A large floor-to-ceiling glass window wall seen straight from the front: a slim white metal frame dividing it into six panes, the glass showing a bright sky blue with soft white clouds and warm golden sunlight with pale light shafts, faint raindrops still sliding on the lower panes, a pale stone sill, proportions about twelve wide to ten tall.",
+   "anchor": {
+    "size": [
+     93.6,
+     78.0
+    ]
+   },
+   "height_m": 2.6,
+   "new": {
+    "display_name": "落地玻璃牆",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "sunlit_district__street_tree_planter",
+   "scene": "sunlit_district",
+   "seed": 7969,
+   "fit": "meters",
+   "style": "nature",
+   "data": {
+    "sway": 0.8
+   },
+   "texture_scale": 6,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 1.0
+   },
+   "prompt": "A neatly trimmed street tree in a white concrete planter seen from the front: a slim trunk with a perfectly round bright fresh green crown, a few small white flowers in the planter, a little brass plaque on the planter, sunlit leaves with lighter green highlights, proportions about seven wide to ten tall.",
+   "anchor": {
+    "size": [
+     67.2,
+     96.0
+    ]
+   },
+   "height_m": 3.2,
+   "new": {
+    "display_name": "整齊的行道樹與花槽",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "sunlit_district__white_bench",
+   "scene": "sunlit_district",
+   "seed": 2930,
+   "fit": "meters",
+   "style": "day",
+   "texture_scale": 10,
+   "prompt": "A clean white painted metal park bench with slatted wooden seat and back seen from the side, slender curved armrests, tiny ornate scrolls on the legs, gentle gold light on the top edges, proportions about five wide to two tall.",
+   "anchor": {
+    "size": [
+     63.8,
+     25.5
+    ]
+   },
+   "height_m": 0.85,
+   "new": {
+    "display_name": "白色長椅",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "clearwater__model_bed",
+   "scene": "clearwater",
+   "seed": 7442,
+   "fit": "meters",
+   "style": "day",
+   "texture_scale": 8,
+   "prompt": "A neatly made single bed seen from the side: a pale oak frame with a headboard, crisp white sheets and duvet folded tight, a single white pillow, a folded pale blue blanket at the foot, tiny round wooden legs, spotless and unused, proportions about eight wide to three tall.",
+   "anchor": {
+    "size": [
+     56.0,
+     21.0
+    ]
+   },
+   "height_m": 0.7,
+   "new": {
+    "display_name": "樣品房的床",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "clearwater__reception_desk",
+   "scene": "clearwater",
+   "seed": 8527,
+   "fit": "meters",
+   "style": "day_text",
+   "texture_scale": 8,
+   "prompt": "A white reception desk seen from the front with a rounded front panel and a pale wood top, a small brass nameplate with the Chinese characters 林, a vase with three white flowers, a thin tablet screen, a neat fan of glossy brochures, a small bell, a tiny stack of pastel cards, proportions about two wide to one tall.",
+   "anchor": {
+    "size": [
+     69.0,
+     34.5
+    ]
+   },
+   "height_m": 1.15,
+   "new": {
+    "display_name": "林小姐的接待桌",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "clearwater__window_chair",
+   "scene": "clearwater",
+   "seed": 4587,
+   "fit": "meters",
+   "style": "day",
+   "texture_scale": 8,
+   "prompt": "A plain pale wooden armchair with a woven seat seen from the side, a small round side table next to it with an empty white cup, a folded white blanket on the chair arm, spotless and carefully arranged, warm sunlit edges, proportions about five wide to five tall.",
+   "anchor": {
+    "size": [
+     30.0,
+     30.0
+    ]
+   },
+   "height_m": 1.0,
+   "new": {
+    "display_name": "窗邊的一把椅子",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "clinic__report_cabinet",
+   "scene": "clinic",
+   "seed": 7570,
+   "fit": "meters",
+   "texture_scale": 6,
+   "prompt": "A tall steel filing cabinet unit seen from the front: a pale grey metal cabinet with twelve narrow drawers each with a small label holder showing a month, a bigger lower cabinet with a key lock, one drawer pulled out a little with papers sticking out, a clipboard hanging on the side, green-tinted cold light, proportions about eleven wide to ten tall.",
+   "anchor": {
+    "size": [
+     62.7,
+     57.0
+    ]
+   },
+   "height_m": 1.9,
+   "new": {
+    "display_name": "報表櫃",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "clinic__waiting_chairs",
+   "scene": "clinic",
+   "seed": 1792,
+   "fit": "meters",
+   "texture_scale": 8,
+   "prompt": "A row of four connected plastic waiting-room chairs on a steel beam seen from the side, grey seats with pale blue backrests each numbered with a small sticker 1 2 3 4, a small wooden side table with a few magazines and a plastic cup dispenser, proportions about three wide to one tall.",
+   "anchor": {
+    "size": [
+     76.5,
+     25.5
+    ]
+   },
+   "height_m": 0.85,
+   "new": {
+    "display_name": "候診椅排",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "clinic__quote_plaque",
+   "scene": "clinic",
+   "seed": 2551,
+   "fit": "meters",
+   "style": "dark_text",
+   "glow": "screen",
+   "texture_scale": 10,
+   "prompt": "A large wall-mounted white acrylic plaque seen straight from the front, a thin silver frame, the Chinese words 讓每個人都有第二次。 in large elegant black characters and a tiny handwritten signature below it, a small teal cloud logo in the corner, soft white light from above, proportions about three wide to one tall.",
+   "anchor": {
+    "size": [
+     99.0,
+     33.0
+    ]
+   },
+   "height_m": 1.1,
+   "new": {
+    "display_name": "「讓每個人都有第二次」牆牌",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "tianqiong_corridor__frosted_partition",
+   "scene": "tianqiong_corridor",
+   "seed": 9076,
+   "fit": "meters",
+   "style": "day",
+   "glow": "screen",
+   "texture_scale": 6,
+   "prompt": "A modern office partition wall seen from the front: two large frosted glass panes in thin white aluminium frames, a clear strip of ordinary glass at the middle, soft diffuse light behind the frosted glass with indistinct blurry colour blocks, a brushed steel door handle, a thin black base rail, proportions about seven wide to ten tall.",
+   "anchor": {
+    "size": [
+     54.6,
+     78.0
+    ]
+   },
+   "height_m": 2.6,
+   "new": {
+    "display_name": "霧面玻璃隔間",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "tianqiong_corridor__office_door_ajar",
+   "scene": "tianqiong_corridor",
+   "seed": 5918,
+   "fit": "meters",
+   "style": "day_text",
+   "glow": [
+    {
+     "smin": 0.0,
+     "vmin": 0.93,
+     "soft": 2.0
+    },
+    {
+     "hue": [
+      100,
+      150
+     ],
+     "smin": 0.4,
+     "vmin": 0.6
+    }
+   ],
+   "data": {
+    "glow_life": true
+   },
+   "texture_scale": 8,
+   "prompt": "A tall white office door standing very slightly ajar seen straight from the front: a pale wood-grain door slab in a white frame, a thin bright vertical strip of warm white light along the gap, a brushed brass handle and a small brass nameplate with a single Chinese character 葉, a card reader beside it with a green light, proportions about five wide to eleven tall.",
+   "anchor": {
+    "size": [
+     31.4,
+     69.0
+    ]
+   },
+   "height_m": 2.3,
+   "new": {
+    "display_name": "門縫透光的辦公室門",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "tianqiong_corridor__modern_planter",
+   "scene": "tianqiong_corridor",
+   "seed": 5019,
+   "fit": "meters",
+   "style": "nature",
+   "data": {
+    "sway": 0.6
+   },
+   "texture_scale": 8,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 1.0
+   },
+   "prompt": "A tall white cylindrical ceramic planter seen from the front with a slender green leafy plant, perfectly healthy fresh leaves, a small pebble top soil layer, a polished stone floor tile edge below it, proportions about three wide to five tall.",
+   "anchor": {
+    "size": [
+     27.0,
+     45.0
+    ]
+   },
+   "height_m": 1.5,
+   "new": {
+    "display_name": "走廊的白色盆栽",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "nursing_ward__bedside_locker",
+   "scene": "nursing_ward",
+   "seed": 4337,
+   "fit": "meters",
+   "texture_scale": 8,
+   "prompt": "A plain white painted bedside locker with a cream top seen from the front: two drawers with small round knobs and a cupboard door with a simple metal latch, three small shallow knock marks on the top, on the top a plastic water jug and a folded paper letter with a thin ribbon, scuffed corners, proportions about four wide to five tall.",
+   "anchor": {
+    "size": [
+     26.4,
+     33.0
+    ]
+   },
+   "height_m": 1.1,
+   "new": {
+    "display_name": "棠的床邊櫃",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "nursing_ward__heart_monitor_stand",
+   "scene": "nursing_ward",
+   "seed": 8554,
+   "fit": "meters",
+   "glow": "screen",
+   "data": {
+    "glow_scan": 0.3,
+    "glow_life": true,
+    "light_color": "Color(0.5, 1.0, 0.6, 1)",
+    "light_radius": 30,
+    "light_energy": 0.4
+   },
+   "texture_scale": 8,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A hospital IV drip stand with a small bedside patient monitor seen from the front: a chrome pole on a five-wheel base with two hanging clear fluid bags and a plastic tube, a boxy grey monitor clipped on it with a glowing green heartbeat line and numbers on its small screen, a couple of small green and amber LEDs, proportions about four wide to seven tall.",
+   "anchor": {
+    "size": [
+     32.6,
+     57.0
+    ],
+    "light_offset": [
+     17.9,
+     25.7
+    ]
+   },
+   "height_m": 1.9,
+   "new": {
+    "display_name": "點滴架與生命監視器",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "nursing_ward__folded_wheelchair",
+   "scene": "nursing_ward",
+   "seed": 1842,
+   "fit": "meters",
+   "texture_scale": 8,
+   "prompt": "A foldable hospital wheelchair seen from the side, parked against a wall, pale blue vinyl seat and backrest, silver frame, two big spoked wheels and two small front wheels, a small knitted cream blanket folded over the armrest, rubber tyres worn, proportions about five wide to five tall.",
+   "anchor": {
+    "size": [
+     30.0,
+     30.0
+    ]
+   },
+   "height_m": 1.0,
+   "new": {
+    "display_name": "折起的輪椅",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "abandoned_factory__broken_conveyor",
+   "scene": "abandoned_factory",
+   "seed": 2618,
+   "fit": "meters",
+   "texture_scale": 6,
+   "prompt": "A broken industrial conveyor belt seen from the side: a rusty orange steel frame on legs with rollers, a black rubber belt sagging and torn at one end with a section hanging down to the floor, a motor housing at the other end, a few bolts and a spilled pile of cracked grey bricks beneath, proportions about three wide to one tall.",
+   "anchor": {
+    "size": [
+     126.0,
+     42.0
+    ]
+   },
+   "height_m": 1.4,
+   "new": {
+    "display_name": "斷掉的輸送帶",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "abandoned_factory__hook_chain",
+   "scene": "abandoned_factory",
+   "seed": 5566,
+   "fit": "meters",
+   "data": {
+    "sway": 1.5,
+    "sway_hang": true
+   },
+   "texture_scale": 8,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A heavy overhead crane hook with a thick rusty chain hanging straight down seen from the front: a yellow-painted trolley block at the top with a small hazard sign, a long chain of big links, a large black steel hook at the bottom with a safety latch, rust streaks, proportions about one wide to four tall.",
+   "anchor": {
+    "size": [
+     22.5,
+     90.0
+    ]
+   },
+   "height_m": 3.0,
+   "new": {
+    "display_name": "吊鉤與鏈條",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "abandoned_factory__oil_drum_spill",
+   "scene": "abandoned_factory",
+   "seed": 6083,
+   "fit": "meters",
+   "texture_scale": 8,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A knocked-over blue steel oil drum lying on its side seen from the front, its open bung hole leaking a long glossy black oil spill that spreads out flat in a dark shiny puddle with a pale highlight, a yellow stencilled warning label, dents and rust at the rim, proportions about seven wide to five tall.",
+   "anchor": {
+    "size": [
+     37.8,
+     27.0
+    ]
+   },
+   "height_m": 0.9,
+   "new": {
+    "display_name": "打翻的油桶",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "factory_office__wall_safe",
+   "scene": "factory_office",
+   "seed": 8595,
+   "fit": "meters",
+   "texture_scale": 8,
+   "prompt": "A heavy grey steel safe seen from the front with its thick round-cornered door swung open to the left, a big chrome combination dial and a long handle on the door, inside the safe two shelves holding a few folded documents and an empty cash tray, scratch marks around the dial, proportions about four wide to five tall.",
+   "anchor": {
+    "size": [
+     36.0,
+     45.0
+    ]
+   },
+   "height_m": 1.5,
+   "new": {
+    "display_name": "半開的保險櫃",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "factory_office__desk_with_ledger",
+   "scene": "factory_office",
+   "seed": 4167,
+   "fit": "meters",
+   "glow": "warm",
+   "data": {
+    "flicker": 0.05,
+    "light_color": "Color(1.0, 0.8, 0.45, 1)",
+    "light_radius": 40,
+    "light_energy": 0.5
+   },
+   "texture_scale": 8,
+   "prompt": "An old wooden office desk seen from the front: a metal-shaded desk lamp glowing warm yellow, an open thick ledger with columns of numbers, a tiny silver data chip beside it on a scrap of paper, a rotary telephone, a coffee mug with a dark ring, a thin layer of dust, drawers with small brass handles, proportions about eight wide to five tall.",
+   "anchor": {
+    "size": [
+     57.6,
+     36.0
+    ],
+    "light_offset": [
+     14.4,
+     9.0
+    ]
+   },
+   "height_m": 1.2,
+   "new": {
+    "display_name": "辦公桌與檯燈",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "factory_office__bulletin_board",
+   "scene": "factory_office",
+   "seed": 8818,
+   "fit": "meters",
+   "texture_scale": 8,
+   "prompt": "A cork bulletin board in a wooden frame seen straight from the front, pinned with yellowed paper memos, a shift roster table, a safety poster with a red cross, a torn calendar page with the date circled in red, an old photograph of a factory team curled at the corner, red pushpins, faded and dusty, proportions about seven wide to five tall.",
+   "anchor": {
+    "size": [
+     46.2,
+     33.0
+    ]
+   },
+   "height_m": 1.1,
+   "new": {
+    "display_name": "公布欄",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "basement__anchor_chair",
+   "scene": "basement",
+   "seed": 1739,
+   "fit": "meters",
+   "glow": [
+    {
+     "hue": [
+      150,
+      215
+     ],
+     "smin": 0.3,
+     "vmin": 0.6,
+     "soft": 1.2
+    }
+   ],
+   "data": {
+    "glow_life": true,
+    "light_color": "Color(0.5, 0.95, 0.9, 1)",
+    "light_radius": 34,
+    "light_energy": 0.4
+   },
+   "texture_scale": 8,
+   "prompt": "A makeshift anchor chair seen from the side: an old padded dentist-style reclining armchair in cracked dark green leather with worn chrome armrests and a headrest, thick black cables and a rubber strap hanging off it, a small teal indicator light on the armrest and one old bronze coin lying on the armrest, rust at the metal parts, proportions about seven wide to eight tall.",
+   "anchor": {
+    "size": [
+     34.1,
+     39.0
+    ],
+    "light_offset": [
+     11.9,
+     17.6
+    ]
+   },
+   "height_m": 1.3,
+   "new": {
+    "display_name": "錨椅",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "basement__anchor_helmet",
+   "scene": "basement",
+   "seed": 7384,
+   "fit": "meters",
+   "glow": "console",
+   "data": {
+    "glow_life": true,
+    "sway": 0.5,
+    "sway_hang": true
+   },
+   "texture_scale": 10,
+   "prompt": "A bulky vintage neural readout helmet hanging on a thin steel stand seen from the front: a battered cream-white shell with a dark visor slit, a tangle of coloured wires hanging from the back, a small row of green and amber indicator LEDs on the temple, rubber padding visible inside, a tag tied to the stand, proportions about four wide to five tall.",
+   "anchor": {
+    "size": [
+     24.0,
+     30.0
+    ]
+   },
+   "height_m": 1.0,
+   "new": {
+    "display_name": "讀取頭盔與支架",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "basement__kerosene_heater",
+   "scene": "basement",
+   "seed": 7240,
+   "fit": "meters",
+   "glow": "warm",
+   "data": {
+    "flicker": 0.15,
+    "light_color": "Color(1.0, 0.55, 0.2, 1)",
+    "light_radius": 56,
+    "light_energy": 0.8
+   },
+   "texture_scale": 12,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A small old round kerosene stove heater seen from the front: a dark green enamel cylinder with a wire guard, a glowing orange-red flame visible through a small round window in the front, a short carrying handle on top, a dented tin tray at the bottom with a dried rag next to it, a little warm shimmer above, proportions about four wide to five tall.",
+   "anchor": {
+    "size": [
+     18.0,
+     22.5
+    ],
+    "light_offset": [
+     9.0,
+     12.4
+    ]
+   },
+   "height_m": 0.75,
+   "new": {
+    "display_name": "小暖爐",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "flood_street__floating_door",
+   "scene": "flood_street",
+   "seed": 2263,
+   "fit": "meters",
+   "texture_scale": 8,
+   "prompt": "A cluster of floating debris on water seen from the side: a wide old wooden door panel lying flat with a rusty handle, two wooden crates and a blue plastic barrel bobbing against it, a few small bright ripple rings, wet wood and peeling paint, the lower edge darkened by water, proportions about three wide to one tall.",
+   "anchor": {
+    "size": [
+     72.0,
+     24.0
+    ]
+   },
+   "height_m": 0.8,
+   "new": {
+    "display_name": "漂浮的門板與木箱",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "flood_street__water_scale_wall",
+   "scene": "flood_street",
+   "seed": 3351,
+   "fit": "meters",
+   "style": "dark_text",
+   "texture_scale": 8,
+   "normal": {
+    "profile": "flat"
+   },
+   "prompt": "A tall concrete wall pillar with a painted flood level scale seen straight from the front: thick black horizontal tick marks and big white painted numbers 0.5 1.0 1.5 2.0 2.5 3.0 climbing up, the lower part darkened by wet stains with a clear waterline, red warning arrows pointing upward, peeling paint, proportions about three wide to ten tall.",
+   "anchor": {
+    "size": [
+     27.0,
+     90.0
+    ]
+   },
+   "height_m": 3.0,
+   "new": {
+    "display_name": "牆上的水位刻度",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "flood_street__submerged_street_lamp",
+   "scene": "flood_street",
+   "seed": 8730,
+   "fit": "meters",
+   "glow": "bulb",
+   "data": {
+    "flicker": 0.2,
+    "sway": 0.5,
+    "sway_hang": false,
+    "light_color": "Color(1.0, 0.8, 0.45, 1)",
+    "light_radius": 70,
+    "light_energy": 0.7
+   },
+   "texture_scale": 6,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A tall old street lamp post seen from the front, the lower third hidden by dark water, a curved arm at the top with a caged bulb glowing warm yellow, a loose wire dangling from the arm toward the water, a metal ladder rungs and a small tilted road sign, rust and wet streaks, proportions about three wide to ten tall.",
+   "anchor": {
+    "size": [
+     28.8,
+     96.0
+    ],
+    "light_offset": [
+     15.8,
+     5.8
+    ]
+   },
+   "height_m": 3.2,
+   "new": {
+    "display_name": "淹到一半的路燈",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "broadcast_outside__cooling_valve",
+   "scene": "broadcast_outside",
+   "seed": 6864,
+   "fit": "meters",
+   "glow": "beacon",
+   "data": {
+    "steam": true,
+    "steam_offset": "Vector2(14, 10)",
+    "glow_life": true
+   },
+   "texture_scale": 8,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A large industrial cooling valve assembly seen from the front: a thick pale blue steel pipe with big flanges, a huge red handwheel on top, two round pressure gauges with white faces and red needles, a short vertical vent pipe leaking white steam, a small plaque with a stencilled number, rust and condensation, proportions about six wide to five tall.",
+   "anchor": {
+    "size": [
+     64.8,
+     54.0
+    ]
+   },
+   "height_m": 1.8,
+   "new": {
+    "display_name": "雲蓋冷卻閥",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "broadcast_outside__relay_battery",
+   "scene": "broadcast_outside",
+   "seed": 6358,
+   "fit": "meters",
+   "glow": [
+    {
+     "smin": 0.55,
+     "vmin": 0.55,
+     "soft": 1.0
+    },
+    {
+     "red_beacon": true
+    }
+   ],
+   "data": {
+    "glow_life": true
+   },
+   "texture_scale": 8,
+   "prompt": "A relay station unit seen from the front: a grey metal equipment cabinet with rows of blinking green and amber LEDs and heavy cables, beside it a big yellow battery block with two terminals floating on a raft of foam, a thin hazard sign, a thick cable hanging into the water, rain-wet metal, proportions about seven wide to five tall.",
+   "anchor": {
+    "size": [
+     54.6,
+     39.0
+    ]
+   },
+   "height_m": 1.3,
+   "new": {
+    "display_name": "中繼器與浮著的電池",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "broadcast_outside__antenna_tower",
+   "scene": "broadcast_outside",
+   "seed": 4725,
+   "fit": "meters",
+   "glow": "beacon",
+   "data": {
+    "glow_life": true
+   },
+   "texture_scale": 4,
+   "normal": {
+    "profile": "flat"
+   },
+   "alpha_floor": 0.15,
+   "prompt": "A very tall steel lattice radio antenna tower seen from the front, slender and tapering with crossed diagonal braces, platforms with small dish antennas and horns on the way up, bright red beacon lights on the top and on two platforms, wet shiny steel and rust, proportions about one wide to five tall.",
+   "anchor": {
+    "size": [
+     42.0,
+     210.0
+    ]
+   },
+   "height_m": 7.0,
+   "new": {
+    "display_name": "天線塔",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "recording_booth__boom_microphone",
+   "scene": "recording_booth",
+   "seed": 8939,
+   "fit": "meters",
+   "texture_scale": 8,
+   "prompt": "A professional broadcast microphone on a boom arm seen from the front: a large black condenser microphone with a round mesh pop filter, a flexible chrome boom arm clamped to a small table with a shock mount, a pair of headphones hung on the arm, a sheet of paper with a list of names on the table, a small water glass, proportions about four wide to five tall.",
+   "anchor": {
+    "size": [
+     36.0,
+     45.0
+    ]
+   },
+   "height_m": 1.5,
+   "new": {
+    "display_name": "麥克風與防噴罩",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "recording_booth__on_air_lamp",
+   "scene": "recording_booth",
+   "seed": 3254,
+   "fit": "meters",
+   "style": "dark_text",
+   "glow": [
+    {
+     "hue": [
+      345,
+      20
+     ],
+     "smin": 0.5,
+     "vmin": 0.8,
+     "soft": 2.0
+    },
+    {
+     "red_beacon": true
+    }
+   ],
+   "data": {
+    "glow_life": true,
+    "light_color": "Color(1.0, 0.2, 0.15, 1)",
+    "light_radius": 50,
+    "light_energy": 0.7
+   },
+   "texture_scale": 14,
+   "prompt": "A rectangular on-air warning lamp box seen from the front: a black metal housing with a bright glowing red lens and the Chinese words 廣播中 in large white characters, a small bracket and a thick black cable, a strong red glow, proportions about three wide to one tall.",
+   "anchor": {
+    "size": [
+     45.0,
+     15.0
+    ],
+    "light_offset": [
+     22.5,
+     7.5
+    ]
+   },
+   "height_m": 0.5,
+   "new": {
+    "display_name": "「廣播中」紅燈",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "recording_booth__name_wall",
+   "scene": "recording_booth",
+   "seed": 5157,
+   "fit": "meters",
+   "style": "dark_text",
+   "texture_scale": 10,
+   "prompt": "A wall covered by a big board seen straight from the front: dozens of small white paper slips pinned in neat rows each with a handwritten Chinese personal name, some names crossed out in red, some slips blank, small coloured pins and thin red strings between a few of them, a few dried flowers tucked at the corner, proportions about eight wide to five tall.",
+   "anchor": {
+    "size": [
+     91.2,
+     57.0
+    ]
+   },
+   "height_m": 1.9,
+   "new": {
+    "display_name": "名單牆",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "control_room__monitor_wall",
+   "scene": "control_room",
+   "seed": 6785,
+   "fit": "meters",
+   "style": "neon",
+   "glow": "screen",
+   "data": {
+    "glow_scan": 0.25,
+    "flicker": 0.1,
+    "light_color": "Color(0.5, 0.85, 1.0, 1)",
+    "light_radius": 90,
+    "light_energy": 0.7
+   },
+   "texture_scale": 6,
+   "prompt": "A wall of nine rectangular monitors mounted in a three by three grid in a black steel frame seen from the front: screens showing cyan network node graphs, magenta waveforms, green numeric tables and one screen flashing red with a warning triangle, cables hanging down from the frame, small LED strip at the bottom edge, proportions about twelve wide to ten tall.",
+   "anchor": {
+    "size": [
+     82.8,
+     69.0
+    ],
+    "light_offset": [
+     41.4,
+     34.5
+    ]
+   },
+   "height_m": 2.3,
+   "new": {
+    "display_name": "螢幕牆",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "control_room__comm_console",
+   "scene": "control_room",
+   "seed": 4246,
+   "fit": "meters",
+   "glow": "console",
+   "data": {
+    "glow_life": true,
+    "flicker": 0.06
+   },
+   "texture_scale": 8,
+   "prompt": "A communications console desk seen from the front: a dark metal desk with a sloped panel full of faders sliders knobs and illuminated buttons in cyan and orange, a chunky headset hanging on a hook, a microphone on a flexible neck, a half empty can of drink and a scribbled note, small blinking LEDs, proportions about nine wide to five tall.",
+   "anchor": {
+    "size": [
+     62.1,
+     34.5
+    ]
+   },
+   "height_m": 1.15,
+   "new": {
+    "display_name": "通訊面板與耳機",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "control_room__relay_map_display",
+   "scene": "control_room",
+   "seed": 3306,
+   "fit": "meters",
+   "style": "neon",
+   "glow": "neon",
+   "data": {
+    "glow_life": true,
+    "glow_scan": 0.15,
+    "light_color": "Color(0.45, 0.9, 1.0, 1)",
+    "light_radius": 70,
+    "light_energy": 0.6
+   },
+   "texture_scale": 6,
+   "prompt": "A large wall display showing a glowing network map of a coastal city seen straight from the front: a dark glass panel with a coastline outline, many small round nodes in cyan joined by thin glowing lines, three nodes pulsing red, small text labels and a legend, a thin metal frame, proportions about nine wide to five tall.",
+   "anchor": {
+    "size": [
+     97.2,
+     54.0
+    ],
+    "light_offset": [
+     48.6,
+     27.0
+    ]
+   },
+   "height_m": 1.8,
+   "new": {
+    "display_name": "中繼器圖",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "broadcast_roof__glass_dome_chair",
+   "scene": "broadcast_roof",
+   "seed": 6985,
+   "fit": "meters",
+   "glow": [
+    {
+     "hue": [
+      150,
+      215
+     ],
+     "smin": 0.2,
+     "vmin": 0.6,
+     "soft": 1.5
+    }
+   ],
+   "data": {
+    "glow_life": true,
+    "light_color": "Color(0.5, 0.95, 0.95, 1)",
+    "light_radius": 56,
+    "light_energy": 0.6
+   },
+   "texture_scale": 8,
+   "prompt": "A reclining armchair under a clear glass protective dome seen from the front: an old cream leather chair with metal armrests and a wire headrest, the glass dome with a steel base ring, thick cables running from the chair into a grey control box, a pale cyan glow inside the dome, rain drops on the glass, no person in it, proportions about six wide to five tall.",
+   "anchor": {
+    "size": [
+     61.2,
+     51.0
+    ],
+    "light_offset": [
+     30.6,
+     25.5
+    ]
+   },
+   "height_m": 1.7,
+   "new": {
+    "display_name": "玻璃罩下的錨椅",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "broadcast_roof__lightning_mast",
+   "scene": "broadcast_roof",
+   "seed": 1845,
+   "fit": "meters",
+   "glow": [
+    {
+     "hue": [
+      190,
+      260
+     ],
+     "smin": 0.1,
+     "vmin": 0.85,
+     "soft": 1.5
+    }
+   ],
+   "data": {
+    "glow_life": true,
+    "flicker": 0.25
+   },
+   "texture_scale": 8,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "alpha_floor": 0.12,
+   "prompt": "A tall slim steel lightning rod mast seen from the front: a galvanised pole with thin stay wires, an ornate copper spike at the top with bright blue-white electric sparks crackling around its tip, ceramic insulators on the way down, a thick grounding cable at the bottom with a clamp, rain drops, proportions about one wide to twelve tall.",
+   "anchor": {
+    "size": [
+     11.2,
+     135.0
+    ]
+   },
+   "height_m": 4.5,
+   "new": {
+    "display_name": "避雷針桿",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "broadcast_roof__generator_unit",
+   "scene": "broadcast_roof",
+   "seed": 8883,
+   "fit": "meters",
+   "glow": [
+    {
+     "smin": 0.55,
+     "vmin": 0.55,
+     "soft": 1.0
+    },
+    {
+     "red_beacon": true
+    }
+   ],
+   "data": {
+    "glow_life": true,
+    "steam": true,
+    "steam_offset": "Vector2(10, 4)"
+   },
+   "texture_scale": 8,
+   "prompt": "A big diesel generator unit on a steel skid seen from the front: a dull orange-yellow metal housing with louvred panels and a black exhaust pipe with a rain cap, a control panel with a green amber and red light and small gauges, a fuel can strapped on the side, rust patches and oil stains, proportions about eight wide to five tall.",
+   "anchor": {
+    "size": [
+     72.0,
+     45.0
+    ]
+   },
+   "height_m": 1.5,
+   "new": {
+    "display_name": "發電機組",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "rain_chase_alley__shortcut_gate",
+   "scene": "rain_chase_alley",
+   "seed": 3718,
+   "fit": "meters",
+   "texture_scale": 8,
+   "prompt": "A low rusty iron gate half open seen from the front: a narrow door-sized gate of vertical bars with a crooked latch and a small hand-painted arrow and a chalk mark on the wall next to it, a bent bicycle wheel leaning against it, ivy and drips, proportions about four wide to seven tall.",
+   "anchor": {
+    "size": [
+     32.6,
+     57.0
+    ]
+   },
+   "height_m": 1.9,
+   "new": {
+    "display_name": "近路的鐵柵門",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "rain_chase_alley__wet_laundry",
+   "scene": "rain_chase_alley",
+   "seed": 6951,
+   "fit": "meters",
+   "data": {
+    "sway": 1.3,
+    "sway_hang": true
+   },
+   "texture_scale": 8,
+   "prompt": "A clothesline stretched between two metal brackets seen from the front with wet hanging laundry: a faded blue shirt, a long red scarf, white socks, a child's yellow raincoat, a towel, each held with a wooden peg, dripping water and heavy sagging fabric, proportions about eleven wide to eight tall.",
+   "anchor": {
+    "size": [
+     70.1,
+     51.0
+    ]
+   },
+   "height_m": 1.7,
+   "new": {
+    "display_name": "淋雨的晾衣",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "rain_chase_alley__alley_neon_noodle",
+   "scene": "rain_chase_alley",
+   "seed": 9605,
+   "fit": "meters",
+   "style": "dark_text",
+   "glow": "neon",
+   "data": {
+    "flicker": 0.15,
+    "light_color": "Color(1.0, 0.4, 0.7, 1)",
+    "light_radius": 46,
+    "light_energy": 0.6
+   },
+   "texture_scale": 8,
+   "prompt": "A small vertical neon shop sign sticking out from a wall seen from the front: a dark metal bracket and box with a big glowing magenta pink neon Chinese character 麵 and a little cyan neon bowl icon with steam below it, wet and a bit rusty, a dangling cable, proportions about four wide to five tall.",
+   "anchor": {
+    "size": [
+     28.8,
+     36.0
+    ],
+    "light_offset": [
+     14.4,
+     18.0
+    ]
+   },
+   "height_m": 1.2,
+   "new": {
+    "display_name": "「麵」小霓虹招牌",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "harbor_plaza__queue_barriers",
+   "scene": "harbor_plaza",
+   "seed": 6335,
+   "fit": "meters",
+   "style": "dark_text",
+   "texture_scale": 8,
+   "prompt": "A row of four chrome stanchion posts connected by black retractable belt barriers seen from the front, a hand-painted sign on the first post with the Chinese words 復原申請　排隊 and an arrow, small floor tape marks, wet rain drops on the belts, proportions about three wide to one tall.",
+   "anchor": {
+    "size": [
+     90.0,
+     30.0
+    ]
+   },
+   "height_m": 1.0,
+   "new": {
+    "display_name": "復原排隊欄杆",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "harbor_plaza__loudspeaker_pole",
+   "scene": "harbor_plaza",
+   "seed": 3887,
+   "fit": "meters",
+   "glow": "beacon",
+   "data": {
+    "glow_life": true
+   },
+   "texture_scale": 8,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A tall steel pole with a cluster of four grey horn loudspeakers pointing in different directions seen from the front, a small red status lamp, a weather cover, rust streaks, bundles of cables down the pole to a grey control box at the base, rain drops, proportions about one wide to three tall.",
+   "anchor": {
+    "size": [
+     36.0,
+     108.0
+    ]
+   },
+   "height_m": 3.6,
+   "new": {
+    "display_name": "擴音喇叭桿",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "harbor_plaza__plaza_screen",
+   "scene": "harbor_plaza",
+   "seed": 8475,
+   "fit": "meters",
+   "style": "neon",
+   "glow": "screen",
+   "data": {
+    "glow_scan": 0.2,
+    "flicker": 0.08,
+    "light_color": "Color(0.6, 0.8, 1.0, 1)",
+    "light_radius": 80,
+    "light_energy": 0.6
+   },
+   "texture_scale": 6,
+   "prompt": "A large outdoor LED screen on a steel frame seen straight from the front: a dark screen showing a vertical scroll of small white Chinese names, a bright blue ad strip at the bottom, a steel truss and speaker boxes on the sides, rain drops on the screen, proportions about seven wide to five tall.",
+   "anchor": {
+    "size": [
+     117.6,
+     84.0
+    ],
+    "light_offset": [
+     58.8,
+     42.0
+    ]
+   },
+   "height_m": 2.8,
+   "new": {
+    "display_name": "廣場大螢幕",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "pawnshop_bathroom__clawfoot_tub",
+   "scene": "pawnshop_bathroom",
+   "seed": 5131,
+   "fit": "meters",
+   "glow": "warm",
+   "data": {
+    "steam": true,
+    "steam_offset": "Vector2(36, 6)"
+   },
+   "texture_scale": 8,
+   "prompt": "An old-fashioned white enamel clawfoot bathtub seen from the side: a deep tub with a rolled rim and four brass claw feet, steaming hot water filled to the brim with a pale warm reflection, a brass faucet and a small shower hose at one end, a wooden bath tray across the top holding a bar of soap and a sponge, proportions about twenty-one wide to ten tall.",
+   "anchor": {
+    "size": [
+     53.5,
+     25.5
+    ]
+   },
+   "height_m": 0.85,
+   "new": {
+    "display_name": "鑄鐵浴缸",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "pawnshop_bathroom__bath_stool_basin",
+   "scene": "pawnshop_bathroom",
+   "seed": 5184,
+   "fit": "meters",
+   "texture_scale": 12,
+   "prompt": "A low round wooden bath stool and a shallow brass wash basin with a little water and a wooden scoop seen from the side, a folded cream towel on the stool, a small brown soap dish, drops of water on the floor, warm wooden tones, proportions about seven wide to five tall.",
+   "anchor": {
+    "size": [
+     25.2,
+     18.0
+    ]
+   },
+   "height_m": 0.6,
+   "new": {
+    "display_name": "小板凳與臉盆",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "pawnshop_bathroom__heat_lamp_rack",
+   "scene": "pawnshop_bathroom",
+   "seed": 8467,
+   "fit": "meters",
+   "glow": [
+    {
+     "hue": [
+      0,
+      40
+     ],
+     "smin": 0.35,
+     "vmin": 0.8,
+     "soft": 1.5
+    }
+   ],
+   "data": {
+    "flicker": 0.05,
+    "light_color": "Color(1.0, 0.45, 0.2, 1)",
+    "light_radius": 54,
+    "light_energy": 0.7
+   },
+   "texture_scale": 8,
+   "prompt": "A wooden and metal towel rack seen from the front with three folded warm-coloured towels and a bathrobe hanging on it, mounted above it a round infrared heat lamp with a glowing orange-red bulb in a metal reflector, a chain pull, steam droplets on the metal, proportions about three wide to five tall.",
+   "anchor": {
+    "size": [
+     30.6,
+     51.0
+    ],
+    "light_offset": [
+     15.3,
+     10.2
+    ]
+   },
+   "height_m": 1.7,
+   "new": {
+    "display_name": "毛巾架與暖燈",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "sunlit_noodle_stall__sunny_stall",
+   "scene": "sunlit_noodle_stall",
+   "seed": 4829,
+   "fit": "meters",
+   "style": "day_text",
+   "data": {
+    "steam": true,
+    "steam_offset": "Vector2(30, 12)"
+   },
+   "texture_scale": 6,
+   "prompt": "A tidy small noodle stall seen from the front: a white wooden counter with a striped pale-yellow and white fabric awning, a big steaming stainless steel soup pot, neat stacks of white bowls, glass jars of green onions and chili, a hand-lettered wooden menu sign, a small ceramic cat figurine, bright and fresh, a column of white steam rising, proportions about seven wide to six tall.",
+   "anchor": {
+    "size": [
+     80.5,
+     69.0
+    ]
+   },
+   "height_m": 2.3,
+   "new": {
+    "display_name": "日照區麵攤",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "sunlit_noodle_stall__bench_two_bowls",
+   "scene": "sunlit_noodle_stall",
+   "seed": 7146,
+   "fit": "meters",
+   "style": "day",
+   "data": {
+    "steam": true,
+    "steam_offset": "Vector2(60, 10)"
+   },
+   "texture_scale": 8,
+   "prompt": "A long wooden bench with a slatted backrest seen from the side, next to it a small low round wooden table holding two white bowls of steaming noodles, one half eaten, two pairs of wooden chopsticks, a small bottle of soy sauce, bright sunlight on the wood, a thin plume of steam, proportions about six wide to three tall.",
+   "anchor": {
+    "size": [
+     54.0,
+     27.0
+    ]
+   },
+   "height_m": 0.9,
+   "new": {
+    "display_name": "長椅與兩碗麵",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "sunlit_noodle_stall__parasol_table",
+   "scene": "sunlit_noodle_stall",
+   "seed": 7463,
+   "fit": "meters",
+   "style": "day",
+   "texture_scale": 6,
+   "prompt": "A white garden parasol with a pale yellow scalloped edge over a small round white metal table and two matching chairs seen from the front, a glass jug of water with lemon slices on the table, bright sunlight, light airy cheerful, proportions about five wide to six tall.",
+   "anchor": {
+    "size": [
+     57.5,
+     69.0
+    ]
+   },
+   "height_m": 2.3,
+   "new": {
+    "display_name": "遮陽傘與桌椅",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "public_garden__stone_fountain",
+   "scene": "public_garden",
+   "seed": 8960,
+   "fit": "meters",
+   "style": "day",
+   "glow": [
+    {
+     "smin": 0.0,
+     "vmin": 0.92,
+     "soft": 1.5
+    }
+   ],
+   "data": {
+    "glow_life": true
+   },
+   "texture_scale": 6,
+   "prompt": "A round tiered stone garden fountain seen from the front: a wide low pool with a carved stone rim, a central stone column with a second smaller basin on top, bright blue water pouring over the rims in thin arcs with white sparkles and small splash rings, mossy green on the stone, proportions about eleven wide to nine tall.",
+   "anchor": {
+    "size": [
+     66.0,
+     54.0
+    ]
+   },
+   "height_m": 1.8,
+   "new": {
+    "display_name": "圓形噴泉",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "public_garden__big_shade_tree",
+   "scene": "public_garden",
+   "seed": 9755,
+   "fit": "meters",
+   "style": "nature",
+   "data": {
+    "sway": 1.2
+   },
+   "texture_scale": 4,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 1.0
+   },
+   "prompt": "A big leafy broad shade tree seen from the front: a thick brown trunk with a few exposed roots, a wide round crown of layered fresh green and lime green leaf clusters with lighter sunlit tops and darker green undersides, a few small yellow blossoms, a small bird nest in a fork, proportions about nine wide to ten tall.",
+   "anchor": {
+    "size": [
+     162.0,
+     180.0
+    ]
+   },
+   "height_m": 6.0,
+   "new": {
+    "display_name": "大樹",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "public_garden__park_bench_wood",
+   "scene": "public_garden",
+   "seed": 9082,
+   "fit": "meters",
+   "style": "day",
+   "texture_scale": 8,
+   "prompt": "A classic public park bench seen from the side: green-painted cast iron side frames with scrolls and a slatted dark wooden seat and back, two small fallen green leaves on the seat, a little brass plaque on the back rail, warm sunlight on the top, proportions about six wide to three tall.",
+   "anchor": {
+    "size": [
+     54.0,
+     27.0
+    ]
+   },
+   "height_m": 0.9,
+   "new": {
+    "display_name": "公園長椅",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "nightmare_arena__calendar_pillar",
+   "scene": "nightmare_arena",
+   "seed": 7775,
+   "fit": "meters",
+   "style": "day_text",
+   "glow": [
+    {
+     "smin": 0.25,
+     "vmin": 0.85,
+     "soft": 2.0
+    }
+   ],
+   "data": {
+    "sway": 0.8,
+    "glow_life": true
+   },
+   "texture_scale": 6,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A tall stack of giant torn paper calendar pages forming a leaning pillar seen from the front: hundreds of pale cream-white sheets with curled edges, the top sheet showing a large Chinese word 明天 and a big blank number, red date blocks, a binder ring at the top, paper fibres, soft pale gold light, proportions about five wide to eight tall.",
+   "anchor": {
+    "size": [
+     60.0,
+     96.0
+    ]
+   },
+   "height_m": 3.2,
+   "new": {
+    "display_name": "日曆頁柱",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "nightmare_arena__long_warped_bench",
+   "scene": "nightmare_arena",
+   "seed": 2196,
+   "fit": "meters",
+   "style": "day",
+   "texture_scale": 6,
+   "prompt": "An impossibly long wooden park bench seen from the side: a very long slatted seat with a back rail and a repeating row of iron legs stretching on, slightly warped and bowed in the middle, soft pale gold light on the top edge, a dreamlike wrongness, proportions about eleven wide to two tall.",
+   "anchor": {
+    "size": [
+     165.0,
+     30.0
+    ]
+   },
+   "height_m": 1.0,
+   "new": {
+    "display_name": "被拉長的長椅",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "nightmare_arena__falling_calendar_sheet",
+   "scene": "nightmare_arena",
+   "seed": 2437,
+   "fit": "meters",
+   "style": "day_text",
+   "glow": [
+    {
+     "smin": 0.2,
+     "vmin": 0.9,
+     "soft": 2.0
+    }
+   ],
+   "data": {
+    "sway": 1.5,
+    "sway_hang": true,
+    "glow_life": true
+   },
+   "texture_scale": 8,
+   "prompt": "A single large calendar page floating in the air seen from the front: a pale cream paper sheet with a curled corner and slight folds, a big black number and a red day marker, a perforation edge at the top, a gentle glow around it, proportions about three wide to four tall.",
+   "anchor": {
+    "size": [
+     31.5,
+     42.0
+    ]
+   },
+   "height_m": 1.4,
+   "new": {
+    "display_name": "飄落的日曆頁",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "tower_garden__jasmine_trellis",
+   "scene": "tower_garden",
+   "seed": 5791,
+   "fit": "meters",
+   "style": "nature",
+   "data": {
+    "sway": 0.8
+   },
+   "texture_scale": 6,
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 1.0
+   },
+   "prompt": "A white wooden trellis arch seen from the front covered with climbing jasmine vines: dark green leaves and many small star-shaped white flowers, a few buds, a small brass watering can hanging on a nail on the post, soft pale highlights, proportions about nine wide to eight tall.",
+   "anchor": {
+    "size": [
+     81.0,
+     72.0
+    ]
+   },
+   "height_m": 2.4,
+   "new": {
+    "display_name": "茉莉花架",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "tower_garden__empty_garden_chair",
+   "scene": "tower_garden",
+   "seed": 2525,
+   "fit": "meters",
+   "style": "day",
+   "texture_scale": 8,
+   "prompt": "A single wooden garden armchair with a curved slatted back seen from the side, a soft pale blue knitted shawl folded over the back, beside it on the ground a small glass bottle with a few sprigs of white jasmine, a worn cushion on the seat, gentle sunlight on the top edges, tender and quiet, proportions about five wide to six tall.",
+   "anchor": {
+    "size": [
+     25.0,
+     30.0
+    ]
+   },
+   "height_m": 1.0,
+   "new": {
+    "display_name": "汐的空椅子",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "tower_garden__greenhouse_window",
+   "scene": "tower_garden",
+   "seed": 7943,
+   "fit": "meters",
+   "style": "day",
+   "texture_scale": 8,
+   "prompt": "A greenhouse window panel seen from the front: a white metal frame with eight small glass panes, the top three panes tilted open on a hinge with a long brass hand crank handle on the side, condensation droplets on the glass, a few green leaves pressing from behind, a small label plate beside the crank, proportions about five wide to six tall.",
+   "anchor": {
+    "size": [
+     45.0,
+     54.0
+    ]
+   },
+   "height_m": 1.8,
+   "new": {
+    "display_name": "溫室的窗與搖桿",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "accounting_lobby__pawn_button_pedestal",
+   "scene": "accounting_lobby",
+   "seed": 2780,
+   "fit": "meters",
+   "style": "day_text",
+   "glow": [
+    {
+     "hue": [
+      350,
+      20
+     ],
+     "smin": 0.5,
+     "vmin": 0.7,
+     "soft": 1.5
+    }
+   ],
+   "data": {
+    "glow_life": true,
+    "light_color": "Color(1.0, 0.2, 0.2, 1)",
+    "light_radius": 40,
+    "light_energy": 0.6
+   },
+   "texture_scale": 10,
+   "prompt": "A small round white pedestal seen from the front with a clear glass cover lifted open, inside a big round glossy red push button with the Chinese words 把命當了 printed on a small white plate below it, a thin ring of soft red glow around the button, a slim chrome rim, a cable plug at the back, proportions about four wide to five tall.",
+   "anchor": {
+    "size": [
+     27.6,
+     34.5
+    ],
+    "light_offset": [
+     13.8,
+     12.1
+    ]
+   },
+   "height_m": 1.15,
+   "new": {
+    "display_name": "「把命當了」按鈕台",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "accounting_lobby__lobby_counter",
+   "scene": "accounting_lobby",
+   "seed": 6471,
+   "fit": "meters",
+   "style": "day_text",
+   "glow": "screen",
+   "data": {
+    "glow_scan": 0.15
+   },
+   "texture_scale": 6,
+   "prompt": "A long modern white reception counter seen from the front: a smooth curved white front panel, a thin glass privacy partition on top with a flat monitor showing two lines of small Chinese text and a green tick and a red cross, a small slot for documents, a brass pen holder, a tiny ink pad and a seal, proportions about twenty-one wide to eight tall.",
+   "anchor": {
+    "size": [
+     94.5,
+     36.0
+    ]
+   },
+   "height_m": 1.2,
+   "new": {
+    "display_name": "櫃台與同意書螢幕",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "accounting_lobby__ticket_machine",
+   "scene": "accounting_lobby",
+   "seed": 3581,
+   "fit": "meters",
+   "style": "day",
+   "glow": "screen",
+   "data": {
+    "glow_scan": 0.15
+   },
+   "texture_scale": 8,
+   "prompt": "A tall slim white ticket dispensing kiosk seen from the front: a rounded pale grey body with a small display showing a large number 0 in soft green digits, a round button below and a paper ticket slot with a short paper tongue, a small speaker grille and a thin metal base, proportions about three wide to five tall.",
+   "anchor": {
+    "size": [
+     27.0,
+     45.0
+    ]
+   },
+   "height_m": 1.5,
+   "new": {
+    "display_name": "取號機",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "sluice_hall__gate_gear",
+   "scene": "sluice_hall",
+   "seed": 6773,
+   "fit": "meters",
+   "texture_scale": 5,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A huge industrial gear wheel assembly seen from the front: a big dark steel toothed gear with spokes mounted on a thick axle with a yellow-black hazard guard, a second smaller gear meshing with it, a heavy chain hanging from it, grease stains and rust, bolt heads, wet metal shine, proportions about one wide to one tall.",
+   "anchor": {
+    "size": [
+     108.0,
+     108.0
+    ]
+   },
+   "height_m": 3.6,
+   "new": {
+    "display_name": "巨型閘門齒輪",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "sluice_hall__water_level_gauge_tower",
+   "scene": "sluice_hall",
+   "seed": 7492,
+   "fit": "meters",
+   "style": "dark_text",
+   "glow": "beacon",
+   "data": {
+    "glow_life": true
+   },
+   "texture_scale": 6,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A tall narrow water level gauge tower seen from the front: a thick transparent glass tube filled with dark blue water up to a certain level, a steel frame around it with painted black and white numbers and coloured warning bands in yellow orange and red, a float marker on a chain, a small round pressure dial near the top, bolts and rust, proportions about two wide to seven tall.",
+   "anchor": {
+    "size": [
+     29.1,
+     102.0
+    ]
+   },
+   "height_m": 3.4,
+   "new": {
+    "display_name": "水位計塔",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "sluice_hall__release_console",
+   "scene": "sluice_hall",
+   "seed": 5726,
+   "fit": "meters",
+   "glow": "console",
+   "data": {
+    "glow_life": true,
+    "flicker": 0.08,
+    "light_color": "Color(1.0, 0.65, 0.3, 1)",
+    "light_radius": 54,
+    "light_energy": 0.6
+   },
+   "texture_scale": 8,
+   "prompt": "A heavy industrial release control console seen from the front: a battered dark steel cabinet with a sloped panel of large square illuminated buttons in green amber and red, big lever handles, a vertical row of gauges, a yellow emergency stop mushroom button, a small orange rotating beacon on top, wet and scratched, proportions about nine wide to six tall.",
+   "anchor": {
+    "size": [
+     63.0,
+     42.0
+    ],
+    "light_offset": [
+     31.5,
+     21.0
+    ]
+   },
+   "height_m": 1.4,
+   "new": {
+    "display_name": "放水區塊控制盤",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "suo_boat__rescue_boat",
+   "scene": "suo_boat",
+   "seed": 9055,
+   "fit": "meters",
+   "style": "dark_text",
+   "glow": "bulb",
+   "data": {
+    "flicker": 0.08,
+    "light_color": "Color(1.0, 0.75, 0.35, 1)",
+    "light_radius": 70,
+    "light_energy": 0.8
+   },
+   "texture_scale": 8,
+   "prompt": "A small wooden rescue rowing boat seen from the side: a weathered pale blue and white hull with a curved bow, wooden bench seats, a coil of rope and two life vests on the bottom boards, an upright pole at the bow with a glowing warm yellow lantern, a hand-painted white Chinese character 潮 on the bow, wet planks, proportions about three wide to one tall.",
+   "anchor": {
+    "size": [
+     135.0,
+     45.0
+    ],
+    "light_offset": [
+     13.5,
+     5.4
+    ]
+   },
+   "height_m": 1.5,
+   "new": {
+    "display_name": "蘇的小船",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "suo_boat__lantern_pole",
+   "scene": "suo_boat",
+   "seed": 4672,
+   "fit": "meters",
+   "glow": "lanterns",
+   "data": {
+    "sway": 1.2,
+    "sway_hang": true,
+    "flicker": 0.12,
+    "light_color": "Color(1.0, 0.7, 0.3, 1)",
+    "light_radius": 60,
+    "light_energy": 0.7
+   },
+   "texture_scale": 10,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A tall bamboo pole planted in the water seen from the front, a rusty hook near the top holding a glowing warm yellow storm lantern with a wire cage and a red ribbon tied below it, wet bamboo with segments, proportions about one wide to four tall.",
+   "anchor": {
+    "size": [
+     15.0,
+     60.0
+    ],
+    "light_offset": [
+     7.5,
+     12.0
+    ]
+   },
+   "height_m": 2.0,
+   "new": {
+    "display_name": "船燈桿",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "suo_boat__hanging_rope",
+   "scene": "suo_boat",
+   "seed": 5312,
+   "fit": "meters",
+   "data": {
+    "sway": 1.2,
+    "sway_hang": true
+   },
+   "texture_scale": 10,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A thick hemp rope hanging straight down seen from the front, tied in a loop at the top with a rusty hook and a big knot at the bottom end, a few loose frayed fibres, drops of rain on it, proportions about one wide to six tall.",
+   "anchor": {
+    "size": [
+     13.0,
+     78.0
+    ]
+   },
+   "height_m": 2.6,
+   "new": {
+    "display_name": "垂下的繩子",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "night_harbor__mooring_bollards",
+   "scene": "night_harbor",
+   "seed": 9681,
+   "fit": "meters",
+   "texture_scale": 10,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "Two cast-iron mooring bollards on a concrete pier edge seen from the side, a thick wet rope looped around one and trailing down, a rusty chain, a painted white number on the pier edge, a few puddles at the base, proportions about four wide to three tall.",
+   "anchor": {
+    "size": [
+     36.0,
+     27.0
+    ]
+   },
+   "height_m": 0.9,
+   "new": {
+    "display_name": "繫船柱與纜繩",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "night_harbor__buoy_lamp",
+   "scene": "night_harbor",
+   "seed": 8509,
+   "fit": "meters",
+   "glow": "beacon",
+   "data": {
+    "glow_life": true,
+    "light_color": "Color(1.0, 0.2, 0.15, 1)",
+    "light_radius": 60,
+    "light_energy": 0.7
+   },
+   "texture_scale": 10,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A navigation buoy floating on the sea seen from the front: a red and white striped conical float with a steel cage tower above it and a bright flashing red lamp on top, a rusty ring at the waist, water droplets, a small solar panel, proportions about four wide to seven tall.",
+   "anchor": {
+    "size": [
+     22.3,
+     39.0
+    ],
+    "light_offset": [
+     11.1,
+     2.3
+    ]
+   },
+   "height_m": 1.3,
+   "new": {
+    "display_name": "浮標燈",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "night_harbor__floodlight_mast",
+   "scene": "night_harbor",
+   "seed": 3866,
+   "fit": "meters",
+   "glow": [
+    {
+     "smin": 0.0,
+     "vmin": 0.92,
+     "soft": 2.0
+    }
+   ],
+   "data": {
+    "flicker": 0.05,
+    "light_color": "Color(0.85, 0.92, 1.0, 1)",
+    "light_radius": 90,
+    "light_energy": 0.8
+   },
+   "texture_scale": 8,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A tall steel floodlight mast on a concrete base seen from the front: a slender galvanised pole with a cluster of four rectangular floodlight heads at the top, three bright white lit and one dark and broken, a service ladder, a cable box at the bottom, wet shine and rust, proportions about three wide to eight tall.",
+   "anchor": {
+    "size": [
+     45.0,
+     120.0
+    ],
+    "light_offset": [
+     22.5,
+     7.2
+    ]
+   },
+   "height_m": 4.0,
+   "new": {
+    "display_name": "碼頭泛光燈桿",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "tower_floors__water_riser_valves",
+   "scene": "tower_floors",
+   "seed": 6927,
+   "fit": "meters",
+   "style": "neon",
+   "glow": [
+    {
+     "hue": [
+      160,
+      215
+     ],
+     "smin": 0.25,
+     "vmin": 0.65,
+     "soft": 1.5
+    }
+   ],
+   "data": {
+    "glow_life": true
+   },
+   "texture_scale": 6,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A tall vertical transparent water riser column seen from the front: a thick glass pipe filled with clear blue water at different levels in three chambers, white steel flanges, three large round pale blue valve wheels on short side branches, small digital level readouts in teal, polished metal base, proportions about four wide to eight tall.",
+   "anchor": {
+    "size": [
+     48.0,
+     96.0
+    ]
+   },
+   "height_m": 3.2,
+   "new": {
+    "display_name": "水位層的閥門塔",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "tower_floors__anchor_terminal_chair",
+   "scene": "tower_floors",
+   "seed": 2934,
+   "fit": "meters",
+   "style": "neon",
+   "glow": "screen",
+   "data": {
+    "glow_scan": 0.2,
+    "glow_life": true,
+    "light_color": "Color(0.5, 0.95, 0.95, 1)",
+    "light_radius": 40,
+    "light_energy": 0.5
+   },
+   "texture_scale": 8,
+   "prompt": "A clean white anchor chair with a slim terminal pedestal seen from the side: a glossy white reclining chair with chrome arms and a visor-less headrest, a thin white terminal with a small glowing teal screen showing a single circle, tidy hidden cables, polished surfaces with cool reflections, proportions about seven wide to six tall.",
+   "anchor": {
+    "size": [
+     52.5,
+     45.0
+    ],
+    "light_offset": [
+     42.0,
+     18.0
+    ]
+   },
+   "height_m": 1.5,
+   "new": {
+    "display_name": "錨點層的終端與椅",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "tower_floors__memory_column",
+   "scene": "tower_floors",
+   "seed": 2986,
+   "fit": "meters",
+   "style": "neon",
+   "glow": [
+    {
+     "smin": 0.2,
+     "vmin": 0.6,
+     "soft": 1.5
+    }
+   ],
+   "data": {
+    "glow_scan": 0.25,
+    "glow_life": true,
+    "flicker": 0.06,
+    "light_color": "Color(1.0, 0.85, 0.65, 1)",
+    "light_radius": 70,
+    "light_energy": 0.7
+   },
+   "texture_scale": 6,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A tall slim glass column on a white pedestal seen from the front: inside it glowing slow-moving blurred colour images in warm gold, soft pink and pale blue stacked in frames like film strips, tiny floating light motes, a steel cap with fine cables, no recognisable faces, proportions about three wide to eight tall.",
+   "anchor": {
+    "size": [
+     33.8,
+     90.0
+    ],
+    "light_offset": [
+     16.9,
+     45.0
+    ]
+   },
+   "height_m": 3.0,
+   "new": {
+    "display_name": "回放層的記憶柱",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "ledger_hall__core_seat",
+   "scene": "ledger_hall",
+   "seed": 2843,
+   "fit": "meters",
+   "style": "neon",
+   "glow": [
+    {
+     "hue": [
+      30,
+      60
+     ],
+     "smin": 0.2,
+     "vmin": 0.8,
+     "soft": 1.5
+    }
+   ],
+   "data": {
+    "glow_life": true
+   },
+   "texture_scale": 8,
+   "prompt": "A raised white circular dais with a single high-backed white chair seen from the front: the chair has a slim curved back and armrests, many fine silvery cables rising from the base of the dais and connecting to the back of the chair, a desk-like ledge with a small closed black notebook and a pen on the arm, a thin ring of pale gold light around the dais, proportions about six wide to five tall.",
+   "anchor": {
+    "size": [
+     72.0,
+     60.0
+    ]
+   },
+   "height_m": 2.0,
+   "new": {
+    "display_name": "核心的座位",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "ledger_hall__clause_tablet",
+   "scene": "ledger_hall",
+   "seed": 8163,
+   "fit": "meters",
+   "style": "dark_text",
+   "glow": [
+    {
+     "smin": 0.3,
+     "vmin": 0.7,
+     "soft": 1.5
+    }
+   ],
+   "data": {
+    "glow_life": true,
+    "flicker": 0.06,
+    "light_color": "Color(1.0, 0.85, 0.5, 1)",
+    "light_radius": 60,
+    "light_energy": 0.6
+   },
+   "texture_scale": 8,
+   "prompt": "A floating tall rectangular transparent glass tablet seen straight from the front with a thin silver frame, engraved glowing gold Chinese text 四、雙方同意。 and a smaller line 錨人：未簽署 in red, fine glowing cracks forming at one corner, soft light particles around it, nothing else, proportions about five wide to seven tall.",
+   "anchor": {
+    "size": [
+     42.9,
+     60.0
+    ],
+    "light_offset": [
+     21.4,
+     30.0
+    ]
+   },
+   "height_m": 2.0,
+   "new": {
+    "display_name": "條款石板",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "ledger_hall__cell_wall",
+   "scene": "ledger_hall",
+   "seed": 4784,
+   "fit": "meters",
+   "style": "neon",
+   "glow": [
+    {
+     "smin": 0.15,
+     "vmin": 0.8,
+     "soft": 1.5
+    }
+   ],
+   "data": {
+    "glow_life": true
+   },
+   "texture_scale": 6,
+   "prompt": "A wall panel of glass memory cells seen straight from the front: a white metal frame holding a perfect grid of eight by five small square glass cells, each glowing a soft white or warm gold, a few cells dark and empty, tiny engraved numbers under the cells, fine silver connecting lines between them, proportions about eight wide to five tall.",
+   "anchor": {
+    "size": [
+     144.0,
+     90.0
+    ]
+   },
+   "height_m": 3.0,
+   "new": {
+    "display_name": "記憶格牆",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "ending_a_stall__owe_sign_stall",
+   "scene": "ending_a_stall",
+   "seed": 6391,
+   "fit": "meters",
+   "style": "dark_text",
+   "glow": "warm",
+   "data": {
+    "steam": true,
+    "steam_offset": "Vector2(28, 12)",
+    "flicker": 0.06,
+    "light_color": "Color(1.0, 0.75, 0.35, 1)",
+    "light_radius": 56,
+    "light_energy": 0.7
+   },
+   "texture_scale": 6,
+   "prompt": "A small noodle stall seen from the front: a green wooden counter under a corrugated tin awning, a big steaming pot, stacked white bowls and a ladle, a warm yellow bare bulb, hanging from the awning a wooden sign board with the two large hand-painted Chinese characters 欠著 in white on dark green, mud stains on the lower boards from the flood, proportions about eight wide to seven tall.",
+   "anchor": {
+    "size": [
+     78.9,
+     69.0
+    ],
+    "light_offset": [
+     39.4,
+     13.8
+    ]
+   },
+   "height_m": 2.3,
+   "new": {
+    "display_name": "「欠著」麵攤",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "ending_a_stall__bowl_steam",
+   "scene": "ending_a_stall",
+   "seed": 2846,
+   "fit": "meters",
+   "glow": "warm",
+   "data": {
+    "steam": true,
+    "steam_offset": "Vector2(10, 4)"
+   },
+   "texture_scale": 14,
+   "prompt": "A single white ceramic bowl of noodles with a soft egg, green onion and a slice of pork seen from the front, on a small wooden tray with a pair of chopsticks, a visible curl of white steam above it, a thin blue rim pattern on the bowl, warm and simple, proportions about five wide to four tall.",
+   "anchor": {
+    "size": [
+     26.2,
+     21.0
+    ]
+   },
+   "height_m": 0.7,
+   "new": {
+    "display_name": "一碗冒煙的麵",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "ending_a_stall__flood_debris_pile",
+   "scene": "ending_a_stall",
+   "seed": 2825,
+   "fit": "meters",
+   "texture_scale": 8,
+   "prompt": "A heap of flood debris against a wall seen from the front: a broken wooden plank, a tangled broken umbrella, a muddy cardboard box, a pale paper tag torn in half stuck to a nail, a rubber boot, wet mud streaks, a few green weeds starting to grow in it, proportions about eight wide to five tall.",
+   "anchor": {
+    "size": [
+     52.8,
+     33.0
+    ]
+   },
+   "height_m": 1.1,
+   "new": {
+    "display_name": "退水後的雜物堆",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "school_terminal__school_terminal_unit",
+   "scene": "school_terminal",
+   "seed": 8172,
+   "fit": "meters",
+   "style": "day_text",
+   "glow": "screen",
+   "data": {
+    "glow_scan": 0.15,
+    "light_color": "Color(0.55, 0.95, 0.9, 1)",
+    "light_radius": 40,
+    "light_energy": 0.5
+   },
+   "texture_scale": 8,
+   "prompt": "A tall free-standing school registration terminal seen from the front: a rounded pale blue and white plastic body with a big touch screen glowing soft teal showing a cheerful cartoon cloud icon, a line of Chinese text and a single big green button labelled 同意, a small card reader slot, a stylus on a coiled cord, child-height design, proportions about four wide to five tall.",
+   "anchor": {
+    "size": [
+     40.8,
+     51.0
+    ],
+    "light_offset": [
+     20.4,
+     17.8
+    ]
+   },
+   "height_m": 1.7,
+   "new": {
+    "display_name": "學校終端機",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "school_terminal__locker_row",
+   "scene": "school_terminal",
+   "seed": 2526,
+   "fit": "meters",
+   "style": "day",
+   "texture_scale": 6,
+   "prompt": "A row of six narrow pale blue metal school lockers seen from the front, each with a small vent slot and a round latch and a name sticker with a child's handwritten name and a little star, one door slightly ajar showing a yellow raincoat, scuffs and stickers, proportions about nine wide to five tall.",
+   "anchor": {
+    "size": [
+     97.2,
+     54.0
+    ]
+   },
+   "height_m": 1.8,
+   "new": {
+    "display_name": "置物櫃",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "school_terminal__notice_board_school",
+   "scene": "school_terminal",
+   "seed": 7276,
+   "fit": "meters",
+   "style": "day_text",
+   "texture_scale": 8,
+   "prompt": "A school notice board seen straight from the front: a cork board with a wooden frame pinned with many colourful children's crayon drawings of umbrellas and suns, a printed poster with a cheerful cloud and the Chinese words 安心登錄 in big rounded characters, a class schedule table, paper stars, bright and neat, proportions about seven wide to five tall.",
+   "anchor": {
+    "size": [
+     50.4,
+     36.0
+    ]
+   },
+   "height_m": 1.2,
+   "new": {
+    "display_name": "學校公布欄",
+    "category": "scene"
+   }
+  }
+ ]
+}

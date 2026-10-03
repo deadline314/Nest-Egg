@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"guest_book_room__guest_book_table"
+display_name = "客人簿與矮桌"
+texture = "res://art/environment/scene_props/guest_book_room/guest_book_room__guest_book_table.png"
+light_energy = 0.4
+light_radius = 30
+light_color = Color(1.0, 0.7, 0.4, 1)
+flicker = 0.06
+light_offset = Vector2(29.5, 6.8)
+has_glow = true
+size = Vector2(53.5, 22.5)
+category = &"scene"

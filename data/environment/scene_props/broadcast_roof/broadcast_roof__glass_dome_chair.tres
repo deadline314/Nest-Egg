@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"broadcast_roof__glass_dome_chair"
+display_name = "玻璃罩下的錨椅"
+texture = "res://art/environment/scene_props/broadcast_roof/broadcast_roof__glass_dome_chair.png"
+light_energy = 0.6
+light_radius = 56
+light_color = Color(0.5, 0.95, 0.95, 1)
+glow_life = true
+light_offset = Vector2(16.8, 25.5)
+has_glow = true
+size = Vector2(33.6, 51)
+category = &"scene"

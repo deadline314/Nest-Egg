@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"anchor_phone_booth__backup_kiosk"
+display_name = "備份狀態燈箱"
+texture = "res://art/environment/scene_props/anchor_phone_booth/anchor_phone_booth__backup_kiosk.png"
+glow_scan = 0.2
+glow_life = true
+has_glow = true
+size = Vector2(18.9, 42)
+category = &"scene"

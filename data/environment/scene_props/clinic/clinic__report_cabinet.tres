@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"clinic__report_cabinet"
+display_name = "報表櫃"
+texture = "res://art/environment/scene_props/clinic/clinic__report_cabinet.png"
+size = Vector2(19.5, 57)
+category = &"scene"

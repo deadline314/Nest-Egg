@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"clearwater__window_chair"
+display_name = "窗邊的一把椅子"
+texture = "res://art/environment/scene_props/clearwater/clearwater__window_chair.png"
+size = Vector2(31.1, 30)
+category = &"scene"

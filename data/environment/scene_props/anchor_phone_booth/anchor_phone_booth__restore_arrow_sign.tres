@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"anchor_phone_booth__restore_arrow_sign"
+display_name = "「復原室→」指示牌"
+texture = "res://art/environment/scene_props/anchor_phone_booth/anchor_phone_booth__restore_arrow_sign.png"
+light_energy = 0.5
+light_radius = 40
+light_color = Color(0.5, 0.95, 0.95, 1)
+flicker = 0.08
+light_offset = Vector2(7.7, 12)
+has_glow = true
+size = Vector2(15.4, 48)
+category = &"scene"

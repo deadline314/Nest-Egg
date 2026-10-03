@@ -1,0 +1,906 @@
+{
+ "styles": {
+  "scene_day": "Anime cel-shaded background painting in the style of Studio Trigger's Cyberpunk Edgerunners, drawn in bright daylight: flat colour areas, clean ink outlines, hard-edged two-tone cel shading, high-key bright pale colours, crisp sunlight with soft gold highlights and clean white surfaces, flat side-on view like a platformer stage set with no perspective distortion, a completely deserted and uninhabited place where nobody is present, the floor strip along the bottom fifth of the picture is bare and empty.",
+  "scene_text": "Anime cel-shaded background painting in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, clean ink outlines, hard-edged two-tone cel shading, flat side-on view like a platformer stage set with no perspective distortion, a completely deserted and uninhabited place where nobody is present, the floor strip along the bottom fifth of the picture is bare and empty, any writing exactly as specified in the description."
+ },
+ "images": [
+  {
+   "id": "pawnshop_front",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 9374,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/pawnshop_front.webp",
+   "glow": "bulb",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "Interior of a cramped old pawnshop at night seen straight from the front: a long dark wooden counter across the middle with a brass cash register, wooden shelves reaching the ceiling on both walls crammed with odd objects (clocks, lamps, guitars, tools, jars) each with a small hand-written paper tag, a hanging wooden sign over the counter, a rainy glass shop door on the right with cold blue street neon outside, a bare hanging bulb giving warm orange light, a few dark water stains on the ceiling, warm orange and dark brown inside against cold blue outside, cosy cluttered and lived-in."
+  },
+  {
+   "id": "pawnshop_kitchen",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 8245,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/pawnshop_kitchen.webp",
+   "glow": "bulb",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "Interior of a tiny old kitchen behind a pawnshop at night seen from the front: worn green-tiled walls, a small iron stove with a kettle on the left, a narrow wooden dining table with two chairs in the middle, a small rain-streaked window on the right showing dark blue night, a single hanging bulb with a paper shade giving soft warm yellow light, hanging pans on the wall, a calendar nailed to the wall, wooden plank floor, quiet cosy and a little sad, warm yellow and green palette with cold blue at the window."
+  },
+  {
+   "id": "basement_door",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 4862,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/basement_door.webp",
+   "glow": "bulb",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "Interior of a narrow dark service corridor in the back of an old building seen straight from the front: grey-green painted concrete wall, a heavy rusty iron door in the middle with a thin line of warm yellow light under it, a rusty pipe running along the wall with drips and damp stains, a bare dim bulb in a wire cage on the ceiling, a few concrete steps at the right, a puddle-stained concrete floor, claustrophobic, secretive and quiet, dark grey-green with a single warm yellow glow."
+  },
+  {
+   "id": "rooftop",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 2952,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/rooftop.webp",
+   "glow": "window",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "A flat rainy rooftop of an old city building at night seen from the front: a low parapet wall along the bottom, a rusty water tank on legs at the right, a bundle of antennas and a stairwell hut with a lit doorway at the left, wet gravel roof, wires and a drooping clothesline, and in the background a cold blue skyline of apartment blocks with dim windows and a distant glowing white tower rising above low rain clouds, steady rain, quiet and lonely, cold blue and teal palette."
+  },
+  {
+   "id": "dock_warehouse",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 8637,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/dock_warehouse.webp",
+   "glow": "red_lamps",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "Interior of a huge dim dockside container warehouse at night seen from the front: stacked rusty shipping containers in orange and teal along the back wall, a steel overhead gantry rail with hanging chains, two large industrial sluice gates with wheels on the left and right side walls, a row of caged wall lamps, steel catwalk, a concrete floor covered with a thin layer of dark water at the bottom, red warning lamps, cold white searchlight beams cutting through light haze, industrial and tense."
+  },
+  {
+   "id": "anchor_phone_booth",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 5870,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/anchor_phone_booth.webp",
+   "glow": "cyan",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "A quiet rainy back-street corner at night seen from the front: a plain dark brick wall with a closed metal shutter and a pipe, wet asphalt road with shallow puddles in the bottom fifth, one dim street lamp at the left, a weak cyan-teal glow spilling from the right edge of the picture onto the wet ground, steady rain, empty and lonely, dark blue-grey with a cyan accent."
+  },
+  {
+   "id": "revival_lounge",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 6911,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/revival_lounge.webp",
+   "glow": "cyan",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "Interior of a dim late-night bar and diner next to a medical facility seen from the front: a long wooden bar counter along the back wall with a shelf of glowing bottles behind it, round stools along the counter, two cosy booths with low sofas at the right, neon tubes in magenta and cyan on the wall, small amber hanging lamps, a vinyl floor, a little haze in the air, warm amber and neon magenta palette, intimate and slightly melancholic."
+  },
+  {
+   "id": "dawn_noodle_stall",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 1763,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/dawn_noodle_stall.webp",
+   "glow": "bulb",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "A quiet back-street at dawn after the rain seen from the front: pale grey-blue early morning sky between low tenement buildings, wet pavement with scattered puddles reflecting the sky in the bottom fifth, closed metal shutters of small shops, a stopped neon sign still glowing faintly, a stack of folded plastic chairs, tangled power cables overhead, mist, cool grey-blue palette with a tiny bit of warm yellow light from the left edge, peaceful and tender."
+  },
+  {
+   "id": "revival_room",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 4916,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/revival_room.webp",
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 0.9
+   },
+   "prompt": "A small sterile white room seen straight from the front: seamless pale grey-white tiled walls, one empty stainless steel examination slab in the middle with a small round drain in the floor below it, a wide glowing lightbox panel on the back wall with a plain simple pictogram, a ceiling fluorescent light panel, a steel wall locker on the right, glossy light grey floor, cold and clinical and quiet, pale white and faint teal palette, clean overexposed light."
+  },
+  {
+   "id": "harbor_street",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 8796,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/harbor_street.webp",
+   "glow": "window",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "A rainy neon street in a half-flooded harbour city at night seen as a flat side elevation: tall narrow shabby apartment buildings on both sides with fire escapes, window lights and stacked vertical neon signs in magenta cyan and orange, wet asphalt street glossy with puddles reflecting the neon, heavy rain streaks, and far away between the buildings an imaginary futuristic needle-thin glowing white tower with a ring-shaped halo high above the rain clouds, not resembling any real building, cold blue night, rich and moody."
+  },
+  {
+   "id": "neon_market",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 7660,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/neon_market.webp",
+   "glow": "cyan",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "A dense crowded night market in a rainy harbour district seen as a flat side elevation: rows of small shop stalls with colourful striped tarpaulin awnings, hanging red lanterns, tangled overhead cables, big glowing advertising screens and vertical neon signs in red pink cyan and yellow on the buildings behind, wet pavement in the bottom fifth glossy with reflections, steady rain, empty stalls with goods on display but nobody there, saturated messy and lively, magenta red and cyan palette."
+  },
+  {
+   "id": "yong_hideout",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 5655,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/yong_hideout.webp",
+   "glow": "bulb",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "Interior of an old warehouse converted into a loan shark's counting house seen from the front: bare brick walls and steel roof trusses, rows of wooden shelves of ledger books and cash boxes along the left wall, a heavy oak desk with a green banker's lamp in the middle, hanging industrial bulbs, a raised wooden platform at the back right with a small cosy corner room lit by a soft pink-orange night light, dark red and rust brown palette, tense but with a surprising tender corner."
+  },
+  {
+   "id": "radio_workbench",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 4519,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/radio_workbench.webp",
+   "glow": "bulb",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "A cluttered electronics workbench corner inside an old pawnshop seen from the front: a long scarred wooden workbench along the wall with a disassembled vintage radio, a soldering iron, coils of wire, spare vacuum tubes and tools, a pegboard wall above it with hanging tools and screwdrivers, an adjustable desk lamp throwing a warm yellow pool of light, a small green oscilloscope screen glowing, a wooden stool, dark brown and warm yellow palette with a touch of green, focused and cosy."
+  },
+  {
+   "id": "guest_book_room",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 8398,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/guest_book_room.webp",
+   "glow": "bulb",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "Interior of a small private booth room in a dim bar seen from the front: a low round table with cushions on a tatami-like mat, thick burgundy curtains on the back wall, a paper floor lamp giving soft warm orange light, a small shelf with framed old photographs and candles at the right, a coat rack, a round window with a rain-streaked blind, a low-hanging pink glow, hazy intimate and gently sad, warm orange pink and burgundy palette, nobody there."
+  },
+  {
+   "id": "mezzanine",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 8452,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/mezzanine.webp",
+   "glow": "red_lamps",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "Interior of a vast industrial structural layer between two city levels seen as a flat side elevation: huge grey-green pipes and ducts running horizontally and vertically, riveted steel girders, metal grating catwalks at two heights, abandoned side corridors with dark doorways, amber emergency lamps on the walls, dripping condensation, and in the top right corner a faint pale white daylight slit coming through a shaft, steel and concrete floor in the bottom fifth, grey-green rust orange and amber palette, dim but getting brighter toward the upper right."
+  },
+  {
+   "id": "sunlit_district",
+   "kind": "scene",
+   "style": "scene_day",
+   "seed": 7203,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/sunlit_district.webp",
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 1.0
+   },
+   "prompt": "A bright clean sunlit city street seen as a flat side elevation: tidy pale white and cream apartment buildings with glass balconies, neatly trimmed round trees in white planters, a clean pale paved street, a clear sky blue with soft white clouds above the rooftops and long soft gold sunbeams, one distant glass tower, the whole picture bright high-key and cheerful, fresh green leaves, white cream and soft gold palette."
+  },
+  {
+   "id": "clearwater",
+   "kind": "scene",
+   "style": "scene_day",
+   "seed": 4350,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/clearwater.webp",
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 0.95
+   },
+   "prompt": "Interior of a bright quiet model apartment in a luxury retirement community seen from the front: plain smooth white walls, a very large window on the right with a sunlit sky blue view and white curtains, pale wooden floor, a neatly made bed on the left, a bare wooden chair by the window, a small wall clock, no pictures, everything spotless, soft sunlight patches on the floor, calm silent and slightly empty, white pale wood and sky blue palette."
+  },
+  {
+   "id": "clinic",
+   "kind": "scene",
+   "style": "scene_text",
+   "seed": 9396,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/clinic.webp",
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 0.9
+   },
+   "prompt": "Interior of a sterile clinic waiting hall seen from the front: pale mint-green lower walls and white upper walls, grey vinyl floor, a long reception counter with a glass window at the right, a row of fixed grey waiting chairs along the left, a numbered ticket display screen, a big wall frame with large writing, cold white fluorescent ceiling light panels, a potted fern, hospital bright and cold, pale mint white and grey palette."
+  },
+  {
+   "id": "tianqiong_corridor",
+   "kind": "scene",
+   "style": "scene_day",
+   "seed": 7184,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/tianqiong_corridor.webp",
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 0.85
+   },
+   "prompt": "A long corporate corridor seen from the front: one wall made of floor-to-ceiling glass panels looking into an empty meeting room with a long polished table and chairs and a window with a bright sky, pale grey polished stone floor reflecting the light, white ceiling with recessed light strips, a plain door on the right with a small brass sign, a minimalist pot plant in the corner, cool white and pale blue palette, silent and distant."
+  },
+  {
+   "id": "nursing_ward",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 9642,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/nursing_ward.webp",
+   "glow": "tubes",
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 0.9
+   },
+   "prompt": "Interior of a long quiet nursing ward seen as a flat side elevation: pale grey-green walls with a darker lower band, a row of five empty hospital beds with white sheets along the back wall, bedside lockers between them, tall rain-streaked windows on the right showing a dull grey-blue rainy sky, ceiling fluorescent tubes casting cold white light, polished pale vinyl floor, a wall clock and a notice board, hushed melancholic and clean, grey-green and cold white palette."
+  },
+  {
+   "id": "abandoned_factory",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 9336,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/abandoned_factory.webp",
+   "glow": "tubes",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "Interior of a huge abandoned factory hall seen as a flat side elevation: rusty orange metal machines and press frames along the back wall, a broken conveyor belt hanging off its rollers, overhead crane rails with hooks and chains, tall broken skylight windows letting in dull grey rain light, a few cold white fluorescent tubes flickering, spilled black oil puddles on the concrete floor in the bottom fifth, scattered crates, decayed and heavy, rust orange and cold grey palette."
+  },
+  {
+   "id": "factory_office",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 5592,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/factory_office.webp",
+   "glow": "bulb",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "Interior of a small abandoned factory manager's office seen from the front: stained beige walls, a large grey steel wall safe with its door ajar on the left, an old wooden desk with a desk lamp and papers in the middle, a window with horizontal blinds and a grey rainy sky behind it, a bulletin board with faded notes, a toppled swivel chair, scattered paper on the floor, a dusty linoleum floor, dim warm lamp light against cold grey rain light, sad and quiet."
+  },
+  {
+   "id": "basement",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 4845,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/basement.webp",
+   "glow": "bulb",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "Interior of a small low-ceilinged concrete basement seen from the front: bare grey concrete walls with water stains, exposed pipes and cables along the ceiling, a single hanging bulb with a bent metal shade giving dim yellow light, a narrow wooden stair going up at the left edge, a wooden table with papers and a stack of banknotes under a pinned-up board of notes on the right wall, a small glowing heater in the corner, a worn rug on the concrete floor, intimate secretive and tender, dim yellow brown and grey palette."
+  },
+  {
+   "id": "flood_street",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 8148,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/flood_street.webp",
+   "glow": "bulb",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "A flooded harbour street at night in a storm seen as a flat side elevation: dark murky water reaching up the walls of narrow tenement buildings to about waist height, the shop signs and street lamps half under water with flickering light, floating wooden doors boxes and plastic barrels on the black water surface with ripples, heavy rain, a lightning flash lighting the clouds, a painted water-level scale on a wall, drowned street in deep blue-black with small warm yellow lamp lights, dramatic and tense."
+  },
+  {
+   "id": "broadcast_outside",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 9055,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/broadcast_outside.webp",
+   "glow": "red_lamps",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "An outdoor radio broadcast station compound at night in a violent storm seen as a flat side elevation: a tall steel lattice antenna tower with red aircraft warning lights on the right, a low concrete studio building with a lit window and a satellite dish on the left, big cooling valves and pipes with a pool of rising water at the bottom fifth, cable trays and relay boxes, a fence, a lightning bolt in the black cloud sky lighting everything cold white, driving rain, deep blue black with red warning lights."
+  },
+  {
+   "id": "recording_booth",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 4253,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/recording_booth.webp",
+   "glow": "red_lamps",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "Interior of a small soundproof radio recording room seen from the front: dark grey foam acoustic panels on the walls and ceiling, a heavy wooden table with a microphone on an arm and a mixing console, a thick glass window in the left wall looking into a dark control room, a bright red glowing on-air lamp above the door on the right, a single warm desk lamp, a stool, rain sounds implied by wet windows reflections, intimate tense and quiet, dark blue grey with a red accent."
+  },
+  {
+   "id": "control_room",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 6102,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/control_room.webp",
+   "glow": "cyan",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "Interior of a dark compact operations control room seen from the front: a wall of many glowing monitors in a grid showing network graphs and radio waveforms in cyan and magenta, a long console desk with keyboards and a headset in front of a lone office chair, cable bundles on the floor, tiny status lights everywhere, a small taped photograph on the console, the room lit only by the screens, dark navy blue with cyan magenta and a few red lights, tense and lonely."
+  },
+  {
+   "id": "broadcast_roof",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 6127,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/broadcast_roof.webp",
+   "glow": "red_lamps",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "A wide flat concrete rooftop of a radio station at night in a violent thunderstorm seen as a flat side elevation: big antenna masts with guy wires and cables on both sides, a large rusty dish, a raised metal grate platform in the middle, wet reflective roof surface with deep puddles in the bottom fifth, lightning forking across the black cloud sky in the background, rain streaking sideways, red warning lights on masts, dramatic and dangerous, deep blue black and cold white."
+  },
+  {
+   "id": "rain_chase_alley",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 4359,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/rain_chase_alley.webp",
+   "glow": "window",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "A narrow back alley between tall shabby tenements at night in heavy rain seen as a flat side elevation: wet crumbling walls with pipes, air conditioners, rusty fire escapes and laundry lines, a few weak neon signs in magenta and cyan, puddles on the broken asphalt, a dim yellow lit window far at the end of the alley, rain streaks, stacked rubbish bags, claustrophobic cold blue with scattered warm lights."
+  },
+  {
+   "id": "harbor_plaza",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 9152,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/harbor_plaza.webp",
+   "glow": "cyan",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "A wide empty rainy public plaza of a harbour district at night seen as a flat side elevation: a big dark LED screen on a building at the back, a row of loudspeaker poles, queue barriers with tape forming a long winding line, wet paving stones with shallow puddles in the bottom fifth, shuttered kiosks, a cyan glowing sign for a restoration centre on the left, drizzle, lonely quiet and bitter, cold blue grey with cyan and a few warm lights."
+  },
+  {
+   "id": "pawnshop_bathroom",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 8577,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/pawnshop_bathroom.webp",
+   "glow": "bulb",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "Interior of a small old-fashioned bathroom seen from the front: warm cream tiled walls with a green decorative tile band, a white enamel tub on feet on the right with warm steam rising, a small wooden stool and a wash basin on the floor, a round mirror fogged with steam, a hanging bare bulb with a warm glow, folded towels on a rack, wooden plank floor, a little window with a frosted pane, soft humid warm light, tender and quiet, warm cream orange and soft green palette, nobody there."
+  },
+  {
+   "id": "sunlit_noodle_stall",
+   "kind": "scene",
+   "style": "scene_day",
+   "seed": 9708,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/sunlit_noodle_stall.webp",
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 1.0
+   },
+   "prompt": "A small clean open-air noodle stall corner in a bright sunlit residential district seen as a flat side elevation: a white and pale yellow striped awning over a little counter with a steaming pot on the right, a clean pale paved square with a long wooden bench and two small tables on the left, tidy trimmed trees in planters, white cream apartment buildings behind with open windows and potted flowers, a clear bright blue sky with soft clouds, strong gold sunlight and crisp pale shadows, cheerful and peaceful, high-key white cream gold and sky blue palette, nobody there."
+  },
+  {
+   "id": "public_garden",
+   "kind": "scene",
+   "style": "scene_day",
+   "seed": 2821,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/public_garden.webp",
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 1.0
+   },
+   "prompt": "A peaceful public garden in a sunlit residential district seen as a flat side elevation: soft green lawns, a round stone fountain with sparkling water on the right, big leafy shade trees with dappled light at the back, trimmed hedges, flower beds of white and yellow blossoms, a gravel footpath in the bottom fifth, white apartment buildings far behind, a clear bright blue sky with drifting clouds and golden sunbeams, cheerful and calm, bright fresh green blue and gold palette, nobody there."
+  },
+  {
+   "id": "nightmare_arena",
+   "kind": "scene",
+   "style": "scene_day",
+   "seed": 3917,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/nightmare_arena.webp",
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 1.0
+   },
+   "prompt": "A surreal dreamlike garden seen as a flat side elevation: an endless stretched lawn and gravel path with a very long warped bench and distorted tilted trees, a pale yellow pink overexposed sky filled with floating giant torn calendar pages with blank numbered days drifting like clouds, a huge soft sun low behind them with long stretched shadows, gently glowing hazy edges, slow and strange and uneasy but still beautiful, pale gold cream pink and mint palette, empty."
+  },
+  {
+   "id": "tower_garden",
+   "kind": "scene",
+   "style": "scene_day",
+   "seed": 3866,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/tower_garden.webp",
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 1.0
+   },
+   "prompt": "A rooftop garden on top of a very tall tower above the clouds seen as a flat side elevation: a sea of white clouds below with the tiny tops of distant city towers poking through, a low glass railing along the edge, beds of white jasmine flowers and green climbing vines on white trellises, a glass greenhouse on the left, a pale wooden bench under a pergola on the right, smooth pale stone paving in the bottom fifth, brilliant sky blue and strong gold sunlight, serene and slightly unreal, white green and sky blue palette, empty."
+  },
+  {
+   "id": "accounting_lobby",
+   "kind": "scene",
+   "style": "scene_day",
+   "seed": 4269,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/accounting_lobby.webp",
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 0.8
+   },
+   "prompt": "A vast empty white reception hall seen straight from the front: a smooth white marble floor reflecting everything, tall white walls with slim vertical light strips, very high ceiling with a skylight showing a bright sky, a single minimalist long white counter in the middle with a glass partition, a small round pedestal, huge empty space around, clinical and silent, white pale grey and silver palette with one small red light, empty."
+  },
+  {
+   "id": "sluice_hall",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 4538,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/sluice_hall.webp",
+   "glow": "red_lamps",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "Interior of a colossal flood barrier control hall seen as a flat side elevation: a gigantic steel sluice gate mechanism with huge gears, hydraulic pistons and chains filling the back wall, thick pipes and gantry walkways at two levels, dark churning water in a channel at the bottom with white spray, hazard stripes, orange warning lamps and cold white floodlights, rain pouring through an open roof hatch, a huge painted water level scale on a pillar, monumental and ominous, deep blue black steel grey with orange accents."
+  },
+  {
+   "id": "suo_boat",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 3069,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/suo_boat.webp",
+   "glow": "bulb",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "A flooded street at night with dark rising water seen as a flat side elevation: the water surface fills the bottom half of the picture with rain ripples and reflections of warm yellow lights, upper floors of drowned tenement buildings with a few lit windows, a long empty stretch of open dark water in the middle left clear for a boat, a tilted street sign sticking out of the water, lightning in the clouds, stormy and heart-breaking, deep blue black with small warm yellow lights."
+  },
+  {
+   "id": "night_harbor",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 7054,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/night_harbor.webp",
+   "glow": "bulb",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "A harbour pier edge at night after a storm seen as a flat side elevation: a wet concrete quay with iron mooring bollards in the bottom fifth, a vast dark sea beyond with long swells and tiny distant boat lights drifting away, thin broken storm clouds with a gap showing a few stars, far on the horizon one enormous glowing white tower rising above the clouds, a dim floodlight mast on the quay, quiet lonely and wistful, deep navy blue with cold white and a few warm yellow dots, empty."
+  },
+  {
+   "id": "tower_floors",
+   "kind": "scene",
+   "style": "scene_day",
+   "seed": 1322,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/tower_floors.webp",
+   "glow": "cyan",
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 0.85
+   },
+   "prompt": "Interior of a vast sterile white skyscraper atrium seen as a flat side elevation: smooth white curved walls with thin vertical light strips, glass floors and brushed steel gantry walkways at several heights, transparent pipes of blue water and bundles of fibre cables running vertically along the walls, tall glass tubes of softly glowing light, a ceiling of light panels, very clean and quiet, cold white silver and pale blue palette with small teal indicator lights, empty."
+  },
+  {
+   "id": "ledger_hall",
+   "kind": "scene",
+   "style": "scene_day",
+   "seed": 6444,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/ledger_hall.webp",
+   "glow": [
+    {
+     "smin": 0.2,
+     "vmin": 0.85,
+     "soft": 1.5
+    }
+   ],
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 0.85
+   },
+   "prompt": "Interior of a colossal white circular archive hall seen as a flat side elevation of the curved inner wall: thousands of small square glass memory cells arranged in perfect grid rings climbing out of sight, each cell glowing a faint soft white or pale gold, a round white raised dais at the bottom centre with a ring of thin light, floating thin transparent glass panels in the air, a vast high dome ceiling, cold white light with a few warm gold cells, monumental pure and unsettling, white silver and pale gold palette, empty."
+  },
+  {
+   "id": "ending_a_stall",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 3035,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/ending_a_stall.webp",
+   "glow": "bulb",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "A harbour street just after a flood has gone down, in steady light rain at dusk, seen as a flat side elevation: muddy grey tenement walls with a clear brown waterline stain halfway up, wet mud and scattered debris along the street edges, a small open-fronted noodle stall with a lit warm yellow bulb under a green awning on the left, a few stools, a tilted lamp post, cables hanging, puddles reflecting the sky in the bottom fifth, a hopeful but sad feeling, grey brown muted palette with warm yellow, empty."
+  },
+  {
+   "id": "school_terminal",
+   "kind": "scene",
+   "style": "scene_day",
+   "seed": 4557,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/school_terminal.webp",
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 0.95
+   },
+   "prompt": "A clean bright school corridor seen straight from the front: pale blue lockers in a row on the left, a notice board with colourful paper drawings on the right, large windows with white sunlit glare, a polished pale linoleum floor with reflections of the windows, a small ceiling-hung sign, a tidy row of children's umbrellas on pegs, soft daylight, gentle and ordinary but uneasy, pale blue white and soft yellow palette, nobody there."
+  }
+ ]
+}

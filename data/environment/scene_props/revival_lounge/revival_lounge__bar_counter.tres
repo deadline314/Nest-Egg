@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"revival_lounge__bar_counter"
+display_name = "吧台與高腳凳"
+texture = "res://art/environment/scene_props/revival_lounge/revival_lounge__bar_counter.png"
+has_glow = true
+size = Vector2(124.8, 57)
+category = &"scene"

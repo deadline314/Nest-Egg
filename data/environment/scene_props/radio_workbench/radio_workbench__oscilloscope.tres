@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"radio_workbench__oscilloscope"
+display_name = "示波器"
+texture = "res://art/environment/scene_props/radio_workbench/radio_workbench__oscilloscope.png"
+light_energy = 0.5
+light_radius = 30
+light_color = Color(0.5, 1.0, 0.6, 1)
+flicker = 0.1
+glow_scan = 0.3
+light_offset = Vector2(9.5, 8.4)
+has_glow = true
+size = Vector2(23.8, 21)
+category = &"scene"

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"basement__anchor_chair"
+display_name = "錨椅"
+texture = "res://art/environment/scene_props/basement/basement__anchor_chair.png"
+light_energy = 0.4
+light_radius = 34
+light_color = Color(0.5, 0.95, 0.9, 1)
+glow_life = true
+light_offset = Vector2(10.9, 17.6)
+has_glow = true
+size = Vector2(31.3, 39)
+category = &"scene"

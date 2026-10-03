@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"pawnshop_front__pawn_sign"
+display_name = "「什麼都收，不收命」招牌"
+texture = "res://art/environment/scene_props/pawnshop_front/pawnshop_front__pawn_sign.png"
+light_energy = 0.6
+light_radius = 40
+light_color = Color(1.0, 0.7, 0.3, 1)
+flicker = 0.1
+light_offset = Vector2(34.7, 13.5)
+has_glow = true
+size = Vector2(69.5, 27)
+category = &"scene"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"factory_office__wall_safe"
+display_name = "半開的保險櫃"
+texture = "res://art/environment/scene_props/factory_office/factory_office__wall_safe.png"
+size = Vector2(41, 45)
+category = &"scene"

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"control_room__monitor_wall"
+display_name = "螢幕牆"
+texture = "res://art/environment/scene_props/control_room/control_room__monitor_wall.png"
+light_energy = 0.7
+light_radius = 90
+light_color = Color(0.5, 0.85, 1.0, 1)
+flicker = 0.1
+glow_scan = 0.25
+light_offset = Vector2(53, 34.5)
+has_glow = true
+size = Vector2(106.1, 69)
+category = &"scene"

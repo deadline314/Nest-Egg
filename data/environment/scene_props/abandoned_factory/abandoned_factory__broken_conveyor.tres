@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"abandoned_factory__broken_conveyor"
+display_name = "斷掉的輸送帶"
+texture = "res://art/environment/scene_props/abandoned_factory/abandoned_factory__broken_conveyor.png"
+size = Vector2(141.7, 42)
+category = &"scene"

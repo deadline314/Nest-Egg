@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"flood_street__submerged_street_lamp"
+display_name = "淹到一半的路燈"
+texture = "res://art/environment/scene_props/flood_street/flood_street__submerged_street_lamp.png"
+light_energy = 0.7
+light_radius = 70
+light_color = Color(1.0, 0.8, 0.45, 1)
+sway_hang = false
+sway = 0.5
+flicker = 0.2
+light_offset = Vector2(18, 5.8)
+has_glow = true
+size = Vector2(32.8, 96)
+category = &"scene"

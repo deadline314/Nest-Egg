@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"neon_market__speech_screen"
+display_name = "週年演說大螢幕"
+texture = "res://art/environment/scene_props/neon_market/neon_market__speech_screen.png"
+light_energy = 0.7
+light_radius = 80
+light_color = Color(0.55, 0.85, 0.95, 1)
+flicker = 0.06
+glow_scan = 0.2
+light_offset = Vector2(63.5, 39)
+has_glow = true
+size = Vector2(127, 78)
+category = &"scene"

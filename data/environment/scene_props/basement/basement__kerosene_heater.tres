@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"basement__kerosene_heater"
+display_name = "小暖爐"
+texture = "res://art/environment/scene_props/basement/basement__kerosene_heater.png"
+light_energy = 0.8
+light_radius = 56
+light_color = Color(1.0, 0.55, 0.2, 1)
+flicker = 0.15
+light_offset = Vector2(10.3, 12.4)
+has_glow = true
+size = Vector2(20.7, 22.5)
+category = &"scene"

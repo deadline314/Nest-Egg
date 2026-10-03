@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"pawnshop_kitchen__kettle_stove"
+display_name = "燒水的鐵爐與壺"
+texture = "res://art/environment/scene_props/pawnshop_kitchen/pawnshop_kitchen__kettle_stove.png"
+light_energy = 0.6
+light_radius = 36
+light_color = Color(1.0, 0.65, 0.25, 1)
+flicker = 0.08
+steam_offset = Vector2(14, 6)
+steam = true
+light_offset = Vector2(8.4, 17.7)
+has_glow = true
+size = Vector2(18.6, 28.5)
+category = &"scene"

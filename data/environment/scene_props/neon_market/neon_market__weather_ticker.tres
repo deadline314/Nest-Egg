@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"neon_market__weather_ticker"
+display_name = "氣象跑馬燈看板"
+texture = "res://art/environment/scene_props/neon_market/neon_market__weather_ticker.png"
+light_energy = 0.5
+light_radius = 40
+light_color = Color(1.0, 0.75, 0.3, 1)
+flicker = 0.1
+glow_scan = 0.3
+light_offset = Vector2(34.9, 12)
+has_glow = true
+size = Vector2(69.8, 24)
+category = &"scene"

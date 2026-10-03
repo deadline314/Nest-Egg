@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"broadcast_roof__lightning_mast"
+display_name = "避雷針桿"
+texture = "res://art/environment/scene_props/broadcast_roof/broadcast_roof__lightning_mast.png"
+flicker = 0.25
+glow_life = true
+has_glow = true
+size = Vector2(6.2, 135)
+category = &"scene"

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"dawn_noodle_stall__noodle_bowls_table"
+display_name = "矮桌與兩碗麵"
+texture = "res://art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.png"
+steam_offset = Vector2(14, 8)
+steam = true
+has_glow = true
+size = Vector2(30.4, 25.5)
+category = &"scene"

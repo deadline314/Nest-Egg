@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"revival_room__slogan_panel"
+display_name = "標語燈箱"
+texture = "res://art/environment/scene_props/revival_room/revival_room__slogan_panel.png"
+light_energy = 0.5
+light_radius = 50
+light_color = Color(0.6, 0.95, 0.95, 1)
+flicker = 0.05
+light_offset = Vector2(36.1, 11.2)
+has_glow = true
+size = Vector2(72.3, 22.5)
+category = &"scene"
