@@ -10,6 +10,10 @@ extends Node
 const HITSTOP_TIME_SCALE := 0.05
 const LIGHT_POOL_SIZE := 10
 const RING_POOL_SIZE := 5
+## 特效克制係數：粒子數量、閃光與衝擊波的整體強度。想整體加強或減弱特效，只動這幾個數字（1.0＝原本設計的量）。
+const PARTICLE_SCALE := 0.5
+const FLARE_SCALE := 0.7
+const SHOCK_SCALE := 0.55
 
 var _container: Node2D
 var _glow: ParticleField  # 疊加（發光）層
@@ -115,6 +119,7 @@ func kick(direction: Vector2, amount: float) -> void:
 
 ## 火花：沿速度拉長的亮線，頭是近乎白熱的亮色、尾巴漸成顏色再淡出；有阻力與重力。dir＝主要方向（ZERO＝四面八方），spread＝散開角度（弧度）。
 func sparks(position: Vector2, color: Color, amount := 10, speed := 220.0, life := 0.4, dir := Vector2.ZERO, spread := TAU, gravity := 520.0) -> void:
+	amount = maxi(1, roundi(float(amount) * PARTICLE_SCALE))
 	if _glow == null:
 		return
 	var base := dir.angle() if dir != Vector2.ZERO else 0.0
@@ -130,6 +135,7 @@ func sparks(position: Vector2, color: Color, amount := 10, speed := 220.0, life 
 
 ## 餘燼：小亮點，慢慢往上飄並閃爍，顏色由亮橘漸成暗紅。
 func embers(position: Vector2, color: Color, amount := 8, speed := 70.0, life := 1.0, spread := 18.0) -> void:
+	amount = maxi(1, roundi(float(amount) * PARTICLE_SCALE))
 	if _glow == null:
 		return
 	for i in clampi(amount, 1, 60):
@@ -142,6 +148,7 @@ func embers(position: Vector2, color: Color, amount := 8, speed := 70.0, life :=
 
 ## 煙：柔邊的一團團，由深灰漸漸變大、變淡，緩緩上升。tint＝煙的基本色（預設暗灰藍）。
 func smoke(position: Vector2, amount := 6, spread := 14.0, life := 1.1, size := 18.0, tint := Color(0.2, 0.22, 0.28, 0.55)) -> void:
+	amount = maxi(1, roundi(float(amount) * PARTICLE_SCALE))
 	if _soft == null:
 		return
 	for i in clampi(amount, 1, 40):
@@ -153,6 +160,7 @@ func smoke(position: Vector2, amount := 6, spread := 14.0, life := 1.1, size := 
 
 ## 火球：發光的團塊向外膨脹，顏色由近白的亮黃漸成橘、深紅再消失；（再疊上 smoke 就是爆炸的雲）。
 func fire(position: Vector2, radius: float, color: Color, amount := 8, life := 0.55) -> void:
+	amount = maxi(1, roundi(float(amount) * PARTICLE_SCALE))
 	if _glow == null:
 		return
 	for i in clampi(amount, 1, 30):
@@ -167,6 +175,7 @@ func fire(position: Vector2, radius: float, color: Color, amount := 8, life := 0
 
 ## 碎片：不規則的金屬碎塊，帶重力與自轉，落下時漸漸變暗。
 func shards(position: Vector2, color: Color, amount := 6, speed := 200.0, life := 0.9, size := 7.0) -> void:
+	amount = maxi(1, roundi(float(amount) * PARTICLE_SCALE))
 	if _soft == null:
 		return
 	for i in clampi(amount, 1, 30):
@@ -178,6 +187,7 @@ func shards(position: Vector2, color: Color, amount := 6, speed := 200.0, life :
 
 ## 星芒與光暈的閃光：一瞬間的十字星芒加一圈光暈（槍口、擊殺、鎖定）。
 func flare(position: Vector2, color: Color, size := 40.0, life := 0.14) -> void:
+	size *= FLARE_SCALE
 	if _glow == null:
 		return
 	_glow.emit_ex(position, Vector2.ZERO, life, VfxAtlas.Cell.FLARE, size * 0.6, size, Color(minf(1.9, color.r * 1.3 + 0.4), minf(1.9, color.g * 1.3 + 0.35), minf(1.9, color.b * 1.3 + 0.3), 0.85),
@@ -188,6 +198,8 @@ func flare(position: Vector2, color: Color, size := 40.0, life := 0.14) -> void:
 
 ## 衝擊波：環形折射加亮邊（需要畫面可渲染；沒有綁定關卡時不做事）。
 func shock(position: Vector2, radius := 60.0, strength := 0.04, color := Palette.WARNING, time := 0.5) -> void:
+	strength *= SHOCK_SCALE
+	radius *= 0.85
 	if _rings.is_empty():
 		return
 	var ring := _rings[_next_ring]
@@ -204,6 +216,7 @@ func arc(from: Vector2, to: Vector2, color := Palette.CYAN, life := 0.18, width 
 
 ## 電弧簇：從一點向四周打出 count 道短閃電（敵人被電、機械爆炸）。
 func lightning(position: Vector2, color := Palette.CYAN, count := 5, reach := 36.0, life := 0.2) -> void:
+	count = maxi(1, roundi(float(count) * PARTICLE_SCALE))
 	for i in count:
 		var angle := randf() * TAU
 		arc(position, position + Vector2.RIGHT.rotated(angle) * reach * randf_range(0.5, 1.2), color, life * randf_range(0.7, 1.2), 1.4, 0.2, 1)
@@ -343,10 +356,10 @@ func _explosion_visual(position: Vector2, radius: float, color: Color) -> void:
 	var r := maxf(8.0, radius)
 	_glow.emit_ex(position, Vector2.ZERO, 0.12, VfxAtlas.Cell.GLOW, r * 1.2, r * 2.4, Color(1.8, 1.5, 1.1, 0.6), Color(color.r * 1.4, color.g * 1.1, color.b, 0.0))
 	flare(position, color, r * 2.2, 0.14)
-	fire(position, r * 0.45, color, 8, 0.5)
-	smoke(position + Vector2(0, -r * 0.2), 7, r * 0.5, 1.4, r * 0.75)
-	sparks(position, color, 18, r * 9.0, 0.5)
-	embers(position, color, 10, r * 1.2, 1.1, r * 0.4)
-	shards(position, color, 6, r * 5.0, 1.0, maxf(5.0, r * 0.18))
+	fire(position, r * 0.45, color, 7, 0.45)
+	smoke(position + Vector2(0, -r * 0.2), 6, r * 0.5, 1.2, r * 0.7)
+	sparks(position, color, 14, r * 8.0, 0.4)
+	embers(position, color, 6, r * 1.0, 0.9, r * 0.4)
+	shards(position, color, 5, r * 4.5, 0.9, maxf(5.0, r * 0.16))
 	shock(position, r * 3.2, 0.05, color.lerp(Palette.WHITE, 0.3), 0.55)
 

@@ -115,6 +115,6 @@ func _bolt(a: Vector2, b: Vector2, jag: float, rng: RandomNumberGenerator) -> Pa
 func _draw_bolt(points: PackedVector2Array, color: Color, width: float, fade: float) -> void:
 	if points.size() < 2:
 		return
-	draw_polyline(points, Color(color.r, color.g, color.b, 0.16 * fade), width * 6.0, true)
-	draw_polyline(points, Color(color.r * 1.6, color.g * 1.6, color.b * 1.6, 0.55 * fade), width * 2.2, true)
-	draw_polyline(points, Color(2.2, 2.2, 2.4, fade), maxf(1.0, width * 0.8), true)
+	draw_polyline(points, Color(color.r, color.g, color.b, 0.08 * fade), width * 4.0, true)
+	draw_polyline(points, Color(color.r * 1.15, color.g * 1.15, color.b * 1.15, 0.5 * fade), width * 1.8, true)
+	draw_polyline(points, Color(1.25, 1.3, 1.4, fade), maxf(1.0, width * 0.7), true)

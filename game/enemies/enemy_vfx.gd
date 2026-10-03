@@ -203,7 +203,7 @@ func _start_dissolve(host: Node, rig: CharacterRig, def: Dictionary) -> void:
 		rig.set_dissolve(v, edge, rise, width)
 		var step := v - float(last[0])
 		last[0] = v
-		var count := int(step * 90.0) + (1 if randf() < step * 90.0 - floorf(step * 90.0) else 0)
+		var count := int(step * 40.0) + (1 if randf() < step * 40.0 - floorf(step * 40.0) else 0)
 		for i in count:
 			var at := rig.body_point(clampf(v + randf_range(-0.2, 0.2) if rise > 0.0 else 1.0 - v + randf_range(-0.2, 0.2), 0.0, 1.0), 9.0)
 			if randf() < 0.6:
