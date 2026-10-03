@@ -4,12 +4,21 @@ extends Area2D
 ## 人物不受傷，也不會被敵人當成目標：沒有受擊盒、不在 enemies 群組。原點在腳底。
 ## 談過幾次與已領的獎勵跟著檢查點存檔（WorldState）：回溯後人物與玩家的信用點、補給一起還原，所以不會多領。
 
-const REACH := Vector2(64, 56)
-const PROMPT_RADIUS := 72.0
+## 互動距離（玩家與人物的水平距離）：提示出現的範圍與按互動鍵有效的範圍用同一個數字，看得到提示就一定能互動。
+const INTERACT_RANGE := 48.0
+const PLAYER_HALF_WIDTH := 6.0
+const REACH := Vector2(2.0 * (INTERACT_RANGE - PLAYER_HALF_WIDTH), 56)
+const PROMPT_RADIUS := INTERACT_RANGE
+## 沒有骨架外觀（記號、剪影）時的提示文字與泡泡位置；有骨架外觀時依實際頭頂高度排（_fit_to_figure）。
 const PROMPT_OFFSET := Vector2(0, -78)
+const BUBBLE_POS := Vector2(0, -48)
+## 泡泡底邊離頭頂、提示文字底邊離泡泡頂的距離。
+const BUBBLE_GAP := 4.0
+const LABEL_GAP := 4.0
+const BUBBLE_SIZE := Vector2(16, 10)
+const BUBBLE_BOB := 1.5
 const TALK_COOLDOWN := 0.5
 const SILHOUETTE_SCALE := 0.6
-const BUBBLE_POS := Vector2(0, -48)
 
 var data: NpcData
 var cell := Vector2i.ZERO
@@ -19,6 +28,8 @@ var talk_count := 0
 var claimed: Dictionary[int, bool] = {}
 
 var _actor: CutsceneActor
+var _prompt: WorldPrompt
+var _bubble_pos := BUBBLE_POS
 var _player_in_range := false
 var _talking := false
 var _cooldown := 0.0
@@ -53,15 +64,38 @@ func _ready() -> void:
 	body_exited.connect(_on_body_exited)
 	if data.kind == NpcData.Kind.PERSON:
 		_build_visual()
-	var prompt := WorldPrompt.new()
-	prompt.text = data.prompt_text()
-	prompt.radius = PROMPT_RADIUS
-	prompt.offset = PROMPT_OFFSET
-	add_child(prompt)
+	_prompt = WorldPrompt.new()
+	_prompt.text = data.prompt_text()
+	_prompt.radius = PROMPT_RADIUS
+	_prompt.offset = PROMPT_OFFSET
+	add_child(_prompt)
 	var light := LightKit.create_point_light(Palette.NEON_YELLOW if data.kind == NpcData.Kind.PERSON else Palette.CYAN, 56.0, 0.35, false)
 	light.position = Vector2(0, -24)
 	add_child(light)
 	add_to_group(WorldState.GROUP)
+	if _actor != null and _actor.rig != null:
+		_fit_to_figure()
+
+
+## 等骨架擺好第一個姿勢後量頭頂高度，把泡泡與提示文字排在頭頂上方（站、蹲、靠牆各自對得上，不蓋到臉）。
+func _fit_to_figure() -> void:
+	await get_tree().process_frame
+	await get_tree().process_frame
+	if not is_inside_tree() or not is_instance_valid(_actor) or _actor.rig == null or not _actor.rig.has_bone(&"head"):
+		return
+	var skin := RigLibrary.character(data.rig_id)
+	var head_def: Dictionary = (skin.get("textures", {}) as Dictionary).get("head", {})
+	if head_def.is_empty():
+		push_warning("[NpcActor] %s 的外觀沒有 head 貼圖，提示維持預設位置。" % data.id)
+		return
+	var above_pivot := RigLibrary.vec2(head_def.get("pivot")).y * float(skin.get("texture_scale", 0.25)) * float(skin.get("scale", 1.0))
+	var head_top := -to_local(_actor.rig.bone(&"head").global_position).y + above_pivot
+	if head_top <= 0.0:
+		return
+	_bubble_pos = Vector2(0.0, -(head_top + BUBBLE_GAP) - BUBBLE_SIZE.y * 0.2)
+	var bubble_top := _bubble_pos.y - BUBBLE_SIZE.y * 0.8 - BUBBLE_BOB
+	_prompt.offset = Vector2(0.0, bubble_top - LABEL_GAP - WorldPrompt.PADDING.y)
+	_prompt.position = _prompt.offset
 
 
 ## 有骨架外觀就用骨架，沒有就用講者的頭像做剪影（兩者都沒有時只畫一個記號）。
@@ -166,9 +200,9 @@ func _draw() -> void:
 		draw_rect(Rect2(-6, -34, 12, 34), Color(Palette.UI_PANEL, 0.9))
 		draw_rect(Rect2(-6, -34, 12, 34), Palette.CYAN_DIM, false, 1.0)
 	if talk_count == 0:
-		var bob := sin(_time * 3.0) * 1.5
+		var bob := sin(_time * 3.0) * BUBBLE_BOB
 		var glow := LightKit.glow(Palette.NEON_YELLOW, 1.6)
-		var box := Rect2(BUBBLE_POS + Vector2(-8, -8 + bob), Vector2(16, 10))
+		var box := Rect2(_bubble_pos + Vector2(-BUBBLE_SIZE.x * 0.5, -BUBBLE_SIZE.y * 0.8 + bob), BUBBLE_SIZE)
 		draw_rect(box, Color(Palette.UI_PANEL, 0.9))
 		draw_rect(box, glow, false, 1.0)
 		for i in 3:
