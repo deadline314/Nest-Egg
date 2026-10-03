@@ -79,6 +79,7 @@ static func play(material: StringName, position: Vector2, normal: Vector2, color
 	elif materials.has(String(id)):
 		def = materials[String(id)]
 	played_count += 1
+	FeelRecord.capture("material", String(id), {"x": snappedf(position.x, 0.1), "y": snappedf(position.y, 0.1), "weak": bool(flags.get("weak", false)), "ricochet": bool(flags.get("ricochet", false))})
 	Feel.record("材質", String(id) + (" 跳彈" if bool(flags.get("ricochet", false)) else (" 弱點" if bool(flags.get("weak", false)) else "")))
 	_apply(def, position, normal, color)
 	if bool(flags.get("weak", false)) and not bool(flags.get("ricochet", false)):

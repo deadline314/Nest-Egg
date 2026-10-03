@@ -26,6 +26,10 @@ var _info: FeelDiagnostics
 var _preset_option: OptionButton
 var _param_box: VBoxContainer
 var _usage_label: Label
+var ab := FeelAB.new()
+var record: FeelRecord
+var _blind_round := -1
+const RECORD_DIR := "user://feel_lab/records"
 var _pressure := false
 var _pressure_left := 0.0
 var _next_target_slot := 0
@@ -181,6 +185,13 @@ func _build_panel() -> void:
 	_event_option.item_selected.connect(func(_i: int) -> void: rebuild_params())
 	box.add_child(_row([_button("預覽差異", func() -> void: _show_save_preview(true), "列出和檔案不同的參數，不寫入"),
 			_button("儲存", func() -> void: _show_save_preview(false), "驗證後寫回 data/feel/events.json（先備份）")]))
+	box.add_child(UiKit.label("A／B 比較", 8, Palette.CYAN))
+	box.add_child(_row([_button("存 A", func() -> void: ab.save_slot("A"), "把目前參數存進 A 槽"), _button("存 B", func() -> void: ab.save_slot("B"), "把目前參數存進 B 槽"),
+			_button("切換", func() -> void: _info.show_message("目前：" + ab.toggle(), 2.0), "A、B 一鍵切換，立即生效")]))
+	box.add_child(_row([_button("A→B 重播", _replay_ab, "同一個事件依序用 A、B 播一次"), _button("存對照圖", func() -> void: _info.show_message("截圖：" + FeelAB.save_screenshot(get_viewport(), ab.active), 3.0), "把目前畫面存到使用者資料夾")]))
+	box.add_child(_row([_button("盲測", _start_blind, "十輪：每輪播兩個選項（不告訴你哪個是 A、B），選比較好的"), _button("第一個", func() -> void: _answer(1), "盲測：選先播的"), _button("第二個", func() -> void: _answer(2), "盲測：選後播的")]))
+	box.add_child(UiKit.label("事件錄放", 8, Palette.CYAN))
+	box.add_child(_row([_button("錄", _start_record, "開始錄：之後的回饋、聲音、材質事件都會記下來"), _button("停", _stop_record, "停止並匯出錄檔到使用者資料夾"), _button("重播", _replay_record, "用目前的參數重播剛錄的")]))
 	_param_box = VBoxContainer.new()
 	box.add_child(_param_box)
 	_usage_label = UiKit.label("", 6, Palette.UI_MUTED)
@@ -196,6 +207,65 @@ func _build_panel() -> void:
 	info_layer.layer = 49
 	add_child(info_layer)
 	info_layer.add_child(_info)
+
+
+func _play_event(id: StringName) -> void:
+	Feel.play(id, {"targets": [player]})
+
+
+func _replay_ab() -> void:
+	var id := StringName(_event_option.get_item_text(_event_option.selected))
+	await ab.replay_sequence(self, id, _play_event)
+
+
+func _start_blind() -> void:
+	var id := StringName(_event_option.get_item_text(_event_option.selected))
+	if not ab.start_blind(id):
+		_info.show_message("盲測要先存好 A、B 兩個槽", 3.0)
+		return
+	_blind_round = 0
+	await _play_blind_round()
+
+
+func _play_blind_round() -> void:
+	_info.show_message("第 %d / %d 輪：聽完兩個，選比較好的" % [_blind_round + 1, ab.round_count()], 30.0)
+	await ab.play_round(_blind_round, self, _play_event)
+
+
+func _answer(choice: int) -> void:
+	if _blind_round < 0 or not ab.answer(_blind_round, choice):
+		return
+	_blind_round = ab.pending_round()
+	if _blind_round >= 0:
+		await _play_blind_round()
+		return
+	var tally := ab.tally()
+	var path := ab.save_results()
+	_info.show_message("盲測結果：A %d、B %d
+已存：%s" % [tally["A"], tally["B"], path], 8.0)
+
+
+func _start_record() -> void:
+	record = FeelRecord.new()
+	record.start()
+	_info.show_message("錄製中…", 2.0)
+
+
+func _stop_record() -> void:
+	if record == null:
+		return
+	record.stop()
+	_info.show_message("已錄 %d 筆事件，存到 %s" % [record.events.size(), record.save(RECORD_DIR, "record_%d" % Time.get_ticks_msec())], 5.0)
+
+
+func _replay_record() -> void:
+	if record == null or record.events.is_empty():
+		_info.show_message("還沒有錄檔", 2.0)
+		return
+	var stats := await record.replay_events(self)
+	var problems := record.check_budgets(stats)
+	_info.show_message("重播完成，峰值：粒子 %d、聲音 %d、閃光 %d
+%s" % [stats["particles"], stats["voices"], stats["flash_per_second"], "預算內" if problems.is_empty() else "；".join(problems)], 8.0)
 
 
 ## 預覽或儲存：顯示差異與結果（驗證失敗會指出位置，不寫入）。

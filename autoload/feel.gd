@@ -128,6 +128,13 @@ func play(id: StringName, ctx: Dictionary = {}) -> void:
 	var scale := float(ctx.get("scale", 1.0))
 	_count("events")
 	record("回饋", String(id))
+	if FeelRecord.active != null:
+		var payload: Dictionary = {}
+		if ctx.has("dir"):
+			payload["dir"] = [snappedf((ctx["dir"] as Vector2).x, 0.001), snappedf((ctx["dir"] as Vector2).y, 0.001)]
+		if ctx.has("origin") and (ctx["origin"] as Vector2) != Vector2.INF:
+			payload["origin"] = [snappedf((ctx["origin"] as Vector2).x, 0.1), snappedf((ctx["origin"] as Vector2).y, 0.1)]
+		FeelRecord.capture("feel", String(id), payload)
 	var shake: Variant = (def as Dictionary).get("shake")
 	if typeof(shake) == TYPE_DICTIONARY:
 		# 頓幀結束後才震：凍結中畫面不抖，放開的瞬間才有衝擊。

@@ -17,6 +17,10 @@ func run() -> void:
 	lab.spawn_enemy("drone", 18.0)
 	await wait(0.6)
 	capture("lab_idle")
+	lab.panel.get_child(0).scroll_vertical = 330
+	await wait(0.2)
+	capture("lab_ab_panel")
+	lab.panel.get_child(0).scroll_vertical = 0
 	for i in 3:
 		Input.action_press(&"shoot")
 		await wait(0.25)

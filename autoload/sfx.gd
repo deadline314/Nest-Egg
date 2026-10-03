@@ -470,6 +470,7 @@ func play_event(id: StringName, ctx: Dictionary = {}) -> void:
 		return
 	var d := def as Dictionary
 	Feel.record("聲音", String(id))
+	FeelRecord.capture("sound", String(id))
 	var priority := int(d.get("priority", 0))
 	var now := Time.get_ticks_msec()
 	var chain_pitch := _chain_pitch(String(id), d.get("chain"), now)

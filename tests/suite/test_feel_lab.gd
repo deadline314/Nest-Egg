@@ -44,6 +44,7 @@ func _test_lab_runs() -> void:
 		lab.queue_free()
 		return
 	check(lab.player is Player, "the lab uses the game's real player")
+	check(lab.ab != null and lab.ab.slots.is_empty(), "the lab has A/B slots, empty at first")
 	# 每一種真實敵人都能重生。
 	var ids := lab.enemy_ids()
 	check(ids.size() >= 15, "every enemy is listed (%d)" % ids.size())
