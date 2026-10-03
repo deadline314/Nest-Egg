@@ -15,7 +15,8 @@ ROOT = Path(__file__).resolve().parents[2]
 ART = ROOT / "art" / "environment"
 PIPELINE = ROOT / "assets_src" / "pipeline"
 LICENSES = ROOT / "assets_src" / "LICENSES.json"
-TOTAL_LIMIT_MB = 60.0
+TOTAL_LIMIT_MB = 60.0       # the shared library (everything except the scene packs)
+SCENE_LIMIT_MB = 160.0     # per-scene packs: art/environment/scene_props and art/environment/scenes (BG-11)
 FILE_LIMIT_MB = 1.5
 ALLOWED = {"CC0-1.0"}
 
@@ -37,10 +38,17 @@ def pipeline_sources() -> list[tuple[str, str]]:
 def main() -> int:
     problems = []
     files = [(p, p.stat().st_size) for p in ART.rglob("*") if p.is_file() and p.suffix in (".png", ".webp", ".jpg")]
-    total = sum(s for _, s in files) / 1048576
-    print(f"art/environment: {len(files)} images, {total:.1f} MB (limit {TOTAL_LIMIT_MB} MB)")
+    is_scene = lambda p: p.relative_to(ART).parts[0] in ("scene_props", "scenes")  # noqa: E731
+    shared = [(p, s) for p, s in files if not is_scene(p)]
+    scene = [(p, s) for p, s in files if is_scene(p)]
+    total = sum(s for _, s in shared) / 1048576
+    scene_total = sum(s for _, s in scene) / 1048576
+    print(f"art/environment (shared): {len(shared)} images, {total:.1f} MB (limit {TOTAL_LIMIT_MB} MB)")
+    print(f"art/environment (scene packs): {len(scene)} images, {scene_total:.1f} MB (limit {SCENE_LIMIT_MB} MB)")
     if total > TOTAL_LIMIT_MB:
-        problems.append(f"total {total:.1f} MB exceeds {TOTAL_LIMIT_MB} MB")
+        problems.append(f"shared total {total:.1f} MB exceeds {TOTAL_LIMIT_MB} MB")
+    if scene_total > SCENE_LIMIT_MB:
+        problems.append(f"scene packs total {scene_total:.1f} MB exceeds {SCENE_LIMIT_MB} MB")
     for p, s in sorted(files, key=lambda t: -t[1])[:8]:
         print(f"  {s / 1048576:5.2f} MB  {p.relative_to(ROOT).as_posix()}")
     for p, s in files:

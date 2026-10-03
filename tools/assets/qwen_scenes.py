@@ -1,6 +1,9 @@
 """Generate scene-sized art with Qwen Image: cutscene stage backgrounds and the near-foreground strips (NE-61 / NE-65).
 
-Usage: python tools/assets/qwen_scenes.py [--only ID ...] [--regen] [--no-gen] [--sheet OUT.png]
+Usage: python tools/assets/qwen_scenes.py [--pipeline NAME] [--only ID ...] [--regen] [--no-gen] [--sheet OUT.png]
+
+--pipeline NAME reads assets_src/pipeline/NAME.json (list under "images"); anything but the default list inherits "styles",
+"glow_presets" and "defaults" from qwen_scenes.json.
 
 Reads assets_src/pipeline/qwen_scenes.json. Entry kinds:
   "scene"  an opaque picture (a room, a hangar...) -> resized to "px", graded, saved as WebP at "out"; bright coloured
@@ -28,7 +31,8 @@ import qwen_props  # noqa: E402
 from comfy_guard import ComfyFailure  # noqa: E402  (qwen_props puts tools/comfyui on the path)
 from qwen_props import RAW, ROOT, generate  # noqa: E402
 
-PIPELINE = ROOT / "assets_src" / "pipeline" / "qwen_scenes.json"
+DEFAULT_PIPELINE = ROOT / "assets_src" / "pipeline" / "qwen_scenes.json"
+PIPELINE = DEFAULT_PIPELINE
 
 
 def rim_light(alpha: np.ndarray, color, width_px: float, strength: float) -> np.ndarray:
@@ -139,8 +143,14 @@ def main() -> int:
     ap.add_argument("--regen", action="store_true")
     ap.add_argument("--no-gen", action="store_true")
     ap.add_argument("--sheet", default="")
+    ap.add_argument("--pipeline", default="qwen_scenes", help="list name in assets_src/pipeline/ (without .json)")
     args = ap.parse_args()
-    cfg = json.loads(PIPELINE.read_text(encoding="utf-8"))
+    path = ROOT / "assets_src" / "pipeline" / f"{args.pipeline}.json"
+    cfg = json.loads(path.read_text(encoding="utf-8"))
+    if path != DEFAULT_PIPELINE:
+        base = json.loads(DEFAULT_PIPELINE.read_text(encoding="utf-8"))
+        for key in ("styles", "glow_presets", "defaults"):
+            cfg[key] = {**base.get(key, {}), **cfg.get(key, {})}
     entries = [e for e in cfg["images"] if not args.only or e["id"] in args.only]
     failed = 0
     for e in entries:

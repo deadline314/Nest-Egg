@@ -1,6 +1,11 @@
 """Generate game prop textures with Qwen Image (local ComfyUI) for props that have no free 3D model (NE-62 / NE-63).
 
-Usage: python tools/assets/qwen_props.py [--only ID ...] [--regen] [--no-gen] [--sheet OUT.png]
+Usage: python tools/assets/qwen_props.py [--pipeline NAME] [--only ID ...] [--regen] [--no-gen] [--sheet OUT.png]
+
+--pipeline NAME reads assets_src/pipeline/NAME.json instead of qwen_props.json (default). A list other than the default
+inherits "styles", "glow_presets", "defaults", "px_per_meter" and the normal profile tables from qwen_props.json, so it only
+needs its own "props". An entry with "scene": "<scene_id>" writes into art/environment/scene_props/<scene_id>/ and
+data/environment/scene_props/<scene_id>/ (a theme points its prop_dir there), not into the shared prop library.
 
 Reads assets_src/pipeline/qwen_props.json. For every entry it
   1. asks Qwen for the prop with a transparent background (official RGBA prompt) at the prop's aspect ratio (cached in
@@ -32,7 +37,8 @@ from comfy_guard import ComfyFailure  # noqa: E402
 from build_props import DATA, make_aliases, MAX_SIDE_PX, OUT, ROOT, fmt, read_size, resize_rgba, set_field, write_new_tres  # noqa: E402
 import qwen_matte as qm  # noqa: E402
 
-PIPELINE = ROOT / "assets_src" / "pipeline" / "qwen_props.json"
+DEFAULT_PIPELINE = ROOT / "assets_src" / "pipeline" / "qwen_props.json"
+PIPELINE = DEFAULT_PIPELINE  # main() points it at --pipeline
 RAW = ROOT / "assets_src" / "work" / "qwen"
 GEN_AREA = 0.80e6  # pixels Qwen paints per image (more is slow, less is mushy)
 
@@ -54,6 +60,27 @@ def build_prompt(e: dict, cfg: dict) -> str:
     if e.get("native_alpha", True):
         return f"This is an RGBA image with transparency. {subject.rstrip('.')}. The image has alpha channel and the background is transparent."
     return subject
+
+
+def entry_dirs(e: dict) -> tuple[Path, Path, str]:
+    """(art folder, data folder, res:// prefix of the art folder) for an entry: the shared prop library, or its scene's own pack."""
+    scene = e.get("scene")
+    if scene:
+        return OUT.parent / "scene_props" / scene, DATA.parent / "scene_props" / scene, f"res://art/environment/scene_props/{scene}"
+    return OUT, DATA, "res://art/environment/props"
+
+
+def load_cfg(path: Path) -> tuple[dict, dict]:
+    """(raw file content, merged config). The merged one shares the "props" list with the raw one, so anchors the tools
+    remember are written back, while inherited tables are not copied into the file."""
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    cfg = dict(raw)
+    if path != DEFAULT_PIPELINE:
+        base = json.loads(DEFAULT_PIPELINE.read_text(encoding="utf-8"))
+        for key in ("styles", "glow_presets", "defaults", "px_per_meter", "normal_default"):
+            cfg.setdefault(key, base.get(key))
+        cfg["normal_profiles"] = {**base.get("normal_profiles", {}), **raw.get("normal_profiles", {})}
+    return raw, cfg
 
 
 def generate(e: dict, cfg: dict, size: tuple[float, float], regen: bool) -> Path | None:
@@ -154,10 +181,12 @@ def process(e: dict, cfg: dict, regen: bool, no_gen: bool) -> bool:
     if isinstance(e.get("glow"), str):
         e["glow"] = cfg["glow_presets"][e["glow"]]
     pid = e["id"]
-    tres_path = DATA / f"{pid}.tres"
+    art_dir, data_dir, res_prefix = entry_dirs(e)
+    tres_path = data_dir / f"{pid}.tres"
     if e.get("new") and not tres_path.exists():
         a = (e.get("anchor") or {}).get("size", [16.0, 16.0])
-        write_new_tres(tres_path, pid, e["new"], f"res://art/environment/props/{pid}.png", (a[0], a[1]))
+        data_dir.mkdir(parents=True, exist_ok=True)
+        write_new_tres(tres_path, pid, e["new"], f"{res_prefix}/{pid}.png", (a[0], a[1]))
     if not tres_path.exists():
         print(f"FAIL  {pid}: {tres_path} not found", file=sys.stderr)
         return False
@@ -233,17 +262,17 @@ def process(e: dict, cfg: dict, regen: bool, no_gen: bool) -> bool:
     big = Image.fromarray((rgba * 255 + 0.5).astype(np.uint8), "RGBA")
     small = np.asarray(resize_rgba(big, px)).astype(np.float32) / 255.0
     color = np.dstack([qm.grade(small[..., :3], e.get("grade", {})), small[..., 3]])
-    OUT.mkdir(parents=True, exist_ok=True)
-    qm.to_image(color).save(OUT / f"{pid}.png", optimize=True)
+    art_dir.mkdir(parents=True, exist_ok=True)
+    qm.to_image(color).save(art_dir / f"{pid}.png", optimize=True)
     normal = dict(e.get("normal") or {})
     profile = normal.pop("profile", None) or cfg.get("normal_profiles", {}).get(pid, cfg.get("normal_default", "pillow"))
     if profile != "legacy":  # BG-8: height field from the silhouette (depth_normals.py); "legacy" keeps the old luminance-bevel normals
         normal = {k: v for k, v in normal.items() if k in ("round_px", "relief", "detail", "detail_sigma", "gate", "strength")}
         normal["profile"] = profile
-    qm.to_image(qm.normal_map(color, **normal)).save(OUT / f"{pid}_n.png", optimize=True)
+    qm.to_image(qm.normal_map(color, **normal)).save(art_dir / f"{pid}_n.png", optimize=True)
 
     has_glow = False
-    glow_file = OUT / f"{pid}_glow.png"
+    glow_file = art_dir / f"{pid}_glow.png"
     if e.get("glow"):
         g = qm.glow_mask(np.dstack([qm.grade(small[..., :3], e.get("glow_source_grade", {})), small[..., 3]]), e["glow"])
         if g is not None:
@@ -269,9 +298,10 @@ def process(e: dict, cfg: dict, regen: bool, no_gen: bool) -> bool:
     return True
 
 
-def sheet(ids: list[str], out: Path, cell: int = 300) -> None:
+def sheet(entries: list[dict], out: Path, cell: int = 300) -> None:
     """Contact sheet (albedo on a dark checker, then normal, then glow) for a quick look."""
     cols = 2
+    ids = [e["id"] for e in entries]
     rows = math.ceil(len(ids) / cols)
     img = Image.new("RGB", (cols * (cell * 3 + 30), rows * (cell + 24)), (28, 30, 42))
     d = ImageDraw.Draw(img)
@@ -279,7 +309,7 @@ def sheet(ids: list[str], out: Path, cell: int = 300) -> None:
         ox, oy = (i % cols) * (cell * 3 + 30), (i // cols) * (cell + 24)
         d.text((ox + 4, oy + 4), pid, fill=(220, 220, 230))
         for j, suffix in enumerate(["", "_n", "_glow"]):
-            p = OUT / f"{pid}{suffix}.png"
+            p = entry_dirs(entries[i])[0] / f"{pid}{suffix}.png"
             if not p.exists():
                 continue
             im = Image.open(p).convert("RGBA")
@@ -297,8 +327,11 @@ def main() -> int:
     ap.add_argument("--regen", action="store_true")
     ap.add_argument("--no-gen", action="store_true")
     ap.add_argument("--sheet", default="")
+    ap.add_argument("--pipeline", default="qwen_props", help="list name in assets_src/pipeline/ (without .json)")
     args = ap.parse_args()
-    cfg = json.loads(PIPELINE.read_text(encoding="utf-8"))
+    global PIPELINE
+    PIPELINE = ROOT / "assets_src" / "pipeline" / f"{args.pipeline}.json"
+    raw, cfg = load_cfg(PIPELINE)
     entries = [e for e in cfg["props"] if not args.only or e["id"] in args.only]
     failed = 0
     for e in entries:
@@ -306,19 +339,19 @@ def main() -> int:
             failed += 0 if process(e, cfg, args.regen, args.no_gen) else 1
         except ComfyFailure as ex:  # the server stays broken after every retry: stop instead of failing every remaining entry
             print(f"STOP  {e.get('id')}: {ex}", file=sys.stderr)
-            PIPELINE.write_text(json.dumps(cfg, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+            PIPELINE.write_text(json.dumps(raw, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
             return 2
         except Exception as ex:  # one bad entry must not block the rest
             failed += 1
             print(f"FAIL  {e.get('id')}: {ex}", file=sys.stderr)
-        PIPELINE.write_text(json.dumps(cfg, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")  # remembers anchors
+        PIPELINE.write_text(json.dumps(raw, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")  # remembers anchors
     # aliases (the see-through front trees) reuse a tree's picture; their size follows the tree's new proportions
     made = {e["id"] for e in entries}
     aliases = [a for a in json.loads((ROOT / "assets_src" / "pipeline" / "props.json").read_text(encoding="utf-8")).get("aliases", []) if a["of"] in made]
     if aliases:
         make_aliases({"aliases": aliases})
     if args.sheet:
-        sheet([e["id"] for e in entries], Path(args.sheet))
+        sheet(entries, Path(args.sheet))
     return 1 if failed else 0
 
 
