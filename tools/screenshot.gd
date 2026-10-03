@@ -1249,6 +1249,16 @@ func _run_hud() -> void:
 	player.loadout.select(1)
 	await _wait(0.4)
 	_capture("hud_shotgun")
+	player.loadout.select(0)
+	await _wait(0.5)
+	while player.loadout.mag_in(0) > 2:
+		player.loadout.consume_ammo()
+	await _wait(0.4)
+	_capture("hud_low")
+	while player.loadout.mag_in(0) > 0:
+		player.loadout.consume_ammo()
+	await _wait(0.4)
+	_capture("hud_empty")
 	Input.action_release(&"aim_right")
 	level.queue_free()
 	await _settle(4)

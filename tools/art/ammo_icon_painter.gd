@@ -156,7 +156,7 @@ static func _empty_from(source: EnvCanvas) -> EnvCanvas:
 			# 用原本的亮度做一點起伏，空槽才看得出原本的形狀。
 			var shade := 0.10 + LightKit.luminance(a) * 0.14
 			result.image.set_pixel(x, y, Color(shade * 0.9, shade, shade * 1.15, 0.55))
-	var rim := Color(0.55, 0.65, 0.78, 0.7)
+	var rim := Color(0.66, 0.76, 0.9, 0.95)
 	var marks: Array[Vector2i] = []
 	for y in SIZE.y:
 		for x in SIZE.x:

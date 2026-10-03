@@ -11,6 +11,7 @@ const CONTROLS_TEMPLATE := "移動 {move_left}/{move_right}　跳 {jump}　射�
 
 var vitals_tag: VitalsTag
 var ammo_ring: AmmoRing
+var ammo_tray: AmmoTray
 var _gauges: _Gauges
 var weapon_bar: WeaponBar
 var _items_label: Label
@@ -54,6 +55,8 @@ func _ready() -> void:
 	add_child(Crosshair.new())
 	ammo_ring = AmmoRing.new()
 	add_child(ammo_ring)
+	ammo_tray = AmmoTray.new()
+	add_child(ammo_tray)
 
 	_timer_label = UiKit.label("00:00.00", 11, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
 	_timer_label.position = Vector2(528, 8)
