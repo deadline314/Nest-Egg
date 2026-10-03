@@ -7,7 +7,15 @@ extends Node
 ##   - explosion：範圍傷害 + 視覺
 ## 所有效果在沒有綁定關卡時都會安全地不做事。
 
-const HITSTOP_TIME_SCALE := 0.05
+## 全域頓幀的預算：單次上限、以及任一 1 秒內累計上限（秒），避免連續命中變成卡頓。
+const HITSTOP_MAX := 0.2
+const HITSTOP_WINDOW := 1.0
+const HITSTOP_WINDOW_BUDGET := 0.4
+## 凍結中參與者的微抖幅度（像素），避免看起來像當機。
+const FREEZE_JITTER := 0.6
+## 慢動作只允許這些情境；同一種慢動作之間有冷卻（秒）。
+const SLOWMO_WHITELIST: PackedStringArray = ["boss_death", "finisher", "clear_out"]
+const SLOWMO_COOLDOWN := 6.0
 const LIGHT_POOL_SIZE := 10
 const RING_POOL_SIZE := 5
 ## 特效克制係數：粒子數量、閃光與衝擊波的整體強度。想整體加強或減弱特效，只動這幾個數字（1.0＝原本設計的量）。
@@ -26,7 +34,9 @@ var _last_blast_position := Vector2.INF
 var _lights: Array[PointLight2D] = []
 var _light_tweens: Array[Tween] = []
 var _next_light := 0
-var _hitstop_until_msec := 0
+var _hitstop_log: Array[Vector2] = []  # [發生時間（毫秒）, 秒數]
+var _slowmo_until_msec := 0
+var _slowmo_ready_msec := 0
 ## 局部頓幀中的節點 → [結束時間（毫秒）, 原本的 process_mode]。
 var _frozen: Dictionary = {}
 
@@ -87,26 +97,68 @@ func _on_container_exiting(container: Node2D) -> void:
 
 func _process(_delta: float) -> void:
 	var now := Time.get_ticks_msec()
-	if _hitstop_until_msec > 0 and now >= _hitstop_until_msec:
+	if _slowmo_until_msec > 0 and now >= _slowmo_until_msec:
 		reset_time()
 	if not _frozen.is_empty():
 		_release_frozen(now)
+		_jitter_frozen()
 
 
 # ---------------------------------------------------------------------------
 # 時間與鏡頭
 # ---------------------------------------------------------------------------
 
-## 短暫凍結時間。重疊呼叫取最長者；暫停中不作用。
+## 全域頓幀：凍結玩家、敵人、載具與子彈，粒子與介面照常動。重疊取最長者；單次與 1 秒內累計都有上限；暫停中不作用。
 func hitstop(seconds: float) -> void:
 	if seconds <= 0.0 or get_tree().paused:
 		return
-	_hitstop_until_msec = maxi(_hitstop_until_msec, Time.get_ticks_msec() + int(seconds * 1000.0))
-	Engine.time_scale = HITSTOP_TIME_SCALE
+	var granted := minf(minf(seconds, HITSTOP_MAX), hitstop_budget_left())
+	if granted <= 0.0:
+		return
+	var now := Time.get_ticks_msec()
+	_hitstop_log.append(Vector2(now, granted))
+	var nodes: Array = []
+	for group in [&"player", &"enemies", &"vehicles"]:
+		nodes.append_array(get_tree().get_nodes_in_group(group))
+	if ProjectilePool.container() != null:
+		nodes.append(ProjectilePool.container())
+	freeze.call_deferred(nodes, granted)  # 常在物理回呼（命中）裡觸發，停用碰撞節點要延後
+
+
+## 這一秒內還能用的全域頓幀秒數。
+func hitstop_budget_left() -> float:
+	var now := Time.get_ticks_msec()
+	var used := 0.0
+	for i in range(_hitstop_log.size() - 1, -1, -1):
+		if float(now) - _hitstop_log[i].x > HITSTOP_WINDOW * 1000.0:
+			_hitstop_log.remove_at(i)
+		else:
+			used += _hitstop_log[i].y
+	return maxf(0.0, HITSTOP_WINDOW_BUDGET - used)
+
+
+## 慢動作：只有白名單情境、且過了冷卻才會播；回傳是否真的播放。
+func slowmo(reason: String, scale: float, seconds: float) -> bool:
+	var now := Time.get_ticks_msec()
+	if not SLOWMO_WHITELIST.has(reason) or seconds <= 0.0 or now < _slowmo_ready_msec or get_tree().paused:
+		return false
+	_slowmo_until_msec = now + int(seconds * 1000.0)  # seconds 是實際時間
+	_slowmo_ready_msec = now + int(SLOWMO_COOLDOWN * 1000.0)
+	Engine.time_scale = clampf(scale, 0.1, 1.0)
+	return true
+
+
+func is_slowmo() -> bool:
+	return _slowmo_until_msec > 0
+
+
+## 診斷：目前被凍結的節點數。
+func frozen_count() -> int:
+	return _frozen.size()
 
 
 func reset_time() -> void:
-	_hitstop_until_msec = 0
+	_slowmo_until_msec = 0
 	Engine.time_scale = 1.0
 
 
@@ -134,7 +186,24 @@ func _release_frozen(now: int) -> void:
 			if now < int(entry[0]):
 				continue
 			(key as Node).process_mode = entry[1]
+			if entry.size() > 2 and key is Node2D:
+				(key as Node2D).position = entry[2]
 		_frozen.erase(key)
+
+
+## 凍結中的 2D 節點每影格在原位附近微抖（只在有畫面的情況下；放開時回到原位）。
+func _jitter_frozen() -> void:
+	var side := 1.0 if Engine.get_process_frames() % 2 == 0 else -1.0
+	for key: Variant in _frozen.keys():
+		if not is_instance_valid(key):
+			continue
+		var node := key as Node2D
+		if node == null or node is Camera2D:
+			continue
+		var entry: Array = _frozen[key]
+		if entry.size() < 3:
+			entry.append(node.position)
+		node.position = (entry[2] as Vector2) + Vector2(side * FREEZE_JITTER, 0.0)
 
 
 func _clear_frozen() -> void:

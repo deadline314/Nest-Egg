@@ -8,7 +8,7 @@ const PATH := "res://data/feel/events.json"
 ## 舊的震動「強度」換成像素的係數（強度 1 = 0.8 px）。
 const STRENGTH_TO_PX := 0.8
 const MAX_SHAKE_PX := 12.0
-const KNOWN_FIELDS: PackedStringArray = ["shake", "hitstop", "freeze"]
+const KNOWN_FIELDS: PackedStringArray = ["shake", "hitstop", "freeze", "slowmo"]
 
 ## 各系統回報的計數（實驗室診斷用）：名稱 → 次數。
 var counters: Dictionary = {}
@@ -19,6 +19,9 @@ var _reported: Dictionary = {}
 
 func _ready() -> void:
 	reload()
+	register_counter("hitstop_budget_left", Fx.hitstop_budget_left)
+	register_counter("frozen_nodes", Fx.frozen_count)
+	register_counter("slowmo_active", func() -> int: return int(Fx.is_slowmo()))
 
 
 func reload() -> void:
@@ -53,6 +56,11 @@ func validate() -> PackedStringArray:
 		if shake != null:
 			if typeof(shake) != TYPE_DICTIONARY or float((shake as Dictionary).get("px", 0.0)) <= 0.0 or float((shake as Dictionary).get("time", 0.0)) <= 0.0:
 				errors.append("%s 的事件「%s」的 shake 要有大於 0 的 px 與 time" % [PATH, id])
+		var slowmo: Variant = (def as Dictionary).get("slowmo")
+		if slowmo != null:
+			var s := slowmo as Dictionary if typeof(slowmo) == TYPE_DICTIONARY else {}
+			if not Fx.SLOWMO_WHITELIST.has(str(s.get("reason", ""))) or float(s.get("scale", 0.0)) <= 0.0 or float(s.get("time", 0.0)) <= 0.0:
+				errors.append("%s 的事件「%s」的 slowmo 要有白名單內的 reason（%s）與大於 0 的 scale、time" % [PATH, id, ", ".join(Fx.SLOWMO_WHITELIST)])
 		for field in ["hitstop", "freeze"]:
 			if (def as Dictionary).has(field) and float((def as Dictionary)[field]) <= 0.0:
 				errors.append("%s 的事件「%s」的 %s 要大於 0" % [PATH, id, field])
@@ -71,8 +79,20 @@ func play(id: StringName, ctx: Dictionary = {}) -> void:
 		self.shake(float((shake as Dictionary).get("px", 0.0)) * scale, float((shake as Dictionary).get("time", 0.0)))
 	if (def as Dictionary).has("hitstop"):
 		hitstop(float((def as Dictionary)["hitstop"]) * scale)
+	var slowmo: Variant = (def as Dictionary).get("slowmo")
+	if typeof(slowmo) == TYPE_DICTIONARY:
+		_play_slowmo(slowmo as Dictionary)
 	if (def as Dictionary).has("freeze") or ctx.has("freeze"):
 		freeze(ctx.get("targets", []), float(ctx.get("freeze", (def as Dictionary).get("freeze", 0.0))) * scale)
+
+
+## 慢動作只用在白名單情境（reason），可再限制場上敵人數量（max_enemies）；冷卻由 Fx 管理。
+func _play_slowmo(def: Dictionary) -> void:
+	var limit := int(def.get("max_enemies", 999))
+	if get_tree().get_nodes_in_group(&"enemies").size() > limit:
+		return
+	if Fx.slowmo(str(def.get("reason", "")), float(def.get("scale", 1.0)), float(def.get("time", 0.0))):
+		_count("slowmos")
 
 
 ## 鏡頭震動：峰值像素與持續秒數，強度隨時間平方衰減。

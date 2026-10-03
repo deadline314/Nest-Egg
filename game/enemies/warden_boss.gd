@@ -260,6 +260,7 @@ func _death_blast() -> void:
 func _finish_death() -> void:
 	Fx.flash_light(_center(), Palette.WHITE, 260.0, 3.0, 0.8)
 	Fx.burst(_center(), Palette.CYAN, 48, 320.0, 0.8)
+	Feel.play(&"boss_death")
 	EventBus.boss_defeated.emit()
 	queue_free()
 

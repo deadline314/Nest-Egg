@@ -59,6 +59,11 @@ func clear_in_radius(center: Vector2, radius: float, team: Combat.Team) -> int:
 	return cleared
 
 
+## 子彈所在的容器（全域頓幀時整個凍結）；沒有綁定關卡時為 null。
+func container() -> Node2D:
+	return _container
+
+
 func active_count() -> int:
 	return _total - _free.size()
 

@@ -12,6 +12,8 @@ func run() -> void:
 	await _test_shake_duration_is_honored()
 	_test_bad_events_are_safe()
 	_test_feel_settings()
+	await _test_global_hitstop()
+	await _test_slowmo()
 
 
 func _script_paths(dir: String, into: PackedStringArray) -> void:
@@ -120,3 +122,54 @@ func _test_feel_settings() -> void:
 	EventBus.camera_kick.disconnect(probe.on_kick)
 	Settings.use_storage(original)
 	DirAccess.remove_absolute("user://test_feel_settings.cfg")
+
+
+func _test_global_hitstop() -> void:
+	Fx._hitstop_log.clear()
+	var enemy := Node2D.new()
+	enemy.position = Vector2(100, 50)
+	enemy.add_to_group(&"enemies")
+	runner.get_tree().root.add_child(enemy)
+	Feel.hitstop(0.5)
+	await runner.get_tree().process_frame
+	check(enemy.process_mode == Node.PROCESS_MODE_DISABLED, "global hitstop freezes gameplay nodes")
+	check(is_equal_approx(Engine.time_scale, 1.0), "global hitstop does not slow particles and UI")
+	check(Fx.hitstop_budget_left() <= Fx.HITSTOP_WINDOW_BUDGET - Fx.HITSTOP_MAX + 0.001, "a single hitstop is capped (budget left %.2f)" % Fx.hitstop_budget_left())
+	await runner.get_tree().process_frame
+	await frames(3)
+	check(enemy.position != Vector2(100, 50) and enemy.position.distance_to(Vector2(100, 50)) <= Fx.FREEZE_JITTER + 0.01, "frozen nodes jitter slightly")
+	var waited := 0
+	while enemy.process_mode == Node.PROCESS_MODE_DISABLED and waited < 60:
+		await runner.get_tree().create_timer(0.05, true, false, true).timeout
+		waited += 1
+	check(enemy.process_mode == Node.PROCESS_MODE_INHERIT and enemy.position == Vector2(100, 50), "released at the original position")
+	Fx._hitstop_log.clear()
+	for i in 5:
+		Feel.hitstop(0.2)
+	check(Fx.hitstop_budget_left() <= 0.001, "repeated hitstops hit the one second budget")
+	Fx._hitstop_log.clear()
+	enemy.queue_free()
+	await runner.get_tree().process_frame
+
+
+func _test_slowmo() -> void:
+	Fx.reset_time()
+	Fx._slowmo_ready_msec = 0
+	check(not Fx.slowmo("random_hit", 0.3, 0.2), "slow motion is refused outside the whitelist")
+	check(Fx.slowmo("boss_death", 0.3, 0.1) and is_equal_approx(Engine.time_scale, 0.3), "whitelisted slow motion plays")
+	check(not Fx.slowmo("boss_death", 0.3, 0.1), "slow motion has a cooldown")
+	Fx.reset_time()
+	check(is_equal_approx(Engine.time_scale, 1.0), "time returns to normal")
+	Fx._slowmo_ready_msec = 0
+	var crowd: Array[Node] = []
+	for i in 5:
+		var n := Node.new()
+		n.add_to_group(&"enemies")
+		runner.get_tree().root.add_child(n)
+		crowd.append(n)
+	Feel.play(&"player_finisher")
+	check(not Fx.is_slowmo(), "finisher slow motion is skipped when many enemies are around")
+	for n in crowd:
+		n.free()
+	Fx.reset_time()
+	Fx._slowmo_ready_msec = 0
