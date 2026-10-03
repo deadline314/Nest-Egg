@@ -123,6 +123,17 @@ static func audit_npc(rig: CharacterRig, pose: StringName, loop: StringName) -> 
 	return ctx["results"]
 
 
+## 只稽核指定的專屬動作（主角等不走敵人那套站姿與步伐的角色用）：骨頭長度、手肘、驅幹與頭、角度跳動。
+static func audit_actions(rig: CharacterRig, action_names: Array[String]) -> Dictionary:
+	var ctx := {"rig": rig, "results": {}, "where": "", "frame": 0, "prev": {}, "grounded": false, "pop_scale": 1.0, "skip_pop": 0}
+	var input := RigInput.new()
+	_reset(input, rig)
+	_hold(ctx, input, 40, "idle", false)
+	for action in action_names:
+		_play_action(ctx, input, StringName(action))
+	return ctx["results"]
+
+
 static func _reset(input: RigInput, rig: CharacterRig) -> void:
 	input.facing = 1
 	input.on_floor = true

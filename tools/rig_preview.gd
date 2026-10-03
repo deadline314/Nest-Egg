@@ -6,6 +6,7 @@ extends Node2D
 ## --head（搭配 --chars）：只放大頭與肩膀，檢查臉部與頭髮，一次最多四個角色；--zoom=倍率 可調整放大倍數。
 ## --death（搭配 --chars，最多三個角色）：四種最後一擊（正面輕、背面輕、正面重、背面重）倒下後的樣子。
 ## --gait（搭配 --chars，用第一個角色）：並排看跑一個步伐週期的八個時間點（--speed=速度，預設 70），檢查落腳、腳底貼地與滑步。
+## --weapon=武器外觀 id（搭配 --chars）：改用指定的手持武器（空字串＝空手），例如 --weapon=handset。
 ## --relaxed（搭配 --chars）：模擬還沒發現玩家的放鬆姿勢（槍垂下），舉槍與格擋除外。
 ## --bare（搭配 --damage）：不拿武器、手臂垂向前下方，看得到上半身的衣物。
 ## --cloth（搭配 --chars）：第一個角色放大排成一列（站、跑、上升、下落、蹲、仰射），檢查衣襬、頭髮、槍套等次級動態。
@@ -34,6 +35,8 @@ var _damage := false
 var _cloth := false
 var _bare := false
 var _relaxed := false
+var _weapon_override := ""
+var _weapon_set := false
 var _gait := false
 var _death := false
 var _gait_speed := 70.0
@@ -66,6 +69,9 @@ func _ready() -> void:
 			_bare = true
 		elif arg == "--relaxed":
 			_relaxed = true
+		elif arg.begins_with("--weapon="):
+			_weapon_override = arg.trim_prefix("--weapon=")
+			_weapon_set = true
 		elif arg == "--gait":
 			_gait = true
 		elif arg == "--death":
@@ -148,7 +154,7 @@ func _spawn(skin: String, weapon: String, pos: Vector2, pose: String, zoom: floa
 	holder.add_child(rig)
 	if not rig.setup(skin, "npc" if _npc else ""):
 		return
-	rig.set_weapon(weapon)
+	rig.set_weapon(_weapon_override if _weapon_set else weapon)
 	rig.set_armor_ratio(armor_ratio, false)
 	var input := RigInput.new()
 	_rigs.append(rig)

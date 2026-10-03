@@ -204,6 +204,18 @@ func refill_ratio(ratio: float) -> void:
 	changed.emit()
 
 
+## 全部武器的彈匣與備彈補滿（電話亭整備）。換彈中就取消這次換彈（彈匣已經是滿的）。
+func refill_all() -> void:
+	for i in _weapons.size():
+		var weapon := _weapons[i]
+		if weapon.has_magazine():
+			_mag[i] = weapon.magazine_size
+		if not _reserve_is_infinite(i):
+			_reserve[i] = weapon.max_reserve
+	_cancel_reload()
+	changed.emit()
+
+
 # ---------------------------------------------------------------------------
 # 存檔
 # ---------------------------------------------------------------------------

@@ -14,6 +14,11 @@ const BLOCK_FLASH_TIME := 0.1
 const SHIELD_RADIUS := 15.0
 const GHOST_INTERVAL := 0.03
 const GHOST_LIFETIME := 0.18
+## 電話亭撥號：專屬動作名稱、話筒的手持外觀，以及動作進度中「拿起話筒」與「掛上話筒」的時間點（話筒只在這段期間在手上）。
+const PHONE_ACTION := &"rin.phone_call"
+const HANDSET_VISUAL := "handset"
+const HANDSET_IN := 0.26
+const HANDSET_OUT := 0.9
 
 var player: Player
 var rig: CharacterRig
@@ -28,6 +33,8 @@ var _block_flash := 0.0
 var _squash := Vector2.ONE
 var _ghost_timer := 0.0
 var _ghosts: Array[Vector3] = []  # x, y, 剩餘時間
+var _phone_t := -1.0  # 撥號動作已經過的秒數；負值＝不在撥號
+var _phone_weapon := ""
 
 
 func _ready() -> void:
@@ -104,6 +111,39 @@ func notify_finisher() -> void:
 	_finisher_flash = FINISHER_FLASH_TIME
 
 
+## 開始撥號：先收起手上的武器（空手），動作進行到拿起話筒時換成話筒。
+func begin_phone() -> void:
+	_phone_t = 0.0
+	_phone_weapon = ""
+	set_weapon_visual("")
+
+
+## 撥號結束：放回原本的武器。
+func end_phone(weapon_visual_id: String) -> void:
+	_phone_t = -1.0
+	_input.action = &""
+	_input.action_t = 0.0
+	set_weapon_visual(weapon_visual_id)
+
+
+## 撥號動作的進度 0~1（不在撥號時回傳 -1）。
+func phone_progress() -> float:
+	return clampf(_phone_t / Player.PHONE_DURATION, 0.0, 1.0) if _phone_t >= 0.0 else -1.0
+
+
+func _update_phone(delta: float) -> void:
+	if _phone_t < 0.0:
+		return
+	_phone_t += delta
+	var progress := clampf(_phone_t / Player.PHONE_DURATION, 0.0, 1.0)
+	_input.action = PHONE_ACTION
+	_input.action_t = progress
+	var want := HANDSET_VISUAL if progress >= HANDSET_IN and progress < HANDSET_OUT else ""
+	if want != _phone_weapon:
+		_phone_weapon = want
+		set_weapon_visual(want)
+
+
 func notify_hurt() -> void:
 	_input.hurt = true
 	if rig != null:
@@ -124,6 +164,7 @@ func _physics_process(delta: float) -> void:
 	_input.dashing = player.state == Player.State.DASH
 	_input.staggered = player.state == Player.State.STAGGERED
 	_input.dead = player.state == Player.State.DEAD
+	_update_phone(delta)
 	rig.animate(delta, _input)
 	_input.recoil = 0.0
 	_input.hurt = false

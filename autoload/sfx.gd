@@ -156,6 +156,35 @@ const SOUNDS := {
 	&"ui_confirm": [
 		{"wave": "tri", "from": 660.0, "to": 1320.0, "time": 0.1, "volume": 0.18, "decay": 1.5},
 	],
+	# 電話亭（NE-121）：拿起話筒、撥號（三種音高）、話筒裡的錄音（占位，之後換成配音）、掛上、來電鈴聲。
+	&"phone_pickup": [
+		{"wave": "noise", "time": 0.04, "volume": 0.2, "lowpass": 0.35, "decay": 3.0},
+		{"wave": "sine", "from": 140.0, "to": 90.0, "time": 0.1, "volume": 0.2, "decay": 2.0},
+	],
+	&"phone_dial": [
+		{"wave": "sine", "from": 697.0, "to": 697.0, "time": 0.09, "volume": 0.1, "decay": 1.0},
+		{"wave": "sine", "from": 1209.0, "to": 1209.0, "time": 0.09, "volume": 0.1, "decay": 1.0},
+	],
+	&"phone_dial2": [
+		{"wave": "sine", "from": 770.0, "to": 770.0, "time": 0.09, "volume": 0.1, "decay": 1.0},
+		{"wave": "sine", "from": 1336.0, "to": 1336.0, "time": 0.09, "volume": 0.1, "decay": 1.0},
+	],
+	&"phone_dial3": [
+		{"wave": "sine", "from": 852.0, "to": 852.0, "time": 0.09, "volume": 0.1, "decay": 1.0},
+		{"wave": "sine", "from": 1477.0, "to": 1477.0, "time": 0.09, "volume": 0.1, "decay": 1.0},
+	],
+	&"phone_voice": [
+		{"wave": "noise", "time": 0.7, "volume": 0.1, "lowpass": 0.78, "decay": 0.6, "attack": 0.1},
+		{"wave": "saw", "from": 175.0, "to": 138.0, "time": 0.7, "volume": 0.06, "lowpass": 0.88, "decay": 0.7, "attack": 0.08},
+	],
+	&"phone_hangup": [
+		{"wave": "noise", "time": 0.05, "volume": 0.22, "lowpass": 0.3, "decay": 3.0},
+		{"wave": "sine", "from": 220.0, "to": 120.0, "time": 0.08, "volume": 0.18, "decay": 2.0},
+	],
+	&"phone_ring": [
+		{"wave": "sine", "from": 440.0, "to": 440.0, "time": 0.3, "volume": 0.08, "decay": 0.5},
+		{"wave": "sine", "from": 480.0, "to": 480.0, "time": 0.3, "volume": 0.08, "decay": 0.5},
+	],
 	# 第二批敵人（NE-46～48）：探照無人機的嗶聲與警報、狙擊手的雷射閃爍、火焰、機槍旋轉、電擊犬、偽裝箱。
 	&"beep": [
 		{"wave": "square", "from": 1900.0, "to": 1900.0, "time": 0.05, "volume": 0.11, "decay": 1.2},

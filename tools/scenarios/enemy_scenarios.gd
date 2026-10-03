@@ -20,6 +20,7 @@ const SCENARIOS := {
 	"hurt_parts": "res://tools/scenarios/hurt_parts_scenario.gd",
 	"machine_hit": "res://tools/scenarios/machine_hit_scenario.gd",
 	"enemy_flow": "res://tools/scenarios/enemy_flow_scenario.gd",
+	"phone_booth": "res://tools/scenarios/phone_booth_scenario.gd",
 }
 
 

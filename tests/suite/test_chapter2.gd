@@ -107,14 +107,32 @@ func _test_checkpoints() -> void:
 	var layout := LevelBuilder.parse(data)
 	var level := await start_level(data)
 	level.player.health.setup(9999, 0.0)
+	for enemy in get_tree_enemies(level):
+		enemy.queue_free()  # 撥號要一秒多，敵人會走過來把玩家撞開，這個測試只看電話亭
 	for checkpoint in layout.checkpoints:
 		level.player.global_position = checkpoint + Vector2(0, -2)
 		level.player.velocity = Vector2.ZERO
 		await frames(20)
 		check(level.player.is_on_floor() and absf(level.player.global_position.y - checkpoint.y) < 4.0, "player stands at checkpoint %s" % checkpoint)
-		check(GameState.has_checkpoint and GameState.checkpoint_position.distance_to(checkpoint) < 4.0, "touching records the checkpoint %s" % checkpoint)
+		check(not GameState.has_checkpoint, "just walking past does not record the phone booth %s" % checkpoint)
+		var booth := _booth_at(level, checkpoint)
+		check(booth != null and booth.start_call(level.player), "dialing at the booth works %s" % checkpoint)
+		await frames(90)
+		check(GameState.has_checkpoint and GameState.checkpoint_position.distance_to(checkpoint) < 4.0, "dialing records the checkpoint %s" % checkpoint)
+		GameState.clear_checkpoint()
 	await end_level(level)
 	GameState.clear_checkpoint()
+
+
+func get_tree_enemies(level: Level) -> Array[Node]:
+	return level.get_tree().get_nodes_in_group(&"enemies")
+
+
+func _booth_at(level: Level, at: Vector2) -> Checkpoint:
+	for node in level.find_children("*", "Checkpoint", true, false):
+		if (node as Checkpoint).global_position.distance_to(at) < 4.0:
+			return node as Checkpoint
+	return null
 
 
 ## 必經路線真的走得通：搭 S1 的升降梯跳上平台；閘門不開過不去、打開後走得過。

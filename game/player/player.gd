@@ -3,7 +3,9 @@ extends CharacterBody2D
 ## 玩家「七號」：移動、跳躍、衝刺、8 方向射擊、近戰／終結技、騎乘載具。
 ## 所有手感參數集中在 PlayerTuning 資源；原點位於腳底。
 
-enum State { NORMAL, DASH, FINISHER, MOUNTED, STAGGERED, DEAD }
+enum State { NORMAL, DASH, FINISHER, MOUNTED, STAGGERED, DEAD, PHONE }
+## 在電話亭撥號備份的整段動作時間（秒），與專屬動作 rin.phone_call 的長度一致。
+const PHONE_DURATION := 1.1
 
 const BODY_SIZE := Vector2(12, 44)
 const CROUCH_HEIGHT := 30.0
@@ -69,6 +71,7 @@ var _dash_dir := 1
 var _block_time := 0.0
 var _guard_regen_delay_left := 0.0
 var _guard_lockout_left := 0.0
+var _phone_left := 0.0
 var _stagger_left := 0.0
 var _contact_block_left := 0.0
 var _last_health := 0
@@ -203,6 +206,9 @@ func _physics_process(delta: float) -> void:
 			return
 		State.FINISHER:
 			_process_finisher(delta)
+			return
+		State.PHONE:
+			_process_phone(delta)
 			return
 		State.STAGGERED:
 			_stagger_left -= delta
@@ -351,7 +357,7 @@ func _update_aim(_delta: float) -> void:
 	var origin := aim_origin()
 	aim_dir = AimInput.direction_from(self, origin, aim_dir)
 	aim_point = AimInput.target_point(self, origin, aim_dir)
-	if absf(aim_dir.x) > 0.05 and state != State.DASH and state != State.MOUNTED:
+	if absf(aim_dir.x) > 0.05 and state != State.DASH and state != State.MOUNTED and state != State.PHONE:
 		facing = 1 if aim_dir.x > 0.0 else -1
 
 
@@ -481,6 +487,41 @@ func _start_finisher(target: Enemy) -> void:
 	Fx.flash_light(target.global_position + Vector2(0, -10), Palette.CYAN, 120.0, 2.5, 0.3)
 	Sfx.play(&"finisher")
 	loadout.refill_ratio(tuning.finisher_ammo_refund)
+
+
+## 開始在電話亭撥號：站定、面向亭子、收起武器拿話筒；期間不會被打斷（短暫無敵）。不能開始時回傳 false。
+func begin_phone_call(face: int) -> bool:
+	if state != State.NORMAL or is_dead() or not is_on_floor():
+		return false
+	state = State.PHONE
+	_phone_left = PHONE_DURATION
+	velocity = Vector2.ZERO
+	facing = face
+	is_crouching = false
+	is_blocking = false
+	health.grant_invulnerability(PHONE_DURATION + 0.15)
+	_visual.begin_phone()
+	return true
+
+
+func is_on_phone() -> bool:
+	return state == State.PHONE
+
+
+## 撥號動作的進度 0~1（不在撥號時回傳 1）。電話亭的聲音與備份都跟著這條進度走，幀率再低也不會錯開。
+func phone_progress() -> float:
+	return clampf(1.0 - _phone_left / PHONE_DURATION, 0.0, 1.0) if state == State.PHONE else 1.0
+
+
+func _process_phone(delta: float) -> void:
+	_phone_left -= delta
+	velocity.x = 0.0
+	_apply_gravity(delta)
+	move_and_slide()
+	if _phone_left <= 0.0:
+		state = State.NORMAL
+		var weapon := loadout.active_weapon()
+		_visual.end_phone(weapon.visual_id if weapon != null else "")
 
 
 func _process_finisher(delta: float) -> void:
