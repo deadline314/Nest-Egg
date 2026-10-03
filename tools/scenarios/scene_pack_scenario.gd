@@ -51,10 +51,13 @@ func _scene_ids() -> PackedStringArray:
 func _preview(id: String) -> int:
 	var root := Node2D.new()
 	add_child(root)
-	var ambient := _lighting_ambient()
 	var modulate := CanvasModulate.new()
-	modulate.color = ambient
+	modulate.color = _profile_color("ambient_color", Color(0.5, 0.5, 0.55))
 	root.add_child(modulate)
+	# 背景圖本身已經畫好光影：放在另一個畫布層，只乘光影預設的背景色調，不再乘環境光（否則夜景會暗兩次）。
+	var backdrop := CanvasLayer.new()
+	backdrop.layer = -10
+	root.add_child(backdrop)
 	root.add_child(LightKit.create_environment())
 	var problems: PackedStringArray = []
 	var bg_path := "%s/%s.webp" % [BACKGROUND_DIR, id]
@@ -63,7 +66,8 @@ func _preview(id: String) -> int:
 		sprite.texture = load(bg_path) as Texture2D
 		sprite.centered = false
 		sprite.scale = VIEW / Vector2(sprite.texture.get_size())
-		root.add_child(sprite)
+		sprite.modulate = _profile_color("background_tint", Color.WHITE)
+		backdrop.add_child(sprite)
 		var glow_path := "%s/%s_glow.webp" % [BACKGROUND_DIR, id]
 		if ResourceLoader.exists(glow_path):
 			var glow := Sprite2D.new()
@@ -71,7 +75,7 @@ func _preview(id: String) -> int:
 			glow.centered = false
 			glow.scale = sprite.scale
 			glow.material = LightKit.additive_emissive_material()
-			root.add_child(glow)
+			backdrop.add_child(glow)
 	else:
 		problems.append("缺場景背景：" + bg_path)
 	var count := 0
@@ -106,11 +110,11 @@ func _preview(id: String) -> int:
 	return count
 
 
-func _lighting_ambient() -> Color:
+func _profile_color(property: String, fallback: Color) -> Color:
 	var path := "res://data/lighting/%s.tres" % _lighting
 	if ResourceLoader.exists(path):
 		var profile = load(path)
-		if profile != null and "ambient_color" in profile:
-			return profile.ambient_color
-	push_error("[ScenePack] 找不到光影預設：" + path)
-	return Color(0.5, 0.5, 0.55)
+		if profile != null and property in profile:
+			return profile.get(property)
+	push_error("[ScenePack] 找不到光影預設或欄位：%s（%s）" % [path, property])
+	return fallback
