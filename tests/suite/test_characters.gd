@@ -7,6 +7,8 @@ extends TestSuite
 const NEW_CHARACTERS: Array[String] = ["old_k", "mei", "wataru", "reclaimer", "sniper", "flamer", "heavy_gunner"]
 ## 會上場戰鬥的外觀：必須有可破壞裝甲。
 const COMBATANTS: Array[String] = ["reclaimer", "sniper", "flamer", "heavy_gunner"]
+## 衣物也會被打飛的角色（可操控的芽）：和戰鬥角色一樣檢查脫落與還原。
+const BREAKABLE: Array[String] = ["reclaimer", "sniper", "flamer", "heavy_gunner", "mei"]
 const NEW_WEAPONS: Array[String] = ["sniper", "flamethrower"]
 ## 規格基準（Q 版人形骨架的零件尺寸與支點）；凜已改用 7.5 頭身的專屬骨架，不再是基準。
 ## 零件依序在這幾個角色裡找規格：老 K 有基本零件與衣襬、回收員有裝甲、芽有後髮。
@@ -201,7 +203,7 @@ func _test_rigs() -> void:
 			check(hand.distance_to(rig.weapon_root().global_position) < 2.0, "%s: front hand holds the weapon" % id)
 			check(rig.muzzle_global().x > rig.global_position.x + 6.0, "%s: muzzle is in front of the character" % id)
 		var armor := rig.armor_count()
-		if COMBATANTS.has(id):
+		if BREAKABLE.has(id):
 			var total := _visible_armor(rig)  # 一步可以有好幾片（前後側的同一種護甲），所以用零件數而不是步數比較
 			rig.set_armor_ratio(0.0, false)
 			check(_visible_armor(rig) == 0, "%s: all armor falls off at zero health" % id)

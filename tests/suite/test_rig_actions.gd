@@ -12,6 +12,7 @@ func run() -> void:
 	await _test_playback()
 	await _test_unknown_action()
 	await _test_enemy_data()
+	_test_motion_is_not_shared()
 
 
 func _rig(skin: String, input: RigInput, settle := 40) -> CharacterRig:
@@ -50,14 +51,14 @@ func _test_playback() -> void:
 	input.two_handed = true
 	var idle := await _rig("trooper", input)
 	var idle_arm := idle.bone(&"arm_front_upper").rotation
-	input.action = &"windup_overhead"
+	input.action = &"warden.windup_overhead"
 	input.action_t = 1.0
 	var raised := await _rig("trooper", input, 60)
 	check(raised.bone(&"arm_front_upper").rotation < -2.4, "an overhead windup raises the arm (%.2f)" % raised.bone(&"arm_front_upper").rotation)
 	input.action_t = 0.0
 	var start := await _rig("trooper", input, 60)
 	check(start.bone(&"arm_front_upper").rotation > raised.bone(&"arm_front_upper").rotation + 1.0, "progress 0 is lower than progress 1")
-	input.action = &"slam"
+	input.action = &"warden.slam"
 	input.action_t = 0.5
 	var slam := await _rig("trooper", input, 60)
 	check(slam.bone(&"chest").rotation > 0.25, "the slam bends the chest forward")
@@ -91,3 +92,44 @@ func _test_enemy_data() -> void:
 			for state: Variant in data.rig_actions.keys():
 				check(source.contains('&"%s"' % str(state)), "%s: the behaviour has a state named %s" % [file, state])
 	check(found >= 5, "several enemies have rig actions (%d)" % found)
+	# 不共用：同一個動作只能被一個敵人使用，而且動作名稱以敵人 id 開頭。
+	var owner_of: Dictionary = {}
+	for file in DirAccess.get_files_at("res://data/enemies"):
+		if not file.ends_with(".tres"):
+			continue
+		var data := load("res://data/enemies/" + file) as EnemyData
+		if data == null:
+			continue
+		for state: Variant in data.rig_actions.keys():
+			var name := str(data.rig_actions[state])
+			check(name.begins_with(file.get_basename() + "."), "%s: action %s is named after its own enemy" % [file, name])
+			check(not owner_of.has(name) or owner_of[name] == file, "action %s is not shared between enemies (%s, %s)" % [name, owner_of.get(name, ""), file])
+			owner_of[name] = file
+
+
+## 不共用動畫：每個角色都有自己的動作資料，任兩個角色至少有 4 個數值不同（移動、待機、死亡），而且死亡的倒下方式不能全部相同。
+func _test_motion_is_not_shared() -> void:
+	const FIELDS: Array[String] = ["move.stride", "move.swing", "move.knee_bend", "move.hip_bounce", "move.chest_lean", "idle.breath_speed",
+			"idle.hip_bob", "death.duration", "death.rotation", "death.fold", "look.head", "hurt.kick"]
+	var profiles: Dictionary = {}
+	for id in DirAccess.get_directories_at("res://art/characters"):
+		var path := HumanoidAnimator.MOTION_PATH % id
+		check(ResourceLoader.exists(path), "%s has its own motion data (art/motion/%s.json)" % [id, id])
+		if ResourceLoader.exists(path):
+			profiles[id] = RigLibrary.load_json(path)
+	var ids: Array = profiles.keys()
+	for i in ids.size():
+		for j in range(i + 1, ids.size()):
+			var differing := 0
+			for field in FIELDS:
+				if not is_equal_approx(_field(profiles[ids[i]], field), _field(profiles[ids[j]], field)):
+					differing += 1
+			check(differing >= 4, "%s and %s do not share their motion (%d of %d values differ)" % [ids[i], ids[j], differing, FIELDS.size()])
+
+
+func _field(profile: Dictionary, path: String) -> float:
+	var node: Variant = profile
+	for part in path.split("."):
+		node = (node as Dictionary).get(part, {}) if typeof(node) == TYPE_DICTIONARY else {}
+	return float(node) if typeof(node) == TYPE_FLOAT or typeof(node) == TYPE_INT else NAN
+

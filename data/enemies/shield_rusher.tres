@@ -29,4 +29,4 @@ rig_weapon = "pistol"
 rig_two_handed = false
 rig_shield = true
 credit_value = 15
-rig_actions = { "windup": "brace", "dazed": "stagger_back" }
+rig_actions = { "windup": "shield_rusher.brace", "dazed": "shield_rusher.stagger_back" }

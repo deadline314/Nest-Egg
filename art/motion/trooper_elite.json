@@ -1,0 +1,122 @@
+{
+ "description": "trooper_elite 的動作資料（HumanoidAnimator 讀取；NPC 動畫器也用 idle／npc 段）。每個角色自己一份，數值要和其他角色不同（測試會檢查）。idle：待機呼吸與站姿；move：stride＝一個步伐週期的像素距離、swing＝腿擺幅、knee_bend＝抬膝、hip_bounce＝骨盆起伏、chest_lean＝跑步前傾；crouch／air／dash／block／hurt／look：各狀態的姿勢；death：倒下方式（rotation 負＝向後、正＝向前；fold＝先把腿折起來的程度；ease＝節奏）；npc：NPC 站姿微調與說話的速度、幅度倍率。",
+ "skin": "trooper_elite",
+ "idle": {
+  "breath_speed": 2.1,
+  "breath_amp": 0.015,
+  "hip_bob": 0.2,
+  "chest": 0.0,
+  "legs": [
+   -0.06,
+   0.08,
+   0.18,
+   0.06
+  ]
+ },
+ "move": {
+  "stride": 46.0,
+  "swing": 0.62,
+  "knee_bend": 0.9,
+  "knee_base": 0.15,
+  "hip_bounce": 0.9,
+  "chest_lean": 0.1,
+  "threshold": 0.08
+ },
+ "crouch": {
+  "hip_drop": 8.0,
+  "chest": 0.18,
+  "legs": [
+   -1.25,
+   2.05,
+   -0.55,
+   1.85
+  ]
+ },
+ "air": {
+  "rise": {
+   "chest": 0.05,
+   "legs": [
+    -0.95,
+    1.4,
+    0.35,
+    0.7
+   ]
+  },
+  "fall": {
+   "chest": -0.05,
+   "legs": [
+    -0.35,
+    0.45,
+    0.45,
+    0.25
+   ]
+  }
+ },
+ "dash": {
+  "forward": {
+   "chest": 0.38,
+   "legs": [
+    -1.0,
+    0.6,
+    0.85,
+    1.0
+   ]
+  },
+  "back": {
+   "chest": -0.22,
+   "legs": [
+    0.5,
+    0.9,
+    -0.7,
+    0.4
+   ]
+  }
+ },
+ "block": {
+  "chest": 0.1,
+  "legs": [
+   -0.4,
+   0.5,
+   0.5,
+   0.2
+  ]
+ },
+ "hurt": {
+  "stagger_chest": -0.35,
+  "kick": 0.22
+ },
+ "look": {
+  "chest": 0.12,
+  "neck": 0.12,
+  "head": 0.25,
+  "head_min": -0.35,
+  "head_max": 0.3
+ },
+ "death": {
+  "duration": 0.32,
+  "rotation": -1.56,
+  "drop": 21,
+  "hip_x": -3,
+  "chest": 0.15,
+  "head": 0.35,
+  "fold": 0.0,
+  "ease": "linear",
+  "legs": [
+   0.3,
+   0.1,
+   0.45,
+   0.05
+  ],
+  "fold_legs": [
+   -1.4,
+   2.0,
+   -1.2,
+   1.9
+  ]
+ },
+ "npc": {
+  "stand": {},
+  "talk_speed": 1.0,
+  "talk_amp": 1.0
+ }
+}

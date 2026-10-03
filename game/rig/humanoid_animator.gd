@@ -10,8 +10,6 @@ extends RefCounted
 ## 所有角度在「骨架空間」（面向右、未翻轉）計算；骨頭靜止時沿 +Y 延伸。
 
 const POSE_SHARPNESS := 18.0
-## 每移動 1 世界像素，跑步循環前進的弧度（約每 50px 一個步伐週期）。
-const STRIDE_PER_PIXEL := TAU / 50.0
 const MAX_AIM_ANGLE := deg_to_rad(105.0)
 const SPRING_STIFFNESS := 140.0
 const SPRING_DAMPING := 11.0
@@ -24,13 +22,27 @@ const DEFAULT_SPRINGS: Array[Dictionary] = [
 	{"bone": "hair_1", "rest": 0.25, "gain": 0.5},
 	{"bone": "hair_2", "rest": 0.0, "gain": 0.4},
 ]
+## 動作資料（art/motion/<角色>.json）缺的欄位用這份預設補（等於凜原本的手感）；每個角色都要有自己的檔案，測試會檢查不重複。
+const MOTION_PATH := "res://art/motion/%s.json"
+const DEFAULT_MOTION := {
+	"idle": {"breath_speed": 2.4, "breath_amp": 0.02, "hip_bob": 0.3, "chest": 0.0, "legs": [-0.12, 0.12, 0.2, 0.08]},
+	"move": {"stride": 50.0, "swing": 0.8, "knee_bend": 1.2, "knee_base": 0.15, "hip_bounce": 1.4, "chest_lean": 0.12, "threshold": 0.08},
+	"crouch": {"hip_drop": 8.0, "chest": 0.18, "legs": [-1.25, 2.05, -0.55, 1.85]},
+	"air": {"rise": {"chest": 0.05, "legs": [-0.95, 1.4, 0.35, 0.7]}, "fall": {"chest": -0.05, "legs": [-0.35, 0.45, 0.45, 0.25]}},
+	"dash": {"forward": {"chest": 0.38, "legs": [-1.0, 0.6, 0.85, 1.0]}, "back": {"chest": -0.22, "legs": [0.5, 0.9, -0.7, 0.4]}},
+	"block": {"chest": 0.1, "legs": [-0.4, 0.5, 0.5, 0.2]},
+	"hurt": {"stagger_chest": -0.35, "kick": 0.3},
+	"look": {"chest": 0.12, "neck": 0.12, "head": 0.3, "head_min": -0.35, "head_max": 0.3},
+	"npc": {"stand": {}, "talk_speed": 1.0, "talk_amp": 1.0},
+	"death": {"duration": 0.45, "rotation": -1.56, "drop": 21.0, "hip_x": -6.0, "chest": 0.15, "head": 0.35, "fold": 0.0, "ease": "out_cubic",
+			"legs": [0.3, 0.1, 0.45, 0.05], "fold_legs": [-1.4, 2.0, -1.2, 1.9]},
+}
 const ACTIONS_PATH := "res://art/rigs/action_poses.json"
 const SPRING_MIN := -0.8
 const SPRING_MAX := 1.6
 const RECOIL_RECOVERY := 9.0
 const HURT_TIME := 0.22
 const CROUCH_DROP := 8.0
-const DEATH_DROP := 21.0
 
 const LEGS: Array[StringName] = [&"leg_front_upper", &"leg_front_lower", &"leg_back_upper", &"leg_back_lower"]
 
@@ -48,6 +60,8 @@ var _action_w := 0.0
 var _action_skip_ik := false
 var _action_weapon_angle := NAN  # 動作指定的武器角度（NAN＝跟著手轉）
 var _springs: Array[Dictionary] = []
+## 這個角色自己的動作資料（預設值被 art/motion/<角色>.json 蓋過後的結果）。
+var _motion: Dictionary = {}
 var _spring_angle: Dictionary[StringName, float] = {}
 var _spring_velocity: Dictionary[StringName, float] = {}
 # FK 快取（骨架空間）
@@ -57,6 +71,7 @@ var _global_pos: Dictionary[StringName, Vector2] = {}
 
 func _init(rig: CharacterRig) -> void:
 	_rig = rig
+	_motion = _load_motion(rig.skin_id)
 	for bone_name in rig.bone_order():
 		_angles[bone_name] = 0.0
 	for entry in (rig.springs() if not rig.springs().is_empty() else DEFAULT_SPRINGS):
@@ -66,6 +81,26 @@ func _init(rig: CharacterRig) -> void:
 		_springs.append(entry)
 		_spring_angle[bone_name] = 0.0
 		_spring_velocity[bone_name] = 0.0
+
+
+## 讀這個角色的動作資料並補上預設；檔案缺失或格式錯誤時記錄具體位置並整份用預設。
+static func _load_motion(skin_id: String) -> Dictionary:
+	var merged: Dictionary = DEFAULT_MOTION.duplicate(true)
+	var path := MOTION_PATH % skin_id
+	if not ResourceLoader.exists(path):
+		RigLibrary.report_once("motion:" + skin_id, "[HumanoidAnimator] %s 沒有動作資料，使用預設動作。" % path)
+		return merged
+	var data := RigLibrary.load_json(path)
+	_merge_into(merged, data)
+	return merged
+
+
+static func _merge_into(base: Dictionary, over: Dictionary) -> void:
+	for key: Variant in over.keys():
+		if typeof(over[key]) == TYPE_DICTIONARY and base.has(key) and typeof(base[key]) == TYPE_DICTIONARY:
+			_merge_into(base[key], over[key])
+		elif base.has(key) and typeof(base[key]) == typeof(over[key]):
+			base[key] = over[key]
 
 
 func update(delta: float, input: RigInput) -> void:
@@ -106,72 +141,101 @@ func update(delta: float, input: RigInput) -> void:
 
 func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> Dictionary:
 	var pose: Dictionary = {}
+	var m := _motion
 	var speed_ratio := clampf(absf(v.x) / maxf(1.0, input.run_speed), 0.0, 1.3)
-	var breath := sin(_time * 2.4)
+	var idle: Dictionary = m["idle"]
+	var move: Dictionary = m["move"]
 
 	if input.dead:
-		# 向後倒下：整個身體以髖部為軸旋轉並沉到地面。
-		var t := clampf(_death_time / 0.45, 0.0, 1.0)
-		var eased := 1.0 - pow(1.0 - t, 3.0)
-		pose[&"hip"] = -1.56 * eased
-		pose[&"_hip_y"] = DEATH_DROP * eased
-		pose[&"_hip_x"] = -6.0 * eased
-		pose[&"chest"] = 0.15 * eased
-		pose[&"neck"] = 0.1
-		pose[&"head"] = 0.35 * eased
-		_set_legs(pose, 0.3, 0.1, 0.45, 0.05)
+		_death_pose(pose, m["death"])
 		return pose
 
 	pose[&"hip"] = 0.0
 	pose[&"_hip_y"] = 0.0
 	if input.crouching:
-		pose[&"_hip_y"] = CROUCH_DROP
-		pose[&"chest"] = 0.18
-		_set_legs(pose, -1.25, 2.05, -0.55, 1.85)
+		var crouch: Dictionary = m["crouch"]
+		pose[&"_hip_y"] = float(crouch["hip_drop"])
+		pose[&"chest"] = float(crouch["chest"])
+		_set_legs_from(pose, crouch["legs"])
 	elif input.dashing:
-		var forward := signf(v.x) >= 0.0
-		pose[&"chest"] = 0.38 if forward else -0.22
-		if forward:
-			_set_legs(pose, -1.0, 0.6, 0.85, 1.0)
-		else:
-			_set_legs(pose, 0.5, 0.9, -0.7, 0.4)
+		var dash: Dictionary = m["dash"]["forward" if signf(v.x) >= 0.0 else "back"]
+		pose[&"chest"] = float(dash["chest"])
+		_set_legs_from(pose, dash["legs"])
 	elif not input.on_floor:
-		if v.y < 0.0:
-			pose[&"chest"] = 0.05
-			_set_legs(pose, -0.95, 1.4, 0.35, 0.7)
-		else:
-			pose[&"chest"] = -0.05
-			_set_legs(pose, -0.35, 0.45, 0.45, 0.25)
-	elif speed_ratio > 0.08:
-		_phase += v.x * STRIDE_PER_PIXEL * delta
-		var swing := 0.8 * minf(speed_ratio, 1.0)
+		var air: Dictionary = m["air"]["rise" if v.y < 0.0 else "fall"]
+		pose[&"chest"] = float(air["chest"])
+		_set_legs_from(pose, air["legs"])
+	elif speed_ratio > float(move["threshold"]):
+		_phase += v.x * TAU / maxf(8.0, float(move["stride"])) * delta
+		var swing := float(move["swing"]) * minf(speed_ratio, 1.0)
 		var front := sin(_phase)
 		var back := sin(_phase + PI)
+		var base := float(move["knee_base"])
+		var bend := float(move["knee_bend"])
 		pose[&"leg_front_upper"] = -front * swing
-		pose[&"leg_front_lower"] = 0.15 + maxf(0.0, cos(_phase)) * 1.2 * swing
+		pose[&"leg_front_lower"] = base + maxf(0.0, cos(_phase)) * bend * swing
 		pose[&"leg_back_upper"] = -back * swing
-		pose[&"leg_back_lower"] = 0.15 + maxf(0.0, cos(_phase + PI)) * 1.2 * swing
-		pose[&"_hip_y"] = -absf(sin(_phase)) * 1.4 * swing
-		pose[&"chest"] = 0.12 * speed_ratio * signf(v.x)
+		pose[&"leg_back_lower"] = base + maxf(0.0, cos(_phase + PI)) * bend * swing
+		pose[&"_hip_y"] = -absf(sin(_phase)) * float(move["hip_bounce"]) * swing
+		pose[&"chest"] = float(move["chest_lean"]) * speed_ratio * signf(v.x)
 	else:
-		# 待機：微微呼吸、重心落在後腳。
-		pose[&"chest"] = breath * 0.02
-		pose[&"_hip_y"] = breath * 0.3
-		_set_legs(pose, -0.12, 0.12, 0.2, 0.08)
+		# 待機：微微呼吸、重心落在後腳（呼吸的快慢與幅度、站姿都是這個角色自己的）。
+		var breath := sin(_time * float(idle["breath_speed"]))
+		pose[&"chest"] = float(idle["chest"]) + breath * float(idle["breath_amp"])
+		pose[&"_hip_y"] = breath * float(idle["hip_bob"])
+		_set_legs_from(pose, idle["legs"])
 
+	var block: Dictionary = m["block"]
+	var hurt: Dictionary = m["hurt"]
 	if input.blocking:
-		pose[&"chest"] = float(pose.get(&"chest", 0.0)) + 0.1
+		pose[&"chest"] = float(pose.get(&"chest", 0.0)) + float(block["chest"])
 		if input.on_floor and not input.crouching:
-			_set_legs(pose, -0.4, 0.5, 0.5, 0.2)
+			_set_legs_from(pose, block["legs"])
 	if input.staggered:
-		pose[&"chest"] = -0.35
+		pose[&"chest"] = float(hurt["stagger_chest"])
 	if _hurt_left > 0.0:
-		pose[&"chest"] = float(pose.get(&"chest", 0.0)) - 0.3 * (_hurt_left / HURT_TIME)
+		pose[&"chest"] = float(pose.get(&"chest", 0.0)) - float(hurt["kick"]) * (_hurt_left / HURT_TIME)
 	# 上半身跟著準星微轉，頭看向準星。
-	pose[&"chest"] = float(pose.get(&"chest", 0.0)) + aim_angle * 0.12 - _recoil * 0.06
-	pose[&"neck"] = aim_angle * 0.12
-	pose[&"head"] = clampf(aim_angle * 0.3, -0.35, 0.3)
+	var look: Dictionary = m["look"]
+	pose[&"chest"] = float(pose.get(&"chest", 0.0)) + aim_angle * float(look["chest"]) - _recoil * 0.06
+	pose[&"neck"] = aim_angle * float(look["neck"])
+	pose[&"head"] = clampf(aim_angle * float(look["head"]), float(look["head_min"]), float(look["head_max"]))
 	return pose
+
+
+## 死亡姿勢（每個角色自己的死法）：fold＝先把腿折起來的程度（0＝直接倒，1＝先跪下／癱坐），rotation＝身體倒下的角度（負＝向後、正＝向前），
+## ease＝倒下的節奏（out_cubic 先快後慢、linear、in_cubic 先慢後快）。
+func _death_pose(pose: Dictionary, d: Dictionary) -> void:
+	var t := clampf(_death_time / maxf(0.05, float(d["duration"])), 0.0, 1.0)
+	var fold := float(d["fold"])
+	var fold_t := 1.0 if fold <= 0.0 else clampf(t / 0.45, 0.0, 1.0)
+	var fall_t := t if fold <= 0.0 else clampf((t - 0.3) / 0.7, 0.0, 1.0)
+	var eased := _ease(fall_t, str(d["ease"]))
+	var legs: Array = d["legs"]
+	var folded: Array = d["fold_legs"]
+	pose[&"hip"] = float(d["rotation"]) * eased
+	pose[&"_hip_y"] = float(d["drop"]) * (eased if fold <= 0.0 else lerpf(fold_t * 0.45, 1.0, eased))
+	pose[&"_hip_x"] = float(d["hip_x"]) * eased
+	pose[&"chest"] = float(d["chest"]) * eased
+	pose[&"neck"] = 0.1
+	pose[&"head"] = float(d["head"]) * eased
+	for i in 4:
+		var bone: StringName = [&"leg_front_upper", &"leg_front_lower", &"leg_back_upper", &"leg_back_lower"][i]
+		pose[bone] = lerpf(float(legs[i]), float(folded[i]), fold * fold_t * (1.0 - eased * 0.6))
+
+
+static func _ease(t: float, kind: String) -> float:
+	match kind:
+		"linear":
+			return t
+		"in_cubic":
+			return t * t * t
+	return 1.0 - pow(1.0 - t, 3.0)
+
+
+func _set_legs_from(pose: Dictionary, legs: Variant) -> void:
+	var values: Array = legs
+	_set_legs(pose, float(values[0]), float(values[1]), float(values[2]), float(values[3]))
 
 
 func _set_legs(pose: Dictionary, front_upper: float, front_lower: float, back_upper: float, back_lower: float) -> void:

@@ -38,12 +38,15 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 		pose[bone_name] = 0.0
 	var base := _entry(data, "poses", str(input.npc_pose), "stand")
 	_add_bones(pose, base.get("bones", {}), 1.0)
+	var mine: Dictionary = _motion["npc"]  # 這個角色自己的站姿微調與說話的速度、幅度
+	_add_bones(pose, mine["stand"], 1.0)
 	pose[&"_hip_x"] = float(base.get("hip_x", 0.0))
 	pose[&"_hip_y"] = float(base.get("hip_y", 0.0))
 	# 呼吸：胸口與骨盆微微起伏。
-	var breath := sin(_time * 2.4)
-	pose[&"chest"] = float(pose.get(&"chest", 0.0)) + breath * 0.02
-	pose[&"_hip_y"] = float(pose[&"_hip_y"]) + breath * 0.3
+	var idle: Dictionary = _motion["idle"]
+	var breath := sin(_time * float(idle["breath_speed"]))
+	pose[&"chest"] = float(pose.get(&"chest", 0.0)) + breath * float(idle["breath_amp"])
+	pose[&"_hip_y"] = float(pose[&"_hip_y"]) + breath * float(idle["hip_bob"])
 	# 專屬工作循環。
 	if input.npc_loop != &"":
 		var loop := _entry(data, "loops", str(input.npc_loop), "")
@@ -60,8 +63,9 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 		if weight <= 0.0:
 			continue
 		var overlay := _entry(data, "overlays", entry[0], "")
+		var talking: bool = entry[0] == "talk"
 		_add_bones(pose, overlay.get("bones", {}), weight)
-		_add_tracks(pose, overlay.get("tracks", []), weight, 1.0)
+		_add_tracks(pose, overlay.get("tracks", []), weight * (float(mine["talk_amp"]) if talking else 1.0), 1.0, float(mine["talk_speed"]) if talking else 1.0)
 	return pose
 
 
@@ -91,7 +95,7 @@ func _add_bones(pose: Dictionary, bones: Variant, weight: float) -> void:
 			push_error("[NpcAnimator] %s：動畫資料裡的骨頭不存在：%s" % [DATA_PATH, key])
 
 
-func _add_tracks(pose: Dictionary, tracks: Variant, scale: float, gate: float) -> void:
+func _add_tracks(pose: Dictionary, tracks: Variant, scale: float, gate: float, speed := 1.0) -> void:
 	if typeof(tracks) != TYPE_ARRAY:
 		return
 	for track: Variant in tracks:
@@ -105,7 +109,7 @@ func _add_tracks(pose: Dictionary, tracks: Variant, scale: float, gate: float) -
 			factor *= 1.0 - gate
 		var period := maxf(0.01, float(t.get("period", 1.0)))
 		var value := float(t.get("mean", 0.0)) * factor \
-				+ float(t.get("amp", 0.0)) * scale * factor * sin(TAU * _time / period + float(t.get("phase", 0.0)))
+				+ float(t.get("amp", 0.0)) * scale * factor * sin(TAU * _time * speed / period + float(t.get("phase", 0.0)))
 		var bone_name := StringName(str(t.get("bone", "")))
 		if pose.has(bone_name):
 			pose[bone_name] = float(pose[bone_name]) + value

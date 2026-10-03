@@ -31,4 +31,4 @@ health_drop_chance = 0.0
 credit_value = 120
 rig_skin = "reclaimer"
 rig_weapon = ""
-rig_actions = { "dash_windup": "windup_slash", "dash": "slash", "rail_windup": "windup_overhead" }
+rig_actions = { "dash_windup": "reclaimer.windup_slash", "dash": "reclaimer.slash", "rail_windup": "reclaimer.windup_overhead" }
