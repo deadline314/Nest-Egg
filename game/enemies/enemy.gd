@@ -25,6 +25,10 @@ const TARGET_HEIGHT := 24.0
 const RIG_DEATH_TIME := 0.9
 ## 護盾最多疊幾層（每層擋掉一次攻擊；爆炸與終結技無視護盾）。
 const MAX_SHIELD := 3
+## 被警報引來（raise_alert）時：偵測範圍的倍率與巡邏移動的速度倍率；抵達警報地點附近就停止聚集。
+const ALERT_RANGE_SCALE := 1.5
+const ALERT_SPEED_SCALE := 1.5
+const ALERT_ARRIVE_DISTANCE := 28.0
 
 ## 畫面外休眠的總開關（無頭測試等沒有畫面的環境會關閉）。
 static var activation_culling_enabled := true
@@ -53,6 +57,9 @@ var _telegraph_time := 0.0
 var _anim_time := 0.0
 var _is_finishable := false
 var _dying := false
+## 戒備：被探照無人機等警報引來，剩餘秒數與聚集的地點（世界座標）。
+var _alert_left := 0.0
+var _alert_point := Vector2.ZERO
 var _home := Vector2.ZERO
 var _target_ref: WeakRef
 
@@ -221,6 +228,7 @@ func _physics_process(delta: float) -> void:
 		return
 	_anim_time += delta
 	_flash_left = maxf(0.0, _flash_left - delta)
+	_alert_left = maxf(0.0, _alert_left - delta)
 	if data.uses_gravity and not is_on_floor():
 		velocity.y = minf(velocity.y + _gravity * delta, MAX_FALL_SPEED)
 	if _stun_left > 0.0:
@@ -252,6 +260,11 @@ func _draw() -> void:
 		var red := LightKit.glow(Palette.DANGER, 2.5)
 		draw_line(Vector2(0, top - 6), Vector2(0, top - 1), red, 2.0)
 		draw_circle(Vector2(0, top + 2), 1.2, red)
+	if _alert_left > 0.0 and not _dying and not is_telegraphing():
+		# 戒備標記：頭上的黃色三角，提醒玩家這隻已經被引來。
+		var alert_color := LightKit.glow(Palette.WARNING, 1.4)
+		var tip := Vector2(0, top - 1)
+		draw_colored_polygon(PackedVector2Array([tip + Vector2(-3, -5), tip + Vector2(3, -5), tip]), alert_color)
 	if _is_finishable and not _dying:
 		# 可終結標記：閃爍的青色菱形。
 		var pulse := 0.6 + 0.4 * sin(_anim_time * 14.0)
@@ -278,6 +291,18 @@ func _draw_shield() -> void:
 
 func is_dying() -> bool:
 	return _dying
+
+
+## 被警報引來：seconds 秒內偵測範圍變大、巡邏改為往 point 聚集（取較長的戒備時間）。
+func raise_alert(point: Vector2, seconds: float) -> void:
+	if _dying:
+		return
+	_alert_left = maxf(_alert_left, seconds)
+	_alert_point = point
+
+
+func is_alerted() -> bool:
+	return _alert_left > 0.0
 
 
 ## 支援型敵人替這個敵人加護盾（上限 MAX_SHIELD 層）。
@@ -438,6 +463,9 @@ func _can_see_target(max_range: float, max_height_diff := 120.0) -> bool:
 	var target := _target()
 	if target == null:
 		return false
+	if _alert_left > 0.0:
+		max_range *= ALERT_RANGE_SCALE
+		max_height_diff *= ALERT_RANGE_SCALE
 	var offset := target.global_position - global_position
 	return offset.length() <= max_range and absf(offset.y) <= max_height_diff and _has_line_of_sight()
 
@@ -498,8 +526,13 @@ func _shoot(spec: ProjectileSpec, direction: Vector2, origin := Vector2.INF) -> 
 		Sfx.play(&"shot_enemy", -10.0)
 
 
-## 巡邏移動：碰牆或遇到懸崖就回頭。
+## 巡邏移動：碰牆或遇到懸崖就回頭。戒備中改為往警報地點聚集（遇到懸崖或牆就停下）。
 func _patrol(speed: float) -> void:
+	if _alert_left > 0.0 and absf(_alert_point.x - global_position.x) > ALERT_ARRIVE_DISTANCE:
+		facing = 1 if _alert_point.x > global_position.x else -1
+		var blocked := is_on_floor() and (is_on_wall() or _is_ledge_ahead())
+		velocity.x = 0.0 if blocked else facing * speed * ALERT_SPEED_SCALE
+		return
 	if is_on_floor() and (is_on_wall() or _is_ledge_ahead()):
 		facing = -facing
 	velocity.x = facing * speed

@@ -156,6 +156,46 @@ const SOUNDS := {
 	&"ui_confirm": [
 		{"wave": "tri", "from": 660.0, "to": 1320.0, "time": 0.1, "volume": 0.18, "decay": 1.5},
 	],
+	# 第二批敵人（NE-46～48）：探照無人機的嗶聲與警報、狙擊手的雷射閃爍、火焰、機槍旋轉、電擊犬、偽裝箱。
+	&"beep": [
+		{"wave": "square", "from": 1900.0, "to": 1900.0, "time": 0.05, "volume": 0.11, "decay": 1.2},
+	],
+	&"alarm": [
+		{"wave": "saw", "from": 700.0, "to": 1150.0, "time": 0.28, "volume": 0.16, "lowpass": 0.4, "decay": 0.8},
+		{"wave": "saw", "from": 1150.0, "to": 700.0, "time": 0.28, "volume": 0.1, "lowpass": 0.4, "decay": 0.8},
+	],
+	&"laser_flash": [
+		{"wave": "sine", "from": 2600.0, "to": 2200.0, "time": 0.09, "volume": 0.14, "decay": 1.6},
+	],
+	&"flame": [
+		{"wave": "noise", "time": 0.22, "volume": 0.3, "lowpass": 0.6, "decay": 1.2, "attack": 0.03},
+		{"wave": "sine", "from": 120.0, "to": 70.0, "time": 0.2, "volume": 0.24, "decay": 1.4},
+	],
+	&"ignite": [
+		{"wave": "noise", "time": 0.1, "volume": 0.2, "lowpass": 0.3, "decay": 2.5},
+		{"wave": "square", "from": 500.0, "to": 900.0, "time": 0.08, "volume": 0.08, "decay": 2.0},
+	],
+	&"spin": [
+		{"wave": "saw", "from": 160.0, "to": 420.0, "time": 0.18, "volume": 0.12, "lowpass": 0.6, "decay": 0.9},
+	],
+	&"vent": [
+		{"wave": "noise", "time": 0.5, "volume": 0.26, "lowpass": 0.15, "decay": 1.6, "attack": 0.05},
+	],
+	&"growl": [
+		{"wave": "saw", "from": 90.0, "to": 70.0, "time": 0.32, "volume": 0.24, "lowpass": 0.8, "decay": 1.1, "attack": 0.05},
+		{"wave": "noise", "time": 0.3, "volume": 0.12, "lowpass": 0.7, "decay": 1.4},
+	],
+	&"zap": [
+		{"wave": "square", "from": 1800.0, "to": 300.0, "time": 0.12, "volume": 0.16, "noise": 0.5, "decay": 2.0},
+		{"wave": "noise", "time": 0.1, "volume": 0.18, "lowpass": 0.1, "decay": 2.5},
+	],
+	&"rattle": [
+		{"wave": "square", "from": 260.0, "to": 200.0, "time": 0.12, "volume": 0.14, "noise": 0.6, "decay": 1.5},
+	],
+	&"chomp": [
+		{"wave": "square", "from": 320.0, "to": 90.0, "time": 0.09, "volume": 0.22, "noise": 0.4, "decay": 2.0},
+		{"wave": "noise", "time": 0.07, "volume": 0.22, "lowpass": 0.3, "decay": 3.0},
+	],
 }
 
 ## id -> res:// 路徑（AudioStream）。有設定時優先使用正式音效。

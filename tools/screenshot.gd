@@ -160,6 +160,10 @@ func _run() -> void:
 		await DeathScenario.run(self)
 		get_tree().quit()
 		return
+	if EnemyScenarios.has_scenario(_scenario):
+		await EnemyScenarios.run(self, _scenario, _out_dir)
+		get_tree().quit()
+		return
 	var menu := MainMenu.new()
 	add_child(menu)
 	await _settle(30)

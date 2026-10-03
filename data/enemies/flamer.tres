@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/flamer.gd" id="2_behavior"]
+[ext_resource type="Resource" path="res://data/projectiles/flamer_tank_blast.tres" id="3_proj"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"flamer"
+behavior = ExtResource("2_behavior")
+projectile = ExtResource("3_proj")
+display_name = "火焰兵"
+body_size = Vector2(18, 50)
+color = Color(1.0, 0.541, 0.102, 1.0)
+max_health = 9
+move_speed = 28.0
+contact_damage = 1
+contact_source_id = &"flamer_contact"
+detect_range = 240.0
+attack_range = 78.0
+attack_cooldown = 2.4
+telegraph_time = 0.8
+ability_speed = 20.0
+ability_time = 1.2
+ability_damage = 2
+knockback_scale = 0.15
+finish_health_ratio = 0.35
+stagger_duration = 1.5
+health_drop_chance = 0.25
+rig_skin = "flamer"
+rig_weapon = "flamethrower"
+credit_value = 22

@@ -122,7 +122,7 @@
 
 1. 用新圖覆蓋 `parts/` 底下的同名 PNG（發光層同理）。
 2. 開啟 Godot，編輯器會自動重新匯入。
-3. 執行 `tools/rig_preview.tscn` 檢查七種動作與所有角色有沒有錯位或縫隙。
+3. 執行 `tools/rig_preview.tscn` 檢查七種動作與所有角色有沒有錯位或縫隙（加 `-- --chars=角色id,角色id` 可逐角色檢視八種動作，`--closeup`／`--head` 放大細節）；執行 `tools/art/character_sheet.tscn` 產生每個角色的對位檢查圖（`art/guides/characters/`）。
 4. 執行完整測試：缺圖、畫布尺寸外的檔名錯誤會被列出。
 5. 遊戲執行中若找不到圖，會顯示洋紅色格紋替代圖並記錄錯誤，不會當機，所以漏掉的圖一眼就看得出來。
 
@@ -131,3 +131,4 @@
 1. 複製任一角色資料夾，改 `id`、`display_name`、`scale`（例如頭目是 1.8 倍）。
 2. 依規格畫好零件圖（或先修改 `painter_style` 用程式產生暫代圖）。
 3. 敵人資料的 `rig_skin` 填角色 id、`rig_weapon` 填武器 id，就會自動套用骨架、持槍與受傷脫甲。
+4. 已有的外觀與設計見 `design/10-presentation/DESIGN.md` 第八節（老 K、芽、航、回收員、狙擊手、火焰兵、重裝機槍手）。

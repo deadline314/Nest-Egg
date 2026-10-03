@@ -65,6 +65,7 @@ func _suites() -> Array[TestSuite]:
 		ProgressionSuite.new(self), SupplySuite.new(self), ReclaimerSuite.new(self),
 		Chapter2Suite.new(self), UiKitSuite.new(self), TransitionSuite.new(self), UiScreensSuite.new(self), CutsceneSuite.new(self), EnvironmentSuite.new(self), AmmoIconsSuite.new(self), AmmoTraySuite.new(self), CombatHudSuite.new(self),
 		NpcSuite.new(self), StoryLintSuite.new(self), StoryContentSuite.new(self), DeathReactionSuite.new(self),
+		CharactersSuite.new(self), ReconEnemiesSuite.new(self), HeavyEnemiesSuite.new(self), AssaultEnemiesSuite.new(self),
 	]
 
 
@@ -156,7 +157,8 @@ func _test_level_layout() -> void:
 		var res: Resource = spawn["resource"]
 		if res is EnemyData:
 			kinds[(res as EnemyData).id] = true
-	_check(kinds.size() == 6, "expected 6 enemy kinds in level, got %s" % [kinds.keys()])
+	for original: StringName in [&"grunt", &"shield_rusher", &"drone", &"turret", &"bomber", &"mortar"]:
+		_check(kinds.has(original), "level has the original enemy kind %s (got %s)" % [original, kinds.keys()])
 
 
 func _test_state_machine() -> void:

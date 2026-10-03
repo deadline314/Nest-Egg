@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/searchlight_drone.gd" id="2_behavior"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"searchlight_drone"
+behavior = ExtResource("2_behavior")
+display_name = "探照無人機"
+body_size = Vector2(22, 16)
+color = Color(0.784, 0.929, 1.0, 1.0)
+uses_gravity = false
+max_health = 3
+move_speed = 38.0
+contact_damage = 1
+contact_source_id = &"searchlight_contact"
+detect_range = 110.0
+attack_range = 210.0
+attack_cooldown = 7.0
+telegraph_time = 0.9
+ability_speed = 0.8
+ability_time = 6.0
+ability_radius = 340.0
+knockback_scale = 0.8
+finish_health_ratio = 0.0
+health_drop_chance = 0.1
+credit_value = 10

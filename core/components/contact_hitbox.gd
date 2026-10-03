@@ -31,6 +31,14 @@ func setup(p_team: Combat.Team, p_damage: int, p_source: StringName, size: Vecto
 	add_child(_shape_node)
 
 
+## 改變碰撞範圍（例如火焰隨長度伸縮）。size 與 offset 都是這個節點的本地座標。
+func resize(size: Vector2, offset := Vector2.ZERO) -> void:
+	if _shape == null:
+		return
+	_shape.size = size
+	_shape_node.position = offset
+
+
 func _physics_process(_delta: float) -> void:
 	if not active or damage <= 0:
 		return

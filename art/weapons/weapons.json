@@ -169,6 +169,48 @@
         15
       ],
       "style": "laser"
+    },
+    "sniper": {
+      "file": "sniper.png",
+      "glow": "sniper_glow.png",
+      "size": [
+        140,
+        36
+      ],
+      "grip": [
+        34,
+        22
+      ],
+      "foregrip": [
+        76,
+        20
+      ],
+      "muzzle": [
+        138,
+        14
+      ],
+      "style": "sniper"
+    },
+    "flamethrower": {
+      "file": "flamethrower.png",
+      "glow": "flamethrower_glow.png",
+      "size": [
+        104,
+        40
+      ],
+      "grip": [
+        30,
+        26
+      ],
+      "foregrip": [
+        62,
+        24
+      ],
+      "muzzle": [
+        102,
+        17
+      ],
+      "style": "flamethrower"
     }
   }
 }

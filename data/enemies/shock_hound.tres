@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/shock_hound.gd" id="2_behavior"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"shock_hound"
+behavior = ExtResource("2_behavior")
+display_name = "電擊犬"
+body_size = Vector2(24, 14)
+color = Color(0.45, 0.78, 0.95, 1.0)
+max_health = 3
+move_speed = 60.0
+contact_damage = 1
+contact_source_id = &"shock_hound_contact"
+detect_range = 280.0
+attack_range = 105.0
+attack_cooldown = 2.0
+telegraph_time = 0.7
+ability_speed = 240.0
+ability_time = 0.7
+ability_radius = 30.0
+ability_damage = 2
+knockback_scale = 0.8
+finish_health_ratio = 0.0
+health_drop_chance = 0.1
+credit_value = 6

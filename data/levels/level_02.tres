@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=53 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=59 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_script"]
 [ext_resource type="Resource" path="res://data/story_items/doc_shaft_memo.tres" id="r1"]
@@ -47,6 +47,12 @@
 [ext_resource type="Resource" path="res://data/npcs/resident.tres" id="61_resident"]
 [ext_resource type="Resource" path="res://data/npcs/nurse.tres" id="62_nurse"]
 [ext_resource type="Resource" path="res://data/npcs/height_marks.tres" id="63_marks"]
+[ext_resource type="Resource" path="res://data/enemies/searchlight_drone.tres" id="ne_searchlight_drone"]
+[ext_resource type="Resource" path="res://data/enemies/sniper.tres" id="ne_sniper"]
+[ext_resource type="Resource" path="res://data/enemies/flamer.tres" id="ne_flamer"]
+[ext_resource type="Resource" path="res://data/enemies/heavy_gunner.tres" id="ne_heavy_gunner"]
+[ext_resource type="Resource" path="res://data/enemies/shock_hound.tres" id="ne_shock_hound"]
+[ext_resource type="Resource" path="res://data/enemies/mimic.tres" id="ne_mimic"]
 
 [sub_resource type="Resource" id="Resource_zone0"]
 script = ExtResource("r36")
@@ -89,6 +95,12 @@ legend = Dictionary[String, Resource]({
 "I": ExtResource("62_nurse"),
 "G": ExtResource("61_resident"),
 "A": ExtResource("60_chen"),
+"[": ExtResource("ne_mimic"),
+"T": ExtResource("ne_shock_hound"),
+"v": ExtResource("ne_heavy_gunner"),
+"O": ExtResource("ne_flamer"),
+"Z": ExtResource("ne_sniper"),
+"n": ExtResource("ne_searchlight_drone"),
 "D": ExtResource("r1"),
 "E": ExtResource("r2"),
 "F": ExtResource("r3"),
