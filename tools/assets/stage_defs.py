@@ -38,7 +38,7 @@ def grain(amount, opacity, **extra) -> dict:
 STAGE_LAYERS = {
     "old_k_shop": [
         {"kind": "gradient", "top": "#1a1410", "bottom": "#2c2018", "parallax": 0.0},
-        bg("old_k_shop", modulate=[1.7, 1.55, 1.45, 1.0]),
+        bg("old_k_shop", modulate=[1.25, 1.2, 1.15, 1.0]),
         glow([321, 40], 250, "#ffb066", 0.9, 0.5, flicker=0.05),
         glow([14, 112], 120, "#a070e8", 0.8, 0.45, flicker=0.12),
         motes(46, "#ffd9a0", 0.55, [150, 30, 360, 260], [2, -4], 1.3, 4),
@@ -46,14 +46,14 @@ STAGE_LAYERS = {
     ],
     "old_k_shop_dawn": [
         {"kind": "gradient", "top": "#10161c", "bottom": "#222a30", "parallax": 0.0},
-        bg("old_k_shop_dawn", modulate=[1.6, 1.6, 1.7, 1.0]),
+        bg("old_k_shop_dawn", modulate=[1.15, 1.15, 1.2, 1.0]),
         glow([26, 110], 170, "#9ab8d8", 0.8, 0.45, pulse=0.08, pulse_depth=0.25),
         motes(30, "#cfe0ff", 0.4, [0, 30, 320, 260], [3, -3], 1.2, 6),
         grain(50, 0.06),
     ],
     "hangar_red": [
         {"kind": "gradient", "top": "#120508", "bottom": "#2a0c10", "parallax": 0.0},
-        bg("hangar_red", dy=-10, modulate=[1.25, 1.2, 1.2, 1.0]),
+        bg("hangar_red", dy=-10, modulate=[1.1, 1.1, 1.1, 1.0]),
         glow([320, 150], 340, "#ff2a18", 0.9, 0.22, flicker=0.35),
         glow([226, 20], 150, "#ff2a1a", 1.0, 0.6, pulse=0.9, pulse_depth=0.85),
         glow([406, 20], 150, "#ff2a1a", 1.0, 0.6, pulse=0.9, pulse_depth=0.85, phase=0.5),
@@ -65,17 +65,18 @@ STAGE_LAYERS = {
     ],
     "terminal_room": [
         {"kind": "gradient", "top": "#060c12", "bottom": "#10202c", "parallax": 0.0},
-        bg("terminal_room", dy=-12, modulate=[1.7, 1.7, 1.7, 1.0]),
+        bg("terminal_room", dy=-12, modulate=[1.35, 1.35, 1.35, 1.0]),
         glow([356, 190], 190, "#35e0ff", 1.0, 0.4, pulse=0.25, pulse_depth=0.3),
-        {"kind": "sprite", "path": "res://art/environment/props/terminal_holo.png", "pos": [323, 89], "scale": 0.384, "filter": "linear"},
+        {"kind": "sprite", "path": "res://art/environment/props/terminal_holo.png", "pos": [306, 141], "scale": 0.205, "filter": "linear"},
         motes(64, "#35e0ff", 0.6, [0, 30, 640, 240], [0, -9], 1.1, 21),
         grain(40, 0.07),
     ],
     "transfer_corridor": [
         {"kind": "gradient", "top": "#0c1218", "bottom": "#18222c", "parallax": 0.0},
         bg("transfer_corridor"),
-        glow([163, 36], 170, "#cfe8ff", 0.9, 0.3, flicker=0.15),
-        glow([477, 36], 190, "#cfe8ff", 0.9, 0.3),
+        glow([6, 16], 170, "#cfe8ff", 0.9, 0.3, flicker=0.15),
+        glow([306, 16], 190, "#cfe8ff", 0.9, 0.3),
+        glow([612, 16], 170, "#cfe8ff", 0.9, 0.3, flicker=0.1),
         motes(26, "#cfe0ff", 0.3, [0, 40, 640, 220], [2, -2], 1.0, 33),
         grain(50, 0.07),
     ],

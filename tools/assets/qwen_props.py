@@ -81,6 +81,20 @@ def generate(e: dict, cfg: dict, size: tuple[float, float], regen: bool) -> Path
     return path
 
 
+def drop_specks(alpha: np.ndarray, min_share: float = 0.01) -> np.ndarray:
+    """Erase stray pieces (haze, shadow streaks, far-off specks) so they neither show nor stretch the bounding box:
+    connected parts smaller than `min_share` of the largest part are removed."""
+    import cv2
+    mask = (alpha > 0.3).astype(np.uint8)
+    count, labels, stats, _ = cv2.connectedComponentsWithStats(mask, connectivity=8)
+    if count <= 2:
+        return alpha
+    areas = stats[1:, cv2.CC_STAT_AREA]
+    keep = np.zeros(count, dtype=bool)
+    keep[1:] = areas >= areas.max() * min_share
+    return np.where(keep[labels], alpha, 0.0).astype(alpha.dtype)
+
+
 def deck_center(alpha: np.ndarray) -> float | None:
     """Vertical centre (fraction of the height) of the first thick, nearly full-width horizontal bar - a landing or awning."""
     h = alpha.shape[0]
@@ -98,7 +112,7 @@ def deck_center(alpha: np.ndarray) -> float | None:
     return None
 
 
-def align_platform(rgba: np.ndarray, tres: str, old_h: float, pid: str) -> np.ndarray:
+def align_platform(rgba: np.ndarray, tres: str, old_h: float, pid: str, contain_w: float = 0.0) -> np.ndarray:
     """Pad the picture with transparency (uniformly, so nothing is stretched) until its deck sits where the prop's one-way
     platform is, so the standable surface in the data matches what the player sees."""
     m = re.search(r"^platform = Rect2\(([-\d.]+), ([-\d.]+), ([-\d.]+), ([-\d.]+)\)", tres, re.M)
@@ -108,6 +122,16 @@ def align_platform(rgba: np.ndarray, tres: str, old_h: float, pid: str) -> np.nd
         return rgba
     t = (float(m.group(2)) + float(m.group(4)) / 2.0) / old_h
     h, w = rgba.shape[:2]
+    if contain_w:  # keep the drawn proportions: fit inside the old box (no stretching) and put the deck on the platform
+        k = min(contain_w / w, old_h / h)  # logical units per picture pixel
+        top = round(t * old_h / k - f * h)
+        top = max(0, min(top, round(old_h / k) - h))
+        canvas_w, canvas_h = round(contain_w / k), round(old_h / k)
+        left = (canvas_w - w) // 2
+        out = np.zeros((canvas_h, canvas_w, 4), dtype=rgba.dtype)
+        out[top:top + h, left:left + w] = rgba
+        print(f"align {pid:18} deck at {f:.2f} -> {t:.2f} (contained in {contain_w:g}x{old_h:g})")
+        return out
     if abs(f - t) < 0.01:
         return rgba
     if f < t:  # deck too high: add room above
@@ -152,7 +176,8 @@ def process(e: dict, cfg: dict, regen: bool, no_gen: bool) -> bool:
         if raw[..., 3].min() > 0.98:
             print(f"FAIL  {pid}: the model returned no transparency (seed {e.get('seed')}); try another seed", file=sys.stderr)
             return False
-        alpha = np.clip((raw[..., 3] - 0.04) / 0.92, 0.0, 1.0)  # drop the faint haze around the outline
+        floor = float(e.get("alpha_floor", 0.04))  # drop the faint haze around the outline (a soft wall shadow needs ~0.4)
+        alpha = np.clip((raw[..., 3] - floor) / (1.0 - floor - 0.04), 0.0, 1.0)
         rgba = np.dstack([rgb, alpha])
     elif e.get("silhouette"):
         rgba = qm.silhouette_matte(rgb, float(e.get("silhouette_gamma", 1.0)))
@@ -161,6 +186,7 @@ def process(e: dict, cfg: dict, regen: bool, no_gen: bool) -> bool:
         rgba = qm.matte(rgb, e.get("bg", "white"), float(e.get("tol", 0.10)), float(e.get("soft", 0.12)))
     if e.get("flip"):
         rgba = rgba[:, ::-1].copy()
+    rgba[..., 3] = drop_specks(rgba[..., 3])
     box = Image.fromarray((rgba[..., 3] * 255).astype(np.uint8)).point(lambda v: 255 if v > 10 else 0).getbbox()
     if box is None:
         print(f"FAIL  {pid}: nothing left after matting", file=sys.stderr)
@@ -173,7 +199,7 @@ def process(e: dict, cfg: dict, regen: bool, no_gen: bool) -> bool:
         box = (box[0] + int(x0 * bw), box[1] + int(y0 * bh), box[0] + int(x1 * bw), box[1] + int(y1 * bh))
     rgba = rgba[box[1]:box[3], box[0]:box[2]]
     if e.get("platform_align"):
-        rgba = align_platform(rgba, tres, old_h, pid)
+        rgba = align_platform(rgba, tres, old_h, pid, old_w if e["platform_align"] == "contain" else 0.0)
     aspect = rgba.shape[1] / rgba.shape[0]
 
     fit = e.get("fit", "height")
@@ -184,6 +210,10 @@ def process(e: dict, cfg: dict, regen: bool, no_gen: bool) -> bool:
     elif fit == "area":
         # natural proportions, about the old footprint; the height stays within 0.75 .. 1.3 of the old one
         new_h = min(max(math.sqrt(old_w * old_h / aspect), 0.75 * old_h), 1.3 * old_h)
+        new_w = new_h * aspect
+    elif fit == "meters":
+        # real-world height times the scene's pixels per metre, so props keep a sensible size next to the player
+        new_h = float(e["height_m"]) * float(cfg.get("px_per_meter", 30))
         new_w = new_h * aspect
     elif fit == "height":
         new_h, new_w = old_h, old_h * aspect

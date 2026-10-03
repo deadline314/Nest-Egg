@@ -26,8 +26,8 @@
   {
    "kind": "glow",
    "pos": [
-    163,
-    36
+    6,
+    16
    ],
    "radius": 170,
    "color": "#cfe8ff",
@@ -39,14 +39,27 @@
   {
    "kind": "glow",
    "pos": [
-    477,
-    36
+    306,
+    16
    ],
    "radius": 190,
    "color": "#cfe8ff",
    "intensity": 0.9,
    "additive": true,
    "alpha": 0.3
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    612,
+    16
+   ],
+   "radius": 170,
+   "color": "#cfe8ff",
+   "intensity": 0.9,
+   "additive": true,
+   "alpha": 0.3,
+   "flicker": 0.1
   },
   {
    "kind": "motes",

@@ -1,6 +1,6 @@
 {
  "styles": {
-  "scene": "Cinematic photorealistic 2D game background, flat side-on view like a platformer stage set with no perspective distortion, a completely deserted and uninhabited place where nobody is present, the floor strip along the bottom fifth of the picture is bare and empty.",
+  "scene": "Anime cel-shaded background painting in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, clean ink outlines, hard-edged two-tone cel shading, flat side-on view like a platformer stage set with no perspective distortion, a completely deserted and uninhabited place where nobody is present, the floor strip along the bottom fifth of the picture is bare and empty.",
   "strip": "A photorealistic near-black silhouette foreground element for a 2D game, flat side view, very dark almost black materials with only faint edge highlights, small glowing LED indicator lights, no text."
  },
  "glow_presets": {
@@ -191,8 +191,8 @@
    "style": "scene",
    "seed": 11,
    "gen": [
-    1536,
-    864
+    1152,
+    648
    ],
    "px": [
     1536,
@@ -252,7 +252,7 @@
    "id": "stage_transfer_corridor",
    "kind": "scene",
    "style": "scene",
-   "seed": 5,
+   "seed": 15,
    "gen": [
     1536,
     864
@@ -267,7 +267,7 @@
     "brightness": 0.95,
     "saturation": 0.9
    },
-   "prompt": "A long empty sterile underground facility corridor: pale tiled walls, a row of cold blue-white fluorescent tube lights on the ceiling, metal benches along the wall, a height-measuring chart painted on the wall at the far left, wet polished floor reflecting the lights, cold and clinical."
+   "prompt": "A long empty sterile underground facility corridor drawn like a hand-painted anime background with visible ink linework and flat colour areas: pale grey-blue tiled walls with drawn grout lines, a row of cold blue-white fluorescent tube lights on the ceiling, metal benches along the wall, a height-measuring chart painted on the wall at the far left, a glossy floor reflecting the lights, cold and clinical."
   },
   {
    "id": "stage_white_room",

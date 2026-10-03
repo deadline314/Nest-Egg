@@ -1,7 +1,7 @@
 {
  "styles": {
-  "dark": "A photorealistic 3D game asset render, weathered gritty cyberpunk industrial look, soft even dim lighting, straight-on orthographic side elevation with no perspective, one single object centered, no ground, no cast shadow, no text.",
-  "neon": "A photorealistic 3D game asset render, cyberpunk night street look with glowing neon, straight-on orthographic front elevation with no perspective, one single object centered, no ground, no cast shadow, no readable text."
+  "dark": "Anime cel-shaded game prop in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, bold clean dark outlines, hard-edged two-tone cel shading with a bright cool-white rim light on the lit edges, natural local colours (rust brown, steel grey, faded red, teal, warm yellow) kept clearly lighter than a dark navy night background, small neon cyan and magenta accents, straight-on orthographic side elevation with no perspective, one single object centered, no ground, no cast shadow, no text.",
+  "neon": "Anime cel-shaded game prop in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, bold clean dark outlines, hard-edged two-tone cel shading with a bright cool-white rim light on the lit edges, natural local colours (rust brown, steel grey, faded red, teal, warm yellow) kept clearly lighter than a dark navy night background, small neon cyan and magenta accents, straight-on orthographic side elevation with no perspective, one single object centered, no ground, no cast shadow, no text."
  },
  "glow_presets": {
   "neon": [
@@ -65,12 +65,12 @@
  "defaults": {
   "texture_scale": 8,
   "grade": {
-   "brightness": 0.85,
-   "saturation": 0.85,
+   "brightness": 1.08,
+   "saturation": 1.05,
    "tint": [
-    0.92,
     0.97,
-    1.1
+    1.0,
+    1.06
    ],
    "contrast": 1.05,
    "gamma": 1.0
@@ -120,7 +120,7 @@
   {
    "id": "forklift",
    "seed": 4,
-   "fit": "width",
+   "fit": "meters",
    "glow": "beacon",
    "data": {
     "glow_life": true
@@ -131,12 +131,13 @@
      40.0,
      26.0
     ]
-   }
+   },
+   "height_m": 2.2
   },
   {
    "id": "control_console",
    "seed": 3,
-   "fit": "keep",
+   "fit": "meters",
    "glow": "console",
    "data": {
     "glow_scan": 0.5,
@@ -152,12 +153,13 @@
      14.0,
      8.0
     ]
-   }
+   },
+   "height_m": 1.1
   },
   {
    "id": "gate_door",
    "seed": 6,
-   "fit": "area",
+   "fit": "meters",
    "glow": "beacon",
    "data": {
     "glow_life": true
@@ -168,49 +170,53 @@
      24.0,
      48.0
     ]
-   }
+   },
+   "height_m": 2.5
   },
   {
    "id": "container_back",
    "seed": 2,
-   "fit": "area",
+   "fit": "meters",
    "prompt": "Two rusty corrugated shipping containers stacked on each other, seen flat from the side: dull blue lower container and faded red upper container, peeling paint, closed doors, no logos.",
    "anchor": {
     "size": [
      48.0,
      24.0
     ]
-   }
+   },
+   "height_m": 3.0
   },
   {
    "id": "pallet_stack",
    "seed": 8,
-   "fit": "keep",
+   "fit": "meters",
    "prompt": "A stack of wooden freight pallets with a few shrink-wrapped cargo boxes on top, worn and dirty, seen from the side.",
    "anchor": {
     "size": [
      28.0,
      22.0
     ]
-   }
+   },
+   "height_m": 1.5
   },
   {
    "id": "fence",
-   "seed": 9,
-   "fit": "keep",
+   "seed": 12,
+   "fit": "meters",
    "pad": 0,
-   "prompt": "A section of rusty chain-link fence between two steel posts with a top rail, torn at the corner, seen flat from the front.",
+   "prompt": "A section of intact rusty chain-link fence between two steel posts with a top rail, seen flat from the front.",
    "anchor": {
     "size": [
      32.0,
      22.0
     ]
-   }
+   },
+   "height_m": 2.0
   },
   {
    "id": "worker_hut",
    "seed": 12,
-   "fit": "area",
+   "fit": "meters",
    "glow": "warm",
    "data": {
     "flicker": 0.05
@@ -225,12 +231,13 @@
      24.0,
      24.0
     ]
-   }
+   },
+   "height_m": 2.6
   },
   {
    "id": "cables_hang",
    "seed": 14,
-   "fit": "area",
+   "fit": "meters",
    "data": {
     "sway": 1.6,
     "sway_hang": true
@@ -241,24 +248,26 @@
      48.0,
      28.0
     ]
-   }
+   },
+   "height_m": 1.6
   },
   {
    "id": "water_tower",
    "seed": 7,
-   "fit": "height",
+   "fit": "meters",
    "prompt": "A rooftop water tower: a wooden-slat barrel tank on a rusty steel four-leg frame with cross braces and a small ladder, a conical metal lid, proportions about five wide to seven tall.",
    "anchor": {
     "size": [
      40.0,
      56.0
     ]
-   }
+   },
+   "height_m": 3.8
   },
   {
    "id": "antenna",
    "seed": 21,
-   "fit": "height",
+   "fit": "meters",
    "glow": "beacon",
    "data": {
     "glow_life": true
@@ -273,36 +282,39 @@
      7.0,
      3.0
     ]
-   }
+   },
+   "height_m": 3.6
   },
   {
    "id": "satellite_dish",
    "seed": 5,
-   "fit": "height",
+   "fit": "meters",
    "prompt": "A satellite dish on a short rusty pole bracket, dish tilted up and facing right, with a feed arm and cable, weathered, seen from the side.",
    "anchor": {
     "size": [
      22.0,
      22.0
     ]
-   }
+   },
+   "height_m": 1.9
   },
   {
    "id": "vent_stack",
    "seed": 5,
-   "fit": "height",
+   "fit": "meters",
    "prompt": "A rooftop ventilation stack: a vertical galvanised steel pipe with a rain cap on top, pipe clamps and a bent elbow at the bottom, dented and weathered.",
    "anchor": {
     "size": [
      16.0,
      32.0
     ]
-   }
+   },
+   "height_m": 1.9
   },
   {
    "id": "chimney_stack",
    "seed": 6,
-   "fit": "height",
+   "fit": "meters",
    "data": {
     "steam": true,
     "steam_offset": "Vector2(10, 0)"
@@ -313,12 +325,13 @@
      20.0,
      44.0
     ]
-   }
+   },
+   "height_m": 3.2
   },
   {
    "id": "rooftop_hut",
    "seed": 3,
-   "fit": "keep",
+   "fit": "meters",
    "glow": "warm",
    "data": {
     "flicker": 0.06
@@ -333,48 +346,52 @@
      20.0,
      22.0
     ]
-   }
+   },
+   "height_m": 2.5
   },
   {
    "id": "barrels",
    "seed": 6,
-   "fit": "keep",
+   "fit": "meters",
    "prompt": "Three industrial oil drums standing side by side, one rusty red, one faded blue and one olive green, dented steel with ribbed rings, seen from the side.",
    "anchor": {
     "size": [
      28.0,
      20.0
     ]
-   }
+   },
+   "height_m": 0.95
   },
   {
    "id": "bench",
    "seed": 5,
-   "fit": "keep",
+   "fit": "meters",
    "prompt": "A weathered street bench with wooden slat seat and backrest and cast iron legs, seen from the side.",
    "anchor": {
     "size": [
      28.0,
      14.0
     ]
-   }
+   },
+   "height_m": 0.85
   },
   {
    "id": "dumpster",
    "seed": 4,
-   "fit": "keep",
+   "fit": "meters",
    "prompt": "A large dented green steel dumpster bin with a hinged lid, wheels and forklift pockets, rust streaks, seen from the side.",
    "anchor": {
     "size": [
      40.0,
      24.0
     ]
-   }
+   },
+   "height_m": 1.35
   },
   {
    "id": "vending_machine",
    "seed": 2,
-   "fit": "keep",
+   "fit": "meters",
    "style": "neon",
    "glow": "screen",
    "data": {
@@ -391,12 +408,13 @@
      9.0,
      14.0
     ]
-   }
+   },
+   "height_m": 1.9
   },
   {
    "id": "bus_stop",
    "seed": 9,
-   "fit": "area",
+   "fit": "meters",
    "style": "neon",
    "glow": "screen",
    "data": {
@@ -412,12 +430,13 @@
      22.0,
      18.0
     ]
-   }
+   },
+   "height_m": 2.3
   },
   {
    "id": "billboard_ad",
    "seed": 4,
-   "fit": "area",
+   "fit": "meters",
    "style": "neon",
    "glow": "screen",
    "data": {
@@ -434,12 +453,13 @@
      32.0,
      16.0
     ]
-   }
+   },
+   "height_m": 2.6
   },
   {
    "id": "neon_sign_h",
    "seed": 3,
-   "fit": "keep",
+   "fit": "meters",
    "style": "neon",
    "glow": "neon",
    "grade": {
@@ -462,12 +482,13 @@
      20.0,
      7.0
     ]
-   }
+   },
+   "height_m": 0.9
   },
   {
    "id": "neon_sign_v",
    "seed": 3,
-   "fit": "keep",
+   "fit": "meters",
    "style": "neon",
    "glow": "neon",
    "grade": {
@@ -490,7 +511,8 @@
      7.0,
      20.0
     ]
-   }
+   },
+   "height_m": 2.2
   },
   {
    "id": "lantern_string",
@@ -528,7 +550,7 @@
   {
    "id": "clothesline",
    "seed": 7,
-   "fit": "keep",
+   "fit": "meters",
    "data": {
     "sway": 1.0,
     "sway_hang": true
@@ -539,12 +561,13 @@
      64.0,
      36.0
     ]
-   }
+   },
+   "height_m": 1.8
   },
   {
    "id": "graffiti",
    "seed": 9,
-   "fit": "area",
+   "fit": "meters",
    "style": "neon",
    "glow": "neon",
    "data": {
@@ -556,11 +579,12 @@
      32.0,
      24.0
     ]
-   }
+   },
+   "height_m": 2.0
   },
   {
    "id": "noodle_stall",
-   "seed": 5,
+   "seed": 9,
    "fit": "keep",
    "style": "neon",
    "glow": "warm",
@@ -570,7 +594,7 @@
    "data": {
     "flicker": 0.05
    },
-   "prompt": "Redraw the reference image as a photorealistic street noodle food stall with the same layout: a wooden cart with a striped red-and-cream fabric awning along the top edge, steaming pots, hanging lanterns, a counter with bowls, warm light.",
+   "prompt": "A street noodle food stall: a wooden cart with a striped red-and-cream fabric awning along the top, a steaming pot, hanging paper lanterns, a counter with bowls, the front of the cart made of plain dark brown wooden planks, warm light.",
    "native_alpha": true,
    "anchor": {
     "size": [
@@ -588,11 +612,8 @@
    "id": "awning",
    "seed": 5,
    "fit": "keep",
-   "refs": [
-    "art/environment/props/awning.png"
-   ],
-   "prompt": "Redraw the reference image as a photorealistic shop awning with the same layout: a ribbed striped canvas awning on metal brackets, teal and cream stripes with scalloped edge, weathered.",
-   "native_alpha": false,
+   "prompt": "A shop awning: a ribbed striped canvas awning on metal brackets, teal and cream stripes with a scalloped edge, seen from the side.",
+   "native_alpha": true,
    "anchor": {
     "size": [
      48.0,
@@ -602,12 +623,9 @@
   },
   {
    "id": "fire_escape",
-   "seed": 5,
+   "seed": 21,
    "fit": "keep",
-   "refs": [
-    "art/environment/props/fire_escape.png"
-   ],
-   "prompt": "Redraw the reference image as a photorealistic exterior steel fire escape with the same layout: a top landing and a lower landing with railings connected by a diagonal stair, rusty black iron.",
+   "prompt": "The front of a building's exterior fire escape: two separate horizontal landings stacked one above the other, each landing with a railing of vertical bars, connected by one diagonal stair with a handrail, rusty brown iron, lighter than a night sky, wall brackets, about two wide to three tall.",
    "native_alpha": true,
    "anchor": {
     "size": [
@@ -615,28 +633,27 @@
      72.0
     ]
    },
-   "platform_align": true
+   "platform_align": "contain",
+   "alpha_floor": 0.45
   },
   {
    "id": "fire_escape_ladder",
    "seed": 5,
-   "fit": "height",
-   "refs": [
-    "art/environment/props/fire_escape_ladder.png"
-   ],
-   "prompt": "Redraw the reference image as a photorealistic vertical steel wall ladder with the same layout: two rails, evenly spaced rungs and wall brackets, rusty.",
+   "fit": "meters",
+   "prompt": "A vertical steel wall ladder: two rails, evenly spaced rungs and wall brackets, rusty, tall and narrow.",
    "native_alpha": true,
    "anchor": {
     "size": [
      12.0,
      56.0
     ]
-   }
+   },
+   "height_m": 2.4
   },
   {
    "id": "hazard_sign",
    "seed": 4,
-   "fit": "area",
+   "fit": "meters",
    "glow": "beacon",
    "data": {
     "glow_life": true
@@ -647,12 +664,13 @@
      16.0,
      16.0
     ]
-   }
+   },
+   "height_m": 1.7
   },
   {
    "id": "terminal_holo",
    "seed": 3,
-   "fit": "area",
+   "fit": "meters",
    "style": "neon",
    "glow": "screen",
    "data": {
@@ -669,7 +687,9 @@
      20.0,
      14.0
     ]
-   }
+   },
+   "height_m": 1.7
   }
- ]
+ ],
+ "px_per_meter": 30
 }
