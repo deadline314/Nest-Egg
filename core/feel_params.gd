@@ -123,3 +123,81 @@ static func unused_events() -> PackedStringArray:
 		if (usage()[id] as Array).is_empty():
 			result.append(id)
 	return result
+
+
+
+# ---------------------------------------------------------------------------
+# 寫回資料檔（NE-135）
+# ---------------------------------------------------------------------------
+
+## 匯出的遊戲版本資料唯讀（匯出版有 template 特徵）；開發環境才允許寫回。
+static func can_write() -> bool:
+	return not OS.has_feature("template")
+
+
+## 目前記憶體中的事件資料和檔案內容的差異：回傳 ["事件.路徑：舊 → 新", ...]（只列被改的數值）。
+static func diff_against_file(path: String = Feel.PATH) -> PackedStringArray:
+	var lines := PackedStringArray()
+	var disk := _read_events(path)
+	for id: Variant in Feel.event_ids():
+		var current := parameters(Feel.event_def(StringName(id)))
+		var old: Dictionary = {}
+		for param in parameters(disk.get(String(id), {})):
+			old[param["name"]] = float(param["value"])
+		for param in current:
+			var before: Variant = old.get(param["name"])
+			if before == null:
+				lines.append("%s.%s：（新增）→ %s" % [id, param["name"], param["value"]])
+			elif not is_equal_approx(float(before), float(param["value"])):
+				lines.append("%s.%s：%s → %s" % [id, param["name"], before, param["value"]])
+	return lines
+
+
+static func _read_events(path: String) -> Dictionary:
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+	if typeof(parsed) == TYPE_DICTIONARY and typeof((parsed as Dictionary).get("events")) == TYPE_DICTIONARY:
+		return (parsed as Dictionary)["events"]
+	return {}
+
+
+## 把目前的事件資料寫回檔案。流程：先驗證（失敗就不寫並回報具體位置）→ 算差異（預覽）→ 寫暫存檔 → 備份舊檔（.bak）→ 用暫存檔替換。
+## dry_run 只驗證與算差異。回傳 {ok, errors, diff, backup}。
+static func save_events(path: String = Feel.PATH, dry_run := false) -> Dictionary:
+	var result := {"ok": false, "errors": PackedStringArray(), "diff": PackedStringArray(), "backup": ""}
+	if not can_write() and not dry_run:
+		result["errors"] = PackedStringArray(["匯出的遊戲版本不能寫回回饋資料"])
+		return result
+	var errors := Feel.validate()
+	if not errors.is_empty():
+		result["errors"] = errors
+		return result
+	var diff := diff_against_file(path)
+	result["diff"] = diff
+	if dry_run or diff.is_empty():
+		result["ok"] = true
+		return result
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+	if typeof(parsed) != TYPE_DICTIONARY:
+		result["errors"] = PackedStringArray(["%s 讀不出來，不寫入" % path])
+		return result
+	var full := parsed as Dictionary
+	full["events"] = Feel.all_events()
+	var text := JSON.stringify(full, " ", false) + "\n"
+	var temp := path + ".tmp"
+	var temp_file := FileAccess.open(temp, FileAccess.WRITE)
+	if temp_file == null:
+		result["errors"] = PackedStringArray(["無法寫入暫存檔 %s（錯誤 %d）" % [temp, FileAccess.get_open_error()]])
+		return result
+	temp_file.store_string(text)
+	temp_file.close()
+	var backup := path + ".bak"
+	if DirAccess.copy_absolute(ProjectSettings.globalize_path(path), ProjectSettings.globalize_path(backup)) != OK:
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(temp))
+		result["errors"] = PackedStringArray(["無法備份 %s，不寫入" % path])
+		return result
+	if DirAccess.rename_absolute(ProjectSettings.globalize_path(temp), ProjectSettings.globalize_path(path)) != OK:
+		result["errors"] = PackedStringArray(["無法用暫存檔替換 %s（舊檔已備份在 %s）" % [path, backup]])
+		return result
+	result["ok"] = true
+	result["backup"] = backup
+	return result

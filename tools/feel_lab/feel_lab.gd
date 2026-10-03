@@ -184,6 +184,8 @@ func _build_panel() -> void:
 	_preset_option.item_selected.connect(func(index: int) -> void: Feel.set_preset(StringName(_preset_option.get_item_text(index))))
 	_event_option = _option(box, "回饋", PackedStringArray(Feel.event_ids()), "選一個回饋事件，下面會列出它所有可調的數值")
 	_event_option.item_selected.connect(func(_i: int) -> void: rebuild_params())
+	box.add_child(_row([_button("預覽差異", func() -> void: _show_save_preview(true), "列出和檔案不同的參數，不寫入"),
+			_button("儲存", func() -> void: _show_save_preview(false), "驗證後寫回 data/feel/events.json（先備份）")]))
 	_param_box = VBoxContainer.new()
 	box.add_child(_param_box)
 	_usage_label = UiKit.label("", 6, Palette.UI_MUTED)
@@ -199,6 +201,20 @@ func _build_panel() -> void:
 	info_layer.layer = 49
 	add_child(info_layer)
 	info_layer.add_child(_info)
+
+
+## 預覽或儲存：顯示差異與結果（驗證失敗會指出位置，不寫入）。
+func _show_save_preview(dry_run: bool) -> void:
+	var result := FeelParams.save_events(Feel.PATH, dry_run)
+	var lines := PackedStringArray()
+	if not (result["errors"] as PackedStringArray).is_empty():
+		lines.append("沒有寫入：")
+		lines.append_array(result["errors"])
+	else:
+		lines.append("（預覽）" if dry_run else ("已儲存，備份在 %s" % result["backup"] if result["backup"] != "" else "沒有差異"))
+		lines.append_array(result["diff"])
+	_info.text = "\n".join(lines)
+	_info_left = 4.0
 
 
 ## 依選中事件的資料自動產生滑桿；新增資料欄位不用改這裡。改動立刻寫進記憶體中的事件資料，按「播放回饋」就能看到。

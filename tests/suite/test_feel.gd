@@ -22,6 +22,7 @@ func run() -> void:
 	await _test_block_feel()
 	_test_params_and_presets()
 	_test_reverse_index()
+	_test_save_events()
 
 
 func _script_paths(dir: String, into: PackedStringArray) -> void:
@@ -504,3 +505,50 @@ func _test_reverse_index() -> void:
 	# 完全沒被使用的事件要是已知的（有人加了事件卻沒接上就會在這裡被指出）。
 	var unused := FeelParams.unused_events()
 	check(unused.is_empty(), "no feel event is left unused: %s" % ", ".join(unused))
+
+
+
+func _test_save_events() -> void:
+	var dir := "user://feel_save_test"
+	DirAccess.make_dir_recursive_absolute(dir)
+	var path := dir + "/events.json"
+	var original := FileAccess.get_file_as_string(Feel.PATH)
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	file.store_string(original)
+	file.close()
+	# 沒改動：沒有差異，也不會動檔案。
+	var untouched := FeelParams.save_events(path)
+	check(bool(untouched["ok"]) and (untouched["diff"] as PackedStringArray).is_empty() and FileAccess.get_file_as_string(path) == original, "saving without changes leaves the file untouched")
+	# 改兩個參數：差異只含這兩項，檔案文字差異也只在這兩行。
+	var boss := Feel.event_def(&"boss_land")
+	var shake_before := float(boss["shake"]["px"])
+	var time_before := float(boss["shake"]["time"])
+	FeelParams.set_value(boss, ["shake", "px"], 3.0)
+	FeelParams.set_value(boss, ["shake", "time"], 0.45)
+	var preview := FeelParams.save_events(path, true)
+	check((preview["diff"] as PackedStringArray).size() == 2 and FileAccess.get_file_as_string(path) == original, "the preview lists only the changed values and writes nothing")
+	var saved := FeelParams.save_events(path)
+	check(bool(saved["ok"]) and FileAccess.file_exists(path + ".bak") and FileAccess.get_file_as_string(path + ".bak") == original, "saving backs up the old file")
+	var old_lines := original.split("\n")
+	var new_lines := FileAccess.get_file_as_string(path).split("\n")
+	var changed := 0
+	for i in mini(old_lines.size(), new_lines.size()):
+		if old_lines[i] != new_lines[i]:
+			changed += 1
+	check(old_lines.size() == new_lines.size() and changed == 2, "the file differs only on the changed values (%d lines)" % changed)
+	check(not FileAccess.file_exists(path + ".tmp"), "the temporary file is replaced, not left behind")
+	# 重新載入的結果與寫入前一致。
+	var reloaded := FeelParams._read_events(path)
+	check(is_equal_approx(float(reloaded["boss_land"]["shake"]["px"]), 3.0) and is_equal_approx(float(reloaded["boss_land"]["shake"]["time"]), 0.45), "reloading the saved file gives the values that were written")
+	check(FeelParams.diff_against_file(path).is_empty(), "memory and file agree after saving")
+	# 不合法的值：驗證失敗、不寫入、指出位置。
+	FeelParams.set_value(boss, ["shake", "px"], -5.0)
+	var before_text := FileAccess.get_file_as_string(path)
+	var rejected := FeelParams.save_events(path)
+	check(not bool(rejected["ok"]) and not (rejected["errors"] as PackedStringArray).is_empty() and FileAccess.get_file_as_string(path) == before_text, "an invalid value is rejected without writing")
+	check(" ".join(rejected["errors"]).contains("boss_land"), "the error names the event")
+	# 還原記憶體中的資料。
+	FeelParams.set_value(boss, ["shake", "px"], shake_before)
+	FeelParams.set_value(boss, ["shake", "time"], time_before)
+	DirAccess.remove_absolute(path)
+	DirAccess.remove_absolute(path + ".bak")

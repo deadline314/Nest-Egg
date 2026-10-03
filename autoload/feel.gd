@@ -66,6 +66,11 @@ func event_def(id: StringName) -> Dictionary:
 	return _events.get(String(id), {})
 
 
+## 目前記憶體中全部事件（寫回資料檔用）。
+func all_events() -> Dictionary:
+	return _events
+
+
 func has_event(id: StringName) -> bool:
 	return _events.has(String(id))
 
