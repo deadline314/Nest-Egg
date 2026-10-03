@@ -501,6 +501,7 @@ func _query_hurtboxes(center: Vector2, size: Vector2) -> Array[Hurtbox]:
 	params.collide_with_bodies = false
 	for hit in get_world_2d().direct_space_state.intersect_shape(params, 16):
 		var found := hit.get("collider") as Hurtbox
+		found = found.root() if found != null else null  # 近戰打整體，不分部位
 		if found != null and not result.has(found):
 			result.append(found)
 	return result

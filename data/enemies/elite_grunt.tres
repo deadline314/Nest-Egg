@@ -21,6 +21,7 @@ attack_range = 260.0
 attack_cooldown = 1.2
 telegraph_time = 0.5
 knockback_scale = 0.25
+hurt_parts = Array[Dictionary]([{"id": "head", "bone": "head", "offset": Vector2(0, -4), "size": Vector2(9, 10), "mult": 1.5}])
 poise = 6.0
 finish_health_ratio = 0.4
 stagger_duration = 1.2

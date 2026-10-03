@@ -67,6 +67,10 @@ func bind_container(container: Node2D) -> void:
 	container.tree_exiting.connect(_on_container_exiting.bind(container), CONNECT_ONE_SHOT)
 
 
+func _exit_tree() -> void:
+	RigDebris.clear_pool()
+
+
 func _on_container_exiting(container: Node2D) -> void:
 	if container != _container:
 		return

@@ -58,6 +58,12 @@ extends Resource
 ## 出招中的狀態：這些狀態下輕擊與累積都打不斷，只有單次衝擊達韌性 2.5 倍的重擊才會硬直（蓄力階段不在其中，所以蓄力可以被打斷）。
 @export var armor_states: PackedStringArray = ["leap", "charge", "dash", "burst", "fire", "pounce", "lunge", "burn", "dive"]
 
+@export_group("Hurt parts")
+## 部位受擊框（頭、核心等弱點），依序、前面的優先。每筆 {"id": 部位名, "size": Vector2, "mult": 傷害倍率, "bone": 骨頭名（選填）, "offset": Vector2（選填）}。
+## 有骨架且寫了 bone：判定跟著那根骨頭走（蹲下、倒下時一起降低），offset 是相對骨頭的位置（往面向的方向為正 x）；
+## 沒有 bone：offset 是相對腳底的固定位置。mult 大於 1 的部位算弱點，打中有回饋、畫面上有標記。
+@export var hurt_parts: Array[Dictionary] = []
+
 @export_group("Finisher")
 ## 生命低於此比例進入「破防」可被終結；0 代表不可終結。
 @export_range(0.0, 1.0) var finish_health_ratio: float = 0.34

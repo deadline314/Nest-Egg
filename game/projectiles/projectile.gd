@@ -94,7 +94,9 @@ func _on_area_entered(area: Area2D) -> void:
 
 ## 命中受擊框：造成傷害、格擋或反彈；傷害後依貫穿數決定是否繼續飛。
 func _strike(hurtbox: Hurtbox) -> void:
-	var id := hurtbox.get_instance_id()
+	hurtbox = hurtbox.resolve_at(global_position)
+	# 同一發子彈對同一個目標只算一次（頭與身體的受擊框重疊時也一樣）。
+	var id := hurtbox.health.get_instance_id() if hurtbox.health != null else hurtbox.get_instance_id()
 	if _hit_ids.has(id):
 		return
 	_hit_ids[id] = true

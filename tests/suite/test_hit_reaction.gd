@@ -1,6 +1,7 @@
 class_name HitReactionSuite
 extends EnemySuiteBase
 ## 敵人受擊方向反應與依力道的死亡倒法（NE-103）也在這裡：正面／背面中彈身體往不同方向、倒法依方向與力道、屍體上限、脫落零件物件池。
+## 部位受擊框與弱點（NE-104）也在這裡：頭的傷害倍率、同一發只算一次、判定跟著姿勢、爆炸與近戰不分部位、壞資料的容錯。
 ## 敵人受擊分層與命中頓幀（NE-102）：輕擊只閃白、累積畏縮、重擊硬直、出招中的霸體、反應後的保護時間、
 ## 頭目幾乎不畏縮、局部頓幀只凍結指定節點且重疊取最長。
 
@@ -25,6 +26,11 @@ func run() -> void:
 	await _test_corpse_cap()
 	await _test_debris_pool()
 	await _test_armor_still_flies_off()
+	_test_hurt_part_data()
+	await _test_head_and_body_shots()
+	await _test_parts_follow_the_pose()
+	await _test_explosion_hits_once()
+	await _test_bad_part_data()
 
 
 ## 一發步槍彈等級的輕擊（傷害 1、擊退 40）。
@@ -300,4 +306,86 @@ func _test_armor_still_flies_off() -> void:
 		enemy.hurtbox.receive(hit(1))
 	await physics_frames(3)
 	check(level.find_children("*", "RigDebris", true, false).size() > 0, "lost armor still flies off as debris")
+	await end_level(level)
+
+
+const HEAD_ENEMIES := ["grunt", "elite_grunt", "sniper", "stalker", "slasher", "flamer", "shield_rusher", "heavy_gunner"]
+
+
+func _head_point(enemy: Enemy) -> Vector2:
+	return enemy.global_position + (enemy._parts[0]["box"] as Hurtbox).shape_offset()
+
+
+func _test_hurt_part_data() -> void:
+	for id: String in HEAD_ENEMIES:
+		var data := load("res://data/enemies/%s.tres" % id) as EnemyData
+		var ok := data.hurt_parts.size() > 0
+		for def in data.hurt_parts:
+			ok = ok and not str(def.get("id", "")).is_empty() and Vector2(def.get("size", Vector2.ZERO)).x > 0.0 and float(def.get("mult", 0.0)) > 1.0
+		check(ok, "%s has a valid weak-point part" % id)
+
+
+func _test_head_and_body_shots() -> void:
+	await open_level(10.0)
+	var head_target := _spawn_still_trooper(60.0)
+	var body_target := _spawn_still_trooper(70.0)
+	await physics_frames(2)
+	var hp_head := head_target.health.current
+	var hp_body := body_target.health.current
+	var head_at := _head_point(head_target)
+	shoot_from(head_at + Vector2(-48.0, 0.0), Vector2.RIGHT)
+	shoot_from(body_target.global_position + Vector2(-48.0, -18.0), Vector2.RIGHT)
+	for i in 30:
+		await physics_frames(1)
+	check(head_target.health.current == hp_head - 2, "a head shot does 1.5x damage, counted once (%d lost)" % (hp_head - head_target.health.current))
+	check(body_target.health.current == hp_body - 1, "a body shot does normal damage (%d lost)" % (hp_body - body_target.health.current))
+	# 受擊框層級：頭部位算弱點、身體不是。
+	var head_info := hit(1)
+	head_target.hurtbox.resolve_at(head_at).receive(head_info)
+	var body_info := hit(1)
+	body_target.hurtbox.receive(body_info)
+	check(head_info.weak_hit and head_info.part == &"head" and not body_info.weak_hit, "a head hit is flagged as a weak-point hit, a body hit is not")
+	check(head_target.hurtbox.resolve_at(head_target.global_position + Vector2(0, -8)).part_id == &"", "a point away from the head resolves to the whole body")
+	await end_level(level)
+
+
+func _test_parts_follow_the_pose() -> void:
+	await open_level(10.0)
+	var enemy := _spawn_still_trooper(60.0)
+	await physics_frames(3)
+	var standing_y := (enemy._parts[0]["box"] as Hurtbox).shape_offset().y
+	enemy._rig_input.crouching = true
+	for i in 30:
+		await physics_frames(1)
+	var crouch_y := (enemy._parts[0]["box"] as Hurtbox).shape_offset().y
+	check(crouch_y > standing_y + 3.0, "the head hurt part drops when the enemy crouches (%.1f -> %.1f)" % [standing_y, crouch_y])
+	_kill_with(enemy, true, 1.0)
+	check(not (enemy._parts[0]["box"] as Hurtbox).can_receive(), "parts stop receiving hits when the enemy dies")
+	await physics_frames(3)  # 死亡掉落與碎片是延遲加入的，等它們進場再結束關卡，才不會變成孤兒節點
+	await end_level(level)
+
+
+func _test_explosion_hits_once() -> void:
+	await open_level(10.0)
+	var enemy := _spawn_still_trooper(60.0)
+	await physics_frames(2)
+	var before := enemy.health.current
+	Fx.explosion(enemy.global_position + Vector2(0, -22), 60.0, 2, Combat.Team.PLAYER, &"test")
+	for i in 6:
+		await physics_frames(1)
+	check(enemy.health.current == before - 2, "an explosion hits the whole enemy once, ignoring parts (%d lost)" % (before - enemy.health.current))
+	await end_level(level)
+
+
+## 壞的部位資料：記錄具體位置並略過，不崩潰，其他部位照常。
+func _test_bad_part_data() -> void:
+	await open_level(10.0)
+	var enemy := level._create_enemy(load(GRUNT_PATH) as EnemyData)
+	enemy.data = enemy.data.duplicate()
+	enemy.data.id = &"test_missing_part"
+	enemy.data.hurt_parts = Array([{"id": "", "size": Vector2(4, 4), "mult": 2.0}, {"id": "ok", "bone": "no_such_bone", "size": Vector2(4, 4), "mult": 2.0}], TYPE_DICTIONARY, &"", null)
+	enemy.position = Vector2(60.0 * 16.0, FLOOR_Y)
+	level._entities.add_child(enemy)
+	await physics_frames(3)
+	check(enemy._parts.size() == 1 and (enemy._parts[0]["box"] as Hurtbox).part_id == &"ok", "a part with a missing bone falls back to a fixed position, an invalid one is skipped")
 	await end_level(level)

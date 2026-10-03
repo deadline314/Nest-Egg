@@ -54,6 +54,9 @@ const ALERT_ARRIVE_DISTANCE := 28.0
 ## 場上的屍體（由舊到新）。
 static var _corpses: Array[Enemy] = []
 
+## 開發檢查：畫出所有部位受擊框的形狀（黃＝弱點、青＝一般部位）。
+static var debug_hurtboxes := false
+
 ## 畫面外休眠的總開關（無頭測試等沒有畫面的環境會關閉）。
 static var activation_culling_enabled := true
 
@@ -69,6 +72,8 @@ var shield := 0
 var rig: CharacterRig
 
 var _rig_input := RigInput.new()
+## 部位受擊框的資料（box、bone、offset、size、mult），給 _update_hurt_parts 與弱點標記用。
+var _parts: Array[Dictionary] = []
 ## 專屬特效（art/vfx/enemies/<id>.json）：腳步、受擊、死亡、招式狀態切換。
 var vfx: EnemyVfx
 var _vfx_state: StringName = &""
@@ -148,11 +153,41 @@ func _build_components() -> void:
 
 	if not data.rig_skin.is_empty():
 		_build_rig()
+	_build_hurt_parts()
 
 	if data.contact_damage > 0:
 		contact = ContactHitbox.new()
 		add_child(contact)
 		contact.setup(Combat.Team.ENEMY, data.contact_damage, data.contact_source_id, size * 0.8, center)
+
+
+## 依資料建立部位受擊框（頭、核心等弱點）；資料有誤時記錄位置並略過那一筆。
+func _build_hurt_parts() -> void:
+	for def in data.hurt_parts:
+		var id := StringName(str(def.get("id", "")))
+		var size := Vector2(def.get("size", Vector2(10, 10)))
+		var mult := float(def.get("mult", 1.0))
+		if id == &"" or size.x <= 0.0 or size.y <= 0.0 or mult <= 0.0:
+			push_error("[Enemy] %s 的 hurt_parts 有無效的部位（id、size、mult）：%s" % [data.id, def])
+			continue
+		var bone := StringName(str(def.get("bone", "")))
+		if bone != &"" and (rig == null or not rig.has_bone(bone)):
+			push_warning("[Enemy] %s 的部位 %s 找不到骨頭 %s，改用固定位置。" % [data.id, id, bone])
+			bone = &""
+		var offset := Vector2(def.get("offset", Vector2.ZERO))
+		var part := hurtbox.add_part(id, size, offset, mult)
+		_parts.append({"box": part, "bone": bone, "offset": offset, "size": size, "mult": mult})
+
+
+## 部位判定每影格跟著骨頭（或固定位置）移動。
+func _update_hurt_parts() -> void:
+	for entry in _parts:
+		var bone: StringName = entry["bone"]
+		if bone == &"":
+			continue
+		var offset: Vector2 = entry["offset"]
+		var at := rig.bone(bone).global_position - global_position + Vector2(offset.x * facing, offset.y)
+		hurtbox.move_part(entry["box"], at)
 
 
 func _build_rig() -> void:
@@ -334,6 +369,7 @@ func _physics_process(delta: float) -> void:
 	_update_telegraph_light(delta)
 	move_and_slide()
 	_drive_rig(delta)
+	_update_hurt_parts()
 	queue_redraw()
 
 
@@ -357,12 +393,38 @@ func _draw() -> void:
 		var alert_color := LightKit.glow(Palette.WARNING, 1.4)
 		var tip := Vector2(0, top - 1)
 		draw_colored_polygon(PackedVector2Array([tip + Vector2(-3, -5), tip + Vector2(3, -5), tip]), alert_color)
+	_draw_weak_points()
 	if _is_finishable and not _dying:
 		# 可終結標記：閃爍的青色菱形。
 		var pulse := 0.6 + 0.4 * sin(_anim_time * 14.0)
 		var c := LightKit.glow(Palette.CYAN, 1.5 + pulse)
 		var p := Vector2(0, top - 2)
 		draw_colored_polygon(PackedVector2Array([p + Vector2(0, -4), p + Vector2(3, 0), p + Vector2(0, 4), p + Vector2(-3, 0)]), c)
+
+
+## 弱點標記：弱點（傷害倍率大於 1 的部位）四角的小括弧，淡淡地呼吸，像義體的瞄準標記；開發檢查時（debug_hurtboxes）所有部位都畫出判定形狀。
+func _draw_weak_points() -> void:
+	if _dying:
+		return
+	for entry in _parts:
+		var box: Hurtbox = entry["box"]
+		var size: Vector2 = entry["size"]
+		var mult: float = entry["mult"]
+		var at := box.shape_offset()
+		if debug_hurtboxes:
+			draw_rect(Rect2(at - size * 0.5, size), Color(1.0, 0.9, 0.2, 0.9) if mult > 1.0 else Color(0.2, 1.0, 0.9, 0.9), false, 1.0)
+			continue
+		if mult <= 1.0 or not hurtbox.enabled:
+			continue
+		var pulse := 0.5 + 0.2 * sin(_anim_time * 5.0)
+		var color := LightKit.glow(Palette.WARNING, 1.3)
+		color.a = pulse
+		var half := size * 0.5 + Vector2(1.5, 1.5)
+		var arm := minf(3.0, half.x * 0.6)
+		for corner in [Vector2(-1, -1), Vector2(1, -1), Vector2(1, 1), Vector2(-1, 1)]:
+			var c: Vector2 = at + corner * half
+			draw_line(c, c - Vector2(corner.x * arm, 0.0), color, 1.0)
+			draw_line(c, c - Vector2(0.0, corner.y * arm), color, 1.0)
 
 
 ## 護盾外觀：身體外圍的青色六角形，層數越多越亮。
@@ -432,6 +494,8 @@ func stun(seconds: float) -> void:
 
 
 func _on_damaged(info: DamageInfo) -> void:
+	if info.weak_hit:
+		_weak_point_feedback(info)
 	var tier := _resolve_hit_tier(info) if health.current > 0 else HitTier.LIGHT
 	_flash_left = FLASH_TIME
 	if vfx != null:
@@ -452,6 +516,16 @@ func _on_damaged(info: DamageInfo) -> void:
 	elif health.current > 0:
 		_apply_hit_tier(tier, info)
 	_on_hit(info)
+
+
+## 打中弱點的回饋：金色火花與較亮的命中聲，克制（少量粒子，不另外震動）。
+func _weak_point_feedback(info: DamageInfo) -> void:
+	var at := _center()
+	for entry in _parts:
+		if (entry["box"] as Hurtbox).part_id == info.part:
+			at = global_position + (entry["box"] as Hurtbox).shape_offset()
+	Fx.sparks(at, Palette.WARNING, 6, 150.0, 0.25, -info.knockback.normalized() if info.knockback != Vector2.ZERO else Vector2.UP, 1.6)
+	Sfx.play(&"hit", 0.0)
 
 
 ## 這一擊是不是從正面來（受力方向與面向相反）；沒有方向資訊時當作正面。

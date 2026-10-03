@@ -23,6 +23,7 @@ telegraph_time = 1.1
 ability_speed = 2.0
 ability_time = 2.4
 knockback_scale = 0.05
+hurt_parts = Array[Dictionary]([{"id": "head", "bone": "head", "offset": Vector2(0, -4), "size": Vector2(9, 10), "mult": 1.5}])
 poise = 10.0
 finish_health_ratio = 0.25
 stagger_duration = 1.6

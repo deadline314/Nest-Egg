@@ -43,6 +43,7 @@ func _apply_damage() -> void:
 	var seen: Dictionary = {}
 	for hit in get_world_2d().direct_space_state.intersect_shape(params, MAX_TARGETS):
 		var hurtbox := hit.get("collider") as Hurtbox
+		hurtbox = hurtbox.root() if hurtbox != null else null  # 爆炸打整體，不分部位
 		if hurtbox == null or seen.has(hurtbox):
 			continue
 		seen[hurtbox] = true

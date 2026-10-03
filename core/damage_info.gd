@@ -20,6 +20,9 @@ var is_projectile: bool = false
 var attacker: WeakRef = null
 ## 衝擊力（決定被打的敵人畏縮、硬直或只閃白）。負值＝由傷害與擊退推算；近戰、爆炸、反彈等重擊直接指定。
 var impact := -1.0
+## 打中的部位（受擊框的部位 id，空字串＝整體）；打中傷害倍率大於 1 的部位（弱點）時 weak_hit 為 true。
+var part: StringName = &""
+var weak_hit := false
 
 
 ## 這次攻擊的衝擊力：沒指定時，傷害 + 擊退力道 / 100（手槍約 1.5、狙擊槍約 2.5、電磁砲約 7）。

@@ -82,6 +82,14 @@ func _physics_process(delta: float) -> void:
 		_recycle()
 
 
+## 釋放池子裡閒置的零件（程式結束時呼叫）。
+static func clear_pool() -> void:
+	for debris in _pool:
+		if is_instance_valid(debris) and debris.get_parent() == null:
+			debris.free()
+	_pool.clear()
+
+
 ## 沒能放進場景（沒有綁定關卡，Fx 已經把它釋放）：撤銷這次取用。
 func cancel() -> void:
 	if _live:
