@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="LightingProfile" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/lighting_profile.gd" id="1_script"]
+[ext_resource type="Script" path="res://data/scripts/lamp_style.gd" id="2_lamp"]
+
+[sub_resource type="Resource" id="LampStyle_1"]
+script = ExtResource("2_lamp")
+colors = PackedColorArray(1.0,0.82,0.5,1)
+energy = 1.5
+radius = 190.0
+flicker_chance = 0.01
+dead_chance = 0.0
+pulse_hz = 0.0
+
+[resource]
+script = ExtResource("1_script")
+id = &"pawnshop_warm"
+ambient_color = Color(0.34,0.25,0.19,1)
+background_tint = Color(1.0,0.95,0.88,1)
+fog_color = Color(0.45,0.34,0.25,1)
+fog_density = 0.4
+glow_threshold = 1.1
+glow_intensity = 0.8
+saturation = 0.85
+contrast = 1.1
+shadow_tint = Color(1.0,0.95,0.9,1)
+highlight_tint = Color(1.08,1.0,0.9,1)
+vignette = 0.5
+grain = 0.04
+aberration = 0.002
+lamp_style = SubResource("LampStyle_1")
+neon_colors = PackedColorArray(1.0,0.6,0.3,1)
+neon_energy = 0.4
+character_floor = 0.3
+rim_color = Color(1.0,0.7,0.4,1)
+rim_energy = 0.4
