@@ -14,136 +14,57 @@
    "parallax": 0.0
   },
   {
-   "kind": "rect",
-   "rect": [
-    -100,
-    262,
-    840,
-    160
-   ],
-   "color": "#10181f"
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    -100,
-    258,
-    840,
-    4
-   ],
-   "color": "#8ab8d8",
-   "intensity": 0.4,
-   "alpha": 0.4
-  },
-  {
    "kind": "sprite",
-   "path": "res://art/environment/props/height_marks.png",
+   "path": "res://art/environment/stages/transfer_corridor.webp",
    "pos": [
-    36,
-    170
+    -64,
+    -36.0
    ],
-   "scale": 1.0
-  },
-  {
-   "kind": "sprite",
-   "path": "res://art/environment/props/hospital_bed.png",
-   "pos": [
-    120,
-    236
-   ],
-   "scale": 0.42
-  },
-  {
-   "kind": "sprite",
-   "path": "res://art/environment/props/hospital_bed.png",
-   "pos": [
-    220,
-    236
-   ],
-   "scale": 0.42
-  },
-  {
-   "kind": "sprite",
-   "path": "res://art/environment/props/hospital_bed.png",
-   "pos": [
-    320,
-    236
-   ],
-   "scale": 0.42
-  },
-  {
-   "kind": "sprite",
-   "path": "res://art/environment/props/hospital_bed.png",
-   "pos": [
-    420,
-    236
-   ],
-   "scale": 0.42
-  },
-  {
-   "kind": "sprite",
-   "path": "res://art/environment/props/hospital_bed.png",
-   "pos": [
-    520,
-    236
-   ],
-   "scale": 0.42
-  },
-  {
-   "kind": "sprite",
-   "path": "res://art/environment/props/hospital_bed.png",
-   "pos": [
-    620,
-    236
-   ],
-   "scale": 0.42
+   "scale": 0.5,
+   "filter": "linear"
   },
   {
    "kind": "glow",
    "pos": [
-    150,
-    60
+    163,
+    36
    ],
-   "radius": 160,
+   "radius": 170,
    "color": "#cfe8ff",
    "intensity": 0.9,
    "additive": true,
-   "alpha": 0.35,
-   "flicker": 0.12
+   "alpha": 0.3,
+   "flicker": 0.15
   },
   {
    "kind": "glow",
    "pos": [
-    400,
-    60
+    477,
+    36
    ],
-   "radius": 180,
+   "radius": 190,
    "color": "#cfe8ff",
    "intensity": 0.9,
    "additive": true,
-   "alpha": 0.35
+   "alpha": 0.3
   },
   {
-   "kind": "rect",
-   "rect": [
-    100,
+   "kind": "motes",
+   "count": 26,
+   "color": "#cfe0ff",
+   "opacity": 0.3,
+   "area": [
+    0,
     40,
-    120,
-    5
+    640,
+    220
    ],
-   "color": "#cfe8ff",
-   "intensity": 1.4
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    340,
-    40,
-    120,
-    5
+   "drift": [
+    2,
+    -2
    ],
-   "color": "#cfe8ff",
-   "intensity": 1.4
+   "size": 1.0,
+   "seed": 33
   },
   {
    "kind": "grain",

@@ -7,6 +7,7 @@ script = ExtResource("1_ghacn")
 id = &"rooftop_hut"
 display_name = "樓梯間"
 texture = "res://art/environment/props/rooftop_hut.png"
+flicker = 0.06
 size = Vector2(40, 32)
 has_glow = true
 light_radius = 56.0

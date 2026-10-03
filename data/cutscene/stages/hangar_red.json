@@ -14,147 +14,92 @@
    "parallax": 0.0
   },
   {
-   "kind": "rect",
-   "rect": [
-    -100,
-    250,
-    840,
-    170
-   ],
-   "color": "#1c0f13"
-  },
-  {
-   "kind": "stripes",
-   "rect": [
-    -100,
-    246,
-    840,
-    8
-   ],
-   "color": "#ffc94a",
-   "gap": 12,
-   "intensity": 0.5
-  },
-  {
-   "kind": "poly",
-   "points": [
-    [
-     200,
-     250
-    ],
-    [
-     200,
-     40
-    ],
-    [
-     440,
-     40
-    ],
-    [
-     440,
-     250
-    ]
-   ],
-   "color": "#0c0508"
-  },
-  {
    "kind": "sprite",
-   "path": "res://art/environment/props/gantry_crane.png",
+   "path": "res://art/environment/stages/hangar_red.webp",
    "pos": [
-    20,
-    -10
+    -64,
+    -46
    ],
-   "scale": 0.5
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    436,
-    40,
-    8,
-    210
-   ],
-   "color": "#ffc94a",
-   "intensity": 0.4,
-   "alpha": 0.8
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    196,
-    40,
-    8,
-    210
-   ],
-   "color": "#ffc94a",
-   "intensity": 0.4,
-   "alpha": 0.8
-  },
-  {
-   "kind": "sprite",
-   "path": "res://art/environment/props/hangar_light.png",
-   "pos": [
-    110,
-    54
-   ],
-   "scale": 0.9
-  },
-  {
-   "kind": "sprite",
-   "path": "res://art/environment/props/hangar_light.png",
-   "pos": [
-    300,
-    34
-   ],
-   "scale": 0.9
-  },
-  {
-   "kind": "sprite",
-   "path": "res://art/environment/props/hangar_light.png",
-   "pos": [
-    500,
-    54
-   ],
-   "scale": 0.9
-  },
-  {
-   "kind": "glow",
-   "pos": [
-    130,
-    80
-   ],
-   "radius": 200,
-   "color": "#ff3322",
-   "intensity": 0.9,
-   "additive": true,
-   "alpha": 0.5,
-   "flicker": 0.35
+   "scale": 0.5,
+   "filter": "linear",
+   "modulate": [
+    1.25,
+    1.2,
+    1.2,
+    1.0
+   ]
   },
   {
    "kind": "glow",
    "pos": [
     320,
-    60
+    150
    ],
-   "radius": 230,
-   "color": "#ff3322",
-   "intensity": 1.0,
+   "radius": 340,
+   "color": "#ff2a18",
+   "intensity": 0.9,
    "additive": true,
-   "alpha": 0.55,
+   "alpha": 0.22,
    "flicker": 0.35
   },
   {
    "kind": "glow",
    "pos": [
-    520,
-    80
+    226,
+    20
    ],
-   "radius": 200,
-   "color": "#ff3322",
-   "intensity": 0.9,
+   "radius": 150,
+   "color": "#ff2a1a",
+   "intensity": 1.0,
    "additive": true,
-   "alpha": 0.5,
-   "flicker": 0.35
+   "alpha": 0.6,
+   "pulse": 0.9,
+   "pulse_depth": 0.85
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    406,
+    20
+   ],
+   "radius": 150,
+   "color": "#ff2a1a",
+   "intensity": 1.0,
+   "additive": true,
+   "alpha": 0.6,
+   "pulse": 0.9,
+   "pulse_depth": 0.85,
+   "phase": 0.5
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    -45,
+    168
+   ],
+   "radius": 130,
+   "color": "#ff2a1a",
+   "intensity": 1.0,
+   "additive": true,
+   "alpha": 0.55,
+   "pulse": 0.9,
+   "pulse_depth": 0.8,
+   "phase": 0.25
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    677,
+    168
+   ],
+   "radius": 130,
+   "color": "#ff2a1a",
+   "intensity": 1.0,
+   "additive": true,
+   "alpha": 0.55,
+   "pulse": 0.9,
+   "pulse_depth": 0.8,
+   "phase": 0.75
   },
   {
    "kind": "sprite",
@@ -164,6 +109,24 @@
     200
    ],
    "scale": 0.6
+  },
+  {
+   "kind": "motes",
+   "count": 54,
+   "color": "#ff7a45",
+   "opacity": 0.6,
+   "area": [
+    0,
+    40,
+    640,
+    230
+   ],
+   "drift": [
+    5,
+    -10
+   ],
+   "size": 1.2,
+   "seed": 12
   },
   {
    "kind": "grain",

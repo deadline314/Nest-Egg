@@ -227,6 +227,20 @@ func _test_overlay_and_layers() -> void:
 	check(counter.call("current") == 20, "計數器停在終點")
 	counter.free()
 
+	var motes := StageLayers.create({"kind": "motes", "count": 12, "area": [10, 20, 100, 50]}, "test motes")
+	check(motes != null and motes.get("_points").size() == 12, "塵粒圖層建立固定數量的粒子")
+	motes.call("_process", 30.0)
+	var inside := true
+	for point: Vector2 in motes.get("_points"):
+		inside = inside and point.x >= 0.0 and point.x <= 100.0 and point.y >= 0.0 and point.y <= 50.0
+	check(inside, "塵粒漂移後仍在指定範圍內（循環使用，不配置新物件）")
+	motes.free()
+	var pulsing := StageLayers.create({"kind": "glow", "pos": [0, 0], "radius": 20, "color": "#ff3322", "pulse": 1.0, "pulse_depth": 0.8}, "test pulse")
+	var bright: float = pulsing.self_modulate.r
+	pulsing.call("_process", 0.25)
+	check(pulsing.self_modulate.r < bright * 0.5, "脈動的柔光在週期的一半暗下來")
+	pulsing.free()
+
 	var sprite := StageLayers.create({"kind": "sprite", "path": "res://art/environment/props/window_rain.png", "pos": [0, 0], "scale": 0.5}, "test sprite")
 	check(sprite != null and sprite.get_child_count() == 1, "道具貼圖附帶自發光層")
 	sprite.free()

@@ -2,6 +2,8 @@ class_name ForegroundLayer
 extends Parallax2D
 ## 前景剪影：比可玩區域更靠近鏡頭的暗色管線、鋼樑與欄杆，加上快速飄過的雨簾。
 ## 只畫在畫面邊緣（頂端與地面以下），壓住邊角、增加縱深，不遮住可玩區域與敵人。
+## 剪影是免費素材流程生成的貼圖條（art/environment/backdrop/fg_top／fg_bottom，近乎全黑、邊緣一圈冷色輪廓光），
+## 左右鏡像拼成可重複的一段；上緣的纜線會擺動，LED 小燈會明滅（自發光層）。貼圖缺失時退回程式繪製的剪影並記錄路徑。
 ## 靜態部分只繪製一次；雨簾每影格重繪。品質低（沒有體積效果）時整層隱藏。
 
 const REPEAT_WIDTH := 1500.0
@@ -11,6 +13,10 @@ const RIM := Color(0.2, 0.4, 0.5, 0.25)
 ## 世界座標：頂端管線的高度範圍，與地面（街道上緣）之下的欄杆範圍。
 const TOP_Y := 0.0
 const PIPE_THICKNESS := 14.0
+const TOP_TEXTURE := "res://art/environment/backdrop/fg_top.webp"
+const BOTTOM_TEXTURE := "res://art/environment/backdrop/fg_bottom.webp"
+## 貼圖條在遊戲裡的高度（邏輯像素）：寬度固定為半段（REPEAT_WIDTH / 2），高度依貼圖比例。
+const SWAY_AMPLITUDE := 2.2
 
 ## 街道地面上緣的世界 y 座標，由關卡設定（欄杆畫在它下方，不蓋住角色腳下）。
 var ground_y := 320.0
@@ -41,11 +47,48 @@ class _Static:
 	extends Node2D
 
 	var ground_y := 320.0
+	var _textured := false
 
 	func _ready() -> void:
 		LightKit.mark_emissive(self)
+		_textured = _add_strip(TOP_TEXTURE, TOP_Y - 4.0, true)
+		_textured = _add_strip(BOTTOM_TEXTURE, ground_y + 14.0, false) and _textured
+		if not _textured:
+			queue_redraw()
+
+	## 一條貼圖：左右各半段（第二段鏡像）排滿 REPEAT_WIDTH；回傳是否成功。有 LED 的「_glow」另疊一層（信標會明滅）。
+	func _add_strip(path: String, y: float, hanging: bool) -> bool:
+		var tex := RigLibrary.optional_texture(path)
+		if tex == null:
+			push_error("[Foreground] 找不到前景貼圖，改用程式繪製的剪影：%s" % path)
+			return false
+		var glow := RigLibrary.optional_texture(path.get_basename() + "_glow." + path.get_extension())
+		var half := REPEAT_WIDTH * 0.5
+		var scale_k := half / float(tex.get_width())
+		for i in 2:
+			var sprite := _strip_sprite(tex, Vector2(half * i, y), scale_k, i == 1)
+			sprite.material = PropNode.sway_material(SWAY_AMPLITUDE, true, true) if hanging else LightKit.emissive_material()
+			add_child(sprite)
+			if glow != null:
+				var lights := _strip_sprite(glow, Vector2(half * i, y), scale_k, i == 1)
+				lights.material = LightKit.window_life_material()
+				lights.self_modulate = LightKit.glow(Color.WHITE, 1.4)
+				add_child(lights)
+		return true
+
+	func _strip_sprite(tex: Texture2D, at: Vector2, scale_k: float, mirrored: bool) -> Sprite2D:
+		var sprite := Sprite2D.new()
+		sprite.texture = tex
+		sprite.centered = false
+		sprite.position = at
+		sprite.scale = Vector2(scale_k, scale_k)
+		sprite.flip_h = mirrored
+		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+		return sprite
 
 	func _draw() -> void:
+		if _textured:
+			return
 		var rng := RandomNumberGenerator.new()
 		rng.seed = 11
 		# 頂端：兩條粗細不同的橫管，每隔一段有固定座。

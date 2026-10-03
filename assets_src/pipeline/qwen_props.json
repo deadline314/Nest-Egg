@@ -1,0 +1,675 @@
+{
+ "styles": {
+  "dark": "A photorealistic 3D game asset render, weathered gritty cyberpunk industrial look, soft even dim lighting, straight-on orthographic side elevation with no perspective, one single object centered, no ground, no cast shadow, no text.",
+  "neon": "A photorealistic 3D game asset render, cyberpunk night street look with glowing neon, straight-on orthographic front elevation with no perspective, one single object centered, no ground, no cast shadow, no readable text."
+ },
+ "glow_presets": {
+  "neon": [
+   {
+    "smin": 0.35,
+    "vmin": 0.72,
+    "boost": 1.1,
+    "soft": 1.2
+   }
+  ],
+  "screen": [
+   {
+    "smin": 0.2,
+    "vmin": 0.6,
+    "boost": 1.0,
+    "soft": 1.5
+   }
+  ],
+  "beacon": [
+   {
+    "red_beacon": true
+   }
+  ],
+  "warm": [
+   {
+    "hue": [
+     15,
+     65
+    ],
+    "smin": 0.3,
+    "vmin": 0.78,
+    "soft": 1.5
+   }
+  ],
+  "lanterns": [
+   {
+    "hue": [
+     0,
+     40
+    ],
+    "smin": 0.45,
+    "vmin": 0.72,
+    "soft": 1.5
+   }
+  ],
+  "console": [
+   {
+    "hue": [
+     80,
+     210
+    ],
+    "smin": 0.35,
+    "vmin": 0.6,
+    "soft": 1.2
+   },
+   {
+    "red_beacon": true
+   }
+  ]
+ },
+ "defaults": {
+  "texture_scale": 8,
+  "grade": {
+   "brightness": 0.85,
+   "saturation": 0.85,
+   "tint": [
+    0.92,
+    0.97,
+    1.1
+   ],
+   "contrast": 1.05,
+   "gamma": 1.0
+  }
+ },
+ "props": [
+  {
+   "id": "gantry_crane",
+   "seed": 7,
+   "fit": "keep",
+   "glow": "beacon",
+   "data": {
+    "glow_life": true
+   },
+   "prompt": "A heavy industrial gantry crane seen from the side: wide steel girder bridge on two tall legs with a trolley and hanging hook, rust and yellow-black hazard stripes on the legs, small red warning lights on top.",
+   "anchor": {
+    "size": [
+     160.0,
+     80.0
+    ],
+    "light_offset": [
+     20.0,
+     70.0
+    ]
+   }
+  },
+  {
+   "id": "crane_arm",
+   "seed": 5,
+   "fit": "keep",
+   "glow": "beacon",
+   "data": {
+    "glow_life": true
+   },
+   "prompt": "A cantilever jib crane: a tall steel lattice column on the left and a long horizontal lattice boom extending to the right with a trolley, a chain and hook hanging near the right end, a red warning light at the boom tip, rusty and oily.",
+   "anchor": {
+    "size": [
+     128.0,
+     72.0
+    ],
+    "light_offset": [
+     118.0,
+     6.0
+    ]
+   }
+  },
+  {
+   "id": "forklift",
+   "seed": 4,
+   "fit": "width",
+   "glow": "beacon",
+   "data": {
+    "glow_life": true
+   },
+   "prompt": "A battered industrial forklift truck seen exactly from the side, forks raised, driver cage with a roof, small solid wheels, dull faded safety-yellow paint with heavy rust and scratches, a red warning beacon on the roof.",
+   "anchor": {
+    "size": [
+     40.0,
+     26.0
+    ]
+   }
+  },
+  {
+   "id": "control_console",
+   "seed": 3,
+   "fit": "keep",
+   "glow": "console",
+   "data": {
+    "glow_scan": 0.5,
+    "flicker": 0.1
+   },
+   "prompt": "An industrial control console desk seen from the front: a sloped panel with two small glowing cyan and green monitor screens, rows of buttons, switches and a few red indicator lights, a chunky grey steel housing with cable bundles.",
+   "anchor": {
+    "size": [
+     28.0,
+     22.0
+    ],
+    "light_offset": [
+     14.0,
+     8.0
+    ]
+   }
+  },
+  {
+   "id": "gate_door",
+   "seed": 6,
+   "fit": "area",
+   "glow": "beacon",
+   "data": {
+    "glow_life": true
+   },
+   "prompt": "A heavy steel security blast door closed, seen from the front: riveted double sliding door panels with a vertical centre seam, a thick steel frame, yellow-black hazard stripes along the bottom, a red status lamp above the door.",
+   "anchor": {
+    "size": [
+     24.0,
+     48.0
+    ]
+   }
+  },
+  {
+   "id": "container_back",
+   "seed": 2,
+   "fit": "area",
+   "prompt": "Two rusty corrugated shipping containers stacked on each other, seen flat from the side: dull blue lower container and faded red upper container, peeling paint, closed doors, no logos.",
+   "anchor": {
+    "size": [
+     48.0,
+     24.0
+    ]
+   }
+  },
+  {
+   "id": "pallet_stack",
+   "seed": 8,
+   "fit": "keep",
+   "prompt": "A stack of wooden freight pallets with a few shrink-wrapped cargo boxes on top, worn and dirty, seen from the side.",
+   "anchor": {
+    "size": [
+     28.0,
+     22.0
+    ]
+   }
+  },
+  {
+   "id": "fence",
+   "seed": 9,
+   "fit": "keep",
+   "pad": 0,
+   "prompt": "A section of rusty chain-link fence between two steel posts with a top rail, torn at the corner, seen flat from the front.",
+   "anchor": {
+    "size": [
+     32.0,
+     22.0
+    ]
+   }
+  },
+  {
+   "id": "worker_hut",
+   "seed": 12,
+   "fit": "area",
+   "glow": "warm",
+   "data": {
+    "flicker": 0.05
+   },
+   "prompt": "A small prefab corrugated steel worker cabin with a door, a window lit with warm yellow light, a small air conditioner and a pipe vent on the roof, seen flat from the front, rusty and stained.",
+   "anchor": {
+    "size": [
+     64.0,
+     40.0
+    ],
+    "light_offset": [
+     24.0,
+     24.0
+    ]
+   }
+  },
+  {
+   "id": "cables_hang",
+   "seed": 14,
+   "fit": "area",
+   "data": {
+    "sway": 1.6,
+    "sway_hang": true
+   },
+   "prompt": "Five thick black industrial power cables hanging in loose loops straight down from a single horizontal mounting rail at the top, with cable clamps, seen from the front.",
+   "anchor": {
+    "size": [
+     48.0,
+     28.0
+    ]
+   }
+  },
+  {
+   "id": "water_tower",
+   "seed": 7,
+   "fit": "height",
+   "prompt": "A rooftop water tower: a wooden-slat barrel tank on a rusty steel four-leg frame with cross braces and a small ladder, a conical metal lid, proportions about five wide to seven tall.",
+   "anchor": {
+    "size": [
+     40.0,
+     56.0
+    ]
+   }
+  },
+  {
+   "id": "antenna",
+   "seed": 21,
+   "fit": "height",
+   "glow": "beacon",
+   "data": {
+    "glow_life": true
+   },
+   "prompt": "A tall thin steel lattice radio antenna mast with cross-bars, small dishes and cables, seen from the side, a red aircraft warning light at the very top.",
+   "anchor": {
+    "size": [
+     14.0,
+     56.0
+    ],
+    "light_offset": [
+     7.0,
+     3.0
+    ]
+   }
+  },
+  {
+   "id": "satellite_dish",
+   "seed": 5,
+   "fit": "height",
+   "prompt": "A satellite dish on a short rusty pole bracket, dish tilted up and facing right, with a feed arm and cable, weathered, seen from the side.",
+   "anchor": {
+    "size": [
+     22.0,
+     22.0
+    ]
+   }
+  },
+  {
+   "id": "vent_stack",
+   "seed": 5,
+   "fit": "height",
+   "prompt": "A rooftop ventilation stack: a vertical galvanised steel pipe with a rain cap on top, pipe clamps and a bent elbow at the bottom, dented and weathered.",
+   "anchor": {
+    "size": [
+     16.0,
+     32.0
+    ]
+   }
+  },
+  {
+   "id": "chimney_stack",
+   "seed": 6,
+   "fit": "height",
+   "data": {
+    "steam": true,
+    "steam_offset": "Vector2(10, 0)"
+   },
+   "prompt": "A short thick old brick factory chimney, sturdy and wide, its width about half of its height, with a concrete cap and a short rusty metal flue on top, soot stained, seen from the front.",
+   "anchor": {
+    "size": [
+     20.0,
+     44.0
+    ]
+   }
+  },
+  {
+   "id": "rooftop_hut",
+   "seed": 3,
+   "fit": "keep",
+   "glow": "warm",
+   "data": {
+    "flicker": 0.06
+   },
+   "prompt": "A small rooftop maintenance shed with corrugated metal walls, a slanted roof with vents, a door and a window lit with warm light, seen flat from the front, weathered.",
+   "anchor": {
+    "size": [
+     40.0,
+     32.0
+    ],
+    "light_offset": [
+     20.0,
+     22.0
+    ]
+   }
+  },
+  {
+   "id": "barrels",
+   "seed": 6,
+   "fit": "keep",
+   "prompt": "Three industrial oil drums standing side by side, one rusty red, one faded blue and one olive green, dented steel with ribbed rings, seen from the side.",
+   "anchor": {
+    "size": [
+     28.0,
+     20.0
+    ]
+   }
+  },
+  {
+   "id": "bench",
+   "seed": 5,
+   "fit": "keep",
+   "prompt": "A weathered street bench with wooden slat seat and backrest and cast iron legs, seen from the side.",
+   "anchor": {
+    "size": [
+     28.0,
+     14.0
+    ]
+   }
+  },
+  {
+   "id": "dumpster",
+   "seed": 4,
+   "fit": "keep",
+   "prompt": "A large dented green steel dumpster bin with a hinged lid, wheels and forklift pockets, rust streaks, seen from the side.",
+   "anchor": {
+    "size": [
+     40.0,
+     24.0
+    ]
+   }
+  },
+  {
+   "id": "vending_machine",
+   "seed": 2,
+   "fit": "keep",
+   "style": "neon",
+   "glow": "screen",
+   "data": {
+    "flicker": 0.12,
+    "glow_scan": 0.25
+   },
+   "prompt": "A Japanese street drink vending machine seen from the front: glowing lit front panel with rows of colourful drink cans, a coin slot and a pickup slot, rain-wet and slightly rusty, glowing cyan and pink.",
+   "anchor": {
+    "size": [
+     18.0,
+     32.0
+    ],
+    "light_offset": [
+     9.0,
+     14.0
+    ]
+   }
+  },
+  {
+   "id": "bus_stop",
+   "seed": 9,
+   "fit": "area",
+   "style": "neon",
+   "glow": "screen",
+   "data": {
+    "glow_scan": 0.3
+   },
+   "prompt": "A city bus stop shelter seen from the front: steel frame with a glass back panel and roof, a glowing advertisement light-box panel on one side showing an abstract neon picture, a metal bench inside, standing on thin steel legs, cleanly cut out with nothing below the frame.",
+   "anchor": {
+    "size": [
+     44.0,
+     40.0
+    ],
+    "light_offset": [
+     22.0,
+     18.0
+    ]
+   }
+  },
+  {
+   "id": "billboard_ad",
+   "seed": 4,
+   "fit": "area",
+   "style": "neon",
+   "glow": "screen",
+   "data": {
+    "glow_scan": 0.5,
+    "flicker": 0.08
+   },
+   "prompt": "A large rooftop LED billboard seen from the front: dark steel frame on two support legs, a big glowing screen showing a colourful abstract neon advertisement with no readable text.",
+   "anchor": {
+    "size": [
+     64.0,
+     32.0
+    ],
+    "light_offset": [
+     32.0,
+     16.0
+    ]
+   }
+  },
+  {
+   "id": "neon_sign_h",
+   "seed": 3,
+   "fit": "keep",
+   "style": "neon",
+   "glow": "neon",
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 1.0,
+    "tint": [
+     1,
+     1,
+     1
+    ],
+    "contrast": 1.0
+   },
+   "prompt": "A horizontal neon sign: a dark metal box board with glowing magenta and cyan neon tubes forming abstract kanji-like shapes, mounted on two small brackets.",
+   "anchor": {
+    "size": [
+     40.0,
+     14.0
+    ],
+    "light_offset": [
+     20.0,
+     7.0
+    ]
+   }
+  },
+  {
+   "id": "neon_sign_v",
+   "seed": 3,
+   "fit": "keep",
+   "style": "neon",
+   "glow": "neon",
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 1.0,
+    "tint": [
+     1,
+     1,
+     1
+    ],
+    "contrast": 1.0
+   },
+   "prompt": "A neon sign: a vertical sign board with glowing magenta and cyan neon tubes forming abstract kanji-like shapes, mounted on a bracket, dark metal frame.",
+   "anchor": {
+    "size": [
+     14.0,
+     40.0
+    ],
+    "light_offset": [
+     7.0,
+     20.0
+    ]
+   }
+  },
+  {
+   "id": "lantern_string",
+   "seed": 4,
+   "fit": "keep",
+   "style": "neon",
+   "glow": "lanterns",
+   "data": {
+    "sway": 1.2,
+    "sway_hang": true,
+    "glow_intensity": 1.0
+   },
+   "grade": {
+    "brightness": 1.0,
+    "saturation": 1.0,
+    "tint": [
+     1,
+     1,
+     1
+    ],
+    "contrast": 1.0
+   },
+   "prompt": "A string of seven red paper lanterns hanging from a sagging rope, each lantern glowing warm red-orange, seen from the front.",
+   "anchor": {
+    "size": [
+     96.0,
+     16.0
+    ],
+    "light_offset": [
+     48.0,
+     10.0
+    ]
+   }
+  },
+  {
+   "id": "clothesline",
+   "seed": 7,
+   "fit": "keep",
+   "data": {
+    "sway": 1.0,
+    "sway_hang": true
+   },
+   "prompt": "A rooftop clothesline between two thin poles with a sagging line and several hanging clothes: shirts and towels in muted dull colours, seen from the front.",
+   "anchor": {
+    "size": [
+     64.0,
+     36.0
+    ]
+   }
+  },
+  {
+   "id": "graffiti",
+   "seed": 9,
+   "fit": "area",
+   "style": "neon",
+   "glow": "neon",
+   "data": {
+    "flicker": 0.1
+   },
+   "prompt": "A spray-painted graffiti mural of a stylised fluorescent magenta and cyan face and abstract shapes on a dirty concrete wall panel with ragged torn edges.",
+   "anchor": {
+    "size": [
+     32.0,
+     24.0
+    ]
+   }
+  },
+  {
+   "id": "noodle_stall",
+   "seed": 5,
+   "fit": "keep",
+   "style": "neon",
+   "glow": "warm",
+   "refs": [
+    "art/environment/props/noodle_stall.png"
+   ],
+   "data": {
+    "flicker": 0.05
+   },
+   "prompt": "Redraw the reference image as a photorealistic street noodle food stall with the same layout: a wooden cart with a striped red-and-cream fabric awning along the top edge, steaming pots, hanging lanterns, a counter with bowls, warm light.",
+   "native_alpha": true,
+   "anchor": {
+    "size": [
+     64.0,
+     48.0
+    ],
+    "light_offset": [
+     32.0,
+     28.0
+    ]
+   },
+   "platform_align": true
+  },
+  {
+   "id": "awning",
+   "seed": 5,
+   "fit": "keep",
+   "refs": [
+    "art/environment/props/awning.png"
+   ],
+   "prompt": "Redraw the reference image as a photorealistic shop awning with the same layout: a ribbed striped canvas awning on metal brackets, teal and cream stripes with scalloped edge, weathered.",
+   "native_alpha": false,
+   "anchor": {
+    "size": [
+     48.0,
+     14.0
+    ]
+   }
+  },
+  {
+   "id": "fire_escape",
+   "seed": 5,
+   "fit": "keep",
+   "refs": [
+    "art/environment/props/fire_escape.png"
+   ],
+   "prompt": "Redraw the reference image as a photorealistic exterior steel fire escape with the same layout: a top landing and a lower landing with railings connected by a diagonal stair, rusty black iron.",
+   "native_alpha": true,
+   "anchor": {
+    "size": [
+     48.0,
+     72.0
+    ]
+   },
+   "platform_align": true
+  },
+  {
+   "id": "fire_escape_ladder",
+   "seed": 5,
+   "fit": "height",
+   "refs": [
+    "art/environment/props/fire_escape_ladder.png"
+   ],
+   "prompt": "Redraw the reference image as a photorealistic vertical steel wall ladder with the same layout: two rails, evenly spaced rungs and wall brackets, rusty.",
+   "native_alpha": true,
+   "anchor": {
+    "size": [
+     12.0,
+     56.0
+    ]
+   }
+  },
+  {
+   "id": "hazard_sign",
+   "seed": 4,
+   "fit": "area",
+   "glow": "beacon",
+   "data": {
+    "glow_life": true
+   },
+   "prompt": "A triangular yellow and black hazard warning sign with an exclamation mark on a short steel post, a small red warning lamp on top, scratched and rusty.",
+   "anchor": {
+    "size": [
+     16.0,
+     16.0
+    ]
+   }
+  },
+  {
+   "id": "terminal_holo",
+   "seed": 3,
+   "fit": "area",
+   "style": "neon",
+   "glow": "screen",
+   "data": {
+    "glow_scan": 0.5,
+    "flicker": 0.1
+   },
+   "prompt": "A holographic data terminal: a low dark metal console base with a small projector on top, above it a glowing translucent cyan hologram display with floating wireframe interface panels, graphs and a small rotating globe.",
+   "anchor": {
+    "size": [
+     40.0,
+     34.0
+    ],
+    "light_offset": [
+     20.0,
+     14.0
+    ]
+   }
+  }
+ ]
+}

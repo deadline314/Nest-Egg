@@ -7,6 +7,7 @@ script = ExtResource("1_xcfij")
 id = &"gantry_crane"
 display_name = "龍門吊"
 texture = "res://art/environment/props/gantry_crane.png"
+glow_life = true
 size = Vector2(160, 80)
 has_glow = true
 flicker = 0.4

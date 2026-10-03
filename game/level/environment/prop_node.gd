@@ -5,9 +5,16 @@ extends Node2D
 ## 有光源的道具跟招牌一樣受電力影響：停電時熄滅。
 
 const SWAY_SHADER := preload("res://game/level/environment/sway.gdshader")
+const SWAY_EMISSIVE_SHADER := preload("res://game/level/environment/sway_emissive.gdshader")
+const GLOW_SCAN_SHADER := preload("res://game/level/environment/glow_scan.gdshader")
+const RIPPLE_SHADER := preload("res://game/level/environment/puddle_ripple.gdshader")
+const STEAM_INTERVAL := 0.3
 
-## 搖動幅度 → 共用材質（同幅度的植物共用同一份，數量再多也只有幾份）。
-static var _sway_materials: Dictionary[float, ShaderMaterial] = {}
+## 搖動（幅度、是否懸掛、是否自發光）→ 共用材質（同設定的道具共用同一份，數量再多也只有幾份）。
+static var _sway_materials: Dictionary[Vector3, ShaderMaterial] = {}
+## 螢幕掃描強度 → 共用材質。
+static var _scan_materials: Dictionary[float, ShaderMaterial] = {}
+static var _ripple_material: ShaderMaterial
 
 var data: PropData
 var flip := false
@@ -15,6 +22,8 @@ var flip := false
 var _glow_sprite: Sprite2D
 var _light: PointLight2D
 var _time := 0.0
+var _steam_timer := 0.0
+var _on_screen := false
 var _power_threshold := randf_range(0.1, 0.95)
 
 
@@ -36,7 +45,7 @@ func _ready() -> void:
 	sprite.scale = _scale_for(tex)
 	_apply_flip(sprite)
 	if data.sway > 0.0:
-		sprite.material = _sway_material(data.sway)
+		sprite.material = sway_material(data.sway, data.sway_hang)
 	add_child(sprite)
 	if data.layer == PropData.Layer.FRONT:
 		z_index = 3
@@ -49,17 +58,38 @@ func _ready() -> void:
 		_add_platform()
 	if data.casts_shadow:
 		_add_occluder()
-	set_process(data.has_glow or data.light_radius > 0.0)
+	if data.steam:
+		_add_steam_gate()
+	set_process(data.has_glow or data.light_radius > 0.0 or data.steam)
 	_time = randf() * 10.0
 
 
-static func _sway_material(amplitude: float) -> ShaderMaterial:
-	if not _sway_materials.has(amplitude):
+static func sway_material(amplitude: float, hang: bool, emissive := false) -> ShaderMaterial:
+	var key := Vector3(amplitude, 1.0 if hang else 0.0, 1.0 if emissive else 0.0)
+	if not _sway_materials.has(key):
 		var material := ShaderMaterial.new()
-		material.shader = SWAY_SHADER
+		material.shader = SWAY_EMISSIVE_SHADER if emissive else SWAY_SHADER
 		material.set_shader_parameter(&"amplitude", amplitude)
-		_sway_materials[amplitude] = material
-	return _sway_materials[amplitude]
+		material.set_shader_parameter(&"hang", hang)
+		_sway_materials[key] = material
+	return _sway_materials[key]
+
+
+## 水窪漣漪材質（全部水窪共用同一份）。
+static func ripple_material() -> ShaderMaterial:
+	if _ripple_material == null:
+		_ripple_material = ShaderMaterial.new()
+		_ripple_material.shader = RIPPLE_SHADER
+	return _ripple_material
+
+
+static func _scan_material(strength: float) -> ShaderMaterial:
+	if not _scan_materials.has(strength):
+		var material := ShaderMaterial.new()
+		material.shader = GLOW_SCAN_SHADER
+		material.set_shader_parameter(&"strength", strength)
+		_scan_materials[strength] = material
+	return _scan_materials[strength]
 
 
 func _scale_for(tex: Texture2D) -> Vector2:
@@ -82,7 +112,17 @@ func _add_glow() -> void:
 	_glow_sprite.centered = false
 	_glow_sprite.scale = _scale_for(glow)
 	_apply_flip(_glow_sprite)
-	LightKit.mark_emissive(_glow_sprite)
+	if data.sway > 0.0:
+		# 自發光層跟著本體一起搖（窗光生命與螢幕掃描在搖動的道具上不使用）
+		_glow_sprite.material = sway_material(data.sway, data.sway_hang, true)
+	elif data.ripple:
+		_glow_sprite.material = ripple_material()
+	elif data.glow_life:
+		_glow_sprite.material = LightKit.window_life_material()
+	elif data.glow_scan > 0.0:
+		_glow_sprite.material = _scan_material(data.glow_scan)
+	else:
+		LightKit.mark_emissive(_glow_sprite)
 	_glow_sprite.self_modulate = LightKit.glow(Color.WHITE, data.glow_intensity)
 	add_child(_glow_sprite)
 
@@ -113,6 +153,15 @@ func _add_platform() -> void:
 	add_child(body)
 
 
+## 只在畫面內才冒蒸汽（離開畫面就不再發射粒子）。
+func _add_steam_gate() -> void:
+	var notifier := VisibleOnScreenNotifier2D.new()
+	notifier.rect = Rect2(-24, -64, data.size.x + 48, data.size.y + 96)
+	notifier.screen_entered.connect(func() -> void: _on_screen = true)
+	notifier.screen_exited.connect(func() -> void: _on_screen = false)
+	add_child(notifier)
+
+
 func _add_occluder() -> void:
 	var inset := data.size * 0.12
 	var rect := Rect2(inset, data.size - inset * 2.0)
@@ -125,6 +174,11 @@ func _add_occluder() -> void:
 
 func _process(delta: float) -> void:
 	_time += delta
+	if data.steam and _on_screen:
+		_steam_timer -= delta
+		if _steam_timer <= 0.0:
+			_steam_timer = STEAM_INTERVAL * randf_range(0.7, 1.4)
+			Fx.steam(global_position + data.steam_offset + Vector2(randf_range(-2.0, 2.0), 0.0))
 	var gate := LightKit.power_gate(LightKit.lamp_power, _power_threshold) if data.light_radius > 0.0 else 1.0
 	var flick := 1.0
 	if data.flicker > 0.0:

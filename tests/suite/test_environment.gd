@@ -13,6 +13,8 @@ func run() -> void:
 	_test_missing_texture()
 	_test_sky()
 	_test_trees()
+	_test_prop_animation()
+	_test_foreground()
 	await _test_level_with_environment()
 	await _test_level_without_environment()
 	_test_chapter_one()
@@ -180,6 +182,92 @@ func _test_trees() -> void:
 	check(placed >= 6, "第一章地圖擺了植物（%d）" % placed)
 
 
+## 道具動畫（NE-62／63）：懸掛物搖擺、窗光生命、螢幕掃描、蒸汽，全部走共用著色器或事件，不多配置、不加每影格腳本。
+func _test_prop_animation() -> void:
+	var hanging := 0
+	var life := 0
+	var scan := 0
+	var steam := 0
+	for prop in PropLibrary.all():
+		hanging += 1 if prop.sway_hang else 0
+		life += 1 if prop.glow_life else 0
+		scan += 1 if prop.glow_scan > 0.0 else 0
+		steam += 1 if prop.steam else 0
+		if prop.sway_hang:
+			check(prop.sway > 0.0, "懸掛物 %s 有設定搖動幅度" % prop.id)
+		if prop.glow_life or prop.glow_scan > 0.0:
+			check(prop.has_glow, "道具 %s 的光影動畫需要自發光層" % prop.id)
+	check(hanging >= 3 and life >= 4 and scan >= 3 and steam >= 1, "有動畫的道具：懸掛 %d、窗光生命 %d、螢幕掃描 %d、蒸汽 %d" % [hanging, life, scan, steam])
+
+	var base := PropLibrary.find(&"street_lamp")
+	var swing := base.duplicate() as PropData
+	swing.sway = 1.5
+	swing.sway_hang = true
+	var plain := base.duplicate() as PropData
+	plain.sway = 1.5
+	var a := PropNode.new()
+	a.setup(swing, Vector2(10, 10))
+	runner.add_child(a)
+	var b := PropNode.new()
+	b.setup(swing, Vector2(90, 10))
+	runner.add_child(b)
+	var c := PropNode.new()
+	c.setup(plain, Vector2(170, 10))
+	runner.add_child(c)
+	var sprite_a := a.get_child(0) as Sprite2D
+	check(sprite_a.material == (b.get_child(0) as Sprite2D).material, "同設定的懸掛物共用同一份搖動材質")
+	check(sprite_a.material != (c.get_child(0) as Sprite2D).material, "懸掛與直立的搖動材質不同")
+	check(bool((sprite_a.material as ShaderMaterial).get_shader_parameter(&"hang")), "懸掛物的材質是頂端固定")
+	var glow_a := a.get_child(1) as Sprite2D
+	check(glow_a.material is ShaderMaterial, "搖動的道具，自發光層跟著一起搖")
+	for node: Node in [a, b, c]:
+		node.queue_free()
+
+	var lively := base.duplicate() as PropData
+	lively.glow_life = true
+	lively.sway = 0.0
+	var d := PropNode.new()
+	d.setup(lively, Vector2(10, 10))
+	runner.add_child(d)
+	check((d.get_child(1) as Sprite2D).material == LightKit.window_life_material(), "窗光生命的道具自發光層用共用的窗光材質")
+	d.queue_free()
+	var scanning := base.duplicate() as PropData
+	scanning.glow_scan = 0.4
+	scanning.sway = 0.0
+	var e := PropNode.new()
+	e.setup(scanning, Vector2(10, 10))
+	runner.add_child(e)
+	var f := PropNode.new()
+	f.setup(scanning, Vector2(90, 10))
+	runner.add_child(f)
+	check((e.get_child(1) as Sprite2D).material is ShaderMaterial and (e.get_child(1) as Sprite2D).material == (f.get_child(1) as Sprite2D).material, "螢幕掃描的道具共用同一份材質")
+	e.queue_free()
+	f.queue_free()
+	var vent := base.duplicate() as PropData
+	vent.steam = true
+	var g := PropNode.new()
+	g.setup(vent, Vector2(10, 10))
+	runner.add_child(g)
+	check(g.is_processing(), "冒蒸汽的道具會處理")
+	var has_gate := false
+	for child in g.get_children():
+		has_gate = has_gate or child is VisibleOnScreenNotifier2D
+	check(has_gate, "蒸汽只在畫面內發射（有螢幕範圍偵測）")
+	g.queue_free()
+
+
+## 近景（NE-61）：貼圖剪影條左右鏡像排滿一段、缺圖退回程式剪影不崩潰。
+func _test_foreground() -> void:
+	var layer := ForegroundLayer.new()
+	runner.add_child(layer)
+	var sprites := 0
+	for child in layer._static.get_children():
+		sprites += 1 if child is Sprite2D else 0
+	check(sprites >= 4, "近景剪影由貼圖條組成（%d 個精靈）" % sprites)
+	check(layer._static._add_strip("res://art/test_missing_prop_fg.webp", 0.0, false) == false, "前景貼圖缺失時回報失敗並退回程式剪影")
+	layer.queue_free()
+
+
 func _test_level_with_environment() -> void:
 	var data := EnvGallery.level_data("props")
 	var level := await start_level(data)
@@ -192,7 +280,7 @@ func _test_level_with_environment() -> void:
 		var prop := node as PropNode
 		if prop.data.platform.size.x > 0.0:
 			platforms += 1
-		if not prop.data.has_glow and prop.data.light_radius <= 0.0:
+		if not prop.data.has_glow and prop.data.light_radius <= 0.0 and not prop.data.steam:  # 蒸汽要計時，所以會處理
 			static_props += 1
 			check(not prop.is_processing(), "靜態道具 %s 不跑每影格更新" % prop.data.id)
 	check(props == expected, "地圖的道具清單全部生成（%d / %d）" % [props, expected])

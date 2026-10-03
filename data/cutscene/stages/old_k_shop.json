@@ -14,284 +14,64 @@
    "parallax": 0.0
   },
   {
-   "kind": "rect",
-   "rect": [
-    -100,
-    60,
-    840,
-    230
-   ],
-   "color": "#241a14",
-   "alpha": 0.9
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    -100,
-    284,
-    840,
-    10
-   ],
-   "color": "#3a2c20"
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    -100,
-    294,
-    840,
-    120
-   ],
-   "color": "#2e2218"
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    -60,
-    294,
-    2,
-    120
-   ],
-   "color": "#1c140e",
-   "alpha": 0.7
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    -4,
-    294,
-    2,
-    120
-   ],
-   "color": "#1c140e",
-   "alpha": 0.7
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    52,
-    294,
-    2,
-    120
-   ],
-   "color": "#1c140e",
-   "alpha": 0.7
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    108,
-    294,
-    2,
-    120
-   ],
-   "color": "#1c140e",
-   "alpha": 0.7
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    164,
-    294,
-    2,
-    120
-   ],
-   "color": "#1c140e",
-   "alpha": 0.7
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    220,
-    294,
-    2,
-    120
-   ],
-   "color": "#1c140e",
-   "alpha": 0.7
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    276,
-    294,
-    2,
-    120
-   ],
-   "color": "#1c140e",
-   "alpha": 0.7
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    332,
-    294,
-    2,
-    120
-   ],
-   "color": "#1c140e",
-   "alpha": 0.7
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    388,
-    294,
-    2,
-    120
-   ],
-   "color": "#1c140e",
-   "alpha": 0.7
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    444,
-    294,
-    2,
-    120
-   ],
-   "color": "#1c140e",
-   "alpha": 0.7
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    500,
-    294,
-    2,
-    120
-   ],
-   "color": "#1c140e",
-   "alpha": 0.7
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    556,
-    294,
-    2,
-    120
-   ],
-   "color": "#1c140e",
-   "alpha": 0.7
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    612,
-    294,
-    2,
-    120
-   ],
-   "color": "#1c140e",
-   "alpha": 0.7
-  },
-  {
    "kind": "sprite",
-   "path": "res://art/environment/props/window_rain.png",
+   "path": "res://art/environment/stages/old_k_shop.webp",
    "pos": [
-    36,
-    84
+    -64,
+    -36.0
    ],
-   "scale": 0.55
-  },
-  {
-   "kind": "sprite",
-   "path": "res://art/environment/props/shop_shelf.png",
-   "pos": [
-    190,
-    104
-   ],
-   "scale": 0.55
-  },
-  {
-   "kind": "sprite",
-   "path": "res://art/environment/props/photo_sky.png",
-   "pos": [
-    372,
-    128
-   ],
-   "scale": 0.6
-  },
-  {
-   "kind": "sprite",
-   "path": "res://art/environment/props/crayon_drawing.png",
-   "pos": [
-    420,
-    122
-   ],
-   "scale": 0.55
-  },
-  {
-   "kind": "sprite",
-   "path": "res://art/environment/props/radio_set.png",
-   "pos": [
-    150,
-    252
-   ],
-   "scale": 0.55
-  },
-  {
-   "kind": "sprite",
-   "path": "res://art/environment/props/shop_table.png",
-   "pos": [
-    236,
-    268
-   ],
-   "scale": 0.55
-  },
-  {
-   "kind": "sprite",
-   "path": "res://art/environment/props/porridge_pot.png",
-   "pos": [
-    268,
-    248
-   ],
-   "scale": 0.6
-  },
-  {
-   "kind": "sprite",
-   "path": "res://art/environment/props/shop_bed.png",
-   "pos": [
-    452,
-    242
-   ],
-   "scale": 0.62
-  },
-  {
-   "kind": "sprite",
-   "path": "res://art/environment/props/lamp_warm.png",
-   "pos": [
-    310,
-    -10
-   ],
-   "scale": 0.6
+   "scale": 0.5,
+   "filter": "linear",
+   "modulate": [
+    1.7,
+    1.55,
+    1.45,
+    1.0
+   ]
   },
   {
    "kind": "glow",
    "pos": [
-    318,
-    120
+    321,
+    40
    ],
-   "radius": 240,
+   "radius": 250,
    "color": "#ffb066",
    "intensity": 0.9,
    "additive": true,
-   "alpha": 0.55,
+   "alpha": 0.5,
    "flicker": 0.05
   },
   {
    "kind": "glow",
    "pos": [
-    100,
-    150
+    14,
+    112
    ],
-   "radius": 110,
-   "color": "#8a70d0",
-   "intensity": 0.5,
+   "radius": 120,
+   "color": "#a070e8",
+   "intensity": 0.8,
    "additive": true,
-   "alpha": 0.35
+   "alpha": 0.45,
+   "flicker": 0.12
+  },
+  {
+   "kind": "motes",
+   "count": 46,
+   "color": "#ffd9a0",
+   "opacity": 0.55,
+   "area": [
+    150,
+    30,
+    360,
+    260
+   ],
+   "drift": [
+    2,
+    -4
+   ],
+   "size": 1.3,
+   "seed": 4
   },
   {
    "kind": "grain",

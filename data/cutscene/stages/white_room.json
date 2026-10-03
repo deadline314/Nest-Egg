@@ -14,24 +14,14 @@
    "parallax": 0.0
   },
   {
-   "kind": "rect",
-   "rect": [
-    -100,
-    262,
-    840,
-    160
+   "kind": "sprite",
+   "path": "res://art/environment/stages/white_room.webp",
+   "pos": [
+    -64,
+    -36.0
    ],
-   "color": "#c8c4b8"
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    -100,
-    258,
-    840,
-    6
-   ],
-   "color": "#aaa69a"
+   "scale": 0.5,
+   "filter": "linear"
   },
   {
    "kind": "glow",
@@ -39,30 +29,13 @@
     320,
     100
    ],
-   "radius": 240,
+   "radius": 260,
    "color": "#ffffff",
    "intensity": 0.5,
    "additive": true,
-   "alpha": 0.3
-  },
-  {
-   "kind": "grain",
-   "amount": 420,
-   "opacity": 0.35,
-   "color": "#7a7266",
-   "depth": "front"
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    -100,
-    -100,
-    840,
-    520
-   ],
-   "color": "#f8f2e0",
-   "alpha": 0.18,
-   "depth": "front"
+   "alpha": 0.3,
+   "pulse": 0.07,
+   "pulse_depth": 0.3
   },
   {
    "kind": "poly",
@@ -767,6 +740,43 @@
     ]
    ],
    "color": "#b89878"
+  },
+  {
+   "kind": "motes",
+   "count": 36,
+   "color": "#fffdf2",
+   "opacity": 0.55,
+   "area": [
+    0,
+    20,
+    640,
+    260
+   ],
+   "drift": [
+    1.5,
+    -2.5
+   ],
+   "size": 1.4,
+   "seed": 41
+  },
+  {
+   "kind": "grain",
+   "amount": 420,
+   "opacity": 0.35,
+   "depth": "front",
+   "color": "#7a7266"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    -100,
+    -100,
+    840,
+    520
+   ],
+   "color": "#f8f2e0",
+   "alpha": 0.18,
+   "depth": "front"
   }
  ]
 }

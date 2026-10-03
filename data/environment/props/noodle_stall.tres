@@ -7,6 +7,7 @@ script = ExtResource("1_a0jk1")
 id = &"noodle_stall"
 display_name = "麵攤"
 texture = "res://art/environment/props/noodle_stall.png"
+flicker = 0.05
 size = Vector2(64, 48)
 has_glow = true
 light_color = Color(1, 0.72, 0.4, 1)
