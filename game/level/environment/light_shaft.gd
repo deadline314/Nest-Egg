@@ -25,6 +25,7 @@ var rain_streaks := true
 var source: PointLight2D
 
 var _time := 0.0
+var _since_redraw := 0.0
 var _seeds := PackedFloat32Array()
 
 
@@ -44,7 +45,11 @@ func _process(delta: float) -> void:
 		return
 	visible = true
 	_time += delta
-	queue_redraw()
+	_since_redraw += delta
+	# 品質「中」每秒只重畫 30 次（光錐是體積光裡最貴的一項）；「高」每影格重畫。
+	if LightQuality.shaft_detail() >= 1.0 or _since_redraw >= 1.0 / 30.0:
+		_since_redraw = 0.0
+		queue_redraw()
 
 
 func _refresh_visibility() -> void:
@@ -79,7 +84,7 @@ func _draw_cone(perp: Vector2, strength: float) -> void:
 
 ## 錐內的雨絲（往下飄、越遠越淡）與緩慢漂浮的塵埃。
 func _draw_particles(perp: Vector2, strength: float) -> void:
-	for i in MOTES:
+	for i in maxi(1, int(MOTES * LightQuality.shaft_detail())):
 		var u := _seeds[i * 2] - 0.5
 		var phase := _seeds[i * 2 + 1]
 		if rain_streaks:

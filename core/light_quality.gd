@@ -10,13 +10,13 @@ const NAMES: Dictionary[int, String] = {Tier.LOW: "低", Tier.MEDIUM: "中", Tie
 ## 設定選單與 tooltip 用的一句說明。
 const DESCRIPTIONS: Dictionary[int, String] = {
 	Tier.LOW: "只留基本光源與一組陰影，關閉體積光、法線貼圖、顆粒與色差；效能最好",
-	Tier.MEDIUM: "光源與陰影減半，關閉顆粒與色差；效能與畫面折衷",
+	Tier.MEDIUM: "光源與陰影減半、光錐細節減半，關閉顆粒與色差；效能與畫面折衷",
 	Tier.HIGH: "全部光影效果，設計的完整畫面",
 }
 const SETTINGS: Dictionary[int, Dictionary] = {
-	Tier.LOW: {"max_lights": 8, "shadow_lights": 1, "shadow_filter": Light2D.SHADOW_FILTER_NONE, "post_effects": 0.0, "volumetrics": false, "normal_maps": false},
-	Tier.MEDIUM: {"max_lights": 14, "shadow_lights": 2, "shadow_filter": Light2D.SHADOW_FILTER_PCF5, "post_effects": 0.0, "volumetrics": true, "normal_maps": true},
-	Tier.HIGH: {"max_lights": 24, "shadow_lights": 4, "shadow_filter": Light2D.SHADOW_FILTER_PCF5, "post_effects": 1.0, "volumetrics": true, "normal_maps": true},
+	Tier.LOW: {"max_lights": 8, "shadow_lights": 1, "shadow_filter": Light2D.SHADOW_FILTER_NONE, "post_effects": 0.0, "volumetrics": false, "shaft_detail": 0.0, "normal_maps": false},
+	Tier.MEDIUM: {"max_lights": 14, "shadow_lights": 2, "shadow_filter": Light2D.SHADOW_FILTER_PCF5, "post_effects": 0.0, "volumetrics": true, "shaft_detail": 0.5, "normal_maps": true},
+	Tier.HIGH: {"max_lights": 24, "shadow_lights": 4, "shadow_filter": Light2D.SHADOW_FILTER_PCF5, "post_effects": 1.0, "volumetrics": true, "shaft_detail": 1.0, "normal_maps": true},
 }
 
 
@@ -43,6 +43,12 @@ static func post_effects() -> float:
 
 static func volumetrics() -> bool:
 	return SETTINGS[tier()]["volumetrics"]
+
+
+## 光錐（LightShaft）的細緻度：1 = 全部（每影格重畫、全部塵埃與雨絲），0.5 = 每秒重畫 30 次、塵埃與雨絲減半，0 = 不畫。
+## 光錐是體積光裡最貴的一項（BG-16 實測：關掉省約 20% 每影格時間）。
+static func shaft_detail() -> float:
+	return SETTINGS[tier()]["shaft_detail"]
 
 
 static func normal_maps() -> bool:
