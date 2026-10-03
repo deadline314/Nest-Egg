@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MechanismData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/mechanism_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"gate_b"
+kind = 1
+display_name = "閘門"
+hint = "藍色閘門：找到藍色的開關才能打開"
+color = Color(0.3, 0.6, 1.0, 1.0)
+channel = &"b"
+size_tiles = Vector2i(1, 4)

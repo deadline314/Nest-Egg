@@ -1,0 +1,137 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=50 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_script"]
+[ext_resource type="Resource" path="res://data/story_items/doc_shaft_memo.tres" id="r1"]
+[ext_resource type="Resource" path="res://data/enemies/elite_grunt.tres" id="r2"]
+[ext_resource type="Resource" path="res://data/weapons/laser.tres" id="r3"]
+[ext_resource type="Resource" path="res://data/story_items/doc_power_log.tres" id="r4"]
+[ext_resource type="Resource" path="res://data/story_items/doc_nest_log.tres" id="r5"]
+[ext_resource type="Resource" path="res://data/enemies/repair_drone.tres" id="r6"]
+[ext_resource type="Resource" path="res://data/story_items/doc_resident_notice.tres" id="r7"]
+[ext_resource type="Resource" path="res://data/weapons/spread.tres" id="r8"]
+[ext_resource type="Resource" path="res://data/weapons/rifle.tres" id="r9"]
+[ext_resource type="Resource" path="res://data/weapons/smg.tres" id="r10"]
+[ext_resource type="Resource" path="res://data/story_items/rec_wataru_2.tres" id="r11"]
+[ext_resource type="Resource" path="res://data/story_items/rec_wataru_1.tres" id="r12"]
+[ext_resource type="Resource" path="res://data/enemies/reclaimer.tres" id="r13"]
+[ext_resource type="Resource" path="res://data/props/crate.tres" id="r14"]
+[ext_resource type="Resource" path="res://data/props/credits_small.tres" id="r15"]
+[ext_resource type="Resource" path="res://data/enemies/drone.tres" id="r16"]
+[ext_resource type="Resource" path="res://data/consumables/shield_cell.tres" id="r17"]
+[ext_resource type="Resource" path="res://data/props/lift_tall.tres" id="r18"]
+[ext_resource type="Resource" path="res://data/enemies/grunt.tres" id="r19"]
+[ext_resource type="Resource" path="res://data/props/gate_a.tres" id="r20"]
+[ext_resource type="Resource" path="res://data/consumables/med_injector.tres" id="r21"]
+[ext_resource type="Resource" path="res://data/props/gate_b.tres" id="r22"]
+[ext_resource type="Resource" path="res://data/enemies/slasher.tres" id="r23"]
+[ext_resource type="Resource" path="res://data/props/switch_b.tres" id="r24"]
+[ext_resource type="Resource" path="res://data/props/barrel.tres" id="r25"]
+[ext_resource type="Resource" path="res://data/props/power_switch.tres" id="r26"]
+[ext_resource type="Resource" path="res://data/props/credits_large.tres" id="r27"]
+[ext_resource type="Resource" path="res://data/enemies/shield_rusher.tres" id="r28"]
+[ext_resource type="Resource" path="res://data/enemies/stalker.tres" id="r29"]
+[ext_resource type="Resource" path="res://data/enemies/turret.tres" id="r30"]
+[ext_resource type="Resource" path="res://data/props/lift.tres" id="r31"]
+[ext_resource type="Resource" path="res://data/props/glass_wall.tres" id="r32"]
+[ext_resource type="Resource" path="res://data/props/cracked_wall.tres" id="r33"]
+[ext_resource type="Resource" path="res://data/props/switch_a.tres" id="r34"]
+[ext_resource type="Resource" path="res://data/shops/supply.tres" id="r35"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="r36"]
+[ext_resource type="Resource" path="res://data/lighting/shaft.tres" id="r37"]
+[ext_resource type="Resource" path="res://data/lighting/shaft_deep.tres" id="r38"]
+[ext_resource type="Resource" path="res://data/lighting/residential.tres" id="r39"]
+[ext_resource type="Resource" path="res://data/lighting/power_room.tres" id="r40"]
+[ext_resource type="Resource" path="res://data/lighting/transfer.tres" id="r41"]
+[ext_resource type="Resource" path="res://data/lighting/reclaimer_arena.tres" id="r42"]
+
+[sub_resource type="Resource" id="Resource_zone0"]
+script = ExtResource("r36")
+start_tile = 0
+blend_tiles = 0
+profile = ExtResource("r37")
+
+[sub_resource type="Resource" id="Resource_zone1"]
+script = ExtResource("r36")
+start_tile = 70
+blend_tiles = 12
+profile = ExtResource("r38")
+
+[sub_resource type="Resource" id="Resource_zone2"]
+script = ExtResource("r36")
+start_tile = 140
+blend_tiles = 14
+profile = ExtResource("r39")
+
+[sub_resource type="Resource" id="Resource_zone3"]
+script = ExtResource("r36")
+start_tile = 215
+blend_tiles = 10
+profile = ExtResource("r40")
+
+[sub_resource type="Resource" id="Resource_zone4"]
+script = ExtResource("r36")
+start_tile = 275
+blend_tiles = 8
+profile = ExtResource("r41")
+
+[resource]
+script = ExtResource("1_script")
+id = &"level_02"
+display_name = "第二章　天空的代價"
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"D": ExtResource("r1"),
+"E": ExtResource("r2"),
+"F": ExtResource("r3"),
+"J": ExtResource("r4"),
+"K": ExtResource("r5"),
+"M": ExtResource("r6"),
+"N": ExtResource("r7"),
+"Q": ExtResource("r8"),
+"R": ExtResource("r9"),
+"U": ExtResource("r10"),
+"V": ExtResource("r11"),
+"W": ExtResource("r12"),
+"Y": ExtResource("r13"),
+"a": ExtResource("r14"),
+"c": ExtResource("r15"),
+"d": ExtResource("r16"),
+"e": ExtResource("r17"),
+"f": ExtResource("r18"),
+"g": ExtResource("r19"),
+"h": ExtResource("r20"),
+"i": ExtResource("r21"),
+"j": ExtResource("r22"),
+"k": ExtResource("r23"),
+"l": ExtResource("r24"),
+"o": ExtResource("r25"),
+"p": ExtResource("r26"),
+"q": ExtResource("r27"),
+"r": ExtResource("r28"),
+"s": ExtResource("r29"),
+"t": ExtResource("r30"),
+"u": ExtResource("r31"),
+"w": ExtResource("r32"),
+"x": ExtResource("r33"),
+"y": ExtResource("r34"),
+"z": ExtResource("r35")
+})
+hints = PackedStringArray("升降井口：先沿著這裡走，電梯會把你帶到更高的地方", "敵人身邊的油桶：先打爆它", "站在燈下，迷彩獵手就會現形；隱形時留意閃爍的空氣")
+decor = Dictionary[String, String]({
+"$": "neon_sign",
+"%": "neon_sign_h",
+"@": "billboard"
+})
+sign_texts = PackedStringArray("住宅", "診所", "幸福", "檢查", "出口", "維修")
+billboard_ads = PackedStringArray("天穹集團|幸福住宅，每一戶都有窗", "轉運站|健康，是最好的投資", "天穹醫療|每一個孩子，都有未來")
+chapter = &"chapter_02"
+intro_scene = &"c2_prologue"
+boss_scene = &"c2_boss_intro"
+outro_scene = &"c2_epilogue"
+story_triggers = PackedStringArray("c2_radio_start", "c2_radio_barrel", "c2_radio_k1", "c2_radio_cloak", "c2_radio_power", "c2_radio_medic", "c2_radio_k2", "c2_radio_last")
+rain = false
+fog_color = Color(0.42, 0.34, 0.26, 1)
+layout_path = "res://data/levels/level_02_map.json"
+lighting_zones = Array[ExtResource("r36")]([SubResource("Resource_zone0"), SubResource("Resource_zone1"), SubResource("Resource_zone2"), SubResource("Resource_zone3"), SubResource("Resource_zone4")])
+boss_lighting = ExtResource("r42")

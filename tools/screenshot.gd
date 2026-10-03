@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim、block、story、story_ch2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
+## 情境：all（預設）、settings、mouse_aim、block、story、story_ch2、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -38,6 +38,10 @@ func _run() -> void:
 		return
 	if _scenario == "new_enemies":
 		await _run_new_enemies()
+		get_tree().quit()
+		return
+	if _scenario == "chapter2":
+		await _run_chapter2()
 		get_tree().quit()
 		return
 	if _scenario == "reclaimer":
@@ -237,6 +241,34 @@ func _run_story_ch2() -> void:
 
 func _show_chapter_card(level: Level, title: String, subtitle: String) -> void:
 	level._show_chapter_card(title, subtitle, false)
+
+
+## 第二章關卡：逐區段拍攝（升降井入口、升降井、夾層區、電力室、轉運站）與幾個關鍵場景。
+func _run_chapter2() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load("res://data/levels/level_02.tres"))
+	add_child(level)
+	await _settle(20)
+	var player := level.player
+	player.health.setup(9999, 0.0)
+	for id: String in Story.scene_ids():
+		if id.begins_with("c2_radio_"):
+			Story._seen[StringName(id)] = true
+	var layout: LevelLayout = level._layout
+	var spots := [
+		["ch2_s1_shaft_entrance", 12, 19], ["ch2_s1_barrel", 24, 19], ["ch2_s1_lift", 60, 19],
+		["ch2_s2_gate", 87, 13], ["ch2_s2_slashers", 100, 13], ["ch2_s2_lift_tall", 127, 13],
+		["ch2_s3_residential", 150, 19], ["ch2_s3_stalkers", 170, 19],
+		["ch2_s4_power", 223, 19], ["ch2_s4_medics", 245, 19],
+		["ch2_s5_station", 282, 19],
+	]
+	for spot: Array in spots:
+		player.global_position = Vector2((spot[1] + 0.5) * layout.tile_size, (spot[2] + 1) * layout.tile_size - 2.0)
+		player.velocity = Vector2.ZERO
+		level_camera_snap()
+		await _wait(1.6)
+		_capture(spot[0])
 
 
 ## 第二章頭目「回收員」：每個招式的預兆與效果（衝刺路線、瞬移圓圈、電軌預警與通電、硬直核心）。

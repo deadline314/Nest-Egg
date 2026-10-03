@@ -5,8 +5,11 @@
 並在輸出前檢查跳躍高度與坑洞寬度是否在角色能力範圍內。
 用法：python3 tools/level/build_level_01.py
 """
-import json
 import os
+import sys
+
+sys.path.insert(0, os.path.dirname(__file__))
+from level_kit import Grid, PLAYER_JUMP_TILES, MECH_JUMP_TILES  # noqa: E402,F401
 
 W, H = 350, 24
 GROUND = 20            # 街道地面的列（上緣 y = 320）
@@ -14,21 +17,9 @@ TILE = 16
 PLAYER_JUMP_TILES = 5  # 玩家跳躍約 88px ≈ 5.5 格
 MECH_JUMP_TILES = 3    # 機甲跳躍約 54px ≈ 3.4 格
 
-g = [['.'] * W for _ in range(H)]
-
-
-def put(x, y, c):
-    g[y][x] = c
-
-
-def fill(x0, x1, y0, y1, c):
-    for y in range(y0, y1 + 1):
-        for x in range(x0, x1 + 1):
-            g[y][x] = c
-
-
-def empty(x, y):
-    return g[y][x] == '.'
+grid = Grid(W, H)
+g = grid.g
+put, fill, empty = grid.put, grid.fill, grid.empty
 
 
 # ---------------------------------------------------------------------------
@@ -175,39 +166,8 @@ for x in (12, 28, 40, 62, 76, 96, 110, 130, 150, 172, 190, 210, 230):
 
 # ---------------------------------------------------------------------------
 # 檢查：沿路面（實心地形；單向平台是選擇性路線不列入）的高度變化不能超過跳躍能力、坑不能太寬
-def surface(x):
-    for y in range(H):
-        if g[y][x] == '#':
-            if y < 4 and g[y][x] == '#' and x >= 240:  # 室內天花板
-                continue
-            return y
-    return None
-
-
-problems = []
-prev = surface(1)
-gap = 0
-for x in range(2, W - 1):
-    s = surface(x)
-    if s is None or s >= H - 1:
-        gap += 1
-        continue
-    if gap > 3:
-        problems.append(f"col {x}: 坑寬 {gap} 格，機甲跳不過")
-    gap = 0
-    if prev is not None and prev - s > PLAYER_JUMP_TILES:
-        problems.append(f"col {x}: 往上 {prev - s} 格，玩家跳不上去")
-    prev = s
+problems = grid.check_route()
 if problems:
     raise SystemExit("\n".join(problems))
 
-rows = [''.join(r) for r in g]
-segments = [[r[i:i + 50] for r in rows] for i in range(0, W, 50)]
-path = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'levels', 'level_01_map.json')
-with open(path, 'w') as f:
-    f.write('{\n  "segments": [\n')
-    for si, seg in enumerate(segments):
-        f.write('    [\n' + ',\n'.join('      "' + r + '"' for r in seg) + '\n    ]' + (',' if si < len(segments) - 1 else '') + '\n')
-    f.write('  ]\n}\n')
-json.load(open(path))
-print(f"level_01: {W}x{H} written")
+grid.write("level_01", (os.path.dirname(__file__), '..', '..', 'data', 'levels', 'level_01_map.json'))

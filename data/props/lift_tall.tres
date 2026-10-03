@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="MechanismData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/mechanism_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"lift_tall"
+kind = 0
+display_name = "升降梯"
+hint = "高升降梯：站上去往上，到維修走道"
+color = Color(1.0, 0.76, 0.29, 1.0)
+size_tiles = Vector2i(2, 1)
+travel_tiles = 6
+speed = 50.0
+wait_time = 1.0

@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="LightingProfile" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/lighting_profile.gd" id="1_script"]
+[ext_resource type="Script" path="res://data/scripts/lamp_style.gd" id="2_lamp"]
+
+[sub_resource type="Resource" id="LampStyle_1"]
+script = ExtResource("2_lamp")
+colors = PackedColorArray(0.9,1.0,0.95,1)
+energy = 1.4
+radius = 215.0
+flicker_chance = 0.03
+dead_chance = 0.1
+pulse_hz = 0.0
+
+[resource]
+script = ExtResource("1_script")
+id = &"transfer"
+ambient_color = Color(0.19,0.2,0.21,1)
+background_tint = Color(0.88,0.92,0.95,1)
+fog_color = Color(0.5,0.55,0.58,1)
+fog_density = 0.7
+glow_threshold = 1.25
+glow_intensity = 0.7
+saturation = 0.3
+contrast = 1.15
+shadow_tint = Color(0.95,1.0,1.02,1)
+highlight_tint = Color(1.02,1.04,1.04,1)
+vignette = 0.7
+grain = 0.05
+aberration = 0.0025
+lamp_style = SubResource("LampStyle_1")
+neon_colors = PackedColorArray(0.8,1.0,0.9,1)
+neon_energy = 0.4
+character_floor = 0.3
+rim_color = Color(0.9,1.0,0.95,1)
+rim_energy = 0.35

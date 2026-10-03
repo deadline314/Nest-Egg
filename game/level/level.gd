@@ -555,6 +555,8 @@ func _on_boss_defeated() -> void:
 		var card := _show_chapter_card(str(info["end_title"]), str(info.get("teaser", "")), true, 2.8)
 		await card.finished
 	if is_inside_tree():
+		if is_instance_valid(player):
+			GameState.carry_over(player.checkpoint_snapshot())
 		completed.emit()
 
 

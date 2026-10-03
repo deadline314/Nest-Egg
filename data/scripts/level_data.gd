@@ -30,6 +30,8 @@ extends Resource
 @export_group("Story")
 ## 這一關屬於哪一章（data/story/chapter_XX.json 的 chapter.id）：章節標題、結尾卡與預告取自該章。
 @export var chapter: StringName = &"chapter_01"
+## 通關後接續的下一關（LevelData 的 .tres 路徑）；空白代表這是最後一關，通關後進入結算畫面。
+@export_file("*.tres") var next_level: String = ""
 ## 進入關卡（非從檢查點重生）時播放的過場。
 @export var intro_scene: StringName = &""
 ## 進入頭目戰場時播放的過場（播完才出現頭目）。

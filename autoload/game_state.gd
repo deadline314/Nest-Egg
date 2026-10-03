@@ -21,6 +21,10 @@ var checkpoint_world: Dictionary = {}
 var checkpoint_progress: Dictionary = {}
 ## 進入這個關卡時的成長進度：沒有檢查點時（例如殘機用盡）從這裡重來。
 var level_start_progress: Dictionary = {}
+## 進入這個關卡時的武器欄與消耗品（上一關帶過來的）；沒有檢查點時從這裡重來，第一關是空的（預設武器）。
+var level_start_loadout: Dictionary = {}
+## 通關時由關卡存下、帶進下一關的武器欄與消耗品。
+var _carried_loadout: Dictionary = {}
 
 var lives_left := -1
 var deaths := 0
@@ -60,6 +64,9 @@ func start_new_run(p_difficulty: DifficultyData) -> void:
 	StoryItems.reset_run()
 	Progression.reset_run()
 	level_start_progress = Progression.snapshot()
+	level_start_loadout = {}
+	_carried_loadout = {}
+	checkpoint_loadout = {}
 	EventBus.lives_changed.emit(lives_left)
 
 
@@ -75,13 +82,20 @@ func set_checkpoint(position: Vector2, loadout_snapshot: Dictionary, world_snaps
 func clear_checkpoint() -> void:
 	has_checkpoint = false
 	checkpoint_position = Vector2.ZERO
-	checkpoint_loadout = {}
+	checkpoint_loadout = level_start_loadout.duplicate(true)
 	checkpoint_world = {}
 	checkpoint_progress = {}
 
 
-## 進入新關卡：清掉檢查點並記下此刻的成長進度（成長會帶到下一關）。
+## 通關時呼叫：記下要帶進下一關的武器欄與消耗品。
+func carry_over(loadout_snapshot: Dictionary) -> void:
+	_carried_loadout = loadout_snapshot.duplicate(true)
+
+
+## 進入新關卡：清掉檢查點，記下此刻的成長進度，並帶入上一關的武器與消耗品（成長與裝備都會帶到下一關）。
 func enter_level() -> void:
+	level_start_loadout = _carried_loadout
+	_carried_loadout = {}
 	clear_checkpoint()
 	level_start_progress = Progression.snapshot()
 

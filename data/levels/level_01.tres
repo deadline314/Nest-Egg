@@ -114,6 +114,7 @@ decor = Dictionary[String, String]({
 })
 sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦", "茶", "修理", "網咖", "當舖", "夜市", "OPEN", "24H")
 billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人", "NEST 計畫|為了更好的明天", "軌道醫院|治癒，只差一張票", "天穹保全|您的安全，我們的承諾")
+next_level = "res://data/levels/level_02.tres"
 intro_scene = &"prologue"
 boss_scene = &"boss_intro"
 outro_scene = &"epilogue"
