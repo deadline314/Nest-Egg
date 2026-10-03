@@ -69,7 +69,8 @@ class Grid:
             prev = s
         return problems
 
-    def write(self, name, path_parts):
+    def write(self, name, path_parts, extra=None):
+        """extra：額外寫進 JSON 的欄位（props 道具清單、regions 材質覆蓋區）。"""
         rows = self.rows()
         segments = [[r[i:i + SEGMENT_WIDTH] for r in rows] for i in range(0, self.w, SEGMENT_WIDTH)]
         path = os.path.join(*path_parts)
@@ -77,6 +78,9 @@ class Grid:
             f.write('{\n  "segments": [\n')
             for si, seg in enumerate(segments):
                 f.write('    [\n' + ',\n'.join('      "' + r + '"' for r in seg) + '\n    ]' + (',' if si < len(segments) - 1 else '') + '\n')
-            f.write('  ]\n}\n')
+            f.write('  ]')
+            for key, value in (extra or {}).items():
+                f.write(',\n  "' + key + '": [\n' + ',\n'.join('    ' + json.dumps(v, ensure_ascii=False) for v in value) + '\n  ]')
+            f.write('\n}\n')
         json.load(open(path))
         print(f"{name}: {self.w}x{self.h} written")

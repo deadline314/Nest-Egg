@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=43 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=44 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_script"]
 [ext_resource type="Resource" path="res://data/enemies/grunt.tres" id="2_grunt"]
@@ -25,6 +25,7 @@
 [ext_resource type="Resource" path="res://data/props/credits_small.tres" id="44_credits_small"]
 [ext_resource type="Resource" path="res://data/props/credits_large.tres" id="45_credits_large"]
 [ext_resource type="Resource" path="res://data/shops/supply.tres" id="46_shop"]
+[ext_resource type="Resource" path="res://data/environment/themes/chapter1.tres" id="47_theme"]
 [ext_resource type="Resource" path="res://data/lighting/rooftop.tres" id="20_rooftop"]
 [ext_resource type="Resource" path="res://data/lighting/market.tres" id="21_market"]
 [ext_resource type="Resource" path="res://data/lighting/freight.tres" id="22_freight"]
@@ -119,6 +120,7 @@ intro_scene = &"prologue"
 boss_scene = &"boss_intro"
 outro_scene = &"epilogue"
 story_triggers = PackedStringArray("radio_start", "radio_market", "radio_shield", "radio_mech", "radio_facility", "radio_last")
+environment = ExtResource("47_theme")
 layout_path = "res://data/levels/level_01_map.json"
 lighting_zones = Array[ExtResource("30_zone")]([SubResource("Resource_zone0"), SubResource("Resource_zone1"), SubResource("Resource_zone2"), SubResource("Resource_zone3"), SubResource("Resource_zone4")])
 lighting_events = Array[ExtResource("31_event")]([SubResource("Resource_event0")])

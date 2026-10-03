@@ -13,6 +13,7 @@ func run() -> void:
 	_test_missing_texture()
 	await _test_level_with_environment()
 	await _test_level_without_environment()
+	_test_chapter_one()
 
 
 func _png_size(path: String) -> Vector2i:
@@ -146,3 +147,61 @@ func _test_level_without_environment() -> void:
 	var level := await start_level(data)
 	check(is_instance_valid(level.player), "沒有環境主題的關卡照常運作")
 	await end_level(level)
+
+
+## 第一章（NE-40）：六個區段的主題、道具擺放不遮住敵人與危險物、不卡進地形、覆蓋區的材質存在。
+func _test_chapter_one() -> void:
+	var data := load("res://data/levels/level_01.tres") as LevelData
+	check(data.environment != null, "第一章指定了環境主題")
+	check(data.environment.validate().is_empty(), "第一章環境主題通過檢查：%s" % ", ".join(data.environment.validate()))
+	var labels: PackedStringArray = []
+	for zone in data.environment.zones:
+		labels.append(zone.label)
+	for expected in ["屋頂巷弄", "霓虹市集", "貨運站", "設施入口", "停電走廊", "頭目機庫"]:
+		check(labels.has(expected), "第一章有「%s」區段" % expected)
+	var layout := LevelBuilder.parse(data)
+	var props := data.load_props()
+	check(props.size() >= 60, "第一章擺了足夠的道具（%d）" % props.size())
+	var categories: Dictionary[StringName, int] = {}
+	var danger: Array[Rect2] = []
+	for cells in layout.spike_rects + layout.laser_rects:
+		danger.append(layout.cells_to_pixels(cells))
+	var enemy_boxes: Array[Rect2] = []
+	for spawn in layout.spawns:
+		enemy_boxes.append(Rect2(spawn["position"] + Vector2(-14, -44), Vector2(28, 44)))
+	var solids: Array[Rect2] = []
+	for cells in layout.solid_rects:
+		solids.append(layout.cells_to_pixels(cells))
+	var unresolved := 0
+	for entry in props:
+		var prop := PropLibrary.find(StringName(str(entry["id"])), data.environment.prop_dir)
+		if prop == null:
+			unresolved += 1
+			continue
+		categories[prop.category] = categories.get(prop.category, 0) + 1
+		var placed := PropPlacement.resolve(entry, prop, layout)
+		if placed.is_empty():
+			unresolved += 1
+			continue
+		var rect: Rect2 = placed["rect"]
+		if prop.layer == PropData.Layer.FRONT:
+			for box in enemy_boxes:
+				check(not rect.intersects(box), "前層道具 %s（第 %d 欄）不遮住敵人" % [prop.id, int(entry["x"])])
+			for hazard in danger:
+				check(not rect.intersects(hazard), "前層道具 %s（第 %d 欄）不遮住危險物" % [prop.id, int(entry["x"])])
+		if prop.platform.size.x > 0.0:
+			var platform := Rect2(rect.position + prop.platform.position, prop.platform.size)
+			for solid in solids:
+				check(not platform.intersects(solid), "道具 %s 的平台（第 %d 欄）沒有卡進地形" % [prop.id, int(entry["x"])])
+	check(unresolved == 0, "第一章所有道具都找得到資料且站得到地表（%d 個有問題）" % unresolved)
+	for category in [&"rooftop", &"street", &"cargo", &"facility", &"hangar"]:
+		check(categories.get(category, 0) >= 3, "第一章用到 %s 類道具" % category)
+	for region in data.load_regions():
+		var path := "res://data/environment/materials/%s.tres" % region["material"]
+		check(ResourceLoader.exists(path), "覆蓋區材質 %s 存在" % region["material"])
+		var solid_cells := 0
+		for y in range(int(region["y0"]), int(region["y1"]) + 1):
+			for x in range(int(region["x0"]), int(region["x1"]) + 1):
+				if layout.cell(x, y) == LevelBuilder.SOLID:
+					solid_cells += 1
+		check(solid_cells > 0, "覆蓋區 %s（%d,%d）蓋在實心格上" % [region["material"], int(region["x0"]), int(region["y0"])])

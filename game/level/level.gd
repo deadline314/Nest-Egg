@@ -82,7 +82,7 @@ func _ready() -> void:
 	var terrain := Terrain.new()
 	terrain.name = "Terrain"
 	_world.add_child(terrain)
-	terrain.build(_layout, data.environment)
+	terrain.build(_layout, data.environment, data.load_regions())
 
 	_entities = Node2D.new()
 	_entities.name = "Entities"
@@ -341,19 +341,12 @@ func _spawn_props() -> void:
 		var prop := PropLibrary.find(StringName(str(entry["id"])), dir)
 		if prop == null:
 			continue
-		var tile := _layout.tile_size
-		var column := int(entry["x"])
-		var bottom := float((int(entry.get("y", 0)) + 1) * tile)
-		if bool(entry.get("ground", false)):
-			var center := clampi(column + int(prop.size.x / float(tile) * 0.5), 0, _layout.width - 1)
-			var surface := _layout.surface_heights[center]
-			if surface == INF:
-				push_warning("[Level] 道具 %s 第 %d 欄下方沒有地表，已略過" % [prop.id, column])
-				continue
-			bottom = surface
-		bottom += float(entry.get("dy", 0.0))
-		var left := float(column * tile) + float(entry.get("dx", 0.0))
-		_place_prop(prop, Vector2(left, bottom - prop.size.y), bool(entry.get("flip", false)))
+		var placed := PropPlacement.resolve(entry, prop, _layout)
+		if placed.is_empty():
+			push_warning("[Level] 道具 %s 第 %d 欄下方沒有地表，已略過" % [prop.id, int(entry["x"])])
+			continue
+		var rect: Rect2 = placed["rect"]
+		_place_prop(prop, rect.position, bool(placed["flip"]))
 
 
 func _place_prop(prop: PropData, top_left: Vector2, flip: bool) -> void:

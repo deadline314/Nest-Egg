@@ -10,21 +10,22 @@ const SIDE := Vector2i(24, 64)
 
 ## 材質清單：id -> {name, base（主色）, accent（點綴）, kind（繪製函式）}。
 const CATALOG: Array[Dictionary] = [
-	{"id": "asphalt", "name": "濕柏油路", "base": "2a2e38", "accent": "3a4254", "kind": "asphalt"},
-	{"id": "concrete", "name": "混凝土", "base": "3a3f48", "accent": "566070", "kind": "concrete"},
-	{"id": "brick", "name": "老舊磚牆", "base": "3c2a2c", "accent": "5a3a38", "kind": "brick"},
-	{"id": "rooftop", "name": "屋頂", "base": "2c3036", "accent": "484e58", "kind": "rooftop"},
-	{"id": "container_red", "name": "紅色貨櫃", "base": "5a2a28", "accent": "7a3a34", "kind": "container"},
-	{"id": "container_blue", "name": "藍色貨櫃", "base": "26405a", "accent": "36597c", "kind": "container"},
-	{"id": "container_green", "name": "綠色貨櫃", "base": "2a4a3a", "accent": "3a6650", "kind": "container"},
-	{"id": "container_rust", "name": "鏽蝕貨櫃", "base": "5a3a24", "accent": "7a5030", "kind": "container"},
-	{"id": "steel_plate", "name": "鋼板", "base": "343c48", "accent": "50607a", "kind": "steel"},
-	{"id": "grate", "name": "格柵", "base": "262c36", "accent": "46566a", "kind": "grate"},
-	{"id": "facility_floor", "name": "設施地板", "base": "2e3844", "accent": "35e0ff", "kind": "facility_floor"},
-	{"id": "facility_panel", "name": "設施面板", "base": "2a3442", "accent": "35e0ff", "kind": "facility_panel"},
-	{"id": "glass_curtain", "name": "玻璃帷幕", "base": "1c2c3c", "accent": "5a8aa8", "kind": "glass"},
-	{"id": "hangar", "name": "機庫地板", "base": "30343c", "accent": "ffc94a", "kind": "hangar"},
-	{"id": "old_metal", "name": "老舊金屬", "base": "3a3430", "accent": "6a4a30", "kind": "rust"},
+	{"id": "asphalt", "edge": "8ca6d9,0.55", "name": "濕柏油路", "base": "2a2e38", "accent": "3a4254", "kind": "asphalt"},
+	{"id": "concrete", "edge": "b3c7e6,0.6", "name": "混凝土", "base": "3a3f48", "accent": "566070", "kind": "concrete"},
+	{"id": "brick", "edge": "cc9a8c,0.5", "name": "老舊磚牆", "base": "3c2a2c", "accent": "5a3a38", "kind": "brick"},
+	{"id": "rooftop", "edge": "b3cff2,0.6", "name": "屋頂", "base": "2c3036", "accent": "484e58", "kind": "rooftop"},
+	{"id": "container_red", "edge": "ff9a8c,0.6", "name": "紅色貨櫃", "base": "7a3430", "accent": "9a4a42", "kind": "container"},
+	{"id": "container_blue", "edge": "8cc8ff,0.6", "name": "藍色貨櫃", "base": "30577a", "accent": "4673a0", "kind": "container"},
+	{"id": "container_green", "edge": "8cffc0,0.6", "name": "綠色貨櫃", "base": "36624c", "accent": "4a8466", "kind": "container"},
+	{"id": "container_rust", "edge": "ffc08c,0.6", "name": "鏽蝕貨櫃", "base": "7a4e2e", "accent": "9a6a3c", "kind": "container"},
+	{"id": "steel_plate", "edge": "b3ccff,0.6", "name": "鋼板", "base": "343c48", "accent": "50607a", "kind": "steel"},
+	{"id": "grate", "edge": "80ccff,0.6", "name": "格柵", "base": "262c36", "accent": "46566a", "kind": "grate"},
+	{"id": "facility_floor", "edge": "33e0ff,0.8", "name": "設施地板", "base": "2e3844", "accent": "35e0ff", "kind": "facility_floor"},
+	{"id": "facility_panel", "edge": "33e0ff,0.6", "name": "設施面板", "base": "2a3442", "accent": "35e0ff", "kind": "facility_panel"},
+	{"id": "glass_curtain", "edge": "99d9ff,0.7", "name": "玻璃帷幕", "base": "1c2c3c", "accent": "5a8aa8", "kind": "glass"},
+	{"id": "hangar", "edge": "d9a640,0.4", "name": "機庫地板", "base": "30343c", "accent": "ffc94a", "kind": "hangar"},
+	{"id": "hangar_wall", "edge": "808099,0.5", "name": "機庫牆面", "base": "12161c", "accent": "1e2836", "kind": "steel"},
+	{"id": "old_metal", "edge": "cc9966,0.55", "name": "老舊金屬", "base": "3a3430", "accent": "6a4a30", "kind": "rust"},
 ]
 
 
@@ -66,8 +67,8 @@ static func paint(spec: Dictionary) -> Dictionary:
 
 # 共用：頂面條的高光邊（亮在上緣）與側邊條的暗邊。
 static func _top_finish(top: EnvCanvas, base: Color, highlight := 0.16) -> void:
-	top.hline(0, base.lightened(highlight + 0.1), 0, -1, 2)
-	top.hline(2, base.lightened(highlight), 0, -1, 2)
+	top.hline(0, base.lightened(highlight + 0.32), 0, -1, 2)
+	top.hline(2, base.lightened(highlight + 0.12), 0, -1, 2)
 	top.hline(TOP.y - 3, base.darkened(0.3), 0, -1, 3)
 
 

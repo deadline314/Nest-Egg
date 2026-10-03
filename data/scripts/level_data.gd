@@ -84,6 +84,25 @@ func load_props() -> Array[Dictionary]:
 	return result
 
 
+## 讀取地圖 JSON 的 regions 清單：{ "x0", "x1", "y0", "y1"（格，含頭尾）, "material": 材質 id }。
+## 這些範圍內的實心格改用指定材質（貨櫃、天花板…），不受區段材質限制。
+func load_regions() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	if layout_path.is_empty() or not ResourceLoader.exists(layout_path):
+		return result
+	var json := load(layout_path) as JSON
+	if json == null or typeof(json.data) != TYPE_DICTIONARY:
+		return result
+	var raw: Variant = (json.data as Dictionary).get("regions", [])
+	if typeof(raw) != TYPE_ARRAY:
+		push_warning("[LevelData] %s 的 regions 必須是陣列" % id)
+		return result
+	for entry: Variant in raw:
+		if typeof(entry) == TYPE_DICTIONARY:
+			result.append(entry)
+	return result
+
+
 ## 檢查光影區段的設定，回傳問題清單（空代表沒問題）。
 func validate_lighting() -> PackedStringArray:
 	var problems := PackedStringArray()

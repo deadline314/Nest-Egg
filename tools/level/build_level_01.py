@@ -170,4 +170,66 @@ problems = grid.check_route()
 if problems:
     raise SystemExit("\n".join(problems))
 
-grid.write("level_01", (os.path.dirname(__file__), '..', '..', 'data', 'levels', 'level_01_map.json'))
+# ---------------------------------------------------------------------------
+# 場景美術：材質覆蓋區（貨櫃、天花板）與道具。道具只是裝飾，不改變地形與實體的位置。
+# 道具座標：x 是左邊的欄；ground 為真時站在該處地表；否則 y 是底邊所在的列。
+regions = [
+    # 屋頂以下是建築本體：磚牆與混凝土，不是整片屋頂碎石。
+    {"x0": 1, "x1": 27, "y0": 16, "y1": 19, "material": "brick"},
+    {"x0": 32, "x1": 52, "y0": 16, "y1": 19, "material": "concrete"},
+    {"x0": 178, "x1": 183, "y0": 17, "y1": 19, "material": "container_red"},
+    {"x0": 200, "x1": 205, "y0": 18, "y1": 19, "material": "container_blue"},
+    {"x0": 218, "x1": 223, "y0": 17, "y1": 19, "material": "container_green"},
+    {"x0": 240, "x1": 309, "y0": 0, "y1": 3, "material": "facility_panel"},
+    {"x0": 310, "x1": W - 2, "y0": 0, "y1": 3, "material": "steel_plate"},
+]
+
+
+def prop(prop_id, x, ground=True, y=None, flip=False, dx=0, dy=0):
+    entry = {"id": prop_id, "x": x}
+    if ground:
+        entry["ground"] = True
+    else:
+        entry["y"] = y
+    if flip:
+        entry["flip"] = True
+    if dx:
+        entry["dx"] = dx
+    if dy:
+        entry["dy"] = dy
+    return entry
+
+
+props = [
+    # S1 屋頂巷弄：天線、晾衣架、水塔、排氣管、樓梯間；巷子裡的管線與逃生梯；街上的雜物
+    prop("antenna", 1), prop("clothesline", 12), prop("satellite_dish", 17), prop("water_tower", 19),
+    prop("vent_stack", 24), prop("rooftop_hut", 25), prop("pipe_vertical", 31, False, 19),
+    prop("fire_escape", 29, False, 19), prop("vent_stack", 40), prop("ac_unit", 42, dx=4), prop("antenna", 48, flip=True),
+    prop("chimney_stack", 45), prop("trash_can", 55), prop("graffiti", 64, False, 18), prop("puddle", 60),
+    prop("vending_machine", 67), prop("street_lamp", 52),
+    # S2 霓虹市集：燈籠、麵攤、販賣機、路燈、電線桿、積水、候車亭
+    prop("lantern_string", 72, False, 10), prop("lantern_string", 120, False, 10), prop("noodle_stall", 96),
+    prop("vending_machine", 87), prop("street_lamp", 82), prop("street_lamp", 128), prop("utility_pole", 75, dx=-16),
+    prop("utility_pole", 156, dx=-16), prop("puddle", 100), prop("puddle", 118), prop("puddle", 136),
+    prop("bus_stop", 134), prop("bench", 121), prop("dumpster", 114), prop("fire_escape", 106, False, 19),
+    prop("trash_can", 90), prop("graffiti", 144, False, 18), prop("billboard_ad", 148, False, 12),
+    # S3 貨運站：起重機、堆高機、棧板、貨箱、柵欄、休息室
+    prop("worker_hut", 163), prop("forklift", 170), prop("pallet_stack", 174), prop("crane_arm", 189),
+    prop("crates_stack", 190), prop("fence", 196), prop("fence", 212), prop("crane_arm", 224), prop("barrels", 227),
+    prop("puddle", 207), prop("puddle", 200), prop("puddle", 225), prop("hazard_sign", 176, False, 14),
+    prop("pipe_horizontal", 206, False, 12),
+    # S4 設施入口與停電走廊
+    prop("facility_pipes", 246, False, 4), prop("facility_pipes", 290, False, 4), prop("camera_wall", 250, False, 5),
+    prop("camera_wall", 280, False, 5), prop("camera_wall", 300, False, 5, flip=True), prop("control_console", 248),
+    prop("server_rack", 254), prop("gate_door", 296, dx=32), prop("hazard_sign", 254, False, 10),
+    prop("hazard_sign", 278, False, 10), prop("floor_marking", 244), prop("floor_marking", 300),
+    prop("emergency_light", 264, False, 4), prop("emergency_light", 274, False, 4), prop("emergency_light", 284, False, 4),
+    prop("cables_hang", 266, False, 5), prop("cables_hang", 296, False, 5),
+    # S5 頭目機庫
+    prop("gantry_crane", 316, False, 8), prop("hangar_light", 318, False, 4), prop("hangar_light", 330, False, 4),
+    prop("hangar_light", 342, False, 4), prop("fuel_tank", 313), prop("fuel_tank", 345), prop("floor_marking", 322),
+    prop("floor_marking", 336), prop("hazard_sign", 326, False, 14),
+]
+
+grid.write("level_01", (os.path.dirname(__file__), '..', '..', 'data', 'levels', 'level_01_map.json'),
+           {"regions": regions, "props": props})

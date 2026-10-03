@@ -14,6 +14,8 @@ const MIN_PLAYER_CONTRAST := 0.6
 const MIN_EDGE_CONTRAST := 1.0
 const PLAYER_BOX := Rect2(-9, -44, 18, 40)
 const RING := 20.0
+const SAMPLES := 5
+const SAMPLE_INTERVAL := 0.2
 
 var _failed := false
 
@@ -25,8 +27,14 @@ func _ready() -> void:
 func _run() -> void:
 	add_child(LightKit.create_environment())
 	Story.auto_skip = true
+	# --level=level_01 只量測指定的關卡（開發時加快迭代）。
+	var only := ""
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--level="):
+			only = arg.trim_prefix("--level=")
 	for entry in LEVELS:
-		await _check_level(entry["path"], entry["spots"])
+		if only == "" or str(entry["path"]).contains(only):
+			await _check_level(entry["path"], entry["spots"])
 	get_tree().quit(1 if _failed else 0)
 
 
@@ -63,16 +71,21 @@ func _check_level(path: String, spots: Array) -> void:
 		for i in 60:
 			await get_tree().process_frame
 		await get_tree().create_timer(1.2).timeout
-		var image := get_viewport().get_texture().get_image()
-		var scale := float(image.get_width()) / get_viewport().get_visible_rect().size.x
-		var to_screen := get_viewport().get_canvas_transform()
-		var feet := player.global_position
-		var player_contrast := _contrast(image, scale, to_screen, Rect2(feet + PLAYER_BOX.position, PLAYER_BOX.size), RING)
-		# 地面頂面亮邊：腳下 1~3 像素 vs 再往下 6~12 像素。
-		var edge_rect := Rect2(feet + Vector2(-24, 0), Vector2(48, 3))
-		var below_rect := Rect2(feet + Vector2(-24, 8), Vector2(48, 6))
-		var edge_contrast := (_mean_luma(image, scale, to_screen, edge_rect) - _mean_luma(image, scale, to_screen, below_rect)) \
-				/ (_mean_luma(image, scale, to_screen, below_rect) + 0.02)
+		# 警報與霓虹會閃爍：連續取樣幾張取平均，量測才穩定。
+		var player_contrast := 0.0
+		var edge_contrast := 0.0
+		for sample in SAMPLES:
+			var image := get_viewport().get_texture().get_image()
+			var scale := float(image.get_width()) / get_viewport().get_visible_rect().size.x
+			var to_screen := get_viewport().get_canvas_transform()
+			var feet := player.global_position
+			player_contrast += _contrast(image, scale, to_screen, Rect2(feet + PLAYER_BOX.position, PLAYER_BOX.size), RING) / float(SAMPLES)
+			# 地面頂面亮邊：腳下 1~3 像素 vs 再往下 6~12 像素。
+			var edge_rect := Rect2(feet + Vector2(-24, 0), Vector2(48, 3))
+			var below_rect := Rect2(feet + Vector2(-24, 8), Vector2(48, 6))
+			var below := _mean_luma(image, scale, to_screen, below_rect)
+			edge_contrast += ((_mean_luma(image, scale, to_screen, edge_rect) - below) / (below + 0.02)) / float(SAMPLES)
+			await get_tree().create_timer(SAMPLE_INTERVAL).timeout
 		var ok := player_contrast >= MIN_PLAYER_CONTRAST and edge_contrast >= MIN_EDGE_CONTRAST
 		_failed = _failed or not ok
 		print("%-8s  %-8.2f  %-8.2f  %s" % [spot[0], player_contrast, edge_contrast, "OK" if ok else "太暗（門檻 %.1f / %.1f）" % [MIN_PLAYER_CONTRAST, MIN_EDGE_CONTRAST]])

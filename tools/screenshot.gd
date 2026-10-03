@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、environment、cutscene、screens、flow、transition、ui、settings、mouse_aim、block、story、story_ch2、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
+## 情境：all（預設）、spots（--scenario=spots:關卡檔:名稱）、environment、cutscene、screens、flow、transition、ui、settings、mouse_aim、block、story、story_ch2、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -24,6 +24,10 @@ func _run() -> void:
 	add_child(LightKit.create_environment())
 	# 劇情演出會暫停遊戲並蓋住畫面；只有 story 情境需要拍到演出。
 	Story.auto_skip = _scenario != "story" and _scenario != "story_ch2"
+	if _scenario.begins_with("spots"):
+		await _run_spots()
+		get_tree().quit()
+		return
 	if _scenario == "environment":
 		await _run_environment()
 		get_tree().quit()
@@ -1204,6 +1208,44 @@ func _run_settings() -> void:
 	_capture("settings_bindings")
 	settings._cancel_capture()
 	settings.queue_free()
+
+
+## 關卡各區段實景：--scenario=spots:level_01:before，每個區段停在檢查點／代表位置截圖（隱藏 HUD、清掉敵人）。
+func _run_spots() -> void:
+	var parts := _scenario.split(":")
+	var level_id := parts[1] if parts.size() > 1 else "level_01"
+	var tag := parts[2] if parts.size() > 2 else "now"
+	var spots: Array = SPOTS.get(level_id, [])
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load("res://data/levels/%s.tres" % level_id))
+	add_child(level)
+	await _settle(25)
+	level.hud.visible = false
+	level.player.health.setup(999, 0.0)
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	for id: String in Story.scene_ids():
+		Story._seen[StringName(id)] = true
+	var layout: LevelLayout = level._layout
+	for spot: Array in spots:
+		var tile: int = spot[1]
+		var y := layout.surface_heights[tile] - 2.0
+		if layout.surface_heights[tile] < layout.tile_size * 4.0:
+			y = layout.floor_below(tile, 4) - 2.0
+		level.player.global_position = Vector2(tile * layout.tile_size + 8.0, y)
+		level.player.velocity = Vector2.ZERO
+		level_camera_snap()
+		await _settle(40)
+		_capture("spot_%s_%s_%s" % [level_id, spot[0], tag])
+	level.queue_free()
+	await _settle(4)
+
+
+const SPOTS := {
+	"level_01": [["s1a", 12], ["s1b", 45], ["s1c", 62], ["s2a", 85], ["s2b", 118], ["s2c", 150], ["s3a", 175], ["s3b", 208], ["s3c", 232], ["s4a", 252], ["s4b", 280], ["s5", 330]],
+	"level_02": [["a", 30], ["b", 100], ["c", 175], ["d", 240], ["e", 285], ["f", 322]],
+}
 
 
 ## 環境元件預覽：材質畫廊（15 種地形材質 + 立面）與道具畫廊，逐頁截圖。

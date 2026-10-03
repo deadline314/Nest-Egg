@@ -57,6 +57,9 @@ func _paint_materials() -> void:
 		data.body = paths["body"]
 		data.top = paths["top"]
 		data.side = paths["side"]
+		if spec.has("edge"):
+			var edge: PackedStringArray = str(spec["edge"]).split(",")
+			data.edge_color = Color(Color.html(edge[0]), float(edge[1]))
 		_save_resource_once(data, "%s/materials/%s.tres" % [DATA_DIR, id])
 
 

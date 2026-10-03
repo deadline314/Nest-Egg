@@ -16,11 +16,14 @@ var _layout: LevelLayout
 var _theme: EnvironmentTheme
 ## 材質貼圖快取（路徑 -> 受光貼圖）。
 var _material_textures: Dictionary[String, Texture2D] = {}
+## 材質覆蓋區：{ "rect": Rect2i（格）, "material": TerrainMaterialData }。例如貨櫃、天花板用不同於區段的材質。
+var _regions: Array[Dictionary] = []
 
 
-func build(layout: LevelLayout, theme: EnvironmentTheme = null) -> void:
+func build(layout: LevelLayout, theme: EnvironmentTheme = null, regions: Array[Dictionary] = []) -> void:
 	_layout = layout
 	_theme = theme
+	_regions = _resolve_regions(regions)
 	_tile = layout.tile_size
 	_panel = LitTextures.load_texture(PANEL_PATH, Vector2i(PANEL_TEXTURE_SIZE, PANEL_TEXTURE_SIZE))
 	var solid_body := StaticBody2D.new()
@@ -50,7 +53,7 @@ func build(layout: LevelLayout, theme: EnvironmentTheme = null) -> void:
 	var edges := TerrainEdges.new()
 	edges.name = "Edges"
 	add_child(edges)
-	edges.build(_solid_rects, _platform_rects, Rect2(Vector2.ZERO, layout.pixel_size()))
+	edges.build(_solid_rects, _platform_rects, Rect2(Vector2.ZERO, layout.pixel_size()), _theme, _tile)
 
 
 func _make_shape(rect: Rect2, one_way: bool) -> CollisionShape2D:
@@ -122,7 +125,43 @@ func _draw_themed_chunk(canvas: CanvasItem, area: Rect2) -> void:
 			if zone != null and zone.material != null:
 				_draw_piece(canvas, zone.material, Rect2(x, rect.position.y, next_x - x, rect.size.y), full)
 			x = next_x
+	_draw_regions(canvas, area)
 	_draw_themed_platforms(canvas, area)
+
+
+## 把地圖 JSON 的覆蓋區（x0、x1、y0、y1 為格座標，material 為材質 id）換成材質資源；壞掉的略過並記錄。
+func _resolve_regions(raw: Array[Dictionary]) -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for entry in raw:
+		var id := str(entry.get("material", ""))
+		var path := "res://data/environment/materials/%s.tres" % id
+		var material: TerrainMaterialData = load(path) as TerrainMaterialData if ResourceLoader.exists(path) else null
+		if material == null or not (entry.has("x0") and entry.has("x1") and entry.has("y0") and entry.has("y1")):
+			push_warning("[Terrain] 材質覆蓋區無效（material=%s），已略過：%s" % [id, entry])
+			continue
+		var x0 := int(entry["x0"])
+		var y0 := int(entry["y0"])
+		result.append({"rect": Rect2i(x0, y0, int(entry["x1"]) - x0 + 1, int(entry["y1"]) - y0 + 1), "material": material})
+	return result
+
+
+## 覆蓋區：只蓋在實心格上（逐列找出連續的實心格），外露判斷用鄰格，所以疊在地面上的貨櫃只有外側才有邊條。
+func _draw_regions(canvas: CanvasItem, area: Rect2) -> void:
+	for region in _regions:
+		var cells: Rect2i = region["rect"]
+		var material: TerrainMaterialData = region["material"]
+		for row in range(cells.position.y, cells.end.y):
+			var start := -1
+			for column in range(cells.position.x, cells.end.x + 1):
+				var solid := column < cells.end.x and _is_solid(column, row)
+				if solid and start < 0:
+					start = column
+				elif not solid and start >= 0:
+					var run := Rect2(start * _tile, row * _tile, (column - start) * _tile, _tile)
+					var piece := run.intersection(area)
+					if piece.size.x > 0.0 and piece.size.y > 0.0:
+						_draw_piece(canvas, material, piece, run)
+					start = -1
 
 
 ## 單向平台：用所在區段材質的頂面條，底下加一道陰影，讓「可以站」一眼看得出來。
