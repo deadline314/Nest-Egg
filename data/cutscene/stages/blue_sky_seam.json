@@ -14,6 +14,18 @@
    "parallax": 0.0
   },
   {
+   "kind": "sprite",
+   "path": "res://art/environment/backdrop/sky_blue_clouds.webp",
+   "pos": [
+    -700,
+    -70
+   ],
+   "scale": 0.5,
+   "parallax": 0.05,
+   "filter": "linear",
+   "glow": false
+  },
+  {
    "kind": "rect",
    "rect": [
     -100,

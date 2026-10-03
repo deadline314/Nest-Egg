@@ -179,6 +179,28 @@
     "falloff": 2.0
    },
    "top_fade": 0.3
+  },
+  {
+   "id": "sky_blue_clouds",
+   "source": "ph_hdr_kloofendal_48d_partly_cloudy_puresky",
+   "elevation": [
+    2,
+    76
+   ],
+   "yaw_deg": 0,
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.05,
+    "tint": [
+     1.0,
+     1.0,
+     1.02
+    ],
+    "contrast": 1.1,
+    "gamma": 1.0
+   },
+   "top_fade": 0.0,
+   "quality": 86
   }
  ],
  "backdrop": [],

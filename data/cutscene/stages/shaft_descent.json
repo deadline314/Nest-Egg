@@ -20,46 +20,990 @@
    "parallax": 0.0
   },
   {
-   "kind": "rect",
-   "rect": [
-    120,
-    -400,
-    6,
-    1500
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    112,
+    -400
    ],
-   "color": "#1c2028"
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
   },
   {
-   "kind": "rect",
-   "rect": [
-    500,
-    -400,
-    6,
-    1500
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    112,
+    -257
    ],
-   "color": "#1c2028"
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
   },
   {
-   "kind": "rect",
-   "rect": [
-    130,
-    -400,
-    4,
-    1500
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    112,
+    -114
    ],
-   "color": "#2c323c",
-   "alpha": 0.6
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
   },
   {
-   "kind": "rect",
-   "rect": [
-    494,
-    -400,
-    4,
-    1500
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    112,
+    29
    ],
-   "color": "#2c323c",
-   "alpha": 0.6
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    112,
+    172
+   ],
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    112,
+    315
+   ],
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    112,
+    458
+   ],
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    112,
+    601
+   ],
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    112,
+    744
+   ],
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    112,
+    887
+   ],
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    112,
+    1030
+   ],
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    136,
+    -400
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    136,
+    -313
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    136,
+    -226
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    136,
+    -139
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    136,
+    -52
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    136,
+    35
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    136,
+    122
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    136,
+    209
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    136,
+    296
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    136,
+    383
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    136,
+    470
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    136,
+    557
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    136,
+    644
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    136,
+    731
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    136,
+    818
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    136,
+    905
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    136,
+    992
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    136,
+    1079
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    480,
+    -400
+   ],
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    480,
+    -257
+   ],
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    480,
+    -114
+   ],
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    480,
+    29
+   ],
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    480,
+    172
+   ],
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    480,
+    315
+   ],
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    480,
+    458
+   ],
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    480,
+    601
+   ],
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    480,
+    744
+   ],
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    480,
+    887
+   ],
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    480,
+    1030
+   ],
+   "scale": 0.28,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    462,
+    -400
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    462,
+    -313
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    462,
+    -226
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    462,
+    -139
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    462,
+    -52
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    462,
+    35
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    462,
+    122
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    462,
+    209
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    462,
+    296
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    462,
+    383
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    462,
+    470
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    462,
+    557
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    462,
+    644
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    462,
+    731
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    462,
+    818
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    462,
+    905
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    462,
+    992
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/props/pipe_vertical.png",
+   "pos": [
+    462,
+    1079
+   ],
+   "scale": 0.17,
+   "filter": "linear",
+   "glow": false,
+   "modulate": [
+    0.8,
+    0.9,
+    1.05,
+    1.0
+   ]
   },
   {
    "kind": "rect",
@@ -747,26 +1691,6 @@
     10
    ],
    "color": "#242a32"
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    236,
-    -400,
-    4,
-    1500
-   ],
-   "color": "#323a44"
-  },
-  {
-   "kind": "rect",
-   "rect": [
-    400,
-    -400,
-    4,
-    1500
-   ],
-   "color": "#323a44"
   },
   {
    "kind": "sprite",

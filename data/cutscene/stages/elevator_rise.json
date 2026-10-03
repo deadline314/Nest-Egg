@@ -15,6 +15,82 @@
   },
   {
    "kind": "sprite",
+   "path": "res://art/environment/backdrop/sky_storm.webp",
+   "pos": [
+    -700,
+    -40
+   ],
+   "scale": 0.5,
+   "parallax": 0.1,
+   "filter": "linear",
+   "glow": false,
+   "alpha": 0.55,
+   "modulate": [
+    1.3,
+    1.3,
+    1.4,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/backdrop/far_skyline.webp",
+   "pos": [
+    -640,
+    150
+   ],
+   "scale": 0.25,
+   "parallax": 0.3,
+   "filter": "linear",
+   "life": true,
+   "alpha": 0.6,
+   "modulate": [
+    1.3,
+    1.3,
+    1.5,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/backdrop/far_skyline.webp",
+   "pos": [
+    0,
+    150
+   ],
+   "scale": 0.25,
+   "parallax": 0.3,
+   "filter": "linear",
+   "life": true,
+   "alpha": 0.6,
+   "modulate": [
+    1.3,
+    1.3,
+    1.5,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/backdrop/far_skyline.webp",
+   "pos": [
+    640,
+    150
+   ],
+   "scale": 0.25,
+   "parallax": 0.3,
+   "filter": "linear",
+   "life": true,
+   "alpha": 0.6,
+   "modulate": [
+    1.3,
+    1.3,
+    1.5,
+    1.0
+   ]
+  },
+  {
+   "kind": "sprite",
    "path": "res://art/environment/props/elevator_door.png",
    "pos": [
     230,
