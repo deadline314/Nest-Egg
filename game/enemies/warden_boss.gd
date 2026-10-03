@@ -52,7 +52,7 @@ func _setup_states() -> void:
 	fsm.add(&"phase_shift", _phase_shift_tick, _phase_shift_enter)
 	fsm.start(&"intro")
 	EventBus.boss_started.emit(data.display_name, health.max_health)
-	Fx.shake(4.0, 0.5)
+	Feel.play(&"boss_intro")
 
 
 func _physics_process(delta: float) -> void:
@@ -146,7 +146,7 @@ func _leap_tick(_delta: float) -> void:
 
 func _land() -> void:
 	velocity.x = 0.0
-	Fx.shake(6.0, 0.3)
+	Feel.play(&"boss_land")
 	Fx.dust(global_position, 12, 120.0)
 	Sfx.play(&"explosion", -6.0)
 	var shockwave := data.find_projectile(&"boss_shockwave")
@@ -214,7 +214,7 @@ func _alive_summons() -> int:
 func _phase_shift_enter() -> void:
 	velocity.x = 0.0
 	_start_telegraph(PHASE_SHIFT_TIME)
-	Fx.shake(7.0, 0.6)
+	Feel.play(&"boss_phase_shift")
 	Fx.flash_light(_center(), Palette.DANGER, 200.0, 2.5, 0.8)
 	EventBus.toast_requested.emit("監管者進入暴走狀態")
 

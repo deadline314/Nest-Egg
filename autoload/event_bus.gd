@@ -30,7 +30,7 @@ signal checkpoint_reached(position: Vector2)
 signal lives_changed(lives: int)
 signal codex_card_unlocked(card_id: StringName, is_new: bool)
 
-signal screen_shake(strength: float, duration: float)
+signal screen_shake(px: float, duration: float)
 signal camera_kick(offset: Vector2)
 signal toast_requested(text: String)
 

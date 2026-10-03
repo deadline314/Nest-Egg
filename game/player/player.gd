@@ -18,7 +18,6 @@ const DROP_THROUGH_TIME := 0.25
 const MELEE_VISUAL_TIME := 0.12
 ## 近戰的衝擊力（重擊，打得普通敵人硬直）與命中時玩家自己的頓幀。
 const MELEE_IMPACT := 6.0
-const MELEE_FREEZE := 0.05
 ## 下車後短暫禁止再次上車（避免同一次按鍵下車又立刻上車）。
 const REMOUNT_COOLDOWN := 0.3
 ## 準星擴散每秒回復量與最大額外散佈角度。
@@ -387,7 +386,7 @@ func _try_fire() -> void:
 	Fx.flare(muzzle, weapon.color, 15.0, 0.05)
 	Fx.sparks(muzzle, weapon.color, 3, 280.0, 0.14, aim_dir, 0.7, 240.0)
 	Fx.kick(-aim_dir, weapon.camera_kick)
-	Fx.shake(weapon.screen_shake, 0.08)
+	Feel.shake_strength(weapon.screen_shake, 0.08)
 	if weapon.ejects_casing:
 		Fx.casing(aim_origin(), facing)
 	Sfx.play(weapon.fire_sound, -6.0)
@@ -449,8 +448,7 @@ func _try_melee() -> bool:
 			EventBus.hit_confirmed.emit(target_hurtbox.global_position, target_hurtbox.health.is_dead)
 			Fx.burst(target_hurtbox.global_position, Palette.CYAN, 6, 120.0, 0.2)
 	if landed:
-		Fx.freeze([self], MELEE_FREEZE)  # 被打到的敵人在 Enemy 裡依受擊層級自己凍結
-		Fx.shake(2.0, 0.08)
+		Feel.play(&"player_melee_hit", {"targets": [self]})  # 被打到的敵人在 Enemy 裡依受擊層級自己凍結
 		Sfx.play(&"hit", -3.0)
 	return true
 
@@ -482,8 +480,7 @@ func _start_finisher(target: Enemy) -> void:
 		global_position = destination
 	target.execute_finisher()
 	_visual.notify_finisher()
-	Fx.freeze([self, target], tuning.finisher_hitstop)
-	Fx.shake(5.0, 0.2)
+	Feel.play(&"player_finisher", {"targets": [self, target], "freeze": tuning.finisher_hitstop})
 	Fx.flash_light(target.global_position + Vector2(0, -10), Palette.CYAN, 120.0, 2.5, 0.3)
 	Sfx.play(&"finisher")
 	loadout.refill_ratio(tuning.finisher_ammo_refund)
@@ -700,8 +697,7 @@ func _on_parry(info: DamageInfo, at: Vector2) -> void:
 		if enemy != null:
 			enemy.stun(tuning.parry_stun)
 			enemy.velocity.x = signf(enemy.global_position.x - global_position.x) * 160.0
-	Fx.hitstop(0.08)
-	Fx.shake(3.0, 0.12)
+	Feel.play(&"player_parry")
 	Fx.impact(at, aim_dir, Palette.CYAN, 14)
 	Fx.flash_light(at, Palette.CYAN, 110.0, 2.6, 0.25)
 	Sfx.play(&"parry", -2.0, 0.03)
@@ -729,7 +725,7 @@ func _guard_break() -> void:
 	_guard_regen_delay_left = tuning.guard_break_lockout
 	state = State.STAGGERED
 	_stagger_left = tuning.guard_break_stun
-	Fx.shake(4.0, 0.2)
+	Feel.play(&"player_guard_break")
 	Fx.burst(aim_origin(), Palette.CYAN, 18, 160.0, 0.4)
 	Sfx.play(&"hurt", -6.0, 0.0)
 	EventBus.toast_requested.emit("護盾破防")
@@ -746,8 +742,7 @@ func _on_damaged(info: DamageInfo) -> void:
 	if side == 0.0:
 		side = -facing
 	velocity = Vector2(side * tuning.hurt_knockback.x, -tuning.hurt_knockback.y)
-	Fx.hitstop(0.07)
-	Fx.shake(4.0, 0.15)
+	Feel.play(&"player_hurt")
 	Fx.flash_light(global_position + Vector2(0, -24), Palette.DANGER, 70.0, 1.5, 0.2)
 	Sfx.play(&"hurt", -2.0)
 	_visual.notify_hurt()
@@ -759,8 +754,7 @@ func _on_died(info: DamageInfo) -> void:
 	is_crouching = false
 	Fx.burst(global_position + Vector2(0, -24), Palette.CYAN, 24, 200.0, 0.6)
 	Fx.burst(global_position + Vector2(0, -24), Palette.ARMOR, 12, 160.0, 0.5)
-	Fx.shake(6.0, 0.3)
-	Fx.hitstop(0.14)
+	Feel.play(&"player_death")
 	Fx.flash_light(global_position + Vector2(0, -24), Palette.CYAN, 160.0, 3.0, 0.6)
 	Sfx.play(&"explosion", -4.0)
 	_light.enabled = false

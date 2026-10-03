@@ -542,7 +542,7 @@ func _start_boss_fight() -> void:
 	camera.lock_left(_layout.arena_x)
 	if data.boss_lighting != null:
 		EventBus.lighting_override_requested.emit(BOSS_LIGHTING_ID, data.boss_lighting, BOSS_LIGHTING_FADE)
-	Fx.shake(4.0, 0.4)
+	Feel.play(&"boss_arena_lock")
 	EventBus.toast_requested.emit("警告：偵測到大型反應")
 	if _layout.boss_spawn.is_empty():
 		push_warning("[Level] 有戰場標記 B 但沒有頭目")

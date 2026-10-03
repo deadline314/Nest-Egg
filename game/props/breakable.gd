@@ -119,7 +119,7 @@ func _shatter() -> void:
 	var big := data.look == BreakableData.Look.GLASS
 	Fx.burst(center, Palette.CYAN if big else data.color.lightened(0.2), 22 if big else 14, 150.0, 0.5)
 	Fx.impact(center, Vector2.UP, data.color.lightened(0.3), 8)
-	Fx.shake(2.5, 0.15)
+	Feel.play(&"breakable_break")
 	Sfx.play(&"glass_break" if big else &"crate_break", -2.0)
 	_disable()
 	broken.emit(self)

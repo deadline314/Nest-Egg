@@ -54,7 +54,7 @@ func tick_step(position: Vector2, on_floor: bool) -> void:
 	if int(step.get("spark", 0)) > 0:
 		Fx.burst(feet, _color(step.get("spark_color", "#ffd070")), int(step["spark"]), 90.0, 0.2)
 	if float(step.get("shake", 0.0)) > 0.0:
-		Fx.shake(float(step["shake"]), 0.08)
+		Feel.shake_strength(float(step["shake"]), 0.08)
 
 
 func play_hit(at: Vector2, from_direction: Vector2) -> void:
@@ -121,9 +121,9 @@ func play_death(center: Vector2, feet: Vector2, host: Node = null, rig: Characte
 			_:
 				RigLibrary.report_once("vfx_extra:%s:%s" % [_owner_id, extra], "[EnemyVfx] %s 的死亡特效沒有「%s」" % [PATH % _owner_id, extra])
 	if float(death.get("shake", 0.0)) > 0.0:
-		Fx.shake(float(death["shake"]), 0.14)
+		Feel.shake_strength(float(death["shake"]), 0.14)
 	if float(death.get("hitstop", 0.0)) > 0.0:
-		Fx.freeze([host], float(death["hitstop"]))
+		Feel.freeze([host], float(death["hitstop"]))
 
 
 ## 進入狀態時的特效。at＝feet／center／muzzle 之一（預設 center）；muzzle 由呼叫者傳入。
@@ -148,7 +148,7 @@ func play_state(state: StringName, feet: Vector2, center: Vector2, muzzle: Vecto
 	if bool(def.get("steam", false)):
 		Fx.steam(at)
 	if float(def.get("shake", 0.0)) > 0.0:
-		Fx.shake(float(def["shake"]), 0.1)
+		Feel.shake_strength(float(def["shake"]), 0.1)
 	if def.has("sound"):
 		Sfx.play(StringName(str(def["sound"])), float(def.get("sound_db", -6.0)))
 

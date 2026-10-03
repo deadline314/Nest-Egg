@@ -250,7 +250,11 @@ func _test_checkpoint_restore() -> void:
 	channel_switch.toggle()
 	await frames(4)
 	level.player.global_position = checkpoint.global_position
-	await frames(6)
+	await physics_frames(20)
+	Input.action_press(&"interact")  # 電話亭要按互動鍵撥號
+	await physics_frames(2)
+	Input.action_release(&"interact")
+	await physics_frames(110)
 	check(GameState.has_checkpoint and GameState.checkpoint_world.size() >= 3, "checkpoint stores the world state (%d entries)" % GameState.checkpoint_world.size())
 	check(GameState.checkpoint_world.get(crate.state_key()) == true, "snapshot records the broken crate")
 	await end_level(level)

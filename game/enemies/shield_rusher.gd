@@ -91,7 +91,7 @@ func _skid_tick(delta: float) -> void:
 func _dazed_enter() -> void:
 	velocity.x = -facing * 80.0
 	velocity.y = -120.0
-	Fx.shake(3.0, 0.15)
+	Feel.play(&"shield_dazed")
 	Fx.impact(_center() + Vector2(facing * 10.0, 0), Vector2(-facing, -0.5), Palette.WARNING, 10)
 	Sfx.play(&"block", -2.0, 0.2)
 

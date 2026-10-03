@@ -74,7 +74,7 @@ func _set_open(open: bool, silent: bool) -> void:
 		queue_redraw()
 	else:
 		Sfx.play(&"gate", -3.0)
-		Fx.shake(1.5, 0.2)
+		Feel.play(&"gate_open")
 
 
 func state_key() -> String:

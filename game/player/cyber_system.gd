@@ -133,7 +133,7 @@ func _emit_pulse() -> void:
 	pulse.position = center
 	if player != null and player.get_parent() != null:
 		player.get_parent().add_child(pulse)
-	Fx.shake(3.0, 0.2)
+	Feel.play(&"cyber_pulse")
 	Fx.flash_light(center, _ability.color, _ability.radius * 1.4, 2.0, 0.3)
 
 

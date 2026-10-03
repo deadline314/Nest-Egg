@@ -207,7 +207,7 @@ func _alarm_enter() -> void:
 	raise_alarm()
 	Sfx.play(&"alarm", -4.0, 0.02)
 	Fx.flash_light(_center(), COLOR_ALARM, data.ability_radius * 0.5, 1.6, 0.4)
-	Fx.shake(1.5, 0.1)
+	Feel.play(&"alarm_raised")
 
 
 func _alarm_tick(delta: float) -> void:

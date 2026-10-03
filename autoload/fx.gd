@@ -141,10 +141,10 @@ func _clear_frozen() -> void:
 	_release_frozen(1 << 60)
 
 
-## 震動強度約 1（輕微）~ 8（巨大爆炸）。
-func shake(strength: float, duration: float) -> void:
-	if strength > 0.0 and duration > 0.0:
-		EventBus.screen_shake.emit(strength, duration)
+## 鏡頭震動的底層：峰值像素與秒數。其他程式一律走 Feel。
+func shake(px: float, duration: float) -> void:
+	if px > 0.0 and duration > 0.0:
+		EventBus.screen_shake.emit(px, duration)
 
 
 ## 方向性鏡頭後座（射擊時往反方向微推）。
@@ -380,7 +380,7 @@ func explosion(position: Vector2, radius: float, damage: int, team: Combat.Team,
 	flash_light(position, color, radius * 4.0, 2.2, 0.35)
 	# 整個環境光被閃亮一下：爆炸越大越亮。
 	EventBus.ambient_flash_requested.emit(color.lerp(Palette.WHITE, 0.5), clampf(0.12 + radius / 160.0, 0.2, 0.5), 0.3)
-	shake(clampf(radius / 6.0, 2.0, 8.0), 0.25)
+	Feel.shake_strength(clampf(radius / 6.0, 2.0, 8.0), 0.25)
 	Sfx.play(&"explosion", -2.0, 0.1)
 
 

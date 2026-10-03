@@ -69,7 +69,7 @@ func _setup_states() -> void:
 	fsm.add(&"phase_shift", _phase_shift_tick, _phase_shift_enter)
 	fsm.start(&"intro")
 	EventBus.boss_started.emit(data.display_name, health.max_health)
-	Fx.shake(4.0, 0.5)
+	Feel.play(&"boss_intro")
 	_build_rails.call_deferred()
 
 
@@ -206,7 +206,7 @@ func _dash_tick(_delta: float) -> void:
 func _dash_recover_enter() -> void:
 	_vulnerable = true
 	hurtbox.damage_scale = VULNERABLE_SCALE
-	Fx.shake(3.0, 0.15)
+	Feel.play(&"boss_recover_thud")
 
 
 func _dash_recover_exit() -> void:
@@ -323,7 +323,7 @@ func _phase_shift_enter() -> void:
 	velocity.x = 0.0
 	_alpha = 1.0
 	_start_telegraph(PHASE_SHIFT_TIME)
-	Fx.shake(7.0, 0.6)
+	Feel.play(&"boss_phase_shift")
 	Fx.flash_light(_center(), Palette.WARNING, 200.0, 2.5, 0.8)
 	EventBus.toast_requested.emit("回收員進入過載狀態")
 	for rail in _rails:

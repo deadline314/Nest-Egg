@@ -173,7 +173,7 @@ func _try_fire() -> void:
 	_muzzle_flash = 0.07
 	Fx.flash_light(muzzle, weapon.color, 80.0, weapon.muzzle_light_energy, 0.1)
 	Fx.kick(-aim_dir, weapon.camera_kick)
-	Fx.shake(weapon.screen_shake, 0.1)
+	Feel.shake_strength(weapon.screen_shake, 0.1)
 	Sfx.play(weapon.fire_sound, -5.0)
 	if weapon.ejects_casing:
 		Fx.casing(global_position + Vector2(0, -data.body_size.y * 0.7), facing)
@@ -182,7 +182,7 @@ func _try_fire() -> void:
 func _check_landing() -> void:
 	var on_floor := is_on_floor()
 	if on_floor and not _was_on_floor and _fall_speed > STOMP_SHAKE_SPEED:
-		Fx.shake(3.0, 0.15)
+		Feel.play(&"vehicle_stomp")
 		Fx.dust(global_position, 8, 80.0)
 		Sfx.play(&"land", -4.0)
 	_was_on_floor = on_floor
@@ -190,7 +190,7 @@ func _check_landing() -> void:
 
 func _on_damaged(_info: DamageInfo) -> void:
 	_flash_left = FLASH_TIME
-	Fx.shake(2.0, 0.1)
+	Feel.play(&"vehicle_hurt")
 	Sfx.play(&"block", -8.0)
 
 

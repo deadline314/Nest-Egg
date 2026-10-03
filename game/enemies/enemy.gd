@@ -22,11 +22,6 @@ const POISE_RECOVER := 2.0
 const STAGGER_RATIO := 1.5
 const BREAK_RATIO := 2.5
 const REACTION_GRACE := 0.5
-## 各層的命中頓幀（只凍結攻擊方與被打方的秒數）與退縮幅度；輕擊沒有頓幀。
-const FLINCH_FREEZE := 0.03
-const STAGGER_FREEZE := 0.06
-## 擊殺的頓幀：比畏縮與硬直都長。
-const KILL_FREEZE := 0.07
 ## 衝擊力 1（輕擊）到 1 + DEATH_FORCE_RANGE 之間算死亡力道 0～1；重擊致死時往上彈起的速度。
 const DEATH_FORCE_RANGE := 6.0
 const DEATH_HOP := 90.0
@@ -708,12 +703,11 @@ func _apply_hit_tier(tier: HitTier, info: DamageInfo) -> void:
 	if tier == HitTier.FLINCH:
 		_flinch_left = data.flinch_time
 		_reaction_grace_left = REACTION_GRACE + data.flinch_time
-		Fx.freeze([self, info.get_attacker()], FLINCH_FREEZE)
+		Feel.play(&"enemy_flinch", {"targets": [self, info.get_attacker()]})
 		return
 	stun(data.stagger_time)
 	_reaction_grace_left = REACTION_GRACE + data.stagger_time
-	Fx.freeze([self, info.get_attacker()], STAGGER_FREEZE)
-	Fx.shake(1.2, 0.08)
+	Feel.play(&"enemy_stagger", {"targets": [self, info.get_attacker()]})
 
 
 func _on_blocked(_info: DamageInfo) -> void:
@@ -747,8 +741,7 @@ func _on_died(info: DamageInfo) -> void:
 		Fx.flash_light(center, data.color, 70.0, 1.2, 0.25)
 	if by_finisher:
 		Fx.burst(center, Palette.CYAN, 24, 240.0, 0.5)
-	Fx.shake(2.5, 0.12)
-	Fx.freeze([self, info.get_attacker() if info != null else null], KILL_FREEZE)
+	Feel.play(&"enemy_kill", {"targets": [self, info.get_attacker() if info != null else null]})
 	Sfx.play(&"kill", -4.0)
 	if by_player:
 		EventBus.enemy_killed.emit(data.id, by_finisher)
