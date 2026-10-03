@@ -24,6 +24,7 @@ const DEFAULT_SPRINGS: Array[Dictionary] = [
 	{"bone": "hair_1", "rest": 0.25, "gain": 0.5},
 	{"bone": "hair_2", "rest": 0.0, "gain": 0.4},
 ]
+const ACTIONS_PATH := "res://art/rigs/action_poses.json"
 const SPRING_MIN := -0.8
 const SPRING_MAX := 1.6
 const RECOIL_RECOVERY := 9.0
@@ -41,6 +42,11 @@ var _time := 0.0
 var _recoil := 0.0
 var _hurt_left := 0.0
 var _death_time := 0.0
+## 專屬動作：目前（或剛結束、正在淡出）的動作、各骨頭的目標角度與權重。
+var _action_pose: Dictionary = {}
+var _action_w := 0.0
+var _action_skip_ik := false
+var _action_weapon_angle := NAN  # 動作指定的武器角度（NAN＝跟著手轉）
 var _springs: Array[Dictionary] = []
 var _spring_angle: Dictionary[StringName, float] = {}
 var _spring_velocity: Dictionary[StringName, float] = {}
@@ -77,6 +83,7 @@ func update(delta: float, input: RigInput) -> void:
 	var aim_angle := clampf(local_aim.angle(), -MAX_AIM_ANGLE, MAX_AIM_ANGLE)
 
 	var target := _body_pose(delta, input, local_velocity, aim_angle)
+	_apply_action(delta, input, target)
 	var blend := 1.0 - exp(-POSE_SHARPNESS * delta)
 	for bone_name: StringName in target.keys():
 		if bone_name == &"_hip_y" or bone_name == &"_hip_x":
@@ -210,6 +217,13 @@ func _forward_kinematics() -> void:
 func _solve_arms(input: RigInput, aim_angle: float) -> void:
 	var weapon := _rig.weapon_def()
 	var weapon_root := _rig.weapon_root()
+	if _action_skip_ik and _action_w > 0.3:
+		# 專屬動作自己決定手臂：武器跟著前手走，不再握槍瞄準。
+		if _rig.has_bone(&"hand_front"):
+			weapon_root.visible = not weapon.is_empty()
+			weapon_root.position = _global_pos.get(&"hand_front", Vector2.ZERO)
+			weapon_root.rotation = _global_angle.get(&"hand_front", 0.0) - PI * 0.5 if is_nan(_action_weapon_angle) else _action_weapon_angle
+		return
 	var anchor: Array = _rig.weapon_anchor()
 	var anchor_bone: StringName = anchor[0]
 	var anchor_point: Vector2 = _global_pos.get(anchor_bone, Vector2.ZERO) + (anchor[1] as Vector2).rotated(_global_angle.get(anchor_bone, 0.0))
@@ -262,6 +276,72 @@ func _reach_arm(upper: StringName, lower: StringName, hand: StringName, target: 
 	_rig.bone(upper).rotation = upper_global - parent_angle
 	_rig.bone(lower).rotation = lower_global - upper_global
 	_rig.bone(hand).rotation = hand_angle - lower_global
+
+
+## 專屬動作：把目前進度的骨頭角度（keys 之間緩動內插）依權重混進目標姿勢；沒有動作時權重淡出到 0。
+func _apply_action(delta: float, input: RigInput, target: Dictionary) -> void:
+	var def: Dictionary = {}
+	if input.action != &"":
+		var actions: Variant = RigLibrary.load_json(ACTIONS_PATH).get("actions", {})
+		if typeof(actions) == TYPE_DICTIONARY and (actions as Dictionary).has(str(input.action)):
+			def = (actions as Dictionary)[str(input.action)]
+		else:
+			RigLibrary.report_once("action:" + str(input.action), "[HumanoidAnimator] %s 沒有專屬動作「%s」" % [ACTIONS_PATH, input.action])
+	if def.is_empty():
+		_action_w = move_toward(_action_w, 0.0, 10.0 * delta)
+	else:
+		_action_skip_ik = bool(def.get("skip_ik", false))
+		_action_weapon_angle = float(def["weapon_angle"]) if def.has("weapon_angle") else NAN
+		_action_w = move_toward(_action_w, 1.0, float(def.get("blend", 12.0)) * delta)
+		_action_pose = _sample_action(def, clampf(input.action_t, 0.0, 1.0))
+	if _action_w <= 0.0:
+		return
+	for key: Variant in _action_pose.keys():
+		var bone_name := StringName(str(key))
+		var goal: float = _action_pose[key]
+		if bone_name == &"_hip_x" or bone_name == &"_hip_y":
+			target[bone_name] = lerpf(float(target.get(bone_name, 0.0)), goal, _action_w)
+		else:
+			target[bone_name] = lerp_angle(float(target.get(bone_name, _angles.get(bone_name, 0.0))), goal, _action_w)
+
+
+## 動作在進度 t 的各骨頭角度（含 _hip_x／_hip_y）：每根骨頭只看有寫到它的 key，之間用 smoothstep 內插，前後超出就停在端點。
+func _sample_action(def: Dictionary, t: float) -> Dictionary:
+	var tracks: Dictionary = {}  # bone -> Array of [t, value]
+	for key_entry: Variant in def.get("keys", []):
+		if typeof(key_entry) != TYPE_DICTIONARY:
+			continue
+		var k := key_entry as Dictionary
+		var kt := float(k.get("t", 0.0))
+		var values: Dictionary = (k.get("bones", {}) as Dictionary).duplicate() if typeof(k.get("bones", {})) == TYPE_DICTIONARY else {}
+		if k.has("hip_x"):
+			values["_hip_x"] = k["hip_x"]
+		if k.has("hip_y"):
+			values["_hip_y"] = k["hip_y"]
+		for bone: Variant in values.keys():
+			if not tracks.has(bone):
+				tracks[bone] = []
+			(tracks[bone] as Array).append([kt, float(values[bone])])
+	var out: Dictionary = {}
+	for bone: Variant in tracks.keys():
+		var points: Array = tracks[bone]
+		var bone_name := StringName(str(bone))
+		if bone_name != &"_hip_x" and bone_name != &"_hip_y" and not _rig.has_bone(bone_name):
+			RigLibrary.report_once("action_bone:" + str(bone), "[HumanoidAnimator] %s 的動作用到不存在的骨頭：%s" % [ACTIONS_PATH, bone])
+			continue
+		var value: float = (points[points.size() - 1] as Array)[1]
+		if t <= float((points[0] as Array)[0]):
+			value = (points[0] as Array)[1]
+		else:
+			for i in range(points.size() - 1):
+				var a: Array = points[i]
+				var b: Array = points[i + 1]
+				if t <= float(b[0]):
+					var span := maxf(0.0001, float(b[0]) - float(a[0]))
+					value = lerpf(float(a[1]), float(b[1]), smoothstep(0.0, 1.0, (t - float(a[0])) / span))
+					break
+		out[bone_name] = value
+	return out
 
 
 func _set_rotation(bone_name: StringName, value: float) -> void:

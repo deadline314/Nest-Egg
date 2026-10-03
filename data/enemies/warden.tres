@@ -33,3 +33,4 @@ health_drop_chance = 0.0
 rig_skin = "warden"
 rig_weapon = "minigun"
 credit_value = 100
+rig_actions = { "burst_windup": "brace", "leap_windup": "windup_overhead", "leap": "slam", "fan_windup": "brace", "summon_windup": "windup_overhead", "phase_shift": "vent" }

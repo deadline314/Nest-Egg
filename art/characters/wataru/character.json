@@ -1,172 +1,121 @@
 {
   "id": "wataru",
   "display_name": "航",
-  "rig": "res://art/rigs/humanoid.json",
-  "texture_scale": 0.25,
-  "scale": 0.74,
-  "description": "外觀（skin）定義：textures 是美術要交付的圖片清單（尺寸、支點）；parts 是把圖片掛到骨頭上的方式。替換美術只要依 textures 的尺寸與支點畫好同名 PNG 覆蓋即可。",
+  "rig": "res://art/rigs/wataru.json",
+  "texture_scale": 0.05,
+  "scale": 1.0,
+  "description": "外觀（skin）定義：textures 是零件圖片的尺寸與支點；parts 是把圖片掛到骨頭上的方式。由 tools/comfyui/cut_layers.py 依分件圖層切出。",
   "textures": {
-    "arm_lower": {
-      "file": "parts/arm_lower.png",
-      "size": [
-        22,
-        44
-      ],
-      "pivot": [
-        11,
-        5
-      ],
-      "note": "前臂，支點＝手肘，手腕在支點下方 32px。",
-      "glow": "parts/arm_lower_glow.png"
-    },
-    "arm_upper": {
-      "file": "parts/arm_upper.png",
-      "size": [
-        24,
-        48
-      ],
-      "pivot": [
-        12,
-        6
-      ],
-      "note": "上臂，支點＝肩關節，手肘在支點下方 36px。前後手共用（後手自動調暗）。"
-    },
-    "coat_1": {
-      "file": "parts/coat_1.png",
-      "size": [
-        40,
-        40
-      ],
-      "pivot": [
-        20,
-        4
-      ],
-      "note": "後衣襬上段，支點在上緣（腰後）。"
-    },
-    "coat_2": {
-      "file": "parts/coat_2.png",
-      "size": [
-        40,
-        44
-      ],
-      "pivot": [
-        20,
-        4
-      ],
-      "note": "後衣襬下段，支點在上緣。"
-    },
-    "foot": {
-      "file": "parts/foot.png",
-      "size": [
-        36,
-        22
-      ],
-      "pivot": [
-        12,
-        4
-      ],
-      "note": "腳（鞋），支點＝腳踝，腳尖朝右。"
-    },
-    "hair_front": {
-      "file": "parts/hair_front.png",
-      "size": [
-        64,
-        64
-      ],
-      "pivot": [
-        28,
-        60
-      ],
-      "note": "瀏海與頭頂頭髮，與 head 同一個支點，蓋在臉上。"
-    },
-    "hand": {
-      "file": "parts/hand.png",
-      "size": [
-        22,
-        22
-      ],
-      "pivot": [
-        8,
-        8
-      ],
-      "note": "手（握拳，拳面朝右），支點＝手腕。"
-    },
-    "head": {
-      "file": "parts/head.png",
-      "size": [
-        56,
-        64
-      ],
-      "pivot": [
-        24,
-        60
-      ],
-      "note": "頭部（含臉），支點＝脖子根部。臉朝右。",
-      "glow": "parts/head_glow.png"
-    },
-    "leg_lower": {
-      "file": "parts/leg_lower.png",
-      "size": [
-        26,
-        56
-      ],
-      "pivot": [
-        12,
-        4
-      ],
-      "note": "小腿，支點＝膝蓋，腳踝在支點下方 44px。"
-    },
-    "leg_upper": {
-      "file": "parts/leg_upper.png",
-      "size": [
-        28,
-        56
-      ],
-      "pivot": [
-        14,
-        6
-      ],
-      "note": "大腿，支點＝髖關節，膝蓋在支點下方 44px。"
-    },
     "pelvis": {
       "file": "parts/pelvis.png",
       "size": [
-        52,
-        36
+        136,
+        94
       ],
       "pivot": [
-        26,
-        10
+        67.55,
+        76.55
       ],
-      "note": "骨盆與腰帶，支點＝髖部中心。"
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "torso": {
       "file": "parts/torso.png",
       "size": [
-        56,
-        60
+        125,
+        196
       ],
       "pivot": [
-        28,
-        56
+        61.95,
+        178.82
       ],
-      "note": "軀幹，支點＝腰部；肩膀約在支點上方 40px。胸口朝右。",
-      "glow": "parts/torso_glow.png"
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "head": {
+      "file": "parts/head.png",
+      "size": [
+        181,
+        183
+      ],
+      "pivot": [
+        80.56,
+        184.51
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "leg_upper": {
+      "file": "parts/leg_upper.png",
+      "size": [
+        122,
+        168
+      ],
+      "pivot": [
+        59.48,
+        -8.84
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "leg_lower": {
+      "file": "parts/leg_lower.png",
+      "size": [
+        102,
+        169
+      ],
+      "pivot": [
+        47.44,
+        5.19
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "foot": {
+      "file": "parts/foot.png",
+      "size": [
+        129,
+        84
+      ],
+      "pivot": [
+        29.11,
+        36.31
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "arm_upper": {
+      "file": "parts/arm_upper.png",
+      "size": [
+        63,
+        123
+      ],
+      "pivot": [
+        29.81,
+        -4.94
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "arm_lower": {
+      "file": "parts/arm_lower.png",
+      "size": [
+        73,
+        124
+      ],
+      "pivot": [
+        36.32,
+        5.61
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "hand": {
+      "file": "parts/hand.png",
+      "size": [
+        65,
+        47
+      ],
+      "pivot": [
+        2.07,
+        25.3
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     }
   },
   "parts": [
-    {
-      "name": "coat_2",
-      "texture": "coat_2",
-      "bone": "coat_2",
-      "z": -8
-    },
-    {
-      "name": "coat_1",
-      "texture": "coat_1",
-      "bone": "coat_1",
-      "z": -8
-    },
     {
       "name": "arm_back_upper",
       "texture": "arm_upper",
@@ -246,12 +195,6 @@
       "z": 5
     },
     {
-      "name": "hair_front",
-      "texture": "hair_front",
-      "bone": "head",
-      "z": 6
-    },
-    {
       "name": "arm_front_upper",
       "texture": "arm_upper",
       "bone": "arm_front_upper",
@@ -269,22 +212,5 @@
       "bone": "hand_front",
       "z": 10
     }
-  ],
-  "painter_style": {
-    "kind": "wataru",
-    "skin": "#f6e2d6",
-    "hair": "#2a2433",
-    "coat": "#6aa98a",
-    "coat_dark": "#4f8a6d",
-    "lining": "#d6f7df",
-    "trim": "#8fe39a",
-    "suit": "#6aa98a",
-    "pants": "#86bfa0",
-    "boots": "#cfd8d2",
-    "chrome": "#b4c0d0",
-    "armor": "#dfe9e3",
-    "eye": "#4aa86b",
-    "accent": "#8fe39a",
-    "outline": "#07080d"
-  }
+  ]
 }

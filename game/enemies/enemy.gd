@@ -148,6 +148,7 @@ func _drive_rig(delta: float) -> void:
 	_rig_input.aim_dir = _rig_aim()
 	_rig_input.staggered = _stun_left > 0.0
 	_rig_input.dead = _dying
+	_update_rig_action()
 	_rig_state(_rig_input)
 	rig.animate(delta, _rig_input)
 	_rig_input.recoil = 0.0
@@ -167,6 +168,20 @@ func _uses_activation_culling() -> bool:
 
 func _guard(_info: DamageInfo) -> Hurtbox.Guard:
 	return Hurtbox.Guard.NONE
+
+
+## 目前狀態有沒有對應的專屬動作（EnemyData.rig_actions）：有就依停留時間播放進度，沒有就清掉。
+func _update_rig_action() -> void:
+	var action := StringName(str(data.rig_actions.get(String(fsm.current), "")))
+	_rig_input.action = action
+	if action == &"":
+		_rig_input.action_t = 0.0
+		return
+	var actions: Variant = RigLibrary.load_json(HumanoidAnimator.ACTIONS_PATH).get("actions", {})
+	var duration := 0.5
+	if typeof(actions) == TYPE_DICTIONARY and (actions as Dictionary).has(String(action)):
+		duration = maxf(0.05, float(((actions as Dictionary)[String(action)] as Dictionary).get("duration", 0.5)))
+	_rig_input.action_t = clampf(fsm.time_in_state / duration, 0.0, 1.0)
 
 
 ## （可選）骨架動畫輸入的補充（例如蓄力時蹲下），每影格在播放動畫前呼叫。

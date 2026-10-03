@@ -120,6 +120,11 @@ static func _placeholder(size: Vector2i) -> Texture2D:
 	return ImageTexture.create_from_image(image)
 
 
+## 同一個問題只記錄一次（給動畫器等其他類別用）。
+static func report_once(key: String, message: String) -> void:
+	_report(key, message)
+
+
 static func _report(key: String, message: String) -> void:
 	if _reported.has(key):
 		return

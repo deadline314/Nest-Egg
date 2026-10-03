@@ -15,4 +15,5 @@
 | [09-content/DESIGN.md](09-content/DESIGN.md) | 內容擴充：第二章、新敵人與頭目、場景互動與探索、成長系統 |
 | [10-presentation/DESIGN.md](10-presentation/DESIGN.md) | 演出與介面：過場動畫、轉場、UI 視覺語言、彈匣介面、環境美術元件、第一章改版、新敵人、第二章擴充 |
 | [12-cast-redraw/DESIGN.md](12-cast-redraw/DESIGN.md) | 敵人與 NPC 重畫：用凜的流程做出同等精細度的人形角色（範圍、各角色外觀與比例、芽的可操控規格、NPC 動畫、票的順序） |
+| [12-cast-redraw/ANIMATION.md](12-cast-redraw/ANIMATION.md) | 角色動畫系統：動畫器登記、敵人招式的專屬動作、NPC 動畫（姿勢、說話、工作循環）、新增特殊角色的步驟 |
 | [06-roadmap/open-questions.md](06-roadmap/open-questions.md) | 尚未決定的問題 |

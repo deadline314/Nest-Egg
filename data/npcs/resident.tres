@@ -19,5 +19,7 @@ script = ExtResource("1_npc")
 id = &"resident"
 display_name = "夾層區住戶"
 speaker = "resident"
+rig_id = "resident"
+loop = &"hold_child"
 facing = 1
 talks = Array[ExtResource("2_talk")]([SubResource("Talk_0"), SubResource("Talk_1")])

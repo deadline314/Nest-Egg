@@ -6,11 +6,15 @@ extends Node2D
 ## --head（搭配 --chars）：只放大頭與肩膀，檢查臉部與頭髮，一次最多四個角色；--zoom=倍率 可調整放大倍數。
 ## --bare（搭配 --damage）：不拿武器、手臂垂向前下方，看得到上半身的衣物。
 ## --cloth（搭配 --chars）：第一個角色放大排成一列（站、跑、上升、下落、蹲、仰射），檢查衣襬、頭髮、槍套等次級動態。
+## --npc（搭配 --chars）：第一個角色用 NPC 動畫器排成一列：站、坐、靠牆、蹲、說話、聆聽、揮手、工作循環（--loop=名稱，預設 stir；--loop-pose=stand/sit/lean/squat）。
+## --action=名稱（搭配 --chars）：第一個角色依進度 0、20%…100% 排成一列，檢查專屬動作（art/rigs/action_poses.json）。
 ## --damage（搭配 --chars）：第一個角色依生命比例 100%→0% 排成一列，檢查裝甲與衣物逐片脫落的樣子（--zoom 預設 3.0）。
 
 const CHARACTERS := [["rin", "rifle"], ["trooper", "smg"], ["grenadier", "launcher"], ["enforcer", "pistol"], ["warden", "minigun"]]
 ## --cloth 的動作（"fall"：下落）。
 const CLOTH_POSES := ["idle", "run", "jump", "fall", "crouch", "aim_up"]
+## --npc 的動作。
+const NPC_POSES := ["stand", "sit", "lean", "squat", "talk", "listen", "wave", "loop"]
 const POSES := ["idle", "run", "aim_up", "crouch", "jump", "block", "dead"]
 ## --chars 模式的動作（多一個受傷硬直）與各角色預設的手持武器（空字串＝空手）。
 const SHEET_POSES := ["idle", "run", "aim_up", "crouch", "jump", "block", "stagger", "dead"]
@@ -26,6 +30,10 @@ var _head_only := false
 var _damage := false
 var _cloth := false
 var _bare := false
+var _npc := false
+var _action := ""
+var _loop := "stir"
+var _loop_pose := "stand"
 var _zoom := 6.5
 var _rigs: Array[CharacterRig] = []
 var _inputs: Array[RigInput] = []
@@ -49,6 +57,14 @@ func _ready() -> void:
 			_cloth = true
 		elif arg == "--bare":
 			_bare = true
+		elif arg.begins_with("--action="):
+			_action = arg.trim_prefix("--action=")
+		elif arg == "--npc":
+			_npc = true
+		elif arg.begins_with("--loop="):
+			_loop = arg.trim_prefix("--loop=")
+		elif arg.begins_with("--loop-pose="):
+			_loop_pose = arg.trim_prefix("--loop-pose=")
 		elif arg.begins_with("--chars="):
 			_chars = arg.trim_prefix("--chars=").split(",", false)
 	add_child(LightKit.create_environment())
@@ -69,6 +85,12 @@ func _ready() -> void:
 			_spawn("rin", "rifle", Vector2(42 + i * 88, 160), POSES[i], 2.4)
 		for i in CHARACTERS.size():
 			_spawn(CHARACTERS[i][0], CHARACTERS[i][1], Vector2(55 + i * 118, 340), "idle" if i != 4 else "aim_up", 1.6)
+	elif not _action.is_empty():
+		for i in 6:
+			_spawn(_chars[0], str(SHEET_WEAPONS.get(_chars[0], "")), Vector2(60 + i * 100, 330), "action:%d" % i, _zoom if _zoom != 6.5 else 2.4)
+	elif _npc:
+		for i in NPC_POSES.size():
+			_spawn(_chars[0], "", Vector2(50 + i * 80, 330), NPC_POSES[i], _zoom if _zoom != 6.5 else 2.2)
 	elif _cloth:
 		for i in CLOTH_POSES.size():
 			_spawn(_chars[0], str(SHEET_WEAPONS.get(_chars[0], "")), Vector2(70 + i * 100, 335), CLOTH_POSES[i], 3.4)
@@ -102,7 +124,7 @@ func _spawn(skin: String, weapon: String, pos: Vector2, pose: String, zoom: floa
 	add_child(holder)
 	var rig := CharacterRig.new()
 	holder.add_child(rig)
-	if not rig.setup(skin):
+	if not rig.setup(skin, "npc" if _npc else ""):
 		return
 	rig.set_weapon(weapon)
 	rig.set_armor_ratio(armor_ratio, false)
@@ -125,8 +147,31 @@ func _process(delta: float) -> void:
 		input.staggered = false
 		input.dead = false
 		input.shield_forward = _rigs[i].skin_id == "enforcer"
-		input.two_handed = _rigs[i].skin_id != "enforcer"
+		input.two_handed = _rigs[i].skin_id != "enforcer" and not _npc
+		input.npc_pose = &"stand"
+		input.npc_loop = &""
+		input.talking = false
+		input.listening = false
+		input.waving = false
+		input.action = &""
+		input.action_t = 0.0
+		if str(_poses[i]).begins_with("action:"):
+			input.action = StringName(_action)
+			input.action_t = float(str(_poses[i]).trim_prefix("action:")) / 5.0
 		match _poses[i]:
+			"sit", "lean":
+				input.npc_pose = StringName(_poses[i])
+			"squat":
+				input.npc_pose = &"crouch"
+			"talk":
+				input.talking = true
+			"listen":
+				input.listening = true
+			"wave":
+				input.waving = true
+			"loop":
+				input.npc_loop = StringName(_loop)
+				input.npc_pose = &"crouch" if _loop_pose == "squat" else StringName(_loop_pose)
 			"run":
 				input.velocity = Vector2(150, 0)
 			"aim_up":

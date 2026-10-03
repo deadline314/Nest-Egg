@@ -1,0 +1,25 @@
+{
+  "description": "麵攤阿婆（ah_po）的建置配方：build_character.py 依這份檔案從頭產出角色。每個步驟的輸入輸出見 design/03-art-pipeline/CHARACTER_PIPELINE.md。",
+  "id": "ah_po",
+  "name": "麵攤阿婆",
+  "template": "civilian",
+  "spec": "tools/comfyui/specs/ah_po_side.json",
+  "rig": "art/rigs/ah_po.json",
+  "work": "art_src/characters/ah_po",
+  "height": 50.0,
+  "scale": 1.0,
+  "weapon": "",
+  "armor": [],
+  "glow": "o",
+  "glow_parts": [
+    "torso"
+  ],
+  "design": {
+    "size": [
+      832,
+      1216
+    ],
+    "pick": 7,
+    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat colors, bold clean black outlines, hard-edged two-tone shading, saturated neon accents. Full body, strict side view facing right, standing upright with the arms relaxed at the sides and empty hands, the far-side leg hidden behind the near leg. an elderly noodle stall owner grandmother, short and plump, about six heads tall: grey hair tied under a cloth head scarf, a kind wrinkled face, a worn apron over a warm orange patterned blouse, loose trousers, rubber sandals, rolled-up sleeves. Empty hands."
+  }
+}

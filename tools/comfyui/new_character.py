@@ -117,6 +117,7 @@ def build_spec(r: dict) -> dict:
         "illustration_px_per_wp": None, "tex_px_per_wp": 20, "ground_y": None,
         "joints": joints, "groups": groups, "parts": parts, "glow": glow, "bones": bones,
         "weapon_anchor": {"bone": "chest", "from": "waist", "to": "shoulder", "dx": 0.8, "dy": 0.6, "reach": None},
+        "dialog_portrait": {"box": None, "out": f"art/portraits/{r['id']}.png"},
         "refine": {"defringe": {"width": 2}, "speckle": 30, "smooth_alpha": {"parts": body_parts + [p for p in parts if p.startswith("armor_")], "sigma": 1.0}},
     }
     if armor:

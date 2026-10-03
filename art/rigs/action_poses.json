@@ -1,0 +1,33 @@
+{
+  "description": "專屬動作（HumanoidAnimator 讀取）：敵人的招式在某個狀態下播放的骨頭動作。敵人資料（EnemyData.rig_actions）把「狀態名稱」對到這裡的動作名稱；播放進度 = 在該狀態停留的時間 / duration（到 1 之後停在最後一格）。角度單位是弧度，面向右的骨架空間：骨頭靜止時朝下，負值＝往前（面向的方向）抬、往上舉；hip_x／hip_y 是骨盆位移（y 為正往下）。keys 依 t（0~1）排列，每個 key 只寫要動的骨頭，沒寫的骨頭沿用前後 key 的值（前後都沒有就不動）；相鄰 key 之間用緩動內插。skip_ik＝true 時手臂完全依這裡的角度（不再去握武器，武器跟著前手；weapon_angle 可以固定武器的角度，例如單手拎著往下）；blend 是進出這個動作的淡入淡出速度（越大越快）。動作的角度與時間改這裡就好，不需要改程式。",
+  "actions": {
+    "windup_overhead": {"weapon_angle": 1.1, "duration": 0.6, "skip_ik": true, "blend": 14, "keys": [
+      {"t": 0.0, "bones": {"arm_front_upper": -0.6, "arm_front_lower": -0.5, "arm_back_upper": -0.5, "arm_back_lower": -0.5, "chest": 0.0}},
+      {"t": 1.0, "bones": {"arm_front_upper": -2.9, "arm_front_lower": -0.2, "arm_back_upper": -2.8, "arm_back_lower": -0.3, "chest": -0.18, "head": -0.12, "leg_front_upper": -0.35, "leg_back_upper": 0.3}, "hip_y": 1.5}]},
+    "slam": {"weapon_angle": 1.1, "duration": 0.35, "skip_ik": true, "blend": 30, "keys": [
+      {"t": 0.0, "bones": {"arm_front_upper": -2.9, "arm_front_lower": -0.2, "arm_back_upper": -2.8, "arm_back_lower": -0.3, "chest": -0.18}},
+      {"t": 0.5, "bones": {"arm_front_upper": -0.5, "arm_front_lower": -0.15, "arm_back_upper": -0.4, "arm_back_lower": -0.2, "chest": 0.4, "head": 0.2, "leg_front_upper": -0.5, "leg_back_upper": 0.4}, "hip_y": 4},
+      {"t": 1.0, "bones": {"arm_front_upper": -0.45, "arm_front_lower": -0.15, "arm_back_upper": -0.35, "arm_back_lower": -0.2, "chest": 0.35, "head": 0.18}, "hip_y": 3}]},
+    "windup_slash": {"duration": 0.5, "skip_ik": true, "blend": 14, "keys": [
+      {"t": 0.0, "bones": {"arm_front_upper": 0.15, "arm_front_lower": -0.2, "chest": 0.0}},
+      {"t": 1.0, "bones": {"arm_front_upper": 2.2, "arm_front_lower": 0.3, "chest": -0.25, "head": -0.1, "arm_back_upper": -0.7, "arm_back_lower": -0.8}, "hip_y": 3}]},
+    "slash": {"duration": 0.25, "skip_ik": true, "blend": 30, "keys": [
+      {"t": 0.0, "bones": {"arm_front_upper": 2.2, "arm_front_lower": 0.3, "chest": -0.25}},
+      {"t": 0.6, "bones": {"arm_front_upper": -1.6, "arm_front_lower": -0.2, "chest": 0.35, "head": 0.12}, "hip_y": 2},
+      {"t": 1.0, "bones": {"arm_front_upper": -1.2, "arm_front_lower": -0.15, "chest": 0.3}}]},
+    "launch": {"duration": 0.45, "skip_ik": false, "blend": 18, "keys": [
+      {"t": 0.0, "bones": {"chest": 0.0}},
+      {"t": 0.35, "bones": {"chest": -0.2, "head": -0.1, "leg_front_upper": -0.3, "leg_back_upper": 0.3}, "hip_y": 1},
+      {"t": 1.0, "bones": {"chest": 0.15, "head": 0.1, "leg_front_upper": 0.1, "leg_back_upper": -0.05}, "hip_y": 0.5}]},
+    "brace": {"duration": 0.4, "skip_ik": false, "blend": 12, "keys": [
+      {"t": 0.0, "bones": {"chest": 0.0}},
+      {"t": 1.0, "bones": {"chest": 0.28, "head": 0.1, "leg_front_upper": -0.5, "leg_front_lower": 0.7, "leg_back_upper": 0.55, "leg_back_lower": 0.5}, "hip_y": 3}]},
+    "stagger_back": {"duration": 0.3, "skip_ik": false, "blend": 25, "keys": [
+      {"t": 0.0, "bones": {"chest": 0.0}},
+      {"t": 0.4, "bones": {"chest": -0.45, "head": -0.2, "leg_front_upper": 0.2, "leg_back_upper": -0.3}, "hip_x": -2},
+      {"t": 1.0, "bones": {"chest": -0.3, "head": -0.1}, "hip_x": -1}]},
+    "vent": {"duration": 0.5, "skip_ik": false, "blend": 10, "keys": [
+      {"t": 0.0, "bones": {"chest": 0.0}},
+      {"t": 1.0, "bones": {"chest": -0.2, "head": -0.3, "leg_front_upper": -0.15, "leg_back_upper": 0.2}, "hip_y": 1}]}
+  }
+}

@@ -19,5 +19,7 @@ script = ExtResource("1_npc")
 id = &"nurse"
 display_name = "轉運站護理師"
 speaker = "nurse"
+rig_id = "nurse"
+loop = &"tablet"
 facing = -1
 talks = Array[ExtResource("2_talk")]([SubResource("Talk_0"), SubResource("Talk_1")])

@@ -30,7 +30,7 @@
 # 跟其他票的關係
 
 - Blocks：無
-- Blocked by：NE-74～NE-82、NE-84～NE-87
+- Blocked by：NE-74～NE-82、NE-84～NE-87、NE-89、NE-90
 - Related：NE-71
 
 ---

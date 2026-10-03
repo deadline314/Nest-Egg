@@ -1,0 +1,402 @@
+{
+  "description": "老K（old_k）的分件規格，由 tools/comfyui/new_character.py 的 civilian 範本產生。groups：SAM 3.1 文字提示分出的群組（前面的優先）；parts：把群組切成零件並指定掛載；y 是水平切線（像素）。joints 與縮放數字由 fit_joints.py 在 pose 步驟填入，手動填的不會被蓋掉。",
+  "id": "old_k",
+  "display_name": "老K",
+  "scale": 1.0,
+  "height": 56.0,
+  "seam": 10,
+  "illustration_px_per_wp": 21.64,
+  "tex_px_per_wp": 20,
+  "ground_y": 1215,
+  "joints": {
+    "hip": [
+      395.4,
+      601.4
+    ],
+    "waist": [
+      394.7,
+      462.2
+    ],
+    "neck": [
+      393.4,
+      203.7
+    ],
+    "head": [
+      393.4,
+      197.7
+    ],
+    "head_top": [
+      401.4,
+      3.0
+    ],
+    "shoulder": [
+      334.6,
+      237.1
+    ],
+    "elbow": [
+      336.3,
+      425.0
+    ],
+    "palm": [
+      388.6,
+      593.8
+    ],
+    "fingertip": [
+      421.0,
+      698.5
+    ],
+    "knee": [
+      386.6,
+      873.2
+    ],
+    "ankle": [
+      367.8,
+      1134.6
+    ],
+    "toe": [
+      493.0,
+      1184.3
+    ]
+  },
+  "groups": {
+    "hand": {
+      "sam": [
+        "gloved hand"
+      ]
+    },
+    "arm": {
+      "sam": [
+        "arm sleeve"
+      ]
+    },
+    "boot": {
+      "sam": [
+        "boot"
+      ]
+    },
+    "head": {
+      "sam": [
+        "head"
+      ]
+    },
+    "body": {
+      "sam": [
+        "torso",
+        "legs"
+      ]
+    }
+  },
+  "parts": {
+    "pelvis": {
+      "group": "body",
+      "from": "waist",
+      "to": "hip",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "pelvis",
+          "bone": "hip",
+          "z": 0
+        }
+      ],
+      "y": [
+        482,
+        621
+      ],
+      "pivot": "hip"
+    },
+    "torso": {
+      "group": "body",
+      "from": "waist",
+      "to": "neck",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "torso",
+          "bone": "chest",
+          "z": 1
+        }
+      ],
+      "y": [
+        0,
+        482
+      ],
+      "pivot": "waist"
+    },
+    "head": {
+      "group": "head",
+      "from": "head",
+      "to": "head_top",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "head",
+          "bone": "head",
+          "z": 5
+        }
+      ],
+      "pivot": "head"
+    },
+    "leg_upper": {
+      "group": "body",
+      "from": "hip",
+      "to": "knee",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "leg_back_upper",
+          "bone": "leg_back_upper",
+          "z": -5,
+          "tint": 0.62
+        },
+        {
+          "name": "leg_front_upper",
+          "bone": "leg_front_upper",
+          "z": 3
+        }
+      ],
+      "y": [
+        621,
+        873
+      ]
+    },
+    "leg_lower": {
+      "group": "body",
+      "from": "knee",
+      "to": "ankle",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "leg_back_lower",
+          "bone": "leg_back_lower",
+          "z": -5,
+          "tint": 0.62
+        },
+        {
+          "name": "leg_front_lower",
+          "bone": "leg_front_lower",
+          "z": 3
+        }
+      ],
+      "y": [
+        873,
+        4000
+      ]
+    },
+    "foot": {
+      "group": "boot",
+      "from": "ankle",
+      "to": "toe",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "foot_back",
+          "bone": "foot_back",
+          "z": -5,
+          "tint": 0.62
+        },
+        {
+          "name": "foot_front",
+          "bone": "foot_front",
+          "z": 3
+        }
+      ],
+      "pivot": "ankle"
+    },
+    "arm_upper": {
+      "group": "arm",
+      "from": "shoulder",
+      "to": "elbow",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "arm_back_upper",
+          "bone": "arm_back_upper",
+          "z": -7,
+          "tint": 0.62
+        },
+        {
+          "name": "arm_front_upper",
+          "bone": "arm_front_upper",
+          "z": 8
+        }
+      ],
+      "y": [
+        0,
+        425
+      ]
+    },
+    "arm_lower": {
+      "group": "arm",
+      "from": "elbow",
+      "to": "palm",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "arm_back_lower",
+          "bone": "arm_back_lower",
+          "z": -7,
+          "tint": 0.62
+        },
+        {
+          "name": "arm_front_lower",
+          "bone": "arm_front_lower",
+          "z": 8
+        }
+      ],
+      "y": [
+        425,
+        4000
+      ]
+    },
+    "hand": {
+      "group": "hand",
+      "from": "palm",
+      "to": "fingertip",
+      "mode": "hand",
+      "uses": [
+        {
+          "name": "hand_back",
+          "bone": "hand_back",
+          "z": -6,
+          "tint": 0.62
+        },
+        {
+          "name": "hand_front",
+          "bone": "hand_front",
+          "z": 10
+        }
+      ],
+      "pivot": "palm"
+    }
+  },
+  "glow": {
+    "head": "y",
+    "torso": "y"
+  },
+  "bones": [
+    {
+      "name": "hip",
+      "parent": "",
+      "from": "ground_hip"
+    },
+    {
+      "name": "chest",
+      "parent": "hip",
+      "at": "waist"
+    },
+    {
+      "name": "neck",
+      "parent": "chest",
+      "at": "neck"
+    },
+    {
+      "name": "head",
+      "parent": "neck",
+      "at": "head"
+    },
+    {
+      "name": "arm_back_upper",
+      "parent": "chest",
+      "at": "shoulder",
+      "dx": -0.6,
+      "tip": "elbow"
+    },
+    {
+      "name": "arm_back_lower",
+      "parent": "arm_back_upper",
+      "tip": "palm"
+    },
+    {
+      "name": "hand_back",
+      "parent": "arm_back_lower",
+      "tip": "fingertip"
+    },
+    {
+      "name": "arm_front_upper",
+      "parent": "chest",
+      "at": "shoulder",
+      "dx": 0.0,
+      "tip": "elbow"
+    },
+    {
+      "name": "arm_front_lower",
+      "parent": "arm_front_upper",
+      "tip": "palm"
+    },
+    {
+      "name": "hand_front",
+      "parent": "arm_front_lower",
+      "tip": "fingertip"
+    },
+    {
+      "name": "leg_back_upper",
+      "parent": "hip",
+      "at": "hip",
+      "dx": -0.7,
+      "tip": "knee"
+    },
+    {
+      "name": "leg_back_lower",
+      "parent": "leg_back_upper",
+      "tip": "ankle"
+    },
+    {
+      "name": "foot_back",
+      "parent": "leg_back_lower"
+    },
+    {
+      "name": "leg_front_upper",
+      "parent": "hip",
+      "at": "hip",
+      "dx": 0.0,
+      "tip": "knee"
+    },
+    {
+      "name": "leg_front_lower",
+      "parent": "leg_front_upper",
+      "tip": "ankle"
+    },
+    {
+      "name": "foot_front",
+      "parent": "leg_front_lower"
+    }
+  ],
+  "weapon_anchor": {
+    "bone": "chest",
+    "from": "waist",
+    "to": "shoulder",
+    "dx": 0.8,
+    "dy": 0.6,
+    "reach": 9.6
+  },
+  "refine": {
+    "defringe": {
+      "width": 2
+    },
+    "speckle": 30,
+    "smooth_alpha": {
+      "parts": [
+        "pelvis",
+        "torso",
+        "head",
+        "leg_upper",
+        "leg_lower",
+        "foot",
+        "arm_upper",
+        "arm_lower",
+        "hand"
+      ],
+      "sigma": 1.0
+    }
+  },
+  "dialog_portrait": {
+    "box": [
+      239,
+      -5,
+      520,
+      276
+    ],
+    "out": "art/portraits/old_k.png"
+  }
+}

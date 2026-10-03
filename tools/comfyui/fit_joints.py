@@ -93,6 +93,13 @@ def main() -> None:
         arm = (math.dist(joints["shoulder"], joints["elbow"]) + math.dist(joints["elbow"], joints["palm"])) / spec["illustration_px_per_wp"]
         anchor["reach"] = round(0.57 * arm, 2)
         filled.append("weapon_anchor.reach")
+    dp = spec.get("dialog_portrait")
+    if dp is not None and dp.get("box") is None:  # head and shoulders: a square sized from the head-to-neck distance
+        top, neck = joints["head_top"], joints["neck"]
+        side = 1.4 * (neck[1] - top[1])
+        x0 = neck[0] - side * 0.55
+        dp["box"] = [round(x0), round(top[1] - 8), round(x0 + side), round(top[1] - 8 + side)]
+        filled.append("dialog_portrait.box")
     n_cuts = 0
     for p in spec["parts"].values():  # cut heights written as "@joint+20" in the template become pixel rows
         if "y" in p and any(isinstance(v, str) for v in p["y"]):

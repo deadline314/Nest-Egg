@@ -17,6 +17,8 @@ extends Resource
 @export var rig_two_handed: bool = true
 ## 後手向前舉盾。
 @export var rig_shield: bool = false
+## 招式動作：狀態名稱 → 專屬動作名稱（art/rigs/action_poses.json 的 actions），在該狀態期間播放；沒列的狀態用一般動畫。
+@export var rig_actions: Dictionary = {}
 
 @export_group("Body")
 @export var body_size: Vector2 = Vector2(12, 20)

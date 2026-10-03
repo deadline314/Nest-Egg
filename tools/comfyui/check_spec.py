@@ -130,6 +130,15 @@ def check(recipe: dict, spec: dict, need_joints: bool) -> tuple[list[str], list[
     for part in spec.get("glow", {}):
         if part not in spec["parts"]:
             err(f"spec.glow.{part}", "is not a part")
+    dp = spec.get("dialog_portrait")
+    if dp is not None:
+        if not dp.get("out"):
+            err("spec.dialog_portrait.out", "is missing")
+        if dp.get("box") is None:
+            if need_joints:
+                err("spec.dialog_portrait.box", "is empty (run the pose step)")
+        elif not (isinstance(dp["box"], list) and len(dp["box"]) == 4):
+            err("spec.dialog_portrait.box", "must be [x0, y0, x1, y1]")
     blink = spec.get("blink")
     if blink and blink.get("part") not in spec["parts"]:
         err("spec.blink.part", f"unknown part '{blink.get('part')}'")

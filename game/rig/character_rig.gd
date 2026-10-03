@@ -13,9 +13,12 @@ const FLASH_TIME := 0.06
 ## 受擊閃白亮度（> 1 會帶泛光；太高在連續命中時會整隻變白）。
 const FLASH_BRIGHTNESS := 1.7
 const BREAK_IMPULSE := Vector2(80, -170)
+## 動畫器登記表：名稱 → 類別（需要繼承 HumanoidAnimator，建構時收到骨架）。外觀定義的 animator 欄位或 setup 的 animator_kind 用這些名稱；
+## 特殊角色（專屬骨架、專屬攻擊動作）在這裡加一行即可，不需要動其他角色。
+static var ANIMATORS: Dictionary = {"humanoid": HumanoidAnimator, "npc": NpcAnimator}
 
 var skin_id := ""
-var animator: HumanoidAnimator
+var animator: HumanoidAnimator  # 或它的子類別（NpcAnimator）
 var facing := 1:
 	set(value):
 		facing = 1 if value >= 0 else -1
@@ -51,7 +54,8 @@ var _valid := false
 
 
 ## 建立骨架與零件。回傳 false 代表定義缺失（會記錄錯誤，節點仍可安全存在）。
-func setup(p_skin_id: String) -> bool:
+## animator_kind：空字串＝依外觀定義（character.json 的 animator，沒寫就是人形）；"npc"＝NPC 動畫器（場景人物與過場演員用）。
+func setup(p_skin_id: String, animator_kind := "") -> bool:
 	skin_id = p_skin_id
 	var skin := RigLibrary.character(skin_id)
 	if skin.is_empty():
@@ -64,7 +68,11 @@ func setup(p_skin_id: String) -> bool:
 	facing = facing
 	_build_skeleton(skeleton_def)
 	_build_parts(skin)
-	animator = HumanoidAnimator.new(self)
+	var kind := animator_kind if animator_kind != "" else str(skin.get("animator", "humanoid"))
+	if not ANIMATORS.has(kind):
+		push_warning("[CharacterRig] %s 的 animator「%s」沒有登記（有：%s），改用人形動畫器。" % [skin_id, kind, ", ".join(ANIMATORS.keys())])
+		kind = "humanoid"
+	animator = (ANIMATORS[kind] as GDScript).new(self)
 	_valid = true
 	return true
 

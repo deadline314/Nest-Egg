@@ -3,12 +3,14 @@ extends Node2D
 ## 過場裡的角色。有骨架外觀（art/characters/<kind>/）就用骨架（與遊戲內同一套動畫）；
 ## 沒有骨架的角色用頭像做剪影，輕微呼吸起伏。座標是舞台座標，原點在腳底。
 
-const POSES: PackedStringArray = ["idle", "walk", "run", "crouch", "aim_up", "block", "dead", "jump"]
+const POSES: PackedStringArray = ["idle", "walk", "run", "crouch", "aim_up", "block", "dead", "jump", "sit", "lean", "squat", "wave", "listen"]
 const WALK_SPEED := 70.0
 const RUN_SPEED := 150.0
 const BREATH_PERIOD := 3.2
 
 var actor_id: StringName = &""
+## 劇本裡講話的人（章節 speakers 的 id）：說這個人的台詞時，這個演員會點頭比手勢。沒有指定就用 actor_id。
+var speaker_id: StringName = &""
 var pose: StringName = &"idle"
 var facing := 1
 var rig: CharacterRig
@@ -17,6 +19,7 @@ var _portrait: Sprite2D
 var _t := 0.0
 var _move_dir := 0.0
 var _unit_scale := 1.0
+var _listen_flag := false
 
 
 func _init() -> void:
@@ -32,7 +35,7 @@ func setup(id: StringName, kind: String, portrait_path: String, unit_scale: floa
 	if kind != "" and not RigLibrary.character(kind).is_empty():
 		rig = CharacterRig.new()
 		add_child(rig)
-		if rig.setup(kind):
+		if rig.setup(kind, "npc"):
 			rig.set_weapon(weapon)
 			_input.two_handed = weapon != ""
 			return true
@@ -54,6 +57,22 @@ func setup(id: StringName, kind: String, portrait_path: String, unit_scale: floa
 
 func set_pose(new_pose: StringName) -> void:
 	pose = new_pose
+
+
+## 專屬工作循環（art/rigs/npc_animations.json 的 loops，空字串＝沒有）；scale 放大縮小幅度。
+func set_loop(loop_name: StringName, scale := 1.0) -> void:
+	_input.npc_loop = loop_name
+	_input.npc_loop_scale = scale
+
+
+## 說話中（點頭與手勢）。
+func set_talking(value: bool) -> void:
+	_input.talking = value
+
+
+## 聆聽中（微微偏頭）。
+func set_listening(value: bool) -> void:
+	_listen_flag = value
 
 
 func face(direction: int) -> void:
@@ -84,7 +103,18 @@ func _apply_pose() -> void:
 	_input.crouching = false
 	_input.blocking = false
 	_input.dead = false
+	_input.npc_pose = &"stand"
+	_input.waving = false
+	_input.listening = _listen_flag
 	match pose:
+		&"sit", &"lean":
+			_input.npc_pose = pose
+		&"squat":
+			_input.npc_pose = &"crouch"
+		&"wave":
+			_input.waving = true
+		&"listen":
+			_input.listening = true
 		&"walk":
 			_input.velocity = Vector2(WALK_SPEED * _move_dir * facing, 0.0) if _move_dir != 0.0 else Vector2(WALK_SPEED * facing, 0.0)
 		&"run":

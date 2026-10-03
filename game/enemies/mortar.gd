@@ -79,6 +79,7 @@ func _fire_lob() -> void:
 	var offset := _landing + Vector2(0, -4) - origin
 	var launch := Vector2(offset.x / flight, (offset.y - 0.5 * spec.gravity * flight * flight) / flight)
 	ProjectilePool.spawn(spec, origin, launch, Combat.Team.ENEMY, launch.length() / maxf(1.0, spec.speed))
+	_rig_input.recoil = 1.0
 	Fx.flash_light(origin, Palette.WARNING, 50.0, 1.2, 0.1)
 	Fx.dust(global_position, 3, 30.0)
 	Sfx.play(&"shot_cannon", -12.0)

@@ -369,6 +369,8 @@ func _do_actor(step: Dictionary) -> void:
 	actor.position = _vec(step.get("pos"), CENTER)
 	actor.face(int(step.get("facing", 1)))
 	actor.set_pose(StringName(str(step.get("pose", "idle"))))
+	actor.set_loop(StringName(str(step.get("loop", ""))), float(step.get("loop_scale", 1.0)))
+	actor.speaker_id = StringName(str(step.get("speaker", id)))
 	if _actors.has(id):
 		_actors[id].queue_free()
 	_actors[id] = actor
@@ -379,6 +381,18 @@ func _do_pose(step: Dictionary) -> void:
 	var actor := _need_actor(step)
 	if actor != null:
 		actor.set_pose(StringName(str(step.get("pose", "idle"))))
+		if step.has("loop"):
+			actor.set_loop(StringName(str(step.get("loop", ""))), float(step.get("loop_scale", 1.0)))
+
+
+## 說話中的演員（id 與講者相同）點頭比手勢，其他人安靜聆聽。傳空字串＝大家都不說話。
+func _set_talkers(speaker_id: StringName) -> void:
+	for id: StringName in _actors.keys():
+		var actor := _actors[id] as CutsceneActor
+		if is_instance_valid(actor):
+			var talks := speaker_id != &"" and (actor.speaker_id == speaker_id or id == speaker_id)
+			actor.set_talking(talks)
+			actor.set_listening(speaker_id != &"" and not talks)
 
 
 func _do_face(step: Dictionary) -> void:
@@ -415,6 +429,7 @@ func _do_move(step: Dictionary) -> void:
 
 func _do_say(step: Dictionary) -> void:
 	var speaker := Story.speaker(str(step.get("speaker", "")))
+	_set_talkers(StringName(str(step.get("speaker", ""))))
 	_advance_requested = false
 	_dialogue.show_line(speaker, str(step.get("text", "")), str(step.get("style", "normal")))
 	var auto := float(step.get("auto", 0.0))
@@ -430,6 +445,7 @@ func _do_say(step: Dictionary) -> void:
 	_advance_requested = false
 	if not _next_is_say:
 		_dialogue.hide_box()
+		_set_talkers(&"")
 
 
 func _do_narrate(step: Dictionary) -> void:

@@ -15,6 +15,9 @@ enum Kind { PERSON, OBJECT }
 @export var rig_id: String = ""
 ## 站姿（CutsceneActor.POSES 之一），例如受傷的人用 crouch。
 @export var pose: StringName = &"idle"
+## 專屬工作循環（art/rigs/npc_animations.json 的 loops，例如 stir、hammer、tablet；空白＝只有待機呼吸）與幅度倍率。
+@export var loop: StringName = &""
+@export var loop_scale: float = 1.0
 ## 原本面向（-1 左、1 右）；玩家靠近時會轉向玩家。
 @export var facing: int = -1
 ## 互動提示（一句重點，可用 {interact}）；空白時用「{interact} 和<名字>說話」。
@@ -55,6 +58,10 @@ func validate() -> PackedStringArray:
 		problems.append("人物 %s 的面向必須是 -1 或 1" % id)
 	if not CutsceneActor.POSES.has(String(pose)):
 		problems.append("人物 %s 的站姿「%s」不存在" % [id, pose])
+	if loop != &"" and not NpcAnimator.loop_names().has(String(loop)):
+		problems.append("人物 %s 的工作循環「%s」不存在（art/rigs/npc_animations.json 的 loops）" % [id, loop])
+	if loop_scale <= 0.0 or loop_scale > 3.0:
+		problems.append("人物 %s 的 loop_scale 必須在 0~3 之間" % id)
 	for talk in talks:
 		if talk == null:
 			problems.append("人物 %s 的對話清單有空項目" % id)

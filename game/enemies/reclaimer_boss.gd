@@ -268,6 +268,7 @@ func _blink_aim_tick(_delta: float) -> void:
 	var spec := data.projectile
 	WeaponSystem.fire_spread(spec, _muzzle(), _direction_to_target(), BLINK_SHOTS if _phase == 1 else BLINK_SHOTS + 2,
 			BLINK_SPREAD, 0.0, Combat.Team.ENEMY, _projectile_speed_multiplier())
+	_rig_input.recoil = 1.0
 	Fx.flash_light(_muzzle(), Palette.WARNING, 80.0, 1.8, 0.12)
 	Sfx.play(&"shot_spread", -6.0)
 	fsm.transition(&"idle")

@@ -1,0 +1,25 @@
+{
+  "description": "夜班工人（night_worker）的建置配方：build_character.py 依這份檔案從頭產出角色。每個步驟的輸入輸出見 design/03-art-pipeline/CHARACTER_PIPELINE.md。",
+  "id": "night_worker",
+  "name": "夜班工人",
+  "template": "civilian",
+  "spec": "tools/comfyui/specs/night_worker_side.json",
+  "rig": "art/rigs/night_worker.json",
+  "work": "art_src/characters/night_worker",
+  "height": 56.0,
+  "scale": 1.0,
+  "weapon": "",
+  "armor": [],
+  "glow": "y",
+  "glow_parts": [
+    "torso"
+  ],
+  "design": {
+    "size": [
+      832,
+      1216
+    ],
+    "pick": 7,
+    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat colors, bold clean black outlines, hard-edged two-tone shading, saturated neon accents. Full body, strict side view facing right, standing upright with the arms relaxed at the sides and empty hands, the far-side leg hidden behind the near leg. a tired night-shift freight yard worker, about seven heads tall, slightly stooped: a hard hat, a reflective high-visibility vest over a grey work shirt, work trousers with a tool belt, heavy boots, gloves tucked in a pocket, dark circles under the eyes. Empty hands."
+  }
+}

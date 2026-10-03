@@ -75,12 +75,15 @@ func _build_visual() -> void:
 		_actor = null
 		return
 	_actor.set_pose(data.pose)
+	_actor.set_loop(data.loop, data.loop_scale)
 	_actor.face(data.facing)
 
 
 func _physics_process(delta: float) -> void:
 	_time += delta
 	_cooldown = maxf(0.0, _cooldown - delta)
+	if _actor != null:
+		_actor.set_listening(_player_in_range and not _talking)
 	if _player_in_range:
 		_face_player()
 		if _cooldown <= 0.0 and not _talking and not get_tree().paused and Input.is_action_just_pressed(&"interact"):
@@ -108,8 +111,12 @@ func _talk() -> void:
 	if index < 0:
 		return
 	_talking = true
+	if _actor != null:
+		_actor.set_talking(true)
 	await Story.play_and_wait(data.talks[index].scene, false)
 	_talking = false
+	if _actor != null and is_instance_valid(_actor):
+		_actor.set_talking(false)
 	if not is_inside_tree():
 		return
 	talk_count += 1

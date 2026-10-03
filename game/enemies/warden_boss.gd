@@ -166,6 +166,7 @@ func _fan_windup_tick(_delta: float) -> void:
 		var spec := data.find_projectile(&"boss_fan")
 		WeaponSystem.fire_spread(spec, _muzzle(), _direction_to_target(), FAN_COUNT, FAN_SPREAD, 0.0,
 				Combat.Team.ENEMY, _projectile_speed_multiplier())
+		_rig_input.recoil = 1.0
 		Fx.flash_light(_muzzle(), Palette.DANGER, 90.0, 2.0, 0.15)
 		Sfx.play(&"shot_spread", -4.0)
 		fsm.transition(&"idle")
