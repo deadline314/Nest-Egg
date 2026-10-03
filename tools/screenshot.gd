@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim、block、story、story_ch2、collectibles、progression、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
+## 情境：all（預設）、settings、mouse_aim、block、story、story_ch2、collectibles、progression、supply、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -38,6 +38,10 @@ func _run() -> void:
 		return
 	if _scenario == "new_enemies":
 		await _run_new_enemies()
+		get_tree().quit()
+		return
+	if _scenario == "supply":
+		await _run_supply()
 		get_tree().quit()
 		return
 	if _scenario == "progression":
@@ -229,6 +233,60 @@ func _run_story_ch2() -> void:
 
 func _show_chapter_card(level: Level, title: String, subtitle: String) -> void:
 	level._show_chapter_card(title, subtitle, false)
+
+
+## 義體能力與補給點：背包義體頁、補給點貨架、電磁脈衝與超頻的畫面。
+func _run_supply() -> void:
+	var data := NewEnemiesSuite.arena_data()
+	var zone := LightingZone.new()
+	zone.start_tile = 0
+	zone.profile = load("res://data/lighting/facility.tres")
+	data.lighting_zones = [zone]
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(data)
+	add_child(level)
+	await _settle(20)
+	var player := level.player
+	player.health.setup(999, 0.0)
+	var floor_y := 20 * 16.0
+	player.global_position = Vector2(12 * 16.0, floor_y)
+	level_camera_snap()
+	Progression.add_credits(420)
+	var station := ShopStation.new()
+	station.configure(load("res://data/shops/supply.tres"), Vector2i(14, 19))
+	station.position = Vector2(14 * 16.0 + 8.0, floor_y)
+	level._entities.add_child(station)
+	await _wait(1.0)
+	_capture("supply_station")
+	station._open()
+	await _wait(0.9)
+	_capture("supply_shop")
+	station._screen.close()
+	var inventory: InventoryScreen = level._inventory
+	inventory.open()
+	inventory.select_tab(inventory.page_index(CyberPage))
+	await _wait(0.9)
+	_capture("supply_cyber_locked")
+	inventory._pages[inventory.page_index(CyberPage)].activate()
+	await _wait(0.6)
+	_capture("supply_cyber_unlocked")
+	inventory.close()
+	await _wait(0.3)
+	# 電磁脈衝：三隻敵人在身邊。
+	for x in [18.0, 21.0]:
+		var enemy := level._create_enemy(load("res://data/enemies/grunt.tres") as EnemyData)
+		enemy.position = Vector2(x * 16.0, floor_y)
+		level._entities.add_child(enemy)
+	var spec := load("res://data/projectiles/grunt_shot.tres") as ProjectileSpec
+	ProjectilePool.spawn(spec, player.global_position + Vector2(70, -24), Vector2.LEFT, Combat.Team.ENEMY)
+	await _wait(0.4)
+	player.cyber.charge = 100.0
+	player.cyber.try_activate()
+	await _wait(0.18)
+	_capture("supply_emp")
+	await _wait(1.0)
+	_capture("supply_emp_stunned")
 
 
 ## 成長系統：HUD 的信用點、背包改裝頁（金額不足、買得起、買完後）。

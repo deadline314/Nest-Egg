@@ -63,7 +63,7 @@ func is_open() -> bool:
 
 func _input(event: InputEvent) -> void:
 	if not _is_open:
-		if allowed and event.is_action_pressed(&"inventory") and _can_open():
+		if allowed and _opens_with_key() and event.is_action_pressed(&"inventory") and _can_open():
 			open()
 			get_viewport().set_input_as_handled()
 		return
@@ -114,7 +114,7 @@ func open() -> void:
 		page.visible = false
 	_show_page(_current, false)
 	_refresh_tab_labels()
-	_legend_label.text = InputBindings.format(LEGEND_TEMPLATE)
+	_legend_label.text = InputBindings.format(_legend_template())
 	_play_open_animation()
 	Sfx.play(&"ui_confirm", -8.0, 0.0)
 	opened.emit()
@@ -166,7 +166,7 @@ func _build_layout() -> void:
 	_root.add_child(_frame)
 	_frame.resized.connect(func() -> void: _frame.pivot_offset = _frame.size * 0.5)
 
-	var title := UiKit.label("背包", 18, Palette.CYAN)
+	var title := UiKit.label(_screen_title(), 18, Palette.CYAN)
 	title.position = Vector2(MARGIN.x, MARGIN.y + 2)
 	_frame.add_child(title)
 
@@ -211,9 +211,28 @@ func _make_tab_button(index: int, width: float) -> Button:
 	return button
 
 
-## 分頁清單。新增分頁在這裡加一行，標籤與切換會自動處理。
+## 畫面標題（子類別可覆寫，例如補給點）。
+func _screen_title() -> String:
+	return "背包"
+
+
+## 底部右側的操作提示（可用 {動作} 佔位符）。
+func _legend_template() -> String:
+	return LEGEND_TEMPLATE
+
+
+## 這個畫面是否由背包鍵開啟（補給點之類由場景物件開啟的畫面覆寫成 false）。
+func _opens_with_key() -> bool:
+	return true
+
+
+## 分頁清單。新增分頁在這裡加一行，標籤與切換會自動處理。子類別可覆寫成自己的分頁。
+func _build_pages() -> Array[InventoryPage]:
+	return [WeaponsPage.new(), UpgradesPage.new(), ConsumablesPage.new(), CyberPage.new(), StoryItemsPage.new(), StatusPage.new()]
+
+
 func _create_pages() -> void:
-	var pages: Array[InventoryPage] = [WeaponsPage.new(), UpgradesPage.new(), ConsumablesPage.new(), StoryItemsPage.new(), StatusPage.new()]
+	var pages := _build_pages()
 	# 分頁標籤的寬度依分頁數量自動縮放，塞得進畫面。
 	var available := 640.0 - TABS_LEFT - MARGIN.x
 	var tab_width := minf(TAB_MAX_WIDTH, (available - TAB_GAP * (pages.size() - 1)) / pages.size())
@@ -229,6 +248,8 @@ func _create_pages() -> void:
 		_page_host.add_child(page)
 		_pages.append(page)
 		_tab_buttons[i].tooltip_text = page.tab_tooltip()
+	# 只有一個分頁（補給點）時不需要分頁標籤。
+	_tabs.visible = pages.size() > 1
 	_refresh_tab_labels()
 
 

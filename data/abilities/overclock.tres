@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CyberAbilityData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/cyber_ability_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"overclock"
+display_name = "超頻"
+kind = 0
+description = "4 秒內射速與換彈快 40%、移動快 15%"
+color = Color(1.0, 0.35, 0.65, 1.0)
+unlock_cost = 300
+charge_cost = 60.0
+cooldown = 10.0
+duration = 4.0
+radius = 0.0
+magnitude = 0.4
+order = 1
+icon = "ability_overclock"
+sound = &"overclock"

@@ -282,7 +282,7 @@ func _spawn_static_entities() -> void:
 		_entities.add_child(sign)
 	for spawn in _layout.spawns:
 		var resource: Resource = spawn["resource"]
-		var node := _create_prop(spawn) if resource is BreakableData or resource is MechanismData or resource is CreditPileData else _create_entity(resource)
+		var node := _create_prop(spawn) if resource is BreakableData or resource is MechanismData or resource is CreditPileData or resource is ShopData else _create_entity(resource)
 		if node != null:
 			node.position = spawn["position"]
 			_entities.add_child(node)
@@ -377,6 +377,13 @@ func _create_prop(spawn: Dictionary) -> Node2D:
 		breakable.configure(resource as BreakableData, cell, _layout.tile_size)
 		breakable.broken.connect(_on_breakable_broken)
 		return breakable
+	if resource is ShopData:
+		var shop := resource as ShopData
+		for problem in shop.validate():
+			push_error("[Level] %s" % problem)
+		var station := ShopStation.new()
+		station.configure(shop, cell)
+		return station
 	if resource is CreditPileData:
 		var pile := resource as CreditPileData
 		for problem in pile.validate():
@@ -553,6 +560,9 @@ func _close_menus() -> void:
 	_pause_menu.allowed = false
 	_inventory.allowed = false
 	_inventory.close()
+	for node in get_tree().get_nodes_in_group(ShopScreen.OVERLAY_GROUP):
+		(node as InventoryScreen).allowed = false
+		(node as InventoryScreen).close()
 
 
 func _request_retry() -> void:

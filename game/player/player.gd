@@ -25,6 +25,8 @@ var tuning: PlayerTuning
 var health: HealthComponent
 var hurtbox: Hurtbox
 var loadout := Loadout.new()
+## 義體能力（電量、冷卻、效果）。
+var cyber: CyberSystem
 var consumables := ConsumableBag.new()
 var state: State = State.NORMAL
 var facing := 1
@@ -120,6 +122,9 @@ func _ready() -> void:
 	loadout.reload_started.connect(func() -> void: Sfx.play(&"reload_start", -4.0))
 	loadout.reload_finished.connect(func() -> void: Sfx.play(&"reload_done", -3.0))
 	loadout.restore(_loadout_snapshot, tuning.default_weapon)
+	cyber = CyberSystem.new()
+	cyber.player = self
+	add_child(cyber)
 	# 武器改裝後重新計算實際數值；離開場景時解除（武器欄是 RefCounted，不解除會一直被單例持有）。
 	Progression.upgrades_changed.connect(loadout.retune)
 	tree_exiting.connect(func() -> void:
@@ -170,6 +175,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		loadout.cycle(-1)
 	elif event.is_action_pressed(&"reload"):
 		loadout.start_reload()
+	elif event.is_action_pressed(&"ability"):
+		if not cyber.try_activate():
+			EventBus.toast_requested.emit(cyber.block_reason())
 	elif event.is_action_pressed(&"use_item"):
 		var quick := consumables.quick_use_item()
 		if quick != null and not use_consumable(quick.id):
@@ -224,7 +232,7 @@ func _tick_timers(delta: float) -> void:
 	_remount_cooldown_left = maxf(0.0, _remount_cooldown_left - delta)
 	aim_bloom = move_toward(aim_bloom, 0.0, AIM_BLOOM_RECOVERY * delta)
 	if state != State.DEAD and state != State.MOUNTED:
-		loadout.tick(delta)
+		loadout.tick(delta * cyber.reload_speed_scale())
 	_tick_guard(delta)
 	if _drop_through_left > 0.0:
 		_drop_through_left -= delta
@@ -245,7 +253,7 @@ func _process_normal(delta: float) -> void:
 
 	var target_speed := 0.0
 	if not is_crouching:
-		target_speed = input_x * tuning.run_speed
+		target_speed = input_x * tuning.run_speed * cyber.move_speed_scale()
 		# 背對準星移動（倒退）時稍慢，維持射擊時的控制感。
 		if signf(input_x) != 0.0 and signf(input_x) != float(facing):
 			target_speed *= tuning.backpedal_multiplier
@@ -359,7 +367,7 @@ func _try_fire() -> void:
 		return
 	if not loadout.consume_ammo():
 		return
-	_fire_cooldown_left = weapon.fire_interval
+	_fire_cooldown_left = weapon.fire_interval / cyber.fire_rate_scale()
 	var muzzle := muzzle_position()
 	WeaponSystem.fire(weapon, muzzle, aim_dir, Combat.Team.PLAYER, 1.0, aim_bloom * AIM_BLOOM_MAX_DEGREES)
 	aim_bloom = minf(1.0, aim_bloom + weapon.bloom_per_shot)

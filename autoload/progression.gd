@@ -5,8 +5,10 @@ extends Node
 
 signal credits_changed(credits: int, delta: int)
 signal upgrades_changed
+signal abilities_changed
 
 const UPGRADE_DIR := "res://data/upgrades"
+const ABILITY_DIR := "res://data/abilities"
 const SNAPSHOT_VERSION := 1
 const MAX_CREDITS := 99999
 
@@ -16,6 +18,10 @@ var _upgrade_catalog: Array[WeaponUpgradeData] = []
 var _catalog_loaded := false
 ## 武器 id -> 已買的改裝 id 清單。
 var _upgrades: Dictionary[StringName, Array] = {}
+var _ability_catalog: Array[CyberAbilityData] = []
+var _ability_catalog_loaded := false
+var _unlocked_abilities: Dictionary[StringName, bool] = {}
+var _equipped_ability: StringName = &""
 
 
 # ---------------------------------------------------------------------------
@@ -131,21 +137,87 @@ func tuned(base: WeaponData) -> WeaponData:
 
 
 # ---------------------------------------------------------------------------
+# 義體能力
+# ---------------------------------------------------------------------------
+
+## 所有義體能力定義（依 order 排序）。
+func ability_catalog() -> Array[CyberAbilityData]:
+	if not _ability_catalog_loaded:
+		_ability_catalog_loaded = true
+		for res in ResourceCatalog.load_dir(ABILITY_DIR, CyberAbilityData, "Progression"):
+			_ability_catalog.append(res as CyberAbilityData)
+	return _ability_catalog
+
+
+func find_ability(id: StringName) -> CyberAbilityData:
+	for ability in ability_catalog():
+		if ability.id == id:
+			return ability
+	return null
+
+
+func is_ability_unlocked(id: StringName) -> bool:
+	return _unlocked_abilities.has(id)
+
+
+## 目前裝備的義體能力（沒有裝備回傳 null）。
+func equipped_ability() -> CyberAbilityData:
+	return find_ability(_equipped_ability) if _unlocked_abilities.has(_equipped_ability) else null
+
+
+## 回傳不能解鎖的原因（空字串代表可以）。
+func ability_unlock_block_reason(ability: CyberAbilityData) -> String:
+	if ability == null:
+		return "沒有這項能力"
+	if is_ability_unlocked(ability.id):
+		return "已經解鎖了"
+	if not can_afford(ability.unlock_cost):
+		return "信用點不足（還差 %d）" % (ability.unlock_cost - credits)
+	return ""
+
+
+## 解鎖能力並自動裝備（第一個解鎖的能力才自動裝備，之後由玩家選擇）。
+func unlock_ability(ability: CyberAbilityData) -> bool:
+	if not ability_unlock_block_reason(ability).is_empty() or not spend(ability.unlock_cost):
+		return false
+	_unlocked_abilities[ability.id] = true
+	if equipped_ability() == null:
+		_equipped_ability = ability.id
+	abilities_changed.emit()
+	return true
+
+
+## 裝備已解鎖的能力。回傳是否成功。
+func equip_ability(id: StringName) -> bool:
+	if not _unlocked_abilities.has(id) or find_ability(id) == null:
+		return false
+	_equipped_ability = id
+	abilities_changed.emit()
+	return true
+
+
+# ---------------------------------------------------------------------------
 # 存檔
 # ---------------------------------------------------------------------------
 
 func reset_run() -> void:
 	credits = 0
 	_upgrades.clear()
+	_unlocked_abilities.clear()
+	_equipped_ability = &""
 	credits_changed.emit(credits, 0)
 	upgrades_changed.emit()
+	abilities_changed.emit()
 
 
 func snapshot() -> Dictionary:
 	var upgrades: Dictionary = {}
 	for weapon_id in _upgrades:
 		upgrades[String(weapon_id)] = (_upgrades[weapon_id] as Array).map(func(id: StringName) -> String: return String(id))
-	return {"version": SNAPSHOT_VERSION, "credits": credits, "upgrades": upgrades}
+	var abilities: Array[String] = []
+	for id in _unlocked_abilities:
+		abilities.append(String(id))
+	return {"version": SNAPSHOT_VERSION, "credits": credits, "upgrades": upgrades, "abilities": abilities, "equipped": String(_equipped_ability)}
 
 
 ## 從快照還原；資料損毀、型別不符或引用到已不存在的改裝時略過該部分，保證不崩潰。
@@ -165,5 +237,23 @@ func restore(data: Dictionary) -> void:
 					valid.append(upgrade_id)
 			if not valid.is_empty():
 				_upgrades[StringName(str(weapon_id))] = valid
+	_restore_abilities(data)
 	credits_changed.emit(credits, 0)
 	upgrades_changed.emit()
+	abilities_changed.emit()
+
+
+func _restore_abilities(data: Dictionary) -> void:
+	_unlocked_abilities.clear()
+	_equipped_ability = &""
+	var raw: Variant = data.get("abilities", [])
+	if typeof(raw) == TYPE_ARRAY:
+		for id: Variant in raw:
+			var ability_id := StringName(str(id))
+			if find_ability(ability_id) != null:
+				_unlocked_abilities[ability_id] = true
+	var equipped := StringName(str(data.get("equipped", "")))
+	if _unlocked_abilities.has(equipped):
+		_equipped_ability = equipped
+	elif not _unlocked_abilities.is_empty():
+		_equipped_ability = _unlocked_abilities.keys()[0]

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CyberAbilityData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/cyber_ability_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"emp_pulse"
+display_name = "電磁脈衝"
+kind = 1
+description = "瞬間癱瘓周圍的敵人 2 秒並消除敵方子彈（頭目只消除彈幕）"
+color = Color(0.35, 0.88, 1.0, 1.0)
+unlock_cost = 250
+charge_cost = 50.0
+cooldown = 8.0
+duration = 2.0
+radius = 150.0
+magnitude = 0.0
+order = 0
+icon = "ability_emp"
+sound = &"emp"

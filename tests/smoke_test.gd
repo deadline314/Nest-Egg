@@ -44,6 +44,7 @@ func _run() -> void:
 	await NewEnemiesSuite.new(self).run()
 	await CollectiblesSuite.new(self).run()
 	await ProgressionSuite.new(self).run()
+	await SupplySuite.new(self).run()
 	print("checks: %d, failures: %d" % [_checks, _failures.size()])
 	for failure in _failures:
 		printerr("FAIL: " + failure)
@@ -1053,8 +1054,11 @@ func _test_lighting() -> void:
 	# 設施入口停電走廊之前的一段（頭目機庫會觸發警報覆蓋，另外測）。
 	var follow := 3
 	level.player.global_position = Vector2(252.0 * tile, level.player.global_position.y)
-	for i in 4:
+	# 光影以平滑過渡追上玩家所在區段；最多等 2 秒，避免依賴幀率造成偶發失敗。
+	for i in 120:
 		await get_tree().process_frame
+		if ambient.color.is_equal_approx(zones[follow].profile.ambient_color):
+			break
 	_check(ambient.color.is_equal_approx(zones[follow].profile.ambient_color), "ambient light follows the player into the facility zone")
 	_check(level._background.modulate.is_equal_approx(zones[follow].profile.background_tint), "background tint follows the zone")
 	_check(is_equal_approx(level._fog.density, zones[follow].profile.fog_density) and level._fog.color.is_equal_approx(zones[follow].profile.fog_color), "fog follows the zone")

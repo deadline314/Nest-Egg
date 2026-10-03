@@ -8,6 +8,8 @@ signal player_loadout_changed(loadout: Loadout)
 signal player_consumables_changed(bag: ConsumableBag)
 signal player_died(cause_id: StringName)
 signal player_guard_changed(current: float, maximum: float, broken: bool)
+## 義體能力狀態：電量 0~100、是否可用、能力名稱（空字串 = 沒有裝備）、冷卻或持續的進度 0~1。
+signal player_cyber_changed(charge: float, ready: bool, ability_name: String, progress: float)
 signal player_parried(world_position: Vector2)
 
 signal vehicle_mounted(vehicle: Node2D)

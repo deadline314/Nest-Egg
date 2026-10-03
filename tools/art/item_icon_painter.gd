@@ -19,7 +19,7 @@ const MAGENTA := Color("ff2e88")
 
 
 static func ids() -> Array[String]:
-	return ["wataru_photo", "nest_egg_chip", "old_k_order", "nest07_shard", "med_injector", "shield_cell", "maintenance_pass", "nest_roster", "wataru_wristband", "document", "recording"]
+	return ["wataru_photo", "nest_egg_chip", "old_k_order", "nest07_shard", "med_injector", "shield_cell", "maintenance_pass", "nest_roster", "wataru_wristband", "document", "recording", "ability_emp", "ability_overclock"]
 
 
 ## 回傳畫好的圖示；未知 id 回傳 null。
@@ -37,6 +37,8 @@ static func paint(id: String) -> PixelCanvas:
 		"wataru_wristband": _wristband(canvas)
 		"document": _document(canvas)
 		"recording": _recording(canvas)
+		"ability_emp": _ability_emp(canvas)
+		"ability_overclock": _ability_overclock(canvas)
 		_:
 			push_warning("[ItemIconPainter] 沒有 %s 的圖示" % id)
 			return null
@@ -288,3 +290,32 @@ static func _recording(c: PixelCanvas) -> void:
 	c.circle(21.0, 21.5, 1.6, Color("56657e"))
 	c.rect(13, 21, 6, 1, Color("56657e"))
 	c.px(24, 10, MAGENTA)
+
+
+## 電磁脈衝：中心一顆晶體，向外擴散的青色同心圓弧與閃電。
+static func _ability_emp(c: PixelCanvas) -> void:
+	for r in [13.0, 9.0]:
+		for deg in range(0, 360, 4):
+			var a := deg_to_rad(float(deg))
+			var x: float = 16.0 + cos(a) * r
+			var y: float = 16.0 + sin(a) * r
+			# 弧上留缺口，像在擴散。
+			if (deg / 40) % 3 != 0:
+				c.px(int(x), int(y), CYAN if r > 10.0 else Color("9ff3ff"))
+	c.circle(16.0, 16.0, 4.5, CYAN_DARK)
+	c.circle(16.0, 16.0, 3.2, CYAN)
+	c.polygon(PackedVector2Array([Vector2(17, 11), Vector2(13, 17), Vector2(16, 17), Vector2(15, 22), Vector2(20, 15), Vector2(17, 15)]), Color("fff8c0"))
+
+
+## 超頻：洋紅色的齒輪加上向右的速度線。
+static func _ability_overclock(c: PixelCanvas) -> void:
+	c.circle(15.0, 16.0, 9.5, Color("7a1a45"))
+	c.circle(15.0, 16.0, 7.5, MAGENTA)
+	c.circle(15.0, 16.0, 3.5, Color("1d1018"))
+	for i in 8:
+		var a := TAU * i / 8.0
+		var tooth := Vector2(15.0, 16.0) + Vector2(cos(a), sin(a)) * 10.5
+		c.rect(int(tooth.x) - 1, int(tooth.y) - 1, 3, 3, MAGENTA)
+	for i in 3:
+		c.line(Vector2i(2, 10 + i * 6), Vector2i(8 - i, 10 + i * 6), Color("ffb0d4"))
+	c.px(15, 16, Color("ffd0e4"))

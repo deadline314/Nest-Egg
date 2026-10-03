@@ -123,6 +123,18 @@ const SOUNDS := {
 		{"wave": "saw", "from": 60.0, "to": 520.0, "time": 0.6, "volume": 0.18, "lowpass": 0.3, "decay": 1.2, "attack": 0.1},
 		{"wave": "tri", "from": 330.0, "to": 660.0, "time": 0.2, "volume": 0.14, "decay": 1.5},
 	],
+	&"emp": [
+		{"wave": "saw", "from": 120.0, "to": 1800.0, "time": 0.25, "volume": 0.2, "lowpass": 0.4, "decay": 1.2},
+		{"wave": "noise", "time": 0.3, "volume": 0.28, "lowpass": 0.7, "decay": 1.6},
+		{"wave": "sine", "from": 900.0, "to": 120.0, "time": 0.35, "volume": 0.3, "decay": 1.4},
+	],
+	&"overclock": [
+		{"wave": "saw", "from": 200.0, "to": 900.0, "time": 0.3, "volume": 0.18, "lowpass": 0.5, "decay": 1.1, "attack": 0.05},
+		{"wave": "tri", "from": 600.0, "to": 1500.0, "time": 0.2, "volume": 0.16, "decay": 1.4},
+	],
+	&"ability_ready": [
+		{"wave": "tri", "from": 900.0, "to": 1400.0, "time": 0.09, "volume": 0.12, "decay": 1.6},
+	],
 	&"pickup": [
 		{"wave": "tri", "from": 660.0, "to": 660.0, "time": 0.07, "volume": 0.2, "decay": 1.0},
 		{"wave": "tri", "from": 990.0, "to": 1320.0, "time": 0.16, "volume": 0.2, "decay": 1.2, "attack": 0.06},

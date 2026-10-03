@@ -44,6 +44,21 @@ func spawn(spec: ProjectileSpec, origin: Vector2, direction: Vector2, team: Comb
 	return projectile
 
 
+## 消除範圍內某陣營的子彈（電磁脈衝用）。回傳消除的數量。
+func clear_in_radius(center: Vector2, radius: float, team: Combat.Team) -> int:
+	if _container == null:
+		return 0
+	var cleared := 0
+	var limit := radius * radius
+	for child in _container.get_children():
+		var projectile := child as Projectile
+		if projectile != null and projectile.active and projectile.team == team \
+				and projectile.global_position.distance_squared_to(center) <= limit:
+			projectile.deactivate()
+			cleared += 1
+	return cleared
+
+
 func active_count() -> int:
 	return _total - _free.size()
 

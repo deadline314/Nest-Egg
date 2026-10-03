@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=42 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=43 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_script"]
 [ext_resource type="Resource" path="res://data/enemies/grunt.tres" id="2_grunt"]
@@ -24,6 +24,7 @@
 [ext_resource type="Resource" path="res://data/props/cracked_wall.tres" id="43_wall"]
 [ext_resource type="Resource" path="res://data/props/credits_small.tres" id="44_credits_small"]
 [ext_resource type="Resource" path="res://data/props/credits_large.tres" id="45_credits_large"]
+[ext_resource type="Resource" path="res://data/shops/supply.tres" id="46_shop"]
 [ext_resource type="Resource" path="res://data/lighting/rooftop.tres" id="20_rooftop"]
 [ext_resource type="Resource" path="res://data/lighting/market.tres" id="21_market"]
 [ext_resource type="Resource" path="res://data/lighting/freight.tres" id="22_freight"]
@@ -101,7 +102,8 @@ legend = Dictionary[String, Resource]({
 "t": ExtResource("5_turret"),
 "v": ExtResource("42_voicemail"),
 "x": ExtResource("43_wall"),
-"y": ExtResource("41_manifest")
+"y": ExtResource("41_manifest"),
+"z": ExtResource("46_shop")
 })
 hints = PackedStringArray("移動 {move_left}/{move_right}，跳躍 {jump}（按久跳更高）", "滑鼠瞄準，{shoot} 射擊；{weapon_next} 或 1～4 換武器", "按住 {block} 舉盾；子彈到的瞬間舉盾＝完美反彈", "{move_down}＋{jump} 從平台落下；{dash} 衝刺時無敵", "監視蜂在頭頂：往斜上方瞄準射擊", "敵人頭上出現青色菱形：按 {melee} 終結，回補彈藥", "鎮暴員正面擋子彈：跳過或衝刺穿越，打背後", "按 {interact} 搭乘機甲：爆炸彈頭無視盾牌", "打爆自爆蟲，爆炸會波及牠的同伴")
 decor = Dictionary[String, String]({

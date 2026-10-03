@@ -11,6 +11,8 @@ extends Resource
 @export var order: int = 0
 ## 攜帶上限。
 @export var max_carry: int = 3
+## 補給點的售價（信用點）；0 代表不販售。
+@export var price: int = 0
 @export_group("Effect")
 ## 回復的生命格數。
 @export var heal_amount: int = 0
