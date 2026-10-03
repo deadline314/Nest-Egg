@@ -1397,7 +1397,7 @@ const SPOTS := {
 
 ## 環境元件預覽：材質畫廊（15 種地形材質 + 立面）與道具畫廊，逐頁截圖。
 func _run_environment() -> void:
-	for entry in [["materials", 7], ["props", 5]]:
+	for entry in [["materials", 7], ["props", 9]]:
 		var data := EnvGallery.level_data(entry[0])
 		GameState.start_new_run(GameState.difficulties[1])
 		var level := Level.new()

@@ -235,7 +235,12 @@ def process(e: dict, cfg: dict, regen: bool, no_gen: bool) -> bool:
     color = np.dstack([qm.grade(small[..., :3], e.get("grade", {})), small[..., 3]])
     OUT.mkdir(parents=True, exist_ok=True)
     qm.to_image(color).save(OUT / f"{pid}.png", optimize=True)
-    qm.to_image(qm.normal_map(color, **e.get("normal", {}))).save(OUT / f"{pid}_n.png", optimize=True)
+    normal = dict(e.get("normal") or {})
+    profile = normal.pop("profile", None) or cfg.get("normal_profiles", {}).get(pid, cfg.get("normal_default", "pillow"))
+    if profile != "legacy":  # BG-8: height field from the silhouette (depth_normals.py); "legacy" keeps the old luminance-bevel normals
+        normal = {k: v for k, v in normal.items() if k in ("round_px", "relief", "detail", "detail_sigma", "gate", "strength")}
+        normal["profile"] = profile
+    qm.to_image(qm.normal_map(color, **normal)).save(OUT / f"{pid}_n.png", optimize=True)
 
     has_glow = False
     glow_file = OUT / f"{pid}_glow.png"

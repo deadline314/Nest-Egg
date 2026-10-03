@@ -58,12 +58,16 @@ def bevel(alpha: np.ndarray, width_px: float) -> np.ndarray:
 
 
 def normal_map(rgba: np.ndarray, strength: float = 2.0, detail_sigma: float = 1.2, bevel_px: float = 6.0,
-               bevel_weight: float = 0.5) -> np.ndarray:
+               bevel_weight: float = 0.5, profile: str | None = None, **depth) -> np.ndarray:
     """RGBA float image -> RGBA normal map (OpenGL convention: +Y up, which is what Godot 2D lighting expects).
 
     Height is a blend of blurred luminance (panels, rivets, folds read as relief) and a bevel along the outline.
     Flat areas come out as (0.5, 0.5, 1.0).
+    With `profile` (pillow / cylinder / cylinder_h / dome / flat) the height comes from depth_normals.py instead.
     """
+    if profile:  # BG-8: height field from the silhouette (see depth_normals.py); `depth` holds its parameters
+        import depth_normals
+        return depth_normals.depth_normal_map(rgba, profile, **depth)
     lum = rgba[..., :3] @ LUMA
     detail = cv2.GaussianBlur(lum, (0, 0), detail_sigma)
     detail = (detail - cv2.GaussianBlur(lum, (0, 0), detail_sigma * 8)) * 2.0  # drop low-frequency shading

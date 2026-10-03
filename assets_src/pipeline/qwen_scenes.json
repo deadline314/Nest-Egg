@@ -1,7 +1,8 @@
 {
  "styles": {
   "scene": "Anime cel-shaded background painting in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, clean ink outlines, hard-edged two-tone cel shading, flat side-on view like a platformer stage set with no perspective distortion, a completely deserted and uninhabited place where nobody is present, the floor strip along the bottom fifth of the picture is bare and empty.",
-  "strip": "A photorealistic near-black silhouette foreground element for a 2D game, flat side view, very dark almost black materials with only faint edge highlights, small glowing LED indicator lights, no text."
+  "strip": "A photorealistic near-black silhouette foreground element for a 2D game, flat side view, very dark almost black materials with only faint edge highlights, small glowing LED indicator lights, no text.",
+  "feet": "Anime cel-shaded illustration in the style of Studio Trigger's Cyberpunk Edgerunners: flat pale peach skin colour, bold clean dark brown outlines, hard-edged two-tone cel shading with a faint cool-white rim light on the lit edges, straight-on orthographic front view, nothing else in the picture, no ground, no cast shadow, no text."
  },
  "glow_presets": {
   "bulb": [
@@ -288,6 +289,24 @@
     "saturation": 0.85
    },
    "prompt": "An empty sterile white room, overexposed soft white light, plain white walls and a pale floor where the wall meets the floor at about seventy percent of the picture height, minimal, dreamlike, slightly grainy, completely empty, like a memory."
+  },
+  {
+   "id": "white_room_foot",
+   "kind": "strip",
+   "style": "feet",
+   "seed": 5,
+   "gen": [
+    1024,
+    832
+   ],
+   "px": [
+    320,
+    260
+   ],
+   "out": "art/environment/stages/white_room_foot.webp",
+   "trim": true,
+   "quality": 100,
+   "prompt": "One pair of small bare feet of a young child standing side by side with a small gap between them, seen straight from the front, small in the middle of the picture with plenty of empty space around them: the whole feet with tiny toes and round ankles are fully inside the picture, and the shins rise only a short way above the ankles and end in a clean straight cut, proportions about five wide to four tall."
   }
  ]
 }

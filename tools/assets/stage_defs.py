@@ -8,8 +8,22 @@ import json
 import sys
 from pathlib import Path
 
+import numpy as np
+from PIL import Image
+
 ROOT = Path(__file__).resolve().parents[2]
 STAGES = ROOT / "data" / "cutscene" / "stages"
+ART = ROOT / "art" / "environment" / "stages"
+
+# The row of little feet in the white room (BG-6): one cel-shaded pair of feet (white_room_foot.webp, from
+# tools/assets/qwen_scenes.py) repeated FEET_COUNT times at an equal pitch, centred on the stage, soles on the floor line.
+FEET_COUNT = 16
+FEET_PITCH = 28.0      # stage units between two pairs
+FEET_WIDTH = 22.0      # stage units: width of one pair (the picture's height follows its proportions)
+FEET_CENTER_X = 320.0
+FEET_FLOOR_Y = 286.0   # where the soles stand (the old polygons ended here)
+FEET_FADE = 0.3        # fraction of the picture height over which the shins fade out at the top
+FEET_PX_PER_UNIT = 4   # texture pixels per stage unit (the camera zooms to 1.8x, so keep it crisp)
 
 
 def bg(name: str, dy: float = 0.0, **extra) -> dict:
@@ -17,6 +31,35 @@ def bg(name: str, dy: float = 0.0, **extra) -> dict:
     layer = {"kind": "sprite", "path": f"res://art/environment/stages/{name}.webp", "pos": [-64, -36 + dy], "scale": 0.5, "filter": "linear"}
     layer.update(extra)
     return layer
+
+
+def feet_layer() -> dict | None:
+    """Compose the 16 pairs into one wide picture (art/environment/stages/white_room_feet.webp) and return its sprite layer.
+    Returns None (and says where) when the single-pair picture is missing, so the caller keeps the old stage layers."""
+    src = ART / "white_room_foot.webp"
+    if not src.exists():
+        print(f"ERROR {src}: missing, run tools/assets/qwen_scenes.py --only white_room_foot first; the white room keeps its old feet", file=sys.stderr)
+        return None
+    pair = Image.open(src).convert("RGBA")
+    pw = round(FEET_WIDTH * FEET_PX_PER_UNIT)
+    ph = max(1, round(pw * pair.height / pair.width))
+    pair = pair.resize((pw, ph), Image.LANCZOS)
+    total_units = FEET_PITCH * (FEET_COUNT - 1) + FEET_WIDTH
+    canvas = Image.new("RGBA", (round(total_units * FEET_PX_PER_UNIT), ph), (0, 0, 0, 0))
+    base = np.asarray(pair).astype(np.float32)
+    ramp = np.clip(np.arange(ph, dtype=np.float32) / (FEET_FADE * ph), 0.0, 1.0)  # the shins fade out at the top instead of ending in a straight cut
+    base[..., 3] *= ramp[:, None]
+    for i in range(FEET_COUNT):
+        tone = 1.0 - 0.015 * ((i * 7) % 4) / 3.0  # a faint, repeatable variation so the row does not look stamped
+        arr = base.copy()
+        arr[..., :3] *= tone
+        canvas.alpha_composite(Image.fromarray(np.clip(arr + 0.5, 0, 255).astype(np.uint8), "RGBA"), (round(i * FEET_PITCH * FEET_PX_PER_UNIT), 0))
+    ART.mkdir(parents=True, exist_ok=True)
+    out = ART / "white_room_feet.webp"
+    canvas.save(out, "WEBP", lossless=True, method=6)
+    scale = 1.0 / FEET_PX_PER_UNIT
+    return {"kind": "sprite", "path": "res://art/environment/stages/white_room_feet.webp",
+            "pos": [round(FEET_CENTER_X - total_units / 2.0, 2), round(FEET_FLOOR_Y - ph * scale, 2)], "scale": scale, "filter": "linear"}
 
 
 def glow(pos, radius, color, intensity, alpha, **extra) -> dict:
@@ -84,7 +127,7 @@ STAGE_LAYERS = {
         {"kind": "gradient", "top": "#f2f1ec", "bottom": "#d8d4c8", "parallax": 0.0},
         bg("white_room"),
         glow([320, 100], 260, "#ffffff", 0.5, 0.3, pulse=0.07, pulse_depth=0.3),
-        {"_keep_kind": "poly"},
+        {"_build": "white_room_feet", "_fallback_kind": "poly"},
         motes(36, "#fffdf2", 0.55, [0, 20, 640, 260], [1.5, -2.5], 1.4, 41),
         grain(420, 0.35, color="#7a7266"),
         {"kind": "rect", "rect": [-100, -100, 840, 520], "color": "#f8f2e0", "alpha": 0.18, "depth": "front"},
@@ -96,7 +139,13 @@ def expand(layers: list, existing: dict) -> list:
     """Replace {"_keep_kind": k} placeholders by the layers of kind k from the current stage file (story props like the row of cubes)."""
     out = []
     for layer in layers:
-        if "_keep_kind" in layer:
+        if "_build" in layer:  # a layer made by code (the white room's row of feet); on failure keep the old layers of kind _fallback_kind
+            built = feet_layer() if layer["_build"] == "white_room_feet" else None
+            if built is not None:
+                out.append(built)
+            else:
+                out.extend(l for l in existing.get("layers", []) if l.get("kind") == layer.get("_fallback_kind"))
+        elif "_keep_kind" in layer:
             out.extend(l for l in existing.get("layers", []) if l.get("kind") == layer["_keep_kind"])
         else:
             out.append(layer)

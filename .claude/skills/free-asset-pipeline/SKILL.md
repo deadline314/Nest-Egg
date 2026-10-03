@@ -56,7 +56,9 @@ description: 把免費（CC0）高解析度素材換進 Nest Egg 場景的完整
 
 ## 5. 3D 模型 → 2D 貼圖
 
-### 單件道具（`build_props.py`）
+### 單件道具（`build_props.py`，BG-10 之後清單已清空）
+
+**`props.json` 的 `props` 現在是空的**：16 件模型渲染道具（冷氣機、路燈、電線桿……）已全部改成 Qwen 生成（§8）或程式繪製的賽璐璐版本（管線，`tools/assets/cel_pipes.py`），只剩 `aliases`（前景樹）。下面是舊流程，只在又要用免費 3D 模型時參考；新道具走 §8。
 
 清單：`assets_src/pipeline/props.json`，每筆 `{id, model(manifest id), crop[x0,y0,x1,y1 比例], fit:"height"|"width", yaw, pitch, glow:[材質名正規式], glow_color, glow_through, render_width}`。
 
@@ -128,6 +130,9 @@ CC0 庫找不到的道具（吊車、龍門吊、控制台、堆高機、閘門�
 - **編輯模式（給參考圖）吃顯示記憶體**：1536×864 級的參考圖曾讓 ComfyUI OOM 卡死；清晨版舖子改成 1152×648 生成再放大就穩了，逃生梯類改成純文生圖。編輯模式的工作排在批次最後。
 - **不要叫模型「沒有人」**：負面描述會被無視（第一版老 K 的舖子畫進兩個小孩）。改正面描述：「a completely deserted and uninhabited place where nobody is present, the floor strip is bare and empty」。
 - **編輯模式做變體**：清晨版舖子用 `ref` 指向夜晚版原圖，構圖一致、只改光線。
+- **管線不用模型畫**：直管、橫管、設施管線（三管束）又長又細，模型會把它畫彎或畫不出 1:10 的比例，改用 `python tools/assets/cel_pipes.py` 程式繪製（尺寸同資料，每邏輯像素 8 px），自帶法線。
+- **法線（BG-8）**：`qwen_props.py` 的法線不再由亮度推算，而是 `tools/assets/depth_normals.py` 從輪廓推算高度：`pillow`（預設：平整面、圓角邊，門、箱、機器、床）、`cylinder`（直立圓柱：油桶、水塔、燈柱、樹幹、鍋）、`cylinder_h`（橫向圓柱：管線）、`dome`（整體圓鼓）、`flat`（只有極薄的邊，看板、塗鴉、刻痕牆）。每個道具的輪廓放在 `qwen_props.json` 的 `normal_profiles`（沒列的用 `normal_default`），單一道具要微調用該項的 `"normal": {"profile": ..., "relief": ..., "detail": ..., "gate": ...}`；`"profile": "legacy"` 保留舊的亮度推算。明暗細節有「閘門」（`gate`），小於閘門的亮度差不算，所以平面不會出現假凹凸。**不需要下載模型**（使用者 2026-10-04 決定不下載深度估計模型）。改了輪廓表後用 `python tools/assets/qwen_props.py --no-gen` 全部重算（用快取的原圖，不開 ComfyUI）。對照工具：`godot --path . res://tools/assets/preview_prop_lighting.tscn -- --ids=a,b --old-normals=<舊法線資料夾> --out=<png>`，上排舊法線、下排新法線，同一組側光。
+- **伏筆物件要放大貼圖**：身高刻痕牆、蠟筆畫、窗外照片等有小字或小人影的，在清單用 `"texture_scale": 12～16` 讓細節看得清楚（`.tres` 的邏輯尺寸不變）。
 - **窗光抽取**：`glow` 規則（`neon` 高亮高彩度、`beacon` 純紅、`screen` 亮面、`warm` 暖光窗、`console`…）從生成圖抽出發光層；純紅像素會被改成純紅，窗光生命著色器才會讓它明滅。
 - **動畫都是 `PropData` 欄位＋著色器**（清單的 `data` 寫進 `.tres`）：`sway`＋`sway_hang`（懸掛物頂端固定）、`glow_life`（信標明滅、區塊閃爍）、`glow_scan`（螢幕掃描帶）、`ripple`（水窪漣漪）、`steam`＋`steam_offset`（只在畫面內冒蒸汽）、`flicker`；舞台圖層有 `pulse`（柔光脈動）與 `motes`（塵粒）。新增動畫先看有沒有欄位可用，沒有再加欄位，不要寫每影格腳本。
 - **舞台圖要對齊地板**：`bg(name, dy=…)` 位移到圖中的地板線等於舞台的地板（角色腳底 y≈ 250～292）；圖偏暗時用 `modulate` 大於 1 提亮（HDR）。
@@ -138,7 +143,7 @@ CC0 庫找不到的道具（吊車、龍門吊、控制台、堆高機、閘門�
 
 ## 9. 還沒做的部分
 
-統一調色與光影整合（NE-66）；白房間那排「小腳」仍是多邊形（BG-6）；舊的四個過場舞台（BG-5）與室內道具（BG-7）仍是寫實風或舊圖；道具法線品質（BG-8）。地形材質、立面、遠中景、天空（BG-1、74、76）與樹木（BG-3）已是賽璐璐畫風。
+統一調色與光影整合（NE-66）。地形、立面、遠中景、天空、樹木、室內道具、舊道具、過場舞台、白房間小腳（BG-1～7、BG-10）與道具法線（BG-8）都已完成。
 
 ## 10. 驗收清單
 

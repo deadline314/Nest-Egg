@@ -2,7 +2,8 @@
  "styles": {
   "dark": "Anime cel-shaded game prop in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, bold clean dark outlines, hard-edged two-tone cel shading with a bright cool-white rim light on the lit edges, natural local colours (rust brown, steel grey, faded red, teal, warm yellow) kept clearly lighter than a dark navy night background, small neon cyan and magenta accents, straight-on orthographic side elevation with no perspective, one single object centered, no ground, no cast shadow, no text.",
   "neon": "Anime cel-shaded game prop in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, bold clean dark outlines, hard-edged two-tone cel shading with a bright cool-white rim light on the lit edges, natural local colours (rust brown, steel grey, faded red, teal, warm yellow) kept clearly lighter than a dark navy night background, small neon cyan and magenta accents, straight-on orthographic side elevation with no perspective, one single object centered, no ground, no cast shadow, no text.",
-  "nature": "Anime cel-shaded game plant in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, bold clean dark outlines, hard-edged two-tone cel shading with a bright cool-white rim light on the lit edges, natural local colours (leaf green, teal green, olive, warm brown bark) kept clearly lighter than a dark navy night background, straight-on orthographic side elevation with no perspective, one single plant centered, no ground, no cast shadow, no text."
+  "nature": "Anime cel-shaded game plant in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, bold clean dark outlines, hard-edged two-tone cel shading with a bright cool-white rim light on the lit edges, natural local colours (leaf green, teal green, olive, warm brown bark) kept clearly lighter than a dark navy night background, straight-on orthographic side elevation with no perspective, one single plant centered, no ground, no cast shadow, no text.",
+  "dark_text": "Anime cel-shaded game prop in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, bold clean dark outlines, hard-edged two-tone cel shading with a bright cool-white rim light on the lit edges, natural local colours (rust brown, steel grey, faded red, teal, warm yellow) kept clearly lighter than a dark navy night background, small neon cyan and magenta accents, straight-on orthographic side elevation with no perspective, one single object centered, no ground, no cast shadow, any writing exactly as specified in the description."
  },
  "glow_presets": {
   "neon": [
@@ -60,6 +61,17 @@
    },
    {
     "red_beacon": true
+   }
+  ],
+  "bulb": [
+   {
+    "hue": [
+     15,
+     65
+    ],
+    "smin": 0.2,
+    "vmin": 0.85,
+    "soft": 1.5
    }
   ]
  },
@@ -809,7 +821,536 @@
      10
     ]
    }
+  },
+  {
+   "id": "hospital_bed",
+   "seed": 3,
+   "fit": "meters",
+   "prompt": "A hospital bed seen exactly from the side: a pale grey metal frame with a raised head end, a white mattress, a pale blue blanket folded at the foot, a thin white pillow, a raised side rail, small wheels under the legs and a clipboard hanging at the foot end, sterile pale blue-grey and white tones, proportions about five wide to two tall.",
+   "gen": [
+    1392,
+    576
+   ],
+   "height_m": 0.9,
+   "anchor": {
+    "size": [
+     48.0,
+     20.0
+    ]
+   }
+  },
+  {
+   "id": "shop_bed",
+   "seed": 3,
+   "fit": "meters",
+   "prompt": "An old narrow single bed seen exactly from the side: a simple warm brown wooden frame with a low headboard and footboard, a thin mattress with a rumpled faded green blanket and a flat pillow, worn and lived-in, proportions about three wide to one tall.",
+   "gen": [
+    1536,
+    512
+   ],
+   "height_m": 0.65,
+   "anchor": {
+    "size": [
+     52.0,
+     22.0
+    ]
+   }
+  },
+  {
+   "id": "shop_bed_made",
+   "seed": 3,
+   "fit": "meters",
+   "prompt": "An old narrow single bed seen exactly from the side, neatly made: a simple warm brown wooden frame with a low headboard and footboard, a thin mattress with a faded green blanket pulled flat and tucked in tightly, a plumped pillow at the head end and a folded towel at the foot, proportions about three wide to one tall.",
+   "gen": [
+    1536,
+    512
+   ],
+   "height_m": 0.65,
+   "anchor": {
+    "size": [
+     52.0,
+     22.0
+    ]
+   }
+  },
+  {
+   "id": "shop_shelf",
+   "seed": 4,
+   "fit": "meters",
+   "prompt": "A wooden grocery shelf unit seen straight from the front: four shelves of warm tan wood in a plain frame, filled with tin cans, glass jars, small boxes and paper-wrapped bundles in muted colours, blank paper price tags pinned along the shelf edges, proportions about six wide to five tall.",
+   "gen": [
+    976,
+    816
+   ],
+   "height_m": 1.8,
+   "anchor": {
+    "size": [
+     64.0,
+     40.0
+    ]
+   }
+  },
+  {
+   "id": "shop_table",
+   "seed": 3,
+   "fit": "meters",
+   "prompt": "A low Japanese-style chabudai tea table seen exactly from the side: a round-cornered warm tan wooden tabletop on four short legs, with a teapot, two small cups and a bowl standing on top, proportions about two wide to one tall.",
+   "gen": [
+    1264,
+    640
+   ],
+   "height_m": 0.55,
+   "anchor": {
+    "size": [
+     44.0,
+     20.0
+    ]
+   }
+  },
+  {
+   "id": "porridge_pot",
+   "seed": 5,
+   "fit": "meters",
+   "glow": [
+    {
+     "hue": [
+      15,
+      50
+     ],
+     "smin": 0.5,
+     "vmin": 0.92,
+     "soft": 1.5
+    }
+   ],
+   "data": {
+    "steam": true,
+    "steam_offset": "Vector2(8, 0)"
+   },
+   "prompt": "A squat round aluminium porridge pot with two black side handles and a dented lid sitting slightly ajar, standing on a small black portable gas burner with a tiny bright orange flame glowing underneath, a wooden ladle resting in it, no steam, seen straight from the front, proportions about six wide to five tall.",
+   "gen": [
+    976,
+    816
+   ],
+   "height_m": 0.5,
+   "anchor": {
+    "size": [
+     16.0,
+     14.0
+    ],
+    "light_offset": [
+     8.0,
+     4.0
+    ]
+   }
+  },
+  {
+   "id": "height_marks",
+   "seed": 7,
+   "fit": "meters",
+   "style": "dark_text",
+   "prompt": "A square panel of old pale grey-green painted concrete wall seen straight on, a growth chart for sixteen children: sixteen bold horizontal notches scratched deep into the wall, arranged in four columns and four rows, every notch at a clearly different height from its neighbours, the notches in each row climbing like uneven stairs from low on the left to high on the right, each notch with a large clear white chalk number written right beside it, numbered 01 02 03 04 in the first row, 05 06 07 08 in the second row, 09 10 11 12 in the third row and 13 14 15 16 in the fourth row, every number exactly two digits and easy to read, a plain skirting board at the bottom, a cleanly cut square with straight edges, proportions about one wide to one tall.",
+   "gen": [
+    896,
+    896
+   ],
+   "height_m": 1.7,
+   "anchor": {
+    "size": [
+     18.0,
+     46.0
+    ]
+   },
+   "texture_scale": 12
+  },
+  {
+   "id": "crayon_drawing",
+   "seed": 3,
+   "fit": "meters",
+   "style": "dark_text",
+   "prompt": "A child's crayon drawing on a sheet of cream paper with taped corners, seen flat from the front: two stick-figure people sharing one big red umbrella, one tall and one short, drawn with thick waxy crayon scribbles in red, blue and green; behind them a simple house wall with a window, and inside the window one very tiny extra figure drawn in the palest faint yellow crayon, barely visible; in the bottom right corner crooked childish handwriting reading '姐姐跟我'; the paper slightly yellowed, proportions about four wide to three tall.",
+   "gen": [
+    1024,
+    768
+   ],
+   "height_m": 0.5,
+   "anchor": {
+    "size": [
+     20.0,
+     16.0
+    ]
+   },
+   "texture_scale": 16
+  },
+  {
+   "id": "photo_sky",
+   "seed": 4,
+   "fit": "meters",
+   "prompt": "A worn small printed photograph with a white border and scuffed corners, seen flat from the front: a smiling little boy of about eight years old in a grey jacket, laughing and pointing one raised arm straight up at an unnaturally deep saturated blue sky with a few smooth white clouds, a thin straight pale horizontal seam line clearly visible across the whole sky near the top of the picture where two blue panels do not quite match, proportions about four wide to three tall.",
+   "gen": [
+    1024,
+    768
+   ],
+   "height_m": 0.4,
+   "anchor": {
+    "size": [
+     14.0,
+     12.0
+    ]
+   },
+   "texture_scale": 16
+  },
+  {
+   "id": "elevator_door",
+   "seed": 3,
+   "fit": "meters",
+   "glow": [
+    {
+     "hue": [
+      150,
+      215
+     ],
+     "smin": 0.35,
+     "vmin": 0.6,
+     "soft": 1.2
+    }
+   ],
+   "prompt": "A closed steel elevator door seen straight from the front: a pair of brushed grey-steel sliding doors with a vertical centre seam, a thick dark steel frame, a small wall panel with a round call button at the right side, and above the doors a rectangular floor indicator panel with a row of small glowing cyan lights and a small glowing cyan arrow, proportions about three wide to four tall.",
+   "gen": [
+    768,
+    1040
+   ],
+   "height_m": 2.0,
+   "anchor": {
+    "size": [
+     44.0,
+     60.0
+    ],
+    "light_offset": [
+     22.0,
+     6.0
+    ]
+   }
+  },
+  {
+   "id": "window_rain",
+   "seed": 3,
+   "fit": "meters",
+   "glow": "screen",
+   "prompt": "An old industrial window seen from the inside: a dark steel frame divided into four panes, a thick sill at the bottom, the glass covered with rain streaks and droplets, behind the glass a blurred neon city glow in flat violet purple and magenta pink, proportions about eleven wide to ten tall.",
+   "gen": [
+    944,
+    848
+   ],
+   "height_m": 1.5,
+   "anchor": {
+    "size": [
+     40.0,
+     44.0
+    ],
+    "light_offset": [
+     20.0,
+     22.0
+    ]
+   }
+  },
+  {
+   "id": "ac_unit",
+   "seed": 3,
+   "fit": "meters",
+   "prompt": "A residential outdoor air-conditioner condenser unit seen straight from the front: a light grey box with one large round fan grille with a circular guard on the front face, a louvered side panel, a coil grille and two short refrigerant pipes at the side, mounted on two small feet, proportions about eleven wide to ten tall.",
+   "gen": [
+    944,
+    848
+   ],
+   "height_m": 0.7,
+   "anchor": {
+    "size": [
+     24.0,
+     22.2
+    ]
+   }
+  },
+  {
+   "id": "ac_unit_big",
+   "seed": 3,
+   "fit": "meters",
+   "prompt": "A large commercial rooftop air-conditioner unit seen straight from the front: a wide cream-grey cabinet with two big round fan grilles side by side, a louvered side panel, pipe connections and a small control box, standing on steel feet, proportions about five wide to four tall.",
+   "gen": [
+    992,
+    800
+   ],
+   "height_m": 1.1,
+   "anchor": {
+    "size": [
+     36.0,
+     33.3
+    ]
+   }
+  },
+  {
+   "id": "street_lamp",
+   "seed": 3,
+   "fit": "height",
+   "glow": "bulb",
+   "prompt": "A slender cast-iron city street lamp: a tall steel grey-green pole with a decorative base and a ring collar, the top bending into a short curved arm that reaches to the left and holds a lamp head with a bright glowing warm orange-yellow bulb under a small hood, proportions about one wide to three tall.",
+   "gen": [
+    512,
+    1536
+   ],
+   "anchor": {
+    "size": [
+     10.9,
+     60.0
+    ],
+    "light_offset": [
+     2.2,
+     6.0
+    ]
+   }
+  },
+  {
+   "id": "utility_pole",
+   "seed": 3,
+   "fit": "height",
+   "prompt": "A tall wooden utility pole standing straight: weathered warm brown timber, a short crossarm near the top carrying three grey ceramic insulators with a few short thick black cables hanging off both sides, a second smaller crossarm below, a grey transformer drum bolted to the upper part and metal climbing steps along the pole, proportions about two wide to five tall.",
+   "gen": [
+    560,
+    1408
+   ],
+   "anchor": {
+    "size": [
+     16.9,
+     80.0
+    ]
+   }
+  },
+  {
+   "id": "camera_wall",
+   "seed": 3,
+   "fit": "meters",
+   "glow": "beacon",
+   "prompt": "A wall-mounted CCTV security camera seen exactly from the side: a light grey box camera body with a small sun visor on top, the lens pointing to the right with one tiny bright pure red indicator light, held by a short bracket arm that attaches to the wall on the left, a thin cable, proportions about two wide to one tall.",
+   "gen": [
+    1264,
+    640
+   ],
+   "height_m": 0.25,
+   "anchor": {
+    "size": [
+     14.0,
+     7.2
+    ],
+    "light_offset": [
+     10.0,
+     4.8
+    ]
+   },
+   "data": {
+    "light_offset": "Vector2(3, 1.5)"
+   }
+  },
+  {
+   "id": "trash_can",
+   "seed": 3,
+   "fit": "meters",
+   "prompt": "A dented metal street trash can seen exactly from the side: a cylindrical galvanised steel bin with a flat lid with a small handle, ribbed bands and a few dents, faded green paint with rust streaks, proportions about four wide to five tall.",
+   "gen": [
+    800,
+    992
+   ],
+   "height_m": 0.55,
+   "anchor": {
+    "size": [
+     10.6,
+     16.0
+    ]
+   }
+  },
+  {
+   "id": "fuel_tank",
+   "seed": 3,
+   "fit": "meters",
+   "prompt": "An industrial fuel storage drum standing upright: a tall steel cylinder painted faded red-orange with two raised ribbed rings, a bung cap on top, a small valve and pipe fitting near the bottom and a yellow-black hazard stripe band, proportions about two wide to three tall.",
+   "gen": [
+    720,
+    1104
+   ],
+   "height_m": 1.3,
+   "anchor": {
+    "size": [
+     25.6,
+     40.0
+    ]
+   }
+  },
+  {
+   "id": "emergency_light",
+   "seed": 3,
+   "fit": "height",
+   "glow": "beacon",
+   "prompt": "A wall-mounted emergency warning lamp seen from the side: a small grey metal wall bracket and a protective wire cage around a dome lens glowing bright pure red, proportions about two wide to three tall.",
+   "gen": [
+    720,
+    1120
+   ],
+   "anchor": {
+    "size": [
+     5.1,
+     8.0
+    ],
+    "light_offset": [
+     2.5,
+     6.0
+    ]
+   },
+   "data": {
+    "light_offset": "Vector2(3.3, 5)"
+   }
+  },
+  {
+   "id": "hangar_light",
+   "seed": 3,
+   "fit": "height",
+   "glow": "bulb",
+   "prompt": "An industrial hanging high-bay hangar lamp seen from the front: a short chain at the top, a conical grey metal shade, and under it a bright warm yellow glowing bulb inside a small wire cage, proportions about three wide to five tall.",
+   "gen": [
+    688,
+    1152
+   ],
+   "anchor": {
+    "size": [
+     6.1,
+     10.0
+    ],
+    "light_offset": [
+     3.0,
+     8.0
+    ]
+   }
+  },
+  {
+   "id": "radio_set",
+   "seed": 3,
+   "fit": "meters",
+   "prompt": "An old portable radio-cassette boombox seen straight from the front: a chunky cream-and-brown plastic body with a big round speaker grille on each side, a cassette door and a row of buttons in the middle, a tuning dial window, a telescopic antenna sticking up at an angle and a carrying handle on top, scuffed and worn, proportions about three wide to two tall.",
+   "gen": [
+    1088,
+    736
+   ],
+   "height_m": 0.35,
+   "anchor": {
+    "size": [
+     16.0,
+     10.4
+    ]
+   }
+  },
+  {
+   "id": "server_rack",
+   "seed": 4,
+   "fit": "meters",
+   "glow": [
+    {
+     "smin": 0.4,
+     "vmin": 0.5,
+     "boost": 1.2,
+     "soft": 1.0
+    }
+   ],
+   "prompt": "A tall server equipment rack cabinet seen straight from the front: a light grey steel cabinet frame with a glass front door, behind it stacked black rack units each with a bright row of large glowing cyan, green and magenta LED lights, clearly visible, and a thick cable bundle at the side, proportions about two wide to five tall.",
+   "gen": [
+    560,
+    1408
+   ],
+   "height_m": 1.7,
+   "anchor": {
+    "size": [
+     18.6,
+     40.0
+    ],
+    "light_offset": [
+     9.3,
+     20.0
+    ]
+   }
+  },
+  {
+   "id": "crates_stack",
+   "seed": 4,
+   "fit": "meters",
+   "prompt": "A pile of six worn plastic storage crates seen straight from the front, stacked like a wide pyramid: three crates side by side on the bottom row and two crates on top of them and one crate on the very top, ventilated sides with handle cut-outs, faded blue, yellow and orange, scuffed corners, proportions about three wide to two tall.",
+   "gen": [
+    1088,
+    736
+   ],
+   "height_m": 0.95,
+   "anchor": {
+    "size": [
+     32.0,
+     28.4
+    ]
+   }
+  },
+  {
+   "id": "lamp_warm",
+   "seed": 3,
+   "fit": "height",
+   "glow": "bulb",
+   "prompt": "An industrial pendant lamp hanging from a thin black cord: the cord at the top, a metal socket, a dome-shaped enamel shade with a bright warm orange-yellow glowing bulb visible beneath it, seen from the front, proportions about one wide to two tall.",
+   "gen": [
+    608,
+    1312
+   ],
+   "anchor": {
+    "size": [
+     17.1,
+     34.0
+    ],
+    "light_offset": [
+     8.5,
+     30.0
+    ]
+   }
   }
  ],
- "px_per_meter": 30
+ "px_per_meter": 30,
+ "normal_default": "pillow",
+ "normal_profiles": {
+  "antenna": "flat",
+  "barrels": "cylinder",
+  "bus_stop": "flat",
+  "cables_hang": "flat",
+  "chimney_stack": "cylinder",
+  "clothesline": "flat",
+  "crane_arm": "flat",
+  "crayon_drawing": "flat",
+  "emergency_light": "cylinder",
+  "fence": "flat",
+  "fire_escape": "flat",
+  "fire_escape_ladder": "flat",
+  "fuel_tank": "cylinder",
+  "gantry_crane": "flat",
+  "graffiti": "flat",
+  "hangar_light": "cylinder",
+  "height_marks": "flat",
+  "lamp_warm": "cylinder",
+  "lantern_string": "dome",
+  "photo_sky": "flat",
+  "porridge_pot": "cylinder",
+  "satellite_dish": "dome",
+  "street_lamp": "cylinder",
+  "trash_can": "cylinder",
+  "tree_branch": "cylinder",
+  "tree_fir_1": "cylinder",
+  "tree_fir_2": "cylinder",
+  "tree_island": "cylinder",
+  "tree_jacaranda": "cylinder",
+  "tree_pine_1": "cylinder",
+  "tree_pine_2": "cylinder",
+  "tree_quiver": "cylinder",
+  "tree_stump": "cylinder",
+  "utility_pole": "cylinder",
+  "vent_stack": "cylinder",
+  "water_tower": "cylinder"
+ }
 }
