@@ -6,8 +6,12 @@
 | [02-cyberpunk-overhaul/DESIGN.md](02-cyberpunk-overhaul/DESIGN.md) | 賽博龐克改版：操作、格擋、骨架角色、美術風格、劇情、第一關 |
 | [03-art-pipeline/ART_PIPELINE.md](03-art-pipeline/ART_PIPELINE.md) | 美術交付規格：骨架角色要畫哪些零件、尺寸、支點、ComfyUI 流程 |
 | [04-story/STORY.md](04-story/STORY.md) | 劇情設定：世界觀、角色、主題、第一章大綱 |
+| [04-story/BIBLE.md](04-story/BIBLE.md) | 故事聖經：四幕起承轉合、真相時間軸、角色祕密、母題、結局、第一二章場景清單 |
+| [04-story/FORESHADOWING.md](04-story/FORESHADOWING.md) | 伏筆與暗線追蹤表（F01–F19）、死亡次數的劇情反應 |
+| [04-story/WRITING.md](04-story/WRITING.md) | 文本風格指南：去 AI 感的十條規則、角色聲音、自動檢查規則 |
 | [05-dynamic-hud/DESIGN.md](05-dynamic-hud/DESIGN.md) | 動態玩家介面：生命、護盾、彈藥跟著角色與準星，閒置淡出、危險常駐 |
 | [07-weapons-inventory/DESIGN.md](07-weapons-inventory/DESIGN.md) | 實彈武器陣容、彈匣與換彈、消耗品、劇情道具、背包畫面 |
 | [08-lighting/DESIGN.md](08-lighting/DESIGN.md) | 光影設計：重度壓抑的調性、環境光與區段設定、光源分級、體積光、法線貼圖、後製、可讀性守則 |
 | [09-content/DESIGN.md](09-content/DESIGN.md) | 內容擴充：第二章、新敵人與頭目、場景互動與探索、成長系統 |
+| [10-presentation/DESIGN.md](10-presentation/DESIGN.md) | 演出與介面：過場動畫、轉場、UI 視覺語言、彈匣介面、環境美術元件、第一章改版、新敵人、第二章擴充 |
 | [06-roadmap/open-questions.md](06-roadmap/open-questions.md) | 尚未決定的問題 |

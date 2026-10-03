@@ -1,6 +1,7 @@
 # 劇情設定：沉港市
 
 > 來源：2026-10-02 使用者提出「之後預計會做比較悲壯的劇情（參考 Cyberpunk: Edgerunners）」「整個遊戲應該要以美術風格、人物、劇情為主」。
+> 全作的起承轉合、真相、伏筆與文本風格已移至 [BIBLE.md](BIBLE.md)、[FORESHADOWING.md](FORESHADOWING.md)、[WRITING.md](WRITING.md)；下方第一章大綱為初版，場景與台詞以 BIBLE.md 為準。
 > 原則：只借用 Edgerunners 的情緒與節奏——底層的夢想、為了重要的人付出代價、越接近目標失去越多——不使用其角色、地名與專有名詞。全年齡：沒有血腥描寫，悲劇感來自選擇與失去。
 
 ## 世界
