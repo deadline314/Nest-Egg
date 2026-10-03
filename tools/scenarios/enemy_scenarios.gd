@@ -29,6 +29,7 @@ const SCENARIOS := {
 	"block_feel": "res://tools/scenarios/block_feel_scenario.gd",
 	"feel_lab": "res://tools/scenarios/feel_lab_scenario.gd",
 	"screen_fx": "res://tools/scenarios/screen_fx_scenario.gd",
+	"damage_numbers": "res://tools/scenarios/damage_numbers_scenario.gd",
 }
 
 

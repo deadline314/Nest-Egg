@@ -188,6 +188,17 @@ func flash_scale() -> float:
 	return REDUCED_FLASH_SCALE if get_reduce_flashes() else 1.0
 
 
+## 是否顯示傷害數字（預設關閉）：只顯示弱點、重擊與被擋。
+func get_damage_numbers() -> bool:
+	var value: Variant = get_value(FEEL_SECTION, "damage_numbers", false)
+	return value if typeof(value) == TYPE_BOOL else false
+
+
+func set_damage_numbers(enabled: bool) -> void:
+	set_value(FEEL_SECTION, "damage_numbers", enabled)
+	display_changed.emit()
+
+
 ## 打擊回饋的強度倍率（0~1，預設 1）：震動、命中停頓、粒子各一個；設定檔內容損毀時退回預設。
 func get_feel_scale(key: String) -> float:
 	var value: Variant = get_value(FEEL_SECTION, key, 1.0)
@@ -220,6 +231,7 @@ func reset_display() -> void:
 	for key: String in FEEL_KEYS:
 		set_feel_scale(key, 1.0)
 	set_zoom_pulse(true)
+	set_damage_numbers(false)
 	set_skip_cutscenes(false)
 	set_reduce_flashes(false)
 	set_hud_auto_hide(HUD_AUTO_HIDE_DEFAULT)

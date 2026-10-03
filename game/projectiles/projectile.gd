@@ -8,6 +8,8 @@ const REFLECT_SPEED_SCALE := 1.35
 const REFLECT_DAMAGE_SCALE := 2.0
 ## 反彈子彈的衝擊力（重擊，打得一般敵人硬直）。
 const REFLECT_IMPACT := 6.0
+## 傷害數字只在重擊（衝擊力達此值）或弱點時顯示。
+const HEAVY_NUMBER_IMPACT := 6.0
 
 var spec: ProjectileSpec
 var team: Combat.Team = Combat.Team.PLAYER
@@ -107,6 +109,8 @@ func _strike(hurtbox: Hurtbox) -> void:
 			if team == Combat.Team.PLAYER:
 				EventBus.hit_confirmed.emit(global_position, hurtbox.health.is_dead)
 				EventBus.hit_marker.emit(&"kill" if hurtbox.health.is_dead else (&"weak" if info.weak_hit else &"hit"))
+				if info.weak_hit or info.get_impact() >= HEAVY_NUMBER_IMPACT:
+					EventBus.damage_number.emit(global_position, info.amount, &"weak" if info.weak_hit else &"crit", hurtbox.health.get_instance_id())
 		Hurtbox.Result.REFLECTED:
 			_reflect(hurtbox.reflect_direction)
 			return
@@ -116,6 +120,7 @@ func _strike(hurtbox: Hurtbox) -> void:
 			Sfx.play(&"block", -4.0)
 			if team == Combat.Team.PLAYER:
 				EventBus.hit_marker.emit(&"blocked")
+				EventBus.damage_number.emit(global_position, 0, &"blocked", hurtbox.health.get_instance_id() if hurtbox.health != null else 0)
 			_finish(true)
 			return
 		_:

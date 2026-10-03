@@ -611,6 +611,8 @@ func _melee_strike() -> void:
 			_melee_landed = true
 			EventBus.hit_confirmed.emit(target_hurtbox.global_position, target_hurtbox.health.is_dead)
 			EventBus.hit_marker.emit(&"kill" if target_hurtbox.health.is_dead else (&"weak" if info.weak_hit else &"hit"))
+			if info.weak_hit or int(attack["stagger"]) >= 3:
+				EventBus.damage_number.emit(target_hurtbox.global_position + Vector2(0.0, -24.0), info.amount, &"weak" if info.weak_hit else &"crit", target_hurtbox.health.get_instance_id())
 			Fx.burst(target_hurtbox.global_position, Palette.CYAN, 9 if heavy else 6, 120.0, 0.2)
 			HitFeedback.play(target_hurtbox.material_id(), target_hurtbox.global_position, Vector2(-facing, -0.2), Palette.CYAN, {"weak": info.weak_hit})
 	if _melee_landed:

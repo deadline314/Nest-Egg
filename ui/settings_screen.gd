@@ -18,6 +18,7 @@ var _quality_option: OptionButton
 var _reduce_flashes: CheckButton
 var _skip_cutscenes: CheckButton
 var _zoom_pulse: CheckButton
+var _damage_numbers: CheckButton
 var _feel_sliders: Dictionary[String, HSlider] = {}
 var _feel_values: Dictionary[String, Label] = {}
 var _brightness_slider: HSlider
@@ -195,6 +196,15 @@ func _build_display_tab() -> Control:
 		Settings.set_zoom_pulse(on)
 		Sfx.play(&"ui_confirm", -6.0, 0.0))
 	box.add_child(_zoom_pulse)
+	_damage_numbers = CheckButton.new()
+	_damage_numbers.text = "傷害數字"
+	_damage_numbers.tooltip_text = "打中弱點、重擊或被擋時顯示數字；預設關閉，一般命中看準星的標記就好"
+	_damage_numbers.focus_mode = Control.FOCUS_ALL
+	_damage_numbers.button_pressed = Settings.get_damage_numbers()
+	_damage_numbers.toggled.connect(func(on: bool) -> void:
+		Settings.set_damage_numbers(on)
+		Sfx.play(&"ui_confirm", -6.0, 0.0))
+	box.add_child(_damage_numbers)
 	return box
 
 
@@ -441,6 +451,7 @@ func _reset_current_tab() -> void:
 		_reduce_flashes.set_pressed_no_signal(Settings.get_reduce_flashes())
 		_skip_cutscenes.set_pressed_no_signal(Settings.get_skip_cutscenes())
 		_zoom_pulse.set_pressed_no_signal(Settings.get_zoom_pulse())
+		_damage_numbers.set_pressed_no_signal(Settings.get_damage_numbers())
 		for key: String in _feel_sliders.keys():
 			_feel_sliders[key].set_value_no_signal(roundf(Settings.get_feel_scale(key) * 100.0))
 			_update_feel_label(key)

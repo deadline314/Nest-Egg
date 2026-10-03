@@ -27,6 +27,7 @@ func run() -> void:
 	await _test_diagnostics()
 	_test_attack_language()
 	await _test_clear_out()
+	await _test_damage_numbers()
 
 
 func _script_paths(dir: String, into: PackedStringArray) -> void:
@@ -713,3 +714,43 @@ func _test_clear_out() -> void:
 	Fx.reset_time()
 	await physics_frames(3)
 	await end_level(level)
+
+
+func _test_damage_numbers() -> void:
+	var original := Settings.storage_path()
+	Settings.use_storage("user://test_feel_numbers.cfg")
+	check(not Settings.get_damage_numbers(), "damage numbers are off by default")
+	var level := await start_level(PropsSuite.level_data())
+	var numbers: DamageNumbers = Fx._numbers
+	check(numbers != null, "the level has a damage number layer")
+	var children_before := numbers.get_child_count()
+	# 關閉時不顯示。
+	EventBus.damage_number.emit(Vector2(10, 10), 5, &"weak", 7)
+	check(numbers.alive_count() == 0 and numbers.shown_count == 0, "nothing is shown while the setting is off")
+	Settings.set_damage_numbers(true)
+	# 只顯示弱點、重擊與被擋。
+	EventBus.damage_number.emit(Vector2(10, 10), 5, &"hit", 7)
+	check(numbers.shown_count == 0, "ordinary hits never show a number")
+	EventBus.damage_number.emit(Vector2(10, 10), 5, &"weak", 7)
+	EventBus.damage_number.emit(Vector2(10, 10), 4, &"crit", 8)
+	EventBus.damage_number.emit(Vector2(10, 10), 0, &"blocked", 9)
+	check(numbers.shown_count == 3, "weak spots, heavy hits and blocks show numbers (%d)" % numbers.shown_count)
+	# 同目標短時間內合併。
+	var shown := numbers.shown_count
+	EventBus.damage_number.emit(Vector2(12, 10), 3, &"weak", 7)
+	check(numbers.shown_count == shown and numbers.merged_count >= 1 and numbers._value[numbers._target.find(7)] == 8, "numbers on the same target merge into one (5 + 3 = 8)")
+	# 池有上限，不建立新節點。
+	for i in 100:
+		EventBus.damage_number.emit(Vector2(i, 0), 1, &"weak", 1000 + i)
+	check(numbers.alive_count() <= DamageNumbers.CAPACITY and numbers.get_child_count() == children_before, "the pool is capped and never creates nodes")
+	numbers._process(0.1)
+	check(numbers.alive_count() <= DamageNumbers.CAPACITY, "alive numbers stay inside the pool")
+	numbers._process(DamageNumbers.LIFETIME + 0.1)
+	numbers._process(0.0)
+	check(numbers.alive_count() == 0, "numbers disappear after their lifetime")
+	Settings.reset_display()
+	check(not Settings.get_damage_numbers(), "reset turns the numbers back off")
+	await physics_frames(3)
+	await end_level(level)
+	Settings.use_storage(original)
+	DirAccess.remove_absolute("user://test_feel_numbers.cfg")

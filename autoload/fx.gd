@@ -27,6 +27,7 @@ var _container: Node2D
 var _glow: ParticleField  # 疊加（發光）層
 var _soft: ParticleField  # 一般混合層（煙、灰塵、碎片）
 var _arcs: ArcField
+var _numbers: DamageNumbers
 var _rings: Array[ShockRing] = []
 var _next_ring := 0
 var _last_blast_msec := -1000
@@ -49,6 +50,8 @@ func _ready() -> void:
 ## 由關卡呼叫：特效要放在哪個節點下。
 func bind_container(container: Node2D) -> void:
 	_container = container
+	_numbers = DamageNumbers.new()
+	container.add_child(_numbers)
 	_soft = ParticleField.new()
 	_soft.additive = false
 	_soft.z_index = 4
@@ -87,6 +90,7 @@ func _on_container_exiting(container: Node2D) -> void:
 	_container = null
 	_glow = null
 	_soft = null
+	_numbers = null
 	_arcs = null
 	_rings.clear()
 	_lights.clear()
