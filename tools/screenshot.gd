@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、settings、mouse_aim、block、story、story_ch2、collectibles、progression、supply、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
+## 情境：all（預設）、settings、mouse_aim、block、story、story_ch2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -38,6 +38,10 @@ func _run() -> void:
 		return
 	if _scenario == "new_enemies":
 		await _run_new_enemies()
+		get_tree().quit()
+		return
+	if _scenario == "reclaimer":
+		await _run_reclaimer()
 		get_tree().quit()
 		return
 	if _scenario == "supply":
@@ -233,6 +237,63 @@ func _run_story_ch2() -> void:
 
 func _show_chapter_card(level: Level, title: String, subtitle: String) -> void:
 	level._show_chapter_card(title, subtitle, false)
+
+
+## 第二章頭目「回收員」：每個招式的預兆與效果（衝刺路線、瞬移圓圈、電軌預警與通電、硬直核心）。
+func _run_reclaimer() -> void:
+	var data := NewEnemiesSuite.arena_data()
+	var zone := LightingZone.new()
+	zone.start_tile = 0
+	zone.profile = load("res://data/lighting/hangar.tres")
+	data.lighting_zones = [zone]
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(data)
+	add_child(level)
+	await _settle(20)
+	var player := level.player
+	player.health.setup(9999, 0.0)
+	var floor_y := 20 * 16.0
+	player.global_position = Vector2(26 * 16.0, floor_y)
+	level_camera_snap()
+	var boss := level._create_enemy(load("res://data/enemies/reclaimer.tres") as EnemyData)
+	boss.position = Vector2(42 * 16.0, floor_y)
+	boss.call(&"set_arena", Rect2(8 * 16.0, 0.0, 50 * 16.0, 23 * 16.0))
+	level._entities.add_child(boss)
+	await _wait(2.0)
+	_capture("reclaimer_idle")
+	boss.fsm.transition(&"dash_windup")
+	await _wait(0.5)
+	_capture("reclaimer_dash_windup")
+	while not boss.fsm.is_in(&"dash_recover"):
+		await _wait(0.03)
+	await _wait(0.15)
+	_capture("reclaimer_recover")
+	while not boss.fsm.is_in(&"idle"):
+		await _wait(0.05)
+	boss.fsm.transition(&"blink_out")
+	await _wait(0.4)
+	_capture("reclaimer_blink_marker")
+	while not boss.fsm.is_in(&"blink_aim"):
+		await _wait(0.03)
+	await _wait(0.3)
+	_capture("reclaimer_blink_aim")
+	while not boss.fsm.is_in(&"idle"):
+		await _wait(0.05)
+	player.global_position = Vector2(boss._rails[4].rect.get_center().x, floor_y)
+	level_camera_snap()
+	boss.fsm.transition(&"rail_windup")
+	while boss._rails.all(func(r: ElectricRail) -> bool: return r.state == ElectricRail.State.IDLE):
+		await _wait(0.03)
+	await _wait(0.4)
+	_capture("reclaimer_rail_warning")
+	while not boss._rails.any(func(r: ElectricRail) -> bool: return r.is_live()):
+		await _wait(0.03)
+	await _wait(0.2)
+	_capture("reclaimer_rail_live")
+	boss.health.take_damage(DamageInfo.create(boss.health.max_health / 2 + 1, Combat.Team.PLAYER, &"test"))
+	await _wait(0.6)
+	_capture("reclaimer_phase_two")
 
 
 ## 義體能力與補給點：背包義體頁、補給點貨架、電磁脈衝與超頻的畫面。

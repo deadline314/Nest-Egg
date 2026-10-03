@@ -45,6 +45,7 @@ func _run() -> void:
 	await CollectiblesSuite.new(self).run()
 	await ProgressionSuite.new(self).run()
 	await SupplySuite.new(self).run()
+	await ReclaimerSuite.new(self).run()
 	print("checks: %d, failures: %d" % [_checks, _failures.size()])
 	for failure in _failures:
 		printerr("FAIL: " + failure)

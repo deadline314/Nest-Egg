@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/reclaimer_boss.gd" id="2_behavior"]
+[ext_resource type="Resource" path="res://data/projectiles/reclaimer_shot.tres" id="3_proj"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"reclaimer"
+behavior = ExtResource("2_behavior")
+projectile = ExtResource("3_proj")
+display_name = "回收員 RECLAIMER"
+is_boss = true
+body_size = Vector2(20, 46)
+color = Color(0.82, 0.5, 0.2, 1.0)
+max_health = 70
+move_speed = 70.0
+contact_damage = 1
+contact_source_id = &"reclaimer_contact"
+detect_range = 1000.0
+attack_range = 1000.0
+attack_cooldown = 1.0
+telegraph_time = 0.7
+ability_speed = 430.0
+ability_time = 0.9
+ability_radius = 80.0
+ability_damage = 2
+knockback_scale = 0.0
+finish_health_ratio = 0.0
+health_drop_chance = 0.0
+credit_value = 120

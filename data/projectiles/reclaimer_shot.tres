@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ProjectileSpec" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/projectile_spec.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+source_id = &"reclaimer_shot"
+speed = 230.0
+lifetime = 2.2
+damage = 1
+radius = 3.5
+length = 9.0
+color = Color(1.0, 0.62, 0.17, 1.0)

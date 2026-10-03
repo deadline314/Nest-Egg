@@ -116,6 +116,8 @@ pm/            票券（需求、驗收、交付紀錄）
 
 **新增武器**：複製 `data/weapons/*.tres` 修改數值（子彈規格在 `data/projectiles/`），在關卡 `legend` 指定一個字元即可放置。
 
+**新增頭目**：寫一個繼承 `Enemy` 的行為腳本（參考 `warden_boss.gd` 與 `reclaimer_boss.gd`：登場、招式各有預兆、階段轉換、`EventBus.boss_started／boss_health_changed／boss_defeated`），資料檔 `is_boss = true`；需要知道場地範圍就實作 `set_arena(rect: Rect2)`，關卡會在生成時呼叫。
+
 **新增敵人**：
 1. 在 `game/enemies/` 新增腳本 `extends Enemy`，實作 `_setup_states()`（用 `fsm.add()` 註冊狀態）與 `_draw_body()`；需要時覆寫 `_guard()`、`_draw_overlay()`、`_on_defeated()`
 2. 新增 `data/enemies/xxx.tres`，`behavior` 指向該腳本

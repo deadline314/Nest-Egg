@@ -510,6 +510,9 @@ func _spawn_boss() -> void:
 	if boss == null:
 		return
 	boss.position = _layout.boss_spawn["position"]
+	# 場地範圍：從戰場左界到關卡右緣（機動型頭目與場地機關用）。
+	if boss.has_method(&"set_arena"):
+		boss.call(&"set_arena", Rect2(_layout.arena_x, 0.0, _layout.pixel_size().x - _layout.arena_x - _layout.tile_size, _layout.pixel_size().y))
 	_entities.add_child(boss)
 	Fx.flash_light(boss.position + Vector2(0, -24), Palette.DANGER, 220.0, 2.5, 0.8)
 
