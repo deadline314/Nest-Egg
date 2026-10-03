@@ -9,7 +9,7 @@ const WeaponPainterScript := preload("res://tools/art/weapon_painter.gd")
 const PortraitPainterScript := preload("res://tools/art/portrait_painter.gd")
 const PORTRAITS: Array[String] = ["rin", "mei", "old_k", "warden", "system", "wataru", "reclaimer"]
 const PORTRAIT_DIR := "res://art/portraits"
-const CHARACTERS: Array[String] = ["rin", "trooper", "grenadier", "enforcer", "warden"]
+const CHARACTERS_DIR := "res://art/characters"
 ## 以 2 倍解析度繪製再縮小，取得平滑邊緣。
 const SUPERSAMPLE := 2
 
@@ -32,7 +32,7 @@ func _ready() -> void:
 
 
 func _run() -> void:
-	for id in CHARACTERS:
+	for id in _character_ids():
 		if _only.is_empty() or _only.has(id):
 			await _paint_character(id)
 	var weapons := RigLibrary.weapons()
@@ -50,12 +50,22 @@ func _run() -> void:
 	get_tree().quit()
 
 
+## art/characters 底下有 painter_style 的角色（新增角色資料夾就會自動納入）。
+func _character_ids() -> Array[String]:
+	var ids: Array[String] = []
+	for id in DirAccess.get_directories_at(CHARACTERS_DIR):
+		if RigLibrary.character(id).has("painter_style"):
+			ids.append(id)
+	ids.sort()
+	return ids
+
+
 func _paint_character(id: String) -> void:
 	var skin := RigLibrary.character(id)
 	if skin.is_empty():
 		push_error("找不到角色定義：%s" % id)
 		return
-	var painter: Object = HumanoidPainterScript.new(skin.get("painter_style", {}))
+	var painter: Object = HumanoidPainterScript.create(skin.get("painter_style", {}))
 	var dir := RigLibrary.character_dir(id)
 	var textures: Dictionary = skin.get("textures", {})
 	for tex_name: String in textures.keys():

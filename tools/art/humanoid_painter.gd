@@ -3,6 +3,7 @@ extends RefCounted
 ## 人形角色零件的程式繪製（暫代美術）。每個零件依 character.json 的畫布尺寸與支點繪製，
 ## glow = true 時只畫自發光的部分（霓虹飾條、義眼、指示燈），輸出成 *_glow.png。
 ## 依 painter_style.kind 產生不同角色：rin（主角）、trooper、grenadier、enforcer、warden。
+## 其他角色（NPC 與第二批敵人）由 painters/ 底下的子類別覆寫頭、軀幹等零件，用 create() 依 kind 取得。
 ## 正式美術完成後這個檔案就不再需要；它同時也是「每個零件該畫什麼」的參考。
 
 const K := preload("res://tools/art/painter_kit.gd")
@@ -12,6 +13,17 @@ var kind := "rin"
 var glow := false
 var c: CanvasItem
 
+## kind → 子類別腳本（路徑延遲載入，避免子類別與基底互相 preload）。新增角色種類只要在這裡登記。
+const VARIANT_PATHS := {
+	"old_k": "res://tools/art/painters/civilian_painter.gd",
+	"mei": "res://tools/art/painters/civilian_painter.gd",
+	"wataru": "res://tools/art/painters/civilian_painter.gd",
+	"reclaimer": "res://tools/art/painters/corp_painter.gd",
+	"sniper": "res://tools/art/painters/corp_painter.gd",
+	"flamer": "res://tools/art/painters/corp_painter.gd",
+	"heavy_gunner": "res://tools/art/painters/corp_painter.gd",
+}
+
 var O: Color  # 描邊
 var W := 2.0  # 描邊寬
 
@@ -20,6 +32,18 @@ func _init(p_style: Dictionary) -> void:
 	style = p_style
 	kind = str(style.get("kind", "rin"))
 	O = K.col(style, "outline", Color("07080d"))
+
+
+## 依 painter_style.kind 建立對應的繪製器；找不到子類別時退回基底（rin 風格），並記錄原因。
+static func create(p_style: Dictionary) -> HumanoidPainter:
+	var painter_kind := str(p_style.get("kind", "rin"))
+	var path: String = VARIANT_PATHS.get(painter_kind, "")
+	if not path.is_empty():
+		var script := load(path) as GDScript
+		if script != null:
+			return script.new(p_style) as HumanoidPainter
+		push_error("[HumanoidPainter] 無法載入 %s 的繪製腳本：%s" % [painter_kind, path])
+	return HumanoidPainter.new(p_style)
 
 
 func paint(canvas: CanvasItem, texture_name: String, size: Vector2, pivot: Vector2, emissive: bool) -> void:
@@ -94,6 +118,11 @@ func _head(pv: Vector2) -> void:
 	var skin := _c("skin")
 	# 脖子
 	_shade(_p([-5, -16, 5, -16, 5, 2, -5, 2], o), skin.darkened(0.35), skin.darkened(0.15))
+	_head_detail(o, skin)
+
+
+## 頭部本體（依 kind 不同）；子類別覆寫這個函式換臉。
+func _head_detail(o: Vector2, skin: Color) -> void:
 	match kind:
 		"rin":
 			_head_rin(o, skin)
@@ -231,11 +260,18 @@ func _hair_back(pv: Vector2, size: Vector2, tail: bool) -> void:
 
 func _torso(pv: Vector2) -> void:
 	# 原點＝腰部；肩膀在 y=-40，脖子在 y=-48；胸口朝右。
-	var o := pv
+	_torso_body(pv)
+	_torso_detail(pv)
+
+
+func _torso_body(o: Vector2) -> void:
 	var suit := _c("suit")
+	_shade(_p([-9, 0, -11, -16, -12, -32, -9, -40, 9, -40, 13, -32, 14, -22, 11, -12, 9, 0], o), suit.darkened(0.2), suit.lightened(0.12))
+
+
+## 軀幹的服裝與裝備（依 kind 不同）；子類別覆寫這個函式換衣服。
+func _torso_detail(o: Vector2) -> void:
 	var coat := _c("coat")
-	var body := _p([-9, 0, -11, -16, -12, -32, -9, -40, 9, -40, 13, -32, 14, -22, 11, -12, 9, 0], o)
-	_shade(body, suit.darkened(0.2), suit.lightened(0.12))
 	match kind:
 		"rin":
 			# 短版外套（開襟，洋紅內裡）＋高領
