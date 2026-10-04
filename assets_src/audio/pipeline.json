@@ -1,0 +1,17 @@
+{
+ "_說明": "音訊加工清單。sfx：音效 id → 分類 + 變體（pack 是 manifest.json 的素材包 id，file 是包內相對路徑；mode: shot 取第一發、whole 整段、loop 做成迴圈）。music：曲目 id → 素材包與檔案。defaults 依分類給預設的加工參數。執行 python tools/audio/build_audio.py。",
+ "defaults": {
+  "sfx": {
+   "gun": {"mode": "shot", "max_len": 1.6, "target_db": -14.0, "fade_out_ms": 40.0},
+   "impact": {"mode": "shot", "max_len": 0.8, "target_db": -16.0, "fade_out_ms": 25.0},
+   "explosion": {"mode": "shot", "max_len": 2.5, "target_db": -13.0, "fade_out_ms": 80.0},
+   "foley": {"mode": "whole", "max_len": 1.2, "target_db": -20.0},
+   "ui": {"mode": "whole", "max_len": 0.8, "target_db": -22.0},
+   "voice": {"mode": "whole", "max_len": 1.5, "target_db": -18.0},
+   "ambience": {"mode": "loop", "max_len": 60.0, "target_db": -26.0, "stereo": true, "quality": 3.0}
+  },
+  "music": {"target_lufs": -18.0, "peak_db": -1.5, "quality": 4.0}
+ },
+ "sfx": {},
+ "music": {}
+}

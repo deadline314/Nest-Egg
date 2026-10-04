@@ -73,8 +73,14 @@ func pitch_range(id: StringName) -> Vector2:
 	return AudioData.read_range((_defs.get(String(id), {}) as Dictionary).get("pitch"))
 
 
-func pack_of(id: StringName) -> String:
-	return str((_defs.get(String(id), {}) as Dictionary).get("pack", ""))
+## 這個音效用到的授權包 id（pack 欄位可以是一個字串或字串陣列）。
+func packs_of(id: StringName) -> PackedStringArray:
+	var value: Variant = (_defs.get(String(id), {}) as Dictionary).get("pack", "")
+	var result := PackedStringArray()
+	for item: Variant in (value if typeof(value) == TYPE_ARRAY else [value]):
+		if not str(item).is_empty():
+			result.append(str(item))
+	return result
 
 
 func files_of(id: StringName) -> PackedStringArray:
@@ -124,6 +130,11 @@ func validate(known_packs: PackedStringArray = PackedStringArray()) -> PackedStr
 			errors.append("%s 的音效「%s」的 pitch 要是 [最小, 最大]，且大於 0" % [path, id])
 		if d.has("volume_db") and typeof(d["volume_db"]) != TYPE_FLOAT and typeof(d["volume_db"]) != TYPE_INT:
 			errors.append("%s 的音效「%s」的 volume_db 要是數字" % [path, id])
-		if not known_packs.is_empty() and not known_packs.has(str(d.get("pack", ""))):
-			errors.append("%s 的音效「%s」的 pack「%s」不在授權登記裡" % [path, id, d.get("pack", "")])
+		if not known_packs.is_empty():
+			var packs := packs_of(StringName(id))
+			if packs.is_empty():
+				errors.append("%s 的音效「%s」沒有 pack（授權包 id）" % [path, id])
+			for pack in packs:
+				if not known_packs.has(pack):
+					errors.append("%s 的音效「%s」的 pack「%s」不在授權登記裡" % [path, id, pack])
 	return errors

@@ -5,10 +5,13 @@ extends TestSuite
 
 const FIXTURES := "res://tests/fixtures/audio/"
 const SOURCE_DIRS: PackedStringArray = ["res://game", "res://ui", "res://autoload", "res://core"]
+const MANIFEST_PATH := "res://assets_src/audio/manifest.json"
+const LICENSES_PATH := "res://assets_src/audio/LICENSES.json"
 
 
 func run() -> void:
 	_test_shipped_data()
+	_test_licenses()
 	_test_bank_loading()
 	_test_bank_validation()
 	await _test_sfx_uses_files()
@@ -47,6 +50,57 @@ func _test_shipped_data() -> void:
 			check(Sfx.has_sound(weapon.fire_sound), "weapon %s fire_sound exists: %s" % [weapon.id, weapon.fire_sound])
 
 
+## 授權：素材目錄只收 CC0；遊戲內每一個音訊檔都查得到出處；音效庫的 pack 都在授權登記裡。
+func _test_licenses() -> void:
+	var manifest := _read_source_json(MANIFEST_PATH)
+	var packs: Array = manifest.get("packs", [])
+	check(not packs.is_empty(), "audio source manifest lists packs")
+	var manifest_ids: Dictionary = {}
+	for pack: Dictionary in packs:
+		manifest_ids[str(pack.get("id", ""))] = true
+		var label := "manifest pack %s" % pack.get("id", "?")
+		check(str(pack.get("license", "")).begins_with("CC0"), "%s is CC0 (%s)" % [label, pack.get("license", "")])
+		check(not str(pack.get("page", "")).is_empty() and not str(pack.get("author", "")).is_empty() and pack.get("download") != null, "%s records author, page and download" % label)
+	check(manifest_ids.size() == packs.size(), "manifest pack ids are unique")
+	var registry := _read_source_json(LICENSES_PATH)
+	for pack_id: String in registry.keys():
+		check(manifest_ids.has(pack_id), "registered pack %s exists in the manifest" % pack_id)
+		check(str((registry[pack_id] as Dictionary).get("license", "")).begins_with("CC0"), "registered pack %s is CC0" % pack_id)
+	var known := PackedStringArray(registry.keys())
+	var bank_errors: PackedStringArray = Sfx.bank().validate(known)
+	check(bank_errors.is_empty(), "every sound bank entry names a registered license pack: %s" % ", ".join(bank_errors))
+	var referenced: Dictionary = {}
+	for id: Variant in Sfx.bank().ids():
+		for file in Sfx.bank().files_of(StringName(str(id))):
+			referenced[file] = true
+	var music := AudioData.read_root("res://data/audio/music.json", "AudioSuite", PackedStringArray()) if ResourceLoader.exists("res://data/audio/music.json") else {}
+	for track: Variant in (music.get("tracks", {}) as Dictionary).values():
+		referenced[str((track as Dictionary).get("file", ""))] = true
+	for path in _audio_files("res://audio"):
+		check(referenced.has(path), "audio file is used by the sound bank or music list: %s" % path)
+	for path in referenced.keys():
+		check(ResourceLoader.exists(path), "referenced audio file exists: %s" % path)
+
+
+## assets_src/ 有 .gdignore（不匯入），所以不能走 ResourceLoader，直接讀檔。
+func _read_source_json(path: String) -> Dictionary:
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+	check(typeof(parsed) == TYPE_DICTIONARY, "%s is a JSON object" % path)
+	return parsed if typeof(parsed) == TYPE_DICTIONARY else {}
+
+
+func _audio_files(dir: String) -> PackedStringArray:
+	var result := PackedStringArray()
+	if not DirAccess.dir_exists_absolute(dir):
+		return result
+	for file in DirAccess.get_files_at(dir):
+		if file.get_extension().to_lower() in ["ogg", "wav", "mp3"]:
+			result.append(dir.path_join(file))
+	for sub in DirAccess.get_directories_at(dir):
+		result.append_array(_audio_files(dir.path_join(sub)))
+	return result
+
+
 func _gd_files(dir: String) -> PackedStringArray:
 	var result := PackedStringArray()
 	for file in DirAccess.get_files_at(dir):
@@ -63,7 +117,7 @@ func _test_bank_loading() -> void:
 	check(bank.variants(&"test_audio_two").size() == 2, "bank loads every variant")
 	check(is_equal_approx(bank.volume_db(&"test_audio_one"), -3.0) and bank.pitch_range(&"test_audio_one") == Vector2(0.9, 1.1), "bank reads volume and pitch range")
 	check(bank.pitch_range(&"test_audio_two") == Vector2.ONE and bank.volume_db(&"test_audio_two") == 0.0, "bank defaults: no pitch change, 0 dB")
-	check(bank.pack_of(&"test_audio_one") == "test_pack", "bank keeps the license pack id")
+	check(bank.packs_of(&"test_audio_one") == PackedStringArray(["test_pack"]), "bank keeps the license pack id")
 	check(bank.variants(&"test_audio_half").size() == 1 and (bank.failed_files()[&"test_audio_half"] as PackedStringArray).size() == 1, "a missing variant is skipped and recorded, the others still load")
 	check(not bank.has_files(&"test_audio_none") and bank.failed_files().has(&"test_audio_none"), "an id with no loadable file reports no files")
 	var missing := SoundBank.new()

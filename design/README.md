@@ -21,4 +21,5 @@
 | [14-combat-variety/DESIGN.md](14-combat-variety/DESIGN.md) | 戰鬥多樣性：近戰與長距離近戰武器、敵人的非槍械攻擊型態素材庫 |
 | [15-combat-feel/DESIGN.md](15-combat-feel/DESIGN.md) | 戰鬥系統與打擊感（第二順位支柱）：動作遊戲為主、無限小槍加近戰加彈幕、中日英打擊感資料整理、回饋管線與力道分級、打擊感實驗室、2～3 隻魂系頭目、電話亭檢查點與死亡扣 5%、票的拆分 |
 | [16-audio/DESIGN.md](16-audio/DESIGN.md) | 音效與音樂：CC0 素材原則、匯流排、音效庫與武器／角色／腳步／音樂資料格式、BGM 狀態切換、音效實驗室、票的順序 |
+| [16-audio/SOURCES.md](16-audio/SOURCES.md) | 音訊素材來源目錄：CC0 素材包對應的音效類別與音樂用途、缺口、挑選注意事項 |
 | [06-roadmap/open-questions.md](06-roadmap/open-questions.md) | 尚未決定的問題 |
