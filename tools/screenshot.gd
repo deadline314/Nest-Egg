@@ -80,6 +80,14 @@ func _run() -> void:
 		await _run_settings()
 		get_tree().quit()
 		return
+	if _scenario == "lab_music":
+		await _run_lab_music()
+		get_tree().quit()
+		return
+	if _scenario == "lab_guns":
+		await _run_lab_guns()
+		get_tree().quit()
+		return
 	if _scenario == "story":
 		await _run_story()
 		get_tree().quit()
@@ -1262,6 +1270,47 @@ func _run_settings() -> void:
 	_capture("settings_bindings")
 	settings._cancel_capture()
 	settings.queue_free()
+
+
+## 音效實驗室的背景音樂分頁：選一個 cue，列出它那首曲子的備選曲目。
+func _run_lab_music() -> void:
+	# 實驗室單獨開啟時用視窗的實際解析度（遊戲本身是 640×360 放大），拍攝也照這樣。
+	var scale_mode_before := get_window().content_scale_mode
+	get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
+	var lab := SoundLab.new()
+	lab.stage_enabled = false
+	add_child(lab)
+	await _settle(20)
+	lab.tabs.current_tab = lab.tabs.get_tab_idx_from_control(lab.music_tab)
+	lab.music_tab.select_cue("calm_rooftop")
+	await _settle(10)
+	lab.music_tab.scroll_vertical = int(lab.music_tab._candidate_list.position.y) - 120
+	await _settle(10)
+	_capture("lab_music")
+	lab.queue_free()
+	get_window().content_scale_mode = scale_mode_before
+
+
+## 音效實驗室的位置與備選分頁：選手槍射擊位置，看新增的槍聲備選。
+func _run_lab_guns() -> void:
+	var scale_mode_before := get_window().content_scale_mode
+	get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
+	var lab := SoundLab.new()
+	lab.stage_enabled = false
+	add_child(lab)
+	await _settle(20)
+	lab.slots_tab.select_slot("P-WPN-001")
+	await _settle(10)
+	var list: ItemList = lab.slots_tab._candidate_list
+	for i in list.item_count:  # 捲到新增的 Freesound 槍聲，才看得到它們
+		if str(lab.catalog.asset(str(list.get_item_metadata(i))).get("pack", "")).begins_with("fs_"):
+			list.select(i)
+			list.ensure_current_is_visible()
+			break
+	await _settle(10)
+	_capture("lab_guns")
+	lab.queue_free()
+	get_window().content_scale_mode = scale_mode_before
 
 
 ## 戰鬥介面：武器欄（彈種圖示）、彈匣、生命、信用點等，各種狀態。
