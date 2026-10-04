@@ -365,6 +365,8 @@ func _test_hurt_voice_cooldown() -> void:
 	Sfx._last_play_msec.erase(&"hurt_humanoid")
 	enemy.hurtbox.receive(hit(1))
 	check(Sfx._last_play_msec.has(&"hurt_humanoid"), "after the cooldown the enemy can cry out again")
+	# 受擊會掉裝甲碎片，碎片是延遲掛進場景的；多等兩格讓它進場再收關卡，不然結束時會留下孤兒節點。
+	await physics_frames(2)
 	await end_level(level)
 
 
