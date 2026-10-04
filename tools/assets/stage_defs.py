@@ -62,6 +62,16 @@ def feet_layer() -> dict | None:
             "pos": [round(FEET_CENTER_X - total_units / 2.0, 2), round(FEET_FLOOR_Y - ph * scale, 2)], "scale": scale, "filter": "linear"}
 
 
+# Wataru's bed (BG-11): a child's bed (qwen_scenes.py old_k_shop_bed / old_k_shop_dawn_bed, 440 px wide, drawn at scale 0.25)
+# whose mattress top sits where the "sit" pose rests (stage y 277 at x=520, actors scale 2.0), foot end at x=500 so the calves hang free.
+BED_POS = [500, 243]
+BED_SCALE = 0.25
+
+
+def bed(name: str, **extra) -> dict:
+    return {"kind": "sprite", "path": f"res://art/environment/stages/{name}.webp", "pos": BED_POS, "scale": BED_SCALE, "filter": "linear", **extra}
+
+
 def glow(pos, radius, color, intensity, alpha, **extra) -> dict:
     layer = {"kind": "glow", "pos": pos, "radius": radius, "color": color, "intensity": intensity, "additive": True, "alpha": alpha}
     layer.update(extra)
@@ -82,6 +92,7 @@ STAGE_LAYERS = {
     "old_k_shop": [
         {"kind": "gradient", "top": "#1a1410", "bottom": "#2c2018", "parallax": 0.0},
         bg("old_k_shop", modulate=[1.25, 1.2, 1.15, 1.0]),
+        bed("old_k_shop_bed", modulate=[1.25, 1.2, 1.15, 1.0]),
         glow([321, 40], 250, "#ffb066", 0.9, 0.5, flicker=0.05),
         glow([14, 112], 120, "#a070e8", 0.8, 0.45, flicker=0.12),
         motes(46, "#ffd9a0", 0.55, [150, 30, 360, 260], [2, -4], 1.3, 4),
@@ -90,6 +101,7 @@ STAGE_LAYERS = {
     "old_k_shop_dawn": [
         {"kind": "gradient", "top": "#10161c", "bottom": "#222a30", "parallax": 0.0},
         bg("old_k_shop_dawn", modulate=[1.15, 1.15, 1.2, 1.0]),
+        bed("old_k_shop_dawn_bed", modulate=[1.15, 1.15, 1.2, 1.0]),
         glow([26, 110], 170, "#9ab8d8", 0.8, 0.45, pulse=0.08, pulse_depth=0.25),
         motes(30, "#cfe0ff", 0.4, [0, 30, 320, 260], [3, -3], 1.2, 6),
         grain(50, 0.06),
