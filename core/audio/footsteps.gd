@@ -26,7 +26,7 @@ static func _ensure_loaded(fresh := false) -> void:
 	_default_surface = StringName(str(root.get("default_surface", "concrete")))
 
 
-static func reload(fresh := false) -> void:
+static func reload_data(fresh := false) -> void:
 	_ensure_loaded(true if fresh else false)
 	if not fresh:
 		_loaded = false

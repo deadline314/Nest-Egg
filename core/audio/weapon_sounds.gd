@@ -1,21 +1,23 @@
 class_name WeaponSounds
 extends RefCounted
-## 武器的操作聲：換彈（開始、中段、完成）、空槍、換槍。射擊聲維持每把武器的 fire_sound。
+## 武器的操作聲：換彈（開始、中段、完成，何時播由 ReloadCues 時間軸決定）、空槍、換槍。射擊聲維持每把武器的 fire_sound。
 ## 資料：data/audio/weapon_sounds.json，以武器 id 查表，沒寫的退回 default。
 
 const PATH := "res://data/audio/weapon_sounds.json"
 const KINDS: PackedStringArray = ["reload_start", "reload_mid", "reload_done", "empty", "equip"]
+## 值是清單的欄位：換彈聲音時間軸（見 ReloadCues）。
+const LIST_KINDS: PackedStringArray = ["reload_cues"]
 
 static var _table: SoundProfileTable
 
 
 static func table() -> SoundProfileTable:
 	if _table == null:
-		_table = SoundProfileTable.new(PATH, "WeaponSounds", KINDS)
+		_table = SoundProfileTable.new(PATH, "WeaponSounds", KINDS, LIST_KINDS)
 	return _table
 
 
-static func reload(fresh := false) -> void:
+static func reload_data(fresh := false) -> void:
 	table().reload(fresh)
 
 
@@ -31,4 +33,6 @@ static func name_for(weapon_id: StringName, kind: StringName) -> StringName:
 
 
 static func validate() -> PackedStringArray:
-	return table().validate(Sfx.has_named)
+	var errors := table().validate(Sfx.has_named)
+	errors.append_array(ReloadCues.validate_profiles(table(), Sfx.has_named))
+	return errors

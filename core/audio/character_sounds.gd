@@ -17,7 +17,7 @@ static func table() -> SoundProfileTable:
 	return _table
 
 
-static func reload(fresh := false) -> void:
+static func reload_data(fresh := false) -> void:
 	table().reload(fresh)
 
 

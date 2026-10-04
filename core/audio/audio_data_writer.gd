@@ -3,6 +3,7 @@ extends RefCounted
 ## 把實驗室調整後的數值寫回音訊資料檔（音效庫的 volume_db、音樂 cue 的音量與淡化秒數）：
 ## 寫之前重讀檔案、套用變更、驗證數值範圍；預覽只列差異不寫入；真的寫入前先備份成 `<檔名>.bak`，用暫存檔改名避免寫到一半損毀。
 ## changes 是 [{path: ["sounds","shot_pistol","volume_db"], value: -2.0}, ...]；路徑上不存在的字典會報錯，不會憑空建立。
+## 例外：change 帶 "ensure": true 時，缺少的中間字典會建立（例如武器還沒有自己的聲音設定時，寫入它的換彈時間軸）。
 
 const LIMITS := {"volume_db": Vector2(-40.0, 12.0), "fade_in": Vector2(0.0, 10.0), "fade_out": Vector2(0.0, 10.0)}
 
@@ -22,6 +23,8 @@ static func apply(path: String, changes: Array, dry_run := false) -> Dictionary:
 		var node: Variant = parsed
 		var keys: Array = change["path"]
 		for i in keys.size() - 1:
+			if typeof(node) == TYPE_DICTIONARY and change.get("ensure", false) and not (node as Dictionary).has(keys[i]):
+				(node as Dictionary)[keys[i]] = {}
 			node = (node as Dictionary).get(keys[i]) if typeof(node) == TYPE_DICTIONARY else null
 		var leaf := str(keys[keys.size() - 1])
 		if typeof(node) != TYPE_DICTIONARY:
@@ -32,6 +35,11 @@ static func apply(path: String, changes: Array, dry_run := false) -> Dictionary:
 			var limits: Vector2 = LIMITS[leaf]
 			if typeof(value) != TYPE_FLOAT and typeof(value) != TYPE_INT or float(value) < limits.x or float(value) > limits.y:
 				result["errors"].append("%s 的 %s 要在 %s 到 %s 之間（%s）" % ["／".join(PackedStringArray(keys.map(func(k: Variant) -> String: return str(k)))), leaf, limits.x, limits.y, value])
+				continue
+		if leaf == ReloadCues.KEY:
+			var cue_errors := ReloadCues.validate_list(value, Sfx.has_named)
+			if not cue_errors.is_empty():
+				result["errors"].append("%s：%s" % ["／".join(PackedStringArray(keys.map(func(k: Variant) -> String: return str(k)))), "；".join(cue_errors)])
 				continue
 		var old: Variant = (node as Dictionary).get(leaf)
 		if old != value:

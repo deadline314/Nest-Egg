@@ -10,14 +10,17 @@ const MAX_DEPTH := 8
 var path := ""
 var tag := ""
 var kinds: PackedStringArray = PackedStringArray()
+## 值不是名稱的欄位（例如換彈時間軸）：查表與繼承照常，但名稱檢查略過，由擁有者自己驗證。
+var list_kinds: PackedStringArray = PackedStringArray()
 var _default: Dictionary = {}
 var _profiles: Dictionary = {}
 
 
-func _init(p_path: String, p_tag: String, p_kinds: PackedStringArray) -> void:
+func _init(p_path: String, p_tag: String, p_kinds: PackedStringArray, p_list_kinds := PackedStringArray()) -> void:
 	path = p_path
 	tag = p_tag
 	kinds = p_kinds
+	list_kinds = p_list_kinds
 	reload()
 
 
@@ -27,8 +30,9 @@ func reload(fresh := false) -> void:
 	var root := AudioData.read_root(path, tag, PackedStringArray(["default", "profiles"]), fresh)
 	if root.is_empty():
 		return
-	_default = root["default"]
-	_profiles = root["profiles"]
+	# 複製一份：實驗室的試聽修改只動記憶體裡的資料，不能污染資源快取。
+	_default = (root["default"] as Dictionary).duplicate(true)
+	_profiles = (root["profiles"] as Dictionary).duplicate(true)
 
 
 func has_profile(id: StringName) -> bool:
@@ -45,6 +49,16 @@ func raw_profiles() -> Dictionary:
 
 func raw_default() -> Dictionary:
 	return _default
+
+
+## 只改記憶體裡的設定（實驗室試聽用，不寫檔）；id 為 "default" 改預設，沒有這個 profile 時建立。reload(true) 還原。
+func override(id: StringName, kind: StringName, value: Variant) -> void:
+	if id == &"default":
+		_default[String(kind)] = value
+		return
+	if typeof(_profiles.get(String(id))) != TYPE_DICTIONARY:
+		_profiles[String(id)] = {}
+	(_profiles[String(id)] as Dictionary)[String(kind)] = value
 
 
 ## 找出這個動作的設定值（字串或陣列）；找不到回傳 null。
@@ -101,7 +115,7 @@ func validate(has_name: Callable) -> PackedStringArray:
 
 func _check_entries(id: String, entries: Dictionary, errors: PackedStringArray, has_name: Callable) -> void:
 	for key: String in entries.keys():
-		if key == "extends":
+		if key == "extends" or list_kinds.has(key):
 			continue
 		if not kinds.has(key):
 			errors.append("%s 的「%s」有不認得的動作「%s」（可用：%s）" % [path, id, key, ", ".join(kinds)])

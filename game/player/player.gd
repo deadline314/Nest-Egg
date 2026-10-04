@@ -34,12 +34,12 @@ const AIM_BLOOM_MAX_DEGREES := 4.0
 ## 同一接觸攻擊重複格擋時的最短計費間隔。
 const CONTACT_BLOCK_INTERVAL := 0.35
 
-## 換彈到這個進度播第二拍（彈匣推入）；彈匣低於這個比例時開火音高降低；空槍連按的最短間隔。
-const RELOAD_MID_POINT := 0.55
+## 彈匣低於這個比例時開火音高降低；空槍連按的最短間隔。
 const LOW_AMMO_RATIO := 0.25
 const LOW_AMMO_PITCH := 0.88
 const DRY_FIRE_INTERVAL := 0.3
-var _reload_mid_played := false
+## 這次換彈的聲音時間軸（資料見 ReloadCues）；實驗室讀它來標示游標經過的聲音。
+var reload_track := ReloadCueTrack.new()
 var _dry_fire_left := 0.0
 var tuning: PlayerTuning
 var health: HealthComponent
@@ -160,8 +160,9 @@ func _ready() -> void:
 
 	loadout.changed.connect(_on_loadout_changed)
 	loadout.reload_started.connect(func() -> void:
-		_reload_mid_played = false
-		WeaponSounds.play(loadout.active_weapon(), &"reload_start", -4.0))
+		var weapon := loadout.active_weapon()
+		reload_track.begin(weapon.id if weapon != null else &""))
+	loadout.reload_cancelled.connect(reload_track.cancel)
 	loadout.weapon_switched.connect(func() -> void: WeaponSounds.play(loadout.active_weapon(), &"equip", -6.0))
 	loadout.reload_finished.connect(_on_reload_finished)
 	loadout.restore(_loadout_snapshot, tuning.default_weapon)
@@ -292,9 +293,10 @@ func _tick_timers(delta: float) -> void:
 	_dry_fire_left = maxf(0.0, _dry_fire_left - delta)
 	if state != State.DEAD and state != State.MOUNTED:
 		loadout.tick(delta * cyber.reload_speed_scale())
-		if loadout.is_reloading() and not _reload_mid_played and loadout.reload_progress() >= RELOAD_MID_POINT:
-			_reload_mid_played = true
-			WeaponSounds.play(loadout.active_weapon(), &"reload_mid", -4.0)
+		if loadout.is_reloading():
+			reload_track.advance(loadout.reload_progress())
+		elif reload_track.is_active():
+			reload_track.cancel()
 	_tick_guard(delta)
 	if _drop_through_left > 0.0:
 		_drop_through_left -= delta
@@ -459,7 +461,7 @@ func _dry_fire() -> void:
 ## 換彈完成：槍口一個小閃光與準星提示（取消換彈時不會走到這裡）。
 func _on_reload_finished() -> void:
 	var weapon := loadout.active_weapon()
-	WeaponSounds.play(weapon, &"reload_done", -3.0)
+	reload_track.finish()
 	if weapon != null:
 		Fx.flare(muzzle_position(), weapon.color, 18.0, 0.08)
 	EventBus.reload_completed.emit()

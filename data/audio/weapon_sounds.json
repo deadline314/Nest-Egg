@@ -1,11 +1,28 @@
 {
- "_說明": "武器操作聲：換彈（開始、中段、完成）、空槍、換槍。值是音效或聲音事件的名稱，空字串代表不發聲。profiles 以武器 id 為鍵，沒寫的動作退回 default；extends 可以沿用另一組。射擊聲是每把武器 .tres 的 fire_sound。 值可以是名稱陣列，依序挑第一個存在的（專屬音效缺檔時退回通用音效）。ballistic、heavy_weapon、energy_weapon 是共用的基底，武器用 extends 沿用。",
+ "_說明": "武器操作聲：換彈（開始、中段、完成）、空槍、換槍。值是音效或聲音事件的名稱，空字串代表不發聲。profiles 以武器 id 為鍵，沒寫的動作退回 default；extends 可以沿用另一組。射擊聲是每把武器 .tres 的 fire_sound。 值可以是名稱陣列，依序挑第一個存在的（專屬音效缺檔時退回通用音效）。ballistic、heavy_weapon、energy_weapon 是共用的基底，武器用 extends 沿用。 reload_cues 是換彈聲音時間軸：每個 cue 有 at（換彈進度 0 到 1）、kind（該武器的 reload_start／reload_mid／reload_done／empty／equip）或 sound（直接指名稱）、volume_db；武器自己寫了就整份取代預設，最多 12 段，空陣列代表換彈不發聲。",
  "default": {
   "reload_start": "reload_start",
   "reload_mid": "reload_mid",
   "reload_done": "reload_done",
   "empty": "empty",
-  "equip": ""
+  "equip": "",
+  "reload_cues": [
+   {
+    "at": 0.0,
+    "kind": "reload_start",
+    "volume_db": -4.0
+   },
+   {
+    "at": 0.55,
+    "kind": "reload_mid",
+    "volume_db": -4.0
+   },
+   {
+    "at": 1.0,
+    "kind": "reload_done",
+    "volume_db": -3.0
+   }
+  ]
  },
  "profiles": {
   "ballistic": {

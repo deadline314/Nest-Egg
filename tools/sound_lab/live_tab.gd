@@ -111,14 +111,20 @@ func play_weapon_kind(id: String, kind: StringName) -> StringName:
 	return name
 
 
+## 依這把武器的換彈聲音時間軸（資料：reload_cues）播放整段；段數與時間點和遊戲裡一致。
 func play_weapon_reload(id: String) -> void:
 	var weapon := _load_weapon(id)
 	var time := weapon.reload_time if weapon != null else 1.5
-	play_weapon_kind(id, &"reload_start")
-	await get_tree().create_timer(time * 0.45).timeout
-	play_weapon_kind(id, &"reload_mid")
-	await get_tree().create_timer(time * 0.55).timeout
-	play_weapon_kind(id, &"reload_done")
+	var elapsed := 0.0
+	for cue in ReloadCues.for_weapon(StringName(id)):
+		var wait := maxf(0.0, cue.at * time - elapsed)
+		if wait > 0.0:
+			await get_tree().create_timer(wait).timeout
+		elapsed += wait
+		var name := ReloadCues.sound_of(StringName(id), cue)
+		_report("武器 %s 換彈 %.0f%%" % [id, cue.at * 100.0], name)
+		if name != &"":
+			Sfx.play_named(name, cue.volume_db)
 
 
 func play_melee(attack_id: String) -> void:
