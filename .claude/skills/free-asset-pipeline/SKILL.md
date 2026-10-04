@@ -1,6 +1,6 @@
 ---
 name: free-asset-pipeline
-description: 把免費（CC0）高解析度素材換進 Nest Egg 場景的完整流程：找來源、下載並登記授權、把材質／3D 模型／HDRI 天空加工成遊戲規格（含法線與自發光）、放進資料、調色、驗收。要新增或替換地形材質、建築立面、場景道具、天空、背景、樹木，或要找免費素材時使用。不處理角色、敵人、立繪。
+description: 把場景素材換進或新增到 Nest Egg 的完整流程：找來源與授權（CC0）、下載、把材質／3D 模型／HDRI 天空加工成遊戲規格（含法線與自發光）、沒有免費素材時用本機 Qwen 生成、場景包（每個場景的背景與專屬物件）、放進資料格式、全域調色與光影預設、暗場可讀性與效能驗收，以及踩過的坑。要新增或替換地形材質、建築立面、場景道具、天空、背景、樹木、場景背景或光影預設，或要找免費素材時使用。不處理角色、敵人、立繪。
 ---
 
 # 免費素材替換流程
@@ -13,7 +13,7 @@ description: 把免費（CC0）高解析度素材換進 Nest Egg 場景的完整
 - 主力來源：**Poly Haven**（材質、3D 模型、HDRI 天空，`api.polyhaven.com`，免金鑰）與 **ambientCG**（材質，`ambientcg.com/api/v2`，免金鑰）。Kenney、OpenGameArt 只在缺特定物件時挑用，逐件確認授權。
 - 原始下載檔放 `assets_src/raw/`（不進版控，可重抓）；進版控的是加工後的 `art/**`、`assets_src/manifest.json`、`assets_src/pipeline/*.json`、`assets_src/LICENSES.json`。
 - **所有加工都由清單驅動、可重跑**。不要手改 `art/environment/**` 裡的成品圖——改清單（調色、裁切）再重跑，否則下次重跑就被蓋掉。
-- 調色參數只放清單（JSON），不寫進程式。
+- 調色參數只放清單（JSON），不寫進程式。全域調色見 §7。
 - 角色（`art/characters/**`、立繪、敵人）由別人處理，**不碰**。使用者可能同時在改角色美術：驗證環境素材時，用乾淨的 git worktree（見 §6）量測，別把角色變動算進環境素材的帳。
 - **不要把照片等級的現實場景放進遊戲**（使用者 2026-10-03：「超突兀」）：真實城市天際線（含看得出地名與招牌的）、實景照片一律不用，`process_backdrop.py` 的 `pano_skyline` 保留但不要用在遊戲裡。遠景、中景用 `city_blocks` 以立面模組組出風格一致的樓群。可用的照片素材僅限抽象的天空與雲（暴雨雲、夜空），且要先調暗調色；不確定時先問。
 - **使用者的美術偏好（2026-10-03）**：盡量少用純矩形、方形、單純弧形（半圓頂、拱窗、膠囊窗）；多一點裝飾、特效與動畫。實作上：樓群用階梯、斜屋頂、人字屋頂、切角、尖塔輪廓，屋頂放天線、水塔、碟型天線、通風管與信標；窗戶用切角八邊形加窗格；牆面加電路走線、LED 指示燈、水管、冷氣機、攝影機；窗光邊緣柔化；窗光會閃、信標會明滅、植物會搖。
@@ -22,6 +22,8 @@ description: 把免費（CC0）高解析度素材換進 Nest Egg 場景的完整
 
 - Python 需要 `pillow numpy scipy opencv-python-headless`（`python -m pip install`）。
 - Godot 4.7，路徑慣例 `C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe`（或設環境變數 `GODOT`）。
+- **Linux 雲端容器（沒有 GPU）也能量測與截圖**：下載 `Godot_v4.7-stable_linux.x86_64`；`apt-get install mesa-vulkan-drivers`（軟體 Vulkan）；`VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json xvfb-run -a -s "-screen 0 1280x720x24" godot --path . res://tools/…`。第一次匯入整個專案要 20 分鐘以上（背景執行、不要設逾時被殺，中斷後重跑會接續）。**拉到別人新增的 `class_name` 檔案後要再跑一次 `godot --headless --editor --quit`**，否則會出現 `Identifier "…" not declared`、`Nonexistent function 'exists' in base 'GDScript'` 這類假的腳本錯誤。軟體渲染下數字會與實機不同（尤其每影格耗時），對比量測可用、效能只能同機對照。
+- `pip install pillow numpy opencv-python-headless` 後 `python3 tools/assets/*.py` 在 Linux 也能跑；重跑加工腳本後 PNG 的壓縮編碼可能與進版控的不同（像素相同），用 `git checkout art` 還原，只提交像素真的變了的圖。
 - **Windows 的 python 看不懂 Git Bash 的 `/c/...` 路徑**：在專案根目錄用相對路徑執行腳本。
 - 工具都在 `tools/assets/`，每支腳本開頭的 docstring 有用法。
 
@@ -103,7 +105,9 @@ description: 把免費（CC0）高解析度素材換進 Nest Egg 場景的完整
 - 寫實素材比原本的像素美術亮、彩度低、細節多，必須壓亮度、偏冷、保留法線細節；亮度以「原本那張的平均亮度」當目標（原材質平均亮度約 0.15～0.3）。
 - 窗光、霓虹靠自發光層與加法光；牆面本身要暗，讓角色與霓虹有對比。
 - 夜景色盤：深藍紫底、洋紅與青色點綴，見 `core/palette.gd`；不要讓背景比角色搶眼。
-- 寫實背景與動漫賽璐璐角色的畫風落差由 NE-66（統一調色與光影整合）處理；落差太大時保留材質與天空，道具改回手繪輪廓。
+- **調色只有一份算法、一份全域資料（NE-66）**：`tools/assets/grade.py` 是唯一的調色實作（gamma、saturation、contrast、brightness、tint）；各加工腳本先套用清單項目自己的 `grade`，再套用 `assets_src/pipeline/grade_master.json`（`all` 全部、`kinds` 的 `material`／`facade`／`backdrop`／`sky`／`prop`／`scene` 各類別）。預設全是「不變」。要整批調亮度、彩度或色調：改 grade_master.json，重跑對應腳本。**自發光層不套用全域調色**（它是發光，不是反照率）。新增加工腳本時呼叫 `grade.grade_asset(a, entry_grade, kind, pivot, use_master)`，不要再複製一份調色函式。`python tools/assets/grade.py --check` 驗證資料。
+- **光影預設才是「夜與晝」的控制**：圖本身的調色只決定素材長什麼樣，區段的環境光、背景色調、霧、角色補光在 `data/lighting/*.tres`（見 §11）。素材太暗先看光影預設，不要先改圖。
+- 寫實背景與動漫賽璐璐角色的畫風落差已用賽璐璐重做（BG-1～5、10）解決；新素材一律走賽璐璐路線（程式繪製或 Qwen 的 `cel` 風格），照片等級素材不放進遊戲。
 
 ## 8. 沒有免費模型的部分：用本機 Qwen Image 生成（2026-10-03 起）
 
@@ -141,15 +145,48 @@ CC0 庫找不到的道具（吊車、龍門吊、控制台、堆高機、閘門�
 - **清單檔會被執行中的工具改寫**（記住新錨點）：批次還在跑時不要編輯 `qwen_props.json`，等它結束。
 - 匯入後 `.import` 檔沒有對應圖的孤兒要刪掉（會讓關卡載入時噴 ERROR）。
 
-## 9. 還沒做的部分
+## 9. 場景包：每個場景的背景與專屬物件（BG-11）
 
-統一調色與光影整合（NE-66）。地形、立面、遠中景、天空、樹木、室內道具、舊道具、過場舞台、白房間小腳（BG-1～7、BG-10）與道具法線（BG-8）都已完成。
+大綱（`design/13-story-v2/OUTLINE.md` 第 5 節）的每個場景有一張背景圖與一包專屬物件，放在共用道具庫之外：
+
+| 項目 | 位置 |
+|---|---|
+| 背景圖（1536×864 WebP，亮點另存 `_glow.webp`；已畫好光影，所以只乘光影預設的背景色調，不再乘環境光） | `art/environment/scenes/<場景 id>.webp`，清單 `assets_src/pipeline/scene_bgs.json`（`python tools/assets/qwen_scenes.py --pipeline scene_bgs`） |
+| 專屬物件（`<場景 id>__<物件名>`，與共用道具同樣有 `_n` 與 `_glow`） | `art/environment/scene_props/<場景 id>/`，資料 `data/environment/scene_props/<場景 id>/*.tres`，清單 `assets_src/pipeline/scene_props.json`（`python tools/assets/qwen_props.py --pipeline scene_props`） |
+
+- 新增場景：在兩份清單各加項目（提示詞、種子、`fit`／`height_m`、`normal` 輪廓），生成後 `godot --headless --editor --quit` 匯入。素材量有獨立上限（`check_assets.py`：共用 60 MB、場景包 160 MB）。
+- 預覽：`screenshot.tscn -- --out=<資料夾> --scenario=scene_packs [--scene=<id>] [--lighting=<預設 id>]`，每個場景一張，並印出物件數與缺圖清單。
+- 尚未生成圖的場景在量測時標示「待背景」，不算失敗。
 
 ## 10. 驗收清單
 
 - [ ] 來源都在 `LICENSES.json`（CC0 素材），或在 `qwen_*.json` 留有提示詞與種子（生成素材）
-- [ ] `check_assets.py` 通過
-- [ ] 重新匯入後預覽畫廊與實景截圖看過，前後對照已存到 `pm/Nest-Egg/images/`
-- [ ] 暗場可讀性量測沒有比基準更差（基準＝乾淨 worktree 在 HEAD 量一次）
-- [ ] 相關測試套件通過（`--only=EnvironmentSuite,CutsceneSuite,ChapterCutscenesSuite,PropsSuite`；使用者明說要才跑完整套件）
+- [ ] `python tools/assets/check_assets.py` 通過（大小、授權、調色資料、每件道具都有法線與標示的發光層）
+- [ ] 重新匯入後預覽畫廊與實景截圖看過，前後對照已存到 `pm/<專案>/images/`
+- [ ] 暗場可讀性量測（§11）沒有比基準更差，光影品質「高」與「低」兩檔都量
+- [ ] 新的光影預設或場景背景：在對應表加一行並跑光影預設場景量測（§11）
+- [ ] 相關測試套件通過（`--only=EnvironmentSuite,CutsceneSuite,ChapterCutscenesSuite,PropsSuite`；使用者明說要才跑完整套件，完整測試由 CI 負責）
+- [ ] 換掉整批素材時做同機前後對照（§12）
 - [ ] 票上的驗收條件逐條打勾、補 Commit 段落
+
+## 11. 光影預設與可讀性量測（BG-13、BG-14）
+
+- **光影預設**是 `data/lighting/<id>.tres`（`LightingProfile`：環境光、背景色調、霧、泛光、調色、光源色、角色最低亮度 `character_floor`、輪廓光）。新增只加資料檔；大綱 5.1 的章節畫面進程已建好白天、晴天、洪水夜、塔內等 11 組。欄位說明在 `data/scripts/lighting_profile.gd`，設計在 `design/08-lighting/DESIGN.md`。
+- **兩個量測，共用 `tools/contrast_probe.gd`**（對比 = (內 − 外) / (外 + 0.02)，取亮部與剪影較大者；門檻玩家 0.6、地面邊緣 1.0、敵人 0.45）：
+  - 區段量測：`godot --path . res://tools/readability_check.tscn -- [--level=level_01] [--quality=low]`，兩章每個區段。
+  - 預設量測：`screenshot.tscn -- --out=<資料夾> --scenario=lighting_scenes [--lighting=<id>] [--scene=<id>]`，把玩家與敵人放在場景背景前，對應表 `data/lighting_preview/scenes.json`（預設 → 場景背景）。多印一欄「空處」（沒有角色處的背景起伏）當雜訊底線。
+- **調整順序**：先調 `character_floor`（角色補光，資料）；背景太亮或太暗才動 `background_tint`；最後才碰環境光。亮背景（白天、塔內）角色是深色剪影，天生清楚；暗的室內與廠房最容易不足（本批調到 0.5～0.56）。
+- **踩過的坑**：
+  - 量測框裡角色只占一部分，白天背景下用中位數量「身體比周圍暗」量到的是背景，所以背景夠亮時改用暗部百分位；背景很暗時分母趨近 0，黑對近黑會被放大成高對比，所以維持中位數。不要為了過關改量測，先看截圖。
+  - 對比在角色亮度「剛好跟背景差不多」時最低（V 字形）：只加一點補光反而更糟，要嘛不動、要嘛明確推到亮部一側。
+  - 閃爍與脈動的燈會讓單次量測忽高忽低，取樣要涵蓋至少一個週期（現為 16 張）；頭目機庫的敵人對比在相同設定下仍會落在兩種狀態，不是設定問題。
+  - 預覽時要把關卡自己的後牆、裝飾與前景藏起來（`lighting_scene_scenario.gd`），否則量到的是地形剪影而不是場景背景。
+  - 暗場景背景圖本身已經很暗（背景色調再乘就更暗），看不清楚時先查原圖亮度，不要硬拉 tint。
+
+## 12. 效能與記憶體：前後對照的做法（NE-66）
+
+- **用同一台機器、同一份腳本、同樣的關卡位置**量替換前後：`git fetch --shallow-since=<日期> origin main` 補回歷史，`git worktree add /tmp/baseline <替換前的提交>`，複製 `.godot/` 進去加速匯入，兩邊各跑一支量測腳本（每影格耗時、`RenderingServer.get_rendering_info` 的繪製呼叫與貼圖記憶體）。
+- **軟體渲染下解析度要縮小**（`--resolution 320x180`）才看得出差異；1280×720 每影格都是同一個固定值（約 133 ms），沒有比較意義。
+- **看三個數字**：繪製呼叫、每影格耗時、貼圖記憶體；也量關卡畫面上節點的貼圖估算（寬 × 高 × 4）找最大的幾張。2026-10-04 的結果：替換後繪製呼叫下降、每影格耗時略增、環境貼圖記憶體約 6 倍（見 BG-17）。
+- **不要用「截圖時的卡頓」當結論**：截圖瞬間有 100 ms 以上的卡頓。
+- 整批量測的負載基準與光影品質三檔的差異見 `design/08-lighting/DESIGN.md` 的「戰鬥負載實測基準」。
