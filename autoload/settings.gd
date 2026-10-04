@@ -46,6 +46,15 @@ func _ready() -> void:
 	_ensure_master_limiter()
 	_load()
 	_apply_audio()
+	DisplayMode.ensure_scaling(get_window())
+	DisplayMode.set_fullscreen(get_window(), get_fullscreen())
+
+
+## F11 在任何畫面都能切換全螢幕（設定畫面開著時勾選框會跟著更新）。
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and (event as InputEventKey).keycode == KEY_F11:
+		toggle_fullscreen()
+		get_viewport().set_input_as_handled()
 
 
 func _exit_tree() -> void:
@@ -123,6 +132,24 @@ func set_volume(bus: StringName, linear: float) -> void:
 func reset_audio() -> void:
 	for entry in AUDIO_BUSES:
 		set_volume(entry["bus"], entry["default"])
+
+
+## 是否全螢幕。設定檔內容損毀時退回視窗模式。
+func get_fullscreen() -> bool:
+	var value: Variant = get_value(DISPLAY_SECTION, "fullscreen", false)
+	return value if typeof(value) == TYPE_BOOL else false
+
+
+func set_fullscreen(enabled: bool) -> void:
+	set_value(DISPLAY_SECTION, "fullscreen", enabled)
+	DisplayMode.set_fullscreen(get_window(), enabled)
+	display_changed.emit()
+
+
+## F11：以視窗目前的實際狀態為準切換（視窗可能被作業系統改過）。
+func toggle_fullscreen() -> void:
+	var window := get_window()
+	set_fullscreen(not (DisplayMode.is_fullscreen(window) if DisplayMode.has_window() else get_fullscreen()))
 
 
 ## 動態 HUD 閒置時是否自動淡出。設定檔內容損毀時退回預設值。
@@ -241,6 +268,7 @@ func reset_display() -> void:
 	set_skip_cutscenes(false)
 	set_reduce_flashes(false)
 	set_hud_auto_hide(HUD_AUTO_HIDE_DEFAULT)
+	set_fullscreen(false)
 	set_brightness(BRIGHTNESS_DEFAULT)
 	set_light_quality(LightQuality.DEFAULT_TIER)
 

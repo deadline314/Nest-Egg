@@ -1273,6 +1273,9 @@ func _run_settings() -> void:
 	await _settle(10)
 	_capture("settings_bindings")
 	settings._cancel_capture()
+	settings._tabs.current_tab = 2
+	await _settle(10)
+	_capture("settings_display")
 	settings.queue_free()
 
 

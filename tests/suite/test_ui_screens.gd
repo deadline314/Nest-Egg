@@ -11,6 +11,7 @@ func run() -> void:
 	await _test_main_menu_overlays()
 	await _test_difficulty_cards_never_overlap()
 	await _test_chapter_card_under_pause()
+	await _test_fullscreen_setting()
 	await _test_death_screen()
 	await _test_victory_screen()
 
@@ -169,6 +170,50 @@ func _test_chapter_card_under_pause() -> void:
 	await frames(3)
 	check(card._root.visible, "取消暫停後標題卡還原")
 	card.queue_free()
+	await frames(2)
+
+
+## 全螢幕（NE-172）：設定存檔與損毀退回、F11 切換、設定畫面勾選框跟著更新、恢復預設回視窗、顯示分頁可捲動。
+func _test_fullscreen_setting() -> void:
+	var original_path := Settings.storage_path()
+	var test_path := "user://test_fullscreen.cfg"
+	Settings.use_storage(test_path)
+	check(not Settings.get_fullscreen(), "預設是視窗模式")
+	Settings.set_value(Settings.DISPLAY_SECTION, "fullscreen", "yes")
+	check(not Settings.get_fullscreen(), "設定檔內容損毀時退回視窗模式")
+
+	var screen := SettingsScreen.new()
+	runner.add_child(screen)
+	await frames(3)
+	check(screen._fullscreen != null and not screen._fullscreen.tooltip_text.is_empty(), "顯示分頁有全螢幕選項與說明")
+	check(screen._tabs.get_tab_control(2) is ScrollContainer, "顯示分頁項目多時可以捲動")
+	var back_bottom := screen.get_global_rect().end.y
+	check(screen._tabs.get_global_rect().end.y <= back_bottom, "顯示分頁沒有把底下的按鈕擠出畫面")
+
+	screen._fullscreen.button_pressed = true
+	check(Settings.get_fullscreen(), "勾選全螢幕後設定生效")
+	var f11 := InputEventKey.new()
+	f11.keycode = KEY_F11
+	f11.pressed = true
+	Settings._input(f11)
+	check(not Settings.get_fullscreen() and not screen._fullscreen.button_pressed, "F11 切回視窗，設定畫面的勾選框跟著更新")
+	Settings._input(f11)
+	check(Settings.get_fullscreen() and screen._fullscreen.button_pressed, "F11 進全螢幕，勾選框跟著更新")
+	Settings.save_now()
+	Settings.use_storage(test_path)
+	check(Settings.get_fullscreen(), "全螢幕設定存檔後重新讀取仍然保留")
+	screen._tabs.current_tab = 2
+	screen._reset_current_tab()
+	check(not Settings.get_fullscreen() and not screen._fullscreen.button_pressed, "恢復預設回到視窗模式")
+
+	var window := runner.get_window()
+	DisplayMode.ensure_scaling(window)
+	check(window.content_scale_mode == Window.CONTENT_SCALE_MODE_CANVAS_ITEMS and window.content_scale_aspect == Window.CONTENT_SCALE_ASPECT_KEEP
+			and window.content_scale_size == DisplayMode.DESIGN_SIZE, "畫面以設計解析度等比放大填滿視窗")
+
+	screen.close()
+	Settings.use_storage(original_path)
+	DirAccess.remove_absolute(test_path)
 	await frames(2)
 
 

@@ -13,6 +13,7 @@ var _tabs: TabContainer
 var _status: Label
 var _sliders: Dictionary[StringName, HSlider] = {}
 var _slider_values: Dictionary[StringName, Label] = {}
+var _fullscreen: CheckButton
 var _hud_auto_hide: CheckButton
 var _quality_option: OptionButton
 var _reduce_flashes: CheckButton
@@ -153,9 +154,26 @@ func _update_volume_label(bus: StringName) -> void:
 # ---------------------------------------------------------------------------
 
 func _build_display_tab() -> Control:
+	# 項目多時可以捲動，底下的按鈕不會被擠出畫面。
+	var scroll := ScrollContainer.new()
+	scroll.name = "顯示"
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.follow_focus = true
 	var box := VBoxContainer.new()
-	box.name = "顯示"
+	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	box.add_theme_constant_override(&"separation", 4)
+	scroll.add_child(box)
+	_fullscreen = CheckButton.new()
+	_fullscreen.text = "全螢幕"
+	_fullscreen.tooltip_text = "填滿整個螢幕，畫面等比放到最大；F11 隨時切換"
+	_fullscreen.focus_mode = Control.FOCUS_ALL
+	_fullscreen.button_pressed = Settings.get_fullscreen()
+	_fullscreen.toggled.connect(func(on: bool) -> void:
+		Settings.set_fullscreen(on)
+		Sfx.play(&"ui_confirm", -6.0, 0.0))
+	box.add_child(_fullscreen)
+	Settings.display_changed.connect(_sync_fullscreen)
+	tree_exiting.connect(func() -> void: Settings.display_changed.disconnect(_sync_fullscreen))
 	_hud_auto_hide = CheckButton.new()
 	_hud_auto_hide.text = "HUD 自動隱藏"
 	_hud_auto_hide.tooltip_text = "開啟：生命與護盾閒置時淡出，受傷或格擋時才出現；關閉：一律顯示"
@@ -205,7 +223,13 @@ func _build_display_tab() -> Control:
 		Settings.set_damage_numbers(on)
 		Sfx.play(&"ui_confirm", -6.0, 0.0))
 	box.add_child(_damage_numbers)
-	return box
+	return scroll
+
+
+## F11 或「恢復預設」改了全螢幕時，勾選框跟著更新（不重複觸發設定）。
+func _sync_fullscreen() -> void:
+	if is_instance_valid(_fullscreen):
+		_fullscreen.set_pressed_no_signal(Settings.get_fullscreen())
 
 
 ## 打擊回饋強度滑桿：[設定鍵, 名稱, 提示]。
@@ -445,6 +469,7 @@ func _reset_current_tab() -> void:
 	else:
 		Settings.reset_display()
 		_hud_auto_hide.set_pressed_no_signal(Settings.get_hud_auto_hide())
+		_sync_fullscreen()
 		_brightness_slider.set_value_no_signal(roundf(Settings.get_brightness() * 100.0))
 		_update_brightness_label()
 		_select_quality_item()
