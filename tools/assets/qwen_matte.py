@@ -12,6 +12,7 @@ from __future__ import annotations
 import cv2
 import numpy as np
 from PIL import Image
+import grade as grade_lib  # noqa: E402
 
 LUMA = np.array([0.299, 0.587, 0.114], dtype=np.float32)
 
@@ -130,15 +131,12 @@ def glow_mask(rgba: np.ndarray, rules: list[dict]) -> np.ndarray | None:
     return np.dstack([out_rgb, mask])
 
 
-def grade(a: np.ndarray, g: dict) -> np.ndarray:
-    """Same grading as build_props.grade (gamma, saturation, contrast, brightness, tint)."""
-    a = a ** float(g.get("gamma", 1.0))
-    lum = a @ LUMA
-    a = lum[..., None] + (a - lum[..., None]) * float(g.get("saturation", 1.0))
-    a = (a - 0.5) * float(g.get("contrast", 1.0)) + 0.5
-    a = a * float(g.get("brightness", 1.0)) * np.array(g.get("tint", [1, 1, 1]), dtype=np.float32)
-    return np.clip(a, 0.0, 1.0)
-
+def grade(a: np.ndarray, g: dict, kind: str | None = None) -> np.ndarray:
+    """Entry grade (gamma, saturation, contrast, brightness, tint); with `kind` ('prop' or 'scene') the shared master
+    grade (see grade.py) follows. Emissive layers and glow sources pass no kind."""
+    if kind is None:
+        return grade_lib.grade(a, g, "half")
+    return grade_lib.grade_asset(a, g, kind, "half")
 
 def to_image(a: np.ndarray) -> Image.Image:
     return Image.fromarray((np.clip(a, 0, 1) * 255 + 0.5).astype(np.uint8), "RGBA" if a.shape[2] == 4 else "RGB")

@@ -33,6 +33,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import cel_facade as cf  # noqa: E402
 import decor  # noqa: E402
+import grade as grade_lib  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 PIPELINE = ROOT / "assets_src" / "pipeline" / "facades.json"
@@ -162,6 +163,7 @@ def write_module(e: dict, kind: str, i: int) -> str:
     if kind == "body" and not glow.getbbox():
         raise ValueError(f"{name}: no lit window")
     OUT.mkdir(parents=True, exist_ok=True)
+    color = grade_lib.grade_image(color, "facade")
     color.save(OUT / f"{name}.png", optimize=True)
     normal.save(OUT / f"{name}_n.png", optimize=True)
     glow_path = OUT / f"{name}_glow.png"

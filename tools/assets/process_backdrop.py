@@ -25,6 +25,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 from PIL import Image, ImageChops, ImageDraw
+import grade as grade_lib  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 RAW = ROOT / "assets_src" / "raw"
@@ -36,14 +37,9 @@ MAX_BYTES = 1_200_000
 LUMA = np.array([0.299, 0.587, 0.114], dtype=np.float32)
 
 
-def grade(a: np.ndarray, g: dict) -> np.ndarray:
-    a = a ** float(g.get("gamma", 1.0))
-    lum = a @ LUMA
-    a = lum[..., None] + (a - lum[..., None]) * float(g.get("saturation", 1.0))
-    a = (a - 0.5) * float(g.get("contrast", 1.0)) + 0.5
-    a = a * float(g.get("brightness", 1.0)) * np.array(g.get("tint", [1, 1, 1]), dtype=np.float32)
-    return np.clip(a, 0.0, 1.0)
-
+def grade(a: np.ndarray, g: dict, use_master: bool = True) -> np.ndarray:
+    """Entry grade, then the shared master grade (see grade.py); emissive layers pass use_master=False."""
+    return grade_lib.grade_asset(a, g, "backdrop", "half", use_master)
 
 def save_webp(path: Path, rgba: np.ndarray, quality: int) -> int:
     Image.fromarray((np.clip(rgba, 0, 1) * 255 + 0.5).astype(np.uint8), "RGBA").save(path, "WEBP", quality=quality, method=6)
@@ -80,7 +76,7 @@ def pano_skyline(spec: dict) -> tuple[np.ndarray, np.ndarray]:
     fade = int(out_h * float(spec.get("top_fade", 0.3)))
     if fade > 0:
         alpha[:fade, :, 0] = np.linspace(0.0, 1.0, fade, dtype=np.float32)[:, None]
-    glow[..., :3] = grade(glow[..., :3], spec.get("glow_grade", {"brightness": 1.0}))
+    glow[..., :3] = grade(glow[..., :3], spec.get("glow_grade", {"brightness": 1.0}), use_master=False)
     glow[..., 3] *= alpha[..., 0]
     return np.concatenate([graded, alpha], axis=2), glow
 
@@ -395,7 +391,7 @@ def city_blocks(spec: dict) -> tuple[np.ndarray, np.ndarray]:
     c = np.asarray(final).astype(np.float32) / 255.0
     g = np.asarray(final_glow).astype(np.float32) / 255.0
     c[..., :3] = grade(c[..., :3], spec.get("grade", {}))
-    g[..., :3] = grade(g[..., :3], spec.get("glow_grade", {"brightness": 1.0}))
+    g[..., :3] = grade(g[..., :3], spec.get("glow_grade", {"brightness": 1.0}), use_master=False)
     return c, soften(g, max(1.0, ts * 0.45))
 
 

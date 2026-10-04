@@ -8,6 +8,7 @@ func run() -> void:
 	_test_materials()
 	_test_facades()
 	_test_props()
+	_test_lit_coverage()
 	_test_backdrop()
 	_test_theme()
 	_test_missing_texture()
@@ -75,6 +76,35 @@ func _test_props() -> void:
 		check(categories.get(category, 0) >= 3, "道具分類 %s 至少 3 種" % category)
 	check(PropLibrary.find(&"water_tower") != null, "可用 id 取得道具資料")
 	check(PropLibrary.find(&"no_such_prop") == null, "找不到的道具回傳 null 而不是崩潰")
+
+
+## 統一光影整合（NE-66）：每個道具（共用庫與各場景包）都有法線貼圖，標示有自發光的都真的有；
+## 共用庫的道具載入後是帶法線的受光貼圖，不會退成不受光的平面。
+func _test_lit_coverage() -> void:
+	var props: Array[PropData] = []
+	props.append_array(PropLibrary.all())
+	for dir in DirAccess.get_directories_at("res://data/environment/scene_props"):
+		for file in DirAccess.get_files_at("res://data/environment/scene_props/" + dir):
+			if file.ends_with(".tres"):
+				var prop := load("res://data/environment/scene_props/%s/%s" % [dir, file]) as PropData
+				if prop != null:
+					props.append(prop)
+	var no_normal: PackedStringArray = []
+	var no_glow: PackedStringArray = []
+	for prop in props:
+		if not ResourceLoader.exists(prop.texture.get_basename() + "_n.png"):
+			no_normal.append(String(prop.id))
+		if prop.has_glow and not ResourceLoader.exists(prop.glow_path()):
+			no_glow.append(String(prop.id))
+	check(props.size() >= 100, "道具資料（共用庫＋場景包）至少 100 件（%d）" % props.size())
+	check(no_normal.is_empty(), "所有道具都有法線貼圖，沒有不受光的平面（缺：%s）" % ", ".join(no_normal))
+	check(no_glow.is_empty(), "標示有自發光的道具都有自發光層（缺：%s）" % ", ".join(no_glow))
+	var flat: PackedStringArray = []
+	for prop in PropLibrary.all():
+		var texture := LitTextures.load_texture(prop.texture, Vector2i(prop.size) * PropData.TEXTURE_SCALE)
+		if not (texture is CanvasTexture and (texture as CanvasTexture).normal_texture != null):
+			flat.append(String(prop.id))
+	check(flat.is_empty(), "共用庫道具載入後都是帶法線的受光貼圖（平面：%s）" % ", ".join(flat))
 
 
 func _test_backdrop() -> void:

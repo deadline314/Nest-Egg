@@ -20,6 +20,7 @@ from pathlib import Path
 
 import numpy as np
 from PIL import Image
+import grade as grade_lib  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import cel_sky  # noqa: E402
@@ -33,15 +34,9 @@ MAX_BYTES = 1_200_000
 LUMA = np.array([0.299, 0.587, 0.114], dtype=np.float32)
 
 
-def grade(a: np.ndarray, g: dict) -> np.ndarray:
-    a = a ** float(g.get("gamma", 1.0))
-    mean = a.mean()
-    a = (a - mean) * float(g.get("contrast", 1.0)) + mean
-    lum = a @ LUMA
-    a = lum[..., None] + (a - lum[..., None]) * float(g.get("saturation", 1.0))
-    a = a * float(g.get("brightness", 1.0)) * np.array(g.get("tint", [1, 1, 1]), dtype=np.float32)
-    return np.clip(a, 0.0, 1.0)
-
+def grade(a: np.ndarray, g: dict, use_master: bool = True) -> np.ndarray:
+    """Entry grade, then the shared master grade (see grade.py)."""
+    return grade_lib.grade_asset(a, g, "sky", "mean", use_master)
 
 def save_webp(spec: dict, rgb: np.ndarray, note: str) -> bool:
     height, width = rgb.shape[:2]

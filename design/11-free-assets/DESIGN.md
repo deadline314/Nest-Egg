@@ -124,3 +124,9 @@
 | 建築立面與遠中景 | `tools/assets/cel_facade.py`、`decor.py`、`build_facades.py`、`process_backdrop.py` | `facades.json`、`backdrop.json` 的 `layers` |
 | 天空 | `tools/assets/cel_sky.py` ＋ `process_sky.py` | `backdrop.json` 的 `skies` 的 `cel` 區塊 |
 | 樹木與植被 | `qwen_props.py` | `qwen_props.json`（風格 `nature`） |
+
+## 統一調色（NE-66，2026-10-04）
+
+- 調色算法只有一份：`tools/assets/grade.py`，各加工腳本（材質、立面、背景、天空、道具、場景圖）都呼叫它。每個清單項目自己的 `grade` 先套用，接著套用全域調色 `assets_src/pipeline/grade_master.json`（`all` 全部、`kinds` 各類別）；預設不改變任何像素。自發光層不套用全域調色。改完重跑對應腳本。
+- 檢查：`python tools/assets/grade.py --check`（驗證調色資料）與 `python tools/assets/check_assets.py`（大小、授權、調色資料、每件道具都有法線與標示的發光層）。環境元件測試套件有同樣的涵蓋檢查。
+- 替換前後的同機對照（2026-10-04，軟體渲染，縮小解析度）：環境貼圖記憶體與取樣成本變高，後續見 BG-17。

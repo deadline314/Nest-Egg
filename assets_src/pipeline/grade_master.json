@@ -1,0 +1,5 @@
+{
+ "_說明": "全域調色（NE-66）：套用在每張素材本體（地形材質、立面、背景、天空、道具、場景圖），在各素材清單自己的 grade 之後。預設全部不變；要統一調整整批素材的亮度、彩度、色調，改這裡再重跑對應的 tools/assets 腳本。自發光層不套用。欄位：gamma、saturation、contrast、brightness、tint（三個數字）。all 套用在所有類別，kinds 的類別（material、facade、backdrop、sky、prop、scene）接著套用。檢查：python tools/assets/grade.py --check",
+ "all": {},
+ "kinds": {}
+}

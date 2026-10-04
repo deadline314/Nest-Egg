@@ -28,6 +28,7 @@ from pathlib import Path
 
 import numpy as np
 from PIL import Image
+import grade as grade_lib  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 RAW = ROOT / "assets_src" / "raw"
@@ -68,14 +69,9 @@ def render(entries: list[dict]) -> bool:
     return result.returncode == 0
 
 
-def grade(a: np.ndarray, g: dict) -> np.ndarray:
-    a = a ** float(g.get("gamma", 1.0))
-    lum = a @ LUMA
-    a = lum[..., None] + (a - lum[..., None]) * float(g.get("saturation", 1.0))
-    a = (a - 0.5) * float(g.get("contrast", 1.0)) + 0.5
-    a = a * float(g.get("brightness", 1.0)) * np.array(g.get("tint", [1, 1, 1]), dtype=np.float32)
-    return np.clip(a, 0.0, 1.0)
-
+def grade(a: np.ndarray, g: dict, use_master: bool = True) -> np.ndarray:
+    """Entry grade, then the shared master grade (see grade.py); emissive layers pass use_master=False."""
+    return grade_lib.grade_asset(a, g, "prop", "half", use_master)
 
 def crop_fraction(im: Image.Image, box) -> Image.Image:
     w, h = im.size
@@ -230,7 +226,7 @@ def process(e: dict, defaults: dict) -> bool:
         strength = g[..., :3].max(axis=2)
         alpha = np.clip((strength - 0.05) * 4.0, 0.0, 1.0) * g[..., 3]
         if alpha.max() > 0.02:
-            gl = np.concatenate([grade(g[..., :3], e.get("glow_grade", {"brightness": 1.0})), alpha[..., None]], axis=2)
+            gl = np.concatenate([grade(g[..., :3], e.get("glow_grade", {"brightness": 1.0}), use_master=False), alpha[..., None]], axis=2)
             Image.fromarray((gl * 255 + 0.5).astype(np.uint8), "RGBA").save(OUT / f"{pid}_glow.png", optimize=True)
             has_glow = True
     glow_file = OUT / f"{pid}_glow.png"

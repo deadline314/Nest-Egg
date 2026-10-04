@@ -83,7 +83,7 @@ def process(e: dict, cfg: dict, regen: bool, no_gen: bool) -> bool:
         big = Image.fromarray((raw[..., :3] * 255 + 0.5).astype(np.uint8), "RGB").convert("RGBA")
     small = np.asarray(qwen_props.resize_rgba(big, px)).astype(np.float32) / 255.0
     rgb, alpha = small[..., :3], small[..., 3]
-    graded = qm.grade(rgb, e.get("grade", {}))
+    graded = qm.grade(rgb, e.get("grade", {}), "scene")
 
     glow_img = None
     if e.get("glow"):

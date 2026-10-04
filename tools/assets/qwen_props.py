@@ -261,7 +261,7 @@ def process(e: dict, cfg: dict, regen: bool, no_gen: bool) -> bool:
 
     big = Image.fromarray((rgba * 255 + 0.5).astype(np.uint8), "RGBA")
     small = np.asarray(resize_rgba(big, px)).astype(np.float32) / 255.0
-    color = np.dstack([qm.grade(small[..., :3], e.get("grade", {})), small[..., 3]])
+    color = np.dstack([qm.grade(small[..., :3], e.get("grade", {}), "prop"), small[..., 3]])
     art_dir.mkdir(parents=True, exist_ok=True)
     qm.to_image(color).save(art_dir / f"{pid}.png", optimize=True)
     normal = dict(e.get("normal") or {})

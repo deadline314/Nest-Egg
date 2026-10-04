@@ -20,6 +20,7 @@ from pathlib import Path
 
 import cv2
 import numpy as np
+import grade as grade_lib  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import cel_tile  # noqa: E402
@@ -69,15 +70,9 @@ def seam_ratio(a: np.ndarray) -> float:
     return float(max(np.abs(g[0] - g[-1]).mean() / step_v, np.abs(g[:, 0] - g[:, -1]).mean() / step_h))
 
 
-def grade(a: np.ndarray, g: dict) -> np.ndarray:
-    a = a ** float(g.get("gamma", 1.0))
-    mean = a.mean()
-    a = (a - mean) * float(g.get("contrast", 1.0)) + mean
-    lum = a @ LUMA
-    a = lum[..., None] + (a - lum[..., None]) * float(g.get("saturation", 1.0))
-    a = a * float(g.get("brightness", 1.0)) * np.array(g.get("tint", [1, 1, 1]), dtype=np.float32)
-    return np.clip(a, 0.0, 1.0)
-
+def grade(a: np.ndarray, g: dict, use_master: bool = True) -> np.ndarray:
+    """Entry grade, then the shared master grade (see grade.py)."""
+    return grade_lib.grade_asset(a, g, "material", "mean", use_master)
 
 def resize(a: np.ndarray, px: int) -> np.ndarray:
     return cv2.resize(a, (px, px), interpolation=cv2.INTER_AREA)
