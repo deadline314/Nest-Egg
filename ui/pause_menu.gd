@@ -21,7 +21,7 @@ var _settings: SettingsScreen
 
 
 func _ready() -> void:
-	layer = 30
+	layer = UiLayers.PAUSE
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_root = UiKit.full_rect_root(self)
 	var shade := ColorRect.new()
@@ -115,14 +115,13 @@ func _controls_text() -> String:
 func _open_settings() -> void:
 	_settings = SettingsScreen.new()
 	_settings.closed.connect(_on_settings_closed)
-	_root.add_child(_settings)
+	UiOverlay.open(_root, _settings)
 
 
 func _on_settings_closed() -> void:
 	_settings = null
 	if _root.visible:
 		_refresh_info()
-		_resume_button.grab_focus()
 
 
 func _on_retry() -> void:

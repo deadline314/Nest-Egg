@@ -7,6 +7,10 @@ func run() -> void:
 	await _test_main_menu()
 	await _test_codex()
 	await _test_pause_info()
+	await _test_pause_settings_overlay()
+	await _test_main_menu_overlays()
+	await _test_difficulty_cards_never_overlap()
+	await _test_chapter_card_under_pause()
 	await _test_death_screen()
 	await _test_victory_screen()
 
@@ -75,6 +79,96 @@ func _test_pause_info() -> void:
 	menu.close()
 	menu.queue_free()
 	GameState.deaths = 0
+	await frames(2)
+
+
+## 暫停選單開設定（NE-173）：設定蓋滿畫面、底下的選單隱藏且不能聚焦，關閉後焦點回到「設定」按鈕。
+func _test_pause_settings_overlay() -> void:
+	var menu := PauseMenu.new()
+	runner.add_child(menu)
+	menu.open()
+	await frames(3)
+	var settings_button: Button = menu._menu_panel.body.get_child(1)
+	settings_button.grab_focus()
+	menu._open_settings()
+	await frames(4)
+	var settings := menu._settings
+	check(settings.size.is_equal_approx(menu._root.size) and settings.size.x > 0.0, "暫停選單開的設定畫面佔滿整個畫面")
+	check(not menu._menu_panel.visible and not menu._info_panel.visible, "設定開著時暫停選單的面板隱藏，不會疊在一起")
+	var owner := menu.get_viewport().gui_get_focus_owner()
+	check(owner != null and settings.is_ancestor_of(owner), "設定開著時焦點在設定裡")
+	for key in [&"ui_down", &"ui_up", &"ui_down"]:
+		var event := InputEventAction.new()
+		event.action = key
+		event.pressed = true
+		Input.parse_input_event(event)
+		await frames(2)
+		owner = menu.get_viewport().gui_get_focus_owner()
+		check(owner == null or settings.is_ancestor_of(owner), "設定開著時按上下只動設定裡的控制項")
+	settings.close()
+	await frames(4)
+	check(menu._menu_panel.visible and menu._info_panel.visible, "設定關閉後暫停選單還原")
+	check(menu.get_viewport().gui_get_focus_owner() == settings_button, "設定關閉後焦點回到原本的「設定」按鈕")
+	menu.close()
+	menu.queue_free()
+	await frames(2)
+
+
+## 主選單開設定與圖鑑：同樣佔滿畫面，底下的主選單隱藏，關閉後還原。
+func _test_main_menu_overlays() -> void:
+	var menu := MainMenu.new()
+	runner.add_child(menu)
+	await frames(4)
+	for opener in [menu._open_settings, menu._open_codex]:
+		opener.call()
+		await frames(3)
+		var screen: Control = menu._ui.get_child(menu._ui.get_child_count() - 1)
+		check(screen.size.is_equal_approx(menu._ui.size) and screen.size.x > 0.0, "主選單開的%s佔滿整個畫面" % screen.get_class())
+		check(not menu._main_page.visible, "覆蓋畫面開著時主選單頁隱藏")
+		screen.queue_free()
+		await frames(3)
+		check(menu._main_page.visible, "覆蓋畫面關閉後主選單頁還原")
+	menu.queue_free()
+	await frames(2)
+
+
+## 難度卡片每次都並排：反覆進出，且從「影格剛開始」的時機進入（容器還沒排版）也不疊在一起。
+func _test_difficulty_cards_never_overlap() -> void:
+	var menu := MainMenu.new()
+	runner.add_child(menu)
+	await frames(4)
+	for round in 10:
+		await runner.get_tree().process_frame
+		menu._open_difficulty()
+		await runner.get_tree().create_timer(0.8).timeout
+		var overlapping := false
+		for i in menu._cards.size():
+			for j in range(i + 1, menu._cards.size()):
+				if menu._cards[i].get_global_rect().intersects(menu._cards[j].get_global_rect()):
+					overlapping = true
+		check(not overlapping, "第 %d 次進難度頁，三張卡片並排不重疊" % (round + 1))
+		menu._on_back()
+		await frames(2)
+	menu.queue_free()
+	await frames(2)
+
+
+## 章節標題卡低於暫停選單，暫停時藏起來並凍結計時。
+func _test_chapter_card_under_pause() -> void:
+	check(UiLayers.CHAPTER_CARD < UiLayers.PAUSE and UiLayers.DIALOGUE < UiLayers.PAUSE and UiLayers.INVENTORY < UiLayers.PAUSE,
+			"暫停選單疊在章節標題卡、對話、背包之上")
+	var card := ChapterCard.new()
+	card.title = "測試"
+	runner.add_child(card)
+	await frames(3)
+	check(card._root.visible, "沒暫停時標題卡顯示")
+	runner.get_tree().paused = true
+	await frames(3)
+	check(not card._root.visible, "暫停時開場標題卡不蓋在暫停選單上")
+	runner.get_tree().paused = false
+	await frames(3)
+	check(card._root.visible, "取消暫停後標題卡還原")
+	card.queue_free()
 	await frames(2)
 
 

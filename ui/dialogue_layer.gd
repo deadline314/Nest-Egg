@@ -45,7 +45,7 @@ var _time := 0.0
 
 
 func _ready() -> void:
-	layer = 60
+	layer = UiLayers.DIALOGUE
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_build_cinematic()
 	_build_radio()

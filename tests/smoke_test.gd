@@ -1137,7 +1137,7 @@ func _test_lighting() -> void:
 			and is_equal_approx(post.parameter(&"aberration"), grade.aberration), "grade, vignette, grain and aberration follow the zone")
 	var shadow: Vector3 = post.parameter(&"shadow_tint")
 	_check(is_equal_approx(shadow.x, grade.shadow_tint.r) and is_equal_approx(shadow.z, grade.shadow_tint.b), "shadow tint follows the zone")
-	_check(post.layer < level.hud.layer and level.hud.layer < level._pause_menu.layer and level._pause_menu.layer < level._inventory.layer, "post-processing sits under the HUD and menus")
+	_check(post.layer < level.hud.layer and level.hud.layer < level._inventory.layer and level._inventory.layer < level._pause_menu.layer, "post-processing sits under the HUD and menus")
 	var shader_code := (post._material.shader as Shader).code
 	_check(shader_code.contains("hint_screen_texture") and shader_code.contains("uniform float vignette") and shader_code.contains("uniform float grain"), "post shader reads the screen and exposes grade parameters")
 	var bad_grade := LightingProfile.new()

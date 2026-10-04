@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、stages、hud、spots（--scenario=spots:關卡檔:名稱）、environment、cutscene、screens、flow、transition、ui、settings、mouse_aim、block、story、story_ch2、portraits、rin_damage、rin_fit、rin_light、rin_perf、cast_lineup、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals、npc、death
+## 情境：all（預設）、stages、hud、spots（--scenario=spots:關卡檔:名稱）、environment、cutscene、screens、flow、transition、ui、settings、mouse_aim、block、story、story_ch2、portraits、rin_damage、rin_fit、rin_light、rin_perf、cast_lineup、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals、npc、death、menus
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -86,6 +86,10 @@ func _run() -> void:
 		return
 	if _scenario == "lab_guns":
 		await _run_lab_guns()
+		get_tree().quit()
+		return
+	if _scenario == "menus":
+		await _run_menus()
 		get_tree().quit()
 		return
 	if _scenario == "story":
@@ -1311,6 +1315,35 @@ func _run_lab_guns() -> void:
 	_capture("lab_guns")
 	lab.queue_free()
 	get_window().content_scale_mode = scale_mode_before
+
+
+## 選單疊放（NE-173）：關卡中章節標題卡 → 暫停選單 → 設定，與主選單的難度頁、設定。
+func _run_menus() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(LEVEL_PATH))
+	add_child(level)
+	await _settle(30)
+	level._pause_menu.open()
+	await _wait(0.6)
+	_capture("menus_pause_over_card")
+	level._pause_menu._open_settings()
+	await _wait(0.6)
+	_capture("menus_pause_settings")
+	level._pause_menu.close()
+	level.queue_free()
+	await _settle(4)
+	var menu := MainMenu.new()
+	add_child(menu)
+	await _settle(30)
+	menu._open_difficulty()
+	await _wait(0.8)
+	_capture("menus_difficulty")
+	menu._on_back()
+	menu._open_settings()
+	await _wait(0.4)
+	_capture("menus_main_settings")
+	menu.queue_free()
 
 
 ## 戰鬥介面：武器欄（彈種圖示）、彈匣、生命、信用點等，各種狀態。

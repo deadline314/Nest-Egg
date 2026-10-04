@@ -33,7 +33,7 @@ var _capture_slot := 0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	UiKit.fill_parent(self)
 	if not get_parent() is Control:
 		UiKit.fit_to_viewport(self)
 	theme = UiKit.theme()

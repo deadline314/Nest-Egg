@@ -3,7 +3,7 @@ extends CanvasLayer
 ## 全螢幕後製：調色、暗角、顆粒、邊緣色差。畫在場景之上、HUD 之下（layer 低於 HUD），
 ## 所以介面維持清晰。參數由 LightingProfile 決定（見 LightingController），只在數值改變時才更新 shader。
 
-const LAYER := 5
+const LAYER := UiLayers.POST_PROCESS
 const SHADER_PATH := "res://game/level/post_process.gdshader"
 ## 顆粒每秒更換幾次（太快會閃、太慢像貼圖）。
 const GRAIN_FPS := 24.0

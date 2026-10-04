@@ -25,7 +25,7 @@ var _controls: Label
 
 
 func _ready() -> void:
-	layer = 10
+	layer = UiLayers.HUD
 	var root := UiKit.full_rect_root(self)
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 

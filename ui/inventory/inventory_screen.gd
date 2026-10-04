@@ -48,8 +48,8 @@ func configure(p_player: Player) -> void:
 
 
 func _ready() -> void:
-	# 高於劇情對話框（60），打開背包時蓋住通訊框而不是和它重疊。
-	layer = 61
+	# 高於劇情對話框，打開背包時蓋住通訊框而不是和它重疊（順序見 UiLayers）。
+	layer = UiLayers.INVENTORY
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_context = InventoryContext.new(player)
 	_context.message.connect(_show_message)

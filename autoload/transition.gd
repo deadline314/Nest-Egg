@@ -9,7 +9,7 @@ enum Kind { FADE, FADE_WHITE, IRIS, SCAN, GLITCH, ELEVATOR, BLINDS }
 signal covered
 signal finished
 
-const LAYER := 100
+const LAYER := UiLayers.TRANSITION
 ## 各轉場「蓋住」或「揭開」單程的預設秒數。死亡重來（GLITCH）總長 0.7 秒。
 const DEFAULT_TIME: Dictionary[int, float] = {
 	Kind.FADE: 0.45, Kind.FADE_WHITE: 0.35, Kind.IRIS: 0.5, Kind.SCAN: 0.5,

@@ -23,7 +23,7 @@ func setup(card: Dictionary, can_continue: bool) -> void:
 
 
 func _ready() -> void:
-	layer = 25
+	layer = UiLayers.DEATH
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	UiKit.set_cursor_visible(true)
 	var root := UiKit.full_rect_root(self)

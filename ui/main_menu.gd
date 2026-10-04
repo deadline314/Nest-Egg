@@ -28,7 +28,7 @@ var _time := 0.0
 
 
 func _ready() -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	UiKit.fill_parent(self)
 	if not get_parent() is Control:
 		UiKit.fit_to_viewport(self)
 	theme = UiKit.theme()
@@ -275,11 +275,9 @@ func _on_start() -> void:
 
 func _open_settings() -> void:
 	var settings := SettingsScreen.new()
-	settings.closed.connect(_start_button.grab_focus)
-	_ui.add_child(settings)
+	UiOverlay.open(_ui, settings)
 
 
 func _open_codex() -> void:
 	var codex := CodexScreen.new()
-	codex.closed.connect(_start_button.grab_focus)
-	_ui.add_child(codex)
+	UiOverlay.open(_ui, codex)

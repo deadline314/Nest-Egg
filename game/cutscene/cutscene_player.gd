@@ -8,7 +8,7 @@ extends CanvasLayer
 
 signal finished(scene_id: StringName)
 
-const LAYER := 58
+const LAYER := UiLayers.CUTSCENE
 const SCREEN := Vector2(640, 360)
 const CENTER := Vector2(320, 180)
 const BAR_HEIGHT := 34.0

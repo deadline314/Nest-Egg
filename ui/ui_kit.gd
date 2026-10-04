@@ -114,6 +114,12 @@ static func centered_panel(parent: Control, min_width := 360.0, dim := 0.6) -> V
 	return box
 
 
+## 讓控制項填滿父節點。在 _ready 內對自己用請用這個：set_anchors_preset 會依「目前尺寸」重算偏移，
+## 新節點尺寸是 0，掛在 Control 底下就變成 0 大小（遮罩消失、畫面疊在一起）。
+static func fill_parent(control: Control) -> void:
+	control.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+
+
 static func full_rect_root(theme_owner: Node) -> Control:
 	var root := Control.new()
 	root.set_anchors_preset(Control.PRESET_FULL_RECT)

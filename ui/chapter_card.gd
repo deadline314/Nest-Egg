@@ -15,7 +15,7 @@ var _root: Control
 
 
 func _ready() -> void:
-	layer = 55
+	layer = UiLayers.CHAPTER_CARD
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_root = Control.new()
 	_root.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -38,10 +38,16 @@ func _ready() -> void:
 	box.add_child(UiKit.label(title, 22, LightKit.glow(Palette.MAGENTA, 1.4), HORIZONTAL_ALIGNMENT_CENTER))
 	box.add_child(UiKit.label(subtitle, 11, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_CENTER))
 	var tween := create_tween()
+	# 開場標題卡遇到暫停（暫停選單、背包）就凍結並藏起來；章節結束卡本身就是暫停，照常播放。
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS if block else Tween.TWEEN_PAUSE_STOP)
 	tween.tween_property(_root, "modulate:a", 1.0, FADE)
 	tween.tween_interval(hold)
 	tween.tween_property(_root, "modulate:a", 0.0, FADE)
 	tween.tween_callback(_done)
+
+
+func _process(_delta: float) -> void:
+	_root.visible = block or not get_tree().paused
 
 
 func _done() -> void:
