@@ -1,0 +1,17 @@
+{
+ "_說明": "F5 開發工具選單（DevMenu）列出的工具。只有編輯器與除錯版會載入這份檔案（匯出版排除 tools/，選單自動停用）。新增工具：加一筆 id、name、scene、tip，不用改程式。",
+ "tools": [
+  {
+   "id": "sound_lab",
+   "name": "音效實驗室",
+   "scene": "res://tools/sound_lab/sound_lab.tscn",
+   "tip": "試聽並挑選每個位置的聲音、看聲音搭配的畫面、調音樂與混音；挑選結果即時寫進位置清單文件"
+  },
+  {
+   "id": "feel_lab",
+   "name": "打擊感實驗室",
+   "scene": "res://tools/feel_lab/feel_lab.tscn",
+   "tip": "重生敵人與材質靶、換武器、反覆測同一個命中回饋與聲音事件"
+  }
+ ]
+}

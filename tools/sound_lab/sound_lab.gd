@@ -22,11 +22,15 @@ var tabs: TabContainer
 var status_label: Label
 var _sync_left := SYNC_INTERVAL
 var _theme: Theme
+var _scale_mode_before := Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
+var _changed_scale_mode := false
 
 
 func _ready() -> void:
 	# 單獨開啟時用視窗的實際解析度（遊戲本身是 640×360 放大），文字才讀得清楚；測試裡不動共用的視窗。
 	if get_tree().current_scene == self:
+		_scale_mode_before = get_window().content_scale_mode
+		_changed_scale_mode = true
 		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
 	catalog.load_all()
 	doc.load_doc(doc_path)
@@ -57,7 +61,13 @@ func _ready() -> void:
 	if not catalog.is_loaded():
 		notify("找不到素材目錄或位置登記：請先執行 python tools/audio/build_catalog.py 與 build_slots.py")
 	else:
-		notify("已載入 %d 個素材、%d 個位置；位置清單文件：%s" % [catalog.assets.size(), catalog.slots.size(), doc.path])
+		notify("已載入 %d 個素材、%d 個位置；位置清單文件：%s（F5 開發工具選單）" % [catalog.assets.size(), catalog.slots.size(), doc.path])
+
+
+## 從 F5 開發工具選單離開實驗室時，把視窗縮放還原給遊戲。
+func _exit_tree() -> void:
+	if _changed_scale_mode:
+		get_window().content_scale_mode = _scale_mode_before
 
 
 func _process(delta: float) -> void:

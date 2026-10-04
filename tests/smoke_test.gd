@@ -57,8 +57,13 @@ func _finish() -> void:
 	print("checks: %d, failures: %d" % [_checks, _failures.size()])
 	for failure in _failures:
 		printerr("FAIL: " + failure)
+	# 無頭模式的影格很快：延遲出聲的聲音層（命中尾音等）可能在停止之後才開始播，音訊執行緒也來不及放掉剛停掉的播放實例，
+	# 結束時就會報資源還在使用。先等延遲的聲音層出完、停掉全部、再等一小段實際時間讓播放實例釋放。
+	await get_tree().create_timer(0.2, true, false, true).timeout
 	Sfx.stop_all()
-	await _frames(2)
+	Music.stop(0.0)
+	Ambience.stop_all(0.0)
+	await get_tree().create_timer(0.2, true, false, true).timeout
 	get_tree().quit(0 if _failures.is_empty() else 1)
 
 
@@ -68,7 +73,7 @@ func _suites() -> Array[TestSuite]:
 		PropsSuite.new(self), NewEnemiesSuite.new(self), CollectiblesSuite.new(self),
 		ProgressionSuite.new(self), SupplySuite.new(self), ReclaimerSuite.new(self),
 		Chapter2Suite.new(self), UiKitSuite.new(self), TransitionSuite.new(self), UiScreensSuite.new(self), CutsceneSuite.new(self), EnvironmentSuite.new(self), AmmoIconsSuite.new(self), AmmoTraySuite.new(self), CombatHudSuite.new(self), ChapterCutscenesSuite.new(self),
-		NpcSuite.new(self), NpcAnimationSuite.new(self), RigActionsSuite.new(self), EnemyVfxSuite.new(self), StoryLintSuite.new(self), StoryContentSuite.new(self), DeathReactionSuite.new(self), HitReactionSuite.new(self), PostureSuite.new(self), AnimAuditSuite.new(self), PhoneBoothSuite.new(self), PartCreatureSuite.new(self), FeelSuite.new(self), MeleeSuite.new(self), FeelLabSuite.new(self), InputFeelSuite.new(self), FeelToolsSuite.new(self), AudioSuite.new(self), MusicSuite.new(self), ReloadCuesSuite.new(self), SoundLabSuite.new(self),
+		NpcSuite.new(self), NpcAnimationSuite.new(self), RigActionsSuite.new(self), EnemyVfxSuite.new(self), StoryLintSuite.new(self), StoryContentSuite.new(self), DeathReactionSuite.new(self), HitReactionSuite.new(self), PostureSuite.new(self), AnimAuditSuite.new(self), PhoneBoothSuite.new(self), PartCreatureSuite.new(self), FeelSuite.new(self), MeleeSuite.new(self), FeelLabSuite.new(self), InputFeelSuite.new(self), FeelToolsSuite.new(self), AudioSuite.new(self), MusicSuite.new(self), ReloadCuesSuite.new(self), SoundLabSuite.new(self), DevMenuSuite.new(self),
 		CharactersSuite.new(self), ReconEnemiesSuite.new(self), HeavyEnemiesSuite.new(self), AssaultEnemiesSuite.new(self),
 	]
 

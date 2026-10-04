@@ -187,5 +187,8 @@ func _test_lab() -> void:
 	# ---- 混音與診斷
 	check(lab.mixer_tab.update_diagnostics().contains("同時發聲"), "the diagnostics line reports voices")
 	lab.mixer_tab._process(0.1)
+	# 收尾：停掉還在播的聲音，程式結束時才不會留下播放實例。
+	Sfx.stop_all()
+	lab.audition.stop()
 	lab.queue_free()
 	await frames(2)

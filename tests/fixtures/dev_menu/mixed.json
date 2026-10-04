@@ -1,0 +1,5 @@
+{"tools": [
+ {"id": "ok_tool", "name": "ok", "scene": "res://tests/smoke_test.tscn"},
+ {"id": "no_scene", "name": "missing scene"},
+ {"id": "ok_tool", "name": "duplicate", "scene": "res://tests/smoke_test.tscn"}
+]}
