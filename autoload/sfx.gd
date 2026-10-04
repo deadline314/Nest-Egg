@@ -248,6 +248,12 @@ const SOUNDS := {
 	&"ui_confirm": [
 		{"wave": "tri", "from": 660.0, "to": 1320.0, "time": 0.1, "volume": 0.18, "decay": 1.5},
 	],
+	&"ui_cancel": [
+		{"wave": "tri", "from": 880.0, "to": 440.0, "time": 0.09, "volume": 0.16, "decay": 1.5},
+	],
+	&"ui_error": [
+		{"wave": "square", "from": 200.0, "to": 160.0, "time": 0.14, "volume": 0.12, "decay": 1.5},
+	],
 	# 電話亭（NE-121）：拿起話筒、撥號（三種音高）、話筒裡的錄音（占位，之後換成配音）、掛上、來電鈴聲。
 	&"phone_pickup": [
 		{"wave": "noise", "time": 0.04, "volume": 0.2, "lowpass": 0.35, "decay": 3.0},

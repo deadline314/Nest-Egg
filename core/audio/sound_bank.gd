@@ -6,7 +6,7 @@ extends RefCounted
 
 const PATH := "res://data/audio/sound_bank.json"
 const TAG := "SoundBank"
-const KNOWN_FIELDS: PackedStringArray = ["files", "volume_db", "pitch", "pack", "note"]
+const KNOWN_FIELDS: PackedStringArray = ["files", "volume_db", "pitch", "pack", "note", "loop"]
 const AUDIO_EXTENSIONS: PackedStringArray = ["ogg", "wav", "mp3"]
 
 var path := PATH

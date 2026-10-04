@@ -1,0 +1,236 @@
+{
+ "_說明": "環境音：profiles 以光影設定的 id 為鍵（對應 data/lighting/*.tres 的 id），每個區段最多 3 層；sound 是音效庫的 id（要有 loop 的環境音檔），volume_db 微調音量；沒寫的區段用 default；fade 是換區段時淡入淡出的秒數。音量由設定選單的「環境音」控制。",
+ "fade": 2.0,
+ "default": [],
+ "profiles": {
+  "rooftop": [
+   {
+    "sound": "amb_rain",
+    "volume_db": -6
+   },
+   {
+    "sound": "amb_wind",
+    "volume_db": -8
+   }
+  ],
+  "market": [
+   {
+    "sound": "amb_rain",
+    "volume_db": -8
+   },
+   {
+    "sound": "amb_city_night",
+    "volume_db": -6
+   }
+  ],
+  "freight": [
+   {
+    "sound": "amb_rain_light",
+    "volume_db": -8
+   },
+   {
+    "sound": "amb_generator",
+    "volume_db": -10
+   }
+  ],
+  "facility": [
+   {
+    "sound": "amb_ventilation",
+    "volume_db": -4
+   },
+   {
+    "sound": "amb_machine_room",
+    "volume_db": -10
+   }
+  ],
+  "hangar": [
+   {
+    "sound": "amb_machine_room",
+    "volume_db": -6
+   },
+   {
+    "sound": "amb_ventilation",
+    "volume_db": -10
+   }
+  ],
+  "blackout": [
+   {
+    "sound": "amb_machine_room",
+    "volume_db": -14
+   },
+   {
+    "sound": "amb_drip",
+    "volume_db": -12
+   }
+  ],
+  "alarm": [
+   {
+    "sound": "amb_machine_room",
+    "volume_db": -8
+   }
+  ],
+  "neutral": [],
+  "basement_amber": [
+   {
+    "sound": "amb_drip",
+    "volume_db": -6
+   },
+   {
+    "sound": "amb_generator",
+    "volume_db": -14
+   }
+  ],
+  "broadcast_storm": [
+   {
+    "sound": "amb_rain",
+    "volume_db": -4
+   },
+   {
+    "sound": "amb_wind",
+    "volume_db": -6
+   }
+  ],
+  "clinic_ward": [
+   {
+    "sound": "amb_ventilation",
+    "volume_db": -10
+   }
+  ],
+  "factory_rust": [
+   {
+    "sound": "amb_generator",
+    "volume_db": -6
+   },
+   {
+    "sound": "amb_ventilation",
+    "volume_db": -10
+   }
+  ],
+  "flood_night": [
+   {
+    "sound": "amb_rain",
+    "volume_db": -4
+   },
+   {
+    "sound": "amb_drip",
+    "volume_db": -10
+   },
+   {
+    "sound": "amb_wind",
+    "volume_db": -14
+   }
+  ],
+  "garden_day": [
+   {
+    "sound": "amb_wind",
+    "volume_db": -10
+   }
+  ],
+  "mezzanine_gray": [
+   {
+    "sound": "amb_ventilation",
+    "volume_db": -8
+   },
+   {
+    "sound": "amb_city_night",
+    "volume_db": -14
+   }
+  ],
+  "pawnshop_warm": [
+   {
+    "sound": "amb_rain_light",
+    "volume_db": -10
+   },
+   {
+    "sound": "amb_city_night",
+    "volume_db": -16
+   }
+  ],
+  "power_room": [
+   {
+    "sound": "amb_generator",
+    "volume_db": -4
+   },
+   {
+    "sound": "amb_machine_room",
+    "volume_db": -10
+   }
+  ],
+  "reclaimer_arena": [
+   {
+    "sound": "amb_wind",
+    "volume_db": -8
+   },
+   {
+    "sound": "amb_machine_room",
+    "volume_db": -14
+   }
+  ],
+  "residential": [
+   {
+    "sound": "amb_rain_light",
+    "volume_db": -8
+   },
+   {
+    "sound": "amb_city_night",
+    "volume_db": -10
+   }
+  ],
+  "shaft": [
+   {
+    "sound": "amb_ventilation",
+    "volume_db": -4
+   },
+   {
+    "sound": "amb_wind",
+    "volume_db": -10
+   },
+   {
+    "sound": "amb_drip",
+    "volume_db": -16
+   }
+  ],
+  "shaft_deep": [
+   {
+    "sound": "amb_drip",
+    "volume_db": -8
+   },
+   {
+    "sound": "amb_ventilation",
+    "volume_db": -10
+   }
+  ],
+  "sunlit_edge": [
+   {
+    "sound": "amb_wind",
+    "volume_db": -8
+   }
+  ],
+  "sunny_day": [
+   {
+    "sound": "amb_wind",
+    "volume_db": -12
+   }
+  ],
+  "tower_white": [
+   {
+    "sound": "amb_ventilation",
+    "volume_db": -8
+   },
+   {
+    "sound": "amb_machine_room",
+    "volume_db": -16
+   }
+  ],
+  "transfer": [
+   {
+    "sound": "amb_city_night",
+    "volume_db": -8
+   },
+   {
+    "sound": "amb_machine_room",
+    "volume_db": -12
+   }
+  ]
+ }
+}

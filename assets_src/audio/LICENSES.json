@@ -5,14 +5,30 @@
   "license": "CC0-1.0",
   "page": "https://kenney.nl/assets/digital-audio",
   "files_used": [
+   "Audio/pepSound3.ogg",
    "Audio/phaserUp2.ogg",
+   "Audio/powerUp11.ogg",
    "Audio/powerUp2.ogg",
-   "Audio/powerUp5.ogg"
+   "Audio/powerUp3.ogg",
+   "Audio/powerUp5.ogg",
+   "Audio/powerUp9.ogg",
+   "Audio/tone1.ogg",
+   "Audio/twoTone2.ogg",
+   "Audio/zap1.ogg",
+   "Audio/zap2.ogg"
   ],
   "outputs": [
+   "res://audio/sfx/ability_ready_01.ogg",
+   "res://audio/sfx/ability_ready_02.ogg",
+   "res://audio/sfx/beep_01.ogg",
    "res://audio/sfx/equip_energy_01.ogg",
+   "res://audio/sfx/overclock_01.ogg",
+   "res://audio/sfx/overclock_02.ogg",
    "res://audio/sfx/reload_done_energy_01.ogg",
-   "res://audio/sfx/reload_done_energy_02.ogg"
+   "res://audio/sfx/reload_done_energy_02.ogg",
+   "res://audio/sfx/telegraph_01.ogg",
+   "res://audio/sfx/zap_02.ogg",
+   "res://audio/sfx/zap_03.ogg"
   ]
  },
  "kenney_impact-sounds": {
@@ -21,6 +37,11 @@
   "license": "CC0-1.0",
   "page": "https://kenney.nl/assets/impact-sounds",
   "files_used": [
+   "Audio/footstep_concrete_000.ogg",
+   "Audio/footstep_concrete_001.ogg",
+   "Audio/footstep_concrete_002.ogg",
+   "Audio/footstep_concrete_003.ogg",
+   "Audio/footstep_concrete_004.ogg",
    "Audio/impactBell_heavy_000.ogg",
    "Audio/impactBell_heavy_001.ogg",
    "Audio/impactBell_heavy_002.ogg",
@@ -86,6 +107,18 @@
    "res://audio/sfx/kill_01.ogg",
    "res://audio/sfx/kill_02.ogg",
    "res://audio/sfx/kill_03.ogg",
+   "res://audio/sfx/land_01.ogg",
+   "res://audio/sfx/land_02.ogg",
+   "res://audio/sfx/land_03.ogg",
+   "res://audio/sfx/land_concrete_01.ogg",
+   "res://audio/sfx/land_concrete_02.ogg",
+   "res://audio/sfx/land_concrete_03.ogg",
+   "res://audio/sfx/land_metal_01.ogg",
+   "res://audio/sfx/land_metal_02.ogg",
+   "res://audio/sfx/land_metal_03.ogg",
+   "res://audio/sfx/land_wet_01.ogg",
+   "res://audio/sfx/land_wet_02.ogg",
+   "res://audio/sfx/land_wet_03.ogg",
    "res://audio/sfx/mat_armor_01.ogg",
    "res://audio/sfx/mat_armor_02.ogg",
    "res://audio/sfx/mat_armor_03.ogg",
@@ -111,7 +144,12 @@
    "res://audio/sfx/melee_hit_heavy_03.ogg",
    "res://audio/sfx/parry_01.ogg",
    "res://audio/sfx/parry_02.ogg",
-   "res://audio/sfx/parry_03.ogg"
+   "res://audio/sfx/parry_03.ogg",
+   "res://audio/sfx/step_concrete_01.ogg",
+   "res://audio/sfx/step_concrete_02.ogg",
+   "res://audio/sfx/step_concrete_03.ogg",
+   "res://audio/sfx/step_concrete_04.ogg",
+   "res://audio/sfx/step_concrete_05.ogg"
   ]
  },
  "kenney_interface-sounds": {
@@ -120,12 +158,54 @@
   "license": "CC0-1.0",
   "page": "https://kenney.nl/assets/interface-sounds",
   "files_used": [
+   "Audio/back_001.ogg",
+   "Audio/back_002.ogg",
+   "Audio/back_003.ogg",
+   "Audio/confirmation_001.ogg",
+   "Audio/confirmation_002.ogg",
+   "Audio/confirmation_003.ogg",
    "Audio/drop_004.ogg",
+   "Audio/error_001.ogg",
+   "Audio/error_002.ogg",
+   "Audio/error_003.ogg",
    "Audio/error_005.ogg"
   ],
   "outputs": [
    "res://audio/sfx/empty_energy_01.ogg",
-   "res://audio/sfx/empty_energy_02.ogg"
+   "res://audio/sfx/empty_energy_02.ogg",
+   "res://audio/sfx/ui_cancel_01.ogg",
+   "res://audio/sfx/ui_cancel_02.ogg",
+   "res://audio/sfx/ui_cancel_03.ogg",
+   "res://audio/sfx/ui_confirm_01.ogg",
+   "res://audio/sfx/ui_confirm_02.ogg",
+   "res://audio/sfx/ui_confirm_03.ogg",
+   "res://audio/sfx/ui_error_01.ogg",
+   "res://audio/sfx/ui_error_02.ogg",
+   "res://audio/sfx/ui_error_03.ogg"
+  ]
+ },
+ "kenney_rpg-audio": {
+  "title": "Kenney RPG Audio",
+  "author": "Kenney (kenney.nl)",
+  "license": "CC0-1.0",
+  "page": "https://kenney.nl/assets/rpg-audio",
+  "files_used": [
+   "Audio/cloth1.ogg",
+   "Audio/cloth2.ogg",
+   "Audio/cloth3.ogg",
+   "Audio/handleCoins.ogg",
+   "Audio/handleCoins2.ogg",
+   "Audio/metalClick.ogg",
+   "Audio/metalLatch.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/jump_01.ogg",
+   "res://audio/sfx/jump_02.ogg",
+   "res://audio/sfx/jump_03.ogg",
+   "res://audio/sfx/phone_hangup_01.ogg",
+   "res://audio/sfx/phone_pickup_02.ogg",
+   "res://audio/sfx/pickup_01.ogg",
+   "res://audio/sfx/pickup_02.ogg"
   ]
  },
  "kenney_sci-fi-sounds": {
@@ -146,16 +226,22 @@
    "Audio/laserLarge_000.ogg",
    "Audio/laserLarge_001.ogg",
    "Audio/laserLarge_002.ogg",
+   "Audio/laserLarge_003.ogg",
+   "Audio/laserSmall_000.ogg",
    "Audio/laserSmall_001.ogg",
    "Audio/lowFrequency_explosion_000.ogg",
    "Audio/lowFrequency_explosion_001.ogg",
+   "Audio/thrusterFire_001.ogg",
    "Audio/thrusterFire_002.ogg"
   ],
   "outputs": [
    "res://audio/sfx/death_machine_02.ogg",
+   "res://audio/sfx/emp_01.ogg",
    "res://audio/sfx/explosion_small_03.ogg",
    "res://audio/sfx/finisher_01.ogg",
    "res://audio/sfx/hurt_machine_03.ogg",
+   "res://audio/sfx/ignite_02.ogg",
+   "res://audio/sfx/laser_flash_01.ogg",
    "res://audio/sfx/mat_energy_03.ogg",
    "res://audio/sfx/reload_mid_energy_01.ogg",
    "res://audio/sfx/reload_mid_energy_02.ogg",
@@ -169,6 +255,61 @@
    "res://audio/sfx/shot_launcher_02.ogg",
    "res://audio/sfx/shot_railgun_01.ogg",
    "res://audio/sfx/shot_railgun_02.ogg"
+  ]
+ },
+ "kenney_ui-audio": {
+  "title": "Kenney UI Audio",
+  "author": "Kenney (kenney.nl)",
+  "license": "CC0-1.0",
+  "page": "https://kenney.nl/assets/ui-audio",
+  "files_used": [
+   "Audio/rollover1.ogg",
+   "Audio/rollover2.ogg",
+   "Audio/rollover3.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/ui_move_01.ogg",
+   "res://audio/sfx/ui_move_02.ogg",
+   "res://audio/sfx/ui_move_03.ogg"
+  ]
+ },
+ "oga_10-clicks-and-switches": {
+  "title": "10 Clicks and Switches",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/10-clicks-and-switches",
+  "files_used": [
+   "10 Clicks and Switches/click.1.ogg",
+   "10 Clicks and Switches/click.2.ogg",
+   "10 Clicks and Switches/click.3.ogg",
+   "10 Clicks and Switches/click.4.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/switch_01.ogg",
+   "res://audio/sfx/switch_02.ogg",
+   "res://audio/sfx/switch_03.ogg",
+   "res://audio/sfx/switch_04.ogg"
+  ]
+ },
+ "oga_100-cc0-sfx-2": {
+  "title": "100 CC0 SFX #2",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/100-cc0-sfx-2",
+  "files_used": [
+   "sfx100v2_footstep_wet_01.ogg",
+   "sfx100v2_footstep_wet_02.ogg",
+   "sfx100v2_footstep_wet_03.ogg",
+   "sfx100v2_thunder_01.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/land_wet_01.ogg",
+   "res://audio/sfx/land_wet_02.ogg",
+   "res://audio/sfx/land_wet_03.ogg",
+   "res://audio/sfx/step_wet_01.ogg",
+   "res://audio/sfx/step_wet_02.ogg",
+   "res://audio/sfx/step_wet_03.ogg",
+   "res://audio/sfx/thunder_03.ogg"
   ]
  },
  "oga_15-vocal-male-strainhurtpainjump-sounds": {
@@ -203,12 +344,20 @@
    "monster.12.ogg",
    "monster.2.ogg",
    "monster.3.ogg",
-   "monster.4.ogg"
+   "monster.4.ogg",
+   "monster.5.ogg",
+   "monster.6.ogg",
+   "monster.7.ogg",
+   "monster.8.ogg"
   ],
   "outputs": [
    "res://audio/sfx/death_creature_01.ogg",
    "res://audio/sfx/death_creature_02.ogg",
    "res://audio/sfx/death_creature_03.ogg",
+   "res://audio/sfx/growl_01.ogg",
+   "res://audio/sfx/growl_02.ogg",
+   "res://audio/sfx/growl_03.ogg",
+   "res://audio/sfx/growl_04.ogg",
    "res://audio/sfx/hurt_creature_01.ogg",
    "res://audio/sfx/hurt_creature_02.ogg",
    "res://audio/sfx/hurt_creature_03.ogg",
@@ -263,6 +412,18 @@
    "res://audio/sfx/explosion_small_02.ogg"
   ]
  },
+ "oga_30-cc0-sfx-loops": {
+  "title": "30 CC0 SFX loops",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/30-cc0-sfx-loops",
+  "files_used": [
+   "ambient_01.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/amb_ventilation_01.ogg"
+  ]
+ },
  "oga_37-hitspunches": {
   "title": "37 hits/punches",
   "author": "? (submitted by qubodup)",
@@ -297,15 +458,40 @@
    "res://audio/sfx/ricochet_04.ogg"
   ]
  },
+ "oga_7-mechanical-clicks-and-buzzes": {
+  "title": "7 mechanical clicks and buzzes",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/7-mechanical-clicks-and-buzzes",
+  "files_used": [
+   "mechanical/mechanical_button-01.flac"
+  ],
+  "outputs": [
+   "res://audio/sfx/switch_05.ogg"
+  ]
+ },
  "oga_75-cc0-breaking-falling-hit-sfx": {
   "title": "75 CC0 breaking / falling / hit sfx",
   "author": "?",
   "license": "CC0-1.0",
   "page": "https://opengameart.org/content/75-cc0-breaking-falling-hit-sfx",
   "files_used": [
-   "bfh1_glass_breaking_01.ogg"
+   "bfh1_breaking_01.ogg",
+   "bfh1_breaking_02.ogg",
+   "bfh1_breaking_03.ogg",
+   "bfh1_glass_breaking_01.ogg",
+   "bfh1_glass_breaking_02.ogg",
+   "bfh1_glass_breaking_03.ogg",
+   "bfh1_glass_breaking_04.ogg"
   ],
   "outputs": [
+   "res://audio/sfx/crate_break_01.ogg",
+   "res://audio/sfx/crate_break_02.ogg",
+   "res://audio/sfx/crate_break_03.ogg",
+   "res://audio/sfx/glass_break_01.ogg",
+   "res://audio/sfx/glass_break_02.ogg",
+   "res://audio/sfx/glass_break_03.ogg",
+   "res://audio/sfx/glass_break_04.ogg",
    "res://audio/sfx/guard_break_01.ogg"
   ]
  },
@@ -315,10 +501,26 @@
   "license": "CC0-1.0",
   "page": "https://opengameart.org/content/80-cc0-creature-sfx",
   "files_used": [
-   "alien_02.ogg"
+   "alien_02.ogg",
+   "eat_01.ogg"
   ],
   "outputs": [
+   "res://audio/sfx/chomp_02.ogg",
    "res://audio/sfx/death_creature_04.ogg"
+  ]
+ },
+ "oga_80-cc0-rpg-sfx": {
+  "title": "80 CC0 RPG SFX",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/80-cc0-rpg-sfx",
+  "files_used": [
+   "item_coins_01.ogg",
+   "item_gem_01.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/pickup_03.ogg",
+   "res://audio/sfx/pickup_04.ogg"
   ]
  },
  "oga_action-gameshmup-sfx-pack": {
@@ -347,6 +549,42 @@
    "res://audio/sfx/shot_railgun_02.ogg"
   ]
  },
+ "oga_air-whoosh": {
+  "title": "Air whoosh",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/air-whoosh",
+  "files_used": [
+   "whoosh2_0.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/dash_01.ogg"
+  ]
+ },
+ "oga_alarm-1": {
+  "title": "Alarm",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/alarm-1",
+  "files_used": [
+   "alarm_2.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/alarm_01.ogg"
+  ]
+ },
+ "oga_amb-rain-loop-1": {
+  "title": "AMB Rain Loop 1",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/amb-rain-loop-1",
+  "files_used": [
+   "amb_rain_loop_1.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/amb_rain_01.ogg"
+  ]
+ },
  "oga_cannon-fire": {
   "title": "Cannon fire",
   "author": "?",
@@ -361,24 +599,107 @@
    "res://audio/sfx/shot_launcher_01.ogg"
   ]
  },
+ "oga_chain-winch-sounds": {
+  "title": "Chain winch sounds",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/chain-winch-sounds",
+  "files_used": [
+   "winch - Marker #2.wav",
+   "winch - Marker #3.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/gate_01.ogg",
+   "res://audio/sfx/gate_02.ogg"
+  ]
+ },
+ "oga_crank-movie-telephone-ringtone": {
+  "title": "Crank movie telephone ringtone",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/crank-movie-telephone-ringtone",
+  "files_used": [
+   "crank_ringtone.mp3"
+  ],
+  "outputs": [
+   "res://audio/sfx/phone_ring_01.ogg"
+  ]
+ },
+ "oga_crunchy-bite": {
+  "title": "Crunchy bite",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/crunchy-bite",
+  "files_used": [
+   "crunchybite_0.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/chomp_01.ogg"
+  ]
+ },
+ "oga_defect-motor-loop": {
+  "title": "(defect) motor loop",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/defect-motor-loop",
+  "files_used": [
+   "fan_interval.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/spin_01.ogg"
+  ]
+ },
+ "oga_dripping-water-loop": {
+  "title": "Dripping water loop",
+  "author": "? (submitted by qubodup)",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/dripping-water-loop",
+  "files_used": [
+   "atmosbasement.mp3_.flac"
+  ],
+  "outputs": [
+   "res://audio/sfx/amb_drip_01.ogg"
+  ]
+ },
  "oga_electricity-game-sound-pack": {
   "title": "Electricity Game Sound Pack",
   "author": "?",
   "license": "CC0-1.0",
   "page": "https://opengameart.org/content/electricity-game-sound-pack",
   "files_used": [
+   "charge.wav",
+   "chargestart.wav",
    "death_1.wav",
    "deathboom.wav",
    "hit.wav",
+   "powerdown.wav",
+   "powerup.wav",
    "shieldhit.wav"
   ],
   "outputs": [
    "res://audio/sfx/death_machine_01.ogg",
    "res://audio/sfx/death_machine_02.ogg",
+   "res://audio/sfx/emp_01.ogg",
+   "res://audio/sfx/emp_02.ogg",
    "res://audio/sfx/guard_break_01.ogg",
    "res://audio/sfx/hurt_machine_01.ogg",
    "res://audio/sfx/mat_energy_01.ogg",
-   "res://audio/sfx/mat_energy_02.ogg"
+   "res://audio/sfx/mat_energy_02.ogg",
+   "res://audio/sfx/power_down_01.ogg",
+   "res://audio/sfx/power_up_01.ogg"
+  ]
+ },
+ "oga_electricity-sound-effects-0": {
+  "title": "Electricity Sound Effects",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/electricity-sound-effects-0",
+  "files_used": [
+   "spark.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/emp_02.ogg",
+   "res://audio/sfx/zap_01.ogg"
   ]
  },
  "oga_equipment-click": {
@@ -406,6 +727,18 @@
    "res://audio/sfx/equip_ballistic_01.ogg"
   ]
  },
+ "oga_equipment-clicks-iii": {
+  "title": "equipment clicks III",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/equipment-clicks-iii",
+  "files_used": [
+   "equipment_clicks3.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/phone_pickup_01.ogg"
+  ]
+ },
  "oga_explosions-4": {
   "title": "Explosions",
   "author": "?",
@@ -418,6 +751,18 @@
   "outputs": [
    "res://audio/sfx/explosion_05.ogg",
    "res://audio/sfx/explosion_small_01.ogg"
+  ]
+ },
+ "oga_fire-crackling": {
+  "title": "Fire Crackling",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/fire-crackling",
+  "files_used": [
+   "fire-1_0.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/flame_01.ogg"
   ]
  },
  "oga_gun-reload-lock-or-click-sound": {
@@ -498,6 +843,18 @@
    "res://audio/sfx/mat_wood_04.ogg"
   ]
  },
+ "oga_iron-door": {
+  "title": "Iron Door",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/iron-door",
+  "files_used": [
+   "iron_door_0.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/gate_03.ogg"
+  ]
+ },
  "oga_male-dead-voice": {
   "title": "Male dead voice",
   "author": "?",
@@ -546,17 +903,61 @@
    "lightclunk1.wav",
    "lightclunk2.wav",
    "mechanical1.wav",
-   "mechanical2.wav"
+   "mechanical2.wav",
+   "rattle1.wav"
   ],
   "outputs": [
    "res://audio/sfx/empty_heavy_01.ogg",
    "res://audio/sfx/equip_heavy_01.ogg",
+   "res://audio/sfx/phone_hangup_02.ogg",
+   "res://audio/sfx/rattle_01.ogg",
    "res://audio/sfx/reload_done_heavy_01.ogg",
    "res://audio/sfx/reload_done_heavy_02.ogg",
    "res://audio/sfx/reload_mid_heavy_01.ogg",
    "res://audio/sfx/reload_mid_heavy_02.ogg",
    "res://audio/sfx/reload_start_heavy_01.ogg",
    "res://audio/sfx/reload_start_heavy_02.ogg"
+  ]
+ },
+ "oga_metal-footsteps-on-concrete": {
+  "title": "Metal footsteps on concrete",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/metal-footsteps-on-concrete",
+  "files_used": [
+   "metal_steps_01.wav",
+   "metal_steps_02.wav",
+   "metal_steps_03.wav",
+   "metal_steps_04.wav",
+   "metal_steps_05.wav",
+   "metal_steps_06.wav",
+   "metal_steps_07.wav",
+   "metal_steps_08.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/land_metal_01.ogg",
+   "res://audio/sfx/land_metal_02.ogg",
+   "res://audio/sfx/land_metal_03.ogg",
+   "res://audio/sfx/step_metal_01.ogg",
+   "res://audio/sfx/step_metal_02.ogg",
+   "res://audio/sfx/step_metal_03.ogg",
+   "res://audio/sfx/step_metal_04.ogg",
+   "res://audio/sfx/step_metal_05.ogg",
+   "res://audio/sfx/step_metal_06.ogg",
+   "res://audio/sfx/step_metal_07.ogg",
+   "res://audio/sfx/step_metal_08.ogg"
+  ]
+ },
+ "oga_muffled-distant-explosion": {
+  "title": "Muffled Distant Explosion",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/muffled-distant-explosion",
+  "files_used": [
+   "NenadSimic - Muffled Distant Explosion.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/thunder_04.ogg"
   ]
  },
  "oga_pain-sounds-by-emopreben": {
@@ -599,6 +1000,55 @@
    "res://audio/sfx/melee_hit_heavy_03.ogg"
   ]
  },
+ "oga_rain-long-thunder": {
+  "title": "Rain + Long Thunder",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/rain-long-thunder",
+  "files_used": [
+   "rain-thunder.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/thunder_01.ogg",
+   "res://audio/sfx/thunder_02.ogg"
+  ]
+ },
+ "oga_rain-loopable": {
+  "title": "Rain (loopable)",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/rain-loopable",
+  "files_used": [
+   "1.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/amb_rain_light_01.ogg"
+  ]
+ },
+ "oga_sci-fi-ambience-sfx": {
+  "title": "Sci-fi ambience SFX",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/sci-fi-ambience-sfx",
+  "files_used": [
+   "SFX SCI FI Hum_0.mp3"
+  ],
+  "outputs": [
+   "res://audio/sfx/amb_machine_room_01.ogg"
+  ]
+ },
+ "oga_scifi-city-ambient-loop": {
+  "title": "Scifi City - Ambient Loop",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/scifi-city-ambient-loop",
+  "files_used": [
+   "busy_cyberworld.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/amb_city_night_01.ogg"
+  ]
+ },
  "oga_shotgun-reload-sound-effects": {
   "title": "Shotgun Reload Sound effects",
   "author": "?",
@@ -613,6 +1063,46 @@
    "res://audio/sfx/reload_done_shotgun_01.ogg",
    "res://audio/sfx/reload_mid_shotgun_01.ogg",
    "res://audio/sfx/reload_start_shotgun_01.ogg"
+  ]
+ },
+ "oga_static": {
+  "title": "Static",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/static",
+  "files_used": [
+   "ScatterNoise1.mp3"
+  ],
+  "outputs": [
+   "res://audio/sfx/phone_voice_01.ogg"
+  ]
+ },
+ "oga_steam-boiler-sound-loop": {
+  "title": "Steam boiler sound loop",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/steam-boiler-sound-loop",
+  "files_used": [
+   "generator_loop.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/amb_generator_01.ogg"
+  ]
+ },
+ "oga_steam-release-sounds": {
+  "title": "Steam release sounds",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/steam-release-sounds",
+  "files_used": [
+   "steam hisses - Marker #1.wav",
+   "steam hisses - Marker #2.wav",
+   "steam hisses - Marker #3.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/vent_01.ogg",
+   "res://audio/sfx/vent_02.ogg",
+   "res://audio/sfx/vent_03.ogg"
   ]
  },
  "oga_swish-bamboo-stick-weapon-swhoshes": {
@@ -639,12 +1129,28 @@
   "files_used": [
    "swishes/swish-1.wav",
    "swishes/swish-2.wav",
-   "swishes/swish-3.wav"
+   "swishes/swish-3.wav",
+   "swishes/swish-7.wav",
+   "swishes/swish-8.wav"
   ],
   "outputs": [
+   "res://audio/sfx/dash_02.ogg",
+   "res://audio/sfx/dash_03.ogg",
    "res://audio/sfx/melee_swing_01.ogg",
    "res://audio/sfx/melee_swing_02.ogg",
    "res://audio/sfx/melee_swing_03.ogg"
+  ]
+ },
+ "oga_synthesized-fire-sound-effect": {
+  "title": "Synthesized Fire Sound Effect",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/synthesized-fire-sound-effect",
+  "files_used": [
+   "fire_sound_effect_0.mp3"
+  ],
+  "outputs": [
+   "res://audio/sfx/ignite_01.ogg"
   ]
  },
  "oga_the-free-firearm-sound-library": {
@@ -703,6 +1209,18 @@
    "res://audio/sfx/shot_spread_03.ogg",
    "res://audio/sfx/shot_spread_04.ogg",
    "res://audio/sfx/shot_spread_05.ogg"
+  ]
+ },
+ "oga_wind1": {
+  "title": "wind1",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/wind1",
+  "files_used": [
+   "wind1.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/amb_wind_01.ogg"
   ]
  }
 }

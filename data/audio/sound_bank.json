@@ -706,6 +706,454 @@
     "oga_electricity-game-sound-pack"
    ],
    "volume_db": 0.0
+  },
+  "step_metal": {
+   "files": [
+    "res://audio/sfx/step_metal_01.ogg",
+    "res://audio/sfx/step_metal_02.ogg",
+    "res://audio/sfx/step_metal_03.ogg",
+    "res://audio/sfx/step_metal_04.ogg",
+    "res://audio/sfx/step_metal_05.ogg",
+    "res://audio/sfx/step_metal_06.ogg",
+    "res://audio/sfx/step_metal_07.ogg",
+    "res://audio/sfx/step_metal_08.ogg"
+   ],
+   "pack": "oga_metal-footsteps-on-concrete",
+   "volume_db": 0.0
+  },
+  "step_concrete": {
+   "files": [
+    "res://audio/sfx/step_concrete_01.ogg",
+    "res://audio/sfx/step_concrete_02.ogg",
+    "res://audio/sfx/step_concrete_03.ogg",
+    "res://audio/sfx/step_concrete_04.ogg",
+    "res://audio/sfx/step_concrete_05.ogg"
+   ],
+   "pack": "kenney_impact-sounds",
+   "volume_db": 0.0
+  },
+  "step_wet": {
+   "files": [
+    "res://audio/sfx/step_wet_01.ogg",
+    "res://audio/sfx/step_wet_02.ogg",
+    "res://audio/sfx/step_wet_03.ogg"
+   ],
+   "pack": "oga_100-cc0-sfx-2",
+   "volume_db": 0.0
+  },
+  "land_metal": {
+   "files": [
+    "res://audio/sfx/land_metal_01.ogg",
+    "res://audio/sfx/land_metal_02.ogg",
+    "res://audio/sfx/land_metal_03.ogg"
+   ],
+   "pack": [
+    "kenney_impact-sounds",
+    "oga_metal-footsteps-on-concrete"
+   ],
+   "volume_db": -4.0
+  },
+  "land_concrete": {
+   "files": [
+    "res://audio/sfx/land_concrete_01.ogg",
+    "res://audio/sfx/land_concrete_02.ogg",
+    "res://audio/sfx/land_concrete_03.ogg"
+   ],
+   "pack": "kenney_impact-sounds",
+   "volume_db": -4.0
+  },
+  "land_wet": {
+   "files": [
+    "res://audio/sfx/land_wet_01.ogg",
+    "res://audio/sfx/land_wet_02.ogg",
+    "res://audio/sfx/land_wet_03.ogg"
+   ],
+   "pack": [
+    "kenney_impact-sounds",
+    "oga_100-cc0-sfx-2"
+   ],
+   "volume_db": -4.0
+  },
+  "land": {
+   "files": [
+    "res://audio/sfx/land_01.ogg",
+    "res://audio/sfx/land_02.ogg",
+    "res://audio/sfx/land_03.ogg"
+   ],
+   "pack": "kenney_impact-sounds",
+   "volume_db": -4.0
+  },
+  "jump": {
+   "files": [
+    "res://audio/sfx/jump_01.ogg",
+    "res://audio/sfx/jump_02.ogg",
+    "res://audio/sfx/jump_03.ogg"
+   ],
+   "pack": "kenney_rpg-audio",
+   "volume_db": 0.0
+  },
+  "dash": {
+   "files": [
+    "res://audio/sfx/dash_01.ogg",
+    "res://audio/sfx/dash_02.ogg",
+    "res://audio/sfx/dash_03.ogg"
+   ],
+   "pack": [
+    "oga_air-whoosh",
+    "oga_swishes-sound-pack"
+   ],
+   "volume_db": -2.0
+  },
+  "switch": {
+   "files": [
+    "res://audio/sfx/switch_01.ogg",
+    "res://audio/sfx/switch_02.ogg",
+    "res://audio/sfx/switch_03.ogg",
+    "res://audio/sfx/switch_04.ogg",
+    "res://audio/sfx/switch_05.ogg"
+   ],
+   "pack": [
+    "oga_10-clicks-and-switches",
+    "oga_7-mechanical-clicks-and-buzzes"
+   ],
+   "volume_db": 0.0
+  },
+  "gate": {
+   "files": [
+    "res://audio/sfx/gate_01.ogg",
+    "res://audio/sfx/gate_02.ogg",
+    "res://audio/sfx/gate_03.ogg"
+   ],
+   "pack": [
+    "oga_chain-winch-sounds",
+    "oga_iron-door"
+   ],
+   "volume_db": 0.0
+  },
+  "power_down": {
+   "files": [
+    "res://audio/sfx/power_down_01.ogg"
+   ],
+   "pack": "oga_electricity-game-sound-pack",
+   "volume_db": 0.0
+  },
+  "power_up": {
+   "files": [
+    "res://audio/sfx/power_up_01.ogg"
+   ],
+   "pack": "oga_electricity-game-sound-pack",
+   "volume_db": 0.0
+  },
+  "emp": {
+   "files": [
+    "res://audio/sfx/emp_01.ogg",
+    "res://audio/sfx/emp_02.ogg"
+   ],
+   "pack": [
+    "kenney_sci-fi-sounds",
+    "oga_electricity-game-sound-pack",
+    "oga_electricity-sound-effects-0"
+   ],
+   "volume_db": -2.0
+  },
+  "overclock": {
+   "files": [
+    "res://audio/sfx/overclock_01.ogg",
+    "res://audio/sfx/overclock_02.ogg"
+   ],
+   "pack": "kenney_digital-audio",
+   "volume_db": 0.0
+  },
+  "ability_ready": {
+   "files": [
+    "res://audio/sfx/ability_ready_01.ogg",
+    "res://audio/sfx/ability_ready_02.ogg"
+   ],
+   "pack": "kenney_digital-audio",
+   "volume_db": -2.0
+  },
+  "pickup": {
+   "files": [
+    "res://audio/sfx/pickup_01.ogg",
+    "res://audio/sfx/pickup_02.ogg",
+    "res://audio/sfx/pickup_03.ogg",
+    "res://audio/sfx/pickup_04.ogg"
+   ],
+   "pack": [
+    "kenney_rpg-audio",
+    "oga_80-cc0-rpg-sfx"
+   ],
+   "volume_db": -2.0
+  },
+  "crate_break": {
+   "files": [
+    "res://audio/sfx/crate_break_01.ogg",
+    "res://audio/sfx/crate_break_02.ogg",
+    "res://audio/sfx/crate_break_03.ogg"
+   ],
+   "pack": "oga_75-cc0-breaking-falling-hit-sfx",
+   "volume_db": 0.0
+  },
+  "glass_break": {
+   "files": [
+    "res://audio/sfx/glass_break_01.ogg",
+    "res://audio/sfx/glass_break_02.ogg",
+    "res://audio/sfx/glass_break_03.ogg",
+    "res://audio/sfx/glass_break_04.ogg"
+   ],
+   "pack": "oga_75-cc0-breaking-falling-hit-sfx",
+   "volume_db": -2.0
+  },
+  "telegraph": {
+   "files": [
+    "res://audio/sfx/telegraph_01.ogg"
+   ],
+   "pack": "kenney_digital-audio",
+   "volume_db": -2.0
+  },
+  "beep": {
+   "files": [
+    "res://audio/sfx/beep_01.ogg"
+   ],
+   "pack": "kenney_digital-audio",
+   "volume_db": -4.0
+  },
+  "alarm": {
+   "files": [
+    "res://audio/sfx/alarm_01.ogg"
+   ],
+   "pack": "oga_alarm-1",
+   "volume_db": -2.0
+  },
+  "laser_flash": {
+   "files": [
+    "res://audio/sfx/laser_flash_01.ogg"
+   ],
+   "pack": "kenney_sci-fi-sounds",
+   "volume_db": 0.0
+  },
+  "flame": {
+   "files": [
+    "res://audio/sfx/flame_01.ogg"
+   ],
+   "pack": "oga_fire-crackling",
+   "volume_db": 0.0
+  },
+  "ignite": {
+   "files": [
+    "res://audio/sfx/ignite_01.ogg",
+    "res://audio/sfx/ignite_02.ogg"
+   ],
+   "pack": [
+    "kenney_sci-fi-sounds",
+    "oga_synthesized-fire-sound-effect"
+   ],
+   "volume_db": 0.0
+  },
+  "spin": {
+   "files": [
+    "res://audio/sfx/spin_01.ogg"
+   ],
+   "pack": "oga_defect-motor-loop",
+   "volume_db": 0.0
+  },
+  "vent": {
+   "files": [
+    "res://audio/sfx/vent_01.ogg",
+    "res://audio/sfx/vent_02.ogg",
+    "res://audio/sfx/vent_03.ogg"
+   ],
+   "pack": "oga_steam-release-sounds",
+   "volume_db": 0.0
+  },
+  "growl": {
+   "files": [
+    "res://audio/sfx/growl_01.ogg",
+    "res://audio/sfx/growl_02.ogg",
+    "res://audio/sfx/growl_03.ogg",
+    "res://audio/sfx/growl_04.ogg"
+   ],
+   "pack": "oga_16-monster-growls",
+   "volume_db": -2.0
+  },
+  "zap": {
+   "files": [
+    "res://audio/sfx/zap_01.ogg",
+    "res://audio/sfx/zap_02.ogg",
+    "res://audio/sfx/zap_03.ogg"
+   ],
+   "pack": [
+    "kenney_digital-audio",
+    "oga_electricity-sound-effects-0"
+   ],
+   "volume_db": -2.0
+  },
+  "rattle": {
+   "files": [
+    "res://audio/sfx/rattle_01.ogg"
+   ],
+   "pack": "oga_mechanical-sounds",
+   "volume_db": 0.0
+  },
+  "chomp": {
+   "files": [
+    "res://audio/sfx/chomp_01.ogg",
+    "res://audio/sfx/chomp_02.ogg"
+   ],
+   "pack": [
+    "oga_80-cc0-creature-sfx",
+    "oga_crunchy-bite"
+   ]
+  },
+  "thunder": {
+   "files": [
+    "res://audio/sfx/thunder_01.ogg",
+    "res://audio/sfx/thunder_02.ogg",
+    "res://audio/sfx/thunder_03.ogg",
+    "res://audio/sfx/thunder_04.ogg"
+   ],
+   "pack": [
+    "oga_100-cc0-sfx-2",
+    "oga_muffled-distant-explosion",
+    "oga_rain-long-thunder"
+   ],
+   "volume_db": -2.0
+  },
+  "phone_pickup": {
+   "files": [
+    "res://audio/sfx/phone_pickup_01.ogg",
+    "res://audio/sfx/phone_pickup_02.ogg"
+   ],
+   "pack": [
+    "kenney_rpg-audio",
+    "oga_equipment-clicks-iii"
+   ],
+   "volume_db": 0.0
+  },
+  "phone_hangup": {
+   "files": [
+    "res://audio/sfx/phone_hangup_01.ogg",
+    "res://audio/sfx/phone_hangup_02.ogg"
+   ],
+   "pack": [
+    "kenney_rpg-audio",
+    "oga_mechanical-sounds"
+   ],
+   "volume_db": 0.0
+  },
+  "phone_ring": {
+   "files": [
+    "res://audio/sfx/phone_ring_01.ogg"
+   ],
+   "pack": "oga_crank-movie-telephone-ringtone",
+   "volume_db": 0.0
+  },
+  "phone_voice": {
+   "files": [
+    "res://audio/sfx/phone_voice_01.ogg"
+   ],
+   "pack": "oga_static",
+   "volume_db": 0.0
+  },
+  "ui_move": {
+   "files": [
+    "res://audio/sfx/ui_move_01.ogg",
+    "res://audio/sfx/ui_move_02.ogg",
+    "res://audio/sfx/ui_move_03.ogg"
+   ],
+   "pack": "kenney_ui-audio",
+   "volume_db": -4.0
+  },
+  "ui_confirm": {
+   "files": [
+    "res://audio/sfx/ui_confirm_01.ogg",
+    "res://audio/sfx/ui_confirm_02.ogg",
+    "res://audio/sfx/ui_confirm_03.ogg"
+   ],
+   "pack": "kenney_interface-sounds",
+   "volume_db": -2.0
+  },
+  "ui_cancel": {
+   "files": [
+    "res://audio/sfx/ui_cancel_01.ogg",
+    "res://audio/sfx/ui_cancel_02.ogg",
+    "res://audio/sfx/ui_cancel_03.ogg"
+   ],
+   "pack": "kenney_interface-sounds",
+   "volume_db": -2.0
+  },
+  "ui_error": {
+   "files": [
+    "res://audio/sfx/ui_error_01.ogg",
+    "res://audio/sfx/ui_error_02.ogg",
+    "res://audio/sfx/ui_error_03.ogg"
+   ],
+   "pack": "kenney_interface-sounds",
+   "volume_db": -4.0
+  },
+  "amb_rain": {
+   "files": [
+    "res://audio/sfx/amb_rain_01.ogg"
+   ],
+   "pack": "oga_amb-rain-loop-1",
+   "volume_db": 0.0,
+   "loop": true
+  },
+  "amb_rain_light": {
+   "files": [
+    "res://audio/sfx/amb_rain_light_01.ogg"
+   ],
+   "pack": "oga_rain-loopable",
+   "volume_db": 0.0,
+   "loop": true
+  },
+  "amb_wind": {
+   "files": [
+    "res://audio/sfx/amb_wind_01.ogg"
+   ],
+   "pack": "oga_wind1",
+   "volume_db": 0.0,
+   "loop": true
+  },
+  "amb_city_night": {
+   "files": [
+    "res://audio/sfx/amb_city_night_01.ogg"
+   ],
+   "pack": "oga_scifi-city-ambient-loop",
+   "volume_db": 0.0,
+   "loop": true
+  },
+  "amb_machine_room": {
+   "files": [
+    "res://audio/sfx/amb_machine_room_01.ogg"
+   ],
+   "pack": "oga_sci-fi-ambience-sfx",
+   "volume_db": 0.0,
+   "loop": true
+  },
+  "amb_ventilation": {
+   "files": [
+    "res://audio/sfx/amb_ventilation_01.ogg"
+   ],
+   "pack": "oga_30-cc0-sfx-loops",
+   "volume_db": 0.0,
+   "loop": true
+  },
+  "amb_generator": {
+   "files": [
+    "res://audio/sfx/amb_generator_01.ogg"
+   ],
+   "pack": "oga_steam-boiler-sound-loop",
+   "volume_db": 0.0,
+   "loop": true
+  },
+  "amb_drip": {
+   "files": [
+    "res://audio/sfx/amb_drip_01.ogg"
+   ],
+   "pack": "oga_dripping-water-loop",
+   "volume_db": 0.0,
+   "loop": true
   }
  }
 }

@@ -129,7 +129,7 @@ func close() -> void:
 	# 遊戲立刻繼續，關閉動畫只是視覺上的收合。
 	get_tree().paused = false
 	UiKit.set_cursor_visible(false)
-	Sfx.play(&"ui_move", -8.0, 0.0)
+	Sfx.play(&"ui_cancel", -8.0, 0.0)
 	_play_close_animation()
 	closed.emit()
 

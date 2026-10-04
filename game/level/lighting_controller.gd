@@ -33,6 +33,8 @@ var _flash_color := Color.WHITE
 var _flash_level := 0.0
 var _flash_decay := 0.0
 var _lightning_gap := 0.0
+## 最近一次對外宣告的區段 id（環境音與背景音樂靠 EventBus.zone_changed 切換）。
+var _announced_zone: StringName = &""
 var _rim_light: PointLight2D
 
 
@@ -91,12 +93,7 @@ func zone_state_at(x: float, into: LightingProfile) -> void:
 	if _zones.is_empty():
 		LightingProfile.copy_into(into, _neutral)
 		return
-	var index := 0
-	for i in range(1, _zones.size()):
-		if x > _boundary(i) - _half_blend(i):
-			index = i
-		else:
-			break
+	var index := _zone_index_at(x)
 	if index == 0:
 		LightingProfile.copy_into(into, _zones[0].profile)
 		return
@@ -106,6 +103,22 @@ func zone_state_at(x: float, into: LightingProfile) -> void:
 		return
 	var t := clampf((x - (_boundary(index) - width * 0.5)) / width, 0.0, 1.0)
 	LightingProfile.blend_into(into, _zones[index - 1].profile, _zones[index].profile, smoothstep(0.0, 1.0, t))
+
+
+## x 所在的區段索引（進入過渡區就算新的區段）。
+func _zone_index_at(x: float) -> int:
+	var index := 0
+	for i in range(1, _zones.size()):
+		if x > _boundary(i) - _half_blend(i):
+			index = i
+		else:
+			break
+	return index
+
+
+## x 所在區段的光影設定 id（沒有區段時是 neutral）。公開給環境音、背景音樂與測試。
+func zone_id_at(x: float) -> StringName:
+	return _zones[_zone_index_at(x)].profile.id if not _zones.is_empty() else _neutral.id
 
 
 ## 暫時覆蓋光影（停電、警報…）。同 id 的覆蓋會被取代；fade_time 秒內淡入。
@@ -219,10 +232,12 @@ func _update_lightning(delta: float) -> void:
 
 
 func _evaluate() -> void:
-	if is_instance_valid(_target):
-		zone_state_at(_target.global_position.x, _zone_state)
-	else:
-		zone_state_at(0.0, _zone_state)
+	var x := _target.global_position.x if is_instance_valid(_target) else 0.0
+	zone_state_at(x, _zone_state)
+	var zone_id := zone_id_at(x)
+	if zone_id != _announced_zone:
+		_announced_zone = zone_id
+		EventBus.zone_changed.emit(zone_id)
 	LightingProfile.copy_into(current, _zone_state)
 	for override in _overrides:
 		if override.weight > 0.0:
@@ -258,6 +273,9 @@ func _apply() -> void:
 
 ## 離開關卡時還原泛光預設，避免主選單沿用最後一個區段的設定。
 func _on_exiting() -> void:
+	if _announced_zone != &"":
+		_announced_zone = &""
+		EventBus.zone_changed.emit(&"")
 	LightKit.set_glow(LightKit.DEFAULT_GLOW_THRESHOLD, LightKit.DEFAULT_GLOW_INTENSITY)
 	LightKit.character_fill = 1.0
 	LightKit.lamp_power = 1.0

@@ -8,6 +8,12 @@ enum State { NORMAL, DASH, FINISHER, MOUNTED, STAGGERED, DEAD, PHONE }
 const PHONE_DURATION := 1.1
 ## 角色聲音設定（data/audio/character_sounds.json）裡玩家的 id。
 const PLAYER_SOUND_ID := &"player"
+## 腳步：每走多少像素一步、低於多慢不算走路、音量範圍（dB）與蹲著再減多少。
+const STEP_DISTANCE := 24.0
+const STEP_MIN_SPEED := 30.0
+const STEP_QUIET_DB := -24.0
+const STEP_LOUD_DB := -14.0
+const STEP_CROUCH_DB := -8.0
 
 const BODY_SIZE := Vector2(12, 44)
 const CROUCH_HEIGHT := 30.0
@@ -77,6 +83,8 @@ enum MeleePhase { NONE, WINDUP, ACTIVE, RECOVERY }
 var _melee_phase := MeleePhase.NONE
 var _melee_time := 0.0
 var _melee_attack: Dictionary = {}
+var _step_travel := 0.0
+var _terrain: Terrain
 var _melee_index := -1
 var _melee_landed := false
 var _melee_hit_ids: Dictionary = {}
@@ -360,14 +368,38 @@ func _after_move(delta: float) -> void:
 		var impact := clampf(_fall_speed_before_move / tuning.max_fall_speed, 0.0, 1.0)
 		_visual.notify_land(impact)
 		Fx.dust(global_position, 3 + int(impact * 5.0), 60.0)
-		Sfx.play(&"land", lerpf(-16.0, -6.0, impact))
+		Footsteps.play(_ground_surface(), &"land", lerpf(-16.0, -6.0, impact))
 	_was_on_floor = on_floor
+	_tick_footsteps(delta)
 	if state == State.NORMAL and is_on_floor() and not health.is_invulnerable():
 		_safe_ground_time += delta
 		if _safe_ground_time >= SAFE_GROUND_DELAY:
 			_last_safe_position = global_position
 	else:
 		_safe_ground_time = 0.0
+
+
+## 腳步聲：站在地上走動時，每走 STEP_DISTANCE 像素一步，音量隨速度、蹲著更輕；停下、在空中、騎載具或被打斷時重新計步。
+func _tick_footsteps(delta: float) -> void:
+	var speed := absf(velocity.x)
+	if state != State.NORMAL or not is_on_floor() or speed < STEP_MIN_SPEED:
+		_step_travel = 0.0
+		return
+	_step_travel += speed * delta
+	if _step_travel < STEP_DISTANCE:
+		return
+	_step_travel -= STEP_DISTANCE
+	var loudness := clampf(speed / maxf(1.0, tuning.run_speed), 0.0, 1.0)
+	var volume := lerpf(STEP_QUIET_DB, STEP_LOUD_DB, loudness) + (STEP_CROUCH_DB if is_crouching else 0.0)
+	Footsteps.play(_ground_surface(), &"step", volume)
+
+
+## 腳下的地面種類（金屬、混凝土、潮濕…）；找不到地形時用預設。
+func _ground_surface() -> StringName:
+	if _terrain == null or not is_instance_valid(_terrain):
+		_terrain = get_tree().get_first_node_in_group(&"terrain") as Terrain
+	var material: StringName = _terrain.material_id_at(global_position + Vector2(0.0, 4.0)) if _terrain != null else &""
+	return Footsteps.surface_for_material(material)
 
 
 func _apply_gravity(delta: float) -> void:

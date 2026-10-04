@@ -23,6 +23,13 @@ func run() -> void:
 	_test_gun_sounds()
 	_test_impact_and_character_sounds()
 	await _test_hurt_voice_cooldown()
+	_test_world_sounds()
+	_test_footstep_data()
+	await _test_footsteps_in_play()
+	await _test_zone_signal_and_terrain_surface()
+	_test_crossfade_player()
+	await _test_ambience()
+	_test_ambience_bus()
 	_test_source_counts()
 
 
@@ -355,6 +362,147 @@ func _test_hurt_voice_cooldown() -> void:
 	enemy.hurtbox.receive(hit(1))
 	check(Sfx._last_play_msec.has(&"hurt_humanoid"), "after the cooldown the enemy can cry out again")
 	await end_level(level)
+
+
+## 機關、拾取、電話亭、介面、移動、環境（NE-159）：都是錄音素材；電話撥號音維持標準 DTMF 合成音。
+func _test_world_sounds() -> void:
+	for id in [&"jump", &"land", &"dash", &"switch", &"gate", &"power_down", &"power_up", &"emp", &"overclock", &"ability_ready", &"pickup",
+			&"crate_break", &"glass_break", &"telegraph", &"beep", &"alarm", &"laser_flash", &"flame", &"ignite", &"spin", &"vent", &"growl",
+			&"zap", &"rattle", &"chomp", &"thunder", &"phone_pickup", &"phone_hangup", &"phone_ring", &"phone_voice",
+			&"ui_move", &"ui_confirm", &"ui_cancel", &"ui_error"]:
+		check(Sfx.source_of(id) == &"file", "%s plays from files" % id)
+	for id in [&"phone_dial", &"phone_dial2", &"phone_dial3"]:
+		check(Sfx.source_of(id) == &"synth", "%s keeps the standard DTMF tones" % id)
+	for id in [&"ui_move", &"ui_confirm", &"ui_cancel", &"ui_error", &"telegraph", &"beep"]:
+		for stream: AudioStream in Sfx.bank().variants(id):
+			check(stream.get_length() <= 1.0, "interface sound %s is short (%.2fs)" % [id, stream.get_length()])
+	check(Sfx.source_of(&"ui_cancel") != &"missing" and Sfx.source_of(&"ui_error") != &"missing", "closing and error sounds are defined")
+	for id in Sfx.bank().ids():
+		if str(id).begins_with("amb_"):
+			check(bool(Sfx.bank().def(StringName(str(id))).get("loop", false)), "ambience %s is marked as a loop" % id)
+
+
+func _test_footstep_data() -> void:
+	var terrain_ids := PackedStringArray()
+	for file in DirAccess.get_files_at("res://data/environment/materials"):
+		if file.ends_with(".tres"):
+			terrain_ids.append(file.trim_suffix(".tres"))
+	var errors := Footsteps.validate(terrain_ids)
+	check(errors.is_empty(), "footstep data covers every terrain material: %s" % ", ".join(errors))
+	check(Footsteps.surface_for_material(&"steel_plate") == &"metal" and Footsteps.surface_for_material(&"concrete") == &"concrete" and Footsteps.surface_for_material(&"asphalt") == &"wet", "terrain materials map to metal, concrete and wet surfaces")
+	check(Footsteps.surface_for_material(&"") == &"concrete" and Footsteps.surface_for_material(&"test_no_such_material") == &"concrete", "no material or an unknown one uses the default surface")
+	var steps := {}
+	for surface in Footsteps.surfaces():
+		var step := Footsteps.name_for(surface, &"step")
+		var land := Footsteps.name_for(surface, &"land")
+		check(Sfx.source_of(step) == &"file" and Sfx.source_of(land) == &"file", "surface %s step and land play from files (%s, %s)" % [surface, step, land])
+		steps[step] = true
+	check(steps.size() == Footsteps.surfaces().size(), "every surface has its own footstep sound")
+
+
+## 走路會有腳步聲：依距離計步、停下或在空中沒有、蹲著比較輕。
+func _test_footsteps_in_play() -> void:
+	await open_level(10.0)
+	var player := level.player
+	await physics_frames(10)
+	var base := Footsteps.played_count
+	Input.action_press(&"move_right")
+	await physics_frames(60)
+	Input.action_release(&"move_right")
+	var walked := Footsteps.played_count - base
+	check(walked >= 3 and walked <= 12, "walking for a second makes a handful of footsteps (%d)" % walked)
+	await physics_frames(40)
+	base = Footsteps.played_count
+	await physics_frames(30)
+	check(Footsteps.played_count == base, "standing still makes no footsteps")
+	player.global_position.y -= 120.0
+	player.velocity = Vector2(120.0, 0.0)
+	base = Footsteps.played_count
+	await physics_frames(6)
+	check(Footsteps.played_count == base, "no footsteps while in the air")
+	await physics_frames(60)
+	await end_level(level)
+
+
+## 進入關卡時宣告所在區段、離開時宣告空 id；腳下材質查得到。
+func _test_zone_signal_and_terrain_surface() -> void:
+	var zones: Array[StringName] = []
+	var listener := func(id: StringName) -> void: zones.append(id)
+	EventBus.zone_changed.connect(listener)
+	var data := load("res://data/levels/level_01.tres") as LevelData
+	var lvl := await start_level(data)
+	await frames(3)
+	check(not zones.is_empty() and zones[0] == &"rooftop", "entering level 1 announces its first lighting zone (%s)" % [zones])
+	var terrain := lvl.get_tree().get_first_node_in_group(&"terrain") as Terrain
+	check(terrain != null, "the terrain registers itself for footstep lookups")
+	if terrain != null:
+		var material := terrain.material_id_at(lvl.player.global_position + Vector2(0.0, 4.0))
+		check(material != &"" and Footsteps.surface_for_material(material) != &"", "the terrain under the player's feet has a material (%s)" % material)
+		var outside := terrain.material_id_at(Vector2(-5000.0, 0.0))
+		check(Footsteps.surface_for_material(outside) != &"", "a position outside the map still resolves to a surface (%s)" % outside)
+	await end_level(lvl)
+	await frames(2)
+	check(zones.back() == &"", "leaving the level announces an empty zone")
+	EventBus.zone_changed.disconnect(listener)
+
+
+func _test_crossfade_player() -> void:
+	var fader := CrossfadePlayer.new(&"Ambience")
+	runner.add_child(fader)
+	var a := Sfx.bank().variants(&"amb_wind")[0] as AudioStream
+	var b := Sfx.bank().variants(&"amb_rain")[0] as AudioStream
+	check(fader.play(a, -6.0, 0.5, 0.5, true), "the first stream starts")
+	check(not fader.play(a, -6.0, 0.5, 0.5, true), "playing the same stream again does not restart it")
+	check(fader.current_stream() == a and fader.is_playing(), "the player reports what is playing")
+	check(fader.play(b, -3.0, 0.5, 0.5, true), "a different stream starts a crossfade")
+	check(fader.voices_playing() == 2, "both streams play during the crossfade")
+	for i in 40:
+		fader._process(0.1)
+	check(fader.voices_playing() == 1, "the old stream stops once it has faded out")
+	check(is_equal_approx(fader._players[fader._active].volume_db, -3.0), "the new stream reaches its target volume")
+	var looped := CrossfadePlayer._prepared(a, true)
+	check(looped != a and bool(looped.get("loop")) and not bool(a.get("loop")), "looping uses a copy and leaves the shared stream untouched")
+	check(CrossfadePlayer._prepared(a, false) == a, "no loop leaves the stream as it is")
+	fader.stop(0.2)
+	for i in 10:
+		fader._process(0.1)
+	check(not fader.is_playing() and fader.voices_playing() == 0 and fader.current_stream() == null, "stop fades everything out")
+	check(not fader.play(null), "a missing stream is ignored")
+	fader.queue_free()
+
+
+func _test_ambience_bus() -> void:
+	var bus := AudioServer.get_bus_index(&"Ambience")
+	check(bus >= 0, "the Ambience bus exists")
+	var listed := false
+	for entry in Settings.AUDIO_BUSES:
+		listed = listed or entry["bus"] == &"Ambience"
+	check(listed, "the settings menu lists an ambience volume slider")
+	var previous := Settings.get_volume(&"Ambience")
+	Settings.set_volume(&"Ambience", 0.5)
+	check(is_equal_approx(AudioServer.get_bus_volume_db(bus), linear_to_db(0.5)), "the ambience slider drives the Ambience bus")
+	Settings.set_volume(&"Ambience", previous)
+
+
+func _test_ambience() -> void:
+	check(Ambience.validate().is_empty(), "ambience data has no errors: %s" % ", ".join(Ambience.validate()))
+	for file in DirAccess.get_files_at("res://data/lighting"):
+		if file.ends_with(".tres"):
+			var profile := load("res://data/lighting/" + file) as LightingProfile
+			check(Ambience._profiles.has(String(profile.id)), "lighting profile %s has an ambience entry" % profile.id)
+	check(Ambience.layers_for(&"rooftop").size() == 2, "the rooftop zone has two ambience layers")
+	check(Ambience.layers_for(&"test_no_such_zone").is_empty(), "an unknown zone falls back to the default (silence)")
+	Ambience.set_zone(&"shaft")
+	await frames(2)
+	check(Ambience.playing_layers() == 3, "the shaft zone starts three ambience layers (%d)" % Ambience.playing_layers())
+	Ambience.set_zone(&"rooftop")
+	await frames(2)
+	check(Ambience.current_zone() == &"rooftop" and Ambience.playing_layers() >= 2, "changing zones keeps the matching layers playing")
+	Ambience.set_zone(&"")
+	for i in Ambience.MAX_LAYERS:
+		Ambience.layer_player(i)._process(10.0)
+	check(Ambience.playing_layers() == 0, "leaving a level fades the ambience out and stops it")
+	Ambience.stop_all(0.0)
 
 
 func _test_source_counts() -> void:

@@ -21,6 +21,7 @@ var _regions: Array[Dictionary] = []
 
 
 func build(layout: LevelLayout, theme: EnvironmentTheme = null, regions: Array[Dictionary] = []) -> void:
+	add_to_group(&"terrain")
 	_layout = layout
 	_theme = theme
 	_regions = _resolve_regions(regions)
@@ -54,6 +55,21 @@ func build(layout: LevelLayout, theme: EnvironmentTheme = null, regions: Array[D
 	edges.name = "Edges"
 	add_child(edges)
 	edges.build(_solid_rects, _platform_rects, Rect2(Vector2.ZERO, layout.pixel_size()), _theme, _tile)
+
+
+## position（世界座標）所在位置的地形材質 id；沒有環境主題或沒有材質時回傳空字串。腳步聲依此選擇地面種類。
+func material_id_at(position: Vector2) -> StringName:
+	if _tile <= 0:
+		return &""
+	var cell := Vector2i(int(floor(position.x / _tile)), int(floor(position.y / _tile)))
+	for region in _regions:
+		if (region["rect"] as Rect2i).has_point(cell) and region["material"] != null:
+			return (region["material"] as TerrainMaterialData).id
+	if _theme != null:
+		var zone := _theme.zone_at(cell.x)
+		if zone != null and zone.material != null:
+			return zone.material.id
+	return &""
 
 
 func _make_shape(rect: Rect2, one_way: bool) -> CollisionShape2D:

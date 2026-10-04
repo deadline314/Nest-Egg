@@ -81,10 +81,12 @@ def render_sfx(path: Path, spec: dict, segment: tuple[int, int] | None = None) -
         x = x[start:end]
     elif spec["mode"] == "loop":
         x = lib.trim_silence(x, threshold_db=-60.0, tail_ms=0.0)
+    elif spec["mode"] == "raw":
+        pass  # 完全照 start／end／max_len 取，不修剪靜音（低頻轟隆聲的尾巴很小聲，修剪會被誤切）
     else:
         x = lib.trim_silence(x)
     max_samples = int(float(spec["max_len"]) * lib.SR)
-    if spec["mode"] != "loop" and len(x) > max_samples:
+    if len(x) > max_samples:
         x = x[:max_samples]
     x = lib.change_rate(x, float(spec["rate"]))
     if spec.get("lowpass") or spec.get("highpass"):
@@ -214,6 +216,8 @@ def main() -> int:
             for key in ("volume_db", "pitch", "note"):
                 if key in item and key not in entry:
                     entry[key] = item[key]
+            if item.get("category") == "ambience" or item.get("loop"):
+                entry["loop"] = True
             bank["sounds"][sound_id] = entry
 
     for track_id, item in pipeline.get("music", {}).items():

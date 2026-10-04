@@ -44,6 +44,8 @@ signal screen_pulse(kind: StringName)
 signal camera_kick(offset: Vector2)
 signal toast_requested(text: String)
 
+## 玩家所在的光影區段換了（zone_id 是光影設定的 id）；離開關卡時送出空 id。環境音與背景音樂依此切換。
+signal zone_changed(zone_id: StringName)
 ## 光影事件：暫時覆蓋區段光影（停電、警報…），id 相同的覆蓋會被取代；清除後平滑回到區段光影。
 signal lighting_override_requested(id: StringName, profile: LightingProfile, fade_time: float)
 signal lighting_override_cleared(id: StringName, fade_time: float)

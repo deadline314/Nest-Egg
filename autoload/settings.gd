@@ -23,6 +23,7 @@ const BRIGHTNESS_RANGE := 1.2
 const AUDIO_BUSES: Array[Dictionary] = [
 	{"bus": &"Master", "label": "主音量", "tooltip": "所有聲音的整體音量", "default": 0.8},
 	{"bus": &"SFX", "label": "音效", "tooltip": "射擊、爆炸、介面等音效", "default": 1.0},
+	{"bus": &"Ambience", "label": "環境音", "tooltip": "雨聲、風聲、機械嗡鳴等場景底噪", "default": 0.8},
 ]
 
 ## Master 限幅器的天花板（dBFS）。

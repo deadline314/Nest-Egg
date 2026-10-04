@@ -71,6 +71,7 @@ func open() -> void:
 	get_tree().paused = true
 	UiKit.set_cursor_visible(true)
 	_root.visible = true
+	Sfx.play(&"ui_confirm", -8.0, 0.0)
 	_refresh_info()
 	_resume_button.grab_focus()
 	UiMotion.stagger_in([_menu_panel, _info_panel], 0.08, 16.0)
@@ -79,6 +80,8 @@ func open() -> void:
 func close() -> void:
 	if is_instance_valid(_settings):
 		_settings.close()
+	if _root.visible:
+		Sfx.play(&"ui_cancel", -8.0, 0.0)
 	_root.visible = false
 	get_tree().paused = false
 	UiKit.set_cursor_visible(false)
