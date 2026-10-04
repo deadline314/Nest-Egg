@@ -100,7 +100,8 @@ func _build_right() -> void:
 	_scene_option.custom_minimum_size = Vector2(170, 0)
 	_scene_option.tooltip_text = "這個聲音在遊戲裡會在什麼情境下響；選一個，按右邊的按鈕在右側畫面舞台裡看實際的動畫和聲音"
 	scene_row.add_child(_scene_option)
-	scene_row.add_child(_button("▶ 在畫面播放", func() -> void: play_in_stage(""), "在右側畫面舞台執行這個情境，聲音和動畫一起出現（用遊戲現在的聲音）"))
+	scene_row.add_child(_button("▶ 用遊戲現在的音效", func() -> void: play_in_stage(""), "在右側畫面舞台執行這個情境（例如連續射擊），用遊戲現在的聲音（下面「遊戲現在用」那組）"))
+	scene_row.add_child(_button("▶ 用預計換成的音效", func() -> void: play_in_stage_with_planned(), "同一個情境，這個位置的聲音暫時換成下面「預計換成」那一整組素材（每次輪流用，只在記憶體，不寫入任何資料），聽射擊時預計的聲音實際的感覺"))
 	scene_row.add_child(_button("▶ 用備選素材在畫面中試", func() -> void: play_in_stage_with_candidate(), "同一個情境，但這個位置的聲音暫時換成下面選中的素材（只在記憶體，不寫入任何資料），看動畫配上候選聲音的感覺"))
 	_scene_note = Label.new()
 	_scene_note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -321,11 +322,7 @@ func _fill_scenes(slot_id: String) -> void:
 
 ## 在畫面舞台執行這個位置的情境。candidate 是素材編號時，這個位置的聲音暫時換成它的預聽檔。回傳是否完整跑完。
 func play_in_stage(candidate: String) -> bool:
-	if _selected_slot.is_empty() or _scene_option.item_count == 0:
-		lab.notify("這個位置沒有畫面情境")
-		return false
-	if lab.dock == null:
-		lab.notify("畫面舞台沒有開啟")
+	if not _stage_ready():
 		return false
 	var preview := {}
 	if not candidate.is_empty():
@@ -339,6 +336,41 @@ func play_in_stage(candidate: String) -> bool:
 			return false
 		preview[StringName(str(slot["target"]))] = stream
 		lab.notify("在畫面中用 %s 取代 %s 的聲音（只是試聽，沒有寫入）" % [candidate, slot["target"]])
+	return await _run_stage(preview)
+
+
+## 在畫面舞台執行這個位置的情境，聲音換成「預計換成」的整組素材（每次輪流用）；沒有可試聽的素材時只提示。回傳是否完整跑完。
+func play_in_stage_with_planned() -> bool:
+	if not _stage_ready():
+		return false
+	var slot := lab.catalog.slot(_selected_slot)
+	if str(slot["kind"]) == "music":
+		lab.notify("音樂位置請在「背景音樂與環境音」分頁用 cue 試聽")
+		return false
+	var planned := lab.doc.planned(_selected_slot)
+	var streams: Array[AudioStream] = []
+	for aid in planned:
+		var stream := lab.catalog.load_preview(aid) if lab.catalog.has_preview(aid) else null
+		if stream != null:
+			streams.append(stream)
+	if streams.is_empty():
+		lab.notify("這個位置還沒有預計換成的素材，或它們都沒有預聽檔（補齊：python tools/audio/build_candidates.py）" if not planned.is_empty() else "這個位置還沒有預計換成的素材，先在下面的備選或搜尋挑一個")
+		return false
+	lab.notify("在畫面中用預計換成的 %d 個素材（共挑了 %d 個）輪流取代 %s 的聲音（只是試聽，沒有寫入）" % [streams.size(), planned.size(), slot["target"]])
+	return await _run_stage({StringName(str(slot["target"])): streams})
+
+
+func _stage_ready() -> bool:
+	if _selected_slot.is_empty() or _scene_option.item_count == 0:
+		lab.notify("這個位置沒有畫面情境")
+		return false
+	if lab.dock == null:
+		lab.notify("畫面舞台沒有開啟")
+		return false
+	return true
+
+
+func _run_stage(preview: Dictionary) -> bool:
 	return await lab.dock.play_scene(str(_scene_option.get_item_metadata(_scene_option.selected)), preview)
 
 

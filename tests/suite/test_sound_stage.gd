@@ -98,6 +98,16 @@ func _test_preview_replacement() -> void:
 const COPY_PATH := "user://test_audio_stage_weapon_sounds.json"
 
 
+func _tone() -> AudioStreamWAV:
+	var stream := AudioStreamWAV.new()
+	stream.format = AudioStreamWAV.FORMAT_16_BITS
+	stream.mix_rate = 22050
+	var data := PackedByteArray()
+	data.resize(int(0.2 * 22050.0) * 2)
+	stream.data = data
+	return stream
+
+
 func _tooltip_gaps(node: Node, into: PackedStringArray) -> void:
 	if node is SoundStage:
 		return  # 舞台裡面是遊戲本身的畫面，不是實驗室的控制項
@@ -152,6 +162,28 @@ func _test_lab_with_stage() -> void:
 	var tried: bool = await slots.play_in_stage_with_candidate()
 	check(tried == with_preview, "trying a candidate needs its audition file; without one the lab says how to make it (%s)" % lab.status_label.text)
 	check(Sfx.preview_ids().is_empty() and lab.doc.planned("P-WPN-001") == planned_before, "trying a candidate on stage changes nothing permanent")
+	# 用「遊戲現在用」或「預計換成」的整組音效射擊
+	lab.doc.set_planned("P-WPN-001", PackedStringArray())
+	check(not await slots.play_in_stage_with_planned() and lab.status_label.text.contains("還沒有預計換成"), "shooting with the planned set without a plan only explains")
+	lab.doc.set_planned("P-WPN-001", PackedStringArray(["GUN-8888"]))
+	check(not await slots.play_in_stage_with_planned() and lab.status_label.text.contains("沒有預聽檔") and Sfx.preview_ids().is_empty(), "a plan without any audible asset only explains")
+	var tones: Array[AudioStream] = [_tone(), _tone()]
+	check(await slots._run_stage({&"shot_pistol": tones}), "the scene runs with a set of streams replacing the slot's sound")
+	check(Sfx.preview_ids().is_empty(), "the replacement is removed when the scene ends")
+	Sfx.set_preview(&"shot_pistol", tones)
+	var seen := {}
+	for i in 8:
+		Sfx.play(&"shot_pistol", 0.0, 0.0)
+		for player: AudioStreamPlayer in Sfx._players:
+			if tones.has(player.stream):
+				seen[player.stream] = true
+		await runner.get_tree().create_timer(0.09).timeout
+	check(seen.size() == 2, "a set of preview streams is used in turn (%d of 2 used)" % seen.size())
+	Sfx.set_preview(&"shot_pistol", [])
+	check(Sfx.preview_ids().is_empty(), "an empty set cancels the preview")
+	Sfx.clear_previews()
+	Sfx.stop_all()
+	lab.doc.set_planned("P-WPN-001", planned_before)
 	# 換彈時間軸編輯器
 	var editor := lab.dock.reload_editor
 	editor.data_path = COPY_PATH

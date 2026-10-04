@@ -333,8 +333,8 @@ var enabled := true
 ## 每個 id 的預設串流：音效庫第一個可用的檔案，沒有就是合成音。
 var _streams: Dictionary[StringName, AudioStream] = {}
 var _bank := SoundBank.new()
-## 實驗室試聽用：音效 id → 暫時取代它的串流（只在記憶體，不寫檔）。
-var _preview_streams: Dictionary[StringName, AudioStream] = {}
+## 實驗室試聽用：音效 id → 暫時取代它的串流或一組串流（只在記憶體，不寫檔）；一組時每次播放輪流用，不連續重複。
+var _preview_streams: Dictionary[StringName, Variant] = {}
 var _players: Array[AudioStreamPlayer] = []
 var _next_voice := 0
 var _last_play_msec: Dictionary[StringName, int] = {}
@@ -440,12 +440,15 @@ func source_counts() -> Dictionary:
 	return counts
 
 
-## 實驗室：讓某個音效暫時改播另一個串流（備選素材的預聽檔）；clear_previews 還原。
-func set_preview(id: StringName, stream: AudioStream) -> void:
-	if stream == null:
-		_preview_streams.erase(id)
+## 實驗室：讓某個音效暫時改播另一個串流（備選素材的預聽檔）或一組串流（每次播放輪流用）；clear_previews 還原。
+## streams 是 AudioStream 或 AudioStream 陣列；null 或空陣列代表取消。
+func set_preview(id: StringName, streams: Variant) -> void:
+	if streams is AudioStream:
+		_preview_streams[id] = streams
+	elif streams is Array and not (streams as Array).is_empty():
+		_preview_streams[id] = (streams as Array).duplicate()
 	else:
-		_preview_streams[id] = stream
+		_preview_streams.erase(id)
 
 
 func clear_previews() -> void:
@@ -501,8 +504,12 @@ func _play_voice(id: StringName, volume_db: float, pitch: float, priority: int) 
 		_report_once("sound:" + String(id), "[Sfx] 未定義的音效：%s" % id, false)
 		return false
 	if _preview_streams.has(id):
-		# 試聽備選素材：用預聽檔取代，仍套用這個音效在音效庫的音量微調。
-		stream = _preview_streams[id]
+		# 試聽備選素材：用預聽檔取代（一組時輪流用），仍套用這個音效在音效庫的音量微調。
+		var preview: Variant = _preview_streams[id]
+		if preview is Array:
+			stream = (preview as Array)[_pick_variant("preview:" + String(id), (preview as Array).size())]
+		else:
+			stream = preview
 		volume_db += _bank.volume_db(id)
 	elif _bank.has_files(id):
 		var variants := _bank.variants(id)
