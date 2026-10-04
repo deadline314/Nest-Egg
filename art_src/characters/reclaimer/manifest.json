@@ -1,7 +1,27 @@
 [
   {
+    "step": "parts",
+    "seconds": 3.1,
+    "outputs": [
+      "art_src\\characters\\reclaimer\\06_parts",
+      "art_src\\characters\\reclaimer\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.2,
+    "outputs": [
+      "art_src\\characters\\reclaimer\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
     "step": "textures",
-    "seconds": 1.9,
+    "seconds": 2.2,
     "outputs": [
       "art\\characters\\reclaimer\\character.json",
       "art\\rigs\\reclaimer.json",
@@ -11,14 +31,14 @@
   },
   {
     "step": "normals",
-    "seconds": 2.3,
+    "seconds": 2.6,
     "outputs": [
       "art\\characters\\reclaimer\\parts"
     ]
   },
   {
     "step": "import",
-    "seconds": 4.7,
+    "seconds": 4.9,
     "outputs": [
       ".godot"
     ]

@@ -1,7 +1,7 @@
 [
   {
     "step": "parts",
-    "seconds": 6.5,
+    "seconds": 2.3,
     "outputs": [
       "art_src\\characters\\night_worker\\06_parts",
       "art_src\\characters\\night_worker\\06_parts\\ownership.png"
@@ -9,7 +9,7 @@
   },
   {
     "step": "refine",
-    "seconds": 1.5,
+    "seconds": 1.8,
     "outputs": [
       "art_src\\characters\\night_worker\\07_refined"
     ]
@@ -21,7 +21,7 @@
   },
   {
     "step": "textures",
-    "seconds": 1.5,
+    "seconds": 1.9,
     "outputs": [
       "art\\characters\\night_worker\\character.json",
       "art\\rigs\\night_worker.json",
@@ -31,7 +31,7 @@
   },
   {
     "step": "normals",
-    "seconds": 2.3,
+    "seconds": 2.5,
     "outputs": [
       "art\\characters\\night_worker\\parts"
     ]

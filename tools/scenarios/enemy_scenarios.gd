@@ -30,6 +30,7 @@ const SCENARIOS := {
 	"feel_lab": "res://tools/scenarios/feel_lab_scenario.gd",
 	"screen_fx": "res://tools/scenarios/screen_fx_scenario.gd",
 	"damage_numbers": "res://tools/scenarios/damage_numbers_scenario.gd",
+	"model_vehicle": "res://tools/scenarios/model_vehicle_scenario.gd",
 }
 
 

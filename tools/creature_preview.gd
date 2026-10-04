@@ -13,6 +13,8 @@ var _creature_id := "test_creature"
 var _out := ""
 var _zoom := 0.9
 var _strip := false
+## --bright：檢視用的亮場景（淺灰背景、柔和白光）。
+var _bright := false
 var _hit := false
 var _state := "crawl"
 var _creatures: Array[ChainCreature] = []
@@ -27,6 +29,8 @@ func _ready() -> void:
 			_out = arg.trim_prefix("--out=")
 		elif arg.begins_with("--zoom="):
 			_zoom = float(arg.trim_prefix("--zoom="))
+		elif arg == "--bright":
+			_bright = true
 		elif arg == "--strip":
 			_strip = true
 		elif arg == "--hit":
@@ -37,7 +41,7 @@ func _ready() -> void:
 			_state = arg.trim_prefix("--state=")
 	add_child(LightKit.create_environment())
 	var bg := ColorRect.new()
-	bg.color = Color("121826")
+	bg.color = Color("5b6577") if _bright else Color("121826")
 	bg.size = Vector2(1280, 720)
 	bg.z_index = -10
 	add_child(bg)
@@ -97,7 +101,7 @@ func _build_parts_sheet() -> void:
 
 func _capture_parts() -> void:
 	for spot: Array in [[Vector2(130, 10), Palette.CYAN], [Vector2(420, 10), Color("ff2e88")], [Vector2(280, 180), Palette.WARM_LIGHT]]:
-		var light := LightKit.create_point_light(spot[1], 420.0, 1.4)
+		var light := LightKit.create_point_light(Color("f0f4ff") if _bright else spot[1], 900.0 if _bright else 420.0, 0.9 if _bright else 1.4)
 		light.position = spot[0]
 		add_child(light)
 	var dt := 1.0 / 60.0

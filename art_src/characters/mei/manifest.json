@@ -1,14 +1,46 @@
 [
   {
+    "step": "parts",
+    "seconds": 19.9,
+    "outputs": [
+      "art_src\\characters\\mei\\06_parts",
+      "art_src\\characters\\mei\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.4,
+    "outputs": [
+      "art_src\\characters\\mei\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.8,
+    "outputs": [
+      "art_src\\characters\\mei\\07_refined"
+    ]
+  },
+  {
+    "step": "textures",
+    "seconds": 2.5,
+    "outputs": [
+      "art\\characters\\mei\\character.json",
+      "art\\rigs\\mei.json",
+      "art\\characters\\mei\\parts",
+      "art\\portraits\\mei.png"
+    ]
+  },
+  {
     "step": "normals",
-    "seconds": 2.2,
+    "seconds": 2.8,
     "outputs": [
       "art\\characters\\mei\\parts"
     ]
   },
   {
     "step": "import",
-    "seconds": 4.8,
+    "seconds": 4.9,
     "outputs": [
       ".godot"
     ]

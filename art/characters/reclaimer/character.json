@@ -47,23 +47,23 @@
     "leg_upper": {
       "file": "parts/leg_upper.png",
       "size": [
-        163,
+        137,
         283
       ],
       "pivot": [
-        67.95,
-        -12.31
+        64.75,
+        -12.4
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_lower": {
       "file": "parts/leg_lower.png",
       "size": [
-        95,
-        40
+        136,
+        327
       ],
       "pivot": [
-        49.57,
+        90.37,
         8.95
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
@@ -71,12 +71,12 @@
     "foot": {
       "file": "parts/foot.png",
       "size": [
-        223,
-        486
+        197,
+        131
       ],
       "pivot": [
-        58.63,
-        386.66
+        54.63,
+        33.66
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -215,14 +215,14 @@
       "texture": "leg_lower",
       "bone": "leg_back_lower",
       "z": -5,
-      "tint": 0.62
+      "tint": 0.66
     },
     {
       "name": "foot_back",
       "texture": "foot",
       "bone": "foot_back",
       "z": -5,
-      "tint": 0.62
+      "tint": 0.76
     },
     {
       "name": "armor_knee_back",
@@ -267,7 +267,8 @@
       "name": "foot_front",
       "texture": "foot",
       "bone": "foot_front",
-      "z": 3
+      "z": 3,
+      "tint": 1.01
     },
     {
       "name": "armor_knee",

@@ -12,6 +12,24 @@ Outputs (in --work):
 
 How a pixel gets its part: SAM masks give the group (hand, arm, holster, jacket, hair, boot, head, body); groups hidden by
 something in front of them are completed by Qwen (the gap only); limb groups are then cut at the joints (spec.cuts).
+
+spec["near_leg"] (NE-152): in a side view both legs and both shoes are in the picture, but the rig draws ONE leg texture twice (the far
+copy dimmed), so a leg part must hold exactly one leg. near_leg picks the near (front, unobstructed) leg with SAM point prompts and
+makes it a group of its own ("group": "near_leg" in the parts):
+    {"pos": [[x, y], ...],     points on the near thigh, shin and shoe (pixels of base_rgba.png)
+     "neg": [[x, y], ...],     points on the far leg and the other shoe
+     "threshold": 0.3, "close": 9, "grow": 0,
+     "fill": ["hand", "arm"],  groups that hang in front of the leg: their pixels inside the leg are painted again from the cloth beside them
+     "cover": [{"pos": [[x, y]], "neg": []}],  point prompts of things that hang in front of the leg and belong to no group (a hand SAM took
+                               for the body): they are painted over with the cloth beside them, like the "fill" groups
+     "cover_limbs": true,       false = leave the notch where a hand or forearm hangs in front of the thigh (when the cloth behind it is unknown,
+                               a colour ramp across it looks like a slab; a notch looks like a bite and the hand covers it)
+     "thigh_x": [300, 478],     take every picture pixel between hip and knee inside this x range as thigh (hands and plates in front get painted over by "fill") (both thighs overlap in one big mass)
+     "close_thigh": 30,         wide closing between hip and knee: fills the bite a hand or a pocket took out of the thigh's front
+     "exclude": ["armor_chest"],  groups that are removed from the leg again (plates that ride another bone and would leave a slab behind)
+     "extra": ["apron"]}       SAM text prompts of garments that hang over the thigh (an apron, a long coat): they are not the leg but
+                               they belong to its sprite, otherwise they would vanish from the character
+the leg is the SAM mask without those groups, closed and hole-filled; what is not known (hand, knee pad, cracks) gets a colour ramp.
 """
 import argparse
 import json
@@ -26,7 +44,7 @@ from scipy import ndimage
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-from sam_masks import segment, slug  # noqa: E402
+from sam_masks import segment, segment_points, slug  # noqa: E402
 
 
 def largest_blobs(mask: np.ndarray, min_share: float = 0.02) -> np.ndarray:
@@ -86,7 +104,8 @@ def main() -> None:
     rgb = rgba[:, :, :3]
 
     # ---- SAM masks --------------------------------------------------------------------------------------------
-    prompts = sorted({p for g in spec["groups"].values() for p in g["sam"]} | {p for g in spec["groups"].values() for p in g.get("minus", [])})
+    prompts = sorted({p for g in spec["groups"].values() for p in g["sam"]} | {p for g in spec["groups"].values() for p in g.get("minus", [])}
+                     | set(spec.get("near_leg", {}).get("extra", [])))
     sam_dir = work / "sam"
     grey = work / "base_grey.png"
     if not grey.exists():
@@ -220,10 +239,9 @@ def main() -> None:
                     hid |= V[o]
                 hid = dilate(hid, c.get("fill_grow", 3)) & ~final
                 if hid.any():
-                    first = np.where(final.any(1), final.argmax(1), W)
-                    last = np.where(final.any(1), W - 1 - final[:, ::-1].argmax(1), -1)
-                    span = (np.arange(W)[None, :] >= first[:, None]) & (np.arange(W)[None, :] <= last[:, None])
-                    gap_fill = hid & span
+                    # bounded by the picture's own silhouette (the limb in front is inside it), on rows where the part has pixels at all:
+                    # the old bound (first..last pixel of the row) left the part an L-shape when the arm covered one whole side of the hip
+                    gap_fill = hid & alpha & final.any(1)[:, None]
                     gap_fill |= ndimage.binary_fill_holes(final | gap_fill) & ~final
                     color = row_fill(color, gap_fill, final)
                     final = final | gap_fill
@@ -269,6 +287,92 @@ def main() -> None:
         layer = np.dstack([color, (final * 255).astype(np.uint8)])
         Image.fromarray(layer).save(done)
         complete[name] = layer
+
+    # ---- the near leg as a group of its own (NE-152) ----------------------------------------------------------
+    if "near_leg" in spec:
+        nl_cfg = spec["near_leg"]
+        mask_png = sam_dir / "near_leg.png"
+        key_json = sam_dir / "near_leg.json"
+        key = json.dumps([nl_cfg["pos"], nl_cfg.get("neg", []), nl_cfg.get("threshold", 0.3)])
+        if not mask_png.exists() or not key_json.exists() or key_json.read_text(encoding="utf8") != key:
+            print("SAM 3.1 near_leg:", nl_cfg["pos"], nl_cfg.get("neg", []))
+            segment_points(str(grey), str(sam_dir), {"near_leg": {"pos": [tuple(q) for q in nl_cfg["pos"]], "neg": [tuple(q) for q in nl_cfg.get("neg", [])]}},
+                           threshold=nl_cfg.get("threshold", 0.3))
+            key_json.write_text(key, encoding="utf8")
+        near = (np.array(Image.open(mask_png).convert("L").resize((W, H))) > 127) & alpha
+        far = np.zeros((H, W), bool)
+        if nl_cfg.get("neg"):  # the far leg's own mask: the same SAM call with the point lists swapped; nothing of it may end up in the near leg
+            far_png, far_json = sam_dir / "near_leg_far.png", sam_dir / "near_leg_far.json"
+            if not far_png.exists() or not far_json.exists() or far_json.read_text(encoding="utf8") != key:
+                segment_points(str(grey), str(sam_dir), {"near_leg_far": {"pos": [tuple(q) for q in nl_cfg["neg"]], "neg": [tuple(q) for q in nl_cfg["pos"]]}},
+                               threshold=nl_cfg.get("threshold", 0.3))
+                far_json.write_text(key, encoding="utf8")
+            far = (np.array(Image.open(far_png).convert("L").resize((W, H))) > 127) & ~near
+        yy_leg = np.mgrid[0:H, 0:W][0]
+        occ_leg = np.zeros((H, W), bool)
+        for g_ in nl_cfg.get("fill", []):
+            occ_leg |= V[g_]
+        for i_, cv_ in enumerate(nl_cfg.get("cover", [])):  # things in front of the leg that no group claims (a hand SAM took for the body)
+            cpng, cjson = sam_dir / f"near_leg_cover{i_}.png", sam_dir / f"near_leg_cover{i_}.json"
+            ckey = json.dumps([cv_, nl_cfg.get("threshold", 0.3)])
+            if not cpng.exists() or not cjson.exists() or cjson.read_text(encoding="utf8") != ckey:
+                segment_points(str(grey), str(sam_dir), {f"near_leg_cover{i_}": {"pos": [tuple(q) for q in cv_["pos"]], "neg": [tuple(q) for q in cv_.get("neg", [])]}},
+                               threshold=nl_cfg.get("threshold", 0.3))
+                cjson.write_text(ckey, encoding="utf8")
+            occ_leg |= np.array(Image.open(cpng).convert("L").resize((W, H))) > 127
+        occ_leg = dilate(occ_leg, nl_cfg.get("fill_grow", 3))
+        k_ = nl_cfg.get("close", 9)
+        # closing fills what hangs in front of the leg and cuts a notch into its outline (a hand beside the thigh); it stays inside the picture's
+        # silhouette and out of the far leg
+        region = (cv2.morphologyEx(near.astype(np.uint8), cv2.MORPH_CLOSE, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * k_ + 1,) * 2)) > 0) & alpha & ~far
+        for prompt in nl_cfg.get("extra", []):
+            region |= M[prompt] & ~occ_leg
+        # a hand or forearm that hangs in front of the thigh is inside the leg's silhouette: the leg sprite has to cover it, because the
+        # arm sprite moves away when the character aims or runs
+        hip_y = int(spec["joints"]["hip"][1])
+        # ... but only inside the leg's own width: a forearm guard that sticks out in front of the thigh would otherwise grow a slab on it
+        rows = region.any(1) & (np.arange(H) >= hip_y)  # (region here already holds the closed leg and its extra garments, so an apron widens it)
+        left_edge = np.where(rows, region.argmax(1), 0).astype(float)
+        right_edge = np.where(rows, W - 1 - region[:, ::-1].argmax(1), 0).astype(float)
+        ys_ok = np.nonzero(rows)[0]
+        if len(ys_ok) > 1:
+            left_edge = ndimage.median_filter(np.interp(np.arange(H), ys_ok, left_edge[ys_ok]), 41)
+            right_edge = ndimage.median_filter(np.interp(np.arange(H), ys_ok, right_edge[ys_ok]), 41)
+            inside = (np.arange(W)[None, :] >= left_edge[:, None] - 6) & (np.arange(W)[None, :] <= right_edge[:, None] + 6)
+        else:
+            inside = np.ones((H, W), bool)
+        for g_ in (("hand", "arm", "armor_forearm", "armor_shoulder", "armor_knee", "armor_chest") if nl_cfg.get("cover_limbs", True) else ()):
+            if g_ in V:
+                region |= V[g_] & (yy_leg >= hip_y) & dilate(region, 40) & ~far & inside
+        if nl_cfg.get("thigh_x"):  # a thigh the SAM points did not reach (one big armoured mass where both thighs overlap): take the body pixels of the
+            # rows between hip and knee that lie inside this x range, the far thigh peeks out beyond it
+            x0_, x1_ = nl_cfg["thigh_x"]
+            knee_y = int(spec["joints"]["knee"][1])
+            rows_ = (yy_leg >= int(spec["joints"]["hip"][1])) & (yy_leg <= knee_y)
+            region |= alpha & rows_ & (np.arange(W)[None, :] >= x0_) & (np.arange(W)[None, :] <= x1_) & ~far
+        if nl_cfg.get("close_thigh"):  # a wide closing between hip and knee fills the bite a hand or a pocket took out of the thigh's front
+            k2 = nl_cfg["close_thigh"]
+            wide = cv2.morphologyEx(region.astype(np.uint8), cv2.MORPH_CLOSE, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * k2 + 1,) * 2)) > 0
+            region |= wide & alpha & ~far & (yy_leg >= int(spec["joints"]["hip"][1])) & (yy_leg <= int(spec["joints"]["knee"][1]))
+        for g_ in nl_cfg.get("exclude", []):  # plates that the SAM mask took in but that ride another bone (a hip plate on the chest): the leg keeps no copy
+            region &= ~V[g_]
+        region = ndimage.binary_fill_holes(region)
+        region = largest_blobs(region, 0.05)
+        if nl_cfg.get("grow"):  # take the outline and the rim light the mask leaves out (a violet glow along the trouser leg), but not the far leg's
+            region = dilate(region, nl_cfg["grow"]) & alpha & ~far
+        body_c, boot_c = complete["body"], complete.get("boot")
+        have_body = body_c[:, :, 3] > 127
+        have_boot = (boot_c[:, :, 3] > 127) if boot_c is not None else np.zeros((H, W), bool)
+        # colours come from the body and boot groups (they hold the picture plus what the peeled stage painted behind an arm or a knee pad);
+        # only what those do not cover, or what spec.near_leg.fill lists, is painted again
+        known = (have_body | have_boot) & ~occ_leg & region
+        color = np.where(have_body[:, :, None], body_c[:, :, :3], np.where(have_boot[:, :, None], boot_c[:, :, :3] if boot_c is not None else rgb, rgb))
+        unknown = region & ~known
+        if unknown.any():
+            color = row_fill(color, unknown, known)
+        complete["near_leg"] = np.dstack([color, (region * 255).astype(np.uint8)])
+        V["near_leg"] = region
+        Image.fromarray(complete["near_leg"]).save(gdir / "near_leg.png")
 
     # ---- cut groups into parts --------------------------------------------------------------------------------
     yy, xx = np.mgrid[0:H, 0:W]

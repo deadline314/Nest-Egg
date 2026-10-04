@@ -1,7 +1,27 @@
 [
   {
+    "step": "parts",
+    "seconds": 3.0,
+    "outputs": [
+      "art_src\\characters\\enforcer\\06_parts",
+      "art_src\\characters\\enforcer\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.3,
+    "outputs": [
+      "art_src\\characters\\enforcer\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
     "step": "textures",
-    "seconds": 1.6,
+    "seconds": 2.0,
     "outputs": [
       "art\\characters\\enforcer\\character.json",
       "art\\rigs\\enforcer.json",
@@ -10,14 +30,14 @@
   },
   {
     "step": "normals",
-    "seconds": 2.7,
+    "seconds": 3.2,
     "outputs": [
       "art\\characters\\enforcer\\parts"
     ]
   },
   {
     "step": "import",
-    "seconds": 4.5,
+    "seconds": 4.8,
     "outputs": [
       ".godot"
     ]

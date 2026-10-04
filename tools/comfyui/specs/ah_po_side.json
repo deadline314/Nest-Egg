@@ -151,7 +151,7 @@
       "pivot": "head"
     },
     "leg_upper": {
-      "group": "body",
+      "group": "near_leg",
       "from": "hip",
       "to": "knee",
       "mode": "bone",
@@ -174,7 +174,7 @@
       ]
     },
     "leg_lower": {
-      "group": "body",
+      "group": "near_leg",
       "from": "knee",
       "to": "ankle",
       "mode": "bone",
@@ -193,11 +193,11 @@
       ],
       "y": [
         934,
-        4000
+        1130
       ]
     },
     "foot": {
-      "group": "boot",
+      "group": "near_leg",
       "from": "ankle",
       "to": "toe",
       "mode": "upright",
@@ -214,7 +214,11 @@
           "z": 3
         }
       ],
-      "pivot": "ankle"
+      "pivot": "ankle",
+      "y": [
+        1130,
+        4000
+      ]
     },
     "arm_upper": {
       "group": "arm",
@@ -398,6 +402,15 @@
         "hand"
       ],
       "sigma": 1.0
+    },
+    "fill_holes": {
+      "parts": [
+        "pelvis",
+        "leg_upper",
+        "leg_lower",
+        "foot"
+      ],
+      "max_area": 200
     }
   },
   "dialog_portrait": {
@@ -416,5 +429,48 @@
       "seed": 52,
       "prompt": "Change the old woman into a sleeveless one: delete her near-side arm entirely, including the orange sleeve, the rolled cuff, the bare forearm and the hand, so the blouse has a bare round armhole and the bare shoulder joint shows there. Paint the blouse body, the cream apron with its pocket, and the trousers that were hidden behind the arm. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
     }
-  ]
+  ],
+  "near_leg": {
+    "pos": [
+      [
+        350,
+        800
+      ],
+      [
+        350,
+        900
+      ],
+      [
+        360,
+        1000
+      ],
+      [
+        345,
+        1100
+      ],
+      [
+        400,
+        1180
+      ]
+    ],
+    "neg": [
+      [
+        470,
+        960
+      ],
+      [
+        500,
+        1140
+      ]
+    ],
+    "threshold": 0.3,
+    "close": 9,
+    "fill": [
+      "hand"
+    ],
+    "close_thigh": 30,
+    "extra": [
+      "apron"
+    ]
+  }
 }

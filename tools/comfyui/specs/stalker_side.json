@@ -172,7 +172,7 @@
       "pivot": "head"
     },
     "leg_upper": {
-      "group": "body",
+      "group": "near_leg",
       "from": "hip",
       "to": "knee",
       "mode": "bone",
@@ -195,7 +195,7 @@
       ]
     },
     "leg_lower": {
-      "group": "body",
+      "group": "near_leg",
       "from": "knee",
       "to": "ankle",
       "mode": "bone",
@@ -215,10 +215,11 @@
       "y": [
         820,
         4000
-      ]
+      ],
+      "not_within": "boot"
     },
     "foot": {
-      "group": "boot",
+      "group": "near_leg",
       "from": "ankle",
       "to": "toe",
       "mode": "upright",
@@ -227,7 +228,7 @@
           "name": "foot_back",
           "bone": "foot_back",
           "z": -5,
-          "tint": 0.62
+          "tint": 0.72
         },
         {
           "name": "foot_front",
@@ -235,7 +236,8 @@
           "z": 3
         }
       ],
-      "pivot": "ankle"
+      "pivot": "ankle",
+      "within": "boot"
     },
     "arm_upper": {
       "group": "arm",
@@ -490,7 +492,16 @@
           ]
         ]
       }
-    ]
+    ],
+    "fill_holes": {
+      "parts": [
+        "pelvis",
+        "leg_upper",
+        "leg_lower",
+        "foot"
+      ],
+      "max_area": 200
+    }
   },
   "stages": [
     {
@@ -499,5 +510,46 @@
       "seed": 51,
       "prompt": "Remove all the armor plates completely (the shoulder armor, the forearm guards, the knee pads and the chest plate) and paint the undersuit that was beneath them, in exactly the same art style and colors. Keep everything else exactly unchanged."
     }
-  ]
+  ],
+  "near_leg": {
+    "pos": [
+      [
+        420,
+        700
+      ],
+      [
+        425,
+        800
+      ],
+      [
+        410,
+        900
+      ],
+      [
+        395,
+        1000
+      ],
+      [
+        385,
+        1070
+      ],
+      [
+        430,
+        1150
+      ]
+    ],
+    "neg": [
+      [
+        370,
+        650
+      ]
+    ],
+    "threshold": 0.3,
+    "close": 9,
+    "fill": [
+      "hand",
+      "arm",
+      "armor_shoulder"
+    ]
+  }
 }

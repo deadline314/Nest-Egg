@@ -120,35 +120,35 @@
     "leg_upper": {
       "file": "parts/leg_upper.png",
       "size": [
-        126,
-        232
+        109,
+        206
       ],
       "pivot": [
-        53.1,
-        -10.11
+        47.65,
+        -36.26
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_upper_dmg": {
       "file": "parts/leg_upper_dmg.png",
       "size": [
-        126,
-        232
+        109,
+        206
       ],
       "pivot": [
-        53.1,
-        -10.11
+        47.65,
+        -36.26
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_lower": {
       "file": "parts/leg_lower.png",
       "size": [
-        95,
-        233
+        89,
+        221
       ],
       "pivot": [
-        56.36,
+        55.84,
         7.45
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
@@ -156,11 +156,11 @@
     "leg_lower_dmg": {
       "file": "parts/leg_lower_dmg.png",
       "size": [
-        95,
-        233
+        89,
+        226
       ],
       "pivot": [
-        56.36,
+        55.84,
         7.45
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
@@ -168,12 +168,12 @@
     "foot": {
       "file": "parts/foot.png",
       "size": [
-        179,
-        130
+        162,
+        105
       ],
       "pivot": [
-        52.52,
-        49.6
+        46.52,
+        33.6
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -339,7 +339,7 @@
       "texture": "leg_upper",
       "bone": "leg_back_upper",
       "z": -5,
-      "tint": 1.63,
+      "tint": 1.54,
       "armor_order": 4
     },
     {
@@ -347,7 +347,7 @@
       "texture": "leg_lower",
       "bone": "leg_back_lower",
       "z": -5,
-      "tint": 1.64,
+      "tint": 1.56,
       "armor_order": 5
     },
     {
@@ -355,7 +355,7 @@
       "texture": "foot",
       "bone": "foot_back",
       "z": -5,
-      "tint": 0.62
+      "tint": 0.73
     },
     {
       "name": "pelvis_dmg",
@@ -404,6 +404,7 @@
       "texture": "leg_upper",
       "bone": "leg_front_upper",
       "z": 3,
+      "tint": 2.0,
       "armor_order": 4
     },
     {
@@ -411,6 +412,7 @@
       "texture": "leg_lower",
       "bone": "leg_front_lower",
       "z": 3,
+      "tint": 2.0,
       "armor_order": 5
     },
     {

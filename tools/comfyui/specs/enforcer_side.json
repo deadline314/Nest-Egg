@@ -179,7 +179,7 @@
       "pivot": "head"
     },
     "leg_upper": {
-      "group": "body",
+      "group": "near_leg",
       "from": "hip",
       "to": "knee",
       "mode": "bone",
@@ -188,12 +188,13 @@
           "name": "leg_back_upper",
           "bone": "leg_back_upper",
           "z": -5,
-          "tint": 0.62
+          "tint": 1.05
         },
         {
           "name": "leg_front_upper",
           "bone": "leg_front_upper",
-          "z": 3
+          "z": 3,
+          "tint": 1.4
         }
       ],
       "y": [
@@ -202,7 +203,7 @@
       ]
     },
     "leg_lower": {
-      "group": "body",
+      "group": "near_leg",
       "from": "knee",
       "to": "ankle",
       "mode": "bone",
@@ -211,21 +212,22 @@
           "name": "leg_back_lower",
           "bone": "leg_back_lower",
           "z": -5,
-          "tint": 0.62
+          "tint": 1.27
         },
         {
           "name": "leg_front_lower",
           "bone": "leg_front_lower",
-          "z": 3
+          "z": 3,
+          "tint": 1.7
         }
       ],
       "y": [
         853,
-        4000
+        1075
       ]
     },
     "foot": {
-      "group": "boot",
+      "group": "near_leg",
       "from": "ankle",
       "to": "toe",
       "mode": "upright",
@@ -234,15 +236,20 @@
           "name": "foot_back",
           "bone": "foot_back",
           "z": -5,
-          "tint": 0.62
+          "tint": 1.26
         },
         {
           "name": "foot_front",
           "bone": "foot_front",
-          "z": 3
+          "z": 3,
+          "tint": 1.68
         }
       ],
-      "pivot": "ankle"
+      "pivot": "ankle",
+      "y": [
+        1075,
+        4000
+      ]
     },
     "arm_upper": {
       "group": "arm",
@@ -517,7 +524,11 @@
     },
     "fill_holes": {
       "parts": [
-        "torso"
+        "torso",
+        "pelvis",
+        "leg_upper",
+        "leg_lower",
+        "foot"
       ],
       "max_area": 600
     }
@@ -535,5 +546,51 @@
       "name": "riot_shield",
       "dir": "art_src/characters/enforcer/carry"
     }
-  ]
+  ],
+  "near_leg": {
+    "pos": [
+      [
+        360,
+        700
+      ],
+      [
+        350,
+        800
+      ],
+      [
+        355,
+        900
+      ],
+      [
+        350,
+        1000
+      ],
+      [
+        350,
+        1090
+      ],
+      [
+        420,
+        1170
+      ]
+    ],
+    "neg": [
+      [
+        480,
+        1000
+      ],
+      [
+        560,
+        1130
+      ],
+      [
+        520,
+        880
+      ]
+    ],
+    "threshold": 0.3,
+    "close": 14,
+    "fill": [],
+    "cover_limbs": false
+  }
 }

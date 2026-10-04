@@ -171,7 +171,7 @@
       "pivot": "head"
     },
     "leg_upper": {
-      "group": "body",
+      "group": "near_leg",
       "from": "hip",
       "to": "knee",
       "mode": "bone",
@@ -180,12 +180,13 @@
           "name": "leg_back_upper",
           "bone": "leg_back_upper",
           "z": -5,
-          "tint": 0.62
+          "tint": 1.6
         },
         {
           "name": "leg_front_upper",
           "bone": "leg_front_upper",
-          "z": 3
+          "z": 3,
+          "tint": 2.0
         }
       ],
       "y": [
@@ -194,7 +195,7 @@
       ]
     },
     "leg_lower": {
-      "group": "body",
+      "group": "near_leg",
       "from": "knee",
       "to": "ankle",
       "mode": "bone",
@@ -203,21 +204,23 @@
           "name": "leg_back_lower",
           "bone": "leg_back_lower",
           "z": -5,
-          "tint": 0.62
+          "tint": 1.6
         },
         {
           "name": "leg_front_lower",
           "bone": "leg_front_lower",
-          "z": 3
+          "z": 3,
+          "tint": 2.0
         }
       ],
       "y": [
         816,
         4000
-      ]
+      ],
+      "not_within": "boot"
     },
     "foot": {
-      "group": "boot",
+      "group": "near_leg",
       "from": "ankle",
       "to": "toe",
       "mode": "upright",
@@ -226,15 +229,17 @@
           "name": "foot_back",
           "bone": "foot_back",
           "z": -5,
-          "tint": 0.62
+          "tint": 1.6
         },
         {
           "name": "foot_front",
           "bone": "foot_front",
-          "z": 3
+          "z": 3,
+          "tint": 2.0
         }
       ],
-      "pivot": "ankle"
+      "pivot": "ankle",
+      "within": "boot"
     },
     "arm_upper": {
       "group": "arm",
@@ -459,6 +464,15 @@
         "armor_shoulder"
       ],
       "sigma": 1.0
+    },
+    "fill_holes": {
+      "parts": [
+        "pelvis",
+        "leg_upper",
+        "leg_lower",
+        "foot"
+      ],
+      "max_area": 200
     }
   },
   "stages": [
@@ -468,5 +482,78 @@
       "seed": 51,
       "prompt": "Remove all the armor plates completely (the shoulder armor, the forearm guards, the knee pads and the chest plate) and paint the undersuit that was beneath them, in exactly the same art style and colors. Keep everything else exactly unchanged."
     }
-  ]
+  ],
+  "near_leg": {
+    "pos": [
+      [
+        360,
+        740
+      ],
+      [
+        365,
+        830
+      ],
+      [
+        355,
+        950
+      ],
+      [
+        345,
+        1060
+      ],
+      [
+        350,
+        1120
+      ],
+      [
+        420,
+        1150
+      ]
+    ],
+    "neg": [
+      [
+        330,
+        650
+      ]
+    ],
+    "threshold": 0.3,
+    "close": 40,
+    "fill": [],
+    "cover": [
+      {
+        "pos": [
+          [
+            335,
+            650
+          ],
+          [
+            330,
+            620
+          ],
+          [
+            345,
+            675
+          ],
+          [
+            310,
+            590
+          ]
+        ],
+        "neg": [
+          [
+            360,
+            730
+          ],
+          [
+            360,
+            520
+          ],
+          [
+            400,
+            640
+          ]
+        ]
+      }
+    ]
+  }
 }

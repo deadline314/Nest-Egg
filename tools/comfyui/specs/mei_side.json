@@ -255,7 +255,7 @@
       ]
     },
     "leg_upper": {
-      "group": "body",
+      "group": "near_leg",
       "from": "hip",
       "to": "knee",
       "mode": "bone",
@@ -264,14 +264,15 @@
           "name": "leg_back_upper",
           "bone": "leg_back_upper",
           "z": -5,
-          "tint": 0.62,
+          "tint": 1.54,
           "armor_order": 4
         },
         {
           "name": "armor_thigh",
           "bone": "leg_front_upper",
           "z": 3,
-          "armor_order": 4
+          "armor_order": 4,
+          "tint": 2.0
         }
       ],
       "y": [
@@ -306,7 +307,7 @@
       "damage_of": "leg_upper"
     },
     "leg_lower": {
-      "group": "body",
+      "group": "near_leg",
       "from": "knee",
       "to": "ankle",
       "mode": "bone",
@@ -315,19 +316,20 @@
           "name": "leg_back_lower",
           "bone": "leg_back_lower",
           "z": -5,
-          "tint": 0.62,
+          "tint": 1.56,
           "armor_order": 5
         },
         {
           "name": "armor_calf",
           "bone": "leg_front_lower",
           "z": 3,
-          "armor_order": 5
+          "armor_order": 5,
+          "tint": 2.0
         }
       ],
       "y": [
         855,
-        4000
+        1090
       ]
     },
     "leg_lower_dmg": {
@@ -357,7 +359,7 @@
       "damage_of": "leg_lower"
     },
     "foot": {
-      "group": "boot",
+      "group": "near_leg",
       "from": "ankle",
       "to": "toe",
       "mode": "upright",
@@ -366,7 +368,7 @@
           "name": "foot_back",
           "bone": "foot_back",
           "z": -5,
-          "tint": 0.62
+          "tint": 0.73
         },
         {
           "name": "foot_front",
@@ -374,7 +376,11 @@
           "z": 3
         }
       ],
-      "pivot": "ankle"
+      "pivot": "ankle",
+      "y": [
+        1090,
+        4000
+      ]
     },
     "arm_upper": {
       "group": "arm",
@@ -971,6 +977,15 @@
         "pelvis"
       ],
       "radius": 24
+    },
+    "fill_holes": {
+      "parts": [
+        "pelvis",
+        "leg_upper",
+        "leg_lower",
+        "foot"
+      ],
+      "max_area": 200
     }
   },
   "stages": [
@@ -1049,6 +1064,66 @@
         466.0,
         133.0
       ]
+    ]
+  },
+  "near_leg": {
+    "pos": [
+      [
+        395,
+        700
+      ],
+      [
+        400,
+        800
+      ],
+      [
+        395,
+        900
+      ],
+      [
+        385,
+        1000
+      ],
+      [
+        375,
+        1090
+      ],
+      [
+        330,
+        1170
+      ],
+      [
+        370,
+        1130
+      ],
+      [
+        400,
+        1180
+      ],
+      [
+        430,
+        1165
+      ]
+    ],
+    "neg": [
+      [
+        470,
+        1110
+      ],
+      [
+        490,
+        1135
+      ],
+      [
+        470,
+        1050
+      ]
+    ],
+    "threshold": 0.3,
+    "close": 9,
+    "fill": [
+      "hand",
+      "arm"
     ]
   }
 }

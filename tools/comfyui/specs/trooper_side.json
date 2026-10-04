@@ -185,7 +185,7 @@
       "pivot": "head"
     },
     "leg_upper": {
-      "group": "body",
+      "group": "near_leg",
       "from": "hip",
       "to": "knee",
       "mode": "bone",
@@ -208,7 +208,7 @@
       ]
     },
     "leg_lower": {
-      "group": "body",
+      "group": "near_leg",
       "from": "knee",
       "to": "ankle",
       "mode": "bone",
@@ -228,10 +228,11 @@
       "y": [
         840,
         4000
-      ]
+      ],
+      "not_within": "boot"
     },
     "foot": {
-      "group": "boot",
+      "group": "near_leg",
       "from": "ankle",
       "to": "toe",
       "mode": "upright",
@@ -240,15 +241,17 @@
           "name": "foot_back",
           "bone": "foot_back",
           "z": -5,
-          "tint": 0.62
+          "tint": 1.34
         },
         {
           "name": "foot_front",
           "bone": "foot_front",
-          "z": 3
+          "z": 3,
+          "tint": 1.78
         }
       ],
-      "pivot": "ankle"
+      "pivot": "ankle",
+      "within": "boot"
     },
     "arm_upper": {
       "group": "arm",
@@ -517,6 +520,15 @@
         "armor_knee"
       ],
       "sigma": 1.0
+    },
+    "fill_holes": {
+      "parts": [
+        "pelvis",
+        "leg_upper",
+        "leg_lower",
+        "foot"
+      ],
+      "max_area": 200
     }
   },
   "stages": [
@@ -526,5 +538,59 @@
       "seed": 51,
       "prompt": "Remove all the armor plates completely (the shoulder armor, the forearm guards, the knee pads and the chest plate) and paint the undersuit that was beneath them, in exactly the same art style and colors. Keep everything else exactly unchanged."
     }
-  ]
+  ],
+  "near_leg": {
+    "pos": [
+      [
+        340,
+        700
+      ],
+      [
+        335,
+        780
+      ],
+      [
+        330,
+        900
+      ],
+      [
+        325,
+        960
+      ],
+      [
+        310,
+        1050
+      ],
+      [
+        330,
+        1120
+      ],
+      [
+        400,
+        1170
+      ]
+    ],
+    "neg": [
+      [
+        420,
+        1050
+      ],
+      [
+        480,
+        1130
+      ],
+      [
+        455,
+        900
+      ]
+    ],
+    "threshold": 0.3,
+    "close": 9,
+    "fill": [
+      "hand",
+      "arm",
+      "armor_forearm",
+      "armor_shoulder"
+    ]
+  }
 }

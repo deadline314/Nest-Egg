@@ -153,7 +153,7 @@
       "pivot": "head"
     },
     "leg_upper": {
-      "group": "body",
+      "group": "near_leg",
       "from": "hip",
       "to": "knee",
       "mode": "bone",
@@ -177,7 +177,7 @@
       ]
     },
     "leg_lower": {
-      "group": "body",
+      "group": "near_leg",
       "from": "knee",
       "to": "ankle",
       "mode": "bone",
@@ -197,11 +197,11 @@
       ],
       "y": [
         898,
-        4000
+        1085
       ]
     },
     "foot": {
-      "group": "boot",
+      "group": "near_leg",
       "from": "ankle",
       "to": "toe",
       "mode": "upright",
@@ -219,7 +219,11 @@
           "tint": 1.7
         }
       ],
-      "pivot": "ankle"
+      "pivot": "ankle",
+      "y": [
+        1085,
+        4000
+      ]
     },
     "arm_upper": {
       "group": "arm",
@@ -405,6 +409,15 @@
         "hand"
       ],
       "sigma": 1.0
+    },
+    "fill_holes": {
+      "parts": [
+        "pelvis",
+        "leg_upper",
+        "leg_lower",
+        "foot"
+      ],
+      "max_area": 200
     }
   },
   "dialog_portrait": {
@@ -423,5 +436,40 @@
       "seed": 54,
       "prompt": "Change the worker's grey shirt into a sleeveless one: delete his near-side arm entirely, including the whole grey sleeve with its pocket, the bare forearm and the black glove, so the high-visibility vest has a round armhole and the dark undershirt's shoulder shows there. No skin and no arm are drawn. Paint the vest, the belt with its pouches and the trousers that were hidden behind the arm. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
     }
-  ]
+  ],
+  "near_leg": {
+    "pos": [
+      [
+        330,
+        800
+      ],
+      [
+        350,
+        950
+      ],
+      [
+        330,
+        1130
+      ]
+    ],
+    "neg": [
+      [
+        480,
+        800
+      ],
+      [
+        500,
+        1140
+      ],
+      [
+        520,
+        1000
+      ]
+    ],
+    "threshold": 0.3,
+    "close": 9,
+    "fill": [
+      "hand"
+    ]
+  }
 }

@@ -151,7 +151,7 @@
       "pivot": "head"
     },
     "leg_upper": {
-      "group": "body",
+      "group": "near_leg",
       "from": "hip",
       "to": "knee",
       "mode": "bone",
@@ -174,7 +174,7 @@
       ]
     },
     "leg_lower": {
-      "group": "body",
+      "group": "near_leg",
       "from": "knee",
       "to": "ankle",
       "mode": "bone",
@@ -193,11 +193,11 @@
       ],
       "y": [
         870,
-        4000
+        1085
       ]
     },
     "foot": {
-      "group": "boot",
+      "group": "near_leg",
       "from": "ankle",
       "to": "toe",
       "mode": "upright",
@@ -214,7 +214,11 @@
           "z": 3
         }
       ],
-      "pivot": "ankle"
+      "pivot": "ankle",
+      "y": [
+        1085,
+        4000
+      ]
     },
     "arm_upper": {
       "group": "arm",
@@ -398,6 +402,15 @@
         "hand"
       ],
       "sigma": 1.0
+    },
+    "fill_holes": {
+      "parts": [
+        "pelvis",
+        "leg_upper",
+        "leg_lower",
+        "foot"
+      ],
+      "max_area": 200
     }
   },
   "dialog_portrait": {
@@ -416,5 +429,48 @@
       "seed": 54,
       "prompt": "Change the repairman's blue coverall into a sleeveless one: delete his near-side arm entirely, including the whole rolled sleeve, the bare forearm and the brown work glove, so the coverall has a round armhole and the dark undershirt's shoulder shows there. No skin and no arm are drawn. Paint the coverall body, the chest pocket, the tool belt with its wrenches, tools and pouches and the trousers that were hidden behind the arm. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
     }
-  ]
+  ],
+  "near_leg": {
+    "pos": [
+      [
+        330,
+        800
+      ],
+      [
+        330,
+        900
+      ],
+      [
+        340,
+        1000
+      ],
+      [
+        340,
+        1110
+      ],
+      [
+        350,
+        1170
+      ]
+    ],
+    "neg": [
+      [
+        460,
+        900
+      ],
+      [
+        500,
+        1160
+      ],
+      [
+        450,
+        1120
+      ]
+    ],
+    "threshold": 0.3,
+    "close": 9,
+    "fill": [
+      "hand"
+    ]
+  }
 }

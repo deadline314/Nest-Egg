@@ -1,7 +1,27 @@
 [
   {
+    "step": "parts",
+    "seconds": 3.1,
+    "outputs": [
+      "art_src\\characters\\warden\\06_parts",
+      "art_src\\characters\\warden\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.4,
+    "outputs": [
+      "art_src\\characters\\warden\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
     "step": "textures",
-    "seconds": 2.7,
+    "seconds": 3.1,
     "outputs": [
       "art\\characters\\warden\\character.json",
       "art\\rigs\\warden.json",
@@ -18,7 +38,7 @@
   },
   {
     "step": "import",
-    "seconds": 4.5,
+    "seconds": 4.8,
     "outputs": [
       ".godot"
     ]

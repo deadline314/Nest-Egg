@@ -92,6 +92,18 @@ def check(recipe: dict, spec: dict, need_joints: bool) -> tuple[list[str], list[
                     err(f"{where}.complete.occluders", f"unknown group '{o}'")
             if "stage" in c and c["stage"] not in stages:
                 err(f"{where}.complete.stage", f"unknown stage '{c['stage']}' (stages: {', '.join(sorted(stages)) or 'none'})")
+    nl_cfg = spec.get("near_leg")
+    if nl_cfg is not None:
+        if not nl_cfg.get("pos"):
+            err("spec.near_leg.pos", "needs at least one [x, y] point on the near leg")
+        for key in ("pos", "neg"):
+            for i, pt in enumerate(nl_cfg.get(key, [])):
+                if not (isinstance(pt, list) and len(pt) == 2 and all(isinstance(v, (int, float)) for v in pt)):
+                    err(f"spec.near_leg.{key}[{i}]", f"must be [x, y], got {pt}")
+        for key in ("fill", "exclude"):
+            for g in nl_cfg.get(key, []):
+                if g not in spec["groups"]:
+                    err(f"spec.near_leg.{key}", f"unknown group '{g}'")
     uses_names: list[str] = []
     orders: dict[int, list[str]] = {}
     for pname, p in spec["parts"].items():
@@ -100,8 +112,8 @@ def check(recipe: dict, spec: dict, need_joints: bool) -> tuple[list[str], list[
             if p["damage_of"] not in spec["parts"]:
                 err(f"{where}.damage_of", f"unknown part '{p['damage_of']}'")
             continue
-        if p.get("group") not in spec["groups"]:
-            err(f"{where}.group", f"unknown group '{p.get('group')}'")
+        if p.get("group") not in spec["groups"] and not (p.get("group") == "near_leg" and "near_leg" in spec):
+            err(f"{where}.group", f"unknown group '{p.get('group')}' (near_leg needs spec.near_leg)")
         if p.get("mode") not in MODES:
             err(f"{where}.mode", f"must be one of {sorted(MODES)}, got '{p.get('mode')}'")
         for key in ("from", "to"):

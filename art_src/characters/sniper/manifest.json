@@ -1,7 +1,7 @@
 [
   {
     "step": "parts",
-    "seconds": 3.0,
+    "seconds": 3.2,
     "outputs": [
       "art_src\\characters\\sniper\\06_parts",
       "art_src\\characters\\sniper\\06_parts\\ownership.png"
@@ -9,7 +9,7 @@
   },
   {
     "step": "refine",
-    "seconds": 1.9,
+    "seconds": 2.2,
     "outputs": [
       "art_src\\characters\\sniper\\07_refined"
     ]
@@ -21,7 +21,7 @@
   },
   {
     "step": "textures",
-    "seconds": 1.5,
+    "seconds": 1.9,
     "outputs": [
       "art\\characters\\sniper\\character.json",
       "art\\rigs\\sniper.json",
@@ -30,7 +30,7 @@
   },
   {
     "step": "normals",
-    "seconds": 1.8,
+    "seconds": 2.3,
     "outputs": [
       "art\\characters\\sniper\\parts"
     ]

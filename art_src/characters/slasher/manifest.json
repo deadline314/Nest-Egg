@@ -1,7 +1,27 @@
 [
   {
+    "step": "parts",
+    "seconds": 3.0,
+    "outputs": [
+      "art_src\\characters\\slasher\\06_parts",
+      "art_src\\characters\\slasher\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 1.9,
+    "outputs": [
+      "art_src\\characters\\slasher\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
     "step": "textures",
-    "seconds": 1.4,
+    "seconds": 1.7,
     "outputs": [
       "art\\characters\\slasher\\character.json",
       "art\\rigs\\slasher.json",
@@ -10,14 +30,14 @@
   },
   {
     "step": "normals",
-    "seconds": 1.7,
+    "seconds": 2.3,
     "outputs": [
       "art\\characters\\slasher\\parts"
     ]
   },
   {
     "step": "import",
-    "seconds": 4.6,
+    "seconds": 4.8,
     "outputs": [
       ".godot"
     ]

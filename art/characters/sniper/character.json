@@ -9,11 +9,11 @@
     "pelvis": {
       "file": "parts/pelvis.png",
       "size": [
-        145,
+        160,
         132
       ],
       "pivot": [
-        68.23,
+        83.23,
         106.61
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
@@ -21,11 +21,11 @@
     "torso": {
       "file": "parts/torso.png",
       "size": [
-        100,
+        160,
         225
       ],
       "pivot": [
-        25.35,
+        85.35,
         199.36
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
@@ -46,23 +46,23 @@
     "leg_upper": {
       "file": "parts/leg_upper.png",
       "size": [
-        149,
+        119,
         252
       ],
       "pivot": [
-        65.84,
-        -10.3
+        52.76,
+        -10.47
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_lower": {
       "file": "parts/leg_lower.png",
       "size": [
-        123,
-        282
+        107,
+        287
       ],
       "pivot": [
-        63.43,
+        62.19,
         7.98
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
@@ -70,12 +70,12 @@
     "foot": {
       "file": "parts/foot.png",
       "size": [
-        178,
-        165
+        143,
+        172
       ],
       "pivot": [
-        40.0,
-        73.4
+        39.0,
+        84.4
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -207,21 +207,21 @@
       "texture": "leg_upper",
       "bone": "leg_back_upper",
       "z": -5,
-      "tint": 1.2
+      "tint": 1.04
     },
     {
       "name": "leg_back_lower",
       "texture": "leg_lower",
       "bone": "leg_back_lower",
       "z": -5,
-      "tint": 1.71
+      "tint": 1.6
     },
     {
       "name": "foot_back",
       "texture": "foot",
       "bone": "foot_back",
       "z": -5,
-      "tint": 0.62
+      "tint": 1.46
     },
     {
       "name": "armor_knee_back",
@@ -255,20 +255,21 @@
       "texture": "leg_upper",
       "bone": "leg_front_upper",
       "z": 3,
-      "tint": 1.59
+      "tint": 1.38
     },
     {
       "name": "leg_front_lower",
       "texture": "leg_lower",
       "bone": "leg_front_lower",
       "z": 3,
-      "tint": 1.8
+      "tint": 2.0
     },
     {
       "name": "foot_front",
       "texture": "foot",
       "bone": "foot_front",
-      "z": 3
+      "z": 3,
+      "tint": 1.95
     },
     {
       "name": "armor_knee",

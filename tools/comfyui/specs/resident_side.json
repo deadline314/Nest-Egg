@@ -149,7 +149,7 @@
       "pivot": "head"
     },
     "leg_upper": {
-      "group": "body",
+      "group": "near_leg",
       "from": "hip",
       "to": "knee",
       "mode": "bone",
@@ -172,7 +172,7 @@
       ]
     },
     "leg_lower": {
-      "group": "body",
+      "group": "near_leg",
       "from": "knee",
       "to": "ankle",
       "mode": "bone",
@@ -181,7 +181,7 @@
           "name": "leg_back_lower",
           "bone": "leg_back_lower",
           "z": -5,
-          "tint": 0.62
+          "tint": 0.67
         },
         {
           "name": "leg_front_lower",
@@ -191,11 +191,11 @@
       ],
       "y": [
         874,
-        4000
+        1100
       ]
     },
     "foot": {
-      "group": "boot",
+      "group": "near_leg",
       "from": "ankle",
       "to": "toe",
       "mode": "upright",
@@ -212,7 +212,11 @@
           "z": 3
         }
       ],
-      "pivot": "ankle"
+      "pivot": "ankle",
+      "y": [
+        1100,
+        4000
+      ]
     },
     "arm_upper": {
       "group": "arm",
@@ -396,6 +400,15 @@
         "hand"
       ],
       "sigma": 1.0
+    },
+    "fill_holes": {
+      "parts": [
+        "pelvis",
+        "leg_upper",
+        "leg_lower",
+        "foot"
+      ],
+      "max_area": 200
     }
   },
   "dialog_portrait": {
@@ -414,5 +427,65 @@
       "seed": 54,
       "prompt": "Change the man's blue sweater into a sleeveless one: delete his near-side arm entirely, including the whole long sleeve with its ribbed cuff and the hand, so the sweater has a round armhole and the dark undershirt's shoulder shows there. No skin and no arm are drawn. Paint the sweater body, the ribbed hem and the trousers that were hidden behind the arm. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
     }
-  ]
+  ],
+  "near_leg": {
+    "pos": [
+      [
+        340,
+        800
+      ],
+      [
+        340,
+        950
+      ],
+      [
+        330,
+        1060
+      ],
+      [
+        320,
+        1110
+      ],
+      [
+        350,
+        1135
+      ],
+      [
+        400,
+        1155
+      ],
+      [
+        330,
+        1165
+      ],
+      [
+        420,
+        1170
+      ]
+    ],
+    "neg": [
+      [
+        420,
+        800
+      ],
+      [
+        415,
+        1000
+      ],
+      [
+        470,
+        1125
+      ],
+      [
+        440,
+        1112
+      ]
+    ],
+    "threshold": 0.3,
+    "close": 9,
+    "fill": [
+      "hand"
+    ],
+    "grow": 6
+  }
 }

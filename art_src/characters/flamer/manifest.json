@@ -1,7 +1,7 @@
 [
   {
     "step": "parts",
-    "seconds": 3.3,
+    "seconds": 3.4,
     "outputs": [
       "art_src\\characters\\flamer\\06_parts",
       "art_src\\characters\\flamer\\06_parts\\ownership.png"
@@ -9,7 +9,7 @@
   },
   {
     "step": "refine",
-    "seconds": 2.2,
+    "seconds": 2.3,
     "outputs": [
       "art_src\\characters\\flamer\\07_refined"
     ]
@@ -21,7 +21,7 @@
   },
   {
     "step": "textures",
-    "seconds": 1.7,
+    "seconds": 2.0,
     "outputs": [
       "art\\characters\\flamer\\character.json",
       "art\\rigs\\flamer.json",
@@ -30,14 +30,14 @@
   },
   {
     "step": "normals",
-    "seconds": 2.7,
+    "seconds": 3.2,
     "outputs": [
       "art\\characters\\flamer\\parts"
     ]
   },
   {
     "step": "import",
-    "seconds": 4.6,
+    "seconds": 4.8,
     "outputs": [
       ".godot"
     ]

@@ -49,6 +49,8 @@ var _rigs: Array[CharacterRig] = []
 var _inputs: Array[RigInput] = []
 var _poses: Array[String] = []
 var _time := 0.0
+## --bright：檢視用的亮場景（淺灰背景、柔和白光），暗場景下看不清零件時用；遊戲裡的實際光影不變。
+var _bright := false
 
 
 func _ready() -> void:
@@ -57,6 +59,8 @@ func _ready() -> void:
 			_out = arg.trim_prefix("--out=")
 		elif arg.begins_with("--zoom="):
 			_zoom = float(arg.trim_prefix("--zoom="))
+		elif arg == "--bright":
+			_bright = true
 		elif arg == "--head":
 			_head_only = true
 		elif arg == "--closeup":
@@ -90,7 +94,7 @@ func _ready() -> void:
 			_chars = arg.trim_prefix("--chars=").split(",", false)
 	add_child(LightKit.create_environment())
 	var bg := ColorRect.new()
-	bg.color = Color("121826")
+	bg.color = Color("5b6577") if _bright else Color("121826")
 	bg.size = Vector2(640, 360)
 	bg.z_index = -10
 	add_child(bg)
@@ -136,9 +140,9 @@ func _ready() -> void:
 	else:
 		for row in mini(_chars.size(), 2):
 			for i in SHEET_POSES.size():
-				_spawn(_chars[row], str(SHEET_WEAPONS.get(_chars[row], "")), Vector2(40 + i * 80, 160 + row * 180), SHEET_POSES[i], 2.0)
+				_spawn(_chars[row], str(SHEET_WEAPONS.get(_chars[row], "")), Vector2(40 + i * 80, 160 + row * 180), SHEET_POSES[i], _zoom if _zoom != 6.5 else 2.0)
 	for spot: Array in [[Vector2(160, 40), Palette.CYAN], [Vector2(480, 40), Color("ff2e88")], [Vector2(320, 220), Palette.WARM_LIGHT]]:
-		var light := LightKit.create_point_light(spot[1], 340.0, 0.7)
+		var light := LightKit.create_point_light(Color("f0f4ff") if _bright else spot[1], 900.0 if _bright else 340.0, 0.75 if _bright else 0.7)
 		light.position = spot[0]
 		add_child(light)
 	if not _out.is_empty():

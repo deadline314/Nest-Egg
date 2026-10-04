@@ -150,7 +150,7 @@
       "pivot": "head"
     },
     "leg_upper": {
-      "group": "body",
+      "group": "near_leg",
       "from": "hip",
       "to": "knee",
       "mode": "bone",
@@ -173,7 +173,7 @@
       ]
     },
     "leg_lower": {
-      "group": "body",
+      "group": "near_leg",
       "from": "knee",
       "to": "ankle",
       "mode": "bone",
@@ -192,11 +192,11 @@
       ],
       "y": [
         908,
-        4000
+        1135
       ]
     },
     "foot": {
-      "group": "boot",
+      "group": "near_leg",
       "from": "ankle",
       "to": "toe",
       "mode": "upright",
@@ -213,7 +213,11 @@
           "z": 3
         }
       ],
-      "pivot": "ankle"
+      "pivot": "ankle",
+      "y": [
+        1135,
+        4000
+      ]
     },
     "arm_upper": {
       "group": "arm",
@@ -397,6 +401,15 @@
         "hand"
       ],
       "sigma": 1.0
+    },
+    "fill_holes": {
+      "parts": [
+        "pelvis",
+        "leg_upper",
+        "leg_lower",
+        "foot"
+      ],
+      "max_area": 200
     }
   },
   "dialog_portrait": {
@@ -415,5 +428,45 @@
       "seed": 57,
       "prompt": "Delete the boy's near-side arm completely from the picture: the whole long sleeve with its ribbed cuff, the bare hand and the arm inside it, nothing of the arm is left. The boy has no near-side arm at all, and the side of his jacket body is seen with a plain round armhole where the sleeve was, through which you see the mint-green shirt behind it. Paint the jacket body, the ribbed hem, the pocket and the trousers that were hidden behind the arm. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
     }
-  ]
+  ],
+  "near_leg": {
+    "pos": [
+      [
+        380,
+        800
+      ],
+      [
+        380,
+        950
+      ],
+      [
+        370,
+        1050
+      ],
+      [
+        375,
+        1110
+      ],
+      [
+        375,
+        1170
+      ]
+    ],
+    "neg": [
+      [
+        480,
+        1135
+      ],
+      [
+        440,
+        1100
+      ]
+    ],
+    "threshold": 0.3,
+    "close": 9,
+    "fill": [
+      "hand",
+      "arm"
+    ]
+  }
 }

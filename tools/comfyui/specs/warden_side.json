@@ -179,7 +179,7 @@
       "pivot": "head"
     },
     "leg_upper": {
-      "group": "body",
+      "group": "near_leg",
       "from": "hip",
       "to": "knee",
       "mode": "bone",
@@ -202,7 +202,7 @@
       ]
     },
     "leg_lower": {
-      "group": "body",
+      "group": "near_leg",
       "from": "knee",
       "to": "ankle",
       "mode": "bone",
@@ -221,11 +221,11 @@
       ],
       "y": [
         791,
-        4000
+        1060
       ]
     },
     "foot": {
-      "group": "boot",
+      "group": "near_leg",
       "from": "ankle",
       "to": "toe",
       "mode": "upright",
@@ -234,7 +234,7 @@
           "name": "foot_back",
           "bone": "foot_back",
           "z": -5,
-          "tint": 0.62
+          "tint": 0.65
         },
         {
           "name": "foot_front",
@@ -242,7 +242,11 @@
           "z": 3
         }
       ],
-      "pivot": "ankle"
+      "pivot": "ankle",
+      "y": [
+        1060,
+        4000
+      ]
     },
     "arm_upper": {
       "group": "arm",
@@ -517,7 +521,11 @@
     },
     "fill_holes": {
       "parts": [
-        "arm_lower"
+        "arm_lower",
+        "pelvis",
+        "leg_upper",
+        "leg_lower",
+        "foot"
       ],
       "max_area": 1000
     }
@@ -538,5 +546,93 @@
       247
     ],
     "out": "art/portraits/warden.png"
+  },
+  "near_leg": {
+    "pos": [
+      [
+        400,
+        520
+      ],
+      [
+        420,
+        640
+      ],
+      [
+        370,
+        730
+      ],
+      [
+        330,
+        800
+      ],
+      [
+        320,
+        900
+      ],
+      [
+        320,
+        1000
+      ],
+      [
+        300,
+        1070
+      ],
+      [
+        290,
+        1140
+      ],
+      [
+        330,
+        1150
+      ],
+      [
+        360,
+        1130
+      ],
+      [
+        385,
+        1110
+      ],
+      [
+        345,
+        1095
+      ],
+      [
+        380,
+        1150
+      ]
+    ],
+    "neg": [
+      [
+        450,
+        1000
+      ],
+      [
+        470,
+        1130
+      ],
+      [
+        490,
+        1150
+      ],
+      [
+        440,
+        700
+      ]
+    ],
+    "threshold": 0.3,
+    "close": 9,
+    "fill": [],
+    "thigh_x": [
+      300,
+      470
+    ],
+    "cover_limbs": false,
+    "exclude": [
+      "hand",
+      "arm",
+      "armor_forearm",
+      "armor_shoulder"
+    ]
   }
 }

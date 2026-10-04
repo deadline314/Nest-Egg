@@ -148,7 +148,7 @@
       "pivot": "head"
     },
     "leg_upper": {
-      "group": "body",
+      "group": "near_leg",
       "from": "hip",
       "to": "knee",
       "mode": "bone",
@@ -171,7 +171,7 @@
       ]
     },
     "leg_lower": {
-      "group": "body",
+      "group": "near_leg",
       "from": "knee",
       "to": "ankle",
       "mode": "bone",
@@ -190,11 +190,11 @@
       ],
       "y": [
         861,
-        4000
+        1145
       ]
     },
     "foot": {
-      "group": "boot",
+      "group": "near_leg",
       "from": "ankle",
       "to": "toe",
       "mode": "upright",
@@ -211,7 +211,11 @@
           "z": 3
         }
       ],
-      "pivot": "ankle"
+      "pivot": "ankle",
+      "y": [
+        1145,
+        4000
+      ]
     },
     "arm_upper": {
       "group": "arm",
@@ -400,7 +404,10 @@
     },
     "fill_holes": {
       "parts": [
-        "pelvis"
+        "pelvis",
+        "leg_upper",
+        "leg_lower",
+        "foot"
       ],
       "max_area": 600
     }
@@ -421,5 +428,52 @@
       "seed": 52,
       "prompt": "Change the nurse into a sleeveless one: delete her near-side arm entirely, including the short sleeve and the cyan cuff, so the scrub top has a bare round armhole and the bare shoulder joint shows there, and delete the forearm and the hand. Paint the scrub top body, the clipped tablet and the trousers that were hidden behind the arm. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
     }
-  ]
+  ],
+  "near_leg": {
+    "pos": [
+      [
+        395,
+        800
+      ],
+      [
+        395,
+        950
+      ],
+      [
+        390,
+        1100
+      ],
+      [
+        380,
+        1160
+      ],
+      [
+        370,
+        1185
+      ],
+      [
+        430,
+        1190
+      ],
+      [
+        480,
+        1190
+      ]
+    ],
+    "neg": [
+      [
+        437,
+        1133
+      ],
+      [
+        490,
+        1150
+      ]
+    ],
+    "threshold": 0.3,
+    "close": 9,
+    "fill": [
+      "hand"
+    ]
+  }
 }

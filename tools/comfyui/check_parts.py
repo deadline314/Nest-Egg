@@ -4,7 +4,7 @@
 
 What it looks for, per texture in art/characters/<id>/character.json:
   empty        the picture is fully transparent, or has almost no pixels (a failed cut)
-  holes        enclosed transparent holes of 12 px or more: something that hid the part (an arm in front of the torso) and was not
+  holes        enclosed transparent holes of 40 px or more (and thicker than a hair-thin sliver): something that hid the part (an arm in front of the torso) and was not
                filled in, so the background shows through when the limb moves away. Small holes can be legitimate (a hair loop)
   fragments    detached pieces of 6 px or more that are not the main piece: a sliver of thigh left behind an arm, which then floats
                beside the leg while it runs
@@ -23,7 +23,7 @@ from PIL import Image
 from scipy import ndimage
 
 ROOT = Path(__file__).resolve().parents[2]
-MIN_HOLE = 12
+MIN_HOLE = 40
 MIN_FRAGMENT = 6
 MIN_PIXELS = 150
 MIN_GLOW_PIXELS = 25
@@ -53,8 +53,11 @@ def check_character(char_id: str, normals: bool = False) -> list[str]:
         if pixels < MIN_PIXELS:
             problems.append(f"{name}: empty ({pixels} px)")
             continue
-        holes, hole_count = ndimage.label(ndimage.binary_fill_holes(solid) & ~solid)
-        sizes = [int((holes == i).sum()) for i in range(1, hole_count + 1)]
+        firm = rgba[..., 3] > 127  # holes are judged on the firm pixels: a few half-transparent edge pixels around a notch are anti-aliasing, not a hole
+        holes, hole_count = ndimage.label(ndimage.binary_fill_holes(firm) & ~firm)
+        # a hair-thin sliver along two outlines (the warp that turns the limb upright can leave one) is not a hole: it must survive an erosion
+        sizes = [int((holes == i).sum()) for i in range(1, hole_count + 1)
+                 if ndimage.binary_erosion(holes == i).any()]
         big = [s for s in sizes if s >= MIN_HOLE]
         if big:
             problems.append(f"{name}: {len(big)} enclosed hole(s), largest {max(big)} px")

@@ -45,23 +45,23 @@
     "leg_upper": {
       "file": "parts/leg_upper.png",
       "size": [
-        246,
-        232
+        166,
+        228
       ],
       "pivot": [
-        135.38,
-        -9.98
+        85.05,
+        -14.44
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_lower": {
       "file": "parts/leg_lower.png",
       "size": [
-        192,
-        315
+        150,
+        208
       ],
       "pivot": [
-        81.29,
+        79.46,
         7.42
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
@@ -69,12 +69,12 @@
     "foot": {
       "file": "parts/foot.png",
       "size": [
-        187,
-        141
+        182,
+        115
       ],
       "pivot": [
-        4.09,
-        58.36
+        57.09,
+        43.36
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },

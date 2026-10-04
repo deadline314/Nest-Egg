@@ -181,19 +181,6 @@ def main() -> None:
             L[:, :, 3][new] = 255
             print(f"  close_fill {n}: +{int(new.sum())} px")
 
-    fh = cfg.get("fill_holes")
-    if fh:
-        for n in fh["parts"]:
-            L = layers[n]
-            solid = L[:, :, 3] > 127
-            holes, count = ndimage.label(ndimage.binary_fill_holes(solid) & ~solid)
-            small = np.isin(holes, [i for i in range(1, count + 1) if (holes == i).sum() < fh.get("max_area", 200)])
-            if small.any():
-                small = cv2.dilate(small.astype(np.uint8), ell(1)) > 0
-                L[:, :, :3] = cv2.inpaint(L[:, :, :3], small.astype(np.uint8) * 255, 5, cv2.INPAINT_TELEA)
-                L[:, :, 3][small] = 255
-                print(f"  fill_holes {n}: +{int(small.sum())} px")
-
     sm = cfg.get("smooth_alpha")
     for n, L in layers.items():
         if sm and n in sm["parts"]:  # soften stair-stepped outlines: blur the mask, then re-sharpen it around 50 %
@@ -203,6 +190,16 @@ def main() -> None:
         if "speckle" in cfg:
             big = components(L[:, :, 3] > 0, cfg["speckle"])
             L[:, :, 3][~big] = 0
+        fh = cfg.get("fill_holes")
+        if fh and n in fh["parts"]:  # last, after the outline smoothing, which can itself open a hair-thin crack into a hole
+            solid = L[:, :, 3] > 127
+            holes, count = ndimage.label(ndimage.binary_fill_holes(solid) & ~solid)
+            small = np.isin(holes, [i for i in range(1, count + 1) if (holes == i).sum() < fh.get("max_area", 200)])
+            if small.any():
+                small = cv2.dilate(small.astype(np.uint8), ell(1)) > 0
+                L[:, :, :3] = cv2.inpaint(L[:, :, :3], small.astype(np.uint8) * 255, 5, cv2.INPAINT_TELEA)
+                L[:, :, 3][small] = 255
+                print(f"  fill_holes {n}: +{int(small.sum())} px")
         if "defringe" in cfg:
             layers[n] = defringe(L, cfg["defringe"]["width"])
         Image.fromarray(layers[n]).save(out_dir / f"{n}.png")

@@ -1,7 +1,27 @@
 [
   {
+    "step": "parts",
+    "seconds": 2.3,
+    "outputs": [
+      "art_src\\characters\\old_k\\06_parts",
+      "art_src\\characters\\old_k\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 1.8,
+    "outputs": [
+      "art_src\\characters\\old_k\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
     "step": "textures",
-    "seconds": 1.4,
+    "seconds": 1.9,
     "outputs": [
       "art\\characters\\old_k\\character.json",
       "art\\rigs\\old_k.json",
@@ -11,14 +31,14 @@
   },
   {
     "step": "normals",
-    "seconds": 2.0,
+    "seconds": 2.5,
     "outputs": [
       "art\\characters\\old_k\\parts"
     ]
   },
   {
     "step": "import",
-    "seconds": 4.5,
+    "seconds": 4.8,
     "outputs": [
       ".godot"
     ]

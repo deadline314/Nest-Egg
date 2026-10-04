@@ -1,7 +1,27 @@
 [
   {
+    "step": "parts",
+    "seconds": 3.2,
+    "outputs": [
+      "art_src\\characters\\trooper\\06_parts",
+      "art_src\\characters\\trooper\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.3,
+    "outputs": [
+      "art_src\\characters\\trooper\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
     "step": "textures",
-    "seconds": 1.5,
+    "seconds": 1.9,
     "outputs": [
       "art\\characters\\trooper\\character.json",
       "art\\rigs\\trooper.json",
@@ -10,7 +30,7 @@
   },
   {
     "step": "normals",
-    "seconds": 1.8,
+    "seconds": 2.4,
     "outputs": [
       "art\\characters\\trooper\\parts"
     ]
