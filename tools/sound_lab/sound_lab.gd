@@ -33,6 +33,9 @@ var mixer_tab: SoundLabMixerTab
 ## 擷取片段介面（NE-180）；沒開著時是 null。擷取工具的呼叫包裝，測試時換成假的。
 var clip_editor: SoundLabClipEditor
 var clip_runner := ClipToolRunner.new()
+## 「套用到遊戲」面板（NE-186）；沒開著時是 null。套用工具的呼叫包裝，測試時換成假的。
+var apply_panel: SoundLabApplyPanel
+var apply_runner := ApplyToolRunner.new()
 var tabs: TabContainer
 var status_label: Label
 var _sync_left := SYNC_INTERVAL
@@ -90,6 +93,11 @@ func _ready() -> void:
 	status_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	status_label.clip_text = true
 	bottom.add_child(status_label)
+	var apply_button := Button.new()
+	apply_button.text = "⬇ 套用到遊戲…"
+	apply_button.tooltip_text = "把位置清單裡你挑的「預計使用」換進遊戲：先列出會改哪些位置，勾選並確認後才套用"
+	apply_button.pressed.connect(func() -> void: open_apply_panel())
+	bottom.add_child(apply_button)
 	if dock != null:
 		var show_stage := CheckBox.new()
 		show_stage.text = "畫面舞台"
@@ -170,6 +178,22 @@ func asset_detail(asset_id: String) -> String:
 ## 清單因為沒有預聽檔而隱藏了素材時，放在清單旁的一句說明。
 func hidden_assets_note(hidden: int) -> String:
 	return "另有 %d 個素材沒有預聽檔而隱藏，補齊：python tools/audio/build_candidates.py" % hidden
+
+
+## 開啟「套用到遊戲」面板（蓋在整個實驗室上），列出會改的位置；回傳是否成功。
+func open_apply_panel() -> bool:
+	if apply_panel != null:
+		return true
+	var layer := CanvasLayer.new()
+	layer.layer = 10
+	add_child(layer)
+	var panel := SoundLabApplyPanel.new()
+	panel.theme = _theme
+	panel.setup(self, apply_runner)
+	layer.add_child(panel)
+	panel.tree_exited.connect(layer.queue_free)
+	apply_panel = panel
+	return await panel.open()
 
 
 ## 開啟擷取片段介面（蓋在整個實驗室上），載入這個素材的完整波形；回傳是否成功。

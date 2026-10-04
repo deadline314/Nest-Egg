@@ -350,15 +350,15 @@ def main() -> int:
             made, errors = rebuild()
             result = {"made": made, "errors": errors}
             if errors:
-                print(json.dumps(result, ensure_ascii=False) if args.json else "\n".join(errors), file=sys.stderr if not args.json else sys.stdout)
+                print(json.dumps(result) if args.json else "\n".join(errors), file=sys.stderr if not args.json else sys.stdout)
                 return 1
         else:
             clips = [c for c in load_clips()["clips"] if not args.asset or c["parent"] == args.asset or c["id"] == args.asset]
             result = {"clips": clips}
     except ClipError as error:
-        print(json.dumps({"error": str(error)}, ensure_ascii=False) if args.json else f"錯誤：{error}", file=sys.stdout if args.json else sys.stderr)
+        print(json.dumps({"error": str(error)}) if args.json else f"錯誤：{error}", file=sys.stdout if args.json else sys.stderr)
         return 1
-    print(json.dumps(result, ensure_ascii=False) if args.json or args.command == "list" else "；".join(f"{k}={v}" for k, v in result.items()))
+    print((json.dumps(result) if args.json else json.dumps(result, ensure_ascii=False)) if args.json or args.command == "list" else "；".join(f"{k}={v}" for k, v in result.items()))
     return 0
 
 

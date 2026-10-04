@@ -188,6 +188,18 @@ class ClipToolTest(unittest.TestCase):
         self.assertEqual(made, 0)
         self.assertTrue(errors and "packA" in errors[0])
 
+    def test_json_output_is_ascii_even_for_chinese_errors(self):
+        import contextlib
+        import io
+        out = io.StringIO()
+        with mock.patch.object(sys, "argv", ["clip_tool.py", "export", "GUN-9999", "--start", "0", "--end", "1", "--json"]), contextlib.redirect_stdout(out):
+            code = ct.main()
+        self.assertEqual(code, 1)
+        text = out.getvalue()
+        self.assertTrue(text.isascii(), "--json 輸出只含 ASCII：Windows 上 Godot 用系統碼頁讀工具輸出，中文會亂碼")
+        self.assertIn("GUN-9999", json.loads(text)["error"])
+        self.assertIn("素材目錄", json.loads(text)["error"])
+
     def test_a_clip_cannot_be_clipped_again(self):
         ct.export("GUN-0007", 0.0, 0.5, preview=False)
         with self.assertRaises(ct.ClipError) as caught:

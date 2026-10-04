@@ -92,6 +92,10 @@ func _run() -> void:
 		await _run_lab_compare()
 		get_tree().quit()
 		return
+	if _scenario == "lab_apply":
+		await _run_lab_apply()
+		get_tree().quit()
+		return
 	if _scenario == "lab_live":
 		await _run_lab_live()
 		get_tree().quit()
@@ -1321,6 +1325,22 @@ func _run_lab_compare() -> void:
 	lab.slots_tab.select_slot("P-WPN-002")
 	await _settle(10)
 	_capture("lab_compare")
+	lab.queue_free()
+	get_window().content_scale_mode = scale_mode_before
+
+
+## 音效實驗室的「套用到遊戲」面板：用真實的套用工具列出會改的位置（--dry-run，不會改任何檔案）。
+func _run_lab_apply() -> void:
+	var scale_mode_before := get_window().content_scale_mode
+	get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
+	var lab := SoundLab.new()
+	lab.stage_enabled = false
+	add_child(lab)
+	await _settle(20)
+	await lab.open_apply_panel()
+	await _settle(20)
+	_capture("lab_apply")
+	lab.apply_panel.close()
 	lab.queue_free()
 	get_window().content_scale_mode = scale_mode_before
 
