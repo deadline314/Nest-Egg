@@ -20,6 +20,11 @@ static func shared() -> StageScenes:
 	return _shared
 
 
+## 換掉共用的情境目錄（測試用，例如換成只有「沒有畫面」位置的小目錄）；傳 null 還原成正式資料。
+static func set_shared(scenes: StageScenes) -> void:
+	_shared = scenes
+
+
 func _init(p_path: String = PATH) -> void:
 	path = p_path
 	reload()

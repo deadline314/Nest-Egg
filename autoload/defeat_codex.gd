@@ -64,7 +64,24 @@ func _load_progress() -> void:
 			_unlocked[id] = true
 
 
+## 實驗室讓玩家死亡時不能寫進玩家的圖鑑存檔：persist 關掉就只改記憶體。
+var persist := true
+
+
+## 目前已解鎖的卡片 id（實驗室離開時還原用）。
+func unlocked_ids() -> Array:
+	return _unlocked.keys()
+
+
+func restore_unlocked(ids: Array) -> void:
+	_unlocked.clear()
+	for id: Variant in ids:
+		_unlocked[StringName(str(id))] = true
+
+
 func _save_progress() -> void:
+	if not persist:
+		return
 	var config := ConfigFile.new()
 	for id: StringName in _unlocked.keys():
 		config.set_value(SAVE_SECTION, String(id), true)

@@ -266,6 +266,417 @@
     "enemy": "grunt"
    },
    "tip": "把保全打到暈眩，玩家衝上去發動終結技，看終結動畫與擊殺回饋"
+  },
+  "chr_behave_grunt": {
+   "name": "清掃兵出手（預兆與開槍）",
+   "group": "角色",
+   "action": "enemy_behave",
+   "params": {
+    "enemy": "grunt",
+    "seconds": 6,
+    "distance": 7
+   },
+   "tip": "清掃兵看到玩家：先閃紅色瞄準線預兆，接著開槍，看預兆音與敵方槍聲"
+  },
+  "chr_behave_sniper": {
+   "name": "狙擊手出手",
+   "group": "角色",
+   "action": "enemy_behave",
+   "params": {
+    "enemy": "sniper",
+    "seconds": 8,
+    "distance": 9
+   },
+   "tip": "狙擊手雷射瞄準閃爍後開槍"
+  },
+  "chr_behave_heavy_gunner": {
+   "name": "重裝機槍手出手",
+   "group": "角色",
+   "action": "enemy_behave",
+   "params": {
+    "enemy": "heavy_gunner",
+    "seconds": 14
+   },
+   "tip": "重裝機槍手機槍加速旋轉、掃射、過熱後散熱噴氣"
+  },
+  "chr_behave_turret": {
+   "name": "砲台出手",
+   "group": "角色",
+   "action": "enemy_behave",
+   "params": {
+    "enemy": "turret",
+    "seconds": 8
+   },
+   "tip": "哨戒砲台鎖定玩家後開火"
+  },
+  "chr_behave_shock_hound": {
+   "name": "電擊犬出手",
+   "group": "角色",
+   "action": "enemy_behave",
+   "params": {
+    "enemy": "shock_hound",
+    "seconds": 8
+   },
+   "tip": "電擊犬低吼預兆，接著撲上來電擊"
+  },
+  "chr_behave_mimic": {
+   "name": "偽裝箱出手",
+   "group": "角色",
+   "action": "enemy_behave",
+   "params": {
+    "enemy": "mimic",
+    "seconds": 8,
+    "distance": 2.5
+   },
+   "tip": "偽裝箱假裝成箱子搖晃，玩家靠近就張嘴啃咬"
+  },
+  "chr_behave_flamer": {
+   "name": "火焰兵出手",
+   "group": "角色",
+   "action": "enemy_behave",
+   "params": {
+    "enemy": "flamer",
+    "seconds": 8
+   },
+   "tip": "火焰兵點火後噴出火焰"
+  },
+  "chr_behave_searchlight": {
+   "name": "探照無人機掃到玩家",
+   "group": "角色",
+   "action": "enemy_behave",
+   "params": {
+    "enemy": "searchlight_drone",
+    "seconds": 12,
+    "distance": 0,
+    "lift": 80
+   },
+   "tip": "探照無人機懸在玩家上方，光束照到玩家：嗶聲越來越急，圓環填滿後拉警報"
+  },
+  "chr_hurt_grunt": {
+   "name": "清掃兵受傷（人形）",
+   "group": "角色",
+   "action": "enemy_hurt",
+   "params": {
+    "enemy": "grunt",
+    "hits": 3
+   },
+   "tip": "清掃兵被打中三次，聽人形類敵人的受傷叫聲"
+  },
+  "chr_die_grunt": {
+   "name": "清掃兵死亡（人形）",
+   "group": "角色",
+   "action": "enemy_die",
+   "params": {
+    "enemy": "grunt"
+   },
+   "tip": "清掃兵被打倒，聽死亡聲與擊殺重擊"
+  },
+  "chr_hurt_drone": {
+   "name": "無人機受傷（機械）",
+   "group": "角色",
+   "action": "enemy_hurt",
+   "params": {
+    "enemy": "drone",
+    "hits": 3
+   },
+   "tip": "無人機被打中三次，聽機械類敵人的受傷叫聲"
+  },
+  "chr_die_drone": {
+   "name": "無人機死亡（機械）",
+   "group": "角色",
+   "action": "enemy_die",
+   "params": {
+    "enemy": "drone"
+   },
+   "tip": "無人機被打倒，聽死亡聲與擊殺重擊"
+  },
+  "chr_hurt_shock_hound": {
+   "name": "電擊犬受傷（生物）",
+   "group": "角色",
+   "action": "enemy_hurt",
+   "params": {
+    "enemy": "shock_hound",
+    "hits": 3
+   },
+   "tip": "電擊犬被打中三次，聽生物類敵人的受傷叫聲"
+  },
+  "chr_die_shock_hound": {
+   "name": "電擊犬死亡（生物）",
+   "group": "角色",
+   "action": "enemy_die",
+   "params": {
+    "enemy": "shock_hound"
+   },
+   "tip": "電擊犬被打倒，聽死亡聲與擊殺重擊"
+  },
+  "chr_player_hurt": {
+   "name": "玩家受傷",
+   "group": "角色",
+   "action": "player_hurt",
+   "params": {
+    "hits": 2
+   },
+   "tip": "敵人的子彈打中玩家兩次，聽玩家的痛呼"
+  },
+  "chr_player_die": {
+   "name": "玩家死亡",
+   "group": "角色",
+   "action": "player_die",
+   "params": {},
+   "tip": "玩家被打倒，聽死亡聲；場地之後會自動重建"
+  },
+  "hit_crate": {
+   "name": "打中木箱（還沒破）",
+   "group": "命中",
+   "action": "shoot_prop",
+   "params": {
+    "prop": "crate",
+    "weapon": "pistol",
+    "shots": 1
+   },
+   "tip": "手槍打一槍在木箱上，木箱還沒破，聽通用命中聲"
+  },
+  "hit_weak_point": {
+   "name": "打中敵人頭部（弱點）",
+   "group": "命中",
+   "action": "shoot_enemy",
+   "params": {
+    "enemy": "grunt",
+    "weapon": "rifle",
+    "height": 49,
+    "shots": 12,
+    "distance": 6,
+    "tough": true
+   },
+   "tip": "步槍連續打清掃兵的頭，聽命中敵人的三個變體、命中尾音與弱點的叮聲"
+  },
+  "hit_ricochet": {
+   "name": "子彈被護盾彈開",
+   "group": "命中",
+   "action": "shoot_enemy",
+   "params": {
+    "enemy": "grunt",
+    "weapon": "rifle",
+    "height": 24,
+    "shots": 6,
+    "distance": 6,
+    "tough": true,
+    "shield": 3
+   },
+   "tip": "清掃兵帶著護盾，子彈被擋下彈開，聽跳彈聲"
+  },
+  "hit_generic": {
+   "name": "子彈打在通用上",
+   "group": "命中",
+   "action": "shoot_target",
+   "params": {
+    "material": "generic",
+    "weapon": "rifle",
+    "shots": 3
+   },
+   "tip": "步槍打在通用材質的靶上，看火花與碎屑，聽通用的命中聲"
+  },
+  "hit_flesh": {
+   "name": "子彈打在肉上",
+   "group": "命中",
+   "action": "shoot_target",
+   "params": {
+    "material": "flesh",
+    "weapon": "rifle",
+    "shots": 3
+   },
+   "tip": "步槍打在肉材質的靶上，看火花與碎屑，聽肉的命中聲"
+  },
+  "hit_armor": {
+   "name": "子彈打在護甲上",
+   "group": "命中",
+   "action": "shoot_target",
+   "params": {
+    "material": "armor",
+    "weapon": "rifle",
+    "shots": 3
+   },
+   "tip": "步槍打在護甲材質的靶上，看火花與碎屑，聽護甲的命中聲"
+  },
+  "hit_metal": {
+   "name": "子彈打在金屬上",
+   "group": "命中",
+   "action": "shoot_target",
+   "params": {
+    "material": "metal",
+    "weapon": "rifle",
+    "shots": 3
+   },
+   "tip": "步槍打在金屬材質的靶上，看火花與碎屑，聽金屬的命中聲"
+  },
+  "hit_concrete": {
+   "name": "子彈打在混凝土上",
+   "group": "命中",
+   "action": "shoot_target",
+   "params": {
+    "material": "concrete",
+    "weapon": "rifle",
+    "shots": 3
+   },
+   "tip": "步槍打在混凝土材質的靶上，看火花與碎屑，聽混凝土的命中聲"
+  },
+  "hit_glass": {
+   "name": "子彈打在玻璃上",
+   "group": "命中",
+   "action": "shoot_target",
+   "params": {
+    "material": "glass",
+    "weapon": "rifle",
+    "shots": 3
+   },
+   "tip": "步槍打在玻璃材質的靶上，看火花與碎屑，聽玻璃的命中聲"
+  },
+  "hit_wood": {
+   "name": "子彈打在木上",
+   "group": "命中",
+   "action": "shoot_target",
+   "params": {
+    "material": "wood",
+    "weapon": "rifle",
+    "shots": 3
+   },
+   "tip": "步槍打在木材質的靶上，看火花與碎屑，聽木的命中聲"
+  },
+  "hit_energy": {
+   "name": "子彈打在能量上",
+   "group": "命中",
+   "action": "shoot_target",
+   "params": {
+    "material": "energy",
+    "weapon": "rifle",
+    "shots": 3
+   },
+   "tip": "步槍打在能量材質的靶上，看火花與碎屑，聽能量的命中聲"
+  },
+  "guard_block": {
+   "name": "舉盾格擋",
+   "group": "命中",
+   "action": "guard",
+   "params": {
+    "mode": "block"
+   },
+   "tip": "玩家舉盾，敵人的子彈打在盾上"
+  },
+  "guard_parry": {
+   "name": "完美格擋",
+   "group": "命中",
+   "action": "guard",
+   "params": {
+    "mode": "parry"
+   },
+   "tip": "玩家在最後一刻舉盾，敵人的子彈被完美格擋反彈"
+  },
+  "guard_break": {
+   "name": "破防",
+   "group": "命中",
+   "action": "guard",
+   "params": {
+    "mode": "break"
+   },
+   "tip": "玩家舉盾被連續重擊，護盾破碎、硬直"
+  },
+  "explosion_big": {
+   "name": "大型爆炸",
+   "group": "命中",
+   "action": "explosion",
+   "params": {
+    "radius": 40
+   },
+   "tip": "玩家前方一個大爆炸，看衝擊波與火光"
+  },
+  "explosion_small": {
+   "name": "小型爆炸",
+   "group": "命中",
+   "action": "explosion",
+   "params": {
+    "radius": 18
+   },
+   "tip": "玩家前方一個小爆炸"
+  },
+  "mov_walk_metal": {
+   "name": "走在金屬地面",
+   "group": "移動",
+   "action": "walk",
+   "params": {
+    "surface": "metal",
+    "seconds": 2
+   },
+   "tip": "玩家在金屬地面上走兩秒，聽腳步聲"
+  },
+  "mov_land_metal": {
+   "name": "落在金屬地面",
+   "group": "移動",
+   "action": "land",
+   "params": {
+    "surface": "metal"
+   },
+   "tip": "玩家從高處落在金屬地面，聽落地聲與塵土"
+  },
+  "mov_walk_concrete": {
+   "name": "走在混凝土地面",
+   "group": "移動",
+   "action": "walk",
+   "params": {
+    "surface": "concrete",
+    "seconds": 2
+   },
+   "tip": "玩家在混凝土地面上走兩秒，聽腳步聲"
+  },
+  "mov_land_concrete": {
+   "name": "落在混凝土地面",
+   "group": "移動",
+   "action": "land",
+   "params": {
+    "surface": "concrete"
+   },
+   "tip": "玩家從高處落在混凝土地面，聽落地聲與塵土"
+  },
+  "mov_walk_wet": {
+   "name": "走在潮濕地面",
+   "group": "移動",
+   "action": "walk",
+   "params": {
+    "surface": "wet",
+    "seconds": 2
+   },
+   "tip": "玩家在潮濕地面上走兩秒，聽腳步聲"
+  },
+  "mov_land_wet": {
+   "name": "落在潮濕地面",
+   "group": "移動",
+   "action": "land",
+   "params": {
+    "surface": "wet"
+   },
+   "tip": "玩家從高處落在潮濕地面，聽落地聲與塵土"
+  },
+  "mov_land_unknown": {
+   "name": "落在未知地面",
+   "group": "移動",
+   "action": "land",
+   "params": {
+    "surface": "unknown"
+   },
+   "tip": "地面種類沒有登記時的落地後備音"
+  },
+  "mov_jump": {
+   "name": "跳躍",
+   "group": "移動",
+   "action": "jump",
+   "params": {},
+   "tip": "玩家起跳並落地"
+  },
+  "mov_dash": {
+   "name": "衝刺",
+   "group": "移動",
+   "action": "dash",
+   "params": {},
+   "tip": "玩家邊跑邊衝刺"
   }
  },
  "slots": {
@@ -359,66 +770,66 @@
   "P-BGM-022": {
    "none": "由 NE-169 處理"
   },
-  "P-CHR-001": {
-   "none": "由 NE-167 處理"
-  },
-  "P-CHR-002": {
-   "none": "由 NE-167 處理"
-  },
-  "P-CHR-003": {
-   "none": "由 NE-167 處理"
-  },
-  "P-CHR-004": {
-   "none": "由 NE-167 處理"
-  },
-  "P-CHR-005": {
-   "none": "由 NE-167 處理"
-  },
-  "P-CHR-006": {
-   "none": "由 NE-167 處理"
-  },
-  "P-CHR-007": {
-   "none": "由 NE-167 處理"
-  },
-  "P-CHR-008": {
-   "none": "由 NE-167 處理"
-  },
-  "P-CHR-009": {
-   "none": "由 NE-167 處理"
-  },
-  "P-CHR-010": {
-   "none": "由 NE-167 處理"
-  },
-  "P-CHR-011": {
-   "none": "由 NE-167 處理"
-  },
-  "P-CHR-012": {
-   "none": "由 NE-167 處理"
-  },
-  "P-CHR-013": {
-   "none": "由 NE-167 處理"
-  },
-  "P-CHR-014": {
-   "none": "由 NE-167 處理"
-  },
-  "P-CHR-015": {
-   "none": "由 NE-167 處理"
-  },
-  "P-CHR-016": {
-   "none": "由 NE-167 處理"
-  },
-  "P-CHR-017": {
-   "none": "由 NE-167 處理"
-  },
-  "P-CHR-018": {
-   "none": "由 NE-167 處理"
-  },
-  "P-CHR-019": {
-   "none": "由 NE-167 處理"
-  },
-  "P-CHR-020": {
-   "none": "由 NE-167 處理"
-  },
+  "P-CHR-001": [
+   "chr_player_hurt"
+  ],
+  "P-CHR-002": [
+   "chr_player_die"
+  ],
+  "P-CHR-003": [
+   "chr_hurt_grunt"
+  ],
+  "P-CHR-004": [
+   "chr_die_grunt"
+  ],
+  "P-CHR-005": [
+   "chr_hurt_drone"
+  ],
+  "P-CHR-006": [
+   "chr_die_drone"
+  ],
+  "P-CHR-007": [
+   "chr_hurt_shock_hound"
+  ],
+  "P-CHR-008": [
+   "chr_die_shock_hound"
+  ],
+  "P-CHR-009": [
+   "chr_behave_shock_hound"
+  ],
+  "P-CHR-010": [
+   "chr_behave_mimic"
+  ],
+  "P-CHR-011": [
+   "chr_behave_mimic"
+  ],
+  "P-CHR-012": [
+   "chr_behave_shock_hound"
+  ],
+  "P-CHR-013": [
+   "chr_behave_flamer"
+  ],
+  "P-CHR-014": [
+   "chr_behave_flamer"
+  ],
+  "P-CHR-015": [
+   "chr_behave_heavy_gunner"
+  ],
+  "P-CHR-016": [
+   "chr_behave_heavy_gunner"
+  ],
+  "P-CHR-017": [
+   "chr_behave_grunt"
+  ],
+  "P-CHR-018": [
+   "chr_behave_searchlight"
+  ],
+  "P-CHR-019": [
+   "chr_behave_searchlight"
+  ],
+  "P-CHR-020": [
+   "chr_behave_sniper"
+  ],
   "P-ENV-001": {
    "none": "由 NE-169 處理"
   },
@@ -473,96 +884,96 @@
   "P-ENV-018": {
    "none": "由 NE-169 處理"
   },
-  "P-HIT-001": {
-   "none": "由 NE-167 處理"
-  },
-  "P-HIT-002": {
-   "none": "由 NE-167 處理"
-  },
-  "P-HIT-003": {
-   "none": "由 NE-167 處理"
-  },
-  "P-HIT-004": {
-   "none": "由 NE-167 處理"
-  },
-  "P-HIT-005": {
-   "none": "由 NE-167 處理"
-  },
-  "P-HIT-006": {
-   "none": "由 NE-167 處理"
-  },
-  "P-HIT-007": {
-   "none": "由 NE-167 處理"
-  },
-  "P-HIT-008": {
-   "none": "由 NE-167 處理"
-  },
-  "P-HIT-009": {
-   "none": "由 NE-167 處理"
-  },
-  "P-HIT-010": {
-   "none": "由 NE-167 處理"
-  },
-  "P-HIT-011": {
-   "none": "由 NE-167 處理"
-  },
-  "P-HIT-012": {
-   "none": "由 NE-167 處理"
-  },
-  "P-HIT-013": {
-   "none": "由 NE-167 處理"
-  },
-  "P-HIT-014": {
-   "none": "由 NE-167 處理"
-  },
-  "P-HIT-015": {
-   "none": "由 NE-167 處理"
-  },
-  "P-HIT-016": {
-   "none": "由 NE-167 處理"
-  },
-  "P-HIT-017": {
-   "none": "由 NE-167 處理"
-  },
-  "P-HIT-018": {
-   "none": "由 NE-167 處理"
-  },
-  "P-HIT-019": {
-   "none": "由 NE-167 處理"
-  },
-  "P-HIT-020": {
-   "none": "由 NE-167 處理"
-  },
-  "P-HIT-021": {
-   "none": "由 NE-167 處理"
-  },
-  "P-MOV-001": {
-   "none": "由 NE-167 處理"
-  },
-  "P-MOV-002": {
-   "none": "由 NE-167 處理"
-  },
-  "P-MOV-003": {
-   "none": "由 NE-167 處理"
-  },
-  "P-MOV-004": {
-   "none": "由 NE-167 處理"
-  },
-  "P-MOV-005": {
-   "none": "由 NE-167 處理"
-  },
-  "P-MOV-006": {
-   "none": "由 NE-167 處理"
-  },
-  "P-MOV-007": {
-   "none": "由 NE-167 處理"
-  },
-  "P-MOV-008": {
-   "none": "由 NE-167 處理"
-  },
-  "P-MOV-009": {
-   "none": "由 NE-167 處理"
-  },
+  "P-HIT-001": [
+   "hit_crate"
+  ],
+  "P-HIT-002": [
+   "hit_weak_point"
+  ],
+  "P-HIT-003": [
+   "hit_weak_point"
+  ],
+  "P-HIT-004": [
+   "hit_weak_point"
+  ],
+  "P-HIT-005": [
+   "hit_weak_point"
+  ],
+  "P-HIT-006": [
+   "hit_weak_point"
+  ],
+  "P-HIT-007": [
+   "hit_ricochet"
+  ],
+  "P-HIT-008": [
+   "hit_generic"
+  ],
+  "P-HIT-009": [
+   "hit_flesh"
+  ],
+  "P-HIT-010": [
+   "hit_armor"
+  ],
+  "P-HIT-011": [
+   "hit_metal"
+  ],
+  "P-HIT-012": [
+   "hit_concrete"
+  ],
+  "P-HIT-013": [
+   "hit_glass"
+  ],
+  "P-HIT-014": [
+   "hit_wood"
+  ],
+  "P-HIT-015": [
+   "hit_energy"
+  ],
+  "P-HIT-016": [
+   "guard_block"
+  ],
+  "P-HIT-017": [
+   "guard_parry"
+  ],
+  "P-HIT-018": [
+   "guard_break"
+  ],
+  "P-HIT-019": [
+   "chr_die_grunt"
+  ],
+  "P-HIT-020": [
+   "explosion_big"
+  ],
+  "P-HIT-021": [
+   "explosion_small"
+  ],
+  "P-MOV-001": [
+   "mov_walk_metal"
+  ],
+  "P-MOV-002": [
+   "mov_walk_concrete"
+  ],
+  "P-MOV-003": [
+   "mov_walk_wet"
+  ],
+  "P-MOV-004": [
+   "mov_land_metal"
+  ],
+  "P-MOV-005": [
+   "mov_land_concrete"
+  ],
+  "P-MOV-006": [
+   "mov_land_wet"
+  ],
+  "P-MOV-007": [
+   "mov_land_unknown"
+  ],
+  "P-MOV-008": [
+   "mov_jump"
+  ],
+  "P-MOV-009": [
+   "mov_dash"
+  ],
   "P-UIS-001": {
    "none": "由 NE-169 處理"
   },
@@ -599,18 +1010,18 @@
   "P-WPN-008": [
    "wpn_fire_mech_cannon"
   ],
-  "P-WPN-009": {
-   "none": "敵方槍聲要敵人出手，由 NE-167 處理"
-  },
-  "P-WPN-010": {
-   "none": "敵方槍聲要敵人出手，由 NE-167 處理"
-  },
-  "P-WPN-011": {
-   "none": "敵方槍聲要敵人出手，由 NE-167 處理"
-  },
-  "P-WPN-012": {
-   "none": "敵方槍聲要敵人出手，由 NE-167 處理"
-  },
+  "P-WPN-009": [
+   "chr_behave_grunt"
+  ],
+  "P-WPN-010": [
+   "chr_behave_sniper"
+  ],
+  "P-WPN-011": [
+   "chr_behave_heavy_gunner"
+  ],
+  "P-WPN-012": [
+   "chr_behave_turret"
+  ],
   "P-WPN-013": [
    "wpn_reload_pistol"
   ],

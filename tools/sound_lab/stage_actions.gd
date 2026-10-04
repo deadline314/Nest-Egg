@@ -92,16 +92,31 @@ func act_fire(params: Dictionary) -> void:
 	if not await _wait(0.2):
 		return
 	arena.aim_right()
-	var shots := int(params.get("shots", 3))
-	if shots <= 1:
-		await arena.tap(&"shoot")
-	else:
-		arena.hold(&"shoot")
-		if not await _wait(float(shots - 1) * weapon.fire_interval + 0.5 * weapon.fire_interval):
-			return
-		arena.release(&"shoot")
+	if not await _fire_burst(weapon, int(params.get("shots", 3))):
+		return
 	await _wait(TAIL_TIME)
 	arena.release_all()
+
+
+## 連續開 shots 槍（照武器射速按住射擊）；回傳 false 代表被新的情境取代。
+## track 有給時（回傳瞄準的世界座標），射擊期間持續重新瞄準，敵人走動或玩家被擊退都不會打偏。
+func _fire_burst(weapon: WeaponData, shots: int, track := Callable()) -> bool:
+	if track.is_valid():
+		arena.aim_at(track.call())
+	if shots <= 1:
+		await arena.tap(&"shoot")
+		return true
+	arena.hold(&"shoot")
+	var left := float(shots - 1) * weapon.fire_interval + 0.5 * weapon.fire_interval
+	while left > 0.0:
+		var step := minf(left, 0.04)
+		if not await _wait(step):
+			return false
+		left -= step
+		if track.is_valid():
+			arena.aim_at(track.call())
+	arena.release(&"shoot")
+	return true
 
 
 ## 換彈整段。weapon、left（換彈前彈匣剩幾發，預設 0）。整段由遊戲的換彈聲音時間軸（reload_cues）播出。
@@ -183,3 +198,229 @@ func act_finisher(params: Dictionary) -> void:
 	arena.aim_right()
 	await arena.tap(&"melee")
 	await _wait(TAIL_TIME + 0.6)
+
+
+# ---------------------------------------------------------------------------
+# 命中與材質
+# ---------------------------------------------------------------------------
+
+## 玩家對敵人開槍。enemy（預設 grunt）、weapon（預設 rifle）、shots（預設 4）、distance（離玩家幾格，預設 7）、
+## height（瞄準敵人腳下往上幾像素，預設 24 打身體；打頭部弱點用 49）、tough（預設 false：true 就給敵人很多血，打不死才能一直看命中回饋）、
+## shield（給敵人幾層護盾，子彈會被擋下彈開）。敵人照常行動（暈住的敵人會蹲低，頭打不到）。
+func act_shoot_enemy(params: Dictionary) -> void:
+	var weapon := arena.use_weapon(_text(params, "weapon", "rifle"))
+	var enemy := arena.spawn_enemy(_text(params, "enemy", "grunt"), float(params.get("distance", 7.0)))
+	if weapon == null or enemy == null:
+		_fail("找不到武器「%s」或敵人「%s」" % [_text(params, "weapon", "rifle"), _text(params, "enemy", "grunt")])
+		return
+	if bool(params.get("tough", false)):
+		enemy.health.setup(9999, 0.0)
+	if int(params.get("shield", 0)) > 0:
+		enemy.add_shield(int(params["shield"]))
+	if not await _wait(0.3):
+		return
+	var height := float(params.get("height", 24.0))
+	if not await _fire_burst(weapon, int(params.get("shots", 4)), func() -> Vector2: return enemy.global_position + Vector2(0.0, -height)):
+		return
+	await _wait(TAIL_TIME + 0.4)
+	arena.release_all()
+
+
+## 玩家對場景道具開槍（木箱、油桶、玻璃牆…）。prop（data/props 的檔名，預設 crate）、weapon、shots、distance。
+func act_shoot_prop(params: Dictionary) -> void:
+	var weapon := arena.use_weapon(_text(params, "weapon", "pistol"))
+	var prop := arena.spawn_prop("res://data/props/%s.tres" % _text(params, "prop", "crate"), float(params.get("distance", 6.0)))
+	if weapon == null or prop == null:
+		_fail("找不到武器「%s」或道具「%s」" % [_text(params, "weapon", "pistol"), _text(params, "prop", "crate")])
+		return
+	if not await _wait(0.3):
+		return
+	if not await _fire_burst(weapon, int(params.get("shots", 1)), func() -> Vector2: return prop.global_position + Vector2(0.0, -12.0)):
+		return
+	await _wait(TAIL_TIME + 0.6)
+	arena.release_all()
+
+
+## 玩家對材質靶開槍。material（flesh／armor／metal／concrete／glass／wood／energy／generic）、weapon、shots、distance。
+func act_shoot_target(params: Dictionary) -> void:
+	var weapon := arena.use_weapon(_text(params, "weapon", "rifle"))
+	if weapon == null:
+		_fail("找不到武器「%s」" % _text(params, "weapon", "rifle"))
+		return
+	var target := arena.spawn_target(StringName(_text(params, "material", "generic")), float(params.get("distance", 8.0)))
+	if not await _wait(0.3):
+		return
+	if not await _fire_burst(weapon, int(params.get("shots", 3)), func() -> Vector2: return target.global_position + Vector2(0.0, -20.0)):
+		return
+	await _wait(TAIL_TIME)
+	arena.release_all()
+
+
+## 玩家打到敵人的弱點（頭部等傷害倍率大於 1 的部位）。enemy、hits（預設 2）。
+func act_hit_weak(params: Dictionary) -> void:
+	var enemy := arena.spawn_enemy(_text(params, "enemy", "grunt"), 4.0)
+	if enemy == null:
+		_fail("找不到敵人「%s」" % _text(params, "enemy", "grunt"))
+		return
+	enemy.stun(30.0)
+	if not await _wait(0.3):
+		return
+	for i in int(params.get("hits", 2)):
+		arena.damage_enemy(enemy, 1, true)
+		if not await _wait(0.5):
+			return
+	await _wait(TAIL_TIME)
+
+
+## 爆炸。radius（像素；小於 SMALL_EXPLOSION_RADIUS 是小爆炸）。在玩家前方不遠處，用遊戲自己的爆炸函式。
+func act_explosion(params: Dictionary) -> void:
+	var at := arena.player.global_position + Vector2(float(params.get("distance", 5.0)) * LabArena.TILE, -12.0)
+	Fx.explosion(at, float(params.get("radius", 40.0)), 0, Combat.Team.PLAYER, &"", Palette.WARNING)
+	await _wait(TAIL_TIME + 0.8)
+
+
+# ---------------------------------------------------------------------------
+# 玩家格擋
+# ---------------------------------------------------------------------------
+
+## 玩家舉盾被敵人子彈打中。mode：block（一般格擋）、parry（舉盾瞬間的完美格擋）、break（連續被打到破防）。
+func act_guard(params: Dictionary) -> void:
+	var mode := _text(params, "mode", "block")
+	arena.aim_right()
+	# 先確定上一個情境的舉盾已經放掉，這次才是「剛舉盾」。
+	arena.release(&"block")
+	var settle_token := _token
+	var settle_left := 90
+	while arena.player.is_blocking and settle_left > 0:
+		await arena.get_tree().physics_frame
+		settle_left -= 1
+	if settle_token != _token:
+		return
+	arena.player._since_block_release = 10.0
+	arena.hold(&"block")
+	# 一個物理影格一個物理影格等舉盾成功：完美格擋要在剛舉盾的窗口內被打中。
+	var token := _token
+	var frames_left := 90
+	while not arena.player.is_blocking and frames_left > 0:
+		await arena.get_tree().physics_frame
+		frames_left -= 1
+	if token != _token:
+		return
+	# 一般格擋等窗口過了再被打。
+	if mode != "parry" and not await _wait(arena.player.parry_window_length() + 0.15):
+		return
+	var hits := 8 if mode == "break" else 1
+	for i in hits:
+		arena.enemy_bullet_hits_player(60 if mode == "break" else 1)
+		if not await _wait(0.2):
+			return
+	await _wait(TAIL_TIME)
+	arena.release_all()
+
+
+# ---------------------------------------------------------------------------
+# 角色
+# ---------------------------------------------------------------------------
+
+## 敵人受傷。enemy（預設 grunt）、hits（預設 3，每次間隔超過受擊叫聲冷卻）。
+func act_enemy_hurt(params: Dictionary) -> void:
+	var enemy := arena.spawn_enemy(_text(params, "enemy", "grunt"), 5.0)
+	if enemy == null:
+		_fail("找不到敵人「%s」" % _text(params, "enemy", "grunt"))
+		return
+	enemy.stun(30.0)
+	if not await _wait(0.3):
+		return
+	for i in int(params.get("hits", 3)):
+		arena.damage_enemy(enemy, 1)
+		if not await _wait(0.6):
+			return
+	await _wait(TAIL_TIME)
+
+
+## 敵人死亡。enemy（預設 grunt）。
+func act_enemy_die(params: Dictionary) -> void:
+	var enemy := arena.spawn_enemy(_text(params, "enemy", "grunt"), 5.0)
+	if enemy == null:
+		_fail("找不到敵人「%s」" % _text(params, "enemy", "grunt"))
+		return
+	enemy.stun(30.0)
+	if not await _wait(0.3):
+		return
+	arena.damage_enemy(enemy, enemy.health.current)
+	await _wait(TAIL_TIME + 1.0)
+
+
+## 讓敵人自己行動一段時間：預兆、攻擊、警戒、開火都由它的 AI 做。enemy、seconds（預設 6）、distance（預設 6）、
+## lift（離地高度，飛行的探照無人機要懸在玩家上方才照得到）。
+func act_enemy_behave(params: Dictionary) -> void:
+	arena.use_weapon("pistol")
+	var enemy := arena.spawn_enemy(_text(params, "enemy", "grunt"), float(params.get("distance", 6.0)), float(params.get("lift", 0.0)))
+	if enemy == null:
+		_fail("找不到敵人「%s」" % _text(params, "enemy", "grunt"))
+		return
+	await _wait(float(params.get("seconds", 6.0)))
+
+
+## 玩家受傷。hits（預設 2）。
+func act_player_hurt(params: Dictionary) -> void:
+	for i in int(params.get("hits", 2)):
+		arena.enemy_bullet_hits_player(1)
+		if not await _wait(0.6):
+			return
+	await _wait(TAIL_TIME)
+
+
+## 玩家死亡（場地之後會自動重建）。
+func act_player_die(_params: Dictionary) -> void:
+	arena.player.health.setup(3, 0.0)
+	arena.enemy_bullet_hits_player(99)
+	await _wait(TAIL_TIME + 1.0)
+
+
+# ---------------------------------------------------------------------------
+# 移動
+# ---------------------------------------------------------------------------
+
+## 走路。surface（腳下的地面種類）、seconds（預設 2）。
+func act_walk(params: Dictionary) -> void:
+	arena.player.surface_override = StringName(_text(params, "surface"))
+	arena.hold(&"move_right")
+	if not await _wait(float(params.get("seconds", 2.0))):
+		return
+	arena.release(&"move_right")
+	await _wait(0.4)
+	arena.player.surface_override = &""
+
+
+## 從高處落地。surface、height（像素，預設 150）。
+func act_land(params: Dictionary) -> void:
+	arena.player.surface_override = StringName(_text(params, "surface"))
+	arena.player.global_position.y -= float(params.get("height", 150.0))
+	arena.player.velocity = Vector2.ZERO
+	if not await _wait_until(func() -> bool: return arena.player.is_on_floor(), 3.0):
+		return
+	await _wait(TAIL_TIME)
+	arena.player.surface_override = &""
+
+
+## 跳躍（落地一併發聲）。surface（可選）。
+func act_jump(params: Dictionary) -> void:
+	if params.has("surface"):
+		arena.player.surface_override = StringName(_text(params, "surface"))
+	await arena.tap(&"jump")
+	if not await _wait(1.2):
+		return
+	arena.player.surface_override = &""
+
+
+## 衝刺：邊走邊按衝刺。
+func act_dash(_params: Dictionary) -> void:
+	arena.hold(&"move_right")
+	if not await _wait(0.3):
+		return
+	await arena.tap(&"dash")
+	if not await _wait(0.8):
+		return
+	arena.release(&"move_right")
+	await _wait(TAIL_TIME)

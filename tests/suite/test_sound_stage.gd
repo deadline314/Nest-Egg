@@ -105,7 +105,23 @@ func _test_every_slot_scene() -> void:
 		if str(slot["kind"]) == "music":
 			continue
 		var sounds: PackedStringArray = results[scene_id]["sounds"]
-		check(sounds.has(str(slot["target"])), "scene %s makes %s (%s) sound; heard: %s" % [scene_id, slot_id, slot["target"], ", ".join(sounds)])
+		var heard := false
+		for variant in _variants_of(str(slot["target"])):
+			heard = heard or sounds.has(variant)
+		check(heard, "scene %s makes %s (%s) sound; heard: %s" % [scene_id, slot_id, slot["target"], ", ".join(sounds)])
+
+
+## 一個音效在聲音事件的同一層裡輪流播的變體（命中聲 A／B／C 輪流響，一個情境不保證每個變體都響到）；沒有變體就只有它自己。
+func _variants_of(id: String) -> PackedStringArray:
+	var out := PackedStringArray([id])
+	for event_id: Variant in Sfx.event_ids():
+		var def: Dictionary = Sfx._events[event_id]
+		for layer: Dictionary in def.get("layers", []):
+			var variants: Array = layer.get("sounds", [])
+			if variants.has(id):
+				for variant: Variant in variants:
+					out.append(str(variant))
+	return out
 
 
 func _test_cancel_and_replace() -> void:
@@ -181,9 +197,11 @@ func _test_lab_with_stage() -> void:
 	slots.select_slot("P-WPN-013")
 	check(slots._scene_option.item_count == 1 and not slots._scene_option.disabled, "a slot with a scene offers it")
 	check(await slots.play_in_stage(""), "a slot's scene plays on the stage")
+	StageScenes.set_shared(StageScenes.new("res://tests/fixtures/audio/scenes_none.json"))
 	slots.select_slot("P-HIT-001")
-	check(slots._scene_option.item_count == 0 and slots._scene_note.text.contains("沒有畫面情境"), "a slot without a scene says why")
+	check(slots._scene_option.item_count == 0 and slots._scene_note.text.contains("測試用的原因"), "a slot without a scene says why: %s" % slots._scene_note.text)
 	check(not await slots.play_in_stage(""), "playing a slot without a scene is refused, not a crash")
+	StageScenes.set_shared(null)
 	slots.select_slot("P-WPN-001")
 	check(not await slots.play_in_stage_with_candidate(), "trying a candidate with nothing selected is refused")
 	slots._candidate_list.select(0)

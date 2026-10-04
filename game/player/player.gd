@@ -397,7 +397,13 @@ func _tick_footsteps(delta: float) -> void:
 
 
 ## 腳下的地面種類（金屬、混凝土、潮濕…）；找不到地形時用預設。
+## 實驗室與測試用：指定腳下的地面種類（空字串 = 照真實地形）。
+var surface_override: StringName = &""
+
+
 func _ground_surface() -> StringName:
+	if surface_override != &"":
+		return surface_override
 	if _terrain == null or not is_instance_valid(_terrain):
 		_terrain = get_tree().get_first_node_in_group(&"terrain") as Terrain
 	var material: StringName = _terrain.material_id_at(global_position + Vector2(0.0, 4.0)) if _terrain != null else &""
