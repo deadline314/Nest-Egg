@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"school_terminal__mural_wall"
+display_name = "孩子們的牆畫"
+texture = "res://art/environment/scene_props/school_terminal/school_terminal__mural_wall.png"
+size = Vector2(88.9, 48)
+category = &"scene"

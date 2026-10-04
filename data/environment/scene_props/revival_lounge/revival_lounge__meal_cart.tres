@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"revival_lounge__meal_cart"
+display_name = "復原餐餐車"
+texture = "res://art/environment/scene_props/revival_lounge/revival_lounge__meal_cart.png"
+steam_offset = Vector2(20, 8)
+steam = true
+has_glow = true
+size = Vector2(26, 36)
+category = &"scene"

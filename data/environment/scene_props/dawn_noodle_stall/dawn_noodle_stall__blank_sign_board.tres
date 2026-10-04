@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"dawn_noodle_stall__blank_sign_board"
+display_name = "還沒寫名字的招牌"
+texture = "res://art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__blank_sign_board.png"
+size = Vector2(23.4, 30)
+category = &"scene"

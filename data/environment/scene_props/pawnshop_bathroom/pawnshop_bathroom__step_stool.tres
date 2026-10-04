@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"pawnshop_bathroom__step_stool"
+display_name = "小踏凳"
+texture = "res://art/environment/scene_props/pawnshop_bathroom/pawnshop_bathroom__step_stool.png"
+size = Vector2(7.6, 12)
+category = &"scene"

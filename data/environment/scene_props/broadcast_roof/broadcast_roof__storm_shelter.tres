@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"broadcast_roof__storm_shelter"
+display_name = "避雨的帆布棚"
+texture = "res://art/environment/scene_props/broadcast_roof/broadcast_roof__storm_shelter.png"
+light_energy = 0.6
+light_radius = 50
+light_color = Color(1.0, 0.75, 0.35, 1)
+flicker = 0.08
+sway = 0.5
+light_offset = Vector2(51.5, 36.3)
+has_glow = true
+size = Vector2(93.5, 66)
+category = &"scene"

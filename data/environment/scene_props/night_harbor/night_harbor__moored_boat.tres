@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"night_harbor__moored_boat"
+display_name = "停靠的漁船"
+texture = "res://art/environment/scene_props/night_harbor/night_harbor__moored_boat.png"
+light_energy = 0.6
+light_radius = 60
+light_color = Color(1.0, 0.8, 0.4, 1)
+sway = 0.3
+flicker = 0.08
+light_offset = Vector2(60.4, 18.9)
+has_glow = true
+size = Vector2(134.2, 54)
+category = &"scene"

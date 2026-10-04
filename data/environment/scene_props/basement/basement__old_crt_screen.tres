@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"basement__old_crt_screen"
+display_name = "舊錄影螢幕"
+texture = "res://art/environment/scene_props/basement/basement__old_crt_screen.png"
+light_energy = 0.4
+light_radius = 40
+light_color = Color(0.7, 0.85, 1.0, 1)
+flicker = 0.2
+glow_scan = 0.3
+light_offset = Vector2(11.1, 9)
+has_glow = true
+size = Vector2(22.1, 22.5)
+category = &"scene"

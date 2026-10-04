@@ -6,9 +6,9 @@
 
 ## 進度
 
-- 場景 43 個；背景完成 43 / 43；物件完成 394（已規劃 430，目標每場景 10 個，共 430）
-- 場景包素材量：96.7 MB / 160 MB（`python tools/assets/check_assets.py`）；物件預設貼圖倍率 6（`texture_scale`），伏筆與小物件提高到 10～16
-- 備註：依使用者指示停止生成。階段 1 全部完成（43 個背景、129 個物件）；階段 2 做到第 7 輪的前 8 個，其餘待畫。待畫的物件接續時直接執行 qwen_props.py（清單已含這些條目）。
+- 場景 43 個；背景完成 43 / 43；物件完成 430 / 430（每場景 10 個）
+- 場景包素材量：104.4 MB / 160 MB（`python tools/assets/check_assets.py`）；物件預設貼圖倍率 6（`texture_scale`），伏筆與小物件提高到 10～16
+- 備註：2026-10-05 補完每個場景的第 10 個物件（35 個），全部完成。
 
 狀態說明：完成＝圖與資料都已產出；完成（備註）＝接受最佳版本並註明缺點；待畫＝尚未生成。物件 id 同時是 `.tres` 檔名，場景的環境主題用 `prop_dir` 指向 `res://data/environment/scene_props/<場景id>/`。
 
@@ -24,41 +24,41 @@
 | 1 | `dock_warehouse` | 碼頭倉庫 | 探索＋頭目 | 完成 | 10 / 10 |
 | 1（每次復原） | `revival_room` | 復原室 | 演出 | 完成 | 10 / 10 |
 | 1 起（每章） | `anchor_phone_booth` | 錨點電話亭（街角） | 探索（存檔點） | 完成 | 10 / 10 |
-| 1（變體 4 酒客） | `revival_lounge` | 復原館（夜） | 演出 | 完成 | 9 / 10 |
-| 1 | `dawn_noodle_stall` | 天亮的麵攤 | 演出 | 完成 | 9 / 10 |
-| 2（變體 6、A） | `neon_market` | 霓虹市集 | 探索 | 完成 | 9 / 10 |
-| 2 | `yong_hideout` | 阿勇的據點 | 探索＋頭目 | 完成 | 9 / 10 |
-| 2 | `radio_workbench` | 收音機修理（當舖工作檯） | 據點 | 完成 | 9 / 10 |
-| 間章一（第二章之後） | `guest_book_room` | 客人簿（復原館包廂） | 間章 | 完成 | 9 / 10 |
-| 3 | `mezzanine` | 夾層 | 探索 | 完成 | 9 / 10 |
-| 3（邊緣）、7 | `sunlit_district` | 日照區街道 | 探索 | 完成 | 9 / 10 |
-| 3、B 結局 | `clearwater` | 晴岸（接待與樣品房） | 探索／演出 | 完成 | 9 / 10 |
-| 3 | `clinic` | 診所（錨庫分站） | 探索＋頭目 | 完成 | 9 / 10 |
-| 3 | `tianqiong_corridor` | 天穹辦公室外 | 演出 | 完成 | 9 / 10 |
-| 4、間章二 | `nursing_ward` | 安養病房（用盡者的病房） | 探索／演出 | 完成 | 9 / 10 |
-| 4、間章二 | `abandoned_factory` | 廢棄廠房 | 探索＋頭目 | 完成 | 9 / 10 |
-| 4 | `factory_office` | 廠房的辦公室 | 演出 | 完成 | 9 / 10 |
-| 5 | `basement` | 當舖地下室 | 探索／演出 | 完成 | 9 / 10 |
-| 5（間章三）、8 | `flood_street` | 洪水的港區 | 探索（非戰鬥）／間章 | 完成 | 9 / 10 |
-| 6 | `broadcast_outside` | 廣播站（外） | 探索 | 完成 | 9 / 10 |
-| 6 | `recording_booth` | 廣播站（錄音室） | 演出 | 完成 | 9 / 10 |
-| 間章四（第六章） | `control_room` | 控制室（燈） | 間章 | 完成 | 9 / 10 |
-| 6 | `broadcast_roof` | 廣播站屋頂 | 頭目 | 完成 | 9 / 10 |
-| 6 | `rain_chase_alley` | 雨中追逐（小巷） | 探索（限時） | 完成 | 9 / 10 |
-| 6（變體 結局 A） | `harbor_plaza` | 港區廣場（廣播後） | 演出 | 完成 | 9 / 10 |
-| 6 | `pawnshop_bathroom` | 當舖浴室 | 據點 | 完成 | 9 / 10 |
-| 7 | `sunlit_noodle_stall` | 麵攤（日照區） | 演出 | 完成 | 9 / 10 |
-| 7 | `public_garden` | 公共花園（日照區） | 探索（無戰鬥） | 完成 | 9 / 10 |
-| 7 | `nightmare_arena` | 夢魘（日曆頁的花園） | 頭目 | 完成 | 8 / 10 |
-| 7 | `tower_garden` | 天穹塔頂花園 | 探索／演出 | 完成 | 9 / 10 |
-| 7 | `accounting_lobby` | 櫃台（帳房大廳） | 演出 | 完成 | 9 / 10 |
-| 8 | `sluice_hall` | 水閘廳 | 頭目 | 完成 | 9 / 10 |
-| 8 | `suo_boat` | 蘇的船 | 演出 | 完成 | 9 / 10 |
-| 8 | `night_harbor` | 港口（夜） | 演出 | 完成 | 9 / 10 |
-| 9 | `tower_floors` | 天穹塔（各層） | 探索 | 完成 | 9 / 10 |
-| 9 | `ledger_hall` | 帳房 | 頭目 | 完成 | 9 / 10 |
-| 9（結局 A） | `ending_a_stall` | 「欠著」麵攤 | 演出 | 完成 | 9 / 10 |
-| 9（真結局片尾） | `school_terminal` | 學校的終端前 | 演出 | 完成 | 9 / 10 |
+| 1（變體 4 酒客） | `revival_lounge` | 復原館（夜） | 演出 | 完成 | 10 / 10 |
+| 1 | `dawn_noodle_stall` | 天亮的麵攤 | 演出 | 完成 | 10 / 10 |
+| 2（變體 6、A） | `neon_market` | 霓虹市集 | 探索 | 完成 | 10 / 10 |
+| 2 | `yong_hideout` | 阿勇的據點 | 探索＋頭目 | 完成 | 10 / 10 |
+| 2 | `radio_workbench` | 收音機修理（當舖工作檯） | 據點 | 完成 | 10 / 10 |
+| 間章一（第二章之後） | `guest_book_room` | 客人簿（復原館包廂） | 間章 | 完成 | 10 / 10 |
+| 3 | `mezzanine` | 夾層 | 探索 | 完成 | 10 / 10 |
+| 3（邊緣）、7 | `sunlit_district` | 日照區街道 | 探索 | 完成 | 10 / 10 |
+| 3、B 結局 | `clearwater` | 晴岸（接待與樣品房） | 探索／演出 | 完成 | 10 / 10 |
+| 3 | `clinic` | 診所（錨庫分站） | 探索＋頭目 | 完成 | 10 / 10 |
+| 3 | `tianqiong_corridor` | 天穹辦公室外 | 演出 | 完成 | 10 / 10 |
+| 4、間章二 | `nursing_ward` | 安養病房（用盡者的病房） | 探索／演出 | 完成 | 10 / 10 |
+| 4、間章二 | `abandoned_factory` | 廢棄廠房 | 探索＋頭目 | 完成 | 10 / 10 |
+| 4 | `factory_office` | 廠房的辦公室 | 演出 | 完成 | 10 / 10 |
+| 5 | `basement` | 當舖地下室 | 探索／演出 | 完成 | 10 / 10 |
+| 5（間章三）、8 | `flood_street` | 洪水的港區 | 探索（非戰鬥）／間章 | 完成 | 10 / 10 |
+| 6 | `broadcast_outside` | 廣播站（外） | 探索 | 完成 | 10 / 10 |
+| 6 | `recording_booth` | 廣播站（錄音室） | 演出 | 完成 | 10 / 10 |
+| 間章四（第六章） | `control_room` | 控制室（燈） | 間章 | 完成 | 10 / 10 |
+| 6 | `broadcast_roof` | 廣播站屋頂 | 頭目 | 完成 | 10 / 10 |
+| 6 | `rain_chase_alley` | 雨中追逐（小巷） | 探索（限時） | 完成 | 10 / 10 |
+| 6（變體 結局 A） | `harbor_plaza` | 港區廣場（廣播後） | 演出 | 完成 | 10 / 10 |
+| 6 | `pawnshop_bathroom` | 當舖浴室 | 據點 | 完成 | 10 / 10 |
+| 7 | `sunlit_noodle_stall` | 麵攤（日照區） | 演出 | 完成 | 10 / 10 |
+| 7 | `public_garden` | 公共花園（日照區） | 探索（無戰鬥） | 完成 | 10 / 10 |
+| 7 | `nightmare_arena` | 夢魘（日曆頁的花園） | 頭目 | 完成 | 10 / 10 |
+| 7 | `tower_garden` | 天穹塔頂花園 | 探索／演出 | 完成 | 10 / 10 |
+| 7 | `accounting_lobby` | 櫃台（帳房大廳） | 演出 | 完成 | 10 / 10 |
+| 8 | `sluice_hall` | 水閘廳 | 頭目 | 完成 | 10 / 10 |
+| 8 | `suo_boat` | 蘇的船 | 演出 | 完成 | 10 / 10 |
+| 8 | `night_harbor` | 港口（夜） | 演出 | 完成 | 10 / 10 |
+| 9 | `tower_floors` | 天穹塔（各層） | 探索 | 完成 | 10 / 10 |
+| 9 | `ledger_hall` | 帳房 | 頭目 | 完成 | 10 / 10 |
+| 9（結局 A） | `ending_a_stall` | 「欠著」麵攤 | 演出 | 完成 | 10 / 10 |
+| 9（真結局片尾） | `school_terminal` | 學校的終端前 | 演出 | 完成 | 10 / 10 |
 
 ## 巢蛋當舖（店面）（`pawnshop_front`）
 
@@ -247,7 +247,7 @@
 | `revival_lounge__bottle_wall_shelf` | 發光酒瓶牆架 | 牆上的玻璃酒架，一瓶瓶彩色酒液被燈光照得發亮。 | 1.5 m | 完成 |
 | `revival_lounge__round_table_stools` | 圓桌與高腳凳 | 兩張小圓桌配高腳凳，桌上一支小蠟燭。 | 1.0 m | 完成 |
 | `revival_lounge__hat_coat_rack` | 衣帽架 | 入口的木衣帽架，掛著幾件濕外套與一頂帽子；沒有人。 | 1.8 m | 完成 |
-| `revival_lounge__meal_cart` | 復原餐餐車 | 推車上的粥鍋、湯鍋與一疊碗，冒著熱氣。 | 1.2 m | 待畫 |
+| `revival_lounge__meal_cart` | 復原餐餐車 | 推車上的粥鍋、湯鍋與一疊碗，冒著熱氣。 | 1.2 m | 完成 |
 
 ## 天亮的麵攤（`dawn_noodle_stall`）
 
@@ -268,7 +268,7 @@
 | `dawn_noodle_stall__broth_stove` | 高湯爐與大鍋 | 地上的瓦斯爐與一口大湯鍋，咕嘟咕嘟冒著蒸氣；高湯要熬一整晚。 | 0.9 m | 完成 |
 | `dawn_noodle_stall__noodle_making_table` | 製麵桌 | 撒著麵粉的木桌：一團麵、擀麵棍與切麵刀；阿梨在練習。 | 0.9 m | 完成 |
 | `dawn_noodle_stall__dawn_string_lights` | 小燈串 | 屋簷下的一串黃色小燈泡，隨風輕輕擺動。 | 1.2 m | 完成 |
-| `dawn_noodle_stall__blank_sign_board` | 還沒寫名字的招牌 | 斜靠在牆邊的一塊空白木招牌，只有一個畫了一半的碗；名字還沒想好。 | 1.0 m | 待畫 |
+| `dawn_noodle_stall__blank_sign_board` | 還沒寫名字的招牌 | 斜靠在牆邊的一塊空白木招牌，只有一個畫了一半的碗；名字還沒想好。 | 1.0 m | 完成 |
 
 ## 霓虹市集（`neon_market`）
 
@@ -289,7 +289,7 @@
 | `neon_market__cut_lock_gate` | 鎖被剪斷的鐵門 | 鐵柵門的鏈條被乾淨地剪斷，鎖掉在地上；有人先走過這條路。 | 1.9 m | 完成 |
 | `neon_market__dripping_tarp` | 滴水的帆布雨棚 | 塑膠帆布雨棚積著水，邊緣不斷滴落水串。 | 1.6 m | 完成 |
 | `neon_market__tea_urn` | 熱水大茶桶 | 攤位旁的大鋁茶桶與塑膠凳，白煙裊裊。 | 0.9 m | 完成 |
-| `neon_market__permit_board` | 攤位許可公告板 | 公告欄上貼著蓋章的攤位許可申請單；阿梨要的是一個攤位與一張許可。 | 1.4 m | 待畫 |
+| `neon_market__permit_board` | 攤位許可公告板 | 公告欄上貼著蓋章的攤位許可申請單；阿梨要的是一個攤位與一張許可。 | 1.4 m | 完成 |
 
 ## 阿勇的據點（`yong_hideout`）
 
@@ -310,7 +310,7 @@
 | `yong_hideout__toy_corner` | 玩偶與積木 | 小薇房間地上的積木、小火車與一隻布偶。 | 0.75 m | 完成（尺寸調為 0.75 m） |
 | `yong_hideout__platform_stairs` | 通往高台的木階 | 通往小薇房間高台的木階梯，欄杆上掛著一件小外套。 | 1.6 m | 完成 |
 | `yong_hideout__debt_blackboard` | 債務黑板 | 牆上的黑板：名字、金額與利息，粉筆字被擦掉又寫上。 | 1.4 m | 完成 |
-| `yong_hideout__money_sacks` | 錢袋與錢箱 | 地上堆著的帆布袋與鐵皮錢箱。 | 0.8 m | 待畫 |
+| `yong_hideout__money_sacks` | 錢袋與錢箱 | 地上堆著的帆布袋與鐵皮錢箱。 | 0.8 m | 完成 |
 
 ## 收音機修理（當舖工作檯）（`radio_workbench`）
 
@@ -331,7 +331,7 @@
 | `radio_workbench__radio_shelf` | 待修收音機架 | 架上一排待修的收音機，每一台掛著寫著症狀的標籤。 | 1.4 m | 完成 |
 | `radio_workbench__cassette_deck` | 卡式錄音機 | 桌上的舊卡式錄音機，帶子轉著；念名單的聲音被錄了下來。 | 0.7 m | 完成 |
 | `radio_workbench__soldering_station` | 焊接台 | 烙鐵架、焊錫與一縷細煙；剛焊完一個接點。 | 0.8 m | 完成 |
-| `radio_workbench__wire_spool_rack` | 電線卷架 | 牆上的木架，一卷卷彩色電線與一束天線線。 | 1.1 m | 待畫 |
+| `radio_workbench__wire_spool_rack` | 電線卷架 | 牆上的木架，一卷卷彩色電線與一束天線線。 | 1.1 m | 完成 |
 
 ## 客人簿（復原館包廂）（`guest_book_room`）
 
@@ -352,7 +352,7 @@
 | `guest_book_room__incense_burner` | 香爐與煙 | 銅香爐裡插著三炷香，細煙一縷一縷往上飄。 | 0.8 m | 完成（尺寸調為 0.8 m） |
 | `guest_book_room__folding_screen` | 屏風 | 四扇木屏風，畫著一片淡淡的雨與一座橋。 | 1.8 m | 完成 |
 | `guest_book_room__tea_cart` | 茶具推車 | 小推車上的鐵壺、茶杯與一碟點心。 | 0.9 m | 完成 |
-| `guest_book_room__wall_scroll` | 掛軸 | 牆上的掛軸，兩個大字：「相逢」。 | 1.2 m | 待畫 |
+| `guest_book_room__wall_scroll` | 掛軸 | 牆上的掛軸，兩個大字：「相逢」。 | 1.2 m | 完成 |
 
 ## 夾層（`mezzanine`）
 
@@ -373,7 +373,7 @@
 | `mezzanine__abandoned_cart` | 廢棄的推車與工具箱 | 停在通道邊的平板推車，上面一只工具箱與捲好的水管。 | 1.0 m | 完成 |
 | `mezzanine__service_door` | 維修通道鐵門 | 貼著警告標誌的灰色鐵門：「夾層維修　非工作人員禁止進入」。 | 2.2 m | 完成 |
 | `mezzanine__drip_basin` | 冷凝水盆 | 管線下接水的金屬盆，水面一圈圈漣漪。 | 0.6 m | 完成 |
-| `mezzanine__daylight_shaft` | 天光井口 | 天花板上一個垂直通風井，一道淡白的天光灑下，灰塵在光裡飄。 | 3.0 m | 待畫 |
+| `mezzanine__daylight_shaft` | 天光井口 | 天花板上一個垂直通風井，一道淡白的天光灑下，灰塵在光裡飄。 | 3.0 m | 完成 |
 
 ## 日照區街道（`sunlit_district`）
 
@@ -394,7 +394,7 @@
 | `sunlit_district__sorting_bins` | 分類垃圾桶 | 三個顏色分明的垃圾桶：白、淡藍、淡綠，乾淨得沒有一點污漬。 | 1.0 m | 完成 |
 | `sunlit_district__info_kiosk` | 導覽亭 | 街角的導覽螢幕亭：地圖、天氣與一個微笑的圖示。 | 1.9 m | 完成 |
 | `sunlit_district__cafe_awning_set` | 咖啡座與遮陽篷 | 白黃條紋遮陽篷下兩張小桌椅與一杯咖啡。 | 2.3 m | 完成 |
-| `sunlit_district__water_fountain_post` | 飲水臺 | 石柱上的飲水臺，水弧線落進小水槽，陽光裡閃閃發亮。 | 1.0 m | 待畫 |
+| `sunlit_district__water_fountain_post` | 飲水臺 | 石柱上的飲水臺，水弧線落進小水槽，陽光裡閃閃發亮。 | 1.0 m | 完成 |
 
 ## 晴岸（接待與樣品房）（`clearwater`）
 
@@ -415,7 +415,7 @@
 | `clearwater__brochure_rack` | 宣傳冊架與價目表 | 接待處的小架：晴岸的介紹冊與價目表，480,000 的頭期款印得很小。 | 1.3 m | 完成 |
 | `clearwater__plain_wall_clock` | 沒有聲音的掛鐘 | 牆上一只極簡的白色掛鐘，秒針無聲地走。 | 0.8 m | 完成 |
 | `clearwater__tall_floor_plant` | 落地大植物 | 角落的一棵大琴葉榕，葉子乾淨得發亮。 | 1.9 m | 完成 |
-| `clearwater__sun_chart_notes` | 凜算窗戶方向的紙 | 桌上凜的手寫紙：窗戶方位、日照時數與老 K 的名字，被塗了又寫。 | 0.45 m | 待畫 |
+| `clearwater__sun_chart_notes` | 凜算窗戶方向的紙 | 桌上凜的手寫紙：窗戶方位、日照時數與老 K 的名字，被塗了又寫。 | 0.45 m | 完成 |
 
 ## 診所（錨庫分站）（`clinic`）
 
@@ -436,7 +436,7 @@
 | `clinic__water_dispenser` | 飲水機 | 牆邊的飲水機，水桶裡的氣泡緩緩上升。 | 1.3 m | 完成 |
 | `clinic__anchor_room_door` | 錨椅間的門牌 | 走廊上的門：「錨椅間 3　使用中」，紅燈亮著。 | 2.2 m | 完成 |
 | `clinic__fern_pot` | 候診室的蕨類 | 角落的大蕨類，葉子有點發黃。 | 1.1 m | 完成 |
-| `clinic__public_rate_poster` | 「耗損輕微」宣導海報 | 牆上的官方海報：「錨人耗損輕微　僅 3%」；真實的數字是 11%。 | 1.3 m | 待畫 |
+| `clinic__public_rate_poster` | 「耗損輕微」宣導海報 | 牆上的官方海報：「錨人耗損輕微　僅 3%」；真實的數字是 11%。 | 1.3 m | 完成 |
 
 ## 天穹辦公室外（`tianqiong_corridor`）
 
@@ -457,7 +457,7 @@
 | `tianqiong_corridor__water_cooler` | 辦公室飲水機 | 走廊角落的飲水機，一疊紙杯整齊地疊著。 | 1.2 m | 完成 |
 | `tianqiong_corridor__cloud_sculpture` | 雲的雕塑 | 走廊盡頭的白色抽象雕塑，一朵凝固的雲，下面的銘牌寫著天穹的名字。 | 1.5 m | 完成 |
 | `tianqiong_corridor__exec_elevator` | 高層電梯門 | 走廊底的電梯：雙開不鏽鋼門，上方的樓層顯示燈亮著。 | 2.4 m | 完成 |
-| `tianqiong_corridor__portrait_frame` | 巨幅畫像 | 牆上的巨幅畫像：一位白髮老婦人，神情平靜，下面寫著「沈望」。 | 2.0 m | 待畫 |
+| `tianqiong_corridor__portrait_frame` | 巨幅畫像 | 牆上的巨幅畫像：一位白髮老婦人，神情平靜，下面寫著「沈望」。 | 2.0 m | 完成 |
 
 ## 安養病房（用盡者的病房）（`nursing_ward`）
 
@@ -478,7 +478,7 @@
 | `nursing_ward__bed_curtain` | 床簾 | 沿著軌道拉到一半的淡綠色床簾，輕輕晃動。 | 1.9 m | 完成 |
 | `nursing_ward__bedside_radio` | 床頭的小收音機 | 床頭櫃上的小塑膠收音機，旋鈕旁有一個小紅燈，正播著一首沒有歌詞的曲子。 | 0.6 m | 完成 |
 | `nursing_ward__sunday_calendar` | 週日圈起來的日曆 | 牆上的月曆，每個週日都用紅筆圈起來，圈得整整齊齊。 | 1.0 m | 完成 |
-| `nursing_ward__nurse_cart` | 護理推車 | 走廊上的護理推車：藥盒、體溫計、一疊病歷夾與一個小鈴。 | 1.0 m | 待畫 |
+| `nursing_ward__nurse_cart` | 護理推車 | 走廊上的護理推車：藥盒、體溫計、一疊病歷夾與一個小鈴。 | 1.0 m | 完成 |
 
 ## 廢棄廠房（`abandoned_factory`）
 
@@ -499,7 +499,7 @@
 | `abandoned_factory__scrap_pile` | 廢料堆 | 堆在牆邊的鐵皮、齒輪與斷掉的軸，滿是鏽。 | 1.1 m | 完成 |
 | `abandoned_factory__cleaner_gear_case` | 清理隊的白色裝備箱 | 打開的白色硬殼裝備箱，裡面是整齊收好的白色護甲片；乾淨得和廠房格格不入。 | 1.1 m | 完成 |
 | `abandoned_factory__power_panel` | 配電盤 | 牆上的灰色配電盤，門開著，裡面冒著小火花，紅燈閃爍。 | 1.7 m | 完成 |
-| `abandoned_factory__rust_tank` | 鏽蝕的儲槽 | 一只立式圓儲槽，槽身滲著鐵鏽水，下方一圈黑色的油漬。 | 2.6 m | 待畫 |
+| `abandoned_factory__rust_tank` | 鏽蝕的儲槽 | 一只立式圓儲槽，槽身滲著鐵鏽水，下方一圈黑色的油漬。 | 2.6 m | 完成 |
 
 ## 廠房的辦公室（`factory_office`）
 
@@ -520,7 +520,7 @@
 | `factory_office__scattered_papers` | 散落一地的紙 | 地上散亂的文件、一本被踩髒的帳冊與一張被撕開的信封。 | 0.6 m | 完成（重生 2 次，紙堆中間仍有一小件雜物，接受） |
 | `factory_office__stopped_clock` | 停住的掛鐘 | 牆上的圓形掛鐘，玻璃裂了，指針停在半夜。 | 0.8 m | 完成（背景是不透明的深藍底（第三次重生尚未跑），建議不用或重生） |
 | `factory_office__hotplate_kettle` | 電爐與水壺 | 桌角的小電爐與舊水壺，水壺蓋掀開，裡面是乾的。 | 0.7 m | 完成 |
-| `factory_office__team_photo_frame` | 工廠合照 | 桌上的相框：一排穿工作服的人與一面橫幅，臉都小得看不清。 | 0.45 m | 待畫 |
+| `factory_office__team_photo_frame` | 工廠合照 | 桌上的相框：一排穿工作服的人與一面橫幅，臉都小得看不清。 | 0.45 m | 完成 |
 
 ## 當舖地下室（`basement`）
 
@@ -541,7 +541,7 @@
 | `basement__name_list_board` | 收屍人名單 | 牆上的軟木板，釘著六個名字與日期；每月同一天付現。 | 1.3 m | 完成 |
 | `basement__chip_reader` | 記憶晶片讀取器 | 桌上的小讀取器：插著一枚晶片，螢幕上一個模糊的、笑著的輪廓。 | 0.7 m | 完成 |
 | `basement__army_cot` | 行軍床與毯子 | 牆角的摺疊行軍床，一條灰毯子與一個枕頭；老 K 守夜的地方。 | 0.6 m | 完成 |
-| `basement__old_crt_screen` | 舊錄影螢幕 | 角落的舊映像管螢幕，只剩一片雪花雜訊的光。 | 0.75 m | 待畫 |
+| `basement__old_crt_screen` | 舊錄影螢幕 | 角落的舊映像管螢幕，只剩一片雪花雜訊的光。 | 0.75 m | 完成 |
 
 ## 洪水的港區（`flood_street`）
 
@@ -562,7 +562,7 @@
 | `flood_street__rescue_rope_line` | 救援繩線 | 牆與牆之間拉起的一條粗繩，掛著浮球與一排手抓環，水面上被拉得很緊。 | 1.2 m | 完成 |
 | `flood_street__balcony_lantern` | 陽台上的提燈 | 二樓陽台欄杆上垂下的一盞防風提燈，為路過的船指路。 | 1.0 m | 完成 |
 | `flood_street__plank_bridge` | 木板橋 | 兩棟樓之間搭起的一條窄木板橋，用繩子綁在窗框上。 | 0.6 m | 完成 |
-| `flood_street__sandbag_wall` | 沙袋牆 | 門口疊起來的一排沙袋，泡濕了，滲著水。 | 0.9 m | 待畫 |
+| `flood_street__sandbag_wall` | 沙袋牆 | 門口疊起來的一排沙袋，泡濕了，滲著水。 | 0.9 m | 完成 |
 
 ## 廣播站（外）（`broadcast_outside`）
 
@@ -583,7 +583,7 @@
 | `broadcast_outside__sandbag_barrier` | 沙袋與擋水板 | 站外圍起的沙袋牆，加一塊木擋水板，水已經滲進一些。 | 0.9 m | 完成 |
 | `broadcast_outside__lamp_mast` | 探照燈柱 | 高桿上兩盞探照燈，被雷聲震得微微晃動。 | 4.0 m | 完成 |
 | `broadcast_outside__studio_door` | 錄音室入口 | 低矮的混凝土建築門，門上一盞紅色的燈，門縫透出一線光。 | 2.2 m | 完成 |
-| `broadcast_outside__pump_hut` | 抽水小屋 | 水邊的小鐵皮屋，管線從牆上伸出去，窗裡一盞小黃燈。 | 2.4 m | 待畫 |
+| `broadcast_outside__pump_hut` | 抽水小屋 | 水邊的小鐵皮屋，管線從牆上伸出去，窗裡一盞小黃燈。 | 2.4 m | 完成 |
 
 ## 廣播站（錄音室）（`recording_booth`）
 
@@ -604,7 +604,7 @@
 | `recording_booth__booth_stool` | 播音高腳凳 | 一張高腳凳，椅面凹下去一個坐出來的圓；蘇坐的位置。 | 0.8 m | 完成 |
 | `recording_booth__reel_recorder` | 盤帶錄音機 | 兩個大帶盤與紅色錄音燈，帶子一圈一圈地走。 | 0.6 m | 完成 |
 | `recording_booth__glass_window` | 錄音室觀察窗 | 牆上的厚玻璃窗，後面是暗著的控制室，玻璃上映著紅燈。 | 1.2 m | 完成（重生後仍有深色邊，接受） |
-| `recording_booth__script_sheets` | 稿子與水杯 | 桌上一疊念名單用的稿紙，一支紅筆，一杯水。 | 0.4 m | 待畫 |
+| `recording_booth__script_sheets` | 稿子與水杯 | 桌上一疊念名單用的稿紙，一支紅筆，一杯水。 | 0.4 m | 完成 |
 
 ## 控制室（燈）（`control_room`）
 
@@ -625,7 +625,7 @@
 | `control_room__cable_bundle_floor` | 地上的電線束 | 從牆洞拖到機台的一大把電線，用膠帶隨便纏著。 | 0.55 m | 完成（尺寸調為 0.55 m） |
 | `control_room__whiteboard_notes` | 白板與便利貼 | 白板上畫著中繼器的草圖，邊緣貼滿黃色便利貼。 | 1.3 m | 完成 |
 | `control_room__cold_light_strip` | 冷白燈條 | 天花板上的冷白色長條燈，一端的燈管閃著。 | 0.5 m | 完成 |
-| `control_room__sos_panel` | 求救通話紅燈 | 控制台角落的小面板：一盞紅燈在閃，一個「求救」按鈕亮著。 | 0.5 m | 待畫 |
+| `control_room__sos_panel` | 求救通話紅燈 | 控制台角落的小面板：一盞紅燈在閃，一個「求救」按鈕亮著。 | 0.5 m | 完成 |
 
 ## 廣播站屋頂（`broadcast_roof`）
 
@@ -646,7 +646,7 @@
 | `broadcast_roof__sparking_box` | 冒火花的接線箱 | 屋頂牆上的接線箱，門被風吹得開開關關，裡面迸出藍白火花。 | 1.2 m | 完成 |
 | `broadcast_roof__roof_railing` | 屋頂護欄 | 屋頂邊緣的鏽鐵護欄，鏈條垂著，雨從上面成串滴下。 | 1.1 m | 完成 |
 | `broadcast_roof__magnet_coil` | 磁吸線圈塔 | 頭目戰的機關：粗大的銅線圈柱，頂端會放出藍白色電弧。 | 2.8 m | 完成 |
-| `broadcast_roof__storm_shelter` | 避雨的帆布棚 | 屋頂角落用鋼管撐起的帆布棚，裡面一張折疊桌與一盞提燈。 | 2.2 m | 待畫 |
+| `broadcast_roof__storm_shelter` | 避雨的帆布棚 | 屋頂角落用鋼管撐起的帆布棚，裡面一張折疊桌與一盞提燈。 | 2.2 m | 完成 |
 
 ## 雨中追逐（小巷）（`rain_chase_alley`）
 
@@ -667,7 +667,7 @@
 | `rain_chase_alley__ali_window` | 阿梨家的黃窗 | 巷子盡頭二樓的小窗，窗簾後透出暖黃的燈光；追逐的目標。 | 1.2 m | 完成 |
 | `rain_chase_alley__wall_pipe_run` | 牆上的管線 | 沿牆爬上去的粗管線與電線，轉角處在滴水。 | 3.0 m | 完成 |
 | `rain_chase_alley__pallet_pile` | 濕木棧板堆 | 靠牆斜倚著的木棧板與幾個空箱，泡得發黑。 | 1.2 m | 完成 |
-| `rain_chase_alley__chalk_arrow_wall` | 牆上的粉筆箭頭 | 牆上用粉筆畫的箭頭、一個碗的圖案與「近路」二字，雨把它洗得有點糊。 | 1.0 m | 待畫 |
+| `rain_chase_alley__chalk_arrow_wall` | 牆上的粉筆箭頭 | 牆上用粉筆畫的箭頭、一個碗的圖案與「近路」二字，雨把它洗得有點糊。 | 1.0 m | 完成 |
 
 ## 港區廣場（廣播後）（`harbor_plaza`）
 
@@ -688,7 +688,7 @@
 | `harbor_plaza__plaza_benches` | 廣場長椅 | 濕透的木長椅，椅面上積了一排小水珠。 | 0.8 m | 完成 |
 | `harbor_plaza__fallen_umbrellas` | 掉在地上的傘 | 地上幾把被丟下、被踩過的傘；人們聽完廣播就走了。 | 0.6 m | 完成 |
 | `harbor_plaza__notice_board_plaza` | 公告欄 | 廣場上的公告欄，貼著一張寫滿名字的紙，雨把一角泡爛了。 | 1.4 m | 完成 |
-| `harbor_plaza__hot_drink_kiosk` | 收攤的熱飲亭 | 小熱飲亭，櫃台拉下一半的鐵捲門，裡面還亮著小燈。 | 2.3 m | 待畫 |
+| `harbor_plaza__hot_drink_kiosk` | 收攤的熱飲亭 | 小熱飲亭，櫃台拉下一半的鐵捲門，裡面還亮著小燈。 | 2.3 m | 完成 |
 
 ## 當舖浴室（`pawnshop_bathroom`）
 
@@ -709,7 +709,7 @@
 | `pawnshop_bathroom__shaving_shelf` | 老 K 的小置物架 | 牆上的小木架：肥皂、梳子、一瓶舊髮油與一副假牙盒。 | 0.7 m | 完成 |
 | `pawnshop_bathroom__slippers_mat` | 拖鞋與踏墊 | 門口一張舊踏墊，兩雙拖鞋一大一小並排放著。 | 0.55 m | 完成 |
 | `pawnshop_bathroom__gas_heater` | 瓦斯熱水器 | 牆上的老式瓦斯熱水器，點火的小藍焰與熱水管上的蒸氣。 | 1.0 m | 完成 |
-| `pawnshop_bathroom__step_stool` | 小踏凳 | 浴缸邊的木製小踏凳，扶著它才能跨進去。 | 0.4 m | 待畫 |
+| `pawnshop_bathroom__step_stool` | 小踏凳 | 浴缸邊的木製小踏凳，扶著它才能跨進去。 | 0.4 m | 完成 |
 
 ## 麵攤（日照區）（`sunlit_noodle_stall`）
 
@@ -730,7 +730,7 @@
 | `sunlit_noodle_stall__wind_chime` | 風鈴 | 屋簷下的玻璃風鈴，紙籤上寫著「平安」，陽光裡閃閃發亮。 | 1.1 m | 完成（尺寸調為 1.1 m） |
 | `sunlit_noodle_stall__sunbathing_cat` | 曬太陽的貓 | 石階上攤開肚皮曬太陽的橘貓，尾巴偶爾輕輕甩一下。 | 0.6 m | 完成 |
 | `sunlit_noodle_stall__dish_rack_cart` | 洗碗推車 | 推車上的洗碗盆、一疊洗好的碗與一條毛巾，碗在陽光下閃著水光。 | 0.95 m | 完成 |
-| `sunlit_noodle_stall__tea_dispenser` | 麥茶桶 | 桌上的大保溫茶桶與一疊紙杯，旁邊一把摺扇。 | 0.6 m | 待畫 |
+| `sunlit_noodle_stall__tea_dispenser` | 麥茶桶 | 桌上的大保溫茶桶與一疊紙杯，旁邊一把摺扇。 | 0.6 m | 完成 |
 
 ## 公共花園（日照區）（`public_garden`）
 
@@ -751,7 +751,7 @@
 | `public_garden__bird_bath` | 鳥浴盆 | 石製的小水盆，三隻麻雀在邊緣喝水，水面反光。 | 0.9 m | 完成 |
 | `public_garden__picnic_set` | 野餐墊與籃子 | 草地上的格子野餐墊、一個藤籃與一壺茶；沒有人。 | 0.5 m | 完成 |
 | `public_garden__path_signpost` | 步道指示牌 | 木製的路標，兩塊箭頭板分別寫著「噴泉」與「出口」。 | 1.6 m | 完成 |
-| `public_garden__rose_bush` | 玫瑰叢 | 一叢盛開的白玫瑰與粉玫瑰，花瓣上有露珠。 | 1.0 m | 待畫 |
+| `public_garden__rose_bush` | 玫瑰叢 | 一叢盛開的白玫瑰與粉玫瑰，花瓣上有露珠。 | 1.0 m | 完成 |
 
 ## 夢魘（日曆頁的花園）（`nightmare_arena`）
 
@@ -770,9 +770,9 @@
 | `nightmare_arena__crooked_tree` | 歪曲的樹 | 被拉彎的樹，葉子是一張張小小的日曆紙。 | 4.0 m | 完成 |
 | `nightmare_arena__stopped_hourglass` | 停住的沙漏 | 巨大的沙漏，沙子停在半空，一粒一粒懸浮著。 | 3.0 m | 完成 |
 | `nightmare_arena__page_swirl` | 盤旋的日曆頁 | 一串日曆頁排成螺旋，一張接一張地飄過去，頭目的攻擊軌跡。 | 2.2 m | 完成 |
-| `nightmare_arena__hanging_pocket_watch` | 垂掛的懷錶 | 從天上垂下一只巨大的金色懷錶，指針停著，錶蓋半開；夢裡的「明天」永遠沒有到。 | 2.6 m | 待畫 |
+| `nightmare_arena__slow_ring` | 減速圈 | 地面上發光的雙層淡金色光環，環上有小時鐘與日曆刻度；頭目「明天」的減速圈。 | 0.5 m | 完成 |
 | `nightmare_arena__giant_umbrella` | 插在草地上的巨傘 | 一把比房子還大的米白色傘插在地上，傘面印著日期；夢裡的「帶傘了嗎」。 | 3.6 m | 完成 |
-| `nightmare_arena__melting_fountain` | 融化的噴泉 | 噴泉的水柱向上凝成一朵花的形狀，花瓣是水；夢裡的花園。 | 2.0 m | 待畫 |
+| `nightmare_arena__melting_fountain` | 融化的噴泉 | 噴泉的水柱向上凝成一朵花的形狀，花瓣是水；夢裡的花園。 | 2.0 m | 完成 |
 
 ## 天穹塔頂花園（`tower_garden`）
 
@@ -793,7 +793,7 @@
 | `tower_garden__pergola_bench` | 藤架長椅 | 白色藤架下的木長椅，椅背上纏著茉莉的藤。 | 2.4 m | 完成（重生 2 次，藤架內仍有深色底（模型把背景填成不透明），接受） |
 | `tower_garden__mist_sprinkler` | 噴霧灑水機關 | 地上的銅噴頭，細細的水霧在陽光裡出現小小的彩虹；沈望筆記本的第二條指示的機關。 | 1.0 m | 完成 |
 | `tower_garden__jasmine_pots` | 茉莉盆栽 | 三只白瓷盆種著開滿花的茉莉，一盆放在小凳上。 | 1.2 m | 完成 |
-| `tower_garden__sundial` | 日晷 | 石製日晷，指針的影子停在一個刻度上；沈望的第三條指示。 | 1.0 m | 待畫 |
+| `tower_garden__sundial` | 日晷 | 石製日晷，指針的影子停在一個刻度上；沈望的第三條指示。 | 1.0 m | 完成 |
 
 ## 櫃台（帳房大廳）（`accounting_lobby`）
 
@@ -814,7 +814,7 @@
 | `accounting_lobby__dome_camera` | 半球型攝影機 | 天花板的白色半球攝影機，一個小紅點亮著。 | 0.65 m | 完成（尺寸調為 0.65 m） |
 | `accounting_lobby__lobby_tree` | 大廳的室內樹 | 大廳角落一棵修剪得很圓的室內樹，種在白色圓筒裡。 | 2.6 m | 完成 |
 | `accounting_lobby__directory_sign` | 樓層指示牌 | 大廳的立式指示牌：樓層一覽，最上面一行寫著「帳房」。 | 1.6 m | 完成 |
-| `accounting_lobby__paper_shredder` | 碎紙機 | 櫃台旁的白色碎紙機，吐出一條一條細碎的紙；簽了名的合約會被送進去。 | 0.8 m | 待畫 |
+| `accounting_lobby__paper_shredder` | 碎紙機 | 櫃台旁的白色碎紙機，吐出一條一條細碎的紙；簽了名的合約會被送進去。 | 0.8 m | 完成 |
 
 ## 水閘廳（`sluice_hall`）
 
@@ -835,7 +835,7 @@
 | `sluice_hall__giant_chain` | 巨鏈 | 從閘門垂下來的巨大鏈條，每一環都比人頭還大，滴著水。 | 4.0 m | 完成 |
 | `sluice_hall__leaking_pipe_spray` | 噴水的管線 | 牆上的粗管爆開一道縫，水像一把白色的扇子噴出來。 | 2.0 m | 完成 |
 | `sluice_hall__siren_horn` | 警報喇叭 | 水閘廳樑上的紅色警報喇叭，喇叭口一圈紅燈。 | 0.8 m | 完成 |
-| `sluice_hall__pillar_stencil` | 鋼柱與水位數字 | 刷了大大白色數字的鋼柱，水痕已經淹過「3」。 | 3.4 m | 待畫 |
+| `sluice_hall__pillar_stencil` | 鋼柱與水位數字 | 刷了大大白色數字的鋼柱，水痕已經淹過「3」。 | 3.4 m | 完成 |
 
 ## 蘇的船（`suo_boat`）
 
@@ -856,7 +856,7 @@
 | `suo_boat__tilted_signpost` | 傾斜的路牌 | 只剩上半截露出水面的路牌，歪向一邊，「港區 3 街」。 | 2.0 m | 完成 |
 | `suo_boat__floating_crates` | 漂浮的木箱 | 水面上漂著的兩個木箱與一捆竹竿。 | 0.7 m | 完成 |
 | `suo_boat__flashlight_plank` | 木板上的手電筒 | 漂在水上的小木板，一支手電筒亮著，光圈打在水面。 | 0.7 m | 完成 |
-| `suo_boat__blanket_bundle` | 毛毯包與空位 | 船上一件疊好的灰毛毯與一把空著的小凳；為某個人準備的位置。 | 0.7 m | 待畫 |
+| `suo_boat__blanket_bundle` | 毛毯包與空位 | 船上一件疊好的灰毛毯與一把空著的小凳；為某個人準備的位置。 | 0.7 m | 完成 |
 
 ## 港口（夜）（`night_harbor`）
 
@@ -877,7 +877,7 @@
 | `night_harbor__anchor_chain_pile` | 錨與鏈條堆 | 一個鏽鐵錨與一堆粗鏈條，堆在碼頭一角。 | 0.9 m | 完成 |
 | `night_harbor__fishing_nets_pile` | 漁網堆 | 一堆濕漉漉的綠色漁網與浮球。 | 0.9 m | 完成 |
 | `night_harbor__harbor_bench_wet` | 碼頭的濕長椅 | 面向海的舊木長椅，椅面積著一層水。 | 0.9 m | 完成 |
-| `night_harbor__moored_boat` | 停靠的漁船 | 繫在碼頭邊的小漁船，船頭一盞小燈亮著，隨著浪輕輕搖。 | 1.8 m | 待畫 |
+| `night_harbor__moored_boat` | 停靠的漁船 | 繫在碼頭邊的小漁船，船頭一盞小燈亮著，隨著浪輕輕搖。 | 1.8 m | 完成 |
 
 ## 天穹塔（各層）（`tower_floors`）
 
@@ -898,7 +898,7 @@
 | `tower_floors__lift_capsule` | 電梯艙 | 透明的圓形電梯艙，掛在一根銀色的軌道上，內壁亮著柔和的白光。 | 2.6 m | 完成（alpha_floor 0.5 去外圈暈） |
 | `tower_floors__fibre_trunk` | 光纜幹線 | 沿著牆爬上去的一束光纜，每條纜線裡有光點緩緩上升。 | 3.4 m | 完成 |
 | `tower_floors__light_pillar` | 光柱 | 一根細長的白色光柱立在中央，像一根被點亮的柱子。 | 3.6 m | 完成 |
-| `tower_floors__tower_checkpoint` | 塔內的檢查點 | 一顆懸浮在小台座上的光球，輕輕自轉；塔內的存檔點。 | 1.4 m | 待畫 |
+| `tower_floors__tower_checkpoint` | 塔內的檢查點 | 一顆懸浮在小台座上的光球，輕輕自轉；塔內的存檔點。 | 1.4 m | 完成 |
 
 ## 帳房（`ledger_hall`）
 
@@ -919,7 +919,7 @@
 | `ledger_hall__floating_glass_panels` | 懸空的條款板群 | 三片大小不同的透明玻璃板，懸在半空，各刻著一條條款。 | 3.0 m | 完成 |
 | `ledger_hall__archive_rail_ladder` | 檔案軌道與梯子 | 沿著圓牆弧形軌道滑動的白色梯子，梯腳的小輪停在軌上。 | 3.2 m | 完成 |
 | `ledger_hall__memory_orb_cluster` | 記憶光球 | 一簇小小的發光球，一顆一顆是被磨掉的記憶，暖色冷色都有。 | 1.2 m | 完成 |
-| `ledger_hall__contract_seal` | 契約印章 | 金屬底座上的圓形印章，印面刻著一朵雲與「不得中止」。 | 0.5 m | 待畫 |
+| `ledger_hall__contract_seal` | 契約印章 | 金屬底座上的圓形印章，印面刻著一朵雲與「不得中止」。 | 0.5 m | 完成 |
 
 ## 「欠著」麵攤（`ending_a_stall`）
 
@@ -940,7 +940,7 @@
 | `ending_a_stall__waterline_wall` | 牆上的水痕 | 牆面上一道清楚的泥水線，線以下是深褐色，上面還貼著一張泡爛的海報。 | 2.2 m | 完成 |
 | `ending_a_stall__wet_umbrella_hung` | 掛著晾乾的傘 | 掛在門框上晾著的紅傘，傘尖還一滴一滴地滴水。 | 1.0 m | 完成 |
 | `ending_a_stall__drying_rack` | 曬衣架 | 木製曬衣架，掛著幾條洗過的毛巾與一件圍裙；洪水過後的第一個晴天（雖然雨沒停）。 | 1.5 m | 完成 |
-| `ending_a_stall__mud_boots` | 門邊的泥靴 | 一雙沾滿泥巴的膠鞋整齊地放在門邊，旁邊一支鏟子。 | 0.55 m | 待畫 |
+| `ending_a_stall__mud_boots` | 門邊的泥靴 | 一雙沾滿泥巴的膠鞋整齊地放在門邊，旁邊一支鏟子。 | 0.55 m | 完成 |
 
 ## 學校的終端前（`school_terminal`）
 
@@ -961,5 +961,5 @@
 | `school_terminal__backpack_bench` | 放著書包的長椅 | 走廊長椅與幾個小書包；放學後沒有被帶走的樣子。 | 0.9 m | 完成 |
 | `school_terminal__school_clock` | 學校的掛鐘 | 走廊牆上的白色圓鐘，指針指著三點。 | 0.8 m | 完成 |
 | `school_terminal__sill_plants` | 窗台上的盆栽 | 窗台上一排小盆栽，豆子才剛發芽，旁邊貼著孩子的名字。 | 0.45 m | 完成 |
-| `school_terminal__mural_wall` | 孩子們的牆畫 | 走廊牆上一幅彩色蠟筆牆畫：一把大傘下站著很多小人，旁邊畫著太陽。 | 1.6 m | 待畫 |
+| `school_terminal__mural_wall` | 孩子們的牆畫 | 走廊牆上一幅彩色蠟筆牆畫：一把大傘下站著很多小人，旁邊畫著太陽。 | 1.6 m | 完成 |
 

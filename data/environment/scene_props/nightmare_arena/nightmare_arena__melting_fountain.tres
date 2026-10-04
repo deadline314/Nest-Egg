@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"nightmare_arena__melting_fountain"
+display_name = "融化的噴泉"
+texture = "res://art/environment/scene_props/nightmare_arena/nightmare_arena__melting_fountain.png"
+glow_life = true
+has_glow = true
+size = Vector2(36.3, 60)
+category = &"scene"
