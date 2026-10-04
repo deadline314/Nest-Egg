@@ -7,6 +7,8 @@ const SOLID := "#"
 const PLATFORM := "="
 const SPIKES := "^"
 const LASER := "|"
+## 光橋：看不見的單向平台，只有被場景燈照到時才顯示出來（碰撞一直都在）。
+const GHOST := "~"
 const PLAYER_START := "P"
 const CHECKPOINT := "C"
 const HEALTH := "H"
@@ -33,6 +35,7 @@ static func parse(data: LevelData) -> LevelLayout:
 	layout.platform_rects = _merge_cells(layout, PLATFORM, true, false)
 	layout.spike_rects = _merge_cells(layout, SPIKES, true, false)
 	layout.laser_rects = _merge_cells(layout, LASER, false, true)
+	layout.ghost_rects = _merge_cells(layout, GHOST, true, false)
 	_compute_surfaces(layout)
 	_assign_story_triggers(data, layout)
 	if not layout.has_player_start:
@@ -70,7 +73,7 @@ static func _scan_cells(data: LevelData, layout: LevelLayout) -> void:
 		for x in layout.width:
 			var c := layout.cell(x, y)
 			match c:
-				SOLID, PLATFORM, SPIKES, LASER, EMPTY, " ":
+				SOLID, PLATFORM, SPIKES, LASER, GHOST, EMPTY, " ":
 					pass
 				PLAYER_START:
 					if layout.has_player_start:

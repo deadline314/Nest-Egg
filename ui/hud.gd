@@ -100,6 +100,7 @@ func _ready() -> void:
 	EventBus.boss_started.connect(_on_boss_started)
 	EventBus.boss_health_changed.connect(_on_boss_health_changed)
 	EventBus.boss_defeated.connect(_on_boss_defeated)
+	EventBus.boss_bar_closed.connect(boss_bar.close)
 	EventBus.toast_requested.connect(show_toast)
 	EventBus.lives_changed.connect(_on_lives_changed)
 	InputBindings.bindings_changed.connect(_refresh_controls)

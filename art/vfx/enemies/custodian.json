@@ -1,0 +1,74 @@
+{
+ "description": "custodian 的專屬特效（EnemyVfx 讀取）。看守長：舊制服的灰褐火星與橘色過熱蒸汽；每個敵人自己一份。",
+ "step": {
+  "every": 22,
+  "dust": 1,
+  "spread": 12,
+  "shake": 0.8,
+  "spark": 0
+ },
+ "hit": {
+  "color": "#ffb070",
+  "amount": 5,
+  "speed": 150,
+  "light": 0.6
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#ff9a50",
+    "amount": 26,
+    "speed": 240,
+    "life": 0.55
+   },
+   {
+    "color": "#b9a79a",
+    "amount": 16,
+    "speed": 190,
+    "life": 0.5,
+    "kind": "shard"
+   }
+  ],
+  "light": {
+   "color": "#ff9a50",
+   "radius": 96,
+   "energy": 1.4,
+   "time": 0.35
+  },
+  "shake": 3.5,
+  "hitstop": 0.07,
+  "extras": [
+   "smoke",
+   "steam"
+  ]
+ },
+ "states": {
+  "leap_windup": {
+   "at": "feet",
+   "dust": 4
+  },
+  "burst_windup": {
+   "at": "muzzle",
+   "bursts": [
+    {
+     "color": "#ff3b5c",
+     "amount": 5,
+     "speed": 70,
+     "life": 0.25
+    }
+   ]
+  },
+  "phase_shift": {
+   "at": "center",
+   "bursts": [
+    {
+     "color": "#ff5a3c",
+     "amount": 14,
+     "speed": 200,
+     "life": 0.5
+    }
+   ],
+   "shake": 2.0
+  }
+ }
+}

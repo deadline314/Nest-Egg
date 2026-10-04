@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=59 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=75 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_script"]
 [ext_resource type="Resource" path="res://data/story_items/doc_shaft_memo.tres" id="r1"]
@@ -53,6 +53,18 @@
 [ext_resource type="Resource" path="res://data/enemies/heavy_gunner.tres" id="ne_heavy_gunner"]
 [ext_resource type="Resource" path="res://data/enemies/shock_hound.tres" id="ne_shock_hound"]
 [ext_resource type="Resource" path="res://data/enemies/mimic.tres" id="ne_mimic"]
+[ext_resource type="Resource" path="res://data/enemies/wall_gecko.tres" id="ne99_gecko"]
+[ext_resource type="Resource" path="res://data/enemies/shaft_bat.tres" id="ne99_bat"]
+[ext_resource type="Resource" path="res://data/enemies/tangle_wire.tres" id="ne99_tangle"]
+[ext_resource type="Resource" path="res://data/enemies/rail_cannon.tres" id="ne99_rail"]
+[ext_resource type="Resource" path="res://data/enemies/custodian.tres" id="ne54_custodian"]
+[ext_resource type="Resource" path="res://data/props/gate_custodian.tres" id="ne54_gate"]
+[ext_resource type="Resource" path="res://data/props/recycle_curtain.tres" id="ne54_curtain"]
+[ext_resource type="Resource" path="res://data/lighting/mezzanine_gray.tres" id="ne54_court"]
+[ext_resource type="Resource" path="res://data/lighting/alarm.tres" id="ne54_alarm"]
+[ext_resource type="Resource" path="res://data/lighting/hangar.tres" id="ne54_arena"]
+[ext_resource type="Resource" path="res://data/lighting/clinic_ward.tres" id="ne54_ward"]
+[ext_resource type="Resource" path="res://data/lighting/tower_white.tres" id="ne54_tower"]
 
 [sub_resource type="Resource" id="Resource_zone0"]
 script = ExtResource("r36")
@@ -76,13 +88,43 @@ profile = ExtResource("r39")
 script = ExtResource("r36")
 start_tile = 215
 blend_tiles = 10
-profile = ExtResource("r40")
+profile = ExtResource("ne54_court")
 
 [sub_resource type="Resource" id="Resource_zone4"]
 script = ExtResource("r36")
-start_tile = 275
+start_tile = 263
+blend_tiles = 6
+profile = ExtResource("ne54_alarm")
+
+[sub_resource type="Resource" id="Resource_zone5"]
+script = ExtResource("r36")
+start_tile = 325
+blend_tiles = 10
+profile = ExtResource("r40")
+
+[sub_resource type="Resource" id="Resource_zone6"]
+script = ExtResource("r36")
+start_tile = 385
+blend_tiles = 8
+profile = ExtResource("ne54_arena")
+
+[sub_resource type="Resource" id="Resource_zone7"]
+script = ExtResource("r36")
+start_tile = 415
 blend_tiles = 8
 profile = ExtResource("r41")
+
+[sub_resource type="Resource" id="Resource_zone8"]
+script = ExtResource("r36")
+start_tile = 440
+blend_tiles = 8
+profile = ExtResource("ne54_ward")
+
+[sub_resource type="Resource" id="Resource_zone9"]
+script = ExtResource("r36")
+start_tile = 470
+blend_tiles = 8
+profile = ExtResource("ne54_tower")
 
 [resource]
 script = ExtResource("1_script")
@@ -96,6 +138,13 @@ legend = Dictionary[String, Resource]({
 "G": ExtResource("61_resident"),
 "A": ExtResource("60_chen"),
 "[": ExtResource("ne_mimic"),
+"S": ExtResource("ne99_gecko"),
+"+": ExtResource("ne99_bat"),
+"<": ExtResource("ne99_tangle"),
+">": ExtResource("ne99_rail"),
+"b": ExtResource("ne54_custodian"),
+"m": ExtResource("ne54_gate"),
+"X": ExtResource("ne54_curtain"),
 "T": ExtResource("ne_shock_hound"),
 "v": ExtResource("ne_heavy_gunner"),
 "O": ExtResource("ne_flamer"),
@@ -137,7 +186,7 @@ legend = Dictionary[String, Resource]({
 "y": ExtResource("r34"),
 "z": ExtResource("r35")
 })
-hints = PackedStringArray("升降井口：先沿著這裡走，電梯會把你帶到更高的地方", "敵人身邊的油桶：先打爆它", "站在燈下，迷彩獵手就會現形；隱形時留意閃爍的空氣")
+hints = PackedStringArray("升降井口：先沿著這裡走，電梯會把你帶到更高的地方", "敵人身邊的油桶：先打爆它", "站在燈下，迷彩獵手就會現形；隱形時留意閃爍的空氣", "有路卻看不見？往有燈的地方走，燈照到的地方路才會浮現")
 decor = Dictionary[String, String]({
 "$": "neon_sign",
 "%": "neon_sign_h",
@@ -149,9 +198,9 @@ chapter = &"chapter_02"
 intro_scene = &"cut_c4_dawn"
 boss_scene = &"cut_c6_corridor"
 outro_scene = &"cut_c7_elevator"
-story_triggers = PackedStringArray("c2_radio_start", "c2_radio_barrel", "c2_radio_k1", "cut_c5_memory", "c2_reclaimer_glass", "c2_radio_cloak", "c2_radio_wall", "c2_radio_corridor", "c2_radio_power", "c2_radio_medic", "c2_radio_k2", "c2_radio_last")
+story_triggers = PackedStringArray("c2_radio_start", "c2_radio_barrel", "c2_radio_k1", "cut_c5_memory", "c2_reclaimer_glass", "c2_radio_cloak", "c2_radio_wall", "c2_radio_corridor", "cut_c9_alarm", "c2_curtain", "c2_radio_power", "c2_radio_medic", "c2_radio_k2", "c2_radio_captain", "c2_radio_last")
 rain = false
 fog_color = Color(0.42, 0.34, 0.26, 1)
 layout_path = "res://data/levels/level_02_map.json"
-lighting_zones = Array[ExtResource("r36")]([SubResource("Resource_zone0"), SubResource("Resource_zone1"), SubResource("Resource_zone2"), SubResource("Resource_zone3"), SubResource("Resource_zone4")])
+lighting_zones = Array[ExtResource("r36")]([SubResource("Resource_zone0"), SubResource("Resource_zone1"), SubResource("Resource_zone2"), SubResource("Resource_zone3"), SubResource("Resource_zone4"), SubResource("Resource_zone5"), SubResource("Resource_zone6"), SubResource("Resource_zone7"), SubResource("Resource_zone8"), SubResource("Resource_zone9")])
 boss_lighting = ExtResource("r42")

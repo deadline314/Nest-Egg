@@ -57,6 +57,14 @@ func _ready() -> void:
 	add_child(_shaft)
 
 
+## 這盞燈照到 point 的程度 0～1（離燈越遠越弱，熄滅、壞掉、停電時為 0）。
+func light_at(point: Vector2) -> float:
+	if dead or _light == null or not _light.enabled:
+		return 0.0
+	var falloff := clampf(1.0 - global_position.distance_to(point) / maxf(1.0, radius), 0.0, 1.0)
+	return falloff * clampf(_light.energy / maxf(energy, 0.01), 0.0, 1.0)
+
+
 func _process(delta: float) -> void:
 	_time += delta
 	var gate := LightKit.power_gate(LightKit.lamp_power, _power_threshold)

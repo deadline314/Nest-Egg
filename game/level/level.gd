@@ -91,6 +91,11 @@ func _ready() -> void:
 	terrain.z_index = WorldLayers.TERRAIN
 	_world.add_child(terrain)
 	terrain.build(_layout, data.environment, data.load_regions())
+	if not _layout.ghost_rects.is_empty():
+		var ghosts := GhostPlatforms.new()
+		ghosts.name = "GhostPlatforms"
+		_world.add_child(ghosts)
+		ghosts.build(_layout)
 
 	_entities = Node2D.new()
 	_entities.name = "Entities"
@@ -423,6 +428,10 @@ func _create_entity(resource: Resource) -> Node2D:
 		var pickup := CollectiblePickup.new()
 		pickup.configure(collectible)
 		return pickup
+	if resource is ChaseData:
+		var curtain := LightCurtain.new()
+		curtain.configure(resource as ChaseData, _layout.tile_size, _layout.pixel_size().y)
+		return curtain
 	if resource is VehicleData:
 		var vehicle := Vehicle.new()
 		vehicle.configure(resource as VehicleData)

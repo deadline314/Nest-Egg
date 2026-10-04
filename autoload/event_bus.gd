@@ -30,6 +30,8 @@ signal reload_completed
 signal boss_started(display_name: String, max_health: int)
 signal boss_health_changed(current: int, maximum: int)
 signal boss_defeated
+## 迷你頭目被擊敗：只收起頭目血條，不會結束關卡（boss_defeated 才會）。
+signal boss_bar_closed
 
 ## 機關頻道切換（開關 → 同頻道的閘門與升降梯）。
 signal mechanism_toggled(channel: StringName, active: bool)

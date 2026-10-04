@@ -33,7 +33,7 @@ func _test_data() -> void:
 ## 配置：第二章升降井（70～139）、夾層區後段（180～214）與電力室（215～274）。
 func _test_level_placement() -> void:
 	check_level_placement({
-		"res://data/levels/level_02.tres": [[&"flamer", 70, 140], [&"flamer", 215, 275], [&"heavy_gunner", 180, 215], [&"heavy_gunner", 215, 275]],
+		"res://data/levels/level_02.tres": [[&"flamer", 70, 140], [&"flamer", 325, 385], [&"heavy_gunner", 180, 215], [&"heavy_gunner", 325, 385]],
 	})
 
 

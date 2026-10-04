@@ -40,7 +40,7 @@ func _test_data() -> void:
 func _test_level_placement() -> void:
 	check_level_placement({
 		"res://data/levels/level_01.tres": [[&"shock_hound", 160, 240], [&"mimic", 160, 240]],
-		"res://data/levels/level_02.tres": [[&"shock_hound", 70, 140], [&"shock_hound", 275, 300], [&"mimic", 70, 140], [&"mimic", 275, 300]],
+		"res://data/levels/level_02.tres": [[&"shock_hound", 70, 140], [&"shock_hound", 415, 440], [&"mimic", 70, 140], [&"mimic", 415, 440]],
 	})
 	var layout := LevelBuilder.parse(load("res://data/levels/level_02.tres") as LevelData)
 	check(PlacementChecks.cells_of(layout, &"shock_hound").size() >= 6, "hounds come in packs of three")

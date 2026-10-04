@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ChaseData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/chase_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"recycle_curtain"
+display_name = "回收燈幕"
+speed = 78.0
+lead_tiles = 18
+length_tiles = 50
+color = Color(1, 0.18, 0.12, 1)
+hint = "回收燈幕逼近——持續前進"

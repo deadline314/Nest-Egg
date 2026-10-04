@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/custodian.gd" id="2_behavior"]
+[ext_resource type="Resource" path="res://data/projectiles/boss_burst.tres" id="3_proj"]
+[ext_resource type="Script" path="res://data/scripts/projectile_spec.gd" id="4_spec_script"]
+[ext_resource type="Resource" path="res://data/projectiles/boss_fan.tres" id="5_extra0"]
+[ext_resource type="Resource" path="res://data/projectiles/boss_shockwave.tres" id="5_extra1"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"custodian"
+behavior = ExtResource("2_behavior")
+projectile = ExtResource("3_proj")
+extra_projectiles = Array[ExtResource("4_spec_script")]([ExtResource("5_extra0"), ExtResource("5_extra1")])
+display_name = "看守長"
+attack_category = &"melee"
+hit_material = &"armor"
+body_size = Vector2(34, 78)
+color = Color(0.72, 0.62, 0.55, 1.0)
+max_health = 44
+move_speed = 50.0
+contact_damage = 2
+contact_source_id = &"custodian_contact"
+detect_range = 300.0
+attack_range = 300.0
+attack_cooldown = 1.5
+telegraph_time = 0.7
+knockback_scale = 0.0
+poise = 40.0
+finish_health_ratio = 0.0
+health_drop_chance = 0.0
+rig_skin = "warden"
+rig_weapon = "minigun"
+credit_value = 60

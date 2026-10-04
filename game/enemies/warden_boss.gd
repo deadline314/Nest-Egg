@@ -50,7 +50,16 @@ func _setup_states() -> void:
 	fsm.add(&"fan_windup", _fan_windup_tick, _windup_enter)
 	fsm.add(&"summon_windup", _summon_windup_tick, _windup_enter)
 	fsm.add(&"phase_shift", _phase_shift_tick, _phase_shift_enter)
-	fsm.start(&"intro")
+	fsm.start(_start_state())
+	_announce()
+
+
+## 起始狀態與開場宣告（血條、開場音效）；迷你頭目覆寫成「睡著等玩家靠近才宣告」。
+func _start_state() -> StringName:
+	return &"intro"
+
+
+func _announce() -> void:
 	EventBus.boss_started.emit(data.display_name, health.max_health)
 	Feel.play(&"boss_intro")
 

@@ -13,6 +13,8 @@ var solid_rects: Array[Rect2i] = []
 var platform_rects: Array[Rect2i] = []
 var spike_rects: Array[Rect2i] = []
 var laser_rects: Array[Rect2i] = []
+## 光橋（~）：只有被場景燈照到才看得見的單向平台。
+var ghost_rects: Array[Rect2i] = []
 var checkpoints := PackedVector2Array()
 var health_pickups := PackedVector2Array()
 var lamps := PackedVector2Array()
