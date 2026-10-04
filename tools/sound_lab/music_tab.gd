@@ -1,12 +1,15 @@
 class_name SoundLabMusicTab
 extends ScrollContainer
 ## 實驗室分頁三：背景音樂與環境音。列出所有 cue 試聽、跳到結尾前幾秒聽迴圈接縫、交叉淡化到另一首；
+## 選中 cue 後列出它那首曲子的備選曲目，可試聽、設成預計使用（寫回位置清單文件）；
 ## 模擬「某個關卡與光影區段、某個狀態」會選到哪個 cue；環境音依光影區段試聽。
 
 const SEAM_LEAD := 5.0
 
 var lab: SoundLab
 var _cue_list: ItemList
+var _candidate_list: ItemList
+var _candidate_note: Label
 var _info: Label
 var _zone: OptionButton
 var _state: OptionButton
@@ -66,6 +69,21 @@ func _ready() -> void:
 	row.add_child(_button("儲存", func() -> void: save_cue(false), "驗證後寫回 data/audio/music.json（先備份成 .bak）"))
 	_cue_list.item_selected.connect(func(_i: int) -> void: _load_cue_values())
 
+	box.add_child(_heading("備選曲目（選一個 cue 後，列出可以換成它的曲子）"))
+	_candidate_list = ItemList.new()
+	_candidate_list.custom_minimum_size = Vector2(0, 200)
+	_candidate_list.tooltip_text = "★ 已填預計使用　（目前）正在用的曲子；雙擊試聽預聽檔前 60 秒，響度已調成和遊戲內一致"
+	_candidate_list.item_activated.connect(func(_i: int) -> void: audition_candidate())
+	box.add_child(_candidate_list)
+	row = HBoxContainer.new()
+	box.add_child(row)
+	row.add_child(_button("▶ 試聽備選", audition_candidate, "播放選中的備選曲目（會先停掉正在播的 cue）"))
+	row.add_child(_button("★ 設為預計使用", pick_candidate, "把選中的曲目寫進位置清單文件的「預計使用」，之後用套用工具換進遊戲"))
+	row.add_child(_button("■ 停止試聽", func() -> void: lab.audition.stop(), "停止備選曲目的試聽"))
+	_candidate_note = Label.new()
+	_candidate_note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	box.add_child(_candidate_note)
+
 	box.add_child(_heading("狀態模擬：這個光影區段、這個狀態會播哪個 cue"))
 	row = HBoxContainer.new()
 	box.add_child(row)
@@ -114,6 +132,7 @@ func _slider(parent: Control, title: String, low: float, high: float, step: floa
 
 
 func _load_cue_values() -> void:
+	_fill_candidates()
 	var def := Music.cue_def(StringName(selected_cue()))
 	for pair: Array in [[_cue_volume, "volume_db", 0.0], [_fade_in, "fade_in", 1.5], [_fade_out, "fade_out", 1.5]]:
 		(pair[0] as HSlider).set_value_no_signal(float(def.get(pair[1], pair[2])))
@@ -163,6 +182,77 @@ func select_cue(cue: String) -> void:
 		if str(_cue_list.get_item_metadata(i)) == cue:
 			_cue_list.select(i)
 			_load_cue_values()
+
+
+## 選中 cue 的曲子對應的位置登記（BGM 域、target 是曲目 id）；沒有登記回傳空字典。
+func slot_for_cue(cue: String) -> Dictionary:
+	var track := str(Music.cue_def(StringName(cue)).get("track", ""))
+	for slot: Dictionary in lab.catalog.slots_in("BGM"):
+		if str(slot["target"]) == track:
+			return slot
+	return {}
+
+
+## 這個 cue 的備選曲目編號（不論有沒有預聽檔）。
+func candidate_ids(cue: String) -> PackedStringArray:
+	var result := PackedStringArray()
+	for aid: String in slot_for_cue(cue).get("candidates", []):
+		result.append(aid)
+	return result
+
+
+func _fill_candidates() -> void:
+	_candidate_list.clear()
+	var cue := selected_cue()
+	var slot := slot_for_cue(cue)
+	if slot.is_empty():
+		_candidate_note.text = "這首曲子沒有位置登記，沒有備選（見 data/audio/slots.json）"
+		return
+	var planned := lab.doc.planned(str(slot["id"]))
+	var hidden := 0
+	for aid in candidate_ids(cue):
+		if not lab.catalog.has_preview(aid):
+			hidden += 1
+			continue
+		var tag := "（目前）" if (slot["current"] as Array).has(aid) else ""
+		_candidate_list.add_item("%s%s%s" % ["★ " if planned.has(aid) else "", tag, lab.asset_line(aid)])
+		_candidate_list.set_item_metadata(_candidate_list.item_count - 1, aid)
+		var a := lab.catalog.asset(aid)
+		_candidate_list.set_item_tooltip(_candidate_list.item_count - 1, "%s／%s
+%s" % [a.get("pack", ""), a.get("file", ""), a.get("desc", "")])
+	var note := "%s：%d 首備選" % [slot["id"], _candidate_list.item_count]
+	if hidden > 0:
+		note += "；另有 %d 首沒有預聽檔而隱藏，補齊：python tools/audio/build_candidates.py" % hidden
+	_candidate_note.text = note
+
+
+func selected_candidate() -> String:
+	var picked := _candidate_list.get_selected_items()
+	return str(_candidate_list.get_item_metadata(picked[0])) if not picked.is_empty() else ""
+
+
+func audition_candidate() -> bool:
+	var aid := selected_candidate()
+	if aid.is_empty():
+		lab.notify("先在備選曲目選一首")
+		return false
+	Music.stop(0.3)
+	return lab.audition_asset(aid)
+
+
+## 把選中的備選曲目設成這個位置的預計使用（只改位置清單文件那一格）。
+func pick_candidate() -> bool:
+	var aid := selected_candidate()
+	var slot := slot_for_cue(selected_cue())
+	if aid.is_empty() or slot.is_empty():
+		lab.notify("先選一個 cue，再在備選曲目選一首")
+		return false
+	if not lab.doc.set_planned(str(slot["id"]), PackedStringArray([aid])):
+		lab.notify("寫入失敗：位置清單文件沒有 %s，或無法寫入（看 log）" % slot["id"])
+		return false
+	lab.notify("已寫入 %s：%s 預計使用 %s" % [lab.doc.path.get_file(), slot["id"], aid])
+	_fill_candidates()
+	return true
 
 
 func play_selected() -> bool:

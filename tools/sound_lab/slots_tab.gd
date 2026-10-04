@@ -318,9 +318,7 @@ func _fill_list(list: ItemList, ids: Array, planned: PackedStringArray) -> void:
 
 
 func _asset_line(aid: String) -> String:
-	var a := lab.catalog.asset(aid)
-	var file := str(a.get("file", "")).get_file()
-	return "%s  %5.1fs  %s／%s" % [aid, float(a.get("dur", 0.0)), str(a.get("pack", "")).trim_prefix("oga_").trim_prefix("kenney_"), file]
+	return lab.asset_line(aid)
 
 
 func _fill_search() -> void:

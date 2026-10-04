@@ -4,7 +4,7 @@
 
 欄位：編號｜時長（秒）｜素材包／檔案｜說明｜目前用在哪些位置
 
-## AMB 環境循環（278）
+## AMB 環境循環（230）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -159,59 +159,6 @@
 | AMB-0149 | 8.3 | ia_red-library-nature-rain／R22-18-Hard Driving Rain on Pavement.mp3 |  |  |
 | AMB-0150 | 26.2 | ia_red-library-nature-rain／R22-21-Rain on Hard Surface.mp3 |  |  |
 | AMB-0151 | 10.5 | ia_red-library-nature-rain／R22-26-Interior with Rain on Roof.mp3 |  |  |
-| AMB-0152 | 10.6 | ia_sse-library-air／AIRBrst_Carbon dioxide fire extinguisher_CS_USC.mp3 |  |  |
-| AMB-0153 | 7.0 | ia_sse-library-air／AIRBrst_Wacky comedy bit; steam spraying out of ears_CS_USC.mp3 |  |  |
-| AMB-0154 | 47.3 | ia_sse-library-air／AIRHiss_Acetylene torch; light; then steady hiss_CS_USC.mp3 |  |  |
-| AMB-0155 | 42.9 | ia_sse-library-air／AIRHiss_Air nozzle spraying this way and that_CS_USC.mp3 |  |  |
-| AMB-0156 | 68.9 | ia_sse-library-ambience／AMBHome_Busy vintage traffic through city window_CS_USC.mp3 |  |  |
-| AMB-0157 | 20.1 | ia_sse-library-ambience／AMBInd_Factory interior with large exhaust fan;_CS_USC.mp3 |  |  |
-| AMB-0158 | 10.5 | ia_sse-library-ambience／AMBInd_General movement on factory or garage floor;_CS_USC.mp3 |  |  |
-| AMB-0159 | 41.2 | ia_sse-library-ambience／AMBInd_General movement on factory or repair shop_CS_USC.mp3 |  |  |
-| AMB-0160 | 55.6 | ia_sse-library-ambience／AMBInd_General movement on factory with metal hits_CS_USC.mp3 |  |  |
-| AMB-0161 | 4.9 | ia_sse-library-ambience／AMBInd_Industrial interior; short; but can be looped_CS_USC.flac |  |  |
-| AMB-0162 | 37.9 | ia_sse-library-ambience／AMBPubl_Courtroom murmur and mild surprise; multiple_CS_USC.mp3 |  |  |
-| AMB-0163 | 53.5 | ia_sse-library-ambience／AMBPubl_Hotel lobby; bg walla_CS_USC.mp3 |  |  |
-| AMB-0164 | 34.4 | ia_sse-library-ambience／AMBPubl_Police squad room murmur; big rude laugh_CS_USC.mp3 |  |  |
-| AMB-0165 | 71.7 | ia_sse-library-ambience／AMBRest_Cafe ambience; good walla_CS_USC.mp3 |  |  |
-| AMB-0166 | 15.8 | ia_sse-library-ambience／AMBTraf_Distant BG city traffic_CS_USC.mp3 |  |  |
-| AMB-0167 | 67.2 | ia_sse-library-ambience／AMBTraf_Distant traffic rumble_CS_USC.mp3 |  |  |
-| AMB-0168 | 81.9 | ia_sse-library-ambience／AMBTraf_Light traffic on Sunset Blvd_CS_USC.mp3 |  |  |
-| AMB-0169 | 35.1 | ia_sse-library-communications／COMRadio_Weird electronic wind or radio interference_CS_USC.mp3 |  |  |
-| AMB-0170 | 11.9 | ia_sse-library-communications／COMStatic_Shortwave radio with electrical noises &_CS_USC.mp3 |  |  |
-| AMB-0171 | 7.0 | ia_sse-library-designed／DSGNRmbl_Background ominous rumble; loopable_CS_USC.mp3 |  |  |
-| AMB-0172 | 16.9 | ia_sse-library-destruction／DESTRClpse_Wall falls down from fire damage_CS_USC.mp3 |  |  |
-| AMB-0173 | 10.7 | ia_sse-library-electricity／ELECBuzz_Electronic noise modulation; space gun sweetener_CS_USC.mp3 |  |  |
-| AMB-0174 | 7.8 | ia_sse-library-electricity／ELECSprk_Huge hissing electric sparks nearby_CS_USC.mp3 |  |  |
-| AMB-0175 | 84.0 | ia_sse-library-fire／FIREBrst_Flame thrower_CS_USC.mp3 |  |  |
-| AMB-0176 | 35.0 | ia_sse-library-fire／FIREBurn_Fire burning in cornfield_CS_USC.mp3 |  |  |
-| AMB-0177 | 43.3 | ia_sse-library-fire／FIREBurn_Fire burning with rumble; without crackle_CS_USC.mp3 |  |  |
-| AMB-0178 | 11.4 | ia_sse-library-fire／FIREBurn_Heavy fire crackle_CS_USC.mp3 |  |  |
-| AMB-0179 | 24.5 | ia_sse-library-fire／FIREGas_Igniting gas jets; trike and gas flame_CS_USC.mp3 |  |  |
-| AMB-0180 | 11.2 | ia_sse-library-fire／FIRESizz-FUSE_Fuse burning_CS_USC.mp3 |  |  |
-| AMB-0181 | 28.0 | ia_sse-library-fire／FIRESizz_Dynamic fuse burning_CS_USC.mp3 |  |  |
-| AMB-0182 | 9.0 | ia_sse-library-fire／FIRESizz_Fire bomb; lights and hisses; fuse_CS_USC.mp3 |  |  |
-| AMB-0183 | 8.0 | ia_sse-library-fire／FIRESizz_Fuse burning_CS_USC.mp3 |  |  |
-| AMB-0184 | 15.3 | ia_sse-library-fire／FIRETrch_Acetylene torch; multiple pops_CS_USC.mp3 |  |  |
-| AMB-0185 | 21.9 | ia_sse-library-machines／MACHInd_Generator building_CS_USC.mp3 |  |  |
-| AMB-0186 | 46.4 | ia_sse-library-machines／MACHInd_Old printing press; no motor noise_CS_USC.mp3 |  |  |
-| AMB-0187 | 61.5 | ia_sse-library-machines／MACHMech_Steam valves hissing in a broken calliope;_CS_USC.mp3 |  |  |
-| AMB-0188 | 9.9 | ia_sse-library-machines／MACHMed_Respirator; loopable_CS_USC.mp3 |  |  |
-| AMB-0189 | 25.0 | ia_sse-library-rain／RAINInt_Rain on a flat roof_CS_USC.mp3 |  |  |
-| AMB-0190 | 12.8 | ia_sse-library-rain／RAINWood_Rain on kitchen roof_CS_USC.mp3 |  |  |
-| AMB-0191 | 14.5 | ia_sse-library-scifi／SCIEnrg_Spacey musical background with metal taps_CS_USC.mp3 |  |  |
-| AMB-0192 | 35.3 | ia_sse-library-scifi／SCIShip_Space ship with beeps; loopable_CS_USC.mp3 |  |  |
-| AMB-0193 | 26.1 | ia_sse-library-weather／THUN_Thunder claps with long ring out; variation_CS_USC.mp3 |  |  |
-| AMB-0194 | 17.1 | ia_sse-library-weather／THUN_Thunder claps; Universal?s ?Castle Thunder?_CS_USC.mp3 |  |  |
-| AMB-0195 | 21.8 | ia_sse-library-weather／THUN_Thunder claps; variation edit of Universal?s_CS_USC.mp3 |  |  |
-| AMB-0196 | 15.8 | ia_sse-library-weather／THUN_Thunder; long distant rolling sound_CS_USC.mp3 |  |  |
-| AMB-0197 | 45.3 | ia_sse-library-wind／WINDDsgn_Blizzard wind cold; canvas wind machine_CS_USC.mp3 |  |  |
-| AMB-0198 | 21.1 | ia_sse-library-wind／WINDDsgn_Eerie wind with mysterious machine_CS_USC.mp3 |  |  |
-| AMB-0199 | 10.8 | ia_sse-library-wind／WINDDsgn_Ghost town wind; hinges squeak_CS_USC.mp3 |  |  |
-| AMB-0200 | 8.2 | ia_sse-library-wind／WINDDsgn_Stormy wind made from overlapping sped up_CS_USC.mp3 |  |  |
-| AMB-0201 | 22.3 | ia_sse-library-wind／WINDTonl_Eerie wind; strong whistling; very tonal_CS_USC.mp3 |  |  |
-| AMB-0202 | 81.5 | ia_sse-library-wind／WIND_Cold Arctic wind_CS_USC.mp3 |  |  |
-| AMB-0203 | 13.4 | ia_sse-library-wind／WIND_Phoenix wind_CS_USC.mp3 |  |  |
-| AMB-0204 | 57.0 | ia_sse-library-wind／WIND_Whistling wind; good rumble_CS_USC.mp3 |  |  |
 | AMB-0205 | 1.6 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_background_water_pipes_01.wav |  |  |
 | AMB-0206 | 1.3 | oga_7-ghast-sounds／ghast - StarNinjas/ghast_fireball.1.ogg |  |  |
 | AMB-0207 | 1.4 | oga_air-woosh-move／air_move.wav |  |  |
@@ -286,8 +233,13 @@
 | AMB-0276 | 6.7 | oga_wind／wind/Wind2.ogg |  |  |
 | AMB-0277 | 1.7 | oga_wind／wind/Wind3.ogg |  |  |
 | AMB-0278 | 1.0 | oga_wind-hit-time-morph／qubodup-slomo1.wav |  |  |
+| AMB-0279 | 29.9 | oga_amb-outside-1／amb_outdoor1_loop.ogg |  |  |
+| AMB-0280 | 29.9 | oga_amb-outside-1／amb_outdoor1_loop_0.mp3 |  |  |
+| AMB-0281 | 733.0 | oga_amb-rain-loop-2／amb_rain2_0.mp3 |  |  |
+| AMB-0282 | 22.2 | oga_ambient-horror／ambient_horror_0.ogg |  |  |
+| AMB-0283 | 9.2 | oga_fridge-loop-1／amb_fridge_loop_1.ogg |  |  |
 
-## ELC 電子與能量（641）
+## ELC 電子與能量（610）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -594,40 +546,6 @@
 | ELC-0301 | 41.9 | ia_red-library-sci-fi／R04-56-Synthesized Wave.mp3 |  |  |
 | ELC-0302 | 9.4 | ia_red-library-sci-fi／R17-04-Delayed Feedback.mp3 |  |  |
 | ELC-0303 | 13.3 | ia_red-library-sci-fi／R19-15-Fantasy Tones with Reverb.mp3 |  |  |
-| ELC-0304 | 10.1 | ia_sse-library-alarms／ALRMClok_Electric buzzer alarm clock_CS_USC.mp3 |  |  |
-| ELC-0305 | 28.5 | ia_sse-library-alarms／ALRMClok_Mechanical alarm clock ringing; two different_CS_USC.mp3 |  |  |
-| ELC-0306 | 19.4 | ia_sse-library-beeps／BEEPMed_Cardiac arrest alarm (1 kHz square wave)_CS_USC.flac |  |  |
-| ELC-0307 | 31.5 | ia_sse-library-doors／DOORElec_Electric garage door motor open & close_CHS_USC.mp3 |  |  |
-| ELC-0308 | 31.7 | ia_sse-library-electricity／ELECArc_Electrical arcing and sparking_CS_USC.mp3 |  |  |
-| ELC-0309 | 60.3 | ia_sse-library-electricity／ELECArc_Electrical arcs; arcing metal vibration squeals_CS_USC.mp3 |  |  |
-| ELC-0310 | 96.9 | ia_sse-library-electricity／ELECArc_Electrical arcs; arcing; metallic squeals_CS_USC.mp3 |  |  |
-| ELC-0311 | 50.5 | ia_sse-library-electricity／ELECBuzz_Tesla coil hum_CHS_USC.mp3 |  |  |
-| ELC-0312 | 36.0 | ia_sse-library-electricity／ELECSprk_Loud electrical effect; sparks and hum_CS_USC.mp3 |  |  |
-| ELC-0313 | 18.7 | ia_sse-library-electricity／ELECSprk_Tesla coil sparking and humming_CHS_USC.mp3 |  |  |
-| ELC-0314 | 29.9 | ia_sse-library-fight／FGHTBf_Fight and body falls on stone_CS_USC.mp3 |  |  |
-| ELC-0315 | 10.8 | ia_sse-library-machines／MACHAmus_Electric pinball robot reaction; comic_CS_USC.mp3 |  |  |
-| ELC-0316 | 37.7 | ia_sse-library-machines／MACHCnst_Power riveting on steel building_CS_USC.mp3 |  |  |
-| ELC-0317 | 23.9 | ia_sse-library-machines／MACHHvac_Loud exhaust fan in large interior space_CS_USC.mp3 |  |  |
-| ELC-0318 | 5.5 | ia_sse-library-metal／METLCrsh_Heavy metal objets crashing on stone floor;_CS_USC.mp3 |  |  |
-| ELC-0319 | 36.5 | ia_sse-library-metal／METLImpt_Misc metal hitting metal; good tone; bad_CS_USC.mp3 |  |  |
-| ELC-0320 | 29.3 | ia_sse-library-motors／MOTRSrvo_Spaceship servo motors from 2010_CS_USC.mp3 |  |  |
-| ELC-0321 | 14.9 | ia_sse-library-scifi／SCIAlrm_Crazy scifi alarm_CS_USC.mp3 |  |  |
-| ELC-0322 | 7.9 | ia_sse-library-scifi／SCIAlrm_Original Star Trek Enterprise alarm horn_CS_USC.mp3 |  |  |
-| ELC-0323 | 21.6 | ia_sse-library-scifi／SCIEnrg_Magical force field_CS_USC.mp3 |  |  |
-| ELC-0324 | 4.2 | ia_sse-library-scifi／SCIEnrg_Magneto with speed manipulations_CS_USC.flac |  |  |
-| ELC-0325 | 30.0 | ia_sse-library-scifi／SCIMach_Sci Fi materializer; Star Trek transporter_CS_USC.mp3 |  |  |
-| ELC-0326 | 31.3 | ia_sse-library-scifi／SCIMech_Original Star Trek Enterprise Tricorder_CS_USC.mp3 |  |  |
-| ELC-0327 | 7.8 | ia_sse-library-scifi／SCIRetro_Classic ethereal spaceship lands_CS_USC.mp3 |  |  |
-| ELC-0328 | 27.9 | ia_sse-library-scifi／SCIRetro_Classic sci fi time machine; oscillator_CS_USC.mp3 |  |  |
-| ELC-0329 | 8.6 | ia_sse-library-scifi／SCIRetro_Classic spaceship time machine in_CS_USC.mp3 |  |  |
-| ELC-0330 | 30.1 | ia_sse-library-scifi／SCIRetro_Electronic music scifi computer of the_CS_USC.mp3 |  |  |
-| ELC-0331 | 10.3 | ia_sse-library-scifi／SCIRetro_Laser zaps from War of the Worlds_CS_USC.mp3 |  |  |
-| ELC-0332 | 5.9 | ia_sse-library-scifi／SCIRetro_Old fashioned space rocket crashes with debris_CS_USC.mp3 |  |  |
-| ELC-0333 | 4.8 | ia_sse-library-scifi／SCIShip_Angry buzz or spaceship interior_CS_USC.flac |  |  |
-| ELC-0334 | 4.5 | ia_sse-library-scifi／SCIShip_Flying saucer flight tone; scifi machine;_CS_USC.flac |  |  |
-| ELC-0335 | 46.7 | ia_sse-library-scifi／SCIVeh_Futuristic electric pod being sent on factory_CS_USC.mp3 |  |  |
-| ELC-0336 | 2.0 | ia_sse-library-scifi／SCIWeap_1950s ray gun_CS_USC.flac |  |  |
-| ELC-0337 | 29.2 | ia_sse-library-scifi／SCIWeap_Laser zaps_CS_USC.mp3 |  |  |
 | ELC-0338 | 0.8 | oga_10-impactshield-blocks／impact.1.ogg |  |  |
 | ELC-0339 | 0.7 | oga_10-impactshield-blocks／impact.10.ogg |  |  |
 | ELC-0340 | 0.5 | oga_10-impactshield-blocks／impact.2.ogg |  |  |
@@ -932,8 +850,11 @@
 | ELC-0639 | 1.0 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Up/Spirit 2.wav |  |  |
 | ELC-0640 | 3.0 | oga_unleeched-sound-effects-pack／pa-alarm.wav |  |  |
 | ELC-0641 | 0.9 | oga_unleeched-sound-effects-pack／ui-hover.wav |  |  |
+| ELC-0642 | 12.0 | oga_long-sci-fi-sting／longscifisting_2.ogg |  |  |
+| ELC-0643 | 3.5 | oga_sci-fi-sfx／sci-fi_sfx_2.mp3 |  |  |
+| ELC-0644 | 8.0 | oga_sound-effects-pack／Scifi/computersaysno.wav |  |  |
 
-## EXP 爆炸（141）
+## EXP 爆炸（116）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -1004,31 +925,6 @@
 | EXP-0065 | 5.4 | ia_red-library-impacts／R19-29-Banging, Open and Close Large Metal Door.mp3 |  |  |
 | EXP-0066 | 28.9 | ia_red-library-machines-2／R30-10-Fire Extinguisher Blasts into Metal Bin.mp3 |  |  |
 | EXP-0067 | 3.0 | ia_red-library-sci-fi／R02-19-Ray Gun and Explosion.flac |  |  |
-| EXP-0068 | 5.9 | ia_sse-library-air／AIRBrst_Carbon dioxide fire extinguisher; long blast_CS_USC.mp3 |  |  |
-| EXP-0069 | 27.3 | ia_sse-library-air／AIRBrst_Steam or fire extinguisher blasts_CS_USC.mp3 |  |  |
-| EXP-0070 | 26.5 | ia_sse-library-electricity／ELECZap_Machine made electrical lightning explosions_CS_USC.mp3 |  |  |
-| EXP-0071 | 11.3 | ia_sse-library-explosions／EXPLDsgn_Bomb whine and explosion_CHS_USC.mp3 |  |  |
-| EXP-0072 | 10.7 | ia_sse-library-explosions／EXPLMisc_Black powder explosion; slow; 3 versions_CHS_USC.mp3 |  |  |
-| EXP-0073 | 7.4 | ia_sse-library-explosions／EXPLReal_2 small muffled explosions_CS_USC.mp3 |  |  |
-| EXP-0074 | 38.0 | ia_sse-library-explosions／EXPLReal_Depth charge with water sounds_CS_USC.mp3 |  |  |
-| EXP-0075 | 7.2 | ia_sse-library-explosions／EXPLReal_Dynamite explosion_CS_USC.mp3 |  |  |
-| EXP-0076 | 4.2 | ia_sse-library-explosions／EXPLReal_Explosion with falling debris_CS_USC.flac |  |  |
-| EXP-0077 | 6.5 | ia_sse-library-explosions／EXPLReal_Explosion; bomb or shell_CHS_USC.mp3 |  |  |
-| EXP-0078 | 4.5 | ia_sse-library-explosions／EXPLReal_Explosion; good_CS_USC.flac |  |  |
-| EXP-0079 | 3.5 | ia_sse-library-explosions／EXPLReal_Hand grenade; 3 explosions_CHS_USC.flac |  |  |
-| EXP-0080 | 6.7 | ia_sse-library-explosions／EXPLReal_Heavy explosion with reverberation_CS_USC.mp3 |  |  |
-| EXP-0081 | 11.2 | ia_sse-library-explosions／EXPLReal_Heavy explosions; 2 takes_CS_USC.mp3 |  |  |
-| EXP-0082 | 3.4 | ia_sse-library-explosions／EXPLReal_Heavy sharp explosion with reverb_CS_USC.flac |  |  |
-| EXP-0083 | 8.0 | ia_sse-library-explosions／EXPLReal_Land explosion_CS_USC.mp3 |  |  |
-| EXP-0084 | 9.2 | ia_sse-library-explosions／EXPLReal_Large explosion with debris_CS_USC.mp3 |  |  |
-| EXP-0085 | 6.4 | ia_sse-library-explosions／EXPLReal_Medium distant explosions; cluster_CS_USC.mp3 |  |  |
-| EXP-0086 | 22.1 | ia_sse-library-explosions／EXPLReal_Napalm bomb burning after hitting tank; flames_CS_USC.mp3 |  |  |
-| EXP-0087 | 6.7 | ia_sse-library-explosions／EXPLReal_Single explosion; medium; with reverb_CS_USC.mp3 |  |  |
-| EXP-0088 | 5.9 | ia_sse-library-explosions／EXPLReal_Single heavy explosions 1_CS_USC.mp3 |  |  |
-| EXP-0089 | 4.6 | ia_sse-library-explosions／EXPLReal_Single heavy explosions 2_CS_USC.flac |  |  |
-| EXP-0090 | 17.7 | ia_sse-library-explosions／EXPLReal_Underwater explosions; 3 takes_CS_USC.mp3 |  |  |
-| EXP-0091 | 10.2 | ia_sse-library-scifi／SCIWeap_Phaser blast_CS_USC.mp3 |  |  |
-| EXP-0092 | 4.8 | ia_sse-library-swooshes／WHSH-FIREWORKS_Fireworks launching swooshes_CS_USC.flac |  |  |
 | EXP-0093 | 0.4 | oga_alien-blaster／alien-blaster.wav |  |  |
 | EXP-0094 | 4.9 | oga_battle-at-sea／cannon_hit_1.ogg |  |  |
 | EXP-0095 | 2.8 | oga_battle-at-sea／cannon_hit_cannon_1.ogg |  |  |
@@ -1079,7 +975,7 @@
 | EXP-0140 | 1.2 | oga_war-on-water-sndfx／Pirates/boatexplode.ogg |  |  |
 | EXP-0141 | 0.8 | oga_war-on-water-sndfx／Ships/shipexplode.ogg |  |  |
 
-## GUN 槍聲（197）
+## GUN 槍聲（309）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -1168,11 +1064,6 @@
 | GUN-0083 | 9.7 | oga_the-free-firearm-sound-library／Prepared SFX Library/Tikka/W_29P.wav | Tikka Model T3, rifle, bolt action, .30-06, gunshot, near distance, front of shooter, left, right, stereo | P-WPN-010 |
 | GUN-0084 | 9.5 | oga_the-free-firearm-sound-library／Prepared SFX Library/Walther PPQ/X_31P.wav | Walther PPQ, handgun, pistol, semi automatic, striker, 9mm, gunshot, mid distance, front of shooter, forward, back, stereo |  |
 | GUN-0085 | 15.7 | oga_the-free-firearm-sound-library／Prepared SFX Library/Walther PPQ/X_39P.wav | Walther PPQ, handgun, pistol, semi automatic, striker, 9mm, gunshot, near distance, front of shooter, left, right, stereo | P-WPN-001 |
-| GUN-0086 | 12.1 | ia_red-library-guns-machine／R12-04-Browning Machine Gun.mp3 |  |  |
-| GUN-0087 | 14.2 | ia_red-library-guns-machine／R12-06-Machine Gun Single Shots.mp3 |  |  |
-| GUN-0088 | 17.9 | ia_red-library-guns-machine／R12-16-Military Machine Gun.mp3 |  |  |
-| GUN-0089 | 4.2 | ia_red-library-guns-machine／R12-22-Classic Machine Gun.flac |  |  |
-| GUN-0090 | 22.8 | ia_red-library-guns-machine／R30-31-Old Machine Gun Without Ambience.flac |  |  |
 | GUN-0091 | 6.2 | ia_red-library-guns-misc／R09-71-Rapid Gun Shots.mp3 |  |  |
 | GUN-0092 | 6.3 | ia_red-library-guns-misc／R11-48-Shotgun Blast.mp3 |  |  |
 | GUN-0093 | 21.2 | ia_red-library-guns-misc／R11-51-Loud Gun Blasts with Ricochet.mp3 |  |  |
@@ -1185,74 +1076,6 @@
 | GUN-0100 | 4.6 | ia_red-library-guns-misc／R23-27-Rifle Blast.flac |  |  |
 | GUN-0101 | 6.3 | ia_red-library-guns-misc／R28-40-Gun Sweetener Bursts of Noise.mp3 |  |  |
 | GUN-0102 | 16.0 | ia_red-library-guns-misc／R30-21-Pistol or Rifle Single Shots.mp3 |  |  |
-| GUN-0103 | 8.3 | ia_sse-library-bullets／BLLTImpt_50 cal Browning machine gun bullet impacts_CS_USC.mp3 |  |  |
-| GUN-0104 | 5.4 | ia_sse-library-bullets／BLLTImpt_Artillery bullets hitting nearby & overhead_CS_USC.mp3 |  |  |
-| GUN-0105 | 12.1 | ia_sse-library-bullets／BLLTImpt_Bullets flying overhead and hitting objects_CS_USC.mp3 |  |  |
-| GUN-0106 | 18.8 | ia_sse-library-bullets／BLLTImpt_Bullets hitting water_CS_USC.mp3 |  |  |
-| GUN-0107 | 13.0 | ia_sse-library-bullets／BLLTImpt_Heavy ammunition bullets flying overhead_CS_USC.mp3 |  |  |
-| GUN-0108 | 12.1 | ia_sse-library-bullets／BLLTImpt_On the receiving end of large guns firing_CS_USC.mp3 |  |  |
-| GUN-0109 | 35.4 | ia_sse-library-bullets／BLLTImpt_Shooting gallery; hitting metal targets_CS_USC.mp3 |  |  |
-| GUN-0110 | 13.7 | ia_sse-library-bullets／BLLTImpt_Shooting gallery_CS_USC.mp3 |  |  |
-| GUN-0111 | 31.2 | ia_sse-library-bullets／BLLTRico_Comedy ricochets (Warner Brothers)_CS_USC.mp3 |  |  |
-| GUN-0112 | 20.3 | ia_sse-library-bullets／BLLTRico_Machine gun ricochets_CS_USC.mp3 |  |  |
-| GUN-0113 | 38.8 | ia_sse-library-bullets／BLLTRico_Ricochets from Bonanza TV series_CS_USC.mp3 |  |  |
-| GUN-0114 | 13.3 | ia_sse-library-bullets／BLLTRico_Rifle ricochets_CS_USC.mp3 |  |  |
-| GUN-0115 | 1.9 | ia_sse-library-guns／GUNAntq_Flintlock fire_CS_USC.flac |  |  |
-| GUN-0116 | 2.7 | ia_sse-library-guns／GUNAntq_Flintlock rifle fire_CS_USC.flac |  |  |
-| GUN-0117 | 7.7 | ia_sse-library-guns／GUNAntq_Gatling gun_CS_USC.mp3 |  |  |
-| GUN-0118 | 3.4 | ia_sse-library-guns／GUNAntq_Musket shots_CS_USC.flac |  |  |
-| GUN-0119 | 20.4 | ia_sse-library-guns／GUNArtl_Bazooka shooting_CS_USC.mp3 |  |  |
-| GUN-0120 | 4.8 | ia_sse-library-guns／GUNArtl_Bazooka shot_CS_USC.flac |  |  |
-| GUN-0121 | 6.4 | ia_sse-library-guns／GUNArtl_Large shells flies overhead_CS_USC.mp3 |  |  |
-| GUN-0122 | 8.1 | ia_sse-library-guns／GUNArtl_Mortar Fire; long reverb_CS_USC.mp3 |  |  |
-| GUN-0123 | 4.3 | ia_sse-library-guns／GUNArtl_PT boat fires_CS_USC.flac |  |  |
-| GUN-0124 | 14.1 | ia_sse-library-guns／GUNArtl_squad firing 37mm anti tank guns_CS_USC.mp3 |  |  |
-| GUN-0125 | 17.5 | ia_sse-library-guns／GUNAuto_50 cal machine gun with ricochets_CS_USC.mp3 |  |  |
-| GUN-0126 | 6.4 | ia_sse-library-guns／GUNAuto_Bren machine gun with canyon echo_CS_USC.mp3 |  |  |
-| GUN-0127 | 32.5 | ia_sse-library-guns／GUNAuto_Light machine gun from optical_CS_USC.mp3 |  |  |
-| GUN-0128 | 5.5 | ia_sse-library-guns／GUNAuto_M16 automatic rifle shots_CS_USC.mp3 |  |  |
-| GUN-0129 | 19.2 | ia_sse-library-guns／GUNAuto_Machine gun bursts with echo_CS_USC.mp3 |  |  |
-| GUN-0130 | 13.5 | ia_sse-library-guns／GUNAuto_Machine gun bursts; indoors_CS_USC.mp3 |  |  |
-| GUN-0131 | 11.1 | ia_sse-library-guns／GUNAuto_Machine gun fires with ricochets_CS_USC.mp3 |  |  |
-| GUN-0132 | 2.6 | ia_sse-library-guns／GUNAuto_Machine gun ricochets_CS_USC.flac |  |  |
-| GUN-0133 | 6.0 | ia_sse-library-guns／GUNAuto_Tommy gun busts; machine gun_CS_USC.mp3 |  |  |
-| GUN-0134 | 24.0 | ia_sse-library-guns／GUNAuto_Various groups of machine guns; medium distance_CS_USC.mp3 |  |  |
-| GUN-0135 | 6.2 | ia_sse-library-guns／GUNCano_6 inch navel cannon fired up close_CS_USC.mp3 |  |  |
-| GUN-0136 | 48.4 | ia_sse-library-guns／GUNCano_8 inch navel cannon fired with shell whines_CS_USC.mp3 |  |  |
-| GUN-0137 | 8.4 | ia_sse-library-guns／GUNCano_8? gun; cannon_CS_USC.mp3 |  |  |
-| GUN-0138 | 4.8 | ia_sse-library-guns／GUNCano_Big cannon with reverb_CS_USC.flac |  |  |
-| GUN-0139 | 10.7 | ia_sse-library-guns／GUNCano_Cannon fire with commands_CS_USC.mp3 |  |  |
-| GUN-0140 | 3.7 | ia_sse-library-guns／GUNCano_Cannon fire; shells fall nearby_CS_USC.flac |  |  |
-| GUN-0141 | 4.8 | ia_sse-library-guns／GUNCano_Cannon shot_CS_USC.flac |  |  |
-| GUN-0142 | 35.7 | ia_sse-library-guns／GUNCano_Distant cannon fire_CS_USC.mp3 |  |  |
-| GUN-0143 | 6.0 | ia_sse-library-guns／GUNMech_Cock and fire empty rifle; many takes_CS_USC.mp3 |  |  |
-| GUN-0144 | 22.5 | ia_sse-library-guns／GUNMech_Pistol revolvers spins and fires without_CS_USC.mp3 |  |  |
-| GUN-0145 | 7.4 | ia_sse-library-guns／GUNMisc-FLARE_Flare gun fires_CS_USC.mp3 |  |  |
-| GUN-0146 | 14.5 | ia_sse-library-guns／GUNMisc-FLARE_Flares gun fires; shells fall to floor_CS_USC.mp3 |  |  |
-| GUN-0147 | 2.6 | ia_sse-library-guns／GUNPis_Big optical gun shot; close_CS_USC.flac |  |  |
-| GUN-0148 | 6.6 | ia_sse-library-guns／GUNPis_Classic large gun optical gun shots; dull_CS_USC.mp3 |  |  |
-| GUN-0149 | 4.7 | ia_sse-library-guns／GUNPis_Derringer 22 pistol shots_CS_USC.flac |  |  |
-| GUN-0150 | 7.6 | ia_sse-library-guns／GUNPis_Exterior pistol shots with long reverb_CS_USC.mp3 |  |  |
-| GUN-0151 | 2.3 | ia_sse-library-guns／GUNPis_Exterior pistol shots with no reverb_CS_USC.flac |  |  |
-| GUN-0152 | 14.5 | ia_sse-library-guns／GUNPis_Exterior pistol shots_CS_USC.mp3 |  |  |
-| GUN-0153 | 0.9 | ia_sse-library-guns／GUNPis_Optical gun shot_CS_USC.flac |  |  |
-| GUN-0154 | 10.6 | ia_sse-library-guns／GUNPis_big revolver shots_CS_USC.mp3 |  |  |
-| GUN-0155 | 9.1 | ia_sse-library-guns／GUNRif_30 30 rifle shots_CS_USC.mp3 |  |  |
-| GUN-0156 | 6.7 | ia_sse-library-guns／GUNRif_Big optical gun shots with ricochets_CS_USC.mp3 |  |  |
-| GUN-0157 | 7.7 | ia_sse-library-guns／GUNRif_Browning automatic rifle at the receiving_CS_USC.mp3 |  |  |
-| GUN-0158 | 4.9 | ia_sse-library-guns／GUNRif_Distant rifle shot with long reverb_CS_USC.flac |  |  |
-| GUN-0159 | 2.3 | ia_sse-library-guns／GUNRif_Elephant gun being shot by British soldiers_CS_USC.flac |  |  |
-| GUN-0160 | 3.2 | ia_sse-library-guns／GUNRif_Mountain rifle with reverb_CS_USC.flac |  |  |
-| GUN-0161 | 4.0 | ia_sse-library-guns／GUNRif_Optical rifle shot with long reverb_CS_USC.flac |  |  |
-| GUN-0162 | 12.7 | ia_sse-library-guns／GUNRif_Rifle fire at the receiving end_CS_USC.mp3 |  |  |
-| GUN-0163 | 1.2 | ia_sse-library-guns／GUNRif_Rifle shot at some distance_CS_USC.flac |  |  |
-| GUN-0164 | 7.5 | ia_sse-library-guns／GUNRif_Rifle shots with reverb_CS_USC.mp3 |  |  |
-| GUN-0165 | 38.7 | ia_sse-library-guns／GUNRif_Rifle shots; hollow reverb_CS_USC.mp3 |  |  |
-| GUN-0166 | 4.1 | ia_sse-library-guns／GUNRif_Very sharp small rifle fire_CS_USC.flac |  |  |
-| GUN-0167 | 14.4 | ia_sse-library-guns／GUNShotg_Classic western shotgun blast with reverb_CS_USC.mp3 |  |  |
-| GUN-0168 | 6.0 | ia_sse-library-guns／GUNShotg_Rifle being fired & cocked_CS_USC.mp3 |  |  |
-| GUN-0169 | 1.1 | ia_sse-library-guns／GUNSupr_Pistol shots with silencer_CS_USC.flac |  |  |
-| GUN-0170 | 4.2 | ia_sse-library-guns／GUNSupr_Pistol shots; ping; silencer__CS_USC.flac |  |  |
 | GUN-0171 | 3.6 | oga_battle-at-sea／cannon_fire_1.ogg |  |  |
 | GUN-0172 | 2.0 | oga_random-gunfire-sfx／gunfire_sfx.wav |  |  |
 | GUN-0173 | 2.5 | oga_silencers-by-emopreben／Silencers - 1.wav |  |  |
@@ -1280,8 +1103,193 @@
 | GUN-0195 | 1.1 | oga_war-on-water-sndfx／Guns/gunloadmain.ogg |  |  |
 | GUN-0196 | 0.2 | oga_war-on-water-sndfx／Guns/throwgrenade.ogg |  |  |
 | GUN-0197 | 1.3 | oga_war-on-water-sndfx／Guns/torpedo1.ogg |  |  |
+| GUN-0198 | 6.7 | fs_cc0-gunshots-automatic／145206_2598732-hq.mp3 | M16 gun 3 round burst（lensflare8642，6.7 秒） |  |
+| GUN-0199 | 4.4 | fs_cc0-gunshots-automatic／148831_2676248-hq.mp3 | .223 gunside automatic.mp3（cedarstudios，4.5 秒） |  |
+| GUN-0200 | 11.4 | fs_cc0-gunshots-automatic／153492_1266951-hq.mp3 | MiniGun Shooting (Awesome Sound)（Steelskull，11.4 秒） |  |
+| GUN-0201 | 0.5 | fs_cc0-gunshots-automatic／160590_2714469-hq.mp3 | Assault Rifle (Single Burst)（Keatonmcq，0.5 秒） |  |
+| GUN-0202 | 2.6 | fs_cc0-gunshots-automatic／165391_2989529-hq.mp3 | Machine Gun Shots（ShawnyBoy，2.6 秒） |  |
+| GUN-0203 | 2.1 | fs_cc0-gunshots-automatic／165393_2989529-hq.mp3 | Machine Gun Shots Fast（ShawnyBoy，2.1 秒） |  |
+| GUN-0204 | 3.1 | fs_cc0-gunshots-automatic／165394_2989529-hq.mp3 | Heavy Machine Gun（ShawnyBoy，3.1 秒） |  |
+| GUN-0205 | 2.3 | fs_cc0-gunshots-automatic／201672_3749344-hq.mp3 | MP5 submachine gun down the block.aif（Franki-01234，2.3 秒） |  |
+| GUN-0206 | 0.3 | fs_cc0-gunshots-automatic／212602_1654571-hq.mp3 | Machine Gun 001 - loop.ogg（pgi，0.3 秒） |  |
+| GUN-0207 | 0.9 | fs_cc0-gunshots-automatic／212608_1654571-hq.mp3 | Machine Gun 002 - loop.ogg（pgi，0.9 秒） |  |
+| GUN-0208 | 2.7 | fs_cc0-gunshots-automatic／257364_2276808-hq.mp3 | Silenced Submachine gun（Kodack，2.7 秒） |  |
+| GUN-0209 | 1.4 | fs_cc0-gunshots-automatic／266101_4997689-hq.mp3 | minigun.wav（Marregheriti，1.4 秒） |  |
+| GUN-0210 | 1.5 | fs_cc0-gunshots-automatic／266102_4997689-hq.mp3 | minigun_Overheat.wav（Marregheriti，1.5 秒） |  |
+| GUN-0211 | 4.3 | fs_cc0-gunshots-automatic／274559_5088332-hq.mp3 | Auto Machine Gun.wav（MrJohnWeez，4.3 秒） |  |
+| GUN-0212 | 4.0 | fs_cc0-gunshots-automatic／333065_4457609-hq.mp3 | Automatic_weapon_firing.wav（ceich93，4.0 秒） |  |
+| GUN-0213 | 3.8 | fs_cc0-gunshots-automatic／360607_4121395-hq.mp3 | M4 Assault rifle Long Burst.wav（mnslugger20，3.8 秒） |  |
+| GUN-0214 | 14.5 | fs_cc0-gunshots-automatic／380349_6207707-hq.mp3 | Machine Gun.wav（fennelliott，14.5 秒） |  |
+| GUN-0215 | 6.8 | fs_cc0-gunshots-automatic／383796_7146007-hq.mp3 | Machine Gun Shooting（deleted_user_7146007，6.8 秒） |  |
+| GUN-0216 | 0.9 | fs_cc0-gunshots-automatic／39071_8842-hq.mp3 | heavy.burst.wav（alienbomb，0.9 秒） |  |
+| GUN-0217 | 9.1 | fs_cc0-gunshots-automatic／397657_7542558-hq.mp3 | MachineGunloop.wav（SuperPhat，9.1 秒） |  |
+| GUN-0218 | 12.6 | fs_cc0-gunshots-automatic／416417_7542558-hq.mp3 | Automatic Assault Rifle.wav（SuperPhat，12.6 秒） |  |
+| GUN-0219 | 5.0 | fs_cc0-gunshots-automatic／417689_7542558-hq.mp3 | Submachine gun automatic fire.wav（SuperPhat，5.0 秒） |  |
+| GUN-0220 | 1.3 | fs_cc0-gunshots-automatic／418433_6481539-hq.mp3 | Uzi burst.mp3（CraftyIndividual，1.3 秒） |  |
+| GUN-0221 | 5.0 | fs_cc0-gunshots-automatic／424630_7542558-hq.mp3 | BurstFire.wav（SuperPhat，5.0 秒） |  |
+| GUN-0222 | 12.9 | fs_cc0-gunshots-automatic／424917_5351496-hq.mp3 | minigun.mp3（scorepion，12.9 秒） |  |
+| GUN-0223 | 1.6 | fs_cc0-gunshots-automatic／482122_71257-hq.mp3 | Clean Machine Gun Burst（qubodup，1.6 秒） |  |
+| GUN-0224 | 2.0 | fs_cc0-gunshots-automatic／520935_773642-hq.mp3 | ak 47 - burst.mp3（ninebilly，2.0 秒） |  |
+| GUN-0225 | 17.0 | fs_cc0-gunshots-automatic／676588_13432509-hq.mp3 | Colt SMG - Firing, Handling（hyperix6，17.0 秒） |  |
+| GUN-0226 | 1.3 | fs_cc0-gunshots-automatic／90143_793892-hq.mp3 | steam_burst.wav（pengo_au，1.3 秒） |  |
+| GUN-0227 | 2.3 | fs_cc0-gunshots-automatic／98331_1654571-hq.mp3 | minigun.wav（pgi，2.3 秒） |  |
+| GUN-0228 | 7.5 | fs_cc0-gunshots-generic／127846_1931452-hq.mp3 | Slow-mo gunshot.wav（GaryQ，7.5 秒） |  |
+| GUN-0229 | 1.5 | fs_cc0-gunshots-generic／128302_1412426-hq.mp3 | Layered Gunshot 8.wav（Xenonn，1.5 秒） |  |
+| GUN-0230 | 1.2 | fs_cc0-gunshots-generic／165390_2989529-hq.mp3 | Classic Gunshot（ShawnyBoy，1.2 秒） |  |
+| GUN-0231 | 2.6 | fs_cc0-gunshots-generic／165391_2989529-hq.mp3 | Machine Gun Shots（ShawnyBoy，2.6 秒） |  |
+| GUN-0232 | 4.2 | fs_cc0-gunshots-generic／169261_155902-hq.mp3 | 1903 Springfield .30-06 Gun Shot Blast（tm1000，4.2 秒） |  |
+| GUN-0233 | 6.1 | fs_cc0-gunshots-generic／175389_3227427-hq.mp3 | Shootout（DigitalDominic，6.1 秒） |  |
+| GUN-0234 | 1.8 | fs_cc0-gunshots-generic／200245_3724822-hq.mp3 | Homeade gun shot1 (NO ECHO).wav（Noah_Fletcher，1.8 秒） |  |
+| GUN-0235 | 2.7 | fs_cc0-gunshots-generic／20352_57789-hq.mp3 | gunshot.wav（cognito perceptu，2.7 秒） |  |
+| GUN-0236 | 2.7 | fs_cc0-gunshots-generic／221640_3799592-hq.mp3 | gunshot 1.wav（Jakesapp23，2.7 秒） |  |
+| GUN-0237 | 1.9 | fs_cc0-gunshots-generic／369782_5937039-hq.mp3 | Single Gunshot.wav（morganpurkis，1.9 秒） |  |
+| GUN-0238 | 2.7 | fs_cc0-gunshots-generic／370304_5937039-hq.mp3 | Single Gunshot 2.wav（morganpurkis，2.7 秒） |  |
+| GUN-0239 | 0.9 | fs_cc0-gunshots-generic／371041_5937039-hq.mp3 | Single Gunshot 3.wav（morganpurkis，0.9 秒） |  |
+| GUN-0240 | 1.1 | fs_cc0-gunshots-generic／371440_5937039-hq.mp3 | Single Pistol Gunshot 2.wav（morganpurkis，1.1 秒） |  |
+| GUN-0241 | 1.1 | fs_cc0-gunshots-generic／382735_954919-hq.mp3 | Gun shot（schots，1.1 秒） |  |
+| GUN-0242 | 2.1 | fs_cc0-gunshots-generic／385811_5937039-hq.mp3 | Single Pistol Gunshot 3.wav（morganpurkis，2.1 秒） |  |
+| GUN-0243 | 1.8 | fs_cc0-gunshots-generic／388194_5937039-hq.mp3 | Single Pistol Gunshot 3.2.wav（morganpurkis，1.7 秒） |  |
+| GUN-0244 | 2.5 | fs_cc0-gunshots-generic／391846_5937039-hq.mp3 | Single Pistol Gunshot 4.2.wav（morganpurkis，2.5 秒） |  |
+| GUN-0245 | 3.0 | fs_cc0-gunshots-generic／391847_5937039-hq.mp3 | Single Gunshot 5.4.wav（morganpurkis，3.1 秒） |  |
+| GUN-0246 | 2.4 | fs_cc0-gunshots-generic／392229_5937039-hq.mp3 | Single Pistol Gunshot 3.3.wav（morganpurkis，2.4 秒） |  |
+| GUN-0247 | 2.0 | fs_cc0-gunshots-generic／404901_5368073-hq.mp3 | Gun Shot.ogg（WizardOZ，2.0 秒） |  |
+| GUN-0248 | 3.2 | fs_cc0-gunshots-generic／411567_6142149-hq.mp3 | Centerfire Rifle Gun Shot 01.wav（LilMati，3.2 秒） |  |
+| GUN-0249 | 1.9 | fs_cc0-gunshots-generic／415912_7107077-hq.mp3 | Heathers Gunshot Effect2.wav（okieactor，1.9 秒） |  |
+| GUN-0250 | 1.2 | fs_cc0-gunshots-generic／433858_6142149-hq.mp3 | Rifle Gun Shot 01.wav（LilMati，1.2 秒） |  |
+| GUN-0251 | 2.0 | fs_cc0-gunshots-generic／483536_6142149-hq.mp3 | Centerfire Rifle Gun Shot 02.wav（LilMati，2.0 秒） |  |
+| GUN-0252 | 1.5 | fs_cc0-gunshots-generic／484036_6142149-hq.mp3 | Rifle Gun Shot 02.wav（LilMati，1.5 秒） |  |
+| GUN-0253 | 3.2 | fs_cc0-gunshots-generic／563015_6253486-hq.mp3 | a loud gunshot in the woods（florianreichelt，3.3 秒） |  |
+| GUN-0254 | 1.9 | fs_cc0-gunshots-generic／569847_9996727-hq.mp3 | Gun Shot #1（danlucaz，1.9 秒） |  |
+| GUN-0255 | 2.4 | fs_cc0-gunshots-generic／581773_123355-hq.mp3 | Shoot 1 HZA 01-08-2021.wav（hz37，2.4 秒） |  |
+| GUN-0256 | 1.9 | fs_cc0-gunshots-generic／632821_10403690-hq.mp3 | Gunshot.wav（Cloud-10，1.9 秒） |  |
+| GUN-0257 | 1.9 | fs_cc0-gunshots-generic／686351_14949563-hq.mp3 | Gunshot.mp3（RangerRich68，2.0 秒） |  |
+| GUN-0258 | 4.2 | fs_cc0-gunshots-heavy／106850_282197-hq.mp3 | Cannon fire.wav（Jon285，4.2 秒） |  |
+| GUN-0259 | 4.5 | fs_cc0-gunshots-heavy／127845_1931452-hq.mp3 | Tank fire Mixed.wav（GaryQ，4.4 秒） |  |
+| GUN-0260 | 3.3 | fs_cc0-gunshots-heavy／140727_367313-hq.mp3 | tinymortar.wav（j1987，3.3 秒） |  |
+| GUN-0261 | 2.8 | fs_cc0-gunshots-heavy／162455_311243-hq.mp3 | Cannonball.mp3（Kastenfrosch，2.8 秒） |  |
+| GUN-0262 | 0.4 | fs_cc0-gunshots-heavy／163458_2263027-hq.mp3 | Grenade Launcher（LeMudCrab，0.4 秒） |  |
+| GUN-0263 | 12.0 | fs_cc0-gunshots-heavy／184382_71257-hq.mp3 | Mortar Shots.flac（qubodup，12.0 秒） |  |
+| GUN-0264 | 1.4 | fs_cc0-gunshots-heavy／184651_2906575-hq.mp3 | Cannon5.wav（Isaac200000，1.4 秒） |  |
+| GUN-0265 | 4.0 | fs_cc0-gunshots-heavy／187542_71257-hq.mp3 | M-327 Mortar Shots.flac（qubodup，4.0 秒） |  |
+| GUN-0266 | 12.3 | fs_cc0-gunshots-heavy／187767_71257-hq.mp3 | Cannon Shot（qubodup，12.3 秒） |  |
+| GUN-0267 | 7.3 | fs_cc0-gunshots-heavy／231765_1038806-hq.mp3 | Tank Explosion（unfa，7.3 秒） |  |
+| GUN-0268 | 10.9 | fs_cc0-gunshots-heavy／239135_71257-hq.mp3 | Tank Shots（qubodup，10.9 秒） |  |
+| GUN-0269 | 6.9 | fs_cc0-gunshots-heavy／239137_71257-hq.mp3 | Artillery Gunfire（qubodup，6.9 秒） |  |
+| GUN-0270 | 1.7 | fs_cc0-gunshots-heavy／241840_4404989-hq.mp3 | Incoming mortar 1（Zagge28，1.7 秒） |  |
+| GUN-0271 | 11.3 | fs_cc0-gunshots-heavy／249298_181941-hq.mp3 | rpg launcher  three shots.wav（klangfabrik，11.3 秒） |  |
+| GUN-0272 | 1.1 | fs_cc0-gunshots-heavy／418881_6616210-hq.mp3 | Tank Turret Rotate（KieranKeegan，1.1 秒） |  |
+| GUN-0273 | 0.5 | fs_cc0-gunshots-heavy／441373_6142149-hq.mp3 | Heavy Artillery Shot（LilMati，0.5 秒） |  |
+| GUN-0274 | 5.4 | fs_cc0-gunshots-heavy／448002_7811934-hq.mp3 | cannon.mp3（Kneeling，5.4 秒） |  |
+| GUN-0275 | 1.0 | fs_cc0-gunshots-heavy／515801_6142149-hq.mp3 | Retro, Pirate Cannon Shot（LilMati，1.0 秒） |  |
+| GUN-0276 | 1.4 | fs_cc0-gunshots-heavy／521377_10847299-hq.mp3 | Rocket Launch（Jarusca，1.4 秒） |  |
+| GUN-0277 | 4.7 | fs_cc0-gunshots-heavy／529239_8708205-hq.mp3 | Mortar（Mozfoo，4.7 秒） |  |
+| GUN-0278 | 5.9 | fs_cc0-gunshots-pistol／148833_2676248-hq.mp3 | .38 targetside with ricochet.mp3（cedarstudios，5.9 秒） |  |
+| GUN-0279 | 5.5 | fs_cc0-gunshots-pistol／148839_2676248-hq.mp3 | 9mm gunside.mp3（cedarstudios，5.5 秒） |  |
+| GUN-0280 | 1.8 | fs_cc0-gunshots-pistol／151071_2732486-hq.mp3 | Desert Eagle .50AE shot（vabadus，1.8 秒） |  |
+| GUN-0281 | 0.5 | fs_cc0-gunshots-pistol／163456_2263027-hq.mp3 | Pistol Shot（LeMudCrab，0.5 秒） |  |
+| GUN-0282 | 1.4 | fs_cc0-gunshots-pistol／217805_3368369-hq.mp3 | 9mm pistol shoot short reverb.wav（gattoangus，1.4 秒） |  |
+| GUN-0283 | 2.0 | fs_cc0-gunshots-pistol／253736_2276808-hq.mp3 | Pistol Shot（Kodack，2.0 秒） |  |
+| GUN-0284 | 0.8 | fs_cc0-gunshots-pistol／330634_2017016-hq.mp3 | Desert Eagle Gunshot（elliotlp，0.8 秒） |  |
+| GUN-0285 | 4.0 | fs_cc0-gunshots-pistol／346906_2963485-hq.mp3 | Revolver calibre 38 - vários disparos_02（reishugo，4.0 秒） |  |
+| GUN-0286 | 1.1 | fs_cc0-gunshots-pistol／371440_5937039-hq.mp3 | Single Pistol Gunshot 2.wav（morganpurkis，1.1 秒） |  |
+| GUN-0287 | 2.1 | fs_cc0-gunshots-pistol／385811_5937039-hq.mp3 | Single Pistol Gunshot 3.wav（morganpurkis，2.1 秒） |  |
+| GUN-0288 | 2.1 | fs_cc0-gunshots-pistol／386745_5768130-hq.mp3 | Handgun_Shot.wav（ken788，2.1 秒） |  |
+| GUN-0289 | 2.5 | fs_cc0-gunshots-pistol／391328_5937039-hq.mp3 | Single Pistol Gunshot 4.wav（morganpurkis，2.5 秒） |  |
+| GUN-0290 | 2.5 | fs_cc0-gunshots-pistol／391846_5937039-hq.mp3 | Single Pistol Gunshot 4.2.wav（morganpurkis，2.5 秒） |  |
+| GUN-0291 | 2.4 | fs_cc0-gunshots-pistol／392229_5937039-hq.mp3 | Single Pistol Gunshot 3.3.wav（morganpurkis，2.4 秒） |  |
+| GUN-0292 | 3.0 | fs_cc0-gunshots-pistol／402789_7111288-hq.mp3 | Small pistol gunshot indoors（acidsnowflake，3.0 秒） |  |
+| GUN-0293 | 1.7 | fs_cc0-gunshots-pistol／427592_3094998-hq.mp3 | 9mm pistol shot（michorvath，1.7 秒） |  |
+| GUN-0294 | 3.1 | fs_cc0-gunshots-pistol／427594_3094998-hq.mp3 | 22 magnum pistol shot（michorvath，3.1 秒） |  |
+| GUN-0295 | 0.9 | fs_cc0-gunshots-pistol／427598_3094998-hq.mp3 | AR15 pistol shot（michorvath，0.9 秒） |  |
+| GUN-0296 | 0.6 | fs_cc0-gunshots-pistol／470198_9565159-hq.mp3 | 9MM, Pop Shot（AudioWay，0.5 秒） |  |
+| GUN-0297 | 1.0 | fs_cc0-gunshots-pistol／500201_9995328-hq.mp3 | Pistol Fire（Bratish，1.0 秒） |  |
+| GUN-0298 | 7.0 | fs_cc0-gunshots-pistol／541818_9250976-hq.mp3 | Weapon_Revolver_Shots_Stereo.wav（Nox_Sound，7.0 秒） |  |
+| GUN-0299 | 1.3 | fs_cc0-gunshots-pistol／55340_662292-hq.mp3 | glock.wav（hiramjustus，1.3 秒） |  |
+| GUN-0300 | 0.3 | fs_cc0-gunshots-pistol／645316_3139426-hq.mp3 | snub_nose_357_magnum_noisegate-17.80.wav（DarkShroom，0.3 秒） |  |
+| GUN-0301 | 0.5 | fs_cc0-gunshots-pistol／668348_3271378-hq.mp3 | handgun-one-shot.wav（DeltaCode，0.5 秒） |  |
+| GUN-0302 | 2.8 | fs_cc0-gunshots-pistol／683175_3692246-hq.mp3 | 357 Magnum Revolver Gunshot with Tail（Shark_Anthony，2.8 秒） |  |
+| GUN-0303 | 0.9 | fs_cc0-gunshots-pistol／683186_3692246-hq.mp3 | 357 Magnum Revolver Gunshot（Shark_Anthony，0.9 秒） |  |
+| GUN-0304 | 4.0 | fs_cc0-gunshots-pistol／717584_97550-hq.mp3 | 220816 Gunshot, stage pistol, Soulpepper, R-07（TRP，4.0 秒） |  |
+| GUN-0305 | 6.8 | fs_cc0-gunshots-pistol／717585_97550-hq.mp3 | 220816 Gunshot2, stage pistol, Soulpepper, R-07（TRP，6.8 秒） |  |
+| GUN-0306 | 1.4 | fs_cc0-gunshots-pistol／803497_16571147-hq.mp3 | Pocket Pistol gunshot 2 (Outside of room)（mahecic，1.4 秒） |  |
+| GUN-0307 | 4.8 | fs_cc0-gunshots-pistol／855652_7157894-hq.mp3 | A Glock handgun being shot 3x // punchy hollywood-esque sounding shots w/ airy forest reverb（serøutōnin--deprivəd，4.8 秒） |  |
+| GUN-0308 | 0.5 | fs_cc0-gunshots-rifle／160590_2714469-hq.mp3 | Assault Rifle (Single Burst)（Keatonmcq，0.5 秒） |  |
+| GUN-0309 | 0.6 | fs_cc0-gunshots-rifle／163457_2263027-hq.mp3 | AK47 Shot（LeMudCrab，0.6 秒） |  |
+| GUN-0310 | 0.7 | fs_cc0-gunshots-rifle／163460_2263027-hq.mp3 | Sniper Shot（LeMudCrab，0.7 秒） |  |
+| GUN-0311 | 10.2 | fs_cc0-gunshots-rifle／182815_71257-hq.mp3 | Silenced Sniper Rifle.flac（qubodup，10.2 秒） |  |
+| GUN-0312 | 7.9 | fs_cc0-gunshots-rifle／187677_71257-hq.mp3 | M16 Rifle Shots.flac（qubodup，7.9 秒） |  |
+| GUN-0313 | 4.2 | fs_cc0-gunshots-rifle／201668_3749344-hq.mp3 | M16 burst in street.aif（Franki-01234，4.2 秒） |  |
+| GUN-0314 | 5.0 | fs_cc0-gunshots-rifle／238916_71257-hq.mp3 | Rifle Shooting（qubodup，5.0 秒） |  |
+| GUN-0315 | 11.6 | fs_cc0-gunshots-rifle／259758_4121395-hq.mp3 | M4 Assault rifle firing.wav（mnslugger20，11.6 秒） |  |
+| GUN-0316 | 4.8 | fs_cc0-gunshots-rifle／263513_4675419-hq.mp3 | AR15 Various Sounds（wadaltmon，4.9 秒） |  |
+| GUN-0317 | 4.0 | fs_cc0-gunshots-rifle／351777_2863152-hq.mp3 | Sniper Rifle M24 SFX.mp3（kennysvoice，4.0 秒） |  |
+| GUN-0318 | 13.4 | fs_cc0-gunshots-rifle／351778_2863152-hq.mp3 | AK47 SFX.mp3（kennysvoice，13.4 秒） |  |
+| GUN-0319 | 3.8 | fs_cc0-gunshots-rifle／360607_4121395-hq.mp3 | M4 Assault rifle Long Burst.wav（mnslugger20，3.8 秒） |  |
+| GUN-0320 | 2.7 | fs_cc0-gunshots-rifle／386842_932959-hq.mp3 | M1 Garand Rifle（nioczkus，2.7 秒） |  |
+| GUN-0321 | 3.3 | fs_cc0-gunshots-rifle／391725_5937039-hq.mp3 | Battle Rifle.wav（morganpurkis，3.3 秒） |  |
+| GUN-0322 | 3.5 | fs_cc0-gunshots-rifle／404562_7542558-hq.mp3 | AssaultRifle1.wav（SuperPhat，3.5 秒） |  |
+| GUN-0323 | 3.5 | fs_cc0-gunshots-rifle／410442_7542558-hq.mp3 | EnfieldRifle.wav（SuperPhat，3.5 秒） |  |
+| GUN-0324 | 5.0 | fs_cc0-gunshots-rifle／410552_7707368-hq.mp3 | Rifle kaliber 6.5-55 compressed the spike by 12 dB.wav（straget，5.0 秒） |  |
+| GUN-0325 | 3.2 | fs_cc0-gunshots-rifle／411567_6142149-hq.mp3 | Centerfire Rifle Gun Shot 01.wav（LilMati，3.2 秒） |  |
+| GUN-0326 | 12.6 | fs_cc0-gunshots-rifle／416417_7542558-hq.mp3 | Automatic Assault Rifle.wav（SuperPhat，12.6 秒） |  |
+| GUN-0327 | 6.0 | fs_cc0-gunshots-rifle／421710_7542558-hq.mp3 | SemiAutoRifleShot.wav（SuperPhat，6.0 秒） |  |
+| GUN-0328 | 2.6 | fs_cc0-gunshots-rifle／427596_3094998-hq.mp3 | AR15 rifle shot（michorvath，2.6 秒） |  |
+| GUN-0329 | 0.9 | fs_cc0-gunshots-rifle／427598_3094998-hq.mp3 | AR15 pistol shot（michorvath，0.9 秒） |  |
+| GUN-0330 | 2.5 | fs_cc0-gunshots-rifle／432366_7542558-hq.mp3 | Ar15-Real Recording.wav（SuperPhat，2.5 秒） |  |
+| GUN-0331 | 1.2 | fs_cc0-gunshots-rifle／433858_6142149-hq.mp3 | Rifle Gun Shot 01.wav（LilMati，1.2 秒） |  |
+| GUN-0332 | 10.0 | fs_cc0-gunshots-rifle／452154_6175868-hq.mp3 | Rifle Shots（bananplyte，10.0 秒） |  |
+| GUN-0333 | 3.3 | fs_cc0-gunshots-rifle／46655_57789-hq.mp3 | carbine single.wav（cognito perceptu，3.3 秒） |  |
+| GUN-0334 | 2.0 | fs_cc0-gunshots-rifle／483536_6142149-hq.mp3 | Centerfire Rifle Gun Shot 02.wav（LilMati，2.0 秒） |  |
+| GUN-0335 | 1.5 | fs_cc0-gunshots-rifle／484036_6142149-hq.mp3 | Rifle Gun Shot 02.wav（LilMati，1.5 秒） |  |
+| GUN-0336 | 2.5 | fs_cc0-gunshots-rifle／514228_7542558-hq.mp3 | Sniper Rifle（SuperPhat，2.5 秒） |  |
+| GUN-0337 | 2.0 | fs_cc0-gunshots-rifle／524738_6142149-hq.mp3 | Sniper Rifle Instant Kill Shots 02（LilMati，2.0 秒） |  |
+| GUN-0338 | 0.7 | fs_cc0-gunshots-shotgun／163455_2263027-hq.mp3 | Shotgun Shot（LeMudCrab，0.7 秒） |  |
+| GUN-0339 | 0.9 | fs_cc0-gunshots-shotgun／188499_2213158-hq.mp3 | Silenced shotgun gunshot（UnderlinedDesigns，0.9 秒） |  |
+| GUN-0340 | 2.9 | fs_cc0-gunshots-shotgun／258194_2276808-hq.mp3 | Unrelenting Shotgun（Kodack，2.9 秒） |  |
+| GUN-0341 | 1.2 | fs_cc0-gunshots-shotgun／266105_4997689-hq.mp3 | shotgun.wav（Marregheriti，1.2 秒） |  |
+| GUN-0342 | 2.0 | fs_cc0-gunshots-shotgun／269455_5120219-hq.mp3 | Shotgun2.wav（Peeper66，2.0 秒） |  |
+| GUN-0343 | 1.3 | fs_cc0-gunshots-shotgun／318973_4039477-hq.mp3 | Shotgun - Fire.wav（AbuNijmeh，1.3 秒） |  |
+| GUN-0344 | 1.2 | fs_cc0-gunshots-shotgun／380886_5937039-hq.mp3 | Doom Shotgun 2017.wav（morganpurkis，1.2 秒） |  |
+| GUN-0345 | 2.4 | fs_cc0-gunshots-shotgun／405504_6142149-hq.mp3 | Shotgun Shot 01.wav（LilMati，2.4 秒） |  |
+| GUN-0346 | 3.2 | fs_cc0-gunshots-shotgun／408099_6142149-hq.mp3 | Shotgun Shot 02.wav（LilMati，3.2 秒） |  |
+| GUN-0347 | 4.9 | fs_cc0-gunshots-shotgun／410551_7707368-hq.mp3 | Shotgun kaliber 20 compressed the spike by 12 dB wav（straget，4.9 秒） |  |
+| GUN-0348 | 1.7 | fs_cc0-gunshots-shotgun／427595_3094998-hq.mp3 | 20 gauge shotgun gunshot（michorvath，1.7 秒） |  |
+| GUN-0349 | 1.1 | fs_cc0-gunshots-shotgun／455916_2927958-hq.mp3 | Shotgun Magazine #2（bolkmar，1.1 秒） |  |
+| GUN-0350 | 2.0 | fs_cc0-gunshots-shotgun／473846_6142149-hq.mp3 | Shotgun Shot 03.wav（LilMati，2.0 秒） |  |
+| GUN-0351 | 4.2 | fs_cc0-gunshots-shotgun／544676_11376051-hq.mp3 | Shotgun 02.wav（Clueless79，4.2 秒） |  |
+| GUN-0352 | 3.0 | fs_cc0-gunshots-shotgun／55341_662292-hq.mp3 | shotgun.wav（hiramjustus，3.0 秒） |  |
+| GUN-0353 | 1.2 | fs_cc0-gunshots-shotgun／564480_11870622-hq.mp3 | Shotgun Shot sfx（lumikon，1.2 秒） |  |
+| GUN-0354 | 3.1 | fs_cc0-gunshots-shotgun／619041_781461-hq.mp3 | Shot Gun - 12 Gauge- Fire Four Shots Quickly（mrrap4food，3.1 秒） |  |
+| GUN-0355 | 6.7 | fs_cc0-gunshots-shotgun／621150_3397982-hq.mp3 | Shotgun.wav（ktfreesound，6.7 秒） |  |
+| GUN-0356 | 1.0 | fs_cc0-gunshots-shotgun／621154_3397982-hq.mp3 | Shotgun- Escopeta M7-.wav（ktfreesound，1.0 秒） |  |
+| GUN-0357 | 3.9 | fs_cc0-gunshots-shotgun／660299_13432509-hq.mp3 | Shotgun Fire（hyperix6，3.9 秒） |  |
+| GUN-0358 | 0.7 | fs_cc0-gunshots-shotgun／668353_3271378-hq.mp3 | shotgun-one-shot.wav（DeltaCode，0.7 秒） |  |
+| GUN-0359 | 10.3 | fs_cc0-gunshots-shotgun／673317_14265036-hq.mp3 | Loading Shotgun.wav（Dentrabert，10.3 秒） |  |
+| GUN-0360 | 1.4 | fs_cc0-gunshots-shotgun／687399_14975791-hq.mp3 | shotgun Gunshot.mp3（ONgiaunbg，1.4 秒） |  |
+| GUN-0361 | 2.5 | fs_cc0-gunshots-shotgun／709042_12187251-hq.mp3 | Shotgun EU FX（FunnyVoices，2.5 秒） |  |
+| GUN-0362 | 1.2 | fs_cc0-gunshots-shotgun／773873_15468302-hq.mp3 | shotgun shoot（MrGungus，1.2 秒） |  |
+| GUN-0363 | 0.9 | fs_cc0-gunshots-silenced／100465_1176149-hq.mp3 | Silenced shot.wav（hoot_avi，0.9 秒） |  |
+| GUN-0364 | 2.7 | fs_cc0-gunshots-silenced／107059_13258-hq.mp3 | C0000_silence2sec.mp3（thanvannispen，2.7 秒） |  |
+| GUN-0365 | 4.1 | fs_cc0-gunshots-silenced／107060_13258-hq.mp3 | C0000_silence4sec.mp3（thanvannispen，4.1 秒） |  |
+| GUN-0366 | 5.7 | fs_cc0-gunshots-silenced／124960_822037-hq.mp3 | Silence.wav（Tempouser，5.7 秒） |  |
+| GUN-0367 | 0.7 | fs_cc0-gunshots-silenced／165525_2772499-hq.mp3 | silenced pistol_bip.aif（Thomasweightman，0.7 秒） |  |
+| GUN-0368 | 4.1 | fs_cc0-gunshots-silenced／166493_2083114-hq.mp3 | Silenced Gun Firing - gunshots（fireballuke，4.1 秒） |  |
+| GUN-0369 | 0.9 | fs_cc0-gunshots-silenced／188499_2213158-hq.mp3 | Silenced shotgun gunshot（UnderlinedDesigns，0.9 秒） |  |
+| GUN-0370 | 2.0 | fs_cc0-gunshots-silenced／242846_4121395-hq.mp3 | suppressed-submachinegun.wav（mnslugger20，2.0 秒） |  |
+| GUN-0371 | 2.9 | fs_cc0-gunshots-silenced／248204_4121395-hq.mp3 | Five seveN gun shot and silenced.wav（mnslugger20，2.9 秒） |  |
+| GUN-0372 | 0.4 | fs_cc0-gunshots-silenced／255716_2971294-hq.mp3 | Silenced Pistol Layered (Powerful)（Paul368，0.4 秒） |  |
+| GUN-0373 | 2.7 | fs_cc0-gunshots-silenced／257364_2276808-hq.mp3 | Silenced Submachine gun（Kodack，2.7 秒） |  |
+| GUN-0374 | 0.7 | fs_cc0-gunshots-silenced／369781_5937039-hq.mp3 | Silenced Gunshot.wav（morganpurkis，0.7 秒） |  |
+| GUN-0375 | 0.3 | fs_cc0-gunshots-silenced／384685_5937039-hq.mp3 | Silenced Gunshot 3.wav（morganpurkis，0.3 秒） |  |
+| GUN-0376 | 4.1 | fs_cc0-gunshots-silenced／489069_2735094-hq.mp3 | Pistol - perfect shot with silencer（TILIADESIGN，4.1 秒） |  |
+| GUN-0377 | 0.3 | fs_cc0-gunshots-silenced／528262_11537497-hq.mp3 | Silenced Shot（magnuswaker，0.3 秒） |  |
+| GUN-0378 | 0.4 | fs_cc0-gunshots-silenced／618994_781461-hq.mp3 | Gun Silencer.mp3（mrrap4food，0.4 秒） |  |
+| GUN-0379 | 3.0 | fs_cc0-gunshots-silenced／627087_11511262-hq.mp3 | silenced pistol shot（Clutvh，3.0 秒） |  |
+| GUN-0380 | 0.2 | fs_cc0-gunshots-silenced／693855_15072041-hq.mp3 | FN FNX .45 Tactical (SilencerCo Osprey).mp3（areniporgen，0.2 秒） |  |
+| GUN-0381 | 0.4 | fs_cc0-gunshots-silenced／740120_71257-hq.mp3 | Silenced SMG Three-Shot Burst（qubodup，0.4 秒） |  |
+| GUN-0382 | 0.5 | fs_cc0-gunshots-silenced／819269_17707799-hq.mp3 | Gunshot with silencer（hotpin7，0.5 秒） |  |
 
-## IMP 撞擊與命中（763）
+## IMP 撞擊與命中（730）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -1861,39 +1869,6 @@
 | IMP-0574 | 3.9 | ia_red-library-weapons-misc／R01-03-Catapult Launch and Hit Target.flac |  |  |
 | IMP-0575 | 12.7 | ia_red-library-weapons-misc／R12-27-Falling Bombs Whistle.mp3 |  |  |
 | IMP-0576 | 21.3 | ia_red-library-weapons-misc／R21-43-Whip Cracks.mp3 |  |  |
-| IMP-0577 | 36.3 | ia_sse-library-destruction／DESTRClpse_Mine tunnel collapsing; wooden beams_CS_USC.mp3 |  |  |
-| IMP-0578 | 4.2 | ia_sse-library-destruction／DESTRCrsh_Big auto car crash with glass_CS_USC.flac |  |  |
-| IMP-0579 | 9.0 | ia_sse-library-destruction／DESTRCrsh_Car dirt skid; hits metal rail; glass_CS_USC.mp3 |  |  |
-| IMP-0580 | 17.3 | ia_sse-library-destruction／DESTRCrsh_Car hits lumber pile_CS_USC.mp3 |  |  |
-| IMP-0581 | 8.6 | ia_sse-library-destruction／DESTRCrsh_Car hits two phone booths; metal & glass_CS_USC.mp3 |  |  |
-| IMP-0582 | 3.5 | ia_sse-library-destruction／DESTRCrsh_Car in; breaks; hits trash can_CS_USC.flac |  |  |
-| IMP-0583 | 4.1 | ia_sse-library-destruction／DESTRCrsh_Crash inside building_CS_USC.flac |  |  |
-| IMP-0584 | 7.9 | ia_sse-library-destruction／DESTRCrsh_Old rattling car crashes through wooden fence_CS_USC.mp3 |  |  |
-| IMP-0585 | 44.6 | ia_sse-library-destruction／DESTRCrsh_Various side swipes and metallic crashes;_CS_USC.mp3 |  |  |
-| IMP-0586 | 18.9 | ia_sse-library-doors／DOORSlid_Sliding wooden door; open close & lock_CS_USC.mp3 |  |  |
-| IMP-0587 | 7.3 | ia_sse-library-doors／DOORSlid_Sliding wooden door_CHS_USC.mp3 |  |  |
-| IMP-0588 | 39.7 | ia_sse-library-doors／DOORWood_Old shack screen door; opens & closes with_CHS_USC.mp3 |  |  |
-| IMP-0589 | 4.5 | ia_sse-library-doors／DOORWood_Wooden door opens and closes_CS_USC.flac |  |  |
-| IMP-0590 | 1.7 | ia_sse-library-fight／FGHTBf_Body hit and crash_CS_USC.flac |  |  |
-| IMP-0591 | 6.4 | ia_sse-library-fight／FGHTBf_Two body falls on wood_CS_USC.mp3 |  |  |
-| IMP-0592 | 36.3 | ia_sse-library-fight／FGHTImpt_Body hits; boxing punches; very noisy_CS_USC.mp3 |  |  |
-| IMP-0593 | 1.2 | ia_sse-library-fight／FGHTImpt_Fist crack; face punch_CS_USC.flac |  |  |
-| IMP-0594 | 1.7 | ia_sse-library-fight／FGHTImpt_Punch & body fall; short_CS_USC.flac |  |  |
-| IMP-0595 | 9.4 | ia_sse-library-glass／GLASCrsh_Large pane of glass breaks; dull; sweetener_CS_USC.mp3 |  |  |
-| IMP-0596 | 17.2 | ia_sse-library-glass／GLASCrsh_Small glass breaks_CS_USC.mp3 |  |  |
-| IMP-0597 | 52.6 | ia_sse-library-machines／MACHInd_Metallic pounding in factory_CS_USC.mp3 |  |  |
-| IMP-0598 | 1.5 | ia_sse-library-metal／METLCrsh_Large hard metal crash; optical_CS_USC.flac |  |  |
-| IMP-0599 | 25.0 | ia_sse-library-metal／METLFric_Sliding metal scrapes_CS_USC.mp3 |  |  |
-| IMP-0600 | 17.9 | ia_sse-library-metal／METLImpt_Metal hits against metal; foley_CS_USC.mp3 |  |  |
-| IMP-0601 | 11.1 | ia_sse-library-metal／METLMvmt_Moving large metal objects around in building;_CS_USC.mp3 |  |  |
-| IMP-0602 | 14.6 | ia_sse-library-tools／TOOLHand_Gavel pounding short & long_CS_USC.mp3 |  |  |
-| IMP-0603 | 16.3 | ia_sse-library-tools／TOOLPowr_Large industrial buzz saw cutting wood_CS_USC.mp3 |  |  |
-| IMP-0604 | 16.1 | ia_sse-library-weapons／WEAPArro_Arrow being pulled out of wood_CS_USC.mp3 |  |  |
-| IMP-0605 | 1.0 | ia_sse-library-weapons／WEAPArro_Hard arrow thuds into soft wood_CS_USC.flac |  |  |
-| IMP-0606 | 49.1 | ia_sse-library-wood／WOODCrsh_Falling wooden beam; big interior crash;_CS_USC.mp3 |  |  |
-| IMP-0607 | 34.6 | ia_sse-library-wood／WOODHandl_Setting axe down on floor; leans on wall;_CS_USC.mp3 |  |  |
-| IMP-0608 | 26.3 | ia_sse-library-wood／WOODImpt_Battering ram hits castle door; big wooden_CS_USC.mp3 |  |  |
-| IMP-0609 | 34.2 | ia_sse-library-wood／WOODImpt_Wooden barrel drop; several_CS_USC.mp3 |  |  |
 | IMP-0610 | 1.1 | oga_6-user-interface-ding-clicks／dingClicks/dingCling-levelup.ogg |  |  |
 | IMP-0611 | 0.5 | oga_6-user-interface-ding-clicks／dingClicks/dingCling-negative.ogg |  |  |
 | IMP-0612 | 0.2 | oga_6-user-interface-ding-clicks／dingClicks/dingCling-neutral.ogg |  |  |
@@ -2049,7 +2024,7 @@
 | IMP-0762 | 0.9 | oga_unleeched-sound-effects-pack／leech-hit.wav |  |  |
 | IMP-0763 | 1.1 | oga_unleeched-sound-effects-pack／scientist-hit.wav |  |  |
 
-## ITM 物品與拾取（186）
+## ITM 物品與拾取（182）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -2147,14 +2122,6 @@
 | ITM-0092 | 4.0 | ia_red-library-communications／R20-03-Pull Paper Out of Typewriter.flac |  |  |
 | ITM-0093 | 56.5 | ia_red-library-communications／R20-21-Telephone Rings - Metal Bell.mp3 |  |  |
 | ITM-0094 | 4.0 | ia_red-library-foley-props-1／R15-81-Metal Clanking Coins.flac |  |  |
-| ITM-0095 | 22.8 | ia_sse-library-alarms／ALRMBell_Old style fire alarm bell; hand cranked_CS_USC.mp3 |  |  |
-| ITM-0096 | 1.7 | ia_sse-library-alarms／ALRMBell_Train crossing bell; very short loop; okay_CS_USC.flac |  |  |
-| ITM-0097 | 11.6 | ia_sse-library-ambience／AMBInd_Large industrial factory; much hammering_CS_USC.mp3 |  |  |
-| ITM-0098 | 17.5 | ia_sse-library-ambience／AMBPubl_Low crowd murmur and bell ring_CS_USC.mp3 |  |  |
-| ITM-0099 | 24.1 | ia_sse-library-communications／COMTelph_Coin return from pay telephone_CS_USC.mp3 |  |  |
-| ITM-0100 | 46.2 | ia_sse-library-metal／METLImpt_Blacksmith hitting anvil with hammer; two_CS_USC.mp3 |  |  |
-| ITM-0101 | 26.6 | ia_sse-library-tools／TOOLHand_Chiseling; Striking chisel with wooden hammer_CS_USC.mp3 |  |  |
-| ITM-0102 | 43.6 | ia_sse-library-tools／TOOLPneu_Pneumatic jack hammer; not much detail_CS_USC.mp3 |  |  |
 | ITM-0103 | 0.5 | oga_12-coin-sound-effects／coin.1.ogg |  |  |
 | ITM-0104 | 0.3 | oga_12-coin-sound-effects／coin.10.ogg |  |  |
 | ITM-0105 | 0.6 | oga_12-coin-sound-effects／coin.11.ogg |  |  |
@@ -2239,8 +2206,12 @@
 | ITM-0184 | 39.4 | oga_sound-effects-pack／Paper/pencil-scratch-2.wav |  |  |
 | ITM-0185 | 10.4 | oga_sound-effects-pack／Paper/tissue-pull.wav |  |  |
 | ITM-0186 | 3.3 | oga_spaceship-shoting／SpaceShipShooting/Plasmabellshot.ogg |  |  |
+| ITM-0187 | 0.5 | oga_blacksmiths-hammer／blacksmithhammer_0.mp3 |  |  |
+| ITM-0188 | 1.4 | oga_coin-drop／coin_drop.ogg |  |  |
+| ITM-0189 | 1.4 | oga_coin-drop／coin_drop_0.mp3 |  |  |
+| ITM-0190 | 20.8 | oga_coin-sounds／coinsounds011015_0.ogg |  |  |
 
-## MEC 機械與機關（637）
+## MEC 機械與機關（624）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -2479,25 +2450,6 @@
 | MEC-0233 | 28.8 | ia_red-library-machines-1／R16-26-Water Pump.mp3 |  |  |
 | MEC-0234 | 52.5 | ia_red-library-machines-2／R17-02-Old Office Machines.mp3 |  |  |
 | MEC-0235 | 30.5 | ia_red-library-machines-2／R18-32-Distant Machine in Factory.mp3 |  |  |
-| MEC-0236 | 17.9 | ia_sse-library-chains／CHAINMvmt_Chains moving on deck of ship; waves_CS_USC.mp3 |  |  |
-| MEC-0237 | 15.9 | ia_sse-library-communications／COMTelm_Teletype or printing machine_CS_USC.mp3 |  |  |
-| MEC-0238 | 0.7 | ia_sse-library-doors／DOORHdwr_Short door latch_CS_USC.flac |  |  |
-| MEC-0239 | 21.2 | ia_sse-library-doors／DOORMetl_Elevator doors or large metal cabinet; latches_CS_USC.mp3 |  |  |
-| MEC-0240 | 12.2 | ia_sse-library-doors／DOORPrisn_Shaking prison cell door; or other metal_CS_USC.mp3 |  |  |
-| MEC-0241 | 4.8 | ia_sse-library-machines／MACHElev_Elevator door open & close_CHS_USC.flac |  |  |
-| MEC-0242 | 68.0 | ia_sse-library-machines／MACHEscl_Escalator with odd high frequency element_CHS_USC.mp3 |  |  |
-| MEC-0243 | 12.1 | ia_sse-library-machines／MACHMed_EKG heart rate of 44 BPM_CS_USC.mp3 |  |  |
-| MEC-0244 | 15.6 | ia_sse-library-machines／MACHMed_EKG heart rate of 90 BPM_CS_USC.mp3 |  |  |
-| MEC-0245 | 10.6 | ia_sse-library-machines／MACHMed_Iron lung runs steady_CS_USC.mp3 |  |  |
-| MEC-0246 | 20.9 | ia_sse-library-machines／MACHMed_Operating room ventilation machine; Good_CS_USC.mp3 |  |  |
-| MEC-0247 | 24.4 | ia_sse-library-mechanical／MECHClik_Metal clicks; several takes_CS_USC.mp3 |  |  |
-| MEC-0248 | 33.3 | ia_sse-library-mechanical／MECHLock_Lock opens; could be door; gun or other small_CS_USC.mp3 |  |  |
-| MEC-0249 | 21.8 | ia_sse-library-metal／METLImpt_Shooting gallery or anvil_CS_USC.mp3 |  |  |
-| MEC-0250 | 24.8 | ia_sse-library-motors／MOTRTurb_Engine room; high whine from turbines_CS_USC.mp3 |  |  |
-| MEC-0251 | 22.7 | ia_sse-library-tools／TOOLPneu_Riveting gun_CS_USC.mp3 |  |  |
-| MEC-0252 | 40.7 | ia_sse-library-weapons／WEAPArmr_metal armor helmet open & close; hinges and_CS_USC.mp3 |  |  |
-| MEC-0253 | 37.7 | ia_sse-library-weapons／WEAPArro_Shooting arrows from bow; indoors_CS_USC.mp3 |  |  |
-| MEC-0254 | 23.7 | ia_sse-library-weapons／WEAPSiege_Battering ram an large heavy door_CS_USC.wav |  |  |
 | MEC-0255 | 0.7 | kenney_casino-audio／Audio/card-fan-1.ogg |  |  |
 | MEC-0256 | 1.3 | kenney_casino-audio／Audio/card-fan-2.ogg |  |  |
 | MEC-0257 | 0.6 | oga_16-button-clicks／buttons_and_clicks/Clic01.mp3.flac |  |  |
@@ -2881,8 +2833,14 @@
 | MEC-0635 | 8.6 | oga_warp-engine-engage-sound／warp engine engage_0-16bit.wav |  |  |
 | MEC-0636 | 8.6 | oga_warp-engine-engage-sound／warp engine engage_0.wav |  |  |
 | MEC-0637 | 0.5 | oga_zippo-click-sound／zipclick.flac |  |  |
+| MEC-0638 | 0.1 | oga_click-sounds6／click_sound.mp3 |  |  |
+| MEC-0639 | 0.2 | oga_click-sounds6／click_sound_2.mp3 |  |  |
+| MEC-0640 | 0.1 | oga_click-sounds6／click_sound_4.mp3 |  |  |
+| MEC-0641 | 0.1 | oga_click-sounds6／click_sound_5.mp3 |  |  |
+| MEC-0642 | 0.1 | oga_click-sounds6／click_sound_6.mp3 |  |  |
+| MEC-0643 | 20.7 | oga_engine-sounds2／engine_sound_1.mp3 |  |  |
 
-## MLE 近戰揮擊（203）
+## MLE 近戰揮擊（195）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -3012,14 +2970,6 @@
 | MLE-0124 | 47.6 | ia_red-library-weapons-swords／R26-33-Single Large Sword Hits.mp3 |  |  |
 | MLE-0125 | 29.3 | ia_red-library-weapons-swords／R27-01-Large Sword Stab and Slide.mp3 |  |  |
 | MLE-0126 | 44.7 | ia_red-library-weapons-swords／R27-03-Large Sword Rings.mp3 |  |  |
-| MLE-0127 | 2.9 | ia_sse-library-fire／FIREWhsh_Flare whoosh_CS_USC.flac |  |  |
-| MLE-0128 | 1.1 | ia_sse-library-scifi／SCIDoor_Original Star Trek door swish_CS_USC.flac |  |  |
-| MLE-0129 | 26.1 | ia_sse-library-swooshes／SWSH_Processed swishes_CS_USC.mp3 |  |  |
-| MLE-0130 | 6.7 | ia_sse-library-weapons／WEAPSwrd_Machete hits door and vibrates_CS_USC.mp3 |  |  |
-| MLE-0131 | 4.9 | ia_sse-library-weapons／WEAPSwrd_Sword fight_CS_USC.flac |  |  |
-| MLE-0132 | 6.1 | ia_sse-library-weapons／WEAPWhip_Whip swishes; Columbia Pictures_CS_USC.mp3 |  |  |
-| MLE-0133 | 41.0 | ia_sse-library-weapons／WEAPWhip_Whip swishes; several_CS_USC.mp3 |  |  |
-| MLE-0134 | 24.4 | ia_sse-library-wood／WOODImpt_Cutting or chopping with large knife or machete_CS_USC.mp3 |  |  |
 | MLE-0135 | 1.6 | oga_bub-block-sound-effects／blade1.wav |  |  |
 | MLE-0136 | 2.2 | oga_bub-block-sound-effects／blade2.wav |  |  |
 | MLE-0137 | 1.3 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/sword-clash-01.wav |  |  |
@@ -3090,7 +3040,7 @@
 | MLE-0202 | 0.6 | oga_wind-hit-time-morph／qubodup-megaswosh2.wav |  |  |
 | MLE-0203 | 6.0 | oga_wind-whoosh-loop／wind woosh loop.ogg |  |  |
 
-## MOV 移動與衣物（323）
+## MOV 移動與衣物（317）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -3257,10 +3207,6 @@
 | MOV-0161 | 14.7 | ia_red-library-foley-props-1／R10-12-Heavy Leather and Wood Foley.mp3 |  |  |
 | MOV-0162 | 39.7 | ia_red-library-foley-props-2／R18-13-Heavy Clothing Movement in Room.mp3 |  |  |
 | MOV-0163 | 25.7 | ia_red-library-foley-props-2／R18-14-Heavy Clothing Movement in Room.mp3 |  |  |
-| MOV-0164 | 15.1 | ia_red-library-footsteps-1／R10-08-Walking Outside on Gravel.mp3 |  |  |
-| MOV-0165 | 37.4 | ia_red-library-footsteps-1／R10-10-Sliding Steps on Gravel.flac |  |  |
-| MOV-0166 | 14.6 | ia_red-library-footsteps-1／R10-17-Running On Gravel.mp3 |  |  |
-| MOV-0167 | 14.7 | ia_red-library-footsteps-1／R10-26-Slow Footsteps on Tile and Wooden Floor.flac |  |  |
 | MOV-0168 | 32.4 | ia_red-library-footsteps-2／R10-27-Boots with Spurs.mp3 |  |  |
 | MOV-0169 | 46.4 | ia_red-library-footsteps-2／R10-29-Footsteps in a Tunnel.mp3 |  |  |
 | MOV-0170 | 26.0 | ia_red-library-footsteps-2／R10-36-Quick Steps on Gravel and Concrete.mp3 |  |  |
@@ -3289,8 +3235,6 @@
 | MOV-0193 | 15.2 | ia_red-library-footsteps-4／R27-45-Footsteps on Hard Surface.mp3 |  |  |
 | MOV-0194 | 17.6 | ia_red-library-machines-1／R12-51-Steady Motor Running.mp3 |  |  |
 | MOV-0195 | 45.5 | ia_red-library-machines-2／R29-06-Mechanical Machine Constant High-Speed Running.mp3 |  |  |
-| MOV-0196 | 40.0 | ia_sse-library-ambience／AMBInd_Many footsteps in reverberant factory interior_CS_USC.mp3 |  |  |
-| MOV-0197 | 15.3 | ia_sse-library-mechanical／MECHSwtch_Footsteps; turning off several light switches_CS_USC.mp3 |  |  |
 | MOV-0198 | 0.5 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_01.flac |  |  |
 | MOV-0199 | 0.7 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_02.flac |  |  |
 | MOV-0200 | 0.7 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_03.flac |  |  |
@@ -3418,7 +3362,7 @@
 | MOV-0322 | 0.9 | oga_unleeched-sound-effects-pack／leech-jump.wav |  |  |
 | MOV-0323 | 1.7 | oga_unleeched-sound-effects-pack／leech-run.wav |  |  |
 
-## MUS 音樂（326）
+## MUS 音樂（592）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -3748,8 +3692,274 @@
 | MUS-0324 | 206.0 | yd_dungeon-ambience／dungeon002_0.ogg | dungeon, Ambient, dark |  |
 | MUS-0325 | 248.6 | yd_forgotten-victory／ForgottenVictory.ogg | march; A slow-march like backbround music. Approx 4 minutes long. |  |
 | MUS-0326 | 104.6 | yd_lonelyhood／Lonelyhood.ogg | lonely; A background music that can be used in a loop to create a rather gloomy atmosphere. LMMS f |  |
+| MUS-0327 | 135.5 | 2dpixx_post-apocalyptic-morning-afternoon-and-night／post-apocalyptic_afternoon_bpm85.mp3 | 1st preview:Morning -> Afternoon -> Night 3 music for July 2025 Art Challenge - Post-Apocalyptic Survival. All music tracks are loopable.File formats are mp3 an |  |
+| MUS-0328 | 135.5 | 2dpixx_post-apocalyptic-morning-afternoon-and-night／post-apocalyptic_afternoon_bpm85_0.ogg | 1st preview:Morning -> Afternoon -> Night 3 music for July 2025 Art Challenge - Post-Apocalyptic Survival. All music tracks are loopable.File formats are mp3 an |  |
+| MUS-0329 | 120.0 | 2dpixx_post-apocalyptic-morning-afternoon-and-night／post-apocalyptic_morning_bpm80.mp3 | 1st preview:Morning -> Afternoon -> Night 3 music for July 2025 Art Challenge - Post-Apocalyptic Survival. All music tracks are loopable.File formats are mp3 an |  |
+| MUS-0330 | 120.0 | 2dpixx_post-apocalyptic-morning-afternoon-and-night／post-apocalyptic_morning_bpm80_0.ogg | 1st preview:Morning -> Afternoon -> Night 3 music for July 2025 Art Challenge - Post-Apocalyptic Survival. All music tracks are loopable.File formats are mp3 an |  |
+| MUS-0331 | 120.0 | 2dpixx_post-apocalyptic-morning-afternoon-and-night／post-apocalyptic_night_bpm80.mp3 | 1st preview:Morning -> Afternoon -> Night 3 music for July 2025 Art Challenge - Post-Apocalyptic Survival. All music tracks are loopable.File formats are mp3 an |  |
+| MUS-0332 | 120.0 | 2dpixx_post-apocalyptic-morning-afternoon-and-night／post-apocalyptic_night_bpm80_0.ogg | 1st preview:Morning -> Afternoon -> Night 3 music for July 2025 Art Challenge - Post-Apocalyptic Survival. All music tracks are loopable.File formats are mp3 an |  |
+| MUS-0333 | 69.9 | agameraaron_outer-space-loop／outer_space_2.mp3 | Outer Space Loop |  |
+| MUS-0334 | 316.4 | alandgt_sad-orchestral-theme／mess.wav | WAV, Lossless.Released under Public Domain. |  |
+| MUS-0335 | 138.9 | alexcons_action-track／actionTrack_0.mp3 | Bass and guitar recorded live. |  |
+| MUS-0336 | 158.5 | andygun11_virtual-rush／virtual_rush_0.wav | Electronic music |  |
+| MUS-0337 | 158.5 | andygun11_virtual-rush／virtual_rush_2.mp3 | Electronic music |  |
+| MUS-0338 | 161.0 | andygun11_virtual-rush／virtual_rush_loop_0.wav | Electronic music |  |
+| MUS-0339 | 99.7 | anonymous-not-verified_random-encounter-4／randdom1_0.ogg | battle theme kinda. Reuses a motif from an earlier song I made... |  |
+| MUS-0340 | 39.7 | antumdeluge_boss-battle-2-symphonic-metal／boss_battle_#2_metal_loop.wav |  |  |
+| MUS-0341 | 26.5 | antumdeluge_boss-battle-2-symphonic-metal／boss_battle_#2_metal_opening.wav |  |  |
+| MUS-0342 | 187.8 | antumdeluge_fight-run-breath-deeply／Komiku - It's time for adventure vol 2 - 13 Fight, run, breath deeply_0.mp3 | From the album It's time for adventure 2 |  |
+| MUS-0343 | 81.2 | antumdeluge_overdrive-final／concept1d_2.ogg | Extended version of Overdrive...the music is more electro-ish. |  |
+| MUS-0344 | 145.6 | aspiringcodemonkey_nobodys-home／nobodys_home.wav | Started making music pretty recently, so it's not like impressive and I hardly did any mixing at all, but maybe it can still be of some use?Think it would go ni |  |
+| MUS-0345 | 128.5 | atmanan_omega-droid-airborne／omega_droid-airborne.wav | My submission for the art challenge.What I envisioned was a bunch of flying robots attacking the player, with the player needing to destroy all the droids to wi |  |
+| MUS-0346 | 128.5 | atmanan_omega-droid-airborne／omega_droid-airborne_with_wind.wav | My submission for the art challenge.What I envisioned was a bunch of flying robots attacking the player, with the player needing to destroy all the droids to wi |  |
+| MUS-0347 | 220.0 | bobjt_t-t-free-cyberpunk-pack／Anti Matter Magic.ogg | HQ Cyberpunkish tracks I composed (OGG format) |  |
+| MUS-0348 | 306.0 | bobjt_t-t-free-cyberpunk-pack／Caves.ogg | HQ Cyberpunkish tracks I composed (OGG format) |  |
+| MUS-0349 | 275.5 | bobjt_t-t-free-cyberpunk-pack／Currents.ogg | HQ Cyberpunkish tracks I composed (OGG format) |  |
+| MUS-0350 | 113.3 | bobjt_t-t-free-cyberpunk-pack／Experiment G.ogg | HQ Cyberpunkish tracks I composed (OGG format) |  |
+| MUS-0351 | 156.0 | bobjt_t-t-free-cyberpunk-pack／Simulation Unknown.ogg | HQ Cyberpunkish tracks I composed (OGG format) |  |
+| MUS-0352 | 136.3 | bobjt_t-t-free-cyberpunk-pack／Space Collisions_0.ogg | HQ Cyberpunkish tracks I composed (OGG format) |  |
+| MUS-0353 | 263.4 | bobjt_t-t-free-cyberpunk-pack／Test Subject_0.ogg | HQ Cyberpunkish tracks I composed (OGG format) |  |
+| MUS-0354 | 299.4 | bobjt_t-t-free-cyberpunk-pack／Tribal Chaos.ogg | HQ Cyberpunkish tracks I composed (OGG format) |  |
+| MUS-0355 | 229.2 | bobjt_t-t-free-cyberpunk-pack／Wicked beast.ogg | HQ Cyberpunkish tracks I composed (OGG format) |  |
+| MUS-0356 | 26.6 | bonsaiheldin_fast-fight-battle-music／fight.ogg | Fast fight and battle music. Could suit a space game. |  |
+| MUS-0357 | 229.9 | boundingbox_sirens-in-darkness／012_Sirens_in_Darkness_0.mp3 | Sirens in Darkness - Ambient mysterious and mood music for your game, ethereal and pensive. You are sure to love this ambient theme with warm pads and piano!!!! |  |
+| MUS-0358 | 114.4 | calyad_bossfight-1／bossfight_.mp3 | This is the first time I've tried to make longer boss fight style music. |  |
+| MUS-0359 | 46.6 | centurion-of-war_boss-battle-7-metal／boss_battle_07.wav | New stuff! With old melodies! Well not all of them but at least one part.There is no tail of any sort, so it's perfectly loopable. |  |
+| MUS-0360 | 199.7 | ciatgepete_claimed-by-the-void-new-factory-ai-fight-and-simulation-unknown-vitalezzz-vs-tricksntraps／claimed_by_the_void_mix_0.ogg | "Claimed by the Void" by vitalezzz https://opengameart.org/content/claimed-by-the-void CC0"new factory" and "AI fight" from T & T Free Cyberpunk Pack 2 by trick |  |
+| MUS-0361 | 118.2 | corey-archer_night-escape／Night Escape_0.mp3 | This is the main (and only) music for my entry to a Ludum Dare, together with the rest of the assets and code it is left as CC0. https://github.com/Agecaf/ai-ru |  |
+| MUS-0362 | 66.0 | cynicmusic_battle-theme-b-for-rpg／battleThemeB.mp3 | Also check out my Battle Theme A, which is quite a bit better production than this one, but this one is fun too and has a nice harpsichord progression in the mi |  |
+| MUS-0363 | 34.9 | cynicmusic_epic-main-menu-theme-loop／Übermensch [ Main Menu ].wav | Format: WAVBit Rate: 1411 kbpsSample Rate: 16-Bit Stereo, 44.1 kHzMain Track Length: 0:34Loops seamlessly: Yes |  |
+| MUS-0364 | 34.2 | dgrannum22_level-complete／level_complete_1.wav | Some songs I made a while back while still playing around with Logic Pro X. Both are made entirely out of Apple Loops, which are music files in the apps Garageb |  |
+| MUS-0365 | 31.2 | dgrannum22_level-complete／level_finished_3.wav | Some songs I made a while back while still playing around with Logic Pro X. Both are made entirely out of Apple Loops, which are music files in the apps Garageb |  |
+| MUS-0366 | 48.9 | dragonseb71_action-theme-song／action game theme.wav | I created this piece (.wav format, 0:48) with a generic action game in mind. It's intended as the main theme, but can of course be used as background music whil |  |
+| MUS-0368 | 135.9 | dragonseb71_war-on-water-tracks／wowchapter1.ogg | A set of short and loopable (?) tracks for a small war game me and and my friend have been working on. It is out Google Play (called War on Water). Created with |  |
+| MUS-0369 | 124.9 | dragonseb71_war-on-water-tracks／wowchapter2.ogg | A set of short and loopable (?) tracks for a small war game me and and my friend have been working on. It is out Google Play (called War on Water). Created with |  |
+| MUS-0370 | 149.7 | dragonseb71_war-on-water-tracks／WoWChapter3.ogg | A set of short and loopable (?) tracks for a small war game me and and my friend have been working on. It is out Google Play (called War on Water). Created with |  |
+| MUS-0371 | 41.5 | dragonseb71_war-on-water-tracks／wowmenu.ogg | A set of short and loopable (?) tracks for a small war game me and and my friend have been working on. It is out Google Play (called War on Water). Created with |  |
+| MUS-0372 | 20.5 | dragonseb71_war-on-water-tracks／wowoptions.ogg | A set of short and loopable (?) tracks for a small war game me and and my friend have been working on. It is out Google Play (called War on Water). Created with |  |
+| MUS-0373 | 42.7 | draymadev_final-stand-0／final_stand_0.ogg | A boss Battle theme for Multiple Phase type battle. |  |
+| MUS-0374 | 85.3 | draymadev_final-stand-0／final_stand_phase_1.3_0.ogg | A boss Battle theme for Multiple Phase type battle. |  |
+| MUS-0375 | 74.7 | draymadev_final-stand-0／final_stand_phase_2.2.heavy_drums_0.ogg | A boss Battle theme for Multiple Phase type battle. |  |
+| MUS-0376 | 74.7 | draymadev_final-stand-0／final_stand_phase_2.2_0.ogg | A boss Battle theme for Multiple Phase type battle. |  |
+| MUS-0377 | 53.3 | draymadev_final-stand-0／final_stand_phase_3.3.piano__0.ogg | A boss Battle theme for Multiple Phase type battle. |  |
+| MUS-0378 | 64.0 | draymadev_final-stand-0／final_stand_phase_4.1final_0.ogg | A boss Battle theme for Multiple Phase type battle. |  |
+| MUS-0379 | 64.0 | draymadev_final-stand-0／final_stand_phase_4.1finalmax_0.ogg | A boss Battle theme for Multiple Phase type battle. |  |
+| MUS-0380 | 64.4 | draymadev_lonely-night／night_tune3_0.ogg | A small slight calm music, |  |
+| MUS-0381 | 74.3 | dread-knight_at-home-orchestral／cinematic-calm.wav | A short calm piece. I can be contacted at kerrtheodore13@gmail.com for short commissions. |  |
+| MUS-0382 | 201.3 | elbon-eastmage_electric-0／Electric.mp3 | Futuristic vibes |  |
+| MUS-0383 | 72.0 | eldritch-grim_garg-oilers／gargoilers.wav | some kinda simple horror/suspense atmospheric loop |  |
+| MUS-0384 | 72.0 | eldritch-grim_garg-oilers／gargoilers_0.mp3 | some kinda simple horror/suspense atmospheric loop |  |
+| MUS-0385 | 192.0 | enprogames_robotic-city／S31-Robotic City.ogg | Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alph |  |
+| MUS-0386 | 58.4 | farcodev_haunting-piano／haunting piano_0.mp3 | A fairly short piano piece with a ghostly/horrorish feel. Possibly suitable for conveying despair or a nightmarish feeling. |  |
+| MUS-0387 | 154.9 | food-please_covert-action／covert_action_0.ogg | A spy-themed track, for secret agents doing sneaky businessAlso available on https://soundcloud.com/congus-bongus/covert-actionMade with bambootracker |  |
+| MUS-0388 | 324.9 | food-please_gravity-turn／gravity_turn_action.wav | Electronic music, calm and action version, both can be loopedThe calm version is simpler and a bit shorter, but hopefully it should be possible to crossfade fro |  |
+| MUS-0389 | 325.0 | food-please_gravity-turn／gravity_turn_action_2.mp3 | Electronic music, calm and action version, both can be loopedThe calm version is simpler and a bit shorter, but hopefully it should be possible to crossfade fro |  |
+| MUS-0390 | 177.2 | food-please_gravity-turn／gravity_turn_calm_0.wav | Electronic music, calm and action version, both can be loopedThe calm version is simpler and a bit shorter, but hopefully it should be possible to crossfade fro |  |
+| MUS-0391 | 177.3 | food-please_gravity-turn／gravity_turn_calm_6.mp3 | Electronic music, calm and action version, both can be loopedThe calm version is simpler and a bit shorter, but hopefully it should be possible to crossfade fro |  |
+| MUS-0392 | 210.3 | food-please_persevere／persevere_0.wav | Electronic music |  |
+| MUS-0393 | 210.3 | food-please_persevere／persevere_5.mp3 | Electronic music |  |
+| MUS-0394 | 100.2 | food-please_starlight-city-loop-included／Loop/Starlight City LOOP.ogg |  |  |
+| MUS-0395 | 106.4 | food-please_starlight-city-loop-included／Starlight City/Starlight City.ogg |  |  |
+| MUS-0396 | 57.3 | footinthebox_awake-megawall-10／awake10_megaWall.mp3 | A breakbeats/trance song very upbeat that could be used for battle music or an intense sequence. I made this for my site http://cynicmusic.com but never used it |  |
+| MUS-0397 | 48.0 | glitchart_echoes-of-the-past／echoes_of_the_past.wav | I've recently found myself enjoying the music from the original Silent Hill games. What's interesting is that many of the sounds in those songs originate from a |  |
+| MUS-0398 | 192.1 | hitctrl_synth-wave／Synth Wave_0.mp3 | Please Check Out My Blog. https://prosensory.blogspot.com/ |  |
+| MUS-0399 | 90.0 | ijustjordan_opening-theme-actionsuspense／opening_theme.wav | Short opening theme for titlesAction, SuspensionAlso only difference between V1 and V2 have is different EQ |  |
+| MUS-0400 | 90.0 | ijustjordan_opening-theme-actionsuspense／opening_theme_V2.wav | Short opening theme for titlesAction, SuspensionAlso only difference between V1 and V2 have is different EQ |  |
+| MUS-0401 | 125.2 | isaiah658_chill-lofi-inspired／ChillLofi.ogg | A short song inspired by lofi hip hop. Created and recorded in one take using the styles of a Yamaha CVP-701. You may use this however you like and if you do I  |  |
+| MUS-0402 | 123.2 | isaiah658_chill-lofi-inspired／ChillLofiR_0.mp3 | A short song inspired by lofi hip hop. Created and recorded in one take using the styles of a Yamaha CVP-701. You may use this however you like and if you do I  |  |
+| MUS-0403 | 98.3 | isaiah658_ps2-horror-mystery-ambient-theme／amb.mp3 | inspired by silent hill 2 |  |
+| MUS-0404 | 89.4 | isaiah658_vampires-piano／vampires_piano_1.wav | Sad piano music for dark fantasy (Loop-able) |  |
+| MUS-0405 | 89.4 | isaiah658_vampires-piano／vampires_piano_6.mp3 | Sad piano music for dark fantasy (Loop-able) |  |
+| MUS-0406 | 174.6 | jblade35_signal-pursuit／signal_pursuit.wav | Electronic music |  |
+| MUS-0407 | 174.6 | jblade35_signal-pursuit／signal_pursuit_0.mp3 | Electronic music |  |
+| MUS-0408 | 244.4 | jblade35_space-elevator／space_elevator.wav | Electronic musicOther electronic music:https://opengameart.org/content/electronic-music |  |
+| MUS-0409 | 244.4 | jblade35_space-elevator／space_elevator_0.mp3 | Electronic musicOther electronic music:https://opengameart.org/content/electronic-music |  |
+| MUS-0410 | 119.3 | jonvx0_busy-but-calm-street／busy_but_calm_street_0.ogg | A small chill music in a city! :D |  |
+| MUS-0411 | 20.6 | jukeri12_bad-thing-happen／bad_thing_0.ogg | You can use this short music to create a short, impacting and dramatic suspense effect on your game. |  |
+| MUS-0412 | 70.3 | julien-brightside_spacecrusher／Spacecrusher_0.ogg | This chaotic and aggressive virus will force your robot to dance :) PS. You will need DSK plugins (freely available btw) to modify the attached LMMS file. |  |
+| MUS-0413 | 123.4 | kaadmy_boss-battle-music／Juhani Junkala - Epic Boss Battle [Seamlessly Looping].wav | Epic boss battle music inspired by God of War game series. Loops seamlessly! |  |
+| MUS-0414 | 84.1 | karmabub_techno-geek／technogeek.mp3 | Use this to give your games a more futuristic feel. |  |
+| MUS-0415 | 174.3 | kly_the-call-for-unity／the_call_for_unity.wav | Electronic music |  |
+| MUS-0416 | 174.4 | kly_the-call-for-unity／the_call_for_unity_0.mp3 | Electronic music |  |
+| MUS-0417 | 323.9 | komiro100_horror-atmosphere／Juhani Junkala - Post Apocalyptic Wastelands [Loop Ready].ogg | This sparse atmospheric track fits well with horror games and post apocalyptic settings. It loops seamlessly and the full duration is 5:23. The preview clips is |  |
+| MUS-0418 | 100.9 | leeor-net_cut-scene-1／Cut Scene.wav | Please Check Out My Blog. https://prosensory.blogspot.com/ |  |
+| MUS-0419 | 27.8 | lifedisarmonia_emotional-piano-loop／Piano Loop.wav | A nice little piano loop. Enjoy :pFeel free to request any specific BPM. This one is at 138BPM www.soundcloud.com/extenz/ |  |
+| MUS-0420 | 195.0 | lonesomeducky_claimed-by-the-void／claimed_by_the_void.wav | Electronic musicLoop version included |  |
+| MUS-0421 | 195.0 | lonesomeducky_claimed-by-the-void／claimed_by_the_void_0.mp3 | Electronic musicLoop version included |  |
+| MUS-0422 | 195.0 | lonesomeducky_claimed-by-the-void／claimed_by_the_void_loop.wav | Electronic musicLoop version included |  |
+| MUS-0423 | 169.8 | looneybits_city-on-speed／S31-City on Speed.ogg | Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alph |  |
+| MUS-0424 | 204.5 | looneybits_closing-in／S31-Closing In.ogg | Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alph |  |
+| MUS-0425 | 125.2 | looneybits_cracked-out-robot／S31-Cracked Out Robot_0.ogg | Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alph |  |
+| MUS-0426 | 24.8 | looneybits_fast-fight-battle-music-looped／fight_looped.wav | Looped version of Fast fight / battle music by Ville Nousiainen. The author mentions that this would "suit a space game", but I actually used it as ambience in  |  |
+| MUS-0427 | 182.8 | looneybits_horror-loop／horror_loop.mp3 |  |  |
+| MUS-0428 | 234.1 | looneybits_qazijamjam-orchestral-battle-theme／QaziJamJam.wav | A 4 minute orchestral battle theme using strings, brass, guitars, woodwinds and epic drums. The track loops with some variations in the melodies and instrumenta |  |
+| MUS-0429 | 70.2 | looneybits_rpg-battle-theme-ii／Fighting is not an option.ogg | Music: Fighting is not an option.Looped: Yes.Format: MP3, WAV and OGG.--Suitable for Battle, Boss & Adventure.Made with ♥ Inspired by: mega man, lufia.Your feed |  |
+| MUS-0430 | 70.3 | looneybits_rpg-battle-theme-ii／Fighting is not an option_0.mp3 | Music: Fighting is not an option.Looped: Yes.Format: MP3, WAV and OGG.--Suitable for Battle, Boss & Adventure.Made with ♥ Inspired by: mega man, lufia.Your feed |  |
+| MUS-0431 | 192.0 | looneybits_unexpected-trouble／S31-Unexpected Trouble.ogg | Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alph |  |
+| MUS-0432 | 209.0 | looneybits_uptempo-atmospheric-electronic-tune／0e907a4de2c0.mp3 | Quality: MP3Released under public domain |  |
+| MUS-0433 | 132.0 | looping-leaf_electronic／Techno_0.mp3 | Please Check Out My Blog. https://prosensory.blogspot.com/ |  |
+| MUS-0434 | 66.0 | looping-leaf_electronic／Techno_2_0.mp3 | Please Check Out My Blog. https://prosensory.blogspot.com/ |  |
+| MUS-0435 | 113.1 | looping-leaf_electronic／Techno_3_0.mp3 | Please Check Out My Blog. https://prosensory.blogspot.com/ |  |
+| MUS-0436 | 162.8 | looping-leaf_electronic／Techno_4_0.mp3 | Please Check Out My Blog. https://prosensory.blogspot.com/ |  |
+| MUS-0437 | 98.8 | looping-leaf_electronic／Techno_5_0.mp3 | Please Check Out My Blog. https://prosensory.blogspot.com/ |  |
+| MUS-0438 | 134.7 | looping-leaf_electronic／Techno_6_0.mp3 | Please Check Out My Blog. https://prosensory.blogspot.com/ |  |
+| MUS-0439 | 152.0 | looping-leaf_electronic／Techno_7_0.mp3 | Please Check Out My Blog. https://prosensory.blogspot.com/ |  |
+| MUS-0440 | 232.0 | loukyo_eclipse-legion／eclipse_legion.ogg | Orchestral music |  |
+| MUS-0441 | 232.0 | loukyo_eclipse-legion／eclipse_legion_0.mp3 | Orchestral music |  |
+| MUS-0442 | 208.1 | majadroid_calm-ambient-2-synthwave-15k／002_Synthwave_15k.mp3 | Synthwave 15k - written by The Cynic Project for the game Pixelsphere. Please use it your game as well (or for any project) Relaxing Ambient pads and some annoy |  |
+| MUS-0443 | 198.9 | medicinestorm_the-final-mega-boss／the_final_mega_boss.wav | For the Summer 2022 Art Challenge.An epic boss battle.Loops seamlessly. |  |
+| MUS-0444 | 312.7 | megajackie_space-graveyard-ambient-track／space_graveyard_1.wav | An ambient sci-fi like track that can be used to build tension. I noticed it makes you listen very closely to other sounds.Loops seamlessly & can be downloaded  |  |
+| MUS-0445 | 312.7 | megajackie_space-graveyard-ambient-track／space_graveyard_4.mp3 | An ambient sci-fi like track that can be used to build tension. I noticed it makes you listen very closely to other sounds.Loops seamlessly & can be downloaded  |  |
+| MUS-0446 | 49.6 | messersm_crystal-cave-song18／song18_0.mp3 | Deep Bass! Stone and bell textures and arpeggios. Suitable for cave level or puzzle game. Easy for perfect loop. I have precompressed this to be optimal for web |  |
+| MUS-0447 | 268.9 | mnilsson_mindstream／DST-MindStream.mp3 | MindStream by DSTJust an ambient chill tune, great for nearly any type of game.Exclusive to OpenGameArt.org |  |
+| MUS-0448 | 349.5 | mold_november-snow／155 November_snow-33_tape_leveled.mp3 | November Snow - Ambient/downtempo music for your game, ethereal, calm and relaxing.I ran this to tape recorder for a lo-fi effect, see my site if you want the f |  |
+| MUS-0449 | 144.0 | mold_unsolicited-trailer-music／Unsolicited trailer music loop edit.wav | An easy-to-loop piece of energetic electronic soundtrack, written for a kickstart trailer. |  |
+| MUS-0450 | 175.4 | mramogus_a-flawless-getaway／a_flawless_getaway.wav | Electronic music, can be looped |  |
+| MUS-0451 | 175.4 | mramogus_a-flawless-getaway／a_flawless_getaway_0.mp3 | Electronic music, can be looped |  |
+| MUS-0452 | 169.8 | mramogus_a-flawless-getaway／a_flawless_getaway_loop.wav | Electronic music, can be looped |  |
+| MUS-0453 | 169.9 | mramogus_machine-city／machine_city.mp3 | inspired by cyber city from deltarune/undertale loops well |  |
+| MUS-0454 | 280.7 | mumu_alphatron／DST-AlphaTron_1.mp3 | Another mellow Techno loop for any type of game. By DST.Exclusive to OpenGameArt.org! |  |
+| MUS-0455 | 354.9 | nukaze_cold-silence／cold_silence.ogg | Composed in 2002 for Darkness Ethereal's "Distant Promises". The game was never finished so this is released into the public domain. This was to be used for a p |  |
+| MUS-0456 | 146.8 | oga_arrival-1／arrival.wav | Electronic music, first part of a bigger trackIncluded loop version and full track "Arrival, Descent" |  |
+| MUS-0457 | 146.8 | oga_arrival-1／arrival_0.mp3 | Electronic music, first part of a bigger trackIncluded loop version and full track "Arrival, Descent" |  |
+| MUS-0458 | 338.6 | oga_arrival-1／arrival_descent.wav | Electronic music, first part of a bigger trackIncluded loop version and full track "Arrival, Descent" |  |
+| MUS-0459 | 146.8 | oga_arrival-1／arrival_loop.wav | Electronic music, first part of a bigger trackIncluded loop version and full track "Arrival, Descent" |  |
+| MUS-0460 | 55.4 | oga_awestruck／awestruck.wav | I've recently found myself enjoying the music from the original Silent Hill games. What's interesting is that many of the sounds in those songs originate from a |  |
+| MUS-0461 | 33.4 | oga_basilisk-boss-battle-loop／basilisk_boss_battle_in_game.ogg | A boss battle theme from a game I didn't finish over a decade ago.Credit appreciated but not necessary. |  |
+| MUS-0462 | 490.1 | oga_besai-raider-station-bmg／besairaiderstation_0.ogg | Lengthy Background Music for Besai Raider Cron Station Sci-Fi Rpg video game..This tune is foreboding and twists all over the place. |  |
+| MUS-0463 | 164.9 | oga_calm-piano-1-vaporware／003_Vaporware_2.mp3 | This is the song "Vaporware"- written by The Cynic Project for the game Pixelsphere. Please use it your game as well (or any other creative project). The song f |  |
+| MUS-0464 | 35.9 | oga_dark-woods-loop／dark_woods_in_game.ogg | Dark Woods loop from a game I didn't finish over a decade ago. Could maybe be used for a moment of intrigue/mystery too.Credit appreciated but not necessary. |  |
+| MUS-0465 | 96.0 | oga_darkest-hour／Darkest Hour.Wav | A horror genre instrumental music that I've made.If you like this music or you have used this in your project, please consider donating to me! It'll help me mak |  |
+| MUS-0466 | 96.0 | oga_darkest-hour／Darkest Hour_0.mp3 | A horror genre instrumental music that I've made.If you like this music or you have used this in your project, please consider donating to me! It'll help me mak |  |
+| MUS-0467 | 70.3 | oga_destruction-of-the-alien-spacecrafts／Menu.ogg | From one of my LMMS projects a long time ago, can't find the source. |  |
+| MUS-0468 | 360.0 | oga_detection／detection.mp3 | cosmic techno track time 6:00 |  |
+| MUS-0469 | 181.7 | oga_devoted-guard／devoted_guard.wav | Metal music |  |
+| MUS-0470 | 181.8 | oga_devoted-guard／devoted_guard_0.mp3 | Metal music |  |
+| MUS-0471 | 240.0 | oga_downfall／downfall.wav | Electronic music |  |
+| MUS-0472 | 240.0 | oga_downfall／downfall_0.mp3 | Electronic music |  |
+| MUS-0473 | 194.0 | oga_end-of-the-trip／Komiku - Tale on the Late - 16 End of the trip_0.mp3 | Ending theme.Music is made with Bigcat instrumentals VST. |  |
+| MUS-0474 | 89.3 | oga_ends-of-the-earth／Ends of the Earth.wav | Enjoy. |  |
+| MUS-0475 | 89.3 | oga_ends-of-the-earth／Ends of the Earth_1.mp3 | Enjoy. |  |
+| MUS-0477 | 134.4 | oga_exploration-theme／Exploration Theme/Exploration Theme.ogg |  |  |
+| MUS-0478 | 64.0 | oga_final-stand／final_stand.wav | something epic.. loopable around 1minute 120BPM |  |
+| MUS-0479 | 64.0 | oga_final-stand／final_stand_0.mp3 | something epic.. loopable around 1minute 120BPM |  |
+| MUS-0480 | 167.9 | oga_game-over-collection／Game Over/01 HoliznaCC0 - Game Over 1.ogg |  |  |
+| MUS-0481 | 185.9 | oga_game-over-collection／Game Over/02 HoliznaCC0 - Game Over 2.ogg |  |  |
+| MUS-0482 | 195.9 | oga_game-over-collection／Game Over/03 HoliznaCC0 - Game Over 3.ogg |  |  |
+| MUS-0483 | 145.9 | oga_game-over-collection／Game Over/04 HoliznaCC0 - Game Over 4.ogg |  |  |
+| MUS-0485 | 377.9 | oga_hallway／hallway.ogg | I have purchased some inexpensive apps and I'm pushing buttons and I have lots of cables on my floor, so some experimenting with new toys. It's a very cheap way |  |
+| MUS-0486 | 208.2 | oga_hostile-fleet-interception／hostile_fleet_interception.wav | Electronic + orchestral musicTheme continuation fromhttps://opengameart.org/content/joining-forcesOther electronic + orchestral music:https://opengameart.org/co |  |
+| MUS-0487 | 208.3 | oga_hostile-fleet-interception／hostile_fleet_interception_0.mp3 | Electronic + orchestral musicTheme continuation fromhttps://opengameart.org/content/joining-forcesOther electronic + orchestral music:https://opengameart.org/co |  |
+| MUS-0488 | 232.4 | oga_hyperspace／hyperspace.wav | Electronic music Other electronic music:https://opengameart.org/content/electronic-music |  |
+| MUS-0489 | 232.5 | oga_hyperspace／hyperspace_2.mp3 | Electronic music Other electronic music:https://opengameart.org/content/electronic-music |  |
+| MUS-0490 | 194.8 | oga_inevitable／inevitable.wav | Electronic + orchestral music |  |
+| MUS-0491 | 194.8 | oga_inevitable／inevitable_0.mp3 | Electronic + orchestral music |  |
+| MUS-0492 | 130.9 | oga_is-it-a-battle／Battle 1_0.ogg | I don't really know if this is even fit for a battle theme. It sounds very 80's, I think. |  |
+| MUS-0493 | 115.3 | oga_jrpg-epic-rock-battle-theme-1／jrpg_battle_full_0.mp3 | Hi, Here is a JRPG Battle Theme for your game! It loops seemlessly and you can choose to download between: introloopintro + loop (full)It's CC0, so no need to c |  |
+| MUS-0494 | 1.6 | oga_jrpg-epic-rock-battle-theme-1／jrpg_battle_intro.mp3 | Hi, Here is a JRPG Battle Theme for your game! It loops seemlessly and you can choose to download between: introloopintro + loop (full)It's CC0, so no need to c |  |
+| MUS-0495 | 113.7 | oga_jrpg-epic-rock-battle-theme-1／jrpg_battle_loop.mp3 | Hi, Here is a JRPG Battle Theme for your game! It loops seemlessly and you can choose to download between: introloopintro + loop (full)It's CC0, so no need to c |  |
+| MUS-0496 | 272.0 | oga_jumping-cyborg-welcome-mix-night-club-chill-tricksntraps-remixed／jumpingcyborgmix2_0.ogg | Jumping cyborg, Welcome mix and night club chill by tricksntraps remixed:https://opengameart.org/content/t-t-free-cyberpunk-pack-2License; CC0This is totally im |  |
+| MUS-0497 | 85.9 | oga_lonely-ali／motivational_music_0.mp3 | A music talking about loneliness and motivation. And it's ready to use for any project.I'am just a beginner and I would like to thank you if you leave a comment |  |
+| MUS-0498 | 134.7 | oga_lost-in-a-bad-place-horror-ambience-loop／lost_2.ogg | Horror/space ambient seamless loop. Dark string pads and what could be beacons in the background.Made for an unfinished jam game |  |
+| MUS-0499 | 125.6 | oga_mystery-6／mystery6_0.ogg | Mystery style Adventure game tune |  |
+| MUS-0500 | 144.0 | oga_mystery-more／mystery_more.wav | some kinda atmospheric blues thing.. |  |
+| MUS-0501 | 144.0 | oga_mystery-more／mystery_more_0.mp3 | some kinda atmospheric blues thing.. |  |
+| MUS-0502 | 81.0 | oga_mystery-style-3／mysterystyle3_0.ogg | Another mystery tune |  |
+| MUS-0503 | 129.6 | oga_neon-hyperdrive／neon_hyperdrive.mp3 | A fast paced futuristic music, I honestly don't really know in what kind of situation this music can be used 😂. But if you like it and want to use it, please fe |  |
+| MUS-0504 | 192.0 | oga_nighttime-solitude／Nighttime Solitude [CC0].ogg | CC0 music, free to use for any project |  |
+| MUS-0505 | 211.4 | oga_osmotic-memory／osmotic_memory.flac | Something a little more experimental.Made using DS Thorn, U-he Diva & Omnisphere 3100 BPM |  |
+| MUS-0506 | 185.1 | oga_outworld／outworld.wav | Orchestral + electronic music |  |
+| MUS-0507 | 185.2 | oga_outworld／outworld_0.mp3 | Orchestral + electronic music |  |
+| MUS-0508 | 108.2 | oga_robotic-violation／robotic_violation_v1.wav | they were just nothing... our careless behavior has made them a true monster! Hey Guys! this is a cool song with a cool amount of potential Cuz! this is hella u |  |
+| MUS-0509 | 109.5 | oga_robotic-violation／robotic_violation_v2.wav | they were just nothing... our careless behavior has made them a true monster! Hey Guys! this is a cool song with a cool amount of potential Cuz! this is hella u |  |
+| MUS-0510 | 219.1 | oga_somnium／somnium.mp3 | A simple atmospheric music I made last night, not sure in what situation it could be used hehehe, but I'll be glad if this music can be useful for you. God bles |  |
+| MUS-0511 | 121.5 | oga_tension-and-distress／aflicao.wav | Music for moments of distress and tension |  |
+| MUS-0512 | 145.8 | oga_the-final-battle／the_final_battle.ogg | Generic orchestral drama-filled epic battle music, maybe for your final boss or something? Loopable (with an audible pause, but restart is still quite coherent  |  |
+| MUS-0513 | 130.3 | oga_the-true-villain-emerges／the_true_vilian_emerges.wav | A dramatic boss track made out of Apple loops. Enjoy! |  |
+| MUS-0514 | 11.2 | oga_treacherous-path-loop／the_treacherous_path_in_game.ogg | Treacherous path theme from a game I didn't finish over a decade ago.Credit appreciated but not necessary. |  |
+| MUS-0515 | 78.4 | oga_vargas／vargas.wav | tonal moving short with rising drone total track time 1:18 |  |
+| MUS-0516 | 78.4 | oga_vargas／vargasvocal.wav | tonal moving short with rising drone total track time 1:18 |  |
+| MUS-0517 | 271.4 | oga_white-hat／white_hat.wav | Electronic music |  |
+| MUS-0518 | 271.4 | oga_white-hat／white_hat_0.mp3 | Electronic music |  |
+| MUS-0519 | 208.0 | oga_you-cant-beat-the-machine／Komiku - Tale on the Late - 15 You can't beat the machine_0.mp3 | The climax, dramatic ending,music is mad with bigcat instrument VST |  |
+| MUS-0520 | 206.6 | ogremagisclinkz_another-august／013_Another_August_0.mp3 | Another August - Serene Ambient music for your game, ethereal, calm and relaxing. Professional quality! This is great music for relaxing and thinking. No time l |  |
+| MUS-0522 | 111.0 | pro-sensory_great-boss／Great Boss_0.ogg | I mean, it's a theme for a great boss, the song itself obviously isn't great or anything. Why is it always that the most unimaginative and repetetive songs, are |  |
+| MUS-0523 | 88.6 | pro-sensory_interstellar-fleet-1／OGG/Interstellar Fleet 1 [LOOP].ogg |  |  |
+| MUS-0524 | 104.5 | pro-sensory_interstellar-fleet-1／OGG/Interstellar Fleet 1.ogg |  |  |
+| MUS-0525 | 88.6 | pro-sensory_interstellar-fleet-1／WAV/Interstellar Fleet 1 [LOOP].wav |  |  |
+| MUS-0526 | 104.5 | pro-sensory_interstellar-fleet-1／WAV/Interstellar Fleet 1.wav |  |  |
+| MUS-0527 | 133.9 | pro-sensory_sassy-sultan／sassysultan.wav | Some kinda weird mixture of oriental, 90's techno and industrial.. |  |
+| MUS-0528 | 133.9 | pro-sensory_sassy-sultan／sassysultan_0.mp3 | Some kinda weird mixture of oriental, 90's techno and industrial.. |  |
+| MUS-0529 | 60.5 | pro-sensory_unchained-destiny-rock／unchained_destiny_loop.wav | Same structure as my boss battle music, opening and loopable files included.This doesn't exactly give me a boss battle vibes, so named it differently.Trying to  |  |
+| MUS-0530 | 15.1 | pro-sensory_unchained-destiny-rock／unchained_destiny_opening.wav | Same structure as my boss battle music, opening and loopable files included.This doesn't exactly give me a boss battle vibes, so named it differently.Trying to  |  |
+| MUS-0531 | 226.3 | qubodup_background-space-track／MyVeryOwnDeadShip.ogg |  |  |
+| MUS-0532 | 100.8 | qubodup_bio-hazard-menustage／biohazardsextended_0.ogg | Made for a zombie/alien invasion dark gameHas a Menu theme and Stage them(Faster/Slower) |  |
+| MUS-0533 | 38.4 | qubodup_bio-hazard-menustage／biohazardsopening_0.ogg | Made for a zombie/alien invasion dark gameHas a Menu theme and Stage them(Faster/Slower) |  |
+| MUS-0534 | 91.6 | qubodup_bio-hazard-menustage／biohazardsv3_0.ogg | Made for a zombie/alien invasion dark gameHas a Menu theme and Stage them(Faster/Slower) |  |
+| MUS-0537 | 80.6 | qubodup_dark-intro／Dark Intro_0.ogg | Originally made for my game Ultimul.You can use this for an intro, cutscene, boss battle, etc,I would appreciate it if you let me know if you used it somewhere! |  |
+| MUS-0539 | 128.7 | qubodup_insistent-background-loop／Insistent.ogg | Just the way I like it: dark and quiet. |  |
+| MUS-0541 | 199.4 | qubodup_tower-defense-theme／DST-TowerDefenseTheme_1.mp3 | Tower defense style music loop by DST. Made exclusively for OpenGameArt.org Get more free game music from DST at http://www.nosoapradio.us! |  |
+| MUS-0542 | 44.6 | raj-krishan-ghosh_sinister-boss-appears／Sinister Boss Appears.wav | I imagine that if Voldemort wrote music it would probably sound like this :) Super evil boss introduction theme!!!This is for my game Pixelsphere http://pixelsp |  |
+| MUS-0543 | 227.7 | snabisch_besai-sky-city-dark-1／Besaidark1_0.ogg | The Background Ambient Music for a game I'm doing. (haven't got the 3d modelers yet for helping me with my game, but I got 1 modeler working on my main commande |  |
+| MUS-0544 | 187.3 | snabisch_calm-ambient-3-lifewave-2k／006_lifeWave2k_0.mp3 | Another calming relax work from Pixelsphere, This is the song "Lifewave 2k"- written by The Cynic Project for the game Pixelsphere. Please use it your game as w |  |
+| MUS-0545 | 474.2 | snabisch_calm-relax-1-synthwave-421k／007_Synthwave_421k.mp3 | This is the favorite of my uploads this month here. This is the song "Synthwave 421k"- written by The Cynic Project for the game Pixelsphere. Please use it your |  |
+| MUS-0546 | 198.6 | snabisch_grime-of-the-city／S31-Grime of the City.ogg | Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alph |  |
+| MUS-0547 | 109.7 | snabisch_high-alert／S31-High Alert.ogg | Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alph |  |
+| MUS-0548 | 160.9 | snabisch_horror-cliche／Horror Cliché.Wav | Instrumental ambient music suitable for horror games. If you like this music or you have used this in your project, please consider donating to me! It'll help m |  |
+| MUS-0549 | 155.3 | snabisch_horror-cliche／Horror Cliché_0.mp3 | Instrumental ambient music suitable for horror games. If you like this music or you have used this in your project, please consider donating to me! It'll help m |  |
+| MUS-0550 | 152.7 | snabisch_night-prowler／S31-Night Prowler.ogg | Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alph |  |
+| MUS-0551 | 92.3 | snabisch_sentry／S31-Sentry.ogg | Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alph |  |
+| MUS-0552 | 113.1 | snabisch_space-5／sPACE_0.wav | A calm, semi-relaxing adventure into the dark abyss. |  |
+| MUS-0553 | 183.3 | snabisch_the-gears-of-progress／S31-The Gears of Progress.ogg | Just starting to mess around with making music. Free to use for anybody who might find it useful. This is for my game, Star Shift Alpha. |  |
+| MUS-0554 | 140.3 | snabisch_undercover-operative／S31-Undercover Operative.ogg | Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alph |  |
+| MUS-0556 | 134.4 | stumpystrust_another-space-background-track／ObservingTheStar.ogg |  |  |
+| MUS-0557 | 198.9 | syoung_hit-and-run／S31-Hit and Run.ogg | Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alph |  |
+| MUS-0558 | 139.7 | tebruno99_the-rush／The Rush_2.mp3 | Some music I've worked on a little. Fun little tune maybe for some high action scene. I've made this CC0 so that it can be used on iOS/Apple App store. Please l |  |
+| MUS-0559 | 47.7 | tempel_menu-music／awesomeness.wav | some music for your regular game.... The music really has no defined 'mood' so it will pretty much work with anything. This music is loopable. I made this using |  |
+| MUS-0560 | 67.8 | theblacksword_evil-approach／Evil Approach.wav | This is something old I created long ago but I kinda lost my interest so let's just, put it up here.Kinda evilish maybe, battle (?) I'm not sure what this is! |  |
+| MUS-0561 | 100.0 | tinyworlds_emptycity-background-music／EmptyCity.ogg | Exploring a devastated city. Dark soundtrack, loopable. |  |
+| MUS-0562 | 108.0 | tozan_determined-pursuit-epic-orchestra-loop／determined_pursuit_loop.wav | Frantic strings, determined horns and busy drums with a sprinkling of epicness(?). Possible uses: battle theme, boss fight or a hectic race against the clock (w |  |
+| MUS-0566 | 116.1 | vermilion-wizard_battle-theme-0／Battle.mp3 | A theme for a battle or otherwise tense moment.Orchestral. |  |
+| MUS-0567 | 112.9 | viktor-kraus_ruined-city-theme／Ruined City Theme.ogg |  |  |
+| MUS-0568 | 291.8 | vrs1_through-the-universe／throughtheuniverse.wav | Electronic music |  |
+| MUS-0569 | 291.8 | vrs1_through-the-universe／throughtheuniverse_3.mp3 | Electronic music |  |
+| MUS-0573 | 118.2 | windheart-dev_cosmic-priest／dream_lost_in_cosmos_v9.1_3.ogg | Face the terror of 'woolooloo' in Space. Style is little similiar to Hell's God (Part 1)9.2 and 9.1 are Techno/Classic boss battle-ish.v9 is just the Harp melod |  |
+| MUS-0574 | 147.7 | windheart-dev_cosmic-priest／dream_lost_in_cosmos_v9.2_2.ogg | Face the terror of 'woolooloo' in Space. Style is little similiar to Hell's God (Part 1)9.2 and 9.1 are Techno/Classic boss battle-ish.v9 is just the Harp melod |  |
+| MUS-0575 | 74.6 | windheart-dev_cosmic-priest／dream_lost_in_cosmos_v9_2.ogg | Face the terror of 'woolooloo' in Space. Style is little similiar to Hell's God (Part 1)9.2 and 9.1 are Techno/Classic boss battle-ish.v9 is just the Harp melod |  |
+| MUS-0576 | 71.9 | withthelove_col-legno／Vehicle - OGA - Col Legno.wav | Orchestral action cue. |  |
+| MUS-0577 | 116.7 | withthelove_cyberpunk-moonlight-sonata／Cyberpunk Moonlight Sonata v2.mp3 | A cyberpunk reimagining of one of my favorite classical pieces by Beethoven. Some of the musical parts have been changed or omitted, but the skeleton is that of |  |
+| MUS-0578 | 116.7 | withthelove_cyberpunk-moonlight-sonata／Cyberpunk Moonlight Sonata_0.mp3 | A cyberpunk reimagining of one of my favorite classical pieces by Beethoven. Some of the musical parts have been changed or omitted, but the skeleton is that of |  |
+| MUS-0579 | 56.6 | yd_dark-shrine-loop／qubodup-yd-DarkShrineLoop-OpenGameArt.ogg | This is a slight remix of yd's LMMS-made "Shrine". |  |
+| MUS-0580 | 89.3 | yethiel_creepy／CrEEP.ogg | A creepy loop I made while messing around with some new samples. |  |
+| MUS-0581 | 89.4 | yethiel_creepy／CrEEP_0.mp3 | A creepy loop I made while messing around with some new samples. |  |
+| MUS-0582 | 261.9 | yongki_chase-2／chase.mp3 | A fast paced futuristic music, could be good for a chase scene in videogames or movies. Feel free to use it in your project, God Bless! |  |
+| MUS-0584 | 192.0 | zamoar_backup-plan／backup_plan.wav | UPDATE:Another Bag of Chips is now available for free on Bandcamp and Ko-Fi for free! Download the album from there to get all the bonus content including loopi |  |
+| MUS-0585 | 207.4 | zasisem_i-swear-i-saw-it-background-track／IswearIsawit_0.ogg | Was in a mood of making a simple track approx 3.5 min long. The LMMS source file attached as well if you like to play with it. |  |
+| MUS-0586 | 122.9 | zombcool_fight-in-the-city／fight_in_the_city.wav | A result of messing around in Logic Pro. |  |
+| MUS-0587 | 7.6 | fupi_victory-sting／victory sting_0.ogg | A chiptune victory sting, with short buildup, pause, and flourish.Made for https://tic.computer/play?cart=1179 |  |
+| MUS-0588 | 18.5 | looneybits_transformansion-ending／Transformansion ending.wav | An unused victory fanfare for the Ludum Dare submission 'Transformansion'. It was made using mid 1990's sounding soundfonts. |  |
+| MUS-0590 | 3.9 | oga_and-the-winner-is／winneris_0.ogg | A short chiptune victory / fanfare stingMade with TIC-80 for https://congusbongus.itch.io/road-txtr |  |
+| MUS-0591 | 18.1 | oga_hyoshi-area-clear／hyoshiareaclear_0.ogg | Extemely Short Victory Style Tune with Clearing Area of all enemiesHyoshi Area of Game Tesseract Prime Offworlds Universe |  |
+| MUS-0592 | 45.1 | oga_medieval-defeat-theme／defeat.wav | My CC0 track for medieval/fantasy defeat theme. Victory theme is also available in my uploads! https://www.youtube.com/watch?v=5j8corCBDUk |  |
+| MUS-0593 | 45.1 | oga_medieval-defeat-theme／defeat_0.mp3 | My CC0 track for medieval/fantasy defeat theme. Victory theme is also available in my uploads! https://www.youtube.com/watch?v=5j8corCBDUk |  |
+| MUS-0594 | 4.9 | oga_sci-fi-puzzle-jingle-result／mp3_Sci-fi Puzzle Jingle & Result/Sci-fi Puzzle Clear (Jingle).mp3 |  |  |
+| MUS-0595 | 63.0 | oga_sci-fi-puzzle-jingle-result／mp3_Sci-fi Puzzle Jingle & Result/Sci-fi Puzzle Clear (Loop)_BPM122.mp3 |  |  |
+| MUS-0596 | 6.3 | oga_sci-fi-puzzle-jingle-result／mp3_Sci-fi Puzzle Jingle & Result/Sci-fi Puzzle Failure (Jingle).mp3 |  |  |
+| MUS-0597 | 60.6 | oga_sci-fi-puzzle-jingle-result／mp3_Sci-fi Puzzle Jingle & Result/Sci-fi Puzzle Failure (Loop)_BPM95.mp3 |  |  |
+| MUS-0598 | 4.9 | oga_sci-fi-puzzle-jingle-result／ogg_Sci-fi Puzzle Jingle & Result/Sci-fi Puzzle Clear (Jingle).ogg |  |  |
+| MUS-0599 | 63.0 | oga_sci-fi-puzzle-jingle-result／ogg_Sci-fi Puzzle Jingle & Result/Sci-fi Puzzle Clear (Loop)_BPM122.ogg |  |  |
+| MUS-0600 | 6.3 | oga_sci-fi-puzzle-jingle-result／ogg_Sci-fi Puzzle Jingle & Result/Sci-fi Puzzle Failure (Jingle).ogg |  |  |
+| MUS-0601 | 60.6 | oga_sci-fi-puzzle-jingle-result／ogg_Sci-fi Puzzle Jingle & Result/Sci-fi Puzzle Failure (Loop)_BPM95.ogg |  |  |
+| MUS-0602 | 31.5 | oga_simple-battle-fanfare／simple_battle_fanfare.wav | A very simple fanfare. It loops. :) |  |
+| MUS-0604 | 16.8 | oga_success-stinger／success_stinger.mp3 | This track was created using Soundtrap sound effects, keyboards, and loops. You're free to use this in your project, credit isn't necessary but much appreciated |  |
+| MUS-0605 | 2.4 | oga_total-fail／total fail_0.ogg | Short comedic sting, when failing spectacularlyMade for https://tic.computer/play?cart=1179 |  |
+| MUS-0606 | 235.0 | oga_victory-0／Komiku - It's time for adventure vol 2 - 15 Victory_0.mp3 | From the album It's time for adventure 2 |  |
+| MUS-0607 | 104.1 | snabisch_dreaming-of-victory／Dreaming of Victory.mp3 | This was the last song I did for the #21DaysofVGM challenge. I fixed it up, changed a few things around and added some parts.Time: 4/4BPM: 120Length: 144 |  |
+| MUS-0608 | 4.9 | snabisch_victory／Victory.wav | 2A03 Victory fanfare |  |
+| MUS-0609 | 4.9 | snabisch_victory／Victory_0.mp3 | 2A03 Victory fanfare |  |
+| MUS-0610 | 3.0 | technopeasant_better-luck-next-time／betterluck_0.ogg | Short chiptune music sting, for a level restart or failure screen.Made with TIC-80 for https://congusbongus.itch.io/road-txtr |  |
 
-## OTH 其他（374）
+## OTH 其他（382）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -3825,13 +4035,6 @@
 | OTH-0070 | 3.2 | ia_red-library-foley-props-2／R18-35-Drag Body Across Floor.flac |  |  |
 | OTH-0071 | 6.9 | ia_red-library-foley-props-5／R27-31-Bag of Treasure Moves or Spills.mp3 |  |  |
 | OTH-0072 | 34.6 | ia_red-library-weapons-misc／R01-04-Catapult Launch.mp3 |  |  |
-| OTH-0073 | 89.4 | ia_sse-library-communications／COMRadio_Small transistor radio scanning the dial_CHS_USC.mp3 |  |  |
-| OTH-0074 | 48.6 | ia_sse-library-communications／COMTelm_Intersteller radio interference_CS_USC.mp3 |  |  |
-| OTH-0075 | 8.3 | ia_sse-library-communications／COMTelm_Muffled Intersteller radio interference_CS_USC.mp3 |  |  |
-| OTH-0076 | 6.4 | ia_sse-library-communications／COMTelph_Cranking an old style telephone; crank &_CS_USC.mp3 |  |  |
-| OTH-0077 | 28.8 | ia_sse-library-communications／COMTelph_Old fashioned wall phone crank and ring_CS_USC.mp3 |  |  |
-| OTH-0078 | 23.3 | ia_sse-library-designed／DSGNRmbl_Low and ominous sound; gathering storm; Paramount_CS_USC.mp3 |  |  |
-| OTH-0079 | 5.3 | ia_sse-library-fight／FGHTImpt-PIPE_Thumps on the head with steel pipe_CS_USC.mp3 |  |  |
 | OTH-0080 | 0.7 | kenney_casino-audio／Audio/card-place-1.ogg |  |  |
 | OTH-0081 | 0.5 | kenney_casino-audio／Audio/card-place-2.ogg |  |  |
 | OTH-0082 | 0.9 | kenney_casino-audio／Audio/card-place-3.ogg |  |  |
@@ -4127,8 +4330,23 @@
 | OTH-0372 | 1.2 | oga_zomby-sfx-pack／04_zombey_0.mp3 |  |  |
 | OTH-0373 | 1.4 | oga_zomby-sfx-pack／06_zombey.mp3 |  |  |
 | OTH-0374 | 1.5 | oga_zomby-sfx-pack／07_zombey.mp3 |  |  |
+| OTH-0375 | 0.3 | oga_some-kind-of-beings-sounds7／some_kind_of_being_sound.mp3 |  |  |
+| OTH-0376 | 0.3 | oga_some-kind-of-beings-sounds7／some_kind_of_being_sound_2.mp3 |  |  |
+| OTH-0377 | 0.9 | oga_some-kind-of-beings-sounds7／some_kind_of_being_sound_3.mp3 |  |  |
+| OTH-0378 | 0.6 | oga_some-kind-of-beings-sounds7／some_kind_of_being_sound_4.mp3 |  |  |
+| OTH-0379 | 1.8 | oga_some-kind-of-beings-sounds7／some_kind_of_being_sound_5.mp3 |  |  |
+| OTH-0380 | 1.8 | oga_some-kind-of-beings-sounds7／some_kind_of_being_sound_6.mp3 |  |  |
+| OTH-0381 | 7.7 | oga_unleeched-sound-effects-pack／pa-message.wav |  |  |
+| OTH-0382 | 64.0 | oga_unleeched-sound-effects-pack／song-1.wav |  |  |
+| OTH-0383 | 64.0 | oga_unleeched-sound-effects-pack／song-2.wav |  |  |
+| OTH-0384 | 56.0 | oga_unleeched-sound-effects-pack／song-title.wav |  |  |
+| OTH-0385 | 4.5 | oga_war-on-water-sndfx／Radio/radiomsg1.ogg |  |  |
+| OTH-0386 | 4.5 | oga_war-on-water-sndfx／Radio/radiomsg2.ogg |  |  |
+| OTH-0387 | 4.5 | oga_war-on-water-sndfx／Radio/radiomsg3.ogg |  |  |
+| OTH-0388 | 4.5 | oga_war-on-water-sndfx／Radio/radiomsg4.ogg |  |  |
+| OTH-0389 | 0.8 | oga_zipper／zipper-1_0.ogg |  |  |
 
-## RLD 槍械操作（36）
+## RLD 槍械操作（66）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -4158,18 +4376,48 @@
 | RLD-0024 | 16.8 | ia_red-library-guns-misc／R12-26-Guns Cocking.mp3 |  |  |
 | RLD-0025 | 11.3 | ia_red-library-guns-misc／R12-32-Gun Movement in Room.mp3 |  |  |
 | RLD-0026 | 26.0 | ia_red-library-guns-misc／R28-36-Handling and Rattling Rifle.mp3 |  |  |
-| RLD-0027 | 25.3 | ia_sse-library-bullets／BLLTShel_Ejecting shells from 357 magnum pistol_CS_USC.mp3 |  |  |
-| RLD-0028 | 16.9 | ia_sse-library-bullets／BLLTShel_Loading cartridges into a rifle_CS_USC.mp3 |  |  |
-| RLD-0029 | 63.6 | ia_sse-library-guns／GUNMech_38 colt; pistol pulling back hammer; open_CS_USC.mp3 |  |  |
-| RLD-0030 | 1.3 | ia_sse-library-guns／GUNMech_Cocking a rifle; indoors_CS_USC.flac |  |  |
-| RLD-0031 | 3.9 | ia_sse-library-guns／GUNMech_Cocking bolt action rifle; indoors_CS_USC.flac |  |  |
-| RLD-0032 | 8.1 | ia_sse-library-guns／GUNMech_Loading a clip into a rifle_CS_USC.mp3 |  |  |
-| RLD-0033 | 23.9 | ia_sse-library-guns／GUNMech_Loading shotgun; indoors_CS_USC.mp3 |  |  |
-| RLD-0034 | 9.1 | ia_sse-library-guns／GUNMech_Slide breech pistol; indoors_CS_USC.mp3 |  |  |
-| RLD-0035 | 13.8 | ia_sse-library-guns／GUNMech_Spinning the cylinder for Russian Roulette_CS_USC.mp3 |  |  |
-| RLD-0036 | 66.0 | ia_sse-library-guns／GUNMech_Winchester rifle cocking lever; cocking_CS_USC.mp3 |  |  |
+| RLD-0037 | 0.7 | fs_cc0-gun-handling／111676_1046667-hq.mp3 | revolvercock1.wav（Dredile，0.7 秒） |  |
+| RLD-0038 | 6.0 | fs_cc0-gun-handling／133814_2442808-hq.mp3 | Cocking M16.aif（maurosama，6.0 秒） |  |
+| RLD-0039 | 1.5 | fs_cc0-gun-handling／149177_492298-hq.mp3 | shot and reload（deathnsorrow，1.5 秒） |  |
+| RLD-0040 | 4.4 | fs_cc0-gun-handling／150500_1883289-hq.mp3 | Firearm Reloading 2（davdud101，4.4 秒） |  |
+| RLD-0041 | 0.4 | fs_cc0-gun-handling／155174_2793308-hq.mp3 | GunSLide.wav（RazzDaSpazz，0.4 秒） |  |
+| RLD-0042 | 3.1 | fs_cc0-gun-handling／159710_2886479-hq.mp3 | Mossberg 500A - 1 shot and pump（AnthonyChan0，3.1 秒） |  |
+| RLD-0043 | 3.1 | fs_cc0-gun-handling／171211_1769769-hq.mp3 | Dry Fire（brianhanson2nd，3.1 秒） |  |
+| RLD-0044 | 3.4 | fs_cc0-gun-handling／177863_1046667-hq.mp3 | Clean Revolver Reload（Dredile，3.4 秒） |  |
+| RLD-0045 | 2.0 | fs_cc0-gun-handling／200966_2971294-hq.mp3 | Shotgun Cock Reload Layered (Powerful)（Paul368，2.0 秒） |  |
+| RLD-0046 | 1.3 | fs_cc0-gun-handling／204204_3310361-hq.mp3 | 22 Bolt.wav（Danwardvs，1.3 秒） |  |
+| RLD-0047 | 6.6 | fs_cc0-gun-handling／233044_181941-hq.mp3 | UTS-15 Shotgun with pump action 4takes.wav（klangfabrik，6.6 秒） |  |
+| RLD-0048 | 0.3 | fs_cc0-gun-handling／233320_4216178-hq.mp3 | Pistol slide release.mp3（ngphil22，0.3 秒） |  |
+| RLD-0049 | 2.2 | fs_cc0-gun-handling／240698_3978825-hq.mp3 | Revolver Cocking.wav（ajoyce86，2.2 秒） |  |
+| RLD-0050 | 3.5 | fs_cc0-gun-handling／256912_2276808-hq.mp3 | Assault Rifle Reload（Kodack，3.5 秒） |  |
+| RLD-0051 | 6.0 | fs_cc0-gun-handling／262598_957169-hq.mp3 | Gun Cocking Sound.wav（ricexzeeb，6.0 秒） |  |
+| RLD-0052 | 3.1 | fs_cc0-gun-handling／276958_5172328-hq.mp3 | ak47 reload sound.mp3（GFL7，3.1 秒） |  |
+| RLD-0053 | 2.4 | fs_cc0-gun-handling／276959_5172328-hq.mp3 | pistol reload sound.mp3（GFL7，2.4 秒） |  |
+| RLD-0054 | 3.6 | fs_cc0-gun-handling／276963_5172328-hq.mp3 | galil reload sound.mp3（GFL7，3.6 秒） |  |
+| RLD-0055 | 8.9 | fs_cc0-gun-handling／326042_3972580-hq.mp3 | m4 rifle reload.wav（Freeman213SG，8.9 秒） |  |
+| RLD-0056 | 2.5 | fs_cc0-gun-handling／363167_5487341-hq.mp3 | Mag reload（SamsterBirdies，2.5 秒） |  |
+| RLD-0057 | 2.8 | fs_cc0-gun-handling／363168_5487341-hq.mp3 | Machine gun reload（SamsterBirdies，2.8 秒） |  |
+| RLD-0058 | 1.7 | fs_cc0-gun-handling／386741_5768130-hq.mp3 | Shotgun_Reload.wav（ken788，1.7 秒） |  |
+| RLD-0059 | 1.7 | fs_cc0-gun-handling／386744_5768130-hq.mp3 | Handgun_Reload.wav（ken788，1.7 秒） |  |
+| RLD-0060 | 3.8 | fs_cc0-gun-handling／386777_5768130-hq.mp3 | Machine_Gun_Reload.wav（ken788，3.8 秒） |  |
+| RLD-0061 | 5.5 | fs_cc0-gun-handling／387190_4724550-hq.mp3 | Pump Action Shotgun（awrmacd，5.5 秒） |  |
+| RLD-0062 | 2.4 | fs_cc0-gun-handling／402790_7111288-hq.mp3 | Cocking a revolver（acidsnowflake，2.4 秒） |  |
+| RLD-0063 | 0.8 | fs_cc0-gun-handling／405538_2723982-hq.mp3 | Pistol Cock.wav（nebulasnails，0.8 秒） |  |
+| RLD-0064 | 0.6 | fs_cc0-gun-handling／421794_8171657-hq.mp3 | Gun cock.wav（RoozyDB，0.6 秒） |  |
+| RLD-0065 | 2.2 | fs_cc0-gun-handling／427593_3094998-hq.mp3 | 9mm pistol load and chamber（michorvath，2.2 秒） |  |
+| RLD-0066 | 0.8 | fs_cc0-gun-handling／427603_3094998-hq.mp3 | Rifle clip empty（michorvath，0.8 秒） |  |
+| RLD-0067 | 2.0 | fs_cc0-gun-handling／432139_7549712-hq.mp3 | PistolReloadSound.wav（MaximBomba，2.0 秒） |  |
+| RLD-0068 | 3.1 | fs_cc0-gun-handling／432141_7549712-hq.mp3 | Rifle-or-shotgun-reload.wav（MaximBomba，3.1 秒） |  |
+| RLD-0069 | 8.8 | fs_cc0-gun-handling／465488_9243709-hq.mp3 | 1911 Pistol Cocking（J.Anthracite，8.7 秒） |  |
+| RLD-0070 | 2.6 | fs_cc0-gun-handling／530225_11537497-hq.mp3 | Chik-Chak 1 (Gun Slide)（magnuswaker，2.6 秒） |  |
+| RLD-0071 | 1.6 | fs_cc0-gun-handling／674742_7157894-hq.mp3 | AK-47 Assault Rifle being unloaded and reloaded（serøutōnin--deprivəd，1.6 秒） |  |
+| RLD-0072 | 4.0 | fs_cc0-gun-handling／677160_7157894-hq.mp3 | Uzi submachine gun being reloaded while empty. Full sequence（serøutōnin--deprivəd，4.0 秒） |  |
+| RLD-0073 | 0.7 | fs_cc0-gun-handling／688765_71257-hq.mp3 | Unholster Gun（qubodup，0.7 秒） |  |
+| RLD-0074 | 2.5 | fs_cc0-gun-handling／90965_861714-hq.mp3 | gun_cocking.wav（Department64，2.5 秒） |  |
+| RLD-0075 | 0.2 | fs_cc0-gun-handling／94119_1554918-hq.mp3 | ClipLoad2.wav（BMacZero，0.2 秒） |  |
+| RLD-0076 | 1.2 | fs_cc0-gun-handling／99217_1667590-hq.mp3 | shotgun_racking.wav（mtadder，1.2 秒） |  |
 
-## UIS 介面（497）
+## UIS 介面（507）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -4670,8 +4918,18 @@
 | UIS-0495 | 1.1 | oga_ui-sounds-0／New folder/#8.wav |  |  |
 | UIS-0496 | 1.0 | oga_ui-sounds-0／New folder/#9.wav |  |  |
 | UIS-0497 | 0.4 | oga_ui-sounds-0／New folder/Wrong Error.wav |  |  |
+| UIS-0498 | 0.2 | oga_twangy-ui-sounds／sfx_ui_twang_2.mp3 |  |  |
+| UIS-0499 | 0.3 | oga_twangy-ui-sounds／sfx_ui_twang_3.mp3 |  |  |
+| UIS-0500 | 0.3 | oga_twangy-ui-sounds／sfx_ui_twang_4.mp3 |  |  |
+| UIS-0501 | 0.5 | oga_ui-click-sounds-sci-fi／sfx_ui_click_2.mp3 |  |  |
+| UIS-0502 | 0.6 | oga_ui-click-sounds-sci-fi／sfx_ui_click_3.mp3 |  |  |
+| UIS-0503 | 0.5 | oga_ui-click-sounds-sci-fi／sfx_ui_click_4.mp3 |  |  |
+| UIS-0504 | 0.4 | oga_ui-click-sounds-sci-fi／sfx_ui_click_5.mp3 |  |  |
+| UIS-0505 | 0.4 | oga_ui-click-sounds-sci-fi／sfx_ui_click_6.mp3 |  |  |
+| UIS-0506 | 0.2 | oga_ui-click-sounds-sci-fi／sfx_ui_click_7.mp3 |  |  |
+| UIS-0507 | 0.2 | oga_ui-click-sounds-sci-fi／sfx_ui_click_8.mp3 |  |  |
 
-## VOX 人聲與生物（656）
+## VOX 人聲與生物（643）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -5071,31 +5329,6 @@
 | VOX-0394 | 1.9 | oga_silent-beast-growls4／silent_beast_growl_2.mp3 |  |  |
 | VOX-0395 | 1.3 | oga_silent-beast-growls4／silent_beast_growl_3.mp3 |  |  |
 | VOX-0396 | 18.6 | ia_red-library-fights／R15-29-Man Grunting in Pain.mp3 |  |  |
-| VOX-0397 | 15.7 | ia_sse-library-ambience／AMBInd_Busy factory floor; many voices_CS_USC.mp3 |  |  |
-| VOX-0398 | 88.2 | ia_sse-library-ambience／AMBTraf_Busy French traffic ambience; some voices_CS_USC.mp3 |  |  |
-| VOX-0399 | 7.0 | ia_sse-library-creatures／CREAAvian_Creature scream (parrot_)_CS_USC.mp3 |  |  |
-| VOX-0400 | 31.3 | ia_sse-library-creatures／CREABeast_Mythical beast groans and screams; lower_CS_USC.mp3 |  |  |
-| VOX-0401 | 7.3 | ia_sse-library-creatures／CREABeast_Mythical beast groans and screams_CS_USC.mp3 |  |  |
-| VOX-0402 | 15.3 | ia_sse-library-creatures／CREABeast_Young Mythical beast groans and screams_CS_USC.mp3 |  |  |
-| VOX-0403 | 7.8 | ia_sse-library-creatures／CREADino_Large alligator growls; dinosaur or monster_CS_USC.mp3 |  |  |
-| VOX-0404 | 26.6 | ia_sse-library-creatures／CREADino_Large alligator hiss; twice_CS_USC.mp3 |  |  |
-| VOX-0405 | 13.6 | ia_sse-library-creatures／CREADino_Prehistoric alligator growl in distance;_CS_USC.mp3 |  |  |
-| VOX-0406 | 20.4 | ia_sse-library-creatures／CREADrgn_Dragon spits flame_CS_USC.mp3 |  |  |
-| VOX-0407 | 20.2 | ia_sse-library-creatures／CREADrgn_Two dragons scream_CS_USC.mp3 |  |  |
-| VOX-0408 | 37.6 | ia_sse-library-creatures／CREAHmn-WEREWOLF_Werewolf growls; grunts_CS_USC.mp3 |  |  |
-| VOX-0409 | 21.4 | ia_sse-library-creatures／CREAHmn_Mutant whispering; deep & growling_CS_USC.mp3 |  |  |
-| VOX-0410 | 34.9 | ia_sse-library-creatures／CREAInsc_Synthesized space mosquitos_CS_USC.mp3 |  |  |
-| VOX-0411 | 10.4 | ia_sse-library-creatures／CREAMnstr_Big Baby monster calls; closer_CS_USC.mp3 |  |  |
-| VOX-0412 | 18.3 | ia_sse-library-creatures／CREAMnstr_Big baby monster calling out; dull; distant_CS_USC.mp3 |  |  |
-| VOX-0413 | 37.2 | ia_sse-library-creatures／CREAMnstr_Elephant grunt and squeal slowed down to_CS_USC.mp3 |  |  |
-| VOX-0414 | 19.2 | ia_sse-library-creatures／CREAMnstr_Giant monsters of dinosaurs fighting; indistinct;_CS_USC.mp3 |  |  |
-| VOX-0415 | 9.9 | ia_sse-library-creatures／CREAMnstr_Half grown monster screaming_CS_USC.mp3 |  |  |
-| VOX-0416 | 26.5 | ia_sse-library-creatures／CREAMnstr_Monster breathing and heartbeat; mystery_CS_USC.mp3 |  |  |
-| VOX-0417 | 12.5 | ia_sse-library-fight／FGHTBf_Body falls on dirt; grunts_CS_USC.mp3 |  |  |
-| VOX-0418 | 23.9 | ia_sse-library-fight／FGHTBf_Human falling down stairs twice_CS_USC.mp3 |  |  |
-| VOX-0419 | 41.1 | ia_sse-library-human／HMNHart_Human heartbeat; fast_CS_USC.mp3 |  |  |
-| VOX-0420 | 30.4 | ia_sse-library-human／HMNHart_Human heartbeat_CS_USC.mp3 |  |  |
-| VOX-0421 | 22.8 | ia_sse-library-scifi／SCIShip_Alien hum or space ship interior_CS_USC.mp3 |  |  |
 | VOX-0422 | 0.5 | kenney_casino-audio／Audio/die-throw-1.ogg |  |  |
 | VOX-0423 | 0.7 | kenney_casino-audio／Audio/die-throw-2.ogg |  |  |
 | VOX-0424 | 0.7 | kenney_casino-audio／Audio/die-throw-3.ogg |  |  |
@@ -5331,4 +5564,16 @@
 | VOX-0654 | 0.6 | oga_zombies-sound-pack／zombies/zombie-7.wav |  |  |
 | VOX-0655 | 0.8 | oga_zombies-sound-pack／zombies/zombie-8.wav |  |  |
 | VOX-0656 | 0.9 | oga_zombies-sound-pack／zombies/zombie-9.wav |  |  |
+| VOX-0657 | 0.3 | oga_attack-miss-or-hit-sounds2／attack_hit_1.mp3 |  |  |
+| VOX-0658 | 0.4 | oga_slimy-monster-or-murder-sounds9／slimy_monster_or_murderd_sound.mp3 |  |  |
+| VOX-0659 | 0.3 | oga_slimy-monster-or-murder-sounds9／slimy_monster_or_murderd_sound_1.mp3 |  |  |
+| VOX-0660 | 0.3 | oga_slimy-monster-or-murder-sounds9／slimy_monster_or_murderd_sound_2.mp3 |  |  |
+| VOX-0661 | 0.4 | oga_slimy-monster-or-murder-sounds9／slimy_monster_or_murderd_sound_3.mp3 |  |  |
+| VOX-0662 | 0.2 | oga_slimy-monster-or-murder-sounds9／slimy_monster_or_murderd_sound_5.mp3 |  |  |
+| VOX-0663 | 0.3 | oga_slimy-monster-or-murder-sounds9／slimy_monster_or_murderd_sound_6.mp3 |  |  |
+| VOX-0664 | 0.4 | oga_slimy-monster-or-murder-sounds9／slimy_monster_or_murderd_sound_7.mp3 |  |  |
+| VOX-0665 | 0.4 | oga_slimy-monster-or-murder-sounds9／slimy_monster_or_murderd_sound_8.mp3 |  |  |
+| VOX-0666 | 0.6 | oga_space-shoot-sounds／alienshoot1.ogg |  |  |
+| VOX-0667 | 0.6 | oga_space-shoot-sounds／alienshoot2.ogg |  |  |
+| VOX-0668 | 0.7 | oga_space-shoot-sounds／alienshoot3.ogg |  |  |
 

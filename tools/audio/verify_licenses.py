@@ -3,7 +3,7 @@
 archive.org 的項目看它的 metadata 的 licenseurl，必須是 CC0 1.0（publicdomain/zero）。
 
 用法：python tools/audio/verify_licenses.py [--jobs 6] [--only ID ...]
-OpenGameArt 頁面的「License(s):」欄只能有 CC0；Kenney 頁面要寫 CC0。抓不到頁面的列為「未能確認」，不算通過。
+OpenGameArt 頁面的「License(s):」欄只能有 CC0；Kenney 頁面要寫 CC0；Freesound 逐個聲音的頁面授權要是 CC0 1.0。抓不到頁面的列為「未能確認」，不算通過。
 結果印在畫面並寫到 assets_src/audio/license_check.json（時間、通過／失敗清單）。
 """
 import argparse
@@ -31,7 +31,27 @@ def fetch(url: str) -> str:
     return ""
 
 
+def check_freesound(pack: dict) -> dict:
+    """Freesound 的素材包：逐個聲音的頁面（/s/<編號>/）確認授權連結是 CC0 1.0。"""
+    urls = pack["download"] if isinstance(pack["download"], list) else [pack["download"]]
+    bad, unreachable = [], []
+    for url in urls:
+        match = re.search(r"/previews/\d+/(\d+)_", url)
+        sound_id = match.group(1) if match else ""
+        html = fetch(f"https://freesound.org/s/{sound_id}/") if sound_id else ""
+        if not html:
+            unreachable.append(sound_id or url)
+        elif "creativecommons.org/publicdomain/zero/1.0" not in html:
+            bad.append(sound_id)
+    detail = f"Freesound {len(urls)} 個聲音逐頁檢查"
+    if bad or unreachable:
+        detail += f"；授權不是 CC0：{bad}；頁面抓不到：{unreachable}"
+    return {"id": pack["id"], "page": pack["page"], "result": "ok" if not bad and not unreachable else "FAIL", "detail": detail}
+
+
 def check(pack: dict) -> dict:
+    if pack["id"].startswith("fs_"):
+        return check_freesound(pack)
     html = fetch(pack["page"])
     if not html:
         return {"id": pack["id"], "page": pack["page"], "result": "unverified", "detail": "頁面抓不到"}
@@ -46,12 +66,7 @@ def check(pack: dict) -> dict:
         ok = "creativecommons.org/publicdomain/zero/" in license_url
         return {"id": pack["id"], "page": pack["page"], "result": "ok" if ok else "FAIL", "detail": f"archive.org licenseurl = {license_url or '（沒有）'}"}
     if "opengameart.org" in pack["page"]:
-        match = re.search(r"License\(s\):.*?</div>\s*</div>|License\(s\):(.*?)<(?:/section|h2|div class=\"field field-name-field-art-tags)", html, re.S)
-        block = html[html.find("License(s):"): html.find("License(s):") + 1500] if "License(s):" in html else ""
-        licenses = re.findall(r'<a href="https?://creativecommons\.org/[^"]+"[^>]*>([^<]+)</a>|<a href="/content/[^"]*license[^"]*"[^>]*>([^<]+)</a>', block)
-        names = [a or b for a, b in licenses]
-        if not names:
-            names = re.findall(r"(CC0[^<\n]*|CC-BY[^<\n]*|GPL[^<\n]*|OGA-BY[^<\n]*)", block)
+        names = re.findall(r"license-name'>([^<]*)<", html)  # 授權欄每個授權一個標籤；不看頁面其他地方（收藏集名稱也會寫 CC0）
         text = " | ".join(n.strip() for n in names) or "（找不到授權欄位）"
         ok = bool(names) and all(n.strip().upper().startswith("CC0") for n in names)
         return {"id": pack["id"], "page": pack["page"], "result": "ok" if ok else "FAIL", "detail": text}

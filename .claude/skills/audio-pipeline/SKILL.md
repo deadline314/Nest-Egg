@@ -16,8 +16,11 @@ description: 把 CC0 音效與音樂換進 Nest Egg 的完整流程：找來源�
 
 ## 流程
 
-1. **找來源**：把素材包加進 `assets_src/audio/manifest.json`（`id`、`kind: sfx|music`、`author`、`license: CC0-1.0`、`page`、`download`、`dir`）。先看 `design/16-audio/SOURCES.md` 有沒有現成的。
-2. **下載**：`python tools/audio/fetch_audio.py [--only ID ...] [--kind sfx|music]`。已下載的會略過，單項失敗只記錄。
+1. **找來源**：把素材包加進 `assets_src/audio/manifest.json`（`id`、`kind: sfx|music`、`author`、`license: CC0-1.0`、`page`、`download`、`dir`）。先看 `design/16-audio/SOURCES.md` 有沒有現成的。不要手寫，用工具加（會驗證授權）：
+   - OpenGameArt：`python tools/audio/add_oga.py --kind music|sfx [--use calm,tense] 頁面代稱…`（授權欄沒有 CC0 就略過）。找候選時用 OGA 的進階搜尋加授權篩選（`art-search-advanced?keys=…&field_art_licenses_tid[]=4`，音樂 `field_art_type_tid[]=12`、音效 13）。
+   - Freesound：寫 `assets_src/audio/freesound_recipes.json` 的配方，跑 `python tools/audio/add_freesound.py [--only ID] [--dry-run]`；用 CC0 篩選的搜尋頁、不需要帳號，素材是 128 kbps 預聽 mp3。
+   - archive.org 的素材會下架（曾有一批 SSE／Red Library 變 404）；新增前先確認連結打得開。來源失效就從 manifest 刪掉，`build_catalog.py` 會連同它的素材編號一起剔除。
+2. **下載**：`python tools/audio/fetch_audio.py [--only ID ...] [--kind sfx|music]`。已下載的會略過，單項失敗只記錄。`.7z` 需要 `pip install py7zr`；需要 ffmpeg／ffprobe 在 PATH（編號與預聽檔都靠它）。
 3. **看特徵再挑**：`python tools/audio/inspect_audio.py <素材包 id> "<路徑或萬用字元>"`，看時長、第一聲的範圍、衰減時間、頻譜重心、起音數。槍聲素材常有長尾與連發，要指定 `start`／`end` 取第一發。
 4. **寫加工清單** `assets_src/audio/pipeline.json`：
    - `sfx.<音效 id>`：`category`（gun、impact、explosion、foley、ui、voice、ambience，對應 `defaults`）、`variants`（每項 `pack`、`file`，可覆寫 `mode: shot|whole|loop`、`start`、`end`、`max_len`、`target_db`、`gain_db`、`rate`、`lowpass`、`highpass`、`fade_out_ms`）。多個變體會輪播。

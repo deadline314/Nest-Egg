@@ -2,6 +2,24 @@
  "_說明": "CC0 音效與音樂來源目錄。fetch_audio.py 依此下載到 assets_src/raw/audio/；build_audio.py 依 pipeline.json 取用並寫授權登記。",
  "packs": [
   {
+   "id": "2dpixx_post-apocalyptic-morning-afternoon-and-night",
+   "kind": "music",
+   "title": "Post-Apocalyptic Morning, Afternoon and Night",
+   "author": "2DPIXX",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/post-apocalyptic-morning-afternoon-and-night",
+   "download": [
+    "https://opengameart.org/sites/default/files/post-apocalyptic_morning_bpm80.mp3",
+    "https://opengameart.org/sites/default/files/post-apocalyptic_morning_bpm80_0.ogg",
+    "https://opengameart.org/sites/default/files/post-apocalyptic_afternoon_bpm85.mp3",
+    "https://opengameart.org/sites/default/files/post-apocalyptic_afternoon_bpm85_0.ogg",
+    "https://opengameart.org/sites/default/files/post-apocalyptic_night_bpm80.mp3",
+    "https://opengameart.org/sites/default/files/post-apocalyptic_night_bpm80_0.ogg"
+   ],
+   "dir": "music/2dpixx_post-apocalyptic-morning-afternoon-and-night",
+   "notes": "1st preview:Morning -> Afternoon -> Night 3 music for July 2025 Art Challenge - Post-Apocalyptic Survival. All music tracks are loopable.File formats are mp3 and ogg."
+  },
+  {
    "id": "3xblast_small-things",
    "kind": "music",
    "title": "Small Things",
@@ -46,6 +64,17 @@
    "notes": "calm music, calm, melodic, Sad Music, ambience, emotional, atmospheric"
   },
   {
+   "id": "agameraaron_outer-space-loop",
+   "kind": "music",
+   "title": "Outer Space Loop",
+   "author": "AGamerAaron",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/outer-space-loop",
+   "download": "https://opengameart.org/sites/default/files/outer_space_2.mp3",
+   "dir": "music/agameraaron_outer-space-loop",
+   "notes": "Outer Space Loop"
+  },
+  {
    "id": "akikazer_menu-loop",
    "kind": "music",
    "title": "Menu Loop",
@@ -57,6 +86,90 @@
    "notes": "menu"
   },
   {
+   "id": "alandgt_sad-orchestral-theme",
+   "kind": "music",
+   "title": "Sad orchestral theme",
+   "author": "AlaNDGT",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/sad-orchestral-theme",
+   "download": "https://opengameart.org/sites/default/files/mess.wav",
+   "dir": "music/alandgt_sad-orchestral-theme",
+   "notes": "WAV, Lossless.Released under Public Domain."
+  },
+  {
+   "id": "alexcons_action-track",
+   "kind": "music",
+   "title": "Action Track",
+   "author": "AlexCons",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/action-track",
+   "download": "https://opengameart.org/sites/default/files/actionTrack_0.mp3",
+   "dir": "music/alexcons_action-track",
+   "notes": "Bass and guitar recorded live."
+  },
+  {
+   "id": "andygun11_virtual-rush",
+   "kind": "music",
+   "title": "Virtual Rush",
+   "author": "AndyGun11",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/virtual-rush",
+   "download": [
+    "https://opengameart.org/sites/default/files/virtual_rush_2.mp3",
+    "https://opengameart.org/sites/default/files/virtual_rush_0.wav",
+    "https://opengameart.org/sites/default/files/virtual_rush_0.flac",
+    "https://opengameart.org/sites/default/files/virtual_rush_loop_0.mp3",
+    "https://opengameart.org/sites/default/files/virtual_rush_loop_0.wav",
+    "https://opengameart.org/sites/default/files/virtual_rush_loop_0.flac"
+   ],
+   "dir": "music/andygun11_virtual-rush",
+   "notes": "Electronic music"
+  },
+  {
+   "id": "anonymous-not-verified_random-encounter-4",
+   "kind": "music",
+   "title": "Random Encounter 4",
+   "author": "Anonymous (not verified)",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/random-encounter-4",
+   "download": "https://opengameart.org/sites/default/files/randdom1_0.ogg",
+   "dir": "music/anonymous-not-verified_random-encounter-4",
+   "notes": "battle theme kinda. Reuses a motif from an earlier song I made..."
+  },
+  {
+   "id": "antumdeluge_boss-battle-2-symphonic-metal",
+   "kind": "music",
+   "title": "Boss Battle #2 [Symphonic Metal]",
+   "author": "AntumDeluge",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/boss-battle-2-symphonic-metal",
+   "download": "https://opengameart.org/sites/default/files/boss_battle_%232_metal_pack.zip",
+   "dir": "music/antumdeluge_boss-battle-2-symphonic-metal",
+   "notes": "Now in symphonic metal style without vocals.This ZIP contains two files. One is the opening part and second one is the looping partNOTE: Filenames inside ZIP are wrong. The loop is actually opening an"
+  },
+  {
+   "id": "antumdeluge_fight-run-breath-deeply",
+   "kind": "music",
+   "title": "Fight, run, breath deeply",
+   "author": "AntumDeluge",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/fight-run-breath-deeply",
+   "download": "https://opengameart.org/sites/default/files/Komiku%20-%20It%27s%20time%20for%20adventure%20vol%202%20-%2013%20Fight%2C%20run%2C%20breath%20deeply_0.mp3",
+   "dir": "music/antumdeluge_fight-run-breath-deeply",
+   "notes": "From the album It's time for adventure 2"
+  },
+  {
+   "id": "antumdeluge_overdrive-final",
+   "kind": "music",
+   "title": "OverDrive [Final]",
+   "author": "AntumDeluge",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/overdrive-final",
+   "download": "https://opengameart.org/sites/default/files/concept1d_2.ogg",
+   "dir": "music/antumdeluge_overdrive-final",
+   "notes": "Extended version of Overdrive...the music is more electro-ish."
+  },
+  {
    "id": "aroachifoundonmypillow_victory-fanfare",
    "kind": "music",
    "title": "Victory Fanfare",
@@ -66,6 +179,31 @@
    "download": "https://opengameart.org/sites/default/files/fanfare1_0.ogg",
    "dir": "music/aroachifoundonmypillow_victory-fanfare",
    "notes": "fanfare, organ, church organ, victory, Win, winning, success"
+  },
+  {
+   "id": "aspiringcodemonkey_nobodys-home",
+   "kind": "music",
+   "title": "Nobody's Home",
+   "author": "aspiringcodemonkey",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/nobodys-home",
+   "download": "https://opengameart.org/sites/default/files/nobodys_home.wav",
+   "dir": "music/aspiringcodemonkey_nobodys-home",
+   "notes": "Started making music pretty recently, so it's not like impressive and I hardly did any mixing at all, but maybe it can still be of some use?Think it would go nicely with horror or mystery.I'll continu"
+  },
+  {
+   "id": "atmanan_omega-droid-airborne",
+   "kind": "music",
+   "title": "Omega Droid - Airborne",
+   "author": "ATMANAN",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/omega-droid-airborne",
+   "download": [
+    "https://opengameart.org/sites/default/files/omega_droid-airborne.wav",
+    "https://opengameart.org/sites/default/files/omega_droid-airborne_with_wind.wav"
+   ],
+   "dir": "music/atmanan_omega-droid-airborne",
+   "notes": "My submission for the art challenge.What I envisioned was a bunch of flying robots attacking the player, with the player needing to destroy all the droids to win. (Or just last, depending on the game."
   },
   {
    "id": "beardalaxy_catacombs-chanting-loop",
@@ -145,6 +283,27 @@
    "notes": "melancholic cinematic"
   },
   {
+   "id": "bobjt_t-t-free-cyberpunk-pack",
+   "kind": "music",
+   "title": "T & T Free Cyberpunk Pack",
+   "author": "Bobjt",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/t-t-free-cyberpunk-pack",
+   "download": [
+    "https://opengameart.org/sites/default/files/Caves.ogg",
+    "https://opengameart.org/sites/default/files/Anti%20Matter%20Magic.ogg",
+    "https://opengameart.org/sites/default/files/Currents.ogg",
+    "https://opengameart.org/sites/default/files/Tribal%20Chaos.ogg",
+    "https://opengameart.org/sites/default/files/Experiment%20G.ogg",
+    "https://opengameart.org/sites/default/files/Space%20Collisions_0.ogg",
+    "https://opengameart.org/sites/default/files/Wicked%20beast.ogg",
+    "https://opengameart.org/sites/default/files/Test%20Subject_0.ogg",
+    "https://opengameart.org/sites/default/files/Simulation%20Unknown.ogg"
+   ],
+   "dir": "music/bobjt_t-t-free-cyberpunk-pack",
+   "notes": "HQ Cyberpunkish tracks I composed (OGG format)"
+  },
+  {
    "id": "bobjt_the-origin-s-story",
    "kind": "music",
    "title": "The Origin's Story",
@@ -167,6 +326,31 @@
    "notes": "space fanfare victory"
   },
   {
+   "id": "bonsaiheldin_fast-fight-battle-music",
+   "kind": "music",
+   "title": "Fast fight / battle music",
+   "author": "Bonsaiheldin",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/fast-fight-battle-music",
+   "download": [
+    "https://opengameart.org/sites/default/files/fight.wav",
+    "https://opengameart.org/sites/default/files/fight.ogg"
+   ],
+   "dir": "music/bonsaiheldin_fast-fight-battle-music",
+   "notes": "Fast fight and battle music. Could suit a space game."
+  },
+  {
+   "id": "boundingbox_sirens-in-darkness",
+   "kind": "music",
+   "title": "Sirens in Darkness",
+   "author": "boundingBox",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/sirens-in-darkness",
+   "download": "https://opengameart.org/sites/default/files/012_Sirens_in_Darkness_0.mp3",
+   "dir": "music/boundingbox_sirens-in-darkness",
+   "notes": "Sirens in Darkness - Ambient mysterious and mood music for your game, ethereal and pensive. You are sure to love this ambient theme with warm pads and piano!!!! Get in touch for variations and etc... "
+  },
+  {
    "id": "breadman_the-fade",
    "kind": "music",
    "title": "The Fade",
@@ -187,6 +371,28 @@
    "download": "https://opengameart.org/sites/default/files/main_menu_-_dark_0.mp3",
    "dir": "music/bubble5297_main-menu-dark",
    "notes": "dark, slow, moody menu theme"
+  },
+  {
+   "id": "calyad_bossfight-1",
+   "kind": "music",
+   "title": "Bossfight_",
+   "author": "Calyad",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/bossfight-1",
+   "download": "https://opengameart.org/sites/default/files/bossfight_.mp3",
+   "dir": "music/calyad_bossfight-1",
+   "notes": "This is the first time I've tried to make longer boss fight style music."
+  },
+  {
+   "id": "centurion-of-war_boss-battle-7-metal",
+   "kind": "music",
+   "title": "Boss Battle #7 (Metal)",
+   "author": "Centurion_of_war",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/boss-battle-7-metal",
+   "download": "https://opengameart.org/sites/default/files/boss_battle_07.wav",
+   "dir": "music/centurion-of-war_boss-battle-7-metal",
+   "notes": "New stuff! With old melodies! Well not all of them but at least one part.There is no tail of any sort, so it's perfectly loopable."
   },
   {
    "id": "centurion-of-war_boundless",
@@ -308,6 +514,17 @@
    "download": "https://opengameart.org/sites/default/files/Cursed%20Light%20-%20MP3%20Preview_2.mp3",
    "dir": "music/cethiel_cursed-light",
    "notes": "solo piano sad"
+  },
+  {
+   "id": "ciatgepete_claimed-by-the-void-new-factory-ai-fight-and-simulation-unknown-vitalezzz-vs-tricksntraps",
+   "kind": "music",
+   "title": "Claimed by the void, new factory, AI fight and simulation unknown (vitalezzz vs Tricksntraps)",
+   "author": "ciatgepete",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/claimed-by-the-void-new-factory-ai-fight-and-simulation-unknown-vitalezzz-vs-tricksntraps",
+   "download": "https://opengameart.org/sites/default/files/claimed_by_the_void_mix_0.ogg",
+   "dir": "music/ciatgepete_claimed-by-the-void-new-factory-ai-fight-and-simulation-unknown-vitalezzz-vs-tricksntraps",
+   "notes": "\"Claimed by the Void\" by vitalezzz https://opengameart.org/content/claimed-by-the-void CC0\"new factory\" and \"AI fight\" from T & T Free Cyberpunk Pack 2 by tricksntraps https://opengameart.org/content/"
   },
   {
    "id": "cinameng_abandon-hope",
@@ -914,6 +1131,17 @@
    "notes": "horror, sting, strings, piano, Pizzicato"
   },
   {
+   "id": "corey-archer_night-escape",
+   "kind": "music",
+   "title": "Night Escape",
+   "author": "Corey Archer",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/night-escape",
+   "download": "https://opengameart.org/sites/default/files/Night%20Escape_0.mp3",
+   "dir": "music/corey-archer_night-escape",
+   "notes": "This is the main (and only) music for my entry to a Ludum Dare, together with the rest of the assets and code it is left as CC0. https://github.com/Agecaf/ai-runaway if you're interested.The music its"
+  },
+  {
    "id": "crivain_icy-heights",
    "kind": "music",
    "title": "Icy Heights",
@@ -936,6 +1164,17 @@
    "notes": "creepy, title screen, title theme, horror, puppet, bells, bell"
   },
   {
+   "id": "cynicmusic_battle-theme-b-for-rpg",
+   "kind": "music",
+   "title": "Battle Theme B for RPG",
+   "author": "cynicmusic",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/battle-theme-b-for-rpg",
+   "download": "https://opengameart.org/sites/default/files/battleThemeB.mp3",
+   "dir": "music/cynicmusic_battle-theme-b-for-rpg",
+   "notes": "Also check out my Battle Theme A, which is quite a bit better production than this one, but this one is fun too and has a nice harpsichord progression in the middle, lol.This is for my game Pixelspher"
+  },
+  {
    "id": "cynicmusic_dramatic-boss-encounter",
    "kind": "music",
    "title": "Dramatic Boss Encounter",
@@ -945,6 +1184,17 @@
    "download": "https://opengameart.org/sites/default/files/Heavy%20Concept%20A%20Bass%20Master.wav",
    "dir": "music/cynicmusic_dramatic-boss-encounter",
    "notes": "heavy bass concept, epic boss"
+  },
+  {
+   "id": "cynicmusic_epic-main-menu-theme-loop",
+   "kind": "music",
+   "title": "Epic Main Menu Theme ~ Loop",
+   "author": "cynicmusic",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/epic-main-menu-theme-loop",
+   "download": "https://opengameart.org/sites/default/files/%C3%9Cbermensch%20%5B%20Main%20Menu%20%5D.wav",
+   "dir": "music/cynicmusic_epic-main-menu-theme-loop",
+   "notes": "Format: WAVBit Rate: 1411 kbpsSample Rate: 16-Bit Stereo, 44.1 kHzMain Track Length: 0:34Loops seamlessly: Yes"
   },
   {
    "id": "cynicmusic_icy-realm-seven-and-eight",
@@ -978,6 +1228,114 @@
    "download": "https://opengameart.org/sites/default/files/Victory1_1.mp3",
    "dir": "music/cynicmusic_victory-theme-for-rpg",
    "notes": "victory theme, RPG"
+  },
+  {
+   "id": "dgrannum22_level-complete",
+   "kind": "music",
+   "title": "Level Complete!",
+   "author": "dgrannum22",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/level-complete",
+   "download": [
+    "https://opengameart.org/sites/default/files/level_complete_1.wav",
+    "https://opengameart.org/sites/default/files/level_finished_3.wav"
+   ],
+   "dir": "music/dgrannum22_level-complete",
+   "notes": "Some songs I made a while back while still playing around with Logic Pro X. Both are made entirely out of Apple Loops, which are music files in the apps Garageband and Logic Pro.Level Complete! is the"
+  },
+  {
+   "id": "dragonseb71_action-theme-song",
+   "kind": "music",
+   "title": "Action Theme Song",
+   "author": "dragonseb71",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/action-theme-song",
+   "download": "https://opengameart.org/sites/default/files/action%20game%20theme.wav",
+   "dir": "music/dragonseb71_action-theme-song",
+   "notes": "I created this piece (.wav format, 0:48) with a generic action game in mind. It's intended as the main theme, but can of course be used as background music while playing a game. I'll probably go back "
+  },
+  {
+   "id": "dragonseb71_war-on-water-tracks",
+   "kind": "music",
+   "title": "War on Water: Tracks",
+   "author": "dragonseb71",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/war-on-water-tracks",
+   "download": [
+    "https://opengameart.org/sites/default/files/wowchapter1.ogg",
+    "https://opengameart.org/sites/default/files/wowchapter2.ogg",
+    "https://opengameart.org/sites/default/files/WoWChapter3.ogg",
+    "https://opengameart.org/sites/default/files/wowmenu.ogg",
+    "https://opengameart.org/sites/default/files/wowoptions.ogg"
+   ],
+   "dir": "music/dragonseb71_war-on-water-tracks",
+   "notes": "A set of short and loopable (?) tracks for a small war game me and and my friend have been working on. It is out Google Play (called War on Water). Created with LMMS and Soundfonts (like Sonatina).The"
+  },
+  {
+   "id": "draymadev_final-stand-0",
+   "kind": "music",
+   "title": "Final Stand",
+   "author": "DraymaDev",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/final-stand-0",
+   "download": [
+    "https://opengameart.org/sites/default/files/final_stand_phase_1.3_0.ogg",
+    "https://opengameart.org/sites/default/files/final_stand_phase_2.2_0.ogg",
+    "https://opengameart.org/sites/default/files/final_stand_phase_2.2.heavy_drums_0.ogg",
+    "https://opengameart.org/sites/default/files/final_stand_phase_3.3.piano__0.ogg",
+    "https://opengameart.org/sites/default/files/final_stand_phase_4.1finalmax_0.ogg",
+    "https://opengameart.org/sites/default/files/final_stand_phase_4.1final_0.ogg",
+    "https://opengameart.org/sites/default/files/final_stand_0.ogg"
+   ],
+   "dir": "music/draymadev_final-stand-0",
+   "notes": "A boss Battle theme for Multiple Phase type battle."
+  },
+  {
+   "id": "draymadev_lonely-night",
+   "kind": "music",
+   "title": "Lonely Night",
+   "author": "DraymaDev",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/lonely-night",
+   "download": "https://opengameart.org/sites/default/files/night_tune3_0.ogg",
+   "dir": "music/draymadev_lonely-night",
+   "notes": "A small slight calm music,"
+  },
+  {
+   "id": "dread-knight_at-home-orchestral",
+   "kind": "music",
+   "title": "At Home - Orchestral",
+   "author": "Dread Knight",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/at-home-orchestral",
+   "download": "https://opengameart.org/sites/default/files/cinematic-calm.wav",
+   "dir": "music/dread-knight_at-home-orchestral",
+   "notes": "A short calm piece. I can be contacted at kerrtheodore13@gmail.com for short commissions."
+  },
+  {
+   "id": "elbon-eastmage_electric-0",
+   "kind": "music",
+   "title": "Electric",
+   "author": "Elbon Eastmage",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/electric-0",
+   "download": "https://opengameart.org/sites/default/files/Electric.mp3",
+   "dir": "music/elbon-eastmage_electric-0",
+   "notes": "Futuristic vibes"
+  },
+  {
+   "id": "eldritch-grim_garg-oilers",
+   "kind": "music",
+   "title": "Garg Oilers",
+   "author": "Eldritch Grim",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/garg-oilers",
+   "download": [
+    "https://opengameart.org/sites/default/files/gargoilers_0.mp3",
+    "https://opengameart.org/sites/default/files/gargoilers.wav"
+   ],
+   "dir": "music/eldritch-grim_garg-oilers",
+   "notes": "some kinda simple horror/suspense atmospheric loop"
   },
   {
    "id": "eldritch-grim_the-sad-battle",
@@ -1035,6 +1393,17 @@
    "notes": "horror, theme, menu"
   },
   {
+   "id": "enprogames_robotic-city",
+   "kind": "music",
+   "title": "Robotic City",
+   "author": "enprogames",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/robotic-city",
+   "download": "https://opengameart.org/sites/default/files/S31-Robotic%20City.ogg",
+   "dir": "music/enprogames_robotic-city",
+   "notes": "Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alpha."
+  },
+  {
    "id": "etrock_menu-chill-music",
    "kind": "music",
    "title": "Menu Chill Music",
@@ -1044,6 +1413,86 @@
    "download": "https://opengameart.org/sites/default/files/menu_chill.wav",
    "dir": "music/etrock_menu-chill-music",
    "notes": "main menu, app menu, menu, arcade"
+  },
+  {
+   "id": "farcodev_haunting-piano",
+   "kind": "music",
+   "title": "Haunting piano",
+   "author": "farcodev",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/haunting-piano",
+   "download": "https://opengameart.org/sites/default/files/haunting%20piano_0.mp3",
+   "dir": "music/farcodev_haunting-piano",
+   "notes": "A fairly short piano piece with a ghostly/horrorish feel. Possibly suitable for conveying despair or a nightmarish feeling."
+  },
+  {
+   "id": "food-please_covert-action",
+   "kind": "music",
+   "title": "Covert Action",
+   "author": "food_please",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/covert-action",
+   "download": [
+    "https://opengameart.org/sites/default/files/covert_action_0.ogg",
+    "https://opengameart.org/sites/default/files/covert_action.btm_.zip"
+   ],
+   "dir": "music/food-please_covert-action",
+   "notes": "A spy-themed track, for secret agents doing sneaky businessAlso available on https://soundcloud.com/congus-bongus/covert-actionMade with bambootracker"
+  },
+  {
+   "id": "food-please_gravity-turn",
+   "kind": "music",
+   "title": "Gravity Turn",
+   "author": "food_please",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/gravity-turn",
+   "download": [
+    "https://opengameart.org/sites/default/files/gravity_turn_action_2.mp3",
+    "https://opengameart.org/sites/default/files/gravity_turn_action.wav",
+    "https://opengameart.org/sites/default/files/gravity_turn_action.flac",
+    "https://opengameart.org/sites/default/files/gravity_turn_calm_6.mp3",
+    "https://opengameart.org/sites/default/files/gravity_turn_calm_0.wav",
+    "https://opengameart.org/sites/default/files/gravity_turn_calm_0.flac"
+   ],
+   "dir": "music/food-please_gravity-turn",
+   "notes": "Electronic music, calm and action version, both can be loopedThe calm version is simpler and a bit shorter, but hopefully it should be possible to crossfade from any point of calm version to the begin"
+  },
+  {
+   "id": "food-please_persevere",
+   "kind": "music",
+   "title": "Persevere",
+   "author": "food_please",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/persevere",
+   "download": [
+    "https://opengameart.org/sites/default/files/persevere_5.mp3",
+    "https://opengameart.org/sites/default/files/persevere_0.wav",
+    "https://opengameart.org/sites/default/files/persevere_0.flac"
+   ],
+   "dir": "music/food-please_persevere",
+   "notes": "Electronic music"
+  },
+  {
+   "id": "food-please_starlight-city-loop-included",
+   "kind": "music",
+   "title": "Starlight City (Loop included)",
+   "author": "food_please",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/starlight-city-loop-included",
+   "download": "https://opengameart.org/sites/default/files/starlight_city.zip",
+   "dir": "music/food-please_starlight-city-loop-included",
+   "notes": "UPDATE:Another Bag of Chips is now available for free on Bandcamp and Ko-Fi for free! Download the album from there to get all the bonus content including looping versions of every track! Hello! This "
+  },
+  {
+   "id": "footinthebox_awake-megawall-10",
+   "kind": "music",
+   "title": "Awake! (Megawall-10)",
+   "author": "Footinthebox",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/awake-megawall-10",
+   "download": "https://opengameart.org/sites/default/files/awake10_megaWall.mp3",
+   "dir": "music/footinthebox_awake-megawall-10",
+   "notes": "A breakbeats/trance song very upbeat that could be used for battle music or an intense sequence. I made this for my site http://cynicmusic.com but never used it. It also loops perfectly. This is for m"
   },
   {
    "id": "fupi_alison-night",
@@ -1123,6 +1572,17 @@
    "notes": "dream, sleepy, calm, electronic"
   },
   {
+   "id": "fupi_victory-sting",
+   "kind": "music",
+   "title": "Victory sting",
+   "author": "Fupi",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/victory-sting",
+   "download": "https://opengameart.org/sites/default/files/victory%20sting_0.ogg",
+   "dir": "music/fupi_victory-sting",
+   "notes": "A chiptune victory sting, with short buildup, pause, and flourish.Made for https://tic.computer/play?cart=1179"
+  },
+  {
    "id": "fupi_wtf-its-the-big-bads-final-form",
    "kind": "music",
    "title": "WTF its the big bads final form",
@@ -1198,6 +1658,17 @@
    "download": "https://opengameart.org/sites/default/files/undefined_emotion_1.mp3",
    "dir": "music/gena-sealov_undefined-emotion",
    "notes": "chill, melancholic, synthpop, electronic"
+  },
+  {
+   "id": "glitchart_echoes-of-the-past",
+   "kind": "music",
+   "title": "Echoes of the Past",
+   "author": "glitchart",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/echoes-of-the-past",
+   "download": "https://opengameart.org/sites/default/files/echoes_of_the_past.wav",
+   "dir": "music/glitchart_echoes-of-the-past",
+   "notes": "I've recently found myself enjoying the music from the original Silent Hill games. What's interesting is that many of the sounds in those songs originate from a sample pack called Distorted Reality. T"
   },
   {
    "id": "haeldb_loading-screen-loop",
@@ -1277,6 +1748,17 @@
    "notes": "boss battle BGM, quirky/driving"
   },
   {
+   "id": "hitctrl_synth-wave",
+   "kind": "music",
+   "title": "Synth Wave",
+   "author": "Hitctrl",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/synth-wave",
+   "download": "https://opengameart.org/sites/default/files/Synth%20Wave_0.mp3",
+   "dir": "music/hitctrl_synth-wave",
+   "notes": "Please Check Out My Blog. https://prosensory.blogspot.com/"
+  },
+  {
    "id": "holizna_chills",
    "kind": "music",
    "title": "Chills",
@@ -1332,6 +1814,20 @@
    "notes": "Ambient, thunder, something"
   },
   {
+   "id": "ijustjordan_opening-theme-actionsuspense",
+   "kind": "music",
+   "title": "Opening Theme [Action/Suspense]",
+   "author": "IJustJordan",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/opening-theme-actionsuspense",
+   "download": [
+    "https://opengameart.org/sites/default/files/opening_theme.wav",
+    "https://opengameart.org/sites/default/files/opening_theme_V2.wav"
+   ],
+   "dir": "music/ijustjordan_opening-theme-actionsuspense",
+   "notes": "Short opening theme for titlesAction, SuspensionAlso only difference between V1 and V2 have is different EQ"
+  },
+  {
    "id": "indieteur_long-winter",
    "kind": "music",
    "title": "Long Winter",
@@ -1376,6 +1872,31 @@
    "notes": "heavenly ambient loop"
   },
   {
+   "id": "isaiah658_chill-lofi-inspired",
+   "kind": "music",
+   "title": "Chill lofi inspired",
+   "author": "isaiah658",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/chill-lofi-inspired",
+   "download": [
+    "https://opengameart.org/sites/default/files/ChillLofiR_0.mp3",
+    "https://opengameart.org/sites/default/files/ChillLofi.ogg"
+   ],
+   "dir": "music/isaiah658_chill-lofi-inspired",
+   "notes": "A short song inspired by lofi hip hop. Created and recorded in one take using the styles of a Yamaha CVP-701. You may use this however you like and if you do I would love to see it."
+  },
+  {
+   "id": "isaiah658_ps2-horror-mystery-ambient-theme",
+   "kind": "music",
+   "title": "PS2 horror / mystery ambient theme",
+   "author": "isaiah658",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/ps2-horror-mystery-ambient-theme",
+   "download": "https://opengameart.org/sites/default/files/amb.mp3",
+   "dir": "music/isaiah658_ps2-horror-mystery-ambient-theme",
+   "notes": "inspired by silent hill 2"
+  },
+  {
    "id": "isaiah658_unsolved-investigation",
    "kind": "music",
    "title": "Unsolved Investigation",
@@ -1385,6 +1906,59 @@
    "download": "https://opengameart.org/sites/default/files/Unsolved-Investigation-isaiah658_0.ogg",
    "dir": "music/isaiah658_unsolved-investigation",
    "notes": "dark mysterious investigation score"
+  },
+  {
+   "id": "isaiah658_vampires-piano",
+   "kind": "music",
+   "title": "Vampire's Piano",
+   "author": "isaiah658",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/vampires-piano",
+   "download": [
+    "https://opengameart.org/sites/default/files/vampires_piano_1.wav",
+    "https://opengameart.org/sites/default/files/vampires_piano_6.mp3"
+   ],
+   "dir": "music/isaiah658_vampires-piano",
+   "notes": "Sad piano music for dark fantasy (Loop-able)"
+  },
+  {
+   "id": "jblade35_signal-pursuit",
+   "kind": "music",
+   "title": "Signal Pursuit",
+   "author": "Jblade35",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/signal-pursuit",
+   "download": [
+    "https://opengameart.org/sites/default/files/signal_pursuit_0.mp3",
+    "https://opengameart.org/sites/default/files/signal_pursuit.wav"
+   ],
+   "dir": "music/jblade35_signal-pursuit",
+   "notes": "Electronic music"
+  },
+  {
+   "id": "jblade35_space-elevator",
+   "kind": "music",
+   "title": "Space Elevator",
+   "author": "Jblade35",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/space-elevator",
+   "download": [
+    "https://opengameart.org/sites/default/files/space_elevator_0.mp3",
+    "https://opengameart.org/sites/default/files/space_elevator.wav"
+   ],
+   "dir": "music/jblade35_space-elevator",
+   "notes": "Electronic musicOther electronic music:https://opengameart.org/content/electronic-music"
+  },
+  {
+   "id": "jonvx0_busy-but-calm-street",
+   "kind": "music",
+   "title": "Busy but Calm Street",
+   "author": "jonvx0",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/busy-but-calm-street",
+   "download": "https://opengameart.org/sites/default/files/busy_but_calm_street_0.ogg",
+   "dir": "music/jonvx0_busy-but-calm-street",
+   "notes": "A small chill music in a city! :D"
   },
   {
    "id": "joth_ambience-pack-1-sci-fi-horror",
@@ -1512,6 +2086,53 @@
    "download": "https://opengameart.org/sites/default/files/The%20Frigid%20Seas.mp3",
    "dir": "music/joth_the-frigid-seas",
    "notes": "winter, cold, ice, icy, frigid, temple, monk"
+  },
+  {
+   "id": "jukeri12_bad-thing-happen",
+   "kind": "music",
+   "title": "Bad thing happen.",
+   "author": "jukeri12",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/bad-thing-happen",
+   "download": "https://opengameart.org/sites/default/files/bad_thing_0.ogg",
+   "dir": "music/jukeri12_bad-thing-happen",
+   "notes": "You can use this short music to create a short, impacting and dramatic suspense effect on your game."
+  },
+  {
+   "id": "julien-brightside_spacecrusher",
+   "kind": "music",
+   "title": "Spacecrusher",
+   "author": "Julien Brightside",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/spacecrusher",
+   "download": [
+    "https://opengameart.org/sites/default/files/Spacecrusher_0.ogg",
+    "https://opengameart.org/sites/default/files/spacecrusher.zip"
+   ],
+   "dir": "music/julien-brightside_spacecrusher",
+   "notes": "This chaotic and aggressive virus will force your robot to dance :) PS. You will need DSK plugins (freely available btw) to modify the attached LMMS file."
+  },
+  {
+   "id": "kaadmy_boss-battle-music",
+   "kind": "music",
+   "title": "Boss Battle Music",
+   "author": "KaadmY",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/boss-battle-music",
+   "download": "https://opengameart.org/sites/default/files/Juhani%20Junkala%20-%20Epic%20Boss%20Battle%20%5BSeamlessly%20Looping%5D.wav",
+   "dir": "music/kaadmy_boss-battle-music",
+   "notes": "Epic boss battle music inspired by God of War game series. Loops seamlessly!"
+  },
+  {
+   "id": "karmabub_techno-geek",
+   "kind": "music",
+   "title": "tEcHNo gEeK",
+   "author": "Karmabub",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/techno-geek",
+   "download": "https://opengameart.org/sites/default/files/technogeek.mp3",
+   "dir": "music/karmabub_techno-geek",
+   "notes": "Use this to give your games a more futuristic feel."
   },
   {
    "id": "kiluaboy_dark-environment-horror-games",
@@ -1712,6 +2333,32 @@
    "notes": "piano, orchestral, calm"
   },
   {
+   "id": "kly_the-call-for-unity",
+   "kind": "music",
+   "title": "The Call For Unity",
+   "author": "KLY",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/the-call-for-unity",
+   "download": [
+    "https://opengameart.org/sites/default/files/the_call_for_unity_0.mp3",
+    "https://opengameart.org/sites/default/files/the_call_for_unity.wav",
+    "https://opengameart.org/sites/default/files/the_call_for_unity.flac"
+   ],
+   "dir": "music/kly_the-call-for-unity",
+   "notes": "Electronic music"
+  },
+  {
+   "id": "komiro100_horror-atmosphere",
+   "kind": "music",
+   "title": "Horror Atmosphere",
+   "author": "komiro100",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/horror-atmosphere",
+   "download": "https://opengameart.org/sites/default/files/Juhani%20Junkala%20-%20Post%20Apocalyptic%20Wastelands%20%5BLoop%20Ready%5D.ogg",
+   "dir": "music/komiro100_horror-atmosphere",
+   "notes": "This sparse atmospheric track fits well with horror games and post apocalyptic settings. It loops seamlessly and the full duration is 5:23. The preview clips is only a short segment and focuses on the"
+  },
+  {
    "id": "kosmo-the-cat_game-over-short-jingle",
    "kind": "music",
    "title": "Game over short jingle",
@@ -1745,6 +2392,195 @@
    "notes": "Main Title, epic"
   },
   {
+   "id": "leeor-net_cut-scene-1",
+   "kind": "music",
+   "title": "Cut Scene 1",
+   "author": "leeor_net",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/cut-scene-1",
+   "download": "https://opengameart.org/sites/default/files/Cut%20Scene.wav",
+   "dir": "music/leeor-net_cut-scene-1",
+   "notes": "Please Check Out My Blog. https://prosensory.blogspot.com/"
+  },
+  {
+   "id": "lifedisarmonia_emotional-piano-loop",
+   "kind": "music",
+   "title": "Emotional piano loop",
+   "author": "LifeDisarmoniA",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/emotional-piano-loop",
+   "download": "https://opengameart.org/sites/default/files/Piano%20Loop.wav",
+   "dir": "music/lifedisarmonia_emotional-piano-loop",
+   "notes": "A nice little piano loop. Enjoy :pFeel free to request any specific BPM. This one is at 138BPM www.soundcloud.com/extenz/"
+  },
+  {
+   "id": "lonesomeducky_claimed-by-the-void",
+   "kind": "music",
+   "title": "Claimed by the Void",
+   "author": "LonesomeDucky",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/claimed-by-the-void",
+   "download": [
+    "https://opengameart.org/sites/default/files/claimed_by_the_void_0.mp3",
+    "https://opengameart.org/sites/default/files/claimed_by_the_void.wav",
+    "https://opengameart.org/sites/default/files/claimed_by_the_void.flac",
+    "https://opengameart.org/sites/default/files/claimed_by_the_void_loop.mp3",
+    "https://opengameart.org/sites/default/files/claimed_by_the_void_loop.wav",
+    "https://opengameart.org/sites/default/files/claimed_by_the_void_loop.flac"
+   ],
+   "dir": "music/lonesomeducky_claimed-by-the-void",
+   "notes": "Electronic musicLoop version included"
+  },
+  {
+   "id": "looneybits_city-on-speed",
+   "kind": "music",
+   "title": "City on Speed",
+   "author": "looneybits",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/city-on-speed",
+   "download": "https://opengameart.org/sites/default/files/S31-City%20on%20Speed.ogg",
+   "dir": "music/looneybits_city-on-speed",
+   "notes": "Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alpha."
+  },
+  {
+   "id": "looneybits_closing-in",
+   "kind": "music",
+   "title": "Closing In",
+   "author": "looneybits",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/closing-in",
+   "download": "https://opengameart.org/sites/default/files/S31-Closing%20In.ogg",
+   "dir": "music/looneybits_closing-in",
+   "notes": "Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alpha."
+  },
+  {
+   "id": "looneybits_cracked-out-robot",
+   "kind": "music",
+   "title": "Cracked Out Robot",
+   "author": "looneybits",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/cracked-out-robot",
+   "download": "https://opengameart.org/sites/default/files/S31-Cracked%20Out%20Robot_0.ogg",
+   "dir": "music/looneybits_cracked-out-robot",
+   "notes": "Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alpha."
+  },
+  {
+   "id": "looneybits_fast-fight-battle-music-looped",
+   "kind": "music",
+   "title": "Fast fight / battle music (looped)",
+   "author": "looneybits",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/fast-fight-battle-music-looped",
+   "download": "https://opengameart.org/sites/default/files/fight_looped.wav",
+   "dir": "music/looneybits_fast-fight-battle-music-looped",
+   "notes": "Looped version of Fast fight / battle music by Ville Nousiainen. The author mentions that this would \"suit a space game\", but I actually used it as ambience in a dance club."
+  },
+  {
+   "id": "looneybits_horror-loop",
+   "kind": "music",
+   "title": "Horror Loop",
+   "author": "looneybits",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/horror-loop",
+   "download": "https://opengameart.org/sites/default/files/horror_music.zip",
+   "dir": "music/looneybits_horror-loop",
+   "notes": "A horror loop created for an unreleased prototype.The download includes the song as mp3.view my generators and tips"
+  },
+  {
+   "id": "looneybits_qazijamjam-orchestral-battle-theme",
+   "kind": "music",
+   "title": "QaziJamJam (orchestral battle theme)",
+   "author": "looneybits",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/qazijamjam-orchestral-battle-theme",
+   "download": "https://opengameart.org/sites/default/files/QaziJamJam.wav",
+   "dir": "music/looneybits_qazijamjam-orchestral-battle-theme",
+   "notes": "A 4 minute orchestral battle theme using strings, brass, guitars, woodwinds and epic drums. The track loops with some variations in the melodies and instrumentation."
+  },
+  {
+   "id": "looneybits_rpg-battle-theme-ii",
+   "kind": "music",
+   "title": "RPG Battle Theme II",
+   "author": "looneybits",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/rpg-battle-theme-ii",
+   "download": [
+    "https://opengameart.org/sites/default/files/Fighting%20is%20not%20an%20option_0.mp3",
+    "https://opengameart.org/sites/default/files/Fighting%20is%20not%20an%20option.wav",
+    "https://opengameart.org/sites/default/files/Fighting%20is%20not%20an%20option.ogg"
+   ],
+   "dir": "music/looneybits_rpg-battle-theme-ii",
+   "notes": "Music: Fighting is not an option.Looped: Yes.Format: MP3, WAV and OGG.--Suitable for Battle, Boss & Adventure.Made with ♥ Inspired by: mega man, lufia.Your feedback is highly appreciated!"
+  },
+  {
+   "id": "looneybits_transformansion-ending",
+   "kind": "music",
+   "title": "Transformansion ending",
+   "author": "looneybits",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/transformansion-ending",
+   "download": "https://opengameart.org/sites/default/files/Transformansion%20ending.wav",
+   "dir": "music/looneybits_transformansion-ending",
+   "notes": "An unused victory fanfare for the Ludum Dare submission 'Transformansion'. It was made using mid 1990's sounding soundfonts."
+  },
+  {
+   "id": "looneybits_unexpected-trouble",
+   "kind": "music",
+   "title": "Unexpected Trouble",
+   "author": "looneybits",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/unexpected-trouble",
+   "download": "https://opengameart.org/sites/default/files/S31-Unexpected%20Trouble.ogg",
+   "dir": "music/looneybits_unexpected-trouble",
+   "notes": "Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alpha."
+  },
+  {
+   "id": "looneybits_uptempo-atmospheric-electronic-tune",
+   "kind": "music",
+   "title": "Uptempo atmospheric electronic tune",
+   "author": "looneybits",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/uptempo-atmospheric-electronic-tune",
+   "download": "https://opengameart.org/sites/default/files/0e907a4de2c0.mp3",
+   "dir": "music/looneybits_uptempo-atmospheric-electronic-tune",
+   "notes": "Quality: MP3Released under public domain"
+  },
+  {
+   "id": "looping-leaf_electronic",
+   "kind": "music",
+   "title": "Electronic",
+   "author": "Looping Leaf",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/electronic",
+   "download": [
+    "https://opengameart.org/sites/default/files/Techno_5_0.mp3",
+    "https://opengameart.org/sites/default/files/Techno_6_0.mp3",
+    "https://opengameart.org/sites/default/files/Techno_7_0.mp3",
+    "https://opengameart.org/sites/default/files/Techno_4_0.mp3",
+    "https://opengameart.org/sites/default/files/Techno_0.mp3",
+    "https://opengameart.org/sites/default/files/Techno_2_0.mp3",
+    "https://opengameart.org/sites/default/files/Techno_3_0.mp3"
+   ],
+   "dir": "music/looping-leaf_electronic",
+   "notes": "Please Check Out My Blog. https://prosensory.blogspot.com/"
+  },
+  {
+   "id": "loukyo_eclipse-legion",
+   "kind": "music",
+   "title": "Eclipse Legion",
+   "author": "Loukyo",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/eclipse-legion",
+   "download": [
+    "https://opengameart.org/sites/default/files/eclipse_legion_0.mp3",
+    "https://opengameart.org/sites/default/files/eclipse_legion.wav",
+    "https://opengameart.org/sites/default/files/eclipse_legion.flac",
+    "https://opengameart.org/sites/default/files/eclipse_legion.ogg"
+   ],
+   "dir": "music/loukyo_eclipse-legion",
+   "notes": "Orchestral music"
+  },
+  {
    "id": "loyalty-freak-music_l-orage-et-l-aventure",
    "kind": "music",
    "title": "L'orage et l'aventure",
@@ -1765,6 +2601,53 @@
    "download": "https://opengameart.org/sites/default/files/Komiku_-_11_-_Trop_la_win_0.mp3",
    "dir": "music/loyalty-freak-music_trop-la-win",
    "notes": "Win, victory, role playing game, bonus, Item"
+  },
+  {
+   "id": "majadroid_calm-ambient-2-synthwave-15k",
+   "kind": "music",
+   "title": "Calm Ambient 2 (Synthwave 15k)",
+   "author": "Majadroid",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/calm-ambient-2-synthwave-15k",
+   "download": "https://opengameart.org/sites/default/files/002_Synthwave_15k.mp3",
+   "dir": "music/majadroid_calm-ambient-2-synthwave-15k",
+   "notes": "Synthwave 15k - written by The Cynic Project for the game Pixelsphere. Please use it your game as well (or for any project) Relaxing Ambient pads and some annoying plucky sound that I wish wasn't ther"
+  },
+  {
+   "id": "medicinestorm_the-final-mega-boss",
+   "kind": "music",
+   "title": "The Final Mega Boss!",
+   "author": "MedicineStorm",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/the-final-mega-boss",
+   "download": "https://opengameart.org/sites/default/files/the_final_mega_boss.wav",
+   "dir": "music/medicinestorm_the-final-mega-boss",
+   "notes": "For the Summer 2022 Art Challenge.An epic boss battle.Loops seamlessly."
+  },
+  {
+   "id": "megajackie_space-graveyard-ambient-track",
+   "kind": "music",
+   "title": "Space Graveyard - Ambient Track",
+   "author": "MegaJackie",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/space-graveyard-ambient-track",
+   "download": [
+    "https://opengameart.org/sites/default/files/space_graveyard_4.mp3",
+    "https://opengameart.org/sites/default/files/space_graveyard_1.wav"
+   ],
+   "dir": "music/megajackie_space-graveyard-ambient-track",
+   "notes": "An ambient sci-fi like track that can be used to build tension. I noticed it makes you listen very closely to other sounds.Loops seamlessly & can be downloaded as wav or mp3."
+  },
+  {
+   "id": "messersm_crystal-cave-song18",
+   "kind": "music",
+   "title": "Crystal Cave (song18)",
+   "author": "messersm",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/crystal-cave-song18",
+   "download": "https://opengameart.org/sites/default/files/song18_0.mp3",
+   "dir": "music/messersm_crystal-cave-song18",
+   "notes": "Deep Bass! Stone and bell textures and arpeggios. Suitable for cave level or puzzle game. Easy for perfect loop. I have precompressed this to be optimal for web distribution with VBR, I assure you the"
   },
   {
    "id": "mintodog_cool-highway",
@@ -2001,6 +2884,17 @@
    "notes": "dungeon, synth, edm, Sci-Fi"
   },
   {
+   "id": "mnilsson_mindstream",
+   "kind": "music",
+   "title": "MindStream",
+   "author": "mnilsson",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/mindstream",
+   "download": "https://opengameart.org/sites/default/files/DST-MindStream.mp3",
+   "dir": "music/mnilsson_mindstream",
+   "notes": "MindStream by DSTJust an ambient chill tune, great for nearly any type of game.Exclusive to OpenGameArt.org"
+  },
+  {
    "id": "modanung_digital-graveyard",
    "kind": "music",
    "title": "Digital Graveyard",
@@ -2010,6 +2904,68 @@
    "download": "https://opengameart.org/sites/default/files/vitalezzz_-_orbital_graveyard_modanung_remix.mp3",
    "dir": "music/modanung_digital-graveyard",
    "notes": "electronic sci-fi soundtrack, remix"
+  },
+  {
+   "id": "mold_november-snow",
+   "kind": "music",
+   "title": "November Snow",
+   "author": "mold",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/november-snow",
+   "download": "https://opengameart.org/sites/default/files/155%20November_snow-33_tape_leveled.mp3",
+   "dir": "music/mold_november-snow",
+   "notes": "November Snow - Ambient/downtempo music for your game, ethereal, calm and relaxing.I ran this to tape recorder for a lo-fi effect, see my site if you want the full version :) This is great music for r"
+  },
+  {
+   "id": "mold_unsolicited-trailer-music",
+   "kind": "music",
+   "title": "Unsolicited trailer music",
+   "author": "mold",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/unsolicited-trailer-music",
+   "download": "https://opengameart.org/sites/default/files/Unsolicited%20trailer%20music%20loop%20edit.wav",
+   "dir": "music/mold_unsolicited-trailer-music",
+   "notes": "An easy-to-loop piece of energetic electronic soundtrack, written for a kickstart trailer."
+  },
+  {
+   "id": "mramogus_a-flawless-getaway",
+   "kind": "music",
+   "title": "A Flawless Getaway",
+   "author": "MrAmogus",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/a-flawless-getaway",
+   "download": [
+    "https://opengameart.org/sites/default/files/a_flawless_getaway_0.mp3",
+    "https://opengameart.org/sites/default/files/a_flawless_getaway.wav",
+    "https://opengameart.org/sites/default/files/a_flawless_getaway.flac",
+    "https://opengameart.org/sites/default/files/a_flawless_getaway_loop.mp3",
+    "https://opengameart.org/sites/default/files/a_flawless_getaway_loop.wav",
+    "https://opengameart.org/sites/default/files/a_flawless_getaway_loop.flac"
+   ],
+   "dir": "music/mramogus_a-flawless-getaway",
+   "notes": "Electronic music, can be looped"
+  },
+  {
+   "id": "mramogus_machine-city",
+   "kind": "music",
+   "title": "machine city",
+   "author": "MrAmogus",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/machine-city",
+   "download": "https://opengameart.org/sites/default/files/machine_city.mp3",
+   "dir": "music/mramogus_machine-city",
+   "notes": "inspired by cyber city from deltarune/undertale loops well"
+  },
+  {
+   "id": "mumu_alphatron",
+   "kind": "music",
+   "title": "AlphaTron",
+   "author": "Mumu",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/alphatron",
+   "download": "https://opengameart.org/sites/default/files/DST-AlphaTron_1.mp3",
+   "dir": "music/mumu_alphatron",
+   "notes": "Another mellow Techno loop for any type of game. By DST.Exclusive to OpenGameArt.org!"
   },
   {
    "id": "nbjdlukasabsolute_game-over-diamond-dust",
@@ -2065,6 +3021,634 @@
    "download": "https://opengameart.org/sites/default/files/once_more_metal.wav",
    "dir": "music/nene_once-more-metal",
    "notes": "metal, guitars, drums, Bass, Rock"
+  },
+  {
+   "id": "nukaze_cold-silence",
+   "kind": "music",
+   "title": "Cold Silence",
+   "author": "Nukaze",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/cold-silence",
+   "download": "https://opengameart.org/sites/default/files/cold_silence.ogg",
+   "dir": "music/nukaze_cold-silence",
+   "notes": "Composed in 2002 for Darkness Ethereal's \"Distant Promises\". The game was never finished so this is released into the public domain. This was to be used for a particularly dark part of the game and is"
+  },
+  {
+   "id": "oga_and-the-winner-is",
+   "kind": "music",
+   "title": "And the winner is",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/and-the-winner-is",
+   "download": "https://opengameart.org/sites/default/files/winneris_0.ogg",
+   "dir": "music/oga_and-the-winner-is",
+   "notes": "A short chiptune victory / fanfare stingMade with TIC-80 for https://congusbongus.itch.io/road-txtr"
+  },
+  {
+   "id": "oga_arrival-1",
+   "kind": "music",
+   "title": "Arrival",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/arrival-1",
+   "download": [
+    "https://opengameart.org/sites/default/files/arrival_0.mp3",
+    "https://opengameart.org/sites/default/files/arrival.wav",
+    "https://opengameart.org/sites/default/files/arrival.flac",
+    "https://opengameart.org/sites/default/files/arrival_loop.mp3",
+    "https://opengameart.org/sites/default/files/arrival_loop.wav",
+    "https://opengameart.org/sites/default/files/arrival_loop.flac",
+    "https://opengameart.org/sites/default/files/arrival_descent.mp3",
+    "https://opengameart.org/sites/default/files/arrival_descent.wav",
+    "https://opengameart.org/sites/default/files/arrival_descent.flac"
+   ],
+   "dir": "music/oga_arrival-1",
+   "notes": "Electronic music, first part of a bigger trackIncluded loop version and full track \"Arrival, Descent\""
+  },
+  {
+   "id": "oga_awestruck",
+   "kind": "music",
+   "title": "Awestruck",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/awestruck",
+   "download": "https://opengameart.org/sites/default/files/awestruck.wav",
+   "dir": "music/oga_awestruck",
+   "notes": "I've recently found myself enjoying the music from the original Silent Hill games. What's interesting is that many of the sounds in those songs originate from a sample pack called Distorted Reality. T"
+  },
+  {
+   "id": "oga_basilisk-boss-battle-loop",
+   "kind": "music",
+   "title": "Basilisk Boss Battle Loop",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/basilisk-boss-battle-loop",
+   "download": "https://opengameart.org/sites/default/files/basilisk_boss_battle_in_game.ogg",
+   "dir": "music/oga_basilisk-boss-battle-loop",
+   "notes": "A boss battle theme from a game I didn't finish over a decade ago.Credit appreciated but not necessary."
+  },
+  {
+   "id": "oga_besai-raider-station-bmg",
+   "kind": "music",
+   "title": "Besai Raider Station BMG",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/besai-raider-station-bmg",
+   "download": "https://opengameart.org/sites/default/files/besairaiderstation_0.ogg",
+   "dir": "music/oga_besai-raider-station-bmg",
+   "notes": "Lengthy Background Music for Besai Raider Cron Station Sci-Fi Rpg video game..This tune is foreboding and twists all over the place."
+  },
+  {
+   "id": "oga_calm-piano-1-vaporware",
+   "kind": "music",
+   "title": "Calm Piano 1 (Vaporware)",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/calm-piano-1-vaporware",
+   "download": "https://opengameart.org/sites/default/files/003_Vaporware_2.mp3",
+   "dir": "music/oga_calm-piano-1-vaporware",
+   "notes": "This is the song \"Vaporware\"- written by The Cynic Project for the game Pixelsphere. Please use it your game as well (or any other creative project). The song features relaxing pads and an uplifting p"
+  },
+  {
+   "id": "oga_dark-woods-loop",
+   "kind": "music",
+   "title": "Dark Woods Loop",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/dark-woods-loop",
+   "download": "https://opengameart.org/sites/default/files/dark_woods_in_game.ogg",
+   "dir": "music/oga_dark-woods-loop",
+   "notes": "Dark Woods loop from a game I didn't finish over a decade ago. Could maybe be used for a moment of intrigue/mystery too.Credit appreciated but not necessary."
+  },
+  {
+   "id": "oga_darkest-hour",
+   "kind": "music",
+   "title": "Darkest Hour",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/darkest-hour",
+   "download": [
+    "https://opengameart.org/sites/default/files/Darkest%20Hour_0.mp3",
+    "https://opengameart.org/sites/default/files/Darkest%20Hour.Wav"
+   ],
+   "dir": "music/oga_darkest-hour",
+   "notes": "A horror genre instrumental music that I've made.If you like this music or you have used this in your project, please consider donating to me! It'll help me make better royalty free assets! Thanks :)"
+  },
+  {
+   "id": "oga_destruction-of-the-alien-spacecrafts",
+   "kind": "music",
+   "title": "Destruction Of The Alien Spacecrafts",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/destruction-of-the-alien-spacecrafts",
+   "download": "https://opengameart.org/sites/default/files/Menu.ogg",
+   "dir": "music/oga_destruction-of-the-alien-spacecrafts",
+   "notes": "From one of my LMMS projects a long time ago, can't find the source."
+  },
+  {
+   "id": "oga_detection",
+   "kind": "music",
+   "title": "Detection",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/detection",
+   "download": "https://opengameart.org/sites/default/files/detection.mp3",
+   "dir": "music/oga_detection",
+   "notes": "cosmic techno track time 6:00"
+  },
+  {
+   "id": "oga_devoted-guard",
+   "kind": "music",
+   "title": "Devoted Guard",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/devoted-guard",
+   "download": [
+    "https://opengameart.org/sites/default/files/devoted_guard_0.mp3",
+    "https://opengameart.org/sites/default/files/devoted_guard.wav",
+    "https://opengameart.org/sites/default/files/devoted_guard.flac"
+   ],
+   "dir": "music/oga_devoted-guard",
+   "notes": "Metal music"
+  },
+  {
+   "id": "oga_downfall",
+   "kind": "music",
+   "title": "Downfall",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/downfall",
+   "download": [
+    "https://opengameart.org/sites/default/files/downfall_0.mp3",
+    "https://opengameart.org/sites/default/files/downfall.wav",
+    "https://opengameart.org/sites/default/files/downfall.flac"
+   ],
+   "dir": "music/oga_downfall",
+   "notes": "Electronic music"
+  },
+  {
+   "id": "oga_end-of-the-trip",
+   "kind": "music",
+   "title": "End of the trip",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/end-of-the-trip",
+   "download": "https://opengameart.org/sites/default/files/Komiku%20-%20Tale%20on%20the%20Late%20-%2016%20End%20of%20the%20trip_0.mp3",
+   "dir": "music/oga_end-of-the-trip",
+   "notes": "Ending theme.Music is made with Bigcat instrumentals VST."
+  },
+  {
+   "id": "oga_ends-of-the-earth",
+   "kind": "music",
+   "title": "Ends of the Earth",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/ends-of-the-earth",
+   "download": [
+    "https://opengameart.org/sites/default/files/Ends%20of%20the%20Earth.wav",
+    "https://opengameart.org/sites/default/files/Ends%20of%20the%20Earth_1.mp3"
+   ],
+   "dir": "music/oga_ends-of-the-earth",
+   "notes": "Enjoy."
+  },
+  {
+   "id": "oga_exploration-theme",
+   "kind": "music",
+   "title": "Exploration Theme",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/exploration-theme",
+   "download": "https://opengameart.org/sites/default/files/exploration_theme.zip",
+   "dir": "music/oga_exploration-theme",
+   "notes": "Progressive synth/piano ambience with repeating chord patterns and a subtle aquatic feel.Loops seamlessly: Yes.Duration: 2:14Sample Rate: 16-Bit Stereo, 44.1 kHzIncluded formats (zip file): WAV, OGG, "
+  },
+  {
+   "id": "oga_final-stand",
+   "kind": "music",
+   "title": "Final Stand",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/final-stand",
+   "download": [
+    "https://opengameart.org/sites/default/files/final_stand_0.mp3",
+    "https://opengameart.org/sites/default/files/final_stand.wav"
+   ],
+   "dir": "music/oga_final-stand",
+   "notes": "something epic.. loopable around 1minute 120BPM"
+  },
+  {
+   "id": "oga_game-over-collection",
+   "kind": "music",
+   "title": "Game Over (Collection)",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/game-over-collection",
+   "download": "https://opengameart.org/sites/default/files/game_over.zip",
+   "dir": "music/oga_game-over-collection",
+   "notes": "This music is CC0 so use how you want! consider donating to my Buy Me A Coffee? https://www.buymeacoffee.com/holizna"
+  },
+  {
+   "id": "oga_hallway",
+   "kind": "music",
+   "title": "Hallway",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/hallway",
+   "download": "https://opengameart.org/sites/default/files/hallway.ogg",
+   "dir": "music/oga_hallway",
+   "notes": "I have purchased some inexpensive apps and I'm pushing buttons and I have lots of cables on my floor, so some experimenting with new toys. It's a very cheap way to make music by buying a Chromebook, m"
+  },
+  {
+   "id": "oga_hostile-fleet-interception",
+   "kind": "music",
+   "title": "Hostile Fleet Interception",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/hostile-fleet-interception",
+   "download": [
+    "https://opengameart.org/sites/default/files/hostile_fleet_interception_0.mp3",
+    "https://opengameart.org/sites/default/files/hostile_fleet_interception.wav"
+   ],
+   "dir": "music/oga_hostile-fleet-interception",
+   "notes": "Electronic + orchestral musicTheme continuation fromhttps://opengameart.org/content/joining-forcesOther electronic + orchestral music:https://opengameart.org/content/mixed-electronic-and-orchestral-mu"
+  },
+  {
+   "id": "oga_hyoshi-area-clear",
+   "kind": "music",
+   "title": "Hyoshi Area Clear",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/hyoshi-area-clear",
+   "download": "https://opengameart.org/sites/default/files/hyoshiareaclear_0.ogg",
+   "dir": "music/oga_hyoshi-area-clear",
+   "notes": "Extemely Short Victory Style Tune with Clearing Area of all enemiesHyoshi Area of Game Tesseract Prime Offworlds Universe"
+  },
+  {
+   "id": "oga_hyperspace",
+   "kind": "music",
+   "title": "Hyperspace",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/hyperspace",
+   "download": [
+    "https://opengameart.org/sites/default/files/hyperspace_2.mp3",
+    "https://opengameart.org/sites/default/files/hyperspace.wav"
+   ],
+   "dir": "music/oga_hyperspace",
+   "notes": "Electronic music Other electronic music:https://opengameart.org/content/electronic-music"
+  },
+  {
+   "id": "oga_inevitable",
+   "kind": "music",
+   "title": "Inevitable",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/inevitable",
+   "download": [
+    "https://opengameart.org/sites/default/files/inevitable_0.mp3",
+    "https://opengameart.org/sites/default/files/inevitable.wav",
+    "https://opengameart.org/sites/default/files/inevitable.flac"
+   ],
+   "dir": "music/oga_inevitable",
+   "notes": "Electronic + orchestral music"
+  },
+  {
+   "id": "oga_is-it-a-battle",
+   "kind": "music",
+   "title": "Is it a Battle?",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/is-it-a-battle",
+   "download": "https://opengameart.org/sites/default/files/Battle%201_0.ogg",
+   "dir": "music/oga_is-it-a-battle",
+   "notes": "I don't really know if this is even fit for a battle theme. It sounds very 80's, I think."
+  },
+  {
+   "id": "oga_jrpg-epic-rock-battle-theme-1",
+   "kind": "music",
+   "title": "JRPG Epic Rock Battle Theme #1",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/jrpg-epic-rock-battle-theme-1",
+   "download": [
+    "https://opengameart.org/sites/default/files/jrpg_battle_intro.mp3",
+    "https://opengameart.org/sites/default/files/jrpg_battle_loop.mp3",
+    "https://opengameart.org/sites/default/files/jrpg_battle_full_0.mp3"
+   ],
+   "dir": "music/oga_jrpg-epic-rock-battle-theme-1",
+   "notes": "Hi, Here is a JRPG Battle Theme for your game! It loops seemlessly and you can choose to download between: introloopintro + loop (full)It's CC0, so no need to credits! However, I'm quite curious about"
+  },
+  {
+   "id": "oga_jumping-cyborg-welcome-mix-night-club-chill-tricksntraps-remixed",
+   "kind": "music",
+   "title": "Jumping cyborg & Welcome mix & night club chill (tricksntraps remixed)",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/jumping-cyborg-welcome-mix-night-club-chill-tricksntraps-remixed",
+   "download": "https://opengameart.org/sites/default/files/jumpingcyborgmix2_0.ogg",
+   "dir": "music/oga_jumping-cyborg-welcome-mix-night-club-chill-tricksntraps-remixed",
+   "notes": "Jumping cyborg, Welcome mix and night club chill by tricksntraps remixed:https://opengameart.org/content/t-t-free-cyberpunk-pack-2License; CC0This is totally improvised which means I did not planned m"
+  },
+  {
+   "id": "oga_lonely-ali",
+   "kind": "music",
+   "title": "Lonely - Ali",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/lonely-ali",
+   "download": "https://opengameart.org/sites/default/files/motivational_music_0.mp3",
+   "dir": "music/oga_lonely-ali",
+   "notes": "A music talking about loneliness and motivation. And it's ready to use for any project.I'am just a beginner and I would like to thank you if you leave a comment and downloaded the music!"
+  },
+  {
+   "id": "oga_lost-in-a-bad-place-horror-ambience-loop",
+   "kind": "music",
+   "title": "Lost in a bad place (horror ambience loop)",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/lost-in-a-bad-place-horror-ambience-loop",
+   "download": "https://opengameart.org/sites/default/files/lost_2.ogg",
+   "dir": "music/oga_lost-in-a-bad-place-horror-ambience-loop",
+   "notes": "Horror/space ambient seamless loop. Dark string pads and what could be beacons in the background.Made for an unfinished jam game"
+  },
+  {
+   "id": "oga_medieval-defeat-theme",
+   "kind": "music",
+   "title": "Medieval: Defeat Theme",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/medieval-defeat-theme",
+   "download": [
+    "https://opengameart.org/sites/default/files/defeat_0.mp3",
+    "https://opengameart.org/sites/default/files/defeat.wav"
+   ],
+   "dir": "music/oga_medieval-defeat-theme",
+   "notes": "My CC0 track for medieval/fantasy defeat theme. Victory theme is also available in my uploads! https://www.youtube.com/watch?v=5j8corCBDUk"
+  },
+  {
+   "id": "oga_mystery-6",
+   "kind": "music",
+   "title": "Mystery 6",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/mystery-6",
+   "download": "https://opengameart.org/sites/default/files/mystery6_0.ogg",
+   "dir": "music/oga_mystery-6",
+   "notes": "Mystery style Adventure game tune"
+  },
+  {
+   "id": "oga_mystery-more",
+   "kind": "music",
+   "title": "Mystery More",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/mystery-more",
+   "download": [
+    "https://opengameart.org/sites/default/files/mystery_more_0.mp3",
+    "https://opengameart.org/sites/default/files/mystery_more.wav"
+   ],
+   "dir": "music/oga_mystery-more",
+   "notes": "some kinda atmospheric blues thing.."
+  },
+  {
+   "id": "oga_mystery-style-3",
+   "kind": "music",
+   "title": "Mystery Style 3",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/mystery-style-3",
+   "download": "https://opengameart.org/sites/default/files/mysterystyle3_0.ogg",
+   "dir": "music/oga_mystery-style-3",
+   "notes": "Another mystery tune"
+  },
+  {
+   "id": "oga_neon-hyperdrive",
+   "kind": "music",
+   "title": "Neon Hyperdrive",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/neon-hyperdrive",
+   "download": "https://opengameart.org/sites/default/files/neon_hyperdrive.mp3",
+   "dir": "music/oga_neon-hyperdrive",
+   "notes": "A fast paced futuristic music, I honestly don't really know in what kind of situation this music can be used 😂. But if you like it and want to use it, please feel free to do so, God bless!"
+  },
+  {
+   "id": "oga_nighttime-solitude",
+   "kind": "music",
+   "title": "Nighttime Solitude",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/nighttime-solitude",
+   "download": [
+    "https://opengameart.org/sites/default/files/Nighttime%20Solitude%20%5BCC0%5D.mp3",
+    "https://opengameart.org/sites/default/files/Nighttime%20Solitude%20%5BCC0%5D.wav",
+    "https://opengameart.org/sites/default/files/Nighttime%20Solitude%20%5BCC0%5D.ogg"
+   ],
+   "dir": "music/oga_nighttime-solitude",
+   "notes": "CC0 music, free to use for any project"
+  },
+  {
+   "id": "oga_osmotic-memory",
+   "kind": "music",
+   "title": "Osmotic Memory",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/osmotic-memory",
+   "download": "https://opengameart.org/sites/default/files/osmotic_memory.flac",
+   "dir": "music/oga_osmotic-memory",
+   "notes": "Something a little more experimental.Made using DS Thorn, U-he Diva & Omnisphere 3100 BPM"
+  },
+  {
+   "id": "oga_outworld",
+   "kind": "music",
+   "title": "Outworld",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/outworld",
+   "download": [
+    "https://opengameart.org/sites/default/files/outworld_0.mp3",
+    "https://opengameart.org/sites/default/files/outworld.wav",
+    "https://opengameart.org/sites/default/files/outworld.flac"
+   ],
+   "dir": "music/oga_outworld",
+   "notes": "Orchestral + electronic music"
+  },
+  {
+   "id": "oga_robotic-violation",
+   "kind": "music",
+   "title": "robotic violation",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/robotic-violation",
+   "download": [
+    "https://opengameart.org/sites/default/files/robotic_violation_v1.wav",
+    "https://opengameart.org/sites/default/files/robotic_violation_v2.wav"
+   ],
+   "dir": "music/oga_robotic-violation",
+   "notes": "they were just nothing... our careless behavior has made them a true monster! Hey Guys! this is a cool song with a cool amount of potential Cuz! this is hella unfinished!so I thought that I would make"
+  },
+  {
+   "id": "oga_sci-fi-puzzle-jingle-result",
+   "kind": "music",
+   "title": "Sci-fi Puzzle Jingle & Result",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/sci-fi-puzzle-jingle-result",
+   "download": [
+    "https://opengameart.org/sites/default/files/mp3_sci-fi_puzzle_jingle_result.zip",
+    "https://opengameart.org/sites/default/files/ogg_sci-fi_puzzle_jingle_result.zip"
+   ],
+   "dir": "music/oga_sci-fi-puzzle-jingle-result",
+   "notes": "1st preview:Clear -> Failure Jingle & Result music for puzzle game. File formats are mp3 and ogg.--Track list--Sci-fi Puzzle Clear (Jingle)Sci-fi Puzzle Clear (Loop)Sci-fi Puzzle Failure (Jingle)Sci-f"
+  },
+  {
+   "id": "oga_simple-battle-fanfare",
+   "kind": "music",
+   "title": "Simple Battle Fanfare",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/simple-battle-fanfare",
+   "download": "https://opengameart.org/sites/default/files/simple_battle_fanfare.wav",
+   "dir": "music/oga_simple-battle-fanfare",
+   "notes": "A very simple fanfare. It loops. :)"
+  },
+  {
+   "id": "oga_somnium",
+   "kind": "music",
+   "title": "Somnium",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/somnium",
+   "download": "https://opengameart.org/sites/default/files/somnium.mp3",
+   "dir": "music/oga_somnium",
+   "notes": "A simple atmospheric music I made last night, not sure in what situation it could be used hehehe, but I'll be glad if this music can be useful for you. God bless!"
+  },
+  {
+   "id": "oga_success-stinger",
+   "kind": "music",
+   "title": "Success Stinger",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/success-stinger",
+   "download": "https://opengameart.org/sites/default/files/success_stinger.mp3",
+   "dir": "music/oga_success-stinger",
+   "notes": "This track was created using Soundtrap sound effects, keyboards, and loops. You're free to use this in your project, credit isn't necessary but much appreciated! If you use this, please let me know. I"
+  },
+  {
+   "id": "oga_tension-and-distress",
+   "kind": "music",
+   "title": "tension and distress",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/tension-and-distress",
+   "download": "https://opengameart.org/sites/default/files/aflicao.wav",
+   "dir": "music/oga_tension-and-distress",
+   "notes": "Music for moments of distress and tension"
+  },
+  {
+   "id": "oga_the-final-battle",
+   "kind": "music",
+   "title": "The Final Battle",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/the-final-battle",
+   "download": "https://opengameart.org/sites/default/files/the_final_battle.ogg",
+   "dir": "music/oga_the-final-battle",
+   "notes": "Generic orchestral drama-filled epic battle music, maybe for your final boss or something? Loopable (with an audible pause, but restart is still quite coherent in key and mood). Released as public dom"
+  },
+  {
+   "id": "oga_the-true-villain-emerges",
+   "kind": "music",
+   "title": "The True Villain Emerges",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/the-true-villain-emerges",
+   "download": "https://opengameart.org/sites/default/files/the_true_vilian_emerges.wav",
+   "dir": "music/oga_the-true-villain-emerges",
+   "notes": "A dramatic boss track made out of Apple loops. Enjoy!"
+  },
+  {
+   "id": "oga_total-fail",
+   "kind": "music",
+   "title": "Total Fail",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/total-fail",
+   "download": "https://opengameart.org/sites/default/files/total%20fail_0.ogg",
+   "dir": "music/oga_total-fail",
+   "notes": "Short comedic sting, when failing spectacularlyMade for https://tic.computer/play?cart=1179"
+  },
+  {
+   "id": "oga_treacherous-path-loop",
+   "kind": "music",
+   "title": "Treacherous Path Loop",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/treacherous-path-loop",
+   "download": "https://opengameart.org/sites/default/files/the_treacherous_path_in_game.ogg",
+   "dir": "music/oga_treacherous-path-loop",
+   "notes": "Treacherous path theme from a game I didn't finish over a decade ago.Credit appreciated but not necessary."
+  },
+  {
+   "id": "oga_vargas",
+   "kind": "music",
+   "title": "Vargas",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/vargas",
+   "download": [
+    "https://opengameart.org/sites/default/files/vargas.wav",
+    "https://opengameart.org/sites/default/files/vargasvocal.wav"
+   ],
+   "dir": "music/oga_vargas",
+   "notes": "tonal moving short with rising drone total track time 1:18"
+  },
+  {
+   "id": "oga_victory-0",
+   "kind": "music",
+   "title": "Victory",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/victory-0",
+   "download": "https://opengameart.org/sites/default/files/Komiku%20-%20It%27s%20time%20for%20adventure%20vol%202%20-%2015%20Victory_0.mp3",
+   "dir": "music/oga_victory-0",
+   "notes": "From the album It's time for adventure 2"
+  },
+  {
+   "id": "oga_white-hat",
+   "kind": "music",
+   "title": "White Hat",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/white-hat",
+   "download": [
+    "https://opengameart.org/sites/default/files/white_hat_0.mp3",
+    "https://opengameart.org/sites/default/files/white_hat.wav"
+   ],
+   "dir": "music/oga_white-hat",
+   "notes": "Electronic music"
+  },
+  {
+   "id": "oga_you-cant-beat-the-machine",
+   "kind": "music",
+   "title": "You can't beat the machine",
+   "author": "?",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/you-cant-beat-the-machine",
+   "download": "https://opengameart.org/sites/default/files/Komiku%20-%20Tale%20on%20the%20Late%20-%2015%20You%20can%27t%20beat%20the%20machine_0.mp3",
+   "dir": "music/oga_you-cant-beat-the-machine",
+   "notes": "The climax, dramatic ending,music is mad with bigcat instrument VST"
+  },
+  {
+   "id": "ogremagisclinkz_another-august",
+   "kind": "music",
+   "title": "Another August",
+   "author": "ogremagisclinkz",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/another-august",
+   "download": "https://opengameart.org/sites/default/files/013_Another_August_0.mp3",
+   "dir": "music/ogremagisclinkz_another-august",
+   "notes": "Another August - Serene Ambient music for your game, ethereal, calm and relaxing. Professional quality! This is great music for relaxing and thinking. No time limit!! You are sure to love this one!! G"
   },
   {
    "id": "omfgdude_lofi-again",
@@ -2166,6 +3750,17 @@
    "notes": "industrial mechanical machine factory"
   },
   {
+   "id": "pro-sensory_great-boss",
+   "kind": "music",
+   "title": "Great Boss",
+   "author": "Pro Sensory",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/great-boss",
+   "download": "https://opengameart.org/sites/default/files/Great%20Boss_0.ogg",
+   "dir": "music/pro-sensory_great-boss",
+   "notes": "I mean, it's a theme for a great boss, the song itself obviously isn't great or anything. Why is it always that the most unimaginative and repetetive songs, are those that also sound the best?"
+  },
+  {
    "id": "pro-sensory_heavy-rain",
    "kind": "music",
    "title": "Heavy Rain",
@@ -2175,6 +3770,17 @@
    "download": "https://opengameart.org/sites/default/files/heavy_rain_mastered_0.mp3",
    "dir": "music/pro-sensory_heavy-rain",
    "notes": "electronic mid-tempo \"Heavy Rain\""
+  },
+  {
+   "id": "pro-sensory_interstellar-fleet-1",
+   "kind": "music",
+   "title": "Interstellar Fleet 1",
+   "author": "Pro Sensory",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/interstellar-fleet-1",
+   "download": "https://opengameart.org/sites/default/files/interstellar_fleet_1.zip",
+   "dir": "music/pro-sensory_interstellar-fleet-1",
+   "notes": "Some royalty-free chips for the space pilots out there.[Looping version, .wav and .ogg included!]You're among the first of the elite Interstellar Fleet 1. The endless frontier of space proceeds you an"
   },
   {
    "id": "pro-sensory_main-menu-music-loop",
@@ -2199,6 +3805,34 @@
    "notes": "Jazz, main menu, detective, mystery"
   },
   {
+   "id": "pro-sensory_sassy-sultan",
+   "kind": "music",
+   "title": "Sassy Sultan",
+   "author": "Pro Sensory",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/sassy-sultan",
+   "download": [
+    "https://opengameart.org/sites/default/files/sassysultan_0.mp3",
+    "https://opengameart.org/sites/default/files/sassysultan.wav"
+   ],
+   "dir": "music/pro-sensory_sassy-sultan",
+   "notes": "Some kinda weird mixture of oriental, 90's techno and industrial.."
+  },
+  {
+   "id": "pro-sensory_unchained-destiny-rock",
+   "kind": "music",
+   "title": "Unchained Destiny [Rock]",
+   "author": "Pro Sensory",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/unchained-destiny-rock",
+   "download": [
+    "https://opengameart.org/sites/default/files/unchained_destiny_opening.wav",
+    "https://opengameart.org/sites/default/files/unchained_destiny_loop.wav"
+   ],
+   "dir": "music/pro-sensory_unchained-destiny-rock",
+   "notes": "Same structure as my boss battle music, opening and loopable files included.This doesn't exactly give me a boss battle vibes, so named it differently.Trying to write/compose a whole song around it."
+  },
+  {
    "id": "pro-sensory_void-loopable",
    "kind": "music",
    "title": "void (Loopable)",
@@ -2210,6 +3844,32 @@
    "notes": "electronic, chill, deep space"
   },
   {
+   "id": "qubodup_background-space-track",
+   "kind": "music",
+   "title": "Background space track",
+   "author": "qubodup",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/background-space-track",
+   "download": "https://opengameart.org/sites/default/files/projects.zip",
+   "dir": "music/qubodup_background-space-track",
+   "notes": "Lmms project file attached. No external plugins needed. Archive has both OGG file and the \"source\""
+  },
+  {
+   "id": "qubodup_bio-hazard-menustage",
+   "kind": "music",
+   "title": "Bio-Hazard (Menu/Stage)",
+   "author": "qubodup",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/bio-hazard-menustage",
+   "download": [
+    "https://opengameart.org/sites/default/files/biohazardsopening_0.ogg",
+    "https://opengameart.org/sites/default/files/biohazardsv3_0.ogg",
+    "https://opengameart.org/sites/default/files/biohazardsextended_0.ogg"
+   ],
+   "dir": "music/qubodup_bio-hazard-menustage",
+   "notes": "Made for a zombie/alien invasion dark gameHas a Menu theme and Stage them(Faster/Slower)"
+  },
+  {
    "id": "qubodup_chill-lofi-inspired-loop-edit",
    "kind": "music",
    "title": "Chill lofi inspired [loop edit]",
@@ -2219,6 +3879,53 @@
    "download": "https://opengameart.org/sites/default/files/chilllofir-loop.ogg",
    "dir": "music/qubodup_chill-lofi-inspired-loop-edit",
    "notes": "seamless-loop lo-fi jazzy piano drums"
+  },
+  {
+   "id": "qubodup_dark-intro",
+   "kind": "music",
+   "title": "Dark Intro",
+   "author": "qubodup",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/dark-intro",
+   "download": "https://opengameart.org/sites/default/files/Dark%20Intro_0.ogg",
+   "dir": "music/qubodup_dark-intro",
+   "notes": "Originally made for my game Ultimul.You can use this for an intro, cutscene, boss battle, etc,I would appreciate it if you let me know if you used it somewhere!"
+  },
+  {
+   "id": "qubodup_insistent-background-loop",
+   "kind": "music",
+   "title": "Insistent: background loop",
+   "author": "qubodup",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/insistent-background-loop",
+   "download": [
+    "https://opengameart.org/sites/default/files/Insistent.ogg",
+    "https://opengameart.org/sites/default/files/Insistent.zip"
+   ],
+   "dir": "music/qubodup_insistent-background-loop",
+   "notes": "Just the way I like it: dark and quiet."
+  },
+  {
+   "id": "qubodup_tower-defense-theme",
+   "kind": "music",
+   "title": "Tower Defense Theme",
+   "author": "qubodup",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/tower-defense-theme",
+   "download": "https://opengameart.org/sites/default/files/DST-TowerDefenseTheme_1.mp3",
+   "dir": "music/qubodup_tower-defense-theme",
+   "notes": "Tower defense style music loop by DST. Made exclusively for OpenGameArt.org Get more free game music from DST at http://www.nosoapradio.us!"
+  },
+  {
+   "id": "raj-krishan-ghosh_sinister-boss-appears",
+   "kind": "music",
+   "title": "Sinister Boss Appears!",
+   "author": "Raj krishan Ghosh",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/sinister-boss-appears",
+   "download": "https://opengameart.org/sites/default/files/Sinister%20Boss%20Appears.wav",
+   "dir": "music/raj-krishan-ghosh_sinister-boss-appears",
+   "notes": "I imagine that if Voldemort wrote music it would probably sound like this :) Super evil boss introduction theme!!!This is for my game Pixelsphere http://pixelsphere.orgMy game and soundtrack are 100% "
   },
   {
    "id": "recklessssss_game-over",
@@ -2568,6 +4275,155 @@
    "notes": "dark memories ambient"
   },
   {
+   "id": "snabisch_besai-sky-city-dark-1",
+   "kind": "music",
+   "title": "Besai Sky City Dark 1",
+   "author": "Snabisch",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/besai-sky-city-dark-1",
+   "download": "https://opengameart.org/sites/default/files/Besaidark1_0.ogg",
+   "dir": "music/snabisch_besai-sky-city-dark-1",
+   "notes": "The Background Ambient Music for a game I'm doing. (haven't got the 3d modelers yet for helping me with my game, but I got 1 modeler working on my main commander model at the moment, but in the meanti"
+  },
+  {
+   "id": "snabisch_calm-ambient-3-lifewave-2k",
+   "kind": "music",
+   "title": "Calm Ambient 3 (Lifewave 2k)",
+   "author": "Snabisch",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/calm-ambient-3-lifewave-2k",
+   "download": "https://opengameart.org/sites/default/files/006_lifeWave2k_0.mp3",
+   "dir": "music/snabisch_calm-ambient-3-lifewave-2k",
+   "notes": "Another calming relax work from Pixelsphere, This is the song \"Lifewave 2k\"- written by The Cynic Project for the game Pixelsphere. Please use it your game as well (or any other creative project). The"
+  },
+  {
+   "id": "snabisch_calm-relax-1-synthwave-421k",
+   "kind": "music",
+   "title": "Calm Relax 1 (Synthwave 421k)",
+   "author": "Snabisch",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/calm-relax-1-synthwave-421k",
+   "download": "https://opengameart.org/sites/default/files/007_Synthwave_421k.mp3",
+   "dir": "music/snabisch_calm-relax-1-synthwave-421k",
+   "notes": "This is the favorite of my uploads this month here. This is the song \"Synthwave 421k\"- written by The Cynic Project for the game Pixelsphere. Please use it your game as well (or any other creative pro"
+  },
+  {
+   "id": "snabisch_dreaming-of-victory",
+   "kind": "music",
+   "title": "Dreaming of Victory",
+   "author": "Snabisch",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/dreaming-of-victory",
+   "download": "https://opengameart.org/sites/default/files/Dreaming%20of%20Victory.mp3",
+   "dir": "music/snabisch_dreaming-of-victory",
+   "notes": "This was the last song I did for the #21DaysofVGM challenge. I fixed it up, changed a few things around and added some parts.Time: 4/4BPM: 120Length: 144"
+  },
+  {
+   "id": "snabisch_grime-of-the-city",
+   "kind": "music",
+   "title": "Grime of the City",
+   "author": "Snabisch",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/grime-of-the-city",
+   "download": "https://opengameart.org/sites/default/files/S31-Grime%20of%20the%20City.ogg",
+   "dir": "music/snabisch_grime-of-the-city",
+   "notes": "Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alpha."
+  },
+  {
+   "id": "snabisch_high-alert",
+   "kind": "music",
+   "title": "High Alert",
+   "author": "Snabisch",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/high-alert",
+   "download": "https://opengameart.org/sites/default/files/S31-High%20Alert.ogg",
+   "dir": "music/snabisch_high-alert",
+   "notes": "Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alpha."
+  },
+  {
+   "id": "snabisch_horror-cliche",
+   "kind": "music",
+   "title": "Horror Cliche",
+   "author": "Snabisch",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/horror-cliche",
+   "download": [
+    "https://opengameart.org/sites/default/files/Horror%20Clich%C3%A9_0.mp3",
+    "https://opengameart.org/sites/default/files/Horror%20Clich%C3%A9.Wav"
+   ],
+   "dir": "music/snabisch_horror-cliche",
+   "notes": "Instrumental ambient music suitable for horror games. If you like this music or you have used this in your project, please consider donating to me! It'll help me make better royalty free assets! Thank"
+  },
+  {
+   "id": "snabisch_night-prowler",
+   "kind": "music",
+   "title": "Night Prowler",
+   "author": "Snabisch",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/night-prowler",
+   "download": "https://opengameart.org/sites/default/files/S31-Night%20Prowler.ogg",
+   "dir": "music/snabisch_night-prowler",
+   "notes": "Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alpha."
+  },
+  {
+   "id": "snabisch_sentry",
+   "kind": "music",
+   "title": "Sentry",
+   "author": "Snabisch",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/sentry",
+   "download": "https://opengameart.org/sites/default/files/S31-Sentry.ogg",
+   "dir": "music/snabisch_sentry",
+   "notes": "Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alpha."
+  },
+  {
+   "id": "snabisch_space-5",
+   "kind": "music",
+   "title": "sPACE",
+   "author": "Snabisch",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/space-5",
+   "download": "https://opengameart.org/sites/default/files/sPACE_0.wav",
+   "dir": "music/snabisch_space-5",
+   "notes": "A calm, semi-relaxing adventure into the dark abyss."
+  },
+  {
+   "id": "snabisch_the-gears-of-progress",
+   "kind": "music",
+   "title": "The Gears of Progress",
+   "author": "Snabisch",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/the-gears-of-progress",
+   "download": "https://opengameart.org/sites/default/files/S31-The%20Gears%20of%20Progress.ogg",
+   "dir": "music/snabisch_the-gears-of-progress",
+   "notes": "Just starting to mess around with making music. Free to use for anybody who might find it useful. This is for my game, Star Shift Alpha."
+  },
+  {
+   "id": "snabisch_undercover-operative",
+   "kind": "music",
+   "title": "Undercover Operative",
+   "author": "Snabisch",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/undercover-operative",
+   "download": "https://opengameart.org/sites/default/files/S31-Undercover%20Operative.ogg",
+   "dir": "music/snabisch_undercover-operative",
+   "notes": "Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alpha."
+  },
+  {
+   "id": "snabisch_victory",
+   "kind": "music",
+   "title": "Victory",
+   "author": "Snabisch",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/victory",
+   "download": [
+    "https://opengameart.org/sites/default/files/Victory_0.mp3",
+    "https://opengameart.org/sites/default/files/Victory.wav"
+   ],
+   "dir": "music/snabisch_victory",
+   "notes": "2A03 Victory fanfare"
+  },
+  {
    "id": "sorth_echoes-of-a-space-age-slow-sci-fi-music",
    "kind": "music",
    "title": "Echoes of a Space Age - Slow Sci-Fi Music",
@@ -2660,6 +4516,17 @@
    "download": "https://opengameart.org/sites/default/files/finish_line_stinger.mp3",
    "dir": "music/sterlingray_finish-line-stinger",
    "notes": "piano, mirror's edge, Race, finish, stinger"
+  },
+  {
+   "id": "stumpystrust_another-space-background-track",
+   "kind": "music",
+   "title": "Another space background track",
+   "author": "StumpyStrust",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/another-space-background-track",
+   "download": "https://opengameart.org/sites/default/files/ObservingTheStar.zip",
+   "dir": "music/stumpystrust_another-space-background-track",
+   "notes": "Archive has LMMS source files and the OGG."
   },
   {
    "id": "stumpystrust_longing-for-a-lost-feeling",
@@ -2783,6 +4650,17 @@
    "notes": "dark industrial electronic tension"
   },
   {
+   "id": "syoung_hit-and-run",
+   "kind": "music",
+   "title": "Hit and Run",
+   "author": "syoung",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/hit-and-run",
+   "download": "https://opengameart.org/sites/default/files/S31-Hit%20and%20Run.ogg",
+   "dir": "music/syoung_hit-and-run",
+   "notes": "Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alpha."
+  },
+  {
    "id": "tad_last-fight-dead-z-pandemic",
    "kind": "music",
    "title": "\"Last Fight\" Dead Z. Pandemic",
@@ -2838,6 +4716,50 @@
    "notes": "epic fight theme"
   },
   {
+   "id": "tebruno99_the-rush",
+   "kind": "music",
+   "title": "The Rush",
+   "author": "tebruno99",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/the-rush",
+   "download": "https://opengameart.org/sites/default/files/The%20Rush_2.mp3",
+   "dir": "music/tebruno99_the-rush",
+   "notes": "Some music I've worked on a little. Fun little tune maybe for some high action scene. I've made this CC0 so that it can be used on iOS/Apple App store. Please leave the id3 tags intact though if you c"
+  },
+  {
+   "id": "technopeasant_better-luck-next-time",
+   "kind": "music",
+   "title": "Better luck next time",
+   "author": "Technopeasant",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/better-luck-next-time",
+   "download": "https://opengameart.org/sites/default/files/betterluck_0.ogg",
+   "dir": "music/technopeasant_better-luck-next-time",
+   "notes": "Short chiptune music sting, for a level restart or failure screen.Made with TIC-80 for https://congusbongus.itch.io/road-txtr"
+  },
+  {
+   "id": "tempel_menu-music",
+   "kind": "music",
+   "title": "Menu Music",
+   "author": "Tempel",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/menu-music",
+   "download": "https://opengameart.org/sites/default/files/awesomeness.wav",
+   "dir": "music/tempel_menu-music",
+   "notes": "some music for your regular game.... The music really has no defined 'mood' so it will pretty much work with anything. This music is loopable. I made this using GarageBand and Apple Loops. Am I under "
+  },
+  {
+   "id": "theblacksword_evil-approach",
+   "kind": "music",
+   "title": "Evil Approach",
+   "author": "TheBlackSword",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/evil-approach",
+   "download": "https://opengameart.org/sites/default/files/Evil%20Approach.wav",
+   "dir": "music/theblacksword_evil-approach",
+   "notes": "This is something old I created long ago but I kinda lost my interest so let's just, put it up here.Kinda evilish maybe, battle (?) I'm not sure what this is!"
+  },
+  {
    "id": "tinyworlds_deep-humidity",
    "kind": "music",
    "title": "Deep Humidity",
@@ -2847,6 +4769,20 @@
    "download": "https://opengameart.org/sites/default/files/deep-humidity.ogg",
    "dir": "music/tinyworlds_deep-humidity",
    "notes": "deep cave rumble, mono"
+  },
+  {
+   "id": "tinyworlds_emptycity-background-music",
+   "kind": "music",
+   "title": "EmptyCity: Background Music",
+   "author": "TinyWorlds",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/emptycity-background-music",
+   "download": [
+    "https://opengameart.org/sites/default/files/EmptyCity.ogg",
+    "https://opengameart.org/sites/default/files/EmptyCity.zip"
+   ],
+   "dir": "music/tinyworlds_emptycity-background-music",
+   "notes": "Exploring a devastated city. Dark soundtrack, loopable."
   },
   {
    "id": "tinyworlds_narrow-corridors",
@@ -2880,6 +4816,17 @@
    "download": "https://opengameart.org/sites/default/files/Besailightend_0.ogg",
    "dir": "music/tozan_besailightend",
    "notes": "garden; Besai Eng Light Zone, (exit out of garden)"
+  },
+  {
+   "id": "tozan_determined-pursuit-epic-orchestra-loop",
+   "kind": "music",
+   "title": "Determined Pursuit (epic orchestra loop)",
+   "author": "Tozan",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/determined-pursuit-epic-orchestra-loop",
+   "download": "https://opengameart.org/sites/default/files/determined_pursuit_loop.wav",
+   "dir": "music/tozan_determined-pursuit-epic-orchestra-loop",
+   "notes": "Frantic strings, determined horns and busy drums with a sprinkling of epicness(?). Possible uses: battle theme, boss fight or a hectic race against the clock (which is what I was imagining when writin"
   },
   {
    "id": "tozan_gammadrae-mining-station",
@@ -3124,6 +5071,28 @@
    "notes": "victory fanfare light"
   },
   {
+   "id": "vermilion-wizard_battle-theme-0",
+   "kind": "music",
+   "title": "Battle Theme",
+   "author": "vermilion_wizard",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/battle-theme-0",
+   "download": "https://opengameart.org/sites/default/files/Battle.mp3",
+   "dir": "music/vermilion-wizard_battle-theme-0",
+   "notes": "A theme for a battle or otherwise tense moment.Orchestral."
+  },
+  {
+   "id": "viktor-kraus_ruined-city-theme",
+   "kind": "music",
+   "title": "Ruined City Theme",
+   "author": "Viktor Kraus",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/ruined-city-theme",
+   "download": "https://opengameart.org/sites/default/files/ruined_city_theme.zip",
+   "dir": "music/viktor-kraus_ruined-city-theme",
+   "notes": "[ FIXED ] popping / clicking noise at the end of the loop; files updated; ~ ~ theme for abandoned place, factory, chernobyl-esque, disaster, etc. ~ ~Loops seamlessly: Yes. Duration: 1:52 Sample Rate: "
+  },
+  {
    "id": "vitalezzz_apparatus-overlord",
    "kind": "music",
    "title": "Apparatus Overlord",
@@ -3333,6 +5302,35 @@
    "notes": "dark heavy rock/metal action"
   },
   {
+   "id": "vrs1_through-the-universe",
+   "kind": "music",
+   "title": "Through The Universe",
+   "author": "VRS1",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/through-the-universe",
+   "download": [
+    "https://opengameart.org/sites/default/files/throughtheuniverse_3.mp3",
+    "https://opengameart.org/sites/default/files/throughtheuniverse.wav"
+   ],
+   "dir": "music/vrs1_through-the-universe",
+   "notes": "Electronic music"
+  },
+  {
+   "id": "windheart-dev_cosmic-priest",
+   "kind": "music",
+   "title": "Cosmic Priest",
+   "author": "Windheart_dev",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/cosmic-priest",
+   "download": [
+    "https://opengameart.org/sites/default/files/dream_lost_in_cosmos_v9.2_2.ogg",
+    "https://opengameart.org/sites/default/files/dream_lost_in_cosmos_v9.1_3.ogg",
+    "https://opengameart.org/sites/default/files/dream_lost_in_cosmos_v9_2.ogg"
+   ],
+   "dir": "music/windheart-dev_cosmic-priest",
+   "notes": "Face the terror of 'woolooloo' in Space. Style is little similiar to Hell's God (Part 1)9.2 and 9.1 are Techno/Classic boss battle-ish.v9 is just the Harp melody with some organ."
+  },
+  {
    "id": "wipics_fierce",
    "kind": "music",
    "title": "Fierce",
@@ -3355,6 +5353,31 @@
    "notes": "winter, wind, snow, wintertime, Christmas, bells, calm"
   },
   {
+   "id": "withthelove_col-legno",
+   "kind": "music",
+   "title": "Col Legno",
+   "author": "withthelove",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/col-legno",
+   "download": "https://opengameart.org/sites/default/files/Vehicle%20-%20OGA%20-%20Col%20Legno.wav",
+   "dir": "music/withthelove_col-legno",
+   "notes": "Orchestral action cue."
+  },
+  {
+   "id": "withthelove_cyberpunk-moonlight-sonata",
+   "kind": "music",
+   "title": "Cyberpunk Moonlight Sonata",
+   "author": "withthelove",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/cyberpunk-moonlight-sonata",
+   "download": [
+    "https://opengameart.org/sites/default/files/Cyberpunk%20Moonlight%20Sonata_0.mp3",
+    "https://opengameart.org/sites/default/files/Cyberpunk%20Moonlight%20Sonata%20v2.mp3"
+   ],
+   "dir": "music/withthelove_cyberpunk-moonlight-sonata",
+   "notes": "A cyberpunk reimagining of one of my favorite classical pieces by Beethoven. Some of the musical parts have been changed or omitted, but the skeleton is that of the original."
+  },
+  {
    "id": "wolfgang_a-new-start-short-solo-piano",
    "kind": "music",
    "title": "A New Start - Short Solo Piano",
@@ -3375,6 +5398,22 @@
    "download": "https://opengameart.org/sites/default/files/Chase.ogg",
    "dir": "music/wolfgang_chase",
    "notes": "electronic synth bass chase"
+  },
+  {
+   "id": "yd_dark-shrine-loop",
+   "kind": "music",
+   "title": "Dark Shrine Loop",
+   "author": "yd",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/dark-shrine-loop",
+   "download": [
+    "https://opengameart.org/sites/default/files/qubodup-yd-DarkShrineLoop-OpenGameArt.flac",
+    "https://opengameart.org/sites/default/files/qubodup-yd-DarkShrineLoop-OpenGameArt_mmpz.zip",
+    "https://opengameart.org/sites/default/files/qubodup-yd-DarkShrineLoop-OpenGameArt.ogg",
+    "https://opengameart.org/sites/default/files/qubodup-yd-DarkShrineLoop-OpenGameArt.mp3"
+   ],
+   "dir": "music/yd_dark-shrine-loop",
+   "notes": "This is a slight remix of yd's LMMS-made \"Shrine\"."
   },
   {
    "id": "yd_dungeon-ambience",
@@ -3432,6 +5471,43 @@
    "notes": "dark warm drone with industrial noise, loop"
   },
   {
+   "id": "yethiel_creepy",
+   "kind": "music",
+   "title": "Creepy",
+   "author": "yethiel",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/creepy",
+   "download": [
+    "https://opengameart.org/sites/default/files/CrEEP_0.mp3",
+    "https://opengameart.org/sites/default/files/CrEEP.ogg",
+    "https://opengameart.org/sites/default/files/CrEEP.wav"
+   ],
+   "dir": "music/yethiel_creepy",
+   "notes": "A creepy loop I made while messing around with some new samples."
+  },
+  {
+   "id": "yongki_chase-2",
+   "kind": "music",
+   "title": "Chase",
+   "author": "Yongki",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/chase-2",
+   "download": "https://opengameart.org/sites/default/files/chase.mp3",
+   "dir": "music/yongki_chase-2",
+   "notes": "A fast paced futuristic music, could be good for a chase scene in videogames or movies. Feel free to use it in your project, God Bless!"
+  },
+  {
+   "id": "zamoar_backup-plan",
+   "kind": "music",
+   "title": "Backup Plan",
+   "author": "Zamoar",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/backup-plan",
+   "download": "https://opengameart.org/sites/default/files/backup_plan.wav",
+   "dir": "music/zamoar_backup-plan",
+   "notes": "UPDATE:Another Bag of Chips is now available for free on Bandcamp and Ko-Fi for free! Download the album from there to get all the bonus content including looping versions of every track!-------------"
+  },
+  {
    "id": "zanindevelopers_cyberpunk-menu-music",
    "kind": "music",
    "title": "Cyberpunk Menu Music",
@@ -3443,6 +5519,20 @@
    "notes": "short tactical cyberpunk menu pad, neon night"
   },
   {
+   "id": "zasisem_i-swear-i-saw-it-background-track",
+   "kind": "music",
+   "title": "I swear I saw it - background track",
+   "author": "Zasisem",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/i-swear-i-saw-it-background-track",
+   "download": [
+    "https://opengameart.org/sites/default/files/IswearIsawit.zip",
+    "https://opengameart.org/sites/default/files/IswearIsawit_0.ogg"
+   ],
+   "dir": "music/zasisem_i-swear-i-saw-it-background-track",
+   "notes": "Was in a mood of making a simple track approx 3.5 min long. The LMMS source file attached as well if you like to play with it."
+  },
+  {
    "id": "zesona_we-found-a-rose",
    "kind": "music",
    "title": "We Found A Rose",
@@ -3452,6 +5542,338 @@
    "download": "https://opengameart.org/sites/default/files/we-found-a-rose.ogg",
    "dir": "music/zesona_we-found-a-rose",
    "notes": "melancholy dramatic emotional bgm"
+  },
+  {
+   "id": "zombcool_fight-in-the-city",
+   "kind": "music",
+   "title": "Fight in the City",
+   "author": "ZomBCool",
+   "license": "CC0-1.0",
+   "page": "https://opengameart.org/content/fight-in-the-city",
+   "download": "https://opengameart.org/sites/default/files/fight_in_the_city.wav",
+   "dir": "music/zombcool_fight-in-the-city",
+   "notes": "A result of messing around in Logic Pro."
+  },
+  {
+   "id": "fs_cc0-gun-handling",
+   "kind": "sfx",
+   "title": "Freesound CC0：槍械操作（上膛、換彈、空槍）",
+   "author": "Freesound 使用者（逐檔作者見 hints.json）",
+   "license": "CC0-1.0",
+   "page": "https://freesound.org/search/?q=gun+reload&f=license%3A%22Creative+Commons+0%22",
+   "download": [
+    "https://cdn.freesound.org/previews/149/149177_492298-hq.mp3",
+    "https://cdn.freesound.org/previews/111/111676_1046667-hq.mp3",
+    "https://cdn.freesound.org/previews/276/276959_5172328-hq.mp3",
+    "https://cdn.freesound.org/previews/177/177863_1046667-hq.mp3",
+    "https://cdn.freesound.org/previews/200/200966_2971294-hq.mp3",
+    "https://cdn.freesound.org/previews/402/402790_7111288-hq.mp3",
+    "https://cdn.freesound.org/previews/405/405538_2723982-hq.mp3",
+    "https://cdn.freesound.org/previews/432/432141_7549712-hq.mp3",
+    "https://cdn.freesound.org/previews/90/90965_861714-hq.mp3",
+    "https://cdn.freesound.org/previews/276/276958_5172328-hq.mp3",
+    "https://cdn.freesound.org/previews/386/386777_5768130-hq.mp3",
+    "https://cdn.freesound.org/previews/240/240698_3978825-hq.mp3",
+    "https://cdn.freesound.org/previews/276/276963_5172328-hq.mp3",
+    "https://cdn.freesound.org/previews/432/432139_7549712-hq.mp3",
+    "https://cdn.freesound.org/previews/256/256912_2276808-hq.mp3",
+    "https://cdn.freesound.org/previews/262/262598_957169-hq.mp3",
+    "https://cdn.freesound.org/previews/363/363167_5487341-hq.mp3",
+    "https://cdn.freesound.org/previews/677/677160_7157894-hq.mp3",
+    "https://cdn.freesound.org/previews/233/233044_181941-hq.mp3",
+    "https://cdn.freesound.org/previews/94/94119_1554918-hq.mp3",
+    "https://cdn.freesound.org/previews/427/427603_3094998-hq.mp3",
+    "https://cdn.freesound.org/previews/133/133814_2442808-hq.mp3",
+    "https://cdn.freesound.org/previews/363/363168_5487341-hq.mp3",
+    "https://cdn.freesound.org/previews/421/421794_8171657-hq.mp3",
+    "https://cdn.freesound.org/previews/427/427593_3094998-hq.mp3",
+    "https://cdn.freesound.org/previews/465/465488_9243709-hq.mp3",
+    "https://cdn.freesound.org/previews/674/674742_7157894-hq.mp3",
+    "https://cdn.freesound.org/previews/386/386744_5768130-hq.mp3",
+    "https://cdn.freesound.org/previews/150/150500_1883289-hq.mp3",
+    "https://cdn.freesound.org/previews/387/387190_4724550-hq.mp3",
+    "https://cdn.freesound.org/previews/386/386741_5768130-hq.mp3",
+    "https://cdn.freesound.org/previews/233/233320_4216178-hq.mp3",
+    "https://cdn.freesound.org/previews/155/155174_2793308-hq.mp3",
+    "https://cdn.freesound.org/previews/171/171211_1769769-hq.mp3",
+    "https://cdn.freesound.org/previews/326/326042_3972580-hq.mp3",
+    "https://cdn.freesound.org/previews/688/688765_71257-hq.mp3",
+    "https://cdn.freesound.org/previews/99/99217_1667590-hq.mp3",
+    "https://cdn.freesound.org/previews/530/530225_11537497-hq.mp3",
+    "https://cdn.freesound.org/previews/159/159710_2886479-hq.mp3",
+    "https://cdn.freesound.org/previews/204/204204_3310361-hq.mp3"
+   ],
+   "dir": "fs_cc0-gun-handling",
+   "notes": "Freesound CC0 預聽 mp3（128 kbps）；拉栓、上膛、彈匣、轉輪、空槍扣扳機等"
+  },
+  {
+   "id": "fs_cc0-gunshots-automatic",
+   "kind": "sfx",
+   "title": "Freesound CC0：衝鋒槍與機槍聲",
+   "author": "Freesound 使用者（逐檔作者見 hints.json）",
+   "license": "CC0-1.0",
+   "page": "https://freesound.org/search/?q=machine+gun&f=license%3A%22Creative+Commons+0%22",
+   "download": [
+    "https://cdn.freesound.org/previews/145/145206_2598732-hq.mp3",
+    "https://cdn.freesound.org/previews/165/165394_2989529-hq.mp3",
+    "https://cdn.freesound.org/previews/39/39071_8842-hq.mp3",
+    "https://cdn.freesound.org/previews/90/90143_793892-hq.mp3",
+    "https://cdn.freesound.org/previews/383/383796_7146007-hq.mp3",
+    "https://cdn.freesound.org/previews/212/212608_1654571-hq.mp3",
+    "https://cdn.freesound.org/previews/212/212602_1654571-hq.mp3",
+    "https://cdn.freesound.org/previews/380/380349_6207707-hq.mp3",
+    "https://cdn.freesound.org/previews/153/153492_1266951-hq.mp3",
+    "https://cdn.freesound.org/previews/274/274559_5088332-hq.mp3",
+    "https://cdn.freesound.org/previews/165/165391_2989529-hq.mp3",
+    "https://cdn.freesound.org/previews/148/148831_2676248-hq.mp3",
+    "https://cdn.freesound.org/previews/397/397657_7542558-hq.mp3",
+    "https://cdn.freesound.org/previews/520/520935_773642-hq.mp3",
+    "https://cdn.freesound.org/previews/165/165393_2989529-hq.mp3",
+    "https://cdn.freesound.org/previews/416/416417_7542558-hq.mp3",
+    "https://cdn.freesound.org/previews/417/417689_7542558-hq.mp3",
+    "https://cdn.freesound.org/previews/98/98331_1654571-hq.mp3",
+    "https://cdn.freesound.org/previews/201/201672_3749344-hq.mp3",
+    "https://cdn.freesound.org/previews/424/424630_7542558-hq.mp3",
+    "https://cdn.freesound.org/previews/424/424917_5351496-hq.mp3",
+    "https://cdn.freesound.org/previews/257/257364_2276808-hq.mp3",
+    "https://cdn.freesound.org/previews/360/360607_4121395-hq.mp3",
+    "https://cdn.freesound.org/previews/676/676588_13432509-hq.mp3",
+    "https://cdn.freesound.org/previews/482/482122_71257-hq.mp3",
+    "https://cdn.freesound.org/previews/266/266102_4997689-hq.mp3",
+    "https://cdn.freesound.org/previews/160/160590_2714469-hq.mp3",
+    "https://cdn.freesound.org/previews/418/418433_6481539-hq.mp3",
+    "https://cdn.freesound.org/previews/266/266101_4997689-hq.mp3",
+    "https://cdn.freesound.org/previews/333/333065_4457609-hq.mp3"
+   ],
+   "dir": "fs_cc0-gunshots-automatic",
+   "notes": "Freesound CC0 預聽 mp3（128 kbps）；衝鋒槍、機槍的連發與單發"
+  },
+  {
+   "id": "fs_cc0-gunshots-generic",
+   "kind": "sfx",
+   "title": "Freesound CC0：各式槍聲",
+   "author": "Freesound 使用者（逐檔作者見 hints.json）",
+   "license": "CC0-1.0",
+   "page": "https://freesound.org/search/?q=gunshot&f=license%3A%22Creative+Commons+0%22",
+   "download": [
+    "https://cdn.freesound.org/previews/382/382735_954919-hq.mp3",
+    "https://cdn.freesound.org/previews/415/415912_7107077-hq.mp3",
+    "https://cdn.freesound.org/previews/200/200245_3724822-hq.mp3",
+    "https://cdn.freesound.org/previews/128/128302_1412426-hq.mp3",
+    "https://cdn.freesound.org/previews/20/20352_57789-hq.mp3",
+    "https://cdn.freesound.org/previews/127/127846_1931452-hq.mp3",
+    "https://cdn.freesound.org/previews/165/165390_2989529-hq.mp3",
+    "https://cdn.freesound.org/previews/385/385811_5937039-hq.mp3",
+    "https://cdn.freesound.org/previews/484/484036_6142149-hq.mp3",
+    "https://cdn.freesound.org/previews/165/165391_2989529-hq.mp3",
+    "https://cdn.freesound.org/previews/433/433858_6142149-hq.mp3",
+    "https://cdn.freesound.org/previews/392/392229_5937039-hq.mp3",
+    "https://cdn.freesound.org/previews/169/169261_155902-hq.mp3",
+    "https://cdn.freesound.org/previews/569/569847_9996727-hq.mp3",
+    "https://cdn.freesound.org/previews/686/686351_14949563-hq.mp3",
+    "https://cdn.freesound.org/previews/369/369782_5937039-hq.mp3",
+    "https://cdn.freesound.org/previews/175/175389_3227427-hq.mp3",
+    "https://cdn.freesound.org/previews/632/632821_10403690-hq.mp3",
+    "https://cdn.freesound.org/previews/370/370304_5937039-hq.mp3",
+    "https://cdn.freesound.org/previews/411/411567_6142149-hq.mp3",
+    "https://cdn.freesound.org/previews/563/563015_6253486-hq.mp3",
+    "https://cdn.freesound.org/previews/391/391847_5937039-hq.mp3",
+    "https://cdn.freesound.org/previews/371/371041_5937039-hq.mp3",
+    "https://cdn.freesound.org/previews/483/483536_6142149-hq.mp3",
+    "https://cdn.freesound.org/previews/404/404901_5368073-hq.mp3",
+    "https://cdn.freesound.org/previews/391/391846_5937039-hq.mp3",
+    "https://cdn.freesound.org/previews/581/581773_123355-hq.mp3",
+    "https://cdn.freesound.org/previews/388/388194_5937039-hq.mp3",
+    "https://cdn.freesound.org/previews/221/221640_3799592-hq.mp3",
+    "https://cdn.freesound.org/previews/371/371440_5937039-hq.mp3"
+   ],
+   "dir": "fs_cc0-gunshots-generic",
+   "notes": "Freesound CC0 預聽 mp3（128 kbps）；不分槍種的槍聲，敵人通用槍聲備選"
+  },
+  {
+   "id": "fs_cc0-gunshots-heavy",
+   "kind": "sfx",
+   "title": "Freesound CC0：重武器與砲聲",
+   "author": "Freesound 使用者（逐檔作者見 hints.json）",
+   "license": "CC0-1.0",
+   "page": "https://freesound.org/search/?q=cannon+shot&f=license%3A%22Creative+Commons+0%22",
+   "download": [
+    "https://cdn.freesound.org/previews/187/187767_71257-hq.mp3",
+    "https://cdn.freesound.org/previews/127/127845_1931452-hq.mp3",
+    "https://cdn.freesound.org/previews/163/163458_2263027-hq.mp3",
+    "https://cdn.freesound.org/previews/239/239135_71257-hq.mp3",
+    "https://cdn.freesound.org/previews/448/448002_7811934-hq.mp3",
+    "https://cdn.freesound.org/previews/162/162455_311243-hq.mp3",
+    "https://cdn.freesound.org/previews/239/239137_71257-hq.mp3",
+    "https://cdn.freesound.org/previews/521/521377_10847299-hq.mp3",
+    "https://cdn.freesound.org/previews/249/249298_181941-hq.mp3",
+    "https://cdn.freesound.org/previews/418/418881_6616210-hq.mp3",
+    "https://cdn.freesound.org/previews/184/184651_2906575-hq.mp3",
+    "https://cdn.freesound.org/previews/184/184382_71257-hq.mp3",
+    "https://cdn.freesound.org/previews/241/241840_4404989-hq.mp3",
+    "https://cdn.freesound.org/previews/441/441373_6142149-hq.mp3",
+    "https://cdn.freesound.org/previews/529/529239_8708205-hq.mp3",
+    "https://cdn.freesound.org/previews/140/140727_367313-hq.mp3",
+    "https://cdn.freesound.org/previews/187/187542_71257-hq.mp3",
+    "https://cdn.freesound.org/previews/106/106850_282197-hq.mp3",
+    "https://cdn.freesound.org/previews/231/231765_1038806-hq.mp3",
+    "https://cdn.freesound.org/previews/515/515801_6142149-hq.mp3"
+   ],
+   "dir": "fs_cc0-gunshots-heavy",
+   "notes": "Freesound CC0 預聽 mp3（128 kbps）；加農砲、火箭筒、榴彈發射器、重砲"
+  },
+  {
+   "id": "fs_cc0-gunshots-pistol",
+   "kind": "sfx",
+   "title": "Freesound CC0：手槍與左輪槍聲",
+   "author": "Freesound 使用者（逐檔作者見 hints.json）",
+   "license": "CC0-1.0",
+   "page": "https://freesound.org/search/?q=pistol+shot&f=license%3A%22Creative+Commons+0%22",
+   "download": [
+    "https://cdn.freesound.org/previews/163/163456_2263027-hq.mp3",
+    "https://cdn.freesound.org/previews/427/427592_3094998-hq.mp3",
+    "https://cdn.freesound.org/previews/427/427598_3094998-hq.mp3",
+    "https://cdn.freesound.org/previews/427/427594_3094998-hq.mp3",
+    "https://cdn.freesound.org/previews/402/402789_7111288-hq.mp3",
+    "https://cdn.freesound.org/previews/217/217805_3368369-hq.mp3",
+    "https://cdn.freesound.org/previews/148/148839_2676248-hq.mp3",
+    "https://cdn.freesound.org/previews/385/385811_5937039-hq.mp3",
+    "https://cdn.freesound.org/previews/253/253736_2276808-hq.mp3",
+    "https://cdn.freesound.org/previews/330/330634_2017016-hq.mp3",
+    "https://cdn.freesound.org/previews/148/148833_2676248-hq.mp3",
+    "https://cdn.freesound.org/previews/392/392229_5937039-hq.mp3",
+    "https://cdn.freesound.org/previews/151/151071_2732486-hq.mp3",
+    "https://cdn.freesound.org/previews/541/541818_9250976-hq.mp3",
+    "https://cdn.freesound.org/previews/346/346906_2963485-hq.mp3",
+    "https://cdn.freesound.org/previews/683/683175_3692246-hq.mp3",
+    "https://cdn.freesound.org/previews/683/683186_3692246-hq.mp3",
+    "https://cdn.freesound.org/previews/391/391846_5937039-hq.mp3",
+    "https://cdn.freesound.org/previews/386/386745_5768130-hq.mp3",
+    "https://cdn.freesound.org/previews/371/371440_5937039-hq.mp3",
+    "https://cdn.freesound.org/previews/391/391328_5937039-hq.mp3",
+    "https://cdn.freesound.org/previews/55/55340_662292-hq.mp3",
+    "https://cdn.freesound.org/previews/645/645316_3139426-hq.mp3",
+    "https://cdn.freesound.org/previews/717/717584_97550-hq.mp3",
+    "https://cdn.freesound.org/previews/717/717585_97550-hq.mp3",
+    "https://cdn.freesound.org/previews/668/668348_3271378-hq.mp3",
+    "https://cdn.freesound.org/previews/855/855652_7157894-hq.mp3",
+    "https://cdn.freesound.org/previews/500/500201_9995328-hq.mp3",
+    "https://cdn.freesound.org/previews/803/803497_16571147-hq.mp3",
+    "https://cdn.freesound.org/previews/470/470198_9565159-hq.mp3"
+   ],
+   "dir": "fs_cc0-gunshots-pistol",
+   "notes": "Freesound CC0 預聽 mp3（128 kbps）；手槍、左輪、沙漠之鷹等單發槍聲"
+  },
+  {
+   "id": "fs_cc0-gunshots-rifle",
+   "kind": "sfx",
+   "title": "Freesound CC0：步槍與狙擊槍聲",
+   "author": "Freesound 使用者（逐檔作者見 hints.json）",
+   "license": "CC0-1.0",
+   "page": "https://freesound.org/search/?q=rifle+shot&f=license%3A%22Creative+Commons+0%22",
+   "download": [
+    "https://cdn.freesound.org/previews/163/163457_2263027-hq.mp3",
+    "https://cdn.freesound.org/previews/259/259758_4121395-hq.mp3",
+    "https://cdn.freesound.org/previews/163/163460_2263027-hq.mp3",
+    "https://cdn.freesound.org/previews/238/238916_71257-hq.mp3",
+    "https://cdn.freesound.org/previews/427/427598_3094998-hq.mp3",
+    "https://cdn.freesound.org/previews/427/427596_3094998-hq.mp3",
+    "https://cdn.freesound.org/previews/351/351777_2863152-hq.mp3",
+    "https://cdn.freesound.org/previews/514/514228_7542558-hq.mp3",
+    "https://cdn.freesound.org/previews/404/404562_7542558-hq.mp3",
+    "https://cdn.freesound.org/previews/484/484036_6142149-hq.mp3",
+    "https://cdn.freesound.org/previews/452/452154_6175868-hq.mp3",
+    "https://cdn.freesound.org/previews/433/433858_6142149-hq.mp3",
+    "https://cdn.freesound.org/previews/351/351778_2863152-hq.mp3",
+    "https://cdn.freesound.org/previews/421/421710_7542558-hq.mp3",
+    "https://cdn.freesound.org/previews/187/187677_71257-hq.mp3",
+    "https://cdn.freesound.org/previews/416/416417_7542558-hq.mp3",
+    "https://cdn.freesound.org/previews/386/386842_932959-hq.mp3",
+    "https://cdn.freesound.org/previews/46/46655_57789-hq.mp3",
+    "https://cdn.freesound.org/previews/391/391725_5937039-hq.mp3",
+    "https://cdn.freesound.org/previews/410/410442_7542558-hq.mp3",
+    "https://cdn.freesound.org/previews/411/411567_6142149-hq.mp3",
+    "https://cdn.freesound.org/previews/360/360607_4121395-hq.mp3",
+    "https://cdn.freesound.org/previews/182/182815_71257-hq.mp3",
+    "https://cdn.freesound.org/previews/432/432366_7542558-hq.mp3",
+    "https://cdn.freesound.org/previews/410/410552_7707368-hq.mp3",
+    "https://cdn.freesound.org/previews/524/524738_6142149-hq.mp3",
+    "https://cdn.freesound.org/previews/483/483536_6142149-hq.mp3",
+    "https://cdn.freesound.org/previews/201/201668_3749344-hq.mp3",
+    "https://cdn.freesound.org/previews/160/160590_2714469-hq.mp3",
+    "https://cdn.freesound.org/previews/263/263513_4675419-hq.mp3"
+   ],
+   "dir": "fs_cc0-gunshots-rifle",
+   "notes": "Freesound CC0 預聽 mp3（128 kbps）；突擊步槍、栓動步槍、狙擊槍的單發或短連發"
+  },
+  {
+   "id": "fs_cc0-gunshots-shotgun",
+   "kind": "sfx",
+   "title": "Freesound CC0：霰彈槍聲",
+   "author": "Freesound 使用者（逐檔作者見 hints.json）",
+   "license": "CC0-1.0",
+   "page": "https://freesound.org/search/?q=shotgun&f=license%3A%22Creative+Commons+0%22",
+   "download": [
+    "https://cdn.freesound.org/previews/266/266105_4997689-hq.mp3",
+    "https://cdn.freesound.org/previews/427/427595_3094998-hq.mp3",
+    "https://cdn.freesound.org/previews/163/163455_2263027-hq.mp3",
+    "https://cdn.freesound.org/previews/55/55341_662292-hq.mp3",
+    "https://cdn.freesound.org/previews/473/473846_6142149-hq.mp3",
+    "https://cdn.freesound.org/previews/318/318973_4039477-hq.mp3",
+    "https://cdn.freesound.org/previews/544/544676_11376051-hq.mp3",
+    "https://cdn.freesound.org/previews/660/660299_13432509-hq.mp3",
+    "https://cdn.freesound.org/previews/405/405504_6142149-hq.mp3",
+    "https://cdn.freesound.org/previews/258/258194_2276808-hq.mp3",
+    "https://cdn.freesound.org/previews/188/188499_2213158-hq.mp3",
+    "https://cdn.freesound.org/previews/269/269455_5120219-hq.mp3",
+    "https://cdn.freesound.org/previews/408/408099_6142149-hq.mp3",
+    "https://cdn.freesound.org/previews/380/380886_5937039-hq.mp3",
+    "https://cdn.freesound.org/previews/410/410551_7707368-hq.mp3",
+    "https://cdn.freesound.org/previews/564/564480_11870622-hq.mp3",
+    "https://cdn.freesound.org/previews/773/773873_15468302-hq.mp3",
+    "https://cdn.freesound.org/previews/668/668353_3271378-hq.mp3",
+    "https://cdn.freesound.org/previews/619/619041_781461-hq.mp3",
+    "https://cdn.freesound.org/previews/687/687399_14975791-hq.mp3",
+    "https://cdn.freesound.org/previews/673/673317_14265036-hq.mp3",
+    "https://cdn.freesound.org/previews/455/455916_2927958-hq.mp3",
+    "https://cdn.freesound.org/previews/621/621150_3397982-hq.mp3",
+    "https://cdn.freesound.org/previews/709/709042_12187251-hq.mp3",
+    "https://cdn.freesound.org/previews/621/621154_3397982-hq.mp3"
+   ],
+   "dir": "fs_cc0-gunshots-shotgun",
+   "notes": "Freesound CC0 預聽 mp3（128 kbps）；霰彈槍單發與連發"
+  },
+  {
+   "id": "fs_cc0-gunshots-silenced",
+   "kind": "sfx",
+   "title": "Freesound CC0：消音槍聲",
+   "author": "Freesound 使用者（逐檔作者見 hints.json）",
+   "license": "CC0-1.0",
+   "page": "https://freesound.org/search/?q=silenced+pistol&f=license%3A%22Creative+Commons+0%22",
+   "download": [
+    "https://cdn.freesound.org/previews/627/627087_11511262-hq.mp3",
+    "https://cdn.freesound.org/previews/255/255716_2971294-hq.mp3",
+    "https://cdn.freesound.org/previews/188/188499_2213158-hq.mp3",
+    "https://cdn.freesound.org/previews/489/489069_2735094-hq.mp3",
+    "https://cdn.freesound.org/previews/369/369781_5937039-hq.mp3",
+    "https://cdn.freesound.org/previews/100/100465_1176149-hq.mp3",
+    "https://cdn.freesound.org/previews/257/257364_2276808-hq.mp3",
+    "https://cdn.freesound.org/previews/248/248204_4121395-hq.mp3",
+    "https://cdn.freesound.org/previews/165/165525_2772499-hq.mp3",
+    "https://cdn.freesound.org/previews/618/618994_781461-hq.mp3",
+    "https://cdn.freesound.org/previews/124/124960_822037-hq.mp3",
+    "https://cdn.freesound.org/previews/242/242846_4121395-hq.mp3",
+    "https://cdn.freesound.org/previews/166/166493_2083114-hq.mp3",
+    "https://cdn.freesound.org/previews/384/384685_5937039-hq.mp3",
+    "https://cdn.freesound.org/previews/528/528262_11537497-hq.mp3",
+    "https://cdn.freesound.org/previews/107/107059_13258-hq.mp3",
+    "https://cdn.freesound.org/previews/693/693855_15072041-hq.mp3",
+    "https://cdn.freesound.org/previews/819/819269_17707799-hq.mp3",
+    "https://cdn.freesound.org/previews/740/740120_71257-hq.mp3",
+    "https://cdn.freesound.org/previews/107/107060_13258-hq.mp3"
+   ],
+   "dir": "fs_cc0-gunshots-silenced",
+   "notes": "Freesound CC0 預聽 mp3（128 kbps）；消音手槍與步槍"
   },
   {
    "id": "ia_red-library-ambience-1",
@@ -3621,22 +6043,6 @@
    "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: cloth/coat/heavy fabric, leather, metal gear rattle (armor), bags, drawers. 4 files, 1.4 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 4}."
   },
   {
-   "id": "ia_red-library-footsteps-1",
-   "kind": "sfx",
-   "title": "USC Red Library: Footsteps 1 (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/Red_Library_Footsteps_1",
-   "download": [
-    "https://archive.org/download/Red_Library_Footsteps_1/R10-08-Walking%20Outside%20on%20Gravel.mp3",
-    "https://archive.org/download/Red_Library_Footsteps_1/R10-10-Sliding%20Steps%20on%20Gravel.flac",
-    "https://archive.org/download/Red_Library_Footsteps_1/R10-17-Running%20On%20Gravel.mp3",
-    "https://archive.org/download/Red_Library_Footsteps_1/R10-26-Slow%20Footsteps%20on%20Tile%20and%20Wooden%20Floor.flac"
-   ],
-   "dir": "ia_red-library-footsteps-1",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: footsteps on gravel/tile/stone/metal stairs/tunnel/water/boots (long compilation takes, slice per step). 4 files, 1.4 min, 48 kHz, all decode OK (ffprobe). Formats {'flac': 2, 'mp3': 2}."
-  },
-  {
    "id": "ia_red-library-footsteps-2",
    "kind": "sfx",
    "title": "USC Red Library: Footsteps 2 (selected)",
@@ -3697,23 +6103,6 @@
    ],
    "dir": "ia_red-library-footsteps-4",
    "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: footsteps on gravel/tile/stone/metal stairs/tunnel/water/boots (long compilation takes, slice per step). 10 files, 4.9 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 10}."
-  },
-  {
-   "id": "ia_red-library-guns-machine",
-   "kind": "sfx",
-   "title": "USC Red Library: Guns Machine (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/Red_Library_Guns_Machine",
-   "download": [
-    "https://archive.org/download/Red_Library_Guns_Machine/R12-04-Browning%20Machine%20Gun.mp3",
-    "https://archive.org/download/Red_Library_Guns_Machine/R12-06-Machine%20Gun%20Single%20Shots.mp3",
-    "https://archive.org/download/Red_Library_Guns_Machine/R12-16-Military%20Machine%20Gun.mp3",
-    "https://archive.org/download/Red_Library_Guns_Machine/R12-22-Classic%20Machine%20Gun.flac",
-    "https://archive.org/download/Red_Library_Guns_Machine/R30-31-Old%20Machine%20Gun%20Without%20Ambience.flac"
-   ],
-   "dir": "ia_red-library-guns-machine",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: gunshots, rifle cocking/handling, ricochets, machine guns (1930s-40s optical). 5 files, 1.2 min, 48 kHz, all decode OK (ffprobe). Formats {'flac': 2, 'mp3': 3}."
   },
   {
    "id": "ia_red-library-guns-misc",
@@ -3866,654 +6255,6 @@
    ],
    "dir": "ia_red-library-weapons-swords",
    "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: sword unsheath/whoosh/hit/clash (melee). 8 files, 4.4 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 8}."
-  },
-  {
-   "id": "ia_sse-library-air",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Air (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_AIR",
-   "download": [
-    "https://archive.org/download/SSE_Library_AIR/AIRBrst_Carbon%20dioxide%20fire%20extinguisher%3B%20long%20blast_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AIR/AIRBrst_Carbon%20dioxide%20fire%20extinguisher_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AIR/AIRBrst_Steam%20or%20fire%20extinguisher%20blasts_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AIR/AIRBrst_Wacky%20comedy%20bit%3B%20steam%20spraying%20out%20of%20ears_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AIR/AIRHiss_Acetylene%20torch%3B%20light%3B%20then%20steady%20hiss_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AIR/AIRHiss_Air%20nozzle%20spraying%20this%20way%20and%20that_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-air",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: steam/compressed air release, extinguisher, torch hiss. 6 files, 2.4 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 6}."
-  },
-  {
-   "id": "ia_sse-library-alarms",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Alarms (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_ALARMS",
-   "download": [
-    "https://archive.org/download/SSE_Library_ALARMS/ALRMBell_Old%20style%20fire%20alarm%20bell%3B%20hand%20cranked_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_ALARMS/ALRMBell_Train%20crossing%20bell%3B%20very%20short%20loop%3B%20okay_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_ALARMS/ALRMClok_Electric%20buzzer%20alarm%20clock_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_ALARMS/ALRMClok_Mechanical%20alarm%20clock%20ringing%3B%20two%20different_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-alarms",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: bell/buzzer/alarm clock alarms. 4 files, 1.1 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 3, 'flac': 1}."
-  },
-  {
-   "id": "ia_sse-library-ambience",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Ambience (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_AMBIENCE",
-   "download": [
-    "https://archive.org/download/SSE_Library_AMBIENCE/AMBHome_Busy%20vintage%20traffic%20through%20city%20window_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AMBIENCE/AMBInd_Busy%20factory%20floor%3B%20many%20voices_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AMBIENCE/AMBInd_Factory%20interior%20with%20large%20exhaust%20fan%3B_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AMBIENCE/AMBInd_General%20movement%20on%20factory%20or%20garage%20floor%3B_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AMBIENCE/AMBInd_General%20movement%20on%20factory%20or%20repair%20shop_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AMBIENCE/AMBInd_General%20movement%20on%20factory%20with%20metal%20hits_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AMBIENCE/AMBInd_Industrial%20interior%3B%20short%3B%20but%20can%20be%20looped_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_AMBIENCE/AMBInd_Large%20industrial%20factory%3B%20much%20hammering_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AMBIENCE/AMBInd_Many%20footsteps%20in%20reverberant%20factory%20interior_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AMBIENCE/AMBPubl_Courtroom%20murmur%20and%20mild%20surprise%3B%20multiple_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AMBIENCE/AMBPubl_Hotel%20lobby%3B%20bg%20walla_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AMBIENCE/AMBPubl_Low%20crowd%20murmur%20and%20bell%20ring_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AMBIENCE/AMBPubl_Police%20squad%20room%20murmur%3B%20big%20rude%20laugh_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AMBIENCE/AMBRest_Cafe%20ambience%3B%20good%20walla_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AMBIENCE/AMBTraf_Busy%20French%20traffic%20ambience%3B%20some%20voices_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AMBIENCE/AMBTraf_Distant%20BG%20city%20traffic_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AMBIENCE/AMBTraf_Distant%20traffic%20rumble_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_AMBIENCE/AMBTraf_Light%20traffic%20on%20Sunset%20Blvd_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-ambience",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: ambience beds: factory/industrial, traffic, lobby/cafe murmur (wordless walla), sci-fi backgrounds, distant battle. 18 files, 12.3 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 17, 'flac': 1}."
-  },
-  {
-   "id": "ia_sse-library-beeps",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Beeps (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_BEEPS",
-   "download": "https://archive.org/download/SSE_Library_BEEPS/BEEPMed_Cardiac%20arrest%20alarm%20%281%20kHz%20square%20wave%29_CS_USC.flac",
-   "dir": "ia_sse-library-beeps",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: monitor beep/alarm tone. 1 files, 0.3 min, 48 kHz, all decode OK (ffprobe). Formats {'flac': 1}."
-  },
-  {
-   "id": "ia_sse-library-bullets",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Bullets (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_BULLETS",
-   "download": [
-    "https://archive.org/download/SSE_Library_BULLETS/BLLTImpt_50%20cal%20Browning%20machine%20gun%20bullet%20impacts_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_BULLETS/BLLTImpt_Artillery%20bullets%20hitting%20nearby%20%26%20overhead_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_BULLETS/BLLTImpt_Bullets%20flying%20overhead%20and%20hitting%20objects_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_BULLETS/BLLTImpt_Bullets%20hitting%20water_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_BULLETS/BLLTImpt_Heavy%20ammunition%20bullets%20flying%20overhead_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_BULLETS/BLLTImpt_On%20the%20receiving%20end%20of%20large%20guns%20firing_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_BULLETS/BLLTImpt_Shooting%20gallery%3B%20hitting%20metal%20targets_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_BULLETS/BLLTImpt_Shooting%20gallery_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_BULLETS/BLLTRico_Comedy%20ricochets%20%28Warner%20Brothers%29_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_BULLETS/BLLTRico_Machine%20gun%20ricochets_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_BULLETS/BLLTRico_Ricochets%20from%20Bonanza%20TV%20series_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_BULLETS/BLLTRico_Rifle%20ricochets_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_BULLETS/BLLTShel_Ejecting%20shells%20from%20357%20magnum%20pistol_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_BULLETS/BLLTShel_Loading%20cartridges%20into%20a%20rifle_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-bullets",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: ricochet, bullet whiz/impact, shell eject/load, metal-target pings. 14 files, 4.4 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 14}."
-  },
-  {
-   "id": "ia_sse-library-chains",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Chains (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_CHAINS",
-   "download": "https://archive.org/download/SSE_Library_CHAINS/CHAINMvmt_Chains%20moving%20on%20deck%20of%20ship%3B%20waves_CS_USC.mp3",
-   "dir": "ia_sse-library-chains",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: chain rattle. 1 files, 0.3 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 1}."
-  },
-  {
-   "id": "ia_sse-library-communications",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Communications (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_COMMUNICATIONS",
-   "download": [
-    "https://archive.org/download/SSE_Library_COMMUNICATIONS/COMRadio_Small%20transistor%20radio%20scanning%20the%20dial_CHS_USC.mp3",
-    "https://archive.org/download/SSE_Library_COMMUNICATIONS/COMRadio_Weird%20electronic%20wind%20or%20radio%20interference_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_COMMUNICATIONS/COMStatic_Shortwave%20radio%20with%20electrical%20noises%20%26_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_COMMUNICATIONS/COMTelm_Intersteller%20radio%20interference_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_COMMUNICATIONS/COMTelm_Muffled%20Intersteller%20radio%20interference_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_COMMUNICATIONS/COMTelm_Teletype%20or%20printing%20machine_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_COMMUNICATIONS/COMTelph_Coin%20return%20from%20pay%20telephone_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_COMMUNICATIONS/COMTelph_Cranking%20an%20old%20style%20telephone%3B%20crank%20%26_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_COMMUNICATIONS/COMTelph_Old%20fashioned%20wall%20phone%20crank%20and%20ring_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-communications",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: TELEPHONE (pay-phone coin return, crank, ring), radio static/interference, teletype. 9 files, 4.5 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 9}."
-  },
-  {
-   "id": "ia_sse-library-creatures",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Creatures (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_CREATURES",
-   "download": [
-    "https://archive.org/download/SSE_Library_CREATURES/CREAAvian_Creature%20scream%20%28parrot_%29_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_CREATURES/CREABeast_Mythical%20beast%20groans%20and%20screams%3B%20lower_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_CREATURES/CREABeast_Mythical%20beast%20groans%20and%20screams_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_CREATURES/CREABeast_Young%20Mythical%20beast%20groans%20and%20screams_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_CREATURES/CREADino_Large%20alligator%20growls%3B%20dinosaur%20or%20monster_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_CREATURES/CREADino_Large%20alligator%20hiss%3B%20twice_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_CREATURES/CREADino_Prehistoric%20alligator%20growl%20in%20distance%3B_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_CREATURES/CREADrgn_Dragon%20spits%20flame_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_CREATURES/CREADrgn_Two%20dragons%20scream_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_CREATURES/CREAHmn-WEREWOLF_Werewolf%20growls%3B%20grunts_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_CREATURES/CREAHmn_Mutant%20whispering%3B%20deep%20%26%20growling_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_CREATURES/CREAInsc_Synthesized%20space%20mosquitos_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_CREATURES/CREAMnstr_Big%20Baby%20monster%20calls%3B%20closer_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_CREATURES/CREAMnstr_Big%20baby%20monster%20calling%20out%3B%20dull%3B%20distant_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_CREATURES/CREAMnstr_Elephant%20grunt%20and%20squeal%20slowed%20down%20to_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_CREATURES/CREAMnstr_Giant%20monsters%20of%20dinosaurs%20fighting%3B%20indistinct%3B_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_CREATURES/CREAMnstr_Half%20grown%20monster%20screaming_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_CREATURES/CREAMnstr_Monster%20breathing%20and%20heartbeat%3B%20mystery_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-creatures",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: creature growls/roars/screams (non-verbal). 18 files, 6.1 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 18}."
-  },
-  {
-   "id": "ia_sse-library-designed",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Designed (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_DESIGNED",
-   "download": [
-    "https://archive.org/download/SSE_Library_DESIGNED/DSGNRmbl_Background%20ominous%20rumble%3B%20loopable_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_DESIGNED/DSGNRmbl_Low%20and%20ominous%20sound%3B%20gathering%20storm%3B%20Paramount_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-designed",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: rumble beds and synthetic tones. 2 files, 0.5 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 2}."
-  },
-  {
-   "id": "ia_sse-library-destruction",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Destruction (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_DESTRUCTION",
-   "download": [
-    "https://archive.org/download/SSE_Library_DESTRUCTION/DESTRClpse_Mine%20tunnel%20collapsing%3B%20wooden%20beams_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_DESTRUCTION/DESTRClpse_Wall%20falls%20down%20from%20fire%20damage_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_DESTRUCTION/DESTRCrsh_Big%20auto%20car%20crash%20with%20glass_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_DESTRUCTION/DESTRCrsh_Car%20dirt%20skid%3B%20hits%20metal%20rail%3B%20glass_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_DESTRUCTION/DESTRCrsh_Car%20hits%20lumber%20pile_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_DESTRUCTION/DESTRCrsh_Car%20hits%20two%20phone%20booths%3B%20metal%20%26%20glass_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_DESTRUCTION/DESTRCrsh_Car%20in%3B%20breaks%3B%20hits%20trash%20can_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_DESTRUCTION/DESTRCrsh_Crash%20inside%20building_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_DESTRUCTION/DESTRCrsh_Old%20rattling%20car%20crashes%20through%20wooden%20fence_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_DESTRUCTION/DESTRCrsh_Various%20side%20swipes%20and%20metallic%20crashes%3B_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-destruction",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: collapse, crate/wood/glass/metal crashes, debris. 10 files, 2.5 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 7, 'flac': 3}."
-  },
-  {
-   "id": "ia_sse-library-doors",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Doors (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_DOORS",
-   "download": [
-    "https://archive.org/download/SSE_Library_DOORS/DOORElec_Electric%20garage%20door%20motor%20open%20%26%20close_CHS_USC.mp3",
-    "https://archive.org/download/SSE_Library_DOORS/DOORHdwr_Short%20door%20latch_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_DOORS/DOORMetl_Elevator%20doors%20or%20large%20metal%20cabinet%3B%20latches_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_DOORS/DOORPrisn_Shaking%20prison%20cell%20door%3B%20or%20other%20metal_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_DOORS/DOORSlid_Sliding%20wooden%20door%3B%20open%20close%20%26%20lock_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_DOORS/DOORSlid_Sliding%20wooden%20door_CHS_USC.mp3",
-    "https://archive.org/download/SSE_Library_DOORS/DOORWood_Old%20shack%20screen%20door%3B%20opens%20%26%20closes%20with_CHS_USC.mp3",
-    "https://archive.org/download/SSE_Library_DOORS/DOORWood_Wooden%20door%20opens%20and%20closes_CS_USC.flac"
-   ],
-   "dir": "ia_sse-library-doors",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: doors/latches/shutters/gates. 8 files, 2.3 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 6, 'flac': 2}."
-  },
-  {
-   "id": "ia_sse-library-electricity",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Electricity (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_ELECTRICITY",
-   "download": [
-    "https://archive.org/download/SSE_Library_ELECTRICITY/ELECArc_Electrical%20arcing%20and%20sparking_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_ELECTRICITY/ELECArc_Electrical%20arcs%3B%20arcing%20metal%20vibration%20squeals_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_ELECTRICITY/ELECArc_Electrical%20arcs%3B%20arcing%3B%20metallic%20squeals_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_ELECTRICITY/ELECBuzz_Electronic%20noise%20modulation%3B%20space%20gun%20sweetener_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_ELECTRICITY/ELECBuzz_Tesla%20coil%20hum_CHS_USC.mp3",
-    "https://archive.org/download/SSE_Library_ELECTRICITY/ELECSprk_Huge%20hissing%20electric%20sparks%20nearby_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_ELECTRICITY/ELECSprk_Loud%20electrical%20effect%3B%20sparks%20and%20hum_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_ELECTRICITY/ELECSprk_Tesla%20coil%20sparking%20and%20humming_CHS_USC.mp3",
-    "https://archive.org/download/SSE_Library_ELECTRICITY/ELECZap_Machine%20made%20electrical%20lightning%20explosions_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-electricity",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: arcs, sparks, Tesla hum, zaps (EMP/overload/spark). 9 files, 5.7 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 9}."
-  },
-  {
-   "id": "ia_sse-library-explosions",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Explosions (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_EXPLOSIONS",
-   "download": [
-    "https://archive.org/download/SSE_Library_EXPLOSIONS/EXPLDsgn_Bomb%20whine%20and%20explosion_CHS_USC.mp3",
-    "https://archive.org/download/SSE_Library_EXPLOSIONS/EXPLMisc_Black%20powder%20explosion%3B%20slow%3B%203%20versions_CHS_USC.mp3",
-    "https://archive.org/download/SSE_Library_EXPLOSIONS/EXPLReal_2%20small%20muffled%20explosions_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_EXPLOSIONS/EXPLReal_Depth%20charge%20with%20water%20sounds_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_EXPLOSIONS/EXPLReal_Dynamite%20explosion_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_EXPLOSIONS/EXPLReal_Explosion%20with%20falling%20debris_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_EXPLOSIONS/EXPLReal_Explosion%3B%20bomb%20or%20shell_CHS_USC.mp3",
-    "https://archive.org/download/SSE_Library_EXPLOSIONS/EXPLReal_Explosion%3B%20good_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_EXPLOSIONS/EXPLReal_Hand%20grenade%3B%203%20explosions_CHS_USC.flac",
-    "https://archive.org/download/SSE_Library_EXPLOSIONS/EXPLReal_Heavy%20explosion%20with%20reverberation_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_EXPLOSIONS/EXPLReal_Heavy%20explosions%3B%202%20takes_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_EXPLOSIONS/EXPLReal_Heavy%20sharp%20explosion%20with%20reverb_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_EXPLOSIONS/EXPLReal_Land%20explosion_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_EXPLOSIONS/EXPLReal_Large%20explosion%20with%20debris_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_EXPLOSIONS/EXPLReal_Medium%20distant%20explosions%3B%20cluster_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_EXPLOSIONS/EXPLReal_Napalm%20bomb%20burning%20after%20hitting%20tank%3B%20flames_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_EXPLOSIONS/EXPLReal_Single%20explosion%3B%20medium%3B%20with%20reverb_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_EXPLOSIONS/EXPLReal_Single%20heavy%20explosions%201_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_EXPLOSIONS/EXPLReal_Single%20heavy%20explosions%202_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_EXPLOSIONS/EXPLReal_Underwater%20explosions%3B%203%20takes_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-explosions",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: small/large/distant/muffled explosions, grenade, debris. 20 files, 3.3 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 15, 'flac': 5}."
-  },
-  {
-   "id": "ia_sse-library-fight",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Fight (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_FIGHT",
-   "download": [
-    "https://archive.org/download/SSE_Library_FIGHT/FGHTBf_Body%20falls%20on%20dirt%3B%20grunts_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_FIGHT/FGHTBf_Body%20hit%20and%20crash_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_FIGHT/FGHTBf_Fight%20and%20body%20falls%20on%20stone_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_FIGHT/FGHTBf_Human%20falling%20down%20stairs%20twice_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_FIGHT/FGHTBf_Two%20body%20falls%20on%20wood_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_FIGHT/FGHTImpt-PIPE_Thumps%20on%20the%20head%20with%20steel%20pipe_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_FIGHT/FGHTImpt_Body%20hits%3B%20boxing%20punches%3B%20very%20noisy_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_FIGHT/FGHTImpt_Fist%20crack%3B%20face%20punch_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_FIGHT/FGHTImpt_Punch%20%26%20body%20fall%3B%20short_CS_USC.flac"
-   ],
-   "dir": "ia_sse-library-fight",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: punches, body falls, pipe hits. 9 files, 2.0 min, 48 kHz, all decode OK (ffprobe). Formats {'flac': 3, 'mp3': 6}."
-  },
-  {
-   "id": "ia_sse-library-fire",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Fire (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_FIRE",
-   "download": [
-    "https://archive.org/download/SSE_Library_FIRE/FIREBrst_Flame%20thrower_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_FIRE/FIREBurn_Fire%20burning%20in%20cornfield_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_FIRE/FIREBurn_Fire%20burning%20with%20rumble%3B%20without%20crackle_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_FIRE/FIREBurn_Heavy%20fire%20crackle_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_FIRE/FIREGas_Igniting%20gas%20jets%3B%20trike%20and%20gas%20flame_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_FIRE/FIRESizz-FUSE_Fuse%20burning_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_FIRE/FIRESizz_Dynamic%20fuse%20burning_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_FIRE/FIRESizz_Fire%20bomb%3B%20lights%20and%20hisses%3B%20fuse_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_FIRE/FIRESizz_Fuse%20burning_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_FIRE/FIRETrch_Acetylene%20torch%3B%20multiple%20pops_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_FIRE/FIREWhsh_Flare%20whoosh_CS_USC.flac"
-   ],
-   "dir": "ia_sse-library-fire",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: flamethrower, fire loops, gas ignition, fuse, flare. 11 files, 4.5 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 10, 'flac': 1}."
-  },
-  {
-   "id": "ia_sse-library-glass",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Glass (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_GLASS",
-   "download": [
-    "https://archive.org/download/SSE_Library_GLASS/GLASCrsh_Large%20pane%20of%20glass%20breaks%3B%20dull%3B%20sweetener_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GLASS/GLASCrsh_Small%20glass%20breaks_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-glass",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: glass break. 2 files, 0.4 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 2}."
-  },
-  {
-   "id": "ia_sse-library-guns",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Guns (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_GUNS",
-   "download": [
-    "https://archive.org/download/SSE_Library_GUNS/GUNAntq_Flintlock%20fire_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNAntq_Flintlock%20rifle%20fire_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNAntq_Gatling%20gun_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNAntq_Musket%20shots_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNArtl_Bazooka%20shooting_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNArtl_Bazooka%20shot_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNArtl_Large%20shells%20flies%20overhead_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNArtl_Mortar%20Fire%3B%20long%20reverb_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNArtl_PT%20boat%20fires_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNArtl_squad%20firing%2037mm%20anti%20tank%20guns_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNAuto_50%20cal%20machine%20gun%20with%20ricochets_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNAuto_Bren%20machine%20gun%20with%20canyon%20echo_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNAuto_Light%20machine%20gun%20from%20optical_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNAuto_M16%20automatic%20rifle%20shots_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNAuto_Machine%20gun%20bursts%20with%20echo_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNAuto_Machine%20gun%20bursts%3B%20indoors_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNAuto_Machine%20gun%20fires%20with%20ricochets_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNAuto_Machine%20gun%20ricochets_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNAuto_Tommy%20gun%20busts%3B%20machine%20gun_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNAuto_Various%20groups%20of%20machine%20guns%3B%20medium%20distance_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNCano_6%20inch%20navel%20cannon%20fired%20up%20close_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNCano_8%20inch%20navel%20cannon%20fired%20with%20shell%20whines_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNCano_8%3F%20gun%3B%20cannon_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNCano_Big%20cannon%20with%20reverb_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNCano_Cannon%20fire%20with%20commands_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNCano_Cannon%20fire%3B%20shells%20fall%20nearby_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNCano_Cannon%20shot_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNCano_Distant%20cannon%20fire_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNMech_38%20colt%3B%20pistol%20pulling%20back%20hammer%3B%20open_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNMech_Cock%20and%20fire%20empty%20rifle%3B%20many%20takes_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNMech_Cocking%20a%20rifle%3B%20indoors_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNMech_Cocking%20bolt%20action%20rifle%3B%20indoors_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNMech_Loading%20a%20clip%20into%20a%20rifle_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNMech_Loading%20shotgun%3B%20indoors_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNMech_Pistol%20revolvers%20spins%20and%20fires%20without_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNMech_Slide%20breech%20pistol%3B%20indoors_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNMech_Spinning%20the%20cylinder%20for%20Russian%20Roulette_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNMech_Winchester%20rifle%20cocking%20lever%3B%20cocking_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNMisc-FLARE_Flare%20gun%20fires_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNMisc-FLARE_Flares%20gun%20fires%3B%20shells%20fall%20to%20floor_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNPis_Big%20optical%20gun%20shot%3B%20close_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNPis_Classic%20large%20gun%20optical%20gun%20shots%3B%20dull_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNPis_Derringer%2022%20pistol%20shots_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNPis_Exterior%20pistol%20shots%20with%20long%20reverb_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNPis_Exterior%20pistol%20shots%20with%20no%20reverb_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNPis_Exterior%20pistol%20shots_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNPis_Optical%20gun%20shot_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNPis_big%20revolver%20shots_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNRif_30%2030%20rifle%20shots_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNRif_Big%20optical%20gun%20shots%20with%20ricochets_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNRif_Browning%20automatic%20rifle%20at%20the%20receiving_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNRif_Distant%20rifle%20shot%20with%20long%20reverb_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNRif_Elephant%20gun%20being%20shot%20by%20British%20soldiers_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNRif_Mountain%20rifle%20with%20reverb_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNRif_Optical%20rifle%20shot%20with%20long%20reverb_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNRif_Rifle%20fire%20at%20the%20receiving%20end_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNRif_Rifle%20shot%20at%20some%20distance_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNRif_Rifle%20shots%20with%20reverb_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNRif_Rifle%20shots%3B%20hollow%20reverb_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNRif_Very%20sharp%20small%20rifle%20fire_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNShotg_Classic%20western%20shotgun%20blast%20with%20reverb_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNShotg_Rifle%20being%20fired%20%26%20cocked_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_GUNS/GUNSupr_Pistol%20shots%20with%20silencer_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_GUNS/GUNSupr_Pistol%20shots%3B%20ping%3B%20silencer__CS_USC.flac"
-   ],
-   "dir": "ia_sse-library-guns",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: gun handling (cocking/bolt/slide/clip & shotgun loading/revolver spin), pistol/rifle/MG/cannon/bazooka/suppressed shots, ricochets. 64 files, 12.5 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 41, 'flac': 23}."
-  },
-  {
-   "id": "ia_sse-library-human",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Human (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_HUMAN",
-   "download": [
-    "https://archive.org/download/SSE_Library_HUMAN/HMNHart_Human%20heartbeat%3B%20fast_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_HUMAN/HMNHart_Human%20heartbeat_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-human",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: heartbeat loops (low-HP). 2 files, 1.2 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 2}."
-  },
-  {
-   "id": "ia_sse-library-machines",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Machines (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_MACHINES",
-   "download": [
-    "https://archive.org/download/SSE_Library_MACHINES/MACHAmus_Electric%20pinball%20robot%20reaction%3B%20comic_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_MACHINES/MACHCnst_Power%20riveting%20on%20steel%20building_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_MACHINES/MACHElev_Elevator%20door%20open%20%26%20close_CHS_USC.flac",
-    "https://archive.org/download/SSE_Library_MACHINES/MACHEscl_Escalator%20with%20odd%20high%20frequency%20element_CHS_USC.mp3",
-    "https://archive.org/download/SSE_Library_MACHINES/MACHHvac_Loud%20exhaust%20fan%20in%20large%20interior%20space_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_MACHINES/MACHInd_Generator%20building_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_MACHINES/MACHInd_Metallic%20pounding%20in%20factory_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_MACHINES/MACHInd_Old%20printing%20press%3B%20no%20motor%20noise_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_MACHINES/MACHMech_Steam%20valves%20hissing%20in%20a%20broken%20calliope%3B_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_MACHINES/MACHMed_EKG%20heart%20rate%20of%2044%20BPM_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_MACHINES/MACHMed_EKG%20heart%20rate%20of%2090%20BPM_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_MACHINES/MACHMed_Iron%20lung%20runs%20steady_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_MACHINES/MACHMed_Operating%20room%20ventilation%20machine%3B%20Good_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_MACHINES/MACHMed_Respirator%3B%20loopable_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-machines",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: HVAC fan, factory/generator interiors, elevator/escalator, riveting, steam valves, respirator/EKG machine beds. 14 files, 6.6 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 13, 'flac': 1}."
-  },
-  {
-   "id": "ia_sse-library-mechanical",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Mechanical (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_MECHANICAL",
-   "download": [
-    "https://archive.org/download/SSE_Library_MECHANICAL/MECHClik_Metal%20clicks%3B%20several%20takes_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_MECHANICAL/MECHLock_Lock%20opens%3B%20could%20be%20door%3B%20gun%20or%20other%20small_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_MECHANICAL/MECHSwtch_Footsteps%3B%20turning%20off%20several%20light%20switches_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-mechanical",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: metal clicks, lock, switch. 3 files, 1.2 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 3}."
-  },
-  {
-   "id": "ia_sse-library-metal",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Metal (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_METAL",
-   "download": [
-    "https://archive.org/download/SSE_Library_METAL/METLCrsh_Heavy%20metal%20objets%20crashing%20on%20stone%20floor%3B_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_METAL/METLCrsh_Large%20hard%20metal%20crash%3B%20optical_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_METAL/METLFric_Sliding%20metal%20scrapes_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_METAL/METLImpt_Blacksmith%20hitting%20anvil%20with%20hammer%3B%20two_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_METAL/METLImpt_Metal%20hits%20against%20metal%3B%20foley_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_METAL/METLImpt_Misc%20metal%20hitting%20metal%3B%20good%20tone%3B%20bad_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_METAL/METLImpt_Shooting%20gallery%20or%20anvil_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_METAL/METLMvmt_Moving%20large%20metal%20objects%20around%20in%20building%3B_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-metal",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: metal impacts, scrapes, girder creaks, anvil. 8 files, 2.8 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 7, 'flac': 1}."
-  },
-  {
-   "id": "ia_sse-library-motors",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Motors (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_MOTORS",
-   "download": [
-    "https://archive.org/download/SSE_Library_MOTORS/MOTRSrvo_Spaceship%20servo%20motors%20from%202010_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_MOTORS/MOTRTurb_Engine%20room%3B%20high%20whine%20from%20turbines_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-motors",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: servo motor, turbine whine, generator start. 2 files, 0.9 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 2}."
-  },
-  {
-   "id": "ia_sse-library-rain",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Rain (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_RAIN",
-   "download": [
-    "https://archive.org/download/SSE_Library_RAIN/RAINInt_Rain%20on%20a%20flat%20roof_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_RAIN/RAINWood_Rain%20on%20kitchen%20roof_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-rain",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: rain loops. 2 files, 0.6 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 2}."
-  },
-  {
-   "id": "ia_sse-library-scifi",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Scifi (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_SCIFI",
-   "download": [
-    "https://archive.org/download/SSE_Library_SCIFI/SCIAlrm_Crazy%20scifi%20alarm_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIAlrm_Original%20Star%20Trek%20Enterprise%20alarm%20horn_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIDoor_Original%20Star%20Trek%20door%20swish_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIEnrg_Magical%20force%20field_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIEnrg_Magneto%20with%20speed%20manipulations_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIEnrg_Spacey%20musical%20background%20with%20metal%20taps_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIMach_Sci%20Fi%20materializer%3B%20Star%20Trek%20transporter_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIMech_Original%20Star%20Trek%20Enterprise%20Tricorder_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIRetro_Classic%20ethereal%20spaceship%20lands_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIRetro_Classic%20sci%20fi%20time%20machine%3B%20oscillator_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIRetro_Classic%20spaceship%20time%20machine%20in_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIRetro_Electronic%20music%20scifi%20computer%20of%20the_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIRetro_Laser%20zaps%20from%20War%20of%20the%20Worlds_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIRetro_Old%20fashioned%20space%20rocket%20crashes%20with%20debris_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIShip_Alien%20hum%20or%20space%20ship%20interior_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIShip_Angry%20buzz%20or%20spaceship%20interior_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIShip_Flying%20saucer%20flight%20tone%3B%20scifi%20machine%3B_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIShip_Space%20ship%20with%20beeps%3B%20loopable_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIVeh_Futuristic%20electric%20pod%20being%20sent%20on%20factory_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIWeap_1950s%20ray%20gun_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIWeap_Laser%20zaps_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_SCIFI/SCIWeap_Phaser%20blast_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-scifi",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: sci-fi alarm, computer overload, force field, scanner, ray gun/phaser/laser zaps, door swish, spaceship hums. 22 files, 6.2 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 17, 'flac': 5}."
-  },
-  {
-   "id": "ia_sse-library-swooshes",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Swooshes (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_SWOOSHES",
-   "download": [
-    "https://archive.org/download/SSE_Library_SWOOSHES/SWSH_Processed%20swishes_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_SWOOSHES/WHSH-FIREWORKS_Fireworks%20launching%20swooshes_CS_USC.flac"
-   ],
-   "dir": "ia_sse-library-swooshes",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: whooshes/swishes. 2 files, 0.5 min, 48 kHz, all decode OK (ffprobe). Formats {'flac': 1, 'mp3': 1}."
-  },
-  {
-   "id": "ia_sse-library-tools",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Tools (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_TOOLS",
-   "download": [
-    "https://archive.org/download/SSE_Library_TOOLS/TOOLHand_Chiseling%3B%20Striking%20chisel%20with%20wooden%20hammer_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_TOOLS/TOOLHand_Gavel%20pounding%20short%20%26%20long_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_TOOLS/TOOLPneu_Pneumatic%20jack%20hammer%3B%20not%20much%20detail_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_TOOLS/TOOLPneu_Riveting%20gun_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_TOOLS/TOOLPowr_Large%20industrial%20buzz%20saw%20cutting%20wood_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-tools",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: riveting gun, drills, saws, hammer. 5 files, 2.1 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 5}."
-  },
-  {
-   "id": "ia_sse-library-weapons",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Weapons (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_WEAPONS",
-   "download": [
-    "https://archive.org/download/SSE_Library_WEAPONS/WEAPArmr_metal%20armor%20helmet%20open%20%26%20close%3B%20hinges%20and_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_WEAPONS/WEAPArro_Arrow%20being%20pulled%20out%20of%20wood_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_WEAPONS/WEAPArro_Hard%20arrow%20thuds%20into%20soft%20wood_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_WEAPONS/WEAPArro_Shooting%20arrows%20from%20bow%3B%20indoors_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_WEAPONS/WEAPSiege_Battering%20ram%20an%20large%20heavy%20door_CS_USC.wav",
-    "https://archive.org/download/SSE_Library_WEAPONS/WEAPSwrd_Machete%20hits%20door%20and%20vibrates_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_WEAPONS/WEAPSwrd_Sword%20fight_CS_USC.flac",
-    "https://archive.org/download/SSE_Library_WEAPONS/WEAPWhip_Whip%20swishes%3B%20Columbia%20Pictures_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_WEAPONS/WEAPWhip_Whip%20swishes%3B%20several_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-weapons",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: sword/whip/armor/bow/crossbow melee and weapon foley. 9 files, 3.0 min, 48 kHz, all decode OK (ffprobe). Formats {'flac': 2, 'mp3': 6, 'wav': 1}."
-  },
-  {
-   "id": "ia_sse-library-weather",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Weather (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_WEATHER",
-   "download": [
-    "https://archive.org/download/SSE_Library_WEATHER/THUN_Thunder%20claps%20with%20long%20ring%20out%3B%20variation_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_WEATHER/THUN_Thunder%20claps%3B%20Universal%3Fs%20%3FCastle%20Thunder%3F_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_WEATHER/THUN_Thunder%20claps%3B%20variation%20edit%20of%20Universal%3Fs_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_WEATHER/THUN_Thunder%3B%20long%20distant%20rolling%20sound_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-weather",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: thunder. 4 files, 1.3 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 4}."
-  },
-  {
-   "id": "ia_sse-library-wind",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Wind (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_WIND",
-   "download": [
-    "https://archive.org/download/SSE_Library_WIND/WINDDsgn_Blizzard%20wind%20cold%3B%20canvas%20wind%20machine_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_WIND/WINDDsgn_Eerie%20wind%20with%20mysterious%20machine_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_WIND/WINDDsgn_Ghost%20town%20wind%3B%20hinges%20squeak_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_WIND/WINDDsgn_Stormy%20wind%20made%20from%20overlapping%20sped%20up_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_WIND/WINDTonl_Eerie%20wind%3B%20strong%20whistling%3B%20very%20tonal_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_WIND/WIND_Cold%20Arctic%20wind_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_WIND/WIND_Phoenix%20wind_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_WIND/WIND_Whistling%20wind%3B%20good%20rumble_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-wind",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: wind loops/gusts. 8 files, 4.3 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 8}."
-  },
-  {
-   "id": "ia_sse-library-wood",
-   "kind": "sfx",
-   "title": "USC Sunset Editorial (SSE) Library: Wood (selected)",
-   "author": "Craig Smith (USC School of Cinematic Arts / CalArts), collection donated to USC; hosted by Internet Archive",
-   "license": "CC0-1.0",
-   "page": "https://archive.org/details/SSE_Library_WOOD",
-   "download": [
-    "https://archive.org/download/SSE_Library_WOOD/WOODCrsh_Falling%20wooden%20beam%3B%20big%20interior%20crash%3B_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_WOOD/WOODHandl_Setting%20axe%20down%20on%20floor%3B%20leans%20on%20wall%3B_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_WOOD/WOODImpt_Battering%20ram%20hits%20castle%20door%3B%20big%20wooden_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_WOOD/WOODImpt_Cutting%20or%20chopping%20with%20large%20knife%20or%20machete_CS_USC.mp3",
-    "https://archive.org/download/SSE_Library_WOOD/WOODImpt_Wooden%20barrel%20drop%3B%20several_CS_USC.mp3"
-   ],
-   "dir": "ia_sse-library-wood",
-   "notes": "License asserted as CC0 1.0 in the Internet Archive item metadata (licenseurl creativecommons.org/publicdomain/zero/1.0/), uploaded by Internet Archive staff (jscott@archive.org) from the USC Cinema sound-effect archive digitised/restored by Craig Smith (also released via the Freesound blog). Vintage 1930s-80s recordings: expect tape noise; compilation files contain several takes - slice with silence detection. Only selected files downloaded (flac for clips of 4 s or less, mp3 otherwise). Use: wood impacts/barrels/beams. 5 files, 2.8 min, 48 kHz, all decode OK (ffprobe). Formats {'mp3': 5}."
   },
   {
    "id": "kenney_casino-audio",

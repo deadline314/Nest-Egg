@@ -179,6 +179,26 @@ func _test_lab() -> void:
 	check(is_equal_approx(float(Music.cue_def(&"calm_rooftop")["volume_db"]), cue_volume + 2.0), "the cue volume slider takes effect immediately")
 	check((music.save_cue(true)["diff"] as PackedStringArray).size() == 1, "the cue preview lists one difference")
 	Music._cues["calm_rooftop"]["volume_db"] = cue_volume
+
+	# 備選曲目：選中 cue 後列出它那首曲子的備選；沒有預聽檔的不列出（不論本機有沒有預聽檔都要成立）。
+	music.select_cue("calm_rooftop")
+	var music_slot := music.slot_for_cue("calm_rooftop")
+	check(str(music_slot.get("id", "")) == "P-BGM-004", "a cue finds the slot of its track")
+	check(music.candidate_ids("calm_rooftop").size() >= 10, "a music cue has at least ten candidate tracks")
+	check(music._candidate_list.item_count <= music.candidate_ids("calm_rooftop").size(), "the candidate list never shows more than the slot has")
+	if music._candidate_list.item_count < music.candidate_ids("calm_rooftop").size():
+		check(music._candidate_note.text.contains("build_candidates"), "hidden candidates are explained with how to build the previews")
+	check(not music.audition_candidate() and not music.pick_candidate(), "auditioning or picking with nothing selected is refused without failing")
+	var first_candidate := music.candidate_ids("calm_rooftop")[0]
+	music._candidate_list.add_item("test_audio_candidate")
+	music._candidate_list.set_item_metadata(music._candidate_list.item_count - 1, first_candidate)
+	music._candidate_list.select(music._candidate_list.item_count - 1)
+	check(music.pick_candidate() and lab.doc.planned("P-BGM-004") == PackedStringArray([first_candidate]), "picking a candidate writes the planned track to the placement document")
+	lab.audition.stop()
+	music._cue_list.deselect_all()
+	music._fill_candidates()
+	check(music._candidate_list.item_count == 0 and music._candidate_note.text.contains("沒有位置登記"), "a cue without a slot shows an explanation instead of candidates")
+
 	music.play_ambience()
 	music.show_now_playing()
 	check(music._info.text.contains("calm_rooftop"), "the now-playing line names the cue")

@@ -566,9 +566,11 @@ func _test_placement_doc() -> void:
 	DirAccess.copy_absolute(ProjectSettings.globalize_path(PlacementDoc.PATH), ProjectSettings.globalize_path(copy_path))
 	var doc := PlacementDoc.new()
 	check(doc.load_doc(copy_path), "a copy of the list loads")
-	var before := FileAccess.get_file_as_string(copy_path).split("\n")
 	var first_slot := str(slot_ids[0])
-	check(doc.planned(first_slot).is_empty() and not doc.is_manual(first_slot), "a fresh row has no plan and is not marked manual")
+	# 真正的文件裡可能已經有人在實驗室挑過（預計使用、手動放入）；先在複本上清空這一列，測試才不依賴文件的內容。
+	check(doc.set_planned(first_slot, PackedStringArray()) and doc.set_manual(first_slot, false), "a row's plan can be cleared")
+	var before := FileAccess.get_file_as_string(copy_path).split("\n")
+	check(doc.planned(first_slot).is_empty() and not doc.is_manual(first_slot), "a cleared row has no plan and is not marked manual")
 	check(doc.set_planned(first_slot, PackedStringArray(["GUN-0001", "GUN-0002"])), "writing a plan succeeds")
 	check(doc.planned(first_slot) == PackedStringArray(["GUN-0001", "GUN-0002"]), "the plan reads back")
 	check(doc.set_manual(first_slot, true) and doc.is_manual(first_slot), "marking a row as placed by hand works")

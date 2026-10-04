@@ -9,6 +9,7 @@
 import argparse
 import json
 import re
+import shutil
 import subprocess
 import sys
 from concurrent.futures import ThreadPoolExecutor
@@ -134,14 +135,19 @@ def main() -> int:
     parser.add_argument("--music-report", type=Path, help="音樂調查報告（合併進 hints.json）")
     parser.add_argument("--stats", action="store_true")
     args = parser.parse_args()
+    if shutil.which("ffprobe") is None:
+        print("找不到 ffprobe：量時長需要 ffmpeg（Windows：scoop install ffmpeg），裝好後重開終端機再跑。", file=sys.stderr)
+        return 1
     if args.sfx_report or args.music_report:
         import_reports(args.sfx_report, args.music_report)
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))["packs"]
     existing = json.loads(CATALOG.read_text(encoding="utf-8")) if CATALOG.exists() else {"assets": {}}
-    assets: dict = existing["assets"]
+    live_packs = {pack["id"] for pack in manifest}
+    assets: dict = {aid: a for aid, a in existing["assets"].items() if a["pack"] in live_packs}
+    dropped = len(existing["assets"]) - len(assets)
     known = {(a["pack"], a["file"]): aid for aid, a in assets.items()}
     counters = {}
-    for aid in assets:
+    for aid in existing["assets"]:  # 剔除的編號也不重用
         category, number = aid.split("-")
         counters[category] = max(counters.get(category, 0), int(number))
     pending = []
@@ -172,7 +178,7 @@ def main() -> int:
             a["desc"] = text
     ordered = dict(sorted(assets.items()))
     CATALOG.write_text(json.dumps({"_說明": "素材目錄：素材編號 → 素材包、檔案、時長（秒）。編號只增不改，由 tools/audio/build_catalog.py 維護；類別前綴見 design/16-audio/DESIGN.md 5.1。", "categories": CATEGORIES, "assets": ordered}, ensure_ascii=False, indent=0) + "\n", encoding="utf-8")
-    print(f"素材目錄：共 {len(ordered)} 筆，新增 {added} 筆")
+    print(f"素材目錄：共 {len(ordered)} 筆，新增 {added} 筆，剔除 {dropped} 筆（素材包已不在 manifest）")
     if args.stats or added:
         by = {}
         for aid in ordered:

@@ -124,6 +124,13 @@ func notify(text: String) -> void:
 		status_label.text = text
 
 
+## 清單裡一個素材的一行說明：編號、時長、素材包／檔名。
+func asset_line(asset_id: String) -> String:
+	var a := catalog.asset(asset_id)
+	var file := str(a.get("file", "")).get_file()
+	return "%s  %5.1fs  %s／%s" % [asset_id, float(a.get("dur", 0.0)), str(a.get("pack", "")).trim_prefix("oga_").trim_prefix("kenney_"), file]
+
+
 ## 試聽一個素材（預聽檔）；沒有預聽檔時提示怎麼產生。
 func audition_asset(asset_id: String) -> bool:
 	if audition.play_asset(asset_id):

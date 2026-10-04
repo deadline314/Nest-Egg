@@ -147,9 +147,10 @@ func _test_lab_with_stage() -> void:
 	check(not await slots.play_in_stage_with_candidate(), "trying a candidate with nothing selected is refused")
 	slots._candidate_list.select(0)
 	var with_preview := lab.catalog.has_preview(str(slots._candidate_list.get_item_metadata(0)))
+	var planned_before := lab.doc.planned("P-WPN-001")
 	var tried: bool = await slots.play_in_stage_with_candidate()
 	check(tried == with_preview, "trying a candidate needs its audition file; without one the lab says how to make it (%s)" % lab.status_label.text)
-	check(Sfx.preview_ids().is_empty() and lab.doc.planned("P-WPN-001").is_empty(), "trying a candidate on stage changes nothing permanent")
+	check(Sfx.preview_ids().is_empty() and lab.doc.planned("P-WPN-001") == planned_before, "trying a candidate on stage changes nothing permanent")
 	# 換彈時間軸編輯器
 	var editor := lab.dock.reload_editor
 	editor.data_path = COPY_PATH

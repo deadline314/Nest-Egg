@@ -7,6 +7,7 @@ manifest 的每一筆都記錄作者、網址與下載連結。多個素材包�
 已經下載過的資料夾會略過，所以中途斷線後重跑就會接著補。每個素材包先下載到暫存資料夾、完整解壓後才改名，不會留下殘缺的資料夾。
 憑證驗證一律開著。公司／學校網路或防毒軟體攔截 HTTPS 時，會出現「self-signed certificate in certificate chain」：
 先試 pip install truststore（自動改用作業系統的信任憑證庫），或用 --cafile 指定該網路的根憑證（也可設環境變數 SSL_CERT_FILE）。
+OpenGameArt 有不少素材包是 .7z，解壓需要 py7zr（pip install py7zr），沒裝時該包會失敗並指出原因。
 授權登記（assets_src/audio/LICENSES.json）由 build_audio.py 依實際用到的素材產生，不在這裡寫。
 """
 import argparse
@@ -71,6 +72,15 @@ def has_audio(folder: Path) -> bool:
     return folder.is_dir() and any(p.suffix.lower() in AUDIO_EXTENSIONS for p in folder.rglob("*"))
 
 
+def extract_7z(archive_path: Path, target: Path) -> None:
+    try:
+        import py7zr
+    except ImportError as error:
+        raise IOError(f"{archive_path.name} 是 .7z，需要先安裝解壓套件：pip install py7zr") from error
+    with py7zr.SevenZipFile(archive_path) as archive:
+        archive.extractall(target)
+
+
 def fetch_entry(entry: dict) -> None:
     """先在 <dir>.part 裡下載並解壓，確認有音訊檔才改名為正式資料夾。"""
     folder = RAW / entry["dir"]
@@ -85,6 +95,9 @@ def fetch_entry(entry: dict) -> None:
             if dest.suffix.lower() == ".zip":
                 with zipfile.ZipFile(dest) as archive:
                     archive.extractall(staging)
+                dest.unlink()
+            elif dest.suffix.lower() == ".7z":
+                extract_7z(dest, staging)
                 dest.unlink()
         if not has_audio(staging):
             raise IOError("下載完成但資料夾裡沒有音訊檔")
