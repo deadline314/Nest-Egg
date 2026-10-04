@@ -1,0 +1,146 @@
+"""建立素材目錄 assets_src/audio/catalog.json：每個已下載的 CC0 音訊檔一個永久編號（NE-163）。
+
+用法：python tools/audio/build_catalog.py [--import-reports SFX報告.json 音樂報告.json] [--stats]
+
+編號格式 `<類>-<四位數>`（類見 CATEGORIES），只增不改：已經有編號的檔案（以素材包＋相對路徑認）不會被重編，
+也不會因為分類規則改了而換編號；新找到的檔案接在該類目前最大號碼後面。同一個聲音有多種格式（wav、mp3、ogg）時只收一份。
+--import-reports 把調查報告裡的「建議用途」（音效類別、音樂用途與情緒）寫進 assets_src/audio/hints.json，之後挑備選時當排序依據。
+"""
+import argparse
+import json
+import re
+import subprocess
+import sys
+from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+AUDIO_SRC = ROOT / "assets_src" / "audio"
+RAW = ROOT / "assets_src" / "raw" / "audio"
+MANIFEST = AUDIO_SRC / "manifest.json"
+CATALOG = AUDIO_SRC / "catalog.json"
+HINTS = AUDIO_SRC / "hints.json"
+EXTENSIONS = {".ogg": 0, ".wav": 1, ".flac": 2, ".mp3": 3}
+
+CATEGORIES = {
+    "GUN": "槍聲", "RLD": "槍械操作", "IMP": "撞擊與命中", "EXP": "爆炸", "MLE": "近戰揮擊", "MOV": "移動與衣物",
+    "VOX": "人聲與生物", "ITM": "物品與拾取", "MEC": "機械與機關", "ELC": "電子與能量", "UIS": "介面", "AMB": "環境循環", "MUS": "音樂", "OTH": "其他",
+}
+
+# 依序比對「素材包 id／相對路徑」（小寫），第一個命中的類別為準。
+# 這些檔案是整句語音（比賽播報員等），專案不收語音。
+EXCLUDE = r"announcer|arenacombat"
+
+RULES: list[tuple[str, str]] = [
+    ("UIS", r"interface-sounds|ui-audio|ui-sound|/ui_|menu_|rollover|confirmation_|_ui\b|buttons-switches|button-sfx"),
+    ("RLD", r"reload|clipload|singlebullet|shotguncock|shotgun-reload|magazine|dryfire|equipment-click|lock-or-click|\brack\b|shell in chamber|gunreload"),
+    ("GUN", r"firearm|gunshot|gun-shot|gun_shot|cannon-fire|cannon_fire|bigshot|smallshot|silencer|shotgun|rifle|pistol|handgun|\bsmg\b|bullet|/gun|-gun|gun-|/shot|_shot"),
+    ("EXP", r"explo|bang|blast|boom|firework|detonat|cannon_hit|cannon-hit"),
+    ("MLE", r"swish|swosh|whoosh|sword|blade|slash|swing|clash|weapon-sw|machete|thwack|chop|knifeslice|drawknife|melee"),
+    ("MOV", r"footstep|metal_steps|\bsteps?\b|jump|landing|cloth|belt|leather|rustle|run(ning)?\b|scorchers-foley"),
+    ("ITM", r"coin|gem|item|book|paper|\bcup\b|_cup|dishes|bell|gong|key_open|\bpot\b|metalpot|toilet|plop|craft|hammer|plug-"),
+    ("VOX", r"pain|scream|grunt|dead|death|\bdie\b|voice|monster|growl|creature|creture|alien|breath|bite|chomp|\beat_|roar|bark|vocal|cough|hurt|moan|zombie|snore|ghoul|human|slime|\bbug|attack|stomp"),
+    ("AMB", r"ambien|ambience|amb[_-]|loop|rain|wind|thunder|drip|crackling|steam|generator|crowd|background|noise|hum\b|hiss|helicopter|traffic|rumbl|gas-leak|gas_leak|\bair\b|_air|fire|flame|ignition|flare"),
+    ("ELC", r"electric|spark|zap|laser|sci-?fi|power|charge|shield|force|thruster|phaser|computer|terminal|digital|beep|tone|alarm|siren|hover|space|robot|wobble|spell"),
+    ("IMP", r"impact|hit|punch|thud|crash|break|breaking|smash|slam|glass|wood|metal-dings|ding|clang|crack|crunch|slap|splash|fall|collision|meat"),
+    ("MEC", r"door|gate|winch|chain|motor|machine|mechanic|switch|lever|button|click|servo|lock|latch|clank|rattle|gear|pump|fan|typewriter|workshop|tool|drill|engine|squeak|creak|metal|spring|interaction"),
+]
+
+
+def classify(pack: str, relative: str, kind: str) -> str:
+    if kind == "music":
+        return "MUS"
+    text = f"{pack}/{relative}".lower()
+    for category, pattern in RULES:
+        if re.search(pattern, text):
+            return category
+    return "OTH"
+
+
+def probe_duration(path: Path) -> float:
+    try:
+        out = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "default=nw=1:nk=1", str(path)],
+                             capture_output=True, text=True, timeout=60).stdout.strip()
+        return round(float(out), 2)
+    except (ValueError, subprocess.SubprocessError):
+        return 0.0
+
+
+def list_audio(folder: Path) -> list[Path]:
+    """資料夾內所有音訊檔；同一個資料夾、同樣檔名（不含副檔名）的多種格式只留優先格式。"""
+    best: dict = {}
+    for path in sorted(folder.rglob("*")):
+        if not path.is_file() or path.suffix.lower() not in EXTENSIONS or "__MACOSX" in path.parts:
+            continue
+        key = (path.parent, path.stem.lower())
+        if key not in best or EXTENSIONS[path.suffix.lower()] < EXTENSIONS[best[key].suffix.lower()]:
+            best[key] = path
+    return sorted(best.values())
+
+
+def import_reports(sfx_path: Path, music_path: Path) -> None:
+    sfx = json.loads(sfx_path.read_text(encoding="utf-8"))
+    music = json.loads(music_path.read_text(encoding="utf-8"))
+    hints = {"sfx": {}, "music": {}}
+    for category, items in sfx.get("category_candidates", {}).items():
+        for item in items:
+            hints["sfx"].setdefault(f'{item["pack"]}/{item["file"]}', [])
+            if category not in hints["sfx"][f'{item["pack"]}/{item["file"]}']:
+                hints["sfx"][f'{item["pack"]}/{item["file"]}'].append(category)
+    for track in music.get("tracks", []):
+        local = Path(track["local_file"])
+        key = f'{local.parent.name}/{local.name}'
+        hints["music"][key] = {"best_for": track.get("best_for", []), "mood": track.get("mood", ""), "loopable": track.get("loopable", ""),
+                               "lufs": track.get("lufs"), "title": track.get("title", ""), "author": track.get("author", "")}
+    HINTS.write_text(json.dumps(hints, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    print(f"提示：{len(hints['sfx'])} 個音效檔、{len(hints['music'])} 首曲目 → {HINTS.relative_to(ROOT)}")
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--import-reports", nargs=2, metavar=("SFX", "MUSIC"))
+    parser.add_argument("--stats", action="store_true")
+    args = parser.parse_args()
+    if args.import_reports:
+        import_reports(Path(args.import_reports[0]), Path(args.import_reports[1]))
+    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))["packs"]
+    existing = json.loads(CATALOG.read_text(encoding="utf-8")) if CATALOG.exists() else {"assets": {}}
+    assets: dict = existing["assets"]
+    known = {(a["pack"], a["file"]): aid for aid, a in assets.items()}
+    counters = {}
+    for aid in assets:
+        category, number = aid.split("-")
+        counters[category] = max(counters.get(category, 0), int(number))
+    pending = []
+    for pack in manifest:
+        folder = RAW / pack["dir"]
+        if not folder.is_dir():
+            continue
+        for path in list_audio(folder):
+            relative = path.relative_to(folder).as_posix()
+            if re.search(EXCLUDE, f'{pack["id"]}/{relative}'.lower()):
+                continue
+            if (pack["id"], relative) not in known:
+                pending.append((pack, relative, path))
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        durations = list(pool.map(lambda item: probe_duration(item[2]), pending))
+    added = 0
+    for (pack, relative, _path), duration in zip(pending, durations):
+        category = classify(pack["id"], relative, pack["kind"])
+        counters[category] = counters.get(category, 0) + 1
+        aid = f"{category}-{counters[category]:04d}"
+        assets[aid] = {"pack": pack["id"], "file": relative, "dur": duration}
+        added += 1
+    ordered = dict(sorted(assets.items()))
+    CATALOG.write_text(json.dumps({"_說明": "素材目錄：素材編號 → 素材包、檔案、時長（秒）。編號只增不改，由 tools/audio/build_catalog.py 維護；類別前綴見 design/16-audio/DESIGN.md 5.1。", "categories": CATEGORIES, "assets": ordered}, ensure_ascii=False, indent=0) + "\n", encoding="utf-8")
+    print(f"素材目錄：共 {len(ordered)} 筆，新增 {added} 筆")
+    if args.stats or added:
+        by = {}
+        for aid in ordered:
+            by[aid.split("-")[0]] = by.get(aid.split("-")[0], 0) + 1
+        print("  ".join(f"{c}:{n}" for c, n in sorted(by.items())))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

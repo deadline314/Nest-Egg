@@ -30,6 +30,8 @@ func run() -> void:
 	_test_crossfade_player()
 	await _test_ambience()
 	_test_ambience_bus()
+	_test_numbering_and_catalog()
+	_test_placement_doc()
 	_test_source_counts()
 
 
@@ -503,6 +505,111 @@ func _test_ambience() -> void:
 		Ambience.layer_player(i)._process(10.0)
 	check(Ambience.playing_layers() == 0, "leaving a level fades the ambience out and stops it")
 	Ambience.stop_all(0.0)
+
+
+## 編號體系（NE-163）：素材與位置各自的編號格式、素材目錄與位置登記完整、每個遊戲內的聲音都有位置。
+func _test_numbering_and_catalog() -> void:
+	var catalog := AudioCatalog.new()
+	check(catalog.load_all(), "the asset catalog and slot registry load")
+	var errors := catalog.validate()
+	check(errors.is_empty(), "catalog and slot data have no errors: %s" % ", ".join(errors.slice(0, 5)))
+	var asset_re := RegEx.create_from_string(AudioCatalog.ASSET_ID_PATTERN)
+	var slot_re := RegEx.create_from_string(AudioCatalog.SLOT_ID_PATTERN)
+	var category_counts: Dictionary = {}
+	for id: String in catalog.assets.keys():
+		check(slot_re.search(id) == null, "asset id %s cannot be mistaken for a slot id" % id)
+		category_counts[id.split("-")[0]] = true
+	check(category_counts.size() >= 10, "assets are spread over several categories (%d)" % category_counts.size())
+	for slot: Dictionary in catalog.slots:
+		check(asset_re.search(str(slot["id"])) == null, "slot id %s cannot be mistaken for an asset id" % slot["id"])
+	var targets: Dictionary = {}
+	for slot: Dictionary in catalog.slots:
+		targets[str(slot["target"])] = slot
+		if slot["kind"] == "music":
+			check(not Music.track_def(StringName(str(slot["target"]))).is_empty(), "music slot %s names an existing track (%s)" % [slot["id"], slot["target"]])
+		else:
+			check(Sfx.has_sound(StringName(str(slot["target"]))), "sound slot %s names an existing sound (%s)" % [slot["id"], slot["target"]])
+	var fallback_only := ["empty", "reload_start", "reload_mid", "reload_done"]
+	for id in Sfx.sound_ids():
+		if not fallback_only.has(id) and Sfx.source_of(StringName(id)) == &"file":
+			check(targets.has(id), "every sound played from files has a slot: %s" % id)
+	for id in Music.track_ids():
+		check(targets.has(id), "every music track has a slot: %s" % id)
+	for slot: Dictionary in catalog.slots:
+		if slot["kind"] == "sfx" and Sfx.source_of(StringName(str(slot["target"]))) == &"file":
+			check(not (slot["current"] as Array).is_empty(), "slot %s lists the assets it currently uses" % slot["id"])
+	var found := catalog.search("gun-0031")
+	check(found.has("GUN-0031"), "searching by asset id finds it")
+	check(catalog.search("firearm", "GUN").all(func(id: String) -> bool: return id.begins_with("GUN-")), "searching can be limited to one category")
+	check(catalog.search("zzzz no such asset").is_empty(), "a search with no match returns nothing")
+	check(catalog.load_preview("GUN-9999") == null, "a missing preview returns null instead of failing")
+	if catalog.has_preview("GUN-0031"):
+		var preview := catalog.load_preview("GUN-0031")
+		check(preview != null and preview.get_length() > 0.1, "a preview file loads and has sound")
+
+
+func _test_placement_doc() -> void:
+	var catalog := AudioCatalog.new()
+	catalog.load_all()
+	var slot_ids: Array = catalog.slots.map(func(s: Dictionary) -> String: return str(s["id"]))
+	var shipped := PlacementDoc.new()
+	check(shipped.load_doc(), "the shipped placement list loads")
+	var errors := shipped.validate(catalog.assets, slot_ids)
+	check(errors.is_empty(), "the shipped placement list matches the registry: %s" % ", ".join(errors.slice(0, 5)))
+	check(shipped.slot_ids().size() == slot_ids.size(), "every slot has exactly one row (%d / %d)" % [shipped.slot_ids().size(), slot_ids.size()])
+	# 在複本上測試寫入，不動真正的文件。
+	var copy_path := "user://test_audio_placements.md"
+	DirAccess.copy_absolute(ProjectSettings.globalize_path(PlacementDoc.PATH), ProjectSettings.globalize_path(copy_path))
+	var doc := PlacementDoc.new()
+	check(doc.load_doc(copy_path), "a copy of the list loads")
+	var before := FileAccess.get_file_as_string(copy_path).split("\n")
+	var first_slot := str(slot_ids[0])
+	check(doc.planned(first_slot).is_empty() and not doc.is_manual(first_slot), "a fresh row has no plan and is not marked manual")
+	check(doc.set_planned(first_slot, PackedStringArray(["GUN-0001", "GUN-0002"])), "writing a plan succeeds")
+	check(doc.planned(first_slot) == PackedStringArray(["GUN-0001", "GUN-0002"]), "the plan reads back")
+	check(doc.set_manual(first_slot, true) and doc.is_manual(first_slot), "marking a row as placed by hand works")
+	var after := FileAccess.get_file_as_string(copy_path).split("\n")
+	var changed := 0
+	for i in before.size():
+		changed += 1 if before[i] != after[i] else 0
+	check(before.size() == after.size() and changed == 1, "only the edited row changes in the file (%d lines)" % changed)
+	var reread := PlacementDoc.new()
+	reread.load_doc(copy_path)
+	check(reread.planned(first_slot) == PackedStringArray(["GUN-0001", "GUN-0002"]) and reread.is_manual(first_slot), "a fresh load sees the written values")
+	check(reread.current(first_slot) == doc.current(first_slot), "the current-assets column is untouched")
+	check(not doc.set_planned("P-XXX-999", PackedStringArray(["GUN-0001"])), "an unknown slot cannot be written")
+	check(not doc.has_changed_on_disk(), "no change is reported right after our own write")
+	# 外部編輯：直接改檔案的另一列，實驗室應該偵測到、重載，而且我們的寫入不會蓋掉它。
+	var other_slot := str(slot_ids[1])
+	var text := FileAccess.get_file_as_string(copy_path)
+	var edited := PlacementDoc.new()
+	edited.load_doc(copy_path)
+	var row_text := "| %s |" % other_slot
+	var lines := text.split("\n")
+	for i in lines.size():
+		if lines[i].begins_with(row_text):
+			var cells := PlacementDoc._split(lines[i])
+			cells[PlacementDoc.COL_PLANNED] = "IMP-0005"
+			lines[i] = "| " + " | ".join(cells) + " |"
+	OS.delay_msec(1100)  # 修改時間的解析度是秒
+	var file := FileAccess.open(copy_path, FileAccess.WRITE)
+	file.store_string("\n".join(lines))
+	file.close()
+	check(doc.has_changed_on_disk(), "an edit made elsewhere is detected")
+	check(doc.set_planned(first_slot, PackedStringArray(["GUN-0003"])), "writing after an outside edit still works")
+	var merged := PlacementDoc.new()
+	merged.load_doc(copy_path)
+	check(merged.planned(other_slot) == PackedStringArray(["IMP-0005"]) and merged.planned(first_slot) == PackedStringArray(["GUN-0003"]), "an outside edit and our write are both kept")
+	# 看不出編號的文字要被檢查指出來。
+	doc.set_planned(first_slot, PackedStringArray())
+	var raw := PlacementDoc.new()
+	raw.load_doc(copy_path)
+	raw._lines[raw._rows[first_slot]] = raw._lines[raw._rows[first_slot]].replace("|  | [x]", "| 隨便一個 | [x]")
+	check("\n".join(raw.validate(catalog.assets, slot_ids)).contains("看不出素材編號"), "free text without an asset id is flagged")
+	raw._lines[raw._rows[first_slot]] = raw._lines[raw._rows[first_slot]].replace("| 隨便一個 |", "| GUN-9998 |")
+	check("\n".join(raw.validate(catalog.assets, slot_ids)).contains("不存在的素材"), "an asset id that is not in the catalog is flagged")
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(copy_path))
+	check(not PlacementDoc.new().load_doc("user://test_audio_no_such_placements.md"), "a missing list file does not crash")
 
 
 func _test_source_counts() -> void:
