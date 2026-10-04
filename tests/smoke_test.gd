@@ -1414,7 +1414,7 @@ func _test_lighting() -> void:
 	var height_probe := LightKit.create_point_light(Color.WHITE, 50.0, 1.0, false, false)
 	_check(is_equal_approx(height_probe.height, LightKit.LIGHT_HEIGHT), "scene lights are lifted off the plane so normal maps light up")
 	height_probe.free()
-	var plain := LitTextures.load_texture("res://icon.svg", Vector2i(16, 16))
+	var plain := LitTextures.load_texture("res://icon.png", Vector2i(16, 16))
 	_check(not (plain is CanvasTexture), "a texture without a normal map falls back to the plain texture")
 	var rim: PointLight2D = lighting._rim_light
 	_check(rim != null and is_zero_approx(rim.height) and rim.color.is_equal_approx(lighting.current.rim_color), "the rim light is a flat, zone-colored light")
