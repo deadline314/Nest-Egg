@@ -207,14 +207,14 @@
       "texture": "leg_upper",
       "bone": "leg_back_upper",
       "z": -5,
-      "tint": 0.62
+      "tint": 1.44
     },
     {
       "name": "leg_back_lower",
       "texture": "leg_lower",
       "bone": "leg_back_lower",
       "z": -5,
-      "tint": 0.62
+      "tint": 1.59
     },
     {
       "name": "foot_back",
@@ -254,13 +254,15 @@
       "name": "leg_front_upper",
       "texture": "leg_upper",
       "bone": "leg_front_upper",
-      "z": 3
+      "z": 3,
+      "tint": 1.8
     },
     {
       "name": "leg_front_lower",
       "texture": "leg_lower",
       "bone": "leg_front_lower",
-      "z": 3
+      "z": 3,
+      "tint": 1.8
     },
     {
       "name": "foot_front",
