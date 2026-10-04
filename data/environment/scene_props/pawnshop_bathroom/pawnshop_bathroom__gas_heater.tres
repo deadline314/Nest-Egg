@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"pawnshop_bathroom__gas_heater"
+display_name = "瓦斯熱水器"
+texture = "res://art/environment/scene_props/pawnshop_bathroom/pawnshop_bathroom__gas_heater.png"
+flicker = 0.1
+steam_offset = Vector2(20, 12)
+steam = true
+has_glow = true
+size = Vector2(11.7, 30)
+category = &"scene"

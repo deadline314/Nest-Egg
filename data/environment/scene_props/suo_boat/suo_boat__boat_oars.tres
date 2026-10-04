@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"suo_boat__boat_oars"
+display_name = "木槳"
+texture = "res://art/environment/scene_props/suo_boat/suo_boat__boat_oars.png"
+size = Vector2(17.8, 45)
+category = &"scene"

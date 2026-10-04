@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"control_room__server_rack_small"
+display_name = "小型機櫃"
+texture = "res://art/environment/scene_props/control_room/control_room__server_rack_small.png"
+light_energy = 0.5
+light_radius = 36
+light_color = Color(0.5, 0.9, 0.7, 1)
+flicker = 0.08
+glow_life = true
+light_offset = Vector2(10.9, 27)
+has_glow = true
+size = Vector2(21.9, 54)
+category = &"scene"

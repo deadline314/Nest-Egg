@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"tower_floors__lift_capsule"
+display_name = "電梯艙"
+texture = "res://art/environment/scene_props/tower_floors/tower_floors__lift_capsule.png"
+light_energy = 0.6
+light_radius = 70
+light_color = Color(1.0, 0.97, 0.9, 1)
+flicker = 0.03
+light_offset = Vector2(9.8, 39)
+has_glow = true
+size = Vector2(19.6, 78)
+category = &"scene"

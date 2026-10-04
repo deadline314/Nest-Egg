@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"tower_garden__path_lamps"
+display_name = "花園小路燈"
+texture = "res://art/environment/scene_props/tower_garden/tower_garden__path_lamps.png"
+has_glow = true
+size = Vector2(47.6, 18)
+category = &"scene"

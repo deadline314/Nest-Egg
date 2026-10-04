@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"pawnshop_bathroom__heat_lamp_rack"
+display_name = "毛巾架與暖燈"
+texture = "res://art/environment/scene_props/pawnshop_bathroom/pawnshop_bathroom__heat_lamp_rack.png"
+light_energy = 0.7
+light_radius = 54
+light_color = Color(1.0, 0.45, 0.2, 1)
+flicker = 0.05
+light_offset = Vector2(10.4, 10.2)
+has_glow = true
+size = Vector2(20.8, 51)
+category = &"scene"

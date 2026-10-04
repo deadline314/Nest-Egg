@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"pawnshop_kitchen__paper_shade_lamp"
+display_name = "紙罩吊燈"
+texture = "res://art/environment/scene_props/pawnshop_kitchen/pawnshop_kitchen__paper_shade_lamp.png"
+light_energy = 0.7
+light_radius = 70
+light_color = Color(1.0, 0.82, 0.5, 1)
+flicker = 0.05
+sway_hang = true
+sway = 0.8
+light_offset = Vector2(8.1, 14.4)
+has_glow = true
+size = Vector2(16.2, 24)
+category = &"scene"

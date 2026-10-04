@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"neon_market__dripping_tarp"
+display_name = "滴水的帆布雨棚"
+texture = "res://art/environment/scene_props/neon_market/neon_market__dripping_tarp.png"
+sway_hang = true
+sway = 0.6
+has_glow = true
+size = Vector2(70.7, 48)
+category = &"scene"

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"nightmare_arena__giant_umbrella"
+display_name = "插在草地上的巨傘"
+texture = "res://art/environment/scene_props/nightmare_arena/nightmare_arena__giant_umbrella.png"
+sway = 0.5
+size = Vector2(98, 108)
+category = &"scene"

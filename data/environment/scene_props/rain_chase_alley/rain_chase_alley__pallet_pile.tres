@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"rain_chase_alley__pallet_pile"
+display_name = "濕木棧板堆"
+texture = "res://art/environment/scene_props/rain_chase_alley/rain_chase_alley__pallet_pile.png"
+size = Vector2(43.2, 36)
+category = &"scene"

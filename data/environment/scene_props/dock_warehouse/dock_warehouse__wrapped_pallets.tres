@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"dock_warehouse__wrapped_pallets"
+display_name = "纏膜棧板"
+texture = "res://art/environment/scene_props/dock_warehouse/dock_warehouse__wrapped_pallets.png"
+size = Vector2(44.1, 42)
+category = &"scene"

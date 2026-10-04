@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"school_terminal__shoe_cubbies"
+display_name = "鞋櫃"
+texture = "res://art/environment/scene_props/school_terminal/school_terminal__shoe_cubbies.png"
+size = Vector2(67.2, 30)
+category = &"scene"

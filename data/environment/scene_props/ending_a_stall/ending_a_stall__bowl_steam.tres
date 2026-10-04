@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"ending_a_stall__bowl_steam"
+display_name = "一碗冒煙的麵"
+texture = "res://art/environment/scene_props/ending_a_stall/ending_a_stall__bowl_steam.png"
+steam_offset = Vector2(10, 4)
+steam = true
+has_glow = true
+size = Vector2(28.2, 21)
+category = &"scene"

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"accounting_lobby__light_column"
+display_name = "天光柱"
+texture = "res://art/environment/scene_props/accounting_lobby/accounting_lobby__light_column.png"
+light_energy = 0.8
+light_radius = 100
+light_color = Color(1.0, 0.97, 0.9, 1)
+flicker = 0.03
+glow_life = true
+light_offset = Vector2(17.4, 52.5)
+has_glow = true
+size = Vector2(34.7, 105)
+category = &"scene"

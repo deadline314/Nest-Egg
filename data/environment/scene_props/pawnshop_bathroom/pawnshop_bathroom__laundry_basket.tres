@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"pawnshop_bathroom__laundry_basket"
+display_name = "洗衣籃"
+texture = "res://art/environment/scene_props/pawnshop_bathroom/pawnshop_bathroom__laundry_basket.png"
+size = Vector2(22.6, 19.5)
+category = &"scene"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"sunlit_noodle_stall__wind_chime"
+display_name = "風鈴"
+texture = "res://art/environment/scene_props/sunlit_noodle_stall/sunlit_noodle_stall__wind_chime.png"
+glow_life = true
+sway_hang = true
+sway = 1.5
+has_glow = true
+size = Vector2(8.3, 33)
+category = &"scene"

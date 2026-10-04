@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"sunlit_noodle_stall__parasol_table"
+display_name = "遮陽傘與桌椅"
+texture = "res://art/environment/scene_props/sunlit_noodle_stall/sunlit_noodle_stall__parasol_table.png"
+size = Vector2(58.6, 69)
+category = &"scene"

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"basement__notebook_desk"
+display_name = "老 K 的筆記本與小書桌"
+texture = "res://art/environment/scene_props/basement/basement__notebook_desk.png"
+light_energy = 0.5
+light_radius = 40
+light_color = Color(1.0, 0.8, 0.45, 1)
+flicker = 0.05
+light_offset = Vector2(16.5, 6.4)
+has_glow = true
+size = Vector2(20.6, 25.5)
+category = &"scene"

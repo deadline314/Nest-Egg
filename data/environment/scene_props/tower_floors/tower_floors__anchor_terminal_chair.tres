@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"tower_floors__anchor_terminal_chair"
+display_name = "錨點層的終端與椅"
+texture = "res://art/environment/scene_props/tower_floors/tower_floors__anchor_terminal_chair.png"
+light_energy = 0.5
+light_radius = 40
+light_color = Color(0.5, 0.95, 0.95, 1)
+glow_life = true
+glow_scan = 0.2
+light_offset = Vector2(25.6, 18)
+has_glow = true
+size = Vector2(32, 45)
+category = &"scene"

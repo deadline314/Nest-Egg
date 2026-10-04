@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"sunlit_noodle_stall__sunny_stall"
+display_name = "日照區麵攤"
+texture = "res://art/environment/scene_props/sunlit_noodle_stall/sunlit_noodle_stall__sunny_stall.png"
+steam_offset = Vector2(30, 12)
+steam = true
+size = Vector2(61.2, 69)
+category = &"scene"

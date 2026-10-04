@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"mezzanine__grating_stairs"
+display_name = "鐵網階梯"
+texture = "res://art/environment/scene_props/mezzanine/mezzanine__grating_stairs.png"
+size = Vector2(57.6, 84)
+category = &"scene"

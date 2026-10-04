@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"rain_chase_alley__ac_stack"
+display_name = "冷氣室外機堆"
+texture = "res://art/environment/scene_props/rain_chase_alley/rain_chase_alley__ac_stack.png"
+glow_life = true
+has_glow = true
+size = Vector2(42.9, 72)
+category = &"scene"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"nightmare_arena__falling_calendar_sheet"
+display_name = "飄落的日曆頁"
+texture = "res://art/environment/scene_props/nightmare_arena/nightmare_arena__falling_calendar_sheet.png"
+glow_life = true
+sway_hang = true
+sway = 1.5
+has_glow = true
+size = Vector2(33.7, 42)
+category = &"scene"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"mezzanine__hanging_cables"
+display_name = "垂掛的線纜束"
+texture = "res://art/environment/scene_props/mezzanine/mezzanine__hanging_cables.png"
+glow_life = true
+sway_hang = true
+sway = 1.0
+has_glow = true
+size = Vector2(26.6, 66)
+category = &"scene"

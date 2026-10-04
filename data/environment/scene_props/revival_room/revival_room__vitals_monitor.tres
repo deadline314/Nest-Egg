@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"revival_room__vitals_monitor"
+display_name = "生命徵象監視器"
+texture = "res://art/environment/scene_props/revival_room/revival_room__vitals_monitor.png"
+light_energy = 0.4
+light_radius = 34
+light_color = Color(0.5, 1.0, 0.65, 1)
+glow_life = true
+glow_scan = 0.3
+light_offset = Vector2(9.7, 11.7)
+has_glow = true
+size = Vector2(19.3, 39)
+category = &"scene"

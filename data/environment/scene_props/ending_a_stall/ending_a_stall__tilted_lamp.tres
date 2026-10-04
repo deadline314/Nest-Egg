@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"ending_a_stall__tilted_lamp"
+display_name = "歪斜的路燈"
+texture = "res://art/environment/scene_props/ending_a_stall/ending_a_stall__tilted_lamp.png"
+light_energy = 0.6
+light_radius = 60
+light_color = Color(1.0, 0.85, 0.5, 1)
+flicker = 0.18
+light_offset = Vector2(20.4, 6.7)
+has_glow = true
+size = Vector2(25.5, 96)
+category = &"scene"

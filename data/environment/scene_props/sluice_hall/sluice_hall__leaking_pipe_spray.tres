@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"sluice_hall__leaking_pipe_spray"
+display_name = "噴水的管線"
+texture = "res://art/environment/scene_props/sluice_hall/sluice_hall__leaking_pipe_spray.png"
+flicker = 0.08
+has_glow = true
+size = Vector2(114, 60)
+category = &"scene"

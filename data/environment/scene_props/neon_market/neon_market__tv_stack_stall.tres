@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"neon_market__tv_stack_stall"
+display_name = "舊電視攤"
+texture = "res://art/environment/scene_props/neon_market/neon_market__tv_stack_stall.png"
+light_energy = 0.5
+light_radius = 44
+light_color = Color(0.6, 0.85, 1.0, 1)
+flicker = 0.15
+glow_scan = 0.25
+light_offset = Vector2(16, 21.6)
+has_glow = true
+size = Vector2(40, 54)
+category = &"scene"

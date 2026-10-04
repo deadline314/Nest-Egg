@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"pawnshop_bathroom__clawfoot_tub"
+display_name = "鑄鐵浴缸"
+texture = "res://art/environment/scene_props/pawnshop_bathroom/pawnshop_bathroom__clawfoot_tub.png"
+steam_offset = Vector2(36, 6)
+steam = true
+has_glow = true
+size = Vector2(49.7, 25.5)
+category = &"scene"

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"public_garden__trimmed_hedge"
+display_name = "修剪整齊的樹籬"
+texture = "res://art/environment/scene_props/public_garden/public_garden__trimmed_hedge.png"
+sway = 0.3
+size = Vector2(38.4, 33)
+category = &"scene"

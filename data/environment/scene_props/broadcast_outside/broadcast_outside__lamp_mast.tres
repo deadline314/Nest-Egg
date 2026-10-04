@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"broadcast_outside__lamp_mast"
+display_name = "探照燈柱"
+texture = "res://art/environment/scene_props/broadcast_outside/broadcast_outside__lamp_mast.png"
+light_energy = 0.8
+light_radius = 100
+light_color = Color(0.85, 0.92, 1.0, 1)
+glow_life = true
+flicker = 0.08
+light_offset = Vector2(12.7, 7.2)
+has_glow = true
+size = Vector2(25.3, 120)
+category = &"scene"

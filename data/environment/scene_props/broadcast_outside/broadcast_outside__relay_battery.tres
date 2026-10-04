@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"broadcast_outside__relay_battery"
+display_name = "中繼器與浮著的電池"
+texture = "res://art/environment/scene_props/broadcast_outside/broadcast_outside__relay_battery.png"
+glow_life = true
+has_glow = true
+size = Vector2(58.8, 39)
+category = &"scene"

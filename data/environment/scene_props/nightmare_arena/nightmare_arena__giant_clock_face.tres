@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"nightmare_arena__giant_clock_face"
+display_name = "巨大的鐘面"
+texture = "res://art/environment/scene_props/nightmare_arena/nightmare_arena__giant_clock_face.png"
+sway = 0.5
+glow_life = true
+has_glow = true
+size = Vector2(81.4, 96)
+category = &"scene"

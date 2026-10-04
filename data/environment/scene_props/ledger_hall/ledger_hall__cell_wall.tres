@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"ledger_hall__cell_wall"
+display_name = "記憶格牆"
+texture = "res://art/environment/scene_props/ledger_hall/ledger_hall__cell_wall.png"
+glow_life = true
+has_glow = true
+size = Vector2(81.6, 90)
+category = &"scene"

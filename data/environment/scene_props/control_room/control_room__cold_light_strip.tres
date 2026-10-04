@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"control_room__cold_light_strip"
+display_name = "冷白燈條"
+texture = "res://art/environment/scene_props/control_room/control_room__cold_light_strip.png"
+light_energy = 0.6
+light_radius = 70
+light_color = Color(0.85, 0.92, 1.0, 1)
+flicker = 0.25
+light_offset = Vector2(30.2, 7.5)
+has_glow = true
+size = Vector2(60.3, 15)
+category = &"scene"

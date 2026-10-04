@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"ledger_hall__memory_orb_cluster"
+display_name = "記憶光球"
+texture = "res://art/environment/scene_props/ledger_hall/ledger_hall__memory_orb_cluster.png"
+sway = 0.6
+glow_life = true
+has_glow = true
+size = Vector2(34.3, 36)
+category = &"scene"

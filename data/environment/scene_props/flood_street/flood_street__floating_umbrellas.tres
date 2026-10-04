@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"flood_street__floating_umbrellas"
+display_name = "漂著的雨傘"
+texture = "res://art/environment/scene_props/flood_street/flood_street__floating_umbrellas.png"
+size = Vector2(73.1, 21)
+category = &"scene"

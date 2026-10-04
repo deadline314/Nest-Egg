@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"tower_garden__notebook_lectern"
+display_name = "沈望的筆記本與講台"
+texture = "res://art/environment/scene_props/tower_garden/tower_garden__notebook_lectern.png"
+size = Vector2(20.3, 34.5)
+category = &"scene"

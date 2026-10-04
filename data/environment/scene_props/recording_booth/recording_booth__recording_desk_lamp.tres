@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"recording_booth__recording_desk_lamp"
+display_name = "桌燈"
+texture = "res://art/environment/scene_props/recording_booth/recording_booth__recording_desk_lamp.png"
+light_energy = 0.6
+light_radius = 44
+light_color = Color(1.0, 0.8, 0.4, 1)
+flicker = 0.06
+light_offset = Vector2(11.9, 6.8)
+has_glow = true
+size = Vector2(15.8, 22.5)
+category = &"scene"

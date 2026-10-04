@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"sluice_hall__orange_flood_lamp"
+display_name = "橘色警示泛光燈"
+texture = "res://art/environment/scene_props/sluice_hall/sluice_hall__orange_flood_lamp.png"
+light_energy = 0.8
+light_radius = 80
+light_color = Color(1.0, 0.5, 0.15, 1)
+flicker = 0.12
+glow_life = true
+light_offset = Vector2(8.6, 16.2)
+has_glow = true
+size = Vector2(17.3, 36)
+category = &"scene"

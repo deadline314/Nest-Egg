@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"clearwater__tall_floor_plant"
+display_name = "落地大植物"
+texture = "res://art/environment/scene_props/clearwater/clearwater__tall_floor_plant.png"
+sway = 0.5
+size = Vector2(25.2, 57)
+category = &"scene"

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"pawnshop_front__counter_register"
+display_name = "櫃台與黃銅收銀機"
+texture = "res://art/environment/scene_props/pawnshop_front/pawnshop_front__counter_register.png"
+light_energy = 0.5
+light_radius = 40
+light_color = Color(1.0, 0.8, 0.4, 1)
+flicker = 0.05
+light_offset = Vector2(84, 10.8)
+has_glow = true
+size = Vector2(105, 36)
+category = &"scene"

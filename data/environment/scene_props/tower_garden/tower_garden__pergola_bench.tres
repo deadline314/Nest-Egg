@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"tower_garden__pergola_bench"
+display_name = "藤架長椅"
+texture = "res://art/environment/scene_props/tower_garden/tower_garden__pergola_bench.png"
+sway = 0.5
+size = Vector2(60.8, 72)
+category = &"scene"

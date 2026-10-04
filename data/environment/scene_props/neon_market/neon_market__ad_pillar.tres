@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"neon_market__ad_pillar"
+display_name = "旋轉廣告燈柱"
+texture = "res://art/environment/scene_props/neon_market/neon_market__ad_pillar.png"
+light_energy = 0.7
+light_radius = 70
+light_color = Color(1.0, 0.5, 0.85, 1)
+flicker = 0.1
+glow_scan = 0.3
+light_offset = Vector2(8.6, 40.5)
+has_glow = true
+size = Vector2(17.1, 90)
+category = &"scene"

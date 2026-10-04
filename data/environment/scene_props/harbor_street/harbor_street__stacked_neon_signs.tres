@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"harbor_street__stacked_neon_signs"
+display_name = "疊起來的直式霓虹招牌"
+texture = "res://art/environment/scene_props/harbor_street/harbor_street__stacked_neon_signs.png"
+light_energy = 0.7
+light_radius = 70
+light_color = Color(1.0, 0.45, 0.8, 1)
+flicker = 0.12
+light_offset = Vector2(9.3, 48)
+has_glow = true
+size = Vector2(18.6, 96)
+category = &"scene"

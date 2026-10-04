@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"flood_street__rescue_rope_line"
+display_name = "救援繩線"
+texture = "res://art/environment/scene_props/flood_street/flood_street__rescue_rope_line.png"
+light_energy = 0.6
+light_radius = 56
+light_color = Color(1.0, 0.7, 0.3, 1)
+sway_hang = true
+sway = 0.6
+light_offset = Vector2(97.4, 23.4)
+has_glow = true
+size = Vector2(194.8, 36)
+category = &"scene"

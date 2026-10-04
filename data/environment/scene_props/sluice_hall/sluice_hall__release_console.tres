@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"sluice_hall__release_console"
+display_name = "放水區塊控制盤"
+texture = "res://art/environment/scene_props/sluice_hall/sluice_hall__release_console.png"
+light_energy = 0.6
+light_radius = 54
+light_color = Color(1.0, 0.65, 0.3, 1)
+flicker = 0.08
+glow_life = true
+light_offset = Vector2(15.1, 21)
+has_glow = true
+size = Vector2(30.1, 42)
+category = &"scene"

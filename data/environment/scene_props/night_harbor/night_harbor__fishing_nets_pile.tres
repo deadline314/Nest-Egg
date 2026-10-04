@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"night_harbor__fishing_nets_pile"
+display_name = "漁網堆"
+texture = "res://art/environment/scene_props/night_harbor/night_harbor__fishing_nets_pile.png"
+size = Vector2(46.7, 27)
+category = &"scene"

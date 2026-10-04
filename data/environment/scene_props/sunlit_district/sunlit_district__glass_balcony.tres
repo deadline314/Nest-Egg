@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"sunlit_district__glass_balcony"
+display_name = "白色玻璃陽台"
+texture = "res://art/environment/scene_props/sunlit_district/sunlit_district__glass_balcony.png"
+size = Vector2(84.8, 78)
+category = &"scene"

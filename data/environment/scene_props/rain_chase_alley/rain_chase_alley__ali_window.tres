@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"rain_chase_alley__ali_window"
+display_name = "阿梨家的黃窗"
+texture = "res://art/environment/scene_props/rain_chase_alley/rain_chase_alley__ali_window.png"
+light_energy = 0.7
+light_radius = 60
+light_color = Color(1.0, 0.8, 0.4, 1)
+flicker = 0.04
+light_offset = Vector2(14.1, 18)
+has_glow = true
+size = Vector2(28.3, 36)
+category = &"scene"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"ledger_hall__core_seat"
+display_name = "核心的座位"
+texture = "res://art/environment/scene_props/ledger_hall/ledger_hall__core_seat.png"
+glow_life = true
+has_glow = true
+size = Vector2(47.4, 60)
+category = &"scene"

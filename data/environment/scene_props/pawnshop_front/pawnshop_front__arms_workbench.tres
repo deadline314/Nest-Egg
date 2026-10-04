@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"pawnshop_front__arms_workbench"
+display_name = "武器改裝工作檯"
+texture = "res://art/environment/scene_props/pawnshop_front/pawnshop_front__arms_workbench.png"
+light_energy = 0.5
+light_radius = 40
+light_color = Color(1.0, 0.95, 0.85, 1)
+light_offset = Vector2(39.4, 6.3)
+has_glow = true
+size = Vector2(50.6, 31.5)
+category = &"scene"

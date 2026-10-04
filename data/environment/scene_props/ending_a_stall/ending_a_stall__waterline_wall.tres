@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"ending_a_stall__waterline_wall"
+display_name = "牆上的水痕"
+texture = "res://art/environment/scene_props/ending_a_stall/ending_a_stall__waterline_wall.png"
+size = Vector2(82.8, 66)
+category = &"scene"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"night_harbor__harbor_bench_wet"
+display_name = "碼頭的濕長椅"
+texture = "res://art/environment/scene_props/night_harbor/night_harbor__harbor_bench_wet.png"
+size = Vector2(45.8, 27)
+category = &"scene"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"nursing_ward__visitor_chair"
+display_name = "探訪椅與探訪袋"
+texture = "res://art/environment/scene_props/nursing_ward/nursing_ward__visitor_chair.png"
+size = Vector2(11.5, 21)
+category = &"scene"

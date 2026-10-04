@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"clinic__queue_number_display"
+display_name = "叫號顯示螢幕"
+texture = "res://art/environment/scene_props/clinic/clinic__queue_number_display.png"
+light_energy = 0.5
+light_radius = 36
+light_color = Color(1.0, 0.25, 0.2, 1)
+glow_life = true
+light_offset = Vector2(10.7, 7.5)
+has_glow = true
+size = Vector2(21.4, 15)
+category = &"scene"

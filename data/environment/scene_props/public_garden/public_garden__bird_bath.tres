@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"public_garden__bird_bath"
+display_name = "鳥浴盆"
+texture = "res://art/environment/scene_props/public_garden/public_garden__bird_bath.png"
+glow_life = true
+has_glow = true
+size = Vector2(23.7, 27)
+category = &"scene"

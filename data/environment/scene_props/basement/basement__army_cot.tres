@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"basement__army_cot"
+display_name = "行軍床與毯子"
+texture = "res://art/environment/scene_props/basement/basement__army_cot.png"
+size = Vector2(74.1, 18)
+category = &"scene"

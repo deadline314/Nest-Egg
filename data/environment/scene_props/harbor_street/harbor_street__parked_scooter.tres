@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"harbor_street__parked_scooter"
+display_name = "停著的小速克達"
+texture = "res://art/environment/scene_props/harbor_street/harbor_street__parked_scooter.png"
+glow_life = true
+has_glow = true
+size = Vector2(48.5, 36)
+category = &"scene"

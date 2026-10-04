@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"pawnshop_kitchen__water_urn"
+display_name = "水缸與瓢"
+texture = "res://art/environment/scene_props/pawnshop_kitchen/pawnshop_kitchen__water_urn.png"
+size = Vector2(30.2, 27)
+category = &"scene"

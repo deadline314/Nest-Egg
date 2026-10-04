@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"night_harbor__floodlight_mast"
+display_name = "碼頭泛光燈桿"
+texture = "res://art/environment/scene_props/night_harbor/night_harbor__floodlight_mast.png"
+light_energy = 0.8
+light_radius = 90
+light_color = Color(0.85, 0.92, 1.0, 1)
+flicker = 0.05
+light_offset = Vector2(12, 7.2)
+has_glow = true
+size = Vector2(24, 120)
+category = &"scene"

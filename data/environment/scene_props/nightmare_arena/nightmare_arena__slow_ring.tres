@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"nightmare_arena__slow_ring"
+display_name = "減速圈"
+texture = "res://art/environment/scene_props/nightmare_arena/nightmare_arena__slow_ring.png"
+light_energy = 0.6
+light_radius = 80
+light_color = Color(1.0, 0.9, 0.6, 1)
+flicker = 0.12
+glow_life = true
+light_offset = Vector2(21.3, 7.5)
+has_glow = true
+size = Vector2(42.7, 15)
+category = &"scene"

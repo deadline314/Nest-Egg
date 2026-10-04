@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"guest_book_room__incense_burner"
+display_name = "香爐與煙"
+texture = "res://art/environment/scene_props/guest_book_room/guest_book_room__incense_burner.png"
+steam_offset = Vector2(10, 2)
+steam = true
+has_glow = true
+size = Vector2(10.9, 24)
+category = &"scene"

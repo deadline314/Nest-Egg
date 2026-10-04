@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"night_harbor__dock_crane_far"
+display_name = "遠處的龍門吊"
+texture = "res://art/environment/scene_props/night_harbor/night_harbor__dock_crane_far.png"
+glow_life = true
+has_glow = true
+size = Vector2(89, 135)
+category = &"scene"

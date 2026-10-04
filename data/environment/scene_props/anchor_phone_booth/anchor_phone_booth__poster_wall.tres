@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"anchor_phone_booth__poster_wall"
+display_name = "破舊的海報牆"
+texture = "res://art/environment/scene_props/anchor_phone_booth/anchor_phone_booth__poster_wall.png"
+size = Vector2(40.5, 66)
+category = &"scene"

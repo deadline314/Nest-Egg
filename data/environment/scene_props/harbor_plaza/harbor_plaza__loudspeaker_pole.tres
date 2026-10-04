@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"harbor_plaza__loudspeaker_pole"
+display_name = "擴音喇叭桿"
+texture = "res://art/environment/scene_props/harbor_plaza/harbor_plaza__loudspeaker_pole.png"
+glow_life = true
+has_glow = true
+size = Vector2(22.9, 108)
+category = &"scene"

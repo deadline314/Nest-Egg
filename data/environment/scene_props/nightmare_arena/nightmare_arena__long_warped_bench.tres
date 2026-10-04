@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"nightmare_arena__long_warped_bench"
+display_name = "被拉長的長椅"
+texture = "res://art/environment/scene_props/nightmare_arena/nightmare_arena__long_warped_bench.png"
+size = Vector2(208.5, 30)
+category = &"scene"

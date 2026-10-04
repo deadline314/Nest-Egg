@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"revival_lounge__corner_plant_string_lights"
+display_name = "盆栽與小燈串"
+texture = "res://art/environment/scene_props/revival_lounge/revival_lounge__corner_plant_string_lights.png"
+flicker = 0.1
+sway = 0.5
+has_glow = true
+size = Vector2(33.1, 51)
+category = &"scene"

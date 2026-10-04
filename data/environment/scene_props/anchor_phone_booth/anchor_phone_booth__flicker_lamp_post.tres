@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"anchor_phone_booth__flicker_lamp_post"
+display_name = "忽明忽暗的路燈"
+texture = "res://art/environment/scene_props/anchor_phone_booth/anchor_phone_booth__flicker_lamp_post.png"
+light_energy = 0.7
+light_radius = 70
+light_color = Color(1.0, 0.9, 0.6, 1)
+flicker = 0.3
+light_offset = Vector2(9.9, 7.1)
+has_glow = true
+size = Vector2(12.3, 102)
+category = &"scene"

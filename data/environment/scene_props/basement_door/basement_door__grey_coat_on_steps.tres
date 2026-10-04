@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"basement_door__grey_coat_on_steps"
+display_name = "鋪在樓梯上的灰外套"
+texture = "res://art/environment/scene_props/basement_door/basement_door__grey_coat_on_steps.png"
+size = Vector2(27.1, 30)
+category = &"scene"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"public_garden__garden_lamp"
+display_name = "花園路燈"
+texture = "res://art/environment/scene_props/public_garden/public_garden__garden_lamp.png"
+size = Vector2(8.6, 78)
+category = &"scene"

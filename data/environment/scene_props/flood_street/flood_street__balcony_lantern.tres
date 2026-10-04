@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"flood_street__balcony_lantern"
+display_name = "陽台上的提燈"
+texture = "res://art/environment/scene_props/flood_street/flood_street__balcony_lantern.png"
+light_energy = 0.7
+light_radius = 60
+light_color = Color(1.0, 0.75, 0.35, 1)
+flicker = 0.1
+sway_hang = true
+sway = 0.8
+light_offset = Vector2(19.5, 15)
+has_glow = true
+size = Vector2(39, 30)
+category = &"scene"

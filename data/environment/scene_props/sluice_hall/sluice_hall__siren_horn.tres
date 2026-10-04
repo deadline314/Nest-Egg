@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"sluice_hall__siren_horn"
+display_name = "警報喇叭"
+texture = "res://art/environment/scene_props/sluice_hall/sluice_hall__siren_horn.png"
+light_energy = 0.7
+light_radius = 50
+light_color = Color(1.0, 0.15, 0.1, 1)
+glow_life = true
+light_offset = Vector2(6.4, 4.8)
+has_glow = true
+size = Vector2(12.8, 24)
+category = &"scene"

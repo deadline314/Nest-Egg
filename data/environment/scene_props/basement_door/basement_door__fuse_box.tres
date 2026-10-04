@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"basement_door__fuse_box"
+display_name = "老電表與保險絲箱"
+texture = "res://art/environment/scene_props/basement_door/basement_door__fuse_box.png"
+size = Vector2(17.1, 33)
+category = &"scene"

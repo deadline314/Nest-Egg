@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"nightmare_arena__crooked_tree"
+display_name = "歪曲的樹"
+texture = "res://art/environment/scene_props/nightmare_arena/nightmare_arena__crooked_tree.png"
+sway = 1.0
+size = Vector2(61.6, 120)
+category = &"scene"

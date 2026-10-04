@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"factory_office__hotplate_kettle"
+display_name = "電爐與水壺"
+texture = "res://art/environment/scene_props/factory_office/factory_office__hotplate_kettle.png"
+size = Vector2(30.9, 21)
+category = &"scene"

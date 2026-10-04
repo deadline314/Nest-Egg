@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"factory_office__stopped_clock"
+display_name = "停住的掛鐘"
+texture = "res://art/environment/scene_props/factory_office/factory_office__stopped_clock.png"
+size = Vector2(16.5, 16.5)
+category = &"scene"

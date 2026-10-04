@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"abandoned_factory__power_panel"
+display_name = "配電盤"
+texture = "res://art/environment/scene_props/abandoned_factory/abandoned_factory__power_panel.png"
+light_energy = 0.5
+light_radius = 40
+light_color = Color(0.7, 0.85, 1.0, 1)
+flicker = 0.2
+glow_life = true
+light_offset = Vector2(17.1, 22.9)
+has_glow = true
+size = Vector2(34.3, 51)
+category = &"scene"

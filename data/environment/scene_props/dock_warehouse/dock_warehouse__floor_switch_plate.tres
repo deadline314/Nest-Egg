@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"dock_warehouse__floor_switch_plate"
+display_name = "水底的踏板開關"
+texture = "res://art/environment/scene_props/dock_warehouse/dock_warehouse__floor_switch_plate.png"
+glow_life = true
+has_glow = true
+size = Vector2(42.6, 16.5)
+category = &"scene"

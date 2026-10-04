@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"dawn_noodle_stall__broth_stove"
+display_name = "高湯爐與大鍋"
+texture = "res://art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__broth_stove.png"
+light_energy = 0.4
+light_radius = 30
+light_color = Color(0.6, 0.7, 1.0, 1)
+flicker = 0.08
+steam_offset = Vector2(16, 6)
+steam = true
+light_offset = Vector2(8.9, 21.6)
+has_glow = true
+size = Vector2(19.7, 27)
+category = &"scene"

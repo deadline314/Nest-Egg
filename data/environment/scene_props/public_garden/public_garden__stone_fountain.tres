@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"public_garden__stone_fountain"
+display_name = "圓形噴泉"
+texture = "res://art/environment/scene_props/public_garden/public_garden__stone_fountain.png"
+glow_life = true
+has_glow = true
+size = Vector2(61.9, 54)
+category = &"scene"

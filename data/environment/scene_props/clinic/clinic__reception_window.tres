@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"clinic__reception_window"
+display_name = "掛號窗口"
+texture = "res://art/environment/scene_props/clinic/clinic__reception_window.png"
+has_glow = true
+size = Vector2(64, 54)
+category = &"scene"

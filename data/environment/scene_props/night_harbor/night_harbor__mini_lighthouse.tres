@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"night_harbor__mini_lighthouse"
+display_name = "小燈塔"
+texture = "res://art/environment/scene_props/night_harbor/night_harbor__mini_lighthouse.png"
+light_energy = 0.9
+light_radius = 110
+light_color = Color(1.0, 0.85, 0.5, 1)
+glow_life = true
+light_offset = Vector2(34.9, 8.6)
+has_glow = true
+size = Vector2(70, 108)
+category = &"scene"

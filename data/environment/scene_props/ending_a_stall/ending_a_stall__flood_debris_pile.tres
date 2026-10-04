@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"ending_a_stall__flood_debris_pile"
+display_name = "退水後的雜物堆"
+texture = "res://art/environment/scene_props/ending_a_stall/ending_a_stall__flood_debris_pile.png"
+size = Vector2(77, 33)
+category = &"scene"

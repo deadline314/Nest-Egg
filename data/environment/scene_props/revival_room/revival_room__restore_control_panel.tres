@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"revival_room__restore_control_panel"
+display_name = "列印槽控制台"
+texture = "res://art/environment/scene_props/revival_room/revival_room__restore_control_panel.png"
+glow_scan = 0.15
+glow_life = true
+has_glow = true
+size = Vector2(47.4, 36)
+category = &"scene"

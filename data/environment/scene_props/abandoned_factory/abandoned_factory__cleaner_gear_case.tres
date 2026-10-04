@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"abandoned_factory__cleaner_gear_case"
+display_name = "清理隊的白色裝備箱"
+texture = "res://art/environment/scene_props/abandoned_factory/abandoned_factory__cleaner_gear_case.png"
+glow_life = true
+has_glow = true
+size = Vector2(33.7, 33)
+category = &"scene"

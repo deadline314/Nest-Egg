@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"clearwater__white_curtains"
+display_name = "白紗窗簾"
+texture = "res://art/environment/scene_props/clearwater/clearwater__white_curtains.png"
+sway_hang = true
+sway = 1.0
+size = Vector2(40.8, 72)
+category = &"scene"

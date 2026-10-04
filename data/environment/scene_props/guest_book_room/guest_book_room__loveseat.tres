@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"guest_book_room__loveseat"
+display_name = "小沙發與靠墊"
+texture = "res://art/environment/scene_props/guest_book_room/guest_book_room__loveseat.png"
+size = Vector2(39.2, 27)
+category = &"scene"

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"tianqiong_corridor__wall_light_strip"
+display_name = "牆面燈條"
+texture = "res://art/environment/scene_props/tianqiong_corridor/tianqiong_corridor__wall_light_strip.png"
+light_energy = 0.5
+light_radius = 60
+light_color = Color(0.9, 0.95, 1.0, 1)
+flicker = 0.05
+light_offset = Vector2(68.9, 5.2)
+has_glow = true
+size = Vector2(137.7, 10.5)
+category = &"scene"

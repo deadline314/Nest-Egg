@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"clearwater__rain_sound_machine"
+display_name = "雨聲機與床頭几"
+texture = "res://art/environment/scene_props/clearwater/clearwater__rain_sound_machine.png"
+light_energy = 0.4
+light_radius = 26
+light_color = Color(0.6, 0.8, 1.0, 1)
+glow_life = true
+light_offset = Vector2(9.6, 5.6)
+has_glow = true
+size = Vector2(19.4, 22.5)
+category = &"scene"
