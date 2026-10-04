@@ -14,7 +14,7 @@
  },
  "map": {
   "screens": {"menu": "menu_cue", "victory": "sting", "death": "sting"},
-  "default": {"calm": "calm_b"},
+  "default": {"calm": "calm_b", "safe": "menu_cue", "combat": ["combat_a", "boss_a"]},
   "levels": {"cover_test": {"calm": "calm_a", "combat": "combat_a"}},
   "zones": {"zone_x": {"calm": "calm_b", "combat": "calm_b", "boss": "boss_a"}}
  }

@@ -1,11 +1,314 @@
 {
- "_說明": "背景音樂。tracks：曲目（file 是 res:// 路徑，volume_db 微調，loop 為 false 代表只播一次的短音樂，pack 對應 assets_src/audio/LICENSES.json）。cues：曲目加淡入淡出秒數（fade_in、fade_out）與音量。map：screens（menu、victory、death）指定畫面的 cue；levels／zones 以關卡 id／光影設定 id 為鍵，各自可寫 calm、combat、boss 三個狀態；default 是都沒寫時的預設。找不到某狀態時，頭目退回戰鬥、戰鬥退回平靜。",
- "tracks": {},
- "cues": {},
+ "_說明": "背景音樂。tracks：曲目（file 是 res://audio 的檔案，volume_db 微調，loop 為 false 代表只播一次的短音樂，pack 對應 assets_src/audio/LICENSES.json）。cues：曲目加淡入淡出秒數（fade_in、fade_out）與音量。map：screens（menu、victory、death）指定畫面的 cue；levels／zones 以關卡 id／光影設定 id 為鍵，各自可寫 calm（平靜）、safe（安全區）、combat（戰鬥）、boss（頭目）；狀態的值可以是一個 cue 或一串 cue（一串時每次進入該狀態輪流使用）；default 是都沒寫時的預設。找不到某狀態時，頭目退回戰鬥、戰鬥與安全退回平靜。曲目由 tools/audio/build_audio.py 依 assets_src/audio/pipeline.json 加工（響度統一 -18 LUFS）。",
+ "tracks": {
+  "menu_dark": {
+   "file": "res://audio/music/menu_dark.ogg",
+   "title": "Main Menu - Dark",
+   "pack": "bubble5297_main-menu-dark"
+  },
+  "victory_sting": {
+   "file": "res://audio/music/victory_sting.ogg",
+   "title": "Dark Sci-Fi Audio Pack",
+   "pack": "srg774_dark-sci-fi-audio-pack",
+   "loop": false
+  },
+  "death_sting": {
+   "file": "res://audio/music/death_sting.ogg",
+   "title": "Game Over IV",
+   "pack": "kistol_game-over-iv",
+   "loop": false
+  },
+  "calm_rooftop": {
+   "file": "res://audio/music/calm_rooftop.ogg",
+   "title": "Pondering the Cosmos",
+   "pack": "ruskerdax_pondering-the-cosmos"
+  },
+  "calm_market": {
+   "file": "res://audio/music/calm_market.ogg",
+   "title": "Dark City",
+   "pack": "cinameng_dark-city"
+  },
+  "calm_freight": {
+   "file": "res://audio/music/calm_freight.ogg",
+   "title": "Searching",
+   "pack": "yd_searching"
+  },
+  "calm_facility": {
+   "file": "res://audio/music/calm_facility.ogg",
+   "title": "Bleak Terminal",
+   "pack": "ruskerdax_bleak-terminal"
+  },
+  "calm_hangar": {
+   "file": "res://audio/music/calm_hangar.ogg",
+   "title": "DERGUNERIN",
+   "pack": "cinameng_dergunerin"
+  },
+  "calm_shaft": {
+   "file": "res://audio/music/calm_shaft.ogg",
+   "title": "Narrow Corridors",
+   "pack": "tinyworlds_narrow-corridors"
+  },
+  "calm_shaft_deep": {
+   "file": "res://audio/music/calm_shaft_deep.ogg",
+   "title": "Ancient caverns (horror ambient loop)",
+   "pack": "congusbongus_ancient-caverns-horror-ambient-loop"
+  },
+  "calm_residential": {
+   "file": "res://audio/music/calm_residential.ogg",
+   "title": "The underground has been sealed",
+   "pack": "fupi_the-underground-has-been-sealed"
+  },
+  "calm_power_room": {
+   "file": "res://audio/music/calm_power_room.ogg",
+   "title": "Bilwe",
+   "pack": "cinameng_bilwe"
+  },
+  "calm_transfer": {
+   "file": "res://audio/music/calm_transfer.ogg",
+   "title": "Lights at Night",
+   "pack": "tsorthan-grove_lights-at-night"
+  },
+  "calm_arena": {
+   "file": "res://audio/music/calm_arena.ogg",
+   "title": "Overshadow",
+   "pack": "cinameng_overshadow"
+  },
+  "safe_booth": {
+   "file": "res://audio/music/safe_booth.ogg",
+   "title": "Snowfall",
+   "pack": "kistol_snowfall"
+  },
+  "safe_clinic": {
+   "file": "res://audio/music/safe_clinic.ogg",
+   "title": "Catmint",
+   "pack": "kistol_catmint"
+  },
+  "safe_pawnshop": {
+   "file": "res://audio/music/safe_pawnshop.ogg",
+   "title": "Dimly lit",
+   "pack": "iamoneabe_dimly-lit"
+  },
+  "combat_alleys": {
+   "file": "res://audio/music/combat_alleys.ogg",
+   "title": "Dark Alleys, Dark Times",
+   "pack": "section31_dark-alleys-dark-times"
+  },
+  "combat_dungeon": {
+   "file": "res://audio/music/combat_dungeon.ogg",
+   "title": "Hard Dungeon",
+   "pack": "mintodog_hard-dungeon"
+  },
+  "combat_robotic": {
+   "file": "res://audio/music/combat_robotic.ogg",
+   "title": "Robotic City V2",
+   "pack": "section31_robotic-city-v2"
+  },
+  "boss_warden": {
+   "file": "res://audio/music/boss_warden.ogg",
+   "title": "Hard Boss Battle 1",
+   "pack": "mintodog_hard-boss-battle-1"
+  },
+  "boss_reclaimer": {
+   "file": "res://audio/music/boss_reclaimer.ogg",
+   "title": "Heavy Boss Battle 2",
+   "pack": "mintodog_heavy-boss-battle-2"
+  }
+ },
+ "cues": {
+  "menu": {
+   "track": "menu_dark",
+   "volume_db": 0.0,
+   "fade_in": 1.5,
+   "fade_out": 1.5
+  },
+  "victory": {
+   "track": "victory_sting",
+   "volume_db": 0.0,
+   "fade_in": 0.0,
+   "fade_out": 1.0
+  },
+  "death": {
+   "track": "death_sting",
+   "volume_db": 0.0,
+   "fade_in": 0.0,
+   "fade_out": 1.0
+  },
+  "calm_rooftop": {
+   "track": "calm_rooftop",
+   "volume_db": 0.0,
+   "fade_in": 2.5,
+   "fade_out": 2.5
+  },
+  "calm_market": {
+   "track": "calm_market",
+   "volume_db": 0.0,
+   "fade_in": 2.5,
+   "fade_out": 2.5
+  },
+  "calm_freight": {
+   "track": "calm_freight",
+   "volume_db": 0.0,
+   "fade_in": 2.5,
+   "fade_out": 2.5
+  },
+  "calm_facility": {
+   "track": "calm_facility",
+   "volume_db": 0.0,
+   "fade_in": 2.5,
+   "fade_out": 2.5
+  },
+  "calm_hangar": {
+   "track": "calm_hangar",
+   "volume_db": 0.0,
+   "fade_in": 2.5,
+   "fade_out": 2.5
+  },
+  "calm_shaft": {
+   "track": "calm_shaft",
+   "volume_db": 0.0,
+   "fade_in": 2.5,
+   "fade_out": 2.5
+  },
+  "calm_shaft_deep": {
+   "track": "calm_shaft_deep",
+   "volume_db": 0.0,
+   "fade_in": 2.5,
+   "fade_out": 2.5
+  },
+  "calm_residential": {
+   "track": "calm_residential",
+   "volume_db": 0.0,
+   "fade_in": 2.5,
+   "fade_out": 2.5
+  },
+  "calm_power_room": {
+   "track": "calm_power_room",
+   "volume_db": 0.0,
+   "fade_in": 2.5,
+   "fade_out": 2.5
+  },
+  "calm_transfer": {
+   "track": "calm_transfer",
+   "volume_db": 0.0,
+   "fade_in": 2.5,
+   "fade_out": 2.5
+  },
+  "calm_arena": {
+   "track": "calm_arena",
+   "volume_db": 0.0,
+   "fade_in": 2.5,
+   "fade_out": 2.5
+  },
+  "safe_booth": {
+   "track": "safe_booth",
+   "volume_db": 0.0,
+   "fade_in": 3.0,
+   "fade_out": 3.0
+  },
+  "safe_clinic": {
+   "track": "safe_clinic",
+   "volume_db": 0.0,
+   "fade_in": 3.0,
+   "fade_out": 3.0
+  },
+  "safe_pawnshop": {
+   "track": "safe_pawnshop",
+   "volume_db": 0.0,
+   "fade_in": 3.0,
+   "fade_out": 3.0
+  },
+  "combat_alleys": {
+   "track": "combat_alleys",
+   "volume_db": 0.0,
+   "fade_in": 1.2,
+   "fade_out": 2.0
+  },
+  "combat_dungeon": {
+   "track": "combat_dungeon",
+   "volume_db": 0.0,
+   "fade_in": 1.2,
+   "fade_out": 2.0
+  },
+  "combat_robotic": {
+   "track": "combat_robotic",
+   "volume_db": 0.0,
+   "fade_in": 1.2,
+   "fade_out": 2.0
+  },
+  "boss_warden": {
+   "track": "boss_warden",
+   "volume_db": 0.0,
+   "fade_in": 0.8,
+   "fade_out": 1.5
+  },
+  "boss_reclaimer": {
+   "track": "boss_reclaimer",
+   "volume_db": 0.0,
+   "fade_in": 0.8,
+   "fade_out": 1.5
+  }
+ },
  "map": {
-  "screens": {},
-  "default": {},
+  "screens": {
+   "menu": "menu",
+   "victory": "victory",
+   "death": "death"
+  },
+  "default": {
+   "calm": "calm_freight",
+   "safe": "safe_booth",
+   "combat": [
+    "combat_alleys",
+    "combat_dungeon",
+    "combat_robotic"
+   ],
+   "boss": "boss_warden"
+  },
   "levels": {},
-  "zones": {}
+  "zones": {
+   "rooftop": {
+    "calm": "calm_rooftop"
+   },
+   "market": {
+    "calm": "calm_market"
+   },
+   "freight": {
+    "calm": "calm_freight"
+   },
+   "facility": {
+    "calm": "calm_facility"
+   },
+   "shaft": {
+    "calm": "calm_shaft"
+   },
+   "shaft_deep": {
+    "calm": "calm_shaft_deep"
+   },
+   "residential": {
+    "calm": "calm_residential"
+   },
+   "power_room": {
+    "calm": "calm_power_room"
+   },
+   "transfer": {
+    "calm": "calm_transfer"
+   },
+   "hangar": {
+    "calm": "calm_hangar",
+    "boss": "boss_warden"
+   },
+   "reclaimer_arena": {
+    "calm": "calm_arena",
+    "boss": "boss_reclaimer"
+   },
+   "clinic_ward": {
+    "calm": "safe_clinic",
+    "safe": "safe_clinic"
+   },
+   "pawnshop_warm": {
+    "calm": "safe_pawnshop",
+    "safe": "safe_pawnshop"
+   }
+  }
  }
 }

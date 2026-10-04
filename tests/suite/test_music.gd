@@ -29,6 +29,24 @@ func _restore() -> void:
 func _test_shipped_data() -> void:
 	var errors: PackedStringArray = Music.validate()
 	check(errors.is_empty(), "shipped music data has no errors: %s" % ", ".join(errors))
+	for screen in [&"menu", &"victory", &"death"]:
+		check(Music.screen_cue(screen) != &"", "the %s screen has a cue" % screen)
+	for file in DirAccess.get_files_at("res://data/lighting"):
+		if file.ends_with(".tres"):
+			var profile := load("res://data/lighting/" + file) as LightingProfile
+			check(Music.resolve_cue(&"", profile.id, &"calm") != &"", "lighting zone %s has calm music" % profile.id)
+	var combat := Music._cue_list(Music._map["default"]["combat"])
+	check(combat.size() >= 2, "there are at least two combat cues to rotate (%d)" % combat.size())
+	check(Music.resolve_cue(&"", &"hangar", &"boss") != Music.resolve_cue(&"", &"reclaimer_arena", &"boss"), "the two bosses have their own tracks")
+	check(Music.resolve_cue(&"", &"clinic_ward", &"safe") != &"" and Music.resolve_cue(&"", &"rooftop", &"safe") != &"", "safe areas have quiet music, everywhere")
+	for track_id: String in Music.track_ids():
+		var def := Music.track_def(StringName(track_id))
+		var stream := load(str(def["file"])) as AudioStream
+		check(stream != null and stream.get_length() > 1.0, "track %s loads (%s)" % [track_id, def["file"]])
+		if stream != null:
+			var sting := track_id.ends_with("_sting")
+			check(stream.get_length() <= 30.0 if sting else stream.get_length() >= 45.0, "track %s has a sensible length for a %s (%.0fs)" % [track_id, "sting" if sting else "loop", stream.get_length()])
+		check(not str(def.get("pack", "")).is_empty(), "track %s names its license pack" % track_id)
 
 
 func _test_resolution() -> void:
@@ -40,8 +58,14 @@ func _test_resolution() -> void:
 	check(Music.resolve_cue(&"cover_test", &"zone_x", &"boss") == &"boss_a", "each state looks at the level, then the zone: the zone supplies the missing boss cue")
 	check(Music.resolve_cue(&"cover_test", &"nowhere", &"boss") == &"combat_a", "a boss state with no boss cue anywhere falls back to the combat cue")
 	check(Music.resolve_cue(&"nowhere", &"nowhere", &"calm") == &"calm_b", "everything unknown falls back to the default")
-	check(Music.resolve_cue(&"nowhere", &"nowhere", &"boss") == &"calm_b", "boss and combat fall back to calm when nothing else exists")
+	check(Music.resolve_cue(&"nowhere", &"nowhere", &"boss") == Music.resolve_cue(&"nowhere", &"nowhere", &"combat"), "a boss state with no boss cue anywhere uses the default combat cue")
 	check(Music.resolve_cue(&"nowhere", &"nowhere", &"test_no_such_state") == &"calm_b", "an unknown state is treated like calm")
+	var first := Music.resolve_cue(&"x", &"y", &"combat")
+	var second := Music.resolve_cue(&"x", &"y", &"combat", true)
+	var third := Music.resolve_cue(&"x", &"y", &"combat", true)
+	check(first == &"combat_a" and second == &"boss_a" and third == &"combat_a", "a list of cues rotates when entering the state, and wraps around")
+	check(Music.resolve_cue(&"x", &"y", &"combat") == third, "without advancing, the same cue is kept")
+	check(Music.resolve_cue(&"x", &"y", &"safe") == &"menu_cue", "a safe cue is looked up like the other states")
 	check(Music.screen_cue(&"menu") == &"menu_cue" and Music.screen_cue(&"nobody") == &"", "screens map to cues, unknown screens to nothing")
 
 
@@ -106,6 +130,17 @@ func _test_level_flow() -> void:
 	Music._no_enemy_time = Music.COMBAT_EXIT_DELAY - Music.COMBAT_CHECK_INTERVAL
 	_tick_music()
 	check(Music.current_state() == &"calm" and Music.current_cue() == &"calm_a", "combat ends a few seconds after the last enemy (%s)" % Music.current_cue())
+	var booth := Node.new()
+	Music.set_safe(booth, true)
+	_tick_music()
+	check(Music.current_state() == &"safe" and Music.current_cue() == &"menu_cue", "standing in a safe area plays the safe cue (%s)" % Music.current_cue())
+	Music.set_safe(booth, false)
+	_tick_music()
+	check(Music.current_state() == &"calm", "leaving the safe area returns to calm")
+	Music.set_safe(booth, true)
+	booth.free()
+	_tick_music()
+	check(Music.current_state() == &"calm", "a safe area that no longer exists counts as left")
 	var far := spawn(GRUNT_PATH, 75.0)
 	far.raise_alert(level.player.global_position, 5.0)
 	_tick_music()

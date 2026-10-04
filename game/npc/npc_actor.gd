@@ -184,11 +184,14 @@ func _give_reward(index: int, player: Player) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if Pickup.resolve_player(body) != null:
 		_player_in_range = true
+		if data.kind != NpcData.Kind.OBJECT:
+			Music.set_safe(self, true)  # 場景人物旁是安全區，背景音樂放輕
 
 
 func _on_body_exited(body: Node2D) -> void:
 	if Pickup.resolve_player(body) != null:
 		_player_in_range = false
+		Music.set_safe(self, false)
 
 
 func _draw() -> void:

@@ -47,7 +47,7 @@
   "music": {
    "target_lufs": -18.0,
    "peak_db": -1.5,
-   "quality": 4.0
+   "quality": 1.0
   }
  },
  "sfx": {
@@ -2700,5 +2700,120 @@
    ]
   }
  },
- "music": {}
+ "music": {
+  "menu_dark": {
+   "pack": "bubble5297_main-menu-dark",
+   "file": "main_menu_-_dark_0.mp3",
+   "end": 150.0,
+   "loop_blend_ms": 1500.0,
+   "fade_in_ms": 0
+  },
+  "victory_sting": {
+   "pack": "srg774_dark-sci-fi-audio-pack",
+   "file": "victory_4.mp3",
+   "fade_out_ms": 600.0
+  },
+  "death_sting": {
+   "pack": "kistol_game-over-iv",
+   "file": "game_over_iv_0.mp3",
+   "fade_out_ms": 800.0
+  },
+  "calm_rooftop": {
+   "pack": "ruskerdax_pondering-the-cosmos",
+   "file": "Ruskerdax - Pondering the Cosmos_0.mp3",
+   "end": 150.0,
+   "loop_blend_ms": 1500.0
+  },
+  "calm_market": {
+   "pack": "cinameng_dark-city",
+   "file": "darkcity_1.mp3",
+   "loop_blend_ms": 1500.0
+  },
+  "calm_freight": {
+   "pack": "yd_searching",
+   "file": "Searching.ogg",
+   "loop_blend_ms": 1500.0
+  },
+  "calm_facility": {
+   "pack": "ruskerdax_bleak-terminal",
+   "file": "ruskerdax_-_bleak_terminal_theme.mp3",
+   "loop_blend_ms": 1500.0
+  },
+  "calm_hangar": {
+   "pack": "cinameng_dergunerin",
+   "file": "dergunerin.mp3",
+   "end": 150.0,
+   "loop_blend_ms": 1500.0
+  },
+  "calm_shaft": {
+   "pack": "tinyworlds_narrow-corridors",
+   "file": "narrow_corridors_short.ogg",
+   "end": 150.0,
+   "loop_blend_ms": 1500.0
+  },
+  "calm_shaft_deep": {
+   "pack": "congusbongus_ancient-caverns-horror-ambient-loop",
+   "file": "caverns_0.ogg",
+   "end": 150.0
+  },
+  "calm_residential": {
+   "pack": "fupi_the-underground-has-been-sealed",
+   "file": "the_underground_has_been_sealed_2.ogg",
+   "loop_blend_ms": 1500.0
+  },
+  "calm_power_room": {
+   "pack": "cinameng_bilwe",
+   "file": "bilwe.mp3",
+   "loop_blend_ms": 1500.0
+  },
+  "calm_transfer": {
+   "pack": "tsorthan-grove_lights-at-night",
+   "file": "lights_at_night.mp3",
+   "end": 150.0,
+   "loop_blend_ms": 1500.0
+  },
+  "calm_arena": {
+   "pack": "cinameng_overshadow",
+   "file": "overshadow_0.mp3",
+   "loop_blend_ms": 1500.0
+  },
+  "safe_booth": {
+   "pack": "kistol_snowfall",
+   "file": "Snowfall (Looped ver.)_0.ogg"
+  },
+  "safe_clinic": {
+   "pack": "kistol_catmint",
+   "file": "catmint_in_c_major_looped.ogg",
+   "end": 150.0
+  },
+  "safe_pawnshop": {
+   "pack": "iamoneabe_dimly-lit",
+   "file": "dimlylit_0.mp3",
+   "end": 150.0
+  },
+  "combat_alleys": {
+   "pack": "section31_dark-alleys-dark-times",
+   "file": "S31-Dark Alleys, Dark Times.ogg",
+   "end": 150.0,
+   "loop_blend_ms": 1500.0
+  },
+  "combat_dungeon": {
+   "pack": "mintodog_hard-dungeon",
+   "file": "hard_dungeon_bpm140_0.ogg"
+  },
+  "combat_robotic": {
+   "pack": "section31_robotic-city-v2",
+   "file": "S31-Robotic City V2.ogg",
+   "end": 150.0,
+   "loop_blend_ms": 1500.0
+  },
+  "boss_warden": {
+   "pack": "mintodog_hard-boss-battle-1",
+   "file": "hard_boss_battle_1_bpm200_0.ogg"
+  },
+  "boss_reclaimer": {
+   "pack": "mintodog_heavy-boss-battle-2",
+   "file": "heavy_boss_battle_2_bpm110_0.ogg"
+  }
+ }
 }

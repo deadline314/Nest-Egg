@@ -82,11 +82,13 @@ func _on_body_entered(body: Node2D) -> void:
 	if player != null:
 		_player_in_range = true
 		_player_ref = weakref(player)
+		Music.set_safe(self, true)
 
 
 func _on_body_exited(body: Node2D) -> void:
 	if Pickup.resolve_player(body) != null:
 		_player_in_range = false
+		Music.set_safe(self, false)
 
 
 ## 現在能不能撥號：玩家在範圍內、沒在通話、遊戲沒暫停。

@@ -1,14 +1,16 @@
 extends Node
-## 背景音樂：依情境（主選單、關卡、通關、死亡）與關卡內的狀態（平靜 calm、戰鬥 combat、頭目 boss）切換曲目。
+## 背景音樂：依情境（主選單、關卡、通關、死亡）與關卡內的狀態（平靜 calm、安全 safe、戰鬥 combat、頭目 boss）切換曲目。
 ## 資料 data/audio/music.json：tracks（曲目檔、音量）、cues（曲目＋淡入淡出秒數）、map（情境與關卡／光影區段對應哪個 cue）。
-## 對應從具體到一般：關卡 id → 光影設定 id → default；該狀態沒有 cue 時，頭目退回戰鬥、戰鬥退回平靜。
+## 對應從具體到一般：關卡 id → 光影設定 id → default；該狀態沒有 cue 時，頭目退回戰鬥、戰鬥與安全退回平靜。
+## 某個狀態的值可以是一個 cue 或一串 cue：一串時每次進入該狀態輪流使用（戰鬥曲不會每次都一樣）。
+## 安全：玩家在電話亭或場景人物旁（沒有戰鬥時）播安靜的曲子。
 ## 戰鬥：玩家附近有進入戰鬥的敵人就切過去，附近都沒有之後再過一陣子才退回，避免來回跳。
 ## 暫停與背包開啟時音樂變悶且變小，過場動畫時壓低；曲目遺失或格式錯誤時記錄具體位置並維持靜音，不崩潰。
 
 const PATH := "res://data/audio/music.json"
 const BUS := &"Music"
 const TAG := "Music"
-const STATES: PackedStringArray = ["calm", "combat", "boss"]
+const STATES: PackedStringArray = ["calm", "safe", "combat", "boss"]
 const SCREENS: PackedStringArray = ["menu", "victory", "death"]
 ## 戰鬥偵測：每隔多久檢查一次、敵人離玩家多近算數、都沒有敵人後多久才退回平靜（秒）。
 const COMBAT_CHECK_INTERVAL := 0.25
@@ -40,6 +42,8 @@ var _cue: StringName = &""
 var _positions: Dictionary = {}
 var _check_left := 0.0
 var _no_enemy_time := 0.0
+var _rotation: Dictionary = {}  # 一串 cue 的鍵 -> 上次用到第幾個
+var _safe_sources: Dictionary = {}  # 正在安全區內的來源（instance id -> true）
 var _cutoff := OPEN_CUTOFF_HZ
 var _duck_db := 0.0
 var _filters: Dictionary = {}  # 匯流排 -> [低通效果, 增益效果]
@@ -89,6 +93,7 @@ func show_victory() -> void:
 ## 進入關卡：從平靜開始，之後依光影區段與戰鬥狀態切換。
 func enter_level(level_id: StringName) -> void:
 	_context = Context.LEVEL
+	_safe_sources.clear()
 	_level_id = level_id
 	_zone_id = &""
 	_state = &"calm"
@@ -139,8 +144,8 @@ func play_cue(cue_id: StringName, force := false) -> bool:
 # 對應
 # ---------------------------------------------------------------------------
 
-## 這個關卡、區段、狀態該播哪個 cue；找不到回傳空字串。
-func resolve_cue(level_id: StringName, zone_id: StringName, state: StringName) -> StringName:
+## 這個關卡、區段、狀態該播哪個 cue；找不到回傳空字串。值是一串 cue 時 advance 為 true 才換下一個（進入狀態時用），否則維持上次的。
+func resolve_cue(level_id: StringName, zone_id: StringName, state: StringName, advance := false) -> StringName:
 	var order: Array[StringName] = [state]
 	if state == &"boss":
 		order.append(&"combat")
@@ -149,10 +154,30 @@ func resolve_cue(level_id: StringName, zone_id: StringName, state: StringName) -
 	for wanted in order:
 		for scope in [_scope(&"levels", level_id), _scope(&"zones", zone_id), _map.get("default", {})]:
 			if typeof(scope) == TYPE_DICTIONARY and (scope as Dictionary).has(String(wanted)):
-				var cue := StringName(str((scope as Dictionary)[String(wanted)]))
-				if _cues.has(String(cue)):
-					return cue
+				var list := _cue_list((scope as Dictionary)[String(wanted)])
+				if not list.is_empty():
+					return _pick(list, advance)
 	return &""
+
+
+## 值可以是字串或字串陣列；只留下存在的 cue。
+func _cue_list(value: Variant) -> Array[StringName]:
+	var result: Array[StringName] = []
+	for item: Variant in (value if typeof(value) == TYPE_ARRAY else [value]):
+		if _cues.has(str(item)):
+			result.append(StringName(str(item)))
+	return result
+
+
+func _pick(list: Array[StringName], advance: bool) -> StringName:
+	if list.size() == 1:
+		return list[0]
+	var key := ",".join(PackedStringArray(list.map(func(c: StringName) -> String: return String(c))))
+	var index := int(_rotation.get(key, -1))
+	if advance or index < 0:
+		index = (index + 1) % list.size()
+		_rotation[key] = index
+	return list[mini(index, list.size() - 1)]
 
 
 func screen_cue(screen: StringName) -> StringName:
@@ -192,9 +217,9 @@ func _play_screen(screen: StringName) -> void:
 	_switch_to(screen_cue(screen))
 
 
-func _refresh_level_cue() -> void:
+func _refresh_level_cue(advance := false) -> void:
 	if _context == Context.LEVEL:
-		_switch_to(resolve_cue(_level_id, _zone_id, &"boss" if _boss else _state))
+		_switch_to(resolve_cue(_level_id, _zone_id, &"boss" if _boss else _state, advance))
 
 
 ## 換到某個 cue。空字串 = 淡出成靜音。回傳是否真的換了。
@@ -258,7 +283,7 @@ func _on_zone_changed(zone_id: StringName) -> void:
 func _on_boss_started(_name: String, _max_health: int) -> void:
 	if _context == Context.LEVEL:
 		_boss = true
-		_refresh_level_cue()
+		_refresh_level_cue(true)
 
 
 func _on_boss_defeated() -> void:
@@ -287,16 +312,36 @@ func _process(delta: float) -> void:
 		return
 	_check_left = COMBAT_CHECK_INTERVAL
 	var engaged := engaged_enemies()
+	var wanted: StringName
 	if engaged > 0:
 		_no_enemy_time = 0.0
-		if _state != &"combat":
-			_state = &"combat"
-			_refresh_level_cue()
-	elif _state == &"combat":
+		wanted = &"combat"
+	elif _state == &"combat" and _no_enemy_time + COMBAT_CHECK_INTERVAL < COMBAT_EXIT_DELAY:
 		_no_enemy_time += COMBAT_CHECK_INTERVAL
-		if _no_enemy_time >= COMBAT_EXIT_DELAY:
-			_state = &"calm"
-			_refresh_level_cue()
+		wanted = &"combat"
+	else:
+		wanted = &"safe" if _has_safe_source() else &"calm"
+	if wanted != _state:
+		_state = wanted
+		_refresh_level_cue(true)
+
+
+## 玩家進出安全區（電話亭、場景人物旁）。來源被釋放時自動視為離開。
+func set_safe(source: Object, active: bool) -> void:
+	if source == null:
+		return
+	if active:
+		_safe_sources[source.get_instance_id()] = true
+	else:
+		_safe_sources.erase(source.get_instance_id())
+
+
+func _has_safe_source() -> bool:
+	for id: int in _safe_sources.keys():
+		if is_instance_id_valid(id):
+			return true
+		_safe_sources.erase(id)
+	return false
 
 
 ## 玩家附近進入戰鬥（警戒或出招中）的敵人數。
@@ -398,5 +443,8 @@ func _check_states(label: String, scope: Variant, errors: PackedStringArray, whe
 	for state: String in (scope as Dictionary).keys():
 		if not STATES.has(state):
 			errors.append("%s 的 map.%s 有不認得的狀態「%s」（可用：%s）" % [where, label, state, ", ".join(STATES)])
-		elif not _cues.has(str((scope as Dictionary)[state])):
-			errors.append("%s 的 map.%s.%s 引用不存在的 cue「%s」" % [where, label, state, (scope as Dictionary)[state]])
+		else:
+			var value: Variant = (scope as Dictionary)[state]
+			for item: Variant in (value if typeof(value) == TYPE_ARRAY else [value]):
+				if not _cues.has(str(item)):
+					errors.append("%s 的 map.%s.%s 引用不存在的 cue「%s」" % [where, label, state, item])
