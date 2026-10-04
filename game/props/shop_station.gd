@@ -38,6 +38,7 @@ func _ready() -> void:
 	var prompt := WorldPrompt.new()
 	prompt.text = "{interact} %s：用信用點購買醫療針與護盾電池" % data.display_name
 	prompt.radius = PROMPT_RADIUS
+	prompt.reach_check = func() -> bool: return _player_in_range
 	prompt.offset = Vector2(0, -REACH.y - 12.0)
 	add_child(prompt)
 	var light := LightKit.create_point_light(Palette.CYAN, 90.0, 0.8, false)

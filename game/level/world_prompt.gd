@@ -5,8 +5,13 @@ extends Node2D
 ## 文字可用 {動作} 佔位符（例如 "{interact} 搭乘"），會自動顯示玩家目前設定的按鍵。
 
 const FADE_SPEED := 6.0
+## 被推開時移動的速度（像素／秒）：提示是滑到新位置，不是跳過去。
+const NUDGE_SPEED := 240.0
 const PADDING := Vector2(5, 3)
 const FONT_SIZE := 9
+const LEADER_DOT := 1.5
+## 指向線的終點在文字框原位下緣再往下幾像素（人物頭頂與文字之間）。
+const LEADER_STEM := 5.0
 
 @export var text: String = "":
 	set(value):
@@ -16,10 +21,19 @@ const FONT_SIZE := 9
 @export var offset: Vector2 = Vector2(0, -34)
 
 var enabled := true
+## 提示出現的條件。物件有自己的「按互動鍵有效」判斷時指定它（看到提示就一定按得動）；
+## 沒指定就用「玩家在 radius 內」。
+var reach_check: Callable
 var _alpha := 0.0
 var _font: Font
 var _player_ref: WeakRef
 var _display_text := ""
+## 文字框（以提示原點為準）的矩形；文字或字型改變時重算，不在每影格量字。
+var _box := Rect2()
+## 被自動錯開時的位移（目前、目標；x 橫向，y 往上為負）。
+var _nudge := Vector2.ZERO
+var _nudge_target := Vector2.ZERO
+var _leader: Node2D
 
 
 func _ready() -> void:
@@ -29,22 +43,59 @@ func _ready() -> void:
 	position = offset
 	_refresh_text()
 	InputBindings.bindings_changed.connect(_refresh_text)
+	# 指向物件的細線畫在所有提示框的後面，不會被別的提示蓋住框、也不蓋住字。
+	_leader = Node2D.new()
+	_leader.z_index = -1
+	_leader.draw.connect(_draw_leader)
+	add_child(_leader)
+	PromptLayout.register(self)
+
+
+func _exit_tree() -> void:
+	PromptLayout.unregister(self)
 
 
 func _refresh_text() -> void:
 	_display_text = InputBindings.format(text) if is_inside_tree() else text
+	if _font != null:
+		var size := _font.get_string_size(_display_text, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE)
+		_box = Rect2(Vector2(-size.x * 0.5, -size.y) - PADDING, size + PADDING * 2.0)
 	queue_redraw()
 
 
+## 目前是否在顯示（含淡入淡出中）；PromptLayout 只處理正在顯示的提示。
+func is_showing() -> bool:
+	return enabled and (_alpha > 0.0 or _player_near()) and not _display_text.is_empty()
+
+
+## 沒被推開時文字框在世界座標的矩形。
+func base_rect() -> Rect2:
+	return Rect2(global_position + _box.position, _box.size)
+
+
+func set_nudge_target(value: Vector2) -> void:
+	_nudge_target = value
+
+
 func _process(delta: float) -> void:
-	var target := 1.0 if enabled and _player_near() else 0.0
+	var near := enabled and _player_near()
+	if near or _alpha > 0.0:
+		PromptLayout.update()
+	else:
+		_nudge_target = Vector2.ZERO
+	var target := 1.0 if near else 0.0
 	var previous := _alpha
+	var previous_nudge := _nudge
 	_alpha = move_toward(_alpha, target, FADE_SPEED * delta)
-	if _alpha != previous or _alpha > 0.0:
+	_nudge = _nudge.move_toward(_nudge_target, NUDGE_SPEED * delta)
+	if _alpha != previous or _alpha > 0.0 or _nudge != previous_nudge:
 		queue_redraw()
+		_leader.queue_redraw()
 
 
 func _player_near() -> bool:
+	if reach_check.is_valid():
+		return reach_check.call()
 	var player: Node2D = _player_ref.get_ref() as Node2D if _player_ref != null else null
 	if player == null:
 		player = get_tree().get_first_node_in_group(&"player") as Node2D
@@ -57,9 +108,20 @@ func _player_near() -> bool:
 func _draw() -> void:
 	if _alpha <= 0.0 or _display_text.is_empty() or _font == null:
 		return
-	var size := _font.get_string_size(_display_text, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE)
-	var rect := Rect2(Vector2(-size.x * 0.5, -size.y) - PADDING, size + PADDING * 2.0)
+	var rect := Rect2(_box.position + _nudge, _box.size)
 	draw_rect(rect, Color(Palette.UI_PANEL, 0.85 * _alpha))
 	draw_rect(rect, Color(Palette.CYAN_DIM, _alpha), false, 1.0)
-	draw_string(_font, Vector2(-size.x * 0.5, -size.y * 0.25), _display_text, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE,
+	var size := rect.size - PADDING * 2.0
+	draw_string(_font, Vector2(-size.x * 0.5, -size.y * 0.25) + _nudge, _display_text, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE,
 			Color(Palette.UI_TEXT, _alpha))
+
+
+## 被推開的提示：從文字框下緣拉一條細線到自己原本位置下方的小圓點（物件上方），一眼看出它屬於誰。
+func _draw_leader() -> void:
+	if _alpha <= 0.0 or _nudge.length() < 1.0:
+		return
+	var from := Vector2(_nudge.x, _box.end.y + _nudge.y)
+	var to := Vector2(0.0, _box.end.y + LEADER_STEM)
+	var color := Color(Palette.CYAN, 0.7 * _alpha)
+	_leader.draw_line(from, to, color, 1.0)
+	_leader.draw_circle(to, LEADER_DOT, color)

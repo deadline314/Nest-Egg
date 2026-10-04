@@ -16,6 +16,8 @@ const BUBBLE_POS := Vector2(0, -48)
 const BUBBLE_GAP := 4.0
 const LABEL_GAP := 4.0
 const BUBBLE_SIZE := Vector2(16, 10)
+## 其他提示文字要避開的人物範圍的半寬（高度到對話泡泡頂為止）。
+const FIGURE_HALF_WIDTH := 12.0
 const BUBBLE_BOB := 1.5
 const TALK_COOLDOWN := 0.5
 const SILHOUETTE_SCALE := 0.6
@@ -68,7 +70,9 @@ func _ready() -> void:
 	_prompt.text = data.prompt_text()
 	_prompt.radius = PROMPT_RADIUS
 	_prompt.offset = PROMPT_OFFSET
+	_prompt.reach_check = func() -> bool: return _player_in_range
 	add_child(_prompt)
+	PromptLayout.add_obstacle(self, prompt_obstacle_rect)
 	var light := LightKit.create_point_light(Palette.NEON_YELLOW if data.kind == NpcData.Kind.PERSON else Palette.CYAN, 56.0, 0.35, false)
 	light.position = Vector2(0, -24)
 	add_child(light)
@@ -96,6 +100,12 @@ func _fit_to_figure() -> void:
 	var bubble_top := _bubble_pos.y - BUBBLE_SIZE.y * 0.8 - BUBBLE_BOB
 	_prompt.offset = Vector2(0.0, bubble_top - LABEL_GAP - WorldPrompt.PADDING.y)
 	_prompt.position = _prompt.offset
+
+
+## 人物（含頭上的對話泡泡）在世界座標的範圍：附近其他物件的提示文字會自動避開，不蓋住人物的臉。
+func prompt_obstacle_rect() -> Rect2:
+	var top := _bubble_pos.y - BUBBLE_SIZE.y * 0.8 - BUBBLE_BOB
+	return Rect2(global_position + Vector2(-FIGURE_HALF_WIDTH, top), Vector2(FIGURE_HALF_WIDTH * 2.0, -top))
 
 
 ## 有骨架外觀就用骨架，沒有就用講者的頭像做剪影（兩者都沒有時只畫一個記號）。

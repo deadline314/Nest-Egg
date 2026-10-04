@@ -68,6 +68,7 @@ func _ready() -> void:
 	_prompt = WorldPrompt.new()
 	_prompt.text = PROMPT_FIRST
 	_prompt.radius = REACH.x * 0.5 + 6.0
+	_prompt.reach_check = func() -> bool: return _player_in_range
 	_prompt.offset = Vector2(0, -HEIGHT - 8.0)
 	add_child(_prompt)
 	# 從這個亭子重生時直接顯示為已啟動，並有一段來電鈴聲與招牌閃動。

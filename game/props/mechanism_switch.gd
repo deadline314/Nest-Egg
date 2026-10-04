@@ -45,6 +45,7 @@ func _ready() -> void:
 		_prompt = WorldPrompt.new()
 		_prompt.text = data.hint
 		_prompt.radius = PROMPT_RADIUS
+		_prompt.reach_check = func() -> bool: return _player_in_range
 		_prompt.offset = Vector2(0, -REACH.y - 8.0)
 		add_child(_prompt)
 	add_to_group(WorldState.GROUP)
