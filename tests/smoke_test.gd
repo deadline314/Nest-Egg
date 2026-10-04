@@ -1054,6 +1054,10 @@ func _test_lighting() -> void:
 		_check(profile != null and profile.validate().is_empty(), "lighting profile valid: %s" % file)
 		profile_count += 1
 	_check(profile_count >= 8, "lighting profiles present (got %d)" % profile_count)
+	# 光影預設 → 場景背景的對應表（BG-14）：每個預設存在，且至少列一個場景。
+	var preview_problems := LightingSceneScenario.validate()
+	_check(preview_problems.is_empty(), "lighting preview scenes map is valid: %s" % [preview_problems])
+	_check(not LightingSceneScenario.entries().is_empty(), "lighting preview scenes map lists scenes")
 	var data := load(LEVEL_PATH) as LevelData
 	_check(data.lighting_zones.size() == 5, "level 1 has five lighting zones")
 	_check(data.validate_lighting().is_empty(), "level lighting zones valid: %s" % [data.validate_lighting()])
