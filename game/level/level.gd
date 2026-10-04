@@ -515,6 +515,8 @@ func _spawn_player() -> void:
 	player.position = GameState.checkpoint_position if GameState.has_checkpoint else _layout.player_start
 	player.fall_limit_y = _fall_limit()
 	_entities.add_child(player)
+	if GameState.respawn_pending and GameState.has_checkpoint:
+		player.play_respawn_fx()
 
 
 func _fall_limit() -> float:

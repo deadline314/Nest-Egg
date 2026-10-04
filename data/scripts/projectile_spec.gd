@@ -25,3 +25,8 @@ extends Resource
 @export var radius: float = 3.0
 @export var length: float = 8.0
 @export var color: Color = Color.WHITE
+## 彈道拖尾：記錄最近幾個位置畫成漸細漸淡的尾巴（0＝沒有拖尾，上限見 Projectile.MAX_TRAIL_POINTS）；trail_width 是粗細倍率（細長的子彈用小一點）。
+@export var trail_points: int = 5
+@export var trail_width: float = 1.0
+## 火箭類：飛行時每隔一小段冒一縷煙。
+@export var smoke_trail: bool = false

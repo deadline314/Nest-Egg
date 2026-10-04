@@ -24,6 +24,9 @@ const RING_POOL_SIZE := 5
 const PARTICLE_SCALE := 0.5
 const FLARE_SCALE := 0.7
 const SHOCK_SCALE := 0.55
+## 特效的 HDR 亮度上限（同 LightKit.HDR_PEAK_MAX，LightKit.glow 本身就會夾住）：測試（FxUpgradesSuite）會掃描程式裡寫死的倍率，
+## 並對每個光影設定檢查泛光超出量在預算內。Fx.hdr() 只是讓呼叫端更明白「這裡有上限」。
+const HDR_PEAK_MAX := LightKit.HDR_PEAK_MAX
 
 var _container: Node2D
 var _glow: ParticleField  # 疊加（發光）層
@@ -42,6 +45,11 @@ var _slowmo_until_msec := 0
 var _slowmo_ready_msec := 0
 ## 局部頓幀中的節點 → [結束時間（毫秒）, 原本的 process_mode]。
 var _frozen: Dictionary = {}
+
+
+## 夾在上限內的 HDR 發光色（intensity 超過 HDR_PEAK_MAX 時以上限計）。
+func hdr(color: Color, intensity: float) -> Color:
+	return LightKit.glow(color, minf(intensity, HDR_PEAK_MAX))
 
 
 func _ready() -> void:
@@ -418,6 +426,15 @@ func steam(position: Vector2) -> void:
 	var velocity := Vector2(randf_range(-6.0, 6.0), randf_range(-38.0, -22.0))
 	_soft.emit_ex(position, velocity, randf_range(1.2, 2.0), VfxAtlas.Cell.PUFF_B, randf_range(8.0, 12.0), randf_range(22.0, 34.0),
 			Color(0.78, 0.82, 0.92, 0.2), Color(0.75, 0.78, 0.9, 0.0), -6.0, 0.4, randf() * TAU, randf_range(-0.4, 0.4))
+
+
+## 排氣孔噴發：比一般蒸汽更猛、更高、更大團。
+func steam_jet(position: Vector2) -> void:
+	if _soft == null:
+		return
+	var velocity := Vector2(randf_range(-16.0, 16.0), randf_range(-78.0, -50.0))
+	_soft.emit_ex(position, velocity, randf_range(0.9, 1.5), VfxAtlas.Cell.PUFF_B, randf_range(8.0, 12.0), randf_range(26.0, 40.0),
+			Color(0.82, 0.86, 0.95, 0.26), Color(0.75, 0.78, 0.9, 0.0), -10.0, 0.5, randf() * TAU, randf_range(-0.5, 0.5))
 
 
 # ---------------------------------------------------------------------------

@@ -43,6 +43,11 @@ func _exit_tree() -> void:
 		EventBus.enemy_killed.disconnect(_on_enemy_killed)
 
 
+## 超頻中身上飄出火花的間隔（秒）。
+const OVERCLOCK_SPARK_INTERVAL := 0.14
+var _overclock_spark_left := 0.0
+
+
 func _physics_process(delta: float) -> void:
 	_time += delta
 	if _ability == null:
@@ -52,6 +57,10 @@ func _physics_process(delta: float) -> void:
 	_cooldown_left = maxf(0.0, _cooldown_left - delta)
 	if _active_left > 0.0:
 		_active_left = maxf(0.0, _active_left - delta)
+		_overclock_spark_left -= delta
+		if _overclock_spark_left <= 0.0:
+			_overclock_spark_left = OVERCLOCK_SPARK_INTERVAL
+			Fx.sparks(global_position + Vector2(randf_range(-8.0, 8.0), -randf_range(4.0, 40.0)), _ability.color, 1, 70.0, 0.35, Vector2.UP, 0.9, -30.0)
 		queue_redraw()
 	if is_ready() and not was_ready:
 		Sfx.play(&"ability_ready", -10.0)
@@ -100,6 +109,7 @@ func try_activate() -> bool:
 			_emit_pulse()
 	Sfx.play(_ability.sound, -2.0)
 	Fx.burst(global_position, _ability.color, 14, 140.0, 0.4)
+	PlayerFx.ability(global_position + Vector2(0.0, -22.0), _ability.color, _ability.radius)
 	activated.emit(_ability)
 	_report(true)
 	queue_redraw()
@@ -182,6 +192,8 @@ func _draw() -> void:
 	for i in 3:
 		var start := _time * 6.0 + i * TAU / 3.0
 		draw_arc(Vector2.ZERO, 22.0, start, start + 0.9, 8, color, 1.5)
+		# 弧的前緣一顆亮點，轉起來像電流在跑。
+		draw_circle(Vector2.RIGHT.rotated(start + 0.9) * 22.0, 1.6, Fx.hdr(_ability.color, 2.4))
 
 
 ## 電磁脈衝的視覺：向外擴散的圓環與內部填色。

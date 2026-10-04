@@ -4,6 +4,8 @@ extends RefCounted
 ## 光源一律使用加法混合（ADD），不需整體壓暗畫面，維持遊戲可讀性。
 
 const TEXTURE_SIZE := 128
+## 發光倍率的上限（敵人預兆的警示光最亮到 3.5）。
+const HDR_PEAK_MAX := 3.5
 const DEFAULT_GLOW_THRESHOLD := 1.0
 const DEFAULT_GLOW_INTENSITY := 0.9
 ## 供電變化時，一盞燈從全亮到全滅的過渡寬度。
@@ -117,9 +119,11 @@ static func mark_emissive(item: CanvasItem) -> void:
 		item.material = emissive_material()
 
 
-## HDR 發光色：強度 > 1 時在 HDR 2D 下會產生泛光（bloom）。
+## HDR 發光色：強度 > 1 時在 HDR 2D 下會產生泛光（bloom）。強度夾在 HDR_PEAK_MAX 以內：
+## 所有光影設定的泛光門檻在 0.95～1.3、強度在 0.6～1.1，這個上限下任何設定的泛光超出量都在預算內，不會被吃成一片白（FxUpgradesSuite 檢查）。
 static func glow(color: Color, intensity: float) -> Color:
-	return Color(color.r * intensity, color.g * intensity, color.b * intensity, color.a)
+	var level := minf(intensity, HDR_PEAK_MAX)
+	return Color(color.r * level, color.g * level, color.b * level, color.a)
 
 
 ## 2D 後製環境：HDR 泛光（bloom）。顏色強度 > 1 的子彈、槍口焰、爆炸會發光。

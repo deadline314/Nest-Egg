@@ -547,6 +547,7 @@ func _try_dash(input_x: float) -> void:
 	velocity = Vector2(_dash_dir * tuning.dash_speed, 0.0)
 	health.grant_invulnerability(tuning.dash_time + 0.05)
 	_visual.notify_dash()
+	PlayerFx.dash(global_position, Vector2(_dash_dir, 0.0))
 	Fx.dust(global_position, 4, 30.0)
 	Sfx.play(&"dash", -8.0)
 	if is_crouching:
@@ -601,6 +602,13 @@ func _tick_pull(delta: float) -> void:
 	_pull_left -= delta
 	if _pull_left <= 0.0:
 		end_pull()
+
+
+## 重生時呼叫：光環、餘燼與身體淡入。
+func play_respawn_fx() -> void:
+	PlayerFx.respawn(global_position)
+	if _visual != null:
+		_visual.begin_materialize()
 
 
 ## 手上武器在骨架上的貼圖 id：近戰武器是程式繪製的（PlayerVisual），骨架手上不放貼圖。
@@ -1090,6 +1098,7 @@ func _on_parry(info: DamageInfo, at: Vector2) -> void:
 			enemy.velocity.x = signf(enemy.global_position.x - global_position.x) * 160.0
 	Feel.play(&"player_parry")
 	Fx.impact(at, aim_dir, Palette.CYAN, 14)
+	PlayerFx.parry(at, aim_dir)
 	Fx.flash_light(at, Palette.CYAN, 110.0, 2.6, 0.25)
 	Sfx.play(&"parry", -2.0, 0.03)
 	_visual.notify_parry()
@@ -1105,6 +1114,7 @@ func _on_block(info: DamageInfo, at: Vector2) -> void:
 	_guard_regen_delay_left = tuning.guard_regen_delay
 	velocity.x -= aim_dir.x * 90.0
 	Fx.impact(at, aim_dir, Palette.WHITE, 6)
+	PlayerFx.block(at, info.origin - at)
 	Sfx.play(&"block", -4.0)
 	_visual.notify_block()
 	if guard <= 0.0:

@@ -8,6 +8,10 @@ const REFLECT_SPEED_SCALE := 1.35
 const REFLECT_DAMAGE_SCALE := 2.0
 ## 反彈子彈的衝擊力（重擊，打得一般敵人硬直）。
 const REFLECT_IMPACT := 6.0
+## 拖尾最多記錄幾個位置（固定容量，不配置記憶體）、每個影格最多記一次；煙跡的間隔秒數。
+const MAX_TRAIL_POINTS := 14
+const TRAIL_ALPHA := 0.5
+const SMOKE_INTERVAL := 0.045
 ## 傷害數字只在重擊（衝擊力達此值）或弱點時顯示。
 const HEAVY_NUMBER_IMPACT := 6.0
 
@@ -23,9 +27,15 @@ var _damage_scale := 1.0
 var _color := Color.WHITE
 var _hit_ids: Dictionary[int, bool] = {}
 var _shape := CircleShape2D.new()
+## 拖尾環形緩衝：_trail_head 是最新的一筆，往回數就是越舊；固定容量。
+var _trail := PackedVector2Array()
+var _trail_len := 0
+var _trail_head := 0
+var _smoke_left := 0.0
 
 
 func _init() -> void:
+	_trail.resize(MAX_TRAIL_POINTS)
 	collision_layer = 0
 	monitorable = false
 	monitoring = false
@@ -52,6 +62,8 @@ func activate(p_spec: ProjectileSpec, origin: Vector2, direction: Vector2, p_tea
 	_life = spec.lifetime
 	_pierce_left = spec.pierce
 	_hit_ids.clear()
+	_trail_len = 0
+	_smoke_left = 0.0
 	_damage_scale = 1.0
 	_color = spec.color
 	_shape.radius = maxf(1.0, spec.radius)
@@ -80,9 +92,30 @@ func _physics_process(delta: float) -> void:
 		velocity.y += spec.gravity * delta
 		rotation = velocity.angle()
 	global_position += velocity * delta
+	_record_trail(delta)
 	_life -= delta
 	if _life <= 0.0:
 		_finish(false)
+
+
+## 記下目前位置當作拖尾的一點；火箭另外冒煙。拖尾要重畫，所以有拖尾的子彈每個影格重畫。
+func _record_trail(delta: float) -> void:
+	if spec.smoke_trail:
+		_smoke_left -= delta
+		if _smoke_left <= 0.0:
+			_smoke_left = SMOKE_INTERVAL
+			Fx.smoke(global_position, 1, 3.0, 0.7, 7.0, Color(0.78, 0.72, 0.66, 0.35))
+	if spec.trail_points <= 1:
+		return
+	_trail_head = (_trail_head + 1) % MAX_TRAIL_POINTS
+	_trail[_trail_head] = global_position
+	_trail_len = mini(_trail_len + 1, MAX_TRAIL_POINTS)
+	queue_redraw()
+
+
+## 第 age 新的拖尾位置（0＝最新）。
+func _trail_at(age: int) -> Vector2:
+	return _trail[posmod(_trail_head - age, MAX_TRAIL_POINTS)]
 
 
 func _on_area_entered(area: Area2D) -> void:
@@ -198,8 +231,21 @@ func _draw() -> void:
 		for i in 3:
 			var k := float(i) / 3.0
 			draw_line(Vector2(-half - 8.0 - 22.0 * k, 0), Vector2(-half - 22.0 * (k + 0.34), 0), Color(LightKit.glow(Palette.CYAN, 1.8), 0.55 * (1.0 - k)), spec.radius * (1.6 - k))
+	_draw_trail()
 	draw_line(Vector2(-half - tail, 0), Vector2(-half, 0), Color(_color, 0.35), spec.radius)
 	draw_line(Vector2(-half + spec.radius, 0), Vector2(half - spec.radius, 0), glow, spec.radius * 2.0)
 	draw_circle(Vector2(-half + spec.radius, 0), spec.radius, glow)
 	draw_circle(Vector2(half - spec.radius, 0), spec.radius, glow)
 	draw_line(Vector2(-half + spec.radius, 0), Vector2(half - spec.radius, 0), LightKit.glow(Palette.WHITE, 2.5), maxf(1.0, spec.radius * 0.8))
+
+
+## 彈道拖尾：沿最近的位置畫漸細漸淡的線段（亮度不超過發光上限，克制不搶眼）；彈道有重力時尾巴會彎。
+func _draw_trail() -> void:
+	var count := mini(_trail_len, mini(spec.trail_points, MAX_TRAIL_POINTS))
+	if count < 2:
+		return
+	var head_width := spec.radius * 1.5 * spec.trail_width
+	for i in range(count - 1):
+		var k := float(i) / float(count - 1)
+		var color := Color(LightKit.glow(_color, 1.2), TRAIL_ALPHA * (1.0 - k))
+		draw_line(to_local(_trail_at(i)), to_local(_trail_at(i + 1)), color, maxf(0.6, lerpf(head_width, head_width * 0.2, k)))

@@ -14,6 +14,12 @@ const BLOCK_FLASH_TIME := 0.1
 const SHIELD_RADIUS := 15.0
 const GHOST_INTERVAL := 0.03
 const GHOST_LIFETIME := 0.18
+const MAX_GHOSTS := 8
+## 衝刺速度線的條數與長度、重生淡入秒數、完美反彈星芒的射線數。
+const STREAK_COUNT := 3
+const STREAK_LENGTH := 34.0
+const MATERIALIZE_TIME := 0.7
+const PARRY_RAYS := 8
 ## 電話亭撥號：專屬動作名稱、話筒的手持外觀，以及動作進度中「拿起話筒」與「掛上話筒」的時間點（話筒只在這段期間在手上）。
 const PHONE_ACTION := &"rin.phone_call"
 const HANDSET_VISUAL := "handset"
@@ -38,7 +44,10 @@ var _parry_flash := 0.0
 var _block_flash := 0.0
 var _squash := Vector2.ONE
 var _ghost_timer := 0.0
-var _ghosts: Array[Vector3] = []  # x, y, 剩餘時間
+var _ghosts: Array[Vector4] = []  # x, y, 剩餘時間, 衝刺方向（±1）；固定上限，見 MAX_GHOSTS
+var _dash_dir := 1.0
+## 重生淡入剩餘秒數（0＝沒有在重生）。
+var _materialize_left := 0.0
 var _phone_t := -1.0  # 撥號動作已經過的秒數；負值＝不在撥號
 var _phone_weapon := ""
 
@@ -121,6 +130,11 @@ func notify_block() -> void:
 
 func notify_dash() -> void:
 	_squash = Vector2(1.2, 0.86)
+
+
+## 重生：身體從光裡淡入（配合 PlayerFx.respawn 的光環與餘燼）。
+func begin_materialize() -> void:
+	_materialize_left = MATERIALIZE_TIME
 
 
 func notify_finisher() -> void:
@@ -218,6 +232,9 @@ func _process(delta: float) -> void:
 	var blinking := player.health != null and player.health.is_invulnerable() \
 			and player.state == Player.State.NORMAL and int(_time * 20.0) % 2 == 0
 	modulate.a = 0.4 if blinking else 1.0
+	if _materialize_left > 0.0:
+		_materialize_left = maxf(0.0, _materialize_left - delta)
+		modulate.a = minf(modulate.a, 1.0 - _materialize_left / MATERIALIZE_TIME)
 	visible = player.state != Player.State.MOUNTED
 	queue_redraw()
 
@@ -228,10 +245,13 @@ func _update_ghosts(delta: float) -> void:
 		if _ghosts[i].z <= 0.0:
 			_ghosts.remove_at(i)
 	if player.state == Player.State.DASH:
+		_dash_dir = signf(player.velocity.x) if absf(player.velocity.x) > 1.0 else _dash_dir
 		_ghost_timer -= delta
 		if _ghost_timer <= 0.0:
 			_ghost_timer = GHOST_INTERVAL
-			_ghosts.append(Vector3(global_position.x, global_position.y, GHOST_LIFETIME))
+			if _ghosts.size() >= MAX_GHOSTS:
+				_ghosts.remove_at(0)
+			_ghosts.append(Vector4(global_position.x, global_position.y, GHOST_LIFETIME, _dash_dir))
 
 
 ## 揮砍軌跡：弧線先快速掃出一個弧，再整條淡出；帶一格較細、較早的殘影。亮度限制在 TRAIL_BRIGHTNESS_MAX 以內。
@@ -260,6 +280,7 @@ func _draw() -> void:
 	if player == null:
 		return
 	_draw_ghosts()
+	_draw_materialize()
 	_draw_melee_weapon()
 	if _fire_flash > 0.0:
 		var t := _fire_flash / FIRE_FLASH_TIME
@@ -274,13 +295,27 @@ func _draw() -> void:
 		draw_arc(Vector2(0, -body_center_height()), 26.0 * (1.5 - t), 0.0, TAU, 28, Color(LightKit.glow(Palette.WHITE, 2.0), t), 2.0)
 
 
-## 衝刺殘影：沿路徑留下漸淡的青色剪影。
+## 衝刺殘影：沿路徑留下漸淡的青色人形剪影（頭、前傾的軀幹、跨步的腿），加上身後幾道速度線。
 func _draw_ghosts() -> void:
 	for ghost in _ghosts:
 		var local := to_local(Vector2(ghost.x, ghost.y))
 		var alpha := ghost.z / GHOST_LIFETIME
-		draw_rect(Rect2(local + Vector2(-6, -44), Vector2(12, 44)), Color(Palette.CYAN, 0.18 * alpha))
-		draw_line(local + Vector2(0, -44), local, Color(LightKit.glow(Palette.CYAN, 1.5), 0.4 * alpha), 2.0)
+		var lean := ghost.w * 6.0
+		var body := Color(LightKit.glow(Palette.CYAN, 1.3), 0.3 * alpha)
+		var head := local + Vector2(lean * 1.4, -40.0)
+		var hip := local + Vector2(0.0, -18.0)
+		draw_circle(head, 4.2, body)
+		# 軀幹：肩寬、腰窄的梯形，朝衝刺方向前傾。
+		draw_colored_polygon(PackedVector2Array([head + Vector2(-5.0, 4.0), head + Vector2(5.0, 4.0), hip + Vector2(3.0, 0.0), hip + Vector2(-3.0, 0.0)]), body)
+		draw_line(hip, local + Vector2(-ghost.w * 6.0, 0.0), body, 3.5)
+		draw_line(hip, local + Vector2(ghost.w * 8.0, -2.0), body, 3.5)
+		draw_line(head + Vector2(0.0, 8.0), head + Vector2(ghost.w * 9.0, 12.0), body, 2.5)
+	if player.state == Player.State.DASH:
+		for i in STREAK_COUNT:
+			var y := -10.0 - float(i) * 12.0
+			var length := STREAK_LENGTH * (0.55 + 0.45 * float((i * 7) % 3) / 2.0)
+			var from := Vector2(-_dash_dir * 6.0, y)
+			draw_line(from, from + Vector2(-_dash_dir * length, 0.0), Color(LightKit.glow(Palette.CYAN, 1.4), 0.4), 1.2)
 
 
 ## 能量護盾：沿準星方向的弧形；剛舉起（完美格擋時間窗）時更亮，完美格擋成功時爆閃。
@@ -301,7 +336,13 @@ func _draw_shield() -> void:
 		draw_arc(center, SHIELD_RADIUS + 2.0 + 9.0 * left, angle - half_arc, angle + half_arc, 16, Color(LightKit.glow(Palette.WHITE, 2.0), 0.35 + 0.5 * left), 1.5)
 	if _parry_flash > 0.0:
 		var t := _parry_flash / PARRY_FLASH_TIME
-		draw_arc(center, SHIELD_RADIUS + (1.0 - t) * 12.0, angle - half_arc, angle + half_arc, 16, Color(LightKit.glow(Palette.WHITE, 3.0), t), 2.0)
+		draw_arc(center, SHIELD_RADIUS + (1.0 - t) * 12.0, angle - half_arc, angle + half_arc, 16, Color(Fx.hdr(Palette.WHITE, 3.0), t), 2.0)
+		# 星芒：從盾面中心向外的射線，隨時間變長、變淡。
+		for i in PARRY_RAYS:
+			var ray := Vector2.RIGHT.rotated(angle + float(i) / PARRY_RAYS * TAU)
+			var inner := 4.0 + (1.0 - t) * 6.0
+			var outer := inner + (6.0 if i % 2 == 0 else 3.5) * (0.4 + (1.0 - t))
+			draw_line(center + ray * inner, center + ray * outer, Color(Fx.hdr(Palette.WHITE, 2.4), t), 1.2)
 
 
 ## 手上的近戰武器：接在骨架前手上、沿前臂方向延伸，跟著揮砍動作轉；出招時更亮。撥號與乘載時不畫。
@@ -315,3 +356,15 @@ func _draw_melee_weapon() -> void:
 	var along := (hand.global_position - forearm.global_position).normalized()
 	var glow := MELEE_GLOW_SWING if player.is_melee_swinging() else MELEE_GLOW
 	MeleeArt.draw(self, to_local(hand.global_position), along, player.loadout.active_weapon(), glow)
+
+
+## 重生淡入：腳下收攏的光環，加上一道由上往下收細的光柱。
+func _draw_materialize() -> void:
+	if _materialize_left <= 0.0:
+		return
+	var t := _materialize_left / MATERIALIZE_TIME
+	var feet := Vector2.ZERO
+	draw_arc(feet, 6.0 + 22.0 * t, 0.0, TAU, 28, Color(Fx.hdr(Palette.CYAN, 2.0), 0.8 * t), 1.5)
+	var height := body_center_height() * 2.0
+	var half_width := 3.0 + 7.0 * t
+	draw_colored_polygon(PackedVector2Array([Vector2(-half_width, 0.0), Vector2(half_width, 0.0), Vector2(half_width * 0.4, -height), Vector2(-half_width * 0.4, -height)]), Color(Fx.hdr(Palette.CYAN, 1.5), 0.22 * t))
