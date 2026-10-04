@@ -432,7 +432,8 @@
    "params": {
     "prop": "crate",
     "weapon": "pistol",
-    "shots": 1
+    "shots": 1,
+    "single": true
    },
    "tip": "手槍打一槍在木箱上，木箱還沒破，聽通用命中聲"
   },
@@ -677,99 +678,487 @@
    "action": "dash",
    "params": {},
    "tip": "玩家邊跑邊衝刺"
+  },
+  "env_switch_gate": {
+   "name": "撥開關、閘門升降",
+   "group": "機關",
+   "action": "mechanism",
+   "params": {},
+   "tip": "玩家站在開關旁按互動鍵：開關喀一聲，同頻道的閘門滑開，再按一次放下"
+  },
+  "env_power": {
+   "name": "斷電與復電",
+   "group": "機關",
+   "action": "power",
+   "params": {},
+   "tip": "玩家撥電力開關：區域熄燈（斷電），再撥一次電力恢復"
+  },
+  "env_emp": {
+   "name": "電磁脈衝",
+   "group": "機關",
+   "action": "cyber",
+   "params": {
+    "ability": "emp_pulse"
+   },
+   "tip": "玩家發動義體能力電磁脈衝：範圍內的敵人癱瘓、敵方子彈消除"
+  },
+  "env_overclock": {
+   "name": "過載",
+   "group": "機關",
+   "action": "cyber",
+   "params": {
+    "ability": "overclock"
+   },
+   "tip": "玩家發動義體能力過載：射速、換彈與移動加快"
+  },
+  "env_ability_ready": {
+   "name": "義體能力就緒",
+   "group": "機關",
+   "action": "cyber",
+   "params": {
+    "ability": "emp_pulse",
+    "ready": true
+   },
+   "tip": "義體電量補滿的瞬間，聽就緒提示音"
+  },
+  "env_pickup": {
+   "name": "撿補給",
+   "group": "機關",
+   "action": "pickup",
+   "params": {},
+   "tip": "玩家受了一點傷，走過去撿修復道具"
+  },
+  "env_crate": {
+   "name": "打破木箱",
+   "group": "機關",
+   "action": "shoot_prop",
+   "params": {
+    "prop": "crate",
+    "weapon": "rifle",
+    "shots": 8
+   },
+   "tip": "步槍連打木箱直到打破"
+  },
+  "env_glass": {
+   "name": "打破玻璃牆",
+   "group": "機關",
+   "action": "shoot_prop",
+   "params": {
+    "prop": "glass_wall",
+    "weapon": "rifle",
+    "shots": 8,
+    "distance": 4
+   },
+   "tip": "步槍連打玻璃牆直到碎裂"
+  },
+  "env_lightning": {
+   "name": "雨夜閃電與雷聲",
+   "group": "機關",
+   "action": "lightning",
+   "params": {},
+   "tip": "過場動畫的閃電效果：畫面一閃，接著雷聲"
+  },
+  "env_phone_call": {
+   "name": "電話亭整段撥號備份",
+   "group": "機關",
+   "action": "phone",
+   "params": {
+    "mode": "call"
+   },
+   "tip": "玩家在電話亭拿起話筒、撥三聲號碼、聽話筒裡的錄音、掛上話筒"
+  },
+  "env_phone_rebirth": {
+   "name": "電話亭來電鈴聲（重生）",
+   "group": "機關",
+   "action": "phone",
+   "params": {
+    "mode": "rebirth"
+   },
+   "tip": "備份後從這個電話亭重生時，亭子響起來電鈴聲"
+  },
+  "ui_pause_menu": {
+   "name": "暫停選單操作",
+   "group": "介面",
+   "action": "menu",
+   "params": {},
+   "tip": "玩家按暫停：選單打開，游標在選項間移動，按下按鈕關閉"
+  },
+  "amb_rooftop": {
+   "name": "環境音：大雨與風（屋頂）",
+   "group": "環境",
+   "action": "zone",
+   "params": {
+    "zone": "rooftop",
+    "seconds": 3
+   },
+   "tip": "站在大雨與風（屋頂）的區段，環境音層淡入"
+  },
+  "amb_freight": {
+   "name": "環境音：小雨與發電機（貨運站）",
+   "group": "環境",
+   "action": "zone",
+   "params": {
+    "zone": "freight",
+    "seconds": 3
+   },
+   "tip": "站在小雨與發電機（貨運站）的區段，環境音層淡入"
+  },
+  "amb_garden_day": {
+   "name": "環境音：風（花園）",
+   "group": "環境",
+   "action": "zone",
+   "params": {
+    "zone": "garden_day",
+    "seconds": 3
+   },
+   "tip": "站在風（花園）的區段，環境音層淡入"
+  },
+  "amb_market": {
+   "name": "環境音：雨與夜城底噪（市場）",
+   "group": "環境",
+   "action": "zone",
+   "params": {
+    "zone": "market",
+    "seconds": 3
+   },
+   "tip": "站在雨與夜城底噪（市場）的區段，環境音層淡入"
+  },
+  "amb_hangar": {
+   "name": "環境音：機房嗡鳴與通風（機庫）",
+   "group": "環境",
+   "action": "zone",
+   "params": {
+    "zone": "hangar",
+    "seconds": 3
+   },
+   "tip": "站在機房嗡鳴與通風（機庫）的區段，環境音層淡入"
+  },
+  "amb_clinic_ward": {
+   "name": "環境音：通風（診所）",
+   "group": "環境",
+   "action": "zone",
+   "params": {
+    "zone": "clinic_ward",
+    "seconds": 3
+   },
+   "tip": "站在通風（診所）的區段，環境音層淡入"
+  },
+  "amb_factory_rust": {
+   "name": "環境音：發電機與通風（工廠）",
+   "group": "環境",
+   "action": "zone",
+   "params": {
+    "zone": "factory_rust",
+    "seconds": 3
+   },
+   "tip": "站在發電機與通風（工廠）的區段，環境音層淡入"
+  },
+  "amb_basement_amber": {
+   "name": "環境音：滴水與發電機（地下室）",
+   "group": "環境",
+   "action": "zone",
+   "params": {
+    "zone": "basement_amber",
+    "seconds": 3
+   },
+   "tip": "站在滴水與發電機（地下室）的區段，環境音層淡入"
+  },
+  "music_menu": {
+   "name": "主選單",
+   "group": "音樂",
+   "action": "screen",
+   "params": {
+    "screen": "menu"
+   },
+   "tip": "主選單畫面與它的曲子"
+  },
+  "music_victory": {
+   "name": "通關結算",
+   "group": "音樂",
+   "action": "screen",
+   "params": {
+    "screen": "victory"
+   },
+   "tip": "通關結算畫面與短曲"
+  },
+  "music_death": {
+   "name": "玩家倒下",
+   "group": "音樂",
+   "action": "zone",
+   "params": {
+    "zone": "rooftop",
+    "state": "death",
+    "seconds": 3
+   },
+   "tip": "玩家被打倒，死亡短曲取代關卡音樂"
+  },
+  "music_calm_rooftop": {
+   "name": "平靜：第一章屋頂",
+   "group": "音樂",
+   "action": "zone",
+   "params": {
+    "zone": "rooftop",
+    "seconds": 3
+   },
+   "tip": "在第一章屋頂沒有戰鬥時的背景音樂"
+  },
+  "music_calm_market": {
+   "name": "平靜：第一章市場",
+   "group": "音樂",
+   "action": "zone",
+   "params": {
+    "zone": "market",
+    "seconds": 3
+   },
+   "tip": "在第一章市場沒有戰鬥時的背景音樂"
+  },
+  "music_calm_freight": {
+   "name": "平靜：第一章貨運站",
+   "group": "音樂",
+   "action": "zone",
+   "params": {
+    "zone": "freight",
+    "seconds": 3
+   },
+   "tip": "在第一章貨運站沒有戰鬥時的背景音樂"
+  },
+  "music_calm_facility": {
+   "name": "平靜：第一章設施",
+   "group": "音樂",
+   "action": "zone",
+   "params": {
+    "zone": "facility",
+    "seconds": 3
+   },
+   "tip": "在第一章設施沒有戰鬥時的背景音樂"
+  },
+  "music_calm_hangar": {
+   "name": "平靜：第一章機庫",
+   "group": "音樂",
+   "action": "zone",
+   "params": {
+    "zone": "hangar",
+    "seconds": 3
+   },
+   "tip": "在第一章機庫沒有戰鬥時的背景音樂"
+  },
+  "music_calm_shaft": {
+   "name": "平靜：第二章豎井",
+   "group": "音樂",
+   "action": "zone",
+   "params": {
+    "zone": "shaft",
+    "seconds": 3
+   },
+   "tip": "在第二章豎井沒有戰鬥時的背景音樂"
+  },
+  "music_calm_shaft_deep": {
+   "name": "平靜：第二章深井",
+   "group": "音樂",
+   "action": "zone",
+   "params": {
+    "zone": "shaft_deep",
+    "seconds": 3
+   },
+   "tip": "在第二章深井沒有戰鬥時的背景音樂"
+  },
+  "music_calm_residential": {
+   "name": "平靜：第二章住宅區",
+   "group": "音樂",
+   "action": "zone",
+   "params": {
+    "zone": "residential",
+    "seconds": 3
+   },
+   "tip": "在第二章住宅區沒有戰鬥時的背景音樂"
+  },
+  "music_calm_power_room": {
+   "name": "平靜：第二章電力室",
+   "group": "音樂",
+   "action": "zone",
+   "params": {
+    "zone": "power_room",
+    "seconds": 3
+   },
+   "tip": "在第二章電力室沒有戰鬥時的背景音樂"
+  },
+  "music_calm_transfer": {
+   "name": "平靜：第二章轉運站",
+   "group": "音樂",
+   "action": "zone",
+   "params": {
+    "zone": "transfer",
+    "seconds": 3
+   },
+   "tip": "在第二章轉運站沒有戰鬥時的背景音樂"
+  },
+  "music_calm_reclaimer_arena": {
+   "name": "平靜：回收員戰場",
+   "group": "音樂",
+   "action": "zone",
+   "params": {
+    "zone": "reclaimer_arena",
+    "seconds": 3
+   },
+   "tip": "在回收員戰場沒有戰鬥時的背景音樂"
+  },
+  "music_safe_booth": {
+   "name": "安全區：電話亭旁",
+   "group": "音樂",
+   "action": "zone",
+   "params": {
+    "zone": "freight",
+    "state": "safe",
+    "seconds": 4
+   },
+   "tip": "玩家站在電話亭旁（沒有戰鬥），音樂換成安靜的曲子"
+  },
+  "music_safe_clinic": {
+   "name": "安全區：診所",
+   "group": "音樂",
+   "action": "zone",
+   "params": {
+    "zone": "clinic_ward",
+    "seconds": 3
+   },
+   "tip": "診所區段整段都是安全區的曲子"
+  },
+  "music_safe_pawnshop": {
+   "name": "安全區：當鋪",
+   "group": "音樂",
+   "action": "zone",
+   "params": {
+    "zone": "pawnshop_warm",
+    "seconds": 3
+   },
+   "tip": "當鋪區段整段都是安全區的曲子"
+  },
+  "music_combat": {
+   "name": "戰鬥",
+   "group": "音樂",
+   "action": "zone",
+   "params": {
+    "zone": "freight",
+    "state": "combat",
+    "seconds": 8
+   },
+   "tip": "三個警戒中的敵人逼近，音樂切到戰鬥曲（三首輪流，每次進入戰鬥換下一首）",
+   "alternates": true
+  },
+  "music_boss_warden": {
+   "name": "頭目戰：監管者",
+   "group": "音樂",
+   "action": "zone",
+   "params": {
+    "zone": "hangar",
+    "state": "boss",
+    "seconds": 4
+   },
+   "tip": "機庫頭目戰開始，音樂切到頭目曲"
+  },
+  "music_boss_reclaimer": {
+   "name": "頭目戰：回收員",
+   "group": "音樂",
+   "action": "zone",
+   "params": {
+    "zone": "reclaimer_arena",
+    "state": "boss",
+    "seconds": 4
+   },
+   "tip": "回收員戰場頭目戰開始，音樂切到頭目曲"
   }
  },
  "slots": {
-  "P-AMB-001": {
-   "none": "由 NE-169 處理"
-  },
-  "P-AMB-002": {
-   "none": "由 NE-169 處理"
-  },
-  "P-AMB-003": {
-   "none": "由 NE-169 處理"
-  },
-  "P-AMB-004": {
-   "none": "由 NE-169 處理"
-  },
-  "P-AMB-005": {
-   "none": "由 NE-169 處理"
-  },
-  "P-AMB-006": {
-   "none": "由 NE-169 處理"
-  },
-  "P-AMB-007": {
-   "none": "由 NE-169 處理"
-  },
-  "P-AMB-008": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-001": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-002": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-003": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-004": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-005": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-006": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-007": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-008": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-009": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-010": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-011": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-012": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-013": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-014": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-015": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-016": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-017": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-018": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-019": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-020": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-021": {
-   "none": "由 NE-169 處理"
-  },
-  "P-BGM-022": {
-   "none": "由 NE-169 處理"
-  },
+  "P-AMB-001": [
+   "amb_rooftop"
+  ],
+  "P-AMB-002": [
+   "amb_freight"
+  ],
+  "P-AMB-003": [
+   "amb_garden_day"
+  ],
+  "P-AMB-004": [
+   "amb_market"
+  ],
+  "P-AMB-005": [
+   "amb_hangar"
+  ],
+  "P-AMB-006": [
+   "amb_clinic_ward"
+  ],
+  "P-AMB-007": [
+   "amb_factory_rust"
+  ],
+  "P-AMB-008": [
+   "amb_basement_amber"
+  ],
+  "P-BGM-001": [
+   "music_menu"
+  ],
+  "P-BGM-002": [
+   "music_victory"
+  ],
+  "P-BGM-003": [
+   "music_death"
+  ],
+  "P-BGM-004": [
+   "music_calm_rooftop"
+  ],
+  "P-BGM-005": [
+   "music_calm_market"
+  ],
+  "P-BGM-006": [
+   "music_calm_freight"
+  ],
+  "P-BGM-007": [
+   "music_calm_facility"
+  ],
+  "P-BGM-008": [
+   "music_calm_hangar"
+  ],
+  "P-BGM-009": [
+   "music_calm_shaft"
+  ],
+  "P-BGM-010": [
+   "music_calm_shaft_deep"
+  ],
+  "P-BGM-011": [
+   "music_calm_residential"
+  ],
+  "P-BGM-012": [
+   "music_calm_power_room"
+  ],
+  "P-BGM-013": [
+   "music_calm_transfer"
+  ],
+  "P-BGM-014": [
+   "music_calm_reclaimer_arena"
+  ],
+  "P-BGM-015": [
+   "music_safe_booth"
+  ],
+  "P-BGM-016": [
+   "music_safe_clinic"
+  ],
+  "P-BGM-017": [
+   "music_safe_pawnshop"
+  ],
+  "P-BGM-018": [
+   "music_combat"
+  ],
+  "P-BGM-019": [
+   "music_combat"
+  ],
+  "P-BGM-020": [
+   "music_combat"
+  ],
+  "P-BGM-021": [
+   "music_boss_warden"
+  ],
+  "P-BGM-022": [
+   "music_boss_reclaimer"
+  ],
   "P-CHR-001": [
    "chr_player_hurt"
   ],
@@ -830,60 +1219,60 @@
   "P-CHR-020": [
    "chr_behave_sniper"
   ],
-  "P-ENV-001": {
-   "none": "由 NE-169 處理"
-  },
-  "P-ENV-002": {
-   "none": "由 NE-169 處理"
-  },
-  "P-ENV-003": {
-   "none": "由 NE-169 處理"
-  },
-  "P-ENV-004": {
-   "none": "由 NE-169 處理"
-  },
-  "P-ENV-005": {
-   "none": "由 NE-169 處理"
-  },
-  "P-ENV-006": {
-   "none": "由 NE-169 處理"
-  },
-  "P-ENV-007": {
-   "none": "由 NE-169 處理"
-  },
-  "P-ENV-008": {
-   "none": "由 NE-169 處理"
-  },
-  "P-ENV-009": {
-   "none": "由 NE-169 處理"
-  },
-  "P-ENV-010": {
-   "none": "由 NE-169 處理"
-  },
-  "P-ENV-011": {
-   "none": "由 NE-169 處理"
-  },
-  "P-ENV-012": {
-   "none": "由 NE-169 處理"
-  },
-  "P-ENV-013": {
-   "none": "由 NE-169 處理"
-  },
-  "P-ENV-014": {
-   "none": "由 NE-169 處理"
-  },
-  "P-ENV-015": {
-   "none": "由 NE-169 處理"
-  },
-  "P-ENV-016": {
-   "none": "由 NE-169 處理"
-  },
-  "P-ENV-017": {
-   "none": "由 NE-169 處理"
-  },
-  "P-ENV-018": {
-   "none": "由 NE-169 處理"
-  },
+  "P-ENV-001": [
+   "env_switch_gate"
+  ],
+  "P-ENV-002": [
+   "env_switch_gate"
+  ],
+  "P-ENV-003": [
+   "env_power"
+  ],
+  "P-ENV-004": [
+   "env_power"
+  ],
+  "P-ENV-005": [
+   "env_emp"
+  ],
+  "P-ENV-006": [
+   "env_overclock"
+  ],
+  "P-ENV-007": [
+   "env_ability_ready"
+  ],
+  "P-ENV-008": [
+   "env_pickup"
+  ],
+  "P-ENV-009": [
+   "env_crate"
+  ],
+  "P-ENV-010": [
+   "env_glass"
+  ],
+  "P-ENV-011": [
+   "env_lightning"
+  ],
+  "P-ENV-012": [
+   "env_phone_call"
+  ],
+  "P-ENV-013": [
+   "env_phone_call"
+  ],
+  "P-ENV-014": [
+   "env_phone_call"
+  ],
+  "P-ENV-015": [
+   "env_phone_call"
+  ],
+  "P-ENV-016": [
+   "env_phone_call"
+  ],
+  "P-ENV-017": [
+   "env_phone_call"
+  ],
+  "P-ENV-018": [
+   "env_phone_rebirth"
+  ],
   "P-HIT-001": [
    "hit_crate"
   ],
@@ -974,17 +1363,17 @@
   "P-MOV-009": [
    "mov_dash"
   ],
-  "P-UIS-001": {
-   "none": "由 NE-169 處理"
-  },
-  "P-UIS-002": {
-   "none": "由 NE-169 處理"
-  },
-  "P-UIS-003": {
-   "none": "由 NE-169 處理"
-  },
+  "P-UIS-001": [
+   "ui_pause_menu"
+  ],
+  "P-UIS-002": [
+   "ui_pause_menu"
+  ],
+  "P-UIS-003": [
+   "ui_pause_menu"
+  ],
   "P-UIS-004": {
-   "none": "由 NE-169 處理"
+   "none": "遊戲裡目前沒有任何地方會響這個聲音（預留給「操作不成立」的提示），沒有畫面可以看"
   },
   "P-WPN-001": [
    "wpn_fire_pistol"

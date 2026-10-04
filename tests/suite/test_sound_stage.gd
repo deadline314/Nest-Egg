@@ -1,12 +1,7 @@
 class_name SoundStageSuite
-extends TestSuite
+extends StageSuiteBase
 ## 實驗室的畫面舞台與情境（NE-166）：情境資料完整、動作存在、每個情境真的會響出對應位置的聲音、取消與備選素材暫時替換不留痕跡。
 
-## 測試時把時間加速，情境跑得快；動作用的是秒，所以加速不影響邏輯。
-const TEST_SPEED_UP := 3.0
-
-var _stage: SoundStage
-var _catalog := AudioCatalog.new()
 
 
 func run() -> void:
@@ -15,7 +10,7 @@ func run() -> void:
 	_test_input_lock()
 	_test_sound_helpers()
 	await _open_stage()
-	await _test_every_slot_scene()
+	await _check_slot_scenes(PackedStringArray(), true)
 	await _test_cancel_and_replace()
 	await _test_preview_replacement()
 	await _close_stage()
@@ -56,22 +51,6 @@ func _test_sound_helpers() -> void:
 	Sfx.stop_all()
 
 
-func _open_stage() -> void:
-	_stage = SoundStage.new()
-	_stage.size = Vector2(640, 360)
-	runner.add_child(_stage)
-	await _stage.wait_ready()
-	Engine.time_scale = TEST_SPEED_UP
-
-
-func _close_stage() -> void:
-	Engine.time_scale = 1.0
-	_stage.stop()
-	_stage.queue_free()
-	await frames(3)
-	check(not InputMap.action_get_events(&"shoot").is_empty(), "closing the stage gives the real keys back to the game")
-
-
 func _test_scene_data() -> void:
 	var scenes := StageScenes.shared()
 	check(scenes.is_loaded(), "the scene catalog loads")
@@ -84,44 +63,6 @@ func _test_scene_data() -> void:
 	var bad := StageScenes.new("res://tests/fixtures/audio/scenes_bad.json")
 	var bad_errors := bad.validate(["P-TEST-001", "P-TEST-002"], func(a: String) -> bool: return a == "fire")
 	check(bad_errors.size() >= 4, "a broken catalog reports each problem (%d): %s" % [bad_errors.size(), " | ".join(bad_errors)])
-
-
-## 每個有對應情境的位置：執行它的第一個情境，實際響出來的音效要包含位置的聲音。每個情境只跑一次。
-func _test_every_slot_scene() -> void:
-	var scenes := StageScenes.shared()
-	var results := {}
-	for entry: Dictionary in _catalog.slots:
-		var slot_id := str(entry["id"])
-		var slot := entry
-		var wanted := scenes.scenes_for_slot(slot_id)
-		if wanted.is_empty():
-			check(not scenes.slot_reason(slot_id).is_empty(), "%s without a scene explains why" % slot_id)
-			continue
-		var scene_id := wanted[0]
-		if not results.has(scene_id):
-			var completed := await _stage.run_scene(scene_id)
-			results[scene_id] = {"completed": completed, "sounds": _stage.recorded_unique()}
-			check(completed, "scene %s runs to the end" % scene_id)
-		if str(slot["kind"]) == "music":
-			continue
-		var sounds: PackedStringArray = results[scene_id]["sounds"]
-		var heard := false
-		for variant in _variants_of(str(slot["target"])):
-			heard = heard or sounds.has(variant)
-		check(heard, "scene %s makes %s (%s) sound; heard: %s" % [scene_id, slot_id, slot["target"], ", ".join(sounds)])
-
-
-## 一個音效在聲音事件的同一層裡輪流播的變體（命中聲 A／B／C 輪流響，一個情境不保證每個變體都響到）；沒有變體就只有它自己。
-func _variants_of(id: String) -> PackedStringArray:
-	var out := PackedStringArray([id])
-	for event_id: Variant in Sfx.event_ids():
-		var def: Dictionary = Sfx._events[event_id]
-		for layer: Dictionary in def.get("layers", []):
-			var variants: Array = layer.get("sounds", [])
-			if variants.has(id):
-				for variant: Variant in variants:
-					out.append(str(variant))
-	return out
 
 
 func _test_cancel_and_replace() -> void:

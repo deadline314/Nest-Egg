@@ -3,6 +3,9 @@ extends Node
 ## 資料 data/audio/ambience.json：profiles 以光影設定 id 為鍵，每個 profile 最多 MAX_LAYERS 層（sound 是音效庫的 id，volume_db 微調）；
 ## 沒寫的區段用 default。換區段時舊的淡出、新的淡入；音效庫沒有那個檔案時記錄一次並略過（該層無聲）。
 
+## 一層環境音開始播放時送出（音效庫的 id）；實驗室用它記錄「這個區段實際響了哪些環境音」。
+signal layer_started(sound: StringName)
+
 const PATH := "res://data/audio/ambience.json"
 const BUS := &"Ambience"
 const MAX_LAYERS := 3
@@ -55,6 +58,7 @@ func set_zone(zone_id: StringName) -> void:
 			layer.stop(_fade)
 			continue
 		layer.play(stream, float(entry.get("volume_db", 0.0)) + Sfx.bank().volume_db(sound), _fade, _fade, true)
+		layer_started.emit(sound)
 
 
 ## 這個區段要播的層（區段沒有登記時用 default）。

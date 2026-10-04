@@ -31,6 +31,7 @@ const SCENARIOS := {
 	"dev_menu": "res://tools/scenarios/dev_menu_scenario.gd",
 	"sound_lab": "res://tools/scenarios/sound_lab_scenario.gd",
 	"sound_lab_hits": "res://tools/scenarios/sound_lab_hits_scenario.gd",
+	"sound_lab_world": "res://tools/scenarios/sound_lab_world_scenario.gd",
 	"screen_fx": "res://tools/scenarios/screen_fx_scenario.gd",
 	"damage_numbers": "res://tools/scenarios/damage_numbers_scenario.gd",
 	"model_vehicle": "res://tools/scenarios/model_vehicle_scenario.gd",

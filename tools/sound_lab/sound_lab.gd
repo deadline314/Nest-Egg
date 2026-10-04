@@ -32,6 +32,8 @@ var _changed_scale_mode := false
 
 
 func _ready() -> void:
+	# 舞台裡的暫停選單、過場會暫停整棵樹；實驗室的介面與舞台要照常動。
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	# 單獨開啟時用視窗的實際解析度（遊戲本身是 640×360 放大），文字才讀得清楚；測試裡不動共用的視窗。
 	if get_tree().current_scene == self:
 		_scale_mode_before = get_window().content_scale_mode

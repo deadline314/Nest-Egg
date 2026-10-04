@@ -58,6 +58,14 @@ func _physics_process(delta: float) -> void:
 	_report(false)
 
 
+## 實驗室與測試用：直接指定目前的能力（null = 沒裝備）並清掉冷卻與持續中的效果，不動玩家的進度存檔。
+func debug_set_ability(p_ability: CyberAbilityData) -> void:
+	_ability = p_ability
+	_cooldown_left = 0.0
+	_active_left = 0.0
+	_report(true)
+
+
 func ability() -> CyberAbilityData:
 	return _ability
 

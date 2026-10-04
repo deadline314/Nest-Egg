@@ -42,6 +42,9 @@ func _ready() -> void:
 	actions = StageActions.new(arena)
 	_input_lock.lock()
 	Sfx.sound_played.connect(_on_sound_played)
+	# 環境音與背景音樂不走音效庫的播放函式，各自送訊號讓這裡也記錄得到。
+	Ambience.layer_started.connect(_on_sound_played)
+	Music.track_started.connect(_on_sound_played)
 	arena.build()
 
 
@@ -49,8 +52,9 @@ func _exit_tree() -> void:
 	_input_lock.unlock()
 	Engine.time_scale = 1.0
 	Sfx.clear_previews()
-	if Sfx.sound_played.is_connected(_on_sound_played):
-		Sfx.sound_played.disconnect(_on_sound_played)
+	for source: Signal in [Sfx.sound_played, Ambience.layer_started, Music.track_started]:
+		if source.is_connected(_on_sound_played):
+			source.disconnect(_on_sound_played)
 
 
 ## 隱藏舞台時不繪圖（省效能）；情境仍可執行，只是看不到。
@@ -118,6 +122,11 @@ func run_action(action: String, params: Dictionary, label: String, preview: Dict
 	running = false
 	arena.release_all()
 	Sfx.clear_previews()
+	if arena.audio_on:
+		# 音樂與環境音的情境結束就淡出，下一個情境不會接著響。
+		Music.stop(0.4)
+		Ambience.stop_all(0.4)
+	UiKit.set_cursor_visible(true)
 	scene_finished.emit(label)
 	return true
 
@@ -129,6 +138,9 @@ func stop() -> void:
 	running = false
 	Sfx.clear_previews()
 	Sfx.stop_all()
+	if arena.audio_on:
+		Music.stop(0.2)
+		Ambience.stop_all(0.2)
 
 
 ## 這次情境實際響過的音效 id（去重，依第一次出現的順序）。

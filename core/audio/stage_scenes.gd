@@ -2,7 +2,7 @@ class_name StageScenes
 extends RefCounted
 ## 實驗室的畫面情境目錄：一個情境 = 一個動作加參數（例如「手槍射擊三發」）；每個聲音位置（P-XXX-NNN）對應一個以上的情境，
 ## 或明確標示沒有畫面的原因。資料：data/audio/stage_scenes.json（格式見 design/16-audio/DESIGN.md 5.3）。
-## 這裡只管資料的讀取與檢查；動作怎麼執行在 tools/sound_lab/stage_actions.gd。
+## 這裡只管資料的讀取與檢查；動作怎麼執行在實驗室工具那一側（遊戲本體不引用它）。
 
 const PATH := "res://data/audio/stage_scenes.json"
 

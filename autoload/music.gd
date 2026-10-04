@@ -7,6 +7,9 @@ extends Node
 ## 戰鬥：玩家附近有進入戰鬥的敵人就切過去，附近都沒有之後再過一陣子才退回，避免來回跳。
 ## 暫停與背包開啟時音樂變悶且變小，過場動畫時壓低；曲目遺失或格式錯誤時記錄具體位置並維持靜音，不崩潰。
 
+## 換到一首曲目開始播放時送出（曲目 id）；實驗室用它記錄「這個情境實際播了哪首曲子」。
+signal track_started(track_id: StringName)
+
 const PATH := "res://data/audio/music.json"
 const BUS := &"Music"
 const TAG := "Music"
@@ -249,8 +252,11 @@ func _switch_to(cue_id: StringName, force := false) -> bool:
 	if start >= stream.get_length() - 1.0:
 		start = 0.0
 	_cue = cue_id
-	return _player.play(stream, float(def.get("volume_db", 0.0)) + float(track.get("volume_db", 0.0)),
+	var started := _player.play(stream, float(def.get("volume_db", 0.0)) + float(track.get("volume_db", 0.0)),
 			float(def.get("fade_in", 1.5)), float(def.get("fade_out", 1.5)), loop, start)
+	if started:
+		track_started.emit(track_id)
+	return started
 
 
 func _remember_position() -> void:

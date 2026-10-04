@@ -7,6 +7,8 @@ extends RefCounted
 const PREFIX := "act_"
 ## 每個情境結束前多等一下，讓延遲的聲音層與尾音響完（也讓記錄完整）。
 const TAIL_TIME := 0.6
+## 連射時每隔幾秒重新瞄準一次。
+const AIM_REFRESH_TIME := 0.04
 
 var arena: LabArena
 ## 目前在跑的情境 id（錯誤訊息指出是哪個情境）。
@@ -109,7 +111,7 @@ func _fire_burst(weapon: WeaponData, shots: int, track := Callable()) -> bool:
 	arena.hold(&"shoot")
 	var left := float(shots - 1) * weapon.fire_interval + 0.5 * weapon.fire_interval
 	while left > 0.0:
-		var step := minf(left, 0.04)
+		var step := minf(left, AIM_REFRESH_TIME)
 		if not await _wait(step):
 			return false
 		left -= step
@@ -226,7 +228,8 @@ func act_shoot_enemy(params: Dictionary) -> void:
 	arena.release_all()
 
 
-## 玩家對場景道具開槍（木箱、油桶、玻璃牆…）。prop（data/props 的檔名，預設 crate）、weapon、shots、distance。
+## 玩家對場景道具開槍（木箱、油桶、玻璃牆…）。prop（data/props 的檔名，預設 crate）、weapon、shots（一輪幾發）、distance；
+## 道具有血量的話最多補打三輪，直到它被打破或打光為止（打破的聲音一定要看得到）。
 func act_shoot_prop(params: Dictionary) -> void:
 	var weapon := arena.use_weapon(_text(params, "weapon", "pistol"))
 	var prop := arena.spawn_prop("res://data/props/%s.tres" % _text(params, "prop", "crate"), float(params.get("distance", 6.0)))
@@ -235,19 +238,25 @@ func act_shoot_prop(params: Dictionary) -> void:
 		return
 	if not await _wait(0.3):
 		return
-	if not await _fire_burst(weapon, int(params.get("shots", 1)), func() -> Vector2: return prop.global_position + Vector2(0.0, -12.0)):
-		return
+	var track := func() -> Vector2: return prop.global_position + Vector2(0.0, -12.0)
+	for round in 3:
+		if not await _fire_burst(weapon, int(params.get("shots", 1)), track):
+			return
+		if not await _wait(0.2):
+			return
+		if bool(params.get("single", false)) or not (prop is Breakable) or (prop as Breakable).is_broken:
+			break
 	await _wait(TAIL_TIME + 0.6)
 	arena.release_all()
 
 
-## 玩家對材質靶開槍。material（flesh／armor／metal／concrete／glass／wood／energy／generic）、weapon、shots、distance。
+## 玩家對材質靶開槍。material（flesh／armor／metal／concrete／glass／wood／energy／generic）、weapon、shots、distance（預設 5 格；步槍的子彈飛不到太遠）。
 func act_shoot_target(params: Dictionary) -> void:
 	var weapon := arena.use_weapon(_text(params, "weapon", "rifle"))
 	if weapon == null:
 		_fail("找不到武器「%s」" % _text(params, "weapon", "rifle"))
 		return
-	var target := arena.spawn_target(StringName(_text(params, "material", "generic")), float(params.get("distance", 8.0)))
+	var target := arena.spawn_target(StringName(_text(params, "material", "generic")), float(params.get("distance", 5.0)))
 	if not await _wait(0.3):
 		return
 	if not await _fire_burst(weapon, int(params.get("shots", 3)), func() -> Vector2: return target.global_position + Vector2(0.0, -20.0)):
@@ -424,3 +433,183 @@ func act_dash(_params: Dictionary) -> void:
 		return
 	arena.release(&"move_right")
 	await _wait(TAIL_TIME)
+
+
+# ---------------------------------------------------------------------------
+# 機關與場景互動
+# ---------------------------------------------------------------------------
+
+## 玩家撥開關，同頻道的閘門打開再放下。switch、gate（data/props 的檔名，預設 switch_a、gate_a）。
+func act_mechanism(params: Dictionary) -> void:
+	var gate := arena.spawn_prop("res://data/props/%s.tres" % _text(params, "gate", "gate_a"), 4.0)
+	var switch := arena.spawn_prop("res://data/props/%s.tres" % _text(params, "switch", "switch_a"), 0.0)
+	if gate == null or switch == null:
+		_fail("找不到開關或閘門")
+		return
+	if not await _wait(0.6):
+		return
+	for i in 2:
+		await arena.tap(&"interact")
+		if not await _wait(1.6):
+			return
+	await _wait(TAIL_TIME)
+
+
+## 玩家撥電力開關：斷電（區域熄燈）再復電。
+func act_power(_params: Dictionary) -> void:
+	var switch := arena.spawn_prop("res://data/props/power_switch.tres", 0.0)
+	if switch == null:
+		_fail("找不到電力開關")
+		return
+	if not await _wait(0.6):
+		return
+	for i in 2:
+		await arena.tap(&"interact")
+		if not await _wait(1.8):
+			return
+	await _wait(TAIL_TIME)
+
+
+## 義體能力。ability（data/abilities 的檔名：emp_pulse、overclock）；ready 為 true 時只看「能力就緒」（電量剛好補滿的提示音）。
+func act_cyber(params: Dictionary) -> void:
+	var path := "res://data/abilities/%s.tres" % _text(params, "ability", "emp_pulse")
+	var ability := load(path) as CyberAbilityData if ResourceLoader.exists(path) else null
+	if ability == null:
+		_fail("找不到義體能力：%s" % path)
+		return
+	var cyber := arena.player.cyber
+	cyber.debug_set_ability(ability)
+	if bool(params.get("ready", false)):
+		cyber.charge = ability.charge_cost - 1.0
+		if not await _wait_until(func() -> bool: return cyber.is_ready(), 3.0):
+			return
+		await _wait(TAIL_TIME)
+		return
+	arena.spawn_enemy("grunt", 3.0)
+	arena.spawn_enemy("drone", 5.0, 40.0)
+	cyber.charge = ability.charge_cost + 10.0
+	if not await _wait(0.4):
+		return
+	cyber.try_activate()
+	await _wait(TAIL_TIME + 1.2)
+
+
+## 撿道具：走過去撿。kind 目前只有 health（回復裝甲，撿之前先讓玩家少一點血）。
+func act_pickup(_params: Dictionary) -> void:
+	arena.enemy_bullet_hits_player(1)
+	var pickup := HealthPickup.new()
+	pickup.position = Vector2(arena.player.global_position.x + 3.0 * LabArena.TILE, LabArena.FLOOR_Y)
+	arena.level._entities.add_child(pickup)
+	arena.adopt(pickup)
+	if not await _wait(0.3):
+		return
+	arena.hold(&"move_right")
+	if not await _wait(1.6):
+		return
+	arena.release(&"move_right")
+	await _wait(TAIL_TIME)
+
+
+## 電話亭。mode：call（整段撥號備份：拿起話筒、三聲撥號音、話筒裡的錄音、掛上）、rebirth（死後從這個亭子醒來的來電鈴聲）。
+func act_phone(params: Dictionary) -> void:
+	var booth := _place_booth()
+	if not await _wait(0.4):
+		return
+	if not booth.start_call(arena.player):
+		_fail("玩家無法開始撥號")
+		return
+	if not await _wait_until(func() -> bool: return not booth.is_calling(), 6.0):
+		return
+	await _wait(0.6)
+	if _text(params, "mode", "call") == "rebirth":
+		booth.queue_free()
+		await arena.get_tree().process_frame
+		_place_booth()
+		if not await _wait(2.4):
+			return
+	await _wait(TAIL_TIME)
+
+
+func _place_booth() -> Checkpoint:
+	var booth := Checkpoint.new()
+	booth.position = Vector2(arena.player.global_position.x + 1.4 * LabArena.TILE, LabArena.FLOOR_Y)
+	arena.level._entities.add_child(booth)
+	arena.adopt(booth)
+	return booth
+
+
+## 雨夜閃電與雷聲：過場動畫的閃電效果（疊在舞台畫面上）。
+func act_lightning(_params: Dictionary) -> void:
+	var cutscene := CutscenePlayer.new()
+	arena.add_child(cutscene)
+	cutscene.play(&"lab_lightning", {"overlay": true, "steps": [{"do": "fx", "kind": "lightning", "time": 0.6}, {"do": "wait", "time": 1.4}, {"do": "end"}]})
+	var token := _token
+	await cutscene.finished
+	cutscene.queue_free()
+	UiKit.set_cursor_visible(true)
+	if token != _token:
+		return
+	await _wait(TAIL_TIME)
+
+
+# ---------------------------------------------------------------------------
+# 介面
+# ---------------------------------------------------------------------------
+
+## 暫停選單：開啟、游標移動、按下按鈕、關閉。
+func act_menu(_params: Dictionary) -> void:
+	var menu: PauseMenu = arena.level._pause_menu
+	menu.open()
+	if not await _wait(0.8):
+		menu.close()
+		return
+	var buttons: Array[Button] = []
+	for child in menu._menu_panel.body.get_children():
+		if child is Button:
+			buttons.append(child)
+	for i in mini(3, buttons.size()):
+		buttons[i].grab_focus()
+		if not await _wait(0.5):
+			menu.close()
+			return
+	buttons[0].grab_focus()
+	buttons[0].pressed.emit()
+	await _wait(TAIL_TIME)
+	if menu._root.visible:
+		menu.close()
+	UiKit.set_cursor_visible(true)
+
+
+## 整個畫面：主選單或結算畫面（各自的曲子一起響起）。screen：menu、victory。
+func act_screen(params: Dictionary) -> void:
+	arena.audio_on = true
+	var screen: Control = MainMenu.new() if _text(params, "screen", "menu") == "menu" else VictoryScreen.new()
+	arena.add_child(screen)
+	await _wait(float(params.get("seconds", 5.0)))
+	screen.queue_free()
+	UiKit.set_cursor_visible(true)
+
+
+# ---------------------------------------------------------------------------
+# 環境音與背景音樂
+# ---------------------------------------------------------------------------
+
+## 在某個光影區段的場地裡待一段時間，環境音與背景音樂像進遊戲一樣自己響。
+## zone（光影設定 id）、seconds（預設 6）、state：calm（平靜）、combat（附近有警戒的敵人）、boss（頭目戰開始）、
+## safe（站在電話亭旁）、death（玩家倒下的短曲）。
+func act_zone(params: Dictionary) -> void:
+	await arena.build(StringName(_text(params, "zone", "neutral")), true)
+	if not await _wait(1.0):
+		return
+	match _text(params, "state", "calm"):
+		"combat":
+			for i in 3:
+				arena.spawn_enemy("grunt", 5.0 + float(i) * 1.5)
+		"boss":
+			EventBus.boss_started.emit("實驗室頭目", 100)
+		"safe":
+			_place_booth()
+		"death":
+			arena.player.health.setup(3, 0.0)
+			arena.enemy_bullet_hits_player(99)
+	await _wait(float(params.get("seconds", 6.0)))

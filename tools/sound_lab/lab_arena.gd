@@ -5,7 +5,8 @@ extends Node
 ## 玩家永遠不死、不受傷害累積；reset() 把場地還原成乾淨的起點。
 
 const MAP_PATH := "res://tests/fixtures/arena_map.json"
-const LIGHTING_PATH := "res://data/lighting/neutral.tres"
+const LIGHTING_DIR := "res://data/lighting/"
+const DEFAULT_LIGHTING := &"neutral"
 const ENEMY_DIR := "res://data/enemies/"
 const WEAPON_DIR := "res://data/weapons/"
 const TILE := 16.0
@@ -17,14 +18,23 @@ var level: Level
 var player: Player
 var _environment: Node
 var _held: Dictionary = {}
+## 目前場地的光影設定 id 與背景音樂／環境音有沒有開（環境音與音樂情境才會開）。
+var lighting_id: StringName = DEFAULT_LIGHTING
+var audio_on := false
+## 情境放進場地的東西（敵人、靶、道具）：還原場地時一併清掉，不會擋住下一個情境。
+var _spawned: Array[Node] = []
 var _codex_before: Array = []
 var _codex_guarded := false
 var _culling_before := true
 
 
 ## 建立場地；完成後 player 可用。可以重複呼叫（會先拆掉舊的）。
-func build() -> void:
+## p_lighting 是光影設定 id（data/lighting/<id>.tres，也就是環境音與音樂對應表用的區段 id）；
+## with_audio 為 true 時像進遊戲一樣自己播背景音樂與環境音，預設關掉避免蓋過正在調的聲音。
+func build(p_lighting: StringName = DEFAULT_LIGHTING, with_audio := false) -> void:
 	teardown()
+	lighting_id = p_lighting
+	audio_on = with_audio
 	_guard_codex()
 	# 敵人只在畫面內才動（省效能），場地小，一律讓它們動，不依賴有沒有繪圖。
 	_culling_before = Enemy.activation_culling_enabled
@@ -36,7 +46,12 @@ func build() -> void:
 	data.layout_path = MAP_PATH
 	var zone := LightingZone.new()
 	zone.start_tile = 0
-	zone.profile = load(LIGHTING_PATH)
+	var profile_path := LIGHTING_DIR + String(lighting_id) + ".tres"
+	if not ResourceLoader.exists(profile_path):
+		push_error("[LabArena] 沒有這個光影設定：%s，改用 %s" % [profile_path, DEFAULT_LIGHTING])
+		lighting_id = DEFAULT_LIGHTING
+		profile_path = LIGHTING_DIR + String(DEFAULT_LIGHTING) + ".tres"
+	zone.profile = load(profile_path)
 	data.lighting_zones = [zone]
 	GameState.start_new_run(GameState.difficulties[1])
 	level = Level.new()
@@ -49,10 +64,13 @@ func build() -> void:
 	place_player()
 	level.hud.visible = true
 	player._since_block_release = 10.0
-	# 關卡一進來就會開背景音樂與環境音，場地不要。
-	Music.leave_level()
-	Music.stop(0.0)
-	Ambience.stop_all(0.0)
+	# 關卡一進來就會開背景音樂與環境音；只有音樂與環境音的情境要，其他一律關掉。
+	if not audio_on:
+		Music.leave_level()
+		Music.stop(0.0)
+		Ambience.stop_all(0.0)
+	# 關卡會把滑鼠游標藏起來換成準星；實驗室要看得到游標。
+	UiKit.set_cursor_visible(true)
 
 
 func _exit_tree() -> void:
@@ -79,8 +97,11 @@ func _release_codex() -> void:
 
 func teardown() -> void:
 	release_all()
+	# 舊關卡要先從樹上拿掉：它離開時會通知背景音樂「離開關卡」，要在新關卡進來之前發生，不然會把新關卡的音樂關掉。
 	for node in [level, _environment]:
 		if node != null and is_instance_valid(node):
+			if node.get_parent() == self:
+				remove_child(node)
 			node.queue_free()
 	level = null
 	player = null
@@ -94,10 +115,13 @@ func is_ready() -> bool:
 ## 還原成乾淨的起點：清掉敵人與靶、玩家回到起點、彈藥補滿、放開按住的按鍵。玩家狀態不對（例如死掉）就整個重建。
 func reset() -> void:
 	release_all()
-	if not is_ready() or player.state == Player.State.DEAD:
+	# 上一個情境用了別的光影或開了音樂，或玩家死了：整個重建回預設場地。
+	if not is_ready() or player.state == Player.State.DEAD or audio_on or lighting_id != DEFAULT_LIGHTING:
 		await build()
 		return
+	UiKit.set_cursor_visible(true)
 	clear_targets()
+	player.cyber.debug_set_ability(null)
 	player.velocity = Vector2.ZERO
 	place_player()
 	player.health.setup(999999, 0.0)
@@ -167,7 +191,7 @@ func spawn_enemy(id: String, tiles_from_player := 6.0, lift := 0.0) -> Enemy:
 	var enemy := level._create_enemy(load(path) as EnemyData)
 	enemy.position = Vector2(player.global_position.x + tiles_from_player * TILE, FLOOR_Y - lift)
 	level._entities.add_child(enemy)
-	return enemy
+	return adopt(enemy) as Enemy
 
 
 ## 在玩家前方生一個場景道具（data/props 或機關資料的路徑，例如 res://data/props/crate.tres）；用關卡自己的生成函式，所以行為和進遊戲一樣。
@@ -182,7 +206,7 @@ func spawn_prop(path: String, tiles_from_player := 6.0) -> Node2D:
 		return null
 	prop.position = Vector2((float(cell.x) + 0.5) * TILE, FLOOR_Y)
 	level._entities.add_child(prop)
-	return prop
+	return adopt(prop) as Node2D
 
 
 ## 材質靶（打不死，受擊閃白）；tiles_from_player 同上。
@@ -191,7 +215,7 @@ func spawn_target(material: StringName, tiles_from_player := 8.0) -> MaterialDum
 	dummy.setup(material)
 	dummy.position = Vector2(player.global_position.x + tiles_from_player * TILE, FLOOR_Y)
 	level._entities.add_child(dummy)
-	return dummy
+	return adopt(dummy) as MaterialDummy
 
 
 ## 對敵人造成指定傷害（走真實的受擊框，所以受擊聲、特效、反應都照真實規則）。
@@ -224,7 +248,17 @@ func enemy_bullet_hits_player(amount := 1) -> void:
 	player.hurtbox.receive(info)
 
 
+## 把情境自己加進場地的節點登記起來，還原場地時會清掉。回傳同一個節點。
+func adopt(node: Node) -> Node:
+	_spawned.append(node)
+	return node
+
+
 func clear_targets() -> void:
+	for node in _spawned:
+		if is_instance_valid(node):
+			node.queue_free()
+	_spawned.clear()
 	for node in get_tree().get_nodes_in_group(&"enemies"):
 		if level != null and level.is_ancestor_of(node):
 			node.queue_free()
