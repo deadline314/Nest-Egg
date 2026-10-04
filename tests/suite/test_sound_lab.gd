@@ -86,6 +86,13 @@ func _unstash_preview(catalog: AudioCatalog, id: String, stash: String) -> void:
 		DirAccess.rename_absolute(ProjectSettings.globalize_path(stash), ProjectSettings.globalize_path(catalog.preview_path(id)))
 
 
+func _list_texts(list: ItemList) -> PackedStringArray:
+	var texts := PackedStringArray()
+	for i in list.item_count:
+		texts.append(list.get_item_text(i))
+	return texts
+
+
 ## 清單裡所有素材項目的編號（不含說明用的停用項目）。
 func _list_ids(list: ItemList) -> PackedStringArray:
 	var ids := PackedStringArray()
@@ -183,6 +190,41 @@ func _test_lab() -> void:
 	check(tab.selected_slot() == "P-WPN-001" and tab._title.text.contains("手槍射擊"), "selecting a slot shows its title")
 	check(tab._candidate_list.item_count >= 10, "a slot offers at least ten candidates (%d)" % tab._candidate_list.item_count)
 	check(tab._current_list.item_count >= 1, "the current assets are listed")
+
+	# ---- 並排顯示：遊戲現在用 vs 預計換成（NE-181）
+	var current_text := "
+".join(_list_texts(tab._current_list))
+	check(current_text.contains("GUN-0031") and current_text.contains("A_42P.wav"), "the current list shows the id, the file name and the pack in full")
+	lab.catalog.assets["GUN-9991"] = {"pack": "clips_sfx", "file": "GUN-9991.wav", "dur": 0.5, "parent": "GUN-0031", "start": 1.0, "end": 1.5}
+	check(lab.asset_line("GUN-9991").contains("擷取自 GUN-0031") and lab.asset_detail("GUN-9991").contains("1.00–1.50") and lab.asset_detail("GUN-9991").contains("A_42P.wav"), "a clip is described by its source asset and range")
+	check(lab.asset_detail("GUN-0000").contains("找不到") and lab.asset_detail("GUN-0031").contains("A_42P.wav"), "unknown ids are said to be missing and normal assets show their file")
+	lab.doc.set_planned("P-WPN-001", PackedStringArray(["GUN-0020", "GUN-9991", "GUN-8888"]))
+	tab.refresh()
+	tab.select_slot("P-WPN-001")
+	var planned_texts := _list_texts(tab._planned_list)
+	check(planned_texts.size() == 3 and planned_texts[1].contains("擷取自") and planned_texts[2].contains("找不到"), "the planned list shows every planned asset, clips with their source and unknown ids marked")
+	check(planned_texts[0].contains("沒有預聽檔") == not lab.catalog.has_preview("GUN-0020") and planned_texts[1].contains("沒有預聽檔"), "assets without a preview stay listed and are marked")
+	var slot_line := ""
+	for i in tab._slot_list.item_count:
+		if tab._slot_list.get_item_text(i).contains("P-WPN-001"):
+			slot_line = tab._slot_list.get_item_text(i)
+	check(slot_line.contains("GUN-0020") and slot_line.contains("共 3"), "the slot list shows the planned asset (%s)" % slot_line)
+	lab.doc.set_planned("P-WPN-001", PackedStringArray())
+	tab.refresh()
+	tab.select_slot("P-WPN-001")
+	check(tab._planned_list.item_count == 1 and tab._planned_list.is_item_disabled(0) and tab._planned_list.get_item_text(0).contains("還沒挑"), "an empty plan says so")
+	tab.compare_gap = 0.05
+	check(not await tab.compare_current_and_planned() and lab.status_label.text.contains("還沒有預計使用"), "comparing without a plan only explains")
+	lab.doc.set_planned("P-WPN-001", PackedStringArray(["GUN-0031"]))
+	tab.refresh()
+	tab.select_slot("P-WPN-001")
+	check(await tab.compare_current_and_planned() == lab.catalog.has_preview("GUN-0031"), "comparing plays the game's sound, then the planned asset")
+	lab.audition.stop()
+	Sfx.stop_all()
+	lab.catalog.assets.erase("GUN-9991")
+	lab.doc.set_planned("P-WPN-001", PackedStringArray())
+	tab.refresh()
+	tab.select_slot("P-WPN-001")
 	tab._candidate_list.select(2)
 	tab._candidate_list.select(3, false)
 	var picked := tab.selected_assets()

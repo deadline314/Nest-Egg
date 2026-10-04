@@ -141,8 +141,30 @@ func notify(text: String) -> void:
 ## 清單裡一個素材的一行說明：編號、時長、素材包／檔名。
 func asset_line(asset_id: String) -> String:
 	var a := catalog.asset(asset_id)
+	if a.has("parent"):
+		return "%s  %5.1fs  ✂ 擷取自 %s %.2f–%.2f" % [asset_id, float(a.get("dur", 0.0)), a["parent"], float(a.get("start", 0.0)), float(a.get("end", 0.0))]
 	var file := str(a.get("file", "")).get_file()
 	return "%s  %5.1fs  %s／%s" % [asset_id, float(a.get("dur", 0.0)), str(a.get("pack", "")).trim_prefix("oga_").trim_prefix("kenney_"), file]
+
+
+## 並排比較用的一行說明：編號與時長、（擷取片段標來源與起訖）、說明（槍種等）、檔名，素材包放最後（被截斷也無妨，完整內容在 tooltip）。
+func asset_detail(asset_id: String) -> String:
+	var a := catalog.asset(asset_id)
+	if a.is_empty():
+		return "%s（素材目錄找不到這個編號）" % asset_id
+	var parts := PackedStringArray(["%s  %.1f 秒" % [asset_id, float(a.get("dur", 0.0))]])
+	var source := a
+	if a.has("parent"):
+		parts.append("✂ 擷取自 %s %.2f–%.2f 秒" % [a["parent"], float(a.get("start", 0.0)), float(a.get("end", 0.0))])
+		source = catalog.asset(str(a["parent"]))
+	if source.is_empty():
+		parts.append("（原檔不在目錄）")
+		return "　".join(parts)
+	var desc := str(source.get("desc", ""))
+	if not desc.is_empty():
+		parts.append(", ".join(desc.split(", ").slice(0, 2)))  # 槍種與型號（說明的前兩段）
+	parts.append("%s（%s）" % [str(source.get("file", "")).get_file(), str(source.get("pack", "")).trim_prefix("oga_").trim_prefix("kenney_")])
+	return "　".join(parts)
 
 
 ## 清單因為沒有預聽檔而隱藏了素材時，放在清單旁的一句說明。

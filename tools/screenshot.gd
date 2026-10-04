@@ -88,6 +88,10 @@ func _run() -> void:
 		await _run_lab_guns()
 		get_tree().quit()
 		return
+	if _scenario == "lab_compare":
+		await _run_lab_compare()
+		get_tree().quit()
+		return
 	if _scenario == "lab_clip":
 		await _run_lab_clip()
 		get_tree().quit()
@@ -1298,6 +1302,21 @@ func _run_lab_music() -> void:
 	lab.music_tab.scroll_vertical = int(lab.music_tab._candidate_list.position.y) - 120
 	await _settle(10)
 	_capture("lab_music")
+	lab.queue_free()
+	get_window().content_scale_mode = scale_mode_before
+
+
+## 音效實驗室的位置與備選分頁：突擊步槍位置，並排顯示「遊戲現在用」與「預計換成」。
+func _run_lab_compare() -> void:
+	var scale_mode_before := get_window().content_scale_mode
+	get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
+	var lab := SoundLab.new()
+	lab.stage_enabled = false
+	add_child(lab)
+	await _settle(20)
+	lab.slots_tab.select_slot("P-WPN-002")
+	await _settle(10)
+	_capture("lab_compare")
 	lab.queue_free()
 	get_window().content_scale_mode = scale_mode_before
 

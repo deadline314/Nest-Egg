@@ -18,6 +18,7 @@ var _volume_slider: HSlider
 var _volume_label: Label
 var _current_list: ItemList
 var _planned_edit: LineEdit
+var _planned_list: ItemList
 var _manual_check: CheckBox
 var _scene_option: OptionButton
 var _scene_note: Label
@@ -30,6 +31,8 @@ var _search_list: ItemList
 var _rows: SoundLabRatioSplit
 var _shown_slots: Array[String] = []
 var _selected_slot := ""
+## 「先聽現在、再聽預計」兩段聲音之間的間隔（秒）；測試時縮短。
+var compare_gap := 1.2
 
 
 func _init(p_lab: SoundLab) -> void:
@@ -107,6 +110,7 @@ func _build_right() -> void:
 	right.add_child(actions)
 	actions.add_child(_button("▶ 遊戲內實際聲音", _play_in_game, "播放這個位置目前在遊戲裡真的會響的聲音"))
 	actions.add_child(_button("■ 全部停止", _stop_all, "停止所有試聽與遊戲內的聲音、音樂"))
+	actions.add_child(_button("▶ 先聽現在、再聽預計", func() -> void: compare_current_and_planned(), "先播遊戲現在的聲音，隔一下再播預計換成的第一個素材（預聽檔的響度是套用後的響度），比較兩者"))
 	_volume_label = Label.new()
 	_volume_label.text = "音量微調"
 	actions.add_child(_volume_label)
@@ -125,20 +129,22 @@ func _build_right() -> void:
 	_auto_play.button_pressed = true
 	_auto_play.tooltip_text = "點選素材就自動播放預聽檔"
 	actions.add_child(_auto_play)
-	right.add_child(_heading("目前用的素材（雙擊試聽）"))
-	_current_list = ItemList.new()
-	_current_list.custom_minimum_size = Vector2(0, 70)
-	_current_list.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_current_list.tooltip_text = "這個位置現在在遊戲裡用的素材；點選即試聽"
+	right.add_child(_heading("遊戲現在用（已經在遊戲裡；點選試聽）"))
+	_current_list = _compare_list("這個位置現在在遊戲裡用的素材（每個素材一行：編號、時長、說明、檔名與素材包）；點選即試聽")
 	_current_list.item_selected.connect(func(i: int) -> void: _maybe_audition(_current_list, i))
 	right.add_child(_current_list)
+	right.add_child(_heading("預計換成（你挑的，還沒套用到遊戲；點選試聽）"))
+	_planned_list = _compare_list("位置清單文件裡這個位置的預計使用，列出你挑的每一個素材；擷取出來的片段標明來源；沒有預聽檔的也列出但無法試聽")
+	_planned_list.item_selected.connect(func(i: int) -> void: _maybe_audition(_planned_list, i))
+	_planned_list.item_activated.connect(_audition_planned_item)
+	right.add_child(_planned_list)
 	var planned_row := HBoxContainer.new()
 	right.add_child(planned_row)
-	planned_row.add_child(_heading("預計使用："))
+	planned_row.add_child(_heading("編輯："))
 	_planned_edit = LineEdit.new()
 	_planned_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_planned_edit.placeholder_text = "素材編號，用逗號或頓號分開（任何類別都可以），按 Enter 寫入"
-	_planned_edit.tooltip_text = "你想在這個位置用的素材編號；按 Enter 寫進位置清單文件"
+	_planned_edit.placeholder_text = "素材編號，用逗號或頓號分開，按 Enter 寫入"
+	_planned_edit.tooltip_text = "直接輸入預計使用的素材編號（任何類別都可以）；按 Enter 寫進位置清單文件"
 	_planned_edit.text_submitted.connect(_on_planned_submitted)
 	planned_row.add_child(_planned_edit)
 	planned_row.add_child(_button("清除", func() -> void: _write_planned(PackedStringArray()), "清掉這個位置的預計使用"))
@@ -192,6 +198,20 @@ func _build_candidate_pane(parent: Control) -> void:
 	_fill_search()
 
 
+## 並排比較用的清單：每個素材一行完整說明，兩份清單平分高度。
+func _audition_planned_item(index: int) -> void:
+	if _planned_list.get_item_metadata(index) != null:
+		lab.audition_asset(str(_planned_list.get_item_metadata(index)))
+
+
+func _compare_list(tip: String) -> ItemList:
+	var list := ItemList.new()
+	list.custom_minimum_size = Vector2(0, 80)
+	list.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	list.tooltip_text = tip
+	return list
+
+
 func _multi_list() -> ItemList:
 	var list := ItemList.new()
 	list.select_mode = ItemList.SELECT_MULTI
@@ -242,7 +262,9 @@ func _fill_slots() -> void:
 		if not query.is_empty() and not ("%s %s %s %s" % [sid, slot["name"], slot["where"], slot["target"]]).to_lower().contains(query):
 			continue
 		var mark := ("★" if not lab.doc.planned(sid).is_empty() else "　") + ("✓" if lab.doc.is_manual(sid) else "　")
-		_slot_list.add_item("%s %s  %s" % [mark, sid, slot["name"]])
+		var planned := lab.doc.planned(sid)
+		var planned_text := "" if planned.is_empty() else "  → %s%s" % [planned[0], "" if planned.size() == 1 else "（共 %d）" % planned.size()]
+		_slot_list.add_item("%s %s  %s%s" % [mark, sid, slot["name"], planned_text])
 		_shown_slots.append(sid)
 		if sid == _selected_slot:
 			_slot_list.select(_slot_list.item_count - 1)
@@ -272,11 +294,12 @@ func _show_slot(slot_id: String) -> void:
 	_where.text = "%s（%s）" % [slot["where"], slot["target"]]
 	_show_source(slot)
 	_fill_scenes(slot_id)
-	_fill_list(_current_list, slot["current"], PackedStringArray())
+	_fill_blocks(_current_list, slot["current"])
 	if (slot["current"] as Array).is_empty():
 		_current_list.add_item("（目前是程式合成音，沒有素材檔）")
 		_current_list.set_item_disabled(0, true)
 	_planned_edit.text = "、".join(lab.doc.planned(slot_id))
+	_fill_planned_list(lab.doc.planned(slot_id))
 	_manual_check.set_pressed_no_signal(lab.doc.is_manual(slot_id))
 	_fill_list(_candidate_list, slot["candidates"], lab.doc.planned(slot_id))
 
@@ -342,6 +365,57 @@ func _fill_list(list: ItemList, ids: Array, planned: PackedStringArray, max_show
 		var a := lab.catalog.asset(aid)
 		list.set_item_tooltip(list.item_count - 1, "%s／%s
 %s" % [a.get("pack", ""), a.get("file", ""), a.get("desc", "")])
+
+
+## 每個素材一行完整說明的清單（遊戲現在用）；沒有預聽檔的隱藏並說明（NE-174）。
+func _fill_blocks(list: ItemList, ids: Array) -> void:
+	list.clear()
+	var split := lab.catalog.split_by_preview(ids)
+	if int(split["hidden"]) > 0:
+		list.add_item(lab.hidden_assets_note(int(split["hidden"])))
+		list.set_item_disabled(0, true)
+	for aid: String in split["shown"]:
+		list.add_item(lab.asset_detail(aid))
+		list.set_item_metadata(list.item_count - 1, aid)
+		var a := lab.catalog.asset(aid)
+		list.set_item_tooltip(list.item_count - 1, "%s／%s
+%s" % [a.get("pack", ""), a.get("file", ""), a.get("desc", "")])
+
+
+## 預計換成的清單：位置清單文件裡填的每一個素材都列出；沒有預聽檔或目錄找不到的也列出並標明（不隱藏使用者自己的挑選）。
+func _fill_planned_list(ids: PackedStringArray) -> void:
+	_planned_list.clear()
+	if ids.is_empty():
+		_planned_list.add_item("（還沒挑；在下面的備選或搜尋選素材，按「設為預計使用」）")
+		_planned_list.set_item_disabled(0, true)
+		return
+	for aid in ids:
+		var note := ""
+		if not lab.catalog.assets.has(aid):
+			note = "⚠ "
+		elif not lab.catalog.has_preview(aid):
+			note = "⚠ 沒有預聽檔，無法試聽　"
+		_planned_list.add_item(note + lab.asset_detail(aid))
+		_planned_list.set_item_metadata(_planned_list.item_count - 1, aid)
+		var a := lab.catalog.asset(aid)
+		_planned_list.set_item_tooltip(_planned_list.item_count - 1, "%s／%s
+%s" % [a.get("pack", ""), a.get("file", ""), a.get("desc", "")])
+
+
+## 先播遊戲現在的聲音，隔一下再播預計換成的第一個素材，方便比較。回傳預計素材是否播出。
+func compare_current_and_planned() -> bool:
+	if _selected_slot == "":
+		lab.notify("先在左邊選一個位置")
+		return false
+	var planned := lab.doc.planned(_selected_slot)
+	if planned.is_empty():
+		lab.notify("這個位置還沒有預計使用，先在下面的備選或搜尋挑一個")
+		return false
+	_play_in_game()
+	await lab.get_tree().create_timer(compare_gap).timeout
+	if not is_inside_tree():
+		return false
+	return lab.audition_asset(planned[0])
 
 
 func _asset_line(aid: String) -> String:
