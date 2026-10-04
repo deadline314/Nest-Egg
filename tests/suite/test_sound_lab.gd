@@ -6,6 +6,9 @@ extends TestSuite
 const LAB_SCENE := "res://tools/sound_lab/sound_lab.tscn"
 const COPY_PATH := "user://test_audio_lab_placements.md"
 
+var _fake_previews: PackedStringArray = []  ## 測試自己建立的空預聽檔（收尾時刪掉；本機真有的預聽檔不動）
+var _created_audition_dir := false
+
 
 func run() -> void:
 	_test_not_reachable_from_the_game()
@@ -37,6 +40,55 @@ func _test_not_reachable_from_the_game() -> void:
 
 func _cleanup() -> void:
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(COPY_PATH))
+	_remove_fake_previews()
+
+
+func _remove_fake_previews() -> void:
+	for path in _fake_previews:
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
+	_fake_previews.clear()
+	if _created_audition_dir:
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(AudioCatalog.AUDITION_DIR))
+		_created_audition_dir = false
+
+
+## 讓這些素材「有預聽檔」（只補沒有的）：清單只列有預聽檔的素材，測試不能依賴本機有沒有預聽檔（CI 一個都沒有）。
+func _ensure_previews(catalog: AudioCatalog, ids: Array) -> void:
+	var dir := ProjectSettings.globalize_path(AudioCatalog.AUDITION_DIR)
+	if not DirAccess.dir_exists_absolute(dir):
+		DirAccess.make_dir_recursive_absolute(dir)
+		_created_audition_dir = true
+	for id: String in ids:
+		if catalog.has_preview(id):
+			continue
+		var file := FileAccess.open(catalog.preview_path(id), FileAccess.WRITE)
+		if file != null:
+			file.close()
+			_fake_previews.append(catalog.preview_path(id))
+
+
+## 把預聽檔暫時移開（本機真有的也一樣），回傳移開後的路徑；沒有預聽檔時回傳空字串。
+func _stash_preview(catalog: AudioCatalog, id: String) -> String:
+	var path := catalog.preview_path(id)
+	if not FileAccess.file_exists(path):
+		return ""
+	var stash := path + ".test_stash"
+	DirAccess.rename_absolute(ProjectSettings.globalize_path(path), ProjectSettings.globalize_path(stash))
+	return stash
+
+
+func _unstash_preview(catalog: AudioCatalog, id: String, stash: String) -> void:
+	if not stash.is_empty():
+		DirAccess.rename_absolute(ProjectSettings.globalize_path(stash), ProjectSettings.globalize_path(catalog.preview_path(id)))
+
+
+## 清單裡所有素材項目的編號（不含說明用的停用項目）。
+func _list_ids(list: ItemList) -> PackedStringArray:
+	var ids := PackedStringArray()
+	for i in list.item_count:
+		if list.get_item_metadata(i) != null:
+			ids.append(str(list.get_item_metadata(i)))
+	return ids
 
 
 func _tooltip_gaps(node: Node, into: PackedStringArray) -> void:
@@ -54,6 +106,7 @@ func _test_lab() -> void:
 	lab.stage_enabled = false
 	runner.get_tree().root.add_child(lab)
 	await frames(3)
+	_ensure_previews(lab.catalog, lab.catalog.slot("P-WPN-001")["candidates"] + lab.catalog.search("rain", "", 100000))
 	check(lab.catalog.is_loaded() and lab.doc.slot_ids().size() == lab.catalog.slots.size(), "the lab loads the catalog and the placement list")
 	var gaps := PackedStringArray()
 	_tooltip_gaps(lab, gaps)
@@ -112,6 +165,32 @@ func _test_lab() -> void:
 	tab._write_planned(PackedStringArray())
 	tab._result_tabs.current_tab = 0
 
+	# ---- 沒有預聽檔的素材不列出（備選、搜尋、目前用的），預計使用不受影響；補回就出現
+	var victim := str((lab.catalog.slot("P-WPN-001")["candidates"] as Array)[0])
+	tab._on_planned_submitted(victim)
+	var stash := _stash_preview(lab.catalog, victim)
+	check(not lab.catalog.has_preview(victim), "the test can take a preview away")
+	tab.select_slot("P-WPN-001")
+	check(not _list_ids(tab._candidate_list).has(victim), "a candidate without a preview is not listed")
+	check(tab._candidate_list.item_count >= 1 and tab._candidate_list.get_item_text(0).contains("build_candidates") and tab._candidate_list.is_item_disabled(0), "the list says how many are hidden and how to build the previews")
+	tab._search_edit.text = victim
+	tab._search_edit.text_changed.emit(victim)
+	check(not _list_ids(tab._search_list).has(victim) and tab._search_list.get_item_text(0).contains("1 個"), "searching for its id does not list it, and the hidden count is shown")
+	for list: ItemList in [tab._current_list, tab._candidate_list, tab._search_list]:
+		for aid in _list_ids(list):
+			check(lab.catalog.has_preview(aid), "every listed asset has a preview (%s)" % aid)
+	check(lab.doc.planned("P-WPN-001") == PackedStringArray([victim]) and tab._planned_edit.text == victim, "the planned use is kept even when its preview is missing")
+	var on_disk := PlacementDoc.new()
+	on_disk.load_doc(COPY_PATH)
+	check(on_disk.planned("P-WPN-001") == PackedStringArray([victim]), "the placement document still lists it")
+	_unstash_preview(lab.catalog, victim, stash)
+	tab.select_slot("P-WPN-001")
+	tab._fill_search()
+	check(_list_ids(tab._candidate_list).has(victim) and _list_ids(tab._search_list).has(victim), "once the preview is back the asset is listed again")
+	tab._write_planned(PackedStringArray())
+	tab._search_edit.text = "rain"
+	tab._search_edit.text_changed.emit("rain")
+
 	# ---- 來源顯示與音量微調（只預覽，不動真正的資料檔）
 	tab.select_slot("P-WPN-001")
 	check(tab._source.text.contains("音效檔") and tab._source.text.contains("CC0"), "the slot shows its source, license pack and length: %s" % tab._source.text)
@@ -147,7 +226,8 @@ func _test_lab() -> void:
 	tab.select_slot("P-HIT-001")
 	check(tab._manual_check.button_pressed and tab._planned_edit.text.contains("IMP-0007"), "the detail panel shows the reloaded values")
 
-	# ---- 試聽
+	# ---- 試聽（空的假預聽檔放不出聲音，先移除；之後只剩本機真有的預聽檔）
+	_remove_fake_previews()
 	var has_preview := lab.catalog.has_preview("GUN-0031")
 	check(lab.audition_asset("GUN-0031") == has_preview, "auditioning plays the preview when it exists")
 	check(not lab.audition_asset("GUN-9999") and lab.status_label.text.contains("build_candidates"), "a missing preview explains how to make it, without failing")

@@ -4,6 +4,9 @@ extends HSplitContainer
 ## 目前用的素材、預計使用（和位置清單文件連動）、備選素材與跨類別搜尋整個素材目錄。
 ## 所有挑選都立刻寫回位置清單文件（只改那一格）；勾「手動放入」代表你自己已經把檔案放進遊戲，套用工具會略過。
 
+const SEARCH_MATCH_LIMIT := 100000  ## 搜尋先取全部符合的，才能算出被隱藏的個數
+const SEARCH_SHOW_LIMIT := 300  ## 搜尋結果最多列出幾個
+
 var lab: SoundLab
 var _domain: OptionButton
 var _search: LineEdit
@@ -250,11 +253,8 @@ func _show_slot(slot_id: String) -> void:
 	_where.text = "%s（%s）" % [slot["where"], slot["target"]]
 	_show_source(slot)
 	_fill_scenes(slot_id)
-	_current_list.clear()
-	for aid: String in slot["current"]:
-		_current_list.add_item(_asset_line(aid))
-		_current_list.set_item_metadata(_current_list.item_count - 1, aid)
-	if _current_list.item_count == 0:
+	_fill_list(_current_list, slot["current"], PackedStringArray())
+	if (slot["current"] as Array).is_empty():
 		_current_list.add_item("（目前是程式合成音，沒有素材檔）")
 		_current_list.set_item_disabled(0, true)
 	_planned_edit.text = "、".join(lab.doc.planned(slot_id))
@@ -308,13 +308,21 @@ func play_in_stage_with_candidate() -> bool:
 	return await play_in_stage(picked[0])
 
 
-func _fill_list(list: ItemList, ids: Array, planned: PackedStringArray) -> void:
+## 只列出有預聽檔的素材（最多 max_shown 個，0 = 不限）；有被隱藏的在清單最上面用一行說明。
+func _fill_list(list: ItemList, ids: Array, planned: PackedStringArray, max_shown := 0) -> void:
 	list.clear()
-	for aid: String in ids:
+	var split := lab.catalog.split_by_preview(ids)
+	if int(split["hidden"]) > 0:
+		list.add_item(lab.hidden_assets_note(int(split["hidden"])))
+		list.set_item_disabled(0, true)
+	for aid: String in split["shown"]:
+		if max_shown > 0 and list.item_count >= max_shown:
+			break
 		list.add_item(("★ " if planned.has(aid) else "") + _asset_line(aid))
 		list.set_item_metadata(list.item_count - 1, aid)
 		var a := lab.catalog.asset(aid)
-		list.set_item_tooltip(list.item_count - 1, "%s／%s\n%s" % [a.get("pack", ""), a.get("file", ""), a.get("desc", "")])
+		list.set_item_tooltip(list.item_count - 1, "%s／%s
+%s" % [a.get("pack", ""), a.get("file", ""), a.get("desc", "")])
 
 
 func _asset_line(aid: String) -> String:
@@ -325,7 +333,8 @@ func _fill_search() -> void:
 	var code := ""
 	if _category != null and _category.selected > 0:
 		code = str(_category.get_item_metadata(_category.selected))
-	_fill_list(_search_list, lab.catalog.search(_search_edit.text, code, 300) if _search_edit != null else [], lab.doc.planned(_selected_slot))
+	var matches: Array = lab.catalog.search(_search_edit.text, code, SEARCH_MATCH_LIMIT) if _search_edit != null else []
+	_fill_list(_search_list, matches, lab.doc.planned(_selected_slot), SEARCH_SHOW_LIMIT)
 
 
 # ---------------------------------------------------------------------------

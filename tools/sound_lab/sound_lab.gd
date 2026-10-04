@@ -131,6 +131,11 @@ func asset_line(asset_id: String) -> String:
 	return "%s  %5.1fs  %s／%s" % [asset_id, float(a.get("dur", 0.0)), str(a.get("pack", "")).trim_prefix("oga_").trim_prefix("kenney_"), file]
 
 
+## 清單因為沒有預聽檔而隱藏了素材時，放在清單旁的一句說明。
+func hidden_assets_note(hidden: int) -> String:
+	return "另有 %d 個素材沒有預聽檔而隱藏，補齊：python tools/audio/build_candidates.py" % hidden
+
+
 ## 試聽一個素材（預聽檔）；沒有預聽檔時提示怎麼產生。
 func audition_asset(asset_id: String) -> bool:
 	if audition.play_asset(asset_id):

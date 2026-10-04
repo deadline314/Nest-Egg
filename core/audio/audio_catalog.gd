@@ -97,6 +97,19 @@ func has_preview(asset_id: String) -> bool:
 	return FileAccess.file_exists(preview_path(asset_id))
 
 
+## 把素材編號依有沒有預聽檔分開：{"shown": 有預聽檔的編號（保持原順序）, "hidden": 沒有預聽檔的個數}。
+## 實驗室清單只列 shown，避免點了才發現沒有聲音。
+func split_by_preview(ids: Array) -> Dictionary:
+	var shown: Array = []
+	var hidden := 0
+	for id: String in ids:
+		if has_preview(id):
+			shown.append(id)
+		else:
+			hidden += 1
+	return {"shown": shown, "hidden": hidden}
+
+
 ## 載入預聽檔；沒有或讀不了回傳 null（不會崩潰）。
 func load_preview(asset_id: String) -> AudioStream:
 	var path := preview_path(asset_id)
