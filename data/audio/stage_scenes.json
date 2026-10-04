@@ -1,0 +1,705 @@
+{
+ "_說明": "實驗室畫面舞台的情境目錄。scenes：情境 id → name、group（分組，見 groups）、action（動作，tools/sound_lab/stage_actions.gd 的 act_ 函式）、params（動作參數）、tip（一句話說明）。slots：位置 id → 情境 id 陣列（第一個是預設），或 {\"none\": 沒有畫面的原因}。每個位置都要有登記，資料檢查會抓漏。新增情境只改這個檔。",
+ "groups": {
+  "武器": "槍械與近戰",
+  "命中": "命中與材質",
+  "角色": "角色受傷與攻擊",
+  "移動": "腳步與移動",
+  "機關": "機關與場景互動",
+  "介面": "介面",
+  "環境": "環境音",
+  "音樂": "背景音樂"
+ },
+ "scenes": {
+  "wpn_fire_pistol": {
+   "name": "手槍射擊",
+   "group": "武器",
+   "action": "fire",
+   "params": {
+    "weapon": "pistol",
+    "shots": 6
+   },
+   "tip": "玩家用手槍連續開 6 槍，看槍口閃光、彈殼與後座力"
+  },
+  "wpn_fire_rifle": {
+   "name": "突擊步槍射擊",
+   "group": "武器",
+   "action": "fire",
+   "params": {
+    "weapon": "rifle",
+    "shots": 8
+   },
+   "tip": "玩家用突擊步槍連續開 8 槍，看槍口閃光、彈殼與後座力"
+  },
+  "wpn_fire_smg": {
+   "name": "衝鋒槍射擊",
+   "group": "武器",
+   "action": "fire",
+   "params": {
+    "weapon": "smg",
+    "shots": 10
+   },
+   "tip": "玩家用衝鋒槍連續開 10 槍，看槍口閃光、彈殼與後座力"
+  },
+  "wpn_fire_spread": {
+   "name": "霰彈槍射擊",
+   "group": "武器",
+   "action": "fire",
+   "params": {
+    "weapon": "spread",
+    "shots": 3
+   },
+   "tip": "玩家用霰彈槍連續開 3 槍，看槍口閃光、彈殼與後座力"
+  },
+  "wpn_fire_launcher": {
+   "name": "發射器射擊",
+   "group": "武器",
+   "action": "fire",
+   "params": {
+    "weapon": "launcher",
+    "shots": 2
+   },
+   "tip": "玩家用發射器連續開 2 槍，看槍口閃光、彈殼與後座力"
+  },
+  "wpn_fire_railgun": {
+   "name": "軌道砲射擊",
+   "group": "武器",
+   "action": "fire",
+   "params": {
+    "weapon": "railgun",
+    "shots": 2
+   },
+   "tip": "玩家用軌道砲連續開 2 槍，看槍口閃光、彈殼與後座力"
+  },
+  "wpn_fire_laser": {
+   "name": "雷射射擊",
+   "group": "武器",
+   "action": "fire",
+   "params": {
+    "weapon": "laser",
+    "shots": 3
+   },
+   "tip": "玩家用雷射連續開 3 槍，看槍口閃光、彈殼與後座力"
+  },
+  "wpn_fire_mech_cannon": {
+   "name": "機甲砲射擊",
+   "group": "武器",
+   "action": "fire",
+   "params": {
+    "weapon": "mech_cannon",
+    "shots": 3
+   },
+   "tip": "玩家用機甲砲連續開 3 槍，看槍口閃光、彈殼與後座力"
+  },
+  "wpn_reload_pistol": {
+   "name": "手槍換彈",
+   "group": "武器",
+   "action": "reload",
+   "params": {
+    "weapon": "pistol",
+    "left": 0
+   },
+   "tip": "玩家把手槍的彈匣打空後換彈，整段換彈聲依換彈聲音時間軸播出，看彈藥進度與動作"
+  },
+  "wpn_reload_rifle": {
+   "name": "步槍換彈",
+   "group": "武器",
+   "action": "reload",
+   "params": {
+    "weapon": "rifle",
+    "left": 0
+   },
+   "tip": "玩家把步槍的彈匣打空後換彈，整段換彈聲依換彈聲音時間軸播出，看彈藥進度與動作"
+  },
+  "wpn_reload_smg": {
+   "name": "衝鋒槍換彈",
+   "group": "武器",
+   "action": "reload",
+   "params": {
+    "weapon": "smg",
+    "left": 0
+   },
+   "tip": "玩家把衝鋒槍的彈匣打空後換彈，整段換彈聲依換彈聲音時間軸播出，看彈藥進度與動作"
+  },
+  "wpn_reload_spread": {
+   "name": "霰彈槍換彈",
+   "group": "武器",
+   "action": "reload",
+   "params": {
+    "weapon": "spread",
+    "left": 0
+   },
+   "tip": "玩家把霰彈槍的彈匣打空後換彈，整段換彈聲依換彈聲音時間軸播出，看彈藥進度與動作"
+  },
+  "wpn_reload_launcher": {
+   "name": "重型武器（發射器）換彈",
+   "group": "武器",
+   "action": "reload",
+   "params": {
+    "weapon": "launcher",
+    "left": 0
+   },
+   "tip": "玩家把重型武器（發射器）的彈匣打空後換彈，整段換彈聲依換彈聲音時間軸播出，看彈藥進度與動作"
+  },
+  "wpn_reload_laser": {
+   "name": "能量武器（雷射）換彈",
+   "group": "武器",
+   "action": "reload",
+   "params": {
+    "weapon": "laser",
+    "left": 0
+   },
+   "tip": "玩家把能量武器（雷射）的彈匣打空後換彈，整段換彈聲依換彈聲音時間軸播出，看彈藥進度與動作"
+  },
+  "wpn_reload_railgun": {
+   "name": "軌道砲換彈",
+   "group": "武器",
+   "action": "reload",
+   "params": {
+    "weapon": "railgun",
+    "left": 0
+   },
+   "tip": "玩家的軌道砲換電池，同屬能量武器"
+  },
+  "wpn_empty_pistol": {
+   "name": "實彈武器空槍",
+   "group": "武器",
+   "action": "empty",
+   "params": {
+    "weapon": "pistol"
+   },
+   "tip": "pistol 彈匣與備彈都空了還連按射擊，聽空槍扣扳機聲"
+  },
+  "wpn_empty_launcher": {
+   "name": "重型武器空槍",
+   "group": "武器",
+   "action": "empty",
+   "params": {
+    "weapon": "launcher"
+   },
+   "tip": "launcher 彈匣與備彈都空了還連按射擊，聽空槍扣扳機聲"
+  },
+  "wpn_empty_laser": {
+   "name": "能量武器空槍",
+   "group": "武器",
+   "action": "empty",
+   "params": {
+    "weapon": "laser"
+   },
+   "tip": "laser 彈匣與備彈都空了還連按射擊，聽空槍扣扳機聲"
+  },
+  "wpn_equip_rifle": {
+   "name": "換到實彈武器",
+   "group": "武器",
+   "action": "equip",
+   "params": {
+    "weapon": "rifle",
+    "from": "pistol"
+   },
+   "tip": "手上拿pistol，撿到並換到rifle，聽換槍聲與武器切換動作"
+  },
+  "wpn_equip_launcher": {
+   "name": "換到重型武器",
+   "group": "武器",
+   "action": "equip",
+   "params": {
+    "weapon": "launcher",
+    "from": "pistol"
+   },
+   "tip": "手上拿pistol，撿到並換到launcher，聽換槍聲與武器切換動作"
+  },
+  "wpn_equip_laser": {
+   "name": "換到能量武器",
+   "group": "武器",
+   "action": "equip",
+   "params": {
+    "weapon": "laser",
+    "from": "pistol"
+   },
+   "tip": "手上拿pistol，撿到並換到laser，聽換槍聲與武器切換動作"
+  },
+  "wpn_melee_light_miss": {
+   "name": "輕斬揮空",
+   "group": "武器",
+   "action": "melee",
+   "params": {
+    "attacks": 1,
+    "target": false
+   },
+   "tip": "前面沒有敵人，玩家揮出輕斬"
+  },
+  "wpn_melee_heavy_miss": {
+   "name": "重斬揮空",
+   "group": "武器",
+   "action": "melee",
+   "params": {
+    "attacks": 3,
+    "target": false
+   },
+   "tip": "連按近戰三下，第三下是重斬，前面沒有敵人"
+  },
+  "wpn_melee_light_hit": {
+   "name": "輕斬命中",
+   "group": "武器",
+   "action": "melee",
+   "params": {
+    "attacks": 1,
+    "target": true
+   },
+   "tip": "前面有靶，玩家輕斬命中，看命中回饋與擊退"
+  },
+  "wpn_melee_heavy_hit": {
+   "name": "重斬命中",
+   "group": "武器",
+   "action": "melee",
+   "params": {
+    "attacks": 3,
+    "target": true
+   },
+   "tip": "連按近戰三下打靶，第三下重斬命中，看強化的命中回饋"
+  },
+  "wpn_finisher": {
+   "name": "終結技",
+   "group": "武器",
+   "action": "finisher",
+   "params": {
+    "enemy": "grunt"
+   },
+   "tip": "把保全打到暈眩，玩家衝上去發動終結技，看終結動畫與擊殺回饋"
+  }
+ },
+ "slots": {
+  "P-AMB-001": {
+   "none": "由 NE-169 處理"
+  },
+  "P-AMB-002": {
+   "none": "由 NE-169 處理"
+  },
+  "P-AMB-003": {
+   "none": "由 NE-169 處理"
+  },
+  "P-AMB-004": {
+   "none": "由 NE-169 處理"
+  },
+  "P-AMB-005": {
+   "none": "由 NE-169 處理"
+  },
+  "P-AMB-006": {
+   "none": "由 NE-169 處理"
+  },
+  "P-AMB-007": {
+   "none": "由 NE-169 處理"
+  },
+  "P-AMB-008": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-001": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-002": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-003": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-004": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-005": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-006": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-007": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-008": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-009": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-010": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-011": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-012": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-013": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-014": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-015": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-016": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-017": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-018": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-019": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-020": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-021": {
+   "none": "由 NE-169 處理"
+  },
+  "P-BGM-022": {
+   "none": "由 NE-169 處理"
+  },
+  "P-CHR-001": {
+   "none": "由 NE-167 處理"
+  },
+  "P-CHR-002": {
+   "none": "由 NE-167 處理"
+  },
+  "P-CHR-003": {
+   "none": "由 NE-167 處理"
+  },
+  "P-CHR-004": {
+   "none": "由 NE-167 處理"
+  },
+  "P-CHR-005": {
+   "none": "由 NE-167 處理"
+  },
+  "P-CHR-006": {
+   "none": "由 NE-167 處理"
+  },
+  "P-CHR-007": {
+   "none": "由 NE-167 處理"
+  },
+  "P-CHR-008": {
+   "none": "由 NE-167 處理"
+  },
+  "P-CHR-009": {
+   "none": "由 NE-167 處理"
+  },
+  "P-CHR-010": {
+   "none": "由 NE-167 處理"
+  },
+  "P-CHR-011": {
+   "none": "由 NE-167 處理"
+  },
+  "P-CHR-012": {
+   "none": "由 NE-167 處理"
+  },
+  "P-CHR-013": {
+   "none": "由 NE-167 處理"
+  },
+  "P-CHR-014": {
+   "none": "由 NE-167 處理"
+  },
+  "P-CHR-015": {
+   "none": "由 NE-167 處理"
+  },
+  "P-CHR-016": {
+   "none": "由 NE-167 處理"
+  },
+  "P-CHR-017": {
+   "none": "由 NE-167 處理"
+  },
+  "P-CHR-018": {
+   "none": "由 NE-167 處理"
+  },
+  "P-CHR-019": {
+   "none": "由 NE-167 處理"
+  },
+  "P-CHR-020": {
+   "none": "由 NE-167 處理"
+  },
+  "P-ENV-001": {
+   "none": "由 NE-169 處理"
+  },
+  "P-ENV-002": {
+   "none": "由 NE-169 處理"
+  },
+  "P-ENV-003": {
+   "none": "由 NE-169 處理"
+  },
+  "P-ENV-004": {
+   "none": "由 NE-169 處理"
+  },
+  "P-ENV-005": {
+   "none": "由 NE-169 處理"
+  },
+  "P-ENV-006": {
+   "none": "由 NE-169 處理"
+  },
+  "P-ENV-007": {
+   "none": "由 NE-169 處理"
+  },
+  "P-ENV-008": {
+   "none": "由 NE-169 處理"
+  },
+  "P-ENV-009": {
+   "none": "由 NE-169 處理"
+  },
+  "P-ENV-010": {
+   "none": "由 NE-169 處理"
+  },
+  "P-ENV-011": {
+   "none": "由 NE-169 處理"
+  },
+  "P-ENV-012": {
+   "none": "由 NE-169 處理"
+  },
+  "P-ENV-013": {
+   "none": "由 NE-169 處理"
+  },
+  "P-ENV-014": {
+   "none": "由 NE-169 處理"
+  },
+  "P-ENV-015": {
+   "none": "由 NE-169 處理"
+  },
+  "P-ENV-016": {
+   "none": "由 NE-169 處理"
+  },
+  "P-ENV-017": {
+   "none": "由 NE-169 處理"
+  },
+  "P-ENV-018": {
+   "none": "由 NE-169 處理"
+  },
+  "P-HIT-001": {
+   "none": "由 NE-167 處理"
+  },
+  "P-HIT-002": {
+   "none": "由 NE-167 處理"
+  },
+  "P-HIT-003": {
+   "none": "由 NE-167 處理"
+  },
+  "P-HIT-004": {
+   "none": "由 NE-167 處理"
+  },
+  "P-HIT-005": {
+   "none": "由 NE-167 處理"
+  },
+  "P-HIT-006": {
+   "none": "由 NE-167 處理"
+  },
+  "P-HIT-007": {
+   "none": "由 NE-167 處理"
+  },
+  "P-HIT-008": {
+   "none": "由 NE-167 處理"
+  },
+  "P-HIT-009": {
+   "none": "由 NE-167 處理"
+  },
+  "P-HIT-010": {
+   "none": "由 NE-167 處理"
+  },
+  "P-HIT-011": {
+   "none": "由 NE-167 處理"
+  },
+  "P-HIT-012": {
+   "none": "由 NE-167 處理"
+  },
+  "P-HIT-013": {
+   "none": "由 NE-167 處理"
+  },
+  "P-HIT-014": {
+   "none": "由 NE-167 處理"
+  },
+  "P-HIT-015": {
+   "none": "由 NE-167 處理"
+  },
+  "P-HIT-016": {
+   "none": "由 NE-167 處理"
+  },
+  "P-HIT-017": {
+   "none": "由 NE-167 處理"
+  },
+  "P-HIT-018": {
+   "none": "由 NE-167 處理"
+  },
+  "P-HIT-019": {
+   "none": "由 NE-167 處理"
+  },
+  "P-HIT-020": {
+   "none": "由 NE-167 處理"
+  },
+  "P-HIT-021": {
+   "none": "由 NE-167 處理"
+  },
+  "P-MOV-001": {
+   "none": "由 NE-167 處理"
+  },
+  "P-MOV-002": {
+   "none": "由 NE-167 處理"
+  },
+  "P-MOV-003": {
+   "none": "由 NE-167 處理"
+  },
+  "P-MOV-004": {
+   "none": "由 NE-167 處理"
+  },
+  "P-MOV-005": {
+   "none": "由 NE-167 處理"
+  },
+  "P-MOV-006": {
+   "none": "由 NE-167 處理"
+  },
+  "P-MOV-007": {
+   "none": "由 NE-167 處理"
+  },
+  "P-MOV-008": {
+   "none": "由 NE-167 處理"
+  },
+  "P-MOV-009": {
+   "none": "由 NE-167 處理"
+  },
+  "P-UIS-001": {
+   "none": "由 NE-169 處理"
+  },
+  "P-UIS-002": {
+   "none": "由 NE-169 處理"
+  },
+  "P-UIS-003": {
+   "none": "由 NE-169 處理"
+  },
+  "P-UIS-004": {
+   "none": "由 NE-169 處理"
+  },
+  "P-WPN-001": [
+   "wpn_fire_pistol"
+  ],
+  "P-WPN-002": [
+   "wpn_fire_rifle"
+  ],
+  "P-WPN-003": [
+   "wpn_fire_smg"
+  ],
+  "P-WPN-004": [
+   "wpn_fire_spread"
+  ],
+  "P-WPN-005": [
+   "wpn_fire_launcher"
+  ],
+  "P-WPN-006": [
+   "wpn_fire_railgun"
+  ],
+  "P-WPN-007": [
+   "wpn_fire_laser"
+  ],
+  "P-WPN-008": [
+   "wpn_fire_mech_cannon"
+  ],
+  "P-WPN-009": {
+   "none": "敵方槍聲要敵人出手，由 NE-167 處理"
+  },
+  "P-WPN-010": {
+   "none": "敵方槍聲要敵人出手，由 NE-167 處理"
+  },
+  "P-WPN-011": {
+   "none": "敵方槍聲要敵人出手，由 NE-167 處理"
+  },
+  "P-WPN-012": {
+   "none": "敵方槍聲要敵人出手，由 NE-167 處理"
+  },
+  "P-WPN-013": [
+   "wpn_reload_pistol"
+  ],
+  "P-WPN-014": [
+   "wpn_reload_pistol"
+  ],
+  "P-WPN-015": [
+   "wpn_reload_pistol"
+  ],
+  "P-WPN-016": [
+   "wpn_reload_rifle"
+  ],
+  "P-WPN-017": [
+   "wpn_reload_rifle"
+  ],
+  "P-WPN-018": [
+   "wpn_reload_rifle"
+  ],
+  "P-WPN-019": [
+   "wpn_reload_smg"
+  ],
+  "P-WPN-020": [
+   "wpn_reload_smg"
+  ],
+  "P-WPN-021": [
+   "wpn_reload_smg"
+  ],
+  "P-WPN-022": [
+   "wpn_reload_spread"
+  ],
+  "P-WPN-023": [
+   "wpn_reload_spread"
+  ],
+  "P-WPN-024": [
+   "wpn_reload_spread"
+  ],
+  "P-WPN-025": [
+   "wpn_reload_launcher"
+  ],
+  "P-WPN-026": [
+   "wpn_reload_launcher"
+  ],
+  "P-WPN-027": [
+   "wpn_reload_launcher"
+  ],
+  "P-WPN-028": [
+   "wpn_reload_laser",
+   "wpn_reload_railgun"
+  ],
+  "P-WPN-029": [
+   "wpn_reload_laser",
+   "wpn_reload_railgun"
+  ],
+  "P-WPN-030": [
+   "wpn_reload_laser",
+   "wpn_reload_railgun"
+  ],
+  "P-WPN-031": [
+   "wpn_empty_pistol"
+  ],
+  "P-WPN-032": [
+   "wpn_empty_launcher"
+  ],
+  "P-WPN-033": [
+   "wpn_empty_laser"
+  ],
+  "P-WPN-034": [
+   "wpn_equip_rifle"
+  ],
+  "P-WPN-035": [
+   "wpn_equip_launcher"
+  ],
+  "P-WPN-036": [
+   "wpn_equip_laser"
+  ],
+  "P-WPN-037": [
+   "wpn_melee_light_miss"
+  ],
+  "P-WPN-038": [
+   "wpn_melee_heavy_miss"
+  ],
+  "P-WPN-039": [
+   "wpn_melee_light_hit"
+  ],
+  "P-WPN-040": [
+   "wpn_melee_heavy_hit"
+  ],
+  "P-WPN-041": [
+   "wpn_finisher"
+  ]
+ }
+}

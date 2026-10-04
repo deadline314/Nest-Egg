@@ -325,11 +325,16 @@ const SOUNDS := {
 	],
 }
 
+## 每次要播一個音效時送出（含被丟棄的）；實驗室用它記錄「這個畫面實際響了哪些聲音」。
+signal sound_played(id: StringName)
+
 var enabled := true
 
 ## 每個 id 的預設串流：音效庫第一個可用的檔案，沒有就是合成音。
 var _streams: Dictionary[StringName, AudioStream] = {}
 var _bank := SoundBank.new()
+## 實驗室試聽用：音效 id → 暫時取代它的串流（只在記憶體，不寫檔）。
+var _preview_streams: Dictionary[StringName, AudioStream] = {}
 var _players: Array[AudioStreamPlayer] = []
 var _next_voice := 0
 var _last_play_msec: Dictionary[StringName, int] = {}
@@ -395,6 +400,24 @@ func source_of(id: StringName) -> StringName:
 	return &"synth" if SOUNDS.has(id) else &"missing"
 
 
+## 這個名稱（音效或聲音事件）最長會響多久（秒）：音效取最長的變體，事件取各層延遲加音效長度的最大值；不存在回傳 0。
+func sound_length(id: StringName) -> float:
+	if has_event(id):
+		var longest := 0.0
+		for layer: Variant in ((_events[String(id)] as Dictionary).get("layers", []) as Array):
+			var delay := float((layer as Dictionary).get("delay", 0.0))
+			for sound: Variant in (layer as Dictionary).get("sounds", []):
+				longest = maxf(longest, delay + sound_length(StringName(str(sound))))
+		return longest
+	if _bank.has_files(id):
+		var longest := 0.0
+		for stream: AudioStream in _bank.variants(id):
+			longest = maxf(longest, stream.get_length())
+		return longest
+	var stream: AudioStream = _streams.get(id)
+	return stream.get_length() if stream != null else 0.0
+
+
 ## 所有已定義音效的 id（合成音與音效庫的聯集）。
 func sound_ids() -> Array:
 	var ids: Dictionary = {}
@@ -415,6 +438,22 @@ func source_counts() -> Dictionary:
 	for id: Variant in _bank.failed_files():
 		counts["failed"] += (_bank.failed_files()[id] as PackedStringArray).size()
 	return counts
+
+
+## 實驗室：讓某個音效暫時改播另一個串流（備選素材的預聽檔）；clear_previews 還原。
+func set_preview(id: StringName, stream: AudioStream) -> void:
+	if stream == null:
+		_preview_streams.erase(id)
+	else:
+		_preview_streams[id] = stream
+
+
+func clear_previews() -> void:
+	_preview_streams.clear()
+
+
+func preview_ids() -> Array:
+	return _preview_streams.keys()
 
 
 ## 停止所有播放中的音效（切換場景或結束遊戲時呼叫，避免播放實例殘留）。
@@ -456,11 +495,16 @@ func has_named(id: StringName) -> bool:
 func _play_voice(id: StringName, volume_db: float, pitch: float, priority: int) -> bool:
 	if not enabled:
 		return false
+	sound_played.emit(id)
 	var stream: AudioStream = _streams.get(id)
 	if stream == null:
 		_report_once("sound:" + String(id), "[Sfx] 未定義的音效：%s" % id, false)
 		return false
-	if _bank.has_files(id):
+	if _preview_streams.has(id):
+		# 試聽備選素材：用預聽檔取代，仍套用這個音效在音效庫的音量微調。
+		stream = _preview_streams[id]
+		volume_db += _bank.volume_db(id)
+	elif _bank.has_files(id):
 		var variants := _bank.variants(id)
 		stream = variants[_pick_variant("file:" + String(id), variants.size())]
 		volume_db += _bank.volume_db(id)

@@ -222,6 +222,16 @@ func refill_all() -> void:
 	changed.emit()
 
 
+## 直接設定某一欄的彈匣與備彈（實驗室與測試用，例如做出「彈匣空了、備彈也沒了」的空槍）；備彈 -1 代表無限。
+func set_ammo(slot: int, mag: int, reserve: int) -> void:
+	if slot < 0 or slot >= _weapons.size():
+		return
+	_cancel_reload()
+	_mag[slot] = clampi(mag, 0, maxi(0, _weapons[slot].magazine_size))
+	_reserve[slot] = reserve
+	changed.emit()
+
+
 # ---------------------------------------------------------------------------
 # 存檔
 # ---------------------------------------------------------------------------

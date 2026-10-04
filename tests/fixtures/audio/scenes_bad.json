@@ -1,0 +1,13 @@
+{
+ "groups": {"武器": "槍械"},
+ "scenes": {
+  "no_action": {"name": "x", "group": "武器", "action": "no_such_action", "params": {}, "tip": "t"},
+  "no_name": {"group": "武器", "action": "fire", "params": {}, "tip": "t"},
+  "bad_group": {"name": "x", "group": "不存在", "action": "fire", "params": {}, "tip": "t"},
+  "no_tip": {"name": "x", "group": "武器", "action": "fire", "params": {}}
+ },
+ "slots": {
+  "P-TEST-001": ["no_such_scene"],
+  "P-TEST-999": {"none": "extra"}
+ }
+}

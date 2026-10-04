@@ -51,6 +51,7 @@ func _test_lab() -> void:
 	DirAccess.copy_absolute(ProjectSettings.globalize_path(PlacementDoc.PATH), ProjectSettings.globalize_path(COPY_PATH))
 	var lab := (load(LAB_SCENE) as PackedScene).instantiate() as SoundLab
 	lab.doc_path = COPY_PATH
+	lab.stage_enabled = false
 	runner.get_tree().root.add_child(lab)
 	await frames(3)
 	check(lab.catalog.is_loaded() and lab.doc.slot_ids().size() == lab.catalog.slots.size(), "the lab loads the catalog and the placement list")

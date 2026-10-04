@@ -16,6 +16,8 @@ var _volume_label: Label
 var _current_list: ItemList
 var _planned_edit: LineEdit
 var _manual_check: CheckBox
+var _scene_option: OptionButton
+var _scene_note: Label
 var _auto_play: CheckBox
 var _result_tabs: TabContainer
 var _candidate_list: ItemList
@@ -75,7 +77,20 @@ func _build_right() -> void:
 	_source.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_source.tooltip_text = "這個位置現在的聲音來源：音效檔（含授權包與時長）或程式合成音；缺檔會在這裡標示"
 	right.add_child(_source)
-	var actions := HBoxContainer.new()
+	var scene_row := HFlowContainer.new()
+	right.add_child(scene_row)
+	scene_row.add_child(_heading("畫面情境："))
+	_scene_option = OptionButton.new()
+	_scene_option.custom_minimum_size = Vector2(170, 0)
+	_scene_option.tooltip_text = "這個聲音在遊戲裡會在什麼情境下響；選一個，按右邊的按鈕在右側畫面舞台裡看實際的動畫和聲音"
+	scene_row.add_child(_scene_option)
+	scene_row.add_child(_button("▶ 在畫面播放", func() -> void: play_in_stage(""), "在右側畫面舞台執行這個情境，聲音和動畫一起出現（用遊戲現在的聲音）"))
+	scene_row.add_child(_button("▶ 用備選素材在畫面中試", func() -> void: play_in_stage_with_candidate(), "同一個情境，但這個位置的聲音暫時換成下面選中的素材（只在記憶體，不寫入任何資料），看動畫配上候選聲音的感覺"))
+	_scene_note = Label.new()
+	_scene_note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_scene_note.tooltip_text = "這個位置有沒有對應的畫面情境；沒有的話說明原因"
+	right.add_child(_scene_note)
+	var actions := HFlowContainer.new()
 	right.add_child(actions)
 	actions.add_child(_button("▶ 遊戲內實際聲音", _play_in_game, "播放這個位置目前在遊戲裡真的會響的聲音"))
 	actions.add_child(_button("■ 全部停止", _stop_all, "停止所有試聽與遊戲內的聲音、音樂"))
@@ -147,7 +162,7 @@ func _build_right() -> void:
 	search_row.add_child(_search_edit)
 	_search_list = _multi_list()
 	search_box.add_child(_search_list)
-	var picks := HBoxContainer.new()
+	var picks := HFlowContainer.new()
 	right.add_child(picks)
 	picks.add_child(_button("▶ 試聽選中的", _audition_selected, "播放選中素材的預聽檔"))
 	picks.add_child(_button("設為預計使用", func() -> void: _pick(false), "用選中的素材取代這個位置的預計使用（可以多選）"))
@@ -234,6 +249,7 @@ func _show_slot(slot_id: String) -> void:
 	_title.text = "%s　%s" % [slot_id, slot["name"]]
 	_where.text = "%s（%s）" % [slot["where"], slot["target"]]
 	_show_source(slot)
+	_fill_scenes(slot_id)
 	_current_list.clear()
 	for aid: String in slot["current"]:
 		_current_list.add_item(_asset_line(aid))
@@ -244,6 +260,52 @@ func _show_slot(slot_id: String) -> void:
 	_planned_edit.text = "、".join(lab.doc.planned(slot_id))
 	_manual_check.set_pressed_no_signal(lab.doc.is_manual(slot_id))
 	_fill_list(_candidate_list, slot["candidates"], lab.doc.planned(slot_id))
+
+
+func _fill_scenes(slot_id: String) -> void:
+	var scenes := StageScenes.shared()
+	_scene_option.clear()
+	for id in scenes.scenes_for_slot(slot_id):
+		_scene_option.add_item(str(scenes.scene(id).get("name", id)))
+		_scene_option.set_item_metadata(_scene_option.item_count - 1, id)
+	var has_scene := _scene_option.item_count > 0
+	_scene_option.disabled = not has_scene
+	if has_scene:
+		_scene_note.text = str(scenes.scene(str(_scene_option.get_item_metadata(0))).get("tip", ""))
+	else:
+		var reason := scenes.slot_reason(slot_id)
+		_scene_note.text = "沒有畫面情境：%s（只能播聲音）" % (reason if not reason.is_empty() else "尚未登記")
+
+
+## 在畫面舞台執行這個位置的情境。candidate 是素材編號時，這個位置的聲音暫時換成它的預聽檔。回傳是否完整跑完。
+func play_in_stage(candidate: String) -> bool:
+	if _selected_slot.is_empty() or _scene_option.item_count == 0:
+		lab.notify("這個位置沒有畫面情境")
+		return false
+	if lab.dock == null:
+		lab.notify("畫面舞台沒有開啟")
+		return false
+	var preview := {}
+	if not candidate.is_empty():
+		var slot := lab.catalog.slot(_selected_slot)
+		if str(slot["kind"]) == "music":
+			lab.notify("音樂位置請在「背景音樂與環境音」分頁用 cue 試聽")
+			return false
+		var stream := lab.catalog.load_preview(candidate)
+		if stream == null:
+			lab.notify("沒有 %s 的預聽檔：請先執行 python tools/audio/setup_audition.py" % candidate)
+			return false
+		preview[StringName(str(slot["target"]))] = stream
+		lab.notify("在畫面中用 %s 取代 %s 的聲音（只是試聽，沒有寫入）" % [candidate, slot["target"]])
+	return await lab.dock.play_scene(str(_scene_option.get_item_metadata(_scene_option.selected)), preview)
+
+
+func play_in_stage_with_candidate() -> bool:
+	var picked := selected_assets()
+	if picked.is_empty():
+		lab.notify("先在下面的備選或搜尋結果選一個素材")
+		return false
+	return await play_in_stage(picked[0])
 
 
 func _fill_list(list: ItemList, ids: Array, planned: PackedStringArray) -> void:

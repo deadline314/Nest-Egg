@@ -2,7 +2,8 @@ class_name SoundLab
 extends Node
 ## 音效實驗室（NE-162）：試聽、挑選遊戲裡每個位置的聲音，並和位置清單文件（design/16-audio/PLACEMENTS.md）雙向連動。
 ## 開啟：godot --path . res://tools/sound_lab/sound_lab.tscn（只能從命令列，主選單與遊戲流程都不會進來；匯出時排除 tools/）。
-## 分頁：位置與備選（挑聲音、跨類別搜尋、預計使用、手動放入）、即時試玩（用遊戲裡真正的角色、武器、材質、地面查表播放）、
+## 右側是遊戲真實畫面的舞台（情境、備選素材試聽、換彈時間軸）。
+## 分頁：位置與備選（挑聲音、跨類別搜尋、預計使用、手動放入）、情境清單（所有畫面情境）、即時試玩（用遊戲裡真正的角色、武器、材質、地面查表播放）、
 ## 背景音樂與環境音（cue、狀態、迴圈接縫、交叉淡化）、混音與診斷（匯流排音量、音量表、發聲數、缺檔）。
 ## 預聽檔要先產生：python tools/audio/build_candidates.py（沒有時會提示，不會崩潰）。
 
@@ -14,7 +15,11 @@ var doc := PlacementDoc.new()
 var audition := AuditionPlayer.new()
 ## 位置清單文件的路徑（測試時指到複本，不動真正的文件）。
 var doc_path := PlacementDoc.PATH
+## 要不要建立右側的畫面舞台（測試其他分頁時關掉，省去建關卡的時間）。
+var stage_enabled := true
+var dock: SoundLabStageDock
 var slots_tab: SoundLabSlotsTab
+var scenes_tab: SoundLabScenesTab
 var live_tab: SoundLabLiveTab
 var music_tab: SoundLabMusicTab
 var mixer_tab: SoundLabMixerTab
@@ -43,21 +48,41 @@ func _ready() -> void:
 	root.theme = _theme
 	root.set_anchors_preset(Control.PRESET_FULL_RECT)
 	layer.add_child(root)
+	var split := HSplitContainer.new()
+	root.add_child(split)
 	var box := VBoxContainer.new()
-	root.add_child(box)
+	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	box.custom_minimum_size = Vector2(560, 0)
+	split.add_child(box)
+	if stage_enabled:
+		dock = SoundLabStageDock.new(self)
+		dock.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		split.add_child(dock)
 	tabs = TabContainer.new()
 	tabs.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	box.add_child(tabs)
 	slots_tab = SoundLabSlotsTab.new(self)
+	scenes_tab = SoundLabScenesTab.new(self)
 	live_tab = SoundLabLiveTab.new(self)
 	music_tab = SoundLabMusicTab.new(self)
 	mixer_tab = SoundLabMixerTab.new(self)
-	for entry: Array in [["位置與備選", slots_tab], ["即時試玩", live_tab], ["背景音樂與環境音", music_tab], ["混音與診斷", mixer_tab]]:
+	for entry: Array in [["位置與備選", slots_tab], ["情境清單", scenes_tab], ["即時試玩", live_tab], ["背景音樂與環境音", music_tab], ["混音與診斷", mixer_tab]]:
 		(entry[1] as Control).name = entry[0]
 		tabs.add_child(entry[1])
+	var bottom := HBoxContainer.new()
+	box.add_child(bottom)
 	status_label = Label.new()
 	status_label.tooltip_text = "最近一次操作的結果，以及位置清單文件的同步狀態"
-	box.add_child(status_label)
+	status_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	status_label.clip_text = true
+	bottom.add_child(status_label)
+	if dock != null:
+		var show_stage := CheckBox.new()
+		show_stage.text = "畫面舞台"
+		show_stage.button_pressed = true
+		show_stage.tooltip_text = "顯示或隱藏右側的遊戲畫面舞台；隱藏時舞台不繪圖，分頁可以用滿整個視窗"
+		show_stage.toggled.connect(func(on: bool) -> void: dock.set_shown(on))
+		bottom.add_child(show_stage)
 	if not catalog.is_loaded():
 		notify("找不到素材目錄或位置登記：請先執行 python tools/audio/build_catalog.py 與 build_slots.py")
 	else:
@@ -85,6 +110,11 @@ func sync_now() -> bool:
 	slots_tab.refresh()
 	notify("位置清單文件被外部修改，已重新載入")
 	return true
+
+
+## 右側的畫面舞台；沒開啟時回傳 null。
+func stage() -> SoundStage:
+	return dock.stage if dock != null else null
 
 
 func notify(text: String) -> void:
