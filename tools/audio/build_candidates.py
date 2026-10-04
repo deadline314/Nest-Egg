@@ -58,12 +58,15 @@ def main() -> int:
     assets = json.loads(CATALOG.read_text(encoding="utf-8"))["assets"]
     dirs = {p["id"]: p["dir"] for p in json.loads(MANIFEST.read_text(encoding="utf-8"))["packs"]}
     jobs = []
+    missing_packs: set[str] = set()
     for aid, a in assets.items():
         if args.only and not any(aid == o or aid.startswith(o) for o in args.only):
             continue
         source = RAW / dirs[a["pack"]] / a["file"]
         out = OUT / f"{aid}.ogg"
-        if source.is_file() and (args.force or not out.exists()):
+        if not source.is_file():
+            missing_packs.add(a["pack"])
+        elif args.force or not out.exists():
             jobs.append((aid, source, out))
     OUT.mkdir(parents=True, exist_ok=True)
     failed = 0
@@ -75,6 +78,12 @@ def main() -> int:
             if n % 200 == 0:
                 print(f"  {n}/{len(jobs)}")
     print(f"預聽檔：處理 {len(jobs)} 個，失敗 {failed} 個 → {OUT.relative_to(ROOT)}")
+    if missing_packs:
+        print(
+            f"找不到 {len(missing_packs)} 個素材包的原始檔（{RAW.relative_to(ROOT)}，不進版控）。"
+            "請先執行 python tools/audio/fetch_audio.py 下載（約 3 GB，已下載的會略過），再重跑這個工具。",
+            file=sys.stderr,
+        )
     return 1 if failed else 0
 
 
