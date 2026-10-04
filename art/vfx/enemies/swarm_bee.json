@@ -1,0 +1,48 @@
+{
+ "description": "swarm_bee 的專屬特效（EnemyVfx 讀取）。小小的橘色火星，一隻一點點、群體才熱鬧；每個敵人自己一份。",
+ "hit": {
+  "color": "#ffc233",
+  "amount": 3,
+  "speed": 110,
+  "light": 0.35
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#ffc233",
+    "amount": 8,
+    "speed": 150,
+    "life": 0.3
+   },
+   {
+    "color": "#e07a1f",
+    "amount": 5,
+    "speed": 110,
+    "life": 0.3,
+    "kind": "ember"
+   }
+  ],
+  "light": {
+   "color": "#ffc233",
+   "radius": 28,
+   "energy": 0.6,
+   "time": 0.15
+  },
+  "shake": 0.0,
+  "hitstop": 0.0,
+  "extras": []
+ },
+ "states": {
+  "buzz": {
+   "at": "center",
+   "bursts": [
+    {
+     "color": "#ffc233",
+     "amount": 3,
+     "speed": 70,
+     "life": 0.2
+    }
+   ]
+  }
+ }
+}

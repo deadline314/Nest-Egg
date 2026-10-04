@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/rail_cannon.gd" id="2_behavior"]
+[ext_resource type="Resource" path="res://data/projectiles/rail_cannon_shot.tres" id="3_x"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"rail_cannon"
+behavior = ExtResource("2_behavior")
+display_name = "吊軌砲"
+projectile = ExtResource("3_x")
+creature_skin = "rail_cannon"
+creature_states = {
+"slide": "slide"
+}
+attack_category = &"ranged"
+hit_material = &"metal"
+body_size = Vector2(18, 30)
+color = Color(0.75, 0.78, 0.85, 1.0)
+uses_gravity = false
+max_health = 9
+move_speed = 90.0
+contact_damage = 1
+contact_source_id = &"rail_cannon_contact"
+detect_range = 340.0
+attack_cooldown = 1.8
+telegraph_time = 0.7
+ability_radius = 70.0
+knockback_scale = 0.0
+poise = 10.0
+hit_style = "wobble"
+hit_amount = 1.0
+finish_health_ratio = 0.3
+stagger_duration = 1.4
+health_drop_chance = 0.2
+credit_value = 22

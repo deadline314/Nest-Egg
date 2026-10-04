@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/shaft_bat.gd" id="2_behavior"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"shaft_bat"
+behavior = ExtResource("2_behavior")
+display_name = "井道蝙蝠機"
+creature_skin = "shaft_bat"
+attack_category = &"charge"
+hit_material = &"metal"
+relaxed_states = PackedStringArray("idle")
+body_size = Vector2(30, 12)
+color = Color(0.62, 0.72, 0.92, 1.0)
+uses_gravity = false
+max_health = 6
+move_speed = 85.0
+contact_damage = 1
+contact_source_id = &"shaft_bat_contact"
+detect_range = 260.0
+attack_range = 230.0
+attack_cooldown = 2.4
+telegraph_time = 0.6
+ability_speed = 230.0
+ability_time = 0.75
+knockback_scale = 0.6
+poise = 3.0
+hit_style = "stall"
+hit_amount = 1.6
+finish_health_ratio = 0.0
+health_drop_chance = 0.15
+credit_value = 18

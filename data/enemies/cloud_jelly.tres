@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/cloud_jelly.gd" id="2_behavior"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"cloud_jelly"
+behavior = ExtResource("2_behavior")
+display_name = "雲母"
+creature_skin = "cloud_jelly"
+creature_states = {
+"idle": "idle",
+"recover": "drift"
+}
+attack_category = &"beam"
+hit_material = &"glass"
+relaxed_states = PackedStringArray("idle")
+body_size = Vector2(28, 20)
+color = Color(0.7, 0.3, 0.85, 1.0)
+uses_gravity = false
+max_health = 10
+move_speed = 28.0
+contact_damage = 1
+contact_source_id = &"cloud_jelly_contact"
+detect_range = 260.0
+attack_range = 120.0
+attack_cooldown = 2.2
+telegraph_time = 0.9
+knockback_scale = 0.5
+poise = 5.0
+armor_states = PackedStringArray("discharge")
+hit_style = "wobble"
+hit_amount = 1.5
+finish_health_ratio = 0.0
+stagger_duration = 1.4
+health_drop_chance = 0.2
+credit_value = 25

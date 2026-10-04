@@ -28,6 +28,12 @@ PARTS = {
     "salvage_arm": [("body_s1.png", "body", "w", 44), ("tentacle_s1.png", "tentacle", "h", 34)],
     "tangle_wire": [("body_s3.png", "body", "w", 30), ("tentacle_s1.png", "tentacle", "h", 30)],
     "buoy_worm": [("body_s4.png", "body", "w", 24), ("leg_s1.png", "leg", "h", 7)],
+    # 飛行、攀附、懸浮、軌道與群體類（NE-99）
+    "shaft_bat": [("body_s5.png", "body", "w", 30), ("wing_s1.png", "wing", "h", 22)],
+    "wall_gecko": [("design_s1.png", "body", "w", 26)],
+    "cloud_jelly": [("body_s2.png", "body", "w", 28), ("tentacle_s2.png", "tentacle", "h", 34)],
+    "rail_cannon": [("slider_s2.png", "slider", "w", 18), ("barrel_s3.png", "barrel", "w", 26)],
+    "swarm_bee": [("design_s2.png", "body", "w", 9)],
     "cloud_serpent": [("head_s1.png", "head", "w", 28), ("segment_s1.png", "segment", "w", 18)],
 }
 

@@ -1,0 +1,62 @@
+{
+ "description": "rail_cannon 的專屬特效（EnemyVfx 讀取）。軌道火花與砲口閃光；每個敵人自己一份。",
+ "hit": {
+  "color": "#ff7a45",
+  "amount": 5,
+  "speed": 170,
+  "light": 0.7
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#ff7a45",
+    "amount": 24,
+    "speed": 250,
+    "life": 0.5
+   },
+   {
+    "color": "#98a3ba",
+    "amount": 14,
+    "speed": 200,
+    "life": 0.45,
+    "kind": "shard"
+   }
+  ],
+  "light": {
+   "color": "#ff7a45",
+   "radius": 80,
+   "energy": 1.3,
+   "time": 0.3
+  },
+  "shake": 3.0,
+  "hitstop": 0.06,
+  "extras": [
+   "smoke",
+   "steam"
+  ]
+ },
+ "states": {
+  "lock": {
+   "at": "muzzle",
+   "bursts": [
+    {
+     "color": "#ff3b5c",
+     "amount": 5,
+     "speed": 70,
+     "life": 0.25
+    }
+   ]
+  },
+  "slide": {
+   "at": "center",
+   "bursts": [
+    {
+     "color": "#ffd070",
+     "amount": 4,
+     "speed": 110,
+     "life": 0.2
+    }
+   ]
+  }
+ }
+}

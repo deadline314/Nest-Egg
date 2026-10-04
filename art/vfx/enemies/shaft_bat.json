@@ -1,0 +1,75 @@
+{
+ "description": "shaft_bat 的專屬特效（EnemyVfx 讀取）。紫色電弧與金屬碎片；俯衝時拖出尾跡火花；每個敵人自己一份。",
+ "hit": {
+  "color": "#b78cff",
+  "amount": 5,
+  "speed": 160,
+  "light": 0.6,
+  "kind": "arc"
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#b78cff",
+    "amount": 18,
+    "speed": 230,
+    "life": 0.45,
+    "kind": "arc"
+   },
+   {
+    "color": "#d6e4ff",
+    "amount": 12,
+    "speed": 180,
+    "life": 0.4,
+    "kind": "shard"
+   }
+  ],
+  "light": {
+   "color": "#b78cff",
+   "radius": 66,
+   "energy": 1.1,
+   "time": 0.3
+  },
+  "shake": 2.5,
+  "hitstop": 0.05,
+  "extras": [
+   "smoke",
+   "arc"
+  ]
+ },
+ "states": {
+  "lock": {
+   "at": "center",
+   "bursts": [
+    {
+     "color": "#ff3b5c",
+     "amount": 6,
+     "speed": 90,
+     "life": 0.3
+    }
+   ]
+  },
+  "dive": {
+   "at": "center",
+   "bursts": [
+    {
+     "color": "#b78cff",
+     "amount": 8,
+     "speed": 200,
+     "life": 0.25
+    }
+   ]
+  },
+  "dizzy": {
+   "at": "center",
+   "bursts": [
+    {
+     "color": "#ffd23f",
+     "amount": 8,
+     "speed": 120,
+     "life": 0.35
+    }
+   ]
+  }
+ }
+}

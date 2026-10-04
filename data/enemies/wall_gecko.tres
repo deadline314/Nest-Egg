@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/wall_gecko.gd" id="2_behavior"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"wall_gecko"
+behavior = ExtResource("2_behavior")
+display_name = "攀牆者"
+creature_skin = "wall_gecko"
+creature_states = {
+"windup": "windup"
+}
+attack_category = &"charge"
+hit_material = &"flesh"
+relaxed_states = PackedStringArray("patrol")
+body_size = Vector2(22, 10)
+color = Color(0.2, 0.55, 0.5, 1.0)
+uses_gravity = false
+max_health = 5
+move_speed = 42.0
+contact_damage = 1
+contact_source_id = &"wall_gecko_contact"
+detect_range = 200.0
+attack_range = 140.0
+attack_cooldown = 2.0
+telegraph_time = 0.6
+ability_speed = 240.0
+knockback_scale = 0.0
+poise = 3.0
+hit_style = "stumble"
+hit_amount = 1.5
+finish_health_ratio = 0.0
+health_drop_chance = 0.12
+credit_value = 15

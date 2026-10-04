@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/swarm_bee.gd" id="2_behavior"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"swarm_bee"
+behavior = ExtResource("2_behavior")
+display_name = "蜂群"
+creature_skin = "swarm_bee"
+creature_states = {
+"fly": "fly"
+}
+attack_category = &"charge"
+hit_material = &"metal"
+relaxed_states = PackedStringArray("fly")
+body_size = Vector2(8, 6)
+color = Color(0.9, 0.7, 0.25, 1.0)
+uses_gravity = false
+max_health = 1
+move_speed = 95.0
+contact_damage = 1
+contact_source_id = &"swarm_bee_contact"
+detect_range = 260.0
+attack_range = 200.0
+attack_cooldown = 2.4
+telegraph_time = 0.45
+ability_speed = 230.0
+ability_time = 0.35
+knockback_scale = 0.8
+poise = 1.0
+hit_style = "stall"
+hit_amount = 1.2
+damage_states = PackedFloat32Array()
+finish_health_ratio = 0.0
+health_drop_chance = 0.03
+credit_value = 2

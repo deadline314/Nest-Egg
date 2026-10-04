@@ -27,7 +27,7 @@ const SEVER_SPEED := Vector2(110.0, -140.0)
 const FLASH_TIME := 0.07
 const FLASH_GAIN := 0.9
 const DEFAULT_LIFE := 3
-const DEFAULT_STATE := {"amp": 0.15, "wavelength": 7.0, "speed": 1.6, "pulse": 0.05, "stretch": 0.02, "pulse_speed": 2.0, "curl": 0.0, "bob": 0.5, "duration": 0.8, "extend": 1.0, "aim_weight": 0.0, "swell": 0.0, "whip": 0.0}
+const DEFAULT_STATE := {"amp": 0.15, "wavelength": 7.0, "speed": 1.6, "pulse": 0.05, "stretch": 0.02, "pulse_speed": 2.0, "curl": 0.0, "bob": 0.5, "duration": 0.8, "extend": 1.0, "aim_weight": 0.0, "swell": 0.0, "whip": 0.0, "swell_amp": 0.0, "swell_freq": 1.0}
 const DEFAULT_GAIT := {"stance": 0.0, "step_time": 0.3, "lift": 6.0, "trigger": 7.0, "lead": 0.5, "full_speed": 80.0, "dip": 1.2, "groups": 2, "wave": 0.0}
 ## 腿的姿勢：根部到腳的弦長上限比例（超過就必須換步）、碰不到時的最小腳步距離。
 const REACH_LIMIT := 0.96
@@ -258,7 +258,7 @@ func _update_body(delta: float, blend: float) -> void:
 	_rig.position = Vector2(0.0, -_stance_now + bob + _dip)
 	if _body != null:
 		# 鼓起（swell）：以底邊中心為準放大，預兆用。
-		var swell := float(_params["swell"])
+		var swell := float(_params["swell"]) + float(_params["swell_amp"]) * sin(_time * TAU * float(_params["swell_freq"]))
 		var grow := Vector2(1.0 + swell * 0.5, 1.0 + swell)
 		_body.scale = _body_scale_rest * grow
 		_body.position = _body_rest + Vector2(_body_size.x * (1.0 - grow.x) * 0.5, _body_size.y * (1.0 - grow.y))

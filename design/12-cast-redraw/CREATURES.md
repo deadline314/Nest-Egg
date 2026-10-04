@@ -72,6 +72,19 @@
 - 檢查：`creature_preview.tscn -- --creature=<id> --states=a,b,c [--free=4,5]`（觸手各狀態）、`--worm=<id>`（蠕行）、`--strip --state=walk`（步行連續畫面）；遊戲內交戰：`screenshot.tscn -- --scenario=creature_combat`。
 - 還沒做：把這四種敵人擺進關卡（NE-97 名單確認後）。
 
+### 3.2c 已做（NE-99）
+
+- **零件式動畫的拍翼隨速度**：`PartCreature` 的通道可以寫 `vfreq`，頻率 = `freq` + `vfreq` × 速度比例（速度 ÷ `gait.full_speed`），蝙蝠機飛得越快拍得越快。
+- **井道蝙蝠機**（`shaft_bat`）：本體加近側、遠側兩片翼；待機收翼倒掛、盤旋拍翼（轉向時近側翼收攏）、預兆張翼顫動、俯衝翼向後收、滑翔、撞牆暈眩（翼不規則抽動）、爬升；被擊落由基底的失速墜落處理。
+- **攀牆者**（`wall_gecko`）：`SurfaceWalker`（`game/enemies/surface_walker.gd`）是純貼附幾何——沿地面、牆面、天花板爬，遇到牆轉上牆、遇到邊緣繞過去；撲出是拋物線，落在碰到的任何表面上。身體整個隨表面旋轉，判定框長邊跟著表面。這張立繪只有整隻一張，沒有分出四肢，所以爬行用身體的伸縮與起伏做交替感；之後有分件的版本可以直接換 `art/creatures/wall_gecko.json`。
+- **吊軌砲**（`rail_cannon`）：沿天花板軌道滑動（有加速與減速的慣性、軌道範圍 = 資料的 `ability_radius`），追蹤、鎖定、開火後滑到軌道另一端，滑動途中砲管不瞄準。
+- **雲母**（`cloud_jelly`）：用 `ChainCreature` 做，鐘罩脈動（`swell_amp`、`swell_freq`）推進，六條觸鬚被動拖曳；充電時鐘罩收緊發亮，放電時觸鬚是跟著骨頭的傷害判定；斷光觸鬚核心露出。
+- **蜂群**（`swarm_bee`）：每隻 1 點生命，群集規則（保持距離、順著鄰居、被玩家吸引）決定隊形，個體各自蓄力衝刺；`SwarmBee.spawn_swarm` 一次生成一群。24 隻群集轉向每影格約 0.2 毫秒。
+- 多足步態：有腿的生物（浮標蟲、打撈臂）用 NE-98 的落腳步行；自爆蟲沿用零件式的腿相位。
+- 這一批沒有動 NE-89 的動畫器登記表（`CharacterRig.ANIMATORS`）：非人形敵人走零件式與觸手式的動畫，不經過人形骨架。
+- 檢查：`screenshot.tscn -- --scenario=exotic_enemies`（遊戲內交戰）、`creature_preview.tscn -- --parts=shaft_bat`（零件動畫各狀態）。
+- 還沒做：把這五種敵人擺進關卡（NE-97 名單確認後）。
+
 ### 3.3 碰撞與判定
 
 動畫器輸出每條觸手尖端（與各節）的世界位置；傷害判定用跟著骨頭移動的小圓（`hit_bones` 資料），不要用整個外形的方框；玩家打得到的受擊框保持簡單（本體加每條觸手一個膠囊），避免逐像素判定。

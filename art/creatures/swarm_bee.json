@@ -1,0 +1,187 @@
+{
+ "description": "蜂群的單隻（PartCreature）：極小的裝甲蜂，整隻一張圖。拍翅是身體高頻的上下抖動與壓扁（翅膀的殘影感），蓄力時抖得更快更小，衝刺時壓低朝前，群體的隊形由敵人腳本的群集移動決定，不是動畫。",
+ "dir": "res://art/creatures/swarm_bee/",
+ "texture_scale": 0.25,
+ "parts": [
+  {
+   "name": "body",
+   "file": "body.png",
+   "pivot": [
+    18,
+    12
+   ],
+   "pos": [
+    0,
+    -3
+   ],
+   "z": 0
+  }
+ ],
+ "gait": {
+  "full_speed": 140,
+  "hop": 0,
+  "legs": []
+ },
+ "states": {
+  "fly": {
+   "root": {
+    "bob_amp": 0.8,
+    "bob_freq": 3.0,
+    "tilt": 0.0
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "sy",
+     "base": 0,
+     "amp": 0.14,
+     "freq": 38.0
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0,
+     "amp": 0.06,
+     "freq": 5.0,
+     "phase": 0.6
+    },
+    {
+     "part": "body",
+     "prop": "y",
+     "base": 0,
+     "amp": 0.5,
+     "freq": 38.0,
+     "phase": 0.3
+    }
+   ]
+  },
+  "buzz": {
+   "root": {
+    "bob_amp": 0.3,
+    "bob_freq": 8.0,
+    "tilt": 0.0
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "sy",
+     "base": 0,
+     "amp": 0.2,
+     "freq": 52.0
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0,
+     "amp": 0.1,
+     "freq": 60.0,
+     "phase": 0.6
+    },
+    {
+     "part": "body",
+     "prop": "y",
+     "base": 0,
+     "amp": 0.35,
+     "freq": 60.0,
+     "phase": 0.3
+    }
+   ]
+  },
+  "sting": {
+   "root": {
+    "bob_amp": 0.0,
+    "bob_freq": 3.0,
+    "tilt": 0.0
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "sy",
+     "base": 0,
+     "amp": 0.06,
+     "freq": 30.0
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.5,
+     "amp": 0.02,
+     "freq": 2.0,
+     "phase": 0.6
+    },
+    {
+     "part": "body",
+     "prop": "y",
+     "base": 0,
+     "amp": 0.1,
+     "freq": 30.0,
+     "phase": 0.3
+    }
+   ]
+  },
+  "recover": {
+   "root": {
+    "bob_amp": 0.8,
+    "bob_freq": 3.0,
+    "tilt": 0.0
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "sy",
+     "base": 0,
+     "amp": 0.14,
+     "freq": 32.0
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": -0.15,
+     "amp": 0.05,
+     "freq": 4.0,
+     "phase": 0.6
+    },
+    {
+     "part": "body",
+     "prop": "y",
+     "base": 0,
+     "amp": 0.5,
+     "freq": 32.0,
+     "phase": 0.3
+    }
+   ]
+  },
+  "dead": {
+   "root": {
+    "bob_amp": 0.0,
+    "bob_freq": 3.0,
+    "tilt": 0.0
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "sy",
+     "base": -0.3,
+     "amp": 0.0,
+     "freq": 1.0
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 1.2,
+     "amp": 0.0,
+     "freq": 1.0,
+     "phase": 0.6
+    },
+    {
+     "part": "body",
+     "prop": "y",
+     "base": 0.0,
+     "amp": 0.0,
+     "freq": 1.0,
+     "phase": 0.3
+    }
+   ]
+  }
+ }
+}

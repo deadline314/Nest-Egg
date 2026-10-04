@@ -1,0 +1,137 @@
+{
+ "description": "吊軌砲（PartCreature）：滑座夾在天花板軌道上，下方懸吊的砲管繞樞軸轉向玩家（aim），開火時往後縮（recoil）；滑座移動時整體隨加減速前後傾，鎖定時砲口紅環發亮。原點在滑座底部，軌道在上方約 28 像素。",
+ "dir": "res://art/creatures/rail_cannon/",
+ "texture_scale": 0.25,
+ "parts": [
+  {
+   "name": "slider",
+   "file": "slider.png",
+   "pivot": [
+    33,
+    2
+   ],
+   "pos": [
+    0,
+    -28
+   ],
+   "z": 0
+  },
+  {
+   "name": "barrel",
+   "file": "barrel.png",
+   "pivot": [
+    8,
+    13
+   ],
+   "pos": [
+    0,
+    22.5
+   ],
+   "parent": "slider",
+   "z": 1,
+   "aim": 1.0,
+   "recoil": [
+    -3,
+    0
+   ],
+   "muzzle": [
+    23,
+    0
+   ]
+  }
+ ],
+ "gait": {
+  "full_speed": 90,
+  "hop": 0,
+  "legs": []
+ },
+ "states": {
+  "idle": {
+   "root": {
+    "bob_amp": 0.2,
+    "bob_freq": 1.0,
+    "tilt": 0.0
+   },
+   "channels": [
+    {
+     "part": "barrel",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.03,
+     "freq": 1.2
+    }
+   ]
+  },
+  "slide": {
+   "root": {
+    "bob_amp": 0.0,
+    "bob_freq": 1.0,
+    "tilt": 0.05
+   },
+   "channels": [
+    {
+     "part": "slider",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.025,
+     "freq": 9.0
+    },
+    {
+     "part": "barrel",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.05,
+     "freq": 6.0
+    }
+   ]
+  },
+  "track": {
+   "root": {
+    "bob_amp": 0.1,
+    "bob_freq": 3.0,
+    "tilt": 0.0
+   },
+   "channels": [
+    {
+     "part": "slider",
+     "prop": "x",
+     "base": 0.0,
+     "amp": 0.1,
+     "freq": 14.0
+    }
+   ]
+  },
+  "lock": {
+   "root": {
+    "bob_amp": 0.0,
+    "bob_freq": 1.0,
+    "tilt": 0.0
+   },
+   "channels": [
+    {
+     "part": "slider",
+     "prop": "x",
+     "base": 0.0,
+     "amp": 0.25,
+     "freq": 32.0
+    }
+   ]
+  },
+  "dead": {
+   "root": {
+    "bob_amp": 0.0,
+    "bob_freq": 1.0,
+    "tilt": 0.0
+   },
+   "channels": [
+    {
+     "part": "barrel",
+     "prop": "rot",
+     "base": 0.5,
+     "amp": 0.0,
+     "freq": 1.0
+    }
+   ]
+  }
+ }
+}

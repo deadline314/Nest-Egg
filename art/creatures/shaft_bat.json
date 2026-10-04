@@ -1,0 +1,343 @@
+{
+ "description": "井道蝙蝠機（PartCreature）：細長流線機身加兩片展開的膜翼（近側與遠側）。翼的軸在貼圖底部（肩關節）朝上；拍翼是繞肩關節的來回轉動，拍翼頻率隨飛行速度增加（vfreq）；待機收翼倒掛，鎖定時雙翼張開顫動，俯衝時翼向後收攏，滑翔時翼展開不動，轉向時近側翼收攏，暈眩時翼不規則抽動。",
+ "dir": "res://art/creatures/shaft_bat/",
+ "texture_scale": 0.25,
+ "parts": [
+  {
+   "name": "body",
+   "file": "body.png",
+   "pivot": [
+    60,
+    30
+   ],
+   "pos": [
+    0,
+    -8
+   ],
+   "z": 0,
+   "muzzle": [
+    12.5,
+    -0.5
+   ]
+  },
+  {
+   "name": "wing_far",
+   "file": "wing.png",
+   "pivot": [
+    22,
+    80
+   ],
+   "pos": [
+    4.6,
+    -1.4
+   ],
+   "parent": "body",
+   "z": -1,
+   "tint": 0.65
+  },
+  {
+   "name": "wing_near",
+   "file": "wing.png",
+   "pivot": [
+    22,
+    80
+   ],
+   "pos": [
+    3.2,
+    -0.8
+   ],
+   "parent": "body",
+   "z": 1
+  }
+ ],
+ "gait": {
+  "full_speed": 150,
+  "hop": 0,
+  "legs": []
+ },
+ "states": {
+  "idle": {
+   "root": {
+    "bob_amp": 0.8,
+    "bob_freq": 0.9,
+    "tilt": 0.0
+   },
+   "channels": [
+    {
+     "part": "wing_near",
+     "prop": "rot",
+     "base": -1.35,
+     "amp": 0.04,
+     "freq": 1.2
+    },
+    {
+     "part": "wing_far",
+     "prop": "rot",
+     "base": -1.4,
+     "amp": 0.04,
+     "freq": 1.2,
+     "phase": 1.1
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.03,
+     "freq": 1.0
+    }
+   ]
+  },
+  "hover": {
+   "root": {
+    "bob_amp": 1.2,
+    "bob_freq": 1.6,
+    "tilt": 0.0
+   },
+   "channels": [
+    {
+     "part": "wing_near",
+     "prop": "rot",
+     "base": -0.5,
+     "amp": 0.8,
+     "freq": 6.0,
+     "vfreq": 4.0
+    },
+    {
+     "part": "wing_far",
+     "prop": "rot",
+     "base": -0.55,
+     "amp": 0.8,
+     "freq": 6.0,
+     "phase": 1.1,
+     "vfreq": 4.0
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.05,
+     "amp": 0.05,
+     "freq": 1.7
+    }
+   ]
+  },
+  "lock": {
+   "root": {
+    "bob_amp": 0.4,
+    "bob_freq": 4.0,
+    "tilt": 0.0
+   },
+   "channels": [
+    {
+     "part": "wing_near",
+     "prop": "rot",
+     "base": 0.15,
+     "amp": 0.18,
+     "freq": 16.0
+    },
+    {
+     "part": "wing_far",
+     "prop": "rot",
+     "base": 0.1,
+     "amp": 0.18,
+     "freq": 16.0,
+     "phase": 1.1
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": -0.22,
+     "amp": 0.04,
+     "freq": 9.0
+    }
+   ]
+  },
+  "dive": {
+   "root": {
+    "bob_amp": 0.0,
+    "bob_freq": 1.6,
+    "tilt": 0.0
+   },
+   "channels": [
+    {
+     "part": "wing_near",
+     "prop": "rot",
+     "base": -1.3,
+     "amp": 0.1,
+     "freq": 10.0
+    },
+    {
+     "part": "wing_far",
+     "prop": "rot",
+     "base": -1.35,
+     "amp": 0.1,
+     "freq": 10.0,
+     "phase": 1.1
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.6,
+     "amp": 0.0,
+     "freq": 1.0
+    }
+   ]
+  },
+  "climb": {
+   "root": {
+    "bob_amp": 0.6,
+    "bob_freq": 1.6,
+    "tilt": 0.0
+   },
+   "channels": [
+    {
+     "part": "wing_near",
+     "prop": "rot",
+     "base": -0.25,
+     "amp": 1.0,
+     "freq": 9.0,
+     "vfreq": 3.0
+    },
+    {
+     "part": "wing_far",
+     "prop": "rot",
+     "base": -0.3,
+     "amp": 1.0,
+     "freq": 9.0,
+     "phase": 1.1,
+     "vfreq": 3.0
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": -0.28,
+     "amp": 0.05,
+     "freq": 2.0
+    }
+   ]
+  },
+  "glide": {
+   "root": {
+    "bob_amp": 0.8,
+    "bob_freq": 1.6,
+    "tilt": 0.0
+   },
+   "channels": [
+    {
+     "part": "wing_near",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.03,
+     "freq": 2.0
+    },
+    {
+     "part": "wing_far",
+     "prop": "rot",
+     "base": -0.05,
+     "amp": 0.03,
+     "freq": 2.0,
+     "phase": 1.1
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.08,
+     "amp": 0.03,
+     "freq": 1.2
+    }
+   ]
+  },
+  "turn": {
+   "root": {
+    "bob_amp": 1.2,
+    "bob_freq": 1.6,
+    "tilt": 0.0
+   },
+   "channels": [
+    {
+     "part": "wing_near",
+     "prop": "rot",
+     "base": -1.25,
+     "amp": 0.1,
+     "freq": 5.0
+    },
+    {
+     "part": "wing_far",
+     "prop": "rot",
+     "base": -0.35,
+     "amp": 0.5,
+     "freq": 5.0,
+     "phase": 1.1
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.0,
+     "amp": 0.1,
+     "freq": 2.0
+    }
+   ]
+  },
+  "dizzy": {
+   "root": {
+    "bob_amp": 0.2,
+    "bob_freq": 1.6,
+    "tilt": 0.0
+   },
+   "channels": [
+    {
+     "part": "wing_near",
+     "prop": "rot",
+     "base": -0.7,
+     "amp": 0.9,
+     "freq": 3.0
+    },
+    {
+     "part": "wing_far",
+     "prop": "rot",
+     "base": -0.2,
+     "amp": 0.7,
+     "freq": 2.3,
+     "phase": 1.1
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.35,
+     "amp": 0.2,
+     "freq": 3.0
+    }
+   ]
+  },
+  "dead": {
+   "root": {
+    "bob_amp": 0.0,
+    "bob_freq": 1.6,
+    "tilt": 0.0
+   },
+   "channels": [
+    {
+     "part": "wing_near",
+     "prop": "rot",
+     "base": 0.3,
+     "amp": 1.2,
+     "freq": 14.0
+    },
+    {
+     "part": "wing_far",
+     "prop": "rot",
+     "base": 0.2,
+     "amp": 1.2,
+     "freq": 14.0,
+     "phase": 1.1
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.5,
+     "amp": 0.25,
+     "freq": 6.0
+    }
+   ]
+  }
+ }
+}

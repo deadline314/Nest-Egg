@@ -1,0 +1,62 @@
+{
+ "description": "wall_gecko 的專屬特效（EnemyVfx 讀取）。洋紅吸附趾墊的火花與落地的塵土；每個敵人自己一份。",
+ "hit": {
+  "color": "#ff4fd8",
+  "amount": 4,
+  "speed": 130,
+  "light": 0.5
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#ff4fd8",
+    "amount": 16,
+    "speed": 190,
+    "life": 0.45
+   },
+   {
+    "color": "#2a8f7a",
+    "amount": 12,
+    "speed": 150,
+    "life": 0.5,
+    "kind": "smoke"
+   }
+  ],
+  "light": {
+   "color": "#ff4fd8",
+   "radius": 50,
+   "energy": 0.9,
+   "time": 0.25
+  },
+  "shake": 1.5,
+  "hitstop": 0.04,
+  "extras": [
+   "dust"
+  ]
+ },
+ "states": {
+  "windup": {
+   "at": "center",
+   "bursts": [
+    {
+     "color": "#ff4fd8",
+     "amount": 5,
+     "speed": 80,
+     "life": 0.3
+    }
+   ]
+  },
+  "land": {
+   "at": "center",
+   "dust": 3,
+   "bursts": [
+    {
+     "color": "#cfd6e6",
+     "amount": 6,
+     "speed": 120,
+     "life": 0.3
+    }
+   ]
+  }
+ }
+}

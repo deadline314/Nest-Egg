@@ -1,0 +1,300 @@
+{
+ "description": "攀牆者（PartCreature）：貼著表面爬行的壁虎。整隻是一張圖，爬行時身體一伸一縮、前後輪流抬起（四肢交替的節奏），倒掛不動時尾巴區域輕輕甩動，撲下前蹲伏蓄力，撲出時身體拉長，落地緩衝壓扁。貼著的表面（地、牆、天花板）由敵人整體旋轉。",
+ "dir": "res://art/creatures/wall_gecko/",
+ "texture_scale": 0.25,
+ "parts": [
+  {
+   "name": "body",
+   "file": "body.png",
+   "pivot": [
+    52,
+    30
+   ],
+   "pos": [
+    0,
+    0
+   ],
+   "z": 0
+  }
+ ],
+ "gait": {
+  "full_speed": 50,
+  "hop": 0,
+  "legs": []
+ },
+ "states": {
+  "idle": {
+   "root": {
+    "bob_amp": 0.3,
+    "bob_freq": 2.0
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "sx",
+     "base": 0,
+     "amp": 0,
+     "freq": 5
+    },
+    {
+     "part": "body",
+     "prop": "sy",
+     "base": 0,
+     "amp": 0.02,
+     "freq": 1.5,
+     "phase": 1.6
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0,
+     "amp": 0.01,
+     "freq": 1.5,
+     "phase": 0.8
+    },
+    {
+     "part": "body",
+     "prop": "y",
+     "base": 0,
+     "amp": 0,
+     "freq": 5,
+     "phase": 0.4
+    }
+   ]
+  },
+  "crawl": {
+   "root": {
+    "bob_amp": 0.3,
+    "bob_freq": 2.0
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "sx",
+     "base": 0,
+     "amp": 0.07,
+     "freq": 7.0
+    },
+    {
+     "part": "body",
+     "prop": "sy",
+     "base": 0.0,
+     "amp": 0.06,
+     "freq": 7.0,
+     "phase": 1.6
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0,
+     "amp": 0.07,
+     "freq": 7.0,
+     "phase": 0.8
+    },
+    {
+     "part": "body",
+     "prop": "y",
+     "base": 0,
+     "amp": 0.5,
+     "freq": 7.0,
+     "phase": 0.4
+    }
+   ]
+  },
+  "hang": {
+   "root": {
+    "bob_amp": 0.0,
+    "bob_freq": 2.0
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "sx",
+     "base": 0,
+     "amp": 0.02,
+     "freq": 2.0
+    },
+    {
+     "part": "body",
+     "prop": "sy",
+     "base": 0.0,
+     "amp": 0.03,
+     "freq": 2.0,
+     "phase": 1.6
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0,
+     "amp": 0.1,
+     "freq": 9.0,
+     "phase": 0.8
+    },
+    {
+     "part": "body",
+     "prop": "y",
+     "base": 0,
+     "amp": 0.2,
+     "freq": 9.0,
+     "phase": 0.4
+    }
+   ]
+  },
+  "windup": {
+   "root": {
+    "bob_amp": 0.0,
+    "bob_freq": 2.0
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "sx",
+     "base": 0.14,
+     "amp": 0.03,
+     "freq": 16.0
+    },
+    {
+     "part": "body",
+     "prop": "sy",
+     "base": -0.2,
+     "amp": 0.03,
+     "freq": 16.0,
+     "phase": 1.6
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0,
+     "amp": 0.04,
+     "freq": 16.0,
+     "phase": 0.8
+    },
+    {
+     "part": "body",
+     "prop": "y",
+     "base": 1.6,
+     "amp": 0.2,
+     "freq": 16.0,
+     "phase": 0.4
+    }
+   ]
+  },
+  "leap": {
+   "root": {
+    "bob_amp": 0.0,
+    "bob_freq": 2.0
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "sx",
+     "base": 0.28,
+     "amp": 0.02,
+     "freq": 3.0
+    },
+    {
+     "part": "body",
+     "prop": "sy",
+     "base": -0.14,
+     "amp": 0.02,
+     "freq": 3.0,
+     "phase": 1.6
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0,
+     "amp": 0.0,
+     "freq": 1.0,
+     "phase": 0.8
+    },
+    {
+     "part": "body",
+     "prop": "y",
+     "base": 0,
+     "amp": 0,
+     "freq": 5,
+     "phase": 0.4
+    }
+   ]
+  },
+  "land": {
+   "root": {
+    "bob_amp": 0.0,
+    "bob_freq": 2.0
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "sx",
+     "base": 0.22,
+     "amp": 0.0,
+     "freq": 1.0
+    },
+    {
+     "part": "body",
+     "prop": "sy",
+     "base": -0.3,
+     "amp": 0.0,
+     "freq": 1.0,
+     "phase": 1.6
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0,
+     "amp": 0.0,
+     "freq": 1.0,
+     "phase": 0.8
+    },
+    {
+     "part": "body",
+     "prop": "y",
+     "base": 1.2,
+     "amp": 0.0,
+     "freq": 1.0,
+     "phase": 0.4
+    }
+   ]
+  },
+  "dead": {
+   "root": {
+    "bob_amp": 0.0,
+    "bob_freq": 2.0
+   },
+   "channels": [
+    {
+     "part": "body",
+     "prop": "sx",
+     "base": 0.1,
+     "amp": 0.0,
+     "freq": 1.0
+    },
+    {
+     "part": "body",
+     "prop": "sy",
+     "base": -0.32,
+     "amp": 0.0,
+     "freq": 1.0,
+     "phase": 1.6
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.1,
+     "amp": 0.0,
+     "freq": 1.0,
+     "phase": 0.8
+    },
+    {
+     "part": "body",
+     "prop": "y",
+     "base": 1.5,
+     "amp": 0,
+     "freq": 1.0,
+     "phase": 0.4
+    }
+   ]
+  }
+ }
+}

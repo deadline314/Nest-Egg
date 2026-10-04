@@ -1,0 +1,67 @@
+{
+ "description": "cloud_jelly 的專屬特效（EnemyVfx 讀取）。青色電弧與玻璃碎片；每個敵人自己一份。",
+ "hit": {
+  "color": "#5cf2ff",
+  "amount": 5,
+  "speed": 140,
+  "light": 0.6,
+  "kind": "arc"
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#5cf2ff",
+    "amount": 20,
+    "speed": 200,
+    "life": 0.5,
+    "kind": "arc"
+   },
+   {
+    "color": "#b05ad8",
+    "amount": 14,
+    "speed": 150,
+    "life": 0.5,
+    "kind": "shard"
+   }
+  ],
+  "light": {
+   "color": "#5cf2ff",
+   "radius": 76,
+   "energy": 1.2,
+   "time": 0.35
+  },
+  "shake": 2.0,
+  "hitstop": 0.05,
+  "extras": [
+   "arc",
+   "smoke"
+  ]
+ },
+ "states": {
+  "charge": {
+   "at": "center",
+   "bursts": [
+    {
+     "color": "#5cf2ff",
+     "amount": 6,
+     "speed": 90,
+     "life": 0.4,
+     "kind": "arc"
+    }
+   ]
+  },
+  "discharge": {
+   "at": "center",
+   "bursts": [
+    {
+     "color": "#5cf2ff",
+     "amount": 10,
+     "speed": 220,
+     "life": 0.3,
+     "kind": "arc"
+    }
+   ],
+   "shake": 1.2
+  }
+ }
+}

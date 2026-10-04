@@ -1,0 +1,160 @@
+{
+ "description": "雲母（ChainCreature）：圓頂玻璃鐘罩懸浮機，下緣六條細長觸鬚被動拖曳（行進波慢、幅度小，隨鐘罩收縮甩動）。鐘罩脈動（swell_amp、swell_freq）推進；充電時鐘罩發亮收緊、觸鬚展開，放電時觸鬚帶電鞭打。單位：世界像素，原點在鐘罩下方。",
+ "texture_scale": 0.25,
+ "body": {
+  "texture": "res://art/creatures/cloud_jelly/body.png",
+  "offset": [
+   -14,
+   -19
+  ]
+ },
+ "tentacle": {
+  "texture": "res://art/creatures/cloud_jelly/tentacle.png",
+  "segments": 9,
+  "width": 4.0,
+  "length": 34.0
+ },
+ "tentacles": [
+  {
+   "anchor": [
+    -9.5,
+    -2
+   ],
+   "angle": 14,
+   "scale": 0.9,
+   "phase": 0.0,
+   "z": -1,
+   "life": 2,
+   "tint": 0.8
+  },
+  {
+   "anchor": [
+    -5.7,
+    -1.5
+   ],
+   "angle": 8,
+   "scale": 1.0,
+   "phase": 1.0,
+   "z": 1,
+   "life": 2
+  },
+  {
+   "anchor": [
+    -1.9,
+    -1
+   ],
+   "angle": 2,
+   "scale": 1.1,
+   "phase": 2.0,
+   "z": -1,
+   "life": 2,
+   "tint": 0.85
+  },
+  {
+   "anchor": [
+    1.9,
+    -1
+   ],
+   "angle": -2,
+   "scale": 1.1,
+   "phase": 3.0,
+   "z": 1,
+   "life": 2,
+   "mirror": true
+  },
+  {
+   "anchor": [
+    5.7,
+    -1.5
+   ],
+   "angle": -8,
+   "scale": 1.0,
+   "phase": 4.0,
+   "z": -1,
+   "life": 2,
+   "tint": 0.85,
+   "mirror": true
+  },
+  {
+   "anchor": [
+    9.5,
+    -2
+   ],
+   "angle": -14,
+   "scale": 0.9,
+   "phase": 5.0,
+   "z": 1,
+   "life": 2,
+   "mirror": true
+  }
+ ],
+ "combat": {
+  "armor_scale": 0.6,
+  "exposed_scale": 1.6
+ },
+ "states": {
+  "idle": {
+   "amp": 0.22,
+   "wavelength": 8.0,
+   "speed": 1.3,
+   "pulse": 0.04,
+   "stretch": 0.04,
+   "pulse_speed": 2.0,
+   "curl": 0.0,
+   "bob": 0.9,
+   "swell_amp": 0.07,
+   "swell_freq": 0.8
+  },
+  "drift": {
+   "amp": 0.3,
+   "wavelength": 7.0,
+   "speed": 2.0,
+   "pulse": 0.06,
+   "stretch": 0.08,
+   "pulse_speed": 3.0,
+   "curl": 0.05,
+   "bob": 1.2,
+   "swell_amp": 0.12,
+   "swell_freq": 1.1
+  },
+  "charge": {
+   "amp": 0.12,
+   "wavelength": 6.0,
+   "speed": 3.0,
+   "pulse": 0.08,
+   "stretch": 0.02,
+   "pulse_speed": 6.0,
+   "curl": 0.35,
+   "bob": 0.5,
+   "swell": -0.1,
+   "swell_amp": 0.03,
+   "swell_freq": 5.0,
+   "extend": 0.8
+  },
+  "discharge": {
+   "amp": 0.7,
+   "wavelength": 9.0,
+   "speed": 9.0,
+   "pulse": 0.14,
+   "stretch": 0.06,
+   "pulse_speed": 6.0,
+   "curl": -0.1,
+   "bob": 0.3,
+   "duration": 0.6,
+   "whip": 1.0,
+   "swell": 0.12,
+   "extend": 1.15
+  },
+  "dead": {
+   "amp": 0.05,
+   "wavelength": 8.0,
+   "speed": 1.0,
+   "pulse": 0.0,
+   "stretch": 0.0,
+   "pulse_speed": 1.0,
+   "curl": 0.5,
+   "bob": 0.0,
+   "swell": -0.15
+  }
+ }
+}

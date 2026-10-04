@@ -6,6 +6,7 @@ extends Node2D
 ##   parts[]               name、file、pivot（關節在貼圖上的像素位置）、pos（相對父零件關節的世界像素）、parent、z、rot、tint、
 ##                         aim（跟著瞄準方向轉，倍率）、recoil（開火時往後退的位移 [x, y]）、muzzle（零件座標的槍口 [x, y]）
 ##   states{}              每個狀態有 channels[]（part、prop＝rot／x／y／sx／sy、base、amp、freq、phase、abs）與 root{bob_amp、bob_freq、tilt}
+##   channels 的 vfreq     頻率隨速度增加：實際頻率 = freq + vfreq × 速度比例（速度 ÷ gait.full_speed，上限 1.5），拍翼隨飛行速度加快用
 ##   gait{}                腳的步態：stride（一個週期走多遠）、hop（身體起伏）、legs[]（part、phase、swing、lift）
 ## 切換狀態時各通道的參數（基準、幅度、頻率）平滑過渡，波形的相位連續，不會跳。資料有錯（缺貼圖、找不到父零件、通道指向不存在的零件）時
 ## 記錄具體位置並略過那一項，不會崩潰；整份資料不可用時 setup 回傳 false，呼叫端改用程式繪製。
@@ -32,6 +33,7 @@ var _gait: Dictionary = {}
 var _time := 0.0
 var _gait_phase := 0.0
 var _speed_ratio := 0.0
+var _speed_all := 0.0
 var _aim := 0.0
 var _recoil := 0.0
 var _flash_left := 0.0
@@ -144,7 +146,7 @@ func _collect_channels() -> void:
 			_channels[key] = {
 				"part": int(_by_name[part_name]), "prop": str(c["prop"]), "abs": false,
 				"base": 0.0, "amp": 0.0, "freq": float(c.get("freq", 1.0)), "phase": 0.0, "offset": float(c.get("phase", 0.0)),
-				"t_base": 0.0, "t_amp": 0.0, "t_freq": float(c.get("freq", 1.0)),
+				"t_base": 0.0, "t_amp": 0.0, "t_freq": float(c.get("freq", 1.0)), "vfreq": 0.0, "t_vfreq": 0.0,
 			}
 
 
@@ -171,6 +173,7 @@ func _apply_state_targets() -> void:
 		RigLibrary.report_once("part_creature_state:%s:%s" % [creature_id, state], "[PartCreature] %s 沒有狀態「%s」，改用 idle" % [PATH % creature_id, state])
 	for channel: Dictionary in _channels.values():
 		channel["t_base"] = 0.0
+		channel["t_vfreq"] = 0.0
 		channel["t_amp"] = 0.0
 	for entry: Variant in def.get("channels", []):
 		if typeof(entry) != TYPE_DICTIONARY:
@@ -183,6 +186,7 @@ func _apply_state_targets() -> void:
 		channel["t_base"] = float(c.get("base", 0.0))
 		channel["t_amp"] = float(c.get("amp", 0.0))
 		channel["t_freq"] = float(c.get("freq", channel["t_freq"]))
+		channel["t_vfreq"] = float(c.get("vfreq", 0.0))
 		channel["abs"] = bool(c.get("abs", false))
 		channel["offset"] = float(c.get("phase", 0.0))
 	_shown = PackedStringArray(def.get("show", []))
@@ -204,11 +208,13 @@ func animate(delta: float, new_state: StringName, velocity := Vector2.ZERO, face
 		channel["base"] = lerpf(float(channel["base"]), float(channel["t_base"]), blend)
 		channel["amp"] = lerpf(float(channel["amp"]), float(channel["t_amp"]), blend)
 		channel["freq"] = lerpf(float(channel["freq"]), float(channel["t_freq"]), blend)
-		channel["phase"] = float(channel["phase"]) + TAU * float(channel["freq"]) * delta
+		channel["vfreq"] = lerpf(float(channel["vfreq"]), float(channel["t_vfreq"]), blend)
+		channel["phase"] = float(channel["phase"]) + TAU * (float(channel["freq"]) + float(channel["vfreq"]) * _speed_all) * delta
 	for key: String in _root_params.keys():
 		_root_params[key] = lerpf(float(_root_params[key]), float(_root_target[key]), blend)
 	_bob_phase += TAU * float(_root_params["bob_freq"]) * delta
 	_recoil = move_toward(_recoil, 0.0, RECOIL_RECOVERY * delta)
+	_speed_all = clampf(velocity.length() / maxf(1.0, float(_gait.get("full_speed", 80.0))), 0.0, 1.5)
 	_update_gait(delta, velocity)
 	for part: Dictionary in _parts:
 		part["pos"] = Vector2.ZERO
