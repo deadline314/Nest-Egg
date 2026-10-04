@@ -1,6 +1,6 @@
 """一鍵準備音效實驗室的試聽檔：下載原始素材（約 3 GB）→ 產生預聽檔（約 220 MB）。
 
-用法：python tools/audio/setup_audition.py [--jobs N]
+用法：python tools/audio/setup_audition.py [--jobs N] [--cafile FILE]
 
 新機器上第一次使用音效實驗室前跑一次。下載與預聽檔都會略過已存在的，所以中斷後重跑會接著做；
 下載有失敗的素材包時照常產生其餘預聽檔，並在最後列出失敗數，重跑即可補上。
@@ -20,9 +20,11 @@ def run(script: str, *args: str) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--jobs", type=int, default=4, help="同時下載的素材包數")
+    parser.add_argument("--cafile", help="網路攔截 HTTPS 時，額外信任的根憑證檔（.pem）")
     args = parser.parse_args()
     print("== 1/2 下載原始素材")
-    fetch_status = run("fetch_audio.py", "--jobs", str(args.jobs))
+    fetch_args = ["--jobs", str(args.jobs)] + (["--cafile", args.cafile] if args.cafile else [])
+    fetch_status = run("fetch_audio.py", *fetch_args)
     print("== 2/2 產生預聽檔")
     build_status = run("build_candidates.py")
     if fetch_status or build_status:
