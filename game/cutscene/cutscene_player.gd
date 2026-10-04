@@ -175,6 +175,7 @@ func _build_ui() -> void:
 	backdrop.color = Color(0, 0, 0, 0.0 if _overlay_mode else 1.0)
 	backdrop.set_anchors_preset(Control.PRESET_FULL_RECT)
 	backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	backdrop.z_index = WorldLayers.STAGE_BACK - 100  # 舞台背景各層在 STAGE_BACK，黑底要再低一點才不會蓋住它們
 	_root.add_child(backdrop)
 	_stage_holder = Node2D.new()
 	_root.add_child(_stage_holder)

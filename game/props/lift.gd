@@ -60,7 +60,7 @@ func _ready() -> void:
 	_rails.travel = _travel
 	_rails.width = _width
 	_rails.position = position
-	_rails.z_index = -1
+	_rails.z_index = WorldLayers.RAILS
 	get_parent().add_child.call_deferred(_rails)
 	tree_exiting.connect(_free_rails)
 	EventBus.mechanism_toggled.connect(_on_channel_toggled)

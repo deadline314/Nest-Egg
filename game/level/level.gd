@@ -79,11 +79,16 @@ func _ready() -> void:
 	_world.add_child(back_wall)
 	back_wall.setup(_layout, hash(data.id), data.environment)
 
+	var scenery_start := _world.get_child_count()
 	_spawn_decor()
+	_lower_scenery(scenery_start, WorldLayers.DECOR)
+	scenery_start = _world.get_child_count()
 	_spawn_props()
+	_lower_scenery(scenery_start, WorldLayers.PROPS)
 
 	var terrain := Terrain.new()
 	terrain.name = "Terrain"
+	terrain.z_index = WorldLayers.TERRAIN
 	_world.add_child(terrain)
 	terrain.build(_layout, data.environment, data.load_regions())
 
@@ -313,6 +318,14 @@ func _spawn_static_entities() -> void:
 
 
 ## 招牌、看板、排氣孔等裝飾（畫在地形與角色之後方）。
+## 把剛生成的靜態場景節點（還在預設圖層的）排到所有角色零件之下；已經有自己圖層的（前景道具）不動。
+func _lower_scenery(from_child: int, z: int) -> void:
+	for i in range(from_child, _world.get_child_count()):
+		var node := _world.get_child(i) as CanvasItem
+		if node != null and node.z_index == 0:
+			node.z_index = z
+
+
 func _spawn_decor() -> void:
 	for entry in _layout.decor:
 		var cell: Vector2i = entry["cell"]

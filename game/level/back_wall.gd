@@ -34,7 +34,7 @@ func setup(layout: LevelLayout, p_seed := 1, theme: EnvironmentTheme = null) -> 
 	_tile = layout.tile_size
 	_seed = p_seed
 	_theme = theme
-	z_index = -1
+	z_index = WorldLayers.BACK_WALL
 	var size := layout.pixel_size()
 	var panel := float(_tile * PANEL_TILES)
 	_columns = ceili(size.x / panel)

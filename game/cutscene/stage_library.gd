@@ -104,6 +104,9 @@ class Stage:
 	var front := Node2D.new()
 
 	func _init() -> void:
+		# 背景各層排在所有演員零件之下、前景各層排在其上；演員零件的 z 從 -9 到 +7（後側的手腳零件比背景預設的 0 還低）。
+		back.z_index = WorldLayers.STAGE_BACK
+		front.z_index = WorldLayers.STAGE_FRONT
 		add_child(back)
 		add_child(actors)
 		add_child(front)
