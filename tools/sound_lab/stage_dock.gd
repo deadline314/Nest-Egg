@@ -12,12 +12,12 @@ var _heard_label: Label
 var _speed_slider: HSlider
 var _speed_label: Label
 var _free_play: CheckBox
-var _content: VBoxContainer
+var _content: SoundLabRatioSplit
 
 
 func _init(p_lab: SoundLab) -> void:
 	lab = p_lab
-	custom_minimum_size = Vector2(480, 0)
+	custom_minimum_size = Vector2(400, 0)
 
 
 func _ready() -> void:
@@ -31,16 +31,20 @@ func _ready() -> void:
 	_free_play.tooltip_text = "打勾 = 鍵盤與滑鼠直接控制舞台裡的玩家（照遊戲的按鍵）；沒打勾時點實驗室的按鈕不會讓玩家誤開槍"
 	_free_play.toggled.connect(func(on: bool) -> void: stage.set_free_play(on))
 	head.add_child(_free_play)
-	_content = VBoxContainer.new()
-	_content.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_content = SoundLabRatioSplit.new()
+	_content.vertical = true
+	_content.setup(lab.layout, "stage_rows", 0.55, "拖動調整畫面和下面換彈時間軸的高度")
 	add_child(_content)
+	var view := VBoxContainer.new()
+	view.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_content.add_child(view)
 	var aspect := AspectRatioContainer.new()
 	aspect.ratio = 16.0 / 9.0
 	aspect.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	aspect.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	aspect.custom_minimum_size = Vector2(0, 240)
 	aspect.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
-	_content.add_child(aspect)
+	view.add_child(aspect)
 	stage = SoundStage.new()
 	stage.scene_started.connect(_on_scene_started)
 	stage.scene_finished.connect(_on_scene_finished)
@@ -49,17 +53,17 @@ func _ready() -> void:
 	_scene_label = Label.new()
 	_scene_label.text = "還沒有執行情境：在「情境清單」或「位置與備選」分頁選一個"
 	_scene_label.tooltip_text = "目前（或最近一次）在畫面執行的情境"
-	_content.add_child(_scene_label)
+	view.add_child(_scene_label)
 	_tip_label = Label.new()
 	_tip_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_tip_label.tooltip_text = "這個情境做了什麼"
-	_content.add_child(_tip_label)
+	view.add_child(_tip_label)
 	_heard_label = Label.new()
 	_heard_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_heard_label.tooltip_text = "這個情境實際響過的音效（遊戲自己播出的，依第一次出現的順序）"
-	_content.add_child(_heard_label)
+	view.add_child(_heard_label)
 	var speed := HBoxContainer.new()
-	_content.add_child(speed)
+	view.add_child(speed)
 	speed.add_child(_label("速度"))
 	_speed_slider = HSlider.new()
 	_speed_slider.min_value = SoundStage.MIN_SPEED

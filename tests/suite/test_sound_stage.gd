@@ -114,6 +114,7 @@ func _test_lab_with_stage() -> void:
 	DirAccess.copy_absolute(ProjectSettings.globalize_path(WeaponSounds.PATH), ProjectSettings.globalize_path(COPY_PATH))
 	var lab := (load("res://tools/sound_lab/sound_lab.tscn") as PackedScene).instantiate() as SoundLab
 	lab.doc_path = "user://test_audio_stage_placements.md"
+	lab.layout_path = "user://test_audio_stage_layout.cfg"
 	runner.get_tree().root.add_child(lab)
 	await lab.stage().wait_ready()
 	Engine.time_scale = TEST_SPEED_UP

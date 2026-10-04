@@ -8,6 +8,7 @@ func run() -> void:
 	get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
 	var lab := SoundLab.new()
 	lab.doc_path = "user://scenario_placements.md"
+	lab.layout_path = "user://scenario_layout.cfg"
 	DirAccess.copy_absolute(ProjectSettings.globalize_path(PlacementDoc.PATH), ProjectSettings.globalize_path(lab.doc_path))
 	add_child(lab)
 	await lab.stage().wait_ready()

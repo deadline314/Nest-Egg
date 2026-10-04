@@ -1,7 +1,7 @@
 class_name SoundLabSlotsTab
-extends HSplitContainer
-## 實驗室分頁一：位置與備選。左邊是遊戲裡所有會響的位置（可依域篩選、搜尋）；右邊是選中位置的資訊、
-## 目前用的素材、預計使用（和位置清單文件連動）、備選素材與跨類別搜尋整個素材目錄。
+extends SoundLabRatioSplit
+## 實驗室分頁一：位置與備選。左欄上半是遊戲裡所有會響的位置（可依域篩選、搜尋），下半是備選素材與跨類別搜尋整個素材目錄
+## （兩者上下各約一半，中間可拖動）；右欄是選中位置的資訊、畫面情境、音量、目前用的素材、預計使用（和位置清單文件連動）。
 ## 所有挑選都立刻寫回位置清單文件（只改那一格）；勾「手動放入」代表你自己已經把檔案放進遊戲，套用工具會略過。
 
 const SEARCH_MATCH_LIMIT := 100000  ## 搜尋先取全部符合的，才能算出被隱藏的個數
@@ -27,6 +27,7 @@ var _candidate_list: ItemList
 var _category: OptionButton
 var _search_edit: LineEdit
 var _search_list: ItemList
+var _rows: SoundLabRatioSplit
 var _shown_slots: Array[String] = []
 var _selected_slot := ""
 
@@ -36,15 +37,23 @@ func _init(p_lab: SoundLab) -> void:
 
 
 func _ready() -> void:
-	_build_left()
+	setup(lab.layout, "slots_columns", 0.5, "拖動調整左欄（位置與備選素材）和右欄（位置資訊）的寬度")
+	_rows = SoundLabRatioSplit.new()
+	_rows.vertical = true
+	_rows.setup(lab.layout, "slots_left_rows", 0.5, "拖動調整位置清單和備選素材的高度")
+	_rows.custom_minimum_size = Vector2(300, 0)
+	add_child(_rows)
+	_build_slot_pane(_rows)
+	_build_candidate_pane(_rows)
 	_build_right()
 	refresh()
 
 
-func _build_left() -> void:
+## 左欄上半：位置清單與篩選。
+func _build_slot_pane(parent: Control) -> void:
 	var left := VBoxContainer.new()
-	left.custom_minimum_size = Vector2(360, 0)
-	add_child(left)
+	left.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	parent.add_child(left)
 	_domain = OptionButton.new()
 	_domain.tooltip_text = "只看某一類位置：武器、命中、角色、移動、機關、介面、環境音、背景音樂"
 	_domain.add_item("全部位置")
@@ -68,6 +77,7 @@ func _build_left() -> void:
 func _build_right() -> void:
 	var right := VBoxContainer.new()
 	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	right.custom_minimum_size = Vector2(240, 0)
 	add_child(right)
 	_title = Label.new()
 	_title.add_theme_font_size_override(&"font_size", 20)
@@ -118,6 +128,7 @@ func _build_right() -> void:
 	right.add_child(_heading("目前用的素材（雙擊試聽）"))
 	_current_list = ItemList.new()
 	_current_list.custom_minimum_size = Vector2(0, 70)
+	_current_list.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_current_list.tooltip_text = "這個位置現在在遊戲裡用的素材；點選即試聽"
 	_current_list.item_selected.connect(func(i: int) -> void: _maybe_audition(_current_list, i))
 	right.add_child(_current_list)
@@ -136,9 +147,16 @@ func _build_right() -> void:
 	_manual_check.tooltip_text = "打勾 = 你自己已經把檔案放進遊戲了，套用工具會略過這個位置"
 	_manual_check.toggled.connect(_on_manual_toggled)
 	planned_row.add_child(_manual_check)
+
+
+## 左欄下半：備選素材、跨類別搜尋，以及對選中素材的試聽與設定按鈕。
+func _build_candidate_pane(parent: Control) -> void:
+	var pane := VBoxContainer.new()
+	pane.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	parent.add_child(pane)
 	_result_tabs = TabContainer.new()
 	_result_tabs.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	right.add_child(_result_tabs)
+	pane.add_child(_result_tabs)
 	var candidates_box := VBoxContainer.new()
 	candidates_box.name = "備選素材"
 	_result_tabs.add_child(candidates_box)
@@ -166,7 +184,7 @@ func _build_right() -> void:
 	_search_list = _multi_list()
 	search_box.add_child(_search_list)
 	var picks := HFlowContainer.new()
-	right.add_child(picks)
+	pane.add_child(picks)
 	picks.add_child(_button("▶ 試聽選中的", _audition_selected, "播放選中素材的預聽檔"))
 	picks.add_child(_button("設為預計使用", func() -> void: _pick(false), "用選中的素材取代這個位置的預計使用（可以多選）"))
 	picks.add_child(_button("加入預計使用", func() -> void: _pick(true), "把選中的素材加到這個位置的預計使用後面"))

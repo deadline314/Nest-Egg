@@ -9,12 +9,19 @@ extends Node
 
 const SYNC_INTERVAL := 1.0
 const FONT_SIZE := 15
+## 左邊工作區佔整個視窗寬度的預設比例。
+const MAIN_SPLIT_DEFAULT := 0.55
+## 分隔線的粗細：夠寬才看得出、抓得到。
+const SPLIT_SEPARATION := 12
 
 var catalog := AudioCatalog.new()
 var doc := PlacementDoc.new()
 var audition := AuditionPlayer.new()
 ## 位置清單文件的路徑（測試時指到複本，不動真正的文件）。
 var doc_path := PlacementDoc.PATH
+## 各分隔比例的存檔路徑（測試時指到暫存檔，不動使用者的設定）。
+var layout_path := SoundLabLayout.DEFAULT_PATH
+var layout: SoundLabLayout
 ## 要不要建立右側的畫面舞台（測試其他分頁時關掉，省去建關卡的時間）。
 var stage_enabled := true
 var dock: SoundLabStageDock
@@ -39,6 +46,7 @@ func _ready() -> void:
 		_scale_mode_before = get_window().content_scale_mode
 		_changed_scale_mode = true
 		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
+	layout = SoundLabLayout.new(layout_path)
 	catalog.load_all()
 	doc.load_doc(doc_path)
 	audition.setup(catalog)
@@ -50,7 +58,8 @@ func _ready() -> void:
 	root.theme = _theme
 	root.set_anchors_preset(Control.PRESET_FULL_RECT)
 	layer.add_child(root)
-	var split := HSplitContainer.new()
+	var split := SoundLabRatioSplit.new()
+	split.setup(layout, "lab_stage_column", MAIN_SPLIT_DEFAULT, "拖動調整左邊工作區和右邊畫面舞台的寬度")
 	root.add_child(split)
 	var box := VBoxContainer.new()
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -93,6 +102,7 @@ func _ready() -> void:
 
 ## 從 F5 開發工具選單離開實驗室時，把視窗縮放還原給遊戲。
 func _exit_tree() -> void:
+	layout.flush()
 	if _changed_scale_mode:
 		get_window().content_scale_mode = _scale_mode_before
 
@@ -102,6 +112,7 @@ func _process(delta: float) -> void:
 	if _sync_left > 0.0:
 		return
 	_sync_left = SYNC_INTERVAL
+	layout.flush()
 	sync_now()
 
 
@@ -151,4 +162,35 @@ func _build_theme() -> Theme:
 	theme.default_font_size = FONT_SIZE
 	for type in ["Button", "Label", "LineEdit", "ItemList", "OptionButton", "CheckBox", "TabContainer", "TabBar"]:
 		theme.set_font_size(&"font_size", type, FONT_SIZE)
+	_style_splits(theme)
 	return theme
+
+
+## 分隔線：加粗、上色並畫三個點，一眼看得出可以拖。
+func _style_splits(theme: Theme) -> void:
+	var bar := StyleBoxFlat.new()
+	bar.bg_color = Color(Palette.CYAN, 0.18)
+	bar.set_corner_radius_all(3)
+	for type in ["SplitContainer", "HSplitContainer", "VSplitContainer"]:
+		theme.set_constant(&"separation", type, SPLIT_SEPARATION)
+		theme.set_constant(&"minimum_grab_thickness", type, SPLIT_SEPARATION)
+		theme.set_stylebox(&"split_bar_background", type, bar)
+	var tall := _grip_icon(true)
+	var wide := _grip_icon(false)
+	for type in ["SplitContainer", "HSplitContainer"]:
+		theme.set_icon(&"grabber", type, tall)
+		theme.set_icon(&"h_grabber", type, tall)
+	theme.set_icon(&"v_grabber", "SplitContainer", wide)
+	theme.set_icon(&"grabber", "VSplitContainer", wide)
+	theme.set_icon(&"v_grabber", "VSplitContainer", wide)
+
+
+## 三個點排成的抓把圖示；vertical 是左右分隔用的直條。
+func _grip_icon(vertical: bool) -> ImageTexture:
+	var image := Image.create(SPLIT_SEPARATION, SPLIT_SEPARATION * 3, false, Image.FORMAT_RGBA8) if vertical else Image.create(SPLIT_SEPARATION * 3, SPLIT_SEPARATION, false, Image.FORMAT_RGBA8)
+	var length := maxi(image.get_width(), image.get_height())
+	for i in 3:
+		var center := length / 2 + (i - 1) * 8
+		var rect := Rect2i(SPLIT_SEPARATION / 2 - 2, center - 2, 4, 4) if vertical else Rect2i(center - 2, SPLIT_SEPARATION / 2 - 2, 4, 4)
+		image.fill_rect(rect, Palette.CYAN)
+	return ImageTexture.create_from_image(image)

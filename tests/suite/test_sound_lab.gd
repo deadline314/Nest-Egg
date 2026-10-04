@@ -5,6 +5,8 @@ extends TestSuite
 
 const LAB_SCENE := "res://tools/sound_lab/sound_lab.tscn"
 const COPY_PATH := "user://test_audio_lab_placements.md"
+## 測試用的版面比例檔（檔名含 test_audio_，故意寫壞時的錯誤記錄不算失敗）。
+const LAYOUT_PATH := "user://test_audio_lab_layout.cfg"
 
 var _fake_previews: PackedStringArray = []  ## 測試自己建立的空預聽檔（收尾時刪掉；本機真有的預聽檔不動）
 var _created_audition_dir := false
@@ -12,6 +14,7 @@ var _created_audition_dir := false
 
 func run() -> void:
 	_test_not_reachable_from_the_game()
+	_test_layout_store()
 	await _test_lab()
 	_cleanup()
 
@@ -41,6 +44,7 @@ func _test_not_reachable_from_the_game() -> void:
 func _cleanup() -> void:
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(COPY_PATH))
 	_remove_fake_previews()
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(LAYOUT_PATH))
 
 
 func _remove_fake_previews() -> void:
@@ -91,6 +95,38 @@ func _list_ids(list: ItemList) -> PackedStringArray:
 	return ids
 
 
+func _write_layout_file(text: String) -> void:
+	var file := FileAccess.open(LAYOUT_PATH, FileAccess.WRITE)
+	file.store_string(text)
+	file.close()
+
+
+## 版面比例存檔：寫入後可還原；沒有檔、損毀、超出範圍都退回預設，不崩潰。
+func _test_layout_store() -> void:
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(LAYOUT_PATH))
+	var layout := SoundLabLayout.new(LAYOUT_PATH)
+	check(is_equal_approx(layout.ratio("rows", 0.5), 0.5), "a missing layout file falls back to the default ratio")
+	layout.set_ratio("rows", 0.3)
+	layout.set_ratio("cols", 5.0)
+	layout.set_ratio("nan", NAN)
+	check(layout.is_dirty() and is_equal_approx(layout.ratio("cols", 0.4), 0.9), "an oversized ratio is clamped to the allowed range")
+	check(is_equal_approx(layout.ratio("nan", 0.4), 0.4), "a NaN ratio is ignored")
+	layout.flush()
+	check(not layout.is_dirty(), "flushing clears the dirty flag")
+	check(is_equal_approx(SoundLabLayout.new(LAYOUT_PATH).ratio("rows", 0.5), 0.3), "a saved ratio is restored")
+	_write_layout_file("this is [not a config file")
+	check(is_equal_approx(SoundLabLayout.new(LAYOUT_PATH).ratio("rows", 0.5), 0.5), "a corrupt layout file falls back to the default ratio")
+	_write_layout_file("[split_ratios]
+rows=\"wide\"
+cols=7.5
+ok=0.25
+")
+	var partly := SoundLabLayout.new(LAYOUT_PATH)
+	check(is_equal_approx(partly.ratio("rows", 0.5), 0.5) and is_equal_approx(partly.ratio("cols", 0.4), 0.4), "non-numeric and out-of-range ratios fall back to the default")
+	check(is_equal_approx(partly.ratio("ok", 0.5), 0.25), "a valid ratio next to broken ones is still read")
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(LAYOUT_PATH))
+
+
 func _tooltip_gaps(node: Node, into: PackedStringArray) -> void:
 	if node is Button or node is LineEdit or node is OptionButton or node is CheckBox or node is Slider or node is ItemList:
 		if (node as Control).tooltip_text.is_empty():
@@ -104,6 +140,7 @@ func _test_lab() -> void:
 	var lab := (load(LAB_SCENE) as PackedScene).instantiate() as SoundLab
 	lab.doc_path = COPY_PATH
 	lab.stage_enabled = false
+	lab.layout_path = LAYOUT_PATH
 	runner.get_tree().root.add_child(lab)
 	await frames(3)
 	_ensure_previews(lab.catalog, lab.catalog.slot("P-WPN-001")["candidates"] + lab.catalog.search("rain", "", 100000))
@@ -112,8 +149,27 @@ func _test_lab() -> void:
 	_tooltip_gaps(lab, gaps)
 	check(gaps.is_empty(), "every control has a tooltip: %s" % ", ".join(gaps.slice(0, 5)))
 
-	# ---- 位置分頁：挑選寫回文件
+	# ---- 位置分頁：左欄上下各約一半，分隔可拖、比例會記住
 	var tab := lab.slots_tab
+	var top_height: float = (tab._rows.get_child(0) as Control).size.y
+	var bottom_height: float = (tab._rows.get_child(1) as Control).size.y
+	check(tab._rows.is_ancestor_of(tab._candidate_list) and tab._rows.is_ancestor_of(tab._slot_list), "the slot list and the candidates share the left column")
+	check(top_height > 0.0 and absf(top_height - bottom_height) <= 0.15 * (top_height + bottom_height), "the slot list and the candidates each take about half the height (%.0f / %.0f)" % [top_height, bottom_height])
+	var offset := int(tab._rows.size.y * 0.2)
+	tab._rows.split_offset = offset
+	tab._rows.dragged.emit(offset)
+	await frames(2)
+	check(tab._rows.get_child(0).size.y > top_height, "dragging the divider down gives the slot list more height")
+	check(lab.layout.is_dirty() and lab.layout.ratio("slots_left_rows", 0.5) > 0.6, "the dragged ratio is remembered")
+	lab.layout.flush()
+	check(SoundLabLayout.new(LAYOUT_PATH).ratio("slots_left_rows", 0.5) > 0.6, "the dragged ratio survives a restart")
+	# 視窗變大時兩邊一起變大（清單多顯示列數），不是等比放大畫面。
+	var tall: float = (tab._rows.get_child(1) as Control).size.y
+	tab._rows.size.y += 200.0
+	await frames(2)
+	check(tab._rows.get_child(1).size.y > tall, "a taller window gives the candidate list more room")
+
+	# ---- 位置分頁：挑選寫回文件
 	check(tab._slot_list.item_count == lab.catalog.slots.size(), "the slot list shows every slot (%d)" % tab._slot_list.item_count)
 	tab._domain.select(1)
 	tab._domain.item_selected.emit(1)
