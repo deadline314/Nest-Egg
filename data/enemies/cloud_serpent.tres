@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/cloud_serpent.gd" id="2_behavior"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"cloud_serpent"
+behavior = ExtResource("2_behavior")
+display_name = "雲蛇"
+creature_skin = "cloud_serpent"
+attack_category = &"charge"
+hit_material = &"flesh"
+relaxed_states = PackedStringArray("lurk")
+armor_states = PackedStringArray("erupt")
+body_size = Vector2(16, 10)
+color = Color(0.3, 0.5, 0.75, 1.0)
+uses_gravity = false
+max_health = 12
+move_speed = 55.0
+contact_damage = 1
+contact_source_id = &"cloud_serpent_contact"
+detect_range = 240.0
+attack_cooldown = 1.5
+telegraph_time = 0.9
+knockback_scale = 0.2
+poise = 6.0
+hit_style = "stumble"
+hit_amount = 1.5
+hurt_parts = Array[Dictionary]([{"id": "head", "size": Vector2(15, 11), "mult": 2.0, "offset": Vector2(0, -5)}])
+finish_health_ratio = 0.0
+health_drop_chance = 0.2
+credit_value = 25

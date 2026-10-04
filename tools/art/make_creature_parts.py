@@ -24,6 +24,11 @@ PARTS = {
     "shock_hound": [("body_s2.png", "body", "w", 34), ("tail_s1.png", "tail", "w", 18)],
     "turret": [("base_s1.png", "base", "w", 24), ("turret_s3.png", "head", "w", 22), ("barrel_s1.png", "barrel", "w", 24)],
     "mimic": [("closed_s4.png", "closed", "w", 36), ("open_s1.png", "open", "w", 36)],
+    # 觸手與蠕行類（ChainCreature、WormCreature）
+    "salvage_arm": [("body_s1.png", "body", "w", 44), ("tentacle_s1.png", "tentacle", "h", 34)],
+    "tangle_wire": [("body_s3.png", "body", "w", 30), ("tentacle_s1.png", "tentacle", "h", 30)],
+    "buoy_worm": [("body_s4.png", "body", "w", 24), ("leg_s1.png", "leg", "h", 7)],
+    "cloud_serpent": [("head_s1.png", "head", "w", 28), ("segment_s1.png", "segment", "w", 18)],
 }
 
 

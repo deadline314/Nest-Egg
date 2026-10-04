@@ -1,0 +1,65 @@
+{
+ "description": "cloud_serpent 的專屬特效（EnemyVfx 讀取）。碎石、泥土與雲氣；每個敵人自己一份。",
+ "hit": {
+  "color": "#8fd0ff",
+  "amount": 5,
+  "speed": 150,
+  "light": 0.6
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#8fd0ff",
+    "amount": 22,
+    "speed": 210,
+    "life": 0.5
+   },
+   {
+    "color": "#e8f6ff",
+    "amount": 14,
+    "speed": 150,
+    "life": 0.55,
+    "kind": "smoke"
+   },
+   {
+    "color": "#6b5a48",
+    "amount": 12,
+    "speed": 170,
+    "life": 0.5,
+    "kind": "shard"
+   }
+  ],
+  "light": {
+   "color": "#8fd0ff",
+   "radius": 70,
+   "energy": 1.1,
+   "time": 0.3
+  },
+  "shake": 2.5,
+  "hitstop": 0.05,
+  "extras": [
+   "dust",
+   "steam"
+  ]
+ },
+ "states": {
+  "erupt": {
+   "at": "feet",
+   "bursts": [
+    {
+     "color": "#6b5a48",
+     "amount": 12,
+     "speed": 200,
+     "life": 0.45,
+     "kind": "shard"
+    }
+   ],
+   "shake": 1.5,
+   "dust": 6
+  },
+  "rumble": {
+   "at": "feet",
+   "dust": 3
+  }
+ }
+}

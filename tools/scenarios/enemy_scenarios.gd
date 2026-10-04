@@ -20,6 +20,7 @@ const SCENARIOS := {
 	"hit_reaction": "res://tools/scenarios/hit_reaction_scenario.gd",
 	"hit_direction": "res://tools/scenarios/hit_direction_scenario.gd",
 	"hurt_parts": "res://tools/scenarios/hurt_parts_scenario.gd",
+	"creature_combat": "res://tools/scenarios/creature_combat_scenario.gd",
 	"machine_hit": "res://tools/scenarios/machine_hit_scenario.gd",
 	"enemy_flow": "res://tools/scenarios/enemy_flow_scenario.gd",
 	"phone_booth": "res://tools/scenarios/phone_booth_scenario.gd",

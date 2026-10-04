@@ -1,0 +1,80 @@
+{
+ "description": "salvage_arm 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。水珠、鏽屑與火花；每個敵人自己一份。",
+ "step": {
+  "every": 22,
+  "dust": 2,
+  "spread": 14,
+  "shake": 0.6,
+  "spark": 0
+ },
+ "hit": {
+  "color": "#ffb347",
+  "amount": 5,
+  "speed": 150,
+  "light": 0.6
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#ff9a2e",
+    "amount": 26,
+    "speed": 240,
+    "life": 0.55
+   },
+   {
+    "color": "#ff2eb8",
+    "amount": 14,
+    "speed": 150,
+    "life": 0.5,
+    "kind": "ember"
+   },
+   {
+    "color": "#7fd6ff",
+    "amount": 18,
+    "speed": 200,
+    "life": 0.6,
+    "kind": "shard"
+   }
+  ],
+  "light": {
+   "color": "#ff2eb8",
+   "radius": 90,
+   "energy": 1.4,
+   "time": 0.35
+  },
+  "shake": 4.0,
+  "hitstop": 0.07,
+  "extras": [
+   "steam",
+   "smoke",
+   "coolant"
+  ]
+ },
+ "states": {
+  "slam": {
+   "at": "feet",
+   "bursts": [
+    {
+     "color": "#cfd6e6",
+     "amount": 10,
+     "speed": 170,
+     "life": 0.35
+    }
+   ],
+   "shake": 2.0,
+   "dust": 4
+  },
+  "sweep": {
+   "at": "feet",
+   "bursts": [
+    {
+     "color": "#7fd6ff",
+     "amount": 8,
+     "speed": 130,
+     "life": 0.3
+    }
+   ],
+   "dust": 2
+  }
+ }
+}

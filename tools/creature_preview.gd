@@ -6,7 +6,10 @@ extends Node2D
 ## --strip：改成同一個狀態（--state=名稱）在連續 8 個時間點的樣子，檢查行進波與收縮波怎麼往前傳。
 
 const HIT_FRAMES: Array[String] = ["idle", "hit:0.05", "hit:0.15", "hit:0.3", "hit:0.6", "sever:0.3"]
+## 狀態名稱以 walk 開頭時預覽的行走速度（像素／秒）。
+const WALK_SPEED := 40.0
 const STATES: Array[String] = ["idle", "alert", "crawl", "lash:0.0", "lash:0.3", "lash:0.55", "lash:0.8"]
+## 有腿的生物（有 gait 段）改看走路：待機與走路的連續畫面。
 
 var _parts_id := ""
 var _creature_id := "test_creature"
@@ -17,6 +20,12 @@ var _strip := false
 var _bright := false
 var _hit := false
 var _state := "crawl"
+## --states=a,b,c：自選要並排看的狀態（每個預設從 idle 跑到穩定；walk 開頭的會邊走邊看）。
+var _states: Array[String] = []
+## --worm=<id>：看蠕行生物（WormCreature）在各狀態往右移動時的樣子。
+var _worm_id := ""
+## --free=4,5：預覽時先把這幾條腿放開步態（看出招的樣子，遊戲裡由敵人腳本放開）。
+var _free: Array[int] = []
 var _creatures: Array[ChainCreature] = []
 var _wanted: Array[String] = []
 
@@ -39,6 +48,13 @@ func _ready() -> void:
 			_parts_id = arg.trim_prefix("--parts=")
 		elif arg.begins_with("--state="):
 			_state = arg.trim_prefix("--state=")
+		elif arg.begins_with("--states="):
+			_states.assign(arg.trim_prefix("--states=").split(",", false))
+		elif arg.begins_with("--free="):
+			for part in arg.trim_prefix("--free=").split(",", false):
+				_free.append(int(part))
+		elif arg.begins_with("--worm="):
+			_worm_id = arg.trim_prefix("--worm=")
 	add_child(LightKit.create_environment())
 	var bg := ColorRect.new()
 	bg.color = Color("5b6577") if _bright else Color("121826")
@@ -50,8 +66,15 @@ func _ready() -> void:
 		if not _out.is_empty():
 			_capture_parts.call_deferred()
 		return
+	if not _worm_id.is_empty():
+		_build_worm_sheet()
+		if not _out.is_empty():
+			_capture_worms.call_deferred()
+		return
 	var items: Array[String] = []
-	if _strip:
+	if not _states.is_empty():
+		items = _states
+	elif _strip:
 		for i in 8:
 			items.append("%s:%d" % [_state, i])
 	elif _hit:
@@ -73,6 +96,46 @@ func _ready() -> void:
 		_wanted.append(items[i])
 	if not _out.is_empty():
 		_capture.call_deferred()
+
+
+var _worms: Array[WormCreature] = []
+var _worm_states: Array[String] = []
+
+
+func _build_worm_sheet() -> void:
+	var data := RigLibrary.load_json(WormCreature.PATH % _worm_id)
+	var names: Array = _states if not _states.is_empty() else (data.get("states", {}) as Dictionary).keys()
+	# 蠕行生物的身體用世界座標，不受父節點縮放影響，所以放大用鏡頭。
+	var zoom := _zoom if _zoom != 0.9 else 2.5
+	var view := get_viewport_rect().size / zoom  # 鏡頭看得到的世界範圍
+	var camera := Camera2D.new()
+	camera.zoom = Vector2.ONE * zoom
+	camera.position = view * 0.5
+	add_child(camera)
+	for row in names.size():
+		var worm := WormCreature.new()
+		worm.position = Vector2(view.x * 0.25, view.y * (float(row) + 0.5) / float(names.size()))
+		add_child(worm)
+		if not worm.setup(_worm_id):
+			push_error("[creature_preview] 無法建立蠕行生物：%s" % _worm_id)
+			return
+		_worms.append(worm)
+		_worm_states.append(str(names[row]))
+
+
+func _capture_worms() -> void:
+	var dt := 1.0 / 60.0
+	for i in _worms.size():
+		var worm := _worms[i]
+		worm.reset_trail(Vector2.RIGHT)
+		for step in 150:
+			worm.global_position.x += 0.0 if _worm_states[i] == "idle" else 0.5
+			worm.animate(dt, StringName(_worm_states[i]))
+	for i in 4:
+		await get_tree().process_frame
+	get_viewport().get_texture().get_image().save_png(_out)
+	print("saved ", _out)
+	get_tree().quit()
 
 
 ## --parts=<id>：看零件式生物（PartCreature）：每個狀態一列，由左到右是 0、0.04、0.08…秒的樣子（有步態的以滿速移動）。
@@ -120,6 +183,8 @@ func _capture_parts() -> void:
 ## 讓每一隻跑到想看的狀態與時間點：先在 idle 跑 1 秒，再切到目標狀態跑（lash 跑到指定進度；strip 每格多跑 0.12 秒）。
 func _run_to(creature: ChainCreature, want: String, index: int) -> void:
 	var dt := 1.0 / 60.0
+	for free_index in _free:
+		creature.set_free(free_index, true)
 	for i in 60:
 		creature.animate(dt, &"idle")
 	var parts := want.split(":")
@@ -135,17 +200,22 @@ func _run_to(creature: ChainCreature, want: String, index: int) -> void:
 			creature.animate(dt, &"idle")
 		return
 	if _strip:
+		var strip_speed := WALK_SPEED if state_name.begins_with("walk") else 0.0
 		for i in int(1.5 / dt + float(index) * 0.12 / dt):
-			creature.animate(dt, StringName(state_name))
+			creature.position.x += strip_speed * dt
+			creature.animate(dt, StringName(state_name), Vector2(strip_speed, 0.0))
 		return
-	if state_name == "lash":
-		var duration := 0.8
+	if parts.size() > 1:
+		# 名稱:進度（0～1）：播到該狀態持續時間的這個比例（鞭擊、掃地等）。
+		var duration := creature.state_duration(StringName(state_name))
 		for i in int(float(parts[1]) * duration / dt):
-			creature.animate(dt, &"lash")
-		creature.animate(dt, &"lash")
-		return
-	for i in 150:
+			creature.animate(dt, StringName(state_name))
 		creature.animate(dt, StringName(state_name))
+		return
+	var speed := WALK_SPEED if state_name.begins_with("walk") else 0.0
+	for i in 150:
+		creature.position.x += speed * dt  # 走路：身體往前移，腳釘在地上
+		creature.animate(dt, StringName(state_name), Vector2(speed, 0.0))
 
 
 func _capture() -> void:

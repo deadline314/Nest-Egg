@@ -61,9 +61,16 @@
 6. **受擊**：被打到的那條觸手的波幅瞬間變大並從打擊點往兩端傳。
 7. **死亡**：觸手一條條失去張力軟下去，本體下沉，不使用倒地的人形死法。
 
-### 3.2b 原型（已做）
+### 3.2b 已做（NE-98）
 
-`game/creature/chain_creature.gd`（`ChainCreature`）已經能跑：一個本體加數條觸手，每條是 10 根骨頭的鏈，一張連續貼圖用 `Polygon2D` 網格變形貼在鏈上（沿鏈每節 2 排、3 欄頂點，頂點依位置分給相鄰兩根骨頭權重），彎曲處沒有接縫；行進波、收縮波（寬度與長度起伏）、鞭擊（蓄力捲起後把脈衝從根部送到尖端）、各狀態參數平滑過渡，全部參數在 `art/creatures/<id>.json`；目前貼圖是程式畫的暫代圖（`test_creature`）。檢查：`tools/creature_preview.tscn -- --creature=test_creature --out=<路徑>`（並排看 idle、alert、crawl 與鞭擊四個時間點）、加 `--strip --state=crawl` 看波怎麼往前傳。還沒做：落腳步行（尖端離地、落地釘住）、斷肢、判定、Qwen 畫的觸手貼圖與裝配流程、接成真正的敵人。
+- **觸手（`ChainCreature`）**：`art/creatures/<id>.json` 描述本體與單條觸手兩張圖，`tentacles[]` 每條有掛點 `anchor`、角度 `angle`、縮放 `scale`、鏡像 `mirror`、色差 `tint`、生命 `life`、角色 `role`（`leg` 會落腳步行，`free` 自由擺動）。圖用 `python tools/art/make_creature_parts.py <id>` 從 `art_src/creatures/<id>/` 裁切縮小，網格（`ChainMesh`）在載入時建出，彎曲處沒有接縫。行進波、收縮波、鞭擊、伸縮 `extend`、朝目標指 `aim_weight`、鼓起 `swell`、各狀態參數平滑過渡。
+- **落腳步行**：腿的尖端是腳（`FootGait`），離理想落點太遠就沿拋物線抬起、前伸、落地釘住；兩組交替，碰不到時例外；整條腿彎成一道弧碰到腳（`ChainPose.arc`，純數學、有單元測試）；落地時身體震一下，身體高度隨剩餘觸手降低。
+- **斷肢**：`damage_tentacle` 扣單條觸手的生命，歸零就 `sever`（整條飛出，用脫落零件物件池）；剩下的步伐變慢、身體變低；全部斷光發出 `core_exposed`，核心露出（敵人端：本體傷害 ×2、弱點標記、硬直）。
+- **判定**：每條觸手一個簡單受擊框（中段到尖端的外框，跟著骨頭），打到就扣那條觸手的生命；出招用 `BoneHitbox`（一組跟著骨頭搬動的小圓，重複使用不配置）。
+- **蠕行（`WormCreature`）**：頭帶路、關節跟隨領頭，一張可重複的身體貼圖鋪成連續的帶狀網格；行進波、收縮波、地面以下的身體裁掉（入地）、死亡時失去張力垂下。
+- **敵人**（基底 `ChainEnemy`）：打撈臂（六腿步行，前兩條放開步態出招：掃地、砸地）、纏絲（不走路，火花預兆後伸出鞭打）、浮標蟲（短腿步行，鼓起後噴酸液，被擊敗分裂成兩隻小的）、雲蛇（地底潛行，地面隆起預兆後躍出）。資料在 `data/enemies/`，專屬特效在 `art/vfx/enemies/`，圖鑑卡片在 `data/codex/defeat_cards.json`。
+- 檢查：`creature_preview.tscn -- --creature=<id> --states=a,b,c [--free=4,5]`（觸手各狀態）、`--worm=<id>`（蠕行）、`--strip --state=walk`（步行連續畫面）；遊戲內交戰：`screenshot.tscn -- --scenario=creature_combat`。
+- 還沒做：把這四種敵人擺進關卡（NE-97 名單確認後）。
 
 ### 3.3 碰撞與判定
 

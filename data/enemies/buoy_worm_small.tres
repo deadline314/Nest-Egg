@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/buoy_worm.gd" id="2_behavior"]
+[ext_resource type="Resource" path="res://data/projectiles/buoy_spit.tres" id="3_spit"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"buoy_worm_small"
+behavior = ExtResource("2_behavior")
+display_name = "小浮標蟲"
+creature_skin = "buoy_worm"
+creature_scale = 0.62
+creature_states = {
+"chase": "walk",
+"patrol": "walk",
+"recover": "idle"
+}
+attack_category = &"ranged"
+hit_material = &"flesh"
+relaxed_states = PackedStringArray("patrol")
+body_size = Vector2(14.9, 9.3)
+color = Color(0.55, 0.65, 0.2, 1.0)
+max_health = 2
+move_speed = 43
+contact_damage = 1
+contact_source_id = &"buoy_worm_contact"
+detect_range = 200.0
+attack_cooldown = 2.2
+telegraph_time = 0.6
+projectile = ExtResource("3_spit")
+
+knockback_scale = 0.8
+poise = 2.0
+hit_style = "stumble"
+hit_amount = 1.5
+finish_health_ratio = 0.0
+health_drop_chance = 0.08
+credit_value = 4

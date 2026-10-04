@@ -1,0 +1,27 @@
+{
+  "description": "打撈臂（ChainCreature）：潛水鐘外殼的水下起重機，底下六條觸手是腿，交替落腳步行；前面兩條出招時放開步態掃地與砸地。觸手各有生命，打斷後整條飛出、步伐變慢、身體變低；六條斷光後洋紅核心露出，傷害加倍。單位：世界像素，原點在身體下方的地面。",
+  "texture_scale": 0.25,
+  "body": {"texture": "res://art/creatures/salvage_arm/body.png", "offset": [-22, -29]},
+  "tentacle": {"texture": "res://art/creatures/salvage_arm/tentacle.png", "segments": 10, "width": 5.0, "length": 38.0},
+  "tentacles": [
+    {"anchor": [-15, -5], "angle": 20, "scale": 0.95, "phase": 0.0, "z": -1, "role": "leg", "foot": -25, "life": 3, "tint": 0.85},
+    {"anchor": [-9, -4], "angle": 10, "scale": 1.0, "phase": 1.1, "z": 1, "role": "leg", "foot": -18, "life": 3},
+    {"anchor": [-3, -4], "angle": 0, "scale": 1.0, "phase": 2.3, "z": -1, "role": "leg", "foot": -9, "life": 3, "tint": 0.85},
+    {"anchor": [3.5, -4], "angle": 0, "scale": 1.0, "phase": 3.4, "z": 1, "role": "leg", "foot": 10, "life": 3, "mirror": true},
+    {"anchor": [9.75, -4], "angle": -10, "scale": 1.0, "phase": 4.6, "z": -1, "role": "leg", "foot": 19, "life": 3, "mirror": true, "tint": 0.85},
+    {"anchor": [15.5, -5], "angle": -20, "scale": 0.95, "phase": 5.5, "z": 1, "role": "leg", "foot": 26, "life": 3, "mirror": true}
+  ],
+  "gait": {"stance": 20, "step_time": 0.26, "lift": 7, "trigger": 5, "lead": 0.5, "full_speed": 40, "dip": 0.35, "groups": 2, "wave": 0.05},
+  "combat": {"armor_scale": 0.5, "exposed_scale": 2.0},
+  "states": {
+    "idle": {"amp": 0.12, "wavelength": 7.0, "speed": 1.4, "pulse": 0.05, "stretch": 0.03, "pulse_speed": 2.0, "curl": 0.04, "bob": 0.6},
+    "alert": {"amp": 0.2, "wavelength": 6.0, "speed": 2.6, "pulse": 0.08, "stretch": 0.04, "pulse_speed": 3.0, "curl": 0.1, "bob": 1.0},
+    "walk": {"amp": 0.3, "wavelength": 5.0, "speed": 4.0, "pulse": 0.12, "stretch": 0.06, "pulse_speed": 4.0, "curl": 0.0, "bob": 0.8},
+    "sweep_windup": {"amp": 0.1, "wavelength": 7.0, "speed": 1.5, "pulse": 0.05, "stretch": 0.02, "pulse_speed": 2.0, "curl": 0.9, "bob": 0.4, "aim_weight": 0.0},
+    "sweep": {"amp": 0.8, "wavelength": 9.0, "speed": 9.0, "pulse": 0.18, "stretch": 0.08, "pulse_speed": 6.0, "curl": -0.1, "bob": 2.0, "duration": 0.6, "whip": 1.0, "aim_weight": 0.0},
+    "slam_windup": {"amp": 0.08, "wavelength": 7.0, "speed": 1.5, "pulse": 0.04, "stretch": 0.02, "pulse_speed": 2.0, "curl": -0.55, "bob": 0.3, "aim_weight": 0.0},
+    "slam": {"amp": 0.05, "wavelength": 9.0, "speed": 3.0, "pulse": 0.1, "stretch": 0.05, "pulse_speed": 5.0, "curl": 0.0, "bob": 1.5, "aim_weight": 1.0},
+    "dead": {"amp": 0.04, "wavelength": 7.0, "speed": 1.0, "pulse": 0.0, "stretch": 0.0, "pulse_speed": 1.0, "curl": 0.7, "bob": 0.0},
+    "exposed": {"amp": 0.05, "wavelength": 7.0, "speed": 1.0, "pulse": 0.04, "stretch": 0.02, "pulse_speed": 1.5, "curl": 0.0, "bob": 1.2}
+  }
+}

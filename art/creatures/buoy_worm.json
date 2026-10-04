@@ -1,0 +1,23 @@
+{
+  "description": "浮標蟲（ChainCreature）：圓胖分節的蟲，背上一盞浮標燈，肚子底下六條短腿用波浪式步態爬行（兩組交替）。噴酸液前身體鼓起（swell）。單位：世界像素，原點在身體下方的地面。",
+  "texture_scale": 0.25,
+  "body": {"texture": "res://art/creatures/buoy_worm/body.png", "offset": [-12, -9.5]},
+  "tentacle": {"texture": "res://art/creatures/buoy_worm/leg.png", "segments": 3, "width": 2.6, "length": 7.0},
+  "tentacles": [
+    {"anchor": [-7.2, -5.2], "angle": 12, "phase": 0.0, "z": -1, "role": "leg", "foot": -9.5, "life": 1, "tint": 0.8},
+    {"anchor": [-4.3, -5.2], "angle": 6, "phase": 1.0, "z": 1, "role": "leg", "foot": -5.5, "life": 1},
+    {"anchor": [-1.7, -5.2], "angle": 2, "phase": 2.0, "z": -1, "role": "leg", "foot": -2.0, "life": 1, "tint": 0.8},
+    {"anchor": [1.1, -5.2], "angle": -2, "phase": 3.0, "z": 1, "role": "leg", "foot": 2.0, "life": 1},
+    {"anchor": [3.8, -5.2], "angle": -6, "phase": 4.0, "z": -1, "role": "leg", "foot": 5.5, "life": 1, "tint": 0.8},
+    {"anchor": [6.8, -5.2], "angle": -12, "phase": 5.0, "z": 1, "role": "leg", "foot": 9.5, "life": 1}
+  ],
+  "gait": {"stance": 5.2, "step_time": 0.2, "lift": 2.2, "trigger": 3.0, "lead": 0.4, "full_speed": 40, "dip": 0.35, "groups": 2, "wave": 0.0},
+  "combat": {"armor_scale": 1.0, "exposed_scale": 1.0},
+  "states": {
+    "idle": {"amp": 0.1, "wavelength": 3.0, "speed": 1.5, "pulse": 0.03, "stretch": 0.0, "pulse_speed": 2.0, "curl": 0.0, "bob": 0.35},
+    "walk": {"amp": 0.1, "wavelength": 3.0, "speed": 4.0, "pulse": 0.06, "stretch": 0.0, "pulse_speed": 6.0, "curl": 0.0, "bob": 0.55},
+    "swell": {"amp": 0.1, "wavelength": 3.0, "speed": 3.0, "pulse": 0.05, "stretch": 0.0, "pulse_speed": 8.0, "curl": 0.0, "bob": 0.7, "swell": 0.22},
+    "spit": {"amp": 0.1, "wavelength": 3.0, "speed": 3.0, "pulse": 0.05, "stretch": 0.0, "pulse_speed": 8.0, "curl": 0.0, "bob": 0.3, "swell": -0.08},
+    "dead": {"amp": 0.05, "wavelength": 3.0, "speed": 1.0, "pulse": 0.0, "stretch": 0.0, "pulse_speed": 1.0, "curl": 0.6, "bob": 0.0}
+  }
+}

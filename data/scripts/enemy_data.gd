@@ -25,6 +25,8 @@ extends Resource
 @export var hit_material: StringName = &""
 ## 零件式外觀（art/creatures/<id>.json，PartCreature）：機械類與動物類的非人形敵人用；空字串＝用骨架或程式繪製。
 @export var creature_skin: String = ""
+## 觸手生物外觀的整體縮放（同一組美術的小隻版本，例如浮標蟲分裂出來的小蟲）。
+@export var creature_scale: float = 1.0
 ## 狀態名稱 → 零件動畫的狀態名稱；沒列的狀態用同名的動畫，找不到就用 idle。
 @export var creature_states: Dictionary = {}
 ## 招式動作：狀態名稱 → 專屬動作名稱（art/rigs/action_poses.json 的 actions），在該狀態期間播放；沒列的狀態用一般動畫。

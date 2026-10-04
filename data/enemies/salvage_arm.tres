@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/salvage_arm.gd" id="2_behavior"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"salvage_arm"
+behavior = ExtResource("2_behavior")
+display_name = "打撈臂"
+creature_skin = "salvage_arm"
+creature_scale = 1.3
+creature_states = {
+"chase": "walk",
+"recover": "idle"
+}
+attack_category = &"melee"
+hit_material = &"metal"
+relaxed_states = PackedStringArray("idle")
+body_size = Vector2(52, 70)
+color = Color(0.93, 0.55, 0.12, 1.0)
+max_health = 28
+move_speed = 34.0
+contact_damage = 1
+contact_source_id = &"salvage_contact"
+detect_range = 230.0
+attack_range = 120.0
+attack_cooldown = 1.5
+telegraph_time = 0.7
+ability_damage = 2
+knockback_scale = 0.0
+poise = 14.0
+flinch_time = 0.1
+stagger_time = 0.5
+armor_states = PackedStringArray("sweep", "slam")
+hit_style = "wobble"
+hit_amount = 1.0
+finish_health_ratio = 0.0
+stagger_duration = 1.6
+health_drop_chance = 0.6
+credit_value = 60

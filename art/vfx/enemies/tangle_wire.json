@@ -1,0 +1,66 @@
+{
+ "description": "tangle_wire 的專屬特效（EnemyVfx 讀取）。電纜火花與電弧；每個敵人自己一份。",
+ "hit": {
+  "color": "#ffe45c",
+  "amount": 4,
+  "speed": 170,
+  "light": 0.7,
+  "kind": "arc"
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#ffe45c",
+    "amount": 18,
+    "speed": 230,
+    "life": 0.4,
+    "kind": "arc"
+   },
+   {
+    "color": "#e0394a",
+    "amount": 10,
+    "speed": 160,
+    "life": 0.4,
+    "kind": "ember"
+   }
+  ],
+  "light": {
+   "color": "#ffe45c",
+   "radius": 64,
+   "energy": 1.2,
+   "time": 0.25
+  },
+  "shake": 2.0,
+  "hitstop": 0.04,
+  "extras": [
+   "arc",
+   "smoke"
+  ]
+ },
+ "states": {
+  "warn": {
+   "at": "muzzle",
+   "bursts": [
+    {
+     "color": "#ffe45c",
+     "amount": 6,
+     "speed": 120,
+     "life": 0.25,
+     "kind": "arc"
+    }
+   ]
+  },
+  "lash": {
+   "at": "center",
+   "bursts": [
+    {
+     "color": "#ffe45c",
+     "amount": 8,
+     "speed": 200,
+     "life": 0.2
+    }
+   ],
+   "shake": 1.0
+  }
+ }
+}

@@ -1,0 +1,15 @@
+{
+  "description": "雲蛇（WormCreature）：石板藍鱗片的長蟲。頭帶路，十六節身體跟著頭走過的路徑，一張可重複的身體貼圖鋪成連續的帶子；行進波讓身體左右擺，收縮波讓它一伸一縮。鑽進地面時地面以下的身體被裁掉。單位：世界像素，原點在頭的頸部關節。",
+  "texture_scale": 0.25,
+  "head": {"texture": "res://art/creatures/cloud_serpent/head.png"},
+  "segment": {"texture": "res://art/creatures/cloud_serpent/segment.png", "length": 18.0},
+  "body": {"joints": 20, "spacing": 5.0, "width": 9.0, "taper": 0.55, "tint": 0.72},
+  "states": {
+    "idle": {"amp": 0.35, "wavelength": 6.0, "speed": 2.0, "pulse": 0.05, "pulse_speed": 2.0},
+    "lurk": {"amp": 0.6, "wavelength": 5.0, "speed": 3.5, "pulse": 0.12, "pulse_speed": 5.0},
+    "rumble": {"amp": 0.9, "wavelength": 4.0, "speed": 7.0, "pulse": 0.15, "pulse_speed": 9.0},
+    "erupt": {"amp": 0.7, "wavelength": 5.5, "speed": 6.0, "pulse": 0.18, "pulse_speed": 7.0},
+    "dive": {"amp": 0.5, "wavelength": 5.0, "speed": 5.0, "pulse": 0.1, "pulse_speed": 5.0},
+    "dead": {"amp": 0.0, "wavelength": 5.0, "speed": 1.0, "pulse": 0.0, "pulse_speed": 1.0}
+  }
+}

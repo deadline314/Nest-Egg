@@ -48,7 +48,7 @@ func _physics_process(_delta: float) -> void:
 			continue
 		var info := DamageInfo.create(damage, team, source_id)
 		# 以碰撞形狀中心作為攻擊來源（而非節點原點／腳底），讓格擋方向判定準確。
-		var origin := _shape_node.global_position
+		var origin := _origin_for(hurtbox)
 		var side := signf(hurtbox.global_position.x - origin.x)
 		if side == 0.0:
 			side = 1.0
@@ -59,3 +59,8 @@ func _physics_process(_delta: float) -> void:
 		info.origin = origin
 		info.attacker = weakref(get_parent())
 		hurtbox.receive(info)
+
+
+## 攻擊來源（世界座標）。子類別有多個形狀時覆寫，回傳離目標最近的那個。
+func _origin_for(_hurtbox: Hurtbox) -> Vector2:
+	return _shape_node.global_position

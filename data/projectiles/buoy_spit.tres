@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ProjectileSpec" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/projectile_spec.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+source_id = &"buoy_spit"
+speed = 170.0
+gravity = 420.0
+lifetime = 1.6
+damage = 1
+knockback = 60.0
+radius = 2.6
+length = 5.0
+color = Color(0.72, 1.0, 0.15, 1.0)

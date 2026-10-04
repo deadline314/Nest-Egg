@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/tangle_wire.gd" id="2_behavior"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"tangle_wire"
+behavior = ExtResource("2_behavior")
+display_name = "纏絲"
+creature_skin = "tangle_wire"
+attack_category = &"melee"
+hit_material = &"metal"
+relaxed_states = PackedStringArray("hidden")
+armor_states = PackedStringArray("lash")
+body_size = Vector2(30, 12)
+color = Color(0.85, 0.25, 0.3, 1.0)
+uses_gravity = false
+max_health = 14
+move_speed = 0.0
+contact_damage = 1
+contact_source_id = &"tangle_lash"
+detect_range = 100.0
+attack_cooldown = 1.6
+telegraph_time = 0.8
+knockback_scale = 0.0
+poise = 8.0
+hit_style = "wobble"
+hit_amount = 1.0
+finish_health_ratio = 0.0
+health_drop_chance = 0.15
+credit_value = 20
