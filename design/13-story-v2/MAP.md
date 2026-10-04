@@ -98,7 +98,7 @@ flowchart BT
 當舖是家，也是主廳。最重要的是**中央一個環**：街道、市集、廣場、夜港、倉庫繞成一圈，每條邊在不同章節打開，玩家逐步學會這個環。
 
 ```mermaid
-flowchart LR
+flowchart TB
   subgraph HOME["當舖"]
     H1["當舖店面<br/>pawnshop_front<br/>工作檯、收音機"]
     H2["廚房<br/>pawnshop_kitchen"]
@@ -357,7 +357,7 @@ flowchart TB
 | B12 | 塔內五層（各一座） | 塔 | 9 | 塔內 |
 
 ```mermaid
-flowchart LR
+flowchart TB
   subgraph L1["港區環：第2章末"]
     B1["B1 電話亭巷"] --- B2["B2 倉庫"]
     B2 --- B3["B3 市集"]
