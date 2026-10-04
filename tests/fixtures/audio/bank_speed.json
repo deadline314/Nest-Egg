@@ -1,0 +1,8 @@
+{
+ "sounds": {
+  "test_audio_fast": {"files": ["res://tests/fixtures/audio/tone_a.ogg", "res://tests/fixtures/audio/tone_b.ogg"], "choke_ms": 80,
+   "speed_files": {"1.5": ["res://tests/fixtures/audio/tone_b.ogg", "res://tests/fixtures/audio/tone_a.ogg"], "2.0": ["res://tests/fixtures/audio/tone_b.ogg", "res://tests/fixtures/audio/tone_b.ogg"]}},
+  "test_audio_plain": {"files": ["res://tests/fixtures/audio/tone_a.ogg"]},
+  "test_audio_halffast": {"files": ["res://tests/fixtures/audio/tone_a.ogg"], "speed_files": {"1.5": ["res://tests/fixtures/audio/test_audio_missing_fast.ogg"]}}
+ }
+}

@@ -199,6 +199,31 @@ def filter_band(x: np.ndarray, sr: int = SR, lowpass: float | None = None, highp
     return y.astype(np.float32)
 
 
+def time_stretch(x: np.ndarray, tempo: float, sr: int = SR) -> np.ndarray:
+    """時間伸縮、音高不變：tempo 大於 1 變快（長度變成原本的 1/tempo）。用 ffmpeg 的 rubberband 濾鏡，打擊音模式（保留起音）。
+    濾鏡會讓起音晚一點點，這裡把最大峰值對回原本的位置（除以 tempo），輸出長度修成剛好 round(長度 / tempo)。"""
+    if abs(tempo - 1.0) < 1e-6 or len(x) == 0:
+        return x.copy()
+    channels = 1 if x.ndim == 1 else x.shape[1]
+    cmd = ["ffmpeg", "-v", "error", "-f", "f32le", "-ar", str(sr), "-ac", str(channels), "-i", "-", "-af",
+           f"rubberband=tempo={tempo:.6f}:transients=crisp:detector=percussive:window=short", "-f", "f32le", "-"]
+    out = subprocess.run(cmd, input=np.ascontiguousarray(x, dtype=np.float32).tobytes(), capture_output=True, check=True).stdout
+    y = np.frombuffer(out, dtype=np.float32).copy()
+    if channels > 1:
+        y = y[: len(y) // channels * channels].reshape(-1, channels)
+    mono_x = x if x.ndim == 1 else x.mean(axis=1)
+    mono_y = y if y.ndim == 1 else y.mean(axis=1)
+    shift = int(np.argmax(np.abs(mono_y))) - int(round(int(np.argmax(np.abs(mono_x))) / tempo))
+    if shift > 0:
+        y = y[shift:]
+    elif shift < 0:
+        y = np.concatenate([np.zeros((-shift,) + y.shape[1:], dtype=np.float32), y])
+    target = max(1, int(round(len(x) / tempo)))
+    if len(y) >= target:
+        return y[:target]
+    return np.concatenate([y, np.zeros((target - len(y),) + y.shape[1:], dtype=np.float32)])
+
+
 def change_rate(x: np.ndarray, rate: float) -> np.ndarray:
     """改變播放速度（音高與長度一起變），rate > 1 變高變短。"""
     if abs(rate - 1.0) < 1e-3:

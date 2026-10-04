@@ -53,6 +53,8 @@
  "sfx": {
   "shot_pistol": {
    "category": "gun",
+   "speeds": [1.25, 1.5, 2.0],
+   "choke_ms": 70,
    "volume_db": -1.0,
    "variants": [
     {
@@ -71,6 +73,8 @@
   },
   "shot_rifle": {
    "category": "gun",
+   "speeds": [1.25, 1.5, 2.0],
+   "choke_ms": 70,
    "variants": [
     {
      "pack": "oga_the-free-firearm-sound-library",
@@ -88,6 +92,8 @@
   },
   "shot_smg": {
    "category": "gun",
+   "speeds": [1.25, 1.5, 2.0],
+   "choke_ms": 70,
    "volume_db": -2.0,
    "variants": [
     {
@@ -106,6 +112,8 @@
   },
   "shot_spread": {
    "category": "gun",
+   "speeds": [1.25, 1.5, 2.0],
+   "choke_ms": 70,
    "volume_db": 1.0,
    "variants": [
     {
@@ -130,6 +138,8 @@
   },
   "shot_launcher": {
    "category": "gun",
+   "speeds": [1.25, 1.5, 2.0],
+   "choke_ms": 70,
    "volume_db": 0.0,
    "variants": [
     {
@@ -168,6 +178,8 @@
   },
   "shot_railgun": {
    "category": "gun",
+   "speeds": [1.25, 1.5, 2.0],
+   "choke_ms": 70,
    "volume_db": 0.0,
    "variants": [
     {
@@ -206,6 +218,8 @@
   },
   "shot_laser": {
    "category": "gun",
+   "speeds": [1.25, 1.5, 2.0],
+   "choke_ms": 70,
    "volume_db": -2.0,
    "variants": [
     {
@@ -232,6 +246,8 @@
   },
   "shot_cannon": {
    "category": "gun",
+   "speeds": [1.25, 1.5, 2.0],
+   "choke_ms": 70,
    "volume_db": 2.0,
    "variants": [
     {

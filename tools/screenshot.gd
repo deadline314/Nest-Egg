@@ -92,6 +92,10 @@ func _run() -> void:
 		await _run_lab_compare()
 		get_tree().quit()
 		return
+	if _scenario == "lab_live":
+		await _run_lab_live()
+		get_tree().quit()
+		return
 	if _scenario == "lab_clip":
 		await _run_lab_clip()
 		get_tree().quit()
@@ -1317,6 +1321,22 @@ func _run_lab_compare() -> void:
 	lab.slots_tab.select_slot("P-WPN-002")
 	await _settle(10)
 	_capture("lab_compare")
+	lab.queue_free()
+	get_window().content_scale_mode = scale_mode_before
+
+
+## 音效實驗室的即時試玩分頁：武器射擊與射速倍率。
+func _run_lab_live() -> void:
+	var scale_mode_before := get_window().content_scale_mode
+	get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
+	var lab := SoundLab.new()
+	lab.stage_enabled = false
+	add_child(lab)
+	await _settle(20)
+	lab.tabs.current_tab = lab.tabs.get_tab_idx_from_control(lab.live_tab)
+	lab.live_tab._fire_rate.select(3)
+	await _settle(10)
+	_capture("lab_live")
 	lab.queue_free()
 	get_window().content_scale_mode = scale_mode_before
 

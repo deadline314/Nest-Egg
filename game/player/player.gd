@@ -521,7 +521,8 @@ func _try_fire() -> void:
 	WeaponSystem.muzzle_feedback(weapon, muzzle, aim_dir)
 	if weapon.ejects_casing:
 		Fx.casing(aim_origin(), facing)
-	Sfx.play(weapon.fire_sound, -6.0, 0.06, 0, LOW_AMMO_PITCH if _is_low_ammo(weapon) else 1.0)
+	# 射速加快（超頻等）時射擊音效跟著加快、音高不變（NE-182）；射速升級只要改 fire_rate_scale，不必另外處理音效。
+	Sfx.play(weapon.fire_sound, -6.0, 0.06, 0, LOW_AMMO_PITCH if _is_low_ammo(weapon) else 1.0, cyber.fire_rate_scale())
 	if weapon.recoil > 0.0:
 		velocity -= aim_dir * weapon.recoil * (1.0 if not is_on_floor() else 0.3)
 	_visual.notify_fired(weapon.color)

@@ -1,0 +1,11 @@
+{
+ "sounds": {
+  "test_audio_not_a_table": {"files": ["res://tests/fixtures/audio/tone_a.ogg"], "speed_files": ["x"]},
+  "test_audio_slow": {"files": ["res://tests/fixtures/audio/tone_a.ogg"], "speed_files": {"0.5": ["res://tests/fixtures/audio/tone_a.ogg"]}},
+  "test_audio_empty": {"files": ["res://tests/fixtures/audio/tone_a.ogg"], "speed_files": {"1.5": []}},
+  "test_audio_count": {"files": ["res://tests/fixtures/audio/tone_a.ogg", "res://tests/fixtures/audio/tone_b.ogg"], "speed_files": {"1.5": ["res://tests/fixtures/audio/tone_a.ogg"]}},
+  "test_audio_gone": {"files": ["res://tests/fixtures/audio/tone_a.ogg"], "speed_files": {"1.5": ["res://tests/fixtures/audio/test_audio_missing_speed.ogg"]}},
+  "test_audio_choke": {"files": ["res://tests/fixtures/audio/tone_a.ogg"], "choke_ms": 9999},
+  "test_audio_choke_text": {"files": ["res://tests/fixtures/audio/tone_a.ogg"], "choke_ms": "fast"}
+ }
+}

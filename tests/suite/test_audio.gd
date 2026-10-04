@@ -14,6 +14,7 @@ func run() -> void:
 	_test_licenses()
 	_test_bank_loading()
 	_test_bank_validation()
+	await _test_speed_variants()
 	await _test_sfx_uses_files()
 	_test_profile_table()
 	_test_profile_validation()
@@ -86,7 +87,7 @@ func _test_licenses() -> void:
 	check(bank_errors.is_empty(), "every sound bank entry names a registered license pack: %s" % ", ".join(bank_errors))
 	var referenced: Dictionary = {}
 	for id: Variant in Sfx.bank().ids():
-		for file in Sfx.bank().files_of(StringName(str(id))):
+		for file in Sfx.bank().all_files_of(StringName(str(id))):
 			referenced[file] = true
 	var music := AudioData.read_root("res://data/audio/music.json", "AudioSuite", PackedStringArray()) if ResourceLoader.exists("res://data/audio/music.json") else {}
 	for track: Variant in (music.get("tracks", {}) as Dictionary).values():
@@ -165,6 +166,68 @@ func _test_bank_loading() -> void:
 	var missing := SoundBank.new()
 	missing.load_bank(FIXTURES + "test_audio_missing_bank.json", true)
 	check(missing.ids().is_empty() and not missing.has_files(&"hit"), "a missing bank file leaves an empty bank instead of crashing")
+
+
+## 射速加快時的音效（NE-182）：加速變體的載入與選級、資料檢查、真實武器的加速檔、上一發尾音的收尾。
+func _test_speed_variants() -> void:
+	var bank := _fixture_bank("bank_speed.json")
+	check(bank.speed_levels(&"test_audio_fast") == [1.5, 2.0] and bank.variants_at(&"test_audio_fast", 1.5).size() == 2, "the speed levels load in ascending order")
+	check(is_equal_approx(bank.speed_level(&"test_audio_fast", 1.0), 1.0) and is_equal_approx(bank.speed_level(&"test_audio_fast", 0.7), 1.0), "a speed of 1 or less uses the normal files")
+	check(is_equal_approx(bank.speed_level(&"test_audio_fast", 1.2), 1.0) and is_equal_approx(bank.speed_level(&"test_audio_fast", 1.4), 1.5), "the level closest in ratio is chosen, the normal speed counts as a level")
+	check(is_equal_approx(bank.speed_level(&"test_audio_fast", 1.9), 2.0) and is_equal_approx(bank.speed_level(&"test_audio_fast", 5.0), 2.0), "a speed above the last level uses the last level")
+	check(bank.variants_at(&"test_audio_fast", 2.0)[0] != bank.variants(&"test_audio_fast")[0], "a faster level returns its own files")
+	check(is_equal_approx(bank.speed_level(&"test_audio_plain", 2.0), 1.0) and bank.variants_at(&"test_audio_plain", 2.0) == bank.variants(&"test_audio_plain"), "a sound without speed files stays at normal speed")
+	check(bank.speed_levels(&"test_audio_halffast").is_empty() and is_equal_approx(bank.speed_level(&"test_audio_halffast", 2.0), 1.0) and bank.failed_files().has(&"test_audio_halffast"), "a level with a missing file falls back to normal speed and is recorded")
+	check(is_equal_approx(bank.choke_ms(&"test_audio_fast"), 80.0) and is_equal_approx(bank.choke_ms(&"test_audio_plain"), 0.0), "the choke time is read, 0 when not given")
+	check(bank.all_files_of(&"test_audio_fast").size() == 6, "all_files_of lists the normal and the speed files")
+	var messages := "
+".join(_fixture_bank("bank_speed_bad.json").validate())
+	for part in ["test_audio_not_a_table", "test_audio_slow", "test_audio_empty", "test_audio_count", "test_audio_gone", "「test_audio_choke」", "test_audio_choke_text"]:
+		check(messages.contains(part), "validation reports a bad speed or choke entry: %s" % part)
+	# 真實武器：每把玩家武器的射擊音效都有加速變體，數量和原速對得上，而且真的比較短。
+	for weapon_id in ["pistol", "rifle", "smg", "spread", "laser", "launcher", "railgun"]:
+		var weapon := load("res://data/weapons/%s.tres" % weapon_id) as WeaponData
+		var id := weapon.fire_sound
+		var real := Sfx.bank()
+		check(real.speed_levels(id) == [1.25, 1.5, 2.0], "weapon %s has the speed levels 1.25, 1.5 and 2 (%s)" % [weapon_id, real.speed_levels(id)])
+		var normal := real.variants(id)
+		for level in real.speed_levels(id):
+			var faster := real.variants_at(id, level)
+			check(faster.size() == normal.size(), "weapon %s at %sx has as many variants as normal" % [weapon_id, level])
+			for i in mini(faster.size(), normal.size()):
+				var ratio: float = (faster[i] as AudioStream).get_length() * float(level) / maxf(0.01, (normal[i] as AudioStream).get_length())
+				check(ratio > 0.9 and ratio < 1.1, "weapon %s variant %d at %sx is about 1/%s as long (ratio %.2f)" % [weapon_id, i, level, level, ratio])
+		check(real.choke_ms(id) > 0.0, "weapon %s fire sound fades the previous shot" % weapon_id)
+	# 播放：依射速倍率選級；上一發尾音收尾。
+	Sfx.stop_all()
+	await runner.get_tree().process_frame
+	var fast := Sfx.bank().variants_at(&"shot_pistol", 2.0)
+	Sfx.play(&"shot_pistol", 0.0, 0.0, 0, 1.0, 2.0)
+	var used_fast := false
+	for player: AudioStreamPlayer in Sfx._players:
+		used_fast = used_fast or (player.playing and fast.has(player.stream))
+	check(used_fast, "a speed of 2 plays one of the 2x files")
+	await _wait_msec(45)  # 同一個音效 25 毫秒內重複觸發會被擋掉；用實際經過的時間等，不靠計時器
+	Sfx.play(&"shot_pistol", 0.0, 0.0, 0, 1.0, 1.0)
+	var fading := 0
+	for tween in Sfx._voice_choke:
+		fading += 1 if tween != null else 0
+	check(fading == 1, "playing the same sound again fades the previous shot (%d fading)" % fading)
+	await _wait_msec(200)
+	var still := 0
+	for tween in Sfx._voice_choke:
+		still += 1 if tween != null else 0
+	check(still == 0, "the faded shot is released afterwards")
+	Sfx.stop_all()
+	Sfx.play(&"hit", 0.0, 0.0, 0, 1.0, 2.0)
+	check(true, "a sound without speed files plays at a speed above 1 without error")
+	Sfx.stop_all()
+
+
+func _wait_msec(msec: int) -> void:
+	var start := Time.get_ticks_msec()
+	while Time.get_ticks_msec() - start < msec:
+		await runner.get_tree().process_frame
 
 
 func _test_bank_validation() -> void:

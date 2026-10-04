@@ -343,6 +343,9 @@ var _rng := RandomNumberGenerator.new()
 var _voice_priority: Array[int] = []
 var _voice_base_db: Array[float] = []
 var _voice_end_msec: Array[int] = []
+## 每個發聲位正在播的音效 id，以及它被「收尾」（上一發尾音快速淡出）時的淡出動畫。
+var _voice_sound: Array[StringName] = []
+var _voice_choke: Array[Tween] = []
 var _events: Dictionary = {}
 var _fallback_sound: StringName = &"hit"
 var _last_variant: Dictionary = {}
@@ -368,6 +371,8 @@ func _ready() -> void:
 		_voice_priority.append(0)
 		_voice_base_db.append(0.0)
 		_voice_end_msec.append(0)
+		_voice_sound.append(&"")
+		_voice_choke.append(null)
 	_build_streams()
 	load_events()
 
@@ -461,9 +466,12 @@ func preview_ids() -> Array:
 
 ## 停止所有播放中的音效（切換場景或結束遊戲時呼叫，避免播放實例殘留）。
 func stop_all() -> void:
-	for player in _players:
-		player.stop()
-		player.stream = null
+	for i in _players.size():
+		if _voice_choke[i] != null:
+			_voice_choke[i].kill()
+			_voice_choke[i] = null
+		_players[i].stop()
+		_players[i].stream = null
 
 
 func _exit_tree() -> void:
@@ -475,8 +483,9 @@ func has_sound(id: StringName) -> bool:
 	return SOUNDS.has(id) or _bank.has_files(id)
 
 
-func play(id: StringName, volume_db := 0.0, pitch_jitter := 0.06, priority := 0, pitch_scale := 1.0) -> void:
-	_play_voice(id, volume_db, pitch_scale * (1.0 + randf_range(-pitch_jitter, pitch_jitter)), priority)
+## speed：射速倍率（目前射擊間隔相對基準；超頻時大於 1）。有加速變體的音效（音高不變）會依倍率選最接近的一級，沒有就用原速。
+func play(id: StringName, volume_db := 0.0, pitch_jitter := 0.06, priority := 0, pitch_scale := 1.0, speed := 1.0) -> void:
+	_play_voice(id, volume_db, pitch_scale * (1.0 + randf_range(-pitch_jitter, pitch_jitter)), priority, speed)
 
 
 ## 依名稱播放：是聲音事件就播事件，否則當成單一音效；資料檔（武器、角色）引用的名稱用這個。空名稱什麼都不做。
@@ -495,7 +504,7 @@ func has_named(id: StringName) -> bool:
 
 
 ## 播一個發聲位；回傳是否真的播放。滿載時只搶優先級不高於自己的聲音，沒有可搶的就丟棄。
-func _play_voice(id: StringName, volume_db: float, pitch: float, priority: int) -> bool:
+func _play_voice(id: StringName, volume_db: float, pitch: float, priority: int, speed := 1.0) -> bool:
 	if not enabled:
 		return false
 	sound_played.emit(id)
@@ -512,8 +521,9 @@ func _play_voice(id: StringName, volume_db: float, pitch: float, priority: int) 
 			stream = preview
 		volume_db += _bank.volume_db(id)
 	elif _bank.has_files(id):
-		var variants := _bank.variants(id)
-		stream = variants[_pick_variant("file:" + String(id), variants.size())]
+		var level := _bank.speed_level(id, speed)
+		var variants := _bank.variants_at(id, level)
+		stream = variants[_pick_variant("file:%s@%s" % [id, level], variants.size())]
 		volume_db += _bank.volume_db(id)
 		var pitch_range := _bank.pitch_range(id)
 		if pitch_range != Vector2.ONE:
@@ -521,12 +531,19 @@ func _play_voice(id: StringName, volume_db: float, pitch: float, priority: int) 
 	var now := Time.get_ticks_msec()
 	if now - int(_last_play_msec.get(id, -1000)) < MIN_INTERVAL_MSEC:
 		return false
+	var choke := _bank.choke_ms(id)
+	if choke > 0.0:
+		_choke_previous(id, choke)
 	var index := _acquire_voice(priority, now)
 	if index < 0:
 		dropped_count += 1
 		return false
 	_last_play_msec[id] = now
 	var player := _players[index]
+	if _voice_choke[index] != null:  # 這個發聲位剛被收尾淡出過，現在要重新使用
+		_voice_choke[index].kill()
+		_voice_choke[index] = null
+	_voice_sound[index] = id
 	player.stream = stream
 	_voice_priority[index] = priority
 	_voice_base_db[index] = volume_db
@@ -535,6 +552,22 @@ func _play_voice(id: StringName, volume_db: float, pitch: float, priority: int) 
 	player.pitch_scale = pitch
 	player.play()
 	return true
+
+
+## 同一個音效的上一發還沒播完時，讓它在 fade_ms 內淡出（不再蓋住新的一發）；淡完停掉並釋放發聲位。
+func _choke_previous(id: StringName, fade_ms: float) -> void:
+	var now := Time.get_ticks_msec()
+	for i in _players.size():
+		if _voice_sound[i] != id or _voice_choke[i] != null or not _players[i].playing or now >= _voice_end_msec[i]:
+			continue
+		var player := _players[i]
+		var tween := create_tween()
+		tween.tween_property(player, "volume_db", -60.0, fade_ms / 1000.0)
+		tween.tween_callback(func() -> void:
+			player.stop()
+			_voice_choke[i] = null)
+		_voice_choke[i] = tween
+		_voice_end_msec[i] = now + int(fade_ms)
 
 
 ## 找發聲位：先找空的；全滿時搶優先級不高於自己、最快播完的那一個；都比自己高就回傳 -1。

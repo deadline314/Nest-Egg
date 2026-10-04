@@ -9,7 +9,28 @@
     "res://audio/sfx/shot_pistol_04.ogg"
    ],
    "pack": "oga_the-free-firearm-sound-library",
-   "volume_db": -1.0
+   "volume_db": -1.0,
+   "choke_ms": 70,
+   "speed_files": {
+    "1.25": [
+     "res://audio/sfx/shot_pistol_01_x125.ogg",
+     "res://audio/sfx/shot_pistol_02_x125.ogg",
+     "res://audio/sfx/shot_pistol_03_x125.ogg",
+     "res://audio/sfx/shot_pistol_04_x125.ogg"
+    ],
+    "1.5": [
+     "res://audio/sfx/shot_pistol_01_x150.ogg",
+     "res://audio/sfx/shot_pistol_02_x150.ogg",
+     "res://audio/sfx/shot_pistol_03_x150.ogg",
+     "res://audio/sfx/shot_pistol_04_x150.ogg"
+    ],
+    "2.0": [
+     "res://audio/sfx/shot_pistol_01_x200.ogg",
+     "res://audio/sfx/shot_pistol_02_x200.ogg",
+     "res://audio/sfx/shot_pistol_03_x200.ogg",
+     "res://audio/sfx/shot_pistol_04_x200.ogg"
+    ]
+   }
   },
   "shot_rifle": {
    "files": [
@@ -18,7 +39,28 @@
     "res://audio/sfx/shot_rifle_03.ogg",
     "res://audio/sfx/shot_rifle_04.ogg"
    ],
-   "pack": "oga_the-free-firearm-sound-library"
+   "pack": "oga_the-free-firearm-sound-library",
+   "choke_ms": 70,
+   "speed_files": {
+    "1.25": [
+     "res://audio/sfx/shot_rifle_01_x125.ogg",
+     "res://audio/sfx/shot_rifle_02_x125.ogg",
+     "res://audio/sfx/shot_rifle_03_x125.ogg",
+     "res://audio/sfx/shot_rifle_04_x125.ogg"
+    ],
+    "1.5": [
+     "res://audio/sfx/shot_rifle_01_x150.ogg",
+     "res://audio/sfx/shot_rifle_02_x150.ogg",
+     "res://audio/sfx/shot_rifle_03_x150.ogg",
+     "res://audio/sfx/shot_rifle_04_x150.ogg"
+    ],
+    "2.0": [
+     "res://audio/sfx/shot_rifle_01_x200.ogg",
+     "res://audio/sfx/shot_rifle_02_x200.ogg",
+     "res://audio/sfx/shot_rifle_03_x200.ogg",
+     "res://audio/sfx/shot_rifle_04_x200.ogg"
+    ]
+   }
   },
   "shot_smg": {
    "files": [
@@ -29,7 +71,31 @@
     "res://audio/sfx/shot_smg_05.ogg"
    ],
    "pack": "oga_the-free-firearm-sound-library",
-   "volume_db": -2.0
+   "volume_db": -2.0,
+   "choke_ms": 70,
+   "speed_files": {
+    "1.25": [
+     "res://audio/sfx/shot_smg_01_x125.ogg",
+     "res://audio/sfx/shot_smg_02_x125.ogg",
+     "res://audio/sfx/shot_smg_03_x125.ogg",
+     "res://audio/sfx/shot_smg_04_x125.ogg",
+     "res://audio/sfx/shot_smg_05_x125.ogg"
+    ],
+    "1.5": [
+     "res://audio/sfx/shot_smg_01_x150.ogg",
+     "res://audio/sfx/shot_smg_02_x150.ogg",
+     "res://audio/sfx/shot_smg_03_x150.ogg",
+     "res://audio/sfx/shot_smg_04_x150.ogg",
+     "res://audio/sfx/shot_smg_05_x150.ogg"
+    ],
+    "2.0": [
+     "res://audio/sfx/shot_smg_01_x200.ogg",
+     "res://audio/sfx/shot_smg_02_x200.ogg",
+     "res://audio/sfx/shot_smg_03_x200.ogg",
+     "res://audio/sfx/shot_smg_04_x200.ogg",
+     "res://audio/sfx/shot_smg_05_x200.ogg"
+    ]
+   }
   },
   "shot_spread": {
    "files": [
@@ -40,7 +106,31 @@
     "res://audio/sfx/shot_spread_05.ogg"
    ],
    "pack": "oga_the-free-firearm-sound-library",
-   "volume_db": 1.0
+   "volume_db": 1.0,
+   "choke_ms": 70,
+   "speed_files": {
+    "1.25": [
+     "res://audio/sfx/shot_spread_01_x125.ogg",
+     "res://audio/sfx/shot_spread_02_x125.ogg",
+     "res://audio/sfx/shot_spread_03_x125.ogg",
+     "res://audio/sfx/shot_spread_04_x125.ogg",
+     "res://audio/sfx/shot_spread_05_x125.ogg"
+    ],
+    "1.5": [
+     "res://audio/sfx/shot_spread_01_x150.ogg",
+     "res://audio/sfx/shot_spread_02_x150.ogg",
+     "res://audio/sfx/shot_spread_03_x150.ogg",
+     "res://audio/sfx/shot_spread_04_x150.ogg",
+     "res://audio/sfx/shot_spread_05_x150.ogg"
+    ],
+    "2.0": [
+     "res://audio/sfx/shot_spread_01_x200.ogg",
+     "res://audio/sfx/shot_spread_02_x200.ogg",
+     "res://audio/sfx/shot_spread_03_x200.ogg",
+     "res://audio/sfx/shot_spread_04_x200.ogg",
+     "res://audio/sfx/shot_spread_05_x200.ogg"
+    ]
+   }
   },
   "shot_launcher": {
    "files": [
@@ -52,7 +142,22 @@
     "oga_action-gameshmup-sfx-pack",
     "oga_cannon-fire"
    ],
-   "volume_db": 0.0
+   "volume_db": 0.0,
+   "choke_ms": 70,
+   "speed_files": {
+    "1.25": [
+     "res://audio/sfx/shot_launcher_01_x125.ogg",
+     "res://audio/sfx/shot_launcher_02_x125.ogg"
+    ],
+    "1.5": [
+     "res://audio/sfx/shot_launcher_01_x150.ogg",
+     "res://audio/sfx/shot_launcher_02_x150.ogg"
+    ],
+    "2.0": [
+     "res://audio/sfx/shot_launcher_01_x200.ogg",
+     "res://audio/sfx/shot_launcher_02_x200.ogg"
+    ]
+   }
   },
   "shot_railgun": {
    "files": [
@@ -63,7 +168,22 @@
     "kenney_sci-fi-sounds",
     "oga_action-gameshmup-sfx-pack"
    ],
-   "volume_db": 0.0
+   "volume_db": 0.0,
+   "choke_ms": 70,
+   "speed_files": {
+    "1.25": [
+     "res://audio/sfx/shot_railgun_01_x125.ogg",
+     "res://audio/sfx/shot_railgun_02_x125.ogg"
+    ],
+    "1.5": [
+     "res://audio/sfx/shot_railgun_01_x150.ogg",
+     "res://audio/sfx/shot_railgun_02_x150.ogg"
+    ],
+    "2.0": [
+     "res://audio/sfx/shot_railgun_01_x200.ogg",
+     "res://audio/sfx/shot_railgun_02_x200.ogg"
+    ]
+   }
   },
   "shot_laser": {
    "files": [
@@ -76,7 +196,28 @@
     "kenney_sci-fi-sounds",
     "oga_action-gameshmup-sfx-pack"
    ],
-   "volume_db": -2.0
+   "volume_db": -2.0,
+   "choke_ms": 70,
+   "speed_files": {
+    "1.25": [
+     "res://audio/sfx/shot_laser_01_x125.ogg",
+     "res://audio/sfx/shot_laser_02_x125.ogg",
+     "res://audio/sfx/shot_laser_03_x125.ogg",
+     "res://audio/sfx/shot_laser_04_x125.ogg"
+    ],
+    "1.5": [
+     "res://audio/sfx/shot_laser_01_x150.ogg",
+     "res://audio/sfx/shot_laser_02_x150.ogg",
+     "res://audio/sfx/shot_laser_03_x150.ogg",
+     "res://audio/sfx/shot_laser_04_x150.ogg"
+    ],
+    "2.0": [
+     "res://audio/sfx/shot_laser_01_x200.ogg",
+     "res://audio/sfx/shot_laser_02_x200.ogg",
+     "res://audio/sfx/shot_laser_03_x200.ogg",
+     "res://audio/sfx/shot_laser_04_x200.ogg"
+    ]
+   }
   },
   "shot_cannon": {
    "files": [
@@ -87,7 +228,22 @@
     "kenney_sci-fi-sounds",
     "oga_cannon-fire"
    ],
-   "volume_db": 2.0
+   "volume_db": 2.0,
+   "choke_ms": 70,
+   "speed_files": {
+    "1.25": [
+     "res://audio/sfx/shot_cannon_01_x125.ogg",
+     "res://audio/sfx/shot_cannon_02_x125.ogg"
+    ],
+    "1.5": [
+     "res://audio/sfx/shot_cannon_01_x150.ogg",
+     "res://audio/sfx/shot_cannon_02_x150.ogg"
+    ],
+    "2.0": [
+     "res://audio/sfx/shot_cannon_01_x200.ogg",
+     "res://audio/sfx/shot_cannon_02_x200.ogg"
+    ]
+   }
   },
   "shot_enemy": {
    "files": [

@@ -9,6 +9,7 @@ var lab: SoundLab
 var _result: Label
 var _character: OptionButton
 var _weapon: OptionButton
+var _fire_rate: OptionButton
 var _material: OptionButton
 var _surface: OptionButton
 var _any_sound: OptionButton
@@ -40,6 +41,7 @@ func _ready() -> void:
 	box.add_child(row)
 	row.add_child(_button("射擊 ×1", func() -> void: play_weapon_fire(_selected(_weapon), 1), "播放一發"))
 	row.add_child(_button("連發 ×8", func() -> void: play_weapon_fire(_selected(_weapon), 8), "依這把武器的射速連續播放 8 發，聽變體輪播與重疊"))
+	_fire_rate = _option(row, "射速倍率", PackedStringArray(["1", "1.25", "1.5", "2"]), "模擬射速加快（超頻、射速升級）：音效跟著加快、音高不變，連發的間隔也跟著縮短")
 	row.add_child(_button("換彈整段", func() -> void: play_weapon_reload(_selected(_weapon)), "開始、中段、完成依序播放"))
 	row.add_child(_button("空槍", func() -> void: play_weapon_kind(_selected(_weapon), &"empty"), "彈匣空了還扣扳機"))
 	row.add_child(_button("換槍", func() -> void: play_weapon_kind(_selected(_weapon), &"equip"), "切換到這把武器"))
@@ -91,15 +93,21 @@ func play_character(id: String, kind: StringName) -> StringName:
 	return name
 
 
+## 選中的射速倍率（沒有選項時 1）。
+func fire_rate() -> float:
+	return _selected(_fire_rate).to_float() if _fire_rate != null and not _selected(_fire_rate).is_empty() else 1.0
+
+
 func play_weapon_fire(id: String, shots: int) -> StringName:
 	var weapon := _load_weapon(id)
 	if weapon == null:
 		return &""
 	_report("武器 %s 射擊" % id, weapon.fire_sound)
+	var rate := fire_rate()
 	for i in shots:
-		Sfx.play(weapon.fire_sound, -6.0)
+		Sfx.play(weapon.fire_sound, -6.0, 0.06, 0, 1.0, rate)
 		if shots > 1:
-			await get_tree().create_timer(maxf(0.03, weapon.fire_interval)).timeout
+			await get_tree().create_timer(maxf(0.03, weapon.fire_interval / rate)).timeout
 	return weapon.fire_sound
 
 
@@ -216,7 +224,7 @@ func _option(parent: Control, title: String, items: PackedStringArray, tip: Stri
 	row.add_child(label)
 	var option := OptionButton.new()
 	option.tooltip_text = tip
-	option.custom_minimum_size = Vector2(260, 0)
+	option.custom_minimum_size = Vector2(260, 0) if items.size() > 4 else Vector2(80, 0)
 	for item in items:
 		option.add_item(item)
 	row.add_child(option)

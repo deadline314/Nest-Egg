@@ -190,6 +190,8 @@ def main() -> int:
     wanted_sfx, wanted_music = set(), set()
     for sound_id, item in pipeline.get("sfx", {}).items():
         outputs, packs = [], []
+        speeds = [float(s) for s in item.get("speeds", [])]  # 加速變體的倍率（音高不變）；沒寫就不做
+        speed_outputs: dict = {str(s): [] for s in speeds}
         try:
             jobs = [job for variant in item["variants"] for job in expand_variant(dirs, pipeline, item.get("category", ""), variant)]
         except (BuildError, OSError, ValueError) as error:
@@ -204,6 +206,10 @@ def main() -> int:
                     note_use(layer["pack"], layer["file"], SFX_RES + out_name)
                     packs.append(layer["pack"])
                 outputs.append(SFX_RES + out_name)
+                speed_names = {speed: f"{sound_id}_{n:02d}_x{int(round(speed * 100))}.ogg" for speed in speeds}
+                for speed, speed_name in speed_names.items():
+                    wanted_sfx.add(speed_name)
+                    speed_outputs[str(speed)].append(SFX_RES + speed_name)
                 if args.only and sound_id not in args.only:
                     continue
                 x = render_job(job)
@@ -213,6 +219,13 @@ def main() -> int:
                     lib.encode_ogg(x, SFX_DIR / out_name, quality=float(job["spec"]["quality"]))
                 if args.report:
                     print(f"{out_name:44} {describe(x)}")
+                for speed, speed_name in speed_names.items():
+                    # 時間伸縮後響度對回原速的響度，起音保留。
+                    faster = lib.normalize_rms(lib.time_stretch(x, speed), lib.active_rms_db(x))
+                    if not args.check:
+                        lib.encode_ogg(faster, SFX_DIR / speed_name, quality=float(job["spec"]["quality"]))
+                    if args.report:
+                        print(f"{speed_name:44} {describe(faster)}")
             except (BuildError, OSError, ValueError) as error:
                 failures += 1
                 print(f"FAIL  {sound_id} #{n}: {error}", file=sys.stderr)
@@ -221,9 +234,13 @@ def main() -> int:
             entry["files"] = outputs
             unique = sorted(set(packs))
             entry["pack"] = unique[0] if len(unique) == 1 else unique
-            for key in ("volume_db", "pitch", "note"):
+            for key in ("volume_db", "pitch", "note", "choke_ms"):
                 if key in item and key not in entry:
                     entry[key] = item[key]
+            if speed_outputs and all(len(files) == len(outputs) for files in speed_outputs.values()):
+                entry["speed_files"] = {key: files for key, files in sorted(speed_outputs.items(), key=lambda pair: float(pair[0]))}
+            else:
+                entry.pop("speed_files", None)
             if item.get("category") == "ambience" or item.get("loop"):
                 entry["loop"] = True
             bank["sounds"][sound_id] = entry

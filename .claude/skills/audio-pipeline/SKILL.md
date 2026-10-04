@@ -25,6 +25,7 @@ description: 把 CC0 音效與音樂換進 Nest Egg 的完整流程：找來源�
    - 一個檔案裡有多段聲音時，用 `python tools/audio/clip_tool.py prepare <素材編號>`（波形與自動分段）與 `export <素材編號> --start 秒 --end 秒`，把某一段輸出成獨立的新素材（無損、新編號、記在 `assets_src/audio/clips.json`）；原始檔重抓後 `clip_tool.py rebuild` 重做。不想打指令時，在實驗室選素材按「✂ 擷取片段…」有波形、自動分段與試聽，確認後才輸出。測試：`python tools/audio/test_clip_tool.py`。
 4. **寫加工清單** `assets_src/audio/pipeline.json`：
    - `sfx.<音效 id>`：`category`（gun、impact、explosion、foley、ui、voice、ambience，對應 `defaults`）、`variants`（每項 `pack`、`file`，可覆寫 `mode: shot|whole|loop`、`start`、`end`、`max_len`、`target_db`、`gain_db`、`rate`、`lowpass`、`highpass`、`fade_out_ms`）。多個變體會輪播。
+   - 射擊音效可加 `speeds: [1.25, 1.5, 2.0]`：額外輸出各級加速變體（時間伸縮、音高不變，用 ffmpeg 的 rubberband 濾鏡，響度與原速對齊），寫進音效庫的 `speed_files`，射速加快時（超頻、射速升級）依倍率選用；`choke_ms: 70` 讓同一音效的上一發尾音在下一發響起時快速淡出。測試：`python tools/audio/test_time_stretch.py`。
    - `music.<曲目 id>`：`pack`、`file`，可加 `start`、`end`、`loop_blend_ms`、`fade_in_ms`、`fade_out_ms`、`target_lufs`。
 5. **加工**：`python tools/audio/build_audio.py`。先用 `--check` 檢查來源檔都在、`--report` 看每個輸出的時長與響度、`--scratch <資料夾>` 試做（不動專案檔）。輸出音效單聲道 44.1 kHz、有聲部分 RMS 對齊 `target_db`、峰值不超過 -1 dBFS；音樂立體聲、整合響度對齊 -18 LUFS。同時更新 `data/audio/sound_bank.json` 的 `files`／`pack` 與 `assets_src/audio/LICENSES.json`。
 6. **匯入**：`godot --headless --editor --quit` 產生 `.import`（要一起 commit）。
