@@ -89,6 +89,10 @@ var _melee_attack: Dictionary = {}
 var _melee_set: MeleeSet = MeleeData.default_set()
 ## 這一揮的命中回饋（頓幀、命中聲）是否已經播過；持續判定的招式只在第一個命中時播一次。
 var _melee_feedback_done := false
+## 被鎖鏈拉扯：拉向哪個節點（弱參照）、速度、剩餘秒數；衝刺、受擊硬直、撞牆或對方消失都會解除。
+var _pull_source: WeakRef
+var _pull_speed := 0.0
+var _pull_left := 0.0
 var _step_travel := 0.0
 var _terrain: Terrain
 var _melee_index := -1
@@ -294,6 +298,7 @@ func _tick_timers(delta: float) -> void:
 	_fire_cooldown_left = maxf(0.0, _fire_cooldown_left - delta)
 	_melee_cooldown_left = maxf(0.0, _melee_cooldown_left - delta)
 	_tick_melee(delta)
+	_tick_pull(delta)
 	_melee_visual_left = maxf(0.0, _melee_visual_left - delta)
 	_remount_cooldown_left = maxf(0.0, _remount_cooldown_left - delta)
 	aim_bloom = move_toward(aim_bloom, 0.0, AIM_BLOOM_RECOVERY * delta)
@@ -336,6 +341,9 @@ func _process_normal(delta: float) -> void:
 	else:
 		accel = tuning.ground_deceleration if on_floor else tuning.air_deceleration
 	velocity.x = move_toward(velocity.x, target_speed, accel * delta)
+	var pulled_x := _pull_velocity_x()
+	if not is_nan(pulled_x):
+		velocity.x = pulled_x
 
 	if on_floor:
 		_coyote_left = InputFeel.window("coyote", tuning.coyote_time)
@@ -526,6 +534,7 @@ func _try_dash(input_x: float) -> void:
 		_dash_buffer_x = input_x
 		return
 	InputFeel.resolve(&"dash")
+	end_pull()  # 衝刺能掙脫鎖鏈
 	if _melee_phase != MeleePhase.NONE:
 		_end_melee()
 	loadout.cancel_reload()
@@ -554,6 +563,44 @@ func _process_dash(delta: float) -> void:
 		state = State.NORMAL
 		_dash_cooldown_left = tuning.dash_cooldown
 		velocity.x *= 0.5
+
+
+## 開始被拉向 source（鎖鏈鐵鉤）：每影格往它的方向以 speed 移動，最多 seconds 秒；碰到牆就停，不會被拖進牆裡。
+func begin_pull(source: Node2D, speed: float, seconds: float) -> void:
+	_pull_source = weakref(source)
+	_pull_speed = speed
+	_pull_left = seconds
+
+
+func end_pull() -> void:
+	_pull_left = 0.0
+	_pull_source = null
+
+
+func is_pulled() -> bool:
+	return _pull_left > 0.0
+
+
+## 拉扯中的水平速度；沒有被拉時回傳 NAN。
+func _pull_velocity_x() -> float:
+	if _pull_left <= 0.0 or _pull_source == null:
+		return NAN
+	var source := _pull_source.get_ref() as Node2D
+	if source == null:
+		return NAN
+	return signf(source.global_position.x - global_position.x) * _pull_speed
+
+
+func _tick_pull(delta: float) -> void:
+	if _pull_left <= 0.0:
+		return
+	var source := _pull_source.get_ref() as Node2D if _pull_source != null else null
+	if source == null or state != State.NORMAL or is_on_wall():
+		end_pull()
+		return
+	_pull_left -= delta
+	if _pull_left <= 0.0:
+		end_pull()
 
 
 ## 手上武器在骨架上的貼圖 id：近戰武器是程式繪製的（PlayerVisual），骨架手上不放貼圖。

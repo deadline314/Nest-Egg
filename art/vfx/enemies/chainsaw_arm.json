@@ -1,0 +1,89 @@
+{
+ "description": "chainsaw_arm 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "step": {
+  "every": 18,
+  "dust": 2,
+  "spread": 24,
+  "shake": 0.0
+ },
+ "hit": {
+  "color": "#ff8c2a",
+  "amount": 7,
+  "speed": 220,
+  "light": 0.9,
+  "kind": "spark"
+ },
+ "death": {
+  "bursts": [
+   {
+    "kind": "spark",
+    "color": "#ff8c2a",
+    "amount": 16,
+    "speed": 230,
+    "life": 0.4
+   },
+   {
+    "kind": "ember",
+    "color": "#ffd9a0",
+    "amount": 8,
+    "speed": 120,
+    "life": 0.5
+   }
+  ],
+  "light": {
+   "color": "#ff8c2a",
+   "radius": 56,
+   "energy": 0.8,
+   "time": 0.24
+  },
+  "shake": 2.0,
+  "hitstop": 0.03,
+  "extras": [
+   "smoke",
+   "embers"
+  ],
+  "dissolve": {
+   "time": 0.7,
+   "color": "#ff8c2a",
+   "rise": 0.0,
+   "edge": 0.1,
+   "delay": 0.25
+  },
+  "shock": {
+   "radius": 34,
+   "strength": 0.025,
+   "color": "#ff8c2a",
+   "time": 0.45
+  },
+  "accent": "#ff8c2a"
+ },
+ "states": {
+  "windup": {
+   "at": "center",
+   "dust": 1,
+   "spread": 10,
+   "bursts": [
+    {
+     "kind": "spark",
+     "color": "#ffc27a",
+     "amount": 5,
+     "speed": 120,
+     "life": 0.25
+    }
+   ]
+  },
+  "strike": {
+   "at": "center",
+   "bursts": [
+    {
+     "kind": "spark",
+     "color": "#ff8c2a",
+     "amount": 8,
+     "speed": 260,
+     "life": 0.2
+    }
+   ],
+   "shake": 0.5
+  }
+ }
+}

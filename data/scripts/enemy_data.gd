@@ -63,6 +63,10 @@ extends Resource
 @export var ability_radius: float = 0.0
 @export var ability_damage: int = 0
 
+@export_group("Strike")
+## 貼身與鎖鏈類攻擊（StrikeEnemy）的參數：判定範圍、高度帶、出招區間、鎖鏈與鉤子等；欄位說明與預設見 StrikeSpec。其他敵人留空。
+@export var strike: Dictionary = {}
+
 @export_group("Reaction")
 ## 韌性（耐打程度）：連續中彈累積的衝擊力達到此值就畏縮；單次衝擊達 1.5 倍就硬直（打斷動作）。頭目設很高就幾乎不畏縮。
 @export var poise: float = 4.0
@@ -112,4 +116,6 @@ func validate() -> PackedStringArray:
 		problems.append("%s: max_health 必須大於 0" % id)
 	if body_size.x <= 0.0 or body_size.y <= 0.0:
 		problems.append("%s: body_size 必須為正值" % id)
+	if not strike.is_empty():
+		problems.append_array(StrikeSpec.validate(self))
 	return problems

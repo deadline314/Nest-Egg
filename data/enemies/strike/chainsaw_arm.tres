@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/chainsaw_arm.gd" id="2_behavior"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"chainsaw_arm"
+behavior = ExtResource("2_behavior")
+display_name = "電鋸臂"
+attack_category = &"melee"
+hit_material = &"flesh"
+body_size = Vector2(14, 44)
+color = Color(0.9, 0.45, 0.2, 1.0)
+max_health = 7
+move_speed = 42.0
+contact_damage = 1
+contact_source_id = &"chainsaw_contact"
+detect_range = 190.0
+attack_cooldown = 1.4
+telegraph_time = 0.6
+ability_time = 1.0
+ability_damage = 1
+strike = { "reach": 34.0, "reach_from": 4.0, "band": [0.0, 42.0], "active": 0.5, "hits": 2, "advance": 120.0, "knockback": [170.0, -70.0], "source_id": "chainsaw_cut" }
+poise = 4.0
+armor_states = PackedStringArray("strike", "throw", "reel")
+hurt_parts = Array[Dictionary]([{"id": "head", "bone": "head", "offset": Vector2(0, -4), "size": Vector2(9, 10), "mult": 1.5}])
+finish_health_ratio = 0.4
+stagger_duration = 1.4
+health_drop_chance = 0.15
+credit_value = 14
+rig_skin = "trooper"
+rig_weapon = ""
+rig_two_handed = false
+rig_actions = { "windup": "chainsaw_arm.windup", "strike": "chainsaw_arm.strike", "recover": "chainsaw_arm.recover" }

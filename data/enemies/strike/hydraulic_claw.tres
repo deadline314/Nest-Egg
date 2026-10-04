@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/hydraulic_claw.gd" id="2_behavior"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"hydraulic_claw"
+behavior = ExtResource("2_behavior")
+display_name = "液壓鉗"
+attack_category = &"melee"
+hit_material = &"armor"
+body_size = Vector2(22, 56)
+color = Color(0.95, 0.75, 0.2, 1.0)
+max_health = 10
+move_speed = 30.0
+contact_damage = 1
+contact_source_id = &"claw_contact"
+detect_range = 170.0
+attack_cooldown = 1.8
+telegraph_time = 0.8
+ability_time = 1.3
+ability_damage = 2
+strike = { "reach": 44.0, "reach_from": 8.0, "band": [0.0, 20.0], "active": 0.14, "hits": 1, "advance": 0.0, "knockback": [220.0, -110.0], "source_id": "claw_clamp" }
+poise = 6.0
+armor_states = PackedStringArray("strike", "throw", "reel")
+hurt_parts = Array[Dictionary]([{"id": "head", "bone": "head", "offset": Vector2(0, -4), "size": Vector2(9, 10), "mult": 1.5}])
+finish_health_ratio = 0.4
+stagger_duration = 1.4
+health_drop_chance = 0.15
+credit_value = 18
+rig_skin = "heavy_gunner"
+rig_weapon = ""
+rig_two_handed = false
+rig_actions = { "windup": "hydraulic_claw.windup", "strike": "hydraulic_claw.strike", "recover": "hydraulic_claw.recover" }

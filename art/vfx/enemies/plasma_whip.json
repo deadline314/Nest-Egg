@@ -1,0 +1,87 @@
+{
+ "description": "plasma_whip 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "step": {
+  "every": 18,
+  "dust": 2,
+  "spread": 24,
+  "shake": 0.0
+ },
+ "hit": {
+  "color": "#55ccff",
+  "amount": 7,
+  "speed": 220,
+  "light": 0.9,
+  "kind": "arc"
+ },
+ "death": {
+  "bursts": [
+   {
+    "kind": "arc",
+    "color": "#55ccff",
+    "amount": 8,
+    "speed": 200,
+    "life": 0.4
+   },
+   {
+    "kind": "flare",
+    "color": "#e6f8ff",
+    "amount": 1,
+    "speed": 40,
+    "life": 0.3
+   }
+  ],
+  "light": {
+   "color": "#55ccff",
+   "radius": 56,
+   "energy": 0.8,
+   "time": 0.24
+  },
+  "shake": 2.0,
+  "hitstop": 0.03,
+  "extras": [
+   "arc",
+   "lightning"
+  ],
+  "dissolve": {
+   "time": 0.7,
+   "color": "#55ccff",
+   "rise": 0.0,
+   "edge": 0.1,
+   "delay": 0.25
+  },
+  "shock": {
+   "radius": 34,
+   "strength": 0.025,
+   "color": "#55ccff",
+   "time": 0.45
+  },
+  "accent": "#55ccff"
+ },
+ "states": {
+  "windup": {
+   "at": "center",
+   "bursts": [
+    {
+     "kind": "arc",
+     "color": "#55ccff",
+     "amount": 3,
+     "speed": 90,
+     "life": 0.3
+    }
+   ]
+  },
+  "strike": {
+   "at": "muzzle",
+   "bursts": [
+    {
+     "kind": "arc",
+     "color": "#bfeaff",
+     "amount": 5,
+     "speed": 200,
+     "life": 0.2
+    }
+   ],
+   "shake": 0.4
+  }
+ }
+}

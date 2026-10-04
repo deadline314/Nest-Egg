@@ -1,0 +1,90 @@
+{
+ "description": "hydraulic_claw 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "step": {
+  "every": 18,
+  "dust": 2,
+  "spread": 24,
+  "shake": 0.0
+ },
+ "hit": {
+  "color": "#ffd23a",
+  "amount": 7,
+  "speed": 220,
+  "light": 0.9,
+  "kind": "steam"
+ },
+ "death": {
+  "bursts": [
+   {
+    "kind": "spark",
+    "color": "#ffd23a",
+    "amount": 14,
+    "speed": 200,
+    "life": 0.4
+   },
+   {
+    "kind": "smoke",
+    "color": "#c8c8b0",
+    "amount": 8,
+    "speed": 90,
+    "life": 0.7
+   }
+  ],
+  "light": {
+   "color": "#ffd23a",
+   "radius": 56,
+   "energy": 0.8,
+   "time": 0.24
+  },
+  "shake": 3.0,
+  "hitstop": 0.04,
+  "extras": [
+   "steam",
+   "dust"
+  ],
+  "dissolve": {
+   "time": 0.7,
+   "color": "#ffd23a",
+   "rise": 0.0,
+   "edge": 0.1,
+   "delay": 0.25
+  },
+  "shock": {
+   "radius": 34,
+   "strength": 0.025,
+   "color": "#ffd23a",
+   "time": 0.45
+  },
+  "accent": "#ffd23a"
+ },
+ "states": {
+  "windup": {
+   "at": "feet",
+   "steam": 2,
+   "bursts": [
+    {
+     "kind": "smoke",
+     "color": "#d8d8c0",
+     "amount": 4,
+     "speed": 50,
+     "life": 0.5
+    }
+   ]
+  },
+  "strike": {
+   "at": "feet",
+   "dust": 6,
+   "spread": 40,
+   "bursts": [
+    {
+     "kind": "spark",
+     "color": "#ffd23a",
+     "amount": 8,
+     "speed": 170,
+     "life": 0.2
+    }
+   ],
+   "shake": 1.4
+  }
+ }
+}

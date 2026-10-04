@@ -1,0 +1,99 @@
+{
+ "description": "chain_hook 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "step": {
+  "every": 18,
+  "dust": 2,
+  "spread": 24,
+  "shake": 0.0
+ },
+ "hit": {
+  "color": "#c8ccd8",
+  "amount": 7,
+  "speed": 220,
+  "light": 0.9,
+  "kind": "spark"
+ },
+ "death": {
+  "bursts": [
+   {
+    "kind": "shard",
+    "color": "#c8ccd8",
+    "amount": 12,
+    "speed": 210,
+    "life": 0.5
+   },
+   {
+    "kind": "spark",
+    "color": "#ffffff",
+    "amount": 8,
+    "speed": 160,
+    "life": 0.3
+   }
+  ],
+  "light": {
+   "color": "#c8ccd8",
+   "radius": 56,
+   "energy": 0.8,
+   "time": 0.24
+  },
+  "shake": 2.5,
+  "hitstop": 0.035,
+  "extras": [
+   "shards",
+   "smoke"
+  ],
+  "dissolve": {
+   "time": 0.7,
+   "color": "#c8ccd8",
+   "rise": 0.0,
+   "edge": 0.1,
+   "delay": 0.25
+  },
+  "shock": {
+   "radius": 34,
+   "strength": 0.025,
+   "color": "#c8ccd8",
+   "time": 0.45
+  },
+  "accent": "#c8ccd8"
+ },
+ "states": {
+  "windup": {
+   "at": "center",
+   "bursts": [
+    {
+     "kind": "spark",
+     "color": "#c8ccd8",
+     "amount": 4,
+     "speed": 100,
+     "life": 0.3
+    }
+   ]
+  },
+  "throw": {
+   "at": "muzzle",
+   "bursts": [
+    {
+     "kind": "spark",
+     "color": "#ffffff",
+     "amount": 5,
+     "speed": 220,
+     "life": 0.15
+    }
+   ],
+   "shake": 0.3
+  },
+  "reel": {
+   "at": "center",
+   "bursts": [
+    {
+     "kind": "spark",
+     "color": "#c8ccd8",
+     "amount": 3,
+     "speed": 80,
+     "life": 0.2
+    }
+   ]
+  }
+ }
+}
