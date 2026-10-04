@@ -737,10 +737,18 @@ func _melee_strike() -> void:
 	velocity.x += float(facing) * float(attack["advance"])
 	if _visual != null:
 		_visual.notify_melee_swing(attack.get("trail", {}), facing, _melee_direction(attack))
+	MeleeFx.swing(global_position + Vector2(0.0, -BODY_SIZE.y * 0.55), global_position, _melee_direction(attack), float(attack["range"]), _melee_color(attack),
+			StringName(str(attack["impact_fx"])), str((attack["trail"] as Dictionary).get("style", "arc")) == "lash")
 	_melee_hit_pass()
 	if not _melee_landed:
 		var heavy := int(attack["stagger"]) >= 3
 		Sfx.play_named(StringName(str(_melee_sounds(attack)["swing"])), -10.0 if not heavy else -6.0)
+
+
+## 這一招的特效顏色（軌跡的 color，沒寫用青色）。
+func _melee_color(attack: Dictionary) -> Color:
+	var trail: Variant = attack.get("trail")
+	return Color.from_string(str((trail as Dictionary).get("color", "")), Palette.CYAN) if typeof(trail) == TYPE_DICTIONARY else Palette.CYAN
 
 
 ## 揮擊的方向：預設朝面向水平揮；aim_follow 的招式（長柄的刺擊、鞭）跟著準星，但限制在水平上下約 70 度內。
@@ -774,7 +782,7 @@ func _melee_hit_pass() -> void:
 			EventBus.hit_marker.emit(&"kill" if target_hurtbox.health.is_dead else (&"weak" if info.weak_hit else &"hit"))
 			if info.weak_hit or int(attack["stagger"]) >= 3:
 				EventBus.damage_number.emit(target_hurtbox.global_position + Vector2(0.0, -24.0), info.amount, &"weak" if info.weak_hit else &"crit", target_hurtbox.health.get_instance_id())
-			Fx.burst(target_hurtbox.global_position, Palette.CYAN, 9 if heavy else 6, 120.0, 0.2)
+			MeleeFx.hit(target_hurtbox.center(), _melee_direction(attack), _melee_color(attack), StringName(str(attack["impact_fx"])), heavy)
 			HitFeedback.play(target_hurtbox.material_id(), target_hurtbox.global_position, Vector2(-facing, -0.2), Palette.CYAN, {"weak": info.weak_hit})
 	if landed_now and not _melee_feedback_done:
 		_melee_feedback_done = true
@@ -866,6 +874,7 @@ func _start_finisher(target: Enemy) -> void:
 	_visual.notify_finisher()
 	Feel.play(&"player_finisher", {"targets": [self, target], "freeze": tuning.finisher_hitstop})
 	Fx.flash_light(target.global_position + Vector2(0, -10), Palette.CYAN, 120.0, 2.5, 0.3)
+	MeleeFx.finisher(target.global_position + Vector2(0, -20), Palette.CYAN)
 	Sfx.play(&"finisher")
 	loadout.refill_ratio(tuning.finisher_ammo_refund)
 

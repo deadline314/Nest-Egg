@@ -20,6 +20,9 @@ const STREAK_COUNT := 3
 const STREAK_LENGTH := 34.0
 const MATERIALIZE_TIME := 0.7
 const PARRY_RAYS := 8
+const LASH_SEGMENTS := 10
+## 軌跡一開始就已經掃過的比例（0~1，掃出弧度的段落在前 40%）。
+const TRAIL_HEAD_START := 0.3
 ## 電話亭撥號：專屬動作名稱、話筒的手持外觀，以及動作進度中「拿起話筒」與「掛上話筒」的時間點（話筒只在這段期間在手上）。
 const PHONE_ACTION := &"rin.phone_call"
 const HANDSET_VISUAL := "handset"
@@ -102,7 +105,9 @@ func notify_melee_swing(trail: Dictionary, swing_facing: int, direction := Vecto
 	if _trails.size() >= MeleeData.MAX_TRAILS:
 		_trails.remove_at(0)
 	var base := direction.angle() if direction != Vector2.ZERO else (0.0 if swing_facing > 0 else PI)
-	_trails.append({"age": 0.0, "trail": trail, "facing": swing_facing, "base": base})
+	# 起始就畫出一小段：命中頓幀會凍住玩家，凍結的那一刻軌跡要已經看得到，不能等解凍才開始揮。
+	_trails.append({"age": float(trail.get("life", 0.1)) * TRAIL_HEAD_START, "trail": trail, "facing": swing_facing, "base": base})
+	queue_redraw()  # 命中頓幀會馬上凍住這個節點的處理，所以這一影格就要重畫
 
 
 func notify_fired(color: Color) -> void:
@@ -254,7 +259,8 @@ func _update_ghosts(delta: float) -> void:
 			_ghosts.append(Vector4(global_position.x, global_position.y, GHOST_LIFETIME, _dash_dir))
 
 
-## 揮砍軌跡：弧線先快速掃出一個弧，再整條淡出；帶一格較細、較早的殘影。亮度限制在 TRAIL_BRIGHTNESS_MAX 以內。
+## 揮砍軌跡：依樣式畫——arc 弧線先快速掃出一個弧再整條淡出（帶一格較細、較早的殘影）、thrust 沿揮擊方向戳出一道漸細的亮線、
+## lash 甩出一條彎曲的鞭痕。顏色與樣式在招式資料的 trail（每把武器自己的色）；亮度限制在 TRAIL_BRIGHTNESS_MAX 以內。
 func _draw_trail(entry: Dictionary) -> void:
 	var trail: Dictionary = entry["trail"]
 	var f := float(entry["facing"])
@@ -265,15 +271,36 @@ func _draw_trail(entry: Dictionary) -> void:
 	var radius := float(trail.get("radius", 20.0))
 	var arc := deg_to_rad(float(trail.get("arc", 130.0)))
 	var center := Vector2(f * 8.0, -body_center_height())
-	var start := float(entry.get("base", 0.0 if f > 0.0 else PI)) - arc * 0.5 * f
-	var end := start + arc * sweep * f
+	var base := float(entry.get("base", 0.0 if f > 0.0 else PI))
 	var glow := minf(float(trail.get("brightness", 1.7)), MeleeData.TRAIL_BRIGHTNESS_MAX)
-	var color := Color(LightKit.glow(Palette.CYAN, glow), fade)
-	draw_arc(center, radius, start, end, 18, color, float(trail.get("width", 3.0)))
-	draw_arc(center, radius * 0.92, start, end, 18, Color(LightKit.glow(Palette.WHITE, glow * 0.8), fade * 0.7), 1.2)
-	if bool(trail.get("afterimage", false)) and sweep > 0.3:
-		var back := start + arc * maxf(0.0, sweep - 0.3) * f
-		draw_arc(center, radius * 0.85, start, back, 14, Color(LightKit.glow(Palette.CYAN, glow * 0.6), fade * 0.45), float(trail.get("width", 3.0)) * 0.5)
+	var tint := Color.from_string(str(trail.get("color", "")), Palette.CYAN)
+	var width := float(trail.get("width", 3.0))
+	match str(trail.get("style", "arc")):
+		"thrust":
+			var dir := Vector2.RIGHT.rotated(base)
+			var tip := center + dir * radius * sweep
+			var tail := center + dir * radius * maxf(0.0, sweep - 0.55)
+			draw_line(tail, tip, Color(LightKit.glow(tint, glow), fade), width)
+			draw_line(tail.lerp(tip, 0.25), tip, Color(LightKit.glow(Palette.WHITE, glow * 0.8), fade * 0.8), maxf(1.0, width * 0.4))
+		"lash":
+			var dir := Vector2.RIGHT.rotated(base)
+			var side := Vector2(-dir.y, dir.x)
+			var previous := center
+			for i in range(1, LASH_SEGMENTS + 1):
+				var t := float(i) / LASH_SEGMENTS
+				var wave := sin(t * TAU * 1.2 - progress * 9.0) * 6.0 * t * (1.0 - progress * 0.6)
+				var point := center + dir * radius * sweep * t + side * wave
+				draw_line(previous, point, Color(LightKit.glow(tint, glow), fade * (0.35 + 0.65 * t)), lerpf(width, width * 0.4, t))
+				previous = point
+		_:
+			var start := base - arc * 0.5 * f
+			var end := start + arc * sweep * f
+			var color := Color(LightKit.glow(tint, glow), fade)
+			draw_arc(center, radius, start, end, 18, color, width)
+			draw_arc(center, radius * 0.92, start, end, 18, Color(LightKit.glow(Palette.WHITE, glow * 0.8), fade * 0.7), 1.2)
+			if bool(trail.get("afterimage", false)) and sweep > 0.3:
+				var back := start + arc * maxf(0.0, sweep - 0.3) * f
+				draw_arc(center, radius * 0.85, start, back, 14, Color(LightKit.glow(tint, glow * 0.6), fade * 0.45), width * 0.5)
 
 
 func _draw() -> void:

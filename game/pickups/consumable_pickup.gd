@@ -33,6 +33,10 @@ func _apply(player: Player) -> bool:
 	return false
 
 
+func _fx_color() -> Color:
+	return item.color if item != null else Palette.CYAN
+
+
 func _draw_icon() -> void:
 	var glow := LightKit.glow(item.color, 1.8 + 0.4 * sin(_time * 6.0))
 	var body := Rect2(-3, -6, 6, 11)

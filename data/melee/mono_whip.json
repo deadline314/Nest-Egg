@@ -35,12 +35,15 @@
     "life": 0.14,
     "width": 2.4,
     "brightness": 2.0,
-    "afterimage": true
+    "afterimage": true,
+    "color": "#d27bff",
+    "style": "lash"
    },
    "sounds": {
     "swing": "melee_swing",
     "hit": "melee_hit"
-   }
+   },
+   "impact_fx": "slash"
   }
  }
 }

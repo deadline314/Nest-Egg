@@ -9,8 +9,13 @@ const BOB_HEIGHT := 2.0
 ## 玩家停留在道具上時（例如原本滿血後受傷）重新嘗試拾取的間隔。
 const RETRY_INTERVAL := 0.3
 
+## 拾取物偶爾閃一下星芒：週期與閃爍秒數（每個拾取物的起始時間錯開）。
+const GLINT_PERIOD := 2.8
+const GLINT_TIME := 0.16
+
 var _time := 0.0
 var _retry_left := RETRY_INTERVAL
+var _glint_offset := randf() * GLINT_PERIOD
 
 
 func _ready() -> void:
@@ -38,6 +43,15 @@ func hint_text() -> String:
 	return ""
 
 
+## 拾取特效的顏色與種類（PickupFx.KINDS）；子類別依道具覆寫。
+func _fx_color() -> Color:
+	return Palette.CYAN
+
+
+func _fx_kind() -> StringName:
+	return &"item"
+
+
 ## 回傳 false 代表玩家目前不需要（道具保留）。
 @abstract func _apply(player: Player) -> bool
 
@@ -58,6 +72,7 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	draw_set_transform(Vector2(0, -8 + sin(_time * BOB_SPEED) * BOB_HEIGHT))
 	_draw_icon()
+	_draw_glint()
 	draw_set_transform(Vector2.ZERO)
 
 
@@ -68,8 +83,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if is_queued_for_deletion():
 		return
 	if _apply(player):
-		Fx.burst(global_position + Vector2(0, -8), Palette.CYAN, 10, 100.0)
-		Fx.flash_light(global_position + Vector2(0, -8), Palette.CYAN, 60.0, 1.2, 0.25)
+		PickupFx.collect(global_position + Vector2(0, -8), _fx_color(), _fx_kind())
 		Sfx.play(&"pickup", -6.0)
 		set_deferred(&"monitoring", false)
 		_consume()
@@ -87,3 +101,17 @@ static func resolve_player(body: Node) -> Player:
 	if body is Vehicle:
 		return (body as Vehicle).driver
 	return null
+
+
+## 圖示上偶爾閃過的四芒星，提醒這裡有東西可以撿（很短、很小，不干擾閱讀）。
+func _draw_glint() -> void:
+	var phase := fmod(_time + _glint_offset, GLINT_PERIOD)
+	if phase > GLINT_TIME:
+		return
+	var t := phase / GLINT_TIME
+	var strength := sin(t * PI)
+	var color := Color(Fx.hdr(Palette.WHITE, 2.0), strength)
+	var center := Vector2(3.0, -4.0)
+	var reach := 2.0 + 3.5 * strength
+	draw_line(center - Vector2(reach, 0.0), center + Vector2(reach, 0.0), color, 1.0)
+	draw_line(center - Vector2(0.0, reach), center + Vector2(0.0, reach), color, 1.0)

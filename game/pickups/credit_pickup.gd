@@ -42,6 +42,14 @@ func _consume() -> void:
 	set_deferred(&"monitoring", false)
 
 
+func _fx_color() -> Color:
+	return color
+
+
+func _fx_kind() -> StringName:
+	return &"credit"
+
+
 func _draw_icon() -> void:
 	var glow := LightKit.glow(color, 1.8 + 0.4 * sin(_time * 6.0))
 	var chip := PackedVector2Array([Vector2(0, -5), Vector2(4, 0), Vector2(0, 5), Vector2(-4, 0)])

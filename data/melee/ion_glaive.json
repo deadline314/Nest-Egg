@@ -36,12 +36,15 @@
     "life": 0.1,
     "width": 3.0,
     "brightness": 1.9,
-    "afterimage": false
+    "afterimage": false,
+    "color": "#8fb0ff",
+    "style": "thrust"
    },
    "sounds": {
     "swing": "melee_swing",
     "hit": "melee_hit"
-   }
+   },
+   "impact_fx": "pierce"
   },
   "sweep": {
    "windup": 0.2,
@@ -73,12 +76,15 @@
     "life": 0.12,
     "width": 4.0,
     "brightness": 1.9,
-    "afterimage": true
+    "afterimage": true,
+    "color": "#8fb0ff",
+    "style": "arc"
    },
    "sounds": {
     "swing": "melee_swing",
     "hit": "melee_hit"
-   }
+   },
+   "impact_fx": "slash"
   }
  }
 }

@@ -13,6 +13,14 @@ func _apply(player: Player) -> bool:
 	return player.health.heal(HEAL_AMOUNT) > 0
 
 
+func _fx_color() -> Color:
+	return Palette.NEON_GREEN
+
+
+func _fx_kind() -> StringName:
+	return &"heal"
+
+
 func _draw_icon() -> void:
 	var glow := LightKit.glow(Palette.CYAN, 1.8 + 0.4 * sin(_time * 6.0))
 	draw_rect(Rect2(-5, -5, 10, 10), Color(Palette.UI_PANEL, 0.9))

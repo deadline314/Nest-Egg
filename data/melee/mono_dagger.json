@@ -37,12 +37,15 @@
     "life": 0.08,
     "width": 2.0,
     "brightness": 1.6,
-    "afterimage": false
+    "afterimage": false,
+    "color": "#9fe8ff",
+    "style": "thrust"
    },
    "sounds": {
     "swing": "melee_swing",
     "hit": "melee_hit"
-   }
+   },
+   "impact_fx": "pierce"
   },
   "stab_2": {
    "windup": 0.03,
@@ -74,12 +77,15 @@
     "life": 0.08,
     "width": 2.0,
     "brightness": 1.6,
-    "afterimage": false
+    "afterimage": false,
+    "color": "#9fe8ff",
+    "style": "thrust"
    },
    "sounds": {
     "swing": "melee_swing",
     "hit": "melee_hit"
-   }
+   },
+   "impact_fx": "pierce"
   },
   "flurry": {
    "windup": 0.05,
@@ -111,12 +117,15 @@
     "life": 0.09,
     "width": 3.0,
     "brightness": 1.8,
-    "afterimage": true
+    "afterimage": true,
+    "color": "#9fe8ff",
+    "style": "arc"
    },
    "sounds": {
     "swing": "melee_swing",
     "hit": "melee_hit"
-   }
+   },
+   "impact_fx": "slash"
   }
  }
 }

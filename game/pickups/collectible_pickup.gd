@@ -31,6 +31,14 @@ func _apply(_player: Player) -> bool:
 	return true
 
 
+func _fx_color() -> Color:
+	return item.color if item != null else Palette.CYAN
+
+
+func _fx_kind() -> StringName:
+	return &"story"
+
+
 func _draw_icon() -> void:
 	var glow := LightKit.glow(item.color, 1.8 + 0.4 * sin(_time * 5.0))
 	if item.category == StoryItemData.Category.RECORDING:

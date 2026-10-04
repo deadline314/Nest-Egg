@@ -36,12 +36,15 @@
     "life": 0.14,
     "width": 5.5,
     "brightness": 2.0,
-    "afterimage": true
+    "afterimage": true,
+    "color": "#ffd24a",
+    "style": "arc"
    },
    "sounds": {
     "swing": "melee_swing_heavy",
     "hit": "melee_hit_heavy"
-   }
+   },
+   "impact_fx": "crush"
   },
   "slam": {
    "windup": 0.4,
@@ -73,12 +76,15 @@
     "life": 0.16,
     "width": 6.0,
     "brightness": 2.1,
-    "afterimage": true
+    "afterimage": true,
+    "color": "#ffd24a",
+    "style": "arc"
    },
    "sounds": {
     "swing": "melee_swing_heavy",
     "hit": "melee_hit_heavy"
-   }
+   },
+   "impact_fx": "crush"
   }
  }
 }

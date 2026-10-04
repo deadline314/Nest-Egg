@@ -31,6 +31,7 @@ const SCENARIOS := {
 	"melee_weapons": "res://tools/scenarios/melee_weapons_scenario.gd",
 	"strike_enemies": "res://tools/scenarios/strike_enemies_scenario.gd",
 	"player_fx": "res://tools/scenarios/player_fx_scenario.gd",
+	"fx_melee_pickups": "res://tools/scenarios/fx_melee_pickups_scenario.gd",
 	"block_feel": "res://tools/scenarios/block_feel_scenario.gd",
 	"feel_lab": "res://tools/scenarios/feel_lab_scenario.gd",
 	"dev_menu": "res://tools/scenarios/dev_menu_scenario.gd",

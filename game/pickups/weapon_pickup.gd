@@ -29,6 +29,14 @@ func _apply(player: Player) -> bool:
 	return true
 
 
+func _fx_color() -> Color:
+	return weapon.color if weapon != null else Palette.CYAN
+
+
+func _fx_kind() -> StringName:
+	return &"weapon"
+
+
 func _draw_icon() -> void:
 	if weapon.is_melee():
 		_draw_melee_icon()
