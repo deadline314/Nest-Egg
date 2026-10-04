@@ -11,6 +11,8 @@ const CAMERA_SWAY := 56.0
 const CAMERA_PERIOD := 48.0
 const MENU_WIDTH := 168.0
 const CARD_SIZE := Vector2(184, 172)
+## 開發工具按鈕離右下角的距離（右、下）；下方留給版本字樣。
+const DEV_BUTTON_MARGIN := Vector2(12, 30)
 
 var _selected: DifficultyData
 var _camera: Camera2D
@@ -20,6 +22,7 @@ var _difficulty_page: Control
 var _hint: Label
 var _start_button: Button
 var _confirm_button: Button
+var _dev_button: Button
 var _cards: Array[UiCard] = []
 var _time := 0.0
 
@@ -132,8 +135,25 @@ func _build_main_page() -> void:
 	version.position = Vector2(640 - 120 - 12, 334)
 	version.size = Vector2(120, 16)
 	_main_page.add_child(version)
+	_build_dev_entry()
 
 	UiMotion.stagger_in([title, subtitle, rule] + entries, 0.06, 24.0)
+
+
+## 編輯器與除錯版才有的開發工具入口：不依賴 F5 能不能送到遊戲視窗（編輯器可能先攔走 F5）。
+func _build_dev_entry() -> void:
+	if not DevMenu.is_available():
+		return
+	_dev_button = UiKit.button("開發工具（F5）", DevMenu.open, "音效實驗室、打擊感實驗室等開發用工具；只有編輯器與除錯版有")
+	# 貼著右下角、向左上長：按鈕的最小尺寸由主題決定，不用自己算寬度才不會被切掉。
+	_dev_button.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+	_dev_button.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+	_dev_button.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	_dev_button.offset_right = -DEV_BUTTON_MARGIN.x
+	_dev_button.offset_bottom = -DEV_BUTTON_MARGIN.y
+	_dev_button.focus_entered.connect(_set_hint.bind(_dev_button.tooltip_text))
+	_dev_button.mouse_entered.connect(_set_hint.bind(_dev_button.tooltip_text))
+	_main_page.add_child(_dev_button)
 
 
 func _menu_button(text: String, on_pressed: Callable, tooltip: String) -> Button:

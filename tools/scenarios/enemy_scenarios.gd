@@ -29,6 +29,7 @@ const SCENARIOS := {
 	"block_feel": "res://tools/scenarios/block_feel_scenario.gd",
 	"feel_lab": "res://tools/scenarios/feel_lab_scenario.gd",
 	"dev_menu": "res://tools/scenarios/dev_menu_scenario.gd",
+	"main_menu_dev": "res://tools/scenarios/main_menu_dev_scenario.gd",
 	"sound_lab": "res://tools/scenarios/sound_lab_scenario.gd",
 	"sound_lab_hits": "res://tools/scenarios/sound_lab_hits_scenario.gd",
 	"sound_lab_world": "res://tools/scenarios/sound_lab_world_scenario.gd",
