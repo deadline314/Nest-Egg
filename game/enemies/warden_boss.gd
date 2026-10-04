@@ -273,7 +273,7 @@ func _finish_death() -> void:
 func _draw_overlay() -> void:
 	if rig == null or _vulnerable_left <= 0.0:
 		return
-	var core := Vector2(0, -data.body_size.y * 0.62)
+	var core := _core_point()
 	var pulse := 0.5 + 0.5 * sin(_anim_time * 20.0)
 	draw_circle(core, 7.0 + pulse * 2.0, Color(LightKit.glow(Palette.CYAN, 2.5), 0.35))
 	draw_arc(core, 10.0 + pulse * 3.0, 0.0, TAU, 24, LightKit.glow(Palette.CYAN, 3.0), 2.0)

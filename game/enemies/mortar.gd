@@ -74,7 +74,8 @@ func _fire_lob() -> void:
 	if spec == null or spec.gravity <= 0.0:
 		push_warning("[Mortar] 拋射彈需要 gravity > 0")
 		return
-	var origin := _center() + Vector2(facing * 4.0, -8.0)
+	# 骨架外觀：砲彈從發射器砲口出去；沒有骨架外觀時沿用原本身體前上方的位置。
+	var origin := _muzzle() if rig != null and not data.rig_weapon.is_empty() else _center() + Vector2(facing * 4.0, -8.0)
 	var flight := maxf(0.3, data.ability_time)
 	var offset := _landing + Vector2(0, -4) - origin
 	var launch := Vector2(offset.x / flight, (offset.y - 0.5 * spec.gravity * flight * flight) / flight)

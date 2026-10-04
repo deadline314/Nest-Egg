@@ -833,6 +833,13 @@ func _center() -> Vector2:
 	return global_position + Vector2(0, -data.body_size.y * 0.5)
 
 
+## 核心（弱點光環）的本地座標：骨架外觀取胸骨位置（跟著動作與身高走），否則用碰撞框高度的比例。
+func _core_point() -> Vector2:
+	if rig != null and rig.has_bone(&"chest"):
+		return to_local(rig.bone(&"chest").global_position)
+	return Vector2(0, -data.body_size.y * 0.62)
+
+
 func _muzzle() -> Vector2:
 	if rig != null and not data.rig_weapon.is_empty():
 		return rig.muzzle_global()
