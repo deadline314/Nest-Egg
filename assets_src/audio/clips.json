@@ -1,0 +1,158 @@
+{
+ "_說明": "音訊片段清單：從原始素材擷取出來的新素材。id 是新素材編號，parent* 記錄原檔，start／end 是原檔裡的秒數。由 tools/audio/clip_tool.py 維護，輸出檔可用 clip_tool.py rebuild 重做。",
+ "clips": [
+  {
+   "id": "GUN-0383",
+   "parent": "GUN-0073",
+   "parent_pack": "oga_the-free-firearm-sound-library",
+   "parent_file": "Prepared SFX Library/Ruger Mark III/R_35P.wav",
+   "start": 0.417,
+   "end": 0.977
+  },
+  {
+   "id": "GUN-0384",
+   "parent": "GUN-0036",
+   "parent_pack": "oga_the-free-firearm-sound-library",
+   "parent_file": "Prepared SFX Library/AK-47/C_29P.wav",
+   "start": 1.31,
+   "end": 1.51
+  },
+  {
+   "id": "GUN-0385",
+   "parent": "GUN-0071",
+   "parent_pack": "oga_the-free-firearm-sound-library",
+   "parent_file": "Prepared SFX Library/PPSh/P_34P.wav",
+   "start": 0.7746,
+   "end": 0.835
+  },
+  {
+   "id": "GUN-0386",
+   "parent": "GUN-0071",
+   "parent_pack": "oga_the-free-firearm-sound-library",
+   "parent_file": "Prepared SFX Library/PPSh/P_34P.wav",
+   "start": 0.83,
+   "end": 0.8954
+  },
+  {
+   "id": "GUN-0387",
+   "parent": "GUN-0071",
+   "parent_pack": "oga_the-free-firearm-sound-library",
+   "parent_file": "Prepared SFX Library/PPSh/P_34P.wav",
+   "start": 0.8881,
+   "end": 0.9279
+  },
+  {
+   "id": "GUN-0388",
+   "parent": "GUN-0071",
+   "parent_pack": "oga_the-free-firearm-sound-library",
+   "parent_file": "Prepared SFX Library/PPSh/P_34P.wav",
+   "start": 0.9358,
+   "end": 0.9862
+  },
+  {
+   "id": "GUN-0389",
+   "parent": "GUN-0040",
+   "parent_pack": "oga_the-free-firearm-sound-library",
+   "parent_file": "Prepared SFX Library/AR-15/D_24P.wav",
+   "start": 0.54,
+   "end": 1.6195
+  },
+  {
+   "id": "GUN-0390",
+   "parent": "GUN-0046",
+   "parent_pack": "oga_the-free-firearm-sound-library",
+   "parent_file": "Prepared SFX Library/CD/H_16P.wav",
+   "start": 0.5816,
+   "end": 1.6452
+  },
+  {
+   "id": "GUN-0391",
+   "parent": "GUN-0061",
+   "parent_pack": "oga_the-free-firearm-sound-library",
+   "parent_file": "Prepared SFX Library/Mosin Nagant/M_26P.wav",
+   "start": 1.13,
+   "end": 2.665
+  },
+  {
+   "id": "RLD-0077",
+   "parent": "RLD-0013",
+   "parent_pack": "oga_handgun-reload-sound-effect",
+   "parent_file": "reload.wav",
+   "start": 0.09,
+   "end": 0.21,
+   "note": "手槍退彈"
+  },
+  {
+   "id": "RLD-0078",
+   "parent": "RLD-0013",
+   "parent_pack": "oga_handgun-reload-sound-effect",
+   "parent_file": "reload.wav",
+   "start": 0.57,
+   "end": 0.78,
+   "note": "手槍裝彈"
+  },
+  {
+   "id": "RLD-0079",
+   "parent": "RLD-0013",
+   "parent_pack": "oga_handgun-reload-sound-effect",
+   "parent_file": "reload.wav",
+   "start": 1.025,
+   "end": 1.355,
+   "note": "手槍上膛"
+  },
+  {
+   "id": "RLD-0080",
+   "parent": "RLD-0068",
+   "parent_pack": "fs_cc0-gun-handling",
+   "parent_file": "432141_7549712-hq.mp3",
+   "start": 0.0,
+   "end": 0.29,
+   "note": "步槍退彈"
+  },
+  {
+   "id": "RLD-0081",
+   "parent": "RLD-0068",
+   "parent_pack": "fs_cc0-gun-handling",
+   "parent_file": "432141_7549712-hq.mp3",
+   "start": 0.57,
+   "end": 0.92,
+   "note": "步槍裝子彈"
+  },
+  {
+   "id": "RLD-0082",
+   "parent": "RLD-0068",
+   "parent_pack": "fs_cc0-gun-handling",
+   "parent_file": "432141_7549712-hq.mp3",
+   "start": 1.27,
+   "end": 1.95,
+   "note": "步槍上膛"
+  },
+  {
+   "id": "RLD-0083",
+   "parent": "RLD-0052",
+   "parent_pack": "fs_cc0-gun-handling",
+   "parent_file": "276958_5172328-hq.mp3",
+   "start": 0.19,
+   "end": 0.39,
+   "note": "霰彈退彈"
+  },
+  {
+   "id": "RLD-0084",
+   "parent": "RLD-0052",
+   "parent_pack": "fs_cc0-gun-handling",
+   "parent_file": "276958_5172328-hq.mp3",
+   "start": 1.125,
+   "end": 1.335,
+   "note": "霰彈裝彈"
+  },
+  {
+   "id": "RLD-0085",
+   "parent": "RLD-0052",
+   "parent_pack": "fs_cc0-gun-handling",
+   "parent_file": "276958_5172328-hq.mp3",
+   "start": 1.995,
+   "end": 2.285,
+   "note": "霰彈上膛"
+  }
+ ]
+}

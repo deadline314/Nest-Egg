@@ -9,6 +9,8 @@ extends Node
 
 const SYNC_INTERVAL := 1.0
 const FONT_SIZE := 15
+## Freesound 預聽 mp3 的檔名是「聲音編號_使用者編號-hq.mp3」。
+var FREESOUND_FILE := RegEx.create_from_string("^\\d+_\\d+-[hl]q\\.mp3$")
 ## 左邊工作區佔整個視窗寬度的預設比例。
 const MAIN_SPLIT_DEFAULT := 0.55
 ## 分隔線的粗細：夠寬才看得出、抓得到。
@@ -152,6 +154,8 @@ func asset_line(asset_id: String) -> String:
 	if a.has("parent"):
 		return "%s  %5.1fs  ✂ 擷取自 %s %.2f–%.2f" % [asset_id, float(a.get("dur", 0.0)), a["parent"], float(a.get("start", 0.0)), float(a.get("end", 0.0))]
 	var file := str(a.get("file", "")).get_file()
+	if FREESOUND_FILE.search(file) != null and not str(a.get("desc", "")).is_empty():
+		file = str(a["desc"]).left(60)  # Freesound 的檔名只是編號，看不出是什麼；改顯示聲音的標題與作者
 	return "%s  %5.1fs  %s／%s" % [asset_id, float(a.get("dur", 0.0)), str(a.get("pack", "")).trim_prefix("oga_").trim_prefix("kenney_"), file]
 
 

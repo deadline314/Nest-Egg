@@ -25,7 +25,7 @@ PLACEMENTS = ROOT / "design" / "16-audio" / "PLACEMENTS.md"
 CATALOG_MD = ROOT / "design" / "16-audio" / "CATALOG.md"
 
 # 這些域的備選上限比 --max-candidates 高（槍聲與背景音樂的來源多，挑的空間要夠）；已有的備選保留，新素材接在後面。
-DOMAIN_MAX = {"WPN": 60, "BGM": 60}
+DOMAIN_MAX = {"WPN": 60, "BGM": 60, "CHR": 60}
 DOMAINS = {"WPN": "武器", "HIT": "命中與材質", "CHR": "角色", "MOV": "移動與腳步", "ENV": "機關與場景互動", "UIS": "介面", "AMB": "環境音", "BGM": "背景音樂"}
 ROW = re.compile(r"^\|\s*(P-[A-Z]+-\d{3})\s*\|")
 
@@ -180,6 +180,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--min-candidates", type=int, default=10)
     parser.add_argument("--max-candidates", type=int, default=30)
+    parser.add_argument("--rerank-slots", nargs="*", default=[], help="只重排這幾個位置的備選（其他位置的備選順序保留）")
     parser.add_argument("--rerank", action="store_true", help="丟掉原本的備選順序，依目前的素材目錄重新排（新增素材後用）")
     args = parser.parse_args()
     catalog = load(CATALOG, {"assets": {}})
@@ -209,7 +210,7 @@ def main() -> int:
             current = [aid] if aid else []
         else:
             current = current_sfx(pipeline, e["target"], lookup)
-        candidates = candidates_for(e, assets, hints, current, [] if args.rerank or not old else old["candidates"], max(args.max_candidates, DOMAIN_MAX.get(e["domain"], 0)))
+        candidates = candidates_for(e, assets, hints, current, [] if args.rerank or sid in args.rerank_slots or not old else old["candidates"], max(args.max_candidates, DOMAIN_MAX.get(e["domain"], 0)))
         slot = {"id": sid, **{k: e[k] for k in ("domain", "kind", "target", "name", "where", "category")}, "also": e["also"]}
         for key in ("dur", "proc", "hint", "use"):
             if key in e:

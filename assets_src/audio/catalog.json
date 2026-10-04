@@ -6684,6 +6684,87 @@
 "dur": 0.47,
 "desc": "Gunshot with silencer（hotpin7，0.5 秒）"
 },
+"GUN-0383": {
+"pack": "clips_sfx",
+"file": "GUN-0383.wav",
+"dur": 0.56,
+"desc": "擷取自 GUN-0073 的 0.42–0.98 秒（Ruger Mark III, handgun, pistol, semi automatic, .22, gunshot, near distance, fr）",
+"parent": "GUN-0073",
+"start": 0.417,
+"end": 0.977
+},
+"GUN-0384": {
+"pack": "clips_sfx",
+"file": "GUN-0384.wav",
+"dur": 0.2,
+"desc": "擷取自 GUN-0036 的 1.31–1.51 秒（AK-47, rifle, fully automatic, semi automatic, machine gun, assault rifle, 7.62x）",
+"parent": "GUN-0036",
+"start": 1.31,
+"end": 1.51
+},
+"GUN-0385": {
+"pack": "clips_sfx",
+"file": "GUN-0385.wav",
+"dur": 0.06,
+"desc": "擷取自 GUN-0071 的 0.77–0.83 秒（PPSh, rifle, fully automatic, machine gun, sub machine gun, 7.62x25 Tokarev, gun）",
+"parent": "GUN-0071",
+"start": 0.7746,
+"end": 0.835
+},
+"GUN-0386": {
+"pack": "clips_sfx",
+"file": "GUN-0386.wav",
+"dur": 0.07,
+"desc": "擷取自 GUN-0071 的 0.83–0.90 秒（PPSh, rifle, fully automatic, machine gun, sub machine gun, 7.62x25 Tokarev, gun）",
+"parent": "GUN-0071",
+"start": 0.83,
+"end": 0.8954
+},
+"GUN-0387": {
+"pack": "clips_sfx",
+"file": "GUN-0387.wav",
+"dur": 0.04,
+"desc": "擷取自 GUN-0071 的 0.89–0.93 秒（PPSh, rifle, fully automatic, machine gun, sub machine gun, 7.62x25 Tokarev, gun）",
+"parent": "GUN-0071",
+"start": 0.8881,
+"end": 0.9279
+},
+"GUN-0388": {
+"pack": "clips_sfx",
+"file": "GUN-0388.wav",
+"dur": 0.05,
+"desc": "擷取自 GUN-0071 的 0.94–0.99 秒（PPSh, rifle, fully automatic, machine gun, sub machine gun, 7.62x25 Tokarev, gun）",
+"parent": "GUN-0071",
+"start": 0.9358,
+"end": 0.9862
+},
+"GUN-0389": {
+"pack": "clips_sfx",
+"file": "GUN-0389.wav",
+"dur": 1.08,
+"desc": "擷取自 GUN-0040 的 0.54–1.62 秒（AR-15, M4, rifle, carbine, semi automatic, assault rifle, .223, 5.56x45, gunshot）",
+"parent": "GUN-0040",
+"start": 0.54,
+"end": 1.6195
+},
+"GUN-0390": {
+"pack": "clips_sfx",
+"file": "GUN-0390.wav",
+"dur": 1.06,
+"desc": "擷取自 GUN-0046 的 0.58–1.65 秒（Charles Daly, CD, FTAW, shotgun, pump action, 12 gauge, gunshot, mid distance, f）",
+"parent": "GUN-0046",
+"start": 0.5816,
+"end": 1.6452
+},
+"GUN-0391": {
+"pack": "clips_sfx",
+"file": "GUN-0391.wav",
+"dur": 1.53,
+"desc": "擷取自 GUN-0061 的 1.13–2.67 秒（Mosin Nagant, rifle, bolt action, 7.62x54, gunshot, mid distance, front of shoot）",
+"parent": "GUN-0061",
+"start": 1.13,
+"end": 2.665
+},
 "IMP-0001": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactGeneric_light_000.ogg",
@@ -22857,6 +22938,87 @@
 "dur": 1.24,
 "desc": "shotgun_racking.wav（mtadder，1.2 秒）"
 },
+"RLD-0077": {
+"pack": "clips_sfx",
+"file": "RLD-0077.wav",
+"dur": 0.12,
+"desc": "擷取自 RLD-0013 的 0.09–0.21 秒：手槍退彈（handgun reload [peak-clip heuristic flag]）",
+"parent": "RLD-0013",
+"start": 0.09,
+"end": 0.21
+},
+"RLD-0078": {
+"pack": "clips_sfx",
+"file": "RLD-0078.wav",
+"dur": 0.21,
+"desc": "擷取自 RLD-0013 的 0.57–0.78 秒：手槍裝彈（handgun reload [peak-clip heuristic flag]）",
+"parent": "RLD-0013",
+"start": 0.57,
+"end": 0.78
+},
+"RLD-0079": {
+"pack": "clips_sfx",
+"file": "RLD-0079.wav",
+"dur": 0.33,
+"desc": "擷取自 RLD-0013 的 1.02–1.35 秒：手槍上膛（handgun reload [peak-clip heuristic flag]）",
+"parent": "RLD-0013",
+"start": 1.025,
+"end": 1.355
+},
+"RLD-0080": {
+"pack": "clips_sfx",
+"file": "RLD-0080.wav",
+"dur": 0.29,
+"desc": "擷取自 RLD-0068 的 0.00–0.29 秒：步槍退彈（Rifle-or-shotgun-reload.wav（MaximBomba，3.1 秒））",
+"parent": "RLD-0068",
+"start": 0.0,
+"end": 0.29
+},
+"RLD-0081": {
+"pack": "clips_sfx",
+"file": "RLD-0081.wav",
+"dur": 0.35,
+"desc": "擷取自 RLD-0068 的 0.57–0.92 秒：步槍裝子彈（Rifle-or-shotgun-reload.wav（MaximBomba，3.1 秒））",
+"parent": "RLD-0068",
+"start": 0.57,
+"end": 0.92
+},
+"RLD-0082": {
+"pack": "clips_sfx",
+"file": "RLD-0082.wav",
+"dur": 0.68,
+"desc": "擷取自 RLD-0068 的 1.27–1.95 秒：步槍上膛（Rifle-or-shotgun-reload.wav（MaximBomba，3.1 秒））",
+"parent": "RLD-0068",
+"start": 1.27,
+"end": 1.95
+},
+"RLD-0083": {
+"pack": "clips_sfx",
+"file": "RLD-0083.wav",
+"dur": 0.2,
+"desc": "擷取自 RLD-0052 的 0.19–0.39 秒：霰彈退彈（ak47 reload sound.mp3（GFL7，3.1 秒））",
+"parent": "RLD-0052",
+"start": 0.19,
+"end": 0.39
+},
+"RLD-0084": {
+"pack": "clips_sfx",
+"file": "RLD-0084.wav",
+"dur": 0.21,
+"desc": "擷取自 RLD-0052 的 1.12–1.33 秒：霰彈裝彈（ak47 reload sound.mp3（GFL7，3.1 秒））",
+"parent": "RLD-0052",
+"start": 1.125,
+"end": 1.335
+},
+"RLD-0085": {
+"pack": "clips_sfx",
+"file": "RLD-0085.wav",
+"dur": 0.29,
+"desc": "擷取自 RLD-0052 的 2.00–2.29 秒：霰彈上膛（ak47 reload sound.mp3（GFL7，3.1 秒））",
+"parent": "RLD-0052",
+"start": 1.995,
+"end": 2.285
+},
 "UIS-0001": {
 "pack": "kenney_interface-sounds",
 "file": "Audio/back_001.ogg",
@@ -28635,6 +28797,534 @@
 "pack": "oga_space-shoot-sounds",
 "file": "alienshoot3.ogg",
 "dur": 0.69
+},
+"VOX-0669": {
+"pack": "fs_cc0-voice-female-death",
+"file": "169811_1122547-hq.mp3",
+"dur": 1.97,
+"desc": "Female scream 02（missozzy，2.0 秒）"
+},
+"VOX-0670": {
+"pack": "fs_cc0-voice-female-death",
+"file": "219149_3871816-hq.mp3",
+"dur": 1.05,
+"desc": "Female-Wilhelm-Scream-Audacity.mp3（musability，1.0 秒）"
+},
+"VOX-0671": {
+"pack": "fs_cc0-voice-female-death",
+"file": "219659_4092389-hq.mp3",
+"dur": 1.97,
+"desc": "Pain scream girl（annatabernero，2.0 秒）"
+},
+"VOX-0672": {
+"pack": "fs_cc0-voice-female-death",
+"file": "219661_4092545-hq.mp3",
+"dur": 1.83,
+"desc": "girls screaming.wav（saraonsins，1.8 秒）"
+},
+"VOX-0673": {
+"pack": "fs_cc0-voice-female-death",
+"file": "219693_4093116-hq.mp3",
+"dur": 1.96,
+"desc": "woman-screaming.wav（mariateresa_garcia，2.0 秒）"
+},
+"VOX-0674": {
+"pack": "fs_cc0-voice-female-death",
+"file": "220814_3559284-hq.mp3",
+"dur": 0.86,
+"desc": "woman scream.wav（EricSueiro，0.9 秒）"
+},
+"VOX-0675": {
+"pack": "fs_cc0-voice-female-death",
+"file": "220824_3559284-hq.mp3",
+"dur": 0.75,
+"desc": "Female scream.wav（EricSueiro，0.8 秒）"
+},
+"VOX-0676": {
+"pack": "fs_cc0-voice-female-death",
+"file": "222545_4079747-hq.mp3",
+"dur": 2.17,
+"desc": "WOMAN SCREAM（queen_westeros，2.2 秒）"
+},
+"VOX-0677": {
+"pack": "fs_cc0-voice-female-death",
+"file": "222646_4138330-hq.mp3",
+"dur": 2.65,
+"desc": "Female scream 1.mp3（mariallinas，2.7 秒）"
+},
+"VOX-0678": {
+"pack": "fs_cc0-voice-female-death",
+"file": "235590_3396115-hq.mp3",
+"dur": 2.44,
+"desc": "Girl_Scream_Short.wav（tcrocker68，2.4 秒）"
+},
+"VOX-0679": {
+"pack": "fs_cc0-voice-female-death",
+"file": "235591_3396115-hq.mp3",
+"dur": 3.37,
+"desc": "Girl_Scream_FollowingScreams.wav（tcrocker68，3.4 秒）"
+},
+"VOX-0680": {
+"pack": "fs_cc0-voice-female-death",
+"file": "235595_3396115-hq.mp3",
+"dur": 2.37,
+"desc": "Girl_Two_Screams.wav（tcrocker68，2.4 秒）"
+},
+"VOX-0681": {
+"pack": "fs_cc0-voice-female-death",
+"file": "261419_2826150-hq.mp3",
+"dur": 1.84,
+"desc": "WomanScream.wav（Archeos，1.8 秒）"
+},
+"VOX-0682": {
+"pack": "fs_cc0-voice-female-death",
+"file": "278108_1196472-hq.mp3",
+"dur": 1.36,
+"desc": "Girl Scream（Mafon2，1.4 秒）"
+},
+"VOX-0683": {
+"pack": "fs_cc0-voice-female-death",
+"file": "398278_5106192-hq.mp3",
+"dur": 4.99,
+"desc": "Female Scream 2（DRFX，5.0 秒）"
+},
+"VOX-0684": {
+"pack": "fs_cc0-voice-female-death",
+"file": "400183_6351775-hq.mp3",
+"dur": 1.54,
+"desc": "Girl Screaming_01.wav（tomattka，1.5 秒）"
+},
+"VOX-0685": {
+"pack": "fs_cc0-voice-female-death",
+"file": "405597_7574327-hq.mp3",
+"dur": 4.88,
+"desc": "Girl Screaming（Sarahpetsee，4.9 秒）"
+},
+"VOX-0686": {
+"pack": "fs_cc0-voice-female-death",
+"file": "406088_7919598-hq.mp3",
+"dur": 2.63,
+"desc": "Loud Female Scream.wav（Yin_Yang_Jake007，2.6 秒）"
+},
+"VOX-0687": {
+"pack": "fs_cc0-voice-female-death",
+"file": "467126_8323375-hq.mp3",
+"dur": 2.17,
+"desc": "Female Scream.wav（CalGre，2.2 秒）"
+},
+"VOX-0688": {
+"pack": "fs_cc0-voice-female-death",
+"file": "488158_10397097-hq.mp3",
+"dur": 3.64,
+"desc": "female_scream.wav（sleepskraper，3.6 秒）"
+},
+"VOX-0689": {
+"pack": "fs_cc0-voice-female-death",
+"file": "506682_8541784-hq.mp3",
+"dur": 1.46,
+"desc": "Female Scream 2（DigestContent，1.5 秒）"
+},
+"VOX-0690": {
+"pack": "fs_cc0-voice-female-death",
+"file": "543914_2185198-hq.mp3",
+"dur": 4.88,
+"desc": "Female Wilhelm Scream（Goodsjemes，4.9 秒）"
+},
+"VOX-0691": {
+"pack": "fs_cc0-voice-female-death",
+"file": "573096_12857818-hq.mp3",
+"dur": 6.0,
+"desc": "A female voice in agony（pseudonymian，6.0 秒）"
+},
+"VOX-0692": {
+"pack": "fs_cc0-voice-female-death",
+"file": "609973_10386673-hq.mp3",
+"dur": 2.22,
+"desc": "woman scream.wav（starnezio，2.2 秒）"
+},
+"VOX-0693": {
+"pack": "fs_cc0-voice-female-death",
+"file": "618193_13349052-hq.mp3",
+"dur": 1.74,
+"desc": "Woman Screaming.wav（JalynCatbtg，1.7 秒）"
+},
+"VOX-0694": {
+"pack": "fs_cc0-voice-female-death",
+"file": "670315_14535658-hq.mp3",
+"dur": 0.88,
+"desc": "Woman Scream（ColtoBene，0.9 秒）"
+},
+"VOX-0695": {
+"pack": "fs_cc0-voice-female-death",
+"file": "673306_13324371-hq.mp3",
+"dur": 4.46,
+"desc": "Woman Scream（courtneyeck，4.5 秒）"
+},
+"VOX-0696": {
+"pack": "fs_cc0-voice-female-death",
+"file": "673427_13324371-hq.mp3",
+"dur": 3.62,
+"desc": "Woman Scream Distorted（courtneyeck，3.6 秒）"
+},
+"VOX-0697": {
+"pack": "fs_cc0-voice-female-death",
+"file": "721498_2381713-hq.mp3",
+"dur": 3.86,
+"desc": "Scream Of A Woman（synth2，3.9 秒）"
+},
+"VOX-0698": {
+"pack": "fs_cc0-voice-female-death",
+"file": "845164_11030713-hq.mp3",
+"dur": 3.6,
+"desc": "Woman Screaming（DanJFilms，3.6 秒）"
+},
+"VOX-0699": {
+"pack": "fs_cc0-voice-female-effort",
+"file": "151215_140737-hq.mp3",
+"dur": 4.27,
+"desc": "Female Breathing Heavily (2)（OwlStorm，4.3 秒）"
+},
+"VOX-0700": {
+"pack": "fs_cc0-voice-female-effort",
+"file": "219176_2651699-hq.mp3",
+"dur": 4.38,
+"desc": "female_inhale_through_nose.MP3（psnflute1984，4.4 秒）"
+},
+"VOX-0701": {
+"pack": "fs_cc0-voice-female-effort",
+"file": "318078_5057106-hq.mp3",
+"dur": 0.98,
+"desc": "Whimper_Gasp_1_Female（Drkvixn91，1.0 秒）"
+},
+"VOX-0702": {
+"pack": "fs_cc0-voice-female-effort",
+"file": "318089_5057106-hq.mp3",
+"dur": 2.67,
+"desc": "Sigh_3_Female（Drkvixn91，2.7 秒）"
+},
+"VOX-0703": {
+"pack": "fs_cc0-voice-female-effort",
+"file": "487246_10350281-hq.mp3",
+"dur": 3.01,
+"desc": "female voice attack 2（PhonosUPF，3.0 秒）"
+},
+"VOX-0704": {
+"pack": "fs_cc0-voice-female-effort",
+"file": "487248_10350281-hq.mp3",
+"dur": 3.79,
+"desc": "female voice attack 3（PhonosUPF，3.8 秒）"
+},
+"VOX-0705": {
+"pack": "fs_cc0-voice-female-effort",
+"file": "487258_10350281-hq.mp3",
+"dur": 3.39,
+"desc": "female voice attack 5（PhonosUPF，3.4 秒）"
+},
+"VOX-0706": {
+"pack": "fs_cc0-voice-female-effort",
+"file": "487260_10350281-hq.mp3",
+"dur": 4.05,
+"desc": "female voice attack 6（PhonosUPF，4.1 秒）"
+},
+"VOX-0707": {
+"pack": "fs_cc0-voice-female-effort",
+"file": "487261_10350281-hq.mp3",
+"dur": 3.69,
+"desc": "female voice attack 7（PhonosUPF，3.7 秒）"
+},
+"VOX-0708": {
+"pack": "fs_cc0-voice-female-effort",
+"file": "487390_10350281-hq.mp3",
+"dur": 3.25,
+"desc": "female voice attack 10（PhonosUPF，3.3 秒）"
+},
+"VOX-0709": {
+"pack": "fs_cc0-voice-female-effort",
+"file": "509883_9238038-hq.mp3",
+"dur": 1.16,
+"desc": "female_gasp.wav（slamaxu，1.2 秒）"
+},
+"VOX-0710": {
+"pack": "fs_cc0-voice-female-effort",
+"file": "663651_6113906-hq.mp3",
+"dur": 2.22,
+"desc": "Woman Exasperated Sigh, Breathe Out（monsterthing，2.2 秒）"
+},
+"VOX-0711": {
+"pack": "fs_cc0-voice-female-effort",
+"file": "740310_15125504-hq.mp3",
+"dur": 1.84,
+"desc": "Female Gasp（kanyonwyvern，1.8 秒）"
+},
+"VOX-0712": {
+"pack": "fs_cc0-voice-female-effort",
+"file": "826714_17844892-hq.mp3",
+"dur": 2.41,
+"desc": "Woman Gasping（Soundjougi，2.4 秒）"
+},
+"VOX-0713": {
+"pack": "fs_cc0-voice-female-pain",
+"file": "203976_2394085-hq.mp3",
+"dur": 0.67,
+"desc": "female_hurt.wav（thatbennyguy，0.7 秒）"
+},
+"VOX-0714": {
+"pack": "fs_cc0-voice-female-pain",
+"file": "219666_4092389-hq.mp3",
+"dur": 2.51,
+"desc": "19-yeard-old Girl Shouting（annatabernero，2.5 秒）"
+},
+"VOX-0715": {
+"pack": "fs_cc0-voice-female-pain",
+"file": "318078_5057106-hq.mp3",
+"dur": 0.98,
+"desc": "Whimper_Gasp_1_Female（Drkvixn91，1.0 秒）"
+},
+"VOX-0716": {
+"pack": "fs_cc0-voice-female-pain",
+"file": "464672_7358035-hq.mp3",
+"dur": 1.75,
+"desc": "FemaleGrunt_full.wav（BranndyBottle，1.8 秒）"
+},
+"VOX-0717": {
+"pack": "fs_cc0-voice-female-pain",
+"file": "464673_7358035-hq.mp3",
+"dur": 0.35,
+"desc": "FemaleGrunt3.wav（BranndyBottle，0.4 秒）"
+},
+"VOX-0718": {
+"pack": "fs_cc0-voice-female-pain",
+"file": "464674_7358035-hq.mp3",
+"dur": 0.71,
+"desc": "FemaleGrunt2.wav（BranndyBottle，0.7 秒）"
+},
+"VOX-0719": {
+"pack": "fs_cc0-voice-female-pain",
+"file": "464675_7358035-hq.mp3",
+"dur": 0.62,
+"desc": "FemaleGrunt1.wav（BranndyBottle，0.6 秒）"
+},
+"VOX-0720": {
+"pack": "fs_cc0-voice-female-pain",
+"file": "577969_12923717-hq.mp3",
+"dur": 2.02,
+"desc": "female-hurt-2.wav（birdOfTheNorth，2.0 秒）"
+},
+"VOX-0721": {
+"pack": "fs_cc0-voice-female-pain",
+"file": "796094_15024443-hq.mp3",
+"dur": 0.47,
+"desc": "Woman getting pain（Guinamun，0.5 秒）"
+},
+"VOX-0722": {
+"pack": "fs_cc0-voice-male-death",
+"file": "173126_3230525-hq.mp3",
+"dur": 1.67,
+"desc": "Death sound (male)（Replix，1.7 秒）"
+},
+"VOX-0723": {
+"pack": "fs_cc0-voice-male-death",
+"file": "243382_3229685-hq.mp3",
+"dur": 2.72,
+"desc": "human male scream 5（JohnsonBrandEditing，2.7 秒）"
+},
+"VOX-0724": {
+"pack": "fs_cc0-voice-male-death",
+"file": "272023_5165013-hq.mp3",
+"dur": 0.63,
+"desc": "Male Scream（aldenroth2，0.6 秒）"
+},
+"VOX-0725": {
+"pack": "fs_cc0-voice-male-death",
+"file": "342232_3908740-hq.mp3",
+"dur": 0.65,
+"desc": "Cheesy Death Noise - (Male)（Christopherderp，0.6 秒）"
+},
+"VOX-0726": {
+"pack": "fs_cc0-voice-male-death",
+"file": "345456_4038846-hq.mp3",
+"dur": 1.03,
+"desc": "Male_Death_04（Artmasterrich，1.0 秒）"
+},
+"VOX-0727": {
+"pack": "fs_cc0-voice-male-death",
+"file": "396801_2389125-hq.mp3",
+"dur": 1.37,
+"desc": "Male Death 4（scorpion67890，1.4 秒）"
+},
+"VOX-0728": {
+"pack": "fs_cc0-voice-male-death",
+"file": "540454_6175868-hq.mp3",
+"dur": 4.64,
+"desc": "Male Scream（bananplyte，4.6 秒）"
+},
+"VOX-0729": {
+"pack": "fs_cc0-voice-male-death",
+"file": "554443_6512859-hq.mp3",
+"dur": 1.01,
+"desc": "Male Death Sound（Blankened，1.0 秒）"
+},
+"VOX-0730": {
+"pack": "fs_cc0-voice-male-death",
+"file": "615341_13649760-hq.mp3",
+"dur": 1.63,
+"desc": "male-scream2022.wav（NIKITAKAVRIGA2006，1.6 秒）"
+},
+"VOX-0731": {
+"pack": "fs_cc0-voice-male-death",
+"file": "728068_13999124-hq.mp3",
+"dur": 2.99,
+"desc": "Reverse guy screaming sound effect（Mastersoundboy2005，3.0 秒）"
+},
+"VOX-0732": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "171758_2104797-hq.mp3",
+"dur": 4.49,
+"desc": "Groan_male_normalised.wav（deleted_user_2104797，4.5 秒）"
+},
+"VOX-0733": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "342229_3908740-hq.mp3",
+"dur": 0.66,
+"desc": "Hurt  1 - (Male)（Christopherderp，0.7 秒）"
+},
+"VOX-0734": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "342230_3908740-hq.mp3",
+"dur": 0.88,
+"desc": "Hurt 2 - (Male)（Christopherderp，0.9 秒）"
+},
+"VOX-0735": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "342231_3908740-hq.mp3",
+"dur": 0.99,
+"desc": "Hurt 3 - (Male)（Christopherderp，1.0 秒）"
+},
+"VOX-0736": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "345439_4038846-hq.mp3",
+"dur": 0.53,
+"desc": "Male_Hurt_03（Artmasterrich，0.5 秒）"
+},
+"VOX-0737": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "399626_7386498-hq.mp3",
+"dur": 2.31,
+"desc": "Male grunt.MP3（SoundsForHim，2.3 秒）"
+},
+"VOX-0738": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "413186_8090574-hq.mp3",
+"dur": 0.38,
+"desc": "male_hurt9.ogg（micahlg，0.4 秒）"
+},
+"VOX-0739": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "457449_8605152-hq.mp3",
+"dur": 3.21,
+"desc": "Male long groan.mp3（Ivan_Bjorkman，3.2 秒）"
+},
+"VOX-0740": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "457450_8605152-hq.mp3",
+"dur": 2.72,
+"desc": "Male long groan hIgher reverb.mp3（Ivan_Bjorkman，2.7 秒）"
+},
+"VOX-0741": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "464485_4814007-hq.mp3",
+"dur": 0.88,
+"desc": "Male Attack Grunt（elynch0901，0.9 秒）"
+},
+"VOX-0742": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "464486_4814007-hq.mp3",
+"dur": 0.57,
+"desc": "Male Grunting In Pain（elynch0901，0.6 秒）"
+},
+"VOX-0743": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "464676_7358035-hq.mp3",
+"dur": 1.68,
+"desc": "MaleDeepGrunt_full.wav（BranndyBottle，1.7 秒）"
+},
+"VOX-0744": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "464677_7358035-hq.mp3",
+"dur": 0.65,
+"desc": "MaleDeepGrunt3.wav（BranndyBottle，0.7 秒）"
+},
+"VOX-0745": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "464678_7358035-hq.mp3",
+"dur": 0.42,
+"desc": "MaleDeepGrunt2.wav（BranndyBottle，0.4 秒）"
+},
+"VOX-0746": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "464679_7358035-hq.mp3",
+"dur": 0.61,
+"desc": "MaleDeepGrunt1.wav（BranndyBottle，0.6 秒）"
+},
+"VOX-0747": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "464680_7358035-hq.mp3",
+"dur": 0.63,
+"desc": "MaleGrunt2.wav（BranndyBottle，0.6 秒）"
+},
+"VOX-0748": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "464681_7358035-hq.mp3",
+"dur": 0.56,
+"desc": "MaleGrunt1.wav（BranndyBottle，0.6 秒）"
+},
+"VOX-0749": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "464684_7358035-hq.mp3",
+"dur": 1.75,
+"desc": "MaleGrunt_full.wav（BranndyBottle，1.7 秒）"
+},
+"VOX-0750": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "464685_7358035-hq.mp3",
+"dur": 0.56,
+"desc": "MaleGrunt3.wav（BranndyBottle，0.6 秒）"
+},
+"VOX-0751": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "545203_3036029-hq.mp3",
+"dur": 0.6,
+"desc": "Disapproving male grunt（zeteny_zpx，0.6 秒）"
+},
+"VOX-0752": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "547209_129727-hq.mp3",
+"dur": 0.32,
+"desc": "Voice_AdultMale_PainGrunts_09.wav（MrFossy，0.3 秒）"
+},
+"VOX-0753": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "621370_13749321-hq.mp3",
+"dur": 3.86,
+"desc": "Male Grunt 3 - WITH reverb.wav（WelvynZPorterSamples，3.9 秒）"
+},
+"VOX-0754": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "736662_15125504-hq.mp3",
+"dur": 1.53,
+"desc": "Male Groan in Exhaustion（kanyonwyvern，1.5 秒）"
+},
+"VOX-0755": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "790832_189858-hq.mp3",
+"dur": 0.68,
+"desc": "Fast pain grunt, male（DeqstersLab，0.7 秒）"
+},
+"VOX-0756": {
+"pack": "fs_cc0-voice-male-pain",
+"file": "818868_5287430-hq.mp3",
+"dur": 0.84,
+"desc": "Surfer dude - Grunt（Sadiquecat，0.8 秒）"
 }
 }
 }

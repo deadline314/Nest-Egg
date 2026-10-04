@@ -975,7 +975,7 @@
 | EXP-0140 | 1.2 | oga_war-on-water-sndfx／Pirates/boatexplode.ogg |  |  |
 | EXP-0141 | 0.8 | oga_war-on-water-sndfx／Ships/shipexplode.ogg |  |  |
 
-## GUN 槍聲（309）
+## GUN 槍聲（318）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -1288,6 +1288,15 @@
 | GUN-0380 | 0.2 | fs_cc0-gunshots-silenced／693855_15072041-hq.mp3 | FN FNX .45 Tactical (SilencerCo Osprey).mp3（areniporgen，0.2 秒） |  |
 | GUN-0381 | 0.4 | fs_cc0-gunshots-silenced／740120_71257-hq.mp3 | Silenced SMG Three-Shot Burst（qubodup，0.4 秒） |  |
 | GUN-0382 | 0.5 | fs_cc0-gunshots-silenced／819269_17707799-hq.mp3 | Gunshot with silencer（hotpin7，0.5 秒） |  |
+| GUN-0383 | 0.6 | clips_sfx／GUN-0383.wav | 擷取自 GUN-0073 的 0.42–0.98 秒（Ruger Mark III, handgun, pistol, semi automatic, .22, gunshot, near distance, fr） |  |
+| GUN-0384 | 0.2 | clips_sfx／GUN-0384.wav | 擷取自 GUN-0036 的 1.31–1.51 秒（AK-47, rifle, fully automatic, semi automatic, machine gun, assault rifle, 7.62x） |  |
+| GUN-0385 | 0.1 | clips_sfx／GUN-0385.wav | 擷取自 GUN-0071 的 0.77–0.83 秒（PPSh, rifle, fully automatic, machine gun, sub machine gun, 7.62x25 Tokarev, gun） |  |
+| GUN-0386 | 0.1 | clips_sfx／GUN-0386.wav | 擷取自 GUN-0071 的 0.83–0.90 秒（PPSh, rifle, fully automatic, machine gun, sub machine gun, 7.62x25 Tokarev, gun） |  |
+| GUN-0387 | 0.0 | clips_sfx／GUN-0387.wav | 擷取自 GUN-0071 的 0.89–0.93 秒（PPSh, rifle, fully automatic, machine gun, sub machine gun, 7.62x25 Tokarev, gun） |  |
+| GUN-0388 | 0.1 | clips_sfx／GUN-0388.wav | 擷取自 GUN-0071 的 0.94–0.99 秒（PPSh, rifle, fully automatic, machine gun, sub machine gun, 7.62x25 Tokarev, gun） |  |
+| GUN-0389 | 1.1 | clips_sfx／GUN-0389.wav | 擷取自 GUN-0040 的 0.54–1.62 秒（AR-15, M4, rifle, carbine, semi automatic, assault rifle, .223, 5.56x45, gunshot） |  |
+| GUN-0390 | 1.1 | clips_sfx／GUN-0390.wav | 擷取自 GUN-0046 的 0.58–1.65 秒（Charles Daly, CD, FTAW, shotgun, pump action, 12 gauge, gunshot, mid distance, f） |  |
+| GUN-0391 | 1.5 | clips_sfx／GUN-0391.wav | 擷取自 GUN-0061 的 1.13–2.67 秒（Mosin Nagant, rifle, bolt action, 7.62x54, gunshot, mid distance, front of shoot） |  |
 
 ## IMP 撞擊與命中（730）
 
@@ -4346,7 +4355,7 @@
 | OTH-0388 | 4.5 | oga_war-on-water-sndfx／Radio/radiomsg4.ogg |  |  |
 | OTH-0389 | 0.8 | oga_zipper／zipper-1_0.ogg |  |  |
 
-## RLD 槍械操作（66）
+## RLD 槍械操作（75）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -4416,6 +4425,15 @@
 | RLD-0074 | 2.5 | fs_cc0-gun-handling／90965_861714-hq.mp3 | gun_cocking.wav（Department64，2.5 秒） |  |
 | RLD-0075 | 0.2 | fs_cc0-gun-handling／94119_1554918-hq.mp3 | ClipLoad2.wav（BMacZero，0.2 秒） |  |
 | RLD-0076 | 1.2 | fs_cc0-gun-handling／99217_1667590-hq.mp3 | shotgun_racking.wav（mtadder，1.2 秒） |  |
+| RLD-0077 | 0.1 | clips_sfx／RLD-0077.wav | 擷取自 RLD-0013 的 0.09–0.21 秒：手槍退彈（handgun reload [peak-clip heuristic flag]） |  |
+| RLD-0078 | 0.2 | clips_sfx／RLD-0078.wav | 擷取自 RLD-0013 的 0.57–0.78 秒：手槍裝彈（handgun reload [peak-clip heuristic flag]） |  |
+| RLD-0079 | 0.3 | clips_sfx／RLD-0079.wav | 擷取自 RLD-0013 的 1.02–1.35 秒：手槍上膛（handgun reload [peak-clip heuristic flag]） |  |
+| RLD-0080 | 0.3 | clips_sfx／RLD-0080.wav | 擷取自 RLD-0068 的 0.00–0.29 秒：步槍退彈（Rifle-or-shotgun-reload.wav（MaximBomba，3.1 秒）） |  |
+| RLD-0081 | 0.3 | clips_sfx／RLD-0081.wav | 擷取自 RLD-0068 的 0.57–0.92 秒：步槍裝子彈（Rifle-or-shotgun-reload.wav（MaximBomba，3.1 秒）） |  |
+| RLD-0082 | 0.7 | clips_sfx／RLD-0082.wav | 擷取自 RLD-0068 的 1.27–1.95 秒：步槍上膛（Rifle-or-shotgun-reload.wav（MaximBomba，3.1 秒）） |  |
+| RLD-0083 | 0.2 | clips_sfx／RLD-0083.wav | 擷取自 RLD-0052 的 0.19–0.39 秒：霰彈退彈（ak47 reload sound.mp3（GFL7，3.1 秒）） |  |
+| RLD-0084 | 0.2 | clips_sfx／RLD-0084.wav | 擷取自 RLD-0052 的 1.12–1.33 秒：霰彈裝彈（ak47 reload sound.mp3（GFL7，3.1 秒）） |  |
+| RLD-0085 | 0.3 | clips_sfx／RLD-0085.wav | 擷取自 RLD-0052 的 2.00–2.29 秒：霰彈上膛（ak47 reload sound.mp3（GFL7，3.1 秒）） |  |
 
 ## UIS 介面（507）
 
@@ -4929,7 +4947,7 @@
 | UIS-0506 | 0.2 | oga_ui-click-sounds-sci-fi／sfx_ui_click_7.mp3 |  |  |
 | UIS-0507 | 0.2 | oga_ui-click-sounds-sci-fi／sfx_ui_click_8.mp3 |  |  |
 
-## VOX 人聲與生物（643）
+## VOX 人聲與生物（731）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -5576,4 +5594,92 @@
 | VOX-0666 | 0.6 | oga_space-shoot-sounds／alienshoot1.ogg |  |  |
 | VOX-0667 | 0.6 | oga_space-shoot-sounds／alienshoot2.ogg |  |  |
 | VOX-0668 | 0.7 | oga_space-shoot-sounds／alienshoot3.ogg |  |  |
+| VOX-0669 | 2.0 | fs_cc0-voice-female-death／169811_1122547-hq.mp3 | Female scream 02（missozzy，2.0 秒） |  |
+| VOX-0670 | 1.1 | fs_cc0-voice-female-death／219149_3871816-hq.mp3 | Female-Wilhelm-Scream-Audacity.mp3（musability，1.0 秒） |  |
+| VOX-0671 | 2.0 | fs_cc0-voice-female-death／219659_4092389-hq.mp3 | Pain scream girl（annatabernero，2.0 秒） |  |
+| VOX-0672 | 1.8 | fs_cc0-voice-female-death／219661_4092545-hq.mp3 | girls screaming.wav（saraonsins，1.8 秒） |  |
+| VOX-0673 | 2.0 | fs_cc0-voice-female-death／219693_4093116-hq.mp3 | woman-screaming.wav（mariateresa_garcia，2.0 秒） |  |
+| VOX-0674 | 0.9 | fs_cc0-voice-female-death／220814_3559284-hq.mp3 | woman scream.wav（EricSueiro，0.9 秒） |  |
+| VOX-0675 | 0.8 | fs_cc0-voice-female-death／220824_3559284-hq.mp3 | Female scream.wav（EricSueiro，0.8 秒） |  |
+| VOX-0676 | 2.2 | fs_cc0-voice-female-death／222545_4079747-hq.mp3 | WOMAN SCREAM（queen_westeros，2.2 秒） |  |
+| VOX-0677 | 2.6 | fs_cc0-voice-female-death／222646_4138330-hq.mp3 | Female scream 1.mp3（mariallinas，2.7 秒） |  |
+| VOX-0678 | 2.4 | fs_cc0-voice-female-death／235590_3396115-hq.mp3 | Girl_Scream_Short.wav（tcrocker68，2.4 秒） |  |
+| VOX-0679 | 3.4 | fs_cc0-voice-female-death／235591_3396115-hq.mp3 | Girl_Scream_FollowingScreams.wav（tcrocker68，3.4 秒） |  |
+| VOX-0680 | 2.4 | fs_cc0-voice-female-death／235595_3396115-hq.mp3 | Girl_Two_Screams.wav（tcrocker68，2.4 秒） |  |
+| VOX-0681 | 1.8 | fs_cc0-voice-female-death／261419_2826150-hq.mp3 | WomanScream.wav（Archeos，1.8 秒） |  |
+| VOX-0682 | 1.4 | fs_cc0-voice-female-death／278108_1196472-hq.mp3 | Girl Scream（Mafon2，1.4 秒） |  |
+| VOX-0683 | 5.0 | fs_cc0-voice-female-death／398278_5106192-hq.mp3 | Female Scream 2（DRFX，5.0 秒） |  |
+| VOX-0684 | 1.5 | fs_cc0-voice-female-death／400183_6351775-hq.mp3 | Girl Screaming_01.wav（tomattka，1.5 秒） |  |
+| VOX-0685 | 4.9 | fs_cc0-voice-female-death／405597_7574327-hq.mp3 | Girl Screaming（Sarahpetsee，4.9 秒） |  |
+| VOX-0686 | 2.6 | fs_cc0-voice-female-death／406088_7919598-hq.mp3 | Loud Female Scream.wav（Yin_Yang_Jake007，2.6 秒） |  |
+| VOX-0687 | 2.2 | fs_cc0-voice-female-death／467126_8323375-hq.mp3 | Female Scream.wav（CalGre，2.2 秒） |  |
+| VOX-0688 | 3.6 | fs_cc0-voice-female-death／488158_10397097-hq.mp3 | female_scream.wav（sleepskraper，3.6 秒） |  |
+| VOX-0689 | 1.5 | fs_cc0-voice-female-death／506682_8541784-hq.mp3 | Female Scream 2（DigestContent，1.5 秒） |  |
+| VOX-0690 | 4.9 | fs_cc0-voice-female-death／543914_2185198-hq.mp3 | Female Wilhelm Scream（Goodsjemes，4.9 秒） |  |
+| VOX-0691 | 6.0 | fs_cc0-voice-female-death／573096_12857818-hq.mp3 | A female voice in agony（pseudonymian，6.0 秒） |  |
+| VOX-0692 | 2.2 | fs_cc0-voice-female-death／609973_10386673-hq.mp3 | woman scream.wav（starnezio，2.2 秒） |  |
+| VOX-0693 | 1.7 | fs_cc0-voice-female-death／618193_13349052-hq.mp3 | Woman Screaming.wav（JalynCatbtg，1.7 秒） |  |
+| VOX-0694 | 0.9 | fs_cc0-voice-female-death／670315_14535658-hq.mp3 | Woman Scream（ColtoBene，0.9 秒） |  |
+| VOX-0695 | 4.5 | fs_cc0-voice-female-death／673306_13324371-hq.mp3 | Woman Scream（courtneyeck，4.5 秒） |  |
+| VOX-0696 | 3.6 | fs_cc0-voice-female-death／673427_13324371-hq.mp3 | Woman Scream Distorted（courtneyeck，3.6 秒） |  |
+| VOX-0697 | 3.9 | fs_cc0-voice-female-death／721498_2381713-hq.mp3 | Scream Of A Woman（synth2，3.9 秒） |  |
+| VOX-0698 | 3.6 | fs_cc0-voice-female-death／845164_11030713-hq.mp3 | Woman Screaming（DanJFilms，3.6 秒） |  |
+| VOX-0699 | 4.3 | fs_cc0-voice-female-effort／151215_140737-hq.mp3 | Female Breathing Heavily (2)（OwlStorm，4.3 秒） |  |
+| VOX-0700 | 4.4 | fs_cc0-voice-female-effort／219176_2651699-hq.mp3 | female_inhale_through_nose.MP3（psnflute1984，4.4 秒） |  |
+| VOX-0701 | 1.0 | fs_cc0-voice-female-effort／318078_5057106-hq.mp3 | Whimper_Gasp_1_Female（Drkvixn91，1.0 秒） |  |
+| VOX-0702 | 2.7 | fs_cc0-voice-female-effort／318089_5057106-hq.mp3 | Sigh_3_Female（Drkvixn91，2.7 秒） |  |
+| VOX-0703 | 3.0 | fs_cc0-voice-female-effort／487246_10350281-hq.mp3 | female voice attack 2（PhonosUPF，3.0 秒） |  |
+| VOX-0704 | 3.8 | fs_cc0-voice-female-effort／487248_10350281-hq.mp3 | female voice attack 3（PhonosUPF，3.8 秒） |  |
+| VOX-0705 | 3.4 | fs_cc0-voice-female-effort／487258_10350281-hq.mp3 | female voice attack 5（PhonosUPF，3.4 秒） |  |
+| VOX-0706 | 4.0 | fs_cc0-voice-female-effort／487260_10350281-hq.mp3 | female voice attack 6（PhonosUPF，4.1 秒） |  |
+| VOX-0707 | 3.7 | fs_cc0-voice-female-effort／487261_10350281-hq.mp3 | female voice attack 7（PhonosUPF，3.7 秒） |  |
+| VOX-0708 | 3.2 | fs_cc0-voice-female-effort／487390_10350281-hq.mp3 | female voice attack 10（PhonosUPF，3.3 秒） |  |
+| VOX-0709 | 1.2 | fs_cc0-voice-female-effort／509883_9238038-hq.mp3 | female_gasp.wav（slamaxu，1.2 秒） |  |
+| VOX-0710 | 2.2 | fs_cc0-voice-female-effort／663651_6113906-hq.mp3 | Woman Exasperated Sigh, Breathe Out（monsterthing，2.2 秒） |  |
+| VOX-0711 | 1.8 | fs_cc0-voice-female-effort／740310_15125504-hq.mp3 | Female Gasp（kanyonwyvern，1.8 秒） |  |
+| VOX-0712 | 2.4 | fs_cc0-voice-female-effort／826714_17844892-hq.mp3 | Woman Gasping（Soundjougi，2.4 秒） |  |
+| VOX-0713 | 0.7 | fs_cc0-voice-female-pain／203976_2394085-hq.mp3 | female_hurt.wav（thatbennyguy，0.7 秒） |  |
+| VOX-0714 | 2.5 | fs_cc0-voice-female-pain／219666_4092389-hq.mp3 | 19-yeard-old Girl Shouting（annatabernero，2.5 秒） |  |
+| VOX-0715 | 1.0 | fs_cc0-voice-female-pain／318078_5057106-hq.mp3 | Whimper_Gasp_1_Female（Drkvixn91，1.0 秒） |  |
+| VOX-0716 | 1.8 | fs_cc0-voice-female-pain／464672_7358035-hq.mp3 | FemaleGrunt_full.wav（BranndyBottle，1.8 秒） |  |
+| VOX-0717 | 0.3 | fs_cc0-voice-female-pain／464673_7358035-hq.mp3 | FemaleGrunt3.wav（BranndyBottle，0.4 秒） |  |
+| VOX-0718 | 0.7 | fs_cc0-voice-female-pain／464674_7358035-hq.mp3 | FemaleGrunt2.wav（BranndyBottle，0.7 秒） |  |
+| VOX-0719 | 0.6 | fs_cc0-voice-female-pain／464675_7358035-hq.mp3 | FemaleGrunt1.wav（BranndyBottle，0.6 秒） |  |
+| VOX-0720 | 2.0 | fs_cc0-voice-female-pain／577969_12923717-hq.mp3 | female-hurt-2.wav（birdOfTheNorth，2.0 秒） |  |
+| VOX-0721 | 0.5 | fs_cc0-voice-female-pain／796094_15024443-hq.mp3 | Woman getting pain（Guinamun，0.5 秒） |  |
+| VOX-0722 | 1.7 | fs_cc0-voice-male-death／173126_3230525-hq.mp3 | Death sound (male)（Replix，1.7 秒） |  |
+| VOX-0723 | 2.7 | fs_cc0-voice-male-death／243382_3229685-hq.mp3 | human male scream 5（JohnsonBrandEditing，2.7 秒） |  |
+| VOX-0724 | 0.6 | fs_cc0-voice-male-death／272023_5165013-hq.mp3 | Male Scream（aldenroth2，0.6 秒） |  |
+| VOX-0725 | 0.7 | fs_cc0-voice-male-death／342232_3908740-hq.mp3 | Cheesy Death Noise - (Male)（Christopherderp，0.6 秒） |  |
+| VOX-0726 | 1.0 | fs_cc0-voice-male-death／345456_4038846-hq.mp3 | Male_Death_04（Artmasterrich，1.0 秒） |  |
+| VOX-0727 | 1.4 | fs_cc0-voice-male-death／396801_2389125-hq.mp3 | Male Death 4（scorpion67890，1.4 秒） |  |
+| VOX-0728 | 4.6 | fs_cc0-voice-male-death／540454_6175868-hq.mp3 | Male Scream（bananplyte，4.6 秒） |  |
+| VOX-0729 | 1.0 | fs_cc0-voice-male-death／554443_6512859-hq.mp3 | Male Death Sound（Blankened，1.0 秒） |  |
+| VOX-0730 | 1.6 | fs_cc0-voice-male-death／615341_13649760-hq.mp3 | male-scream2022.wav（NIKITAKAVRIGA2006，1.6 秒） |  |
+| VOX-0731 | 3.0 | fs_cc0-voice-male-death／728068_13999124-hq.mp3 | Reverse guy screaming sound effect（Mastersoundboy2005，3.0 秒） |  |
+| VOX-0732 | 4.5 | fs_cc0-voice-male-pain／171758_2104797-hq.mp3 | Groan_male_normalised.wav（deleted_user_2104797，4.5 秒） |  |
+| VOX-0733 | 0.7 | fs_cc0-voice-male-pain／342229_3908740-hq.mp3 | Hurt  1 - (Male)（Christopherderp，0.7 秒） |  |
+| VOX-0734 | 0.9 | fs_cc0-voice-male-pain／342230_3908740-hq.mp3 | Hurt 2 - (Male)（Christopherderp，0.9 秒） |  |
+| VOX-0735 | 1.0 | fs_cc0-voice-male-pain／342231_3908740-hq.mp3 | Hurt 3 - (Male)（Christopherderp，1.0 秒） |  |
+| VOX-0736 | 0.5 | fs_cc0-voice-male-pain／345439_4038846-hq.mp3 | Male_Hurt_03（Artmasterrich，0.5 秒） |  |
+| VOX-0737 | 2.3 | fs_cc0-voice-male-pain／399626_7386498-hq.mp3 | Male grunt.MP3（SoundsForHim，2.3 秒） |  |
+| VOX-0738 | 0.4 | fs_cc0-voice-male-pain／413186_8090574-hq.mp3 | male_hurt9.ogg（micahlg，0.4 秒） |  |
+| VOX-0739 | 3.2 | fs_cc0-voice-male-pain／457449_8605152-hq.mp3 | Male long groan.mp3（Ivan_Bjorkman，3.2 秒） |  |
+| VOX-0740 | 2.7 | fs_cc0-voice-male-pain／457450_8605152-hq.mp3 | Male long groan hIgher reverb.mp3（Ivan_Bjorkman，2.7 秒） |  |
+| VOX-0741 | 0.9 | fs_cc0-voice-male-pain／464485_4814007-hq.mp3 | Male Attack Grunt（elynch0901，0.9 秒） |  |
+| VOX-0742 | 0.6 | fs_cc0-voice-male-pain／464486_4814007-hq.mp3 | Male Grunting In Pain（elynch0901，0.6 秒） |  |
+| VOX-0743 | 1.7 | fs_cc0-voice-male-pain／464676_7358035-hq.mp3 | MaleDeepGrunt_full.wav（BranndyBottle，1.7 秒） |  |
+| VOX-0744 | 0.7 | fs_cc0-voice-male-pain／464677_7358035-hq.mp3 | MaleDeepGrunt3.wav（BranndyBottle，0.7 秒） |  |
+| VOX-0745 | 0.4 | fs_cc0-voice-male-pain／464678_7358035-hq.mp3 | MaleDeepGrunt2.wav（BranndyBottle，0.4 秒） |  |
+| VOX-0746 | 0.6 | fs_cc0-voice-male-pain／464679_7358035-hq.mp3 | MaleDeepGrunt1.wav（BranndyBottle，0.6 秒） |  |
+| VOX-0747 | 0.6 | fs_cc0-voice-male-pain／464680_7358035-hq.mp3 | MaleGrunt2.wav（BranndyBottle，0.6 秒） |  |
+| VOX-0748 | 0.6 | fs_cc0-voice-male-pain／464681_7358035-hq.mp3 | MaleGrunt1.wav（BranndyBottle，0.6 秒） |  |
+| VOX-0749 | 1.8 | fs_cc0-voice-male-pain／464684_7358035-hq.mp3 | MaleGrunt_full.wav（BranndyBottle，1.7 秒） |  |
+| VOX-0750 | 0.6 | fs_cc0-voice-male-pain／464685_7358035-hq.mp3 | MaleGrunt3.wav（BranndyBottle，0.6 秒） |  |
+| VOX-0751 | 0.6 | fs_cc0-voice-male-pain／545203_3036029-hq.mp3 | Disapproving male grunt（zeteny_zpx，0.6 秒） |  |
+| VOX-0752 | 0.3 | fs_cc0-voice-male-pain／547209_129727-hq.mp3 | Voice_AdultMale_PainGrunts_09.wav（MrFossy，0.3 秒） |  |
+| VOX-0753 | 3.9 | fs_cc0-voice-male-pain／621370_13749321-hq.mp3 | Male Grunt 3 - WITH reverb.wav（WelvynZPorterSamples，3.9 秒） |  |
+| VOX-0754 | 1.5 | fs_cc0-voice-male-pain／736662_15125504-hq.mp3 | Male Groan in Exhaustion（kanyonwyvern，1.5 秒） |  |
+| VOX-0755 | 0.7 | fs_cc0-voice-male-pain／790832_189858-hq.mp3 | Fast pain grunt, male（DeqstersLab，0.7 秒） |  |
+| VOX-0756 | 0.8 | fs_cc0-voice-male-pain／818868_5287430-hq.mp3 | Surfer dude - Grunt（Sadiquecat，0.8 秒） |  |
 
