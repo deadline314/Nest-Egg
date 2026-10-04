@@ -2,7 +2,7 @@
  "_說明": "手感預算：重播錄檔時的峰值上限與事件密度上限（NE-151 煙霧測試用）。particles 同時存活的粒子數、voices 同時發聲數、flash_per_second 每秒全螢幕閃光、frozen 同時被凍結的節點數；*_per_second 是任何一秒內該類事件的次數。",
  "budgets": {
   "particles": 900,
-  "voices": 22,
+  "voices": 28,
   "flash_per_second": 3,
   "frozen": 40,
   "hitstops_per_second": 6,

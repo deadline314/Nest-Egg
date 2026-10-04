@@ -21,16 +21,97 @@
   "license": "CC0-1.0",
   "page": "https://kenney.nl/assets/impact-sounds",
   "files_used": [
+   "Audio/impactBell_heavy_000.ogg",
+   "Audio/impactBell_heavy_001.ogg",
+   "Audio/impactBell_heavy_002.ogg",
+   "Audio/impactGeneric_light_000.ogg",
+   "Audio/impactGeneric_light_001.ogg",
+   "Audio/impactGeneric_light_002.ogg",
+   "Audio/impactGeneric_light_003.ogg",
+   "Audio/impactGeneric_light_004.ogg",
+   "Audio/impactGlass_light_000.ogg",
+   "Audio/impactGlass_light_001.ogg",
+   "Audio/impactGlass_light_002.ogg",
    "Audio/impactMetal_heavy_000.ogg",
+   "Audio/impactMetal_light_000.ogg",
+   "Audio/impactMetal_light_001.ogg",
+   "Audio/impactMetal_light_002.ogg",
+   "Audio/impactMetal_medium_000.ogg",
+   "Audio/impactMetal_medium_001.ogg",
+   "Audio/impactMining_000.ogg",
+   "Audio/impactMining_001.ogg",
+   "Audio/impactMining_002.ogg",
+   "Audio/impactPlate_medium_000.ogg",
+   "Audio/impactPlate_medium_001.ogg",
+   "Audio/impactPlate_medium_002.ogg",
+   "Audio/impactPlate_medium_003.ogg",
    "Audio/impactPunch_heavy_000.ogg",
    "Audio/impactPunch_heavy_001.ogg",
-   "Audio/impactPunch_heavy_002.ogg"
+   "Audio/impactPunch_heavy_002.ogg",
+   "Audio/impactPunch_medium_000.ogg",
+   "Audio/impactPunch_medium_001.ogg",
+   "Audio/impactPunch_medium_002.ogg",
+   "Audio/impactSoft_heavy_000.ogg",
+   "Audio/impactSoft_heavy_001.ogg",
+   "Audio/impactSoft_heavy_002.ogg",
+   "Audio/impactSoft_heavy_003.ogg",
+   "Audio/impactSoft_medium_000.ogg",
+   "Audio/impactSoft_medium_001.ogg",
+   "Audio/impactWood_light_000.ogg",
+   "Audio/impactWood_light_001.ogg",
+   "Audio/impactWood_light_002.ogg"
   ],
   "outputs": [
+   "res://audio/sfx/block_04.ogg",
+   "res://audio/sfx/death_player_01.ogg",
+   "res://audio/sfx/death_player_02.ogg",
    "res://audio/sfx/finisher_01.ogg",
+   "res://audio/sfx/hit_01.ogg",
+   "res://audio/sfx/hit_02.ogg",
+   "res://audio/sfx/hit_03.ogg",
+   "res://audio/sfx/hit_a_01.ogg",
+   "res://audio/sfx/hit_a_02.ogg",
+   "res://audio/sfx/hit_a_03.ogg",
+   "res://audio/sfx/hit_b_01.ogg",
+   "res://audio/sfx/hit_b_02.ogg",
+   "res://audio/sfx/hit_b_03.ogg",
+   "res://audio/sfx/hit_c_01.ogg",
+   "res://audio/sfx/hit_c_02.ogg",
+   "res://audio/sfx/hit_tail_01.ogg",
+   "res://audio/sfx/hit_tail_02.ogg",
+   "res://audio/sfx/hit_weak_01.ogg",
+   "res://audio/sfx/hit_weak_02.ogg",
+   "res://audio/sfx/hit_weak_03.ogg",
+   "res://audio/sfx/hurt_machine_02.ogg",
+   "res://audio/sfx/kill_01.ogg",
+   "res://audio/sfx/kill_02.ogg",
+   "res://audio/sfx/kill_03.ogg",
+   "res://audio/sfx/mat_armor_01.ogg",
+   "res://audio/sfx/mat_armor_02.ogg",
+   "res://audio/sfx/mat_armor_03.ogg",
+   "res://audio/sfx/mat_armor_04.ogg",
+   "res://audio/sfx/mat_concrete_01.ogg",
+   "res://audio/sfx/mat_concrete_02.ogg",
+   "res://audio/sfx/mat_concrete_03.ogg",
+   "res://audio/sfx/mat_flesh_03.ogg",
+   "res://audio/sfx/mat_generic_01.ogg",
+   "res://audio/sfx/mat_generic_02.ogg",
+   "res://audio/sfx/mat_generic_03.ogg",
+   "res://audio/sfx/mat_glass_01.ogg",
+   "res://audio/sfx/mat_glass_02.ogg",
+   "res://audio/sfx/mat_glass_03.ogg",
+   "res://audio/sfx/mat_metal_01.ogg",
+   "res://audio/sfx/mat_metal_02.ogg",
+   "res://audio/sfx/mat_metal_03.ogg",
+   "res://audio/sfx/mat_wood_01.ogg",
+   "res://audio/sfx/mat_wood_02.ogg",
+   "res://audio/sfx/mat_wood_03.ogg",
    "res://audio/sfx/melee_hit_heavy_01.ogg",
    "res://audio/sfx/melee_hit_heavy_02.ogg",
-   "res://audio/sfx/melee_hit_heavy_03.ogg"
+   "res://audio/sfx/melee_hit_heavy_03.ogg",
+   "res://audio/sfx/parry_01.ogg",
+   "res://audio/sfx/parry_02.ogg",
+   "res://audio/sfx/parry_03.ogg"
   ]
  },
  "kenney_interface-sounds": {
@@ -55,19 +136,27 @@
   "files_used": [
    "Audio/computerNoise_000.ogg",
    "Audio/computerNoise_001.ogg",
+   "Audio/computerNoise_002.ogg",
    "Audio/explosionCrunch_000.ogg",
+   "Audio/explosionCrunch_001.ogg",
    "Audio/explosionCrunch_002.ogg",
+   "Audio/explosionCrunch_003.ogg",
    "Audio/forceField_000.ogg",
    "Audio/forceField_001.ogg",
    "Audio/laserLarge_000.ogg",
    "Audio/laserLarge_001.ogg",
    "Audio/laserLarge_002.ogg",
+   "Audio/laserSmall_001.ogg",
    "Audio/lowFrequency_explosion_000.ogg",
    "Audio/lowFrequency_explosion_001.ogg",
    "Audio/thrusterFire_002.ogg"
   ],
   "outputs": [
+   "res://audio/sfx/death_machine_02.ogg",
+   "res://audio/sfx/explosion_small_03.ogg",
    "res://audio/sfx/finisher_01.ogg",
+   "res://audio/sfx/hurt_machine_03.ogg",
+   "res://audio/sfx/mat_energy_03.ogg",
    "res://audio/sfx/reload_mid_energy_01.ogg",
    "res://audio/sfx/reload_mid_energy_02.ogg",
    "res://audio/sfx/reload_start_energy_01.ogg",
@@ -80,6 +169,50 @@
    "res://audio/sfx/shot_launcher_02.ogg",
    "res://audio/sfx/shot_railgun_01.ogg",
    "res://audio/sfx/shot_railgun_02.ogg"
+  ]
+ },
+ "oga_15-vocal-male-strainhurtpainjump-sounds": {
+  "title": "15 vocal male strain/hurt/pain/jump sounds",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/15-vocal-male-strainhurtpainjump-sounds",
+  "files_used": [
+   "slightscream-01.flac",
+   "slightscream-02.flac",
+   "slightscream-03.flac",
+   "slightscream-04.flac",
+   "slightscream-05.flac"
+  ],
+  "outputs": [
+   "res://audio/sfx/hurt_humanoid_01.ogg",
+   "res://audio/sfx/hurt_humanoid_02.ogg",
+   "res://audio/sfx/hurt_humanoid_03.ogg",
+   "res://audio/sfx/hurt_humanoid_04.ogg",
+   "res://audio/sfx/hurt_humanoid_05.ogg"
+  ]
+ },
+ "oga_16-monster-growls": {
+  "title": "16 Monster Growls",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/16-monster-growls",
+  "files_used": [
+   "monster.1.ogg",
+   "monster.10.ogg",
+   "monster.11.ogg",
+   "monster.12.ogg",
+   "monster.2.ogg",
+   "monster.3.ogg",
+   "monster.4.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/death_creature_01.ogg",
+   "res://audio/sfx/death_creature_02.ogg",
+   "res://audio/sfx/death_creature_03.ogg",
+   "res://audio/sfx/hurt_creature_01.ogg",
+   "res://audio/sfx/hurt_creature_02.ogg",
+   "res://audio/sfx/hurt_creature_03.ogg",
+   "res://audio/sfx/hurt_creature_04.ogg"
   ]
  },
  "oga_2-gun-reloads": {
@@ -96,6 +229,98 @@
    "res://audio/sfx/reload_start_smg_02.ogg"
   ]
  },
+ "oga_20-sword-sound-effects-attacks-and-clashes": {
+  "title": "20 Sword Sound Effects (Attacks and Clashes)",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/20-sword-sound-effects-attacks-and-clashes",
+  "files_used": [
+   "sword_clash.1.ogg",
+   "sword_clash.2.ogg",
+   "sword_clash.3.ogg",
+   "sword_clash.4.ogg",
+   "sword_clash.5.ogg",
+   "sword_clash.6.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/block_01.ogg",
+   "res://audio/sfx/block_02.ogg",
+   "res://audio/sfx/block_03.ogg",
+   "res://audio/sfx/parry_01.ogg",
+   "res://audio/sfx/parry_02.ogg",
+   "res://audio/sfx/parry_03.ogg"
+  ]
+ },
+ "oga_25-cc0-bang-firework-sfx": {
+  "title": "25 CC0 bang / firework SFX",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/25-cc0-bang-firework-sfx",
+  "files_used": [
+   "bang_03.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/explosion_small_02.ogg"
+  ]
+ },
+ "oga_37-hitspunches": {
+  "title": "37 hits/punches",
+  "author": "? (submitted by qubodup)",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/37-hitspunches",
+  "files_used": [
+   "hits/hit01.mp3.flac",
+   "hits/hit05.mp3.flac",
+   "hits/hit09.mp3.flac"
+  ],
+  "outputs": [
+   "res://audio/sfx/hit_a_04.ogg",
+   "res://audio/sfx/hit_b_04.ogg",
+   "res://audio/sfx/hit_c_03.ogg"
+  ]
+ },
+ "oga_4-metal-dingsrings": {
+  "title": "4 Metal Dings/Rings",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/4-metal-dingsrings",
+  "files_used": [
+   "ding.1.ogg",
+   "ding.2.ogg",
+   "ding.3.ogg",
+   "ding.4.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/ricochet_01.ogg",
+   "res://audio/sfx/ricochet_02.ogg",
+   "res://audio/sfx/ricochet_03.ogg",
+   "res://audio/sfx/ricochet_04.ogg"
+  ]
+ },
+ "oga_75-cc0-breaking-falling-hit-sfx": {
+  "title": "75 CC0 breaking / falling / hit sfx",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/75-cc0-breaking-falling-hit-sfx",
+  "files_used": [
+   "bfh1_glass_breaking_01.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/guard_break_01.ogg"
+  ]
+ },
+ "oga_80-cc0-creature-sfx": {
+  "title": "80 CC0 creature SFX",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/80-cc0-creature-sfx",
+  "files_used": [
+   "alien_02.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/death_creature_04.ogg"
+  ]
+ },
  "oga_action-gameshmup-sfx-pack": {
   "title": "Action Game/SHMUP SFX Pack",
   "author": "?",
@@ -103,12 +328,18 @@
   "page": "https://opengameart.org/content/action-gameshmup-sfx-pack",
   "files_used": [
    "SFXPack/Explosions/Explosion1.wav",
+   "SFXPack/Explosions/Explosion2.wav",
    "SFXPack/Explosions/Explosion3.wav",
+   "SFXPack/Explosions/Explosion4.wav",
    "SFXPack/Laser/LaserBeam7.wav",
    "SFXPack/Laser/LaserBeam8.wav",
    "SFXPack/Laser/LaserShot6.wav"
   ],
   "outputs": [
+   "res://audio/sfx/explosion_01.ogg",
+   "res://audio/sfx/explosion_02.ogg",
+   "res://audio/sfx/explosion_03.ogg",
+   "res://audio/sfx/explosion_04.ogg",
    "res://audio/sfx/shot_laser_04.ogg",
    "res://audio/sfx/shot_launcher_01.ogg",
    "res://audio/sfx/shot_launcher_02.ogg",
@@ -128,6 +359,26 @@
    "res://audio/sfx/shot_cannon_01.ogg",
    "res://audio/sfx/shot_cannon_02.ogg",
    "res://audio/sfx/shot_launcher_01.ogg"
+  ]
+ },
+ "oga_electricity-game-sound-pack": {
+  "title": "Electricity Game Sound Pack",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/electricity-game-sound-pack",
+  "files_used": [
+   "death_1.wav",
+   "deathboom.wav",
+   "hit.wav",
+   "shieldhit.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/death_machine_01.ogg",
+   "res://audio/sfx/death_machine_02.ogg",
+   "res://audio/sfx/guard_break_01.ogg",
+   "res://audio/sfx/hurt_machine_01.ogg",
+   "res://audio/sfx/mat_energy_01.ogg",
+   "res://audio/sfx/mat_energy_02.ogg"
   ]
  },
  "oga_equipment-click": {
@@ -153,6 +404,20 @@
   ],
   "outputs": [
    "res://audio/sfx/equip_ballistic_01.ogg"
+  ]
+ },
+ "oga_explosions-4": {
+  "title": "Explosions",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/explosions-4",
+  "files_used": [
+   "explosion1_0.ogg",
+   "explosion2.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/explosion_05.ogg",
+   "res://audio/sfx/explosion_small_01.ogg"
   ]
  },
  "oga_gun-reload-lock-or-click-sound": {
@@ -213,6 +478,64 @@
    "res://audio/sfx/reload_start_pistol_01.ogg"
   ]
  },
+ "oga_impact": {
+  "title": "Impact",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/impact",
+  "files_used": [
+   "qubodupImpact/qubodupImpactMeat01.ogg",
+   "qubodupImpact/qubodupImpactMeat02.ogg",
+   "qubodupImpact/qubodupImpactMetal.ogg",
+   "qubodupImpact/qubodupImpactStone.ogg",
+   "qubodupImpact/qubodupImpactWood.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/mat_concrete_04.ogg",
+   "res://audio/sfx/mat_flesh_01.ogg",
+   "res://audio/sfx/mat_flesh_02.ogg",
+   "res://audio/sfx/mat_metal_04.ogg",
+   "res://audio/sfx/mat_wood_04.ogg"
+  ]
+ },
+ "oga_male-dead-voice": {
+  "title": "Male dead voice",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/male-dead-voice",
+  "files_used": [
+   "enemy_dead/enemy_dead_00.wav",
+   "enemy_dead/enemy_dead_01.wav",
+   "enemy_dead/enemy_dead_02.wav",
+   "enemy_dead/enemy_dead_03.wav",
+   "enemy_dead/enemy_dead_04.wav",
+   "enemy_dead/enemy_dead_05.wav",
+   "enemy_dead/enemy_dead_20.wav",
+   "enemy_dead/enemy_dead_21.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/death_humanoid_01.ogg",
+   "res://audio/sfx/death_humanoid_02.ogg",
+   "res://audio/sfx/death_humanoid_03.ogg",
+   "res://audio/sfx/death_humanoid_04.ogg",
+   "res://audio/sfx/death_humanoid_05.ogg",
+   "res://audio/sfx/death_humanoid_06.ogg",
+   "res://audio/sfx/death_player_01.ogg",
+   "res://audio/sfx/death_player_02.ogg"
+  ]
+ },
+ "oga_mechanical-explosion": {
+  "title": "Mechanical Explosion",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/mechanical-explosion",
+  "files_used": [
+   "mechanical_explosion.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/death_machine_01.ogg"
+  ]
+ },
  "oga_mechanical-sounds": {
   "title": "Mechanical Sounds",
   "author": "?",
@@ -234,6 +557,26 @@
    "res://audio/sfx/reload_mid_heavy_02.ogg",
    "res://audio/sfx/reload_start_heavy_01.ogg",
    "res://audio/sfx/reload_start_heavy_02.ogg"
+  ]
+ },
+ "oga_pain-sounds-by-emopreben": {
+  "title": "Pain sounds by EmoPreben",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/pain-sounds-by-emopreben",
+  "files_used": [
+   "Painsounds v2 - Track 1 - Arrrch.ogg",
+   "Painsounds v2 - Track 2 - Hurgh.ogg",
+   "Painsounds v2 - Track 3 - Huuurh.ogg",
+   "Painsounds v2 - Track 4 - Arrggh .ogg",
+   "Painsounds v2 - Track 5 - Urggh.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/hurt_01.ogg",
+   "res://audio/sfx/hurt_02.ogg",
+   "res://audio/sfx/hurt_03.ogg",
+   "res://audio/sfx/hurt_04.ogg",
+   "res://audio/sfx/hurt_05.ogg"
   ]
  },
  "oga_punch": {

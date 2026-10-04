@@ -377,6 +377,335 @@
     "kenney_sci-fi-sounds"
    ],
    "volume_db": 0.0
+  },
+  "hit": {
+   "files": [
+    "res://audio/sfx/hit_01.ogg",
+    "res://audio/sfx/hit_02.ogg",
+    "res://audio/sfx/hit_03.ogg"
+   ],
+   "pack": "kenney_impact-sounds",
+   "volume_db": 0.0
+  },
+  "hit_a": {
+   "files": [
+    "res://audio/sfx/hit_a_01.ogg",
+    "res://audio/sfx/hit_a_02.ogg",
+    "res://audio/sfx/hit_a_03.ogg",
+    "res://audio/sfx/hit_a_04.ogg"
+   ],
+   "pack": [
+    "kenney_impact-sounds",
+    "oga_37-hitspunches"
+   ],
+   "volume_db": 0.0
+  },
+  "hit_b": {
+   "files": [
+    "res://audio/sfx/hit_b_01.ogg",
+    "res://audio/sfx/hit_b_02.ogg",
+    "res://audio/sfx/hit_b_03.ogg",
+    "res://audio/sfx/hit_b_04.ogg"
+   ],
+   "pack": [
+    "kenney_impact-sounds",
+    "oga_37-hitspunches"
+   ],
+   "volume_db": 0.0
+  },
+  "hit_c": {
+   "files": [
+    "res://audio/sfx/hit_c_01.ogg",
+    "res://audio/sfx/hit_c_02.ogg",
+    "res://audio/sfx/hit_c_03.ogg"
+   ],
+   "pack": [
+    "kenney_impact-sounds",
+    "oga_37-hitspunches"
+   ],
+   "volume_db": 0.0
+  },
+  "hit_tail": {
+   "files": [
+    "res://audio/sfx/hit_tail_01.ogg",
+    "res://audio/sfx/hit_tail_02.ogg"
+   ],
+   "pack": "kenney_impact-sounds",
+   "volume_db": -4.0
+  },
+  "mat_generic": {
+   "files": [
+    "res://audio/sfx/mat_generic_01.ogg",
+    "res://audio/sfx/mat_generic_02.ogg",
+    "res://audio/sfx/mat_generic_03.ogg"
+   ],
+   "pack": "kenney_impact-sounds",
+   "volume_db": 0.0
+  },
+  "mat_flesh": {
+   "files": [
+    "res://audio/sfx/mat_flesh_01.ogg",
+    "res://audio/sfx/mat_flesh_02.ogg",
+    "res://audio/sfx/mat_flesh_03.ogg"
+   ],
+   "pack": [
+    "kenney_impact-sounds",
+    "oga_impact"
+   ],
+   "volume_db": 0.0
+  },
+  "mat_armor": {
+   "files": [
+    "res://audio/sfx/mat_armor_01.ogg",
+    "res://audio/sfx/mat_armor_02.ogg",
+    "res://audio/sfx/mat_armor_03.ogg",
+    "res://audio/sfx/mat_armor_04.ogg"
+   ],
+   "pack": "kenney_impact-sounds",
+   "volume_db": 0.0
+  },
+  "mat_metal": {
+   "files": [
+    "res://audio/sfx/mat_metal_01.ogg",
+    "res://audio/sfx/mat_metal_02.ogg",
+    "res://audio/sfx/mat_metal_03.ogg",
+    "res://audio/sfx/mat_metal_04.ogg"
+   ],
+   "pack": [
+    "kenney_impact-sounds",
+    "oga_impact"
+   ],
+   "volume_db": 0.0
+  },
+  "mat_concrete": {
+   "files": [
+    "res://audio/sfx/mat_concrete_01.ogg",
+    "res://audio/sfx/mat_concrete_02.ogg",
+    "res://audio/sfx/mat_concrete_03.ogg",
+    "res://audio/sfx/mat_concrete_04.ogg"
+   ],
+   "pack": [
+    "kenney_impact-sounds",
+    "oga_impact"
+   ],
+   "volume_db": 0.0
+  },
+  "mat_glass": {
+   "files": [
+    "res://audio/sfx/mat_glass_01.ogg",
+    "res://audio/sfx/mat_glass_02.ogg",
+    "res://audio/sfx/mat_glass_03.ogg"
+   ],
+   "pack": "kenney_impact-sounds",
+   "volume_db": 0.0
+  },
+  "mat_wood": {
+   "files": [
+    "res://audio/sfx/mat_wood_01.ogg",
+    "res://audio/sfx/mat_wood_02.ogg",
+    "res://audio/sfx/mat_wood_03.ogg",
+    "res://audio/sfx/mat_wood_04.ogg"
+   ],
+   "pack": [
+    "kenney_impact-sounds",
+    "oga_impact"
+   ],
+   "volume_db": 0.0
+  },
+  "mat_energy": {
+   "files": [
+    "res://audio/sfx/mat_energy_01.ogg",
+    "res://audio/sfx/mat_energy_02.ogg",
+    "res://audio/sfx/mat_energy_03.ogg"
+   ],
+   "pack": [
+    "kenney_sci-fi-sounds",
+    "oga_electricity-game-sound-pack"
+   ],
+   "volume_db": 0.0
+  },
+  "ricochet": {
+   "files": [
+    "res://audio/sfx/ricochet_01.ogg",
+    "res://audio/sfx/ricochet_02.ogg",
+    "res://audio/sfx/ricochet_03.ogg",
+    "res://audio/sfx/ricochet_04.ogg"
+   ],
+   "pack": "oga_4-metal-dingsrings",
+   "volume_db": -2.0
+  },
+  "hit_weak": {
+   "files": [
+    "res://audio/sfx/hit_weak_01.ogg",
+    "res://audio/sfx/hit_weak_02.ogg",
+    "res://audio/sfx/hit_weak_03.ogg"
+   ],
+   "pack": "kenney_impact-sounds",
+   "volume_db": -2.0
+  },
+  "block": {
+   "files": [
+    "res://audio/sfx/block_01.ogg",
+    "res://audio/sfx/block_02.ogg",
+    "res://audio/sfx/block_03.ogg",
+    "res://audio/sfx/block_04.ogg"
+   ],
+   "pack": [
+    "kenney_impact-sounds",
+    "oga_20-sword-sound-effects-attacks-and-clashes"
+   ],
+   "volume_db": -2.0
+  },
+  "kill": {
+   "files": [
+    "res://audio/sfx/kill_01.ogg",
+    "res://audio/sfx/kill_02.ogg",
+    "res://audio/sfx/kill_03.ogg"
+   ],
+   "pack": "kenney_impact-sounds",
+   "volume_db": 0.0
+  },
+  "explosion": {
+   "files": [
+    "res://audio/sfx/explosion_01.ogg",
+    "res://audio/sfx/explosion_02.ogg",
+    "res://audio/sfx/explosion_03.ogg",
+    "res://audio/sfx/explosion_04.ogg",
+    "res://audio/sfx/explosion_05.ogg"
+   ],
+   "pack": [
+    "oga_action-gameshmup-sfx-pack",
+    "oga_explosions-4"
+   ],
+   "volume_db": 0.0
+  },
+  "explosion_small": {
+   "files": [
+    "res://audio/sfx/explosion_small_01.ogg",
+    "res://audio/sfx/explosion_small_02.ogg",
+    "res://audio/sfx/explosion_small_03.ogg"
+   ],
+   "pack": [
+    "kenney_sci-fi-sounds",
+    "oga_25-cc0-bang-firework-sfx",
+    "oga_explosions-4"
+   ],
+   "volume_db": -2.0
+  },
+  "hurt": {
+   "files": [
+    "res://audio/sfx/hurt_01.ogg",
+    "res://audio/sfx/hurt_02.ogg",
+    "res://audio/sfx/hurt_03.ogg",
+    "res://audio/sfx/hurt_04.ogg",
+    "res://audio/sfx/hurt_05.ogg"
+   ],
+   "pack": "oga_pain-sounds-by-emopreben",
+   "volume_db": 0.0
+  },
+  "death_player": {
+   "files": [
+    "res://audio/sfx/death_player_01.ogg",
+    "res://audio/sfx/death_player_02.ogg"
+   ],
+   "pack": [
+    "kenney_impact-sounds",
+    "oga_male-dead-voice"
+   ],
+   "volume_db": 0.0
+  },
+  "hurt_humanoid": {
+   "files": [
+    "res://audio/sfx/hurt_humanoid_01.ogg",
+    "res://audio/sfx/hurt_humanoid_02.ogg",
+    "res://audio/sfx/hurt_humanoid_03.ogg",
+    "res://audio/sfx/hurt_humanoid_04.ogg",
+    "res://audio/sfx/hurt_humanoid_05.ogg"
+   ],
+   "pack": "oga_15-vocal-male-strainhurtpainjump-sounds",
+   "volume_db": -2.0
+  },
+  "death_humanoid": {
+   "files": [
+    "res://audio/sfx/death_humanoid_01.ogg",
+    "res://audio/sfx/death_humanoid_02.ogg",
+    "res://audio/sfx/death_humanoid_03.ogg",
+    "res://audio/sfx/death_humanoid_04.ogg",
+    "res://audio/sfx/death_humanoid_05.ogg",
+    "res://audio/sfx/death_humanoid_06.ogg"
+   ],
+   "pack": "oga_male-dead-voice",
+   "volume_db": 0.0
+  },
+  "hurt_machine": {
+   "files": [
+    "res://audio/sfx/hurt_machine_01.ogg",
+    "res://audio/sfx/hurt_machine_02.ogg",
+    "res://audio/sfx/hurt_machine_03.ogg"
+   ],
+   "pack": [
+    "kenney_impact-sounds",
+    "kenney_sci-fi-sounds",
+    "oga_electricity-game-sound-pack"
+   ],
+   "volume_db": -2.0
+  },
+  "death_machine": {
+   "files": [
+    "res://audio/sfx/death_machine_01.ogg",
+    "res://audio/sfx/death_machine_02.ogg"
+   ],
+   "pack": [
+    "kenney_sci-fi-sounds",
+    "oga_electricity-game-sound-pack",
+    "oga_mechanical-explosion"
+   ],
+   "volume_db": 0.0
+  },
+  "hurt_creature": {
+   "files": [
+    "res://audio/sfx/hurt_creature_01.ogg",
+    "res://audio/sfx/hurt_creature_02.ogg",
+    "res://audio/sfx/hurt_creature_03.ogg",
+    "res://audio/sfx/hurt_creature_04.ogg"
+   ],
+   "pack": "oga_16-monster-growls",
+   "volume_db": -2.0
+  },
+  "death_creature": {
+   "files": [
+    "res://audio/sfx/death_creature_01.ogg",
+    "res://audio/sfx/death_creature_02.ogg",
+    "res://audio/sfx/death_creature_03.ogg",
+    "res://audio/sfx/death_creature_04.ogg"
+   ],
+   "pack": [
+    "oga_16-monster-growls",
+    "oga_80-cc0-creature-sfx"
+   ],
+   "volume_db": 0.0
+  },
+  "parry": {
+   "files": [
+    "res://audio/sfx/parry_01.ogg",
+    "res://audio/sfx/parry_02.ogg",
+    "res://audio/sfx/parry_03.ogg"
+   ],
+   "pack": [
+    "kenney_impact-sounds",
+    "oga_20-sword-sound-effects-attacks-and-clashes"
+   ],
+   "volume_db": 0.0
+  },
+  "guard_break": {
+   "files": [
+    "res://audio/sfx/guard_break_01.ogg"
+   ],
+   "pack": [
+    "oga_75-cc0-breaking-falling-hit-sfx",
+    "oga_electricity-game-sound-pack"
+   ],
+   "volume_db": 0.0
   }
  }
 }

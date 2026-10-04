@@ -11,6 +11,8 @@ extends Node
 const HITSTOP_MAX := 0.2
 const HITSTOP_WINDOW := 1.0
 const HITSTOP_WINDOW_BUDGET := 0.4
+## 半徑小於這個值的爆炸用小爆炸音效（頭目死亡時連環的小爆、油桶以外的小型爆炸）。
+const SMALL_EXPLOSION_RADIUS := 40.0
 ## 凍結中參與者的微抖幅度（像素），避免看起來像當機。
 const FREEZE_JITTER := 0.6
 ## 慢動作只允許這些情境；同一種慢動作之間有冷卻（秒）。
@@ -470,7 +472,7 @@ func explosion(position: Vector2, radius: float, damage: int, team: Combat.Team,
 	# 整個環境光被閃亮一下：爆炸越大越亮。
 	EventBus.ambient_flash_requested.emit(color.lerp(Palette.WHITE, 0.5), clampf(0.12 + radius / 160.0, 0.2, 0.5), 0.3)
 	Feel.shake_strength(clampf(radius / 6.0, 2.0, 8.0), 0.25)
-	Sfx.play(&"explosion", -2.0, 0.1)
+	Sfx.play(&"explosion_small" if radius < SMALL_EXPLOSION_RADIUS else &"explosion", -2.0, 0.1)
 
 
 ## 爆炸的視覺：核心閃光、火球、煙、火花、餘燼、碎片、衝擊波（半徑越大越誇張）。

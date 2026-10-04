@@ -1,5 +1,5 @@
 class_name AudioSuite
-extends TestSuite
+extends EnemySuiteBase
 ## 音效庫與聲音設定表（NE-156）：檔案優先、缺檔退回合成音、變體輪播、武器與角色查表、資料檢查。
 ## 缺檔測試用的路徑與 id 含 test_audio_missing，執行器會忽略它的錯誤輸出。
 
@@ -21,6 +21,8 @@ func run() -> void:
 	_test_character_sounds()
 	_test_loadout_switch_signal()
 	_test_gun_sounds()
+	_test_impact_and_character_sounds()
+	await _test_hurt_voice_cooldown()
 	_test_source_counts()
 
 
@@ -289,6 +291,70 @@ func _test_gun_sounds() -> void:
 	for i in AudioServer.get_bus_effect_count(master):
 		limiters += 1 if AudioServer.get_bus_effect(master, i) is AudioEffectHardLimiter else 0
 	check(limiters == 1, "the master bus has exactly one hard limiter against clipping (%d)" % limiters)
+
+
+## 受擊與角色（NE-158）：材質、跳彈、弱點、格擋、爆炸、敵人與玩家的受擊與死亡都是錄音素材，且機械、人形、生物彼此不同。
+func _test_impact_and_character_sounds() -> void:
+	var material_files: Dictionary = {}
+	for material in HitFeedback.material_ids():
+		var def: Dictionary = HitFeedback._data["materials"][material]
+		var sound := StringName(str(def["sound"]))
+		_check_event_from_files(sound, "material %s" % material)
+		for layer: Dictionary in Sfx._events[String(sound)]["layers"]:
+			for name: String in layer["sounds"]:
+				for path in Sfx.bank().files_of(StringName(name)):
+					check(not material_files.has(path) or material_files[path] == material, "material sounds do not share files between materials: %s" % path)
+					material_files[path] = material
+	for key in ["ricochet", "weak"]:
+		_check_event_from_files(StringName(str(HitFeedback._data[key]["sound"])), key)
+	for event in [&"hit_enemy", &"hit_heavy", &"kill_enemy", &"death_humanoid", &"death_machine", &"death_creature"]:
+		_check_event_from_files(event, "event %s" % event)
+	for sound in [&"block", &"parry", &"guard_break", &"explosion", &"explosion_small", &"hurt", &"kill", &"hit"]:
+		check(Sfx.source_of(sound) == &"file", "%s plays from files" % sound)
+	var death := {}
+	var hurt := {}
+	for id in [&"grunt", &"turret", &"shock_hound", &"drone", &"sniper", &"warden"]:
+		death[id] = CharacterSounds.name_for(id, &"death")
+		hurt[id] = CharacterSounds.name_for(id, &"hurt")
+		check(hurt[id] != &"" and Sfx.source_of(hurt[id]) == &"file", "%s has a recorded hurt sound (%s)" % [id, hurt[id]])
+		check(death[id] != &"" and Sfx.has_event(death[id]), "%s has a death event (%s)" % [id, death[id]])
+	check(death[&"grunt"] != death[&"turret"] and death[&"turret"] != death[&"shock_hound"] and death[&"grunt"] != death[&"shock_hound"], "humanoid, machine and creature deaths differ")
+	check(death[&"drone"] == death[&"turret"] and hurt[&"drone"] == hurt[&"warden"], "drones and bosses of the machine family share its voice")
+	check(hurt[&"sniper"] == hurt[&"grunt"], "humanoids share the humanoid hurt voice")
+	check(CharacterSounds.name_for(&"player", &"hurt") != hurt[&"grunt"], "the player's hurt voice differs from the enemies'")
+	check(CharacterSounds.name_for(&"player", &"death") == &"death_player" and Sfx.source_of(&"death_player") == &"file", "the player has a recorded death sound")
+	check(CharacterSounds.name_for(&"test_no_such_enemy", &"death") == &"kill_enemy", "an unregistered enemy still dies with a sound")
+	for file in DirAccess.get_files_at("res://data/enemies"):
+		if file.ends_with(".tres"):
+			var enemy := load("res://data/enemies/" + file) as EnemyData
+			check(CharacterSounds.table().has_profile(enemy.id), "enemy %s has a sound profile" % enemy.id)
+
+
+func _check_event_from_files(event: StringName, label: String) -> void:
+	check(Sfx.has_event(event), "%s exists" % label)
+	for layer: Dictionary in Sfx._events.get(String(event), {}).get("layers", []):
+		for name: String in layer["sounds"]:
+			check(Sfx.source_of(StringName(name)) == &"file", "%s layer sound %s plays from files" % [label, name])
+
+
+## 連發打中同一隻敵人，受擊叫聲不會每發都響。
+func _test_hurt_voice_cooldown() -> void:
+	await open_level(10.0)
+	var enemy := spawn(GRUNT_PATH, 20.0)
+	await physics_frames(2)
+	Sfx._last_play_msec.erase(&"hurt_humanoid")
+	enemy.hurtbox.receive(hit(1))
+	var first: int = Sfx._last_play_msec.get(&"hurt_humanoid", -1)
+	check(first >= 0, "the first hit makes the enemy cry out")
+	await physics_frames(4)
+	enemy.hurtbox.receive(hit(1))
+	check(Sfx._last_play_msec.get(&"hurt_humanoid", -1) == first, "a second hit right after does not repeat the cry")
+	enemy._hurt_voice_left = 0.0
+	await physics_frames(2)
+	Sfx._last_play_msec.erase(&"hurt_humanoid")
+	enemy.hurtbox.receive(hit(1))
+	check(Sfx._last_play_msec.has(&"hurt_humanoid"), "after the cooldown the enemy can cry out again")
+	await end_level(level)
 
 
 func _test_source_counts() -> void:

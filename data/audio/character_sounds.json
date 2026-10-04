@@ -1,5 +1,5 @@
 {
- "_說明": "角色聲音：hurt 受擊、death 死亡、attack 攻擊（開火）、telegraph 攻擊預兆、alert 警戒。值是音效或聲音事件的名稱（可用陣列依序挑第一個存在的，{attack_category} 這類欄位由程式代入），空字串代表不發聲。profiles 以角色 id（player、敵人 id、NPC id）為鍵；沒寫的角色與動作退回 default；extends 可以沿用另一組，例如共用 machine。",
+ "_說明": "角色聲音：hurt 受擊、death 死亡、attack 攻擊（開火）、telegraph 攻擊預兆、alert 警戒。值是音效或聲音事件的名稱（可用陣列依序挑第一個存在的，{attack_category} 這類欄位由程式代入），空字串代表不發聲。profiles 以角色 id（player、敵人 id、NPC id）為鍵；沒寫的角色與動作退回 default；extends 可以沿用另一組，例如共用 machine。 humanoid（人形）、machine（機械、無人機、砲台）、creature（生物）是共用基底，每種敵人用 extends 沿用。",
  "default": {
   "hurt": "",
   "death": "kill_enemy",
@@ -13,7 +13,7 @@
  "profiles": {
   "player": {
    "hurt": "hurt",
-   "death": "explosion",
+   "death": "death_player",
    "attack": "",
    "telegraph": ""
   },
@@ -21,19 +21,97 @@
    "attack": [
     "shot_enemy_sniper",
     "shot_enemy"
-   ]
+   ],
+   "extends": "humanoid"
   },
   "heavy_gunner": {
    "attack": [
     "shot_enemy_heavy",
     "shot_enemy"
-   ]
+   ],
+   "extends": "humanoid"
   },
   "turret": {
+   "extends": "machine",
    "attack": [
     "shot_enemy_turret",
     "shot_enemy"
    ]
+  },
+  "humanoid": {
+   "hurt": [
+    "hurt_humanoid",
+    ""
+   ],
+   "death": [
+    "death_humanoid",
+    "kill_enemy"
+   ]
+  },
+  "machine": {
+   "hurt": [
+    "hurt_machine",
+    ""
+   ],
+   "death": [
+    "death_machine",
+    "kill_enemy"
+   ]
+  },
+  "creature": {
+   "hurt": [
+    "hurt_creature",
+    ""
+   ],
+   "death": [
+    "death_creature",
+    "kill_enemy"
+   ]
+  },
+  "grunt": {
+   "extends": "humanoid"
+  },
+  "elite_grunt": {
+   "extends": "humanoid"
+  },
+  "stalker": {
+   "extends": "humanoid"
+  },
+  "shield_rusher": {
+   "extends": "humanoid"
+  },
+  "slasher": {
+   "extends": "humanoid"
+  },
+  "flamer": {
+   "extends": "humanoid"
+  },
+  "mortar": {
+   "extends": "humanoid"
+  },
+  "reclaimer": {
+   "extends": "humanoid"
+  },
+  "warden": {
+   "extends": "machine"
+  },
+  "drone": {
+   "extends": "machine"
+  },
+  "repair_drone": {
+   "extends": "machine"
+  },
+  "searchlight_drone": {
+   "extends": "machine"
+  },
+  "shock_hound": {
+   "extends": "creature"
+  },
+  "mimic": {
+   "extends": "creature"
+  },
+  "bomber": {
+   "extends": "creature"
   }
  }
 }

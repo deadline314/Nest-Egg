@@ -411,6 +411,81 @@
      "delay": 0.12
     }
    ]
+  },
+  "death_humanoid": {
+   "priority": 9,
+   "layers": [
+    {
+     "sounds": [
+      "death_humanoid"
+     ],
+     "pitch": [
+      0.95,
+      1.05
+     ]
+    },
+    {
+     "sounds": [
+      "kill"
+     ],
+     "pitch": [
+      0.9,
+      1.0
+     ],
+     "volume_db": -7,
+     "delay": 0.02
+    }
+   ]
+  },
+  "death_machine": {
+   "priority": 9,
+   "layers": [
+    {
+     "sounds": [
+      "death_machine"
+     ],
+     "pitch": [
+      0.95,
+      1.05
+     ]
+    },
+    {
+     "sounds": [
+      "kill"
+     ],
+     "pitch": [
+      0.9,
+      1.0
+     ],
+     "volume_db": -7,
+     "delay": 0.02
+    }
+   ]
+  },
+  "death_creature": {
+   "priority": 9,
+   "layers": [
+    {
+     "sounds": [
+      "death_creature"
+     ],
+     "pitch": [
+      0.95,
+      1.05
+     ]
+    },
+    {
+     "sounds": [
+      "kill"
+     ],
+     "pitch": [
+      0.9,
+      1.0
+     ],
+     "volume_db": -7,
+     "delay": 0.02
+    }
+   ]
   }
  }
 }

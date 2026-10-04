@@ -5,7 +5,7 @@ extends Node
 ## 合成音由一或多個「層」混合而成（例如：低頻重擊 + 高頻噪音）。呼叫端只認 id，換素材不用改程式。
 
 const MIX_RATE := 22050
-const VOICES := 24
+const VOICES := 32
 ## 同一音效的最短重播間隔，避免同一影格疊加造成爆音。
 const MIN_INTERVAL_MSEC := 25
 ## 音量由設定選單控制（見 Settings.AUDIO_BUSES）。
@@ -151,6 +151,10 @@ const SOUNDS := {
 	&"explosion": [
 		{"wave": "noise", "time": 0.45, "volume": 0.6, "lowpass": 0.82, "decay": 1.6},
 		{"wave": "sine", "from": 110.0, "to": 30.0, "time": 0.35, "volume": 0.6, "decay": 1.4},
+	],
+	&"explosion_small": [
+		{"wave": "noise", "time": 0.25, "volume": 0.5, "lowpass": 0.8, "decay": 1.8},
+		{"wave": "sine", "from": 150.0, "to": 45.0, "time": 0.2, "volume": 0.45, "decay": 1.6},
 	],
 	&"finisher": [
 		{"wave": "sine", "from": 160.0, "to": 40.0, "time": 0.25, "volume": 0.6, "decay": 1.5},

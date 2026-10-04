@@ -17,6 +17,8 @@ extends CharacterBody2D
 ## 原點位於腳底。
 
 const FLASH_TIME := 0.08
+## 同一隻敵人兩次受擊叫聲之間至少隔幾秒。
+const HURT_VOICE_INTERVAL := 0.45
 ## 受擊分層：累積的衝擊力每秒回復多少；單次衝擊達韌性的 STAGGER_RATIO 倍就硬直（出招中要 BREAK_RATIO 倍）；反應完有 REACTION_GRACE 秒不會再被畏縮或硬直（避免被連續射擊鎖死）。
 const POISE_RECOVER := 2.0
 const STAGGER_RATIO := 1.5
@@ -113,6 +115,8 @@ var _is_finishable := false
 var _dying := false
 ## 戒備：被探照無人機等警報引來，剩餘秒數與聚集的地點（世界座標）。
 var _alert_left := 0.0
+## 受擊叫聲的冷卻：連發子彈打中同一隻敵人時，叫聲不會每發都響。
+var _hurt_voice_left := 0.0
 var _alert_point := Vector2.ZERO
 var _home := Vector2.ZERO
 var _target_ref: WeakRef
@@ -429,6 +433,7 @@ func _physics_process(delta: float) -> void:
 	_anim_time += delta
 	_flash_left = maxf(0.0, _flash_left - delta)
 	_alert_left = maxf(0.0, _alert_left - delta)
+	_hurt_voice_left = maxf(0.0, _hurt_voice_left - delta)
 	_body_kick = maxf(0.0, _body_kick - BODY_KICK_DECAY * delta)
 	_tick_damage_fx(delta)
 	_poise_load = maxf(0.0, _poise_load - POISE_RECOVER * delta)
@@ -625,7 +630,9 @@ func stun(seconds: float) -> void:
 
 
 func _on_damaged(info: DamageInfo) -> void:
-	CharacterSounds.play(data.id, &"hurt", -4.0)
+	if _hurt_voice_left <= 0.0:
+		_hurt_voice_left = HURT_VOICE_INTERVAL
+		CharacterSounds.play(data.id, &"hurt", -4.0)
 	if info.weak_hit:
 		_weak_point_feedback(info)
 	var tier := _resolve_hit_tier(info) if health.current > 0 else HitTier.LIGHT
