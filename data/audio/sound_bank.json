@@ -1,4 +1,382 @@
 {
  "_說明": "音效庫：音效 id → 音訊檔（變體會輪播且不連續重複）。沒有登記或檔案遺失的 id 退回 autoload/sfx.gd 的合成音。files 用 res:// 路徑；volume_db 微調音量；pitch [最小, 最大] 每次播放隨機音高；pack 對應 assets_src/audio/LICENSES.json 的授權包 id。",
- "sounds": {}
+ "sounds": {
+  "shot_pistol": {
+   "files": [
+    "res://audio/sfx/shot_pistol_01.ogg",
+    "res://audio/sfx/shot_pistol_02.ogg",
+    "res://audio/sfx/shot_pistol_03.ogg",
+    "res://audio/sfx/shot_pistol_04.ogg"
+   ],
+   "pack": "oga_the-free-firearm-sound-library",
+   "volume_db": -1.0
+  },
+  "shot_rifle": {
+   "files": [
+    "res://audio/sfx/shot_rifle_01.ogg",
+    "res://audio/sfx/shot_rifle_02.ogg",
+    "res://audio/sfx/shot_rifle_03.ogg",
+    "res://audio/sfx/shot_rifle_04.ogg"
+   ],
+   "pack": "oga_the-free-firearm-sound-library"
+  },
+  "shot_smg": {
+   "files": [
+    "res://audio/sfx/shot_smg_01.ogg",
+    "res://audio/sfx/shot_smg_02.ogg",
+    "res://audio/sfx/shot_smg_03.ogg",
+    "res://audio/sfx/shot_smg_04.ogg",
+    "res://audio/sfx/shot_smg_05.ogg"
+   ],
+   "pack": "oga_the-free-firearm-sound-library",
+   "volume_db": -2.0
+  },
+  "shot_spread": {
+   "files": [
+    "res://audio/sfx/shot_spread_01.ogg",
+    "res://audio/sfx/shot_spread_02.ogg",
+    "res://audio/sfx/shot_spread_03.ogg",
+    "res://audio/sfx/shot_spread_04.ogg",
+    "res://audio/sfx/shot_spread_05.ogg"
+   ],
+   "pack": "oga_the-free-firearm-sound-library",
+   "volume_db": 1.0
+  },
+  "shot_launcher": {
+   "files": [
+    "res://audio/sfx/shot_launcher_01.ogg",
+    "res://audio/sfx/shot_launcher_02.ogg"
+   ],
+   "pack": [
+    "kenney_sci-fi-sounds",
+    "oga_action-gameshmup-sfx-pack",
+    "oga_cannon-fire"
+   ],
+   "volume_db": 0.0
+  },
+  "shot_railgun": {
+   "files": [
+    "res://audio/sfx/shot_railgun_01.ogg",
+    "res://audio/sfx/shot_railgun_02.ogg"
+   ],
+   "pack": [
+    "kenney_sci-fi-sounds",
+    "oga_action-gameshmup-sfx-pack"
+   ],
+   "volume_db": 0.0
+  },
+  "shot_laser": {
+   "files": [
+    "res://audio/sfx/shot_laser_01.ogg",
+    "res://audio/sfx/shot_laser_02.ogg",
+    "res://audio/sfx/shot_laser_03.ogg",
+    "res://audio/sfx/shot_laser_04.ogg"
+   ],
+   "pack": [
+    "kenney_sci-fi-sounds",
+    "oga_action-gameshmup-sfx-pack"
+   ],
+   "volume_db": -2.0
+  },
+  "shot_cannon": {
+   "files": [
+    "res://audio/sfx/shot_cannon_01.ogg",
+    "res://audio/sfx/shot_cannon_02.ogg"
+   ],
+   "pack": [
+    "kenney_sci-fi-sounds",
+    "oga_cannon-fire"
+   ],
+   "volume_db": 2.0
+  },
+  "shot_enemy": {
+   "files": [
+    "res://audio/sfx/shot_enemy_01.ogg",
+    "res://audio/sfx/shot_enemy_02.ogg",
+    "res://audio/sfx/shot_enemy_03.ogg",
+    "res://audio/sfx/shot_enemy_04.ogg"
+   ],
+   "pack": "oga_the-free-firearm-sound-library",
+   "volume_db": -3.0
+  },
+  "shot_enemy_sniper": {
+   "files": [
+    "res://audio/sfx/shot_enemy_sniper_01.ogg",
+    "res://audio/sfx/shot_enemy_sniper_02.ogg"
+   ],
+   "pack": "oga_the-free-firearm-sound-library",
+   "volume_db": 6.0
+  },
+  "shot_enemy_heavy": {
+   "files": [
+    "res://audio/sfx/shot_enemy_heavy_01.ogg",
+    "res://audio/sfx/shot_enemy_heavy_02.ogg",
+    "res://audio/sfx/shot_enemy_heavy_03.ogg"
+   ],
+   "pack": "oga_the-free-firearm-sound-library",
+   "volume_db": 2.0
+  },
+  "shot_enemy_turret": {
+   "files": [
+    "res://audio/sfx/shot_enemy_turret_01.ogg",
+    "res://audio/sfx/shot_enemy_turret_02.ogg",
+    "res://audio/sfx/shot_enemy_turret_03.ogg",
+    "res://audio/sfx/shot_enemy_turret_04.ogg"
+   ],
+   "pack": "oga_the-free-firearm-sound-library",
+   "volume_db": -3.0
+  },
+  "reload_start_pistol": {
+   "files": [
+    "res://audio/sfx/reload_start_pistol_01.ogg"
+   ],
+   "pack": "oga_handgun-reload-sound-effect",
+   "volume_db": 0.0
+  },
+  "reload_mid_pistol": {
+   "files": [
+    "res://audio/sfx/reload_mid_pistol_01.ogg",
+    "res://audio/sfx/reload_mid_pistol_02.ogg"
+   ],
+   "pack": [
+    "oga_gun-reload-sound-effects",
+    "oga_handgun-reload-sound-effect"
+   ],
+   "volume_db": 0.0
+  },
+  "reload_done_pistol": {
+   "files": [
+    "res://audio/sfx/reload_done_pistol_01.ogg"
+   ],
+   "pack": "oga_handgun-reload-sound-effect",
+   "volume_db": 0.0
+  },
+  "reload_start_rifle": {
+   "files": [
+    "res://audio/sfx/reload_start_rifle_01.ogg"
+   ],
+   "pack": "oga_gun-reload-sounds",
+   "volume_db": 0.0
+  },
+  "reload_mid_rifle": {
+   "files": [
+    "res://audio/sfx/reload_mid_rifle_01.ogg",
+    "res://audio/sfx/reload_mid_rifle_02.ogg"
+   ],
+   "pack": [
+    "oga_gun-reload-sound-effects",
+    "oga_gun-reload-sounds"
+   ],
+   "volume_db": 0.0
+  },
+  "reload_done_rifle": {
+   "files": [
+    "res://audio/sfx/reload_done_rifle_01.ogg"
+   ],
+   "pack": "oga_gun-reload-sounds",
+   "volume_db": 0.0
+  },
+  "reload_start_smg": {
+   "files": [
+    "res://audio/sfx/reload_start_smg_01.ogg",
+    "res://audio/sfx/reload_start_smg_02.ogg"
+   ],
+   "pack": [
+    "oga_2-gun-reloads",
+    "oga_gun-reload-sounds"
+   ],
+   "volume_db": 0.0
+  },
+  "reload_mid_smg": {
+   "files": [
+    "res://audio/sfx/reload_mid_smg_01.ogg",
+    "res://audio/sfx/reload_mid_smg_02.ogg"
+   ],
+   "pack": [
+    "oga_2-gun-reloads",
+    "oga_gun-reload-sounds"
+   ],
+   "volume_db": 0.0
+  },
+  "reload_done_smg": {
+   "files": [
+    "res://audio/sfx/reload_done_smg_01.ogg",
+    "res://audio/sfx/reload_done_smg_02.ogg"
+   ],
+   "pack": [
+    "oga_2-gun-reloads",
+    "oga_gun-reload-sounds"
+   ],
+   "volume_db": 0.0
+  },
+  "reload_start_shotgun": {
+   "files": [
+    "res://audio/sfx/reload_start_shotgun_01.ogg"
+   ],
+   "pack": "oga_shotgun-reload-sound-effects",
+   "volume_db": 0.0
+  },
+  "reload_mid_shotgun": {
+   "files": [
+    "res://audio/sfx/reload_mid_shotgun_01.ogg"
+   ],
+   "pack": "oga_shotgun-reload-sound-effects",
+   "volume_db": 0.0
+  },
+  "reload_done_shotgun": {
+   "files": [
+    "res://audio/sfx/reload_done_shotgun_01.ogg"
+   ],
+   "pack": "oga_shotgun-reload-sound-effects",
+   "volume_db": 0.0
+  },
+  "reload_start_heavy": {
+   "files": [
+    "res://audio/sfx/reload_start_heavy_01.ogg",
+    "res://audio/sfx/reload_start_heavy_02.ogg"
+   ],
+   "pack": "oga_mechanical-sounds",
+   "volume_db": 0.0
+  },
+  "reload_mid_heavy": {
+   "files": [
+    "res://audio/sfx/reload_mid_heavy_01.ogg",
+    "res://audio/sfx/reload_mid_heavy_02.ogg"
+   ],
+   "pack": "oga_mechanical-sounds",
+   "volume_db": 0.0
+  },
+  "reload_done_heavy": {
+   "files": [
+    "res://audio/sfx/reload_done_heavy_01.ogg",
+    "res://audio/sfx/reload_done_heavy_02.ogg"
+   ],
+   "pack": "oga_mechanical-sounds",
+   "volume_db": 0.0
+  },
+  "reload_start_energy": {
+   "files": [
+    "res://audio/sfx/reload_start_energy_01.ogg",
+    "res://audio/sfx/reload_start_energy_02.ogg"
+   ],
+   "pack": "kenney_sci-fi-sounds",
+   "volume_db": -2.0
+  },
+  "reload_mid_energy": {
+   "files": [
+    "res://audio/sfx/reload_mid_energy_01.ogg",
+    "res://audio/sfx/reload_mid_energy_02.ogg"
+   ],
+   "pack": "kenney_sci-fi-sounds",
+   "volume_db": -2.0
+  },
+  "reload_done_energy": {
+   "files": [
+    "res://audio/sfx/reload_done_energy_01.ogg",
+    "res://audio/sfx/reload_done_energy_02.ogg"
+   ],
+   "pack": "kenney_digital-audio",
+   "volume_db": -4.0
+  },
+  "empty_ballistic": {
+   "files": [
+    "res://audio/sfx/empty_ballistic_01.ogg",
+    "res://audio/sfx/empty_ballistic_02.ogg"
+   ],
+   "pack": [
+    "oga_equipment-click",
+    "oga_gun-reload-lock-or-click-sound"
+   ],
+   "volume_db": 0.0
+  },
+  "empty_heavy": {
+   "files": [
+    "res://audio/sfx/empty_heavy_01.ogg"
+   ],
+   "pack": "oga_mechanical-sounds",
+   "volume_db": 0.0
+  },
+  "empty_energy": {
+   "files": [
+    "res://audio/sfx/empty_energy_01.ogg",
+    "res://audio/sfx/empty_energy_02.ogg"
+   ],
+   "pack": "kenney_interface-sounds",
+   "volume_db": 0.0
+  },
+  "equip_ballistic": {
+   "files": [
+    "res://audio/sfx/equip_ballistic_01.ogg",
+    "res://audio/sfx/equip_ballistic_02.ogg"
+   ],
+   "pack": [
+    "oga_equipment-click",
+    "oga_equipment-clicks-ii"
+   ],
+   "volume_db": -4.0
+  },
+  "equip_heavy": {
+   "files": [
+    "res://audio/sfx/equip_heavy_01.ogg"
+   ],
+   "pack": "oga_mechanical-sounds",
+   "volume_db": -3.0
+  },
+  "equip_energy": {
+   "files": [
+    "res://audio/sfx/equip_energy_01.ogg"
+   ],
+   "pack": "kenney_digital-audio",
+   "volume_db": -6.0
+  },
+  "melee_swing": {
+   "files": [
+    "res://audio/sfx/melee_swing_01.ogg",
+    "res://audio/sfx/melee_swing_02.ogg",
+    "res://audio/sfx/melee_swing_03.ogg"
+   ],
+   "pack": "oga_swishes-sound-pack",
+   "volume_db": -2.0
+  },
+  "melee_swing_heavy": {
+   "files": [
+    "res://audio/sfx/melee_swing_heavy_01.ogg",
+    "res://audio/sfx/melee_swing_heavy_02.ogg",
+    "res://audio/sfx/melee_swing_heavy_03.ogg"
+   ],
+   "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
+   "volume_db": 0.0
+  },
+  "melee_hit": {
+   "files": [
+    "res://audio/sfx/melee_hit_01.ogg",
+    "res://audio/sfx/melee_hit_02.ogg",
+    "res://audio/sfx/melee_hit_03.ogg"
+   ],
+   "pack": "oga_punch",
+   "volume_db": 0.0
+  },
+  "melee_hit_heavy": {
+   "files": [
+    "res://audio/sfx/melee_hit_heavy_01.ogg",
+    "res://audio/sfx/melee_hit_heavy_02.ogg",
+    "res://audio/sfx/melee_hit_heavy_03.ogg"
+   ],
+   "pack": [
+    "kenney_impact-sounds",
+    "oga_punch"
+   ],
+   "volume_db": 2.0
+  },
+  "finisher": {
+   "files": [
+    "res://audio/sfx/finisher_01.ogg"
+   ],
+   "pack": [
+    "kenney_impact-sounds",
+    "kenney_sci-fi-sounds"
+   ],
+   "volume_db": 0.0
+  }
+ }
 }

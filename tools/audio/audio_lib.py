@@ -81,6 +81,33 @@ def find_shot(x: np.ndarray, sr: int = SR, max_len: float = 1.5, single: bool = 
     return start, max(end, start + int(0.03 * sr))
 
 
+def shot_segments(x: np.ndarray, sr: int = SR, max_len: float = 1.5, min_gap_ms: float = 150.0, win_ms: float = 4.0) -> list[tuple[int, int]]:
+    """找出檔案裡每一發（每一次撞擊）的範圍：安靜至少 min_gap_ms 之後突然變響才算新的一發。一個檔案含多發時，每發都能當獨立變體。"""
+    env = envelope(x, sr, win_ms)
+    win = int(sr * win_ms / 1000.0)
+    peak = env.max()
+    if peak < EPS:
+        return []
+    loud = env > peak * from_db(-30.0)
+    gap_frames = int(min_gap_ms / win_ms)
+    onsets: list[int] = []
+    quiet = gap_frames  # 檔案開頭視為已經安靜
+    for i, is_loud in enumerate(loud):
+        if is_loud:
+            if quiet >= gap_frames:
+                onsets.append(i)
+            quiet = 0
+        else:
+            quiet += 1
+    segments = []
+    for n, onset in enumerate(onsets):
+        start = max(0, (onset - 1) * win)
+        limit = start + int(max_len * sr)
+        nxt = (onsets[n + 1] - 1) * win - int(0.005 * sr) if n + 1 < len(onsets) else len(x)
+        segments.append((start, max(start + int(0.03 * sr), min(limit, nxt, len(x)))))
+    return segments
+
+
 def trim_silence(x: np.ndarray, sr: int = SR, threshold_db: float = -48.0, tail_ms: float = 30.0) -> np.ndarray:
     """修掉頭尾低於門檻（相對峰值）的靜音。"""
     env = envelope(x, sr, 4.0)

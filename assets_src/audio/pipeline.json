@@ -2,16 +2,840 @@
  "_說明": "音訊加工清單。sfx：音效 id → 分類 + 變體（pack 是 manifest.json 的素材包 id，file 是包內相對路徑；mode: shot 取第一發、whole 整段、loop 做成迴圈）。music：曲目 id → 素材包與檔案。defaults 依分類給預設的加工參數。執行 python tools/audio/build_audio.py。",
  "defaults": {
   "sfx": {
-   "gun": {"mode": "shot", "max_len": 1.6, "target_db": -14.0, "fade_out_ms": 40.0},
-   "impact": {"mode": "shot", "max_len": 0.8, "target_db": -16.0, "fade_out_ms": 25.0},
-   "explosion": {"mode": "shot", "max_len": 2.5, "target_db": -13.0, "fade_out_ms": 80.0},
-   "foley": {"mode": "whole", "max_len": 1.2, "target_db": -20.0},
-   "ui": {"mode": "whole", "max_len": 0.8, "target_db": -22.0},
-   "voice": {"mode": "whole", "max_len": 1.5, "target_db": -18.0},
-   "ambience": {"mode": "loop", "max_len": 60.0, "target_db": -26.0, "stereo": true, "quality": 3.0}
+   "gun": {
+    "mode": "shot",
+    "max_len": 0.9,
+    "target_db": -20.0,
+    "fade_out_ms": 60.0
+   },
+   "impact": {
+    "mode": "shot",
+    "max_len": 0.8,
+    "target_db": -16.0,
+    "fade_out_ms": 25.0
+   },
+   "explosion": {
+    "mode": "shot",
+    "max_len": 2.5,
+    "target_db": -13.0,
+    "fade_out_ms": 80.0
+   },
+   "foley": {
+    "mode": "whole",
+    "max_len": 1.2,
+    "target_db": -22.0,
+    "fade_out_ms": 20.0
+   },
+   "ui": {
+    "mode": "whole",
+    "max_len": 0.8,
+    "target_db": -22.0
+   },
+   "voice": {
+    "mode": "whole",
+    "max_len": 1.5,
+    "target_db": -18.0
+   },
+   "ambience": {
+    "mode": "loop",
+    "max_len": 60.0,
+    "target_db": -26.0,
+    "stereo": true,
+    "quality": 3.0
+   }
   },
-  "music": {"target_lufs": -18.0, "peak_db": -1.5, "quality": 4.0}
+  "music": {
+   "target_lufs": -18.0,
+   "peak_db": -1.5,
+   "quality": 4.0
+  }
  },
- "sfx": {},
+ "sfx": {
+  "shot_pistol": {
+   "category": "gun",
+   "volume_db": -1.0,
+   "variants": [
+    {
+     "pack": "oga_the-free-firearm-sound-library",
+     "file": "Prepared SFX Library/1911/A_42P.wav",
+     "split": 2,
+     "max_len": 0.7
+    },
+    {
+     "pack": "oga_the-free-firearm-sound-library",
+     "file": "Prepared SFX Library/Walther PPQ/X_39P.wav",
+     "split": 2,
+     "max_len": 0.7
+    }
+   ]
+  },
+  "shot_rifle": {
+   "category": "gun",
+   "variants": [
+    {
+     "pack": "oga_the-free-firearm-sound-library",
+     "file": "Prepared SFX Library/AR-15/D_32P.wav",
+     "split": 3,
+     "max_len": 0.8
+    },
+    {
+     "pack": "oga_the-free-firearm-sound-library",
+     "file": "Prepared SFX Library/AK-47/C_28P.wav",
+     "split": 2,
+     "max_len": 0.8
+    }
+   ]
+  },
+  "shot_smg": {
+   "category": "gun",
+   "volume_db": -2.0,
+   "variants": [
+    {
+     "pack": "oga_the-free-firearm-sound-library",
+     "file": "Prepared SFX Library/Carl Gustav M45/G_31P.wav",
+     "split": 3,
+     "max_len": 0.45
+    },
+    {
+     "pack": "oga_the-free-firearm-sound-library",
+     "file": "Prepared SFX Library/PPSh/P_30P.wav",
+     "split": 2,
+     "max_len": 0.45
+    }
+   ]
+  },
+  "shot_spread": {
+   "category": "gun",
+   "volume_db": 1.0,
+   "variants": [
+    {
+     "pack": "oga_the-free-firearm-sound-library",
+     "file": "Prepared SFX Library/Nova/O_21P.wav",
+     "split": 2,
+     "max_len": 1.1
+    },
+    {
+     "pack": "oga_the-free-firearm-sound-library",
+     "file": "Prepared SFX Library/Model 12/K_22P.wav",
+     "split": 2,
+     "max_len": 1.1
+    },
+    {
+     "pack": "oga_the-free-firearm-sound-library",
+     "file": "Prepared SFX Library/Mossberg/N_30P.wav",
+     "split": 1,
+     "max_len": 1.1
+    }
+   ]
+  },
+  "shot_launcher": {
+   "category": "gun",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "max_len": 1.4,
+     "layers": [
+      {
+       "pack": "oga_cannon-fire",
+       "file": "cannon_fire_0.ogg"
+      },
+      {
+       "pack": "oga_action-gameshmup-sfx-pack",
+       "file": "SFXPack/Explosions/Explosion3.wav",
+       "gain_db": -6,
+       "delay_ms": 15,
+       "lowpass": 3500
+      }
+     ]
+    },
+    {
+     "max_len": 1.4,
+     "layers": [
+      {
+       "pack": "oga_action-gameshmup-sfx-pack",
+       "file": "SFXPack/Explosions/Explosion1.wav",
+       "lowpass": 4000
+      },
+      {
+       "pack": "kenney_sci-fi-sounds",
+       "file": "Audio/thrusterFire_002.ogg",
+       "gain_db": -8,
+       "delay_ms": 30
+      }
+     ]
+    }
+   ]
+  },
+  "shot_railgun": {
+   "category": "gun",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "max_len": 1.3,
+     "layers": [
+      {
+       "pack": "oga_action-gameshmup-sfx-pack",
+       "file": "SFXPack/Laser/LaserBeam7.wav",
+       "max_len": 0.9
+      },
+      {
+       "pack": "kenney_sci-fi-sounds",
+       "file": "Audio/lowFrequency_explosion_000.ogg",
+       "gain_db": -3,
+       "delay_ms": 40
+      }
+     ]
+    },
+    {
+     "max_len": 1.3,
+     "layers": [
+      {
+       "pack": "oga_action-gameshmup-sfx-pack",
+       "file": "SFXPack/Laser/LaserBeam8.wav",
+       "max_len": 0.9
+      },
+      {
+       "pack": "kenney_sci-fi-sounds",
+       "file": "Audio/lowFrequency_explosion_001.ogg",
+       "gain_db": -3,
+       "delay_ms": 40
+      }
+     ]
+    }
+   ]
+  },
+  "shot_laser": {
+   "category": "gun",
+   "volume_db": -2.0,
+   "variants": [
+    {
+     "pack": "kenney_sci-fi-sounds",
+     "file": "Audio/laserLarge_000.ogg",
+     "max_len": 0.6
+    },
+    {
+     "pack": "kenney_sci-fi-sounds",
+     "file": "Audio/laserLarge_001.ogg",
+     "max_len": 0.6
+    },
+    {
+     "pack": "kenney_sci-fi-sounds",
+     "file": "Audio/laserLarge_002.ogg",
+     "max_len": 0.6
+    },
+    {
+     "pack": "oga_action-gameshmup-sfx-pack",
+     "file": "SFXPack/Laser/LaserShot6.wav",
+     "max_len": 0.6
+    }
+   ]
+  },
+  "shot_cannon": {
+   "category": "gun",
+   "volume_db": 2.0,
+   "variants": [
+    {
+     "max_len": 1.6,
+     "layers": [
+      {
+       "pack": "oga_cannon-fire",
+       "file": "cannon_fire_0.ogg",
+       "rate": 0.85
+      },
+      {
+       "pack": "kenney_sci-fi-sounds",
+       "file": "Audio/explosionCrunch_000.ogg",
+       "gain_db": -4,
+       "delay_ms": 20
+      }
+     ]
+    },
+    {
+     "max_len": 1.6,
+     "layers": [
+      {
+       "pack": "oga_cannon-fire",
+       "file": "cannon_fire_0.ogg",
+       "rate": 0.8
+      },
+      {
+       "pack": "kenney_sci-fi-sounds",
+       "file": "Audio/explosionCrunch_002.ogg",
+       "gain_db": -4,
+       "delay_ms": 25
+      }
+     ]
+    }
+   ]
+  },
+  "shot_enemy": {
+   "category": "gun",
+   "volume_db": -3.0,
+   "variants": [
+    {
+     "pack": "oga_the-free-firearm-sound-library",
+     "file": "Prepared SFX Library/AR-15/D_24P.wav",
+     "split": 2,
+     "max_len": 0.6,
+     "lowpass": 7000
+    },
+    {
+     "pack": "oga_the-free-firearm-sound-library",
+     "file": "Prepared SFX Library/SKS/U_19P.wav",
+     "split": 2,
+     "max_len": 0.6,
+     "lowpass": 7000
+    }
+   ]
+  },
+  "shot_enemy_sniper": {
+   "category": "gun",
+   "volume_db": 6.0,
+   "variants": [
+    {
+     "pack": "oga_the-free-firearm-sound-library",
+     "file": "Prepared SFX Library/Tikka/W_29P.wav",
+     "split": 1,
+     "max_len": 1.4
+    },
+    {
+     "pack": "oga_the-free-firearm-sound-library",
+     "file": "Prepared SFX Library/Savage 10 .300 Blackout/T_27P.wav",
+     "split": 1,
+     "max_len": 1.4
+    }
+   ]
+  },
+  "shot_enemy_heavy": {
+   "category": "gun",
+   "volume_db": 2.0,
+   "variants": [
+    {
+     "pack": "oga_the-free-firearm-sound-library",
+     "file": "Prepared SFX Library/AK-47/C_31P.wav",
+     "split": 2,
+     "max_len": 0.7,
+     "rate": 0.9
+    },
+    {
+     "pack": "oga_the-free-firearm-sound-library",
+     "file": "Prepared SFX Library/Mosin Nagant/M_21P.wav",
+     "split": 1,
+     "max_len": 0.9,
+     "rate": 0.9
+    }
+   ]
+  },
+  "shot_enemy_turret": {
+   "category": "gun",
+   "volume_db": -3.0,
+   "variants": [
+    {
+     "pack": "oga_the-free-firearm-sound-library",
+     "file": "Prepared SFX Library/PPSh/P_16P.wav",
+     "split": 2,
+     "max_len": 0.5,
+     "lowpass": 6500
+    },
+    {
+     "pack": "oga_the-free-firearm-sound-library",
+     "file": "Prepared SFX Library/Carl Gustav M45/G_20P.wav",
+     "split": 2,
+     "max_len": 0.5,
+     "lowpass": 6500
+    }
+   ]
+  },
+  "reload_start_pistol": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_handgun-reload-sound-effect",
+     "file": "reload.wav",
+     "start": 0.1,
+     "end": 0.55
+    }
+   ]
+  },
+  "reload_mid_pistol": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_handgun-reload-sound-effect",
+     "file": "reload.wav",
+     "start": 0.55,
+     "end": 1.0
+    },
+    {
+     "pack": "oga_gun-reload-sound-effects",
+     "file": "clipload1.wav"
+    }
+   ]
+  },
+  "reload_done_pistol": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_handgun-reload-sound-effect",
+     "file": "reload.wav",
+     "start": 1.0,
+     "end": 1.45
+    }
+   ]
+  },
+  "reload_start_rifle": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_gun-reload-sounds",
+     "file": "assaultriflereload1_0.wav",
+     "start": 0.2,
+     "end": 0.7
+    }
+   ]
+  },
+  "reload_mid_rifle": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_gun-reload-sounds",
+     "file": "assaultriflereload1_0.wav",
+     "start": 0.7,
+     "end": 1.2
+    },
+    {
+     "pack": "oga_gun-reload-sound-effects",
+     "file": "clipload2.wav"
+    }
+   ]
+  },
+  "reload_done_rifle": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_gun-reload-sounds",
+     "file": "assaultriflereload1_0.wav",
+     "start": 1.2,
+     "end": 1.56
+    }
+   ]
+  },
+  "reload_start_smg": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_gun-reload-sounds",
+     "file": "gunreload1.wav",
+     "start": 0.12,
+     "end": 0.6
+    },
+    {
+     "pack": "oga_2-gun-reloads",
+     "file": "gun_reload.2.ogg",
+     "start": 0.1,
+     "end": 0.55
+    }
+   ]
+  },
+  "reload_mid_smg": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_gun-reload-sounds",
+     "file": "gunreload1.wav",
+     "start": 0.6,
+     "end": 1.1
+    },
+    {
+     "pack": "oga_2-gun-reloads",
+     "file": "gun_reload.2.ogg",
+     "start": 0.55,
+     "end": 0.95
+    }
+   ]
+  },
+  "reload_done_smg": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_gun-reload-sounds",
+     "file": "gunreload1.wav",
+     "start": 1.1,
+     "end": 1.58
+    },
+    {
+     "pack": "oga_2-gun-reloads",
+     "file": "gun_reload.2.ogg",
+     "start": 0.95,
+     "end": 1.36
+    }
+   ]
+  },
+  "reload_start_shotgun": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_shotgun-reload-sound-effects",
+     "file": "ShotgunSounds/First Shell.mp3",
+     "start": 0.3,
+     "end": 0.9
+    }
+   ]
+  },
+  "reload_mid_shotgun": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_shotgun-reload-sound-effects",
+     "file": "ShotgunSounds/Subsequent Shells.mp3",
+     "start": 0.6,
+     "end": 1.25
+    }
+   ]
+  },
+  "reload_done_shotgun": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_shotgun-reload-sound-effects",
+     "file": "ShotgunSounds/Rack.mp3",
+     "start": 0.55,
+     "end": 1.13
+    }
+   ]
+  },
+  "reload_start_heavy": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_mechanical-sounds",
+     "file": "lightclunk1.wav",
+     "rate": 0.8
+    },
+    {
+     "pack": "oga_mechanical-sounds",
+     "file": "clank1.wav",
+     "rate": 0.9
+    }
+   ]
+  },
+  "reload_mid_heavy": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_mechanical-sounds",
+     "file": "mechanical1.wav",
+     "rate": 0.9
+    },
+    {
+     "pack": "oga_mechanical-sounds",
+     "file": "mechanical2.wav",
+     "rate": 0.9
+    }
+   ]
+  },
+  "reload_done_heavy": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_mechanical-sounds",
+     "file": "clank1.wav",
+     "rate": 0.75
+    },
+    {
+     "pack": "oga_mechanical-sounds",
+     "file": "lightclunk2.wav",
+     "rate": 0.8
+    }
+   ]
+  },
+  "reload_start_energy": {
+   "category": "foley",
+   "volume_db": -2.0,
+   "variants": [
+    {
+     "pack": "kenney_sci-fi-sounds",
+     "file": "Audio/forceField_000.ogg",
+     "max_len": 0.5
+    },
+    {
+     "pack": "kenney_sci-fi-sounds",
+     "file": "Audio/forceField_001.ogg",
+     "max_len": 0.5
+    }
+   ]
+  },
+  "reload_mid_energy": {
+   "category": "foley",
+   "volume_db": -2.0,
+   "variants": [
+    {
+     "pack": "kenney_sci-fi-sounds",
+     "file": "Audio/computerNoise_000.ogg",
+     "max_len": 0.5
+    },
+    {
+     "pack": "kenney_sci-fi-sounds",
+     "file": "Audio/computerNoise_001.ogg",
+     "max_len": 0.5
+    }
+   ]
+  },
+  "reload_done_energy": {
+   "category": "foley",
+   "volume_db": -4.0,
+   "variants": [
+    {
+     "pack": "kenney_digital-audio",
+     "file": "Audio/powerUp2.ogg",
+     "max_len": 0.5
+    },
+    {
+     "pack": "kenney_digital-audio",
+     "file": "Audio/powerUp5.ogg",
+     "max_len": 0.5
+    }
+   ]
+  },
+  "empty_ballistic": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_gun-reload-lock-or-click-sound",
+     "file": "gun_reload_lock_or_click_sound.mp3"
+    },
+    {
+     "pack": "oga_equipment-click",
+     "file": "equipmentclick.wav",
+     "max_len": 0.3
+    }
+   ]
+  },
+  "empty_heavy": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_mechanical-sounds",
+     "file": "lightclunk1.wav",
+     "rate": 0.7
+    }
+   ]
+  },
+  "empty_energy": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "kenney_interface-sounds",
+     "file": "Audio/drop_004.ogg"
+    },
+    {
+     "pack": "kenney_interface-sounds",
+     "file": "Audio/error_005.ogg",
+     "max_len": 0.15
+    }
+   ]
+  },
+  "equip_ballistic": {
+   "category": "foley",
+   "volume_db": -4.0,
+   "variants": [
+    {
+     "pack": "oga_equipment-clicks-ii",
+     "file": "equipmentclicks.wav",
+     "max_len": 0.35
+    },
+    {
+     "pack": "oga_equipment-click",
+     "file": "equipmentclick.wav",
+     "rate": 0.9,
+     "max_len": 0.3
+    }
+   ]
+  },
+  "equip_heavy": {
+   "category": "foley",
+   "volume_db": -3.0,
+   "variants": [
+    {
+     "pack": "oga_mechanical-sounds",
+     "file": "lightclunk2.wav",
+     "rate": 0.75
+    }
+   ]
+  },
+  "equip_energy": {
+   "category": "foley",
+   "volume_db": -6.0,
+   "variants": [
+    {
+     "pack": "kenney_digital-audio",
+     "file": "Audio/phaserUp2.ogg",
+     "max_len": 0.4
+    }
+   ]
+  },
+  "melee_swing": {
+   "category": "foley",
+   "volume_db": -2.0,
+   "variants": [
+    {
+     "pack": "oga_swishes-sound-pack",
+     "file": "swishes/swish-1.wav",
+     "target_db": -20.0,
+     "max_len": 0.35
+    },
+    {
+     "pack": "oga_swishes-sound-pack",
+     "file": "swishes/swish-2.wav",
+     "target_db": -20.0,
+     "max_len": 0.35
+    },
+    {
+     "pack": "oga_swishes-sound-pack",
+     "file": "swishes/swish-3.wav",
+     "target_db": -20.0,
+     "max_len": 0.35
+    }
+   ]
+  },
+  "melee_swing_heavy": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
+     "file": "swosh-03.flac",
+     "target_db": -18.0,
+     "max_len": 0.5,
+     "rate": 0.9
+    },
+    {
+     "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
+     "file": "swosh-23.flac",
+     "target_db": -18.0,
+     "max_len": 0.5,
+     "rate": 0.9
+    },
+    {
+     "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
+     "file": "swosh-28.flac",
+     "target_db": -18.0,
+     "max_len": 0.5,
+     "rate": 0.9
+    }
+   ]
+  },
+  "melee_hit": {
+   "category": "impact",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_punch",
+     "file": "qubodupPunch/qubodupPunch01.ogg",
+     "max_len": 0.5
+    },
+    {
+     "pack": "oga_punch",
+     "file": "qubodupPunch/qubodupPunch02.ogg",
+     "max_len": 0.5
+    },
+    {
+     "pack": "oga_punch",
+     "file": "qubodupPunch/qubodupPunch03.ogg",
+     "max_len": 0.5
+    }
+   ]
+  },
+  "melee_hit_heavy": {
+   "category": "impact",
+   "volume_db": 2.0,
+   "variants": [
+    {
+     "max_len": 0.8,
+     "layers": [
+      {
+       "pack": "oga_punch",
+       "file": "qubodupPunch/qubodupPunch04.ogg"
+      },
+      {
+       "pack": "kenney_impact-sounds",
+       "file": "Audio/impactPunch_heavy_000.ogg",
+       "gain_db": -3,
+       "delay_ms": 5
+      }
+     ]
+    },
+    {
+     "max_len": 0.8,
+     "layers": [
+      {
+       "pack": "oga_punch",
+       "file": "qubodupPunch/qubodupPunch04.ogg"
+      },
+      {
+       "pack": "kenney_impact-sounds",
+       "file": "Audio/impactPunch_heavy_001.ogg",
+       "gain_db": -3,
+       "delay_ms": 5
+      }
+     ]
+    },
+    {
+     "max_len": 0.8,
+     "layers": [
+      {
+       "pack": "oga_punch",
+       "file": "qubodupPunch/qubodupPunch04.ogg"
+      },
+      {
+       "pack": "kenney_impact-sounds",
+       "file": "Audio/impactPunch_heavy_002.ogg",
+       "gain_db": -3,
+       "delay_ms": 5
+      }
+     ]
+    }
+   ]
+  },
+  "finisher": {
+   "category": "impact",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "max_len": 1.2,
+     "layers": [
+      {
+       "pack": "kenney_impact-sounds",
+       "file": "Audio/impactMetal_heavy_000.ogg"
+      },
+      {
+       "pack": "kenney_sci-fi-sounds",
+       "file": "Audio/lowFrequency_explosion_000.ogg",
+       "gain_db": -4,
+       "delay_ms": 20
+      }
+     ]
+    }
+   ]
+  }
+ },
  "music": {}
 }

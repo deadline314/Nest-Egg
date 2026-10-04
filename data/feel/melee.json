@@ -1,5 +1,5 @@
 {
- "_說明": "近戰三段：windup 前搖、active 出招（判定在出招開始時一次）、recovery 收招（秒）。命中後收招只需 cancel_after 秒就能接下一招／衝刺／射擊，揮空要吃滿 recovery。advance 是出招時往前衝的速度（像素/秒）、move_scale 是出招期間的移動倍率。combo 依序是連段（輕、輕、重），combo_window 是收招後仍可接下一段的秒數，輸入緩衝在 data/feel/input.json 的 windows.melee_buffer。命中回饋事件見 events.json。 trail 是揮砍軌跡：radius 半徑、arc 弧度（度）、life 持續秒數（0.08～0.12）、width 線寬、brightness 峰值亮度（有上限）、afterimage 是否帶一格殘影。",
+ "_說明": "近戰三段：windup 前搖、active 出招（判定在出招開始時一次）、recovery 收招（秒）。命中後收招只需 cancel_after 秒就能接下一招／衝刺／射擊，揮空要吃滿 recovery。advance 是出招時往前衝的速度（像素/秒）、move_scale 是出招期間的移動倍率。combo 依序是連段（輕、輕、重），combo_window 是收招後仍可接下一段的秒數，輸入緩衝在 data/feel/input.json 的 windows.melee_buffer。命中回饋事件見 events.json。 trail 是揮砍軌跡：radius 半徑、arc 弧度（度）、life 持續秒數（0.08～0.12）、width 線寬、brightness 峰值亮度（有上限）、afterimage 是否帶一格殘影。 sounds 是這一招的出手聲（swing）與命中聲（hit），值是音效或聲音事件的名稱。",
  "combo": [
   "light_1",
   "light_2",
@@ -30,6 +30,10 @@
     "width": 3.0,
     "brightness": 1.7,
     "afterimage": true
+   },
+   "sounds": {
+    "swing": "melee_swing",
+    "hit": "melee_hit"
    }
   },
   "light_2": {
@@ -55,6 +59,10 @@
     "width": 3.0,
     "brightness": 1.7,
     "afterimage": true
+   },
+   "sounds": {
+    "swing": "melee_swing",
+    "hit": "melee_hit"
    }
   },
   "heavy": {
@@ -80,6 +88,10 @@
     "width": 4.5,
     "brightness": 1.8,
     "afterimage": true
+   },
+   "sounds": {
+    "swing": "melee_swing_heavy",
+    "hit": "melee_hit_heavy"
    }
   }
  }

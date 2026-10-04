@@ -1,1 +1,365 @@
-{}
+{
+ "kenney_digital-audio": {
+  "title": "Kenney Digital Audio",
+  "author": "Kenney (kenney.nl)",
+  "license": "CC0-1.0",
+  "page": "https://kenney.nl/assets/digital-audio",
+  "files_used": [
+   "Audio/phaserUp2.ogg",
+   "Audio/powerUp2.ogg",
+   "Audio/powerUp5.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/equip_energy_01.ogg",
+   "res://audio/sfx/reload_done_energy_01.ogg",
+   "res://audio/sfx/reload_done_energy_02.ogg"
+  ]
+ },
+ "kenney_impact-sounds": {
+  "title": "Kenney Impact Sounds",
+  "author": "Kenney (kenney.nl)",
+  "license": "CC0-1.0",
+  "page": "https://kenney.nl/assets/impact-sounds",
+  "files_used": [
+   "Audio/impactMetal_heavy_000.ogg",
+   "Audio/impactPunch_heavy_000.ogg",
+   "Audio/impactPunch_heavy_001.ogg",
+   "Audio/impactPunch_heavy_002.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/finisher_01.ogg",
+   "res://audio/sfx/melee_hit_heavy_01.ogg",
+   "res://audio/sfx/melee_hit_heavy_02.ogg",
+   "res://audio/sfx/melee_hit_heavy_03.ogg"
+  ]
+ },
+ "kenney_interface-sounds": {
+  "title": "Kenney Interface Sounds",
+  "author": "Kenney (kenney.nl)",
+  "license": "CC0-1.0",
+  "page": "https://kenney.nl/assets/interface-sounds",
+  "files_used": [
+   "Audio/drop_004.ogg",
+   "Audio/error_005.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/empty_energy_01.ogg",
+   "res://audio/sfx/empty_energy_02.ogg"
+  ]
+ },
+ "kenney_sci-fi-sounds": {
+  "title": "Kenney Sci-fi Sounds",
+  "author": "Kenney (kenney.nl)",
+  "license": "CC0-1.0",
+  "page": "https://kenney.nl/assets/sci-fi-sounds",
+  "files_used": [
+   "Audio/computerNoise_000.ogg",
+   "Audio/computerNoise_001.ogg",
+   "Audio/explosionCrunch_000.ogg",
+   "Audio/explosionCrunch_002.ogg",
+   "Audio/forceField_000.ogg",
+   "Audio/forceField_001.ogg",
+   "Audio/laserLarge_000.ogg",
+   "Audio/laserLarge_001.ogg",
+   "Audio/laserLarge_002.ogg",
+   "Audio/lowFrequency_explosion_000.ogg",
+   "Audio/lowFrequency_explosion_001.ogg",
+   "Audio/thrusterFire_002.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/finisher_01.ogg",
+   "res://audio/sfx/reload_mid_energy_01.ogg",
+   "res://audio/sfx/reload_mid_energy_02.ogg",
+   "res://audio/sfx/reload_start_energy_01.ogg",
+   "res://audio/sfx/reload_start_energy_02.ogg",
+   "res://audio/sfx/shot_cannon_01.ogg",
+   "res://audio/sfx/shot_cannon_02.ogg",
+   "res://audio/sfx/shot_laser_01.ogg",
+   "res://audio/sfx/shot_laser_02.ogg",
+   "res://audio/sfx/shot_laser_03.ogg",
+   "res://audio/sfx/shot_launcher_02.ogg",
+   "res://audio/sfx/shot_railgun_01.ogg",
+   "res://audio/sfx/shot_railgun_02.ogg"
+  ]
+ },
+ "oga_2-gun-reloads": {
+  "title": "2 Gun Reloads",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/2-gun-reloads",
+  "files_used": [
+   "gun_reload.2.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/reload_done_smg_02.ogg",
+   "res://audio/sfx/reload_mid_smg_02.ogg",
+   "res://audio/sfx/reload_start_smg_02.ogg"
+  ]
+ },
+ "oga_action-gameshmup-sfx-pack": {
+  "title": "Action Game/SHMUP SFX Pack",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/action-gameshmup-sfx-pack",
+  "files_used": [
+   "SFXPack/Explosions/Explosion1.wav",
+   "SFXPack/Explosions/Explosion3.wav",
+   "SFXPack/Laser/LaserBeam7.wav",
+   "SFXPack/Laser/LaserBeam8.wav",
+   "SFXPack/Laser/LaserShot6.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/shot_laser_04.ogg",
+   "res://audio/sfx/shot_launcher_01.ogg",
+   "res://audio/sfx/shot_launcher_02.ogg",
+   "res://audio/sfx/shot_railgun_01.ogg",
+   "res://audio/sfx/shot_railgun_02.ogg"
+  ]
+ },
+ "oga_cannon-fire": {
+  "title": "Cannon fire",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/cannon-fire",
+  "files_used": [
+   "cannon_fire_0.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/shot_cannon_01.ogg",
+   "res://audio/sfx/shot_cannon_02.ogg",
+   "res://audio/sfx/shot_launcher_01.ogg"
+  ]
+ },
+ "oga_equipment-click": {
+  "title": "Equipment Click",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/equipment-click",
+  "files_used": [
+   "equipmentclick.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/empty_ballistic_02.ogg",
+   "res://audio/sfx/equip_ballistic_02.ogg"
+  ]
+ },
+ "oga_equipment-clicks-ii": {
+  "title": "Equipment Clicks II",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/equipment-clicks-ii",
+  "files_used": [
+   "equipmentclicks.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/equip_ballistic_01.ogg"
+  ]
+ },
+ "oga_gun-reload-lock-or-click-sound": {
+  "title": "Gun reload, lock or click sound",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/gun-reload-lock-or-click-sound",
+  "files_used": [
+   "gun_reload_lock_or_click_sound.mp3"
+  ],
+  "outputs": [
+   "res://audio/sfx/empty_ballistic_01.ogg"
+  ]
+ },
+ "oga_gun-reload-sound-effects": {
+  "title": "Gun Reload Sound Effects",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/gun-reload-sound-effects",
+  "files_used": [
+   "clipload1.wav",
+   "clipload2.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/reload_mid_pistol_02.ogg",
+   "res://audio/sfx/reload_mid_rifle_02.ogg"
+  ]
+ },
+ "oga_gun-reload-sounds": {
+  "title": "Gun reload sounds",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/gun-reload-sounds",
+  "files_used": [
+   "assaultriflereload1_0.wav",
+   "gunreload1.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/reload_done_rifle_01.ogg",
+   "res://audio/sfx/reload_done_smg_01.ogg",
+   "res://audio/sfx/reload_mid_rifle_01.ogg",
+   "res://audio/sfx/reload_mid_smg_01.ogg",
+   "res://audio/sfx/reload_start_rifle_01.ogg",
+   "res://audio/sfx/reload_start_smg_01.ogg"
+  ]
+ },
+ "oga_handgun-reload-sound-effect": {
+  "title": "Handgun Reload Sound Effect",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/handgun-reload-sound-effect",
+  "files_used": [
+   "reload.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/reload_done_pistol_01.ogg",
+   "res://audio/sfx/reload_mid_pistol_01.ogg",
+   "res://audio/sfx/reload_start_pistol_01.ogg"
+  ]
+ },
+ "oga_mechanical-sounds": {
+  "title": "Mechanical Sounds",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/mechanical-sounds",
+  "files_used": [
+   "clank1.wav",
+   "lightclunk1.wav",
+   "lightclunk2.wav",
+   "mechanical1.wav",
+   "mechanical2.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/empty_heavy_01.ogg",
+   "res://audio/sfx/equip_heavy_01.ogg",
+   "res://audio/sfx/reload_done_heavy_01.ogg",
+   "res://audio/sfx/reload_done_heavy_02.ogg",
+   "res://audio/sfx/reload_mid_heavy_01.ogg",
+   "res://audio/sfx/reload_mid_heavy_02.ogg",
+   "res://audio/sfx/reload_start_heavy_01.ogg",
+   "res://audio/sfx/reload_start_heavy_02.ogg"
+  ]
+ },
+ "oga_punch": {
+  "title": "Punch",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/punch",
+  "files_used": [
+   "qubodupPunch/qubodupPunch01.ogg",
+   "qubodupPunch/qubodupPunch02.ogg",
+   "qubodupPunch/qubodupPunch03.ogg",
+   "qubodupPunch/qubodupPunch04.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/melee_hit_01.ogg",
+   "res://audio/sfx/melee_hit_02.ogg",
+   "res://audio/sfx/melee_hit_03.ogg",
+   "res://audio/sfx/melee_hit_heavy_01.ogg",
+   "res://audio/sfx/melee_hit_heavy_02.ogg",
+   "res://audio/sfx/melee_hit_heavy_03.ogg"
+  ]
+ },
+ "oga_shotgun-reload-sound-effects": {
+  "title": "Shotgun Reload Sound effects",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/shotgun-reload-sound-effects",
+  "files_used": [
+   "ShotgunSounds/First Shell.mp3",
+   "ShotgunSounds/Rack.mp3",
+   "ShotgunSounds/Subsequent Shells.mp3"
+  ],
+  "outputs": [
+   "res://audio/sfx/reload_done_shotgun_01.ogg",
+   "res://audio/sfx/reload_mid_shotgun_01.ogg",
+   "res://audio/sfx/reload_start_shotgun_01.ogg"
+  ]
+ },
+ "oga_swish-bamboo-stick-weapon-swhoshes": {
+  "title": "Swish - bamboo stick weapon swhoshes",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/swish-bamboo-stick-weapon-swhoshes",
+  "files_used": [
+   "swosh-03.flac",
+   "swosh-23.flac",
+   "swosh-28.flac"
+  ],
+  "outputs": [
+   "res://audio/sfx/melee_swing_heavy_01.ogg",
+   "res://audio/sfx/melee_swing_heavy_02.ogg",
+   "res://audio/sfx/melee_swing_heavy_03.ogg"
+  ]
+ },
+ "oga_swishes-sound-pack": {
+  "title": "Swishes Sound Pack",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/swishes-sound-pack",
+  "files_used": [
+   "swishes/swish-1.wav",
+   "swishes/swish-2.wav",
+   "swishes/swish-3.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/melee_swing_01.ogg",
+   "res://audio/sfx/melee_swing_02.ogg",
+   "res://audio/sfx/melee_swing_03.ogg"
+  ]
+ },
+ "oga_the-free-firearm-sound-library": {
+  "title": "The Free Firearm Sound Library",
+  "author": "Ben Jaszczak, et al. (submitted by bart)",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/the-free-firearm-sound-library",
+  "files_used": [
+   "Prepared SFX Library/1911/A_42P.wav",
+   "Prepared SFX Library/AK-47/C_28P.wav",
+   "Prepared SFX Library/AK-47/C_31P.wav",
+   "Prepared SFX Library/AR-15/D_24P.wav",
+   "Prepared SFX Library/AR-15/D_32P.wav",
+   "Prepared SFX Library/Carl Gustav M45/G_20P.wav",
+   "Prepared SFX Library/Carl Gustav M45/G_31P.wav",
+   "Prepared SFX Library/Model 12/K_22P.wav",
+   "Prepared SFX Library/Mosin Nagant/M_21P.wav",
+   "Prepared SFX Library/Mossberg/N_30P.wav",
+   "Prepared SFX Library/Nova/O_21P.wav",
+   "Prepared SFX Library/PPSh/P_16P.wav",
+   "Prepared SFX Library/PPSh/P_30P.wav",
+   "Prepared SFX Library/SKS/U_19P.wav",
+   "Prepared SFX Library/Savage 10 .300 Blackout/T_27P.wav",
+   "Prepared SFX Library/Tikka/W_29P.wav",
+   "Prepared SFX Library/Walther PPQ/X_39P.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/shot_enemy_01.ogg",
+   "res://audio/sfx/shot_enemy_02.ogg",
+   "res://audio/sfx/shot_enemy_03.ogg",
+   "res://audio/sfx/shot_enemy_04.ogg",
+   "res://audio/sfx/shot_enemy_heavy_01.ogg",
+   "res://audio/sfx/shot_enemy_heavy_02.ogg",
+   "res://audio/sfx/shot_enemy_heavy_03.ogg",
+   "res://audio/sfx/shot_enemy_sniper_01.ogg",
+   "res://audio/sfx/shot_enemy_sniper_02.ogg",
+   "res://audio/sfx/shot_enemy_turret_01.ogg",
+   "res://audio/sfx/shot_enemy_turret_02.ogg",
+   "res://audio/sfx/shot_enemy_turret_03.ogg",
+   "res://audio/sfx/shot_enemy_turret_04.ogg",
+   "res://audio/sfx/shot_pistol_01.ogg",
+   "res://audio/sfx/shot_pistol_02.ogg",
+   "res://audio/sfx/shot_pistol_03.ogg",
+   "res://audio/sfx/shot_pistol_04.ogg",
+   "res://audio/sfx/shot_rifle_01.ogg",
+   "res://audio/sfx/shot_rifle_02.ogg",
+   "res://audio/sfx/shot_rifle_03.ogg",
+   "res://audio/sfx/shot_rifle_04.ogg",
+   "res://audio/sfx/shot_smg_01.ogg",
+   "res://audio/sfx/shot_smg_02.ogg",
+   "res://audio/sfx/shot_smg_03.ogg",
+   "res://audio/sfx/shot_smg_04.ogg",
+   "res://audio/sfx/shot_smg_05.ogg",
+   "res://audio/sfx/shot_spread_01.ogg",
+   "res://audio/sfx/shot_spread_02.ogg",
+   "res://audio/sfx/shot_spread_03.ogg",
+   "res://audio/sfx/shot_spread_04.ogg",
+   "res://audio/sfx/shot_spread_05.ogg"
+  ]
+ }
+}

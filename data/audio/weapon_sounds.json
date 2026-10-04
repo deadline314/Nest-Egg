@@ -1,5 +1,5 @@
 {
- "_說明": "武器操作聲：換彈（開始、中段、完成）、空槍、換槍。值是音效或聲音事件的名稱，空字串代表不發聲。profiles 以武器 id 為鍵，沒寫的動作退回 default；extends 可以沿用另一組。射擊聲是每把武器 .tres 的 fire_sound。",
+ "_說明": "武器操作聲：換彈（開始、中段、完成）、空槍、換槍。值是音效或聲音事件的名稱，空字串代表不發聲。profiles 以武器 id 為鍵，沒寫的動作退回 default；extends 可以沿用另一組。射擊聲是每把武器 .tres 的 fire_sound。 值可以是名稱陣列，依序挑第一個存在的（專屬音效缺檔時退回通用音效）。ballistic、heavy_weapon、energy_weapon 是共用的基底，武器用 extends 沿用。",
  "default": {
   "reload_start": "reload_start",
   "reload_mid": "reload_mid",
@@ -7,5 +7,132 @@
   "empty": "empty",
   "equip": ""
  },
- "profiles": {}
+ "profiles": {
+  "ballistic": {
+   "empty": [
+    "empty_ballistic",
+    "empty"
+   ],
+   "equip": [
+    "equip_ballistic",
+    ""
+   ]
+  },
+  "heavy_weapon": {
+   "empty": [
+    "empty_heavy",
+    "empty"
+   ],
+   "equip": [
+    "equip_heavy",
+    ""
+   ],
+   "reload_start": [
+    "reload_start_heavy",
+    "reload_start"
+   ],
+   "reload_mid": [
+    "reload_mid_heavy",
+    "reload_mid"
+   ],
+   "reload_done": [
+    "reload_done_heavy",
+    "reload_done"
+   ]
+  },
+  "energy_weapon": {
+   "empty": [
+    "empty_energy",
+    "empty"
+   ],
+   "equip": [
+    "equip_energy",
+    ""
+   ],
+   "reload_start": [
+    "reload_start_energy",
+    "reload_start"
+   ],
+   "reload_mid": [
+    "reload_mid_energy",
+    "reload_mid"
+   ],
+   "reload_done": [
+    "reload_done_energy",
+    "reload_done"
+   ]
+  },
+  "pistol": {
+   "extends": "ballistic",
+   "reload_start": [
+    "reload_start_pistol",
+    "reload_start"
+   ],
+   "reload_mid": [
+    "reload_mid_pistol",
+    "reload_mid"
+   ],
+   "reload_done": [
+    "reload_done_pistol",
+    "reload_done"
+   ]
+  },
+  "rifle": {
+   "extends": "ballistic",
+   "reload_start": [
+    "reload_start_rifle",
+    "reload_start"
+   ],
+   "reload_mid": [
+    "reload_mid_rifle",
+    "reload_mid"
+   ],
+   "reload_done": [
+    "reload_done_rifle",
+    "reload_done"
+   ]
+  },
+  "smg": {
+   "extends": "ballistic",
+   "reload_start": [
+    "reload_start_smg",
+    "reload_start"
+   ],
+   "reload_mid": [
+    "reload_mid_smg",
+    "reload_mid"
+   ],
+   "reload_done": [
+    "reload_done_smg",
+    "reload_done"
+   ]
+  },
+  "spread": {
+   "extends": "ballistic",
+   "reload_start": [
+    "reload_start_shotgun",
+    "reload_start"
+   ],
+   "reload_mid": [
+    "reload_mid_shotgun",
+    "reload_mid"
+   ],
+   "reload_done": [
+    "reload_done_shotgun",
+    "reload_done"
+   ]
+  },
+  "launcher": {
+   "extends": "heavy_weapon"
+  },
+  "mech_cannon": {
+   "extends": "heavy_weapon"
+  },
+  "railgun": {
+   "extends": "energy_weapon"
+  },
+  "laser": {
+   "extends": "energy_weapon"
+  }
+ }
 }

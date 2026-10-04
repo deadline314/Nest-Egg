@@ -157,6 +157,22 @@ const SOUNDS := {
 		{"wave": "saw", "from": 300.0, "to": 2400.0, "time": 0.12, "volume": 0.15, "lowpass": 0.3, "decay": 1.2},
 		{"wave": "noise", "time": 0.1, "volume": 0.3, "lowpass": 0.2, "decay": 3.0},
 	],
+	# 近戰（NE-157）：出手聲與命中聲，沒有音效檔時的合成音。
+	&"melee_swing": [
+		{"wave": "noise", "time": 0.1, "volume": 0.26, "lowpass": 0.45, "decay": 1.2, "attack": 0.02},
+	],
+	&"melee_swing_heavy": [
+		{"wave": "noise", "time": 0.16, "volume": 0.34, "lowpass": 0.7, "decay": 1.2, "attack": 0.04},
+	],
+	&"melee_hit": [
+		{"wave": "noise", "time": 0.035, "volume": 0.35, "lowpass": 0.1, "decay": 3.0},
+		{"wave": "square", "from": 900.0, "to": 600.0, "time": 0.03, "volume": 0.12, "decay": 2.0},
+	],
+	&"melee_hit_heavy": [
+		{"wave": "noise", "time": 0.05, "volume": 0.38, "lowpass": 0.3, "decay": 3.0},
+		{"wave": "square", "from": 720.0, "to": 480.0, "time": 0.04, "volume": 0.12, "decay": 2.0},
+		{"wave": "sine", "from": 130.0, "to": 70.0, "time": 0.08, "volume": 0.3, "decay": 2.0},
+	],
 	&"jump": [
 		{"wave": "tri", "from": 280.0, "to": 620.0, "time": 0.08, "volume": 0.18, "decay": 1.5},
 	],

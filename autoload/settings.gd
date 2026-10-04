@@ -25,6 +25,9 @@ const AUDIO_BUSES: Array[Dictionary] = [
 	{"bus": &"SFX", "label": "音效", "tooltip": "射擊、爆炸、介面等音效", "default": 1.0},
 ]
 
+## Master 限幅器的天花板（dBFS）。
+const MASTER_CEILING_DB := -1.0
+
 var _path := DEFAULT_PATH
 var _config := ConfigFile.new()
 var _save_timer: Timer
@@ -38,6 +41,7 @@ func _ready() -> void:
 	_save_timer.timeout.connect(save_now)
 	add_child(_save_timer)
 	_ensure_buses()
+	_ensure_master_limiter()
 	_load()
 	_apply_audio()
 
@@ -258,6 +262,20 @@ func _apply_bus(bus: StringName, linear: float) -> void:
 		return
 	AudioServer.set_bus_mute(index, linear <= 0.001)
 	AudioServer.set_bus_volume_db(index, linear_to_db(maxf(linear, 0.0001)))
+
+
+## Master 上掛一個硬限幅器：大量槍聲與爆炸同時發聲、素材又接近滿格時，總輸出也不會破音。已經有就不重複掛。
+func _ensure_master_limiter() -> void:
+	var master := AudioServer.get_bus_index(&"Master")
+	if master < 0:
+		return
+	for i in AudioServer.get_bus_effect_count(master):
+		if AudioServer.get_bus_effect(master, i) is AudioEffectHardLimiter:
+			return
+	var limiter := AudioEffectHardLimiter.new()
+	limiter.ceiling_db = MASTER_CEILING_DB
+	limiter.pre_gain_db = 0.0
+	AudioServer.add_bus_effect(master, limiter)
 
 
 ## 專案沒有自訂匯流排配置時，於執行期建立（送往 Master）。

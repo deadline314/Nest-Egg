@@ -621,9 +621,18 @@ func _melee_strike() -> void:
 	if _melee_landed:
 		# 延後到物理步驟之後：頓幀會停用自己，不能在自己的物理處理中途做。被打到的敵人在 Enemy 裡依受擊層級自己凍結。
 		Feel.play.call_deferred(StringName(str(attack["event"])), {"targets": [self], "dir": aim_dir, "origin": global_position})
-		Sfx.play(&"hit", -3.0 if not heavy else 0.0, 0.06, 0, 0.8 if heavy else 1.0)
+		Sfx.play_named(StringName(str(_melee_sounds(attack)["hit"])), -3.0 if not heavy else 0.0)
 	else:
-		Sfx.play(&"dash", -10.0, 0.1, 0, 1.4 if not heavy else 1.0)
+		Sfx.play_named(StringName(str(_melee_sounds(attack)["swing"])), -10.0 if not heavy else -6.0)
+
+
+## 這一招的出手聲與命中聲（資料缺漏時用內建預設）。
+func _melee_sounds(attack: Dictionary) -> Dictionary:
+	var sounds: Variant = attack.get("sounds")
+	var result := {"swing": "melee_swing", "hit": "melee_hit"}
+	if typeof(sounds) == TYPE_DICTIONARY:
+		result.merge(sounds as Dictionary, true)
+	return result
 
 
 func _find_finisher_target() -> Enemy:

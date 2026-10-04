@@ -4,7 +4,10 @@
   "hurt": "",
   "death": "kill_enemy",
   "attack": "shot_enemy",
-  "telegraph": ["telegraph_{attack_category}", "telegraph"],
+  "telegraph": [
+   "telegraph_{attack_category}",
+   "telegraph"
+  ],
   "alert": ""
  },
  "profiles": {
@@ -13,6 +16,24 @@
    "death": "explosion",
    "attack": "",
    "telegraph": ""
+  },
+  "sniper": {
+   "attack": [
+    "shot_enemy_sniper",
+    "shot_enemy"
+   ]
+  },
+  "heavy_gunner": {
+   "attack": [
+    "shot_enemy_heavy",
+    "shot_enemy"
+   ]
+  },
+  "turret": {
+   "attack": [
+    "shot_enemy_turret",
+    "shot_enemy"
+   ]
   }
  }
 }

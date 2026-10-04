@@ -67,9 +67,11 @@ def spec_for(pipeline: dict, category: str, variant: dict) -> dict:
     return spec
 
 
-def render_sfx(path: Path, spec: dict) -> np.ndarray:
+def render_sfx(path: Path, spec: dict, segment: tuple[int, int] | None = None) -> np.ndarray:
     stereo = bool(spec["stereo"])
     x = lib.decode(path, mono=not stereo)
+    if segment is not None:
+        x = x[segment[0]:segment[1]]
     if "start" in spec or "end" in spec:
         first = int(float(spec.get("start", 0.0)) * lib.SR)
         last = int(float(spec["end"]) * lib.SR) if spec.get("end") is not None else len(x)
@@ -93,6 +95,45 @@ def render_sfx(path: Path, spec: dict) -> np.ndarray:
         x = lib.fade(x, fade_in_ms=float(spec["fade_in_ms"]), fade_out_ms=float(spec["fade_out_ms"]))
     x = lib.normalize_rms(x, float(spec["target_db"]) + float(spec["gain_db"]))
     return x
+
+
+def expand_variant(dirs: dict, pipeline: dict, category: str, variant: dict) -> list[dict]:
+    """把一個變體定義展開成實際要輸出的工作：split 會把一個檔案裡的每一發各自輸出一份；layers 把多個來源疊成一個音效。"""
+    if "layers" in variant:
+        layers = []
+        for layer in variant["layers"]:
+            merged = {**{k: v for k, v in variant.items() if k not in ("layers",)}, **layer}
+            merged.pop("delay_ms", None)
+            layers.append({"path": source_path(dirs, layer["pack"], layer["file"]), "pack": layer["pack"], "file": layer["file"],
+                           "spec": spec_for(pipeline, category, {**merged, "mode": layer.get("mode", variant.get("mode", "shot"))}),
+                           "delay_ms": float(layer.get("delay_ms", 0.0)), "segment": None})
+        top = spec_for(pipeline, category, {k: v for k, v in variant.items() if k != "layers"})
+        return [{"layers": layers, "spec": top}]
+    path = source_path(dirs, variant["pack"], variant["file"])
+    spec = spec_for(pipeline, category, variant)
+    if variant.get("split"):
+        segments = lib.shot_segments(lib.decode(path), max_len=float(spec["max_len"]))
+        if not segments:
+            raise BuildError(f"{variant['file']} 找不到任何一發聲音")
+        picked = segments[: int(variant["split"])]
+        return [{"layers": [{"path": path, "pack": variant["pack"], "file": variant["file"], "spec": {**spec, "mode": "whole"}, "delay_ms": 0.0, "segment": seg}], "spec": spec} for seg in picked]
+    return [{"layers": [{"path": path, "pack": variant["pack"], "file": variant["file"], "spec": spec, "delay_ms": 0.0, "segment": None}], "spec": spec}]
+
+
+def render_job(job: dict) -> np.ndarray:
+    parts = []
+    for layer in job["layers"]:
+        x = render_sfx(layer["path"], layer["spec"], layer["segment"])
+        parts.append((x, int(layer["delay_ms"] * lib.SR / 1000.0), layer["spec"]))
+    if len(parts) == 1:
+        return parts[0][0]
+    length = max(delay + len(x) for x, delay, _ in parts)
+    channels = parts[0][0].ndim
+    mix = np.zeros(length if channels == 1 else (length, 2), dtype=np.float32)
+    for x, delay, _ in parts:
+        mix[delay:delay + len(x)] += x
+    spec = job["spec"]
+    return lib.normalize_rms(mix, float(spec["target_db"]) + float(spec["gain_db"]))
 
 
 def render_music(path: Path, spec: dict) -> np.ndarray:
@@ -139,26 +180,29 @@ def main() -> int:
     wanted_sfx, wanted_music = set(), set()
     for sound_id, item in pipeline.get("sfx", {}).items():
         outputs, packs = [], []
-        for n, variant in enumerate(item["variants"], start=1):
+        try:
+            jobs = [job for variant in item["variants"] for job in expand_variant(dirs, pipeline, item.get("category", ""), variant)]
+        except (BuildError, OSError, ValueError) as error:
+            failures += 1
+            print(f"FAIL  {sound_id}: {error}", file=sys.stderr)
+            continue
+        for n, job in enumerate(jobs, start=1):
             out_name = f"{sound_id}_{n:02d}.ogg"
             wanted_sfx.add(out_name)
             try:
-                src = source_path(dirs, variant["pack"], variant["file"])
-                spec = spec_for(pipeline, item.get("category", ""), variant)
-                note_use(variant["pack"], variant["file"], SFX_RES + out_name)
+                for layer in job["layers"]:
+                    note_use(layer["pack"], layer["file"], SFX_RES + out_name)
+                    packs.append(layer["pack"])
+                outputs.append(SFX_RES + out_name)
                 if args.only and sound_id not in args.only:
-                    outputs.append(SFX_RES + out_name)
-                    packs.append(variant["pack"])
                     continue
-                x = render_sfx(src, spec)
+                x = render_job(job)
                 if len(x) < int(0.02 * lib.SR):
                     raise BuildError("加工後短於 20 ms，請檢查 mode／start／end")
                 if not args.check:
-                    lib.encode_ogg(x, SFX_DIR / out_name, quality=float(spec["quality"]))
+                    lib.encode_ogg(x, SFX_DIR / out_name, quality=float(job["spec"]["quality"]))
                 if args.report:
                     print(f"{out_name:44} {describe(x)}")
-                outputs.append(SFX_RES + out_name)
-                packs.append(variant["pack"])
             except (BuildError, OSError, ValueError) as error:
                 failures += 1
                 print(f"FAIL  {sound_id} #{n}: {error}", file=sys.stderr)

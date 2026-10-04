@@ -20,6 +20,7 @@ func run() -> void:
 	_test_weapon_sounds()
 	_test_character_sounds()
 	_test_loadout_switch_signal()
+	_test_gun_sounds()
 	_test_source_counts()
 
 
@@ -253,6 +254,41 @@ func _test_loadout_switch_signal() -> void:
 	check(switches[0] == 2, "cycling weapons emits weapon_switched")
 	loadout.select(loadout.active_slot)
 	check(switches[0] == 2, "selecting the current weapon does not emit weapon_switched")
+
+
+## 槍械與近戰（NE-157）：每把武器的射擊聲是錄音素材、有變體、彼此不共用檔案；換彈與空槍依武器類型不同；近戰出手與命中是錄音素材。
+func _test_gun_sounds() -> void:
+	var owners: Dictionary = {}
+	var reload_ids: Dictionary = {}
+	for file in DirAccess.get_files_at("res://data/weapons"):
+		if not file.ends_with(".tres"):
+			continue
+		var weapon := load("res://data/weapons/" + file) as WeaponData
+		check(Sfx.source_of(weapon.fire_sound) == &"file", "weapon %s fire sound %s plays from files" % [weapon.id, weapon.fire_sound])
+		check(Sfx.bank().variants(weapon.fire_sound).size() >= 2, "weapon %s fire sound has at least two variants" % weapon.id)
+		for stream: AudioStream in Sfx.bank().variants(weapon.fire_sound):
+			check(stream.get_length() <= 2.0, "weapon %s fire variant is short enough to overlap in a firefight (%.2fs)" % [weapon.id, stream.get_length()])
+		for path in Sfx.bank().files_of(weapon.fire_sound):
+			check(not owners.has(path) or owners[path] == weapon.fire_sound, "fire sound files are not shared between weapons: %s" % path)
+			owners[path] = weapon.fire_sound
+		for kind in ["reload_start", "reload_mid", "reload_done", "empty"]:
+			var id := WeaponSounds.name_for(weapon.id, StringName(kind))
+			check(Sfx.source_of(id) == &"file", "weapon %s %s plays from files (%s)" % [weapon.id, kind, id])
+			if kind == "reload_start":
+				reload_ids[id] = true
+	check(reload_ids.size() >= 5, "reload sounds differ by weapon family (%d)" % reload_ids.size())
+	check(CharacterSounds.name_for(&"sniper", &"attack") != CharacterSounds.name_for(&"grunt", &"attack"), "the sniper's shot differs from a grunt's")
+	check(Sfx.source_of(CharacterSounds.name_for(&"grunt", &"attack")) == &"file", "enemy shots play from files")
+	check(Sfx.source_of(&"shot_enemy") == &"file" and not Sfx.bank().files_of(&"shot_enemy").is_empty() and owners.has(Sfx.bank().files_of(&"shot_enemy")[0]) == false, "enemy shots do not reuse a player weapon's files")
+	for id in MeleeData.combo():
+		var sounds: Dictionary = MeleeData.attack(str(id))["sounds"]
+		check(Sfx.source_of(StringName(sounds["swing"])) == &"file" and Sfx.source_of(StringName(sounds["hit"])) == &"file", "melee %s swing and hit play from files" % id)
+	check(Sfx.source_of(&"finisher") == &"file", "the finisher plays from files")
+	var master := AudioServer.get_bus_index(&"Master")
+	var limiters := 0
+	for i in AudioServer.get_bus_effect_count(master):
+		limiters += 1 if AudioServer.get_bus_effect(master, i) is AudioEffectHardLimiter else 0
+	check(limiters == 1, "the master bus has exactly one hard limiter against clipping (%d)" % limiters)
 
 
 func _test_source_counts() -> void:

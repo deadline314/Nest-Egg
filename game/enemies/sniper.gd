@@ -94,7 +94,6 @@ func _lock_tick(_delta: float) -> void:
 		Sfx.play(&"laser_flash", -6.0, 0.02)
 	if fsm.time_in_state >= data.telegraph_time:
 		_shoot(data.projectile, _aim)
-		Sfx.play(&"shot_railgun", -6.0)
 		Fx.kick(-_aim, 3.0)
 		fsm.transition(&"recover")
 
