@@ -19,6 +19,10 @@ const PHONE_ACTION := &"rin.phone_call"
 const HANDSET_VISUAL := "handset"
 const HANDSET_IN := 0.26
 const HANDSET_OUT := 0.9
+const MELEE_ACTION_PREFIX := "rin.melee_"
+## 近戰武器平時的發光亮度、出招瞬間的亮度（有上限，HDR 泛光下不過曝）。
+const MELEE_GLOW := 1.3
+const MELEE_GLOW_SWING := 2.0
 
 var player: Player
 var rig: CharacterRig
@@ -82,12 +86,14 @@ func on_health_changed(ratio: float, decreased: bool) -> void:
 		rig.set_armor_ratio(ratio, decreased)
 
 
-func notify_melee_swing(trail: Dictionary, swing_facing: int) -> void:
+## 揮砍軌跡開始。direction 是揮擊朝向（跟著準星的近戰武器會偏離水平）；零向量＝朝面向水平。
+func notify_melee_swing(trail: Dictionary, swing_facing: int, direction := Vector2.ZERO) -> void:
 	if trail.is_empty():
 		return
 	if _trails.size() >= MeleeData.MAX_TRAILS:
 		_trails.remove_at(0)
-	_trails.append({"age": 0.0, "trail": trail, "facing": swing_facing})
+	var base := direction.angle() if direction != Vector2.ZERO else (0.0 if swing_facing > 0 else PI)
+	_trails.append({"age": 0.0, "trail": trail, "facing": swing_facing, "base": base})
 
 
 func notify_fired(color: Color) -> void:
@@ -154,6 +160,18 @@ func _update_phone(delta: float) -> void:
 		set_weapon_visual(want)
 
 
+## 近戰武器揮擊時播放對應的揮砍動作（資料的 pose → art/rigs/action_poses.json 的 rin.melee_<pose>）；撥號中不覆蓋。
+func _update_melee_pose() -> void:
+	if _phone_t >= 0.0:
+		return
+	var pose := player.melee_pose() if player.holds_melee_weapon() else ""
+	if pose.is_empty():
+		_input.action = &""
+		return
+	_input.action = StringName(MELEE_ACTION_PREFIX + pose)
+	_input.action_t = player.melee_pose_progress()
+
+
 func notify_hurt() -> void:
 	_input.hurt = true
 	if rig != null:
@@ -175,6 +193,7 @@ func _physics_process(delta: float) -> void:
 	_input.staggered = player.state == Player.State.STAGGERED
 	_input.dead = player.state == Player.State.DEAD
 	_update_phone(delta)
+	_update_melee_pose()
 	rig.animate(delta, _input)
 	_input.recoil = 0.0
 	_input.hurt = false
@@ -226,7 +245,7 @@ func _draw_trail(entry: Dictionary) -> void:
 	var radius := float(trail.get("radius", 20.0))
 	var arc := deg_to_rad(float(trail.get("arc", 130.0)))
 	var center := Vector2(f * 8.0, -body_center_height())
-	var start := -arc * 0.5 if f > 0.0 else PI + arc * 0.5
+	var start := float(entry.get("base", 0.0 if f > 0.0 else PI)) - arc * 0.5 * f
 	var end := start + arc * sweep * f
 	var glow := minf(float(trail.get("brightness", 1.7)), MeleeData.TRAIL_BRIGHTNESS_MAX)
 	var color := Color(LightKit.glow(Palette.CYAN, glow), fade)
@@ -241,6 +260,7 @@ func _draw() -> void:
 	if player == null:
 		return
 	_draw_ghosts()
+	_draw_melee_weapon()
 	if _fire_flash > 0.0:
 		var t := _fire_flash / FIRE_FLASH_TIME
 		var tip := to_local(muzzle_global())
@@ -282,3 +302,16 @@ func _draw_shield() -> void:
 	if _parry_flash > 0.0:
 		var t := _parry_flash / PARRY_FLASH_TIME
 		draw_arc(center, SHIELD_RADIUS + (1.0 - t) * 12.0, angle - half_arc, angle + half_arc, 16, Color(LightKit.glow(Palette.WHITE, 3.0), t), 2.0)
+
+
+## 手上的近戰武器：接在骨架前手上、沿前臂方向延伸，跟著揮砍動作轉；出招時更亮。撥號與乘載時不畫。
+func _draw_melee_weapon() -> void:
+	if not player.holds_melee_weapon() or rig == null or not rig.is_valid() or _phone_t >= 0.0:
+		return
+	var hand := rig.bone(&"hand_front")
+	var forearm := rig.bone(&"arm_front_lower")
+	if hand == null or forearm == null:
+		return
+	var along := (hand.global_position - forearm.global_position).normalized()
+	var glow := MELEE_GLOW_SWING if player.is_melee_swinging() else MELEE_GLOW
+	MeleeArt.draw(self, to_local(hand.global_position), along, player.loadout.active_weapon(), glow)

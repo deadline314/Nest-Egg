@@ -7,7 +7,7 @@ extends RefCounted
 ## extra_random_degrees：額外的隨機散佈（例如連射造成的準星擴散）。
 static func fire(weapon: WeaponData, origin: Vector2, direction: Vector2, team: Combat.Team, speed_multiplier := 1.0,
 		extra_random_degrees := 0.0) -> int:
-	if weapon == null or not weapon.is_valid():
+	if weapon == null or weapon.is_melee() or not weapon.is_valid():
 		return 0
 	return fire_spread(weapon.projectile, origin, direction, weapon.pellets, weapon.spread_degrees,
 			weapon.random_spread_degrees + maxf(0.0, extra_random_degrees), team, speed_multiplier)

@@ -33,10 +33,11 @@ func update_from(loadout: Loadout) -> void:
 			var reserve := loadout.reserve_in(row.slot)
 			if weapon.has_magazine():
 				var mag := loadout.mag_in(row.slot)
-				row.ammo_text = "%d/%s" % [mag, "∞" if reserve < 0 else str(reserve)]
+				# 近戰武器的彈匣是電量：顯示 目前/上限，不顯示備彈。
+				row.ammo_text = "%d/%d" % [mag, weapon.magazine_size] if weapon.is_melee() else "%d/%s" % [mag, "∞" if reserve < 0 else str(reserve)]
 				row.state = _state_for(mag, weapon.magazine_size)
 			else:
-				row.ammo_text = "∞"
+				row.ammo_text = "近戰" if weapon.is_melee() else "∞"
 				row.state = AmmoIcons.State.FULL
 			row.tooltip_text = weapon.description
 		row.queue_redraw()

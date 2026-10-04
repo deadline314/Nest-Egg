@@ -47,7 +47,7 @@ func _entry_for_slot(loadout: Loadout, slot: int) -> InventoryEntry:
 	var is_active := slot == loadout.active_slot
 	entry.title = weapon.display_name
 	entry.accent = weapon.color
-	entry.icon = ItemIcons.weapon(weapon.visual_id)
+	entry.icon = ItemIcons.for_weapon(weapon)
 	entry.ammo_icon = AmmoIcons.for_weapon(weapon)
 	entry.subtitle = "%s　%s" % [_ammo_text(loadout, slot, weapon), _kind_text(weapon)]
 	if is_active:
@@ -65,6 +65,8 @@ func _entry_for_slot(loadout: Loadout, slot: int) -> InventoryEntry:
 
 func _stats(loadout: Loadout, slot: int, weapon: WeaponData) -> PackedStringArray:
 	var lines := PackedStringArray()
+	if weapon.is_melee():
+		return _melee_stats(loadout, slot, weapon)
 	if weapon.has_magazine():
 		var reserve := loadout.reserve_in(slot)
 		lines.append("彈匣　%d ／ %d" % [loadout.mag_in(slot), weapon.magazine_size])
@@ -76,7 +78,24 @@ func _stats(loadout: Loadout, slot: int, weapon: WeaponData) -> PackedStringArra
 	return lines
 
 
+## 近戰武器的數字：連段、每秒傷害、最遠距離與電量（沒有電量限制的不顯示）。
+func _melee_stats(loadout: Loadout, slot: int, weapon: WeaponData) -> PackedStringArray:
+	var set := MeleeData.set_of(weapon)
+	var lines := PackedStringArray()
+	lines.append("連段　%d 招" % set.combo().size())
+	lines.append("傷害　%.1f／秒" % set.damage_per_second())
+	lines.append("距離　%d" % roundi(set.max_range()))
+	if weapon.has_magazine():
+		lines.append("電量　%d ／ %d（每揮 %d）" % [loadout.mag_in(slot), weapon.magazine_size, maxi(1, weapon.ammo_per_shot)])
+		lines.append("充電　%.1f 秒" % weapon.reload_time)
+	else:
+		lines.append("電量　不消耗")
+	return lines
+
+
 func _ammo_text(loadout: Loadout, slot: int, weapon: WeaponData) -> String:
+	if weapon.is_melee() and not weapon.has_magazine():
+		return "近戰"
 	if not weapon.has_magazine():
 		return "彈藥 ∞"
 	var reserve := loadout.reserve_in(slot)
@@ -84,6 +103,8 @@ func _ammo_text(loadout: Loadout, slot: int, weapon: WeaponData) -> String:
 
 
 func _kind_text(weapon: WeaponData) -> String:
+	if weapon.is_melee():
+		return "近戰"
 	return "能量" if weapon.is_energy else "實彈"
 
 

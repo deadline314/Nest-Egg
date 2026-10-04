@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/weapon_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"melee_dagger"
+display_name = "單分子匕首"
+color = Color(0.75, 0.95, 1.0, 1.0)
+fire_interval = 0.3
+magazine_size = 0
+max_reserve = -1
+reload_time = 0.0
+ammo_per_shot = 1
+description = "短刃：揮得最快、要貼身，連刺三下收尾較重；不耗電"
+fire_sound = &"melee_swing"
+camera_kick = 0.0
+ejects_casing = false
+short_name = "匕首"
+ammo_icon = &"energy"
+visual_id = ""
+melee_profile = "mono_dagger"
+melee_shape = "blade"
+melee_length = 15.0

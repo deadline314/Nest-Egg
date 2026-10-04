@@ -1,0 +1,46 @@
+{
+ "_說明": "近戰武器的招式組（欄位說明見 data/feel/melee.json 的 _說明）。新增欄位：shape（box 面前矩形／arc 扇形）、height（矩形高，0＝身高）、arc_degrees（扇形總角度）、min_range（近身死角，這段距離內打不到）、aim_follow（跟著準星揮）、sweep（出招區間內每影格判定，同一目標只算一次）、hitstop（命中頓幀秒數）、pose（slash 斜斬／overhead 劈砍／thrust 刺擊／sweep 橫掃，對應角色動作 rin.melee_<pose>）。每揮的電量消耗在武器資料（WeaponData 的 magazine_size、ammo_per_shot、reload_time）。",
+ "combo": [
+  "lash"
+ ],
+ "combo_window": 0.4,
+ "attacks": {
+  "lash": {
+   "windup": 0.17,
+   "active": 0.14,
+   "recovery": 0.32,
+   "cancel_after": 0.16,
+   "damage": 2,
+   "range": 100,
+   "advance": 0,
+   "move_scale": 0.5,
+   "stagger": 2,
+   "impact": 4.5,
+   "knockback": [
+    200,
+    -90
+   ],
+   "event": "player_melee_hit",
+   "shape": "arc",
+   "height": 0,
+   "arc_degrees": 60,
+   "min_range": 30,
+   "aim_follow": true,
+   "sweep": true,
+   "hitstop": 0.0,
+   "pose": "sweep",
+   "trail": {
+    "radius": 92,
+    "arc": 64,
+    "life": 0.14,
+    "width": 2.4,
+    "brightness": 2.0,
+    "afterimage": true
+   },
+   "sounds": {
+    "swing": "melee_swing",
+    "hit": "melee_hit"
+   }
+  }
+ }
+}

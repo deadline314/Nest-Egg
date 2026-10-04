@@ -28,6 +28,13 @@ static func weapon(visual_id: String) -> Texture2D:
 	return RigLibrary.texture(WEAPON_DIR.path_join(file + ".png"), WEAPON_SIZE)
 
 
+## 某把武器的背包圖示：槍械用外觀圖，近戰武器用剪影（MeleeArt）。
+static func for_weapon(weapon: WeaponData) -> Texture2D:
+	if weapon != null and weapon.is_melee():
+		return MeleeArt.item_icon(weapon)
+	return ItemIcons.weapon(weapon.visual_id if weapon != null else "")
+
+
 ## 角色立繪的一層（96×128）。
 static func portrait_layer(character: String, layer: StringName) -> Texture2D:
 	return RigLibrary.texture(PORTRAIT_DIR.path_join("%s_%s.png" % [character, layer]), PORTRAIT_SIZE)

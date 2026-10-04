@@ -43,7 +43,7 @@ func _entry_for(weapon: WeaponData, upgrade: WeaponUpgradeData) -> InventoryEntr
 	entry.id = StringName("%s:%s" % [base.id, upgrade.id])
 	entry.title = "%s・%s" % [base.short_name if not base.short_name.is_empty() else base.display_name, upgrade.display_name]
 	entry.accent = base.color
-	entry.icon = ItemIcons.weapon(base.visual_id)
+	entry.icon = ItemIcons.for_weapon(base)
 	entry.card_icon_scale = 1
 	entry.detail_icon_scale = 2
 	entry.subtitle = "已改裝" if owned else "¥%d" % upgrade.cost

@@ -30,9 +30,24 @@ func _apply(player: Player) -> bool:
 
 
 func _draw_icon() -> void:
+	if weapon.is_melee():
+		_draw_melee_icon()
+		return
 	var glow := LightKit.glow(weapon.color, 1.8 + 0.5 * sin(_time * 5.0))
 	draw_colored_polygon(PackedVector2Array([Vector2(0, -7), Vector2(7, 0), Vector2(0, 7), Vector2(-7, 0)]),
 			Color(Palette.UI_PANEL, 0.9))
 	draw_polyline(PackedVector2Array([Vector2(0, -7), Vector2(7, 0), Vector2(0, 7), Vector2(-7, 0), Vector2(0, -7)]), glow, 1.0)
 	draw_line(Vector2(-3, 0), Vector2(4, 0), glow, 2.0)
 	draw_circle(Vector2(4, 0), 1.5, glow)
+
+
+## 近戰武器：同樣的菱形底座，中間放斜擺的武器剪影。
+func _draw_melee_icon() -> void:
+	var glow := LightKit.glow(weapon.color, 1.8 + 0.5 * sin(_time * 5.0))
+	var frame := PackedVector2Array([Vector2(0, -8), Vector2(8, 0), Vector2(0, 8), Vector2(-8, 0), Vector2(0, -8)])
+	draw_colored_polygon(frame, Color(Palette.UI_PANEL, 0.9))
+	draw_polyline(frame, glow, 1.0)
+	var scaled := minf(1.0, 11.0 / maxf(6.0, weapon.melee_length))
+	draw_set_transform(Vector2(-4, 4), -PI * 0.25, Vector2.ONE * scaled)
+	MeleeArt.draw(self, Vector2.ZERO, Vector2.RIGHT, weapon, 1.6)
+	draw_set_transform(Vector2.ZERO)

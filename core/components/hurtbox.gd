@@ -36,6 +36,11 @@ var _shape: RectangleShape2D
 var _shape_node: CollisionShape2D
 
 
+## 受擊框的中心（世界座標）；Area 本身在腳底，形狀有位移，距離與角度判定用這個。
+func center() -> Vector2:
+	return _shape_node.global_position if _shape_node != null else global_position
+
+
 func material_id() -> StringName:
 	if hit_material != &"":
 		return hit_material

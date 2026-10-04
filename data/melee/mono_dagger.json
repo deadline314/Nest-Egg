@@ -1,0 +1,122 @@
+{
+ "_說明": "近戰武器的招式組（欄位說明見 data/feel/melee.json 的 _說明）。新增欄位：shape（box 面前矩形／arc 扇形）、height（矩形高，0＝身高）、arc_degrees（扇形總角度）、min_range（近身死角，這段距離內打不到）、aim_follow（跟著準星揮）、sweep（出招區間內每影格判定，同一目標只算一次）、hitstop（命中頓幀秒數）、pose（slash 斜斬／overhead 劈砍／thrust 刺擊／sweep 橫掃，對應角色動作 rin.melee_<pose>）。每揮的電量消耗在武器資料（WeaponData 的 magazine_size、ammo_per_shot、reload_time）。",
+ "combo": [
+  "stab_1",
+  "stab_2",
+  "flurry"
+ ],
+ "combo_window": 0.4,
+ "attacks": {
+  "stab_1": {
+   "windup": 0.03,
+   "active": 0.05,
+   "recovery": 0.11,
+   "cancel_after": 0.03,
+   "damage": 1,
+   "range": 21,
+   "advance": 45,
+   "move_scale": 0.4,
+   "stagger": 2,
+   "impact": 3.0,
+   "knockback": [
+    120,
+    -30
+   ],
+   "event": "player_melee_hit",
+   "shape": "box",
+   "height": 22,
+   "arc_degrees": 120,
+   "min_range": 0,
+   "aim_follow": false,
+   "sweep": true,
+   "hitstop": 0.0,
+   "pose": "thrust",
+   "trail": {
+    "radius": 16,
+    "arc": 70,
+    "life": 0.08,
+    "width": 2.0,
+    "brightness": 1.6,
+    "afterimage": false
+   },
+   "sounds": {
+    "swing": "melee_swing",
+    "hit": "melee_hit"
+   }
+  },
+  "stab_2": {
+   "windup": 0.03,
+   "active": 0.05,
+   "recovery": 0.11,
+   "cancel_after": 0.03,
+   "damage": 1,
+   "range": 21,
+   "advance": 45,
+   "move_scale": 0.4,
+   "stagger": 2,
+   "impact": 3.0,
+   "knockback": [
+    130,
+    -30
+   ],
+   "event": "player_melee_hit",
+   "shape": "box",
+   "height": 22,
+   "arc_degrees": 120,
+   "min_range": 0,
+   "aim_follow": false,
+   "sweep": true,
+   "hitstop": 0.0,
+   "pose": "thrust",
+   "trail": {
+    "radius": 16,
+    "arc": 70,
+    "life": 0.08,
+    "width": 2.0,
+    "brightness": 1.6,
+    "afterimage": false
+   },
+   "sounds": {
+    "swing": "melee_swing",
+    "hit": "melee_hit"
+   }
+  },
+  "flurry": {
+   "windup": 0.05,
+   "active": 0.06,
+   "recovery": 0.16,
+   "cancel_after": 0.05,
+   "damage": 2,
+   "range": 24,
+   "advance": 60,
+   "move_scale": 0.4,
+   "stagger": 2,
+   "impact": 5.0,
+   "knockback": [
+    200,
+    -60
+   ],
+   "event": "player_melee_hit",
+   "shape": "box",
+   "height": 0,
+   "arc_degrees": 120,
+   "min_range": 0,
+   "aim_follow": false,
+   "sweep": true,
+   "hitstop": 0.0,
+   "pose": "slash",
+   "trail": {
+    "radius": 20,
+    "arc": 140,
+    "life": 0.09,
+    "width": 3.0,
+    "brightness": 1.8,
+    "afterimage": true
+   },
+   "sounds": {
+    "swing": "melee_swing",
+    "hit": "melee_hit"
+   }
+  }
+ }
+}

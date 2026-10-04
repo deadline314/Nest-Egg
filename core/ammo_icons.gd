@@ -41,4 +41,6 @@ static func has_icon(icon_id: StringName) -> bool:
 
 
 static func for_weapon(weapon: WeaponData, state: State = State.FULL) -> Texture2D:
+	if weapon != null and weapon.is_melee():
+		return MeleeArt.ammo_icon(weapon, state)  # 近戰武器沒有彈種圖：用剪影
 	return texture(icon_id_for(weapon), state)

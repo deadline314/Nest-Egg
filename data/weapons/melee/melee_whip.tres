@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/weapon_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"melee_whip"
+display_name = "單分子鞭"
+color = Color(0.85, 0.4, 1.0, 1.0)
+fire_interval = 0.3
+magazine_size = 8
+max_reserve = -1
+reload_time = 1.6
+ammo_per_shot = 1
+description = "超長距離：弧形掃擊打一整排，貼身打不到；每揮耗 1 格電"
+fire_sound = &"melee_swing"
+camera_kick = 0.0
+ejects_casing = false
+short_name = "鞭"
+ammo_icon = &"energy"
+visual_id = ""
+melee_profile = "mono_whip"
+melee_shape = "whip"
+melee_length = 70.0

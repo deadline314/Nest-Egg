@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/weapon_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"melee_blade"
+display_name = "熱能長刀"
+color = Color(1.0, 0.55, 0.25, 1.0)
+fire_interval = 0.3
+magazine_size = 0
+max_reserve = -1
+reload_time = 0.0
+ammo_per_shot = 1
+description = "長刀：速度與威力均衡，三段連斬，第三刀能打出硬直；不耗電"
+fire_sound = &"melee_swing"
+camera_kick = 0.0
+ejects_casing = false
+short_name = "長刀"
+ammo_icon = &"energy"
+visual_id = ""
+melee_profile = "thermal_blade"
+melee_shape = "blade"
+melee_length = 24.0

@@ -22,6 +22,14 @@ extends Resource
 ## 一句話說明，用於拾取提示與 HUD tooltip（講重點）。
 @export var description: String = ""
 
+@export_group("Melee")
+## 近戰武器：非空字串代表這是近戰武器，值是 data/melee/<id>.json 的檔名（招式組：前搖、出招、後搖、判定、傷害…）。空字串＝槍械。
+## 近戰武器沿用彈匣欄位當「電量」：magazine_size 是揮擊次數、ammo_per_shot 是每揮消耗、reload_time 是充電秒數；magazine_size = 0 不消耗。
+@export var melee_profile: String = ""
+## 武器的外型（程式繪製，見 MeleeArt）：blade 刃、heavy 重錘、polearm 長柄、whip 鞭；長度是像素。
+@export_enum("blade", "heavy", "polearm", "whip") var melee_shape: String = "blade"
+@export var melee_length: float = 18.0
+
 @export_group("Feel")
 @export var fire_sound: StringName = &"shot_rifle"
 @export var screen_shake: float = 0.0
@@ -57,5 +65,9 @@ func has_infinite_reserve() -> bool:
 	return max_reserve < 0
 
 
+func is_melee() -> bool:
+	return not melee_profile.is_empty()
+
+
 func is_valid() -> bool:
-	return projectile != null and fire_interval > 0.0 and magazine_size >= 0 and reload_time >= 0.0
+	return (is_melee() or projectile != null) and fire_interval > 0.0 and magazine_size >= 0 and reload_time >= 0.0

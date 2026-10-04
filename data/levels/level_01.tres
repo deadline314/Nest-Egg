@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=47 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=52 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_script"]
 [ext_resource type="Resource" path="res://data/enemies/grunt.tres" id="2_grunt"]
@@ -15,6 +15,11 @@
 [ext_resource type="Resource" path="res://data/weapons/rifle.tres" id="13_rifle"]
 [ext_resource type="Resource" path="res://data/weapons/launcher.tres" id="14_launcher"]
 [ext_resource type="Resource" path="res://data/weapons/railgun.tres" id="15_railgun"]
+[ext_resource type="Resource" path="res://data/weapons/melee/melee_dagger.tres" id="ne117_dagger"]
+[ext_resource type="Resource" path="res://data/weapons/melee/melee_blade.tres" id="ne117_blade"]
+[ext_resource type="Resource" path="res://data/weapons/melee/melee_maul.tres" id="ne117_maul"]
+[ext_resource type="Resource" path="res://data/weapons/melee/melee_glaive.tres" id="ne117_glaive"]
+[ext_resource type="Resource" path="res://data/weapons/melee/melee_whip.tres" id="ne117_whip"]
 [ext_resource type="Resource" path="res://data/consumables/med_injector.tres" id="16_med"]
 [ext_resource type="Resource" path="res://data/consumables/shield_cell.tres" id="17_cell"]
 
@@ -94,6 +99,11 @@ legend = Dictionary[String, Resource]({
 "T": ExtResource("ne_shock_hound"),
 "Z": ExtResource("ne_sniper"),
 "n": ExtResource("ne_searchlight_drone"),
+"D": ExtResource("ne117_dagger"),
+"E": ExtResource("ne117_blade"),
+"F": ExtResource("ne117_maul"),
+"I": ExtResource("ne117_glaive"),
+"J": ExtResource("ne117_whip"),
 "G": ExtResource("14_launcher"),
 "L": ExtResource("10_laser"),
 "M": ExtResource("11_bulwark"),
