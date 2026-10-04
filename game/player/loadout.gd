@@ -5,6 +5,8 @@ extends RefCounted
 ## 滾輪循環切換、數字鍵直選；可序列化成 Dictionary 存到檢查點，重生時還原。
 
 signal changed
+## 手上的武器換成另一把（滾輪、數字鍵、撿到、彈盡自動切回），讀檔還原不算；換槍音效用。
+signal weapon_switched
 signal reload_started
 signal reload_finished
 signal reload_cancelled
@@ -87,8 +89,11 @@ func equip(weapon: WeaponData) -> int:
 		_mag[slot] = _weapons[slot].magazine_size
 		_reserve[slot] = weapon.max_reserve
 	_cancel_reload()
+	var switched := slot != active_slot
 	active_slot = slot
 	changed.emit()
+	if switched:
+		weapon_switched.emit()
 	return slot
 
 
@@ -285,6 +290,7 @@ func _switch_to(slot: int) -> void:
 	_cancel_reload()
 	active_slot = slot
 	changed.emit()
+	weapon_switched.emit()
 
 
 func _begin_reload(weapon: WeaponData) -> void:

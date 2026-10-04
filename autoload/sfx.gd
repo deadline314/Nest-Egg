@@ -1,7 +1,8 @@
 extends Node
-## 程式合成音效：沒有音效素材也能提供射擊／命中／爆炸／移動的即時聽覺回饋。
-## 每個音效由一或多個「層」混合而成（例如：低頻重擊 + 高頻噪音）。
-## 之後換成正式音效檔：在 OVERRIDES 填入 id -> 路徑，呼叫端完全不用改。
+## 音效播放：檔案優先、合成音退路。
+## 音效庫（data/audio/sound_bank.json，見 SoundBank）把音效 id 對應到一或多個音訊檔（變體）；
+## 沒有登記、或檔案遺失／損毀的 id 退回下面 SOUNDS 的程式合成音，所以沒有素材也聽得到回饋。
+## 合成音由一或多個「層」混合而成（例如：低頻重擊 + 高頻噪音）。呼叫端只認 id，換素材不用改程式。
 
 const MIX_RATE := 22050
 const VOICES := 24
@@ -298,12 +299,11 @@ const SOUNDS := {
 	],
 }
 
-## id -> res:// 路徑（AudioStream）。有設定時優先使用正式音效。
-const OVERRIDES := {}
-
 var enabled := true
 
+## 每個 id 的預設串流：音效庫第一個可用的檔案，沒有就是合成音。
 var _streams: Dictionary[StringName, AudioStream] = {}
+var _bank := SoundBank.new()
 var _players: Array[AudioStreamPlayer] = []
 var _next_voice := 0
 var _last_play_msec: Dictionary[StringName, int] = {}
@@ -328,6 +328,7 @@ var dropped_count := 0
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_rng.seed = 7
+	_bank.load_bank()
 	for i in VOICES:
 		var player := AudioStreamPlayer.new()
 		player.bus = BUS
@@ -336,9 +337,58 @@ func _ready() -> void:
 		_voice_priority.append(0)
 		_voice_base_db.append(0.0)
 		_voice_end_msec.append(0)
+	_build_streams()
+	load_events()
+
+
+## 重新讀取音效庫並重建串流（啟動時與實驗室寫回資料後呼叫）。
+func reload_bank(fresh := false) -> void:
+	_bank.load_bank(SoundBank.PATH, fresh)
+	_build_streams()
+
+
+func _build_streams() -> void:
+	_streams.clear()
 	for id: StringName in SOUNDS.keys():
 		_streams[id] = _load_or_synthesize(id)
-	load_events()
+	for id: Variant in _bank.ids():
+		var key := StringName(str(id))
+		if not _streams.has(key) and _bank.has_files(key):
+			_streams[key] = _bank.variants(key)[0]
+
+
+## 音效庫（唯讀）：實驗室與診斷用。
+func bank() -> SoundBank:
+	return _bank
+
+
+## 這個 id 目前的聲音來源：file（音效庫的檔案）、synth（合成音）、missing（兩者都沒有）。
+func source_of(id: StringName) -> StringName:
+	if _bank.has_files(id):
+		return &"file"
+	return &"synth" if SOUNDS.has(id) else &"missing"
+
+
+## 所有已定義音效的 id（合成音與音效庫的聯集）。
+func sound_ids() -> Array:
+	var ids: Dictionary = {}
+	for id: StringName in SOUNDS.keys():
+		ids[String(id)] = true
+	for id: Variant in _bank.ids():
+		ids[str(id)] = true
+	var result := ids.keys()
+	result.sort()
+	return result
+
+
+## 診斷：用檔案與用合成音的音效各有幾個，以及載入失敗的檔案數。
+func source_counts() -> Dictionary:
+	var counts := {"file": 0, "synth": 0, "failed": 0}
+	for id: String in sound_ids():
+		counts[String(source_of(StringName(id)))] = int(counts.get(String(source_of(StringName(id))), 0)) + 1
+	for id: Variant in _bank.failed_files():
+		counts["failed"] += (_bank.failed_files()[id] as PackedStringArray).size()
+	return counts
 
 
 ## 停止所有播放中的音效（切換場景或結束遊戲時呼叫，避免播放實例殘留）。
@@ -354,11 +404,26 @@ func _exit_tree() -> void:
 
 ## 是否有這個音效（資料檔引用音效時檢查用）。
 func has_sound(id: StringName) -> bool:
-	return SOUNDS.has(id)
+	return SOUNDS.has(id) or _bank.has_files(id)
 
 
 func play(id: StringName, volume_db := 0.0, pitch_jitter := 0.06, priority := 0, pitch_scale := 1.0) -> void:
 	_play_voice(id, volume_db, pitch_scale * (1.0 + randf_range(-pitch_jitter, pitch_jitter)), priority)
+
+
+## 依名稱播放：是聲音事件就播事件，否則當成單一音效；資料檔（武器、角色）引用的名稱用這個。空名稱什麼都不做。
+func play_named(id: StringName, volume_db := 0.0) -> void:
+	if id == &"":
+		return
+	if has_event(id):
+		play_event(id, {"volume_db": volume_db})
+	else:
+		play(id, volume_db)
+
+
+## 資料檔引用的名稱是否存在（事件或音效）。
+func has_named(id: StringName) -> bool:
+	return id == &"" or has_event(id) or has_sound(id)
 
 
 ## 播一個發聲位；回傳是否真的播放。滿載時只搶優先級不高於自己的聲音，沒有可搶的就丟棄。
@@ -369,6 +434,13 @@ func _play_voice(id: StringName, volume_db: float, pitch: float, priority: int) 
 	if stream == null:
 		_report_once("sound:" + String(id), "[Sfx] 未定義的音效：%s" % id, false)
 		return false
+	if _bank.has_files(id):
+		var variants := _bank.variants(id)
+		stream = variants[_pick_variant("file:" + String(id), variants.size())]
+		volume_db += _bank.volume_db(id)
+		var pitch_range := _bank.pitch_range(id)
+		if pitch_range != Vector2.ONE:
+			pitch *= _random_between(pitch_range.x, pitch_range.y)
 	var now := Time.get_ticks_msec()
 	if now - int(_last_play_msec.get(id, -1000)) < MIN_INTERVAL_MSEC:
 		return false
@@ -555,12 +627,8 @@ func _report_once(key: String, message: String, as_error := true) -> void:
 
 
 func _load_or_synthesize(id: StringName) -> AudioStream:
-	var override_path: String = OVERRIDES.get(id, "")
-	if not override_path.is_empty():
-		var loaded := load(override_path) as AudioStream if ResourceLoader.exists(override_path) else null
-		if loaded != null:
-			return loaded
-		push_warning("[Sfx] 音效檔載入失敗，改用合成音：%s" % override_path)
+	if _bank.has_files(id):
+		return _bank.variants(id)[0]
 	return _synthesize(SOUNDS[id])
 
 

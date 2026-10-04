@@ -1,0 +1,9 @@
+{
+ "default": {"hurt": "", "death": "kill_enemy", "telegraph": ["telegraph_{attack_category}", "telegraph"]},
+ "profiles": {
+  "base": {"hurt": "hit", "death": "explosion"},
+  "child": {"extends": "base", "death": ""},
+  "grandchild": {"extends": "child"},
+  "chain": {"telegraph": ["test_no_such_sound", "block"]}
+ }
+}

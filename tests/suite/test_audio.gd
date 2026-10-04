@@ -1,0 +1,207 @@
+class_name AudioSuite
+extends TestSuite
+## 音效庫與聲音設定表（NE-156）：檔案優先、缺檔退回合成音、變體輪播、武器與角色查表、資料檢查。
+## 缺檔測試用的路徑與 id 含 test_audio_missing，執行器會忽略它的錯誤輸出。
+
+const FIXTURES := "res://tests/fixtures/audio/"
+const SOURCE_DIRS: PackedStringArray = ["res://game", "res://ui", "res://autoload", "res://core"]
+
+
+func run() -> void:
+	_test_shipped_data()
+	_test_bank_loading()
+	_test_bank_validation()
+	await _test_sfx_uses_files()
+	_test_profile_table()
+	_test_profile_validation()
+	_test_weapon_sounds()
+	_test_character_sounds()
+	_test_loadout_switch_signal()
+	_test_source_counts()
+
+
+func _fixture_bank(file: String) -> SoundBank:
+	var bank := SoundBank.new()
+	bank.load_bank(FIXTURES + file, true)
+	return bank
+
+
+func _test_shipped_data() -> void:
+	var errors: PackedStringArray = Sfx.bank().validate()
+	check(errors.is_empty(), "sound bank data has no errors: %s" % ", ".join(errors))
+	errors = WeaponSounds.validate()
+	check(errors.is_empty(), "weapon sounds data has no errors: %s" % ", ".join(errors))
+	errors = CharacterSounds.validate()
+	check(errors.is_empty(), "character sounds data has no errors: %s" % ", ".join(errors))
+	var sound_re := RegEx.create_from_string("Sfx\\.play\\(&\"([a-z0-9_]+)\"")
+	for dir in SOURCE_DIRS:
+		for path in _gd_files(dir):
+			for m in sound_re.search_all(FileAccess.get_file_as_string(path)):
+				var id := m.get_string(1)
+				if id.begins_with("test_"):
+					continue
+				check(Sfx.has_sound(StringName(id)), "%s plays unknown sound %s" % [path, id])
+	for file in DirAccess.get_files_at("res://data/weapons"):
+		if file.ends_with(".tres"):
+			var weapon := load("res://data/weapons/" + file) as WeaponData
+			check(Sfx.has_sound(weapon.fire_sound), "weapon %s fire_sound exists: %s" % [weapon.id, weapon.fire_sound])
+
+
+func _gd_files(dir: String) -> PackedStringArray:
+	var result := PackedStringArray()
+	for file in DirAccess.get_files_at(dir):
+		if file.ends_with(".gd"):
+			result.append(dir.path_join(file))
+	for sub in DirAccess.get_directories_at(dir):
+		result.append_array(_gd_files(dir.path_join(sub)))
+	return result
+
+
+func _test_bank_loading() -> void:
+	var bank := _fixture_bank("bank_ok.json")
+	check(bank.has_files(&"test_audio_one") and bank.variants(&"test_audio_one").size() == 1, "bank loads a single file")
+	check(bank.variants(&"test_audio_two").size() == 2, "bank loads every variant")
+	check(is_equal_approx(bank.volume_db(&"test_audio_one"), -3.0) and bank.pitch_range(&"test_audio_one") == Vector2(0.9, 1.1), "bank reads volume and pitch range")
+	check(bank.pitch_range(&"test_audio_two") == Vector2.ONE and bank.volume_db(&"test_audio_two") == 0.0, "bank defaults: no pitch change, 0 dB")
+	check(bank.pack_of(&"test_audio_one") == "test_pack", "bank keeps the license pack id")
+	check(bank.variants(&"test_audio_half").size() == 1 and (bank.failed_files()[&"test_audio_half"] as PackedStringArray).size() == 1, "a missing variant is skipped and recorded, the others still load")
+	check(not bank.has_files(&"test_audio_none") and bank.failed_files().has(&"test_audio_none"), "an id with no loadable file reports no files")
+	var missing := SoundBank.new()
+	missing.load_bank(FIXTURES + "test_audio_missing_bank.json", true)
+	check(missing.ids().is_empty() and not missing.has_files(&"hit"), "a missing bank file leaves an empty bank instead of crashing")
+
+
+func _test_bank_validation() -> void:
+	var errors := _fixture_bank("bank_ok.json").validate()
+	check(errors.size() == 2, "validation flags the two ids with missing files (%d): %s" % [errors.size(), ", ".join(errors)])
+	errors = _fixture_bank("bank_bad.json").validate()
+	var text := "\n".join(errors)
+	check(text.contains("test_audio_nofiles") and text.contains("非空"), "validation flags an empty file list")
+	check(text.contains("test_audio_badext") and text.contains("副檔名"), "validation flags a non-audio extension")
+	check(text.contains("test_audio_gone") and text.contains("不存在的檔案"), "validation flags a missing file with its path")
+	check(text.contains("test_audio_pitch") and text.contains("pitch"), "validation flags a reversed pitch range")
+	check(text.contains("test_audio_field") and text.contains("colour"), "validation flags an unknown field")
+	var packs := _fixture_bank("bank_ok.json").validate(PackedStringArray(["only_pack"]))
+	check("\n".join(packs).contains("test_pack"), "validation checks the pack id against the license registry")
+
+
+func _test_sfx_uses_files() -> void:
+	Sfx.bank().load_bank(FIXTURES + "bank_ok.json", true)
+	Sfx._build_streams()
+	check(Sfx.source_of(&"hit") == &"file", "an id in the bank plays from file")
+	check(Sfx.source_of(&"explosion") == &"synth", "an id not in the bank keeps the synthesized sound")
+	check(Sfx.source_of(&"test_audio_none") == &"synth" or Sfx.source_of(&"test_audio_none") == &"missing", "an id whose files all failed is not served from file")
+	check(Sfx.has_sound(&"test_audio_one") and Sfx.source_of(&"test_audio_one") == &"file", "a bank-only id is a valid sound")
+	check(not Sfx.has_sound(&"test_audio_none"), "an id with no usable file and no synth is undefined")
+	Sfx.stop_all()
+	Sfx._last_play_msec.clear()
+	var lengths: Dictionary = {}
+	for n in 12:
+		Sfx._last_play_msec.clear()
+		Sfx._voice_end_msec.fill(0)
+		check(Sfx._play_voice(&"test_audio_two", 0.0, 1.0, 0), "bank sound plays")
+		var index: int = (Sfx._next_voice + Sfx._players.size() - 1) % Sfx._players.size()
+		lengths[snappedf(Sfx._players[index].stream.get_length(), 0.01)] = n
+	check(lengths.size() == 2, "both variants get played over repeated plays (%d)" % lengths.size())
+	var last := -1.0
+	var repeated := false
+	for n in 20:
+		Sfx._last_play_msec.clear()
+		Sfx._voice_end_msec.fill(0)
+		Sfx._play_voice(&"test_audio_two", 0.0, 1.0, 0)
+		var index: int = (Sfx._next_voice + Sfx._players.size() - 1) % Sfx._players.size()
+		var length := snappedf(Sfx._players[index].stream.get_length(), 0.01)
+		repeated = repeated or is_equal_approx(length, last)
+		last = length
+	check(not repeated, "the same variant is never played twice in a row")
+	Sfx._last_play_msec.clear()
+	Sfx._voice_end_msec.fill(0)
+	Sfx._play_voice(&"test_audio_one", 0.0, 1.0, 0)
+	var one_index: int = (Sfx._next_voice + Sfx._players.size() - 1) % Sfx._players.size()
+	check(Sfx._players[one_index].volume_db <= -3.0 + 0.001, "the bank's volume_db is applied (%.2f)" % Sfx._players[one_index].volume_db)
+	Sfx.stop_all()
+	# 還原真正的音效庫，避免影響之後的套件。
+	Sfx.reload_bank(true)
+	check(Sfx.source_of(&"test_audio_one") == &"missing", "reloading restores the shipped bank")
+	await frames(1)
+
+
+func _test_profile_table() -> void:
+	var table := SoundProfileTable.new(FIXTURES + "profiles_ok.json", "AudioSuite", PackedStringArray(["hurt", "death", "telegraph"]))
+	var has_name := Sfx.has_named
+	check(table.resolve(&"base", &"hurt", {}, has_name) == &"hit", "profile returns its own value")
+	check(table.resolve(&"child", &"hurt", {}, has_name) == &"hit", "extends passes down unspecified actions")
+	check(table.resolve(&"child", &"death", {}, has_name) == &"", "an empty string silences the action even if the parent has a sound")
+	check(table.resolve(&"grandchild", &"hurt", {}, has_name) == &"hit", "extends chains through more than one level")
+	check(table.resolve(&"nobody", &"death", {}, has_name) == &"kill_enemy", "unknown profile falls back to default")
+	check(table.resolve(&"nobody", &"hurt", {}, has_name) == &"", "default may be silent")
+	check(table.resolve(&"nobody", &"telegraph", {"attack_category": "melee"}, has_name) == &"telegraph_melee", "{key} placeholders are filled from the context")
+	check(table.resolve(&"nobody", &"telegraph", {"attack_category": "test_no_such_category"}, has_name) == &"telegraph", "a list falls through to the first name that exists")
+	check(table.resolve(&"chain", &"telegraph", {}, has_name) == &"block", "list skips names that do not exist")
+	check(table.resolve(&"base", &"test_no_such_action", {}, has_name) == &"", "unknown action is silent")
+	check(table.validate(has_name).is_empty(), "valid profile data has no errors: %s" % ", ".join(table.validate(has_name)))
+	var broken := SoundProfileTable.new(FIXTURES + "test_audio_missing_profiles.json", "AudioSuite", PackedStringArray(["hurt"]))
+	check(broken.resolve(&"x", &"hurt", {}, has_name) == &"", "missing profile file resolves to silence instead of crashing")
+
+
+func _test_profile_validation() -> void:
+	var table := SoundProfileTable.new(FIXTURES + "profiles_bad.json", "AudioSuite", PackedStringArray(["hurt", "death"]))
+	var text := "\n".join(table.validate(Sfx.has_named))
+	check(text.contains("default 缺少動作「death」"), "validation requires every action in default")
+	check(text.contains("引用不存在的聲音"), "validation flags a sound that does not exist")
+	check(text.contains("形成迴圈"), "validation flags an extends cycle")
+	check(text.contains("extends 不存在的「test_no_such_profile」"), "validation flags a missing extends target")
+	check(text.contains("不認得的動作「flying」"), "validation flags an unknown action")
+	check(text.contains("要是字串或字串陣列"), "validation flags a wrong value type")
+	check(table.resolve(&"a", &"death", {}, Sfx.has_named) == &"", "a cyclic extends chain still resolves without hanging")
+
+
+func _test_weapon_sounds() -> void:
+	for kind in WeaponSounds.KINDS:
+		check(WeaponSounds.table().raw_default().has(kind), "weapon sounds default covers %s" % kind)
+	check(WeaponSounds.name_for(&"test_no_such_weapon", &"empty") == &"empty", "unknown weapon uses the default empty-click")
+	check(WeaponSounds.name_for(&"", &"reload_done") == &"reload_done", "no weapon uses the default")
+	WeaponSounds.play(null, &"reload_start", -80.0)
+	check(true, "playing with no weapon does not fail")
+	for file in DirAccess.get_files_at("res://data/weapons"):
+		if file.ends_with(".tres"):
+			var weapon := load("res://data/weapons/" + file) as WeaponData
+			for kind in ["reload_start", "reload_done", "empty"]:
+				check(WeaponSounds.name_for(weapon.id, StringName(kind)) != &"", "weapon %s has a %s sound" % [weapon.id, kind])
+
+
+func _test_character_sounds() -> void:
+	for kind in CharacterSounds.KINDS:
+		check(CharacterSounds.table().raw_default().has(kind), "character sounds default covers %s" % kind)
+	check(CharacterSounds.name_for(&"test_no_such_enemy", &"death") == &"kill_enemy", "unregistered enemy uses the default death sound")
+	check(CharacterSounds.name_for(&"test_no_such_enemy", &"attack") == &"shot_enemy", "unregistered enemy uses the default attack sound")
+	check(CharacterSounds.name_for(&"player", &"hurt") == &"hurt", "the player has its own hurt sound")
+	for category in ["melee", "ranged", "beam", "charge", "explosive", "support"]:
+		check(CharacterSounds.name_for(&"grunt", &"telegraph", {"attack_category": category}) != &"", "telegraph sound exists for %s attacks" % category)
+	for file in DirAccess.get_files_at("res://data/enemies"):
+		if file.ends_with(".tres"):
+			var enemy := load("res://data/enemies/" + file) as EnemyData
+			check(CharacterSounds.name_for(enemy.id, &"death") != &"", "enemy %s has a death sound" % enemy.id)
+
+
+func _test_loadout_switch_signal() -> void:
+	var loadout := Loadout.new()
+	var pistol := load("res://data/weapons/pistol.tres") as WeaponData
+	var rifle := load("res://data/weapons/rifle.tres") as WeaponData
+	loadout.reset(pistol)
+	var switches := [0]
+	loadout.weapon_switched.connect(func() -> void: switches[0] += 1)
+	loadout.equip(rifle)
+	check(switches[0] == 1, "picking up a new weapon emits weapon_switched")
+	loadout.equip(rifle)
+	check(switches[0] == 1, "re-picking the same weapon does not emit weapon_switched")
+	loadout.cycle(1)
+	check(switches[0] == 2, "cycling weapons emits weapon_switched")
+	loadout.select(loadout.active_slot)
+	check(switches[0] == 2, "selecting the current weapon does not emit weapon_switched")
+
+
+func _test_source_counts() -> void:
+	var counts: Dictionary = Sfx.source_counts()
+	check(int(counts["file"]) + int(counts["synth"]) + int(counts.get("missing", 0)) == Sfx.sound_ids().size(), "source counts add up to the number of sounds")
+	check(int(counts["synth"]) > 0 or int(counts["file"]) > 0, "at least one sound source exists")

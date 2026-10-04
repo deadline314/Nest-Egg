@@ -1,0 +1,9 @@
+{
+ "sounds": {
+  "test_audio_nofiles": {"files": []},
+  "test_audio_badext": {"files": ["res://tests/fixtures/audio/bank_ok.json"]},
+  "test_audio_gone": {"files": ["res://tests/fixtures/audio/test_audio_missing_c.ogg"]},
+  "test_audio_pitch": {"files": ["res://tests/fixtures/audio/tone_a.ogg"], "pitch": [1.2, 0.8]},
+  "test_audio_field": {"files": ["res://tests/fixtures/audio/tone_a.ogg"], "colour": 1}
+ }
+}

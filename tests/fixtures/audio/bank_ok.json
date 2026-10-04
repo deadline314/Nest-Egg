@@ -1,0 +1,9 @@
+{
+ "sounds": {
+  "test_audio_one": {"files": ["res://tests/fixtures/audio/tone_a.ogg"], "volume_db": -3.0, "pitch": [0.9, 1.1], "pack": "test_pack"},
+  "test_audio_two": {"files": ["res://tests/fixtures/audio/tone_a.ogg", "res://tests/fixtures/audio/tone_b.ogg"]},
+  "hit": {"files": ["res://tests/fixtures/audio/tone_b.ogg"]},
+  "test_audio_half": {"files": ["res://tests/fixtures/audio/test_audio_missing_a.ogg", "res://tests/fixtures/audio/tone_a.ogg"]},
+  "test_audio_none": {"files": ["res://tests/fixtures/audio/test_audio_missing_b.ogg"]}
+ }
+}

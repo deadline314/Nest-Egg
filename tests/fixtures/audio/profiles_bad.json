@@ -1,0 +1,10 @@
+{
+ "default": {"hurt": "test_no_such_sound"},
+ "profiles": {
+  "a": {"extends": "b"},
+  "b": {"extends": "a"},
+  "c": {"extends": "test_no_such_profile"},
+  "d": {"flying": "hit"},
+  "e": {"hurt": 5}
+ }
+}

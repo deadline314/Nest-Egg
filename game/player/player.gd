@@ -6,6 +6,8 @@ extends CharacterBody2D
 enum State { NORMAL, DASH, FINISHER, MOUNTED, STAGGERED, DEAD, PHONE }
 ## 在電話亭撥號備份的整段動作時間（秒），與專屬動作 rin.phone_call 的長度一致。
 const PHONE_DURATION := 1.1
+## 角色聲音設定（data/audio/character_sounds.json）裡玩家的 id。
+const PLAYER_SOUND_ID := &"player"
 
 const BODY_SIZE := Vector2(12, 44)
 const CROUCH_HEIGHT := 30.0
@@ -151,7 +153,8 @@ func _ready() -> void:
 	loadout.changed.connect(_on_loadout_changed)
 	loadout.reload_started.connect(func() -> void:
 		_reload_mid_played = false
-		Sfx.play(&"reload_start", -4.0))
+		WeaponSounds.play(loadout.active_weapon(), &"reload_start", -4.0))
+	loadout.weapon_switched.connect(func() -> void: WeaponSounds.play(loadout.active_weapon(), &"equip", -6.0))
 	loadout.reload_finished.connect(_on_reload_finished)
 	loadout.restore(_loadout_snapshot, tuning.default_weapon)
 	cyber = CyberSystem.new()
@@ -283,7 +286,7 @@ func _tick_timers(delta: float) -> void:
 		loadout.tick(delta * cyber.reload_speed_scale())
 		if loadout.is_reloading() and not _reload_mid_played and loadout.reload_progress() >= RELOAD_MID_POINT:
 			_reload_mid_played = true
-			Sfx.play(&"reload_mid", -4.0)
+			WeaponSounds.play(loadout.active_weapon(), &"reload_mid", -4.0)
 	_tick_guard(delta)
 	if _drop_through_left > 0.0:
 		_drop_through_left -= delta
@@ -416,15 +419,15 @@ func _dry_fire() -> void:
 	if _dry_fire_left > 0.0:
 		return
 	_dry_fire_left = DRY_FIRE_INTERVAL
-	Sfx.play(&"empty", -4.0)
+	WeaponSounds.play(loadout.active_weapon(), &"empty", -4.0)
 	aim_bloom = minf(1.0, aim_bloom + 0.2)
 	EventBus.dry_fired.emit()
 
 
 ## 換彈完成：槍口一個小閃光與準星提示（取消換彈時不會走到這裡）。
 func _on_reload_finished() -> void:
-	Sfx.play(&"reload_done", -3.0)
 	var weapon := loadout.active_weapon()
+	WeaponSounds.play(weapon, &"reload_done", -3.0)
 	if weapon != null:
 		Fx.flare(muzzle_position(), weapon.color, 18.0, 0.08)
 	EventBus.reload_completed.emit()
@@ -928,7 +931,7 @@ func _on_damaged(info: DamageInfo) -> void:
 	velocity = Vector2(side * tuning.hurt_knockback.x, -tuning.hurt_knockback.y)
 	Feel.play(&"player_hurt", {"dir": Vector2(side, 0.0), "origin": info.origin if info.origin != Vector2.ZERO else Vector2.INF})
 	Fx.flash_light(global_position + Vector2(0, -24), Palette.DANGER, 70.0, 1.5, 0.2)
-	Sfx.play(&"hurt", -2.0)
+	CharacterSounds.play(PLAYER_SOUND_ID, &"hurt", -2.0)
 	_visual.notify_hurt()
 
 
@@ -940,7 +943,7 @@ func _on_died(info: DamageInfo) -> void:
 	Fx.burst(global_position + Vector2(0, -24), Palette.ARMOR, 12, 160.0, 0.5)
 	Feel.play(&"player_death")
 	Fx.flash_light(global_position + Vector2(0, -24), Palette.CYAN, 160.0, 3.0, 0.6)
-	Sfx.play(&"explosion", -4.0)
+	CharacterSounds.play(PLAYER_SOUND_ID, &"death", -4.0)
 	_light.enabled = false
 	var cause: StringName = info.source_id if info != null and info.source_id != &"" else &"unknown"
 	EventBus.player_died.emit(cause)

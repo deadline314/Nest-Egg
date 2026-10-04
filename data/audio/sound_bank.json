@@ -1,0 +1,4 @@
+{
+ "_說明": "音效庫：音效 id → 音訊檔（變體會輪播且不連續重複）。沒有登記或檔案遺失的 id 退回 autoload/sfx.gd 的合成音。files 用 res:// 路徑；volume_db 微調音量；pitch [最小, 最大] 每次播放隨機音高；pack 對應 assets_src/audio/LICENSES.json 的授權包 id。",
+ "sounds": {}
+}

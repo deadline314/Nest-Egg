@@ -580,6 +580,8 @@ func is_dying() -> bool:
 func raise_alert(point: Vector2, seconds: float) -> void:
 	if _dying:
 		return
+	if _alert_left <= 0.0:
+		CharacterSounds.play(data.id, &"alert", -6.0)
 	_alert_left = maxf(_alert_left, seconds)
 	_alert_point = point
 
@@ -623,6 +625,7 @@ func stun(seconds: float) -> void:
 
 
 func _on_damaged(info: DamageInfo) -> void:
+	CharacterSounds.play(data.id, &"hurt", -4.0)
 	if info.weak_hit:
 		_weak_point_feedback(info)
 	var tier := _resolve_hit_tier(info) if health.current > 0 else HitTier.LIGHT
@@ -765,7 +768,7 @@ func _on_died(info: DamageInfo) -> void:
 	if by_finisher:
 		Fx.burst(center, Palette.CYAN, 24, 240.0, 0.5)
 	Feel.play(&"enemy_kill", {"targets": [self, info.get_attacker() if info != null else null]})
-	Sfx.play_event(&"kill_enemy")
+	CharacterSounds.play(data.id, &"death")
 	if by_player:
 		_note_kill()
 		EventBus.enemy_killed.emit(data.id, by_finisher)
@@ -869,11 +872,7 @@ func _is_ledge_ahead() -> bool:
 func _start_telegraph(seconds: float) -> void:
 	_telegraph_left = seconds
 	_ensure_telegraph_light()
-	var event := StringName("telegraph_" + String(data.attack_category))
-	if Sfx.has_event(event):
-		Sfx.play_event(event)
-	else:
-		Sfx.play(&"telegraph", -10.0)
+	CharacterSounds.play(data.id, &"telegraph", 0.0, {"attack_category": data.attack_category})
 
 
 func _ensure_telegraph_light() -> void:
@@ -920,7 +919,7 @@ func _shoot(spec: ProjectileSpec, direction: Vector2, origin := Vector2.INF) -> 
 		Fx.flash_light(from, spec.color, 40.0, 0.9, 0.08)
 		Fx.flare(from, spec.color, 12.0, 0.05)
 		Fx.sparks(from, spec.color, 2, 220.0, 0.12, direction, 0.7, 200.0)
-		Sfx.play(&"shot_enemy", -10.0)
+		CharacterSounds.play(data.id, &"attack", -10.0)
 
 
 ## 巡邏移動：碰牆或遇到懸崖就回頭。戒備中改為往警報地點聚集（遇到懸崖或牆就停下）。
