@@ -88,6 +88,10 @@ func _run() -> void:
 		await _run_lab_guns()
 		get_tree().quit()
 		return
+	if _scenario == "lab_clip":
+		await _run_lab_clip()
+		get_tree().quit()
+		return
 	if _scenario == "menus":
 		await _run_menus()
 		get_tree().quit()
@@ -1294,6 +1298,25 @@ func _run_lab_music() -> void:
 	lab.music_tab.scroll_vertical = int(lab.music_tab._candidate_list.position.y) - 120
 	await _settle(10)
 	_capture("lab_music")
+	lab.queue_free()
+	get_window().content_scale_mode = scale_mode_before
+
+
+## 音效實驗室的擷取片段介面：用真實的擷取工具打開一個含兩聲槍響的素材（需要 Python 與 ffmpeg 與原始檔）。
+func _run_lab_clip() -> void:
+	var scale_mode_before := get_window().content_scale_mode
+	get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
+	var lab := SoundLab.new()
+	lab.stage_enabled = false
+	add_child(lab)
+	await _settle(20)
+	await lab.open_clip_editor("GUN-0031")
+	await _settle(20)
+	lab.clip_editor.select_segment(1)
+	lab.clip_editor.request_export()
+	await _settle(10)
+	_capture("lab_clip")
+	lab.clip_editor.close()
 	lab.queue_free()
 	get_window().content_scale_mode = scale_mode_before
 

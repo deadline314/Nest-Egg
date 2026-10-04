@@ -188,6 +188,7 @@ func _build_candidate_pane(parent: Control) -> void:
 	picks.add_child(_button("▶ 試聽選中的", _audition_selected, "播放選中素材的預聽檔"))
 	picks.add_child(_button("設為預計使用", func() -> void: _pick(false), "用選中的素材取代這個位置的預計使用（可以多選）"))
 	picks.add_child(_button("加入預計使用", func() -> void: _pick(true), "把選中的素材加到這個位置的預計使用後面"))
+	picks.add_child(_button("✂ 擷取片段…", _open_clip_editor, "一個素材裡有多段聲音時：看完整波形、挑一段、試聽，確認後輸出成新素材"))
 	_fill_search()
 
 
@@ -381,6 +382,31 @@ func _audition_selected() -> void:
 		lab.notify("先在下面的清單點選一個素材")
 		return
 	lab.audition_asset(ids[ids.size() - 1])
+
+
+func _open_clip_editor() -> void:
+	var ids := selected_assets()
+	if ids.is_empty():
+		lab.notify("先在下面的清單點選要擷取的素材")
+		return
+	lab.open_clip_editor(ids[ids.size() - 1])
+
+
+## 切到「搜尋全部素材」並搜尋這個編號（新擷取的素材立刻看得到）。
+func show_in_search(asset_id: String) -> void:
+	_result_tabs.current_tab = 1
+	_category.select(0)
+	_search_edit.text = asset_id
+	_fill_search()
+
+
+## 把這個素材設成目前選中位置的預計使用（取代原有的）；沒選位置或寫入失敗回傳 false。
+func plan_asset(asset_id: String) -> bool:
+	if _selected_slot == "":
+		return false
+	var ok := lab.doc.set_planned(_selected_slot, PackedStringArray([asset_id]))
+	refresh()
+	return ok
 
 
 ## 把選中的素材設成（或加到）這個位置的預計使用，立刻寫回位置清單文件。

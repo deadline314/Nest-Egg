@@ -30,6 +30,9 @@ var scenes_tab: SoundLabScenesTab
 var live_tab: SoundLabLiveTab
 var music_tab: SoundLabMusicTab
 var mixer_tab: SoundLabMixerTab
+## 擷取片段介面（NE-180）；沒開著時是 null。擷取工具的呼叫包裝，測試時換成假的。
+var clip_editor: SoundLabClipEditor
+var clip_runner := ClipToolRunner.new()
 var tabs: TabContainer
 var status_label: Label
 var _sync_left := SYNC_INTERVAL
@@ -145,6 +148,22 @@ func asset_line(asset_id: String) -> String:
 ## 清單因為沒有預聽檔而隱藏了素材時，放在清單旁的一句說明。
 func hidden_assets_note(hidden: int) -> String:
 	return "另有 %d 個素材沒有預聽檔而隱藏，補齊：python tools/audio/build_candidates.py" % hidden
+
+
+## 開啟擷取片段介面（蓋在整個實驗室上），載入這個素材的完整波形；回傳是否成功。
+func open_clip_editor(asset_id: String) -> bool:
+	if clip_editor != null:
+		clip_editor.close()
+	var layer := CanvasLayer.new()
+	layer.layer = 10
+	add_child(layer)
+	var editor := SoundLabClipEditor.new()
+	editor.theme = _theme
+	editor.setup(self, clip_runner)
+	layer.add_child(editor)
+	editor.tree_exited.connect(layer.queue_free)
+	clip_editor = editor
+	return await editor.open(asset_id)
 
 
 ## 試聽一個素材（預聽檔）；沒有預聽檔時提示怎麼產生。
