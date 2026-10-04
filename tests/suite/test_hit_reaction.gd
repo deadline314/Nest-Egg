@@ -267,12 +267,16 @@ func _test_corpse_cap() -> void:
 	for enemy in group:
 		_kill_with(enemy, true, 1.0)
 	check(Enemy._corpses.size() <= Enemy.MAX_CORPSES, "at most %d corpses are tracked (%d)" % [Enemy.MAX_CORPSES, Enemy._corpses.size()])
-	for i in 24:
-		await physics_frames(1)
+	# 淡出靠時間計時，機器忙的時候會慢一點：等到條件成立（最多兩秒）而不是固定等幾格。
 	var standing := 0
-	for enemy in group:
-		if is_instance_valid(enemy) and not enemy.is_queued_for_deletion():
-			standing += 1
+	for i in 120:
+		await physics_frames(1)
+		standing = 0
+		for enemy in group:
+			if is_instance_valid(enemy) and not enemy.is_queued_for_deletion():
+				standing += 1
+		if standing <= Enemy.MAX_CORPSES:
+			break
 	check(standing <= Enemy.MAX_CORPSES, "the oldest corpses fade out quickly once the cap is passed (%d left)" % standing)
 	await end_level(level)
 

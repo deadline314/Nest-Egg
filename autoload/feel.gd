@@ -206,6 +206,13 @@ func register_counter(counter_name: String, reader: Callable) -> void:
 	_gauges[counter_name] = reader
 
 
+## 取消註冊（計數器的主人離開場景時呼叫；沒取消的話，讀取一個已經釋放的物件會出錯）。reader 給了就只在登記的還是它時才取消。
+func unregister_counter(counter_name: String, reader := Callable()) -> void:
+	if reader.is_valid() and _gauges.get(counter_name) != reader:
+		return
+	_gauges.erase(counter_name)
+
+
 ## 目前所有計數：事件計數加上各系統註冊的即時數字。
 func read_counters() -> Dictionary:
 	var result: Dictionary = {}
@@ -219,7 +226,8 @@ func read_counters_into(out: Dictionary) -> void:
 		out[key] = counters[key]
 	for key: String in _gauges.keys():
 		var reader: Callable = _gauges[key]
-		out[key] = reader.call() if reader.is_valid() else 0
+		# 主人已經被釋放的計數器（例如離開的關卡鏡頭）讀成 0，不要呼叫它。
+		out[key] = reader.call() if reader.is_valid() and is_instance_valid(reader.get_object()) else 0
 
 
 func _count(key: String) -> void:

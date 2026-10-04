@@ -23,14 +23,29 @@ func _run() -> void:
 	Enemy.activation_culling_enabled = false
 	Story.auto_skip = true
 	var only := _only_suite()
+	if only == "list":  # 列出所有套件名稱給平行執行器分組（-- --only=list）
+		print("SUITES: %s" % ",".join(PackedStringArray(_suites().map(func(suite: TestSuite) -> String: return str(suite.get_script().get_global_name())))))
+		get_tree().quit(0)
+		return
 	if only == "block":  # 只跑格擋與反彈的檢查（-- --only=block）
 		await _test_block_and_parry()
 		await _finish()
 		return
 	if only != "":
+		# 逗號分隔：套件類別名稱，加上 main（開頭那一大段不屬於任何套件的流程測試）。
+		if only.split(",", false).has("main"):
+			await _run_main()
 		await _run_suites(only)
 		await _finish()
 		return
+	await _run_main()
+	await _run_suites("")
+	await _finish()
+
+
+## 不屬於任何套件的流程測試（資料、關卡、狀態機、武器欄、角色、設定、劇情、核心玩法、機關、死亡流程…）。
+func _run_main() -> void:
+	var started := Time.get_ticks_msec()
 	_test_data()
 	_test_level_layout()
 	_test_state_machine()
@@ -49,8 +64,7 @@ func _run() -> void:
 	await _test_boss_and_victory()
 	await _test_checkpoints_and_difficulties()
 	await _test_death_flow()
-	await _run_suites("")
-	await _finish()
+	print("SUITE_TIME main %.1f" % (float(Time.get_ticks_msec() - started) / 1000.0))
 
 
 func _finish() -> void:
@@ -88,8 +102,12 @@ func _only_suite() -> String:
 func _run_suites(only: String) -> void:
 	var wanted := only.split(",", false)
 	for suite in _suites():
-		if only == "" or wanted.has(str(suite.get_script().get_global_name())):
+		var suite_name := str(suite.get_script().get_global_name())
+		if only == "" or wanted.has(suite_name):
+			var started := Time.get_ticks_msec()
 			await suite.run()
+			# 平行執行器用這行時間把套件平均分給各個程序。
+			print("SUITE_TIME %s %.1f" % [suite_name, float(Time.get_ticks_msec() - started) / 1000.0])
 
 
 func _check(condition: bool, message: String) -> void:

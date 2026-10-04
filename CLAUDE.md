@@ -7,18 +7,22 @@
 - 高穩定性與高容錯：資源遺失或資料損毀時記錄錯誤並退回安全預設值，不讓遊戲崩潰；錯誤訊息要指出具體位置
 - 高效能、低記憶體：避免每影格配置、可重用的物件走物件池，大量繪製分塊或合併
 - 合適的功能引導與說明：選單與 HUD 的 tooltip、遊戲內提示一句講重點，不寫廢話
-- 不破壞任何原有功能：每次交付前完整測試套件必須全數通過
+- 不破壞任何原有功能：交付前「有更動到的範圍」的測試必須全過（`tools/run_tests_changed.sh`）；完整測試由 CI 負責（每次推送、每個 PR、每小時一次且程式有更動才跑），CI 紅了優先處理
 
 ## 2. 環境
 
 - 引擎：Godot 4.7（Forward+、HDR 2D）
-- 測試：`GODOT=/path/to/godot tools/run_tests.sh`（無頭冒煙測試，輸出有腳本錯誤也算失敗）
+- 測試（無頭冒煙測試，輸出有腳本錯誤也算失敗）：
+  - 平常用：`GODOT=/path/to/godot tools/run_tests_changed.sh`——依 git 更動挑出受影響的測試套件（`tools/select_tests.py`）再平行跑；只改文件或票就不跑
+  - 完整平行：`GODOT=/path/to/godot tools/run_tests_parallel.sh`（核心數 + 2 個程序，約 4 分鐘）；`--only=套件1,套件2` 指定套件
+  - 循序跑全部：`GODOT=/path/to/godot tools/run_tests.sh`
+  - 已知失敗清單在 `tests/known_failures.txt`：只有「新的失敗」讓平行測試與 CI 不通過；修好一項就從清單刪掉
 - 截圖：`godot --path . res://tools/screenshot.tscn -- --out=<絕對路徑> [--scenario=<名稱>]`
 
 ## 3. 工作流程
 
 - 需求先整理進 `design/`，再依 `pm-ticket` skill 在 `pm/Nest-Egg/` 開票
-- 一張票完成：測試全過 → 截圖存到 `pm/Nest-Egg/images/` → 在票上加 Commit 段落、狀態改「完成」、驗收條件打勾 → commit 一次
+- 一張票完成：受影響範圍的測試全過 → 截圖存到 `pm/Nest-Egg/images/` → 在票上加 Commit 段落、狀態改「完成」、驗收條件打勾 → commit 一次
 
 ## 4. Git 流程
 

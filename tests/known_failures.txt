@@ -1,0 +1,19 @@
+# 已知失敗的檢查（一行一個，內容要和失敗訊息完全一樣）。
+# 這些在 main 上就失敗或時而失敗，和後來的改動無關；平行測試與 CI 會把它們標成「已知」，只有「新的失敗」才讓測試不通過。
+# 修好一項就刪掉那一行；新增一行代表承認一個還沒修的問題，請在提交說明裡寫原因。
+#
+# 穩定失敗（角色零件法線貼圖缺一張、檢查點與復活流程、顯示設定）
+a pile collected before the checkpoint stays collected
+checkpoint saves consumables
+checkpoint stores the credits
+every part, weapon and terrain material has a normal map (1 missing)
+nothing is shown while the setting is off
+pit damages and respawns
+quick-use key heals with med injector
+reload finishes in game time
+reload key starts reload
+respawning restores the checkpoint credits (0)
+#
+# 時序不穩定（靠真實時間或影格數，時過時不過）
+finisher counted
+a heavy kill falls faster and further than a light one

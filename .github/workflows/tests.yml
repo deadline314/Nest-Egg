@@ -1,0 +1,91 @@
+name: tests
+
+# 完整測試放在 CI：每次推送到 main、每個 PR、以及每小時一次（只在程式有更動、距離上次成功的測試之後才真的跑）。
+# 平常開發只跑有更動到的範圍：tools/run_tests_changed.sh。
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "pm/**"
+      - "design/**"
+      - "assets_src/**"
+      - "**/*.md"
+  pull_request:
+    paths-ignore:
+      - "pm/**"
+      - "design/**"
+      - "assets_src/**"
+      - "**/*.md"
+  schedule:
+    - cron: "17 * * * *"   # 每小時（錯開整點，避免和別人一起擠）
+  workflow_dispatch:
+
+# 同一個分支有新的推送就取消舊的執行。
+concurrency:
+  group: tests-${{ github.ref }}-${{ github.event_name == 'schedule' && 'schedule' || 'change' }}
+  cancel-in-progress: true
+
+env:
+  GODOT_VERSION: "4.7-stable"
+
+jobs:
+  full:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+
+      # 排程觸發時，如果這個提交已經有成功的測試，就不用再跑一次。
+      - name: Skip when nothing changed since the last green run
+        id: gate
+        if: github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          last="$(gh run list --workflow tests.yml --branch "${GITHUB_REF_NAME}" --status success --limit 1 --json headSha --jq '.[0].headSha // ""')"
+          if [ "$last" = "$GITHUB_SHA" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "Nothing changed since the last green run ($last)."
+          fi
+
+      - name: Download Godot
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          curl -fsSL -o godot.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_linux.x86_64.zip"
+          unzip -q godot.zip
+          chmod +x "Godot_v${GODOT_VERSION}_linux.x86_64"
+          echo "GODOT=$PWD/Godot_v${GODOT_VERSION}_linux.x86_64" >> "$GITHUB_ENV"
+
+      # 匯入快取（貼圖、音訊）：內容沒變就沿用，省下幾分鐘。
+      - name: Cache the import folder
+        if: steps.gate.outputs.skip != 'true'
+        uses: actions/cache@v4
+        with:
+          path: .godot
+          key: godot-import-${{ env.GODOT_VERSION }}-${{ hashFiles('project.godot', '**/*.import') }}
+          restore-keys: godot-import-${{ env.GODOT_VERSION }}-
+
+      - name: Import the project
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          "$GODOT" --headless --editor --quit || true
+          "$GODOT" --headless --editor --quit || true
+
+      - name: Run all tests (parallel)
+        if: steps.gate.outputs.skip != 'true'
+        env:
+          LOG_DIR: ${{ runner.temp }}/test-logs
+        run: |
+          mkdir -p "$LOG_DIR"
+          tools/run_tests_parallel.sh
+
+      - name: Upload the test logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-logs
+          path: ${{ runner.temp }}/test-logs/*.log
+          retention-days: 7

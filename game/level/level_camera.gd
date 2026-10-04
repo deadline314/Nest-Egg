@@ -26,6 +26,8 @@ const AIM_LOOK_SPEED := 5.0
 const KICK_RECOVERY := 16.0
 const MAX_KICK := 8.0
 
+var _shake_reader := Callable()
+var _zoom_reader := Callable()
 var target: Node2D
 
 ## 進行中的震動：[峰值像素, 總秒數, 剩餘秒數, 方向]。
@@ -51,9 +53,17 @@ func _ready() -> void:
 	EventBus.screen_shake.connect(_on_screen_shake)
 	EventBus.camera_kick.connect(_on_camera_kick)
 	EventBus.camera_zoom_pulse.connect(_on_zoom_pulse)
-	Feel.register_counter("camera_shake_px", func() -> float: return snappedf(offset.length(), 0.1))
-	Feel.register_counter("camera_zoom", func() -> float: return snappedf(zoom.x, 0.001))
+	_shake_reader = func() -> float: return snappedf(offset.length(), 0.1)
+	_zoom_reader = func() -> float: return snappedf(zoom.x, 0.001)
+	Feel.register_counter("camera_shake_px", _shake_reader)
+	Feel.register_counter("camera_zoom", _zoom_reader)
 	make_current()
+
+
+func _exit_tree() -> void:
+	# 診斷面板還會讀這兩個計數，鏡頭離開後不能留下指向自己的讀取函式。
+	Feel.unregister_counter("camera_shake_px", _shake_reader)
+	Feel.unregister_counter("camera_zoom", _zoom_reader)
 
 
 func set_bounds(bounds: Rect2) -> void:
