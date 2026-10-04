@@ -62,6 +62,19 @@ func stop(fade := 1.5) -> void:
 		_fade_to(_active, SILENT_DB, fade)
 	_active = -1
 	_stream = null
+	if fade <= 0.0:
+		_release_players()
+
+
+## 立刻停止兩個播放器並放掉串流參照（淡出秒數為 0、或節點離開場景樹時）。
+func _release_players() -> void:
+	for player in _players:
+		player.stop()
+		player.stream = null
+
+
+func _exit_tree() -> void:
+	_release_players()
 
 
 func is_playing() -> bool:

@@ -25,13 +25,13 @@ func _process(delta: float) -> void:
 	_left -= delta
 	if _left > 0.0:
 		return
-	_left = UPDATE_INTERVAL
 	refresh()
 
 
 ## 立刻重算一次文字（測試與手動刷新用）。
 func refresh() -> void:
 	updates += 1
+	_left = UPDATE_INTERVAL
 	Feel.read_counters_into(_counters)
 	_lines.clear()
 	for key in ORDER:
