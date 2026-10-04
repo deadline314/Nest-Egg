@@ -81,7 +81,7 @@ def main() -> int:
     if missing_packs:
         print(
             f"找不到 {len(missing_packs)} 個素材包的原始檔（{RAW.relative_to(ROOT)}，不進版控）。"
-            "請先執行 python tools/audio/fetch_audio.py 下載（約 3 GB，已下載的會略過），再重跑這個工具。",
+            "請先執行 python tools/audio/setup_audition.py（下載約 3 GB 並產生預聽檔，已下載的會略過）。",
             file=sys.stderr,
         )
     return 1 if failed else 0
