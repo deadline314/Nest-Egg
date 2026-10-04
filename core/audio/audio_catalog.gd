@@ -6,6 +6,7 @@ extends RefCounted
 ## 預聽檔 assets_src/audition/<編號>.ogg 由 tools/audio/build_candidates.py 產生；沒有就回傳 null，由呼叫端提示怎麼產生。
 
 const CATALOG_PATH := "res://assets_src/audio/catalog.json"
+const CLIPS_PATH := "res://assets_src/audio/clips.json"
 const SLOTS_PATH := "res://data/audio/slots.json"
 const AUDITION_DIR := "res://assets_src/audition/"
 const ASSET_ID_PATTERN := "^[A-Z]{3}-\\d{4}$"
@@ -119,6 +120,38 @@ func load_preview(asset_id: String) -> AudioStream:
 	if stream == null:
 		AudioData.report("preview:" + asset_id, "[AudioCatalog] 預聽檔無法載入：%s（重做：python tools/audio/build_candidates.py --force --only %s）" % [path, asset_id])
 	return stream
+
+
+## 片段清單（clips.json，clip_tool.py 維護）的資料檢查：編號唯一、都在素材目錄、起訖合理、原檔素材包存在。回傳錯誤訊息清單。
+static func validate_clips(doc: Dictionary, asset_ids: Dictionary, pack_ids: Dictionary) -> PackedStringArray:
+	var errors := PackedStringArray()
+	if typeof(doc.get("clips")) != TYPE_ARRAY:
+		errors.append("%s 缺少 clips 陣列" % CLIPS_PATH)
+		return errors
+	var seen: Dictionary = {}
+	var index := 0
+	for clip: Variant in doc["clips"]:
+		index += 1
+		if typeof(clip) != TYPE_DICTIONARY:
+			errors.append("%s 的第 %d 個片段不是物件" % [CLIPS_PATH, index])
+			continue
+		var id := str((clip as Dictionary).get("id", ""))
+		var where := "%s 的片段 %s（第 %d 個）" % [CLIPS_PATH, id if not id.is_empty() else "?", index]
+		if seen.has(id):
+			errors.append("%s 的編號重複" % where)
+		seen[id] = true
+		if not asset_ids.has(id):
+			errors.append("%s 不在素材目錄" % where)
+		for key in ["parent", "parent_pack", "parent_file"]:
+			if str((clip as Dictionary).get(key, "")).is_empty():
+				errors.append("%s 缺少 %s" % [where, key])
+		if str((clip as Dictionary).get("parent_pack", "")) != "" and not pack_ids.has(str((clip as Dictionary)["parent_pack"])):
+			errors.append("%s 的原檔素材包「%s」不在來源目錄" % [where, (clip as Dictionary)["parent_pack"]])
+		var start := float((clip as Dictionary).get("start", -1.0))
+		var end := float((clip as Dictionary).get("end", -1.0))
+		if start < 0.0 or end <= start:
+			errors.append("%s 的起訖 %.3f–%.3f 秒不合理" % [where, start, end])
+	return errors
 
 
 ## 資料檢查：回傳錯誤訊息清單（空 = 沒問題）。

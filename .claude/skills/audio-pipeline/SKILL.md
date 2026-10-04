@@ -22,6 +22,7 @@ description: 把 CC0 音效與音樂換進 Nest Egg 的完整流程：找來源�
    - archive.org 的素材會下架（曾有一批 SSE／Red Library 變 404）；新增前先確認連結打得開。來源失效就從 manifest 刪掉，`build_catalog.py` 會連同它的素材編號一起剔除。
 2. **下載**：`python tools/audio/fetch_audio.py [--only ID ...] [--kind sfx|music]`。已下載的會略過，單項失敗只記錄。`.7z` 需要 `pip install py7zr`；需要 ffmpeg／ffprobe 在 PATH（編號與預聽檔都靠它）。
 3. **看特徵再挑**：`python tools/audio/inspect_audio.py <素材包 id> "<路徑或萬用字元>"`，看時長、第一聲的範圍、衰減時間、頻譜重心、起音數。槍聲素材常有長尾與連發，要指定 `start`／`end` 取第一發。
+   - 一個檔案裡有多段聲音時，用 `python tools/audio/clip_tool.py prepare <素材編號>`（波形與自動分段）與 `export <素材編號> --start 秒 --end 秒`，把某一段輸出成獨立的新素材（無損、新編號、記在 `assets_src/audio/clips.json`）；原始檔重抓後 `clip_tool.py rebuild` 重做。測試：`python tools/audio/test_clip_tool.py`。
 4. **寫加工清單** `assets_src/audio/pipeline.json`：
    - `sfx.<音效 id>`：`category`（gun、impact、explosion、foley、ui、voice、ambience，對應 `defaults`）、`variants`（每項 `pack`、`file`，可覆寫 `mode: shot|whole|loop`、`start`、`end`、`max_len`、`target_db`、`gain_db`、`rate`、`lowpass`、`highpass`、`fade_out_ms`）。多個變體會輪播。
    - `music.<曲目 id>`：`pack`、`file`，可加 `start`、`end`、`loop_blend_ms`、`fade_in_ms`、`fade_out_ms`、`target_lufs`。

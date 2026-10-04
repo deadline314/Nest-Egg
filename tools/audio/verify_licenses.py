@@ -79,7 +79,8 @@ def main() -> int:
     parser.add_argument("--jobs", type=int, default=6)
     parser.add_argument("--only", nargs="*", default=[])
     args = parser.parse_args()
-    packs = [p for p in json.loads(MANIFEST.read_text(encoding="utf-8"))["packs"] if not args.only or p["id"] in args.only]
+    # 本機產生的片段素材包（clip_tool.py）沒有來源頁面；它的授權就是原檔的授權，原檔那一包會被檢查。
+    packs = [p for p in json.loads(MANIFEST.read_text(encoding="utf-8"))["packs"] if not p.get("local") and (not args.only or p["id"] in args.only)]
     seen, unique = set(), []
     for pack in packs:  # 同一個頁面（例如同一張專輯的多首）只查一次
         if pack["page"] not in seen:

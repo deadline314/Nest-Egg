@@ -127,6 +127,8 @@ def main() -> int:
             continue
         if args.list:
             print(f'{entry["id"]:56} {entry["kind"]:6} {entry["author"][:24]:24} {entry["license"]}')
+        elif entry.get("local"):  # 本機產生的片段素材包（clip_tool.py），不下載
+            skipped += 1
         elif has_audio(RAW / entry["dir"]):
             skipped += 1
         else:

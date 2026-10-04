@@ -51,6 +51,14 @@ def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def clip_origins(files) -> list:
+    """擷取片段（clip_tool.py）的原檔：{片段檔名: 原素材包／原檔／起訖}，授權登記用。"""
+    clips_path = AUDIO_SRC / "clips.json"
+    by_file = {f'{c["id"]}.wav': c for c in load_json(clips_path).get("clips", [])} if clips_path.exists() else {}
+    return [{"file": f, "pack": by_file[f]["parent_pack"], "source_file": by_file[f]["parent_file"], "start": by_file[f]["start"], "end": by_file[f]["end"]}
+            for f in sorted(files) if f in by_file]
+
+
 def source_path(manifest_dirs: dict, pack: str, file: str) -> Path:
     if pack not in manifest_dirs:
         raise BuildError(f"素材包「{pack}」不在 manifest.json")
@@ -268,6 +276,8 @@ def main() -> int:
                 meta = manifest[pack]
                 registry[pack] = {"title": meta["title"], "author": meta["author"], "license": meta["license"],
                                   "page": meta["page"], "files_used": sorted(info["files"]), "outputs": sorted(set(info["outputs"]))}
+                if meta.get("local"):  # 擷取的片段：授權沿用原檔，登記每個用到的片段衍生自哪個素材包與檔案
+                    registry[pack]["derived_from"] = clip_origins(info["files"])
             LICENSES.write_text(json.dumps(registry, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(f"完成：{len(wanted_sfx)} 個音效檔、{len(wanted_music)} 首曲目、{len(used)} 個素材包，{failures} 個失敗")
     return 1 if failures else 0

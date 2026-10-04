@@ -76,6 +76,7 @@ func _test_licenses() -> void:
 		check(str(pack.get("license", "")).begins_with("CC0"), "%s is CC0 (%s)" % [label, pack.get("license", "")])
 		check(not str(pack.get("page", "")).is_empty() and not str(pack.get("author", "")).is_empty() and pack.get("download") != null, "%s records author, page and download" % label)
 	check(manifest_ids.size() == packs.size(), "manifest pack ids are unique")
+	_test_clips(manifest_ids)
 	var registry := _read_source_json(LICENSES_PATH)
 	for pack_id: String in registry.keys():
 		check(manifest_ids.has(pack_id), "registered pack %s exists in the manifest" % pack_id)
@@ -97,6 +98,33 @@ func _test_licenses() -> void:
 
 
 ## assets_src/ 有 .gdignore（不匯入），所以不能走 ResourceLoader，直接讀檔。
+## 擷取片段（NE-179）：片段清單的資料檢查；沒有片段時清單可以不存在。
+func _test_clips(manifest_ids: Dictionary) -> void:
+	var catalog := AudioCatalog.new()
+	catalog.load_all()
+	var asset_ids: Dictionary = {}
+	for id: String in catalog.assets.keys():
+		asset_ids[id] = true
+	if FileAccess.file_exists(AudioCatalog.CLIPS_PATH):
+		var errors := AudioCatalog.validate_clips(_read_source_json(AudioCatalog.CLIPS_PATH), asset_ids, manifest_ids)
+		check(errors.is_empty(), "the clip list is consistent with the catalog: %s" % ", ".join(errors))
+	var packs := {"packA": true}
+	var ids := {"GUN-0008": true, "GUN-0009": true}
+	var ok := {"clips": [{"id": "GUN-0008", "parent": "GUN-0007", "parent_pack": "packA", "parent_file": "a.wav", "start": 0.1, "end": 0.9}]}
+	check(AudioCatalog.validate_clips(ok, ids, packs).is_empty(), "a valid clip list passes")
+	check(AudioCatalog.validate_clips({}, ids, packs).size() == 1, "a list without clips is reported")
+	var bad := {"clips": [
+		{"id": "GUN-0008", "parent": "GUN-0007", "parent_pack": "packA", "parent_file": "a.wav", "start": 0.1, "end": 0.9},
+		{"id": "GUN-0008", "parent": "GUN-0007", "parent_pack": "packA", "parent_file": "a.wav", "start": 0.1, "end": 0.9},
+		{"id": "GUN-0050", "parent": "GUN-0007", "parent_pack": "no_such_pack", "parent_file": "a.wav", "start": 2.0, "end": 1.0},
+		{"id": "GUN-0009", "parent": "", "parent_pack": "packA", "parent_file": "a.wav", "start": 0.0, "end": 0.5},
+		"not an object"]}
+	var messages := "
+".join(AudioCatalog.validate_clips(bad, ids, packs))
+	check(messages.contains("編號重複") and messages.contains("不在素材目錄") and messages.contains("不在來源目錄") and messages.contains("起訖") and messages.contains("缺少 parent") and messages.contains("不是物件"),
+		"broken clip entries are reported with where they are: %s" % messages)
+
+
 func _read_source_json(path: String) -> Dictionary:
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
 	check(typeof(parsed) == TYPE_DICTIONARY, "%s is a JSON object" % path)

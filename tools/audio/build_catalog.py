@@ -153,7 +153,7 @@ def main() -> int:
     pending = []
     for pack in manifest:
         folder = RAW / pack["dir"]
-        if not folder.is_dir():
+        if not folder.is_dir() or pack.get("local"):  # 本機產生的片段素材包由 clip_tool.py 登記編號
             continue
         for path in list_audio(folder):
             relative = path.relative_to(folder).as_posix()

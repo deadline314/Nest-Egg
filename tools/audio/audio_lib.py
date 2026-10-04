@@ -108,6 +108,42 @@ def shot_segments(x: np.ndarray, sr: int = SR, max_len: float = 1.5, min_gap_ms:
     return segments
 
 
+def find_segments(x: np.ndarray, sr: int = SR, threshold_db: float = -45.0, min_gap_ms: float = 150.0, min_len_ms: float = 30.0,
+                  pad_ms: float = 10.0, win_ms: float = 5.0) -> list[tuple[float, float]]:
+    """依靜音把音訊分成幾段，回傳每段的 (起, 迄) 秒數：比最響處低 threshold_db 以上算有聲，靜音不到 min_gap_ms 的相鄰兩段併成一段，
+    短於 min_len_ms 的雜音丟掉，前後各留 pad_ms（不超出檔案）。分段只是給人挑的建議，不是精確的切點。"""
+    env = envelope(x, sr, win_ms)
+    peak = float(env.max()) if len(env) else 0.0
+    if peak < EPS:
+        return []
+    loud = env > peak * from_db(threshold_db)
+    runs: list[list[int]] = []
+    for i, is_loud in enumerate(loud):
+        if not is_loud:
+            continue
+        if runs and i - runs[-1][1] <= max(1, int(min_gap_ms / win_ms)):
+            runs[-1][1] = i
+        else:
+            runs.append([i, i])
+    total = len(x) / sr
+    segments = []
+    for first, last in runs:
+        start, end = first * win_ms / 1000.0, (last + 1) * win_ms / 1000.0
+        if (end - start) * 1000.0 < min_len_ms:
+            continue
+        segments.append((round(max(0.0, start - pad_ms / 1000.0), 4), round(min(total, end + pad_ms / 1000.0), 4)))
+    return segments
+
+
+def peaks(x: np.ndarray, bins: int) -> list[list[float]]:
+    """波形顯示用：把音訊分成 bins 格，每格 [最小, 最大]（取到小數 3 位）。"""
+    mono = x if x.ndim == 1 else x.mean(axis=1)
+    if len(mono) == 0 or bins <= 0:
+        return []
+    edges = np.linspace(0, len(mono), min(bins, len(mono)) + 1).astype(int)
+    return [[round(float(mono[a:b].min()), 3), round(float(mono[a:b].max()), 3)] for a, b in zip(edges[:-1], edges[1:]) if b > a]
+
+
 def trim_silence(x: np.ndarray, sr: int = SR, threshold_db: float = -48.0, tail_ms: float = 30.0) -> np.ndarray:
     """修掉頭尾低於門檻（相對峰值）的靜音。"""
     env = envelope(x, sr, 4.0)
