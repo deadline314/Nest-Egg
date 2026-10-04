@@ -24,6 +24,7 @@ const SCENARIOS := {
 	"creature_combat": "res://tools/scenarios/creature_combat_scenario.gd",
 	"exotic_enemies": "res://tools/scenarios/exotic_enemies_scenario.gd",
 	"chapter2_expansion": "res://tools/scenarios/chapter2_expansion_scenario.gd",
+	"chapter2_art": "res://tools/scenarios/chapter2_art_scenario.gd",
 	"machine_hit": "res://tools/scenarios/machine_hit_scenario.gd",
 	"enemy_flow": "res://tools/scenarios/enemy_flow_scenario.gd",
 	"phone_booth": "res://tools/scenarios/phone_booth_scenario.gd",

@@ -302,7 +302,140 @@ for x in range(CHASE_START, CHASE_START + CHASE_LENGTH):
     wall_height = sum(1 for y in range(4, GROUND) if grid.at(x, y) == '#')
     if wall_height > PLAYER_JUMP_TILES - 2:
         problems.append(f"追逐橋段第 {x} 欄的障礙有 {wall_height} 格高，跑著跳不過")
+# ---------------------------------------------------------------------------
+# 場景美術（NE-55）：材質覆蓋區與道具。道具只是裝飾，不改變地形與實體；擺放時自動避開有實體（敵人、道具、機關）的格子。
+import math
+import re
+
+PROP_DIR = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'environment', 'props')
+
+
+def prop_size(prop_id):
+    text = open(os.path.join(PROP_DIR, prop_id + '.tres'), encoding='utf-8').read()
+    m = re.search(r'^size = Vector2\(([\d.]+), ([\d.]+)\)', text, re.M)
+    return float(m.group(1)), float(m.group(2))
+
+
+FREE_CHARS = set('.*$%@cqieHDFJKNQRUVW')   # 道具可以蓋在上面的格子：空氣、場景燈、裝飾招牌、拾取物（敵人、人物、機關、可破壞物不行）
+props = []
+
+
+ENEMY_CHARS = set('gskrtdMETvOZn[S+<>bY')   # 敵人佔的範圍比一格寬，道具和敵人左右各留一格
+
+
+def cells_free(x0, x1, y0, y1):
+    if not all(grid.at(x, y) in FREE_CHARS for x in range(x0, x1 + 1) for y in range(y0, y1 + 1)):
+        return False
+    return not any(grid.at(x, y) in ENEMY_CHARS for x in range(max(1, x0 - 1), min(W - 2, x1 + 1) + 1) for y in range(y0, min(H - 1, y1 + 2) + 1))
+
+
+def place(prop_id, x, mode='floor', y=None, flip=False, dx=0, search=16):
+    """mode：floor 站在地面（底邊在列 y，預設 19）；ceil 掛在天花板下（頂邊在列 4）；mid 底邊在列 y。
+    從 x 起向右找第一個不蓋到實體的位置（最多找 search 格）；找不到就報錯，由設計者改位置。"""
+    w, h = prop_size(prop_id)
+    cols = int(math.ceil(w / TILE_PX))
+    rows = int(math.ceil(h / TILE_PX))
+    if mode == 'ceil':
+        bottom = 3 + rows
+    elif mode == 'mid':
+        bottom = y
+    else:
+        bottom = 19 if y is None else y
+    top = bottom - rows + 1
+    for shift in range(search + 1):
+        xs = x + shift
+        decal = h <= 8.0  # 貼地的標線、積水不算佔格
+        if xs + cols - 1 < W - 1 and (decal or cells_free(xs, xs + cols - 1, top, bottom)) and (mode != 'floor' or all(grid.at(c, bottom + 1) in '#=' for c in range(xs, xs + cols))):
+            entry = {"id": prop_id, "x": xs, "y": bottom}
+            if flip:
+                entry["flip"] = True
+            if dx:
+                entry["dx"] = dx
+            props.append(entry)
+            return
+    problems.append(f"道具 {prop_id}（第 {x} 欄起 {search} 格內）找不到不蓋到實體的位置")
+
+
+TILE_PX = 16
+regions = [
+    {"x0": 1, "x1": 139, "y0": 0, "y1": 3, "material": "steel_plate"},
+    {"x0": 66, "x1": 139, "y0": 14, "y1": 19, "material": "old_metal"},
+    {"x0": 140, "x1": 262, "y0": 0, "y1": 3, "material": "concrete"},
+    {"x0": 263, "x1": 324, "y0": 0, "y1": 3, "material": "hangar"},
+    {"x0": 325, "x1": 384, "y0": 0, "y1": 3, "material": "facility_panel"},
+    {"x0": 385, "x1": 414, "y0": 0, "y1": 3, "material": "hangar"},
+    {"x0": 415, "x1": 469, "y0": 0, "y1": 3, "material": "facility_panel"},
+    {"x0": 470, "x1": W - 2, "y0": 0, "y1": 3, "material": "steel_plate"},
+]
+
+# S1 升降井入口：升降梯井口、管線、警示牌、應急燈
+place("elevator_door", 10); place("hazard_sign", 20); place("crates_stack", 38); place("floor_marking", 48)
+place("pipe_vertical", 56); place("floor_marking", 16)
+for x in (12, 38, 58):
+    place("facility_pipes", x, 'ceil')
+for x in (24, 46, 64):
+    place("emergency_light", x, 'ceil')
+place("camera_wall", 44, 'mid', 6); place("cables_hang", 30, 'ceil')
+# S2 升降井：抬高的平台（腳下列 13）；上層維修走道（腳下列 7）
+place("pipe_vertical", 74, 'mid', 13); place("hazard_sign", 98, 'mid', 13)
+place("barrels", 123, 'mid', 13); place("crates_stack", 104, 'mid', 13); place("floor_marking", 112, 'mid', 13)
+place("elevator_door", 128, 'mid', 13)
+for x in (78, 104, 122):
+    place("emergency_light", x, 'ceil')
+place("facility_pipes", 82, 'ceil'); place("facility_pipes", 112, 'ceil'); place("cables_hang", 96, 'ceil')
+place("server_rack", 134, 'mid', 7); place("pipe_horizontal", 140, 'mid', 7); place("camera_wall", 138, 'mid', 4)
+# S3 夾層區：住戶的街道——販賣機、冷氣、長椅、暖光燈、塗鴉、招牌
+place("vending_machine", 147); place("lamp_warm", 152); place("bench", 156); place("graffiti", 164)
+place("ac_unit", 174, 'mid', 12); place("trash_can", 170); place("dumpster", 180); place("crayon_drawing", 185, 'mid', 17)
+place("billboard_ad", 192, 'mid', 12); place("lamp_warm", 200); place("ac_unit_big", 204, 'mid', 12)
+place("vending_machine", 208); place("window_rain", 176, 'mid', 14)
+for x in (150, 178, 206):
+    place("emergency_light", x, 'ceil')
+# S3b 中庭：樹、長椅、暖光燈、陽台上的小東西
+place("tree_fir_1", 219); place("tree_jacaranda", 232); place("tree_stump", 238); place("bench", 240);
+place("lamp_warm", 226, 'mid', 15); place("bench", 234, 'mid', 12); place("lamp_warm", 245, 'mid', 15); place("vending_machine", 251)
+place("window_rain", 224, 'mid', 12); place("ac_unit", 250, 'mid', 12)
+for x in (222, 236, 250):
+    place("emergency_light", x, 'ceil')
+# S3c 回收燈幕：警示、地面標線、應急燈與攝影機
+for x in (266, 283, 300, 312):
+    place("hazard_sign", x)
+for x in (275, 292, 306):
+    place("floor_marking", x)
+for x in (270, 282, 298, 314):
+    place("emergency_light", x, 'ceil')
+place("camera_wall", 276, 'mid', 6); place("camera_wall", 304, 'mid', 6, flip=True); place("facility_pipes", 288, 'ceil'); place("cables_hang", 318, 'ceil')
+# S4 電力室：機櫃、控制台、管線、電纜、攝影機
+place("server_rack", 332); place("control_console", 340); place("server_rack", 342); place("hazard_sign", 346)
+place("server_rack", 366); place("control_console", 376); place("floor_marking", 356); place("floor_marking", 372)
+place("gate_door", 380, dx=0)
+for x in (330, 345, 362, 378):
+    place("facility_pipes", x, 'ceil')
+for x in (336, 352, 368):
+    place("emergency_light", x, 'ceil')
+place("camera_wall", 340, 'mid', 6); place("camera_wall", 372, 'mid', 6, flip=True); place("cables_hang", 350, 'ceil'); place("cables_hang", 374, 'ceil')
+# S4b 看守長場地：機庫燈、龍門吊、油槽、標線
+for x in (392, 400, 408):
+    place("hangar_light", x, 'ceil')
+place("gantry_crane", 396, 'mid', 9); place("fuel_tank", 388); place("fuel_tank", 411); place("floor_marking", 392); place("floor_marking", 404); place("hazard_sign", 390)
+# S5 轉運站：電梯門、販賣機、長椅、全像終端
+place("elevator_door", 418); place("terminal_holo", 421); place("vending_machine", 430); place("lamp_warm", 437)
+place("emergency_light", 418, 'ceil'); place("emergency_light", 432, 'ceil'); place("facility_pipes", 424, 'ceil')
+# S5b 病房區：每張床位平台（腳下列 17）一張病床，牆上蠟筆畫與無線電，天花板軌道旁的燈
+for bed_x in (442, 448, 454, 460, 466):
+    place("hospital_bed", bed_x, 'mid', 17, search=2)
+place("crayon_drawing", 444, 'mid', 14); place("crayon_drawing", 456, 'mid', 14); place("radio_set", 450, 'mid', 14)
+place("lamp_warm", 462, 'mid', 14); place("window_rain", 468, 'mid', 14)
+for x in (444, 450, 456, 462, 468):
+    place("emergency_light", x, 'ceil')
+# S5c 頭目戰：機庫（沿用第一章頭目場地的道具）
+place("gantry_crane", 486, 'mid', 8); place("fuel_tank", 480); place("fuel_tank", 505)
+for x in (478, 490, 502):
+    place("hangar_light", x, 'ceil')
+place("floor_marking", 484); place("floor_marking", 498); place("hazard_sign", 494)
+
 if problems:
     raise SystemExit("\n".join(problems))
 
-grid.write("level_02", (os.path.dirname(__file__), '..', '..', 'data', 'levels', 'level_02_map.json'))
+grid.write("level_02", (os.path.dirname(__file__), '..', '..', 'data', 'levels', 'level_02_map.json'),
+           {"regions": regions, "props": props})

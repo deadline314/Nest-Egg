@@ -8,7 +8,7 @@ extends Node
 ## 室內的關卡（有天花板）取樣高度用「從第 4 列往下的第一個地面」，第一章維持原本的規則。
 const LEVELS: Array[Dictionary] = [
 	{"path": "res://data/levels/level_01.tres", "spots": [["屋頂巷弄", 30], ["霓虹市集", 115], ["貨運站", 200], ["設施入口", 252], ["停電走廊", 275], ["頭目機庫", 330]]},
-	{"path": "res://data/levels/level_02.tres", "spots": [["升降井入口", 30], ["升降井", 100], ["夾層區", 175], ["中庭", 240], ["回收燈幕", 300], ["電力室", 350], ["看守長場地", 400], ["轉運站", 425], ["病房區", 455], ["回收員場地", 492]]},
+	{"path": "res://data/levels/level_02.tres", "spots": [["升降井入口", 30], ["升降井", 100], ["夾層區", 175], ["中庭", 232], ["回收燈幕", 304], ["電力室", 350], ["看守長場地", 400], ["轉運站", 425], ["病房區", 455], ["回收員場地", 492]]},
 ]
 ## 門檻與量測範圍見 ContrastProbe（與光影預設場景量測共用）。敵人站在玩家前方 ENEMY_DISTANCE 像素、不動。
 const ENEMY_DISTANCE := 96.0
@@ -16,6 +16,8 @@ const SAMPLES := 16
 const SAMPLE_INTERVAL := 0.2
 
 var _failed := false
+## --spots=夾層區,中庭：只量測指定名稱的取樣點（開發時加快迭代）。
+var _only_spots: PackedStringArray = []
 
 
 func _ready() -> void:
@@ -33,6 +35,8 @@ func _run() -> void:
 			Settings.set_light_quality({"low": LightQuality.Tier.LOW, "medium": LightQuality.Tier.MEDIUM, "high": LightQuality.Tier.HIGH}.get(arg.trim_prefix("--quality="), LightQuality.Tier.HIGH))
 		if arg.begins_with("--level="):
 			only = arg.trim_prefix("--level=")
+		if arg.begins_with("--spots="):
+			_only_spots = arg.trim_prefix("--spots=").split(",", false)
 	for entry in LEVELS:
 		if only == "" or str(entry["path"]).contains(only):
 			await _check_level(entry["path"], entry["spots"])
@@ -59,6 +63,8 @@ func _check_level(path: String, spots: Array) -> void:
 	print("== %s" % path.get_file())
 	print("%-8s  %-8s  %-8s  %-8s" % ["區段", "玩家對比", "邊緣對比", "敵人對比"])
 	for spot: Array in spots:
+		if not _only_spots.is_empty() and not _only_spots.has(str(spot[0])):
+			continue
 		var tile: int = spot[1]
 		var y := layout.surface_heights[tile] - 2.0
 		# 室內區段最上面的「地面」是天花板：第一章改用檢查點的高度，其他關卡取第 4 列以下的第一個地面。

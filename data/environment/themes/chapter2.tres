@@ -1,0 +1,118 @@
+[gd_resource type="Resource" script_class="EnvironmentTheme" load_steps=23 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/env_zone.gd" id="1_env_zone"]
+[ext_resource type="Script" path="res://data/scripts/environment_theme.gd" id="2_environment_theme"]
+[ext_resource type="Script" path="res://data/scripts/facade_data.gd" id="4_facade_data"]
+[ext_resource type="Resource" path="res://data/environment/materials/brick.tres" id="m_brick"]
+[ext_resource type="Resource" path="res://data/environment/materials/concrete.tres" id="m_concrete"]
+[ext_resource type="Resource" path="res://data/environment/materials/facility_floor.tres" id="m_facility_floor"]
+[ext_resource type="Resource" path="res://data/environment/materials/grate.tres" id="m_grate"]
+[ext_resource type="Resource" path="res://data/environment/materials/hangar.tres" id="m_hangar"]
+[ext_resource type="Resource" path="res://data/environment/materials/steel_plate.tres" id="m_steel_plate"]
+[ext_resource type="Resource" path="res://data/environment/facades/apartment.tres" id="f_apartment"]
+[ext_resource type="Resource" path="res://data/environment/facades/facility_wall.tres" id="f_facility_wall"]
+[ext_resource type="Resource" path="res://data/environment/facades/warehouse.tres" id="f_warehouse"]
+
+[sub_resource type="Resource" id="Resource_zone0"]
+script = ExtResource("1_env_zone")
+from_tile = 0
+material = ExtResource("m_steel_plate")
+facades = Array[ExtResource("4_facade_data")]([ExtResource("f_facility_wall")])
+interior = "res://art/environment/materials/steel_plate_body.png"
+interior_scale = 8
+hole_chance = 0.0
+label = "升降井入口"
+
+[sub_resource type="Resource" id="Resource_zone1"]
+script = ExtResource("1_env_zone")
+from_tile = 70
+material = ExtResource("m_grate")
+facades = Array[ExtResource("4_facade_data")]([ExtResource("f_facility_wall")])
+interior = "res://art/environment/materials/old_metal_body.png"
+interior_scale = 8
+hole_chance = 0.0
+label = "升降井"
+
+[sub_resource type="Resource" id="Resource_zone2"]
+script = ExtResource("1_env_zone")
+from_tile = 140
+material = ExtResource("m_brick")
+facades = Array[ExtResource("4_facade_data")]([ExtResource("f_apartment")])
+interior = "res://art/environment/materials/brick_body.png"
+interior_scale = 8
+hole_chance = 0.0
+label = "夾層區"
+
+[sub_resource type="Resource" id="Resource_zone3"]
+script = ExtResource("1_env_zone")
+from_tile = 215
+material = ExtResource("m_brick")
+facades = Array[ExtResource("4_facade_data")]([ExtResource("f_apartment")])
+interior = "res://art/environment/materials/asphalt_body.png"
+interior_scale = 8
+hole_chance = 0.0
+label = "中庭"
+
+[sub_resource type="Resource" id="Resource_zone4"]
+script = ExtResource("1_env_zone")
+from_tile = 263
+material = ExtResource("m_steel_plate")
+facades = Array[ExtResource("4_facade_data")]([ExtResource("f_facility_wall")])
+interior = "res://art/environment/materials/hangar_wall_body.png"
+interior_scale = 8
+hole_chance = 0.0
+label = "回收燈幕"
+
+[sub_resource type="Resource" id="Resource_zone5"]
+script = ExtResource("1_env_zone")
+from_tile = 325
+material = ExtResource("m_facility_floor")
+facades = Array[ExtResource("4_facade_data")]([ExtResource("f_facility_wall")])
+interior = "res://art/environment/materials/grate_body.png"
+interior_scale = 8
+hole_chance = 0.0
+label = "電力室"
+
+[sub_resource type="Resource" id="Resource_zone6"]
+script = ExtResource("1_env_zone")
+from_tile = 385
+material = ExtResource("m_hangar")
+facades = Array[ExtResource("4_facade_data")]([ExtResource("f_warehouse")])
+interior = "res://art/environment/materials/hangar_wall_body.png"
+interior_scale = 8
+hole_chance = 0.0
+label = "看守長場地"
+
+[sub_resource type="Resource" id="Resource_zone7"]
+script = ExtResource("1_env_zone")
+from_tile = 415
+material = ExtResource("m_facility_floor")
+facades = Array[ExtResource("4_facade_data")]([ExtResource("f_facility_wall")])
+interior = "res://art/environment/materials/concrete_body.png"
+interior_scale = 8
+hole_chance = 0.0
+label = "轉運站"
+
+[sub_resource type="Resource" id="Resource_zone8"]
+script = ExtResource("1_env_zone")
+from_tile = 440
+material = ExtResource("m_facility_floor")
+facades = Array[ExtResource("4_facade_data")]([ExtResource("f_facility_wall")])
+interior = "res://art/environment/materials/glass_curtain_body.png"
+interior_scale = 8
+hole_chance = 0.0
+label = "病房區"
+
+[sub_resource type="Resource" id="Resource_zone9"]
+script = ExtResource("1_env_zone")
+from_tile = 470
+material = ExtResource("m_hangar")
+facades = Array[ExtResource("4_facade_data")]([ExtResource("f_warehouse")])
+interior = "res://art/environment/materials/hangar_wall_body.png"
+interior_scale = 8
+hole_chance = 0.0
+label = "頭目戰"
+
+[resource]
+script = ExtResource("2_environment_theme")
+zones = Array[ExtResource("1_env_zone")]([SubResource("Resource_zone0"), SubResource("Resource_zone1"), SubResource("Resource_zone2"), SubResource("Resource_zone3"), SubResource("Resource_zone4"), SubResource("Resource_zone5"), SubResource("Resource_zone6"), SubResource("Resource_zone7"), SubResource("Resource_zone8"), SubResource("Resource_zone9")])

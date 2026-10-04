@@ -65,6 +65,7 @@
 [ext_resource type="Resource" path="res://data/lighting/hangar.tres" id="ne54_arena"]
 [ext_resource type="Resource" path="res://data/lighting/clinic_ward.tres" id="ne54_ward"]
 [ext_resource type="Resource" path="res://data/lighting/tower_white.tres" id="ne54_tower"]
+[ext_resource type="Resource" path="res://data/environment/themes/chapter2.tres" id="ne55_theme"]
 
 [sub_resource type="Resource" id="Resource_zone0"]
 script = ExtResource("r36")
@@ -202,5 +203,6 @@ story_triggers = PackedStringArray("c2_radio_start", "c2_radio_barrel", "c2_radi
 rain = false
 fog_color = Color(0.42, 0.34, 0.26, 1)
 layout_path = "res://data/levels/level_02_map.json"
+environment = ExtResource("ne55_theme")
 lighting_zones = Array[ExtResource("r36")]([SubResource("Resource_zone0"), SubResource("Resource_zone1"), SubResource("Resource_zone2"), SubResource("Resource_zone3"), SubResource("Resource_zone4"), SubResource("Resource_zone5"), SubResource("Resource_zone6"), SubResource("Resource_zone7"), SubResource("Resource_zone8"), SubResource("Resource_zone9")])
 boss_lighting = ExtResource("r42")
