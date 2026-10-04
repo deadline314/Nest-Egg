@@ -81,9 +81,11 @@ def list_audio(folder: Path) -> list[Path]:
 def import_reports(sfx_path: Path, music_path: Path) -> None:
     sfx = json.loads(sfx_path.read_text(encoding="utf-8"))
     music = json.loads(music_path.read_text(encoding="utf-8"))
-    hints = {"sfx": {}, "music": {}}
+    hints = {"sfx": {}, "music": {}, "notes": {}}
     for category, items in sfx.get("category_candidates", {}).items():
         for item in items:
+            if item.get("why"):
+                hints["notes"][f'{item["pack"]}/{item["file"]}'] = item["why"]
             hints["sfx"].setdefault(f'{item["pack"]}/{item["file"]}', [])
             if category not in hints["sfx"][f'{item["pack"]}/{item["file"]}']:
                 hints["sfx"][f'{item["pack"]}/{item["file"]}'].append(category)
@@ -94,6 +96,33 @@ def import_reports(sfx_path: Path, music_path: Path) -> None:
                                "lufs": track.get("lufs"), "title": track.get("title", ""), "author": track.get("author", "")}
     HINTS.write_text(json.dumps(hints, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(f"提示：{len(hints['sfx'])} 個音效檔、{len(hints['music'])} 首曲目 → {HINTS.relative_to(ROOT)}")
+
+
+def firearm_descriptions() -> dict:
+    """Firearm Library 的檔名只有代號（A_42P.wav），說明在它自己的 csv 裡：回傳 {相對路徑: 說明}。"""
+    result = {}
+    folder = RAW / "oga_the-free-firearm-sound-library" / "Prepared SFX Library"
+    sheet = folder / "Prepared Master Sheet.csv"
+    if not sheet.exists():
+        return result
+    import csv
+    names = {}
+    for path in folder.rglob("*.wav"):
+        names[path.name] = path.relative_to(RAW / "oga_the-free-firearm-sound-library").as_posix()
+    with sheet.open(encoding="utf-8-sig", newline="") as handle:
+        for row in csv.DictReader(handle):
+            if row.get("Filename") in names:
+                result[names[row["Filename"]]] = re.sub(r"\s+", " ", row.get("Description", "")).strip()
+    return result
+
+
+def describe(pack: str, relative: str, hints: dict, firearm: dict) -> str:
+    key = f"{pack}/{relative}"
+    if pack == "oga_the-free-firearm-sound-library" and relative in firearm:
+        return firearm[relative][:160]
+    if key in hints.get("music", {}):
+        return str(hints["music"][key].get("mood", ""))[:160]
+    return str(hints.get("notes", {}).get(key, ""))[:160]
 
 
 def main() -> int:
@@ -131,6 +160,12 @@ def main() -> int:
         aid = f"{category}-{counters[category]:04d}"
         assets[aid] = {"pack": pack["id"], "file": relative, "dur": duration}
         added += 1
+    hints = json.loads(HINTS.read_text(encoding="utf-8")) if HINTS.exists() else {}
+    firearm = firearm_descriptions()
+    for aid, a in assets.items():
+        text = describe(a["pack"], a["file"], hints, firearm)
+        if text:
+            a["desc"] = text
     ordered = dict(sorted(assets.items()))
     CATALOG.write_text(json.dumps({"_說明": "素材目錄：素材編號 → 素材包、檔案、時長（秒）。編號只增不改，由 tools/audio/build_catalog.py 維護；類別前綴見 design/16-audio/DESIGN.md 5.1。", "categories": CATEGORIES, "assets": ordered}, ensure_ascii=False, indent=0) + "\n", encoding="utf-8")
     print(f"素材目錄：共 {len(ordered)} 筆，新增 {added} 筆")

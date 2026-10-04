@@ -140,17 +140,20 @@
 "AMB-0025": {
 "pack": "oga_100-cc0-sfx-2",
 "file": "sfx100v2_loop_water_01.ogg",
-"dur": 6.37
+"dur": 6.37,
+"desc": "water loops"
 },
 "AMB-0026": {
 "pack": "oga_100-cc0-sfx-2",
 "file": "sfx100v2_loop_water_02.ogg",
-"dur": 8.73
+"dur": 8.73,
+"desc": "water loops"
 },
 "AMB-0027": {
 "pack": "oga_100-cc0-sfx-2",
 "file": "sfx100v2_loop_water_03.ogg",
-"dur": 9.71
+"dur": 9.71,
+"desc": "water loops"
 },
 "AMB-0028": {
 "pack": "oga_100-cc0-sfx-2",
@@ -435,22 +438,26 @@
 "AMB-0084": {
 "pack": "oga_amb-rain-loop-1",
 "file": "amb_rain_loop_1.ogg",
-"dur": 88.61
+"dur": 88.61,
+"desc": "rain loop"
 },
 "AMB-0085": {
 "pack": "oga_amb-rain-loop-1",
 "file": "amb_rain_loop_1_0.mp3",
-"dur": 88.67
+"dur": 88.67,
+"desc": "rain loop"
 },
 "AMB-0086": {
 "pack": "oga_catching-fire",
 "file": "flame_0.ogg",
-"dur": 0.45
+"dur": 0.45,
+"desc": "ignite whoosh [peak-clip heuristic flag]"
 },
 "AMB-0087": {
 "pack": "oga_compressed-gas-leak-sfx",
 "file": "Compressed Gas Leak/Compressed Gas Leak.ogg",
-"dur": 2.0
+"dur": 2.0,
+"desc": "flamethrower hiss texture"
 },
 "AMB-0088": {
 "pack": "oga_compressed-gas-leak-sfx",
@@ -460,7 +467,8 @@
 "AMB-0089": {
 "pack": "oga_crowd-shoutingspeaking-ambience",
 "file": "crowd_shouting_0.ogg",
-"dur": 27.38
+"dur": 27.38,
+"desc": "crowd - contains shouting/speaking, check by ear"
 },
 "AMB-0090": {
 "pack": "oga_dark-ambiences",
@@ -470,12 +478,14 @@
 "AMB-0091": {
 "pack": "oga_dark-ambiences",
 "file": "dark_ambiences/ambience-2.wav",
-"dur": 1.81
+"dur": 1.81,
+"desc": " [peak-clip heuristic flag]"
 },
 "AMB-0092": {
 "pack": "oga_dark-ambiences",
 "file": "dark_ambiences/ambience-3.wav",
-"dur": 1.69
+"dur": 1.69,
+"desc": " [peak-clip heuristic flag]"
 },
 "AMB-0093": {
 "pack": "oga_dark-ambiences",
@@ -500,17 +510,20 @@
 "AMB-0097": {
 "pack": "oga_electricity-game-sound-pack",
 "file": "crackleelectricityloop.wav",
-"dur": 0.5
+"dur": 0.5,
+"desc": "electric loop"
 },
 "AMB-0098": {
 "pack": "oga_electricity-game-sound-pack",
 "file": "shieldloop.wav",
-"dur": 1.02
+"dur": 1.02,
+"desc": "electric loop"
 },
 "AMB-0099": {
 "pack": "oga_electricity-game-sound-pack",
 "file": "snaploop.wav",
-"dur": 4.94
+"dur": 4.94,
+"desc": "electric loop"
 },
 "AMB-0100": {
 "pack": "oga_electronic-device-loop",
@@ -530,7 +543,8 @@
 "AMB-0103": {
 "pack": "oga_flare-ignition",
 "file": "ignition.flac",
-"dur": 1.17
+"dur": 1.17,
+"desc": "ignition"
 },
 "AMB-0104": {
 "pack": "oga_generator-loop",
@@ -550,7 +564,8 @@
 "AMB-0107": {
 "pack": "oga_low-rumbling",
 "file": "low-rumbling-176033.mp3",
-"dur": 22.66
+"dur": 22.66,
+"desc": " [peak-clip heuristic flag]"
 },
 "AMB-0108": {
 "pack": "oga_mild-wind-background-noise",
@@ -570,12 +585,14 @@
 "AMB-0111": {
 "pack": "oga_rain-loopable",
 "file": "1.ogg",
-"dur": 27.0
+"dur": 27.0,
+"desc": "loopable rain 26-45s"
 },
 "AMB-0112": {
 "pack": "oga_rain-loopable",
 "file": "2.ogg",
-"dur": 26.0
+"dur": 26.0,
+"desc": "loopable rain 26-45s"
 },
 "AMB-0113": {
 "pack": "oga_rain-loopable",
@@ -590,12 +607,14 @@
 "AMB-0115": {
 "pack": "oga_sci-fi-ambience-sfx",
 "file": "SFX SCI FI Computer room ambience_0.mp3",
-"dur": 15.05
+"dur": 15.05,
+"desc": "computer room / hum 15s"
 },
 "AMB-0116": {
 "pack": "oga_sci-fi-ambience-sfx",
 "file": "SFX SCI FI Hum_0.mp3",
-"dur": 15.05
+"dur": 15.05,
+"desc": "computer room / hum 15s"
 },
 "AMB-0117": {
 "pack": "oga_sci-fi-background-noise",
@@ -605,12 +624,14 @@
 "AMB-0118": {
 "pack": "oga_scifi-city-ambient-loop",
 "file": "busy_cyberworld.ogg",
-"dur": 29.3
+"dur": 29.3,
+"desc": "busy city, indistinct"
 },
 "AMB-0119": {
 "pack": "oga_scifi-city-ambient-loop",
 "file": "busy_cyberworld_0.mp3",
-"dur": 29.36
+"dur": 29.36,
+"desc": "busy cyber city loop ~29s"
 },
 "AMB-0120": {
 "pack": "oga_sirens-and-alarm-noise",
@@ -630,12 +651,14 @@
 "AMB-0123": {
 "pack": "oga_steam-release-sounds",
 "file": "steam hisses - Marker #1.wav",
-"dur": 1.85
+"dur": 1.85,
+"desc": "gas/flame hiss texture"
 },
 "AMB-0124": {
 "pack": "oga_steam-release-sounds",
 "file": "steam hisses - Marker #2.wav",
-"dur": 1.85
+"dur": 1.85,
+"desc": "gas/flame hiss texture"
 },
 "AMB-0125": {
 "pack": "oga_steam-release-sounds",
@@ -660,27 +683,32 @@
 "AMB-0129": {
 "pack": "oga_wind1",
 "file": "wind1.wav",
-"dur": 60.0
+"dur": 60.0,
+"desc": "60s wind loops"
 },
 "AMB-0130": {
 "pack": "oga_wind1",
 "file": "wind2.wav",
-"dur": 60.0
+"dur": 60.0,
+"desc": "60s wind loops"
 },
 "AMB-0131": {
 "pack": "oga_wind1",
 "file": "wind3.wav",
-"dur": 60.0
+"dur": 60.0,
+"desc": "60s wind loops"
 },
 "AMB-0132": {
 "pack": "oga_wind1",
 "file": "wind4.wav",
-"dur": 60.0
+"dur": 60.0,
+"desc": "60s wind loops"
 },
 "AMB-0133": {
 "pack": "oga_wind1",
 "file": "wind5.wav",
-"dur": 60.0
+"dur": 60.0,
+"desc": "60s wind loops"
 },
 "ELC-0001": {
 "pack": "kenney_digital-audio",
@@ -975,47 +1003,56 @@
 "ELC-0059": {
 "pack": "kenney_sci-fi-sounds",
 "file": "Audio/doorClose_000.ogg",
-"dur": 0.53
+"dur": 0.53,
+"desc": "sci-fi door"
 },
 "ELC-0060": {
 "pack": "kenney_sci-fi-sounds",
 "file": "Audio/doorClose_001.ogg",
-"dur": 0.53
+"dur": 0.53,
+"desc": "sci-fi door"
 },
 "ELC-0061": {
 "pack": "kenney_sci-fi-sounds",
 "file": "Audio/doorClose_002.ogg",
-"dur": 0.53
+"dur": 0.53,
+"desc": "sci-fi door"
 },
 "ELC-0062": {
 "pack": "kenney_sci-fi-sounds",
 "file": "Audio/doorOpen_000.ogg",
-"dur": 0.53
+"dur": 0.53,
+"desc": "sci-fi door"
 },
 "ELC-0063": {
 "pack": "kenney_sci-fi-sounds",
 "file": "Audio/doorOpen_001.ogg",
-"dur": 0.53
+"dur": 0.53,
+"desc": "sci-fi door"
 },
 "ELC-0064": {
 "pack": "kenney_sci-fi-sounds",
 "file": "Audio/doorOpen_002.ogg",
-"dur": 0.53
+"dur": 0.53,
+"desc": "sci-fi door"
 },
 "ELC-0065": {
 "pack": "kenney_sci-fi-sounds",
 "file": "Audio/engineCircular_000.ogg",
-"dur": 5.0
+"dur": 5.0,
+"desc": "5s engine loops"
 },
 "ELC-0066": {
 "pack": "kenney_sci-fi-sounds",
 "file": "Audio/engineCircular_001.ogg",
-"dur": 5.0
+"dur": 5.0,
+"desc": "5s engine loops"
 },
 "ELC-0067": {
 "pack": "kenney_sci-fi-sounds",
 "file": "Audio/engineCircular_002.ogg",
-"dur": 5.0
+"dur": 5.0,
+"desc": "5s engine loops"
 },
 "ELC-0068": {
 "pack": "kenney_sci-fi-sounds",
@@ -1030,17 +1067,20 @@
 "ELC-0070": {
 "pack": "kenney_sci-fi-sounds",
 "file": "Audio/forceField_000.ogg",
-"dur": 0.95
+"dur": 0.95,
+"desc": "force field hit"
 },
 "ELC-0071": {
 "pack": "kenney_sci-fi-sounds",
 "file": "Audio/forceField_001.ogg",
-"dur": 0.95
+"dur": 0.95,
+"desc": "force field hit"
 },
 "ELC-0072": {
 "pack": "kenney_sci-fi-sounds",
 "file": "Audio/forceField_002.ogg",
-"dur": 0.96
+"dur": 0.96,
+"desc": "force field hit"
 },
 "ELC-0073": {
 "pack": "kenney_sci-fi-sounds",
@@ -1080,22 +1120,26 @@
 "ELC-0080": {
 "pack": "kenney_sci-fi-sounds",
 "file": "Audio/laserLarge_000.ogg",
-"dur": 0.68
+"dur": 0.68,
+"desc": "Kenney laser (large) - fairly clean sci-fi"
 },
 "ELC-0081": {
 "pack": "kenney_sci-fi-sounds",
 "file": "Audio/laserLarge_001.ogg",
-"dur": 0.72
+"dur": 0.72,
+"desc": "Kenney laser (large) - fairly clean sci-fi"
 },
 "ELC-0082": {
 "pack": "kenney_sci-fi-sounds",
 "file": "Audio/laserLarge_002.ogg",
-"dur": 0.74
+"dur": 0.74,
+"desc": "Kenney laser (large) - fairly clean sci-fi"
 },
 "ELC-0083": {
 "pack": "kenney_sci-fi-sounds",
 "file": "Audio/laserLarge_003.ogg",
-"dur": 0.72
+"dur": 0.72,
+"desc": "Kenney laser (large) - fairly clean sci-fi"
 },
 "ELC-0084": {
 "pack": "kenney_sci-fi-sounds",
@@ -1430,7 +1474,8 @@
 "ELC-0150": {
 "pack": "oga_50-cc0-sci-fi-sfx",
 "file": "rocket_01.ogg",
-"dur": 2.05
+"dur": 2.05,
+"desc": "rocket launch whoosh"
 },
 "ELC-0151": {
 "pack": "oga_50-cc0-sci-fi-sfx",
@@ -1455,32 +1500,38 @@
 "ELC-0155": {
 "pack": "oga_50-cc0-sci-fi-sfx",
 "file": "terminal_01.ogg",
-"dur": 0.4
+"dur": 0.4,
+"desc": "terminal beep"
 },
 "ELC-0156": {
 "pack": "oga_50-cc0-sci-fi-sfx",
 "file": "terminal_02.ogg",
-"dur": 0.33
+"dur": 0.33,
+"desc": "terminal beep"
 },
 "ELC-0157": {
 "pack": "oga_50-cc0-sci-fi-sfx",
 "file": "terminal_03.ogg",
-"dur": 0.36
+"dur": 0.36,
+"desc": "terminal beep"
 },
 "ELC-0158": {
 "pack": "oga_50-cc0-sci-fi-sfx",
 "file": "terminal_04.ogg",
-"dur": 0.25
+"dur": 0.25,
+"desc": "terminal beep"
 },
 "ELC-0159": {
 "pack": "oga_50-cc0-sci-fi-sfx",
 "file": "terminal_05.ogg",
-"dur": 0.38
+"dur": 0.38,
+"desc": "terminal beep"
 },
 "ELC-0160": {
 "pack": "oga_50-cc0-sci-fi-sfx",
 "file": "terminal_06.ogg",
-"dur": 0.31
+"dur": 0.31,
+"desc": "terminal beep"
 },
 "ELC-0161": {
 "pack": "oga_50-cc0-sci-fi-sfx",
@@ -1890,17 +1941,20 @@
 "ELC-0242": {
 "pack": "oga_action-gameshmup-sfx-pack",
 "file": "SFXPack/Laser/LaserBeam3.wav",
-"dur": 6.0
+"dur": 6.0,
+"desc": "6s beam, check loop seam"
 },
 "ELC-0243": {
 "pack": "oga_action-gameshmup-sfx-pack",
 "file": "SFXPack/Laser/LaserBeam4.wav",
-"dur": 6.0
+"dur": 6.0,
+"desc": "6s beam, check loop seam"
 },
 "ELC-0244": {
 "pack": "oga_action-gameshmup-sfx-pack",
 "file": "SFXPack/Laser/LaserBeam5.wav",
-"dur": 6.0
+"dur": 6.0,
+"desc": "6s beam, check loop seam"
 },
 "ELC-0245": {
 "pack": "oga_action-gameshmup-sfx-pack",
@@ -1910,12 +1964,14 @@
 "ELC-0246": {
 "pack": "oga_action-gameshmup-sfx-pack",
 "file": "SFXPack/Laser/LaserBeam7.wav",
-"dur": 1.64
+"dur": 1.64,
+"desc": "charged beam/railgun-like 1.6s"
 },
 "ELC-0247": {
 "pack": "oga_action-gameshmup-sfx-pack",
 "file": "SFXPack/Laser/LaserBeam8.wav",
-"dur": 1.64
+"dur": 1.64,
+"desc": "charged beam/railgun-like 1.6s"
 },
 "ELC-0248": {
 "pack": "oga_action-gameshmup-sfx-pack",
@@ -1925,12 +1981,14 @@
 "ELC-0249": {
 "pack": "oga_action-gameshmup-sfx-pack",
 "file": "SFXPack/Laser/LaserShot10.wav",
-"dur": 1.23
+"dur": 1.23,
+"desc": "laser shot, varied"
 },
 "ELC-0250": {
 "pack": "oga_action-gameshmup-sfx-pack",
 "file": "SFXPack/Laser/LaserShot2.wav",
-"dur": 2.0
+"dur": 2.0,
+"desc": "laser shot, varied"
 },
 "ELC-0251": {
 "pack": "oga_action-gameshmup-sfx-pack",
@@ -1940,7 +1998,8 @@
 "ELC-0252": {
 "pack": "oga_action-gameshmup-sfx-pack",
 "file": "SFXPack/Laser/LaserShot4.wav",
-"dur": 2.0
+"dur": 2.0,
+"desc": "laser shot, varied"
 },
 "ELC-0253": {
 "pack": "oga_action-gameshmup-sfx-pack",
@@ -1960,7 +2019,8 @@
 "ELC-0256": {
 "pack": "oga_action-gameshmup-sfx-pack",
 "file": "SFXPack/Laser/LaserShot8.wav",
-"dur": 2.46
+"dur": 2.46,
+"desc": "laser shot, varied"
 },
 "ELC-0257": {
 "pack": "oga_action-gameshmup-sfx-pack",
@@ -1985,7 +2045,8 @@
 "ELC-0261": {
 "pack": "oga_crank-movie-telephone-ringtone",
 "file": "crank_ringtone.mp3",
-"dur": 7.42
+"dur": 7.42,
+"desc": "telephone ringtone [peak-clip heuristic flag]"
 },
 "ELC-0262": {
 "pack": "oga_doomsday-laser-cannon-sound-effect",
@@ -2010,22 +2071,26 @@
 "ELC-0266": {
 "pack": "oga_electricity-game-sound-pack",
 "file": "charge.wav",
-"dur": 4.13
+"dur": 4.13,
+"desc": "charge-up, pair with a heavy shot for railgun"
 },
 "ELC-0267": {
 "pack": "oga_electricity-game-sound-pack",
 "file": "chargestart.wav",
-"dur": 8.09
+"dur": 8.09,
+"desc": "charge-up, pair with a heavy shot for railgun"
 },
 "ELC-0268": {
 "pack": "oga_electricity-game-sound-pack",
 "file": "groundhit.wav",
-"dur": 0.28
+"dur": 0.28,
+"desc": "energy shield/ground hit"
 },
 "ELC-0269": {
 "pack": "oga_electricity-game-sound-pack",
 "file": "hit.wav",
-"dur": 2.21
+"dur": 2.21,
+"desc": "energy shield/ground hit"
 },
 "ELC-0270": {
 "pack": "oga_electricity-game-sound-pack",
@@ -2050,7 +2115,8 @@
 "ELC-0274": {
 "pack": "oga_electricity-game-sound-pack",
 "file": "shieldhit.wav",
-"dur": 1.56
+"dur": 1.56,
+"desc": "energy shield"
 },
 "ELC-0275": {
 "pack": "oga_electricity-game-sound-pack",
@@ -2065,22 +2131,26 @@
 "ELC-0277": {
 "pack": "oga_electricity-sound-effects-0",
 "file": "continuousspark.wav",
-"dur": 0.22
+"dur": 0.22,
+"desc": "spark"
 },
 "ELC-0278": {
 "pack": "oga_electricity-sound-effects-0",
 "file": "spark.wav",
-"dur": 0.34
+"dur": 0.34,
+"desc": "spark"
 },
 "ELC-0279": {
 "pack": "oga_hovermobile-sfx",
 "file": "hovermobile_gun_sfx_.wav",
-"dur": 2.97
+"dur": 2.97,
+"desc": "hover vehicle"
 },
 "ELC-0280": {
 "pack": "oga_hovermobile-sfx",
 "file": "hovermobile_sfx_.wav",
-"dur": 6.5
+"dur": 6.5,
+"desc": "hover vehicle [peak-clip heuristic flag]"
 },
 "ELC-0281": {
 "pack": "oga_impact",
@@ -2135,7 +2205,8 @@
 "ELC-0291": {
 "pack": "oga_modern-ringtone-chirptone",
 "file": "chirptone.wav",
-"dur": 2.47
+"dur": 2.47,
+"desc": "modern ringtone"
 },
 "ELC-0292": {
 "pack": "oga_quick-drill-fix",
@@ -2165,7 +2236,8 @@
 "ELC-0297": {
 "pack": "oga_storm-siren",
 "file": "storm_3_siren.ogg",
-"dur": 85.65
+"dur": 85.65,
+"desc": "long 85s siren (storm siren)"
 },
 "ELC-0298": {
 "pack": "oga_storm-siren",
@@ -2180,12 +2252,14 @@
 "EXP-0001": {
 "pack": "kenney_sci-fi-sounds",
 "file": "Audio/explosionCrunch_000.ogg",
-"dur": 0.78
+"dur": 0.78,
+"desc": "low-end blast for railgun discharge"
 },
 "EXP-0002": {
 "pack": "kenney_sci-fi-sounds",
 "file": "Audio/explosionCrunch_001.ogg",
-"dur": 1.36
+"dur": 1.36,
+"desc": "low-end blast for railgun discharge"
 },
 "EXP-0003": {
 "pack": "kenney_sci-fi-sounds",
@@ -2205,7 +2279,8 @@
 "EXP-0006": {
 "pack": "kenney_sci-fi-sounds",
 "file": "Audio/lowFrequency_explosion_000.ogg",
-"dur": 2.0
+"dur": 2.0,
+"desc": "low-end blast for railgun discharge [peak-clip heuristic flag]"
 },
 "EXP-0007": {
 "pack": "kenney_sci-fi-sounds",
@@ -2220,17 +2295,20 @@
 "EXP-0009": {
 "pack": "oga_25-cc0-bang-firework-sfx",
 "file": "bang_01.ogg",
-"dur": 1.03
+"dur": 1.03,
+"desc": "bangs"
 },
 "EXP-0010": {
 "pack": "oga_25-cc0-bang-firework-sfx",
 "file": "bang_02.ogg",
-"dur": 0.89
+"dur": 0.89,
+"desc": "bangs"
 },
 "EXP-0011": {
 "pack": "oga_25-cc0-bang-firework-sfx",
 "file": "bang_03.ogg",
-"dur": 1.09
+"dur": 1.09,
+"desc": "bangs"
 },
 "EXP-0012": {
 "pack": "oga_25-cc0-bang-firework-sfx",
@@ -2345,27 +2423,32 @@
 "EXP-0034": {
 "pack": "oga_action-gameshmup-sfx-pack",
 "file": "SFXPack/Explosions/Explosion1.wav",
-"dur": 3.49
+"dur": 3.49,
+"desc": "sound-designed large explosions 3.5-6.5s"
 },
 "EXP-0035": {
 "pack": "oga_action-gameshmup-sfx-pack",
 "file": "SFXPack/Explosions/Explosion2.wav",
-"dur": 4.92
+"dur": 4.92,
+"desc": "sound-designed large explosions 3.5-6.5s"
 },
 "EXP-0036": {
 "pack": "oga_action-gameshmup-sfx-pack",
 "file": "SFXPack/Explosions/Explosion3.wav",
-"dur": 6.56
+"dur": 6.56,
+"desc": "sound-designed large explosions 3.5-6.5s"
 },
 "EXP-0037": {
 "pack": "oga_action-gameshmup-sfx-pack",
 "file": "SFXPack/Explosions/Explosion4.wav",
-"dur": 5.74
+"dur": 5.74,
+"desc": "sound-designed large explosions 3.5-6.5s"
 },
 "EXP-0038": {
 "pack": "oga_cannon-hit",
 "file": "cannon_hit_0.ogg",
-"dur": 4.94
+"dur": 4.94,
+"desc": "cannon hit/impact 4.9s"
 },
 "EXP-0039": {
 "pack": "oga_chunky-explosion",
@@ -2380,7 +2463,8 @@
 "EXP-0041": {
 "pack": "oga_electricity-game-sound-pack",
 "file": "deathboom.wav",
-"dur": 6.92
+"dur": 6.92,
+"desc": "energy shield"
 },
 "EXP-0042": {
 "pack": "oga_explosion-0",
@@ -2430,7 +2514,8 @@
 "EXP-0051": {
 "pack": "oga_muffled-distant-explosion",
 "file": "NenadSimic - Muffled Distant Explosion.wav",
-"dur": 5.14
+"dur": 5.14,
+"desc": "distant rumble substitute"
 },
 "EXP-0052": {
 "pack": "oga_platformer-sounds-terminal-interaction-door-shots-bang-and-footsteps",
@@ -2525,17 +2610,20 @@
 "GUN-0006": {
 "pack": "oga_action-gameshmup-sfx-pack",
 "file": "SFXPack/Bullets/BigShot1.wav",
-"dur": 4.0
+"dur": 4.0,
+"desc": "heavy sound-designed shot"
 },
 "GUN-0007": {
 "pack": "oga_action-gameshmup-sfx-pack",
 "file": "SFXPack/Bullets/BigShot2.wav",
-"dur": 3.28
+"dur": 3.28,
+"desc": "heavy sound-designed shot [peak-clip heuristic flag]"
 },
 "GUN-0008": {
 "pack": "oga_action-gameshmup-sfx-pack",
 "file": "SFXPack/Bullets/BigShot3.wav",
-"dur": 1.64
+"dur": 1.64,
+"desc": "sound-designed big shot 1.6s [peak-clip heuristic flag]"
 },
 "GUN-0009": {
 "pack": "oga_action-gameshmup-sfx-pack",
@@ -2545,7 +2633,8 @@
 "GUN-0010": {
 "pack": "oga_action-gameshmup-sfx-pack",
 "file": "SFXPack/Bullets/BigShot5.wav",
-"dur": 0.82
+"dur": 0.82,
+"desc": "sound-designed big shot 0.8s"
 },
 "GUN-0011": {
 "pack": "oga_action-gameshmup-sfx-pack",
@@ -2555,7 +2644,8 @@
 "GUN-0012": {
 "pack": "oga_action-gameshmup-sfx-pack",
 "file": "SFXPack/Bullets/Ratatatat2.wav",
-"dur": 1.0
+"dur": 1.0,
+"desc": "sound-designed rapid fire burst 1s"
 },
 "GUN-0013": {
 "pack": "oga_action-gameshmup-sfx-pack",
@@ -2565,12 +2655,14 @@
 "GUN-0014": {
 "pack": "oga_action-gameshmup-sfx-pack",
 "file": "SFXPack/Bullets/SmallShot1.wav",
-"dur": 0.41
+"dur": 0.41,
+"desc": "weak candidate: bullet-ish pings; no true ricochet pack found"
 },
 "GUN-0015": {
 "pack": "oga_action-gameshmup-sfx-pack",
 "file": "SFXPack/Bullets/SmallShot2.wav",
-"dur": 0.21
+"dur": 0.21,
+"desc": "weak candidate: bullet-ish pings; no true ricochet pack found"
 },
 "GUN-0016": {
 "pack": "oga_action-gameshmup-sfx-pack",
@@ -2590,12 +2682,14 @@
 "GUN-0019": {
 "pack": "oga_cannon-fire",
 "file": "cannon_fire_0.ogg",
-"dur": 3.58
+"dur": 3.58,
+"desc": "cannon fire [peak-clip heuristic flag]"
 },
 "GUN-0020": {
 "pack": "oga_gunshot-sound-effect",
 "file": "gunshot.mp3",
-"dur": 0.66
+"dur": 0.66,
+"desc": "short generic pistol shot, mp3"
 },
 "GUN-0021": {
 "pack": "oga_gunshot-sounds",
@@ -2605,32 +2699,38 @@
 "GUN-0022": {
 "pack": "oga_gunshot-sounds",
 "file": "sounds/mosin.wav",
-"dur": 14.71
+"dur": 14.71,
+"desc": "Mosin shot, 14.7s"
 },
 "GUN-0023": {
 "pack": "oga_gunshot-sounds",
 "file": "sounds/shotty.wav",
-"dur": 0.7
+"dur": 0.7,
+"desc": "short 0.7s shotgun blast, ready to use"
 },
 "GUN-0024": {
 "pack": "oga_gunshot-sounds",
 "file": "sounds/sks.wav",
-"dur": 15.52
+"dur": 15.52,
+"desc": "SKS shot, 15s"
 },
 "GUN-0025": {
 "pack": "oga_gunshots",
 "file": "22 Magnum.wav",
-"dur": 2.16
+"dur": 2.16,
+"desc": ".22 magnum shot"
 },
 "GUN-0026": {
 "pack": "oga_gunshots",
 "file": "22 Pistol.wav",
-"dur": 2.13
+"dur": 2.13,
+"desc": ".22 pistol, light/quiet shot"
 },
 "GUN-0027": {
 "pack": "oga_gunshots",
 "file": "Black Powder.wav",
-"dur": 4.02
+"dur": 4.02,
+"desc": "black-powder boom, usable as cannon/heavy thump"
 },
 "GUN-0028": {
 "pack": "oga_gunshots",
@@ -2640,287 +2740,344 @@
 "GUN-0029": {
 "pack": "oga_hollywood-style-pistol-silencer-sound-effect",
 "file": "silencer.wav",
-"dur": 1.72
+"dur": 1.72,
+"desc": "suppressed pistol shot"
 },
 "GUN-0030": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/1911/A_34P.wav",
-"dur": 9.93
+"dur": 9.93,
+"desc": "1911, handgun, pistol, semi automatic, .45, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0031": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/1911/A_42P.wav",
-"dur": 9.52
+"dur": 9.52,
+"desc": "1911, handgun, pistol, semi automatic, .45, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0032": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/1917/B_16P.wav",
-"dur": 9.84
+"dur": 9.84,
+"desc": "Springfield 1917, rifle, bolt action, .30-06, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0033": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/1917/B_24P.wav",
-"dur": 11.53
+"dur": 11.53,
+"desc": "Springfield 1917, rifle, bolt action, .30-06, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0034": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/AK-47/C_27P.wav",
-"dur": 9.94
+"dur": 9.94,
+"desc": "AK-47, rifle, fully automatic, semi automatic, machine gun, assault rifle, 7.62x39, gunshots, long burst, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0035": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/AK-47/C_28P.wav",
-"dur": 12.47
+"dur": 12.47,
+"desc": "AK-47, rifle, fully automatic, semi automatic, machine gun, assault rifle, 7.62x39, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0036": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/AK-47/C_29P.wav",
-"dur": 8.66
+"dur": 8.66,
+"desc": "AK-47, rifle, fully automatic, semi automatic, machine gun, assault rifle, 7.62x39, gunshots, short burst, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0037": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/AK-47/C_31P.wav",
-"dur": 8.78
+"dur": 8.78,
+"desc": "AK-47, rifle, fully automatic, semi automatic, machine gun, assault rifle, 7.62x39, gunshot, mid distance, front of shooter, forward, back, stereo, last round"
 },
 "GUN-0038": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/AK-47/C_34P.wav",
-"dur": 29.4
+"dur": 29.4,
+"desc": "AK-47, rifle, fully automatic, semi automatic, machine gun, assault rifle, 7.62x39, gunshots, short burst, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0039": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/AK-47/C_36P.wav",
-"dur": 12.29
+"dur": 12.29,
+"desc": "AK-47, rifle, fully automatic, semi automatic, machine gun, assault rifle, 7.62x39, gunshots, long burst, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0040": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/AR-15/D_24P.wav",
-"dur": 6.49
+"dur": 6.49,
+"desc": "AR-15, M4, rifle, carbine, semi automatic, assault rifle, .223, 5.56x45, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0041": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/AR-15/D_32P.wav",
-"dur": 10.22
+"dur": 10.22,
+"desc": "AR-15, M4, rifle, carbine, semi automatic, assault rifle, .223, 5.56x45, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0042": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Arisaka/E_18P.wav",
-"dur": 8.41
+"dur": 8.41,
+"desc": "Arisaka, rifle, bolt action, .30-06, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0043": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Arisaka/E_25P.wav",
-"dur": 6.7
+"dur": 6.7,
+"desc": "Arisaka, rifle, bolt action, .30-06, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0044": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Bersa/F_41P.wav",
-"dur": 8.37
+"dur": 8.37,
+"desc": "Bersa, handgun, pistol, semi automatic, .380, gunshot, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0045": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Bersa/F_47P.wav",
-"dur": 7.56
+"dur": 7.56,
+"desc": "Bersa, handgun, pistol, semi automatic, .380, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0046": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/CD/H_16P.wav",
-"dur": 7.56
+"dur": 7.56,
+"desc": "Charles Daly, CD, FTAW, shotgun, pump action, 12 gauge, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0047": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/CD/H_21P.wav",
-"dur": 6.02
+"dur": 6.02,
+"desc": "Charles Daly, CD, FTAW, shotgun, pump action, 12 gauge, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0048": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Carl Gustav M45/G_20P.wav",
-"dur": 8.86
+"dur": 8.86,
+"desc": "Carl Gustav M45, Swedish K, rifle, fully automatic, machine gun, sub machine gun, 9mm, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0049": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Carl Gustav M45/G_22P.wav",
-"dur": 8.93
+"dur": 8.93,
+"desc": "Carl Gustav M45, Swedish K, rifle, fully automatic, machine gun, sub machine gun, 9mm, gunshots, short burst, mid distance, front of shooter, forward, back, ste"
 },
 "GUN-0050": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Carl Gustav M45/G_24P.wav",
-"dur": 4.66
+"dur": 4.66,
+"desc": "Carl Gustav M45, Swedish K, rifle, fully automatic, machine gun, sub machine gun, 9mm, gunshots, long burst, mid distance, front of shooter, forward, back, ster"
 },
 "GUN-0051": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Carl Gustav M45/G_31P.wav",
-"dur": 9.18
+"dur": 9.18,
+"desc": "Carl Gustav M45, Swedish K, rifle, fully automatic, machine gun, sub machine gun, 9mm, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0052": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Carl Gustav M45/G_33P.wav",
-"dur": 11.75
+"dur": 11.75,
+"desc": "Carl Gustav M45, Swedish K, rifle, fully automatic, machine gun, sub machine gun, 9mm, gunshots, short burst, near distance, front of shooter, left, right, ster"
 },
 "GUN-0053": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Carl Gustav M45/G_35P.wav",
-"dur": 9.08
+"dur": 9.08,
+"desc": "Carl Gustav M45, Swedish K, rifle, fully automatic, machine gun, sub machine gun, 9mm, gunshots, long burst, near distance, front of shooter, left, right, stere"
 },
 "GUN-0054": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Marlin 336/I_17P.wav",
-"dur": 11.15
+"dur": 11.15,
+"desc": "Marlin 336, rifle, carbine, lever action, .30-30, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0055": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Marlin 336/I_22P.wav",
-"dur": 12.2
+"dur": 12.2,
+"desc": "Marlin 336, rifle, carbine, lever action, .30-30, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0056": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Model 12/K_17P.wav",
-"dur": 10.25
+"dur": 10.25,
+"desc": "Winchester, Model 12, shotgun, pump action, 12 gauge, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0057": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Model 12/K_22P.wav",
-"dur": 10.66
+"dur": 10.66,
+"desc": "Winchester, Model 12, shotgun, pump action, 12 gauge, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0058": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Model 1894/L_17P.wav",
-"dur": 7.91
+"dur": 7.91,
+"desc": "Winchester, Model 1894, rifle, lever action, .32 Winchester Special, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0059": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Model 1894/L_23P.wav",
-"dur": 7.03
+"dur": 7.03,
+"desc": "Winchester, Model 1894, rifle, lever action, .32 Winchester Special, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0060": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Mosin Nagant/M_21P.wav",
-"dur": 17.12
+"dur": 17.12,
+"desc": "Mosin Nagant, rifle, bolt action, 7.62x54, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0061": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Mosin Nagant/M_26P.wav",
-"dur": 15.38
+"dur": 15.38,
+"desc": "Mosin Nagant, rifle, bolt action, 7.62x54, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0062": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Mossberg/N_26P.wav",
-"dur": 11.46
+"dur": 11.46,
+"desc": "Mossberg, Model 190, shotgun, bolt action, 12 gauge, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0063": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Mossberg/N_30P.wav",
-"dur": 8.57
+"dur": 8.57,
+"desc": "Mossberg, Model 190, shotgun, bolt action, 12 gauge, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0064": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Nova/O_17P.wav",
-"dur": 6.59
+"dur": 6.59,
+"desc": "Benelli, Nova, shotgun, pump action, 12 gauge, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0065": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Nova/O_21P.wav",
-"dur": 6.82
+"dur": 6.82,
+"desc": "Benelli, Nova, shotgun, pump action, 12 gauge, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0066": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/PPSh/P_16P.wav",
-"dur": 16.36
+"dur": 16.36,
+"desc": "PPSh, rifle, fully automatic, machine gun, sub machine gun, 7.62x25 Tokarev, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0067": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/PPSh/P_18P.wav",
-"dur": 29.87
+"dur": 29.87,
+"desc": "PPSh, rifle, fully automatic, machine gun, sub machine gun, 7.62x25 Tokarev, gunshots, short burst, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0068": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/PPSh/P_22P.wav",
-"dur": 5.42
+"dur": 5.42,
+"desc": "PPSh, rifle, fully automatic, machine gun, sub machine gun, 7.62x25 Tokarev, gunshots, long burst, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0069": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/PPSh/P_30P.wav",
-"dur": 18.27
+"dur": 18.27,
+"desc": "PPSh, rifle, fully automatic, machine gun, sub machine gun, 7.62x25 Tokarev, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0070": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/PPSh/P_32P.wav",
-"dur": 9.05
+"dur": 9.05,
+"desc": "PPSh, rifle, fully automatic, machine gun, sub machine gun, 7.62x25 Tokarev, gunshots, short burst, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0071": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/PPSh/P_34P.wav",
-"dur": 5.79
+"dur": 5.79,
+"desc": "PPSh, rifle, fully automatic, machine gun, sub machine gun, 7.62x25 Tokarev, gunshots, long burst, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0072": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Ruger Mark III/R_30P.wav",
-"dur": 7.66
+"dur": 7.66,
+"desc": "Ruger Mark III, handgun, pistol, semi automatic, .22, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0073": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Ruger Mark III/R_35P.wav",
-"dur": 7.64
+"dur": 7.64,
+"desc": "Ruger Mark III, handgun, pistol, semi automatic, .22, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0074": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Ruger Single Six/S_11P.wav",
-"dur": 8.52
+"dur": 8.52,
+"desc": "Ruger Single Six, handgun, pistol, revolver, single action, .22, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0075": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Ruger Single Six/S_14P.wav",
-"dur": 9.39
+"dur": 9.39,
+"desc": "Ruger Single Six, handgun, pistol, revolver, single action, .22, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0076": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/SKS/U_14P.wav",
-"dur": 21.66
+"dur": 21.66,
+"desc": "Norinco SKS, rifle, carbine, semi automatic, 7.62x39, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0077": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/SKS/U_19P.wav",
-"dur": 17.67
+"dur": 17.67,
+"desc": "Norinco SKS, rifle, carbine, semi automatic, 7.62x39, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0078": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Savage 10 .300 Blackout/T_17P.wav",
-"dur": 7.63
+"dur": 7.63,
+"desc": "Savage Model 10, rifle, bolt action, .300 AAC Blackout, 7.62x35, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0079": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Savage 10 .300 Blackout/T_27P.wav",
-"dur": 7.2
+"dur": 7.2,
+"desc": "Savage Model 10, rifle, bolt action, .300 AAC Blackout, 7.62x35, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0080": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Smith & Wesson 642/V_22P.wav",
-"dur": 9.48
+"dur": 9.48,
+"desc": "Smith & Wesson 642, handgun, pistol, revolver, double action, .38 Special, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0081": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Smith & Wesson 642/V_27P.wav",
-"dur": 10.47
+"dur": 10.47,
+"desc": "Smith & Wesson 642, handgun, pistol, revolver, double action, .38 Special, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0082": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Tikka/W_24P.wav",
-"dur": 9.27
+"dur": 9.27,
+"desc": "Tikka Model T3, rifle, bolt action, .30-06, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0083": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Tikka/W_29P.wav",
-"dur": 9.7
+"dur": 9.7,
+"desc": "Tikka Model T3, rifle, bolt action, .30-06, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "GUN-0084": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Walther PPQ/X_31P.wav",
-"dur": 9.47
+"dur": 9.47,
+"desc": "Walther PPQ, handgun, pistol, semi automatic, striker, 9mm, gunshot, mid distance, front of shooter, forward, back, stereo"
 },
 "GUN-0085": {
 "pack": "oga_the-free-firearm-sound-library",
 "file": "Prepared SFX Library/Walther PPQ/X_39P.wav",
-"dur": 15.74
+"dur": 15.74,
+"desc": "Walther PPQ, handgun, pistol, semi automatic, striker, 9mm, gunshot, near distance, front of shooter, left, right, stereo"
 },
 "IMP-0001": {
 "pack": "kenney_impact-sounds",
@@ -3025,17 +3182,20 @@
 "IMP-0021": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactMetal_heavy_000.ogg",
-"dur": 0.17
+"dur": 0.17,
+"desc": "Kenney metal impact [peak-clip heuristic flag]"
 },
 "IMP-0022": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactMetal_heavy_001.ogg",
-"dur": 0.36
+"dur": 0.36,
+"desc": "Kenney metal impact [peak-clip heuristic flag]"
 },
 "IMP-0023": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactMetal_heavy_002.ogg",
-"dur": 0.12
+"dur": 0.12,
+"desc": "Kenney metal impact [peak-clip heuristic flag]"
 },
 "IMP-0024": {
 "pack": "kenney_impact-sounds",
@@ -3050,7 +3210,8 @@
 "IMP-0026": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactMetal_light_000.ogg",
-"dur": 0.35
+"dur": 0.35,
+"desc": "Kenney metal impact"
 },
 "IMP-0027": {
 "pack": "kenney_impact-sounds",
@@ -3100,17 +3261,20 @@
 "IMP-0036": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactMining_000.ogg",
-"dur": 0.94
+"dur": 0.94,
+"desc": "Kenney mining/rock hit"
 },
 "IMP-0037": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactMining_001.ogg",
-"dur": 0.87
+"dur": 0.87,
+"desc": "Kenney mining/rock hit [peak-clip heuristic flag]"
 },
 "IMP-0038": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactMining_002.ogg",
-"dur": 0.8
+"dur": 0.8,
+"desc": "Kenney mining/rock hit"
 },
 "IMP-0039": {
 "pack": "kenney_impact-sounds",
@@ -3150,17 +3314,20 @@
 "IMP-0046": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactPlate_heavy_000.ogg",
-"dur": 0.49
+"dur": 0.49,
+"desc": "Kenney plate impact"
 },
 "IMP-0047": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactPlate_heavy_001.ogg",
-"dur": 0.35
+"dur": 0.35,
+"desc": "Kenney plate impact [peak-clip heuristic flag]"
 },
 "IMP-0048": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactPlate_heavy_002.ogg",
-"dur": 0.49
+"dur": 0.49,
+"desc": "Kenney plate impact"
 },
 "IMP-0049": {
 "pack": "kenney_impact-sounds",
@@ -3200,12 +3367,14 @@
 "IMP-0056": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactPlate_medium_000.ogg",
-"dur": 0.61
+"dur": 0.61,
+"desc": "Kenney plate impact"
 },
 "IMP-0057": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactPlate_medium_001.ogg",
-"dur": 0.62
+"dur": 0.62,
+"desc": "Kenney plate impact"
 },
 "IMP-0058": {
 "pack": "kenney_impact-sounds",
@@ -3225,7 +3394,8 @@
 "IMP-0061": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactPunch_heavy_000.ogg",
-"dur": 0.65
+"dur": 0.65,
+"desc": " [peak-clip heuristic flag]"
 },
 "IMP-0062": {
 "pack": "kenney_impact-sounds",
@@ -3275,7 +3445,8 @@
 "IMP-0071": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactSoft_heavy_000.ogg",
-"dur": 0.51
+"dur": 0.51,
+"desc": " [peak-clip heuristic flag]"
 },
 "IMP-0072": {
 "pack": "kenney_impact-sounds",
@@ -3375,17 +3546,20 @@
 "IMP-0091": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactWood_light_000.ogg",
-"dur": 0.27
+"dur": 0.27,
+"desc": " [peak-clip heuristic flag]"
 },
 "IMP-0092": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactWood_light_001.ogg",
-"dur": 0.27
+"dur": 0.27,
+"desc": " [peak-clip heuristic flag]"
 },
 "IMP-0093": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactWood_light_002.ogg",
-"dur": 0.27
+"dur": 0.27,
+"desc": " [peak-clip heuristic flag]"
 },
 "IMP-0094": {
 "pack": "kenney_impact-sounds",
@@ -3485,22 +3659,26 @@
 "IMP-0113": {
 "pack": "oga_100-cc0-metal-and-wood-sfx",
 "file": "metal_hit_01.ogg",
-"dur": 0.27
+"dur": 0.27,
+"desc": "metal hits"
 },
 "IMP-0114": {
 "pack": "oga_100-cc0-metal-and-wood-sfx",
 "file": "metal_hit_02.ogg",
-"dur": 0.43
+"dur": 0.43,
+"desc": "metal hits"
 },
 "IMP-0115": {
 "pack": "oga_100-cc0-metal-and-wood-sfx",
 "file": "metal_hit_03.ogg",
-"dur": 0.4
+"dur": 0.4,
+"desc": "metal hits"
 },
 "IMP-0116": {
 "pack": "oga_100-cc0-metal-and-wood-sfx",
 "file": "metal_hit_04.ogg",
-"dur": 0.37
+"dur": 0.37,
+"desc": "metal hits"
 },
 "IMP-0117": {
 "pack": "oga_100-cc0-metal-and-wood-sfx",
@@ -3705,7 +3883,8 @@
 "IMP-0157": {
 "pack": "oga_100-cc0-metal-and-wood-sfx",
 "file": "wood_breaking_01.ogg",
-"dur": 0.56
+"dur": 0.56,
+"desc": " [peak-clip heuristic flag]"
 },
 "IMP-0158": {
 "pack": "oga_100-cc0-metal-and-wood-sfx",
@@ -4095,22 +4274,26 @@
 "IMP-0235": {
 "pack": "oga_12-wet-towel-hittingfallingpunching-floor-sounds",
 "file": "wet_towel_on_floor/wet_towel_on_floor-01.flac",
-"dur": 0.55
+"dur": 0.55,
+"desc": "dull body-thud on floor"
 },
 "IMP-0236": {
 "pack": "oga_12-wet-towel-hittingfallingpunching-floor-sounds",
 "file": "wet_towel_on_floor/wet_towel_on_floor-02.flac",
-"dur": 0.51
+"dur": 0.51,
+"desc": "dull body-thud on floor"
 },
 "IMP-0237": {
 "pack": "oga_12-wet-towel-hittingfallingpunching-floor-sounds",
 "file": "wet_towel_on_floor/wet_towel_on_floor-03.flac",
-"dur": 0.55
+"dur": 0.55,
+"desc": "dull body-thud on floor [peak-clip heuristic flag]"
 },
 "IMP-0238": {
 "pack": "oga_12-wet-towel-hittingfallingpunching-floor-sounds",
 "file": "wet_towel_on_floor/wet_towel_on_floor-04.flac",
-"dur": 0.52
+"dur": 0.52,
+"desc": "dull body-thud on floor"
 },
 "IMP-0239": {
 "pack": "oga_12-wet-towel-hittingfallingpunching-floor-sounds",
@@ -4230,17 +4413,20 @@
 "IMP-0262": {
 "pack": "oga_33-metal-clang-sounds-cast-iron-pans",
 "file": "cast iron clangs - Marker #1.wav",
-"dur": 1.89
+"dur": 1.89,
+"desc": "metal clang"
 },
 "IMP-0263": {
 "pack": "oga_33-metal-clang-sounds-cast-iron-pans",
 "file": "cast iron clangs - Marker #10.wav",
-"dur": 1.82
+"dur": 1.82,
+"desc": "metal clang"
 },
 "IMP-0264": {
 "pack": "oga_33-metal-clang-sounds-cast-iron-pans",
 "file": "cast iron clangs - Marker #11.wav",
-"dur": 2.56
+"dur": 2.56,
+"desc": "metal clang"
 },
 "IMP-0265": {
 "pack": "oga_33-metal-clang-sounds-cast-iron-pans",
@@ -4570,7 +4756,8 @@
 "IMP-0330": {
 "pack": "oga_37-hitspunches",
 "file": "hits/hit01.mp3.flac",
-"dur": 1.05
+"dur": 1.05,
+"desc": "hits/punches"
 },
 "IMP-0331": {
 "pack": "oga_37-hitspunches",
@@ -4755,12 +4942,14 @@
 "IMP-0367": {
 "pack": "oga_4-metal-dingsrings",
 "file": "ding.1.ogg",
-"dur": 2.83
+"dur": 2.83,
+"desc": "metal ping - pitch-shift/sweep for ricochet"
 },
 "IMP-0368": {
 "pack": "oga_4-metal-dingsrings",
 "file": "ding.2.ogg",
-"dur": 2.17
+"dur": 2.17,
+"desc": "metal ping - pitch-shift/sweep for ricochet"
 },
 "IMP-0369": {
 "pack": "oga_4-metal-dingsrings",
@@ -4860,7 +5049,8 @@
 "IMP-0388": {
 "pack": "oga_68-workshop-sounds",
 "file": "workshop/workshop - clink thud.wav",
-"dur": 0.98
+"dur": 0.98,
+"desc": "small metal clinks - pitch up/short for casing"
 },
 "IMP-0389": {
 "pack": "oga_68-workshop-sounds",
@@ -5100,17 +5290,20 @@
 "IMP-0436": {
 "pack": "oga_75-cc0-breaking-falling-hit-sfx",
 "file": "bfh1_metal_hit_01.ogg",
-"dur": 0.24
+"dur": 0.24,
+"desc": "metal hits"
 },
 "IMP-0437": {
 "pack": "oga_75-cc0-breaking-falling-hit-sfx",
 "file": "bfh1_metal_hit_02.ogg",
-"dur": 0.55
+"dur": 0.55,
+"desc": "metal hits"
 },
 "IMP-0438": {
 "pack": "oga_75-cc0-breaking-falling-hit-sfx",
 "file": "bfh1_metal_hit_03.ogg",
-"dur": 0.46
+"dur": 0.46,
+"desc": "metal hits"
 },
 "IMP-0439": {
 "pack": "oga_75-cc0-breaking-falling-hit-sfx",
@@ -5165,17 +5358,20 @@
 "IMP-0449": {
 "pack": "oga_75-cc0-breaking-falling-hit-sfx",
 "file": "bfh1_rock_breaking_01.ogg",
-"dur": 1.15
+"dur": 1.15,
+"desc": "rock hit/break"
 },
 "IMP-0450": {
 "pack": "oga_75-cc0-breaking-falling-hit-sfx",
 "file": "bfh1_rock_breaking_02.ogg",
-"dur": 0.86
+"dur": 0.86,
+"desc": "rock hit/break"
 },
 "IMP-0451": {
 "pack": "oga_75-cc0-breaking-falling-hit-sfx",
 "file": "bfh1_rock_breaking_03.ogg",
-"dur": 0.46
+"dur": 0.46,
+"desc": "rock hit/break"
 },
 "IMP-0452": {
 "pack": "oga_75-cc0-breaking-falling-hit-sfx",
@@ -5225,7 +5421,8 @@
 "IMP-0461": {
 "pack": "oga_75-cc0-breaking-falling-hit-sfx",
 "file": "bfh1_rock_hit_01.ogg",
-"dur": 0.11
+"dur": 0.11,
+"desc": "rock hit/break"
 },
 "IMP-0462": {
 "pack": "oga_75-cc0-breaking-falling-hit-sfx",
@@ -5275,22 +5472,26 @@
 "IMP-0471": {
 "pack": "oga_8-wet-squish-slurp-impacts",
 "file": "impsplat/impactsplat01.mp3.flac",
-"dur": 1.02
+"dur": 1.02,
+"desc": "wet squish impacts [peak-clip heuristic flag]"
 },
 "IMP-0472": {
 "pack": "oga_8-wet-squish-slurp-impacts",
 "file": "impsplat/impactsplat02.mp3.flac",
-"dur": 1.18
+"dur": 1.18,
+"desc": "wet squish impacts"
 },
 "IMP-0473": {
 "pack": "oga_8-wet-squish-slurp-impacts",
 "file": "impsplat/impactsplat03.mp3.flac",
-"dur": 0.97
+"dur": 0.97,
+"desc": "wet squish impacts"
 },
 "IMP-0474": {
 "pack": "oga_8-wet-squish-slurp-impacts",
 "file": "impsplat/impactsplat04.mp3.flac",
-"dur": 0.92
+"dur": 0.92,
+"desc": "wet squish impacts"
 },
 "IMP-0475": {
 "pack": "oga_8-wet-squish-slurp-impacts",
@@ -5545,7 +5746,8 @@
 "IMP-0525": {
 "pack": "oga_impact",
 "file": "qubodupImpact/qubodupImpactMeat01.ogg",
-"dur": 0.5
+"dur": 0.5,
+"desc": "qubodup meat impact"
 },
 "IMP-0526": {
 "pack": "oga_impact",
@@ -5700,17 +5902,20 @@
 "ITM-0001": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactBell_heavy_000.ogg",
-"dur": 1.48
+"dur": 1.48,
+"desc": "bell ding"
 },
 "ITM-0002": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactBell_heavy_001.ogg",
-"dur": 1.74
+"dur": 1.74,
+"desc": "bell ding"
 },
 "ITM-0003": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/impactBell_heavy_002.ogg",
-"dur": 0.7
+"dur": 0.7,
+"desc": "bell ding"
 },
 "ITM-0004": {
 "pack": "kenney_impact-sounds",
@@ -6205,17 +6410,20 @@
 "MEC-0012": {
 "pack": "oga_10-clicks-and-switches",
 "file": "10 Clicks and Switches/click preview.ogg",
-"dur": 4.41
+"dur": 4.41,
+"desc": "mechanical clicks"
 },
 "MEC-0013": {
 "pack": "oga_10-clicks-and-switches",
 "file": "10 Clicks and Switches/click.1.ogg",
-"dur": 0.29
+"dur": 0.29,
+"desc": "mechanical clicks"
 },
 "MEC-0014": {
 "pack": "oga_10-clicks-and-switches",
 "file": "10 Clicks and Switches/click.10.ogg",
-"dur": 0.77
+"dur": 0.77,
+"desc": "mechanical clicks"
 },
 "MEC-0015": {
 "pack": "oga_10-clicks-and-switches",
@@ -6490,17 +6698,20 @@
 "MEC-0069": {
 "pack": "oga_100-cc0-sfx-2",
 "file": "sfx100v2_metal_01.ogg",
-"dur": 0.58
+"dur": 0.58,
+"desc": "small metal hits"
 },
 "MEC-0070": {
 "pack": "oga_100-cc0-sfx-2",
 "file": "sfx100v2_metal_02.ogg",
-"dur": 0.32
+"dur": 0.32,
+"desc": "small metal hits"
 },
 "MEC-0071": {
 "pack": "oga_100-cc0-sfx-2",
 "file": "sfx100v2_metal_03.ogg",
-"dur": 0.29
+"dur": 0.29,
+"desc": "small metal hits"
 },
 "MEC-0072": {
 "pack": "oga_100-cc0-sfx-2",
@@ -6565,22 +6776,26 @@
 "MEC-0084": {
 "pack": "oga_68-workshop-sounds",
 "file": "workshop/workshop - clink.wav",
-"dur": 1.18
+"dur": 1.18,
+"desc": "small metal clinks - pitch up/short for casing"
 },
 "MEC-0085": {
 "pack": "oga_68-workshop-sounds",
 "file": "workshop/workshop - clink1.wav",
-"dur": 0.78
+"dur": 0.78,
+"desc": "small metal clinks - pitch up/short for casing"
 },
 "MEC-0086": {
 "pack": "oga_68-workshop-sounds",
 "file": "workshop/workshop - clink2.wav",
-"dur": 0.91
+"dur": 0.91,
+"desc": "small metal clinks - pitch up/short for casing"
 },
 "MEC-0087": {
 "pack": "oga_68-workshop-sounds",
 "file": "workshop/workshop - clink3.wav",
-"dur": 0.78
+"dur": 0.78,
+"desc": "small metal clinks - pitch up/short for casing"
 },
 "MEC-0088": {
 "pack": "oga_68-workshop-sounds",
@@ -6590,22 +6805,26 @@
 "MEC-0089": {
 "pack": "oga_68-workshop-sounds",
 "file": "workshop/workshop - drill long.wav",
-"dur": 5.31
+"dur": 5.31,
+"desc": "power tool / ratchet, usable as servo"
 },
 "MEC-0090": {
 "pack": "oga_68-workshop-sounds",
 "file": "workshop/workshop - drill short 1.wav",
-"dur": 1.9
+"dur": 1.9,
+"desc": "power tool / ratchet, usable as servo"
 },
 "MEC-0091": {
 "pack": "oga_68-workshop-sounds",
 "file": "workshop/workshop - drill short 2.wav",
-"dur": 1.16
+"dur": 1.16,
+"desc": "power tool / ratchet, usable as servo"
 },
 "MEC-0092": {
 "pack": "oga_68-workshop-sounds",
 "file": "workshop/workshop - drill1.wav",
-"dur": 2.86
+"dur": 2.86,
+"desc": "power tool / ratchet, usable as servo"
 },
 "MEC-0093": {
 "pack": "oga_68-workshop-sounds",
@@ -6725,7 +6944,8 @@
 "MEC-0116": {
 "pack": "oga_68-workshop-sounds",
 "file": "workshop/workshop - quiet scrape.wav",
-"dur": 4.91
+"dur": 4.91,
+"desc": "slide/scrape"
 },
 "MEC-0117": {
 "pack": "oga_68-workshop-sounds",
@@ -6745,7 +6965,8 @@
 "MEC-0120": {
 "pack": "oga_68-workshop-sounds",
 "file": "workshop/workshop - scrape1.wav",
-"dur": 3.05
+"dur": 3.05,
+"desc": "slide/scrape"
 },
 "MEC-0121": {
 "pack": "oga_68-workshop-sounds",
@@ -6785,17 +7006,20 @@
 "MEC-0128": {
 "pack": "oga_7-mechanical-clicks-and-buzzes",
 "file": "mechanical/buzzerr-01.flac",
-"dur": 0.24
+"dur": 0.24,
+"desc": "mechanical clicks"
 },
 "MEC-0129": {
 "pack": "oga_7-mechanical-clicks-and-buzzes",
 "file": "mechanical/mechanical_button-01.flac",
-"dur": 0.39
+"dur": 0.39,
+"desc": "mechanical clicks"
 },
 "MEC-0130": {
 "pack": "oga_7-mechanical-clicks-and-buzzes",
 "file": "mechanical/mechanical_clicks-01.flac",
-"dur": 0.63
+"dur": 0.63,
+"desc": "mechanical clicks"
 },
 "MEC-0131": {
 "pack": "oga_7-mechanical-clicks-and-buzzes",
@@ -6865,12 +7089,14 @@
 "MEC-0144": {
 "pack": "oga_chain-winch-sounds",
 "file": "winch - Marker #2.wav",
-"dur": 1.81
+"dur": 1.81,
+"desc": "winch"
 },
 "MEC-0145": {
 "pack": "oga_chain-winch-sounds",
 "file": "winch - Marker #3.wav",
-"dur": 1.81
+"dur": 1.81,
+"desc": "winch"
 },
 "MEC-0146": {
 "pack": "oga_chain-winch-sounds",
@@ -7170,12 +7396,14 @@
 "MEC-0205": {
 "pack": "oga_mechanical-sounds",
 "file": "lightclunk1.wav",
-"dur": 0.37
+"dur": 0.37,
+"desc": "light metal clunk"
 },
 "MEC-0206": {
 "pack": "oga_mechanical-sounds",
 "file": "lightclunk2.wav",
-"dur": 0.3
+"dur": 0.3,
+"desc": "light metal clunk"
 },
 "MEC-0207": {
 "pack": "oga_mechanical-sounds",
@@ -7275,7 +7503,8 @@
 "MLE-0008": {
 "pack": "oga_20-sword-sound-effects-attacks-and-clashes",
 "file": "sword - StarNinjas/sword.10.ogg",
-"dur": 1.14
+"dur": 1.14,
+"desc": "sword swing"
 },
 "MLE-0009": {
 "pack": "oga_20-sword-sound-effects-attacks-and-clashes",
@@ -7305,7 +7534,8 @@
 "MLE-0014": {
 "pack": "oga_20-sword-sound-effects-attacks-and-clashes",
 "file": "sword - StarNinjas/sword.7.ogg",
-"dur": 0.77
+"dur": 0.77,
+"desc": "sword swing"
 },
 "MLE-0015": {
 "pack": "oga_20-sword-sound-effects-attacks-and-clashes",
@@ -7315,12 +7545,14 @@
 "MLE-0016": {
 "pack": "oga_20-sword-sound-effects-attacks-and-clashes",
 "file": "sword - StarNinjas/sword.9.ogg",
-"dur": 1.38
+"dur": 1.38,
+"desc": "sword swing"
 },
 "MLE-0017": {
 "pack": "oga_20-sword-sound-effects-attacks-and-clashes",
 "file": "sword_clash.1.ogg",
-"dur": 1.03
+"dur": 1.03,
+"desc": "blade clash [peak-clip heuristic flag]"
 },
 "MLE-0018": {
 "pack": "oga_20-sword-sound-effects-attacks-and-clashes",
@@ -7330,12 +7562,14 @@
 "MLE-0019": {
 "pack": "oga_20-sword-sound-effects-attacks-and-clashes",
 "file": "sword_clash.2.ogg",
-"dur": 0.8
+"dur": 0.8,
+"desc": "blade clash [peak-clip heuristic flag]"
 },
 "MLE-0020": {
 "pack": "oga_20-sword-sound-effects-attacks-and-clashes",
 "file": "sword_clash.3.ogg",
-"dur": 0.93
+"dur": 0.93,
+"desc": "blade clash"
 },
 "MLE-0021": {
 "pack": "oga_20-sword-sound-effects-attacks-and-clashes",
@@ -7345,7 +7579,8 @@
 "MLE-0022": {
 "pack": "oga_20-sword-sound-effects-attacks-and-clashes",
 "file": "sword_clash.5.ogg",
-"dur": 0.66
+"dur": 0.66,
+"desc": " [peak-clip heuristic flag]"
 },
 "MLE-0023": {
 "pack": "oga_20-sword-sound-effects-attacks-and-clashes",
@@ -7500,7 +7735,8 @@
 "MLE-0053": {
 "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
 "file": "swosh-01.flac",
-"dur": 0.28
+"dur": 0.28,
+"desc": " [peak-clip heuristic flag]"
 },
 "MLE-0054": {
 "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
@@ -7510,7 +7746,8 @@
 "MLE-0055": {
 "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
 "file": "swosh-03.flac",
-"dur": 0.58
+"dur": 0.58,
+"desc": "longer whoosh [peak-clip heuristic flag]"
 },
 "MLE-0056": {
 "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
@@ -7610,7 +7847,8 @@
 "MLE-0075": {
 "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
 "file": "swosh-23.flac",
-"dur": 4.51
+"dur": 4.51,
+"desc": "longer whoosh [peak-clip heuristic flag]"
 },
 "MLE-0076": {
 "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
@@ -7635,7 +7873,8 @@
 "MLE-0080": {
 "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
 "file": "swosh-28.flac",
-"dur": 1.54
+"dur": 1.54,
+"desc": "longer whoosh"
 },
 "MLE-0081": {
 "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
@@ -7650,7 +7889,8 @@
 "MLE-0083": {
 "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
 "file": "swosh-31.flac",
-"dur": 1.4
+"dur": 1.4,
+"desc": "longer whoosh"
 },
 "MLE-0084": {
 "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
@@ -7715,7 +7955,8 @@
 "MLE-0096": {
 "pack": "oga_swishes-sound-pack",
 "file": "swishes/swish-1.wav",
-"dur": 0.13
+"dur": 0.13,
+"desc": "short whoosh [peak-clip heuristic flag]"
 },
 "MLE-0097": {
 "pack": "oga_swishes-sound-pack",
@@ -7740,22 +7981,26 @@
 "MLE-0101": {
 "pack": "oga_swishes-sound-pack",
 "file": "swishes/swish-2.wav",
-"dur": 0.1
+"dur": 0.1,
+"desc": "short whoosh [peak-clip heuristic flag]"
 },
 "MLE-0102": {
 "pack": "oga_swishes-sound-pack",
 "file": "swishes/swish-3.wav",
-"dur": 0.15
+"dur": 0.15,
+"desc": "short whoosh [peak-clip heuristic flag]"
 },
 "MLE-0103": {
 "pack": "oga_swishes-sound-pack",
 "file": "swishes/swish-4.wav",
-"dur": 0.15
+"dur": 0.15,
+"desc": "short whoosh [peak-clip heuristic flag]"
 },
 "MLE-0104": {
 "pack": "oga_swishes-sound-pack",
 "file": "swishes/swish-5.wav",
-"dur": 0.13
+"dur": 0.13,
+"desc": "short whoosh [peak-clip heuristic flag]"
 },
 "MLE-0105": {
 "pack": "oga_swishes-sound-pack",
@@ -7765,17 +8010,20 @@
 "MLE-0106": {
 "pack": "oga_swishes-sound-pack",
 "file": "swishes/swish-7.wav",
-"dur": 0.19
+"dur": 0.19,
+"desc": " [peak-clip heuristic flag]"
 },
 "MLE-0107": {
 "pack": "oga_swishes-sound-pack",
 "file": "swishes/swish-8.wav",
-"dur": 0.15
+"dur": 0.15,
+"desc": " [peak-clip heuristic flag]"
 },
 "MLE-0108": {
 "pack": "oga_swishes-sound-pack",
 "file": "swishes/swish-9.wav",
-"dur": 0.2
+"dur": 0.2,
+"desc": " [peak-clip heuristic flag]"
 },
 "MLE-0109": {
 "pack": "oga_thwack-sounds",
@@ -7880,27 +8128,32 @@
 "MOV-0011": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/footstep_concrete_000.ogg",
-"dur": 0.11
+"dur": 0.11,
+"desc": " [peak-clip heuristic flag]"
 },
 "MOV-0012": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/footstep_concrete_001.ogg",
-"dur": 0.11
+"dur": 0.11,
+"desc": " [peak-clip heuristic flag]"
 },
 "MOV-0013": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/footstep_concrete_002.ogg",
-"dur": 0.11
+"dur": 0.11,
+"desc": " [peak-clip heuristic flag]"
 },
 "MOV-0014": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/footstep_concrete_003.ogg",
-"dur": 0.11
+"dur": 0.11,
+"desc": " [peak-clip heuristic flag]"
 },
 "MOV-0015": {
 "pack": "kenney_impact-sounds",
 "file": "Audio/footstep_concrete_004.ogg",
-"dur": 0.11
+"dur": 0.11,
+"desc": " [peak-clip heuristic flag]"
 },
 "MOV-0016": {
 "pack": "kenney_impact-sounds",
@@ -8095,17 +8348,20 @@
 "MOV-0054": {
 "pack": "oga_100-cc0-sfx-2",
 "file": "sfx100v2_footstep_wet_01.ogg",
-"dur": 0.28
+"dur": 0.28,
+"desc": "wet footsteps"
 },
 "MOV-0055": {
 "pack": "oga_100-cc0-sfx-2",
 "file": "sfx100v2_footstep_wet_02.ogg",
-"dur": 0.4
+"dur": 0.4,
+"desc": "wet footsteps"
 },
 "MOV-0056": {
 "pack": "oga_100-cc0-sfx-2",
 "file": "sfx100v2_footstep_wet_03.ogg",
-"dur": 0.39
+"dur": 0.39,
+"desc": "wet footsteps"
 },
 "MOV-0057": {
 "pack": "oga_100-cc0-sfx-2",
@@ -8130,12 +8386,14 @@
 "MOV-0061": {
 "pack": "oga_15-vocal-male-strainhurtpainjump-sounds",
 "file": "slightscream-01.flac",
-"dur": 0.45
+"dur": 0.45,
+"desc": "male strain/hurt flac [peak-clip heuristic flag]"
 },
 "MOV-0062": {
 "pack": "oga_15-vocal-male-strainhurtpainjump-sounds",
 "file": "slightscream-02.flac",
-"dur": 0.36
+"dur": 0.36,
+"desc": "male strain/hurt flac [peak-clip heuristic flag]"
 },
 "MOV-0063": {
 "pack": "oga_15-vocal-male-strainhurtpainjump-sounds",
@@ -8275,17 +8533,20 @@
 "MOV-0090": {
 "pack": "oga_fantozzis-footsteps-grasssand-stone",
 "file": "Fantozzi-footsteps/flac/Fantozzi-StoneL1.flac",
-"dur": 0.37
+"dur": 0.37,
+"desc": "stone"
 },
 "MOV-0091": {
 "pack": "oga_fantozzis-footsteps-grasssand-stone",
 "file": "Fantozzi-footsteps/flac/Fantozzi-StoneL2.flac",
-"dur": 0.33
+"dur": 0.33,
+"desc": "stone"
 },
 "MOV-0092": {
 "pack": "oga_fantozzis-footsteps-grasssand-stone",
 "file": "Fantozzi-footsteps/flac/Fantozzi-StoneL3.flac",
-"dur": 0.33
+"dur": 0.33,
+"desc": "stone"
 },
 "MOV-0093": {
 "pack": "oga_fantozzis-footsteps-grasssand-stone",
@@ -8395,7 +8656,8 @@
 "MOV-0114": {
 "pack": "oga_jump-and-run-and-stand",
 "file": "jump.flac",
-"dur": 0.07
+"dur": 0.07,
+"desc": " [peak-clip heuristic flag]"
 },
 "MOV-0115": {
 "pack": "oga_jump-and-run-and-stand",
@@ -8410,7 +8672,8 @@
 "MOV-0117": {
 "pack": "oga_jump-landing",
 "file": "Jump 1.wav",
-"dur": 0.59
+"dur": 0.59,
+"desc": " [peak-clip heuristic flag]"
 },
 "MOV-0118": {
 "pack": "oga_jump-landing",
@@ -8425,42 +8688,50 @@
 "MOV-0120": {
 "pack": "oga_metal-footsteps-on-concrete",
 "file": "metal_steps_01.wav",
-"dur": 0.13
+"dur": 0.13,
+"desc": "metal steps on concrete (~0.1s each)"
 },
 "MOV-0121": {
 "pack": "oga_metal-footsteps-on-concrete",
 "file": "metal_steps_02.wav",
-"dur": 0.1
+"dur": 0.1,
+"desc": "metal steps on concrete (~0.1s each)"
 },
 "MOV-0122": {
 "pack": "oga_metal-footsteps-on-concrete",
 "file": "metal_steps_03.wav",
-"dur": 0.08
+"dur": 0.08,
+"desc": "metal steps on concrete (~0.1s each) [peak-clip heuristic flag]"
 },
 "MOV-0123": {
 "pack": "oga_metal-footsteps-on-concrete",
 "file": "metal_steps_04.wav",
-"dur": 0.14
+"dur": 0.14,
+"desc": "metal steps on concrete (~0.1s each)"
 },
 "MOV-0124": {
 "pack": "oga_metal-footsteps-on-concrete",
 "file": "metal_steps_05.wav",
-"dur": 0.13
+"dur": 0.13,
+"desc": "metal steps on concrete (~0.1s each)"
 },
 "MOV-0125": {
 "pack": "oga_metal-footsteps-on-concrete",
 "file": "metal_steps_06.wav",
-"dur": 0.14
+"dur": 0.14,
+"desc": "metal steps on concrete (~0.1s each)"
 },
 "MOV-0126": {
 "pack": "oga_metal-footsteps-on-concrete",
 "file": "metal_steps_07.wav",
-"dur": 0.14
+"dur": 0.14,
+"desc": "metal steps on concrete (~0.1s each)"
 },
 "MOV-0127": {
 "pack": "oga_metal-footsteps-on-concrete",
 "file": "metal_steps_08.wav",
-"dur": 0.12
+"dur": 0.12,
+"desc": "metal steps on concrete (~0.1s each)"
 },
 "MOV-0128": {
 "pack": "oga_metal-footsteps-on-concrete",
@@ -8550,12 +8821,14 @@
 "MOV-0145": {
 "pack": "oga_playersounds-1-by-emopreben",
 "file": "Playersounds - Wav/Playersounds - Track 10 - Jump2.wav",
-"dur": 0.5
+"dur": 0.5,
+"desc": "jump grunt"
 },
 "MOV-0146": {
 "pack": "oga_playersounds-1-by-emopreben",
 "file": "Playersounds - Wav/Playersounds - Track 9 - Jump.wav",
-"dur": 0.63
+"dur": 0.63,
+"desc": "jump grunt"
 },
 "MOV-0147": {
 "pack": "oga_playersounds-1-by-emopreben",
@@ -8575,7 +8848,8 @@
 "MOV-0150": {
 "pack": "oga_scorchers-foley-sounds",
 "file": "paper_rustling.wav",
-"dur": 2.45
+"dur": 2.45,
+"desc": "rustle, weak [peak-clip heuristic flag]"
 },
 "MOV-0151": {
 "pack": "oga_scorchers-foley-sounds",
@@ -8630,717 +8904,860 @@
 "MUS-0001": {
 "pack": "3xblast_small-things",
 "file": "small things.ogg",
-"dur": 63.81
+"dur": 63.81,
+"desc": "sad melancholy piano/guitar/strings"
 },
 "MUS-0002": {
 "pack": "adiutorium_infiltration",
 "file": "infiltration_2.mp3",
-"dur": 190.28
+"dur": 190.28,
+"desc": "futuristic stealth infiltration"
 },
 "MUS-0003": {
 "pack": "bobjt_gt-cave",
 "file": "gt_cave_ras_cave_hybrid_2023_0.ogg",
-"dur": 62.61
+"dur": 62.61,
+"desc": "cave echoes mysterious tension"
 },
 "MUS-0004": {
 "pack": "bobjt_sewers-beat",
 "file": "sewer_beat_2026_loop.ogg",
-"dur": 102.52
+"dur": 102.52,
+"desc": "ominous sewer beat loop"
 },
 "MUS-0005": {
 "pack": "bobjt_silver-lining",
 "file": "silver_lining_2025_loop.mp3",
-"dur": 55.22
+"dur": 55.22,
+"desc": "chill beats melancholic/uplifting"
 },
 "MUS-0006": {
 "pack": "bobjt_strange-sanctuary",
 "file": "strange_sanctuary_2025_-_remaster.ogg",
-"dur": 98.4
+"dur": 98.4,
+"desc": "melancholic cinematic"
 },
 "MUS-0007": {
 "pack": "bobjt_the-origin-s-story",
 "file": "origins_story_2022_flutes_0.mp3",
-"dur": 69.25
+"dur": 69.25,
+"desc": "cinematic sad pensive"
 },
 "MUS-0008": {
 "pack": "bobjt_victory-road",
 "file": "fanfare - victory road II.mp3",
-"dur": 43.34
+"dur": 43.34,
+"desc": "space fanfare victory"
 },
 "MUS-0009": {
 "pack": "bubble5297_main-menu-dark",
 "file": "main_menu_-_dark_0.mp3",
-"dur": 160.03
+"dur": 160.03,
+"desc": "dark, slow, moody menu theme"
 },
 "MUS-0010": {
 "pack": "centurion-of-war_emotional-piano",
 "file": "emotional_piano_2.ogg",
-"dur": 76.8
+"dur": 76.8,
+"desc": "slow sad piano"
 },
 "MUS-0011": {
 "pack": "cethiel_cursed-light",
 "file": "Cursed Light - MP3 Preview_2.mp3",
-"dur": 48.98
+"dur": 48.98,
+"desc": "solo piano sad"
 },
 "MUS-0012": {
 "pack": "cinameng_abandon-hope",
 "file": "abandon_hope_4.mp3",
-"dur": 120.01
+"dur": 120.01,
+"desc": "dystopian drone/synth ambient"
 },
 "MUS-0013": {
 "pack": "cinameng_bilwe",
 "file": "bilwe.mp3",
-"dur": 56.48
+"dur": 56.48,
+"desc": "mechanical industry synth loop, low rumble"
 },
 "MUS-0014": {
 "pack": "cinameng_blue-ants",
 "file": "blue_ants_0.mp3",
-"dur": 16.69
+"dur": 16.69,
+"desc": "dub/lo-fi cityscape night soundscape"
 },
 "MUS-0015": {
 "pack": "cinameng_dank",
 "file": "dank_2.mp3",
-"dur": 16.01
+"dur": 16.01,
+"desc": "short dark synth loop"
 },
 "MUS-0016": {
 "pack": "cinameng_dark-city",
 "file": "darkcity_1.mp3",
-"dur": 120.01
+"dur": 120.01,
+"desc": "lo-fi synth dark city, steady pulse"
 },
 "MUS-0017": {
 "pack": "cinameng_dark-heart",
 "file": "dark_heart.mp3",
-"dur": 108.02
+"dur": 108.02,
+"desc": "synth pads strings score, dark"
 },
 "MUS-0018": {
 "pack": "cinameng_dergunerin",
 "file": "dergunerin.mp3",
-"dur": 170.68
+"dur": 170.68,
+"desc": "horror synth tension, short loop style"
 },
 "MUS-0019": {
 "pack": "cinameng_endochde",
 "file": "endochde_3.mp3",
-"dur": 192.1
+"dur": 192.1,
+"desc": "mysterious city nighttime ambient, very quiet"
 },
 "MUS-0020": {
 "pack": "cinameng_hardwar",
 "file": "hardwar_0.mp3",
-"dur": 18.0
+"dur": 18.0,
+"desc": "lo-fi industrial techno loop"
 },
 "MUS-0021": {
 "pack": "cinameng_hiryuti",
 "file": "hiryuti_0.mp3",
-"dur": 161.36
+"dur": 161.36,
+"desc": "lo-fi synth cyberpunk, steady groove"
 },
 "MUS-0022": {
 "pack": "cinameng_kouzali",
 "file": "kouzali_full.mp3",
-"dur": 226.01
+"dur": 226.01,
+"desc": "retro techno/IDM shooter action cyberpunk"
 },
 "MUS-0023": {
 "pack": "cinameng_kouzali",
 "file": "kouzali_loop_0.mp3",
-"dur": 32.0
+"dur": 32.0,
+"desc": "kouzali loop cut"
 },
 "MUS-0024": {
 "pack": "cinameng_mirrorshade",
 "file": "mirrorshade_1.mp3",
-"dur": 17.95
+"dur": 17.95,
+"desc": "pads/ambience cyberpunk loop, 5 variants"
 },
 "MUS-0025": {
 "pack": "cinameng_mirrorshade",
 "file": "mirrorshade_2_0.mp3",
-"dur": 17.95
+"dur": 17.95,
+"desc": "mirrorshade variant 2"
 },
 "MUS-0026": {
 "pack": "cinameng_mirrorshade",
 "file": "mirrorshade_3.mp3",
-"dur": 17.95
+"dur": 17.95,
+"desc": "mirrorshade variant 3"
 },
 "MUS-0027": {
 "pack": "cinameng_overshadow",
 "file": "overshadow_0.mp3",
-"dur": 60.94
+"dur": 60.94,
+"desc": "sci-fi mysterious ambient drone"
 },
 "MUS-0028": {
 "pack": "cinameng_persistence",
 "file": "persistence-loopshort_1.mp3",
-"dur": 57.44
+"dur": 57.44,
+"desc": "space drone ambient, sparse"
 },
 "MUS-0029": {
 "pack": "cinameng_pyro",
 "file": "pyro_3.mp3",
-"dur": 214.75
+"dur": 214.75,
+"desc": "future chill / industrial pads, lo-fi"
 },
 "MUS-0030": {
 "pack": "cinameng_referer",
 "file": "referer.mp3",
-"dur": 26.02
+"dur": 26.02,
+"desc": "dub techno nightscape, sparse"
 },
 "MUS-0031": {
 "pack": "cinameng_slacumen",
 "file": "slacumen.mp3",
-"dur": 71.78
+"dur": 71.78,
+"desc": "dub-techno lo-fi night, low pulse"
 },
 "MUS-0032": {
 "pack": "cinameng_wye",
 "file": "wye.mp3",
-"dur": 64.0
+"dur": 64.0,
+"desc": "synth horror loop, retro"
 },
 "MUS-0033": {
 "pack": "congusbongus_ancient-caverns-horror-ambient-loop",
 "file": "caverns_0.ogg",
-"dur": 136.29
+"dur": 136.29,
+"desc": "horror ambient loop seamless"
 },
 "MUS-0034": {
 "pack": "crivain_icy-heights",
 "file": "theme-loop.ogg",
-"dur": 42.0
+"dur": 42.0,
+"desc": "icy wind loop theme"
 },
 "MUS-0035": {
 "pack": "cynicmusic_dramatic-boss-encounter",
 "file": "Heavy Concept A Bass Master.wav",
-"dur": 39.92
+"dur": 39.92,
+"desc": "heavy bass concept, epic boss"
 },
 "MUS-0036": {
 "pack": "cynicmusic_victory-theme-for-rpg",
 "file": "Victory1_1.mp3",
-"dur": 56.74
+"dur": 56.74,
+"desc": "victory theme, RPG"
 },
 "MUS-0037": {
 "pack": "emma-ma_at-the-end-of-hope",
 "file": "at the end of hope_0.mp3",
-"dur": 182.89
+"dur": 182.89,
+"desc": "depressing piano ambient loop"
 },
 "MUS-0038": {
 "pack": "emma-ma_bittersweet",
 "file": "bittersweet_0.mp3",
-"dur": 34.06
+"dur": 34.06,
+"desc": "sad strings"
 },
 "MUS-0039": {
 "pack": "emma-ma_sad-game-over",
 "file": "sad_game_over.wav",
-"dur": 19.0
+"dur": 19.0,
+"desc": "sad game over"
 },
 "MUS-0040": {
 "pack": "fupi_bird-in-hand-night",
 "file": "bird_in_hand_night_0.ogg",
-"dur": 192.39
+"dur": 192.39,
+"desc": "sleepy soft night, sad/soft"
 },
 "MUS-0041": {
 "pack": "fupi_safety-2-versions",
 "file": "Safety_0.ogg",
-"dur": 59.13
+"dur": 59.13,
+"desc": "calm electronic with xylophone"
 },
 "MUS-0042": {
 "pack": "fupi_the-underground-has-been-sealed",
 "file": "the_underground_has_been_sealed_2.ogg",
-"dur": 62.86
+"dur": 62.86,
+"desc": "sad emotional synth"
 },
 "MUS-0043": {
 "pack": "gearfox98_something-sad",
 "file": "something_sad_pizzicato_and_glissando.mp3",
-"dur": 18.57
+"dur": 18.57,
+"desc": "sad pizzicato strings"
 },
 "MUS-0044": {
 "pack": "haeldb_loading-screen-loop",
 "file": "b423b42.wav",
-"dur": 20.65
+"dur": 20.65,
+"desc": "evil dark futuristic loading loop"
 },
 "MUS-0045": {
 "pack": "holizna_chills",
 "file": "01_holiznacc0_-_chills.ogg",
-"dur": 174.91
+"dur": 174.91,
+"desc": "noir chillhop lo-fi with sax, nostalgic"
 },
 "MUS-0046": {
 "pack": "iamoneabe_cyber-march",
 "file": "cybermarch_0.mp3",
-"dur": 243.62
+"dur": 243.62,
+"desc": "emotional epic synthwave march"
 },
 "MUS-0047": {
 "pack": "iamoneabe_dimly-lit",
 "file": "dimlylit_0.mp3",
-"dur": 128.04
+"dur": 128.04,
+"desc": "blues lo-fi, loopable, dim"
 },
 "MUS-0048": {
 "pack": "iamoneabe_drunken-saloon",
 "file": "drunken_saloon_0.mp3",
-"dur": 170.71
+"dur": 170.71,
+"desc": "noir detective blues bar, jazzy"
 },
 "MUS-0049": {
 "pack": "indieteur_long-winter",
 "file": "Long Winter_0.mp3",
-"dur": 236.62
+"dur": 236.62,
+"desc": "sad lonely depressing"
 },
 "MUS-0050": {
 "pack": "indieteur_revelation",
 "file": "Revelation_0.mp3",
-"dur": 84.85
+"dur": 84.85,
+"desc": "calm meditative gentle"
 },
 "MUS-0051": {
 "pack": "isaiah658_ambient-relaxing-loop",
 "file": "Ambient-Loop-isaiah658_0.ogg",
-"dur": 24.51
+"dur": 24.51,
+"desc": "heavenly ambient loop"
 },
 "MUS-0052": {
 "pack": "isaiah658_unsolved-investigation",
 "file": "Unsolved-Investigation-isaiah658_0.ogg",
-"dur": 48.0
+"dur": 48.0,
+"desc": "dark mysterious investigation score"
 },
 "MUS-0053": {
 "pack": "joth_the-9th-circle",
 "file": "The 9th Circle V2.mp3",
-"dur": 170.74
+"dur": 170.74,
+"desc": "industrial dark nightclub, spooky loop"
 },
 "MUS-0054": {
 "pack": "kiluaboy_frustration",
 "file": "Frustration_0.ogg",
-"dur": 192.01
+"dur": 192.01,
+"desc": "sad piano background"
 },
 "MUS-0055": {
 "pack": "kiluaboy_sunset-walk-ambient-quiet-sweet-loop",
 "file": "SunsetWalk.ogg",
-"dur": 76.8
+"dur": 76.8,
+"desc": "quiet sweet ambient loop"
 },
 "MUS-0056": {
 "pack": "kistol_catmint",
 "file": "catmint_in_c_major_looped.ogg",
-"dur": 154.67
+"dur": 154.67,
+"desc": "gentle neoclassical piano, soft"
 },
 "MUS-0057": {
 "pack": "kistol_game-over",
 "file": "Game Over_1.ogg",
-"dur": 15.0
+"dur": 15.0,
+"desc": "sad strings game over"
 },
 "MUS-0058": {
 "pack": "kistol_game-over-ii",
 "file": "Game Over II_2.ogg",
-"dur": 21.0
+"dur": 21.0,
+"desc": "sad strings game over II"
 },
 "MUS-0059": {
 "pack": "kistol_game-over-iv",
 "file": "game_over_iv_0.mp3",
-"dur": 21.03
+"dur": 21.03,
+"desc": "sad tragic spooky game over"
 },
 "MUS-0060": {
 "pack": "kistol_glutton",
 "file": "Glutton_0.ogg",
-"dur": 124.0
+"dur": 124.0,
+"desc": "industrial synth rock"
 },
 "MUS-0061": {
 "pack": "kistol_sadness",
 "file": "Sadness_0.ogg",
-"dur": 25.0
+"dur": 25.0,
+"desc": "seamless sad piano"
 },
 "MUS-0062": {
 "pack": "kistol_snowfall",
 "file": "Snowfall (Looped ver.)_0.ogg",
-"dur": 49.5
+"dur": 49.5,
+"desc": "piano waltz, soft, loopable"
 },
 "MUS-0063": {
 "pack": "kresiek-the-furry_dark-stinger-1",
 "file": "dark_stinger_0.ogg",
-"dur": 20.57
+"dur": 20.57,
+"desc": "dark stinger"
 },
 "MUS-0064": {
 "pack": "mintodog_darkness-road-remake",
 "file": "darkness_road_bpm165_0.ogg",
-"dur": 128.0
+"dur": 128.0,
+"desc": "dark synth driving, 165 bpm"
 },
 "MUS-0065": {
 "pack": "mintodog_darkness-road-remake",
 "file": "darkness_road_climax_remake_bpm180_0.ogg",
-"dur": 120.0
+"dur": 120.0,
+"desc": "dark synth driving climax remake"
 },
 "MUS-0066": {
 "pack": "mintodog_hard-boss-battle-1",
 "file": "hard_boss_battle_1_bpm200_0.ogg",
-"dur": 80.1
+"dur": 80.1,
+"desc": "hard synth boss battle, 200 bpm"
 },
 "MUS-0067": {
 "pack": "mintodog_hard-boss-battle-2",
 "file": "hard_boss_battle_2_bpm210_0.ogg",
-"dur": 112.0
+"dur": 112.0,
+"desc": "hard synth boss battle, 210 bpm"
 },
 "MUS-0068": {
 "pack": "mintodog_hard-dungeon",
 "file": "hard_dungeon_bpm140_0.ogg",
-"dur": 123.43
+"dur": 123.43,
+"desc": "techno/synth factory dungeon, 140 bpm"
 },
 "MUS-0069": {
 "pack": "mintodog_heat-boss-battle",
 "file": "heat_boss_battle_bpm165_0.ogg",
-"dur": 98.91
+"dur": 98.91,
+"desc": "electric guitar boss battle, exciting"
 },
 "MUS-0070": {
 "pack": "mintodog_heavy-boss-battle-1",
 "file": "heavy_boss_battle_1_bpm200_0.ogg",
-"dur": 108.0
+"dur": 108.0,
+"desc": "heavy metal electric guitar boss, dark"
 },
 "MUS-0071": {
 "pack": "mintodog_heavy-boss-battle-2",
 "file": "heavy_boss_battle_2_bpm110_0.ogg",
-"dur": 130.91
+"dur": 130.91,
+"desc": "heavy metal electric guitar boss, dark, 110 bpm"
 },
 "MUS-0072": {
 "pack": "mintodog_space-dungeon",
 "file": "space_dungeon_bpm100.mp3",
-"dur": 115.23
+"dur": 115.23,
+"desc": "dark synth space dungeon"
 },
 "MUS-0073": {
 "pack": "mintodog_strange-factory",
 "file": "strange_factory_bpm100_0.ogg",
-"dur": 91.2
+"dur": 91.2,
+"desc": "synth factory, strange, 100 bpm"
 },
 "MUS-0074": {
 "pack": "modanung_digital-graveyard",
 "file": "vitalezzz_-_orbital_graveyard_modanung_remix.mp3",
-"dur": 111.65
+"dur": 111.65,
+"desc": "electronic sci-fi soundtrack, remix"
 },
 "MUS-0075": {
 "pack": "nene_boss-battle-6-metal",
 "file": "Boss Battle 6 Metal V1.wav",
-"dur": 52.36
+"dur": 52.36,
+"desc": "metal boss battle w/ electronic"
 },
 "MUS-0076": {
 "pack": "omfgdude_lofi-again",
 "file": "lofiagain.ogg",
-"dur": 87.81
+"dur": 87.81,
+"desc": "lo-fi hip hop loop"
 },
 "MUS-0077": {
 "pack": "omfgdude_lofi-hip-hop",
 "file": "lofihiphop.ogg",
-"dur": 150.13
+"dur": 150.13,
+"desc": "lo-fi hip hop, relaxed"
 },
 "MUS-0078": {
 "pack": "paul-wortmann_dark-cavern-ambient",
 "file": "dark_cavern_ambient_001.ogg",
-"dur": 120.0
+"dur": 120.0,
+"desc": "dark cavern ambient"
 },
 "MUS-0079": {
 "pack": "polygondan_cc0-mystery",
 "file": "mystery exploration.mp3",
-"dur": 38.06
+"dur": 38.06,
+"desc": "mystery exploration dark mystical"
 },
 "MUS-0080": {
 "pack": "pro-sensory_dark-forces-loop",
 "file": "dark_forces_loop_0.mp3",
-"dur": 123.43
+"dur": 123.43,
+"desc": "electronic dark boss battle loop"
 },
 "MUS-0081": {
 "pack": "pro-sensory_factorio-clone-music",
 "file": "alex_0.mp3",
-"dur": 203.47
+"dur": 203.47,
+"desc": "industrial mechanical machine factory"
 },
 "MUS-0082": {
 "pack": "pro-sensory_heavy-rain",
 "file": "heavy_rain_mastered_0.mp3",
-"dur": 134.53
+"dur": 134.53,
+"desc": "electronic mid-tempo \"Heavy Rain\""
 },
 "MUS-0083": {
 "pack": "qubodup_chill-lofi-inspired-loop-edit",
 "file": "chilllofir-loop.ogg",
-"dur": 97.22
+"dur": 97.22,
+"desc": "seamless-loop lo-fi jazzy piano drums"
 },
 "MUS-0084": {
 "pack": "robin-lamb_game-over-dark-short-music-clips",
 "file": "gameoverdark.ogg",
-"dur": 10.0
+"dur": 10.0,
+"desc": "dark game over"
 },
 "MUS-0085": {
 "pack": "robin-lamb_game-over-dark-short-music-clips",
 "file": "gameoverstrangesounding.ogg",
-"dur": 8.48
+"dur": 8.48,
+"desc": "strange game over"
 },
 "MUS-0086": {
 "pack": "robin-lamb_game-over-sad-short-music-clips",
 "file": "sadending1.ogg",
-"dur": 10.69
+"dur": 10.69,
+"desc": "sad ending 1"
 },
 "MUS-0087": {
 "pack": "robin-lamb_game-over-sad-short-music-clips",
 "file": "sadending3.ogg",
-"dur": 12.78
+"dur": 12.78,
+"desc": "sad ending 3"
 },
 "MUS-0088": {
 "pack": "robin-lamb_lose-game-short-music-clip",
 "file": "losegamemusic_0.ogg",
-"dur": 6.92
+"dur": 6.92,
+"desc": "lose game"
 },
 "MUS-0089": {
 "pack": "ruskerdax_bleak-terminal",
 "file": "ruskerdax_-_bleak_terminal_theme.mp3",
-"dur": 112.18
+"dur": 112.18,
+"desc": "sci-fi horror industrial"
 },
 "MUS-0090": {
 "pack": "ruskerdax_cybershaman",
 "file": "ruskerdax_-_cybershaman.flac",
-"dur": 198.52
+"dur": 198.52,
+"desc": "cyberpunk hacking duel, metal guitar over digital"
 },
 "MUS-0091": {
 "pack": "ruskerdax_menacing-otherworld",
 "file": "ruskerdax_-_menacing_otherworld.mp3",
-"dur": 243.35
+"dur": 243.35,
+"desc": "creepy industrial ambient exploration"
 },
 "MUS-0092": {
 "pack": "ruskerdax_moil",
 "file": "ruskerdax_-_moil.mp3",
-"dur": 184.92
+"dur": 184.92,
+"desc": "noir jazz mystery detective night"
 },
 "MUS-0093": {
 "pack": "ruskerdax_pondering-the-cosmos",
 "file": "Ruskerdax - Pondering the Cosmos_0.mp3",
-"dur": 307.75
+"dur": 307.75,
+"desc": "slow dark cyberpunk ambient, night, looping"
 },
 "MUS-0094": {
 "pack": "ruskerdax_savage-ambush",
 "file": "ruskerdax_-_savage_ambush.mp3",
-"dur": 121.76
+"dur": 121.76,
+"desc": "cyberpunk action sneaking/ambush"
 },
 "MUS-0095": {
 "pack": "ruskerdax_soul-release",
 "file": "ruskerdax_-_soul_release.mp3",
-"dur": 232.55
+"dur": 232.55,
+"desc": "sad piano game-over style"
 },
 "MUS-0096": {
 "pack": "samza_game-over-instrumental",
 "file": "death_0.wav",
-"dur": 14.0
+"dur": 14.0,
+"desc": "death instrumental"
 },
 "MUS-0097": {
 "pack": "section31_dark-alleys-dark-times",
 "file": "S31-Dark Alleys, Dark Times.ogg",
-"dur": 209.45
+"dur": 209.45,
+"desc": "futuristic electronic beats, dark"
 },
 "MUS-0098": {
 "pack": "section31_heavy-steroid-use",
 "file": "S31-Heavy Steroid Use.ogg",
-"dur": 147.43
+"dur": 147.43,
+"desc": "futuristic electronic beats, heavy"
 },
 "MUS-0099": {
 "pack": "section31_puppet-warehouse",
 "file": "S31-Puppet Warehouse.ogg",
-"dur": 266.18
+"dur": 266.18,
+"desc": "futuristic electronic beats, warehouse"
 },
 "MUS-0100": {
 "pack": "section31_robotic-city-v2",
 "file": "S31-Robotic City V2.ogg",
-"dur": 192.0
+"dur": 192.0,
+"desc": "futuristic electronic beats, robotic"
 },
 "MUS-0101": {
 "pack": "shggothslave_a-rain-of-tears-in-the-soul",
 "file": "une_pluie_de_larmes_dans_lame_piano_0.mp3",
-"dur": 208.17
+"dur": 208.17,
+"desc": "piano, rain of tears in the soul"
 },
 "MUS-0102": {
 "pack": "sirolf2009_dark-memories",
 "file": "Dark Memories_0.ogg",
-"dur": 174.86
+"dur": 174.86,
+"desc": "dark memories ambient"
 },
 "MUS-0103": {
 "pack": "sorth_echoes-of-a-space-age-slow-sci-fi-music",
 "file": "echoes_of_a_space_age.mp3",
-"dur": 59.12
+"dur": 59.12,
+"desc": "slow dark sci-fi, terminator-like sad"
 },
 "MUS-0104": {
 "pack": "sperrylion_ancient-mysteries",
 "file": "ancient_mysteries.ogg",
-"dur": 120.0
+"dur": 120.0,
+"desc": "mysterious, echoes cinematic"
 },
 "MUS-0105": {
 "pack": "srg774_dark-sci-fi-audio-pack",
 "file": "airy_0.mp3",
-"dur": 64.0
+"dur": 64.0,
+"desc": "airy dark sci-fi ambient"
 },
 "MUS-0106": {
 "pack": "srg774_dark-sci-fi-audio-pack",
 "file": "pulse_0.mp3",
-"dur": 71.13
+"dur": 71.13,
+"desc": "dark sci-fi pulse, loopable"
 },
 "MUS-0107": {
 "pack": "srg774_dark-sci-fi-audio-pack",
 "file": "sector_0.mp3",
-"dur": 56.89
+"dur": 56.89,
+"desc": "dark sci-fi ambient"
 },
 "MUS-0108": {
 "pack": "srg774_dark-sci-fi-audio-pack",
 "file": "urgent_0.mp3",
-"dur": 56.89
+"dur": 56.89,
+"desc": "dark sci-fi urgent pulse"
 },
 "MUS-0109": {
 "pack": "srg774_dark-sci-fi-audio-pack",
 "file": "victory_4.mp3",
-"dur": 5.88
+"dur": 5.88,
+"desc": "dark sci-fi short victory"
 },
 "MUS-0110": {
 "pack": "stumpystrust_mixed-feelings",
 "file": "mixfeelings.wav",
-"dur": 46.45
+"dur": 46.45,
+"desc": "lofi theme"
 },
 "MUS-0111": {
 "pack": "sudocolon_icy-game-over",
 "file": "Icy Game Over.mp3",
-"dur": 8.36
+"dur": 8.36,
+"desc": "icy game over"
 },
 "MUS-0112": {
 "pack": "sudocolon_icy-level-up",
 "file": "Icy Level Up.mp3",
-"dur": 7.13
+"dur": 7.13,
+"desc": "icy short level-up"
 },
 "MUS-0113": {
 "pack": "sudocolon_sunrise",
 "file": "Sunrise over Clear Skies_0.mp3",
-"dur": 59.12
+"dur": 59.12,
+"desc": "sunrise piano loop"
 },
 "MUS-0114": {
 "pack": "sudocolon_the-hunt",
 "file": "The Hunt.ogg",
-"dur": 173.59
+"dur": 173.59,
+"desc": "dark electronic chase action"
 },
 "MUS-0115": {
 "pack": "symphony_donnie",
 "file": "cubedcanada+donnie_0.mp3",
-"dur": 232.26
+"dur": 232.26,
+"desc": "electronic dark guitar melancholy"
 },
 "MUS-0116": {
 "pack": "symphony_invaderloop",
 "file": "cubedcanada+invaderloop_0.mp3",
-"dur": 149.06
+"dur": 149.06,
+"desc": "dark industrial electronic tension"
 },
 "MUS-0117": {
 "pack": "tad_last-fight-dead-z-pandemic",
 "file": "last_fight.mp3",
-"dur": 224.08
+"dur": 224.08,
+"desc": "sad piano+beats"
 },
 "MUS-0118": {
 "pack": "tad_since-2-a-m",
 "file": "since_2_a.m_0.mp3",
-"dur": 256.57
+"dur": 256.57,
+"desc": "sad lo-fi beat, 8-bit flavoured, loop"
 },
 "MUS-0119": {
 "pack": "tad_the-end-dead-z-pandemic",
 "file": "the_end_piano_0.mp3",
-"dur": 230.48
+"dur": 230.48,
+"desc": "sad piano version"
 },
 "MUS-0120": {
 "pack": "tarush-singhal_cyberpunk-beauty",
 "file": "cyberpunk.mp3",
-"dur": 93.7
+"dur": 93.7,
+"desc": "neon night cyberpunk, heavy kicks, aesthetic"
 },
 "MUS-0121": {
 "pack": "tarush-singhal_epic-fight-theme-boss-battle",
 "file": "epc.mp3",
-"dur": 87.31
+"dur": 87.31,
+"desc": "epic fight theme"
 },
 "MUS-0122": {
 "pack": "tinyworlds_deep-humidity",
 "file": "deep-humidity.ogg",
-"dur": 131.11
+"dur": 131.11,
+"desc": "deep cave rumble, mono"
 },
 "MUS-0123": {
 "pack": "tinyworlds_narrow-corridors",
 "file": "narrow_corridors_short.ogg",
-"dur": 181.37
+"dur": 181.37,
+"desc": "dark scary horror corridors"
 },
 "MUS-0124": {
 "pack": "tozan_sewer-tunnel-ii",
 "file": "Sewertunnel2_0.ogg",
-"dur": 202.15
+"dur": 202.15,
+"desc": "dark damp cold sewer"
 },
 "MUS-0125": {
 "pack": "tozan_tesseract-outside-the-laboratory",
 "file": "teslabsbgm_0.ogg",
-"dur": 156.39
+"dur": 156.39,
+"desc": "laboratory area ambient"
 },
 "MUS-0126": {
 "pack": "tricksntraps_t-t-free-cyberpunk-pack-2",
 "file": "new_factory_129bpm_0.ogg",
-"dur": 130.24
+"dur": 130.24,
+"desc": "cyberpunk industrial factory, 129 bpm"
 },
 "MUS-0127": {
 "pack": "tsorthan-grove_corrupt-data-stream",
 "file": "corrupt_data_stream.mp3",
-"dur": 189.88
+"dur": 189.88,
+"desc": "cyberpunk dark electronic"
 },
 "MUS-0128": {
 "pack": "tsorthan-grove_lights-at-night",
 "file": "lights_at_night.mp3",
-"dur": 257.14
+"dur": 257.14,
+"desc": "ambient melodic neon skyline, quiet pulse"
 },
 "MUS-0129": {
 "pack": "tsorthan-grove_when-the-shadows-gather",
 "file": "when_the_shadows_gather_0.ogg",
-"dur": 153.6
+"dur": 153.6,
+"desc": "dark dystopian drone, pulsing"
 },
 "MUS-0130": {
 "pack": "umplix_game-over",
 "file": "game_over.wav",
-"dur": 10.4
+"dur": 10.4,
+"desc": "sad lose"
 },
 "MUS-0131": {
 "pack": "umplix_tension-theme",
 "file": "tension_theme.wav",
-"dur": 43.0
+"dur": 43.0,
+"desc": "futuristic dramatic tension"
 },
 "MUS-0132": {
 "pack": "umplix_victory",
 "file": "victory_0.wav",
-"dur": 12.63
+"dur": 12.63,
+"desc": "victory fanfare light"
 },
 "MUS-0133": {
 "pack": "vitalezzz_plains-of-luminescence",
 "file": "plains_of_luminescence_loop.mp3",
-"dur": 205.77
+"dur": 205.77,
+"desc": "calm electric guitar electronic, sci-fi"
 },
 "MUS-0134": {
 "pack": "vitalezzz_shadows-awaken-within",
 "file": "shadows_awaken_within_0.mp3",
-"dur": 223.06
+"dur": 223.06,
+"desc": "dark heavy rock/metal action"
 },
 "MUS-0135": {
 "pack": "vitalezzz_silver-bullet",
 "file": "silver_bullet.ogg",
-"dur": 216.84
+"dur": 216.84,
+"desc": "dark heavy rock/metal action"
 },
 "MUS-0136": {
 "pack": "vitalezzz_subspace",
 "file": "subspace_loop.mp3",
-"dur": 181.37
+"dur": 181.37,
+"desc": "electronic orchestral sci-fi, loop file"
 },
 "MUS-0137": {
 "pack": "vitalezzz_unholy-surge",
 "file": "unholy_surge_0.ogg",
-"dur": 197.73
+"dur": 197.73,
+"desc": "dark heavy rock/metal action"
 },
 "MUS-0138": {
 "pack": "wolfgang_a-new-start-short-solo-piano",
 "file": "anewstart-short_0.wav",
-"dur": 22.0
+"dur": 22.0,
+"desc": "short hopeful solo piano"
 },
 "MUS-0139": {
 "pack": "wolfgang_chase",
 "file": "Chase.ogg",
-"dur": 76.8
+"dur": 76.8,
+"desc": "electronic synth bass chase"
 },
 "MUS-0140": {
 "pack": "yd_factory-ambiance",
 "file": "Factory.ogg",
-"dur": 123.0
+"dur": 123.0,
+"desc": "dead forgotten factory ambience, atmospheric"
 },
 "MUS-0141": {
 "pack": "yd_searching",
 "file": "Searching.ogg",
-"dur": 104.58
+"dur": 104.58,
+"desc": "dark warm drone with industrial noise, loop"
 },
 "MUS-0142": {
 "pack": "zanindevelopers_cyberpunk-menu-music",
 "file": "cyberpunkmenu.ogg",
-"dur": 12.82
+"dur": 12.82,
+"desc": "short tactical cyberpunk menu pad, neon night"
 },
 "MUS-0143": {
 "pack": "zesona_we-found-a-rose",
 "file": "we-found-a-rose.ogg",
-"dur": 99.43
+"dur": 99.43,
+"desc": "melancholy dramatic emotional bgm"
 },
 "OTH-0001": {
 "pack": "kenney_rpg-audio",
@@ -9620,22 +10037,26 @@
 "RLD-0001": {
 "pack": "oga_2-gun-reloads",
 "file": "gun_reload.1.ogg",
-"dur": 0.96
+"dur": 0.96,
+"desc": "gun reload"
 },
 "RLD-0002": {
 "pack": "oga_2-gun-reloads",
 "file": "gun_reload.2.ogg",
-"dur": 1.36
+"dur": 1.36,
+"desc": "gun reload [peak-clip heuristic flag]"
 },
 "RLD-0003": {
 "pack": "oga_equipment-click",
 "file": "equipmentclick.wav",
-"dur": 3.76
+"dur": 3.76,
+"desc": "equipment click"
 },
 "RLD-0004": {
 "pack": "oga_equipment-clicks-ii",
 "file": "equipmentclicks.wav",
-"dur": 5.66
+"dur": 5.66,
+"desc": "click"
 },
 "RLD-0005": {
 "pack": "oga_equipment-clicks-iii",
@@ -9645,42 +10066,50 @@
 "RLD-0006": {
 "pack": "oga_gun-reload-lock-or-click-sound",
 "file": "gun_reload_lock_or_click_sound.mp3",
-"dur": 0.34
+"dur": 0.34,
+"desc": "lock click"
 },
 "RLD-0007": {
 "pack": "oga_gun-reload-sound-effects",
 "file": "clipload1.wav",
-"dur": 0.26
+"dur": 0.26,
+"desc": "magazine load/insert [peak-clip heuristic flag]"
 },
 "RLD-0008": {
 "pack": "oga_gun-reload-sound-effects",
 "file": "clipload2.wav",
-"dur": 0.21
+"dur": 0.21,
+"desc": "magazine load/insert"
 },
 "RLD-0009": {
 "pack": "oga_gun-reload-sound-effects",
 "file": "singlebullet1.wav",
-"dur": 0.3
+"dur": 0.3,
+"desc": "single round chambering"
 },
 "RLD-0010": {
 "pack": "oga_gun-reload-sounds",
 "file": "assaultriflereload1_0.wav",
-"dur": 1.56
+"dur": 1.56,
+"desc": "assault rifle / gun reload"
 },
 "RLD-0011": {
 "pack": "oga_gun-reload-sounds",
 "file": "gunreload1.wav",
-"dur": 1.58
+"dur": 1.58,
+"desc": "assault rifle / gun reload [peak-clip heuristic flag]"
 },
 "RLD-0012": {
 "pack": "oga_gun-reload-sounds",
 "file": "shotguncock_0.wav",
-"dur": 0.47
+"dur": 0.47,
+"desc": "shotgun cock [peak-clip heuristic flag]"
 },
 "RLD-0013": {
 "pack": "oga_handgun-reload-sound-effect",
 "file": "reload.wav",
-"dur": 1.59
+"dur": 1.59,
+"desc": "handgun reload [peak-clip heuristic flag]"
 },
 "RLD-0014": {
 "pack": "oga_shotgun-reload-sound-effects",
@@ -9700,12 +10129,14 @@
 "RLD-0017": {
 "pack": "oga_shotgun-reload-sound-effects",
 "file": "ShotgunSounds/Rack.mp3",
-"dur": 1.18
+"dur": 1.18,
+"desc": "pump rack / chambering [peak-clip heuristic flag]"
 },
 "RLD-0018": {
 "pack": "oga_shotgun-reload-sound-effects",
 "file": "ShotgunSounds/Shell in Chamber.mp3",
-"dur": 1.99
+"dur": 1.99,
+"desc": "pump rack / chambering"
 },
 "RLD-0019": {
 "pack": "oga_shotgun-reload-sound-effects",
@@ -9840,7 +10271,8 @@
 "UIS-0026": {
 "pack": "kenney_interface-sounds",
 "file": "Audio/error_004.ogg",
-"dur": 0.1
+"dur": 0.1,
+"desc": " [peak-clip heuristic flag]"
 },
 "UIS-0027": {
 "pack": "kenney_interface-sounds",
@@ -9895,12 +10327,14 @@
 "UIS-0037": {
 "pack": "kenney_interface-sounds",
 "file": "Audio/glitch_001.ogg",
-"dur": 0.02
+"dur": 0.02,
+"desc": " [peak-clip heuristic flag]"
 },
 "UIS-0038": {
 "pack": "kenney_interface-sounds",
 "file": "Audio/glitch_002.ogg",
-"dur": 0.03
+"dur": 0.03,
+"desc": " [peak-clip heuristic flag]"
 },
 "UIS-0039": {
 "pack": "kenney_interface-sounds",
@@ -10105,12 +10539,14 @@
 "UIS-0079": {
 "pack": "kenney_interface-sounds",
 "file": "Audio/select_001.ogg",
-"dur": 0.04
+"dur": 0.04,
+"desc": " [peak-clip heuristic flag]"
 },
 "UIS-0080": {
 "pack": "kenney_interface-sounds",
 "file": "Audio/select_002.ogg",
-"dur": 0.04
+"dur": 0.04,
+"desc": " [peak-clip heuristic flag]"
 },
 "UIS-0081": {
 "pack": "kenney_interface-sounds",
@@ -10220,7 +10656,8 @@
 "UIS-0102": {
 "pack": "kenney_ui-audio",
 "file": "Audio/click2.ogg",
-"dur": 0.06
+"dur": 0.06,
+"desc": " [peak-clip heuristic flag]"
 },
 "UIS-0103": {
 "pack": "kenney_ui-audio",
@@ -10730,12 +11167,14 @@
 "UIS-0204": {
 "pack": "oga_button-sfx-pack-iii-assortment-ot-hi-tech",
 "file": "Digital Accept Button.wav",
-"dur": 0.68
+"dur": 0.68,
+"desc": "hi-tech buttons"
 },
 "UIS-0205": {
 "pack": "oga_button-sfx-pack-iii-assortment-ot-hi-tech",
 "file": "Digital Button Slide Over.wav",
-"dur": 1.0
+"dur": 1.0,
+"desc": "hi-tech buttons"
 },
 "UIS-0206": {
 "pack": "oga_button-sfx-pack-iii-assortment-ot-hi-tech",
@@ -10935,7 +11374,8 @@
 "VOX-0008": {
 "pack": "oga_16-monster-growls",
 "file": "monster.14.ogg",
-"dur": 0.99
+"dur": 0.99,
+"desc": " [peak-clip heuristic flag]"
 },
 "VOX-0009": {
 "pack": "oga_16-monster-growls",
@@ -11115,17 +11555,20 @@
 "VOX-0044": {
 "pack": "oga_40-cc0-water-splash-slime-sfx",
 "file": "splash_01.ogg",
-"dur": 1.38
+"dur": 1.38,
+"desc": "splash for puddle"
 },
 "VOX-0045": {
 "pack": "oga_40-cc0-water-splash-slime-sfx",
 "file": "splash_02.ogg",
-"dur": 0.72
+"dur": 0.72,
+"desc": "splash for puddle"
 },
 "VOX-0046": {
 "pack": "oga_40-cc0-water-splash-slime-sfx",
 "file": "splash_03.ogg",
-"dur": 0.77
+"dur": 0.77,
+"desc": "splash for puddle"
 },
 "VOX-0047": {
 "pack": "oga_40-cc0-water-splash-slime-sfx",
@@ -11540,22 +11983,26 @@
 "VOX-0129": {
 "pack": "oga_80-cc0-creature-sfx",
 "file": "eat_01.ogg",
-"dur": 0.58
+"dur": 0.58,
+"desc": "eating/chomp"
 },
 "VOX-0130": {
 "pack": "oga_80-cc0-creature-sfx",
 "file": "eat_02.ogg",
-"dur": 0.39
+"dur": 0.39,
+"desc": "eating/chomp"
 },
 "VOX-0131": {
 "pack": "oga_80-cc0-creature-sfx",
 "file": "eat_03.ogg",
-"dur": 0.27
+"dur": 0.27,
+"desc": "eating/chomp"
 },
 "VOX-0132": {
 "pack": "oga_80-cc0-creature-sfx",
 "file": "eat_04.ogg",
-"dur": 0.45
+"dur": 0.45,
+"desc": "eating/chomp"
 },
 "VOX-0133": {
 "pack": "oga_80-cc0-creature-sfx",
@@ -12510,27 +12957,32 @@
 "VOX-0323": {
 "pack": "oga_male-dead-voice",
 "file": "enemy_dead/enemy_dead_00.wav",
-"dur": 0.6
+"dur": 0.6,
+"desc": "male death vocal (non-speech presumably - verify by ear)"
 },
 "VOX-0324": {
 "pack": "oga_male-dead-voice",
 "file": "enemy_dead/enemy_dead_01.wav",
-"dur": 0.64
+"dur": 0.64,
+"desc": "male death vocal (non-speech presumably - verify by ear)"
 },
 "VOX-0325": {
 "pack": "oga_male-dead-voice",
 "file": "enemy_dead/enemy_dead_02.wav",
-"dur": 0.46
+"dur": 0.46,
+"desc": "male death vocal (non-speech presumably - verify by ear)"
 },
 "VOX-0326": {
 "pack": "oga_male-dead-voice",
 "file": "enemy_dead/enemy_dead_03.wav",
-"dur": 0.62
+"dur": 0.62,
+"desc": "male death vocal (non-speech presumably - verify by ear)"
 },
 "VOX-0327": {
 "pack": "oga_male-dead-voice",
 "file": "enemy_dead/enemy_dead_04.wav",
-"dur": 0.5
+"dur": 0.5,
+"desc": "male death vocal (non-speech presumably - verify by ear)"
 },
 "VOX-0328": {
 "pack": "oga_male-dead-voice",
@@ -12760,12 +13212,14 @@
 "VOX-0373": {
 "pack": "oga_monster-snarls",
 "file": "monster-snarl-5.ogg",
-"dur": 18.87
+"dur": 18.87,
+"desc": " [peak-clip heuristic flag]"
 },
 "VOX-0374": {
 "pack": "oga_monster-snarls",
 "file": "monster-snarl-attack.ogg",
-"dur": 17.8
+"dur": 17.8,
+"desc": " [peak-clip heuristic flag]"
 },
 "VOX-0375": {
 "pack": "oga_monster-snarls",
@@ -12785,32 +13239,38 @@
 "VOX-0378": {
 "pack": "oga_pain-sounds-by-emopreben",
 "file": "Painsounds v2 - Track 1 - Arrrch.ogg",
-"dur": 0.5
+"dur": 0.5,
+"desc": "non-speech pain grunts"
 },
 "VOX-0379": {
 "pack": "oga_pain-sounds-by-emopreben",
 "file": "Painsounds v2 - Track 2 - Hurgh.ogg",
-"dur": 0.57
+"dur": 0.57,
+"desc": "non-speech pain grunts [peak-clip heuristic flag]"
 },
 "VOX-0380": {
 "pack": "oga_pain-sounds-by-emopreben",
 "file": "Painsounds v2 - Track 3 - Huuurh.ogg",
-"dur": 0.69
+"dur": 0.69,
+"desc": "non-speech pain grunts [peak-clip heuristic flag]"
 },
 "VOX-0381": {
 "pack": "oga_pain-sounds-by-emopreben",
 "file": "Painsounds v2 - Track 4 - Arrggh .ogg",
-"dur": 0.63
+"dur": 0.63,
+"desc": "non-speech pain grunts"
 },
 "VOX-0382": {
 "pack": "oga_pain-sounds-by-emopreben",
 "file": "Painsounds v2 - Track 5 - Urggh.ogg",
-"dur": 0.57
+"dur": 0.57,
+"desc": "non-speech pain grunts [peak-clip heuristic flag]"
 },
 "VOX-0383": {
 "pack": "oga_pain-sounds-by-emopreben",
 "file": "Painsounds v2 - Track 6 - hyyrdhh.ogg",
-"dur": 0.81
+"dur": 0.81,
+"desc": "non-speech pain grunts [peak-clip heuristic flag]"
 },
 "VOX-0384": {
 "pack": "oga_playersounds-1-by-emopreben",

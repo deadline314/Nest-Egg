@@ -136,15 +136,15 @@ def write_md(slots: list, assets: dict) -> None:
 
 def write_catalog_md(assets: dict, categories: dict, used: dict) -> None:
     lines = ["# 音訊素材清單", "", "每個已下載的 CC0 素材一個編號（只增不改）。完整資料在 `assets_src/audio/catalog.json`；試聽用音效實驗室。", "",
-             "欄位：編號｜時長（秒）｜素材包／檔案｜目前用在哪些位置", ""]
+             "欄位：編號｜時長（秒）｜素材包／檔案｜說明｜目前用在哪些位置", ""]
     by_cat: dict = {}
     for aid, a in assets.items():
         by_cat.setdefault(aid.split("-")[0], []).append(aid)
     for cat in sorted(by_cat):
-        lines += [f"## {cat} {categories.get(cat, '')}（{len(by_cat[cat])}）", "", "| 編號 | 時長 | 素材包／檔案 | 位置 |", "|---|---|---|---|"]
+        lines += [f"## {cat} {categories.get(cat, '')}（{len(by_cat[cat])}）", "", "| 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |", "|---|---|---|---|---|"]
         for aid in sorted(by_cat[cat]):
             a = assets[aid]
-            lines.append(f'| {aid} | {a["dur"]:.1f} | {a["pack"]}／{a["file"].replace("|", "／")} | {"、".join(used.get(aid, []))} |')
+            lines.append(f'| {aid} | {a["dur"]:.1f} | {a["pack"]}／{a["file"].replace("|", "／")} | {a.get("desc", "").replace("|", "／")} | {"、".join(used.get(aid, []))} |')
         lines.append("")
     CATALOG_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
 

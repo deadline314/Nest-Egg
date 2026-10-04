@@ -39,6 +39,13 @@ static func material_ids() -> Array:
 	return (_data.get("materials", {}) as Dictionary).keys()
 
 
+## 某個命中材質（或 ricochet、weak）對應的聲音事件；沒有登記回傳空字串（實驗室試聽用）。
+static func sound_event(material: StringName) -> StringName:
+	_ensure_loaded()
+	var def: Variant = _data.get(String(material)) if material == &"ricochet" or material == &"weak" else (_data.get("materials", {}) as Dictionary).get(String(material))
+	return StringName(str((def as Dictionary).get("sound", ""))) if typeof(def) == TYPE_DICTIONARY else &""
+
+
 ## 資料檢查：回傳錯誤訊息清單（空 = 沒問題）。
 static func validate() -> PackedStringArray:
 	_ensure_loaded()

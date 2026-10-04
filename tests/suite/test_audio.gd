@@ -32,6 +32,7 @@ func run() -> void:
 	_test_ambience_bus()
 	_test_numbering_and_catalog()
 	_test_placement_doc()
+	_test_data_writer()
 	_test_source_counts()
 
 
@@ -610,6 +611,30 @@ func _test_placement_doc() -> void:
 	check("\n".join(raw.validate(catalog.assets, slot_ids)).contains("不存在的素材"), "an asset id that is not in the catalog is flagged")
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(copy_path))
 	check(not PlacementDoc.new().load_doc("user://test_audio_no_such_placements.md"), "a missing list file does not crash")
+
+
+## 實驗室寫回音量與淡化秒數：預覽不寫入、範圍驗證、備份、只改指定欄位、壞路徑不憑空建立。
+func _test_data_writer() -> void:
+	var path := "user://test_audio_writer.json"
+	DirAccess.copy_absolute(ProjectSettings.globalize_path(FIXTURES + "bank_ok.json"), ProjectSettings.globalize_path(path))
+	var before := FileAccess.get_file_as_string(path)
+	var change := {"path": ["sounds", "test_audio_one", "volume_db"], "value": -6.0}
+	var preview := AudioDataWriter.apply(path, [change], true)
+	check((preview["diff"] as PackedStringArray).size() == 1 and (preview["diff"][0] as String).contains("-3") and (preview["diff"][0] as String).contains("-6"), "a preview lists the difference: %s" % [preview["diff"]])
+	check(FileAccess.get_file_as_string(path) == before and not FileAccess.file_exists(path + ".bak"), "a preview writes nothing")
+	var saved := AudioDataWriter.apply(path, [change])
+	check((saved["errors"] as PackedStringArray).is_empty() and saved["backup"] == path + ".bak", "saving succeeds and reports the backup")
+	check(FileAccess.get_file_as_string(path + ".bak") == before, "the backup is the original file")
+	var parsed: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
+	check(is_equal_approx(float(parsed["sounds"]["test_audio_one"]["volume_db"]), -6.0) and parsed["sounds"].has("test_audio_two"), "only the edited field changes")
+	check((AudioDataWriter.apply(path, [change])["diff"] as PackedStringArray).is_empty(), "saving the same value again is a no-op")
+	var too_loud := AudioDataWriter.apply(path, [{"path": ["sounds", "test_audio_one", "volume_db"], "value": 99.0}])
+	check(not (too_loud["errors"] as PackedStringArray).is_empty() and is_equal_approx(float(JSON.parse_string(FileAccess.get_file_as_string(path))["sounds"]["test_audio_one"]["volume_db"]), -6.0), "an out-of-range value is rejected and nothing is written")
+	var missing := AudioDataWriter.apply(path, [{"path": ["sounds", "test_audio_no_such", "volume_db"], "value": 1.0}])
+	check(not (missing["errors"] as PackedStringArray).is_empty(), "a path that does not exist is an error, not created")
+	check(not (AudioDataWriter.apply("user://test_audio_no_such_writer.json", [change])["errors"] as PackedStringArray).is_empty(), "a missing data file is reported")
+	for suffix in ["", ".bak"]:
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(path + suffix))
 
 
 func _test_source_counts() -> void:

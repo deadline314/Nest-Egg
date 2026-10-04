@@ -33,6 +33,12 @@ func load_all() -> bool:
 	if typeof(slot_root.get("slots")) == TYPE_ARRAY:
 		slots = slot_root["slots"]
 		domains = slot_root.get("domains", {})
+		# 依域的順序（武器、命中、角色…）再依編號排列，清單讀起來和位置清單文件一致。
+		var order := domains.keys()
+		slots.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+			var da := order.find(a["domain"])
+			var db := order.find(b["domain"])
+			return da < db if da != db else str(a["id"]) < str(b["id"]))
 		for slot: Dictionary in slots:
 			_slot_index[str(slot["id"])] = slot
 	_loaded = not assets.is_empty() and not slots.is_empty()
@@ -64,13 +70,13 @@ func ids_in(category: String) -> Array:
 	return result
 
 
-## 依編號、素材包或檔名搜尋（不分大小寫，空白分隔的每個詞都要符合）。
+## 依編號、素材包、檔名或說明搜尋（不分大小寫，空白分隔的每個詞都要符合）。
 func search(query: String, category := "", limit := 200) -> Array:
 	var words := query.to_lower().split(" ", false)
 	var result: Array = []
 	for id: String in ids_in(category):
 		var a: Dictionary = assets[id]
-		var haystack := ("%s %s %s" % [id, a["pack"], a["file"]]).to_lower()
+		var haystack := ("%s %s %s %s" % [id, a["pack"], a["file"], a.get("desc", "")]).to_lower()
 		var match_all := true
 		for word in words:
 			if not haystack.contains(word):
