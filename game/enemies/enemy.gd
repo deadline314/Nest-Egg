@@ -595,6 +595,11 @@ func is_alerted() -> bool:
 	return _alert_left > 0.0
 
 
+## 是否進入戰鬥：還活著，而且被警報引來或不在放鬆的狀態（巡邏、待機、潛行以外）。背景音樂依此切換戰鬥曲。
+func is_engaged() -> bool:
+	return not _dying and health.current > 0 and (_alert_left > 0.0 or not data.relaxed_states.has(String(fsm.current)))
+
+
 ## 支援型敵人替這個敵人加護盾（上限 MAX_SHIELD 層）。
 func add_shield(layers: int) -> void:
 	if _dying:

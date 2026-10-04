@@ -31,6 +31,7 @@ func _ready() -> void:
 	theme = UiKit.theme()
 	_selected = GameState.difficulty
 	UiKit.set_cursor_visible(true)
+	Music.show_menu()
 	add_child(LevelBackground.new())
 	_camera = Camera2D.new()
 	_camera.position = Vector2(320, 180)

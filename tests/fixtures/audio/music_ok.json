@@ -1,0 +1,21 @@
+{
+ "tracks": {
+  "t_a": {"file": "res://tests/fixtures/audio/tone_a.ogg", "volume_db": -3.0},
+  "t_b": {"file": "res://tests/fixtures/audio/tone_b.ogg"},
+  "t_sting": {"file": "res://tests/fixtures/audio/tone_a.ogg", "loop": false}
+ },
+ "cues": {
+  "calm_a": {"track": "t_a", "fade_in": 0.2, "fade_out": 0.2},
+  "combat_a": {"track": "t_b", "volume_db": -2.0, "fade_in": 0.2, "fade_out": 0.2},
+  "boss_a": {"track": "t_b", "fade_in": 0.1, "fade_out": 0.1},
+  "calm_b": {"track": "t_b", "fade_in": 0.2, "fade_out": 0.2},
+  "menu_cue": {"track": "t_a", "fade_in": 0.0, "fade_out": 0.2},
+  "sting": {"track": "t_sting", "fade_in": 0.0, "fade_out": 0.2}
+ },
+ "map": {
+  "screens": {"menu": "menu_cue", "victory": "sting", "death": "sting"},
+  "default": {"calm": "calm_b"},
+  "levels": {"cover_test": {"calm": "calm_a", "combat": "combat_a"}},
+  "zones": {"zone_x": {"calm": "calm_b", "combat": "calm_b", "boss": "boss_a"}}
+ }
+}

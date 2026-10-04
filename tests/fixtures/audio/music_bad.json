@@ -1,0 +1,19 @@
+{
+ "tracks": {
+  "t_gone": {"file": "res://tests/fixtures/audio/test_audio_missing_track.ogg"},
+  "t_json": {"file": "res://tests/fixtures/audio/bank_ok.json"},
+  "t_ok": {"file": "res://tests/fixtures/audio/tone_a.ogg"}
+ },
+ "cues": {
+  "c_notrack": {"track": "t_nobody"},
+  "c_neg": {"track": "t_ok", "fade_in": -1.0},
+  "c_ok": {"track": "t_ok"},
+  "c_gone": {"track": "t_gone"}
+ },
+ "map": {
+  "screens": {"lobby": "c_ok", "menu": "c_nobody"},
+  "default": {"calm": "c_ok", "panic": "c_ok", "combat": "c_nobody"},
+  "levels": {"l1": "not_a_dict"},
+  "zones": {}
+ }
+}

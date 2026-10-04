@@ -19,9 +19,10 @@ const BRIGHTNESS_DEFAULT := 0.5
 const REDUCED_FLASH_SCALE := 0.25
 const BRIGHTNESS_RANGE := 1.2
 
-## 設定選單顯示的音量項目。之後加入背景音樂時，在這裡加一筆 Music 即可。
+## 設定選單顯示的音量項目；新增匯流排在這裡加一筆（執行期自動建立並送往 Master）。
 const AUDIO_BUSES: Array[Dictionary] = [
 	{"bus": &"Master", "label": "主音量", "tooltip": "所有聲音的整體音量", "default": 0.8},
+	{"bus": &"Music", "label": "音樂", "tooltip": "各場景的背景音樂", "default": 0.7},
 	{"bus": &"SFX", "label": "音效", "tooltip": "射擊、爆炸、介面等音效", "default": 1.0},
 	{"bus": &"Ambience", "label": "環境音", "tooltip": "雨聲、風聲、機械嗡鳴等場景底噪", "default": 0.8},
 ]

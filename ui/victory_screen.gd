@@ -22,6 +22,7 @@ func _ready() -> void:
 		UiKit.fit_to_viewport(self)
 	theme = UiKit.theme()
 	UiKit.set_cursor_visible(true)
+	Music.show_victory()
 	var shade := ColorRect.new()
 	shade.color = Color(0.02, 0.03, 0.06, 0.95)
 	shade.set_anchors_preset(Control.PRESET_FULL_RECT)

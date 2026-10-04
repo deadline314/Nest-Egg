@@ -125,6 +125,9 @@ func _ready() -> void:
 
 	for problem in data.validate_lighting():
 		push_error("[Level] %s" % problem)
+	# 背景音樂先知道進入了哪一關，之後光影區段的宣告（zone_changed）才會選出曲目。
+	Music.enter_level(data.id)
+	tree_exiting.connect(Music.leave_level)
 	_post = PostProcess.new()
 	add_child(_post)
 	_lighting = LightingController.new()

@@ -1,0 +1,11 @@
+{
+ "_說明": "背景音樂。tracks：曲目（file 是 res:// 路徑，volume_db 微調，loop 為 false 代表只播一次的短音樂，pack 對應 assets_src/audio/LICENSES.json）。cues：曲目加淡入淡出秒數（fade_in、fade_out）與音量。map：screens（menu、victory、death）指定畫面的 cue；levels／zones 以關卡 id／光影設定 id 為鍵，各自可寫 calm、combat、boss 三個狀態；default 是都沒寫時的預設。找不到某狀態時，頭目退回戰鬥、戰鬥退回平靜。",
+ "tracks": {},
+ "cues": {},
+ "map": {
+  "screens": {},
+  "default": {},
+  "levels": {},
+  "zones": {}
+ }
+}
