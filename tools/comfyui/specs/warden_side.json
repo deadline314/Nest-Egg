@@ -345,7 +345,7 @@
         },
         {
           "name": "armor_shoulder",
-          "bone": "arm_front_upper",
+          "bone": "pauldron",
           "z": 9,
           "armor_order": 1
         }
@@ -398,7 +398,8 @@
   },
   "glow": {
     "head": "r",
-    "arm_lower": "r"
+    "arm_lower": "r",
+    "armor_shoulder": "r"
   },
   "bones": [
     {
@@ -437,6 +438,12 @@
       "name": "hand_back",
       "parent": "arm_back_lower",
       "tip": "fingertip"
+    },
+    {
+      "name": "pauldron",
+      "parent": "chest",
+      "at": "shoulder",
+      "dx": 0.0
     },
     {
       "name": "arm_front_upper",

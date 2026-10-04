@@ -138,7 +138,8 @@
         238.58,
         176.23
       ],
-      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
+      "glow": "parts/armor_shoulder_glow.png"
     },
     "armor_forearm": {
       "file": "parts/armor_forearm.png",
@@ -297,7 +298,7 @@
     {
       "name": "armor_shoulder",
       "texture": "armor_shoulder",
-      "bone": "arm_front_upper",
+      "bone": "pauldron",
       "z": 9,
       "armor_order": 1
     },
