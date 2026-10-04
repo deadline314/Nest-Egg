@@ -1,0 +1,26 @@
+{
+  "description": "夾層區住戶（resident）的建置配方：build_character.py 依這份檔案從頭產出角色。每個步驟的輸入輸出見 design/03-art-pipeline/CHARACTER_PIPELINE.md。",
+  "id": "resident",
+  "name": "夾層區住戶",
+  "template": "civilian",
+  "spec": "tools/comfyui/specs/resident_side.json",
+  "rig": "art/rigs/resident.json",
+  "work": "art_src/characters/resident",
+  "height": 54.0,
+  "scale": 1.0,
+  "weapon": "",
+  "armor": [],
+  "glow": "",
+  "glow_parts": [
+    "head",
+    "torso"
+  ],
+  "design": {
+    "size": [
+      832,
+      1216
+    ],
+    "pick": 7,
+    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat colors, bold clean black outlines, hard-edged two-tone shading, saturated neon accents. Full body, strict side view facing right, standing upright with the arms relaxed at the sides and empty hands, the far-side leg hidden behind the near leg. a tired anxious mezzanine-district resident, thin, about seven heads tall: messy hair, a faded blue home sweater and loose trousers, slippers, hunched worried posture. Empty hands."
+  }
+}

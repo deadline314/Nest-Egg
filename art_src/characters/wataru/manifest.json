@@ -1,7 +1,7 @@
 [
   {
     "step": "parts",
-    "seconds": 2.3,
+    "seconds": 5.4,
     "outputs": [
       "art_src\\characters\\wataru\\06_parts",
       "art_src\\characters\\wataru\\06_parts\\ownership.png"
@@ -21,7 +21,7 @@
   },
   {
     "step": "textures",
-    "seconds": 1.7,
+    "seconds": 1.3,
     "outputs": [
       "art\\characters\\wataru\\character.json",
       "art\\rigs\\wataru.json",
@@ -31,16 +31,26 @@
   },
   {
     "step": "normals",
-    "seconds": 2.0,
+    "seconds": 2.3,
     "outputs": [
       "art\\characters\\wataru\\parts"
     ]
   },
   {
     "step": "import",
-    "seconds": 4.7,
+    "seconds": 5.7,
     "outputs": [
       ".godot"
+    ]
+  },
+  {
+    "step": "preview",
+    "seconds": 14.6,
+    "outputs": [
+      "art_src\\characters\\wataru\\08_preview\\poses.png",
+      "art_src\\characters\\wataru\\08_preview\\closeup.png",
+      "art_src\\characters\\wataru\\08_preview\\head.png",
+      "art_src\\characters\\wataru\\08_preview\\damage.png"
     ]
   }
 ]

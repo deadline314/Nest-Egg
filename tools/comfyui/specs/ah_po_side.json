@@ -5,57 +5,57 @@
   "scale": 1.0,
   "height": 50.0,
   "seam": 10,
-  "illustration_px_per_wp": 23.94,
+  "illustration_px_per_wp": 23.22,
   "tex_px_per_wp": 20,
-  "ground_y": 1215,
+  "ground_y": 1195,
   "joints": {
     "hip": [
-      388.2,
-      684.2
+      395.6,
+      605.0
     ],
     "waist": [
-      394.0,
-      542.8
+      399.9,
+      476.3
     ],
     "neck": [
-      404.7,
-      280.3
+      407.9,
+      237.4
     ],
     "head": [
-      404.7,
-      274.3
+      407.9,
+      231.4
     ],
     "head_top": [
-      412.7,
-      18.0
+      415.9,
+      34.0
     ],
     "shoulder": [
-      350.6,
-      333.3
+      338.2,
+      273.7
     ],
     "elbow": [
-      337.0,
-      531.9
+      318.0,
+      461.5
     ],
     "palm": [
-      389.0,
-      695.7
+      336.7,
+      631.7
     ],
     "fingertip": [
-      421.2,
-      797.3
+      348.3,
+      737.2
     ],
     "knee": [
-      377.0,
-      934.5
+      379.0,
+      868.9
     ],
     "ankle": [
-      360.6,
-      1140.0
+      350.8,
+      1104.2
     ],
     "toe": [
-      493.5,
-      1176.9
+      450.1,
+      1165.7
     ]
   },
   "groups": {
@@ -66,13 +66,13 @@
     },
     "arm": {
       "sam": [
-        "orange sleeve",
+        "sleeve",
         "arm"
       ]
     },
     "boot": {
       "sam": [
-        "boot"
+        "shoe"
       ]
     },
     "head": {
@@ -80,12 +80,9 @@
         "head"
       ]
     },
-    "body": {
+    "apron": {
       "sam": [
-        "torso",
-        "legs",
-        "apron",
-        "bare shoulder"
+        "apron"
       ],
       "complete": {
         "stage": "P",
@@ -94,6 +91,24 @@
           "hand"
         ],
         "near": 120,
+        "trim": 4,
+        "mask_close": 5
+      }
+    },
+    "body": {
+      "sam": [
+        "shirt",
+        "torso",
+        "legs"
+      ],
+      "complete": {
+        "stage": "Q",
+        "occluders": [
+          "arm",
+          "hand",
+          "apron"
+        ],
+        "near": 250,
         "trim": 4,
         "mask_close": 5
       }
@@ -113,8 +128,8 @@
         }
       ],
       "y": [
-        563,
-        704
+        496,
+        625
       ],
       "pivot": "hip"
     },
@@ -132,7 +147,7 @@
       ],
       "y": [
         0,
-        563
+        496
       ],
       "pivot": "waist"
     },
@@ -160,17 +175,18 @@
           "name": "leg_back_upper",
           "bone": "leg_back_upper",
           "z": -5,
-          "tint": 0.62
+          "tint": 1.25
         },
         {
           "name": "leg_front_upper",
           "bone": "leg_front_upper",
-          "z": 3
+          "z": 3,
+          "tint": 1.65
         }
       ],
       "y": [
-        704,
-        934
+        625,
+        869
       ]
     },
     "leg_lower": {
@@ -183,17 +199,18 @@
           "name": "leg_back_lower",
           "bone": "leg_back_lower",
           "z": -5,
-          "tint": 0.62
+          "tint": 1.25
         },
         {
           "name": "leg_front_lower",
           "bone": "leg_front_lower",
-          "z": 3
+          "z": 3,
+          "tint": 1.65
         }
       ],
       "y": [
-        934,
-        1130
+        869,
+        1112
       ]
     },
     "foot": {
@@ -216,7 +233,7 @@
       ],
       "pivot": "ankle",
       "y": [
-        1130,
+        1112,
         4000
       ]
     },
@@ -240,7 +257,7 @@
       ],
       "y": [
         0,
-        532
+        462
       ]
     },
     "arm_lower": {
@@ -262,7 +279,7 @@
         }
       ],
       "y": [
-        532,
+        462,
         4000
       ]
     },
@@ -285,9 +302,48 @@
         }
       ],
       "pivot": "palm"
+    },
+    "apron_bib": {
+      "group": "apron",
+      "from": "waist",
+      "to": "neck",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "apron_bib",
+          "bone": "chest",
+          "z": 2
+        }
+      ],
+      "y": [
+        0,
+        496
+      ],
+      "pivot": "waist"
+    },
+    "apron": {
+      "group": "apron",
+      "from": "waist",
+      "to": "hip",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "apron",
+          "bone": "hip",
+          "z": 4,
+          "tint": 1.13
+        }
+      ],
+      "y": [
+        496,
+        4000
+      ],
+      "pivot": "hip"
     }
   },
-  "glow": {},
+  "glow": {
+    "apron_bib": "o"
+  },
   "bones": [
     {
       "name": "hip",
@@ -382,13 +438,22 @@
     "to": "shoulder",
     "dx": 0.8,
     "dy": 0.6,
-    "reach": 8.83
+    "reach": 8.84
+  },
+  "dialog_portrait": {
+    "box": [
+      251,
+      26,
+      536,
+      311
+    ],
+    "out": "art/portraits/ah_po.png"
   },
   "refine": {
     "defringe": {
       "width": 2
     },
-    "speckle": 30,
+    "speckle": 40,
     "smooth_alpha": {
       "parts": [
         "pelvis",
@@ -399,7 +464,9 @@
         "foot",
         "arm_upper",
         "arm_lower",
-        "hand"
+        "hand",
+        "apron_bib",
+        "apron"
       ],
       "sigma": 1.0
     },
@@ -408,69 +475,98 @@
         "pelvis",
         "leg_upper",
         "leg_lower",
-        "foot"
+        "foot",
+        "apron"
       ],
       "max_area": 200
     }
-  },
-  "dialog_portrait": {
-    "box": [
-      203,
-      10,
-      570,
-      377
-    ],
-    "out": "art/portraits/ah_po.png"
   },
   "stages": [
     {
       "name": "P",
       "from": null,
       "seed": 52,
-      "prompt": "Change the old woman into a sleeveless one: delete her near-side arm entirely, including the orange sleeve, the rolled cuff, the bare forearm and the hand, so the blouse has a bare round armhole and the bare shoulder joint shows there. Paint the blouse body, the cream apron with its pocket, and the trousers that were hidden behind the arm. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
+      "prompt": "Delete the old woman's near-side arm completely from the picture: the whole long olive-grey sleeve with the brown elbow patch and the pushed-up cuff, the bare forearm and the hand, nothing of the arm is left. Where the sleeve was, paint the side of her olive-grey top as plain closed fabric with a simple shoulder seam, like a sleeveless garment seen from the side: no hole, no opening, no armhole, no skin. Paint the olive top, the dark-blue apron with its front pocket and the apron strings, and the dark trousers that were hidden behind the arm. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
+    },
+    {
+      "name": "Q",
+      "from": "P",
+      "seed": 53,
+      "prompt": "Remove the long dark-blue apron completely from the picture, including its bib, its neck strap, its front pocket, the orange tag and the apron strings, nothing of the apron is left. In its place paint what was hidden behind it: the front of her faded olive-grey long top down to her hips and her baggy dark trousers on both legs, with a few wrinkles. There is no hole and nothing see-through. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the shoes."
     }
   ],
   "near_leg": {
     "pos": [
       [
-        350,
+        312,
+        700
+      ],
+      [
+        312,
         800
       ],
       [
-        350,
-        900
+        340,
+        680
       ],
       [
-        360,
-        1000
+        380,
+        760
       ],
       [
-        345,
+        390,
+        850
+      ],
+      [
+        340,
+        950
+      ],
+      [
+        340,
+        1050
+      ],
+      [
+        335,
         1100
       ],
       [
-        400,
-        1180
+        330,
+        1150
+      ],
+      [
+        385,
+        1170
+      ],
+      [
+        430,
+        1172
       ]
     ],
     "neg": [
       [
         470,
+        880
+      ],
+      [
+        460,
         960
       ],
       [
+        455,
+        1060
+      ],
+      [
         500,
-        1140
+        1130
+      ],
+      [
+        470,
+        1108
       ]
     ],
     "threshold": 0.3,
     "close": 9,
-    "fill": [
-      "hand"
-    ],
-    "close_thigh": 30,
-    "extra": [
-      "apron"
-    ]
+    "fill": [],
+    "close_thigh": 25
   }
 }

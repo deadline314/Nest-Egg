@@ -1,27 +1,7 @@
 [
   {
-    "step": "parts",
-    "seconds": 2.3,
-    "outputs": [
-      "art_src\\characters\\nurse\\06_parts",
-      "art_src\\characters\\nurse\\06_parts\\ownership.png"
-    ]
-  },
-  {
-    "step": "refine",
-    "seconds": 1.7,
-    "outputs": [
-      "art_src\\characters\\nurse\\07_refined"
-    ]
-  },
-  {
-    "step": "damage",
-    "seconds": 0.0,
-    "outputs": []
-  },
-  {
     "step": "textures",
-    "seconds": 1.8,
+    "seconds": 1.9,
     "outputs": [
       "art\\characters\\nurse\\character.json",
       "art\\rigs\\nurse.json",
@@ -31,14 +11,14 @@
   },
   {
     "step": "normals",
-    "seconds": 2.2,
+    "seconds": 2.6,
     "outputs": [
       "art\\characters\\nurse\\parts"
     ]
   },
   {
     "step": "import",
-    "seconds": 4.7,
+    "seconds": 5.8,
     "outputs": [
       ".godot"
     ]

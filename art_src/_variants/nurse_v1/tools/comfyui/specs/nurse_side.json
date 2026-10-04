@@ -1,0 +1,479 @@
+{
+  "description": "轉運站護理師（nurse）的分件規格，由 tools/comfyui/new_character.py 的 civilian 範本產生。groups：SAM 3.1 文字提示分出的群組（前面的優先）；parts：把群組切成零件並指定掛載；y 是水平切線（像素）。joints 與縮放數字由 fit_joints.py 在 pose 步驟填入，手動填的不會被蓋掉。",
+  "id": "nurse",
+  "display_name": "轉運站護理師",
+  "scale": 1.0,
+  "height": 54.0,
+  "seam": 10,
+  "illustration_px_per_wp": 22.33,
+  "tex_px_per_wp": 20,
+  "ground_y": 1210,
+  "joints": {
+    "hip": [
+      400.1,
+      591.1
+    ],
+    "waist": [
+      395.2,
+      462.9
+    ],
+    "neck": [
+      386.2,
+      224.9
+    ],
+    "head": [
+      386.2,
+      218.9
+    ],
+    "head_top": [
+      394.2,
+      4.0
+    ],
+    "shoulder": [
+      363.8,
+      259.6
+    ],
+    "elbow": [
+      362.3,
+      440.7
+    ],
+    "palm": [
+      385.6,
+      608.0
+    ],
+    "fingertip": [
+      400.0,
+      711.7
+    ],
+    "knee": [
+      397.4,
+      860.9
+    ],
+    "ankle": [
+      379.4,
+      1133.7
+    ],
+    "toe": [
+      504.5,
+      1174.6
+    ]
+  },
+  "groups": {
+    "hand": {
+      "sam": [
+        "hand"
+      ]
+    },
+    "arm": {
+      "sam": [
+        "arm sleeve",
+        "arm"
+      ]
+    },
+    "boot": {
+      "sam": [
+        "boot"
+      ]
+    },
+    "head": {
+      "sam": [
+        "head"
+      ]
+    },
+    "body": {
+      "sam": [
+        "torso",
+        "legs",
+        "bare shoulder"
+      ],
+      "complete": {
+        "stage": "P",
+        "occluders": [
+          "arm",
+          "hand"
+        ],
+        "near": 120
+      }
+    }
+  },
+  "parts": {
+    "pelvis": {
+      "group": "body",
+      "from": "waist",
+      "to": "hip",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "pelvis",
+          "bone": "hip",
+          "z": 0
+        }
+      ],
+      "y": [
+        483,
+        611
+      ],
+      "pivot": "hip"
+    },
+    "torso": {
+      "group": "body",
+      "from": "waist",
+      "to": "neck",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "torso",
+          "bone": "chest",
+          "z": 1
+        }
+      ],
+      "y": [
+        0,
+        483
+      ],
+      "pivot": "waist"
+    },
+    "head": {
+      "group": "head",
+      "from": "head",
+      "to": "head_top",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "head",
+          "bone": "head",
+          "z": 5
+        }
+      ],
+      "pivot": "head"
+    },
+    "leg_upper": {
+      "group": "near_leg",
+      "from": "hip",
+      "to": "knee",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "leg_back_upper",
+          "bone": "leg_back_upper",
+          "z": -5,
+          "tint": 0.62
+        },
+        {
+          "name": "leg_front_upper",
+          "bone": "leg_front_upper",
+          "z": 3
+        }
+      ],
+      "y": [
+        611,
+        861
+      ]
+    },
+    "leg_lower": {
+      "group": "near_leg",
+      "from": "knee",
+      "to": "ankle",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "leg_back_lower",
+          "bone": "leg_back_lower",
+          "z": -5,
+          "tint": 0.62
+        },
+        {
+          "name": "leg_front_lower",
+          "bone": "leg_front_lower",
+          "z": 3
+        }
+      ],
+      "y": [
+        861,
+        1145
+      ]
+    },
+    "foot": {
+      "group": "near_leg",
+      "from": "ankle",
+      "to": "toe",
+      "mode": "upright",
+      "uses": [
+        {
+          "name": "foot_back",
+          "bone": "foot_back",
+          "z": -5,
+          "tint": 0.62
+        },
+        {
+          "name": "foot_front",
+          "bone": "foot_front",
+          "z": 3
+        }
+      ],
+      "pivot": "ankle",
+      "y": [
+        1145,
+        4000
+      ]
+    },
+    "arm_upper": {
+      "group": "arm",
+      "from": "shoulder",
+      "to": "elbow",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "arm_back_upper",
+          "bone": "arm_back_upper",
+          "z": -7,
+          "tint": 0.62
+        },
+        {
+          "name": "arm_front_upper",
+          "bone": "arm_front_upper",
+          "z": 8
+        }
+      ],
+      "y": [
+        0,
+        441
+      ]
+    },
+    "arm_lower": {
+      "group": "arm",
+      "from": "elbow",
+      "to": "palm",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "arm_back_lower",
+          "bone": "arm_back_lower",
+          "z": -7,
+          "tint": 0.62
+        },
+        {
+          "name": "arm_front_lower",
+          "bone": "arm_front_lower",
+          "z": 8
+        }
+      ],
+      "y": [
+        441,
+        4000
+      ]
+    },
+    "hand": {
+      "group": "hand",
+      "from": "palm",
+      "to": "fingertip",
+      "mode": "hand",
+      "uses": [
+        {
+          "name": "hand_back",
+          "bone": "hand_back",
+          "z": -6,
+          "tint": 0.62
+        },
+        {
+          "name": "hand_front",
+          "bone": "hand_front",
+          "z": 10
+        }
+      ],
+      "pivot": "palm"
+    }
+  },
+  "glow": {
+    "torso": "c"
+  },
+  "bones": [
+    {
+      "name": "hip",
+      "parent": "",
+      "from": "ground_hip"
+    },
+    {
+      "name": "chest",
+      "parent": "hip",
+      "at": "waist"
+    },
+    {
+      "name": "neck",
+      "parent": "chest",
+      "at": "neck"
+    },
+    {
+      "name": "head",
+      "parent": "neck",
+      "at": "head"
+    },
+    {
+      "name": "arm_back_upper",
+      "parent": "chest",
+      "at": "shoulder",
+      "dx": -0.6,
+      "tip": "elbow"
+    },
+    {
+      "name": "arm_back_lower",
+      "parent": "arm_back_upper",
+      "tip": "palm"
+    },
+    {
+      "name": "hand_back",
+      "parent": "arm_back_lower",
+      "tip": "fingertip"
+    },
+    {
+      "name": "arm_front_upper",
+      "parent": "chest",
+      "at": "shoulder",
+      "dx": 0.0,
+      "tip": "elbow"
+    },
+    {
+      "name": "arm_front_lower",
+      "parent": "arm_front_upper",
+      "tip": "palm"
+    },
+    {
+      "name": "hand_front",
+      "parent": "arm_front_lower",
+      "tip": "fingertip"
+    },
+    {
+      "name": "leg_back_upper",
+      "parent": "hip",
+      "at": "hip",
+      "dx": -0.7,
+      "tip": "knee"
+    },
+    {
+      "name": "leg_back_lower",
+      "parent": "leg_back_upper",
+      "tip": "ankle"
+    },
+    {
+      "name": "foot_back",
+      "parent": "leg_back_lower"
+    },
+    {
+      "name": "leg_front_upper",
+      "parent": "hip",
+      "at": "hip",
+      "dx": 0.0,
+      "tip": "knee"
+    },
+    {
+      "name": "leg_front_lower",
+      "parent": "leg_front_upper",
+      "tip": "ankle"
+    },
+    {
+      "name": "foot_front",
+      "parent": "leg_front_lower"
+    }
+  ],
+  "weapon_anchor": {
+    "bone": "chest",
+    "from": "waist",
+    "to": "shoulder",
+    "dx": 0.8,
+    "dy": 0.6,
+    "reach": 8.93
+  },
+  "refine": {
+    "defringe": {
+      "width": 2
+    },
+    "speckle": 30,
+    "smooth_alpha": {
+      "parts": [
+        "pelvis",
+        "torso",
+        "head",
+        "leg_upper",
+        "leg_lower",
+        "foot",
+        "arm_upper",
+        "arm_lower",
+        "hand"
+      ],
+      "sigma": 1.0
+    },
+    "fill_holes": {
+      "parts": [
+        "pelvis",
+        "leg_upper",
+        "leg_lower",
+        "foot"
+      ],
+      "max_area": 600
+    }
+  },
+  "dialog_portrait": {
+    "box": [
+      216,
+      -4,
+      525,
+      305
+    ],
+    "out": "art/portraits/nurse.png"
+  },
+  "stages": [
+    {
+      "name": "P",
+      "from": null,
+      "seed": 52,
+      "prompt": "Change the nurse into a sleeveless one: delete her near-side arm entirely, including the short sleeve and the cyan cuff, so the scrub top has a bare round armhole and the bare shoulder joint shows there, and delete the forearm and the hand. Paint the scrub top body, the clipped tablet and the trousers that were hidden behind the arm. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
+    }
+  ],
+  "near_leg": {
+    "pos": [
+      [
+        395,
+        800
+      ],
+      [
+        395,
+        950
+      ],
+      [
+        390,
+        1100
+      ],
+      [
+        380,
+        1160
+      ],
+      [
+        370,
+        1185
+      ],
+      [
+        430,
+        1190
+      ],
+      [
+        480,
+        1190
+      ]
+    ],
+    "neg": [
+      [
+        437,
+        1133
+      ],
+      [
+        490,
+        1150
+      ]
+    ],
+    "threshold": 0.3,
+    "close": 9,
+    "fill": [
+      "hand"
+    ]
+  }
+}

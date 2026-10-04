@@ -1,25 +1,5 @@
 [
   {
-    "step": "parts",
-    "seconds": 2.3,
-    "outputs": [
-      "art_src\\characters\\resident\\06_parts",
-      "art_src\\characters\\resident\\06_parts\\ownership.png"
-    ]
-  },
-  {
-    "step": "refine",
-    "seconds": 1.7,
-    "outputs": [
-      "art_src\\characters\\resident\\07_refined"
-    ]
-  },
-  {
-    "step": "damage",
-    "seconds": 0.0,
-    "outputs": []
-  },
-  {
     "step": "textures",
     "seconds": 1.8,
     "outputs": [
@@ -31,14 +11,14 @@
   },
   {
     "step": "normals",
-    "seconds": 2.3,
+    "seconds": 2.7,
     "outputs": [
       "art\\characters\\resident\\parts"
     ]
   },
   {
     "step": "import",
-    "seconds": 4.8,
+    "seconds": 5.6,
     "outputs": [
       ".godot"
     ]

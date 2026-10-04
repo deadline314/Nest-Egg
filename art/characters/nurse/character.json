@@ -1,6 +1,6 @@
 {
   "id": "nurse",
-  "display_name": "轉運站護理師",
+  "display_name": "護理師",
   "rig": "res://art/rigs/nurse.json",
   "texture_scale": 0.05,
   "scale": 1.0,
@@ -9,109 +9,109 @@
     "pelvis": {
       "file": "parts/pelvis.png",
       "size": [
-        156,
-        129
+        206,
+        132
       ],
       "pivot": [
-        70.35,
-        104.42
+        103.37,
+        106.37
       ],
-      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
+      "glow": "parts/pelvis_glow.png"
     },
     "torso": {
       "file": "parts/torso.png",
       "size": [
-        154,
-        270
+        197,
+        280
       ],
       "pivot": [
-        65.96,
-        245.6
+        91.89,
+        255.06
       ],
-      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
-      "glow": "parts/torso_glow.png"
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "head": {
       "file": "parts/head.png",
       "size": [
-        170,
-        180
+        212,
+        190
       ],
       "pivot": [
-        77.9,
-        196.06
+        97.1,
+        198.67
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_upper": {
       "file": "parts/leg_upper.png",
       "size": [
-        132,
-        239
+        136,
+        235
       ],
       "pivot": [
-        60.26,
-        -10.58
+        82.88,
+        -10.77
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_lower": {
       "file": "parts/leg_lower.png",
       "size": [
-        121,
-        271
+        137,
+        249
       ],
       "pivot": [
-        53.79,
-        7.35
+        68.4,
+        8.13
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "foot": {
       "file": "parts/foot.png",
       "size": [
-        152,
-        69
+        154,
+        81
       ],
       "pivot": [
-        38.81,
-        -2.59
+        37.95,
+        1.43
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "arm_upper": {
       "file": "parts/arm_upper.png",
       "size": [
-        83,
-        188
+        99,
+        184
       ],
       "pivot": [
-        38.03,
-        17.56
+        46.22,
+        7.32
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "arm_lower": {
       "file": "parts/arm_lower.png",
       "size": [
-        54,
-        161
+        59,
+        162
       ],
       "pivot": [
-        26.29,
-        7.37
+        29.28,
+        8.01
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "hand": {
       "file": "parts/hand.png",
       "size": [
-        90,
-        61
+        111,
+        67
       ],
       "pivot": [
-        10.32,
-        36.64
+        13.28,
+        32.04
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     }

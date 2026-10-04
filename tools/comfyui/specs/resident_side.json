@@ -1,61 +1,61 @@
 {
-  "description": "夾層區住戶（resident）的分件規格，由 tools/comfyui/new_character.py 的 civilian 範本產生。groups：SAM 3.1 文字提示分出的群組（前面的優先）；parts：把群組切成零件並指定掛載；y 是水平切線（像素）。joints 與縮放數字由 fit_joints.py 在 pose 步驟填入，手動填的不會被蓋掉。",
+  "description": "住戶（resident）的分件規格，由 tools/comfyui/new_character.py 的 civilian 範本產生。groups：SAM 3.1 文字提示分出的群組（前面的優先）；parts：把群組切成零件並指定掛載；y 是水平切線（像素）。joints 與縮放數字由 fit_joints.py 在 pose 步驟填入，手動填的不會被蓋掉。",
   "id": "resident",
-  "display_name": "夾層區住戶",
+  "display_name": "住戶",
   "scale": 1.0,
   "height": 54.0,
   "seam": 10,
-  "illustration_px_per_wp": 21.48,
+  "illustration_px_per_wp": 21.69,
   "tex_px_per_wp": 20,
-  "ground_y": 1178,
+  "ground_y": 1190,
   "joints": {
     "hip": [
-      350.5,
-      611.8
+      400.6,
+      598.4
     ],
     "waist": [
-      371.5,
-      484.9
+      400.5,
+      467.2
     ],
     "neck": [
-      410.6,
-      249.1
+      400.2,
+      223.6
     ],
     "head": [
-      410.6,
-      243.1
+      400.2,
+      217.6
     ],
     "head_top": [
-      418.6,
-      18.0
+      408.2,
+      19.0
     ],
     "shoulder": [
-      334.3,
-      284.1
+      367.0,
+      252.6
     ],
     "elbow": [
-      310.8,
-      481.7
+      360.8,
+      449.0
     ],
     "palm": [
-      331.9,
-      659.8
+      393.0,
+      627.3
     ],
     "fingertip": [
-      345.0,
-      770.2
+      413.0,
+      737.8
     ],
     "knee": [
-      354.4,
-      874.0
+      390.0,
+      859.5
     ],
     "ankle": [
-      329.5,
-      1109.0
+      359.2,
+      1114.3
     ],
     "toe": [
-      436.9,
-      1153.3
+      478.5,
+      1160.0
     ]
   },
   "groups": {
@@ -66,12 +66,14 @@
     },
     "arm": {
       "sam": [
-        "forearm"
+        "sleeve",
+        "arm"
       ]
     },
     "boot": {
       "sam": [
-        "boot"
+        "flip-flop",
+        "foot"
       ]
     },
     "head": {
@@ -81,9 +83,9 @@
     },
     "body": {
       "sam": [
-        "sweater",
-        "legs",
-        "armhole"
+        "hoodie",
+        "torso",
+        "legs"
       ],
       "complete": {
         "stage": "P",
@@ -107,12 +109,13 @@
         {
           "name": "pelvis",
           "bone": "hip",
-          "z": 0
+          "z": 0,
+          "tint": 1.2
         }
       ],
       "y": [
-        505,
-        632
+        487,
+        648
       ],
       "pivot": "hip"
     },
@@ -125,12 +128,13 @@
         {
           "name": "torso",
           "bone": "chest",
-          "z": 1
+          "z": 1,
+          "tint": 1.2
         }
       ],
       "y": [
         0,
-        505
+        487
       ],
       "pivot": "waist"
     },
@@ -167,8 +171,8 @@
         }
       ],
       "y": [
-        632,
-        874
+        618,
+        860
       ]
     },
     "leg_lower": {
@@ -181,7 +185,7 @@
           "name": "leg_back_lower",
           "bone": "leg_back_lower",
           "z": -5,
-          "tint": 0.67
+          "tint": 0.62
         },
         {
           "name": "leg_front_lower",
@@ -190,8 +194,8 @@
         }
       ],
       "y": [
-        874,
-        1100
+        860,
+        1120
       ]
     },
     "foot": {
@@ -214,7 +218,7 @@
       ],
       "pivot": "ankle",
       "y": [
-        1100,
+        1120,
         4000
       ]
     },
@@ -228,17 +232,18 @@
           "name": "arm_back_upper",
           "bone": "arm_back_upper",
           "z": -7,
-          "tint": 0.62
+          "tint": 0.9
         },
         {
           "name": "arm_front_upper",
           "bone": "arm_front_upper",
-          "z": 8
+          "z": 8,
+          "tint": 1.2
         }
       ],
       "y": [
         0,
-        482
+        449
       ]
     },
     "arm_lower": {
@@ -251,16 +256,17 @@
           "name": "arm_back_lower",
           "bone": "arm_back_lower",
           "z": -7,
-          "tint": 0.62
+          "tint": 0.9
         },
         {
           "name": "arm_front_lower",
           "bone": "arm_front_lower",
-          "z": 8
+          "z": 8,
+          "tint": 1.2
         }
       ],
       "y": [
-        482,
+        449,
         4000
       ]
     },
@@ -380,7 +386,16 @@
     "to": "shoulder",
     "dx": 0.8,
     "dy": 0.6,
-    "reach": 10.04
+    "reach": 9.93
+  },
+  "dialog_portrait": {
+    "box": [
+      243,
+      11,
+      529,
+      297
+    ],
+    "out": "art/portraits/resident.png"
   },
   "refine": {
     "defringe": {
@@ -411,81 +426,78 @@
       "max_area": 200
     }
   },
-  "dialog_portrait": {
-    "box": [
-      233,
-      10,
-      556,
-      334
-    ],
-    "out": "art/portraits/resident.png"
-  },
   "stages": [
     {
       "name": "P",
       "from": null,
       "seed": 54,
-      "prompt": "Change the man's blue sweater into a sleeveless one: delete his near-side arm entirely, including the whole long sleeve with its ribbed cuff and the hand, so the sweater has a round armhole and the dark undershirt's shoulder shows there. No skin and no arm are drawn. Paint the sweater body, the ribbed hem and the trousers that were hidden behind the arm. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
+      "prompt": "Remove the man's near-side arm from the picture: erase the whole long hoodie sleeve with its frayed cuff and the hand, nothing of the arm or the sleeve is left. In its place paint the side of the navy hoodie torso as one continuous piece of navy fabric from the shoulder down to the frayed hem, with the front pocket, a few wrinkles and the pink-purple neon rim light along his back; there is no hole, no opening and nothing see-through. Also paint the grey sweatpants that were hidden behind the arm. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
     }
   ],
   "near_leg": {
     "pos": [
       [
         340,
-        800
-      ],
-      [
-        340,
-        950
-      ],
-      [
-        330,
-        1060
-      ],
-      [
-        320,
-        1110
-      ],
-      [
-        350,
-        1135
-      ],
-      [
-        400,
-        1155
-      ],
-      [
-        330,
-        1165
+        690
       ],
       [
         420,
+        760
+      ],
+      [
+        360,
+        900
+      ],
+      [
+        340,
+        1000
+      ],
+      [
+        330,
+        1080
+      ],
+      [
+        340,
+        1150
+      ],
+      [
+        400,
+        1165
+      ],
+      [
+        460,
         1170
       ]
     ],
     "neg": [
       [
-        420,
-        800
-      ],
-      [
-        415,
-        1000
-      ],
-      [
         470,
-        1125
+        750
       ],
       [
-        440,
+        462,
+        900
+      ],
+      [
+        428,
+        1045
+      ],
+      [
+        495,
+        1132
+      ],
+      [
+        445,
         1112
       ]
     ],
     "threshold": 0.3,
     "close": 9,
-    "fill": [
-      "hand"
-    ],
-    "grow": 6
+    "fill": [],
+    "grow": 6,
+    "thigh_x": [
+      318,
+      440
+    ]
   }
 }

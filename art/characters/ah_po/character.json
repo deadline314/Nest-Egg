@@ -9,108 +9,133 @@
     "pelvis": {
       "file": "parts/pelvis.png",
       "size": [
-        310,
-        130
+        190,
+        124
       ],
       "pivot": [
-        155.31,
-        107.6
+        94.74,
+        101.1
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "torso": {
       "file": "parts/torso.png",
       "size": [
-        305,
-        286
+        183,
+        264
       ],
       "pivot": [
-        160.16,
-        263.47
+        102.44,
+        241.25
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "head": {
       "file": "parts/head.png",
       "size": [
-        240,
-        227
+        195,
+        168
       ],
       "pivot": [
-        125.1,
-        217.16
+        92.34,
+        173.31
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_upper": {
       "file": "parts/leg_upper.png",
       "size": [
-        279,
-        207
+        156,
+        225
       ],
       "pivot": [
-        119.68,
-        -9.44
+        89.75,
+        -10.39
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_lower": {
       "file": "parts/leg_lower.png",
       "size": [
-        155,
-        179
+        123,
+        226
       ],
       "pivot": [
-        83.55,
-        7.53
+        69.22,
+        7.25
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "foot": {
       "file": "parts/foot.png",
       "size": [
-        166,
-        81
+        138,
+        80
       ],
       "pivot": [
-        45.25,
-        15.38
+        43.15,
+        0.08
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "arm_upper": {
       "file": "parts/arm_upper.png",
       "size": [
-        136,
-        208
+        103,
+        193
       ],
       "pivot": [
-        73.27,
-        33.79
+        51.11,
+        21.82
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "arm_lower": {
       "file": "parts/arm_lower.png",
       "size": [
-        115,
-        152
+        108,
+        160
       ],
       "pivot": [
-        54.28,
-        6.99
+        54.83,
+        6.96
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "hand": {
       "file": "parts/hand.png",
       "size": [
-        99,
-        81
+        111,
+        62
       ],
       "pivot": [
-        11.14,
-        30.93
+        10.95,
+        38.49
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "apron_bib": {
+      "file": "parts/apron_bib.png",
+      "size": [
+        183,
+        275
+      ],
+      "pivot": [
+        93.44,
+        252.25
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
+      "glow": "parts/apron_bib_glow.png"
+    },
+    "apron": {
+      "file": "parts/apron.png",
+      "size": [
+        244,
+        374
+      ],
+      "pivot": [
+        116.74,
+        101.1
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     }
@@ -142,14 +167,14 @@
       "texture": "leg_upper",
       "bone": "leg_back_upper",
       "z": -5,
-      "tint": 0.62
+      "tint": 1.25
     },
     {
       "name": "leg_back_lower",
       "texture": "leg_lower",
       "bone": "leg_back_lower",
       "z": -5,
-      "tint": 0.62
+      "tint": 1.25
     },
     {
       "name": "foot_back",
@@ -171,22 +196,37 @@
       "z": 1
     },
     {
+      "name": "apron_bib",
+      "texture": "apron_bib",
+      "bone": "chest",
+      "z": 2
+    },
+    {
       "name": "leg_front_upper",
       "texture": "leg_upper",
       "bone": "leg_front_upper",
-      "z": 3
+      "z": 3,
+      "tint": 1.65
     },
     {
       "name": "leg_front_lower",
       "texture": "leg_lower",
       "bone": "leg_front_lower",
-      "z": 3
+      "z": 3,
+      "tint": 1.65
     },
     {
       "name": "foot_front",
       "texture": "foot",
       "bone": "foot_front",
       "z": 3
+    },
+    {
+      "name": "apron",
+      "texture": "apron",
+      "bone": "hip",
+      "z": 4,
+      "tint": 1.13
     },
     {
       "name": "head",

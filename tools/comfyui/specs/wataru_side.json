@@ -5,57 +5,57 @@
   "scale": 1.0,
   "height": 40.0,
   "seam": 10,
-  "illustration_px_per_wp": 29.93,
+  "illustration_px_per_wp": 29.02,
   "tex_px_per_wp": 20,
-  "ground_y": 1209,
+  "ground_y": 1182,
   "joints": {
     "hip": [
-      397.4,
-      651.8
+      403.5,
+      637.9
     ],
     "waist": [
-      398.0,
-      525.0
+      404.7,
+      513.0
     ],
     "neck": [
-      398.9,
-      289.6
+      406.9,
+      281.1
     ],
     "head": [
-      398.9,
-      283.6
+      406.9,
+      275.1
     ],
     "head_top": [
-      406.9,
-      12.0
+      414.9,
+      21.0
     ],
     "shoulder": [
-      369.7,
-      341.3
+      356.3,
+      318.2
     ],
     "elbow": [
-      369.3,
-      525.2
+      356.7,
+      504.7
     ],
     "palm": [
-      384.7,
-      691.9
+      374.3,
+      674.5
     ],
     "fingertip": [
-      394.2,
-      795.3
+      385.2,
+      779.8
     ],
     "knee": [
-      395.1,
-      907.7
+      397.0,
+      889.9
     ],
     "ankle": [
-      372.8,
-      1142.3
+      376.8,
+      1115.1
     ],
     "toe": [
-      493.2,
-      1175.3
+      488.7,
+      1160.1
     ]
   },
   "groups": {
@@ -66,13 +66,13 @@
     },
     "arm": {
       "sam": [
-        "arm",
-        "sleeve"
+        "sleeve",
+        "arm"
       ]
     },
     "boot": {
       "sam": [
-        "boot"
+        "sock"
       ]
     },
     "head": {
@@ -82,9 +82,9 @@
     },
     "body": {
       "sam": [
-        "torso",
-        "legs",
-        "bare shoulder"
+        "shirt",
+        "pants",
+        "cardigan"
       ],
       "complete": {
         "stage": "P",
@@ -112,8 +112,8 @@
         }
       ],
       "y": [
-        545,
-        672
+        533,
+        695
       ],
       "pivot": "hip"
     },
@@ -131,7 +131,7 @@
       ],
       "y": [
         0,
-        545
+        533
       ],
       "pivot": "waist"
     },
@@ -168,8 +168,8 @@
         }
       ],
       "y": [
-        672,
-        908
+        658,
+        890
       ]
     },
     "leg_lower": {
@@ -191,8 +191,8 @@
         }
       ],
       "y": [
-        908,
-        1135
+        890,
+        1110
       ]
     },
     "foot": {
@@ -215,7 +215,7 @@
       ],
       "pivot": "ankle",
       "y": [
-        1135,
+        1110,
         4000
       ]
     },
@@ -239,7 +239,7 @@
       ],
       "y": [
         0,
-        525
+        505
       ]
     },
     "arm_lower": {
@@ -261,7 +261,7 @@
         }
       ],
       "y": [
-        525,
+        505,
         4000
       ]
     },
@@ -381,7 +381,16 @@
     "to": "shoulder",
     "dx": 0.8,
     "dy": 0.6,
-    "reach": 6.69
+    "reach": 7.02
+  },
+  "dialog_portrait": {
+    "box": [
+      207,
+      13,
+      571,
+      377
+    ],
+    "out": "art/portraits/wataru.png"
   },
   "refine": {
     "defringe": {
@@ -410,63 +419,98 @@
         "foot"
       ],
       "max_area": 200
-    }
-  },
-  "dialog_portrait": {
-    "box": [
-      185,
-      4,
-      574,
-      393
-    ],
-    "out": "art/portraits/wataru.png"
+    },
+    "erase": [
+      {
+        "part": "leg_upper",
+        "poly": [
+          [
+            360,
+            625
+          ],
+          [
+            420,
+            625
+          ],
+          [
+            420,
+            690
+          ],
+          [
+            360,
+            690
+          ]
+        ]
+      }
+    ]
   },
   "stages": [
     {
       "name": "P",
       "from": null,
       "seed": 57,
-      "prompt": "Delete the boy's near-side arm completely from the picture: the whole long sleeve with its ribbed cuff, the bare hand and the arm inside it, nothing of the arm is left. The boy has no near-side arm at all, and the side of his jacket body is seen with a plain round armhole where the sleeve was, through which you see the mint-green shirt behind it. Paint the jacket body, the ribbed hem, the pocket and the trousers that were hidden behind the arm. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
+      "prompt": "Remove the boy's near-side arm from the picture: erase the whole long grey cardigan sleeve with its ribbed cuff, the bandaged wrist and the bare hand, nothing of the arm, the sleeve or the hand is left. In their place paint the side of the grey knitted cardigan as one continuous piece of grey knitted fabric from the shoulder down to its ribbed hem, with a few wrinkles; there is no hole, no opening and nothing see-through. Also paint the mint-green pajama shirt and the pajama trousers that were hidden behind the arm. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
     }
   ],
   "near_leg": {
     "pos": [
       [
-        380,
-        800
+        340,
+        760
+      ],
+      [
+        430,
+        740
       ],
       [
         380,
-        950
+        850
       ],
       [
         370,
-        1050
+        950
       ],
       [
-        375,
-        1110
+        360,
+        1030
       ],
       [
-        375,
-        1170
+        370,
+        1100
+      ],
+      [
+        380,
+        1150
+      ],
+      [
+        450,
+        1165
       ]
     ],
     "neg": [
       [
-        480,
-        1135
+        470,
+        780
       ],
       [
-        440,
-        1100
+        465,
+        900
+      ],
+      [
+        450,
+        1010
+      ],
+      [
+        430,
+        1080
+      ],
+      [
+        500,
+        1130
       ]
     ],
     "threshold": 0.3,
     "close": 9,
-    "fill": [
-      "hand",
-      "arm"
-    ]
+    "fill": []
   }
 }

@@ -1,7 +1,7 @@
 {
-  "description": "轉運站護理師（nurse）的建置配方：build_character.py 依這份檔案從頭產出角色。每個步驟的輸入輸出見 design/03-art-pipeline/CHARACTER_PIPELINE.md。",
+  "description": "護理師（nurse）的建置配方：build_character.py 依這份檔案從頭產出角色。每個步驟的輸入輸出見 design/03-art-pipeline/CHARACTER_PIPELINE.md。",
   "id": "nurse",
-  "name": "轉運站護理師",
+  "name": "護理師",
   "template": "civilian",
   "spec": "tools/comfyui/specs/nurse_side.json",
   "rig": "art/rigs/nurse.json",
@@ -19,7 +19,7 @@
       832,
       1216
     ],
-    "pick": 7,
-    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat colors, bold clean black outlines, hard-edged two-tone shading, saturated neon accents. Full body, strict side view facing right, standing upright with the arms relaxed at the sides and empty hands, the far-side leg hidden behind the near leg. a transit station nurse, about seven heads tall, brisk and neat: a pale teal medical uniform with cyan trim, a surgical cap and a face mask pulled under the chin, a small cyan lit tablet clipped at the hip, white shoes. Empty hands."
+    "pick": 22,
+    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat colors, bold clean black outlines, hard-edged two-tone shading, saturated neon accents. Full body, strict side view facing right, standing upright with the arms relaxed at the sides and empty hands, the far-side leg hidden behind the near leg. a transit station nurse in her thirties, about seven heads tall, tired but efficient: unkempt short black hair pinned up with a plain clip, dark circles under the eyes, a rumpled faded teal-grey scrub top and trousers with worn knees and a pen in the breast pocket, a plastic ID badge on a lanyard, a face mask pulled down under the chin, a small cyan lit tablet clipped at the hip, scuffed white clogs. Empty hands. Uneven rough hand-inked linework with varied line weight, gritty grime and fabric wrinkles, slightly asymmetrical, lived-in and worn, matte not glossy, not airbrushed, no idealized perfect face."
   }
 }

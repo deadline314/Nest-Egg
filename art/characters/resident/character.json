@@ -1,6 +1,6 @@
 {
   "id": "resident",
-  "display_name": "夾層區住戶",
+  "display_name": "住戶",
   "rig": "res://art/rigs/resident.json",
   "texture_scale": 0.05,
   "scale": 1.0,
@@ -9,108 +9,108 @@
     "pelvis": {
       "file": "parts/pelvis.png",
       "size": [
-        239,
-        133
+        236,
+        163
       ],
       "pivot": [
-        112.35,
-        107.65
+        124.39,
+        110.78
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "torso": {
       "file": "parts/torso.png",
       "size": [
-        215,
-        291
+        216,
+        316
       ],
       "pivot": [
-        116.9,
-        265.49
+        118.29,
+        290.8
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "head": {
       "file": "parts/head.png",
       "size": [
-        236,
-        217
+        169,
+        170
       ],
       "pivot": [
-        43.31,
-        212.35
+        49.02,
+        186.65
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_upper": {
       "file": "parts/leg_upper.png",
       "size": [
-        127,
-        241
+        146,
+        240
       ],
       "pivot": [
-        76.07,
-        -11.5
+        85.07,
+        -10.08
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_lower": {
       "file": "parts/leg_lower.png",
       "size": [
-        126,
-        228
+        159,
+        258
       ],
       "pivot": [
-        75.34,
-        8.06
+        72.46,
+        7.42
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "foot": {
       "file": "parts/foot.png",
       "size": [
-        157,
-        84
+        169,
+        75
       ],
       "pivot": [
-        45.8,
-        16.59
+        45.21,
+        2.48
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "arm_upper": {
       "file": "parts/arm_upper.png",
       "size": [
-        103,
-        143
+        101,
+        186
       ],
       "pivot": [
-        44.57,
-        -50.96
+        47.78,
+        -3.96
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "arm_lower": {
       "file": "parts/arm_lower.png",
       "size": [
-        107,
-        204
+        103,
+        200
       ],
       "pivot": [
-        45.19,
-        7.75
+        50.71,
+        7.8
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "hand": {
       "file": "parts/hand.png",
       "size": [
-        85,
-        77
+        88,
+        68
       ],
       "pivot": [
-        -15.91,
-        33.0
+        -12.99,
+        33.33
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     }
@@ -121,14 +121,14 @@
       "texture": "arm_upper",
       "bone": "arm_back_upper",
       "z": -7,
-      "tint": 0.62
+      "tint": 0.9
     },
     {
       "name": "arm_back_lower",
       "texture": "arm_lower",
       "bone": "arm_back_lower",
       "z": -7,
-      "tint": 0.62
+      "tint": 0.9
     },
     {
       "name": "hand_back",
@@ -149,7 +149,7 @@
       "texture": "leg_lower",
       "bone": "leg_back_lower",
       "z": -5,
-      "tint": 0.67
+      "tint": 0.62
     },
     {
       "name": "foot_back",
@@ -162,13 +162,15 @@
       "name": "pelvis",
       "texture": "pelvis",
       "bone": "hip",
-      "z": 0
+      "z": 0,
+      "tint": 1.2
     },
     {
       "name": "torso",
       "texture": "torso",
       "bone": "chest",
-      "z": 1
+      "z": 1,
+      "tint": 1.2
     },
     {
       "name": "leg_front_upper",
@@ -198,13 +200,15 @@
       "name": "arm_front_upper",
       "texture": "arm_upper",
       "bone": "arm_front_upper",
-      "z": 8
+      "z": 8,
+      "tint": 1.2
     },
     {
       "name": "arm_front_lower",
       "texture": "arm_lower",
       "bone": "arm_front_lower",
-      "z": 8
+      "z": 8,
+      "tint": 1.2
     },
     {
       "name": "hand_front",
