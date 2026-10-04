@@ -247,9 +247,13 @@
     {
       "name": "armor_chest",
       "texture": "armor_chest",
-      "bone": "chest",
+      "bone": "core_plate",
       "z": 2,
-      "armor_order": 4
+      "armor_order": 4,
+      "offset": [
+        -4.0,
+        -0.5
+      ]
     },
     {
       "name": "leg_front_upper",

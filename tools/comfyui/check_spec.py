@@ -67,6 +67,11 @@ def check(recipe: dict, spec: dict, need_joints: bool) -> tuple[list[str], list[
         for key in ("at", "tip", "from"):
             if key in b and key != "from":
                 joint(f"{where}.{key}", b[key])
+        parent_tip = any(o.get("name") == parent and "tip" in o for o in spec["bones"])
+        if name not in REQUIRED_BONES and "fixed" not in b and "at" not in b and not parent_tip:
+            err(where, "a dedicated bone needs \"fixed\": [x, y] (rig px from its parent), \"at\": <joint>, or a parent that has a \"tip\"")
+        if "fixed" in b and not (isinstance(b["fixed"], list) and len(b["fixed"]) == 2 and all(isinstance(v, (int, float)) for v in b["fixed"])):
+            err(f"{where}.fixed", f"must be [x, y], got {b['fixed']}")
         bone_names.append(name)
     for name in REQUIRED_BONES:
         if name not in bone_names:
@@ -129,6 +134,8 @@ def check(recipe: dict, spec: dict, need_joints: bool) -> tuple[list[str], list[
         for u in p.get("uses", []):
             if u.get("bone") not in bone_names:
                 err(f"{where}.uses.{u.get('name')}.bone", f"unknown bone '{u.get('bone')}'")
+            if "offset" in u and not (isinstance(u["offset"], list) and len(u["offset"]) == 2 and all(isinstance(v, (int, float)) for v in u["offset"])):
+                err(f"{where}.uses.{u.get('name')}.offset", f"must be [x, y], got {u['offset']}")
             if not isinstance(u.get("z"), int):
                 err(f"{where}.uses.{u.get('name')}.z", "must be an integer")
             if u.get("name") in uses_names:

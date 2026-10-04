@@ -5,6 +5,7 @@ extends EnemySuiteBase
 
 const FLAMER_PATH := "res://data/enemies/flamer.tres"
 const GUNNER_PATH := "res://data/enemies/heavy_gunner.tres"
+const WARDEN_PATH := "res://data/enemies/warden.tres"
 
 
 func run() -> void:
@@ -16,6 +17,7 @@ func run() -> void:
 	await _test_flamer_tank_shots()
 	await _test_gunner_sequence()
 	await _test_gunner_armor()
+	await _test_warden_core_cannon()
 	await _test_codex_unlocks()
 	await check_defeatable_on_every_difficulty([FLAMER_PATH, GUNNER_PATH])
 
@@ -95,6 +97,51 @@ func _test_flamer_range_and_interrupt() -> void:
 	check(flamer.fsm.is_in(&"recover") and not flamer._flame_box.active, "a stun cuts the flame off")
 	flamer.hurtbox.receive(lethal())
 	await physics_frames(90)
+	await end_level(level)
+
+
+## 監管者的核心砲（NE-89 專屬骨頭範例）：第二階段才會用；預兆時胸甲（掛在專屬骨頭 core_plate 上）掀開，
+## 發射從專屬骨頭 core_port 出去，發射後核心部位判定外露時雙倍、收起來回到一般。原有招式不受影響。
+func _test_warden_core_cannon() -> void:
+	await open_level(10.0)
+	var warden := spawn(WARDEN_PATH, 30.0)
+	place_player(24.0)
+	await physics_frames(3)
+	var rig := warden.rig
+	check(rig != null and rig.has_bone(&"core_plate") and rig.has_bone(&"core_port"), "the warden rig declares its dedicated bones")
+	check(rig.parent_of(&"core_plate") == &"chest" and rig.parent_of(&"core_port") == &"chest", "the dedicated bones hang off the chest")
+	var plate_sprite := rig.bone(&"core_plate").get_node_or_null("armor_chest")
+	check(plate_sprite != null, "the chest plate is mounted on the dedicated plate bone")
+	var core_part: Hurtbox = null
+	for part in warden.hurtbox.parts:
+		if part.part_id == &"core":
+			core_part = part
+	check(core_part != null and core_part.damage_scale == 1.0, "the core hurt part exists and counts as normal while closed")
+	var phase_one_moves := {}
+	for i in 40:
+		phase_one_moves[warden.call(&"_choose_attack")] = true
+	check(not phase_one_moves.has(&"core_windup"), "phase one never uses the core cannon")
+	warden.set("_phase", 2)
+	var moves := {}
+	for i in 80:
+		moves[warden.call(&"_choose_attack")] = true
+		warden.set("_last_attack", &"")
+	check(moves.has(&"core_windup") and moves.has(&"burst_windup") and moves.has(&"leap_windup"), "phase two adds the core cannon to the old moves")
+	var rest_angle := rig.bone(&"core_plate").rotation
+	warden.fsm.transition(&"core_windup")
+	await physics_frames(20)
+	check(absf(rig.bone(&"core_plate").rotation - rest_angle) > 0.3, "the plate swings open while the cannon charges (%.2f)" % rig.bone(&"core_plate").rotation)
+	var port_world := rig.bone(&"core_port").global_position
+	check(warden._core_point().distance_to(warden.to_local(port_world)) < 0.01, "the glow ring and the aim line sit on the core port bone")
+	var before := ProjectilePool.active_count()
+	var fired := await wait_state(warden, &"core_recover", 90)
+	check(fired, "the charge ends in the recover state")
+	await physics_frames(1)
+	check(ProjectilePool.active_count() >= before + 3, "the cannon fires its volley (%d -> %d)" % [before, ProjectilePool.active_count()])
+	check(core_part.damage_scale == 2.0, "the core takes double damage while exposed")
+	var exposed := await wait_state(warden, &"idle", 150)
+	check(exposed and core_part.damage_scale == 1.0, "the core closes again afterwards")
+	await physics_frames(60)
 	await end_level(level)
 
 

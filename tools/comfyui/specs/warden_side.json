@@ -323,9 +323,13 @@
       "uses": [
         {
           "name": "armor_chest",
-          "bone": "chest",
+          "bone": "core_plate",
           "z": 2,
-          "armor_order": 4
+          "armor_order": 4,
+          "offset": [
+            -4.0,
+            -0.5
+          ]
         }
       ]
     },
@@ -486,6 +490,22 @@
     {
       "name": "foot_front",
       "parent": "leg_front_lower"
+    },
+    {
+      "name": "core_plate",
+      "parent": "chest",
+      "fixed": [
+        4.0,
+        0.5
+      ]
+    },
+    {
+      "name": "core_port",
+      "parent": "chest",
+      "fixed": [
+        4.0,
+        -10.0
+      ]
     }
   ],
   "weapon_anchor": {

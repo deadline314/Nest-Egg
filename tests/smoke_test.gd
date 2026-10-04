@@ -275,8 +275,12 @@ func _test_rigs() -> void:
 			_check(ResourceLoader.exists(dir.path_join(def["file"])), "part image exists: %s/%s" % [id, def["file"]])
 			if def.has("glow"):
 				_check(ResourceLoader.exists(dir.path_join(def["glow"])), "glow image exists: %s/%s" % [id, def["glow"]])
+		# 零件掛的骨頭以角色自己的骨架為準（含專屬骨頭，NE-89）；骨架家族的名稱也都要在。
+		var own_bones: Dictionary = {}
+		for bone: Dictionary in RigLibrary.load_json(str(skin.get("rig", ""))).get("bones", []):
+			own_bones[bone["name"]] = true
 		for part: Dictionary in skin.get("parts", []):
-			_check(bone_names.has(part["bone"]), "part bone exists: %s.%s" % [id, part["name"]])
+			_check(own_bones.has(part["bone"]), "part bone exists: %s.%s" % [id, part["name"]])
 	for weapon_id: String in RigLibrary.weapons().get("weapons", {}).keys():
 		var wdef := RigLibrary.weapon(weapon_id)
 		_check(ResourceLoader.exists("res://art/weapons/".path_join(wdef["file"])), "weapon image exists: %s" % weapon_id)

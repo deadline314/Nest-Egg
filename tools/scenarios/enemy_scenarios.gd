@@ -17,6 +17,7 @@ const SCENARIOS := {
 	"scene_packs": "res://tools/scenarios/scene_pack_scenario.gd",
 	"enemy_vfx": "res://tools/scenarios/enemy_vfx_scenario.gd",
 	"cast_lineup": "res://tools/scenarios/cast_lineup_scenario.gd",
+	"warden_core": "res://tools/scenarios/warden_core_scenario.gd",
 	"enemy_fit_audit": "res://tools/scenarios/enemy_fit_audit_scenario.gd",
 	"hit_reaction": "res://tools/scenarios/hit_reaction_scenario.gd",
 	"hit_direction": "res://tools/scenarios/hit_direction_scenario.gd",

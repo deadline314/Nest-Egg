@@ -192,3 +192,14 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py --recipe to
 **怎麼挑點**：先用 `sam_masks.py` 的點提示（`segment_points`）試，疊在腿部區域看遮罩有沒有只吃到近側那一條；兩隻鞋重疊時，正向點要打在近側鞋的前、後、鞋底，負向點打在遠側鞋露出來的前端與靴筒；遠側腿大面積露出時，在大腿與小腿中段各打一個負向點。遮罩吃不乾淨再依序：(2) 在腳踝以下依兩隻鞋的間隙用 `foot_y`／`y` 幾何切；(3) 只對那條腿的裁切小圖用 Qwen 編輯模式做「只保留近側腿與鞋」，不重畫整個角色。
 
 **亮度**：遠側腿要看得出來，近側腿也不能糊進背景。規格 `parts.*.uses[].tint` 依貼圖實際平均亮度決定（近側目標約 0.2、遠側目標約 0.15，近側最多乘 2.0、遠側最少 0.62，遠側不超過近側的 0.8 倍），改規格後重跑 `textures`。
+
+## 9. 專屬骨頭（NE-89）
+
+人形家族以外的骨頭（砲口、刀尖、可掀開的胸甲）寫在規格 `bones`，流程照常產生骨架與零件掛載：
+
+1. 規格 `bones` 加一筆，父骨頭要先定義：`{"name": "core_port", "parent": "chest", "fixed": [4.0, -10.0]}`（`fixed`＝離父骨頭的位置，骨架像素；也可以用 `"at": 關節`，或接在有 `tip` 的父骨頭後面成為鏈節）。
+2. 要讓貼圖跟著專屬骨頭動，把該零件 `uses` 的 `bone` 改成它；骨頭不在原本的支點上時，加 `"offset": [x, y]` 抵銷（例：鉸鏈在胸甲下緣 `fixed: [4, 0.5]`，零件 `offset: [-4, -0.5]`，零件留在原位、轉動時繞鉸鏈）。
+3. 跑 `check_spec.py`：專屬骨頭沒有定位、`fixed`／`offset` 不是 `[x, y]`、零件指到不存在的骨頭都會指出確切位置。
+4. 專屬動作寫在 `art/rigs/action_poses.json`，用骨頭名稱當 key；敵人資料的 `rig_actions` 把狀態對到動作。預兆線、發光、發射點與判定位置都取同一個骨頭的世界座標（`rig.bone(名稱).global_position`），畫面與判定才不會各走各的。
+5. 預覽：`rig_preview.tscn -- --chars=<id> --action=<動作>`；遊戲內：`screenshot.tscn -- --scenario=warden_core`（監管者範例）。
+

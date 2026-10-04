@@ -434,7 +434,7 @@ def main() -> None:
                             "blink": {"part": blink["part"], "eye": sum((to_canvas(p) for p in blink["eye"]), []), "lid": sum((to_canvas(p) for p in blink["lid"]), [])}}
     char["description"] = "外觀（skin）定義：textures 是零件圖片的尺寸與支點；parts 是把圖片掛到骨頭上的方式。" + SKIN_NOTE + "。"
     char["textures"] = textures
-    char["parts"] = [{"name": u["name"], "texture": u["texture"], "bone": u["bone"], "z": u["z"], **({"tint": u["tint"]} if "tint" in u else {}), **({"armor_order": u["armor_order"]} if "armor_order" in u else {})} for u in use_list]
+    char["parts"] = [{"name": u["name"], "texture": u["texture"], "bone": u["bone"], "z": u["z"], **({"tint": u["tint"]} if "tint" in u else {}), **({"armor_order": u["armor_order"]} if "armor_order" in u else {}), **({"offset": u["offset"]} if "offset" in u else {})} for u in use_list]
     (Path(args.char) / "character.json").write_text(json.dumps(char, ensure_ascii=False, indent=2) + "\n", encoding="utf8")
     print("rig bones:", len(bones), " parts:", len(char["parts"]))
     if args.verify:

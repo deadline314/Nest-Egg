@@ -30,6 +30,9 @@ func _rig(skin: String, input: RigInput, settle := 40) -> CharacterRig:
 func _test_data() -> void:
 	var actions: Dictionary = RigLibrary.load_json(PATH).get("actions", {})
 	check(actions.size() >= 6, "action data has the actions (%d)" % actions.size())
+	var family: Array[String] = []
+	for bone: Dictionary in RigLibrary.load_json("res://art/rigs/humanoid.json").get("bones", []):
+		family.append(str(bone["name"]))
 	for skin in SKINS:
 		var bones: Array[String] = []
 		for bone: Dictionary in RigLibrary.load_json(str(RigLibrary.character(skin).get("rig", ""))).get("bones", []):
@@ -43,6 +46,10 @@ func _test_data() -> void:
 				check(t >= last_t and t >= 0.0 and t <= 1.0, "%s: keys are in order within 0..1" % name)
 				last_t = t
 				for bone: String in (key.get("bones", {}) as Dictionary).keys():
+					# 專屬骨頭（人形家族以外，NE-89）只有宣告它的角色要有；其他人播放時會略過並記錄一次。
+					var owner_skin := name.get_slice(".", 0)
+					if not family.has(bone) and skin != owner_skin:
+						continue
 					check(bones.has(bone), "%s only uses bones that %s has: %s" % [name, skin, bone])
 
 
