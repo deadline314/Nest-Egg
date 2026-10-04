@@ -33,6 +33,7 @@ func run() -> void:
 	_test_numbering_and_catalog()
 	_test_placement_doc()
 	_test_data_writer()
+	_test_candidate_pool()
 	_test_source_counts()
 
 
@@ -635,6 +636,41 @@ func _test_data_writer() -> void:
 	check(not (AudioDataWriter.apply("user://test_audio_no_such_writer.json", [change])["errors"] as PackedStringArray).is_empty(), "a missing data file is reported")
 	for suffix in ["", ".bak"]:
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(path + suffix))
+
+
+## 備選素材（NE-164）：每個位置至少十個、種類相符；音樂每種用途至少十首；新來源都複查過授權；預聽檔齊全。
+func _test_candidate_pool() -> void:
+	var catalog := AudioCatalog.new()
+	catalog.load_all()
+	var errors := catalog.validate(10)
+	check(errors.is_empty(), "every slot has at least ten candidates: %s" % ", ".join(errors.slice(0, 3)))
+	for slot: Dictionary in catalog.slots:
+		var wanted: Array = [slot["category"]] + slot.get("also", [])
+		var matching := 0
+		for aid: String in slot["candidates"]:
+			matching += 1 if wanted.has(aid.split("-")[0]) else 0
+			check((aid.begins_with("MUS-")) == (slot["kind"] == "music") or not (slot["kind"] == "music") and not aid.begins_with("MUS-"), "slot %s candidate %s has the right kind" % [slot["id"], aid])
+		check(matching >= 10, "slot %s has ten candidates of a fitting category (%d)" % [slot["id"], matching])
+	var hints := _read_source_json("res://assets_src/audio/hints.json")
+	var uses := {}
+	for key: String in (hints.get("music", {}) as Dictionary).keys():
+		for use: String in hints["music"][key].get("best_for", []):
+			uses[use] = int(uses.get(use, 0)) + 1
+	for use in ["menu", "calm", "tense", "combat", "boss", "safe", "emotional", "victory", "defeat", "underground", "lab", "garden", "rooftop"]:
+		check(int(uses.get(use, 0)) >= 10, "music use '%s' has at least ten tracks (%d)" % [use, int(uses.get(use, 0))])
+	var license_check := _read_source_json("res://assets_src/audio/license_check.json")
+	check(int(license_check.get("pages", 0)) > 0 and (license_check.get("problems", []) as Array).is_empty(), "the latest license re-check of every source page found no problems")
+	var manifest := _read_source_json(MANIFEST_PATH)
+	var pack_ids := {}
+	for pack: Dictionary in manifest.get("packs", []):
+		pack_ids[str(pack["id"])] = true
+	for id: String in catalog.assets.keys():
+		check(pack_ids.has(str(catalog.assets[id]["pack"])), "asset %s comes from a pack in the source manifest" % id)
+	if DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(AudioCatalog.AUDITION_DIR)) and not DirAccess.get_files_at(AudioCatalog.AUDITION_DIR).is_empty():
+		var missing := 0
+		for id: String in catalog.assets.keys():
+			missing += 0 if catalog.has_preview(id) else 1
+		check(missing == 0, "every asset has an audition preview (%d missing; run tools/audio/build_candidates.py)" % missing)
 
 
 func _test_source_counts() -> void:

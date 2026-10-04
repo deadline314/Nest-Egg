@@ -1,10 +1,10 @@
 """建立素材目錄 assets_src/audio/catalog.json：每個已下載的 CC0 音訊檔一個永久編號（NE-163）。
 
-用法：python tools/audio/build_catalog.py [--import-reports SFX報告.json 音樂報告.json] [--stats]
+用法：python tools/audio/build_catalog.py [--sfx-report 音效報告.json] [--music-report 音樂報告.json] [--stats]
 
 編號格式 `<類>-<四位數>`（類見 CATEGORIES），只增不改：已經有編號的檔案（以素材包＋相對路徑認）不會被重編，
 也不會因為分類規則改了而換編號；新找到的檔案接在該類目前最大號碼後面。同一個聲音有多種格式（wav、mp3、ogg）時只收一份。
---import-reports 把調查報告裡的「建議用途」（音效類別、音樂用途與情緒）寫進 assets_src/audio/hints.json，之後挑備選時當排序依據。
+--sfx-report／--music-report 把調查報告裡的「建議用途」（音效類別、音樂用途與情緒）寫進 assets_src/audio/hints.json，之後挑備選時當排序依據。
 """
 import argparse
 import json
@@ -33,7 +33,7 @@ EXCLUDE = r"announcer|arenacombat"
 
 RULES: list[tuple[str, str]] = [
     ("UIS", r"interface-sounds|ui-audio|ui-sound|/ui_|menu_|rollover|confirmation_|_ui\b|buttons-switches|button-sfx"),
-    ("RLD", r"reload|clipload|singlebullet|shotguncock|shotgun-reload|magazine|dryfire|equipment-click|lock-or-click|\brack\b|shell in chamber|gunreload"),
+    ("RLD", r"reload|clipload|singlebullet|shotguncock|shotgun-reload|magazine|dryfire|equipment-click|lock-or-click|\brack\b|shell in chamber|gunreload|cocking|\bcock\b|loading|\bclip\b|eject|breech|pulling back hammer|cylinder|gun movement|handling"),
     ("GUN", r"firearm|gunshot|gun-shot|gun_shot|cannon-fire|cannon_fire|bigshot|smallshot|silencer|shotgun|rifle|pistol|handgun|\bsmg\b|bullet|/gun|-gun|gun-|/shot|_shot"),
     ("EXP", r"explo|bang|blast|boom|firework|detonat|cannon_hit|cannon-hit"),
     ("MLE", r"swish|swosh|whoosh|sword|blade|slash|swing|clash|weapon-sw|machete|thwack|chop|knifeslice|drawknife|melee"),
@@ -78,10 +78,13 @@ def list_audio(folder: Path) -> list[Path]:
     return sorted(best.values())
 
 
-def import_reports(sfx_path: Path, music_path: Path) -> None:
-    sfx = json.loads(sfx_path.read_text(encoding="utf-8"))
-    music = json.loads(music_path.read_text(encoding="utf-8"))
-    hints = {"sfx": {}, "music": {}, "notes": {}}
+def import_reports(sfx_path: Path | None, music_path: Path | None) -> None:
+    """把調查報告的建議用途合併進 hints.json（已有的保留，同一個檔案的類別取聯集）。"""
+    sfx = json.loads(sfx_path.read_text(encoding="utf-8")) if sfx_path else {}
+    music = json.loads(music_path.read_text(encoding="utf-8")) if music_path else {}
+    hints = json.loads(HINTS.read_text(encoding="utf-8")) if HINTS.exists() else {}
+    for key in ("sfx", "music", "notes"):
+        hints.setdefault(key, {})
     for category, items in sfx.get("category_candidates", {}).items():
         for item in items:
             if item.get("why"):
@@ -127,11 +130,12 @@ def describe(pack: str, relative: str, hints: dict, firearm: dict) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--import-reports", nargs=2, metavar=("SFX", "MUSIC"))
+    parser.add_argument("--sfx-report", type=Path, help="音效調查報告（合併進 hints.json）")
+    parser.add_argument("--music-report", type=Path, help="音樂調查報告（合併進 hints.json）")
     parser.add_argument("--stats", action="store_true")
     args = parser.parse_args()
-    if args.import_reports:
-        import_reports(Path(args.import_reports[0]), Path(args.import_reports[1]))
+    if args.sfx_report or args.music_report:
+        import_reports(args.sfx_report, args.music_report)
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))["packs"]
     existing = json.loads(CATALOG.read_text(encoding="utf-8")) if CATALOG.exists() else {"assets": {}}
     assets: dict = existing["assets"]

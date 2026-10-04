@@ -1,5 +1,7 @@
 """重新抓取 manifest.json 裡每個素材包的來源頁面，確認授權欄位真的是 CC0（NE-155 的複查工具）。
 
+archive.org 的項目看它的 metadata 的 licenseurl，必須是 CC0 1.0（publicdomain/zero）。
+
 用法：python tools/audio/verify_licenses.py [--jobs 6] [--only ID ...]
 OpenGameArt 頁面的「License(s):」欄只能有 CC0；Kenney 頁面要寫 CC0。抓不到頁面的列為「未能確認」，不算通過。
 結果印在畫面並寫到 assets_src/audio/license_check.json（時間、通過／失敗清單）。
@@ -33,6 +35,16 @@ def check(pack: dict) -> dict:
     html = fetch(pack["page"])
     if not html:
         return {"id": pack["id"], "page": pack["page"], "result": "unverified", "detail": "頁面抓不到"}
+    if "archive.org/details/" in pack["page"]:
+        identifier = pack["page"].rstrip("/").rsplit("/", 1)[-1]
+        raw = fetch(f"https://archive.org/metadata/{identifier}")
+        try:
+            meta = json.loads(raw).get("metadata", {}) if raw else {}
+        except ValueError:
+            meta = {}
+        license_url = str(meta.get("licenseurl", ""))
+        ok = "creativecommons.org/publicdomain/zero/" in license_url
+        return {"id": pack["id"], "page": pack["page"], "result": "ok" if ok else "FAIL", "detail": f"archive.org licenseurl = {license_url or '（沒有）'}"}
     if "opengameart.org" in pack["page"]:
         match = re.search(r"License\(s\):.*?</div>\s*</div>|License\(s\):(.*?)<(?:/section|h2|div class=\"field field-name-field-art-tags)", html, re.S)
         block = html[html.find("License(s):"): html.find("License(s):") + 1500] if "License(s):" in html else ""

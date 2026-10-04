@@ -1,8 +1,9 @@
-"""把兩份調查報告（音效、音樂）轉成 assets_src/audio/manifest.json（一次性匯入工具，之後新增來源直接手改 manifest）。
+"""把調查報告（音效、音樂）合併進 assets_src/audio/manifest.json。
 
-用法：python tools/audio/build_manifest.py <sfx_report.json> <music_report.json>
-只收授權寫著 CC0 的項目；其餘一律略過並印出原因。
+用法：python tools/audio/build_manifest.py [--sfx 音效報告.json] [--music 音樂報告.json]
+只收授權寫著 CC0 的項目；其餘一律略過並印出原因。已經在目錄裡的素材包（同一個 id）不會被覆蓋，新的接在後面。
 """
+import argparse
 import json
 import sys
 from pathlib import Path
@@ -34,8 +35,13 @@ def merge_same_dir(packs: list) -> list:
 
 
 def main() -> int:
-    sfx = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
-    music = json.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--sfx", type=Path)
+    parser.add_argument("--music", type=Path)
+    args = parser.parse_args()
+    sfx = json.loads(args.sfx.read_text(encoding="utf-8")) if args.sfx else {"packs": []}
+    music = json.loads(args.music.read_text(encoding="utf-8")) if args.music else {"tracks": []}
+    existing = json.loads(OUT.read_text(encoding="utf-8"))["packs"] if OUT.exists() else []
     packs = []
     for pack in sfx["packs"]:
         if pack["license"].upper() != "CC0":
@@ -56,10 +62,12 @@ def main() -> int:
             "page": track["page_url"], "download": track["download_url"], "dir": relative_dir(str(folder)),
             "notes": track.get("mood", ""),
         })
-    packs = merge_same_dir(packs)
-    packs.sort(key=lambda p: (p["kind"], p["id"]))
+    fresh = merge_same_dir(packs)
+    known_dirs = {p["dir"] for p in existing}
+    added = [p for p in fresh if p["dir"] not in known_dirs]
+    packs = sorted(existing + added, key=lambda p: (p["kind"], p["id"]))
     OUT.write_text(json.dumps({"_說明": "CC0 音效與音樂來源目錄。fetch_audio.py 依此下載到 assets_src/raw/audio/；build_audio.py 依 pipeline.json 取用並寫授權登記。", "packs": packs}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    print(f"{len(packs)} 筆 → {OUT}")
+    print(f"素材包目錄：共 {len(packs)} 筆，新增 {len(added)} 筆 → {OUT}")
     return 0
 
 

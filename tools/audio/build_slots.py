@@ -1,6 +1,6 @@
 """產生位置登記 data/audio/slots.json 與位置清單 design/16-audio/PLACEMENTS.md、素材清單 design/16-audio/CATALOG.md（NE-163）。
 
-用法：python tools/audio/build_slots.py [--min-candidates 10] [--max-candidates 30]
+用法：python tools/audio/build_slots.py [--min-candidates 10] [--max-candidates 30] [--rerank]
 
 位置編號 `P-<域>-<三位數>` 只增不改（已有的位置以目標 id 認）；每個位置列出目前用的素材編號（從加工清單反查素材目錄）
 與備選素材編號（目前素材 → 調查報告建議的 → 同類別其他 → 額外可選的類別；已有的備選順序保留，新的接在後面）。
@@ -58,6 +58,20 @@ def current_sfx(pipeline: dict, target: str, lookup) -> list:
     return ids
 
 
+STOP_TOKENS = {"shot", "gunshot", "loop", "amb", "hit", "mat", "sound", "sfx", "land", "step", "grunt", "death", "hurt", "break", "ding", "game", "main", "wood"}
+
+
+def tokens_for(slot: dict) -> set:
+    """位置的關鍵字：從調查建議的類別名稱與音效 id 拆出來（例如 gunshot_shotgun → shotgun），用來給備選排序。"""
+    words = set()
+    words.update(w.lower() for w in slot.get("kw", []))
+    for name in list(slot.get("hint", [])) + [slot["target"]]:
+        for word in name.lower().split("_"):
+            if len(word) >= 4 and word not in STOP_TOKENS:
+                words.add(word)
+    return words
+
+
 def candidates_for(slot: dict, assets: dict, hints: dict, current: list, previous: list, max_count: int) -> list:
     result = [aid for aid in previous if aid in assets]
     for aid in current:
@@ -83,14 +97,25 @@ def candidates_for(slot: dict, assets: dict, hints: dict, current: list, previou
             return bool(music_use & set(hints.get("music", {}).get(key, {}).get("best_for", [])))
         return bool(wanted_hint & set(hints.get("sfx", {}).get(key, [])))
 
-    pools = [
-        [aid for aid in assets if aid.startswith(primary + "-") and hinted(aid)],
-        [aid for aid in assets if aid.startswith(primary + "-")],
-    ]
+    words = tokens_for(slot)
+
+    def score(aid: str) -> int:
+        a = assets[aid]
+        text = f'{a["pack"]} {a["file"]} {a.get("desc", "")}'.lower()
+        return sum(1 for w in words if re.search(r"(?<![a-z])" + re.escape(w), text))
+
+    def pool(category: str, only_hinted: bool) -> list:
+        ids = [aid for aid in assets if aid.startswith(category + "-") and (hinted(aid) or not only_hinted)]
+        return sorted(ids, key=lambda aid: (-score(aid), aid))
+
+    # 關鍵字明確對得上的素材（不分類別）排在最前面：例如電話亭的撥號、話筒，常被歸在機械或其他類。
+    cross = sorted((aid for aid in assets if not aid.startswith("MUS-") and slot["kind"] != "music" and score(aid) >= (1 if slot.get("kw") else 3)),
+                   key=lambda aid: (-score(aid), aid))[:12]
+    pools = [cross, pool(primary, True), pool(primary, False)]
     for category in also:
-        pools.append([aid for aid in assets if aid.startswith(category + "-") and hinted(aid)])
+        pools.append(pool(category, True))
     for category in also:
-        pools.append([aid for aid in assets if aid.startswith(category + "-")])
+        pools.append(pool(category, False))
     for pool in pools:
         for aid in pool:
             if len(result) >= max_count:
@@ -153,6 +178,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--min-candidates", type=int, default=10)
     parser.add_argument("--max-candidates", type=int, default=30)
+    parser.add_argument("--rerank", action="store_true", help="丟掉原本的備選順序，依目前的素材目錄重新排（新增素材後用）")
     args = parser.parse_args()
     catalog = load(CATALOG, {"assets": {}})
     assets, categories = catalog["assets"], catalog.get("categories", {})
@@ -181,7 +207,7 @@ def main() -> int:
             current = [aid] if aid else []
         else:
             current = current_sfx(pipeline, e["target"], lookup)
-        candidates = candidates_for(e, assets, hints, current, old["candidates"] if old else [], args.max_candidates)
+        candidates = candidates_for(e, assets, hints, current, [] if args.rerank or not old else old["candidates"], args.max_candidates)
         slot = {"id": sid, **{k: e[k] for k in ("domain", "kind", "target", "name", "where", "category")}, "also": e["also"]}
         for key in ("dur", "proc", "hint", "use"):
             if key in e:

@@ -135,3 +135,38 @@
 - 音量差異很大（-4 到 -43 LUFS），一律經 `build_audio.py` 標準化後才進遊戲。
 - 迴圈性質是從作者標籤與檔尾音量推測的，沒有逐首確認；接縫要在實驗室試聽。
 - Firearm Library 的檔案是 96 kHz／24 bit 立體聲、5–30 秒，含長尾與連發，加工時要指定取用的時間範圍。
+
+
+## 第二輪補充（NE-164）
+
+為了讓每個位置有十個以上、而且彼此差異夠大的備選，又找了一輪：新增 271 個音效素材包（約 2,300 個檔案）與 178 首音樂。素材總數 5,258 個（見 [CATALOG.md](CATALOG.md)），位置清單的每個位置有 30 個備選。
+
+- **授權複查**：所有來源頁面（共 734 頁）用 `tools/audio/verify_licenses.py` 重新抓取檢查，結果存在 `assets_src/audio/license_check.json`。OpenGameArt 的授權欄只能有 CC0；同時標示多種授權（例如 CC-BY 與 CC0 並列）的 11 個素材包一律剔除。
+- **Internet Archive 來源**（`ia_` 開頭，52 個包，USC 的 Red Library 與 SSE Library）：授權依 archive.org 的項目 metadata（`licenseurl` 必須是 CC0 1.0）。這是 Internet Archive 管理者設定的，不像 OpenGameArt 有上傳者頁面，來源可信度略低一點；都是老式錄音（有磁帶底噪）。要更保守的話，這些素材的編號前綴相同、可從 `manifest.json` 整批移除。
+- OpenGameArt 的 CC0 是上傳者自己宣告的，網站不逐檔查證。
+
+仍然找不到的聲音（用相近素材加工，或保留合成音）：
+- Telephone: no dial-tone/DTMF/busy-signal recordings found in any CC0 source (OGA, Kenney, IA). Obtained instead: rotary-dial telephone with ring, handset lift/hang-up, pay-phone-in-booth, crank phone, coin return, rings (Red Library Communications, SSE Communications, OGA Owlish phone ring). DTMF/dial tone must be synthesised (sine pairs, trivial with numpy) - recommend generating in the pipeline.
+- Real modern gun-handling (magazine out/in, charging handle, selector) is still scarce: available are rifle/pistol cocking, bolt, slide breech, clip load, shotgun load, revolver spin, empty-click, shell eject, plus OGA reload/dry-fire packs; all vintage-style mechanics (no AR magazine drop). Layer metal clicks (SSE Mechanical, Kenney impact metal) for modern feel.
+- Railgun / energy cannon / heavy sci-fi cannon: only sound-designed material (50 Free SciFi 192 kHz, theremin lasers, SSE sci-fi ray gun/phaser/energy). No dedicated recording; compose by layering charge-up + low blast.
+- Suppressed rifle/SMG: only pistol-silencer takes (SSE Suppressed, OGA voice-made Silencers, existing hollywood silencer). Low-pass a rifle shot to fake the rest.
+- Modern SMG / assault-rifle single shots are 1930s-50s era (Tommy gun, Bren, M16 burst, BAR). No modern close-mic 9mm SMG pack found.
+- Bullet whiz-by: exist only inside compilations (SSE Bullets "Bullets flying overhead", "Rifle bullets flying over and hitting objects"); no isolated whiz one-shots, slice from the takes.
+- Robotic voices without words: OGA "Robot Voice Pack" contained spoken phrases and was rejected/deleted; "Female/Male Alien Robot Vocal SFX" (49 MB WAV) skipped, content not verified wordless. Non-verbal robot noises come from OGA Robotic Transformations, sci-fi packs and SSE sci-fi/servo.
+- Metal grating / wet pavement footsteps: only metal stairs, tunnel, water, gravel, tile, stone, hard surface (Red Footsteps, OGA snow-and-gravel, Owlish). No explicit grating or wet-pavement recording; water-walking + metal-stairs are the nearest. Rooftop gravel is well covered.
+- Seamless ambience loops: most new beds are linear recordings (not authored loops); loop points must be found/crossfaded in the pipeline. Authored loops: OGA airvent-loop, fridge-loop-1, crickets-ambient-noise-loopable, rain-on-window-loop, wind-whoosh-loop, seamless-energy-emission-loop, loopable-dungeon-ambience, SSE "loopable" sci-fi computer/space-ship beds. Machine-room hum and generator ambience exist (SSE Machines, SSE Motors generator, OGA industrial-fan/lab-ambience); a true city-night bed is weak (traffic + urban room tone only, vintage).
+- Crowd murmur without words: only walla beds from SSE Ambience (hotel lobby, cafe, courtroom murmur) - vintage, contain indistinct speech; no clean wordless murmur.
+- Five planned IA files returned persistent HTTP 500 on every format and were not obtained (SSE Weapons: arrows fly & hit, five arrows whoosh, crossbow load/shot; Red Footsteps 1: hard tile floor; Red Guns Machine: machine gun with reverb).
+
+音樂仍然薄弱的用途：
+- Victory / chapter-clear stings: only ~10 new, almost all very short (2-17 s) bright or RPG-flavoured fanfares (church-organ fanfare, cynic fanfare, SterlingRay finish-line piano stinger are the most restrained). CC0 on OGA has essentially no dark cyberpunk victory sting; a custom one is still the realistic route.
+- Defeat / game-over: 8 new (all short; several are chiptune-tinged or piano/horror stings: NBJD game-over is distorted chiptune). Together with the 16 from round 1 this is adequate.
+- Industrial / factory / machine rhythm: no dedicated new CC0 industrial-rhythm tracks beyond Abandoned Steel Mill (Spring Spring), section31 Tunnel Drilling/Going Deep and the cinameng dub-techno loops; still thin. Ruskerdax 'Scaling Up' (factory, 24 MB flac) was skipped for size.
+- Hunter-flavoured boss: new boss pool is mostly sci-fi electronic / metal / MintoDog trance; nothing organic-predator specific besides vitalezzz Hunter-class Lifeform (horror action) and Umplix Hunted by the Evil (26 s).
+- Rooftop wind and rain: only ~6 tracks contain actual rain/wind/thunder texture (kindland rain-and-thunders, Tsorthan dirty_rain_loop, Rizy sleep music, A_Thor Mysterious Winds, wipics Winter Wind, iamoneabe Thunderous Fall, Birds-and-Wind, west-winds storm version); the rest are cold/stormy-mood ambient. Layering a synthesized wind/rain SFX bed is still advisable.
+- Sci-fi lab / sterile white tower: new picks are space/ambient and cinameng soundscapes; no truly clean 'sterile lab' piece found, mood is approximated.
+- Menu: 18 new candidates but few are both slow AND dark AND long; best fits: Tsorthan dirty_rain/The World Fell Silent pack, Stumpystrust Longing for a Lost Feeling, GboxMikeFozzy Title Screen Loop, EmoPreben Horror, vitalezzz Celestial Harmony. Many cinameng items are 8-60 s loop fragments.
+- Quality caveat: moods and uses were judged from page tags/descriptions plus signal stats (LUFS, spectral centroid, onset rate, tail level); nothing was auditioned by ear, so shortlist before wiring in.
+- Loudness varies from -7 to -48 LUFS (cinameng Rakish -48, Tozan garden tunes -30..-37); normalise on import.
+- Rejected by the hard CC0 rule: ~140 OGA pages carrying CC0 together with CC-BY / OGA-BY / GPL / CC-BY-SA (dual-licensed, treated as ambiguous) were skipped. Chiptune/8-bit/midi/cartoon/fantasy-orchestral/cheerful pages were filtered by tags; very large WAV/FLAC (>9 MB, e.g. Umplix wavs, The Oracle metal albums, Holizna collections, Yoiyami) skipped for the download budget but remain CC0 and re-downloadable.
+- archive.org and kenney.nl were not re-searched this round (round 1 found nothing usable there).

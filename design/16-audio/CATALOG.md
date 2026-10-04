@@ -4,7 +4,7 @@
 
 欄位：編號｜時長（秒）｜素材包／檔案｜說明｜目前用在哪些位置
 
-## AMB 環境循環（133）
+## AMB 環境循環（278）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -141,8 +141,153 @@
 | AMB-0131 | 60.0 | oga_wind1／wind3.wav | 60s wind loops |  |
 | AMB-0132 | 60.0 | oga_wind1／wind4.wav | 60s wind loops |  |
 | AMB-0133 | 60.0 | oga_wind1／wind5.wav | 60s wind loops |  |
+| AMB-0134 | 30.3 | ia_red-library-ambience-1／R05-23-Nearly Empty Station.mp3 |  |  |
+| AMB-0135 | 22.7 | ia_red-library-ambience-1／R05-27-Highway Sounds.mp3 |  |  |
+| AMB-0136 | 8.8 | ia_red-library-ambience-1／R05-40-Constant Outdoor Traffic.mp3 |  |  |
+| AMB-0137 | 32.5 | ia_red-library-ambience-1／R10-01-Suburban Ambience-Noise.mp3 |  |  |
+| AMB-0138 | 16.3 | ia_red-library-ambience-2／R10-03-Noisy Room Tone.mp3 |  |  |
+| AMB-0139 | 20.0 | ia_red-library-ambience-2／R19-52-Distant Urban Traffic.mp3 |  |  |
+| AMB-0140 | 29.5 | ia_red-library-ambience-2／R20-08-City Traffic Near and Far.mp3 |  |  |
+| AMB-0141 | 16.6 | ia_red-library-ambience-2／R21-47-Noisy Room Tone.mp3 |  |  |
+| AMB-0142 | 7.2 | ia_red-library-ambience-2／R21-53-Very Noisy Room Tone.mp3 |  |  |
+| AMB-0143 | 23.5 | ia_red-library-ambience-3／R22-40-Factory Ambience - Large Furnace.mp3 |  |  |
+| AMB-0144 | 9.0 | ia_red-library-fights／R15-02-Fight Loop.mp3 |  |  |
+| AMB-0145 | 9.9 | ia_red-library-machines-1／R03-49-Constant Gas Engine Noise.mp3 |  |  |
+| AMB-0146 | 27.7 | ia_red-library-nature-rain／R22-13-Classic Thunder Strike.mp3 |  |  |
+| AMB-0147 | 28.8 | ia_red-library-nature-rain／R22-16-Rain on Hard Surface.mp3 |  |  |
+| AMB-0148 | 10.0 | ia_red-library-nature-rain／R22-17-Smooth Rain on Roof.mp3 |  |  |
+| AMB-0149 | 8.3 | ia_red-library-nature-rain／R22-18-Hard Driving Rain on Pavement.mp3 |  |  |
+| AMB-0150 | 26.2 | ia_red-library-nature-rain／R22-21-Rain on Hard Surface.mp3 |  |  |
+| AMB-0151 | 10.5 | ia_red-library-nature-rain／R22-26-Interior with Rain on Roof.mp3 |  |  |
+| AMB-0152 | 10.6 | ia_sse-library-air／AIRBrst_Carbon dioxide fire extinguisher_CS_USC.mp3 |  |  |
+| AMB-0153 | 7.0 | ia_sse-library-air／AIRBrst_Wacky comedy bit; steam spraying out of ears_CS_USC.mp3 |  |  |
+| AMB-0154 | 47.3 | ia_sse-library-air／AIRHiss_Acetylene torch; light; then steady hiss_CS_USC.mp3 |  |  |
+| AMB-0155 | 42.9 | ia_sse-library-air／AIRHiss_Air nozzle spraying this way and that_CS_USC.mp3 |  |  |
+| AMB-0156 | 68.9 | ia_sse-library-ambience／AMBHome_Busy vintage traffic through city window_CS_USC.mp3 |  |  |
+| AMB-0157 | 20.1 | ia_sse-library-ambience／AMBInd_Factory interior with large exhaust fan;_CS_USC.mp3 |  |  |
+| AMB-0158 | 10.5 | ia_sse-library-ambience／AMBInd_General movement on factory or garage floor;_CS_USC.mp3 |  |  |
+| AMB-0159 | 41.2 | ia_sse-library-ambience／AMBInd_General movement on factory or repair shop_CS_USC.mp3 |  |  |
+| AMB-0160 | 55.6 | ia_sse-library-ambience／AMBInd_General movement on factory with metal hits_CS_USC.mp3 |  |  |
+| AMB-0161 | 4.9 | ia_sse-library-ambience／AMBInd_Industrial interior; short; but can be looped_CS_USC.flac |  |  |
+| AMB-0162 | 37.9 | ia_sse-library-ambience／AMBPubl_Courtroom murmur and mild surprise; multiple_CS_USC.mp3 |  |  |
+| AMB-0163 | 53.5 | ia_sse-library-ambience／AMBPubl_Hotel lobby; bg walla_CS_USC.mp3 |  |  |
+| AMB-0164 | 34.4 | ia_sse-library-ambience／AMBPubl_Police squad room murmur; big rude laugh_CS_USC.mp3 |  |  |
+| AMB-0165 | 71.7 | ia_sse-library-ambience／AMBRest_Cafe ambience; good walla_CS_USC.mp3 |  |  |
+| AMB-0166 | 15.8 | ia_sse-library-ambience／AMBTraf_Distant BG city traffic_CS_USC.mp3 |  |  |
+| AMB-0167 | 67.2 | ia_sse-library-ambience／AMBTraf_Distant traffic rumble_CS_USC.mp3 |  |  |
+| AMB-0168 | 81.9 | ia_sse-library-ambience／AMBTraf_Light traffic on Sunset Blvd_CS_USC.mp3 |  |  |
+| AMB-0169 | 35.1 | ia_sse-library-communications／COMRadio_Weird electronic wind or radio interference_CS_USC.mp3 |  |  |
+| AMB-0170 | 11.9 | ia_sse-library-communications／COMStatic_Shortwave radio with electrical noises &_CS_USC.mp3 |  |  |
+| AMB-0171 | 7.0 | ia_sse-library-designed／DSGNRmbl_Background ominous rumble; loopable_CS_USC.mp3 |  |  |
+| AMB-0172 | 16.9 | ia_sse-library-destruction／DESTRClpse_Wall falls down from fire damage_CS_USC.mp3 |  |  |
+| AMB-0173 | 10.7 | ia_sse-library-electricity／ELECBuzz_Electronic noise modulation; space gun sweetener_CS_USC.mp3 |  |  |
+| AMB-0174 | 7.8 | ia_sse-library-electricity／ELECSprk_Huge hissing electric sparks nearby_CS_USC.mp3 |  |  |
+| AMB-0175 | 84.0 | ia_sse-library-fire／FIREBrst_Flame thrower_CS_USC.mp3 |  |  |
+| AMB-0176 | 35.0 | ia_sse-library-fire／FIREBurn_Fire burning in cornfield_CS_USC.mp3 |  |  |
+| AMB-0177 | 43.3 | ia_sse-library-fire／FIREBurn_Fire burning with rumble; without crackle_CS_USC.mp3 |  |  |
+| AMB-0178 | 11.4 | ia_sse-library-fire／FIREBurn_Heavy fire crackle_CS_USC.mp3 |  |  |
+| AMB-0179 | 24.5 | ia_sse-library-fire／FIREGas_Igniting gas jets; trike and gas flame_CS_USC.mp3 |  |  |
+| AMB-0180 | 11.2 | ia_sse-library-fire／FIRESizz-FUSE_Fuse burning_CS_USC.mp3 |  |  |
+| AMB-0181 | 28.0 | ia_sse-library-fire／FIRESizz_Dynamic fuse burning_CS_USC.mp3 |  |  |
+| AMB-0182 | 9.0 | ia_sse-library-fire／FIRESizz_Fire bomb; lights and hisses; fuse_CS_USC.mp3 |  |  |
+| AMB-0183 | 8.0 | ia_sse-library-fire／FIRESizz_Fuse burning_CS_USC.mp3 |  |  |
+| AMB-0184 | 15.3 | ia_sse-library-fire／FIRETrch_Acetylene torch; multiple pops_CS_USC.mp3 |  |  |
+| AMB-0185 | 21.9 | ia_sse-library-machines／MACHInd_Generator building_CS_USC.mp3 |  |  |
+| AMB-0186 | 46.4 | ia_sse-library-machines／MACHInd_Old printing press; no motor noise_CS_USC.mp3 |  |  |
+| AMB-0187 | 61.5 | ia_sse-library-machines／MACHMech_Steam valves hissing in a broken calliope;_CS_USC.mp3 |  |  |
+| AMB-0188 | 9.9 | ia_sse-library-machines／MACHMed_Respirator; loopable_CS_USC.mp3 |  |  |
+| AMB-0189 | 25.0 | ia_sse-library-rain／RAINInt_Rain on a flat roof_CS_USC.mp3 |  |  |
+| AMB-0190 | 12.8 | ia_sse-library-rain／RAINWood_Rain on kitchen roof_CS_USC.mp3 |  |  |
+| AMB-0191 | 14.5 | ia_sse-library-scifi／SCIEnrg_Spacey musical background with metal taps_CS_USC.mp3 |  |  |
+| AMB-0192 | 35.3 | ia_sse-library-scifi／SCIShip_Space ship with beeps; loopable_CS_USC.mp3 |  |  |
+| AMB-0193 | 26.1 | ia_sse-library-weather／THUN_Thunder claps with long ring out; variation_CS_USC.mp3 |  |  |
+| AMB-0194 | 17.1 | ia_sse-library-weather／THUN_Thunder claps; Universal?s ?Castle Thunder?_CS_USC.mp3 |  |  |
+| AMB-0195 | 21.8 | ia_sse-library-weather／THUN_Thunder claps; variation edit of Universal?s_CS_USC.mp3 |  |  |
+| AMB-0196 | 15.8 | ia_sse-library-weather／THUN_Thunder; long distant rolling sound_CS_USC.mp3 |  |  |
+| AMB-0197 | 45.3 | ia_sse-library-wind／WINDDsgn_Blizzard wind cold; canvas wind machine_CS_USC.mp3 |  |  |
+| AMB-0198 | 21.1 | ia_sse-library-wind／WINDDsgn_Eerie wind with mysterious machine_CS_USC.mp3 |  |  |
+| AMB-0199 | 10.8 | ia_sse-library-wind／WINDDsgn_Ghost town wind; hinges squeak_CS_USC.mp3 |  |  |
+| AMB-0200 | 8.2 | ia_sse-library-wind／WINDDsgn_Stormy wind made from overlapping sped up_CS_USC.mp3 |  |  |
+| AMB-0201 | 22.3 | ia_sse-library-wind／WINDTonl_Eerie wind; strong whistling; very tonal_CS_USC.mp3 |  |  |
+| AMB-0202 | 81.5 | ia_sse-library-wind／WIND_Cold Arctic wind_CS_USC.mp3 |  |  |
+| AMB-0203 | 13.4 | ia_sse-library-wind／WIND_Phoenix wind_CS_USC.mp3 |  |  |
+| AMB-0204 | 57.0 | ia_sse-library-wind／WIND_Whistling wind; good rumble_CS_USC.mp3 |  |  |
+| AMB-0205 | 1.6 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_background_water_pipes_01.wav |  |  |
+| AMB-0206 | 1.3 | oga_7-ghast-sounds／ghast - StarNinjas/ghast_fireball.1.ogg |  |  |
+| AMB-0207 | 1.4 | oga_air-woosh-move／air_move.wav |  |  |
+| AMB-0208 | 7.5 | oga_airvent-loop／airvent-large-loop.wav |  |  |
+| AMB-0209 | 29.9 | oga_amb-outside-1／amb_outdoor1_loop.wav |  |  |
+| AMB-0210 | 733.0 | oga_amb-rain-loop-2／amb_rain2.ogg |  |  |
+| AMB-0211 | 22.2 | oga_ambient-horror／ambient_horror.wav |  |  |
+| AMB-0212 | 25.7 | oga_big-scary-troll-sounds／troll-idle-noises_0.ogg |  |  |
+| AMB-0213 | 1.0 | oga_clock-wind-sounds／multiwind1.wav |  |  |
+| AMB-0214 | 0.9 | oga_clock-wind-sounds／multiwind2.wav |  |  |
+| AMB-0215 | 0.2 | oga_clock-wind-sounds／singlewind1.wav |  |  |
+| AMB-0216 | 0.2 | oga_clock-wind-sounds／singlewind2.wav |  |  |
+| AMB-0217 | 0.1 | oga_clock-wind-sounds／singlewind3.wav |  |  |
+| AMB-0218 | 1.2 | oga_clock-wind-sounds／tickloop-amp.wav |  |  |
+| AMB-0219 | 11.5 | oga_crickets-ambient-noise-loopable／crickets_1.mp3 |  |  |
+| AMB-0220 | 3.0 | oga_energy-drain／qubodup-PowerDrain/flac/qubodup-PowerDrain.flac |  |  |
+| AMB-0221 | 3.0 | oga_energy-drain／qubodup-PowerDrain/ogg/qubodup-PowerDrain.ogg |  |  |
+| AMB-0222 | 3.1 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-grain-01.wav |  |  |
+| AMB-0223 | 1.6 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-grain-02.wav |  |  |
+| AMB-0224 | 2.2 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-grain-03.wav |  |  |
+| AMB-0225 | 1.7 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-grain-04.wav |  |  |
+| AMB-0226 | 0.6 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/compressed-air-spray-01.wav |  |  |
+| AMB-0227 | 2.0 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/compressed-air-spray-02.wav |  |  |
+| AMB-0228 | 2.0 | oga_fireball-1／105016__julien-matthey__jm-fx-fireball-01.wav |  |  |
+| AMB-0229 | 9.2 | oga_fridge-loop-1／amb_fridge_loop_1.wav |  |  |
+| AMB-0230 | 9.3 | oga_fridge-loop-1／amb_fridge_loop_1_0.mp3 |  |  |
+| AMB-0231 | 0.5 | oga_laser-fire-0／tir.mp3 |  |  |
+| AMB-0232 | 0.7 | oga_laser-weapon-burst-fire／burst fire_1.mp3 |  |  |
+| AMB-0233 | 94.3 | oga_loopable-dungeon-ambience／dungeon_ambient_1_0.ogg |  |  |
+| AMB-0234 | 1.0 | oga_motor-sound-effect／motor_looping_0.mp3 |  |  |
+| AMB-0235 | 0.5 | oga_pew-laser-fire-sound／laserpew_0.ogg |  |  |
+| AMB-0236 | 55.2 | oga_radio-noise-1／radio_noise_loop.wav |  |  |
+| AMB-0237 | 270.7 | oga_rain-ambient-not-loopable-2-versions-available／Ove Melaa - Rainy (NOT loopable) Long Version.ogg |  |  |
+| AMB-0238 | 80.7 | oga_rain-ambient-not-loopable-2-versions-available／Ove Melaa - Rainy (NOT loopable).ogg |  |  |
+| AMB-0239 | 6.7 | oga_random-sfx／SFX/Background/Crystal Falls.wav |  |  |
+| AMB-0240 | 9.5 | oga_random-sfx／SFX/Background/Falls.wav |  |  |
+| AMB-0241 | 10.1 | oga_random-sfx／SFX/Background/Hollow Wind.wav |  |  |
+| AMB-0242 | 3.8 | oga_random-sfx／SFX/Background/Metal Bubbles.wav |  |  |
+| AMB-0243 | 4.3 | oga_random-sfx／SFX/Background/Muck Bubbles.wav |  |  |
+| AMB-0244 | 7.0 | oga_random-sfx／SFX/Background/Shallow Bubbles.wav |  |  |
+| AMB-0245 | 0.2 | oga_random-sfx／SFX/Misc/1/1/loop.wav |  |  |
+| AMB-0246 | 0.2 | oga_random-sfx／SFX/Misc/1/2/loop.wav |  |  |
+| AMB-0247 | 79.9 | oga_retro-computer-noise／computer-noise_0.mp3 |  |  |
+| AMB-0248 | 19.1 | oga_rumble-fx／rumble.wav |  |  |
+| AMB-0249 | 5.0 | oga_sci-fi-sounds／Audio/computerNoise_000.ogg |  |  |
+| AMB-0250 | 5.0 | oga_sci-fi-sounds／Audio/computerNoise_001.ogg |  |  |
+| AMB-0251 | 5.0 | oga_sci-fi-sounds／Audio/computerNoise_002.ogg |  |  |
+| AMB-0252 | 5.0 | oga_sci-fi-sounds／Audio/computerNoise_003.ogg |  |  |
+| AMB-0253 | 5.0 | oga_sci-fi-sounds／Audio/thrusterFire_000.ogg |  |  |
+| AMB-0254 | 5.0 | oga_sci-fi-sounds／Audio/thrusterFire_001.ogg |  |  |
+| AMB-0255 | 5.0 | oga_sci-fi-sounds／Audio/thrusterFire_002.ogg |  |  |
+| AMB-0256 | 5.0 | oga_sci-fi-sounds／Audio/thrusterFire_003.ogg |  |  |
+| AMB-0257 | 5.0 | oga_sci-fi-sounds／Audio/thrusterFire_004.ogg |  |  |
+| AMB-0258 | 5.2 | oga_seamless-energy-emission-loop／movingshield_sound.ogg |  |  |
+| AMB-0259 | 4.2 | oga_short-wind-sound／short wind sound.wav |  |  |
+| AMB-0260 | 71.0 | oga_sound-effects-pack／Ambience/earthquake.wav |  |  |
+| AMB-0261 | 4.0 | oga_sound-effects-pack／Ambience/loopable-ticking-clock.wav |  |  |
+| AMB-0262 | 82.5 | oga_sound-effects-pack／Ambience/night-crickets-ambience-on-rural-property.wav |  |  |
+| AMB-0263 | 5.1 | oga_sound-effects-pack／Technology/record_player_loop.wav |  |  |
+| AMB-0264 | 48.6 | oga_space-winds／space-wind_0.mp3 |  |  |
+| AMB-0265 | 2.3 | oga_steam-whistle／steam_whistle.wav |  |  |
+| AMB-0266 | 2.1 | oga_steam-whistle／steamwhistle_0.wav |  |  |
+| AMB-0267 | 7.1 | oga_steamboat-engine-sound／steamboat_engine.wav |  |  |
+| AMB-0268 | 10.0 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/BattleShipMovementAmbient.wav |  |  |
+| AMB-0269 | 10.0 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/ogg/BattleShipMovementAmbient.ogg |  |  |
+| AMB-0270 | 84.6 | oga_underwater-or-space-engine-rumble／deep_rumble.ogg |  |  |
+| AMB-0271 | 84.6 | oga_underwater-or-space-engine-rumble／underwater_engine.mp3 |  |  |
+| AMB-0272 | 84.6 | oga_underwater-or-space-engine-rumble／underwater_or_space_engine_0.ogg |  |  |
+| AMB-0273 | 22.8 | oga_unleeched-sound-effects-pack／lab-ambience.wav |  |  |
+| AMB-0274 | 2.5 | oga_war-on-water-sndfx／Airplanes/helicopter.ogg |  |  |
+| AMB-0275 | 6.6 | oga_wind／wind/Wind.ogg |  |  |
+| AMB-0276 | 6.7 | oga_wind／wind/Wind2.ogg |  |  |
+| AMB-0277 | 1.7 | oga_wind／wind/Wind3.ogg |  |  |
+| AMB-0278 | 1.0 | oga_wind-hit-time-morph／qubodup-slomo1.wav |  |  |
 
-## ELC 電子與能量（299）
+## ELC 電子與能量（641）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -445,8 +590,350 @@
 | ELC-0297 | 85.7 | oga_storm-siren／storm_3_siren.ogg | long 85s siren (storm siren) |  |
 | ELC-0298 | 85.7 | oga_storm-siren／storm_3_siren_1.mp3 |  |  |
 | ELC-0299 | 5.9 | oga_thruster／space_ship_0.ogg |  |  |
+| ELC-0300 | 20.4 | ia_red-library-sci-fi／R04-52-Sci-Fi Oscillation.mp3 |  |  |
+| ELC-0301 | 41.9 | ia_red-library-sci-fi／R04-56-Synthesized Wave.mp3 |  |  |
+| ELC-0302 | 9.4 | ia_red-library-sci-fi／R17-04-Delayed Feedback.mp3 |  |  |
+| ELC-0303 | 13.3 | ia_red-library-sci-fi／R19-15-Fantasy Tones with Reverb.mp3 |  |  |
+| ELC-0304 | 10.1 | ia_sse-library-alarms／ALRMClok_Electric buzzer alarm clock_CS_USC.mp3 |  |  |
+| ELC-0305 | 28.5 | ia_sse-library-alarms／ALRMClok_Mechanical alarm clock ringing; two different_CS_USC.mp3 |  |  |
+| ELC-0306 | 19.4 | ia_sse-library-beeps／BEEPMed_Cardiac arrest alarm (1 kHz square wave)_CS_USC.flac |  |  |
+| ELC-0307 | 31.5 | ia_sse-library-doors／DOORElec_Electric garage door motor open & close_CHS_USC.mp3 |  |  |
+| ELC-0308 | 31.7 | ia_sse-library-electricity／ELECArc_Electrical arcing and sparking_CS_USC.mp3 |  |  |
+| ELC-0309 | 60.3 | ia_sse-library-electricity／ELECArc_Electrical arcs; arcing metal vibration squeals_CS_USC.mp3 |  |  |
+| ELC-0310 | 96.9 | ia_sse-library-electricity／ELECArc_Electrical arcs; arcing; metallic squeals_CS_USC.mp3 |  |  |
+| ELC-0311 | 50.5 | ia_sse-library-electricity／ELECBuzz_Tesla coil hum_CHS_USC.mp3 |  |  |
+| ELC-0312 | 36.0 | ia_sse-library-electricity／ELECSprk_Loud electrical effect; sparks and hum_CS_USC.mp3 |  |  |
+| ELC-0313 | 18.7 | ia_sse-library-electricity／ELECSprk_Tesla coil sparking and humming_CHS_USC.mp3 |  |  |
+| ELC-0314 | 29.9 | ia_sse-library-fight／FGHTBf_Fight and body falls on stone_CS_USC.mp3 |  |  |
+| ELC-0315 | 10.8 | ia_sse-library-machines／MACHAmus_Electric pinball robot reaction; comic_CS_USC.mp3 |  |  |
+| ELC-0316 | 37.7 | ia_sse-library-machines／MACHCnst_Power riveting on steel building_CS_USC.mp3 |  |  |
+| ELC-0317 | 23.9 | ia_sse-library-machines／MACHHvac_Loud exhaust fan in large interior space_CS_USC.mp3 |  |  |
+| ELC-0318 | 5.5 | ia_sse-library-metal／METLCrsh_Heavy metal objets crashing on stone floor;_CS_USC.mp3 |  |  |
+| ELC-0319 | 36.5 | ia_sse-library-metal／METLImpt_Misc metal hitting metal; good tone; bad_CS_USC.mp3 |  |  |
+| ELC-0320 | 29.3 | ia_sse-library-motors／MOTRSrvo_Spaceship servo motors from 2010_CS_USC.mp3 |  |  |
+| ELC-0321 | 14.9 | ia_sse-library-scifi／SCIAlrm_Crazy scifi alarm_CS_USC.mp3 |  |  |
+| ELC-0322 | 7.9 | ia_sse-library-scifi／SCIAlrm_Original Star Trek Enterprise alarm horn_CS_USC.mp3 |  |  |
+| ELC-0323 | 21.6 | ia_sse-library-scifi／SCIEnrg_Magical force field_CS_USC.mp3 |  |  |
+| ELC-0324 | 4.2 | ia_sse-library-scifi／SCIEnrg_Magneto with speed manipulations_CS_USC.flac |  |  |
+| ELC-0325 | 30.0 | ia_sse-library-scifi／SCIMach_Sci Fi materializer; Star Trek transporter_CS_USC.mp3 |  |  |
+| ELC-0326 | 31.3 | ia_sse-library-scifi／SCIMech_Original Star Trek Enterprise Tricorder_CS_USC.mp3 |  |  |
+| ELC-0327 | 7.8 | ia_sse-library-scifi／SCIRetro_Classic ethereal spaceship lands_CS_USC.mp3 |  |  |
+| ELC-0328 | 27.9 | ia_sse-library-scifi／SCIRetro_Classic sci fi time machine; oscillator_CS_USC.mp3 |  |  |
+| ELC-0329 | 8.6 | ia_sse-library-scifi／SCIRetro_Classic spaceship time machine in_CS_USC.mp3 |  |  |
+| ELC-0330 | 30.1 | ia_sse-library-scifi／SCIRetro_Electronic music scifi computer of the_CS_USC.mp3 |  |  |
+| ELC-0331 | 10.3 | ia_sse-library-scifi／SCIRetro_Laser zaps from War of the Worlds_CS_USC.mp3 |  |  |
+| ELC-0332 | 5.9 | ia_sse-library-scifi／SCIRetro_Old fashioned space rocket crashes with debris_CS_USC.mp3 |  |  |
+| ELC-0333 | 4.8 | ia_sse-library-scifi／SCIShip_Angry buzz or spaceship interior_CS_USC.flac |  |  |
+| ELC-0334 | 4.5 | ia_sse-library-scifi／SCIShip_Flying saucer flight tone; scifi machine;_CS_USC.flac |  |  |
+| ELC-0335 | 46.7 | ia_sse-library-scifi／SCIVeh_Futuristic electric pod being sent on factory_CS_USC.mp3 |  |  |
+| ELC-0336 | 2.0 | ia_sse-library-scifi／SCIWeap_1950s ray gun_CS_USC.flac |  |  |
+| ELC-0337 | 29.2 | ia_sse-library-scifi／SCIWeap_Laser zaps_CS_USC.mp3 |  |  |
+| ELC-0338 | 0.8 | oga_10-impactshield-blocks／impact.1.ogg |  |  |
+| ELC-0339 | 0.7 | oga_10-impactshield-blocks／impact.10.ogg |  |  |
+| ELC-0340 | 0.5 | oga_10-impactshield-blocks／impact.2.ogg |  |  |
+| ELC-0341 | 0.9 | oga_10-impactshield-blocks／impact.3.ogg |  |  |
+| ELC-0342 | 1.3 | oga_10-impactshield-blocks／impact.4.ogg |  |  |
+| ELC-0343 | 1.2 | oga_10-impactshield-blocks／impact.5.ogg |  |  |
+| ELC-0344 | 0.7 | oga_10-impactshield-blocks／impact.6.ogg |  |  |
+| ELC-0345 | 0.7 | oga_10-impactshield-blocks／impact.7.ogg |  |  |
+| ELC-0346 | 0.7 | oga_10-impactshield-blocks／impact.8.ogg |  |  |
+| ELC-0347 | 0.9 | oga_10-impactshield-blocks／impact.9.ogg |  |  |
+| ELC-0348 | 7.2 | oga_4-space-portal-sounds／1.mp3 |  |  |
+| ELC-0349 | 10.0 | oga_4-space-portal-sounds／2.mp3 |  |  |
+| ELC-0350 | 7.3 | oga_4-space-portal-sounds／3.mp3 |  |  |
+| ELC-0351 | 10.0 | oga_4-space-portal-sounds／4.mp3 |  |  |
+| ELC-0352 | 0.6 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_a_robo_01.wav |  |  |
+| ELC-0353 | 0.6 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_a_robo_02.wav |  |  |
+| ELC-0354 | 0.6 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_a_robo_03.wav |  |  |
+| ELC-0355 | 0.5 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_a_robo_04.wav |  |  |
+| ELC-0356 | 0.5 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_a_robo_05.wav |  |  |
+| ELC-0357 | 0.5 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_a_robo_06.wav |  |  |
+| ELC-0358 | 0.5 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_a_robo_07.wav |  |  |
+| ELC-0359 | 0.7 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_a_robo_08.wav |  |  |
+| ELC-0360 | 0.4 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_a_robo_09.wav |  |  |
+| ELC-0361 | 0.8 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_a_robo_10.wav |  |  |
+| ELC-0362 | 0.9 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_beam_01.wav |  |  |
+| ELC-0363 | 1.0 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_beam_02.wav |  |  |
+| ELC-0364 | 0.9 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_beam_03.wav |  |  |
+| ELC-0365 | 1.1 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_energy_field_01.wav |  |  |
+| ELC-0366 | 0.6 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_energy_field_02.wav |  |  |
+| ELC-0367 | 1.1 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_energy_field_03.wav |  |  |
+| ELC-0368 | 1.0 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_energy_field_04.wav |  |  |
+| ELC-0369 | 0.7 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_energy_field_05.wav |  |  |
+| ELC-0370 | 0.8 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_energy_field_06.wav |  |  |
+| ELC-0371 | 0.6 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_energy_field_07.wav |  |  |
+| ELC-0372 | 1.2 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_energy_field_08.wav |  |  |
+| ELC-0373 | 1.0 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_energy_field_09.wav |  |  |
+| ELC-0374 | 1.0 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_energy_field_10.wav |  |  |
+| ELC-0375 | 0.8 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_energy_field_11.wav |  |  |
+| ELC-0376 | 1.6 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_energy_field_12.wav |  |  |
+| ELC-0377 | 1.4 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_energy_field_13.wav |  |  |
+| ELC-0378 | 0.9 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_energy_field_14.wav |  |  |
+| ELC-0379 | 0.9 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_energy_field_15.wav |  |  |
+| ELC-0380 | 1.3 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_energy_field_16.wav |  |  |
+| ELC-0381 | 1.9 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_low_bass_wobble.wav |  |  |
+| ELC-0382 | 1.7 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_warning_alarm_01.wav |  |  |
+| ELC-0383 | 0.8 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_warning_alarm_02.wav |  |  |
+| ELC-0384 | 16.7 | oga_7-space-sounds／7 Space Sounds_1.mp3 |  |  |
+| ELC-0385 | 1.8 | oga_alertmenu-effect／alert-beep_0.mp3 |  |  |
+| ELC-0386 | 2.4 | oga_atmospheric-interaction-sound-pack／krank_sounds/space/anchor_action.wav |  |  |
+| ELC-0387 | 2.8 | oga_atmospheric-interaction-sound-pack／krank_sounds/space/exit.wav |  |  |
+| ELC-0388 | 1.8 | oga_atmospheric-interaction-sound-pack／krank_sounds/space/link.wav |  |  |
+| ELC-0389 | 1.9 | oga_atmospheric-interaction-sound-pack／krank_sounds/space/magnet_action.wav |  |  |
+| ELC-0390 | 1.1 | oga_atmospheric-interaction-sound-pack／krank_sounds/space/magnet_off.wav |  |  |
+| ELC-0391 | 0.7 | oga_atmospheric-interaction-sound-pack／krank_sounds/space/magnet_on.wav |  |  |
+| ELC-0392 | 1.0 | oga_atmospheric-interaction-sound-pack／krank_sounds/space/magnet_start.wav |  |  |
+| ELC-0393 | 1.1 | oga_atmospheric-interaction-sound-pack／krank_sounds/space/part.wav |  |  |
+| ELC-0394 | 1.0 | oga_atmospheric-interaction-sound-pack／krank_sounds/space/unlink.wav |  |  |
+| ELC-0395 | 0.9 | oga_atmospheric-interaction-sound-pack／krank_sounds/space/wall.wav |  |  |
+| ELC-0396 | 0.5 | oga_beep-sound／beep.ogg |  |  |
+| ELC-0397 | 0.1 | oga_beep-tone-sound-sfx／beep.wav |  |  |
+| ELC-0398 | 0.4 | oga_boost-or-launch-or-thruster-sound-effect／boost_0.mp3 |  |  |
+| ELC-0399 | 0.9 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/paralyzer-discharge-01.wav |  |  |
+| ELC-0400 | 1.3 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/paralyzer-discharge-02.wav |  |  |
+| ELC-0401 | 0.9 | oga_interface-beeps／Beeps/beep-00.wav |  |  |
+| ELC-0402 | 0.9 | oga_interface-beeps／Beeps/beep-01.wav |  |  |
+| ELC-0403 | 0.9 | oga_interface-beeps／Beeps/beep-02.wav |  |  |
+| ELC-0404 | 0.8 | oga_interface-beeps／Beeps/beep-03.wav |  |  |
+| ELC-0405 | 0.9 | oga_interface-beeps／Beeps/beep-04.wav |  |  |
+| ELC-0406 | 0.9 | oga_interface-beeps／Beeps/beep-05.wav |  |  |
+| ELC-0407 | 0.9 | oga_interface-beeps／Beeps/beep-06.wav |  |  |
+| ELC-0408 | 0.8 | oga_interface-beeps／Beeps/beep-07.wav |  |  |
+| ELC-0409 | 0.9 | oga_interface-beeps／Beeps/beep-08.wav |  |  |
+| ELC-0410 | 0.9 | oga_interface-beeps／Beeps/beep-09.wav |  |  |
+| ELC-0411 | 0.9 | oga_interface-beeps／Beeps/beep-10.wav |  |  |
+| ELC-0412 | 0.8 | oga_interface-beeps／Beeps/beep-11.wav |  |  |
+| ELC-0413 | 0.9 | oga_interface-beeps／Beeps/beep-12.wav |  |  |
+| ELC-0414 | 0.9 | oga_interface-beeps／Beeps/beep-13.wav |  |  |
+| ELC-0415 | 0.8 | oga_interface-beeps／Beeps/beep-14.wav |  |  |
+| ELC-0416 | 0.8 | oga_interface-beeps／Beeps/beep-15.wav |  |  |
+| ELC-0417 | 0.3 | oga_laser／laserthing.wav |  |  |
+| ELC-0418 | 0.3 | oga_laser／laserthing2.wav |  |  |
+| ELC-0419 | 0.1 | oga_lasershootingsx／laser_shooting_sfx.wav |  |  |
+| ELC-0420 | 12.0 | oga_long-sci-fi-sting／longscifisting_0.wav |  |  |
+| ELC-0421 | 0.2 | oga_menu-select／beep.mp3 |  |  |
+| ELC-0422 | 3.6 | oga_power-up-sound-effects／power_up_sound_v1_0.ogg |  |  |
+| ELC-0423 | 3.6 | oga_power-up-sound-effects／power_up_sound_v2_0.ogg |  |  |
+| ELC-0424 | 3.6 | oga_power-up-sound-effects／power_up_sound_v3_0.ogg |  |  |
+| ELC-0425 | 0.0 | oga_random-sfx／SFX/Beep/1/1.wav |  |  |
+| ELC-0426 | 0.0 | oga_random-sfx／SFX/Beep/1/2.wav |  |  |
+| ELC-0427 | 0.0 | oga_random-sfx／SFX/Beep/1/3.wav |  |  |
+| ELC-0428 | 0.0 | oga_random-sfx／SFX/Beep/1/4.wav |  |  |
+| ELC-0429 | 0.2 | oga_random-sfx／SFX/Beep/1.wav |  |  |
+| ELC-0430 | 0.3 | oga_random-sfx／SFX/Beep/10.wav |  |  |
+| ELC-0431 | 0.7 | oga_random-sfx／SFX/Beep/11.wav |  |  |
+| ELC-0432 | 2.8 | oga_random-sfx／SFX/Beep/12.wav |  |  |
+| ELC-0433 | 2.0 | oga_random-sfx／SFX/Beep/13.wav |  |  |
+| ELC-0434 | 0.0 | oga_random-sfx／SFX/Beep/2/1.wav |  |  |
+| ELC-0435 | 0.1 | oga_random-sfx／SFX/Beep/2/2.wav |  |  |
+| ELC-0436 | 0.0 | oga_random-sfx／SFX/Beep/2/3.wav |  |  |
+| ELC-0437 | 0.0 | oga_random-sfx／SFX/Beep/2/4.wav |  |  |
+| ELC-0438 | 0.0 | oga_random-sfx／SFX/Beep/2/5.wav |  |  |
+| ELC-0439 | 1.7 | oga_random-sfx／SFX/Beep/2.wav |  |  |
+| ELC-0440 | 1.5 | oga_random-sfx／SFX/Beep/3.wav |  |  |
+| ELC-0441 | 0.2 | oga_random-sfx／SFX/Beep/4.wav |  |  |
+| ELC-0442 | 2.6 | oga_random-sfx／SFX/Beep/5.wav |  |  |
+| ELC-0443 | 0.3 | oga_random-sfx／SFX/Beep/6.wav |  |  |
+| ELC-0444 | 2.8 | oga_random-sfx／SFX/Beep/7.wav |  |  |
+| ELC-0445 | 0.7 | oga_random-sfx／SFX/Beep/8.wav |  |  |
+| ELC-0446 | 2.0 | oga_random-sfx／SFX/Beep/Engine.wav |  |  |
+| ELC-0447 | 0.1 | oga_random-sfx／SFX/Beep/Other/1.wav |  |  |
+| ELC-0448 | 0.1 | oga_random-sfx／SFX/Beep/Other/2.wav |  |  |
+| ELC-0449 | 1.5 | oga_sci-fi-rts-war-unit-sounds／qubodup-rts_warsounds_v2/artil/artil.action.wav |  |  |
+| ELC-0450 | 1.5 | oga_sci-fi-rts-war-unit-sounds／qubodup-rts_warsounds_v2/artil/artil.ready.wav |  |  |
+| ELC-0451 | 1.5 | oga_sci-fi-rts-war-unit-sounds／qubodup-rts_warsounds_v2/artil/artil.select.wav |  |  |
+| ELC-0452 | 1.5 | oga_sci-fi-rts-war-unit-sounds／qubodup-rts_warsounds_v2/destroyer/destroyer.action.wav |  |  |
+| ELC-0453 | 1.8 | oga_sci-fi-rts-war-unit-sounds／qubodup-rts_warsounds_v2/destroyer/destroyer.ready.wav |  |  |
+| ELC-0454 | 1.1 | oga_sci-fi-rts-war-unit-sounds／qubodup-rts_warsounds_v2/destroyer/destroyer.select.wav |  |  |
+| ELC-0455 | 7.2 | oga_sci-fi-rts-war-unit-sounds／qubodup-rts_warsounds_v2/destroyer/destroyer.template.wav |  |  |
+| ELC-0456 | 2.1 | oga_sci-fi-rts-war-unit-sounds／qubodup-rts_warsounds_v2/heli/heli.template.wav |  |  |
+| ELC-0457 | 2.2 | oga_sci-fi-rts-war-unit-sounds／qubodup-rts_warsounds_v2/shipyard/shipyard.select.wav |  |  |
+| ELC-0458 | 3.5 | oga_sci-fi-sfx／sci-fi_sfx_0.wav |  |  |
+| ELC-0459 | 0.5 | oga_sci-fi-sounds／Audio/doorClose_000.ogg |  |  |
+| ELC-0460 | 0.5 | oga_sci-fi-sounds／Audio/doorClose_001.ogg |  |  |
+| ELC-0461 | 0.5 | oga_sci-fi-sounds／Audio/doorClose_002.ogg |  |  |
+| ELC-0462 | 0.5 | oga_sci-fi-sounds／Audio/doorOpen_000.ogg |  |  |
+| ELC-0463 | 0.5 | oga_sci-fi-sounds／Audio/doorOpen_001.ogg |  |  |
+| ELC-0464 | 0.5 | oga_sci-fi-sounds／Audio/doorOpen_002.ogg |  |  |
+| ELC-0465 | 5.0 | oga_sci-fi-sounds／Audio/engineCircular_000.ogg |  |  |
+| ELC-0466 | 5.0 | oga_sci-fi-sounds／Audio/engineCircular_001.ogg |  |  |
+| ELC-0467 | 5.0 | oga_sci-fi-sounds／Audio/engineCircular_002.ogg |  |  |
+| ELC-0468 | 5.0 | oga_sci-fi-sounds／Audio/engineCircular_003.ogg |  |  |
+| ELC-0469 | 5.0 | oga_sci-fi-sounds／Audio/engineCircular_004.ogg |  |  |
+| ELC-0470 | 0.9 | oga_sci-fi-sounds／Audio/forceField_000.ogg |  |  |
+| ELC-0471 | 0.9 | oga_sci-fi-sounds／Audio/forceField_001.ogg |  |  |
+| ELC-0472 | 1.0 | oga_sci-fi-sounds／Audio/forceField_002.ogg |  |  |
+| ELC-0473 | 1.0 | oga_sci-fi-sounds／Audio/forceField_003.ogg |  |  |
+| ELC-0474 | 0.9 | oga_sci-fi-sounds／Audio/forceField_004.ogg |  |  |
+| ELC-0475 | 0.6 | oga_sci-fi-sounds／Audio/impactMetal_000.ogg |  |  |
+| ELC-0476 | 0.7 | oga_sci-fi-sounds／Audio/impactMetal_001.ogg |  |  |
+| ELC-0477 | 0.5 | oga_sci-fi-sounds／Audio/impactMetal_002.ogg |  |  |
+| ELC-0478 | 0.8 | oga_sci-fi-sounds／Audio/impactMetal_003.ogg |  |  |
+| ELC-0479 | 0.4 | oga_sci-fi-sounds／Audio/impactMetal_004.ogg |  |  |
+| ELC-0480 | 0.7 | oga_sci-fi-sounds／Audio/laserLarge_000.ogg |  |  |
+| ELC-0481 | 0.7 | oga_sci-fi-sounds／Audio/laserLarge_001.ogg |  |  |
+| ELC-0482 | 0.7 | oga_sci-fi-sounds／Audio/laserLarge_002.ogg |  |  |
+| ELC-0483 | 0.7 | oga_sci-fi-sounds／Audio/laserLarge_003.ogg |  |  |
+| ELC-0484 | 0.7 | oga_sci-fi-sounds／Audio/laserLarge_004.ogg |  |  |
+| ELC-0485 | 0.2 | oga_sci-fi-sounds／Audio/laserRetro_000.ogg |  |  |
+| ELC-0486 | 0.2 | oga_sci-fi-sounds／Audio/laserRetro_001.ogg |  |  |
+| ELC-0487 | 0.3 | oga_sci-fi-sounds／Audio/laserRetro_002.ogg |  |  |
+| ELC-0488 | 0.2 | oga_sci-fi-sounds／Audio/laserRetro_003.ogg |  |  |
+| ELC-0489 | 0.3 | oga_sci-fi-sounds／Audio/laserRetro_004.ogg |  |  |
+| ELC-0490 | 0.2 | oga_sci-fi-sounds／Audio/laserSmall_000.ogg |  |  |
+| ELC-0491 | 0.2 | oga_sci-fi-sounds／Audio/laserSmall_001.ogg |  |  |
+| ELC-0492 | 0.3 | oga_sci-fi-sounds／Audio/laserSmall_002.ogg |  |  |
+| ELC-0493 | 0.3 | oga_sci-fi-sounds／Audio/laserSmall_003.ogg |  |  |
+| ELC-0494 | 0.4 | oga_sci-fi-sounds／Audio/laserSmall_004.ogg |  |  |
+| ELC-0495 | 5.0 | oga_sci-fi-sounds／Audio/spaceEngineLarge_000.ogg |  |  |
+| ELC-0496 | 5.0 | oga_sci-fi-sounds／Audio/spaceEngineLarge_001.ogg |  |  |
+| ELC-0497 | 5.0 | oga_sci-fi-sounds／Audio/spaceEngineLarge_002.ogg |  |  |
+| ELC-0498 | 5.0 | oga_sci-fi-sounds／Audio/spaceEngineLarge_003.ogg |  |  |
+| ELC-0499 | 5.0 | oga_sci-fi-sounds／Audio/spaceEngineLarge_004.ogg |  |  |
+| ELC-0500 | 5.0 | oga_sci-fi-sounds／Audio/spaceEngineLow_000.ogg |  |  |
+| ELC-0501 | 5.0 | oga_sci-fi-sounds／Audio/spaceEngineLow_001.ogg |  |  |
+| ELC-0502 | 5.0 | oga_sci-fi-sounds／Audio/spaceEngineLow_002.ogg |  |  |
+| ELC-0503 | 5.0 | oga_sci-fi-sounds／Audio/spaceEngineLow_003.ogg |  |  |
+| ELC-0504 | 5.0 | oga_sci-fi-sounds／Audio/spaceEngineLow_004.ogg |  |  |
+| ELC-0505 | 5.0 | oga_sci-fi-sounds／Audio/spaceEngineSmall_000.ogg |  |  |
+| ELC-0506 | 5.0 | oga_sci-fi-sounds／Audio/spaceEngineSmall_001.ogg |  |  |
+| ELC-0507 | 5.0 | oga_sci-fi-sounds／Audio/spaceEngineSmall_002.ogg |  |  |
+| ELC-0508 | 5.0 | oga_sci-fi-sounds／Audio/spaceEngineSmall_003.ogg |  |  |
+| ELC-0509 | 5.0 | oga_sci-fi-sounds／Audio/spaceEngineSmall_004.ogg |  |  |
+| ELC-0510 | 5.0 | oga_sci-fi-sounds／Audio/spaceEngine_000.ogg |  |  |
+| ELC-0511 | 5.0 | oga_sci-fi-sounds／Audio/spaceEngine_001.ogg |  |  |
+| ELC-0512 | 5.0 | oga_sci-fi-sounds／Audio/spaceEngine_002.ogg |  |  |
+| ELC-0513 | 5.0 | oga_sci-fi-sounds／Audio/spaceEngine_003.ogg |  |  |
+| ELC-0514 | 0.2 | oga_selection-beep／hit_0.wav |  |  |
+| ELC-0515 | 10.6 | oga_sound-effects-pack／Misc Foley/computer-pack-away.wav |  |  |
+| ELC-0516 | 10.0 | oga_sound-effects-pack／Scifi/High pitched bleep.wav |  |  |
+| ELC-0517 | 25.3 | oga_sound-effects-pack／Scifi/blackhole.wav |  |  |
+| ELC-0518 | 20.5 | oga_sound-effects-pack／Scifi/blackhole1.wav |  |  |
+| ELC-0519 | 30.8 | oga_sound-effects-pack／Scifi/blackhole2.wav |  |  |
+| ELC-0520 | 0.8 | oga_sound-effects-pack／Scifi/robotics1.wav |  |  |
+| ELC-0521 | 0.8 | oga_sound-effects-pack／Scifi/robotics2.wav |  |  |
+| ELC-0522 | 14.9 | oga_sound-effects-pack／Scifi/roboticsmaster.wav |  |  |
+| ELC-0523 | 23.4 | oga_sound-effects-pack／Scifi/siren.wav |  |  |
+| ELC-0524 | 8.4 | oga_sound-effects-pack／Technology/BLEEPINGCOMPUTER2.wav |  |  |
+| ELC-0525 | 60.7 | oga_space-impending-danger-sfx／space1_0.mp3 |  |  |
+| ELC-0526 | 77.3 | oga_space-impending-danger-sfx／space2.mp3 |  |  |
+| ELC-0527 | 1.7 | oga_space-ship-shield-sounds／space shield sounds - 1.wav |  |  |
+| ELC-0528 | 1.7 | oga_space-ship-shield-sounds／space shield sounds - 2.wav |  |  |
+| ELC-0529 | 1.7 | oga_space-ship-shield-sounds／space shield sounds - 3.wav |  |  |
+| ELC-0530 | 1.7 | oga_space-ship-shield-sounds／space shield sounds - 4.wav |  |  |
+| ELC-0531 | 1.7 | oga_space-ship-shield-sounds／space shield sounds - 5.wav |  |  |
+| ELC-0532 | 1.7 | oga_space-ship-shield-sounds／space shield sounds - 6.wav |  |  |
+| ELC-0533 | 1.8 | oga_space-ship-shield-sounds／space shield sounds - 7.wav |  |  |
+| ELC-0534 | 1.7 | oga_space-ship-shield-sounds／space shield sounds - 8.wav |  |  |
+| ELC-0535 | 1.8 | oga_space-ship-shield-sounds／space shield sounds - 9.wav |  |  |
+| ELC-0536 | 0.4 | oga_space-sound-effects／SpaceSFX1/laser1.ogg |  |  |
+| ELC-0537 | 0.6 | oga_space-sound-effects／SpaceSFX1/laser2.ogg |  |  |
+| ELC-0538 | 0.4 | oga_space-sound-effects／SpaceSFX1/laser3.ogg |  |  |
+| ELC-0539 | 0.3 | oga_space-sound-effects／SpaceSFX1/laser4.ogg |  |  |
+| ELC-0540 | 0.3 | oga_space-sound-effects／SpaceSFX1/laser5.ogg |  |  |
+| ELC-0541 | 0.3 | oga_space-sound-effects／SpaceSFX1/laser6.ogg |  |  |
+| ELC-0542 | 0.8 | oga_space-sound-effects／SpaceSFX1/message1.ogg |  |  |
+| ELC-0543 | 4.1 | oga_space-sound-effects／SpaceSFX1/warpout.ogg |  |  |
+| ELC-0544 | 1.9 | oga_spaceship-shoting／SpaceShipShooting/Longshot.ogg |  |  |
+| ELC-0545 | 4.0 | oga_spaceship-shoting／SpaceShipShooting/Multishot+.ogg |  |  |
+| ELC-0546 | 2.9 | oga_spaceship-shoting／SpaceShipShooting/Multishot.ogg |  |  |
+| ELC-0547 | 1.9 | oga_spaceship-shoting／SpaceShipShooting/Normal shot.ogg |  |  |
+| ELC-0548 | 2.3 | oga_spaceship-shoting／SpaceShipShooting/NovaShot.ogg |  |  |
+| ELC-0549 | 1.9 | oga_spaceship-shoting／SpaceShipShooting/TripleShot.ogg |  |  |
+| ELC-0550 | 3.4 | oga_spaceshipsounds／SpaceShip1.mp3 |  |  |
+| ELC-0551 | 2.9 | oga_spaceshipsounds／SpaceShip2.mp3 |  |  |
+| ELC-0552 | 3.3 | oga_spaceshipsounds／SpaceShip3.mp3 |  |  |
+| ELC-0553 | 3.6 | oga_spaceshipsounds／SpaceShip4.mp3 |  |  |
+| ELC-0554 | 1.2 | oga_spaceshipsounds／SpaceShip5.mp3 |  |  |
+| ELC-0555 | 1.6 | oga_stone-door／stone_door.ogg |  |  |
+| ELC-0556 | 0.5 | oga_stone-rock-or-wood-moved-sound／stone_rock_or_wood_moved.mp3 |  |  |
+| ELC-0557 | 0.5 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Cream 1.wav |  |  |
+| ELC-0558 | 0.6 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Cream 2.wav |  |  |
+| ELC-0559 | 1.2 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Cream 3.wav |  |  |
+| ELC-0560 | 1.5 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Smooth 1.wav |  |  |
+| ELC-0561 | 0.5 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Smooth 10.wav |  |  |
+| ELC-0562 | 0.8 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Smooth 2.wav |  |  |
+| ELC-0563 | 0.6 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Smooth 3.wav |  |  |
+| ELC-0564 | 0.6 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Smooth 4.wav |  |  |
+| ELC-0565 | 0.6 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Smooth 5.wav |  |  |
+| ELC-0566 | 0.6 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Smooth 6.wav |  |  |
+| ELC-0567 | 0.7 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Smooth 7.wav |  |  |
+| ELC-0568 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Smooth 8.wav |  |  |
+| ELC-0569 | 0.5 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Smooth 9.wav |  |  |
+| ELC-0570 | 2.3 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Space 1.wav |  |  |
+| ELC-0571 | 1.9 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Space 2.wav |  |  |
+| ELC-0572 | 2.0 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Space 3.wav |  |  |
+| ELC-0573 | 1.8 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Space 4.wav |  |  |
+| ELC-0574 | 1.5 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Space 5.wav |  |  |
+| ELC-0575 | 2.0 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Spirit 1.wav |  |  |
+| ELC-0576 | 2.3 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Spirit 2.wav |  |  |
+| ELC-0577 | 1.8 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Spirit 3.wav |  |  |
+| ELC-0578 | 1.1 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Spirit 4.wav |  |  |
+| ELC-0579 | 1.0 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Spirit 5.wav |  |  |
+| ELC-0580 | 1.6 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Long/Spirit 6.wav |  |  |
+| ELC-0581 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Hyper 1.wav |  |  |
+| ELC-0582 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Hyper 2.wav |  |  |
+| ELC-0583 | 0.1 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Hyper 3.wav |  |  |
+| ELC-0584 | 0.1 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Hyper 4.wav |  |  |
+| ELC-0585 | 0.2 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Hyper 5.wav |  |  |
+| ELC-0586 | 0.2 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Hyper 6.wav |  |  |
+| ELC-0587 | 0.1 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Hyper 7.wav |  |  |
+| ELC-0588 | 0.5 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Sharp 1.wav |  |  |
+| ELC-0589 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Sharp 2.wav |  |  |
+| ELC-0590 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Smooth 1.wav |  |  |
+| ELC-0591 | 0.2 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Smooth 10.wav |  |  |
+| ELC-0592 | 0.3 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Smooth 11.wav |  |  |
+| ELC-0593 | 0.3 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Smooth 12.wav |  |  |
+| ELC-0594 | 0.3 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Smooth 13.wav |  |  |
+| ELC-0595 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Smooth 14.wav |  |  |
+| ELC-0596 | 0.3 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Smooth 15.wav |  |  |
+| ELC-0597 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Smooth 16.wav |  |  |
+| ELC-0598 | 0.3 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Smooth 17.wav |  |  |
+| ELC-0599 | 0.5 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Smooth 18.wav |  |  |
+| ELC-0600 | 0.5 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Smooth 2.wav |  |  |
+| ELC-0601 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Smooth 3.wav |  |  |
+| ELC-0602 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Smooth 4.wav |  |  |
+| ELC-0603 | 0.3 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Smooth 5.wav |  |  |
+| ELC-0604 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Smooth 6.wav |  |  |
+| ELC-0605 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Smooth 7.wav |  |  |
+| ELC-0606 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Smooth 8.wav |  |  |
+| ELC-0607 | 0.3 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Smooth 9.wav |  |  |
+| ELC-0608 | 1.2 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Space 1.wav |  |  |
+| ELC-0609 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Space 10.wav |  |  |
+| ELC-0610 | 0.5 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Space 11.wav |  |  |
+| ELC-0611 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Space 12.wav |  |  |
+| ELC-0612 | 1.2 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Space 2.wav |  |  |
+| ELC-0613 | 1.3 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Space 3.wav |  |  |
+| ELC-0614 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Space 4.wav |  |  |
+| ELC-0615 | 0.3 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Space 5.wav |  |  |
+| ELC-0616 | 0.3 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Space 6.wav |  |  |
+| ELC-0617 | 0.2 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Space 7.wav |  |  |
+| ELC-0618 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Space 8.wav |  |  |
+| ELC-0619 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Space 9.wav |  |  |
+| ELC-0620 | 1.8 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Star 1.wav |  |  |
+| ELC-0621 | 1.8 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Short/Star 2.wav |  |  |
+| ELC-0622 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Up/Cream 1.wav |  |  |
+| ELC-0623 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Up/Cream 2.wav |  |  |
+| ELC-0624 | 0.5 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Up/Cream 3.wav |  |  |
+| ELC-0625 | 0.6 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Up/Smooth 1.wav |  |  |
+| ELC-0626 | 0.5 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Up/Smooth 2.wav |  |  |
+| ELC-0627 | 0.5 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Up/Smooth 3.wav |  |  |
+| ELC-0628 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Up/Smooth 4.wav |  |  |
+| ELC-0629 | 0.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Up/Smooth 5.wav |  |  |
+| ELC-0630 | 0.2 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Up/Smooth 6.wav |  |  |
+| ELC-0631 | 0.3 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Up/Smooth 7.wav |  |  |
+| ELC-0632 | 0.3 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Up/Smooth 8.wav |  |  |
+| ELC-0633 | 1.8 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Up/Space 1.wav |  |  |
+| ELC-0634 | 1.3 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Up/Space 2.wav |  |  |
+| ELC-0635 | 1.1 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Up/Space 3.wav |  |  |
+| ELC-0636 | 1.4 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Up/Space 4.wav |  |  |
+| ELC-0637 | 0.7 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Up/Space 5.wav |  |  |
+| ELC-0638 | 1.1 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Up/Spirit 1.wav |  |  |
+| ELC-0639 | 1.0 | oga_theremin-laser-sfx／Zane's Theremin Lasers/Up/Spirit 2.wav |  |  |
+| ELC-0640 | 3.0 | oga_unleeched-sound-effects-pack／pa-alarm.wav |  |  |
+| ELC-0641 | 0.9 | oga_unleeched-sound-effects-pack／ui-hover.wav |  |  |
 
-## EXP 爆炸（64）
+## EXP 爆炸（141）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -514,8 +1001,85 @@
 | EXP-0062 | 0.5 | oga_platformer-sounds-terminal-interaction-door-shots-bang-and-footsteps／yd-Sounds/steps_stairs.ogg |  |  |
 | EXP-0063 | 0.3 | oga_platformer-sounds-terminal-interaction-door-shots-bang-and-footsteps／yd-Sounds/steps_stairs1.ogg |  |  |
 | EXP-0064 | 1.2 | oga_synthesized-explosion／synthetic_explosion_1.flac |  |  |
+| EXP-0065 | 5.4 | ia_red-library-impacts／R19-29-Banging, Open and Close Large Metal Door.mp3 |  |  |
+| EXP-0066 | 28.9 | ia_red-library-machines-2／R30-10-Fire Extinguisher Blasts into Metal Bin.mp3 |  |  |
+| EXP-0067 | 3.0 | ia_red-library-sci-fi／R02-19-Ray Gun and Explosion.flac |  |  |
+| EXP-0068 | 5.9 | ia_sse-library-air／AIRBrst_Carbon dioxide fire extinguisher; long blast_CS_USC.mp3 |  |  |
+| EXP-0069 | 27.3 | ia_sse-library-air／AIRBrst_Steam or fire extinguisher blasts_CS_USC.mp3 |  |  |
+| EXP-0070 | 26.5 | ia_sse-library-electricity／ELECZap_Machine made electrical lightning explosions_CS_USC.mp3 |  |  |
+| EXP-0071 | 11.3 | ia_sse-library-explosions／EXPLDsgn_Bomb whine and explosion_CHS_USC.mp3 |  |  |
+| EXP-0072 | 10.7 | ia_sse-library-explosions／EXPLMisc_Black powder explosion; slow; 3 versions_CHS_USC.mp3 |  |  |
+| EXP-0073 | 7.4 | ia_sse-library-explosions／EXPLReal_2 small muffled explosions_CS_USC.mp3 |  |  |
+| EXP-0074 | 38.0 | ia_sse-library-explosions／EXPLReal_Depth charge with water sounds_CS_USC.mp3 |  |  |
+| EXP-0075 | 7.2 | ia_sse-library-explosions／EXPLReal_Dynamite explosion_CS_USC.mp3 |  |  |
+| EXP-0076 | 4.2 | ia_sse-library-explosions／EXPLReal_Explosion with falling debris_CS_USC.flac |  |  |
+| EXP-0077 | 6.5 | ia_sse-library-explosions／EXPLReal_Explosion; bomb or shell_CHS_USC.mp3 |  |  |
+| EXP-0078 | 4.5 | ia_sse-library-explosions／EXPLReal_Explosion; good_CS_USC.flac |  |  |
+| EXP-0079 | 3.5 | ia_sse-library-explosions／EXPLReal_Hand grenade; 3 explosions_CHS_USC.flac |  |  |
+| EXP-0080 | 6.7 | ia_sse-library-explosions／EXPLReal_Heavy explosion with reverberation_CS_USC.mp3 |  |  |
+| EXP-0081 | 11.2 | ia_sse-library-explosions／EXPLReal_Heavy explosions; 2 takes_CS_USC.mp3 |  |  |
+| EXP-0082 | 3.4 | ia_sse-library-explosions／EXPLReal_Heavy sharp explosion with reverb_CS_USC.flac |  |  |
+| EXP-0083 | 8.0 | ia_sse-library-explosions／EXPLReal_Land explosion_CS_USC.mp3 |  |  |
+| EXP-0084 | 9.2 | ia_sse-library-explosions／EXPLReal_Large explosion with debris_CS_USC.mp3 |  |  |
+| EXP-0085 | 6.4 | ia_sse-library-explosions／EXPLReal_Medium distant explosions; cluster_CS_USC.mp3 |  |  |
+| EXP-0086 | 22.1 | ia_sse-library-explosions／EXPLReal_Napalm bomb burning after hitting tank; flames_CS_USC.mp3 |  |  |
+| EXP-0087 | 6.7 | ia_sse-library-explosions／EXPLReal_Single explosion; medium; with reverb_CS_USC.mp3 |  |  |
+| EXP-0088 | 5.9 | ia_sse-library-explosions／EXPLReal_Single heavy explosions 1_CS_USC.mp3 |  |  |
+| EXP-0089 | 4.6 | ia_sse-library-explosions／EXPLReal_Single heavy explosions 2_CS_USC.flac |  |  |
+| EXP-0090 | 17.7 | ia_sse-library-explosions／EXPLReal_Underwater explosions; 3 takes_CS_USC.mp3 |  |  |
+| EXP-0091 | 10.2 | ia_sse-library-scifi／SCIWeap_Phaser blast_CS_USC.mp3 |  |  |
+| EXP-0092 | 4.8 | ia_sse-library-swooshes／WHSH-FIREWORKS_Fireworks launching swooshes_CS_USC.flac |  |  |
+| EXP-0093 | 0.4 | oga_alien-blaster／alien-blaster.wav |  |  |
+| EXP-0094 | 4.9 | oga_battle-at-sea／cannon_hit_1.ogg |  |  |
+| EXP-0095 | 2.8 | oga_battle-at-sea／cannon_hit_cannon_1.ogg |  |  |
+| EXP-0096 | 3.4 | oga_battle-at-sea／cannon_hit_ship_short.ogg |  |  |
+| EXP-0097 | 3.0 | oga_battle-at-sea／cannon_hit_wall_1.ogg |  |  |
+| EXP-0098 | 1.6 | oga_battle-at-sea／cannon_hit_wall_no_splash.ogg |  |  |
+| EXP-0099 | 2.8 | oga_cannon-hit-cannon／cannon_hit_cannon_0.ogg |  |  |
+| EXP-0100 | 3.0 | oga_cannon-hit-wall／cannon_hit_wall_0.ogg |  |  |
+| EXP-0101 | 0.5 | oga_metal-clang-explosions-zing／psii-metal-play-set-1/clang1.wav |  |  |
+| EXP-0102 | 5.0 | oga_metal-clang-explosions-zing／psii-metal-play-set-1/explosion-fuzzy1.wav |  |  |
+| EXP-0103 | 1.0 | oga_metal-clang-explosions-zing／psii-metal-play-set-1/explosion1.wav |  |  |
+| EXP-0104 | 0.5 | oga_metal-clang-explosions-zing／psii-metal-play-set-1/plate1.wav |  |  |
+| EXP-0105 | 0.8 | oga_residue-sfx／residue-sfx/boom.ogg |  |  |
+| EXP-0106 | 0.8 | oga_sci-fi-sounds／Audio/explosionCrunch_000.ogg |  |  |
+| EXP-0107 | 1.4 | oga_sci-fi-sounds／Audio/explosionCrunch_001.ogg |  |  |
+| EXP-0108 | 1.3 | oga_sci-fi-sounds／Audio/explosionCrunch_002.ogg |  |  |
+| EXP-0109 | 1.6 | oga_sci-fi-sounds／Audio/explosionCrunch_003.ogg |  |  |
+| EXP-0110 | 2.0 | oga_sci-fi-sounds／Audio/explosionCrunch_004.ogg |  |  |
+| EXP-0111 | 2.0 | oga_sci-fi-sounds／Audio/lowFrequency_explosion_000.ogg |  |  |
+| EXP-0112 | 1.0 | oga_sci-fi-sounds／Audio/lowFrequency_explosion_001.ogg |  |  |
+| EXP-0113 | 0.8 | oga_space-sound-effects／SpaceSFX1/explosion1.ogg |  |  |
+| EXP-0114 | 0.5 | oga_space-sound-effects／SpaceSFX1/explosion2.ogg |  |  |
+| EXP-0115 | 0.5 | oga_space-sound-effects／SpaceSFX1/explosion3.ogg |  |  |
+| EXP-0116 | 0.8 | oga_space-sound-effects／SpaceSFX1/explosion4.ogg |  |  |
+| EXP-0117 | 1.7 | oga_space-sound-effects／SpaceSFX1/explosion5.ogg |  |  |
+| EXP-0118 | 0.8 | oga_space-sound-effects／SpaceSFX1/explosion6.ogg |  |  |
+| EXP-0119 | 1.5 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/ExplosionMetal.wav |  |  |
+| EXP-0120 | 1.5 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/ExplosionMetalGverb.wav |  |  |
+| EXP-0121 | 2.6 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/WaterSurfaceExplosion01.wav |  |  |
+| EXP-0122 | 2.8 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/WaterSurfaceExplosion02.wav |  |  |
+| EXP-0123 | 2.6 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/WaterSurfaceExplosion03.wav |  |  |
+| EXP-0124 | 2.7 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/WaterSurfaceExplosion04.wav |  |  |
+| EXP-0125 | 2.8 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/WaterSurfaceExplosion05.wav |  |  |
+| EXP-0126 | 1.6 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/WaterSurfaceExplosion06.wav |  |  |
+| EXP-0127 | 2.8 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/WaterSurfaceExplosion07.wav |  |  |
+| EXP-0128 | 1.6 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/WaterSurfaceExplosion08.wav |  |  |
+| EXP-0129 | 1.5 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/ogg/ExplosionMetal.ogg |  |  |
+| EXP-0130 | 1.5 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/ogg/ExplosionMetalGverb.ogg |  |  |
+| EXP-0131 | 2.6 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/ogg/WaterSurfaceExplosion01.ogg |  |  |
+| EXP-0132 | 2.8 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/ogg/WaterSurfaceExplosion02.ogg |  |  |
+| EXP-0133 | 2.6 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/ogg/WaterSurfaceExplosion03.ogg |  |  |
+| EXP-0134 | 2.7 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/ogg/WaterSurfaceExplosion04.ogg |  |  |
+| EXP-0135 | 2.8 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/ogg/WaterSurfaceExplosion05.ogg |  |  |
+| EXP-0136 | 1.6 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/ogg/WaterSurfaceExplosion06.ogg |  |  |
+| EXP-0137 | 2.8 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/ogg/WaterSurfaceExplosion07.ogg |  |  |
+| EXP-0138 | 1.6 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/ogg/WaterSurfaceExplosion08.ogg |  |  |
+| EXP-0139 | 0.8 | oga_war-on-water-sndfx／Airplanes/aiplaneexplode.ogg |  |  |
+| EXP-0140 | 1.2 | oga_war-on-water-sndfx／Pirates/boatexplode.ogg |  |  |
+| EXP-0141 | 0.8 | oga_war-on-water-sndfx／Ships/shipexplode.ogg |  |  |
 
-## GUN 槍聲（85）
+## GUN 槍聲（197）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -604,8 +1168,120 @@
 | GUN-0083 | 9.7 | oga_the-free-firearm-sound-library／Prepared SFX Library/Tikka/W_29P.wav | Tikka Model T3, rifle, bolt action, .30-06, gunshot, near distance, front of shooter, left, right, stereo | P-WPN-010 |
 | GUN-0084 | 9.5 | oga_the-free-firearm-sound-library／Prepared SFX Library/Walther PPQ/X_31P.wav | Walther PPQ, handgun, pistol, semi automatic, striker, 9mm, gunshot, mid distance, front of shooter, forward, back, stereo |  |
 | GUN-0085 | 15.7 | oga_the-free-firearm-sound-library／Prepared SFX Library/Walther PPQ/X_39P.wav | Walther PPQ, handgun, pistol, semi automatic, striker, 9mm, gunshot, near distance, front of shooter, left, right, stereo | P-WPN-001 |
+| GUN-0086 | 12.1 | ia_red-library-guns-machine／R12-04-Browning Machine Gun.mp3 |  |  |
+| GUN-0087 | 14.2 | ia_red-library-guns-machine／R12-06-Machine Gun Single Shots.mp3 |  |  |
+| GUN-0088 | 17.9 | ia_red-library-guns-machine／R12-16-Military Machine Gun.mp3 |  |  |
+| GUN-0089 | 4.2 | ia_red-library-guns-machine／R12-22-Classic Machine Gun.flac |  |  |
+| GUN-0090 | 22.8 | ia_red-library-guns-machine／R30-31-Old Machine Gun Without Ambience.flac |  |  |
+| GUN-0091 | 6.2 | ia_red-library-guns-misc／R09-71-Rapid Gun Shots.mp3 |  |  |
+| GUN-0092 | 6.3 | ia_red-library-guns-misc／R11-48-Shotgun Blast.mp3 |  |  |
+| GUN-0093 | 21.2 | ia_red-library-guns-misc／R11-51-Loud Gun Blasts with Ricochet.mp3 |  |  |
+| GUN-0094 | 7.8 | ia_red-library-guns-misc／R11-57-Shotgun Blast.mp3 |  |  |
+| GUN-0095 | 9.8 | ia_red-library-guns-misc／R11-58-Loud Shotgun Blasts.mp3 |  |  |
+| GUN-0096 | 14.5 | ia_red-library-guns-misc／R12-08-Classic Western Rifle.mp3 |  |  |
+| GUN-0097 | 11.6 | ia_red-library-guns-misc／R12-23-Sharp Pistol File with Reverb.mp3 |  |  |
+| GUN-0098 | 11.4 | ia_red-library-guns-misc／R18-09-Big Western Ricochets.mp3 |  |  |
+| GUN-0099 | 55.2 | ia_red-library-guns-misc／R18-10-Classic Western Ricochets.mp3 |  |  |
+| GUN-0100 | 4.6 | ia_red-library-guns-misc／R23-27-Rifle Blast.flac |  |  |
+| GUN-0101 | 6.3 | ia_red-library-guns-misc／R28-40-Gun Sweetener Bursts of Noise.mp3 |  |  |
+| GUN-0102 | 16.0 | ia_red-library-guns-misc／R30-21-Pistol or Rifle Single Shots.mp3 |  |  |
+| GUN-0103 | 8.3 | ia_sse-library-bullets／BLLTImpt_50 cal Browning machine gun bullet impacts_CS_USC.mp3 |  |  |
+| GUN-0104 | 5.4 | ia_sse-library-bullets／BLLTImpt_Artillery bullets hitting nearby & overhead_CS_USC.mp3 |  |  |
+| GUN-0105 | 12.1 | ia_sse-library-bullets／BLLTImpt_Bullets flying overhead and hitting objects_CS_USC.mp3 |  |  |
+| GUN-0106 | 18.8 | ia_sse-library-bullets／BLLTImpt_Bullets hitting water_CS_USC.mp3 |  |  |
+| GUN-0107 | 13.0 | ia_sse-library-bullets／BLLTImpt_Heavy ammunition bullets flying overhead_CS_USC.mp3 |  |  |
+| GUN-0108 | 12.1 | ia_sse-library-bullets／BLLTImpt_On the receiving end of large guns firing_CS_USC.mp3 |  |  |
+| GUN-0109 | 35.4 | ia_sse-library-bullets／BLLTImpt_Shooting gallery; hitting metal targets_CS_USC.mp3 |  |  |
+| GUN-0110 | 13.7 | ia_sse-library-bullets／BLLTImpt_Shooting gallery_CS_USC.mp3 |  |  |
+| GUN-0111 | 31.2 | ia_sse-library-bullets／BLLTRico_Comedy ricochets (Warner Brothers)_CS_USC.mp3 |  |  |
+| GUN-0112 | 20.3 | ia_sse-library-bullets／BLLTRico_Machine gun ricochets_CS_USC.mp3 |  |  |
+| GUN-0113 | 38.8 | ia_sse-library-bullets／BLLTRico_Ricochets from Bonanza TV series_CS_USC.mp3 |  |  |
+| GUN-0114 | 13.3 | ia_sse-library-bullets／BLLTRico_Rifle ricochets_CS_USC.mp3 |  |  |
+| GUN-0115 | 1.9 | ia_sse-library-guns／GUNAntq_Flintlock fire_CS_USC.flac |  |  |
+| GUN-0116 | 2.7 | ia_sse-library-guns／GUNAntq_Flintlock rifle fire_CS_USC.flac |  |  |
+| GUN-0117 | 7.7 | ia_sse-library-guns／GUNAntq_Gatling gun_CS_USC.mp3 |  |  |
+| GUN-0118 | 3.4 | ia_sse-library-guns／GUNAntq_Musket shots_CS_USC.flac |  |  |
+| GUN-0119 | 20.4 | ia_sse-library-guns／GUNArtl_Bazooka shooting_CS_USC.mp3 |  |  |
+| GUN-0120 | 4.8 | ia_sse-library-guns／GUNArtl_Bazooka shot_CS_USC.flac |  |  |
+| GUN-0121 | 6.4 | ia_sse-library-guns／GUNArtl_Large shells flies overhead_CS_USC.mp3 |  |  |
+| GUN-0122 | 8.1 | ia_sse-library-guns／GUNArtl_Mortar Fire; long reverb_CS_USC.mp3 |  |  |
+| GUN-0123 | 4.3 | ia_sse-library-guns／GUNArtl_PT boat fires_CS_USC.flac |  |  |
+| GUN-0124 | 14.1 | ia_sse-library-guns／GUNArtl_squad firing 37mm anti tank guns_CS_USC.mp3 |  |  |
+| GUN-0125 | 17.5 | ia_sse-library-guns／GUNAuto_50 cal machine gun with ricochets_CS_USC.mp3 |  |  |
+| GUN-0126 | 6.4 | ia_sse-library-guns／GUNAuto_Bren machine gun with canyon echo_CS_USC.mp3 |  |  |
+| GUN-0127 | 32.5 | ia_sse-library-guns／GUNAuto_Light machine gun from optical_CS_USC.mp3 |  |  |
+| GUN-0128 | 5.5 | ia_sse-library-guns／GUNAuto_M16 automatic rifle shots_CS_USC.mp3 |  |  |
+| GUN-0129 | 19.2 | ia_sse-library-guns／GUNAuto_Machine gun bursts with echo_CS_USC.mp3 |  |  |
+| GUN-0130 | 13.5 | ia_sse-library-guns／GUNAuto_Machine gun bursts; indoors_CS_USC.mp3 |  |  |
+| GUN-0131 | 11.1 | ia_sse-library-guns／GUNAuto_Machine gun fires with ricochets_CS_USC.mp3 |  |  |
+| GUN-0132 | 2.6 | ia_sse-library-guns／GUNAuto_Machine gun ricochets_CS_USC.flac |  |  |
+| GUN-0133 | 6.0 | ia_sse-library-guns／GUNAuto_Tommy gun busts; machine gun_CS_USC.mp3 |  |  |
+| GUN-0134 | 24.0 | ia_sse-library-guns／GUNAuto_Various groups of machine guns; medium distance_CS_USC.mp3 |  |  |
+| GUN-0135 | 6.2 | ia_sse-library-guns／GUNCano_6 inch navel cannon fired up close_CS_USC.mp3 |  |  |
+| GUN-0136 | 48.4 | ia_sse-library-guns／GUNCano_8 inch navel cannon fired with shell whines_CS_USC.mp3 |  |  |
+| GUN-0137 | 8.4 | ia_sse-library-guns／GUNCano_8? gun; cannon_CS_USC.mp3 |  |  |
+| GUN-0138 | 4.8 | ia_sse-library-guns／GUNCano_Big cannon with reverb_CS_USC.flac |  |  |
+| GUN-0139 | 10.7 | ia_sse-library-guns／GUNCano_Cannon fire with commands_CS_USC.mp3 |  |  |
+| GUN-0140 | 3.7 | ia_sse-library-guns／GUNCano_Cannon fire; shells fall nearby_CS_USC.flac |  |  |
+| GUN-0141 | 4.8 | ia_sse-library-guns／GUNCano_Cannon shot_CS_USC.flac |  |  |
+| GUN-0142 | 35.7 | ia_sse-library-guns／GUNCano_Distant cannon fire_CS_USC.mp3 |  |  |
+| GUN-0143 | 6.0 | ia_sse-library-guns／GUNMech_Cock and fire empty rifle; many takes_CS_USC.mp3 |  |  |
+| GUN-0144 | 22.5 | ia_sse-library-guns／GUNMech_Pistol revolvers spins and fires without_CS_USC.mp3 |  |  |
+| GUN-0145 | 7.4 | ia_sse-library-guns／GUNMisc-FLARE_Flare gun fires_CS_USC.mp3 |  |  |
+| GUN-0146 | 14.5 | ia_sse-library-guns／GUNMisc-FLARE_Flares gun fires; shells fall to floor_CS_USC.mp3 |  |  |
+| GUN-0147 | 2.6 | ia_sse-library-guns／GUNPis_Big optical gun shot; close_CS_USC.flac |  |  |
+| GUN-0148 | 6.6 | ia_sse-library-guns／GUNPis_Classic large gun optical gun shots; dull_CS_USC.mp3 |  |  |
+| GUN-0149 | 4.7 | ia_sse-library-guns／GUNPis_Derringer 22 pistol shots_CS_USC.flac |  |  |
+| GUN-0150 | 7.6 | ia_sse-library-guns／GUNPis_Exterior pistol shots with long reverb_CS_USC.mp3 |  |  |
+| GUN-0151 | 2.3 | ia_sse-library-guns／GUNPis_Exterior pistol shots with no reverb_CS_USC.flac |  |  |
+| GUN-0152 | 14.5 | ia_sse-library-guns／GUNPis_Exterior pistol shots_CS_USC.mp3 |  |  |
+| GUN-0153 | 0.9 | ia_sse-library-guns／GUNPis_Optical gun shot_CS_USC.flac |  |  |
+| GUN-0154 | 10.6 | ia_sse-library-guns／GUNPis_big revolver shots_CS_USC.mp3 |  |  |
+| GUN-0155 | 9.1 | ia_sse-library-guns／GUNRif_30 30 rifle shots_CS_USC.mp3 |  |  |
+| GUN-0156 | 6.7 | ia_sse-library-guns／GUNRif_Big optical gun shots with ricochets_CS_USC.mp3 |  |  |
+| GUN-0157 | 7.7 | ia_sse-library-guns／GUNRif_Browning automatic rifle at the receiving_CS_USC.mp3 |  |  |
+| GUN-0158 | 4.9 | ia_sse-library-guns／GUNRif_Distant rifle shot with long reverb_CS_USC.flac |  |  |
+| GUN-0159 | 2.3 | ia_sse-library-guns／GUNRif_Elephant gun being shot by British soldiers_CS_USC.flac |  |  |
+| GUN-0160 | 3.2 | ia_sse-library-guns／GUNRif_Mountain rifle with reverb_CS_USC.flac |  |  |
+| GUN-0161 | 4.0 | ia_sse-library-guns／GUNRif_Optical rifle shot with long reverb_CS_USC.flac |  |  |
+| GUN-0162 | 12.7 | ia_sse-library-guns／GUNRif_Rifle fire at the receiving end_CS_USC.mp3 |  |  |
+| GUN-0163 | 1.2 | ia_sse-library-guns／GUNRif_Rifle shot at some distance_CS_USC.flac |  |  |
+| GUN-0164 | 7.5 | ia_sse-library-guns／GUNRif_Rifle shots with reverb_CS_USC.mp3 |  |  |
+| GUN-0165 | 38.7 | ia_sse-library-guns／GUNRif_Rifle shots; hollow reverb_CS_USC.mp3 |  |  |
+| GUN-0166 | 4.1 | ia_sse-library-guns／GUNRif_Very sharp small rifle fire_CS_USC.flac |  |  |
+| GUN-0167 | 14.4 | ia_sse-library-guns／GUNShotg_Classic western shotgun blast with reverb_CS_USC.mp3 |  |  |
+| GUN-0168 | 6.0 | ia_sse-library-guns／GUNShotg_Rifle being fired & cocked_CS_USC.mp3 |  |  |
+| GUN-0169 | 1.1 | ia_sse-library-guns／GUNSupr_Pistol shots with silencer_CS_USC.flac |  |  |
+| GUN-0170 | 4.2 | ia_sse-library-guns／GUNSupr_Pistol shots; ping; silencer__CS_USC.flac |  |  |
+| GUN-0171 | 3.6 | oga_battle-at-sea／cannon_fire_1.ogg |  |  |
+| GUN-0172 | 2.0 | oga_random-gunfire-sfx／gunfire_sfx.wav |  |  |
+| GUN-0173 | 2.5 | oga_silencers-by-emopreben／Silencers - 1.wav |  |  |
+| GUN-0174 | 2.3 | oga_silencers-by-emopreben／Silencers - 10.wav |  |  |
+| GUN-0175 | 2.5 | oga_silencers-by-emopreben／Silencers - 2.wav |  |  |
+| GUN-0176 | 2.5 | oga_silencers-by-emopreben／Silencers - 3.wav |  |  |
+| GUN-0177 | 2.3 | oga_silencers-by-emopreben／Silencers - 4.wav |  |  |
+| GUN-0178 | 2.5 | oga_silencers-by-emopreben／Silencers - 5.wav |  |  |
+| GUN-0179 | 2.5 | oga_silencers-by-emopreben／Silencers - 6.wav |  |  |
+| GUN-0180 | 2.4 | oga_silencers-by-emopreben／Silencers - 7.wav |  |  |
+| GUN-0181 | 2.5 | oga_silencers-by-emopreben／Silencers - 8.wav |  |  |
+| GUN-0182 | 2.5 | oga_silencers-by-emopreben／Silencers - 9.wav |  |  |
+| GUN-0183 | 1.0 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/GunShot.wav |  |  |
+| GUN-0184 | 2.0 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/GunShotGverb.wav |  |  |
+| GUN-0185 | 1.0 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/ogg/GunShot.ogg |  |  |
+| GUN-0186 | 2.0 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/ogg/GunShotGverb.ogg |  |  |
+| GUN-0187 | 1.3 | oga_unleeched-sound-effects-pack／military-gun.wav |  |  |
+| GUN-0188 | 0.1 | oga_war-on-water-sndfx／Guns/gun1Light.ogg |  |  |
+| GUN-0189 | 0.6 | oga_war-on-water-sndfx／Guns/gun1LightLoad.ogg |  |  |
+| GUN-0190 | 0.1 | oga_war-on-water-sndfx／Guns/gun2Heavy.ogg |  |  |
+| GUN-0191 | 1.1 | oga_war-on-water-sndfx／Guns/gun2HeavyLoad.ogg |  |  |
+| GUN-0192 | 0.1 | oga_war-on-water-sndfx／Guns/gun3Machinegun.ogg |  |  |
+| GUN-0193 | 1.0 | oga_war-on-water-sndfx／Guns/gun3MachinegunLoad.ogg |  |  |
+| GUN-0194 | 0.2 | oga_war-on-water-sndfx／Guns/gunempty.ogg |  |  |
+| GUN-0195 | 1.1 | oga_war-on-water-sndfx／Guns/gunloadmain.ogg |  |  |
+| GUN-0196 | 0.2 | oga_war-on-water-sndfx／Guns/throwgrenade.ogg |  |  |
+| GUN-0197 | 1.3 | oga_war-on-water-sndfx／Guns/torpedo1.ogg |  |  |
 
-## IMP 撞擊與命中（555）
+## IMP 撞擊與命中（763）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -1164,8 +1840,216 @@
 | IMP-0553 | 29.4 | oga_ripping-into-meat／rippingintomeat_0.mp3 |  |  |
 | IMP-0554 | 0.9 | oga_sfx-circuit-breaker／switch off.wav |  |  |
 | IMP-0555 | 0.9 | oga_sfx-circuit-breaker／switch on.wav |  |  |
+| IMP-0556 | 5.0 | ia_red-library-doors／R09-01-Metal Door Slam.mp3 |  |  |
+| IMP-0557 | 3.4 | ia_red-library-doors／R09-03-Slide and Door Slam.flac |  |  |
+| IMP-0558 | 18.0 | ia_red-library-fights／R09-75-Series of Falls on Wooden Floor.mp3 |  |  |
+| IMP-0559 | 3.9 | ia_red-library-fights／R09-79-Fall on Gravel.flac |  |  |
+| IMP-0560 | 23.9 | ia_red-library-fights／R15-12-Loud Slaps or Whacks.mp3 |  |  |
+| IMP-0561 | 11.1 | ia_red-library-fights／R15-14-Soft Punches.mp3 |  |  |
+| IMP-0562 | 2.6 | ia_red-library-fights／R15-16-One Slap.flac |  |  |
+| IMP-0563 | 5.3 | ia_red-library-fights／R15-18-Shot or Hit with Debris.mp3 |  |  |
+| IMP-0564 | 14.2 | ia_red-library-fights／R15-20-Padded Hits.mp3 |  |  |
+| IMP-0565 | 16.2 | ia_red-library-fights／R15-23-Short, Quick Hits.mp3 |  |  |
+| IMP-0566 | 21.5 | ia_red-library-fights／R17-40-Padded Punches.mp3 |  |  |
+| IMP-0567 | 37.3 | ia_red-library-fights／R17-50-Slaps or Smacks.mp3 |  |  |
+| IMP-0568 | 35.4 | ia_red-library-foley-props-5／R27-14-Break Sticks and Twigs.mp3 |  |  |
+| IMP-0569 | 21.1 | ia_red-library-impacts／R27-18-Axe Hits Wood Door.mp3 |  |  |
+| IMP-0570 | 15.6 | ia_red-library-impacts／R28-55-Thumps on Large Hollow Wooden Surface.mp3 |  |  |
+| IMP-0571 | 13.2 | ia_red-library-impacts／R28-56-Sand Bags Dropped onto Wood Floor.mp3 |  |  |
+| IMP-0572 | 16.8 | ia_red-library-impacts／R29-27-Short Impact Sweeteners.mp3 |  |  |
+| IMP-0573 | 69.3 | ia_red-library-machines-2／R18-26-Open and Close Latches on Wooden Case.mp3 |  |  |
+| IMP-0574 | 3.9 | ia_red-library-weapons-misc／R01-03-Catapult Launch and Hit Target.flac |  |  |
+| IMP-0575 | 12.7 | ia_red-library-weapons-misc／R12-27-Falling Bombs Whistle.mp3 |  |  |
+| IMP-0576 | 21.3 | ia_red-library-weapons-misc／R21-43-Whip Cracks.mp3 |  |  |
+| IMP-0577 | 36.3 | ia_sse-library-destruction／DESTRClpse_Mine tunnel collapsing; wooden beams_CS_USC.mp3 |  |  |
+| IMP-0578 | 4.2 | ia_sse-library-destruction／DESTRCrsh_Big auto car crash with glass_CS_USC.flac |  |  |
+| IMP-0579 | 9.0 | ia_sse-library-destruction／DESTRCrsh_Car dirt skid; hits metal rail; glass_CS_USC.mp3 |  |  |
+| IMP-0580 | 17.3 | ia_sse-library-destruction／DESTRCrsh_Car hits lumber pile_CS_USC.mp3 |  |  |
+| IMP-0581 | 8.6 | ia_sse-library-destruction／DESTRCrsh_Car hits two phone booths; metal & glass_CS_USC.mp3 |  |  |
+| IMP-0582 | 3.5 | ia_sse-library-destruction／DESTRCrsh_Car in; breaks; hits trash can_CS_USC.flac |  |  |
+| IMP-0583 | 4.1 | ia_sse-library-destruction／DESTRCrsh_Crash inside building_CS_USC.flac |  |  |
+| IMP-0584 | 7.9 | ia_sse-library-destruction／DESTRCrsh_Old rattling car crashes through wooden fence_CS_USC.mp3 |  |  |
+| IMP-0585 | 44.6 | ia_sse-library-destruction／DESTRCrsh_Various side swipes and metallic crashes;_CS_USC.mp3 |  |  |
+| IMP-0586 | 18.9 | ia_sse-library-doors／DOORSlid_Sliding wooden door; open close & lock_CS_USC.mp3 |  |  |
+| IMP-0587 | 7.3 | ia_sse-library-doors／DOORSlid_Sliding wooden door_CHS_USC.mp3 |  |  |
+| IMP-0588 | 39.7 | ia_sse-library-doors／DOORWood_Old shack screen door; opens & closes with_CHS_USC.mp3 |  |  |
+| IMP-0589 | 4.5 | ia_sse-library-doors／DOORWood_Wooden door opens and closes_CS_USC.flac |  |  |
+| IMP-0590 | 1.7 | ia_sse-library-fight／FGHTBf_Body hit and crash_CS_USC.flac |  |  |
+| IMP-0591 | 6.4 | ia_sse-library-fight／FGHTBf_Two body falls on wood_CS_USC.mp3 |  |  |
+| IMP-0592 | 36.3 | ia_sse-library-fight／FGHTImpt_Body hits; boxing punches; very noisy_CS_USC.mp3 |  |  |
+| IMP-0593 | 1.2 | ia_sse-library-fight／FGHTImpt_Fist crack; face punch_CS_USC.flac |  |  |
+| IMP-0594 | 1.7 | ia_sse-library-fight／FGHTImpt_Punch & body fall; short_CS_USC.flac |  |  |
+| IMP-0595 | 9.4 | ia_sse-library-glass／GLASCrsh_Large pane of glass breaks; dull; sweetener_CS_USC.mp3 |  |  |
+| IMP-0596 | 17.2 | ia_sse-library-glass／GLASCrsh_Small glass breaks_CS_USC.mp3 |  |  |
+| IMP-0597 | 52.6 | ia_sse-library-machines／MACHInd_Metallic pounding in factory_CS_USC.mp3 |  |  |
+| IMP-0598 | 1.5 | ia_sse-library-metal／METLCrsh_Large hard metal crash; optical_CS_USC.flac |  |  |
+| IMP-0599 | 25.0 | ia_sse-library-metal／METLFric_Sliding metal scrapes_CS_USC.mp3 |  |  |
+| IMP-0600 | 17.9 | ia_sse-library-metal／METLImpt_Metal hits against metal; foley_CS_USC.mp3 |  |  |
+| IMP-0601 | 11.1 | ia_sse-library-metal／METLMvmt_Moving large metal objects around in building;_CS_USC.mp3 |  |  |
+| IMP-0602 | 14.6 | ia_sse-library-tools／TOOLHand_Gavel pounding short & long_CS_USC.mp3 |  |  |
+| IMP-0603 | 16.3 | ia_sse-library-tools／TOOLPowr_Large industrial buzz saw cutting wood_CS_USC.mp3 |  |  |
+| IMP-0604 | 16.1 | ia_sse-library-weapons／WEAPArro_Arrow being pulled out of wood_CS_USC.mp3 |  |  |
+| IMP-0605 | 1.0 | ia_sse-library-weapons／WEAPArro_Hard arrow thuds into soft wood_CS_USC.flac |  |  |
+| IMP-0606 | 49.1 | ia_sse-library-wood／WOODCrsh_Falling wooden beam; big interior crash;_CS_USC.mp3 |  |  |
+| IMP-0607 | 34.6 | ia_sse-library-wood／WOODHandl_Setting axe down on floor; leans on wall;_CS_USC.mp3 |  |  |
+| IMP-0608 | 26.3 | ia_sse-library-wood／WOODImpt_Battering ram hits castle door; big wooden_CS_USC.mp3 |  |  |
+| IMP-0609 | 34.2 | ia_sse-library-wood／WOODImpt_Wooden barrel drop; several_CS_USC.mp3 |  |  |
+| IMP-0610 | 1.1 | oga_6-user-interface-ding-clicks／dingClicks/dingCling-levelup.ogg |  |  |
+| IMP-0611 | 0.5 | oga_6-user-interface-ding-clicks／dingClicks/dingCling-negative.ogg |  |  |
+| IMP-0612 | 0.2 | oga_6-user-interface-ding-clicks／dingClicks/dingCling-neutral.ogg |  |  |
+| IMP-0613 | 0.3 | oga_6-user-interface-ding-clicks／dingClicks/dingCling-positive.ogg |  |  |
+| IMP-0614 | 0.1 | oga_6-user-interface-ding-clicks／dingClicks/dingCling-reverse.ogg |  |  |
+| IMP-0615 | 0.6 | oga_6-user-interface-ding-clicks／dingClicks/dingCling-save.ogg |  |  |
+| IMP-0616 | 0.4 | oga_break-pumpkin／pumpkin_break_01_0.ogg |  |  |
+| IMP-0617 | 0.3 | oga_break-pumpkin／pumpkin_break_02.ogg |  |  |
+| IMP-0618 | 0.4 | oga_breaking-rock／rock_break_0.ogg |  |  |
+| IMP-0619 | 0.6 | oga_bub-block-sound-effects／break1.wav |  |  |
+| IMP-0620 | 0.5 | oga_bub-block-sound-effects／break2.wav |  |  |
+| IMP-0621 | 0.4 | oga_bub-block-sound-effects／break3.wav |  |  |
+| IMP-0622 | 0.1 | oga_bub-block-sound-effects／punch1.wav |  |  |
+| IMP-0623 | 0.1 | oga_bub-block-sound-effects／punch2.wav |  |  |
+| IMP-0624 | 0.4 | oga_buzz-grid-sounds／crash.wav |  |  |
+| IMP-0625 | 0.3 | oga_buzz-grid-sounds／ding2.wav |  |  |
+| IMP-0626 | 0.6 | oga_crash-collision／qubodup-crash.ogg |  |  |
+| IMP-0627 | 0.5 | oga_fantasy-accessory-sfx-library／sfx/bottle-glass-cork-01.wav |  |  |
+| IMP-0628 | 0.5 | oga_fantasy-accessory-sfx-library／sfx/bottle-glass-uncork-01.wav |  |  |
+| IMP-0629 | 0.6 | oga_fantasy-accessory-sfx-library／sfx/bottle-glass-uncork-02.wav |  |  |
+| IMP-0630 | 0.6 | oga_fantasy-accessory-sfx-library／sfx/bottle-glass-uncork-03.wav |  |  |
+| IMP-0631 | 0.4 | oga_fantasy-accessory-sfx-library／sfx/bottle-glass-uncork-04.wav |  |  |
+| IMP-0632 | 0.5 | oga_fantasy-accessory-sfx-library／sfx/bottle-glass-uncork-05.wav |  |  |
+| IMP-0633 | 0.6 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-round-cork-twist-01.wav |  |  |
+| IMP-0634 | 0.3 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-round-cork-twist-02.wav |  |  |
+| IMP-0635 | 0.6 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-round-cork-twist-03.wav |  |  |
+| IMP-0636 | 0.6 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-round-cork-twist-04.wav |  |  |
+| IMP-0637 | 0.6 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-round-cork-twist-05.wav |  |  |
+| IMP-0638 | 0.5 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-round-uncork-01.wav |  |  |
+| IMP-0639 | 0.4 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-round-uncork-02.wav |  |  |
+| IMP-0640 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-round-uncork-03.wav |  |  |
+| IMP-0641 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-small-drop-01.wav |  |  |
+| IMP-0642 | 1.3 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-small-drop-02.wav |  |  |
+| IMP-0643 | 1.4 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-small-drop-03.wav |  |  |
+| IMP-0644 | 0.4 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-square-cinnamon-sticks-open-01.wav |  |  |
+| IMP-0645 | 0.5 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-square-cinnamon-sticks-open-02.wav |  |  |
+| IMP-0646 | 0.7 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-square-cinnamon-sticks-open-03.wav |  |  |
+| IMP-0647 | 0.5 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-square-cinnamon-sticks-open-04.wav |  |  |
+| IMP-0648 | 0.4 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-square-cinnamon-sticks-open-05.wav |  |  |
+| IMP-0649 | 0.6 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-square-cinnamon-sticks-rattle-01.wav |  |  |
+| IMP-0650 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-square-cinnamon-sticks-rattle-02.wav |  |  |
+| IMP-0651 | 1.0 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-square-cinnamon-sticks-rattle-03.wav |  |  |
+| IMP-0652 | 1.1 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-square-cinnamon-sticks-rattle-04.wav |  |  |
+| IMP-0653 | 0.5 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-square-empty-close-01.wav |  |  |
+| IMP-0654 | 0.9 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-square-empty-close-02.wav |  |  |
+| IMP-0655 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-square-empty-close-03.wav |  |  |
+| IMP-0656 | 0.5 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-square-empty-close-04.wav |  |  |
+| IMP-0657 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-square-empty-close-05.wav |  |  |
+| IMP-0658 | 0.3 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-square-empty-open-01.wav |  |  |
+| IMP-0659 | 0.3 | oga_fantasy-accessory-sfx-library／sfx/vial-glass-square-empty-open-02.wav |  |  |
+| IMP-0660 | 1.2 | oga_fantasy-accessory-sfx-library／sfx/vials-glass-rattle-01.wav |  |  |
+| IMP-0661 | 0.7 | oga_fantasy-accessory-sfx-library／sfx/vials-glass-rattle-02.wav |  |  |
+| IMP-0662 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/vials-glass-rattle-03.wav |  |  |
+| IMP-0663 | 0.4 | oga_fantasy-accessory-sfx-library／sfx/vials-glass-rattle-04.wav |  |  |
+| IMP-0664 | 0.4 | oga_fantasy-accessory-sfx-library／sfx/vials-glass-rattle-05.wav |  |  |
+| IMP-0665 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-metal-spoon-01.wav |  |  |
+| IMP-0666 | 0.5 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-metal-spoon-02.wav |  |  |
+| IMP-0667 | 0.6 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-metal-spoon-03.wav |  |  |
+| IMP-0668 | 0.5 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-metal-spoon-04.wav |  |  |
+| IMP-0669 | 2.5 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-nuts-01.wav |  |  |
+| IMP-0670 | 1.5 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-nuts-02.wav |  |  |
+| IMP-0671 | 2.2 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-nuts-03.wav |  |  |
+| IMP-0672 | 1.8 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-nuts-04.wav |  |  |
+| IMP-0673 | 1.4 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-nuts-05.wav |  |  |
+| IMP-0674 | 2.9 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-nuts-06.wav |  |  |
+| IMP-0675 | 0.7 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-wood-spoon-01.wav |  |  |
+| IMP-0676 | 0.5 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-wood-spoon-02.wav |  |  |
+| IMP-0677 | 0.6 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-wood-spoon-03.wav |  |  |
+| IMP-0678 | 0.7 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-wood-spoon-04.wav |  |  |
+| IMP-0679 | 0.7 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-wood-spoon-05.wav |  |  |
+| IMP-0680 | 0.5 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-wood-spoon-06.wav |  |  |
+| IMP-0681 | 0.5 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-wood-spoon-07.wav |  |  |
+| IMP-0682 | 0.4 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-wood-spoon-08.wav |  |  |
+| IMP-0683 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-drop-wood-spoon-09.wav |  |  |
+| IMP-0684 | 0.3 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-hit-wood-spoon-01.wav |  |  |
+| IMP-0685 | 0.9 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-put-metal-spoon-01.wav |  |  |
+| IMP-0686 | 0.7 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-put-wood-01.wav |  |  |
+| IMP-0687 | 0.7 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-put-wood-02.wav |  |  |
+| IMP-0688 | 0.5 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-put-wood-03.wav |  |  |
+| IMP-0689 | 0.5 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-put-wood-04.wav |  |  |
+| IMP-0690 | 0.7 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-put-wood-05.wav |  |  |
+| IMP-0691 | 0.9 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-put-wood-06.wav |  |  |
+| IMP-0692 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-put-wood-07.wav |  |  |
+| IMP-0693 | 0.4 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-put-wood-08.wav |  |  |
+| IMP-0694 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-put-wood-09.wav |  |  |
+| IMP-0695 | 0.5 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-put-wood-10.wav |  |  |
+| IMP-0696 | 0.4 | oga_fantasy-accessory-sfx-library／sfx/wood-bowl-put-wood-11.wav |  |  |
+| IMP-0697 | 0.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/bottle-glass-cork-01.wav |  |  |
+| IMP-0698 | 0.6 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/bottle-glass-cork-twist-01.wav |  |  |
+| IMP-0699 | 0.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/bottle-glass-uncork-01.wav |  |  |
+| IMP-0700 | 95.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/chimes-wood-rattle.wav |  |  |
+| IMP-0701 | 6.4 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/handsaw-sawing-wood-01.wav |  |  |
+| IMP-0702 | 0.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/vial-glass-close-01.wav |  |  |
+| IMP-0703 | 0.3 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/vial-glass-open-01.wav |  |  |
+| IMP-0704 | 0.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/vial-glass-uncork-01.wav |  |  |
+| IMP-0705 | 0.8 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/wood-bowl-spoon-01.wav |  |  |
+| IMP-0706 | 0.6 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/wood-bowl-spoon-02.wav |  |  |
+| IMP-0707 | 0.7 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/wood-bowl-spoon-03.wav |  |  |
+| IMP-0708 | 0.6 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/wood-bowl-spoon-04.wav |  |  |
+| IMP-0709 | 0.4 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/wood-twigs-break-01.wav |  |  |
+| IMP-0710 | 0.8 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/wood-twigs-break-02.wav |  |  |
+| IMP-0711 | 0.2 | oga_glass-bottle-open-close／glass_bottle_close.mp3 |  |  |
+| IMP-0712 | 0.3 | oga_glass-bottle-open-close／glass_bottle_open_0.mp3 |  |  |
+| IMP-0713 | 0.6 | oga_ice-breakingshattering／IceShatters/LedasLuzta.ogg |  |  |
+| IMP-0714 | 0.4 | oga_ice-breakingshattering／IceShatters/LedasLuzta2.ogg |  |  |
+| IMP-0715 | 1.3 | oga_ice-breakingshattering／IceShatters/LedasLuzta33.ogg |  |  |
+| IMP-0716 | 1.0 | oga_ice-breakingshattering／IceShatters/LedasLuzta4.ogg |  |  |
+| IMP-0717 | 0.8 | oga_ice-breakingshattering／IceShatters/LedasLuzta5.ogg |  |  |
+| IMP-0718 | 0.1 | oga_player-hit-damage／playerhit_0.mp3 |  |  |
+| IMP-0719 | 5.6 | oga_saw-or-wood-impact／saw_-_starninjas_0.ogg |  |  |
+| IMP-0720 | 0.4 | oga_skill-hit／skill_hit.mp3 |  |  |
+| IMP-0721 | 0.7 | oga_sound-effects-pack／Impacts/alt-toasterstep1.wav |  |  |
+| IMP-0722 | 0.3 | oga_sound-effects-pack／Impacts/alt-toasterstep2.wav |  |  |
+| IMP-0723 | 0.3 | oga_sound-effects-pack／Impacts/alt-toasterstep3.wav |  |  |
+| IMP-0724 | 0.3 | oga_sound-effects-pack／Impacts/alt-toasterstep4.wav |  |  |
+| IMP-0725 | 0.7 | oga_sound-effects-pack／Impacts/clamour1.wav |  |  |
+| IMP-0726 | 0.7 | oga_sound-effects-pack／Impacts/clamour10.wav |  |  |
+| IMP-0727 | 0.5 | oga_sound-effects-pack／Impacts/clamour11.wav |  |  |
+| IMP-0728 | 3.7 | oga_sound-effects-pack／Impacts/clamour2.wav |  |  |
+| IMP-0729 | 0.8 | oga_sound-effects-pack／Impacts/clamour3.wav |  |  |
+| IMP-0730 | 1.0 | oga_sound-effects-pack／Impacts/clamour4.wav |  |  |
+| IMP-0731 | 0.4 | oga_sound-effects-pack／Impacts/clamour5.wav |  |  |
+| IMP-0732 | 1.3 | oga_sound-effects-pack／Impacts/clamour6.wav |  |  |
+| IMP-0733 | 0.6 | oga_sound-effects-pack／Impacts/clamour7.wav |  |  |
+| IMP-0734 | 0.7 | oga_sound-effects-pack／Impacts/clamour8.wav |  |  |
+| IMP-0735 | 0.7 | oga_sound-effects-pack／Impacts/clamour9.wav |  |  |
+| IMP-0736 | 0.3 | oga_sound-effects-pack／Impacts/djembe1.wav |  |  |
+| IMP-0737 | 0.4 | oga_sound-effects-pack／Impacts/djembe2.wav |  |  |
+| IMP-0738 | 0.5 | oga_sound-effects-pack／Impacts/djembe3.wav |  |  |
+| IMP-0739 | 1.3 | oga_sound-effects-pack／Impacts/flip.wav |  |  |
+| IMP-0740 | 0.4 | oga_sound-effects-pack／Impacts/fruit1.wav |  |  |
+| IMP-0741 | 0.4 | oga_sound-effects-pack／Impacts/fruit2.wav |  |  |
+| IMP-0742 | 0.4 | oga_sound-effects-pack／Impacts/fruit3.wav |  |  |
+| IMP-0743 | 0.5 | oga_sound-effects-pack／Impacts/gulp1.wav |  |  |
+| IMP-0744 | 0.3 | oga_sound-effects-pack／Impacts/gulp2.wav |  |  |
+| IMP-0745 | 0.3 | oga_sound-effects-pack／Impacts/hit.wav |  |  |
+| IMP-0746 | 0.6 | oga_sound-effects-pack／Impacts/scrape1.wav |  |  |
+| IMP-0747 | 1.0 | oga_sound-effects-pack／Impacts/scrape2.wav |  |  |
+| IMP-0748 | 4.4 | oga_sound-effects-pack／Impacts/scrape3.wav |  |  |
+| IMP-0749 | 4.4 | oga_sound-effects-pack／Impacts/shouldergrab.wav |  |  |
+| IMP-0750 | 0.5 | oga_sound-effects-pack／Impacts/slap2.wav |  |  |
+| IMP-0751 | 0.9 | oga_sound-effects-pack／Impacts/tap.wav |  |  |
+| IMP-0752 | 0.7 | oga_sound-effects-pack／Impacts/toasterstep1.wav |  |  |
+| IMP-0753 | 0.6 | oga_sound-effects-pack／Impacts/toasterstep2.wav |  |  |
+| IMP-0754 | 0.5 | oga_sound-effects-pack／Impacts/toasterstep3.wav |  |  |
+| IMP-0755 | 2.8 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/Splash.wav |  |  |
+| IMP-0756 | 3.2 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/SplashGverb.wav |  |  |
+| IMP-0757 | 2.8 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/ogg/Splash.ogg |  |  |
+| IMP-0758 | 3.2 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/ogg/SplashGverb.ogg |  |  |
+| IMP-0759 | 1.9 | oga_unleeched-sound-effects-pack／glass-break1.wav |  |  |
+| IMP-0760 | 2.3 | oga_unleeched-sound-effects-pack／glass-break2.wav |  |  |
+| IMP-0761 | 2.4 | oga_unleeched-sound-effects-pack／glass-break3.wav |  |  |
+| IMP-0762 | 0.9 | oga_unleeched-sound-effects-pack／leech-hit.wav |  |  |
+| IMP-0763 | 1.1 | oga_unleeched-sound-effects-pack／scientist-hit.wav |  |  |
 
-## ITM 物品與拾取（90）
+## ITM 物品與拾取（186）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -1259,8 +2143,104 @@
 | ITM-0088 | 1.2 | oga_hit-sounds／Hits/Hammer Hit.wav |  |  |
 | ITM-0089 | 2.0 | oga_sfx-plug-in-plug-out／Plug-in.wav |  |  |
 | ITM-0090 | 2.0 | oga_sfx-plug-in-plug-out／Plug-out.wav |  |  |
+| ITM-0091 | 11.2 | ia_red-library-communications／R17-47-Typewriter and Paper.mp3 |  |  |
+| ITM-0092 | 4.0 | ia_red-library-communications／R20-03-Pull Paper Out of Typewriter.flac |  |  |
+| ITM-0093 | 56.5 | ia_red-library-communications／R20-21-Telephone Rings - Metal Bell.mp3 |  |  |
+| ITM-0094 | 4.0 | ia_red-library-foley-props-1／R15-81-Metal Clanking Coins.flac |  |  |
+| ITM-0095 | 22.8 | ia_sse-library-alarms／ALRMBell_Old style fire alarm bell; hand cranked_CS_USC.mp3 |  |  |
+| ITM-0096 | 1.7 | ia_sse-library-alarms／ALRMBell_Train crossing bell; very short loop; okay_CS_USC.flac |  |  |
+| ITM-0097 | 11.6 | ia_sse-library-ambience／AMBInd_Large industrial factory; much hammering_CS_USC.mp3 |  |  |
+| ITM-0098 | 17.5 | ia_sse-library-ambience／AMBPubl_Low crowd murmur and bell ring_CS_USC.mp3 |  |  |
+| ITM-0099 | 24.1 | ia_sse-library-communications／COMTelph_Coin return from pay telephone_CS_USC.mp3 |  |  |
+| ITM-0100 | 46.2 | ia_sse-library-metal／METLImpt_Blacksmith hitting anvil with hammer; two_CS_USC.mp3 |  |  |
+| ITM-0101 | 26.6 | ia_sse-library-tools／TOOLHand_Chiseling; Striking chisel with wooden hammer_CS_USC.mp3 |  |  |
+| ITM-0102 | 43.6 | ia_sse-library-tools／TOOLPneu_Pneumatic jack hammer; not much detail_CS_USC.mp3 |  |  |
+| ITM-0103 | 0.5 | oga_12-coin-sound-effects／coin.1.ogg |  |  |
+| ITM-0104 | 0.3 | oga_12-coin-sound-effects／coin.10.ogg |  |  |
+| ITM-0105 | 0.6 | oga_12-coin-sound-effects／coin.11.ogg |  |  |
+| ITM-0106 | 0.5 | oga_12-coin-sound-effects／coin.12.ogg |  |  |
+| ITM-0107 | 0.3 | oga_12-coin-sound-effects／coin.2.ogg |  |  |
+| ITM-0108 | 0.4 | oga_12-coin-sound-effects／coin.3.ogg |  |  |
+| ITM-0109 | 0.4 | oga_12-coin-sound-effects／coin.4.ogg |  |  |
+| ITM-0110 | 0.6 | oga_12-coin-sound-effects／coin.5.ogg |  |  |
+| ITM-0111 | 0.4 | oga_12-coin-sound-effects／coin.6.ogg |  |  |
+| ITM-0112 | 0.3 | oga_12-coin-sound-effects／coin.7.ogg |  |  |
+| ITM-0113 | 0.5 | oga_12-coin-sound-effects／coin.8.ogg |  |  |
+| ITM-0114 | 0.5 | oga_12-coin-sound-effects／coin.9.ogg |  |  |
+| ITM-0115 | 0.1 | oga_big-and-small-item-fall-sounds2／bigger_item_fall.mp3 |  |  |
+| ITM-0116 | 0.3 | oga_big-and-small-item-fall-sounds2／small_item_fall.mp3 |  |  |
+| ITM-0117 | 0.5 | oga_blacksmiths-hammer／blacksmithhammer.wav |  |  |
+| ITM-0118 | 1.4 | oga_coin-drop／coin_drop.wav |  |  |
+| ITM-0119 | 20.8 | oga_coin-sounds／coinsounds011015.wav |  |  |
+| ITM-0120 | 0.8 | oga_coin-sounds-1／CoinSounds/Coin0.mp3 |  |  |
+| ITM-0121 | 0.8 | oga_coin-sounds-1／CoinSounds/Coin1.mp3 |  |  |
+| ITM-0122 | 0.5 | oga_coin-sounds-1／CoinSounds/Coin10.mp3 |  |  |
+| ITM-0123 | 0.5 | oga_coin-sounds-1／CoinSounds/Coin11.mp3 |  |  |
+| ITM-0124 | 0.7 | oga_coin-sounds-1／CoinSounds/Coin2.mp3 |  |  |
+| ITM-0125 | 0.5 | oga_coin-sounds-1／CoinSounds/Coin3.mp3 |  |  |
+| ITM-0126 | 0.6 | oga_coin-sounds-1／CoinSounds/Coin4.mp3 |  |  |
+| ITM-0127 | 0.4 | oga_coin-sounds-1／CoinSounds/Coin5.mp3 |  |  |
+| ITM-0128 | 0.6 | oga_coin-sounds-1／CoinSounds/Coin6.mp3 |  |  |
+| ITM-0129 | 0.5 | oga_coin-sounds-1／CoinSounds/Coin7.mp3 |  |  |
+| ITM-0130 | 0.6 | oga_coin-sounds-1／CoinSounds/Coin8.mp3 |  |  |
+| ITM-0131 | 0.5 | oga_coin-sounds-1／CoinSounds/Coin9.mp3 |  |  |
+| ITM-0132 | 1.4 | oga_fantasy-accessory-sfx-library／sfx/coin-spin-fall-01.wav |  |  |
+| ITM-0133 | 3.5 | oga_fantasy-accessory-sfx-library／sfx/coin-spin-fall-02.wav |  |  |
+| ITM-0134 | 4.2 | oga_fantasy-accessory-sfx-library／sfx/coin-spin-fall-03.wav |  |  |
+| ITM-0135 | 3.6 | oga_fantasy-accessory-sfx-library／sfx/coin-spin-fall-04.wav |  |  |
+| ITM-0136 | 6.2 | oga_fantasy-accessory-sfx-library／sfx/coin-spin-fall-05.wav |  |  |
+| ITM-0137 | 5.7 | oga_fantasy-accessory-sfx-library／sfx/coin-spin-fall-06.wav |  |  |
+| ITM-0138 | 0.3 | oga_fantasy-accessory-sfx-library／sfx/coinflip-01.wav |  |  |
+| ITM-0139 | 0.2 | oga_fantasy-accessory-sfx-library／sfx/coinflip-02.wav |  |  |
+| ITM-0140 | 0.5 | oga_fantasy-accessory-sfx-library／sfx/coinflip-03.wav |  |  |
+| ITM-0141 | 1.2 | oga_fantasy-accessory-sfx-library／sfx/coins-shake-01.wav |  |  |
+| ITM-0142 | 1.0 | oga_fantasy-accessory-sfx-library／sfx/coins-shake-02.wav |  |  |
+| ITM-0143 | 1.2 | oga_fantasy-accessory-sfx-library／sfx/coins-shake-03.wav |  |  |
+| ITM-0144 | 1.0 | oga_fantasy-accessory-sfx-library／sfx/coins-shake-04.wav |  |  |
+| ITM-0145 | 1.3 | oga_fantasy-accessory-sfx-library／sfx/coins-shake-05.wav |  |  |
+| ITM-0146 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/coins-shake-06.wav |  |  |
+| ITM-0147 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/coins-shake-07.wav |  |  |
+| ITM-0148 | 1.1 | oga_fantasy-accessory-sfx-library／sfx/coins-shake-08.wav |  |  |
+| ITM-0149 | 0.9 | oga_fantasy-accessory-sfx-library／sfx/metal-pot-drop-grain-01.wav |  |  |
+| ITM-0150 | 6.5 | oga_fantasy-accessory-sfx-library／sfx/metal-pot-drop-grain-02.wav |  |  |
+| ITM-0151 | 1.9 | oga_fantasy-accessory-sfx-library／sfx/metal-pot-drop-grain-03.wav |  |  |
+| ITM-0152 | 1.7 | oga_fantasy-accessory-sfx-library／sfx/metal-pot-drop-nuts-01.wav |  |  |
+| ITM-0153 | 2.2 | oga_fantasy-accessory-sfx-library／sfx/metal-pot-drop-nuts-02.wav |  |  |
+| ITM-0154 | 1.1 | oga_fantasy-accessory-sfx-library／sfx/metal-pot-drop-nuts-03.wav |  |  |
+| ITM-0155 | 2.9 | oga_fantasy-accessory-sfx-library／sfx/metal-pot-drop-nuts-04.wav |  |  |
+| ITM-0156 | 1.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/book-page-01.wav |  |  |
+| ITM-0157 | 0.7 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/book-page-02.wav |  |  |
+| ITM-0158 | 1.4 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/coin-spin-fall-01.wav |  |  |
+| ITM-0159 | 0.3 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/coinflip-01.wav |  |  |
+| ITM-0160 | 1.2 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/coins-shake-01.wav |  |  |
+| ITM-0161 | 1.3 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/cover-paper-tear-01.wav |  |  |
+| ITM-0162 | 1.4 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/cover-paper-tear-02.wav |  |  |
+| ITM-0163 | 2.0 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/metal-hammer-hit-01.wav |  |  |
+| ITM-0164 | 1.6 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/metal-hammer-hit-02.wav |  |  |
+| ITM-0165 | 0.2 | oga_gem-collect-sfx／gem-gather-orig.wav |  |  |
+| ITM-0166 | 1.5 | oga_gem-collect-sfx／gem-gather-reverb.wav |  |  |
+| ITM-0167 | 1.5 | oga_gem-collect-sfx／gem-gather-stereo-reverb.wav |  |  |
+| ITM-0168 | 0.2 | oga_gem-collect-sfx／gem-gather-stereo.wav |  |  |
+| ITM-0169 | 2.5 | oga_hammer-on-anvil／forger_0.ogg |  |  |
+| ITM-0170 | 0.5 | oga_item-pickup-key／key-176034.mp3 |  |  |
+| ITM-0171 | 0.3 | oga_item-shortcut-sound-pack／qubodupItemInteractions/bindItem.flac |  |  |
+| ITM-0172 | 0.2 | oga_item-shortcut-sound-pack／qubodupItemInteractions/clearItem.flac |  |  |
+| ITM-0173 | 0.3 | oga_item-shortcut-sound-pack／qubodupItemInteractions/errorItem.flac |  |  |
+| ITM-0174 | 0.9 | oga_plingy-coin／coin.wav |  |  |
+| ITM-0175 | 2.2 | oga_sci-fi-rts-war-unit-sounds／qubodup-rts_warsounds_v2/aircraftfactory/aircraftfactory.select.wav |  |  |
+| ITM-0176 | 4.0 | oga_secret-coin／odd_coin.flac |  |  |
+| ITM-0177 | 1.8 | oga_sound-effects-pack／Paper/crumples1.wav |  |  |
+| ITM-0178 | 2.2 | oga_sound-effects-pack／Paper/crumples2.wav |  |  |
+| ITM-0179 | 0.6 | oga_sound-effects-pack／Paper/pageturn1.wav |  |  |
+| ITM-0180 | 1.8 | oga_sound-effects-pack／Paper/pageturn2.wav |  |  |
+| ITM-0181 | 9.0 | oga_sound-effects-pack／Paper/paper-sketchbook-page-flips-1.wav |  |  |
+| ITM-0182 | 8.1 | oga_sound-effects-pack／Paper/paper-sketchbook-page-flips-2.wav |  |  |
+| ITM-0183 | 30.4 | oga_sound-effects-pack／Paper/pencil-scratch-1.wav |  |  |
+| ITM-0184 | 39.4 | oga_sound-effects-pack／Paper/pencil-scratch-2.wav |  |  |
+| ITM-0185 | 10.4 | oga_sound-effects-pack／Paper/tissue-pull.wav |  |  |
+| ITM-0186 | 3.3 | oga_spaceship-shoting／SpaceShipShooting/Plasmabellshot.ogg |  |  |
 
-## MEC 機械與機關（218）
+## MEC 機械與機關（637）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -1482,8 +2462,427 @@
 | MEC-0216 | 0.5 | oga_metal-interactions／metal_interactions/metal_interaction2.wav |  |  |
 | MEC-0217 | 3.2 | oga_old-elevator-door／old_elevator_door.mp3 |  |  |
 | MEC-0218 | 0.2 | oga_small-metal-clasp-open-close-switching／small_metal_clasp.mp3 |  |  |
+| MEC-0219 | 8.7 | ia_red-library-communications／R16-41-Typewriter Roller Movements.mp3 |  |  |
+| MEC-0220 | 50.9 | ia_red-library-communications／R19-50-Teletype Machine Printing.mp3 |  |  |
+| MEC-0221 | 25.0 | ia_red-library-communications／R20-01-Manual Typewriter in Office.mp3 |  |  |
+| MEC-0222 | 24.9 | ia_red-library-communications／R20-02-Manual Typewriter.mp3 |  |  |
+| MEC-0223 | 20.8 | ia_red-library-communications／R20-10-Fast Typing on Manual Typewriter.mp3 |  |  |
+| MEC-0224 | 78.5 | ia_red-library-communications／R20-17-Teletype Machine.mp3 |  |  |
+| MEC-0225 | 4.0 | ia_red-library-doors／R09-10-Door Shutting.flac |  |  |
+| MEC-0226 | 47.9 | ia_red-library-doors／R09-29-Screen Door.mp3 |  |  |
+| MEC-0227 | 8.5 | ia_red-library-doors／R09-41-Opening Shutting and Locking Door.mp3 |  |  |
+| MEC-0228 | 12.8 | ia_red-library-doors／R18-08-Drawbridge Opens or Closes.mp3 |  |  |
+| MEC-0229 | 11.3 | ia_red-library-foley-props-5／R27-41-Metal Gear Rattles on Army.mp3 |  |  |
+| MEC-0230 | 30.7 | ia_red-library-foley-props-5／R27-43-Metal Gear Rattles on Army.mp3 |  |  |
+| MEC-0231 | 22.3 | ia_red-library-machines-1／R03-30-Large Factory Machines Starts, Works, Stops.mp3 |  |  |
+| MEC-0232 | 10.5 | ia_red-library-machines-1／R11-44-Radiation Geiger Counter.mp3 |  |  |
+| MEC-0233 | 28.8 | ia_red-library-machines-1／R16-26-Water Pump.mp3 |  |  |
+| MEC-0234 | 52.5 | ia_red-library-machines-2／R17-02-Old Office Machines.mp3 |  |  |
+| MEC-0235 | 30.5 | ia_red-library-machines-2／R18-32-Distant Machine in Factory.mp3 |  |  |
+| MEC-0236 | 17.9 | ia_sse-library-chains／CHAINMvmt_Chains moving on deck of ship; waves_CS_USC.mp3 |  |  |
+| MEC-0237 | 15.9 | ia_sse-library-communications／COMTelm_Teletype or printing machine_CS_USC.mp3 |  |  |
+| MEC-0238 | 0.7 | ia_sse-library-doors／DOORHdwr_Short door latch_CS_USC.flac |  |  |
+| MEC-0239 | 21.2 | ia_sse-library-doors／DOORMetl_Elevator doors or large metal cabinet; latches_CS_USC.mp3 |  |  |
+| MEC-0240 | 12.2 | ia_sse-library-doors／DOORPrisn_Shaking prison cell door; or other metal_CS_USC.mp3 |  |  |
+| MEC-0241 | 4.8 | ia_sse-library-machines／MACHElev_Elevator door open & close_CHS_USC.flac |  |  |
+| MEC-0242 | 68.0 | ia_sse-library-machines／MACHEscl_Escalator with odd high frequency element_CHS_USC.mp3 |  |  |
+| MEC-0243 | 12.1 | ia_sse-library-machines／MACHMed_EKG heart rate of 44 BPM_CS_USC.mp3 |  |  |
+| MEC-0244 | 15.6 | ia_sse-library-machines／MACHMed_EKG heart rate of 90 BPM_CS_USC.mp3 |  |  |
+| MEC-0245 | 10.6 | ia_sse-library-machines／MACHMed_Iron lung runs steady_CS_USC.mp3 |  |  |
+| MEC-0246 | 20.9 | ia_sse-library-machines／MACHMed_Operating room ventilation machine; Good_CS_USC.mp3 |  |  |
+| MEC-0247 | 24.4 | ia_sse-library-mechanical／MECHClik_Metal clicks; several takes_CS_USC.mp3 |  |  |
+| MEC-0248 | 33.3 | ia_sse-library-mechanical／MECHLock_Lock opens; could be door; gun or other small_CS_USC.mp3 |  |  |
+| MEC-0249 | 21.8 | ia_sse-library-metal／METLImpt_Shooting gallery or anvil_CS_USC.mp3 |  |  |
+| MEC-0250 | 24.8 | ia_sse-library-motors／MOTRTurb_Engine room; high whine from turbines_CS_USC.mp3 |  |  |
+| MEC-0251 | 22.7 | ia_sse-library-tools／TOOLPneu_Riveting gun_CS_USC.mp3 |  |  |
+| MEC-0252 | 40.7 | ia_sse-library-weapons／WEAPArmr_metal armor helmet open & close; hinges and_CS_USC.mp3 |  |  |
+| MEC-0253 | 37.7 | ia_sse-library-weapons／WEAPArro_Shooting arrows from bow; indoors_CS_USC.mp3 |  |  |
+| MEC-0254 | 23.7 | ia_sse-library-weapons／WEAPSiege_Battering ram an large heavy door_CS_USC.wav |  |  |
+| MEC-0255 | 0.7 | kenney_casino-audio／Audio/card-fan-1.ogg |  |  |
+| MEC-0256 | 1.3 | kenney_casino-audio／Audio/card-fan-2.ogg |  |  |
+| MEC-0257 | 0.6 | oga_16-button-clicks／buttons_and_clicks/Clic01.mp3.flac |  |  |
+| MEC-0258 | 0.4 | oga_16-button-clicks／buttons_and_clicks/Clic03.mp3.flac |  |  |
+| MEC-0259 | 0.4 | oga_16-button-clicks／buttons_and_clicks/Clic04.mp3.flac |  |  |
+| MEC-0260 | 0.4 | oga_16-button-clicks／buttons_and_clicks/Clic05.mp3.flac |  |  |
+| MEC-0261 | 0.4 | oga_16-button-clicks／buttons_and_clicks/Clic06.mp3.flac |  |  |
+| MEC-0262 | 0.3 | oga_16-button-clicks／buttons_and_clicks/Clic07.mp3.flac |  |  |
+| MEC-0263 | 0.3 | oga_16-button-clicks／buttons_and_clicks/Clic08.mp3.flac |  |  |
+| MEC-0264 | 0.6 | oga_16-button-clicks／buttons_and_clicks/Clic09.mp3.flac |  |  |
+| MEC-0265 | 0.6 | oga_16-button-clicks／buttons_and_clicks/button01.mp3.flac |  |  |
+| MEC-0266 | 0.6 | oga_16-button-clicks／buttons_and_clicks/button02.mp3.flac |  |  |
+| MEC-0267 | 0.8 | oga_16-button-clicks／buttons_and_clicks/button03.mp3.flac |  |  |
+| MEC-0268 | 0.5 | oga_16-button-clicks／buttons_and_clicks/button04.mp3.flac |  |  |
+| MEC-0269 | 0.6 | oga_16-button-clicks／buttons_and_clicks/button05.mp3.flac |  |  |
+| MEC-0270 | 0.6 | oga_16-button-clicks／buttons_and_clicks/button06.mp3.flac |  |  |
+| MEC-0271 | 0.4 | oga_16-button-clicks／buttons_and_clicks/clic02.mp3.flac |  |  |
+| MEC-0272 | 0.3 | oga_16-button-clicks／buttons_and_clicks/clic10.mp3.flac |  |  |
+| MEC-0273 | 1.7 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #1.wav |  |  |
+| MEC-0274 | 2.6 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #10.wav |  |  |
+| MEC-0275 | 2.1 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #11.wav |  |  |
+| MEC-0276 | 2.2 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #12.wav |  |  |
+| MEC-0277 | 3.0 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #13.wav |  |  |
+| MEC-0278 | 3.9 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #14.wav |  |  |
+| MEC-0279 | 1.7 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #15.wav |  |  |
+| MEC-0280 | 4.1 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #16.wav |  |  |
+| MEC-0281 | 4.8 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #17.wav |  |  |
+| MEC-0282 | 4.0 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #18.wav |  |  |
+| MEC-0283 | 5.9 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #19.wav |  |  |
+| MEC-0284 | 3.7 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #2.wav |  |  |
+| MEC-0285 | 3.9 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #20.wav |  |  |
+| MEC-0286 | 7.8 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #21.wav |  |  |
+| MEC-0287 | 4.0 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #22.wav |  |  |
+| MEC-0288 | 3.9 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #23.wav |  |  |
+| MEC-0289 | 2.9 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #24.wav |  |  |
+| MEC-0290 | 0.9 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #25.wav |  |  |
+| MEC-0291 | 0.6 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #26.wav |  |  |
+| MEC-0292 | 2.6 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #27.wav |  |  |
+| MEC-0293 | 4.2 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #28.wav |  |  |
+| MEC-0294 | 4.9 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #29.wav |  |  |
+| MEC-0295 | 1.9 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #3.wav |  |  |
+| MEC-0296 | 5.3 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #30.wav |  |  |
+| MEC-0297 | 6.7 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #31.wav |  |  |
+| MEC-0298 | 1.8 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #4.wav |  |  |
+| MEC-0299 | 2.4 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #5.wav |  |  |
+| MEC-0300 | 2.4 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #6.wav |  |  |
+| MEC-0301 | 2.1 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #7.wav |  |  |
+| MEC-0302 | 2.0 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #8.wav |  |  |
+| MEC-0303 | 2.5 | oga_31-pings-and-metal-filing-sounds／pings and scrapes/pings and scrapes - Marker #9.wav |  |  |
+| MEC-0304 | 0.2 | oga_87-clickety-clips／click1.wav |  |  |
+| MEC-0305 | 0.4 | oga_87-clickety-clips／click10.wav |  |  |
+| MEC-0306 | 0.4 | oga_87-clickety-clips／click11.wav |  |  |
+| MEC-0307 | 0.2 | oga_87-clickety-clips／click12.wav |  |  |
+| MEC-0308 | 0.4 | oga_87-clickety-clips／click13.wav |  |  |
+| MEC-0309 | 0.5 | oga_87-clickety-clips／click14.wav |  |  |
+| MEC-0310 | 0.2 | oga_87-clickety-clips／click15.wav |  |  |
+| MEC-0311 | 0.6 | oga_87-clickety-clips／click16.wav |  |  |
+| MEC-0312 | 0.2 | oga_87-clickety-clips／click17.wav |  |  |
+| MEC-0313 | 0.2 | oga_87-clickety-clips／click18.wav |  |  |
+| MEC-0314 | 0.2 | oga_87-clickety-clips／click19.wav |  |  |
+| MEC-0315 | 0.2 | oga_87-clickety-clips／click2.wav |  |  |
+| MEC-0316 | 0.2 | oga_87-clickety-clips／click20.wav |  |  |
+| MEC-0317 | 0.1 | oga_87-clickety-clips／click21.wav |  |  |
+| MEC-0318 | 0.5 | oga_87-clickety-clips／click22.wav |  |  |
+| MEC-0319 | 0.4 | oga_87-clickety-clips／click23.wav |  |  |
+| MEC-0320 | 0.2 | oga_87-clickety-clips／click24.wav |  |  |
+| MEC-0321 | 0.4 | oga_87-clickety-clips／click25.wav |  |  |
+| MEC-0322 | 0.1 | oga_87-clickety-clips／click26.wav |  |  |
+| MEC-0323 | 0.1 | oga_87-clickety-clips／click27.wav |  |  |
+| MEC-0324 | 0.1 | oga_87-clickety-clips／click28.wav |  |  |
+| MEC-0325 | 0.2 | oga_87-clickety-clips／click29.wav |  |  |
+| MEC-0326 | 0.2 | oga_87-clickety-clips／click3.wav |  |  |
+| MEC-0327 | 0.3 | oga_87-clickety-clips／click30.wav |  |  |
+| MEC-0328 | 0.3 | oga_87-clickety-clips／click31.wav |  |  |
+| MEC-0329 | 0.3 | oga_87-clickety-clips／click32.wav |  |  |
+| MEC-0330 | 0.2 | oga_87-clickety-clips／click33.wav |  |  |
+| MEC-0331 | 0.4 | oga_87-clickety-clips／click34.wav |  |  |
+| MEC-0332 | 1.1 | oga_87-clickety-clips／click35.wav |  |  |
+| MEC-0333 | 0.8 | oga_87-clickety-clips／click36.wav |  |  |
+| MEC-0334 | 0.2 | oga_87-clickety-clips／click37.wav |  |  |
+| MEC-0335 | 0.8 | oga_87-clickety-clips／click38.wav |  |  |
+| MEC-0336 | 0.6 | oga_87-clickety-clips／click39.wav |  |  |
+| MEC-0337 | 0.1 | oga_87-clickety-clips／click4.wav |  |  |
+| MEC-0338 | 0.8 | oga_87-clickety-clips／click40.wav |  |  |
+| MEC-0339 | 0.6 | oga_87-clickety-clips／click41.wav |  |  |
+| MEC-0340 | 1.2 | oga_87-clickety-clips／click42.wav |  |  |
+| MEC-0341 | 0.9 | oga_87-clickety-clips／click43.wav |  |  |
+| MEC-0342 | 0.8 | oga_87-clickety-clips／click44.wav |  |  |
+| MEC-0343 | 0.5 | oga_87-clickety-clips／click45.wav |  |  |
+| MEC-0344 | 0.4 | oga_87-clickety-clips／click46.wav |  |  |
+| MEC-0345 | 0.5 | oga_87-clickety-clips／click47.wav |  |  |
+| MEC-0346 | 0.3 | oga_87-clickety-clips／click48.wav |  |  |
+| MEC-0347 | 0.3 | oga_87-clickety-clips／click49.wav |  |  |
+| MEC-0348 | 0.5 | oga_87-clickety-clips／click5.wav |  |  |
+| MEC-0349 | 0.3 | oga_87-clickety-clips／click50.wav |  |  |
+| MEC-0350 | 0.3 | oga_87-clickety-clips／click51.wav |  |  |
+| MEC-0351 | 0.5 | oga_87-clickety-clips／click52.wav |  |  |
+| MEC-0352 | 0.1 | oga_87-clickety-clips／click53.wav |  |  |
+| MEC-0353 | 0.2 | oga_87-clickety-clips／click54.wav |  |  |
+| MEC-0354 | 0.1 | oga_87-clickety-clips／click55.wav |  |  |
+| MEC-0355 | 0.1 | oga_87-clickety-clips／click56.wav |  |  |
+| MEC-0356 | 0.3 | oga_87-clickety-clips／click57.wav |  |  |
+| MEC-0357 | 0.9 | oga_87-clickety-clips／click58.wav |  |  |
+| MEC-0358 | 0.6 | oga_87-clickety-clips／click59.wav |  |  |
+| MEC-0359 | 0.5 | oga_87-clickety-clips／click6.wav |  |  |
+| MEC-0360 | 0.1 | oga_87-clickety-clips／click60.wav |  |  |
+| MEC-0361 | 0.6 | oga_87-clickety-clips／click61.wav |  |  |
+| MEC-0362 | 0.4 | oga_87-clickety-clips／click62.wav |  |  |
+| MEC-0363 | 0.2 | oga_87-clickety-clips／click63.wav |  |  |
+| MEC-0364 | 0.2 | oga_87-clickety-clips／click64.wav |  |  |
+| MEC-0365 | 0.4 | oga_87-clickety-clips／click65.wav |  |  |
+| MEC-0366 | 0.7 | oga_87-clickety-clips／click66.wav |  |  |
+| MEC-0367 | 1.0 | oga_87-clickety-clips／click67.wav |  |  |
+| MEC-0368 | 0.5 | oga_87-clickety-clips／click68.wav |  |  |
+| MEC-0369 | 0.6 | oga_87-clickety-clips／click69.wav |  |  |
+| MEC-0370 | 0.4 | oga_87-clickety-clips／click7.wav |  |  |
+| MEC-0371 | 0.3 | oga_87-clickety-clips／click70.wav |  |  |
+| MEC-0372 | 0.2 | oga_87-clickety-clips／click71.wav |  |  |
+| MEC-0373 | 0.2 | oga_87-clickety-clips／click72.wav |  |  |
+| MEC-0374 | 0.4 | oga_87-clickety-clips／click73.wav |  |  |
+| MEC-0375 | 0.3 | oga_87-clickety-clips／click74.wav |  |  |
+| MEC-0376 | 0.2 | oga_87-clickety-clips／click75.wav |  |  |
+| MEC-0377 | 0.8 | oga_87-clickety-clips／click76.wav |  |  |
+| MEC-0378 | 0.1 | oga_87-clickety-clips／click77.wav |  |  |
+| MEC-0379 | 0.2 | oga_87-clickety-clips／click78.wav |  |  |
+| MEC-0380 | 0.1 | oga_87-clickety-clips／click79.wav |  |  |
+| MEC-0381 | 0.4 | oga_87-clickety-clips／click8.wav |  |  |
+| MEC-0382 | 0.2 | oga_87-clickety-clips／click80.wav |  |  |
+| MEC-0383 | 0.1 | oga_87-clickety-clips／click81.wav |  |  |
+| MEC-0384 | 0.0 | oga_87-clickety-clips／click82.wav |  |  |
+| MEC-0385 | 0.3 | oga_87-clickety-clips／click83.wav |  |  |
+| MEC-0386 | 0.1 | oga_87-clickety-clips／click84.wav |  |  |
+| MEC-0387 | 0.1 | oga_87-clickety-clips／click85.wav |  |  |
+| MEC-0388 | 0.1 | oga_87-clickety-clips／click86.wav |  |  |
+| MEC-0389 | 0.1 | oga_87-clickety-clips／click87.wav |  |  |
+| MEC-0390 | 0.4 | oga_87-clickety-clips／click9.wav |  |  |
+| MEC-0391 | 2.2 | oga_atmospheric-interaction-sound-pack／krank_sounds/industry/anchor_action.wav |  |  |
+| MEC-0392 | 1.6 | oga_atmospheric-interaction-sound-pack／krank_sounds/industry/exit.wav |  |  |
+| MEC-0393 | 1.1 | oga_atmospheric-interaction-sound-pack／krank_sounds/industry/link.wav |  |  |
+| MEC-0394 | 2.0 | oga_atmospheric-interaction-sound-pack／krank_sounds/industry/magnet_action.wav |  |  |
+| MEC-0395 | 1.2 | oga_atmospheric-interaction-sound-pack／krank_sounds/industry/magnet_off.wav |  |  |
+| MEC-0396 | 2.1 | oga_atmospheric-interaction-sound-pack／krank_sounds/industry/magnet_on.wav |  |  |
+| MEC-0397 | 1.0 | oga_atmospheric-interaction-sound-pack／krank_sounds/industry/magnet_start.wav |  |  |
+| MEC-0398 | 1.0 | oga_atmospheric-interaction-sound-pack／krank_sounds/industry/part.wav |  |  |
+| MEC-0399 | 0.9 | oga_atmospheric-interaction-sound-pack／krank_sounds/industry/unlink.wav |  |  |
+| MEC-0400 | 1.2 | oga_atmospheric-interaction-sound-pack／krank_sounds/industry/wall.wav |  |  |
+| MEC-0401 | 2.2 | oga_atmospheric-interaction-sound-pack／krank_sounds/menu/exit.wav |  |  |
+| MEC-0402 | 1.0 | oga_atmospheric-interaction-sound-pack／krank_sounds/menu/part.wav |  |  |
+| MEC-0403 | 1.4 | oga_atmospheric-interaction-sound-pack／krank_sounds/menu/wall.wav |  |  |
+| MEC-0404 | 1.8 | oga_atmospheric-interaction-sound-pack／krank_sounds/summer/anchor_action.wav |  |  |
+| MEC-0405 | 2.2 | oga_atmospheric-interaction-sound-pack／krank_sounds/summer/exit.wav |  |  |
+| MEC-0406 | 1.3 | oga_atmospheric-interaction-sound-pack／krank_sounds/summer/link.wav |  |  |
+| MEC-0407 | 2.5 | oga_atmospheric-interaction-sound-pack／krank_sounds/summer/magnet_action.wav |  |  |
+| MEC-0408 | 1.0 | oga_atmospheric-interaction-sound-pack／krank_sounds/summer/magnet_off.wav |  |  |
+| MEC-0409 | 2.0 | oga_atmospheric-interaction-sound-pack／krank_sounds/summer/magnet_on.wav |  |  |
+| MEC-0410 | 1.7 | oga_atmospheric-interaction-sound-pack／krank_sounds/summer/magnet_start.wav |  |  |
+| MEC-0411 | 0.3 | oga_atmospheric-interaction-sound-pack／krank_sounds/summer/part.wav |  |  |
+| MEC-0412 | 1.1 | oga_atmospheric-interaction-sound-pack／krank_sounds/summer/unlink.wav |  |  |
+| MEC-0413 | 0.3 | oga_atmospheric-interaction-sound-pack／krank_sounds/summer/wall.wav |  |  |
+| MEC-0414 | 3.6 | oga_atmospheric-interaction-sound-pack／krank_sounds/water/anchor_action.wav |  |  |
+| MEC-0415 | 5.3 | oga_atmospheric-interaction-sound-pack／krank_sounds/water/exit.wav |  |  |
+| MEC-0416 | 1.5 | oga_atmospheric-interaction-sound-pack／krank_sounds/water/link.wav |  |  |
+| MEC-0417 | 2.6 | oga_atmospheric-interaction-sound-pack／krank_sounds/water/magnet_action.wav |  |  |
+| MEC-0418 | 6.0 | oga_atmospheric-interaction-sound-pack／krank_sounds/water/magnet_off.wav |  |  |
+| MEC-0419 | 5.0 | oga_atmospheric-interaction-sound-pack／krank_sounds/water/magnet_on.wav |  |  |
+| MEC-0420 | 5.8 | oga_atmospheric-interaction-sound-pack／krank_sounds/water/magnet_start.wav |  |  |
+| MEC-0421 | 1.0 | oga_atmospheric-interaction-sound-pack／krank_sounds/water/part.wav |  |  |
+| MEC-0422 | 1.3 | oga_atmospheric-interaction-sound-pack／krank_sounds/water/unlink.wav |  |  |
+| MEC-0423 | 0.9 | oga_atmospheric-interaction-sound-pack／krank_sounds/water/wall.wav |  |  |
+| MEC-0424 | 0.4 | oga_bub-block-sound-effects／close.wav |  |  |
+| MEC-0425 | 0.1 | oga_bub-block-sound-effects／drop1.wav |  |  |
+| MEC-0426 | 0.2 | oga_bub-block-sound-effects／drop2.wav |  |  |
+| MEC-0427 | 0.2 | oga_bub-block-sound-effects／drop3.wav |  |  |
+| MEC-0428 | 0.2 | oga_bub-block-sound-effects／drop4.wav |  |  |
+| MEC-0429 | 0.2 | oga_bub-block-sound-effects／drop5.wav |  |  |
+| MEC-0430 | 0.1 | oga_bub-block-sound-effects／menu-down.wav |  |  |
+| MEC-0431 | 0.0 | oga_bub-block-sound-effects／menu-lr.wav |  |  |
+| MEC-0432 | 0.0 | oga_bub-block-sound-effects／menu-up.wav |  |  |
+| MEC-0433 | 0.2 | oga_bub-block-sound-effects／open.wav |  |  |
+| MEC-0434 | 0.1 | oga_bub-block-sound-effects／pickup.wav |  |  |
+| MEC-0435 | 0.1 | oga_bub-block-sound-effects／sign-in.wav |  |  |
+| MEC-0436 | 0.1 | oga_bub-block-sound-effects／sign-out.wav |  |  |
+| MEC-0437 | 0.2 | oga_click-sounds6／click_sound_1.mp3 |  |  |
+| MEC-0438 | 0.1 | oga_click-ui-menu-sfx-yesnoselect／click-ui/click-click-mono.wav |  |  |
+| MEC-0439 | 0.1 | oga_click-ui-menu-sfx-yesnoselect／click-ui/click-click-stereo.wav |  |  |
+| MEC-0440 | 0.3 | oga_click-ui-menu-sfx-yesnoselect／click-ui/click-negative-mono.wav |  |  |
+| MEC-0441 | 0.3 | oga_click-ui-menu-sfx-yesnoselect／click-ui/click-negative-stereo.wav |  |  |
+| MEC-0442 | 0.4 | oga_click-ui-menu-sfx-yesnoselect／click-ui/click-negative2-mono.wav |  |  |
+| MEC-0443 | 0.4 | oga_click-ui-menu-sfx-yesnoselect／click-ui/click-negative2-stereo.wav |  |  |
+| MEC-0444 | 0.5 | oga_click-ui-menu-sfx-yesnoselect／click-ui/click-positive-mono.wav |  |  |
+| MEC-0445 | 0.5 | oga_click-ui-menu-sfx-yesnoselect／click-ui/click-positive-stereo.wav |  |  |
+| MEC-0446 | 4.3 | oga_creaky-door-hinge-spooky／creaky_door_hinge.wav |  |  |
+| MEC-0447 | 4.4 | oga_door-open-sfx／door_open.wav |  |  |
+| MEC-0448 | 20.7 | oga_engine-sounds2／engine_sound.mp3 |  |  |
+| MEC-0449 | 110.5 | oga_fantasy-accessory-sfx-library／preview.ogg |  |  |
+| MEC-0450 | 0.4 | oga_fantasy-accessory-sfx-library／sfx/bottle-clay-uncork-01.wav |  |  |
+| MEC-0451 | 0.6 | oga_fantasy-accessory-sfx-library／sfx/bottle-clay-uncork-02.wav |  |  |
+| MEC-0452 | 0.5 | oga_fantasy-accessory-sfx-library／sfx/bottle-clay-uncork-03.wav |  |  |
+| MEC-0453 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/bottle-coffee-shake-01.wav |  |  |
+| MEC-0454 | 0.9 | oga_fantasy-accessory-sfx-library／sfx/bottle-coffee-shake-02.wav |  |  |
+| MEC-0455 | 0.6 | oga_fantasy-accessory-sfx-library／sfx/bottle-coffee-shake-03.wav |  |  |
+| MEC-0456 | 0.6 | oga_fantasy-accessory-sfx-library／sfx/bottle-coffee-shake-04.wav |  |  |
+| MEC-0457 | 0.6 | oga_fantasy-accessory-sfx-library／sfx/bottle-coffee-shake-05.wav |  |  |
+| MEC-0458 | 1.2 | oga_fantasy-accessory-sfx-library／sfx/bottle-coffee-shake-06.wav |  |  |
+| MEC-0459 | 0.3 | oga_fantasy-accessory-sfx-library／sfx/bottle-pills-shake-01.wav |  |  |
+| MEC-0460 | 0.4 | oga_fantasy-accessory-sfx-library／sfx/bottle-pills-shake-02.wav |  |  |
+| MEC-0461 | 0.3 | oga_fantasy-accessory-sfx-library／sfx/bottle-pills-shake-03.wav |  |  |
+| MEC-0462 | 0.2 | oga_fantasy-accessory-sfx-library／sfx/bottle-pills-shake-04.wav |  |  |
+| MEC-0463 | 0.4 | oga_fantasy-accessory-sfx-library／sfx/bottle-pills-shake-05.wav |  |  |
+| MEC-0464 | 0.4 | oga_fantasy-accessory-sfx-library／sfx/bottle-pills-shake-06.wav |  |  |
+| MEC-0465 | 0.5 | oga_fantasy-accessory-sfx-library／sfx/bottle-pills-shake-07.wav |  |  |
+| MEC-0466 | 0.7 | oga_fantasy-accessory-sfx-library／sfx/bottle-pills-shake-08.wav |  |  |
+| MEC-0467 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/bottle-pills-shake-09.wav |  |  |
+| MEC-0468 | 0.6 | oga_fantasy-accessory-sfx-library／sfx/container-nuts-01.wav |  |  |
+| MEC-0469 | 1.8 | oga_fantasy-accessory-sfx-library／sfx/container-nuts-02.wav |  |  |
+| MEC-0470 | 1.2 | oga_fantasy-accessory-sfx-library／sfx/container-nuts-03.wav |  |  |
+| MEC-0471 | 1.0 | oga_fantasy-accessory-sfx-library／sfx/container-nuts-04.wav |  |  |
+| MEC-0472 | 1.8 | oga_fantasy-accessory-sfx-library／sfx/container-nuts-05.wav |  |  |
+| MEC-0473 | 1.3 | oga_fantasy-accessory-sfx-library／sfx/dice-many-roll-01.wav |  |  |
+| MEC-0474 | 1.6 | oga_fantasy-accessory-sfx-library／sfx/dice-many-roll-02.wav |  |  |
+| MEC-0475 | 1.6 | oga_fantasy-accessory-sfx-library／sfx/dice-many-roll-03.wav |  |  |
+| MEC-0476 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/dice-many-shake-01.wav |  |  |
+| MEC-0477 | 1.1 | oga_fantasy-accessory-sfx-library／sfx/dice-many-shake-02.wav |  |  |
+| MEC-0478 | 1.2 | oga_fantasy-accessory-sfx-library／sfx/dice-many-shake-03.wav |  |  |
+| MEC-0479 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/dice-two-roll-01.wav |  |  |
+| MEC-0480 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/dice-two-roll-02.wav |  |  |
+| MEC-0481 | 1.0 | oga_fantasy-accessory-sfx-library／sfx/dice-two-roll-03.wav |  |  |
+| MEC-0482 | 1.1 | oga_fantasy-accessory-sfx-library／sfx/dice-two-roll-04.wav |  |  |
+| MEC-0483 | 1.7 | oga_fantasy-accessory-sfx-library／sfx/dice-two-roll-05.wav |  |  |
+| MEC-0484 | 0.9 | oga_fantasy-accessory-sfx-library／sfx/keyhole-lockbox-insert-01.wav |  |  |
+| MEC-0485 | 0.6 | oga_fantasy-accessory-sfx-library／sfx/keyhole-lockbox-insert-02.wav |  |  |
+| MEC-0486 | 0.5 | oga_fantasy-accessory-sfx-library／sfx/keyhole-lockbox-insert-03.wav |  |  |
+| MEC-0487 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/keyhole-lockbox-remove-01.wav |  |  |
+| MEC-0488 | 0.9 | oga_fantasy-accessory-sfx-library／sfx/keyhole-lockbox-remove-02.wav |  |  |
+| MEC-0489 | 0.7 | oga_fantasy-accessory-sfx-library／sfx/keyhole-lockbox-remove-03.wav |  |  |
+| MEC-0490 | 0.9 | oga_fantasy-accessory-sfx-library／sfx/keyhole-lockbox-turn-01.wav |  |  |
+| MEC-0491 | 0.9 | oga_fantasy-accessory-sfx-library／sfx/keyhole-lockbox-turn-02.wav |  |  |
+| MEC-0492 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/keyhole-lockbox-turn-03.wav |  |  |
+| MEC-0493 | 1.0 | oga_fantasy-accessory-sfx-library／sfx/keyhole-lockbox-turn-04.wav |  |  |
+| MEC-0494 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/keyhole-lockbox-turn-05.wav |  |  |
+| MEC-0495 | 0.7 | oga_fantasy-accessory-sfx-library／sfx/keyhole-lockbox-turn-06.wav |  |  |
+| MEC-0496 | 0.7 | oga_fantasy-accessory-sfx-library／sfx/keyhole-lockbox-unlock-01.wav |  |  |
+| MEC-0497 | 1.7 | oga_fantasy-accessory-sfx-library／sfx/keyhole-lockbox-unlock-02.wav |  |  |
+| MEC-0498 | 1.8 | oga_fantasy-accessory-sfx-library／sfx/keyhole-lockbox-unlock-03.wav |  |  |
+| MEC-0499 | 1.2 | oga_fantasy-accessory-sfx-library／sfx/keyhole-lockbox-unlock-04.wav |  |  |
+| MEC-0500 | 0.9 | oga_fantasy-accessory-sfx-library／sfx/keyhole-lockbox-unlock-05.wav |  |  |
+| MEC-0501 | 1.4 | oga_fantasy-accessory-sfx-library／sfx/keys-rattle-01.wav |  |  |
+| MEC-0502 | 0.9 | oga_fantasy-accessory-sfx-library／sfx/keys-rattle-02.wav |  |  |
+| MEC-0503 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/keys-rattle-03.wav |  |  |
+| MEC-0504 | 169.4 | oga_fantasy-sound-effects-tinysized-sfx／preview.ogg |  |  |
+| MEC-0505 | 0.6 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/apple-cut-01.wav |  |  |
+| MEC-0506 | 0.6 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/apple-cut-02.wav |  |  |
+| MEC-0507 | 0.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/apple-cut-03.wav |  |  |
+| MEC-0508 | 0.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/arrow-feathers-01.wav |  |  |
+| MEC-0509 | 0.6 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/arrow-grab-from-quiver-01.wav |  |  |
+| MEC-0510 | 1.2 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/arrow-grab-from-quiver-02.wav |  |  |
+| MEC-0511 | 0.7 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/arrow-return-to-quiver-01.wav |  |  |
+| MEC-0512 | 0.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/arrow-return-to-quiver-02.wav |  |  |
+| MEC-0513 | 0.4 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/bottle-clay-uncork-01.wav |  |  |
+| MEC-0514 | 0.3 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/bottle-pills-shake-01.wav |  |  |
+| MEC-0515 | 0.3 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/bottle-pills-shake-02.wav |  |  |
+| MEC-0516 | 1.2 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/bottle-plastic-lid-screw-01.wav |  |  |
+| MEC-0517 | 1.3 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/bottle-plastic-lid-unscrew-01.wav |  |  |
+| MEC-0518 | 0.7 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/drawer-close-01.wav |  |  |
+| MEC-0519 | 1.6 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/drawer-open-01.wav |  |  |
+| MEC-0520 | 0.7 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/floor-creak-01.wav |  |  |
+| MEC-0521 | 0.6 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/handcuffs-metal-lock-01.wav |  |  |
+| MEC-0522 | 0.8 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/handcuffs-metal-lock-02.wav |  |  |
+| MEC-0523 | 0.9 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/handcuffs-metal-open-01.wav |  |  |
+| MEC-0524 | 0.8 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/handsaw-knife-scrape-01.wav |  |  |
+| MEC-0525 | 0.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/handsaw-knife-scrape-02.wav |  |  |
+| MEC-0526 | 0.9 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/keyhole-lockbox-insert-01.wav |  |  |
+| MEC-0527 | 0.8 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/keyhole-lockbox-remove-01.wav |  |  |
+| MEC-0528 | 0.9 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/keyhole-lockbox-turn-01.wav |  |  |
+| MEC-0529 | 0.6 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/knife-sheathe-01.wav |  |  |
+| MEC-0530 | 0.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/knife-unsheathe-02.wav |  |  |
+| MEC-0531 | 0.3 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/lighter-light-01.wav |  |  |
+| MEC-0532 | 0.8 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/match-light-01.wav |  |  |
+| MEC-0533 | 1.4 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/metal-fork-scrape-01.wav |  |  |
+| MEC-0534 | 0.9 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/metal-fork-scrape-02.wav |  |  |
+| MEC-0535 | 2.3 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/metal-knife-scrape-01.wav |  |  |
+| MEC-0536 | 2.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/metal-knife-scrape-02.wav |  |  |
+| MEC-0537 | 1.2 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/metal-knife-scrape-03.wav |  |  |
+| MEC-0538 | 0.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/plastic-bag-drop-01.wav |  |  |
+| MEC-0539 | 0.6 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/plastic-bag-drop-02.wav |  |  |
+| MEC-0540 | 0.7 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/plastic-bag-pickup-01.wav |  |  |
+| MEC-0541 | 0.7 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/plastic-bag-pickup-02.wav |  |  |
+| MEC-0542 | 0.2 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/scissors-close-01.wav |  |  |
+| MEC-0543 | 0.4 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/seax-sheathe-01.wav |  |  |
+| MEC-0544 | 1.0 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/seax-sheathe-02.wav |  |  |
+| MEC-0545 | 0.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/seax-unsheathe-01.wav |  |  |
+| MEC-0546 | 0.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/seax-unsheathe-02.wav |  |  |
+| MEC-0547 | 0.9 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/sheath-squeeze-01.wav |  |  |
+| MEC-0548 | 0.3 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/water-drop-01.wav |  |  |
+| MEC-0549 | 0.4 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/water-drop-02.wav |  |  |
+| MEC-0550 | 0.6 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/water-drop-03.wav |  |  |
+| MEC-0551 | 1.6 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/water-pour-01.wav |  |  |
+| MEC-0552 | 2.3 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/water-vial-fill-01.wav |  |  |
+| MEC-0553 | 125.0 | oga_fantasy-weapons-and-apparel-sfx-library／preview.ogg |  |  |
+| MEC-0554 | 0.5 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/arrow-feathers-01.wav |  |  |
+| MEC-0555 | 0.9 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/arrow-feathers-02.wav |  |  |
+| MEC-0556 | 0.3 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/arrow-feathers-03.wav |  |  |
+| MEC-0557 | 0.6 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/arrow-grab-from-quiver-01.wav |  |  |
+| MEC-0558 | 1.2 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/arrow-grab-from-quiver-02.wav |  |  |
+| MEC-0559 | 0.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/arrow-grab-from-quiver-03.wav |  |  |
+| MEC-0560 | 1.0 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/arrow-grab-from-quiver-04.wav |  |  |
+| MEC-0561 | 0.8 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/arrow-grab-from-quiver-05.wav |  |  |
+| MEC-0562 | 0.6 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/arrow-grab-from-quiver-06.wav |  |  |
+| MEC-0563 | 1.2 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/arrow-grab-from-quiver-07.wav |  |  |
+| MEC-0564 | 0.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/arrow-return-to-quiver-01.wav |  |  |
+| MEC-0565 | 0.5 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/arrow-return-to-quiver-02.wav |  |  |
+| MEC-0566 | 1.1 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/arrow-return-to-quiver-03.wav |  |  |
+| MEC-0567 | 0.8 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/arrow-return-to-quiver-04.wav |  |  |
+| MEC-0568 | 1.1 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/arrow-return-to-quiver-05.wav |  |  |
+| MEC-0569 | 1.0 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/arrow-return-to-quiver-06.wav |  |  |
+| MEC-0570 | 0.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/arrow-return-to-quiver-07.wav |  |  |
+| MEC-0571 | 0.6 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/knife-sheathe-01.wav |  |  |
+| MEC-0572 | 0.5 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/knife-sheathe-02.wav |  |  |
+| MEC-0573 | 0.6 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/knife-sheathe-03.wav |  |  |
+| MEC-0574 | 0.8 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/knife-sheathe-04.wav |  |  |
+| MEC-0575 | 0.6 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/knife-sheathe-05.wav |  |  |
+| MEC-0576 | 2.8 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/knife-unsheathe-01.wav |  |  |
+| MEC-0577 | 0.5 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/knife-unsheathe-02.wav |  |  |
+| MEC-0578 | 0.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/knife-unsheathe-03.wav |  |  |
+| MEC-0579 | 0.6 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/knife-unsheathe-04.wav |  |  |
+| MEC-0580 | 0.6 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/seax-sheathe-01.wav |  |  |
+| MEC-0581 | 0.4 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/seax-sheathe-02.wav |  |  |
+| MEC-0582 | 1.0 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/seax-sheathe-03.wav |  |  |
+| MEC-0583 | 0.9 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/seax-sheathe-04.wav |  |  |
+| MEC-0584 | 0.3 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/seax-sheathe-05.wav |  |  |
+| MEC-0585 | 0.5 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/seax-unsheathe-01.wav |  |  |
+| MEC-0586 | 1.3 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/seax-unsheathe-02.wav |  |  |
+| MEC-0587 | 0.5 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/seax-unsheathe-03.wav |  |  |
+| MEC-0588 | 1.2 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sheath-buckle-01.wav |  |  |
+| MEC-0589 | 0.9 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sheath-squeeze-01.wav |  |  |
+| MEC-0590 | 0.8 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sheath-squeeze-02.wav |  |  |
+| MEC-0591 | 1.1 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sheath-squeeze-03.wav |  |  |
+| MEC-0592 | 1.4 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sheath-squeeze-04.wav |  |  |
+| MEC-0593 | 0.9 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sheath-squeeze-05.wav |  |  |
+| MEC-0594 | 2.5 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sheath-squeeze-06.wav |  |  |
+| MEC-0595 | 1.8 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sheath-squeeze-07.wav |  |  |
+| MEC-0596 | 2.2 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sheath-squeeze-08.wav |  |  |
+| MEC-0597 | 2.1 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sheath-unbuckle-01.wav |  |  |
+| MEC-0598 | 0.8 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sheath-unbuckle-02.wav |  |  |
+| MEC-0599 | 1.2 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sheath-unbuckle-03.wav |  |  |
+| MEC-0600 | 0.3 | oga_light-switch-turn-on-and-off-sfx-0／light_switch_turn_off.mp3 |  |  |
+| MEC-0601 | 0.3 | oga_light-switch-turn-on-and-off-sfx-0／light_switch_turn_on.mp3 |  |  |
+| MEC-0602 | 50.9 | oga_lockpicking-sound／lockpicking.wav |  |  |
+| MEC-0603 | 5.6 | oga_opening-lock-and-door／door_open_1.mp3 |  |  |
+| MEC-0604 | 0.1 | oga_patreon-menu-soundpacks／menuClick1.wav |  |  |
+| MEC-0605 | 0.1 | oga_patreon-menu-soundpacks／menuClick2.wav |  |  |
+| MEC-0606 | 0.1 | oga_patreon-menu-soundpacks／menuClick3.wav |  |  |
+| MEC-0607 | 0.1 | oga_patreon-menu-soundpacks／menuClick4.wav |  |  |
+| MEC-0608 | 6.1 | oga_rocket-engine／rocket_engine.001.wav |  |  |
+| MEC-0609 | 16.5 | oga_sound-effects-pack／Technology/mouse-clicks-scrolls.wav |  |  |
+| MEC-0610 | 0.5 | oga_stove-switch／switch_strength_stove_01.ogg |  |  |
+| MEC-0611 | 0.5 | oga_stove-switch／turn_stove_on_01_0.ogg |  |  |
+| MEC-0612 | 0.2 | oga_ticking-clock／ticking clock - tick1.wav |  |  |
+| MEC-0613 | 0.2 | oga_ticking-clock／ticking clock - tick2.wav |  |  |
+| MEC-0614 | 0.2 | oga_ticking-clock／ticking clock - tick3.wav |  |  |
+| MEC-0615 | 0.2 | oga_ticking-clock／ticking clock - tick4.wav |  |  |
+| MEC-0616 | 8.0 | oga_ticking-clock／ticking_clock.wav |  |  |
+| MEC-0617 | 0.7 | oga_trying-to-unlock-sound／trying_to_unlock.mp3 |  |  |
+| MEC-0618 | 0.7 | oga_typewriter-sounds／typewriter1.wav |  |  |
+| MEC-0619 | 0.7 | oga_typewriter-sounds／typewriter2.wav |  |  |
+| MEC-0620 | 0.6 | oga_typewriter-sounds／typewriter3.wav |  |  |
+| MEC-0621 | 0.5 | oga_typewriter-sounds／typewriter4.wav |  |  |
+| MEC-0622 | 0.7 | oga_typewriter-sounds／typewriter5.wav |  |  |
+| MEC-0623 | 0.3 | oga_typewriter-sounds／typewriter6.wav |  |  |
+| MEC-0624 | 0.3 | oga_typewriter-sounds／typewriter7.wav |  |  |
+| MEC-0625 | 0.5 | oga_typewriter-sounds／typewriter8.wav |  |  |
+| MEC-0626 | 0.8 | oga_unleeched-sound-effects-pack／door-open.wav |  |  |
+| MEC-0627 | 5.5 | oga_unleeched-sound-effects-pack／industrial-fan.wav |  |  |
+| MEC-0628 | 1.5 | oga_unleeched-sound-effects-pack／ui-click.wav |  |  |
+| MEC-0629 | 0.2 | oga_war-on-water-sndfx／Interface/button_click.ogg |  |  |
+| MEC-0630 | 0.2 | oga_war-on-water-sndfx／Interface/keyclick.ogg |  |  |
+| MEC-0631 | 1.1 | oga_war-on-water-sndfx／Pirates/motorboat1.ogg |  |  |
+| MEC-0632 | 1.0 | oga_war-on-water-sndfx／Pirates/motorboat2.ogg |  |  |
+| MEC-0633 | 0.9 | oga_war-on-water-sndfx／Pirates/motorboat3.ogg |  |  |
+| MEC-0634 | 0.8 | oga_war-on-water-sndfx／Pirates/motorboat4.ogg |  |  |
+| MEC-0635 | 8.6 | oga_warp-engine-engage-sound／warp engine engage_0-16bit.wav |  |  |
+| MEC-0636 | 8.6 | oga_warp-engine-engage-sound／warp engine engage_0.wav |  |  |
+| MEC-0637 | 0.5 | oga_zippo-click-sound／zipclick.flac |  |  |
 
-## MLE 近戰揮擊（118）
+## MLE 近戰揮擊（203）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -1605,8 +3004,93 @@
 | MLE-0116 | 0.7 | oga_thwack-sounds／PCM/thwack-08.wav |  |  |
 | MLE-0117 | 0.5 | oga_thwack-sounds／PCM/thwack-09.wav |  |  |
 | MLE-0118 | 0.5 | oga_thwack-sounds／PCM/thwack-10.wav |  |  |
+| MLE-0119 | 14.1 | ia_red-library-weapons-swords／R16-27-Sword Unsheathed.mp3 |  |  |
+| MLE-0120 | 49.3 | ia_red-library-weapons-swords／R19-47-Sword Fight with Movement and Footsteps.mp3 |  |  |
+| MLE-0121 | 31.1 | ia_red-library-weapons-swords／R26-26-Sword Fight.mp3 |  |  |
+| MLE-0122 | 23.2 | ia_red-library-weapons-swords／R26-28-Sword Whooshes.mp3 |  |  |
+| MLE-0123 | 21.7 | ia_red-library-weapons-swords／R26-31-Large Sword Whooshes.mp3 |  |  |
+| MLE-0124 | 47.6 | ia_red-library-weapons-swords／R26-33-Single Large Sword Hits.mp3 |  |  |
+| MLE-0125 | 29.3 | ia_red-library-weapons-swords／R27-01-Large Sword Stab and Slide.mp3 |  |  |
+| MLE-0126 | 44.7 | ia_red-library-weapons-swords／R27-03-Large Sword Rings.mp3 |  |  |
+| MLE-0127 | 2.9 | ia_sse-library-fire／FIREWhsh_Flare whoosh_CS_USC.flac |  |  |
+| MLE-0128 | 1.1 | ia_sse-library-scifi／SCIDoor_Original Star Trek door swish_CS_USC.flac |  |  |
+| MLE-0129 | 26.1 | ia_sse-library-swooshes／SWSH_Processed swishes_CS_USC.mp3 |  |  |
+| MLE-0130 | 6.7 | ia_sse-library-weapons／WEAPSwrd_Machete hits door and vibrates_CS_USC.mp3 |  |  |
+| MLE-0131 | 4.9 | ia_sse-library-weapons／WEAPSwrd_Sword fight_CS_USC.flac |  |  |
+| MLE-0132 | 6.1 | ia_sse-library-weapons／WEAPWhip_Whip swishes; Columbia Pictures_CS_USC.mp3 |  |  |
+| MLE-0133 | 41.0 | ia_sse-library-weapons／WEAPWhip_Whip swishes; several_CS_USC.mp3 |  |  |
+| MLE-0134 | 24.4 | ia_sse-library-wood／WOODImpt_Cutting or chopping with large knife or machete_CS_USC.mp3 |  |  |
+| MLE-0135 | 1.6 | oga_bub-block-sound-effects／blade1.wav |  |  |
+| MLE-0136 | 2.2 | oga_bub-block-sound-effects／blade2.wav |  |  |
+| MLE-0137 | 1.3 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/sword-clash-01.wav |  |  |
+| MLE-0138 | 1.3 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/sword-clash-02.wav |  |  |
+| MLE-0139 | 0.8 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/sword-clash-03.wav |  |  |
+| MLE-0140 | 1.3 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/sword-clash-04.wav |  |  |
+| MLE-0141 | 0.8 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/sword-clash-05.wav |  |  |
+| MLE-0142 | 0.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/tin-whistle-whoosh-01.wav |  |  |
+| MLE-0143 | 0.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/tin-whistle-whoosh-02.wav |  |  |
+| MLE-0144 | 0.3 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/tube-plastic-whoosh-01.wav |  |  |
+| MLE-0145 | 0.4 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/tube-plastic-whoosh-02.wav |  |  |
+| MLE-0146 | 1.3 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-01.wav |  |  |
+| MLE-0147 | 1.5 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-02.wav |  |  |
+| MLE-0148 | 1.3 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-03.wav |  |  |
+| MLE-0149 | 3.6 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-04.wav |  |  |
+| MLE-0150 | 3.1 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-05.wav |  |  |
+| MLE-0151 | 3.2 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-06.wav |  |  |
+| MLE-0152 | 3.3 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-07.wav |  |  |
+| MLE-0153 | 2.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-08.wav |  |  |
+| MLE-0154 | 2.5 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-09.wav |  |  |
+| MLE-0155 | 2.1 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-10.wav |  |  |
+| MLE-0156 | 3.5 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-11.wav |  |  |
+| MLE-0157 | 2.6 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-12.wav |  |  |
+| MLE-0158 | 0.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-13.wav |  |  |
+| MLE-0159 | 0.5 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-14.wav |  |  |
+| MLE-0160 | 0.5 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-15.wav |  |  |
+| MLE-0161 | 0.5 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-16.wav |  |  |
+| MLE-0162 | 2.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-17.wav |  |  |
+| MLE-0163 | 2.2 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-18.wav |  |  |
+| MLE-0164 | 1.3 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-19.wav |  |  |
+| MLE-0165 | 0.6 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-20.wav |  |  |
+| MLE-0166 | 0.8 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-21.wav |  |  |
+| MLE-0167 | 0.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-22.wav |  |  |
+| MLE-0168 | 0.8 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-23.wav |  |  |
+| MLE-0169 | 0.6 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-24.wav |  |  |
+| MLE-0170 | 0.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-25.wav |  |  |
+| MLE-0171 | 0.8 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-26.wav |  |  |
+| MLE-0172 | 1.8 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-27.wav |  |  |
+| MLE-0173 | 0.9 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-28.wav |  |  |
+| MLE-0174 | 0.5 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-29.wav |  |  |
+| MLE-0175 | 0.8 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-30.wav |  |  |
+| MLE-0176 | 0.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-31.wav |  |  |
+| MLE-0177 | 1.3 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-32.wav |  |  |
+| MLE-0178 | 0.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-33.wav |  |  |
+| MLE-0179 | 1.0 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-34.wav |  |  |
+| MLE-0180 | 1.2 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-35.wav |  |  |
+| MLE-0181 | 1.2 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-36.wav |  |  |
+| MLE-0182 | 1.0 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-37.wav |  |  |
+| MLE-0183 | 0.8 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-38.wav |  |  |
+| MLE-0184 | 1.0 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-39.wav |  |  |
+| MLE-0185 | 1.0 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-40.wav |  |  |
+| MLE-0186 | 2.6 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-41.wav |  |  |
+| MLE-0187 | 0.8 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-42.wav |  |  |
+| MLE-0188 | 0.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-knife-clash-43.wav |  |  |
+| MLE-0189 | 3.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-table-leg-scrape-01.wav |  |  |
+| MLE-0190 | 2.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-table-leg-scrape-02.wav |  |  |
+| MLE-0191 | 3.2 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-table-leg-scrape-03.wav |  |  |
+| MLE-0192 | 2.3 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-table-leg-scrape-04.wav |  |  |
+| MLE-0193 | 4.0 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-thermos-hit-01.wav |  |  |
+| MLE-0194 | 3.0 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-thermos-scrape-01.wav |  |  |
+| MLE-0195 | 3.0 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-thermos-scrape-02.wav |  |  |
+| MLE-0196 | 2.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-thermos-scrape-03.wav |  |  |
+| MLE-0197 | 2.4 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-thermos-scrape-04.wav |  |  |
+| MLE-0198 | 2.5 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/sword-thermos-scrape-05.wav |  |  |
+| MLE-0199 | 2.7 | oga_tree-chop-fall-thud／chop-tree-fall.ogg |  |  |
+| MLE-0200 | 0.3 | oga_wind-hit-time-morph／60009__qubodup__swosh_22.flac |  |  |
+| MLE-0201 | 0.5 | oga_wind-hit-time-morph／qubodup-megaswosh1.wav |  |  |
+| MLE-0202 | 0.6 | oga_wind-hit-time-morph／qubodup-megaswosh2.wav |  |  |
+| MLE-0203 | 6.0 | oga_wind-whoosh-loop／wind woosh loop.ogg |  |  |
 
-## MOV 移動與衣物（160）
+## MOV 移動與衣物（323）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -1770,8 +3254,171 @@
 | MOV-0158 | 8.3 | oga_water-splash-and-sand-footsteps／sand_footsteps_0.mp3 |  |  |
 | MOV-0159 | 2.5 | oga_water-splash-and-sand-footsteps／splash1_0.wav |  |  |
 | MOV-0160 | 1.7 | oga_water-splash-and-sand-footsteps／splash2_0.wav |  |  |
+| MOV-0161 | 14.7 | ia_red-library-foley-props-1／R10-12-Heavy Leather and Wood Foley.mp3 |  |  |
+| MOV-0162 | 39.7 | ia_red-library-foley-props-2／R18-13-Heavy Clothing Movement in Room.mp3 |  |  |
+| MOV-0163 | 25.7 | ia_red-library-foley-props-2／R18-14-Heavy Clothing Movement in Room.mp3 |  |  |
+| MOV-0164 | 15.1 | ia_red-library-footsteps-1／R10-08-Walking Outside on Gravel.mp3 |  |  |
+| MOV-0165 | 37.4 | ia_red-library-footsteps-1／R10-10-Sliding Steps on Gravel.flac |  |  |
+| MOV-0166 | 14.6 | ia_red-library-footsteps-1／R10-17-Running On Gravel.mp3 |  |  |
+| MOV-0167 | 14.7 | ia_red-library-footsteps-1／R10-26-Slow Footsteps on Tile and Wooden Floor.flac |  |  |
+| MOV-0168 | 32.4 | ia_red-library-footsteps-2／R10-27-Boots with Spurs.mp3 |  |  |
+| MOV-0169 | 46.4 | ia_red-library-footsteps-2／R10-29-Footsteps in a Tunnel.mp3 |  |  |
+| MOV-0170 | 26.0 | ia_red-library-footsteps-2／R10-36-Quick Steps on Gravel and Concrete.mp3 |  |  |
+| MOV-0171 | 20.3 | ia_red-library-footsteps-2／R10-38-Shoes Scraping on Hard Surface.mp3 |  |  |
+| MOV-0172 | 21.7 | ia_red-library-footsteps-2／R10-40-Muffled Running or Jogging.mp3 |  |  |
+| MOV-0173 | 48.4 | ia_red-library-footsteps-2／R10-45-Footsteps in Snow or Outdoor Terrain.mp3 |  |  |
+| MOV-0174 | 32.1 | ia_red-library-footsteps-2／R10-47-Running In from Distance.mp3 |  |  |
+| MOV-0175 | 4.6 | ia_red-library-footsteps-2／R10-49-Heavy Steady Steps.flac |  |  |
+| MOV-0176 | 44.0 | ia_red-library-footsteps-2／R10-51-Interior Footsteps.mp3 |  |  |
+| MOV-0177 | 7.4 | ia_red-library-footsteps-2／R10-56-Footsteps on Metal Staircase.mp3 |  |  |
+| MOV-0178 | 21.4 | ia_red-library-footsteps-3／R11-03-Walking on Gravel.mp3 |  |  |
+| MOV-0179 | 12.5 | ia_red-library-footsteps-3／R11-05-Walking Outside.mp3 |  |  |
+| MOV-0180 | 32.3 | ia_red-library-footsteps-3／R11-07-Walking at a Medium Pace.mp3 |  |  |
+| MOV-0181 | 16.8 | ia_red-library-footsteps-3／R11-08-Running on a Tile or Wooden Floor.mp3 |  |  |
+| MOV-0182 | 16.9 | ia_red-library-footsteps-3／R11-13-Walking Quickly on Sidewalk.mp3 |  |  |
+| MOV-0183 | 3.8 | ia_red-library-footsteps-3／R11-18-Multiple People Running on Sidewalk.flac |  |  |
+| MOV-0184 | 33.7 | ia_red-library-footsteps-4／R11-36-Shuffling Shoes with a Click.mp3 |  |  |
+| MOV-0185 | 28.4 | ia_red-library-footsteps-4／R11-41-Walking Up Metal Stairs.mp3 |  |  |
+| MOV-0186 | 41.7 | ia_red-library-footsteps-4／R17-11-Walking on Gravel.mp3 |  |  |
+| MOV-0187 | 22.6 | ia_red-library-footsteps-4／R17-22-Cowboy or Soldier Walking.mp3 |  |  |
+| MOV-0188 | 40.0 | ia_red-library-footsteps-4／R17-25-Dragging and Sliding.mp3 |  |  |
+| MOV-0189 | 10.0 | ia_red-library-footsteps-4／R19-18-Footsteps on Gravel Path.mp3 |  |  |
+| MOV-0190 | 24.6 | ia_red-library-footsteps-4／R19-19-Slow Footsteps Deep Dirt.mp3 |  |  |
+| MOV-0191 | 35.0 | ia_red-library-footsteps-4／R25-21-Muddy Footsteps with Bridle Rattles.mp3 |  |  |
+| MOV-0192 | 41.6 | ia_red-library-footsteps-4／R27-40-March on Gravel Road.mp3 |  |  |
+| MOV-0193 | 15.2 | ia_red-library-footsteps-4／R27-45-Footsteps on Hard Surface.mp3 |  |  |
+| MOV-0194 | 17.6 | ia_red-library-machines-1／R12-51-Steady Motor Running.mp3 |  |  |
+| MOV-0195 | 45.5 | ia_red-library-machines-2／R29-06-Mechanical Machine Constant High-Speed Running.mp3 |  |  |
+| MOV-0196 | 40.0 | ia_sse-library-ambience／AMBInd_Many footsteps in reverberant factory interior_CS_USC.mp3 |  |  |
+| MOV-0197 | 15.3 | ia_sse-library-mechanical／MECHSwtch_Footsteps; turning off several light switches_CS_USC.mp3 |  |  |
+| MOV-0198 | 0.5 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_01.flac |  |  |
+| MOV-0199 | 0.7 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_02.flac |  |  |
+| MOV-0200 | 0.7 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_03.flac |  |  |
+| MOV-0201 | 0.7 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_04.flac |  |  |
+| MOV-0202 | 0.6 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_05.flac |  |  |
+| MOV-0203 | 0.7 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_06.flac |  |  |
+| MOV-0204 | 0.7 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_07.flac |  |  |
+| MOV-0205 | 0.6 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_08.flac |  |  |
+| MOV-0206 | 0.6 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_09.flac |  |  |
+| MOV-0207 | 0.7 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_10.flac |  |  |
+| MOV-0208 | 0.6 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_11.flac |  |  |
+| MOV-0209 | 0.6 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_12.flac |  |  |
+| MOV-0210 | 0.7 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_13.flac |  |  |
+| MOV-0211 | 0.7 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_14.flac |  |  |
+| MOV-0212 | 0.6 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_15.flac |  |  |
+| MOV-0213 | 0.6 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_16.flac |  |  |
+| MOV-0214 | 0.7 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_17.flac |  |  |
+| MOV-0215 | 0.5 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_18.flac |  |  |
+| MOV-0216 | 0.4 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_01.flac |  |  |
+| MOV-0217 | 0.6 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_02.flac |  |  |
+| MOV-0218 | 0.6 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_03.flac |  |  |
+| MOV-0219 | 0.6 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_04.flac |  |  |
+| MOV-0220 | 0.6 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_05.flac |  |  |
+| MOV-0221 | 0.7 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_06.flac |  |  |
+| MOV-0222 | 0.6 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_07.flac |  |  |
+| MOV-0223 | 0.5 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_08.flac |  |  |
+| MOV-0224 | 0.6 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_09.flac |  |  |
+| MOV-0225 | 0.7 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_10.flac |  |  |
+| MOV-0226 | 0.6 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_11.flac |  |  |
+| MOV-0227 | 0.6 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_12.flac |  |  |
+| MOV-0228 | 0.6 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_13.flac |  |  |
+| MOV-0229 | 0.6 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_14.flac |  |  |
+| MOV-0230 | 0.5 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_15.flac |  |  |
+| MOV-0231 | 0.7 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_16.flac |  |  |
+| MOV-0232 | 0.5 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_17.flac |  |  |
+| MOV-0233 | 0.7 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_18.flac |  |  |
+| MOV-0234 | 0.6 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_19.flac |  |  |
+| MOV-0235 | 0.5 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_20.flac |  |  |
+| MOV-0236 | 0.7 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_21.flac |  |  |
+| MOV-0237 | 0.7 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_22.flac |  |  |
+| MOV-0238 | 0.6 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_23.flac |  |  |
+| MOV-0239 | 0.4 | oga_42-snow-and-gravel-footsteps／Corsica_S-Walking_in_Snow/Corsica_S-Walking_on_snow_covered_gravel_and_ice_24.flac |  |  |
+| MOV-0240 | 0.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/boots-leather-jump-01.wav |  |  |
+| MOV-0241 | 0.7 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/boots-leather-step-01.wav |  |  |
+| MOV-0242 | 0.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/cloth-pouch-shake-01.wav |  |  |
+| MOV-0243 | 0.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/cloth-pouch-shake-02.wav |  |  |
+| MOV-0244 | 4.2 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/mud-steps-01.wav |  |  |
+| MOV-0245 | 2.4 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/mud-steps-02.wav |  |  |
+| MOV-0246 | 1.3 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/mud-steps-03.wav |  |  |
+| MOV-0247 | 1.4 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/mud-steps-04.wav |  |  |
+| MOV-0248 | 1.2 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/mud-steps-05.wav |  |  |
+| MOV-0249 | 0.5 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/quiver-leather-squeeze-01.wav |  |  |
+| MOV-0250 | 1.4 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/quiver-leather-squeeze-02.wav |  |  |
+| MOV-0251 | 1.3 | oga_fantasy-sound-effects-tinysized-sfx／sfx-cc0/soil-steps-01.wav |  |  |
+| MOV-0252 | 0.2 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/belt-buckle-01.wav |  |  |
+| MOV-0253 | 0.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/belt-buckle-02.wav |  |  |
+| MOV-0254 | 0.8 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/belt-buckle-03.wav |  |  |
+| MOV-0255 | 0.3 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/belt-buckle-04.wav |  |  |
+| MOV-0256 | 0.4 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/belt-buckle-05.wav |  |  |
+| MOV-0257 | 0.5 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/boots-leather-jump-01.wav |  |  |
+| MOV-0258 | 0.9 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/boots-leather-jump-02.wav |  |  |
+| MOV-0259 | 0.5 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/boots-leather-jump-03.wav |  |  |
+| MOV-0260 | 0.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/boots-leather-step-01.wav |  |  |
+| MOV-0261 | 0.6 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/boots-leather-step-02.wav |  |  |
+| MOV-0262 | 0.6 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/boots-leather-step-03.wav |  |  |
+| MOV-0263 | 0.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/boots-leather-step-04.wav |  |  |
+| MOV-0264 | 0.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/quiver-leather-squeeze-01.wav |  |  |
+| MOV-0265 | 0.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/quiver-leather-squeeze-02.wav |  |  |
+| MOV-0266 | 0.8 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/quiver-leather-squeeze-03.wav |  |  |
+| MOV-0267 | 1.1 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/quiver-leather-squeeze-04.wav |  |  |
+| MOV-0268 | 0.5 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/quiver-leather-squeeze-05.wav |  |  |
+| MOV-0269 | 1.4 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/quiver-leather-squeeze-06.wav |  |  |
+| MOV-0270 | 0.4 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/quiver-leather-squeeze-07.wav |  |  |
+| MOV-0271 | 0.4 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/quiver-leather-squeeze-08.wav |  |  |
+| MOV-0272 | 0.8 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/quiver-leather-squeeze-09.wav |  |  |
+| MOV-0273 | 0.7 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/quiver-leather-squeeze-10.wav |  |  |
+| MOV-0274 | 0.5 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/quiver-leather-squeeze-11.wav |  |  |
+| MOV-0275 | 0.6 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/quiver-leather-squeeze-12.wav |  |  |
+| MOV-0276 | 0.5 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/quiver-leather-squeeze-13.wav |  |  |
+| MOV-0277 | 0.9 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/quiver-leather-squeeze-14.wav |  |  |
+| MOV-0278 | 0.8 | oga_fantasy-weapons-and-apparel-sfx-library／sfx/quiver-leather-squeeze-15.wav |  |  |
+| MOV-0279 | 0.4 | oga_jump-landing-sound／jumpland.wav |  |  |
+| MOV-0280 | 0.5 | oga_jump-landing-sound／jumpland44100.mp3 |  |  |
+| MOV-0281 | 0.5 | oga_jump-landing-sound／jumpland48000.mp3 |  |  |
+| MOV-0282 | 2.3 | oga_jump-sounds／jumps-soundsx01.flac |  |  |
+| MOV-0283 | 1.9 | oga_jump-sounds／jumps-soundsx02.flac |  |  |
+| MOV-0284 | 1.9 | oga_jump-sounds／jumps-soundsx03.flac |  |  |
+| MOV-0285 | 1.9 | oga_jump-sounds／jumps-soundsx04.flac |  |  |
+| MOV-0286 | 2.5 | oga_jump-sounds／jumps-soundsx05.flac |  |  |
+| MOV-0287 | 0.5 | oga_jumping-man-sounds／JumpSoundsMan/jumppp11.ogg |  |  |
+| MOV-0288 | 0.5 | oga_jumping-man-sounds／JumpSoundsMan/jumppp22.ogg |  |  |
+| MOV-0289 | 0.6 | oga_mech-stomp-step-sound／stomp.flac |  |  |
+| MOV-0290 | 0.5 | oga_residue-sfx／residue-sfx/footsteps.ogg |  |  |
+| MOV-0291 | 7.3 | oga_sound-effects-pack／Cloth, Rustle/212180__owlstorm__bag-zipper.wav |  |  |
+| MOV-0292 | 9.9 | oga_sound-effects-pack／Cloth, Rustle/320137__owlstorm__blanket-movement-1.wav |  |  |
+| MOV-0293 | 2.0 | oga_sound-effects-pack／Cloth, Rustle/320138__owlstorm__blanket-movement-2.wav |  |  |
+| MOV-0294 | 3.2 | oga_sound-effects-pack／Cloth, Rustle/320141__owlstorm__blanket-movement-3.wav |  |  |
+| MOV-0295 | 2.2 | oga_sound-effects-pack／Cloth, Rustle/320142__owlstorm__blanket-movement-4.wav |  |  |
+| MOV-0296 | 5.0 | oga_sound-effects-pack／Cloth, Rustle/320143__owlstorm__blanket-movement-5.wav |  |  |
+| MOV-0297 | 1.2 | oga_sound-effects-pack／Cloth, Rustle/320144__owlstorm__blanket-movement-6.wav |  |  |
+| MOV-0298 | 5.9 | oga_sound-effects-pack／Footsteps/Womens_shoes_1.wav |  |  |
+| MOV-0299 | 9.3 | oga_sound-effects-pack／Footsteps/Womens_shoes_2.wav |  |  |
+| MOV-0300 | 8.7 | oga_sound-effects-pack／Footsteps/Womens_shoes_3.wav |  |  |
+| MOV-0301 | 0.6 | oga_sound-effects-pack／Footsteps/gassy-footstep1.wav |  |  |
+| MOV-0302 | 3.8 | oga_sound-effects-pack／Footsteps/grass_footsteps.wav |  |  |
+| MOV-0303 | 0.4 | oga_sound-effects-pack／Footsteps/grassy-footstep2.wav |  |  |
+| MOV-0304 | 0.5 | oga_sound-effects-pack／Footsteps/grassy-footstep3.wav |  |  |
+| MOV-0305 | 0.5 | oga_sound-effects-pack／Footsteps/grassy-footstep4.wav |  |  |
+| MOV-0306 | 0.6 | oga_sound-effects-pack／Footsteps/hard-footstep1.wav |  |  |
+| MOV-0307 | 0.5 | oga_sound-effects-pack／Footsteps/hard-footstep2.wav |  |  |
+| MOV-0308 | 0.6 | oga_sound-effects-pack／Footsteps/hard-footstep3.wav |  |  |
+| MOV-0309 | 0.7 | oga_sound-effects-pack／Footsteps/hard-footstep4.wav |  |  |
+| MOV-0310 | 1.9 | oga_sound-effects-pack／Footsteps/heel-reverb2.wav |  |  |
+| MOV-0311 | 1.8 | oga_sound-effects-pack／Footsteps/heel-reverb4.wav |  |  |
+| MOV-0312 | 1.8 | oga_sound-effects-pack／Footsteps/reverb_step_1.wav |  |  |
+| MOV-0313 | 11.0 | oga_sound-effects-pack／Footsteps/running-shoes-1.wav |  |  |
+| MOV-0314 | 8.6 | oga_sound-effects-pack／Footsteps/running-shoes-2.wav |  |  |
+| MOV-0315 | 148.3 | oga_sound-effects-pack／Footsteps/shoes_breath.wav |  |  |
+| MOV-0316 | 0.4 | oga_sound-effects-pack／Footsteps/step1.wav |  |  |
+| MOV-0317 | 0.4 | oga_sound-effects-pack／Footsteps/step2.wav |  |  |
+| MOV-0318 | 1.9 | oga_sound-effects-pack／Footsteps/step2_reverb.wav |  |  |
+| MOV-0319 | 0.4 | oga_sound-effects-pack／Footsteps/step3.wav |  |  |
+| MOV-0320 | 0.3 | oga_sound-effects-pack／Footsteps/step4.wav |  |  |
+| MOV-0321 | 0.8 | oga_sound-effects-pack／Footsteps/stumble.wav |  |  |
+| MOV-0322 | 0.9 | oga_unleeched-sound-effects-pack／leech-jump.wav |  |  |
+| MOV-0323 | 1.7 | oga_unleeched-sound-effects-pack／leech-run.wav |  |  |
 
-## MUS 音樂（143）
+## MUS 音樂（326）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -1918,8 +3565,191 @@
 | MUS-0141 | 104.6 | yd_searching／Searching.ogg | dark warm drone with industrial noise, loop | P-BGM-006 |
 | MUS-0142 | 12.8 | zanindevelopers_cyberpunk-menu-music／cyberpunkmenu.ogg | short tactical cyberpunk menu pad, neon night |  |
 | MUS-0143 | 99.4 | zesona_we-found-a-rose／we-found-a-rose.ogg | melancholy dramatic emotional bgm |  |
+| MUS-0144 | 87.8 | a-thor_mysterious-winds／mysteriouswinds.mp3 | calm, mysterious, ocean, exploration, main menu, title screen, title menu |  |
+| MUS-0145 | 151.9 | adiutorium_veritas／veritas.mp3 | calm music, calm, melodic, Sad Music, ambience, emotional, atmospheric |  |
+| MUS-0146 | 14.8 | akikazer_menu-loop／Loop-Menu.wav | menu |  |
+| MUS-0147 | 6.9 | aroachifoundonmypillow_victory-fanfare／fanfare1_0.ogg | fanfare, organ, church organ, victory, Win, winning, success |  |
+| MUS-0148 | 37.3 | beardalaxy_catacombs-chanting-loop／catacombs_in_game.ogg | catacombs, ambience, chanting |  |
+| MUS-0149 | 27.4 | beardalaxy_character-selection-theme-loop／character_selection_in_game.ogg | menu, theme; Character selection/creation theme from a game I didn't finish over a decade ago. Maybe it |  |
+| MUS-0150 | 48.0 | beardalaxy_mysterious-cave-theme-loop／cave_in_game.ogg | cave, mystery, theme, dungeon |  |
+| MUS-0151 | 66.6 | breadman_the-fade／the_fade_0.mp3 | Ambient, calm music, Sad Music |  |
+| MUS-0152 | 64.0 | centurion-of-war_boundless／boundless2_0.ogg | retro, space, ambience, spacesynth, mysterious, slow, adventure |  |
+| MUS-0153 | 96.0 | centurion-of-war_dawn-of-hope-techno／techno_dawn_prog_v4_0.ogg | Techno, adventure, retro style, retrowave, electro, Sci-Fi |  |
+| MUS-0154 | 38.4 | centurion-of-war_fear-me／fearme31_0.ogg | tecno, synth, upbeat, combat, boss battle, Platformer, boss |  |
+| MUS-0155 | 51.2 | centurion-of-war_happy-moments／piano1.3_0.ogg | happy, orchestral, piano, upbeat, hopeful |  |
+| MUS-0156 | 38.4 | centurion-of-war_inferior-deity／inferior_diety_0.ogg | tecno, synth, upbeat, combat, boss battle, Platformer, boss |  |
+| MUS-0157 | 132.0 | centurion-of-war_morning-sky／morning_2d.2_0.ogg | mystery, adventure, relaxed, calm, morning |  |
+| MUS-0158 | 38.5 | centurion-of-war_space-echo／space_echo.ogg | retro, space, ambience, spacesynth, mysterious, slow, adventure |  |
+| MUS-0159 | 64.0 | centurion-of-war_strange-inspiration／strange_inspiraton_0.ogg | synth, mystery; a small piece of music with upbeat undertune. |  |
+| MUS-0160 | 62.4 | centurion-of-war_too-strong／too_strong1.2_0.ogg | combat, retro synth, retro, boss, Platformer, upbeat, melodic |  |
+| MUS-0161 | 212.3 | cinameng_access／access_1.mp3 | Techno, synth, lo-fi, dub techno, dub, cyber |  |
+| MUS-0162 | 103.8 | cinameng_chiovasn／chiovasn_1.mp3 | Ambient, lo-fi, horror, space |  |
+| MUS-0163 | 67.5 | cinameng_circuit-veil／circuitveil_4.mp3 | synth, cyberpunk; circuit veil |  |
+| MUS-0164 | 7.9 | cinameng_cosmosis／cosmosis.wav | Sci-Fi, emergency, drums, outer space |  |
+| MUS-0165 | 64.0 | cinameng_devonair／devonair.mp3 | chill wave, synth, short |  |
+| MUS-0166 | 214.6 | cinameng_drifter／drifter_6.mp3 | Techno, synth, Ambient, pads, atmosphere, soundscape |  |
+| MUS-0167 | 8.7 | cinameng_echo／echodub.mp3 | Techno; short dub techno loop |  |
+| MUS-0168 | 17.0 | cinameng_ferviver／fervirer.mp3 | lo-fi, chill, synth |  |
+| MUS-0169 | 29.5 | cinameng_freame／freame_0.mp3 | lo-fi, chill, synth, beat, Bass, dreamwave |  |
+| MUS-0170 | 180.7 | cinameng_fuhuiyolo／fuhuiyolo_2.mp3 | space, horror, drone, synth |  |
+| MUS-0171 | 8.1 | cinameng_high-castle／high_castle.wav | BANGING SHORT TECHNO LOOP |  |
+| MUS-0172 | 35.9 | cinameng_jibsherg／jibsh_0.mp3 | dub, Techno, space, city, night |  |
+| MUS-0173 | 83.5 | cinameng_k-opal-7451／k-opal-7451.mp3 | space, Ambient, soundscape, atmosphere |  |
+| MUS-0174 | 54.0 | cinameng_kinagdo／kinagdo.mp3 | short, mysterious, synth, Sci-Fi, lo-fi |  |
+| MUS-0175 | 32.0 | cinameng_linn／linn.mp3 | retro, synth; 16 bar loop |  |
+| MUS-0176 | 35.9 | cinameng_loaben／loaben_3.mp3 | lo-fi, futuresynth, cyberpunk |  |
+| MUS-0177 | 44.1 | cinameng_lp-daac／lp-daac.mp3 | space, Ambient, deep space, atmosphere, soundscape, functional |  |
+| MUS-0178 | 64.0 | cinameng_lyserb／lyserb_6.mp3 | Techno, lo-fi, short, drums |  |
+| MUS-0179 | 214.5 | cinameng_pliocene／pliocene_0.mp3 | space, soundscape, Ambient |  |
+| MUS-0180 | 17.4 | cinameng_propertius／propertius_4.mp3 | Techno, soundscape, Ambient, mysterious |  |
+| MUS-0181 | 32.8 | cinameng_pynchon／pynchon.mp3 | cyberpunk, beats, glitch, lo-fi, synth, pads |  |
+| MUS-0182 | 106.3 | cinameng_rakish／rakish.mp3 | space, Ambient, soundscape, mysterious, deep |  |
+| MUS-0183 | 8.3 | cinameng_relente／relent-2_0.mp3 | shmup, dub, Techno, loops, cyberpunk |  |
+| MUS-0184 | 52.6 | cinameng_shadow／shadow_dark_0.mp3 | ambient techno loops |  |
+| MUS-0185 | 206.4 | cinameng_shiftless／shiftless_1.mp3 | synth, atmosphere, soundscape |  |
+| MUS-0186 | 64.0 | cinameng_signal／signal.mp3 | synth, Techno, lo-fi |  |
+| MUS-0187 | 160.7 | cinameng_udms／udms-1_0.mp3 | horror, mysterious, short, layers |  |
+| MUS-0188 | 75.3 | cinameng_ujio／ujio.mp3 | pad, lo-fi; short upbeat loop |  |
+| MUS-0189 | 17.4 | cinameng_vanos／vanos.mp3 | Techno, dub, short |  |
+| MUS-0190 | 53.3 | cinameng_voer-kdf／voer-kdf.mp3 | lo-fi, synth, menu |  |
+| MUS-0191 | 15.6 | cinameng_vuhyio／vuhyio.mp3 | lo-fi, synth, sci fi, future, horror |  |
+| MUS-0192 | 32.0 | cinameng_yarn／yarn_3.mp3 | synth, lo-fi; loop |  |
+| MUS-0193 | 31.3 | congusbongus_abandoned-passages-horror-ambience-loop／freezer_0.ogg | ambience, horror; An unsettling ambience seamless loop, when you are in a dark and cramped passageway |  |
+| MUS-0194 | 137.0 | congusbongus_cathedral-in-the-forest-ambient-loop／forest_2_0.ogg | dark, Ambient, ambience, space |  |
+| MUS-0195 | 7.5 | congusbongus_string-and-piano-horror-stings／abyss_0.ogg | horror, sting, strings, piano, Pizzicato |  |
+| MUS-0196 | 17.5 | congusbongus_string-and-piano-horror-stings／piano_sting.mp3 |  |  |
+| MUS-0197 | 8.0 | cyklon698_creepy-title-screen-music／creepy_theme.wav | creepy, title screen, title theme, horror, puppet, bells, bell |  |
+| MUS-0198 | 82.0 | cynicmusic_icy-realm-seven-and-eight／019_seven_and_eight_7-8_combined_0.mp3 | icy, snow, peaceful, Ambient, enchanting, discovery, magic |  |
+| MUS-0199 | 11.8 | cynicmusic_victory-fanfare-short／Heavy_ConceptB.wav | fanfare, epic, war, Action, fight, movie, cinematic |  |
+| MUS-0200 | 95.1 | eldritch-grim_the-sad-battle／the_sad_battle_0.mp3 | epic, sad, defeat, cinematic, Battle, depressing |  |
+| MUS-0201 | 198.1 | emopreben_oldschool-horror-theme／Horror_2.mp3 | horror, theme, menu |  |
+| MUS-0202 | 17.4 | etrock_menu-chill-music／menu_chill.wav | main menu, app menu, menu, arcade |  |
+| MUS-0203 | 199.8 | fupi_alison-night／alison_night_0.ogg | night, sleepy, tired, sleep, sad, soft, Rock |  |
+| MUS-0204 | 76.3 | fupi_sleepy-clouds／Sleepy_0.ogg | electronic, soft, calm, sleepy, sad, emotional |  |
+| MUS-0205 | 226.9 | fupi_sz-evil／SZ Evil_0.ogg | evil, electronic, Bass, drum |  |
+| MUS-0206 | 168.4 | fupi_vaata／Vaata.ogg | dream, sleepy, calm, electronic |  |
+| MUS-0207 | 92.8 | fupi_wtf-its-the-big-bads-final-form／wtf_its_the_big_bads_final_form_0.ogg | electronic, Saw, boss, fight, intense, Battle |  |
+| MUS-0208 | 40.0 | gboxmikefozzy_title-screen-loop／rts_menumusic_redux_0.ogg | 40s, ominous; Was originally made for a title screen loop on my personal game project but it's not going |  |
+| MUS-0209 | 2.4 | gchoc_trumpet-fanfare／castlefanfare_0.ogg | trumpet, fanfare; A fanfare to signal the return of the king. |  |
+| MUS-0210 | 16.2 | gchoc_win-fanfare／winmelody.ogg | fanfare, fanfares; Fanfare melody.  Feel free to edit and use how ever you wish.  Comerical or none commercia |  |
+| MUS-0211 | 181.8 | gena-sealov_melancholic-void／melancholic_void_0.mp3 | chill, synthpop, melancholic, electronic |  |
+| MUS-0212 | 145.8 | gena-sealov_undefined-emotion／undefined_emotion_1.mp3 | chill, melancholic, synthpop, electronic |  |
+| MUS-0213 | 124.1 | haruta_horizon／horizon_3.mp3 | open, hopeful melodic BGM |  |
+| MUS-0214 | 135.1 | haruta_intense-boss-battle／intense_boss_battle_1.mp3 | intense boss battle BGM, driving |  |
+| MUS-0215 | 90.0 | haruta_light-rain-and-heavy-rain／light_rain_and_heavy_rain.mp3 | rain-themed melodic BGM, light to heavy rain mood (music, not rain SFX) |  |
+| MUS-0216 | 102.0 | haruta_pure-morning／pure_morning_0.mp3 | gentle morning BGM, calm and hopeful |  |
+| MUS-0217 | 100.1 | haruta_sunrise／sunrise_1.mp3 | bright-ish melodic BGM, sunrise mood, hopeful |  |
+| MUS-0218 | 90.9 | haruta_unique-boss-battle／unique_boss_battle_5.mp3 | boss battle BGM, quirky/driving |  |
+| MUS-0219 | 240.0 | iamoneabe_thunderous-fall／thunderousfall_0.mp3 | Ambient, thunder, something |  |
+| MUS-0220 | 153.6 | indieteur_the-plague／The Plague_0.mp3 | apocalypse, apocalyptic, hopeless, depressing, zombie, ending |  |
+| MUS-0221 | 58.9 | joth_ambience-pack-1-sci-fi-horror／Cage of the Cryptid.mp3 |  |  |
+| MUS-0222 | 58.9 | joth_ambience-pack-1-sci-fi-horror／Final Captain's Log.mp3 |  |  |
+| MUS-0223 | 47.6 | joth_ambience-pack-1-sci-fi-horror／Infestation in the Control Room.mp3 |  |  |
+| MUS-0224 | 59.1 | joth_ambience-pack-1-sci-fi-horror／The Depths of Hell.mp3 |  |  |
+| MUS-0225 | 58.9 | joth_ambience-pack-1-sci-fi-horror／The Surreal Truth.mp3 | ambience, sci fi, horror |  |
+| MUS-0226 | 59.6 | joth_bossa-nova／8bit Bossa.mp3 | Jazz, calm, elevator, bossa nova, 129bpm |  |
+| MUS-0227 | 120.1 | joth_contemplation／Contemplation.mp3 | Ambient, ambience, calm, thoughtful, melancholy, sad |  |
+| MUS-0228 | 16.1 | joth_death-of-a-ninja-game-over／Death of a Ninja (Game Over).mp3 | asian, ninja, samurai, game over, short, End, death |  |
+| MUS-0229 | 40.5 | joth_emotional-deluge／This is Life.mp3 | emotional, slow, soft, warm |  |
+| MUS-0230 | 46.1 | joth_eye-of-the-storm／Eye of the Storm.mp3 | calm, sad; solo version |  |
+| MUS-0231 | 24.9 | joth_jrpg-piano／JRPG Piano.mp3 | jrpg, calm, piano, slow |  |
+| MUS-0232 | 32.0 | joth_jrpg2-piano／JRPG2 Piano.mp3 | jrpg, emotional, piano |  |
+| MUS-0233 | 83.5 | joth_next-to-you／Next to You.mp3 | soft emotional loop |  |
+| MUS-0234 | 69.9 | joth_the-frigid-seas／The Frigid Seas.mp3 | winter, cold, ice, icy, frigid, temple, monk |  |
+| MUS-0235 | 67.8 | kiluaboy_dark-environment-horror-games／GoshtPiano2.ogg | piano, sad, sick, Darkness, mystery |  |
+| MUS-0236 | 85.3 | kiluaboy_school-day-rain-sun-loop／SchoolDayRain.ogg | old, vibes, piano, school, rain, sun, birds |  |
+| MUS-0237 | 278.8 | kindland_rain-and-thunders／Dark_Rainy_Night(ambience).ogg | dark rainy night ambience with thunder, long |  |
+| MUS-0238 | 136.7 | kistol_aria／Aria_2.ogg | Classical, contemporary, orchestral, Symphonic, peaceful, symphony, orchestra |  |
+| MUS-0239 | 128.0 | kistol_daisy／daisy_0.ogg | Classical, piano, bittersweet, calm, romantic |  |
+| MUS-0240 | 64.0 | kistol_emerald-tower／Emerald Tower_0.ogg | piano, dark, Ambient |  |
+| MUS-0241 | 81.0 | kistol_esther／Esther_0.ogg | piano, Ambient, dark |  |
+| MUS-0242 | 50.6 | kistol_swordfight-iii／Swordfight III_4.ogg | Rock, metal, synth, 808, cinematic, swordfight, Battle |  |
+| MUS-0243 | 98.4 | kistol_waiting-ii／Waiting II_0.ogg | piano, orchestral, calm |  |
+| MUS-0244 | 7.7 | kosmo-the-cat_game-over-short-jingle／Game over jingle_0.ogg | game over, jingle |  |
+| MUS-0245 | 90.9 | kresiek-the-furry_main-menu-1／song_3.mp3 | Main Title, epic |  |
+| MUS-0246 | 189.5 | loyalty-freak-music_l-orage-et-l-aventure／Komiku_-_15_-_Lorage_et_laventure_0.mp3 | rain, Guitar, adventure, role playing game |  |
+| MUS-0247 | 6.0 | loyalty-freak-music_trop-la-win／Komiku_-_11_-_Trop_la_win_0.mp3 | Win, victory, role playing game, bonus, Item |  |
+| MUS-0248 | 80.5 | mintodog_cool-highway／cool_highway_climax_bpm155_0.ogg | synth, tech, Techno, Race, racing, racing game, Action |  |
+| MUS-0249 | 90.3 | mintodog_hard-battle-1／hard_battle_1_bpm170_0.ogg | hard, Battle, hardcore, synth, exciting |  |
+| MUS-0250 | 89.1 | mintodog_hard-battle-2／hard_battle_2_bpm140_0.ogg | hard, Battle, edm, Techno, synth |  |
+| MUS-0251 | 109.7 | mintodog_hot-roadway／hot_roadway_climax_bpm175_0.ogg | synth, tech, Techno, Race, racing, racing game, Action |  |
+| MUS-0252 | 90.0 | mintodog_neon-sign-circuit／neon_sign_circuit_climax_bpm160_0.ogg | synth, tech, Race, racing, racing game |  |
+| MUS-0253 | 120.0 | mintodog_racing-game-ending／racing_game_ending_bpm100_0.ogg | racing, ending, calm, synth, piano |  |
+| MUS-0254 | 88.6 | mintodog_space-battle／space_battle_bpm130_0.ogg | space, Battle, synth |  |
+| MUS-0255 | 104.2 | mintodog_space-boss-battle／space_boss_battle_bpm175_0.ogg | space, boss, Battle, synth, exciting |  |
+| MUS-0256 | 164.6 | mintodog_trance-battle／trance_battle_bpm140_0.ogg | Trance, Battle, synth, edm |  |
+| MUS-0257 | 102.4 | mintodog_trance-boss-battle／trance_boss_battle_bpm150_0.ogg | Trance, boss, Battle, synth, edm, uplifting |  |
+| MUS-0258 | 118.2 | mintodog_trance-city／trance_city_bpm130_0.ogg | Trance, city, synth, edm |  |
+| MUS-0259 | 147.7 | mintodog_trance-dungeon／trance_dungeon_bpm130_0.ogg | dungeon, synth, edm, Sci-Fi |  |
+| MUS-0260 | 24.6 | nbjdlukasabsolute_game-over-diamond-dust／gameover_0.wav | synthwave, horror, distorted, chiptune, game over, short loop, spooky |  |
+| MUS-0261 | 42.7 | nene_boss-battle-10-metal／boss_battle_10_metal.wav | metal, boss, Battle, guitars, Bass, drums |  |
+| MUS-0262 | 51.0 | nene_boss-battle-6-metal-alternate／boss_battle_06_alternate.wav | boss battle, metal, guitars, heavy, Bass, drums, Boss Fight |  |
+| MUS-0263 | 42.7 | nene_once-more-metal／once_more_metal.wav | metal, guitars, drums, Bass, Rock |  |
+| MUS-0264 | 59.1 | poinl_elka／Elka2_3.mp3 | soft, downtempo, retro, menu, Relax, relaxed, Ambient |  |
+| MUS-0265 | 133.5 | poinl_poof／poof5_0.mp3 | menu, credits, select |  |
+| MUS-0266 | 89.9 | pro-sensory_blue-rain／blue_rain_0.mp3 | Jazz, space |  |
+| MUS-0267 | 109.7 | pro-sensory_main-menu-music-loop／main_menu_music_mastered_0.mp3 | main menu, electronic, adventure |  |
+| MUS-0268 | 106.9 | pro-sensory_once-in-a-while／Once In A while_4.mp3 | Jazz, main menu, detective, mystery |  |
+| MUS-0269 | 164.5 | pro-sensory_void-loopable／void_5_0.mp3 | electronic, chill, deep space |  |
+| MUS-0270 | 31.4 | recklessssss_game-over／gameover_0.mp3 | loop |  |
+| MUS-0271 | 140.3 | rizy_rizy-s-sleep-music／sleep_music2_0.ogg | relaxation, storm; light rain.echoes of Rhodes, bell pad and fm sitar New Sleep Music Remix added |  |
+| MUS-0272 | 118.4 | rubberduck_west-winds／west-winds(storm-version).ogg | west winds, lmms, organ |  |
+| MUS-0273 | 195.5 | ruskerdax_ancient-grudge／ruskerdax_-_ancient_grudge.mp3 | dark, scifi, horror |  |
+| MUS-0274 | 225.8 | ruskerdax_omen／ruskerdax_-_omen.mp3 | nine inch nails, horror; A track inspired by FILMMAKER, early Nine Inch Nails, and horror movies. |  |
+| MUS-0275 | 114.5 | ruskerdax_open-warfare／ruskerdax_-_open_warfare.mp3 | cyberpunk, combat, Action |  |
+| MUS-0276 | 273.9 | ruskerdax_the-creep／ruskerdax_-_the_creep.mp3 | creepy, horror, Ambient, Quake |  |
+| MUS-0277 | 147.6 | ruskerdax_we-re-lost／ruskerdax_-_were_lost.mp3 | Ambient, horror, scary, lost, Quake |  |
+| MUS-0278 | 99.6 | section31_going-deep／S31-Going Deep.ogg | futuristic, Sci-Fi, electronic, beats, drum, Techno, jrpg |  |
+| MUS-0279 | 176.6 | section31_internal-reflection／S31-Internal Reflection.ogg | futuristic, Sci-Fi, electronic, beats, drum, Techno, jrpg |  |
+| MUS-0280 | 199.4 | section31_our-last-chance／S31-Our Last Chance.ogg | futuristic, Sci-Fi, electronic, beats, drum, Techno, jrpg |  |
+| MUS-0281 | 168.0 | section31_reflection-of-progress／S31-Reflection of Progress.ogg | futuristic, Sci-Fi, electronic, beats, drum, Techno, jrpg |  |
+| MUS-0282 | 139.6 | section31_sewer-nightclub／S31-Sewer Nightclub.ogg | futuristic, Sci-Fi, electronic, beats, drum, Techno, jrpg |  |
+| MUS-0283 | 88.0 | section31_tunnel-drilling／S31-Tunnel Drilling_0.ogg | futuristic, Sci-Fi, electronic, beats, drum, Techno, jrpg |  |
+| MUS-0284 | 17.1 | spring-spring_17-second-sequence／17-second_0.ogg | sequence, arpeggio, pad, sample, cue, sting, fanfare |  |
+| MUS-0285 | 85.1 | spring-spring_abandoned-steel-mill／Abandoned Steel Mill_0.ogg | abandoned, steel, Mill, slow, gloomy, ominous, electronic piano |  |
+| MUS-0286 | 252.7 | spring-spring_birds-and-wind-ambient-birds-wind-and-synth／Birds, Wind and Synth V2_0.ogg | birds, wind, Ambient, synth, soundscape, environmental |  |
+| MUS-0287 | 12.0 | spring-spring_just-a-random-fanfare／fanfare_0.ogg | fanfare, brass, horn, triumphant, victory, Win, cymbals |  |
+| MUS-0288 | 8.3 | sterlingray_finish-line-stinger／finish_line_stinger.mp3 | piano, mirror's edge, Race, finish, stinger |  |
+| MUS-0289 | 101.6 | stumpystrust_longing-for-a-lost-feeling／imprptu.mp3 | Ambient, theme, menu, Sad Music |  |
+| MUS-0290 | 29.6 | sudocolon_alone／Alone.mp3 | game over; Loopable gameover music |  |
+| MUS-0291 | 96.0 | sudocolon_hyperton／Hyperton.mp3 | menu, Techno, electronic |  |
+| MUS-0292 | 146.7 | sudocolon_iso1nhab1tans／Iso.mp3 | menu, Trance, Techno, electronic |  |
+| MUS-0293 | 119.4 | tozan_besai-sky-city-lower-depths-short／Besaild_0.ogg | crystal, garden, Ambient, alien, world |  |
+| MUS-0294 | 183.3 | tozan_besailightend／Besailightend_0.ogg | garden; Besai Eng Light Zone, (exit out of garden) |  |
+| MUS-0295 | 173.8 | tozan_gammadrae-mining-station／gammadraeminingstation_2.ogg | Sci-Fi, adventure, mystery |  |
+| MUS-0296 | 69.7 | tozan_gnosia-parks-and-gardens／gnosiagardens_0.ogg | garden, peaceful, adventure, Sci-Fi |  |
+| MUS-0297 | 66.0 | tozan_gruelsome-pumping-station／grulsomepumpstation_0.ogg | Short tune for Clusta Gruelsome Pumping Station stealth area |  |
+| MUS-0298 | 326.3 | tozan_sewerstrubstill／Sewerstrubsiii_1.ogg | Another strange bizzare orchestra strings piece for sewer level |  |
+| MUS-0299 | 422.0 | tozan_telos-tempest／Telostempest_0.ogg | storm, Restless, Sci-Fi |  |
+| MUS-0300 | 218.2 | tozan_tyhosi-garden-3／tyhosigarden3_0.ogg | peaceful koto and shakuhachi garden tune, quiet |  |
+| MUS-0301 | 72.3 | tozan_victory-tune-all-out-of-sorts／victoryalloutofsorts_0.ogg | Congratory Victory Tune that plays after defeating the Mini-Boss All Out Of Sorts. For Tes |  |
+| MUS-0302 | 170.1 | tsorthan-grove_blue-moon-beach／blue_moon_beach_0.ogg | Ambient, beach, moon, blue |  |
+| MUS-0303 | 143.6 | tsorthan-grove_the-world-fell-silent／dirty_rain_loop.flac | Ambient, dark, challenge, Post-Apocalyptic |  |
+| MUS-0304 | 27.4 | umplix_credits-game-over-short-loop／game_overcredits.wav | game over, credits, piano, choir, menu |  |
+| MUS-0305 | 19.3 | umplix_evil-deed／evil_deed.wav | evil, boss, villain |  |
+| MUS-0306 | 26.3 | umplix_hunted-by-the-evil／hunted_by_evil.wav | evil, villain, dark, hunt, horror |  |
+| MUS-0307 | 100.4 | umplix_into-the-caves／into_the_caves.mp3 | Ambient, ambience, dark, crystals |  |
+| MUS-0308 | 208.0 | vitalezzz_apparatus-overlord／apparatus_overlord_4.mp3 | electronic, Sci-Fi, electric guitar |  |
+| MUS-0309 | 148.4 | vitalezzz_brute-force／brute_force_loop.mp3 | electronic, Sci-Fi, 2023, Shoot 'em up |  |
+| MUS-0310 | 190.2 | vitalezzz_celestial-harmony／celestial_harmony_0.mp3 | electronic, piano, space, Sci-Fi, tranquil, upbeat |  |
+| MUS-0311 | 198.0 | vitalezzz_corrupted-minds／corrupted_minds_2.mp3 | orchestral, Sci-Fi, space, epic |  |
+| MUS-0312 | 191.4 | vitalezzz_descent／descent_2.mp3 | electronic, orchestral, Sci-Fi, space, epic |  |
+| MUS-0313 | 208.9 | vitalezzz_e-q-city／e.q._city_0.mp3 | electronic, Sci-Fi; Electronic Music Other electronic music:https://opengameart.org/content/electronic-music |  |
+| MUS-0314 | 148.9 | vitalezzz_hunter-class-lifeform／hunter-class_lifeform_1.mp3 | electronic, Sci-Fi, horror, Action, Battle |  |
+| MUS-0315 | 181.7 | vitalezzz_net-infiltration／net_infiltration_loop.mp3 | electronic, Sci-Fi; Electronic soundtrackIncludes version for looping |  |
+| MUS-0316 | 153.0 | vitalezzz_neural-malfunction／neural_malfunction_0.mp3 | electronic, Sci-Fi, Action |  |
+| MUS-0317 | 203.9 | vitalezzz_singularity／singularity_action_0.mp3 | electronic, adaptive, Action, calm, Sci-Fi, space |  |
+| MUS-0318 | 206.8 | vitalezzz_specular-city／specular_city_1.mp3 | electronic, synth, Sci-Fi, arcade, Action, energetic |  |
+| MUS-0319 | 200.8 | vitalezzz_star-on-the-horizon／star_on_the_horizon_0.mp3 | orchestral, Sci-Fi, space |  |
+| MUS-0320 | 192.1 | vitalezzz_the-rift／the_rift_1.mp3 | electronic, electric guitar; Electronic music with electric guitarLoop version included |  |
+| MUS-0321 | 156.1 | vitalezzz_trace-agent／trace_agent_loop.mp3 | electronic, Sci-Fi, arcade |  |
+| MUS-0322 | 17.9 | wipics_fierce／Fierce_0.mp3 | fierce, synths, loud, victory, upbeat, sharp |  |
+| MUS-0323 | 81.8 | wipics_winter-wind／winter-wind_0.mp3 | winter, wind, snow, wintertime, Christmas, bells, calm |  |
+| MUS-0324 | 206.0 | yd_dungeon-ambience／dungeon002_0.ogg | dungeon, Ambient, dark |  |
+| MUS-0325 | 248.6 | yd_forgotten-victory／ForgottenVictory.ogg | march; A slow-march like backbround music. Approx 4 minutes long. |  |
+| MUS-0326 | 104.6 | yd_lonelyhood／Lonelyhood.ogg | lonely; A background music that can be used in a loop to create a rather gloomy atmosphere. LMMS f |  |
 
-## OTH 其他（55）
+## OTH 其他（374）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -1978,8 +3808,327 @@
 | OTH-0053 | 0.3 | oga_80-cc0-rpg-sfx／misc_01.ogg |  |  |
 | OTH-0054 | 0.5 | oga_80-cc0-rpg-sfx／misc_02.ogg |  |  |
 | OTH-0055 | 0.2 | oga_80-cc0-rpg-sfx／misc_03.ogg |  |  |
+| OTH-0056 | 12.0 | ia_red-library-communications／R04-27-One Single Telephone Ring.mp3 |  |  |
+| OTH-0057 | 30.8 | ia_red-library-communications／R18-11-Oscillator Tuning.mp3 |  |  |
+| OTH-0058 | 38.2 | ia_red-library-communications／R18-23-Shortwave Radio Tunes Randomly.mp3 |  |  |
+| OTH-0059 | 40.4 | ia_red-library-communications／R19-53-Old Telephone Ringing.mp3 |  |  |
+| OTH-0060 | 18.8 | ia_red-library-communications／R20-19-Lift and Hang Up Telephone Receiver.mp3 |  |  |
+| OTH-0061 | 28.8 | ia_red-library-communications／R20-20-Pay Phone in Phone Booth.mp3 |  |  |
+| OTH-0062 | 1.7 | ia_red-library-communications／R20-22-1930s Telephone Hang Up.flac |  |  |
+| OTH-0063 | 63.0 | ia_red-library-communications／R20-23-Dial Telephone and listen to rings.mp3 |  |  |
+| OTH-0064 | 8.0 | ia_red-library-fights／R15-48-Fight Sounds.mp3 |  |  |
+| OTH-0065 | 28.0 | ia_red-library-fights／R24-08-Single Thumps or Whacks.mp3 |  |  |
+| OTH-0066 | 48.7 | ia_red-library-foley-props-1／R12-59-Saddle and Tack Foley.mp3 |  |  |
+| OTH-0067 | 49.5 | ia_red-library-foley-props-1／R16-38-Drawers Open Shut.mp3 |  |  |
+| OTH-0068 | 26.2 | ia_red-library-foley-props-1／R17-15-General Rustling.mp3 |  |  |
+| OTH-0069 | 20.4 | ia_red-library-foley-props-2／R18-34-Drag Body Across Floor.mp3 |  |  |
+| OTH-0070 | 3.2 | ia_red-library-foley-props-2／R18-35-Drag Body Across Floor.flac |  |  |
+| OTH-0071 | 6.9 | ia_red-library-foley-props-5／R27-31-Bag of Treasure Moves or Spills.mp3 |  |  |
+| OTH-0072 | 34.6 | ia_red-library-weapons-misc／R01-04-Catapult Launch.mp3 |  |  |
+| OTH-0073 | 89.4 | ia_sse-library-communications／COMRadio_Small transistor radio scanning the dial_CHS_USC.mp3 |  |  |
+| OTH-0074 | 48.6 | ia_sse-library-communications／COMTelm_Intersteller radio interference_CS_USC.mp3 |  |  |
+| OTH-0075 | 8.3 | ia_sse-library-communications／COMTelm_Muffled Intersteller radio interference_CS_USC.mp3 |  |  |
+| OTH-0076 | 6.4 | ia_sse-library-communications／COMTelph_Cranking an old style telephone; crank &_CS_USC.mp3 |  |  |
+| OTH-0077 | 28.8 | ia_sse-library-communications／COMTelph_Old fashioned wall phone crank and ring_CS_USC.mp3 |  |  |
+| OTH-0078 | 23.3 | ia_sse-library-designed／DSGNRmbl_Low and ominous sound; gathering storm; Paramount_CS_USC.mp3 |  |  |
+| OTH-0079 | 5.3 | ia_sse-library-fight／FGHTImpt-PIPE_Thumps on the head with steel pipe_CS_USC.mp3 |  |  |
+| OTH-0080 | 0.7 | kenney_casino-audio／Audio/card-place-1.ogg |  |  |
+| OTH-0081 | 0.5 | kenney_casino-audio／Audio/card-place-2.ogg |  |  |
+| OTH-0082 | 0.9 | kenney_casino-audio／Audio/card-place-3.ogg |  |  |
+| OTH-0083 | 0.6 | kenney_casino-audio／Audio/card-place-4.ogg |  |  |
+| OTH-0084 | 0.8 | kenney_casino-audio／Audio/card-shove-1.ogg |  |  |
+| OTH-0085 | 0.8 | kenney_casino-audio／Audio/card-shove-2.ogg |  |  |
+| OTH-0086 | 0.7 | kenney_casino-audio／Audio/card-shove-3.ogg |  |  |
+| OTH-0087 | 0.8 | kenney_casino-audio／Audio/card-shove-4.ogg |  |  |
+| OTH-0088 | 3.1 | kenney_casino-audio／Audio/card-shuffle.ogg |  |  |
+| OTH-0089 | 0.6 | kenney_casino-audio／Audio/card-slide-1.ogg |  |  |
+| OTH-0090 | 0.6 | kenney_casino-audio／Audio/card-slide-2.ogg |  |  |
+| OTH-0091 | 0.6 | kenney_casino-audio／Audio/card-slide-3.ogg |  |  |
+| OTH-0092 | 0.5 | kenney_casino-audio／Audio/card-slide-4.ogg |  |  |
+| OTH-0093 | 0.6 | kenney_casino-audio／Audio/card-slide-5.ogg |  |  |
+| OTH-0094 | 0.6 | kenney_casino-audio／Audio/card-slide-6.ogg |  |  |
+| OTH-0095 | 0.6 | kenney_casino-audio／Audio/card-slide-7.ogg |  |  |
+| OTH-0096 | 0.7 | kenney_casino-audio／Audio/card-slide-8.ogg |  |  |
+| OTH-0097 | 0.9 | kenney_casino-audio／Audio/cards-pack-open-1.ogg |  |  |
+| OTH-0098 | 0.7 | kenney_casino-audio／Audio/cards-pack-open-2.ogg |  |  |
+| OTH-0099 | 0.5 | kenney_casino-audio／Audio/cards-pack-take-out-1.ogg |  |  |
+| OTH-0100 | 0.6 | kenney_casino-audio／Audio/cards-pack-take-out-2.ogg |  |  |
+| OTH-0101 | 0.2 | kenney_casino-audio／Audio/chip-lay-1.ogg |  |  |
+| OTH-0102 | 0.2 | kenney_casino-audio／Audio/chip-lay-2.ogg |  |  |
+| OTH-0103 | 0.2 | kenney_casino-audio／Audio/chip-lay-3.ogg |  |  |
+| OTH-0104 | 0.3 | kenney_casino-audio／Audio/chips-collide-1.ogg |  |  |
+| OTH-0105 | 0.2 | kenney_casino-audio／Audio/chips-collide-2.ogg |  |  |
+| OTH-0106 | 0.3 | kenney_casino-audio／Audio/chips-collide-3.ogg |  |  |
+| OTH-0107 | 0.2 | kenney_casino-audio／Audio/chips-collide-4.ogg |  |  |
+| OTH-0108 | 0.6 | kenney_casino-audio／Audio/chips-handle-1.ogg |  |  |
+| OTH-0109 | 0.6 | kenney_casino-audio／Audio/chips-handle-2.ogg |  |  |
+| OTH-0110 | 0.2 | kenney_casino-audio／Audio/chips-handle-3.ogg |  |  |
+| OTH-0111 | 0.4 | kenney_casino-audio／Audio/chips-handle-4.ogg |  |  |
+| OTH-0112 | 0.8 | kenney_casino-audio／Audio/chips-handle-5.ogg |  |  |
+| OTH-0113 | 0.5 | kenney_casino-audio／Audio/chips-handle-6.ogg |  |  |
+| OTH-0114 | 0.3 | kenney_casino-audio／Audio/chips-stack-1.ogg |  |  |
+| OTH-0115 | 0.2 | kenney_casino-audio／Audio/chips-stack-2.ogg |  |  |
+| OTH-0116 | 0.4 | kenney_casino-audio／Audio/chips-stack-3.ogg |  |  |
+| OTH-0117 | 0.2 | kenney_casino-audio／Audio/chips-stack-4.ogg |  |  |
+| OTH-0118 | 0.2 | kenney_casino-audio／Audio/chips-stack-5.ogg |  |  |
+| OTH-0119 | 0.2 | kenney_casino-audio／Audio/chips-stack-6.ogg |  |  |
+| OTH-0120 | 0.7 | kenney_casino-audio／Audio/dice-grab-1.ogg |  |  |
+| OTH-0121 | 0.8 | kenney_casino-audio／Audio/dice-grab-2.ogg |  |  |
+| OTH-0122 | 1.5 | kenney_casino-audio／Audio/dice-shake-1.ogg |  |  |
+| OTH-0123 | 1.4 | kenney_casino-audio／Audio/dice-shake-2.ogg |  |  |
+| OTH-0124 | 1.5 | kenney_casino-audio／Audio/dice-shake-3.ogg |  |  |
+| OTH-0125 | 0.6 | kenney_casino-audio／Audio/dice-throw-1.ogg |  |  |
+| OTH-0126 | 0.4 | kenney_casino-audio／Audio/dice-throw-2.ogg |  |  |
+| OTH-0127 | 0.6 | kenney_casino-audio／Audio/dice-throw-3.ogg |  |  |
+| OTH-0128 | 35.1 | kenney_casino-audio／Preview.ogg |  |  |
+| OTH-0129 | 0.5 | oga_30-weird-cc0-sfx／weird_01.ogg |  |  |
+| OTH-0130 | 0.3 | oga_30-weird-cc0-sfx／weird_02.ogg |  |  |
+| OTH-0131 | 0.7 | oga_30-weird-cc0-sfx／weird_03.ogg |  |  |
+| OTH-0132 | 0.4 | oga_30-weird-cc0-sfx／weird_04.ogg |  |  |
+| OTH-0133 | 0.5 | oga_30-weird-cc0-sfx／weird_05.ogg |  |  |
+| OTH-0134 | 0.5 | oga_30-weird-cc0-sfx／weird_06.ogg |  |  |
+| OTH-0135 | 0.8 | oga_30-weird-cc0-sfx／weird_07.ogg |  |  |
+| OTH-0136 | 0.4 | oga_30-weird-cc0-sfx／weird_08.ogg |  |  |
+| OTH-0137 | 0.8 | oga_30-weird-cc0-sfx／weird_09.ogg |  |  |
+| OTH-0138 | 0.7 | oga_30-weird-cc0-sfx／weird_10.ogg |  |  |
+| OTH-0139 | 0.6 | oga_30-weird-cc0-sfx／weird_11.ogg |  |  |
+| OTH-0140 | 1.2 | oga_30-weird-cc0-sfx／weird_12.ogg |  |  |
+| OTH-0141 | 0.3 | oga_30-weird-cc0-sfx／weird_13.ogg |  |  |
+| OTH-0142 | 0.6 | oga_30-weird-cc0-sfx／weird_14.ogg |  |  |
+| OTH-0143 | 0.8 | oga_30-weird-cc0-sfx／weird_15.ogg |  |  |
+| OTH-0144 | 0.5 | oga_30-weird-cc0-sfx／weird_16.ogg |  |  |
+| OTH-0145 | 0.5 | oga_30-weird-cc0-sfx／weird_17.ogg |  |  |
+| OTH-0146 | 1.0 | oga_30-weird-cc0-sfx／weird_18.ogg |  |  |
+| OTH-0147 | 0.6 | oga_30-weird-cc0-sfx／weird_19.ogg |  |  |
+| OTH-0148 | 0.7 | oga_30-weird-cc0-sfx／weird_20.ogg |  |  |
+| OTH-0149 | 0.4 | oga_30-weird-cc0-sfx／weird_21.ogg |  |  |
+| OTH-0150 | 1.3 | oga_30-weird-cc0-sfx／weird_22.ogg |  |  |
+| OTH-0151 | 0.3 | oga_30-weird-cc0-sfx／weird_23.ogg |  |  |
+| OTH-0152 | 0.4 | oga_30-weird-cc0-sfx／weird_24.ogg |  |  |
+| OTH-0153 | 0.5 | oga_30-weird-cc0-sfx／weird_25.ogg |  |  |
+| OTH-0154 | 0.5 | oga_30-weird-cc0-sfx／weird_26.ogg |  |  |
+| OTH-0155 | 0.5 | oga_30-weird-cc0-sfx／weird_27.ogg |  |  |
+| OTH-0156 | 1.0 | oga_30-weird-cc0-sfx／weird_28.ogg |  |  |
+| OTH-0157 | 0.5 | oga_30-weird-cc0-sfx／weird_29.ogg |  |  |
+| OTH-0158 | 1.0 | oga_30-weird-cc0-sfx／weird_30.ogg |  |  |
+| OTH-0159 | 1.0 | oga_7-ghast-sounds／ghast - StarNinjas/ghast_cries.1.ogg |  |  |
+| OTH-0160 | 1.2 | oga_7-ghast-sounds／ghast - StarNinjas/ghast_cries.2.ogg |  |  |
+| OTH-0161 | 2.3 | oga_7-ghast-sounds／ghast - StarNinjas/ghast_cries.3.ogg |  |  |
+| OTH-0162 | 3.1 | oga_accept-decline-ui-menu／Accept UI Menu.flac |  |  |
+| OTH-0163 | 3.3 | oga_accept-decline-ui-menu／Decline UI Menu.flac |  |  |
+| OTH-0164 | 5.8 | oga_achievement／achievement.wav |  |  |
+| OTH-0165 | 1.0 | oga_alertnotification-sound／alert.wav |  |  |
+| OTH-0166 | 1.6 | oga_battle-at-sea／cannon_miss_1.ogg |  |  |
+| OTH-0167 | 18.5 | oga_battle-at-sea／ship_destroyed_1.ogg |  |  |
+| OTH-0168 | 11.3 | oga_battle-at-sea／ship_destroyed_short.ogg |  |  |
+| OTH-0169 | 7.9 | oga_battle-at-sea／ship_ram_ship_1.ogg |  |  |
+| OTH-0170 | 5.2 | oga_battle-at-sea／ship_ram_ship_shortened.ogg |  |  |
+| OTH-0171 | 10.1 | oga_big-scary-troll-sounds／scrapped-troll-sounds.ogg |  |  |
+| OTH-0172 | 16.3 | oga_botton-sound-pack／Menu Soundpack 3.wav |  |  |
+| OTH-0173 | 0.5 | oga_buzz-grid-sounds／bzzzt.wav |  |  |
+| OTH-0174 | 0.3 | oga_buzz-grid-sounds／thunk.wav |  |  |
+| OTH-0175 | 2.3 | oga_buzz-grid-sounds／zoom3.wav |  |  |
+| OTH-0176 | 0.6 | oga_buzzsaw-sound-effect／saw.wav |  |  |
+| OTH-0177 | 4.2 | oga_cave-in／cave_in_-_starninjas_0.ogg |  |  |
+| OTH-0178 | 0.4 | oga_damage-taken／damage_taken_0.mp3 |  |  |
+| OTH-0179 | 4.4 | oga_dynamite-sound-effect／Dynamite with sensor.wav |  |  |
+| OTH-0180 | 16.3 | oga_enemy-sounds／enemy_sounds.ogg |  |  |
+| OTH-0181 | 1.2 | oga_erase-escape／erase_0.wav |  |  |
+| OTH-0182 | 3.2 | oga_error／error_0.ogg |  |  |
+| OTH-0183 | 26.9 | oga_fabric-rustling／rustling.ogg |  |  |
+| OTH-0184 | 0.6 | oga_fx-pack／Various FX/mp3/fx_1.mp3 |  |  |
+| OTH-0185 | 1.2 | oga_fx-pack／Various FX/mp3/fx_2.mp3 |  |  |
+| OTH-0186 | 0.6 | oga_fx-pack／Various FX/mp3/fx_3.mp3 |  |  |
+| OTH-0187 | 0.6 | oga_fx-pack／Various FX/mp3/fx_4.mp3 |  |  |
+| OTH-0188 | 1.2 | oga_fx-pack／Various FX/mp3/fx_5.mp3 |  |  |
+| OTH-0189 | 0.6 | oga_fx-pack／Various FX/wav/fx_1.wav |  |  |
+| OTH-0190 | 1.2 | oga_fx-pack／Various FX/wav/fx_2.wav |  |  |
+| OTH-0191 | 0.6 | oga_fx-pack／Various FX/wav/fx_3.wav |  |  |
+| OTH-0192 | 0.6 | oga_fx-pack／Various FX/wav/fx_4.wav |  |  |
+| OTH-0193 | 1.2 | oga_fx-pack／Various FX/wav/fx_5.wav |  |  |
+| OTH-0194 | 2.9 | oga_get-ruby-se／getruby.flac |  |  |
+| OTH-0195 | 0.2 | oga_goblins-sound-pack／goblins/goblin-1.wav |  |  |
+| OTH-0196 | 0.2 | oga_goblins-sound-pack／goblins/goblin-10.wav |  |  |
+| OTH-0197 | 0.3 | oga_goblins-sound-pack／goblins/goblin-11.wav |  |  |
+| OTH-0198 | 0.7 | oga_goblins-sound-pack／goblins/goblin-12.wav |  |  |
+| OTH-0199 | 0.2 | oga_goblins-sound-pack／goblins/goblin-13.wav |  |  |
+| OTH-0200 | 0.3 | oga_goblins-sound-pack／goblins/goblin-14.wav |  |  |
+| OTH-0201 | 0.5 | oga_goblins-sound-pack／goblins/goblin-15.wav |  |  |
+| OTH-0202 | 0.2 | oga_goblins-sound-pack／goblins/goblin-2.wav |  |  |
+| OTH-0203 | 0.9 | oga_goblins-sound-pack／goblins/goblin-3.wav |  |  |
+| OTH-0204 | 0.5 | oga_goblins-sound-pack／goblins/goblin-4.wav |  |  |
+| OTH-0205 | 0.3 | oga_goblins-sound-pack／goblins/goblin-5.wav |  |  |
+| OTH-0206 | 0.2 | oga_goblins-sound-pack／goblins/goblin-6.wav |  |  |
+| OTH-0207 | 0.2 | oga_goblins-sound-pack／goblins/goblin-7.wav |  |  |
+| OTH-0208 | 0.2 | oga_goblins-sound-pack／goblins/goblin-8.wav |  |  |
+| OTH-0209 | 0.5 | oga_goblins-sound-pack／goblins/goblin-9.wav |  |  |
+| OTH-0210 | 0.9 | oga_gravity-inverter／gravity_inverter.ogg |  |  |
+| OTH-0211 | 1.1 | oga_heartbeat-sounds／heartbeat_fast_0.wav |  |  |
+| OTH-0212 | 1.1 | oga_heartbeat-sounds／heartbeat_fast_reverb.wav |  |  |
+| OTH-0213 | 1.8 | oga_heartbeat-sounds／heartbeat_slow_0.wav |  |  |
+| OTH-0214 | 1.8 | oga_heartbeat-sounds／heartbeat_slow_reverb.wav |  |  |
+| OTH-0215 | 23.4 | oga_horror-sfx／horror_effect1.wav |  |  |
+| OTH-0216 | 15.8 | oga_horror-sfx／horror_effect2.wav |  |  |
+| OTH-0217 | 6.8 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Generated Typing/generated-001_slowest.wav |  |  |
+| OTH-0218 | 8.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Generated Typing/generated-002_slower.wav |  |  |
+| OTH-0219 | 9.0 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Generated Typing/generated-003_slow.wav |  |  |
+| OTH-0220 | 5.9 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Generated Typing/generated-004_medium.wav |  |  |
+| OTH-0221 | 12.1 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Generated Typing/generated-005_fast.wav |  |  |
+| OTH-0222 | 9.4 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Generated Typing/generated-006_faster.wav |  |  |
+| OTH-0223 | 6.5 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Generated Typing/generated-007_irregular.wav |  |  |
+| OTH-0224 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-001.wav |  |  |
+| OTH-0225 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-002.wav |  |  |
+| OTH-0226 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-003.wav |  |  |
+| OTH-0227 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-004.wav |  |  |
+| OTH-0228 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-005.wav |  |  |
+| OTH-0229 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-006.wav |  |  |
+| OTH-0230 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-007.wav |  |  |
+| OTH-0231 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-008.wav |  |  |
+| OTH-0232 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-009.wav |  |  |
+| OTH-0233 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-010.wav |  |  |
+| OTH-0234 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-011.wav |  |  |
+| OTH-0235 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-012.wav |  |  |
+| OTH-0236 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-013.wav |  |  |
+| OTH-0237 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-014.wav |  |  |
+| OTH-0238 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-015.wav |  |  |
+| OTH-0239 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-016.wav |  |  |
+| OTH-0240 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-017.wav |  |  |
+| OTH-0241 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-018.wav |  |  |
+| OTH-0242 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-019.wav |  |  |
+| OTH-0243 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-020.wav |  |  |
+| OTH-0244 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-021.wav |  |  |
+| OTH-0245 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-022.wav |  |  |
+| OTH-0246 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-023.wav |  |  |
+| OTH-0247 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-024.wav |  |  |
+| OTH-0248 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-025.wav |  |  |
+| OTH-0249 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-026.wav |  |  |
+| OTH-0250 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-027.wav |  |  |
+| OTH-0251 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-028.wav |  |  |
+| OTH-0252 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-029.wav |  |  |
+| OTH-0253 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-030.wav |  |  |
+| OTH-0254 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-031.wav |  |  |
+| OTH-0255 | 0.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Single Keys/keypress-032.wav |  |  |
+| OTH-0256 | 12.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／preview.ogg |  |  |
+| OTH-0257 | 69.6 | oga_light-sabre-sounds／light_sabre1_0.mp3 |  |  |
+| OTH-0258 | 80.5 | oga_light-sabre-sounds／light_sabre2.mp3 |  |  |
+| OTH-0259 | 0.5 | oga_menu-choice／Menu Choice.mp3 |  |  |
+| OTH-0260 | 0.1 | oga_menu-select-tick／menu tick.wav |  |  |
+| OTH-0261 | 2.7 | oga_missile-sound／missile.wav |  |  |
+| OTH-0262 | 0.7 | oga_moving-boulder／boulder_drop_0.ogg |  |  |
+| OTH-0263 | 0.7 | oga_moving-boulder／move_boulder_0.ogg |  |  |
+| OTH-0264 | 2.5 | oga_open-chest-sfx／open chest_0.wav |  |  |
+| OTH-0265 | 1.0 | oga_patreon-menu-soundpacks／lowRing.wav |  |  |
+| OTH-0266 | 0.3 | oga_patreon-menu-soundpacks／roughBack.wav |  |  |
+| OTH-0267 | 0.3 | oga_patreon-menu-soundpacks／roughSelect.wav |  |  |
+| OTH-0268 | 0.4 | oga_patreon-menu-soundpacks／sharpBack.wav |  |  |
+| OTH-0269 | 0.3 | oga_patreon-menu-soundpacks／sharpSelect.wav |  |  |
+| OTH-0270 | 1.0 | oga_patreon-menu-soundpacks／successRing.wav |  |  |
+| OTH-0271 | 0.6 | oga_portal-sound／PortalSFX/porta.ogg |  |  |
+| OTH-0272 | 1.6 | oga_purchasing-sound-effect／snd_purchase_0.wav |  |  |
+| OTH-0273 | 1.8 | oga_random-sfx／SFX/1.wav |  |  |
+| OTH-0274 | 0.9 | oga_random-sfx／SFX/2.wav |  |  |
+| OTH-0275 | 0.5 | oga_random-sfx／SFX/3.wav |  |  |
+| OTH-0276 | 1.4 | oga_random-sfx／SFX/Echo/1/1.wav |  |  |
+| OTH-0277 | 1.4 | oga_random-sfx／SFX/Echo/1/2.wav |  |  |
+| OTH-0278 | 1.3 | oga_random-sfx／SFX/Echo/1/3.wav |  |  |
+| OTH-0279 | 2.9 | oga_random-sfx／SFX/Misc/1/1/1.wav |  |  |
+| OTH-0280 | 3.1 | oga_random-sfx／SFX/Misc/1/1/2.wav |  |  |
+| OTH-0281 | 2.9 | oga_random-sfx／SFX/Misc/1/2/1.wav |  |  |
+| OTH-0282 | 2.9 | oga_random-sfx／SFX/Misc/1/2/2.wav |  |  |
+| OTH-0283 | 3.1 | oga_random-sfx／SFX/Misc/2/1.wav |  |  |
+| OTH-0284 | 3.1 | oga_random-sfx／SFX/Misc/2/2.wav |  |  |
+| OTH-0285 | 0.4 | oga_random-sfx／SFX/Misc/3/1/1.wav |  |  |
+| OTH-0286 | 0.4 | oga_random-sfx／SFX/Misc/3/1/2.wav |  |  |
+| OTH-0287 | 0.3 | oga_random-sfx／SFX/Misc/3/2/1.wav |  |  |
+| OTH-0288 | 0.3 | oga_random-sfx／SFX/Misc/3/2/2.wav |  |  |
+| OTH-0289 | 0.5 | oga_random-sfx／SFX/Misc/Other/2.wav |  |  |
+| OTH-0290 | 0.7 | oga_random-sfx／SFX/Misc/Other/3.wav |  |  |
+| OTH-0291 | 0.5 | oga_random-sfx／SFX/Misc/Other/4.wav |  |  |
+| OTH-0292 | 0.7 | oga_random-sfx／SFX/Misc/Other/5.wav |  |  |
+| OTH-0293 | 0.7 | oga_random-sfx／SFX/Misc/Other/Oooo.wav |  |  |
+| OTH-0294 | 0.5 | oga_residue-sfx／residue-sfx/ammopickup.ogg |  |  |
+| OTH-0295 | 0.6 | oga_residue-sfx／residue-sfx/crystia.ogg |  |  |
+| OTH-0296 | 0.5 | oga_residue-sfx／residue-sfx/emag.ogg |  |  |
+| OTH-0297 | 0.1 | oga_residue-sfx／residue-sfx/emptyclip.ogg |  |  |
+| OTH-0298 | 0.5 | oga_residue-sfx／residue-sfx/healthboost.ogg |  |  |
+| OTH-0299 | 1.0 | oga_residue-sfx／residue-sfx/healthpack.ogg |  |  |
+| OTH-0300 | 0.5 | oga_residue-sfx／residue-sfx/hurker.ogg |  |  |
+| OTH-0301 | 0.1 | oga_residue-sfx／residue-sfx/lumosaw.ogg |  |  |
+| OTH-0302 | 0.6 | oga_residue-sfx／residue-sfx/mrrl.ogg |  |  |
+| OTH-0303 | 0.5 | oga_residue-sfx／residue-sfx/points.ogg |  |  |
+| OTH-0304 | 0.5 | oga_residue-sfx／residue-sfx/ptplus.ogg |  |  |
+| OTH-0305 | 0.5 | oga_residue-sfx／residue-sfx/pxx.ogg |  |  |
+| OTH-0306 | 2.8 | oga_residue-sfx／residue-sfx/quietship.ogg |  |  |
+| OTH-0307 | 0.5 | oga_residue-sfx／residue-sfx/spit.ogg |  |  |
+| OTH-0308 | 0.5 | oga_residue-sfx／residue-sfx/ventilator.ogg |  |  |
+| OTH-0309 | 0.1 | oga_residue-sfx／residue-sfx/zipper.ogg |  |  |
+| OTH-0310 | 5.9 | oga_rocket-launch／launch/launch.wav |  |  |
+| OTH-0311 | 1.9 | oga_sack-of-gold／gold_sack.wav |  |  |
+| OTH-0312 | 1.1 | oga_scrapes／scrape-1.ogg |  |  |
+| OTH-0313 | 1.3 | oga_scrapes／scrape-2.ogg |  |  |
+| OTH-0314 | 1.4 | oga_scrapes／scrape-3.ogg |  |  |
+| OTH-0315 | 1.4 | oga_scrapes／scrape-4.ogg |  |  |
+| OTH-0316 | 1.6 | oga_scrapes／scrape-5.ogg |  |  |
+| OTH-0317 | 1.3 | oga_scrapes／scrape-6.ogg |  |  |
+| OTH-0318 | 1.3 | oga_scrapes／scrape-7.ogg |  |  |
+| OTH-0319 | 1.5 | oga_scrapes／scrape-8.ogg |  |  |
+| OTH-0320 | 0.1 | oga_sfx-5-menu-screen-slides／5 Menu Screen Slide SFX 01.wav |  |  |
+| OTH-0321 | 0.1 | oga_sfx-5-menu-screen-slides／5 Menu Screen Slide SFX 02.wav |  |  |
+| OTH-0322 | 0.2 | oga_sfx-5-menu-screen-slides／5 Menu Screen Slide SFX 03.wav |  |  |
+| OTH-0323 | 0.6 | oga_sfx-5-menu-screen-slides／5 Menu Screen Slide SFX 04.wav |  |  |
+| OTH-0324 | 0.3 | oga_sfx-5-menu-screen-slides／5 Menu Screen Slide SFX 05.wav |  |  |
+| OTH-0325 | 0.3 | oga_some-kind-of-beings-sounds7／some_kind_of_being_sound_1.mp3 |  |  |
+| OTH-0326 | 2.7 | oga_sonar-ping／sonar_ping_0.mp3 |  |  |
+| OTH-0327 | 55.6 | oga_sound-effects-pack／Misc Foley/pill-bottle.wav |  |  |
+| OTH-0328 | 12.3 | oga_sound-effects-pack／Technology/Phone_vibrate.wav |  |  |
+| OTH-0329 | 8.5 | oga_sound-effects-pack／Technology/Phonering-otherend.wav |  |  |
+| OTH-0330 | 0.4 | oga_sound-effects-pack／Technology/plugpull.wav |  |  |
+| OTH-0331 | 3.8 | oga_sound-effects-pack／Technology/plugpull2.wav |  |  |
+| OTH-0332 | 5.2 | oga_sound-effects-pack／Technology/record_player.wav |  |  |
+| OTH-0333 | 115.5 | oga_sound-effects-pack／Water/kettle-boil.wav |  |  |
+| OTH-0334 | 7.5 | oga_sound-effects-pack／Water/spray-bottle.wav |  |  |
+| OTH-0335 | 11.7 | oga_sound-effects-pack／Water/tap-water-1.wav |  |  |
+| OTH-0336 | 16.3 | oga_sound-effects-pack／Water/tap-water-2.wav |  |  |
+| OTH-0337 | 0.9 | oga_step-sound-walking／Ejimas1.ogg |  |  |
+| OTH-0338 | 0.5 | oga_teleport／172206__fins__teleport.wav |  |  |
+| OTH-0339 | 23.4 | oga_time-slow／time_stop_0.mp3 |  |  |
+| OTH-0340 | 5.0 | oga_typing-soundeffect／typing_0.ogg |  |  |
+| OTH-0341 | 5.2 | oga_ufo-beam／Beam.ogg |  |  |
+| OTH-0342 | 28.9 | oga_unleeched-sound-effects-pack／flourescent-lights.wav |  |  |
+| OTH-0343 | 0.5 | oga_unleeched-sound-effects-pack／key-collect.wav |  |  |
+| OTH-0344 | 2.6 | oga_unleeched-sound-effects-pack／leech-screech1.wav |  |  |
+| OTH-0345 | 2.6 | oga_unleeched-sound-effects-pack／leech-screech2.wav |  |  |
+| OTH-0346 | 1.9 | oga_unleeched-sound-effects-pack／leech-walk.wav |  |  |
+| OTH-0347 | 0.9 | oga_unleeched-sound-effects-pack／scientist-throw.wav |  |  |
+| OTH-0348 | 2.1 | oga_unleeched-sound-effects-pack／testtube-shatter.wav |  |  |
+| OTH-0349 | 1.5 | oga_unleeched-sound-effects-pack／ui-game-start.wav |  |  |
+| OTH-0350 | 1.1 | oga_unleeched-sound-effects-pack／vial-collect.wav |  |  |
+| OTH-0351 | 13.2 | oga_war-on-water-sndfx／Airplanes/airplane.ogg |  |  |
+| OTH-0352 | 13.2 | oga_war-on-water-sndfx／Airplanes/airplane1.ogg |  |  |
+| OTH-0353 | 13.1 | oga_war-on-water-sndfx／Airplanes/airplane2.ogg |  |  |
+| OTH-0354 | 13.0 | oga_war-on-water-sndfx／Airplanes/airplane3.ogg |  |  |
+| OTH-0355 | 5.8 | oga_war-on-water-sndfx／Airplanes/paratroopersplane.ogg |  |  |
+| OTH-0356 | 0.9 | oga_war-on-water-sndfx／Interface/callhelp.ogg |  |  |
+| OTH-0357 | 0.5 | oga_war-on-water-sndfx／Interface/cartriges.ogg |  |  |
+| OTH-0358 | 0.8 | oga_war-on-water-sndfx／Interface/menutransition.ogg |  |  |
+| OTH-0359 | 0.0 | oga_war-on-water-sndfx／Pirates/pop1.ogg |  |  |
+| OTH-0360 | 0.0 | oga_war-on-water-sndfx／Pirates/pop2.ogg |  |  |
+| OTH-0361 | 0.0 | oga_war-on-water-sndfx／Pirates/pop3.ogg |  |  |
+| OTH-0362 | 2.9 | oga_war-on-water-sndfx／Ships/friendlyboat.ogg |  |  |
+| OTH-0363 | 5.0 | oga_war-on-water-sndfx／Ships/friendlyship.ogg |  |  |
+| OTH-0364 | 2.5 | oga_war-on-water-sndfx／Ships/ship1.ogg |  |  |
+| OTH-0365 | 5.5 | oga_war-on-water-sndfx／Ships/ship2.ogg |  |  |
+| OTH-0366 | 0.9 | oga_war-on-water-sndfx／Ships/shipsink.ogg |  |  |
+| OTH-0367 | 5.7 | oga_waterflow-sound／waterflow.mp3 |  |  |
+| OTH-0368 | 0.8 | oga_zipper／zipper-1.wav |  |  |
+| OTH-0369 | 1.1 | oga_zomby-sfx-pack／01_zombey.mp3 |  |  |
+| OTH-0370 | 1.1 | oga_zomby-sfx-pack／02_zombey.mp3 |  |  |
+| OTH-0371 | 1.1 | oga_zomby-sfx-pack／03_zombey.mp3 |  |  |
+| OTH-0372 | 1.2 | oga_zomby-sfx-pack／04_zombey_0.mp3 |  |  |
+| OTH-0373 | 1.4 | oga_zomby-sfx-pack／06_zombey.mp3 |  |  |
+| OTH-0374 | 1.5 | oga_zomby-sfx-pack／07_zombey.mp3 |  |  |
 
-## RLD 槍械操作（19）
+## RLD 槍械操作（36）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -2002,8 +4151,25 @@
 | RLD-0017 | 1.2 | oga_shotgun-reload-sound-effects／ShotgunSounds/Rack.mp3 | pump rack / chambering [peak-clip heuristic flag] | P-WPN-024 |
 | RLD-0018 | 2.0 | oga_shotgun-reload-sound-effects／ShotgunSounds/Shell in Chamber.mp3 | pump rack / chambering |  |
 | RLD-0019 | 4.1 | oga_shotgun-reload-sound-effects／ShotgunSounds/Subsequent Shells.mp3 |  | P-WPN-023 |
+| RLD-0020 | 17.6 | ia_red-library-foley-props-1／R16-40-Handling Plastic Objects.mp3 |  |  |
+| RLD-0021 | 15.3 | ia_red-library-guns-misc／R11-50-Cocking Rifle.mp3 |  |  |
+| RLD-0022 | 3.0 | ia_red-library-guns-misc／R12-24-Rifle Cocking, Close.flac |  |  |
+| RLD-0023 | 1.3 | ia_red-library-guns-misc／R12-25-Rifle Cocking.flac |  |  |
+| RLD-0024 | 16.8 | ia_red-library-guns-misc／R12-26-Guns Cocking.mp3 |  |  |
+| RLD-0025 | 11.3 | ia_red-library-guns-misc／R12-32-Gun Movement in Room.mp3 |  |  |
+| RLD-0026 | 26.0 | ia_red-library-guns-misc／R28-36-Handling and Rattling Rifle.mp3 |  |  |
+| RLD-0027 | 25.3 | ia_sse-library-bullets／BLLTShel_Ejecting shells from 357 magnum pistol_CS_USC.mp3 |  |  |
+| RLD-0028 | 16.9 | ia_sse-library-bullets／BLLTShel_Loading cartridges into a rifle_CS_USC.mp3 |  |  |
+| RLD-0029 | 63.6 | ia_sse-library-guns／GUNMech_38 colt; pistol pulling back hammer; open_CS_USC.mp3 |  |  |
+| RLD-0030 | 1.3 | ia_sse-library-guns／GUNMech_Cocking a rifle; indoors_CS_USC.flac |  |  |
+| RLD-0031 | 3.9 | ia_sse-library-guns／GUNMech_Cocking bolt action rifle; indoors_CS_USC.flac |  |  |
+| RLD-0032 | 8.1 | ia_sse-library-guns／GUNMech_Loading a clip into a rifle_CS_USC.mp3 |  |  |
+| RLD-0033 | 23.9 | ia_sse-library-guns／GUNMech_Loading shotgun; indoors_CS_USC.mp3 |  |  |
+| RLD-0034 | 9.1 | ia_sse-library-guns／GUNMech_Slide breech pistol; indoors_CS_USC.mp3 |  |  |
+| RLD-0035 | 13.8 | ia_sse-library-guns／GUNMech_Spinning the cylinder for Russian Roulette_CS_USC.mp3 |  |  |
+| RLD-0036 | 66.0 | ia_sse-library-guns／GUNMech_Winchester rifle cocking lever; cocking_CS_USC.mp3 |  |  |
 
-## UIS 介面（237）
+## UIS 介面（497）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -2244,8 +4410,268 @@
 | UIS-0235 | 0.5 | oga_button-sfx-pack-iii-assortment-ot-hi-tech／Text rollover.wav |  |  |
 | UIS-0236 | 0.5 | oga_button-sfx-pack-iii-assortment-ot-hi-tech／Text rollover2.wav |  |  |
 | UIS-0237 | 0.5 | oga_button-sfx-pack-iii-assortment-ot-hi-tech／Text rollover3.wav |  |  |
+| UIS-0238 | 0.2 | oga_5-blip-ui-sound-effects／blipUI1.wav |  |  |
+| UIS-0239 | 0.2 | oga_5-blip-ui-sound-effects／blipUI2.wav |  |  |
+| UIS-0240 | 0.2 | oga_5-blip-ui-sound-effects／blipUI3.wav |  |  |
+| UIS-0241 | 0.2 | oga_5-blip-ui-sound-effects／blipUI4.wav |  |  |
+| UIS-0242 | 0.2 | oga_5-blip-ui-sound-effects／blipUI5.wav |  |  |
+| UIS-0243 | 0.4 | oga_button-sfx-pack-ii-granular-synthesis-styled／Button Sound 53.wav |  |  |
+| UIS-0244 | 0.6 | oga_button-sfx-pack-ii-granular-synthesis-styled／Digi Beeper.wav |  |  |
+| UIS-0245 | 1.2 | oga_button-sfx-pack-ii-granular-synthesis-styled／G-Savior - Sound effect.wav |  |  |
+| UIS-0246 | 0.1 | oga_button-sfx-pack-ii-granular-synthesis-styled／Granular Synthesis BTN Sound.wav |  |  |
+| UIS-0247 | 1.1 | oga_button-sfx-pack-ii-granular-synthesis-styled／Granularity I.wav |  |  |
+| UIS-0248 | 1.1 | oga_button-sfx-pack-ii-granular-synthesis-styled／Granularity II.wav |  |  |
+| UIS-0249 | 3.8 | oga_button-sfx-pack-ii-granular-synthesis-styled／Granulize intro.wav |  |  |
+| UIS-0250 | 4.4 | oga_button-sfx-pack-ii-granular-synthesis-styled／Granulize intro2.wav |  |  |
+| UIS-0251 | 8.0 | oga_button-sfx-pack-ii-granular-synthesis-styled／Granulize.wav |  |  |
+| UIS-0252 | 1.0 | oga_button-sfx-pack-ii-granular-synthesis-styled／Granulized Button Sound 9.wav |  |  |
+| UIS-0253 | 0.4 | oga_button-sfx-pack-ii-granular-synthesis-styled／Granulized Button Sound.wav |  |  |
+| UIS-0254 | 1.1 | oga_button-sfx-pack-ii-granular-synthesis-styled／Granulized Button.wav |  |  |
+| UIS-0255 | 1.2 | oga_button-sfx-pack-ii-granular-synthesis-styled／Granulized Circlerun Effected.wav |  |  |
+| UIS-0256 | 1.5 | oga_button-sfx-pack-ii-granular-synthesis-styled／Granulized Circlerun.wav |  |  |
+| UIS-0257 | 0.4 | oga_button-sfx-pack-ii-granular-synthesis-styled／Granulized Sound 2.wav |  |  |
+| UIS-0258 | 0.8 | oga_button-sfx-pack-ii-granular-synthesis-styled／Granulized Sound 4.wav |  |  |
+| UIS-0259 | 1.0 | oga_button-sfx-pack-ii-granular-synthesis-styled／Granulized Triple button.wav |  |  |
+| UIS-0260 | 0.4 | oga_button-sfx-pack-ii-granular-synthesis-styled／Roll Over Digi II.wav |  |  |
+| UIS-0261 | 0.4 | oga_button-sfx-pack-ii-granular-synthesis-styled／Roll Over Digi.wav |  |  |
+| UIS-0262 | 0.3 | oga_button-sfx-pack-ii-granular-synthesis-styled／Window Slide 2.wav |  |  |
+| UIS-0263 | 0.3 | oga_button-sfx-pack-ii-granular-synthesis-styled／Window Slide.wav |  |  |
+| UIS-0264 | 1.2 | oga_chimey-ui-sounds／Chime_Cancel.mp3 |  |  |
+| UIS-0265 | 1.4 | oga_chimey-ui-sounds／Chime_Confirm.mp3 |  |  |
+| UIS-0266 | 1.5 | oga_chimey-ui-sounds／Chime_Exit.mp3 |  |  |
+| UIS-0267 | 1.8 | oga_chimey-ui-sounds／Chime_LevelUp.mp3 |  |  |
+| UIS-0268 | 1.5 | oga_chimey-ui-sounds／Chime_Load.mp3 |  |  |
+| UIS-0269 | 1.2 | oga_chimey-ui-sounds／Chime_Save.mp3 |  |  |
+| UIS-0270 | 1.8 | oga_chimey-ui-sounds／Chime_Sleep.mp3 |  |  |
+| UIS-0271 | 1.7 | oga_gui-sound-effects／GUI_Sound_Effects_by_Lokif/click.wav |  |  |
+| UIS-0272 | 1.7 | oga_gui-sound-effects／GUI_Sound_Effects_by_Lokif/click_2.wav |  |  |
+| UIS-0273 | 1.7 | oga_gui-sound-effects／GUI_Sound_Effects_by_Lokif/load.wav |  |  |
+| UIS-0274 | 1.7 | oga_gui-sound-effects／GUI_Sound_Effects_by_Lokif/misc_menu.wav |  |  |
+| UIS-0275 | 1.7 | oga_gui-sound-effects／GUI_Sound_Effects_by_Lokif/misc_menu_2.wav |  |  |
+| UIS-0276 | 1.7 | oga_gui-sound-effects／GUI_Sound_Effects_by_Lokif/misc_menu_3.wav |  |  |
+| UIS-0277 | 1.7 | oga_gui-sound-effects／GUI_Sound_Effects_by_Lokif/misc_menu_4.wav |  |  |
+| UIS-0278 | 3.4 | oga_gui-sound-effects／GUI_Sound_Effects_by_Lokif/misc_sound.wav |  |  |
+| UIS-0279 | 1.7 | oga_gui-sound-effects／GUI_Sound_Effects_by_Lokif/negative.wav |  |  |
+| UIS-0280 | 1.7 | oga_gui-sound-effects／GUI_Sound_Effects_by_Lokif/negative_2.wav |  |  |
+| UIS-0281 | 1.7 | oga_gui-sound-effects／GUI_Sound_Effects_by_Lokif/positive.wav |  |  |
+| UIS-0282 | 3.4 | oga_gui-sound-effects／GUI_Sound_Effects_by_Lokif/save.wav |  |  |
+| UIS-0283 | 1.7 | oga_gui-sound-effects／GUI_Sound_Effects_by_Lokif/sharp_echo.wav |  |  |
+| UIS-0284 | 0.1 | oga_interface-sounds／Audio/back_001.ogg |  |  |
+| UIS-0285 | 0.1 | oga_interface-sounds／Audio/back_002.ogg |  |  |
+| UIS-0286 | 0.1 | oga_interface-sounds／Audio/back_003.ogg |  |  |
+| UIS-0287 | 0.1 | oga_interface-sounds／Audio/back_004.ogg |  |  |
+| UIS-0288 | 0.1 | oga_interface-sounds／Audio/bong_001.ogg |  |  |
+| UIS-0289 | 0.1 | oga_interface-sounds／Audio/click_001.ogg |  |  |
+| UIS-0290 | 0.0 | oga_interface-sounds／Audio/click_002.ogg |  |  |
+| UIS-0291 | 0.0 | oga_interface-sounds／Audio/click_003.ogg |  |  |
+| UIS-0292 | 0.0 | oga_interface-sounds／Audio/click_004.ogg |  |  |
+| UIS-0293 | 0.0 | oga_interface-sounds／Audio/click_005.ogg |  |  |
+| UIS-0294 | 0.1 | oga_interface-sounds／Audio/close_001.ogg |  |  |
+| UIS-0295 | 0.3 | oga_interface-sounds／Audio/close_002.ogg |  |  |
+| UIS-0296 | 0.3 | oga_interface-sounds／Audio/close_003.ogg |  |  |
+| UIS-0297 | 0.3 | oga_interface-sounds／Audio/close_004.ogg |  |  |
+| UIS-0298 | 0.3 | oga_interface-sounds／Audio/confirmation_001.ogg |  |  |
+| UIS-0299 | 0.5 | oga_interface-sounds／Audio/confirmation_002.ogg |  |  |
+| UIS-0300 | 0.3 | oga_interface-sounds／Audio/confirmation_003.ogg |  |  |
+| UIS-0301 | 0.5 | oga_interface-sounds／Audio/confirmation_004.ogg |  |  |
+| UIS-0302 | 0.1 | oga_interface-sounds／Audio/drop_001.ogg |  |  |
+| UIS-0303 | 0.2 | oga_interface-sounds／Audio/drop_002.ogg |  |  |
+| UIS-0304 | 0.2 | oga_interface-sounds／Audio/drop_003.ogg |  |  |
+| UIS-0305 | 0.3 | oga_interface-sounds／Audio/drop_004.ogg |  |  |
+| UIS-0306 | 0.2 | oga_interface-sounds／Audio/error_001.ogg |  |  |
+| UIS-0307 | 0.2 | oga_interface-sounds／Audio/error_002.ogg |  |  |
+| UIS-0308 | 0.5 | oga_interface-sounds／Audio/error_003.ogg |  |  |
+| UIS-0309 | 0.1 | oga_interface-sounds／Audio/error_004.ogg |  |  |
+| UIS-0310 | 0.5 | oga_interface-sounds／Audio/error_005.ogg |  |  |
+| UIS-0311 | 0.5 | oga_interface-sounds／Audio/error_006.ogg |  |  |
+| UIS-0312 | 0.2 | oga_interface-sounds／Audio/error_007.ogg |  |  |
+| UIS-0313 | 0.1 | oga_interface-sounds／Audio/error_008.ogg |  |  |
+| UIS-0314 | 0.3 | oga_interface-sounds／Audio/glass_001.ogg |  |  |
+| UIS-0315 | 0.1 | oga_interface-sounds／Audio/glass_002.ogg |  |  |
+| UIS-0316 | 0.1 | oga_interface-sounds／Audio/glass_003.ogg |  |  |
+| UIS-0317 | 0.7 | oga_interface-sounds／Audio/glass_004.ogg |  |  |
+| UIS-0318 | 0.1 | oga_interface-sounds／Audio/glass_005.ogg |  |  |
+| UIS-0319 | 0.1 | oga_interface-sounds／Audio/glass_006.ogg |  |  |
+| UIS-0320 | 0.0 | oga_interface-sounds／Audio/glitch_001.ogg |  |  |
+| UIS-0321 | 0.0 | oga_interface-sounds／Audio/glitch_002.ogg |  |  |
+| UIS-0322 | 0.0 | oga_interface-sounds／Audio/glitch_003.ogg |  |  |
+| UIS-0323 | 0.0 | oga_interface-sounds／Audio/glitch_004.ogg |  |  |
+| UIS-0324 | 0.3 | oga_interface-sounds／Audio/maximize_001.ogg |  |  |
+| UIS-0325 | 0.3 | oga_interface-sounds／Audio/maximize_002.ogg |  |  |
+| UIS-0326 | 0.2 | oga_interface-sounds／Audio/maximize_003.ogg |  |  |
+| UIS-0327 | 0.4 | oga_interface-sounds／Audio/maximize_004.ogg |  |  |
+| UIS-0328 | 0.5 | oga_interface-sounds／Audio/maximize_005.ogg |  |  |
+| UIS-0329 | 0.4 | oga_interface-sounds／Audio/maximize_006.ogg |  |  |
+| UIS-0330 | 0.2 | oga_interface-sounds／Audio/maximize_007.ogg |  |  |
+| UIS-0331 | 0.2 | oga_interface-sounds／Audio/maximize_008.ogg |  |  |
+| UIS-0332 | 0.2 | oga_interface-sounds／Audio/maximize_009.ogg |  |  |
+| UIS-0333 | 0.3 | oga_interface-sounds／Audio/minimize_001.ogg |  |  |
+| UIS-0334 | 0.3 | oga_interface-sounds／Audio/minimize_002.ogg |  |  |
+| UIS-0335 | 0.2 | oga_interface-sounds／Audio/minimize_003.ogg |  |  |
+| UIS-0336 | 0.4 | oga_interface-sounds／Audio/minimize_004.ogg |  |  |
+| UIS-0337 | 0.5 | oga_interface-sounds／Audio/minimize_005.ogg |  |  |
+| UIS-0338 | 0.4 | oga_interface-sounds／Audio/minimize_006.ogg |  |  |
+| UIS-0339 | 0.2 | oga_interface-sounds／Audio/minimize_007.ogg |  |  |
+| UIS-0340 | 0.2 | oga_interface-sounds／Audio/minimize_008.ogg |  |  |
+| UIS-0341 | 0.2 | oga_interface-sounds／Audio/minimize_009.ogg |  |  |
+| UIS-0342 | 0.1 | oga_interface-sounds／Audio/open_001.ogg |  |  |
+| UIS-0343 | 0.3 | oga_interface-sounds／Audio/open_002.ogg |  |  |
+| UIS-0344 | 0.3 | oga_interface-sounds／Audio/open_003.ogg |  |  |
+| UIS-0345 | 0.3 | oga_interface-sounds／Audio/open_004.ogg |  |  |
+| UIS-0346 | 0.1 | oga_interface-sounds／Audio/pluck_001.ogg |  |  |
+| UIS-0347 | 0.2 | oga_interface-sounds／Audio/pluck_002.ogg |  |  |
+| UIS-0348 | 0.5 | oga_interface-sounds／Audio/question_001.ogg |  |  |
+| UIS-0349 | 0.3 | oga_interface-sounds／Audio/question_002.ogg |  |  |
+| UIS-0350 | 0.3 | oga_interface-sounds／Audio/question_003.ogg |  |  |
+| UIS-0351 | 0.3 | oga_interface-sounds／Audio/question_004.ogg |  |  |
+| UIS-0352 | 0.1 | oga_interface-sounds／Audio/scratch_001.ogg |  |  |
+| UIS-0353 | 0.1 | oga_interface-sounds／Audio/scratch_002.ogg |  |  |
+| UIS-0354 | 0.1 | oga_interface-sounds／Audio/scratch_003.ogg |  |  |
+| UIS-0355 | 0.3 | oga_interface-sounds／Audio/scratch_004.ogg |  |  |
+| UIS-0356 | 0.3 | oga_interface-sounds／Audio/scratch_005.ogg |  |  |
+| UIS-0357 | 1.0 | oga_interface-sounds／Audio/scroll_001.ogg |  |  |
+| UIS-0358 | 1.0 | oga_interface-sounds／Audio/scroll_002.ogg |  |  |
+| UIS-0359 | 1.0 | oga_interface-sounds／Audio/scroll_003.ogg |  |  |
+| UIS-0360 | 1.0 | oga_interface-sounds／Audio/scroll_004.ogg |  |  |
+| UIS-0361 | 1.0 | oga_interface-sounds／Audio/scroll_005.ogg |  |  |
+| UIS-0362 | 0.0 | oga_interface-sounds／Audio/select_001.ogg |  |  |
+| UIS-0363 | 0.0 | oga_interface-sounds／Audio/select_002.ogg |  |  |
+| UIS-0364 | 0.4 | oga_interface-sounds／Audio/select_003.ogg |  |  |
+| UIS-0365 | 0.4 | oga_interface-sounds／Audio/select_004.ogg |  |  |
+| UIS-0366 | 0.4 | oga_interface-sounds／Audio/select_005.ogg |  |  |
+| UIS-0367 | 1.9 | oga_interface-sounds／Audio/select_006.ogg |  |  |
+| UIS-0368 | 0.1 | oga_interface-sounds／Audio/select_007.ogg |  |  |
+| UIS-0369 | 0.1 | oga_interface-sounds／Audio/select_008.ogg |  |  |
+| UIS-0370 | 0.6 | oga_interface-sounds／Audio/switch_001.ogg |  |  |
+| UIS-0371 | 0.6 | oga_interface-sounds／Audio/switch_002.ogg |  |  |
+| UIS-0372 | 0.5 | oga_interface-sounds／Audio/switch_003.ogg |  |  |
+| UIS-0373 | 0.5 | oga_interface-sounds／Audio/switch_004.ogg |  |  |
+| UIS-0374 | 0.6 | oga_interface-sounds／Audio/switch_005.ogg |  |  |
+| UIS-0375 | 0.6 | oga_interface-sounds／Audio/switch_006.ogg |  |  |
+| UIS-0376 | 0.6 | oga_interface-sounds／Audio/switch_007.ogg |  |  |
+| UIS-0377 | 0.0 | oga_interface-sounds／Audio/tick_001.ogg |  |  |
+| UIS-0378 | 0.0 | oga_interface-sounds／Audio/tick_002.ogg |  |  |
+| UIS-0379 | 0.1 | oga_interface-sounds／Audio/tick_004.ogg |  |  |
+| UIS-0380 | 0.1 | oga_interface-sounds／Audio/toggle_001.ogg |  |  |
+| UIS-0381 | 0.1 | oga_interface-sounds／Audio/toggle_002.ogg |  |  |
+| UIS-0382 | 0.1 | oga_interface-sounds／Audio/toggle_003.ogg |  |  |
+| UIS-0383 | 0.1 | oga_interface-sounds／Audio/toggle_004.ogg |  |  |
+| UIS-0384 | 0.1 | oga_menu-rollover／menu rollover.mp3 |  |  |
+| UIS-0385 | 0.5 | oga_menu-sounds／menu_accept.ogg |  |  |
+| UIS-0386 | 0.5 | oga_menu-sounds／menu_cancel.ogg |  |  |
+| UIS-0387 | 0.4 | oga_menu-sounds／menu_change.ogg |  |  |
+| UIS-0388 | 1.2 | oga_sound-effects-pack／UI/UI_001.wav |  |  |
+| UIS-0389 | 1.2 | oga_sound-effects-pack／UI/UI_002.wav |  |  |
+| UIS-0390 | 1.2 | oga_sound-effects-pack／UI/UI_003.wav |  |  |
+| UIS-0391 | 1.2 | oga_sound-effects-pack／UI/UI_004.wav |  |  |
+| UIS-0392 | 1.3 | oga_sound-effects-pack／UI/UI_005.wav |  |  |
+| UIS-0393 | 1.5 | oga_sound-effects-pack／UI/UI_006.wav |  |  |
+| UIS-0394 | 1.6 | oga_sound-effects-pack／UI/UI_007.wav |  |  |
+| UIS-0395 | 1.2 | oga_sound-effects-pack／UI/UI_008.wav |  |  |
+| UIS-0396 | 1.3 | oga_sound-effects-pack／UI/UI_009.wav |  |  |
+| UIS-0397 | 1.9 | oga_sound-effects-pack／UI/UI_010.wav |  |  |
+| UIS-0398 | 1.5 | oga_sound-effects-pack／UI/UI_011.wav |  |  |
+| UIS-0399 | 2.0 | oga_sound-effects-pack／UI/UI_012.wav |  |  |
+| UIS-0400 | 2.3 | oga_sound-effects-pack／UI/UI_013.wav |  |  |
+| UIS-0401 | 3.1 | oga_sound-effects-pack／UI/UI_014.wav |  |  |
+| UIS-0402 | 3.5 | oga_sound-effects-pack／UI/UI_015.wav |  |  |
+| UIS-0403 | 3.7 | oga_sound-effects-pack／UI/UI_016.wav |  |  |
+| UIS-0404 | 3.8 | oga_sound-effects-pack／UI/UI_017.wav |  |  |
+| UIS-0405 | 4.2 | oga_sound-effects-pack／UI/UI_018.wav |  |  |
+| UIS-0406 | 1.6 | oga_sound-effects-pack／UI/UI_019.wav |  |  |
+| UIS-0407 | 1.8 | oga_sound-effects-pack／UI/UI_020.wav |  |  |
+| UIS-0408 | 1.8 | oga_sound-effects-pack／UI/UI_021.wav |  |  |
+| UIS-0409 | 2.0 | oga_sound-effects-pack／UI/UI_022.wav |  |  |
+| UIS-0410 | 0.6 | oga_sound-effects-pack／UI/UI_023.wav |  |  |
+| UIS-0411 | 0.8 | oga_sound-effects-pack／UI/UI_024.wav |  |  |
+| UIS-0412 | 0.9 | oga_sound-effects-pack／UI/UI_025.wav |  |  |
+| UIS-0413 | 0.9 | oga_sound-effects-pack／UI/UI_026.wav |  |  |
+| UIS-0414 | 0.9 | oga_sound-effects-pack／UI/UI_027.wav |  |  |
+| UIS-0415 | 1.7 | oga_sound-effects-pack／UI/UI_028.wav |  |  |
+| UIS-0416 | 1.7 | oga_sound-effects-pack／UI/UI_029.wav |  |  |
+| UIS-0417 | 1.6 | oga_sound-effects-pack／UI/UI_030.wav |  |  |
+| UIS-0418 | 1.7 | oga_sound-effects-pack／UI/UI_031.wav |  |  |
+| UIS-0419 | 1.7 | oga_sound-effects-pack／UI/UI_032.wav |  |  |
+| UIS-0420 | 0.9 | oga_sound-effects-pack／UI/UI_033.wav |  |  |
+| UIS-0421 | 0.8 | oga_sound-effects-pack／UI/UI_034.wav |  |  |
+| UIS-0422 | 0.8 | oga_sound-effects-pack／UI/UI_035.wav |  |  |
+| UIS-0423 | 0.8 | oga_sound-effects-pack／UI/UI_036.wav |  |  |
+| UIS-0424 | 0.9 | oga_sound-effects-pack／UI/UI_037.wav |  |  |
+| UIS-0425 | 0.8 | oga_sound-effects-pack／UI/UI_038.wav |  |  |
+| UIS-0426 | 2.9 | oga_sound-effects-pack／UI/UI_039.wav |  |  |
+| UIS-0427 | 0.9 | oga_sound-effects-pack／UI/UI_040.wav |  |  |
+| UIS-0428 | 0.4 | oga_twangy-ui-sounds／sfx_ui_twang_1.mp3 |  |  |
+| UIS-0429 | 0.5 | oga_ui-click-sounds-sci-fi／sfx_ui_click_1.mp3 |  |  |
+| UIS-0430 | 1.0 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_ogg/Ding.ogg |  |  |
+| UIS-0431 | 0.4 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_ogg/alarm.ogg |  |  |
+| UIS-0432 | 1.8 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_ogg/alarm2.ogg |  |  |
+| UIS-0433 | 2.0 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_ogg/chimes.ogg |  |  |
+| UIS-0434 | 0.8 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_ogg/click_1.ogg |  |  |
+| UIS-0435 | 0.2 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_ogg/click_2.ogg |  |  |
+| UIS-0436 | 0.2 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_ogg/click_3.ogg |  |  |
+| UIS-0437 | 0.8 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_ogg/click_4.ogg |  |  |
+| UIS-0438 | 1.9 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_ogg/ding_deep.ogg |  |  |
+| UIS-0439 | 0.4 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_ogg/dum.ogg |  |  |
+| UIS-0440 | 1.1 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_ogg/negative_sound.ogg |  |  |
+| UIS-0441 | 0.8 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_ogg/negative_sound2.ogg |  |  |
+| UIS-0442 | 1.0 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_wav/Ding.wav |  |  |
+| UIS-0443 | 0.4 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_wav/alarm.wav |  |  |
+| UIS-0444 | 1.8 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_wav/alarm2.wav |  |  |
+| UIS-0445 | 2.0 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_wav/chimes.wav |  |  |
+| UIS-0446 | 0.8 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_wav/click_1.wav |  |  |
+| UIS-0447 | 0.2 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_wav/click_2.wav |  |  |
+| UIS-0448 | 0.2 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_wav/click_3.wav |  |  |
+| UIS-0449 | 0.8 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_wav/click_4.wav |  |  |
+| UIS-0450 | 1.9 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_wav/ding_deep.wav |  |  |
+| UIS-0451 | 0.4 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_wav/dum.wav |  |  |
+| UIS-0452 | 1.1 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_wav/negative_sound.wav |  |  |
+| UIS-0453 | 0.8 | oga_ui-sound-effects-button-clicks-user-feedback-notifications／ui_wav/negative_sound2.wav |  |  |
+| UIS-0454 | 0.2 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui bleep 1 [2018-10-13 162310].wav |  |  |
+| UIS-0455 | 0.1 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui bleep 10 [2018-10-13 162310].wav |  |  |
+| UIS-0456 | 0.3 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui bleep 11 [2018-10-13 162310].wav |  |  |
+| UIS-0457 | 0.1 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui bleep 12 [2018-10-13 162310].wav |  |  |
+| UIS-0458 | 0.1 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui bleep 2 [2018-10-13 162310].wav |  |  |
+| UIS-0459 | 0.1 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui bleep 3 [2018-10-13 162310].wav |  |  |
+| UIS-0460 | 0.6 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui bleep 4 [2018-10-13 162310].wav |  |  |
+| UIS-0461 | 0.4 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui bleep 5 [2018-10-13 162310].wav |  |  |
+| UIS-0462 | 0.5 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui bleep 6 [2018-10-13 162310].wav |  |  |
+| UIS-0463 | 0.7 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui bleep 7 [2018-10-13 162310].wav |  |  |
+| UIS-0464 | 0.2 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui bleep 8 [2018-10-13 162310].wav |  |  |
+| UIS-0465 | 0.5 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui bleep 9 [2018-10-13 162310].wav |  |  |
+| UIS-0466 | 0.1 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui click 1 [2018-10-13 162315].wav |  |  |
+| UIS-0467 | 0.1 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui click 10 [2018-10-13 162315].wav |  |  |
+| UIS-0468 | 0.1 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui click 11 [2018-10-13 162315].wav |  |  |
+| UIS-0469 | 0.1 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui click 12 [2018-10-13 162315].wav |  |  |
+| UIS-0470 | 0.1 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui click 13 [2018-10-13 162315].wav |  |  |
+| UIS-0471 | 0.1 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui click 14 [2018-10-13 162315].wav |  |  |
+| UIS-0472 | 0.2 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui click 2 [2018-10-13 162315].wav |  |  |
+| UIS-0473 | 0.1 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui click 3 [2018-10-13 162315]-1.wav |  |  |
+| UIS-0474 | 0.2 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui click 3 [2018-10-13 162315].wav |  |  |
+| UIS-0475 | 0.1 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui click 4 [2018-10-13 162315].wav |  |  |
+| UIS-0476 | 0.1 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui click 5 [2018-10-13 162315].wav |  |  |
+| UIS-0477 | 0.1 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui click 6 [2018-10-13 162315].wav |  |  |
+| UIS-0478 | 0.1 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui click 7 [2018-10-13 162315].wav |  |  |
+| UIS-0479 | 0.1 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui click 8 [2018-10-13 162315].wav |  |  |
+| UIS-0480 | 0.1 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui click 9 [2018-10-13 162315].wav |  |  |
+| UIS-0481 | 1.5 | oga_ui-soundpack-by-m1chiboi-bleeps-and-clicks／ui long bleep 1 [2018-10-13 162310].wav |  |  |
+| UIS-0482 | 1.7 | oga_ui-sounds／button1.ogg |  |  |
+| UIS-0483 | 1.7 | oga_ui-sounds／button2.ogg |  |  |
+| UIS-0484 | 3.4 | oga_ui-sounds／complete.ogg |  |  |
+| UIS-0485 | 1.7 | oga_ui-sounds／off.ogg |  |  |
+| UIS-0486 | 0.9 | oga_ui-sounds／on.ogg |  |  |
+| UIS-0487 | 1.0 | oga_ui-sounds-0／New folder/#0.wav |  |  |
+| UIS-0488 | 1.4 | oga_ui-sounds-0／New folder/#1.wav |  |  |
+| UIS-0489 | 1.2 | oga_ui-sounds-0／New folder/#2.wav |  |  |
+| UIS-0490 | 1.3 | oga_ui-sounds-0／New folder/#3.wav |  |  |
+| UIS-0491 | 1.4 | oga_ui-sounds-0／New folder/#4.wav |  |  |
+| UIS-0492 | 0.9 | oga_ui-sounds-0／New folder/#5.wav |  |  |
+| UIS-0493 | 0.9 | oga_ui-sounds-0／New folder/#6.wav |  |  |
+| UIS-0494 | 0.9 | oga_ui-sounds-0／New folder/#7.wav |  |  |
+| UIS-0495 | 1.1 | oga_ui-sounds-0／New folder/#8.wav |  |  |
+| UIS-0496 | 1.0 | oga_ui-sounds-0／New folder/#9.wav |  |  |
+| UIS-0497 | 0.4 | oga_ui-sounds-0／New folder/Wrong Error.wav |  |  |
 
-## VOX 人聲與生物（395）
+## VOX 人聲與生物（656）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -2644,4 +5070,265 @@
 | VOX-0393 | 1.0 | oga_silent-beast-growls4／silent_beast_growl_1.mp3 |  |  |
 | VOX-0394 | 1.9 | oga_silent-beast-growls4／silent_beast_growl_2.mp3 |  |  |
 | VOX-0395 | 1.3 | oga_silent-beast-growls4／silent_beast_growl_3.mp3 |  |  |
+| VOX-0396 | 18.6 | ia_red-library-fights／R15-29-Man Grunting in Pain.mp3 |  |  |
+| VOX-0397 | 15.7 | ia_sse-library-ambience／AMBInd_Busy factory floor; many voices_CS_USC.mp3 |  |  |
+| VOX-0398 | 88.2 | ia_sse-library-ambience／AMBTraf_Busy French traffic ambience; some voices_CS_USC.mp3 |  |  |
+| VOX-0399 | 7.0 | ia_sse-library-creatures／CREAAvian_Creature scream (parrot_)_CS_USC.mp3 |  |  |
+| VOX-0400 | 31.3 | ia_sse-library-creatures／CREABeast_Mythical beast groans and screams; lower_CS_USC.mp3 |  |  |
+| VOX-0401 | 7.3 | ia_sse-library-creatures／CREABeast_Mythical beast groans and screams_CS_USC.mp3 |  |  |
+| VOX-0402 | 15.3 | ia_sse-library-creatures／CREABeast_Young Mythical beast groans and screams_CS_USC.mp3 |  |  |
+| VOX-0403 | 7.8 | ia_sse-library-creatures／CREADino_Large alligator growls; dinosaur or monster_CS_USC.mp3 |  |  |
+| VOX-0404 | 26.6 | ia_sse-library-creatures／CREADino_Large alligator hiss; twice_CS_USC.mp3 |  |  |
+| VOX-0405 | 13.6 | ia_sse-library-creatures／CREADino_Prehistoric alligator growl in distance;_CS_USC.mp3 |  |  |
+| VOX-0406 | 20.4 | ia_sse-library-creatures／CREADrgn_Dragon spits flame_CS_USC.mp3 |  |  |
+| VOX-0407 | 20.2 | ia_sse-library-creatures／CREADrgn_Two dragons scream_CS_USC.mp3 |  |  |
+| VOX-0408 | 37.6 | ia_sse-library-creatures／CREAHmn-WEREWOLF_Werewolf growls; grunts_CS_USC.mp3 |  |  |
+| VOX-0409 | 21.4 | ia_sse-library-creatures／CREAHmn_Mutant whispering; deep & growling_CS_USC.mp3 |  |  |
+| VOX-0410 | 34.9 | ia_sse-library-creatures／CREAInsc_Synthesized space mosquitos_CS_USC.mp3 |  |  |
+| VOX-0411 | 10.4 | ia_sse-library-creatures／CREAMnstr_Big Baby monster calls; closer_CS_USC.mp3 |  |  |
+| VOX-0412 | 18.3 | ia_sse-library-creatures／CREAMnstr_Big baby monster calling out; dull; distant_CS_USC.mp3 |  |  |
+| VOX-0413 | 37.2 | ia_sse-library-creatures／CREAMnstr_Elephant grunt and squeal slowed down to_CS_USC.mp3 |  |  |
+| VOX-0414 | 19.2 | ia_sse-library-creatures／CREAMnstr_Giant monsters of dinosaurs fighting; indistinct;_CS_USC.mp3 |  |  |
+| VOX-0415 | 9.9 | ia_sse-library-creatures／CREAMnstr_Half grown monster screaming_CS_USC.mp3 |  |  |
+| VOX-0416 | 26.5 | ia_sse-library-creatures／CREAMnstr_Monster breathing and heartbeat; mystery_CS_USC.mp3 |  |  |
+| VOX-0417 | 12.5 | ia_sse-library-fight／FGHTBf_Body falls on dirt; grunts_CS_USC.mp3 |  |  |
+| VOX-0418 | 23.9 | ia_sse-library-fight／FGHTBf_Human falling down stairs twice_CS_USC.mp3 |  |  |
+| VOX-0419 | 41.1 | ia_sse-library-human／HMNHart_Human heartbeat; fast_CS_USC.mp3 |  |  |
+| VOX-0420 | 30.4 | ia_sse-library-human／HMNHart_Human heartbeat_CS_USC.mp3 |  |  |
+| VOX-0421 | 22.8 | ia_sse-library-scifi／SCIShip_Alien hum or space ship interior_CS_USC.mp3 |  |  |
+| VOX-0422 | 0.5 | kenney_casino-audio／Audio/die-throw-1.ogg |  |  |
+| VOX-0423 | 0.7 | kenney_casino-audio／Audio/die-throw-2.ogg |  |  |
+| VOX-0424 | 0.7 | kenney_casino-audio／Audio/die-throw-3.ogg |  |  |
+| VOX-0425 | 0.5 | kenney_casino-audio／Audio/die-throw-4.ogg |  |  |
+| VOX-0426 | 1.3 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_alien_starship_flyby_01.wav |  |  |
+| VOX-0427 | 1.2 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_alien_starship_flyby_02.wav |  |  |
+| VOX-0428 | 1.4 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_alien_starship_flyby_03.wav |  |  |
+| VOX-0429 | 1.2 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_alien_starship_flyby_04.wav |  |  |
+| VOX-0430 | 1.3 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_alien_starship_flyby_05.wav |  |  |
+| VOX-0431 | 1.4 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_alien_starship_flyby_06.wav |  |  |
+| VOX-0432 | 1.5 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_alien_starship_flyby_07.wav |  |  |
+| VOX-0433 | 1.2 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_alien_starship_flyby_08.wav |  |  |
+| VOX-0434 | 1.6 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_alien_starship_flyby_09.wav |  |  |
+| VOX-0435 | 1.3 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_alien_starship_flyby_10.wav |  |  |
+| VOX-0436 | 1.8 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_alien_starship_flyby_11.wav |  |  |
+| VOX-0437 | 0.9 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_alien_wilderness_01.wav |  |  |
+| VOX-0438 | 0.8 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_alien_wilderness_02.wav |  |  |
+| VOX-0439 | 0.9 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_alien_wilderness_03.wav |  |  |
+| VOX-0440 | 1.4 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_alien_wilderness_04.wav |  |  |
+| VOX-0441 | 1.7 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_alien_wilderness_05.wav |  |  |
+| VOX-0442 | 1.8 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_alien_wilderness_06.wav |  |  |
+| VOX-0443 | 1.5 | oga_7-ghast-sounds／ghast - StarNinjas/ghast_hurt.1.ogg |  |  |
+| VOX-0444 | 2.4 | oga_7-ghast-sounds／ghast - StarNinjas/ghast_hurt.2.ogg |  |  |
+| VOX-0445 | 1.0 | oga_7-ghast-sounds／ghast - StarNinjas/ghast_hurt.3.ogg |  |  |
+| VOX-0446 | 0.9 | oga_alien-animal-sounds／Alien animals/alien 1.wav |  |  |
+| VOX-0447 | 1.7 | oga_alien-animal-sounds／Alien animals/alien 10.wav |  |  |
+| VOX-0448 | 5.0 | oga_alien-animal-sounds／Alien animals/alien 2.wav |  |  |
+| VOX-0449 | 0.7 | oga_alien-animal-sounds／Alien animals/alien 3.wav |  |  |
+| VOX-0450 | 0.7 | oga_alien-animal-sounds／Alien animals/alien 4.wav |  |  |
+| VOX-0451 | 0.7 | oga_alien-animal-sounds／Alien animals/alien 5.wav |  |  |
+| VOX-0452 | 0.3 | oga_alien-animal-sounds／Alien animals/alien 6.wav |  |  |
+| VOX-0453 | 0.2 | oga_alien-animal-sounds／Alien animals/alien 7.wav |  |  |
+| VOX-0454 | 0.7 | oga_alien-animal-sounds／Alien animals/alien 8.wav |  |  |
+| VOX-0455 | 0.7 | oga_alien-animal-sounds／Alien animals/alien 9.wav |  |  |
+| VOX-0456 | 0.9 | oga_alien-sounds／alien_device_0.flac |  |  |
+| VOX-0457 | 1.1 | oga_alien-sounds／alien_sucker1.flac |  |  |
+| VOX-0458 | 1.5 | oga_alien-sounds／alien_sucker2.flac |  |  |
+| VOX-0459 | 1.5 | oga_alien-sounds／alien_sucker3.flac |  |  |
+| VOX-0460 | 0.4 | oga_alien-sounds／laser1.flac |  |  |
+| VOX-0461 | 0.6 | oga_alien-sounds／laser2.flac |  |  |
+| VOX-0462 | 0.6 | oga_alien-sounds／laser3.flac |  |  |
+| VOX-0463 | 0.5 | oga_alien-sounds-0／alein_chirp.mp3 |  |  |
+| VOX-0464 | 0.6 | oga_alien-sounds-0／alien_chirp_02_0.mp3 |  |  |
+| VOX-0465 | 0.6 | oga_alien-sounds-0／alien_hiss.mp3 |  |  |
+| VOX-0466 | 7.9 | oga_ambient-alien-light-sfx／Alien light_0.ogg |  |  |
+| VOX-0467 | 0.5 | oga_attack-miss-or-hit-sounds2／attack_hit.mp3 |  |  |
+| VOX-0468 | 1.1 | oga_bear-growls／flac/bear_01.flac |  |  |
+| VOX-0469 | 1.2 | oga_bear-growls／flac/bear_02.flac |  |  |
+| VOX-0470 | 1.1 | oga_bear-growls／ogg/bear_01.ogg |  |  |
+| VOX-0471 | 1.2 | oga_bear-growls／ogg/bear_02.ogg |  |  |
+| VOX-0472 | 10.9 | oga_big-scary-troll-sounds／troll-roars_0.ogg |  |  |
+| VOX-0473 | 3.2 | oga_breathing-tired／breathing tired.wav |  |  |
+| VOX-0474 | 7.2 | oga_cc0-deep-monster-roar／monster_roar.wav |  |  |
+| VOX-0475 | 2.0 | oga_dead-sound-effect／deadsound.ogg |  |  |
+| VOX-0476 | 0.8 | oga_death-sounds-0／exewinDeathSoundsPack/1.ogg |  |  |
+| VOX-0477 | 0.8 | oga_death-sounds-0／exewinDeathSoundsPack/10.ogg |  |  |
+| VOX-0478 | 0.9 | oga_death-sounds-0／exewinDeathSoundsPack/11.ogg |  |  |
+| VOX-0479 | 0.7 | oga_death-sounds-0／exewinDeathSoundsPack/2.ogg |  |  |
+| VOX-0480 | 0.4 | oga_death-sounds-0／exewinDeathSoundsPack/3.ogg |  |  |
+| VOX-0481 | 0.8 | oga_death-sounds-0／exewinDeathSoundsPack/4.ogg |  |  |
+| VOX-0482 | 0.9 | oga_death-sounds-0／exewinDeathSoundsPack/5.ogg |  |  |
+| VOX-0483 | 1.2 | oga_death-sounds-0／exewinDeathSoundsPack/6.ogg |  |  |
+| VOX-0484 | 0.5 | oga_death-sounds-0／exewinDeathSoundsPack/7.ogg |  |  |
+| VOX-0485 | 0.8 | oga_death-sounds-0／exewinDeathSoundsPack/8.ogg |  |  |
+| VOX-0486 | 0.8 | oga_death-sounds-0／exewinDeathSoundsPack/9.ogg |  |  |
+| VOX-0487 | 0.6 | oga_dog-growl／dog-growl.ogg |  |  |
+| VOX-0488 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/die-one-roll-01.wav |  |  |
+| VOX-0489 | 1.1 | oga_fantasy-accessory-sfx-library／sfx/die-one-roll-02.wav |  |  |
+| VOX-0490 | 0.8 | oga_fantasy-accessory-sfx-library／sfx/die-one-roll-03.wav |  |  |
+| VOX-0491 | 20.5 | oga_ghostmonster-sounds／Ghostmonster sounds_0.mp3 |  |  |
+| VOX-0492 | 2.5 | oga_high-pitch-scream-sounds2／high_pitch_scream.mp3 |  |  |
+| VOX-0493 | 2.5 | oga_high-pitch-scream-sounds2／high_pitch_scream_gverb.mp3 |  |  |
+| VOX-0494 | 1.3 | oga_insect-or-alien-scream／insectoralien.flac |  |  |
+| VOX-0495 | 9.0 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Human Typing/human_vel-001.wav |  |  |
+| VOX-0496 | 8.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Human Typing/human_vel-002.wav |  |  |
+| VOX-0497 | 6.0 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Human Typing/human_vel-003.wav |  |  |
+| VOX-0498 | 6.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Human Typing/human_vel-004.wav |  |  |
+| VOX-0499 | 7.5 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Human Typing/human_vel-005.wav |  |  |
+| VOX-0500 | 5.4 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Human Typing/human_vel-006.wav |  |  |
+| VOX-0501 | 6.5 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Human Typing/human_vel-007.wav |  |  |
+| VOX-0502 | 7.5 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Human Typing/human_vel-008.wav |  |  |
+| VOX-0503 | 4.2 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Human Typing/human_vel-009.wav |  |  |
+| VOX-0504 | 3.7 | oga_keyboard-soundpack-1-typing-and-single-keystrokes／Human Typing/human_vel-010.wav |  |  |
+| VOX-0505 | 6.3 | oga_little-grunts／littlegrunts.ogg |  |  |
+| VOX-0506 | 6.6 | oga_man-hurt-sounds／ManHurt.ogg |  |  |
+| VOX-0507 | 1.0 | oga_monster-or-beast-sounds／Monsters or Beasts/Beast Growl 1.wav |  |  |
+| VOX-0508 | 2.3 | oga_monster-or-beast-sounds／Monsters or Beasts/Beast Growl 2.wav |  |  |
+| VOX-0509 | 2.8 | oga_monster-or-beast-sounds／Monsters or Beasts/Beast Growl 3.wav |  |  |
+| VOX-0510 | 3.2 | oga_monster-or-beast-sounds／Monsters or Beasts/Beast Growl 4.wav |  |  |
+| VOX-0511 | 2.7 | oga_monster-or-beast-sounds／Monsters or Beasts/Beast Growl 5.wav |  |  |
+| VOX-0512 | 0.8 | oga_monster-or-beast-sounds／Monsters or Beasts/Beast Growl.wav |  |  |
+| VOX-0513 | 6.9 | oga_monster-or-beast-sounds／Monsters or Beasts/Children Spirit Sounds.wav |  |  |
+| VOX-0514 | 14.8 | oga_monster-or-beast-sounds／Monsters or Beasts/Demon Call One Voice.wav |  |  |
+| VOX-0515 | 14.7 | oga_monster-or-beast-sounds／Monsters or Beasts/Demon Call.wav |  |  |
+| VOX-0516 | 5.4 | oga_monster-or-beast-sounds／Monsters or Beasts/Demon Growl.wav |  |  |
+| VOX-0517 | 1.4 | oga_monster-or-beast-sounds／Monsters or Beasts/Dieing Beast.wav |  |  |
+| VOX-0518 | 1.4 | oga_monster-or-beast-sounds／Monsters or Beasts/Dieing pixie.wav |  |  |
+| VOX-0519 | 1.0 | oga_monster-or-beast-sounds／Monsters or Beasts/Pixie.wav |  |  |
+| VOX-0520 | 1.3 | oga_monster-or-beast-sounds／Monsters or Beasts/Spirit Shout.wav |  |  |
+| VOX-0521 | 0.6 | oga_monster-or-beast-sounds／Monsters or Beasts/Yucky Beast 1.wav |  |  |
+| VOX-0522 | 0.6 | oga_monster-or-beast-sounds／Monsters or Beasts/Yucky Beast 2.wav |  |  |
+| VOX-0523 | 0.8 | oga_monster-or-beast-sounds／Monsters or Beasts/Yucky Beast 3.wav |  |  |
+| VOX-0524 | 0.7 | oga_monster-or-beast-sounds／Monsters or Beasts/Yucky Beast 4.wav |  |  |
+| VOX-0525 | 0.8 | oga_monster-or-beast-sounds／Monsters or Beasts/Yucky Beast 5.wav |  |  |
+| VOX-0526 | 0.9 | oga_monster-or-beast-sounds／Monsters or Beasts/Yucky Beast 6.wav |  |  |
+| VOX-0527 | 0.4 | oga_monster-or-beast-sounds／Monsters or Beasts/Yucky Beast.wav |  |  |
+| VOX-0528 | 2.9 | oga_monster-sfx／Monster SFX.wav |  |  |
+| VOX-0529 | 1.0 | oga_monster-sound-effects-2／monster_sfx_pack_2/monster-1.wav |  |  |
+| VOX-0530 | 0.4 | oga_monster-sound-effects-2／monster_sfx_pack_2/monster-10.wav |  |  |
+| VOX-0531 | 0.5 | oga_monster-sound-effects-2／monster_sfx_pack_2/monster-11.wav |  |  |
+| VOX-0532 | 0.5 | oga_monster-sound-effects-2／monster_sfx_pack_2/monster-12.wav |  |  |
+| VOX-0533 | 0.5 | oga_monster-sound-effects-2／monster_sfx_pack_2/monster-13.wav |  |  |
+| VOX-0534 | 0.6 | oga_monster-sound-effects-2／monster_sfx_pack_2/monster-14.wav |  |  |
+| VOX-0535 | 0.5 | oga_monster-sound-effects-2／monster_sfx_pack_2/monster-15.wav |  |  |
+| VOX-0536 | 0.5 | oga_monster-sound-effects-2／monster_sfx_pack_2/monster-16.wav |  |  |
+| VOX-0537 | 0.3 | oga_monster-sound-effects-2／monster_sfx_pack_2/monster-17.wav |  |  |
+| VOX-0538 | 0.4 | oga_monster-sound-effects-2／monster_sfx_pack_2/monster-2.wav |  |  |
+| VOX-0539 | 0.5 | oga_monster-sound-effects-2／monster_sfx_pack_2/monster-3.wav |  |  |
+| VOX-0540 | 0.6 | oga_monster-sound-effects-2／monster_sfx_pack_2/monster-4.wav |  |  |
+| VOX-0541 | 0.4 | oga_monster-sound-effects-2／monster_sfx_pack_2/monster-5.wav |  |  |
+| VOX-0542 | 0.4 | oga_monster-sound-effects-2／monster_sfx_pack_2/monster-6.wav |  |  |
+| VOX-0543 | 0.5 | oga_monster-sound-effects-2／monster_sfx_pack_2/monster-7.wav |  |  |
+| VOX-0544 | 0.3 | oga_monster-sound-effects-2／monster_sfx_pack_2/monster-8.wav |  |  |
+| VOX-0545 | 0.5 | oga_monster-sound-effects-2／monster_sfx_pack_2/monster-9.wav |  |  |
+| VOX-0546 | 0.6 | oga_monster-sound-effects-pack／monster_sfx_pack/monster-1.wav |  |  |
+| VOX-0547 | 0.7 | oga_monster-sound-effects-pack／monster_sfx_pack/monster-10.wav |  |  |
+| VOX-0548 | 0.4 | oga_monster-sound-effects-pack／monster_sfx_pack/monster-2.wav |  |  |
+| VOX-0549 | 0.3 | oga_monster-sound-effects-pack／monster_sfx_pack/monster-3.wav |  |  |
+| VOX-0550 | 0.4 | oga_monster-sound-effects-pack／monster_sfx_pack/monster-4.wav |  |  |
+| VOX-0551 | 0.4 | oga_monster-sound-effects-pack／monster_sfx_pack/monster-5.wav |  |  |
+| VOX-0552 | 1.0 | oga_monster-sound-effects-pack／monster_sfx_pack/monster-6.wav |  |  |
+| VOX-0553 | 0.4 | oga_monster-sound-effects-pack／monster_sfx_pack/monster-7.wav |  |  |
+| VOX-0554 | 0.9 | oga_monster-sound-effects-pack／monster_sfx_pack/monster-8.wav |  |  |
+| VOX-0555 | 0.5 | oga_monster-sound-effects-pack／monster_sfx_pack/monster-9.wav |  |  |
+| VOX-0556 | 0.8 | oga_monster-sound-pack-volume-1／Monster-Sounds-Volume-2/Monster-1.wav |  |  |
+| VOX-0557 | 0.9 | oga_monster-sound-pack-volume-1／Monster-Sounds-Volume-2/Monster-2.wav |  |  |
+| VOX-0558 | 0.7 | oga_monster-sound-pack-volume-1／Monster-Sounds-Volume-2/Monster-3.wav |  |  |
+| VOX-0559 | 0.4 | oga_monster-sound-pack-volume-1／Monster-Sounds-Volume-2/Monster-4.wav |  |  |
+| VOX-0560 | 0.5 | oga_monster-sound-pack-volume-1／Monster-Sounds-Volume-2/Monster-5.wav |  |  |
+| VOX-0561 | 0.5 | oga_monster-sound-pack-volume-1／Monster-Sounds-Volume-2/Monster-6.wav |  |  |
+| VOX-0562 | 0.4 | oga_monster-sound-pack-volume-1／Monster-Sounds-Volume-2/Monster-7.wav |  |  |
+| VOX-0563 | 0.3 | oga_monster-sound-pack-volume-1／Monster-Sounds-Volume-2/Monster-8.wav |  |  |
+| VOX-0564 | 0.3 | oga_monster-sound-pack-volume-1／Monster-Sounds-Volume-2/monster-10.wav |  |  |
+| VOX-0565 | 0.6 | oga_monster-sound-pack-volume-1／Monster-Sounds-Volume-2/monster-11.wav |  |  |
+| VOX-0566 | 0.5 | oga_monster-sound-pack-volume-1／Monster-Sounds-Volume-2/monster-12.wav |  |  |
+| VOX-0567 | 0.5 | oga_monster-sound-pack-volume-1／Monster-Sounds-Volume-2/monster-13.wav |  |  |
+| VOX-0568 | 0.6 | oga_monster-sound-pack-volume-1／Monster-Sounds-Volume-2/monster-14.wav |  |  |
+| VOX-0569 | 0.5 | oga_monster-sound-pack-volume-1／Monster-Sounds-Volume-2/monster-15.wav |  |  |
+| VOX-0570 | 0.5 | oga_monster-sound-pack-volume-1／Monster-Sounds-Volume-2/monster-16.wav |  |  |
+| VOX-0571 | 0.4 | oga_monster-sound-pack-volume-1／Monster-Sounds-Volume-2/monster-17.wav |  |  |
+| VOX-0572 | 0.4 | oga_monster-sound-pack-volume-1／Monster-Sounds-Volume-2/monster-18.wav |  |  |
+| VOX-0573 | 0.3 | oga_monster-sound-pack-volume-1／Monster-Sounds-Volume-2/monster-9.wav |  |  |
+| VOX-0574 | 1.9 | oga_random-sfx／SFX/Misc/Other/TRex Moan.wav |  |  |
+| VOX-0575 | 0.5 | oga_residue-sfx／residue-sfx/slimewalk.ogg |  |  |
+| VOX-0576 | 0.9 | oga_sci-fi-rts-war-unit-sounds／qubodup-rts_warsounds_v2/artil/artil.die.wav |  |  |
+| VOX-0577 | 1.2 | oga_sci-fi-rts-war-unit-sounds／qubodup-rts_warsounds_v2/destroyer/destroyer.die.wav |  |  |
+| VOX-0578 | 1.2 | oga_sci-fi-rts-war-unit-sounds／qubodup-rts_warsounds_v2/destroyer/destroyer.underattack.wav |  |  |
+| VOX-0579 | 0.5 | oga_sci-fi-sounds／Audio/slime_000.ogg |  |  |
+| VOX-0580 | 4.7 | oga_sci-fi-sounds／Audio/slime_001.ogg |  |  |
+| VOX-0581 | 0.3 | oga_slimy-monster-or-murder-sounds9／slimy_monster_or_murderd_sound_4.mp3 |  |  |
+| VOX-0582 | 1.7 | oga_sound-effects-pack／Human/SCREAM.wav |  |  |
+| VOX-0583 | 0.7 | oga_sound-effects-pack／Human/attention-whistle.wav |  |  |
+| VOX-0584 | 16.1 | oga_sound-effects-pack／Human/breath-female.wav |  |  |
+| VOX-0585 | 4.3 | oga_sound-effects-pack／Human/breath-female2.wav |  |  |
+| VOX-0586 | 19.9 | oga_sound-effects-pack／Human/breath-male.wav |  |  |
+| VOX-0587 | 0.3 | oga_sound-effects-pack／Human/click-finger-snap.wav |  |  |
+| VOX-0588 | 1.1 | oga_sound-effects-pack／Human/cough1.wav |  |  |
+| VOX-0589 | 1.6 | oga_sound-effects-pack／Human/cough2.wav |  |  |
+| VOX-0590 | 0.9 | oga_sound-effects-pack／Human/cough3.wav |  |  |
+| VOX-0591 | 2.5 | oga_sound-effects-pack／Human/drink-sip-and-swallow.wav |  |  |
+| VOX-0592 | 1.3 | oga_sound-effects-pack／Human/freakedbreath.wav |  |  |
+| VOX-0593 | 5.2 | oga_sound-effects-pack／Human/gasp1.wav |  |  |
+| VOX-0594 | 1.2 | oga_sound-effects-pack／Human/laugh1.wav |  |  |
+| VOX-0595 | 15.3 | oga_sound-effects-pack／Human/scared-breathing.wav |  |  |
+| VOX-0596 | 0.6 | oga_sound-effects-pack／Human/shh1.wav |  |  |
+| VOX-0597 | 1.0 | oga_sound-effects-pack／Human/sniff.wav |  |  |
+| VOX-0598 | 3.4 | oga_sound-effects-pack／Human/solo-clap.wav |  |  |
+| VOX-0599 | 1.5 | oga_sound-effects-pack／Human/wolf-whistle.wav |  |  |
+| VOX-0600 | 2.0 | oga_sound-effects-pack／Human/yawn1.wav |  |  |
+| VOX-0601 | 3.9 | oga_sound-effects-pack／Human/yawn2.wav |  |  |
+| VOX-0602 | 124.0 | oga_sound-effects-pack／Scifi/alien effects.wav |  |  |
+| VOX-0603 | 0.6 | oga_space-shoot-sounds／alienshoot1.wav |  |  |
+| VOX-0604 | 0.6 | oga_space-shoot-sounds／alienshoot2.wav |  |  |
+| VOX-0605 | 0.7 | oga_space-shoot-sounds／alienshoot3.wav |  |  |
+| VOX-0606 | 0.2 | oga_squeaky-rat／qubodupSqueakyRat/qubodupSqueakyRatAttack.ogg |  |  |
+| VOX-0607 | 0.4 | oga_squeaky-rat／qubodupSqueakyRat/qubodupSqueakyRatDeath.ogg |  |  |
+| VOX-0608 | 0.1 | oga_squeaky-rat／qubodupSqueakyRat/qubodupSqueakyRatPain.ogg |  |  |
+| VOX-0609 | 0.7 | oga_tiny-creatures-sounds／battlecry0.ogg |  |  |
+| VOX-0610 | 0.6 | oga_tiny-creatures-sounds／battlecry1.ogg |  |  |
+| VOX-0611 | 0.7 | oga_tiny-creatures-sounds／battlecry2.ogg |  |  |
+| VOX-0612 | 1.7 | oga_tiny-creatures-sounds／laugh.ogg |  |  |
+| VOX-0613 | 9.9 | oga_tiny-vicious-creature／tiny-vicious-creature_0.ogg |  |  |
+| VOX-0614 | 2.3 | oga_undead-moans／undead-1.ogg |  |  |
+| VOX-0615 | 1.9 | oga_undead-moans／undead-2.ogg |  |  |
+| VOX-0616 | 2.1 | oga_undead-moans／undead-3.ogg |  |  |
+| VOX-0617 | 1.5 | oga_undead-moans／undead-4.ogg |  |  |
+| VOX-0618 | 1.3 | oga_unleeched-sound-effects-pack／leech-bite.wav |  |  |
+| VOX-0619 | 1.7 | oga_unleeched-sound-effects-pack／military-scream1.wav |  |  |
+| VOX-0620 | 1.7 | oga_unleeched-sound-effects-pack／military-scream2.wav |  |  |
+| VOX-0621 | 1.9 | oga_unleeched-sound-effects-pack／military-scream3.wav |  |  |
+| VOX-0622 | 1.9 | oga_unleeched-sound-effects-pack／scientist-scream1.wav |  |  |
+| VOX-0623 | 1.7 | oga_unleeched-sound-effects-pack／scientist-scream2.wav |  |  |
+| VOX-0624 | 1.7 | oga_unleeched-sound-effects-pack／scientist-scream3.wav |  |  |
+| VOX-0625 | 0.8 | oga_war-on-water-sndfx／Pirates/scream1.ogg |  |  |
+| VOX-0626 | 0.7 | oga_war-on-water-sndfx／Pirates/scream2.ogg |  |  |
+| VOX-0627 | 0.8 | oga_war-on-water-sndfx／Pirates/scream3.ogg |  |  |
+| VOX-0628 | 1.6 | oga_wolf-monster-sound／wolf_monster_6.mp3 |  |  |
+| VOX-0629 | 0.3 | oga_zombie-noises-and-moans／fastzombie1.ogg |  |  |
+| VOX-0630 | 2.1 | oga_zombie-noises-and-moans／zombienoise1.ogg |  |  |
+| VOX-0631 | 1.9 | oga_zombie-noises-and-moans／zombienoise2.ogg |  |  |
+| VOX-0632 | 0.7 | oga_zombie-noises-and-moans／zombienoise3.ogg |  |  |
+| VOX-0633 | 0.8 | oga_zombies-sound-pack／zombies/zombie-1.wav |  |  |
+| VOX-0634 | 0.7 | oga_zombies-sound-pack／zombies/zombie-10.wav |  |  |
+| VOX-0635 | 0.5 | oga_zombies-sound-pack／zombies/zombie-11.wav |  |  |
+| VOX-0636 | 0.8 | oga_zombies-sound-pack／zombies/zombie-12.wav |  |  |
+| VOX-0637 | 0.6 | oga_zombies-sound-pack／zombies/zombie-13.wav |  |  |
+| VOX-0638 | 0.7 | oga_zombies-sound-pack／zombies/zombie-14.wav |  |  |
+| VOX-0639 | 0.9 | oga_zombies-sound-pack／zombies/zombie-15.wav |  |  |
+| VOX-0640 | 1.4 | oga_zombies-sound-pack／zombies/zombie-16.wav |  |  |
+| VOX-0641 | 1.6 | oga_zombies-sound-pack／zombies/zombie-17.wav |  |  |
+| VOX-0642 | 1.1 | oga_zombies-sound-pack／zombies/zombie-18.wav |  |  |
+| VOX-0643 | 1.0 | oga_zombies-sound-pack／zombies/zombie-19.wav |  |  |
+| VOX-0644 | 0.7 | oga_zombies-sound-pack／zombies/zombie-2.wav |  |  |
+| VOX-0645 | 1.0 | oga_zombies-sound-pack／zombies/zombie-20.wav |  |  |
+| VOX-0646 | 1.1 | oga_zombies-sound-pack／zombies/zombie-21.wav |  |  |
+| VOX-0647 | 0.7 | oga_zombies-sound-pack／zombies/zombie-22.wav |  |  |
+| VOX-0648 | 0.8 | oga_zombies-sound-pack／zombies/zombie-23.wav |  |  |
+| VOX-0649 | 0.3 | oga_zombies-sound-pack／zombies/zombie-24.wav |  |  |
+| VOX-0650 | 0.6 | oga_zombies-sound-pack／zombies/zombie-3.wav |  |  |
+| VOX-0651 | 0.7 | oga_zombies-sound-pack／zombies/zombie-4.wav |  |  |
+| VOX-0652 | 0.5 | oga_zombies-sound-pack／zombies/zombie-5.wav |  |  |
+| VOX-0653 | 0.5 | oga_zombies-sound-pack／zombies/zombie-6.wav |  |  |
+| VOX-0654 | 0.6 | oga_zombies-sound-pack／zombies/zombie-7.wav |  |  |
+| VOX-0655 | 0.8 | oga_zombies-sound-pack／zombies/zombie-8.wav |  |  |
+| VOX-0656 | 0.9 | oga_zombies-sound-pack／zombies/zombie-9.wav |  |  |
 
