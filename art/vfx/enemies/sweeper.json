@@ -1,0 +1,67 @@
+{
+ "description": "sweeper 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "step": {
+  "every": 22,
+  "dust": 2,
+  "spread": 22,
+  "shake": 0.0
+ },
+ "hit": {
+  "color": "#9fb4cc",
+  "amount": 6,
+  "speed": 180,
+  "light": 0.8
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#9fb4cc",
+    "amount": 12,
+    "speed": 175,
+    "life": 0.42
+   },
+   {
+    "color": "#d8e4f0",
+    "amount": 5,
+    "speed": 100,
+    "life": 0.5
+   }
+  ],
+  "light": {
+   "color": "#9fb4cc",
+   "radius": 51,
+   "energy": 0.66,
+   "time": 0.22
+  },
+  "shake": 2.0,
+  "hitstop": 0.03,
+  "extras": [
+   "dust"
+  ],
+  "dissolve": {
+   "time": 0.8,
+   "color": "#9fb4cc",
+   "rise": 1.0,
+   "edge": 0.09,
+   "delay": 0.25
+  },
+  "shock": {
+   "radius": 34,
+   "strength": 0.025,
+   "color": "#9fb4cc",
+   "time": 0.4
+  },
+  "accent": "#9fb4cc"
+ },
+ "states": {
+  "aim": {
+   "at": "muzzle",
+   "light": {
+    "color": "#ffa050",
+    "radius": 29,
+    "energy": 0.54,
+    "time": 0.15
+   }
+  }
+ }
+}

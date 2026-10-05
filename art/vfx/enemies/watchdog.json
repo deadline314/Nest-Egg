@@ -1,0 +1,46 @@
+{
+ "description": "watchdog 的專屬特效（EnemyVfx 讀取）。看門狗：倉庫的保全機甲，紅色過熱火星與蒸汽；每個敵人自己一份。",
+ "step": {
+  "every": 22,
+  "dust": 1,
+  "spread": 12,
+  "shake": 0.8,
+  "spark": 0
+ },
+ "hit": {
+  "color": "#ff8a60",
+  "amount": 5,
+  "speed": 150,
+  "light": 0.6
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#ff5a3a",
+    "amount": 28,
+    "speed": 235,
+    "life": 0.55
+   },
+   {
+    "color": "#8a8f9a",
+    "amount": 15,
+    "speed": 180,
+    "life": 0.5,
+    "kind": "shard"
+   }
+  ],
+  "light": {
+   "color": "#ff5a3a",
+   "radius": 96,
+   "energy": 1.4,
+   "time": 0.35
+  },
+  "shake": 3.8,
+  "hitstop": 0.07,
+  "extras": [
+   "smoke",
+   "steam",
+   "embers"
+  ]
+ }
+}

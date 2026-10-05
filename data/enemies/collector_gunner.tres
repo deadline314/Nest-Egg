@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/grunt.gd" id="2_behavior"]
+[ext_resource type="Resource" path="res://data/projectiles/collector_shot.tres" id="3_proj"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"collector_gunner"
+behavior = ExtResource("2_behavior")
+projectile = ExtResource("3_proj")
+display_name = "收帳人·槍手"
+attack_category = &"ranged"
+hit_material = &"armor"
+body_size = Vector2(14, 44)
+color = Color(0.980, 0.780, 0.250, 1.0)
+max_health = 6
+move_speed = 30.0
+contact_damage = 1
+contact_source_id = &"collector_gunner_contact"
+detect_range = 260.0
+attack_range = 240.0
+attack_cooldown = 2.4
+telegraph_time = 0.7
+knockback_scale = 0.25
+hurt_parts = Array[Dictionary]([{"id": "head", "bone": "head", "offset": Vector2(0, -4), "size": Vector2(9, 10), "mult": 1.5}])
+poise = 6.0
+finish_health_ratio = 0.5
+stagger_duration = 1.2
+health_drop_chance = 0.2
+rig_skin = "enforcer"
+rig_weapon = "pistol"
+rig_two_handed = false
+credit_value = 14

@@ -69,7 +69,7 @@ func _phase_shift_enter() -> void:
 	velocity.x = 0.0
 	_start_telegraph(PHASE_SHIFT_TIME)
 	Fx.flash_light(_center(), Palette.DANGER, 120.0, 1.6, 0.6)
-	EventBus.toast_requested.emit("看守長進入暴走狀態")
+	EventBus.toast_requested.emit("%s進入暴走狀態" % data.display_name)
 
 
 ## 擊敗：連續小爆炸，然後解開閘門、收起血條（不發出 boss_defeated，關卡繼續）。
@@ -78,6 +78,15 @@ func _finish_death() -> void:
 	Fx.burst(_center(), Palette.CYAN, 28, 260.0, 0.6)
 	Feel.play(&"boss_death")
 	EventBus.boss_bar_closed.emit()
-	EventBus.mechanism_toggled.emit(GATE_CHANNEL, true)
-	EventBus.toast_requested.emit("通往轉運站的閘門已解鎖")
+	EventBus.mechanism_toggled.emit(_gate_channel(), true)
+	EventBus.toast_requested.emit(_unlock_text())
 	queue_free()
+
+
+## 擊敗後解開的閘門頻道與提示；同樣模式的迷你頭目（看門狗）覆寫它們。
+func _gate_channel() -> StringName:
+	return GATE_CHANNEL
+
+
+func _unlock_text() -> String:
+	return "通往轉運站的閘門已解鎖"
