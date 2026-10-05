@@ -27,6 +27,17 @@
 | `inertia` | 慣性前傾：`gain`（滿加速度的角度，0＝關）、`ref_accel`、`stiffness`、`damping`、`max`（見 `InertiaLean`） |
 | `idle.pin_feet`／`pin_reach`／`counter` | 待機時腳固定在地上、骨盆左右微移讓膝蓋彎曲（重心轉移），`counter` 是胸的反向補償 |
 
+空中、落地與衝刺的進階欄位（NE-192，同樣預設不啟用，目前只有凜）：
+
+| 欄位 | 作用 |
+|---|---|
+| `air.apex_speed`／`apex`／`takeoff` | 垂直速度絕對值低於 `apex_speed` 時，在「頂點」與「上升／下落」姿勢之間連續混合（0＝舊的二選一）；起跳後 `takeoff.time` 秒的蹬地伸展（不加起跳前預備，維持操作反應） |
+| `land` | 落地吸收：`gain`（衝擊 1 時彈簧初速，0＝關）、`stiffness`／`damping`（偏欠阻尼所以回彈有過衝）、`drop`（身體下沉像素）、`chest`（前傾）、`legs`（沒有用 IK 固定腳的角色用的屈膝腿姿） |
+| `dash.hip_drop` | 衝刺時身體壓低的像素 |
+| `impulse` | `jump`／`land`／`dash`／`hurt`：事件發生時對衣襬與頭髮彈簧注入的角速度（乘上各彈簧自己的 gain） |
+
+一次性事件由擁有者在 `RigInput` 的 `jumped`、`landed`（衝擊 0~1）、`dash_started` 設一格，動畫器讀完由擁有者清掉（`PlayerVisual` 已經接好）。預覽：`--seq=jump|land|dash`。
+
 動作資料合併時只收 `DEFAULT_MOTION` 裡有的欄位，所以新增欄位要先在那裡給「不啟用」的預設值，不然會被靜靜忽略。預覽：`rig_preview.tscn -- --chars=rin --gait --speed=150 --run-speed=150`（全速跑一個週期）、`--seq=start|stop|idle`（依時間取樣八格）。
 
 死亡的幾種倒法（用參數組合）：`rotation` 負＝向後倒、正＝向前倒；`fold` 先把腿折起來（0＝直接倒、1＝先跪下／癱坐）；`ease` 倒下的節奏。現有：保全向後倒、精銳保全僵直倒、狙擊手跪下向前趴、火焰兵癱坐、鎮暴員重重向後倒、重裝機槍手慢慢癱坐、監管者跪下向前、回收員快速向後甩倒、切割者向前撲倒、迷彩獵手癱坐。

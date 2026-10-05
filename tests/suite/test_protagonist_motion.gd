@@ -2,6 +2,7 @@ class_name ProtagonistMotionSuite
 extends TestSuite
 ## 主角動作重設計（NE-191）：新的動作欄位預設值＝不啟用（其他角色的動作完全不變）、凜全速奔跑有騰空而走路沒有、
 ## 慣性前傾的方向（加速前傾、煞車後仰）、待機時腳固定在地上而骨盆會移動、步態形狀函式的行為。
+## NE-192：空中姿勢連續混合、起跳蹬地伸展、落地吸收（下沉再彈回）、衣襬衝量只作用在有資料的角色、整個節點的擠壓縮小。
 
 const DT := 1.0 / 60.0
 const OTHERS: Array[String] = ["trooper", "trooper_elite", "sniper", "flamer", "grenadier", "enforcer", "heavy_gunner", "warden", "reclaimer", "slasher", "stalker", "old_k", "mei"]
@@ -13,6 +14,11 @@ func run() -> void:
 	_test_inertia_lean()
 	await _test_flight_only_at_full_speed()
 	await _test_idle_feet_stay_planted()
+	await _test_air_pose_is_continuous()
+	await _test_takeoff_stretch()
+	await _test_landing_absorbs_and_recovers()
+	await _test_spring_impulses()
+	_test_node_squash_is_soft()
 
 
 func _make(skin: String, input: RigInput) -> CharacterRig:
@@ -55,6 +61,15 @@ func _test_defaults_are_inert() -> void:
 		check(float(motion["move"]["duty"]) == float(defaults["move"]["duty"]), "%s: stride duty is unchanged" % skin)
 		check(not bool(motion["idle"]["pin_feet"]), "%s: idle feet are not pinned" % skin)
 		check(float(motion["torso"]["hip_swing"]) == 0.0 and float(motion["torso"]["chest_wobble"]) == 0.0, "%s: torso overlay stays off" % skin)
+	check(float(defaults["air"]["apex_speed"]) == 0.0 and float(defaults["air"]["takeoff"]["time"]) == 0.0, "default motion keeps the two-pose air and no takeoff stretch")
+	check(float(defaults["land"]["gain"]) == 0.0 and float(defaults["land"]["drop"]) == 0.0, "default motion has no landing absorb")
+	check(float(defaults["dash"]["hip_drop"]) == 0.0, "default dash does not lower the body")
+	for key: String in (defaults["impulse"] as Dictionary).keys():
+		check(float(defaults["impulse"][key]) == 0.0, "default spring impulse %s is off" % key)
+	for skin in OTHERS:
+		var motion := HumanoidAnimator._load_motion(skin)
+		check(float(motion["air"]["apex_speed"]) == 0.0 and float(motion["land"]["gain"]) == 0.0 and float(motion["dash"]["hip_drop"]) == 0.0, "%s: air, landing and dash stay as before" % skin)
+		check(float(motion["impulse"]["jump"]) == 0.0 and float(motion["impulse"]["land"]) == 0.0, "%s: no spring impulses" % skin)
 	var rin := HumanoidAnimator._load_motion("rin")
 	check(float(rin["move"]["duty"]) < HumanoidAnimator.WALK_DUTY, "rin runs with a flight phase (duty %.2f)" % float(rin["move"]["duty"]))
 	check(float(rin["inertia"]["gain"]) > 0.0 and bool(rin["idle"]["pin_feet"]), "rin has inertia lean and planted idle feet")
@@ -152,3 +167,98 @@ func _test_idle_feet_stay_planted() -> void:
 	check(absf(_lowest_foot_height(rig.animator)) < 0.6, "idle: the feet stay on the ground (%.2f)" % _lowest_foot_height(rig.animator))
 	rig.get_parent().queue_free()
 	await frames(1)
+
+
+func _airborne(input: RigInput, vy: float) -> void:
+	input.on_floor = false
+	input.velocity = Vector2(80.0, vy)
+
+
+## 垂直速度由上升掃到下落時，每一格每根骨頭的角度變化都很小（沒有在頂點瞬間切換姿勢）。
+func _test_air_pose_is_continuous() -> void:
+	var input := RigInput.new()
+	var rig := _make("rin", input)
+	_run(rig, input, 30)
+	_airborne(input, -420.0)
+	_run(rig, input, 20)
+	var previous: Dictionary = {}
+	var worst := 0.0
+	var vy := -420.0
+	while vy < 420.0:
+		_airborne(input, vy)
+		rig.animate(DT, input)
+		for bone_name in rig.animator._rig.bone_order():
+			var rotation := rig.bone(bone_name).rotation
+			if previous.has(bone_name):
+				worst = maxf(worst, absf(wrapf(rotation - float(previous[bone_name]), -PI, PI)))
+			previous[bone_name] = rotation
+		vy += 1000.0 * DT
+	check(worst < 0.12, "the air pose changes smoothly from rising to falling (worst %.3f rad per frame)" % worst)
+	rig.get_parent().queue_free()
+	await frames(1)
+
+
+## 起跳後前 0.1 秒後腿向後伸直蹬地，之後收腿（後腿大腿的角度變小）。
+func _test_takeoff_stretch() -> void:
+	var input := RigInput.new()
+	var rig := _make("rin", input)
+	_run(rig, input, 30)
+	_airborne(input, -420.0)
+	input.jumped = true
+	_run(rig, input, 1)
+	input.jumped = false
+	_run(rig, input, 6)
+	var stretched := rig.bone(&"leg_back_upper").rotation
+	_run(rig, input, 30)
+	var tucked := rig.bone(&"leg_back_upper").rotation
+	check(stretched > tucked + 0.05, "right after take-off the back leg is pushed out behind, then tucks (%.2f → %.2f)" % [stretched, tucked])
+	rig.get_parent().queue_free()
+	await frames(1)
+
+
+## 落地：骨盆先下沉（吸收衝擊），然後彈回站姿；衝擊越大下沉越深。
+func _test_landing_absorbs_and_recovers() -> void:
+	var depths: Array[float] = []
+	for impact in [0.3, 1.0]:
+		var input := RigInput.new()
+		var rig := _make("rin", input)
+		_run(rig, input, 120)
+		var standing := rig.bone(&"hip").position.y
+		var lowest := standing
+		input.landed = impact
+		for i in 90:
+			rig.animate(DT, input)
+			input.landed = 0.0
+			lowest = maxf(lowest, rig.bone(&"hip").position.y)
+		depths.append(lowest - standing)
+		check(absf(rig.bone(&"hip").position.y - standing) < 1.0, "after landing the body returns to standing height (impact %.1f)" % impact)
+		rig.get_parent().queue_free()
+	check(depths[0] > 1.0, "a light landing still bends the knees (%.2f px)" % depths[0])
+	check(depths[1] > depths[0] + 1.0 and depths[1] < 14.0, "a hard landing sinks deeper but not through the floor (%.2f vs %.2f px)" % [depths[1], depths[0]])
+	await frames(1)
+
+
+## 起跳、落地時凜的衣襬與頭髮被注入速度（有資料）；沒有資料的角色完全不動。
+func _test_spring_impulses() -> void:
+	for skin: String in ["rin", "trooper"]:
+		var input := RigInput.new()
+		var rig := _make(skin, input)
+		_run(rig, input, 120)
+		var before: float = 0.0
+		for bone_name: StringName in rig.animator._spring_velocity.keys():
+			before += absf(rig.animator._spring_velocity[bone_name])
+		input.landed = 0.8
+		rig.animate(DT, input)
+		var after: float = 0.0
+		for bone_name: StringName in rig.animator._spring_velocity.keys():
+			after += absf(rig.animator._spring_velocity[bone_name])
+		if skin == "rin":
+			check(after > before + 1.0, "landing kicks rin's coat and hair springs (%.2f → %.2f)" % [before, after])
+		else:
+			check(absf(after - before) < 0.5, "%s springs are not kicked by landing (%.2f → %.2f)" % [skin, before, after])
+		rig.get_parent().queue_free()
+	await frames(1)
+
+
+func _test_node_squash_is_soft() -> void:
+	check(PlayerVisual.SQUASH_SCALE <= 0.35, "the sprite squash is a third of the old amount or less (%.2f)" % PlayerVisual.SQUASH_SCALE)

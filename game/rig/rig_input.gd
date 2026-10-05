@@ -39,6 +39,11 @@ var talking := false
 var listening := false
 var waving := false
 
+## 一次性事件（擁有者在那一影格設定，動畫器讀完由擁有者清掉）：起跳、落地（衝擊 0~1；0＝沒有落地）、衝刺開始。
+var jumped := false
+var landed := 0.0
+var dash_started := false
+
 ## 專屬動作（art/rigs/action_poses.json 的 actions）名稱與播放進度 0~1；空字串＝沒有。敵人資料的 rig_actions 依狀態填入。
 var action: StringName = &""
 var action_t := 0.0
