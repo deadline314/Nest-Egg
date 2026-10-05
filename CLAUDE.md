@@ -26,9 +26,9 @@
 
 ## 4. Git 流程
 
-- 一張票 commit 之後，**立刻 push 到 remote 的 main**，不留到之後一起推
+- 每做完一張票，**各自 commit 並立刻 push 到 remote 的 main**；不把多張已完成的票累積成一次提交或推送
 - push 之前先 `git fetch origin main`，確認 main 是最新；main 有新的 commit 就 rebase 到最新 main 上，解完衝突再 push（只能快轉，不用 force 推 main）
-- 在本機分支上做，push 用 `git push origin HEAD:main`，推完刪掉本機分支。不在 remote 留功能分支，所以不會有舊分支要清
+- 在本機分支上做，push 用 `git push origin HEAD:main`。推完確認本機 `main` 與 `origin/main` 指向同一個 commit，再移除已合併的本機工作分支與遠端舊功能分支；未合併的分支先保留並回報，不直接刪除
 - commit 作者用 `Stanley Li <stanley890314@gmail.com>`
-- commit 訊息**不得出現 Claude 等 AI 字樣**，也不得有 `Co-Authored-By`、`Claude-Session` 之類的行
+- commit 的作者與提交者都使用 `Stanley Li <stanley890314@gmail.com>`。commit 訊息不得出現 Claude、GPT、GPT-6、Codex 等 AI 名稱或模型署名，也不得加入任何 `Co-Authored-By`、`Claude-Session` 或類似的署名行
 - 遠端拒絕操作（例如刪分支回 403）時，不重試、不繞過，回報使用者
