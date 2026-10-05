@@ -96,6 +96,10 @@ func _run() -> void:
 		await _run_lab_voice()
 		get_tree().quit()
 		return
+	if _scenario == "lab_sources":
+		await _run_lab_sources()
+		get_tree().quit()
+		return
 	if _scenario == "lab_apply":
 		await _run_lab_apply()
 		get_tree().quit()
@@ -1351,6 +1355,28 @@ func _run_lab_voice() -> void:
 			break
 	await _settle(10)
 	_capture("lab_voice")
+	lab.queue_free()
+	get_window().content_scale_mode = scale_mode_before
+
+
+## 音效實驗室的位置與備選分頁：電磁脈衝位置，備選裡新增的 Freesound 音效。
+func _run_lab_sources() -> void:
+	var scale_mode_before := get_window().content_scale_mode
+	get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
+	var lab := SoundLab.new()
+	lab.stage_enabled = false
+	add_child(lab)
+	await _settle(20)
+	lab.slots_tab.select_slot("P-ENV-005")
+	await _settle(10)
+	var list: ItemList = lab.slots_tab._candidate_list
+	for i in list.item_count:
+		if str(lab.catalog.asset(str(list.get_item_metadata(i))).get("pack", "")).contains("fs_cc0-emp"):
+			list.select(i)
+			list.item_selected.emit(i)
+			break
+	await _settle(10)
+	_capture("lab_sources")
 	lab.queue_free()
 	get_window().content_scale_mode = scale_mode_before
 

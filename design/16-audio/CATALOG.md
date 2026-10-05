@@ -4,7 +4,7 @@
 
 欄位：編號｜時長（秒）｜素材包／檔案｜說明｜目前用在哪些位置
 
-## AMB 環境循環（230）
+## AMB 環境循環（260）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -238,8 +238,38 @@
 | AMB-0281 | 733.0 | oga_amb-rain-loop-2／amb_rain2_0.mp3 |  |  |
 | AMB-0282 | 22.2 | oga_ambient-horror／ambient_horror_0.ogg |  |  |
 | AMB-0283 | 9.2 | oga_fridge-loop-1／amb_fridge_loop_1.ogg |  |  |
+| AMB-0284 | 24.4 | fs_cc0-thunder／17059_6479-hq.mp3 | weird_thunder_clap.wav（SpeedY，24.4 秒） |  |
+| AMB-0285 | 23.4 | fs_cc0-thunder／178632_3318127-hq.mp3 | Thunder.at.Azaruja.1st.Aug2003.wav（joaoespancabacelar，23.4 秒） |  |
+| AMB-0286 | 3.7 | fs_cc0-thunder／188767_3381483-hq.mp3 | Thunder (Kraków, Poland, 20.05.2013)（vonz，3.7 秒） |  |
+| AMB-0287 | 21.5 | fs_cc0-thunder／191992_1973779-hq.mp3 | thunder.mp3（pyer75，21.5 秒） |  |
+| AMB-0288 | 22.6 | fs_cc0-thunder／200990_3734677-hq.mp3 | rayjensen - thunder-crack 41k 16bit mono.wav（rayjensen，22.6 秒） |  |
+| AMB-0289 | 24.2 | fs_cc0-thunder／237519_3200265-hq.mp3 | Thunder（Vurca，24.3 秒） |  |
+| AMB-0290 | 15.0 | fs_cc0-thunder／242048_1675125-hq.mp3 | Lightning Strike（Turrus，15.0 秒） |  |
+| AMB-0291 | 7.4 | fs_cc0-thunder／29756_229898-hq.mp3 | thunder1.wav（deleted_user_229898，7.4 秒） |  |
+| AMB-0292 | 14.3 | fs_cc0-thunder／338088_4535165-hq.mp3 | Thunder Clap 4（jzielke011，14.3 秒） |  |
+| AMB-0293 | 15.1 | fs_cc0-thunder／338089_4535165-hq.mp3 | Thunder Clap 3（jzielke011，15.1 秒） |  |
+| AMB-0294 | 10.7 | fs_cc0-thunder／338091_4535165-hq.mp3 | Thunder Clap 1（jzielke011，10.7 秒） |  |
+| AMB-0295 | 16.0 | fs_cc0-thunder／338093_4535165-hq.mp3 | Thunder Clap 5（jzielke011，16.0 秒） |  |
+| AMB-0296 | 18.5 | fs_cc0-thunder／347562_5481182-hq.mp3 | Distant Thunder Clap_Gentle.wav（mikala_oidua，18.5 秒） |  |
+| AMB-0297 | 22.6 | fs_cc0-thunder／37299_61278-hq.mp3 | Thunder.wav（Xythe，22.6 秒） |  |
+| AMB-0298 | 18.0 | fs_cc0-thunder／38248_66959-hq.mp3 | thunder5.wav（nednednerb，18.0 秒） |  |
+| AMB-0299 | 14.0 | fs_cc0-thunder／394959_1036771-hq.mp3 | thunder boomer_raw.wav（parabolix，14.0 秒） |  |
+| AMB-0300 | 17.3 | fs_cc0-thunder／399656_2341984-hq.mp3 | sfx_thunder blast.wav（bajko，17.3 秒） |  |
+| AMB-0301 | 16.0 | fs_cc0-thunder／414050_2154914-hq.mp3 | Thunder big（s-light，16.0 秒） |  |
+| AMB-0302 | 11.4 | fs_cc0-thunder／458015_3366749-hq.mp3 | big thunder clap（seth-m，11.4 秒） |  |
+| AMB-0303 | 20.0 | fs_cc0-thunder／486557_5953161-hq.mp3 | thunder.rumble.ogg（xUMR，20.0 秒） |  |
+| AMB-0304 | 17.3 | fs_cc0-thunder／50053_333536-hq.mp3 | rain_session_thunder1_2006.wav（vibe_crc，17.3 秒） |  |
+| AMB-0305 | 20.7 | fs_cc0-thunder／511348_8472935-hq.mp3 | Rain and Thunder（se2001，20.7 秒） |  |
+| AMB-0306 | 13.5 | fs_cc0-thunder／534023_9395330-hq.mp3 | Thunderclap（Fission9，13.5 秒） |  |
+| AMB-0307 | 22.6 | fs_cc0-thunder／580591_8392567-hq.mp3 | relámpago_lightning_lluvia_rain.WAV（SergioJbs，22.6 秒） |  |
+| AMB-0308 | 17.4 | fs_cc0-thunder／613973_13583433-hq.mp3 | Thunder Storm.wav（beanogreen，17.5 秒） |  |
+| AMB-0309 | 22.1 | fs_cc0-thunder／652690_14225658-hq.mp3 | Thunder strike（AyaDrevis，22.1 秒） |  |
+| AMB-0310 | 16.0 | fs_cc0-thunder／672776_1357949-hq.mp3 | Thunder Clap（DaniloSFX，16.0 秒） |  |
+| AMB-0311 | 19.3 | fs_cc0-thunder／729539_7818039-hq.mp3 | Lightning Thunder Crack（Infinita08，19.3 秒） |  |
+| AMB-0312 | 14.0 | fs_cc0-thunder／840628_16682330-hq.mp3 | Closeup Thunder Strike 01（loganzsound，14.0 秒） |  |
+| AMB-0313 | 18.1 | fs_cc0-thunder／87963_533680-hq.mp3 | thunder.wav（guitarguy1985，18.1 秒） |  |
 
-## ELC 電子與能量（610）
+## ELC 電子與能量（678）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -853,6 +883,74 @@
 | ELC-0642 | 12.0 | oga_long-sci-fi-sting／longscifisting_2.ogg |  |  |
 | ELC-0643 | 3.5 | oga_sci-fi-sfx／sci-fi_sfx_2.mp3 |  |  |
 | ELC-0644 | 8.0 | oga_sound-effects-pack／Scifi/computersaysno.wav |  |  |
+| ELC-0645 | 0.6 | fs_cc0-ability-ready／136484_2448533-hq.mp3 | Ready Core.wav（.Andre_Onate，0.6 秒） |  |
+| ELC-0646 | 0.2 | fs_cc0-ability-ready／405547_6436863-hq.mp3 | Affirmative decision chime（Raclure，0.2 秒） |  |
+| ELC-0647 | 0.3 | fs_cc0-ability-ready／454818_7017610-hq.mp3 | Notification（DJenzyme，0.3 秒） |  |
+| ELC-0648 | 0.3 | fs_cc0-ability-ready／535716_6813481-hq.mp3 | BITCRUSH - recharge1.wav（saintsamael，0.3 秒） |  |
+| ELC-0649 | 1.6 | fs_cc0-ability-ready／575541_5452388-hq.mp3 | notification1（Tissman，1.7 秒） |  |
+| ELC-0650 | 1.3 | fs_cc0-ability-ready／657945_6142149-hq.mp3 | SciFi Inspect Sound, UI, or In-Game Notification 01.wav（LilMati，1.3 秒） |  |
+| ELC-0651 | 0.8 | fs_cc0-ability-ready／702805_6142149-hq.mp3 | Futuristic Inspect Sound, UI, or In-Game Notification.wav（LilMati，0.8 秒） |  |
+| ELC-0652 | 1.4 | fs_cc0-ability-ready／787774_735966-hq.mp3 | Shields recharging（Lyubomir_Ikonomov，1.4 秒） |  |
+| ELC-0653 | 1.0 | fs_cc0-ability-ready／842513_14031674-hq.mp3 | Triple_Ping_Notification_Sound_Mobile_Optimized（PiesHelpfulOven，1.0 秒） |  |
+| ELC-0654 | 3.0 | fs_cc0-emp／110564_1605388-hq.mp3 | EMP Blast.wav（2887679652，3.0 秒） |  |
+| ELC-0655 | 1.9 | fs_cc0-emp／159399_1656228-hq.mp3 | Power Down（noirenex，1.9 秒） |  |
+| ELC-0656 | 3.0 | fs_cc0-emp／160037_2888559-hq.mp3 | emp blast2.wav（MaikkiEdits，3.0 秒） |  |
+| ELC-0657 | 4.4 | fs_cc0-emp／169994_2747497-hq.mp3 | Power Down（peepholecircus，4.4 秒） |  |
+| ELC-0658 | 1.1 | fs_cc0-emp／205754_2389125-hq.mp3 | Surge Leech 2（scorpion67890，1.1 秒） |  |
+| ELC-0659 | 6.0 | fs_cc0-emp／207321_2986310-hq.mp3 | Machine Shutdown（PatrickLieberkind，6.0 秒） |  |
+| ELC-0660 | 2.0 | fs_cc0-emp／331424_3877322-hq.mp3 | Old computer shutdown1（supersnd，2.0 秒） |  |
+| ELC-0661 | 5.1 | fs_cc0-emp／344973_4034520-hq.mp3 | Computer Shut Down（VKProduktion，5.1 秒） |  |
+| ELC-0662 | 2.2 | fs_cc0-emp／395378_4373137-hq.mp3 | MachinePowerOff.flac（Skylar1146，2.2 秒） |  |
+| ELC-0663 | 3.4 | fs_cc0-emp／400194_6392380-hq.mp3 | power cut（ninjatrappeur，3.4 秒） |  |
+| ELC-0664 | 0.4 | fs_cc0-emp／417730_6037312-hq.mp3 | EMPLaser.wav（wcoltd，0.4 秒） |  |
+| ELC-0665 | 4.1 | fs_cc0-emp／463850_9749941-hq.mp3 | Power down.wav（MSB099，4.1 秒） |  |
+| ELC-0666 | 1.7 | fs_cc0-emp／467405_7493652-hq.mp3 | MnG - Power Down.wav（SergeyIonov，1.7 秒） |  |
+| ELC-0667 | 2.2 | fs_cc0-emp／468414_9776425-hq.mp3 | Power failure.wav（ATG65，2.2 秒） |  |
+| ELC-0668 | 5.2 | fs_cc0-emp／485494_10413378-hq.mp3 | Paisaje-sonoro-uem-CortinaBlackout.wav（VaniaMoreno，5.2 秒） |  |
+| ELC-0669 | 1.9 | fs_cc0-emp／492651_9453283-hq.mp3 | power down.mp3（Rvgerxini，1.9 秒） |  |
+| ELC-0670 | 1.2 | fs_cc0-emp／523553_6142149-hq.mp3 | TV Shutdown（LilMati，1.2 秒） |  |
+| ELC-0671 | 2.5 | fs_cc0-emp／532291_11785387-hq.mp3 | Power off（colorsCrimsonTears，2.5 秒） |  |
+| ELC-0672 | 4.5 | fs_cc0-emp／560765_8919922-hq.mp3 | Electric Line Discharge.mp3（Bricklover，4.5 秒） |  |
+| ELC-0673 | 4.1 | fs_cc0-emp／564937_12606404-hq.mp3 | INITIATING SHUTDOWN.mp3（Anzbot，4.1 秒） |  |
+| ELC-0674 | 4.5 | fs_cc0-emp／580085_10334845-hq.mp3 | Robotic Shut Down（Beetlemuse，4.5 秒） |  |
+| ELC-0675 | 5.8 | fs_cc0-emp／580306_11785387-hq.mp3 | System shutdown - 2（colorsCrimsonTears，5.8 秒） |  |
+| ELC-0676 | 1.7 | fs_cc0-emp／609025_11785387-hq.mp3 | Power down 2 - Rpg（colorsCrimsonTears，1.7 秒） |  |
+| ELC-0677 | 2.6 | fs_cc0-emp／630033_9129912-hq.mp3 | Space Ship Shutdown（el_boss，2.6 秒） |  |
+| ELC-0678 | 0.4 | fs_cc0-emp／651471_3379512-hq.mp3 | DCA Impact Short Circuit.wav（darcyadam，0.4 秒） |  |
+| ELC-0679 | 1.6 | fs_cc0-emp／683828_6384533-hq.mp3 | Electromagnetic pulse sound（User391915396，1.6 秒） |  |
+| ELC-0680 | 1.9 | fs_cc0-emp／686296_4469311-hq.mp3 | Quest2 Shutdown.wav（4187appaloosa，1.9 秒） |  |
+| ELC-0681 | 2.3 | fs_cc0-emp／740268_14631530-hq.mp3 | switch on power surge outlet 1（FOSSarts，2.3 秒） |  |
+| ELC-0682 | 1.0 | fs_cc0-emp／831913_15636277-hq.mp3 | Electrical Discharge of the Capacitor of the Amplifier when Turned Off（bassimat，1.0 秒） |  |
+| ELC-0683 | 2.0 | fs_cc0-overload／138491_758593-hq.mp3 | Powerup 3（JustInvoke，2.0 秒） |  |
+| ELC-0684 | 2.4 | fs_cc0-overload／162229_71257-hq.mp3 | Laser Gun Recharge（qubodup，2.4 秒） |  |
+| ELC-0685 | 1.0 | fs_cc0-overload／172631_71257-hq.mp3 | Power Up Charge [Remix of LegoLunatic's Charged laser 151243]（qubodup，1.0 秒） |  |
+| ELC-0686 | 1.9 | fs_cc0-overload／198784_3478269-hq.mp3 | Jump sound or Power Up sound（Cman634，1.9 秒） |  |
+| ELC-0687 | 1.1 | fs_cc0-overload／205753_2389125-hq.mp3 | Surge Leech 1（scorpion67890，1.0 秒） |  |
+| ELC-0688 | 1.0 | fs_cc0-overload／220173_4100837-hq.mp3 | Spacey 1up/Power up（GameAudio，1.0 秒） |  |
+| ELC-0689 | 0.6 | fs_cc0-overload／277214_5324223-hq.mp3 | 8-Bit Powerup - Get Something BIG!（TheDweebMan，0.6 秒） |  |
+| ELC-0690 | 1.1 | fs_cc0-overload／368651_6512973-hq.mp3 | Game Powerup（Jofae，1.1 秒） |  |
+| ELC-0691 | 2.5 | fs_cc0-overload／375925_3294528-hq.mp3 | Machine Charge.wav（Glitchedtones，2.5 秒） |  |
+| ELC-0692 | 0.5 | fs_cc0-overload／431329_2711716-hq.mp3 | 8-Bit Powerup（SomeGuy22，0.5 秒） |  |
+| ELC-0693 | 1.1 | fs_cc0-overload／456988_2197714-hq.mp3 | Camera with Flash Sound and then Charge (fast)（RegoneFF，1.2 秒） |  |
+| ELC-0694 | 0.9 | fs_cc0-overload／464908_4284968-hq.mp3 | 8bit Powerup（plasterbrain，0.9 秒） |  |
+| ELC-0695 | 1.2 | fs_cc0-overload／478343_9961300-hq.mp3 | Bouncing Power Up 1_4（Joao_Janz，1.2 秒） |  |
+| ELC-0696 | 0.5 | fs_cc0-overload／483883_5487341-hq.mp3 | Charge up（SamsterBirdies，0.5 秒） |  |
+| ELC-0697 | 0.4 | fs_cc0-overload／503459_6142149-hq.mp3 | Powerup 02.wav（LilMati，0.4 秒） |  |
+| ELC-0698 | 2.6 | fs_cc0-overload／512474_7372230-hq.mp3 | Power Up.wav（michael_grinnell，2.6 秒） |  |
+| ELC-0699 | 2.3 | fs_cc0-overload／523648_6142149-hq.mp3 | Powerup 08.wav（LilMati，2.3 秒） |  |
+| ELC-0700 | 0.9 | fs_cc0-overload／523649_6142149-hq.mp3 | Powerup 07.wav（LilMati，0.9 秒） |  |
+| ELC-0701 | 0.8 | fs_cc0-overload／523650_6142149-hq.mp3 | Powerup 06.wav（LilMati，0.8 秒） |  |
+| ELC-0702 | 0.8 | fs_cc0-overload／523651_6142149-hq.mp3 | Powerup 05.wav（LilMati，0.8 秒） |  |
+| ELC-0703 | 1.8 | fs_cc0-overload／523654_6142149-hq.mp3 | Powerup 10.wav（LilMati，1.8 秒） |  |
+| ELC-0704 | 1.3 | fs_cc0-overload／523655_6142149-hq.mp3 | Powerup 09.wav（LilMati，1.3 秒） |  |
+| ELC-0705 | 1.2 | fs_cc0-overload／558679_6135165-hq.mp3 | Sci-Fi Charge Up.wav（Hemplock，1.2 秒） |  |
+| ELC-0706 | 1.0 | fs_cc0-overload／580858_10182789-hq.mp3 | Activated button（BloodPixelHero，1.0 秒） |  |
+| ELC-0707 | 1.1 | fs_cc0-overload／588242_11537497-hq.mp3 | Laser Charge Up（magnuswaker，1.1 秒） |  |
+| ELC-0708 | 1.1 | fs_cc0-overload／592573_11537497-hq.mp3 | Laser Charge Up (Stronger)（magnuswaker，1.1 秒） |  |
+| ELC-0709 | 2.4 | fs_cc0-overload／610562_11351035-hq.mp3 | Charge up 2（BrickDeveloper171，2.4 秒） |  |
+| ELC-0710 | 1.9 | fs_cc0-overload／647977_10403690-hq.mp3 | 8-Bit Coin Or Power Up FX For Retro Video Games（Cloud-10，1.9 秒） |  |
+| ELC-0711 | 3.1 | fs_cc0-overload／676451_5672786-hq.mp3 | Anime Charge Sound.wav（TheLittleCrow，3.1 秒） |  |
+| ELC-0712 | 1.8 | fs_cc0-overload／701702_7862587-hq.mp3 | laser-charge.wav（StavSounds，1.8 秒） |  |
 
 ## EXP 爆炸（116）
 
@@ -1298,7 +1396,7 @@
 | GUN-0390 | 1.1 | clips_sfx／GUN-0390.wav | 擷取自 GUN-0046 的 0.58–1.65 秒（Charles Daly, CD, FTAW, shotgun, pump action, 12 gauge, gunshot, mid distance, f） |  |
 | GUN-0391 | 1.5 | clips_sfx／GUN-0391.wav | 擷取自 GUN-0061 的 1.13–2.67 秒（Mosin Nagant, rifle, bolt action, 7.62x54, gunshot, mid distance, front of shoot） |  |
 
-## IMP 撞擊與命中（730）
+## IMP 撞擊與命中（790）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -2032,8 +2130,68 @@
 | IMP-0761 | 2.4 | oga_unleeched-sound-effects-pack／glass-break3.wav |  |  |
 | IMP-0762 | 0.9 | oga_unleeched-sound-effects-pack／leech-hit.wav |  |  |
 | IMP-0763 | 1.1 | oga_unleeched-sound-effects-pack／scientist-hit.wav |  |  |
+| IMP-0764 | 3.5 | fs_cc0-crate-break／104003_179538-hq.mp3 | Wood_Metal_Chain_Smash_Hall.aif（RutgerMuller，3.5 秒） |  |
+| IMP-0765 | 4.6 | fs_cc0-crate-break／109359_1868848-hq.mp3 | wood breaking.aiff（SoundCollectah，4.6 秒） |  |
+| IMP-0766 | 2.4 | fs_cc0-crate-break／149899_2368212-hq.mp3 | box crash.mp3（animationIsaac，2.4 秒） |  |
+| IMP-0767 | 1.6 | fs_cc0-crate-break／156578_1480854-hq.mp3 | Picture frame dropped on wood floor, shatters.wav（SpliceSound，1.6 秒） |  |
+| IMP-0768 | 2.4 | fs_cc0-crate-break／241601_4336114-hq.mp3 | Smashing a Wooden Container（Kreastricon62，2.4 秒） |  |
+| IMP-0769 | 4.1 | fs_cc0-crate-break／257752_2276808-hq.mp3 | Wooden Ship Break（Kodack，4.1 秒） |  |
+| IMP-0770 | 3.7 | fs_cc0-crate-break／343164_6001460-hq.mp3 | Wood Crash.mp3（benjaminpotter，3.7 秒） |  |
+| IMP-0771 | 2.8 | fs_cc0-crate-break／351422_5690194-hq.mp3 | Wood crack（Diramus，2.8 秒） |  |
+| IMP-0772 | 0.8 | fs_cc0-crate-break／403646_3012788-hq.mp3 | Wood_Bones_Break_Slow_Juicy - 02.ogg（LamaMakesMusic，0.8 秒） |  |
+| IMP-0773 | 0.9 | fs_cc0-crate-break／443293_5701973-hq.mp3 | Wood Break.wav（Deathscyp，0.9 秒） |  |
+| IMP-0774 | 0.4 | fs_cc0-crate-break／447922_9159316-hq.mp3 | Thud / Falling on wooden floor / Snapping, breaking neck（Breviceps，0.4 秒） |  |
+| IMP-0775 | 1.4 | fs_cc0-crate-break／463829_9749548-hq.mp3 | snd_box_smash_splatter.wav（mustardmuffin，1.4 秒） |  |
+| IMP-0776 | 3.8 | fs_cc0-crate-break／520720_11452660-hq.mp3 | Wood Break.boaay（BOAAY，3.8 秒） |  |
+| IMP-0777 | 2.2 | fs_cc0-crate-break／537459_1068206-hq.mp3 | wood crackling-31.wav（wavecal22，2.2 秒） |  |
+| IMP-0778 | 3.5 | fs_cc0-crate-break／561599_12607891-hq.mp3 | snd_box_smash_stuck.wav（berberborscing，3.5 秒） |  |
+| IMP-0779 | 1.0 | fs_cc0-crate-break／562189_12618935-hq.mp3 | snd_box_smash.wav（gristi，1.0 秒） |  |
+| IMP-0780 | 1.7 | fs_cc0-crate-break／569694_3248005-hq.mp3 | Wood Break Planks Multiple 9（Sheyvan，1.7 秒） |  |
+| IMP-0781 | 0.5 | fs_cc0-crate-break／624910_13821366-hq.mp3 | box_smash.wav（Charnchy77，0.5 秒） |  |
+| IMP-0782 | 2.2 | fs_cc0-crate-break／630400_12591824-hq.mp3 | wood; wood splitting; log of wood; wood crack.wav（viwright2112，2.2 秒） |  |
+| IMP-0783 | 1.4 | fs_cc0-crate-break／667652_3271378-hq.mp3 | wooden-crate-break2.wav（DeltaCode，1.4 秒） |  |
+| IMP-0784 | 0.7 | fs_cc0-crate-break／667653_3271378-hq.mp3 | wooden-crate-break1.wav（DeltaCode，0.7 秒） |  |
+| IMP-0785 | 1.5 | fs_cc0-crate-break／66772_242154-hq.mp3 | Barrel Break 4.wav（kevinkace，1.5 秒） |  |
+| IMP-0786 | 1.2 | fs_cc0-crate-break／66780_242154-hq.mp3 | Crate Break 4.wav（kevinkace，1.2 秒） |  |
+| IMP-0787 | 3.4 | fs_cc0-crate-break／669457_1106446-hq.mp3 | SFX_wood_cracking.wav（EricsSoundschmiede，3.4 秒） |  |
+| IMP-0788 | 4.5 | fs_cc0-crate-break／675851_2524442-hq.mp3 | S10-23 Wood and glass crash.wav（craigsmith，4.5 秒） |  |
+| IMP-0789 | 0.6 | fs_cc0-crate-break／678840_14793475-hq.mp3 | box_smash.wav（cartchaos，0.6 秒） |  |
+| IMP-0790 | 0.9 | fs_cc0-crate-break／794523_15956618-hq.mp3 | Wooden Structure Breaking（modusmogulus，0.9 秒） |  |
+| IMP-0791 | 0.7 | fs_cc0-crate-break／853277_9129912-hq.mp3 | Wood Cracking - Ship Damage Taken Game SFX Alternate 2 of 2（el_boss，0.7 秒） |  |
+| IMP-0792 | 1.2 | fs_cc0-crate-break／856630_18864416-hq.mp3 | crate_break3（K-Forces，1.2 秒） |  |
+| IMP-0793 | 0.4 | fs_cc0-crate-break／868644_17675683-hq.mp3 | Break off wood stick 2（CAT-FOX_ALEX，0.4 秒） |  |
+| IMP-0794 | 2.7 | fs_cc0-glass-break／118198_2043421-hq.mp3 | Bottle Smash.aif（MegaPenguin13，2.7 秒） |  |
+| IMP-0795 | 1.9 | fs_cc0-glass-break／141563_1422573-hq.mp3 | Glass Break（avrahamy，1.9 秒） |  |
+| IMP-0796 | 5.0 | fs_cc0-glass-break／177959_985466-hq.mp3 | CrashingMetalAndGlass.wav（Sclolex，5.0 秒） |  |
+| IMP-0797 | 2.0 | fs_cc0-glass-break／199906_3721648-hq.mp3 | Breaking Glass Stereo（GN2013，2.0 秒） |  |
+| IMP-0798 | 1.5 | fs_cc0-glass-break／202093_3756348-hq.mp3 | Bottle Shattering.wav（spookymodem，1.5 秒） |  |
+| IMP-0799 | 4.2 | fs_cc0-glass-break／204185_2394357-hq.mp3 | breaking_glass1.wav（reg7783，4.2 秒） |  |
+| IMP-0800 | 1.1 | fs_cc0-glass-break／209996_3709556-hq.mp3 | Glass Crash（creapersound，1.1 秒） |  |
+| IMP-0801 | 2.3 | fs_cc0-glass-break／212698_2585359-hq.mp3 | Breaking a glass bottle（dasebr，2.3 秒） |  |
+| IMP-0802 | 1.9 | fs_cc0-glass-break／221528_1038806-hq.mp3 | Glass Break（unfa，1.9 秒） |  |
+| IMP-0803 | 1.0 | fs_cc0-glass-break／233605_3610778-hq.mp3 | Breaking Glass #3.wav（abstraktgeneriert，1.0 秒） |  |
+| IMP-0804 | 1.6 | fs_cc0-glass-break／244238_3156517-hq.mp3 | Glass Smash.wav（chewiesmissus，1.6 秒） |  |
+| IMP-0805 | 0.9 | fs_cc0-glass-break／267889_5025429-hq.mp3 | Breaking-Glass.wav（wjl，0.9 秒） |  |
+| IMP-0806 | 5.0 | fs_cc0-glass-break／276939_2364707-hq.mp3 | breaking_glass_mirror_Audio_Technica_MB2K.wav（gladkiy，5.0 秒） |  |
+| IMP-0807 | 4.9 | fs_cc0-glass-break／321143_4709749-hq.mp3 | Concrete and Glass breaking in dumpster（OverlookHotelRecords，4.9 秒） |  |
+| IMP-0808 | 3.7 | fs_cc0-glass-break／336425_4663534-hq.mp3 | Glass Shattering and Falling（221Beimesche，3.7 秒） |  |
+| IMP-0809 | 5.1 | fs_cc0-glass-break／349905_4557960-hq.mp3 | Slow Motion Glass Shatter（bevibeldesign，5.1 秒） |  |
+| IMP-0810 | 2.1 | fs_cc0-glass-break／369070_6815294-hq.mp3 | Breaking_Mirror.wav（LazyLids，2.1 秒） |  |
+| IMP-0811 | 1.8 | fs_cc0-glass-break／371094_6901532-hq.mp3 | Glass Break 1.wav（mccormick_iain，1.8 秒） |  |
+| IMP-0812 | 2.6 | fs_cc0-glass-break／371786_5302340-hq.mp3 | G8_breaking window.mp3（Iamgiorgio，2.6 秒） |  |
+| IMP-0813 | 6.0 | fs_cc0-glass-break／376607_3435865-hq.mp3 | Window hit without breaking.wav（Soundkrampf，6.0 秒） |  |
+| IMP-0814 | 5.1 | fs_cc0-glass-break／401619_7516983-hq.mp3 | Bottle Smash（Roxis_Boy，5.1 秒） |  |
+| IMP-0815 | 1.1 | fs_cc0-glass-break／422633_8455865-hq.mp3 | Break something (ice/glass/...)（Aurelon，1.1 秒） |  |
+| IMP-0816 | 0.5 | fs_cc0-glass-break／444136_1744434-hq.mp3 | Glass Shatter 3（lurpsis，0.5 秒） |  |
+| IMP-0817 | 1.8 | fs_cc0-glass-break／447699_5923045-hq.mp3 | glass - baby food jar - smashed on concrete.wav（Anthousai，1.8 秒） |  |
+| IMP-0818 | 4.1 | fs_cc0-glass-break／448004_7811934-hq.mp3 | break-window.mp3（Kneeling，4.1 秒） |  |
+| IMP-0819 | 4.9 | fs_cc0-glass-break／453499_612689-hq.mp3 | neon tube smash explode shatter glass debris.flac（kyles，4.9 秒） |  |
+| IMP-0820 | 2.0 | fs_cc0-glass-break／465946_5855051-hq.mp3 | Glass Breaking（AlterKartoffelsack，2.0 秒） |  |
+| IMP-0821 | 2.6 | fs_cc0-glass-break／592388_11537497-hq.mp3 | Car Crash (with Glass)（magnuswaker，2.6 秒） |  |
+| IMP-0822 | 2.3 | fs_cc0-glass-break／613879_5713695-hq.mp3 | window breaking（RangoAnimations，2.3 秒） |  |
+| IMP-0823 | 3.9 | fs_cc0-glass-break／648134_13481362-hq.mp3 | Window break.wav（5plus5equalspatata，3.9 秒） |  |
 
-## ITM 物品與拾取（182）
+## ITM 物品與拾取（217）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -2219,6 +2377,41 @@
 | ITM-0188 | 1.4 | oga_coin-drop／coin_drop.ogg |  |  |
 | ITM-0189 | 1.4 | oga_coin-drop／coin_drop_0.mp3 |  |  |
 | ITM-0190 | 20.8 | oga_coin-sounds／coinsounds011015_0.ogg |  |  |
+| ITM-0191 | 0.4 | clips_sfx／ITM-0191.wav | 擷取自 ITM-0056 的 0.11–0.47 秒 |  |
+| ITM-0192 | 0.3 | clips_sfx／ITM-0192.wav | 擷取自 ITM-0056 的 0.52–0.83 秒 |  |
+| ITM-0193 | 0.4 | clips_sfx／ITM-0193.wav | 擷取自 ITM-0053 的 0.07–0.48 秒 |  |
+| ITM-0194 | 0.4 | clips_sfx／ITM-0194.wav | 擷取自 ITM-0053 的 0.54–0.96 秒 |  |
+| ITM-0195 | 0.3 | clips_sfx／ITM-0195.wav | 擷取自 ITM-0050 的 0.39–0.69 秒 |  |
+| ITM-0196 | 0.5 | fs_cc0-pickup／121990_943560-hq.mp3 | coinBag.wav（tomf_，0.5 秒） |  |
+| ITM-0197 | 0.1 | fs_cc0-pickup／146723_2437358-hq.mp3 | coin object（Leszek_Szary，0.1 秒） |  |
+| ITM-0198 | 0.4 | fs_cc0-pickup／162805_2578041-hq.mp3 | 8-bit coin1.1.wav（timgormly，0.4 秒） |  |
+| ITM-0199 | 0.2 | fs_cc0-pickup／163451_2263027-hq.mp3 | Money Pickup（LeMudCrab，0.2 秒） |  |
+| ITM-0200 | 1.0 | fs_cc0-pickup／172631_71257-hq.mp3 | Power Up Charge [Remix of LegoLunatic's Charged laser 151243]（qubodup，1.0 秒） |  |
+| ITM-0201 | 1.6 | fs_cc0-pickup／204318_2211283-hq.mp3 | Pick-up Health（juancamiloorjuela，1.6 秒） |  |
+| ITM-0202 | 2.0 | fs_cc0-pickup／234924_1455429-hq.mp3 | Pick up or found it secret item（gordeszkakerek，2.0 秒） |  |
+| ITM-0203 | 0.3 | fs_cc0-pickup／242857_4284968-hq.mp3 | Coin GET!（plasterbrain，0.3 秒） |  |
+| ITM-0204 | 0.3 | fs_cc0-pickup／253172_4404552-hq.mp3 | Retro Bonus Pickup SFX （suntemple，0.3 秒） |  |
+| ITM-0205 | 1.3 | fs_cc0-pickup／325805_3271346-hq.mp3 | collect.wav（Wagna，1.3 秒） |  |
+| ITM-0206 | 0.6 | fs_cc0-pickup／341979_3950213-hq.mp3 | coin.wav（rigor789，0.6 秒） |  |
+| ITM-0207 | 0.2 | fs_cc0-pickup／343462_1400623-hq.mp3 | Real Coin Drop（Rocotilos，0.2 秒） |  |
+| ITM-0208 | 0.2 | fs_cc0-pickup／347172_6324381-hq.mp3 | Coin Pickup Sound（Davidsraba，0.2 秒） |  |
+| ITM-0209 | 0.5 | fs_cc0-pickup／347174_6324381-hq.mp3 | Coin Pickup Sound V 0.2（Davidsraba，0.5 秒） |  |
+| ITM-0210 | 0.2 | fs_cc0-pickup／350876_5450487-hq.mp3 | Coin_C_09（cabled_mess，0.2 秒） |  |
+| ITM-0211 | 1.1 | fs_cc0-pickup／368651_6512973-hq.mp3 | Game Powerup（Jofae，1.1 秒） |  |
+| ITM-0212 | 0.5 | fs_cc0-pickup／402067_6142149-hq.mp3 | Retro, Coin 01.wav（LilMati，0.4 秒） |  |
+| ITM-0213 | 0.4 | fs_cc0-pickup／402288_6142149-hq.mp3 | Retro, Coin 02.wav（LilMati，0.4 秒） |  |
+| ITM-0214 | 0.3 | fs_cc0-pickup／402766_6142149-hq.mp3 | Retro, Coin 04.wav（LilMati，0.3 秒） |  |
+| ITM-0215 | 0.2 | fs_cc0-pickup／402767_6142149-hq.mp3 | Retro, Coin 03.wav（LilMati，0.2 秒） |  |
+| ITM-0216 | 1.4 | fs_cc0-pickup／422709_8457618-hq.mp3 | inspect item.wav（niamhd00145229，1.4 秒） |  |
+| ITM-0217 | 0.3 | fs_cc0-pickup／422971_6366356-hq.mp3 | SFXKeyPickUp.wav（WakuWakuWakuWaku，0.3 秒） |  |
+| ITM-0218 | 0.5 | fs_cc0-pickup／431329_2711716-hq.mp3 | 8-Bit Powerup（SomeGuy22，0.5 秒） |  |
+| ITM-0219 | 0.5 | fs_cc0-pickup／443258_6142149-hq.mp3 | Retro, Coin 05.wav（LilMati，0.5 秒） |  |
+| ITM-0220 | 0.1 | fs_cc0-pickup／450614_9159316-hq.mp3 | 8-Bit - Collect sound / Timer / Countdown（Breviceps，0.1 秒） |  |
+| ITM-0221 | 0.7 | fs_cc0-pickup／471834_3609395-hq.mp3 | Health Pickup（KeshaFilm，0.7 秒） |  |
+| ITM-0222 | 0.4 | fs_cc0-pickup／515736_6142149-hq.mp3 | Retro, Coin 06.wav（LilMati，0.4 秒） |  |
+| ITM-0223 | 0.8 | fs_cc0-pickup／518850_6769489-hq.mp3 | Item Equip（mrickey13，0.7 秒） |  |
+| ITM-0224 | 0.4 | fs_cc0-pickup／563465_10415593-hq.mp3 | ItemPickup.wav（nicholasdaryl，0.4 秒） |  |
+| ITM-0225 | 0.6 | fs_cc0-pickup／651515_11611892-hq.mp3 | grab-item（1bob，0.6 秒） |  |
 
 ## MEC 機械與機關（624）
 
@@ -3049,7 +3242,7 @@
 | MLE-0202 | 0.6 | oga_wind-hit-time-morph／qubodup-megaswosh2.wav |  |  |
 | MLE-0203 | 6.0 | oga_wind-whoosh-loop／wind woosh loop.ogg |  |  |
 
-## MOV 移動與衣物（317）
+## MOV 移動與衣物（497）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -3370,8 +3563,188 @@
 | MOV-0321 | 0.8 | oga_sound-effects-pack／Footsteps/stumble.wav |  |  |
 | MOV-0322 | 0.9 | oga_unleeched-sound-effects-pack／leech-jump.wav |  |  |
 | MOV-0323 | 1.7 | oga_unleeched-sound-effects-pack／leech-run.wav |  |  |
+| MOV-0324 | 0.6 | clips_sfx／MOV-0324.wav | 擷取自 MOV-0177 的 1.11–1.69 秒 |  |
+| MOV-0325 | 0.5 | clips_sfx／MOV-0325.wav | 擷取自 MOV-0177 的 1.71–2.22 秒 |  |
+| MOV-0326 | 0.5 | clips_sfx／MOV-0326.wav | 擷取自 MOV-0177 的 3.83–4.32 秒 |  |
+| MOV-0327 | 6.4 | fs_cc0-steps-concrete／117631_1160789-hq.mp3 | footstops - stone tile floor.wav（soundmary，6.4 秒） |  |
+| MOV-0328 | 11.5 | fs_cc0-steps-concrete／138053_1839281-hq.mp3 | walking_footsteps_short_heels_tile_floor_1.wav（daboy291，11.5 秒） |  |
+| MOV-0329 | 10.3 | fs_cc0-steps-concrete／138066_1839281-hq.mp3 | walking_and_struggling_footsteps_tennis_shoes_tile_floor.wav（daboy291，10.3 秒） |  |
+| MOV-0330 | 8.1 | fs_cc0-steps-concrete／138093_1839281-hq.mp3 | walking_footsteps_flat_shoes_tile_floor_5.wav（daboy291，8.1 秒） |  |
+| MOV-0331 | 0.5 | fs_cc0-steps-concrete／166507_2792951-hq.mp3 | concrete footstep 3（Yoyodaman234，0.5 秒） |  |
+| MOV-0332 | 18.1 | fs_cc0-steps-concrete／170501_1480854-hq.mp3 | Footsteps, Tile, Male Tennis Shoes, Fast Pace.wav（SpliceSound，18.1 秒） |  |
+| MOV-0333 | 8.6 | fs_cc0-steps-concrete／208103_2943165-hq.mp3 | Stone Steps（Phil25，8.6 秒） |  |
+| MOV-0334 | 14.8 | fs_cc0-steps-concrete／209205_1598896-hq.mp3 | Windy autumn - walking in the street on heels.wav（whirlproductions，14.8 秒） |  |
+| MOV-0335 | 3.8 | fs_cc0-steps-concrete／231851_2531187-hq.mp3 | Walk Stone（alegemaate，3.8 秒） |  |
+| MOV-0336 | 15.6 | fs_cc0-steps-concrete／263997_3571561-hq.mp3 | Walking on concrete.（Luvarv，15.6 秒） |  |
+| MOV-0337 | 8.6 | fs_cc0-steps-concrete／271039_3366749-hq.mp3 | concrete footsteps（seth-m，8.6 秒） |  |
+| MOV-0338 | 4.8 | fs_cc0-steps-concrete／272380_4783367-hq.mp3 | Footsteps On Sidewalk.wav（danhelbling，4.8 秒） |  |
+| MOV-0339 | 18.7 | fs_cc0-steps-concrete／338106_1480854-hq.mp3 | Footsteps, barefoot on wet tile.wav（SpliceSound，18.7 秒） |  |
+| MOV-0340 | 18.4 | fs_cc0-steps-concrete／349865_5765365-hq.mp3 | Footsteps on Tile（jtnewlin13，18.4 秒） |  |
+| MOV-0341 | 7.1 | fs_cc0-steps-concrete／371016_4541240-hq.mp3 | Footsteps on tile walking to distance.wav（theshuggie，7.1 秒） |  |
+| MOV-0342 | 2.5 | fs_cc0-steps-concrete／422686_8457618-hq.mp3 | footsteps on stone pavement.wav（niamhd00145229，2.5 秒） |  |
+| MOV-0343 | 19.8 | fs_cc0-steps-concrete／459964_6253486-hq.mp3 | Footsteps on concrete（florianreichelt，19.8 秒） |  |
+| MOV-0344 | 10.6 | fs_cc0-steps-concrete／475499_7009965-hq.mp3 | Steps_stone_2(running).wav（o_ciz，10.6 秒） |  |
+| MOV-0345 | 3.5 | fs_cc0-steps-concrete／521590_9395330-hq.mp3 | Hiking Boot Footsteps on Stone（Fission9，3.5 秒） |  |
+| MOV-0346 | 7.5 | fs_cc0-steps-concrete／535052_5911297-hq.mp3 | concrete footsteps 1.wav（patchytherat，7.5 秒） |  |
+| MOV-0347 | 13.4 | fs_cc0-steps-concrete／554380_12197305-hq.mp3 | ConcreteFootsteps.wav（JamGrif，13.4 秒） |  |
+| MOV-0348 | 1.1 | fs_cc0-steps-concrete／562192_12618935-hq.mp3 | snd_footsteps_concrete.wav（gristi，1.1 秒） |  |
+| MOV-0349 | 7.1 | fs_cc0-steps-concrete／637555_612689-hq.mp3 | footsteps shoes walk hard floor stone patio nice.flac（kyles，7.1 秒） |  |
+| MOV-0350 | 9.0 | fs_cc0-steps-concrete／637556_612689-hq.mp3 | footsteps shoes walk road asphalt hard.flac（kyles，9.0 秒） |  |
+| MOV-0351 | 12.4 | fs_cc0-steps-concrete／648336_11944544-hq.mp3 | Walking asphalt.wav（Rimmer，12.4 秒） |  |
+| MOV-0352 | 17.3 | fs_cc0-steps-concrete／677069_13504080-hq.mp3 | Footsteps stone + sneaker（xkeril，17.3 秒） |  |
+| MOV-0353 | 19.9 | fs_cc0-steps-concrete／682773_14662423-hq.mp3 | Walking footsteps on pavement.WAV（thomasanthony321，19.9 秒） |  |
+| MOV-0354 | 10.5 | fs_cc0-steps-concrete／777606_6921828-hq.mp3 | Footsteps boots run on asphalt（YannSauvin，10.5 秒） |  |
+| MOV-0355 | 6.7 | fs_cc0-steps-concrete／813622_16752880-hq.mp3 | Footsteps - Stone, Rock, Concrete, Cement（SecureSubset，6.7 秒） |  |
+| MOV-0356 | 6.1 | fs_cc0-steps-concrete／834027_9616576-hq.mp3 | Footsteps On Tile（IENBA，6.1 秒） |  |
+| MOV-0357 | 13.2 | fs_cc0-steps-ground／117627_1160789-hq.mp3 | footsteps - gravel pavement.wav（soundmary，13.2 秒） |  |
+| MOV-0358 | 13.0 | fs_cc0-steps-ground／144091_2578041-hq.mp3 | Grassy Footsteps.aif（timgormly，13.0 秒） |  |
+| MOV-0359 | 15.0 | fs_cc0-steps-ground／231317_3261532-hq.mp3 | Footsteps-Mud&Grass（jonccox，15.0 秒） |  |
+| MOV-0360 | 1.4 | fs_cc0-steps-ground／267492_4610294-hq.mp3 | Footsteps on Forest Ground（Snudio_Records，1.4 秒） |  |
+| MOV-0361 | 15.8 | fs_cc0-steps-ground／319204_3443504-hq.mp3 | Foot Drag Dirt 4.wav（worthahep88，15.8 秒） |  |
+| MOV-0362 | 12.8 | fs_cc0-steps-ground／319210_3443504-hq.mp3 | Foot Drags Dirt 2 .wav（worthahep88，12.8 秒） |  |
+| MOV-0363 | 18.9 | fs_cc0-steps-ground／319225_3443504-hq.mp3 | Running Dirt Tennis Shoes.wav（worthahep88，18.9 秒） |  |
+| MOV-0364 | 18.0 | fs_cc0-steps-ground／331167_4800355-hq.mp3 | Grass_Footsteps.wav（Adielees9，18.0 秒） |  |
+| MOV-0365 | 6.3 | fs_cc0-steps-ground／353799_5337613-hq.mp3 | Footsteps_6_Dirt_shoe.wav（monte32，6.3 秒） |  |
+| MOV-0366 | 8.5 | fs_cc0-steps-ground／362249_6115487-hq.mp3 | grass footsteps fast.mp3（DSOADigital，8.5 秒） |  |
+| MOV-0367 | 16.0 | fs_cc0-steps-ground／362250_6115487-hq.mp3 | grass footsteps.mp3（DSOADigital，16.0 秒） |  |
+| MOV-0368 | 15.5 | fs_cc0-steps-ground／384082_6892116-hq.mp3 | Foot_Step_grit_Sand.wav（savataivanov，15.5 秒） |  |
+| MOV-0369 | 0.6 | fs_cc0-steps-ground／384880_984733-hq.mp3 | Right Gravel Footstep 5（Ali_6868，0.6 秒） |  |
+| MOV-0370 | 9.0 | fs_cc0-steps-ground／389454_6060491-hq.mp3 | Footsteps_On_Dirt.wav（lzmraul，9.0 秒） |  |
+| MOV-0371 | 19.4 | fs_cc0-steps-ground／389625_4103633-hq.mp3 | Footsteps_Grass_1.wav（SilentStrikeZ，19.4 秒） |  |
+| MOV-0372 | 17.8 | fs_cc0-steps-ground／398776_5923045-hq.mp3 | footsteps - leaves 01.wav（Anthousai，17.8 秒） |  |
+| MOV-0373 | 11.0 | fs_cc0-steps-ground／419181_8353567-hq.mp3 | 14-Man fast walking dirt.wav（14GPanskaHonc_Petr，11.0 秒） |  |
+| MOV-0374 | 5.9 | fs_cc0-steps-ground／436525_8938826-hq.mp3 | Footsteps Gravel Running-Stop（KikeVilaplana，5.9 秒） |  |
+| MOV-0375 | 17.4 | fs_cc0-steps-ground／453168_6253486-hq.mp3 | footsteps in fresh snow（florianreichelt，17.4 秒） |  |
+| MOV-0376 | 6.6 | fs_cc0-steps-ground／463854_4839973-hq.mp3 | snd_footsteps_grass.wav（drowsyprincess，6.6 秒） |  |
+| MOV-0377 | 10.0 | fs_cc0-steps-ground／505833_4024739-hq.mp3 | Footsteps grass.wav（jedg，10.0 秒） |  |
+| MOV-0378 | 4.3 | fs_cc0-steps-ground／521587_9395330-hq.mp3 | Hiking Boot Footsteps on Grass（Fission9，4.4 秒） |  |
+| MOV-0379 | 2.7 | fs_cc0-steps-ground／521588_9395330-hq.mp3 | Hiking Boot Footsteps on Gravel（Fission9，2.7 秒） |  |
+| MOV-0380 | 18.0 | fs_cc0-steps-ground／528953_3302313-hq.mp3 | Walking on sand and gravel 2（fthgurdy，18.0 秒） |  |
+| MOV-0381 | 18.6 | fs_cc0-steps-ground／529153_1705934-hq.mp3 | steps, sand, river, NY.wav（labanca，18.5 秒） |  |
+| MOV-0382 | 10.9 | fs_cc0-steps-ground／530384_9250976-hq.mp3 | Footsteps_Boots_Gritty_Ground_Stones_Leaves_Mono.wav（Nox_Sound，11.0 秒） |  |
+| MOV-0383 | 11.4 | fs_cc0-steps-ground／530589_9250976-hq.mp3 | Footsteps_Boots_Gritty_Ground_(Gravel).wav（Nox_Sound，11.4 秒） |  |
+| MOV-0384 | 11.3 | fs_cc0-steps-ground／613849_9250976-hq.mp3 | Footsteps_Mountain_Boots_Snow_Walk_Mono.wav（Nox_Sound，11.3 秒） |  |
+| MOV-0385 | 10.4 | fs_cc0-steps-ground／62974_683453-hq.mp3 | footsteps_leaves.wav（24srtx，10.4 秒） |  |
+| MOV-0386 | 3.6 | fs_cc0-steps-ground／740145_14631530-hq.mp3 | walk grass night 1（FOSSarts，3.6 秒） |  |
+| MOV-0387 | 0.5 | fs_cc0-steps-land／172960_71257-hq.mp3 | Jump Landing [remix MentalSanityOff's jumping 148796]（qubodup，0.5 秒） |  |
+| MOV-0388 | 0.4 | fs_cc0-steps-land／273474_3554699-hq.mp3 | Hit/land/push.wav（n_audioman，0.4 秒） |  |
+| MOV-0389 | 0.4 | fs_cc0-steps-land／344033_950925-hq.mp3 | cute impact.wav（Reitanna，0.4 秒） |  |
+| MOV-0390 | 1.7 | fs_cc0-steps-land／363922_6649449-hq.mp3 | land.wav（kfatehi，1.7 秒） |  |
+| MOV-0391 | 0.8 | fs_cc0-steps-land／364690_2531187-hq.mp3 | Human Impact on Ground（alegemaate，0.8 秒） |  |
+| MOV-0392 | 0.5 | fs_cc0-steps-land／390769_7350412-hq.mp3 | FX_022_breath_landing.wav（d00121058，0.5 秒） |  |
+| MOV-0393 | 0.2 | fs_cc0-steps-land／422754_6616210-hq.mp3 | Landing_Stone_2.wav（KieranKeegan，0.2 秒） |  |
+| MOV-0394 | 1.0 | fs_cc0-steps-land／422869_6613468-hq.mp3 | Jump_Landing_Wood_02.wav（IPaddeh，1.0 秒） |  |
+| MOV-0395 | 0.4 | fs_cc0-steps-land／422969_6366356-hq.mp3 | SFXJumpLandingGrass.wav（WakuWakuWakuWaku，0.4 秒） |  |
+| MOV-0396 | 1.1 | fs_cc0-steps-land／449949_5362424-hq.mp3 | Jumping, wearing pants, barefoot, wood floor, no landing sound（wareya，1.1 秒） |  |
+| MOV-0397 | 1.1 | fs_cc0-steps-land／464489_4814007-hq.mp3 | Feet Landing On Ground（elynch0901，1.1 秒） |  |
+| MOV-0398 | 0.4 | fs_cc0-steps-land／478051_10023915-hq.mp3 | land1.wav（deleted_user_10023915，0.4 秒） |  |
+| MOV-0399 | 0.3 | fs_cc0-steps-land／520750_11286721-hq.mp3 | land.mp3（nathanchurchyard，0.3 秒） |  |
+| MOV-0400 | 0.3 | fs_cc0-steps-land／540272_11242864-hq.mp3 | land a jump.wav（zepurple，0.3 秒） |  |
+| MOV-0401 | 0.7 | fs_cc0-steps-land／540369_12029332-hq.mp3 | Poker Chip Drop（Za-Games，0.7 秒） |  |
+| MOV-0402 | 0.4 | fs_cc0-steps-land／572459_7139862-hq.mp3 | jump_land.wav（nhill2003，0.4 秒） |  |
+| MOV-0403 | 1.1 | fs_cc0-steps-land／584293_13171815-hq.mp3 | Falling Thud（septalium1，1.1 秒） |  |
+| MOV-0404 | 1.5 | fs_cc0-steps-land／584439_1196020-hq.mp3 | Bag Drop Hard Surface 2（BenjaminNelan，1.5 秒） |  |
+| MOV-0405 | 1.4 | fs_cc0-steps-land／587384_5672786-hq.mp3 | Hit / Land Sound Effect（TheLittleCrow，1.4 秒） |  |
+| MOV-0406 | 1.1 | fs_cc0-steps-land／646664_13085623-hq.mp3 | Landing On The Ground [5]（SoundDesignForYou，1.1 秒） |  |
+| MOV-0407 | 1.9 | fs_cc0-steps-land／669714_14100561-hq.mp3 | single big impact, large creature jumping down.wav（vestibule-door，1.9 秒） |  |
+| MOV-0408 | 0.4 | fs_cc0-steps-land／686318_13355471-hq.mp3 | Punch Land Hard（CJspellsfish，0.4 秒） |  |
+| MOV-0409 | 0.6 | fs_cc0-steps-land／795898_13200806-hq.mp3 | Fall/Landing on creaking wooden floor（Squirrel_404，0.6 秒） |  |
+| MOV-0410 | 1.0 | fs_cc0-steps-land／803297_663245-hq.mp3 | cat_land_floor（superEGsonic，1.0 秒） |  |
+| MOV-0411 | 2.0 | fs_cc0-steps-land／819656_189858-hq.mp3 | Human jumping down to gravel w/ impact（DeqstersLab，2.0 秒） |  |
+| MOV-0412 | 0.6 | fs_cc0-steps-land／866958_14366407-hq.mp3 | DESIGImpt Landing 1（JustWatson64，0.5 秒） |  |
+| MOV-0413 | 0.3 | fs_cc0-steps-land／866959_14366407-hq.mp3 | DESIGImpt Landing 2（JustWatson64，0.3 秒） |  |
+| MOV-0414 | 0.4 | fs_cc0-steps-land／866960_14366407-hq.mp3 | DESIGImpt Landing 3（JustWatson64，0.4 秒） |  |
+| MOV-0415 | 10.2 | fs_cc0-steps-metal／106394_367313-hq.mp3 | metalwalk.wav（j1987，10.2 秒） |  |
+| MOV-0416 | 18.0 | fs_cc0-steps-metal／208101_2943165-hq.mp3 | Metal Steps（Phil25，18.0 秒） |  |
+| MOV-0417 | 11.6 | fs_cc0-steps-metal／232692_3756058-hq.mp3 | footsteps_steel.wav（Ottomaani138，11.6 秒） |  |
+| MOV-0418 | 19.0 | fs_cc0-steps-metal／253735_2276808-hq.mp3 | Wet Metal Footsteps（Kodack，19.0 秒） |  |
+| MOV-0419 | 2.6 | fs_cc0-steps-metal／353261_6098565-hq.mp3 | Steps On Stairs（TheSpiderWriter，2.6 秒） |  |
+| MOV-0420 | 4.4 | fs_cc0-steps-metal／394036_4074703-hq.mp3 | Footsteps on metal（glock102020202，4.4 秒） |  |
+| MOV-0421 | 2.5 | fs_cc0-steps-metal／422687_8457618-hq.mp3 | footsteps on metal floor.wav（niamhd00145229，2.5 秒） |  |
+| MOV-0422 | 16.7 | fs_cc0-steps-metal／451864_612689-hq.mp3 | footsteps shoes metal stairs up down resonate.flac（kyles，16.7 秒） |  |
+| MOV-0423 | 14.3 | fs_cc0-steps-metal／452421_9398458-hq.mp3 | Metal Stairs Foot Steps（sagamusix，14.3 秒） |  |
+| MOV-0424 | 3.6 | fs_cc0-steps-metal／463811_9748701-hq.mp3 | Footsteps on Metal Floor（nate_asdfg，3.6 秒） |  |
+| MOV-0425 | 6.0 | fs_cc0-steps-metal／467992_9897889-hq.mp3 | Footsteps on stairs_01.mp3（121053699，6.0 秒） |  |
+| MOV-0426 | 7.4 | fs_cc0-steps-metal／480641_2524442-hq.mp3 | R10-56-Footsteps on Metal Staircase.wav（craigsmith，7.4 秒） |  |
+| MOV-0427 | 4.3 | fs_cc0-steps-metal／50723_179538-hq.mp3 | Footsteps Metallic Muffled.wav（RutgerMuller，4.3 秒） |  |
+| MOV-0428 | 5.7 | fs_cc0-steps-metal／50724_179538-hq.mp3 | Footsteps Metallic Muffled Louder.wav（RutgerMuller，5.7 秒） |  |
+| MOV-0429 | 19.4 | fs_cc0-steps-metal／556715_5620304-hq.mp3 | Walking on Metal Floor（NachtmahrTV，19.4 秒） |  |
+| MOV-0430 | 3.1 | fs_cc0-steps-metal／562195_12618935-hq.mp3 | snd_footsteps_metal_floor_inside.wav（gristi，3.1 秒） |  |
+| MOV-0431 | 7.3 | fs_cc0-steps-metal／669094_14100561-hq.mp3 | metal footsteps fast or stairs.wav（vestibule-door，7.3 秒） |  |
+| MOV-0432 | 7.7 | fs_cc0-steps-metal／669095_14100561-hq.mp3 | metal catwalk footsteps.wav（vestibule-door，7.7 秒） |  |
+| MOV-0433 | 12.8 | fs_cc0-steps-metal／696374_13017680-hq.mp3 | Walking on metal（Sanderboah，12.8 秒） |  |
+| MOV-0434 | 10.3 | fs_cc0-steps-metal／698697_9616576-hq.mp3 | Footsteps on Metal（IENBA，10.3 秒） |  |
+| MOV-0435 | 8.1 | fs_cc0-steps-metal／719623_3898270-hq.mp3 | Footsteps down stairs（msimmonsvoice，8.1 秒） |  |
+| MOV-0436 | 9.1 | fs_cc0-steps-metal／770804_4982778-hq.mp3 | Metal Staircase Steps（Arcorias，9.1 秒） |  |
+| MOV-0437 | 0.7 | fs_cc0-steps-metal／778437_8927049-hq.mp3 | Boots_On_Hollow_Metal_Light_03（BlondPanda，0.7 秒） |  |
+| MOV-0438 | 8.7 | fs_cc0-steps-metal／786977_15749354-hq.mp3 | Metal Grate Running（Oilcan03，8.7 秒） |  |
+| MOV-0439 | 8.9 | fs_cc0-steps-metal／811374_5287430-hq.mp3 | 250607_06h41 Albi NE of Cathedral square - Walking on metal around city bins（Sadiquecat，8.9 秒） |  |
+| MOV-0440 | 3.1 | fs_cc0-steps-metal／813620_16752880-hq.mp3 | Footsteps - Metal, Car, Plane, Sheet, Boat（SecureSubset，3.1 秒） |  |
+| MOV-0441 | 0.3 | fs_cc0-steps-metal／816413_17614127-hq.mp3 | metal footstep（atleastrelatively，0.3 秒） |  |
+| MOV-0442 | 5.4 | fs_cc0-steps-metal／834029_9616576-hq.mp3 | Footsteps On Metal（IENBA，5.4 秒） |  |
+| MOV-0443 | 11.3 | fs_cc0-steps-metal／838910_15636277-hq.mp3 | Walking up to Metal Stairs - Biennale Exhibition Venice 2025（bassimat，11.3 秒） |  |
+| MOV-0444 | 7.0 | fs_cc0-steps-wet／106395_367313-hq.mp3 | puddlewalk.wav（j1987，7.0 秒） |  |
+| MOV-0445 | 2.3 | fs_cc0-steps-wet／127955_2111976-hq.mp3 | Running on grass with wet feet.aif（nathanaelsams，2.3 秒） |  |
+| MOV-0446 | 15.0 | fs_cc0-steps-wet／231317_3261532-hq.mp3 | Footsteps-Mud&Grass（jonccox，15.0 秒） |  |
+| MOV-0447 | 7.0 | fs_cc0-steps-wet／231850_2531187-hq.mp3 | Walk Wet（alegemaate，7.0 秒） |  |
+| MOV-0448 | 4.0 | fs_cc0-steps-wet／249930_389377-hq.mp3 | running through a puddle（launemax，4.0 秒） |  |
+| MOV-0449 | 19.0 | fs_cc0-steps-wet／253735_2276808-hq.mp3 | Wet Metal Footsteps（Kodack，19.0 秒） |  |
+| MOV-0450 | 4.9 | fs_cc0-steps-wet／326543_4277312-hq.mp3 | WetFootsteps.wav（sqeeeek，4.9 秒） |  |
+| MOV-0451 | 18.7 | fs_cc0-steps-wet／338106_1480854-hq.mp3 | Footsteps, barefoot on wet tile.wav（SpliceSound，18.7 秒） |  |
+| MOV-0452 | 9.8 | fs_cc0-steps-wet／367810_6114721-hq.mp3 | MudSteps.wav（edschaefer，9.8 秒） |  |
+| MOV-0453 | 12.8 | fs_cc0-steps-wet／369580_4800355-hq.mp3 | Slow Water Footsteps（Adielees9，12.8 秒） |  |
+| MOV-0454 | 0.7 | fs_cc0-steps-wet／447928_9159316-hq.mp3 | Muddy Boots（Breviceps，0.7 秒） |  |
+| MOV-0455 | 10.0 | fs_cc0-steps-wet／454623_1106446-hq.mp3 | boots_water_step_creaky_dirt_gravel.wav（EricsSoundschmiede，10.0 秒） |  |
+| MOV-0456 | 7.3 | fs_cc0-steps-wet／460654_9664803-hq.mp3 | boots in the rain（noamp2003，7.3 秒） |  |
+| MOV-0457 | 3.8 | fs_cc0-steps-wet／487874_4763661-hq.mp3 | Footsteps_Mud_04.wav（BenDrain，3.8 秒） |  |
+| MOV-0458 | 5.5 | fs_cc0-steps-wet／488068_4763661-hq.mp3 | Footsteps_Mud_01.wav（BenDrain，5.5 秒） |  |
+| MOV-0459 | 5.7 | fs_cc0-steps-wet／488069_4763661-hq.mp3 | Footsteps_Mud_02.wav（BenDrain，5.7 秒） |  |
+| MOV-0460 | 14.2 | fs_cc0-steps-wet／488076_4763661-hq.mp3 | Footsteps_Mud_05.wav（BenDrain，14.2 秒） |  |
+| MOV-0461 | 18.0 | fs_cc0-steps-wet／503671_9619518-hq.mp3 | Foley - Footsteps - Rainboots on rocks（RavenWolfProds，18.0 秒） |  |
+| MOV-0462 | 16.5 | fs_cc0-steps-wet／515300_3205651-hq.mp3 | footsteps wood mud（matt_beer，16.5 秒） |  |
+| MOV-0463 | 11.1 | fs_cc0-steps-wet／531566_5911297-hq.mp3 | puddle footsteps.wav（patchytherat，11.1 秒） |  |
+| MOV-0464 | 7.7 | fs_cc0-steps-wet／531570_5911297-hq.mp3 | wet crunchy footsteps.wav（patchytherat，7.7 秒） |  |
+| MOV-0465 | 16.1 | fs_cc0-steps-wet／531571_5911297-hq.mp3 | squishy footsteps to walking in a puddle.wav（patchytherat，16.1 秒） |  |
+| MOV-0466 | 16.9 | fs_cc0-steps-wet／531574_5911297-hq.mp3 | wet footsteps.wav（patchytherat，16.9 秒） |  |
+| MOV-0467 | 14.6 | fs_cc0-steps-wet／548384_9250976-hq.mp3 | Footsteps_Mountain_Boots_Mud_Mono.wav（Nox_Sound，14.6 秒） |  |
+| MOV-0468 | 11.5 | fs_cc0-steps-wet／553224_5620304-hq.mp3 | Wet Footsteps（NachtmahrTV，11.5 秒） |  |
+| MOV-0469 | 13.1 | fs_cc0-steps-wet／553238_5620304-hq.mp3 | Walking through puddle（NachtmahrTV，13.1 秒） |  |
+| MOV-0470 | 7.4 | fs_cc0-steps-wet／730197_14040168-hq.mp3 | mudsteps（saha213131，7.4 秒） |  |
+| MOV-0471 | 2.5 | fs_cc0-steps-wet／781080_13216015-hq.mp3 | running on wet grass（saangosu，2.5 秒） |  |
+| MOV-0472 | 9.9 | fs_cc0-steps-wet／79874_1227539-hq.mp3 | Walking by in the Rain Short.wav（RoofDog，9.9 秒） |  |
+| MOV-0473 | 9.6 | fs_cc0-steps-wet／803193_11468367-hq.mp3 | Wet Slaps/Footsteps（letaidye，9.6 秒） |  |
+| MOV-0474 | 4.2 | fs_cc0-steps-wood／119913_1990698-hq.mp3 | Footsteps on Wooden Floor and Carpet.aif（ftpalad，4.2 秒） |  |
+| MOV-0475 | 5.8 | fs_cc0-steps-wood／119914_1990698-hq.mp3 | Footsteps on Wooden Floor.aif（ftpalad，5.8 秒） |  |
+| MOV-0476 | 8.1 | fs_cc0-steps-wood／138123_1572282-hq.mp3 | Footsteps on Wood（snakebarney，8.1 秒） |  |
+| MOV-0477 | 1.7 | fs_cc0-steps-wood／195135_3630569-hq.mp3 | Walking on wood 2.wav（Philter137，1.7 秒） |  |
+| MOV-0478 | 17.0 | fs_cc0-steps-wood／198962_3138963-hq.mp3 | footsteps on wood（Mydo1，17.0 秒） |  |
+| MOV-0479 | 16.4 | fs_cc0-steps-wood／210572_985466-hq.mp3 | FootstepsOnCreakyWood.wav（Sclolex，16.4 秒） |  |
+| MOV-0480 | 19.5 | fs_cc0-steps-wood／210573_985466-hq.mp3 | FootstepsOnWoodenStairs.wav（Sclolex，19.5 秒） |  |
+| MOV-0481 | 17.0 | fs_cc0-steps-wood／362777_2940947-hq.mp3 | Walking_Wood.mp3（taure，17.0 秒） |  |
+| MOV-0482 | 11.8 | fs_cc0-steps-wood／389658_7158173-hq.mp3 | Footsteps; running; wood; sneakers; consistently close.wav（TylerAM，11.8 秒） |  |
+| MOV-0483 | 15.0 | fs_cc0-steps-wood／389792_6136319-hq.mp3 | Barefeet Walking on Wooden Floor.wav（krnash，15.0 秒） |  |
+| MOV-0484 | 4.4 | fs_cc0-steps-wood／398784_5923045-hq.mp3 | footsteps - wood stairs 02.wav（Anthousai，4.4 秒） |  |
+| MOV-0485 | 5.1 | fs_cc0-steps-wood／405114_5337613-hq.mp3 | WoodType_1_Footstep_Sneakers.wav（monte32，5.1 秒） |  |
+| MOV-0486 | 3.8 | fs_cc0-steps-wood／405115_5337613-hq.mp3 | WoodType_1_Footstep_MensDressShoe_.wav（monte32，3.8 秒） |  |
+| MOV-0487 | 1.5 | fs_cc0-steps-wood／422858_6613468-hq.mp3 | Footsteps_Wood_02.wav（IPaddeh，1.5 秒） |  |
+| MOV-0488 | 10.9 | fs_cc0-steps-wood／426620_8238671-hq.mp3 | Footsteps on Wood Floor.wav（mrh4hn，10.9 秒） |  |
+| MOV-0489 | 7.4 | fs_cc0-steps-wood／444713_7262854-hq.mp3 | 42. Pasos descalzo madera Steps on wood.wav（cabusta9，7.4 秒） |  |
+| MOV-0490 | 13.1 | fs_cc0-steps-wood／451142_612689-hq.mp3 | footsteps shoes hollow wood platform.flac（kyles，13.1 秒） |  |
+| MOV-0491 | 18.0 | fs_cc0-steps-wood／485421_9616576-hq.mp3 | Footsteps on wood floor（IENBA，18.0 秒） |  |
+| MOV-0492 | 6.0 | fs_cc0-steps-wood／494566_3489769-hq.mp3 | Running on wooden floorboards.wav（775noise，6.0 秒） |  |
+| MOV-0493 | 13.2 | fs_cc0-steps-wood／494570_3489769-hq.mp3 | Walking on wooden floorboards（775noise，13.2 秒） |  |
+| MOV-0494 | 11.0 | fs_cc0-steps-wood／505836_4024739-hq.mp3 | footsteps wooden stairs barefoot.wav（jedg，11.0 秒） |  |
+| MOV-0495 | 10.4 | fs_cc0-steps-wood／531013_9818404-hq.mp3 | Socks on wood footsteps.wav（Noted451，10.4 秒） |  |
+| MOV-0496 | 13.6 | fs_cc0-steps-wood／546362_12222745-hq.mp3 | Footsteps on wooden floor.wav（PanosA，13.6 秒） |  |
+| MOV-0497 | 15.2 | fs_cc0-steps-wood／575897_3283195-hq.mp3 | 2. Wood staircase, old, creaking, footsteps.WAV（VMan533，15.2 秒） |  |
+| MOV-0498 | 18.1 | fs_cc0-steps-wood／575898_3283195-hq.mp3 | wooden floor, old, creaking, footsteps, walking.WAV（VMan533，18.2 秒） |  |
+| MOV-0499 | 4.6 | fs_cc0-steps-wood／630010_13805381-hq.mp3 | WOOD FOOTSTEPS.wav（trexlasso，4.6 秒） |  |
+| MOV-0500 | 17.0 | fs_cc0-steps-wood／682774_14662423-hq.mp3 | Walking footsteps on wood.WAV（thomasanthony321，17.0 秒） |  |
+| MOV-0501 | 9.8 | fs_cc0-steps-wood／766213_15695817-hq.mp3 | FEETHmn_Int_Running on Wooden Floor_Kgopong_OwSFX（kgopong，9.8 秒） |  |
+| MOV-0502 | 12.1 | fs_cc0-steps-wood／817482_14899252-hq.mp3 | FEETHmn_Squeaky Wooden Parquet Footsteps（evghenifloca，12.1 秒） |  |
+| MOV-0503 | 16.3 | fs_cc0-steps-wood／85687_1275446-hq.mp3 | Footsteps_Squeeky_Wood.aif（tmkappelt，16.3 秒） |  |
 
-## MUS 音樂（592）
+## MUS 音樂（717）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -3967,6 +4340,131 @@
 | MUS-0608 | 4.9 | snabisch_victory／Victory.wav | 2A03 Victory fanfare |  |
 | MUS-0609 | 4.9 | snabisch_victory／Victory_0.mp3 | 2A03 Victory fanfare |  |
 | MUS-0610 | 3.0 | technopeasant_better-luck-next-time／betterluck_0.ogg | Short chiptune music sting, for a level restart or failure screen.Made with TIC-80 for https://congusbongus.itch.io/road-txtr |  |
+| MUS-0611 | 189.4 | anubis4272_blackout／blackout_3mzut0qtwao.mp3 | Music inspired from Frish Cracks (Lights Out)I made this for fun, if you wanna use it, go for it!(You can credit but you're not obligated to!) PLEASE tell me ab |  |
+| MUS-0612 | 34.0 | bobjt_humans-and-monsters-lived-together-in-harmony／humans-and-monsters-lived-together-in-harmony.wav | Heartfelt intro cutscene music for videogames. Inspired by the Undertale intro song. |  |
+| MUS-0613 | 34.0 | bobjt_humans-and-monsters-lived-together-in-harmony／humans-and-monsters-lived-together-in-harmony_0.ogg | Heartfelt intro cutscene music for videogames. Inspired by the Undertale intro song. |  |
+| MUS-0614 | 49.3 | bobjt_mirror-lake／Mirror Lake.mp3 | Doing the 21 Days of VGM challenge again, so here is one for today. |  |
+| MUS-0615 | 87.0 | bobjt_omw-to-beat-the-big-bad／omw-to-beat-the-big-bad.wav | Heroic electronic dance music to approach the baddies with confidence. |  |
+| MUS-0616 | 87.0 | bobjt_omw-to-beat-the-big-bad／omw-to-beat-the-big-bad_0.ogg | Heroic electronic dance music to approach the baddies with confidence. |  |
+| MUS-0617 | 194.0 | calyad_i-want-to-go-home／i_want_to_go_home.wav | A more sentimental version of Nostalgic Piano by Rafael Krux, which is available for commercial and non-commercial purposes free of attribution (Creative Common |  |
+| MUS-0618 | 220.8 | darkvinter_liquid-flame／Of Far Different Nature - Liquid Flame (CC0).mp3 | UPDATE: This track has been re-released as a seamlessly looping version as part of Loop Box #4!LOOP BOX #1 ／ #2 ／ #3 ／ #4______________________Dreamy, deep, ele |  |
+| MUS-0619 | 220.8 | darkvinter_liquid-flame／Of Far Different Nature - Liquid Flame (CC0)_0.wav | UPDATE: This track has been re-released as a seamlessly looping version as part of Loop Box #4!LOOP BOX #1 ／ #2 ／ #3 ／ #4______________________Dreamy, deep, ele |  |
+| MUS-0620 | 28.1 | felis-chaus_theme-of-the-wasp／Theme of the Wasp.wav | This is the intro music for my animated short film "Flight of the Wasp" - created in Mixcraft. Thought I might as well release it to the public domain. |  |
+| MUS-0621 | 114.3 | ge0_boss-battle-theme／CleytonRX - Battle RPG Theme Var_0.ogg | Music: Battle RPG ThemeLooped: Yes.Format: MP3, OGG(variation).--Your feedback is highly appreciated! |  |
+| MUS-0622 | 171.5 | ge0_boss-battle-theme／CleytonRX - Battle RPG Theme_1.mp3 | Music: Battle RPG ThemeLooped: Yes.Format: MP3, OGG(variation).--Your feedback is highly appreciated! |  |
+| MUS-0623 | 234.7 | gelosia_complicated-feelings／complicated_feelings_1.ogg | Simple E-Piano and pad arrangement. B Phrygian 3 main verse chord progressions and one "chorus" progression. Calm and bitter but with some odd ambiguity. And ve |  |
+| MUS-0624 | 312.9 | gelosia_complicated-feelings／complicated_feelings_slowplusreverb.ogg | Simple E-Piano and pad arrangement. B Phrygian 3 main verse chord progressions and one "chorus" progression. Calm and bitter but with some odd ambiguity. And ve |  |
+| MUS-0625 | 162.0 | harlancore_snow-city-theme／snow_city.mp3 | Let me know what you think! Contact me if you need me to edit anything for your game |  |
+| MUS-0626 | 368.0 | hitctrl_boss-battle-3／Boss Space Battle.wav | Please Check Out My Blog. https://prosensory.blogspot.com/ |  |
+| MUS-0627 | 224.0 | hitctrl_i-dreamed-of-you-last-night／I Dreamt Of You Last Night .wav | Please Check Out My Blog. https://prosensory.blogspot.com/ |  |
+| MUS-0628 | 188.4 | hitctrl_paralysis／PARALYSIS.wav | a melodramatic song that shifts somewhat drastically into an upbeat chaotic beat, with some 80's horror vibes |  |
+| MUS-0629 | 95.8 | jaidynreiman_battle-theme-a／battleThemeA.mp3 | Epic battle theme for RPG. Some pretty epic strings and horns here will add a lot of excitement to your game or projects! CC0 Public Domain license is the best! |  |
+| MUS-0630 | 93.1 | josepharaoh99_dark-forest-theme／GameMusic_ForestTheme_24_0.mp3 | Dark brooding accoustic guitar and strings will set a spooky mood for your game! Great for an RPG or dungeon level.This is for my game Pixelsphere http://pixels |  |
+| MUS-0631 | 292.1 | loki42_80s-mysterywave-music／background_piano.wav | Non-lowpass version of a soundtrack used in the GameDevTV 2026 Gamejam for the murder mystery game Red Threads: https://vulcania.itch.io/red-threadsYou are free |  |
+| MUS-0632 | 288.1 | loki42_80s-mysterywave-music／base_1.wav | Non-lowpass version of a soundtrack used in the GameDevTV 2026 Gamejam for the murder mystery game Red Threads: https://vulcania.itch.io/red-threadsYou are free |  |
+| MUS-0633 | 288.1 | loki42_80s-mysterywave-music／drum_machine.wav | Non-lowpass version of a soundtrack used in the GameDevTV 2026 Gamejam for the murder mystery game Red Threads: https://vulcania.itch.io/red-threadsYou are free |  |
+| MUS-0634 | 298.0 | loki42_80s-mysterywave-music／full_track.mp3 | Non-lowpass version of a soundtrack used in the GameDevTV 2026 Gamejam for the murder mystery game Red Threads: https://vulcania.itch.io/red-threadsYou are free |  |
+| MUS-0635 | 298.0 | loki42_80s-mysterywave-music／lead_wobbling.wav | Non-lowpass version of a soundtrack used in the GameDevTV 2026 Gamejam for the murder mystery game Red Threads: https://vulcania.itch.io/red-threadsYou are free |  |
+| MUS-0636 | 280.5 | loki42_80s-mysterywave-music／melody_guitar.wav | Non-lowpass version of a soundtrack used in the GameDevTV 2026 Gamejam for the murder mystery game Red Threads: https://vulcania.itch.io/red-threadsYou are free |  |
+| MUS-0637 | 303.4 | looneybits_midnight／Midnight - HQ.wav | A melancholy yet inspiring melody. Not sure what it could be used for - but I'd rather have it do something useful than just sit on my hard drive.Completely fre |  |
+| MUS-0638 | 303.4 | looneybits_midnight／Midnight - LQ.mp3 | A melancholy yet inspiring melody. Not sure what it could be used for - but I'd rather have it do something useful than just sit on my hard drive.Completely fre |  |
+| MUS-0639 | 303.4 | looneybits_midnight／Midnight.mp3 | A melancholy yet inspiring melody. Not sure what it could be used for - but I'd rather have it do something useful than just sit on my hard drive.Completely fre |  |
+| MUS-0640 | 40.5 | looneybits_simple-piano-chords／chords.wav | A very short semi-improvised piano piece. |  |
+| MUS-0641 | 37.6 | looneybits_simple-piano-chords／chords2.wav | A very short semi-improvised piano piece. |  |
+| MUS-0642 | 82.3 | looping-leaf_intro-music-0／game_1.mp3 | Basically a misterious-ish melody that could be used for your main menu screen. Planed to use it in my own game, but that went to the trash xD |  |
+| MUS-0643 | 112.3 | luca-pixel_ending-scene／Ending Scene V3.wav | Version 1, slightly.. metal/rock (?) mixed up with orchestral. It could be used for other parts than jstu ending.V2 is just slightly different mastering. It sou |  |
+| MUS-0644 | 145.9 | luca-pixel_ending-scene／Ending.wav | Version 1, slightly.. metal/rock (?) mixed up with orchestral. It could be used for other parts than jstu ending.V2 is just slightly different mastering. It sou |  |
+| MUS-0645 | 145.8 | luca-pixel_ending-scene／ending_scene_orchestral.wav | Version 1, slightly.. metal/rock (?) mixed up with orchestral. It could be used for other parts than jstu ending.V2 is just slightly different mastering. It sou |  |
+| MUS-0646 | 145.8 | luca-pixel_ending-scene／endingv2.wav | Version 1, slightly.. metal/rock (?) mixed up with orchestral. It could be used for other parts than jstu ending.V2 is just slightly different mastering. It sou |  |
+| MUS-0647 | 153.6 | medicinestorm_steller-dreams／steller_dreams.flac | A Warm, drifting synth layer unfolds slowly into vast, weightless space—subtle pulses and shimmering textures create a meditative, starlit atmosphere for deep l |  |
+| MUS-0648 | 37.5 | metashinryu_space-music／spaceship.wav | Some music for your basic space shooter game. |  |
+| MUS-0649 | 8.6 | mhmd_game-over-theme-ii／Game Over Theme II/Game Over II ~ v1.ogg |  |  |
+| MUS-0650 | 8.6 | mhmd_game-over-theme-ii／Game Over Theme II/Game Over II ~ v2.ogg |  |  |
+| MUS-0651 | 8.6 | mhmd_game-over-theme-ii／Game Over Theme II/Game Over II ~ v3.ogg |  |  |
+| MUS-0652 | 76.8 | mjorlaja_gods-forbid／heavens_forbid_0.ogg | Been a while...A small spacy theme |  |
+| MUS-0653 | 212.0 | modanung_orbital-graveyard／orbital_graveyard.wav | Electronic music |  |
+| MUS-0654 | 212.1 | modanung_orbital-graveyard／orbital_graveyard_0.mp3 | Electronic music |  |
+| MUS-0655 | 279.1 | mold_vivid-existence-glitch-hop／vivid existence (Original Mix)_0.mp3 | Enjoyed the song? Follow me on Soundcloud by clicking here!Still want to support me even more? Subscribe to my YouTube channel here!The song is non-copyrighted, |  |
+| MUS-0656 | 136.0 | monster-logix-studio_through-the-portal／S31-Through the Portal.ogg | Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alph |  |
+| MUS-0657 | 93.8 | naeilmwomeokjo_bouncer-0／Of Far Different Nature - Bouncer (CC0).wav | UPDATE: This track has been re-released as a seamlessly looping version as part of Loop Box #4!LOOP BOX #1 ／ #2 ／ #3 ／ #4______________________Electro Beat!I sh |  |
+| MUS-0658 | 93.8 | naeilmwomeokjo_bouncer-0／Of Far Different Nature - Bouncer (CC0)_1.mp3 | UPDATE: This track has been re-released as a seamlessly looping version as part of Loop Box #4!LOOP BOX #1 ／ #2 ／ #3 ／ #4______________________Electro Beat!I sh |  |
+| MUS-0659 | 46.1 | nayru9572_gem-popper-piano-tune／gem_popper.mp3 | Music made for the main menu of a NaaLaa example game. |  |
+| MUS-0660 | 28.1 | nukaze_deep-as-it-gets／deepasitgets.mp3 | "Deep as it gets"Music from my game Cat-Stretch Meant to be for places where there is little action but some suspense |  |
+| MUS-0661 | 209.5 | nukaze_xenocity-sleight-of-hand-glitch-hop／03 Sleight of Hand_2.mp3 | The song is non-copyrighted, so feel free to use it anywhere without permission. Although if you choose to use it for commercial uses, please contact me. |  |
+| MUS-0662 | 24.0 | oga_alien-invasion-track／alien-invasion-loop.wav | Looping Alien Invasion Track, with optional intro Made for this game for indie game clinic collab jam 26: https://ezduzziteh.itch.io/regular-golf-game |  |
+| MUS-0663 | 26.0 | oga_alien-invasion-track／alien-invasion-with-intro.wav | Looping Alien Invasion Track, with optional intro Made for this game for indie game clinic collab jam 26: https://ezduzziteh.itch.io/regular-golf-game |  |
+| MUS-0664 | 23.4 | oga_as-fast-as-you-can-drums-and-bass／as_fast_as_you_can_drams_bass_0.ogg | A small prototype of a previous submitted piece, with slower pacing and focus on Drums.V1 is base melody, V2 has additional gimmics. |  |
+| MUS-0665 | 46.8 | oga_as-fast-as-you-can-drums-and-bass／as_fast_as_you_can_v2_drams_bass_0.ogg | A small prototype of a previous submitted piece, with slower pacing and focus on Drums.V1 is base melody, V2 has additional gimmics. |  |
+| MUS-0666 | 124.4 | oga_battle-for-mars／battle_for_mars_2024-orig_loop.ogg | A remix of Bobjt's Predynastic Dawn:https://opengameart.org/content/predynastic-dawnrenamed to be consistent with the Falsedoor Meadows storyline. |  |
+| MUS-0667 | 128.9 | oga_battle-for-mars／battle_for_mars_2024-orig_with_tail.ogg | A remix of Bobjt's Predynastic Dawn:https://opengameart.org/content/predynastic-dawnrenamed to be consistent with the Falsedoor Meadows storyline. |  |
+| MUS-0668 | 171.8 | oga_battle-for-mars／battle_for_mars_2025_-_loop.ogg | A remix of Bobjt's Predynastic Dawn:https://opengameart.org/content/predynastic-dawnrenamed to be consistent with the Falsedoor Meadows storyline. |  |
+| MUS-0669 | 123.3 | oga_battle-rocky-cliffs-full-cut／battle_theme_full_song.wav | A remake of my looping song that can be found here. Battle! (Rocky Cliffs). Now with a short intro and outro. Hope you like it!In WAVE and MP3. |  |
+| MUS-0670 | 168.9 | oga_cool-0／cool_0.ogg | I decided to make this track an OGA exclusive. I like the beginning but the later parts ended up a bit weaker than I hoped. |  |
+| MUS-0671 | 391.3 | oga_cosmic-creature／cosmic_creature_14.mp3 | Electronic musicOther electronic music:https://opengameart.org/content/electronic-music |  |
+| MUS-0672 | 391.2 | oga_cosmic-creature／cosmic_creature_4.wav | Electronic musicOther electronic music:https://opengameart.org/content/electronic-music |  |
+| MUS-0673 | 96.5 | oga_creed-of-course-0／creed_of_course_0.wav | An track made for the start of a battle, a battle, or a village scene. There isn't much to it, flutes, violins, snare drums, etc. I tried making the track longe |  |
+| MUS-0674 | 170.0 | oga_dreamlike-state／drm.mp3 | Let me know what you think |  |
+| MUS-0675 | 93.2 | oga_epic-combat／epic_combat.ogg | Esta trilha sonora não tem destino, produzindo-a como um estudo |  |
+| MUS-0676 | 315.1 | oga_forbidden-exploration／deep_nothingness_0.mp3 | A long dark/mystery trance track designed for use with mystery / puzzle games. The track does not loop nicely at the moment however I may in future create a ver |  |
+| MUS-0677 | 429.2 | oga_futility-belt／futilitybelt_0.mp3 | A stoopid long edit of a synthwave/synthpop kinda tune with partly semi-random, live genrated lead parts. CC Zero, as always :) Enjoy! |  |
+| MUS-0678 | 132.8 | oga_great-labyrinthorchestral-dungeon-music／great_labyrinth_bpm160.flac | Orchestral dungeon music with sadness and power. This music is loopable.File formats are ogg and flac. |  |
+| MUS-0679 | 132.8 | oga_great-labyrinthorchestral-dungeon-music／great_labyrinth_bpm160_0.ogg | Orchestral dungeon music with sadness and power. This music is loopable.File formats are ogg and flac. |  |
+| MUS-0680 | 1135.5 | oga_isle-of-avalon／07_isle_of_avalon.ogg | A track by Kaiser that falls in to the symphonic metal / Gothic doom metal genre.Has emotional acoustic sections within the track at 4.5 minutes, 11 minutes and |  |
+| MUS-0681 | 135.2 | oga_lucid-trigger／cc0_lucid_trigger.wav | Feel free to use it for anything you like. //Metadata//Title: Lucid TriggerArtist: Liq_mmryGenre: Progressive breakBPM: 150 SoundCloud Link: https://soundcloud. |  |
+| MUS-0682 | 115.2 | oga_main-menu-theme-diamond-dust／main_screen.wav | An eerie, somewhat "Silent Hill" inspired track for the main menu of my spooky horror game , Diamond Dust. Made in Jummbox |  |
+| MUS-0683 | 36.0 | oga_misc6-pi／pi_final.ogg | A song I made on a piano (when I had one). I see this as a heroic and positive tune for a struggling boy, who was left somewhere without parents (who turned out |  |
+| MUS-0684 | 36.0 | oga_misc6-pi／pi_flex_version_3.ogg | A song I made on a piano (when I had one). I see this as a heroic and positive tune for a struggling boy, who was left somewhere without parents (who turned out |  |
+| MUS-0685 | 53.3 | oga_night-in-the-temple-of-ham／Night In The Temple Of Ham.ogg | A mysterious track, it could fit to an abandoned temple for example. |  |
+| MUS-0686 | 26.7 | oga_outlive-short-version／Outlive_Short Ver_0.mp3 | If anyone has a request that you want me to make a specific type of music. Use the comment section to let me know what type of music you want. |  |
+| MUS-0687 | 161.1 | oga_piano-melody-solo-18／pianomelodysolo18_0.ogg | Another piano solo melody |  |
+| MUS-0688 | 126.0 | oga_predynastic-dawn／1_predynastic_dawn_2024c.mp3 |  |  |
+| MUS-0689 | 126.0 | oga_predynastic-dawn／2_predynastic_dawn_2024c.ogg |  |  |
+| MUS-0690 | 107.4 | oga_predynastic-dawn／3-predynastic_dawn_2024.mp3 |  |  |
+| MUS-0691 | 107.4 | oga_predynastic-dawn／4-predynastic_dawn_2024.ogg |  |  |
+| MUS-0692 | 107.4 | oga_predynastic-dawn／5-predynastic_dawn-2023.mp3 |  |  |
+| MUS-0693 | 107.4 | oga_predynastic-dawn／6-predynastic_dawn-2023.ogg |  |  |
+| MUS-0694 | 75.8 | oga_predynastic-dawn／7-predynastic_dawn_accoustic_-_loop.mp3 |  |  |
+| MUS-0695 | 75.8 | oga_predynastic-dawn／8-predynastic_dawn_accoustic_-_loop.ogg |  |  |
+| MUS-0696 | 130.1 | oga_predynastic-dawn／predynastic_dawn_2025_battle_for_mars_0.mp3 | Inspired by the ancient-advanced version of ourselves predating dynastic egyptians, whom modern archeology recognize as the pyramid builders, despite much evide |  |
+| MUS-0697 | 130.0 | oga_predynastic-dawn／predynastic_dawn_2025_battle_for_mars_320kbps.ogg | Inspired by the ancient-advanced version of ourselves predating dynastic egyptians, whom modern archeology recognize as the pyramid builders, despite much evide |  |
+| MUS-0698 | 35.7 | oga_sad-rpg-theme-lonely-village／lonely_village.wav | Explore the story of a lonely village nestled in a sad and gloomy atmosphere, with constant rain and a sense of melancholy. Welcome to the Lonely Village There  |  |
+| MUS-0699 | 29.2 | oga_sad-rpg-theme-lonely-village／lonely_village_-_no_rain_-.wav | Explore the story of a lonely village nestled in a sad and gloomy atmosphere, with constant rain and a sense of melancholy. Welcome to the Lonely Village There  |  |
+| MUS-0700 | 129.4 | oga_the-fire-dragon／the_fire_dragon_full_version.wav | The five adventureres approached the massive Cave of Doom. To complete their quest they had to fight their way past the mighty Fire Dragon. The battle was fierc |  |
+| MUS-0701 | 111.4 | oga_the-fire-dragon／the_fire_dragon_loop.wav | The five adventureres approached the massive Cave of Doom. To complete their quest they had to fight their way past the mighty Fire Dragon. The battle was fierc |  |
+| MUS-0702 | 111.4 | oga_the-fire-dragon／the_fire_dragon_loopv2.wav | The five adventureres approached the massive Cave of Doom. To complete their quest they had to fight their way past the mighty Fire Dragon. The battle was fierc |  |
+| MUS-0703 | 136.0 | oga_the-fire-dragon／the_fire_dragon_v2.wav | The five adventureres approached the massive Cave of Doom. To complete their quest they had to fight their way past the mighty Fire Dragon. The battle was fierc |  |
+| MUS-0704 | 219.2 | oga_the-hope／Hope.mp3 | Easy cheap orchestra music. |  |
+| MUS-0705 | 263.0 | oga_thor-bring-me-victory／03_thor_bring_me_victory.flac | A track by Kaiser that falls in to the symphonic black metal / Gothic doom metal genreContains Viking themed lyrics |  |
+| MUS-0706 | 123.4 | oga_unstable-pulse／unstable_pulse_0.mp3 | lmms music |  |
+| MUS-0707 | 186.3 | oga_white-limestone／white_limestone_-_extended_0.ogg | 3-chord jam with a high-energy vibe. Same chords as (https://opengameart.org/content/osiris-monolith) although different key.Pretty repetitious, so key changes  |  |
+| MUS-0708 | 186.4 | oga_white-limestone／white_limestone_-_extended_3.mp3 | 3-chord jam with a high-energy vibe. Same chords as (https://opengameart.org/content/osiris-monolith) although different key.Pretty repetitious, so key changes  |  |
+| MUS-0709 | 99.5 | oga_white-limestone／white_limestone_-_original_short_0.ogg | 3-chord jam with a high-energy vibe. Same chords as (https://opengameart.org/content/osiris-monolith) although different key.Pretty repetitious, so key changes  |  |
+| MUS-0710 | 184.8 | oga_white-limestone／white_limestone_piano_0.mp3 | 3-chord jam with a high-energy vibe. Same chords as (https://opengameart.org/content/osiris-monolith) although different key.Pretty repetitious, so key changes  |  |
+| MUS-0711 | 152.0 | oga_zen-theme／trippington_in_game.ogg | A trippy, zen, atmospheric theme from a game I didn't finish over a decade ago. I think it was meant to be for either a transcendental experience or a town you  |  |
+| MUS-0712 | 73.8 | oga_zenostar／xenostar2loop__0.ogg | A work under progress but sounded good s it is, so uploading it.It is intended for a enemy spaceship kind of setting. So slightly techno feel. |  |
+| MUS-0713 | 56.0 | reemax_in-the-middle-of-nowhere／unknown_space_ambience.mp3 | a chill guitar based music, on a request for a game jam |  |
+| MUS-0714 | 96.0 | reemax_in-the-middle-of-nowhere／unknown_space_bassed_0.mp3 | a chill guitar based music, on a request for a game jam |  |
+| MUS-0715 | 29.5 | reemax_no-stars／no_starsmixered_0.ogg | A prototype..Constuctive feedback appreciated. |  |
+| MUS-0716 | 144.0 | snabisch_200-production／S31-200% Production.ogg | Just starting to mess around with making music. Free to use for anybody who might find it useful. This is for my game, Star Shift Alpha. |  |
+| MUS-0717 | 134.7 | snabisch_android-with-epilepsy／Android With Epilepsy.ogg | It's a weird one... |  |
+| MUS-0718 | 227.9 | snabisch_bright-glitch-dnb-theme-piano／i++.mp3 | Released under public domain.MP3 320 kbps. |  |
+| MUS-0719 | 148.0 | snabisch_c1-bgm／00 Unknown Track_1.mp3 | CC0, MP3, FLAC |  |
+| MUS-0720 | 148.0 | snabisch_c1-bgm／c1.flac | CC0, MP3, FLAC |  |
+| MUS-0721 | 428.0 | snabisch_dark-jays-theme／dj_0.ogg | ... |  |
+| MUS-0722 | 103.8 | snabisch_deep-space-array／Spacearray_0.ogg | This is an errie piece I made. Very bizzare. Energy Array near a seashore on some distant far away world. |  |
+| MUS-0723 | 58.7 | snabisch_hella-bumps-menu-music／hella bumps_0.mp3 | Hella Bumps - Fun and upbeat dance/house music for addictive intro, menu or end game credits. Please credit -- The Cynic Project / pixelsphere.orgCC0 Public Dom |  |
+| MUS-0724 | 220.0 | snabisch_on-patrol／S31-On Patrol.ogg | Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. This is for my game, Star Shift Alph |  |
+| MUS-0725 | 48.0 | snabisch_short-theme-rockmetal／Short Theme V2.wav | I'm not completely sure a bout this genre. Mixed with, rock or metal and electronic as well.Added V2! |  |
+| MUS-0726 | 56.0 | snabisch_short-theme-rockmetal／Short Theme_0.wav | I'm not completely sure a bout this genre. Mixed with, rock or metal and electronic as well.Added V2! |  |
+| MUS-0727 | 207.4 | spiderdave_futuristic-resources／S31-Futuristic-Resources.ogg | Just starting to mess around with making music, forgive my lack of skill. Free to use for anybody who might find it useful. |  |
+| MUS-0728 | 129.0 | spring-spring_tech-rave／TechRave.wav | Dance! |  |
+| MUS-0729 | 62.5 | spring-spring_tech-rave／TechRaveFaster.wav | Dance! |  |
+| MUS-0730 | 234.7 | szymax_strange-dnb-piano-theme／At 5'pm (promodj.com).mp3 | Released under public domain.MP3 320 kbps. |  |
+| MUS-0731 | 155.4 | tinyworlds_mild-action-track／level32_2.ogg | just a track, it is loopable, if features some monster crunch sound fx |  |
+| MUS-0732 | 54.9 | trippy_magic-space／magic space.mp3 | Small piece featuring an uplifting sci-fi ambience. Public domain as always, use it at will. |  |
+| MUS-0733 | 538.0 | tsorthan-grove_eternal-sleep／10_eternal_sleep.flac | A track by Kaiser that falls in to the Dark ambient / Dungeon synth genreThis track is Instrumental |  |
+| MUS-0734 | 106.7 | yosoychiro_technological-messup／tecnological_messup_v2_0.ogg | techno track, use it as ya like |  |
+| MUS-0735 | 64.0 | zelta_a-start-to-space／a_start_to_spacev3.24_0.ogg | a small techno theme |  |
 
 ## OTH 其他（382）
 

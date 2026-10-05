@@ -33,6 +33,9 @@ CATEGORIES = {
 EXCLUDE = r"announcer|arenacombat"
 
 RULES: list[tuple[str, str]] = [
+    # Freesound 專題素材包（add_freesound.py）：檔名只有編號，靠素材包名稱歸類
+    ("ELC", r"^fs_cc0-(emp|overload|ability-ready)/"),
+    ("ITM", r"^fs_cc0-pickup/"),
     ("UIS", r"interface-sounds|ui-audio|ui-sound|/ui_|menu_|rollover|confirmation_|_ui\b|buttons-switches|button-sfx"),
     ("RLD", r"reload|clipload|singlebullet|shotguncock|shotgun-reload|magazine|dryfire|equipment-click|lock-or-click|\brack\b|shell in chamber|gunreload|cocking|\bcock\b|loading|\bclip\b|eject|breech|pulling back hammer|cylinder|gun movement|handling"),
     ("GUN", r"firearm|gunshot|gun-shot|gun_shot|cannon-fire|cannon_fire|bigshot|smallshot|silencer|shotgun|rifle|pistol|handgun|\bsmg\b|bullet|/gun|-gun|gun-|/shot|_shot"),

@@ -25,7 +25,7 @@ PLACEMENTS = ROOT / "design" / "16-audio" / "PLACEMENTS.md"
 CATALOG_MD = ROOT / "design" / "16-audio" / "CATALOG.md"
 
 # 這些域的備選上限比 --max-candidates 高（槍聲與背景音樂的來源多，挑的空間要夠）；已有的備選保留，新素材接在後面。
-DOMAIN_MAX = {"WPN": 60, "BGM": 60, "CHR": 60}
+DOMAIN_MAX = {"WPN": 60, "BGM": 120, "CHR": 60, "ENV": 40, "MOV": 40}
 DOMAINS = {"WPN": "武器", "HIT": "命中與材質", "CHR": "角色", "MOV": "移動與腳步", "ENV": "機關與場景互動", "UIS": "介面", "AMB": "環境音", "BGM": "背景音樂"}
 ROW = re.compile(r"^\|\s*(P-[A-Z]+-\d{3})\s*\|")
 
