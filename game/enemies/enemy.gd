@@ -344,7 +344,7 @@ func _guard_with_shield(info: DamageInfo) -> Hurtbox.Guard:
 	if shield > 0:
 		shield -= 1
 		Fx.impact(_center(), Vector2(-signf(info.knockback.x) if info.knockback.x != 0.0 else -facing, -0.3), Palette.CYAN, 6)
-		Sfx.play(&"block", -4.0)
+		Sfx.play(&"guard_break" if shield == 0 else &"block", -6.0 if shield == 0 else -4.0)
 		return Hurtbox.Guard.BLOCK
 	return _guard(info)
 

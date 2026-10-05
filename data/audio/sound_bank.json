@@ -10,7 +10,7 @@
    ],
    "pack": "oga_the-free-firearm-sound-library",
    "volume_db": -1.0,
-   "choke_ms": 70,
+   "choke_ms": 70.0,
    "speed_files": {
     "1.25": [
      "res://audio/sfx/shot_pistol_01_x125.ogg",
@@ -40,7 +40,7 @@
     "res://audio/sfx/shot_rifle_04.ogg"
    ],
    "pack": "oga_the-free-firearm-sound-library",
-   "choke_ms": 70,
+   "choke_ms": 70.0,
    "speed_files": {
     "1.25": [
      "res://audio/sfx/shot_rifle_01_x125.ogg",
@@ -72,7 +72,7 @@
    ],
    "pack": "oga_the-free-firearm-sound-library",
    "volume_db": -2.0,
-   "choke_ms": 70,
+   "choke_ms": 70.0,
    "speed_files": {
     "1.25": [
      "res://audio/sfx/shot_smg_01_x125.ogg",
@@ -107,7 +107,7 @@
    ],
    "pack": "oga_the-free-firearm-sound-library",
    "volume_db": 1.0,
-   "choke_ms": 70,
+   "choke_ms": 70.0,
    "speed_files": {
     "1.25": [
      "res://audio/sfx/shot_spread_01_x125.ogg",
@@ -143,7 +143,7 @@
     "oga_cannon-fire"
    ],
    "volume_db": 0.0,
-   "choke_ms": 70,
+   "choke_ms": 70.0,
    "speed_files": {
     "1.25": [
      "res://audio/sfx/shot_launcher_01_x125.ogg",
@@ -169,7 +169,7 @@
     "oga_action-gameshmup-sfx-pack"
    ],
    "volume_db": 0.0,
-   "choke_ms": 70,
+   "choke_ms": 70.0,
    "speed_files": {
     "1.25": [
      "res://audio/sfx/shot_railgun_01_x125.ogg",
@@ -196,8 +196,8 @@
     "kenney_sci-fi-sounds",
     "oga_action-gameshmup-sfx-pack"
    ],
-   "volume_db": -2.0,
-   "choke_ms": 70,
+   "volume_db": 9.5,
+   "choke_ms": 70.0,
    "speed_files": {
     "1.25": [
      "res://audio/sfx/shot_laser_01_x125.ogg",
@@ -229,7 +229,7 @@
     "oga_cannon-fire"
    ],
    "volume_db": 2.0,
-   "choke_ms": 70,
+   "choke_ms": 70.0,
    "speed_files": {
     "1.25": [
      "res://audio/sfx/shot_cannon_01_x125.ogg",
@@ -416,7 +416,7 @@
     "res://audio/sfx/reload_start_energy_02.ogg"
    ],
    "pack": "kenney_sci-fi-sounds",
-   "volume_db": -2.0
+   "volume_db": 5.0
   },
   "reload_mid_energy": {
    "files": [
@@ -424,7 +424,7 @@
     "res://audio/sfx/reload_mid_energy_02.ogg"
    ],
    "pack": "kenney_sci-fi-sounds",
-   "volume_db": -2.0
+   "volume_db": 5.5
   },
   "reload_done_energy": {
    "files": [
@@ -432,7 +432,7 @@
     "res://audio/sfx/reload_done_energy_02.ogg"
    ],
    "pack": "kenney_digital-audio",
-   "volume_db": -4.0
+   "volume_db": 5.5
   },
   "empty_ballistic": {
    "files": [
@@ -696,7 +696,7 @@
     "res://audio/sfx/hit_weak_02.ogg",
     "res://audio/sfx/hit_weak_03.ogg"
    ],
-   "pack": "kenney_impact-sounds",
+   "pack": "fs_cc0-headshot",
    "volume_db": -2.0
   },
   "block": {
@@ -716,9 +716,13 @@
    "files": [
     "res://audio/sfx/kill_01.ogg",
     "res://audio/sfx/kill_02.ogg",
-    "res://audio/sfx/kill_03.ogg"
+    "res://audio/sfx/kill_03.ogg",
+    "res://audio/sfx/kill_04.ogg"
    ],
-   "pack": "kenney_impact-sounds",
+   "pack": [
+    "fs_cc0-kill-burst",
+    "oga_deep-bone-crackbreak-sfx"
+   ],
    "volume_db": 0.0
   },
   "explosion": {
@@ -746,7 +750,7 @@
     "oga_25-cc0-bang-firework-sfx",
     "oga_explosions-4"
    ],
-   "volume_db": -2.0
+   "volume_db": 2.0
   },
   "hurt": {
    "files": [
@@ -855,11 +859,14 @@
   },
   "guard_break": {
    "files": [
-    "res://audio/sfx/guard_break_01.ogg"
+    "res://audio/sfx/guard_break_01.ogg",
+    "res://audio/sfx/guard_break_02.ogg",
+    "res://audio/sfx/guard_break_03.ogg",
+    "res://audio/sfx/guard_break_04.ogg"
    ],
    "pack": [
-    "oga_75-cc0-breaking-falling-hit-sfx",
-    "oga_electricity-game-sound-pack"
+    "fs_cc0-shield-break",
+    "oga_unleeched-sound-effects-pack"
    ],
    "volume_db": 0.0
   },
@@ -1045,9 +1052,14 @@
    "files": [
     "res://audio/sfx/crate_break_01.ogg",
     "res://audio/sfx/crate_break_02.ogg",
-    "res://audio/sfx/crate_break_03.ogg"
+    "res://audio/sfx/crate_break_03.ogg",
+    "res://audio/sfx/crate_break_04.ogg",
+    "res://audio/sfx/crate_break_05.ogg"
    ],
-   "pack": "oga_75-cc0-breaking-falling-hit-sfx",
+   "pack": [
+    "fs_cc0-crate-break",
+    "oga_75-cc0-breaking-falling-hit-sfx"
+   ],
    "volume_db": 0.0
   },
   "glass_break": {
@@ -1055,9 +1067,13 @@
     "res://audio/sfx/glass_break_01.ogg",
     "res://audio/sfx/glass_break_02.ogg",
     "res://audio/sfx/glass_break_03.ogg",
-    "res://audio/sfx/glass_break_04.ogg"
+    "res://audio/sfx/glass_break_04.ogg",
+    "res://audio/sfx/glass_break_05.ogg"
    ],
-   "pack": "oga_75-cc0-breaking-falling-hit-sfx",
+   "pack": [
+    "fs_cc0-glass-break",
+    "oga_75-cc0-breaking-falling-hit-sfx"
+   ],
    "volume_db": -2.0
   },
   "telegraph": {

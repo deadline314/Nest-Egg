@@ -1359,7 +1359,7 @@ func _run_lab_voice() -> void:
 	get_window().content_scale_mode = scale_mode_before
 
 
-## 音效實驗室的位置與備選分頁：電磁脈衝位置，備選裡新增的 Freesound 音效。
+## 音效實驗室的位置與備選分頁：打中弱點位置，備選裡新增的爆頭 Freesound 音效。
 func _run_lab_sources() -> void:
 	var scale_mode_before := get_window().content_scale_mode
 	get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
@@ -1367,11 +1367,11 @@ func _run_lab_sources() -> void:
 	lab.stage_enabled = false
 	add_child(lab)
 	await _settle(20)
-	lab.slots_tab.select_slot("P-ENV-005")
+	lab.slots_tab.select_slot("P-HIT-006")
 	await _settle(10)
 	var list: ItemList = lab.slots_tab._candidate_list
 	for i in list.item_count:
-		if str(lab.catalog.asset(str(list.get_item_metadata(i))).get("pack", "")).contains("fs_cc0-emp"):
+		if str(lab.catalog.asset(str(list.get_item_metadata(i))).get("pack", "")).contains("fs_cc0-headshot"):
 			list.select(i)
 			list.item_selected.emit(i)
 			break

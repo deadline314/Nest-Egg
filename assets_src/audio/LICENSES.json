@@ -71,6 +71,90 @@
    "res://audio/music/calm_shaft_deep.ogg"
   ]
  },
+ "fs_cc0-crate-break": {
+  "title": "Freesound CC0：木箱破壞",
+  "author": "Freesound 使用者（逐檔作者見 hints.json）",
+  "license": "CC0-1.0",
+  "page": "https://freesound.org/search/?q=crate+break&f=license%3A%22Creative+Commons+0%22",
+  "files_used": [
+   "667652_3271378-hq.mp3",
+   "667653_3271378-hq.mp3",
+   "66780_242154-hq.mp3",
+   "856630_18864416-hq.mp3"
+  ],
+  "outputs": [
+   "res://audio/sfx/crate_break_02.ogg",
+   "res://audio/sfx/crate_break_03.ogg",
+   "res://audio/sfx/crate_break_04.ogg",
+   "res://audio/sfx/crate_break_05.ogg"
+  ]
+ },
+ "fs_cc0-glass-break": {
+  "title": "Freesound CC0：玻璃破碎",
+  "author": "Freesound 使用者（逐檔作者見 hints.json）",
+  "license": "CC0-1.0",
+  "page": "https://freesound.org/search/?q=glass+break&f=license%3A%22Creative+Commons+0%22",
+  "files_used": [
+   "141563_1422573-hq.mp3",
+   "233605_3610778-hq.mp3",
+   "244238_3156517-hq.mp3",
+   "371094_6901532-hq.mp3"
+  ],
+  "outputs": [
+   "res://audio/sfx/glass_break_02.ogg",
+   "res://audio/sfx/glass_break_03.ogg",
+   "res://audio/sfx/glass_break_04.ogg",
+   "res://audio/sfx/glass_break_05.ogg"
+  ]
+ },
+ "fs_cc0-headshot": {
+  "title": "Freesound CC0：爆頭與弱點命中",
+  "author": "Freesound 使用者（逐檔作者見 hints.json）",
+  "license": "CC0-1.0",
+  "page": "https://freesound.org/search/?q=headshot&f=license%3A%22Creative+Commons+0%22",
+  "files_used": [
+   "322640_5534635-hq.mp3",
+   "660769_5334162-hq.mp3",
+   "869107_15176424-hq.mp3"
+  ],
+  "outputs": [
+   "res://audio/sfx/hit_weak_01.ogg",
+   "res://audio/sfx/hit_weak_02.ogg",
+   "res://audio/sfx/hit_weak_03.ogg"
+  ]
+ },
+ "fs_cc0-kill-burst": {
+  "title": "Freesound CC0：敵人被擊殺的碎裂與爆開",
+  "author": "Freesound 使用者（逐檔作者見 hints.json）",
+  "license": "CC0-1.0",
+  "page": "https://freesound.org/search/?q=body+burst&f=license%3A%22Creative+Commons+0%22",
+  "files_used": [
+   "42146_428447-hq.mp3",
+   "464430_6613454-hq.mp3",
+   "868641_6473503-hq.mp3"
+  ],
+  "outputs": [
+   "res://audio/sfx/kill_02.ogg",
+   "res://audio/sfx/kill_03.ogg",
+   "res://audio/sfx/kill_04.ogg"
+  ]
+ },
+ "fs_cc0-shield-break": {
+  "title": "Freesound CC0：護盾與裝甲破碎",
+  "author": "Freesound 使用者（逐檔作者見 hints.json）",
+  "license": "CC0-1.0",
+  "page": "https://freesound.org/search/?q=shield+break&f=license%3A%22Creative+Commons+0%22",
+  "files_used": [
+   "541601_7664885-hq.mp3",
+   "608685_8905624-hq.mp3",
+   "668786_2397507-hq.mp3"
+  ],
+  "outputs": [
+   "res://audio/sfx/guard_break_02.ogg",
+   "res://audio/sfx/guard_break_03.ogg",
+   "res://audio/sfx/guard_break_04.ogg"
+  ]
+ },
  "fupi_the-underground-has-been-sealed": {
   "title": "The underground has been sealed",
   "author": "Fupi",
@@ -196,13 +280,7 @@
    "res://audio/sfx/hit_c_02.ogg",
    "res://audio/sfx/hit_tail_01.ogg",
    "res://audio/sfx/hit_tail_02.ogg",
-   "res://audio/sfx/hit_weak_01.ogg",
-   "res://audio/sfx/hit_weak_02.ogg",
-   "res://audio/sfx/hit_weak_03.ogg",
    "res://audio/sfx/hurt_machine_02.ogg",
-   "res://audio/sfx/kill_01.ogg",
-   "res://audio/sfx/kill_02.ogg",
-   "res://audio/sfx/kill_03.ogg",
    "res://audio/sfx/land_01.ogg",
    "res://audio/sfx/land_02.ogg",
    "res://audio/sfx/land_03.ogg",
@@ -644,23 +722,12 @@
   "license": "CC0-1.0",
   "page": "https://opengameart.org/content/75-cc0-breaking-falling-hit-sfx",
   "files_used": [
-   "bfh1_breaking_01.ogg",
-   "bfh1_breaking_02.ogg",
-   "bfh1_breaking_03.ogg",
-   "bfh1_glass_breaking_01.ogg",
-   "bfh1_glass_breaking_02.ogg",
-   "bfh1_glass_breaking_03.ogg",
-   "bfh1_glass_breaking_04.ogg"
+   "bfh1_glass_breaking_06.ogg",
+   "bfh1_wood_falling_01.ogg"
   ],
   "outputs": [
    "res://audio/sfx/crate_break_01.ogg",
-   "res://audio/sfx/crate_break_02.ogg",
-   "res://audio/sfx/crate_break_03.ogg",
-   "res://audio/sfx/glass_break_01.ogg",
-   "res://audio/sfx/glass_break_02.ogg",
-   "res://audio/sfx/glass_break_03.ogg",
-   "res://audio/sfx/glass_break_04.ogg",
-   "res://audio/sfx/guard_break_01.ogg"
+   "res://audio/sfx/glass_break_01.ogg"
   ]
  },
  "oga_80-cc0-creature-sfx": {
@@ -805,6 +872,18 @@
    "res://audio/sfx/chomp_01.ogg"
   ]
  },
+ "oga_deep-bone-crackbreak-sfx": {
+  "title": "Deep Bone Crack/Break SFX",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/deep-bone-crackbreak-sfx",
+  "files_used": [
+   "Deep Break 5.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/kill_01.ogg"
+  ]
+ },
  "oga_defect-motor-loop": {
   "title": "(defect) motor loop",
   "author": "?",
@@ -849,7 +928,6 @@
    "res://audio/sfx/death_machine_02.ogg",
    "res://audio/sfx/emp_01.ogg",
    "res://audio/sfx/emp_02.ogg",
-   "res://audio/sfx/guard_break_01.ogg",
    "res://audio/sfx/hurt_machine_01.ogg",
    "res://audio/sfx/mat_energy_01.ogg",
    "res://audio/sfx/mat_energy_02.ogg",
@@ -1377,6 +1455,18 @@
    "res://audio/sfx/shot_spread_03.ogg",
    "res://audio/sfx/shot_spread_04.ogg",
    "res://audio/sfx/shot_spread_05.ogg"
+  ]
+ },
+ "oga_unleeched-sound-effects-pack": {
+  "title": "UnLeeched Sound Effects Pack",
+  "author": "orsi",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/unleeched-sound-effects-pack",
+  "files_used": [
+   "glass-break3.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/guard_break_01.ogg"
   ]
  },
  "oga_wind1": {

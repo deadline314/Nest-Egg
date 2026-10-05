@@ -269,7 +269,7 @@
 | AMB-0312 | 14.0 | fs_cc0-thunder／840628_16682330-hq.mp3 | Closeup Thunder Strike 01（loganzsound，14.0 秒） |  |
 | AMB-0313 | 18.1 | fs_cc0-thunder／87963_533680-hq.mp3 | thunder.wav（guitarguy1985，18.1 秒） |  |
 
-## ELC 電子與能量（678）
+## ELC 電子與能量（720）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -951,6 +951,48 @@
 | ELC-0710 | 1.9 | fs_cc0-overload／647977_10403690-hq.mp3 | 8-Bit Coin Or Power Up FX For Retro Video Games（Cloud-10，1.9 秒） |  |
 | ELC-0711 | 3.1 | fs_cc0-overload／676451_5672786-hq.mp3 | Anime Charge Sound.wav（TheLittleCrow，3.1 秒） |  |
 | ELC-0712 | 1.8 | fs_cc0-overload／701702_7862587-hq.mp3 | laser-charge.wav（StavSounds，1.8 秒） |  |
+| ELC-0713 | 0.8 | clips_sfx／ELC-0713.wav | 擷取自 ELC-0711 的 0.73–1.51 秒（Anime Charge Sound.wav（TheLittleCrow，3.1 秒）） |  |
+| ELC-0714 | 0.8 | clips_sfx／ELC-0714.wav | 擷取自 ELC-0649 的 0.00–0.78 秒（notification1（Tissman，1.7 秒）） |  |
+| ELC-0715 | 6.9 | fs_cc0-phone-dial／119849_1990690-hq.mp3 | Phone_Turnon_DialTone_Fadeout.aif（kbnevel，6.9 秒） |  |
+| ELC-0716 | 0.3 | fs_cc0-phone-dial／125099_339378-hq.mp3 | SFX DTMF 01.wav（Oddworld，0.3 秒） |  |
+| ELC-0717 | 0.3 | fs_cc0-phone-dial／125100_339378-hq.mp3 | SFX DTMF 02.wav（Oddworld，0.3 秒） |  |
+| ELC-0718 | 0.2 | fs_cc0-phone-dial／125101_339378-hq.mp3 | SFX DTMF 03.wav（Oddworld，0.2 秒） |  |
+| ELC-0719 | 5.0 | fs_cc0-phone-dial／158428_2864605-hq.mp3 | Busy Signal（ramicio，5.0 秒） |  |
+| ELC-0720 | 1.0 | fs_cc0-phone-dial／177209_3269813-hq.mp3 | 911 classic telephone Touch-Tone dialing sound (DTMF)（joanneneedsthesound，1.0 秒） |  |
+| ELC-0721 | 10.0 | fs_cc0-phone-dial／178817_2103589-hq.mp3 | DTMF_dial.mp3（Felfa，10.0 秒） |  |
+| ELC-0722 | 4.0 | fs_cc0-phone-dial／178819_2103589-hq.mp3 | dialing tone_europe.mp3（Felfa，4.0 秒） |  |
+| ELC-0723 | 1.6 | fs_cc0-phone-dial／178821_2103589-hq.mp3 | busy signal_europe.mp3（Felfa，1.6 秒） |  |
+| ELC-0724 | 12.4 | fs_cc0-phone-dial／190626_3527951-hq.mp3 | telephone 70s circle dial dialing.wav（Yakkall，12.4 秒） |  |
+| ELC-0725 | 3.3 | fs_cc0-phone-dial／245283_4474626-hq.mp3 | creepy phone dialing.wav（4ngryb1rd5numb3r10，3.3 秒） |  |
+| ELC-0726 | 6.2 | fs_cc0-phone-dial／269262_4451798-hq.mp3 | old phone dial the number（blukotek，6.2 秒） |  |
+| ELC-0727 | 9.4 | fs_cc0-phone-dial／273345_3873464-hq.mp3 | Mobile_phone_-_Dialing_tones_fast_L_Close_R_Distant.wav（othercee，9.4 秒） |  |
+| ELC-0728 | 0.9 | fs_cc0-phone-dial／315921_4557960-hq.mp3 | dialing 1.aiff（bevibeldesign，0.9 秒） |  |
+| ELC-0729 | 6.8 | fs_cc0-phone-dial／341607_5998251-hq.mp3 | Your Call Cannot Be Completed As Dialed, Please Check The Number, And Dial Again.wav（PepsiBoy428，6.8 秒） |  |
+| ELC-0730 | 6.3 | fs_cc0-phone-dial／344221_6146418-hq.mp3 | Dial Tones.wav（VSokorelos，6.3 秒） |  |
+| ELC-0731 | 4.5 | fs_cc0-phone-dial／345805_191884-hq.mp3 | Ringtone: 1960s office phone（knufds，4.5 秒） |  |
+| ELC-0732 | 8.9 | fs_cc0-phone-dial／369844_1480854-hq.mp3 | Electronic telephone, button press with beep.wav（SpliceSound，8.9 秒） |  |
+| ELC-0733 | 1.0 | fs_cc0-phone-dial／410428_3646518-hq.mp3 | iPhone_button_wake_up.wav（jamestcampbell，1.0 秒） |  |
+| ELC-0734 | 3.7 | fs_cc0-phone-dial／432313_3511350-hq.mp3 | dialing numbers.wav（1tmsounds，3.7 秒） |  |
+| ELC-0735 | 3.7 | fs_cc0-phone-dial／444392_7231443-hq.mp3 | Keypad no tone.wav（MootMcnoodles，3.7 秒） |  |
+| ELC-0736 | 13.8 | fs_cc0-phone-dial／448210_6253486-hq.mp3 | Dialing on a phone with buttons（florianreichelt，13.8 秒） |  |
+| ELC-0737 | 4.0 | fs_cc0-phone-dial／455409_7193358-hq.mp3 | Phone Off-Hook Tone.wav（AnthonyRamirez，4.0 秒） |  |
+| ELC-0738 | 10.0 | fs_cc0-phone-dial／455410_7193358-hq.mp3 | Dial Tone.wav（AnthonyRamirez，10.0 秒） |  |
+| ELC-0739 | 10.0 | fs_cc0-phone-dial／455412_7193358-hq.mp3 | Busy Tone.wav（AnthonyRamirez，10.0 秒） |  |
+| ELC-0740 | 4.4 | fs_cc0-phone-dial／456398_8031303-hq.mp3 | PHONE DIALING（SamuelGremaud，4.4 秒） |  |
+| ELC-0741 | 0.1 | fs_cc0-phone-dial／459460_7872308-hq.mp3 | Beeps - cell phone answer chirp.wav（jodybruchon，0.1 秒） |  |
+| ELC-0742 | 1.7 | fs_cc0-phone-dial／466832_9159316-hq.mp3 | Phone Dial（Breviceps，1.7 秒） |  |
+| ELC-0743 | 4.2 | fs_cc0-phone-dial／50700_179538-hq.mp3 | Cell Phone Interference Noise 2.wav（RutgerMuller，4.2 秒） |  |
+| ELC-0744 | 0.2 | fs_cc0-phone-dial／54409_497386-hq.mp3 | Phone Beep 2.wav（KorgMS2000B，0.2 秒） |  |
+| ELC-0745 | 5.7 | fs_cc0-phone-dial／556499_10713160-hq.mp3 | Rotary Phone Ring loopable（cookies+policy，5.7 秒） |  |
+| ELC-0746 | 13.9 | fs_cc0-phone-dial／567315_97550-hq.mp3 | answering machine beeps clicks phone line hum april 95.wav（TRP，13.9 秒） |  |
+| ELC-0747 | 4.0 | fs_cc0-phone-dial／582031_8175772-hq.mp3 | TELEFONILLO BEEP DOOR PHONE.wav（afectos.de.sonido，4.0 秒） |  |
+| ELC-0748 | 12.9 | fs_cc0-phone-dial／610190_7254895-hq.mp3 | Phone: Rotary Dial（BennettFilmTeacher，12.9 秒） |  |
+| ELC-0749 | 0.2 | fs_cc0-phone-dial／616821_97550-hq.mp3 | Cell phone beep (2012).wav（TRP，0.2 秒） |  |
+| ELC-0750 | 11.6 | fs_cc0-phone-dial／620219_10334845-hq.mp3 | Call Can Not Be Completed As Dialed（Beetlemuse，11.6 秒） |  |
+| ELC-0751 | 3.9 | fs_cc0-phone-dial／646540_7813-hq.mp3 | Android Keypad Dialing.mp3（dangerbabe，3.8 秒） |  |
+| ELC-0752 | 4.5 | fs_cc0-phone-dial／770125_11133212-hq.mp3 | dial_tone（Anonio82，4.5 秒） |  |
+| ELC-0753 | 7.0 | fs_cc0-phone-dial／800659_11133212-hq.mp3 | dial_tone2（Anonio82，7.0 秒） |  |
+| ELC-0754 | 6.0 | fs_cc0-phone-dial／80355_220011-hq.mp3 | dial_tone.wav（hyderpotter，6.0 秒） |  |
 
 ## EXP 爆炸（116）
 
@@ -996,7 +1038,7 @@
 | EXP-0038 | 4.9 | oga_cannon-hit／cannon_hit_0.ogg | cannon hit/impact 4.9s |  |
 | EXP-0039 | 5.6 | oga_chunky-explosion／Chunky Explosion.mp3 |  |  |
 | EXP-0040 | 0.2 | oga_dull-explosion／explosion_dull.flac |  |  |
-| EXP-0041 | 6.9 | oga_electricity-game-sound-pack／deathboom.wav | energy shield | P-HIT-018、P-CHR-006 |
+| EXP-0041 | 6.9 | oga_electricity-game-sound-pack／deathboom.wav | energy shield | P-CHR-006 |
 | EXP-0042 | 1.0 | oga_explosion-0／explosion.wav |  |  |
 | EXP-0043 | 0.7 | oga_explosion-8／explosion_1.wav |  |  |
 | EXP-0044 | 3.0 | oga_explosion-somewhere-far／explosion_somewhere_far.mp3 |  |  |
@@ -1396,7 +1438,7 @@
 | GUN-0390 | 1.1 | clips_sfx／GUN-0390.wav | 擷取自 GUN-0046 的 0.58–1.65 秒（Charles Daly, CD, FTAW, shotgun, pump action, 12 gauge, gunshot, mid distance, f） |  |
 | GUN-0391 | 1.5 | clips_sfx／GUN-0391.wav | 擷取自 GUN-0061 的 1.13–2.67 秒（Mosin Nagant, rifle, bolt action, 7.62x54, gunshot, mid distance, front of shoot） |  |
 
-## IMP 撞擊與命中（790）
+## IMP 撞擊與命中（854）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -1460,9 +1502,9 @@
 | IMP-0058 | 0.5 | kenney_impact-sounds／Audio/impactPlate_medium_002.ogg |  | P-HIT-010 |
 | IMP-0059 | 0.7 | kenney_impact-sounds／Audio/impactPlate_medium_003.ogg |  | P-HIT-010 |
 | IMP-0060 | 0.5 | kenney_impact-sounds／Audio/impactPlate_medium_004.ogg |  |  |
-| IMP-0061 | 0.7 | kenney_impact-sounds／Audio/impactPunch_heavy_000.ogg |  [peak-clip heuristic flag] | P-WPN-040、P-HIT-019 |
-| IMP-0062 | 0.5 | kenney_impact-sounds／Audio/impactPunch_heavy_001.ogg |  | P-WPN-040、P-HIT-019 |
-| IMP-0063 | 0.5 | kenney_impact-sounds／Audio/impactPunch_heavy_002.ogg |  | P-WPN-040、P-HIT-019 |
+| IMP-0061 | 0.7 | kenney_impact-sounds／Audio/impactPunch_heavy_000.ogg |  [peak-clip heuristic flag] | P-WPN-040 |
+| IMP-0062 | 0.5 | kenney_impact-sounds／Audio/impactPunch_heavy_001.ogg |  | P-WPN-040 |
+| IMP-0063 | 0.5 | kenney_impact-sounds／Audio/impactPunch_heavy_002.ogg |  | P-WPN-040 |
 | IMP-0064 | 0.5 | kenney_impact-sounds／Audio/impactPunch_heavy_003.ogg |  |  |
 | IMP-0065 | 0.5 | kenney_impact-sounds／Audio/impactPunch_heavy_004.ogg |  |  |
 | IMP-0066 | 0.4 | kenney_impact-sounds／Audio/impactPunch_medium_000.ogg |  | P-HIT-003 |
@@ -1470,9 +1512,9 @@
 | IMP-0068 | 0.5 | kenney_impact-sounds／Audio/impactPunch_medium_002.ogg |  | P-HIT-003 |
 | IMP-0069 | 0.5 | kenney_impact-sounds／Audio/impactPunch_medium_003.ogg |  |  |
 | IMP-0070 | 0.5 | kenney_impact-sounds／Audio/impactPunch_medium_004.ogg |  |  |
-| IMP-0071 | 0.5 | kenney_impact-sounds／Audio/impactSoft_heavy_000.ogg |  [peak-clip heuristic flag] | P-HIT-002、P-HIT-019、P-MOV-005、P-MOV-007 |
-| IMP-0072 | 0.6 | kenney_impact-sounds／Audio/impactSoft_heavy_001.ogg |  | P-HIT-002、P-HIT-019、P-CHR-002、P-MOV-007 |
-| IMP-0073 | 0.6 | kenney_impact-sounds／Audio/impactSoft_heavy_002.ogg |  | P-HIT-002、P-HIT-019、P-MOV-007 |
+| IMP-0071 | 0.5 | kenney_impact-sounds／Audio/impactSoft_heavy_000.ogg |  [peak-clip heuristic flag] | P-HIT-002、P-MOV-005、P-MOV-007 |
+| IMP-0072 | 0.6 | kenney_impact-sounds／Audio/impactSoft_heavy_001.ogg |  | P-HIT-002、P-CHR-002、P-MOV-007 |
+| IMP-0073 | 0.6 | kenney_impact-sounds／Audio/impactSoft_heavy_002.ogg |  | P-HIT-002、P-MOV-007 |
 | IMP-0074 | 0.5 | kenney_impact-sounds／Audio/impactSoft_heavy_003.ogg |  | P-HIT-009 |
 | IMP-0075 | 0.5 | kenney_impact-sounds／Audio/impactSoft_heavy_004.ogg |  |  |
 | IMP-0076 | 0.1 | kenney_impact-sounds／Audio/impactSoft_medium_000.ogg |  | P-HIT-005、P-MOV-006 |
@@ -1795,9 +1837,9 @@
 | IMP-0393 | 3.2 | oga_68-workshop-sounds／workshop/workshop - wood on concrete.wav |  |  |
 | IMP-0394 | 6.9 | oga_68-workshop-sounds／workshop/workshop - wood on wood 2.wav |  |  |
 | IMP-0395 | 7.9 | oga_68-workshop-sounds／workshop/workshop - wood on wood thuds.wav |  |  |
-| IMP-0396 | 1.1 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_breaking_01.ogg |  | P-ENV-009 |
-| IMP-0397 | 0.5 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_breaking_02.ogg |  | P-ENV-009 |
-| IMP-0398 | 0.6 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_breaking_03.ogg |  | P-ENV-009 |
+| IMP-0396 | 1.1 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_breaking_01.ogg |  |  |
+| IMP-0397 | 0.5 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_breaking_02.ogg |  |  |
+| IMP-0398 | 0.6 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_breaking_03.ogg |  |  |
 | IMP-0399 | 1.1 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_falling_01.ogg |  |  |
 | IMP-0400 | 1.0 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_falling_02.ogg |  |  |
 | IMP-0401 | 0.8 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_falling_03.ogg |  |  |
@@ -1805,12 +1847,12 @@
 | IMP-0403 | 0.9 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_falling_05.ogg |  |  |
 | IMP-0404 | 0.6 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_falling_06.ogg |  |  |
 | IMP-0405 | 1.1 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_falling_07.ogg |  |  |
-| IMP-0406 | 0.8 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_glass_breaking_01.ogg |  | P-HIT-018、P-ENV-010 |
-| IMP-0407 | 0.4 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_glass_breaking_02.ogg |  | P-ENV-010 |
-| IMP-0408 | 0.8 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_glass_breaking_03.ogg |  | P-ENV-010 |
-| IMP-0409 | 0.8 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_glass_breaking_04.ogg |  | P-ENV-010 |
+| IMP-0406 | 0.8 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_glass_breaking_01.ogg |  |  |
+| IMP-0407 | 0.4 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_glass_breaking_02.ogg |  |  |
+| IMP-0408 | 0.8 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_glass_breaking_03.ogg |  |  |
+| IMP-0409 | 0.8 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_glass_breaking_04.ogg |  |  |
 | IMP-0410 | 0.4 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_glass_breaking_05.ogg |  |  |
-| IMP-0411 | 0.9 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_glass_breaking_06.ogg |  |  |
+| IMP-0411 | 0.9 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_glass_breaking_06.ogg |  | P-ENV-010 |
 | IMP-0412 | 0.4 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_glass_falling_01.ogg |  |  |
 | IMP-0413 | 0.8 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_glass_falling_02.ogg |  |  |
 | IMP-0414 | 0.6 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_glass_falling_03.ogg |  |  |
@@ -1865,7 +1907,7 @@
 | IMP-0463 | 0.2 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_wood_breaking_02.ogg |  |  |
 | IMP-0464 | 0.5 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_wood_breaking_03.ogg |  |  |
 | IMP-0465 | 0.3 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_wood_breaking_04.ogg |  |  |
-| IMP-0466 | 0.7 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_wood_falling_01.ogg |  |  |
+| IMP-0466 | 0.7 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_wood_falling_01.ogg |  | P-ENV-009 |
 | IMP-0467 | 0.5 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_wood_falling_02.ogg |  |  |
 | IMP-0468 | 0.2 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_wood_hit_01.ogg |  |  |
 | IMP-0469 | 0.3 | oga_75-cc0-breaking-falling-hit-sfx／bfh1_wood_hit_02.ogg |  |  |
@@ -1888,7 +1930,7 @@
 | IMP-0486 | 0.8 | oga_deep-bone-crackbreak-sfx／Deep Break 2.wav |  |  |
 | IMP-0487 | 0.8 | oga_deep-bone-crackbreak-sfx／Deep Break 3.wav |  |  |
 | IMP-0488 | 0.9 | oga_deep-bone-crackbreak-sfx／Deep Break 4.wav |  |  |
-| IMP-0489 | 0.8 | oga_deep-bone-crackbreak-sfx／Deep Break 5.wav |  |  |
+| IMP-0489 | 0.8 | oga_deep-bone-crackbreak-sfx／Deep Break 5.wav |  | P-HIT-019 |
 | IMP-0490 | 0.8 | oga_deep-bone-crackbreak-sfx／Deep Break 6.wav |  |  |
 | IMP-0491 | 0.9 | oga_deep-bone-crackbreak-sfx／Deep Break 7.wav |  |  |
 | IMP-0492 | 0.8 | oga_deep-bone-crackbreak-sfx／Deep Break 8.wav |  |  |
@@ -2127,7 +2169,7 @@
 | IMP-0758 | 3.2 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/ogg/SplashGverb.ogg |  |  |
 | IMP-0759 | 1.9 | oga_unleeched-sound-effects-pack／glass-break1.wav |  |  |
 | IMP-0760 | 2.3 | oga_unleeched-sound-effects-pack／glass-break2.wav |  |  |
-| IMP-0761 | 2.4 | oga_unleeched-sound-effects-pack／glass-break3.wav |  |  |
+| IMP-0761 | 2.4 | oga_unleeched-sound-effects-pack／glass-break3.wav |  | P-HIT-018 |
 | IMP-0762 | 0.9 | oga_unleeched-sound-effects-pack／leech-hit.wav |  |  |
 | IMP-0763 | 1.1 | oga_unleeched-sound-effects-pack／scientist-hit.wav |  |  |
 | IMP-0764 | 3.5 | fs_cc0-crate-break／104003_179538-hq.mp3 | Wood_Metal_Chain_Smash_Hall.aif（RutgerMuller，3.5 秒） |  |
@@ -2149,19 +2191,19 @@
 | IMP-0780 | 1.7 | fs_cc0-crate-break／569694_3248005-hq.mp3 | Wood Break Planks Multiple 9（Sheyvan，1.7 秒） |  |
 | IMP-0781 | 0.5 | fs_cc0-crate-break／624910_13821366-hq.mp3 | box_smash.wav（Charnchy77，0.5 秒） |  |
 | IMP-0782 | 2.2 | fs_cc0-crate-break／630400_12591824-hq.mp3 | wood; wood splitting; log of wood; wood crack.wav（viwright2112，2.2 秒） |  |
-| IMP-0783 | 1.4 | fs_cc0-crate-break／667652_3271378-hq.mp3 | wooden-crate-break2.wav（DeltaCode，1.4 秒） |  |
-| IMP-0784 | 0.7 | fs_cc0-crate-break／667653_3271378-hq.mp3 | wooden-crate-break1.wav（DeltaCode，0.7 秒） |  |
+| IMP-0783 | 1.4 | fs_cc0-crate-break／667652_3271378-hq.mp3 | wooden-crate-break2.wav（DeltaCode，1.4 秒） | P-ENV-009 |
+| IMP-0784 | 0.7 | fs_cc0-crate-break／667653_3271378-hq.mp3 | wooden-crate-break1.wav（DeltaCode，0.7 秒） | P-ENV-009 |
 | IMP-0785 | 1.5 | fs_cc0-crate-break／66772_242154-hq.mp3 | Barrel Break 4.wav（kevinkace，1.5 秒） |  |
-| IMP-0786 | 1.2 | fs_cc0-crate-break／66780_242154-hq.mp3 | Crate Break 4.wav（kevinkace，1.2 秒） |  |
+| IMP-0786 | 1.2 | fs_cc0-crate-break／66780_242154-hq.mp3 | Crate Break 4.wav（kevinkace，1.2 秒） | P-ENV-009 |
 | IMP-0787 | 3.4 | fs_cc0-crate-break／669457_1106446-hq.mp3 | SFX_wood_cracking.wav（EricsSoundschmiede，3.4 秒） |  |
 | IMP-0788 | 4.5 | fs_cc0-crate-break／675851_2524442-hq.mp3 | S10-23 Wood and glass crash.wav（craigsmith，4.5 秒） |  |
 | IMP-0789 | 0.6 | fs_cc0-crate-break／678840_14793475-hq.mp3 | box_smash.wav（cartchaos，0.6 秒） |  |
 | IMP-0790 | 0.9 | fs_cc0-crate-break／794523_15956618-hq.mp3 | Wooden Structure Breaking（modusmogulus，0.9 秒） |  |
 | IMP-0791 | 0.7 | fs_cc0-crate-break／853277_9129912-hq.mp3 | Wood Cracking - Ship Damage Taken Game SFX Alternate 2 of 2（el_boss，0.7 秒） |  |
-| IMP-0792 | 1.2 | fs_cc0-crate-break／856630_18864416-hq.mp3 | crate_break3（K-Forces，1.2 秒） |  |
+| IMP-0792 | 1.2 | fs_cc0-crate-break／856630_18864416-hq.mp3 | crate_break3（K-Forces，1.2 秒） | P-ENV-009 |
 | IMP-0793 | 0.4 | fs_cc0-crate-break／868644_17675683-hq.mp3 | Break off wood stick 2（CAT-FOX_ALEX，0.4 秒） |  |
 | IMP-0794 | 2.7 | fs_cc0-glass-break／118198_2043421-hq.mp3 | Bottle Smash.aif（MegaPenguin13，2.7 秒） |  |
-| IMP-0795 | 1.9 | fs_cc0-glass-break／141563_1422573-hq.mp3 | Glass Break（avrahamy，1.9 秒） |  |
+| IMP-0795 | 1.9 | fs_cc0-glass-break／141563_1422573-hq.mp3 | Glass Break（avrahamy，1.9 秒） | P-ENV-010 |
 | IMP-0796 | 5.0 | fs_cc0-glass-break／177959_985466-hq.mp3 | CrashingMetalAndGlass.wav（Sclolex，5.0 秒） |  |
 | IMP-0797 | 2.0 | fs_cc0-glass-break／199906_3721648-hq.mp3 | Breaking Glass Stereo（GN2013，2.0 秒） |  |
 | IMP-0798 | 1.5 | fs_cc0-glass-break／202093_3756348-hq.mp3 | Bottle Shattering.wav（spookymodem，1.5 秒） |  |
@@ -2169,15 +2211,15 @@
 | IMP-0800 | 1.1 | fs_cc0-glass-break／209996_3709556-hq.mp3 | Glass Crash（creapersound，1.1 秒） |  |
 | IMP-0801 | 2.3 | fs_cc0-glass-break／212698_2585359-hq.mp3 | Breaking a glass bottle（dasebr，2.3 秒） |  |
 | IMP-0802 | 1.9 | fs_cc0-glass-break／221528_1038806-hq.mp3 | Glass Break（unfa，1.9 秒） |  |
-| IMP-0803 | 1.0 | fs_cc0-glass-break／233605_3610778-hq.mp3 | Breaking Glass #3.wav（abstraktgeneriert，1.0 秒） |  |
-| IMP-0804 | 1.6 | fs_cc0-glass-break／244238_3156517-hq.mp3 | Glass Smash.wav（chewiesmissus，1.6 秒） |  |
+| IMP-0803 | 1.0 | fs_cc0-glass-break／233605_3610778-hq.mp3 | Breaking Glass #3.wav（abstraktgeneriert，1.0 秒） | P-ENV-010 |
+| IMP-0804 | 1.6 | fs_cc0-glass-break／244238_3156517-hq.mp3 | Glass Smash.wav（chewiesmissus，1.6 秒） | P-ENV-010 |
 | IMP-0805 | 0.9 | fs_cc0-glass-break／267889_5025429-hq.mp3 | Breaking-Glass.wav（wjl，0.9 秒） |  |
 | IMP-0806 | 5.0 | fs_cc0-glass-break／276939_2364707-hq.mp3 | breaking_glass_mirror_Audio_Technica_MB2K.wav（gladkiy，5.0 秒） |  |
 | IMP-0807 | 4.9 | fs_cc0-glass-break／321143_4709749-hq.mp3 | Concrete and Glass breaking in dumpster（OverlookHotelRecords，4.9 秒） |  |
 | IMP-0808 | 3.7 | fs_cc0-glass-break／336425_4663534-hq.mp3 | Glass Shattering and Falling（221Beimesche，3.7 秒） |  |
 | IMP-0809 | 5.1 | fs_cc0-glass-break／349905_4557960-hq.mp3 | Slow Motion Glass Shatter（bevibeldesign，5.1 秒） |  |
 | IMP-0810 | 2.1 | fs_cc0-glass-break／369070_6815294-hq.mp3 | Breaking_Mirror.wav（LazyLids，2.1 秒） |  |
-| IMP-0811 | 1.8 | fs_cc0-glass-break／371094_6901532-hq.mp3 | Glass Break 1.wav（mccormick_iain，1.8 秒） |  |
+| IMP-0811 | 1.8 | fs_cc0-glass-break／371094_6901532-hq.mp3 | Glass Break 1.wav（mccormick_iain，1.8 秒） | P-ENV-010 |
 | IMP-0812 | 2.6 | fs_cc0-glass-break／371786_5302340-hq.mp3 | G8_breaking window.mp3（Iamgiorgio，2.6 秒） |  |
 | IMP-0813 | 6.0 | fs_cc0-glass-break／376607_3435865-hq.mp3 | Window hit without breaking.wav（Soundkrampf，6.0 秒） |  |
 | IMP-0814 | 5.1 | fs_cc0-glass-break／401619_7516983-hq.mp3 | Bottle Smash（Roxis_Boy，5.1 秒） |  |
@@ -2190,14 +2232,78 @@
 | IMP-0821 | 2.6 | fs_cc0-glass-break／592388_11537497-hq.mp3 | Car Crash (with Glass)（magnuswaker，2.6 秒） |  |
 | IMP-0822 | 2.3 | fs_cc0-glass-break／613879_5713695-hq.mp3 | window breaking（RangoAnimations，2.3 秒） |  |
 | IMP-0823 | 3.9 | fs_cc0-glass-break／648134_13481362-hq.mp3 | Window break.wav（5plus5equalspatata，3.9 秒） |  |
+| IMP-0824 | 0.7 | fs_cc0-headshot／145363_2611120-hq.mp3 | KleAudio_CrackingBone2_msST.wav（kleanthism，0.7 秒） |  |
+| IMP-0825 | 0.7 | fs_cc0-headshot／147993_2610233-hq.mp3 | Bone Cracking.wav（bewareofkites20，0.7 秒） |  |
+| IMP-0826 | 0.2 | fs_cc0-headshot／257927_4206108-hq.mp3 | Bones Crack 2.wav（Kane53126，0.2 秒） |  |
+| IMP-0827 | 0.4 | fs_cc0-headshot／322640_5534635-hq.mp3 | Hitmarker Sound Effect.mp3（aruscio28，0.4 秒） | P-HIT-006 |
+| IMP-0828 | 1.8 | fs_cc0-headshot／355052_2474574-hq.mp3 | Bone Crunch.wav（GreatNate98，1.8 秒） |  |
+| IMP-0829 | 1.0 | fs_cc0-headshot／363939_6068688-hq.mp3 | headshot.wav（lordpoque25，1.0 秒） |  |
+| IMP-0830 | 1.1 | fs_cc0-headshot／392883_3530854-hq.mp3 | Hard Candy / Bone Crunch（clif_creates，1.1 秒） |  |
+| IMP-0831 | 0.5 | fs_cc0-headshot／413430_8026141-hq.mp3 | Bone Breaking（wackoME，0.5 秒） |  |
+| IMP-0832 | 0.2 | fs_cc0-headshot／477640_9961300-hq.mp3 | Knuckles Bone Crack 1_2（Joao_Janz，0.2 秒） |  |
+| IMP-0833 | 0.4 | fs_cc0-headshot／484025_9961300-hq.mp3 | Bone Cracking 1_5（Joao_Janz，0.4 秒） |  |
+| IMP-0834 | 1.0 | fs_cc0-headshot／511194_5701403-hq.mp3 | Headshot.wav（Pablobd，1.0 秒） |  |
+| IMP-0835 | 0.7 | fs_cc0-headshot／578874_7061575-hq.mp3 | BoneSnaping.mp3（samueleunimancer，0.7 秒） |  |
+| IMP-0836 | 1.8 | fs_cc0-headshot／608804_13131593-hq.mp3 | Headshot.wav（KeenanAXQuinn，1.8 秒） |  |
+| IMP-0837 | 2.3 | fs_cc0-headshot／621977_13685159-hq.mp3 | Multiple Bones Cracking（rydra_wong，2.3 秒） |  |
+| IMP-0838 | 0.6 | fs_cc0-headshot／641074_12993943-hq.mp3 | Bone Snap/Break（Ryanz-Official，0.6 秒） |  |
+| IMP-0839 | 1.8 | fs_cc0-headshot／646188_6114921-hq.mp3 | Head Shot Fatality.ogg（DeniZZZka90，1.8 秒） |  |
+| IMP-0840 | 0.4 | fs_cc0-headshot／660769_5334162-hq.mp3 | Headshot sound（MadPanCake，0.4 秒） | P-HIT-006 |
+| IMP-0841 | 0.5 | fs_cc0-headshot／691824_1540717-hq.mp3 | DFAM perc - Marker #12.wav（nfrae，0.5 秒） |  |
+| IMP-0842 | 1.4 | fs_cc0-headshot／699699_11537497-hq.mp3 | Skull Shot（magnuswaker，1.5 秒） |  |
+| IMP-0843 | 0.5 | fs_cc0-headshot／774962_5287430-hq.mp3 | Cracking bone while sleeping（Sadiquecat，0.5 秒） |  |
+| IMP-0844 | 0.1 | fs_cc0-headshot／792928_71257-hq.mp3 | Mouth Pop Short（qubodup，0.1 秒） |  |
+| IMP-0845 | 0.7 | fs_cc0-headshot／819900_14043346-hq.mp3 | Bone Snapping（DarkDelight，0.7 秒） |  |
+| IMP-0846 | 1.1 | fs_cc0-headshot／850645_5287430-hq.mp3 | IR Caravan Ballon POP 1.5m away（Sadiquecat，1.1 秒） |  |
+| IMP-0847 | 0.3 | fs_cc0-headshot／869107_15176424-hq.mp3 | Bone Crack!（Robo9418，0.3 秒） | P-HIT-006 |
+| IMP-0848 | 0.3 | fs_cc0-headshot／872378_19181807-hq.mp3 | Bone Crack（cb9382，0.3 秒） |  |
+| IMP-0849 | 0.7 | fs_cc0-kill-burst／134710_2394357-hq.mp3 | squishy_splat.wav（reg7783，0.7 秒） |  |
+| IMP-0850 | 0.4 | fs_cc0-kill-burst／147017_758593-hq.mp3 | Splat（JustInvoke，0.4 秒） |  |
+| IMP-0851 | 2.0 | fs_cc0-kill-burst／248255_3874107-hq.mp3 | Fall to splat.wav（jameswrowles，2.0 秒） |  |
+| IMP-0852 | 0.3 | fs_cc0-kill-burst／335805_5946936-hq.mp3 | splat2.wav（ipaghost，0.3 秒） |  |
+| IMP-0853 | 0.8 | fs_cc0-kill-burst／360942_5406151-hq.mp3 | splat.ogg（gprosser，0.8 秒） |  |
+| IMP-0854 | 0.8 | fs_cc0-kill-burst／361030_5406151-hq.mp3 | splat2.ogg（gprosser，0.8 秒） |  |
+| IMP-0855 | 0.5 | fs_cc0-kill-burst／380390_3728489-hq.mp3 | Toon Splat.wav（cribbler，0.5 秒） |  |
+| IMP-0856 | 1.2 | fs_cc0-kill-burst／411034_7642217-hq.mp3 | SpitintoSinkSplat.wav（anvil278，1.2 秒） |  |
+| IMP-0857 | 2.9 | fs_cc0-kill-burst／414296_6629239-hq.mp3 | goreSplat.wav（ThefitzyG，2.9 秒） |  |
+| IMP-0858 | 0.3 | fs_cc0-kill-burst／42146_428447-hq.mp3 | stiffsplat.wav（fotoshop，0.3 秒） | P-HIT-019 |
+| IMP-0859 | 0.4 | fs_cc0-kill-burst／445109_9159316-hq.mp3 | Mud Splat（Breviceps，0.4 秒） |  |
+| IMP-0860 | 0.5 | fs_cc0-kill-burst／445117_9159316-hq.mp3 | Cartoon Splat（Breviceps，0.5 秒） |  |
+| IMP-0861 | 0.8 | fs_cc0-kill-burst／445118_9159316-hq.mp3 | Cartoon - Splat!（Breviceps，0.8 秒） |  |
+| IMP-0862 | 1.4 | fs_cc0-kill-burst／447929_9159316-hq.mp3 | Step on a slug (Splat!) 1（Breviceps，1.4 秒） |  |
+| IMP-0863 | 0.9 | fs_cc0-kill-burst／447930_9159316-hq.mp3 | Step on a slug (Splat!) 2（Breviceps，0.9 秒） |  |
+| IMP-0864 | 0.5 | fs_cc0-kill-burst／464430_6613454-hq.mp3 | Enemy_Defeated.wav（kaygrum，0.5 秒） | P-HIT-019 |
+| IMP-0865 | 0.5 | fs_cc0-kill-burst／495117_2723982-hq.mp3 | Wet Splat 2.mp3（nebulasnails，0.5 秒） |  |
+| IMP-0866 | 0.7 | fs_cc0-kill-burst／495118_2723982-hq.mp3 | Wet Splat 1.mp3（nebulasnails，0.7 秒） |  |
+| IMP-0867 | 0.5 | fs_cc0-kill-burst／515620_6769489-hq.mp3 | Splat/Squish 3（mrickey13，0.5 秒） |  |
+| IMP-0868 | 3.4 | fs_cc0-kill-burst／560434_656142-hq.mp3 | Crushed Toms 010.wav（shpira，3.4 秒） |  |
+| IMP-0869 | 2.1 | fs_cc0-kill-burst／607202_12566488-hq.mp3 | Defeated_Hellpig.wav（TomRonaldmusic，2.1 秒） |  |
+| IMP-0870 | 3.2 | fs_cc0-kill-burst／607206_7724198-hq.mp3 | Explode（Fupicat，3.2 秒） |  |
+| IMP-0871 | 0.3 | fs_cc0-kill-burst／685205_3780339-hq.mp3 | Splat1.wav（Shakedown_M，0.3 秒） |  |
+| IMP-0872 | 0.6 | fs_cc0-kill-burst／719131_13711016-hq.mp3 | Splat 3（sebastientate，0.6 秒） |  |
+| IMP-0873 | 0.8 | fs_cc0-kill-burst／825524_16022253-hq.mp3 | Blood Splat（Vikra9409，0.8 秒） |  |
+| IMP-0874 | 0.9 | fs_cc0-kill-burst／868641_6473503-hq.mp3 | Defeat Standard Enemy Small Explosion Sound（moogleoftheages，0.9 秒） | P-HIT-019 |
+| IMP-0875 | 0.5 | fs_cc0-kill-burst／87535_1380975-hq.mp3 | Splat!.wav（Whiprealgood，0.5 秒） |  |
+| IMP-0876 | 1.0 | fs_cc0-shield-break／363172_6386059-hq.mp3 | Pickups_Shield_Belt.wav（runningmind，1.0 秒） |  |
+| IMP-0877 | 0.8 | fs_cc0-shield-break／370203_4682356-hq.mp3 | shield guard（nekoninja，0.8 秒） |  |
+| IMP-0878 | 2.0 | fs_cc0-shield-break／541601_7664885-hq.mp3 | Shattering Chandelier.mp3（matt_ratz，2.0 秒） | P-HIT-018 |
+| IMP-0879 | 2.2 | fs_cc0-shield-break／570853_12068810-hq.mp3 | magicShield_block.wav（rafaelzimrp，2.2 秒） |  |
+| IMP-0880 | 1.7 | fs_cc0-shield-break／584173_1038806-hq.mp3 | Landing Forcefield（unfa，1.7 秒） |  |
+| IMP-0881 | 1.2 | fs_cc0-shield-break／608685_8905624-hq.mp3 | Wham n Shatter（eben-frostey，1.2 秒） | P-HIT-018 |
+| IMP-0882 | 1.8 | fs_cc0-shield-break／636104_11705708-hq.mp3 | SHIELDGET WEAR.wav（fonografico，1.8 秒） |  |
+| IMP-0883 | 0.5 | fs_cc0-shield-break／668786_2397507-hq.mp3 | ice break on ice.wav（itinerantmonk108，0.5 秒） | P-HIT-018 |
+| IMP-0884 | 2.1 | fs_cc0-shield-break／699697_11537497-hq.mp3 | PULSER SHIELD（magnuswaker，2.1 秒） |  |
+| IMP-0885 | 3.0 | fs_cc0-shield-break／702771_6142149-hq.mp3 | Force Field 01.wav（LilMati，3.0 秒） |  |
+| IMP-0886 | 0.2 | fs_cc0-shield-break／752237_71257-hq.mp3 | Tractor Beam Energy Barrier from fleurx_improv_00 by vekoN（qubodup，0.2 秒） |  |
+| IMP-0887 | 2.3 | fs_cc0-shield-break／787866_15956618-hq.mp3 | Force Field Knock（modusmogulus，2.3 秒） |  |
 
 ## ITM 物品與拾取（217）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
-| ITM-0001 | 1.5 | kenney_impact-sounds／Audio/impactBell_heavy_000.ogg | bell ding | P-HIT-006、P-HIT-017 |
-| ITM-0002 | 1.7 | kenney_impact-sounds／Audio/impactBell_heavy_001.ogg | bell ding | P-HIT-006、P-HIT-017 |
-| ITM-0003 | 0.7 | kenney_impact-sounds／Audio/impactBell_heavy_002.ogg | bell ding | P-HIT-006、P-HIT-017 |
+| ITM-0001 | 1.5 | kenney_impact-sounds／Audio/impactBell_heavy_000.ogg | bell ding | P-HIT-017 |
+| ITM-0002 | 1.7 | kenney_impact-sounds／Audio/impactBell_heavy_001.ogg | bell ding | P-HIT-017 |
+| ITM-0003 | 0.7 | kenney_impact-sounds／Audio/impactBell_heavy_002.ogg | bell ding | P-HIT-017 |
 | ITM-0004 | 0.7 | kenney_impact-sounds／Audio/impactBell_heavy_003.ogg |  |  |
 | ITM-0005 | 0.3 | kenney_impact-sounds／Audio/impactBell_heavy_004.ogg |  |  |
 | ITM-0006 | 0.2 | kenney_rpg-audio／Audio/bookClose.ogg |  |  |
@@ -2413,7 +2519,7 @@
 | ITM-0224 | 0.4 | fs_cc0-pickup／563465_10415593-hq.mp3 | ItemPickup.wav（nicholasdaryl，0.4 秒） |  |
 | ITM-0225 | 0.6 | fs_cc0-pickup／651515_11611892-hq.mp3 | grab-item（1bob，0.6 秒） |  |
 
-## MEC 機械與機關（624）
+## MEC 機械與機關（678）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -3041,8 +3147,62 @@
 | MEC-0641 | 0.1 | oga_click-sounds6／click_sound_5.mp3 |  |  |
 | MEC-0642 | 0.1 | oga_click-sounds6／click_sound_6.mp3 |  |  |
 | MEC-0643 | 20.7 | oga_engine-sounds2／engine_sound_1.mp3 |  |  |
+| MEC-0644 | 4.7 | fs_cc0-phone-handset／138077_1839281-hq.mp3 | picking_up_cell_phone_off_of_countertop.wav（daboy291，4.7 秒） |  |
+| MEC-0645 | 6.8 | fs_cc0-phone-handset／218083_3725006-hq.mp3 | Phone pick up / hang up（deraj，6.8 秒） |  |
+| MEC-0646 | 7.0 | fs_cc0-phone-handset／273348_3873464-hq.mp3 | Telephone_-_Pick_up_hang_up_03_L_Close_R_Distant.wav（othercee，7.0 秒） |  |
+| MEC-0647 | 7.0 | fs_cc0-phone-handset／360528_1738686-hq.mp3 | Phone, hanging up（giddster，7.0 秒） |  |
+| MEC-0648 | 3.3 | fs_cc0-phone-handset／406233_6068748-hq.mp3 | Heavy Phone Up and Down_near_mono.wav（_stubb，3.3 秒） |  |
+| MEC-0649 | 1.0 | fs_cc0-phone-handset／422649_6227951-hq.mp3 | SFX Player Action: Phone Put Down（trullilulli，1.0 秒） |  |
+| MEC-0650 | 0.7 | fs_cc0-phone-handset／422651_6227951-hq.mp3 | SFX Player Action: Phone Pick Up（trullilulli，0.7 秒） |  |
+| MEC-0651 | 1.4 | fs_cc0-phone-handset／434124_8658258-hq.mp3 | cell phone hang up.wav（samijoslapaho，1.4 秒） |  |
+| MEC-0652 | 0.7 | fs_cc0-phone-handset／444399_7231443-hq.mp3 | Phone Pick Up.wav（MootMcnoodles，0.7 秒） |  |
+| MEC-0653 | 0.5 | fs_cc0-phone-handset／467199_9871357-hq.mp3 | Phone Pickup.wav（ThunderQuads，0.5 秒） |  |
+| MEC-0654 | 1.5 | fs_cc0-phone-handset／467200_9871357-hq.mp3 | Phone Hangup.wav（ThunderQuads，1.5 秒） |  |
+| MEC-0655 | 0.5 | fs_cc0-phone-handset／498823_2769056-hq.mp3 | phone call click off.wav（dkcu，0.5 秒） |  |
+| MEC-0656 | 1.8 | fs_cc0-phone-handset／513849_2176954-hq.mp3 | OldPhoneHangUp.wav（seca.studioc，1.8 秒） |  |
+| MEC-0657 | 2.5 | fs_cc0-phone-handset／531058_10446304-hq.mp3 | Sneaky Phone Pick Up - HRC.m4a（HaleyReeseCalhoun，2.5 秒） |  |
+| MEC-0658 | 3.3 | fs_cc0-phone-handset／531060_10446304-hq.mp3 | Sneaky Phone Put Down - HRC.m4a（HaleyReeseCalhoun，3.3 秒） |  |
+| MEC-0659 | 8.0 | fs_cc0-phone-handset／559475_9250976-hq.mp3 | Foley_Phone_Old_PickUp_HangUp_Mono.wav（Nox_Sound，8.0 秒） |  |
+| MEC-0660 | 0.6 | fs_cc0-phone-handset／567720_1218676-hq.mp3 | mobile_phone_hanging_up.wav（joedeshon，0.6 秒） |  |
+| MEC-0661 | 3.0 | fs_cc0-phone-handset／575853_84709-hq.mp3 | intercom bell phone hang up.wav（martian，3.0 秒） |  |
+| MEC-0662 | 2.0 | fs_cc0-phone-handset／634525_12463739-hq.mp3 | House Phone Pick Up and Put Down（DexD73，2.0 秒） |  |
+| MEC-0663 | 1.7 | fs_cc0-phone-handset／661942_14516003-hq.mp3 | picking up old telephone.wav（Crovic，1.7 秒） |  |
+| MEC-0664 | 1.7 | fs_cc0-phone-handset／699159_15162102-hq.mp3 | Telephone Pick Up And Hang Up（Mr.Epic777，1.7 秒） |  |
+| MEC-0665 | 5.0 | fs_cc0-phone-handset／764879_16528747-hq.mp3 | EQUIPMisc-Int_Phone Pickup quick_JvZ_OwSFX（Joshua_van_Zyl，5.0 秒） |  |
+| MEC-0666 | 1.5 | fs_cc0-phone-handset／774256_16682330-hq.mp3 | phone_hang_up（loganzsound，1.5 秒） |  |
+| MEC-0667 | 3.9 | fs_cc0-phone-handset／832762_14242668-hq.mp3 | Phone Handset Slam（dwswords，3.9 秒） |  |
+| MEC-0668 | 8.2 | fs_cc0-phone-ring／108738_757844-hq.mp3 | phonering.WAV（BranRainey，8.2 秒） |  |
+| MEC-0669 | 12.4 | fs_cc0-phone-ring／144084_1933878-hq.mp3 | Cell Phone Ringing EMP（weyhingj，12.4 秒） |  |
+| MEC-0670 | 9.6 | fs_cc0-phone-ring／164690_2104797-hq.mp3 | Phone_ring.wav（deleted_user_2104797，9.6 秒） |  |
+| MEC-0671 | 10.1 | fs_cc0-phone-ring／245445_4451798-hq.mp3 | old phone ringtone Poland.wav（blukotek，10.1 秒） |  |
+| MEC-0672 | 6.1 | fs_cc0-phone-ring／274289_520609-hq.mp3 | rotary phone ring medium.wav（AberNStein，6.1 秒） |  |
+| MEC-0673 | 11.3 | fs_cc0-phone-ring／275163_476277-hq.mp3 | Phone Old Landline Ringing（robotjay，11.3 秒） |  |
+| MEC-0674 | 5.2 | fs_cc0-phone-ring／332073_5832939-hq.mp3 | Telephone Ring (old German W48)（meisterleise，5.2 秒） |  |
+| MEC-0675 | 5.4 | fs_cc0-phone-ring／344365_6201031-hq.mp3 | Cellphone ringing（jourblue，5.4 秒） |  |
+| MEC-0676 | 4.5 | fs_cc0-phone-ring／345805_191884-hq.mp3 | Ringtone: 1960s office phone（knufds，4.5 秒） |  |
+| MEC-0677 | 13.6 | fs_cc0-phone-ring／345812_191884-hq.mp3 | Ringtone: Kitchen phone (take 1)（knufds，13.6 秒） |  |
+| MEC-0678 | 7.9 | fs_cc0-phone-ring／371369_5302340-hq.mp3 | E10_phone ringing.mp3（Iamgiorgio，7.9 秒） |  |
+| MEC-0679 | 10.0 | fs_cc0-phone-ring／383439_5387145-hq.mp3 | Phone Ringing.wav（Ferrettomato，10.0 秒） |  |
+| MEC-0680 | 9.6 | fs_cc0-phone-ring／397097_5675578-hq.mp3 | Phone Ringing.wav（columbia23，9.6 秒） |  |
+| MEC-0681 | 10.4 | fs_cc0-phone-ring／406235_6068748-hq.mp3 | Telephone ring_mono_near.wav（_stubb，10.4 秒） |  |
+| MEC-0682 | 2.5 | fs_cc0-phone-ring／425660_8553360-hq.mp3 | phone ringing.mp3（Rebecca_f，2.5 秒） |  |
+| MEC-0683 | 13.8 | fs_cc0-phone-ring／444987_8592632-hq.mp3 | 1930AWAPhoneRinging.wav（TMos_Sound，13.8 秒） |  |
+| MEC-0684 | 14.5 | fs_cc0-phone-ring／450042_612689-hq.mp3 | phone telephone ring office nice iconic close to speaker.wav（kyles，14.5 秒） |  |
+| MEC-0685 | 1.8 | fs_cc0-phone-ring／458866_6436863-hq.mp3 | Telephone ringtone（Raclure，1.8 秒） |  |
+| MEC-0686 | 1.5 | fs_cc0-phone-ring／508672_11104044-hq.mp3 | cellphone ringing.m4a（marianasasousa，1.5 秒） |  |
+| MEC-0687 | 3.8 | fs_cc0-phone-ring／528111_11684955-hq.mp3 | Phone Ringing Sound.wav（fspera，3.8 秒） |  |
+| MEC-0688 | 10.2 | fs_cc0-phone-ring／541796_11786132-hq.mp3 | Telephone Ringing (Digital)（ZoshP，10.2 秒） |  |
+| MEC-0689 | 5.2 | fs_cc0-phone-ring／552484_2481400-hq.mp3 | Old style phone ringer.wav（MPTSound，5.2 秒） |  |
+| MEC-0690 | 5.7 | fs_cc0-phone-ring／556499_10713160-hq.mp3 | Rotary Phone Ring loopable（cookies+policy，5.7 秒） |  |
+| MEC-0691 | 8.0 | fs_cc0-phone-ring／572349_5620304-hq.mp3 | Phone Ring（NachtmahrTV，8.0 秒） |  |
+| MEC-0692 | 11.6 | fs_cc0-phone-ring／610191_7254895-hq.mp3 | Old Phone Ringing（BennettFilmTeacher，11.6 秒） |  |
+| MEC-0693 | 7.2 | fs_cc0-phone-ring／619063_781461-hq.mp3 | Cell Phone Ring 2 High Tones(1).mp3（mrrap4food，7.2 秒） |  |
+| MEC-0694 | 9.5 | fs_cc0-phone-ring／725445_13697677-hq.mp3 | phone ringing（Kuyumee，9.5 秒） |  |
+| MEC-0695 | 13.4 | fs_cc0-phone-ring／726452_11133212-hq.mp3 | landline phone_calling（Anonio82，13.4 秒） |  |
+| MEC-0696 | 12.9 | fs_cc0-phone-ring／805172_17325486-hq.mp3 | Old Phone Ring（mrspivey，12.9 秒） |  |
+| MEC-0697 | 9.8 | fs_cc0-phone-ring／828203_9616576-hq.mp3 | Old Digital Phone Ring（IENBA，9.8 秒） |  |
 
-## MLE 近戰揮擊（195）
+## MLE 近戰揮擊（265）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -3241,6 +3401,76 @@
 | MLE-0201 | 0.5 | oga_wind-hit-time-morph／qubodup-megaswosh1.wav |  |  |
 | MLE-0202 | 0.6 | oga_wind-hit-time-morph／qubodup-megaswosh2.wav |  |  |
 | MLE-0203 | 6.0 | oga_wind-whoosh-loop／wind woosh loop.ogg |  |  |
+| MLE-0204 | 0.7 | fs_cc0-sword-cut／147290_1401157-hq.mp3 | Axe Slash 1（smokebomb99，0.7 秒） |  |
+| MLE-0205 | 3.9 | fs_cc0-sword-cut／170709_1578170-hq.mp3 | Union Sword Clash 9.wav（mooseranger，3.9 秒） |  |
+| MLE-0206 | 2.4 | fs_cc0-sword-cut／175949_2542588-hq.mp3 | My Sword Hit 1.wav.wav（freefire66，2.4 秒） |  |
+| MLE-0207 | 0.6 | fs_cc0-sword-cut／275159_4745081-hq.mp3 | Sword Clash.wav（Bird_man，0.6 秒） |  |
+| MLE-0208 | 0.3 | fs_cc0-sword-cut／277322_5293512-hq.mp3 | Sword swing.wav（Angrycrazii，0.3 秒） |  |
+| MLE-0209 | 1.2 | fs_cc0-sword-cut／326868_4077311-hq.mp3 | Sword_Clash (7).wav（JohnBuhr，1.2 秒） |  |
+| MLE-0210 | 0.5 | fs_cc0-sword-cut／334169_5859881-hq.mp3 | Sword Clash（loudernoises，0.5 秒） |  |
+| MLE-0211 | 1.7 | fs_cc0-sword-cut／353708_5487341-hq.mp3 | Sword Swings（SamsterBirdies，1.7 秒） |  |
+| MLE-0212 | 1.9 | fs_cc0-sword-cut／364530_3908740-hq.mp3 | Swords Clash - High Quality #2（Christopherderp，1.9 秒） |  |
+| MLE-0213 | 0.3 | fs_cc0-sword-cut／390777_7350412-hq.mp3 | FX_015_sword_swing_1.wav（d00121058，0.3 秒） |  |
+| MLE-0214 | 1.1 | fs_cc0-sword-cut／395372_1675920-hq.mp3 | Sword stab 3（ihitokage，1.1 秒） |  |
+| MLE-0215 | 1.8 | fs_cc0-sword-cut／395373_1675920-hq.mp3 | Sword stab 2（ihitokage，1.8 秒） |  |
+| MLE-0216 | 1.7 | fs_cc0-sword-cut／411122_1424100-hq.mp3 | Sword hits the body.wav（vdovitsky，1.7 秒） |  |
+| MLE-0217 | 0.8 | fs_cc0-sword-cut／426322_8522109-hq.mp3 | Single Sword Hit.wav（MTJohnson，0.8 秒） |  |
+| MLE-0218 | 0.7 | fs_cc0-sword-cut／434896_6090639-hq.mp3 | Sword Impact（TheBuilder15，0.7 秒） |  |
+| MLE-0219 | 1.4 | fs_cc0-sword-cut／441666_3928631-hq.mp3 | sword slash.wav（ethanchase7744，1.3 秒） |  |
+| MLE-0220 | 0.8 | fs_cc0-sword-cut／442769_71257-hq.mp3 | Sword Hit（qubodup，0.8 秒） |  |
+| MLE-0221 | 0.5 | fs_cc0-sword-cut／443762_7262854-hq.mp3 | 34. Clavada de espada Sword soft stab.wav（cabusta9，0.5 秒） |  |
+| MLE-0222 | 0.6 | fs_cc0-sword-cut／464438_6613454-hq.mp3 | S21_Sword_Strike_1.wav（kaygrum，0.6 秒） |  |
+| MLE-0223 | 0.5 | fs_cc0-sword-cut／470175_9982371-hq.mp3 | 44_Espada_Clavandose.wav (Sword Clash)（Atrius1，0.5 秒） |  |
+| MLE-0224 | 2.8 | fs_cc0-sword-cut／471095_9856191-hq.mp3 | Sword clash 1.wav（spycrah，2.8 秒） |  |
+| MLE-0225 | 3.9 | fs_cc0-sword-cut／471097_9856191-hq.mp3 | Knife/sword swing（spycrah，3.9 秒） |  |
+| MLE-0226 | 1.1 | fs_cc0-sword-cut／474575_3928631-hq.mp3 | Sword stab.wav（ethanchase7744，1.1 秒） |  |
+| MLE-0227 | 4.0 | fs_cc0-sword-cut／475416_7009965-hq.mp3 | Metal hit_1(sword, hammer, blacksmith).wav（o_ciz，4.0 秒） |  |
+| MLE-0228 | 1.6 | fs_cc0-sword-cut／522701_11584853-hq.mp3 | Weapon, Sword, Metal sword, Swing, fast, impact（julianmateo_，1.6 秒） |  |
+| MLE-0229 | 1.0 | fs_cc0-sword-cut／547038_7614679-hq.mp3 | Hit Swing Sword（CogFireStudios，1.0 秒） |  |
+| MLE-0230 | 1.3 | fs_cc0-sword-cut／547041_7614679-hq.mp3 | Hit Swing Sword Small 3（CogFireStudios，1.3 秒） |  |
+| MLE-0231 | 2.6 | fs_cc0-sword-cut／591155_11076342-hq.mp3 | Sword Contact (with swipe)（ultraaxvii，2.6 秒） |  |
+| MLE-0232 | 0.6 | fs_cc0-sword-cut／60024_71257-hq.mp3 | swosh swinging sword 37.flac（qubodup，0.6 秒） |  |
+| MLE-0233 | 2.4 | fs_cc0-sword-cut／611766_13131817-hq.mp3 | Sword Swings.mp3（Sam300Productions，2.4 秒） |  |
+| MLE-0234 | 0.2 | fs_cc0-sword-cut／702942_1823770-hq.mp3 | swordhit1.wav（franzzle，0.2 秒） |  |
+| MLE-0235 | 3.0 | fs_cc0-sword-cut／706204_13504080-hq.mp3 | Nice anime sword hit（xkeril，3.0 秒） |  |
+| MLE-0236 | 3.2 | fs_cc0-sword-cut／723151_15687753-hq.mp3 | starGroundSwordSwing（olliefuzion，3.2 秒） |  |
+| MLE-0237 | 0.4 | fs_cc0-sword-cut／724716_15139380-hq.mp3 | sword slash energy wave（greyfeather，0.4 秒） |  |
+| MLE-0238 | 1.4 | fs_cc0-sword-cut／733887_6703998-hq.mp3 | Sword Impact（velcronator，1.4 秒） |  |
+| MLE-0239 | 3.2 | fs_cc0-sword-cut／782966_4501195-hq.mp3 | Sword Swing Connect（GrayEpic，3.2 秒） |  |
+| MLE-0240 | 0.2 | fs_cc0-sword-cut／783059_16503936-hq.mp3 | Sword Hitting Wood（hushless，0.2 秒） |  |
+| MLE-0241 | 0.8 | fs_cc0-sword-cut／840716_18136826-hq.mp3 | Sword Swing 1（Nomagician，0.8 秒） |  |
+| MLE-0242 | 0.8 | fs_cc0-sword-cut／840717_18136826-hq.mp3 | Sword Swing 3（Nomagician，0.8 秒） |  |
+| MLE-0243 | 3.4 | fs_cc0-sword-cut／842363_18255452-hq.mp3 | Sword Charge Double Slash（gulfstreamav，3.4 秒） |  |
+| MLE-0244 | 1.0 | fs_cc0-sword-ring／107589_1855536-hq.mp3 | unsheath_sword.wav（Qat，1.0 秒） |  |
+| MLE-0245 | 0.6 | fs_cc0-sword-ring／107590_1855536-hq.mp3 | sheath_sword.wav（Qat，0.6 秒） |  |
+| MLE-0246 | 5.1 | fs_cc0-sword-ring／170717_1578170-hq.mp3 | Union Sword Draw 3.wav（mooseranger，5.1 秒） |  |
+| MLE-0247 | 0.7 | fs_cc0-sword-ring／175953_2542588-hq.mp3 | dagger_drawn2.wav（freefire66，0.7 秒） |  |
+| MLE-0248 | 2.8 | fs_cc0-sword-ring／175956_2542588-hq.mp3 | sworddraw2.wav（freefire66，2.8 秒） |  |
+| MLE-0249 | 1.1 | fs_cc0-sword-ring／175957_2542588-hq.mp3 | swordraw.wav（freefire66，1.1 秒） |  |
+| MLE-0250 | 4.1 | fs_cc0-sword-ring／211072_3959290-hq.mp3 | Sword Being Unsheathed（taylorb_123，4.1 秒） |  |
+| MLE-0251 | 4.0 | fs_cc0-sword-ring／276873_1989929-hq.mp3 | Sword Sheath（lucabia，4.0 秒） |  |
+| MLE-0252 | 3.0 | fs_cc0-sword-ring／320521_2906614-hq.mp3 | Unsheathed blade（deleted_user_2906614，3.0 秒） |  |
+| MLE-0253 | 0.9 | fs_cc0-sword-ring／390774_7350412-hq.mp3 | FX_018_sword_unsheath.wav（d00121058，0.9 秒） |  |
+| MLE-0254 | 2.5 | fs_cc0-sword-ring／395364_1675920-hq.mp3 | Unsheathing the sword（ihitokage，2.5 秒） |  |
+| MLE-0255 | 2.2 | fs_cc0-sword-ring／417033_6456158-hq.mp3 | Slow Sword Draw.mp3（FunWithSound，2.2 秒） |  |
+| MLE-0256 | 0.7 | fs_cc0-sword-ring／417035_6456158-hq.mp3 | Quick Sword Draw.mp3（FunWithSound，0.7 秒） |  |
+| MLE-0257 | 1.7 | fs_cc0-sword-ring／423935_489021-hq.mp3 | Draw sword#1.wav（fielastro，1.7 秒） |  |
+| MLE-0258 | 0.5 | fs_cc0-sword-ring／426326_8522109-hq.mp3 | Sword Taking out of Sheath.wav（MTJohnson，0.5 秒） |  |
+| MLE-0259 | 1.4 | fs_cc0-sword-ring／449552_6556800-hq.mp3 | Sword from sheath.wav（Aleks41，1.4 秒） |  |
+| MLE-0260 | 2.1 | fs_cc0-sword-ring／451268_7817924-hq.mp3 | Blade_Draw.wav（reedsx20，2.1 秒） |  |
+| MLE-0261 | 3.0 | fs_cc0-sword-ring／467291_9895957-hq.mp3 | Sword Unsheathed.wav（XfiXy8，3.0 秒） |  |
+| MLE-0262 | 6.0 | fs_cc0-sword-ring／467292_9895957-hq.mp3 | Sword re-sheathed.wav（XfiXy8，6.0 秒） |  |
+| MLE-0263 | 1.7 | fs_cc0-sword-ring／468695_3928631-hq.mp3 | Sword Fast Unsheath.wav（ethanchase7744，1.7 秒） |  |
+| MLE-0264 | 1.7 | fs_cc0-sword-ring／513739_150886-hq.mp3 | Sword Schwing（Daleonfire，1.7 秒） |  |
+| MLE-0265 | 1.4 | fs_cc0-sword-ring／529019_5051822-hq.mp3 | Anime_drama_shing_sword_2.wav（Euphrosyyn，1.4 秒） |  |
+| MLE-0266 | 0.8 | fs_cc0-sword-ring／56264_91374-hq.mp3 | Sword_Sheath.wav（Q.K.，0.8 秒） |  |
+| MLE-0267 | 2.0 | fs_cc0-sword-ring／577619_13023338-hq.mp3 | Sword Drawing 1.wav（paulfabb，2.0 秒） |  |
+| MLE-0268 | 1.5 | fs_cc0-sword-ring／577620_13023338-hq.mp3 | Sword Drawing 2.wav（paulfabb，1.5 秒） |  |
+| MLE-0269 | 3.0 | fs_cc0-sword-ring／581594_5487341-hq.mp3 | Sword draw unsheathe（SamsterBirdies，3.0 秒） |  |
+| MLE-0270 | 5.9 | fs_cc0-sword-ring／588276_6461270-hq.mp3 | unsheathe sword anime like（marchelonia，5.9 秒） |  |
+| MLE-0271 | 5.0 | fs_cc0-sword-ring／592023_8956746-hq.mp3 | sword drawn.wav（C-V，5.0 秒） |  |
+| MLE-0272 | 1.2 | fs_cc0-sword-ring／655341_11221455-hq.mp3 | Unsheathe Blade（Blazewasbored，1.2 秒） |  |
+| MLE-0273 | 1.8 | fs_cc0-sword-ring／666581_13504080-hq.mp3 | Sword drawing（xkeril，1.8 秒） |  |
 
 ## MOV 移動與衣物（497）
 
@@ -5445,7 +5675,7 @@
 | UIS-0506 | 0.2 | oga_ui-click-sounds-sci-fi／sfx_ui_click_7.mp3 |  |  |
 | UIS-0507 | 0.2 | oga_ui-click-sounds-sci-fi／sfx_ui_click_8.mp3 |  |  |
 
-## VOX 人聲與生物（731）
+## VOX 人聲與生物（733）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -6180,4 +6410,6 @@
 | VOX-0754 | 1.5 | fs_cc0-voice-male-pain／736662_15125504-hq.mp3 | Male Groan in Exhaustion（kanyonwyvern，1.5 秒） |  |
 | VOX-0755 | 0.7 | fs_cc0-voice-male-pain／790832_189858-hq.mp3 | Fast pain grunt, male（DeqstersLab，0.7 秒） |  |
 | VOX-0756 | 0.8 | fs_cc0-voice-male-pain／818868_5287430-hq.mp3 | Surfer dude - Grunt（Sadiquecat，0.8 秒） |  |
+| VOX-0757 | 0.6 | clips_sfx／VOX-0757.wav | 擷取自 VOX-0295 的 4.92–5.54 秒 |  |
+| VOX-0758 | 1.0 | clips_sfx／VOX-0758.wav | 擷取自 VOX-0295 的 9.34–10.35 秒 |  |
 

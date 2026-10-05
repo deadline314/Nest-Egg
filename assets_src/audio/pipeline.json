@@ -53,7 +53,11 @@
  "sfx": {
   "shot_pistol": {
    "category": "gun",
-   "speeds": [1.25, 1.5, 2.0],
+   "speeds": [
+    1.25,
+    1.5,
+    2.0
+   ],
    "choke_ms": 70,
    "volume_db": -1.0,
    "variants": [
@@ -73,7 +77,11 @@
   },
   "shot_rifle": {
    "category": "gun",
-   "speeds": [1.25, 1.5, 2.0],
+   "speeds": [
+    1.25,
+    1.5,
+    2.0
+   ],
    "choke_ms": 70,
    "variants": [
     {
@@ -92,7 +100,11 @@
   },
   "shot_smg": {
    "category": "gun",
-   "speeds": [1.25, 1.5, 2.0],
+   "speeds": [
+    1.25,
+    1.5,
+    2.0
+   ],
    "choke_ms": 70,
    "volume_db": -2.0,
    "variants": [
@@ -112,7 +124,11 @@
   },
   "shot_spread": {
    "category": "gun",
-   "speeds": [1.25, 1.5, 2.0],
+   "speeds": [
+    1.25,
+    1.5,
+    2.0
+   ],
    "choke_ms": 70,
    "volume_db": 1.0,
    "variants": [
@@ -138,7 +154,11 @@
   },
   "shot_launcher": {
    "category": "gun",
-   "speeds": [1.25, 1.5, 2.0],
+   "speeds": [
+    1.25,
+    1.5,
+    2.0
+   ],
    "choke_ms": 70,
    "volume_db": 0.0,
    "variants": [
@@ -178,7 +198,11 @@
   },
   "shot_railgun": {
    "category": "gun",
-   "speeds": [1.25, 1.5, 2.0],
+   "speeds": [
+    1.25,
+    1.5,
+    2.0
+   ],
    "choke_ms": 70,
    "volume_db": 0.0,
    "variants": [
@@ -218,7 +242,11 @@
   },
   "shot_laser": {
    "category": "gun",
-   "speeds": [1.25, 1.5, 2.0],
+   "speeds": [
+    1.25,
+    1.5,
+    2.0
+   ],
    "choke_ms": 70,
    "volume_db": -2.0,
    "variants": [
@@ -246,7 +274,11 @@
   },
   "shot_cannon": {
    "category": "gun",
-   "speeds": [1.25, 1.5, 2.0],
+   "speeds": [
+    1.25,
+    1.5,
+    2.0
+   ],
    "choke_ms": 70,
    "volume_db": 2.0,
    "variants": [
@@ -1197,19 +1229,16 @@
    "volume_db": -2.0,
    "variants": [
     {
-     "pack": "kenney_impact-sounds",
-     "file": "Audio/impactBell_heavy_000.ogg",
-     "max_len": 0.4
+     "pack": "fs_cc0-headshot",
+     "file": "660769_5334162-hq.mp3"
     },
     {
-     "pack": "kenney_impact-sounds",
-     "file": "Audio/impactBell_heavy_001.ogg",
-     "max_len": 0.4
+     "pack": "fs_cc0-headshot",
+     "file": "322640_5534635-hq.mp3"
     },
     {
-     "pack": "kenney_impact-sounds",
-     "file": "Audio/impactBell_heavy_002.ogg",
-     "max_len": 0.4
+     "pack": "fs_cc0-headshot",
+     "file": "869107_15176424-hq.mp3"
     }
    ]
   },
@@ -1301,20 +1330,20 @@
    "volume_db": 0.0,
    "variants": [
     {
-     "max_len": 1.0,
-     "layers": [
-      {
-       "pack": "oga_electricity-game-sound-pack",
-       "file": "deathboom.wav",
-       "max_len": 0.9
-      },
-      {
-       "pack": "oga_75-cc0-breaking-falling-hit-sfx",
-       "file": "bfh1_glass_breaking_01.ogg",
-       "gain_db": -4,
-       "delay_ms": 15
-      }
-     ]
+     "pack": "oga_unleeched-sound-effects-pack",
+     "file": "glass-break3.wav"
+    },
+    {
+     "pack": "fs_cc0-shield-break",
+     "file": "608685_8905624-hq.mp3"
+    },
+    {
+     "pack": "fs_cc0-shield-break",
+     "file": "541601_7664885-hq.mp3"
+    },
+    {
+     "pack": "fs_cc0-shield-break",
+     "file": "668786_2397507-hq.mp3"
     }
    ]
   },
@@ -1323,52 +1352,20 @@
    "volume_db": 0.0,
    "variants": [
     {
-     "max_len": 0.45,
-     "layers": [
-      {
-       "pack": "kenney_impact-sounds",
-       "file": "Audio/impactPunch_heavy_000.ogg"
-      },
-      {
-       "pack": "kenney_impact-sounds",
-       "file": "Audio/impactSoft_heavy_000.ogg",
-       "gain_db": -3,
-       "delay_ms": 20,
-       "rate": 0.8
-      }
-     ]
+     "pack": "oga_deep-bone-crackbreak-sfx",
+     "file": "Deep Break 5.wav"
     },
     {
-     "max_len": 0.45,
-     "layers": [
-      {
-       "pack": "kenney_impact-sounds",
-       "file": "Audio/impactPunch_heavy_001.ogg"
-      },
-      {
-       "pack": "kenney_impact-sounds",
-       "file": "Audio/impactSoft_heavy_001.ogg",
-       "gain_db": -3,
-       "delay_ms": 20,
-       "rate": 0.8
-      }
-     ]
+     "pack": "fs_cc0-kill-burst",
+     "file": "464430_6613454-hq.mp3"
     },
     {
-     "max_len": 0.45,
-     "layers": [
-      {
-       "pack": "kenney_impact-sounds",
-       "file": "Audio/impactPunch_heavy_002.ogg"
-      },
-      {
-       "pack": "kenney_impact-sounds",
-       "file": "Audio/impactSoft_heavy_002.ogg",
-       "gain_db": -3,
-       "delay_ms": 20,
-       "rate": 0.8
-      }
-     ]
+     "pack": "fs_cc0-kill-burst",
+     "file": "868641_6473503-hq.mp3"
+    },
+    {
+     "pack": "fs_cc0-kill-burst",
+     "file": "42146_428447-hq.mp3"
     }
    ]
   },
@@ -2192,18 +2189,23 @@
    "variants": [
     {
      "pack": "oga_75-cc0-breaking-falling-hit-sfx",
-     "file": "bfh1_breaking_01.ogg",
-     "max_len": 1.0
+     "file": "bfh1_wood_falling_01.ogg"
     },
     {
-     "pack": "oga_75-cc0-breaking-falling-hit-sfx",
-     "file": "bfh1_breaking_02.ogg",
-     "max_len": 1.0
+     "pack": "fs_cc0-crate-break",
+     "file": "667652_3271378-hq.mp3"
     },
     {
-     "pack": "oga_75-cc0-breaking-falling-hit-sfx",
-     "file": "bfh1_breaking_03.ogg",
-     "max_len": 1.0
+     "pack": "fs_cc0-crate-break",
+     "file": "667653_3271378-hq.mp3"
+    },
+    {
+     "pack": "fs_cc0-crate-break",
+     "file": "66780_242154-hq.mp3"
+    },
+    {
+     "pack": "fs_cc0-crate-break",
+     "file": "856630_18864416-hq.mp3"
     }
    ]
   },
@@ -2213,23 +2215,23 @@
    "variants": [
     {
      "pack": "oga_75-cc0-breaking-falling-hit-sfx",
-     "file": "bfh1_glass_breaking_01.ogg",
-     "max_len": 1.2
+     "file": "bfh1_glass_breaking_06.ogg"
     },
     {
-     "pack": "oga_75-cc0-breaking-falling-hit-sfx",
-     "file": "bfh1_glass_breaking_02.ogg",
-     "max_len": 1.2
+     "pack": "fs_cc0-glass-break",
+     "file": "141563_1422573-hq.mp3"
     },
     {
-     "pack": "oga_75-cc0-breaking-falling-hit-sfx",
-     "file": "bfh1_glass_breaking_03.ogg",
-     "max_len": 1.2
+     "pack": "fs_cc0-glass-break",
+     "file": "233605_3610778-hq.mp3"
     },
     {
-     "pack": "oga_75-cc0-breaking-falling-hit-sfx",
-     "file": "bfh1_glass_breaking_04.ogg",
-     "max_len": 1.2
+     "pack": "fs_cc0-glass-break",
+     "file": "244238_3156517-hq.mp3"
+    },
+    {
+     "pack": "fs_cc0-glass-break",
+     "file": "371094_6901532-hq.mp3"
     }
    ]
   },
