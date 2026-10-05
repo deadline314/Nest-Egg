@@ -1,0 +1,71 @@
+{
+ "camera": {
+  "pos": [
+   320,
+   180
+  ],
+  "zoom": 1.0
+ },
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#1a2230",
+   "bottom": "#3a4658",
+   "parallax": 0.0
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scenes/dawn_noodle_stall.webp",
+   "pos": [
+    -64,
+    -36.0
+   ],
+   "scale": 0.5,
+   "filter": "linear",
+   "life": true
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    300,
+    140
+   ],
+   "radius": 220,
+   "color": "#cfe0ff",
+   "intensity": 0.7,
+   "additive": true,
+   "alpha": 0.35,
+   "pulse": 0.06,
+   "pulse_depth": 0.2
+  },
+  {
+   "kind": "rain",
+   "depth": "front",
+   "opacity": 0.35
+  },
+  {
+   "kind": "motes",
+   "count": 24,
+   "color": "#cfe0ff",
+   "opacity": 0.3,
+   "area": [
+    0,
+    30,
+    640,
+    280
+   ],
+   "drift": [
+    2,
+    -3
+   ],
+   "size": 1.1,
+   "seed": 7
+  },
+  {
+   "kind": "grain",
+   "amount": 50,
+   "opacity": 0.05,
+   "depth": "front"
+  }
+ ]
+}

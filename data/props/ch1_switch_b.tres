@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="MechanismData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/mechanism_data.gd" id="1_mechanism_data"]
+
+[resource]
+script = ExtResource("1_mechanism_data")
+id = &"ch1_switch_b"
+kind = 2
+display_name = "水閘開關 B"
+hint = "{interact} 切換開關：閘 B"
+color = Color(1, 0.76, 0.29, 1)
+channel = &"flood_b"

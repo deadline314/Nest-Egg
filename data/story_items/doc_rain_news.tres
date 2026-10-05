@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"doc_rain_news"
+display_name = "港區日報：降雨量創新高"
+description = "報架上的舊報紙，頭版是雨。"
+color = Color(0.70, 0.80, 0.90, 1.0)
+category = 1
+chapter = &"ch1_kasa"
+body = "本月降雨量創新高，氣象台表示屬正常波動。社論：水位與利率，今年都沒有降下來。第二版：復原館週年慶，今晚第一次復原半價。"
+order = 23
+trigger = 3
+icon = "doc_news"

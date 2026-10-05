@@ -191,6 +191,8 @@ func _ready() -> void:
 	UiKit.set_cursor_visible(false)
 	tree_exiting.connect(UiKit.set_cursor_visible.bind(true))
 	EventBus.boss_defeated.connect(_on_boss_defeated)
+	if not data.channel_scenes.is_empty():
+		EventBus.mechanism_toggled.connect(_on_channel_toggled)  # 關卡釋放時自動斷線
 	_begin_intro.call_deferred()
 	_begin_death_reactions.call_deferred()
 
@@ -261,6 +263,12 @@ func _show_chapter_card(title: String, subtitle: String, block: bool, hold := 2.
 	card.hold = hold
 	add_child(card)
 	return card
+
+
+## 機關頻道啟動時播放對應的場景（LevelData.channel_scenes）。
+func _on_channel_toggled(channel: StringName, active: bool) -> void:
+	if active and data.channel_scenes.has(channel):
+		Story.play(data.channel_scenes[channel])
 
 
 ## 資料裡的光影事件加上斷電區域的事件；電力變化或還原檢查點後重建。
@@ -556,6 +564,10 @@ func _create_prop(spawn: Dictionary) -> Node2D:
 				var power_switch := PowerSwitch.new()
 				power_switch.configure(mechanism, cell)
 				return power_switch
+			MechanismData.Kind.FLOOD_PIT:
+				var pit := FloodPit.new()
+				pit.configure(mechanism, cell, _layout.tile_size)
+				return pit
 	return null
 
 

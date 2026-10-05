@@ -7,7 +7,7 @@ extends Node
 const LEVEL_PATH := "res://data/levels/level_01.tres"
 const ENEMY_DIR := "res://data/enemies"
 const WEAPON_DIR := "res://data/weapons"
-const HAZARD_SOURCES: Array[StringName] = [&"spikes", &"laser_fence", &"pit", &"explosive_barrel"]
+const HAZARD_SOURCES: Array[StringName] = [&"spikes", &"laser_fence", &"pit", &"explosive_barrel", &"flood"]
 
 var _failures: PackedStringArray = []
 var _checks := 0
@@ -89,7 +89,7 @@ func _suites() -> Array[TestSuite]:
 		Chapter2Suite.new(self), UiKitSuite.new(self), TransitionSuite.new(self), UiScreensSuite.new(self), CutsceneSuite.new(self), EnvironmentSuite.new(self), AmmoIconsSuite.new(self), AmmoTraySuite.new(self), CombatHudSuite.new(self), ChapterCutscenesSuite.new(self),
 		NpcSuite.new(self), NpcAnimationSuite.new(self), RigActionsSuite.new(self), EnemyVfxSuite.new(self), StoryLintSuite.new(self), StoryContentSuite.new(self), DeathReactionSuite.new(self), HitReactionSuite.new(self), PostureSuite.new(self), AnimAuditSuite.new(self), ProtagonistMotionSuite.new(self), PhoneBoothSuite.new(self), PartCreatureSuite.new(self), ChainCreatureSuite.new(self), ExoticEnemiesSuite.new(self), Chapter2ExpansionSuite.new(self), Chapter2ArtSuite.new(self), FeelSuite.new(self), MeleeSuite.new(self), MeleeWeaponsSuite.new(self), StrikeEnemiesSuite.new(self), FxUpgradesSuite.new(self), FxMeleePickupsSuite.new(self), FeelLabSuite.new(self), InputFeelSuite.new(self), FeelToolsSuite.new(self), AudioSuite.new(self), MusicSuite.new(self), ReloadCuesSuite.new(self), SoundLabSuite.new(self), ClipEditorSuite.new(self), ApplyPanelSuite.new(self), LayerOrderSuite.new(self), SoundStageSuite.new(self), StageCoverageWeaponsSuite.new(self), StageCoverageCharactersSuite.new(self), StageCoverageWorldSuite.new(self), DevMenuSuite.new(self),
 		CharactersSuite.new(self), ReconEnemiesSuite.new(self), HeavyEnemiesSuite.new(self), AssaultEnemiesSuite.new(self),
-		WorldPromptSuite.new(self), AreasSuite.new(self), Chapter1EnemiesSuite.new(self),
+		WorldPromptSuite.new(self), AreasSuite.new(self), Chapter1EnemiesSuite.new(self), FloodPitSuite.new(self), Chapter1MapSuite.new(self),
 	]
 
 
@@ -402,7 +402,7 @@ func _test_story() -> void:
 ## 設定與改鍵：改用測試專用設定檔，結束後還原，不影響玩家設定。
 func _test_story_items() -> void:
 	var catalog := StoryItems.catalog()
-	_check(catalog.size() == 19, "story item catalog loads 19 items (got %d)" % catalog.size())
+	_check(catalog.size() == 26, "story item catalog loads 26 items (got %d)" % catalog.size())
 	var ids: Dictionary[StringName, bool] = {}
 	var last_order := -INF
 	for item in catalog:

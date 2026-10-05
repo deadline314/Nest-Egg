@@ -14,6 +14,8 @@ signal scene_finished(scene_id: StringName)
 const CHAPTER_PATHS: Array[String] = [
 	"res://data/story/chapter_01.json",
 	"res://data/story/chapter_02.json",
+	# 新故事（傘）：第一章的章節資訊；台詞與過場由 ST-9 接上。
+	"res://data/story/ch1_kasa.json",
 	# 動畫過場（只有 scenes，用 for_chapter 指明屬於哪一章）。
 	"res://data/story/cutscenes_ch1.json",
 	"res://data/story/cutscenes_ch2.json",
@@ -57,6 +59,7 @@ func _ready() -> void:
 	add_child(_layer)
 	_layer.cinematic_finished.connect(_on_cinematic_finished)
 	_layer.radio_finished.connect(func(id: StringName) -> void: scene_finished.emit(id))
+	scene_finished.connect(_apply_scene_flags)
 	load_all()
 	for problem in validate():
 		push_error("[Story] %s" % problem)
@@ -124,6 +127,18 @@ func chapter_ids() -> Array[StringName]:
 	return ids
 
 
+## 場景結束時設定它的 set_flags（旗標名稱清單，存進 GameState 的本輪旗標；出入口的 requires_flag 與之後的劇情分支都看它）。
+func _apply_scene_flags(id: StringName) -> void:
+	var scene: Variant = _scenes.get(String(id), null)
+	if typeof(scene) != TYPE_DICTIONARY:
+		return
+	var flags: Variant = (scene as Dictionary).get("set_flags", [])
+	if typeof(flags) != TYPE_ARRAY:
+		return
+	for flag: Variant in flags:
+		GameState.set_flag(StringName(str(flag)))
+
+
 ## 檢查劇本是否符合守則，回傳問題清單（空代表沒問題）：講者存在且有頭像、過場／通訊的句數、每句有文字。
 func validate() -> PackedStringArray:
 	var problems := PackedStringArray()
@@ -134,6 +149,8 @@ func validate() -> PackedStringArray:
 	for scene_id: String in _scenes.keys():
 		var scene: Dictionary = _scenes[scene_id]
 		var mode := str(scene.get("mode", "radio"))
+		if scene.has("set_flags") and (typeof(scene["set_flags"]) != TYPE_ARRAY or (scene["set_flags"] as Array).any(func(f: Variant) -> bool: return str(f).is_empty())):
+			problems.append("場景 %s 的 set_flags 必須是非空的旗標名稱清單" % scene_id)
 		if mode == String(MODE_ANIMATED):
 			problems.append_array(CutsceneChecker.validate(scene_id, scene, _speakers))
 			continue

@@ -50,7 +50,13 @@ func _fx_kind() -> StringName:
 	return &"credit"
 
 
+## 大堆信用點（40 以上）用整疊金幣的小圖，其餘用三枚一疊。
+const LARGE_PILE_VALUE := 30
+
+
 func _draw_icon() -> void:
+	if _draw_world_sprite("credits_large" if value >= LARGE_PILE_VALUE else "credits_small"):
+		return
 	var glow := LightKit.glow(color, 1.8 + 0.4 * sin(_time * 6.0))
 	var chip := PackedVector2Array([Vector2(0, -5), Vector2(4, 0), Vector2(0, 5), Vector2(-4, 0)])
 	draw_colored_polygon(chip, Color(color.darkened(0.55), 0.9))

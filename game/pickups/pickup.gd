@@ -59,6 +59,20 @@ func _fx_kind() -> StringName:
 @abstract func _draw_icon() -> void
 
 
+## 畫場景小圖（art/items/world/<key>.png，24×24，腳底對齊，另有自發光層）；沒有這張圖回傳 false，呼叫端改用程式繪製。
+func _draw_world_sprite(key: String) -> bool:
+	var sprite := ItemIcons.world(key)
+	if sprite.is_empty():
+		return false
+	var base: Texture2D = sprite["base"]
+	var origin := Vector2(-base.get_width() * 0.5, -base.get_height() * 0.5 - 4.0)
+	draw_texture(base, origin)
+	var glow: Texture2D = sprite["glow"]
+	if glow != null:
+		draw_texture(glow, origin, LightKit.glow(Color.WHITE, 1.4 + 0.4 * sin(_time * 5.0)))
+	return true
+
+
 func _process(delta: float) -> void:
 	_time += delta
 	_retry_left -= delta

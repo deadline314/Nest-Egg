@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"doc_dike_log"
+display_name = "水閘維修日誌：堤"
+description = "水閘管理員留下的日誌，最後一頁被撕掉了。"
+color = Color(0.45, 0.85, 0.90, 1.0)
+category = 1
+chapter = &"ch1_kasa"
+body = "三月九日，水位加零點四。三月十日，加零點六。閘 C 的踏板，沒人敢試。三月十一日，我試了，水漲得比我想的快。（之後的紙頁被撕掉了。）"
+order = 22
+trigger = 3
+icon = "doc_log"

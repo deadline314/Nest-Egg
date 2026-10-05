@@ -264,7 +264,36 @@
    ],
    "boss": "boss_warden"
   },
-  "levels": {},
+  "levels": {
+   "ch1_pawnshop": {
+    "calm": "safe_pawnshop",
+    "safe": "safe_pawnshop"
+   },
+   "ch1_pawnshop_dawn": {
+    "calm": "safe_pawnshop",
+    "safe": "safe_pawnshop"
+   },
+   "ch1_rooftop": {
+    "calm": "calm_rooftop",
+    "safe": "calm_rooftop"
+   },
+   "ch1_booth_alley": {
+    "calm": "safe_booth",
+    "safe": "safe_booth"
+   },
+   "ch1_warehouse": {
+    "calm": "calm_freight",
+    "boss": "boss_warden"
+   },
+   "ch1_lounge": {
+    "calm": "safe_clinic",
+    "safe": "safe_clinic"
+   },
+   "ch1_stall": {
+    "calm": "calm_rooftop",
+    "safe": "calm_rooftop"
+   }
+  },
   "zones": {
    "rooftop": {
     "calm": "calm_rooftop"

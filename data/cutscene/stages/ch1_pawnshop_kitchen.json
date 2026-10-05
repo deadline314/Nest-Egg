@@ -1,0 +1,66 @@
+{
+ "camera": {
+  "pos": [
+   320,
+   180
+  ],
+  "zoom": 1.0
+ },
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#0d1410",
+   "bottom": "#1b241a",
+   "parallax": 0.0
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scenes/pawnshop_kitchen.webp",
+   "pos": [
+    -64,
+    -36.0
+   ],
+   "scale": 0.5,
+   "filter": "linear",
+   "life": true
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    300,
+    40
+   ],
+   "radius": 200,
+   "color": "#e8e090",
+   "intensity": 0.7,
+   "additive": true,
+   "alpha": 0.35,
+   "pulse": 0.06,
+   "pulse_depth": 0.2
+  },
+  {
+   "kind": "motes",
+   "count": 24,
+   "color": "#cfe0ff",
+   "opacity": 0.3,
+   "area": [
+    0,
+    30,
+    640,
+    280
+   ],
+   "drift": [
+    2,
+    -3
+   ],
+   "size": 1.1,
+   "seed": 7
+  },
+  {
+   "kind": "grain",
+   "amount": 50,
+   "opacity": 0.05,
+   "depth": "front"
+  }
+ ]
+}

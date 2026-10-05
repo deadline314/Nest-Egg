@@ -2,7 +2,8 @@ extends Node
 ## 遊戲進入點與畫面路由：主選單 → 關卡 → 過關畫面。
 ## 同一時間只存在一個畫面；切換時舊畫面完整釋放，避免記憶體累積。
 
-const FIRST_LEVEL := "res://data/levels/level_01.tres"
+## 新遊戲的第一個區域（第一章「傘」從當舖開始）；舊的雨夜關卡在 data/levels/level_01.tres 保留給既有測試與開發用。
+const FIRST_LEVEL := "res://data/levels/ch1_pawnshop.tres"
 const RETRY_CAPTION := "NEST 回溯紀錄 #%d"
 const RETRY_HOLD := 0.22
 

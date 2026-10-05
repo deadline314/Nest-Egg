@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MechanismData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/mechanism_data.gd" id="1_mechanism_data"]
+
+[resource]
+script = ExtResource("1_mechanism_data")
+id = &"ch1_gate_c"
+kind = 1
+display_name = "閘 C"
+hint = "閘 C：開關是坑底的踏板"
+color = Color(1, 0.35, 0.3, 1)
+channel = &"flood_c"
+size_tiles = Vector2i(1, 13)

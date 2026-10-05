@@ -38,6 +38,8 @@ func _fx_color() -> Color:
 
 
 func _draw_icon() -> void:
+	if _draw_world_sprite(item.icon):
+		return
 	var glow := LightKit.glow(item.color, 1.8 + 0.4 * sin(_time * 6.0))
 	var body := Rect2(-3, -6, 6, 11)
 	draw_rect(body, Color(Palette.UI_PANEL, 0.9))
