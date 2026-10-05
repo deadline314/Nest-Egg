@@ -130,7 +130,7 @@ static func full_rect_root(theme_owner: Node) -> Control:
 
 ## 遊戲中隱藏系統游標（改用準星），選單與暫停時顯示。
 static func set_cursor_visible(visible: bool) -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if visible else Input.MOUSE_MODE_HIDDEN
+	GameplayLock.set_base_mouse_mode(Input.MOUSE_MODE_VISIBLE if visible else Input.MOUSE_MODE_HIDDEN)
 
 
 static func format_time(seconds: float) -> String:

@@ -55,8 +55,7 @@ var _advance_requested := false
 var _shake := 0.0
 var _shake_time := 0.0
 var _running := false
-var _was_paused := false
-var _previous_mouse_mode := Input.MOUSE_MODE_VISIBLE
+var _lock_token := 0
 var _tweens: Array[Tween] = []
 ## 疊加模式：不蓋黑底、不放舞台，直接在遊戲畫面上演出（右臂雜訊、警報等短演出）。
 var _overlay_mode := false
@@ -82,16 +81,16 @@ func is_running() -> bool:
 
 ## 開始播放。scene 是場景資料（含 steps）。
 func play(id: StringName, scene: Dictionary) -> void:
+	if _running or not is_inside_tree():
+		push_warning("[Cutscene] 播放器已在播放或不在場景樹中：%s" % id)
+		return
 	scene_id = id
 	var raw: Variant = scene.get("steps", [])
 	_steps = raw if typeof(raw) == TYPE_ARRAY else []
 	_overlay_mode = bool(scene.get("overlay", false))
 	_build_ui()
-	_was_paused = get_tree().paused
-	_previous_mouse_mode = Input.mouse_mode
-	get_tree().paused = true
+	_lock_token = GameplayLock.acquire(self, Input.MOUSE_MODE_HIDDEN)
 	Fx.reset_time()
-	UiKit.set_cursor_visible(false)
 	_running = true
 	_run.call_deferred()
 
@@ -104,6 +103,8 @@ func skip() -> void:
 
 
 func _run() -> void:
+	if not _running or not is_inside_tree():
+		return
 	var index := 0
 	for raw: Variant in _steps:
 		index += 1
@@ -130,14 +131,27 @@ func _run() -> void:
 
 
 func _finish() -> void:
+	if not _running:
+		return
 	for tween in _tweens:
 		if tween != null and tween.is_valid():
 			tween.kill()
 	_running = false
-	get_tree().paused = _was_paused
-	Input.mouse_mode = _previous_mouse_mode
+	_root.visible = false
+	Transition.abort_owned(self)
+	GameplayLock.release(_lock_token)
+	_lock_token = 0
 	finished.emit(scene_id)
 	queue_free()
+
+
+func _exit_tree() -> void:
+	_running = false
+	skipping = true
+	Transition.abort_owned(self)
+	for tween in _tweens:
+		if tween != null and tween.is_valid():
+			tween.kill()
 
 
 # ---------------------------------------------------------------------------
@@ -157,7 +171,7 @@ func _input(event: InputEvent) -> void:
 		else:
 			_advance_requested = true
 		get_viewport().set_input_as_handled()
-	elif event is InputEventKey or event is InputEventMouseButton or event is InputEventJoypadButton:
+	else:
 		get_viewport().set_input_as_handled()
 
 
@@ -567,7 +581,7 @@ func _do_transition(step: Dictionary) -> void:
 	if str(step.get("mode", "cover")) == "reveal":
 		await Transition.reveal(kind, time)
 	else:
-		await Transition.cover(kind, time)
+		await Transition.cover(kind, time, Vector2(0.5, 0.5), "", self)
 
 
 func _do_end(_step: Dictionary) -> void:

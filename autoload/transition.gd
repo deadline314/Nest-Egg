@@ -25,7 +25,10 @@ var _caption: Label
 var _material: ShaderMaterial
 var _active := false
 var _speed := 1.0
-var _paused_before := false
+var _lock_token := 0
+## abort 後舊的 await 不能繼續改畫面或結束新轉場。
+var _generation := 0
+var _owner: WeakRef
 
 
 func _ready() -> void:
@@ -76,26 +79,40 @@ func play(kind: Kind, on_covered: Callable, duration := -1.0, center := Vector2(
 	kind = _resolve_kind(kind)
 	var half: float = duration if duration > 0.0 else _default_time(kind)
 	_begin()
+	var generation := _generation
 	await _sweep(kind, half, center, true)
+	if generation != _generation:
+		return
 	_set_caption(caption)
 	covered.emit()
+	if generation != _generation:
+		return
 	await _run(on_covered)
+	if generation != _generation:
+		return
 	# 換畫面時關卡可能解除暫停；揭開前再鎖一次，揭開完才還原。
-	get_tree().paused = true
+	GameplayLock.maintain_pause()
 	if hold > 0.0:
 		await _wait(hold)
+		if generation != _generation:
+			return
 	await _sweep(kind, half, center, false)
+	if generation != _generation:
+		return
 	_set_caption("")
 	_end()
 
 
 ## 只蓋住（例如演出開頭）；之後用 reveal 揭開。
-func cover(kind: Kind, duration := -1.0, center := Vector2(0.5, 0.5), caption := "") -> void:
+func cover(kind: Kind, duration := -1.0, center := Vector2(0.5, 0.5), caption := "", owner: Node = null) -> void:
 	if instant or _active or not is_inside_tree():
 		return
 	kind = _resolve_kind(kind)
-	_begin()
+	_begin(owner)
+	var generation := _generation
 	await _sweep(kind, duration if duration > 0.0 else _default_time(kind), center, true)
+	if generation != _generation:
+		return
 	_set_caption(caption)
 	covered.emit()
 	# 蓋住期間維持 _active，直到 reveal。
@@ -105,7 +122,10 @@ func reveal(kind: Kind, duration := -1.0, center := Vector2(0.5, 0.5)) -> void:
 	if not _active:
 		return
 	kind = _resolve_kind(kind)
+	var generation := _generation
 	await _sweep(kind, duration if duration > 0.0 else _default_time(kind), center, false)
+	if generation != _generation:
+		return
 	_set_caption("")
 	_end()
 
@@ -118,6 +138,12 @@ func abort() -> void:
 	_end()
 
 
+## 演出被跳過或刪除時，只能清掉它自己啟動的 cover；不干涉外層換畫面。
+func abort_owned(owner: Node) -> void:
+	if _owner != null and _owner.get_ref() == owner:
+		abort()
+
+
 func _input(event: InputEvent) -> void:
 	if not _active:
 		return
@@ -127,21 +153,25 @@ func _input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 
 
-func _begin() -> void:
+func _begin(owner: Node = null) -> void:
+	_generation += 1
+	_owner = weakref(owner) if owner != null else null
 	_active = true
 	_speed = 1.0
-	_paused_before = get_tree().paused
-	get_tree().paused = true
+	_lock_token = GameplayLock.acquire(self)
 	_rect.visible = true
 	set_process_input(true)
 	_set_progress(0.0, 0.0)
 
 
 func _end() -> void:
+	_generation += 1
+	_owner = null
 	_active = false
 	_rect.visible = false
 	set_process_input(false)
-	get_tree().paused = _paused_before
+	GameplayLock.release(_lock_token)
+	_lock_token = 0
 	finished.emit()
 
 
@@ -158,6 +188,7 @@ func _resolve_kind(kind: Kind) -> Kind:
 
 
 func _sweep(kind: Kind, seconds: float, center: Vector2, closing: bool) -> void:
+	var generation := _generation
 	_configure(kind, center, closing)
 	var from := 0.0 if closing else 1.0
 	var to := 1.0 if closing else 0.0
@@ -169,14 +200,15 @@ func _sweep(kind: Kind, seconds: float, center: Vector2, closing: bool) -> void:
 		var t := clampf(elapsed / total, 0.0, 1.0)
 		_set_progress(lerpf(from, to, _ease(t)), elapsed)
 		await get_tree().process_frame
-		if not is_inside_tree():
+		if not is_inside_tree() or generation != _generation:
 			return
 	_set_progress(to, elapsed)
 
 
 func _wait(seconds: float) -> void:
+	var generation := _generation
 	var left := seconds
-	while left > 0.0 and is_inside_tree():
+	while left > 0.0 and is_inside_tree() and generation == _generation:
 		left -= get_process_delta_time() * _speed
 		await get_tree().process_frame
 

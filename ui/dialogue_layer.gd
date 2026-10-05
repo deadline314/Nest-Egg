@@ -27,8 +27,7 @@ var _continue: Label
 var _cinematic_id: StringName = &""
 var _cinematic_lines: Array[Dictionary] = []
 var _cinematic_index := 0
-var _was_paused := false
-var _previous_mouse_mode := Input.MOUSE_MODE_VISIBLE
+var _lock_token := 0
 
 var _radio_root: PanelContainer
 var _radio_portrait: TextureRect
@@ -56,17 +55,17 @@ func _ready() -> void:
 # ---------------------------------------------------------------------------
 
 func start_cinematic(id: StringName, lines: Array[Dictionary]) -> void:
+	if is_cinematic_active():
+		push_warning("[Dialogue] 已在播放對話：%s" % _cinematic_id)
+		return
 	if lines.is_empty():
 		cinematic_finished.emit(id)
 		return
 	_cinematic_id = id
 	_cinematic_lines = lines
 	_cinematic_index = 0
-	_was_paused = get_tree().paused
-	get_tree().paused = true
+	_lock_token = GameplayLock.acquire(self, Input.MOUSE_MODE_VISIBLE)
 	Fx.reset_time()
-	_previous_mouse_mode = Input.mouse_mode
-	UiKit.set_cursor_visible(true)
 	_cinematic_root.visible = true
 	_radio_root.visible = false
 	_show_line()
@@ -97,8 +96,8 @@ func finish_cinematic() -> void:
 	var id := _cinematic_id
 	_cinematic_id = &""
 	_cinematic_root.visible = false
-	get_tree().paused = _was_paused
-	Input.mouse_mode = _previous_mouse_mode
+	GameplayLock.release(_lock_token)
+	_lock_token = 0
 	cinematic_finished.emit(id)
 
 
@@ -122,7 +121,7 @@ func _input(event: InputEvent) -> void:
 			or (event is InputEventMouseButton and event.is_pressed() and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT):
 		advance()
 		get_viewport().set_input_as_handled()
-	elif event is InputEventKey or event is InputEventMouseButton or event is InputEventJoypadButton:
+	else:
 		# 過場期間吞掉其他輸入，避免穿透到遊戲。
 		get_viewport().set_input_as_handled()
 

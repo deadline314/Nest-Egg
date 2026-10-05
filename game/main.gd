@@ -27,7 +27,7 @@ func _swap_screen(screen: Node) -> void:
 	if is_instance_valid(_screen):
 		remove_child(_screen)
 		_screen.queue_free()
-	get_tree().paused = false
+	GameplayLock.set_base_paused(false)
 	Fx.reset_time()
 	_screen = screen
 	add_child(screen)

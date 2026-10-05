@@ -12,6 +12,7 @@ var hold := 2.2
 var block := false
 
 var _root: Control
+var _lock_token := 0
 
 
 func _ready() -> void:
@@ -28,7 +29,7 @@ func _ready() -> void:
 		shade.color = Color(0, 0, 0, 0.92)
 		shade.set_anchors_preset(Control.PRESET_FULL_RECT)
 		_root.add_child(shade)
-		get_tree().paused = true
+		_lock_token = GameplayLock.acquire(self)
 	var box := VBoxContainer.new()
 	box.set_anchors_preset(Control.PRESET_CENTER)
 	box.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -50,8 +51,13 @@ func _process(_delta: float) -> void:
 	_root.visible = block or not get_tree().paused
 
 
+func _input(_event: InputEvent) -> void:
+	if _lock_token != 0:
+		get_viewport().set_input_as_handled()
+
+
 func _done() -> void:
-	if block:
-		get_tree().paused = false
+	GameplayLock.release(_lock_token)
+	_lock_token = 0
 	finished.emit()
 	queue_free()

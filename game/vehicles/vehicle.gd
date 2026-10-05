@@ -114,6 +114,8 @@ func _muzzle() -> Vector2:
 
 
 func _physics_process(delta: float) -> void:
+	if GameplayLock.is_locked() or get_tree().paused:
+		return
 	_anim_time += delta
 	_fire_cooldown = maxf(0.0, _fire_cooldown - delta)
 	_flash_left = maxf(0.0, _flash_left - delta)

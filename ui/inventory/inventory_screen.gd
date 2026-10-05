@@ -63,6 +63,8 @@ func is_open() -> bool:
 
 
 func _input(event: InputEvent) -> void:
+	if GameplayLock.is_locked():
+		return
 	if not _is_open:
 		if allowed and _opens_with_key() and event.is_action_pressed(&"inventory") and _can_open():
 			open()
@@ -100,7 +102,7 @@ func _process(delta: float) -> void:
 
 ## 其他選單或過場暫停遊戲時、玩家已倒下時不能開背包。
 func _can_open() -> bool:
-	return not get_tree().paused and _context != null and _context.is_valid() and not Story.is_cinematic_active()
+	return not GameplayLock.is_locked() and not get_tree().paused and _context != null and _context.is_valid() and not Story.is_cinematic_active()
 
 
 func open() -> void:

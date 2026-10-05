@@ -43,7 +43,138 @@ func run() -> void:
 	await _test_pause_restored()
 	await _test_story_integration()
 	await _test_overlay_and_layers()
+	await _test_lock_lifecycle()
+	await _test_gameplay_input_lock()
+	await _test_skip_covered_transition()
 	_test_real_data()
+
+
+func _test_lock_lifecycle() -> void:
+	var tree := runner.get_tree()
+	var mouse_mode := Input.mouse_mode
+	tree.paused = false
+	var first := Node.new()
+	var second := Node.new()
+	runner.add_child(first)
+	runner.add_child(second)
+	var token := GameplayLock.acquire(first, Input.MOUSE_MODE_HIDDEN)
+	var other := GameplayLock.acquire(second, Input.MOUSE_MODE_VISIBLE)
+	GameplayLock.release(token)
+	GameplayLock.release(token)
+	check(tree.paused and GameplayLock.is_locked() and Input.mouse_mode == Input.MOUSE_MODE_VISIBLE, "重複釋放不影響其他演出與游標")
+	second.queue_free()
+	await frames(2)
+	check(not tree.paused and not GameplayLock.is_locked() and Input.mouse_mode == mouse_mode, "owner 中途刪除自動回收最後一把鎖並還原游標")
+	GameplayLock.release(other)
+	first.queue_free()
+	# 目的畫面解除舊選單的暫停，不能同時解除正在播放的演出。
+	tree.paused = true
+	var owner := Node.new()
+	runner.add_child(owner)
+	token = GameplayLock.acquire(owner)
+	GameplayLock.set_base_paused(false)
+	UiKit.set_cursor_visible(false)
+	check(tree.paused, "換畫面更新基礎暫停仍保留演出鎖")
+	GameplayLock.release(token)
+	check(not tree.paused, "最後演出結束使用目的畫面的暫停狀態")
+	# headless DisplayServer 的 mouse_mode 永遠回傳 VISIBLE；仍驗證保存的目的畫面需求。
+	check(GameplayLock._base_mouse_mode == Input.MOUSE_MODE_HIDDEN and (DisplayServer.get_name() == "headless" or Input.mouse_mode == Input.MOUSE_MODE_HIDDEN), "轉場結束保留目的關卡的隱藏游標，不還原主選單游標")
+	GameplayLock.set_base_mouse_mode(mouse_mode)
+	owner.queue_free()
+	# 真正的播放器中途刪除也能還原。
+	var cinematic := _play(&"test_deleted", {"overlay": true, "steps": [{"do": "wait", "time": 30.0}]}, 1.0)
+	await frames(2)
+	cinematic.queue_free()
+	await frames(2)
+	check(not tree.paused and not GameplayLock.is_locked(), "播放器中途刪除不留下暫停或輸入鎖")
+	# 阻擋式章節卡必須保留原本的手動暫停。
+	tree.paused = true
+	var card := ChapterCard.new()
+	card.block = true
+	runner.add_child(card)
+	card._done()
+	check(tree.paused and not GameplayLock.is_locked(), "章末卡結束保留原本手動暫停")
+	tree.paused = false
+	await frames(2)
+
+
+## 用真正的玩家、音效訊號與輸入事件驗證，包含每影格輪詢及 ALWAYS 節點。
+func _test_gameplay_input_lock() -> void:
+	var level := await start_level(PropsSuite.level_data())
+	var player := level.player
+	await physics_frames(10)
+	var sounds: Array[StringName] = []
+	var on_sound := func(id: StringName) -> void: sounds.append(id)
+	Sfx.sound_played.connect(on_sound)
+	player._jump_buffer_left = 0.1
+	player._dash_buffer_left = 0.1
+	player._melee_buffer_left = 0.1
+	var cinematic := _play(&"test_input_lock", {"overlay": true, "steps": [{"do": "wait", "time": 30.0}]}, 1.0)
+	check(player._jump_buffer_left == 0.0 and player._dash_buffer_left == 0.0 and player._melee_buffer_left == 0.0, "過場開始清除玩家動作緩衝")
+	var before := player.global_position
+	var mag := player.loadout.mag_in(player.loadout.active_slot)
+	var fire_sound := player.loadout.active_weapon().fire_sound
+	var old_mode := player.process_mode
+	player.process_mode = Node.PROCESS_MODE_ALWAYS
+	var click := InputEventMouseButton.new()
+	click.button_index = MOUSE_BUTTON_LEFT
+	click.pressed = true
+	Input.parse_input_event(click)
+	Input.action_press(&"move_right")
+	await physics_frames(12)
+	check(player.global_position == before and player.loadout.mag_in(player.loadout.active_slot) == mag, "過場中的左鍵與移動輸入不能移動或消耗彈藥")
+	check(not sounds.has(fire_sound), "過場點擊不會播放玩家開槍聲")
+	var reload_event := InputEventAction.new()
+	reload_event.action = &"reload"
+	reload_event.pressed = true
+	player._unhandled_input(reload_event)
+	check(not player.loadout.is_reloading(), "過場事件輸入不能換彈")
+	level._pause_menu.open()
+	level._inventory.open()
+	DevMenu.open()
+	check(not level._pause_menu._root.visible and not level._inventory.is_open() and not DevMenu.is_open, "過場阻擋暫停、背包與開發選單")
+	var done := [false]
+	cinematic.finished.connect(func(_id: StringName) -> void: done[0] = true)
+	cinematic.skip()
+	for i in 60:
+		if done[0]:
+			break
+		await runner.get_tree().process_frame
+	check(done[0] and not runner.get_tree().paused and not GameplayLock.is_locked(), "過場結束當下恢復遊戲")
+	await physics_frames(3)
+	check(player.loadout.mag_in(player.loadout.active_slot) == mag and not sounds.has(fire_sound), "過場最後的點擊不會在恢復後補開槍")
+	player.process_mode = old_mode
+	Input.action_press(&"move_right")
+	await physics_frames(8)
+	Input.action_release(&"move_right")
+	check(player.global_position.x > before.x, "過場後不按 Esc 就能正常移動")
+	Input.action_press(&"shoot")
+	await physics_frames(2)
+	Input.action_release(&"shoot")
+	check(player.loadout.mag_in(player.loadout.active_slot) < mag and sounds.has(fire_sound), "恢復後重新按射擊仍能正常開槍")
+	Sfx.sound_played.disconnect(on_sound)
+	await end_level(level)
+
+
+func _test_skip_covered_transition() -> void:
+	var instant := Transition.instant
+	Transition.instant = false
+	var cinematic := _play(&"test_skip_covered", {"overlay": true, "steps": [
+		{"do": "transition", "kind": "fade", "mode": "cover", "time": 0.03},
+		{"do": "wait", "time": 30.0},
+		{"do": "transition", "kind": "fade", "mode": "reveal", "time": 0.03},
+	]}, 1.0)
+	for i in 120:
+		if Transition.is_active() and Transition._rect.visible:
+			break
+		await runner.get_tree().process_frame
+	var escape := InputEventKey.new()
+	escape.keycode = KEY_ESCAPE
+	escape.pressed = true
+	Input.parse_input_event(escape)
+	check(await _wait_finished(&"test_skip_covered", 120), "Esc 能跳過包含轉場的演出")
+	check(not Transition.is_active() and not runner.get_tree().paused and not GameplayLock.is_locked(), "跳過演出會清掉它的轉場，不留下黑畫面或暫停")
+	Transition.instant = instant
 
 
 func _speakers() -> Dictionary:

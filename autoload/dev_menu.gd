@@ -58,6 +58,8 @@ static func load_entries(path: String) -> Array[Dictionary]:
 
 
 func _input(event: InputEvent) -> void:
+	if GameplayLock.is_locked():
+		return
 	if not (event is InputEventKey) or not event.pressed or event.echo:
 		return
 	if event.keycode == TOGGLE_KEY:
@@ -76,7 +78,7 @@ func toggle() -> void:
 
 
 func open() -> void:
-	if is_open or not is_available():
+	if is_open or not is_available() or GameplayLock.is_locked():
 		return
 	_build()
 	_status.text = ""

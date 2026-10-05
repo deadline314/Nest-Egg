@@ -7,6 +7,8 @@ extends TestSuite
 func run() -> void:
 	await _test_all_kinds()
 	await _test_pause_state()
+	await _test_cutscene_overlap()
+	await _test_abort_during_swap()
 	await _test_skip()
 	await _test_retry_duration()
 	await _test_reduced_flashes()
@@ -67,6 +69,62 @@ func _test_skip() -> void:
 	await Transition.finished
 	var elapsed := float(Time.get_ticks_msec() - start) / 1000.0
 	check(elapsed < 3.0, "按鍵可以加速轉場（%.2f 秒，原本 4 秒）" % elapsed)
+	_disable()
+
+
+## 實際進場時，關卡的開場演出會在轉場尚未揭開時開始。
+func _test_cutscene_overlap() -> void:
+	_enable()
+	var tree := runner.get_tree()
+	tree.paused = false
+	await Transition.cover(Transition.Kind.FADE, 0.03)
+	var cinematic := CutscenePlayer.new()
+	runner.add_child(cinematic)
+	cinematic.play(&"test_overlap", {"overlay": true, "steps": [{"do": "wait", "time": 30.0}]})
+	await Transition.reveal(Transition.Kind.FADE, 0.03)
+	check(tree.paused, "揭開畫面後仍在演出的過場不能解除暫停")
+	var done := [false]
+	cinematic.finished.connect(func(_id: StringName) -> void: done[0] = true)
+	cinematic.skip()
+	for i in 60:
+		if done[0]:
+			break
+		await tree.process_frame
+	check(done[0] and not tree.paused, "重疊過場結束後立即恢復，不需要按 Esc")
+	tree.paused = false
+	# 相反順序：過場先結束，外層轉場還沒揭開。
+	cinematic = CutscenePlayer.new()
+	runner.add_child(cinematic)
+	cinematic.play(&"test_reverse_overlap", {"overlay": true, "steps": [{"do": "wait", "time": 30.0}]})
+	await Transition.cover(Transition.Kind.FADE, 0.03)
+	done[0] = false
+	cinematic.finished.connect(func(_id: StringName) -> void: done[0] = true)
+	cinematic.skip()
+	for i in 60:
+		if done[0]:
+			break
+		await tree.process_frame
+	check(done[0] and tree.paused, "過場先結束時，尚未揭開的轉場仍阻擋操作")
+	await Transition.reveal(Transition.Kind.FADE, 0.03)
+	check(not tree.paused and not GameplayLock.is_locked(), "反向結束重疊演出也不留下暫停或輸入鎖")
+	_disable()
+
+
+func _test_abort_during_swap() -> void:
+	_enable()
+	var old_done := [false]
+	var play := func() -> void:
+		await Transition.play(Transition.Kind.FADE, func() -> void:
+			Transition.abort()
+			await runner.get_tree().process_frame, 0.03)
+		old_done[0] = true
+	play.call()
+	for i in 120:
+		if old_done[0]:
+			break
+		await runner.get_tree().process_frame
+	check(old_done[0] and not runner.get_tree().paused and not Transition.is_active(), "切換回呼中止轉場後，舊協程不會重新暫停遊戲")
+	check(not GameplayLock.is_locked(), "中止轉場回收輸入鎖")
 	_disable()
 
 

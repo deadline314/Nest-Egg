@@ -16,6 +16,7 @@ config/icon="res://icon.png"
 
 Settings="*res://autoload/settings.gd"
 InputBindings="*res://autoload/input_bindings.gd"
+GameplayLock="*res://autoload/gameplay_lock.gd"
 EventBus="*res://autoload/event_bus.gd"
 GameState="*res://autoload/game_state.gd"
 DefeatCodex="*res://autoload/defeat_codex.gd"

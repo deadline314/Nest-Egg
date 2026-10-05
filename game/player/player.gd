@@ -135,6 +135,7 @@ func _ready() -> void:
 		push_warning("[Player] 未指定 PlayerTuning，使用預設值。")
 		tuning = PlayerTuning.new()
 	add_to_group(&"player")
+	GameplayLock.started.connect(_clear_input_buffers)
 	collision_layer = Layers.PLAYER
 	collision_mask = Layers.SOLID
 
@@ -218,6 +219,8 @@ func muzzle_position() -> Vector2:
 # ---------------------------------------------------------------------------
 
 func _input(event: InputEvent) -> void:
+	if GameplayLock.is_locked() or get_tree().paused:
+		return
 	AimInput.observe(event)
 	# 輸入延遲量測：記下按下的時間，效果發生時再結算。
 	for action: StringName in LATENCY_ACTIONS:
@@ -227,7 +230,7 @@ func _input(event: InputEvent) -> void:
 
 ## 換武器用事件處理：滾輪的按下與放開發生在同一影格，用輪詢會漏掉。
 func _unhandled_input(event: InputEvent) -> void:
-	if state == State.DEAD or state == State.MOUNTED:
+	if GameplayLock.is_locked() or get_tree().paused or state == State.DEAD or state == State.MOUNTED:
 		return
 	if event.is_action_pressed(&"weapon_next"):
 		loadout.cycle(1)
@@ -250,6 +253,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if GameplayLock.is_locked() or get_tree().paused:
+		return
 	_tick_timers(delta)
 	_update_aim(delta)
 	match state:
@@ -285,6 +290,12 @@ func _physics_process(delta: float) -> void:
 	_apply_corner_correction(delta)
 	move_and_slide()
 	_after_move(delta)
+
+
+func _clear_input_buffers() -> void:
+	_jump_buffer_left = 0.0
+	_dash_buffer_left = 0.0
+	_melee_buffer_left = 0.0
 
 
 func _tick_timers(delta: float) -> void:

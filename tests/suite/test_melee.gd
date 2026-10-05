@@ -28,6 +28,8 @@ func _test_data() -> void:
 
 
 func _target_at(offset_px: float) -> Enemy:  # 呼叫端要 await（等物理空間收錄）
+	# 使用實際瞄準輸入，避免前一套件留下的手把方向在物理影格覆蓋 facing。
+	Input.action_press(&"aim_left" if offset_px < 0.0 else &"aim_right")
 	var enemy := spawn(GRUNT_PATH, 10.0)
 	enemy.position = Vector2(level.player.global_position.x + offset_px, FLOOR_Y)
 	enemy.data = enemy.data.duplicate()
