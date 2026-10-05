@@ -2,6 +2,7 @@ class_name ProtagonistMotionSuite
 extends TestSuite
 ## 主角動作重設計（NE-191）：新的動作欄位預設值＝不啟用（其他角色的動作完全不變）、凜全速奔跑有騰空而走路沒有、
 ## 慣性前傾的方向（加速前傾、煞車後仰）、待機時腳固定在地上而骨盆會移動、步態形狀函式的行為。
+## NE-195：待機是挺直的準備站姿（兩腳前後錯開、腿近乎伸直），不是半蹲。
 ## NE-193：跑步時每隻腳著地一次落腳事件（腳底真的貼地的那一格）、站著不動沒有、速度越快越頻繁。
 ## NE-192：空中姿勢連續混合、起跳蹬地伸展、落地吸收（下沉再彈回）、衣襬衝量只作用在有資料的角色、整個節點的擠壓縮小。
 
@@ -167,6 +168,10 @@ func _test_idle_feet_stay_planted() -> void:
 	check(foot_max - foot_min < 0.5, "idle: the planted foot does not slide (%.2f px)" % (foot_max - foot_min))
 	check(hip_max - hip_min > 1.5, "idle: the pelvis shifts side to side so the weight moves (%.2f px)" % (hip_max - hip_min))
 	check(absf(_lowest_foot_height(rig.animator)) < 0.6, "idle: the feet stay on the ground (%.2f)" % _lowest_foot_height(rig.animator))
+	var spread := rig.animator.bone_pos(&"foot_front").x - rig.animator.bone_pos(&"foot_back").x
+	check(spread > 10.0 and spread < 18.0, "idle: a ready stance with the front foot ahead of the back foot (%.1f px apart)" % spread)
+	var sag := rig.bone(&"hip").position.y - rig.animator._rig.rest(&"hip").y
+	check(sag < 3.5, "idle: the legs are nearly straight, not a half squat (hip %.1f px below standing height)" % sag)
 	rig.get_parent().queue_free()
 	await frames(1)
 

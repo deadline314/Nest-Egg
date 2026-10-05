@@ -5,7 +5,7 @@
   "breath_speed": 2.4,
   "breath_amp": 0.03,
   "hip_bob": 0.3,
-  "chest": 0.0,
+  "chest": 0.04,
   "legs": [
    -0.22,
    0.2,
@@ -15,8 +15,12 @@
   "sway": 2.2,
   "sway_speed": 0.9,
   "pin_feet": true,
-  "pin_reach": 0.95,
-  "counter": 0.04
+  "pin_reach": 0.995,
+  "counter": 0.04,
+  "feet_x": [
+   8.0,
+   -7.0
+  ]
  },
  "move": {
   "stride": 56.0,

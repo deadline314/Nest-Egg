@@ -33,11 +33,11 @@ const DEFAULT_SPRINGS: Array[Dictionary] = [
 ## 空中與落地（NE-192，同樣預設不啟用）：
 ##   air.apex_speed／apex／takeoff：垂直速度的絕對值低於 apex_speed 時在「上升／下落」與「頂點」姿勢之間連續混合（0＝舊的二選一）、起跳後 takeoff.time 秒的蹬地伸展；
 ##   land：落地吸收——gain＝衝擊 1 時彈簧的初速、stiffness／damping、drop＝身體下沉像素、chest＝前傾、legs＝膝蓋彎曲的腿姿（用彈簧所以回彈有過衝）；
-##   dash.hip_drop：衝刺時身體壓低；impulse：起跳／落地／衝刺／受擊時對衣襬與頭髮彈簧注入的角速度（乘上各彈簧自己的 gain）；idle.pin_feet／pin_reach／counter：待機時腳固定在地上、骨盆左右微移讓膝蓋彎曲（重心轉移）、pin_reach 是站姿腿長比例、counter 是胸的反向補償。
+##   dash.hip_drop：衝刺時身體壓低；impulse：起跳／落地／衝刺／受擊時對衣襬與頭髮彈簧注入的角速度（乘上各彈簧自己的 gain）；idle.pin_feet／pin_reach／feet_x／counter：待機時腳固定在地上、feet_x＝兩腳（前腳、後腳）離骨盆的前後距離像素（空陣列＝用 legs 的站姿腿角算出來的位置）、骨盆左右微移讓膝蓋彎曲（重心轉移）、pin_reach 是站姿腿長比例、counter 是胸的反向補償。
 const MOTION_PATH := "res://art/motion/%s.json"
 const DEFAULT_MOTION := {
 	"grounding": false,
-	"idle": {"breath_speed": 2.4, "breath_amp": 0.02, "hip_bob": 0.3, "chest": 0.0, "legs": [-0.12, 0.12, 0.2, 0.08], "sway": 0.0, "sway_speed": 1.3, "pin_feet": false, "pin_reach": 0.95, "counter": 0.0},
+	"idle": {"breath_speed": 2.4, "breath_amp": 0.02, "hip_bob": 0.3, "chest": 0.0, "legs": [-0.12, 0.12, 0.2, 0.08], "sway": 0.0, "sway_speed": 1.3, "pin_feet": false, "pin_reach": 0.95, "counter": 0.0, "feet_x": []},
 	"move": {"stride": 50.0, "swing": 0.8, "knee_bend": 1.2, "knee_base": 0.15, "hip_bounce": 1.4, "chest_lean": 0.12, "threshold": 0.08,
 			"duty": 0.55, "lift": 5.0, "reach": 0.985, "bounce": 0.0, "rise": 0.0},
 	"foot": {"droop": 0.25, "heel": 0.0, "toe_off": 0.0},
@@ -589,6 +589,10 @@ func _record_idle_feet() -> void:
 	for i in LEG_CHAINS.size():
 		var foot: StringName = LEG_CHAINS[i][2]
 		_idle_foot_x[i] = _global_pos[foot].x if _global_pos.has(foot) else 0.0
+	var feet_x: Array = (_motion["idle"] as Dictionary)["feet_x"]
+	if feet_x.size() >= 2:
+		for i in 2:
+			_idle_foot_x[i] = _rig.rest(&"hip").x + float(feet_x[i])
 	for bone_name: StringName in _angles.keys():
 		_angles[bone_name] = 0.0
 	_apply_body()
