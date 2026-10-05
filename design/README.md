@@ -17,6 +17,7 @@
 | [12-cast-redraw/DESIGN.md](12-cast-redraw/DESIGN.md) | 敵人與 NPC 重畫：用凜的流程做出同等精細度的人形角色（範圍、各角色外觀與比例、芽的可操控規格、NPC 動畫、票的順序） |
 | [12-cast-redraw/ANIMATION.md](12-cast-redraw/ANIMATION.md) | 角色動畫系統：動畫器登記、敵人招式的專屬動作、NPC 動畫（姿勢、說話、工作循環）、新增特殊角色的步驟 |
 | [12-cast-redraw/CREATURES.md](12-cast-redraw/CREATURES.md) | 特殊敵人提案：爬行、飛行、觸手與蠕動（網格變形）、每章名單不重複、動作資料各自獨立、順序與待決定事項 |
+| [12-cast-redraw/RIG_QUALITY.md](12-cast-redraw/RIG_QUALITY.md) | 立繪套上骨架後的畫面品質與動作質感：關節切口與破圖的原因、五種做法（網格變形、彎曲變體、姿勢立繪庫…）、建議順序、NPC 去機器人感 |
 | [13-story-v2/README.md](13-story-v2/README.md) | 劇情重整（v2，完全重新設計）：參考作品拆解、世界觀「沉港市與再來一次」、大致情節（四幕九章）；取代 04-story |
 | [14-combat-variety/DESIGN.md](14-combat-variety/DESIGN.md) | 戰鬥多樣性：近戰與長距離近戰武器、敵人的非槍械攻擊型態素材庫 |
 | [15-combat-feel/DESIGN.md](15-combat-feel/DESIGN.md) | 戰鬥系統與打擊感（第二順位支柱）：動作遊戲為主、無限小槍加近戰加彈幕、中日英打擊感資料整理、回饋管線與力道分級、打擊感實驗室、2～3 隻魂系頭目、電話亭檢查點與死亡扣 5%、票的拆分 |
