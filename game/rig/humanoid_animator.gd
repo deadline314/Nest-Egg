@@ -124,6 +124,11 @@ var _overlay: Dictionary[StringName, float] = {}
 var _inertia := InertiaLean.new()
 var _lean := 0.0
 var _last_facing := 0
+## 落腳事件：某隻腳從前擺進入著地的那一格記一次（腳步聲對齊腳掌著地），擁有者用 consume_footfalls() 領走；上限避免沒人領時累積。
+const MAX_PENDING_FOOTFALLS := 4
+var _footfalls := 0
+var _was_stance: Array[bool] = [false, false]
+var _stance_known := false
 ## 起跳後蹬地伸展的剩餘秒數、落地吸收彈簧（位置 0＝站直、1＝吸收到最深；速度）。
 var _takeoff_left := 0.0
 var _land_x := 0.0
@@ -221,6 +226,8 @@ func update(delta: float, input: RigInput) -> void:
 	_gait_floor = NAN
 	_idle_on = false
 	var target := _body_pose(delta, input, local_velocity, look_angle)
+	if not _gait_on:
+		_stance_known = false  # 重新起跑時第一次著地不算「剛著地」，避免用舊狀態誤判
 	_run_w = lerpf(_run_w, 1.0 if _gait_on else 0.0, 1.0 - exp(-RUN_OVERLAY_BLEND * delta))
 	_update_run_overlay()
 	target[&"_hip_x"] = float(target.get(&"_hip_x", 0.0)) - _recoil * float((_motion["recoil"] as Dictionary)["hip"])  # 開火的後座把身體往後頂
@@ -423,6 +430,10 @@ func _step_legs() -> void:
 	_cycle = fposmod(_phase / TAU, 1.0)
 	for i in LEG_CHAINS.size():
 		var p := fposmod(_cycle + (0.0 if i == 0 else 0.5), 1.0)
+		var stance := p < _gait_duty
+		if _gait_on and _stance_known and stance and not _was_stance[i]:
+			_footfalls = mini(_footfalls + 1, MAX_PENDING_FOOTFALLS)
+		_was_stance[i] = stance
 		var x := 0.0
 		var lift := 0.0
 		if p < _gait_duty:
@@ -433,6 +444,7 @@ func _step_legs() -> void:
 			lift = _gait_lift * sin(PI * t)
 		offsets.append(Vector2(x, lift))
 		angles.append(GaitShape.foot_angle(p, _gait_duty, lift / maxf(0.1, _gait_lift), foot))
+	_stance_known = _gait_on
 	_place_feet(offsets, angles, _gait_w, GAIT_MIN_SAG if is_nan(_gait_floor) else _gait_floor, _gait_reach, false, _land_sag())
 
 
@@ -619,6 +631,18 @@ func _rest_corpse() -> void:
 ## 目前身體整個往下沉了多少（骨架空間，往下為正）：蹲下時槍口與準星的高度由它算出。
 func current_hip_drop() -> float:
 	return _hip_offset.y + _ground_shift
+
+
+## 兩腳正在用落腳 IK 跑步（腳步聲可以跟著落腳事件走）；停下、蹲著、空中、衝刺時是 false。
+func is_stepping() -> bool:
+	return _gait_on and _gait_w > 0.5
+
+
+## 領走自上次呼叫以來的落腳次數（每隻腳著地一次）。
+func consume_footfalls() -> int:
+	var count := _footfalls
+	_footfalls = 0
+	return count
 
 
 ## 這個角色全速奔跑時有沒有騰空（踩地比例低於走路的落腳）。

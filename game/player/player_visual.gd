@@ -112,6 +112,16 @@ func notify_melee_swing(trail: Dictionary, swing_facing: int, direction := Vecto
 	queue_redraw()  # 命中頓幀會馬上凍住這個節點的處理，所以這一影格就要重畫
 
 
+## 腳步聲是否跟著骨架的落腳事件走（兩腳正在跑步落腳）；false 時（蹲著、骨架無效…）由玩家腳本依距離計步。
+func is_stepping() -> bool:
+	return rig != null and rig.is_valid() and rig.animator != null and rig.animator.is_stepping()
+
+
+## 領走自上次呼叫以來的落腳次數（每隻腳著地一次）；骨架無效時回傳 0。
+func consume_footfalls() -> int:
+	return rig.animator.consume_footfalls() if rig != null and rig.is_valid() and rig.animator != null else 0
+
+
 func notify_fired(color: Color) -> void:
 	_fire_flash = FIRE_FLASH_TIME
 	_fire_color = color

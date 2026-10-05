@@ -2,6 +2,7 @@ class_name ProtagonistMotionSuite
 extends TestSuite
 ## 主角動作重設計（NE-191）：新的動作欄位預設值＝不啟用（其他角色的動作完全不變）、凜全速奔跑有騰空而走路沒有、
 ## 慣性前傾的方向（加速前傾、煞車後仰）、待機時腳固定在地上而骨盆會移動、步態形狀函式的行為。
+## NE-193：跑步時每隻腳著地一次落腳事件（腳底真的貼地的那一格）、站著不動沒有、速度越快越頻繁。
 ## NE-192：空中姿勢連續混合、起跳蹬地伸展、落地吸收（下沉再彈回）、衣襬衝量只作用在有資料的角色、整個節點的擠壓縮小。
 
 const DT := 1.0 / 60.0
@@ -19,6 +20,7 @@ func run() -> void:
 	await _test_landing_absorbs_and_recovers()
 	await _test_spring_impulses()
 	_test_node_squash_is_soft()
+	await _test_footfall_events()
 
 
 func _make(skin: String, input: RigInput) -> CharacterRig:
@@ -262,3 +264,33 @@ func _test_spring_impulses() -> void:
 
 func _test_node_squash_is_soft() -> void:
 	check(PlayerVisual.SQUASH_SCALE <= 0.35, "the sprite squash is a third of the old amount or less (%.2f)" % PlayerVisual.SQUASH_SCALE)
+
+
+## 落腳事件：跑 2 秒大約每秒 2.7 個週期、5.4 步；事件發生那一格最低的腳底貼著地；站著不動沒有事件。
+func _test_footfall_events() -> void:
+	var input := RigInput.new()
+	var rig := _make("rin", input)
+	_run(rig, input, 60)
+	check(rig.animator.consume_footfalls() == 0 and not rig.animator.is_stepping(), "standing still makes no footfalls")
+	input.run_speed = 150.0
+	input.velocity = Vector2(150.0, 0.0)
+	_run(rig, input, 30)
+	rig.animator.consume_footfalls()
+	var total := 0
+	var airborne_events := 0
+	for i in 120:
+		rig.animate(DT, input)
+		var count := rig.animator.consume_footfalls()
+		total += count
+		if count > 0 and _lowest_foot_height(rig.animator) > 1.5:
+			airborne_events += 1
+	check(rig.animator.is_stepping(), "running reports that the feet are stepping")
+	check(total >= 9 and total <= 13, "two seconds of running makes about eleven footfalls (%d)" % total)
+	check(airborne_events == 0, "every footfall happens when the foot is on the ground (%d did not)" % airborne_events)
+	input.velocity = Vector2.ZERO
+	_run(rig, input, 60)
+	rig.animator.consume_footfalls()
+	_run(rig, input, 60)
+	check(rig.animator.consume_footfalls() == 0 and not rig.animator.is_stepping(), "stopping ends the footfalls")
+	rig.get_parent().queue_free()
+	await frames(1)
