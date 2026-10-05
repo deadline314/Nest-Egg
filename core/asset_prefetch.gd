@@ -14,9 +14,17 @@ static var _requested: Dictionary[String, bool] = {}
 
 ## 預載一個區域用到的貼圖。data 可以是 LevelData 或 .tres 路徑。回傳新發出的請求數量。
 static func warm_level(data: Variant) -> int:
-	var level := data as LevelData
-	if level == null and typeof(data) == TYPE_STRING and ResourceLoader.exists(str(data)):
-		level = load(str(data)) as LevelData
+	# 字串不能直接 as 成物件型別（會是執行期錯誤），所以先依型別分流。
+	var level: LevelData = null
+	match typeof(data):
+		TYPE_OBJECT:
+			level = data as LevelData
+		TYPE_STRING, TYPE_STRING_NAME:
+			var path := str(data)
+			if ResourceLoader.exists(path):
+				level = load(path) as LevelData
+			else:
+				push_warning("[AssetPrefetch] 找不到要預載的區域：%s" % path)
 	if level == null:
 		return 0
 	return request(level_texture_paths(level))

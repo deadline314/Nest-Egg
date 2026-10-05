@@ -4,6 +4,7 @@ extends TestSuite
 
 
 func run() -> void:
+	await _test_game_boots_to_menu()
 	await _test_main_menu()
 	await _test_codex()
 	await _test_pause_info()
@@ -14,6 +15,24 @@ func run() -> void:
 	await _test_fullscreen_setting()
 	await _test_death_screen()
 	await _test_victory_screen()
+
+
+## 進入點啟動後一定要出現主選單（預載或資料出錯曾讓 F5 只剩黑畫面）。
+func _test_game_boots_to_menu() -> void:
+	var main := (load("res://scenes/main.tscn") as PackedScene).instantiate()
+	runner.add_child(main)
+	var menu: MainMenu = null
+	for i in 240:
+		await frames(1)
+		for child in main.get_children():
+			if child is MainMenu:
+				menu = child
+		if menu != null:
+			break
+	check(menu != null, "the entry scene shows the main menu instead of a black screen")
+	runner.remove_child(main)
+	main.queue_free()
+	await frames(2)
 
 
 func _test_main_menu() -> void:

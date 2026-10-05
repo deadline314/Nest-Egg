@@ -326,6 +326,8 @@ func _test_prefetch() -> void:
 	check(sent > 0, "warming the neighbors of the pawnshop sends requests (%d)" % sent)
 	check(AssetPrefetch.warm_neighbors(_datas["pawnshop"]) == 0, "the same request is not sent twice")
 	check(AssetPrefetch.request(PackedStringArray(["res://art/no_such_prefetch_texture.png"])) == 0, "a missing texture is skipped without an error")
+	check(AssetPrefetch.warm_level("res://data/levels/ch1_street.tres") >= 0, "an area can be warmed by its path")
+	check(AssetPrefetch.warm_level("res://data/levels/no_such_level.tres") == 0 and AssetPrefetch.warm_level(null) == 0, "a missing path or nothing is skipped")
 
 
 ## 場景結束時設旗標：吃完晚飯才能上樓，聽完差事才能出門。
