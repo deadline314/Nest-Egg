@@ -47,6 +47,11 @@ static func audit(rig: CharacterRig, skin: String, action_names: Array[String]) 
 		input.relaxed = true
 		_hold(ctx, input, 60, "run-relaxed %.0f" % speed)
 		input.relaxed = false
+	# 全速奔跑（速度比例 1）：只有「有騰空」的角色才量（兩腳會同時離地，所以不量腳底與地面，其他項目照量）。
+	if rig.animator != null and rig.animator.has_flight():
+		input.velocity = Vector2(120.0, 0.0)
+		input.run_speed = 120.0
+		_hold(ctx, input, 120, "run full", false)
 	input.velocity = Vector2.ZERO
 	_hold(ctx, input, 30, "stop")
 	input.crouching = true

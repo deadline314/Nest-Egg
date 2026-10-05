@@ -3,7 +3,7 @@
  "skin": "rin",
  "idle": {
   "breath_speed": 2.4,
-  "breath_amp": 0.02,
+  "breath_amp": 0.03,
   "hip_bob": 0.3,
   "chest": 0.0,
   "legs": [
@@ -12,19 +12,25 @@
    0.3,
    0.12
   ],
-  "sway": 0.3,
-  "sway_speed": 1.2
+  "sway": 2.2,
+  "sway_speed": 0.9,
+  "pin_feet": true,
+  "pin_reach": 0.95,
+  "counter": 0.04
  },
  "move": {
-  "stride": 50.0,
+  "stride": 56.0,
   "swing": 0.8,
   "knee_bend": 1.2,
   "knee_base": 0.15,
   "hip_bounce": 1.4,
-  "chest_lean": 0.12,
+  "chest_lean": 0.16,
   "threshold": 0.08,
-  "duty": 0.55,
-  "lift": 5.5
+  "duty": 0.44,
+  "lift": 9.0,
+  "reach": 0.95,
+  "bounce": 5.0,
+  "rise": 2.0
  },
  "crouch": {
   "hip_drop": 8.0,
@@ -123,5 +129,24 @@
   "talk_speed": 1.0,
   "talk_amp": 1.0
  },
- "grounding": true
+ "grounding": true,
+ "foot": {
+  "droop": 0.35,
+  "heel": -0.3,
+  "toe_off": 0.5
+ },
+ "torso": {
+  "hip_swing": 0.05,
+  "chest_counter": 1.4,
+  "chest_wobble": 0.035,
+  "wobble_phase": 0.0,
+  "head_hold": 0.9
+ },
+ "inertia": {
+  "gain": 0.2,
+  "ref_accel": 1600.0,
+  "stiffness": 90.0,
+  "damping": 11.0,
+  "max": 0.3
+ }
 }
