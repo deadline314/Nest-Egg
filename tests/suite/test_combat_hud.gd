@@ -88,7 +88,7 @@ func _test_radio_panel() -> void:
 	layer._radio_root.visible = false
 	layer._radio_root.modulate.a = 0.0
 	check(Story.play(&"test_radio_panel", false), "可以播放通訊")
-	await frames(3)
+	# 播放會同步設定滑入起點；等三個影格可能已超過 0.15 秒，不能代表「剛出現」。
 	check(layer._radio_root.visible and layer._radio_root.modulate.a < 1.0, "通訊面板從側邊滑入（剛出現時還沒完全不透明）")
 	for i in 40:
 		await runner.get_tree().physics_frame

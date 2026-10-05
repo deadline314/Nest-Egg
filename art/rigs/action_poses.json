@@ -125,6 +125,53 @@
         }
       ]
     },
+    "warden.core_open": {
+      "duration": 0.5,
+      "skip_ik": false,
+      "blend": 12,
+      "keys": [
+        {
+          "t": 0.0,
+          "bones": {
+            "core_plate": 0.0,
+            "chest": 0.0
+          }
+        },
+        {
+          "t": 1.0,
+          "bones": {
+            "core_plate": 1.0,
+            "chest": -0.1,
+            "head": 0.06
+          },
+          "hip_y": 1.0
+        }
+      ]
+    },
+    "warden.core_close": {
+      "duration": 0.5,
+      "skip_ik": false,
+      "blend": 12,
+      "keys": [
+        {
+          "t": 0.0,
+          "bones": {
+            "core_plate": 1.0,
+            "chest": -0.1,
+            "head": 0.06
+          },
+          "hip_y": 1.0
+        },
+        {
+          "t": 1.0,
+          "bones": {
+            "core_plate": 0.0,
+            "chest": 0.0,
+            "head": 0.0
+          }
+        }
+      ]
+    },
     "shield_rusher.brace": {
       "duration": 0.34,
       "skip_ik": false,

@@ -846,6 +846,16 @@ func _center() -> Vector2:
 	return global_position + Vector2(0, -data.body_size.y * 0.5)
 
 
+## 核心（弱點光環）的本地座標：骨架外觀優先取專屬骨頭 core_port（有宣告的角色，位置由規格決定），其次胸骨，
+## 都沒有（程式繪製的敵人）就用碰撞框高度的比例。
+func _core_point() -> Vector2:
+	if rig != null:
+		for bone_name: StringName in [&"core_port", &"chest"]:
+			if rig.has_bone(bone_name):
+				return to_local(rig.bone(bone_name).global_position)
+	return Vector2(0, -data.body_size.y * 0.62)
+
+
 func _muzzle() -> Vector2:
 	if rig != null and not data.rig_weapon.is_empty():
 		return rig.muzzle_global()

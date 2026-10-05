@@ -404,7 +404,7 @@ func _draw_overlay() -> void:
 		var from := to_local(_muzzle())
 		draw_line(from, from + _direction_to_target() * 240.0, color, 1.0)
 	if _vulnerable:
-		var core := Vector2(0, -data.body_size.y * 0.62)
+		var core := _core_point()
 		var pulse := 0.5 + 0.5 * sin(_anim_time * 20.0)
 		draw_arc(core, 9.0 + pulse * 3.0, 0.0, TAU, 24, LightKit.glow(Palette.CYAN, 3.0), 2.0)
 
