@@ -9,6 +9,8 @@ const FIRE_FLASH_TIME := 0.06
 const FINISHER_FLASH_TIME := 0.2
 ## 擠壓伸展回彈速度（越大回彈越快）。
 const SQUASH_RECOVERY := 14.0
+## 整個節點的擠壓伸展只留下原本幅度的這個比例：起跳的伸展、落地的緩衝改由骨架動作（蹬地、膝蓋與骨盆吸收）負責，貼圖不再明顯變形。
+const SQUASH_SCALE := 0.3
 const PARRY_FLASH_TIME := 0.25
 const BLOCK_FLASH_TIME := 0.1
 const SHIELD_RADIUS := 15.0
@@ -110,6 +112,16 @@ func notify_melee_swing(trail: Dictionary, swing_facing: int, direction := Vecto
 	queue_redraw()  # 命中頓幀會馬上凍住這個節點的處理，所以這一影格就要重畫
 
 
+## 腳步聲是否跟著骨架的落腳事件走（兩腳正在跑步落腳）；false 時（蹲著、骨架無效…）由玩家腳本依距離計步。
+func is_stepping() -> bool:
+	return rig != null and rig.is_valid() and rig.animator != null and rig.animator.is_stepping()
+
+
+## 領走自上次呼叫以來的落腳次數（每隻腳著地一次）；骨架無效時回傳 0。
+func consume_footfalls() -> int:
+	return rig.animator.consume_footfalls() if rig != null and rig.is_valid() and rig.animator != null else 0
+
+
 func notify_fired(color: Color) -> void:
 	_fire_flash = FIRE_FLASH_TIME
 	_fire_color = color
@@ -117,12 +129,19 @@ func notify_fired(color: Color) -> void:
 
 
 func notify_jump() -> void:
-	_squash = Vector2(0.82, 1.18)
+	_squash = _soft_squash(Vector2(0.82, 1.18))
+	_input.jumped = true
 
 
 func notify_land(impact: float) -> void:
 	var amount := lerpf(0.08, 0.22, impact)
-	_squash = Vector2(1.0 + amount, 1.0 - amount)
+	_squash = _soft_squash(Vector2(1.0 + amount, 1.0 - amount))
+	_input.landed = maxf(impact, 0.01)
+
+
+## 把擠壓縮放縮小到 SQUASH_SCALE（1,1 是不變形）。
+func _soft_squash(full: Vector2) -> Vector2:
+	return Vector2.ONE + (full - Vector2.ONE) * SQUASH_SCALE
 
 
 func notify_parry() -> void:
@@ -134,7 +153,8 @@ func notify_block() -> void:
 
 
 func notify_dash() -> void:
-	_squash = Vector2(1.2, 0.86)
+	_squash = _soft_squash(Vector2(1.2, 0.86))
+	_input.dash_started = true
 
 
 ## 重生：身體從光裡淡入（配合 PlayerFx.respawn 的光環與餘燼）。
@@ -216,6 +236,9 @@ func _physics_process(delta: float) -> void:
 	rig.animate(delta, _input)
 	_input.recoil = 0.0
 	_input.hurt = false
+	_input.jumped = false
+	_input.landed = 0.0
+	_input.dash_started = false
 
 
 func _process(delta: float) -> void:

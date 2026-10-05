@@ -23,14 +23,32 @@ const DEFAULT_SPRINGS: Array[Dictionary] = [
 	{"bone": "hair_2", "rest": 0.0, "gain": 0.4},
 ]
 ## 動作資料（art/motion/<角色>.json）缺的欄位用這份預設補（等於凜原本的手感）；每個角色都要有自己的檔案，測試會檢查不重複。
+## 注意：合併時只收這份預設裡有的欄位（打錯字的欄位會被忽略），所以新增欄位一定要先在這裡給「不啟用」的預設值。
+## 跑步（grounding＝true）的進階欄位，預設值都是不啟用，只有寫了數值的角色會改變：
+##   move.duty／lift／reach：踩地比例（低於 0.5＝有騰空）、抬腳高度、伸展腿的長度比例（小於 1＝著地時膝蓋微彎）；
+##   move.bounce／rise：踩地中段身體下沉、騰空時身體上升的像素（兩者都 0＝舊的固定下限）；
+##   foot：腳掌滾動（heel 著地腳尖翹、toe_off 蹬地腳尖壓、droop 抬腳時下垂）；
+##   torso：骨盆擺動 hip_swing、胸反向 chest_counter、胸的起伏 chest_wobble（wobble_phase 相位）、頭保持穩定 head_hold；
+##   inertia：慣性前傾（見 InertiaLean）；
+## 空中與落地（NE-192，同樣預設不啟用）：
+##   air.apex_speed／apex／takeoff：垂直速度的絕對值低於 apex_speed 時在「上升／下落」與「頂點」姿勢之間連續混合（0＝舊的二選一）、起跳後 takeoff.time 秒的蹬地伸展；
+##   land：落地吸收——gain＝衝擊 1 時彈簧的初速、stiffness／damping、drop＝身體下沉像素、chest＝前傾、legs＝膝蓋彎曲的腿姿（用彈簧所以回彈有過衝）；
+##   dash.hip_drop：衝刺時身體壓低；impulse：起跳／落地／衝刺／受擊時對衣襬與頭髮彈簧注入的角速度（乘上各彈簧自己的 gain）；idle.pin_feet／pin_reach／feet_x／counter：待機時腳固定在地上、feet_x＝兩腳（前腳、後腳）離骨盆的前後距離像素（空陣列＝用 legs 的站姿腿角算出來的位置）、骨盆左右微移讓膝蓋彎曲（重心轉移）、pin_reach 是站姿腿長比例、counter 是胸的反向補償。
 const MOTION_PATH := "res://art/motion/%s.json"
 const DEFAULT_MOTION := {
 	"grounding": false,
-	"idle": {"breath_speed": 2.4, "breath_amp": 0.02, "hip_bob": 0.3, "chest": 0.0, "legs": [-0.12, 0.12, 0.2, 0.08], "sway": 0.0, "sway_speed": 1.3},
-	"move": {"stride": 50.0, "swing": 0.8, "knee_bend": 1.2, "knee_base": 0.15, "hip_bounce": 1.4, "chest_lean": 0.12, "threshold": 0.08},
+	"idle": {"breath_speed": 2.4, "breath_amp": 0.02, "hip_bob": 0.3, "chest": 0.0, "legs": [-0.12, 0.12, 0.2, 0.08], "sway": 0.0, "sway_speed": 1.3, "pin_feet": false, "pin_reach": 0.95, "counter": 0.0, "feet_x": []},
+	"move": {"stride": 50.0, "swing": 0.8, "knee_bend": 1.2, "knee_base": 0.15, "hip_bounce": 1.4, "chest_lean": 0.12, "threshold": 0.08,
+			"duty": 0.55, "lift": 5.0, "reach": 0.985, "bounce": 0.0, "rise": 0.0},
+	"foot": {"droop": 0.25, "heel": 0.0, "toe_off": 0.0},
+	"torso": {"hip_swing": 0.0, "chest_counter": 0.0, "chest_wobble": 0.0, "wobble_phase": 0.0, "head_hold": 0.0},
+	"inertia": {"gain": 0.0, "ref_accel": 1600.0, "stiffness": 90.0, "damping": 11.0, "max": 0.3},
 	"crouch": {"hip_drop": 8.0, "chest": 0.18, "legs": [-1.25, 2.05, -0.55, 1.85]},
-	"air": {"rise": {"chest": 0.05, "legs": [-0.95, 1.4, 0.35, 0.7]}, "fall": {"chest": -0.05, "legs": [-0.35, 0.45, 0.45, 0.25]}},
-	"dash": {"forward": {"chest": 0.38, "legs": [-1.0, 0.6, 0.85, 1.0]}, "back": {"chest": -0.22, "legs": [0.5, 0.9, -0.7, 0.4]}},
+	"air": {"rise": {"chest": 0.05, "legs": [-0.95, 1.4, 0.35, 0.7]}, "fall": {"chest": -0.05, "legs": [-0.35, 0.45, 0.45, 0.25]},
+			"apex": {"chest": 0.0, "legs": [-0.6, 0.9, 0.4, 0.5]}, "apex_speed": 0.0, "takeoff": {"time": 0.0, "chest": 0.0, "legs": [0.0, 0.0, 0.0, 0.0]}},
+	"dash": {"forward": {"chest": 0.38, "legs": [-1.0, 0.6, 0.85, 1.0]}, "back": {"chest": -0.22, "legs": [0.5, 0.9, -0.7, 0.4]}, "hip_drop": 0.0},
+	"land": {"gain": 0.0, "stiffness": 220.0, "damping": 16.0, "drop": 0.0, "chest": 0.0, "legs": [-0.8, 1.3, 0.1, 0.9]},
+	"impulse": {"jump": 0.0, "land": 0.0, "dash": 0.0, "hurt": 0.0},
 	"block": {"chest": 0.1, "legs": [-0.4, 0.5, 0.5, 0.2]},
 	"hurt": {"stagger_chest": -0.35, "kick": 0.3},
 	"look": {"chest": 0.12, "neck": 0.12, "head": 0.3, "head_min": -0.35, "head_max": 0.3},
@@ -66,6 +84,14 @@ const DEATH_MAX_ROTATION := 1.75
 const CROUCH_DROP := 8.0
 
 const LEGS: Array[StringName] = [&"leg_front_upper", &"leg_front_lower", &"leg_back_upper", &"leg_back_lower"]
+## 兩條腿的骨頭鏈（大腿、小腿、腳掌），順序＝前腳、後腳。
+const LEG_CHAINS: Array = [[&"leg_front_upper", &"leg_front_lower", &"foot_front"], [&"leg_back_upper", &"leg_back_lower", &"foot_back"]]
+## 跑步疊加層（骨盆、胸、頭的週期擺動）淡入淡出的速度（每秒）。
+const RUN_OVERLAY_BLEND := 8.0
+## 騰空只在接近全速時出現：速度比例低於 FLIGHT_FROM 是走路的落腳（總有一腳踩地、身體不上升），到 FLIGHT_FULL 才是資料寫的踩地比例與上升量。
+const FLIGHT_FROM := 0.7
+const FLIGHT_FULL := 1.0
+const WALK_DUTY := 0.55
 
 var _rig: CharacterRig
 var _angles: Dictionary[StringName, float] = {}
@@ -90,6 +116,30 @@ var _gait_duty := 0.55
 var _gait_lift := 5.0
 var _gait_w := 0.0
 var _ground_shift := 0.0
+## 跑步進階（見 DEFAULT_MOTION 的說明）：步伐週期 0~1、速度比例、疊加層的權重，以及不經過平滑、直接加在骨頭角度上的疊加角度。
+var _cycle := 0.0
+var _gait_speed_ratio := 0.0
+var _gait_reach := 0.985
+var _gait_floor := NAN
+var _run_w := 0.0
+var _overlay: Dictionary[StringName, float] = {}
+## 慣性前傾與面向（翻轉時重置加速度）。
+var _inertia := InertiaLean.new()
+var _lean := 0.0
+var _last_facing := 0
+## 落腳事件：某隻腳從前擺進入著地的那一格記一次（腳步聲對齊腳掌著地），擁有者用 consume_footfalls() 領走；上限避免沒人領時累積。
+const MAX_PENDING_FOOTFALLS := 4
+var _footfalls := 0
+var _was_stance: Array[bool] = [false, false]
+var _stance_known := false
+## 起跳後蹬地伸展的剩餘秒數、落地吸收彈簧（位置 0＝站直、1＝吸收到最深；速度）。
+var _takeoff_left := 0.0
+var _land_x := 0.0
+var _land_v := 0.0
+## 待機：腳固定在地上（重心轉移）時兩腳的固定位置（骨架空間 x，前腳與後腳）、這一格是不是待機、固定的權重。
+var _idle_on := false
+var _idle_pin_w := 0.0
+var _idle_foot_x: Array[float] = [0.0, 0.0]
 ## 放鬆程度 0（舉槍）～1（槍垂下）。
 var _relax := 0.0
 ## 專屬動作：目前（或剛結束、正在淡出）的動作、各骨頭的目標角度與權重。
@@ -123,6 +173,7 @@ func _init(rig: CharacterRig) -> void:
 		_springs.append(entry)
 		_spring_angle[bone_name] = 0.0
 		_spring_velocity[bone_name] = 0.0
+	_record_idle_feet()
 
 
 ## 讀這個角色的動作資料並補上預設；檔案缺失或格式錯誤時記錄具體位置並整份用預設。
@@ -154,6 +205,8 @@ func update(delta: float, input: RigInput) -> void:
 		_hurt_left = HURT_TIME
 		_hurt_scale = input.hurt_scale
 		_hurt_dir = input.hurt_dir
+		_kick_springs("hurt", input.hurt_dir)
+	_take_events(delta, input)
 	_hurt_left = maxf(0.0, _hurt_left - delta)
 	_death_time = _death_time + delta if input.dead else 0.0
 	if input.dead and _death_time <= delta:  # 剛死的那一格記下最後一擊的方向與力道
@@ -161,6 +214,10 @@ func update(delta: float, input: RigInput) -> void:
 		_death_force = input.death_force
 
 	var local_velocity := Vector2(input.velocity.x * input.facing, input.velocity.y)
+	if input.facing != _last_facing:
+		_inertia.reset(local_velocity.x)  # 翻轉面向時速度的正負號會變，不能當成加速度
+		_last_facing = input.facing
+	_lean = _inertia.update(delta, local_velocity.x, _motion["inertia"]) if not input.dead else 0.0
 	var local_aim := Vector2(input.aim_dir.x * input.facing, input.aim_dir.y)
 	var aim_angle := clampf(local_aim.angle(), -MAX_AIM_ANGLE, MAX_AIM_ANGLE)
 	var relax: Dictionary = _motion["relax"]
@@ -169,7 +226,13 @@ func update(delta: float, input: RigInput) -> void:
 	aim_angle = lerpf(aim_angle, float(relax["aim"]), _relax)
 
 	_gait_on = false
+	_gait_floor = NAN
+	_idle_on = false
 	var target := _body_pose(delta, input, local_velocity, look_angle)
+	if not _gait_on:
+		_stance_known = false  # 重新起跑時第一次著地不算「剛著地」，避免用舊狀態誤判
+	_run_w = lerpf(_run_w, 1.0 if _gait_on else 0.0, 1.0 - exp(-RUN_OVERLAY_BLEND * delta))
+	_update_run_overlay()
 	target[&"_hip_x"] = float(target.get(&"_hip_x", 0.0)) - _recoil * float((_motion["recoil"] as Dictionary)["hip"])  # 開火的後座把身體往後頂
 	_apply_action(delta, input, target)
 	var blend := 1.0 - exp(-POSE_SHARPNESS * delta)
@@ -184,13 +247,17 @@ func update(delta: float, input: RigInput) -> void:
 	_apply_body()
 	_forward_kinematics()
 	var can_plant := bool(_motion.get("grounding", false)) and input.on_floor and not input.dead and not input.dashing and not input.crouching
+	var can_pin := can_plant and _idle_on and not input.blocking and not input.staggered
 	_gait_w = move_toward(_gait_w, 1.0 if _gait_on and can_plant else 0.0, GAIT_BLEND_SPEED * delta)
+	_idle_pin_w = move_toward(_idle_pin_w, 1.0 if can_pin else 0.0, GAIT_BLEND_SPEED * delta)
 	_gait_amp_now = lerpf(_gait_amp_now, _gait_amp if _gait_on else 0.0, 1.0 - exp(-10.0 * delta))
 	if bool(_motion.get("grounding", false)) and input.on_floor and not input.dead and not input.dashing:
 		if _gait_w > 0.01:
 			_step_legs()
 		else:
 			_plant_feet(delta)
+			if _idle_pin_w > 0.01:
+				_pin_feet()
 	if input.dead:
 		_rest_corpse()
 	if not input.dead:
@@ -225,11 +292,10 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 	elif input.dashing:
 		var dash: Dictionary = m["dash"]["forward" if signf(v.x) >= 0.0 else "back"]
 		pose[&"chest"] = float(dash["chest"])
+		pose[&"_hip_y"] = float((m["dash"] as Dictionary)["hip_drop"])
 		_set_legs_from(pose, dash["legs"])
 	elif not input.on_floor:
-		var air: Dictionary = m["air"]["rise" if v.y < 0.0 else "fall"]
-		pose[&"chest"] = float(air["chest"])
-		_set_legs_from(pose, air["legs"])
+		_air_pose(pose, m["air"], v.y)
 	elif speed_ratio > float(move["threshold"]):
 		var swing := float(move["swing"]) * minf(speed_ratio, 1.0)
 		var grounded := bool(m.get("grounding", false))
@@ -238,9 +304,14 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 		if grounded:
 			# 落腳：腳踩在地上時隨身體往後移（不滑），再抬起前擺；步伐幅度由資料的 stride 與踩地比例算出。
 			_gait_on = true
-			_gait_duty = clampf(float(move.get("duty", 0.55)), 0.4, 0.8)
+			var flight := smoothstep(FLIGHT_FROM, FLIGHT_FULL, speed_ratio)
+			_gait_duty = clampf(lerpf(maxf(WALK_DUTY, float(move["duty"])), float(move["duty"]), flight), 0.3, 0.8)
 			_gait_amp = minf(stride * _gait_duty * 0.5, _leg_length * 0.75)
-			_gait_lift = float(move.get("lift", 5.0)) * (0.5 + 0.5 * minf(speed_ratio, 1.0))
+			_gait_lift = float(move["lift"]) * (0.5 + 0.5 * minf(speed_ratio, 1.0))
+			_gait_reach = clampf(float(move["reach"]), 0.7, 1.0)
+			_gait_speed_ratio = speed_ratio
+			_cycle = fposmod(_phase / TAU, 1.0)
+			_gait_floor = GaitShape.body_sag(_cycle, _gait_duty, float(move["bounce"]), float(move["rise"]) * flight)
 			pose[&"chest"] = float(move["chest_lean"]) * speed_ratio * signf(v.x)
 			pose[&"_hip_y"] = 0.0
 		else:
@@ -260,8 +331,14 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 		pose[&"chest"] = float(idle["chest"]) + breath * float(idle["breath_amp"])
 		pose[&"_hip_y"] = breath * float(idle["hip_bob"])
 		pose[&"_hip_x"] = sin(_time * float(idle["sway_speed"])) * float(idle["sway"])  # 重心左右微移
+		pose[&"chest"] = float(pose[&"chest"]) + sin(_time * float(idle["sway_speed"]) + 0.6) * float(idle["counter"])  # 重心移動時胸反向補償
 		_set_legs_from(pose, idle["legs"])
+		_blend_land_legs(pose)
+		_idle_on = bool(idle["pin_feet"])
 
+	pose[&"chest"] = float(pose.get(&"chest", 0.0)) + _lean  # 慣性：加速前傾、煞車後仰
+	if input.on_floor:
+		pose[&"chest"] = float(pose[&"chest"]) + _land_x * float((m["land"] as Dictionary)["chest"])  # 落地吸收：身體前傾
 	var block: Dictionary = m["block"]
 	var hurt: Dictionary = m["hurt"]
 	if input.blocking:
@@ -348,17 +425,18 @@ func _set_legs(pose: Dictionary, front_upper: float, front_lower: float, back_up
 
 ## 跑步的落腳：兩隻腳各有一個踩地／前擺的循環，踩地時腳底貼地並隨身體往後移動，前擺時抬起畫弧；
 ## 身體高度由腿能不能夠到地面決定（腿張最開時最低），兩段骨頭用 IK 夠到腳的位置，膝蓋朝前彎。
+## 動作資料有 bounce／rise 時，身體高度另外依步伐起伏（踩地中段壓低、騰空時升高），腳掌依相位滾動（GaitShape）。
 func _step_legs() -> void:
-	var legs: Array = [
-		[&"leg_front_upper", &"leg_front_lower", &"foot_front", 0.0],
-		[&"leg_back_upper", &"leg_back_lower", &"foot_back", 0.5],
-	]
 	var offsets: Array[Vector2] = []
-	var reach := _leg_length * 0.985
-	var drop := GAIT_MIN_SAG
-	var cycle := fposmod(_phase / TAU, 1.0)
-	for leg in legs:
-		var p := fposmod(cycle + float(leg[3]), 1.0)
+	var angles: Array[float] = []
+	var foot: Dictionary = _motion["foot"]
+	_cycle = fposmod(_phase / TAU, 1.0)
+	for i in LEG_CHAINS.size():
+		var p := fposmod(_cycle + (0.0 if i == 0 else 0.5), 1.0)
+		var stance := p < _gait_duty
+		if _gait_on and _stance_known and stance and not _was_stance[i]:
+			_footfalls = mini(_footfalls + 1, MAX_PENDING_FOOTFALLS)
+		_was_stance[i] = stance
 		var x := 0.0
 		var lift := 0.0
 		if p < _gait_duty:
@@ -368,26 +446,159 @@ func _step_legs() -> void:
 			x = _gait_amp_now * (-1.0 + 2.0 * smoothstep(0.0, 1.0, t))
 			lift = _gait_lift * sin(PI * t)
 		offsets.append(Vector2(x, lift))
-		drop = maxf(drop, _leg_length - lift - sqrt(maxf(0.0, reach * reach - x * x)))
-	_ground_shift = minf(drop, GROUND_MAX_SHIFT)
+		angles.append(GaitShape.foot_angle(p, _gait_duty, lift / maxf(0.1, _gait_lift), foot))
+	_stance_known = _gait_on
+	_place_feet(offsets, angles, _gait_w, GAIT_MIN_SAG if is_nan(_gait_floor) else _gait_floor, _gait_reach, false, _land_sag())
+
+
+## 待機時兩腳固定在地上：骨盆左右微移、身體隨之起伏，膝蓋自然彎曲（重心轉移），腳不滑。
+func _pin_feet() -> void:
+	var offsets: Array[Vector2] = []
+	var angles: Array[float] = []
+	for i in LEG_CHAINS.size():
+		offsets.append(Vector2(_idle_foot_x[i] - _global_pos[LEG_CHAINS[i][0]].x, 0.0))
+		angles.append(0.0)
+	_place_feet(offsets, angles, _idle_pin_w, 0.0, float((_motion["idle"] as Dictionary)["pin_reach"]), true, _land_sag())
+
+
+## 兩隻腳用 IK 放到指定位置：offsets 是相對各自髖關節的目標（x＝前後，y＝抬離地面的高度），angles 是腳掌的絕對角度；
+## 身體下沉量＝兩隻腳都夠得到的最小值，但不低於 floor_sag（可以是負的＝身體上升）；weight 是 IK 結果與原本關節動畫的混合（0~1），
+## extra_sag 是額外再壓低的像素（落地吸收：腿比夠得到的距離更彎）；blend_shift 為真時身體高度也跟著 weight 從目前的高度混過去（淡入中的待機固定腳用，不然身體先到位、腿還沒到位會陷進地面）。
+func _place_feet(offsets: Array[Vector2], angles: Array[float], weight: float, floor_sag: float, reach_ratio: float, blend_shift := false, extra_sag := 0.0) -> void:
+	var reach := _leg_length * reach_ratio
+	var drop := floor_sag
+	for offset in offsets:
+		drop = maxf(drop, _leg_length - offset.y - sqrt(maxf(0.0, reach * reach - offset.x * offset.x)))
+	drop = minf(drop + extra_sag, GROUND_MAX_SHIFT)
+	_ground_shift = lerpf(_ground_shift, drop, weight) if blend_shift else drop
 	_apply_body()
 	_forward_kinematics()
-	for i in legs.size():
-		var leg: Array = legs[i]
-		var upper: StringName = leg[0]
-		var lower: StringName = leg[1]
-		var foot: StringName = leg[2]
+	for i in LEG_CHAINS.size():
+		var chain: Array = LEG_CHAINS[i]
+		var upper: StringName = chain[0]
+		var lower: StringName = chain[1]
+		var foot: StringName = chain[2]
 		if not (_rig.has_bone(upper) and _rig.has_bone(lower) and _rig.has_bone(foot)):
 			continue
 		var before := [_rig.bone(upper).rotation, _rig.bone(lower).rotation, _rig.bone(foot).rotation]
 		var hip: Vector2 = _global_pos[upper]
-		var goal := Vector2(hip.x + offsets[i].x, _ground_y - offsets[i].y)
-		# 抬腳時腳尖微微下垂、踩地時腳掌放平。
-		var foot_angle := 0.25 * offsets[i].y / maxf(0.1, _gait_lift)
-		_reach_leg(upper, lower, foot, goal, foot_angle)
-		_rig.bone(upper).rotation = lerp_angle(before[0], _rig.bone(upper).rotation, _gait_w)
-		_rig.bone(lower).rotation = lerp_angle(before[1], _rig.bone(lower).rotation, _gait_w)
-		_rig.bone(foot).rotation = lerp_angle(before[2], _rig.bone(foot).rotation, _gait_w)
+		_reach_leg(upper, lower, foot, Vector2(hip.x + offsets[i].x, _ground_y - offsets[i].y), angles[i])
+		_rig.bone(upper).rotation = lerp_angle(before[0], _rig.bone(upper).rotation, weight)
+		_rig.bone(lower).rotation = lerp_angle(before[1], _rig.bone(lower).rotation, weight)
+		_rig.bone(foot).rotation = lerp_angle(before[2], _rig.bone(foot).rotation, weight)
+	_forward_kinematics()
+
+
+## 空中姿勢：垂直速度的絕對值低於 apex_speed 時，在「頂點」與「上升／下落」姿勢之間連續混合（沒有頂點瞬間切換）；apex_speed 為 0 時是舊的二選一。
+## 起跳後 takeoff.time 秒內再混入蹬地伸展（腿打直、胸挺起），隨後收腿。
+func _air_pose(pose: Dictionary, air: Dictionary, vy: float) -> void:
+	var apex_speed := float(air["apex_speed"])
+	var chest := 0.0
+	var legs: Array = []
+	if apex_speed <= 0.0:
+		var side: Dictionary = air["rise" if vy < 0.0 else "fall"]
+		chest = float(side["chest"])
+		legs = side["legs"]
+	else:
+		var w := clampf(vy / apex_speed, -1.0, 1.0)
+		var apex: Dictionary = air["apex"]
+		var far: Dictionary = air["rise" if w < 0.0 else "fall"]
+		var k := absf(w)
+		chest = lerpf(float(apex["chest"]), float(far["chest"]), k)
+		for i in 4:
+			legs.append(lerpf(float((apex["legs"] as Array)[i]), float((far["legs"] as Array)[i]), k))
+	var takeoff: Dictionary = air["takeoff"]
+	var takeoff_time := float(takeoff["time"])
+	if takeoff_time > 0.0 and _takeoff_left > 0.0:
+		var t := smoothstep(0.0, 1.0, _takeoff_left / takeoff_time)
+		chest = lerpf(chest, float(takeoff["chest"]), t)
+		for i in 4:
+			legs[i] = lerpf(float(legs[i]), float((takeoff["legs"] as Array)[i]), t)
+	pose[&"chest"] = chest
+	_set_legs_from(pose, legs)
+
+
+## 一次性事件（起跳、落地、衝刺）：起跳啟動蹬地伸展、落地給吸收彈簧一個初速，並對衣襬與頭髮注入衝量。吸收彈簧每格推進。
+func _take_events(delta: float, input: RigInput) -> void:
+	var motion_air: Dictionary = _motion["air"]
+	if input.jumped:
+		_takeoff_left = float((motion_air["takeoff"] as Dictionary)["time"])
+		_kick_springs("jump", 1.0)
+	if input.landed > 0.0:
+		_land_v += input.landed * float((_motion["land"] as Dictionary)["gain"])
+		_kick_springs("land", input.landed)
+	if input.dash_started:
+		_kick_springs("dash", 1.0)
+	_takeoff_left = maxf(0.0, _takeoff_left - delta)
+	var land: Dictionary = _motion["land"]
+	if float(land["gain"]) <= 0.0:
+		_land_x = 0.0
+		_land_v = 0.0
+		return
+	var steps := maxi(1, ceili(delta / (1.0 / 120.0)))
+	var dt := delta / steps
+	for i in steps:
+		_land_v += (-_land_x * float(land["stiffness"]) - _land_v * float(land["damping"])) * dt
+		_land_x = clampf(_land_x + _land_v * dt, -0.3, 1.2)
+
+
+## 落地吸收的身體下沉像素（彈簧位置 × 資料的 drop；回彈過衝時不往上抬，免得腳離地）。
+func _land_sag() -> float:
+	return maxf(0.0, _land_x) * float((_motion["land"] as Dictionary)["drop"])
+
+
+## 落地吸收時把腿從原本的姿勢混向「膝蓋彎曲」的腿姿（沒有用 IK 固定腳的角色用；用 IK 的由 _land_sag 壓低身體）。
+func _blend_land_legs(pose: Dictionary) -> void:
+	if _land_x <= 0.001:
+		return
+	var folded: Array = (_motion["land"] as Dictionary)["legs"]
+	var k := clampf(_land_x, 0.0, 1.0)
+	for i in 4:
+		pose[LEGS[i]] = lerpf(float(pose[LEGS[i]]), float(folded[i]), k)
+
+
+## 對所有次級動態彈簧（衣襬、頭髮）注入角速度：資料的 impulse 乘上事件強度與各彈簧自己的 gain，沒設定就不動。
+func _kick_springs(event: String, strength: float) -> void:
+	var amount := float((_motion["impulse"] as Dictionary)[event]) * strength
+	if is_zero_approx(amount):
+		return
+	for spring in _springs:
+		var bone_name := StringName(str(spring.get("bone", "")))
+		_spring_velocity[bone_name] = float(_spring_velocity[bone_name]) + amount * float(spring.get("gain", 0.5))
+
+
+## 跑步時骨盆、胸、頭的週期擺動：骨盆隨步伐前後擺，胸反向補償並有自己的起伏，頭抵消這些擺動而保持穩定。
+## 直接加在骨頭角度上（不經過姿勢平滑），不然平滑的延遲會讓擺動和腳步對不上。
+func _update_run_overlay() -> void:
+	_overlay.clear()
+	if _run_w < 0.001:
+		return
+	var torso: Dictionary = _motion["torso"]
+	var k := _run_w * clampf(_gait_speed_ratio, 0.0, 1.0)
+	var hip_swing := float(torso["hip_swing"]) * sin(TAU * _cycle) * k
+	var chest := -hip_swing * float(torso["chest_counter"]) + float(torso["chest_wobble"]) * sin(TAU * 2.0 * _cycle + float(torso["wobble_phase"])) * k
+	_overlay[&"hip"] = hip_swing
+	_overlay[&"chest"] = chest
+	_overlay[&"head"] = -(hip_swing + chest) * float(torso["head_hold"])
+
+
+## 記下待機站姿（站姿腿角）時兩腳的位置，「腳固定在地上」的待機就釘在這兩點。
+func _record_idle_feet() -> void:
+	var legs: Array = (_motion["idle"] as Dictionary)["legs"]
+	for i in LEGS.size():
+		_angles[LEGS[i]] = float(legs[i])
+	_apply_body()
+	_forward_kinematics()
+	for i in LEG_CHAINS.size():
+		var foot: StringName = LEG_CHAINS[i][2]
+		_idle_foot_x[i] = _global_pos[foot].x if _global_pos.has(foot) else 0.0
+	var feet_x: Array = (_motion["idle"] as Dictionary)["feet_x"]
+	if feet_x.size() >= 2:
+		for i in 2:
+			_idle_foot_x[i] = _rig.rest(&"hip").x + float(feet_x[i])
+	for bone_name: StringName in _angles.keys():
+		_angles[bone_name] = 0.0
+	_apply_body()
 	_forward_kinematics()
 
 
@@ -429,6 +640,23 @@ func current_hip_drop() -> float:
 	return _hip_offset.y + _ground_shift
 
 
+## 兩腳正在用落腳 IK 跑步（腳步聲可以跟著落腳事件走）；停下、蹲著、空中、衝刺時是 false。
+func is_stepping() -> bool:
+	return _gait_on and _gait_w > 0.5
+
+
+## 領走自上次呼叫以來的落腳次數（每隻腳著地一次）。
+func consume_footfalls() -> int:
+	var count := _footfalls
+	_footfalls = 0
+	return count
+
+
+## 這個角色全速奔跑時有沒有騰空（踩地比例低於走路的落腳）。
+func has_flight() -> bool:
+	return bool(_motion.get("grounding", false)) and float((_motion["move"] as Dictionary)["duty"]) < WALK_DUTY
+
+
 ## 稽核用：骨頭目前的位置（骨架空間）與站立時的地面高度。
 func bone_pos(bone_name: StringName) -> Vector2:
 	return _global_pos.get(bone_name, Vector2.ZERO)
@@ -460,7 +688,7 @@ func _apply_body() -> void:
 	for bone_name: StringName in _angles.keys():
 		var b := _rig.bone(bone_name)
 		if b != null:
-			b.rotation = _angles[bone_name]
+			b.rotation = _angles[bone_name] + _overlay.get(bone_name, 0.0)
 	var hip := _rig.bone(&"hip")
 	if hip != null:
 		hip.position = _rig.rest(&"hip") + _hip_offset + Vector2(0.0, _ground_shift)

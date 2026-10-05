@@ -118,13 +118,15 @@ func _test_slasher() -> void:
 
 func _test_stalker_cloak() -> void:
 	var level := await _open_arena()
+	# 燈要在鏡頭視野（加燈半徑）內才會被燈光預算保留：視野隨鏡頭縮放變小，所以玩家站得離幽影近一點（仍在它的偵測距離 300 之外，不會引來它行動）。
 	var stalker := _spawn(STALKER_PATH, 40.0) as Stalker
-	_place_player(10.0)
+	_place_player(18.0)
+	level.camera.snap_to_target()  # 瞬間移動玩家後鏡頭要立刻跟上，視野才在燈附近
 	await physics_frames(40)
 	check(stalker.is_cloaked(), "stalker is cloaked in the dark (no lights nearby)")
 	check(stalker._visibility <= Stalker.HIDDEN_ALPHA + 0.01, "cloaked stalker is nearly invisible")
 	# 被燈照到：現形。
-	var lamp := LightKit.create_point_light(Color.WHITE, 140.0, 1.4)
+	var lamp := LightKit.create_point_light(Color.WHITE, 260.0, 1.4)  # 半徑大一點：鏡頭偏向面向的另一側時，燈離視野邊緣仍在半徑內
 	lamp.global_position = stalker.global_position + Vector2(0, -30)
 	level.add_child(lamp)
 	await physics_frames(30)
@@ -132,7 +134,7 @@ func _test_stalker_cloak() -> void:
 	check(not stalker.is_cloaked(), "stalker reveals itself under a lamp")
 	# 燈熄滅（斷電）後又隱形。
 	lamp.enabled = false
-	await physics_frames(int(2.5 * 60.0))
+	await physics_frames(45)  # 淡出需要約 0.5 秒；等太久幽影會自己走近玩家開火而現形（鏡頭拉近後燈在視野內，這一段真的會跑到）
 	check(stalker.is_cloaked(), "stalker cloaks again when the light goes out")
 	lamp.queue_free()
 	# 被打到：現形並維持一段時間。

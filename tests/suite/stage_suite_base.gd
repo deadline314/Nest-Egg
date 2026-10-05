@@ -6,7 +6,8 @@ extends TestSuite
 ## 測試時把時間加速，情境跑得快；動作用的是秒，所以加速不影響邏輯。
 const TEST_SPEED_UP := 3.0
 ## 對輸入時機敏感的動作（連段、衝上去終結）用比較慢的速度，其餘盡量加速。
-const SLOW_ACTIONS := {"melee": 1.5, "finisher": 2.0}
+## 材質靶只有 18 像素寬；三倍速的步槍每影格飛 32 像素，會跳過受擊框。命中驗證用正常遊戲速度。
+const SLOW_ACTIONS := {"melee": 1.5, "finisher": 2.0, "shoot_target": 1.0}
 
 var _stage: SoundStage
 var _catalog := AudioCatalog.new()

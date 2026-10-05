@@ -47,6 +47,11 @@ static func audit(rig: CharacterRig, skin: String, action_names: Array[String]) 
 		input.relaxed = true
 		_hold(ctx, input, 60, "run-relaxed %.0f" % speed)
 		input.relaxed = false
+	# 全速奔跑（速度比例 1）：只有「有騰空」的角色才量（兩腳會同時離地，所以不量腳底與地面，其他項目照量）。
+	if rig.animator != null and rig.animator.has_flight():
+		input.velocity = Vector2(120.0, 0.0)
+		input.run_speed = 120.0
+		_hold(ctx, input, 120, "run full", false)
 	input.velocity = Vector2.ZERO
 	_hold(ctx, input, 30, "stop")
 	input.crouching = true
@@ -79,12 +84,26 @@ static func audit(rig: CharacterRig, skin: String, action_names: Array[String]) 
 	input.on_floor = false
 	input.velocity = Vector2(80, -200)
 	ctx["grounded"] = false
+	input.jumped = true
 	_hold(ctx, input, 20, "jump", false)
+	input.velocity = Vector2(80, 0)  # 頂點：上升與下落的姿勢在這裡連續混合
+	_hold(ctx, input, 12, "apex", false)
 	input.velocity = Vector2(80, 260)
 	_hold(ctx, input, 20, "fall", false)
 	input.on_floor = true
 	input.velocity = Vector2.ZERO
+	input.landed = 0.75  # 落地吸收（骨盆下沉再彈回）；落地當下的前幾格是過渡，不量腳底與地面
+	_hold(ctx, input, 12, "land-absorb", false)
 	_hold(ctx, input, 30, "land")
+	# 衝刺：蹬出、衝刺中、結束後回到站姿
+	input.dash_started = true
+	input.dashing = true
+	input.velocity = Vector2(300.0, 0.0)
+	_hold(ctx, input, 12, "dash", false)
+	input.dashing = false
+	input.velocity = Vector2.ZERO
+	_hold(ctx, input, 12, "dash-exit", false)
+	_hold(ctx, input, 30, "dash-settle")
 	# 倒下：從前面／背後、輕／重
 	for variant: Array in [[1.0, 0.0], [-1.0, 0.0], [1.0, 1.0], [-1.0, 1.0]]:
 		_death(ctx, rig, variant[0], variant[1])
@@ -158,6 +177,9 @@ static func _hold(ctx: Dictionary, input: RigInput, frames: int, label: String, 
 		rig.animate(DT, input)
 		input.hurt = false
 		input.recoil = 0.0
+		input.jumped = false  # 一次性事件只在第一格有效
+		input.landed = 0.0
+		input.dash_started = false
 		ctx["where"] = label
 		ctx["frame"] = i
 		_measure(ctx)

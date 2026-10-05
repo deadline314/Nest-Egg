@@ -51,8 +51,8 @@ const STAGGER_HURT_SCALE := 2.2
 ## 受擊反應的種類。
 enum HitTier { LIGHT, FLINCH, STAGGER }
 const MAX_FALL_SPEED := 520.0
-## 畫面外此距離內仍保持運作，避免敵人在鏡頭邊緣卡住。
-const ACTIVATION_MARGIN := 80.0
+## 畫面外此距離內仍保持運作，避免敵人在鏡頭邊緣卡住；鏡頭拉近（視野變小）後加大，讓畫面外的敵人在進入攻擊距離前就已經啟動。
+const ACTIVATION_MARGIN := 120.0
 ## 瞄準玩家身體中心的高度偏移。
 const TARGET_HEIGHT := 24.0
 const RIG_DEATH_TIME := 0.9

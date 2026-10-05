@@ -6,13 +6,20 @@ extends Camera2D
 ##   - trauma 震動：強度平方衰減 + 噪聲，比純隨機震動自然
 ##   - 射擊後座：方向性位移，快速回彈
 
-## 鏡頭拉近倍率：角色放大後仍保留足夠的前方視野。
-const ZOOM := 1.25
-const LOOK_AHEAD := 48.0
+## 基礎縮放倍率（畫面 640×360，視野 = 640／ZOOM × 360／ZOOM 世界像素）：主角是畫面主角，所以拉近到角色約佔畫面高度兩成多；
+## 縮放越大視野越小，前瞻、瞄準偏移、垂直偏移與死區都要跟著這個值調（見下面各項），改縮放只改這一個常數。
+## 1.5 時視野 427×240，前方（前瞻＋瞄準偏移）看得到約 300 像素，涵蓋大多數敵人的攻擊距離（240～300）。
+const ZOOM := 1.5
+const LOOK_AHEAD := 56.0
 const LOOK_AHEAD_SPEED := 2.5
-const VERTICAL_OFFSET := -36.0
-const DEADZONE_UP := 72.0
-const DEADZONE_DOWN := 24.0
+const VERTICAL_OFFSET := -32.0
+const DEADZONE_UP := 60.0
+const DEADZONE_DOWN := 20.0
+## 下落時鏡頭往下看：下落速度超過 FALL_LOOK_FROM 後，每增加一份速度往下多看 FALL_LOOK_GAIN 像素（上限 FALL_LOOK_MAX），讓玩家看得到要落下去的地方。
+const FALL_LOOK_FROM := 200.0
+const FALL_LOOK_GAIN := 0.1
+const FALL_LOOK_MAX := 36.0
+const FALL_LOOK_SPEED := 4.0
 const MAX_SHAKE_PX := 12.0
 const SHAKE_ROTATION_PER_PX := 0.0014
 const MAX_SHAKES := 8
@@ -21,7 +28,7 @@ const SHAKE_FALLOFF_START := 240.0
 const SHAKE_FALLOFF_RANGE := 640.0
 const DIRECTIONAL_FREQUENCY := 16.0
 ## 瞄準前瞻：鏡頭往準星方向偏移的像素，垂直只取一半。
-const AIM_LOOK := 22.0
+const AIM_LOOK := 30.0
 const AIM_LOOK_SPEED := 5.0
 const KICK_RECOVERY := 16.0
 const MAX_KICK := 8.0
@@ -37,6 +44,7 @@ var _pulse: Array = []
 var _aim_look := Vector2.ZERO
 var _kick := Vector2.ZERO
 var _look := 0.0
+var _fall_look := 0.0
 var _anchor_y := 0.0
 var _noise := FastNoiseLite.new()
 var _noise_time := 0.0
@@ -84,6 +92,7 @@ func snap_to_target() -> void:
 		return
 	_anchor_y = target.global_position.y
 	_look = _facing() * LOOK_AHEAD
+	_fall_look = 0.0
 	global_position = _desired_position()
 	reset_smoothing()
 
@@ -99,6 +108,7 @@ func _physics_process(delta: float) -> void:
 		elif y < _anchor_y - DEADZONE_UP:
 			_anchor_y = y + DEADZONE_UP
 		_update_aim_look(delta)
+		_update_fall_look(delta)
 		global_position = _desired_position()
 	_kick = _kick.lerp(Vector2.ZERO, minf(1.0, KICK_RECOVERY * delta))
 	_noise_time += delta * 60.0
@@ -109,7 +119,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _desired_position() -> Vector2:
-	return Vector2(target.global_position.x + _look, _anchor_y + VERTICAL_OFFSET) + _aim_look
+	return Vector2(target.global_position.x + _look, _anchor_y + VERTICAL_OFFSET + _fall_look) + _aim_look
 
 
 func _facing() -> float:
@@ -182,6 +192,14 @@ func _update_aim_look(delta: float) -> void:
 	if player != null and not player.is_dead() and not player.is_on_phone():
 		goal = Vector2(player.aim_dir.x, player.aim_dir.y * 0.5) * AIM_LOOK
 		_aim_look = _aim_look.lerp(goal, minf(1.0, AIM_LOOK_SPEED * delta))
+
+
+## 下落時鏡頭往下看（視野拉近後腳下的空間變少）；落地或上升時平滑回到原位。
+func _update_fall_look(delta: float) -> void:
+	var body := target as CharacterBody2D
+	var fall_speed := body.velocity.y if body != null and not _is_grounded() else 0.0
+	var goal := clampf((fall_speed - FALL_LOOK_FROM) * FALL_LOOK_GAIN, 0.0, FALL_LOOK_MAX)
+	_fall_look = lerpf(_fall_look, goal, minf(1.0, FALL_LOOK_SPEED * delta))
 
 
 func _on_camera_kick(kick_offset: Vector2) -> void:

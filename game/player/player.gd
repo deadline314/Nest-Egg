@@ -412,16 +412,25 @@ func _after_move(delta: float) -> void:
 		_safe_ground_time = 0.0
 
 
-## 腳步聲：站在地上走動時，每走 STEP_DISTANCE 像素一步，音量隨速度、蹲著更輕；停下、在空中、騎載具或被打斷時重新計步。
+## 腳步聲：站在地上走動時，骨架兩腳在跑步落腳時，每次腳掌著地播一聲（聲音對齊看到的落腳）；
+## 骨架沒有在落腳（蹲著走、骨架載入失敗）時退回每走 STEP_DISTANCE 像素一步。音量隨速度、蹲著更輕；停下、在空中、騎載具或被打斷時重新計步。
 func _tick_footsteps(delta: float) -> void:
 	var speed := absf(velocity.x)
+	var footfalls := _visual.consume_footfalls() if _visual != null else 0  # 不管有沒有播，都要領走，免得累積
 	if state != State.NORMAL or not is_on_floor() or speed < STEP_MIN_SPEED:
 		_step_travel = 0.0
 		return
-	_step_travel += speed * delta
-	if _step_travel < STEP_DISTANCE:
+	var steps := 0
+	if _visual != null and _visual.is_stepping():
+		_step_travel = 0.0
+		steps = footfalls
+	else:
+		_step_travel += speed * delta
+		if _step_travel >= STEP_DISTANCE:
+			_step_travel -= STEP_DISTANCE
+			steps = 1
+	if steps <= 0:
 		return
-	_step_travel -= STEP_DISTANCE
 	var loudness := clampf(speed / maxf(1.0, tuning.run_speed), 0.0, 1.0)
 	var volume := lerpf(STEP_QUIET_DB, STEP_LOUD_DB, loudness) + (STEP_CROUCH_DB if is_crouching else 0.0)
 	Footsteps.play(_ground_surface(), &"step", volume)

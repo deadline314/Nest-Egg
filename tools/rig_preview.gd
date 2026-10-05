@@ -5,8 +5,12 @@ extends Node2D
 ## --closeup（搭配 --chars）：改成每個角色一張大的站姿，檢查臉、衣服與裝備的細節，一次最多四個角色。
 ## --head（搭配 --chars）：只放大頭與肩膀，檢查臉部與頭髮，一次最多四個角色；--zoom=倍率 可調整放大倍數。
 ## --death（搭配 --chars，最多三個角色）：四種最後一擊（正面輕、背面輕、正面重、背面重）倒下後的樣子。
-## --gait（搭配 --chars，用第一個角色）：並排看跑一個步伐週期的八個時間點（--speed=速度，預設 70），檢查落腳、腳底貼地與滑步。
+## --gait（搭配 --chars，用第一個角色）：並排看跑一個步伐週期的八個時間點（--speed=速度，預設 70；--run-speed=滿速，預設是速度的兩倍＝半速跑，
+## 要看遊戲裡全速奔跑的樣子就讓兩者相同，例如 --speed=150 --run-speed=150），檢查落腳、腳底貼地與滑步。
 ## --weapon=武器外觀 id（搭配 --chars）：改用指定的手持武器（空字串＝空手），例如 --weapon=handset。
+## --seq=名稱（搭配 --chars，用第一個角色）：依時間序列取樣八格，看隨時間變化的動作。名稱見 SEQUENCES
+## （start 起步、stop 煞車、idle 待機八秒、jump 起跳到落地、land 原地落下、dash 衝刺）；速度依玩家的數值模擬（加速 1600／2100 px/s²、跳躍 420、重力 1000、衝刺 360 持續 0.17 秒），
+## 每格都是從頭模擬到該時間點，所以不受取樣影響。
 ## --relaxed（搭配 --chars）：模擬還沒發現玩家的放鬆姿勢（槍垂下），舉槍與格擋除外。
 ## --bare（搭配 --damage）：不拿武器、手臂垂向前下方，看得到上半身的衣物。
 ## --cloth（搭配 --chars）：第一個角色放大排成一列（站、跑、上升、下落、蹲、仰射），檢查衣襬、頭髮、槍套等次級動態。
@@ -17,6 +21,22 @@ extends Node2D
 const CHARACTERS := [["rin", "rifle"], ["trooper", "smg"], ["grenadier", "launcher"], ["enforcer", "pistol"], ["warden", "minigun"]]
 ## --cloth 的動作（"fall"：下落）。
 const CLOTH_POSES := ["idle", "run", "jump", "fall", "crouch", "aim_up"]
+## --seq 的序列：pre＝取樣時間 0 之前先模擬的秒數、times＝八個取樣時間（秒，從 0 起算）。
+const SEQUENCES := {
+	"start": {"pre": 0.6, "times": [0.0, 0.04, 0.08, 0.13, 0.2, 0.3, 0.45, 0.7]},
+	"stop": {"pre": 1.0, "times": [0.0, 0.04, 0.08, 0.12, 0.2, 0.3, 0.45, 0.8]},
+	"idle": {"pre": 0.0, "times": [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5]},
+	"jump": {"pre": 0.6, "times": [0.0, 0.06, 0.18, 0.42, 0.66, 0.84, 0.92, 1.1]},
+	"dash": {"pre": 0.6, "times": [0.0, 0.03, 0.07, 0.12, 0.17, 0.22, 0.3, 0.5]},
+	"land": {"pre": 0.2, "times": [0.0, 0.03, 0.06, 0.1, 0.15, 0.22, 0.3, 0.5]},
+}
+const SEQ_JUMP_VELOCITY := 420.0
+const SEQ_GRAVITY := 1000.0
+const SEQ_DASH_SPEED := 360.0
+const SEQ_DASH_TIME := 0.17
+const SEQ_RUN_SPEED := 150.0
+const SEQ_ACCEL := 1600.0
+const SEQ_DECEL := 2100.0
 ## --npc 的動作。
 const NPC_POSES := ["stand", "sit", "lean", "squat", "talk", "listen", "wave", "loop"]
 const POSES := ["idle", "run", "aim_up", "crouch", "jump", "block", "dead"]
@@ -40,6 +60,8 @@ var _weapon_set := false
 var _gait := false
 var _death := false
 var _gait_speed := 70.0
+var _gait_run_speed := 0.0
+var _seq := ""
 var _npc := false
 var _action := ""
 var _loop := "stir"
@@ -82,6 +104,10 @@ func _ready() -> void:
 			_death = true
 		elif arg.begins_with("--speed="):
 			_gait_speed = float(arg.trim_prefix("--speed="))
+		elif arg.begins_with("--seq="):
+			_seq = arg.trim_prefix("--seq=")
+		elif arg.begins_with("--run-speed="):
+			_gait_run_speed = float(arg.trim_prefix("--run-speed="))
 		elif arg.begins_with("--action="):
 			_action = arg.trim_prefix("--action=")
 		elif arg == "--npc":
@@ -114,6 +140,13 @@ func _ready() -> void:
 		for row in mini(_chars.size(), 3):
 			for i in 4:
 				_spawn(_chars[row], str(SHEET_WEAPONS.get(_chars[row], "")), Vector2(70 + i * 150, 140 + row * 110), "death:%d" % i, _zoom if _zoom != 6.5 else 2.0)
+	elif not _seq.is_empty():
+		if not SEQUENCES.has(_seq):
+			push_error("[rig_preview] --seq=%s 不存在，可用：%s" % [_seq, ", ".join(SEQUENCES.keys())])
+			get_tree().quit(1)
+			return
+		for i in 8:
+			_spawn(_chars[0], str(SHEET_WEAPONS.get(_chars[0], "")), Vector2(44 + i * 76, 330), "seq:%d" % i, _zoom if _zoom != 6.5 else 2.2)
 	elif _gait:
 		for i in 8:
 			_spawn(_chars[0], str(SHEET_WEAPONS.get(_chars[0], "")), Vector2(44 + i * 76, 330), "gait:%d" % i, _zoom if _zoom != 6.5 else 2.2)
@@ -238,7 +271,7 @@ func _preroll_gait() -> void:
 		input.facing = 1
 		input.on_floor = true
 		input.velocity = Vector2(_gait_speed, 0)
-		input.run_speed = _gait_speed * 2.0
+		input.run_speed = _gait_run_speed if _gait_run_speed > 0.0 else _gait_speed * 2.0
 		input.aim_dir = Vector2.RIGHT
 		input.relaxed = _relaxed
 		input.two_handed = true
@@ -246,6 +279,70 @@ func _preroll_gait() -> void:
 		var cycle_frames := stride / _gait_speed / dt
 		for k in 90 + int(cycle_frames * float(i) / 8.0):
 			_rigs[i].animate(dt, input)
+
+
+## 序列在時間 t（秒，負值＝取樣前的預備）的狀態：把速度、是否在地上、衝刺中填進 input；prev_t 到 t 之間發生的一次性事件（起跳、落地、衝刺開始）也一併設定。
+func _seq_apply(input: RigInput, t: float, prev_t: float) -> void:
+	input.on_floor = true
+	input.dashing = false
+	var speed := 0.0
+	match _seq:
+		"start":
+			speed = minf(SEQ_RUN_SPEED, SEQ_ACCEL * maxf(0.0, t))
+		"stop":
+			speed = SEQ_RUN_SPEED if t < 0.0 else maxf(0.0, SEQ_RUN_SPEED - SEQ_DECEL * t)
+		"jump":
+			speed = SEQ_RUN_SPEED
+			var landing := 2.0 * SEQ_JUMP_VELOCITY / SEQ_GRAVITY  # 對稱拋物線落回起跳高度的時間
+			if t >= 0.0 and t < landing:
+				input.on_floor = false
+				input.velocity.y = -SEQ_JUMP_VELOCITY + SEQ_GRAVITY * t
+			else:
+				input.velocity.y = 0.0
+			if prev_t < 0.0 and t >= 0.0:
+				input.jumped = true
+			if prev_t < landing and t >= landing:
+				input.landed = clampf((SEQ_JUMP_VELOCITY) / 560.0, 0.0, 1.0)
+		"land":  # 原地從高處落下：取樣時間 0 是落地的瞬間
+			if t < 0.0:
+				input.on_floor = false
+				input.velocity.y = SEQ_JUMP_VELOCITY
+			if prev_t < 0.0 and t >= 0.0:
+				input.landed = SEQ_JUMP_VELOCITY / 560.0
+		"dash":
+			if t >= 0.0 and t < SEQ_DASH_TIME:
+				speed = SEQ_DASH_SPEED
+				input.dashing = true
+			elif t >= SEQ_DASH_TIME:
+				speed = maxf(0.0, SEQ_DASH_SPEED - SEQ_DECEL * (t - SEQ_DASH_TIME))
+			if prev_t < 0.0 and t >= 0.0:
+				input.dash_started = true
+	input.velocity.x = speed
+
+
+## --seq：每一格從頭模擬到自己的取樣時間（先模擬 pre 秒的預備，再依序列走到 times[i]）。
+func _preroll_seq() -> void:
+	var dt := 1.0 / 60.0
+	var def: Dictionary = SEQUENCES[_seq]
+	for i in _rigs.size():
+		var input := _inputs[i]
+		input.facing = 1
+		input.run_speed = SEQ_RUN_SPEED
+		input.aim_dir = Vector2.RIGHT
+		input.two_handed = true
+		var t := -float(def["pre"]) - 1.0  # 多一秒讓待機的呼吸與重心轉移先穩定
+		var stop_at := float((def["times"] as Array)[i])
+		while t < stop_at - 0.0001:
+			var previous := t
+			t += dt
+			_seq_apply(input, minf(t, stop_at), previous)
+			_rigs[i].animate(dt, input)
+			input.jumped = false
+			input.landed = 0.0
+			input.dash_started = false
+		if _seq == "jump":  # 起跳高度：把整個角色抬到拋物線上的位置，才看得出在空中
+			var at := minf(stop_at, 2.0 * SEQ_JUMP_VELOCITY / SEQ_GRAVITY)
+			(_rigs[i].get_parent() as Node2D).position.y -= maxf(0.0, SEQ_JUMP_VELOCITY * at - 0.5 * SEQ_GRAVITY * at * at)
 
 
 ## --death：每個角色四種最後一擊（正面輕、背面輕、正面重、背面重）倒下後 1.5 秒的樣子。
@@ -273,6 +370,9 @@ func _capture() -> void:
 		set_process(false)
 	if _gait:
 		_preroll_gait()
+		set_process(false)
+	if not _seq.is_empty():
+		_preroll_seq()
 		set_process(false)
 	for i in 90:
 		await get_tree().process_frame
