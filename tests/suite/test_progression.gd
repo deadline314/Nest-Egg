@@ -205,6 +205,9 @@ func _test_pickups_and_checkpoint() -> void:
 		stack.append_array(node.get_children())
 	level.player.global_position = checkpoint.global_position
 	await frames(6)
+	check(not GameState.has_checkpoint, "just walking past the phone booth does not record")
+	check(checkpoint.start_call(level.player), "dialing at the booth starts the call")
+	await frames(90)  # 撥號要一秒多
 	check(GameState.has_checkpoint and GameState.checkpoint_progress.get("credits") == 10, "checkpoint stores the credits")
 	# 檢查點之後再賺一些：重生後還原成檢查點當下，而且不能重新撿檢查點前的錢。
 	await _touch(level, _pile_at(level, 18))

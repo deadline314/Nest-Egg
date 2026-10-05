@@ -203,6 +203,7 @@ func _test_soak() -> void:
 		var level := await start_level(NewEnemiesSuite.arena_data(), difficulty_index)
 		level.player.health.setup(9999, 0.0)
 		level.player.global_position = Vector2(20 * 16.0, FLOOR_Y)
+		seed(7000 + difficulty_index)  # 招式順序有亂數；固定種子才不會偶爾 40 秒內抽不到某一招
 		var boss := _spawn_boss(level, 40.0)
 		var visited: Dictionary[StringName, bool] = {}
 		for i in int(40.0 * 60.0):

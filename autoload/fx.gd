@@ -176,6 +176,11 @@ func frozen_count() -> int:
 	return _frozen.size()
 
 
+## 立刻解除所有頓幀，被凍結的節點恢復（測試與切換場景時用；一般戰鬥讓頓幀自己到期）。
+func thaw_all() -> void:
+	_clear_frozen()
+
+
 func reset_time() -> void:
 	_slowmo_until_msec = 0
 	Engine.time_scale = 1.0

@@ -725,8 +725,12 @@ func _test_damage_numbers() -> void:
 	check(numbers != null, "the level has a damage number layer")
 	var children_before := numbers.get_child_count()
 	# 關閉時不顯示。
+	Settings.set_damage_numbers(false)
+	numbers._process(DamageNumbers.LIFETIME + 0.1)  # 關卡剛開始時殘留的數字先讓它消失，這裡只驗證關閉後新的不會出現
+	numbers._process(0.0)
+	numbers.shown_count = 0
 	EventBus.damage_number.emit(Vector2(10, 10), 5, &"weak", 7)
-	check(numbers.alive_count() == 0 and numbers.shown_count == 0, "nothing is shown while the setting is off")
+	check(numbers.alive_count() == 0 and numbers.shown_count == 0, "nothing is shown while the setting is off (alive %d, shown %d, setting %s)" % [numbers.alive_count(), numbers.shown_count, str(Settings.get_damage_numbers())])
 	Settings.set_damage_numbers(true)
 	# 只顯示弱點、重擊與被擋。
 	EventBus.damage_number.emit(Vector2(10, 10), 5, &"hit", 7)

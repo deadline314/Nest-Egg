@@ -581,7 +581,8 @@
    "variants": [
     {
      "pack": "oga_75-cc0-breaking-falling-hit-sfx",
-     "file": "bfh1_hit_07.ogg"
+     "file": "bfh1_hit_07.ogg",
+     "max_len": 0.4
     }
    ]
   },
@@ -591,7 +592,8 @@
    "variants": [
     {
      "pack": "oga_37-hitspunches",
-     "file": "hits/hit21.mp3.flac"
+     "file": "hits/hit21.mp3.flac",
+     "max_len": 0.35
     }
    ]
   },
@@ -601,7 +603,8 @@
    "variants": [
     {
      "pack": "oga_37-hitspunches",
-     "file": "hits/hit10.mp3.flac"
+     "file": "hits/hit10.mp3.flac",
+     "max_len": 0.35
     }
    ]
   },
@@ -611,7 +614,8 @@
    "variants": [
     {
      "pack": "oga_37-hitspunches",
-     "file": "hits/hit24.mp3.flac"
+     "file": "hits/hit24.mp3.flac",
+     "max_len": 0.35
     }
    ]
   },
@@ -641,7 +645,8 @@
    "variants": [
     {
      "pack": "oga_100-cc0-metal-and-wood-sfx",
-     "file": "wood_hit_09.ogg"
+     "file": "wood_hit_09.ogg",
+     "max_len": 0.3
     }
    ]
   },
@@ -651,11 +656,13 @@
    "variants": [
     {
      "pack": "oga_impact",
-     "file": "qubodupImpact/qubodupImpactMeat01.ogg"
+     "file": "qubodupImpact/qubodupImpactMeat01.ogg",
+     "max_len": 0.3
     },
     {
      "pack": "oga_impact",
-     "file": "qubodupImpact/qubodupImpactMeat02.ogg"
+     "file": "qubodupImpact/qubodupImpactMeat02.ogg",
+     "max_len": 0.3
     }
    ]
   },
@@ -665,11 +672,13 @@
    "variants": [
     {
      "pack": "oga_100-cc0-metal-and-wood-sfx",
-     "file": "metal_sheet_01.ogg"
+     "file": "metal_sheet_01.ogg",
+     "max_len": 0.3
     },
     {
      "pack": "oga_100-cc0-metal-and-wood-sfx",
-     "file": "metal_hit_03.ogg"
+     "file": "metal_hit_03.ogg",
+     "max_len": 0.3
     }
    ]
   },
@@ -679,15 +688,18 @@
    "variants": [
     {
      "pack": "oga_100-cc0-metal-and-wood-sfx",
-     "file": "metal_hit_04.ogg"
+     "file": "metal_hit_04.ogg",
+     "max_len": 0.3
     },
     {
      "pack": "oga_100-cc0-metal-and-wood-sfx",
-     "file": "metal_hit_05.ogg"
+     "file": "metal_hit_05.ogg",
+     "max_len": 0.3
     },
     {
      "pack": "oga_100-cc0-metal-and-wood-sfx",
-     "file": "metal_sheet_04.ogg"
+     "file": "metal_sheet_04.ogg",
+     "max_len": 0.3
     }
    ]
   },
@@ -697,15 +709,18 @@
    "variants": [
     {
      "pack": "oga_80-cc0-rpg-sfx",
-     "file": "stones_02.ogg"
+     "file": "stones_02.ogg",
+     "max_len": 0.3
     },
     {
      "pack": "oga_80-cc0-rpg-sfx",
-     "file": "stones_03.ogg"
+     "file": "stones_03.ogg",
+     "max_len": 0.3
     },
     {
      "pack": "oga_80-cc0-rpg-sfx",
-     "file": "stones_01.ogg"
+     "file": "stones_01.ogg",
+     "max_len": 0.3
     }
    ]
   },
@@ -715,23 +730,28 @@
    "variants": [
     {
      "pack": "oga_100-cc0-sfx",
-     "file": "glass_04.ogg"
+     "file": "glass_04.ogg",
+     "max_len": 0.3
     },
     {
      "pack": "oga_100-cc0-sfx",
-     "file": "glass_05.ogg"
+     "file": "glass_05.ogg",
+     "max_len": 0.3
     },
     {
      "pack": "oga_100-cc0-sfx",
-     "file": "glass_02.ogg"
+     "file": "glass_02.ogg",
+     "max_len": 0.3
     },
     {
      "pack": "oga_100-cc0-sfx",
-     "file": "glass_03.ogg"
+     "file": "glass_03.ogg",
+     "max_len": 0.3
     },
     {
      "pack": "oga_100-cc0-sfx",
-     "file": "glass_01.ogg"
+     "file": "glass_01.ogg",
+     "max_len": 0.3
     }
    ]
   },
@@ -741,15 +761,18 @@
    "variants": [
     {
      "pack": "kenney_impact-sounds",
-     "file": "Audio/impactWood_medium_002.ogg"
+     "file": "Audio/impactWood_medium_002.ogg",
+     "max_len": 0.3
     },
     {
      "pack": "kenney_impact-sounds",
-     "file": "Audio/impactWood_medium_003.ogg"
+     "file": "Audio/impactWood_medium_003.ogg",
+     "max_len": 0.3
     },
     {
      "pack": "kenney_impact-sounds",
-     "file": "Audio/impactWood_medium_004.ogg"
+     "file": "Audio/impactWood_medium_004.ogg",
+     "max_len": 0.3
     }
    ]
   },
@@ -759,19 +782,23 @@
    "variants": [
     {
      "pack": "oga_60-cc0-sci-fi-sfx",
-     "file": "sfx_07d.ogg"
+     "file": "sfx_07d.ogg",
+     "max_len": 0.3
     },
     {
      "pack": "oga_60-cc0-sci-fi-sfx",
-     "file": "sfx_07a.ogg"
+     "file": "sfx_07a.ogg",
+     "max_len": 0.3
     },
     {
      "pack": "oga_60-cc0-sci-fi-sfx",
-     "file": "sfx_07b.ogg"
+     "file": "sfx_07b.ogg",
+     "max_len": 0.3
     },
     {
      "pack": "oga_60-cc0-sci-fi-sfx",
-     "file": "sfx_07c.ogg"
+     "file": "sfx_07c.ogg",
+     "max_len": 0.3
     }
    ]
   },
@@ -781,11 +808,13 @@
    "variants": [
     {
      "pack": "oga_100-cc0-sfx",
-     "file": "glass_05.ogg"
+     "file": "glass_05.ogg",
+     "max_len": 0.35
     },
     {
      "pack": "oga_100-cc0-sfx",
-     "file": "glass_04.ogg"
+     "file": "glass_04.ogg",
+     "max_len": 0.35
     }
    ]
   },
@@ -806,7 +835,8 @@
    "variants": [
     {
      "pack": "oga_20-sword-sound-effects-attacks-and-clashes",
-     "file": "sword_clash.8.ogg"
+     "file": "sword_clash.8.ogg",
+     "max_len": 0.3
     }
    ]
   },
@@ -837,7 +867,8 @@
    "variants": [
     {
      "pack": "fs_cc0-kill-burst",
-     "file": "495118_2723982-hq.mp3"
+     "file": "495118_2723982-hq.mp3",
+     "max_len": 0.4
     }
    ]
   },

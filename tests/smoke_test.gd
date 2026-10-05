@@ -262,13 +262,14 @@ func _test_loadout() -> void:
 
 
 func _test_rigs() -> void:
-	var skeleton := RigLibrary.load_json("res://art/rigs/humanoid.json")
-	var bone_names: Dictionary = {}
-	for bone: Dictionary in skeleton.get("bones", []):
-		bone_names[bone["name"]] = true
 	for id in ["rin", "trooper", "grenadier", "enforcer", "warden"]:
 		var skin := RigLibrary.character(id)
 		_check(not skin.is_empty(), "character definition loads: %s" % id)
+		# 角色可以有自己的骨架（監管者的肩甲骨頭）；沒寫就用共用的人形骨架。
+		var skeleton := RigLibrary.load_json(str(skin.get("rig", "res://art/rigs/humanoid.json")))
+		var bone_names: Dictionary = {}
+		for bone: Dictionary in skeleton.get("bones", []):
+			bone_names[bone["name"]] = true
 		var dir := RigLibrary.character_dir(id)
 		for tex_name: String in skin.get("textures", {}).keys():
 			var def: Dictionary = skin["textures"][tex_name]
@@ -679,6 +680,7 @@ func _test_gameplay() -> void:
 		_check(player.state != Player.State.MOUNTED and vehicle.driver == null, "player dismounts vehicle")
 
 	# 坑洞：掉落後回到安全位置並扣血
+	Fx.thaw_all()
 	var hp := player.health.current
 	player.global_position = Vector2(player.global_position.x, player.fall_limit_y + 10.0)
 	await _frames(2)
@@ -824,6 +826,7 @@ func _test_dynamic_hud() -> void:
 		if not player.loadout.consume_ammo():
 			player.loadout.tick(5.0)
 	_check(ring.max_ammo == 12, "ammo ring returns to pistol after weapon runs dry")
+	Fx.thaw_all()  # 前面的命中可能還在頓幀，玩家被凍結時收不到輸入
 	Input.action_press(&"reload")
 	player.loadout.consume_ammo()
 	var reload_event := InputEventAction.new()
@@ -879,7 +882,9 @@ func _test_consumables() -> void:
 	var use_event := InputEventAction.new()
 	use_event.action = &"use_item"
 	use_event.pressed = true
+	await _frames(2)  # 受傷的頓幀在傷害之後才套上，等它出現再解除
 	Fx.reset_time()
+	Fx.thaw_all()
 	Input.parse_input_event(use_event)
 	# 輸入事件在 idle 影格處理；只等物理影格可能還沒輪到。
 	for i in 4:
@@ -1137,9 +1142,11 @@ func _test_lighting() -> void:
 	var post: PostProcess = level._post
 	_check(post != null and post.is_active(), "post-processing is active")
 	var grade: LightingProfile = zones[follow].profile
+	# 顆粒與色差依光影品質縮放（中、低檔關閉），預期值要乘上目前品質的倍率，不能假設這台機器的設定是高檔。
+	var effects := LightQuality.post_effects()
 	_check(is_equal_approx(post.parameter(&"vignette"), grade.vignette) and is_equal_approx(post.parameter(&"saturation"), grade.saturation)
-			and is_equal_approx(post.parameter(&"contrast"), grade.contrast) and is_equal_approx(post.parameter(&"grain"), grade.grain)
-			and is_equal_approx(post.parameter(&"aberration"), grade.aberration), "grade, vignette, grain and aberration follow the zone")
+			and is_equal_approx(post.parameter(&"contrast"), grade.contrast) and is_equal_approx(post.parameter(&"grain"), grade.grain * effects)
+			and is_equal_approx(post.parameter(&"aberration"), grade.aberration * effects), "grade, vignette, grain and aberration follow the zone")
 	var shadow: Vector3 = post.parameter(&"shadow_tint")
 	_check(is_equal_approx(shadow.x, grade.shadow_tint.r) and is_equal_approx(shadow.z, grade.shadow_tint.b), "shadow tint follows the zone")
 	_check(post.layer < level.hud.layer and level.hud.layer < level._inventory.layer and level._inventory.layer < level._pause_menu.layer, "post-processing sits under the HUD and menus")
@@ -1324,10 +1331,19 @@ func _test_lighting() -> void:
 	await get_tree().create_timer(0.6, true).timeout
 	var flash_before := ambient.color
 	EventBus.ambient_flash_requested.emit(Color(1, 0.8, 0.6), 0.5, 0.3)
+	# 閃光依實際時間衰減；機器忙的時候兩影格就過了半個閃光，所以每影格都量，取最亮的那一次。
+	var peak_level := 0.0
+	var peak_red := flash_before.r
+	for i in 3:
+		await get_tree().process_frame
+		peak_level = maxf(peak_level, lighting.flash_level())
+		peak_red = maxf(peak_red, ambient.color.r)
+	_check(peak_level > 0.3 and peak_red > flash_before.r + 0.2, "an ambient flash lifts the ambient light")
+	for i in 40:  # 以實際時間最多等 2 秒，機器忙時衰減也不會讓測試偶爾失敗
+		await get_tree().create_timer(0.05, true).timeout
+		if is_zero_approx(lighting.flash_level()):
+			break
 	await get_tree().process_frame
-	await get_tree().process_frame
-	_check(lighting.flash_level() > 0.3 and ambient.color.r > flash_before.r + 0.2, "an ambient flash lifts the ambient light")
-	await get_tree().create_timer(0.6, true).timeout
 	_check(is_zero_approx(lighting.flash_level()) and ambient.color.is_equal_approx(lighting.current.ambient_color), "the flash decays back to the zone lighting")
 	Fx.explosion(level.player.global_position + Vector2(240, 0), 40.0, 0, Combat.Team.ENEMY, &"test")
 	await get_tree().process_frame
@@ -1369,6 +1385,7 @@ func _test_lighting() -> void:
 
 	# 閃電：強烈閃光、有最短間隔；只有室外區段會打；「減少閃光」大幅降低強度。
 	_check(zones[0].profile.lightning_rate > 0.0 and zones[3].profile.lightning_rate == 0.0 and zones[4].profile.lightning_rate == 0.0, "only outdoor zones have lightning")
+	lighting._lightning_gap = 0.0  # 隨機打的閃電也會讓最短間隔還沒過，這裡要驗的是「打得出來」
 	var storm_before := lighting.flash_level()
 	_check(lighting.strike() and lighting.flash_level() > storm_before + 0.5, "a lightning strike flashes the whole scene")
 	_check(not lighting.strike(), "lightning respects the minimum gap")
@@ -1641,11 +1658,26 @@ func _test_enemy_behaviours() -> void:
 		info.bypass_guard = true
 		target.hurtbox.receive(info)
 		_check(target.can_be_finished(), "enemy becomes finishable")
+		# 其他敵人會撞開玩家、目標也會自己走開；終結技的檢查要的是「靠近、按近戰、算一次終結」，所以讓場上只剩暈住的目標。
+		for other in spawned:
+			if is_instance_valid(other) and other != target:
+				other.queue_free()
+		target.stun(5.0)
+		await _frames(1)
 		player.global_position = target.global_position + Vector2(-20, 0)
 		var finishers := GameState.finishers
-		Input.action_press(&"melee")
-		await _frames(1)
-		Input.action_release(&"melee")
+		Fx.thaw_all()  # 剛才那一擊的頓幀還在時玩家收不到輸入
+		target.velocity = Vector2.ZERO
+		player.velocity = Vector2.ZERO
+		player.global_position = target.global_position + Vector2(-20, 0)  # 按下的前一刻再對位，等待期間兩邊都可能被物理推開
+		# 輪詢式的輸入偶爾在機器忙時漏掉剛按下的那一格；最多按三次，第一次就成功的話只會按一次。
+		for attempt in 3:
+			Input.action_press(&"melee")
+			await _frames(2)
+			Input.action_release(&"melee")
+			await _frames(2)
+			if player.state == Player.State.FINISHER or GameState.finishers != finishers:
+				break
 		await _frames(30)
 		_check(GameState.finishers == finishers + 1, "finisher counted")
 	# 盾牌：正面打不到

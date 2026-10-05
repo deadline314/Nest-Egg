@@ -140,7 +140,8 @@ func _test_budget_smoke() -> void:
 	if sample == null:
 		return
 	FlashGuard.reset()
-	var stats := await sample.replay_events(runner, 40.0)
+	# 8 倍速：聲音的長度是實際時間，加速太多（40 倍）所有聲音都會同時還在響，量到的不是同時發聲數而是總發聲數，也會隨機器忙碌時而超標。
+	var stats := await sample.replay_events(runner, 8.0)
 	var problems := sample.check_budgets(stats)
 	check(problems.is_empty(), "the sample battle stays inside every budget: %s" % "; ".join(problems))
 	# 能偵測超標：一秒內塞很多頓幀與全螢幕閃光。
