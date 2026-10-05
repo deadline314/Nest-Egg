@@ -92,6 +92,21 @@ class ApplyPlacementsTest(unittest.TestCase):
         entry = pipeline["music"]["menu_dark"]
         self.assertEqual((entry["file"], entry["end"]), ("m2.mp3", 150.0))
 
+    def test_weapon_fire_sound_asks_the_build_for_two_variants(self):
+        self.write_doc([row("P-WPN-001", "槍射擊", "GUN-0001", "GUN-0002")])
+        _, _, pipeline = ap.plan(self.doc)
+        self.assertEqual(pipeline["sfx"]["shot_gun"]["min_variants"], 2)
+
+    def test_a_long_track_for_a_sting_is_cut_short(self):
+        slots = json.loads((self.tmp / "slots.json").read_text(encoding="utf-8"))
+        slots["slots"].append({"id": "P-BGM-002", "domain": "BGM", "kind": "music", "target": "victory_sting", "name": "通關短曲", "category": "MUS", "current": ["MUS-0001"]})
+        (self.tmp / "slots.json").write_text(json.dumps(slots, ensure_ascii=False), encoding="utf-8")
+        self.write_doc([row("P-BGM-002", "通關短曲", "MUS-0001", "MUS-0002")])
+        changes, _, pipeline = ap.plan(self.doc)
+        entry = pipeline["music"]["victory_sting"]
+        self.assertEqual((entry["end"], entry["fade_out_ms"], "loop_blend_ms" in entry), (ap.STING_SECONDS, 1500.0, False))
+        self.assertTrue(any("短曲" in w for w in changes[0]["warnings"]))
+
     def test_only_filters_the_slots(self):
         changes, _, _ = ap.plan(self.doc, ["P-HIT-001"])
         self.assertEqual([c["slot"] for c in changes], ["P-HIT-001"])

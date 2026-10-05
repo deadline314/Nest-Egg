@@ -192,9 +192,20 @@ func _test_lab() -> void:
 	check(tab._current_list.item_count >= 1, "the current assets are listed")
 
 	# ---- 並排顯示：遊戲現在用 vs 預計換成（NE-181）
-	var current_text := "
+	# 找一個目前用的是一般素材（不是擷取片段、也不是 Freesound）的位置；資料換了素材也不影響這個檢查。
+	var plain_slot := ""
+	var plain_id := ""
+	for slot: Dictionary in lab.catalog.slots:
+		for id: String in slot["current"]:
+			var asset := lab.catalog.asset(id)
+			if plain_slot == "" and not asset.is_empty() and not asset.has("parent") and not str(asset["file"]).ends_with("-hq.mp3"):
+				plain_slot = str(slot["id"])
+				plain_id = id
+	tab.select_slot(plain_slot)
+	var plain_text := "
 ".join(_list_texts(tab._current_list))
-	check(current_text.contains("GUN-0031") and current_text.contains("A_42P.wav"), "the current list shows the id, the file name and the pack in full")
+	check(plain_slot != "" and plain_text.contains(plain_id) and plain_text.contains(str(lab.catalog.asset(plain_id)["file"]).get_file()), "the current list shows the id and the file name in full")
+	tab.select_slot("P-WPN-001")
 	lab.catalog.assets["GUN-9991"] = {"pack": "clips_sfx", "file": "GUN-9991.wav", "dur": 0.5, "parent": "GUN-0031", "start": 1.0, "end": 1.5}
 	check(lab.asset_line("GUN-9991").contains("擷取自 GUN-0031") and lab.asset_detail("GUN-9991").contains("1.00–1.50") and lab.asset_detail("GUN-9991").contains("A_42P.wav"), "a clip is described by its source asset and range")
 	check(lab.asset_detail("GUN-0000").contains("找不到") and lab.asset_detail("GUN-0031").contains("A_42P.wav"), "unknown ids are said to be missing and normal assets show their file")
@@ -292,8 +303,14 @@ func _test_lab() -> void:
 	# ---- 來源顯示與音量微調（只預覽，不動真正的資料檔）
 	tab.select_slot("P-WPN-001")
 	check(tab._source.text.contains("音效檔") and tab._source.text.contains("CC0"), "the slot shows its source, license pack and length: %s" % tab._source.text)
-	tab.select_slot("P-ENV-013")
-	check(tab._source.text.contains("合成音"), "a synthesized sound is labelled as such")
+	var synth_slot := ""
+	for slot: Dictionary in lab.catalog.slots:
+		if str(slot["kind"]) == "sfx" and (slot["current"] as Array).is_empty():
+			synth_slot = str(slot["id"])
+			break
+	if synth_slot != "":  # 全部位置都換成錄音素材後就沒有合成音可驗
+		tab.select_slot(synth_slot)
+		check(tab._source.text.contains("合成音"), "a synthesized sound is labelled as such")
 	tab.select_slot("P-WPN-001")
 	var original_volume := Sfx.bank().volume_db(&"shot_pistol")
 	tab._volume_slider.value = original_volume + 3.0

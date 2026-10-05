@@ -130,6 +130,21 @@ def expand_variant(dirs: dict, pipeline: dict, category: str, variant: dict) -> 
     return [{"layers": [{"path": path, "pack": variant["pack"], "file": variant["file"], "spec": spec, "delay_ms": 0.0, "segment": None}], "spec": spec}]
 
 
+TWIN_RATES = (0.93, 1.07, 0.88, 1.13)
+
+
+def pad_with_twins(jobs: list, minimum: int) -> list:
+    """音效至少要有 minimum 個變體（連射才不會重複）：不夠時，把第一個變體改變音高（rate）複製幾份補上，聽起來是同一把武器的不同發。"""
+    if not jobs or len(jobs) >= minimum:
+        return jobs
+    padded = list(jobs)
+    for n in range(minimum - len(jobs)):
+        factor = TWIN_RATES[n % len(TWIN_RATES)]
+        layers = [{**layer, "spec": {**layer["spec"], "rate": float(layer["spec"]["rate"]) * factor}} for layer in jobs[0]["layers"]]
+        padded.append({"layers": layers, "spec": jobs[0]["spec"]})
+    return padded
+
+
 def render_job(job: dict) -> np.ndarray:
     parts = []
     for layer in job["layers"]:
@@ -194,6 +209,7 @@ def main() -> int:
         speed_outputs: dict = {str(s): [] for s in speeds}
         try:
             jobs = [job for variant in item["variants"] for job in expand_variant(dirs, pipeline, item.get("category", ""), variant)]
+            jobs = pad_with_twins(jobs, int(item.get("min_variants", 0)))
         except (BuildError, OSError, ValueError) as error:
             failures += 1
             print(f"FAIL  {sound_id}: {error}", file=sys.stderr)

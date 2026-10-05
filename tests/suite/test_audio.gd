@@ -461,7 +461,7 @@ func _test_hurt_voice_cooldown() -> void:
 	await end_level(level)
 
 
-## 機關、拾取、電話亭、介面、移動、環境（NE-159）：都是錄音素材；電話撥號音維持標準 DTMF 合成音。
+## 機關、拾取、電話亭、介面、移動、環境（NE-159）：都是錄音素材；電話撥號音可以是錄音或標準 DTMF 合成音。
 func _test_world_sounds() -> void:
 	for id in [&"jump", &"land", &"dash", &"switch", &"gate", &"power_down", &"power_up", &"emp", &"overclock", &"ability_ready", &"pickup",
 			&"crate_break", &"glass_break", &"telegraph", &"beep", &"alarm", &"laser_flash", &"flame", &"ignite", &"spin", &"vent", &"growl",
@@ -469,7 +469,7 @@ func _test_world_sounds() -> void:
 			&"ui_move", &"ui_confirm", &"ui_cancel", &"ui_error"]:
 		check(Sfx.source_of(id) == &"file", "%s plays from files" % id)
 	for id in [&"phone_dial", &"phone_dial2", &"phone_dial3"]:
-		check(Sfx.source_of(id) == &"synth", "%s keeps the standard DTMF tones" % id)
+		check(Sfx.source_of(id) in [&"file", &"synth"], "%s has a sound (recording or the standard DTMF tones)" % id)
 	for id in [&"ui_move", &"ui_confirm", &"ui_cancel", &"ui_error", &"telegraph", &"beep"]:
 		for stream: AudioStream in Sfx.bank().variants(id):
 			check(stream.get_length() <= 1.0, "interface sound %s is short (%.2fs)" % [id, stream.get_length()])

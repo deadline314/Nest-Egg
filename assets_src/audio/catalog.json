@@ -1375,6 +1375,15 @@
 "dur": 18.11,
 "desc": "thunder.wav（guitarguy1985，18.1 秒）"
 },
+"AMB-0314": {
+"pack": "clips_sfx",
+"file": "AMB-0314.wav",
+"dur": 2.48,
+"desc": "擷取自 AMB-0005 的 0.00–2.48 秒",
+"parent": "AMB-0005",
+"start": 0.0,
+"end": 2.4837
+},
 "ELC-0001": {
 "pack": "kenney_digital-audio",
 "file": "Audio/highDown.ogg",
@@ -5134,6 +5143,33 @@
 "file": "80355_220011-hq.mp3",
 "dur": 6.01,
 "desc": "dial_tone.wav（hyderpotter，6.0 秒）"
+},
+"ELC-0755": {
+"pack": "clips_sfx",
+"file": "ELC-0755.wav",
+"dur": 0.18,
+"desc": "擷取自 ELC-0751 的 0.00–0.18 秒：Beep1（Android Keypad Dialing.mp3（dangerbabe，3.8 秒））",
+"parent": "ELC-0751",
+"start": 0.0,
+"end": 0.1814
+},
+"ELC-0756": {
+"pack": "clips_sfx",
+"file": "ELC-0756.wav",
+"dur": 0.2,
+"desc": "擷取自 ELC-0751 的 0.37–0.57 秒：Beep2（Android Keypad Dialing.mp3（dangerbabe，3.8 秒））",
+"parent": "ELC-0751",
+"start": 0.3737,
+"end": 0.5694
+},
+"ELC-0757": {
+"pack": "clips_sfx",
+"file": "ELC-0757.wav",
+"dur": 0.19,
+"desc": "擷取自 ELC-0751 的 0.69–0.88 秒：Beep2（Android Keypad Dialing.mp3（dangerbabe，3.8 秒））",
+"parent": "ELC-0751",
+"start": 0.69,
+"end": 0.88
 },
 "EXP-0001": {
 "pack": "kenney_sci-fi-sounds",
@@ -27405,6 +27441,15 @@
 "parent": "RLD-0052",
 "start": 1.995,
 "end": 2.285
+},
+"RLD-0086": {
+"pack": "clips_sfx",
+"file": "RLD-0086.wav",
+"dur": 0.29,
+"desc": "擷取自 RLD-0043 的 1.28–1.57 秒（Dry Fire（brianhanson2nd，3.1 秒））",
+"parent": "RLD-0043",
+"start": 1.2755,
+"end": 1.57
 },
 "UIS-0001": {
 "pack": "kenney_interface-sounds",

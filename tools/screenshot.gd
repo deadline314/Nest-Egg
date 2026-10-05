@@ -1367,11 +1367,11 @@ func _run_lab_sources() -> void:
 	lab.stage_enabled = false
 	add_child(lab)
 	await _settle(20)
-	lab.slots_tab.select_slot("P-HIT-006")
+	lab.slots_tab.select_slot("P-ENV-018")
 	await _settle(10)
 	var list: ItemList = lab.slots_tab._candidate_list
 	for i in list.item_count:
-		if str(lab.catalog.asset(str(list.get_item_metadata(i))).get("pack", "")).contains("fs_cc0-headshot"):
+		if str(lab.catalog.asset(str(list.get_item_metadata(i))).get("pack", "")).contains("fs_cc0-phone-ring"):
 			list.select(i)
 			list.item_selected.emit(i)
 			break

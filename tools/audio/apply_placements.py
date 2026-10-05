@@ -33,6 +33,8 @@ WEAPONS = ROOT / "data" / "weapons"
 FIRE_SOUND = re.compile(r'^fire_sound\s*=\s*&"([^"]+)"', re.M)
 ## 武器的射擊音效至少要有幾個變體（連射才不會重複；AudioSuite 有同樣的檢查）。
 MIN_WEAPON_VARIANTS = 2
+## 通關與死亡短曲的長度上限（秒）；音樂測試要求短曲不超過 30 秒。
+STING_SECONDS = 12.0
 
 
 def parse_rows(doc: Path) -> dict:
@@ -84,7 +86,12 @@ def plan(doc: Path, only: list | None = None) -> tuple:
             asset = assets[planned[0]]
             old = pipeline.get("music", {}).get(slot["target"], {})
             entry = {"pack": asset["pack"], "file": asset["file"]}
-            if asset["dur"] > 150.0:
+            if slot["target"].endswith("_sting"):
+                # 短曲（通關、死亡）：只取開頭 STING_SECONDS 秒並淡出，不循環
+                if asset["dur"] > STING_SECONDS:
+                    entry.update({"end": STING_SECONDS, "fade_out_ms": 1500.0})
+                    warnings.append(f"短曲只取開頭 {STING_SECONDS:.0f} 秒並淡出（原曲 {asset['dur']:.0f} 秒）")
+            elif asset["dur"] > 150.0:
                 entry.update({"end": 150.0, "loop_blend_ms": 1500.0})
             elif asset["dur"] > 30.0:
                 entry["loop_blend_ms"] = old.get("loop_blend_ms", 1500.0)
@@ -99,8 +106,10 @@ def plan(doc: Path, only: list | None = None) -> tuple:
                 item["category"] = "ambience"
                 proc.setdefault("max_len", 30.0)
             item["variants"] = [{"pack": assets[a]["pack"], "file": assets[a]["file"], **proc} for a in planned]
-            if slot["target"] in fire_sounds and len(planned) < MIN_WEAPON_VARIANTS:
-                warnings.append(f"武器射擊音效至少要有 {MIN_WEAPON_VARIANTS} 個變體（連射才不會重複，音訊測試也這樣要求），現在只挑了 {len(planned)} 個素材；一個素材切出的發數不一定夠")
+            if slot["target"] in fire_sounds:
+                item["min_variants"] = MIN_WEAPON_VARIANTS
+                if len(planned) < MIN_WEAPON_VARIANTS:
+                    warnings.append(f"武器射擊音效至少要有 {MIN_WEAPON_VARIANTS} 個變體（連射才不會重複，音訊測試也這樣要求），現在只挑了 {len(planned)} 個素材；一個素材切不出足夠的發數時，會複製並微調音高補到 {MIN_WEAPON_VARIANTS} 個")
         changes.append({"slot": slot_id, "name": slot["name"], "kind": slot["kind"], "target": slot["target"], "current": list(slot["current"]), "planned": planned, "warnings": warnings})
     return changes, problems, pipeline
 

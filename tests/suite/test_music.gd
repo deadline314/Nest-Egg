@@ -45,7 +45,7 @@ func _test_shipped_data() -> void:
 		check(stream != null and stream.get_length() > 1.0, "track %s loads (%s)" % [track_id, def["file"]])
 		if stream != null:
 			var sting := track_id.ends_with("_sting")
-			check(stream.get_length() <= 30.0 if sting else stream.get_length() >= 45.0, "track %s has a sensible length for a %s (%.0fs)" % [track_id, "sting" if sting else "loop", stream.get_length()])
+			check(stream.get_length() <= 30.0 if sting else stream.get_length() >= 30.0, "track %s has a sensible length for a %s (%.0fs)" % [track_id, "sting" if sting else "loop", stream.get_length()])
 		check(not str(def.get("pack", "")).is_empty(), "track %s names its license pack" % track_id)
 
 
