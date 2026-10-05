@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"doc_pawn_stub"
+display_name = "當票存根"
+description = "當舖櫃檯抽屜裡的一張舊存根。"
+color = Color(1.00, 0.82, 0.50, 1.0)
+category = 1
+chapter = &"ch1_kasa"
+body = "當品：懷錶一只。當金八百。贖回期限：無。備註：客人說先放著，晚點回來拿，已經六年。老 K 每個月都會把它擦一遍。"
+order = 24
+trigger = 3
+icon = "doc_stub"

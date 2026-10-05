@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"doc_collection_notice"
+display_name = "收帳通知單"
+description = "貼在鐵捲門上的第三次通知。"
+color = Color(1.00, 0.72, 0.25, 1.0)
+category = 1
+chapter = &"ch1_kasa"
+body = "第三次通知。港區第 14 號店面，逾期 63 日，欠款 41,000。收帳人將於本月內上門。備註：上門時請勿反抗，反抗會增加手續費。"
+order = 21
+trigger = 3
+icon = "doc_notice"

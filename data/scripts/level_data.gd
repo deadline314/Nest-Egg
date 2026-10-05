@@ -38,6 +38,8 @@ extends Resource
 @export var boss_scene: StringName = &""
 ## 擊敗頭目後播放的過場。
 @export var outro_scene: StringName = &""
+## 機關頻道被啟動時播放的場景（頻道 -> 場景 id），例如打倒迷你頭目後隔牆升起的通訊；每輪只播一次。
+@export var channel_scenes: Dictionary[StringName, StringName] = {}
 ## 地圖上 & 字元由左至右對應的劇情場景 id。
 @export var story_triggers: PackedStringArray = PackedStringArray()
 @export_group("Area")

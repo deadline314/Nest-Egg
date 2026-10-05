@@ -1,0 +1,78 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=16 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/props/credits_small.tres" id="3_credits_small"]
+[ext_resource type="Resource" path="res://data/story_items/doc_pawn_stub.tres" id="4_doc_pawn_stub"]
+[ext_resource type="Resource" path="res://data/weapons/melee/melee_dagger.tres" id="5_melee_dagger"]
+[ext_resource type="Resource" path="res://data/props/ch1_crate.tres" id="6_ch1_crate"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="7_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/rooftop.tres" id="8_rooftop"]
+[ext_resource type="Resource" path="res://data/lighting/pawnshop_warm.tres" id="9_pawnshop_warm"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch1_pawnshop.tres" id="10_ch1_pawnshop"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"pawn_front"
+target_level = "res://data/levels/ch1_street.tres"
+target_portal = &"street_home"
+requires_flag = &"ch1_heard_brief"
+locked_text = "先去屋頂：鷺在等你。"
+prompt = "{interact} 出門"
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"pawn_basement"
+locked_text = "漏水，別開。"
+prompt = "{interact} 地下室"
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("2_portal_data")
+id = &"pawn_stairs"
+target_level = "res://data/levels/ch1_rooftop.tres"
+target_portal = &"roof_stairs"
+requires_flag = &"ch1_dinner_done"
+locked_text = "先吃晚飯。老 K 在等。"
+prompt = "{interact} 上屋頂"
+width = 20
+height = 48
+style = "ladder"
+
+[sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("7_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("8_rooftop")
+
+[sub_resource type="Resource" id="Resource_4"]
+script = ExtResource("7_lighting_zone")
+start_tile = 30
+blend_tiles = 6
+profile = ExtResource("9_pawnshop_warm")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch1_pawnshop"
+display_name = "當舖"
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"F": SubResource("Resource_0"),
+"K": SubResource("Resource_1"),
+"S": SubResource("Resource_2"),
+"c": ExtResource("3_credits_small"),
+"t": ExtResource("4_doc_pawn_stub"),
+"u": ExtResource("5_melee_dagger"),
+"x": ExtResource("6_ch1_crate")
+})
+hints = PackedStringArray("移動 {move_left}/{move_right}，跳躍 {jump}（按久跳更高）", "按 {inventory} 開背包：武器改裝、道具與文件都在這裡", "滑鼠瞄準，{shoot} 射擊；{reload} 換彈。打左邊的木箱練習", "{dash} 衝刺：短暫無敵，可以穿過危險", "{move_down}＋{jump} 從單向平台落下；{melee} 近戰", "樓梯通往屋頂：鷺在上面等你")
+chapter = &"ch1_kasa"
+persistent_world = true
+show_chapter_card = true
+environment = ExtResource("10_ch1_pawnshop")
+layout_path = "res://data/levels/ch1_pawnshop_map.json"
+lighting_zones = Array[ExtResource("7_lighting_zone")]([SubResource("Resource_3"), SubResource("Resource_4")])
+intro_scene = &"ch1_c00_prologue"
+story_triggers = PackedStringArray("ch1_c02_dinner")

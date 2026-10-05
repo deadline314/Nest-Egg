@@ -40,9 +40,9 @@ func _test_data() -> void:
 		per_chapter[item.chapter] = per_chapter.get(item.chapter, 0) + 1
 		if item.play_scene != &"":
 			check(Story.has_scene(item.play_scene), "collectible scene exists: %s -> %s" % [item.id, item.play_scene])
-	check(per_chapter.get(&"chapter_01", 0) == 5 and per_chapter.get(&"chapter_02", 0) == 7, "fixed collectible counts per chapter %s" % per_chapter)
+	check(per_chapter.get(&"chapter_01", 0) == 5 and per_chapter.get(&"chapter_02", 0) == 7 and per_chapter.get(&"ch1_kasa", 0) == 5, "fixed collectible counts per chapter %s" % per_chapter)
 	check(StoryItems.collectible_total(&"chapter_02") == 7 and StoryItems.collectible_total(&"nope") == 0, "collectible_total counts per chapter")
-	check(StoryItems.collectible_chapters().size() == 2, "two chapters have collectibles")
+	check(StoryItems.collectible_chapters().size() == 3, "three chapters have collectibles")
 	# 壞資料會被回報。
 	var bad := StoryItemData.new()
 	bad.id = &"bad_doc"
@@ -154,6 +154,6 @@ func _test_inventory_page() -> void:
 	check(doc.subtitle == "文件" and doc.detail_body == (load("res://data/story_items/%s.tres" % OPEN_ITEM) as StoryItemData).body, "document shows its full text")
 	check(doc.detail_stats.size() == 1 and doc.detail_stats[0].contains("2／7"), "document shows the chapter collection progress: %s" % [doc.detail_stats])
 	check((by_id[&"rec_wataru_1"] as InventoryEntry).subtitle == "錄音", "recording is labelled as a recording")
-	check(page.tab_tooltip().contains("2／12"), "tab tooltip shows overall progress: %s" % page.tab_tooltip())
+	check(page.tab_tooltip().contains("2／17"), "tab tooltip shows overall progress: %s" % page.tab_tooltip())
 	check(not by_id.has(&"doc_nest_log"), "uncollected documents are not listed")
 	page.free()

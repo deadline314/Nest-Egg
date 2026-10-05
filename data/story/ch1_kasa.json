@@ -1,0 +1,1519 @@
+{
+ "chapter": {
+  "id": "ch1_kasa",
+  "title": "第一章　傘",
+  "subtitle": "沉港市・下層港區",
+  "end_title": "第一章　傘　完",
+  "teaser": "下一章　鷺"
+ },
+ "speakers": {
+  "egret": {
+   "name": "鷺",
+   "color": "#ffb066",
+   "portrait": "res://art/portraits/resident.png"
+  },
+  "lamp": {
+   "name": "燈",
+   "color": "#8fe39a",
+   "portrait": "res://art/portraits/wataru.png"
+  },
+  "ali": {
+   "name": "阿梨",
+   "color": "#ff8fc0",
+   "portrait": "res://art/portraits/nurse.png"
+  },
+  "voice": {
+   "name": "錄音",
+   "color": "#9ad7ff",
+   "portrait": "res://art/portraits/system.png",
+   "formal": true
+  }
+ },
+ "respawn_scenes": [
+  {
+   "scene": "ch1_c09_wake",
+   "min_deaths": 1
+  }
+ ],
+ "scenes": {
+  "ch1_c00_prologue": {
+   "mode": "animated",
+   "then": "ch1_c01_shop",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "rainy_harbor",
+     "pos": [
+      320,
+      330
+     ],
+     "fade": 1.8
+    },
+    {
+     "do": "letterbox",
+     "on": true,
+     "time": 0.8
+    },
+    {
+     "do": "wait",
+     "time": 0.6
+    },
+    {
+     "do": "narrate",
+     "lines": [
+      "天穹氣象台提醒您",
+      "今晚降雨持續",
+      "港區水位三點二公尺，持續上升"
+     ],
+     "time": 2.6
+    },
+    {
+     "do": "camera",
+     "pos": [
+      320,
+      150
+     ],
+     "zoom": 1.0,
+     "time": 4.5
+    },
+    {
+     "do": "wait",
+     "time": 3.0
+    },
+    {
+     "do": "fx",
+     "kind": "lightning",
+     "time": 0.6
+    },
+    {
+     "do": "camera",
+     "pos": [
+      320,
+      -10
+     ],
+     "zoom": 1.0,
+     "time": 3.5
+    },
+    {
+     "do": "wait",
+     "time": 2.2
+    },
+    {
+     "do": "fx",
+     "kind": "lightning",
+     "time": 0.8
+    },
+    {
+     "do": "title",
+     "text": "傘",
+     "sub": "かさ　Kasa",
+     "time": 2.8,
+     "color": "#35e0ff"
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 1.0
+    }
+   ]
+  },
+  "ch1_c01_shop": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_pawnshop_front",
+     "pos": [
+      330,
+      200
+     ],
+     "zoom": 1.15,
+     "fade": 1.4
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      400,
+      336
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "pose": "crouch"
+    },
+    {
+     "do": "actor",
+     "id": "k",
+     "kind": "old_k",
+     "pos": [
+      250,
+      336
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "old_k",
+     "loop": "wipe_hands"
+    },
+    {
+     "do": "sfx",
+     "id": "pickup",
+     "volume": -16
+    },
+    {
+     "do": "wait",
+     "time": 0.8
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "水位又上來了啦。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "三點二。"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "你怎麼知道？"
+    },
+    {
+     "do": "pose",
+     "id": "rin",
+     "pose": "idle"
+    },
+    {
+     "do": "wait",
+     "time": 0.6
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "牆上寫的。"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "啊。對。牆上有寫。"
+    },
+    {
+     "do": "wait",
+     "time": 0.5
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "鷺等一下來，說有差事。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "上面指定的？"
+    },
+    {
+     "do": "wait",
+     "time": 0.9
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "上面指定的。我看過了，倉庫而已。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "一成照抽。"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "照抽。保費嘛。你自己簽的。"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "嗯。"
+    },
+    {
+     "do": "wait",
+     "time": 0.4
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "去後面試試手感。那把子彈用不完。"
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 0.8
+    }
+   ]
+  },
+  "ch1_c02_dinner": {
+   "mode": "animated",
+   "set_flags": [
+    "ch1_dinner_done"
+   ],
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_pawnshop_kitchen",
+     "pos": [
+      320,
+      190
+     ],
+     "zoom": 1.1,
+     "fade": 1.2
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      250,
+      306
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "pose": "sit"
+    },
+    {
+     "do": "actor",
+     "id": "k",
+     "kind": "old_k",
+     "pos": [
+      420,
+      306
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "old_k",
+     "loop": "stir"
+    },
+    {
+     "do": "wait",
+     "time": 1.0
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "今天的。"
+    },
+    {
+     "do": "sfx",
+     "id": "pickup",
+     "volume": -8
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "四十。"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "收到。"
+    },
+    {
+     "do": "wait",
+     "time": 0.8
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "我切很細了啊。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "還是看得到。"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "看得到才叫紅蘿蔔啊。"
+    },
+    {
+     "do": "wait",
+     "time": 1.4
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "幾次了？"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "九。"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "九啊。"
+    },
+    {
+     "do": "wait",
+     "time": 0.8
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "別人兩三倍。我還好。"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "喔。"
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 0.9
+    }
+   ]
+  },
+  "ch1_c03a_roof": {
+   "mode": "animated",
+   "then": "ch1_c03b_roof",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_rooftop",
+     "pos": [
+      440,
+      200
+     ],
+     "zoom": 1.1,
+     "fade": 1.4
+    },
+    {
+     "do": "actor",
+     "id": "egret",
+     "kind": "night_worker",
+     "pos": [
+      470,
+      292
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "egret",
+     "pose": "sit"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      120,
+      292
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": ""
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      330,
+      292
+     ],
+     "time": 3.0,
+     "wait": true,
+     "pose": "walk"
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "小鬼。遲到三分鐘。",
+     "style": "shout"
+    },
+    {
+     "do": "sfx",
+     "id": "pickup",
+     "volume": -10
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "老 K 在吃飯。"
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "那老頭永遠在吃飯。聽好，差事很簡單。"
+    },
+    {
+     "do": "wait",
+     "time": 0.9
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "地點，碼頭倉庫。目標，保險箱裡一片資料盤。",
+     "ja": "場所は埠頭の倉庫。狙いは金庫の中のディスク一枚。",
+     "en": "Dock warehouse. Target: one disk in a safe.",
+     "transcreate": true
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "有隻看門狗守著。兩條腿，一條尾巴，脾氣不好。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "誰要的。"
+    },
+    {
+     "do": "wait",
+     "time": 0.5
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "上面。我不問，你也別問。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "你呢。"
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "我今晚有事。"
+    },
+    {
+     "do": "wait",
+     "time": 1.0
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "什麼事。"
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "…看一個人。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "誰。"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "下次講。喝茶。"
+    }
+   ]
+  },
+  "ch1_c03b_roof": {
+   "mode": "animated",
+   "set_flags": [
+    "ch1_heard_brief"
+   ],
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_rooftop",
+     "pos": [
+      440,
+      200
+     ],
+     "zoom": 1.1,
+     "fade": 0.0
+    },
+    {
+     "do": "actor",
+     "id": "egret",
+     "kind": "night_worker",
+     "pos": [
+      470,
+      292
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "egret",
+     "pose": "sit"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      330,
+      292
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": ""
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "你一個人去。不要一個人死，浪費。",
+     "ja": "一人で死ぬなよ、もったいない。",
+     "en": "Don't die alone. Waste of a good death.",
+     "transcreate": true
+    },
+    {
+     "do": "wait",
+     "time": 0.8
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "開玩笑啦。死了還不是照樣喝酒。",
+     "ja": "死んだって、どうせ酒は飲めるさ。",
+     "en": "You can still drink after.",
+     "transcreate": true
+    },
+    {
+     "do": "camera",
+     "pos": [
+      380,
+      230
+     ],
+     "zoom": 1.5,
+     "time": 1.4
+    },
+    {
+     "do": "narrate",
+     "lines": [
+      "晴岸　480,000",
+      "已存 27,400"
+     ],
+     "time": 2.6
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "欸，晴岸？你要買房？"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "還早。"
+    },
+    {
+     "do": "wait",
+     "time": 0.5
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "給誰？"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "一個人。"
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "喔——老頭子的喔？"
+    },
+    {
+     "do": "wait",
+     "time": 0.6
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "別說。"
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "好好好。嘴巴縫起來。"
+    },
+    {
+     "do": "camera",
+     "pos": [
+      470,
+      190
+     ],
+     "zoom": 1.2,
+     "time": 1.6
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "看到那座塔沒有？上面有太陽。真的太陽。",
+     "ja": "あの塔、見える？上には太陽がある。本物の。",
+     "en": "See that tower? There's sun up there. Real sun.",
+     "transcreate": true
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "聽說。"
+    },
+    {
+     "do": "wait",
+     "time": 0.5
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "你要帶他去喔。"
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 0.9
+    }
+   ]
+  },
+  "ch1_c04_out": {
+   "mode": "animated",
+   "set_flags": [
+    "ch1_out_done"
+   ],
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_pawnshop_front",
+     "pos": [
+      330,
+      200
+     ],
+     "zoom": 1.15,
+     "fade": 1.2
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      330,
+      336
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": ""
+    },
+    {
+     "do": "actor",
+     "id": "k",
+     "kind": "old_k",
+     "pos": [
+      220,
+      336
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "old_k",
+     "loop": "wipe_hands"
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      520,
+      336
+     ],
+     "time": 2.4,
+     "wait": true,
+     "pose": "walk"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "帶傘了嗎？",
+     "ja": "傘、持った？",
+     "en": "Got your kasa?",
+     "transcreate": true
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "下面本來就是水。",
+     "ja": "下はもともと水だよ。",
+     "en": "It's water down there anyway.",
+     "transcreate": true
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "喔。"
+    },
+    {
+     "do": "wait",
+     "time": 0.8
+    },
+    {
+     "do": "fx",
+     "kind": "lightning",
+     "time": 0.4
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 0.9
+    }
+   ]
+  },
+  "ch1_g06_lamp": {
+   "mode": "cinematic",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "喂喂，一、二、三。聽得到嗎？"
+    },
+    {
+     "speaker": "rin",
+     "text": "聽得到。"
+    },
+    {
+     "speaker": "lamp",
+     "text": "你耳機又有雜音。我說過那顆喇叭該換了。"
+    },
+    {
+     "speaker": "rin",
+     "text": "你想換你付。"
+    },
+    {
+     "speaker": "lamp",
+     "text": "哈。我今天先幫你看路。市集被收帳人封了，走碼頭那邊。"
+    }
+   ]
+  },
+  "ch1_g06_tip_slide": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "按閃躲，往旁邊滑。剛按下去那一瞬間，子彈打不到你。"
+    }
+   ]
+  },
+  "ch1_g06_tip_blade": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "貼身的時候用刀，省子彈。"
+    },
+    {
+     "speaker": "lamp",
+     "text": "雖然你的子彈用不完。習慣一下，早晚會換槍。"
+    }
+   ]
+  },
+  "ch1_g06_tip_collector": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "前面穿黃衣服的是收帳人。比保全慢，比保全痛。"
+    }
+   ]
+  },
+  "ch1_g06_clear": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "好。倉庫在碼頭盡頭，我在你耳邊。"
+    }
+   ]
+  },
+  "ch1_g07_dog": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "牠在大廳最裡面，睡著。"
+    },
+    {
+     "speaker": "rin",
+     "text": "多大。"
+    }
+   ]
+  },
+  "ch1_c11_watchdog": {
+   "mode": "cinematic",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "只有一頭。"
+    },
+    {
+     "speaker": "rin",
+     "text": "什麼只有一頭。"
+    },
+    {
+     "speaker": "lamp",
+     "text": "看門狗。別的紀錄裡，它有三個頭。"
+    }
+   ]
+  },
+  "ch1_g10_pit": {
+   "mode": "cinematic",
+   "then": "ch1_g10_pit2",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "站上去，水淹過頭，我就死了。"
+    },
+    {
+     "speaker": "lamp",
+     "text": "對。"
+    },
+    {
+     "speaker": "rin",
+     "text": "你要我淹死。"
+    },
+    {
+     "speaker": "lamp",
+     "text": "我要你死一次。差別很大。"
+    }
+   ]
+  },
+  "ch1_g10_pit2": {
+   "mode": "cinematic",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "閘門會一直開著？"
+    },
+    {
+     "speaker": "lamp",
+     "text": "世界不會因為你死了就重來。你死了，水還是水。"
+    },
+    {
+     "speaker": "rin",
+     "text": "所以死是工具。"
+    },
+    {
+     "speaker": "lamp",
+     "text": "你學得真快。"
+    }
+   ]
+  },
+  "ch1_g10_cross": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "這很方便。"
+    },
+    {
+     "speaker": "lamp",
+     "text": "…對。很方便。"
+    }
+   ]
+  },
+  "ch1_g10_disk": {
+   "mode": "cinematic",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "那是收帳人的帳。上面為什麼要這個？"
+    },
+    {
+     "speaker": "rin",
+     "text": "不知道。"
+    },
+    {
+     "speaker": "lamp",
+     "text": "你不好奇？"
+    },
+    {
+     "speaker": "rin",
+     "text": "錢到了就行。"
+    }
+   ]
+  },
+  "ch1_c09_wake": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_revival_room",
+     "pos": [
+      320,
+      190
+     ],
+     "zoom": 1.1,
+     "fade": 1.0
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      330,
+      344
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "sit"
+    },
+    {
+     "do": "fx",
+     "kind": "flash",
+     "time": 0.6
+    },
+    {
+     "do": "wait",
+     "time": 1.2
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "…幹。"
+    },
+    {
+     "do": "wait",
+     "time": 1.0
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "歡迎回來。",
+     "ja": "おかえり。",
+     "en": "Welcome back.",
+     "transcreate": true
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "你的聲音跟終端很像。",
+     "ja": "ターミナルの声、お前に似てるな。",
+     "en": "You sound like the terminal.",
+     "transcreate": true
+    },
+    {
+     "do": "wait",
+     "time": 0.9
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "港區少年的聲音，長得都差不多吧。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "騙人。"
+    },
+    {
+     "do": "wait",
+     "time": 1.1
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "你要不要先喝茶？"
+    },
+    {
+     "do": "pose",
+     "id": "rin",
+     "pose": "idle"
+    },
+    {
+     "do": "wait",
+     "time": 0.8
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "誰放的。"
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "診所的人吧。每次都有。"
+    },
+    {
+     "do": "wait",
+     "time": 0.6
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 1.2
+    }
+   ]
+  },
+  "ch1_c12_lounge": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_revival_lounge",
+     "pos": [
+      320,
+      200
+     ],
+     "zoom": 1.1,
+     "fade": 1.4
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "nurse",
+     "pos": [
+      250,
+      344
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "ali",
+     "loop": "wipe_hands"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      520,
+      344
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": ""
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      400,
+      344
+     ],
+     "time": 2.0,
+     "wait": true,
+     "pose": "walk"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "今天第幾次？"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "一。"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "一？才一次？"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "那你運氣好。吃什麼？復原餐，還是酒？"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "都要。"
+    },
+    {
+     "do": "wait",
+     "time": 0.8
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "您貴姓？"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "凜。"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "阿梨。梨子的梨。別分梨吃，會分開。",
+     "ja": "梨って書いて、なし。縁起悪いって言われるけどね、『無し』に通じるから。",
+     "en": "Pear. Like the fruit. Like 'a pair'—somebody's other half, for the night.",
+     "transcreate": true
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "好。"
+    },
+    {
+     "do": "wait",
+     "time": 1.0
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這湯怎麼是甜的？"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "放了一顆梨。"
+    },
+    {
+     "do": "wait",
+     "time": 1.2
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我下班了。"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "這個不是工作。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "多少。"
+    },
+    {
+     "do": "wait",
+     "time": 0.9
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "放著吧。"
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 1.2
+    }
+   ]
+  },
+  "ch1_c13_noodle": {
+   "mode": "animated",
+   "set_flags": [
+    "knows_ali_address",
+    "ch1_noodle_done"
+   ],
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_dawn_noodle_stall",
+     "pos": [
+      320,
+      200
+     ],
+     "zoom": 1.1,
+     "fade": 1.6
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "nurse",
+     "pos": [
+      360,
+      318
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "ali",
+     "loop": "stir"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      250,
+      318
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "pose": "sit"
+    },
+    {
+     "do": "wait",
+     "time": 1.4
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "吃。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "多少。"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "不收錢。"
+    },
+    {
+     "do": "wait",
+     "time": 0.6
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "那我欠你。",
+     "ja": "じゃあ、借りだね。",
+     "en": "Then I owe you.",
+     "transcreate": true
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "那就欠著。",
+     "ja": "ツケにしとく。",
+     "en": "Put it on the tab.",
+     "transcreate": true
+    },
+    {
+     "do": "wait",
+     "time": 1.6
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我最近被收帳人盯上了。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "欠多少。"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "錢不是問題。他們一直在加。"
+    },
+    {
+     "do": "wait",
+     "time": 0.6
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "你住哪。"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "市集後面，三樓。敲三下，再敲兩下，是我。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我不去。"
+    },
+    {
+     "do": "wait",
+     "time": 0.5
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "沒要你去。我只是告訴你。"
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 1.2
+    }
+   ]
+  },
+  "ch1_c14_home": {
+   "mode": "animated",
+   "set_flags": [
+    "ch1_home_done"
+   ],
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_pawnshop_kitchen",
+     "pos": [
+      330,
+      190
+     ],
+     "zoom": 1.1,
+     "fade": 1.4
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      120,
+      306
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": ""
+    },
+    {
+     "do": "actor",
+     "id": "k",
+     "kind": "old_k",
+     "pos": [
+      400,
+      306
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      300,
+      306
+     ],
+     "time": 2.0,
+     "wait": true,
+     "pose": "walk"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "老 K。"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "啊。"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "水燒乾了喔。"
+    },
+    {
+     "do": "wait",
+     "time": 0.5
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "是。"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "老了。"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "我去裝個水。"
+    },
+    {
+     "do": "move",
+     "id": "k",
+     "to": [
+      560,
+      306
+     ],
+     "time": 2.6,
+     "wait": true,
+     "pose": "walk"
+    },
+    {
+     "do": "sfx",
+     "id": "switch",
+     "volume": -10
+    },
+    {
+     "do": "wait",
+     "time": 1.4
+    },
+    {
+     "do": "move",
+     "id": "k",
+     "to": [
+      400,
+      306
+     ],
+     "time": 2.4,
+     "wait": true,
+     "pose": "walk"
+    },
+    {
+     "do": "camera",
+     "pos": [
+      400,
+      230
+     ],
+     "zoom": 1.7,
+     "time": 1.6
+    },
+    {
+     "do": "wait",
+     "time": 3.0
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "…你什麼時候回來的？"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "剛剛。"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "喔。水燒好了。"
+    },
+    {
+     "do": "wait",
+     "time": 1.4
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 1.4
+    }
+   ]
+  }
+ }
+}

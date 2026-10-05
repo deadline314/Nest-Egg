@@ -15,8 +15,9 @@ func hint_text() -> String:
 
 
 func _ready() -> void:
-	if item == null or not item.is_collectible():
-		push_error("[CollectiblePickup] 沒有指定文件或錄音資料，已移除。")
+	# 文件與錄音，或在關卡裡撿的關鍵道具（取得時機 MANUAL，例如資料盤）。
+	if item == null or not (item.is_collectible() or item.trigger == StoryItemData.Trigger.MANUAL):
+		push_error("[CollectiblePickup] 沒有指定文件、錄音或可撿取的關鍵道具資料，已移除。")
 		queue_free()
 		return
 	super._ready()
@@ -40,6 +41,8 @@ func _fx_kind() -> StringName:
 
 
 func _draw_icon() -> void:
+	if _draw_world_sprite(item.icon):
+		return
 	var glow := LightKit.glow(item.color, 1.8 + 0.4 * sin(_time * 5.0))
 	if item.category == StoryItemData.Category.RECORDING:
 		# 錄音晶片：小方塊加音波。

@@ -8,6 +8,10 @@ extends RefCounted
 
 const ICON_DIR := "res://art/items/icons"
 const ICON_SIZE := Vector2i(32, 32)
+## 詳情面板的大圖（96×96，與同名 32×32 圖示分開繪製、不是放大）：<icon>_hd.png；沒有就用卡片圖示放大。
+const HD_SUFFIX := "_hd"
+## 場景裡的拾取小圖（24×24）：<key>.png，另有 <key>_glow.png 自發光層。
+const WORLD_DIR := "res://art/items/world"
 const WEAPON_DIR := "res://art/items/weapons"
 const WEAPON_SIZE := Vector2i(64, 24)
 const PORTRAIT_DIR := "res://art/items/portraits"
@@ -16,10 +20,38 @@ const PORTRAIT_SIZE := Vector2i(96, 128)
 const PORTRAIT_LAYERS: Array[StringName] = [&"hair_back", &"body", &"head", &"head_blink"]
 
 
+static var _world_cache: Dictionary[String, Dictionary] = {}
+
+
 ## 消耗品與劇情道具的圖示（32×32）。
 static func item(icon: String) -> Texture2D:
 	var file := icon if not icon.is_empty() else "unset"
 	return RigLibrary.texture(ICON_DIR.path_join(file + ".png"), ICON_SIZE)
+
+
+## 詳情面板用的大圖；沒有這張圖（舊的道具）回傳 null，由呼叫端改用卡片圖示放大。不記錄缺檔，因為缺檔是正常情況。
+static func item_hd(icon: String) -> Texture2D:
+	if icon.is_empty():
+		return null
+	var path := ICON_DIR.path_join(icon + HD_SUFFIX + ".png")
+	return load(path) as Texture2D if ResourceLoader.exists(path) else null
+
+
+## 場景裡的拾取小圖：{"base": Texture2D, "glow": Texture2D（可能是 null）}；沒有圖回傳空字典，呼叫端改用程式繪製。
+static func world(key: String) -> Dictionary:
+	if key.is_empty():
+		return {}
+	if _world_cache.has(key):
+		return _world_cache[key]
+	var result: Dictionary = {}
+	var base_path := WORLD_DIR.path_join(key + ".png")
+	if ResourceLoader.exists(base_path):
+		var base := load(base_path) as Texture2D
+		if base != null:
+			var glow_path := WORLD_DIR.path_join(key + "_glow.png")
+			result = {"base": base, "glow": load(glow_path) as Texture2D if ResourceLoader.exists(glow_path) else null}
+	_world_cache[key] = result
+	return result
 
 
 ## 武器圖示（64×24）；visual_id 是 WeaponData.visual_id。

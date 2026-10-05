@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"doc_echo_flyer"
+display_name = "回音派傳單"
+description = "港區廣場有人在發的傳單。"
+color = Color(0.56, 0.88, 1.00, 1.0)
+category = 1
+chapter = &"ch1_kasa"
+body = "復原出來的東西叫回音，人早就不在了。你聽見的每一句話，都是別人說剩下的。週日傍晚，港口廣場，不收費。背面用鉛筆補了一行：我爸說的不一樣。"
+order = 20
+trigger = 3
+icon = "doc_flyer"

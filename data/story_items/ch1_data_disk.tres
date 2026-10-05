@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch1_data_disk"
+display_name = "資料盤"
+description = "保險箱裡的一片資料盤，貼著收帳人的徽章。"
+color = Color(1.00, 0.72, 0.25, 1.0)
+category = 0
+order = 30
+trigger = 3
+icon = "ch1_data_disk"

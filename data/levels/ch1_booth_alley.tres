@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/props/credits_small.tres" id="3_credits_small"]
+[ext_resource type="Resource" path="res://data/story_items/doc_rain_news.tres" id="4_doc_rain_news"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="5_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/neutral.tres" id="6_neutral"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch1_booth_alley.tres" id="7_ch1_booth_alley"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"booth_street"
+target_level = "res://data/levels/ch1_street.tres"
+target_portal = &"street_booth"
+mode = 1
+width = 20
+height = 44
+style = "road"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("5_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("6_neutral")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch1_booth_alley"
+display_name = "電話亭巷"
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"J": SubResource("Resource_0"),
+"c": ExtResource("3_credits_small"),
+"p": ExtResource("4_doc_rain_news")
+})
+hints = PackedStringArray("電話亭：按 {interact} 備份。死了會從最近的電話亭醒來")
+chapter = &"ch1_kasa"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("7_ch1_booth_alley")
+layout_path = "res://data/levels/ch1_booth_alley_map.json"
+lighting_zones = Array[ExtResource("5_lighting_zone")]([SubResource("Resource_1")])
+story_triggers = PackedStringArray()

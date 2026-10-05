@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch1_grey_cloth"
+display_name = "灰布角"
+description = "茶杯底下壓著的一角灰色的布。"
+color = Color(0.62, 0.64, 0.68, 1.0)
+category = 0
+order = 31
+trigger = 3
+icon = "ch1_grey_cloth"

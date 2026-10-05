@@ -12,6 +12,9 @@ enum Kind {
 	SWITCH,
 	## 電力開關：切斷或恢復一段範圍（欄）的電力。斷電的區域熄燈，雷射柵欄、砲台與升降梯停擺。
 	POWER_SWITCH,
+	## 水坑（以死解謎）：站上坑底的踏板，水在幾秒內漲滿並淹死玩家；channel 的閘門隨之打開，水位與閘門在死後保留，
+	## 漲滿的水面上會浮起一排貨櫃讓人走過去。size_tiles 是坑的內部寬×深（格），原點是踏板所在格的底邊中點（坑底正中）。
+	FLOOD_PIT,
 }
 
 @export var id: StringName = &"mechanism"
@@ -30,6 +33,9 @@ enum Kind {
 @export var speed: float = 50.0
 ## 兩端停留秒數。
 @export var wait_time: float = 1.2
+@export_group("Flood")
+## 從踏板被踩下到水漲滿的秒數。
+@export var rise_time: float = 2.4
 @export_group("Power")
 ## 電力開關控制的範圍（從開關所在欄往左右各幾欄）。
 @export var power_range_tiles := Vector2i(24, 24)
@@ -50,6 +56,13 @@ func validate() -> PackedStringArray:
 				problems.append("%s 是電力開關，必須指定 channel（電力區域 id）" % id)
 			if power_range_tiles.x < 0 or power_range_tiles.y < 0 or power_range_tiles.x + power_range_tiles.y < 1:
 				problems.append("%s 的電力範圍必須大於 0" % id)
+		Kind.FLOOD_PIT:
+			if channel == &"":
+				problems.append("%s 是水坑，必須指定 channel（漲水後要打開的閘門頻道）" % id)
+			if size_tiles.x < 3 or size_tiles.y < 3:
+				problems.append("%s 的水坑太小（%dx%d 格，至少 3x3）" % [id, size_tiles.x, size_tiles.y])
+			if rise_time <= 0.0:
+				problems.append("%s 的 rise_time 必須大於 0" % id)
 		Kind.LIFT:
 			if travel_tiles < 1 or speed <= 0.0:
 				problems.append("%s 的升降梯行程與速度必須大於 0" % id)

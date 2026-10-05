@@ -32,6 +32,7 @@ func _entry_for(item: ConsumableData) -> InventoryEntry:
 	entry.title = item.display_name
 	entry.accent = item.color
 	entry.icon = ItemIcons.item(item.icon)
+	entry.detail_icon = ItemIcons.item_hd(item.icon)
 	entry.card_icon_scale = 1
 	entry.detail_icon_scale = 3
 	entry.subtitle = "持有 %d／%d" % [count, item.max_carry]

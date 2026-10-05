@@ -35,6 +35,7 @@ func _entry_for(item: StoryItemData) -> InventoryEntry:
 	entry.title = item.display_name
 	entry.accent = item.color
 	entry.icon = ItemIcons.item(item.icon)
+	entry.detail_icon = ItemIcons.item_hd(item.icon)
 	entry.card_icon_scale = 1
 	entry.detail_icon_scale = 3
 	var kind := _kind_name(item)
