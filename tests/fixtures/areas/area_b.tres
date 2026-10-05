@@ -1,0 +1,53 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal"]
+
+[sub_resource type="Resource" id="Resource_west"]
+script = ExtResource("2_portal")
+id = &"b_west"
+target_level = "res://tests/fixtures/areas/area_a.tres"
+target_portal = &"a_east"
+mode = 1
+
+[sub_resource type="Resource" id="Resource_locked"]
+script = ExtResource("2_portal")
+id = &"b_locked"
+locked_text = "鎖住的測試門。"
+
+[sub_resource type="Resource" id="Resource_flag"]
+script = ExtResource("2_portal")
+id = &"b_flag"
+target_level = "res://tests/fixtures/areas/area_a.tres"
+target_portal = &"a_east"
+requires_flag = &"test_area_flag"
+locked_text = "缺旗標。"
+
+[sub_resource type="Resource" id="Resource_missing"]
+script = ExtResource("2_portal")
+id = &"test_area_bad_missing"
+target_level = "res://tests/fixtures/areas/no_such_level.tres"
+locked_text = "壞掉的門。"
+
+[sub_resource type="Resource" id="Resource_badentry"]
+script = ExtResource("2_portal")
+id = &"b_badentry"
+target_level = "res://tests/fixtures/areas/area_a.tres"
+target_portal = &"test_area_bad_entry"
+mode = 1
+
+[resource]
+script = ExtResource("1_level")
+id = &"test_area_b"
+display_name = "測試區域 B"
+legend = Dictionary[String, Resource]({
+"W": SubResource("Resource_west"),
+"L": SubResource("Resource_locked"),
+"F": SubResource("Resource_flag"),
+"X": SubResource("Resource_missing"),
+"Y": SubResource("Resource_badentry")
+})
+persistent_world = true
+show_chapter_card = false
+rain = false
+layout_path = "res://tests/fixtures/areas/area_map_b.json"

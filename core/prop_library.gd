@@ -16,6 +16,16 @@ static func find(id: StringName, dir := DEFAULT_DIR) -> PropData:
 	return table[id]
 
 
+## 依序在多個資料夾找道具（第一個有的勝出）；都找不到時回傳 null 並記錄一次。
+static func find_in(id: StringName, dirs: PackedStringArray) -> PropData:
+	for dir in dirs:
+		var table := _table(dir)
+		if table.has(id):
+			return table[id]
+	push_warning("[PropLibrary] 找不到道具「%s」（%s）" % [id, ", ".join(dirs)])
+	return null
+
+
 static func has(id: StringName, dir := DEFAULT_DIR) -> bool:
 	return _table(dir).has(id)
 

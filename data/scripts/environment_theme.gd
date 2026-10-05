@@ -6,6 +6,8 @@ extends Resource
 @export var zones: Array[EnvZone] = []
 ## 道具資料夾（地圖 JSON 的 props 以 id 在這裡找）。
 @export_dir var prop_dir: String = "res://data/environment/props"
+## 額外的道具資料夾（例如各場景的專屬物件）；先找 prop_dir，找不到再依序找這裡。
+@export var extra_prop_dirs: PackedStringArray = PackedStringArray()
 ## 背景視差層（由遠到近）。空陣列時沿用程式繪製的天際線。
 @export var backdrop: Array[BackdropLayer] = []
 ## 照片天空（左右無縫的長條，壓在程式天空漸層上）。空白時只用程式天空。
@@ -42,3 +44,10 @@ func validate() -> PackedStringArray:
 			problems.append("環境區段沒有依起點由小到大排列（%d）" % zone.from_tile)
 		last = maxi(last, zone.from_tile)
 	return problems
+
+
+## 道具搜尋順序：主資料夾加額外資料夾。
+func prop_dirs() -> PackedStringArray:
+	var dirs := PackedStringArray([prop_dir])
+	dirs.append_array(extra_prop_dirs)
+	return dirs

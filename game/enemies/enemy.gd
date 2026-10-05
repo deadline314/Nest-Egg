@@ -581,6 +581,19 @@ func is_dying() -> bool:
 	return _dying
 
 
+## 已經損失的血量（持久世界保存用）。
+func lost_health() -> int:
+	return maxi(0, health.max_health - health.current) if health != null else 0
+
+
+## 還原先前受的傷（持久世界）：至少留 1 點血，不會一出場就死。要在加入場景樹（_ready）之後呼叫。
+func restore_lost_health(lost: int) -> void:
+	if health == null or lost <= 0 or _dying:
+		return
+	health.current = clampi(health.max_health - lost, 1, health.max_health)
+	health.health_changed.emit(health.current, health.max_health)
+
+
 ## 被警報引來：seconds 秒內偵測範圍變大、巡邏改為往 point 聚集（取較長的戒備時間）。
 func raise_alert(point: Vector2, seconds: float) -> void:
 	if _dying:
