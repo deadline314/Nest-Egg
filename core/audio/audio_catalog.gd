@@ -12,6 +12,8 @@ const AUDITION_DIR := "res://assets_src/audition/"
 const ASSET_ID_PATTERN := "^[A-Z]{3}-\\d{4}$"
 const SLOT_ID_PATTERN := "^P-[A-Z]+-\\d{3}$"
 
+## 預聽檔資料夾；測試改指到自己的暫存資料夾，平行跑的測試才不會在共用資料夾裡互相看到對方補的假預聽檔。
+var audition_dir := AUDITION_DIR
 var assets: Dictionary = {}
 var categories: Dictionary = {}
 var slots: Array = []
@@ -91,7 +93,7 @@ func search(query: String, category := "", limit := 200) -> Array:
 
 
 func preview_path(asset_id: String) -> String:
-	return AUDITION_DIR + asset_id + ".ogg"
+	return audition_dir + asset_id + ".ogg"
 
 
 func has_preview(asset_id: String) -> bool:

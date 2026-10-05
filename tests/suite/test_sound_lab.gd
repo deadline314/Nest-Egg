@@ -10,6 +10,7 @@ const LAYOUT_PATH := "user://test_audio_lab_layout.cfg"
 
 var _fake_previews: PackedStringArray = []  ## 測試自己建立的空預聽檔（收尾時刪掉；本機真有的預聽檔不動）
 var _created_audition_dir := false
+var _audition_dir := ""
 
 
 func run() -> void:
@@ -52,13 +53,16 @@ func _remove_fake_previews() -> void:
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
 	_fake_previews.clear()
 	if _created_audition_dir:
-		DirAccess.remove_absolute(ProjectSettings.globalize_path(AudioCatalog.AUDITION_DIR))
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(_audition_dir))
 		_created_audition_dir = false
 
 
 ## 讓這些素材「有預聽檔」（只補沒有的）：清單只列有預聽檔的素材，測試不能依賴本機有沒有預聽檔（CI 一個都沒有）。
 func _ensure_previews(catalog: AudioCatalog, ids: Array) -> void:
-	var dir := ProjectSettings.globalize_path(AudioCatalog.AUDITION_DIR)
+	# 假預聽檔放在這個程序自己的暫存資料夾：共用的 assets_src/audition 會被同時跑的其他測試程序看到。
+	_audition_dir = "user://test_audio_audition_%d/" % OS.get_process_id()
+	catalog.audition_dir = _audition_dir
+	var dir := ProjectSettings.globalize_path(_audition_dir)
 	if not DirAccess.dir_exists_absolute(dir):
 		DirAccess.make_dir_recursive_absolute(dir)
 		_created_audition_dir = true
@@ -201,6 +205,7 @@ func _test_lab() -> void:
 			if plain_slot == "" and not asset.is_empty() and not asset.has("parent") and not str(asset["file"]).ends_with("-hq.mp3"):
 				plain_slot = str(slot["id"])
 				plain_id = id
+	_ensure_previews(lab.catalog, [plain_id])  # 清單只列有預聽檔的素材（CI 一個都沒有）
 	tab.select_slot(plain_slot)
 	var plain_text := "
 ".join(_list_texts(tab._current_list))
@@ -226,10 +231,16 @@ func _test_lab() -> void:
 	check(tab._planned_list.item_count == 1 and tab._planned_list.is_item_disabled(0) and tab._planned_list.get_item_text(0).contains("還沒挑"), "an empty plan says so")
 	tab.compare_gap = 0.05
 	check(not await tab.compare_current_and_planned() and lab.status_label.text.contains("還沒有預計使用"), "comparing without a plan only explains")
-	lab.doc.set_planned("P-WPN-001", PackedStringArray(["GUN-0031"]))
+	# 預計使用挑一個沒有預聽檔的素材（CI 沒有任何預聽檔；補上的假預聽檔是空的，放不出聲音）；本機全都有預聽檔時用真的那個。
+	var compare_id := "GUN-0031"
+	for id: String in lab.catalog.assets.keys():
+		if id.begins_with("GUN-") and not lab.catalog.has_preview(id):
+			compare_id = id
+			break
+	lab.doc.set_planned("P-WPN-001", PackedStringArray([compare_id]))
 	tab.refresh()
 	tab.select_slot("P-WPN-001")
-	check(await tab.compare_current_and_planned() == lab.catalog.has_preview("GUN-0031"), "comparing plays the game's sound, then the planned asset")
+	check(await tab.compare_current_and_planned() == lab.catalog.has_preview(compare_id), "comparing plays the game's sound, then the planned asset")
 	lab.audition.stop()
 	Sfx.stop_all()
 	lab.catalog.assets.erase("GUN-9991")
