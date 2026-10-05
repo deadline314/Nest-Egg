@@ -11,6 +11,7 @@ func run() -> void:
 	_test_data()
 	await _test_playback()
 	await _test_unknown_action()
+	await _test_hands_follow_forearm()
 	await _test_enemy_data()
 	_test_motion_is_not_shared()
 
@@ -65,6 +66,39 @@ func _test_playback() -> void:
 	input.action = &""
 	var after := await _rig("trooper", input, 80)
 	check(absf(after.bone(&"arm_front_upper").rotation - idle_arm) < 0.3, "after the action the arm goes back to the normal pose")
+
+
+## 手的貼圖朝 +X 畫：手臂垂下、沒握武器的手要順著前臂（不然手腕折成直角）；人物與 NPC 站著、走路、蹲下都一樣。
+func _test_hands_follow_forearm() -> void:
+	for skin in ["rin", "old_k", "nurse", "night_worker", "resident", "ah_po", "wataru", "mei"]:
+		for state in ["idle", "walk", "crouch"]:
+			var input := RigInput.new()
+			if state == "walk":
+				input.velocity = Vector2(60, 0)
+				input.run_speed = 90.0
+			input.crouching = state == "crouch"
+			var rig := await _rig(skin, input, 60)
+			for side in ["front", "back"]:
+				var lower := _part_sprite(rig, "arm_%s_lower" % side)
+				var hand := _part_sprite(rig, "hand_%s" % side)
+				if lower == null or hand == null:
+					check(false, "%s has an arm and a hand sprite (%s)" % [skin, side])
+					continue
+				var forearm_dir := (lower.to_global(lower.offset + Vector2(0, 1)) - lower.to_global(lower.offset)).normalized()
+				var hand_dir := (hand.to_global(Vector2(1, 0)) - hand.global_position).normalized()
+				var angle := absf(rad_to_deg(forearm_dir.angle_to(hand_dir)))
+				check(angle < 25.0, "%s (%s, %s): the free hand follows the forearm (%.0f degrees off)" % [skin, state, side, angle])
+			rig.get_parent().queue_free()
+
+
+func _part_sprite(rig: CharacterRig, bone_name: String) -> Sprite2D:
+	var bone := rig.bone(StringName(bone_name))
+	if bone == null:
+		return null
+	for child in bone.get_children():
+		if child is Sprite2D and child.name == bone_name:
+			return child
+	return null
 
 
 func _test_unknown_action() -> void:

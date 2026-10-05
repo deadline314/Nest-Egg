@@ -28,6 +28,7 @@ func run() -> void:
 	_test_items()
 	_test_entry_point()
 	_test_story_hooks()
+	_test_prefetch()
 	await _test_story_flags()
 	await _test_scenes_play_through()
 	await _test_every_area_builds()
@@ -305,6 +306,26 @@ func _test_story_hooks() -> void:
 	check(Story.respawn_scene_ids(&"ch1_kasa", 1) == [&"ch1_c09_wake"], "the first death plays the recovery room scene")
 	check(Story.respawn_scene_ids(&"ch1_kasa", 0).is_empty(), "no death, no recovery scene")
 	check(_datas["pawnshop"].intro_scene == &"ch1_c00_prologue" and Story._scenes["ch1_c00_prologue"].get("then") == "ch1_c01_shop", "the prologue leads into the shop scene")
+
+
+## 預載：區域與過場用到的貼圖路徑找得到、請求只發一次、缺檔不報錯。
+func _test_prefetch() -> void:
+	AssetPrefetch.clear()
+	var street := _datas["street"]
+	var paths := AssetPrefetch.level_texture_paths(street)
+	check(paths.size() > 20, "the street lists its textures for prefetching (%d)" % paths.size())
+	var props_ok := false
+	for path in paths:
+		if path.contains("harbor_street__") and not path.contains("_n.") and not path.contains("_glow."):
+			props_ok = ResourceLoader.exists(path)
+			break
+	check(props_ok, "the listed prop textures exist")
+	var stage_paths := AssetPrefetch.scene_texture_paths(&"ch1_c00_prologue")
+	check(stage_paths.size() > 0 and stage_paths.has("res://art/environment/scenes/pawnshop_front.webp"), "a scene chain lists the stage art of every part (%d)" % stage_paths.size())
+	var sent := AssetPrefetch.warm_neighbors(_datas["pawnshop"])
+	check(sent > 0, "warming the neighbors of the pawnshop sends requests (%d)" % sent)
+	check(AssetPrefetch.warm_neighbors(_datas["pawnshop"]) == 0, "the same request is not sent twice")
+	check(AssetPrefetch.request(PackedStringArray(["res://art/no_such_prefetch_texture.png"])) == 0, "a missing texture is skipped without an error")
 
 
 ## 場景結束時設旗標：吃完晚飯才能上樓，聽完差事才能出門。

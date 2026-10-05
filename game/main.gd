@@ -34,6 +34,11 @@ func _swap_screen(screen: Node) -> void:
 
 
 func _show_main_menu() -> void:
+	# 在主選單的時候，背景先把新遊戲第一個區域與開場過場的貼圖載進來。
+	AssetPrefetch.warm_level(FIRST_LEVEL)
+	var first := load(FIRST_LEVEL) as LevelData if ResourceLoader.exists(FIRST_LEVEL) else null
+	if first != null:
+		AssetPrefetch.request(AssetPrefetch.scene_texture_paths(first.intro_scene))
 	var menu := MainMenu.new()
 	menu.start_requested.connect(_on_start_requested, CONNECT_DEFERRED)
 	menu.quit_requested.connect(get_tree().quit, CONNECT_DEFERRED)

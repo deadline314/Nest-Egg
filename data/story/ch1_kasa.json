@@ -124,10 +124,10 @@
      "do": "scene",
      "id": "ch1_pawnshop_front",
      "pos": [
-      330,
-      200
+      320,
+      250
      ],
-     "zoom": 1.15,
+     "zoom": 1.0,
      "fade": 1.4
     },
     {
@@ -135,24 +135,24 @@
      "id": "rin",
      "kind": "rin",
      "pos": [
-      400,
-      336
+      385,
+      348
      ],
      "facing": -1,
-     "scale": 2.0,
+     "scale": 3.4,
      "weapon": "",
-     "pose": "crouch"
+     "pose": "squat"
     },
     {
      "do": "actor",
      "id": "k",
      "kind": "old_k",
      "pos": [
-      250,
-      336
+      175,
+      348
      ],
      "facing": 1,
-     "scale": 2.0,
+     "scale": 3.7,
      "weapon": "",
      "speaker": "old_k",
      "loop": "wipe_hands"
@@ -269,9 +269,9 @@
      "id": "ch1_pawnshop_kitchen",
      "pos": [
       320,
-      190
+      240
      ],
-     "zoom": 1.1,
+     "zoom": 1.0,
      "fade": 1.2
     },
     {
@@ -279,11 +279,11 @@
      "id": "rin",
      "kind": "rin",
      "pos": [
-      250,
-      306
+      196,
+      309.2
      ],
      "facing": 1,
-     "scale": 2.0,
+     "scale": 3.8,
      "weapon": "",
      "pose": "sit"
     },
@@ -292,11 +292,11 @@
      "id": "k",
      "kind": "old_k",
      "pos": [
-      420,
-      306
+      110,
+      304
      ],
-     "facing": -1,
-     "scale": 2.0,
+     "facing": 1,
+     "scale": 4.2,
      "weapon": "",
      "speaker": "old_k",
      "loop": "stir"
@@ -309,6 +309,40 @@
      "do": "say",
      "speaker": "old_k",
      "text": "今天的。"
+    },
+    {
+     "do": "move",
+     "id": "k",
+     "to": [
+      371,
+      304
+     ],
+     "time": 3.0,
+     "wait": true,
+     "pose": "walk"
+    },
+    {
+     "do": "face",
+     "id": "k",
+     "dir": -1
+    },
+    {
+     "do": "move",
+     "id": "k",
+     "to": [
+      371,
+      297.5
+     ],
+     "time": 0.05,
+     "then": "sit",
+     "wait": true,
+     "pose": "sit"
+    },
+    {
+     "do": "pose",
+     "id": "k",
+     "pose": "sit",
+     "loop": ""
     },
     {
      "do": "sfx",
@@ -392,10 +426,10 @@
      "do": "scene",
      "id": "ch1_rooftop",
      "pos": [
-      440,
-      200
+      430,
+      205
      ],
-     "zoom": 1.1,
+     "zoom": 1.5,
      "fade": 1.4
     },
     {
@@ -403,35 +437,35 @@
      "id": "egret",
      "kind": "night_worker",
      "pos": [
-      470,
-      292
+      548,
+      262
      ],
      "facing": -1,
-     "scale": 2.0,
+     "scale": 2.3,
      "weapon": "",
      "speaker": "egret",
-     "pose": "sit"
+     "pose": "lean"
     },
     {
      "do": "actor",
      "id": "rin",
      "kind": "rin",
      "pos": [
-      120,
-      292
+      150,
+      262
      ],
      "facing": 1,
-     "scale": 2.0,
+     "scale": 2.2,
      "weapon": ""
     },
     {
      "do": "move",
      "id": "rin",
      "to": [
-      330,
-      292
+      430,
+      262
      ],
-     "time": 3.0,
+     "time": 3.2,
      "wait": true,
      "pose": "walk"
     },
@@ -537,10 +571,10 @@
      "do": "scene",
      "id": "ch1_rooftop",
      "pos": [
-      440,
-      200
+      430,
+      205
      ],
-     "zoom": 1.1,
+     "zoom": 1.5,
      "fade": 0.0
     },
     {
@@ -548,25 +582,25 @@
      "id": "egret",
      "kind": "night_worker",
      "pos": [
-      470,
-      292
+      548,
+      262
      ],
      "facing": -1,
-     "scale": 2.0,
+     "scale": 2.3,
      "weapon": "",
      "speaker": "egret",
-     "pose": "sit"
+     "pose": "lean"
     },
     {
      "do": "actor",
      "id": "rin",
      "kind": "rin",
      "pos": [
-      330,
-      292
+      430,
+      262
      ],
      "facing": 1,
-     "scale": 2.0,
+     "scale": 2.2,
      "weapon": ""
     },
     {
@@ -592,10 +626,10 @@
     {
      "do": "camera",
      "pos": [
-      380,
-      230
+      430,
+      190
      ],
-     "zoom": 1.5,
+     "zoom": 2.2,
      "time": 1.4
     },
     {
@@ -652,10 +686,10 @@
     {
      "do": "camera",
      "pos": [
-      470,
+      480,
       190
      ],
-     "zoom": 1.2,
+     "zoom": 1.5,
      "time": 1.6
     },
     {
@@ -697,10 +731,10 @@
      "do": "scene",
      "id": "ch1_pawnshop_front",
      "pos": [
-      330,
-      200
+      360,
+      250
      ],
-     "zoom": 1.15,
+     "zoom": 1.0,
      "fade": 1.2
     },
     {
@@ -708,11 +742,11 @@
      "id": "rin",
      "kind": "rin",
      "pos": [
-      330,
-      336
+      300,
+      348
      ],
      "facing": 1,
-     "scale": 2.0,
+     "scale": 3.4,
      "weapon": ""
     },
     {
@@ -720,11 +754,11 @@
      "id": "k",
      "kind": "old_k",
      "pos": [
-      220,
-      336
+      175,
+      348
      ],
      "facing": 1,
-     "scale": 2.0,
+     "scale": 3.7,
      "weapon": "",
      "speaker": "old_k",
      "loop": "wipe_hands"
@@ -733,10 +767,10 @@
      "do": "move",
      "id": "rin",
      "to": [
-      520,
-      336
+      540,
+      348
      ],
-     "time": 2.4,
+     "time": 2.6,
      "wait": true,
      "pose": "walk"
     },
@@ -956,10 +990,10 @@
      "do": "scene",
      "id": "ch1_revival_room",
      "pos": [
-      320,
-      190
+      316,
+      205
      ],
-     "zoom": 1.1,
+     "zoom": 1.4,
      "fade": 1.0
     },
     {
@@ -967,11 +1001,11 @@
      "id": "rin",
      "kind": "rin",
      "pos": [
-      330,
-      344
+      316,
+      241.5
      ],
      "facing": 1,
-     "scale": 2.0,
+     "scale": 2.5,
      "weapon": "",
      "speaker": "rin",
      "pose": "sit"
@@ -1070,10 +1104,10 @@
      "do": "scene",
      "id": "ch1_revival_lounge",
      "pos": [
-      320,
-      200
+      330,
+      205
      ],
-     "zoom": 1.1,
+     "zoom": 1.4,
      "fade": 1.4
     },
     {
@@ -1081,11 +1115,11 @@
      "id": "ali",
      "kind": "nurse",
      "pos": [
-      250,
-      344
+      430,
+      262
      ],
-     "facing": 1,
-     "scale": 2.0,
+     "facing": -1,
+     "scale": 2.8,
      "weapon": "",
      "speaker": "ali",
      "loop": "wipe_hands"
@@ -1096,22 +1130,39 @@
      "kind": "rin",
      "pos": [
       520,
-      344
+      262
      ],
      "facing": -1,
-     "scale": 2.0,
+     "scale": 2.4,
      "weapon": ""
     },
     {
      "do": "move",
      "id": "rin",
      "to": [
-      400,
-      344
+      300,
+      262
      ],
-     "time": 2.0,
+     "time": 2.4,
      "wait": true,
      "pose": "walk"
+    },
+    {
+     "do": "face",
+     "id": "rin",
+     "dir": 1
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      300,
+      248.7
+     ],
+     "time": 0.05,
+     "then": "sit",
+     "wait": true,
+     "pose": "sit"
     },
     {
      "do": "say",
@@ -1233,10 +1284,10 @@
      "do": "scene",
      "id": "ch1_dawn_noodle_stall",
      "pos": [
-      320,
-      200
+      410,
+      238
      ],
-     "zoom": 1.1,
+     "zoom": 1.8,
      "fade": 1.6
     },
     {
@@ -1244,11 +1295,11 @@
      "id": "ali",
      "kind": "nurse",
      "pos": [
-      360,
-      318
+      525,
+      300
      ],
      "facing": -1,
-     "scale": 2.0,
+     "scale": 1.9,
      "weapon": "",
      "speaker": "ali",
      "loop": "stir"
@@ -1258,11 +1309,11 @@
      "id": "rin",
      "kind": "rin",
      "pos": [
-      250,
-      318
+      305,
+      300
      ],
      "facing": 1,
-     "scale": 2.0,
+     "scale": 1.7,
      "weapon": "",
      "pose": "sit"
     },
@@ -1369,10 +1420,10 @@
      "do": "scene",
      "id": "ch1_pawnshop_kitchen",
      "pos": [
-      330,
-      190
+      320,
+      240
      ],
-     "zoom": 1.1,
+     "zoom": 1.0,
      "fade": 1.4
     },
     {
@@ -1380,11 +1431,11 @@
      "id": "rin",
      "kind": "rin",
      "pos": [
-      120,
-      306
+      575,
+      304
      ],
-     "facing": 1,
-     "scale": 2.0,
+     "facing": -1,
+     "scale": 3.8,
      "weapon": ""
     },
     {
@@ -1392,11 +1443,11 @@
      "id": "k",
      "kind": "old_k",
      "pos": [
-      400,
-      306
+      120,
+      304
      ],
      "facing": -1,
-     "scale": 2.0,
+     "scale": 4.2,
      "weapon": "",
      "speaker": "old_k"
     },
@@ -1404,10 +1455,10 @@
      "do": "move",
      "id": "rin",
      "to": [
-      300,
-      306
+      330,
+      304
      ],
-     "time": 2.0,
+     "time": 2.6,
      "wait": true,
      "pose": "walk"
     },
@@ -1415,6 +1466,11 @@
      "do": "say",
      "speaker": "rin",
      "text": "老 K。"
+    },
+    {
+     "do": "face",
+     "id": "k",
+     "dir": 1
     },
     {
      "do": "say",
@@ -1449,10 +1505,10 @@
      "do": "move",
      "id": "k",
      "to": [
-      560,
-      306
+      500,
+      304
      ],
-     "time": 2.6,
+     "time": 2.8,
      "wait": true,
      "pose": "walk"
     },
@@ -1466,23 +1522,28 @@
      "time": 1.4
     },
     {
+     "do": "face",
+     "id": "k",
+     "dir": -1
+    },
+    {
      "do": "move",
      "id": "k",
      "to": [
-      400,
-      306
+      190,
+      304
      ],
-     "time": 2.4,
+     "time": 2.8,
      "wait": true,
      "pose": "walk"
     },
     {
      "do": "camera",
      "pos": [
-      400,
-      230
+      190,
+      190
      ],
-     "zoom": 1.7,
+     "zoom": 1.9,
      "time": 1.6
     },
     {

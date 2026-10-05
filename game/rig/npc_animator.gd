@@ -36,6 +36,10 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 	var pose: Dictionary = {}
 	for bone_name in _rig.bone_order():
 		pose[bone_name] = 0.0
+	# 手的貼圖朝 +X 畫：先轉到順著前臂，姿勢與循環的手部角度再疊上去。
+	for hand_bone: StringName in [&"hand_front", &"hand_back"]:
+		if pose.has(hand_bone):
+			pose[hand_bone] = HAND_FOLLOWS_FOREARM
 	var base := _entry(data, "poses", str(input.npc_pose), "stand")
 	_add_bones(pose, base.get("bones", {}), 1.0)
 	var mine: Dictionary = _motion["npc"]  # 這個角色自己的站姿微調與說話的速度、幅度

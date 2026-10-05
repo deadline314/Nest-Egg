@@ -34,19 +34,59 @@ SPEAKERS = {
 # ---------------------------------------------------------------------------
 # 舞台：BG-11 的場景立繪（1536×864）縮成 0.5 倍鋪滿，腳底線依各張圖的地面位置而定
 # ---------------------------------------------------------------------------
+# 舞台是 BG-11 的場景立繪（1536×864）縮成 0.5 倍鋪滿（-64,-36 起，涵蓋 -64..704 × -36..396）。
+# 立繪裡家具是真實比例，所以角色的縮放要照畫面比例（每個場景不同，量自畫面上的桌椅、櫃台、欄杆高度）；
+# 坐姿以量到的座位高度算：y = 座面 + (坐姿髖高 - 骨盆半高) × 縮放（髖高是各骨架坐著時髖部離腳底的高度）。
+# 舞台座標除了立繪還有：腳底的地面線、各演員的縮放、預設的鏡頭（對話框在畫面下緣約 22%，所以腳底要落在畫面約 70% 以上）。
 STAGES = {
-    # 舞台 id: (場景立繪, 底色上, 底色下, 地面 y, 雨, 光暈 [x, y, 半徑, 顏色])
-    'ch1_pawnshop_front': ('pawnshop_front', '#120d09', '#241810', 336, True, [330, 70, 230, '#ffb066']),
-    'ch1_pawnshop_kitchen': ('pawnshop_kitchen', '#0d1410', '#1b241a', 306, False, [300, 40, 200, '#e8e090']),
-    'ch1_rooftop': ('rooftop', '#06101f', '#0c1c33', 292, True, [560, 40, 200, '#ffd77a']),
-    'ch1_revival_room': ('revival_room', '#d8e4ee', '#f4f8fb', 344, False, [320, 60, 260, '#ffffff']),
-    'ch1_revival_lounge': ('revival_lounge', '#160812', '#2a1022', 344, False, [320, 120, 240, '#ff3fa4']),
-    'ch1_dawn_noodle_stall': ('dawn_noodle_stall', '#1a2230', '#3a4658', 318, True, [300, 140, 220, '#cfe0ff']),
+    # 舞台 id: (場景立繪, 底色上, 底色下, 雨, 光暈, 額外圖層)
+    'ch1_pawnshop_front': ('pawnshop_front', '#120d09', '#241810', True, [330, 70, 230, '#ffb066'], []),
+    'ch1_pawnshop_kitchen': ('pawnshop_kitchen', '#0d1410', '#1b241a', False, [300, 40, 200, '#e8e090'], []),
+    'ch1_rooftop': ('rooftop', '#06101f', '#0c1c33', True, [560, 40, 200, '#ffd77a'], []),
+    'ch1_revival_room': ('revival_room', '#d8e4ee', '#f4f8fb', False, [320, 60, 260, '#ffffff'], []),
+    'ch1_revival_lounge': ('revival_lounge', '#160812', '#2a1022', False, [320, 120, 240, '#ff3fa4'], []),
+    'ch1_dawn_noodle_stall': ('dawn_noodle_stall', '#1a2230', '#3a4658', True, [330, 140, 220, '#cfe0ff'], 'stall'),
 }
-FLOOR = {k: v[3] for k, v in STAGES.items()}
+# 地面線（腳底 y）與座位（座面 y；沒有就是 None）。
+FLOOR = {
+    'ch1_pawnshop_front': 348, 'ch1_pawnshop_kitchen': 304, 'ch1_rooftop': 262,
+    'ch1_revival_room': 280, 'ch1_revival_lounge': 262, 'ch1_dawn_noodle_stall': 300,
+}
+# 演員縮放：{舞台: {骨架: 縮放}}。同一個舞台上的人高度大致一致。
+SCALE = {
+    'ch1_pawnshop_front': {'rin': 3.4, 'old_k': 3.7},
+    'ch1_pawnshop_kitchen': {'rin': 3.8, 'old_k': 4.2},
+    'ch1_rooftop': {'rin': 2.2, 'night_worker': 2.3},
+    'ch1_revival_room': {'rin': 2.5},
+    'ch1_revival_lounge': {'rin': 2.4, 'nurse': 2.8},
+    'ch1_dawn_noodle_stall': {'rin': 1.7, 'nurse': 1.9},
+}
+# 各骨架坐姿時髖部離腳底的高度（縮放 1 時，量自 CharacterRig）與骨盆半高。
+HIP_SIT = {'rin': 21.7, 'old_k': 17.2, 'nurse': 16.1, 'night_worker': 15.8, 'resident': 16.4}
+PELVIS = 3.5
 
 
-def write_stage(stage_id, scene, top, bottom, rain, glow):
+def actor_scale(stage_id, kind):
+    return SCALE[stage_id][kind]
+
+
+def sit_y(stage_id, kind, seat_y):
+    """坐在座面 seat_y 上時，腳底（演員原點）的 y。"""
+    return round(seat_y + (HIP_SIT[kind] - PELVIS) * actor_scale(stage_id, kind), 1)
+
+
+def stall_layers(scale):
+    """宵夜麵攤的立繪只有街道：麵攤、桌子與燈籠用場景專屬物件的貼圖補上（縮放與演員一致：每個邏輯像素＝演員的縮放）。"""
+    d = 'res://art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__%s.png'
+    floor = FLOOR['ch1_dawn_noodle_stall']
+
+    def sprite(name, x, w, h, lift=0.0):
+        return {"kind": "sprite", "path": d % name, "pos": [round(x, 1), round(floor - h * scale - lift, 1)], "scale": scale / 4.0, "filter": "linear", "glow": True}
+    return [sprite('ali_noodle_cart', 395, 58.1, 66.0), sprite('noodle_bowls_table', 335, 30.4, 25.5),
+            sprite('hanging_lantern', 405, 16.9, 33.0, 52.0)]
+
+
+def write_stage(stage_id, scene, top, bottom, rain, glow, extra):
     layers = [
         {"kind": "gradient", "top": top, "bottom": bottom, "parallax": 0.0},
         {"kind": "sprite", "path": f"res://art/environment/scenes/{scene}.webp", "pos": [-64, -36.0], "scale": 0.5,
@@ -54,6 +94,14 @@ def write_stage(stage_id, scene, top, bottom, rain, glow):
         {"kind": "glow", "pos": [glow[0], glow[1]], "radius": glow[2], "color": glow[3], "intensity": 0.7, "additive": True,
          "alpha": 0.35, "pulse": 0.06, "pulse_depth": 0.2},
     ]
+    if extra == 'stall':
+        scale = SCALE[stage_id]['rin']
+        layers.extend(stall_layers(scale))
+        # 麵攤旁的小板凳：座面在骨盆下方（坐姿的髖高決定它的高度）。
+        seat = FLOOR[stage_id] - (HIP_SIT['rin'] - PELVIS) * scale
+        layers.append({"kind": "poly", "points": [[290, seat], [320, seat], [320, seat + 3], [290, seat + 3]], "color": "#6a4a30", "parallax": 1.0})
+        layers.append({"kind": "poly", "points": [[294, seat + 3], [297, seat + 3], [297, FLOOR[stage_id]], [294, FLOOR[stage_id]]], "color": "#4a3320", "parallax": 1.0})
+        layers.append({"kind": "poly", "points": [[313, seat + 3], [316, seat + 3], [316, FLOOR[stage_id]], [313, FLOOR[stage_id]]], "color": "#4a3320", "parallax": 1.0})
     if rain:
         layers.append({"kind": "rain", "depth": "front", "opacity": 0.35})
     layers.append({"kind": "motes", "count": 24, "color": "#cfe0ff", "opacity": 0.3, "area": [0, 30, 640, 280], "drift": [2, -3], "size": 1.1, "seed": 7})
@@ -101,12 +149,18 @@ def actor(ident, kind, x, y, facing=1, scale=2.0, speaker=None, pose=None, loop=
     return step
 
 
-def pose(ident, name):
-    return {"do": "pose", "id": ident, "pose": name}
+def pose(ident, name, loop=None):
+    step = {"do": "pose", "id": ident, "pose": name}
+    if loop is not None:
+        step["loop"] = loop
+    return step
 
 
-def move(ident, x, y, t=1.5, wait_for=True, pose_name=None):
+def move(ident, x, y, t=1.5, wait_for=True, pose_name=None, then=None):
+    """then：走到之後的姿勢（預設站著）；坐下的移動要寫 then='sit'，不然到了又站起來。"""
     step = {"do": "move", "id": ident, "to": [x, y], "time": t}
+    if then:
+        step["then"] = then
     if wait_for:
         step["wait"] = True
     if pose_name:
@@ -210,11 +264,12 @@ def build():
     ], then='ch1_c01_shop')
 
     # C1-01 當舖開場：水位、差事、一成照抽、保費
-    y = FLOOR['ch1_pawnshop_front']
+    st = 'ch1_pawnshop_front'
+    y = FLOOR[st]
     animated('ch1_c01_shop', [
-        stage('ch1_pawnshop_front', 330, 200, 1.15, 1.4),
-        actor('rin', 'rin', 400, y, -1, pose='crouch'),
-        actor('k', 'old_k', 250, y, 1, speaker='old_k', loop='wipe_hands'),
+        stage(st, 320, 250, 1.0, 1.4),
+        actor('rin', 'rin', 385, y, -1, scale=actor_scale(st, 'rin'), pose='squat'),
+        actor('k', 'old_k', 175, y, 1, scale=actor_scale(st, 'old_k'), speaker='old_k', loop='wipe_hands'),
         sfx('pickup', -16),
         wait(0.8),
         say('old_k', "水位又上來了啦。"),
@@ -237,14 +292,19 @@ def build():
         fade(1.0, 0.8),
     ])
 
-    # C1-02 晚飯：四十、紅蘿蔔、幾次了
-    y = FLOOR['ch1_pawnshop_kitchen']
+    # C1-02 晚飯：四十、紅蘿蔔、幾次了（凜坐左邊的椅子，老 K 從爐子走過來坐右邊的）
+    st = 'ch1_pawnshop_kitchen'
+    seat = 240
     animated('ch1_c02_dinner', [
-        stage('ch1_pawnshop_kitchen', 320, 190, 1.1, 1.2),
-        actor('rin', 'rin', 250, y, 1, pose='sit'),
-        actor('k', 'old_k', 420, y, -1, speaker='old_k', loop='stir'),
+        stage(st, 320, 240, 1.0, 1.2),
+        actor('rin', 'rin', 196, sit_y(st, 'rin', seat), 1, scale=actor_scale(st, 'rin'), pose='sit'),
+        actor('k', 'old_k', 110, FLOOR[st], 1, scale=actor_scale(st, 'old_k'), speaker='old_k', loop='stir'),
         wait(1.0),
         say('old_k', "今天的。"),
+        move('k', 371, FLOOR[st], 3.0, True, 'walk'),
+        face('k', -1),
+        move('k', 371, sit_y(st, 'old_k', seat), 0.05, True, 'sit', then='sit'),
+        pose('k', 'sit', loop=''),
         sfx('pickup', -8),
         say('rin', "四十。"),
         say('old_k', "收到。"),
@@ -263,12 +323,14 @@ def build():
     ], flags=['ch1_dinner_done'])
 
     # C1-03 屋頂：鷺的差事（選項「問她今晚的事」的預設路線，選項屬於 ST-3）
-    y = FLOOR['ch1_rooftop']
+    st = 'ch1_rooftop'
+    y = FLOOR[st]
+    egret = lambda: actor('egret', 'night_worker', 548, y, -1, scale=actor_scale(st, 'night_worker'), speaker='egret', pose='lean')  # noqa: E731
     animated('ch1_c03a_roof', [
-        stage('ch1_rooftop', 440, 200, 1.1, 1.4),
-        actor('egret', 'night_worker', 470, y, -1, speaker='egret', pose='sit'),
-        actor('rin', 'rin', 120, y, 1),
-        move('rin', 330, y, 3.0, True, 'walk'),
+        stage(st, 430, 205, 1.5, 1.4),
+        egret(),
+        actor('rin', 'rin', 150, y, 1, scale=actor_scale(st, 'rin')),
+        move('rin', 430, y, 3.2, True, 'walk'),
         say('egret', "小鬼。遲到三分鐘。", style='shout'),
         sfx('pickup', -10),
         say('rin', "老 K 在吃飯。"),
@@ -288,13 +350,13 @@ def build():
         say('egret', "下次講。喝茶。"),
     ], then='ch1_c03b_roof')
     animated('ch1_c03b_roof', [
-        stage('ch1_rooftop', 440, 200, 1.1, 0.0),
-        actor('egret', 'night_worker', 470, y, -1, speaker='egret', pose='sit'),
-        actor('rin', 'rin', 330, y, 1),
+        stage(st, 430, 205, 1.5, 0.0),
+        egret(),
+        actor('rin', 'rin', 430, y, 1, scale=actor_scale(st, 'rin')),
         say('egret', "你一個人去。不要一個人死，浪費。", ja="一人で死ぬなよ、もったいない。", en="Don't die alone. Waste of a good death."),
         wait(0.8),
         say('egret', "開玩笑啦。死了還不是照樣喝酒。", ja="死んだって、どうせ酒は飲めるさ。", en="You can still drink after."),
-        cam(380, 230, 1.5, 1.4),
+        cam(430, 190, 2.2, 1.4),
         narrate(["晴岸　480,000", "已存 27,400"], 2.6),
         say('egret', "欸，晴岸？你要買房？"),
         say('rin', "還早。"),
@@ -305,7 +367,7 @@ def build():
         wait(0.6),
         say('rin', "別說。"),
         say('egret', "好好好。嘴巴縫起來。"),
-        cam(470, 190, 1.2, 1.6),
+        cam(480, 190, 1.5, 1.6),
         say('egret', "看到那座塔沒有？上面有太陽。真的太陽。", ja="あの塔、見える？上には太陽がある。本物の。", en="See that tower? There's sun up there. Real sun."),
         say('rin', "聽說。"),
         wait(0.5),
@@ -314,12 +376,13 @@ def build():
     ], flags=['ch1_heard_brief'])
 
     # C1-04 出門：帶傘了嗎
-    y = FLOOR['ch1_pawnshop_front']
+    st = 'ch1_pawnshop_front'
+    y = FLOOR[st]
     animated('ch1_c04_out', [
-        stage('ch1_pawnshop_front', 330, 200, 1.15, 1.2),
-        actor('rin', 'rin', 330, y, 1),
-        actor('k', 'old_k', 220, y, 1, speaker='old_k', loop='wipe_hands'),
-        move('rin', 520, y, 2.4, True, 'walk'),
+        stage(st, 360, 250, 1.0, 1.2),
+        actor('rin', 'rin', 300, y, 1, scale=actor_scale(st, 'rin')),
+        actor('k', 'old_k', 175, y, 1, scale=actor_scale(st, 'old_k'), speaker='old_k', loop='wipe_hands'),
+        move('rin', 540, y, 2.6, True, 'walk'),
         say('old_k', "帶傘了嗎？", ja="傘、持った？", en="Got your kasa?"),
         say('rin', "下面本來就是水。", ja="下はもともと水だよ。", en="It's water down there anyway."),
         say('old_k', "喔。"),
@@ -385,11 +448,11 @@ def build():
         ('rin', "錢到了就行。"),
     ])
 
-    # C1-09 復原室醒來（第一次死亡後，重生時播出）
-    y = FLOOR['ch1_revival_room']
+    # C1-09 復原室醒來（第一次死亡後，重生時播出）：凜坐在檢查台的邊緣，腿垂下來
+    st = 'ch1_revival_room'
     animated('ch1_c09_wake', [
-        stage('ch1_revival_room', 320, 190, 1.1, 1.0),
-        actor('rin', 'rin', 330, y, 1, pose='sit', speaker='rin'),
+        stage(st, 316, 205, 1.4, 1.0),
+        actor('rin', 'rin', 316, sit_y(st, 'rin', 196), 1, scale=actor_scale(st, 'rin'), pose='sit', speaker='rin'),
         fx('flash', 0.6),
         wait(1.2),
         say('rin', "…幹。"),
@@ -410,13 +473,17 @@ def build():
     ])
     RESPAWN.append({"scene": "ch1_c09_wake", "min_deaths": 1})
 
-    # C1-12 復原館：阿梨初見（基底層，不露骨）
-    y = FLOOR['ch1_revival_lounge']
+    # C1-12 復原館：阿梨初見（基底層，不露骨）：凜坐吧台的高腳椅，阿梨站在吧台右端
+    st = 'ch1_revival_lounge'
+    y = FLOOR[st]
+    stool = 205
     animated('ch1_c12_lounge', [
-        stage('ch1_revival_lounge', 320, 200, 1.1, 1.4),
-        actor('ali', 'nurse', 250, y, 1, speaker='ali', loop='wipe_hands'),
-        actor('rin', 'rin', 520, y, -1),
-        move('rin', 400, y, 2.0, True, 'walk'),
+        stage(st, 330, 205, 1.4, 1.4),
+        actor('ali', 'nurse', 430, y, -1, scale=actor_scale(st, 'nurse'), speaker='ali', loop='wipe_hands'),
+        actor('rin', 'rin', 520, y, -1, scale=actor_scale(st, 'rin')),
+        move('rin', 300, y, 2.4, True, 'walk'),
+        face('rin', 1),
+        move('rin', 300, sit_y(st, 'rin', stool), 0.05, True, 'sit', then='sit'),
         say('ali', "今天第幾次？"),
         say('rin', "一。"),
         say('ali', "一？才一次？"),
@@ -440,11 +507,12 @@ def build():
     ])
 
     # C1-13 天亮：宵夜（選項的預設路線：留下來吃，旗標 knows_ali_address 預設為真）
-    y = FLOOR['ch1_dawn_noodle_stall']
+    st = 'ch1_dawn_noodle_stall'
+    y = FLOOR[st]
     animated('ch1_c13_noodle', [
-        stage('ch1_dawn_noodle_stall', 320, 200, 1.1, 1.6),
-        actor('ali', 'nurse', 360, y, -1, speaker='ali', loop='stir'),
-        actor('rin', 'rin', 250, y, 1, pose='sit'),
+        stage(st, 410, 238, 1.8, 1.6),
+        actor('ali', 'nurse', 525, y, -1, scale=actor_scale(st, 'nurse'), speaker='ali', loop='stir'),
+        actor('rin', 'rin', 305, y, 1, scale=actor_scale(st, 'rin'), pose='sit'),
         wait(1.4),
         say('ali', "吃。"),
         say('rin', "多少。"),
@@ -465,25 +533,28 @@ def build():
         fade(1.0, 1.2),
     ], flags=['knows_ali_address', 'ch1_noodle_done'])
 
-    # C1-14 回家：水燒乾了、空眼神
-    y = FLOOR['ch1_pawnshop_kitchen']
+    # C1-14 回家：水燒乾了、空眼神（老 K 在爐子前，凜從門口走進來）
+    st = 'ch1_pawnshop_kitchen'
+    y = FLOOR[st]
     animated('ch1_c14_home', [
-        stage('ch1_pawnshop_kitchen', 330, 190, 1.1, 1.4),
-        actor('rin', 'rin', 120, y, 1),
-        actor('k', 'old_k', 400, y, -1, speaker='old_k'),
-        move('rin', 300, y, 2.0, True, 'walk'),
+        stage(st, 320, 240, 1.0, 1.4),
+        actor('rin', 'rin', 575, y, -1, scale=actor_scale(st, 'rin')),
+        actor('k', 'old_k', 120, y, -1, scale=actor_scale(st, 'old_k'), speaker='old_k'),
+        move('rin', 330, y, 2.6, True, 'walk'),
         say('rin', "老 K。"),
+        face('k', 1),
         say('old_k', "啊。"),
         say('old_k', "水燒乾了喔。"),
         wait(0.5),
         say('rin', "是。"),
         say('old_k', "老了。"),
         say('old_k', "我去裝個水。"),
-        move('k', 560, y, 2.6, True, 'walk'),
+        move('k', 500, y, 2.8, True, 'walk'),
         sfx('switch', -10),
         wait(1.4),
-        move('k', 400, y, 2.4, True, 'walk'),
-        cam(400, 230, 1.7, 1.6),
+        face('k', -1),
+        move('k', 190, y, 2.8, True, 'walk'),
+        cam(190, 190, 1.9, 1.6),
         wait(3.0),
         say('old_k', "…你什麼時候回來的？"),
         say('rin', "剛剛。"),
@@ -495,8 +566,8 @@ def build():
 
 def main():
     os.makedirs(STAGE_DIR, exist_ok=True)
-    for stage_id, (scene, top, bottom, _floor, rain, glow) in STAGES.items():
-        write_stage(stage_id, scene, top, bottom, rain, glow)
+    for stage_id, (scene, top, bottom, rain, glow, extra) in STAGES.items():
+        write_stage(stage_id, scene, top, bottom, rain, glow, extra)
     build()
     data = {"chapter": CHAPTER, "speakers": SPEAKERS, "respawn_scenes": RESPAWN, "scenes": SCENES}
     with open(OUT, 'w') as f:

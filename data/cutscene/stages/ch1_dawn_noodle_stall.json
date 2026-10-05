@@ -27,7 +27,7 @@
   {
    "kind": "glow",
    "pos": [
-    300,
+    330,
     140
    ],
    "radius": 220,
@@ -37,6 +37,108 @@
    "alpha": 0.35,
    "pulse": 0.06,
    "pulse_depth": 0.2
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__ali_noodle_cart.png",
+   "pos": [
+    395,
+    187.8
+   ],
+   "scale": 0.425,
+   "filter": "linear",
+   "glow": true
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.png",
+   "pos": [
+    335,
+    256.6
+   ],
+   "scale": 0.425,
+   "filter": "linear",
+   "glow": true
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__hanging_lantern.png",
+   "pos": [
+    405,
+    191.9
+   ],
+   "scale": 0.425,
+   "filter": "linear",
+   "glow": true
+  },
+  {
+   "kind": "poly",
+   "points": [
+    [
+     290,
+     269.06
+    ],
+    [
+     320,
+     269.06
+    ],
+    [
+     320,
+     272.06
+    ],
+    [
+     290,
+     272.06
+    ]
+   ],
+   "color": "#6a4a30",
+   "parallax": 1.0
+  },
+  {
+   "kind": "poly",
+   "points": [
+    [
+     294,
+     272.06
+    ],
+    [
+     297,
+     272.06
+    ],
+    [
+     297,
+     300
+    ],
+    [
+     294,
+     300
+    ]
+   ],
+   "color": "#4a3320",
+   "parallax": 1.0
+  },
+  {
+   "kind": "poly",
+   "points": [
+    [
+     313,
+     272.06
+    ],
+    [
+     316,
+     272.06
+    ],
+    [
+     316,
+     300
+    ],
+    [
+     313,
+     300
+    ]
+   ],
+   "color": "#4a3320",
+   "parallax": 1.0
   },
   {
    "kind": "rain",

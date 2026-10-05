@@ -193,6 +193,8 @@ func _ready() -> void:
 	EventBus.boss_defeated.connect(_on_boss_defeated)
 	if not data.channel_scenes.is_empty():
 		EventBus.mechanism_toggled.connect(_on_channel_toggled)  # 關卡釋放時自動斷線
+	# 玩家在這個區域的時候，背景預載鄰居與接下來的過場舞台（下次進場不用當場解碼貼圖）。
+	AssetPrefetch.warm_neighbors.call_deferred(data)
 	_begin_intro.call_deferred()
 	_begin_death_reactions.call_deferred()
 

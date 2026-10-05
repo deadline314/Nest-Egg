@@ -40,6 +40,9 @@ const DEFAULT_MOTION := {
 	"death": {"duration": 0.45, "rotation": -1.56, "drop": 21.0, "hip_x": -6.0, "chest": 0.15, "head": 0.35, "fold": 0.0, "fold_keep": 0.4, "ease": "out_cubic",
 			"legs": [0.3, 0.1, 0.45, 0.05], "fold_legs": [-1.4, 2.0, -1.2, 1.9]},
 }
+## 空著的手：手的貼圖是五指朝 +X 畫的（握槍時沿瞄準方向），手臂自然垂著時必須轉 90 度才會順著前臂；
+## 不轉的話手腕會折成直角（看起來像手腕錯位）。稍微小於 90 度，手腕保持一點自然的彎。
+const HAND_FOLLOWS_FOREARM := 1.4
 const ARM_CHAINS: Array = [[&"arm_front_upper", &"arm_front_lower", &"hand_front"], [&"arm_back_upper", &"arm_back_lower", &"hand_back"]]
 const ACTIONS_PATH := "res://art/rigs/action_poses.json"
 const SPRING_MIN := -0.8
@@ -311,8 +314,8 @@ func _death_pose(pose: Dictionary, d: Dictionary) -> void:
 	pose[&"arm_front_lower"] = -0.3
 	pose[&"arm_back_upper"] = droop + 0.05
 	pose[&"arm_back_lower"] = -0.15
-	pose[&"hand_front"] = 0.0
-	pose[&"hand_back"] = 0.0
+	pose[&"hand_front"] = HAND_FOLLOWS_FOREARM
+	pose[&"hand_back"] = HAND_FOLLOWS_FOREARM
 	for i in 4:
 		var bone: StringName = [&"leg_front_upper", &"leg_front_lower", &"leg_back_upper", &"leg_back_lower"][i]
 		pose[bone] = lerpf(float(legs[i]), float(folded[i]), fold * fold_t * (1.0 - eased * (1.0 - float(d["fold_keep"]))))
@@ -511,8 +514,11 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 	var grip := anchor_point + aim * reach
 
 	if weapon.is_empty():
+		# 沒有武器：雙手自然下垂、隨步伐輕擺（不是伸出去握著空氣）。
 		weapon_root.visible = false
-		_reach_arm(&"arm_front_upper", &"arm_front_lower", &"hand_front", grip, aim_angle)
+		_set_rotation(&"arm_front_upper", 0.2 + sin(_phase) * 0.4)
+		_set_rotation(&"arm_front_lower", -0.3)
+		_set_rotation(&"hand_front", HAND_FOLLOWS_FOREARM)
 	else:
 		weapon_root.visible = true
 		weapon_root.position = grip
@@ -531,7 +537,7 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 		var swing := sin(_phase + PI) * 0.4
 		_set_rotation(&"arm_back_upper", 0.2 + swing)
 		_set_rotation(&"arm_back_lower", -0.3)
-		_set_rotation(&"hand_back", 0.0)
+		_set_rotation(&"hand_back", HAND_FOLLOWS_FOREARM)
 	if not action_arms.is_empty():
 		var w := smoothstep(0.0, 1.0, _action_w)
 		for bone_name: StringName in action_arms.keys():
