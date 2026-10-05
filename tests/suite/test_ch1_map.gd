@@ -29,6 +29,7 @@ func run() -> void:
 	_test_entry_point()
 	_test_story_hooks()
 	await _test_story_flags()
+	await _test_scenes_play_through()
 	await _test_every_area_builds()
 	await _test_walkthrough()
 	await _test_state_across_areas()
@@ -320,6 +321,44 @@ func _test_story_flags() -> void:
 	await frames(10)
 	check(GameState.has_flag(&"ch1_heard_brief"), "finishing the rooftop scene sets its flag (the first part chains into the second)")
 	Story.reset_progress()
+
+
+## 每個動畫過場真的能從頭播到尾（時間加速）：舞台載得進來、演員建得出來、每個步驟都跑得完，沒有腳本錯誤。
+func _test_scenes_play_through() -> void:
+	var previous_auto := Story.auto_skip
+	var previous_scale := Engine.time_scale
+	Story.auto_skip = false
+	Engine.time_scale = 40.0
+	for id: String in Story.scene_ids():
+		if not id.begins_with("ch1_") or str(Story._scenes[id].get("mode", "")) != "animated":
+			continue
+		if Story._scenes[id].has("then") and not id.ends_with("prologue") and not id.ends_with("c03a_roof"):
+			continue
+		var done := [false]
+		var waiter := func() -> void:
+			await Story.play_and_wait(StringName(id), false)
+			done[0] = true
+		waiter.call()
+		var waited := 0
+		while not done[0] and waited < 1500:
+			await physics_frames(1)
+			waited += 1
+			_press_advance()
+		check(done[0], "animated scene plays through to its end: %s (%d frames)" % [id, waited])
+		check(not Story.is_cinematic_active(), "back in the game after %s" % id)
+		Story.reset_progress()
+	Engine.time_scale = previous_scale
+	Story.auto_skip = previous_auto
+
+
+## 模擬玩家按下推進：打字機演完、直接進下一句。
+func _press_advance() -> void:
+	var player: CutscenePlayer = Story._player
+	if player == null or not player.is_running():
+		return
+	if player._dialogue.visible:
+		player._dialogue.complete()
+		player._advance_requested = true
 
 
 # ---------------------------------------------------------------------------
