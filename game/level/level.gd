@@ -6,6 +6,8 @@ extends Node2D
 signal retry_requested
 signal menu_requested
 signal completed
+## 玩家穿過出入口：請 Main 載入目標區域（路徑是 LevelData 的 .tres）。
+signal area_requested(level_path: String)
 
 const PLAYER_TUNING_PATH := "res://data/player/player_tuning.tres"
 const DEATH_SCREEN_DELAY := 1.1
@@ -46,6 +48,17 @@ var _active_lighting_events: Dictionary[StringName, bool] = {}
 var _arena_triggered := false
 var _finished := false
 var _next_story_trigger := 0
+## 持久世界（LevelData.persistent_world）：本輪的世界狀態跨區域與死亡保留。
+var _persistent := false
+## 穿過哪個出入口進來（空白＝不是穿過出入口進來的）。
+var _entry_portal: StringName = &""
+## 這次建立是不是從檢查點重生（沒有穿過出入口、且檢查點在這個區域）。
+var _from_checkpoint := false
+## 本區域這一輪的狀態（GameState.area_state 的參考；非持久世界為空字典）。
+var _area: Dictionary = {}
+## 生成格鍵 -> 節點（敵人與拾取物；離開或死亡時據此判斷誰被消滅或撿走，節點可能已被釋放，所以不用型別字典）。
+var _tracked: Dictionary = {}
+var _portals: Dictionary[StringName, Portal] = {}
 
 
 func configure(p_data: LevelData) -> void:
@@ -59,8 +72,16 @@ func _ready() -> void:
 		menu_requested.emit.call_deferred()
 		return
 
+	_persistent = data.persistent_world
+	GameState.current_level_path = data.resource_path
+	_entry_portal = GameState.take_pending_portal()
+	_from_checkpoint = _entry_portal == &"" and GameState.checkpoint_applies(data.resource_path)
+	if _persistent:
+		_area = GameState.area_state(data.id)
 	# 成長進度（信用點、改裝）：從檢查點重生就還原成檢查點當下，否則還原成進入關卡時；要在玩家（武器欄）建立之前。
-	Progression.restore(GameState.checkpoint_progress if GameState.has_checkpoint else GameState.level_start_progress)
+	# 持久世界不回溯：成長一直往前累積（死亡只扣信用點）。
+	if not _persistent:
+		Progression.restore(GameState.checkpoint_progress if _from_checkpoint else GameState.level_start_progress)
 	# 環境光：沒被光源照到的東西會被壓暗；發光的東西用自發光材質不受影響（見 LightKit.mark_emissive）。
 	var ambient := CanvasModulate.new()
 	ambient.name = "Ambient"
@@ -130,7 +151,7 @@ func _ready() -> void:
 	_spawn_static_entities()
 	_spawn_player()
 	# 從檢查點重生：還原被打破的箱子、開關、閘門與電力（要在光影設定之前，事件才會正確）。
-	WorldState.restore(get_tree(), GameState.checkpoint_world)
+	WorldState.restore(get_tree(), _area.get("world", {}) if _persistent else GameState.checkpoint_world)
 	_rebuild_lighting_events()
 
 	for problem in data.validate_lighting():
@@ -196,14 +217,31 @@ func _physics_process(_delta: float) -> void:
 
 ## 開場：從關卡開頭進入時播放開場過場，接著顯示章節標題（從檢查點重生時略過）。
 func _begin_intro() -> void:
-	if GameState.has_checkpoint or not is_inside_tree():
+	if _from_checkpoint or not is_inside_tree():
 		return
 	if data.intro_scene != &"" and not Story.was_seen(data.intro_scene):
 		await Story.play_and_wait(data.intro_scene)
 		if not is_inside_tree():
 			return
-	var info := Story.chapter_info(data.chapter)
-	_show_chapter_card(str(info.get("title", data.display_name)), str(info.get("subtitle", "")), false)
+	if _entry_portal != &"":
+		# 穿過出入口進來：只標示區域名稱，不重播章節標題。
+		if data.announce_area and not data.display_name.is_empty():
+			EventBus.toast_requested.emit(data.display_name)
+	elif data.show_chapter_card:
+		var info := Story.chapter_info(data.chapter)
+		_show_chapter_card(str(info.get("title", data.display_name)), str(info.get("subtitle", "")), false)
+	if _finished:
+		return
+	if data.complete_after_intro:
+		_finished = true
+		_close_menus()
+		await _run_ending()
+	elif data.after_intro_portal != &"":
+		var portal: Portal = _portals.get(data.after_intro_portal)
+		if portal == null:
+			push_error("[Level] %s 的 after_intro_portal「%s」在地圖上找不到" % [data.id, data.after_intro_portal])
+		else:
+			portal.try_use()
 
 
 ## 死亡重生後：累計死亡達到次數時，播出這一章設定的反應通訊（見 StoryReactions）。只改措辭，不影響流程與難度。
@@ -314,12 +352,24 @@ func _spawn_static_entities() -> void:
 		_entities.add_child(sign)
 	for spawn in _layout.spawns:
 		var resource: Resource = spawn["resource"]
-		var node := _create_prop(spawn) if resource is BreakableData or resource is MechanismData or resource is CreditPileData or resource is ShopData or resource is NpcData else _create_entity(resource)
+		var key := _spawn_key(spawn)
+		var trackable := _persistent and (resource is EnemyData or resource is WeaponData or resource is ConsumableData)
+		if trackable and (_area["consumed"] as Dictionary).has(key):
+			continue  # 本輪已經被消滅或撿走
+		var node := _create_prop(spawn) if _is_prop_resource(resource) else _create_entity(resource)
 		if node != null:
 			node.position = spawn["position"]
 			_entities.add_child(node)
 			if node is Vehicle:
 				(node as Vehicle).fall_limit_y = _fall_limit()
+			if node is Portal:
+				_portals[(resource as PortalData).id] = node
+				node.used.connect(_on_portal_used)
+			if trackable:
+				_tracked[key] = node
+				var lost: int = int((_area["damage"] as Dictionary).get(key, 0))
+				if lost > 0 and node is Enemy:
+					(node as Enemy).restore_lost_health(lost)
 
 
 ## 招牌、看板、排氣孔等裝飾（畫在地形與角色之後方）。
@@ -361,7 +411,7 @@ func _spawn_decor() -> void:
 				vent.position = position + Vector2(_layout.tile_size * 0.5, _layout.tile_size)
 				_world.add_child(vent)
 			_:
-				var prop := PropLibrary.find(StringName(str(entry["kind"])), _prop_dir())
+				var prop := PropLibrary.find_in(StringName(str(entry["kind"])), _prop_dirs())
 				if prop == null:
 					push_warning("[Level] 未知的裝飾種類：%s" % entry["kind"])
 				else:
@@ -370,9 +420,9 @@ func _spawn_decor() -> void:
 
 ## 地圖 JSON 的 props 清單（見 LevelData.load_props）：以道具資料的 id 擺放。
 func _spawn_props() -> void:
-	var dir := _prop_dir()
+	var dirs := _prop_dirs()
 	for entry in data.load_props():
-		var prop := PropLibrary.find(StringName(str(entry["id"])), dir)
+		var prop := PropLibrary.find_in(StringName(str(entry["id"])), dirs)
 		if prop == null:
 			continue
 		var placed := PropPlacement.resolve(entry, prop, _layout)
@@ -389,8 +439,8 @@ func _place_prop(prop: PropData, top_left: Vector2, flip: bool) -> void:
 	_world.add_child(node)
 
 
-func _prop_dir() -> String:
-	return data.environment.prop_dir if data.environment != null else PropLibrary.DEFAULT_DIR
+func _prop_dirs() -> PackedStringArray:
+	return data.environment.prop_dirs() if data.environment != null else PackedStringArray([PropLibrary.DEFAULT_DIR])
 
 
 ## 雨與霧（畫在角色前方，低透明度）。
@@ -440,9 +490,26 @@ func _create_entity(resource: Resource) -> Node2D:
 	return null
 
 
+static func _is_prop_resource(resource: Resource) -> bool:
+	return resource is BreakableData or resource is MechanismData or resource is CreditPileData \
+			or resource is ShopData or resource is NpcData or resource is PortalData
+
+
+## 生成物在本區域裡固定的鍵（資源 id 加格座標）；地圖資料改版後對不上的鍵會被忽略。
+func _spawn_key(spawn: Dictionary) -> String:
+	var cell: Vector2i = spawn["cell"]
+	var res: Resource = spawn["resource"]
+	var res_id := str(res.get(&"id")) if res.get(&"id") != null else res.get_class()
+	return "%s@%d,%d" % [res_id, cell.x, cell.y]
+
+
 func _create_prop(spawn: Dictionary) -> Node2D:
 	var resource: Resource = spawn["resource"]
 	var cell: Vector2i = spawn["cell"]
+	if resource is PortalData:
+		var portal := Portal.new()
+		portal.configure(resource as PortalData, cell)
+		return portal
 	if resource is BreakableData:
 		for problem in (resource as BreakableData).validate():
 			push_error("[Level] %s" % problem)
@@ -534,11 +601,32 @@ func _spawn_player() -> void:
 		push_error("[Level] 無法載入玩家參數：%s" % PLAYER_TUNING_PATH)
 	player = Player.new()
 	player.configure(tuning, GameState.difficulty.player_max_health, GameState.checkpoint_loadout)
-	player.position = GameState.checkpoint_position if GameState.has_checkpoint else _layout.player_start
+	player.position = _entry_position()
 	player.fall_limit_y = _fall_limit()
 	_entities.add_child(player)
-	if GameState.respawn_pending and GameState.has_checkpoint:
+	if GameState.respawn_pending and _from_checkpoint:
 		player.play_respawn_fx()
+	# 穿過出入口時帶著上一個區域的生命值（不會因為換個房間就補滿）。
+	if GameState.carried_health > 0 and _entry_portal != &"" and player.health != null:
+		player.health.current = clampi(GameState.carried_health, 1, player.health.max_health)
+		player.health.health_changed.emit(player.health.current, player.health.max_health)
+	GameState.carried_health = -1
+	var entry: Portal = _portals.get(_entry_portal)
+	if entry != null:
+		entry.disarm()
+
+
+## 玩家出現的位置：穿過的出入口 > 這個區域的檢查點 > 起點 P。出入口找不到時記錄具體位置並退回起點。
+func _entry_position() -> Vector2:
+	if _entry_portal != &"":
+		for spawn in _layout.spawns:
+			var resource: Resource = spawn["resource"]
+			if resource is PortalData and (resource as PortalData).id == _entry_portal:
+				return spawn["position"]
+		push_error("[Level] %s 沒有出入口「%s」（%s），改用起點" % [data.id, _entry_portal, data.layout_path])
+	elif _from_checkpoint:
+		return GameState.checkpoint_position
+	return _layout.player_start
 
 
 func _fall_limit() -> float:
@@ -608,6 +696,7 @@ func _on_player_died(cause: StringName) -> void:
 	_close_menus()
 	var card := DefeatCodex.unlock(cause)
 	var can_continue := GameState.register_death()
+	_apply_death_to_world()
 	await get_tree().create_timer(DEATH_SCREEN_DELAY, false).timeout
 	if not is_inside_tree():
 		return
@@ -625,6 +714,13 @@ func _on_boss_defeated() -> void:
 	_finished = true
 	_close_menus()
 	await get_tree().create_timer(VICTORY_DELAY, false).timeout
+	if not is_inside_tree():
+		return
+	await _run_ending()
+
+
+## 結尾：結尾過場、章末卡、帶走裝備，然後通關（頭目戰勝利與「進場後結束」的區域共用）。
+func _run_ending() -> void:
 	if not is_inside_tree():
 		return
 	await Story.play_and_wait(data.outro_scene)
@@ -651,7 +747,69 @@ func _close_menus() -> void:
 
 
 func _request_retry() -> void:
+	# 持久世界從暫停選單重來：先存下目前的世界（死亡時已經存過，不重複覆蓋以免抵銷頭目回復）。
+	if not died:
+		_save_area_state(0.0)
 	retry_requested.emit()
+
+
+# ---------------------------------------------------------------------------
+# 區域與持久世界
+# ---------------------------------------------------------------------------
+
+## 玩家走進／按下出入口：存下這個區域的狀態，請 Main 載入目標區域。
+func _on_portal_used(portal: Portal) -> void:
+	if _finished or not is_instance_valid(player) or player.is_dead():
+		return
+	var target := portal.data.target_level
+	if not ResourceLoader.exists(target) or not (load(target) is LevelData):
+		push_error("[Level] %s 的出入口「%s」目標不是可載入的區域：%s" % [data.id, portal.data.id, target])
+		EventBus.toast_requested.emit(portal.data.locked_text)
+		return
+	_finished = true
+	_close_menus()
+	_save_area_state(0.0)
+	if _persistent:
+		GameState.checkpoint_loadout = player.checkpoint_snapshot()
+	GameState.pending_portal = portal.data.target_portal
+	GameState.carried_health = player.health.current if player.health != null else -1
+	area_requested.emit(target)
+
+
+## 持久世界：把殺掉的敵人、撿走的東西、機關與受傷的頭目存進本輪狀態。
+## boss_recovery：受傷的頭目回復其已損血量的比例（死亡時用）。
+func _save_area_state(boss_recovery: float) -> void:
+	if not _persistent or _area.is_empty():
+		return
+	_area["world"] = WorldState.capture(get_tree())
+	var consumed: Dictionary = _area["consumed"]
+	var damage: Dictionary = _area["damage"]
+	for key: String in _tracked:
+		var node: Variant = _tracked[key]
+		var gone: bool = not is_instance_valid(node) or (node as Node).is_queued_for_deletion()
+		if not gone and node is Enemy:
+			gone = (node as Enemy).is_dying()
+		if gone:
+			consumed[key] = true
+			damage.erase(key)
+		elif node is Enemy and (node as Enemy).data.persists_damage:
+			var lost := int(round(float((node as Enemy).lost_health()) * (1.0 - boss_recovery)))
+			if lost > 0:
+				damage[key] = lost
+			else:
+				damage.erase(key)
+
+
+## 死亡時（持久世界）：保留世界、頭目回復一部分，扣信用點、帶走現在的裝備。
+func _apply_death_to_world() -> void:
+	if not _persistent:
+		return
+	_save_area_state(data.death_boss_recovery)
+	if is_instance_valid(player):
+		GameState.checkpoint_loadout = player.checkpoint_snapshot()
+	var lost := Progression.lose_credits_fraction(data.death_credit_penalty)
+	if lost > 0:
+		EventBus.toast_requested.emit("信用點 -%d" % lost)
 
 
 func _request_menu() -> void:

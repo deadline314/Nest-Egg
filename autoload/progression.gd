@@ -40,6 +40,15 @@ func add_credits(amount: int) -> int:
 	return gained
 
 
+## 扣掉信用點的一個比例（死亡的代價）。回傳實際扣掉的量；沒有信用點或比例為 0 時不動。
+func lose_credits_fraction(ratio: float) -> int:
+	var amount := int(floor(float(credits) * clampf(ratio, 0.0, 1.0)))
+	if amount <= 0:
+		return 0
+	spend(amount)
+	return amount
+
+
 func can_afford(cost: int) -> bool:
 	return cost >= 0 and credits >= cost
 

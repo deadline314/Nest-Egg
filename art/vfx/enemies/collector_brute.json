@@ -1,0 +1,86 @@
+{
+ "description": "collector_brute 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "step": {
+  "every": 16,
+  "dust": 2,
+  "spread": 26,
+  "shake": 0.0
+ },
+ "hit": {
+  "color": "#e07a38",
+  "amount": 7,
+  "speed": 220,
+  "light": 0.9
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#e07a38",
+    "amount": 18,
+    "speed": 175,
+    "life": 0.42
+   },
+   {
+    "color": "#ffd0a0",
+    "amount": 8,
+    "speed": 100,
+    "life": 0.5
+   }
+  ],
+  "light": {
+   "color": "#e07a38",
+   "radius": 53,
+   "energy": 0.78,
+   "time": 0.22
+  },
+  "shake": 2.9,
+  "hitstop": 0.03,
+  "extras": [
+   "smoke",
+   "dust"
+  ],
+  "dissolve": {
+   "time": 0.7,
+   "color": "#e07a38",
+   "rise": 0.0,
+   "edge": 0.1,
+   "delay": 0.25
+  },
+  "shock": {
+   "radius": 32,
+   "strength": 0.025,
+   "color": "#e07a38",
+   "time": 0.45
+  },
+  "accent": "#e07a38"
+ },
+ "states": {
+  "windup": {
+   "at": "feet",
+   "dust": 2,
+   "spread": 12,
+   "bursts": [
+    {
+     "color": "#ff2a3d",
+     "amount": 5,
+     "speed": 50,
+     "life": 0.4
+    }
+   ]
+  },
+  "leap": {
+   "at": "feet",
+   "dust": 5,
+   "spread": 40,
+   "bursts": [
+    {
+     "color": "#ff2a3d",
+     "amount": 8,
+     "speed": 170,
+     "life": 0.2
+    }
+   ],
+   "shake": 0.6
+  }
+ }
+}

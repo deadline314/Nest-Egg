@@ -145,6 +145,18 @@
   },
   "custodian": {
    "extends": "machine"
+  },
+  "sweeper": {
+   "extends": "humanoid"
+  },
+  "collector_gunner": {
+   "extends": "humanoid"
+  },
+  "collector_brute": {
+   "extends": "humanoid"
+  },
+  "watchdog": {
+   "extends": "machine"
   }
  }
 }

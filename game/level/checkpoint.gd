@@ -72,7 +72,7 @@ func _ready() -> void:
 	_prompt.offset = Vector2(0, -HEIGHT - 8.0)
 	add_child(_prompt)
 	# 從這個亭子重生時直接顯示為已啟動，並有一段來電鈴聲與招牌閃動。
-	if GameState.has_checkpoint and GameState.checkpoint_position.distance_to(global_position) < 1.0:
+	if GameState.checkpoint_applies(GameState.current_level_path) and GameState.checkpoint_position.distance_to(global_position) < 1.0:
 		_set_active(false)
 		_rebirth = 1.4
 	_apply_state()

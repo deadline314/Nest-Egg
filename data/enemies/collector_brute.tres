@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/slasher.gd" id="2_behavior"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"collector_brute"
+behavior = ExtResource("2_behavior")
+display_name = "收帳人·打手"
+attack_category = &"melee"
+hit_material = &"armor"
+body_size = Vector2(16, 46)
+color = Color(0.850, 0.470, 0.220, 1.0)
+max_health = 7
+move_speed = 38.0
+contact_damage = 1
+contact_source_id = &"collector_brute_contact"
+detect_range = 170.0
+attack_cooldown = 1.6
+telegraph_time = 0.65
+ability_speed = 230.0
+ability_time = 0.95
+ability_damage = 2
+knockback_scale = 0.2
+hurt_parts = Array[Dictionary]([{"id": "head", "bone": "head", "offset": Vector2(0, -4), "size": Vector2(9, 10), "mult": 1.5}])
+poise = 7.0
+finish_health_ratio = 0.4
+stagger_duration = 1.4
+health_drop_chance = 0.2
+credit_value = 16
+rig_skin = "enforcer"
+rig_weapon = ""
+rig_actions = { "windup": "collector_brute.windup_slash", "leap": "collector_brute.slash", "recover": "collector_brute.recover" }

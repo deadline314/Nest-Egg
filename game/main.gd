@@ -56,15 +56,26 @@ func _load_level(kind := Transition.Kind.IRIS, caption := "", hold := 0.0) -> vo
 	level.retry_requested.connect(_on_retry_requested.bind(level), CONNECT_DEFERRED)
 	level.menu_requested.connect(_show_main_menu, CONNECT_DEFERRED)
 	level.completed.connect(_on_level_completed.bind(data), CONNECT_DEFERRED)
+	level.area_requested.connect(_on_area_requested, CONNECT_DEFERRED)
 	_switch_to(level, kind, Vector2(0.5, 0.5), caption, hold)
 
 
 ## 死亡後重來用雜訊溶解並標示回溯編號；暫停選單的「從檢查點重來」用光圈。
 func _on_retry_requested(level: Level) -> void:
+	# 檢查點在別的區域（區域組）：回到那個區域；舊式關卡的檢查點一定在同一關。
+	var checkpoint_level := GameState.checkpoint_level_path
+	if GameState.has_checkpoint and not checkpoint_level.is_empty() and ResourceLoader.exists(checkpoint_level):
+		_level_path = checkpoint_level
 	if is_instance_valid(level) and level.died:
 		_load_level(Transition.Kind.GLITCH, RETRY_CAPTION % GameState.deaths, RETRY_HOLD)
 	else:
 		_load_level(Transition.Kind.IRIS)
+
+
+## 穿過出入口：載入目標區域（玩家出現在 GameState.pending_portal 指定的出入口）。
+func _on_area_requested(level_path: String) -> void:
+	_level_path = level_path
+	_load_level(Transition.Kind.FADE)
 
 
 ## 過關：有下一關就接續（帶著成長與裝備），否則進入結算畫面。下一關讀不到時退回結算，不會卡住。

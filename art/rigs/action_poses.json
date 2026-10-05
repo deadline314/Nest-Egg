@@ -1186,6 +1186,104 @@
           "hip_y": 0.5
         }
       ]
+    },
+    "collector_brute.windup_slash": {
+      "duration": 0.35,
+      "skip_ik": true,
+      "blend": 14,
+      "keys": [
+        {
+          "t": 0.0,
+          "bones": {
+            "arm_front_upper": 0.172,
+            "arm_front_lower": -0.23,
+            "chest": 0.0
+          }
+        },
+        {
+          "t": 1.0,
+          "bones": {
+            "arm_front_upper": 2.53,
+            "arm_front_lower": 0.345,
+            "chest": -0.287,
+            "head": -0.115,
+            "arm_back_upper": -0.805,
+            "arm_back_lower": -0.92
+          },
+          "hip_y": 3.45
+        }
+      ]
+    },
+    "collector_brute.slash": {
+      "duration": 0.175,
+      "skip_ik": true,
+      "blend": 30,
+      "keys": [
+        {
+          "t": 0.0,
+          "bones": {
+            "arm_front_upper": 2.53,
+            "arm_front_lower": 0.345,
+            "chest": -0.287
+          }
+        },
+        {
+          "t": 0.6,
+          "bones": {
+            "arm_front_upper": -1.84,
+            "arm_front_lower": -0.23,
+            "chest": 0.402,
+            "head": 0.138
+          },
+          "hip_y": 2.3
+        },
+        {
+          "t": 1.0,
+          "bones": {
+            "arm_front_upper": -1.38,
+            "arm_front_lower": -0.172,
+            "chest": 0.345
+          }
+        }
+      ]
+    },
+    "collector_brute.recover": {
+      "duration": 0.5,
+      "skip_ik": true,
+      "blend": 14,
+      "keys": [
+        {
+          "t": 0.0,
+          "bones": {
+            "arm_front_upper": -1.38,
+            "arm_front_lower": -0.172,
+            "chest": 0.345
+          }
+        },
+        {
+          "t": 0.35,
+          "bones": {
+            "arm_front_upper": -0.35,
+            "arm_front_lower": -0.5,
+            "chest": 0.52,
+            "head": 0.32,
+            "arm_back_upper": 0.4,
+            "arm_back_lower": -0.3
+          },
+          "hip_y": 2.0
+        },
+        {
+          "t": 1.0,
+          "bones": {
+            "arm_front_upper": 0.2,
+            "arm_front_lower": -0.3,
+            "chest": 0.2,
+            "head": 0.12,
+            "arm_back_upper": 0.2,
+            "arm_back_lower": -0.25
+          }
+        }
+      ]
     }
   }
 }

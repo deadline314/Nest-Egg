@@ -42,6 +42,8 @@ extends Resource
 
 @export_group("Stats")
 @export var max_health: int = 3
+## 持久世界裡，受過的傷會保留（離開區域、玩家死亡後都在，死亡時回復一部分，比例見 LevelData.death_boss_recovery）。迷你頭目用。
+@export var persists_damage: bool = false
 @export var move_speed: float = 50.0
 @export var contact_damage: int = 1
 @export var contact_source_id: StringName = &""

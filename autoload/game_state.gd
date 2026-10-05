@@ -26,6 +26,20 @@ var level_start_loadout: Dictionary = {}
 ## 通關時由關卡存下、帶進下一關的武器欄與消耗品。
 var _carried_loadout: Dictionary = {}
 
+## 檢查點所在的區域（LevelData 的 .tres 路徑）。空白代表舊式單一關卡（任何關卡都算數）。
+var checkpoint_level_path := ""
+## 目前正在玩的區域（由 Level 在建立時填入；電話亭啟動時據此記錄檢查點所在區域）。
+var current_level_path := ""
+## 下一次建立區域時，玩家要出現的出入口 id；空白＝不是穿過出入口進來的（用檢查點或起點）。
+var pending_portal: StringName = &""
+## 穿過出入口時帶過去的生命值（-1＝沒有，用滿血）。
+var carried_health := -1
+## 本輪各區域的世界狀態（只有 LevelData.persistent_world 的區域使用），以區域 id 為鍵：
+##   {"consumed": {生成格鍵: true}, "damage": {生成格鍵: 已損血量}, "world": WorldState 快照}
+var area_states: Dictionary = {}
+## 本輪的劇情旗標（旗標名 -> true／數字／字串），開始新的一輪時清空。
+var world_flags: Dictionary = {}
+
 var lives_left := -1
 ## 本輪累計死亡次數（死亡畫面的「NEST 回溯紀錄 #n」、劇情的措辭變化都看它）。
 ## 屬於本輪進度，不存進檢查點：回溯、重開關卡、換關都不會歸零，只有開始新的一輪才歸零。
@@ -69,6 +83,12 @@ func start_new_run(p_difficulty: DifficultyData) -> void:
 	deaths = 0
 	last_death_clock = ""
 	respawn_pending = false
+	checkpoint_level_path = ""
+	current_level_path = ""
+	pending_portal = &""
+	carried_health = -1
+	area_states = {}
+	world_flags = {}
 	kills = 0
 	finishers = 0
 	run_time = 0.0
@@ -85,6 +105,7 @@ func start_new_run(p_difficulty: DifficultyData) -> void:
 func set_checkpoint(position: Vector2, loadout_snapshot: Dictionary, world_snapshot: Dictionary = {}, progress_snapshot: Dictionary = {}) -> void:
 	has_checkpoint = true
 	checkpoint_position = position
+	checkpoint_level_path = current_level_path
 	checkpoint_loadout = loadout_snapshot.duplicate(true)
 	checkpoint_world = world_snapshot.duplicate(true)
 	checkpoint_progress = progress_snapshot.duplicate(true)
@@ -94,9 +115,49 @@ func set_checkpoint(position: Vector2, loadout_snapshot: Dictionary, world_snaps
 func clear_checkpoint() -> void:
 	has_checkpoint = false
 	checkpoint_position = Vector2.ZERO
+	checkpoint_level_path = ""
 	checkpoint_loadout = level_start_loadout.duplicate(true)
 	checkpoint_world = {}
 	checkpoint_progress = {}
+
+
+## 這個區域是不是有可用的檢查點（舊式關卡的檢查點沒有記錄區域，任何關卡都算數）。
+func checkpoint_applies(level_path: String) -> bool:
+	return has_checkpoint and (checkpoint_level_path.is_empty() or level_path.is_empty() or checkpoint_level_path == level_path)
+
+
+## 取出並清除「要出現的出入口」（Level 建立時呼叫一次）。
+func take_pending_portal() -> StringName:
+	var portal := pending_portal
+	pending_portal = &""
+	return portal
+
+
+## 某個區域本輪的世界狀態（沒有就建立空的）。回傳的是參考，修改會直接寫回。
+func area_state(area_id: StringName) -> Dictionary:
+	var key := String(area_id)
+	if not area_states.has(key):
+		area_states[key] = {"consumed": {}, "damage": {}, "world": {}}
+	return area_states[key]
+
+
+func set_flag(flag: StringName, value: Variant = true) -> void:
+	if flag == &"":
+		push_warning("[GameState] set_flag：旗標名稱是空的")
+		return
+	world_flags[String(flag)] = value
+
+
+func has_flag(flag: StringName) -> bool:
+	return flag != &"" and world_flags.has(String(flag)) and world_flags[String(flag)] != false
+
+
+func get_flag(flag: StringName, default: Variant = null) -> Variant:
+	return world_flags.get(String(flag), default)
+
+
+func clear_flag(flag: StringName) -> void:
+	world_flags.erase(String(flag))
 
 
 ## 通關時呼叫：記下要帶進下一關的武器欄與消耗品。
@@ -108,6 +169,8 @@ func carry_over(loadout_snapshot: Dictionary) -> void:
 func enter_level() -> void:
 	level_start_loadout = _carried_loadout
 	_carried_loadout = {}
+	pending_portal = &""
+	carried_health = -1
 	clear_checkpoint()
 	level_start_progress = Progression.snapshot()
 

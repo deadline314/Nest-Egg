@@ -40,6 +40,22 @@ extends Resource
 @export var outro_scene: StringName = &""
 ## 地圖上 & 字元由左至右對應的劇情場景 id。
 @export var story_triggers: PackedStringArray = PackedStringArray()
+@export_group("Area")
+## 持久世界（區域組）：殺掉的敵人、撿過的東西、開過的機關與受傷的頭目在區域之間與死亡之後都保留；
+## 死亡改為扣信用點而不是回溯成就之前的狀態。關閉＝舊式關卡（死後敵人重生、世界還原到檢查點）。
+@export var persistent_world := false
+## 進入區域時是否顯示章節標題卡（只有章節的第一個區域需要）。
+@export var show_chapter_card := true
+## 穿過出入口進來時，是否在畫面上顯示區域名稱（display_name）。
+@export var announce_area := true
+## 進場過場播完後自動走出這個出入口（空白＝不自動離開）。
+@export var after_intro_portal: StringName = &""
+## 進場過場播完後直接結束本章（章末的區域用）。
+@export var complete_after_intro := false
+## 死亡時扣掉的信用點比例（只在 persistent_world 生效）。
+@export_range(0.0, 1.0) var death_credit_penalty := 0.05
+## 死亡時，受傷的頭目（EnemyData.persists_damage）回復其已損血量的比例。
+@export_range(0.0, 1.0) var death_boss_recovery := 0.3
 @export_group("Environment")
 ## 環境主題（地形材質、建築立面、道具、背景層）。留空時沿用單一金屬面板與程式繪製立面。
 @export var environment: EnvironmentTheme
