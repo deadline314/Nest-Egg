@@ -22,7 +22,11 @@
   "knee_base": 0.15,
   "hip_bounce": 0.9,
   "chest_lean": 0.1,
-  "threshold": 0.08
+  "threshold": 0.08,
+  "bounce": 0.6,
+  "rise": 0.4,
+  "level": 1.0,
+  "bob_slow": 0.8
  },
  "crouch": {
   "hip_drop": 8.0,

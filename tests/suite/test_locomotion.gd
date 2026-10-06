@@ -2,7 +2,7 @@ class_name LocomotionSuite
 extends TestSuite
 ## 主角的移動動作量測（NE-208）：以固定速度走、跑，量骨盆上下起伏的幅度、頻率、平滑度與腳滑步，
 ## 門檻依據 design/12-cast-redraw/LOCOMOTION_REFERENCE.md 第 6 節（長度以站立骨盆高度 L 為單位）。
-## 其他角色（敵人）的移動動作尚未調整，不在這個套件的範圍；要看它們的數字用 tools/rig_locomotion_report.tscn。
+## 敵人（腳踩實地的人形）只檢查起伏與腳滑（NE-209）；要看完整數字用 tools/rig_locomotion_report.tscn --skin=。
 
 const SKIN := "rin"
 ## 主角的滿速。
@@ -28,6 +28,7 @@ func run() -> void:
 	await _test_motion_data()
 	await _test_gait_is_smooth()
 	await _test_stride_scales_with_speed()
+	await _test_grounded_characters()
 
 
 func _make() -> CharacterRig:
@@ -83,3 +84,29 @@ func _test_stride_scales_with_speed() -> void:
 		check(absf(rates[i] - rates[i - 1]) <= 0.5, "the step rate stays steady once the stride has grown (%.2f → %.2f Hz)" % [rates[i - 1], rates[i]])
 	_free(rig)
 	await frames(1)
+
+
+## 所有腳踩實地（art/motion 的 grounding）的角色：走與跑的骨盆起伏不超過門檻、踩地的腳不滑。
+func _test_grounded_characters() -> void:
+	var checked := 0
+	for file in DirAccess.get_files_at("res://art/motion"):
+		if not file.ends_with(".json"):
+			continue
+		var skin := file.get_basename()
+		if skin == SKIN or not bool(HumanoidAnimator._load_motion(skin).get("grounding", false)):
+			continue
+		var holder := Node2D.new()
+		runner.add_child(holder)
+		var rig := CharacterRig.new()
+		holder.add_child(rig)
+		if not rig.setup(skin):
+			holder.queue_free()
+			continue
+		checked += 1
+		for speed in [60.0, 120.0]:
+			var r := LocomotionAudit.measure(rig, speed, speed)
+			check(float(r["pp_l"]) <= MAX_PP_L, "%s at %.0f px/s: the pelvis moves %.3f L peak to peak (limit %.2f)" % [skin, speed, r["pp_l"], MAX_PP_L])
+			check(float(r["slide_l"]) <= MAX_SLIDE_L, "%s at %.0f px/s: a planted foot slides %.3f L (limit %.2f)" % [skin, speed, r["slide_l"], MAX_SLIDE_L])
+		holder.queue_free()
+		await frames(1)
+	check(checked >= 8, "the grounded enemies were measured (%d)" % checked)

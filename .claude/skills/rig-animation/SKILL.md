@@ -59,6 +59,7 @@ description: 做或調整 Nest Egg 的骨架角色與動畫時使用：新增角
 ## 零件與關節
 
 - **肢體關節網格（NE-204，已實作）**：上臂／前臂、大腿／小腿（骨頭名 `xxx_upper`／`xxx_lower` 且下段是上段的子骨頭）的零件，碰得到關節的自動做成 `RigPartMesh`（Polygon2D 網格，`game/rig/rig_part_mesh.gd`）：關節兩側各約下段骨長 0.3 倍（`limb_zone`，骨架定義或外觀定義可調）的頂點依距離在「跟自己的骨頭」與「跟夥伴骨頭」之間線性混合（關節正中 0.5），再把到肢體軸線的距離修回原本粗細（`volume_keep`）。**新角色不需要任何額外資料**；外觀定義 `limb_bend: false` 可關掉退回剛體。每格只重算關節附近的頂點、骨頭沒動就跳過、看不到的零件不算。折疊與縮腰由稽核量（`mesh_fold`、`limb_pinch`），彎到 90° 以上內側一定有皺褶，比例上限 40%。手腕、腳踝、髖、肩目前仍是剛體。看畫面：`rig_preview --chars=<角色> --joints --level=0~3`（左剛體、右網格）、`--rigid` 全部維持剛體；效能：`tools/rig_perf_probe.tscn`（每隻約 +36 µs/格）。
+- **所有腳踩實地的角色（`grounding: true`）都要啟用等高跑法**（`move.level`、`bounce`、`rise`、`bob_slow`，數值抄 `art/motion/rin.json` 再依角色微調）：不寫的話骨盆起伏會有 0.10–0.16 L（sniper、stalker、reclaimer 曾經如此），`LocomotionSuite` 對所有 grounding 角色驗證起伏 ≤ 0.09 L、腳滑 ≤ 0.03 L。
 - 零件節點的型別現在是 `Sprite2D` 或 `RigPartMesh`（都是 `CanvasItem`）：找零件用 `find_children("名稱", "CanvasItem")`，不要寫死 `Sprite2D`。
 - 剛體零件在關節彎曲大時會露出切口與缺角：**彎曲角度 ≥ 60° 的關節（膝、肘）必須處理**——網格權重變形（Polygon2D＋Skeleton2D，權重在關節兩側各約 3 px 過渡、兩片零件用同一條權重函式）、或關節遮蓋、或彎曲姿勢的零件變體。
 - 零件要在關節處重疊（目前流程只留 10 貼圖像素，約 0.6 世界像素，大角度不夠）。

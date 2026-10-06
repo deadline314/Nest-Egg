@@ -60,7 +60,10 @@ func _test_defaults_are_inert() -> void:
 	for skin in OTHERS:
 		var motion := HumanoidAnimator._load_motion(skin)
 		check(float(motion["inertia"]["gain"]) == 0.0, "%s: inertia lean stays off" % skin)
-		check(float(motion["move"]["bounce"]) == 0.0 and float(motion["move"]["rise"]) == 0.0, "%s: body bounce stays off" % skin)
+		# 腳踩實地的敵人用等高跑法（NE-209）：起伏只留一點點，由 LocomotionSuite 量測；其餘維持關閉。
+		var level_gait := float(motion["move"]["level"]) > 0.0
+		check(level_gait or (float(motion["move"]["bounce"]) == 0.0 and float(motion["move"]["rise"]) == 0.0), "%s: body bounce stays off unless it uses the level gait" % skin)
+		check(float(motion["move"]["bounce"]) + float(motion["move"]["rise"]) <= 1.5, "%s: the designed body bounce is small (%.1f px)" % [skin, float(motion["move"]["bounce"]) + float(motion["move"]["rise"])])
 		check(float(motion["move"]["duty"]) == float(defaults["move"]["duty"]), "%s: stride duty is unchanged" % skin)
 		check(not bool(motion["idle"]["pin_feet"]), "%s: idle feet are not pinned" % skin)
 		check(float(motion["torso"]["hip_swing"]) == 0.0 and float(motion["torso"]["chest_wobble"]) == 0.0, "%s: torso overlay stays off" % skin)
