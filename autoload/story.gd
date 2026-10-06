@@ -284,6 +284,11 @@ func scene_ids() -> Array:
 	return _scenes.keys()
 
 
+## 劇情資料的唯讀檢視（連續性檢查用，見 ContinuityAudit）：場景表、各章節的重生場景表與死亡場景表。不要修改回傳的內容。
+func audit_data() -> Dictionary:
+	return {"scenes": _scenes, "respawn": _respawn_scenes, "death": _death_scenes}
+
+
 func scene_lines(id: StringName) -> Array:
 	return (_scenes.get(String(id), {}) as Dictionary).get("lines", [])
 

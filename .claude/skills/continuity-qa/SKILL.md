@@ -88,6 +88,19 @@ S1、S2 必須在合併前修掉。嚴重度（技術影響）與優先級（緊
 7. 資源遺失容錯：故意移除一個過場或音效，確認記錄具體路徑並退回安全預設。
 8. 長時間 soak：反覆死亡 50 次、換場景，觀察記憶體與殘留節點。
 
+### 已落地的自動檢查（專案內）
+
+| 項目 | 位置 | 說明 |
+|---|---|---|
+| 1 旗標表與問題 | `core/continuity_audit.gd`（`flag_table`、`flag_problems`） | 寫：場景 set_flags、程式 set_flag；讀：出入口 requires_flag、死亡場景 unless_flag／requires_flag、程式 has_flag。只讀不寫、拼字相近（編輯距離 ≤ 2，名稱 ≥ 6 字）算錯誤；只寫不讀算警告 |
+| 2 寫入時機 | `tests/suite/test_continuity.gd`、`tests/suite/test_death_flow.gd` | 場景開始時旗標未寫、結束才寫；中途退出不寫 |
+| 3 孤兒場景 | `ContinuityAudit.scene_references`／`orphan_scenes` | 引用來源：then、重生與死亡場景表、資料與程式裡的場景 id 字串（劇本檔本身不算）；列為警告 |
+| 6 死亡矩陣 | `ContinuitySuite._test_death_matrix` | 第一次死亡（沒用過電話亭／用過）、之後死亡、旗標遺失、區域沒有電話亭，斷言診間是否播、是否經過死亡畫面、旗標、復原點登記 |
+| 7 資源遺失 | 同上 | 死亡場景檔不存在：不卡住、照樣重生並記錄 |
+| 報告 | `godot --headless --path . res://tools/continuity_report.tscn` | 印出旗標表、錯誤、警告、孤兒場景；有錯誤時結束碼 1 |
+
+尚未做：4 不可達內容（旗標圖模擬）、5 once 對話已看旗標、8 長時間 soak。新增資料欄位會讀寫旗標時（例如對話選項分支），要同步讓 `ContinuityAudit.flag_table` 掃得到，否則會被誤報成「只寫不讀」。
+
 ## 工作流程
 
 1. 開工前讀對應章節與 `SYSTEMS_REFERENCE.md`；涉及死亡與旗標的先畫狀態矩陣（欄位 × 預期）。
