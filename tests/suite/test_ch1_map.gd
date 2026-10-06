@@ -36,6 +36,7 @@ func run() -> void:
 	_test_portals()
 	_test_roster()
 	_test_encounters()
+	_test_teaching_curve()
 	_test_narrative()
 	_test_items()
 	_test_entry_point()
@@ -333,11 +334,41 @@ func _test_encounters() -> void:
 		for encounter: Dictionary in design[id]["encounters"]:
 			locked_in_design += 1 if bool(encounter["lock"]) else 0
 	check(zone_count == locked_in_design, "every locked encounter in the design is on a map (%d vs %d)" % [zone_count, locked_in_design])
+	# 休息的谷（當舖、屋頂、電話亭巷）：一個可看的地標與一件小獎勵（CH01_PACING_V2 §4）
+	for id in ["pawnshop", "rooftop", "booth_alley"]:
+		for key in ["landmark", "reward"]:
+			check(not str((design[id]["features"] as Dictionary).get(key, "")).is_empty(), "%s: the rest area documents its %s" % [id, key])
 	for id in design:
 		if not bool(design[id]["combat"]):
 			continue
 		for key in ["loop", "reward", "secret", "landmark", "vertical"]:
 			check(not str((design[id]["features"] as Dictionary).get(key, "")).is_empty(), "%s: the combat area documents its %s" % [id, key])
+
+
+## 教學曲線：每個戰鬥技巧的四場遭遇（引入、練習、組合、考驗）都在設計資料的遭遇清單裡、依路線順序出現，一章只有 3–4 個技巧。
+func _test_teaching_curve() -> void:
+	var json := load(DESIGN_PATH) as JSON
+	var design: Dictionary = json.data["areas"]
+	var curve: Dictionary = json.data.get("curve", {})
+	check(curve.size() >= 3 and curve.size() <= 4, "the chapter teaches three or four combat skills (%d)" % curve.size())
+	var route: Array = ["street", "warehouse"]
+	for skill: String in curve:
+		var last := -1.0
+		var used: Array = []
+		for stage in ["intro", "practice", "combine", "test"]:
+			var where: Array = curve[skill].get(stage, [])
+			check(where.size() == 2, "%s has a %s encounter" % [skill, stage])
+			if where.size() != 2:
+				continue
+			var position := -1.0
+			for encounter: Dictionary in design[str(where[0])]["encounters"]:
+				if str(encounter["name"]) == str(where[1]):
+					position = float(route.find(str(where[0]))) * 1000.0 + float(encounter["x0"])
+			check(position >= 0.0, "%s: the %s encounter %s/%s exists in the design" % [skill, stage, where[0], where[1]])
+			check(position >= last, "%s: %s comes no earlier than the stage before it" % [skill, stage])
+			check(not used.has(where), "%s: no encounter is used twice for one skill (%s/%s)" % [skill, where[0], where[1]])
+			used.append(where)
+			last = position
 
 
 func _test_items() -> void:

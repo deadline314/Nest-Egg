@@ -458,6 +458,7 @@ def build_pawnshop():
         a.lamp(x, 11)
     a.zone(0, 'rooftop')
     a.zone(30, 'pawnshop_warm', 6)
+    a.features = {'landmark': '當舖招牌與櫃台收銀機（x=52～64）：進門就看得到', 'reward': '兩處信用點（x=24 練習靶旁、x=67 後空地）'}
     return a
 
 
@@ -486,6 +487,7 @@ def build_rooftop():
     a.lamp(40, 12)
     a.lamp(66, 12)
     a.zone(0, 'rooftop')
+    a.features = {'landmark': '生鏽的水塔（x=44）：整個屋頂都看得到', 'reward': '兩處信用點（x=20 鷺的位置旁、x=62 天線叢前）'}
     return a
 
 
@@ -602,6 +604,7 @@ def build_booth_alley():
     a.prop('anchor_phone_booth__gutter_downpipe', 20)
     a.lamp(26, 8)
     a.zone(0, 'neutral')
+    a.features = {'landmark': '備份亭與復原箭頭（x=48～51）：巷子盡頭發光的電話亭', 'reward': '兩處信用點（x=18、x=44）'}
     return a
 
 
@@ -832,9 +835,19 @@ def write_encounter_files(areas):
                 f.write(g.render(glines))
 
 
+# 教學曲線（引入 → 練習 → 組合 → 考驗）：每個戰鬥技巧在哪四場遭遇出現，依路線順序（街道在倉庫之前、同區依位置）。
+# 名稱要和 encounter() 的名稱一致；一章只引入四個新技巧（移動、射擊、衝刺、近戰的基本操作在當舖教學場）。
+CURVE = {
+    '掩護射擊': {'intro': ('street', '接觸'), 'practice': ('street', '高台'), 'combine': ('street', '街心'), 'test': ('street', '路障')},
+    '格擋與衝刺': {'intro': ('street', '格擋'), 'practice': ('street', '街心'), 'combine': ('street', '路障'), 'test': ('warehouse', '保險箱守衛')},
+    '近戰終結': {'intro': ('street', '近戰'), 'practice': ('warehouse', '開關守衛'), 'combine': ('warehouse', '坑前'), 'test': ('warehouse', '保險箱守衛')},
+    '空中與高處': {'intro': ('street', '空襲'), 'practice': ('warehouse', '高處無人機'), 'combine': ('warehouse', '階梯'), 'test': ('warehouse', '上層走道')},
+}
+
+
 def write_design(areas):
     """設計資料：每區的戰鬥區標記、特色（迴圈、獎勵、秘密、地標、垂直空間）與遭遇清單，測試與報告讀它。"""
-    data = {'areas': {}}
+    data = {'areas': {}, 'curve': {name: {stage: list(where) for stage, where in stages.items()} for name, stages in CURVE.items()}}
     for a in areas:
         data['areas'][a.id] = {
             'combat': a.combat, 'features': a.features,

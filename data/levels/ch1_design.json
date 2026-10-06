@@ -2,12 +2,18 @@
  "areas": {
   "pawnshop": {
    "combat": false,
-   "features": {},
+   "features": {
+    "landmark": "當舖招牌與櫃台收銀機（x=52～64）：進門就看得到",
+    "reward": "兩處信用點（x=24 練習靶旁、x=67 後空地）"
+   },
    "encounters": []
   },
   "rooftop": {
    "combat": false,
-   "features": {},
+   "features": {
+    "landmark": "生鏽的水塔（x=44）：整個屋頂都看得到",
+    "reward": "兩處信用點（x=20 鷺的位置旁、x=62 天線叢前）"
+   },
    "encounters": []
   },
   "street": {
@@ -126,7 +132,10 @@
   },
   "booth_alley": {
    "combat": false,
-   "features": {},
+   "features": {
+    "landmark": "備份亭與復原箭頭（x=48～51）：巷子盡頭發光的電話亭",
+    "reward": "兩處信用點（x=18、x=44）"
+   },
    "encounters": []
   },
   "warehouse": {
@@ -291,6 +300,80 @@
    "combat": false,
    "features": {},
    "encounters": []
+  }
+ },
+ "curve": {
+  "掩護射擊": {
+   "intro": [
+    "street",
+    "接觸"
+   ],
+   "practice": [
+    "street",
+    "高台"
+   ],
+   "combine": [
+    "street",
+    "街心"
+   ],
+   "test": [
+    "street",
+    "路障"
+   ]
+  },
+  "格擋與衝刺": {
+   "intro": [
+    "street",
+    "格擋"
+   ],
+   "practice": [
+    "street",
+    "街心"
+   ],
+   "combine": [
+    "street",
+    "路障"
+   ],
+   "test": [
+    "warehouse",
+    "保險箱守衛"
+   ]
+  },
+  "近戰終結": {
+   "intro": [
+    "street",
+    "近戰"
+   ],
+   "practice": [
+    "warehouse",
+    "開關守衛"
+   ],
+   "combine": [
+    "warehouse",
+    "坑前"
+   ],
+   "test": [
+    "warehouse",
+    "保險箱守衛"
+   ]
+  },
+  "空中與高處": {
+   "intro": [
+    "street",
+    "空襲"
+   ],
+   "practice": [
+    "warehouse",
+    "高處無人機"
+   ],
+   "combine": [
+    "warehouse",
+    "階梯"
+   ],
+   "test": [
+    "warehouse",
+    "上層走道"
+   ]
   }
  }
 }
