@@ -15,6 +15,7 @@ func run() -> void:
 	await _test_fullscreen_setting()
 	await _test_death_screen()
 	await _test_victory_screen()
+	await _test_hd_portrait()
 
 
 ## 進入點啟動後一定要出現主選單（預載或資料出錯曾讓 F5 只剩黑畫面）。
@@ -280,3 +281,30 @@ func _test_victory_screen() -> void:
 		break
 	screen.queue_free()
 	await frames(2)
+
+
+## 角色高解析立繪（NE-215）：用骨架在子視窗以 2 倍解析度繪製、平滑濾鏡、只在可見時更新；找不到角色時不崩潰。
+func _test_hd_portrait() -> void:
+	var portrait := HdPortrait.new()
+	portrait.size = Vector2(192, 256)
+	runner.get_tree().root.add_child(portrait)
+	await frames(4)
+	var viewport: SubViewport = null
+	for node in portrait.find_children("*", "SubViewport", true, false):
+		viewport = node
+	check(viewport != null and viewport.size == Vector2i(384, 512), "the portrait renders at twice its display size (%s)" % [viewport.size if viewport != null else "none"])
+	check(viewport.render_target_update_mode == SubViewport.UPDATE_WHEN_VISIBLE, "the portrait only updates while visible")
+	check(viewport.canvas_item_default_texture_filter == Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS, "the portrait is drawn with smooth filtering, not pixel-scaled")
+	var rigs := portrait.find_children("*", "CharacterRig", true, false)
+	check(rigs.size() == 1 and (rigs[0] as CharacterRig).is_valid(), "the portrait is the real character rig (the same textures as in the game)")
+	portrait.size = Vector2(96, 128)
+	await frames(2)
+	check(viewport.size == Vector2i(192, 256), "resizing the portrait resizes the render target")
+	portrait.queue_free()
+	var missing := HdPortrait.new()
+	missing.character = "test_no_such_character"
+	missing.size = Vector2(96, 128)
+	runner.get_tree().root.add_child(missing)
+	await frames(3)
+	check(is_instance_valid(missing), "a missing character does not crash the page")
+	missing.queue_free()

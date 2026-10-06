@@ -266,7 +266,7 @@ func _build_radio() -> void:
 	_radio_portrait = TextureRect.new()
 	_radio_portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	_radio_portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	_radio_portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	_radio_portrait.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	_radio_portrait.custom_minimum_size = Vector2(RADIO_PORTRAIT_SIZE, RADIO_PORTRAIT_SIZE)
 	frame.add_child(_radio_portrait)
 	var column := VBoxContainer.new()

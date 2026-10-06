@@ -1,6 +1,6 @@
 class_name StatusPage
 extends InventoryPage
-## 角色狀態：凜的像素立繪（待機動畫）與生命、護盾、殘機、難度、遊玩時間、擊破數。
+## 角色狀態：凜的高解析立繪（骨架即時繪製，待機動畫）與生命、護盾、殘機、難度、遊玩時間、擊破數。
 ## 切到此頁時數字由 0 跳動到目前的值。
 
 const PORTRAIT_SIZE := Vector2(192, 256)
@@ -16,7 +16,7 @@ const ROWS: Array[Dictionary] = [
 	{"id": &"kills", "label": "擊破數", "hint": "這一輪擊破的敵人數量（含終結技）"},
 ]
 
-var _portrait: PixelPortrait
+var _portrait: HdPortrait
 var _values: Dictionary[StringName, CountUpLabel] = {}
 var _health_bar: _Segments
 var _guard_bar: _Segments
@@ -40,8 +40,10 @@ func _ready() -> void:
 	left.custom_minimum_size = Vector2(PORTRAIT_SIZE.x + 12, 0)
 	left.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	row.add_child(left)
-	_portrait = PixelPortrait.new()
+	_portrait = HdPortrait.new()
 	_portrait.position = Vector2(6, 6)
+	_portrait.custom_minimum_size = PORTRAIT_SIZE
+	_portrait.size = PORTRAIT_SIZE
 	left.add_child(_portrait)
 
 	var right := VBoxContainer.new()
