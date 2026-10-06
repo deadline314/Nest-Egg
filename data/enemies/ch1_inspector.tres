@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/slasher.gd" id="2_behavior"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch1_inspector"
+behavior = ExtResource("2_behavior")
+display_name = "收帳人·督察"
+attack_category = &"melee"
+hit_material = &"armor"
+body_size = Vector2(18, 50)
+color = Color(0.900, 0.300, 0.250, 1.0)
+max_health = 28
+persists_damage = true
+move_speed = 44.0
+contact_damage = 1
+contact_source_id = &"ch1_inspector_contact"
+detect_range = 240.0
+attack_cooldown = 1.3
+telegraph_time = 0.65
+ability_speed = 230.0
+ability_time = 0.95
+ability_damage = 2
+knockback_scale = 0.2
+hurt_parts = Array[Dictionary]([{"id": "head", "bone": "head", "offset": Vector2(0, -4), "size": Vector2(9, 10), "mult": 1.5}])
+poise = 16.0
+finish_health_ratio = 0.4
+stagger_duration = 1.4
+health_drop_chance = 0.6
+credit_value = 90
+rig_skin = "enforcer"
+rig_weapon = ""
+rig_actions = { "windup": "ch1_inspector.windup_slash", "leap": "ch1_inspector.slash", "recover": "ch1_inspector.recover" }

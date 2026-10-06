@@ -72,6 +72,18 @@ description: 設計或修改 Nest Egg 的章節流程時使用：章節節奏與
 5. 遊玩測試至少 5 位沒看過的玩家，抓「同一處卡住 ≥ 3 人」；記錄事件日誌（遭遇開始結束、死亡位置、對話顯示與跳過、區域進出時間）。
 6. 學到的新規則補進這份 skill 與參考文件。
 
+## 專案內已經有的工具（做新章節先用這些，不要另外發明）
+
+| 需求 | 工具 | 重點 |
+|---|---|---|
+| 同時攻擊的敵人數上限 | `AttackTokens`（`data/combat/attack_tokens.json`、`LevelData.attack_caps`） | 近戰 2、遠程 2；敵人行為的出手判斷寫 `_cooldown <= 0.0 and _token_free() and …` |
+| 鎖場遭遇 | `MechanismData.Kind.ENCOUNTER` + `arena_gate` 的 GATE、`EncounterZone` | 範圍內事先擺好的敵人就是成員；增援、鎖場最長秒數、完成後存世界狀態；競技場閘門重生時一定打開 |
+| 地圖上說話 | 場景 mode `bubbles`（`MapBubbles`） | ≤ 18 字、同屏 ≤ 2、不鎖操作；戰鬥短句標 `bark`（≤ 10 字） |
+| 擺遭遇 | 產生器的 `Area.encounter(name, x0, x1, members, reinforcements, lock, slug, …)` | 成員數、同屏上限、鎖場範圍內敵人數都由產生器與 `Chapter1MapSuite` 檢查 |
+| 設計資料與圖解 | `data/levels/ch1_design.json`、`python3 tools/level/build_ch1.py --render` | 每區的特色（迴圈、獎勵、秘密、地標、垂直空間）與遭遇清單；圖解輸出到 `pm/ST/images/` |
+| 迷你頭目 | `EnemyData.persists_damage`（例：`ch1_inspector`） | 死後傷會留著，只回復一部分 |
+| 引擎保留的地圖字元 | `# = ^ | ~ P C H B * & .` 與數字 | 新敵人、機關不要用這些字元；鎖場的動態字元用希臘字母 |
+
 ## 常見錯誤
 
 | 錯誤 | 症狀 | 做法 |

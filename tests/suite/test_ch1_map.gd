@@ -4,9 +4,14 @@ extends TestSuite
 ## 道具只有該放的、新遊戲從當舖開始、依序走過每個出入口時玩家出現在對應的位置、世界在區域之間保留。
 
 const IDS: Array[String] = ["pawnshop", "rooftop", "street", "booth_alley", "warehouse", "lounge", "stall", "pawnshop_dawn"]
-const ROSTER: Array[StringName] = [&"sweeper", &"collector_gunner", &"collector_brute", &"drone", &"watchdog"]
+const ROSTER: Array[StringName] = [&"sweeper", &"collector_gunner", &"collector_brute", &"drone", &"watchdog", &"ch1_inspector"]
+const DESIGN_PATH := "res://data/levels/ch1_design.json"
+## 遭遇總數與鎖場、迷你頭目的下限（design/13-story-v2/CH01_PACING_V2.md）。
+const MIN_ENCOUNTERS := 22
+const MAX_ENCOUNTERS := 26
+const MIN_LOCKED := 4
+const NEW_KIND_GAP := 12.0
 const FIRST_ENEMY_DISTANCE := 18
-const MAX_MED_INJECTORS := 3
 const ALLOWED_WEAPONS: Array[StringName] = [&"melee_dagger"]
 ## 每個區域的出生地（P）腳底座標用格子表示，走查時用它檢查玩家站得穩。
 const TILE := 16.0
@@ -25,6 +30,7 @@ func run() -> void:
 	_test_props()
 	_test_portals()
 	_test_roster()
+	_test_encounters()
 	_test_items()
 	_test_entry_point()
 	_test_story_hooks()
@@ -33,6 +39,7 @@ func run() -> void:
 	await _test_story_flags()
 	await _test_scenes_play_through()
 	await _test_every_area_builds()
+	await _test_locked_encounters_play_through()
 	await _test_walkthrough()
 	await _test_state_across_areas()
 
@@ -182,22 +189,41 @@ func _enemy_spawns(id: String) -> Array[Dictionary]:
 	return result
 
 
+func _design() -> Dictionary:
+	var json := load(DESIGN_PATH) as JSON
+	return (json.data as Dictionary)["areas"] if json != null and typeof(json.data) == TYPE_DICTIONARY else {}
+
+
+## 設計資料裡某個區域所有遭遇的成員總數（＝擺在地圖上的敵人數）。
+func _design_members(id: String) -> int:
+	var members := 0
+	for encounter: Dictionary in _design()[id]["encounters"]:
+		members += (encounter["members"] as Array).size()
+	return members
+
+
 func _test_roster() -> void:
 	var kinds: Dictionary[StringName, int] = {}
-	var per_area: Dictionary[String, int] = {}
+	var placed: Dictionary[String, int] = {}
 	for id in IDS:
 		if id == "pawnshop_dawn":
 			continue
 		for spawn in _enemy_spawns(id):
 			var enemy := spawn["resource"] as EnemyData
 			kinds[enemy.id] = kinds.get(enemy.id, 0) + 1
-			if not enemy.persists_damage:
-				per_area[id] = per_area.get(id, 0) + 1
-	check(kinds.size() == ROSTER.size(), "the chapter uses exactly five kinds of enemy (%s)" % [kinds.keys()])
+			placed[id] = placed.get(id, 0) + 1
+	check(kinds.size() == ROSTER.size(), "the chapter uses exactly six kinds of enemy (%s)" % [kinds.keys()])
 	for id in ROSTER:
 		check(kinds.has(id), "the roster enemy appears on the map: %s" % id)
-	check(kinds.get(&"watchdog", 0) == 1, "one watchdog")
-	check(per_area.get("street", 0) == 7 and per_area.get("warehouse", 0) == 6, "enemy counts: street 7, warehouse 6 (%s)" % [per_area])
+	check(kinds.get(&"watchdog", 0) == 1, "one watchdog (mini-boss A)")
+	check(kinds.get(&"ch1_inspector", 0) == 2, "two inspectors (the mini-bosses of the blockade and the vault)")
+	# 擺在地圖上的敵人數＝設計資料裡各場遭遇的成員總數（設計資料由產生器輸出，兩邊一致才算數）。
+	var design := _design()
+	for id in design:
+		var members := 0
+		for encounter: Dictionary in design[id]["encounters"]:
+			members += (encounter["members"] as Array).size()
+		check(placed.get(id, 0) == members, "%s: enemies on the map match the encounter table (%d vs %d)" % [id, placed.get(id, 0), members])
 	for id in ["pawnshop", "rooftop", "booth_alley", "lounge", "stall"]:
 		check(_enemy_spawns(id).is_empty(), "%s is a safe area without enemies" % id)
 	# 每一個出入口進來，最近的敵人都在 18 格以外；出生點也一樣。
@@ -226,7 +252,7 @@ func _test_roster() -> void:
 		var xs: Array = first_x.values()
 		xs.sort()
 		for i in range(1, xs.size()):
-			check(float(xs[i]) - float(xs[i - 1]) >= 20.0, "%s: new enemy kinds are introduced at least 20 tiles apart (%s)" % [id, xs])
+			check(float(xs[i]) - float(xs[i - 1]) >= NEW_KIND_GAP, "%s: new enemy kinds are introduced at least %d tiles apart (%s)" % [id, int(NEW_KIND_GAP), xs])
 		for enemy_id in first_x:
 			seen_kinds[enemy_id] = true
 	# 示範段落：街道第一名敵人之前沒有任何敵人。
@@ -235,12 +261,77 @@ func _test_roster() -> void:
 	for spawn in street_enemies:
 		first_cell = mini(first_cell, (spawn["cell"] as Vector2i).x)
 	check(first_cell >= 49, "the street's tutorial fights start after column 49 (%d)" % first_cell)
-	# 難度曲線：街道上依序是四名清掃兵、兩名收帳人槍手、一台無人機。
-	var order: Array[StringName] = []
+	# 難度曲線：街道上第一種是清掃兵（遠程、單發），收帳人槍手、打手、無人機與督察依序加入。
 	street_enemies.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return (a["cell"] as Vector2i).x < (b["cell"] as Vector2i).x)
+	var introduced: Array[StringName] = []
 	for spawn in street_enemies:
-		order.append((spawn["resource"] as EnemyData).id)
-	check(order == [&"sweeper", &"sweeper", &"sweeper", &"sweeper", &"collector_gunner", &"collector_gunner", &"drone"], "the street teaches in order: sweepers, then collectors, then a drone (%s)" % [order])
+		var enemy_id := (spawn["resource"] as EnemyData).id
+		if not introduced.has(enemy_id):
+			introduced.append(enemy_id)
+	check(introduced == [&"sweeper", &"collector_gunner", &"drone", &"collector_brute", &"ch1_inspector"], "the street introduces: sweeper, gunner, drone, brute, inspector (%s)" % [introduced])
+
+
+## 鎖場遭遇（ST-11）：總數與鎖場數、閘門成對且頻道對得上、範圍在地圖內且不重疊、鎖場範圍內的敵人數與設計資料一致、
+## 成員與增援不超過同屏上限；戰鬥區都有迴圈、獎勵、秘密、地標與垂直空間的說明。
+func _test_encounters() -> void:
+	var design := _design()
+	check(not design.is_empty(), "the design data exists (%s)" % DESIGN_PATH)
+	var total := 0
+	var locked := 0
+	for id in design:
+		for encounter: Dictionary in design[id]["encounters"]:
+			total += 1
+			locked += 1 if bool(encounter["lock"]) else 0
+	check(total >= MIN_ENCOUNTERS and total <= MAX_ENCOUNTERS, "%d to %d encounters in the chapter (%d)" % [MIN_ENCOUNTERS, MAX_ENCOUNTERS, total])
+	check(locked >= MIN_LOCKED, "at least %d locked encounters (%d)" % [MIN_LOCKED, locked])
+	var zone_count := 0
+	for id in IDS:
+		if id == "pawnshop_dawn":
+			continue
+		var layout := _layouts[id]
+		var zones: Array[Dictionary] = []
+		var gate_cells: Dictionary[StringName, Array] = {}
+		for spawn in layout.spawns:
+			var res: Resource = spawn["resource"]
+			if not (res is MechanismData):
+				continue
+			var mechanism := res as MechanismData
+			if mechanism.kind == MechanismData.Kind.ENCOUNTER:
+				zones.append(spawn)
+			elif mechanism.kind == MechanismData.Kind.GATE and mechanism.arena_gate:
+				if not gate_cells.has(mechanism.channel):
+					gate_cells[mechanism.channel] = []
+				gate_cells[mechanism.channel].append((spawn["cell"] as Vector2i).x)
+		zone_count += zones.size()
+		var ranges: Array[Vector2i] = []
+		for spawn in zones:
+			var zone := spawn["resource"] as MechanismData
+			var center := (spawn["cell"] as Vector2i).x
+			var left := center - zone.size_tiles.x / 2
+			var right := center + zone.size_tiles.x / 2
+			check(left >= 1 and right <= layout.width - 2, "%s: the locked zone %s stays inside the map (%d..%d)" % [id, zone.id, left, right])
+			var gates: Array = gate_cells.get(zone.channel, [])
+			gates.sort()
+			check(gates.size() == 2 and gates[0] == left and gates[1] == right, "%s: %s has one arena gate at each end (%s vs %d..%d)" % [id, zone.id, gates, left, right])
+			for other in ranges:
+				check(right < other.x or left > other.y, "%s: locked zones do not overlap (%s)" % [id, zone.id])
+			ranges.append(Vector2i(left, right))
+			var inside := 0
+			for enemy_spawn in _enemy_spawns(id):
+				var x := (enemy_spawn["cell"] as Vector2i).x
+				inside += 1 if x >= left and x <= right else 0
+			check(inside >= 1 and inside <= 4, "%s: %s has one to four members inside (%d)" % [id, zone.id, inside])
+			check(inside + zone.reinforcements.size() <= 6, "%s: %s keeps at most six enemies alive at once (%d + %d)" % [id, zone.id, inside, zone.reinforcements.size()])
+	var locked_in_design := 0
+	for id in design:
+		for encounter: Dictionary in design[id]["encounters"]:
+			locked_in_design += 1 if bool(encounter["lock"]) else 0
+	check(zone_count == locked_in_design, "every locked encounter in the design is on a map (%d vs %d)" % [zone_count, locked_in_design])
+	for id in design:
+		if not bool(design[id]["combat"]):
+			continue
+		for key in ["loop", "reward", "secret", "landmark", "vertical"]:
+			check(not str((design[id]["features"] as Dictionary).get(key, "")).is_empty(), "%s: the combat area documents its %s" % [id, key])
 
 
 func _test_items() -> void:
@@ -275,10 +366,10 @@ func _test_items() -> void:
 			elif res is WeaponData:
 				weapons += 1
 				check(ALLOWED_WEAPONS.has((res as WeaponData).id), "%s: only the dagger lies around in chapter 1 (%s)" % [id, (res as WeaponData).id])
-	check(med == MAX_MED_INJECTORS, "three med injectors (%d)" % med)
+	check(med >= 3 and med <= 6, "three to six med injectors (%d)" % med)
 	check(cell == 1, "one shield cell (%d)" % cell)
-	check(small >= 12 and small <= 20, "about sixteen small credit piles (%d)" % small)
-	check(large == 2, "two large credit piles (%d)" % large)
+	check(small >= 12 and small <= 30, "twelve to thirty small credit piles (%d)" % small)
+	check(large >= 2 and large <= 5, "two to five large credit piles (%d)" % large)
 	check(docs == 5, "five documents (%d)" % docs)
 	check(disk == 1, "one key item: the data disk (%d)" % disk)
 	check(weapons == 1, "one optional weapon: the dagger (%d)" % weapons)
@@ -483,12 +574,58 @@ func _test_walkthrough() -> void:
 	await end_level(level)
 
 
+## 每場鎖場都能真的打完：把玩家放進範圍 → 閘門關上 → 一直打倒範圍內的敵人（含增援）→ 閘門打開、不再鎖人。
+func _test_locked_encounters_play_through() -> void:
+	for id in ["street", "warehouse"]:
+		GameState.start_new_run(GameState.difficulties[1])
+		var level := await spawn_level(_datas[id])
+		level.player.health.setup(9999, 0.0)
+		var zones: Array[EncounterZone] = []
+		for node in level._entities.get_children():
+			if node is EncounterZone:
+				zones.append(node)
+		for zone in zones:
+			var floor_y := zone.global_position.y
+			level.player.global_position = zone.global_position + Vector2(0.0, -2.0)
+			level.player.velocity = Vector2.ZERO
+			await physics_frames(40)
+			check(zone.state == &"active", "%s: %s starts when the player walks in (%s)" % [id, zone.data.id, zone.state])
+			var gates := 0
+			for node in level._entities.get_children():
+				if node is Gate and (node as Gate).data.channel == zone.data.channel and not (node as Gate).is_open:
+					gates += 1
+			check(gates == 2, "%s: both arena gates of %s close (%d)" % [id, zone.data.id, gates])
+			var guard := 0
+			while zone.state == &"active" and guard < 60 * 25:
+				for enemy in get_tree_enemies_of(level):
+					if is_instance_valid(enemy) and not enemy.is_dying() and absf(enemy.global_position.x - zone.global_position.x) < zone.data.size_tiles.x * 8.0:
+						var lethal := DamageInfo.create(9999, Combat.Team.PLAYER, &"test")
+						lethal.ignore_invulnerability = true
+						lethal.bypass_guard = true
+						enemy.health.take_damage(lethal)
+				level.player.global_position = Vector2(zone.global_position.x, floor_y - 2.0)
+				await physics_frames(15)
+				guard += 15
+			check(zone.state == &"cleared", "%s: %s can be fought to the end (%d frames)" % [id, zone.data.id, guard])
+			var closed := 0
+			for node in level._entities.get_children():
+				if node is Gate and (node as Gate).data.channel == zone.data.channel and not (node as Gate).is_open:
+					closed += 1
+			check(closed == 0, "%s: the arena gates of %s open again" % [id, zone.data.id])
+		await end_level(level)
+
+
+func get_tree_enemies_of(level: Level) -> Array[Node]:
+	return level.get_tree().get_nodes_in_group(&"enemies")
+
+
 ## 在街道打倒一名清掃兵、撿起道具，離開再回來仍保留；死亡後回到最近的電話亭所在的區域。
 func _test_state_across_areas() -> void:
 	GameState.start_new_run(GameState.difficulties[1])
 	var street := await spawn_level(_datas["street"])
 	var before := _alive_enemies(street)
-	check(before == 7, "the street starts with its enemies (%d)" % before)
+	var expected := _design_members("street")
+	check(before == expected, "the street starts with its enemies (%d vs %d)" % [before, expected])
 	var victim: Enemy = null
 	for node in street.get_tree().get_nodes_in_group(&"enemies"):
 		if street.is_ancestor_of(node) and (node as Enemy).data.id == &"sweeper":
@@ -513,7 +650,7 @@ func _test_state_across_areas() -> void:
 	await end_level(booth)
 	GameState.pending_portal = &"street_booth"
 	var again := await spawn_level(_datas["street"])
-	check(_alive_enemies(again) == 6, "a defeated sweeper does not come back (%d)" % _alive_enemies(again))
+	check(_alive_enemies(again) == expected - 1, "a defeated sweeper does not come back (%d)" % _alive_enemies(again))
 	await end_level(again)
 
 

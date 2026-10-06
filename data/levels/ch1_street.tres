@@ -1,21 +1,27 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=23 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=29 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
 [ext_resource type="Resource" path="res://data/props/ch1_secret_wall.tres" id="3_ch1_secret_wall"]
-[ext_resource type="Resource" path="res://data/props/credits_small.tres" id="4_credits_small"]
-[ext_resource type="Resource" path="res://data/enemies/drone.tres" id="5_drone"]
-[ext_resource type="Resource" path="res://data/consumables/shield_cell.tres" id="6_shield_cell"]
-[ext_resource type="Resource" path="res://data/story_items/doc_echo_flyer.tres" id="7_doc_echo_flyer"]
-[ext_resource type="Resource" path="res://data/enemies/sweeper.tres" id="8_sweeper"]
-[ext_resource type="Resource" path="res://data/consumables/med_injector.tres" id="9_med_injector"]
-[ext_resource type="Resource" path="res://data/enemies/collector_gunner.tres" id="10_collector_gunner"]
-[ext_resource type="Resource" path="res://data/story_items/doc_collection_notice.tres" id="11_doc_collection_notice"]
-[ext_resource type="Resource" path="res://data/props/credits_large.tres" id="12_credits_large"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="13_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/market.tres" id="14_market"]
-[ext_resource type="Resource" path="res://data/lighting/freight.tres" id="15_freight"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch1_street.tres" id="16_ch1_street"]
+[ext_resource type="Resource" path="res://data/enemies/collector_brute.tres" id="4_collector_brute"]
+[ext_resource type="Resource" path="res://data/props/credits_small.tres" id="5_credits_small"]
+[ext_resource type="Resource" path="res://data/enemies/drone.tres" id="6_drone"]
+[ext_resource type="Resource" path="res://data/consumables/shield_cell.tres" id="7_shield_cell"]
+[ext_resource type="Resource" path="res://data/story_items/doc_echo_flyer.tres" id="8_doc_echo_flyer"]
+[ext_resource type="Resource" path="res://data/enemies/sweeper.tres" id="9_sweeper"]
+[ext_resource type="Resource" path="res://data/consumables/med_injector.tres" id="10_med_injector"]
+[ext_resource type="Resource" path="res://data/enemies/collector_gunner.tres" id="11_collector_gunner"]
+[ext_resource type="Resource" path="res://data/story_items/doc_collection_notice.tres" id="12_doc_collection_notice"]
+[ext_resource type="Resource" path="res://data/props/credits_large.tres" id="13_credits_large"]
+[ext_resource type="Resource" path="res://data/enemies/ch1_inspector.tres" id="14_ch1_inspector"]
+[ext_resource type="Resource" path="res://data/props/ch1_enc_street_plaza.tres" id="15_ch1_enc_street_plaza"]
+[ext_resource type="Resource" path="res://data/props/ch1_arena_street_plaza.tres" id="16_ch1_arena_street_plaza"]
+[ext_resource type="Resource" path="res://data/props/ch1_enc_street_blockade.tres" id="17_ch1_enc_street_blockade"]
+[ext_resource type="Resource" path="res://data/props/ch1_arena_street_blockade.tres" id="18_ch1_arena_street_blockade"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="19_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/market.tres" id="20_market"]
+[ext_resource type="Resource" path="res://data/lighting/freight.tres" id="21_freight"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch1_street.tres" id="22_ch1_street"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("2_portal_data")
@@ -55,16 +61,16 @@ height = 44
 style = "road"
 
 [sub_resource type="Resource" id="Resource_4"]
-script = ExtResource("13_lighting_zone")
+script = ExtResource("19_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("14_market")
+profile = ExtResource("20_market")
 
 [sub_resource type="Resource" id="Resource_5"]
-script = ExtResource("13_lighting_zone")
+script = ExtResource("19_lighting_zone")
 start_tile = 181
 blend_tiles = 14
-profile = ExtResource("15_freight")
+profile = ExtResource("21_freight")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -75,25 +81,31 @@ height = 24
 legend = Dictionary[String, Resource]({
 "N": SubResource("Resource_0"),
 "X": ExtResource("3_ch1_secret_wall"),
-"c": ExtResource("4_credits_small"),
-"d": ExtResource("5_drone"),
-"e": ExtResource("6_shield_cell"),
-"f": ExtResource("7_doc_echo_flyer"),
-"g": ExtResource("8_sweeper"),
+"b": ExtResource("4_collector_brute"),
+"c": ExtResource("5_credits_small"),
+"d": ExtResource("6_drone"),
+"e": ExtResource("7_shield_cell"),
+"f": ExtResource("8_doc_echo_flyer"),
+"g": ExtResource("9_sweeper"),
 "h": SubResource("Resource_1"),
-"i": ExtResource("9_med_injector"),
+"i": ExtResource("10_med_injector"),
 "j": SubResource("Resource_2"),
-"k": ExtResource("10_collector_gunner"),
+"k": ExtResource("11_collector_gunner"),
 "m": SubResource("Resource_3"),
-"o": ExtResource("11_doc_collection_notice"),
-"q": ExtResource("12_credits_large")
+"o": ExtResource("12_doc_collection_notice"),
+"q": ExtResource("13_credits_large"),
+"z": ExtResource("14_ch1_inspector"),
+"α": ExtResource("15_ch1_enc_street_plaza"),
+"β": ExtResource("16_ch1_arena_street_plaza"),
+"γ": ExtResource("17_ch1_enc_street_blockade"),
+"δ": ExtResource("18_ch1_arena_street_blockade")
 })
 hints = PackedStringArray("街上有人發傳單、有人聊天，不是每個人都想打你", "街角的巷子裡有電話亭：先去備份，死了才有地方醒來", "清掃兵在前面：靠著箱子，瞄準、射擊、再縮回去", "按住 {block} 舉盾；子彈到的瞬間舉盾＝完美反彈", "敵人頭上出現青色菱形：按 {melee} 終結，回補彈藥", "碼頭倉庫：看門狗睡在大廳深處，走進去再決定要不要叫醒牠")
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("16_ch1_street")
+environment = ExtResource("22_ch1_street")
 layout_path = "res://data/levels/ch1_street_map.json"
-lighting_zones = Array[ExtResource("13_lighting_zone")]([SubResource("Resource_4"), SubResource("Resource_5")])
+lighting_zones = Array[ExtResource("19_lighting_zone")]([SubResource("Resource_4"), SubResource("Resource_5")])
 intro_scene = &"ch1_c04_out"
 story_triggers = PackedStringArray("ch1_g06_lamp", "ch1_g06_tip_slide", "ch1_g06_tip_blade", "ch1_g06_tip_collector", "ch1_g06_clear")

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MechanismData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/mechanism_data.gd" id="1_mechanism_data"]
+
+[resource]
+script = ExtResource("1_mechanism_data")
+id = &"ch1_arena_street_plaza"
+kind = 1
+display_name = "競技場閘門"
+hint = ""
+color = Color(1, 0.35, 0.3, 1)
+channel = &"arena_street_plaza"
+size_tiles = Vector2i(1, 9)
+arena_gate = true

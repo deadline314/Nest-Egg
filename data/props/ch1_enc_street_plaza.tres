@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MechanismData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/mechanism_data.gd" id="1_mechanism_data"]
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="2_enemy_data"]
+[ext_resource type="Resource" path="res://data/enemies/collector_gunner.tres" id="3_collector_gunner"]
+
+[resource]
+script = ExtResource("1_mechanism_data")
+id = &"ch1_enc_street_plaza"
+kind = 5
+display_name = "鎖場：街心"
+channel = &"arena_street_plaza"
+size_tiles = Vector2i(27, 9)
+max_lock_seconds = 90.0
+reinforcements = Array[ExtResource("2_enemy_data")]([ExtResource("3_collector_gunner")])
+start_text = "路被封住了：打倒他們"
+clear_text = "街道通了"

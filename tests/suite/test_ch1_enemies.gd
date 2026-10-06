@@ -7,7 +7,8 @@ const SWEEPER_PATH := "res://data/enemies/sweeper.tres"
 const GUNNER_PATH := "res://data/enemies/collector_gunner.tres"
 const BRUTE_PATH := "res://data/enemies/collector_brute.tres"
 const WATCHDOG_PATH := "res://data/enemies/watchdog.tres"
-const ALL: Array[String] = [SWEEPER_PATH, GUNNER_PATH, BRUTE_PATH, WATCHDOG_PATH]
+const INSPECTOR_PATH := "res://data/enemies/ch1_inspector.tres"
+const ALL: Array[String] = [SWEEPER_PATH, GUNNER_PATH, BRUTE_PATH, WATCHDOG_PATH, INSPECTOR_PATH]
 
 
 func run() -> void:
@@ -17,7 +18,7 @@ func run() -> void:
 
 
 func _test_data() -> void:
-	check_enemy_data(ALL, [&"sweeper_shot", &"sweeper_contact", &"collector_shot", &"collector_gunner_contact", &"collector_brute_contact", &"watchdog_contact"])
+	check_enemy_data(ALL, [&"sweeper_shot", &"sweeper_contact", &"collector_shot", &"collector_gunner_contact", &"collector_brute_contact", &"watchdog_contact", &"ch1_inspector_contact"])
 	for path in ALL:
 		var data := load(path) as EnemyData
 		check(CharacterSounds.name_for(data.id, &"death") != &"", "%s has a death sound through its profile" % data.id)

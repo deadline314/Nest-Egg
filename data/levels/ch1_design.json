@@ -1,0 +1,296 @@
+{
+ "areas": {
+  "pawnshop": {
+   "combat": false,
+   "features": {},
+   "encounters": []
+  },
+  "rooftop": {
+   "combat": false,
+   "features": {},
+   "encounters": []
+  },
+  "street": {
+   "combat": true,
+   "features": {
+    "loop": "高路：從 x=122 的階梯平台上屋頂帶（列 10），沿路到 x=146 跳下回到街上",
+    "reward": "屋頂帶上的大額信用點（x=139）：從街上就看得到，要繞階梯才拿得到",
+    "secret": "路障後的裂縫牆（x=187）：打破牆進去有大額信用點",
+    "landmark": "重生看板（x=102，整條街都看得到）",
+    "vertical": "地面、平台、屋頂帶三層"
+   },
+   "encounters": [
+    {
+     "name": "接觸",
+     "lock": false,
+     "x0": 62,
+     "x1": 70,
+     "members": [
+      "清掃兵"
+     ],
+     "reinforcements": []
+    },
+    {
+     "name": "高台",
+     "lock": false,
+     "x0": 76,
+     "x1": 86,
+     "members": [
+      "清掃兵",
+      "清掃兵"
+     ],
+     "reinforcements": []
+    },
+    {
+     "name": "格擋",
+     "lock": false,
+     "x0": 89,
+     "x1": 90,
+     "members": [
+      "收帳人槍手"
+     ],
+     "reinforcements": []
+    },
+    {
+     "name": "街心",
+     "lock": true,
+     "x0": 92,
+     "x1": 118,
+     "members": [
+      "清掃兵",
+      "清掃兵",
+      "無人機"
+     ],
+     "reinforcements": [
+      "收帳人槍手"
+     ]
+    },
+    {
+     "name": "近戰",
+     "lock": false,
+     "x0": 124,
+     "x1": 140,
+     "members": [
+      "打手",
+      "清掃兵"
+     ],
+     "reinforcements": []
+    },
+    {
+     "name": "高路",
+     "lock": false,
+     "x0": 141,
+     "x1": 146,
+     "members": [
+      "清掃兵"
+     ],
+     "reinforcements": []
+    },
+    {
+     "name": "空襲",
+     "lock": false,
+     "x0": 147,
+     "x1": 150,
+     "members": [
+      "無人機"
+     ],
+     "reinforcements": []
+    },
+    {
+     "name": "路障",
+     "lock": true,
+     "x0": 152,
+     "x1": 182,
+     "members": [
+      "督察",
+      "收帳人槍手",
+      "收帳人槍手"
+     ],
+     "reinforcements": [
+      "清掃兵",
+      "清掃兵"
+     ]
+    },
+    {
+     "name": "出口伏擊",
+     "lock": false,
+     "x0": 183,
+     "x1": 187,
+     "members": [
+      "無人機",
+      "無人機"
+     ],
+     "reinforcements": []
+    }
+   ]
+  },
+  "booth_alley": {
+   "combat": false,
+   "features": {},
+   "encounters": []
+  },
+  "warehouse": {
+   "combat": true,
+   "features": {
+    "loop": "保險箱旁的階梯平台（x=168～181）：上去走上層走道，也可以從平台跳回下層走道",
+    "reward": "貨櫃堆頂的醫療針（x=24）：前廳一進來就看得到，要爬貨櫃，上面有槍手守著",
+    "secret": "下層走道盡頭的裂縫牆（x=234）：打破牆進去有大額信用點",
+    "landmark": "吊車鏈條與探照燈（前廳，x=11～34）",
+    "vertical": "地面、貨櫃頂、上層走道三層"
+   },
+   "encounters": [
+    {
+     "name": "貨櫃頂",
+     "lock": false,
+     "x0": 20,
+     "x1": 26,
+     "members": [
+      "收帳人槍手"
+     ],
+     "reinforcements": []
+    },
+    {
+     "name": "前廳左",
+     "lock": false,
+     "x0": 28,
+     "x1": 34,
+     "members": [
+      "清掃兵"
+     ],
+     "reinforcements": []
+    },
+    {
+     "name": "前廳右",
+     "lock": false,
+     "x0": 36,
+     "x1": 42,
+     "members": [
+      "清掃兵"
+     ],
+     "reinforcements": []
+    },
+    {
+     "name": "吊車下",
+     "lock": false,
+     "x0": 44,
+     "x1": 50,
+     "members": [
+      "收帳人槍手"
+     ],
+     "reinforcements": []
+    },
+    {
+     "name": "看門狗",
+     "lock": false,
+     "x0": 52,
+     "x1": 60,
+     "members": [
+      "看門狗"
+     ],
+     "reinforcements": []
+    },
+    {
+     "name": "開關守衛",
+     "lock": false,
+     "x0": 93,
+     "x1": 96,
+     "members": [
+      "打手"
+     ],
+     "reinforcements": []
+    },
+    {
+     "name": "高處無人機",
+     "lock": false,
+     "x0": 98,
+     "x1": 110,
+     "members": [
+      "無人機",
+      "無人機"
+     ],
+     "reinforcements": []
+    },
+    {
+     "name": "坑前",
+     "lock": false,
+     "x0": 114,
+     "x1": 116,
+     "members": [
+      "打手",
+      "收帳人槍手"
+     ],
+     "reinforcements": []
+    },
+    {
+     "name": "坑上",
+     "lock": false,
+     "x0": 119,
+     "x1": 128,
+     "members": [
+      "無人機"
+     ],
+     "reinforcements": []
+    },
+    {
+     "name": "坑對岸",
+     "lock": false,
+     "x0": 134,
+     "x1": 140,
+     "members": [
+      "清掃兵",
+      "清掃兵"
+     ],
+     "reinforcements": []
+    },
+    {
+     "name": "保險箱守衛",
+     "lock": true,
+     "x0": 142,
+     "x1": 166,
+     "members": [
+      "督察",
+      "收帳人槍手"
+     ],
+     "reinforcements": [
+      "打手"
+     ]
+    },
+    {
+     "name": "階梯",
+     "lock": false,
+     "x0": 169,
+     "x1": 181,
+     "members": [
+      "無人機"
+     ],
+     "reinforcements": []
+    },
+    {
+     "name": "上層走道",
+     "lock": true,
+     "x0": 185,
+     "x1": 235,
+     "members": [
+      "清掃兵",
+      "清掃兵",
+      "收帳人槍手",
+      "無人機"
+     ],
+     "reinforcements": [
+      "收帳人槍手"
+     ]
+    }
+   ]
+  },
+  "lounge": {
+   "combat": false,
+   "features": {},
+   "encounters": []
+  },
+  "stall": {
+   "combat": false,
+   "features": {},
+   "encounters": []
+  }
+ }
+}

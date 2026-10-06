@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MechanismData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/mechanism_data.gd" id="1_mechanism_data"]
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="2_enemy_data"]
+[ext_resource type="Resource" path="res://data/enemies/collector_brute.tres" id="3_collector_brute"]
+
+[resource]
+script = ExtResource("1_mechanism_data")
+id = &"ch1_enc_warehouse_vault"
+kind = 5
+display_name = "鎖場：保險箱守衛"
+channel = &"arena_warehouse_vault"
+size_tiles = Vector2i(25, 13)
+max_lock_seconds = 90.0
+reinforcements = Array[ExtResource("2_enemy_data")]([ExtResource("3_collector_brute")])
+start_text = "保險箱有人守著：撐住"
+clear_text = "保險箱安全了"

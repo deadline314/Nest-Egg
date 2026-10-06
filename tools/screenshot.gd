@@ -36,6 +36,10 @@ func _run() -> void:
 			Settings.set_brightness(Settings.BRIGHTNESS_DEFAULT)
 		get_tree().quit()
 		return
+	if _scenario.begins_with("arena"):
+		await _run_arena()
+		get_tree().quit()
+		return
 	if _scenario == "bubbles":
 		await _run_bubbles()
 		get_tree().quit()
@@ -1628,6 +1632,45 @@ func _run_spots() -> void:
 		level_camera_snap()
 		await _settle(40)
 		_capture("spot_%s_%s_%s" % [level_id, spot[0], tag])
+	level.queue_free()
+	await _settle(4)
+
+
+## 鎖場遭遇（ST-11）：--scenario=arena:關卡檔:鎖場代號（例如 arena:ch1_street:plaza），把玩家放進範圍，拍鎖場開始與打完兩張。
+func _run_arena() -> void:
+	var parts := _scenario.split(":")
+	var level_id := parts[1] if parts.size() > 1 else "ch1_street"
+	var key := parts[2] if parts.size() > 2 else "plaza"
+	Story.auto_skip = true
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load("res://data/levels/%s.tres" % level_id))
+	add_child(level)
+	await _settle(25)
+	level.hud.visible = false
+	level.player.health.setup(999, 0.0)
+	var zone: EncounterZone = null
+	for node in level._entities.get_children():
+		if node is EncounterZone and String((node as EncounterZone).data.id).ends_with("_" + key):
+			zone = node
+	if zone == null:
+		push_error("[Screenshot] 找不到鎖場 %s" % key)
+		level.queue_free()
+		return
+	level.player.global_position = zone.global_position + Vector2(-zone.data.size_tiles.x * 8.0 + 40.0, -2.0)
+	await _settle(40)
+	_capture("arena_%s_%s_locked" % [level_id, key])
+	var guard := 0
+	while zone.state == &"active" and guard < 30:
+		for enemy in get_tree().get_nodes_in_group(&"enemies"):
+			var lethal := DamageInfo.create(9999, Combat.Team.PLAYER, &"shot")
+			lethal.ignore_invulnerability = true
+			lethal.bypass_guard = true
+			(enemy as Enemy).health.take_damage(lethal)
+		await _settle(30)
+		guard += 1
+	await _settle(40)
+	_capture("arena_%s_%s_cleared" % [level_id, key])
 	level.queue_free()
 	await _settle(4)
 

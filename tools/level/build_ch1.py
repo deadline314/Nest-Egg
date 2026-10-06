@@ -29,6 +29,7 @@ RES = {
     'b': 'res://data/enemies/collector_brute.tres',
     'd': 'res://data/enemies/drone.tres',
     'w': 'res://data/enemies/watchdog.tres',
+    'z': 'res://data/enemies/ch1_inspector.tres',  # 迷你頭目：收帳人·督察（傷會留著）；B 是引擎保留的頭目戰場字元
     # 道具
     'i': 'res://data/consumables/med_injector.tres',
     'e': 'res://data/consumables/shield_cell.tres',
@@ -81,6 +82,14 @@ PORTALS = {
     'Z': dict(id='stall_home', to=AREA('pawnshop_dawn'), target='pawn_front', mode=0, prompt='{interact} 回家', style='door'),
 }
 
+# 鎖場遭遇用的動態字元（每個遭遇一個範圍字元、一個閘門字元）：希臘字母，不會和其他字元衝突。
+DYN_POOL = list('αβγδεζηθικλμνξοπρστυφχψω')
+DYN_RES = {}          # 字元 -> 資源路徑（輸出 legend 時用）
+ENEMY_NAMES = {'g': '清掃兵', 'k': '收帳人槍手', 'b': '打手', 'd': '無人機', 'w': '看門狗', 'z': '督察'}
+MAX_MEMBERS = 4        # 單場成員上限
+MAX_ALIVE = 6          # 成員加一波增援的同屏上限
+ENCOUNTER_DIR = os.path.join(ROOT, 'data', 'props')
+
 CHAPTER = 'ch1_kasa'
 BACKDROP = [("far_skyline", 0.12, 300.0), ("mid_buildings", 0.26, 320.0), ("near_foreground", 0.5, 360.0)]
 
@@ -100,6 +109,9 @@ class Area:
         self.zones = []          # (起點欄, 過渡欄, 光影 id)
         self.regions = []        # 材質覆蓋區（貨櫃…）
         self.triggers = []       # (欄, 場景 id)：地圖上的 & 劇情觸發點
+        self.encounters = []     # 遭遇紀錄（設計報告與檢查用，見 encounter）
+        self.combat = False      # 戰鬥區：要有迴圈／獎勵／秘密／地標／垂直空間（features）
+        self.features = {}       # 例如 {'loop': '高路', 'secret': '裂縫牆', ...}
         self.options = options
         g = self.grid
         g.fill(0, 0, 0, H - 1, '#')
@@ -134,6 +146,40 @@ class Area:
         self.triggers.append((x, scene))
         self.put(x, self.ground - 1, '&')
 
+    def encounter(self, name, x0, x1, members, reinforcements=(), lock=False, slug='', gate_h=10, floor_row=None,
+                  start_text='', clear_text='', start_scene='', max_lock=90.0):
+        """一場遭遇（ST-11）。members：[(欄, 字元)] 或 [(欄, 字元, 列)]（站在平台上或飛行時指定列），放在 x0～x1 之間。
+        lock＝True：在 x0、x1 放競技場閘門（高 gate_h 格），玩家走進範圍就鎖場，成員與增援（reinforcements：字元清單）全倒才打開。
+        floor_row：閘門與範圍字元站的列（預設地面上一列）。成員必須剛好是範圍內的所有敵人（check 會數）。"""
+        placed = []
+        for m in members:
+            x, c = m[0], m[1]
+            row = m[2] if len(m) > 2 else None
+            assert x0 <= x <= x1, f'{self.id}/{name}: 成員 {c!r} 在 {x} 超出範圍 {x0}～{x1}'
+            if row is None:
+                self.stand(x, c)
+            else:
+                self.put(x, row, c)
+            placed.append(c)
+        record = {'name': name, 'x0': x0, 'x1': x1, 'lock': lock, 'members': placed, 'reinforcements': list(reinforcements)}
+        if lock:
+            assert (x1 - x0) % 2 == 0, f'{self.id}/{name}: 鎖場範圍的寬度要是奇數格（x0、x1 相差偶數）'
+            for other in self.encounters:
+                if other['lock'] and not (x1 < other['x0'] or x0 > other['x1']):
+                    raise AssertionError(f'{self.id}/{name}: 鎖場範圍和 {other["name"]} 重疊')
+            zone_char, gate_char = DYN_POOL.pop(0), DYN_POOL.pop(0)
+            row = (self.ground - 1) if floor_row is None else floor_row
+            self.put((x0 + x1) // 2, row, zone_char)
+            self.put(x0, row, gate_char)
+            self.put(x1, row, gate_char)
+            assert slug.isascii() and slug, f'{self.id}/{name}: 鎖場需要英文代號 slug（資料檔名用）'
+            key = f'{self.id}_{slug}'
+            DYN_RES[zone_char] = f'res://data/props/ch1_enc_{key}.tres'
+            DYN_RES[gate_char] = f'res://data/props/ch1_arena_{key}.tres'
+            record.update(zone_char=zone_char, gate_char=gate_char, key=key, gate_h=gate_h, start_text=start_text, clear_text=clear_text,
+                          start_scene=start_scene, max_lock=max_lock)
+        self.encounters.append(record)
+
     def region(self, x0, x1, y0, y1, material):
         self.regions.append({"x0": x0, "x1": x1, "y0": y0, "y1": y1, "material": material})
 
@@ -162,7 +208,7 @@ class Area:
     def check(self, flying=('d',)):
         problems = []
         g = self.grid
-        legend_chars = set(RES) | set(PORTALS)
+        legend_chars = set(RES) | set(PORTALS) | set(DYN_RES)
         for y in range(H):
             for x in range(self.w):
                 c = g.at(x, y)
@@ -173,6 +219,26 @@ class Area:
                         problems.append(f'{self.id}: {c!r} 在 ({x},{y}) 腳下沒有地面')
                     elif y >= HEADROOM and any(g.at(x, y - k) == '#' for k in range(1, HEADROOM)) and c not in ('X',):
                         problems.append(f'{self.id}: {c!r} 在 ({x},{y}) 頭上沒有淨空')
+        problems += self.check_encounters()
+        return problems
+
+    def check_encounters(self):
+        """遭遇規則（design/13-story-v2/CH01_PACING_V2.md §5）：成員上限、同屏上限、鎖場範圍內的敵人剛好是成員。"""
+        problems = []
+        g = self.grid
+        enemy_chars = set(ENEMY_NAMES)
+        for e in self.encounters:
+            if len(e['members']) > MAX_MEMBERS:
+                problems.append(f'{self.id}/{e["name"]}: 成員 {len(e["members"])} 個，超過上限 {MAX_MEMBERS}')
+            if len(e['members']) + len(e['reinforcements']) > MAX_ALIVE:
+                problems.append(f'{self.id}/{e["name"]}: 成員加增援 {len(e["members"]) + len(e["reinforcements"])} 個，超過同屏上限 {MAX_ALIVE}')
+            inside = sorted(g.at(x, y) for y in range(H) for x in range(e['x0'], e['x1'] + 1) if g.at(x, y) in enemy_chars)
+            if e['lock'] and inside != sorted(e['members']):
+                problems.append(f'{self.id}/{e["name"]}: 鎖場範圍內的敵人 {inside} 和宣告的成員 {sorted(e["members"])} 不一致')
+            if not e['lock']:
+                for other in self.encounters:
+                    if other['lock'] and other['x0'] <= e['x0'] <= other['x1']:
+                        problems.append(f'{self.id}/{e["name"]}: 開放遭遇落在鎖場 {other["name"]} 的範圍裡')
         return problems
 
 
@@ -412,52 +478,79 @@ def build_rooftop():
 
 
 def build_street():
+    """港區街道（ST-11 重設計）：市集口（安全）→ 掩護教學 → 格擋 → 鎖場「街心」→ 近戰與高路 → 空襲 → 鎖場「路障」（迷你頭目）→ 裂縫牆秘密房 → 倉庫門。
+    逐場遭遇與設計理由見 design/13-story-v2/CH01_PACING_V2.md §3.1。"""
     a = Area('street', '港區街道', 208, 20)
+    a.combat = True
+    a.features = {
+        'loop': '高路：從 x=122 的階梯平台上屋頂帶（列 10），沿路到 x=146 跳下回到街上',
+        'reward': '屋頂帶上的大額信用點（x=139）：從街上就看得到，要繞階梯才拿得到',
+        'secret': '路障後的裂縫牆（x=187）：打破牆進去有大額信用點',
+        'landmark': '重生看板（x=102，整條街都看得到）',
+        'vertical': '地面、平台、屋頂帶三層',
+    }
     a.stand(4, 'P')
     a.stand(6, 'h')
-    # 安全區
+    # 市集口（安全區）
     a.hint(10, '街上有人發傳單、有人聊天，不是每個人都想打你')
     a.stand(22, 'f')
     a.stand(34, 'j')
     a.hint(38, '街角的巷子裡有電話亭：先去備份，死了才有地方醒來')
-    # 教學①：射擊與掩護（x=49～80）
+    # 掩護教學（x=49～70）
     a.trigger(50, 'ch1_g06_lamp')
     a.hint(52, '清掃兵在前面：靠著箱子，瞄準、射擊、再縮回去')
-    a.block(60, 61, 18, 19)
-    a.stand(66, 'g')
-    # 教學②：衝刺與格擋（x=81～120）
-    a.trigger(80, 'ch1_g06_tip_slide')
-    a.hint(84, '按住 {block} 舉盾；子彈到的瞬間舉盾＝完美反彈')
-    a.platform(92, 100, 16)
-    a.stand(96, 'g')
-    a.stand(108, 'g')
-    a.stand(112, 'i')
-    a.stand(116, 'e')
-    # 教學③：近戰與高度（x=121～145）
+    a.block(58, 59, 18, 19)
+    a.encounter('接觸', 62, 70, [(66, 'g')])
+    # 高台（x=72～86）：抬頭瞄準
+    a.block(72, 73, 17, 19)
+    a.platform(76, 81, 16)
+    a.encounter('高台', 76, 86, [(78, 'g', 15), (84, 'g')])
+    # 格擋（x=84～90）
+    a.trigger(82, 'ch1_g06_tip_slide')
+    a.hint(86, '按住 {block} 舉盾；子彈到的瞬間舉盾＝完美反彈')
+    a.block(88, 88, 18, 19)
+    a.encounter('格擋', 89, 90, [(90, 'k')])
+    # 鎖場「街心」（x=92～118）：兩層平台與一架無人機，增援一名槍手
+    a.platform(98, 103, 16)
+    a.platform(106, 111, 13)
+    a.block(113, 114, 18, 19)
+    a.encounter('街心', 92, 118, [(98, 'g'), (111, 'g'), (104, 'd', 9)], reinforcements=['k'], lock=True, slug='plaza', gate_h=9,
+                start_text='路被封住了：打倒他們', clear_text='街道通了')
+    a.stand(121, 'i')
+    # 近戰與高路（x=122～147）
     a.trigger(120, 'ch1_g06_tip_blade')
     a.hint(123, '敵人頭上出現青色菱形：按 {melee} 終結，回補彈藥')
-    a.platform(128, 136, 15)
-    a.put(132, 14, 'g')
-    a.stand(124, 'c')
-    # 收帳人的路障（x=146～180）
-    a.trigger(146, 'ch1_g06_tip_collector')
-    a.stand(148, 'o')
-    a.block(150, 151, 18, 19)
-    a.stand(156, 'k')
-    a.block(164, 165, 18, 19)
-    a.stand(172, 'k')
-    a.stand(176, 'm')
-    a.stand(160, 'c')
-    # 碼頭路（x=181～207）：隱藏房間與倉庫的門
-    a.block(184, 196, 16, 19)
-    a.clear(184, 190, 17, 19)
-    a.put(184, 19, 'X')
-    a.stand(188, 'q', row=19)
-    a.stand(200, 'c')
-    a.put(186, 9, 'd')
+    a.block(127, 128, 18, 19)
+    a.encounter('近戰', 124, 140, [(133, 'b'), (138, 'g')])
+    a.platform(122, 125, 16)
+    a.platform(127, 130, 13)
+    a.platform(132, 146, 10)
+    a.stand(139, 'q', row=9)
+    a.encounter('高路', 141, 146, [(143, 'g', 9)])
+    # 空襲（x=142～150）
+    a.encounter('空襲', 147, 150, [(148, 'd', 13)])
+    # 鎖場「路障」（x=152～182）＝迷你頭目：督察、兩名槍手；增援兩名清掃兵
+    a.trigger(149, 'ch1_g06_tip_collector')
+    a.block(160, 161, 17, 19)
+    a.platform(164, 169, 15)
+    a.block(171, 172, 18, 19)
+    a.platform(175, 179, 15)
+    a.encounter('路障', 152, 182, [(168, 'z'), (166, 'k', 14), (177, 'k', 14)], reinforcements=['g', 'g'], lock=True, slug='blockade', gate_h=9,
+                start_text='收帳人封路：撐住', clear_text='路障清掉了')
+    a.stand(185, 'o')
+    a.stand(184, 'c')
+    a.stand(186, 'm')
+    # 碼頭路（x=183～207）：裂縫牆的秘密房與倉庫的門
+    a.block(187, 199, 16, 19)
+    a.clear(187, 193, 17, 19)
+    a.put(187, 19, 'X')
+    a.stand(191, 'q', row=19)
+    a.stand(203, 'c')
     a.stand(204, 'N')
-    a.trigger(181, 'ch1_g06_clear')
-    a.hint(198, '碼頭倉庫：看門狗睡在大廳深處，走進去再決定要不要叫醒牠')
+    a.trigger(183, 'ch1_g06_clear')
+    a.hint(201, '碼頭倉庫：看門狗睡在大廳深處，走進去再決定要不要叫醒牠')
+    a.encounter('出口伏擊', 183, 187, [(184, 'd', 14), (186, 'd', 11)])
+    a.stand(188, 'e')
     # 道具：背景立面
     a.prop('harbor_street__fish_cart', 14)
     a.prop('harbor_street__parked_scooter', 42)
@@ -500,7 +593,17 @@ def build_booth_alley():
 
 
 def build_warehouse():
+    """碼頭倉庫（ST-11 重設計）：前廳（看門狗＝迷你頭目 A）→ 閘門廳（機關與水坑）→ 保險箱（鎖場，迷你頭目 B）→ 上層走道（鎖場）。
+    逐場遭遇與設計理由見 design/13-story-v2/CH01_PACING_V2.md §3.2。"""
     a = Area('warehouse', '碼頭倉庫', 244, 17, indoor=True)
+    a.combat = True
+    a.features = {
+        'loop': '保險箱旁的階梯平台（x=168～181）：上去走上層走道，也可以從平台跳回下層走道',
+        'reward': '貨櫃堆頂的醫療針（x=24）：前廳一進來就看得到，要爬貨櫃，上面有槍手守著',
+        'secret': '下層走道盡頭的裂縫牆（x=234）：打破牆進去有大額信用點',
+        'landmark': '吊車鏈條與探照燈（前廳，x=11～34）',
+        'vertical': '地面、貨櫃頂、上層走道三層',
+    }
     a.ceiling(1, 242, 4)
     # 前廳（看門狗廳）x=1～72
     a.stand(3, 'O')
@@ -514,9 +617,12 @@ def build_warehouse():
     a.region(22, 25, 12, 16, 'container_blue')
     a.block(46, 49, 14, 16)
     a.region(46, 49, 14, 16, 'container_green')
-    a.stand(30, 'g')
-    a.stand(38, 'g')
-    a.stand(56, 'w')
+    a.encounter('貨櫃頂', 20, 26, [(23, 'k', 11)])
+    a.stand(24, 'i', row=11)
+    a.encounter('前廳左', 28, 34, [(30, 'g')])
+    a.encounter('前廳右', 36, 42, [(38, 'g')])
+    a.encounter('吊車下', 44, 50, [(47, 'k', 13)])
+    a.encounter('看門狗', 52, 60, [(56, 'w')])      # 迷你頭目 A：不鎖場，傷會留著
     a.stand(28, 'c')
     a.stand(66, 'c')
     a.stand(68, 'c')
@@ -534,45 +640,58 @@ def build_warehouse():
     a.stand(84, 'l')
     a.stand(90, 'a')
     a.hint(92, '開關：按 {interact} 切換，閘門跟著開關')
-    a.stand(95, 'b')
+    a.encounter('開關守衛', 93, 96, [(95, 'b')])
     a.block(97, 99, 14, 16)
     a.region(97, 99, 14, 16, 'container_rust')
     a.block(101, 103, 12, 16)
     a.region(101, 103, 12, 16, 'container_red')
     a.platform(105, 110, 11)
     a.put(107, 10, 'R')
-    a.put(100, 7, 'd')
+    a.encounter('高處無人機', 98, 110, [(100, 'd', 7), (108, 'd', 6)])
     a.stand(112, 'r')
-    a.stand(114, 'b')
-    a.stand(116, 'c')
+    a.stand(113, 'c')
+    a.encounter('坑前', 114, 116, [(114, 'b'), (116, 'k')])
     a.hint(115, '牆上的水位刻度很高：這個坑會漲水')
     a.trigger(117, 'ch1_g10_pit')
     # 水坑：寬 11（x=118～128）、深 6（列 17～22），坑底在第 23 列
     a.clear(118, 128, 17, 22)
     a.stand(123, 'W', row=22)
-    a.put(123, 7, 'd')
+    a.encounter('坑上', 119, 128, [(123, 'd', 7)])
     a.stand(133, 's')
     a.trigger(135, 'ch1_g10_cross')
     a.prop('dock_warehouse__floor_switch_plate', 121, y=22, dx=-3)
     a.prop('dock_warehouse__water_pump', 86)
     a.prop('dock_warehouse__float_drum_crate', 106, y=10)
-    # 保險箱 x=134～170
-    a.stand(136, 'i')
-    a.stand(150, 'q')
+    a.encounter('坑對岸', 134, 140, [(137, 'g'), (140, 'g')])
+    # 保險箱 x=142～166：鎖場，迷你頭目 B（督察），資料盤在裡面
+    a.block(150, 151, 14, 16)
+    a.platform(158, 163, 13)
+    a.encounter('保險箱守衛', 142, 166, [(157, 'z'), (148, 'k')], reinforcements=['b'], lock=True, slug='vault', gate_h=13,
+                start_text='保險箱有人守著：撐住', clear_text='保險箱安全了')
     a.stand(160, 'y')
     a.hint(156, '保險箱裡有一片資料盤：拿了就能從上層通道離開')
-    a.trigger(154, 'ch1_g10_disk')
-    a.stand(140, 'c')
-    a.prop('dock_warehouse__open_container', 142)
+    a.stand(146, 'c')
+    a.stand(167, 'i')
+    a.trigger(168, 'ch1_g10_disk')
+    a.prop('dock_warehouse__open_container', 143)
     # 上層走道：階梯平台通往右側的高處走道
     a.platform(168, 171, 14)
     a.platform(173, 176, 12)
     a.platform(178, 181, 10)
+    a.encounter('階梯', 169, 181, [(172, 'd', 9)])
     a.block(183, 238, 9, 10)
-    a.put(190, 8, 'c')
-    a.put(240, 8, 'L')
     a.block(239, 242, 9, 10)
+    a.put(240, 8, 'L')
+    a.stand(190, 'c', row=8)
+    a.encounter('上層走道', 185, 235, [(192, 'g', 8), (204, 'g', 8), (216, 'k', 8), (210, 'd', 6)], reinforcements=['k'], lock=True, slug='walkway',
+                gate_h=5, floor_row=8, start_text='走道上有人：清乾淨再走', clear_text='走道通了')
+    # 下層走道（走道下面）：秘密房
     a.stand(210, 'c', row=16)
+    a.stand(200, 'i', row=16)
+    a.block(234, 241, 11, 16)
+    a.clear(234, 240, 14, 16)
+    a.put(234, 16, 'X')
+    a.stand(238, 'q', row=16)
     for x in (12, 40, 66, 90, 118, 146, 172, 200, 226):
         a.lamp(x, 5)
     a.zone(0, 'freight')
@@ -613,6 +732,113 @@ def build_stall():
     a.lamp(20, 9)
     a.zone(0, 'mezzanine_gray')
     return a
+
+
+# ---------------------------------------------------------------------------
+# 鎖場遭遇的資料檔與設計報告
+# ---------------------------------------------------------------------------
+
+def write_encounter_files(areas):
+    """每個鎖場兩個資料檔：範圍（ENCOUNTER）與競技場閘門（GATE，arena_gate）。每次重新產生，不手改。"""
+    os.makedirs(ENCOUNTER_DIR, exist_ok=True)
+    for a in areas:
+        for e in a.encounters:
+            if not e['lock']:
+                continue
+            channel = f'arena_{e["key"]}'
+            w = TresWriter('MechanismData', 'res://data/scripts/mechanism_data.gd')
+            width = e['x1'] - e['x0'] + 1
+            lines = [f'script = ExtResource("{w.script_id}")', f'id = &"ch1_enc_{e["key"]}"', 'kind = 5',
+                     f'display_name = {json.dumps("鎖場：" + e["name"], ensure_ascii=False)}', f'channel = &"{channel}"',
+                     f'size_tiles = Vector2i({width}, {e["gate_h"]})', f'max_lock_seconds = {float(e["max_lock"])}']
+            if e['reinforcements']:
+                enemy_script = w.ext('res://data/scripts/enemy_data.gd', 'Script')
+                refs = ', '.join(f'ExtResource("{w.ext(RES[c])}")' for c in e['reinforcements'])
+                lines.append(f'reinforcements = Array[ExtResource("{enemy_script}")]([{refs}])')
+            if e['start_text']:
+                lines.append(f'start_text = {json.dumps(e["start_text"], ensure_ascii=False)}')
+            if e['clear_text']:
+                lines.append(f'clear_text = {json.dumps(e["clear_text"], ensure_ascii=False)}')
+            if e['start_scene']:
+                lines.append(f'start_scene = &"{e["start_scene"]}"')
+            with open(os.path.join(ENCOUNTER_DIR, f'ch1_enc_{e["key"]}.tres'), 'w') as f:
+                f.write(w.render(lines))
+            g = TresWriter('MechanismData', 'res://data/scripts/mechanism_data.gd')
+            glines = [f'script = ExtResource("{g.script_id}")', f'id = &"ch1_arena_{e["key"]}"', 'kind = 1',
+                      f'display_name = "競技場閘門"', 'hint = ""', 'color = Color(1, 0.35, 0.3, 1)', f'channel = &"{channel}"',
+                      f'size_tiles = Vector2i(1, {e["gate_h"]})', 'arena_gate = true']
+            with open(os.path.join(ENCOUNTER_DIR, f'ch1_arena_{e["key"]}.tres'), 'w') as f:
+                f.write(g.render(glines))
+
+
+def write_design(areas):
+    """設計資料：每區的戰鬥區標記、特色（迴圈、獎勵、秘密、地標、垂直空間）與遭遇清單，測試與報告讀它。"""
+    data = {'areas': {}}
+    for a in areas:
+        data['areas'][a.id] = {
+            'combat': a.combat, 'features': a.features,
+            'encounters': [{'name': e['name'], 'lock': e['lock'], 'x0': e['x0'], 'x1': e['x1'], 'members': [ENEMY_NAMES[c] for c in e['members']],
+                            'reinforcements': [ENEMY_NAMES[c] for c in e['reinforcements']]} for e in a.encounters],
+        }
+    with open(os.path.join(LEVEL_DIR, 'ch1_design.json'), 'w') as f:
+        json.dump(data, f, ensure_ascii=False, indent=1)
+        f.write('\n')
+
+
+def render_overview(areas, out_dir):
+    """一頁式地圖圖解（設計文件用）：每格 6 像素，實心、平台、敵人、鎖場閘門、獎勵、出入口與電話亭用不同顏色，鎖場範圍畫框。"""
+    try:
+        from PIL import Image, ImageDraw, ImageFont
+    except ImportError:
+        print('沒有 Pillow，略過地圖圖解')
+        return
+    cell = 6
+    font = ImageFont.truetype(os.path.join(ROOT, 'art', 'fonts', 'Cubic_11.ttf'), 11)
+    colors = {'#': (70, 76, 90), '=': (120, 170, 200), 'P': (80, 220, 120), 'C': (60, 200, 255), 'X': (200, 150, 60)}
+    enemy_color = (235, 70, 70)
+    boss_color = (255, 40, 200)
+    for a in areas:
+        if not a.combat:
+            continue
+        w, h = a.w * cell, H * cell + 28
+        img = Image.new('RGB', (w, h), (18, 20, 28))
+        d = ImageDraw.Draw(img)
+        for y in range(H):
+            for x in range(a.w):
+                c = a.grid.at(x, y)
+                box = (x * cell, y * cell + 14, x * cell + cell - 1, y * cell + 14 + cell - 1)
+                if c in colors:
+                    d.rectangle(box, fill=colors[c])
+                elif c in ('w', 'z'):
+                    d.rectangle(box, fill=boss_color)
+                elif c in ENEMY_NAMES:
+                    d.rectangle(box, fill=enemy_color)
+                elif c in DYN_RES and DYN_RES[c].find('_arena_') >= 0:
+                    d.rectangle(box, fill=(255, 160, 40))
+                elif c in ('q', 'c', 'i', 'e', 'y', 'o', 'f', 'l', 'p', 't'):
+                    d.rectangle(box, fill=(250, 220, 60))
+                elif c in PORTALS:
+                    d.rectangle(box, fill=(180, 120, 255))
+        for e in a.encounters:
+            if e['lock']:
+                d.rectangle((e['x0'] * cell, 14, e['x1'] * cell + cell - 1, 14 + H * cell), outline=(255, 160, 40))
+                d.text((e['x0'] * cell + 3, 1), e['name'], fill=(255, 190, 90), font=font)
+        d.text((2, H * cell + 16), f'{a.id}  紅＝敵人 洋紅＝迷你頭目 橘＝競技場閘門／鎖場框 黃＝獎勵 紫＝出入口 藍＝電話亭 青＝平台', fill=(190, 200, 220), font=font)
+        os.makedirs(out_dir, exist_ok=True)
+        img.save(os.path.join(out_dir, f'ST-11-map-{a.id}.png'))
+        print('wrote', os.path.join(out_dir, f'ST-11-map-{a.id}.png'))
+
+
+def report(areas):
+    total = locks = 0
+    for a in areas:
+        for e in a.encounters:
+            total += 1
+            locks += 1 if e['lock'] else 0
+    print(f'遭遇 {total} 場，其中鎖場 {locks} 場')
+    for a in areas:
+        if a.encounters:
+            print(f'  {a.id}: ' + '、'.join(f'{e["name"]}{"（鎖）" if e["lock"] else ""}' for e in a.encounters))
 
 
 # ---------------------------------------------------------------------------
@@ -688,6 +914,8 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
     for c in used:
         if c in RES:
             legend.append(f'"{c}": ExtResource("{w.ext(RES[c])}")')
+        elif c in DYN_RES:
+            legend.append(f'"{c}": ExtResource("{w.ext(DYN_RES[c])}")')
         elif c in PORTALS:
             p = PORTALS[c]
             portal_script = w.ext('res://data/scripts/portal_data.gd', 'Script')
@@ -758,6 +986,11 @@ def main():
     if problems:
         print('\n'.join(problems))
         sys.exit(1)
+    write_encounter_files(areas)
+    write_design(areas)
+    report(areas)
+    if '--render' in sys.argv:
+        render_overview(areas, os.path.join(ROOT, 'pm', 'ST', 'images'))
     for a in areas:
         extra = {"props": a.props}
         if a.regions:
