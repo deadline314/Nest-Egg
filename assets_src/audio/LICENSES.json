@@ -57,6 +57,12 @@
    "GUN-0391.wav",
    "MOV-0325.wav",
    "MOV-0326.wav",
+   "MOV-0504.wav",
+   "MOV-0505.wav",
+   "MOV-0506.wav",
+   "MOV-0507.wav",
+   "MOV-0508.wav",
+   "MOV-0509.wav",
    "RLD-0077.wav",
    "RLD-0078.wav",
    "RLD-0079.wav",
@@ -108,8 +114,14 @@
    "res://audio/sfx/shot_smg_01.ogg",
    "res://audio/sfx/shot_smg_02.ogg",
    "res://audio/sfx/shot_smg_03.ogg",
+   "res://audio/sfx/step_dirt_01.ogg",
+   "res://audio/sfx/step_dirt_02.ogg",
+   "res://audio/sfx/step_dirt_03.ogg",
    "res://audio/sfx/step_metal_01.ogg",
-   "res://audio/sfx/step_metal_02.ogg"
+   "res://audio/sfx/step_metal_02.ogg",
+   "res://audio/sfx/step_wood_01.ogg",
+   "res://audio/sfx/step_wood_02.ogg",
+   "res://audio/sfx/step_wood_03.ogg"
   ],
   "derived_from": [
    {
@@ -223,6 +235,48 @@
     "source_file": "R10-56-Footsteps on Metal Staircase.mp3",
     "start": 3.8288,
     "end": 4.3193
+   },
+   {
+    "file": "MOV-0504.wav",
+    "pack": "fs_cc0-steps-wood",
+    "source_file": "405114_5337613-hq.mp3",
+    "start": 0.03,
+    "end": 0.4
+   },
+   {
+    "file": "MOV-0505.wav",
+    "pack": "fs_cc0-steps-wood",
+    "source_file": "405114_5337613-hq.mp3",
+    "start": 0.95,
+    "end": 1.4
+   },
+   {
+    "file": "MOV-0506.wav",
+    "pack": "fs_cc0-steps-wood",
+    "source_file": "422858_6613468-hq.mp3",
+    "start": 0.04,
+    "end": 0.38
+   },
+   {
+    "file": "MOV-0507.wav",
+    "pack": "fs_cc0-steps-ground",
+    "source_file": "353799_5337613-hq.mp3",
+    "start": 0.29,
+    "end": 0.85
+   },
+   {
+    "file": "MOV-0508.wav",
+    "pack": "fs_cc0-steps-ground",
+    "source_file": "353799_5337613-hq.mp3",
+    "start": 1.28,
+    "end": 1.86
+   },
+   {
+    "file": "MOV-0509.wav",
+    "pack": "fs_cc0-steps-ground",
+    "source_file": "521587_9395330-hq.mp3",
+    "start": 0.07,
+    "end": 0.45
    },
    {
     "file": "RLD-0077.wav",
@@ -435,6 +489,22 @@
   ],
   "outputs": [
    "res://audio/sfx/phone_ring_01.ogg"
+  ]
+ },
+ "fs_cc0-steps-land": {
+  "title": "Freesound CC0：落地與跳躍落地",
+  "author": "Freesound 使用者（逐檔作者見 hints.json）",
+  "license": "CC0-1.0",
+  "page": "https://freesound.org/search/?q=jump+land&f=license%3A%22Creative+Commons+0%22",
+  "files_used": [
+   "422869_6613468-hq.mp3",
+   "422969_6366356-hq.mp3",
+   "795898_13200806-hq.mp3"
+  ],
+  "outputs": [
+   "res://audio/sfx/land_dirt_01.ogg",
+   "res://audio/sfx/land_wood_01.ogg",
+   "res://audio/sfx/land_wood_02.ogg"
   ]
  },
  "fs_cc0-sword-cut": {

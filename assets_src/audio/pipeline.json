@@ -1718,6 +1718,75 @@
      "file": "ELC-0757.wav"
     }
    ]
+  },
+  "step_wood": {
+   "category": "foley",
+   "variants": [
+    {
+     "pack": "clips_sfx",
+     "file": "MOV-0504.wav",
+     "max_len": 0.45
+    },
+    {
+     "pack": "clips_sfx",
+     "file": "MOV-0505.wav",
+     "max_len": 0.45
+    },
+    {
+     "pack": "clips_sfx",
+     "file": "MOV-0506.wav",
+     "max_len": 0.45
+    }
+   ],
+   "volume_db": 0.0
+  },
+  "step_dirt": {
+   "category": "foley",
+   "variants": [
+    {
+     "pack": "clips_sfx",
+     "file": "MOV-0507.wav",
+     "max_len": 0.45
+    },
+    {
+     "pack": "clips_sfx",
+     "file": "MOV-0508.wav",
+     "max_len": 0.45
+    },
+    {
+     "pack": "clips_sfx",
+     "file": "MOV-0509.wav",
+     "max_len": 0.45
+    }
+   ],
+   "volume_db": 0.0
+  },
+  "land_wood": {
+   "category": "impact",
+   "variants": [
+    {
+     "pack": "fs_cc0-steps-land",
+     "file": "422869_6613468-hq.mp3",
+     "max_len": 0.6
+    },
+    {
+     "pack": "fs_cc0-steps-land",
+     "file": "795898_13200806-hq.mp3",
+     "max_len": 0.6
+    }
+   ],
+   "volume_db": -4.0
+  },
+  "land_dirt": {
+   "category": "impact",
+   "variants": [
+    {
+     "pack": "fs_cc0-steps-land",
+     "file": "422969_6366356-hq.mp3",
+     "max_len": 0.6
+    }
+   ],
+   "volume_db": -4.0
   }
  },
  "music": {

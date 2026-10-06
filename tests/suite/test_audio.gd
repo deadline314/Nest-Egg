@@ -495,6 +495,10 @@ func _test_footstep_data() -> void:
 		check(Sfx.source_of(step) == &"file" and Sfx.source_of(land) == &"file", "surface %s step and land play from files (%s, %s)" % [surface, step, land])
 		steps[step] = true
 	check(steps.size() == Footsteps.surfaces().size(), "every surface has its own footstep sound")
+	check(Footsteps.surfaces().has(&"wood") and Footsteps.surfaces().has(&"dirt"), "wood and dirt/grass surfaces exist")
+	check(Footsteps.name_for(&"wood", &"step") == &"step_wood" and Footsteps.name_for(&"wood", &"land") == &"land_wood", "the wood surface plays its own step and landing sounds")
+	check(Footsteps.name_for(&"dirt", &"step") == &"step_dirt" and Footsteps.name_for(&"dirt", &"land") == &"land_dirt", "the dirt/grass surface plays its own step and landing sounds")
+	check(Footsteps.name_for(&"concrete", &"step") == &"step_concrete", "an unmarked (default) surface keeps the original concrete footstep")
 
 
 ## 走路會有腳步聲：依距離計步、停下或在空中沒有、蹲著比較輕。

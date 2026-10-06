@@ -108,6 +108,10 @@ func _run() -> void:
 		await _run_lab_live()
 		get_tree().quit()
 		return
+	if _scenario == "lab_footsteps":
+		await _run_lab_live("lab_footsteps")
+		get_tree().quit()
+		return
 	if _scenario == "lab_clip":
 		await _run_lab_clip()
 		get_tree().quit()
@@ -1397,8 +1401,8 @@ func _run_lab_apply() -> void:
 	get_window().content_scale_mode = scale_mode_before
 
 
-## 音效實驗室的即時試玩分頁：武器射擊與射速倍率。
-func _run_lab_live() -> void:
+## 音效實驗室的即時試玩分頁：武器射擊與射速倍率；lab_footsteps 是地面種類（木頭）的腳步。
+func _run_lab_live(shot := "lab_live") -> void:
 	var scale_mode_before := get_window().content_scale_mode
 	get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
 	var lab := SoundLab.new()
@@ -1406,9 +1410,14 @@ func _run_lab_live() -> void:
 	add_child(lab)
 	await _settle(20)
 	lab.tabs.current_tab = lab.tabs.get_tab_idx_from_control(lab.live_tab)
-	lab.live_tab._fire_rate.select(3)
+	if shot == "lab_footsteps":  # 地面種類選到木頭，並播一次腳步讓診斷列出實際播的聲音
+		var surfaces := Footsteps.surfaces()
+		lab.live_tab._surface.select(surfaces.find(&"wood"))
+		lab.live_tab.play_footsteps("wood", 6)
+	else:
+		lab.live_tab._fire_rate.select(3)
 	await _settle(10)
-	_capture("lab_live")
+	_capture(shot)
 	lab.queue_free()
 	get_window().content_scale_mode = scale_mode_before
 

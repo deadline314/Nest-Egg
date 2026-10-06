@@ -63,7 +63,7 @@ func _ready() -> void:
 		row.add_child(_button(entry[0], func() -> void: play_named(entry[1]), "播放「%s」" % entry[1]))
 
 	box.add_child(_heading("腳步與落地（依地面種類）"))
-	_surface = _option(box, "地面", PackedStringArray(Footsteps.surfaces().map(func(s: Variant) -> String: return str(s))), "金屬、混凝土、潮濕")
+	_surface = _option(box, "地面", PackedStringArray(Footsteps.surfaces().map(func(s: Variant) -> String: return str(s))), "選擇腳下的地面種類")
 	row = HBoxContainer.new()
 	box.add_child(row)
 	row.add_child(_button("走路 ×6", func() -> void: play_footsteps(_selected(_surface), 6), "依走路的節奏播放六步"))

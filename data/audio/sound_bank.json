@@ -1063,6 +1063,39 @@
     "res://audio/sfx/phone_dial3_01.ogg"
    ],
    "pack": "clips_sfx"
+  },
+  "step_wood": {
+   "files": [
+    "res://audio/sfx/step_wood_01.ogg",
+    "res://audio/sfx/step_wood_02.ogg",
+    "res://audio/sfx/step_wood_03.ogg"
+   ],
+   "pack": "clips_sfx",
+   "volume_db": 0.0
+  },
+  "step_dirt": {
+   "files": [
+    "res://audio/sfx/step_dirt_01.ogg",
+    "res://audio/sfx/step_dirt_02.ogg",
+    "res://audio/sfx/step_dirt_03.ogg"
+   ],
+   "pack": "clips_sfx",
+   "volume_db": 0.0
+  },
+  "land_wood": {
+   "files": [
+    "res://audio/sfx/land_wood_01.ogg",
+    "res://audio/sfx/land_wood_02.ogg"
+   ],
+   "pack": "fs_cc0-steps-land",
+   "volume_db": -4.0
+  },
+  "land_dirt": {
+   "files": [
+    "res://audio/sfx/land_dirt_01.ogg"
+   ],
+   "pack": "fs_cc0-steps-land",
+   "volume_db": -4.0
   }
  }
 }

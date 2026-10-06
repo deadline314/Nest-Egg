@@ -1,5 +1,5 @@
 {
- "_說明": "腳步聲與落地聲。materials：地形材質 id → 地面種類（每個地形材質都要登記）；default_surface：沒登記的材質；default／profiles：地面種類 → step（腳步）、land（落地），值是音效或聲音事件名稱（陣列依序挑第一個存在的）。",
+ "_說明": "腳步聲與落地聲。materials：地形材質 id → 地面種類（每個地形材質都要登記）；default_surface：沒登記的材質；default／profiles：地面種類 → step（腳步）、land（落地），值是音效或聲音事件名稱（陣列依序挑第一個存在的）。 木頭（wood）與泥土草地（dirt）已有腳步與落地聲，但目前沒有地形材質用到它們；新增木地板或泥土草地材質時，在 materials 把材質 id 對到 wood 或 dirt 即可。",
  "default_surface": "concrete",
  "materials": {
   "asphalt": "wet",
@@ -49,6 +49,26 @@
    ],
    "land": [
     "land_wet",
+    "land"
+   ]
+  },
+  "wood": {
+   "step": [
+    "step_wood",
+    "step_concrete"
+   ],
+   "land": [
+    "land_wood",
+    "land"
+   ]
+  },
+  "dirt": {
+   "step": [
+    "step_dirt",
+    "step_concrete"
+   ],
+   "land": [
+    "land_dirt",
     "land"
    ]
   }

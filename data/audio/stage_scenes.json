@@ -656,6 +656,44 @@
    },
    "tip": "玩家從高處落在潮濕地面，聽落地聲與塵土"
   },
+  "mov_walk_wood": {
+   "name": "走在木頭地面",
+   "group": "移動",
+   "action": "walk",
+   "params": {
+    "surface": "wood",
+    "seconds": 2
+   },
+   "tip": "玩家在木頭地面上走兩秒，聽腳步聲"
+  },
+  "mov_land_wood": {
+   "name": "落在木頭地面",
+   "group": "移動",
+   "action": "land",
+   "params": {
+    "surface": "wood"
+   },
+   "tip": "玩家從高處落在木頭地面，聽落地聲與塵土"
+  },
+  "mov_walk_dirt": {
+   "name": "走在泥土草地地面",
+   "group": "移動",
+   "action": "walk",
+   "params": {
+    "surface": "dirt",
+    "seconds": 2
+   },
+   "tip": "玩家在泥土草地地面上走兩秒，聽腳步聲"
+  },
+  "mov_land_dirt": {
+   "name": "落在泥土草地地面",
+   "group": "移動",
+   "action": "land",
+   "params": {
+    "surface": "dirt"
+   },
+   "tip": "玩家從高處落在泥土草地地面，聽落地聲與塵土"
+  },
   "mov_land_unknown": {
    "name": "落在未知地面",
    "group": "移動",
@@ -1500,6 +1538,18 @@
   ],
   "P-WPN-041": [
    "wpn_finisher"
+  ],
+  "P-MOV-010": [
+   "mov_walk_wood"
+  ],
+  "P-MOV-011": [
+   "mov_walk_dirt"
+  ],
+  "P-MOV-012": [
+   "mov_land_wood"
+  ],
+  "P-MOV-013": [
+   "mov_land_dirt"
   ]
  }
 }

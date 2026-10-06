@@ -54,6 +54,8 @@
 | 腳步：金屬（footstep_metal） | oga_metal-footsteps-on-concrete |
 | 腳步：混凝土（footstep_concrete） | kenney_impact-sounds、oga_fantozzis-footsteps-grasssand-stone |
 | 腳步：潮濕（footstep_wet） | oga_100-cc0-sfx-2、oga_40-cc0-water-splash-slime-sfx、oga_water-splash-and-sand-footsteps |
+| 腳步：木頭（step_wood） | fs_cc0-steps-wood（Freesound CC0，擷取單步） |
+| 腳步：泥土草地（step_dirt） | fs_cc0-steps-ground（Freesound CC0，擷取單步） |
 | 跳躍落地（jump_land） | oga_jump-landing、oga_jump-and-run-and-stand、oga_playersounds-1-by-emopreben |
 | 衝刺／滑行（dash_slide） | oga_air-whoosh、oga_swishes-sound-pack、oga_68-workshop-sounds |
 | 衣物聲（cloth_movement） | kenney_rpg-audio、oga_scorchers-foley-sounds |
