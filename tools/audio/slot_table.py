@@ -145,8 +145,8 @@ SFX = [
 # 背景音樂：(曲目 id, 名稱, 遊戲裡哪裡用到, 提示)。素材類固定 MUS，hint 的 use 是調查報告的用途標籤。
 MUSIC = [
     ("menu_dark", "主選單", "主選單畫面", {"use": ["menu"]}),
-    ("victory_sting", "通關短曲", "通關結算畫面（一次性）", {"use": ["victory"], "dur": [0.0, 30.0]}),
-    ("death_sting", "死亡短曲", "玩家死亡後的畫面（一次性）", {"use": ["defeat"], "dur": [0.0, 30.0]}),
+    ("victory_sting", "通關短曲", "通關結算畫面（一次性）", {"use": ["victory"], "dur": [0.0, 400.0]}),
+    ("death_sting", "死亡短曲", "玩家死亡後的畫面（一次性）", {"use": ["defeat"], "dur": [0.0, 400.0]}),
     ("calm_rooftop", "平靜：第一章屋頂", "第一章屋頂區段（rooftop）沒有戰鬥時", {"use": ["calm", "rooftop"]}),
     ("calm_market", "平靜：第一章市場", "第一章市場區段（market）", {"use": ["calm"]}),
     ("calm_freight", "平靜：第一章貨運站", "第一章貨運站區段（freight）；也是沒登記區段的預設平靜曲", {"use": ["tense", "calm"]}),

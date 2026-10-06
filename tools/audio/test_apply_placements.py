@@ -107,6 +107,45 @@ class ApplyPlacementsTest(unittest.TestCase):
         self.assertEqual((entry["end"], entry["fade_out_ms"], "loop_blend_ms" in entry), (ap.STING_SECONDS, 1500.0, False))
         self.assertTrue(any("短曲" in w for w in changes[0]["warnings"]))
 
+    def add_sting_slot(self):
+        slots = json.loads((self.tmp / "slots.json").read_text(encoding="utf-8"))
+        slots["slots"].append({"id": "P-BGM-002", "domain": "BGM", "kind": "music", "target": "victory_sting", "name": "通關短曲", "category": "MUS", "current": ["MUS-0001"]})
+        (self.tmp / "slots.json").write_text(json.dumps(slots, ensure_ascii=False), encoding="utf-8")
+
+    def test_a_sting_can_start_in_the_middle_of_the_track(self):
+        self.add_sting_slot()
+        self.write_doc([row("P-BGM-002", "通關短曲", "MUS-0001", "MUS-0002@45")])
+        changes, problems, pipeline = ap.plan(self.doc)
+        entry = pipeline["music"]["victory_sting"]
+        self.assertEqual(problems, [])
+        self.assertEqual((entry["file"], entry["start"], entry["end"], entry["fade_in_ms"], entry["fade_out_ms"]), ("m2.mp3", 45.0, 45.0 + ap.STING_SECONDS, 300.0, 1500.0))
+        self.assertTrue(any("第 45 秒" in w for w in changes[0]["warnings"]))
+
+    def test_changing_only_the_start_of_the_same_track_is_a_change(self):
+        self.add_sting_slot()
+        pipeline = json.loads((self.tmp / "pipeline.json").read_text(encoding="utf-8"))
+        pipeline["music"]["victory_sting"] = {"pack": "packM", "file": "m1.mp3", "end": ap.STING_SECONDS}
+        (self.tmp / "pipeline.json").write_text(json.dumps(pipeline), encoding="utf-8")
+        self.write_doc([row("P-BGM-002", "通關短曲", "MUS-0001", "MUS-0001")])
+        self.assertEqual(ap.plan(self.doc)[0], [], "same track and no start: nothing to do")
+        self.write_doc([row("P-BGM-002", "通關短曲", "MUS-0001", "MUS-0001@30")])
+        changes, _, new_pipeline = ap.plan(self.doc)
+        self.assertEqual(([c["slot"] for c in changes], new_pipeline["music"]["victory_sting"]["start"]), (["P-BGM-002"], 30.0))
+        self.assertEqual(ap.plan(self.doc)[0][0]["planned"], ["MUS-0001"], "the start suffix is not part of the asset id")
+
+    def test_a_sting_start_past_the_end_of_the_track_is_a_problem(self):
+        self.add_sting_slot()
+        self.write_doc([row("P-BGM-002", "通關短曲", "MUS-0001", "MUS-0001@95")])
+        changes, problems, _ = ap.plan(self.doc)
+        self.assertEqual(changes, [])
+        self.assertTrue(any("起點 95 秒超過" in p for p in problems))
+
+    def test_a_start_on_a_looping_track_is_ignored_with_a_warning(self):
+        self.write_doc([row("P-BGM-001", "主選單", "MUS-0001", "MUS-0002@45")])
+        changes, _, pipeline = ap.plan(self.doc)
+        self.assertNotIn("start", pipeline["music"]["menu_dark"])
+        self.assertTrue(any("只有短曲" in w for w in changes[0]["warnings"]))
+
     def test_only_filters_the_slots(self):
         changes, _, _ = ap.plan(self.doc, ["P-HIT-001"])
         self.assertEqual([c["slot"] for c in changes], ["P-HIT-001"])

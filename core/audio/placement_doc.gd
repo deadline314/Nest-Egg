@@ -11,6 +11,9 @@ const COL_PLANNED := 4
 const COL_MANUAL := 5
 const SLOT_PATTERN := "^\\|\\s*(P-[A-Z]+-\\d{3})\\s*\\|"
 const ASSET_PATTERN := "[A-Z]{3}-\\d{4}"
+## 短曲（通關、死亡）的起點寫在素材編號後面：MUS-0123@45 = 從第 45 秒起取 STING_SECONDS 秒（tools/audio/apply_placements.py 讀同一個格式）。
+const START_PATTERN := "[A-Z]{3}-\\d{4}@(\\d+(?:\\.\\d+)?)"
+const STING_SECONDS := 12.0
 
 var path := PATH
 var _lines := PackedStringArray()
@@ -18,6 +21,7 @@ var _rows: Dictionary = {}  # 位置編號 -> 該列在 _lines 的索引
 var _mtime := 0
 var _slot_re := RegEx.create_from_string(SLOT_PATTERN)
 var _asset_re := RegEx.create_from_string(ASSET_PATTERN)
+var _start_re := RegEx.create_from_string(START_PATTERN)
 
 
 func load_doc(p_path := PATH) -> bool:
@@ -68,6 +72,20 @@ func planned(slot_id: String) -> PackedStringArray:
 	return result
 
 
+## 秒數的顯示與寫入格式：整數不帶小數（45），其他留一位（45.5）。
+static func seconds_text(seconds: float) -> String:
+	return "%d" % int(seconds) if is_equal_approx(seconds, roundf(seconds)) else "%.1f" % seconds
+
+
+## 短曲預計使用的起點（秒）：沒寫「@秒」= 0（從原曲開頭取）。
+func planned_start(slot_id: String) -> float:
+	var row := cells(slot_id)
+	if row.size() <= COL_PLANNED:
+		return 0.0
+	var match := _start_re.search(row[COL_PLANNED])
+	return float(match.get_string(1)) if match != null else 0.0
+
+
 ## 預計使用欄的原始文字（含看不出編號的內容，檢查用）。
 func planned_text(slot_id: String) -> String:
 	var row := cells(slot_id)
@@ -88,8 +106,12 @@ func current(slot_id: String) -> PackedStringArray:
 	return result
 
 
-func set_planned(slot_id: String, ids: PackedStringArray) -> bool:
-	return _write_cell(slot_id, COL_PLANNED, "、".join(ids))
+## start > 0 時寫在第一個編號後面（只有短曲用得到）：MUS-0123@45。
+func set_planned(slot_id: String, ids: PackedStringArray, start := 0.0) -> bool:
+	var parts := ids.duplicate()
+	if start > 0.0 and not parts.is_empty():
+		parts[0] = "%s@%s" % [parts[0], seconds_text(start)]
+	return _write_cell(slot_id, COL_PLANNED, "、".join(parts))
 
 
 func set_manual(slot_id: String, on: bool) -> bool:

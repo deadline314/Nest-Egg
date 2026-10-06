@@ -84,6 +84,10 @@ func _run() -> void:
 		await _run_lab_music()
 		get_tree().quit()
 		return
+	if _scenario == "lab_sting":
+		await _run_lab_music("victory", "lab_sting")
+		get_tree().quit()
+		return
 	if _scenario == "lab_guns":
 		await _run_lab_guns()
 		get_tree().quit()
@@ -1307,8 +1311,8 @@ func _run_settings() -> void:
 	settings.queue_free()
 
 
-## 音效實驗室的背景音樂分頁：選一個 cue，列出它那首曲子的備選曲目。
-func _run_lab_music() -> void:
+## 音效實驗室的背景音樂分頁：選一個 cue，列出它那首曲子的備選曲目；lab_sting 是通關短曲，選一首長曲並設起點。
+func _run_lab_music(cue := "calm_rooftop", shot := "lab_music") -> void:
 	# 實驗室單獨開啟時用視窗的實際解析度（遊戲本身是 640×360 放大），拍攝也照這樣。
 	var scale_mode_before := get_window().content_scale_mode
 	get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
@@ -1317,11 +1321,18 @@ func _run_lab_music() -> void:
 	add_child(lab)
 	await _settle(20)
 	lab.tabs.current_tab = lab.tabs.get_tab_idx_from_control(lab.music_tab)
-	lab.music_tab.select_cue("calm_rooftop")
+	lab.music_tab.select_cue(cue)
+	if shot == "lab_sting":
+		var list: ItemList = lab.music_tab._candidate_list
+		for i in list.item_count:
+			if float(lab.catalog.asset(str(list.get_item_metadata(i))).get("dur", 0.0)) > 60.0:
+				list.select(i)
+				break
+		lab.music_tab._start_spin.value = 16.0
 	await _settle(10)
 	lab.music_tab.scroll_vertical = int(lab.music_tab._candidate_list.position.y) - 120
 	await _settle(10)
-	_capture("lab_music")
+	_capture(shot)
 	lab.queue_free()
 	get_window().content_scale_mode = scale_mode_before
 

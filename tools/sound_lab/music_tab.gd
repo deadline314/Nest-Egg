@@ -10,6 +10,9 @@ var lab: SoundLab
 var _cue_list: ItemList
 var _candidate_list: ItemList
 var _candidate_note: Label
+var _note_base := ""
+var _sting_row: HBoxContainer
+var _start_spin: SpinBox
 var _info: Label
 var _zone: OptionButton
 var _state: OptionButton
@@ -74,12 +77,27 @@ func _ready() -> void:
 	_candidate_list.custom_minimum_size = Vector2(0, 200)
 	_candidate_list.tooltip_text = "★ 已填預計使用　（目前）正在用的曲子；雙擊試聽預聽檔前 60 秒，響度已調成和遊戲內一致"
 	_candidate_list.item_activated.connect(func(_i: int) -> void: audition_candidate())
+	_candidate_list.item_selected.connect(func(_i: int) -> void: _update_note())
 	box.add_child(_candidate_list)
 	row = HBoxContainer.new()
 	box.add_child(row)
 	row.add_child(_button("▶ 試聽備選", audition_candidate, "播放選中的備選曲目（會先停掉正在播的 cue）"))
 	row.add_child(_button("★ 設為預計使用", pick_candidate, "把選中的曲目寫進位置清單文件的「預計使用」，之後用套用工具換進遊戲"))
 	row.add_child(_button("■ 停止試聽", func() -> void: lab.audition.stop(), "停止備選曲目的試聽"))
+	_sting_row = HBoxContainer.new()
+	_sting_row.visible = false
+	box.add_child(_sting_row)
+	var start_label := Label.new()
+	start_label.text = "短曲起點 秒"
+	_sting_row.add_child(start_label)
+	_start_spin = SpinBox.new()
+	_start_spin.min_value = 0.0
+	_start_spin.max_value = 600.0
+	_start_spin.step = 0.5
+	_start_spin.tooltip_text = "通關、死亡短曲從原曲第幾秒開始取 %d 秒（0＝從頭）；「設為預計使用」會一起寫進位置清單。預聽檔只有原曲前 %d 秒" % [int(PlacementDoc.STING_SECONDS), int(SoundLab.MUSIC_PREVIEW_SECONDS)]
+	_start_spin.value_changed.connect(func(_v: float) -> void: _update_note())
+	_sting_row.add_child(_start_spin)
+	_sting_row.add_child(_button("▶ 試聽取用範圍", audition_candidate, "只播選中的備選曲目從這個起點起的 %d 秒，也就是套用後短曲實際會用的段落" % int(PlacementDoc.STING_SECONDS)))
 	_candidate_note = Label.new()
 	_candidate_note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	box.add_child(_candidate_note)
@@ -209,21 +227,48 @@ func _fill_candidates() -> void:
 		_candidate_note.text = "這首曲子沒有位置登記，沒有備選（見 data/audio/slots.json）"
 		return
 	var planned := lab.doc.planned(str(slot["id"]))
+	var sting := is_sting(slot)
+	_sting_row.visible = sting
+	if sting:
+		_start_spin.set_value_no_signal(lab.doc.planned_start(str(slot["id"])))
 	var hidden := 0
 	for aid in candidate_ids(cue):
 		if not lab.catalog.has_preview(aid):
 			hidden += 1
 			continue
 		var tag := "（目前）" if (slot["current"] as Array).has(aid) else ""
-		_candidate_list.add_item("%s%s%s" % ["★ " if planned.has(aid) else "", tag, lab.asset_line(aid)])
+		var taken := range_text(aid, lab.doc.planned_start(str(slot["id"]))) if sting and planned.has(aid) else ""
+		_candidate_list.add_item("%s%s%s%s" % ["★ " if planned.has(aid) else "", tag, lab.asset_line(aid), taken])
 		_candidate_list.set_item_metadata(_candidate_list.item_count - 1, aid)
 		var a := lab.catalog.asset(aid)
 		_candidate_list.set_item_tooltip(_candidate_list.item_count - 1, "%s／%s
 %s" % [a.get("pack", ""), a.get("file", ""), a.get("desc", "")])
-	var note := "%s：%d 首備選" % [slot["id"], _candidate_list.item_count]
+	_note_base = "%s：%d 首備選" % [slot["id"], _candidate_list.item_count]
 	if hidden > 0:
-		note += "；另有 %d 首沒有預聽檔而隱藏，補齊：python tools/audio/build_candidates.py" % hidden
-	_candidate_note.text = note
+		_note_base += "；另有 %d 首沒有預聽檔而隱藏，補齊：python tools/audio/build_candidates.py" % hidden
+	_update_note()
+
+
+## 備選說明；短曲位置多一句「選中曲目會取用的範圍」。
+func _update_note() -> void:
+	var text := _note_base
+	if _sting_row.visible:
+		var aid := selected_candidate()
+		var taken := range_text(aid, _start_spin.value) if not aid.is_empty() else ""
+		text += "；短曲取用範圍：" + (taken.trim_prefix("（").trim_suffix("）") if not taken.is_empty() else "選一首曲子後顯示（短於 %d 秒的整首使用）" % int(PlacementDoc.STING_SECONDS))
+	_candidate_note.text = text
+
+
+static func is_sting(slot: Dictionary) -> bool:
+	return str(slot.get("target", "")).ends_with("_sting")
+
+
+## 短曲從 start 秒起取用的範圍，例如「（取第 30–42 秒）」；曲子不比取用長度長就是整首，回傳空字串。
+func range_text(asset_id: String, start: float) -> String:
+	var length := float(lab.catalog.asset(asset_id).get("dur", 0.0))
+	if length <= PlacementDoc.STING_SECONDS and start <= 0.0:
+		return ""
+	return "（取第 %s–%s 秒）" % [PlacementDoc.seconds_text(start), PlacementDoc.seconds_text(minf(length, start + PlacementDoc.STING_SECONDS))]
 
 
 func selected_candidate() -> String:
@@ -237,6 +282,8 @@ func audition_candidate() -> bool:
 		lab.notify("先在備選曲目選一首")
 		return false
 	Music.stop(0.3)
+	if _sting_row.visible:
+		return lab.audition_asset(aid, _start_spin.value, PlacementDoc.STING_SECONDS)
 	return lab.audition_asset(aid)
 
 
@@ -247,10 +294,11 @@ func pick_candidate() -> bool:
 	if aid.is_empty() or slot.is_empty():
 		lab.notify("先選一個 cue，再在備選曲目選一首")
 		return false
-	if not lab.doc.set_planned(str(slot["id"]), PackedStringArray([aid])):
+	var start := _start_spin.value if is_sting(slot) else 0.0
+	if not lab.doc.set_planned(str(slot["id"]), PackedStringArray([aid]), start):
 		lab.notify("寫入失敗：位置清單文件沒有 %s，或無法寫入（看 log）" % slot["id"])
 		return false
-	lab.notify("已寫入 %s：%s 預計使用 %s" % [lab.doc.path.get_file(), slot["id"], aid])
+	lab.notify("已寫入 %s：%s 預計使用 %s%s" % [lab.doc.path.get_file(), slot["id"], aid, range_text(aid, start) if is_sting(slot) else ""])
 	_fill_candidates()
 	return true
 

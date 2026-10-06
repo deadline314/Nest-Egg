@@ -668,6 +668,10 @@ func _test_placement_doc() -> void:
 	check(doc.planned(first_slot).is_empty() and not doc.is_manual(first_slot), "a cleared row has no plan and is not marked manual")
 	check(doc.set_planned(first_slot, PackedStringArray(["GUN-0001", "GUN-0002"])), "writing a plan succeeds")
 	check(doc.planned(first_slot) == PackedStringArray(["GUN-0001", "GUN-0002"]), "the plan reads back")
+	check(is_zero_approx(doc.planned_start(first_slot)), "a plan without a start begins at the start of the track")
+	check(doc.set_planned(first_slot, PackedStringArray(["MUS-0001", "MUS-0002"]), 45.5) and doc.planned(first_slot) == PackedStringArray(["MUS-0001", "MUS-0002"]) and is_equal_approx(doc.planned_start(first_slot), 45.5), "a sting's start sits behind the first id and the ids read back unchanged")
+	check(doc.planned_text(first_slot).begins_with("MUS-0001@45.5"), "the start is written as id@seconds (%s)" % doc.planned_text(first_slot))
+	check(doc.set_planned(first_slot, PackedStringArray(["GUN-0001", "GUN-0002"])) and is_zero_approx(doc.planned_start(first_slot)), "writing a plan without a start clears the old start")
 	check(doc.set_manual(first_slot, true) and doc.is_manual(first_slot), "marking a row as placed by hand works")
 	var after := FileAccess.get_file_as_string(copy_path).split("\n")
 	var changed := 0

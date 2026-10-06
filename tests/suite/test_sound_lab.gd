@@ -409,6 +409,53 @@ func _test_lab() -> void:
 	music._fill_candidates()
 	check(music._candidate_list.item_count == 0 and music._candidate_note.text.contains("沒有位置登記"), "a cue without a slot shows an explanation instead of candidates")
 
+	# 短曲：多一欄起點、取用範圍寫進預計使用、可以只試聽取用的段落。
+	music.select_cue("victory")
+	var sting_slot := music.slot_for_cue("victory")
+	check(music._sting_row.visible and str(sting_slot.get("target", "")) == "victory_sting", "a sting cue shows the start field")
+	music.select_cue("calm_rooftop")
+	check(not music._sting_row.visible, "a looping cue has no start field")
+	music.select_cue("victory")
+	var long_track := ""
+	for aid in music.candidate_ids("victory"):
+		if float(lab.catalog.asset(aid).get("dur", 0.0)) > PlacementDoc.STING_SECONDS + 20.0:
+			long_track = aid
+			break
+	check(not long_track.is_empty(), "the sting slot also offers tracks longer than the sting")
+	if not long_track.is_empty():
+		_ensure_previews(lab.catalog, [long_track])
+		var preview_file := lab.catalog.preview_path(long_track)
+		if FileAccess.get_file_as_bytes(preview_file).is_empty():  # 假的空預聽檔換成一段真的短 ogg，才聽得到範圍
+			DirAccess.copy_absolute(ProjectSettings.globalize_path("res://audio/sfx/land_wood_01.ogg"), ProjectSettings.globalize_path(preview_file))
+		var select_long := func() -> int:
+			music._fill_candidates()
+			for i in music._candidate_list.item_count:
+				if str(music._candidate_list.get_item_metadata(i)) == long_track:
+					music._candidate_list.select(i)
+					return i
+			return -1
+		check(select_long.call() >= 0, "the long track is listed once it has a preview")
+		music._start_spin.value = 16.0
+		check(music._candidate_note.text.contains("取第 16–28 秒"), "the note shows the range the sting will use (%s)" % music._candidate_note.text)
+		check(music.pick_candidate() and is_equal_approx(lab.doc.planned_start(str(sting_slot["id"])), 16.0) and lab.doc.planned(str(sting_slot["id"])) == PackedStringArray([long_track]), "picking writes the start behind the track id")
+		music.select_cue("victory")
+		check(is_equal_approx(music._start_spin.value, 16.0), "the start field shows the planned start again")
+		var planned_item: int = select_long.call()
+		check(planned_item >= 0 and music._candidate_list.get_item_text(planned_item).contains("取第 16–28 秒"), "the planned track lists its range")
+		check(lab.audition.play_asset(long_track, 0.1, 0.2) and lab.audition.is_playing(), "a preview plays only a range of itself")
+		lab.audition.stop()
+		check(not lab.audition.is_playing(), "stopping ends a range audition")
+		select_long.call()
+		music._start_spin.value = SoundLab.MUSIC_PREVIEW_SECONDS + 30.0
+		check(not music.audition_candidate() and lab.status_label.text.contains("預聽檔只有原曲前"), "a start beyond the preview is explained instead of playing")
+		select_long.call()
+		music._start_spin.value = 0.0
+		music.pick_candidate()
+		check(is_zero_approx(lab.doc.planned_start(str(sting_slot["id"]))), "a start of zero writes a plain id")
+	lab.doc.set_planned(str(sting_slot["id"]), PackedStringArray())
+	music.select_cue("calm_rooftop")  # 試聽備選會停掉正在播的 cue，後面的「目前 cue」檢查要它還在播
+	music.play_selected()
+
 	music.play_ambience()
 	music.show_now_playing()
 	check(music._info.text.contains("calm_rooftop"), "the now-playing line names the cue")

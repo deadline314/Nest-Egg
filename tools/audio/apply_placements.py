@@ -28,6 +28,8 @@ CATALOG = ROOT / "assets_src" / "audio" / "catalog.json"
 PIPELINE = ROOT / "assets_src" / "audio" / "pipeline.json"
 ROW = re.compile(r"^\|\s*(P-[A-Z]+-\d{3})\s*\|")
 ASSET_ID = re.compile(r"\b[A-Z]{3}-\d{4}\b")
+## 短曲的起點寫在素材編號後面：MUS-0123@45 = 從第 45 秒起取 STING_SECONDS 秒（PlacementDoc.planned_start 讀同一個格式）。
+STING_START = re.compile(r"\b[A-Z]{3}-\d{4}@(\d+(?:\.\d+)?)")
 PIPELINE_CATEGORY = {"GUN": "gun", "IMP": "impact", "EXP": "explosion", "UIS": "ui", "VOX": "voice", "AMB": "ambience"}
 WEAPONS = ROOT / "data" / "weapons"
 FIRE_SOUND = re.compile(r'^fire_sound\s*=\s*&"([^"]+)"', re.M)
@@ -45,7 +47,8 @@ def parse_rows(doc: Path) -> dict:
             continue
         cells = [c.strip() for c in line.strip().strip("|").split("|")]
         if len(cells) >= 6:
-            rows[match.group(1)] = {"planned": ASSET_ID.findall(cells[4]), "manual": cells[5].lower().startswith("[x"), "raw_planned": cells[4]}
+            start = STING_START.search(cells[4])
+            rows[match.group(1)] = {"planned": ASSET_ID.findall(cells[4]), "manual": cells[5].lower().startswith("[x"), "raw_planned": cells[4], "start": float(start.group(1)) if start else 0.0}
     return rows
 
 
@@ -75,7 +78,11 @@ def plan(doc: Path, only: list | None = None) -> tuple:
         if row["raw_planned"] and not planned:
             problems.append(f"{slot_id}：預計使用「{row['raw_planned']}」看不出素材編號（格式如 GUN-0042）")
             continue
-        if not planned or row["manual"] or planned == slot["current"]:
+        if not planned or row["manual"]:
+            continue
+        start = row["start"]
+        is_sting = slot["kind"] == "music" and slot["target"].endswith("_sting")
+        if planned == slot["current"] and not (is_sting and start != float(pipeline.get("music", {}).get(slot["target"], {}).get("start", 0.0))):
             continue
         unknown = [a for a in planned if a not in assets]
         if unknown:
@@ -86,11 +93,18 @@ def plan(doc: Path, only: list | None = None) -> tuple:
             asset = assets[planned[0]]
             old = pipeline.get("music", {}).get(slot["target"], {})
             entry = {"pack": asset["pack"], "file": asset["file"]}
-            if slot["target"].endswith("_sting"):
-                # 短曲（通關、死亡）：只取開頭 STING_SECONDS 秒並淡出，不循環
-                if asset["dur"] > STING_SECONDS:
-                    entry.update({"end": STING_SECONDS, "fade_out_ms": 1500.0})
-                    warnings.append(f"短曲只取開頭 {STING_SECONDS:.0f} 秒並淡出（原曲 {asset['dur']:.0f} 秒）")
+            if start > 0.0 and not is_sting:
+                warnings.append(f"只有短曲（通關、死亡）能指定起點，{planned[0]}@{start:g} 的起點忽略")
+            if is_sting:
+                # 短曲（通關、死亡）：從起點（預設開頭）取 STING_SECONDS 秒並淡出，不循環
+                if start >= asset["dur"]:
+                    problems.append(f"{slot_id}：起點 {start:g} 秒超過 {planned[0]} 的長度 {asset['dur']:.1f} 秒")
+                    continue
+                if start > 0.0:
+                    entry.update({"start": start, "fade_in_ms": 300.0})
+                if asset["dur"] - start > STING_SECONDS:
+                    entry.update({"end": start + STING_SECONDS, "fade_out_ms": 1500.0})
+                    warnings.append(f"短曲從第 {start:g} 秒取 {STING_SECONDS:.0f} 秒並淡出（原曲 {asset['dur']:.0f} 秒）")
             elif asset["dur"] > 150.0:
                 entry.update({"end": 150.0, "loop_blend_ms": 1500.0})
             elif asset["dur"] > 30.0:

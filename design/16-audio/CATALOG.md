@@ -270,7 +270,7 @@
 | AMB-0313 | 18.1 | fs_cc0-thunder／87963_533680-hq.mp3 | thunder.wav（guitarguy1985，18.1 秒） |  |
 | AMB-0314 | 2.5 | clips_sfx／AMB-0314.wav | 擷取自 AMB-0005 的 0.00–2.48 秒 | P-CHR-013 |
 
-## ELC 電子與能量（723）
+## ELC 電子與能量（730）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -997,6 +997,13 @@
 | ELC-0755 | 0.2 | clips_sfx／ELC-0755.wav | 擷取自 ELC-0751 的 0.00–0.18 秒：Beep1（Android Keypad Dialing.mp3（dangerbabe，3.8 秒）） | P-ENV-013 |
 | ELC-0756 | 0.2 | clips_sfx／ELC-0756.wav | 擷取自 ELC-0751 的 0.37–0.57 秒：Beep2（Android Keypad Dialing.mp3（dangerbabe，3.8 秒）） | P-ENV-014 |
 | ELC-0757 | 0.2 | clips_sfx／ELC-0757.wav | 擷取自 ELC-0751 的 0.69–0.88 秒：Beep2（Android Keypad Dialing.mp3（dangerbabe，3.8 秒）） | P-ENV-015 |
+| ELC-0758 | 1.0 | fs_cc0-ability-ready／172631_71257-hq.mp3 | Power Up Charge [Remix of LegoLunatic's Charged laser 151243]（qubodup，1.0 秒） |  |
+| ELC-0759 | 0.7 | fs_cc0-ability-ready／187404_635158-hq.mp3 | robot_ready（mazk1985，0.7 秒） |  |
+| ELC-0760 | 1.1 | fs_cc0-ability-ready／368651_6512973-hq.mp3 | Game Powerup（Jofae，1.1 秒） |  |
+| ELC-0761 | 0.9 | fs_cc0-ability-ready／464908_4284968-hq.mp3 | 8bit Powerup（plasterbrain，0.9 秒） |  |
+| ELC-0762 | 0.3 | fs_cc0-ability-ready／584184_1038806-hq.mp3 | UI Confirm（unfa，0.3 秒） |  |
+| ELC-0763 | 1.9 | fs_cc0-ability-ready／733450_9243191-hq.mp3 | Ready（avreference，1.9 秒） |  |
+| ELC-0764 | 1.6 | fs_cc0-ability-ready／828680_13183432-hq.mp3 | UIMisc_Digital, Interface, Message, Selection, Confirmation, Alert_10_JW Audio_User Interface（JW_Audio，1.6 秒） |  |
 
 ## EXP 爆炸（116）
 
@@ -1442,7 +1449,7 @@
 | GUN-0390 | 1.1 | clips_sfx／GUN-0390.wav | 擷取自 GUN-0046 的 0.58–1.65 秒（Charles Daly, CD, FTAW, shotgun, pump action, 12 gauge, gunshot, mid distance, f） | P-WPN-010 |
 | GUN-0391 | 1.5 | clips_sfx／GUN-0391.wav | 擷取自 GUN-0061 的 1.13–2.67 秒（Mosin Nagant, rifle, bolt action, 7.62x54, gunshot, mid distance, front of shoot） | P-WPN-011 |
 
-## IMP 撞擊與命中（854）
+## IMP 撞擊與命中（870）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -2300,6 +2307,22 @@
 | IMP-0885 | 3.0 | fs_cc0-shield-break／702771_6142149-hq.mp3 | Force Field 01.wav（LilMati，3.0 秒） |  |
 | IMP-0886 | 0.2 | fs_cc0-shield-break／752237_71257-hq.mp3 | Tractor Beam Energy Barrier from fleurx_improv_00 by vekoN（qubodup，0.2 秒） |  |
 | IMP-0887 | 2.3 | fs_cc0-shield-break／787866_15956618-hq.mp3 | Force Field Knock（modusmogulus，2.3 秒） |  |
+| IMP-0888 | 1.1 | fs_cc0-kill-burst／176549_3277771-hq.mp3 | VERY LOUD Splat.wav（deleted_user_3277771，1.1 秒） |  |
+| IMP-0889 | 0.9 | fs_cc0-kill-burst／269482_2155835-hq.mp3 | Gooey Squish（editor_adp，0.9 秒） |  |
+| IMP-0890 | 1.9 | fs_cc0-kill-burst／500912_6714882-hq.mp3 | Squish impact（Bertsz，1.9 秒） |  |
+| IMP-0891 | 0.5 | fs_cc0-kill-burst／515621_6769489-hq.mp3 | Splat/Squish 4（mrickey13，0.5 秒） |  |
+| IMP-0892 | 1.2 | fs_cc0-kill-burst／55234_664701-hq.mp3 | Splattt.mp3（SlykMrByches，1.3 秒） |  |
+| IMP-0893 | 0.4 | fs_cc0-kill-burst／56262_91374-hq.mp3 | Shatter.wav（Q.K.，0.4 秒） |  |
+| IMP-0894 | 1.3 | fs_cc0-kill-burst／581092_11537497-hq.mp3 | Burst Flesh（magnuswaker，1.3 秒） |  |
+| IMP-0895 | 1.1 | fs_cc0-kill-burst／634619_13854300-hq.mp3 | Crush.wav（halogiw946，1.1 秒） |  |
+| IMP-0896 | 0.8 | fs_cc0-kill-burst／686849_14918565-hq.mp3 | glass shatter（ccen18，0.8 秒） |  |
+| IMP-0897 | 3.4 | fs_cc0-shield-break／350602_6429373-hq.mp3 | Ship_Hit_Shields.wav（Lambich，3.4 秒） |  |
+| IMP-0898 | 4.0 | fs_cc0-shield-break／350604_6429373-hq.mp3 | 2Ship_Hit_Shields.wav（Lambich，4.0 秒） |  |
+| IMP-0899 | 3.3 | fs_cc0-shield-break／570852_12068810-hq.mp3 | magicShield_down.wav（rafaelzimrp，3.3 秒） |  |
+| IMP-0900 | 1.1 | fs_cc0-shield-break／611804_13564385-hq.mp3 | shield_down.wav（metalfortress，1.1 秒） |  |
+| IMP-0901 | 1.4 | fs_cc0-shield-break／636103_11705708-hq.mp3 | SHIELDHIT1.wav（fonografico，1.4 秒） |  |
+| IMP-0902 | 1.4 | fs_cc0-shield-break／755506_16356926-hq.mp3 | ice break（thatonecode，1.4 秒） |  |
+| IMP-0903 | 1.4 | fs_cc0-shield-break／787641_735966-hq.mp3 | Shields down（Lyubomir_Ikonomov，1.4 秒） |  |
 
 ## ITM 物品與拾取（217）
 
@@ -3206,7 +3229,7 @@
 | MEC-0696 | 12.9 | fs_cc0-phone-ring／805172_17325486-hq.mp3 | Old Phone Ring（mrspivey，12.9 秒） |  |
 | MEC-0697 | 9.8 | fs_cc0-phone-ring／828203_9616576-hq.mp3 | Old Digital Phone Ring（IENBA，9.8 秒） |  |
 
-## MLE 近戰揮擊（265）
+## MLE 近戰揮擊（275）
 
 | 編號 | 時長 | 素材包／檔案 | 說明 | 位置 |
 |---|---|---|---|---|
@@ -3475,6 +3498,16 @@
 | MLE-0271 | 5.0 | fs_cc0-sword-ring／592023_8956746-hq.mp3 | sword drawn.wav（C-V，5.0 秒） |  |
 | MLE-0272 | 1.2 | fs_cc0-sword-ring／655341_11221455-hq.mp3 | Unsheathe Blade（Blazewasbored，1.2 秒） |  |
 | MLE-0273 | 1.8 | fs_cc0-sword-ring／666581_13504080-hq.mp3 | Sword drawing（xkeril，1.8 秒） |  |
+| MLE-0274 | 4.7 | fs_cc0-sword-ring／146054_719177-hq.mp3 | Pulling out a Sword（thedogryan420，4.7 秒） |  |
+| MLE-0275 | 2.8 | fs_cc0-sword-ring／276872_1989929-hq.mp3 | Sword Unsheath（lucabia，2.8 秒） |  |
+| MLE-0276 | 1.9 | fs_cc0-sword-ring／395371_1675920-hq.mp3 | Sword sheathing（ihitokage，1.8 秒） |  |
+| MLE-0277 | 2.0 | fs_cc0-sword-ring／432821_522747-hq.mp3 | Drag/Scrape Ceramic Mug over Metal Grating on Coffee Machine (Sword Sound) #4（Erbsland-Music，2.0 秒） |  |
+| MLE-0278 | 0.4 | fs_cc0-sword-ring／545695_11785387-hq.mp3 | Sword drawn（colorsCrimsonTears，0.4 秒） |  |
+| MLE-0279 | 4.2 | fs_cc0-sword-ring／668607_621042-hq.mp3 | Sword or knife draw（2create，4.2 秒） |  |
+| MLE-0280 | 0.6 | fs_cc0-sword-ring／684749_13091475-hq.mp3 | Drawing Sword Sound 03（Robhog，0.6 秒） |  |
+| MLE-0281 | 0.4 | fs_cc0-sword-ring／707339_15272986-hq.mp3 | Unsheathing sword, slow, dramatic.wav（mht23SD，0.4 秒） |  |
+| MLE-0282 | 1.0 | fs_cc0-sword-ring／788532_16752880-hq.mp3 | Sword Unsheathe（SecureSubset，1.0 秒） |  |
+| MLE-0283 | 0.9 | fs_cc0-sword-ring／82054_1291718-hq.mp3 | sword_resonant.wav（solitaryplace，0.9 秒） |  |
 
 ## MOV 移動與衣物（503）
 

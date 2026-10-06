@@ -8,6 +8,8 @@ extends Node
 ## 預聽檔要先產生：python tools/audio/build_candidates.py（沒有時會提示，不會崩潰）。
 
 const SYNC_INTERVAL := 1.0
+## 音樂預聽檔只有原曲的前幾秒（tools/audio/build_candidates.py 的 MUSIC_MAX）。
+const MUSIC_PREVIEW_SECONDS := 60.0
 const FONT_SIZE := 15
 ## Freesound 預聽 mp3 的檔名是「聲音編號_使用者編號-hq.mp3」。
 var FREESOUND_FILE := RegEx.create_from_string("^\\d+_\\d+-[hl]q\\.mp3$")
@@ -217,11 +219,16 @@ func open_clip_editor(asset_id: String) -> bool:
 
 
 ## 試聽一個素材（預聽檔）；沒有預聽檔時提示怎麼產生。
-func audition_asset(asset_id: String) -> bool:
-	if audition.play_asset(asset_id):
+## from／length：只聽預聽檔從 from 秒起的 length 秒（短曲取用範圍）。
+func audition_asset(asset_id: String, from := 0.0, length := 0.0) -> bool:
+	if audition.play_asset(asset_id, from, length):
 		var a := catalog.asset(asset_id)
-		notify("試聽 %s（%.1f 秒）  %s／%s" % [asset_id, float(a.get("dur", 0.0)), a.get("pack", ""), a.get("file", "")])
+		var range_note := "，只聽第 %s–%s 秒" % [PlacementDoc.seconds_text(from), PlacementDoc.seconds_text(from + length)] if length > 0.0 else ""
+		notify("試聽 %s（%.1f 秒%s）  %s／%s" % [asset_id, float(a.get("dur", 0.0)), range_note, a.get("pack", ""), a.get("file", "")])
 		return true
+	if length > 0.0 and catalog.has_preview(asset_id):
+		notify("起點 %s 秒超過預聽檔的長度（預聽檔只有原曲前 %d 秒）；套用後仍會照這個起點取" % [PlacementDoc.seconds_text(from), int(MUSIC_PREVIEW_SECONDS)])
+		return false
 	notify("沒有 %s 的預聽檔：請先執行 python tools/audio/build_candidates.py" % asset_id)
 	return false
 

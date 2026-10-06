@@ -9,6 +9,7 @@ signal stopped
 var _player := AudioStreamPlayer.new()
 var _catalog: AudioCatalog
 var current_id := ""
+var _stop_at := -1.0
 
 
 func setup(catalog: AudioCatalog) -> void:
@@ -18,20 +19,30 @@ func setup(catalog: AudioCatalog) -> void:
 
 
 ## 播放某個素材的預聽檔。沒有預聽檔回傳 false（呼叫端提示怎麼產生）。
-func play_asset(asset_id: String) -> bool:
+## from／length：只播預聽檔從 from 秒起的 length 秒（短曲取用範圍的試聽）；起點超過預聽檔長度也回傳 false。
+func play_asset(asset_id: String, from := 0.0, length := 0.0) -> bool:
 	var stream := _catalog.load_preview(asset_id) if _catalog != null else null
-	if stream == null:
+	if stream == null or from >= stream.get_length():
 		return false
 	_player.stop()
+	_stop_at = from + length if length > 0.0 else -1.0
+	set_process(_stop_at > 0.0)
 	_player.bus = &"Music" if asset_id.begins_with("MUS-") else &"SFX"
 	_player.stream = stream
-	_player.play()
+	_player.play(maxf(0.0, from))
 	current_id = asset_id
 	started.emit(asset_id)
 	return true
 
 
+func _process(_delta: float) -> void:
+	if _stop_at > 0.0 and _player.playing and _player.get_playback_position() >= _stop_at:
+		stop()
+
+
 func stop() -> void:
+	_stop_at = -1.0
+	set_process(false)
 	if _player.playing:
 		_player.stop()
 	current_id = ""

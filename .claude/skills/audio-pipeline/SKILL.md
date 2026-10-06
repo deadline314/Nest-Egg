@@ -27,6 +27,7 @@ description: 把 CC0 音效與音樂換進 Nest Egg 的完整流程：找來源�
    - `sfx.<音效 id>`：`category`（gun、impact、explosion、foley、ui、voice、ambience，對應 `defaults`）、`variants`（每項 `pack`、`file`，可覆寫 `mode: shot|whole|loop`、`start`、`end`、`max_len`、`target_db`、`gain_db`、`rate`、`lowpass`、`highpass`、`fade_out_ms`）。多個變體會輪播。
    - 射擊音效可加 `speeds: [1.25, 1.5, 2.0]`：額外輸出各級加速變體（時間伸縮、音高不變，用 ffmpeg 的 rubberband 濾鏡，響度與原速對齊），寫進音效庫的 `speed_files`，射速加快時（超頻、射速升級）依倍率選用；`choke_ms: 70` 讓同一音效的上一發尾音在下一發響起時快速淡出。測試：`python tools/audio/test_time_stretch.py`。
    - `music.<曲目 id>`：`pack`、`file`，可加 `start`、`end`、`loop_blend_ms`、`fade_in_ms`、`fade_out_ms`、`target_lufs`。
+     通關／死亡短曲（`*_sting`）從位置清單套用時只取 12 秒：預計使用寫 `MUS-0123@45` 就從第 45 秒取（沒寫從開頭），實驗室「背景音樂」分頁選短曲位置有起點欄與試聽取用範圍（預聽檔只有原曲前 60 秒）。
 5. **加工**：`python tools/audio/build_audio.py`。先用 `--check` 檢查來源檔都在、`--report` 看每個輸出的時長與響度、`--scratch <資料夾>` 試做（不動專案檔）。輸出音效單聲道 44.1 kHz、有聲部分 RMS 對齊 `target_db`、峰值不超過 -1 dBFS；音樂立體聲、整合響度對齊 -18 LUFS。同時更新 `data/audio/sound_bank.json` 的 `files`／`pack` 與 `assets_src/audio/LICENSES.json`。
    **增量建置**：`assets_src/audio/build_cache.json`（要一起 commit）記錄每個輸出的指紋（來源內容、參數、`audio_lib.py`、`ENGINE_VERSION`），沒更動的 .ogg 不重做、位元組不變，所以只動一個位置，版本控制裡就只有它的檔案有差異，不用再手動還原。`--force` 全部重做；`--adopt` 指紋對得上就直接採用現有檔（換電腦或編碼器只差雜訊時）；`--only` 後面一定要給 id。改了 `build_audio.py` 的加工邏輯要把 `ENGINE_VERSION` 加 1。測試：`python tools/audio/test_build_incremental.py`。
 6. **匯入**：`godot --headless --editor --quit` 產生 `.import`（要一起 commit）。
