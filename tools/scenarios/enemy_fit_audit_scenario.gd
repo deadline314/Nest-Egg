@@ -67,19 +67,7 @@ func _audit(id: String) -> void:
 
 ## 骨架上所有看得見的零件（不含手持武器）合起來的世界座標範圍。
 func _visual_bounds(rig: CharacterRig) -> Rect2:
-	var total := Rect2()
-	var first := true
-	for sprite in rig._part_sprites:
-		if sprite == null or sprite.texture == null or not sprite.is_visible_in_tree():
-			continue
-		var xf := sprite.get_global_transform()
-		var r := sprite.get_rect()
-		var rect := Rect2(xf * r.position, Vector2.ZERO)
-		for corner in [Vector2(r.end.x, r.position.y), r.end, Vector2(r.position.x, r.end.y)]:
-			rect = rect.expand(xf * corner)
-		total = rect if first else total.merge(rect)
-		first = false
-	return total
+	return rig.visual_bounds()
 
 
 func _list_levels() -> void:

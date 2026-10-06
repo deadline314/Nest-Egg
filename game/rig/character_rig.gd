@@ -18,6 +18,10 @@ const DISSOLVE_SHADER := preload("res://art/shaders/dissolve.gdshader")
 ## 特殊角色（專屬骨架、專屬攻擊動作）在這裡加一行即可，不需要動其他角色。
 static var ANIMATORS: Dictionary = {"humanoid": HumanoidAnimator, "npc": NpcAnimator}
 
+static var _glow_shared: CanvasItemMaterial
+## 開發工具與測試用：true 時新建的角色全部維持剛體零件（不做關節網格），用來並排比較修正前後。
+static var force_rigid_limbs := false
+
 var skin_id := ""
 var animator: HumanoidAnimator  # 或它的子類別（NpcAnimator）
 var facing := 1:
@@ -27,6 +31,7 @@ var facing := 1:
 
 var _base_scale := 1.0
 var _texture_scale := 0.25
+var _limb_zone := 0.3
 var _skeleton: Skeleton2D
 var _bones: Dictionary[StringName, Bone2D] = {}
 var _rest: Dictionary[StringName, Vector2] = {}
@@ -36,9 +41,11 @@ var _springs: Array[Dictionary] = []
 ## 會脫落的零件，依脫落順序（先掉在前）；同一個 armor_order 的零件算同一步，一起脫落（例如夾克的四片、前後腿的同一段絲襪）。
 var _armor: Array[Array] = []
 ## 衣物底下的破損層（character.json 零件的 under）：完整衣物都在時被蓋住，不需要畫，第一片脫落後才顯示。
-var _under: Array[Sprite2D] = []
+var _under: Array[CanvasItem] = []
 ## 零件與它們的原始明暗（補光倍率套用在 self_modulate 上，發光層不受影響）。
-var _part_sprites: Array[Sprite2D] = []
+var _parts: Array[CanvasItem] = []
+## 做成可彎曲網格的肢體零件（RigPartMesh；也在 _parts 裡）：每格動畫之後依骨頭姿勢重算關節附近的頂點。
+var _meshes: Array[RigPartMesh] = []
 var _part_tints: PackedFloat32Array = PackedFloat32Array()
 var _dissolve_material: ShaderMaterial
 var _fill := 1.0
@@ -67,6 +74,7 @@ func setup(p_skin_id: String, animator_kind := "") -> bool:
 		return false
 	_base_scale = float(skin.get("scale", 1.0))
 	_texture_scale = float(skin.get("texture_scale", 0.25))
+	_limb_zone = clampf(float(skeleton_def.get("limb_zone", skin.get("limb_zone", 0.3))), 0.05, 0.6)
 	facing = facing
 	_build_skeleton(skeleton_def)
 	_build_parts(skin)
@@ -158,10 +166,47 @@ func animate(delta: float, input: RigInput) -> void:
 	facing = input.facing
 	_apply_fill(LightKit.character_fill)
 	animator.update(delta, input)
+	refresh_limbs()
 	if _flash_left > 0.0:
 		_flash_left -= delta
 		if _flash_left <= 0.0:
 			_skeleton.modulate = Color.WHITE
+
+
+## 依骨頭現在的姿勢重算肢體網格（動畫器改過骨頭之後呼叫；animate() 已經會做）。
+func refresh_limbs() -> void:
+	for mesh in _meshes:
+		mesh.refresh()
+
+
+## 肢體網格（測試與稽核用）。
+func limb_meshes() -> Array[RigPartMesh]:
+	return _meshes
+
+
+## 所有看得見的零件（不含手持武器）合起來的世界座標範圍；沒有零件時回傳空的 Rect2。
+func visual_bounds() -> Rect2:
+	var total := Rect2()
+	var first := true
+	for part in _parts:
+		if part == null or not part.is_visible_in_tree():
+			continue
+		var xf := part.get_global_transform()
+		var corners: Array[Vector2] = []
+		if part is RigPartMesh:
+			for vertex in (part as RigPartMesh).deformed_vertices():
+				corners.append(vertex)
+		elif part is Sprite2D and (part as Sprite2D).texture != null:
+			var r := (part as Sprite2D).get_rect()
+			corners = [r.position, Vector2(r.end.x, r.position.y), r.end, Vector2(r.position.x, r.end.y)]
+		if corners.is_empty():
+			continue
+		var rect := Rect2(xf * corners[0], Vector2.ZERO)
+		for corner in corners:
+			rect = rect.expand(xf * corner)
+		total = rect if first else total.merge(rect)
+		first = false
+	return total
 
 
 ## 套用補光倍率（環境光很暗時把角色零件補亮，見 LightKit.character_fill）。
@@ -169,9 +214,9 @@ func _apply_fill(fill: float) -> void:
 	if is_equal_approx(fill, _fill):
 		return
 	_fill = fill
-	for i in _part_sprites.size():
+	for i in _parts.size():
 		var tint := _part_tints[i] * fill
-		_part_sprites[i].self_modulate = Color(tint, tint, tint, 1.0)
+		_parts[i].self_modulate = Color(tint, tint, tint, 1.0)
 	if _weapon_sprite != null:
 		_weapon_sprite.self_modulate = Color(fill, fill, fill, 1.0)
 
@@ -179,7 +224,7 @@ func _apply_fill(fill: float) -> void:
 ## 燒融：零件依世界座標的雜訊逐塊燒掉，邊緣發出炭火的光（art/shaders/dissolve.gdshader）。progress 0→1；
 ## rise＞0 火從腳往上燒、＜0 從頭往下燒、0 沒有方向。發光層與武器隨進度淡出。回傳 false 代表沒有可以燒的零件。
 func set_dissolve(progress: float, edge_color := Color("ff7a1a"), rise := 0.0, edge_width := 0.1) -> bool:
-	if _part_sprites.is_empty():
+	if _parts.is_empty():
 		return false
 	if _dissolve_material == null:
 		_dissolve_material = ShaderMaterial.new()
@@ -187,17 +232,17 @@ func set_dissolve(progress: float, edge_color := Color("ff7a1a"), rise := 0.0, e
 		_dissolve_material.set_shader_parameter("noise_tex", VfxAtlas.noise_texture())
 		_dissolve_material.set_shader_parameter("foot_y", global_position.y)
 		_dissolve_material.set_shader_parameter("body_height", maxf(20.0, RigLibrary.standing_height(skin_id)))
-		for sprite in _part_sprites:
+		for sprite in _parts:
 			sprite.material = _dissolve_material
 	_dissolve_material.set_shader_parameter("progress", clampf(progress, 0.0, 1.0))
 	_dissolve_material.set_shader_parameter("edge_color", edge_color)
 	_dissolve_material.set_shader_parameter("rise", rise)
 	_dissolve_material.set_shader_parameter("edge_width", edge_width)
 	var fade := clampf(1.0 - progress * 2.2, 0.0, 1.0)
-	for sprite in _part_sprites:
+	for sprite in _parts:
 		for child in sprite.get_children():
-			if child is Sprite2D:
-				(child as Sprite2D).modulate.a = fade
+			if child is CanvasItem:
+				(child as CanvasItem).modulate.a = fade
 	if _weapon_root != null:
 		_weapon_root.modulate.a = clampf(1.0 - progress * 1.6, 0.0, 1.0)
 	return true
@@ -254,17 +299,17 @@ func set_armor_ratio(ratio: float, burst := true) -> void:
 		var step := _armor[_armor.size() - _armor_visible]
 		_armor_visible -= 1
 		var broke := false
-		for part: Sprite2D in step:
+		for part: CanvasItem in step:
 			if part.visible:
 				part.visible = false
 				broke = true
 				if burst:
 					_spawn_debris(part)
 		if broke:
-			armor_broken.emit(StringName((step[0] as Sprite2D).name))
+			armor_broken.emit(StringName((step[0] as Node).name))
 	while _armor_visible < target:
 		_armor_visible += 1
-		for part: Sprite2D in _armor[_armor.size() - _armor_visible]:
+		for part: CanvasItem in _armor[_armor.size() - _armor_visible]:
 			part.visible = true
 	var broken := _armor_visible < _armor.size()
 	for part in _under:
@@ -344,6 +389,7 @@ func _build_parts(skin: Dictionary) -> void:
 		push_error("[CharacterRig] %s 缺少 parts" % skin_id)
 		return
 	var armor_entries: Array = []
+	var bend_limbs := bool(skin.get("limb_bend", true)) and not force_rigid_limbs
 	for entry: Variant in parts:
 		if typeof(entry) != TYPE_DICTIONARY:
 			continue
@@ -355,32 +401,29 @@ func _build_parts(skin: Dictionary) -> void:
 			continue
 		var tex_def: Dictionary = textures[tex_name]
 		var size := RigLibrary.vec2(tex_def.get("size"), Vector2(16, 16))
-		var sprite := Sprite2D.new()
-		sprite.name = str(entry.get("name", tex_name))
-		sprite.centered = false
-		sprite.texture = LitTextures.load_texture(base_dir.path_join(str(tex_def.get("file", ""))), Vector2i(size))
-		sprite.offset = -RigLibrary.vec2(tex_def.get("pivot"))
-		sprite.scale = Vector2.ONE * _texture_scale
-		sprite.position = RigLibrary.vec2(entry.get("offset"))
-		sprite.rotation = float(entry.get("rotation", 0.0))
-		sprite.z_index = int(entry.get("z", 0))
+		var pivot := RigLibrary.vec2(tex_def.get("pivot"))
+		var texture := LitTextures.load_texture(base_dir.path_join(str(tex_def.get("file", ""))), Vector2i(size))
+		var glow_texture := RigLibrary.optional_texture(base_dir.path_join(str(tex_def.get("glow", ""))))
 		var tint := float(entry.get("tint", 1.0))
-		sprite.self_modulate = Color(tint, tint, tint, 1.0)
-		_part_sprites.append(sprite)
+		var part_name := str(entry.get("name", tex_name))
+		var part_pos := RigLibrary.vec2(entry.get("offset"))
+		var part_rot := float(entry.get("rotation", 0.0))
+		var part: CanvasItem = null
+		if bend_limbs and is_zero_approx(part_rot):
+			part = _make_limb_mesh(bone_name, texture, glow_texture, size, pivot, part_pos, tint)
+		if part == null:
+			part = _make_sprite(texture, glow_texture, pivot, part_pos, part_rot, tint)
+		part.name = part_name
+		part.z_index = int(entry.get("z", 0))
+		part.self_modulate = Color(tint, tint, tint, 1.0)
+		_parts.append(part)
 		_part_tints.append(tint)
-		target_bone.add_child(sprite)
-		var glow := RigLibrary.optional_texture(base_dir.path_join(str(tex_def.get("glow", ""))))
-		if glow != null:
-			var glow_sprite := _make_glow_sprite()
-			glow_sprite.texture = glow
-			glow_sprite.offset = sprite.offset
-			glow_sprite.self_modulate = Color(GLOW_INTENSITY * tint, GLOW_INTENSITY * tint, GLOW_INTENSITY * tint, 1.0)
-			sprite.add_child(glow_sprite)
+		target_bone.add_child(part)
 		if int(entry.get("armor_order", 0)) > 0:
-			armor_entries.append([int(entry["armor_order"]), sprite])
+			armor_entries.append([int(entry["armor_order"]), part])
 		if bool(entry.get("under", false)):
-			sprite.visible = false
-			_under.append(sprite)
+			part.visible = false
+			_under.append(part)
 	# 依脫落順序排序：order 小的先掉，同一個 order 的零件放在同一步。_armor 由先掉到後掉。
 	armor_entries.sort_custom(func(a: Array, b: Array) -> bool: return a[0] < b[0])
 	var last_order := -1
@@ -392,20 +435,88 @@ func _build_parts(skin: Dictionary) -> void:
 	_armor_visible = _armor.size()
 
 
+func _make_sprite(texture: Texture2D, glow_texture: Texture2D, pivot: Vector2, part_pos: Vector2, part_rot: float, tint: float) -> Sprite2D:
+	var sprite := Sprite2D.new()
+	sprite.centered = false
+	sprite.texture = texture
+	sprite.offset = -pivot
+	sprite.scale = Vector2.ONE * _texture_scale
+	sprite.position = part_pos
+	sprite.rotation = part_rot
+	if glow_texture != null:
+		var glow_sprite := _make_glow_sprite()
+		glow_sprite.texture = glow_texture
+		glow_sprite.offset = sprite.offset
+		glow_sprite.self_modulate = Color(GLOW_INTENSITY * tint, GLOW_INTENSITY * tint, GLOW_INTENSITY * tint, 1.0)
+		sprite.add_child(glow_sprite)
+	return sprite
+
+
+## 肢體零件（上臂、前臂、大腿、小腿）靠近關節時做成可彎曲的網格，回傳 null＝這個零件維持剛體（不是肢體、碰不到關節、骨架沒有成對的上下段）。
+func _make_limb_mesh(bone_name: StringName, texture: Texture2D, glow_texture: Texture2D, size: Vector2, pivot: Vector2, part_pos: Vector2, tint: float) -> RigPartMesh:
+	var limb := _limb_of(bone_name)
+	if limb.is_empty():
+		return null
+	var partner_name: StringName = limb["partner"]
+	var is_upper: bool = limb["upper"]
+	var joint_y: float = _rest[limb["lower"]].y if is_upper else 0.0
+	var zone: float = float(limb["zone"])
+	var node_transform := Transform2D(0.0, Vector2.ONE * _texture_scale, 0.0, part_pos)
+	if not RigPartMesh.reaches_joint(RigPartMesh.vertical_span(size, pivot, node_transform), joint_y, zone, is_upper):
+		return null
+	var mesh := RigPartMesh.new()
+	mesh.position = part_pos
+	mesh.scale = Vector2.ONE * _texture_scale
+	if not mesh.setup(texture, size, pivot, _bones[bone_name], _bones[partner_name], is_upper, _rest[bone_name], _rest[partner_name], zone):
+		mesh.free()
+		return null
+	if glow_texture != null:
+		mesh.set_glow(glow_texture, _glow_material(), Color(GLOW_INTENSITY * tint, GLOW_INTENSITY * tint, GLOW_INTENSITY * tint, 1.0))
+	_meshes.append(mesh)
+	return mesh
+
+
+## 骨頭 bone_name 若是肢體的上段（xxx_upper，子骨頭 xxx_lower）或下段，回傳 {upper, lower, partner, zone}；否則空字典。
+## 混合半徑 zone ＝ 下段骨頭長度 × limb_zone（骨架定義可用 "limb_zone" 調整，預設 0.3）。
+func _limb_of(bone_name: StringName) -> Dictionary:
+	var text := String(bone_name)
+	var upper_name := bone_name
+	var lower_name := bone_name
+	var is_upper := text.ends_with("_upper")
+	if is_upper:
+		lower_name = StringName(text.trim_suffix("_upper") + "_lower")
+	elif text.ends_with("_lower"):
+		upper_name = StringName(text.trim_suffix("_lower") + "_upper")
+	else:
+		return {}
+	if not (_bones.has(upper_name) and _bones.has(lower_name)) or _parent.get(lower_name, &"") != upper_name:
+		return {}
+	var fraction := float(_limb_zone)
+	return {"upper": is_upper, "lower": lower_name, "partner": lower_name if is_upper else upper_name, "zone": _rest[lower_name].length() * fraction}
+
+
 ## 發光層：加法混合、不受場景光源影響、HDR 增亮產生泛光。
 func _make_glow_sprite() -> Sprite2D:
 	var sprite := Sprite2D.new()
 	sprite.centered = false
 	sprite.light_mask = 0
-	var material := CanvasItemMaterial.new()
-	material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
-	material.light_mode = CanvasItemMaterial.LIGHT_MODE_UNSHADED
-	sprite.material = material
+	sprite.material = _glow_material()
 	return sprite
 
 
-func _spawn_debris(part: Sprite2D) -> void:
-	var debris := RigDebris.spawn(part.texture, part.global_transform, part.offset, Vector2(BREAK_IMPULSE.x * -facing * randf_range(0.6, 1.2), BREAK_IMPULSE.y * randf_range(0.8, 1.2)))
+## 發光層共用的材質（加法混合、不受場景光源影響）。
+static func _glow_material() -> CanvasItemMaterial:
+	if _glow_shared == null:
+		_glow_shared = CanvasItemMaterial.new()
+		_glow_shared.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+		_glow_shared.light_mode = CanvasItemMaterial.LIGHT_MODE_UNSHADED
+	return _glow_shared
+
+
+func _spawn_debris(part: CanvasItem) -> void:
+	var offset: Vector2 = (part as RigPartMesh).pivot_offset if part is RigPartMesh else (part as Sprite2D).offset
+	var texture: Texture2D = (part as RigPartMesh).texture if part is RigPartMesh else (part as Sprite2D).texture
+	var debris := RigDebris.spawn(texture, part.global_transform, offset, Vector2(BREAK_IMPULSE.x * -facing * randf_range(0.6, 1.2), BREAK_IMPULSE.y * randf_range(0.8, 1.2)))
 	if debris != null and not Fx.add_world_node(debris):
 		debris.cancel()
 	Fx.burst(part.global_position, Palette.ARMOR, 6, 120.0, 0.3)

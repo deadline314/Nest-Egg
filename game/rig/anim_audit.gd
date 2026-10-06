@@ -19,6 +19,8 @@ const LIMITS := {
 	"angle_pop": 0.9,         # 單格內骨頭角度的跳動
 	"corpse_height": 0.5,     # 倒下結束時最高的骨頭離地，佔站立身高的比例（躺平或癱倒）
 	"corpse_below_ground": 3.0,
+	"mesh_fold": 0.4,         # 肢體網格被翻面的三角形佔的比例（格擋與蹲到底時關節內側的皺褶最多約 35%；更多就是網格爛掉）
+	"limb_pinch": 0.75,       # 關節處混合後比原本窄多少（1 - 比例）；窄太多代表彎得太大、修正量過頭
 }
 const ARM_BONES: Array = [[&"arm_front_upper", &"arm_front_lower", &"hand_front"], [&"arm_back_upper", &"arm_back_lower", &"hand_back"]]
 const LEG_BONES: Array = [[&"leg_front_upper", &"leg_front_lower", &"foot_front"], [&"leg_back_upper", &"leg_back_lower", &"foot_back"]]
@@ -290,6 +292,16 @@ static func _measure(ctx: Dictionary, with_ground := true) -> void:
 	if rig.has_bone(&"head"):
 		var head := absf(rig.bone(&"head").rotation + (rig.bone(&"neck").rotation if rig.has_bone(&"neck") else 0.0))
 		_record(ctx, "head_turn", head, where, frame)
+	# 肢體網格：折疊與縮腰
+	var folds := 0.0
+	var pinch := 0.0
+	for mesh in rig.limb_meshes():
+		if mesh.visible:
+			folds = maxf(folds, mesh.fold_fraction())
+			pinch = maxf(pinch, 1.0 - mesh.width_ratio())
+	if not rig.limb_meshes().is_empty():
+		_record(ctx, "mesh_fold", folds, where, frame)
+		_record(ctx, "limb_pinch", pinch, where, frame)
 	# 腳底與地面
 	if with_ground and ctx.get("grounded", false):
 		var ground := animator.ground_level()

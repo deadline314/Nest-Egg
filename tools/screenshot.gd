@@ -20,6 +20,8 @@ func _ready() -> void:
 			_scenario = arg.trim_prefix("--scenario=")
 		elif arg.begins_with("--brightness="):
 			_brightness = float(arg.trim_prefix("--brightness="))
+		elif arg == "--rigid":
+			CharacterRig.force_rigid_limbs = true  # 角色維持剛體零件（NE-204 修前畫面）
 	DirAccess.make_dir_recursive_absolute(_out_dir)
 	_run.call_deferred()
 

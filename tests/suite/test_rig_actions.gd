@@ -91,20 +91,21 @@ func _test_hands_follow_forearm() -> void:
 				if lower == null or hand == null:
 					check(false, "%s has an arm and a hand sprite (%s)" % [skin, side])
 					continue
-				var forearm_dir := (lower.to_global(lower.offset + Vector2(0, 1)) - lower.to_global(lower.offset)).normalized()
+				var forearm_dir := (lower.to_global(Vector2(0, 1)) - lower.to_global(Vector2.ZERO)).normalized()
 				var hand_dir := (hand.to_global(Vector2(1, 0)) - hand.global_position).normalized()
 				var angle := absf(rad_to_deg(forearm_dir.angle_to(hand_dir)))
 				check(angle < 25.0, "%s (%s, %s): the free hand follows the forearm (%.0f degrees off)" % [skin, state, side, angle])
 			rig.get_parent().queue_free()
 
 
-func _part_sprite(rig: CharacterRig, bone_name: String) -> Sprite2D:
+## 這根骨頭上的零件（一般的 Sprite2D，或做成可彎曲網格的 RigPartMesh）。
+func _part_sprite(rig: CharacterRig, bone_name: String) -> Node2D:
 	var bone := rig.bone(StringName(bone_name))
 	if bone == null:
 		return null
 	for child in bone.get_children():
-		if child is Sprite2D and child.name == bone_name:
-			return child
+		if (child is Sprite2D or child is RigPartMesh) and child.name == bone_name:
+			return child as Node2D
 	return null
 
 

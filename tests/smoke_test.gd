@@ -87,7 +87,7 @@ func _suites() -> Array[TestSuite]:
 		PropsSuite.new(self), NewEnemiesSuite.new(self), CollectiblesSuite.new(self),
 		ProgressionSuite.new(self), SupplySuite.new(self), ReclaimerSuite.new(self),
 		Chapter2Suite.new(self), UiKitSuite.new(self), TransitionSuite.new(self), UiScreensSuite.new(self), CutsceneSuite.new(self), EnvironmentSuite.new(self), AmmoIconsSuite.new(self), AmmoTraySuite.new(self), CombatHudSuite.new(self), ChapterCutscenesSuite.new(self),
-		NpcSuite.new(self), NpcAnimationSuite.new(self), RigActionsSuite.new(self), EnemyVfxSuite.new(self), StoryLintSuite.new(self), StoryContentSuite.new(self), DeathReactionSuite.new(self), DeathFlowSuite.new(self), ContinuitySuite.new(self), SceneSanitySuite.new(self), MapBubblesSuite.new(self), AttackTokensSuite.new(self), EncounterSuite.new(self), EconomySuite.new(self), ExposureSuite.new(self), HitReactionSuite.new(self), PostureSuite.new(self), AnimAuditSuite.new(self), ProtagonistMotionSuite.new(self), LocomotionSuite.new(self), PhoneBoothSuite.new(self), PartCreatureSuite.new(self), ChainCreatureSuite.new(self), ExoticEnemiesSuite.new(self), Chapter2ExpansionSuite.new(self), Chapter2ArtSuite.new(self), FeelSuite.new(self), MeleeSuite.new(self), MeleeWeaponsSuite.new(self), StrikeEnemiesSuite.new(self), FxUpgradesSuite.new(self), FxMeleePickupsSuite.new(self), FeelLabSuite.new(self), InputFeelSuite.new(self), FeelToolsSuite.new(self), AudioSuite.new(self), MusicSuite.new(self), ReloadCuesSuite.new(self), SoundLabSuite.new(self), ClipEditorSuite.new(self), ApplyPanelSuite.new(self), LayerOrderSuite.new(self), SoundStageSuite.new(self), StageCoverageWeaponsSuite.new(self), StageCoverageCharactersSuite.new(self), StageCoverageWorldSuite.new(self), DevMenuSuite.new(self),
+		NpcSuite.new(self), NpcAnimationSuite.new(self), RigActionsSuite.new(self), EnemyVfxSuite.new(self), StoryLintSuite.new(self), StoryContentSuite.new(self), DeathReactionSuite.new(self), DeathFlowSuite.new(self), ContinuitySuite.new(self), SceneSanitySuite.new(self), MapBubblesSuite.new(self), AttackTokensSuite.new(self), EncounterSuite.new(self), EconomySuite.new(self), ExposureSuite.new(self), HitReactionSuite.new(self), PostureSuite.new(self), AnimAuditSuite.new(self), RigMeshSuite.new(self), ProtagonistMotionSuite.new(self), LocomotionSuite.new(self), PhoneBoothSuite.new(self), PartCreatureSuite.new(self), ChainCreatureSuite.new(self), ExoticEnemiesSuite.new(self), Chapter2ExpansionSuite.new(self), Chapter2ArtSuite.new(self), FeelSuite.new(self), MeleeSuite.new(self), MeleeWeaponsSuite.new(self), StrikeEnemiesSuite.new(self), FxUpgradesSuite.new(self), FxMeleePickupsSuite.new(self), FeelLabSuite.new(self), InputFeelSuite.new(self), FeelToolsSuite.new(self), AudioSuite.new(self), MusicSuite.new(self), ReloadCuesSuite.new(self), SoundLabSuite.new(self), ClipEditorSuite.new(self), ApplyPanelSuite.new(self), LayerOrderSuite.new(self), SoundStageSuite.new(self), StageCoverageWeaponsSuite.new(self), StageCoverageCharactersSuite.new(self), StageCoverageWorldSuite.new(self), DevMenuSuite.new(self),
 		CharactersSuite.new(self), ReconEnemiesSuite.new(self), HeavyEnemiesSuite.new(self), AssaultEnemiesSuite.new(self),
 		WorldPromptSuite.new(self), AreasSuite.new(self), Chapter1EnemiesSuite.new(self), FloodPitSuite.new(self), Chapter1MapSuite.new(self),
 	]
@@ -304,12 +304,12 @@ func _test_rigs() -> void:
 	var armor := rig.armor_count()
 	_check(armor >= 4, "rig has breakable armor")
 	var armor_total := 0
-	for node in rig.find_children("armor_*", "Sprite2D", true, false):
+	for node in rig.find_children("armor_*", "CanvasItem", true, false):
 		armor_total += 1
 	rig.set_armor_ratio(0.5, false)
 	var visible := 0
-	for node in rig.find_children("armor_*", "Sprite2D", true, false):
-		if (node as Sprite2D).visible:
+	for node in rig.find_children("armor_*", "CanvasItem", true, false):
+		if (node as CanvasItem).visible:
 			visible += 1
 	_check(visible > 0 and visible < armor_total, "armor hides by health ratio (%d of %d pieces left at half health)" % [visible, armor_total])
 	holder.queue_free()
@@ -1428,7 +1428,7 @@ func _test_lighting() -> void:
 		missing_normals += 0 if ResourceLoader.exists(RigLibrary.WEAPONS_PATH.get_base_dir().path_join(weapon_file).get_basename() + "_n.png") else 1
 	missing_normals += 0 if ResourceLoader.exists("res://art/materials/metal_panel_n.png") else 1
 	_check(missing_normals == 0, "every part, weapon and terrain material has a normal map (%d missing)" % missing_normals)
-	var rig_part := level.player._visual.rig._part_sprites[0] as Sprite2D
+	var rig_part := level.player._visual.rig._parts[0] as Sprite2D
 	_check(rig_part.texture is CanvasTexture and (rig_part.texture as CanvasTexture).normal_texture != null, "character parts use normal-mapped textures")
 	var panel_texture: Texture2D = terrain.get("_panel")
 	_check(panel_texture is CanvasTexture and (panel_texture as CanvasTexture).normal_texture != null, "terrain uses a normal-mapped metal panel")

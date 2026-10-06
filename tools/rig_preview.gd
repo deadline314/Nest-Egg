@@ -15,6 +15,9 @@ extends Node2D
 ## --bare（搭配 --damage）：不拿武器、手臂垂向前下方，看得到上半身的衣物。
 ## --cloth（搭配 --chars）：第一個角色放大排成一列（站、跑、上升、下落、蹲、仰射），檢查衣襬、頭髮、槍套等次級動態。
 ## --npc（搭配 --chars）：第一個角色用 NPC 動畫器排成一列：站、坐、靠牆、蹲、說話、聆聽、揮手、工作循環（--loop=名稱，預設 stir；--loop-pose=stand/sit/lean/squat）。
+## --rigid：所有角色維持剛體零件（不做關節網格），拿來和預設的樣子比較（NE-204）。
+## --joints（搭配 --chars，用第一個角色）：並排看膝與肘彎曲的程度，左邊是舊的剛體零件、右邊是關節網格（NE-204）；
+## --level=0~3 選彎曲程度（約 3°、50°、90°、125°，預設 2），--zoom 預設 5。
 ## --action=名稱（搭配 --chars）：第一個角色依進度 0、20%…100% 排成一列，檢查專屬動作（art/rigs/action_poses.json）。
 ## --damage（搭配 --chars）：第一個角色依生命比例 100%→0% 排成一列，檢查裝甲與衣物逐片脫落的樣子（--zoom 預設 3.0）。
 
@@ -63,6 +66,8 @@ var _gait_speed := 70.0
 var _gait_run_speed := 0.0
 var _seq := ""
 var _npc := false
+var _joints := false
+var _joint_level := 2
 var _action := ""
 var _loop := "stir"
 var _loop_pose := "stand"
@@ -112,6 +117,12 @@ func _ready() -> void:
 			_action = arg.trim_prefix("--action=")
 		elif arg == "--npc":
 			_npc = true
+		elif arg == "--rigid":
+			CharacterRig.force_rigid_limbs = true
+		elif arg == "--joints":
+			_joints = true
+		elif arg.begins_with("--level="):
+			_joint_level = clampi(int(arg.trim_prefix("--level=")), 0, 3)
 		elif arg.begins_with("--loop="):
 			_loop = arg.trim_prefix("--loop=")
 		elif arg.begins_with("--loop-pose="):
@@ -147,6 +158,11 @@ func _ready() -> void:
 			return
 		for i in 8:
 			_spawn(_chars[0], str(SHEET_WEAPONS.get(_chars[0], "")), Vector2(44 + i * 76, 330), "seq:%d" % i, _zoom if _zoom != 6.5 else 2.2)
+	elif _joints:
+		for column in 2:
+			CharacterRig.force_rigid_limbs = column == 0
+			_spawn(_chars[0], "", Vector2(180 + column * 280, 340), "joint:%d" % _joint_level, _zoom if _zoom != 6.5 else 5.0)
+		CharacterRig.force_rigid_limbs = false
 	elif _gait:
 		for i in 8:
 			_spawn(_chars[0], str(SHEET_WEAPONS.get(_chars[0], "")), Vector2(44 + i * 76, 330), "gait:%d" % i, _zoom if _zoom != 6.5 else 2.2)
@@ -261,6 +277,22 @@ func _process(delta: float) -> void:
 			"dead":
 				input.dead = true
 		_rigs[i].animate(delta, input)
+		if str(_poses[i]).begins_with("joint:"):
+			_pose_joints(_rigs[i], int(str(_poses[i]).trim_prefix("joint:")))
+
+
+## --joints：膝與肘彎曲的四個程度。大腿往前抬、小腿往後折（膝）；上臂往前、前臂往上折（肘）。
+func _pose_joints(rig: CharacterRig, level: int) -> void:
+	var bend: float = [0.05, 0.9, 1.57, 2.2][level]
+	rig.bone(&"leg_front_upper").rotation = -0.5 * float(level) * 0.5
+	rig.bone(&"leg_front_lower").rotation = bend
+	rig.bone(&"leg_back_upper").rotation = 0.25
+	rig.bone(&"leg_back_lower").rotation = bend * 0.6
+	rig.bone(&"arm_front_upper").rotation = -0.3 - 0.25 * float(level)
+	rig.bone(&"arm_front_lower").rotation = -bend
+	rig.bone(&"arm_back_upper").rotation = 0.2
+	rig.bone(&"arm_back_lower").rotation = -bend * 0.7
+	rig.refresh_limbs()
 
 
 ## --gait：先讓每一隻跑一整個週期的八分之 i 的時間，並排看一個步伐週期的八個時間點。

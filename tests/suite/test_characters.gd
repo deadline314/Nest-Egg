@@ -51,11 +51,11 @@ func _reference_spec(tex_name: String) -> Dictionary:
 	return {}
 
 
-## 目前顯示中的裝甲零件數（名稱以 armor_ 開頭的 Sprite2D）。
+## 目前顯示中的裝甲零件數（名稱以 armor_ 開頭的零件，Sprite2D 或 RigPartMesh）。
 func _visible_armor(rig: CharacterRig) -> int:
 	var visible := 0
-	for node in rig.find_children("armor_*", "Sprite2D", true, false):
-		visible += 1 if (node as Sprite2D).visible else 0
+	for node in rig.find_children("armor_*", "CanvasItem", true, false):
+		visible += 1 if (node as CanvasItem).visible else 0
 	return visible
 
 
