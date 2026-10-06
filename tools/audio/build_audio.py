@@ -1,7 +1,9 @@
 """依 assets_src/audio/pipeline.json 把原始 CC0 素材加工成遊戲用的音訊檔（NE-155）。
 
-用法：python tools/audio/build_audio.py [--only ID ...] [--check] [--report]
-  --only    只重建指定的音效 id／曲目 id
+用法：python tools/audio/build_audio.py [--only ID ...] [--force] [--check] [--report]
+  --only    只重建指定的音效 id／曲目 id（後面一定要給 id，不給會報錯，避免誤變成全部重做）
+  --force   不看建置快取，全部重新編碼（預設來源、參數、工具都沒變的輸出會略過，檔案位元組完全不動）
+  --adopt   指紋對得上的輸出檔，就算位元組和快取記的不同也直接採用、不重做（換電腦或編碼器版本後只差編碼雜訊時用，之後仍是增量）
   --check   只檢查（來源檔存在、授權已登記、輸出規格），不寫任何檔案
   --report  列出每個輸出的時長、峰值、有聲 RMS
   --scratch DIR  試做：輸出寫到 DIR（不動 audio/、音效庫與授權登記），用來試聽或比對參數
@@ -14,8 +16,13 @@
   assets_src/audio/LICENSES.json 授權登記：只列實際用到的素材包與檔案
 
 加工全部是確定性的，同樣的輸入重跑得到同樣的輸出；原始檔放 assets_src/raw/audio/（fetch_audio.py 下載）。
+
+增量建置（NE-197）：assets_src/audio/build_cache.json 記錄每個輸出檔的「指紋」（來源檔內容、加工參數、片段／疊層／加速倍率、audio_lib.py 與 ENGINE_VERSION）
+與輸出檔本身的雜湊。指紋沒變、輸出檔也沒被動過就不重做，沒更動的 .ogg 在版本控制裡完全不會出現差異。
+改了本檔的加工邏輯（render_*、expand_variant、pad_with_twins）要把 ENGINE_VERSION 加 1，所有輸出才會重做。
 """
 import argparse
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -31,6 +38,8 @@ RAW = ROOT / "assets_src" / "raw" / "audio"
 PIPELINE = AUDIO_SRC / "pipeline.json"
 MANIFEST = AUDIO_SRC / "manifest.json"
 LICENSES = AUDIO_SRC / "LICENSES.json"
+CACHE = AUDIO_SRC / "build_cache.json"
+ENGINE_VERSION = 1
 BANK = ROOT / "data" / "audio" / "sound_bank.json"
 SFX_DIR = ROOT / "audio" / "sfx"
 MUSIC_DIR = ROOT / "audio" / "music"
@@ -45,6 +54,61 @@ MUSIC_DEFAULT = {"target_lufs": -18.0, "peak_db": -1.5, "quality": 4.0, "fade_in
 
 class BuildError(Exception):
     pass
+
+
+class BuildCache:
+    """輸出檔指紋快取：指紋與輸出檔雜湊都對得上才算「沒更動」。scratch／check／force 模式不讀快取。"""
+
+    def __init__(self, path: Path, read: bool, write: bool, adopt: bool = False):
+        self.path = path
+        self.adopt = adopt
+        self.read = read
+        self.write = write
+        self.outputs: dict = {}
+        self._sources: dict = {}
+        self._tool = hashlib.sha1(str(ENGINE_VERSION).encode() + Path(lib.__file__).read_bytes()).hexdigest()
+        if (read or write) and path.is_file():
+            try:
+                self.outputs = json.loads(path.read_text(encoding="utf-8")).get("outputs", {})
+            except (OSError, ValueError) as error:
+                print(f"WARN  建置快取讀不了，視為全部要重做：{path.relative_to(ROOT)}（{error}）", file=sys.stderr)
+
+    def source_digest(self, path: Path) -> str:
+        key = str(path)
+        if key not in self._sources:
+            self._sources[key] = hashlib.sha1(path.read_bytes()).hexdigest()
+        return self._sources[key]
+
+    def fingerprint(self, payload: dict) -> str:
+        text = json.dumps({"tool": self._tool, **payload}, sort_keys=True, default=lambda o: o.item() if hasattr(o, "item") else str(o))
+        return hashlib.sha1(text.encode("utf-8")).hexdigest()
+
+    def job_payload(self, job: dict, speed: float | None = None) -> dict:
+        layers = [{"src": self.source_digest(layer["path"]), "spec": layer["spec"], "delay_ms": layer["delay_ms"], "segment": layer["segment"]} for layer in job["layers"]]
+        return {"layers": layers, "spec": job["spec"], "speed": speed}
+
+    def fresh(self, out_path: Path, fp: str) -> bool:
+        if not self.read:
+            return False
+        entry = self.outputs.get(out_path.relative_to(ROOT).as_posix())
+        if entry is None or entry.get("fp") != fp or not out_path.is_file():
+            return False
+        if self.adopt:
+            self.record(out_path, fp)
+            return True
+        return entry.get("sha1") == hashlib.sha1(out_path.read_bytes()).hexdigest()
+
+    def record(self, out_path: Path, fp: str) -> None:
+        if self.write:
+            self.outputs[out_path.relative_to(ROOT).as_posix()] = {"fp": fp, "sha1": hashlib.sha1(out_path.read_bytes()).hexdigest()}
+
+    def prune(self, keep: set) -> None:
+        for key in [k for k in self.outputs if k not in keep]:
+            del self.outputs[key]
+
+    def save(self) -> None:
+        if self.write:
+            self.path.write_text(json.dumps({"version": 1, "outputs": dict(sorted(self.outputs.items()))}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 
 
 def load_json(path: Path) -> dict:
@@ -179,12 +243,17 @@ def describe(x: np.ndarray) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--only", nargs="*", default=[])
+    parser.add_argument("--only", nargs="*", default=None)
+    parser.add_argument("--force", action="store_true")
+    parser.add_argument("--adopt", action="store_true")
     parser.add_argument("--check", action="store_true")
     parser.add_argument("--report", action="store_true")
     parser.add_argument("--scratch", type=Path)
     parser.add_argument("--pipeline", type=Path, default=PIPELINE)
     args = parser.parse_args()
+    if args.only is not None and not args.only:
+        parser.error("--only 後面要給至少一個音效或曲目 id（要全部重做就不要加 --only）")
+    args.only = args.only or []
     global SFX_DIR, MUSIC_DIR
     if args.scratch:
         SFX_DIR, MUSIC_DIR = args.scratch / "sfx", args.scratch / "music"
@@ -195,6 +264,9 @@ def main() -> int:
     bank = load_json(BANK)
     used: dict = {}
     failures = 0
+    writes_outputs = not (args.check or args.scratch)
+    cache = BuildCache(CACHE, read=writes_outputs and not args.force, write=writes_outputs, adopt=args.adopt)
+    rebuilt = skipped = 0
 
     def note_use(pack: str, file: str, output: str) -> None:
         entry = used.setdefault(pack, {"files": [], "outputs": []})
@@ -228,18 +300,32 @@ def main() -> int:
                     speed_outputs[str(speed)].append(SFX_RES + speed_name)
                 if args.only and sound_id not in args.only:
                     continue
+                base_path = SFX_DIR / out_name
+                base_fp = cache.fingerprint(cache.job_payload(job))
+                speed_fps = {speed: cache.fingerprint(cache.job_payload(job, speed)) for speed in speed_names}
+                stale_speeds = [speed for speed in speed_names if not cache.fresh(SFX_DIR / speed_names[speed], speed_fps[speed])]
+                stale = not cache.fresh(base_path, base_fp) or bool(stale_speeds)
+                if not stale and not args.report:
+                    skipped += 1
+                    continue
                 x = render_job(job)
                 if len(x) < int(0.02 * lib.SR):
                     raise BuildError("加工後短於 20 ms，請檢查 mode／start／end")
-                if not args.check:
-                    lib.encode_ogg(x, SFX_DIR / out_name, quality=float(job["spec"]["quality"]))
                 if args.report:
                     print(f"{out_name:44} {describe(x)}")
+                rebuilt += 1 if stale else 0
+                skipped += 0 if stale else 1
+                if not args.check and stale:
+                    lib.encode_ogg(x, base_path, quality=float(job["spec"]["quality"]))
+                    cache.record(base_path, base_fp)
                 for speed, speed_name in speed_names.items():
+                    if speed not in stale_speeds and not args.report:
+                        continue
                     # 時間伸縮後響度對回原速的響度，起音保留。
                     faster = lib.normalize_rms(lib.time_stretch(x, speed), lib.active_rms_db(x))
-                    if not args.check:
+                    if not args.check and speed in stale_speeds:
                         lib.encode_ogg(faster, SFX_DIR / speed_name, quality=float(job["spec"]["quality"]))
+                        cache.record(SFX_DIR / speed_name, speed_fps[speed])
                     if args.report:
                         print(f"{speed_name:44} {describe(faster)}")
             except (BuildError, OSError, ValueError) as error:
@@ -272,9 +358,17 @@ def main() -> int:
             note_use(item["pack"], item["file"], MUSIC_RES + out_name)
             if args.only and track_id not in args.only:
                 continue
+            fp = cache.fingerprint({"src": cache.source_digest(src), "spec": spec})
+            stale = not cache.fresh(MUSIC_DIR / out_name, fp)
+            if not stale and not args.report:
+                skipped += 1
+                continue
             x = render_music(src, spec)
-            if not args.check:
+            rebuilt += 1 if stale else 0
+            skipped += 0 if stale else 1
+            if not args.check and stale:
                 lib.encode_ogg(x, MUSIC_DIR / out_name, quality=float(spec["quality"]))
+                cache.record(MUSIC_DIR / out_name, fp)
             if args.report:
                 print(f"{out_name:44} {describe(x)}  {lib.measure_lufs(x):.1f} LUFS")
         except (BuildError, OSError, ValueError) as error:
@@ -295,6 +389,7 @@ def main() -> int:
                         stale.unlink()
                         (stale.parent / (stale.name + ".import")).unlink(missing_ok=True)
                         print(f"刪除舊輸出 {stale.relative_to(ROOT)}")
+        cache.prune({(folder / name).relative_to(ROOT).as_posix() for folder, wanted in ((SFX_DIR, wanted_sfx), (MUSIC_DIR, wanted_music)) for name in wanted})
         for sound_id in list(bank["sounds"]):
             files = bank["sounds"][sound_id].get("files", [])
             if sound_id not in pipeline.get("sfx", {}) and files and all(str(f).startswith(SFX_RES) for f in files):
@@ -302,6 +397,7 @@ def main() -> int:
                 print(f"移除音效庫項目 {sound_id}（pipeline 已不再引用）")
 
     if persist:
+        cache.save()
         BANK.write_text(json.dumps(bank, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         if not args.only:
             registry = {}
@@ -312,6 +408,8 @@ def main() -> int:
                 if meta.get("local"):  # 擷取的片段：授權沿用原檔，登記每個用到的片段衍生自哪個素材包與檔案
                     registry[pack]["derived_from"] = clip_origins(info["files"])
             LICENSES.write_text(json.dumps(registry, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    if not args.check:
+        print(f"增量建置：重做 {rebuilt} 個、沒更動略過 {skipped} 個" + ("（--force）" if args.force else ""))
     print(f"完成：{len(wanted_sfx)} 個音效檔、{len(wanted_music)} 首曲目、{len(used)} 個素材包，{failures} 個失敗")
     return 1 if failures else 0
 
