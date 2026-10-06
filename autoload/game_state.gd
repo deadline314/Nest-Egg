@@ -48,6 +48,8 @@ var deaths := 0
 var last_death_clock := ""
 ## 剛死亡、下一次建立關卡就是重生（關卡建立時消耗，播出重生後的反應通訊）。
 var respawn_pending := false
+## 剛替玩家登記了復原點（第一次死亡的診間之後）：下一次重生時提示「電話亭已登記」，只提示一次。
+var checkpoint_notice_pending := false
 var kills := 0
 var finishers := 0
 var run_time := 0.0
@@ -83,6 +85,7 @@ func start_new_run(p_difficulty: DifficultyData) -> void:
 	deaths = 0
 	last_death_clock = ""
 	respawn_pending = false
+	checkpoint_notice_pending = false
 	checkpoint_level_path = ""
 	current_level_path = ""
 	pending_portal = &""
@@ -203,6 +206,13 @@ func world_clock_text(seconds := -1.0) -> String:
 func consume_respawn() -> bool:
 	var pending := respawn_pending
 	respawn_pending = false
+	return pending
+
+
+## 取出並清除「剛登記復原點」的提示（重生時呼叫一次）。
+func consume_checkpoint_notice() -> bool:
+	var pending := checkpoint_notice_pending
+	checkpoint_notice_pending = false
 	return pending
 
 

@@ -44,6 +44,7 @@ var _scene_chapter: Dictionary[String, StringName] = {}
 ## 死亡畫面的小字（各章節合併）與各章節的重生通訊（章節 id -> 清單），見 StoryReactions。
 var _death_notes: Array = []
 var _respawn_scenes: Dictionary = {}
+var _death_scenes: Dictionary = {}
 var _seen: Dictionary[StringName, bool] = {}
 var _cinematic_queue: Array[StringName] = []
 var _current_cinematic: StringName = &""
@@ -75,6 +76,7 @@ func load_all() -> void:
 	_scene_chapter.clear()
 	_death_notes.clear()
 	_respawn_scenes.clear()
+	_death_scenes.clear()
 	for path in CHAPTER_PATHS:
 		load_chapter(path)
 
@@ -109,6 +111,8 @@ func load_chapter(path: String) -> bool:
 		push_error("[Story] %s 的 death_notes 必須是陣列" % path)
 	if data.has("respawn_scenes"):
 		_respawn_scenes[chapter_id] = data["respawn_scenes"]
+	if data.has("death_scenes"):
+		_death_scenes[chapter_id] = data["death_scenes"]
 	return true
 
 
@@ -173,6 +177,8 @@ func validate() -> PackedStringArray:
 		problems.append_array(_validate_chain(scene_id, _scenes[scene_id]))
 	for chapter_id: StringName in _respawn_scenes:
 		problems.append_array(StoryReactions.validate_respawns(String(chapter_id), _respawn_scenes[chapter_id], has_scene))
+	for chapter_id: StringName in _death_scenes:
+		problems.append_array(StoryReactions.validate_death_scenes(String(chapter_id), _death_scenes[chapter_id], has_scene, _scene_set_flags))
 	if not _death_notes.is_empty():
 		problems.append_array(StoryReactions.validate_notes("（全部）", _death_notes))
 	for issue in StoryLint.errors_of(lint()):
@@ -313,6 +319,23 @@ func respawn_scene_ids(chapter: StringName, deaths := -1) -> Array[StringName]:
 	for entry in StoryReactions.eligible_respawns(entries, GameState.deaths if deaths < 0 else deaths):
 		ids.append(StringName(str(entry["scene"])))
 	return ids
+
+
+## 這個章節在這次死亡（死因 cause）後、重生前要播的特殊過場（例如第一次死亡的診間）；沒有符合的回傳空字典。
+## 條件、旗標與演出選項的寫法見 StoryReactions。
+func death_scene_entry(chapter: StringName, cause: StringName, deaths := -1) -> Dictionary:
+	return StoryReactions.pick_death_scene(_death_scenes.get(chapter, []), GameState.deaths if deaths < 0 else deaths, cause, GameState.has_flag)
+
+
+## 場景結束時會寫入的旗標清單（資料檢查用）。
+func _scene_set_flags(id: StringName) -> Array:
+	var scene: Variant = _scenes.get(String(id), {})
+	var flags: Variant = (scene as Dictionary).get("set_flags", []) if typeof(scene) == TYPE_DICTIONARY else []
+	var result: Array = []
+	if typeof(flags) == TYPE_ARRAY:
+		for flag: Variant in flags:
+			result.append(str(flag))
+	return result
 
 
 ## 死亡重生後播出該章節的反應通訊（repeat 的每次重生都播，其餘一輪只播一次）。回傳開始播的場景數。

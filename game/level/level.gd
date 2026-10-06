@@ -20,6 +20,8 @@ const BOSS_LIGHTING_ID := &"boss"
 const BOSS_LIGHTING_FADE := 1.5
 ## 重生後多久播出「死亡次數的反應」通訊（等轉場揭開、玩家看清楚畫面）。
 const RESPAWN_REACTION_DELAY := 1.2
+## 第一次登記復原點後，重生時的提示。
+const REGISTERED_TOAST := "電話亭已登記：之後死了，會從這裡醒來"
 
 var data: LevelData
 var player: Player
@@ -254,8 +256,11 @@ func _begin_death_reactions() -> void:
 	if not GameState.consume_respawn() or not is_inside_tree():
 		return
 	await get_tree().create_timer(RESPAWN_REACTION_DELAY, false).timeout
-	if is_inside_tree():
-		Story.play_respawn_reactions(data.chapter)
+	if not is_inside_tree():
+		return
+	if GameState.consume_checkpoint_notice():
+		EventBus.toast_requested.emit(REGISTERED_TOAST)
+	Story.play_respawn_reactions(data.chapter)
 
 
 func _show_chapter_card(title: String, subtitle: String, block: bool, hold := 2.2) -> ChapterCard:
@@ -718,15 +723,49 @@ func _on_player_died(cause: StringName) -> void:
 	_close_menus()
 	var card := DefeatCodex.unlock(cause)
 	var can_continue := GameState.register_death()
-	_apply_death_to_world()
+	# 特殊的死亡場景（第一次死亡的診間）：不扣復原費（劇情必死）、不經過死亡畫面，直接播完再重生。
+	var scene_entry := Story.death_scene_entry(data.chapter, cause) if can_continue else {}
+	_apply_death_to_world(not bool(scene_entry.get("free", false)))
 	await get_tree().create_timer(DEATH_SCREEN_DELAY, false).timeout
 	if not is_inside_tree():
+		return
+	if not scene_entry.is_empty():
+		await _run_death_scene(scene_entry)
 		return
 	var screen := DeathScreen.new()
 	screen.setup(card, can_continue)
 	screen.retry_requested.connect(_request_retry)
 	screen.menu_requested.connect(_request_menu)
 	add_child(screen)
+
+
+## 死亡後、重生前的特殊過場（見 StoryReactions 的 death_scenes）。播完（含按 Esc 跳過）才登記復原點，然後重生。
+## once = false：是否再播由資料的旗標決定，過場中途退出就會從頭再播。
+func _run_death_scene(entry: Dictionary) -> void:
+	await Story.play_and_wait(StringName(str(entry.get("scene", ""))), false)
+	if not is_inside_tree():
+		return
+	if bool(entry.get("register_checkpoint", false)) and _register_nearest_checkpoint():
+		GameState.checkpoint_notice_pending = true
+	_request_retry()
+
+
+## 本輪還沒有復原點時，登記離死亡位置最近的電話亭，之後從那裡醒來。已經有復原點就不動。
+## 這個區域沒有電話亭時記錄錯誤並回傳 false（重生退回區域起點，不崩潰）。
+func _register_nearest_checkpoint() -> bool:
+	if GameState.has_checkpoint:
+		return false
+	if _layout == null or _layout.checkpoints.is_empty():
+		push_error("[Level] %s 沒有電話亭可登記復原點（%s），重生會退回區域起點" % [data.id, data.layout_path])
+		return false
+	var from := player.global_position if is_instance_valid(player) else _layout.player_start
+	var best := _layout.checkpoints[0]
+	for pos in _layout.checkpoints:
+		if absf(pos.x - from.x) < absf(best.x - from.x):
+			best = pos
+	var snapshot := player.checkpoint_snapshot() if is_instance_valid(player) else GameState.checkpoint_loadout
+	GameState.set_checkpoint(best, snapshot, {}, Progression.snapshot())
+	return true
 
 
 func _on_boss_defeated() -> void:
@@ -823,12 +862,14 @@ func _save_area_state(boss_recovery: float) -> void:
 
 
 ## 死亡時（持久世界）：保留世界、頭目回復一部分，扣信用點、帶走現在的裝備。
-func _apply_death_to_world() -> void:
+func _apply_death_to_world(charge_fee := true) -> void:
 	if not _persistent:
 		return
 	_save_area_state(data.death_boss_recovery)
 	if is_instance_valid(player):
 		GameState.checkpoint_loadout = player.checkpoint_snapshot()
+	if not charge_fee:
+		return
 	var lost := Progression.lose_credits_fraction(data.death_credit_penalty)
 	if lost > 0:
 		EventBus.toast_requested.emit("信用點 -%d" % lost)

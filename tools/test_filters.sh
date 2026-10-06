@@ -1,7 +1,7 @@
 # run_tests.sh 與 run_tests_parallel.sh 共用的輸出判斷（用 source 載入）。
 
 # 測試刻意觸發的錯誤（驗證缺圖／缺定義時的容錯）不算失敗。
-EXPECTED_ERRORS="missing_part|no_such_character|test_catalog|no_such_icon|起點 987654|test_bad_cutscene|no_such_stage|no_such_sfx|test_missing_prop|test_missing_ammo|test_npc_bad|test_area_bad|no_such_pose|no_such_loop|no_such_action|npc_animations.json 沒有|action_poses.json 沒有|test_no_such_enemy|test_audio_|no_such_creature|test_no_such_feel_event|test_no_such_sound_event|test_no_such_material|test_no_such_attack|test_no_such_weapon|test_no_such_enemy|test_no_such_preset|test_no_such_window|\[FeelAB\]|\[DevMenu\]|\[StageScenes\]|\[StageActions\]|\[SoundStage\]|\[LabArena\]|body->get_space\(\)"
+EXPECTED_ERRORS="沒有電話亭可登記|missing_part|no_such_character|test_catalog|no_such_icon|起點 987654|test_bad_cutscene|no_such_stage|no_such_sfx|test_missing_prop|test_missing_ammo|test_npc_bad|test_area_bad|no_such_pose|no_such_loop|no_such_action|npc_animations.json 沒有|action_poses.json 沒有|test_no_such_enemy|test_audio_|no_such_creature|test_no_such_feel_event|test_no_such_sound_event|test_no_such_material|test_no_such_attack|test_no_such_weapon|test_no_such_enemy|test_no_such_preset|test_no_such_window|\[FeelAB\]|\[DevMenu\]|\[StageScenes\]|\[StageActions\]|\[SoundStage\]|\[LabArena\]|body->get_space\(\)"
 
 # （body->get_space() 那一行是某個既有測試觸發的引擎訊息，在 main 上就有。）
 

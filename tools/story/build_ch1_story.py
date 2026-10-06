@@ -242,6 +242,7 @@ def spaced(steps):
 
 SCENES = {}
 RESPAWN = []
+DEATH_SCENES = []
 
 
 def animated(scene_id, steps, then=None, flags=None):
@@ -470,7 +471,7 @@ def build():
         ('rin', "錢到了就行。"),
     ])
 
-    # C1-09 復原室醒來（第一次死亡後，重生時播出）：凜坐在檢查台的邊緣，腿垂下來
+    # C1-09 診間醒來（第一次死亡後、重生前播出）：講清楚怎麼被運來、為什麼在這裡、之後怎麼辦。凜坐在檢查台的邊緣，腿垂下來
     st = 'ch1_revival_room'
     animated('ch1_c09_wake', [
         stage(st, 316, 205, 1.4, 1.0),
@@ -478,22 +479,35 @@ def build():
         fx('flash', 0.6),
         wait(1.2),
         say('rin', "…幹。"),
-        wait(1.0),
-        say('lamp', "歡迎回來。", ja="おかえり。", en="Welcome back."),
-        say('rin', "你的聲音跟終端很像。", ja="ターミナルの声、お前に似てるな。", en="You sound like the terminal."),
-        wait(0.9),
-        say('lamp', "港區少年的聲音，長得都差不多吧。"),
-        say('rin', "騙人。"),
-        wait(1.1),
-        say('lamp', "你要不要先喝茶？"),
-        pose('rin', 'idle'),
         wait(0.8),
-        say('rin', "誰放的。"),
-        say('lamp', "診所的人吧。每次都有。"),
-        wait(0.6),
+        say('lamp', "歡迎回來。你死了十一分鐘。", ja="おかえり。十一分、死んでたよ。", en="Welcome back. You were dead for eleven minutes."),
+        say('rin', "誰把我弄到這的？"),
+        say('lamp', "穿灰外套的人，開貨車。不說話，也不收錢，放下就走。"),
+        wait(0.8),
+        say('rin', "這間診所我沒登記過。"),
+        say('lamp', "所以他們才送你來。第一次死，要先建檔。"),
+        say('lamp', "建好以後就不用被拖來了。撥過的電話亭，就是你醒來的地方。"),
+        say('rin', "你的聲音跟電話亭很像。", ja="電話ボックスの声、お前に似てるな。", en="You sound like the phone booth."),
+        say('lamp', "港區少年的聲音，長得都差不多吧。"),
+        wait(0.9),
+        say('rin', "要錢吧。"),
+        say('lamp', "復原費，從信用點裡扣一點。還有，每次醒來，記憶的邊角會磨掉一點點。"),
+        say('rin', "磨多少？"),
+        say('lamp', "沒人量得準。"),
+        wait(0.8),
+        pose('rin', 'idle'),
+        say('rin', "走了。"),
+        wait(0.5),
         fade(1.0, 1.2),
-    ])
-    RESPAWN.append({"scene": "ch1_c09_wake", "min_deaths": 1})
+    ], flags=['ch1_first_death_done'])
+    # 死亡之後的短演出：在電話亭醒來時的一句通訊（前幾次完整，之後縮短）
+    lines_scene('ch1_d_back_a', 'radio', [('lamp', "歡迎回來。復原費已扣。")])
+    lines_scene('ch1_d_back_b', 'radio', [('lamp', "再來一次，沒關係。")])
+    lines_scene('ch1_d_back_c', 'radio', [('lamp', "…歡迎回來。")])
+    DEATH_SCENES.append({"scene": "ch1_c09_wake", "unless_flag": "ch1_first_death_done", "free": True, "register_checkpoint": True})
+    RESPAWN.append({"scene": "ch1_d_back_a", "min_deaths": 1, "max_deaths": 3, "repeat": True})
+    RESPAWN.append({"scene": "ch1_d_back_b", "min_deaths": 4, "max_deaths": 9, "repeat": True})
+    RESPAWN.append({"scene": "ch1_d_back_c", "min_deaths": 10, "repeat": True})
 
     # C1-12 復原館：阿梨初見（基底層，不露骨）：凜坐吧台的高腳椅，阿梨站在吧台右端
     st = 'ch1_revival_lounge'
@@ -591,7 +605,7 @@ def main():
     for stage_id, (scene, top, bottom, rain, glow, extra) in STAGES.items():
         write_stage(stage_id, scene, top, bottom, rain, glow, extra)
     build()
-    data = {"chapter": CHAPTER, "speakers": SPEAKERS, "respawn_scenes": RESPAWN, "scenes": SCENES}
+    data = {"chapter": CHAPTER, "speakers": SPEAKERS, "respawn_scenes": RESPAWN, "death_scenes": DEATH_SCENES, "scenes": SCENES}
     with open(OUT, 'w') as f:
         json.dump(data, f, ensure_ascii=False, indent=1)
         f.write('\n')

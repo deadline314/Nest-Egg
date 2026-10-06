@@ -31,8 +31,29 @@
  },
  "respawn_scenes": [
   {
+   "scene": "ch1_d_back_a",
+   "min_deaths": 1,
+   "max_deaths": 3,
+   "repeat": true
+  },
+  {
+   "scene": "ch1_d_back_b",
+   "min_deaths": 4,
+   "max_deaths": 9,
+   "repeat": true
+  },
+  {
+   "scene": "ch1_d_back_c",
+   "min_deaths": 10,
+   "repeat": true
+  }
+ ],
+ "death_scenes": [
+  {
    "scene": "ch1_c09_wake",
-   "min_deaths": 1
+   "unless_flag": "ch1_first_death_done",
+   "free": true,
+   "register_checkpoint": true
   }
  ],
  "scenes": {
@@ -985,6 +1006,9 @@
   },
   "ch1_c09_wake": {
    "mode": "animated",
+   "set_flags": [
+    "ch1_first_death_done"
+   ],
    "steps": [
     {
      "do": "scene",
@@ -1026,51 +1050,25 @@
     },
     {
      "do": "wait",
-     "time": 1.0
+     "time": 0.8
     },
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "歡迎回來。",
-     "ja": "おかえり。",
-     "en": "Welcome back.",
+     "text": "歡迎回來。你死了十一分鐘。",
+     "ja": "おかえり。十一分、死んでたよ。",
+     "en": "Welcome back. You were dead for eleven minutes.",
      "transcreate": true
     },
     {
      "do": "say",
      "speaker": "rin",
-     "text": "你的聲音跟終端很像。",
-     "ja": "ターミナルの声、お前に似てるな。",
-     "en": "You sound like the terminal.",
-     "transcreate": true
-    },
-    {
-     "do": "wait",
-     "time": 0.9
+     "text": "誰把我弄到這的？"
     },
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "港區少年的聲音，長得都差不多吧。"
-    },
-    {
-     "do": "say",
-     "speaker": "rin",
-     "text": "騙人。"
-    },
-    {
-     "do": "wait",
-     "time": 1.1
-    },
-    {
-     "do": "say",
-     "speaker": "lamp",
-     "text": "你要不要先喝茶？"
-    },
-    {
-     "do": "pose",
-     "id": "rin",
-     "pose": "idle"
+     "text": "穿灰外套的人，開貨車。不說話，也不收錢，放下就走。"
     },
     {
      "do": "wait",
@@ -1079,21 +1077,112 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "誰放的。"
+     "text": "這間診所我沒登記過。"
     },
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "診所的人吧。每次都有。"
+     "text": "所以他們才送你來。第一次死，要先建檔。"
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "建好以後就不用被拖來了。撥過的電話亭，就是你醒來的地方。"
     },
     {
      "do": "wait",
-     "time": 0.6
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "你的聲音跟電話亭很像。",
+     "ja": "電話ボックスの声、お前に似てるな。",
+     "en": "You sound like the phone booth.",
+     "transcreate": true
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "港區少年的聲音，長得都差不多吧。"
+    },
+    {
+     "do": "wait",
+     "time": 0.9
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "要錢吧。"
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "復原費，從信用點裡扣一點。還有，每次醒來，記憶的邊角會磨掉一點點。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "磨多少？"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "沒人量得準。"
+    },
+    {
+     "do": "wait",
+     "time": 0.8
+    },
+    {
+     "do": "pose",
+     "id": "rin",
+     "pose": "idle"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "走了。"
+    },
+    {
+     "do": "wait",
+     "time": 0.5
     },
     {
      "do": "fade",
      "to": 1.0,
      "time": 1.2
+    }
+   ]
+  },
+  "ch1_d_back_a": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "歡迎回來。復原費已扣。"
+    }
+   ]
+  },
+  "ch1_d_back_b": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "再來一次，沒關係。"
+    }
+   ]
+  },
+  "ch1_d_back_c": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "…歡迎回來。"
     }
    ]
   },

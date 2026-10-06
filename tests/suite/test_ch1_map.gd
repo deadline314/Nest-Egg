@@ -313,7 +313,7 @@ func _test_story_hooks() -> void:
 		for resource in data.legend.values():
 			if resource is PortalData and (resource as PortalData).requires_flag != &"":
 				check(flags_set.has((resource as PortalData).requires_flag), "%s: some scene sets the flag that opens %s (%s)" % [id, (resource as PortalData).id, (resource as PortalData).requires_flag])
-	check(Story.respawn_scene_ids(&"ch1_kasa", 1) == [&"ch1_c09_wake"], "the first death plays the recovery room scene")
+	check(str(Story.death_scene_entry(&"ch1_kasa", &"flood", 1).get("scene", "")) == "ch1_c09_wake", "the first death plays the recovery room scene (before the respawn)")
 	check(Story.respawn_scene_ids(&"ch1_kasa", 0).is_empty(), "no death, no recovery scene")
 	check(_datas["pawnshop"].intro_scene == &"ch1_c00_prologue" and Story._scenes["ch1_c00_prologue"].get("then") == "ch1_c01_shop", "the prologue leads into the shop scene")
 
