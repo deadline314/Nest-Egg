@@ -40,7 +40,7 @@ func _run() -> void:
 		await _run_arena()
 		get_tree().quit()
 		return
-	if _scenario == "bubbles":
+	if _scenario.begins_with("bubbles"):
 		await _run_bubbles()
 		get_tree().quit()
 		return
@@ -1676,23 +1676,32 @@ func _run_arena() -> void:
 
 
 ## 地圖氣泡（ST-12）：電話亭巷裡凜說兩句，拍下同屏兩個氣泡的樣子。
+## 用法：--scenario=bubbles（電話亭巷的範例）或 bubbles:關卡檔:場景id:欄（把玩家放在該欄、播指定的氣泡場景，連拍兩張）。
 func _run_bubbles() -> void:
+	var parts := _scenario.split(":")
+	var level_id := parts[1] if parts.size() > 1 else "ch1_booth_alley"
+	var scene_id := parts[2] if parts.size() > 2 else "shot_bubbles"
 	Story.auto_skip = false
 	GameState.start_new_run(GameState.difficulties[1])
 	var level := Level.new()
-	level.configure(load("res://data/levels/ch1_booth_alley.tres"))
+	level.configure(load("res://data/levels/%s.tres" % level_id))
 	add_child(level)
 	await _settle(30)
 	level.hud.visible = false
-	Story._scenes["shot_bubbles"] = {"mode": "bubbles", "lines": [
-		{"speaker": "rin", "text": "電話亭還亮著。"},
-		{"speaker": "rin", "text": "先撥一通，再進倉庫。"},
-	]}
-	Story.play(&"shot_bubbles")
+	if scene_id == "shot_bubbles":
+		Story._scenes["shot_bubbles"] = {"mode": "bubbles", "lines": [
+			{"speaker": "rin", "text": "電話亭還亮著。"},
+			{"speaker": "rin", "text": "先撥一通，再進倉庫。"},
+		]}
+	if parts.size() > 3:
+		level.player.global_position = Vector2(float(parts[3]) * 16.0 + 8.0, level.player.global_position.y)
+		await _settle(90)
+	Story.reset_progress()  # 走過去時觸發點已經播過一次，重播讓截圖拍得到
+	Story.play(StringName(scene_id))
 	await _wait(0.9)
-	_capture("bubble_one")
+	_capture("bubble_%s_one" % scene_id)
 	await _wait(1.6)
-	_capture("bubble_two")
+	_capture("bubble_%s_two" % scene_id)
 	level.queue_free()
 	await _settle(4)
 

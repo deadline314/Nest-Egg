@@ -79,6 +79,8 @@ description: 設計或修改 Nest Egg 的章節流程時使用：章節節奏與
 | 同時攻擊的敵人數上限 | `AttackTokens`（`data/combat/attack_tokens.json`、`LevelData.attack_caps`） | 近戰 2、遠程 2；敵人行為的出手判斷寫 `_cooldown <= 0.0 and _token_free() and …` |
 | 鎖場遭遇 | `MechanismData.Kind.ENCOUNTER` + `arena_gate` 的 GATE、`EncounterZone` | 範圍內事先擺好的敵人就是成員；增援、鎖場最長秒數、完成後存世界狀態；競技場閘門重生時一定打開 |
 | 地圖上說話 | 場景 mode `bubbles`（`MapBubbles`） | ≤ 18 字、同屏 ≤ 2、不鎖操作；戰鬥短句標 `bark`（≤ 10 字） |
+| 過場預算 | 場景資料 `budget`（秒）與 `CutsceneChecker.estimate_seconds` | 台詞每句約 1.0 秒 + 0.08 秒 × 字數；開場 20、診間 45、章末 60；全章過場 ≤ 3 次 |
+| 人物對話（玩家主動） | 場景人物 `NpcData` + `dialogue` 場景（3–8 句），說完用 `set_flags` 開出口 | 出入口 `requires_flag` 的鎖住提示要講清楚怎麼做；旗標必須有人讀（連續性檢查會抓） |
 | 擺遭遇 | 產生器的 `Area.encounter(name, x0, x1, members, reinforcements, lock, slug, …)` | 成員數、同屏上限、鎖場範圍內敵人數都由產生器與 `Chapter1MapSuite` 檢查 |
 | 設計資料與圖解 | `data/levels/ch1_design.json`、`python3 tools/level/build_ch1.py --render` | 每區的特色（迴圈、獎勵、秘密、地標、垂直空間）與遭遇清單；圖解輸出到 `pm/ST/images/` |
 | 迷你頭目 | `EnemyData.persists_damage`（例：`ch1_inspector`） | 死後傷會留著，只回復一部分 |

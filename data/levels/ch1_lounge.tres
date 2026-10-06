@@ -1,25 +1,28 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=8 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="3_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/market.tres" id="4_market"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch1_lounge.tres" id="5_ch1_lounge"]
+[ext_resource type="Resource" path="res://data/npcs/ch1_ali_lounge.tres" id="3_ch1_ali_lounge"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/market.tres" id="5_market"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch1_lounge.tres" id="6_ch1_lounge"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("2_portal_data")
 id = &"lounge_exit"
 target_level = "res://data/levels/ch1_stall.tres"
+requires_flag = &"ch1_met_ali"
+locked_text = "先和阿梨說話。"
 mode = 1
 width = 20
 height = 44
 style = "road"
 
 [sub_resource type="Resource" id="Resource_1"]
-script = ExtResource("3_lighting_zone")
+script = ExtResource("4_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("4_market")
+profile = ExtResource("5_market")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -28,14 +31,14 @@ display_name = "復原館"
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
-"G": SubResource("Resource_0")
+"G": SubResource("Resource_0"),
+"Y": ExtResource("3_ch1_ali_lounge")
 })
-hints = PackedStringArray()
+hints = PackedStringArray("阿梨在吧台：走過去按 {interact} 說話，說完才出得去")
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("5_ch1_lounge")
+environment = ExtResource("6_ch1_lounge")
 layout_path = "res://data/levels/ch1_lounge_map.json"
-lighting_zones = Array[ExtResource("3_lighting_zone")]([SubResource("Resource_1")])
-intro_scene = &"ch1_c12_lounge"
-story_triggers = PackedStringArray()
+lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_1")])
+story_triggers = PackedStringArray("ch1_b_lounge")

@@ -11,6 +11,11 @@ const MIN_ENCOUNTERS := 22
 const MAX_ENCOUNTERS := 26
 const MIN_LOCKED := 4
 const NEW_KIND_GAP := 12.0
+## 劇情：動畫過場全章 ≤ 3 次（開場 ≤ 20 秒、診間 ≤ 45 秒、章末 ≤ 60 秒預估），其餘用氣泡、廣播與人物對話。
+const MAX_CUTSCENES := 3
+const CUTSCENE_BUDGETS := {"ch1_c01_open": 20.0, "ch1_c09_wake": 45.0, "ch1_c14_home": 60.0}
+## 同一區域相鄰兩個氣泡觸發點至少相隔這麼多格（約兩個螢幕寬），不讓地圖對話一個接一個。
+const MIN_BUBBLE_GAP := 18
 const FIRST_ENEMY_DISTANCE := 18
 const ALLOWED_WEAPONS: Array[StringName] = [&"melee_dagger"]
 ## 每個區域的出生地（P）腳底座標用格子表示，走查時用它檢查玩家站得穩。
@@ -31,6 +36,7 @@ func run() -> void:
 	_test_portals()
 	_test_roster()
 	_test_encounters()
+	_test_narrative()
 	_test_items()
 	_test_entry_point()
 	_test_story_hooks()
@@ -406,7 +412,45 @@ func _test_story_hooks() -> void:
 				check(flags_set.has((resource as PortalData).requires_flag), "%s: some scene sets the flag that opens %s (%s)" % [id, (resource as PortalData).id, (resource as PortalData).requires_flag])
 	check(str(Story.death_scene_entry(&"ch1_kasa", &"flood", 1).get("scene", "")) == "ch1_c09_wake", "the first death plays the recovery room scene (before the respawn)")
 	check(Story.respawn_scene_ids(&"ch1_kasa", 0).is_empty(), "no death, no recovery scene")
-	check(_datas["pawnshop"].intro_scene == &"ch1_c00_prologue" and Story._scenes["ch1_c00_prologue"].get("then") == "ch1_c01_shop", "the prologue leads into the shop scene")
+	check(_datas["pawnshop"].intro_scene == &"ch1_c01_open", "the opening cutscene starts the chapter")
+
+
+## 劇情編排（ST-12）：過場全章 3 次且各自在預算內、沒有鎖操作的舊式過場文字、氣泡觸發點不擠在一起、
+## 人物的對話都找得到場景、劇情旗標有人讀。
+func _test_narrative() -> void:
+	var animated: Array[String] = []
+	var cinematic: Array[String] = []
+	for id: String in Story.scene_ids():
+		if not id.begins_with("ch1_"):
+			continue
+		var mode := str(Story._scenes[id].get("mode", ""))
+		if mode == "animated":
+			animated.append(id)
+		elif mode == "cinematic":
+			cinematic.append(id)
+	animated.sort()
+	check(animated.size() == MAX_CUTSCENES, "the chapter has exactly %d cutscenes (%s)" % [MAX_CUTSCENES, animated])
+	check(cinematic.is_empty(), "no blocking cinematic text remains (%s)" % [cinematic])
+	for id: String in CUTSCENE_BUDGETS:
+		var scene: Dictionary = Story._scenes.get(id, {})
+		check(not scene.is_empty() and float(scene.get("budget", 0.0)) == float(CUTSCENE_BUDGETS[id]), "%s declares its budget of %d seconds" % [id, int(CUTSCENE_BUDGETS[id])])
+		var estimate := CutsceneChecker.estimate_seconds(scene)
+		check(estimate <= float(CUTSCENE_BUDGETS[id]), "%s is estimated at %.0f seconds, within %d" % [id, estimate, int(CUTSCENE_BUDGETS[id])])
+	for id in _datas:
+		var bubble_xs: Array[float] = []
+		var layout := _layouts[id]
+		for trigger in layout.story_triggers:
+			var scene_id := StringName(trigger["scene"])
+			if Story.has_scene(scene_id) and str(Story._scenes[String(scene_id)].get("mode", "")) == "bubbles":
+				bubble_xs.append(float(trigger["x"]) / TILE)
+		bubble_xs.sort()
+		for i in range(1, bubble_xs.size()):
+			check(bubble_xs[i] - bubble_xs[i - 1] >= MIN_BUBBLE_GAP, "%s: map bubbles are at least %d tiles apart (%s)" % [id, MIN_BUBBLE_GAP, bubble_xs])
+		# 人物的每一段對話都找得到場景。
+		for resource in _datas[id].legend.values():
+			if resource is NpcData:
+				for talk in (resource as NpcData).talks:
+					check(Story.has_scene(talk.scene), "%s: %s's talk exists (%s)" % [id, (resource as NpcData).id, talk.scene])
 
 
 ## 構圖：第一章每個動畫過場的演員腳底都在對話框之上；檢查本身也要抓得到違規的演出。
@@ -425,7 +469,7 @@ func _test_staging() -> void:
 		checked += 1
 		var problems := CutsceneChecker.staging_problems(str(id), scene)
 		check(problems.is_empty(), "%s keeps the actors' feet above the dialogue box: %s" % [id, problems])
-	check(checked >= 10, "the chapter's animated scenes were checked (%d)" % checked)
+	check(checked == MAX_CUTSCENES, "the chapter's animated scenes were checked (%d)" % checked)
 
 
 ## 預載：區域與過場用到的貼圖路徑找得到、請求只發一次、缺檔不報錯。
@@ -440,8 +484,8 @@ func _test_prefetch() -> void:
 			props_ok = ResourceLoader.exists(path)
 			break
 	check(props_ok, "the listed prop textures exist")
-	var stage_paths := AssetPrefetch.scene_texture_paths(&"ch1_c00_prologue")
-	check(stage_paths.size() > 0 and stage_paths.has("res://art/environment/scenes/pawnshop_front.webp"), "a scene chain lists the stage art of every part (%d)" % stage_paths.size())
+	var stage_paths := AssetPrefetch.scene_texture_paths(&"ch1_c01_open")
+	check(stage_paths.size() > 0 and stage_paths.has("res://art/environment/scenes/pawnshop_front.webp"), "a scene lists its stage art (%d)" % stage_paths.size())
 	var sent := AssetPrefetch.warm_neighbors(_datas["pawnshop"])
 	check(sent > 0, "warming the neighbors of the pawnshop sends requests (%d)" % sent)
 	check(AssetPrefetch.warm_neighbors(_datas["pawnshop"]) == 0, "the same request is not sent twice")
@@ -456,13 +500,17 @@ func _test_story_flags() -> void:
 	Story.reset_progress()
 	check(not GameState.has_flag(&"ch1_dinner_done"), "no flags at the start of a run")
 	Story.auto_skip = true
-	Story.play(&"ch1_c02_dinner")
+	Story.play(&"ch1_b_dinner")
 	await frames(6)
-	check(GameState.has_flag(&"ch1_dinner_done"), "finishing the dinner sets its flag")
+	check(GameState.has_flag(&"ch1_dinner_done"), "finishing the dinner bubbles sets its flag")
 	check(not GameState.has_flag(&"ch1_heard_brief"), "the rooftop flag is still unset")
-	Story.play(&"ch1_c03a_roof")
+	Story.play(&"ch1_t_egret_1")
 	await frames(10)
-	check(GameState.has_flag(&"ch1_heard_brief"), "finishing the rooftop scene sets its flag (the first part chains into the second)")
+	check(GameState.has_flag(&"ch1_heard_brief"), "finishing the briefing talk sets its flag")
+	Story.play(&"ch1_t_ali_1")
+	Story.play(&"ch1_t_ali_3")
+	await frames(10)
+	check(GameState.has_flag(&"ch1_met_ali") and GameState.has_flag(&"knows_ali_address"), "the two talks with Ali open the lounge exit and the way home")
 	Story.reset_progress()
 
 
@@ -544,7 +592,7 @@ func _test_walkthrough() -> void:
 	var level := await spawn_level(_datas["pawnshop"])
 	var front: Portal = level._portals.get(&"pawn_front")
 	check(not front.try_use(), "the front door stays shut before the rooftop")
-	check(Story.has_scene(&"ch1_c02_dinner") and Story.has_scene(&"ch1_c03b_roof"), "the dinner and the rooftop scenes exist")
+	check(Story.has_scene(&"ch1_b_dinner") and Story.has_scene(&"ch1_t_egret_1"), "the dinner and the briefing scenes exist")
 	GameState.set_flag(front_flag)
 	for step in route:
 		check(str(level.data.id) == "ch1_%s" % step[0], "walking: now in %s" % step[0])
@@ -554,6 +602,8 @@ func _test_walkthrough() -> void:
 		check(portal != null, "walking: %s has portal %s" % [step[0], step[1]])
 		if portal == null:
 			break
+		if portal.data.requires_flag != &"":
+			GameState.set_flag(portal.data.requires_flag)
 		check(portal.try_use(), "walking: portal %s opens" % step[1])
 		check(requested[0] == path_of(step[2]), "walking: %s leads to %s (%s)" % [step[1], step[2], requested[0]])
 		var target_portal := GameState.pending_portal

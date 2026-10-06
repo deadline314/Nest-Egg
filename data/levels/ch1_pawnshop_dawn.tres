@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=14 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
 [ext_resource type="Resource" path="res://data/props/credits_small.tres" id="3_credits_small"]
-[ext_resource type="Resource" path="res://data/story_items/doc_pawn_stub.tres" id="4_doc_pawn_stub"]
-[ext_resource type="Resource" path="res://data/weapons/melee/melee_dagger.tres" id="5_melee_dagger"]
-[ext_resource type="Resource" path="res://data/props/ch1_crate.tres" id="6_ch1_crate"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="7_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/mezzanine_gray.tres" id="8_mezzanine_gray"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch1_pawnshop.tres" id="9_ch1_pawnshop"]
+[ext_resource type="Resource" path="res://data/npcs/ch1_old_k.tres" id="4_ch1_old_k"]
+[ext_resource type="Resource" path="res://data/story_items/doc_pawn_stub.tres" id="5_doc_pawn_stub"]
+[ext_resource type="Resource" path="res://data/weapons/melee/melee_dagger.tres" id="6_melee_dagger"]
+[ext_resource type="Resource" path="res://data/props/ch1_crate.tres" id="7_ch1_crate"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="8_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/mezzanine_gray.tres" id="9_mezzanine_gray"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch1_pawnshop.tres" id="10_ch1_pawnshop"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("2_portal_data")
@@ -40,10 +41,10 @@ height = 152
 style = "ladder"
 
 [sub_resource type="Resource" id="Resource_3"]
-script = ExtResource("7_lighting_zone")
+script = ExtResource("8_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("8_mezzanine_gray")
+profile = ExtResource("9_mezzanine_gray")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -56,17 +57,18 @@ legend = Dictionary[String, Resource]({
 "K": SubResource("Resource_1"),
 "S": SubResource("Resource_2"),
 "c": ExtResource("3_credits_small"),
-"t": ExtResource("4_doc_pawn_stub"),
-"u": ExtResource("5_melee_dagger"),
-"x": ExtResource("6_ch1_crate")
+"n": ExtResource("4_ch1_old_k"),
+"t": ExtResource("5_doc_pawn_stub"),
+"u": ExtResource("6_melee_dagger"),
+"x": ExtResource("7_ch1_crate")
 })
-hints = PackedStringArray("移動 {move_left}/{move_right}，跳躍 {jump}（按久跳更高）", "按 {inventory} 開背包：武器改裝、道具與文件都在這裡", "滑鼠瞄準，{shoot} 射擊；{reload} 換彈。打左邊的木箱練習", "{dash} 衝刺：短暫無敵，可以穿過危險", "{move_down}＋{jump} 從單向平台落下；{melee} 近戰", "樓梯通往屋頂：鷺在上面等你")
+hints = PackedStringArray("移動 {move_left}/{move_right}，跳躍 {jump}（按久跳更高）", "按 {inventory} 開背包：武器改裝、道具與文件都在這裡", "滑鼠瞄準，{shoot} 射擊；{reload} 換彈。打左邊的木箱練習", "{dash} 衝刺：短暫無敵，可以穿過危險", "{move_down}＋{jump} 從單向平台落下；{melee} 近戰", "老 K 在桌邊：按 {interact} 和他說話", "樓梯通往屋頂：鷺在上面等你")
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("9_ch1_pawnshop")
+environment = ExtResource("10_ch1_pawnshop")
 layout_path = "res://data/levels/ch1_pawnshop_map.json"
-lighting_zones = Array[ExtResource("7_lighting_zone")]([SubResource("Resource_3")])
+lighting_zones = Array[ExtResource("8_lighting_zone")]([SubResource("Resource_3")])
 intro_scene = &"ch1_c14_home"
-story_triggers = PackedStringArray("ch1_c02_dinner")
+story_triggers = PackedStringArray("ch1_b_dinner")
 complete_after_intro = true

@@ -15,3 +15,4 @@ max_lock_seconds = 90.0
 reinforcements = Array[ExtResource("2_enemy_data")]([ExtResource("3_collector_brute")])
 start_text = "保險箱有人守著：撐住"
 clear_text = "保險箱安全了"
+start_scene = &"ch1_k_vault"

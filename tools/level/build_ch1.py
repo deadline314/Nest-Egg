@@ -29,6 +29,10 @@ RES = {
     'b': 'res://data/enemies/collector_brute.tres',
     'd': 'res://data/enemies/drone.tres',
     'w': 'res://data/enemies/watchdog.tres',
+    'n': 'res://data/npcs/ch1_old_k.tres',      # 場景人物（ST-12）：老 K、鷺、阿梨（復原館、麵攤各一份）
+    'E': 'res://data/npcs/ch1_egret.tres',
+    'Y': 'res://data/npcs/ch1_ali_lounge.tres',
+    'Q': 'res://data/npcs/ch1_ali_stall.tres',
     'z': 'res://data/enemies/ch1_inspector.tres',  # 迷你頭目：收帳人·督察（傷會留著）；B 是引擎保留的頭目戰場字元
     # 道具
     'i': 'res://data/consumables/med_injector.tres',
@@ -77,9 +81,11 @@ PORTALS = {
     'O': dict(id='wh_street', to=AREA('street'), target='street_warehouse', mode=0, prompt='{interact} 回街道', style='door', w=28, h=48),
     'L': dict(id='wh_upper', to=AREA('lounge'), target='', mode=0, prompt='{interact} 上層通道（過去就回不來了）', style='door'),
     # 復原館
-    'G': dict(id='lounge_exit', to=AREA('stall'), target='', mode=1, prompt='', style='road', w=20, h=44),
+    'G': dict(id='lounge_exit', to=AREA('stall'), target='', mode=1, prompt='', style='road', w=20, h=44,
+              requires='ch1_met_ali', locked='先和阿梨說話。'),
     # 宵夜麵攤
-    'Z': dict(id='stall_home', to=AREA('pawnshop_dawn'), target='pawn_front', mode=0, prompt='{interact} 回家', style='door'),
+    'Z': dict(id='stall_home', to=AREA('pawnshop_dawn'), target='pawn_front', mode=0, prompt='{interact} 回家', style='door',
+              requires='knows_ali_address', locked='先吃點東西，和阿梨說話。'),
 }
 
 # 鎖場遭遇用的動態字元（每個遭遇一個範圍字元、一個閘門字元）：希臘字母，不會和其他字元衝突。
@@ -432,7 +438,9 @@ def build_pawnshop():
     a.hint(11, '{move_down}＋{jump} 從單向平台落下；{melee} 近戰')
     a.stand(24, 'c')
     # 廚房 x=80～110：晚飯在入口，樓梯在最右
-    a.trigger(84, 'ch1_c02_dinner')
+    a.trigger(82, 'ch1_b_dinner')
+    a.stand(86, 'n')
+    a.hint(88, '老 K 在桌邊：按 {interact} 和他說話')
     a.prop('pawnshop_kitchen__dish_cabinet', 81)
     a.prop('pawnshop_kitchen__water_urn', 83)
     a.prop('pawnshop_kitchen__dining_table', 90)
@@ -461,7 +469,9 @@ def build_rooftop():
     a.hint(24, '屋頂中間有一條縫：助跑跳過去，跳躍 {jump}')
     a.stand(20, 'c')
     a.stand(62, 'c')
-    a.trigger(40, 'ch1_c03a_roof')
+    a.trigger(34, 'ch1_b_roof')
+    a.stand(54, 'E')
+    a.hint(50, '鷺在等你：走過去按 {interact} 聽差事')
     a.prop('rooftop__stairwell_hut', 1)
     a.prop('rooftop__rusty_water_tank', 44)
     a.prop('rooftop__antenna_forest', 64)
@@ -492,6 +502,7 @@ def build_street():
     a.stand(4, 'P')
     a.stand(6, 'h')
     # 市集口（安全區）
+    a.trigger(9, 'ch1_b_street_in')
     a.hint(10, '街上有人發傳單、有人聊天，不是每個人都想打你')
     a.stand(22, 'f')
     a.stand(34, 'j')
@@ -515,7 +526,7 @@ def build_street():
     a.platform(106, 111, 13)
     a.block(113, 114, 18, 19)
     a.encounter('街心', 92, 118, [(98, 'g'), (111, 'g'), (104, 'd', 9)], reinforcements=['k'], lock=True, slug='plaza', gate_h=9,
-                start_text='路被封住了：打倒他們', clear_text='街道通了')
+                start_text='路被封住了：打倒他們', clear_text='街道通了', start_scene='ch1_k_plaza')
     a.stand(121, 'i')
     # 近戰與高路（x=122～147）
     a.trigger(120, 'ch1_g06_tip_blade')
@@ -536,7 +547,7 @@ def build_street():
     a.block(171, 172, 18, 19)
     a.platform(175, 179, 15)
     a.encounter('路障', 152, 182, [(168, 'z'), (166, 'k', 14), (177, 'k', 14)], reinforcements=['g', 'g'], lock=True, slug='blockade', gate_h=9,
-                start_text='收帳人封路：撐住', clear_text='路障清掉了')
+                start_text='收帳人封路：撐住', clear_text='路障清掉了', start_scene='ch1_k_blockade')
     a.stand(185, 'o')
     a.stand(184, 'c')
     a.stand(186, 'm')
@@ -653,6 +664,7 @@ def build_warehouse():
     a.encounter('坑前', 114, 116, [(114, 'b'), (116, 'k')])
     a.hint(115, '牆上的水位刻度很高：這個坑會漲水')
     a.trigger(117, 'ch1_g10_pit')
+    a.trigger(119, 'ch1_g10_pit2')
     # 水坑：寬 11（x=118～128）、深 6（列 17～22），坑底在第 23 列
     a.clear(118, 128, 17, 22)
     a.stand(123, 'W', row=22)
@@ -667,7 +679,7 @@ def build_warehouse():
     a.block(150, 151, 14, 16)
     a.platform(158, 163, 13)
     a.encounter('保險箱守衛', 142, 166, [(157, 'z'), (148, 'k')], reinforcements=['b'], lock=True, slug='vault', gate_h=13,
-                start_text='保險箱有人守著：撐住', clear_text='保險箱安全了')
+                start_text='保險箱有人守著：撐住', clear_text='保險箱安全了', start_scene='ch1_k_vault')
     a.stand(160, 'y')
     a.hint(156, '保險箱裡有一片資料盤：拿了就能從上層通道離開')
     a.stand(146, 'c')
@@ -684,7 +696,7 @@ def build_warehouse():
     a.put(240, 8, 'L')
     a.stand(190, 'c', row=8)
     a.encounter('上層走道', 185, 235, [(192, 'g', 8), (204, 'g', 8), (216, 'k', 8), (210, 'd', 6)], reinforcements=['k'], lock=True, slug='walkway',
-                gate_h=5, floor_row=8, start_text='走道上有人：清乾淨再走', clear_text='走道通了')
+                gate_h=5, floor_row=8, start_text='走道上有人：清乾淨再走', clear_text='走道通了', start_scene='ch1_k_walkway')
     # 下層走道（走道下面）：秘密房
     a.stand(210, 'c', row=16)
     a.stand(200, 'i', row=16)
@@ -703,6 +715,9 @@ def build_lounge():
     a.ceiling(1, 54, 10)
     a.stand(4, 'P')
     a.stand(52, 'G')
+    a.trigger(12, 'ch1_b_lounge')
+    a.stand(30, 'Y')
+    a.hint(26, '阿梨在吧台：走過去按 {interact} 說話，說完才出得去')
     a.prop('revival_lounge__booth_sofa', 6)
     a.prop('revival_lounge__round_table_stools', 14)
     a.prop('revival_lounge__jukebox', 21)
@@ -722,6 +737,9 @@ def build_stall():
     a = Area('stall', '宵夜麵攤', 48, 20)
     a.stand(4, 'P')
     a.stand(44, 'Z')
+    a.trigger(12, 'ch1_b_stall')
+    a.stand(21, 'Q')
+    a.hint(17, '阿梨的麵攤：按 {interact} 說話，說完才能回家')
     a.prop('dawn_noodle_stall__ali_noodle_cart', 18)
     a.prop('dawn_noodle_stall__noodle_bowls_table', 26)
     a.prop('dawn_noodle_stall__stool_stack', 32)
@@ -732,6 +750,43 @@ def build_stall():
     a.lamp(20, 9)
     a.zone(0, 'mezzanine_gray')
     return a
+
+
+# ---------------------------------------------------------------------------
+# 場景人物（ST-12）：地圖上說話的人。台詞在劇本（build_ch1_story.py）：玩家靠近按互動鍵才說的是 dialogue 場景，到達時冒的是氣泡。
+# ---------------------------------------------------------------------------
+NPC_DIR = os.path.join(ROOT, 'data', 'npcs')
+NPCS = {
+    'ch1_old_k': dict(name='老 K', speaker='old_k', rig='old_k', loop='wipe_hands', facing=-1, prompt='{interact} 和老 K 說話',
+                      talks=[('ch1_t_oldk_1', 0), ('ch1_t_oldk_2', 1)]),
+    'ch1_egret': dict(name='鷺', speaker='egret', rig='night_worker', pose='lean', loop='yawn', facing=-1, prompt='{interact} 聽鷺說差事',
+                      talks=[('ch1_t_egret_1', 0), ('ch1_t_egret_2', 1)]),
+    'ch1_ali_lounge': dict(name='阿梨', speaker='ali', rig='nurse', loop='wipe_hands', facing=-1, prompt='{interact} 和阿梨說話',
+                           talks=[('ch1_t_ali_1', 0), ('ch1_t_ali_2', 1)]),
+    'ch1_ali_stall': dict(name='阿梨', speaker='ali', rig='nurse', loop='stir', facing=-1, prompt='{interact} 和阿梨說話',
+                          talks=[('ch1_t_ali_3', 0), ('ch1_t_ali_4', 1)]),
+}
+
+
+def write_npc_files():
+    os.makedirs(NPC_DIR, exist_ok=True)
+    for ident, n in NPCS.items():
+        w = TresWriter('NpcData', 'res://data/scripts/npc_data.gd')
+        talk_script = w.ext('res://data/scripts/npc_talk.gd', 'Script')
+        subs = []
+        for scene, min_talks in n['talks']:
+            body = [f'script = ExtResource("{talk_script}")', f'scene = &"{scene}"']
+            if min_talks:
+                body.append(f'min_talks = {min_talks}')
+            subs.append(w.sub(body))
+        lines = [f'script = ExtResource("{w.script_id}")', f'id = &"{ident}"', f'display_name = {json.dumps(n["name"], ensure_ascii=False)}',
+                 f'speaker = "{n["speaker"]}"', f'rig_id = "{n["rig"]}"']
+        if n.get('pose'):
+            lines.append(f'pose = &"{n["pose"]}"')
+        lines += [f'loop = &"{n["loop"]}"', f'facing = {n["facing"]}', f'prompt = {json.dumps(n["prompt"], ensure_ascii=False)}',
+                  f'talks = Array[ExtResource("{talk_script}")]([' + ', '.join(f'SubResource("{x}")' for x in subs) + '])']
+        with open(os.path.join(NPC_DIR, f'{ident}.tres'), 'w') as f:
+            f.write(w.render(lines))
 
 
 # ---------------------------------------------------------------------------
@@ -894,11 +949,8 @@ def write_theme(area, theme_key):
 
 # 每個區域的劇情接點：進場過場、機關頻道播放的場景（劇本在 tools/story/build_ch1_story.py 產生）
 STORY = {
-    'pawnshop': dict(intro='ch1_c00_prologue'),
-    'street': dict(intro='ch1_c04_out'),
+    'pawnshop': dict(intro='ch1_c01_open'),
     'warehouse': dict(channels={'watchdog_gate': 'ch1_c11_watchdog'}),
-    'lounge': dict(intro='ch1_c12_lounge'),
-    'stall': dict(intro='ch1_c13_noodle'),
     'pawnshop_dawn': dict(intro='ch1_c14_home'),
 }
 
@@ -986,6 +1038,7 @@ def main():
     if problems:
         print('\n'.join(problems))
         sys.exit(1)
+    write_npc_files()
     write_encounter_files(areas)
     write_design(areas)
     report(areas)

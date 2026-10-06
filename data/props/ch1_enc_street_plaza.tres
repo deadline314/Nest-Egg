@@ -15,3 +15,4 @@ max_lock_seconds = 90.0
 reinforcements = Array[ExtResource("2_enemy_data")]([ExtResource("3_collector_gunner")])
 start_text = "路被封住了：打倒他們"
 clear_text = "街道通了"
+start_scene = &"ch1_k_plaza"

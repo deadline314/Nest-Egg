@@ -1,24 +1,27 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=8 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
-[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="3_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/mezzanine_gray.tres" id="4_mezzanine_gray"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch1_stall.tres" id="5_ch1_stall"]
+[ext_resource type="Resource" path="res://data/npcs/ch1_ali_stall.tres" id="2_ch1_ali_stall"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="3_portal_data"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/mezzanine_gray.tres" id="5_mezzanine_gray"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch1_stall.tres" id="6_ch1_stall"]
 
 [sub_resource type="Resource" id="Resource_0"]
-script = ExtResource("2_portal_data")
+script = ExtResource("3_portal_data")
 id = &"stall_home"
 target_level = "res://data/levels/ch1_pawnshop_dawn.tres"
 target_portal = &"pawn_front"
+requires_flag = &"knows_ali_address"
+locked_text = "先吃點東西，和阿梨說話。"
 prompt = "{interact} 回家"
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
-script = ExtResource("3_lighting_zone")
+script = ExtResource("4_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("4_mezzanine_gray")
+profile = ExtResource("5_mezzanine_gray")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -27,14 +30,14 @@ display_name = "宵夜麵攤"
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
+"Q": ExtResource("2_ch1_ali_stall"),
 "Z": SubResource("Resource_0")
 })
-hints = PackedStringArray()
+hints = PackedStringArray("阿梨的麵攤：按 {interact} 說話，說完才能回家")
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("5_ch1_stall")
+environment = ExtResource("6_ch1_stall")
 layout_path = "res://data/levels/ch1_stall_map.json"
-lighting_zones = Array[ExtResource("3_lighting_zone")]([SubResource("Resource_1")])
-intro_scene = &"ch1_c13_noodle"
-story_triggers = PackedStringArray()
+lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_1")])
+story_triggers = PackedStringArray("ch1_b_stall")

@@ -93,4 +93,4 @@ environment = ExtResource("28_ch1_warehouse")
 layout_path = "res://data/levels/ch1_warehouse_map.json"
 lighting_zones = Array[ExtResource("26_lighting_zone")]([SubResource("Resource_2")])
 channel_scenes = Dictionary[StringName, StringName]({&"watchdog_gate": &"ch1_c11_watchdog"})
-story_triggers = PackedStringArray("ch1_g07_dog", "ch1_g10_pit", "ch1_g10_cross", "ch1_g10_disk")
+story_triggers = PackedStringArray("ch1_g07_dog", "ch1_g10_pit", "ch1_g10_pit2", "ch1_g10_cross", "ch1_g10_disk")

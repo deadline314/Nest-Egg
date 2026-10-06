@@ -15,3 +15,4 @@ max_lock_seconds = 90.0
 reinforcements = Array[ExtResource("2_enemy_data")]([ExtResource("3_sweeper"), ExtResource("3_sweeper")])
 start_text = "收帳人封路：撐住"
 clear_text = "路障清掉了"
+start_scene = &"ch1_k_blockade"

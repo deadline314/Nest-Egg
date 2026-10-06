@@ -7,6 +7,9 @@ const MAX_SAYS := 16
 const MAX_SAY_RUN := 3
 const MAX_SAY_LENGTH := 56
 const MAX_TIME := 60.0
+## 預估播放秒數的讀速：一句台詞 = SAY_BASE + SAY_PER_CHAR × 字數（玩家一般的閱讀與點擊速度）。場景可以用 budget 宣告預算（秒），超過就是問題。
+const SAY_BASE := 1.0
+const SAY_PER_CHAR := 0.08
 const FX_KINDS: PackedStringArray = ["shake", "flash", "lightning", "noise", "tint", "rain", "vignette"]
 const STYLES: PackedStringArray = ["normal", "whisper", "shout", "noise"]
 
@@ -86,7 +89,44 @@ static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) 
 			problems.append_array(_check_stage(where, StringName(str(step.get("id", "")))))
 	if says > MAX_SAYS:
 		problems.append("動畫場景 %s 有 %d 句台詞，上限 %d 句" % [scene_id, says, MAX_SAYS])
+	if scene.has("budget"):
+		var budget := float(scene["budget"])
+		var estimate := estimate_seconds(scene)
+		if budget <= 0.0:
+			problems.append("動畫場景 %s 的 budget 必須是正數" % scene_id)
+		elif estimate > budget:
+			problems.append("動畫場景 %s 預估 %.0f 秒，超過預算 %.0f 秒（台詞每句約 %.1f 秒 + %.2f 秒 × 字數）" % [scene_id, estimate, budget, SAY_BASE, SAY_PER_CHAR])
 	return problems
+
+
+## 預估一份動畫場景的播放秒數（不含玩家額外停留）：台詞依字數、等待／淡出／特效／標題依各自的時間，會等待的移動與鏡頭依其時間。
+static func estimate_seconds(scene: Dictionary) -> float:
+	var total := 0.0
+	var steps: Variant = scene.get("steps", [])
+	if typeof(steps) != TYPE_ARRAY:
+		return total
+	for raw: Variant in steps:
+		if typeof(raw) != TYPE_DICTIONARY:
+			continue
+		var step: Dictionary = raw
+		match str(step.get("do", "")):
+			"say":
+				total += SAY_BASE + SAY_PER_CHAR * float(str(step.get("text", "")).length())
+			"narrate":
+				var chars := 0
+				for line: Variant in step.get("lines", []):
+					chars += str(line).length()
+				total += float(step.get("time", 2.2)) + 0.05 * float(chars)
+			"title":
+				total += float(step.get("time", 2.5)) + 0.8
+			"wait", "fade", "fx":
+				total += float(step.get("time", 0.5))
+			"scene":
+				total += float(step.get("fade", 0.0))
+			"move", "camera":
+				if bool(step.get("wait", false)):
+					total += float(step.get("time", 1.0))
+	return total
 
 
 static func _check_say(where: String, step: Dictionary, speakers: Dictionary) -> PackedStringArray:
