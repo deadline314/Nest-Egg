@@ -239,7 +239,8 @@ static func _check_props(data: LevelData, layout: LevelLayout, issues: Array[Dic
 		if rect.position.x < 0.0 or rect.end.x > layout.pixel_size().x:
 			_add(issues, ERROR, "prop_outside", where, "擺設 %s 超出地圖左右邊界" % entry["id"])
 		var buried := _buried_depth(layout, rect)
-		if buried > PROP_OVERLAP_TOLERANCE:
+		# allow_overlap：看過畫面確認是景深（物件在牆後、吊掛在天花板上、貼著高牆）的擺設，不再警告。
+		if buried > PROP_OVERLAP_TOLERANCE and not bool(entry.get("allow_overlap", false)):
 			_add(issues, WARN, "prop_buried", where, "擺設 %s 有 %.0f 像素陷進實心地形" % [entry["id"], buried])
 
 

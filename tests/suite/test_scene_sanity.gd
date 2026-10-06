@@ -231,9 +231,8 @@ func _test_real_levels() -> void:
 		for issue: Dictionary in split["errors"]:
 			check(false, "scene sanity: %s" % SceneAudit.describe(issue))
 		check(split["errors"].is_empty(), "%s has no scene sanity errors" % path.get_file())
-		if path.contains("/ch1_"):
-			for issue: Dictionary in split["warnings"]:
-				check(false, "chapter 1 scene sanity warning: %s" % SceneAudit.describe(issue))
+		for issue: Dictionary in split["warnings"]:
+			check(false, "scene sanity warning (reviewed warnings are marked in the data): %s" % SceneAudit.describe(issue))
 	var links := SceneAudit.split(SceneAudit.audit_links(datas, layouts))
 	for issue: Dictionary in links["errors"] + links["warnings"]:
 		check(false, "scene link: %s" % SceneAudit.describe(issue))

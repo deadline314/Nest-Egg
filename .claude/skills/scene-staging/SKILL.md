@@ -70,9 +70,9 @@ description: 做或修改 Nest Egg 的關卡佈景、過場動畫舞台與場景
 | `ladder_pair` | 梯子兩端都是梯子但高度不同；梯子可以接 `hidden`／`door`（另一端是樓梯間的門） | 警告 |
 | `door_small` | 出入口矮於 32 像素（比主角還矮） | 警告 |
 | `unreachable` | 從主角起點走、跳（上 5 格、橫 7 格）、落下到不了的出入口、人物、商店、道具、檢查點（升降梯與水坑浮橋算平台） | 警告 |
-| `prop_floating` / `prop_outside` / `prop_buried` | 擺設腳下沒地表、超出地圖、陷進實心地形超過 4 像素（背景道具貼著高牆時會出現，看過截圖確認是景深就保留） | 錯誤／警告 |
+| `prop_floating` / `prop_outside` / `prop_buried` | 擺設腳下沒地表、超出地圖、陷進實心地形超過 4 像素（背景道具貼著高牆時會出現；看過畫面確認是景深就在地圖 JSON 的那一筆加 `"allow_overlap": true`） | 錯誤／警告 |
 | `stage_feet` / `stage_scale` | 過場演員腳底離舞台地板線超過 14 像素（坐、蹲、跪、倒除外）、同舞台同角色縮放差超過一成 | 警告 |
-第一章（產生器產生的）地圖不允許任何警告；舊關卡的錯誤一律要修。報告：`godot --headless --path . res://tools/scene_report.tscn [-- --level=ch1_street]`。截圖定位：`--scenario=place:關卡id:欄[:標籤[:enemies]]`。
+所有關卡都不允許未處理的警告或錯誤：看過畫面確認沒問題的警告，在資料裡標記（例如擺設的 `allow_overlap`）。報告：`godot --headless --path . res://tools/scene_report.tscn [-- --level=ch1_street]`。截圖定位：`--scenario=place:關卡id:欄[:標籤[:enemies]]`。
 **出入口 `style: hidden`**：什麼都不畫，只留互動範圍與提示；用在擺設本身就有門的地方（屋頂樓梯間），不要在已經有門的圖上再疊一條梯子或門框。
 
 **檢查**：`CutsceneChecker`（步驟欄位、台詞限制、`layer` 範圍）、`LayerOrderSuite`（角色 z 範圍、場景在角色之下、演員不穿插、實體不落在角色圖層中間）、`Chapter1MapSuite`（地圖、出入口、梯子高度、道具在地圖內）。
