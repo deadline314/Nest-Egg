@@ -30,6 +30,9 @@ var _feet_w := 0.0
 var _w_talk := 0.0
 var _w_listen := 0.0
 var _w_wave := 0.0
+## 生命感層（NE-206）：飄動、呼吸變化、重心轉移、轉頭、說話的手勢與彈簧餘勢。第一次用到才建立。
+var _life: NpcLife
+var _breath_phase := 0.0
 
 
 func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> Dictionary:
@@ -51,13 +54,24 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 		_feet_last = _feet_def
 	_add_bones(pose, base.get("bones", {}), 1.0)
 	var mine: Dictionary = _motion["npc"]  # 這個角色自己的站姿微調與說話的速度、幅度
-	_add_bones(pose, mine["stand"], 1.0)
+	if input.npc_pose == &"stand":
+		_add_bones(pose, mine["stand"], 1.0)  # 這個角色自己的站姿微調（只在站著時）
 	pose[&"_hip_x"] = float(base.get("hip_x", 0.0))
 	pose[&"_hip_y"] = float(base.get("hip_y", 0.0))
-	# 呼吸：胸口與骨盆微微起伏。
+	# 生命感：緩慢飄動、重心轉移、轉頭看一下、呼吸速率變化與嘆氣、說話前吸氣與重音手勢。
+	if _life == null:
+		_life = NpcLife.new()
+		var life_defaults: Variant = data.get("life", {})
+		_life.setup(_rig.skin_id, life_defaults if typeof(life_defaults) == TYPE_DICTIONARY else {}, mine.get("life", {}))
+	var life := _life.step(delta, {"posture": input.npc_pose, "talking": input.talking, "thigh": _rig.rest(&"leg_front_lower").length()})
+	_add_bones(pose, life["bones"], 1.0)
+	pose[&"_hip_x"] = float(pose[&"_hip_x"]) + float(life["hip_x"])
+	pose[&"_hip_y"] = float(pose[&"_hip_y"]) + float(life["hip_y"])
+	# 呼吸：胸口與骨盆微微起伏（速率會緩慢變化，偶爾較深）。
 	var idle: Dictionary = _motion["idle"]
-	var breath := sin(_time * float(idle["breath_speed"]))
-	pose[&"chest"] = float(pose.get(&"chest", 0.0)) + breath * float(idle["breath_amp"])
+	_breath_phase += delta * float(idle["breath_speed"]) * float(life["breath_rate"])
+	var breath := sin(_breath_phase)
+	pose[&"chest"] = float(pose.get(&"chest", 0.0)) + breath * (1.0 + float(life["breath_extra"])) * float(idle["breath_amp"])  # 嘆氣只讓胸口起伏更深，骨盆不跟著動（腳才不會被帶著上下）
 	pose[&"_hip_y"] = float(pose[&"_hip_y"]) + breath * float(idle["hip_bob"])
 	# 專屬工作循環。
 	if input.npc_loop != &"":
@@ -78,6 +92,10 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 		var talking: bool = entry[0] == "talk"
 		_add_bones(pose, overlay.get("bones", {}), weight)
 		_add_tracks(pose, overlay.get("tracks", []), weight * (float(mine["talk_amp"]) if talking else 1.0), 1.0, float(mine["talk_speed"]) if talking else 1.0)
+	# 餘勢與過衝：頭、軀幹、前臂追目標角度時帶一點彈性。
+	for bone_name: StringName in pose.keys():
+		if not String(bone_name).begins_with("_"):
+			pose[bone_name] = _life.follow(bone_name, float(pose[bone_name]), delta)
 	return pose
 
 

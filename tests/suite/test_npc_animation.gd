@@ -71,7 +71,7 @@ func _test_poses() -> void:
 	check(absf(_angle(stand, &"arm_front_upper")) < 0.3, "an unarmed standing npc lets the arm hang (no aiming pose)")
 	input.npc_pose = &"lean"
 	var lean := await _rig_with(input)
-	check(_angle(lean, &"chest") < -0.05, "leaning tips the chest back")
+	check(_angle(lean, &"chest") < -0.05, "leaning tips the chest back (%.3f)" % _angle(lean, &"chest"))
 	input.npc_pose = &"crouch"
 	var crouch := await _rig_with(input)
 	check(crouch.bone(&"hip").position.y > stand_hip + 4.0, "crouching lowers the pelvis")

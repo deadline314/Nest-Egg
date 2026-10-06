@@ -55,7 +55,7 @@ const DEFAULT_MOTION := {
 	"block": {"chest": 0.1, "legs": [-0.4, 0.5, 0.5, 0.2]},
 	"hurt": {"stagger_chest": -0.35, "kick": 0.3},
 	"look": {"chest": 0.12, "neck": 0.12, "head": 0.3, "head_min": -0.35, "head_max": 0.3},
-	"npc": {"stand": {}, "talk_speed": 1.0, "talk_amp": 1.0},
+	"npc": {"stand": {}, "talk_speed": 1.0, "talk_amp": 1.0, "life": {}},
 	"relax": {"aim": 0.75, "reach": 0.8, "chest": -0.04, "speed": 6.0},
 	"recoil": {"chest": 0.06, "reach": 2.5, "hip": 0.0, "decay": 9.0},
 	"death": {"duration": 0.45, "rotation": -1.56, "drop": 21.0, "hip_x": -6.0, "chest": 0.15, "head": 0.35, "fold": 0.0, "fold_keep": 0.4, "ease": "out_cubic",
@@ -197,7 +197,11 @@ static func _load_motion(skin_id: String) -> Dictionary:
 static func _merge_into(base: Dictionary, over: Dictionary) -> void:
 	for key: Variant in over.keys():
 		if typeof(over[key]) == TYPE_DICTIONARY and base.has(key) and typeof(base[key]) == TYPE_DICTIONARY:
-			_merge_into(base[key], over[key])
+			# 預設是空字典＝自由格式的欄位（例如 npc.stand、npc.life 的項目由資料決定），整份採用，不是逐鍵蓋過。
+			if (base[key] as Dictionary).is_empty():
+				base[key] = (over[key] as Dictionary).duplicate(true)
+			else:
+				_merge_into(base[key], over[key])
 		elif base.has(key) and typeof(base[key]) == typeof(over[key]):
 			base[key] = over[key]
 

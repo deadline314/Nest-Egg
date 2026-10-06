@@ -1,5 +1,5 @@
 {
-  "description": "NPC 動畫資料（NpcAnimator 讀取）。角度單位是弧度，以面向右的骨架空間為準：骨頭靜止時朝下，負值＝往前（面向的方向）抬。poses 是基本姿勢（bones 各骨頭的角度、hip_x／hip_y 骨盆位移，y 為正往下；feet 讓兩隻腳用 IK 平放在地上：x＝前腳與後腳相對骨盆的前後位置（單位＝大腿長）、sag＝骨盆下沉（單位＝髖到踝的腿長），比例讓不同身高的骨架共用，坐與蹲用它，腳才不會懸空或陷地）；overlays 是疊加動作（talk 說話、listen 聆聽、wave 揮手），開關時淡入淡出；loops 是每個角色專屬的工作循環。track＝一條正弦：bone（可用 _hip_x／_hip_y）、mean 平均、amp 幅度、period 週期（秒）、phase 相位；gated＝只在 gate 的「發生」時段出現，inv＝只在 gate 的「沒發生」時段出現。幅度與節奏改這裡就好，不需要改程式；NPC 資料的 loop_scale 可以整體放大縮小。",
+  "description": "NPC 動畫資料（NpcAnimator 讀取）。角度單位是弧度，以面向右的骨架空間為準：骨頭靜止時朝下，負值＝往前（面向的方向）抬。poses 是基本姿勢（bones 各骨頭的角度、hip_x／hip_y 骨盆位移，y 為正往下；feet 讓兩隻腳用 IK 平放在地上：x＝前腳與後腳相對骨盆的前後位置（單位＝大腿長）、sag＝骨盆下沉（單位＝髖到踝的腿長），比例讓不同身高的骨架共用，坐與蹲用它，腳才不會懸空或陷地）；overlays 是疊加動作（talk 說話、listen 聆聽、wave 揮手），開關時淡入淡出；loops 是每個角色專屬的工作循環。track＝一條正弦：bone（可用 _hip_x／_hip_y）、mean 平均、amp 幅度、period 週期（秒）、phase 相位；gated＝只在 gate 的「發生」時段出現，inv＝只在 gate 的「沒發生」時段出現。幅度與節奏改這裡就好，不需要改程式；NPC 資料的 loop_scale 可以整體放大縮小。 life 是待機的生命感層（NpcLife）的預設：drift 各骨頭各自緩慢飄動（週期由角色與骨頭決定，不同步）、breath 呼吸速率變化與偶爾的嘆氣、shift 站著時換腳站、glance 轉頭看一下、beat 說話的重音手勢與開口前吸氣、follow 追目標角度的彈簧（w 角頻率、z 阻尼比，< 1 會有一點過衝）；每個角色在 art/motion/<角色>.json 的 npc.life 逐項蓋過（amount 整體幅度、tempo 事件頻率）。",
   "poses": {
     "stand": {"hip_x": 0, "hip_y": 0, "bones": {
       "arm_front_upper": 0.06, "arm_front_lower": -0.12, "arm_back_upper": 0.14, "arm_back_lower": -0.1,
@@ -86,5 +86,148 @@
       {"bone": "_hip_x", "amp": 0.3, "period": 3.0},
       {"bone": "head", "amp": 0.1, "period": 4.0},
       {"bone": "chest", "amp": 0.02, "period": 3.0}]}
+  },
+  "life": {
+   "drift": [
+    {
+     "bone": "chest",
+     "amp": 0.022,
+     "periods": [
+      7.0,
+      13.0
+     ]
+    },
+    {
+     "bone": "head",
+     "amp": 0.035,
+     "periods": [
+      5.5,
+      10.0
+     ]
+    },
+    {
+     "bone": "neck",
+     "amp": 0.012,
+     "periods": [
+      8.0,
+      14.0
+     ]
+    },
+    {
+     "bone": "arm_front_upper",
+     "amp": 0.03,
+     "periods": [
+      8.0,
+      15.0
+     ]
+    },
+    {
+     "bone": "arm_front_lower",
+     "amp": 0.03,
+     "periods": [
+      6.0,
+      12.0
+     ]
+    },
+    {
+     "bone": "arm_back_upper",
+     "amp": 0.026,
+     "periods": [
+      9.0,
+      16.0
+     ]
+    },
+    {
+     "bone": "arm_back_lower",
+     "amp": 0.026,
+     "periods": [
+      7.0,
+      13.0
+     ]
+    },
+    {
+     "bone": "hand_front",
+     "amp": 0.05,
+     "periods": [
+      5.0,
+      9.0
+     ]
+    },
+    {
+     "bone": "hand_back",
+     "amp": 0.05,
+     "periods": [
+      6.0,
+      11.0
+     ]
+    }
+   ],
+   "breath": {
+    "rate_var": 0.1,
+    "sigh_every": [
+     14.0,
+     26.0
+    ],
+    "sigh_amp": 1.8,
+    "sigh_time": 2.4
+   },
+   "shift": {
+    "every": [
+     6.0,
+     12.0
+    ],
+    "time": 1.1,
+    "hip_x": 0.8,
+    "lean": 0.03,
+    "knee": 0.1
+   },
+   "glance": {
+    "every": [
+     3.0,
+     8.0
+    ],
+    "time": 0.4,
+    "hold": [
+     0.5,
+     1.6
+    ],
+    "head": 0.2
+   },
+   "beat": {
+    "every": [
+     0.7,
+     1.6
+    ],
+    "attack": 0.14,
+    "decay": 0.45,
+    "gesture": 0.35,
+    "nod": 0.07,
+    "inhale": 0.3,
+    "inhale_amp": 0.05,
+    "settle": 0.6,
+    "settle_amp": 0.03
+   },
+   "follow": {
+    "head": {
+     "w": 16.0,
+     "z": 0.55
+    },
+    "chest": {
+     "w": 12.0,
+     "z": 0.6
+    },
+    "arm_front_lower": {
+     "w": 14.0,
+     "z": 0.5
+    },
+    "arm_back_lower": {
+     "w": 14.0,
+     "z": 0.5
+    },
+    "hand_front": {
+     "w": 18.0,
+     "z": 0.5
+    }
+   }
   }
 }

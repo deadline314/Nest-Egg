@@ -120,6 +120,7 @@
    "head": 0.12
   },
   "talk_speed": 1.1,
-  "talk_amp": 0.8
+  "talk_amp": 0.8,
+    "life": {"tempo": 1.1, "amount": 1.2, "glance": {"head": 0.3, "every": [2.0, 6.0]}, "shift": {"every": [4.0, 9.0]}}
  }
 }
