@@ -133,6 +133,125 @@ static func orphan_scenes(refs: Dictionary) -> PackedStringArray:
 	return result
 
 
+# ---------------------------------------------------------------------------
+# 不可達內容（旗標圖模擬）
+# ---------------------------------------------------------------------------
+
+## 從 starts（起點關卡）出發，反覆推進直到沒有新東西：到得了的關卡 → 裡面播得出的場景 → 場景設定的旗標 → 旗標打開的出入口 → 到得了的關卡…
+## model：{ "levels": { 關卡: {"scenes": [{"id": 場景, "after": 前置場景（空＝不限）}…], "portals": [{"to": 關卡, "requires": 旗標（空＝不限）}…]} },
+##          "scenes": { 場景: 場景資料（用 set_flags 與 then） }, "always": [一開始就播得出的場景（死亡與重生場景表）], "code_flags": [程式會設定的旗標] }。
+## 回傳 { "levels": 到得了的關卡, "scenes": 播得出的場景, "flags": 拿得到的旗標 }（都是 Dictionary 當集合用）。
+static func reachability(model: Dictionary, starts: Array) -> Dictionary:
+	var levels: Dictionary = {}
+	var scenes: Dictionary = {}
+	var flags: Dictionary = {}
+	for flag: Variant in model.get("code_flags", []):
+		flags[str(flag)] = true
+	for scene: Variant in model.get("always", []):
+		_play(model, str(scene), scenes, flags)
+	for start: Variant in starts:
+		levels[str(start)] = true
+	var size_before := -1
+	while size_before != levels.size() + scenes.size() + flags.size():
+		size_before = levels.size() + scenes.size() + flags.size()
+		for level_id: String in levels.keys():
+			var level: Dictionary = (model.get("levels", {}) as Dictionary).get(level_id, {})
+			for entry: Variant in level.get("scenes", []):
+				if typeof(entry) != TYPE_DICTIONARY:
+					continue
+				var scene_id := str((entry as Dictionary).get("id", ""))
+				var after := str((entry as Dictionary).get("after", ""))
+				if scene_id.is_empty() or scenes.has(scene_id) or (not after.is_empty() and not scenes.has(after)):
+					continue
+				_play(model, scene_id, scenes, flags)
+			for portal: Variant in level.get("portals", []):
+				if typeof(portal) != TYPE_DICTIONARY:
+					continue
+				var to := str((portal as Dictionary).get("to", ""))
+				var requires := str((portal as Dictionary).get("requires", ""))
+				if not to.is_empty() and not levels.has(to) and (requires.is_empty() or flags.has(requires)):
+					levels[to] = true
+	return {"levels": levels, "scenes": scenes, "flags": flags}
+
+
+## 播放一個場景（與它的 then 串）：記下場景、設定的旗標。
+static func _play(model: Dictionary, scene_id: String, scenes: Dictionary, flags: Dictionary) -> void:
+	var guard := 0
+	var current := scene_id
+	while not current.is_empty() and not scenes.has(current) and guard < 64:
+		guard += 1
+		scenes[current] = true
+		var scene: Variant = (model.get("scenes", {}) as Dictionary).get(current, {})
+		if typeof(scene) != TYPE_DICTIONARY:
+			return
+		for flag: Variant in (scene as Dictionary).get("set_flags", []):
+			flags[str(flag)] = true
+		current = str((scene as Dictionary).get("then", ""))
+
+
+## 不可達內容的問題：{"errors", "warnings"}。
+##   錯誤：到不了的關卡（除了 allowed_unreachable）；出入口要的旗標在整張圖裡拿不到（永遠打不開）。
+##   警告：有定義、被引用、卻因為前置場景或旗標而永遠播不出的場景。
+static func unreachable_problems(model: Dictionary, starts: Array, allowed_unreachable: Array = []) -> Dictionary:
+	var errors := PackedStringArray()
+	var warnings := PackedStringArray()
+	var result := reachability(model, starts)
+	var levels: Dictionary = result["levels"]
+	var level_ids: Array = (model.get("levels", {}) as Dictionary).keys()
+	level_ids.sort()
+	for level_id: String in level_ids:
+		if not levels.has(level_id) and not allowed_unreachable.has(level_id):
+			errors.append("關卡「%s」從起點走不到（出入口的旗標拿不到，或沒有任何出入口通往它）" % level_id)
+	for level_id: String in level_ids:
+		for portal: Variant in (model["levels"][level_id] as Dictionary).get("portals", []):
+			var requires := str((portal as Dictionary).get("requires", ""))
+			if not requires.is_empty() and not (result["flags"] as Dictionary).has(requires) and levels.has(level_id):
+				errors.append("關卡「%s」通往「%s」的出入口要旗標「%s」，但整張圖裡沒有一個播得出的場景會設定它" % [level_id, (portal as Dictionary).get("to", "?"), requires])
+	var referenced: Dictionary = {}
+	for level_id: String in level_ids:
+		for entry: Variant in (model["levels"][level_id] as Dictionary).get("scenes", []):
+			referenced[str((entry as Dictionary).get("id", ""))] = level_id
+	var unplayable: Array = []
+	for scene_id: String in referenced:
+		if not (result["scenes"] as Dictionary).has(scene_id) and levels.has(referenced[scene_id]):
+			unplayable.append(scene_id)
+	unplayable.sort()
+	for scene_id: String in unplayable:
+		warnings.append("場景「%s」在關卡「%s」裡被引用，但它的前置場景永遠播不出來" % [scene_id, referenced[scene_id]])
+	return {"errors": errors, "warnings": warnings}
+
+
+## 從真實的關卡資料建 model：datas 與 layouts 都以關卡路徑為鍵（LevelData、LevelLayout）。
+static func level_model(datas: Dictionary, layouts: Dictionary, scenes: Dictionary, always: Array, code_flags: Array) -> Dictionary:
+	var levels: Dictionary = {}
+	for path: String in datas:
+		var data := datas[path] as LevelData
+		var layout := layouts[path] as LevelLayout
+		var scene_entries: Array = []
+		for id in [data.intro_scene, data.boss_scene, data.outro_scene]:
+			if id != &"":
+				scene_entries.append({"id": str(id), "after": ""})
+		for id: Variant in data.channel_scenes.values():
+			scene_entries.append({"id": str(id), "after": ""})
+		for id in data.story_triggers:
+			scene_entries.append({"id": str(id), "after": ""})
+		var portals: Array = []
+		if not data.next_level.is_empty():
+			portals.append({"to": data.next_level, "requires": ""})
+		for spawn in layout.spawns:
+			var res := spawn["resource"] as Resource
+			if res is PortalData and not (res as PortalData).is_locked_door():
+				portals.append({"to": (res as PortalData).target_level, "requires": str((res as PortalData).requires_flag)})
+			elif res is NpcData:
+				for talk in (res as NpcData).talks:
+					if talk != null:
+						scene_entries.append({"id": str(talk.scene), "after": str(talk.after_scene)})
+			elif res is MechanismData and (res as MechanismData).start_scene != &"":
+				scene_entries.append({"id": str((res as MechanismData).start_scene), "after": ""})
+		levels[path] = {"scenes": scene_entries, "portals": portals}
+	return {"levels": levels, "scenes": scenes, "always": always, "code_flags": code_flags}
+
+
 ## 讀出資料夾下（遞迴）所有指定副檔名的文字檔：路徑 -> 內容。exclude：路徑包含這些字串的略過。
 static func read_text_files(roots: Array[String] = SCAN_ROOTS, exclude: Array[String] = []) -> Dictionary:
 	var result: Dictionary = {}

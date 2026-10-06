@@ -22,4 +22,25 @@ func _ready() -> void:
 	print("== 沒有任何引用的場景 ==")
 	for id in ContinuityAudit.orphan_scenes(ContinuityAudit.scene_references(view["scenes"], view["respawn"], view["death"], files)):
 		print(id)
-	get_tree().quit(1 if not (result["errors"] as PackedStringArray).is_empty() else 0)
+	# 不可達內容：從兩個起點（新遊戲、舊的雨夜關卡）模擬旗標圖，劇情旗標只能由場景設定
+	var datas: Dictionary = {}
+	var layouts: Dictionary = {}
+	for path in SceneAudit.level_paths():
+		var data := load(path) as LevelData
+		datas[path] = data
+		layouts[path] = LevelBuilder.parse(data)
+	var always: Array = []
+	for tables: Dictionary in [view["respawn"], view["death"]]:
+		for chapter: String in tables:
+			for entry: Variant in tables[chapter]:
+				if typeof(entry) == TYPE_DICTIONARY:
+					always.append(str((entry as Dictionary).get("scene", "")))
+	var model := ContinuityAudit.level_model(datas, layouts, view["scenes"], always, [])
+	var reach := ContinuityAudit.unreachable_problems(model, ["res://data/levels/ch1_pawnshop.tres", "res://data/levels/level_01.tres"])
+	print("== 不可達內容 ==")
+	for message in reach["errors"] as PackedStringArray:
+		print("錯誤：" + message)
+	for message in reach["warnings"] as PackedStringArray:
+		print("警告：" + message)
+	var failed := not (result["errors"] as PackedStringArray).is_empty() or not (reach["errors"] as PackedStringArray).is_empty()
+	get_tree().quit(1 if failed else 0)

@@ -102,7 +102,11 @@ S1、S2 必須在合併前修掉。嚴重度（技術影響）與優先級（緊
 | 經濟對帳 | `core/economy_report.gd`（`tools/economy_report.tscn`） | 章節收入（地上、箱子、敵人、增援）與必要花費（改裝加必要補給）比例落在 60–80%，由 `EconomySuite` 鎖住；改價格或掉落後先跑報表 |
 | 典當與扣款 | `Progression.pawn`／`redeem`／`lose_credits_fraction(ratio, cap)` | 當價一半、利息兩成、當票 ≤ 6、失敗不扣款、扣款有上限且不負債；改規則要同步改 `EconomySuite` |
 
-尚未做：4 不可達內容（旗標圖模擬）、5 once 對話已看旗標、8 長時間 soak。新增資料欄位會讀寫旗標時（例如對話選項分支），要同步讓 `ContinuityAudit.flag_table` 掃得到，否則會被誤報成「只寫不讀」。
+| 4 不可達內容 | `ContinuityAudit.reachability`／`unreachable_problems`／`level_model` | 從新遊戲的當舖（與舊雨夜關卡）出發反覆推進：到得了的關卡 → 播得出的場景（NPC 對話的前置場景、氣泡觸發點、鎖場開場句）→ 場景設定的旗標 → 打開的出入口。劇情旗標只能由場景設定。報告到不了的關卡（錯誤）、出入口要的旗標拿不到（錯誤，含自己鎖自己的死結）、前置場景永遠播不出的場景（警告）；`ContinuitySuite` 用假資料驗證會抓到，並對全部關卡斷言 |
+| 5 once 場景 | `ContinuitySuite._test_once_scenes` | 看過的場景不重播（once）、`once = false` 會重播、死亡登記不清除看過紀錄、新遊戲才清除 |
+| 8 長時間 soak | `ContinuitySuite._test_death_soak` | 30 次死亡到死亡畫面再離開，節點增加 ≤ 30、孤兒節點增加 ≤ 10（暖機一次後量） |
+
+新增資料欄位會讀寫旗標或引用場景時，要同步讓 `flag_table` 與 `level_model` 掃得到（例如新種類的觸發點），否則會被誤報成「只寫不讀」或「到不了」。對話選項分支若會讀寫旗標，同樣要讓兩個掃描都看得到。
 
 ## 工作流程
 
