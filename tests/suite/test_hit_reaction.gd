@@ -254,6 +254,7 @@ func _test_death_direction_and_force() -> void:
 	melee_kill.hurtbox.receive(melee_info)
 	check(blasted.velocity.y < melee_kill.velocity.y - 20.0, "an explosion throws the victim higher than a melee blow does")
 	for i in 14:
+		Fx.thaw_all()  # 頓幀看真實時間，機器忙時會讓兩隻凍住的影格數不同，每格解凍才與機器速度無關
 		await physics_frames(1)
 	check(absf(heavy.rig.bone(&"hip").rotation) > absf(light.rig.bone(&"hip").rotation) + 0.05, "a heavy kill falls faster and further than a light one")
 	await end_level(level)
