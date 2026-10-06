@@ -7,10 +7,11 @@ const BOOTH_AREA := "res://data/levels/ch1_booth_alley.tres"
 
 
 func run() -> void:
+	var previous_auto := Story.auto_skip
 	_test_rules()
 	await _test_in_level()
 	await _test_released_host_does_not_hang()
-	Story.auto_skip = false
+	Story.auto_skip = previous_auto
 	Story.reset_progress()
 	GameState.start_new_run(GameState.difficulties[1])
 

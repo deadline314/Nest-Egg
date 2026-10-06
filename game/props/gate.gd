@@ -48,7 +48,11 @@ func _ready() -> void:
 		_prompt.offset = Vector2(0, -_size.y - 10.0)
 		add_child(_prompt)
 	EventBus.mechanism_toggled.connect(_on_channel_toggled)
-	add_to_group(WorldState.GROUP)
+	if data.arena_gate:
+		# 競技場閘門：重生與重新進場時一定是打開的，不存進世界狀態。
+		_set_open(true, true)
+	else:
+		add_to_group(WorldState.GROUP)
 
 
 func _process(delta: float) -> void:
@@ -61,7 +65,8 @@ func _process(delta: float) -> void:
 
 func _on_channel_toggled(channel: StringName, active: bool) -> void:
 	if channel == data.channel:
-		_set_open(active, false)
+		# 競技場閘門與一般閘門相反：頻道啟動（遭遇開始）時關上，結束時打開。
+		_set_open(not active if data.arena_gate else active, false)
 
 
 func _set_open(open: bool, silent: bool) -> void:

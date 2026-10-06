@@ -10,11 +10,12 @@ const SEEN_FLAG := &"ch1_first_death_done"
 
 
 func run() -> void:
+	var previous_auto := Story.auto_skip
 	_test_detects_flag_problems()
 	_test_detects_orphans()
 	_test_real_data()
 	await _test_death_matrix()
-	Story.auto_skip = false
+	Story.auto_skip = previous_auto
 	GameState.start_new_run(GameState.difficulties[1])
 	Story.reset_progress()
 

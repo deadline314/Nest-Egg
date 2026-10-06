@@ -9,6 +9,7 @@ const SEEN_FLAG := &"ch1_first_death_done"
 
 
 func run() -> void:
+	var previous_auto := Story.auto_skip
 	_test_pick_rules()
 	_test_pick_bad_data()
 	_test_validation()
@@ -16,7 +17,7 @@ func run() -> void:
 	await _test_first_death_flow()
 	await _test_second_death_uses_the_screen()
 	await _test_unfinished_scene_plays_again()
-	Story.auto_skip = false
+	Story.auto_skip = previous_auto
 	GameState.start_new_run(GameState.difficulties[1])
 	Story.reset_progress()
 

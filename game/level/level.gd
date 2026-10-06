@@ -607,7 +607,23 @@ func _create_prop(spawn: Dictionary) -> Node2D:
 				var pit := FloodPit.new()
 				pit.configure(mechanism, cell, _layout.tile_size)
 				return pit
+			MechanismData.Kind.ENCOUNTER:
+				var zone := EncounterZone.new()
+				zone.configure(mechanism, cell, _layout.tile_size)
+				zone.spawner = _spawn_reinforcement
+				return zone
 	return null
+
+
+## 鎖場遭遇的增援：在指定位置生成一個敵人（閃一下警示光），回傳敵人；資料壞掉回傳 null。
+func _spawn_reinforcement(enemy_data: EnemyData, world_position: Vector2) -> Enemy:
+	var enemy := _create_enemy(enemy_data)
+	if enemy == null:
+		return null
+	enemy.position = world_position
+	_entities.add_child(enemy)
+	Fx.flash_light(world_position + Vector2(0, -24), Palette.DANGER, 120.0, 1.5, 0.4)
+	return enemy
 
 
 ## 破壞後生成掉落物（依位置固定的隨機結果）。
