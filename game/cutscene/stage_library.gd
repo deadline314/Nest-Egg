@@ -66,7 +66,27 @@ static func validate(id: StringName) -> PackedStringArray:
 				problems.append("過場場景 %s 第 %d 層（%s）缺少「%s」" % [id, index, kind, key])
 		if kind == "sprite" and RigLibrary.optional_texture(str(layer.get("path", ""))) == null:
 			problems.append("過場場景 %s 第 %d 層圖片不存在：%s" % [id, index, layer.get("path", "")])
+		if kind == "sprite" and life_covers_stage(layer):
+			problems.append("過場場景 %s 第 %d 層是整張背景卻開了 life：窗光閃爍會把整張圖切成一格一格忽明忽暗的方塊，life 只能用在窗光等小面積的層" % [id, index])
 	return problems
+
+
+## 舞台的大小（邏輯像素）。
+const STAGE_SIZE := Vector2(640, 360)
+## 開了 life 的圖層蓋住舞台面積的比例達到這個值，就是整張背景。
+const LIFE_MAX_COVER := 0.9
+
+
+## 這一層開了 life（窗光閃爍：每 16 像素一格、約兩成的格子忽明忽暗），而且大到蓋住整個舞台：
+## 整張背景都會出現一格一格的深色方塊（像破圖）。life 只能用在窗光、信標這類小面積或只在窗戶處有亮度的層。
+static func life_covers_stage(layer: Dictionary) -> bool:
+	if not bool(layer.get("life", false)):
+		return false
+	var tex := RigLibrary.optional_texture(str(layer.get("path", "")))
+	if tex == null:
+		return false
+	var size := tex.get_size() * float(layer.get("scale", 1.0))
+	return size.x * size.y >= STAGE_SIZE.x * STAGE_SIZE.y * LIFE_MAX_COVER
 
 
 ## 建立舞台節點：back／actors／front 三組，由底到頂。
@@ -87,6 +107,7 @@ static func build(id: StringName) -> Stage:
 	var cam: Dictionary = def.get("camera", {})
 	stage.default_camera_pos = StageLayers.vec2_of(cam.get("pos"), Stage.CENTER)
 	stage.default_camera_zoom = float(cam.get("zoom", 1.0))
+	stage.floor_y = float(def.get("floor", NAN))
 	return stage
 
 
@@ -99,6 +120,8 @@ class Stage:
 	var stage_id: StringName = &""
 	var default_camera_pos := CENTER
 	var default_camera_zoom := 1.0
+	## 地面線（演員腳底的舞台 y）；舞台資料的 floor 欄位，沒有登記就是 NAN。坐著的演員站起來時腳要落回這條線。
+	var floor_y := NAN
 	var back := Node2D.new()
 	var actors := Node2D.new()
 	var front := Node2D.new()

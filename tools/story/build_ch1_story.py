@@ -61,8 +61,8 @@ SCALE = {
     'ch1_revival_lounge': {'rin': 2.4, 'nurse': 2.8},
     'ch1_dawn_noodle_stall': {'rin': 1.7, 'nurse': 1.9},
 }
-# 各骨架坐姿時髖部離腳底的高度（縮放 1 時，量自 CharacterRig）與骨盆半高。
-HIP_SIT = {'rin': 21.7, 'old_k': 17.2, 'nurse': 16.1, 'night_worker': 15.8, 'resident': 16.4}
+# 各骨架坐姿時髖部離腳底的高度（縮放 1 時）與骨盆半高。數字用 `godot --headless --path . res://tools/rig_pose_report.tscn` 量（NPC 動畫器的坐姿用 IK 把腳平放在地上，髖高由資料的比例決定）；換了坐姿資料要重量。
+HIP_SIT = {'rin': 17.41, 'old_k': 16.87, 'nurse': 16.35, 'night_worker': 16.0, 'resident': 15.98}
 PELVIS = 3.5
 
 
@@ -76,21 +76,28 @@ def sit_y(stage_id, kind, seat_y):
 
 
 def stall_layers(scale):
-    """宵夜麵攤的立繪只有街道：麵攤、桌子與燈籠用場景專屬物件的貼圖補上（縮放與演員一致：每個邏輯像素＝演員的縮放）。"""
+    """宵夜麵攤的立繪只有街道：麵攤、桌子與燈籠用場景專屬物件的貼圖補上。
+    每個物件的邏輯大小（w×h，世界像素，與關卡裡的道具資料一致）乘上演員的縮放就是舞台上的大小；
+    貼圖的解析度各不相同（麵攤 6 倍、其他 10 倍），所以縮放要用「邏輯寬 ÷ 貼圖寬」算，不能寫死倍率。"""
+    from PIL import Image
     d = 'res://art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__%s.png'
+    disk = os.path.join(ROOT, 'art', 'environment', 'scene_props', 'dawn_noodle_stall', 'dawn_noodle_stall__%s.png')
     floor = FLOOR['ch1_dawn_noodle_stall']
 
     def sprite(name, x, w, h, lift=0.0):
-        return {"kind": "sprite", "path": d % name, "pos": [round(x, 1), round(floor - h * scale - lift, 1)], "scale": scale / 4.0, "filter": "linear", "glow": True}
+        tex_w = Image.open(disk % name).size[0]
+        return {"kind": "sprite", "path": d % name, "pos": [round(x, 1), round(floor - (h + lift) * scale, 1)],
+                "scale": round(scale * w / tex_w, 4), "filter": "linear", "glow": True}
+    # 燈籠（連繩）掛在攤車頂的前緣，下緣高過頭頂（lift 是世界像素，也要乘上縮放）。
     return [sprite('ali_noodle_cart', 395, 58.1, 66.0), sprite('noodle_bowls_table', 335, 30.4, 25.5),
-            sprite('hanging_lantern', 405, 16.9, 33.0, 52.0)]
+            sprite('hanging_lantern', 405, 16.9, 33.0, 30.0)]
 
 
 def write_stage(stage_id, scene, top, bottom, rain, glow, extra):
     layers = [
         {"kind": "gradient", "top": top, "bottom": bottom, "parallax": 0.0},
         {"kind": "sprite", "path": f"res://art/environment/scenes/{scene}.webp", "pos": [-64, -36.0], "scale": 0.5,
-         "filter": "linear", "life": True},
+         "filter": "linear"},  # 不能開 life：窗光閃爍會把整張背景切成忽明忽暗的方塊
         {"kind": "glow", "pos": [glow[0], glow[1]], "radius": glow[2], "color": glow[3], "intensity": 0.7, "additive": True,
          "alpha": 0.35, "pulse": 0.06, "pulse_depth": 0.2},
     ]
@@ -106,7 +113,7 @@ def write_stage(stage_id, scene, top, bottom, rain, glow, extra):
         layers.append({"kind": "rain", "depth": "front", "opacity": 0.35})
     layers.append({"kind": "motes", "count": 24, "color": "#cfe0ff", "opacity": 0.3, "area": [0, 30, 640, 280], "drift": [2, -3], "size": 1.1, "seed": 7})
     layers.append({"kind": "grain", "amount": 50, "opacity": 0.05, "depth": "front"})
-    data = {"camera": {"pos": [320, 180], "zoom": 1.0}, "layers": layers}
+    data = {"camera": {"pos": [320, 180], "zoom": 1.0}, "floor": FLOOR[stage_id], "layers": layers}
     with open(os.path.join(STAGE_DIR, f'{stage_id}.json'), 'w') as f:
         json.dump(data, f, ensure_ascii=False, indent=1)
         f.write('\n')
@@ -132,7 +139,7 @@ def wait(t=0.5):
 
 
 def cam(x, y, zoom=1.0, t=1.2, wait_for=False):
-    step = {"do": "camera", "pos": [x, y], "zoom": zoom, "time": t}
+    step = {"do": "camera", "pos": [x, clamp_camera_y(y, zoom)], "zoom": zoom, "time": t}
     if wait_for:
         step["wait"] = True
     return step
@@ -186,8 +193,23 @@ def fade(to=1.0, t=0.9):
     return {"do": "fade", "to": to, "time": t}
 
 
+# 對話框蓋住畫面下緣約 25%（框頂約在 266／360 處）：演員的腳底在畫面上的位置要在這條線之上，否則腳被框蓋住。
+# 鏡頭的畫面中心 y 因此不能太靠上：腳底畫面 y = 180 + (地面線 − 鏡頭 y) × 縮放 ≤ FEET_MAX_Y。
+FEET_MAX_Y = 262.0
+_camera_floor = [None]
+
+
+def clamp_camera_y(y, zoom):
+    """鏡頭中心 y 的下限：讓目前舞台的腳底線落在對話框之上（沒有登記地面線的舞台不限制）。"""
+    floor = _camera_floor[0]
+    if floor is None:
+        return y
+    return max(y, round(floor - (FEET_MAX_Y - 180.0) / zoom, 1))
+
+
 def stage(stage_id, x=320, y=180, zoom=1.0, fade_in=1.2):
-    return {"do": "scene", "id": stage_id, "pos": [x, y], "zoom": zoom, "fade": fade_in}
+    _camera_floor[0] = FLOOR.get(stage_id)
+    return {"do": "scene", "id": stage_id, "pos": [x, clamp_camera_y(y, zoom)], "zoom": zoom, "fade": fade_in}
 
 
 def narrate(lines, t=2.4):

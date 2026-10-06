@@ -271,7 +271,7 @@ func _test_node_squash_is_soft() -> void:
 	check(PlayerVisual.SQUASH_SCALE <= 0.35, "the sprite squash is a third of the old amount or less (%.2f)" % PlayerVisual.SQUASH_SCALE)
 
 
-## 落腳事件：跑 2 秒大約每秒 2.7 個週期、5.4 步；事件發生那一格最低的腳底貼著地；站著不動沒有事件。
+## 落腳事件：跑 2 秒大約每秒 1.9 個週期、3.75 步（NE-208 把步頻從 5.4 降到 3.75，身體才不抖）；事件發生那一格最低的腳底貼著地；站著不動沒有事件。
 func _test_footfall_events() -> void:
 	var input := RigInput.new()
 	var rig := _make("rin", input)
@@ -290,7 +290,7 @@ func _test_footfall_events() -> void:
 		if count > 0 and _lowest_foot_height(rig.animator) > 1.5:
 			airborne_events += 1
 	check(rig.animator.is_stepping(), "running reports that the feet are stepping")
-	check(total >= 9 and total <= 13, "two seconds of running makes about eleven footfalls (%d)" % total)
+	check(total >= 6 and total <= 9, "two seconds of running makes about eight footfalls (%d)" % total)
 	check(airborne_events == 0, "every footfall happens when the foot is on the ground (%d did not)" % airborne_events)
 	input.velocity = Vector2.ZERO
 	_run(rig, input, 60)

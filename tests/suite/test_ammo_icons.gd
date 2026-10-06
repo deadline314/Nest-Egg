@@ -56,6 +56,14 @@ func _test_weapon_bar() -> void:
 	check(bar != null and bar.row_count() == Loadout.MAX_SLOTS, "HUD 武器欄每個欄位一列")
 	var loadout := level.player.loadout
 	check(bar.row_state(loadout.active_slot) == AmmoIcons.State.FULL, "滿匣時圖示是滿的")
+	var gun_weapon := loadout.weapon_in(loadout.active_slot)
+	var gun := WeaponIcons.texture(gun_weapon)
+	check(gun != null, "武器欄的圖示是槍本身的外觀（%s）" % gun_weapon.visual_id)
+	if gun != null:
+		var fitted := WeaponIcons.fit(gun)
+		check(fitted.size.x <= WeaponIcons.BOX.x + 0.01 and fitted.size.y <= WeaponIcons.BOX.y + 0.01 and fitted.position.x >= 0.0, "槍圖示等比縮放後放得進框裡")
+	check(WeaponIcons.texture(null) == null, "沒有武器時沒有槍圖示")
+	check(bar.get_child(0).get("ammo_text") == null, "武器欄不再顯示子彈數量")
 	var slot := loadout.active_slot
 	var weapon := loadout.weapon_in(slot)
 	if weapon != null and weapon.has_magazine():

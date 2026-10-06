@@ -60,7 +60,7 @@ PORTALS = {
     # 當舖
     'F': dict(id='pawn_front', to=AREA('street'), target='street_home', mode=0, prompt='{interact} 出門', style='door',
               requires='ch1_heard_brief', locked='先去屋頂：鷺在等你。'),
-    'S': dict(id='pawn_stairs', to=AREA('rooftop'), target='roof_stairs', mode=0, prompt='{interact} 上屋頂', style='ladder', w=20, h=48,
+    'S': dict(id='pawn_stairs', to=AREA('rooftop'), target='roof_stairs', mode=0, prompt='{interact} 上屋頂', style='ladder', w=20, h=152,
               requires='ch1_dinner_done', locked='先吃晚飯。老 K 在等。'),
     'K': dict(id='pawn_basement', to='', target='', mode=0, prompt='{interact} 地下室', locked='漏水，別開。', style='door'),
     # 屋頂

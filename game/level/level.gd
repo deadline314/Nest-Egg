@@ -121,6 +121,7 @@ func _ready() -> void:
 	_entities = Node2D.new()
 	_entities.name = "Entities"
 	_world.add_child(_entities)
+	_entities.child_entered_tree.connect(_send_behind_characters)
 
 	var projectiles := Node2D.new()
 	projectiles.name = "Projectiles"
@@ -382,7 +383,13 @@ func _spawn_static_entities() -> void:
 					(node as Enemy).restore_lost_health(lost)
 
 
-## 招牌、看板、排氣孔等裝飾（畫在地形與角色之後方）。
+## 不是角色的實體（看板、檢查點、出入口、開關、拾取物…）排在所有角色零件之下；已經有自己圖層的不動。
+func _send_behind_characters(node: Node) -> void:
+	var item := node as CanvasItem
+	if item != null and item.z_index == 0 and not WorldLayers.is_character(node):
+		item.z_index = WorldLayers.ENTITY_BEHIND
+
+
 ## 把剛生成的靜態場景節點（還在預設圖層的）排到所有角色零件之下；已經有自己圖層的（前景道具）不動。
 func _lower_scenery(from_child: int, z: int) -> void:
 	for i in range(from_child, _world.get_child_count()):
@@ -391,6 +398,7 @@ func _lower_scenery(from_child: int, z: int) -> void:
 			node.z_index = z
 
 
+## 招牌、看板、排氣孔等裝飾（畫在地形與角色之後方）。
 func _spawn_decor() -> void:
 	for entry in _layout.decor:
 		var cell: Vector2i = entry["cell"]

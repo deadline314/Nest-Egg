@@ -30,6 +30,10 @@ const STEP_FIELDS: Dictionary = {
 	"transition": ["kind"],
 	"end": [],
 }
+## 畫面（舞台座標）的大小與中心；鏡頭預設在中心、縮放 1。
+const STAGE_SIZE := Vector2(640, 360)
+## 對話框蓋住畫面下緣約 25%（框頂約在 266／360 處）：演員的腳底在畫面上的位置不能低於這條線，腳會被框蓋住。
+const FEET_MAX_SCREEN_Y := 266.0
 ## 這些步驟需要先有舞台。
 const NEEDS_STAGE: PackedStringArray = ["camera", "actor", "pose", "move", "face", "remove"]
 
@@ -99,6 +103,47 @@ static func _check_say(where: String, step: Dictionary, speakers: Dictionary) ->
 	return problems
 
 
+## 演出的構圖檢查（新寫的過場要通過；舊的過場資料不強制）：演員的腳底在畫面上的位置不被對話框蓋住。
+## 依序追蹤鏡頭（scene、camera 步驟的 pos／zoom）與每個演員最後的位置（actor、move），
+## 腳底的畫面 y = 畫面中心 + (舞台 y − 鏡頭 y) × 縮放。每個演員只回報一次。
+static func staging_problems(scene_id: String, scene: Dictionary) -> PackedStringArray:
+	var problems := PackedStringArray()
+	var steps: Variant = scene.get("steps", [])
+	if typeof(steps) != TYPE_ARRAY:
+		return problems
+	var cam := STAGE_SIZE * 0.5
+	var zoom := 1.0
+	var feet: Dictionary[String, Vector2] = {}
+	var reported: Dictionary[String, bool] = {}
+	var index := 0
+	for step: Variant in steps:
+		index += 1
+		if typeof(step) != TYPE_DICTIONARY:
+			continue
+		var kind := str((step as Dictionary).get("do", ""))
+		match kind:
+			"scene", "camera":
+				if (step as Dictionary).has("pos"):
+					cam = StageLayers.vec2_of(step["pos"])
+				if (step as Dictionary).has("zoom"):
+					zoom = float(step["zoom"])
+			"actor":
+				feet[str(step.get("id", ""))] = StageLayers.vec2_of(step.get("pos"))
+			"move":
+				if feet.has(str(step.get("id", ""))):
+					feet[str(step["id"])] = StageLayers.vec2_of(step.get("to"))
+			"remove":
+				feet.erase(str(step.get("id", "")))
+			_:
+				continue
+		for id: String in feet:
+			var screen_y := STAGE_SIZE.y * 0.5 + (feet[id].y - cam.y) * zoom
+			if screen_y > FEET_MAX_SCREEN_Y and not reported.has(id):
+				reported[id] = true
+				problems.append("%s 第 %d 步：演員「%s」的腳底在畫面 y=%.0f，會被對話框蓋住（上限 %.0f）；把鏡頭中心往下移或降低縮放" % [scene_id, index, id, screen_y, FEET_MAX_SCREEN_Y])
+	return problems
+
+
 static func _check_stage(where: String, id: StringName) -> PackedStringArray:
 	if not StageLibrary.exists(id):
 		return PackedStringArray(["%s 的場景「%s」不存在（%s）" % [where, id, StageLibrary.path_of(id)]])
@@ -119,6 +164,8 @@ static func _check_step(where: String, kind: String, step: Dictionary, defined: 
 				problems.append("%s 的角色外觀「%s」不存在，也沒有可用的頭像" % [where, skin])
 			if step.has("pose") and not CutsceneActor.POSES.has(str(step["pose"])):
 				problems.append("%s 的動作「%s」不存在" % [where, step["pose"]])
+			if step.has("layer") and (int(step["layer"]) < 0 or int(step["layer"]) >= WorldLayers.MAX_STAGE_ACTORS):
+				problems.append("%s 的圖層組 layer 要在 0 到 %d 之間" % [where, WorldLayers.MAX_STAGE_ACTORS - 1])
 		"pose", "move", "face", "remove":
 			var id := str(step.get("id", ""))
 			if not defined.has(id):

@@ -23,18 +23,22 @@
   ]
  },
  "move": {
-  "stride": 56.0,
+  "stride": 80.0,
   "swing": 0.8,
   "knee_bend": 1.2,
   "knee_base": 0.15,
   "hip_bounce": 1.4,
   "chest_lean": 0.16,
   "threshold": 0.08,
-  "duty": 0.44,
-  "lift": 9.0,
-  "reach": 0.95,
-  "bounce": 5.0,
-  "rise": 2.0
+  "duty": 0.3,
+  "lift": 6.0,
+  "reach": 0.97,
+  "bounce": 1.0,
+  "rise": 0.6,
+  "stride_exp": 1.0,
+  "stride_floor": 0.4,
+  "level": 1.0,
+  "bob_slow": 0.8
  },
  "crouch": {
   "hip_drop": 8.0,

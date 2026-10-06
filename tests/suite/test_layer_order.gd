@@ -3,12 +3,13 @@ extends TestSuite
 ## 圖層順序：角色後側的手腳零件（z 最低 -9）不能被背景蓋住。關卡的背牆、地形、裝飾與背景道具、導軌，
 ## 以及過場舞台的背景各層，都要排在所有角色零件之下；舞台的前景各層排在其上。
 
-const LEVEL_PATHS: Array[String] = ["res://data/levels/level_01.tres", "res://data/levels/level_02.tres"]
+const LEVEL_PATHS: Array[String] = ["res://data/levels/level_01.tres", "res://data/levels/level_02.tres", "res://data/levels/ch1_pawnshop.tres"]
 
 
 func run() -> void:
 	_test_character_z_range()
 	_test_stage_layers()
+	await _test_actor_layers()
 	for path in LEVEL_PATHS:
 		await _test_level_scenery(path)
 
@@ -44,6 +45,58 @@ func _test_stage_layers() -> void:
 	stage.free()
 
 
+## 過場裡每個演員的零件圖層範圍互不重疊（走過、並肩時衣服不會一半在前一半在後），而且都夾在舞台背景與前景之間。
+func _test_actor_layers() -> void:
+	var scene := {"mode": "animated", "steps": [
+		{"do": "scene", "id": "test_room", "fade": 0.0},
+		{"do": "actor", "id": "a", "kind": "rin", "pos": [100, 290]},
+		{"do": "actor", "id": "b", "kind": "old_k", "pos": [120, 290]},
+		{"do": "actor", "id": "c", "kind": "nurse", "pos": [140, 290]},
+		{"do": "actor", "id": "a", "kind": "rin", "pos": [100, 290]},
+		{"do": "wait", "time": 30.0}]}
+	check(CutsceneChecker.validate("test_layers", scene, {}).is_empty(), "the actor scene passes the checker: %s" % [CutsceneChecker.validate("test_layers", scene, {})])
+	var bad := {"mode": "animated", "steps": [{"do": "scene", "id": "test_room"}, {"do": "actor", "id": "a", "kind": "rin", "pos": [1, 1], "layer": 99}]}
+	check(not CutsceneChecker.validate("test_bad_layer", bad, {}).is_empty(), "a layer group outside the registered range is reported")
+	var player := CutscenePlayer.new()
+	player.speed = 1.0
+	runner.add_child(player)
+	player.play(&"test_layers", scene)
+	await frames(6)
+	var ranges: Array[Vector2i] = []
+	for id: StringName in [&"a", &"b", &"c"]:
+		var actor := player._actors.get(id) as CutsceneActor
+		if actor == null or actor.rig == null:
+			check(false, "actor %s exists with a skeleton" % id)
+			continue
+		var low := 1 << 30
+		var high := -(1 << 30)
+		for sprite in actor.rig.find_children("*", "Sprite2D", true, false):
+			var z := _effective_z(sprite as CanvasItem)
+			low = mini(low, z)
+			high = maxi(high, z)
+		ranges.append(Vector2i(low, high))
+	check(ranges.size() == 3, "all three actors were built")
+	for i in ranges.size():
+		check(ranges[i].x > WorldLayers.STAGE_BACK and ranges[i].y < WorldLayers.STAGE_FRONT, "actor %d stays between the stage background and foreground (%s)" % [i, ranges[i]])
+		for j in range(i + 1, ranges.size()):
+			check(ranges[i].y < ranges[j].x or ranges[j].y < ranges[i].x, "actors %d and %d do not interleave their parts (%s, %s)" % [i, j, ranges[i], ranges[j]])
+	check((player._actors[&"a"] as CutsceneActor).layer_slot == 0, "an actor that is placed again keeps its layer group")
+	player.queue_free()
+	await frames(2)
+
+
+## 節點實際的 z：沿著祖先把「相對」的 z_index 加起來。
+func _effective_z(item: CanvasItem) -> int:
+	var total := 0
+	var node: Node = item
+	while node is CanvasItem:
+		total += (node as CanvasItem).z_index
+		if not (node as CanvasItem).z_as_relative:
+			break
+		node = node.get_parent()
+	return total
+
+
 func _test_level_scenery(path: String) -> void:
 	var level := await start_level(load(path) as LevelData)
 	var world := level.get_node("World")
@@ -67,4 +120,17 @@ func _test_level_scenery(path: String) -> void:
 		for sprite in player.find_children("*", "Sprite2D", true, false):
 			rig_min = mini(rig_min, (sprite as Sprite2D).z_index)
 	check(player == null or rig_min >= WorldLayers.CHARACTER_MIN_Z, "%s: the player's lowest part (%d) is not below the registered minimum" % [path.get_file(), rig_min])
+	# 看板、檢查點、出入口、開關這類實體排在角色零件之下，角色站在它們前面時不會「後腳在後、前腳在前」。
+	var offenders := PackedStringArray()
+	var signs := 0
+	for node in level.get_node("World/Entities").get_children():
+		var item := node as CanvasItem
+		if item == null or WorldLayers.is_character(node):
+			continue
+		signs += 1 if node is HintSign else 0
+		if item.z_index == 0:
+			offenders.append(node.name)
+	check(offenders.is_empty(), "%s: no entity sits in the middle of the character layers: %s" % [path.get_file(), ", ".join(offenders)])
+	if path.contains("ch1_pawnshop"):
+		check(signs > 0, "%s: the level has a hint sign to check" % path.get_file())
 	await end_level(level)

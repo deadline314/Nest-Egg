@@ -1,16 +1,19 @@
 class_name AmmoTray
 extends Control
-## 動態 HUD：主角身旁的彈匣——一排排子彈圖示（與準星相反的一側，不擋瞄準）。
-##   滿的是彩色圖示，用掉的是空槽輪廓；開槍時最上面一發的彈殼彈出並淡出；換彈時依序填回去；
-##   不到四分之一變紅並脈動；空匣整排變輪廓並提示換彈鍵；換武器時整排翻轉成新的彈種。
-##   彈匣超過 MAX_ICONS 發時一顆圖示代表多發（標示倍率）；能量武器改用電池格；備彈用小數字顯示。
-## 閒置淡出，射擊、換彈、彈量變化、換武器時彈出，低彈量時常駐。所有繪製用固定大小的陣列，不每影格配置。
+## 動態 HUD：主角身旁的彈帶——常駐的一排子彈圖示（與準星相反的一側，不擋瞄準）。
+##   固定最多 MAX_ICONS（10）顆圖示：彈匣更大的槍一顆圖示代表多發，長度不變；離主角最近的是下一發。
+##   開槍時最靠近主角的那一顆彈出並淡出，其餘子彈用緩動往主角的方向滑過去補位（連續開槍時累積、不打結）；
+##   換彈時從遠端依序補回；不到四分之一變紅並脈動；空匣整排變輪廓並提示換彈鍵；換武器時整排翻轉成新的彈種。
+##   能量武器改用電池格；備彈用小數字顯示在近端。
+## 常駐顯示（不受 HUD 自動淡出影響），只有死亡、過場、乘坐載具、沒有彈匣的武器時隱藏。所有繪製用固定大小的陣列，不每影格配置。
 
-const ICON := Vector2(7, 9.8)
-const STEP := Vector2(8, 11)
-const ROW_SIZE := 10
-const MAX_ICONS := 30
-const MAX_ROWS := 3
+const ICON := Vector2(6, 8.4)
+const STEP := Vector2(7, 0)
+## 一排最多幾顆圖示（彈匣更大時一顆代表多發）。
+const MAX_ICONS := 10
+## 補位滑動：每打掉一顆圖示，剩下的子彈從「遠一格」滑回來；累積上限（格）與回復的快慢（越大越快到位）。
+const SLIDE_MAX_STEPS := 3.0
+const SLIDE_SHARPNESS := 20.0
 ## 與角色中心的水平距離（畫面像素），與垂直偏移（往上）。
 const SIDE_GAP := 16.0
 const LIFT := 6.0
@@ -34,10 +37,12 @@ var weapon_color := Palette.CYAN
 var is_energy := false
 
 var _player_ref := PlayerRef.new()
-var _auto_hide := true
 var _icon_id: StringName = &""
 var _has_mag := false
-var _per_icon := 1
+## 一顆圖示代表幾發（容量不超過 MAX_ICONS 時是 1，更大時是容量 / MAX_ICONS，可以不是整數）。
+var _per_icon := 1.0
+## 補位滑動的剩餘距離（像素，往遠離主角的方向為正）。
+var _slide := 0.0
 var _pos := Vector2.ZERO
 var _has_pos := false
 var _side := -1.0
@@ -63,9 +68,7 @@ func _ready() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	_auto_hide = Settings.get_hud_auto_hide()
-	Settings.display_changed.connect(func() -> void: _auto_hide = Settings.get_hud_auto_hide())
-	presence.idle_alpha = 0.0
+	presence.idle_alpha = 1.0
 	_eject_pos.resize(EJECT_SLOTS)
 	_eject_vel.resize(EJECT_SLOTS)
 	_eject_age.resize(EJECT_SLOTS)
@@ -86,17 +89,18 @@ func is_low() -> bool:
 	return _has_mag and float(ammo) / float(maxi(1, max_ammo)) <= LOW_RATIO
 
 
-## 目前顯示的圖示數量（超過 MAX_ICONS 時是壓縮後的數量）。
+## 目前顯示的圖示數量（最多 MAX_ICONS）。
 func icon_count() -> int:
-	return ceili(float(max_ammo) / float(_per_icon)) if _has_mag else 0
+	return _icons_for(max_ammo) if _has_mag else 0
 
 
-func icons_per_row() -> int:
-	return ROW_SIZE
-
-
-func per_icon() -> int:
+func per_icon() -> float:
 	return _per_icon
+
+
+## 補位滑動剩下的距離（像素）；測試與稽核用。
+func slide() -> float:
+	return _slide
 
 
 func side() -> float:
@@ -115,9 +119,12 @@ func _on_loadout_changed(loadout: Loadout) -> void:
 	var switched := new_icon != _icon_id or (weapon != null and weapon.magazine_size != max_ammo)
 	if switched and _icon_id != &"":
 		_flip_left = FLIP_TIME
-	elif new_ammo < ammo and not _reloading:
-		for i in ammo - new_ammo:
-			_eject(ammo - i)
+	elif new_ammo < ammo and not _reloading and _per_icon > 0.0:
+		# 每一發離主角最近的那一顆彈出；打掉整顆圖示時，剩下的往主角方向補位。
+		for i in mini(ammo - new_ammo, EJECT_SLOTS):
+			_eject()
+		var lost := maxi(0, _icons_for(ammo) - _icons_for(new_ammo))
+		_slide = minf(_slide + float(lost) * STEP.x, SLIDE_MAX_STEPS * STEP.x)
 	_has_mag = weapon != null and weapon.has_magazine()
 	_icon_id = new_icon
 	ammo = new_ammo
@@ -133,13 +140,13 @@ func _on_loadout_changed(loadout: Loadout) -> void:
 		_refill = float(_icons_for(ammo))
 
 
-## 彈匣容量超過 MAX_ICONS 時，一顆圖示代表幾發。
-static func per_icon_for(capacity: int) -> int:
-	return maxi(1, ceili(float(capacity) / float(MAX_ICONS)))
+## 彈匣容量超過 MAX_ICONS 時，一顆圖示代表幾發（容量 / MAX_ICONS，不到時一發一顆）。
+static func per_icon_for(capacity: int) -> float:
+	return maxf(1.0, float(capacity) / float(MAX_ICONS))
 
 
 func _icons_for(rounds: int) -> int:
-	return ceili(float(rounds) / float(_per_icon))
+	return mini(MAX_ICONS, ceili(float(rounds) / _per_icon - 0.0001))
 
 
 func _process(delta: float) -> void:
@@ -151,8 +158,10 @@ func _process(delta: float) -> void:
 	_pop_left = maxf(0.0, _pop_left - delta)
 	var player := _player_ref.get_player(get_tree())
 	var hidden := cinematic or player == null or player.is_dead() or player.mounted_vehicle != null or not _has_mag
-	var low_or_empty := is_low() or (_has_mag and ammo == 0)
-	presence.update(delta, low_or_empty or _reloading, _auto_hide, hidden)
+	presence.update(delta, true, false, hidden)  # 常駐：不受自動淡出影響
+	_slide = lerpf(_slide, 0.0, 1.0 - exp(-SLIDE_SHARPNESS * delta))
+	if _slide < 0.02:
+		_slide = 0.0
 	if player != null:
 		_follow(player, delta)
 		_track_reload(player)
@@ -197,13 +206,13 @@ func _track_reload(player: Player) -> void:
 		_refill = float(_icons_for(ammo))
 
 
-func _eject(index: int) -> void:
+## 離主角最近的那一顆彈出（彈帶的第 0 格）。
+func _eject() -> void:
 	if is_energy:
 		return
 	var slot := _eject_next
 	_eject_next = (_eject_next + 1) % EJECT_SLOTS
-	var rect_pos := _slot_position(clampi(_icons_for(index) - 1, 0, maxi(0, icon_count() - 1)))
-	_eject_pos[slot] = rect_pos
+	_eject_pos[slot] = _slot_position(0)
 	_eject_vel[slot] = Vector2(_side * randf_range(30.0, 70.0), randf_range(-70.0, -35.0))
 	_eject_age[slot] = 0.0
 	_eject_spin[slot] = randf_range(-9.0, 9.0)
@@ -218,13 +227,12 @@ func _tick_ejects(delta: float) -> void:
 		_eject_pos[i] += _eject_vel[i] * delta
 
 
-## 第 index 顆圖示左上角的位置：由下往上排、每排 ROW_SIZE 顆，從靠近角色的一側往外排
-## （托盤在角色左邊時往左排，在右邊時往右排）。
+## 第 index 顆圖示左上角的位置：從靠近角色的一側往外排成一排
+## （彈帶在角色左邊時往左排，在右邊時往右排）；index 0 是下一發。
 func _slot_position(index: int) -> Vector2:
-	var row := index / ROW_SIZE
-	var column := index % ROW_SIZE
-	var x := _pos.x - ICON.x - float(column) * STEP.x if _side < 0.0 else _pos.x + float(column) * STEP.x
-	return Vector2(x, _pos.y - ICON.y - float(row) * STEP.y)
+	var column := float(index)
+	var x := _pos.x - ICON.x - column * STEP.x if _side < 0.0 else _pos.x + column * STEP.x
+	return Vector2(x, _pos.y - ICON.y)
 
 
 func _draw() -> void:
@@ -255,6 +263,8 @@ func _draw_icons(alpha: float, pulse: float, state_low: bool, flip: float) -> vo
 	var shown := _icons_for(ammo) if not _reloading else int(_refill)
 	for i in count:
 		var p := _slot_position(i)
+		if i < shown:
+			p.x += _side * _slide  # 補位：從遠一格的位置滑回來
 		var size := ICON
 		var origin := p
 		if _pop_left > 0.0 and i == _pop_slot:
@@ -269,8 +279,8 @@ func _draw_icons(alpha: float, pulse: float, state_low: bool, flip: float) -> vo
 			draw_texture_rect(full_tex, rect, false, Color(1, 1, 1, alpha * pulse))
 		else:
 			draw_texture_rect(empty_tex, rect, false, Color(1, 1, 1, alpha * 0.8))
-	if _per_icon > 1:
-		_text(_slot_position(count - 1) + Vector2(0, -3), "×%d" % _per_icon, Palette.UI_MUTED, alpha, 9)
+	if _per_icon >= 2.0:
+		_text(_slot_position(count - 1) + Vector2(0, -3), "×%d" % roundi(_per_icon), Palette.UI_MUTED, alpha, 9)
 	if ammo == 0 and not _reloading:
 		_text(_pos + Vector2(-16 if _side < 0.0 else 0.0, 7.0), _hint, LightKit.glow(Palette.NEON_YELLOW, 1.3), alpha * (0.6 + 0.4 * sin(_time * 6.0)), 9)
 

@@ -10,6 +10,7 @@ const SKIN := "old_k"
 func run() -> void:
 	_test_data_references_real_bones()
 	await _test_poses()
+	await _test_poses_touch_the_ground()
 	await _test_talking_and_listening()
 	await _test_loops()
 	await _test_fallbacks()
@@ -74,6 +75,36 @@ func _test_poses() -> void:
 	input.npc_pose = &"crouch"
 	var crouch := await _rig_with(input)
 	check(crouch.bone(&"hip").position.y > stand_hip + 4.0, "crouching lowers the pelvis")
+
+
+## 坐、蹲的時候每個骨架的腳都平放在地面上：最低的腳離地不超過 0.8 像素（不懸空也不陷地），腳掌接近放平。
+## 懸空曾經讓凜蹲在櫃台前「像坐在空氣椅子上」；現在用 IK 把腳放在地上，骨盆下沉的量由資料決定。
+func _test_poses_touch_the_ground() -> void:
+	var skins := PackedStringArray()
+	for dir in DirAccess.get_directories_at("res://art/characters"):
+		if FileAccess.file_exists("res://art/characters/%s/character.json" % dir):
+			skins.append(dir)
+	check(skins.size() >= 10, "the character folders were found (%d)" % skins.size())
+	for skin in skins:
+		for pose: StringName in [&"sit", &"crouch"]:
+			var holder := Node2D.new()
+			runner.get_tree().root.add_child(holder)
+			var rig := CharacterRig.new()
+			holder.add_child(rig)
+			if not rig.setup(skin, "npc"):
+				holder.queue_free()
+				continue
+			var input := RigInput.new()
+			input.two_handed = false
+			input.npc_pose = pose
+			for i in 90:
+				rig.animate(1.0 / 60.0, input)
+			var floating := rig.animator.ground_level() - rig.animator._lowest_foot_y()
+			check(absf(floating) <= 0.8, "%s %s: the lowest foot is on the ground (%.2f px off)" % [skin, pose, floating])
+			var foot_angle := absf(rig.animator.foot_angle(&"foot_front"))
+			check(foot_angle <= 0.35, "%s %s: the foot lies flat (%.2f rad)" % [skin, pose, foot_angle])
+			holder.queue_free()
+	await frames(1)
 
 
 func _test_talking_and_listening() -> void:

@@ -386,10 +386,26 @@ func _do_actor(step: Dictionary) -> void:
 	actor.set_pose(StringName(str(step.get("pose", "idle"))))
 	actor.set_loop(StringName(str(step.get("loop", ""))), float(step.get("loop_scale", 1.0)))
 	actor.speaker_id = StringName(str(step.get("speaker", id)))
+	actor.ground_y = float(step["ground"]) if step.has("ground") else (_stage.floor_y if _stage != null else NAN)
+	var slot := _actor_slot(id, step)
+	actor.layer_slot = slot
+	actor.z_index = WorldLayers.stage_actor_z(slot)
 	if _actors.has(id):
 		_actors[id].queue_free()
 	_actors[id] = actor
 	_stage.actors.add_child(actor)
+
+
+## 演員用的圖層組：每個演員佔自己的一組，兩個人重疊（走過、並肩）時零件不會互相穿插。
+## step 的 layer 指定第幾組（數字大的在前面）；沒指定時重新登場的演員沿用原本的組，新演員接在最後（後登場的在前面）。
+func _actor_slot(id: StringName, step: Dictionary) -> int:
+	var slot := int(step.get("layer", -1))
+	if slot < 0:
+		var existing := _actors.get(id) as CutsceneActor
+		slot = existing.layer_slot if existing != null else _actors.size()
+	if slot >= WorldLayers.MAX_STAGE_ACTORS:
+		push_warning("[Cutscene] %s：演員「%s」超過 %d 組圖層，與最後一組共用。" % [_current_where, id, WorldLayers.MAX_STAGE_ACTORS])
+	return slot
 
 
 func _do_pose(step: Dictionary) -> void:

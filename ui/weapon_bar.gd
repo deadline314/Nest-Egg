@@ -1,9 +1,10 @@
 class_name WeaponBar
 extends VBoxContainer
-## HUD 的武器欄：每個武器欄一列（欄號、彈種圖示、名稱、彈匣／備彈），手上武器高亮。
-## 空欄位暗淡；彈匣用完時圖示變成空槽、不到四分之一時變紅。滑鼠移到那一列顯示武器說明。
+## HUD 的武器欄：每個武器欄一列（欄號、槍的圖示、名稱），手上武器高亮。不顯示子彈數量：
+## 子彈常駐在主角身旁（見 AmmoTray）。空欄位暗淡；滑鼠移到那一列顯示武器說明。
+## 彈匣狀態（滿、低量、空）仍記在每一列的 state（供測試與其他介面查詢），近戰武器與沒有槍外觀的武器用彈種圖示。
 
-const ROW_SIZE := Vector2(172, 18)
+const ROW_SIZE := Vector2(132, 18)
 const LOW_RATIO := 0.25
 
 var _rows: Array[_Row] = []
@@ -26,18 +27,12 @@ func update_from(loadout: Loadout) -> void:
 		row.weapon = weapon
 		row.active = weapon != null and row.slot == loadout.active_slot
 		if weapon == null:
-			row.ammo_text = ""
 			row.state = AmmoIcons.State.EMPTY
 			row.tooltip_text = "撿取武器後放在這裡；滾輪或數字鍵切換"
 		else:
-			var reserve := loadout.reserve_in(row.slot)
 			if weapon.has_magazine():
-				var mag := loadout.mag_in(row.slot)
-				# 近戰武器的彈匣是電量：顯示 目前/上限，不顯示備彈。
-				row.ammo_text = "%d/%d" % [mag, weapon.magazine_size] if weapon.is_melee() else "%d/%s" % [mag, "∞" if reserve < 0 else str(reserve)]
-				row.state = _state_for(mag, weapon.magazine_size)
+				row.state = _state_for(loadout.mag_in(row.slot), weapon.magazine_size)
 			else:
-				row.ammo_text = "近戰" if weapon.is_melee() else "∞"
 				row.state = AmmoIcons.State.FULL
 			row.tooltip_text = weapon.description
 		row.queue_redraw()
@@ -65,7 +60,6 @@ class _Row:
 	var slot := 0
 	var weapon: WeaponData
 	var active := false
-	var ammo_text := ""
 	var state: AmmoIcons.State = AmmoIcons.State.EMPTY
 
 	func _init() -> void:
@@ -83,11 +77,13 @@ class _Row:
 		if weapon == null:
 			draw_string(font, Vector2(24, 13), "—", HORIZONTAL_ALIGNMENT_LEFT, -1, UiKit.FS_BODY, muted)
 			return
-		var icon := AmmoIcons.for_weapon(weapon, state)
 		var tint := Color.WHITE if active else Color(1, 1, 1, 0.6)
-		draw_texture_rect(icon, Rect2(Vector2(20, 2), AmmoIcons.CELL), false, tint)
+		var gun := WeaponIcons.texture(weapon)
+		if gun != null:
+			var fitted := WeaponIcons.fit(gun)
+			draw_texture_rect(gun, Rect2(Vector2(20, 2) + fitted.position, fitted.size), false, tint)
+		else:
+			draw_texture_rect(AmmoIcons.for_weapon(weapon, state), Rect2(Vector2(28, 2), AmmoIcons.CELL), false, tint)
 		var color := weapon.color if active else Palette.UI_MUTED
-		draw_string(font, Vector2(34, 13), weapon.short_name if not weapon.short_name.is_empty() else weapon.display_name,
+		draw_string(font, Vector2(54, 13), weapon.short_name if not weapon.short_name.is_empty() else weapon.display_name,
 				HORIZONTAL_ALIGNMENT_LEFT, 70, UiKit.FS_BODY, color)
-		var ammo_color := Palette.UI_TEXT if state == AmmoIcons.State.FULL else Palette.DANGER
-		draw_string(font, Vector2(size.x - 6 - 68, 13), ammo_text, HORIZONTAL_ALIGNMENT_RIGHT, 68, UiKit.FS_BODY, ammo_color if active else Color(ammo_color, 0.7))

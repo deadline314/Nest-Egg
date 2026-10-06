@@ -23,6 +23,10 @@ static func loop_names() -> PackedStringArray:
 static var _reported: Dictionary[String, bool] = {}
 
 var _use_npc := false
+## 姿勢資料的 feet（腳踩實地）：目前姿勢的、最後一個有效的（淡出時還要用）、與淡入淡出的權重。
+var _feet_def: Dictionary = {}
+var _feet_last: Dictionary = {}
+var _feet_w := 0.0
 var _w_talk := 0.0
 var _w_listen := 0.0
 var _w_wave := 0.0
@@ -41,6 +45,10 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 		if pose.has(hand_bone):
 			pose[hand_bone] = HAND_FOLLOWS_FOREARM
 	var base := _entry(data, "poses", str(input.npc_pose), "stand")
+	var feet: Variant = base.get("feet", {})
+	_feet_def = feet if typeof(feet) == TYPE_DICTIONARY else {}
+	if not _feet_def.is_empty():
+		_feet_last = _feet_def
 	_add_bones(pose, base.get("bones", {}), 1.0)
 	var mine: Dictionary = _motion["npc"]  # 這個角色自己的站姿微調與說話的速度、幅度
 	_add_bones(pose, mine["stand"], 1.0)
@@ -71,6 +79,28 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 		_add_bones(pose, overlay.get("bones", {}), weight)
 		_add_tracks(pose, overlay.get("tracks", []), weight * (float(mine["talk_amp"]) if talking else 1.0), 1.0, float(mine["talk_speed"]) if talking else 1.0)
 	return pose
+
+
+## 腳踩實地：姿勢資料有 feet 時，兩隻腳用 IK 平放在地面上（腳掌放平），骨盆下沉讓腿彎起來（不靠手調骨盆高度），
+## 坐、蹲才不會懸空或陷進地面。所有數字都是比例，不同身高、腿長的骨架共用同一份資料：
+## feet：{"x": [前腳, 後腳]（相對骨盆的前後位置，單位＝大腿長）, "sag": 骨盆下沉（單位＝髖到踝的腿長）, "reach": 腿伸展上限比例（預設 0.98）}。
+## 姿勢切換時用權重淡入淡出。
+func _post_pose(delta: float, _input: RigInput) -> void:
+	var want := 1.0 if _use_npc and not _feet_def.is_empty() else 0.0
+	_feet_w = move_toward(_feet_w, want, FADE_SPEED * delta)
+	if _feet_w <= 0.001 or _feet_last.is_empty():
+		return
+	_feet_placed = true
+	var thigh := _rig.rest(&"leg_front_lower").length()
+	var xs: Variant = _feet_last.get("x", [0.0, 0.0])
+	var offsets: Array[Vector2] = []
+	var angles: Array[float] = []
+	for i in LEG_CHAINS.size():
+		var ratio := float((xs as Array)[i]) if typeof(xs) == TYPE_ARRAY and (xs as Array).size() > i else 0.0
+		offsets.append(Vector2(ratio * thigh, 0.0))
+		angles.append(0.0)
+	var sag := float(_feet_last.get("sag", 0.0)) * _leg_length
+	_place_feet(offsets, angles, _feet_w, sag, float(_feet_last.get("reach", 0.98)), true)
 
 
 ## 手臂由姿勢直接決定（NPC 不握武器），只有人形動畫器處理的狀態才用 IK。

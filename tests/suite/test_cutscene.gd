@@ -43,10 +43,38 @@ func run() -> void:
 	await _test_pause_restored()
 	await _test_story_integration()
 	await _test_overlay_and_layers()
+	await _test_stand_up_returns_to_the_floor()
 	await _test_lock_lifecycle()
 	await _test_gameplay_input_lock()
 	await _test_skip_covered_transition()
 	_test_real_data()
+
+
+## 坐在桌上、箱子上的演員站起來時，腳要落回舞台的地面線，不能留在座位的高度浮空（NE-214）。
+func _test_stand_up_returns_to_the_floor() -> void:
+	var actor := CutsceneActor.new()
+	runner.add_child(actor)
+	check(actor.setup(&"t", "rin", "", 1.0, ""), "an actor with a skeleton is built")
+	actor.ground_y = 280.0
+	actor.position = Vector2(100, 232.0)  # 坐在離地 48 像素的檢查台上
+	actor.set_pose(&"sit")
+	await frames(3)
+	check(is_equal_approx(actor.position.y, 232.0), "sitting keeps the seat height")
+	actor.set_pose(&"idle")
+	for i in 90:
+		await runner.get_tree().process_frame
+	check(is_equal_approx(actor.position.y, 280.0), "standing up puts the feet back on the floor line (%.1f)" % actor.position.y)
+	var free_actor := CutsceneActor.new()
+	runner.add_child(free_actor)
+	free_actor.setup(&"u", "rin", "", 1.0, "")
+	free_actor.position = Vector2(50, 200.0)
+	free_actor.set_pose(&"sit")
+	free_actor.set_pose(&"idle")
+	await frames(3)
+	check(is_equal_approx(free_actor.position.y, 200.0), "an actor without a registered floor stays where the scene put it")
+	actor.queue_free()
+	free_actor.queue_free()
+	await frames(2)
 
 
 func _test_lock_lifecycle() -> void:
@@ -221,6 +249,13 @@ func _test_stages() -> void:
 	var broken := StageLayers.create({"kind": "gradient"}, "test_bad_cutscene 圖層")
 	check(broken == null, "缺欄位的圖層回傳 null 而不是崩潰")
 	check(StageLayers.create({"kind": "nonsense"}, "test_bad_cutscene 圖層") == null, "未知圖層種類回傳 null")
+	# 窗光閃爍（life）只能用在小面積的層：整張背景開了它會變成一格一格忽明忽暗的方塊。
+	var scene_art := "res://art/environment/scenes/pawnshop_front.webp"
+	check(StageLibrary.life_covers_stage({"path": scene_art, "scale": 0.5, "life": true}), "整張背景開 life 會被抓到")
+	check(not StageLibrary.life_covers_stage({"path": scene_art, "scale": 0.5}), "沒開 life 的背景沒有問題")
+	check(not StageLibrary.life_covers_stage({"path": scene_art, "scale": 0.1, "life": true}), "小面積的層可以開 life")
+	for stage_id in ["ch1_pawnshop_front", "ch1_dawn_noodle_stall", "ch1_revival_room", "rainy_harbor", "elevator_rise"]:
+		check(StageLibrary.validate(StringName(stage_id)).is_empty(), "舞台 %s 通過檢查：%s" % [stage_id, StageLibrary.validate(StringName(stage_id))])
 
 
 func _play(id: StringName, scene: Dictionary, speed := 40.0) -> CutscenePlayer:

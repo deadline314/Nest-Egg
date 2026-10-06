@@ -26,7 +26,10 @@ const DEFAULT_SPRINGS: Array[Dictionary] = [
 ## 注意：合併時只收這份預設裡有的欄位（打錯字的欄位會被忽略），所以新增欄位一定要先在這裡給「不啟用」的預設值。
 ## 跑步（grounding＝true）的進階欄位，預設值都是不啟用，只有寫了數值的角色會改變：
 ##   move.duty／lift／reach：踩地比例（低於 0.5＝有騰空）、抬腳高度、伸展腿的長度比例（小於 1＝著地時膝蓋微彎）；
+##   move.stride_exp／stride_floor：步長隨速度縮放（真人速度越慢步長越短，約 v^0.4～0.8）：步長＝stride × 速度比例^stride_exp，不低於 stride × stride_floor（stride_exp 為 0＝不縮放，步長固定）；
 ##   move.bounce／rise：踩地中段身體下沉、騰空時身體上升的像素（兩者都 0＝舊的固定下限）；
+##   move.level／bob_slow：等高跑法（level＞0 啟用）：身體高度固定在「腿剛好夠得到最大步幅」的高度（膝蓋彎曲吸收，不靠身體上下），
+##     bounce／rise 變成相對於這個高度的額外起伏（峰谷 = bounce + rise，建議 ≤ 0.09 L）；bob_slow 是慢速時起伏的比例（0~1，速度越快越接近 1）；
 ##   foot：腳掌滾動（heel 著地腳尖翹、toe_off 蹬地腳尖壓、droop 抬腳時下垂）；
 ##   torso：骨盆擺動 hip_swing、胸反向 chest_counter、胸的起伏 chest_wobble（wobble_phase 相位）、頭保持穩定 head_hold；
 ##   inertia：慣性前傾（見 InertiaLean）；
@@ -39,7 +42,7 @@ const DEFAULT_MOTION := {
 	"grounding": false,
 	"idle": {"breath_speed": 2.4, "breath_amp": 0.02, "hip_bob": 0.3, "chest": 0.0, "legs": [-0.12, 0.12, 0.2, 0.08], "sway": 0.0, "sway_speed": 1.3, "pin_feet": false, "pin_reach": 0.95, "counter": 0.0, "feet_x": []},
 	"move": {"stride": 50.0, "swing": 0.8, "knee_bend": 1.2, "knee_base": 0.15, "hip_bounce": 1.4, "chest_lean": 0.12, "threshold": 0.08,
-			"duty": 0.55, "lift": 5.0, "reach": 0.985, "bounce": 0.0, "rise": 0.0},
+			"duty": 0.55, "lift": 5.0, "reach": 0.985, "bounce": 0.0, "rise": 0.0, "stride_exp": 0.0, "stride_floor": 0.45, "level": 0.0, "bob_slow": 0.5},
 	"foot": {"droop": 0.25, "heel": 0.0, "toe_off": 0.0},
 	"torso": {"hip_swing": 0.0, "chest_counter": 0.0, "chest_wobble": 0.0, "wobble_phase": 0.0, "head_hold": 0.0},
 	"inertia": {"gain": 0.0, "ref_accel": 1600.0, "stiffness": 90.0, "damping": 11.0, "max": 0.3},
@@ -121,6 +124,9 @@ var _cycle := 0.0
 var _gait_speed_ratio := 0.0
 var _gait_reach := 0.985
 var _gait_floor := NAN
+## 等高跑法（move.level）：這一格有沒有啟用、相對於固定高度的額外起伏（像素）。
+var _gait_level := false
+var _gait_bob := 0.0
 var _run_w := 0.0
 var _overlay: Dictionary[StringName, float] = {}
 ## 慣性前傾與面向（翻轉時重置加速度）。
@@ -227,6 +233,7 @@ func update(delta: float, input: RigInput) -> void:
 
 	_gait_on = false
 	_gait_floor = NAN
+	_gait_level = false
 	_idle_on = false
 	var target := _body_pose(delta, input, local_velocity, look_angle)
 	if not _gait_on:
@@ -246,6 +253,8 @@ func update(delta: float, input: RigInput) -> void:
 	_ground_shift = 0.0
 	_apply_body()
 	_forward_kinematics()
+	_feet_placed = false
+	_post_pose(delta, input)
 	var can_plant := bool(_motion.get("grounding", false)) and input.on_floor and not input.dead and not input.dashing and not input.crouching
 	var can_pin := can_plant and _idle_on and not input.blocking and not input.staggered
 	_gait_w = move_toward(_gait_w, 1.0 if _gait_on and can_plant else 0.0, GAIT_BLEND_SPEED * delta)
@@ -254,7 +263,7 @@ func update(delta: float, input: RigInput) -> void:
 	if bool(_motion.get("grounding", false)) and input.on_floor and not input.dead and not input.dashing:
 		if _gait_w > 0.01:
 			_step_legs()
-		else:
+		elif not _feet_placed:  # 姿勢已經把腳放在地上（NPC 坐、蹲）時，不再用補償推翻它
 			_plant_feet(delta)
 			if _idle_pin_w > 0.01:
 				_pin_feet()
@@ -265,6 +274,15 @@ func update(delta: float, input: RigInput) -> void:
 		_forward_kinematics()  # 手臂 IK 之後重算一次，位置快取才是最終的姿勢
 	else:
 		_rig.weapon_root().visible = false
+
+
+## 這一格姿勢有沒有已經把腳放到地上（子類別的 _post_pose 設定）；為真時跳過「腳踩實地」的補償。
+var _feet_placed := false
+
+
+## 姿勢算完、骨頭套用並求出位置之後的修正（子類別覆寫；NPC 動畫器用它把腳放平在地上）。預設什麼都不做。
+func _post_pose(_delta: float, _input: RigInput) -> void:
+	pass
 
 
 # ---------------------------------------------------------------------------
@@ -300,6 +318,9 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 		var swing := float(move["swing"]) * minf(speed_ratio, 1.0)
 		var grounded := bool(m.get("grounding", false))
 		var stride := maxf(8.0, float(move["stride"]))
+		var stride_exp := float(move["stride_exp"])
+		if stride_exp > 0.0:
+			stride *= clampf(pow(minf(speed_ratio, 1.0), stride_exp), float(move["stride_floor"]), 1.0)
 		_phase += v.x * TAU / stride * delta
 		if grounded:
 			# 落腳：腳踩在地上時隨身體往後移（不滑），再抬起前擺；步伐幅度由資料的 stride 與踩地比例算出。
@@ -312,6 +333,11 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 			_gait_speed_ratio = speed_ratio
 			_cycle = fposmod(_phase / TAU, 1.0)
 			_gait_floor = GaitShape.body_sag(_cycle, _gait_duty, float(move["bounce"]), float(move["rise"]) * flight)
+			_gait_level = float(move["level"]) > 0.0
+			if _gait_level:
+				var slow := lerpf(float(move["bob_slow"]), 1.0, minf(speed_ratio, 1.0))
+				var bob := GaitShape.body_sag(_cycle, _gait_duty, float(move["bounce"]) * slow, float(move["rise"]) * flight * slow)
+				_gait_bob = 0.0 if is_nan(bob) else bob
 			pose[&"chest"] = float(move["chest_lean"]) * speed_ratio * signf(v.x)
 			pose[&"_hip_y"] = 0.0
 		else:
@@ -448,7 +474,12 @@ func _step_legs() -> void:
 		offsets.append(Vector2(x, lift))
 		angles.append(GaitShape.foot_angle(p, _gait_duty, lift / maxf(0.1, _gait_lift), foot))
 	_stance_known = _gait_on
-	_place_feet(offsets, angles, _gait_w, GAIT_MIN_SAG if is_nan(_gait_floor) else _gait_floor, _gait_reach, false, _land_sag())
+	var floor_sag := GAIT_MIN_SAG if is_nan(_gait_floor) else _gait_floor
+	if _gait_level:
+		# 等高：固定在腿剛好夠得到最大步幅的高度（膝蓋彎曲吸收），再加上資料指定的小幅起伏。
+		var reach := _leg_length * _gait_reach
+		floor_sag = maxf(GAIT_MIN_SAG, _leg_length - sqrt(maxf(0.0, reach * reach - _gait_amp_now * _gait_amp_now))) + _gait_bob
+	_place_feet(offsets, angles, _gait_w, floor_sag, _gait_reach, false, _land_sag())
 
 
 ## 待機時兩腳固定在地上：骨盆左右微移、身體隨之起伏，膝蓋自然彎曲（重心轉移），腳不滑。
@@ -664,6 +695,11 @@ func bone_pos(bone_name: StringName) -> Vector2:
 
 func ground_level() -> float:
 	return _ground_y
+
+
+## 骨頭目前的絕對角度（骨架空間，弧度）；稽核與測試用。
+func foot_angle(bone_name: StringName) -> float:
+	return _global_angle.get(bone_name, 0.0)
 
 
 ## 最低的腳底（骨架空間，往下為正）。

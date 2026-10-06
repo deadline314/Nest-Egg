@@ -29,6 +29,7 @@ func run() -> void:
 	_test_entry_point()
 	_test_story_hooks()
 	_test_prefetch()
+	_test_staging()
 	await _test_story_flags()
 	await _test_scenes_play_through()
 	await _test_every_area_builds()
@@ -128,6 +129,15 @@ func _test_portals() -> void:
 			all_ids[portal.id] = id
 			var layout := _layouts[id]
 			check(layout.cell(cell.x, cell.y + 1) == "#" or layout.cell(cell.x, cell.y + 1) == "=", "%s: portal %s stands on the ground" % [id, portal.id])
+			if portal.style == "ladder":
+				# 室內的梯子要一路通到天花板（頭上沒有天花板的屋頂梯子不檢查）。
+				var free_rows := 0
+				var y := cell.y
+				while y >= 0 and layout.cell(cell.x, y) != "#":
+					free_rows += 1
+					y -= 1
+				if y >= 0:
+					check(float(portal.height) >= 0.8 * float(free_rows * layout.tile_size), "%s: the ladder %s reaches the ceiling (%d of %d px)" % [id, portal.id, portal.height, free_rows * layout.tile_size])
 			if portal.is_locked_door():
 				locked += 1
 				check(not portal.locked_text.is_empty(), "%s: a locked door says why (%s)" % [id, portal.id])
@@ -306,6 +316,25 @@ func _test_story_hooks() -> void:
 	check(Story.respawn_scene_ids(&"ch1_kasa", 1) == [&"ch1_c09_wake"], "the first death plays the recovery room scene")
 	check(Story.respawn_scene_ids(&"ch1_kasa", 0).is_empty(), "no death, no recovery scene")
 	check(_datas["pawnshop"].intro_scene == &"ch1_c00_prologue" and Story._scenes["ch1_c00_prologue"].get("then") == "ch1_c01_shop", "the prologue leads into the shop scene")
+
+
+## 構圖：第一章每個動畫過場的演員腳底都在對話框之上；檢查本身也要抓得到違規的演出。
+func _test_staging() -> void:
+	var bad := {"steps": [{"do": "scene", "id": "x", "pos": [320, 180], "zoom": 1.0}, {"do": "actor", "id": "a", "pos": [100, 300]}]}
+	check(CutsceneChecker.staging_problems("test_bad_staging", bad).size() == 1, "an actor standing under the dialogue box is reported once")
+	var moved := {"steps": [{"do": "scene", "id": "x", "pos": [320, 180], "zoom": 1.0}, {"do": "actor", "id": "a", "pos": [100, 240]}, {"do": "move", "id": "a", "to": [200, 330]}]}
+	check(CutsceneChecker.staging_problems("test_bad_staging", moved).size() == 1, "walking down behind the dialogue box is reported")
+	var zoomed := {"steps": [{"do": "scene", "id": "x", "pos": [320, 180], "zoom": 1.0}, {"do": "actor", "id": "a", "pos": [100, 240]}, {"do": "camera", "pos": [100, 240], "zoom": 2.5}, {"do": "remove", "id": "a"}]}
+	check(CutsceneChecker.staging_problems("test_ok_staging", zoomed).is_empty(), "a camera that puts the feet at the middle of the screen is fine")
+	var checked := 0
+	for id in Story.scene_ids():
+		var scene: Dictionary = Story._scenes[id]
+		if not str(id).begins_with("ch1_") or str(scene.get("mode", "")) != "animated":
+			continue
+		checked += 1
+		var problems := CutsceneChecker.staging_problems(str(id), scene)
+		check(problems.is_empty(), "%s keeps the actors' feet above the dialogue box: %s" % [id, problems])
+	check(checked >= 10, "the chapter's animated scenes were checked (%d)" % checked)
 
 
 ## 預載：區域與過場用到的貼圖路徑找得到、請求只發一次、缺檔不報錯。

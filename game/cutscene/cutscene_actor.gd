@@ -12,6 +12,13 @@ var actor_id: StringName = &""
 ## 劇本裡講話的人（章節 speakers 的 id）：說這個人的台詞時，這個演員會點頭比手勢。沒有指定就用 actor_id。
 var speaker_id: StringName = &""
 var pose: StringName = &"idle"
+## 舞台上這個演員用的圖層組（見 WorldLayers.stage_actor_z）。
+var layer_slot := 0
+## 地面線（舞台座標的腳底 y；NAN＝沒有登記）：從坐姿站起來時，腳要落回這條線（坐在桌上、箱子上的演員不會站起來浮在半空）。
+var ground_y := NAN
+## 站起來落回地面的速度（舞台像素／秒）與是否正在落下。
+const SETTLE_SPEED := 160.0
+var _settling := false
 var facing := 1
 var rig: CharacterRig
 var _input := RigInput.new()
@@ -56,7 +63,11 @@ func setup(id: StringName, kind: String, portrait_path: String, unit_scale: floa
 
 
 func set_pose(new_pose: StringName) -> void:
+	var was_seated := pose == &"sit"
 	pose = new_pose
+	# 從坐姿換成站、走、跑…：位置還在座位的高度，要落回地面線，不能浮空。
+	if was_seated and new_pose != &"sit" and not is_nan(ground_y) and absf(position.y - ground_y) > 0.5:
+		_settling = true
 
 
 ## 專屬工作循環（art/rigs/npc_animations.json 的 loops，空字串＝沒有）；scale 放大縮小幅度。
@@ -88,6 +99,9 @@ func set_move_direction(direction: float) -> void:
 
 func _process(delta: float) -> void:
 	_t += delta
+	if _settling:
+		position.y = move_toward(position.y, ground_y, SETTLE_SPEED * delta)
+		_settling = not is_equal_approx(position.y, ground_y)
 	if rig != null:
 		_apply_pose()
 		rig.animate(delta, _input)
