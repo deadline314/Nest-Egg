@@ -36,6 +36,10 @@ func _run() -> void:
 			Settings.set_brightness(Settings.BRIGHTNESS_DEFAULT)
 		get_tree().quit()
 		return
+	if _scenario.begins_with("place:"):
+		await _run_place()
+		get_tree().quit()
+		return
 	if _scenario.begins_with("arena"):
 		await _run_arena()
 		get_tree().quit()
@@ -1892,6 +1896,38 @@ func _run_bubbles() -> void:
 	_capture("bubble_%s_one" % scene_id)
 	await _wait(1.6)
 	_capture("bubble_%s_two" % scene_id)
+	level.queue_free()
+	await _settle(4)
+
+
+## 場景檢查截圖（NE-210）：--scenario=place:關卡id:欄[:標籤[:enemies]]——把主角放在那一欄的地表上拍一張，隱藏介面；最後一段寫 enemies 就保留敵人（凍結不動）。
+func _run_place() -> void:
+	var parts := _scenario.split(":")
+	if parts.size() < 3:
+		push_error("[screenshot] place 需要 place:關卡id:欄[:標籤]")
+		return
+	var level_id := parts[1]
+	var tile := int(parts[2])
+	var tag := parts[3] if parts.size() > 3 else str(tile)
+	var keep_enemies := parts.size() > 4 and parts[4] == "enemies"
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load("res://data/levels/%s.tres" % level_id))
+	add_child(level)
+	await _settle(25)
+	level.hud.visible = false
+	level.player.health.setup(999, 0.0)
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		if keep_enemies:
+			node.process_mode = Node.PROCESS_MODE_DISABLED
+		else:
+			node.queue_free()
+	var layout: LevelLayout = level._layout
+	level.player.global_position = Vector2(tile * layout.tile_size + 8.0, layout.floor_below(tile, 0) - 2.0)
+	level.player.velocity = Vector2.ZERO
+	level_camera_snap()
+	await _settle(40)
+	_capture("place_%s_%s" % [level_id, tag])
 	level.queue_free()
 	await _settle(4)
 

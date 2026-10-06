@@ -24,10 +24,10 @@ enum Mode {
 @export var requires_flag: StringName = &""
 ## 鎖住（缺旗標或沒有目標）時顯示的提示。
 @export var locked_text: String = "這扇門打不開。"
-## 外觀：門的寬高（像素）與發光顏色的種類（door：暖色門框；ladder：梯子；road：街口，沒有門框）。
+## 外觀：門的寬高（像素）與發光顏色的種類（door：暖色門框；ladder：梯子；road：街口，沒有門框；hidden：什麼都不畫，互動範圍落在擺設本身的門上，例如屋頂的樓梯間）。
 @export var width: int = 24
 @export var height: int = 44
-@export_enum("door", "ladder", "road") var style: String = "door"
+@export_enum("door", "ladder", "road", "hidden") var style: String = "door"
 
 
 func is_locked_door() -> bool:

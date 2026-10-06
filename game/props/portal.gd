@@ -50,7 +50,7 @@ func _ready() -> void:
 	_prompt.reach_check = func() -> bool: return _player_in_range and _armed and data.mode == PortalData.Mode.INTERACT
 	_prompt.offset = Vector2(0, -data.height - 10.0)
 	add_child(_prompt)
-	if data.style != "road":
+	if data.style != "road" and data.style != "hidden":
 		var light := LightKit.create_point_light(_accent(), 70.0, 0.5, false)
 		light.position = Vector2(0, -data.height * 0.5)
 		add_child(light)
@@ -130,6 +130,8 @@ func _draw() -> void:
 			while y > top:
 				draw_line(Vector2(-half + 3.0, y), Vector2(half - 3.0, y), Color(accent, 0.7), 1.0)
 				y -= 8.0
+		"hidden":
+			pass  # 門就是擺設本身，只留互動範圍與提示
 		"road":
 			# 街口：地面上兩個淡淡的箭頭，沒有門框。
 			var pulse := 0.5 + 0.5 * sin(_time * 3.0)

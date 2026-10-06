@@ -70,7 +70,7 @@ PORTALS = {
               requires='ch1_dinner_done', locked='先吃晚飯。老 K 在等。'),
     'K': dict(id='pawn_basement', to='', target='', mode=0, prompt='{interact} 地下室', locked='漏水，別開。', style='door'),
     # 屋頂
-    'T': dict(id='roof_stairs', to=AREA('pawnshop'), target='pawn_stairs', mode=0, prompt='{interact} 下樓', style='ladder', w=20, h=48),
+    'T': dict(id='roof_stairs', to=AREA('pawnshop'), target='pawn_stairs', mode=0, prompt='{interact} 下樓', style='hidden', w=24, h=44),
     # 街道
     'h': dict(id='street_home', to=AREA('pawnshop'), target='pawn_front', mode=0, prompt='{interact} 回當舖', style='door'),
     'j': dict(id='street_booth', to=AREA('booth_alley'), target='booth_street', mode=0, prompt='{interact} 電話亭巷', style='road', w=28, h=44),
