@@ -36,6 +36,10 @@ func _run() -> void:
 			Settings.set_brightness(Settings.BRIGHTNESS_DEFAULT)
 		get_tree().quit()
 		return
+	if _scenario == "bubbles":
+		await _run_bubbles()
+		get_tree().quit()
+		return
 	if _scenario == "hud":
 		await _run_hud()
 		get_tree().quit()
@@ -1624,6 +1628,28 @@ func _run_spots() -> void:
 		level_camera_snap()
 		await _settle(40)
 		_capture("spot_%s_%s_%s" % [level_id, spot[0], tag])
+	level.queue_free()
+	await _settle(4)
+
+
+## 地圖氣泡（ST-12）：電話亭巷裡凜說兩句，拍下同屏兩個氣泡的樣子。
+func _run_bubbles() -> void:
+	Story.auto_skip = false
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load("res://data/levels/ch1_booth_alley.tres"))
+	add_child(level)
+	await _settle(30)
+	level.hud.visible = false
+	Story._scenes["shot_bubbles"] = {"mode": "bubbles", "lines": [
+		{"speaker": "rin", "text": "電話亭還亮著。"},
+		{"speaker": "rin", "text": "先撥一通，再進倉庫。"},
+	]}
+	Story.play(&"shot_bubbles")
+	await _wait(0.9)
+	_capture("bubble_one")
+	await _wait(1.6)
+	_capture("bubble_two")
 	level.queue_free()
 	await _settle(4)
 

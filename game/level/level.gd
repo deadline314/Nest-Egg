@@ -33,6 +33,7 @@ var died := false
 var _layout: LevelLayout
 var _world: Node2D
 var _entities: Node2D
+var _bubbles: MapBubbles
 var _pause_menu: PauseMenu
 var _inventory: InventoryScreen
 var _background: LevelBackground
@@ -179,6 +180,11 @@ func _ready() -> void:
 	camera.target = player
 	camera.snap_to_target()
 
+	_bubbles = MapBubbles.new()
+	_bubbles.anchor_resolver = _bubble_anchor
+	add_child(_bubbles)
+	Story.set_bubble_host(_bubbles)
+
 	_pause_menu = PauseMenu.new()
 	_pause_menu.chapter = data.chapter
 	add_child(_pause_menu)
@@ -249,6 +255,17 @@ func _begin_intro() -> void:
 			push_error("[Level] %s 的 after_intro_portal「%s」在地圖上找不到" % [data.id, data.after_intro_portal])
 		else:
 			portal.try_use()
+
+
+## 氣泡的講者在地圖上的位置：凜是玩家，其餘是 speaker 對得上的場景人物；找不到回傳 null（該段改用通訊）。
+func _bubble_anchor(speaker_id: String) -> Node2D:
+	if speaker_id == "rin":
+		return player if is_instance_valid(player) else null
+	for node in get_tree().get_nodes_in_group(NpcActor.GROUP):
+		var npc := node as NpcActor
+		if npc != null and npc.data != null and (npc.data.speaker == speaker_id or String(npc.data.id) == speaker_id):
+			return npc
+	return null
 
 
 ## 死亡重生後：累計死亡達到次數時，播出這一章設定的反應通訊（見 StoryReactions）。只改措辭，不影響流程與難度。

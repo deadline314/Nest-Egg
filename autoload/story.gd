@@ -27,10 +27,17 @@ const MODE_RADIO := &"radio"
 const MODE_ANIMATED := &"animated"
 ## 場景人物對話（玩家主動觸發）：與過場一樣暫停遊戲、逐句推進，但句數上限較高，且不算「看過就不再播」。
 const MODE_DIALOGUE := &"dialogue"
+## 地圖上的對話氣泡（見 MapBubbles）：不暫停、不鎖操作，講者頭上冒出短句。沒有氣泡宿主（不在關卡裡）或講者不在地圖上時改用通訊。
+const MODE_BUBBLES := &"bubbles"
 ## 對話長度守則（見 design/04-story/STORY.md）：過場每段至多 6 句，通訊每段 1～2 句。
 const MAX_CINEMATIC_LINES := 6
 const MAX_RADIO_LINES := 2
 const MAX_DIALOGUE_LINES := 8
+## 氣泡守則（見 skill chapter-design）：一段 ≤ 4 句、每句 ≤ 18 字；戰鬥中的 bark ≤ 2 句、每句 ≤ 10 字。
+const MAX_BUBBLE_LINES := 4
+const MAX_BUBBLE_CHARS := 18
+const MAX_BARK_LINES := 2
+const MAX_BARK_CHARS := 10
 
 ## 測試用：過場立即結束（仍會發出開始／結束訊號）。
 var auto_skip := false
@@ -43,6 +50,8 @@ var _scenes: Dictionary = {}
 var _scene_chapter: Dictionary[String, StringName] = {}
 ## 死亡畫面的小字（各章節合併）與各章節的重生通訊（章節 id -> 清單），見 StoryReactions。
 var _death_notes: Array = []
+## 地圖氣泡的宿主（Level 登記，離開關卡時清除）。
+var _bubble_host: MapBubbles
 var _respawn_scenes: Dictionary = {}
 var _death_scenes: Dictionary = {}
 var _seen: Dictionary[StringName, bool] = {}
@@ -159,7 +168,7 @@ func validate() -> PackedStringArray:
 			problems.append_array(CutsceneChecker.validate(scene_id, scene, _speakers))
 			continue
 		var lines: Array = scene.get("lines", [])
-		var limit := _line_limit(mode)
+		var limit := _line_limit(mode, scene)
 		problems.append_array(StoryReactions.validate_variants(scene_id, scene, limit, _speakers))
 		if lines.is_empty():
 			problems.append("場景 %s 沒有任何台詞" % scene_id)
@@ -173,6 +182,10 @@ func validate() -> PackedStringArray:
 				problems.append("場景 %s 的講者「%s」未定義" % [scene_id, entry.get("speaker", "")])
 			if str(entry.get("text", "")).is_empty():
 				problems.append("場景 %s 有一句沒有文字" % scene_id)
+			if mode == String(MODE_BUBBLES):
+				var cap := MAX_BARK_CHARS if bool(scene.get("bark", false)) else MAX_BUBBLE_CHARS
+				if str(entry.get("text", "")).length() > cap:
+					problems.append("場景 %s（氣泡%s）的句子超過 %d 字：%s" % [scene_id, "，戰鬥短句" if bool(scene.get("bark", false)) else "", cap, entry.get("text", "")])
 	for scene_id: String in _scenes.keys():
 		problems.append_array(_validate_chain(scene_id, _scenes[scene_id]))
 	for chapter_id: StringName in _respawn_scenes:
@@ -267,8 +280,10 @@ func _scene_text_lines(scene: Variant) -> Array:
 	return result
 
 
-func _line_limit(mode: String) -> int:
+func _line_limit(mode: String, scene: Dictionary = {}) -> int:
 	match mode:
+		String(MODE_BUBBLES):
+			return MAX_BARK_LINES if bool(scene.get("bark", false)) else MAX_BUBBLE_LINES
 		String(MODE_CINEMATIC):
 			return MAX_CINEMATIC_LINES
 		String(MODE_DIALOGUE):
@@ -378,6 +393,22 @@ func is_cinematic_active() -> bool:
 
 
 ## 播放場景。once = true 時同一輪只播一次。回傳是否有開始（或排入佇列）。
+## 登記或清除氣泡宿主（Level 進入關卡時登記自己的 MapBubbles；宿主離開場景樹時自動清除）。
+func set_bubble_host(host: MapBubbles) -> void:
+	if is_instance_valid(_bubble_host) and _bubble_host.scene_finished.is_connected(_on_bubbles_finished):
+		_bubble_host.scene_finished.disconnect(_on_bubbles_finished)
+	_bubble_host = host
+	if host != null:
+		host.scene_finished.connect(_on_bubbles_finished)
+		host.tree_exiting.connect(func() -> void:
+			if _bubble_host == host:
+				_bubble_host = null, CONNECT_ONE_SHOT)
+
+
+func _on_bubbles_finished(id: StringName) -> void:
+	scene_finished.emit(id)
+
+
 func play(id: StringName, once := true) -> bool:
 	if id == &"" or not has_scene(id):
 		if id != &"":
@@ -393,9 +424,25 @@ func play(id: StringName, once := true) -> bool:
 			_cinematic_queue.append(id)
 		else:
 			_start_cinematic(id)
+	elif mode == MODE_BUBBLES and _play_bubbles(id):
+		pass
 	else:
 		scene_started.emit(id, MODE_RADIO)
 		_layer.enqueue_radio(id, resolved_lines(id))
+	return true
+
+
+## 氣泡場景：有宿主、講者全都在地圖上才用氣泡；測試的 auto_skip 立即結束。回傳 false 代表改用通訊。
+func _play_bubbles(id: StringName) -> bool:
+	var lines := resolved_lines(id)
+	if auto_skip:
+		scene_started.emit(id, MODE_BUBBLES)
+		scene_finished.emit.call_deferred(id)
+		return true
+	if not is_instance_valid(_bubble_host) or not _bubble_host.can_show_all(lines):
+		return false
+	scene_started.emit(id, MODE_BUBBLES)
+	_bubble_host.show_lines(id, lines)
 	return true
 
 
@@ -470,6 +517,7 @@ func _resolve_lines(raw: Variant) -> Array[Dictionary]:
 			continue
 		var info := speaker(str(entry.get("speaker", "")))
 		var resolved := {
+			"speaker": str(entry.get("speaker", "")),
 			"name": str(info.get("name", "")),
 			"color": Color(str(info.get("color", "#ffffff"))),
 			"portrait": str(info.get("portrait", "")),

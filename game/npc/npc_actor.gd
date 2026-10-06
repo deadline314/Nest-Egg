@@ -5,6 +5,8 @@ extends Area2D
 ## 談過幾次與已領的獎勵跟著檢查點存檔（WorldState）：回溯後人物與玩家的信用點、補給一起還原，所以不會多領。
 
 ## 互動距離（玩家與人物的水平距離）：提示出現的範圍與按互動鍵有效的範圍用同一個數字，看得到提示就一定能互動。
+## 場景裡所有人物所在的群組（地圖氣泡找講者用）。
+const GROUP := &"npc_actors"
 const INTERACT_RANGE := 48.0
 const PLAYER_HALF_WIDTH := 6.0
 const REACH := Vector2(2.0 * (INTERACT_RANGE - PLAYER_HALF_WIDTH), 56)
@@ -77,6 +79,7 @@ func _ready() -> void:
 	light.position = Vector2(0, -24)
 	add_child(light)
 	add_to_group(WorldState.GROUP)
+	add_to_group(GROUP)
 	if _actor != null and _actor.rig != null:
 		_fit_to_figure()
 
