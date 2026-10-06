@@ -65,7 +65,7 @@ func _hover_tick(delta: float) -> void:
 		if heading != facing:
 			facing = heading
 			_turn_left = TURN_TIME
-	if _cooldown <= 0.0 and _distance_to_target() <= data.attack_range and _has_line_of_sight():
+	if _cooldown <= 0.0 and _token_free() and _distance_to_target() <= data.attack_range and _has_line_of_sight():
 		fsm.transition(&"lock")
 
 

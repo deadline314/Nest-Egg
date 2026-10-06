@@ -41,7 +41,7 @@ func _on_blocked(info: DamageInfo) -> void:
 func _patrol_tick(delta: float) -> void:
 	_cooldown = maxf(0.0, _cooldown - delta)
 	_patrol(data.move_speed)
-	if _cooldown <= 0.0 and _can_see_target(data.detect_range, 40.0):
+	if _cooldown <= 0.0 and _token_free() and _can_see_target(data.detect_range, 40.0):
 		fsm.transition(&"windup")
 
 

@@ -58,6 +58,8 @@ extends Resource
 @export_range(0.0, 1.0) var death_credit_penalty := 0.05
 ## 死亡時，受傷的頭目（EnemyData.persists_damage）回復其已損血量的比例。
 @export_range(0.0, 1.0) var death_boss_recovery := 0.3
+## 同時攻擊的敵人數上限（攻擊令牌）：群組（melee、ranged）-> 上限；沒列出的用 data/combat/attack_tokens.json。前期區域調小。
+@export var attack_caps: Dictionary = {}
 @export_group("Environment")
 ## 環境主題（地形材質、建築立面、道具、背景層）。留空時沿用單一金屬面板與程式繪製立面。
 @export var environment: EnvironmentTheme

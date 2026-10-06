@@ -1,0 +1,8 @@
+{
+  "_說明": "攻擊令牌：同時主動攻擊的敵人數上限（ST-11）。category 對應 EnemyData.attack_category；support 這類沒列出的類別不受限。hold_margin 是預兆結束後多保留幾秒（攻擊動作本身），逾時自動歸還，所以敵人被擊暈、卡住都不會一直占著。",
+  "hold_margin": 1.0,
+  "groups": {
+    "melee": {"categories": ["melee", "charge"], "max": 2},
+    "ranged": {"categories": ["ranged", "explosive", "beam"], "max": 2}
+  }
+}

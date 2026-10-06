@@ -26,7 +26,7 @@ func _tentacles_hittable() -> bool:
 
 func _hidden_tick(delta: float) -> void:
 	_cooldown = maxf(0.0, _cooldown - delta)
-	if _cooldown <= 0.0 and _can_see_target(data.detect_range, 90.0):
+	if _cooldown <= 0.0 and _token_free() and _can_see_target(data.detect_range, 90.0):
 		if not _facing_set:
 			_face_target()  # 洞口朝向第一次發現的玩家，之後固定（導管釘在牆上）
 			_facing_set = true

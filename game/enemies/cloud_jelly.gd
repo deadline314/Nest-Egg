@@ -44,7 +44,7 @@ func _drift_tick(delta: float) -> void:
 		velocity += goal.normalized() * PULSE_KICK
 	velocity = velocity.limit_length(_move_speed() * 1.6).move_toward(Vector2.ZERO, DRAG * delta)
 	_face_target()
-	if _cooldown <= 0.0 and absf(goal.x) < 40.0 and _distance_to_target() <= data.attack_range:
+	if _cooldown <= 0.0 and _token_free() and absf(goal.x) < 40.0 and _distance_to_target() <= data.attack_range:
 		fsm.transition(&"charge")
 
 

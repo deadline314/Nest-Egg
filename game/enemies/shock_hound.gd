@@ -70,7 +70,7 @@ func _prowl_tick(delta: float) -> void:
 		velocity.x = facing * data.move_speed
 	else:
 		velocity.x = 0.0
-	if _cooldown <= 0.0 and distance <= data.attack_range:
+	if _cooldown <= 0.0 and _token_free() and distance <= data.attack_range:
 		fsm.transition(&"growl")
 
 

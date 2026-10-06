@@ -53,7 +53,7 @@ func _setup_states() -> void:
 func _fly_tick(delta: float) -> void:
 	_cooldown = maxf(0.0, _cooldown - delta)
 	_steer(delta, 1.0)
-	if _cooldown <= 0.0 and _distance_to_target() <= data.attack_range and _target() != null:
+	if _cooldown <= 0.0 and _token_free() and _distance_to_target() <= data.attack_range and _target() != null:
 		fsm.transition(&"buzz")
 
 

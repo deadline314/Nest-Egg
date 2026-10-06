@@ -39,7 +39,7 @@ func _chase_tick(delta: float) -> void:
 		fsm.transition(&"patrol")
 		return
 	var blocked := is_on_floor() and (is_on_wall() or _is_ledge_ahead())
-	var stop := _cooldown <= 0.0 and distance <= SPIT_RANGE and distance >= SPIT_MIN_RANGE and _has_line_of_sight()
+	var stop := _cooldown <= 0.0 and _token_free() and distance <= SPIT_RANGE and distance >= SPIT_MIN_RANGE and _has_line_of_sight()
 	velocity.x = 0.0 if blocked or stop else facing * _move_speed()
 	if stop:
 		fsm.transition(&"swell")

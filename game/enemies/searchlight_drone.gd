@@ -169,7 +169,7 @@ func _patrol_tick(delta: float) -> void:
 	# 光束在正下方左右掃動。
 	_angle = PI * 0.5 + sin(_sweep_time * data.ability_speed) * SWEEP_AMPLITUDE
 	_fly(delta, data.move_speed)
-	if _cooldown <= 0.0 and _player_in_beam():
+	if _cooldown <= 0.0 and _token_free() and _player_in_beam():
 		fsm.transition(&"spot")
 
 

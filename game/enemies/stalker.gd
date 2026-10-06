@@ -81,7 +81,7 @@ func _stalk_tick(delta: float) -> void:
 	velocity.x = facing * data.move_speed if _distance_to_target() > wanted else 0.0
 	if is_on_floor() and is_on_wall():
 		velocity.y = -200.0
-	if _cooldown <= 0.0 and _can_see_target(data.attack_range, 80.0):
+	if _cooldown <= 0.0 and _token_free() and _can_see_target(data.attack_range, 80.0):
 		fsm.transition(&"aim")
 
 

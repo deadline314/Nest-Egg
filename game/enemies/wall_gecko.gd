@@ -75,7 +75,7 @@ func _patrol_tick(delta: float) -> void:
 			_surface.reverse()
 			_patrol_left = RETURN_PATROL * randf_range(0.7, 1.3)
 	facing = _surface.dir
-	if _attached and _cooldown <= 0.0 and _distance_to_target() <= data.attack_range and _has_line_of_sight():
+	if _attached and _cooldown <= 0.0 and _token_free() and _distance_to_target() <= data.attack_range and _has_line_of_sight():
 		fsm.transition(&"windup")
 
 

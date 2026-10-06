@@ -42,7 +42,7 @@ func _hover_tick(delta: float) -> void:
 	var toward := (desired - global_position).limit_length(data.move_speed)
 	velocity = velocity.move_toward(toward, 400.0 * delta)
 	_face_target()
-	if _cooldown <= 0.0 and _distance_to_target() <= data.attack_range and _has_line_of_sight():
+	if _cooldown <= 0.0 and _token_free() and _distance_to_target() <= data.attack_range and _has_line_of_sight():
 		fsm.transition(&"lock")
 
 

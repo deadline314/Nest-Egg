@@ -765,10 +765,15 @@ func _note_kill() -> void:
 	Sfx.play_event(&"clear_out")
 
 
+func _exit_tree() -> void:
+	AttackTokens.enemy_release(self)
+
+
 func _on_died(info: DamageInfo) -> void:
 	if _dying:
 		return
 	_dying = true
+	AttackTokens.enemy_release(self)
 	set_deferred(&"collision_layer", 0)
 	hurtbox.enabled = false
 	if contact != null:
@@ -904,7 +909,15 @@ func _is_ledge_ahead() -> bool:
 	return get_world_2d().direct_space_state.intersect_ray(query).is_empty()
 
 
+## 攻擊令牌有空位（同時攻擊的敵人數上限，見 AttackTokens）：行為決定「要不要開始攻擊」時，
+## 在自己的冷卻判斷後面加上這一項（`_cooldown <= 0.0 and _token_free() and ...`）。頭目不受限。
+func _token_free() -> bool:
+	return data.is_boss or AttackTokens.enemy_allows(self, data.attack_category)
+
+
 func _start_telegraph(seconds: float) -> void:
+	if not data.is_boss:
+		AttackTokens.enemy_claim(self, data.attack_category, seconds)
 	_telegraph_left = seconds
 	_ensure_telegraph_light()
 	CharacterSounds.play(data.id, &"telegraph", 0.0, {"attack_category": data.attack_category})

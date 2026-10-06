@@ -44,7 +44,7 @@ func _idle_tick(delta: float) -> void:
 	var distance := _distance_to_target()
 	if distance < _min_range() and _target() != null:
 		fsm.transition(&"retreat")
-	elif _cooldown <= 0.0 and distance <= data.attack_range and _target() != null:
+	elif _cooldown <= 0.0 and _token_free() and distance <= data.attack_range and _target() != null:
 		fsm.transition(&"aim")
 
 

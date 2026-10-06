@@ -109,7 +109,7 @@ func _patrol_tick(delta: float) -> void:
 		velocity.x = facing * data.move_speed
 	else:
 		velocity.x = 0.0
-	if _cooldown <= 0.0 and distance <= reach * IGNITE_RANGE_RATIO:
+	if _cooldown <= 0.0 and _token_free() and distance <= reach * IGNITE_RANGE_RATIO:
 		fsm.transition(&"ignite")
 
 

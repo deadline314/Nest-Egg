@@ -34,6 +34,7 @@ var _layout: LevelLayout
 var _world: Node2D
 var _entities: Node2D
 var _bubbles: MapBubbles
+var _tokens: AttackTokens
 var _pause_menu: PauseMenu
 var _inventory: InventoryScreen
 var _background: LevelBackground
@@ -179,6 +180,12 @@ func _ready() -> void:
 	camera.set_bounds(Rect2(Vector2.ZERO, _layout.pixel_size()))
 	camera.target = player
 	camera.snap_to_target()
+
+	_tokens = AttackTokens.new(data.attack_caps)
+	AttackTokens.active = _tokens
+	tree_exiting.connect(func() -> void:
+		if AttackTokens.active == _tokens:
+			AttackTokens.active = null)
 
 	_bubbles = MapBubbles.new()
 	_bubbles.anchor_resolver = _bubble_anchor

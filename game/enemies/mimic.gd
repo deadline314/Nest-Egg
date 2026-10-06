@@ -117,7 +117,7 @@ func _exposed_tick(delta: float) -> void:
 		return
 	_face_target()
 	var offset := target.global_position - global_position
-	if _cooldown <= 0.0 and absf(offset.x) <= data.attack_range and absf(offset.y) <= data.attack_range:
+	if _cooldown <= 0.0 and _token_free() and absf(offset.x) <= data.attack_range and absf(offset.y) <= data.attack_range:
 		fsm.transition(&"shake")
 
 

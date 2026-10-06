@@ -67,7 +67,7 @@ func _pivot() -> Vector2:
 func _idle_tick(delta: float) -> void:
 	velocity = Vector2.ZERO
 	_cooldown = maxf(0.0, _cooldown - delta)
-	if _cooldown <= 0.0 and PowerGrid.is_powered(self) and _can_see_target(data.detect_range, 260.0):
+	if _cooldown <= 0.0 and _token_free() and PowerGrid.is_powered(self) and _can_see_target(data.detect_range, 260.0):
 		fsm.transition(&"track")
 
 

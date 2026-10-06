@@ -58,7 +58,7 @@ func _idle_tick(delta: float) -> void:
 	_hover(_home + Vector2(0, sin(_anim_time * 2.0) * 5.0), delta, 0.6)
 	_cooldown = maxf(0.0, _cooldown - delta)
 	_scan_left -= delta
-	if _scan_left <= 0.0 and _cooldown <= 0.0:
+	if _scan_left <= 0.0 and _cooldown <= 0.0 and _token_free():
 		_scan_left = SCAN_INTERVAL
 		var ally := _find_ally()
 		if ally != null:
@@ -75,7 +75,7 @@ func _follow_tick(delta: float) -> void:
 	var desired := ally.global_position + Vector2(0, -ally.data.body_size.y - FOLLOW_HEIGHT * 0.5)
 	desired += _flee_offset()
 	_hover(desired, delta, FOLLOW_SPEED_SCALE)
-	if _cooldown <= 0.0 and global_position.distance_to(desired) < 40.0:
+	if _cooldown <= 0.0 and _token_free() and global_position.distance_to(desired) < 40.0:
 		fsm.transition(&"channel")
 
 
