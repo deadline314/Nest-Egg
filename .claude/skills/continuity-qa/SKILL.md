@@ -99,6 +99,9 @@ S1、S2 必須在合併前修掉。嚴重度（技術影響）與優先級（緊
 | 7 資源遺失 | 同上 | 死亡場景檔不存在：不卡住、照樣重生並記錄 |
 | 報告 | `godot --headless --path . res://tools/continuity_report.tscn` | 印出旗標表、錯誤、警告、孤兒場景；有錯誤時結束碼 1 |
 
+| 經濟對帳 | `core/economy_report.gd`（`tools/economy_report.tscn`） | 章節收入（地上、箱子、敵人、增援）與必要花費（改裝加必要補給）比例落在 60–80%，由 `EconomySuite` 鎖住；改價格或掉落後先跑報表 |
+| 典當與扣款 | `Progression.pawn`／`redeem`／`lose_credits_fraction(ratio, cap)` | 當價一半、利息兩成、當票 ≤ 6、失敗不扣款、扣款有上限且不負債；改規則要同步改 `EconomySuite` |
+
 尚未做：4 不可達內容（旗標圖模擬）、5 once 對話已看旗標、8 長時間 soak。新增資料欄位會讀寫旗標時（例如對話選項分支），要同步讓 `ContinuityAudit.flag_table` 掃得到，否則會被誤報成「只寫不讀」。
 
 ## 工作流程

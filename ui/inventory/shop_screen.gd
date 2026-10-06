@@ -27,10 +27,18 @@ func _opens_with_key() -> bool:
 
 
 func _legend_template() -> String:
-	return "{inventory} 離開　↑↓ 選擇　Enter 購買"
+	return "{inventory} 離開　Q／E 切換分頁　↑↓ 選擇　Enter 確認"
 
 
+## 分頁依貨架的功能決定：有商品就有貨架、收購就有典當、工作檯就有改裝。
 func _build_pages() -> Array[InventoryPage]:
-	var page := ShopPage.new()
-	page.shop = shop
-	return [page]
+	var pages: Array[InventoryPage] = []
+	if shop == null or not shop.stock.is_empty():
+		var page := ShopPage.new()
+		page.shop = shop
+		pages.append(page)
+	if shop != null and shop.pawn:
+		pages.append(PawnPage.new())
+	if shop != null and shop.workbench:
+		pages.append(UpgradesPage.new())
+	return pages

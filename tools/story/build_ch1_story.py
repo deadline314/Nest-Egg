@@ -319,6 +319,18 @@ def build():
         ('old_k', "路上小心。水大。"),
     ])
 
+    # 老 K 對死亡的反應（累計死亡 1 次、4 次以上時換句子）
+    lines_scene('ch1_t_oldk_d1', 'dialogue', [
+        ('old_k', "…又死了？"),
+        ('rin', "一次。"),
+        ('old_k', "水燒好了。吃完再去。"),
+    ])
+    lines_scene('ch1_t_oldk_d4', 'dialogue', [
+        ('old_k', "這個月第幾次了？"),
+        ('rin', "別數。"),
+        ('old_k', "我數。我替你數。"),
+    ])
+
     # 屋頂：鷺在等。到達時氣泡，差事是玩家主動的人物對話（說完旗標 ch1_heard_brief，前門才開）。
     lines_scene('ch1_b_roof', 'bubbles', [
         ('egret', "小鬼。遲到三分鐘。"),

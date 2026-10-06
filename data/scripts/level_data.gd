@@ -56,6 +56,8 @@ extends Resource
 @export var complete_after_intro := false
 ## 死亡時扣掉的信用點比例（只在 persistent_world 生效）。
 @export_range(0.0, 1.0) var death_credit_penalty := 0.05
+## 單次死亡最多扣幾點信用點（0 = 不設上限）：死亡不會把存了很久的錢一次吃光。
+@export var death_credit_cap := 0
 ## 死亡時，受傷的頭目（EnemyData.persists_damage）回復其已損血量的比例。
 @export_range(0.0, 1.0) var death_boss_recovery := 0.3
 ## 同時攻擊的敵人數上限（攻擊令牌）：群組（melee、ranged）-> 上限；沒列出的用 data/combat/attack_tokens.json。前期區域調小。

@@ -108,3 +108,4 @@ environment = ExtResource("22_ch1_street")
 layout_path = "res://data/levels/ch1_street_map.json"
 lighting_zones = Array[ExtResource("19_lighting_zone")]([SubResource("Resource_4"), SubResource("Resource_5")])
 story_triggers = PackedStringArray("ch1_b_street_in", "ch1_g06_lamp", "ch1_g06_tip_slide", "ch1_g06_tip_blade", "ch1_g06_tip_collector", "ch1_g06_clear")
+death_credit_cap = 250

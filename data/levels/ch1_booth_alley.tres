@@ -43,3 +43,4 @@ environment = ExtResource("7_ch1_booth_alley")
 layout_path = "res://data/levels/ch1_booth_alley_map.json"
 lighting_zones = Array[ExtResource("5_lighting_zone")]([SubResource("Resource_1")])
 story_triggers = PackedStringArray()
+death_credit_cap = 250

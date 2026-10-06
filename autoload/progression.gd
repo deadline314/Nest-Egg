@@ -6,11 +6,17 @@ extends Node
 signal credits_changed(credits: int, delta: int)
 signal upgrades_changed
 signal abilities_changed
+signal pawned_changed
 
 const UPGRADE_DIR := "res://data/upgrades"
 const ABILITY_DIR := "res://data/abilities"
 const SNAPSHOT_VERSION := 1
 const MAX_CREDITS := 99999
+## 典當：當價 = 售價 × PAWN_RATE；贖回 = 當價 × (1 + PAWN_INTEREST)（進位）。同時最多 MAX_PAWNED 張當票，
+## 這樣典當不能變成「無限換錢」，也一定比直接買貴一點點的反面：當了再贖是週轉，不是賺錢。
+const PAWN_RATE := 0.5
+const PAWN_INTEREST := 0.2
+const MAX_PAWNED := 6
 
 var credits := 0
 
@@ -22,6 +28,8 @@ var _ability_catalog: Array[CyberAbilityData] = []
 var _ability_catalog_loaded := false
 var _unlocked_abilities: Dictionary[StringName, bool] = {}
 var _equipped_ability: StringName = &""
+## 當票：消耗品 id -> 張數。
+var _pawned: Dictionary[StringName, int] = {}
 
 
 # ---------------------------------------------------------------------------
@@ -40,9 +48,13 @@ func add_credits(amount: int) -> int:
 	return gained
 
 
-## 扣掉信用點的一個比例（死亡的代價）。回傳實際扣掉的量；沒有信用點或比例為 0 時不動。
-func lose_credits_fraction(ratio: float) -> int:
+## 扣掉信用點的一個比例（死亡的代價）。cap > 0 時單次最多扣這麼多（死亡不會把存了很久的錢一次吃光）。
+## 回傳實際扣掉的量；永遠不超過身上的現金、不會負債；沒有信用點或比例為 0 時不動。
+func lose_credits_fraction(ratio: float, cap := 0) -> int:
 	var amount := int(floor(float(credits) * clampf(ratio, 0.0, 1.0)))
+	if cap > 0:
+		amount = mini(amount, cap)
+	amount = mini(amount, credits)
 	if amount <= 0:
 		return 0
 	spend(amount)
@@ -60,6 +72,87 @@ func spend(cost: int) -> bool:
 	if cost > 0:
 		credits -= cost
 		credits_changed.emit(credits, -cost)
+	return true
+
+
+# ---------------------------------------------------------------------------
+# 典當與贖回（老 K 的當舖）
+# ---------------------------------------------------------------------------
+
+## 這個消耗品的當價（售價的一半，至少 1）；不販售的東西（售價 0）不能典當，回傳 0。
+func pawn_value(item: ConsumableData) -> int:
+	if item == null or item.price <= 0:
+		return 0
+	return maxi(1, int(floor(float(item.price) * PAWN_RATE)))
+
+
+## 贖回要付的錢：當價加利息（進位）。不能典當的東西回傳 0。
+func redeem_cost(item: ConsumableData) -> int:
+	var value := pawn_value(item)
+	return 0 if value <= 0 else int(ceil(float(value) * (1.0 + PAWN_INTEREST)))
+
+
+func pawned_count(id: StringName) -> int:
+	return _pawned.get(id, 0)
+
+
+func total_pawned() -> int:
+	var total := 0
+	for id in _pawned:
+		total += _pawned[id]
+	return total
+
+
+## 有當票的消耗品 id（排序，顯示用）。
+func pawned_ids() -> Array[StringName]:
+	var ids: Array[StringName] = []
+	for id in _pawned:
+		if _pawned[id] > 0:
+			ids.append(id)
+	ids.sort()
+	return ids
+
+
+## 不能典當的原因（空字串代表可以）。物品要不要從背包拿走由呼叫端處理，這裡只管錢與當票。
+func pawn_block_reason(item: ConsumableData) -> String:
+	if item == null or pawn_value(item) <= 0:
+		return "這個東西當舖不收"
+	if total_pawned() >= MAX_PAWNED:
+		return "當票滿了（最多 %d 張），先贖回幾樣" % MAX_PAWNED
+	if credits >= MAX_CREDITS:
+		return "身上的錢已經滿了"
+	return ""
+
+
+## 典當：加錢、記一張當票。回傳實際拿到的錢（失敗回傳 0）。
+func pawn(item: ConsumableData) -> int:
+	if not pawn_block_reason(item).is_empty():
+		return 0
+	var gained := add_credits(pawn_value(item))
+	_pawned[item.id] = pawned_count(item.id) + 1
+	pawned_changed.emit()
+	return gained
+
+
+## 不能贖回的原因（空字串代表可以）。
+func redeem_block_reason(item: ConsumableData) -> String:
+	if item == null or pawned_count(item.id) <= 0:
+		return "沒有這張當票"
+	if not can_afford(redeem_cost(item)):
+		return "信用點不足（還差 %d）" % (redeem_cost(item) - credits)
+	return ""
+
+
+## 贖回：扣錢、收回當票。回傳是否成功（失敗不扣款）。
+func redeem(item: ConsumableData) -> bool:
+	if not redeem_block_reason(item).is_empty() or not spend(redeem_cost(item)):
+		return false
+	var left := pawned_count(item.id) - 1
+	if left > 0:
+		_pawned[item.id] = left
+	else:
+		_pawned.erase(item.id)
+	pawned_changed.emit()
 	return true
 
 
@@ -214,9 +307,11 @@ func reset_run() -> void:
 	_upgrades.clear()
 	_unlocked_abilities.clear()
 	_equipped_ability = &""
+	_pawned.clear()
 	credits_changed.emit(credits, 0)
 	upgrades_changed.emit()
 	abilities_changed.emit()
+	pawned_changed.emit()
 
 
 func snapshot() -> Dictionary:
@@ -226,7 +321,10 @@ func snapshot() -> Dictionary:
 	var abilities: Array[String] = []
 	for id in _unlocked_abilities:
 		abilities.append(String(id))
-	return {"version": SNAPSHOT_VERSION, "credits": credits, "upgrades": upgrades, "abilities": abilities, "equipped": String(_equipped_ability)}
+	var pawned: Dictionary = {}
+	for id in _pawned:
+		pawned[String(id)] = _pawned[id]
+	return {"version": SNAPSHOT_VERSION, "credits": credits, "upgrades": upgrades, "abilities": abilities, "equipped": String(_equipped_ability), "pawned": pawned}
 
 
 ## 從快照還原；資料損毀、型別不符或引用到已不存在的改裝時略過該部分，保證不崩潰。
@@ -247,9 +345,27 @@ func restore(data: Dictionary) -> void:
 			if not valid.is_empty():
 				_upgrades[StringName(str(weapon_id))] = valid
 	_restore_abilities(data)
+	_restore_pawned(data)
 	credits_changed.emit(credits, 0)
 	upgrades_changed.emit()
 	abilities_changed.emit()
+	pawned_changed.emit()
+
+
+## 當票：舊存檔沒有這個欄位時視為沒有；數量不是正整數、引用到不存在的消耗品時略過，總數不超過上限。
+func _restore_pawned(data: Dictionary) -> void:
+	_pawned.clear()
+	var raw: Variant = data.get("pawned", {})
+	if typeof(raw) != TYPE_DICTIONARY:
+		return
+	for id: Variant in raw:
+		var count: Variant = raw[id]
+		if typeof(count) not in [TYPE_INT, TYPE_FLOAT] or int(count) <= 0 or ConsumableBag.find(StringName(str(id))) == null:
+			continue
+		var room := MAX_PAWNED - total_pawned()
+		if room <= 0:
+			break
+		_pawned[StringName(str(id))] = mini(int(count), room)
 
 
 func _restore_abilities(data: Dictionary) -> void:

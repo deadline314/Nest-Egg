@@ -910,7 +910,7 @@ func _apply_death_to_world(charge_fee := true) -> void:
 		GameState.checkpoint_loadout = player.checkpoint_snapshot()
 	if not charge_fee:
 		return
-	var lost := Progression.lose_credits_fraction(data.death_credit_penalty)
+	var lost := Progression.lose_credits_fraction(data.death_credit_penalty, data.death_credit_cap)
 	if lost > 0:
 		EventBus.toast_requested.emit("信用點 -%d" % lost)
 

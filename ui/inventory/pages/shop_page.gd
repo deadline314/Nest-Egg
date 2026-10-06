@@ -6,6 +6,8 @@ var shop: ShopData
 
 
 func tab_title() -> String:
+	if shop != null and (shop.pawn or shop.workbench):
+		return "補給"  # 同一個畫面還有典當、改裝分頁：分頁名要短，不和畫面標題重複
 	return shop.display_name if shop != null else "補給點"
 
 

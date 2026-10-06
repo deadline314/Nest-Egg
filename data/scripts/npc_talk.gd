@@ -7,6 +7,8 @@ extends Resource
 @export var scene: StringName = &""
 ## 至少已經談過幾次才會用這一段（0 = 任何時候；1 = 之後再來）。
 @export var min_talks: int = 0
+## 本輪累計死亡至少幾次才會用這一段（0 = 不限）：人物對死亡的反應。
+@export var min_deaths: int = 0
 ## 這個劇情場景在本輪播過之後才會用這一段（空白 = 不限）。
 @export var after_scene: StringName = &""
 @export_group("Reward")
@@ -30,6 +32,8 @@ func validate(owner_id: StringName) -> PackedStringArray:
 		problems.append("人物 %s 有一段對話沒有指定場景" % owner_id)
 	if min_talks < 0:
 		problems.append("人物 %s 的對話「%s」min_talks 不能為負" % [owner_id, scene])
+	if min_deaths < 0:
+		problems.append("人物 %s 的對話「%s」min_deaths 不能為負" % [owner_id, scene])
 	if credits < 0:
 		problems.append("人物 %s 的對話「%s」信用點不能為負" % [owner_id, scene])
 	if story_item != null and not story_item.is_collectible():

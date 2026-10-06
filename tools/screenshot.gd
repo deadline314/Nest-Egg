@@ -44,6 +44,10 @@ func _run() -> void:
 		await _run_bubbles()
 		get_tree().quit()
 		return
+	if _scenario == "pawn":
+		await _run_pawn()
+		get_tree().quit()
+		return
 	if _scenario == "hud":
 		await _run_hud()
 		get_tree().quit()
@@ -1632,6 +1636,49 @@ func _run_spots() -> void:
 		level_camera_snap()
 		await _settle(40)
 		_capture("spot_%s_%s_%s" % [level_id, spot[0], tag])
+	level.queue_free()
+	await _settle(4)
+
+
+## 老 K 的櫃台（NE-216）：在當舖櫃台旁開啟，依序拍「買補給」「典當」「贖回」「改裝」四個分頁。
+func _run_pawn() -> void:
+	Story.auto_skip = true
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load("res://data/levels/ch1_pawnshop.tres"))
+	add_child(level)
+	await _settle(30)
+	level.hud.visible = false
+	level.player.health.setup(999, 0.0)
+	var station: ShopStation = null
+	for node in level._entities.get_children():
+		if node is ShopStation:
+			station = node
+	if station == null:
+		push_error("[Screenshot] 當舖沒有櫃台")
+		level.queue_free()
+		return
+	level.player.global_position = station.global_position + Vector2(-6.0, 0.0)
+	await _settle(40)
+	Progression.add_credits(180)
+	_capture("pawn_counter")
+	station._open()
+	await _wait(0.9)
+	_capture("pawn_shelf")
+	var screen: ShopScreen = station._screen
+	(screen._pages[0] as ShopPage)._activate_entry(0)  # 先買一支醫療針，典當分頁才有東西
+	screen.select_tab(1)
+	await _wait(0.6)
+	_capture("pawn_pawn")
+	var page: PawnPage = screen._pages[1]
+	page._activate_entry(0)
+	page.refresh()
+	await _wait(0.5)
+	_capture("pawn_ticket")
+	screen.select_tab(2)
+	await _wait(0.6)
+	_capture("pawn_workbench")
+	screen.close()
 	level.queue_free()
 	await _settle(4)
 

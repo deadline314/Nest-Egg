@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ShopData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/shop_data.gd" id="1_script"]
+[ext_resource type="Resource" path="res://data/consumables/med_injector.tres" id="2_med"]
+[ext_resource type="Resource" path="res://data/consumables/shield_cell.tres" id="3_cell"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch1_pawn"
+display_name = "當舖櫃台"
+stock = Array[ConsumableData]([ExtResource("2_med"), ExtResource("3_cell")])
+pawn = true
+workbench = true
+style = &"counter"
+prompt = "{interact} 老 K 的櫃台：買補給、典當、改裝武器"

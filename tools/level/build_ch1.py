@@ -29,6 +29,7 @@ RES = {
     'b': 'res://data/enemies/collector_brute.tres',
     'd': 'res://data/enemies/drone.tres',
     'w': 'res://data/enemies/watchdog.tres',
+    'V': 'res://data/shops/ch1_pawn.tres',      # 老 K 的櫃台（買補給、典當、改裝）
     'n': 'res://data/npcs/ch1_old_k.tres',      # 場景人物（ST-12）：老 K、鷺、阿梨（復原館、麵攤各一份）
     'E': 'res://data/npcs/ch1_egret.tres',
     'Y': 'res://data/npcs/ch1_ali_lounge.tres',
@@ -423,7 +424,8 @@ def build_pawnshop():
     a.prop('pawnshop_front__leak_bucket', 69)
     a.prop('pawnshop_front__crate_pile', 72)
     a.prop('harbor_street__umbrella_stand', 76)
-    a.stand(57, 't')
+    a.stand(56, 'V')
+    a.stand(71, 't')
     a.stand(67, 'c')
     a.stand(74, 'F')
     for x in (36, 46, 56, 66, 74):
@@ -758,7 +760,7 @@ def build_stall():
 NPC_DIR = os.path.join(ROOT, 'data', 'npcs')
 NPCS = {
     'ch1_old_k': dict(name='老 K', speaker='old_k', rig='old_k', loop='wipe_hands', facing=-1, prompt='{interact} 和老 K 說話',
-                      talks=[('ch1_t_oldk_1', 0), ('ch1_t_oldk_2', 1)]),
+                      talks=[('ch1_t_oldk_1', 0), ('ch1_t_oldk_2', 1), ('ch1_t_oldk_d1', 1, 1), ('ch1_t_oldk_d4', 1, 4)]),
     'ch1_egret': dict(name='鷺', speaker='egret', rig='night_worker', pose='lean', loop='yawn', facing=-1, prompt='{interact} 聽鷺說差事',
                       talks=[('ch1_t_egret_1', 0), ('ch1_t_egret_2', 1)]),
     'ch1_ali_lounge': dict(name='阿梨', speaker='ali', rig='nurse', loop='wipe_hands', facing=-1, prompt='{interact} 和阿梨說話',
@@ -774,10 +776,14 @@ def write_npc_files():
         w = TresWriter('NpcData', 'res://data/scripts/npc_data.gd')
         talk_script = w.ext('res://data/scripts/npc_talk.gd', 'Script')
         subs = []
-        for scene, min_talks in n['talks']:
+        for talk in n['talks']:
+            scene, min_talks = talk[0], talk[1]
+            min_deaths = talk[2] if len(talk) > 2 else 0
             body = [f'script = ExtResource("{talk_script}")', f'scene = &"{scene}"']
             if min_talks:
                 body.append(f'min_talks = {min_talks}')
+            if min_deaths:
+                body.append(f'min_deaths = {min_deaths}')
             subs.append(w.sub(body))
         lines = [f'script = ExtResource("{w.script_id}")', f'id = &"{ident}"', f'display_name = {json.dumps(n["name"], ensure_ascii=False)}',
                  f'speaker = "{n["speaker"]}"', f'rig_id = "{n["rig"]}"']
@@ -1015,6 +1021,7 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
     triggers = [scene for _, scene in sorted(area.triggers)]
     # 天亮的當舖與當舖共用地圖：& 標記還在，晚飯場景已經看過，不會重播。
     res.append('story_triggers = PackedStringArray(' + ', '.join(json.dumps(t) for t in triggers) + ')')
+    opts.setdefault('death_credit_cap', 250)
     for key, value in opts.items():
         res.append(f'{key} = {value}')
     path = os.path.join(LEVEL_DIR, f'ch1_{level_id}.tres')

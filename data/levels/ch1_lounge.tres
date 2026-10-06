@@ -42,3 +42,4 @@ environment = ExtResource("6_ch1_lounge")
 layout_path = "res://data/levels/ch1_lounge_map.json"
 lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_1")])
 story_triggers = PackedStringArray("ch1_b_lounge")
+death_credit_cap = 250

@@ -36,7 +36,7 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 	var prompt := WorldPrompt.new()
-	prompt.text = "{interact} %s：用信用點購買醫療針與護盾電池" % data.display_name
+	prompt.text = data.prompt_text()
 	prompt.radius = PROMPT_RADIUS
 	prompt.reach_check = func() -> bool: return _player_in_range
 	prompt.offset = Vector2(0, -REACH.y - 12.0)
@@ -81,6 +81,12 @@ func _on_body_exited(body: Node2D) -> void:
 
 
 func _draw() -> void:
+	if data.style == &"counter":
+		# 櫃台／工作檯：場景裡已經有擺設，只畫一個發光的價目牌。
+		var tag := LightKit.glow(Palette.CYAN, 1.4 + 0.4 * sin(_time * 3.0))
+		draw_rect(Rect2(-6, -4, 12, 4), Color(0.03, 0.08, 0.1))
+		draw_rect(Rect2(-6, -4, 12, 4), tag, false, 1.0)
+		return
 	# 補給櫃：金屬櫃身、發光的螢幕與十字標誌。
 	draw_rect(Rect2(-12, -30, 24, 30), Palette.TERRAIN_FILL)
 	draw_rect(Rect2(-12, -30, 24, 30), Palette.TERRAIN_TOP, false, 1.0)
