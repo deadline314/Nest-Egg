@@ -11,7 +11,7 @@ const REQUIRED_SUPPLIES: Dictionary = {&"med_injector": 2, &"shield_cell": 1}
 ## 第一章用到的區域（不含天亮的當舖，它和當舖共用同一張地圖，不重複算）。
 static func ch1_paths() -> Array:
 	var paths: Array = []
-	for id in ["pawnshop", "rooftop", "street", "booth_alley", "warehouse", "lounge", "stall"]:
+	for id in ["pawnshop", "rooftop", "street", "booth_alley", "warehouse", "vault", "lounge", "stall"]:
 		paths.append("res://data/levels/ch1_%s.tres" % id)
 	return paths
 

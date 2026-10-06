@@ -80,6 +80,9 @@ PORTALS = {
     'J': dict(id='booth_street', to=AREA('street'), target='street_booth', mode=1, prompt='', style='road', w=20, h=44),
     # 倉庫
     'O': dict(id='wh_street', to=AREA('street'), target='street_warehouse', mode=0, prompt='{interact} 回街道', style='door', w=28, h=48),
+    'U': dict(id='wh_vault', to=AREA('vault'), target='vault_prev', mode=1, prompt='', style='road', w=20, h=44),
+    # 倉庫深處（保險庫與上層走道）
+    'M': dict(id='vault_prev', to=AREA('warehouse'), target='wh_vault', mode=1, prompt='', style='road', w=20, h=44),
     'L': dict(id='wh_upper', to=AREA('lounge'), target='', mode=0, prompt='{interact} 上層通道（過去就回不來了）', style='door'),
     # 復原館
     'G': dict(id='lounge_exit', to=AREA('stall'), target='', mode=1, prompt='', style='road', w=20, h=44,
@@ -119,6 +122,7 @@ class Area:
         self.encounters = []     # 遭遇紀錄（設計報告與檢查用，見 encounter）
         self.combat = False      # 戰鬥區：要有迴圈／獎勵／秘密／地標／垂直空間（features）
         self.features = {}       # 例如 {'loop': '高路', 'secret': '裂縫牆', ...}
+        self.group = ident       # 同一組的區域（一個地點切成幾張地圖）合起來要有完整的特色（迴圈、秘密…）
         self.options = options
         g = self.grid
         g.fill(0, 0, 0, H - 1, '#')
@@ -608,8 +612,8 @@ def build_booth_alley():
     return a
 
 
-def build_warehouse():
-    """碼頭倉庫（ST-11 重設計）：前廳（看門狗＝迷你頭目 A）→ 閘門廳（機關與水坑）→ 保險箱（鎖場，迷你頭目 B）→ 上層走道（鎖場）。
+def build_warehouse_full():
+    """碼頭倉庫整張（ST-11 重設計；ST-14 切成前後兩個區域，見 build_warehouse_pair）：前廳（看門狗＝迷你頭目 A）→ 閘門廳（機關與水坑）→ 保險箱（鎖場，迷你頭目 B）→ 上層走道（鎖場）。
     逐場遭遇與設計理由見 design/13-story-v2/CH01_PACING_V2.md §3.2。"""
     a = Area('warehouse', '碼頭倉庫', 244, 17, indoor=True)
     a.combat = True
@@ -713,6 +717,78 @@ def build_warehouse():
         a.lamp(x, 5)
     a.zone(0, 'freight')
     return a
+
+
+def slice_area(full, ident, name, x0, x1, pad_left, pad_right):
+    """把一張做好的地圖切出 [x0, x1) 欄成新的區域（ST-14）：兩側各補 pad 欄空地與外牆，格子、道具、提示牌（重新編號）、觸發點、遭遇、
+    材質區與光影一起搬過去。切在機關與遭遇範圍之外（切到的東西會被 assert 擋下）。"""
+    width = pad_left + (x1 - x0) + pad_right
+    a = Area(ident, name, width, full.ground, **full.options)
+    a.combat = full.combat
+    a.group = full.group
+    a.ceiling(1, width - 2, 4)
+    shift = pad_left - x0
+    for x in range(x0, x1):
+        nx = x + shift
+        if nx <= 0 or nx >= width - 1:
+            continue
+        for y in range(H):
+            c = full.grid.at(x, y)
+            if c.isdigit():
+                a.hints.append(full.hints[int(c) - 1])
+                c = str(len(a.hints))
+            if c != a.grid.at(nx, y):
+                a.grid.put(nx, y, c)
+            if c in RES or c in DYN_RES or c in PORTALS or c in ('P',):
+                a.chars.add(c)
+    for e in full.encounters:
+        inside = x0 <= e['x0'] and e['x1'] < x1
+        outside = e['x1'] < x0 or e['x0'] >= x1
+        assert inside or outside, f'{full.id}/{e["name"]}: 遭遇被切在 {x0}～{x1} 的邊界上'
+        if inside:
+            moved = dict(e)
+            moved['x0'] += shift
+            moved['x1'] += shift
+            a.encounters.append(moved)
+    for p in full.props:
+        if x0 <= p['x'] < x1:
+            moved = dict(p)
+            moved['x'] += shift
+            a.props.append(moved)
+    for r in full.regions:
+        if r['x0'] >= x0 and r['x1'] < x1:
+            a.regions.append(dict(r, x0=r['x0'] + shift, x1=r['x1'] + shift))
+        else:
+            assert r['x1'] < x0 or r['x0'] >= x1, f'{full.id}: 材質區 {r} 被切在邊界上'
+    a.triggers = [(x + shift, scene) for x, scene in full.triggers if x0 <= x < x1]
+    return a
+
+
+def build_warehouse_pair():
+    """倉庫切成兩個區域：前半「碼頭倉庫」（前廳、閘門廳、水坑與坑對岸，切在保險箱鎖場之前）與後半「倉庫深處」（保險箱、階梯、上層走道）。
+    水坑與它的閘門在同一張地圖裡（機關頻道不跨區域）。後半的開頭留 22 欄空地、一個存檔點，前半的結尾留 24 欄，鎖場與敵人離出入口都在 18 格以上。"""
+    full = build_warehouse_full()
+    cut = 142
+    front = slice_area(full, 'warehouse', '碼頭倉庫', 0, cut, 0, 24)
+    back = slice_area(full, 'vault', '倉庫深處', cut, 244, 22, 0)
+    front.zone(0, 'freight')
+    back.zone(0, 'freight')
+    front.stand(front.w - 4, 'U')
+    front.hint(front.w - 9, '前面是倉庫深處：保險箱有人守著')
+    back.stand(3, 'M')
+    back.stand(4, 'P')
+    back.stand(7, 'C')
+    front.features = {
+        'reward': full.features['reward'],
+        'landmark': full.features['landmark'],
+        'vertical': '地面、貨櫃頂兩層',
+    }
+    back.features = {
+        'loop': full.features['loop'],
+        'secret': full.features['secret'],
+        'vertical': '地面、階梯平台、上層走道三層',
+    }
+    return front, back
 
 
 def build_lounge():
@@ -839,9 +915,9 @@ def write_encounter_files(areas):
 # 名稱要和 encounter() 的名稱一致；一章只引入四個新技巧（移動、射擊、衝刺、近戰的基本操作在當舖教學場）。
 CURVE = {
     '掩護射擊': {'intro': ('street', '接觸'), 'practice': ('street', '高台'), 'combine': ('street', '街心'), 'test': ('street', '路障')},
-    '格擋與衝刺': {'intro': ('street', '格擋'), 'practice': ('street', '街心'), 'combine': ('street', '路障'), 'test': ('warehouse', '保險箱守衛')},
-    '近戰終結': {'intro': ('street', '近戰'), 'practice': ('warehouse', '開關守衛'), 'combine': ('warehouse', '坑前'), 'test': ('warehouse', '保險箱守衛')},
-    '空中與高處': {'intro': ('street', '空襲'), 'practice': ('warehouse', '高處無人機'), 'combine': ('warehouse', '階梯'), 'test': ('warehouse', '上層走道')},
+    '格擋與衝刺': {'intro': ('street', '格擋'), 'practice': ('street', '街心'), 'combine': ('street', '路障'), 'test': ('vault', '保險箱守衛')},
+    '近戰終結': {'intro': ('street', '近戰'), 'practice': ('warehouse', '開關守衛'), 'combine': ('warehouse', '坑前'), 'test': ('vault', '保險箱守衛')},
+    '空中與高處': {'intro': ('street', '空襲'), 'practice': ('warehouse', '高處無人機'), 'combine': ('vault', '階梯'), 'test': ('vault', '上層走道')},
 }
 
 
@@ -850,7 +926,7 @@ def write_design(areas):
     data = {'areas': {}, 'curve': {name: {stage: list(where) for stage, where in stages.items()} for name, stages in CURVE.items()}}
     for a in areas:
         data['areas'][a.id] = {
-            'combat': a.combat, 'features': a.features,
+            'combat': a.combat, 'group': a.group, 'features': a.features,
             'encounters': [{'name': e['name'], 'lock': e['lock'], 'x0': e['x0'], 'x1': e['x1'], 'members': [ENEMY_NAMES[c] for c in e['members']],
                             'reinforcements': [ENEMY_NAMES[c] for c in e['reinforcements']]} for e in a.encounters],
         }
@@ -926,6 +1002,7 @@ THEMES = {
     'street': ('asphalt', ['shopfront', 'apartment', 'shutter_block'], None, 0.22, 'sky_storm', ['harbor_street']),
     'booth_alley': ('asphalt', ['shutter_block', 'apartment'], None, 0.22, 'sky_storm', ['anchor_phone_booth']),
     'warehouse': ('concrete', ['warehouse'], 'hangar_wall', 0.0, 'sky_storm', ['dock_warehouse']),
+    'vault': ('concrete', ['warehouse'], 'hangar_wall', 0.0, 'sky_storm', ['dock_warehouse']),
     'lounge': ('facility_floor', ['facility_wall'], 'facility_panel', 0.0, 'sky_storm', ['revival_lounge']),
     'stall': ('asphalt', ['shopfront', 'shutter_block'], None, 0.22, 'sky_dawn', ['dawn_noodle_stall']),
 }
@@ -1047,7 +1124,7 @@ def main():
     write_data_files()
     os.makedirs(LEVEL_DIR, exist_ok=True)
     os.makedirs(THEME_DIR, exist_ok=True)
-    areas = [build_pawnshop(), build_rooftop(), build_street(), build_booth_alley(), build_warehouse(), build_lounge(), build_stall()]
+    areas = [build_pawnshop(), build_rooftop(), build_street(), build_booth_alley(), *build_warehouse_pair(), build_lounge(), build_stall()]
     problems = []
     for a in areas:
         problems += a.check()
@@ -1075,6 +1152,7 @@ def main():
     write_level(by_id['street'])
     write_level(by_id['booth_alley'])
     write_level(by_id['warehouse'])
+    write_level(by_id['vault'])
     write_level(by_id['lounge'])
     write_level(by_id['stall'])
     # 天亮的當舖：同一張地圖，換光影與進場後結束本章。

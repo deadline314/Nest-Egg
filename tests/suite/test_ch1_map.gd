@@ -3,7 +3,7 @@ extends TestSuite
 ## 第一章（傘）的地圖（ST-6）：八個區域都能解析、出入口互相對得上、從當舖走得到每一個區域、敵人名單與分佈、
 ## 道具只有該放的、新遊戲從當舖開始、依序走過每個出入口時玩家出現在對應的位置、世界在區域之間保留。
 
-const IDS: Array[String] = ["pawnshop", "rooftop", "street", "booth_alley", "warehouse", "lounge", "stall", "pawnshop_dawn"]
+const IDS: Array[String] = ["pawnshop", "rooftop", "street", "booth_alley", "warehouse", "vault", "lounge", "stall", "pawnshop_dawn"]
 const ROSTER: Array[StringName] = [&"sweeper", &"collector_gunner", &"collector_brute", &"drone", &"watchdog", &"ch1_inspector"]
 const DESIGN_PATH := "res://data/levels/ch1_design.json"
 ## 遭遇總數與鎖場、迷你頭目的下限（design/13-story-v2/CH01_PACING_V2.md）。
@@ -180,8 +180,9 @@ func _test_portals() -> void:
 	for id in IDS:
 		check(seen.has(id), "%s can be reached from the pawnshop by walking through portals" % id)
 	# 單向：從倉庫去復原館之後，復原館沒有回倉庫的門。
-	check(not edges["lounge"].has("warehouse"), "the upper walkway is one way")
-	check(edges["warehouse"].has("lounge") and edges["lounge"].has("stall") and edges["stall"].has("pawnshop_dawn"), "the chapter ends warehouse, lounge, stall, home")
+	check(not edges["lounge"].has("vault") and not edges["lounge"].has("warehouse"), "the upper walkway is one way")
+	check(edges["warehouse"].has("vault") and edges["vault"].has("warehouse"), "the warehouse and the vault connect both ways")
+	check(edges["vault"].has("lounge") and edges["lounge"].has("stall") and edges["stall"].has("pawnshop_dawn"), "the chapter ends warehouse, vault, lounge, stall, home")
 
 
 # ---------------------------------------------------------------------------
@@ -248,7 +249,7 @@ func _test_roster() -> void:
 				check(absf(x - entry) >= FIRST_ENEMY_DISTANCE, "%s: enemy at column %d is %d+ tiles from the entrance at %d" % [id, int(x), FIRST_ENEMY_DISTANCE, int(entry)])
 	# 新種類出現的間隔：依路線（街道、倉庫）第一次遇到的種類，同一個區域裡相隔至少 20 格。
 	var seen_kinds: Dictionary[StringName, bool] = {}
-	for id in ["street", "warehouse"]:
+	for id in ["street", "warehouse", "vault"]:
 		var first_x: Dictionary[StringName, float] = {}
 		for spawn in _enemy_spawns(id):
 			var enemy_id := (spawn["resource"] as EnemyData).id
@@ -338,20 +339,26 @@ func _test_encounters() -> void:
 	for id in ["pawnshop", "rooftop", "booth_alley"]:
 		for key in ["landmark", "reward"]:
 			check(not str((design[id]["features"] as Dictionary).get(key, "")).is_empty(), "%s: the rest area documents its %s" % [id, key])
+	# 戰鬥區：同一組的區域（倉庫切成兩張圖）合起來要有迴圈、獎勵、秘密、地標與垂直空間
+	var groups: Dictionary = {}
 	for id in design:
-		if not bool(design[id]["combat"]):
-			continue
+		if bool(design[id]["combat"]):
+			var group := str(design[id].get("group", id))
+			if not groups.has(group):
+				groups[group] = {}
+			(groups[group] as Dictionary).merge(design[id]["features"], true)
+	check(groups.has("street") and groups.has("warehouse"), "the combat groups are the street and the warehouse")
+	for group: String in groups:
 		for key in ["loop", "reward", "secret", "landmark", "vertical"]:
-			check(not str((design[id]["features"] as Dictionary).get(key, "")).is_empty(), "%s: the combat area documents its %s" % [id, key])
+			check(not str((groups[group] as Dictionary).get(key, "")).is_empty(), "%s: the combat group documents its %s" % [group, key])
 
 
-## 教學曲線：每個戰鬥技巧的四場遭遇（引入、練習、組合、考驗）都在設計資料的遭遇清單裡、依路線順序出現，一章只有 3–4 個技巧。
 func _test_teaching_curve() -> void:
 	var json := load(DESIGN_PATH) as JSON
 	var design: Dictionary = json.data["areas"]
 	var curve: Dictionary = json.data.get("curve", {})
 	check(curve.size() >= 3 and curve.size() <= 4, "the chapter teaches three or four combat skills (%d)" % curve.size())
-	var route: Array = ["street", "warehouse"]
+	var route: Array = ["street", "warehouse", "vault"]
 	for skill: String in curve:
 		var last := -1.0
 		var used: Array = []
@@ -616,7 +623,8 @@ func _test_walkthrough() -> void:
 		["street", &"street_booth", "booth_alley"],
 		["booth_alley", &"booth_street", "street"],
 		["street", &"street_warehouse", "warehouse"],
-		["warehouse", &"wh_upper", "lounge"],
+		["warehouse", &"wh_vault", "vault"],
+		["vault", &"wh_upper", "lounge"],
 		["lounge", &"lounge_exit", "stall"],
 		["stall", &"stall_home", "pawnshop_dawn"],
 	]
@@ -657,7 +665,7 @@ func _test_walkthrough() -> void:
 
 ## 每場鎖場都能真的打完：把玩家放進範圍 → 閘門關上 → 一直打倒範圍內的敵人（含增援）→ 閘門打開、不再鎖人。
 func _test_locked_encounters_play_through() -> void:
-	for id in ["street", "warehouse"]:
+	for id in ["street", "warehouse", "vault"]:
 		GameState.start_new_run(GameState.difficulties[1])
 		var level := await spawn_level(_datas[id])
 		level.player.health.setup(9999, 0.0)

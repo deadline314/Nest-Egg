@@ -2,6 +2,7 @@
  "areas": {
   "pawnshop": {
    "combat": false,
+   "group": "pawnshop",
    "features": {
     "landmark": "當舖招牌與櫃台收銀機（x=52～64）：進門就看得到",
     "reward": "兩處信用點（x=24 練習靶旁、x=67 後空地）"
@@ -10,6 +11,7 @@
   },
   "rooftop": {
    "combat": false,
+   "group": "rooftop",
    "features": {
     "landmark": "生鏽的水塔（x=44）：整個屋頂都看得到",
     "reward": "兩處信用點（x=20 鷺的位置旁、x=62 天線叢前）"
@@ -18,6 +20,7 @@
   },
   "street": {
    "combat": true,
+   "group": "street",
    "features": {
     "loop": "高路：從 x=122 的階梯平台上屋頂帶（列 10），沿路到 x=146 跳下回到街上",
     "reward": "屋頂帶上的大額信用點（x=139）：從街上就看得到，要繞階梯才拿得到",
@@ -132,6 +135,7 @@
   },
   "booth_alley": {
    "combat": false,
+   "group": "booth_alley",
    "features": {
     "landmark": "備份亭與復原箭頭（x=48～51）：巷子盡頭發光的電話亭",
     "reward": "兩處信用點（x=18、x=44）"
@@ -140,12 +144,11 @@
   },
   "warehouse": {
    "combat": true,
+   "group": "warehouse",
    "features": {
-    "loop": "保險箱旁的階梯平台（x=168～181）：上去走上層走道，也可以從平台跳回下層走道",
     "reward": "貨櫃堆頂的醫療針（x=24）：前廳一進來就看得到，要爬貨櫃，上面有槍手守著",
-    "secret": "下層走道盡頭的裂縫牆（x=234）：打破牆進去有大額信用點",
     "landmark": "吊車鏈條與探照燈（前廳，x=11～34）",
-    "vertical": "地面、貨櫃頂、上層走道三層"
+    "vertical": "地面、貨櫃頂兩層"
    },
    "encounters": [
     {
@@ -250,12 +253,23 @@
       "清掃兵"
      ],
      "reinforcements": []
-    },
+    }
+   ]
+  },
+  "vault": {
+   "combat": true,
+   "group": "warehouse",
+   "features": {
+    "loop": "保險箱旁的階梯平台（x=168～181）：上去走上層走道，也可以從平台跳回下層走道",
+    "secret": "下層走道盡頭的裂縫牆（x=234）：打破牆進去有大額信用點",
+    "vertical": "地面、階梯平台、上層走道三層"
+   },
+   "encounters": [
     {
      "name": "保險箱守衛",
      "lock": true,
-     "x0": 142,
-     "x1": 166,
+     "x0": 22,
+     "x1": 46,
      "members": [
       "督察",
       "收帳人槍手"
@@ -267,8 +281,8 @@
     {
      "name": "階梯",
      "lock": false,
-     "x0": 169,
-     "x1": 181,
+     "x0": 49,
+     "x1": 61,
      "members": [
       "無人機"
      ],
@@ -277,8 +291,8 @@
     {
      "name": "上層走道",
      "lock": true,
-     "x0": 185,
-     "x1": 235,
+     "x0": 65,
+     "x1": 115,
      "members": [
       "清掃兵",
       "清掃兵",
@@ -293,11 +307,13 @@
   },
   "lounge": {
    "combat": false,
+   "group": "lounge",
    "features": {},
    "encounters": []
   },
   "stall": {
    "combat": false,
+   "group": "stall",
    "features": {},
    "encounters": []
   }
@@ -335,7 +351,7 @@
     "路障"
    ],
    "test": [
-    "warehouse",
+    "vault",
     "保險箱守衛"
    ]
   },
@@ -353,7 +369,7 @@
     "坑前"
    ],
    "test": [
-    "warehouse",
+    "vault",
     "保險箱守衛"
    ]
   },
@@ -367,11 +383,11 @@
     "高處無人機"
    ],
    "combine": [
-    "warehouse",
+    "vault",
     "階梯"
    ],
    "test": [
-    "warehouse",
+    "vault",
     "上層走道"
    ]
   }

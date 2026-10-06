@@ -1,0 +1,76 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=22 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/props/ch1_secret_wall.tres" id="3_ch1_secret_wall"]
+[ext_resource type="Resource" path="res://data/props/credits_small.tres" id="4_credits_small"]
+[ext_resource type="Resource" path="res://data/enemies/drone.tres" id="5_drone"]
+[ext_resource type="Resource" path="res://data/enemies/sweeper.tres" id="6_sweeper"]
+[ext_resource type="Resource" path="res://data/consumables/med_injector.tres" id="7_med_injector"]
+[ext_resource type="Resource" path="res://data/enemies/collector_gunner.tres" id="8_collector_gunner"]
+[ext_resource type="Resource" path="res://data/props/credits_large.tres" id="9_credits_large"]
+[ext_resource type="Resource" path="res://data/story_items/ch1_data_disk.tres" id="10_ch1_data_disk"]
+[ext_resource type="Resource" path="res://data/enemies/ch1_inspector.tres" id="11_ch1_inspector"]
+[ext_resource type="Resource" path="res://data/props/ch1_enc_warehouse_vault.tres" id="12_ch1_enc_warehouse_vault"]
+[ext_resource type="Resource" path="res://data/props/ch1_arena_warehouse_vault.tres" id="13_ch1_arena_warehouse_vault"]
+[ext_resource type="Resource" path="res://data/props/ch1_enc_warehouse_walkway.tres" id="14_ch1_enc_warehouse_walkway"]
+[ext_resource type="Resource" path="res://data/props/ch1_arena_warehouse_walkway.tres" id="15_ch1_arena_warehouse_walkway"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="16_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/freight.tres" id="17_freight"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch1_vault.tres" id="18_ch1_vault"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"wh_upper"
+target_level = "res://data/levels/ch1_lounge.tres"
+prompt = "{interact} 上層通道（過去就回不來了）"
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"vault_prev"
+target_level = "res://data/levels/ch1_warehouse.tres"
+target_portal = &"wh_vault"
+mode = 1
+width = 20
+height = 44
+style = "road"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("16_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("17_freight")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch1_vault"
+display_name = "倉庫深處"
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"L": SubResource("Resource_0"),
+"M": SubResource("Resource_1"),
+"X": ExtResource("3_ch1_secret_wall"),
+"c": ExtResource("4_credits_small"),
+"d": ExtResource("5_drone"),
+"g": ExtResource("6_sweeper"),
+"i": ExtResource("7_med_injector"),
+"k": ExtResource("8_collector_gunner"),
+"q": ExtResource("9_credits_large"),
+"y": ExtResource("10_ch1_data_disk"),
+"z": ExtResource("11_ch1_inspector"),
+"ε": ExtResource("12_ch1_enc_warehouse_vault"),
+"ζ": ExtResource("13_ch1_arena_warehouse_vault"),
+"η": ExtResource("14_ch1_enc_warehouse_walkway"),
+"θ": ExtResource("15_ch1_arena_warehouse_walkway")
+})
+hints = PackedStringArray("保險箱裡有一片資料盤：拿了就能從上層通道離開")
+chapter = &"ch1_kasa"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("18_ch1_vault")
+layout_path = "res://data/levels/ch1_vault_map.json"
+lighting_zones = Array[ExtResource("16_lighting_zone")]([SubResource("Resource_2")])
+story_triggers = PackedStringArray("ch1_g10_disk")
+death_credit_cap = 250

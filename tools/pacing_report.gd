@@ -7,7 +7,7 @@ func _ready() -> void:
 	var areas: Array = []
 	var design: Dictionary = (load("res://data/levels/ch1_design.json") as JSON).data["areas"]
 	print("%-14s %5s %6s %6s %6s %6s %6s %6s %6s %5s %6s" % ["區域", "寬", "走路", "戰鬥", "對話", "氣泡", "拾取", "機關", "商店", "遭遇", "最長無遭遇"])
-	for id in ["pawnshop", "rooftop", "street", "booth_alley", "warehouse", "lounge", "stall", "pawnshop_dawn"]:
+	for id in ["pawnshop", "rooftop", "street", "booth_alley", "warehouse", "vault", "lounge", "stall", "pawnshop_dawn"]:
 		var data := load("res://data/levels/ch1_%s.tres" % id) as LevelData
 		var ranges: Array[Vector2] = []
 		for e: Dictionary in (design.get(id, {}) as Dictionary).get("encounters", []):
