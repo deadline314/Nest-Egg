@@ -8,6 +8,18 @@ const TEXTURE_SIZE := 128
 const HDR_PEAK_MAX := 3.5
 const DEFAULT_GLOW_THRESHOLD := 1.0
 const DEFAULT_GLOW_INTENSITY := 0.9
+## 泛光（bloom）每個像素最多貢獻到這個亮度（Godot 的 glow_hdr_luminance_cap 預設 12，閃光疊在白色頭髮上時一個像素就能把整片糊掉）。
+## 發光物（子彈、霓虹、爆炸）的亮度本來就在 HDR_PEAK_MAX 以內，這個上限只擋「光源疊加的意外」。
+const GLOW_LUMINANCE_CAP := 2.0
+## 角色曝光預算（NE-213）：白色零件（頭髮、衣服）在「環境光 × 補光 + 玩家自己的光 + 附近的燈」之下，峰值要壓在泛光門檻附近，
+## 超過就會被泛光吃成一團白。玩家自己的光依這個預算在亮場景自動調暗（player_light_energy）。
+const CHARACTER_EXPOSURE_BUDGET := 1.0
+## 預留給附近路燈與閃光的亮度（估計值）。
+const NEARBY_LIGHT_ALLOWANCE := 0.2
+const PLAYER_LIGHT_BASE_ENERGY := 0.75
+const PLAYER_LIGHT_MIN_ENERGY := 0.15
+## 離玩家很近的閃光（受傷、格擋反彈、補給…）能量上限：閃光是回饋，不是要把角色照成白色。
+const NEAR_CHARACTER_FLASH_CAP := 1.4
 ## 供電變化時，一盞燈從全亮到全滅的過渡寬度。
 const POWER_RAMP := 0.1
 ## 一般點光源離畫面的高度（像素；0 = 與畫面平行）。有法線貼圖的表面要靠它才照得到：
@@ -18,6 +30,8 @@ static var _soft_texture: GradientTexture2D
 ## 角色（骨架零件）的補光倍率，由 LightingController 依環境光與區段的 character_floor 更新。
 ## 環境光很暗時把角色零件的亮度往上補，確保玩家與敵人永遠有最低可讀亮度。
 static var character_fill := 1.0
+## 玩家身上那盞光目前的能量（亮場景自動調暗，由 LightingController 依光影設定更新，Player 每影格套用）。
+static var player_light_energy := PLAYER_LIGHT_BASE_ENERGY
 ## 場景燈的供電（0~1）：由 LightingController 依光影設定更新，每盞燈依自己的門檻依序熄滅／亮起。
 static var lamp_power := 1.0
 const WINDOW_LIFE_SHADER := preload("res://game/level/environment/window_life.gdshader")
@@ -137,6 +151,7 @@ static func create_environment() -> WorldEnvironment:
 	env.glow_bloom = 0.0
 	env.glow_hdr_threshold = DEFAULT_GLOW_THRESHOLD
 	env.glow_hdr_scale = 2.0
+	env.glow_hdr_luminance_cap = GLOW_LUMINANCE_CAP
 	env.glow_blend_mode = Environment.GLOW_BLEND_MODE_ADDITIVE
 	for level in 7:
 		env.set_glow_level(level, 1.0 if level in [1, 2, 3, 4] else 0.0)
@@ -149,6 +164,21 @@ static func create_environment() -> WorldEnvironment:
 ## threshold 建議在 0.1~0.95 之間（供電 0 時所有燈都會熄滅、供電 1 時都亮）。
 static func power_gate(power: float, threshold: float) -> float:
 	return clampf((power - threshold) / POWER_RAMP + 1.0, 0.0, 1.0)
+
+
+## 玩家自己的光在這個環境下可以多亮：預算扣掉「環境光 × 補光」與附近燈光的預留，夾在最小與基本能量之間。
+static func player_light_for(ambient_luma: float, fill: float) -> float:
+	return clampf(CHARACTER_EXPOSURE_BUDGET - ambient_luma * fill - NEARBY_LIGHT_ALLOWANCE, PLAYER_LIGHT_MIN_ENERGY, PLAYER_LIGHT_BASE_ENERGY)
+
+
+## 白色零件的曝光估計峰值（0~1 以上）：環境光 × 補光 + 玩家的光 + 附近燈光預留。大於預算很多代表會被泛光吃掉。
+static func character_exposure(ambient_luma: float, fill: float) -> float:
+	return ambient_luma * fill + player_light_for(ambient_luma, fill) + NEARBY_LIGHT_ALLOWANCE
+
+
+## 離角色很近的閃光能量夾在上限內；遠的不動。
+static func capped_flash_energy(energy: float, near_character: bool) -> float:
+	return minf(energy, NEAR_CHARACTER_FLASH_CAP) if near_character else energy
 
 
 ## 亮度（0.2126 R + 0.7152 G + 0.0722 B）。

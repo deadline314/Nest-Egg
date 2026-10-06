@@ -66,6 +66,8 @@ var mounted_vehicle: Vehicle
 var fall_limit_y := INF
 
 var _visual: PlayerVisual
+## 自己那盞光調整到目標能量的速度（每秒）。
+const LIGHT_EASE := 1.5
 var _light: PointLight2D
 var _was_on_floor := true
 var _fall_speed_before_move := 0.0
@@ -255,6 +257,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	if GameplayLock.is_locked() or get_tree().paused:
 		return
+	# 自己的光依場景亮度自動調暗，白色頭髮不被泛光吃掉（LightKit.player_light_for，NE-213）。
+	_light.energy = move_toward(_light.energy, LightKit.player_light_energy, LIGHT_EASE * delta)
 	_tick_timers(delta)
 	_update_aim(delta)
 	match state:

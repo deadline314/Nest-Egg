@@ -461,6 +461,10 @@ func flash_light(position: Vector2, color: Color, radius: float, energy: float, 
 	light.global_position = position
 	light.color = color
 	light.texture_scale = maxf(0.05, radius * 2.0 / LightKit.TEXTURE_SIZE)
+	# 貼近玩家的閃光不能把白色頭髮照成一團白（NE-213）。
+	var player := get_tree().get_first_node_in_group(&"player") as Node2D
+	var near := player != null and player.global_position.distance_to(position) < radius * 0.6
+	energy = LightKit.capped_flash_energy(energy, near)
 	light.energy = energy
 	light.enabled = true
 	var tween := light.create_tween()

@@ -44,6 +44,18 @@ func _run() -> void:
 		await _run_bubbles()
 		get_tree().quit()
 		return
+	if _scenario.begins_with("exposure_light"):
+		await _run_exposure_light()
+		get_tree().quit()
+		return
+	if _scenario.begins_with("exposure@"):
+		await _run_exposure_at()
+		get_tree().quit()
+		return
+	if _scenario.begins_with("exposure"):
+		await _run_exposure()
+		get_tree().quit()
+		return
 	if _scenario == "pawn":
 		await _run_pawn()
 		get_tree().quit()
@@ -1638,6 +1650,137 @@ func _run_spots() -> void:
 		_capture("spot_%s_%s_%s" % [level_id, spot[0], tag])
 	level.queue_free()
 	await _settle(4)
+
+
+## 主角曝光量測（NE-213）：--scenario=exposure[:光影預設 id，逗號分隔；沒寫就是全部]。
+## 每個光影預設各拍三張（主角隱藏、主角在、主角在但泛光關閉），比對出主角佔的像素：
+##   clipped＝主角像素裡幾乎全白（每個色版 > 0.97）的比例；halo＝有泛光時主角影響的像素數 ÷ 關閉泛光時的數量（>1 代表光暈暈到輪廓外）；
+##   luma＝主角像素的平均亮度。數字印在輸出裡，截圖存到輸出資料夾。
+func _run_exposure() -> void:
+	Story.auto_skip = true
+	var wanted := PackedStringArray()
+	if _scenario.contains(":"):
+		wanted = PackedStringArray(_scenario.split(":")[1].split(","))
+	var ids: Array[String] = []
+	for file in DirAccess.get_files_at("res://data/lighting"):
+		if file.ends_with(".tres"):
+			var id := file.get_basename()
+			if wanted.is_empty() or wanted.has(id):
+				ids.append(id)
+	ids.sort()
+	print("EXPOSURE profile clipped halo luma")
+	for id in ids:
+		var profile := load("res://data/lighting/%s.tres" % id) as LightingProfile
+		var data := NewEnemiesSuite.arena_data()
+		var zone := LightingZone.new()
+		zone.start_tile = 0
+		zone.profile = profile
+		data.lighting_zones = [zone]
+		GameState.start_new_run(GameState.difficulties[1])
+		var level := Level.new()
+		level.configure(data)
+		add_child(level)
+		await _settle(25)
+		level.hud.visible = false
+		level.player.health.setup(999, 0.0)
+		level.player.global_position = Vector2(14 * 16.0, 20 * 16.0)
+		level.player.velocity = Vector2.ZERO
+		level_camera_snap()
+		await _settle(60)
+		var stats := await _measure_exposure(level, "exposure_%s" % id)
+		print("EXPOSURE %s %.3f %.2f %.2f" % [id, stats["clipped"], stats["halo"], stats["luma"]])
+		level.queue_free()
+		await _settle(4)
+
+
+## 主角身邊多一盞固定能量的光（--scenario=exposure_light:能量,能量…，預設 0,1,2,3）：量出各種光能量下主角的曝光，決定能量上限用。
+func _run_exposure_light() -> void:
+	Story.auto_skip = true
+	var energies := PackedStringArray(_scenario.split(":")[1].split(",")) if _scenario.contains(":") else PackedStringArray(["0", "1", "2", "3"])
+	for text in energies:
+		GameState.start_new_run(GameState.difficulties[1])
+		var level := Level.new()
+		level.configure(NewEnemiesSuite.arena_data())
+		add_child(level)
+		await _settle(25)
+		level.hud.visible = false
+		level.player.health.setup(999, 0.0)
+		level.player.global_position = Vector2(14 * 16.0, 20 * 16.0)
+		level.player.velocity = Vector2.ZERO
+		level_camera_snap()
+		var extra := LightKit.create_point_light(Palette.CYAN, 160.0, float(text), false, false)
+		extra.position = Vector2(0, -24)
+		level.player.add_child(extra)
+		var stats := await _measure_exposure(level, "exposure_light_%s" % text)
+		print("EXPOSURE light=%s %.3f %.2f %.2f" % [text, stats["clipped"], stats["halo"], stats["luma"]])
+		level.queue_free()
+		await _settle(4)
+
+
+## 實際關卡裡的某個位置（--scenario=exposure@關卡檔@欄，例如 exposure@ch1_pawnshop@108）：量測主角在那裡的曝光。
+func _run_exposure_at() -> void:
+	Story.auto_skip = true
+	var parts := _scenario.split("@")
+	var level_id := parts[1]
+	var tile := int(parts[2])
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load("res://data/levels/%s.tres" % level_id))
+	add_child(level)
+	await _settle(30)
+	level.hud.visible = false
+	level.player.health.setup(999, 0.0)
+	var layout: LevelLayout = level._layout
+	level.player.global_position = Vector2(tile * 16.0 + 8.0, layout.floor_below(tile, 4) - 2.0)
+	level.player.velocity = Vector2.ZERO
+	level_camera_snap()
+	await _settle(60)
+	var stats := await _measure_exposure(level, "exposure_%s_%d" % [level_id, tile])
+	print("EXPOSURE %s@%d %.3f %.2f %.2f" % [level_id, tile, stats["clipped"], stats["halo"], stats["luma"]])
+	level.queue_free()
+	await _settle(4)
+
+
+## 拍三張（主角隱藏、主角在、主角在但泛光關閉）並比對，回傳 clipped／halo／luma，同時存下「主角在」的截圖。
+func _measure_exposure(level: Level, shot_name: String) -> Dictionary:
+	await _settle(60)
+	var feet := get_viewport().get_canvas_transform() * level.player.global_position
+	var zoom := get_viewport().get_canvas_transform().get_scale().x
+	var rect := Rect2i(Vector2i(feet) - Vector2i(int(36.0 * zoom), int(76.0 * zoom)), Vector2i(int(72.0 * zoom), int(84.0 * zoom)))
+	level.player.visible = false
+	await _settle(4)
+	var hidden := get_viewport().get_texture().get_image()
+	level.player.visible = true
+	await _settle(4)
+	var shown := get_viewport().get_texture().get_image()
+	_capture(shot_name)
+	var env := LightKit.environment()
+	var glow_before := env.glow_intensity
+	env.glow_intensity = 0.0
+	await _settle(4)
+	var flat := get_viewport().get_texture().get_image()
+	env.glow_intensity = glow_before
+	return _exposure_stats(hidden, shown, flat, rect)
+
+
+func _exposure_stats(hidden: Image, shown: Image, flat: Image, rect: Rect2i) -> Dictionary:
+	var changed := 0
+	var changed_flat := 0
+	var clipped := 0
+	var luma_sum := 0.0
+	for y in range(maxi(0, rect.position.y), mini(shown.get_height(), rect.end.y)):
+		for x in range(maxi(0, rect.position.x), mini(shown.get_width(), rect.end.x)):
+			var base := hidden.get_pixel(x, y)
+			var with_player := shown.get_pixel(x, y)
+			if absf(with_player.r - base.r) + absf(with_player.g - base.g) + absf(with_player.b - base.b) > 0.06:
+				changed += 1
+				luma_sum += with_player.r * 0.2126 + with_player.g * 0.7152 + with_player.b * 0.0722
+				if with_player.r > 0.97 and with_player.g > 0.97 and with_player.b > 0.97:
+					clipped += 1
+			var plain := flat.get_pixel(x, y)
+			if absf(plain.r - base.r) + absf(plain.g - base.g) + absf(plain.b - base.b) > 0.06:
+				changed_flat += 1
+	return {"clipped": float(clipped) / maxf(1.0, float(changed)), "halo": float(changed) / maxf(1.0, float(changed_flat)), "luma": luma_sum / maxf(1.0, float(changed))}
 
 
 ## 老 K 的櫃台（NE-216）：在當舖櫃台旁開啟，依序拍「買補給」「典當」「贖回」「改裝」四個分頁。
