@@ -387,7 +387,7 @@ func _test_story() -> void:
 	esc.action = &"pause"
 	esc.pressed = true
 	Input.parse_input_event(esc)
-	await _frames(2)
+	await _wait_until(func() -> bool: return not Story.is_cinematic_active())
 	_check(not Story.is_cinematic_active() and finished[0] == &"boss_intro", "escape skips the cinematic")
 	_check(Story.play(&"radio_start") and not get_tree().paused, "radio plays without pausing")
 	Story.scene_finished.disconnect(on_finished)
@@ -648,13 +648,17 @@ func _test_gameplay() -> void:
 	wheel.button_index = MOUSE_BUTTON_WHEEL_DOWN
 	wheel.pressed = true
 	Input.parse_input_event(wheel)
-	await _frames(2)
+	# 輸入事件在下一個處理影格才生效；機器忙（CI 平行跑）時多等幾影格，不要只等固定的兩格。
+	for i in 30:
+		await _frames(1)
+		if player.loadout.active_slot == 0:
+			break
 	_check(player.loadout.active_slot == 0, "mouse wheel cycles weapons")
 	var two := InputEventKey.new()
 	two.physical_keycode = KEY_2
 	two.pressed = true
 	Input.parse_input_event(two)
-	await _frames(2)
+	await _wait_until(func() -> bool: return player.loadout.active_slot == 1)
 	_check(player.loadout.active_slot == 1, "number keys select weapon")
 	var two_up := two.duplicate() as InputEventKey
 	two_up.pressed = false
@@ -837,8 +841,7 @@ func _test_dynamic_hud() -> void:
 	reload_event.action = &"reload"
 	reload_event.pressed = true
 	Input.parse_input_event(reload_event)
-	for i in 4:
-		await get_tree().process_frame
+	await _wait_until(func() -> bool: return player.is_reloading(), 30)
 	Input.action_release(&"reload")
 	_check(player.is_reloading(), "reload key starts reload")
 	await _frames(70)
@@ -890,9 +893,8 @@ func _test_consumables() -> void:
 	Fx.reset_time()
 	Fx.thaw_all()
 	Input.parse_input_event(use_event)
-	# 輸入事件在 idle 影格處理；只等物理影格可能還沒輪到。
-	for i in 4:
-		await get_tree().process_frame
+	# 輸入事件在 idle 影格處理；只等物理影格可能還沒輪到。等到血量變了為止。
+	await _wait_until(func() -> bool: return player.health.current != hurt_hp, 30)
 	_check(player.health.current == hurt_hp + med.heal_amount and player.consumables.count(med.id) == 0, "quick-use key heals with med injector")
 	player.guard = 0.0
 	player._guard_lockout_left = 1.0
@@ -901,6 +903,14 @@ func _test_consumables() -> void:
 	var snapshot := player.checkpoint_snapshot()
 	_check(snapshot.has("consumables") and int(snapshot["consumables"].get("med_injector", 0)) == 1, "checkpoint saves consumables")
 	await _end_level(level)
+
+
+## 等到條件成立（最多 max_frames 影格）：輸入事件在 idle 影格處理，機器忙（CI 平行跑）時固定等幾格會偶爾落空。
+func _wait_until(condition: Callable, max_frames := 60) -> void:
+	for i in max_frames:
+		if condition.call():
+			return
+		await get_tree().process_frame
 
 
 ## 模擬按下／放開一個動作（輸入事件在 idle 影格處理，所以等幾個 process 影格）。
@@ -1336,7 +1346,7 @@ func _test_lighting() -> void:
 	var flash_before := ambient.color
 	EventBus.ambient_flash_requested.emit(Color(1, 0.8, 0.6), 0.5, 0.3)
 	# 閃光依實際時間衰減；機器忙的時候兩影格就過了半個閃光，所以每影格都量，取最亮的那一次。
-	var peak_level := 0.0
+	var peak_level := lighting.flash_level()  # 訊號是同步處理的：發出後立刻量一次，不受影格間隔影響
 	var peak_red := flash_before.r
 	for i in 3:
 		await get_tree().process_frame
@@ -1350,9 +1360,12 @@ func _test_lighting() -> void:
 	await get_tree().process_frame
 	_check(is_zero_approx(lighting.flash_level()) and ambient.color.is_equal_approx(lighting.current.ambient_color), "the flash decays back to the zone lighting")
 	Fx.explosion(level.player.global_position + Vector2(240, 0), 40.0, 0, Combat.Team.ENEMY, &"test")
-	await get_tree().process_frame
-	await get_tree().process_frame
-	_check(lighting.flash_level() > 0.1, "explosions flash the ambient light")
+	# 閃光依實際時間衰減：每影格都量取最亮的一次（機器忙時兩影格就可能過了整個閃光）。
+	var explosion_peak := lighting.flash_level()
+	for i in 3:
+		await get_tree().process_frame
+		explosion_peak = maxf(explosion_peak, lighting.flash_level())
+	_check(explosion_peak > 0.1, "explosions flash the ambient light")
 	await get_tree().create_timer(0.5, true).timeout
 	EventBus.hit_confirmed.emit(level.player.global_position + Vector2(100, -30), true)
 	var kill_light := false
