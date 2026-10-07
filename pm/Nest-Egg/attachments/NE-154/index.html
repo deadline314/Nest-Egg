@@ -1,0 +1,72 @@
+<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><title>NE-154 真實關卡音樂串接驗證</title><style>body{background:#131923;color:#e9f0fa;font:16px system-ui;max-width:1080px;margin:32px auto;padding:16px}a{color:#8fc8ff}article{border:1px solid #657184;border-radius:8px;padding:16px;margin:20px 0}audio{width:100%}pre{white-space:pre-wrap;font-size:13px}img{max-width:100%}</style><body><h1>NE-154 真實關卡音樂串接驗證</h1><p>無音訊輸出裝置，未人工試聽。以下為 Godot 4.7 的實際 Master 混音器錄音，非直接串接音檔；腳本定位、高生命、跳過過場。未從主選單完整通關。</p><p><a href="README.md">範圍與限制</a> · <a href="playback.json">事件、時間、檔案與峰值</a> · <a href="coverage.json">正式音效與關卡配置</a> · <a href="../NE-196/index.html">147 位置與雙章槍聲、落脚、電話、短曲材料</a></p><h2>舊第二章頭目戰修前／修後</h2><p>真實 Level 跨過 arena → 生成 Reclaimer → boss_started。修前取到 boss_warden，修後為 boss_reclaimer。正式音檔、音量與淡入淡出不變，僅指定 map.levels.level_02.boss。</p>
+<article><h3>修前：舊第二章回收者頭目戰 / parent-boss-before-audio-level_02_boss</h3><audio controls preload="none" src="media/parent-boss-before-audio-level_02_boss.ogg"></audio><p>{&#x27;arena_triggered&#x27;: True, &#x27;boss_active&#x27;: True, &#x27;cue&#x27;: &#x27;boss_warden&#x27;, &#x27;level&#x27;: &#x27;res://data/levels/level_02.tres&#x27;, &#x27;method&#x27;: &#x27;real level; placed near actual boss spawn across real arena trigger; no manual boss_started signal; high health; auto-skip&#x27;, &#x27;state&#x27;: &#x27;calm&#x27;, &#x27;zone&#x27;: &#x27;tower_white&#x27;}</p><pre>[
+ [
+  9,
+  &quot;calm_freight&quot;,
+  &quot;res://audio/music/calm_freight.ogg&quot;
+ ],
+ [
+  838,
+  &quot;boss_warden&quot;,
+  &quot;res://audio/music/boss_warden.ogg&quot;
+ ]
+]</pre></article>
+<article><h3>修後（ST-3 合入）：舊第二章回收者頭目戰 / parent-boss-after-merged-level_02_boss</h3><audio controls preload="none" src="media/parent-boss-after-merged-level_02_boss.ogg"></audio><p>{&#x27;arena_triggered&#x27;: True, &#x27;boss_active&#x27;: True, &#x27;cue&#x27;: &#x27;boss_reclaimer&#x27;, &#x27;level&#x27;: &#x27;res://data/levels/level_02.tres&#x27;, &#x27;method&#x27;: &#x27;real level; placed near actual boss spawn across real arena trigger; no manual boss_started signal; high health; auto-skip&#x27;, &#x27;state&#x27;: &#x27;calm&#x27;, &#x27;zone&#x27;: &#x27;tower_white&#x27;}</p><pre>[
+ [
+  3,
+  &quot;calm_freight&quot;,
+  &quot;res://audio/music/calm_freight.ogg&quot;
+ ],
+ [
+  901,
+  &quot;boss_reclaimer&quot;,
+  &quot;res://audio/music/boss_reclaimer.ogg&quot;
+ ]
+]</pre></article>
+<h2>第一章／保留的舊第二章場景抽查（修前）</h2>
+<article><h3>修正前：真實關卡 combat／boss 串接抽查 / parent-flow-ch1_warehouse_combat</h3><audio controls preload="none" src="media/parent-flow-ch1_warehouse_combat.ogg"></audio><p>{&#x27;cue&#x27;: &#x27;combat_alleys&#x27;, &#x27;level&#x27;: &#x27;res://data/levels/ch1_warehouse.tres&#x27;, &#x27;method&#x27;: &#x27;real level; placed near existing enemy; explicitly raised alert to exercise real combat detection; high health&#x27;, &#x27;state&#x27;: &#x27;combat&#x27;}</p><pre>[
+ [
+  152,
+  &quot;combat_alleys&quot;,
+  &quot;res://audio/music/combat_alleys.ogg&quot;
+ ]
+]</pre></article>
+<article><h3>修正前：真實關卡 combat／boss 串接抽查 / parent-flow-level_01_combat</h3><audio controls preload="none" src="media/parent-flow-level_01_combat.ogg"></audio><p>{&#x27;cue&#x27;: &#x27;combat_dungeon&#x27;, &#x27;level&#x27;: &#x27;res://data/levels/level_01.tres&#x27;, &#x27;method&#x27;: &#x27;real level; placed near existing enemy; explicitly raised alert to exercise real combat detection; high health&#x27;, &#x27;state&#x27;: &#x27;combat&#x27;}</p><pre>[
+ [
+  31,
+  &quot;calm_market&quot;,
+  &quot;res://audio/music/calm_market.ogg&quot;
+ ],
+ [
+  251,
+  &quot;combat_dungeon&quot;,
+  &quot;res://audio/music/combat_dungeon.ogg&quot;
+ ]
+]</pre></article>
+<article><h3>修正前：真實關卡 combat／boss 串接抽查 / parent-flow-level_01_boss</h3><audio controls preload="none" src="media/parent-flow-level_01_boss.ogg"></audio><p>{&#x27;arena_triggered&#x27;: True, &#x27;cue&#x27;: &#x27;boss_warden&#x27;, &#x27;level&#x27;: &#x27;res://data/levels/level_01.tres&#x27;, &#x27;method&#x27;: &#x27;real level; placed across real arena trigger; no manual boss_started signal&#x27;, &#x27;state&#x27;: &#x27;combat&#x27;}</p><pre>[
+ [
+  791,
+  &quot;boss_warden&quot;,
+  &quot;res://audio/music/boss_warden.ogg&quot;
+ ]
+]</pre></article>
+<article><h3>修正前：真實關卡 combat／boss 串接抽查 / parent-flow-level_02_combat</h3><audio controls preload="none" src="media/parent-flow-level_02_combat.ogg"></audio><p>{&#x27;cue&#x27;: &#x27;combat_robotic&#x27;, &#x27;level&#x27;: &#x27;res://data/levels/level_02.tres&#x27;, &#x27;method&#x27;: &#x27;real level; placed near existing enemy; explicitly raised alert to exercise real combat detection; high health&#x27;, &#x27;state&#x27;: &#x27;combat&#x27;}</p><pre>[
+ [
+  17,
+  &quot;calm_freight&quot;,
+  &quot;res://audio/music/calm_freight.ogg&quot;
+ ],
+ [
+  185,
+  &quot;combat_robotic&quot;,
+  &quot;res://audio/music/combat_robotic.ogg&quot;
+ ]
+]</pre></article>
+<article><h3>修正前：真實關卡 combat／boss 串接抽查 / parent-flow-level_02_boss</h3><audio controls preload="none" src="media/parent-flow-level_02_boss.ogg"></audio><p>{&#x27;arena_triggered&#x27;: True, &#x27;cue&#x27;: &#x27;boss_warden&#x27;, &#x27;level&#x27;: &#x27;res://data/levels/level_02.tres&#x27;, &#x27;method&#x27;: &#x27;real level; placed across real arena trigger; no manual boss_started signal&#x27;, &#x27;state&#x27;: &#x27;combat&#x27;}</p><pre>[
+ [
+  851,
+  &quot;boss_warden&quot;,
+  &quot;res://audio/music/boss_warden.ogg&quot;
+ ]
+]</pre></article>
+<h2>正式曲目來源（保留原選擇）</h2><p><a href="../../../../audio/music/boss_warden.ogg">看守者完整正式片段</a> · <a href="../../../../audio/music/boss_reclaimer.ogg">回收者完整正式片段</a> · <a href="../../../../assets_src/audio/LICENSES.json">CC0 授權登記</a></p><h2>Forward+ 真實截圖</h2><p>llvmpipe 軟體 Vulkan；捕捉影格慢，不作實機同步判斷。畫面有直接載入關卡的開場提示／對話，並非完整遊玩終點。</p><h3>修前</h3><img src="../../images/NE-154-parent-boss-before.png" alt="修前回收者頭目戰"><h3>修後</h3><img src="../../images/NE-154-parent-boss-after.png" alt="修後回收者頭目戰"><script>document.querySelectorAll('audio').forEach(a=>a.addEventListener('play',()=>document.querySelectorAll('audio').forEach(b=>{if(a!==b)b.pause()})))</script></body></html>

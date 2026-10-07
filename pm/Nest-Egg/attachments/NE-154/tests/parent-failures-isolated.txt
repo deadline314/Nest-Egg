@@ -1,0 +1,85 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+== Nest Egg smoke test ==
+ERROR: [Feel] 沒有這個回饋事件「test_no_such_feel_event」（res://data/feel/events.json）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://autoload/feel.gd:241)
+       [1] play (res://autoload/feel.gd:126)
+       [2] _test_bad_events_are_safe (res://tests/suite/test_feel.gd:89)
+       [3] run (res://tests/suite/test_feel.gd:13)
+       [4] _test_shake_duration_is_honored (res://tests/suite/test_feel.gd:84)
+ERROR: [Sfx] 沒有這個聲音事件「test_no_such_sound_event」（res://data/feel/sound_events.json），改播「hit」
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report_once (res://autoload/sfx.gd:734)
+       [1] play_event (res://autoload/sfx.gd:650)
+       [2] _test_sound_events (res://tests/suite/test_feel.gd:317)
+ERROR: [HitFeedback] 沒有這個命中材質「test_no_such_material」（res://data/feel/materials.json），改用 generic
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/fx/hit_feedback.gd:159)
+       [1] play (res://game/fx/hit_feedback.gd:81)
+       [2] _test_hit_materials (res://tests/suite/test_feel.gd:334)
+       [3] run (res://tests/suite/test_feel.gd:19)
+       [4] _test_sound_events (res://tests/suite/test_feel.gd:318)
+ERROR: [Feel] 沒有這個預設組合「test_no_such_preset」（res://data/feel/presets.json）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://autoload/feel.gd:241)
+       [1] set_preset (res://autoload/feel.gd:62)
+       [2] _test_params_and_presets (res://tests/suite/test_feel.gd:496)
+       [3] run (res://tests/suite/test_feel.gd:23)
+       [4] _test_block_feel (res://tests/suite/test_feel.gd:468)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:599)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME FeelSuite 2.8
+ERROR: [MeleeSet] 無法讀取近戰資料：res://data/melee/test_no_such_attack.json（需要 attacks 字典），改用內建預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_loaded (res://game/player/melee_set.gd:37)
+       [1] attack (res://game/player/melee_set.gd:69)
+       [2] _test_melee_data (res://tests/suite/test_fx_melee_pickups.gd:37)
+       [3] run (res://tests/suite/test_fx_melee_pickups.gd:13)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_feel.gd:30)
+       [6] _test_damage_numbers (res://tests/suite/test_feel.gd:760)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:599)
+       [9] _frames (res://tests/smoke_test.gd:122)
+ERROR: [MeleeSet] res://data/melee/test_no_such_attack.json 沒有招式「x」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:73)
+       [1] _test_melee_data (res://tests/suite/test_fx_melee_pickups.gd:37)
+       [2] run (res://tests/suite/test_fx_melee_pickups.gd:13)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_feel.gd:30)
+       [5] _test_damage_numbers (res://tests/suite/test_feel.gd:760)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:599)
+       [8] _frames (res://tests/smoke_test.gd:122)
+FX_PERF idle=2.27 ms, 12 explosions=3.66 ms per frame, particles=291, nodes +0
+SUITE_TIME FxMeleePickupsSuite 17.0
+ERROR: [FeelLab] 沒有這把武器：res://data/weapons/test_no_such_weapon.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] equip_weapon (res://tools/feel_lab/feel_lab.gd:131)
+       [1] _test_lab_runs (res://tests/suite/test_feel_lab.gd:99)
+       [2] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [FeelLab] 沒有這個敵人：res://data/enemies/test_no_such_enemy.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn_enemy (res://tools/feel_lab/feel_lab.gd:103)
+       [1] _test_lab_runs (res://tests/suite/test_feel_lab.gd:99)
+       [2] physics_frames (res://tests/suite/test_suite.gd:28)
+SUITE_TIME FeelLabSuite 2.4
+checks: 734, failures: 0
+WARNING: 6 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 16 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2535)
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+ERROR: 6 RID allocations of type 'P11GodotArea2D' were leaked at exit.

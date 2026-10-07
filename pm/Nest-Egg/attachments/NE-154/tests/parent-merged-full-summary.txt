@@ -1,0 +1,10 @@
+Running 76 groups in 8 processes (logs: /tmp/ne-audio-session/logs/parent-merged-full)
+  process 0 (estimated 202 s): StageCoverageWorldSuite,MeleeSuite,EconomySuite,InputFeelSuite
+  process 1 (estimated 202 s): main,FeelLabSuite,ProgressionSuite,LocomotionSuite,AreasSuite,FeelToolsSuite
+  process 2 (estimated 202 s): ReclaimerSuite,AttackTokensSuite,HitReactionSuite,DeathFlowSuite,CombatHudSuite,Chapter2ArtSuite,CutsceneSuite,EnvironmentSuite
+  process 3 (estimated 201 s): Chapter2Suite,Chapter2ExpansionSuite,NpcLifeSuite,PropsSuite,PhoneBoothSuite,AudioSuite,Chapter1EnemiesSuite,ReloadCuesSuite,FloodPitSuite,StoryLintSuite,StoryContentSuite,RigActionsSuite,PartCreatureSuite,PacingSuite,EnemyVfxSuite,DevMenuSuite,CharactersSuite,ChapterCutscenesSuite,AmmoIconsSuite
+  process 4 (estimated 201 s): StageCoverageWeaponsSuite,ReconEnemiesSuite,ChainCreatureSuite,UiScreensSuite,SupplySuite,AnimAuditSuite,SoundLabSuite,NpcAnimationSuite,ClipEditorSuite
+  process 5 (estimated 202 s): ContinuitySuite,HeavyEnemiesSuite,StrikeEnemiesSuite,MeleeWeaponsSuite,AmmoTraySuite,MapBubblesSuite,EncounterSuite,ProtagonistMotionSuite,TransitionSuite,ApplyPanelSuite
+  process 6 (estimated 201 s): SoundStageSuite,AssaultEnemiesSuite,ExoticEnemiesSuite,FxMeleePickupsSuite,SceneSanitySuite,FxUpgradesSuite,PostureSuite,LayerOrderSuite,RigMeshSuite,WorldPromptSuite
+  process 7 (estimated 201 s): Chapter1MapSuite,StageCoverageCharactersSuite,DeathReactionSuite,NewEnemiesSuite,NpcSuite,FeelSuite,MusicSuite,CollectiblesSuite,ExposureSuite,UiKitSuite
+checks: 45363, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 197 s)

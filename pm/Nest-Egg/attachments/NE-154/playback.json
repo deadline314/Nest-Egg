@@ -1,0 +1,623 @@
+{
+ "base": "28ef95c7",
+ "revision": "319eaf87 + NE-154 routing fix",
+ "subjective_listening": false,
+ "full_playthrough": false,
+ "story_auto_skip": true,
+ "rows": [
+  {
+   "label": "修正前：真實關卡 combat／boss 串接抽查",
+   "revision": "28ef95c7",
+   "method": {
+    "cue": "combat_alleys",
+    "level": "res://data/levels/ch1_warehouse.tres",
+    "method": "real level; placed near existing enemy; explicitly raised alert to exercise real combat detection; high health",
+    "state": "combat"
+   },
+   "events": [
+    {
+     "ms": 28,
+     "on_floor": false,
+     "phone_progress": -1.0,
+     "physics_frame": 17,
+     "position": [
+      1636.0,
+      112.0
+     ],
+     "sound": "telegraph",
+     "source": "file",
+     "voices": [
+      {
+       "choking": false,
+       "file": "res://audio/sfx/telegraph_01.ogg",
+       "pitch": 1.0,
+       "volume_db": -20.0
+      }
+     ]
+    },
+    {
+     "cue": "combat_alleys",
+     "file": "res://audio/music/combat_alleys.ogg",
+     "ms": 152,
+     "track": "combat_alleys"
+    },
+    {
+     "ms": 377,
+     "on_floor": true,
+     "phone_progress": -1.0,
+     "physics_frame": 38,
+     "position": [
+      1636.0,
+      191.967437744141
+     ],
+     "sound": "land_metal",
+     "source": "file",
+     "voices": [
+      {
+       "choking": false,
+       "file": "res://audio/sfx/land_metal_01.ogg",
+       "pitch": 0.989870369434357,
+       "volume_db": -11.9642868041992
+      }
+     ]
+    },
+    {
+     "ms": 2429,
+     "on_floor": true,
+     "phone_progress": -1.0,
+     "physics_frame": 161,
+     "position": [
+      1636.0,
+      191.967437744141
+     ],
+     "sound": "telegraph",
+     "source": "file",
+     "voices": [
+      {
+       "choking": false,
+       "file": "res://audio/sfx/telegraph_01.ogg",
+       "pitch": 1.0,
+       "volume_db": -20.0
+      }
+     ]
+    }
+   ],
+   "seconds": 2.97215419501134,
+   "audio_driver": "Dummy",
+   "file": "media/parent-flow-ch1_warehouse_combat.ogg",
+   "metrics": {
+    "seconds": 2.9722,
+    "peak_dbfs": -8.53,
+    "head_1s_rms_dbfs": -32.53,
+    "tail_100ms_rms_dbfs": -21.72,
+    "first_above_minus45_ms": 56,
+    "sha256": "06cb43a5917e0df1a2aee6ff7ca0ef28258af254a19b630a647605cb57e1ff91"
+   },
+   "original_wav_sha256": "dd36a35115ee89e08d78532d14c9852f77f1b5cc4ffe695d3607e59860072c9b"
+  },
+  {
+   "label": "修正前：真實關卡 combat／boss 串接抽查",
+   "revision": "28ef95c7",
+   "method": {
+    "cue": "combat_dungeon",
+    "level": "res://data/levels/level_01.tres",
+    "method": "real level; placed near existing enemy; explicitly raised alert to exercise real combat detection; high health",
+    "state": "combat"
+   },
+   "events": [
+    {
+     "cue": "calm_market",
+     "file": "res://audio/music/calm_market.ogg",
+     "ms": 31,
+     "track": "calm_market"
+    },
+    {
+     "cue": "combat_dungeon",
+     "file": "res://audio/music/combat_dungeon.ogg",
+     "ms": 251,
+     "track": "combat_dungeon"
+    },
+    {
+     "ms": 365,
+     "on_floor": false,
+     "phone_progress": -1.0,
+     "physics_frame": 270,
+     "position": [
+      1764.0,
+      209.666656494141
+     ],
+     "sound": "telegraph",
+     "source": "file",
+     "voices": [
+      {
+       "choking": false,
+       "file": "res://audio/sfx/telegraph_01.ogg",
+       "pitch": 1.0,
+       "volume_db": -20.0
+      }
+     ]
+    },
+    {
+     "ms": 463,
+     "on_floor": true,
+     "phone_progress": -1.0,
+     "physics_frame": 276,
+     "position": [
+      1764.0,
+      255.97395324707
+     ],
+     "sound": "land_wet",
+     "source": "file",
+     "voices": [
+      {
+       "choking": false,
+       "file": "res://audio/sfx/land_wet_01.ogg",
+       "pitch": 0.972487568855286,
+       "volume_db": -10.0
+      }
+     ]
+    }
+   ],
+   "seconds": 2.78639455782313,
+   "audio_driver": "Dummy",
+   "file": "media/parent-flow-level_01_combat.ogg",
+   "metrics": {
+    "seconds": 2.7864,
+    "peak_dbfs": -5.47,
+    "head_1s_rms_dbfs": -39.22,
+    "tail_100ms_rms_dbfs": -22.0,
+    "first_above_minus45_ms": 428,
+    "sha256": "e3d2893b49d287ee3ce21ce3527f326bb077a902498e74be0f0a92251adc6f02"
+   },
+   "original_wav_sha256": "eeaae097016316c4c3c65839f06ca91f7ee9b4039a1e7f0bac7809a2a799da3d"
+  },
+  {
+   "label": "修正前：真實關卡 combat／boss 串接抽查",
+   "revision": "28ef95c7",
+   "method": {
+    "arena_triggered": true,
+    "cue": "boss_warden",
+    "level": "res://data/levels/level_01.tres",
+    "method": "real level; placed across real arena trigger; no manual boss_started signal",
+    "state": "combat"
+   },
+   "events": [
+    {
+     "ms": 304,
+     "on_floor": true,
+     "phone_progress": -1.0,
+     "physics_frame": 447,
+     "position": [
+      5015.0,
+      319.983520507812
+     ],
+     "sound": "land_metal",
+     "source": "file",
+     "voices": [
+      {
+       "choking": false,
+       "file": "res://audio/sfx/land_metal_01.ogg",
+       "pitch": 0.997245967388153,
+       "volume_db": -12.7380962371826
+      }
+     ]
+    },
+    {
+     "cue": "boss_warden",
+     "file": "res://audio/music/boss_warden.ogg",
+     "ms": 791,
+     "track": "boss_warden"
+    },
+    {
+     "ms": 1344,
+     "on_floor": true,
+     "phone_progress": -1.0,
+     "physics_frame": 510,
+     "position": [
+      5015.0,
+      319.983520507812
+     ],
+     "sound": "telegraph",
+     "source": "file",
+     "voices": [
+      {
+       "choking": false,
+       "file": "res://audio/sfx/telegraph_01.ogg",
+       "pitch": 1.0,
+       "volume_db": -20.0
+      }
+     ]
+    }
+   ],
+   "seconds": 2.87927437641723,
+   "audio_driver": "Dummy",
+   "file": "media/parent-flow-level_01_boss.ogg",
+   "metrics": {
+    "seconds": 2.8793,
+    "peak_dbfs": -5.87,
+    "head_1s_rms_dbfs": -24.29,
+    "tail_100ms_rms_dbfs": -28.5,
+    "first_above_minus45_ms": 0,
+    "sha256": "e4041b59c5d1e520bef4c9fd3f0bc64584a6658f95dbd7a2a1f97edf896f623e"
+   },
+   "original_wav_sha256": "2652bd7a2805c0b862197fac0d5a9f1b1365f4889a1142aaf42abbbb59d61b73"
+  },
+  {
+   "label": "修正前：真實關卡 combat／boss 串接抽查",
+   "revision": "28ef95c7",
+   "method": {
+    "cue": "combat_robotic",
+    "level": "res://data/levels/level_02.tres",
+    "method": "real level; placed near existing enemy; explicitly raised alert to exercise real combat detection; high health",
+    "state": "combat"
+   },
+   "events": [
+    {
+     "cue": "calm_freight",
+     "file": "res://audio/music/calm_freight.ogg",
+     "ms": 17,
+     "track": "calm_freight"
+    },
+    {
+     "cue": "combat_robotic",
+     "file": "res://audio/music/combat_robotic.ogg",
+     "ms": 185,
+     "track": "combat_robotic"
+    },
+    {
+     "ms": 612,
+     "on_floor": true,
+     "phone_progress": -1.0,
+     "physics_frame": 702,
+     "position": [
+      3492.0,
+      319.969177246094
+     ],
+     "sound": "land_concrete",
+     "source": "file",
+     "voices": [
+      {
+       "choking": false,
+       "file": "res://audio/sfx/land_concrete_01.ogg",
+       "pitch": 1.01299047470093,
+       "volume_db": -10.0
+      }
+     ]
+    },
+    {
+     "ms": 2575,
+     "on_floor": true,
+     "phone_progress": -1.0,
+     "physics_frame": 820,
+     "position": [
+      3492.0,
+      319.969177246094
+     ],
+     "sound": "telegraph",
+     "source": "file",
+     "voices": [
+      {
+       "choking": false,
+       "file": "res://audio/sfx/telegraph_01.ogg",
+       "pitch": 1.0,
+       "volume_db": -20.0
+      }
+     ]
+    }
+   ],
+   "seconds": 2.78639455782313,
+   "audio_driver": "Dummy",
+   "file": "media/parent-flow-level_02_combat.ogg",
+   "metrics": {
+    "seconds": 2.7864,
+    "peak_dbfs": -9.93,
+    "head_1s_rms_dbfs": -41.63,
+    "tail_100ms_rms_dbfs": -28.36,
+    "first_above_minus45_ms": 564,
+    "sha256": "1876c202020a9386c92239a8fb38364142e0f94834dea5149d4b21b1dba23349"
+   },
+   "original_wav_sha256": "9560d794249dcbeb7696e902eee25d86d0af65fda278384f4dbd300a38d8b59f"
+  },
+  {
+   "label": "修正前：真實關卡 combat／boss 串接抽查",
+   "revision": "28ef95c7",
+   "method": {
+    "arena_triggered": true,
+    "cue": "boss_warden",
+    "level": "res://data/levels/level_02.tres",
+    "method": "real level; placed across real arena trigger; no manual boss_started signal",
+    "state": "combat"
+   },
+   "events": [
+    {
+     "cue": "boss_warden",
+     "file": "res://audio/music/boss_warden.ogg",
+     "ms": 851,
+     "track": "boss_warden"
+    },
+    {
+     "ms": 1755,
+     "on_floor": true,
+     "phone_progress": -1.0,
+     "physics_frame": 952,
+     "position": [
+      7575.0,
+      319.969177246094
+     ],
+     "sound": "telegraph",
+     "source": "file",
+     "voices": [
+      {
+       "choking": false,
+       "file": "res://audio/sfx/telegraph_01.ogg",
+       "pitch": 1.0,
+       "volume_db": -20.0
+      }
+     ]
+    }
+   ],
+   "seconds": 2.97215419501134,
+   "audio_driver": "Dummy",
+   "file": "media/parent-flow-level_02_boss.ogg",
+   "metrics": {
+    "seconds": 2.9722,
+    "peak_dbfs": -8.19,
+    "head_1s_rms_dbfs": -22.91,
+    "tail_100ms_rms_dbfs": -27.33,
+    "first_above_minus45_ms": 0,
+    "sha256": "970f027d42944936810aad869e3bd04c2b3895cbdbdbb18acfe518d648469321"
+   },
+   "original_wav_sha256": "55255fc201b7d9cb7162133a41cf4b23f2c0f2d63f3d5ef9018c7e8667bee6f6"
+  },
+  {
+   "label": "修前：舊第二章回收者頭目戰",
+   "revision": "28ef95c7",
+   "method": {
+    "arena_triggered": true,
+    "boss_active": true,
+    "cue": "boss_warden",
+    "level": "res://data/levels/level_02.tres",
+    "method": "real level; placed near actual boss spawn across real arena trigger; no manual boss_started signal; high health; auto-skip",
+    "state": "calm",
+    "zone": "tower_white"
+   },
+   "events": [
+    {
+     "ms": 2,
+     "on_floor": true,
+     "phone_progress": -1.0,
+     "physics_frame": 17,
+     "position": [
+      7944.0,
+      320.0
+     ],
+     "sound": "telegraph",
+     "source": "file",
+     "voices": [
+      {
+       "choking": false,
+       "file": "res://audio/sfx/telegraph_01.ogg",
+       "pitch": 1.0,
+       "volume_db": -20.0
+      }
+     ]
+    },
+    {
+     "cue": "calm_freight",
+     "file": "res://audio/music/calm_freight.ogg",
+     "ms": 9,
+     "track": "calm_freight"
+    },
+    {
+     "cue": "boss_warden",
+     "file": "res://audio/music/boss_warden.ogg",
+     "ms": 838,
+     "track": "boss_warden"
+    },
+    {
+     "ms": 3191,
+     "on_floor": true,
+     "phone_progress": -1.0,
+     "physics_frame": 208,
+     "position": [
+      7944.0,
+      320.0
+     ],
+     "sound": "telegraph",
+     "source": "file",
+     "voices": [
+      {
+       "choking": false,
+       "file": "res://audio/sfx/telegraph_01.ogg",
+       "pitch": 0.809881210327148,
+       "volume_db": -7.0
+      }
+     ]
+    },
+    {
+     "ms": 3244,
+     "on_floor": true,
+     "phone_progress": -1.0,
+     "physics_frame": 211,
+     "position": [
+      7944.0,
+      320.0
+     ],
+     "sound": "beep",
+     "source": "file",
+     "voices": [
+      {
+       "choking": false,
+       "file": "res://audio/sfx/beep_03.ogg",
+       "pitch": 0.603290319442749,
+       "volume_db": -16.0
+      }
+     ]
+    },
+    {
+     "ms": 3526,
+     "on_floor": true,
+     "phone_progress": -1.0,
+     "physics_frame": 228,
+     "position": [
+      7944.0,
+      320.0
+     ],
+     "sound": "telegraph",
+     "source": "file",
+     "voices": [
+      {
+       "choking": false,
+       "file": "res://audio/sfx/telegraph_01.ogg",
+       "pitch": 0.809881210327148,
+       "volume_db": -7.0
+      },
+      {
+       "choking": false,
+       "file": "res://audio/sfx/telegraph_01.ogg",
+       "pitch": 1.0,
+       "volume_db": -20.0
+      }
+     ]
+    }
+   ],
+   "seconds": 3.71519274376417,
+   "audio_driver": "Dummy",
+   "file": "media/parent-boss-before-audio-level_02_boss.ogg",
+   "metrics": {
+    "seconds": 3.7152,
+    "peak_dbfs": -14.6,
+    "head_1s_rms_dbfs": -44.9,
+    "tail_100ms_rms_dbfs": -30.8,
+    "first_above_minus45_ms": 56,
+    "sha256": "47081bd1ea3cc206e7bb6137b811cc1448a426b1200a79f50b1eac6eaf911361"
+   },
+   "original_wav_sha256": "f8357835a5608af13f1aa50c1a9b2043d689ad3d949cadb5649f1808c06779e1"
+  },
+  {
+   "label": "修後（ST-3 合入）：舊第二章回收者頭目戰",
+   "revision": "319eaf87+NE154-routing",
+   "method": {
+    "arena_triggered": true,
+    "boss_active": true,
+    "cue": "boss_reclaimer",
+    "level": "res://data/levels/level_02.tres",
+    "method": "real level; placed near actual boss spawn across real arena trigger; no manual boss_started signal; high health; auto-skip",
+    "state": "calm",
+    "zone": "tower_white"
+   },
+   "events": [
+    {
+     "cue": "calm_freight",
+     "file": "res://audio/music/calm_freight.ogg",
+     "ms": 3,
+     "track": "calm_freight"
+    },
+    {
+     "ms": 25,
+     "on_floor": true,
+     "phone_progress": -1.0,
+     "physics_frame": 17,
+     "position": [
+      7944.0,
+      320.0
+     ],
+     "sound": "telegraph",
+     "source": "file",
+     "voices": [
+      {
+       "choking": false,
+       "file": "res://audio/sfx/telegraph_01.ogg",
+       "pitch": 1.0,
+       "volume_db": -20.0
+      }
+     ]
+    },
+    {
+     "cue": "boss_reclaimer",
+     "file": "res://audio/music/boss_reclaimer.ogg",
+     "ms": 901,
+     "track": "boss_reclaimer"
+    },
+    {
+     "ms": 3221,
+     "on_floor": true,
+     "phone_progress": -1.0,
+     "physics_frame": 209,
+     "position": [
+      7944.0,
+      320.0
+     ],
+     "sound": "telegraph",
+     "source": "file",
+     "voices": [
+      {
+       "choking": false,
+       "file": "res://audio/sfx/telegraph_01.ogg",
+       "pitch": 0.805055260658264,
+       "volume_db": -7.0
+      }
+     ]
+    },
+    {
+     "ms": 3274,
+     "on_floor": true,
+     "phone_progress": -1.0,
+     "physics_frame": 212,
+     "position": [
+      7944.0,
+      320.0
+     ],
+     "sound": "beep",
+     "source": "file",
+     "voices": [
+      {
+       "choking": false,
+       "file": "res://audio/sfx/beep_01.ogg",
+       "pitch": 0.605475842952728,
+       "volume_db": -16.0
+      }
+     ]
+    },
+    {
+     "ms": 3555,
+     "on_floor": true,
+     "phone_progress": -1.0,
+     "physics_frame": 229,
+     "position": [
+      7944.0,
+      320.0
+     ],
+     "sound": "telegraph",
+     "source": "file",
+     "voices": [
+      {
+       "choking": false,
+       "file": "res://audio/sfx/telegraph_01.ogg",
+       "pitch": 0.805055260658264,
+       "volume_db": -7.0
+      },
+      {
+       "choking": false,
+       "file": "res://audio/sfx/telegraph_01.ogg",
+       "pitch": 1.0,
+       "volume_db": -20.0
+      }
+     ]
+    }
+   ],
+   "seconds": 3.80807256235828,
+   "audio_driver": "Dummy",
+   "file": "media/parent-boss-after-merged-level_02_boss.ogg",
+   "metrics": {
+    "seconds": 3.8081,
+    "peak_dbfs": -8.1,
+    "head_1s_rms_dbfs": -44.93,
+    "tail_100ms_rms_dbfs": -19.2,
+    "first_above_minus45_ms": 56,
+    "sha256": "87dbc74232c9e492c713617f3d5db30fc93e6f3f8cd387d60d444103b2cc3e6c"
+   },
+   "original_wav_sha256": "3fce1f582d8f56d8de44db245383d873e1e775e0ea91f553df5878267cca70f4"
+  }
+ ]
+}

@@ -1,0 +1,6 @@
+At 28ef95c7 + NE-154 patch, affected (6 shards), full (8 shards), captures and editor import overlapped in this cloud workspace. Affected: 38711 checks, zero failures. Full: 45324 checks, three failures:
+- 12 simultaneous explosions add little to a frame (+11.76 ms, budget 6 ms)
+- ducking recovers smoothly afterwards
+- pressure mode brings in several enemies at once
+
+FeelLabSuite pressure assertion waits five physics frames while spawns happen in idle _process. Isolated FeelLabSuite: 69 checks, zero failures. This is diagnostic evidence, not proof all three failures are harmless. No production/test thresholds or known_failures were edited. Retest the complete suite on merged latest main with one runner, and preserve this failed attempt.

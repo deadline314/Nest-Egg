@@ -1,0 +1,270 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+== Nest Egg smoke test ==
+WARNING: [StateMachine] 未知狀態：missing
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] transition (res://core/state_machine.gd:44)
+         [1] _test_state_machine (res://tests/smoke_test.gd:201)
+         [2] _run_main (res://tests/smoke_test.gd:51)
+         [3] _run (res://tests/smoke_test.gd:37)
+ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/missing_part.png
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] texture (res://game/rig/rig_library.gd:81)
+       [2] _test_rigs (res://tests/smoke_test.gd:317)
+       [3] _frames (res://tests/smoke_test.gd:122)
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/no_such_character/character.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] load_json (res://game/rig/rig_library.gd:21)
+       [2] character (res://game/rig/rig_library.gd:29)
+       [3] setup (res://game/rig/character_rig.gd:73)
+       [4] _test_rigs (res://tests/smoke_test.gd:319)
+       [5] _frames (res://tests/smoke_test.gd:122)
+WARNING: [InputBindings] 按鍵設定來自舊版操作，已改回新預設。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] reload_from_settings (res://autoload/input_bindings.gd:276)
+         [1] _test_settings_and_bindings (res://tests/smoke_test.gd:538)
+         [2] _run_main (res://tests/smoke_test.gd:54)
+         [3] _test_rigs (res://tests/smoke_test.gd:320)
+         [4] _frames (res://tests/smoke_test.gd:122)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready().
+If you want to set size, change the anchors or consider using set_deferred().
+     at: _set_size (scene/gui/control.cpp:1519)
+     GDScript backtrace (most recent call first):
+         [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+         [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+         [2] _ready (res://ui/settings_screen.gd:40)
+         [3] _test_settings_and_bindings (res://tests/smoke_test.gd:548)
+         [4] _run_main (res://tests/smoke_test.gd:54)
+         [5] _test_rigs (res://tests/smoke_test.gd:320)
+         [6] _frames (res://tests/smoke_test.gd:122)
+WARNING: [Story] 找不到章節：no_such_chapter
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] chapter_info (res://autoload/story.gd:144)
+         [1] _test_story (res://tests/smoke_test.gd:367)
+         [2] _run_main (res://tests/smoke_test.gd:55)
+         [3] _test_settings_and_bindings (res://tests/smoke_test.gd:577)
+         [4] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] 找不到劇情道具：no_such_item
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] acquire (res://autoload/story_items.gd:120)
+         [1] _test_story_items (res://tests/smoke_test.gd:434)
+         [2] _run_main (res://tests/smoke_test.gd:56)
+         [3] _test_story (res://tests/smoke_test.gd:404)
+         [4] _end_level (res://tests/smoke_test.gd:599)
+         [5] _frames (res://tests/smoke_test.gd:122)
+ERROR: [test_catalog] id「fixture_a」重複：user://test_catalog/a.tres 與 user://test_catalog/c_duplicate.tres，已略過後者
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_dir (res://core/resource_catalog.gd:31)
+       [1] _test_story_items (res://tests/smoke_test.gd:484)
+       [2] _end_level (res://tests/smoke_test.gd:599)
+       [3] _frames (res://tests/smoke_test.gd:122)
+ERROR: [test_catalog] 無法讀取或型別不符：user://test_catalog/d_wrong_type.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_dir (res://core/resource_catalog.gd:27)
+       [1] _test_story_items (res://tests/smoke_test.gd:484)
+       [2] _end_level (res://tests/smoke_test.gd:599)
+       [3] _frames (res://tests/smoke_test.gd:122)
+ERROR: [test_catalog] 找不到資料夾：user://no_such_catalog_dir
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_dir (res://core/resource_catalog.gd:12)
+       [1] _test_story_items (res://tests/smoke_test.gd:486)
+       [2] _end_level (res://tests/smoke_test.gd:599)
+       [3] _frames (res://tests/smoke_test.gd:122)
+ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/items/icons/no_such_icon.png
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] texture (res://game/rig/rig_library.gd:81)
+       [2] item (res://core/item_icons.gd:29)
+       [3] _test_inventory (res://tests/smoke_test.gd:938)
+       [4] _run_main (res://tests/smoke_test.gd:61)
+       [5] _test_consumables (res://tests/smoke_test.gd:905)
+       [6] _end_level (res://tests/smoke_test.gd:599)
+       [7] _frames (res://tests/smoke_test.gd:122)
+ERROR: [LightingController] 略過沒有光影設定的區段（起點 987654）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] setup (res://game/level/lighting_controller.gd:58)
+       [1] _test_lighting (res://tests/smoke_test.gd:1102)
+       [2] _run_main (res://tests/smoke_test.gd:62)
+       [3] _test_inventory (res://tests/smoke_test.gd:1044)
+       [4] _end_level (res://tests/smoke_test.gd:599)
+       [5] _frames (res://tests/smoke_test.gd:122)
+WARNING: [LitTextures] 沒有法線貼圖，改用平面貼圖：res://icon_n.png（可用 tools/art/paint_normals.tscn 產生）
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] load_texture (res://core/lit_textures.gd:34)
+         [1] _test_lighting (res://tests/smoke_test.gd:1451)
+ERROR: Parameter "body->get_space()" is null.
+   at: body_test_motion (modules/godot_physics_2d/godot_physics_server_2d.cpp:996)
+   GDScript backtrace (most recent call first):
+       [0] _physics_process (res://game/enemies/enemy.gd:459)
+ERROR: Parameter "body->get_space()" is null.
+   at: body_test_motion (modules/godot_physics_2d/godot_physics_server_2d.cpp:996)
+   GDScript backtrace (most recent call first):
+       [0] _physics_process (res://game/enemies/enemy.gd:459)
+SUITE_TIME main 100.0
+SUITE_TIME ProgressionSuite 3.7
+SUITE_TIME LocomotionSuite 6.0
+ERROR: [FeelLab] 沒有這把武器：res://data/weapons/test_no_such_weapon.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] equip_weapon (res://tools/feel_lab/feel_lab.gd:131)
+       [1] _test_lab_runs (res://tests/suite/test_feel_lab.gd:99)
+       [2] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [FeelLab] 沒有這個敵人：res://data/enemies/test_no_such_enemy.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn_enemy (res://tools/feel_lab/feel_lab.gd:103)
+       [1] _test_lab_runs (res://tests/suite/test_feel_lab.gd:99)
+       [2] physics_frames (res://tests/suite/test_suite.gd:28)
+SUITE_TIME FeelLabSuite 2.1
+ERROR: [FeelAB] 槽 A 還沒有存過參數
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] activate (res://core/feel_ab.gd:35)
+       [1] _test_ab_slots_and_replay (res://tests/suite/test_feel_tools.gd:31)
+       [2] run (res://tests/suite/test_feel_tools.gd:11)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_feel_lab.gd:11)
+       [5] _test_lab_runs (res://tests/suite/test_feel_lab.gd:103)
+       [6] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [FeelAB] 沒有這個槽：C（只有 A、B）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] save_slot (res://core/feel_ab.gd:21)
+       [1] _test_ab_slots_and_replay (res://tests/suite/test_feel_tools.gd:31)
+       [2] run (res://tests/suite/test_feel_tools.gd:11)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_feel_lab.gd:11)
+       [5] _test_lab_runs (res://tests/suite/test_feel_lab.gd:103)
+       [6] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [FeelAB] 盲測需要 A、B 兩個槽都存過參數
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] start_blind (res://core/feel_ab.gd:73)
+       [1] _test_blind_test (res://tests/suite/test_feel_tools.gd:53)
+       [2] run (res://tests/suite/test_feel_tools.gd:12)
+       [3] _test_ab_slots_and_replay (res://tests/suite/test_feel_tools.gd:48)
+       [4] replay_sequence (res://core/feel_ab.gd:64)
+ERROR: [FeelAB] 盲測還沒做完，不寫入結果
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] save_results (res://core/feel_ab.gd:129)
+       [1] _test_blind_test (res://tests/suite/test_feel_tools.gd:59)
+       [2] run (res://tests/suite/test_feel_tools.gd:12)
+       [3] _test_ab_slots_and_replay (res://tests/suite/test_feel_tools.gd:48)
+       [4] replay_sequence (res://core/feel_ab.gd:64)
+SUITE_TIME FeelToolsSuite 1.3
+ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/props/portal.gd:34)
+       [1] _spawn_static_entities (res://game/level/level.gd:402)
+       [2] _ready (res://game/level/level.gd:156)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] _test_entry_and_walk (res://tests/suite/test_areas.gd:137)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:599)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://tests/fixtures/areas/no_such_level.tres
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] warm_level (res://core/asset_prefetch.gd:27)
+         [1] warm_neighbors (res://core/asset_prefetch.gd:41)
+ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/props/portal.gd:34)
+       [1] _spawn_static_entities (res://game/level/level.gd:402)
+       [2] _ready (res://game/level/level.gd:156)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] _test_checkpoint_area (res://tests/suite/test_areas.gd:247)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:599)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://tests/fixtures/areas/no_such_level.tres
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] warm_level (res://core/asset_prefetch.gd:27)
+         [1] warm_neighbors (res://core/asset_prefetch.gd:41)
+ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/props/portal.gd:34)
+       [1] _spawn_static_entities (res://game/level/level.gd:402)
+       [2] _ready (res://game/level/level.gd:156)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_locked_and_flagged_doors (res://tests/suite/test_areas.gd:267)
+       [6] run (res://tests/suite/test_areas.gd:23)
+       [7] _test_checkpoint_area (res://tests/suite/test_areas.gd:259)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:599)
+       [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://tests/fixtures/areas/no_such_level.tres
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] warm_level (res://core/asset_prefetch.gd:27)
+         [1] warm_neighbors (res://core/asset_prefetch.gd:41)
+ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/props/portal.gd:34)
+       [1] _spawn_static_entities (res://game/level/level.gd:402)
+       [2] _ready (res://game/level/level.gd:156)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_bad_data (res://tests/suite/test_areas.gd:284)
+       [6] run (res://tests/suite/test_areas.gd:24)
+       [7] _test_locked_and_flagged_doors (res://tests/suite/test_areas.gd:280)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:599)
+       [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://tests/fixtures/areas/no_such_level.tres
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] warm_level (res://core/asset_prefetch.gd:27)
+         [1] warm_neighbors (res://core/asset_prefetch.gd:41)
+ERROR: [Level] test_area_b 的出入口「test_area_bad_missing」目標不是可載入的區域：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _on_portal_used (res://game/level/level.gd:884)
+       [1] try_use (res://game/props/portal.gd:82)
+       [2] _test_bad_data (res://tests/suite/test_areas.gd:287)
+       [3] start_level (res://tests/suite/test_suite.gd:34)
+       [4] spawn_level (res://tests/suite/test_suite.gd:43)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Level] test_area_a 沒有出入口「test_area_bad_entry」（res://tests/fixtures/areas/area_map_a.json），改用起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _entry_position (res://game/level/level.gd:693)
+       [1] _spawn_player (res://game/level/level.gd:671)
+       [2] _ready (res://game/level/level.gd:157)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] _test_bad_data (res://tests/suite/test_areas.gd:294)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:599)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [Story] 找不到章節：test_area_no_chapter
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] chapter_info (res://autoload/story.gd:144)
+         [1] _run_ending (res://game/level/level.gd:847)
+         [2] _begin_intro (res://game/level/level.gd:258)
+SUITE_TIME AreasSuite 2.4
+checks: 1861, failures: 0
+WARNING: 34 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2535)

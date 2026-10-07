@@ -10,6 +10,7 @@ const FIXTURE_BAD := "res://tests/fixtures/audio/music_bad.json"
 
 func run() -> void:
 	_test_shipped_data()
+	await _test_shipped_boss_flow()
 	_test_resolution()
 	_test_validation()
 	await _test_playback_and_crossfade()
@@ -57,6 +58,22 @@ func _test_shipped_data() -> void:
 		check(pack == str(source.get("pack", "")) and str(source.get("file", "")) in registered.get("files_used", []),
 			"track %s provenance matches the selected pipeline source" % track_id)
 		check(str(def.get("title", "")) == str(registered.get("title", "")), "track %s displays the selected source title" % track_id)
+
+
+## 用正式關卡的 arena、頭目生成與 zone_changed 驗證串接，避免只測 resolver 假設的區段。
+func _test_shipped_boss_flow() -> void:
+	for entry in [["level_01", "boss_warden"], ["level_02", "boss_reclaimer"]]:
+		level = await start_level(load("res://data/levels/%s.tres" % entry[0]) as LevelData)
+		level.player.health.setup(999999, 0.0)
+		level.player.global_position = level._layout.boss_spawn["position"]
+		level.player.global_position.x = maxf(level.player.global_position.x, level._layout.arena_x + Level.ARENA_TRIGGER_MARGIN + 15.0)
+		for i in 180:
+			await physics_frames(1)
+			if Music._boss:
+				break
+		check(level._arena_triggered and Music._boss, "%s starts its real boss fight" % entry[0])
+		check(Music.current_cue() == StringName(entry[1]), "%s real boss plays %s, got %s in zone %s" % [entry[0], entry[1], Music.current_cue(), Music._zone_id])
+		await end_level(level)
 
 
 func _test_resolution() -> void:

@@ -1,0 +1,21 @@
+extends "res://tools/audio/audition_capture.gd"
+func _game() -> void:
+    add_child(LightKit.create_environment())
+    var path := "res://data/levels/level_02.tres"
+    await _open_level(path)
+    for i in 120:
+        if not Story.is_cinematic_active():
+            break
+        await get_tree().physics_frame
+    _begin()
+    level.player.global_position = level._layout.boss_spawn["position"] + Vector2(-96, 0)
+    level.player.global_position.x = maxf(level.player.global_position.x, level._layout.arena_x + Level.ARENA_TRIGGER_MARGIN + 15.0)
+    level.camera.snap_to_target()
+    for i in 180:
+        await get_tree().physics_frame
+        if Music._boss and not Story.is_cinematic_active():
+            break
+    await _wait(3.0)
+    await _shot("level_02_boss")
+    _end("level_02_boss", {"level": path, "arena_triggered": level._arena_triggered, "boss_active": Music._boss, "state": str(Music.current_state()), "cue": str(Music.current_cue()), "zone": str(Music._zone_id), "method": "real level; placed near actual boss spawn across real arena trigger; no manual boss_started signal; high health; auto-skip"})
+    await _close_level()

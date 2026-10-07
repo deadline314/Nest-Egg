@@ -1,0 +1,13 @@
+Running 76 groups in 8 processes (logs: /tmp/ne-audio-session/logs/parent-full-final)
+  process 0 (estimated 163 s): StageCoverageWorldSuite
+  process 1 (estimated 155 s): ReclaimerSuite,CombatHudSuite,CollectiblesSuite,FloodPitSuite,RigMeshSuite,Chapter2ArtSuite
+  process 2 (estimated 155 s): main,NewEnemiesSuite,AnimAuditSuite,LocomotionSuite,AreasSuite,TransitionSuite,EnvironmentSuite,RigActionsSuite,AmmoIconsSuite
+  process 3 (estimated 154 s): Chapter2Suite,ReconEnemiesSuite,FxMeleePickupsSuite,DeathReactionSuite,AudioSuite,EncounterSuite,NpcAnimationSuite,ProtagonistMotionSuite,CutsceneSuite,StoryLintSuite,StoryContentSuite,PartCreatureSuite,PacingSuite,MusicSuite,InputFeelSuite,EnemyVfxSuite,EconomySuite,DevMenuSuite,ChapterCutscenesSuite,ApplyPanelSuite
+  process 4 (estimated 154 s): StageCoverageWeaponsSuite,Chapter2ExpansionSuite,ExoticEnemiesSuite,HitReactionSuite,FxUpgradesSuite,DeathFlowSuite,ProgressionSuite,MeleeSuite,WorldPromptSuite,LayerOrderSuite
+  process 5 (estimated 154 s): AssaultEnemiesSuite,StageCoverageCharactersSuite,StrikeEnemiesSuite,PhoneBoothSuite,AmmoTraySuite,Chapter1EnemiesSuite,NpcLifeSuite,FeelSuite,UiKitSuite,FeelToolsSuite
+  process 6 (estimated 154 s): Chapter1MapSuite,HeavyEnemiesSuite,AttackTokensSuite,PropsSuite,MeleeWeaponsSuite,MapBubblesSuite,SoundLabSuite,SceneSanitySuite,FeelLabSuite,ClipEditorSuite
+  process 7 (estimated 154 s): ContinuitySuite,SoundStageSuite,ChainCreatureSuite,UiScreensSuite,SupplySuite,NpcSuite,ReloadCuesSuite,PostureSuite,ExposureSuite,CharactersSuite
+[process 3] NEW FAILURE: 12 simultaneous explosions add little to a frame (+11.76 ms, budget 6 ms)
+[process 5] NEW FAILURE: ducking recovers smoothly afterwards
+[process 6] NEW FAILURE: pressure mode brings in several enemies at once
+checks: 45324, new failures: 3, known failures (tests/known_failures.txt): 0  (wall time 245 s)

@@ -1,0 +1,10 @@
+Running 76 groups in 8 processes (logs: /tmp/ne-audio-session/logs/full)
+  process 0 (estimated 225 s): StageCoverageWorldSuite,FeelLabSuite,ChainCreatureSuite,DeathFlowSuite,SceneSanitySuite,PacingSuite,MusicSuite,InputFeelSuite,EconomySuite,DevMenuSuite,ChapterCutscenesSuite,AmmoIconsSuite
+  process 1 (estimated 227 s): main,NpcLifeSuite,FxUpgradesSuite,EncounterSuite,UiScreensSuite,PropsSuite,LayerOrderSuite,CutsceneSuite
+  process 2 (estimated 226 s): Chapter2Suite,UiKitSuite,RigActionsSuite,NewEnemiesSuite,FxMeleePickupsSuite,CollectiblesSuite,AudioSuite,NpcSuite,ClipEditorSuite
+  process 3 (estimated 226 s): StageCoverageWeaponsSuite,WorldPromptSuite,RigMeshSuite,PartCreatureSuite,HitReactionSuite,EnemyVfxSuite,DeathReactionSuite,PhoneBoothSuite,FeelSuite,AreasSuite
+  process 4 (estimated 225 s): AssaultEnemiesSuite,Chapter2ExpansionSuite,SupplySuite,ReloadCuesSuite,MeleeWeaponsSuite,FloodPitSuite,CharactersSuite,AmmoTraySuite,Chapter2ArtSuite
+  process 5 (estimated 225 s): ContinuitySuite,ReconEnemiesSuite,StoryLintSuite,ProtagonistMotionSuite,MapBubblesSuite,ExposureSuite,AttackTokensSuite,CombatHudSuite,NpcAnimationSuite
+  process 6 (estimated 225 s): Chapter1MapSuite,HeavyEnemiesSuite,StoryContentSuite,PostureSuite,LocomotionSuite,ExoticEnemiesSuite,AnimAuditSuite,SoundLabSuite,EnvironmentSuite
+  process 7 (estimated 225 s): SoundStageSuite,StageCoverageCharactersSuite,StrikeEnemiesSuite,ReclaimerSuite,MeleeSuite,FeelToolsSuite,Chapter1EnemiesSuite,ProgressionSuite,TransitionSuite,ApplyPanelSuite
+checks: 45314, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 288 s)

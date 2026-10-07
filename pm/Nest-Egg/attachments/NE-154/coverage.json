@@ -1,0 +1,1655 @@
+{
+ "bank_errors": [],
+ "base": "319eaf87",
+ "failed_files": {},
+ "kind": "read-only data/runtime resolver audit; not full playthrough",
+ "levels": [
+  {
+   "id": "ch1_booth_alley",
+   "intro_scene": "",
+   "layout": "res://data/levels/ch1_booth_alley_map.json",
+   "layout_sha256": "e11f79cce327acef2d2ae08006026a95abeeaf6e455b1061b37a8cc0571d24ed",
+   "links": [
+    "res://data/levels/ch1_street.tres"
+   ],
+   "next_level": "",
+   "path": "res://data/levels/ch1_booth_alley.tres",
+   "sha256": "aa5b73cf53403beafd3bc34224987164e7c55c0eb1ea7d6c0c9c6c76a80c4df9",
+   "zones": [
+    {
+     "start_tile": 0,
+     "states": {
+      "boss": {
+       "cue": "boss_warden",
+       "file": "res://audio/music/boss_warden.ogg",
+       "track": "boss_warden"
+      },
+      "calm": {
+       "cue": "safe_booth",
+       "file": "res://audio/music/safe_booth.ogg",
+       "track": "safe_booth"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_booth",
+       "file": "res://audio/music/safe_booth.ogg",
+       "track": "safe_booth"
+      }
+     },
+     "zone": "neutral"
+    }
+   ]
+  },
+  {
+   "id": "ch1_lounge",
+   "intro_scene": "",
+   "layout": "res://data/levels/ch1_lounge_map.json",
+   "layout_sha256": "5739618160fbabbcf4dc36135792bfe873ebfae73281667ec1050aa06088f7d6",
+   "links": [
+    "res://data/levels/ch1_stall.tres"
+   ],
+   "next_level": "",
+   "path": "res://data/levels/ch1_lounge.tres",
+   "sha256": "1c2673251b8003a0d0586fb91416d4a64f269d0e1819138f330bb0daaebfc0a2",
+   "zones": [
+    {
+     "start_tile": 0,
+     "states": {
+      "boss": {
+       "cue": "boss_warden",
+       "file": "res://audio/music/boss_warden.ogg",
+       "track": "boss_warden"
+      },
+      "calm": {
+       "cue": "safe_clinic",
+       "file": "res://audio/music/safe_clinic.ogg",
+       "track": "safe_clinic"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_clinic",
+       "file": "res://audio/music/safe_clinic.ogg",
+       "track": "safe_clinic"
+      }
+     },
+     "zone": "market"
+    }
+   ]
+  },
+  {
+   "id": "ch1_pawnshop",
+   "intro_scene": "ch1_c01_open",
+   "layout": "res://data/levels/ch1_pawnshop_map.json",
+   "layout_sha256": "8dc6b831c3471a77cd50b74b2d1f03d10dfbcebacb35a1f5cf7980b60684e539",
+   "links": [
+    "res://data/levels/ch1_street.tres",
+    "res://data/levels/ch1_rooftop.tres"
+   ],
+   "next_level": "",
+   "path": "res://data/levels/ch1_pawnshop.tres",
+   "sha256": "abf60d1f108897b8cadee6f036a3991330bc15008db221dbc5cb896c085e4fb3",
+   "zones": [
+    {
+     "start_tile": 0,
+     "states": {
+      "boss": {
+       "cue": "boss_warden",
+       "file": "res://audio/music/boss_warden.ogg",
+       "track": "boss_warden"
+      },
+      "calm": {
+       "cue": "safe_pawnshop",
+       "file": "res://audio/music/safe_pawnshop.ogg",
+       "track": "safe_pawnshop"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_pawnshop",
+       "file": "res://audio/music/safe_pawnshop.ogg",
+       "track": "safe_pawnshop"
+      }
+     },
+     "zone": "rooftop"
+    },
+    {
+     "start_tile": 30,
+     "states": {
+      "boss": {
+       "cue": "boss_warden",
+       "file": "res://audio/music/boss_warden.ogg",
+       "track": "boss_warden"
+      },
+      "calm": {
+       "cue": "safe_pawnshop",
+       "file": "res://audio/music/safe_pawnshop.ogg",
+       "track": "safe_pawnshop"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_pawnshop",
+       "file": "res://audio/music/safe_pawnshop.ogg",
+       "track": "safe_pawnshop"
+      }
+     },
+     "zone": "pawnshop_warm"
+    }
+   ]
+  },
+  {
+   "id": "ch1_pawnshop_dawn",
+   "intro_scene": "ch1_c14_home",
+   "layout": "res://data/levels/ch1_pawnshop_map.json",
+   "layout_sha256": "8dc6b831c3471a77cd50b74b2d1f03d10dfbcebacb35a1f5cf7980b60684e539",
+   "links": [
+    "res://data/levels/ch1_street.tres",
+    "res://data/levels/ch1_rooftop.tres"
+   ],
+   "next_level": "",
+   "path": "res://data/levels/ch1_pawnshop_dawn.tres",
+   "sha256": "93ed23f745f55b650ad277552cd7cb5593ba482afb064a623c785ad160869072",
+   "zones": [
+    {
+     "start_tile": 0,
+     "states": {
+      "boss": {
+       "cue": "boss_warden",
+       "file": "res://audio/music/boss_warden.ogg",
+       "track": "boss_warden"
+      },
+      "calm": {
+       "cue": "safe_pawnshop",
+       "file": "res://audio/music/safe_pawnshop.ogg",
+       "track": "safe_pawnshop"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_pawnshop",
+       "file": "res://audio/music/safe_pawnshop.ogg",
+       "track": "safe_pawnshop"
+      }
+     },
+     "zone": "mezzanine_gray"
+    }
+   ]
+  },
+  {
+   "id": "ch1_rooftop",
+   "intro_scene": "",
+   "layout": "res://data/levels/ch1_rooftop_map.json",
+   "layout_sha256": "1aa2fec94039ed34257d54cdb4331fc32ccab02af6d522e4ba8c92f4e978fef9",
+   "links": [
+    "res://data/levels/ch1_pawnshop.tres"
+   ],
+   "next_level": "",
+   "path": "res://data/levels/ch1_rooftop.tres",
+   "sha256": "4c3259c135404d85a60b066b26fd8f5a7be362ae46f7f846527952640e869294",
+   "zones": [
+    {
+     "start_tile": 0,
+     "states": {
+      "boss": {
+       "cue": "boss_warden",
+       "file": "res://audio/music/boss_warden.ogg",
+       "track": "boss_warden"
+      },
+      "calm": {
+       "cue": "calm_rooftop",
+       "file": "res://audio/music/calm_rooftop.ogg",
+       "track": "calm_rooftop"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "calm_rooftop",
+       "file": "res://audio/music/calm_rooftop.ogg",
+       "track": "calm_rooftop"
+      }
+     },
+     "zone": "rooftop"
+    }
+   ]
+  },
+  {
+   "id": "ch1_stall",
+   "intro_scene": "",
+   "layout": "res://data/levels/ch1_stall_map.json",
+   "layout_sha256": "cee643cefb9f8b57df1e0eca6bd7d402fa7d3e6da16484a9cf905faf747fd81c",
+   "links": [
+    "res://data/levels/ch1_pawnshop_dawn.tres"
+   ],
+   "next_level": "",
+   "path": "res://data/levels/ch1_stall.tres",
+   "sha256": "bfb85ffa129c2e96c1a55a1d1ccee926818765dfb9571e8dbd1f425f40f29787",
+   "zones": [
+    {
+     "start_tile": 0,
+     "states": {
+      "boss": {
+       "cue": "boss_warden",
+       "file": "res://audio/music/boss_warden.ogg",
+       "track": "boss_warden"
+      },
+      "calm": {
+       "cue": "calm_rooftop",
+       "file": "res://audio/music/calm_rooftop.ogg",
+       "track": "calm_rooftop"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "calm_rooftop",
+       "file": "res://audio/music/calm_rooftop.ogg",
+       "track": "calm_rooftop"
+      }
+     },
+     "zone": "mezzanine_gray"
+    }
+   ]
+  },
+  {
+   "id": "ch1_street",
+   "intro_scene": "",
+   "layout": "res://data/levels/ch1_street_map.json",
+   "layout_sha256": "efdeabd612f0bd27ce5e94eaa43f529fccd29caef31cd02d49431660599f1516",
+   "links": [
+    "res://data/levels/ch1_warehouse.tres",
+    "res://data/levels/ch1_pawnshop.tres",
+    "res://data/levels/ch1_booth_alley.tres"
+   ],
+   "next_level": "",
+   "path": "res://data/levels/ch1_street.tres",
+   "sha256": "437a57abe0eabc769b4606302ddb768e4e6fb3740d9386af5536a1e07a2fc0d3",
+   "zones": [
+    {
+     "start_tile": 0,
+     "states": {
+      "boss": {
+       "cue": "boss_warden",
+       "file": "res://audio/music/boss_warden.ogg",
+       "track": "boss_warden"
+      },
+      "calm": {
+       "cue": "calm_market",
+       "file": "res://audio/music/calm_market.ogg",
+       "track": "calm_market"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_booth",
+       "file": "res://audio/music/safe_booth.ogg",
+       "track": "safe_booth"
+      }
+     },
+     "zone": "market"
+    },
+    {
+     "start_tile": 181,
+     "states": {
+      "boss": {
+       "cue": "boss_warden",
+       "file": "res://audio/music/boss_warden.ogg",
+       "track": "boss_warden"
+      },
+      "calm": {
+       "cue": "calm_freight",
+       "file": "res://audio/music/calm_freight.ogg",
+       "track": "calm_freight"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_booth",
+       "file": "res://audio/music/safe_booth.ogg",
+       "track": "safe_booth"
+      }
+     },
+     "zone": "freight"
+    }
+   ]
+  },
+  {
+   "id": "ch1_vault",
+   "intro_scene": "",
+   "layout": "res://data/levels/ch1_vault_map.json",
+   "layout_sha256": "56c8e2000a5bd482c83ac9b31e70163fa748bb62e2cc834ac7e94b4702d6076b",
+   "links": [
+    "res://data/levels/ch1_lounge.tres",
+    "res://data/levels/ch1_warehouse.tres"
+   ],
+   "next_level": "",
+   "path": "res://data/levels/ch1_vault.tres",
+   "sha256": "461655734e29ac6fd02e4382f67d4dfb0faf6012d174187503caf6efe8c2ba86",
+   "zones": [
+    {
+     "start_tile": 0,
+     "states": {
+      "boss": {
+       "cue": "boss_warden",
+       "file": "res://audio/music/boss_warden.ogg",
+       "track": "boss_warden"
+      },
+      "calm": {
+       "cue": "calm_freight",
+       "file": "res://audio/music/calm_freight.ogg",
+       "track": "calm_freight"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_booth",
+       "file": "res://audio/music/safe_booth.ogg",
+       "track": "safe_booth"
+      }
+     },
+     "zone": "freight"
+    }
+   ]
+  },
+  {
+   "id": "ch1_warehouse",
+   "intro_scene": "",
+   "layout": "res://data/levels/ch1_warehouse_map.json",
+   "layout_sha256": "bd613d3b942bb889ea2faa1e8088c9c737d7ddbe277eb2167a4f50a58d334d42",
+   "links": [
+    "res://data/levels/ch1_street.tres",
+    "res://data/levels/ch1_vault.tres"
+   ],
+   "next_level": "",
+   "path": "res://data/levels/ch1_warehouse.tres",
+   "sha256": "5cb899e75cce9d5e7f0aaf02f2e68009a6f01d49d8f5c6b9aa00dc2499ba8e68",
+   "zones": [
+    {
+     "start_tile": 0,
+     "states": {
+      "boss": {
+       "cue": "boss_warden",
+       "file": "res://audio/music/boss_warden.ogg",
+       "track": "boss_warden"
+      },
+      "calm": {
+       "cue": "calm_freight",
+       "file": "res://audio/music/calm_freight.ogg",
+       "track": "calm_freight"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_booth",
+       "file": "res://audio/music/safe_booth.ogg",
+       "track": "safe_booth"
+      }
+     },
+     "zone": "freight"
+    }
+   ]
+  },
+  {
+   "id": "level_01",
+   "intro_scene": "cut_c0_opening",
+   "layout": "res://data/levels/level_01_map.json",
+   "layout_sha256": "30388ee8b01fc0da92bbaafa19d733da930952ae985f7dbde328892cd827061e",
+   "links": [
+    "res://data/levels/level_02.tres"
+   ],
+   "next_level": "res://data/levels/level_02.tres",
+   "path": "res://data/levels/level_01.tres",
+   "sha256": "c2eb8b026750fece5d94e2b82d5b348ef988f0e9f1a5380aa343ea64723d527c",
+   "zones": [
+    {
+     "start_tile": 0,
+     "states": {
+      "boss": {
+       "cue": "boss_warden",
+       "file": "res://audio/music/boss_warden.ogg",
+       "track": "boss_warden"
+      },
+      "calm": {
+       "cue": "calm_rooftop",
+       "file": "res://audio/music/calm_rooftop.ogg",
+       "track": "calm_rooftop"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_booth",
+       "file": "res://audio/music/safe_booth.ogg",
+       "track": "safe_booth"
+      }
+     },
+     "zone": "rooftop"
+    },
+    {
+     "start_tile": 70,
+     "states": {
+      "boss": {
+       "cue": "boss_warden",
+       "file": "res://audio/music/boss_warden.ogg",
+       "track": "boss_warden"
+      },
+      "calm": {
+       "cue": "calm_market",
+       "file": "res://audio/music/calm_market.ogg",
+       "track": "calm_market"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_booth",
+       "file": "res://audio/music/safe_booth.ogg",
+       "track": "safe_booth"
+      }
+     },
+     "zone": "market"
+    },
+    {
+     "start_tile": 160,
+     "states": {
+      "boss": {
+       "cue": "boss_warden",
+       "file": "res://audio/music/boss_warden.ogg",
+       "track": "boss_warden"
+      },
+      "calm": {
+       "cue": "calm_freight",
+       "file": "res://audio/music/calm_freight.ogg",
+       "track": "calm_freight"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_booth",
+       "file": "res://audio/music/safe_booth.ogg",
+       "track": "safe_booth"
+      }
+     },
+     "zone": "freight"
+    },
+    {
+     "start_tile": 240,
+     "states": {
+      "boss": {
+       "cue": "boss_warden",
+       "file": "res://audio/music/boss_warden.ogg",
+       "track": "boss_warden"
+      },
+      "calm": {
+       "cue": "calm_facility",
+       "file": "res://audio/music/calm_facility.ogg",
+       "track": "calm_facility"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_booth",
+       "file": "res://audio/music/safe_booth.ogg",
+       "track": "safe_booth"
+      }
+     },
+     "zone": "facility"
+    },
+    {
+     "start_tile": 310,
+     "states": {
+      "boss": {
+       "cue": "boss_warden",
+       "file": "res://audio/music/boss_warden.ogg",
+       "track": "boss_warden"
+      },
+      "calm": {
+       "cue": "calm_hangar",
+       "file": "res://audio/music/calm_hangar.ogg",
+       "track": "calm_hangar"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_booth",
+       "file": "res://audio/music/safe_booth.ogg",
+       "track": "safe_booth"
+      }
+     },
+     "zone": "hangar"
+    }
+   ]
+  },
+  {
+   "id": "level_02",
+   "intro_scene": "cut_c4_dawn",
+   "layout": "res://data/levels/level_02_map.json",
+   "layout_sha256": "935c515995745b20c7f2cdd0216cb33b39a240577a8a12f2097c304e90703e3f",
+   "links": [],
+   "next_level": "",
+   "path": "res://data/levels/level_02.tres",
+   "sha256": "b75125d0fda421f6c2af94347b97c4e3404361e3a96083148e75c8fac66d19dc",
+   "zones": [
+    {
+     "start_tile": 0,
+     "states": {
+      "boss": {
+       "cue": "boss_reclaimer",
+       "file": "res://audio/music/boss_reclaimer.ogg",
+       "track": "boss_reclaimer"
+      },
+      "calm": {
+       "cue": "calm_shaft",
+       "file": "res://audio/music/calm_shaft.ogg",
+       "track": "calm_shaft"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_booth",
+       "file": "res://audio/music/safe_booth.ogg",
+       "track": "safe_booth"
+      }
+     },
+     "zone": "shaft"
+    },
+    {
+     "start_tile": 70,
+     "states": {
+      "boss": {
+       "cue": "boss_reclaimer",
+       "file": "res://audio/music/boss_reclaimer.ogg",
+       "track": "boss_reclaimer"
+      },
+      "calm": {
+       "cue": "calm_shaft_deep",
+       "file": "res://audio/music/calm_shaft_deep.ogg",
+       "track": "calm_shaft_deep"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_booth",
+       "file": "res://audio/music/safe_booth.ogg",
+       "track": "safe_booth"
+      }
+     },
+     "zone": "shaft_deep"
+    },
+    {
+     "start_tile": 140,
+     "states": {
+      "boss": {
+       "cue": "boss_reclaimer",
+       "file": "res://audio/music/boss_reclaimer.ogg",
+       "track": "boss_reclaimer"
+      },
+      "calm": {
+       "cue": "calm_residential",
+       "file": "res://audio/music/calm_residential.ogg",
+       "track": "calm_residential"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_booth",
+       "file": "res://audio/music/safe_booth.ogg",
+       "track": "safe_booth"
+      }
+     },
+     "zone": "residential"
+    },
+    {
+     "start_tile": 215,
+     "states": {
+      "boss": {
+       "cue": "boss_reclaimer",
+       "file": "res://audio/music/boss_reclaimer.ogg",
+       "track": "boss_reclaimer"
+      },
+      "calm": {
+       "cue": "calm_freight",
+       "file": "res://audio/music/calm_freight.ogg",
+       "track": "calm_freight"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_booth",
+       "file": "res://audio/music/safe_booth.ogg",
+       "track": "safe_booth"
+      }
+     },
+     "zone": "mezzanine_gray"
+    },
+    {
+     "start_tile": 263,
+     "states": {
+      "boss": {
+       "cue": "boss_reclaimer",
+       "file": "res://audio/music/boss_reclaimer.ogg",
+       "track": "boss_reclaimer"
+      },
+      "calm": {
+       "cue": "calm_freight",
+       "file": "res://audio/music/calm_freight.ogg",
+       "track": "calm_freight"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_booth",
+       "file": "res://audio/music/safe_booth.ogg",
+       "track": "safe_booth"
+      }
+     },
+     "zone": "alarm"
+    },
+    {
+     "start_tile": 325,
+     "states": {
+      "boss": {
+       "cue": "boss_reclaimer",
+       "file": "res://audio/music/boss_reclaimer.ogg",
+       "track": "boss_reclaimer"
+      },
+      "calm": {
+       "cue": "calm_power_room",
+       "file": "res://audio/music/calm_power_room.ogg",
+       "track": "calm_power_room"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_booth",
+       "file": "res://audio/music/safe_booth.ogg",
+       "track": "safe_booth"
+      }
+     },
+     "zone": "power_room"
+    },
+    {
+     "start_tile": 385,
+     "states": {
+      "boss": {
+       "cue": "boss_reclaimer",
+       "file": "res://audio/music/boss_reclaimer.ogg",
+       "track": "boss_reclaimer"
+      },
+      "calm": {
+       "cue": "calm_hangar",
+       "file": "res://audio/music/calm_hangar.ogg",
+       "track": "calm_hangar"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_booth",
+       "file": "res://audio/music/safe_booth.ogg",
+       "track": "safe_booth"
+      }
+     },
+     "zone": "hangar"
+    },
+    {
+     "start_tile": 415,
+     "states": {
+      "boss": {
+       "cue": "boss_reclaimer",
+       "file": "res://audio/music/boss_reclaimer.ogg",
+       "track": "boss_reclaimer"
+      },
+      "calm": {
+       "cue": "calm_transfer",
+       "file": "res://audio/music/calm_transfer.ogg",
+       "track": "calm_transfer"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_booth",
+       "file": "res://audio/music/safe_booth.ogg",
+       "track": "safe_booth"
+      }
+     },
+     "zone": "transfer"
+    },
+    {
+     "start_tile": 440,
+     "states": {
+      "boss": {
+       "cue": "boss_reclaimer",
+       "file": "res://audio/music/boss_reclaimer.ogg",
+       "track": "boss_reclaimer"
+      },
+      "calm": {
+       "cue": "safe_clinic",
+       "file": "res://audio/music/safe_clinic.ogg",
+       "track": "safe_clinic"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_clinic",
+       "file": "res://audio/music/safe_clinic.ogg",
+       "track": "safe_clinic"
+      }
+     },
+     "zone": "clinic_ward"
+    },
+    {
+     "start_tile": 470,
+     "states": {
+      "boss": {
+       "cue": "boss_reclaimer",
+       "file": "res://audio/music/boss_reclaimer.ogg",
+       "track": "boss_reclaimer"
+      },
+      "calm": {
+       "cue": "calm_freight",
+       "file": "res://audio/music/calm_freight.ogg",
+       "track": "calm_freight"
+      },
+      "combat": {
+       "cue": "combat_alleys",
+       "file": "res://audio/music/combat_alleys.ogg",
+       "track": "combat_alleys"
+      },
+      "safe": {
+       "cue": "safe_booth",
+       "file": "res://audio/music/safe_booth.ogg",
+       "track": "safe_booth"
+      }
+     },
+     "zone": "tower_white"
+    }
+   ]
+  }
+ ],
+ "music_errors": [],
+ "non_file_sounds": [
+  "empty",
+  "reload_mid",
+  "reload_done",
+  "reload_start"
+ ],
+ "sounds": [
+  {
+   "id": "amb_city_night",
+   "source": "file"
+  },
+  {
+   "id": "amb_drip",
+   "source": "file"
+  },
+  {
+   "id": "amb_generator",
+   "source": "file"
+  },
+  {
+   "id": "amb_machine_room",
+   "source": "file"
+  },
+  {
+   "id": "amb_rain",
+   "source": "file"
+  },
+  {
+   "id": "amb_rain_light",
+   "source": "file"
+  },
+  {
+   "id": "amb_ventilation",
+   "source": "file"
+  },
+  {
+   "id": "amb_wind",
+   "source": "file"
+  },
+  {
+   "id": "death_creature",
+   "source": "file"
+  },
+  {
+   "id": "death_humanoid",
+   "source": "file"
+  },
+  {
+   "id": "death_machine",
+   "source": "file"
+  },
+  {
+   "id": "death_player",
+   "source": "file"
+  },
+  {
+   "id": "empty_ballistic",
+   "source": "file"
+  },
+  {
+   "id": "empty_energy",
+   "source": "file"
+  },
+  {
+   "id": "empty_heavy",
+   "source": "file"
+  },
+  {
+   "id": "equip_ballistic",
+   "source": "file"
+  },
+  {
+   "id": "equip_energy",
+   "source": "file"
+  },
+  {
+   "id": "equip_heavy",
+   "source": "file"
+  },
+  {
+   "id": "hurt_creature",
+   "source": "file"
+  },
+  {
+   "id": "hurt_humanoid",
+   "source": "file"
+  },
+  {
+   "id": "hurt_machine",
+   "source": "file"
+  },
+  {
+   "id": "land_concrete",
+   "source": "file"
+  },
+  {
+   "id": "dash",
+   "source": "file"
+  },
+  {
+   "id": "land_dirt",
+   "source": "file"
+  },
+  {
+   "id": "land_metal",
+   "source": "file"
+  },
+  {
+   "id": "land_wet",
+   "source": "file"
+  },
+  {
+   "id": "land_wood",
+   "source": "file"
+  },
+  {
+   "id": "reload_done_energy",
+   "source": "file"
+  },
+  {
+   "id": "reload_done_heavy",
+   "source": "file"
+  },
+  {
+   "id": "reload_done_pistol",
+   "source": "file"
+  },
+  {
+   "id": "reload_done_rifle",
+   "source": "file"
+  },
+  {
+   "id": "reload_done_shotgun",
+   "source": "file"
+  },
+  {
+   "id": "reload_done_smg",
+   "source": "file"
+  },
+  {
+   "id": "reload_mid_energy",
+   "source": "file"
+  },
+  {
+   "id": "reload_mid_heavy",
+   "source": "file"
+  },
+  {
+   "id": "reload_mid_pistol",
+   "source": "file"
+  },
+  {
+   "id": "reload_mid_rifle",
+   "source": "file"
+  },
+  {
+   "id": "reload_mid_shotgun",
+   "source": "file"
+  },
+  {
+   "id": "reload_mid_smg",
+   "source": "file"
+  },
+  {
+   "id": "reload_start_energy",
+   "source": "file"
+  },
+  {
+   "id": "reload_start_heavy",
+   "source": "file"
+  },
+  {
+   "id": "reload_start_pistol",
+   "source": "file"
+  },
+  {
+   "id": "reload_start_rifle",
+   "source": "file"
+  },
+  {
+   "id": "reload_start_shotgun",
+   "source": "file"
+  },
+  {
+   "id": "reload_start_smg",
+   "source": "file"
+  },
+  {
+   "id": "shot_enemy_heavy",
+   "source": "file"
+  },
+  {
+   "id": "shot_enemy_sniper",
+   "source": "file"
+  },
+  {
+   "id": "thunder",
+   "source": "file"
+  },
+  {
+   "id": "shot_railgun",
+   "source": "file"
+  },
+  {
+   "id": "shot_launcher",
+   "source": "file"
+  },
+  {
+   "id": "shot_smg",
+   "source": "file"
+  },
+  {
+   "id": "shot_pistol",
+   "source": "file"
+  },
+  {
+   "id": "shot_enemy_turret",
+   "source": "file"
+  },
+  {
+   "id": "step_concrete",
+   "source": "file"
+  },
+  {
+   "id": "step_dirt",
+   "source": "file"
+  },
+  {
+   "id": "step_metal",
+   "source": "file"
+  },
+  {
+   "id": "step_wet",
+   "source": "file"
+  },
+  {
+   "id": "step_wood",
+   "source": "file"
+  },
+  {
+   "id": "shot_rifle",
+   "source": "file"
+  },
+  {
+   "id": "ui_move",
+   "source": "file"
+  },
+  {
+   "id": "ui_confirm",
+   "source": "file"
+  },
+  {
+   "id": "empty",
+   "source": "synth"
+  },
+  {
+   "id": "chomp",
+   "source": "file"
+  },
+  {
+   "id": "rattle",
+   "source": "file"
+  },
+  {
+   "id": "zap",
+   "source": "file"
+  },
+  {
+   "id": "growl",
+   "source": "file"
+  },
+  {
+   "id": "vent",
+   "source": "file"
+  },
+  {
+   "id": "spin",
+   "source": "file"
+  },
+  {
+   "id": "ignite",
+   "source": "file"
+  },
+  {
+   "id": "flame",
+   "source": "file"
+  },
+  {
+   "id": "laser_flash",
+   "source": "file"
+  },
+  {
+   "id": "alarm",
+   "source": "file"
+  },
+  {
+   "id": "phone_ring",
+   "source": "file"
+  },
+  {
+   "id": "phone_hangup",
+   "source": "file"
+  },
+  {
+   "id": "phone_voice",
+   "source": "file"
+  },
+  {
+   "id": "phone_dial3",
+   "source": "file"
+  },
+  {
+   "id": "phone_dial2",
+   "source": "file"
+  },
+  {
+   "id": "phone_dial",
+   "source": "file"
+  },
+  {
+   "id": "phone_pickup",
+   "source": "file"
+  },
+  {
+   "id": "ui_error",
+   "source": "file"
+  },
+  {
+   "id": "telegraph",
+   "source": "file"
+  },
+  {
+   "id": "parry",
+   "source": "file"
+  },
+  {
+   "id": "pickup",
+   "source": "file"
+  },
+  {
+   "id": "ability_ready",
+   "source": "file"
+  },
+  {
+   "id": "overclock",
+   "source": "file"
+  },
+  {
+   "id": "emp",
+   "source": "file"
+  },
+  {
+   "id": "power_up",
+   "source": "file"
+  },
+  {
+   "id": "power_down",
+   "source": "file"
+  },
+  {
+   "id": "gate",
+   "source": "file"
+  },
+  {
+   "id": "switch",
+   "source": "file"
+  },
+  {
+   "id": "glass_break",
+   "source": "file"
+  },
+  {
+   "id": "crate_break",
+   "source": "file"
+  },
+  {
+   "id": "hurt",
+   "source": "file"
+  },
+  {
+   "id": "land",
+   "source": "file"
+  },
+  {
+   "id": "melee_hit_heavy",
+   "source": "file"
+  },
+  {
+   "id": "melee_hit",
+   "source": "file"
+  },
+  {
+   "id": "melee_swing_heavy",
+   "source": "file"
+  },
+  {
+   "id": "melee_swing",
+   "source": "file"
+  },
+  {
+   "id": "finisher",
+   "source": "file"
+  },
+  {
+   "id": "explosion_small",
+   "source": "file"
+  },
+  {
+   "id": "explosion",
+   "source": "file"
+  },
+  {
+   "id": "block",
+   "source": "file"
+  },
+  {
+   "id": "guard_break",
+   "source": "file"
+  },
+  {
+   "id": "reload_mid",
+   "source": "synth"
+  },
+  {
+   "id": "hit_weak",
+   "source": "file"
+  },
+  {
+   "id": "ricochet",
+   "source": "file"
+  },
+  {
+   "id": "mat_energy",
+   "source": "file"
+  },
+  {
+   "id": "mat_concrete",
+   "source": "file"
+  },
+  {
+   "id": "mat_wood",
+   "source": "file"
+  },
+  {
+   "id": "mat_glass",
+   "source": "file"
+  },
+  {
+   "id": "mat_metal",
+   "source": "file"
+  },
+  {
+   "id": "mat_armor",
+   "source": "file"
+  },
+  {
+   "id": "mat_flesh",
+   "source": "file"
+  },
+  {
+   "id": "mat_generic",
+   "source": "file"
+  },
+  {
+   "id": "hit_tail",
+   "source": "file"
+  },
+  {
+   "id": "hit_c",
+   "source": "file"
+  },
+  {
+   "id": "hit_b",
+   "source": "file"
+  },
+  {
+   "id": "hit_a",
+   "source": "file"
+  },
+  {
+   "id": "hit",
+   "source": "file"
+  },
+  {
+   "id": "shot_enemy",
+   "source": "file"
+  },
+  {
+   "id": "shot_cannon",
+   "source": "file"
+  },
+  {
+   "id": "shot_laser",
+   "source": "file"
+  },
+  {
+   "id": "shot_spread",
+   "source": "file"
+  },
+  {
+   "id": "reload_done",
+   "source": "synth"
+  },
+  {
+   "id": "reload_start",
+   "source": "synth"
+  },
+  {
+   "id": "beep",
+   "source": "file"
+  },
+  {
+   "id": "jump",
+   "source": "file"
+  },
+  {
+   "id": "ui_cancel",
+   "source": "file"
+  },
+  {
+   "id": "kill",
+   "source": "file"
+  }
+ ],
+ "weapons": [
+  {
+   "fire_sound": "shot_laser",
+   "fire_source": "file",
+   "id": "laser",
+   "magazine": true,
+   "melee": false,
+   "operations": {
+    "empty": {
+     "has_event": false,
+     "name": "empty_energy",
+     "source": "file"
+    },
+    "equip": {
+     "has_event": false,
+     "name": "equip_energy",
+     "source": "file"
+    },
+    "reload_done": {
+     "has_event": false,
+     "name": "reload_done_energy",
+     "source": "file"
+    },
+    "reload_mid": {
+     "has_event": false,
+     "name": "reload_mid_energy",
+     "source": "file"
+    },
+    "reload_start": {
+     "has_event": false,
+     "name": "reload_start_energy",
+     "source": "file"
+    }
+   }
+  },
+  {
+   "fire_sound": "shot_launcher",
+   "fire_source": "file",
+   "id": "launcher",
+   "magazine": true,
+   "melee": false,
+   "operations": {
+    "empty": {
+     "has_event": false,
+     "name": "empty_heavy",
+     "source": "file"
+    },
+    "equip": {
+     "has_event": false,
+     "name": "equip_heavy",
+     "source": "file"
+    },
+    "reload_done": {
+     "has_event": false,
+     "name": "reload_done_heavy",
+     "source": "file"
+    },
+    "reload_mid": {
+     "has_event": false,
+     "name": "reload_mid_heavy",
+     "source": "file"
+    },
+    "reload_start": {
+     "has_event": false,
+     "name": "reload_start_heavy",
+     "source": "file"
+    }
+   }
+  },
+  {
+   "fire_sound": "shot_cannon",
+   "fire_source": "file",
+   "id": "mech_cannon",
+   "magazine": false,
+   "melee": false,
+   "operations": {
+    "empty": {
+     "has_event": false,
+     "name": "empty_heavy",
+     "source": "file"
+    },
+    "equip": {
+     "has_event": false,
+     "name": "equip_heavy",
+     "source": "file"
+    },
+    "reload_done": {
+     "has_event": false,
+     "name": "reload_done_heavy",
+     "source": "file"
+    },
+    "reload_mid": {
+     "has_event": false,
+     "name": "reload_mid_heavy",
+     "source": "file"
+    },
+    "reload_start": {
+     "has_event": false,
+     "name": "reload_start_heavy",
+     "source": "file"
+    }
+   }
+  },
+  {
+   "fire_sound": "shot_pistol",
+   "fire_source": "file",
+   "id": "pistol",
+   "magazine": true,
+   "melee": false,
+   "operations": {
+    "empty": {
+     "has_event": false,
+     "name": "empty_ballistic",
+     "source": "file"
+    },
+    "equip": {
+     "has_event": false,
+     "name": "equip_ballistic",
+     "source": "file"
+    },
+    "reload_done": {
+     "has_event": false,
+     "name": "reload_done_pistol",
+     "source": "file"
+    },
+    "reload_mid": {
+     "has_event": false,
+     "name": "reload_mid_pistol",
+     "source": "file"
+    },
+    "reload_start": {
+     "has_event": false,
+     "name": "reload_start_pistol",
+     "source": "file"
+    }
+   }
+  },
+  {
+   "fire_sound": "shot_railgun",
+   "fire_source": "file",
+   "id": "railgun",
+   "magazine": true,
+   "melee": false,
+   "operations": {
+    "empty": {
+     "has_event": false,
+     "name": "empty_energy",
+     "source": "file"
+    },
+    "equip": {
+     "has_event": false,
+     "name": "equip_energy",
+     "source": "file"
+    },
+    "reload_done": {
+     "has_event": false,
+     "name": "reload_done_energy",
+     "source": "file"
+    },
+    "reload_mid": {
+     "has_event": false,
+     "name": "reload_mid_energy",
+     "source": "file"
+    },
+    "reload_start": {
+     "has_event": false,
+     "name": "reload_start_energy",
+     "source": "file"
+    }
+   }
+  },
+  {
+   "fire_sound": "shot_rifle",
+   "fire_source": "file",
+   "id": "rifle",
+   "magazine": true,
+   "melee": false,
+   "operations": {
+    "empty": {
+     "has_event": false,
+     "name": "empty_ballistic",
+     "source": "file"
+    },
+    "equip": {
+     "has_event": false,
+     "name": "equip_ballistic",
+     "source": "file"
+    },
+    "reload_done": {
+     "has_event": false,
+     "name": "reload_done_rifle",
+     "source": "file"
+    },
+    "reload_mid": {
+     "has_event": false,
+     "name": "reload_mid_rifle",
+     "source": "file"
+    },
+    "reload_start": {
+     "has_event": false,
+     "name": "reload_start_rifle",
+     "source": "file"
+    }
+   }
+  },
+  {
+   "fire_sound": "shot_smg",
+   "fire_source": "file",
+   "id": "smg",
+   "magazine": true,
+   "melee": false,
+   "operations": {
+    "empty": {
+     "has_event": false,
+     "name": "empty_ballistic",
+     "source": "file"
+    },
+    "equip": {
+     "has_event": false,
+     "name": "equip_ballistic",
+     "source": "file"
+    },
+    "reload_done": {
+     "has_event": false,
+     "name": "reload_done_smg",
+     "source": "file"
+    },
+    "reload_mid": {
+     "has_event": false,
+     "name": "reload_mid_smg",
+     "source": "file"
+    },
+    "reload_start": {
+     "has_event": false,
+     "name": "reload_start_smg",
+     "source": "file"
+    }
+   }
+  },
+  {
+   "fire_sound": "shot_spread",
+   "fire_source": "file",
+   "id": "spread",
+   "magazine": true,
+   "melee": false,
+   "operations": {
+    "empty": {
+     "has_event": false,
+     "name": "empty_ballistic",
+     "source": "file"
+    },
+    "equip": {
+     "has_event": false,
+     "name": "equip_ballistic",
+     "source": "file"
+    },
+    "reload_done": {
+     "has_event": false,
+     "name": "reload_done_shotgun",
+     "source": "file"
+    },
+    "reload_mid": {
+     "has_event": false,
+     "name": "reload_mid_shotgun",
+     "source": "file"
+    },
+    "reload_start": {
+     "has_event": false,
+     "name": "reload_start_shotgun",
+     "source": "file"
+    }
+   }
+  }
+ ],
+ "first_level": "res://data/levels/ch1_pawnshop.tres",
+ "reachable": [
+  "res://data/levels/ch1_booth_alley.tres",
+  "res://data/levels/ch1_lounge.tres",
+  "res://data/levels/ch1_pawnshop.tres",
+  "res://data/levels/ch1_pawnshop_dawn.tres",
+  "res://data/levels/ch1_rooftop.tres",
+  "res://data/levels/ch1_stall.tres",
+  "res://data/levels/ch1_street.tres",
+  "res://data/levels/ch1_vault.tres",
+  "res://data/levels/ch1_warehouse.tres"
+ ],
+ "second_chapter_reachable": false,
+ "revision": "319eaf87 + NE-154 level_02.boss routing fix"
+}

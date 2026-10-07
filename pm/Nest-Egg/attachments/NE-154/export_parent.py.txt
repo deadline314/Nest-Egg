@@ -1,0 +1,28 @@
+import sys, json, html, shutil, subprocess, hashlib
+from pathlib import Path
+sys.path.insert(0,'tools/audio')
+from export_audition import metrics
+root=Path.cwd(); out=root/'pm/Nest-Egg/attachments/NE-154'; media=out/'media'; media.mkdir(exist_ok=True)
+rows=[]
+for name,label in [('parent-flow','修正前：真實關卡 combat／boss 串接抽查'),('parent-boss-before-audio','修前：舊第二章回收者頭目戰'),('parent-boss-after-merged','修後（ST-3 合入）：舊第二章回收者頭目戰')]:
+    capture=Path('/tmp/ne-audio-session')/name
+    raw=json.loads((capture/'capture.json').read_text())
+    for r in raw['records']:
+        source=capture/(r['name']+'.wav'); target=media/(name+'-'+r['name']+'.ogg')
+        subprocess.run(['ffmpeg','-v','error','-y','-i',str(source),'-c:a','libvorbis','-q:a','5',str(target)],check=True)
+        rows.append(dict(label=label,revision=raw['revision'],method=r['context'],events=r['events'],seconds=r['seconds'],audio_driver=raw['audio_driver'],file='media/'+target.name,metrics=metrics(target),original_wav_sha256=hashlib.sha256(source.read_bytes()).hexdigest()))
+        assert rows[-1]['metrics']['peak_dbfs'] > -90
+metadata=dict(base='28ef95c7',revision='319eaf87 + NE-154 routing fix',subjective_listening=False,full_playthrough=False,story_auto_skip=True,rows=rows)
+(out/'playback.json').write_text(json.dumps(metadata,ensure_ascii=False,indent=1)+'\n')
+for key,n in [('before','parent-boss-before'),('after','parent-boss-after-merged-render')]:
+    shutil.copy(Path('/tmp/ne-audio-session')/n/'level_02_boss.png',root/'pm/Nest-Egg/images'/('NE-154-parent-boss-'+key+'.png'))
+    shutil.copy(Path('/tmp/ne-audio-session')/n/'capture.json',out/('render-'+key+'-trace.json'))
+parts=['''<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><title>NE-154 真實關卡音樂串接驗證</title><style>body{background:#131923;color:#e9f0fa;font:16px system-ui;max-width:1080px;margin:32px auto;padding:16px}a{color:#8fc8ff}article{border:1px solid #657184;border-radius:8px;padding:16px;margin:20px 0}audio{width:100%}pre{white-space:pre-wrap;font-size:13px}img{max-width:100%}</style><body><h1>NE-154 真實關卡音樂串接驗證</h1><p>無音訊輸出裝置，未人工試聽。以下為 Godot 4.7 的實際 Master 混音器錄音，非直接串接音檔；腳本定位、高生命、跳過過場。未從主選單完整通關。</p><p><a href="README.md">範圍與限制</a> · <a href="playback.json">事件、時間、檔案與峰值</a> · <a href="coverage.json">正式音效與關卡配置</a> · <a href="../NE-196/index.html">147 位置與雙章槍聲、落脚、電話、短曲材料</a></p><h2>舊第二章頭目戰修前／修後</h2><p>真實 Level 跨過 arena → 生成 Reclaimer → boss_started。修前取到 boss_warden，修後為 boss_reclaimer。正式音檔、音量與淡入淡出不變，僅指定 map.levels.level_02.boss。</p>''']
+ordered=[r for r in rows if 'before-audio' in r['file'] or 'after-merged' in r['file']]+[r for r in rows if 'parent-flow-' in r['file']]
+for i,r in enumerate(ordered):
+    if i==2: parts.append('<h2>第一章／保留的舊第二章場景抽查（修前）</h2>')
+    tracks=[(e['ms'],e['track'],e.get('file','')) for e in r['events'] if 'track' in e]
+    parts.append('<article><h3>'+html.escape(r['label']+' / '+Path(r['file']).stem)+'</h3><audio controls preload="none" src="'+r['file']+'"></audio><p>'+html.escape(str(r['method']))+'</p><pre>'+html.escape(json.dumps(tracks,ensure_ascii=False,indent=1))+'</pre></article>')
+parts.append('''<h2>正式曲目來源（保留原選擇）</h2><p><a href="../../../../audio/music/boss_warden.ogg">看守者完整正式片段</a> · <a href="../../../../audio/music/boss_reclaimer.ogg">回收者完整正式片段</a> · <a href="../../../../assets_src/audio/LICENSES.json">CC0 授權登記</a></p><h2>Forward+ 真實截圖</h2><p>llvmpipe 軟體 Vulkan；捕捉影格慢，不作實機同步判斷。畫面有直接載入關卡的開場提示／對話，並非完整遊玩終點。</p><h3>修前</h3><img src="../../images/NE-154-parent-boss-before.png" alt="修前回收者頭目戰"><h3>修後</h3><img src="../../images/NE-154-parent-boss-after.png" alt="修後回收者頭目戰"><script>document.querySelectorAll('audio').forEach(a=>a.addEventListener('play',()=>document.querySelectorAll('audio').forEach(b=>{if(a!==b)b.pause()})))</script></body></html>''')
+(out/'index.html').write_text('\n'.join(parts))
+print('exported',len(rows),'clips; all nonempty')

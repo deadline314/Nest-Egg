@@ -1,0 +1,87 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME SceneSanitySuite 2.2
+SUITE_TIME PostureSuite 1.2
+WARNING: No Bone2D children of node @Bone2D@173. Cannot calculate bone length or angle reliably.
+Using transform rotation for bone angle.
+     at: calculate_length_and_rotation (scene/2d/skeleton_2d.cpp:451)
+     GDScript backtrace (most recent call first):
+         [0] _chain (res://tests/suite/test_rig_mesh.gd:31)
+         [1] _test_synthetic (res://tests/suite/test_rig_mesh.gd:52)
+         [2] run (res://tests/suite/test_rig_mesh.gd:13)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_posture.gd:16)
+         [5] _test_weapon_less_and_airborne_are_safe (res://tests/suite/test_posture.gd:154)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME RigMeshSuite 0.3
+[swarm] steering 24 bees costs 0.211 ms per frame
+SUITE_TIME ExoticEnemiesSuite 24.3
+SUITE_TIME FxUpgradesSuite 10.0
+ERROR: [MeleeSet] 無法讀取近戰資料：res://data/melee/test_no_such_attack.json（需要 attacks 字典），改用內建預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_loaded (res://game/player/melee_set.gd:37)
+       [1] attack (res://game/player/melee_set.gd:69)
+       [2] _test_melee_data (res://tests/suite/test_fx_melee_pickups.gd:37)
+       [3] run (res://tests/suite/test_fx_melee_pickups.gd:13)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_fx_upgrades.gd:17)
+       [6] _test_environment (res://tests/suite/test_fx_upgrades.gd:249)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:599)
+       [9] _frames (res://tests/smoke_test.gd:122)
+ERROR: [MeleeSet] res://data/melee/test_no_such_attack.json 沒有招式「x」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:73)
+       [1] _test_melee_data (res://tests/suite/test_fx_melee_pickups.gd:37)
+       [2] run (res://tests/suite/test_fx_melee_pickups.gd:13)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_fx_upgrades.gd:17)
+       [5] _test_environment (res://tests/suite/test_fx_upgrades.gd:249)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:599)
+       [8] _frames (res://tests/smoke_test.gd:122)
+FX_PERF idle=24.51 ms, 12 explosions=13.61 ms per frame, particles=292, nodes +0
+SUITE_TIME FxMeleePickupsSuite 17.7
+SUITE_TIME LayerOrderSuite 2.4
+ERROR: [StageScenes] 找不到資料檔：res://tests/fixtures/audio/no_such_scenes.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] read_root (res://core/audio/audio_data.gd:13)
+       [2] reload (res://core/audio/stage_scenes.gd:37)
+       [3] _init (res://core/audio/stage_scenes.gd:30)
+       [4] _test_scene_data (res://tests/suite/test_sound_stage.gd:61)
+       [5] run (res://tests/suite/test_sound_stage.gd:9)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_layer_order.gd:14)
+       [8] _test_level_scenery (res://tests/suite/test_layer_order.gd:136)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:599)
+       [11] _frames (res://tests/smoke_test.gd:122)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready().
+If you want to set size, change the anchors or consider using set_deferred().
+     at: _set_size (scene/gui/control.cpp:1519)
+     GDScript backtrace (most recent call first):
+         [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+         [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+         [2] _ready (res://ui/main_menu.gd:33)
+         [3] act_screen (res://tools/sound_lab/stage_actions.gd:587)
+         [4] run (res://tools/sound_lab/stage_actions.gd:46)
+         [5] run_action (res://tools/sound_lab/sound_stage.gd:119)
+         [6] reset (res://tools/sound_lab/lab_arena.gd:121)
+         [7] build (res://tools/sound_lab/lab_arena.gd:73)
+SUITE_TIME SoundStageSuite 52.7
+SUITE_TIME AssaultEnemiesSuite 54.9
+SUITE_TIME WorldPromptSuite 1.7
+checks: 851, failures: 0
+WARNING: 7 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 238 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2535)
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+ERROR: 7 RID allocations of type 'P11GodotArea2D' were leaked at exit.

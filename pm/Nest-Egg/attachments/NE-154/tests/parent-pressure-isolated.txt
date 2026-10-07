@@ -1,0 +1,17 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+== Nest Egg smoke test ==
+ERROR: [FeelLab] 沒有這把武器：res://data/weapons/test_no_such_weapon.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] equip_weapon (res://tools/feel_lab/feel_lab.gd:131)
+       [1] _test_lab_runs (res://tests/suite/test_feel_lab.gd:99)
+       [2] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [FeelLab] 沒有這個敵人：res://data/enemies/test_no_such_enemy.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn_enemy (res://tools/feel_lab/feel_lab.gd:103)
+       [1] _test_lab_runs (res://tests/suite/test_feel_lab.gd:99)
+       [2] physics_frames (res://tests/suite/test_suite.gd:28)
+SUITE_TIME FeelLabSuite 2.7
+checks: 69, failures: 0

@@ -1,0 +1,24 @@
+extends "res://tools/audio/audition_capture.gd"
+func _game() -> void:
+    add_child(LightKit.create_environment())
+    for path in ["res://data/levels/ch1_warehouse.tres", "res://data/levels/level_01.tres", "res://data/levels/level_02.tres"]:
+        await _open_level(path)
+        var name := str(level.data.id)
+        var enemy_list := get_tree().get_nodes_in_group(&"enemies")
+        if not enemy_list.is_empty():
+            var enemy := enemy_list[0] as Enemy
+            level.player.global_position = enemy.global_position + Vector2(-100, 0)
+            level.camera.snap_to_target()
+            _begin()
+            enemy.raise_alert(level.player.global_position, 5.0)
+            await _wait(3.0)
+            await _shot(name + "_combat")
+            _end(name + "_combat", {"level": path, "state": str(Music.current_state()), "cue": str(Music.current_cue()), "method": "real level; placed near existing enemy; explicitly raised alert to exercise real combat detection; high health"})
+        if level._layout.arena_x >= 0.0:
+            _begin()
+            level.player.global_position.x = level._layout.arena_x + Level.ARENA_TRIGGER_MARGIN + 15.0
+            level.camera.snap_to_target()
+            await _wait(3.0)
+            await _shot(name + "_boss")
+            _end(name + "_boss", {"level": path, "arena_triggered": level._arena_triggered, "state": str(Music.current_state()), "cue": str(Music.current_cue()), "method": "real level; placed across real arena trigger; no manual boss_started signal"})
+        await _close_level()

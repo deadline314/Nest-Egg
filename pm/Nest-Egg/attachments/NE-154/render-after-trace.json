@@ -1,0 +1,71 @@
+{
+ "audio_driver": "Dummy",
+ "bus_gain_db": 0,
+ "full_playthrough": false,
+ "godot": {
+  "build": "official",
+  "hash": "5b4e0cb0fd279832bbdd69fed5354d4e5ad26f88",
+  "hex": 263936,
+  "major": 4,
+  "minor": 7,
+  "patch": 0,
+  "status": "stable",
+  "string": "4.7-stable (official)",
+  "timestamp": 0
+ },
+ "mode": "boss",
+ "records": [
+  {
+   "context": {
+    "arena_triggered": true,
+    "boss_active": true,
+    "cue": "boss_reclaimer",
+    "level": "res://data/levels/level_02.tres",
+    "method": "real level; placed near actual boss spawn across real arena trigger; no manual boss_started signal; high health; auto-skip",
+    "state": "calm",
+    "zone": "tower_white"
+   },
+   "events": [
+    {
+     "ms": 164,
+     "on_floor": true,
+     "phone_progress": -1.0,
+     "physics_frame": 17,
+     "position": [
+      7944.0,
+      320.0
+     ],
+     "sound": "telegraph",
+     "source": "file",
+     "voices": [
+      {
+       "choking": false,
+       "file": "res://audio/sfx/telegraph_01.ogg",
+       "pitch": 1.0,
+       "volume_db": -20.0
+      }
+     ]
+    },
+    {
+     "cue": "calm_freight",
+     "file": "res://audio/music/calm_freight.ogg",
+     "ms": 190,
+     "track": "calm_freight"
+    },
+    {
+     "cue": "boss_reclaimer",
+     "file": "res://audio/music/boss_reclaimer.ogg",
+     "ms": 1412,
+     "track": "boss_reclaimer"
+    }
+   ],
+   "name": "level_02_boss",
+   "save_error": 0,
+   "seconds": 4.82975056689342,
+   "wall_seconds": 4.97
+  }
+ ],
+ "revision": "319eaf87+NE154-routing",
+ "story_auto_skip": true,
+ "subjective_listening": false
+}

@@ -1,0 +1,31 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+== Nest Egg smoke test ==
+ERROR: [Music] cue「c_gone」的曲目「t_gone」找不到檔案：res://tests/fixtures/audio/test_audio_missing_track.ogg（res://tests/fixtures/audio/music_bad.json），維持靜音
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_stream (res://autoload/music.gd:270)
+       [2] _switch_to (res://autoload/music.gd:246)
+       [3] play_cue (res://autoload/music.gd:143)
+       [4] _test_missing_track (res://tests/suite/test_music.gd:137)
+       [5] run (res://tests/suite/test_music.gd:17)
+       [6] _test_playback_and_crossfade (res://tests/suite/test_music.gd:131)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Music] 沒有這個 cue「test_audio_no_such_cue」（res://tests/fixtures/audio/music_bad.json），維持目前的音樂
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _switch_to (res://autoload/music.gd:241)
+       [2] play_cue (res://autoload/music.gd:143)
+       [3] _test_missing_track (res://tests/suite/test_music.gd:139)
+       [4] run (res://tests/suite/test_music.gd:17)
+       [5] _test_playback_and_crossfade (res://tests/suite/test_music.gd:131)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME MusicSuite 4.1
+checks: 225, failures: 1
+FAIL: level_02 real boss plays boss_reclaimer, got boss_warden in zone tower_white
+WARNING: 14 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2535)

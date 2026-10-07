@@ -1,0 +1,106 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME NewEnemiesSuite 17.6
+SUITE_TIME CollectiblesSuite 5.0
+SUITE_TIME UiKitSuite 1.6
+ERROR: [NpcActor] 格 (34, 19)：人物 test_npc_bad 沒有任何對話
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/npc/npc_actor.gd:54)
+       [1] _spawn_static_entities (res://game/level/level.gd:402)
+       [2] _ready (res://game/level/level.gd:156)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_fallbacks (res://tests/suite/test_npc.gd:422)
+       [6] run (res://tests/suite/test_npc.gd:28)
+       [7] _test_real_npcs (res://tests/suite/test_npc.gd:410)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:599)
+       [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [Story] 找不到劇情場景：test_no_such_scene
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] play (res://autoload/story.gd:435)
+         [1] play_and_wait (res://autoload/story.gd:471)
+         [2] _talk (res://game/npc/npc_actor.gd:163)
+         [3] _test_fallbacks (res://tests/suite/test_npc.gd:443)
+         [4] frames (res://tests/suite/test_suite.gd:23)
+         [5] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME NpcSuite 8.2
+SUITE_TIME DeathReactionSuite 12.6
+SUITE_TIME ExposureSuite 2.7
+ERROR: [Feel] 沒有這個回饋事件「test_no_such_feel_event」（res://data/feel/events.json）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://autoload/feel.gd:241)
+       [1] play (res://autoload/feel.gd:126)
+       [2] _test_bad_events_are_safe (res://tests/suite/test_feel.gd:89)
+       [3] run (res://tests/suite/test_feel.gd:13)
+       [4] _test_shake_duration_is_honored (res://tests/suite/test_feel.gd:84)
+ERROR: [Sfx] 沒有這個聲音事件「test_no_such_sound_event」（res://data/feel/sound_events.json），改播「hit」
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report_once (res://autoload/sfx.gd:734)
+       [1] play_event (res://autoload/sfx.gd:650)
+       [2] _test_sound_events (res://tests/suite/test_feel.gd:317)
+ERROR: [HitFeedback] 沒有這個命中材質「test_no_such_material」（res://data/feel/materials.json），改用 generic
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/fx/hit_feedback.gd:159)
+       [1] play (res://game/fx/hit_feedback.gd:81)
+       [2] _test_hit_materials (res://tests/suite/test_feel.gd:334)
+       [3] run (res://tests/suite/test_feel.gd:19)
+       [4] _test_sound_events (res://tests/suite/test_feel.gd:318)
+ERROR: [Feel] 沒有這個預設組合「test_no_such_preset」（res://data/feel/presets.json）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://autoload/feel.gd:241)
+       [1] set_preset (res://autoload/feel.gd:62)
+       [2] _test_params_and_presets (res://tests/suite/test_feel.gd:496)
+       [3] run (res://tests/suite/test_feel.gd:23)
+       [4] _test_block_feel (res://tests/suite/test_feel.gd:468)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:599)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME FeelSuite 3.3
+ERROR: [Music] cue「c_gone」的曲目「t_gone」找不到檔案：res://tests/fixtures/audio/test_audio_missing_track.ogg（res://tests/fixtures/audio/music_bad.json），維持靜音
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_stream (res://autoload/music.gd:270)
+       [2] _switch_to (res://autoload/music.gd:246)
+       [3] play_cue (res://autoload/music.gd:143)
+       [4] _test_missing_track (res://tests/suite/test_music.gd:137)
+       [5] run (res://tests/suite/test_music.gd:17)
+       [6] _test_playback_and_crossfade (res://tests/suite/test_music.gd:131)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Music] 沒有這個 cue「test_audio_no_such_cue」（res://tests/fixtures/audio/music_bad.json），維持目前的音樂
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _switch_to (res://autoload/music.gd:241)
+       [2] play_cue (res://autoload/music.gd:143)
+       [3] _test_missing_track (res://tests/suite/test_music.gd:139)
+       [4] run (res://tests/suite/test_music.gd:17)
+       [5] _test_playback_and_crossfade (res://tests/suite/test_music.gd:131)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME MusicSuite 3.7
+SUITE_TIME StageCoverageCharactersSuite 39.2
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://data/levels/no_such_level.tres
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] warm_level (res://core/asset_prefetch.gd:27)
+         [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:532)
+         [2] run (res://tests/suite/test_ch1_map.gd:44)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_stage_coverage_characters.gd:10)
+         [5] _close_stage (res://tests/suite/stage_suite_base.gd:29)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME Chapter1MapSuite 50.6
+checks: 2693, failures: 0
+WARNING: 452 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2535)

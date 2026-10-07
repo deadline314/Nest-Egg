@@ -1,0 +1,52 @@
+extends Node
+func _ready() -> void:
+    var paths: Array[String] = []
+    for name in DirAccess.get_files_at("res://data/levels"):
+        if name.ends_with(".tres") and (name.begins_with("ch1_") or name in ["level_01.tres", "level_02.tres"]):
+            paths.append("res://data/levels/" + name)
+    paths.sort()
+    var report := {"base": "319eaf87", "kind": "read-only data/runtime resolver audit; not full playthrough", "weapons": [], "levels": [], "sounds": [], "non_file_sounds": [], "bank_errors": Sfx.bank().validate(), "music_errors": Music.validate(), "failed_files": Sfx.bank().failed_files()}
+    var names: Array = Sfx.SOUNDS.keys()
+    for id in Sfx.bank().ids():
+        if not names.has(id):
+            names.append(id)
+    names.sort()
+    for id in names:
+        var source := str(Sfx.source_of(StringName(str(id))))
+        report["sounds"].append({"id": str(id), "source": source})
+        if source != "file":
+            report["non_file_sounds"].append(str(id))
+    for file_name in DirAccess.get_files_at("res://data/weapons"):
+        if not file_name.ends_with(".tres"):
+            continue
+        var weapon := load("res://data/weapons/" + file_name) as WeaponData
+        if weapon == null:
+            continue
+        var kinds := {}
+        for kind in WeaponSounds.KINDS:
+            var name := WeaponSounds.name_for(weapon.id, StringName(kind))
+            kinds[kind] = {"name": str(name), "source": "none" if name == &"" else str(Sfx.source_of(name)), "has_event": Sfx.has_event(name)}
+        report["weapons"].append({"id": str(weapon.id), "melee": weapon.is_melee(), "magazine": weapon.has_magazine(), "fire_sound": str(weapon.fire_sound), "fire_source": str(Sfx.source_of(weapon.fire_sound)), "operations": kinds})
+    for path in paths:
+        var data := load(path) as LevelData
+        var links: Array[String] = []
+        if not data.next_level.is_empty():
+            links.append(data.next_level)
+        for value in data.legend.values():
+            if value is PortalData and not (value as PortalData).target_level.is_empty():
+                links.append((value as PortalData).target_level)
+        var zones: Array[Dictionary] = []
+        for zone in data.lighting_zones:
+            if zone.profile == null:
+                continue
+            var states := {}
+            for state in [&"calm", &"safe", &"combat", &"boss"]:
+                var cue := Music.resolve_cue(data.id, zone.profile.id, state)
+                var track := str(Music.cue_def(cue).get("track", ""))
+                states[str(state)] = {"cue": str(cue), "track": track, "file": Music.track_def(StringName(track)).get("file", "")}
+            zones.append({"zone": str(zone.profile.id), "start_tile": zone.start_tile, "states": states})
+        report["levels"].append({"path": path, "id": str(data.id), "next_level": data.next_level, "links": links, "intro_scene": str(data.intro_scene), "zones": zones, "sha256": FileAccess.get_file_as_string(path).sha256_text(), "layout": data.layout_path, "layout_sha256": FileAccess.get_file_as_string(data.layout_path).sha256_text() if not data.layout_path.is_empty() else ""})
+    var file := FileAccess.open("res://pm/Nest-Egg/attachments/NE-154/coverage.json", FileAccess.WRITE)
+    file.store_string(JSON.stringify(report, " "))
+    print("PARENT_AUDIT levels=", paths.size(), " sounds=", names.size(), " non_file=", report["non_file_sounds"])
+    get_tree().quit()
