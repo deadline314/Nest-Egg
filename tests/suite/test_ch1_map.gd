@@ -4,7 +4,7 @@ extends TestSuite
 ## 道具只有該放的、新遊戲從當舖開始、依序走過每個出入口時玩家出現在對應的位置、世界在區域之間保留。
 
 const IDS: Array[String] = ["pawnshop", "rooftop", "street", "booth_alley", "warehouse", "vault", "lounge", "stall", "pawnshop_dawn"]
-const ROSTER: Array[StringName] = [&"sweeper", &"collector_gunner", &"collector_brute", &"drone", &"watchdog", &"ch1_inspector"]
+const ROSTER_PATH := "res://data/combat/chapter_rosters.json"
 const DESIGN_PATH := "res://data/levels/ch1_design.json"
 ## 遭遇總數與鎖場、迷你頭目的下限（design/13-story-v2/CH01_PACING_V2.md）。
 const MIN_ENCOUNTERS := 22
@@ -211,6 +211,8 @@ func _design_members(id: String) -> int:
 
 
 func _test_roster() -> void:
+	_test_chapter_exclusivity()
+	var roster: Array = (load(ROSTER_PATH) as JSON).data.chapters.ch1_kasa.enemies
 	var kinds: Dictionary[StringName, int] = {}
 	var placed: Dictionary[String, int] = {}
 	for id in IDS:
@@ -220,8 +222,9 @@ func _test_roster() -> void:
 			var enemy := spawn["resource"] as EnemyData
 			kinds[enemy.id] = kinds.get(enemy.id, 0) + 1
 			placed[id] = placed.get(id, 0) + 1
-	check(kinds.size() == ROSTER.size(), "the chapter uses exactly six kinds of enemy (%s)" % [kinds.keys()])
-	for id in ROSTER:
+	check(kinds.size() == roster.size(), "the chapter uses exactly six kinds of enemy (%s)" % [kinds.keys()])
+	for id in roster:
+		id = StringName(id)
 		check(kinds.has(id), "the roster enemy appears on the map: %s" % id)
 	check(kinds.get(&"watchdog", 0) == 1, "one watchdog (mini-boss A)")
 	check(kinds.get(&"ch1_inspector", 0) == 2, "two inspectors (the mini-bosses of the blockade and the vault)")
@@ -749,3 +752,40 @@ func _alive_enemies(level: Level) -> int:
 		if level.is_ancestor_of(node) and not (node as Enemy).is_dying():
 			count += 1
 	return count
+
+
+## Compare actual campaign + legacy-demo placements and reinforcements, rather than only declared lists.
+func _test_chapter_exclusivity() -> void:
+	var chapters: Dictionary = (load(ROSTER_PATH) as JSON).data.chapters
+	var owner := {}
+	for chapter: String in chapters:
+		var entry: Dictionary = chapters[chapter]
+		for enemy: String in entry.enemies + entry.demo_enemies + entry.reserved:
+			check(not owner.has(enemy) or owner[enemy] == chapter, "enemy belongs to only one chapter: %s" % enemy)
+			owner[enemy] = chapter
+		for ident: String in entry.levels + entry.demo_levels:
+			var data := load("res://data/levels/%s.tres" % ident) as LevelData
+			var layout := LevelBuilder.parse(data)
+			var allowed: Array = entry.demo_enemies if entry.demo_levels.has(ident) else entry.enemies
+			for resource in data.legend.values():
+				if resource is MechanismData:
+					for reinforcement in (resource as MechanismData).reinforcements:
+						_check_roster_enemy(reinforcement, allowed, ident)
+			for spawn in layout.spawns:
+				if spawn.resource is EnemyData:
+					_check_roster_enemy(spawn.resource, allowed, ident)
+			for resource in data.legend.values():
+				if resource is EnemyData:
+					_check_roster_enemy(resource, allowed, ident)
+
+
+func _check_roster_enemy(enemy: EnemyData, allowed: Array, ident: String) -> void:
+	if enemy == null:
+		check(false, "%s has a missing reinforcement" % ident)
+		return
+	check(allowed.has(String(enemy.id)), "%s places an enemy allowed in its chapter: %s" % [ident, enemy.id])
+	if enemy.contact_damage > 0:
+		check(DefeatCodex.has_card(enemy.contact_source_id), "%s has a matching contact guide: %s" % [ident, enemy.id])
+	for projectile in [enemy.projectile] + enemy.extra_projectiles:
+		if projectile != null:
+			check(DefeatCodex.has_card(projectile.source_id), "%s has a matching attack guide: %s" % [ident, projectile.source_id])

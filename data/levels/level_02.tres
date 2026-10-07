@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=75 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=69 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_script"]
 [ext_resource type="Resource" path="res://data/story_items/doc_shaft_memo.tres" id="r1"]
@@ -16,10 +16,8 @@
 [ext_resource type="Resource" path="res://data/enemies/reclaimer.tres" id="r13"]
 [ext_resource type="Resource" path="res://data/props/crate.tres" id="r14"]
 [ext_resource type="Resource" path="res://data/props/credits_small.tres" id="r15"]
-[ext_resource type="Resource" path="res://data/enemies/drone.tres" id="r16"]
 [ext_resource type="Resource" path="res://data/consumables/shield_cell.tres" id="r17"]
 [ext_resource type="Resource" path="res://data/props/lift_tall.tres" id="r18"]
-[ext_resource type="Resource" path="res://data/enemies/grunt.tres" id="r19"]
 [ext_resource type="Resource" path="res://data/props/gate_a.tres" id="r20"]
 [ext_resource type="Resource" path="res://data/consumables/med_injector.tres" id="r21"]
 [ext_resource type="Resource" path="res://data/props/gate_b.tres" id="r22"]
@@ -28,9 +26,7 @@
 [ext_resource type="Resource" path="res://data/props/barrel.tres" id="r25"]
 [ext_resource type="Resource" path="res://data/props/power_switch.tres" id="r26"]
 [ext_resource type="Resource" path="res://data/props/credits_large.tres" id="r27"]
-[ext_resource type="Resource" path="res://data/enemies/shield_rusher.tres" id="r28"]
 [ext_resource type="Resource" path="res://data/enemies/stalker.tres" id="r29"]
-[ext_resource type="Resource" path="res://data/enemies/turret.tres" id="r30"]
 [ext_resource type="Resource" path="res://data/props/lift.tres" id="r31"]
 [ext_resource type="Resource" path="res://data/props/glass_wall.tres" id="r32"]
 [ext_resource type="Resource" path="res://data/props/cracked_wall.tres" id="r33"]
@@ -51,8 +47,6 @@
 [ext_resource type="Resource" path="res://data/enemies/sniper.tres" id="ne_sniper"]
 [ext_resource type="Resource" path="res://data/enemies/flamer.tres" id="ne_flamer"]
 [ext_resource type="Resource" path="res://data/enemies/heavy_gunner.tres" id="ne_heavy_gunner"]
-[ext_resource type="Resource" path="res://data/enemies/shock_hound.tres" id="ne_shock_hound"]
-[ext_resource type="Resource" path="res://data/enemies/mimic.tres" id="ne_mimic"]
 [ext_resource type="Resource" path="res://data/enemies/wall_gecko.tres" id="ne99_gecko"]
 [ext_resource type="Resource" path="res://data/enemies/shaft_bat.tres" id="ne99_bat"]
 [ext_resource type="Resource" path="res://data/enemies/tangle_wire.tres" id="ne99_tangle"]
@@ -138,7 +132,6 @@ legend = Dictionary[String, Resource]({
 "I": ExtResource("62_nurse"),
 "G": ExtResource("61_resident"),
 "A": ExtResource("60_chen"),
-"[": ExtResource("ne_mimic"),
 "S": ExtResource("ne99_gecko"),
 "+": ExtResource("ne99_bat"),
 "<": ExtResource("ne99_tangle"),
@@ -146,7 +139,6 @@ legend = Dictionary[String, Resource]({
 "b": ExtResource("ne54_custodian"),
 "m": ExtResource("ne54_gate"),
 "X": ExtResource("ne54_curtain"),
-"T": ExtResource("ne_shock_hound"),
 "v": ExtResource("ne_heavy_gunner"),
 "O": ExtResource("ne_flamer"),
 "Z": ExtResource("ne_sniper"),
@@ -166,10 +158,8 @@ legend = Dictionary[String, Resource]({
 "Y": ExtResource("r13"),
 "a": ExtResource("r14"),
 "c": ExtResource("r15"),
-"d": ExtResource("r16"),
 "e": ExtResource("r17"),
 "f": ExtResource("r18"),
-"g": ExtResource("r19"),
 "h": ExtResource("r20"),
 "i": ExtResource("r21"),
 "j": ExtResource("r22"),
@@ -178,9 +168,7 @@ legend = Dictionary[String, Resource]({
 "o": ExtResource("r25"),
 "p": ExtResource("r26"),
 "q": ExtResource("r27"),
-"r": ExtResource("r28"),
 "s": ExtResource("r29"),
-"t": ExtResource("r30"),
 "u": ExtResource("r31"),
 "w": ExtResource("r32"),
 "x": ExtResource("r33"),

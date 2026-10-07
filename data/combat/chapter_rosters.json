@@ -1,0 +1,85 @@
+{
+ "version": 1,
+ "density": "demo; not a production difficulty standard",
+ "chapters": {
+  "ch1_kasa": {
+   "levels": [
+    "ch1_pawnshop",
+    "ch1_rooftop",
+    "ch1_street",
+    "ch1_booth_alley",
+    "ch1_warehouse",
+    "ch1_vault",
+    "ch1_lounge",
+    "ch1_stall",
+    "ch1_pawnshop_dawn"
+   ],
+   "enemies": [
+    "sweeper",
+    "collector_gunner",
+    "collector_brute",
+    "drone",
+    "watchdog",
+    "ch1_inspector"
+   ],
+   "demo_levels": [
+    "level_01"
+   ],
+   "demo_enemies": [
+    "grunt",
+    "shield_rusher",
+    "drone",
+    "turret",
+    "bomber",
+    "mortar",
+    "warden",
+    "shock_hound",
+    "mimic"
+   ],
+   "reserved": [
+    "salvage_arm",
+    "buoy_worm"
+   ]
+  },
+  "chapter_02": {
+   "levels": [
+    "level_02"
+   ],
+   "enemies": [
+    "elite_grunt",
+    "slasher",
+    "stalker",
+    "repair_drone",
+    "flamer",
+    "heavy_gunner",
+    "searchlight_drone",
+    "sniper",
+    "shaft_bat",
+    "wall_gecko",
+    "tangle_wire",
+    "rail_cannon",
+    "custodian",
+    "reclaimer"
+   ],
+   "demo_levels": [],
+   "demo_enemies": [],
+   "reserved": [
+    "chainsaw_arm",
+    "hydraulic_claw",
+    "plasma_whip",
+    "chain_hook"
+   ]
+  },
+  "chapter_03": {
+   "levels": [],
+   "enemies": [],
+   "demo_levels": [],
+   "demo_enemies": [],
+   "reserved": [
+    "cloud_jelly",
+    "cloud_serpent",
+    "swarm_bee"
+   ]
+  }
+ }
+}

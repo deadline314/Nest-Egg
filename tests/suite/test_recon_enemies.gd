@@ -27,10 +27,9 @@ func _test_data() -> void:
 	check(sniper.projectile.speed > load(GRUNT_PATH).projectile.speed, "the sniper's shot is faster than a trooper's")
 
 
-## 配置：第一章後半（欄 175 之後）與第二章夾層區（140～214）各有探照無人機與狙擊手，第一次遭遇的左邊有安全空間。
+## 配置：NE-97：第二章夾層區（140～214）專屬探照無人機與狙擊手，第一次遭遇的左邊有安全空間。
 func _test_level_placement() -> void:
 	check_level_placement({
-		"res://data/levels/level_01.tres": [[&"searchlight_drone", 175, 350], [&"sniper", 175, 350]],
 		"res://data/levels/level_02.tres": [[&"searchlight_drone", 140, 215], [&"sniper", 140, 215]],
 	})
 

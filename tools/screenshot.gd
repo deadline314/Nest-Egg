@@ -36,6 +36,13 @@ func _run() -> void:
 	add_child(LightKit.create_environment())
 	# 劇情演出會暫停遊戲並蓋住畫面；只有 story 情境需要拍到演出。
 	Story.auto_skip = _scenario != "story" and _scenario != "story_ch2"
+	if _scenario == "chapter_roster":
+		var capture_scenario: Node = load("res://tools/scenarios/chapter_roster_scenario.gd").new()
+		capture_scenario.out_dir = _out_dir
+		add_child(capture_scenario)
+		await capture_scenario.run()
+		get_tree().quit()
+		return
 	if _scenario == "story_features":
 		await StoryFeaturesScenario.run(self)
 		get_tree().quit()

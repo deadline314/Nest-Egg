@@ -164,15 +164,19 @@ put(35, 19, 'q')
 put(142, 19, 'z')
 put(243, 19, 'z')
 
-# 第二批敵人（NE-46：n 探照無人機、Z 狙擊手）：只放在空位，不動既有的敵人與檢查點
-put(185, 12, 'n')                        # 探照無人機（貨運站中段，教玩家認光束與警報）
+# NE-97：探照無人機／狙擊手只屬第二章；舊 Demo 保留空中／高台分工，使用第一章監視蜂與擲彈兵。
+put(185, 12, 'd')                        # 監視蜂（舊 Demo 貨運站）
 fill(188, 192, 15, 15, '=')               # 狙擊手的高台（單向平台，下方照常通行）
-put(190, 14, 'Z')                         # 狙擊手（貨櫃可以擋雷射）
+put(190, 14, 'm')                         # 擲彈兵（舊 Demo 貨櫃高台）
 
 # 第二批敵人（NE-48：T 電擊犬、[ 偽裝箱）
 for x in (175, 176, 177):
     put(x, 19, 'T')                       # 電擊犬一群（貨運站入口，旁邊的貨櫃頂可以躲）
-put(199, 19, '[')                         # 偽裝箱（醫療針旁邊，貨櫃腳下）
+put(197, 19, '[')                         # 偽裝箱（醫療針旁邊，貨櫃腳下）
+
+# Preserve delivered NE-117 pickups when regenerating this legacy demo.
+for x, y, ch in [(59, 19, 'D'), (104, 19, 'E'), (161, 19, 'F'), (216, 19, 'I'), (255, 19, 'J')]:
+    put(x, y, ch)
 
 # 室外路燈
 for x in (12, 28, 40, 62, 76, 96, 110, 130, 150, 172, 190, 210, 230):
@@ -250,6 +254,11 @@ props = [
     prop("tree_jacaranda", 96), prop("tree_fir_1", 142), prop("tree_fir_front", 157),
     prop("tree_stump", 205), prop("tree_branch", 217), prop("tree_pine_2", 233),
 ]
+
+# Existing authored foreground overlaps are intentional and must survive regeneration.
+for entry in props:
+    if (entry["id"], entry["x"]) in [('rooftop_hut', 25), ('fire_escape', 29), ('fence', 212), ('cables_hang', 266), ('cables_hang', 296), ('tree_island', 7), ('tree_pine_front', 27)]:
+        entry["allow_overlap"] = True
 
 grid.write("level_01", (os.path.dirname(__file__), '..', '..', 'data', 'levels', 'level_01_map.json'),
            {"regions": regions, "props": props})

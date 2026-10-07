@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=52 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=50 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_script"]
 [ext_resource type="Resource" path="res://data/enemies/grunt.tres" id="2_grunt"]
@@ -42,8 +42,6 @@
 [ext_resource type="Resource" path="res://data/lighting/alarm.tres" id="33_alarm"]
 [ext_resource type="Resource" path="res://data/npcs/ah_po.tres" id="60_ahpo"]
 [ext_resource type="Resource" path="res://data/npcs/night_worker.tres" id="61_worker"]
-[ext_resource type="Resource" path="res://data/enemies/searchlight_drone.tres" id="ne_searchlight_drone"]
-[ext_resource type="Resource" path="res://data/enemies/sniper.tres" id="ne_sniper"]
 [ext_resource type="Resource" path="res://data/enemies/shock_hound.tres" id="ne_shock_hound"]
 [ext_resource type="Resource" path="res://data/enemies/mimic.tres" id="ne_mimic"]
 
@@ -97,8 +95,6 @@ legend = Dictionary[String, Resource]({
 "A": ExtResource("60_ahpo"),
 "[": ExtResource("ne_mimic"),
 "T": ExtResource("ne_shock_hound"),
-"Z": ExtResource("ne_sniper"),
-"n": ExtResource("ne_searchlight_drone"),
 "D": ExtResource("ne117_dagger"),
 "E": ExtResource("ne117_blade"),
 "F": ExtResource("ne117_maul"),
