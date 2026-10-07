@@ -1,6 +1,6 @@
 # [NE-17] 以 Qwen 生成凜的零件圖
 
-> 狀態：進行中
+> 狀態：審查中
 
 ## 內文
 
@@ -293,5 +293,31 @@ Qwen 把肩膀、上側軀幹、夾克補得很自然，但同時把頭髮、臀
 ![受傷衣物脫落各階段（外套、絲襪逐片，身體完整）](images/NE-17-recheck-damage.png)
 
 ![背包角色狀態頁](images/NE-17-recheck-inventory.png)
+
+---
+
+# Commit-2
+
+## 內文
+
+2026-10-08 稽核既有定稿與來源；沿用現有凜，沒有重新生成或覆蓋素材。透明側面原圖與定稿 s33 的 SHA-256 相同：`401888dc14dcca469428e4df45c07648e36fd1822497031f8c28213fafc24fd9`。來源保存在 [原圖](../../art_src/characters/rin2/base_rgba.png)、[定稿](../../art_src/characters/rin2/01_design/design_s33.png)、[配方](../../tools/comfyui/recipes/rin.json) 與 [分割依據](../../tools/comfyui/specs/rin_side.json)；初次交付紀錄為 `501eece9`，目前角色定義最近的交付紀錄為 `9c572ecc`。
+
+本次重新取得現有版本的 Forward+ 八動作及站姿特寫，供使用者確認沿用的外觀。歷史勾選沿用原交付紀錄，不代表本次重新驗收了全部動作；後續發現的接縫、外套與姿勢退化由 NE-222 處理。「覆蓋前先給使用者看預覽並取得同意」仍未勾選：原紀錄沒有覆蓋當下的批准，本次也沒有補造批准。
+
+### 測試結果
+
+| 項目 | 結果 |
+|---|---|
+| 原圖與 s33 雜湊比對 | 相同 |
+| 角色分割規格檢查 | 0 錯誤、0 警告 |
+| 零件與法線檢查 | 馬尾 1 處原有 541 px 空隙，其餘未報問題；空隙不當作本票修復成果 |
+| 現有版本實際預覽 | Godot 4.7.2、Vulkan 1.4、Forward+、RTX 4070 SUPER；無 ERROR |
+| 遊戲測試 | 本票只更新交付紀錄與預覽，未改遊戲，未執行 |
+
+### 截圖
+
+![現有凜的八動作：供確認沿用外觀，接縫由 NE-222 驗收](images/NE-17-session-current-poses.png)
+
+![現有凜的站姿特寫（Forward+）](images/NE-17-session-current-closeup.png)
 
 ---
