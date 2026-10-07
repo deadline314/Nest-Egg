@@ -29,6 +29,8 @@ func _restore() -> void:
 func _test_shipped_data() -> void:
 	var errors: PackedStringArray = Music.validate()
 	check(errors.is_empty(), "shipped music data has no errors: %s" % ", ".join(errors))
+	var licenses: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets_src/audio/LICENSES.json"))
+	var pipeline: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets_src/audio/pipeline.json"))
 	for screen in [&"menu", &"victory", &"death"]:
 		check(Music.screen_cue(screen) != &"", "the %s screen has a cue" % screen)
 	for file in DirAccess.get_files_at("res://data/lighting"):
@@ -47,6 +49,14 @@ func _test_shipped_data() -> void:
 			var sting := track_id.ends_with("_sting")
 			check(stream.get_length() <= 30.0 if sting else stream.get_length() >= 30.0, "track %s has a sensible length for a %s (%.0fs)" % [track_id, "sting" if sting else "loop", stream.get_length()])
 		check(not str(def.get("pack", "")).is_empty(), "track %s names its license pack" % track_id)
+		var pack := str(def.get("pack", ""))
+		var registered: Dictionary = licenses.get(pack, {})
+		check(str(registered.get("license", "")).begins_with("CC0") and str(def["file"]) in registered.get("outputs", []),
+			"track %s points to the CC0 pack registered for its actual output (%s)" % [track_id, pack])
+		var source: Dictionary = pipeline.get("music", {}).get(track_id, {})
+		check(pack == str(source.get("pack", "")) and str(source.get("file", "")) in registered.get("files_used", []),
+			"track %s provenance matches the selected pipeline source" % track_id)
+		check(str(def.get("title", "")) == str(registered.get("title", "")), "track %s displays the selected source title" % track_id)
 
 
 func _test_resolution() -> void:

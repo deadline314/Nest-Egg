@@ -1,0 +1,21 @@
+test_a_broken_catalog_is_reported_not_raised (__main__.ApplyPlacementsTest.test_a_broken_catalog_is_reported_not_raised) ... ok
+test_a_long_track_for_a_sting_is_cut_short (__main__.ApplyPlacementsTest.test_a_long_track_for_a_sting_is_cut_short) ... ok
+test_a_start_on_a_looping_track_is_ignored_with_a_warning (__main__.ApplyPlacementsTest.test_a_start_on_a_looping_track_is_ignored_with_a_warning) ... ok
+test_a_sting_can_start_in_the_middle_of_the_track (__main__.ApplyPlacementsTest.test_a_sting_can_start_in_the_middle_of_the_track) ... ok
+test_a_sting_start_past_the_end_of_the_track_is_a_problem (__main__.ApplyPlacementsTest.test_a_sting_start_past_the_end_of_the_track_is_a_problem) ... ok
+test_apply_writes_the_pipeline_and_the_result_file (__main__.ApplyPlacementsTest.test_apply_writes_the_pipeline_and_the_result_file) ... ok
+test_changing_only_the_start_of_the_same_track_is_a_change (__main__.ApplyPlacementsTest.test_changing_only_the_start_of_the_same_track_is_a_change) ... ok
+test_dry_run_json_changes_nothing (__main__.ApplyPlacementsTest.test_dry_run_json_changes_nothing) ... ok
+test_manual_same_and_empty_are_skipped (__main__.ApplyPlacementsTest.test_manual_same_and_empty_are_skipped) ... ok
+test_music_uses_the_first_id_and_warns (__main__.ApplyPlacementsTest.test_music_uses_the_first_id_and_warns) ... ok
+test_nothing_to_apply_is_a_success (__main__.ApplyPlacementsTest.test_nothing_to_apply_is_a_success) ... ok
+test_only_filters_the_slots (__main__.ApplyPlacementsTest.test_only_filters_the_slots) ... ok
+test_plan_lists_changes_and_keeps_other_pipeline_keys (__main__.ApplyPlacementsTest.test_plan_lists_changes_and_keeps_other_pipeline_keys) ... ok
+test_unknown_asset_and_unreadable_ids_are_problems (__main__.ApplyPlacementsTest.test_unknown_asset_and_unreadable_ids_are_problems) ... ok
+test_weapon_fire_sound_asks_the_build_for_two_variants (__main__.ApplyPlacementsTest.test_weapon_fire_sound_asks_the_build_for_two_variants) ... ok
+test_weapon_fire_sound_needs_two_variants (__main__.ApplyPlacementsTest.test_weapon_fire_sound_needs_two_variants) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.027s
+
+OK

@@ -1,0 +1,20 @@
+test_a_clip_cannot_be_clipped_again (__main__.ClipToolTest.test_a_clip_cannot_be_clipped_again) ... ok
+test_bad_ranges_and_missing_files_explain_and_leave_nothing (__main__.ClipToolTest.test_bad_ranges_and_missing_files_explain_and_leave_nothing) ... ok
+test_duplicate_range_returns_existing (__main__.ClipToolTest.test_duplicate_range_returns_existing) ... ok
+test_export_keeps_format_and_registers (__main__.ClipToolTest.test_export_keeps_format_and_registers) ... ok
+test_ids_are_never_reused (__main__.ClipToolTest.test_ids_are_never_reused) ... ok
+test_json_output_is_ascii_even_for_chinese_errors (__main__.ClipToolTest.test_json_output_is_ascii_even_for_chinese_errors) ... ok
+test_prepare_gives_waveform_and_segments (__main__.ClipToolTest.test_prepare_gives_waveform_and_segments) ... ok
+test_rebuild_reports_a_missing_original (__main__.ClipToolTest.test_rebuild_reports_a_missing_original) ... ok
+test_rebuild_restores_missing_outputs (__main__.ClipToolTest.test_rebuild_restores_missing_outputs) ... ok
+test_samples_match_the_original (__main__.ClipToolTest.test_samples_match_the_original) ... ok
+test_write_failure_rolls_back (__main__.ClipToolTest.test_write_failure_rolls_back) ... ok
+test_close_hits_merge (__main__.SegmentsTest.test_close_hits_merge) ... ok
+test_finds_each_burst (__main__.SegmentsTest.test_finds_each_burst) ... ok
+test_peaks_shape (__main__.SegmentsTest.test_peaks_shape) ... ok
+test_silence_and_noise_floor (__main__.SegmentsTest.test_silence_and_noise_floor) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 12.468s
+
+OK

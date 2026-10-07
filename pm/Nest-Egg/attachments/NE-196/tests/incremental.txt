@@ -1,0 +1,10 @@
+WARN  建置快取讀不了，視為全部要重做：build_cache.json（Expecting property name enclosed in double quotes: line 1 column 3 (char 2)）
+..........usage: build_audio.py [-h] [--only [ONLY ...]] [--force] [--adopt] [--check]
+                      [--report] [--scratch SCRATCH] [--pipeline PIPELINE]
+                      [--metadata-only]
+build_audio.py: error: --only 後面要給至少一個音效或曲目 id（要全部重做就不要加 --only）
+.
+----------------------------------------------------------------------
+Ran 11 tests in 0.008s
+
+OK

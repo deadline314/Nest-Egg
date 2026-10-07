@@ -8,11 +8,13 @@
   --report  列出每個輸出的時長、峰值、有聲 RMS
   --scratch DIR  試做：輸出寫到 DIR（不動 audio/、音效庫與授權登記），用來試聽或比對參數
   --pipeline FILE  改用另一份加工清單（搭配 --scratch 試做新分類）
+  --metadata-only  依加工清單與已登記的正式輸出修正曲名／授權包，不需要原始素材、不編碼音訊
 
 輸出：
   audio/sfx/<id>_<nn>.ogg        音效：單聲道 44.1 kHz，有聲部分 RMS 對齊 target_db，峰值不超過 -1 dBFS
   audio/music/<id>.ogg           音樂：立體聲 44.1 kHz，整合響度對齊 target_lufs
   data/audio/sound_bank.json     音效庫：只更新 files／pack，保留已調整的 volume_db、pitch、note
+  data/audio/music.json          曲目：只同步成功建置曲目的 title／pack，保留 cue、關卡對應與音量
   assets_src/audio/LICENSES.json 授權登記：只列實際用到的素材包與檔案
 
 加工全部是確定性的，同樣的輸入重跑得到同樣的輸出；原始檔放 assets_src/raw/audio/（fetch_audio.py 下載）。
@@ -41,10 +43,48 @@ LICENSES = AUDIO_SRC / "LICENSES.json"
 CACHE = AUDIO_SRC / "build_cache.json"
 ENGINE_VERSION = 1
 BANK = ROOT / "data" / "audio" / "sound_bank.json"
+MUSIC_DATA = ROOT / "data" / "audio" / "music.json"
 SFX_DIR = ROOT / "audio" / "sfx"
 MUSIC_DIR = ROOT / "audio" / "music"
 SFX_RES = "res://audio/sfx/"
 MUSIC_RES = "res://audio/music/"
+
+
+def sync_music_metadata(pipeline: dict, sources: dict, track_ids=None) -> int:
+    """Update provenance only; preserve cues, maps, file paths and user tuning."""
+    music = load_json(MUSIC_DATA)
+    changed = 0
+    for track_id in (pipeline.get("music", {}) if track_ids is None else track_ids):
+        item = pipeline["music"][track_id]
+        track = music.get("tracks", {}).get(track_id)
+        if track is None:
+            continue
+        meta = sources[item["pack"]]
+        if track.get("pack") != item["pack"] or track.get("title") != meta["title"]:
+            track.update(pack=item["pack"], title=meta["title"])
+            changed += 1
+    if changed:
+        MUSIC_DATA.write_text(json.dumps(music, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    return changed
+
+
+def repair_registered_music_metadata(pipeline: dict, sources: dict) -> int:
+    """Repair metadata without raw downloads or re-encoding; verify shipped provenance first."""
+    registry = load_json(LICENSES)
+    music = load_json(MUSIC_DATA)
+    for track_id, item in pipeline.get("music", {}).items():
+        track = music.get("tracks", {}).get(track_id)
+        if track is None:
+            continue
+        pack = item["pack"]
+        record = registry.get(pack, {})
+        if (not str(record.get("license", "")).startswith("CC0")
+                or track.get("file") != MUSIC_RES + track_id + ".ogg"
+                or track["file"] not in record.get("outputs", [])
+                or item["file"] not in record.get("files_used", [])
+                or not (ROOT / track["file"].removeprefix("res://")).is_file()):
+            raise BuildError(f"{track_id}: shipped output is not registered to {pack}/{item['file']}")
+    return sync_music_metadata(pipeline, sources)
 
 SFX_DEFAULT = {"mode": "whole", "max_len": 3.0, "target_db": -16.0, "fade_in_ms": 1.0, "fade_out_ms": 20.0,
                "gain_db": 0.0, "rate": 1.0, "single": True, "stereo": False, "quality": 4.0}
@@ -250,6 +290,7 @@ def main() -> int:
     parser.add_argument("--report", action="store_true")
     parser.add_argument("--scratch", type=Path)
     parser.add_argument("--pipeline", type=Path, default=PIPELINE)
+    parser.add_argument("--metadata-only", action="store_true", help="只修正已登記正式曲目的曲名與授權包，不重建音訊")
     args = parser.parse_args()
     if args.only is not None and not args.only:
         parser.error("--only 後面要給至少一個音效或曲目 id（要全部重做就不要加 --only）")
@@ -260,6 +301,16 @@ def main() -> int:
 
     pipeline = load_json(args.pipeline)
     manifest = {p["id"]: p for p in load_json(MANIFEST)["packs"]}
+    if args.metadata_only:
+        if args.only or args.check or args.scratch or args.force or args.adopt or args.report:
+            parser.error("--metadata-only 不能與建置選項合用")
+        try:
+            count = repair_registered_music_metadata(pipeline, manifest)
+        except (BuildError, OSError, ValueError, KeyError) as error:
+            print(f"FAIL  music metadata: {error}", file=sys.stderr)
+            return 1
+        print(f"音樂來源資料：修正 {count} 首，音訊與增量快取不變")
+        return 0
     dirs = {pid: p["dir"] for pid, p in manifest.items()}
     bank = load_json(BANK)
     used: dict = {}
@@ -275,6 +326,7 @@ def main() -> int:
         entry["outputs"].append(output)
 
     wanted_sfx, wanted_music = set(), set()
+    built_music = []
     for sound_id, item in pipeline.get("sfx", {}).items():
         outputs, packs = [], []
         speeds = [float(s) for s in item.get("speeds", [])]  # 加速變體的倍率（音高不變）；沒寫就不做
@@ -362,6 +414,7 @@ def main() -> int:
             stale = not cache.fresh(MUSIC_DIR / out_name, fp)
             if not stale and not args.report:
                 skipped += 1
+                built_music.append(track_id)
                 continue
             x = render_music(src, spec)
             rebuilt += 1 if stale else 0
@@ -371,6 +424,7 @@ def main() -> int:
                 cache.record(MUSIC_DIR / out_name, fp)
             if args.report:
                 print(f"{out_name:44} {describe(x)}  {lib.measure_lufs(x):.1f} LUFS")
+            built_music.append(track_id)
         except (BuildError, OSError, ValueError) as error:
             failures += 1
             print(f"FAIL  {track_id}: {error}", file=sys.stderr)
@@ -399,6 +453,7 @@ def main() -> int:
     if persist:
         cache.save()
         BANK.write_text(json.dumps(bank, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        sync_music_metadata(pipeline, manifest, built_music)
         if not args.only:
             registry = {}
             for pack, info in sorted(used.items()):

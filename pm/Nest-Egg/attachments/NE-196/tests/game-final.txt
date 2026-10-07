@@ -1,0 +1,50 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+     at: _set_size (scene/gui/control.cpp:1519)
+     GDScript backtrace (most recent call first):
+         [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+         [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+         [2] _ready (res://ui/main_menu.gd:33)
+         [3] _game (res://tools/audio/audition_capture.gd:187)
+         [4] _run (res://tools/audio/audition_capture.gd:122)
+CAPTURE main_menu seconds=1.57895691609977 events=2
+CAPTURE ch1_rooftop_entry seconds=2.87927437641723 events=0
+CAPTURE ch1_rooftop_movement seconds=3.52943310657596 events=10
+CAPTURE ch1_rooftop_pistol_x1 seconds=1.48607709750567 events=5
+CAPTURE ch1_rooftop_pistol_x2 seconds=1.48607709750567 events=9
+CAPTURE ch1_rooftop_rifle_x1 seconds=1.48607709750567 events=9
+CAPTURE ch1_rooftop_rifle_x2 seconds=1.57895691609977 events=11
+CAPTURE ch1_rooftop_smg_x1 seconds=1.48607709750567 events=9
+CAPTURE ch1_rooftop_smg_x2 seconds=1.57895691609977 events=15
+CAPTURE ch1_rooftop_spread_x1 seconds=2.04335600907029 events=3
+CAPTURE ch1_rooftop_spread_x2 seconds=1.57895691609977 events=3
+CAPTURE ch1_rooftop_laser_x1 seconds=1.48607709750567 events=3
+CAPTURE ch1_rooftop_laser_x2 seconds=1.57895691609977 events=5
+CAPTURE ch1_rooftop_launcher_x1 seconds=2.41487528344671 events=4
+CAPTURE ch1_rooftop_launcher_x2 seconds=1.67183673469388 events=5
+CAPTURE ch1_rooftop_railgun_x1 seconds=2.87927437641723 events=8
+CAPTURE ch1_rooftop_railgun_x2 seconds=1.85759637188209 events=7
+CAPTURE ch1_booth_alley_entry seconds=2.97215419501134 events=0
+CAPTURE ch1_phone seconds=1.76471655328798 events=0
+CAPTURE ch1_phone_direct seconds=1.76471655328798 events=7
+CAPTURE ch1_warehouse_entry seconds=2.97215419501134 events=1
+CAPTURE level_02_entry seconds=2.97215419501134 events=0
+CAPTURE level_02_movement seconds=3.62231292517007 events=6
+CAPTURE level_02_pistol_x1 seconds=1.57895691609977 events=15
+CAPTURE level_02_pistol_x2 seconds=1.48607709750567 events=9
+CAPTURE level_02_rifle_x1 seconds=1.48607709750567 events=15
+CAPTURE level_02_rifle_x2 seconds=1.48607709750567 events=11
+CAPTURE level_02_smg_x1 seconds=1.57895691609977 events=11
+CAPTURE level_02_smg_x2 seconds=1.48607709750567 events=20
+CAPTURE level_02_spread_x1 seconds=2.04335600907029 events=3
+CAPTURE level_02_spread_x2 seconds=1.48607709750567 events=3
+CAPTURE level_02_laser_x1 seconds=1.57895691609977 events=3
+CAPTURE level_02_laser_x2 seconds=1.48607709750567 events=5
+CAPTURE level_02_launcher_x1 seconds=2.50775510204082 events=4
+CAPTURE level_02_launcher_x2 seconds=1.57895691609977 events=5
+CAPTURE level_02_railgun_x1 seconds=2.97215419501134 events=8
+CAPTURE level_02_railgun_x2 seconds=1.85759637188209 events=10
+WARNING: 272 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2535)

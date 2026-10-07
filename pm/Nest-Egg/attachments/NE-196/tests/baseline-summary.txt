@@ -1,0 +1,6 @@
+Running 7 groups in 4 processes (logs: /tmp/ne-audio-session/logs/baseline)
+  process 0 (estimated 50 s): StageCoverageWorldSuite,SoundLabSuite
+  process 1 (estimated 50 s): StageCoverageWeaponsSuite,MusicSuite
+  process 2 (estimated 32 s): StageCoverageCharactersSuite,AudioSuite
+  process 3 (estimated 25 s): SoundStageSuite
+checks: 26266, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 162 s)
