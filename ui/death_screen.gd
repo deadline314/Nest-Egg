@@ -15,6 +15,14 @@ const RECORD_TITLE := "NEST 回溯紀錄 #%d"
 
 var _card: Dictionary = {}
 var _can_continue := true
+var sequence: Dictionary = {}
+var sequence_index := -1
+var sequence_complete := true
+var _sequence_label: Label
+var _sequence_card: Control
+var _sequence_buttons: Control
+var _sequence_left := 0.0
+
 
 
 func setup(card: Dictionary, can_continue: bool) -> void:
@@ -62,7 +70,19 @@ func _ready() -> void:
 	retry.grab_focus.call_deferred()
 
 	_play_noise_in(root)
-	_open_card(file)
+	if sequence.get("steps") is Array and not sequence.steps.is_empty():
+		_sequence_label = UiKit.label("", UiKit.FS_BODY, Palette.CYAN, HORIZONTAL_ALIGNMENT_CENTER)
+		_sequence_label.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
+		column.add_child(_sequence_label)
+		column.move_child(_sequence_label, 2)
+		_sequence_card = file
+		_sequence_buttons = buttons
+		file.hide()
+		buttons.hide()
+		sequence_complete = false
+		_advance_sequence()
+	else:
+		_open_card(file)
 
 
 func _make_file_card() -> Control:
@@ -120,3 +140,56 @@ func _play_noise_in(root: Control) -> void:
 		material.set_shader_parameter(&"progress", v)
 		material.set_shader_parameter(&"time_s", Time.get_ticks_msec() * 0.001), 0.75, 0.0, NOISE_TIME)
 	tween.tween_callback(rect.queue_free)
+
+
+func _advance_sequence() -> void:
+	sequence_index += 1
+	var steps: Array = sequence.get("steps", [])
+	if sequence_index >= steps.size():
+		sequence_index = maxi(0, steps.size() - 1)
+		_finish_sequence()
+		return
+	var step: Variant = steps[sequence_index]
+	if not step is Dictionary:
+		push_warning("[DeathScreen] sequence/steps/%d 不是物件，已略過" % sequence_index)
+		_sequence_left = 0.0
+		return
+	var seconds: Variant = step.get("time", 0.6)
+	_sequence_left = clampf(float(seconds), 0.0, 3.0) if seconds is int or seconds is float else 0.6
+	var kind := str(step.get("kind", "line"))
+	if kind == "card":
+		_sequence_label.hide()
+		_sequence_card.show()
+		_open_card(_sequence_card)
+	else:
+		var speaker := Story.speaker(str(step.get("speaker", "system")))
+		var prefix := str(speaker.get("name", "")) + "：" if kind == "line" else ""
+		_sequence_label.text = prefix + str(step.get("text", "復原程序正在啟動。"))
+		_sequence_label.show()
+		var sound := StringName(str(step.get("sfx", "")))
+		if sound != &"":
+			Sfx.play(sound, -12.0, 0.0)
+
+
+func _finish_sequence() -> void:
+	sequence_complete = true
+	_sequence_label.hide()
+	_sequence_card.show()
+	_sequence_buttons.show()
+	(_sequence_buttons.get_child(0) as Button).grab_focus()
+
+
+func _process(delta: float) -> void:
+	if sequence_complete:
+		return
+	_sequence_left -= delta
+	if _sequence_left <= 0.0:
+		_advance_sequence()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if sequence_complete or not bool(sequence.get("skippable", false)):
+		return
+	if event.is_action_pressed(&"ui_accept") or event.is_action_pressed(&"ui_cancel") or event.is_action_pressed(&"interact"):
+		_finish_sequence()
+		get_viewport().set_input_as_handled()

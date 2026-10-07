@@ -32,6 +32,8 @@ const STEP_FIELDS: Dictionary = {
 	"fade": ["to"],
 	"transition": ["kind"],
 	"end": [],
+	"choice": ["options", "default"],
+	"branch": ["steps"],
 }
 ## 畫面（舞台座標）的大小與中心；鏡頭預設在中心、縮放 1。
 const STAGE_SIZE := Vector2(640, 360)
@@ -54,7 +56,7 @@ static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) 
 	var says := 0
 	var run := 0
 	var index := 0
-	for raw: Variant in steps:
+	for raw: Variant in _expanded_steps(steps):
 		index += 1
 		var where := "動畫場景 %s 第 %d 步" % [scene_id, index]
 		if typeof(raw) != TYPE_DICTIONARY:
@@ -83,6 +85,8 @@ static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) 
 			run = 0
 		if run > MAX_SAY_RUN:
 			problems.append("%s 連續超過 %d 句台詞沒有演出，請在中間加入動作或鏡頭" % [where, MAX_SAY_RUN])
+		if kind == "choice":
+			problems.append_array(StoryRules.validate_choice(where, step))
 		problems.append_array(_check_step(where, kind, step, defined))
 		if kind == "scene":
 			has_stage = true
@@ -230,3 +234,22 @@ static func _check_step(where: String, kind: String, step: Dictionary, defined: 
 			if typeof(lines) != TYPE_ARRAY or (lines as Array).is_empty() or (lines as Array).size() > 3:
 				problems.append("%s 的旁白要有 1 到 3 行" % where)
 	return problems
+
+
+static func _expanded_steps(raw: Array) -> Array:
+	var result: Array = []
+	for step: Variant in raw:
+		result.append(step)
+		if not step is Dictionary:
+			continue
+		if step.get("do") == "choice":
+			var options: Variant = step.get("options", [])
+			if options is Array:
+				for option: Variant in options:
+					if option is Dictionary and option.get("steps") is Array:
+						result.append_array(_expanded_steps(option.steps))
+		elif step.get("do") == "branch":
+			for key in ["steps", "else_steps"]:
+				if step.get(key) is Array:
+					result.append_array(_expanded_steps(step[key]))
+	return result

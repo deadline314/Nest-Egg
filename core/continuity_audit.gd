@@ -26,10 +26,11 @@ static func flag_table(scenes: Dictionary, death_tables: Dictionary, text_files:
 		var scene: Variant = scenes[scene_id]
 		if typeof(scene) != TYPE_DICTIONARY:
 			continue
-		var flags: Variant = (scene as Dictionary).get("set_flags", [])
-		if typeof(flags) == TYPE_ARRAY:
-			for flag: Variant in flags:
-				_add(table, str(flag), "writes", "場景 %s 結束" % scene_id)
+		for entry in StoryRules.entries(scene):
+			for flag: Variant in StoryRules.flag_names(entry.get("set_flags", [])):
+				_add(table, str(flag), "writes", "場景 %s 的故事分支／結束" % scene_id)
+			for key in ["requires_flag", "unless_flag"]:
+				_add(table, str(entry.get(key, "")), "reads", "場景 %s 的 %s" % [scene_id, key])
 	for chapter: String in death_tables:
 		var entries: Variant = death_tables[chapter]
 		if typeof(entries) != TYPE_ARRAY:
@@ -184,8 +185,10 @@ static func _play(model: Dictionary, scene_id: String, scenes: Dictionary, flags
 		var scene: Variant = (model.get("scenes", {}) as Dictionary).get(current, {})
 		if typeof(scene) != TYPE_DICTIONARY:
 			return
-		for flag: Variant in (scene as Dictionary).get("set_flags", []):
-			flags[str(flag)] = true
+		# Static potential reachability: enumerate every branch, not simultaneous runtime choices.
+		for entry in StoryRules.entries(scene):
+			for flag: Variant in StoryRules.flag_names(entry.get("set_flags", [])):
+				flags[str(flag)] = true
 		current = str((scene as Dictionary).get("then", ""))
 
 

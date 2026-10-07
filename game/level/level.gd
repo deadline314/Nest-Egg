@@ -789,6 +789,7 @@ func _on_player_died(cause: StringName) -> void:
 		await _run_death_scene(scene_entry)
 		return
 	var screen := DeathScreen.new()
+	screen.sequence = Story.death_sequence(data.chapter)
 	screen.setup(card, can_continue)
 	screen.retry_requested.connect(_request_retry)
 	screen.menu_requested.connect(_request_menu)

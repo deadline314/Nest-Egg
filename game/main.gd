@@ -46,6 +46,7 @@ func _show_main_menu() -> void:
 
 
 func _on_start_requested(difficulty: DifficultyData) -> void:
+	GameState.story_autosave = true
 	GameState.start_new_run(difficulty)
 	_level_path = FIRST_LEVEL
 	_load_level(Transition.Kind.SCAN)

@@ -62,6 +62,11 @@ var _overlay_mode := false
 ## 目前執行的步驟位置（錯誤訊息用）與下一步是否也是台詞（決定要不要收起對話框）。
 var _current_where := ""
 var _next_is_say := false
+var _choice: VBoxContainer
+var _choice_options: Array[Dictionary] = []
+var _chosen := -1
+var _pending_steps: Array = []
+
 
 
 func _init() -> void:
@@ -72,6 +77,7 @@ func _init() -> void:
 		"pose": _do_pose, "move": _do_move, "face": _do_face, "remove": _do_remove, "say": _do_say,
 		"narrate": _do_narrate, "title": _do_title, "fx": _do_fx, "sfx": _do_sfx, "wait": _do_wait,
 		"fade": _do_fade, "transition": _do_transition, "end": _do_end,
+		"choice": _do_choice, "branch": _do_branch,
 	}
 
 
@@ -86,7 +92,7 @@ func play(id: StringName, scene: Dictionary) -> void:
 		return
 	scene_id = id
 	var raw: Variant = scene.get("steps", [])
-	_steps = raw if typeof(raw) == TYPE_ARRAY else []
+	_steps = raw.duplicate(true) if typeof(raw) == TYPE_ARRAY else []
 	_overlay_mode = bool(scene.get("overlay", false))
 	_build_ui()
 	_lock_token = GameplayLock.acquire(self, Input.MOUSE_MODE_HIDDEN)
@@ -106,9 +112,11 @@ func _run() -> void:
 	if not _running or not is_inside_tree():
 		return
 	var index := 0
-	for raw: Variant in _steps:
+	while index < _steps.size():
+		var raw: Variant = _steps[index]
 		index += 1
 		if skipping:
+			Story.apply_default_choices({"steps": _steps.slice(index - 1)})
 			break
 		if typeof(raw) != TYPE_DICTIONARY:
 			push_error("[Cutscene] 場景 %s 第 %d 步不是物件，已略過" % [scene_id, index])
@@ -125,6 +133,10 @@ func _run() -> void:
 		_next_is_say = index < _steps.size() and typeof(_steps[index]) == TYPE_DICTIONARY \
 				and str((_steps[index] as Dictionary).get("do", "")) == "say"
 		await handler.call(step)
+		if not _pending_steps.is_empty():
+			for offset in _pending_steps.size():
+				_steps.insert(index + offset, _pending_steps[offset])
+			_pending_steps.clear()
 		steps_run += 1
 	await _finish()
 
@@ -161,6 +173,11 @@ func _exit_tree() -> void:
 func _input(event: InputEvent) -> void:
 	if not _running:
 		return
+	if choice_active():
+		if event.is_action_pressed(&"ui_cancel") or event.is_action_pressed(&"pause"):
+			skip()
+			get_viewport().set_input_as_handled()
+		return  # focused buttons handle keyboard, controller and pointer confirmation
 	if event.is_action_pressed(&"pause") or event.is_action_pressed(&"ui_cancel"):
 		skip()
 		get_viewport().set_input_as_handled()
@@ -602,3 +619,55 @@ func _do_transition(step: Dictionary) -> void:
 
 func _do_end(_step: Dictionary) -> void:
 	skipping = true
+
+
+func choice_active() -> bool:
+	return is_instance_valid(_choice) and _choice.visible and _chosen < 0
+
+
+func choose(index: int) -> bool:
+	if not choice_active() or index < 0 or index >= _choice_options.size():
+		return false
+	_chosen = index
+	Story.apply_choice(_choice_options[index])
+	_choice.hide()
+	return true
+
+
+func _do_choice(step: Dictionary) -> void:
+	_choice_options = StoryRules.options(step, GameState.has_flag, StoryItems.owns)
+	if _choice_options.is_empty():
+		push_warning("[Cutscene] %s 沒有可用選項，已略過" % _current_where)
+		return
+	_chosen = -1
+	_choice = VBoxContainer.new()
+	_choice.position = Vector2(96, 100)
+	_choice.custom_minimum_size = Vector2(448, 0)
+	_choice.theme = UiKit.theme()
+	_choice.z_index = EFFECT_Z + 20
+	_choice.add_theme_constant_override(&"separation", 8)
+	_root.add_child(_choice)
+	_choice.add_child(UiKit.label(str(step.get("text", "請選擇接下來的行動。")), UiKit.FS_BODY, Palette.CYAN))
+	for i in _choice_options.size():
+		var button := UiKit.button(str(_choice_options[i].get("text", "繼續。")), choose.bind(i))
+		button.custom_minimum_size = Vector2(448, 32)
+		_choice.add_child(button)
+	(_choice.get_child(1) as Button).grab_focus()
+	var mouse_mode := Input.mouse_mode
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	while _chosen < 0 and not skipping and _running:
+		await get_tree().process_frame
+	var option := _choice_options[_chosen] if _chosen >= 0 else StoryRules.default_option(step, _choice_options)
+	if _chosen < 0:
+		Story.apply_choice(option)
+	if option.get("steps") is Array:
+		_pending_steps = option.steps.duplicate(true)
+	_choice.queue_free()
+	Input.mouse_mode = mouse_mode
+
+
+func _do_branch(step: Dictionary) -> void:
+	var key := "steps" if StoryRules.eligible(step, GameState.has_flag, StoryItems.owns) else "else_steps"
+	var raw: Variant = step.get(key, [])
+	if raw is Array:
+		_pending_steps = raw.duplicate(true)

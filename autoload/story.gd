@@ -54,7 +54,9 @@ var _death_notes: Array = []
 var _bubble_host: MapBubbles
 var _respawn_scenes: Dictionary = {}
 var _death_scenes: Dictionary = {}
+var _death_sequences: Dictionary = {}
 var _seen: Dictionary[StringName, bool] = {}
+var _completed: Dictionary[StringName, bool] = {}
 var _cinematic_queue: Array[StringName] = []
 var _current_cinematic: StringName = &""
 ## 剛結束的場景 -> 因 then 而自動接上的場景（play_and_wait 據此一路等到最後一段）。
@@ -70,7 +72,12 @@ func _ready() -> void:
 	_layer.cinematic_finished.connect(_on_cinematic_finished)
 	_layer.radio_finished.connect(func(id: StringName) -> void: scene_finished.emit(id))
 	scene_finished.connect(_apply_scene_flags)
+	scene_finished.connect(func(id: StringName) -> void:
+		_completed[id] = true
+		GameState.request_story_save())
 	load_all()
+	if FileAccess.file_exists(GameState.STORY_SAVE_PATH):
+		GameState.load_story_progress()
 	for problem in validate():
 		push_error("[Story] %s" % problem)
 	for issue in lint_warnings():
@@ -86,6 +93,8 @@ func load_all() -> void:
 	_death_notes.clear()
 	_respawn_scenes.clear()
 	_death_scenes.clear()
+	_death_sequences.clear()
+	GameState.flag_defaults.clear()
 	for path in CHAPTER_PATHS:
 		load_chapter(path)
 
@@ -97,6 +106,8 @@ func load_chapter(path: String) -> bool:
 		push_error("[Story] 無法讀取劇本：%s" % path)
 		return false
 	var data: Dictionary = json.data
+	if data.has("flag_defaults"):
+		GameState.register_flag_defaults(data["flag_defaults"], path)
 	var info: Dictionary = data.get("chapter", {})
 	# 沒有 chapter 區塊的檔案只提供場景，並以 for_chapter 指定所屬章節（不覆蓋章節資訊）。
 	var chapter_id := StringName(str(info.get("id", data.get("for_chapter", path.get_file().get_basename()))))
@@ -122,6 +133,8 @@ func load_chapter(path: String) -> bool:
 		_respawn_scenes[chapter_id] = data["respawn_scenes"]
 	if data.has("death_scenes"):
 		_death_scenes[chapter_id] = data["death_scenes"]
+	if data.has("death_sequences"):
+		_death_sequences[chapter_id] = data["death_sequences"]
 	return true
 
 
@@ -192,6 +205,8 @@ func validate() -> PackedStringArray:
 		problems.append_array(StoryReactions.validate_respawns(String(chapter_id), _respawn_scenes[chapter_id], has_scene))
 	for chapter_id: StringName in _death_scenes:
 		problems.append_array(StoryReactions.validate_death_scenes(String(chapter_id), _death_scenes[chapter_id], has_scene, _scene_set_flags))
+	for chapter_id: Variant in _death_sequences:
+		problems.append_array(validate_death_sequences(str(chapter_id), _death_sequences[chapter_id]))
 	if not _death_notes.is_empty():
 		problems.append_array(StoryReactions.validate_notes("（全部）", _death_notes))
 	for issue in StoryLint.errors_of(lint()):
@@ -262,10 +277,14 @@ func _scene_text_lines(scene: Variant) -> Array:
 		var steps: Variant = (scene as Dictionary).get("steps", [])
 		if typeof(steps) != TYPE_ARRAY:
 			return result
-		for step: Variant in steps:
+		for step: Variant in StoryRules.entries(steps):
 			if typeof(step) != TYPE_DICTIONARY:
 				continue
 			match str(step.get("do", "")):
+				"choice":
+					for option: Variant in step.get("options", []):
+						if option is Dictionary:
+							result.append({"speaker": "rin", "text": str(option.get("text", ""))})
 				"say":
 					result.append({"speaker": str(step.get("speaker", "")), "text": str(step.get("text", ""))})
 				"narrate":
@@ -385,6 +404,7 @@ func was_seen(id: StringName) -> bool:
 ## 新的一輪遊戲開始時清除觀看紀錄。
 func reset_progress() -> void:
 	_seen.clear()
+	_completed.clear()
 	_cinematic_queue.clear()
 
 
@@ -474,6 +494,7 @@ func _start_cinematic(id: StringName) -> void:
 	var animated := str(scene.get("mode", "")) == String(MODE_ANIMATED)
 	scene_started.emit(id, MODE_ANIMATED if animated else MODE_CINEMATIC)
 	if auto_skip or Settings.get_skip_cutscenes():
+		apply_default_choices(scene)
 		_on_cinematic_finished.call_deferred(id)
 		return
 	if animated:
@@ -533,3 +554,98 @@ func _resolve_lines(raw: Variant) -> Array[Dictionary]:
 ## {death_time} 要填的世界時間：剛剛死亡的時間；還沒死過就用現在的。
 func _death_clock() -> String:
 	return GameState.last_death_clock if not GameState.last_death_clock.is_empty() else GameState.world_clock_text()
+
+
+func progress_snapshot() -> Array:
+	return _completed.keys()
+
+
+func restore_progress(raw: Variant, where := "story/seen") -> void:
+	_seen.clear()
+	_completed.clear()
+	if not raw is Array:
+		push_warning("[Story] %s 不是清單，退回空觀看紀錄" % where)
+		return
+	for entry: Variant in raw:
+		var id := StringName(str(entry))
+		if has_scene(id):
+			_seen[id] = true
+			_completed[id] = true
+		else:
+			push_warning("[Story] %s/%s 場景不存在，已略過" % [where, id])
+
+
+func apply_choice(option: Dictionary) -> void:
+	var flags: Variant = option.get("set_flags", {})
+	for flag: Variant in StoryRules.flag_names(flags):
+		GameState.set_flag(StringName(str(flag)), flags[flag] if flags is Dictionary else true)
+
+
+## Skip uses explicit defaults, so gates cannot depend on an unanswered question.
+func apply_default_choices(scene: Dictionary) -> void:
+	_resolve_skipped_steps(scene.get("steps", []))
+
+
+func _resolve_skipped_steps(raw: Variant) -> void:
+	if not raw is Array:
+		return
+	for step: Variant in raw:
+		if not step is Dictionary:
+			continue
+		if step.get("do") == "choice":
+			var option := StoryRules.default_option(step, StoryRules.options(step, GameState.has_flag, StoryItems.owns))
+			apply_choice(option)
+			_resolve_skipped_steps(option.get("steps", []))
+		elif step.get("do") == "branch":
+			_resolve_skipped_steps(step.get("steps", []) if StoryRules.eligible(step, GameState.has_flag, StoryItems.owns) else step.get("else_steps", []))
+
+
+func death_sequence(chapter: StringName, count := -1) -> Dictionary:
+	var result := {}
+	var threshold := -1
+	var raw: Variant = _death_sequences.get(chapter, [])
+	if not raw is Array:
+		return result
+	var actual := GameState.deaths if count < 0 else count
+	for entry: Variant in raw:
+		if not entry is Dictionary:
+			continue
+		var minimum_raw: Variant = entry.get("min_deaths", 1)
+		if not (minimum_raw is int or minimum_raw is float):
+			continue
+		var minimum := int(minimum_raw)
+		if minimum <= actual and minimum >= threshold:
+			result = entry
+			threshold = minimum
+	return result
+
+
+func validate_death_sequences(chapter: String, raw: Variant) -> PackedStringArray:
+	var problems := PackedStringArray()
+	if not raw is Array:
+		return PackedStringArray(["章節 %s 的 death_sequences 必須是清單" % chapter])
+	for i in raw.size():
+		var entry: Variant = raw[i]
+		var where := "章節 %s/death_sequences/%d" % [chapter, i]
+		if not entry is Dictionary or not entry.get("steps") is Array:
+			problems.append("%s 必須是有 steps 清單的物件" % where)
+			continue
+		var steps: Array = entry.steps
+		if steps.is_empty() or steps.size() > 8:
+			problems.append("%s/steps 必須有 1 到 8 步" % where)
+		for j in steps.size():
+			var step: Variant = steps[j]
+			if not step is Dictionary:
+				problems.append("%s/steps/%d 不是物件" % [where, j])
+				continue
+			var kind := str(step.get("kind", "line"))
+			if not kind in ["line", "status", "card"]:
+				problems.append("%s/steps/%d 未知種類 %s" % [where, j, kind])
+			if kind != "card" and str(step.get("text", "")).strip_edges().is_empty():
+				problems.append("%s/steps/%d 缺少文字" % [where, j])
+			if kind == "line" and not _speakers.has(str(step.get("speaker", ""))):
+				problems.append("%s/steps/%d 講者未定義" % [where, j])
+			var seconds: Variant = step.get("time", 0.6)
+			if not (seconds is int or seconds is float) or float(seconds) < 0.0 or float(seconds) > 3.0:
+				problems.append("%s/steps/%d/time 必須在 0 到 3 秒" % [where, j])
+	return problems

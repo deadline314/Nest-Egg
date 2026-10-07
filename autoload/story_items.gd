@@ -123,6 +123,7 @@ func acquire(id: StringName, announce := true) -> bool:
 		return false
 	_owned[id] = true
 	_unseen[id] = true
+	GameState.request_story_save()
 	acquired.emit(item)
 	if announce:
 		EventBus.toast_requested.emit(acquire_message(item))
@@ -159,3 +160,29 @@ func _grant(trigger: StoryItemData.Trigger, scene_id := &"", announce := true) -
 		if trigger == StoryItemData.Trigger.SCENE_FINISHED and item.trigger_scene != scene_id:
 			continue
 		acquire(item.id, announce)
+
+
+func snapshot() -> Dictionary:
+	return {"owned": _owned.keys(), "unseen": _unseen.keys()}
+
+
+func restore(raw: Variant, where := "story/items") -> void:
+	_owned.clear()
+	_unseen.clear()
+	if not raw is Dictionary:
+		push_warning("[StoryItems] %s 損毀，退回空清單" % where)
+		return
+	for key in ["owned", "unseen"]:
+		var values: Variant = raw.get(key, [])
+		if not values is Array:
+			push_warning("[StoryItems] %s/%s 不是清單，已略過" % [where, key])
+			continue
+		for value: Variant in values:
+			var id := StringName(str(value))
+			if find(id) == null:
+				push_warning("[StoryItems] %s/%s/%s 未知道具，已略過" % [where, key, id])
+				continue
+			if key == "owned":
+				_owned[id] = true
+			elif _owned.has(id):
+				_unseen[id] = true

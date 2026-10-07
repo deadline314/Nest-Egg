@@ -35,6 +35,7 @@ var _steps_done: Dictionary[StringName, int] = {}
 
 
 func run() -> void:
+	await _test_story_features()
 	_test_checker()
 	_test_stages()
 	await _test_play_all_steps()
@@ -413,3 +414,125 @@ func _test_overlay_and_layers() -> void:
 	var plain := StageLayers.create({"kind": "sprite", "path": "res://art/environment/props/trash_can.png", "pos": [0, 0]}, "test sprite")
 	check(plain != null and plain.get_child_count() == 0, "沒有自發光層的道具不加多餘節點")
 	plain.free()
+
+
+func _test_story_features() -> void:
+	var previous_auto := Story.auto_skip
+	var previous_flags := GameState.world_flags.duplicate(true)
+	var previous_defaults := GameState.flag_defaults.duplicate(true)
+	var previous_items := StoryItems.snapshot()
+	var previous_seen := Story.progress_snapshot()
+	var previous_sequences := Story._death_sequences.duplicate(true)
+	check(Story.load_chapter("res://tests/fixtures/story_features.json"), "ST-3 fixture loads through the chapter API")
+	var scene: Dictionary = Story._scenes["test_story_choice"]
+	check(CutsceneChecker.validate("test_story_choice", scene, Story._speakers).is_empty(), "choice and inline branches validate")
+	Story.auto_skip = false
+	var player := CutscenePlayer.new()
+	runner.add_child(player)
+	player.speed = 100.0
+	player.play(&"test_story_choice", scene)
+	for i in 90:
+		if player.choice_active():
+			break
+		await frames(1)
+	check(not Story.progress_snapshot().has(&"test_story_choice"), "unfinished scenes are excluded from serialized seen records")
+	check(player.choice_active() and runner.get_tree().paused, "a choice waits for real input while gameplay is locked")
+	check((player._choice.get_child(1) as Button).has_focus(), "the first choice starts with keyboard/controller focus")
+	var accept := InputEventAction.new()
+	accept.action = &"ui_accept"
+	accept.pressed = true
+	Input.parse_input_event(accept)
+	Input.flush_buffered_events()
+	await runner.get_tree().process_frame
+	accept = InputEventAction.new()
+	accept.action = &"ui_accept"
+	accept.pressed = false
+	Input.parse_input_event(accept)
+	Input.flush_buffered_events()
+	await runner.get_tree().process_frame
+	check(GameState.has_flag(&"test_story_decision"), "native confirm input selects the focused ask option")
+	check(GameState.has_flag(&"test_story_decision"), "selection records its flag")
+	for i in 90:
+		if not is_instance_valid(player):
+			break
+		await frames(1)
+	check(not runner.get_tree().paused, "a chosen branch finishes and releases gameplay")
+	player = CutscenePlayer.new()
+	runner.add_child(player)
+	player.speed = 100.0
+	player.play(&"test_story_choice", scene)
+	for i in 90:
+		if player.choice_active():
+			break
+		await frames(1)
+	check(player.choose(1), "the leave option can be selected")
+	check(not GameState.has_flag(&"test_story_decision"), "the alternative choice writes false rather than another true flag")
+	player.skip()
+	for i in 90:
+		if not is_instance_valid(player):
+			break
+		await frames(1)
+	Story.auto_skip = true
+	Story.apply_default_choices(scene)
+	check(not GameState.has_flag(&"test_story_decision"), "skipping resolves an unanswered choice using the declared default")
+	StoryItems.acquire(&"doc_crayon_drawing", false)
+	check(StoryRules.eligible({"requires_item": "doc_crayon_drawing"}, GameState.has_flag, StoryItems.owns), "later story conditions inspect the existing inventory")
+	check(not StoryRules.eligible({"requires_item": "missing_item"}, GameState.has_flag, StoryItems.owns), "missing story items cannot satisfy a condition")
+	Story._seen[&"test_story_object"] = true
+	Story._completed[&"test_story_object"] = true
+	GameState.set_flag(&"test_story_visits", 2)
+	check(GameState.save_story_progress("user://test_story_progress.json"), "story flags, items and completed interactions save to disk")
+	GameState.world_flags.clear()
+	StoryItems._owned.clear()
+	Story._seen.clear()
+	check(GameState.load_story_progress("user://test_story_progress.json"), "saved story progress can be reopened")
+	check(GameState.get_flag(&"test_story_visits") == 2 and Story.was_seen(&"test_story_object") and StoryItems.owns(&"doc_crayon_drawing"), "disk roundtrip retains numbers, seen objects and story items")
+	var broken_file := FileAccess.open("user://test_story_progress.json", FileAccess.WRITE)
+	broken_file.store_string("{ broken JSON")
+	broken_file.close()
+	check(not GameState.load_story_progress("user://test_story_progress.json"), "invalid JSON reports its file and line and restores safe defaults")
+	GameState.restore_story_progress({"flags": {"test_story_visits": []}}, "test_bad_cutscene/save")
+	check(GameState.get_flag(&"test_story_visits") == 0 and GameState.get_flag(&"test_story_decision") == false, "missing or corrupted flags restore declared defaults")
+	var npc := NpcData.new()
+	npc.id = &"test_object"
+	npc.display_name = "測試物件"
+	npc.kind = NpcData.Kind.OBJECT
+	var talk := NpcTalk.new()
+	talk.scene = &"test_story_object"
+	talk.once = true
+	talk.story_item = StoryItems.find(&"old_k_order")
+	npc.talks = [talk]
+	check(npc.validate().is_empty(), "an investigation can award an ordinary story item using existing NpcTalk data")
+	check(npc.pick_talk(0, func(_id: StringName) -> bool: return false) == 0 and npc.pick_talk(0, func(_id: StringName) -> bool: return true) == -1, "a once-only investigation cannot be counted twice")
+	talk.requires_item = &"doc_crayon_drawing"
+	check(npc.pick_talk(0, func(_id: StringName) -> bool: return false, 0, GameState.has_flag, func(_id: StringName) -> bool: return false) == -1, "investigation item requirements block unavailable lines")
+	check(not Story.validate_death_sequences("test", [{"steps": [{"kind": "unknown", "time": []}]}]).is_empty(), "startup validation catches malformed death sequence positions")
+	var first := Story.death_sequence(&"ch1_kasa", 1)
+	var second := Story.death_sequence(&"ch1_kasa", 2)
+	var third := Story.death_sequence(&"ch1_kasa", 3)
+	check(first.steps.size() == 4 and second.steps.size() == 2 and third.skippable, "first death is complete, second is shorter, third is skippable")
+	var screen := DeathScreen.new()
+	screen.sequence = first
+	screen.setup({"title": "記憶卡", "text": "測試記憶。"}, true)
+	runner.add_child(screen)
+	check(screen.sequence_index == 0, "death sequence starts with the first line")
+	for i in 240:
+		if screen.sequence_complete:
+			break
+		await frames(1)
+	check(screen.sequence_complete and screen.sequence_index == 3, "death sequence reaches the memory card in order")
+	screen.queue_free()
+	await frames(2)
+	var table := ContinuityAudit.flag_table({"test": scene}, {}, {})
+	check(table.has("test_story_decision") and table.test_story_decision.writes.size() == 2 and table.test_story_decision.reads.size() == 1, "continuity audit reads all choice writes and branch conditions")
+	DirAccess.remove_absolute(ProjectSettings.globalize_path("user://test_story_progress.json"))
+	Story._scenes.erase("test_story_choice")
+	Story._scenes.erase("test_story_object")
+	Story._scene_chapter.erase("test_story_choice")
+	Story._scene_chapter.erase("test_story_object")
+	Story._death_sequences = previous_sequences
+	GameState.flag_defaults = previous_defaults
+	GameState.world_flags = previous_flags
+	StoryItems.restore(previous_items)
+	Story.restore_progress(previous_seen)
+	Story.auto_skip = previous_auto

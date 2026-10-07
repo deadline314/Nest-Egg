@@ -26,6 +26,7 @@ func run() -> void:
 	await _test_checkpoint_consistency()
 	await _test_real_npcs()
 	await _test_fallbacks()
+	await _test_once_object()
 	_remove_test_scenes()
 	Story.auto_skip = true
 
@@ -442,4 +443,28 @@ func _test_fallbacks() -> void:
 	npc._talk()
 	await frames(3)
 	check(not Story.is_cinematic_active() and not runner.get_tree().paused, "a missing dialogue scene does not freeze the game")
+	await end_level(level)
+
+
+func _test_once_object() -> void:
+	Story.auto_skip = true
+	var talk := _talk(TEST_SCENE_A)
+	talk.once = true
+	talk.story_item = StoryItems.find(&"nest07_shard")
+	var object_data := _npc(&"test_once_object", [talk])
+	object_data.kind = NpcData.Kind.OBJECT
+	var level := await start_level(_level_data({"A": object_data}))
+	var object := _find_npc(level, 14)
+	await _stand_next_to(level, object)
+	Input.action_press(&"interact")
+	await physics_frames(2)
+	Input.action_release(&"interact")
+	for i in 90:
+		if object.talk_count == 1:
+			break
+		await frames(1)
+	check(object.talk_count == 1 and StoryItems.owns(&"nest07_shard"), "interacting with an object grants the existing story item")
+	object._talk()
+	await frames(3)
+	check(object.talk_count == 1, "repeating a once-only investigation does not increment its count")
 	await end_level(level)

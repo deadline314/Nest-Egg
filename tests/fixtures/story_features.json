@@ -1,0 +1,26 @@
+{
+  "for_chapter": "ch1_kasa",
+  "flag_defaults": {"test_story_decision": false, "test_story_visits": 0},
+  "death_sequences": [
+    {"min_deaths": 1, "skippable": false, "steps": [
+      {"kind": "line", "speaker": "rin", "text": "我還記得回去的路。", "time": 0.4},
+      {"kind": "line", "speaker": "system", "text": "復原程序正在啟動。", "time": 0.4},
+      {"kind": "status", "text": "記憶已保存，準備復原。", "time": 0.3},
+      {"kind": "card", "time": 0.1}]},
+    {"min_deaths": 2, "skippable": false, "steps": [{"kind": "status", "text": "準備從復原點醒來。", "time": 0.1}, {"kind": "card", "time": 0.1}]},
+    {"min_deaths": 3, "skippable": true, "steps": [{"kind": "card", "time": 0.1}]}
+  ],
+  "scenes": {
+    "test_story_choice": {
+      "mode": "animated", "overlay": true,
+      "steps": [
+        {"do": "choice", "text": "要不要再問清楚？", "default": "leave", "options": [
+          {"id": "ask", "text": "請把事情說清楚。", "set_flags": {"test_story_decision": true}, "steps": [{"do": "title", "text": "你決定追問。", "time": 0.1}]},
+          {"id": "leave", "text": "我先去完成差事。", "set_flags": {"test_story_decision": false}, "steps": [{"do": "title", "text": "你決定先離開。", "time": 0.1}]}
+        ]},
+        {"do": "branch", "requires_flag": "test_story_decision", "steps": [{"do": "wait", "time": 0.01}], "else_steps": [{"do": "wait", "time": 0.02}]}
+      ]
+    },
+    "test_story_object": {"mode": "bubbles", "lines": [{"speaker": "rin", "text": "這件物品留著熟悉的痕跡。"}]}
+  }
+}

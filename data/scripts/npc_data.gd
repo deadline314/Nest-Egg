@@ -34,13 +34,21 @@ func prompt_text() -> String:
 
 ## 依已談過的次數與劇情進度挑出這次要說的一段（符合條件的最後一段）。回傳在 talks 中的位置，沒有可用的回傳 -1。
 ## seen_scene：回傳某個劇情場景本輪是否播過；deaths：本輪累計死亡次數（人物對死亡的反應，見 NpcTalk.min_deaths）。
-func pick_talk(talk_count: int, seen_scene: Callable, deaths := 0) -> int:
+func pick_talk(talk_count: int, seen_scene: Callable, deaths := 0, flag_reader: Callable = Callable(), item_reader: Callable = Callable()) -> int:
 	var picked := -1
 	for index in talks.size():
 		var talk := talks[index]
 		if talk == null or talk.min_talks > talk_count or talk.min_deaths > deaths:
 			continue
 		if talk.after_scene != &"" and not bool(seen_scene.call(talk.after_scene)):
+			continue
+		if talk.once and bool(seen_scene.call(talk.scene)):
+			continue
+		if talk.requires_flag != &"" and (not flag_reader.is_valid() or not bool(flag_reader.call(talk.requires_flag))):
+			continue
+		if talk.unless_flag != &"" and flag_reader.is_valid() and bool(flag_reader.call(talk.unless_flag)):
+			continue
+		if talk.requires_item != &"" and (not item_reader.is_valid() or not bool(item_reader.call(talk.requires_item))):
 			continue
 		picked = index
 	return picked

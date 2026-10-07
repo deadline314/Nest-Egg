@@ -11,6 +11,11 @@ extends Resource
 @export var min_deaths: int = 0
 ## 這個劇情場景在本輪播過之後才會用這一段（空白 = 不限）。
 @export var after_scene: StringName = &""
+@export var requires_flag: StringName = &""
+@export var unless_flag: StringName = &""
+@export var requires_item: StringName = &""
+## Investigation scenes can be tracked once; old NPC reward/checkpoint rules stay unchanged.
+@export var once: bool = false
 @export_group("Reward")
 ## 說完給的信用點。
 @export var credits: int = 0
@@ -36,6 +41,5 @@ func validate(owner_id: StringName) -> PackedStringArray:
 		problems.append("人物 %s 的對話「%s」min_deaths 不能為負" % [owner_id, scene])
 	if credits < 0:
 		problems.append("人物 %s 的對話「%s」信用點不能為負" % [owner_id, scene])
-	if story_item != null and not story_item.is_collectible():
-		problems.append("人物 %s 的對話「%s」給的道具必須是文件或錄音" % [owner_id, scene])
+
 	return problems

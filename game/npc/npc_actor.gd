@@ -146,7 +146,7 @@ func _face_player() -> void:
 
 ## 現在要說的是哪一段（沒有可用的回傳 -1）。
 func current_talk_index() -> int:
-	return data.pick_talk(talk_count, Story.was_seen, GameState.deaths)
+	return data.pick_talk(talk_count, Story.was_seen, GameState.deaths, GameState.has_flag, StoryItems.owns)
 
 
 ## 開始對話：說完記下次數並發放獎勵。可用於測試直接呼叫。
@@ -160,7 +160,7 @@ func _talk() -> void:
 	_talking = true
 	if _actor != null:
 		_actor.set_talking(true)
-	await Story.play_and_wait(data.talks[index].scene, false)
+	await Story.play_and_wait(data.talks[index].scene, data.talks[index].once)
 	_talking = false
 	if _actor != null and is_instance_valid(_actor):
 		_actor.set_talking(false)

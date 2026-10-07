@@ -39,6 +39,12 @@ var carried_health := -1
 var area_states: Dictionary = {}
 ## 本輪的劇情旗標（旗標名 -> true／數字／字串），開始新的一輪時清空。
 var world_flags: Dictionary = {}
+var flag_defaults: Dictionary = {}
+const STORY_SAVE_PATH := "user://story_progress.json"
+## Main enables disk autosave; isolated simulations remain free of real-user writes.
+var story_autosave := false
+var _story_save_queued := false
+
 
 var lives_left := -1
 ## 本輪累計死亡次數（死亡畫面的「NEST 回溯紀錄 #n」、劇情的措辭變化都看它）。
@@ -91,7 +97,7 @@ func start_new_run(p_difficulty: DifficultyData) -> void:
 	pending_portal = &""
 	carried_health = -1
 	area_states = {}
-	world_flags = {}
+	world_flags = flag_defaults.duplicate(true)
 	kills = 0
 	finishers = 0
 	run_time = 0.0
@@ -103,6 +109,7 @@ func start_new_run(p_difficulty: DifficultyData) -> void:
 	_carried_loadout = {}
 	checkpoint_loadout = {}
 	EventBus.lives_changed.emit(lives_left)
+	request_story_save()
 
 
 func set_checkpoint(position: Vector2, loadout_snapshot: Dictionary, world_snapshot: Dictionary = {}, progress_snapshot: Dictionary = {}) -> void:
@@ -148,19 +155,24 @@ func set_flag(flag: StringName, value: Variant = true) -> void:
 	if flag == &"":
 		push_warning("[GameState] set_flag：旗標名稱是空的")
 		return
+	if not _flag_value_valid(value):
+		push_warning("[GameState] flags/%s 無效，保留預設值" % flag)
+		return
 	world_flags[String(flag)] = value
+	request_story_save()
 
 
 func has_flag(flag: StringName) -> bool:
-	return flag != &"" and world_flags.has(String(flag)) and world_flags[String(flag)] != false
+	return flag != &"" and bool(get_flag(flag, false))
 
 
 func get_flag(flag: StringName, default: Variant = null) -> Variant:
-	return world_flags.get(String(flag), default)
+	return world_flags.get(String(flag), flag_defaults.get(String(flag), default))
 
 
 func clear_flag(flag: StringName) -> void:
 	world_flags.erase(String(flag))
+	request_story_save()
 
 
 ## 通關時呼叫：記下要帶進下一關的武器欄與消耗品。
@@ -181,6 +193,7 @@ func enter_level() -> void:
 ## 記錄一次死亡。回傳 true = 可從檢查點續玩；false = 殘機用盡，進度重置。
 func register_death() -> bool:
 	deaths += 1
+	request_story_save()
 	last_death_clock = world_clock_text()
 	respawn_pending = true
 	if not difficulty.has_limited_lives():
@@ -220,3 +233,101 @@ func _on_enemy_killed(_enemy_id: StringName, by_finisher: bool) -> void:
 	kills += 1
 	if by_finisher:
 		finishers += 1
+
+
+## Defaults only accept scalar JSON values; invalid chapter/save data cannot reach story comparisons.
+func register_flag_defaults(raw: Variant, where: String) -> void:
+	if not raw is Dictionary:
+		push_warning("[GameState] %s/flag_defaults 不是物件，使用空預設值" % where)
+		return
+	for flag: Variant in raw:
+		if str(flag).is_empty() or not _flag_value_valid(raw[flag]):
+			push_warning("[GameState] %s/flag_defaults/%s 無效，已略過" % [where, flag])
+			continue
+		flag_defaults[str(flag)] = raw[flag]
+
+
+func _flag_value_valid(value: Variant) -> bool:
+	return typeof(value) in [TYPE_BOOL, TYPE_INT, TYPE_STRING] or (value is float and is_finite(value))
+
+
+func story_progress_snapshot() -> Dictionary:
+	return {"version": 1, "flags": world_flags.duplicate(true), "seen": Story.progress_snapshot(), "items": StoryItems.snapshot(), "deaths": deaths}
+
+
+## This component can be embedded in a future whole-run save without creating a second quest list.
+func restore_story_progress(raw: Variant, where := STORY_SAVE_PATH) -> void:
+	world_flags = flag_defaults.duplicate(true)
+	var data: Dictionary = raw if raw is Dictionary else {}
+	if not raw is Dictionary:
+		push_warning("[GameState] %s 不是物件，故事進度退回預設值" % where)
+	var flags: Variant = data.get("flags", {})
+	if not flags is Dictionary:
+		push_warning("[GameState] %s/flags 損毀，退回預設值" % where)
+		flags = {}
+	for flag: Variant in flags:
+		var value: Variant = flags[flag]
+		var valid := not str(flag).is_empty() and _flag_value_valid(value)
+		if flag_defaults.has(str(flag)):
+			var fallback: Variant = flag_defaults[str(flag)]
+			valid = valid and (typeof(value) == typeof(fallback) or (value is float and fallback is int and value == floor(value)))
+		if valid:
+			world_flags[str(flag)] = int(value) if flag_defaults.get(str(flag)) is int else value
+		else:
+			push_warning("[GameState] %s/flags/%s 損毀，退回預設值" % [where, flag])
+	for flag: Variant in flag_defaults:
+		if not flags.has(flag):
+			push_warning("[GameState] %s/flags/%s 缺漏，退回預設值" % [where, flag])
+	Story.restore_progress(data.get("seen", []), where + "/seen")
+	StoryItems.restore(data.get("items", {}), where + "/items")
+	var count: Variant = data.get("deaths", 0)
+	deaths = maxi(0, int(count)) if count is int or count is float else 0
+
+
+func save_story_progress(path := STORY_SAVE_PATH) -> bool:
+	var temp := path + ".tmp"
+	var file := FileAccess.open(temp, FileAccess.WRITE)
+	if file == null:
+		push_warning("[GameState] 無法寫入 %s（%s）" % [temp, FileAccess.get_open_error()])
+		return false
+	file.store_string(JSON.stringify(story_progress_snapshot()))
+	file.flush()
+	var error := file.get_error()
+	file.close()
+	if error != OK:
+		push_warning("[GameState] 寫入 %s 失敗（%s），原存檔保留" % [temp, error])
+		return false
+	error = DirAccess.rename_absolute(ProjectSettings.globalize_path(temp), ProjectSettings.globalize_path(path))
+	if error != OK:
+		push_warning("[GameState] 無法替換存檔 %s（%s），原存檔保留" % [path, error])
+	return error == OK
+
+
+func load_story_progress(path := STORY_SAVE_PATH) -> bool:
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		push_warning("[GameState] 無法讀取 %s，故事進度退回預設值" % path)
+		restore_story_progress({}, path)
+		return false
+	var parser := JSON.new()
+	var error := parser.parse(file.get_as_text())
+	file.close()
+	if error != OK or not parser.data is Dictionary:
+		push_warning("[GameState] %s:%d 存檔損毀：%s，故事進度退回預設值" % [path, parser.get_error_line(), parser.get_error_message()])
+		restore_story_progress({}, path)
+		return false
+	restore_story_progress(parser.data, path)
+	return true
+
+
+func request_story_save() -> void:
+	if not story_autosave or _story_save_queued:
+		return
+	_story_save_queued = true
+	_flush_story_save.call_deferred()
+
+
+func _flush_story_save() -> void:
+	_story_save_queued = false
+	if story_autosave:
+		save_story_progress()
