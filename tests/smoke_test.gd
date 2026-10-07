@@ -89,7 +89,7 @@ func _suites() -> Array[TestSuite]:
 		Chapter2Suite.new(self), UiKitSuite.new(self), TransitionSuite.new(self), UiScreensSuite.new(self), CutsceneSuite.new(self), EnvironmentSuite.new(self), AmmoIconsSuite.new(self), AmmoTraySuite.new(self), CombatHudSuite.new(self), ChapterCutscenesSuite.new(self),
 		NpcSuite.new(self), NpcAnimationSuite.new(self), NpcLifeSuite.new(self), RigActionsSuite.new(self), EnemyVfxSuite.new(self), StoryLintSuite.new(self), StoryContentSuite.new(self), DeathReactionSuite.new(self), DeathFlowSuite.new(self), ContinuitySuite.new(self), PacingSuite.new(self), SceneSanitySuite.new(self), MapBubblesSuite.new(self), AttackTokensSuite.new(self), EncounterSuite.new(self), EconomySuite.new(self), ExposureSuite.new(self), HitReactionSuite.new(self), PostureSuite.new(self), AnimAuditSuite.new(self), RigMeshSuite.new(self), ProtagonistMotionSuite.new(self), LocomotionSuite.new(self), PhoneBoothSuite.new(self), PartCreatureSuite.new(self), ChainCreatureSuite.new(self), ExoticEnemiesSuite.new(self), Chapter2ExpansionSuite.new(self), Chapter2ArtSuite.new(self), FeelSuite.new(self), MeleeSuite.new(self), MeleeWeaponsSuite.new(self), StrikeEnemiesSuite.new(self), FxUpgradesSuite.new(self), FxMeleePickupsSuite.new(self), FeelLabSuite.new(self), InputFeelSuite.new(self), FeelToolsSuite.new(self), AudioSuite.new(self), MusicSuite.new(self), ReloadCuesSuite.new(self), SoundLabSuite.new(self), ClipEditorSuite.new(self), ApplyPanelSuite.new(self), LayerOrderSuite.new(self), SoundStageSuite.new(self), StageCoverageWeaponsSuite.new(self), StageCoverageCharactersSuite.new(self), StageCoverageWorldSuite.new(self), DevMenuSuite.new(self),
 		CharactersSuite.new(self), ReconEnemiesSuite.new(self), HeavyEnemiesSuite.new(self), AssaultEnemiesSuite.new(self),
-		WorldPromptSuite.new(self), AreasSuite.new(self), Chapter1EnemiesSuite.new(self), FloodPitSuite.new(self), Chapter1MapSuite.new(self),
+		QuestMapSuite.new(self), WorldPromptSuite.new(self), AreasSuite.new(self), Chapter1EnemiesSuite.new(self), FloodPitSuite.new(self), Chapter1MapSuite.new(self),
 	]
 
 
@@ -1680,6 +1680,13 @@ func _test_enemy_behaviours() -> void:
 			if is_instance_valid(other) and other != target:
 				other.queue_free()
 		target.stun(5.0)
+		Fx.thaw_all()
+		# 群戰最後一擊可能讓玩家仍在受擊硬直；等到真的能操作，再檢查按鍵觸發。
+		for ready_frame in 60:
+			if player.state == Player.State.NORMAL:
+				break
+			await get_tree().physics_frame
+		_check(player.state == Player.State.NORMAL, "player ready before finisher input")
 		await _frames(1)
 		player.global_position = target.global_position + Vector2(-20, 0)
 		var finishers := GameState.finishers

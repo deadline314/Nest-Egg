@@ -23,6 +23,7 @@ var _zoom_pulse: CheckButton
 var _damage_numbers: CheckButton
 var _feel_sliders: Dictionary[String, HSlider] = {}
 var _feel_values: Dictionary[String, Label] = {}
+var _quest_toggles: Dictionary[String, CheckButton] = {}
 var _brightness_slider: HSlider
 var _brightness_value: Label
 ## "action:slot" -> Button
@@ -184,6 +185,17 @@ func _build_display_tab() -> Control:
 		Settings.set_hud_auto_hide(on)
 		Sfx.play(&"ui_confirm", -6.0, 0.0))
 	box.add_child(_hud_auto_hide)
+	for entry in [["quest_objective", "顯示任務目標列", "顯示追蹤中的一句話目標，閒置時淡出。"], ["quest_arrows", "顯示目標方向箭頭", "目標在螢幕外時顯示箭頭，跨區時指向出口。"]]:
+		var toggle := CheckButton.new()
+		toggle.text = entry[1]
+		toggle.tooltip_text = entry[2]
+		var raw: Variant = Settings.get_value(Settings.DISPLAY_SECTION, entry[0], true)
+		toggle.button_pressed = raw if raw is bool else true
+		toggle.toggled.connect(func(on: bool) -> void:
+			Settings.set_value(Settings.DISPLAY_SECTION, entry[0], on)
+			Settings.display_changed.emit())
+		box.add_child(toggle)
+		_quest_toggles[entry[0]] = toggle
 	box.add_child(_build_brightness_row())
 	box.add_child(_build_quality_row())
 	_reduce_flashes = CheckButton.new()
@@ -478,6 +490,8 @@ func _reset_current_tab() -> void:
 		_set_status("按鍵已恢復預設。", Palette.CYAN)
 	else:
 		Settings.reset_display()
+		for key: String in _quest_toggles:
+			_quest_toggles[key].set_pressed_no_signal(true)
 		_hud_auto_hide.set_pressed_no_signal(Settings.get_hud_auto_hide())
 		_sync_fullscreen()
 		_brightness_slider.set_value_no_signal(roundf(Settings.get_brightness() * 100.0))

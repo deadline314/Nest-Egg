@@ -273,6 +273,8 @@ func zoom_pulse_active() -> bool:
 
 
 func reset_display() -> void:
+	set_value(DISPLAY_SECTION, "quest_objective", true)
+	set_value(DISPLAY_SECTION, "quest_arrows", true)
 	for key: String in FEEL_KEYS:
 		set_feel_scale(key, 1.0)
 	set_zoom_pulse(true)

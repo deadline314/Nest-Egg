@@ -1,0 +1,38 @@
+{
+  "chapter": {"id": "ch1_kasa"},
+  "quests": [
+    {
+      "id": "nav_test_main", "kind": "main",
+      "title": "前往測試目的地查看指引",
+      "background": "這是驗證介面的測試樣本，並非第一章的故事任務。",
+      "reward": "此樣本不會發放獎勵。",
+      "complete_flag": "nav_test_finished",
+      "steps": [
+        {"title": "前往屋頂查看測試標記", "complete_flag": "nav_test_finished", "location": {"level": "res://data/levels/ch1_rooftop.tres", "cell": [20, 17]}}
+      ]
+    },
+    {
+      "id": "nav_test_side", "kind": "side",
+      "title": "查看阻塞任務的建議",
+      "background": "這個測試樣本用來驗證阻塞說明與釘選操作。",
+      "requires_flags": ["nav_test_ready"],
+      "blocked_reason": "尚未滿足測試前置條件，因此這個目標無法進行。",
+      "suggestion": "先完成上方的測試主線，再回來查看這項任務。",
+      "reward": "此樣本不會發放獎勵。",
+      "complete_flag": "nav_test_side_finished",
+      "steps": [
+        {"title": "前往當舖查看測試標記", "complete_flag": "nav_test_side_finished", "location": {"level": "res://data/levels/ch1_pawnshop.tres", "cell": [50, 19]}}
+      ]
+    },
+    {
+      "id": "nav_test_completed", "kind": "main",
+      "title": "查看已完成任務的版面",
+      "background": "這個測試樣本用來驗證已完成步驟的勾選狀態。",
+      "reward": "此樣本不會發放獎勵。",
+      "complete_flag": "nav_test_done",
+      "steps": [
+        {"title": "確認已完成的步驟仍能閱讀", "complete_flag": "nav_test_done", "location": {"level": "res://data/levels/ch1_pawnshop.tres", "cell": [50, 19]}}
+      ]
+    }
+  ]
+}

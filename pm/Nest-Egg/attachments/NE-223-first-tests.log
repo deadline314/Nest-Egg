@@ -1,0 +1,13 @@
+改到整個專案或測試流程本身，跑全部測試。
+Running 77 groups in 8 processes (logs: /tmp/ne223-affected)
+  process 0 (estimated 265 s): main,AssaultEnemiesSuite
+  process 1 (estimated 275 s): WorldPromptSuite,StoryContentSuite,RigMeshSuite,PropsSuite,NpcLifeSuite,LocomotionSuite,FloodPitSuite,EnemyVfxSuite,ContinuitySuite,Chapter2ExpansionSuite,AreasSuite
+  process 2 (estimated 275 s): UiScreensSuite,StageCoverageWorldSuite,RigActionsSuite,ProgressionSuite,NpcAnimationSuite,LayerOrderSuite,FeelToolsSuite,EncounterSuite,CombatHudSuite,Chapter2ArtSuite,ApplyPanelSuite
+  process 3 (estimated 275 s): UiKitSuite,StageCoverageWeaponsSuite,ReloadCuesSuite,PostureSuite,NewEnemiesSuite,InputFeelSuite,FeelSuite,EconomySuite,CollectiblesSuite,Chapter1MapSuite,AnimAuditSuite
+  process 4 (estimated 275 s): TransitionSuite,StageCoverageCharactersSuite,ReconEnemiesSuite,PhoneBoothSuite,MusicSuite,HitReactionSuite,FeelLabSuite,DevMenuSuite,ClipEditorSuite,Chapter1EnemiesSuite,AmmoTraySuite
+  process 5 (estimated 275 s): SupplySuite,SoundStageSuite,ReclaimerSuite,PartCreatureSuite,MeleeWeaponsSuite,HeavyEnemiesSuite,ExposureSuite,DeathReactionSuite,CharactersSuite,ChainCreatureSuite,AmmoIconsSuite
+  process 6 (estimated 250 s): StrikeEnemiesSuite,SoundLabSuite,QuestMapSuite,PacingSuite,MeleeSuite,FxUpgradesSuite,ExoticEnemiesSuite,DeathFlowSuite,ChapterCutscenesSuite,AudioSuite
+  process 7 (estimated 250 s): StoryLintSuite,SceneSanitySuite,ProtagonistMotionSuite,NpcSuite,MapBubblesSuite,FxMeleePickupsSuite,EnvironmentSuite,CutsceneSuite,Chapter2Suite,AttackTokensSuite
+[process 0] NEW FAILURE: finisher counted
+Detected script errors in output of process 6: /tmp/ne223-affected/shard_6.log
+checks: 45450, new failures: 1, known failures (tests/known_failures.txt): 0  (wall time 290 s)

@@ -1,0 +1,29 @@
+改到整個專案或測試流程本身，跑全部測試。
+Running 77 groups in 8 processes (logs: /tmp/ne223-delivery-tests)
+  process 0 (estimated 170 s): StageCoverageWorldSuite
+  process 1 (estimated 159 s): ReclaimerSuite,AudioSuite,FeelSuite,AreasSuite,ProtagonistMotionSuite,ClipEditorSuite
+  process 2 (estimated 159 s): main,FxMeleePickupsSuite,NpcLifeSuite,FxUpgradesSuite,EncounterSuite,EnvironmentSuite,SoundLabSuite,FeelLabSuite,ApplyPanelSuite
+  process 3 (estimated 158 s): Chapter2Suite,Chapter2ExpansionSuite,ExoticEnemiesSuite,UiScreensSuite,HitReactionSuite,Chapter1EnemiesSuite,SceneSanitySuite,TransitionSuite,Chapter2ArtSuite,StoryLintSuite,StoryContentSuite,RigMeshSuite,PartCreatureSuite,PacingSuite,InputFeelSuite,EnemyVfxSuite,EconomySuite,DevMenuSuite,CharactersSuite,ChapterCutscenesSuite,AmmoIconsSuite
+  process 4 (estimated 158 s): StageCoverageWeaponsSuite,ReconEnemiesSuite,ChainCreatureSuite,AnimAuditSuite,LocomotionSuite,ProgressionSuite,ReloadCuesSuite,FloodPitSuite,WorldPromptSuite,NpcAnimationSuite
+  process 5 (estimated 158 s): AssaultEnemiesSuite,StageCoverageCharactersSuite,StrikeEnemiesSuite,MeleeWeaponsSuite,AmmoTraySuite,DeathFlowSuite,CollectiblesSuite,PostureSuite,UiKitSuite,MusicSuite
+  process 6 (estimated 158 s): Chapter1MapSuite,HeavyEnemiesSuite,AttackTokensSuite,DeathReactionSuite,SupplySuite,NpcSuite,MeleeSuite,ExposureSuite,RigActionsSuite,LayerOrderSuite
+  process 7 (estimated 158 s): SoundStageSuite,ContinuitySuite,NewEnemiesSuite,PropsSuite,PhoneBoothSuite,MapBubblesSuite,CombatHudSuite,CutsceneSuite,QuestMapSuite,FeelToolsSuite
+/workspace/Nest-Egg-session-quest-map/tools/run_tests_parallel.sh: line 80:  5092 Aborted                 "$GODOT" --headless res://tests/smoke_test.tscn -- --only="${ASSIGNED[$i]}" > "$LOG_DIR/shard_$i.log" 2>&1
+Process 6 did not finish (no result line): /tmp/ne223-delivery-tests/shard_6.log
+checks: 41213, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 181 s)
+
+終止程序最後輸出：
+SUITE_TIME HeavyEnemiesSuite 46.3
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://data/levels/no_such_level.tres
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] warm_level (res://core/asset_prefetch.gd:27)
+         [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:532)
+         [2] run (res://tests/suite/test_ch1_map.gd:44)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_heavy_enemies.gd:22)
+         [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:599)
+         [8] _frames (res://tests/smoke_test.gd:122)
+free(): chunks in smallbin corrupted

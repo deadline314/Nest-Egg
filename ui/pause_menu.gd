@@ -17,6 +17,7 @@ var _info_panel: Control
 var _resume_button: Button
 var _controls_label: Label
 var _status_label: Label
+var _navigation: QuestMapScreen
 var _settings: SettingsScreen
 
 
@@ -36,6 +37,8 @@ func _ready() -> void:
 	_menu_panel = menu
 	_resume_button = UiKit.button("繼續", close, "回到遊戲")
 	menu.body.add_child(_resume_button)
+	menu.body.add_child(UiKit.button("任務", _open_navigation.bind("quests"), InputBindings.format("查看任務並釘選目標；快捷鍵 {quests}。")))
+	menu.body.add_child(UiKit.button("地圖", _open_navigation.bind("region"), InputBindings.format("查看區域與世界地圖；快捷鍵 {map}。")))
 	menu.body.add_child(UiKit.button("設定", _open_settings, "音量、按鍵、顯示"))
 	menu.body.add_child(UiKit.button("從檢查點重來", _on_retry, "回到最後的檢查點，武器保留"))
 	menu.body.add_child(UiKit.button("回主選單", _on_menu, "放棄這次進度"))
@@ -56,7 +59,13 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	# 設定畫面開啟時由它自己處理輸入（Esc 會先關閉設定）。
-	if is_instance_valid(_settings) or GameplayLock.is_locked() or Story.is_cinematic_active():
+	if is_instance_valid(_navigation) or is_instance_valid(_settings) or GameplayLock.is_locked() or Story.is_cinematic_active():
+		return
+	if allowed and (event.is_action_pressed(&"quests") or event.is_action_pressed(&"map")) and (not get_tree().paused or _root.visible):
+		if not _root.visible:
+			open()
+		_open_navigation("quests" if event.is_action_pressed(&"quests") else "region")
+		get_viewport().set_input_as_handled()
 		return
 	if event.is_action_pressed(&"pause") or (_root.visible and event.is_action_pressed(&"ui_cancel")):
 		if _root.visible:
@@ -80,6 +89,9 @@ func open() -> void:
 
 
 func close() -> void:
+	if is_instance_valid(_navigation):
+		_navigation.queue_free()
+		_navigation = null
 	if is_instance_valid(_settings):
 		_settings.close()
 	if _root.visible:
@@ -134,3 +146,21 @@ func _on_retry() -> void:
 func _on_menu() -> void:
 	close()
 	menu_requested.emit()
+
+
+func _open_navigation(page: String) -> void:
+	var level := get_parent() as Level
+	if level == null or not is_instance_valid(level.hud) or level.hud.quest_guidance == null:
+		return
+	var guidance := level.hud.quest_guidance
+	_navigation = QuestMapScreen.new()
+	_navigation.catalog = guidance.catalog
+	_navigation.maps = guidance.maps
+	_navigation.state = guidance.state
+	_navigation.chapter = String(level.data.chapter)
+	_navigation.player_path = level.data.resource_path
+	_navigation.player_position = level.player.global_position
+	_navigation.world = WorldState.capture(get_tree())
+	_navigation.start_page = page
+	_navigation.closed.connect(func() -> void: _navigation = null)
+	UiOverlay.open(_root, _navigation)

@@ -1,0 +1,153 @@
+{
+	"delivery_ready": false,
+	"issues": [
+		"第一章故事來源沒有任務語義；新遊戲沒有可追蹤主線，不能宣稱主線模擬通過。",
+		"res://data/levels/ch1_street.tres.ch1_arena_street_plaza.hint: 缺少遊戲內鎖門說明。",
+		"res://data/levels/ch1_street.tres.ch1_arena_street_plaza.hint: 缺少遊戲內鎖門說明。",
+		"res://data/levels/ch1_street.tres.ch1_arena_street_blockade.hint: 缺少遊戲內鎖門說明。",
+		"res://data/levels/ch1_street.tres.ch1_arena_street_blockade.hint: 缺少遊戲內鎖門說明。",
+		"res://data/levels/ch1_vault.tres.ch1_arena_warehouse_walkway.hint: 缺少遊戲內鎖門說明。",
+		"res://data/levels/ch1_vault.tres.ch1_arena_warehouse_walkway.hint: 缺少遊戲內鎖門說明。",
+		"res://data/levels/ch1_vault.tres.ch1_arena_warehouse_vault.hint: 缺少遊戲內鎖門說明。",
+		"res://data/levels/ch1_vault.tres.ch1_arena_warehouse_vault.hint: 缺少遊戲內鎖門說明。",
+		"逐狀態主線模擬、整輪讀檔與序章兩條路線尚未接線；靜態可達性不能代替本票驗收。"
+	],
+	"locks_using_existing_game_text": [
+		{
+			"id": "lounge_exit",
+			"level": "res://data/levels/ch1_lounge.tres",
+			"requires_flag": "ch1_met_ali",
+			"text": "先和阿梨說話。"
+		},
+		{
+			"id": "pawn_basement",
+			"level": "res://data/levels/ch1_pawnshop.tres",
+			"requires_flag": "",
+			"text": "漏水，別開。"
+		},
+		{
+			"id": "pawn_front",
+			"level": "res://data/levels/ch1_pawnshop.tres",
+			"requires_flag": "ch1_heard_brief",
+			"text": "先去屋頂：鷺在等你。"
+		},
+		{
+			"id": "pawn_stairs",
+			"level": "res://data/levels/ch1_pawnshop.tres",
+			"requires_flag": "ch1_dinner_done",
+			"text": "先吃晚飯。老 K 在等。"
+		},
+		{
+			"id": "pawn_basement",
+			"level": "res://data/levels/ch1_pawnshop_dawn.tres",
+			"requires_flag": "",
+			"text": "漏水，別開。"
+		},
+		{
+			"id": "pawn_front",
+			"level": "res://data/levels/ch1_pawnshop_dawn.tres",
+			"requires_flag": "ch1_heard_brief",
+			"text": "先去屋頂：鷺在等你。"
+		},
+		{
+			"id": "pawn_stairs",
+			"level": "res://data/levels/ch1_pawnshop_dawn.tres",
+			"requires_flag": "ch1_dinner_done",
+			"text": "先吃晚飯。老 K 在等。"
+		},
+		{
+			"id": "stall_home",
+			"level": "res://data/levels/ch1_stall.tres",
+			"requires_flag": "knows_ali_address",
+			"text": "先吃點東西，和阿梨說話。"
+		},
+		{
+			"channel": "arena_street_plaza",
+			"id": "ch1_arena_street_plaza",
+			"level": "res://data/levels/ch1_street.tres",
+			"text": ""
+		},
+		{
+			"channel": "arena_street_plaza",
+			"id": "ch1_arena_street_plaza",
+			"level": "res://data/levels/ch1_street.tres",
+			"text": ""
+		},
+		{
+			"channel": "arena_street_blockade",
+			"id": "ch1_arena_street_blockade",
+			"level": "res://data/levels/ch1_street.tres",
+			"text": ""
+		},
+		{
+			"channel": "arena_street_blockade",
+			"id": "ch1_arena_street_blockade",
+			"level": "res://data/levels/ch1_street.tres",
+			"text": ""
+		},
+		{
+			"id": "street_market",
+			"level": "res://data/levels/ch1_street.tres",
+			"requires_flag": "",
+			"text": "收帳人封路。"
+		},
+		{
+			"channel": "arena_warehouse_walkway",
+			"id": "ch1_arena_warehouse_walkway",
+			"level": "res://data/levels/ch1_vault.tres",
+			"text": ""
+		},
+		{
+			"channel": "arena_warehouse_walkway",
+			"id": "ch1_arena_warehouse_walkway",
+			"level": "res://data/levels/ch1_vault.tres",
+			"text": ""
+		},
+		{
+			"channel": "arena_warehouse_vault",
+			"id": "ch1_arena_warehouse_vault",
+			"level": "res://data/levels/ch1_vault.tres",
+			"text": ""
+		},
+		{
+			"channel": "arena_warehouse_vault",
+			"id": "ch1_arena_warehouse_vault",
+			"level": "res://data/levels/ch1_vault.tres",
+			"text": ""
+		},
+		{
+			"channel": "watchdog_gate",
+			"id": "ch1_gate_watchdog",
+			"level": "res://data/levels/ch1_warehouse.tres",
+			"text": "隔牆：打倒看門狗才會升起"
+		},
+		{
+			"channel": "flood_a",
+			"id": "ch1_gate_a",
+			"level": "res://data/levels/ch1_warehouse.tres",
+			"text": "閘 A：旁邊的開關控制它"
+		},
+		{
+			"channel": "flood_b",
+			"id": "ch1_gate_b",
+			"level": "res://data/levels/ch1_warehouse.tres",
+			"text": "閘 B：開關在高處的平台上"
+		},
+		{
+			"channel": "flood_c",
+			"id": "ch1_gate_c",
+			"level": "res://data/levels/ch1_warehouse.tres",
+			"text": "閘 C：開關是坑底的踏板"
+		}
+	],
+	"ordered_simulation_verified": false,
+	"quest_count": 0,
+	"reachable_flags": [
+		"ch1_dinner_done",
+		"ch1_heard_brief",
+		"ch1_met_ali",
+		"knows_ali_address"
+	],
+	"reachable_level_count": 9,
+	"real_area_count": 9
+}

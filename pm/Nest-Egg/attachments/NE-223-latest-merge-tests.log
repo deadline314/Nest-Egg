@@ -1,0 +1,6 @@
+Running 7 groups in 4 processes (logs: /tmp/ne223-latest-tests)
+  process 0 (estimated 91 s): main
+  process 1 (estimated 56 s): Chapter2Suite
+  process 2 (estimated 55 s): AssaultEnemiesSuite,QuestMapSuite,MusicSuite
+  process 3 (estimated 84 s): Chapter1MapSuite,ReconEnemiesSuite
+checks: 3663, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 94 s)

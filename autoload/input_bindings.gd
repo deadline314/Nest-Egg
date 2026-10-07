@@ -36,6 +36,8 @@ const ACTIONS: Array[Dictionary] = [
 	{"id": &"interact", "label": "搭乘／互動"},
 	{"id": &"inventory", "label": "背包"},
 	{"id": &"pause", "label": "暫停"},
+	{"id": &"quests", "label": "任務目錄"},
+	{"id": &"map", "label": "地圖"},
 ]
 
 const DEFAULT_CODES: Dictionary[StringName, Array] = {
@@ -55,6 +57,8 @@ const DEFAULT_CODES: Dictionary[StringName, Array] = {
 	&"interact": [KEY_E, NONE],
 	&"inventory": [KEY_TAB, KEY_I],
 	&"pause": [KEY_ESCAPE, KEY_P],
+	&"quests": [KEY_O, NONE],
+	&"map": [KEY_M, NONE],
 }
 
 const DEFAULT_JOY_BUTTONS: Dictionary[StringName, int] = {
@@ -74,6 +78,8 @@ const DEFAULT_JOY_BUTTONS: Dictionary[StringName, int] = {
 	&"interact": JOY_BUTTON_X,
 	&"inventory": JOY_BUTTON_BACK,
 	&"pause": JOY_BUTTON_START,
+	&"quests": -1,
+	&"map": -1,
 }
 
 ## 固定的手把軸綁定。[軸, 方向]
@@ -133,6 +139,7 @@ var _placeholder_regex := RegEx.create_from_string("\\{([a-z_0-9]+)\\}")
 
 func _ready() -> void:
 	_register_fixed_actions()
+	_register_ui_controller()
 	reload_from_settings()
 
 
@@ -386,3 +393,19 @@ func _save() -> void:
 		var action: StringName = entry["id"]
 		Settings.set_value(SETTINGS_SECTION, String(action), {"codes": _codes[action].duplicate(), "joy": _joy[action]})
 	bindings_changed.emit()
+
+
+## Godot 的內建 UI 動作可能只有鍵盤事件；補上手把事件，不移除既有綁定。
+func _register_ui_controller() -> void:
+	for entry in [[&"ui_accept", JOY_BUTTON_A], [&"ui_cancel", JOY_BUTTON_B], [&"ui_up", JOY_BUTTON_DPAD_UP], [&"ui_down", JOY_BUTTON_DPAD_DOWN], [&"ui_left", JOY_BUTTON_DPAD_LEFT], [&"ui_right", JOY_BUTTON_DPAD_RIGHT]]:
+		var action: StringName = entry[0]
+		var event := InputEventJoypadButton.new()
+		event.button_index = entry[1]
+		if not InputMap.action_has_event(action, event):
+			InputMap.action_add_event(action, event)
+	for entry in [[&"ui_up", JOY_AXIS_LEFT_Y, -1.0], [&"ui_down", JOY_AXIS_LEFT_Y, 1.0], [&"ui_left", JOY_AXIS_LEFT_X, -1.0], [&"ui_right", JOY_AXIS_LEFT_X, 1.0]]:
+		var event := InputEventJoypadMotion.new()
+		event.axis = entry[1]
+		event.axis_value = entry[2]
+		if not InputMap.action_has_event(entry[0], event):
+			InputMap.action_add_event(entry[0], event)

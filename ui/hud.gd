@@ -21,6 +21,7 @@ var credits_tag: CreditsTag
 var cyber_gauge: CyberGauge
 var boss_bar: BossBar
 var toast_banner: UiBanner
+var quest_guidance: QuestGuidance
 var _controls: Label
 
 
@@ -28,6 +29,8 @@ func _ready() -> void:
 	layer = UiLayers.HUD
 	var root := UiKit.full_rect_root(self)
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	quest_guidance = QuestGuidance.new()
+	root.add_child(quest_guidance)
 
 	_gauges = _Gauges.new()
 	_gauges.set_anchors_preset(Control.PRESET_FULL_RECT)
