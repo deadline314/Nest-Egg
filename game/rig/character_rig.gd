@@ -14,6 +14,7 @@ const FLASH_TIME := 0.06
 const FLASH_BRIGHTNESS := 1.4
 const BREAK_IMPULSE := Vector2(80, -170)
 const DISSOLVE_SHADER := preload("res://art/shaders/dissolve.gdshader")
+const LIGHT_SHADER := preload("res://art/shaders/character_light.gdshader")
 ## 動畫器登記表：名稱 → 類別（需要繼承 HumanoidAnimator，建構時收到骨架）。外觀定義的 animator 欄位或 setup 的 animator_kind 用這些名稱；
 ## 特殊角色（專屬骨架、專屬攻擊動作）在這裡加一行即可，不需要動其他角色。
 static var ANIMATORS: Dictionary = {"humanoid": HumanoidAnimator, "npc": NpcAnimator}
@@ -48,6 +49,9 @@ var _parts: Array[CanvasItem] = []
 var _meshes: Array[RigPartMesh] = []
 var _part_tints: PackedFloat32Array = PackedFloat32Array()
 var _dissolve_material: ShaderMaterial
+## 零件與武器共用的受光材質（每盞光有亮度上限、不被補光倍率放大；NE-213）。
+var _light_material: ShaderMaterial
+var _light_cap := LightKit.CHARACTER_LIGHT_CAP_MAX
 var _fill := 1.0
 var _armor_visible := 0
 var _weapon_root: Node2D
@@ -76,6 +80,8 @@ func setup(p_skin_id: String, animator_kind := "") -> bool:
 	_texture_scale = float(skin.get("texture_scale", 0.25))
 	_limb_zone = clampf(float(skeleton_def.get("limb_zone", skin.get("limb_zone", 0.3))), 0.05, 0.6)
 	facing = facing
+	_light_material = ShaderMaterial.new()
+	_light_material.shader = LIGHT_SHADER
 	_build_skeleton(skeleton_def)
 	_build_parts(skin)
 	var kind := animator_kind if animator_kind != "" else str(skin.get("animator", "humanoid"))
@@ -165,6 +171,7 @@ func animate(delta: float, input: RigInput) -> void:
 		return
 	facing = input.facing
 	_apply_fill(LightKit.character_fill)
+	_apply_light_cap(LightKit.character_light_cap)
 	animator.update(delta, input)
 	refresh_limbs()
 	if _flash_left > 0.0:
@@ -214,11 +221,20 @@ func _apply_fill(fill: float) -> void:
 	if is_equal_approx(fill, _fill):
 		return
 	_fill = fill
+	_light_material.set_shader_parameter("fill", fill)
 	for i in _parts.size():
 		var tint := _part_tints[i] * fill
 		_parts[i].self_modulate = Color(tint, tint, tint, 1.0)
 	if _weapon_sprite != null:
 		_weapon_sprite.self_modulate = Color(fill, fill, fill, 1.0)
+
+
+## 套用單盞光的亮度上限（亮場景小、暗場景大，見 LightKit.character_light_cap_for）。
+func _apply_light_cap(cap: float) -> void:
+	if is_equal_approx(cap, _light_cap):
+		return
+	_light_cap = cap
+	_light_material.set_shader_parameter("light_cap", cap)
 
 
 ## 燒融：零件依世界座標的雜訊逐塊燒掉，邊緣發出炭火的光（art/shaders/dissolve.gdshader）。progress 0→1；
@@ -375,6 +391,7 @@ func _build_skeleton(definition: Dictionary) -> void:
 	_skeleton.add_child(_weapon_root)
 	_weapon_sprite = Sprite2D.new()
 	_weapon_sprite.centered = false
+	_weapon_sprite.material = _light_material
 	_weapon_root.add_child(_weapon_sprite)
 	_weapon_glow = _make_glow_sprite()
 	_weapon_root.add_child(_weapon_glow)
@@ -414,6 +431,7 @@ func _build_parts(skin: Dictionary) -> void:
 		if part == null:
 			part = _make_sprite(texture, glow_texture, pivot, part_pos, part_rot, tint)
 		part.name = part_name
+		part.material = _light_material
 		part.z_index = int(entry.get("z", 0))
 		part.self_modulate = Color(tint, tint, tint, 1.0)
 		_parts.append(part)

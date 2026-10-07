@@ -262,6 +262,7 @@ func _apply() -> void:
 	var ambient_luma := maxf(0.01, LightKit.luminance(current.ambient_color))
 	LightKit.character_fill = clampf(current.character_floor / ambient_luma, 1.0, MAX_CHARACTER_FILL)
 	LightKit.player_light_energy = LightKit.player_light_for(ambient_luma, LightKit.character_fill)
+	LightKit.character_light_cap = LightKit.character_light_cap_for(ambient_luma, LightKit.character_fill)
 	LightKit.lamp_power = current.lamp_power
 	_rim_light.color = current.rim_color
 	_rim_light.energy = current.rim_energy
@@ -280,6 +281,7 @@ func _on_exiting() -> void:
 	LightKit.set_glow(LightKit.DEFAULT_GLOW_THRESHOLD, LightKit.DEFAULT_GLOW_INTENSITY)
 	LightKit.character_fill = 1.0
 	LightKit.player_light_energy = LightKit.PLAYER_LIGHT_BASE_ENERGY
+	LightKit.character_light_cap = LightKit.CHARACTER_LIGHT_CAP_MAX
 	LightKit.lamp_power = 1.0
 	LitTextures.set_enabled(true)
 	if EventBus.lighting_override_requested.is_connected(set_override):

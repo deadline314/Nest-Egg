@@ -7,11 +7,14 @@ EXPECTED_ERRORS="找不到角色骨架|區域覆蓋的群組|沒有電話亭可�
 
 # 引擎結束時的資源檢查（「resources still in use at exit」「RID allocations … leaked at exit」）是關閉當下音訊執行緒還沒放掉播放實例造成的，
 # 與遊戲邏輯無關、也不穩定重現，所以不算失敗；真正的腳本錯誤仍然會被抓到。
+# 自己編譯的 Godot 沒有 fontconfig 時，載入介面字型會印這行（系統字型找不到、退回內建字型），與遊戲邏輯無關。
+ENGINE_BUILD_NOTES="compiled without fontconfig"
+
 EXIT_DIAGNOSTICS="resources still in use at exit|RID allocations of type .* were leaked at exit"
 
 # 輸出裡有沒有非預期的腳本錯誤：有就回傳 0（成功），沒有回傳 1。
 has_unexpected_errors() {
-	grep -E "SCRIPT ERROR|^ERROR:|Parse Error" "$1" | grep -vE "$EXIT_DIAGNOSTICS" | grep -vqE "$EXPECTED_ERRORS"
+	grep -E "SCRIPT ERROR|^ERROR:|Parse Error" "$1" | grep -vE "$EXIT_DIAGNOSTICS" | grep -vE "$ENGINE_BUILD_NOTES" | grep -vqE "$EXPECTED_ERRORS"
 }
 
 # 已知失敗清單（tests/known_failures.txt）：回傳 0 代表這個失敗訊息在清單裡。

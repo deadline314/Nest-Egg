@@ -1,7 +1,8 @@
 class_name ExposureSuite
 extends TestSuite
-## 主角曝光（NE-213）：每一份光影設定下，白色零件的曝光估計峰值不超過預算（亮場景玩家自己的光自動調暗）、
-## 泛光有亮度上限、貼近玩家的閃光有能量上限、玩家的光在關卡裡確實跟著調整。
+## 主角曝光（NE-213）：每一份光影設定下，白色零件的曝光估計峰值不超過預算（亮場景玩家自己的光自動調暗、
+## 單盞光對角色有亮度上限）、泛光有亮度上限、貼近玩家的閃光有能量上限、玩家的光在關卡裡確實跟著調整、
+## 角色的零件與武器都用「每盞光有上限、不被補光放大」的受光材質（Forward+ 實測：頭在燈下全白的像素從約 13% 降到 0.8%）。
 ## 注意：真正的泛光只在 Forward+ 的 HDR 2D 下出現，無頭與 Compatibility 渲染器量不到，所以這裡檢查的是決定曝光的數字。
 
 const LIGHTING_DIR := "res://data/lighting"
@@ -16,6 +17,8 @@ func run() -> void:
 	_test_every_profile_stays_in_budget()
 	_test_glow_cap()
 	_test_flash_cap()
+	_test_character_light_cap()
+	await _test_rig_uses_the_light_material()
 	await _test_player_light_follows_the_scene()
 
 
@@ -30,6 +33,45 @@ func _test_budget_model() -> void:
 	check(LightKit.player_light_for(0.3, 3.0) <= LightKit.player_light_for(0.3, 1.0), "a stronger character fill also dims the player light")
 	check(LightKit.capped_flash_energy(3.0, true) == LightKit.NEAR_CHARACTER_FLASH_CAP, "a flash on top of the player is capped")
 	check(LightKit.capped_flash_energy(3.0, false) == 3.0 and LightKit.capped_flash_energy(0.8, true) == 0.8, "far flashes and gentle flashes are untouched")
+
+
+func _test_character_light_cap() -> void:
+	check(LightKit.character_light_cap_for(0.05, 1.0) == LightKit.CHARACTER_LIGHT_CAP_MAX, "a dark scene allows the largest per-light cap")
+	check(LightKit.character_light_cap_for(1.0, 1.0) == LightKit.CHARACTER_LIGHT_CAP_MIN, "a fully lit scene allows only the smallest per-light cap")
+	var previous := 10.0
+	for ambient in [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]:
+		var cap := LightKit.character_light_cap_for(ambient, 1.0)
+		check(cap <= previous + 0.0001 and cap >= LightKit.CHARACTER_LIGHT_CAP_MIN and cap <= LightKit.CHARACTER_LIGHT_CAP_MAX, "the cap never grows as the scene gets brighter (%.1f: %.2f)" % [ambient, cap])
+		previous = cap
+	check(LightKit.character_light_cap_for(0.3, 3.0) <= LightKit.character_light_cap_for(0.3, 1.0), "a stronger fill also lowers the cap")
+
+
+## 角色的每個零件與武器都掛著共用的受光材質；補光倍率與亮度上限會寫進材質。
+func _test_rig_uses_the_light_material() -> void:
+	var holder := Node2D.new()
+	runner.add_child(holder)
+	var rig := CharacterRig.new()
+	holder.add_child(rig)
+	check(rig.setup("rin"), "rin builds for the light material check")
+	var material := rig._light_material
+	check(material != null and material.shader != null, "the rig has a light material")
+	var parts := 0
+	for part in rig.find_children("*", "CanvasItem", true, false):
+		var item := part as CanvasItem
+		if item.name == &"Glow" or item.material is CanvasItemMaterial:
+			continue  # 發光層用加法混合，不受光
+		if item is Sprite2D or item is Polygon2D:
+			parts += 1
+			check(item.material == material, "%s uses the capped light material" % item.name)
+	check(parts >= 10, "the rig's lit parts were checked (%d)" % parts)
+	LightKit.character_fill = 3.0
+	LightKit.character_light_cap = 0.3
+	rig.animate(0.016, RigInput.new())
+	check(is_equal_approx(float(material.get_shader_parameter("fill")), 3.0) and is_equal_approx(float(material.get_shader_parameter("light_cap")), 0.3), "fill and cap are written into the material")
+	LightKit.character_fill = 1.0
+	LightKit.character_light_cap = LightKit.CHARACTER_LIGHT_CAP_MAX
+	holder.queue_free()
+	await frames(1)
 
 
 func _test_every_profile_stays_in_budget() -> void:

@@ -10,6 +10,7 @@ var _out_dir := "user://screenshots"
 var _scenario := "all"
 ## --brightness=0..1：拍攝時暫時調整亮度設定（看材質細節用；結束後還原）。-1 代表不動。
 var _brightness := -1.0
+var _legacy_exposure := false
 
 
 func _ready() -> void:
@@ -23,6 +24,8 @@ func _ready() -> void:
 		elif arg == "--font=pixel":
 			UiKit.style_override = "pixel"  # 介面字型改回像素字（NE-215 修前畫面；不改使用者的設定檔）
 			UiKit.apply_font_style()
+		elif arg == "--legacy-exposure":
+			_legacy_exposure = true  # 修正前的曝光設定：玩家的光固定 0.75、泛光不限亮度（NE-213 修前畫面）
 		elif arg == "--rigid":
 			CharacterRig.force_rigid_limbs = true  # 角色維持剛體零件（NE-204 修前畫面）
 	DirAccess.make_dir_recursive_absolute(_out_dir)
@@ -55,6 +58,22 @@ func _run() -> void:
 		return
 	if _scenario.begins_with("exposure_light"):
 		await _run_exposure_light()
+		get_tree().quit()
+		return
+	if _scenario.begins_with("exposure_lamp@"):
+		await _run_exposure_lamp()
+		get_tree().quit()
+		return
+	if _scenario.begins_with("exposure_play@"):
+		await _run_exposure_play()
+		get_tree().quit()
+		return
+	if _scenario.begins_with("exposure_states@"):
+		await _run_exposure_states()
+		get_tree().quit()
+		return
+	if _scenario.begins_with("exposure_sweep@"):
+		await _run_exposure_sweep()
 		get_tree().quit()
 		return
 	if _scenario.begins_with("exposure@"):
@@ -1697,7 +1716,7 @@ func _run_exposure() -> void:
 		level_camera_snap()
 		await _settle(60)
 		var stats := await _measure_exposure(level, "exposure_%s" % id)
-		print("EXPOSURE %s %.3f %.2f %.2f" % [id, stats["clipped"], stats["halo"], stats["luma"]])
+		print("EXPOSURE %s %.3f %.2f %.2f peak=%.2f fmt=%d fill=%.2f light=%.2f" % [id, stats["clipped"], stats["halo"], stats["luma"], stats["peak"], stats["format"], LightKit.character_fill, LightKit.player_light_energy])
 		level.queue_free()
 		await _settle(4)
 
@@ -1724,6 +1743,211 @@ func _run_exposure_light() -> void:
 		print("EXPOSURE light=%s %.3f %.2f %.2f" % [text, stats["clipped"], stats["halo"], stats["luma"]])
 		level.queue_free()
 		await _settle(4)
+
+
+## 主角的頭靠近場景燈（跳起來、爬梯子貼著天花板燈）時的曝光（--scenario=exposure_lamp@關卡檔[@燈的編號]；加 --legacy-exposure 看修正前）：
+## 把主角放在燈正下方（頭離燈 12／40／80 像素），印出頭部範圍的峰值與接近全白的比例並存圖。
+func _run_exposure_lamp() -> void:
+	Story.auto_skip = true
+	var parts := _scenario.split("@")
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load("res://data/levels/%s.tres" % parts[1]))
+	add_child(level)
+	await _settle(30)
+	level.hud.visible = false
+	level.player.health.setup(9999, 0.0)
+	var rig: CharacterRig = level.player._visual.rig
+	if _legacy_exposure:  # 修正前：零件用預設的受光（光被補光倍率放大、沒有上限）
+		for part in rig.find_children("*", "CanvasItem", true, false):
+			if (part as CanvasItem).material == rig._light_material:
+				(part as CanvasItem).material = null
+	var lamps: Array[Node] = level.find_children("*", "Lamp", true, false)
+	var wanted := int(parts[2]) if parts.size() > 2 else -1
+	level.player.set_physics_process(false)
+	var worst := 0.0
+	var index := 0
+	for lamp: Lamp in lamps:
+		if lamp.dead or (wanted >= 0 and index != wanted):
+			index += 1
+			continue
+		for gap in [12.0, 40.0, 80.0]:
+			level.player.global_position = lamp.global_position + Vector2(0, gap + 62.0)  # 腳底在燈下方，頭離燈 gap
+			level.player.velocity = Vector2.ZERO
+			level_camera_snap()
+			await _settle(30)
+			var image := get_viewport().get_texture().get_image()
+			var screen := get_viewport().get_final_transform() * get_viewport().get_canvas_transform()
+			var feet := screen * level.player.global_position
+			var zoom := screen.get_scale().x
+			var rect := Rect2i(Vector2i(feet) - Vector2i(int(14.0 * zoom), int(72.0 * zoom)), Vector2i(int(28.0 * zoom), int(26.0 * zoom)))
+			var peak := 0.0
+			var white := 0
+			var total := 0
+			for y in range(maxi(0, rect.position.y), mini(image.get_height(), rect.end.y)):
+				for x in range(maxi(0, rect.position.x), mini(image.get_width(), rect.end.x)):
+					var c := image.get_pixel(x, y)
+					peak = maxf(peak, maxf(c.r, maxf(c.g, c.b)))
+					total += 1
+					if c.r > 0.92 and c.g > 0.92 and c.b > 0.92:
+						white += 1
+			var ratio := float(white) / maxf(1.0, float(total))
+			worst = maxf(worst, ratio)
+			print("LAMP %s#%d gap=%.0f energy=%.2f fill=%.2f head_peak=%.2f white=%.3f" % [parts[1], index, gap, lamp.energy, LightKit.character_fill, peak, ratio])
+			_capture("lamp_%d_%d" % [index, int(gap)])
+		index += 1
+	print("LAMP_WORST %s %.3f" % [parts[1], worst])
+	level.queue_free()
+	await _settle(4)
+
+
+## 畫面上以 feet 為準、頭部附近範圍的平均亮度（找出哪個節點造成過曝用）。
+func _region_luma(feet: Vector2, zoom: float) -> float:
+	var image := get_viewport().get_texture().get_image()
+	var rect := Rect2i(Vector2i(feet) - Vector2i(int(14.0 * zoom), int(70.0 * zoom)), Vector2i(int(28.0 * zoom), int(30.0 * zoom)))
+	var sum := 0.0
+	var count := 0
+	for y in range(maxi(0, rect.position.y), mini(image.get_height(), rect.end.y)):
+		for x in range(maxi(0, rect.position.x), mini(image.get_width(), rect.end.x)):
+			var c := image.get_pixel(x, y)
+			sum += c.r * 0.2126 + c.g * 0.7152 + c.b * 0.0722
+			count += 1
+	return sum / maxf(1.0, float(count))
+
+
+## 用真的按鍵操作主角一段時間（跑、跳、開槍、衝刺、格擋、近戰輪流），每影格量頭部附近全白的像素比例，把最白的幾格存下來
+## （--scenario=exposure_play@關卡檔[@欄]）。用來抓「有時候」才出現的過曝。
+func _run_exposure_play() -> void:
+	Story.auto_skip = true
+	var parts := _scenario.split("@")
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load("res://data/levels/%s.tres" % parts[1]))
+	add_child(level)
+	await _settle(30)
+	level.hud.visible = false
+	level.player.health.setup(9999, 0.0)
+	var layout: LevelLayout = level._layout
+	if parts.size() > 2:
+		var tile := int(parts[2])
+		level.player.global_position = Vector2(tile * 16.0 + 8.0, layout.floor_below(tile, 4) - 2.0)
+	level_camera_snap()
+	await _settle(40)
+	if _legacy_exposure:
+		LightKit.environment().glow_hdr_luminance_cap = 12.0
+		level.player._light.energy = LightKit.PLAYER_LIGHT_BASE_ENERGY
+		level.player.set_process(true)
+	var script := [[&"move_right", &"shoot"], [&"move_right", &"jump", &"shoot"], [&"dash"], [&"block"], [&"melee"], [&"move_left", &"shoot", &"jump"], []]
+	var worst: Array = []
+	var frame := 0
+	for step in script:
+		for action in [&"move_right", &"move_left", &"jump", &"shoot", &"dash", &"block", &"melee"]:
+			Input.action_release(action)
+		for action in step:
+			Input.action_press(action)
+		for i in 50:
+			if _legacy_exposure:
+				level.player._light.energy = LightKit.PLAYER_LIGHT_BASE_ENERGY
+			await _settle(1)
+			frame += 1
+			var image := get_viewport().get_texture().get_image()
+			var feet := get_viewport().get_canvas_transform() * level.player.global_position
+			var zoom := get_viewport().get_canvas_transform().get_scale().x
+			var rect := Rect2i(Vector2i(feet) - Vector2i(int(20.0 * zoom), int(80.0 * zoom)), Vector2i(int(40.0 * zoom), int(80.0 * zoom)))
+			var white := 0
+			var total := 0
+			for y in range(maxi(0, rect.position.y), mini(image.get_height(), rect.end.y), 2):
+				for x in range(maxi(0, rect.position.x), mini(image.get_width(), rect.end.x), 2):
+					var c := image.get_pixel(x, y)
+					total += 1
+					if c.r > 0.92 and c.g > 0.92 and c.b > 0.92:
+						white += 1
+			var ratio := float(white) / maxf(1.0, float(total))
+			worst.append([ratio, frame, str(step), image])
+	worst.sort_custom(func(a: Array, b: Array) -> bool: return a[0] > b[0])
+	for k in mini(5, worst.size()):
+		print("PLAY white=%.3f frame=%d step=%s" % [worst[k][0], worst[k][1], worst[k][2]])
+		(worst[k][3] as Image).save_png(_out_dir.path_join("play_%d.png" % k))
+	level.queue_free()
+	await _settle(4)
+
+
+## 主角在各種狀態下的曝光（--scenario=exposure_states@關卡檔@欄）：待機、受擊閃白、開槍、衝刺、格擋，各拍一張並印出玩家範圍內的峰值與接近全白的比例。
+func _run_exposure_states() -> void:
+	Story.auto_skip = true
+	var parts := _scenario.split("@")
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load("res://data/levels/%s.tres" % parts[1]))
+	add_child(level)
+	await _settle(30)
+	level.hud.visible = false
+	level.player.health.setup(999, 0.0)
+	var layout: LevelLayout = level._layout
+	var tile := int(parts[2]) if parts.size() > 2 else -1
+	if tile >= 0:  # 沒寫欄就留在關卡的起點
+		level.player.global_position = Vector2(tile * 16.0 + 8.0, layout.floor_below(tile, 4) - 2.0)
+		level.player.velocity = Vector2.ZERO
+	level_camera_snap()
+	await _settle(60)
+	var visual: PlayerVisual = level.player._visual
+	for state in ["idle", "hurt", "hurt_late", "fire", "block"]:
+		match state:
+			"hurt":
+				visual.notify_hurt()
+				await _settle(1)
+			"hurt_late":
+				visual.notify_hurt()
+				await _settle(3)
+			"fire":
+				level.player._try_fire()
+				await _settle(2)
+		await _settle(1)
+		var image := get_viewport().get_texture().get_image()
+		var feet := get_viewport().get_canvas_transform() * level.player.global_position
+		var zoom := get_viewport().get_canvas_transform().get_scale().x
+		var rect := Rect2i(Vector2i(feet) - Vector2i(int(36.0 * zoom), int(76.0 * zoom)), Vector2i(int(72.0 * zoom), int(84.0 * zoom)))
+		var peak := 0.0
+		var near_white := 0
+		var total := 0
+		for y in range(maxi(0, rect.position.y), mini(image.get_height(), rect.end.y)):
+			for x in range(maxi(0, rect.position.x), mini(image.get_width(), rect.end.x)):
+				var c := image.get_pixel(x, y)
+				var m := maxf(c.r, maxf(c.g, c.b))
+				peak = maxf(peak, m)
+				total += 1
+				if c.r > 0.9 and c.g > 0.9 and c.b > 0.9:
+					near_white += 1
+		print("STATE %s peak=%.2f white=%.3f fill=%.2f light=%.2f" % [state, peak, float(near_white) / maxf(1.0, float(total)), LightKit.character_fill, LightKit.player_light_energy])
+		_capture("state_%s" % state)
+	level.queue_free()
+	await _settle(4)
+
+
+## 一整張關卡每隔幾欄量一次（--scenario=exposure_sweep@關卡檔[@間隔欄數]）：找出整張地圖裡最容易過曝的位置，只印曝光比例高的欄與全圖最大值。
+func _run_exposure_sweep() -> void:
+	Story.auto_skip = true
+	var parts := _scenario.split("@")
+	var level_id := parts[1]
+	var step := int(parts[2]) if parts.size() > 2 else 12
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load("res://data/levels/%s.tres" % level_id))
+	add_child(level)
+	await _settle(30)
+	level.hud.visible = false
+	level.player.health.setup(999, 0.0)
+	var layout: LevelLayout = level._layout
+	var worst := {"clipped": 0.0, "halo": 0.0, "tile": -1}
+	for tile in range(6, layout.width - 4, step):
+		level.player.global_position = Vector2(tile * 16.0 + 8.0, layout.floor_below(tile, 4) - 2.0)
+		level.player.velocity = Vector2.ZERO
+		level_camera_snap()
+		await _settle(40)
+		var stats := await _measure_exposure(level, "exposure_%s_%d" % [level_id, tile])
+		print("SWEEP %s@%d clipped=%.3f halo=%.2f luma=%.2f peak=%.2f fmt=%d fill=%.2f light=%.2f" % [level_id, tile, stats["clipped"], stats["halo"], stats["luma"], stats["peak"], stats["format"], LightKit.character_fill, LightKit.player_light_energy])
+	level.queue_free()
+	await _settle(4)
 
 
 ## 實際關卡裡的某個位置（--scenario=exposure@關卡檔@欄，例如 exposure@ch1_pawnshop@108）：量測主角在那裡的曝光。
@@ -1777,6 +2001,7 @@ func _exposure_stats(hidden: Image, shown: Image, flat: Image, rect: Rect2i) -> 
 	var changed_flat := 0
 	var clipped := 0
 	var luma_sum := 0.0
+	var peak := 0.0
 	for y in range(maxi(0, rect.position.y), mini(shown.get_height(), rect.end.y)):
 		for x in range(maxi(0, rect.position.x), mini(shown.get_width(), rect.end.x)):
 			var base := hidden.get_pixel(x, y)
@@ -1784,12 +2009,13 @@ func _exposure_stats(hidden: Image, shown: Image, flat: Image, rect: Rect2i) -> 
 			if absf(with_player.r - base.r) + absf(with_player.g - base.g) + absf(with_player.b - base.b) > 0.06:
 				changed += 1
 				luma_sum += with_player.r * 0.2126 + with_player.g * 0.7152 + with_player.b * 0.0722
+				peak = maxf(peak, maxf(with_player.r, maxf(with_player.g, with_player.b)))
 				if with_player.r > 0.97 and with_player.g > 0.97 and with_player.b > 0.97:
 					clipped += 1
 			var plain := flat.get_pixel(x, y)
 			if absf(plain.r - base.r) + absf(plain.g - base.g) + absf(plain.b - base.b) > 0.06:
 				changed_flat += 1
-	return {"clipped": float(clipped) / maxf(1.0, float(changed)), "halo": float(changed) / maxf(1.0, float(changed_flat)), "luma": luma_sum / maxf(1.0, float(changed))}
+	return {"clipped": float(clipped) / maxf(1.0, float(changed)), "halo": float(changed) / maxf(1.0, float(changed_flat)), "luma": luma_sum / maxf(1.0, float(changed)), "peak": peak, "format": shown.get_format()}
 
 
 ## 老 K 的櫃台（NE-216）：在當舖櫃台旁開啟，依序拍「買補給」「典當」「贖回」「改裝」四個分頁。
