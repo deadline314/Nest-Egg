@@ -9,6 +9,7 @@ const IDS: Array[String] = ["chainsaw_arm", "hydraulic_claw", "plasma_whip", "ch
 
 func run() -> void:
 	_test_data()
+	_test_chapter_placement()
 	await _test_chainsaw()
 	await _test_claw()
 	await _test_whip()
@@ -240,3 +241,19 @@ func _test_hook_blocked_by_wall() -> void:
 	check(enemy.get("_retract") or enemy.fsm.is_in(&"recover") or enemy.fsm.is_in(&"patrol"), "the hook retracts after hitting the wall")
 	AimInput.using_gamepad = false
 	await _finish(enemy)
+
+
+func _test_chapter_placement() -> void:
+	check_level_placement({"res://data/levels/level_02.tres": [
+		[&"chainsaw_arm", 202, 203], [&"hydraulic_claw", 160, 161],
+		[&"plasma_whip", 352, 353], [&"chain_hook", 426, 427],
+	]})
+	var roster: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/combat/chapter_rosters.json"))["chapters"]
+	for id in IDS:
+		for chapter: String in roster:
+			var configured: Array = roster[chapter]["enemies"] + roster[chapter]["demo_enemies"]
+			check(configured.has(id) == (chapter == "chapter_02"), "%s belongs only to chapter two (%s)" % [id, chapter])
+	for path in ["res://data/levels/level_01.tres", "res://data/levels/ch1_street.tres", "res://data/levels/ch1_warehouse.tres"]:
+		var layout := LevelBuilder.parse(load(path) as LevelData)
+		for id in IDS:
+			check(PlacementChecks.cells_of(layout, StringName(id)).is_empty(), "%s is absent from %s" % [id, path])

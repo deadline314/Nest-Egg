@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=69 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=73 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_script"]
 [ext_resource type="Resource" path="res://data/story_items/doc_shaft_memo.tres" id="r1"]
@@ -60,6 +60,11 @@
 [ext_resource type="Resource" path="res://data/lighting/clinic_ward.tres" id="ne54_ward"]
 [ext_resource type="Resource" path="res://data/lighting/tower_white.tres" id="ne54_tower"]
 [ext_resource type="Resource" path="res://data/environment/themes/chapter2.tres" id="ne55_theme"]
+
+[ext_resource type="Resource" path="res://data/enemies/strike/chainsaw_arm.tres" id="ne118_chainsaw_arm"]
+[ext_resource type="Resource" path="res://data/enemies/strike/hydraulic_claw.tres" id="ne118_hydraulic_claw"]
+[ext_resource type="Resource" path="res://data/enemies/strike/plasma_whip.tres" id="ne118_plasma_whip"]
+[ext_resource type="Resource" path="res://data/enemies/strike/chain_hook.tres" id="ne118_chain_hook"]
 
 [sub_resource type="Resource" id="Resource_zone0"]
 script = ExtResource("r36")
@@ -128,6 +133,10 @@ display_name = "第二章　天空的代價"
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
+"λ": ExtResource("ne118_chainsaw_arm"),
+"μ": ExtResource("ne118_hydraulic_claw"),
+"ν": ExtResource("ne118_plasma_whip"),
+"ξ": ExtResource("ne118_chain_hook"),
 "L": ExtResource("63_marks"),
 "I": ExtResource("62_nurse"),
 "G": ExtResource("61_resident"),

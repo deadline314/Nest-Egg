@@ -786,6 +786,8 @@ func _check_roster_enemy(enemy: EnemyData, allowed: Array, ident: String) -> voi
 	check(allowed.has(String(enemy.id)), "%s places an enemy allowed in its chapter: %s" % [ident, enemy.id])
 	if enemy.contact_damage > 0:
 		check(DefeatCodex.has_card(enemy.contact_source_id), "%s has a matching contact guide: %s" % [ident, enemy.id])
+	if not enemy.strike.is_empty():
+		check(DefeatCodex.has_card(StringName(str(StrikeSpec.resolve(enemy)["source_id"]))), "%s has a matching strike guide: %s" % [ident, enemy.id])
 	for projectile in [enemy.projectile] + enemy.extra_projectiles:
 		if projectile != null:
 			check(DefeatCodex.has_card(projectile.source_id), "%s has a matching attack guide: %s" % [ident, projectile.source_id])
