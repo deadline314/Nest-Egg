@@ -137,3 +137,14 @@ description: 做或調整 Nest Egg 的骨架角色與動畫時使用：新增角
 | 站起來浮空 | 位置還在座位高度 | 過渡與落回地面 |
 | 待機像機器人 | 單一正弦、固定週期、各骨同相位 | 隨機週期、不同相位、非對稱緩動 |
 | 角色零件一半在別人前面一半在後面 | 圖層沒有成組 | 每個演員一組 z（`WorldLayers.stage_actor_z`） |
+
+## 使用者在意的事（2026-10-07，NE-222 起；總表見 skill `user-priorities`）
+
+- **接縫要處處檢查，不只膝與肘**：髖、臀、腰、肩、腕、踝、頸與各零件重疊處，在過場倍率（約 3.4 倍）與遊戲倍率、**所有動作與過場姿勢**下都不能有縫、缺角、直線切口。NE-204（只做膝肘）與 NE-220（只在特寫下「確認有遮蓋」）被推翻過，結論不能再用。
+- **軀幹零件圖本身有問題**（手臂洞、腰帶高度不一致）：先看零件圖（拼成 contact sheet 放大），再決定用網格、補遮蓋零件或要美術重畫；不能靠「看起來還好」帶過。
+- **外套與左右手要像外套與手**：分片（`jacket`、`jacket_collar`、`jacket_hem_1/2`）、骨頭、圖層、前後手與槍的關係，每個姿勢都看；零件不夠就開美術票寫清楚缺什麼。
+- **姿勢要有理由**：過場演員的蹲、坐、跪、靠都要符合場景（開場凜不能無故蹲著）；蹲姿修好後要有回歸檢查，避免再退化。
+- **發光效果要留著**：凜的霓虹（`torso_glow`、`pelvis_glow`、`foot_glow`）在 Forward+ 下要看得到，且與過曝修正並存。
+- 多關節網格（髖、肩、腰、腕、踝）的試作在 `pm/Nest-Egg/attachments/NE-222-multizone-joint-wip.patch`：旋轉混合（偏移轉 w×夾角）避免舉手過頭時肩膀縮成一點；已知問題是瞄準上抬時肩區折疊比例 0.62 超過 `mesh_fold` 0.4、頂點預算要放寬到約 900、`limb_pinch` 在旋轉混合下沒有意義。實作時先讀 `design/12-cast-redraw/RIG_QUALITY.md` 的補記。
+- 檢查畫面用 skill `visual-verification`（Forward+ 要用軟體 Vulkan）；`rig_preview --closeup --zoom=N` 可以調放大倍率。
+- 角色的受光：所有零件與武器共用 `art/shaders/character_light.gdshader`（每盞光有亮度上限、不被補光倍率放大，NE-213）；新增零件走 `CharacterRig._build_parts` 就會自動套用，自己建 Sprite 要記得指定 `_light_material`。
