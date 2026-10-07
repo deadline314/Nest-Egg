@@ -216,6 +216,18 @@ func set_skip_cutscenes(enabled: bool) -> void:
 	display_changed.emit()
 
 
+## 介面字型樣式：smooth（平滑，預設）或 pixel（像素字）；見 UiKit.FONT_STYLES。
+func get_ui_font() -> String:
+	var value: Variant = get_value(DISPLAY_SECTION, "ui_font", UiKit.DEFAULT_FONT_STYLE)
+	return str(value) if typeof(value) == TYPE_STRING and UiKit.FONT_STYLES.has(str(value)) else UiKit.DEFAULT_FONT_STYLE
+
+
+func set_ui_font(style: String) -> void:
+	set_value(DISPLAY_SECTION, "ui_font", style if UiKit.FONT_STYLES.has(style) else UiKit.DEFAULT_FONT_STYLE)
+	UiKit.apply_font_style()
+	display_changed.emit()
+
+
 ## 畫面閃光的強度倍率（1 = 設計值）。
 func flash_scale() -> float:
 	return REDUCED_FLASH_SCALE if get_reduce_flashes() else 1.0
@@ -266,6 +278,7 @@ func reset_display() -> void:
 	set_zoom_pulse(true)
 	set_damage_numbers(false)
 	set_skip_cutscenes(false)
+	set_ui_font(UiKit.DEFAULT_FONT_STYLE)
 	set_reduce_flashes(false)
 	set_hud_auto_hide(HUD_AUTO_HIDE_DEFAULT)
 	set_fullscreen(false)

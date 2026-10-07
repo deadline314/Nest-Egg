@@ -18,6 +18,7 @@ var _hud_auto_hide: CheckButton
 var _quality_option: OptionButton
 var _reduce_flashes: CheckButton
 var _skip_cutscenes: CheckButton
+var _smooth_font: CheckButton
 var _zoom_pulse: CheckButton
 var _damage_numbers: CheckButton
 var _feel_sliders: Dictionary[String, HSlider] = {}
@@ -194,6 +195,15 @@ func _build_display_tab() -> Control:
 		Settings.set_reduce_flashes(on)
 		Sfx.play(&"ui_confirm", -6.0, 0.0))
 	box.add_child(_reduce_flashes)
+	_smooth_font = CheckButton.new()
+	_smooth_font.text = "平滑字型"
+	_smooth_font.tooltip_text = "開啟：介面文字用平滑的黑體；關閉：改回像素字。立即生效"
+	_smooth_font.focus_mode = Control.FOCUS_ALL
+	_smooth_font.button_pressed = Settings.get_ui_font() == "smooth"
+	_smooth_font.toggled.connect(func(on: bool) -> void:
+		Settings.set_ui_font("smooth" if on else "pixel")
+		Sfx.play(&"ui_confirm", -6.0, 0.0))
+	box.add_child(_smooth_font)
 	_skip_cutscenes = CheckButton.new()
 	_skip_cutscenes.text = "略過過場動畫"
 	_skip_cutscenes.tooltip_text = "開啟：每次都直接略過過場動畫與劇情對話；已看過的演出重來時本來就不會重播"
@@ -475,6 +485,7 @@ func _reset_current_tab() -> void:
 		_select_quality_item()
 		_reduce_flashes.set_pressed_no_signal(Settings.get_reduce_flashes())
 		_skip_cutscenes.set_pressed_no_signal(Settings.get_skip_cutscenes())
+		_smooth_font.set_pressed_no_signal(Settings.get_ui_font() == "smooth")
 		_zoom_pulse.set_pressed_no_signal(Settings.get_zoom_pulse())
 		_damage_numbers.set_pressed_no_signal(Settings.get_damage_numbers())
 		for key: String in _feel_sliders.keys():

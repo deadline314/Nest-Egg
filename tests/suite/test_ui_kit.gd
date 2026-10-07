@@ -11,11 +11,32 @@ func run() -> void:
 
 
 func _test_font() -> void:
+	var previous := Settings.get_ui_font()
 	var font := UiKit.font()
-	check(font is FontFile, "專案字體載入成功（FontFile）")
-	check(font.get_fallbacks().size() >= 1, "專案字體有系統備援")
+	check(font is FontVariation, "公開的字型是一層 FontVariation（切換樣式時所有使用者一起換）")
+	var base := (font as FontVariation).base_font
+	check(base is FontFile, "專案字體載入成功（FontFile）")
+	check(base.get_fallbacks().size() >= 1, "專案字體有系統備援")
 	check(font.has_char("回".unicode_at(0)) and font.has_char("溯".unicode_at(0)), "字體含常用劇情字")
-	check(FileAccess.file_exists("res://art/fonts/OFL-Cubic11.txt"), "字體授權文件存在")
+	check(FileAccess.file_exists("res://art/fonts/OFL-Cubic11.txt") and FileAccess.file_exists("res://art/fonts/OFL-NotoSansTC.txt"), "兩種字體的授權文件都存在")
+	# 樣式：預設平滑，可切到像素；亂寫的樣式退回預設；已經拿著字型的標籤立刻跟著換
+	Settings.set_ui_font("smooth")
+	check(Settings.get_ui_font() == "smooth" and UiKit.font_style() == "smooth", "預設是平滑字型")
+	var smooth_base := (UiKit.font() as FontVariation).base_font
+	check((smooth_base as FontFile).resource_path.contains("NotoSansTC") or (smooth_base as FontFile).data.size() > 500000, "平滑樣式用思源黑體子集")
+	var label := Label.new()
+	label.add_theme_font_override(&"font", UiKit.font())
+	var smooth_width := label.get_theme_font(&"font").get_string_size("水位又上來了", HORIZONTAL_ALIGNMENT_LEFT, -1, UiKit.FS_BODY).x
+	Settings.set_ui_font("pixel")
+	check(UiKit.font_style() == "pixel" and (UiKit.font() as FontVariation).base_font != smooth_base, "切到像素字之後底層字型換掉")
+	var pixel_width := label.get_theme_font(&"font").get_string_size("水位又上來了", HORIZONTAL_ALIGNMENT_LEFT, -1, UiKit.FS_BODY).x
+	check(smooth_width <= pixel_width + 0.01, "平滑字型的中文不比像素字寬（原本排得下的版面不會爆：%.0f vs %.0f）" % [smooth_width, pixel_width])
+	Settings.set_value(Settings.DISPLAY_SECTION, "ui_font", "no_such_style")
+	check(Settings.get_ui_font() == UiKit.DEFAULT_FONT_STYLE and UiKit.font_style() == UiKit.DEFAULT_FONT_STYLE, "設定裡寫了不存在的字型樣式時退回預設")
+	label.free()
+	Settings.set_ui_font(previous)
+	Settings.reset_display()
+	check(Settings.get_ui_font() == UiKit.DEFAULT_FONT_STYLE, "恢復顯示預設也會把字型改回預設")
 
 
 func _test_sizes() -> void:
