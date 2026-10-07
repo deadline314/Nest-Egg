@@ -18,6 +18,7 @@ func run() -> void:
 	_test_real_reachability()
 	_test_once_scenes()
 	await _test_death_matrix()
+	await _test_lost_checkpoint_field()
 	await _test_death_soak()
 	Story.auto_skip = previous_auto
 	GameState.start_new_run(GameState.difficulties[1])
@@ -195,6 +196,29 @@ func _test_once_scenes() -> void:
 # ---------------------------------------------------------------------------
 # 長時間 soak：反覆死亡不洩漏節點
 # ---------------------------------------------------------------------------
+
+## 復原點欄位遺失（舊檔、零向量）或在地圖外：玩家不能出現在牆裡，退回最近的電話亭或起點，錯誤訊息指出區域與位置。
+func _test_lost_checkpoint_field() -> void:
+	Story.auto_skip = true
+	var bad_positions: Array[Vector2] = [Vector2.ZERO, Vector2(-500.0, 100.0), Vector2(99999.0, 99999.0)]
+	for bad in bad_positions:
+		GameState.start_new_run(GameState.difficulties[1])
+		GameState.set_checkpoint(bad, {}, {}, {})
+		var level := await spawn_level(load(BOOTH_AREA) as LevelData)
+		var booths: PackedVector2Array = level._layout.checkpoints
+		var near := false
+		for booth in booths:
+			near = near or level.player.global_position.distance_to(booth) < 48.0
+		check(near, "a lost checkpoint position %s puts the player at the nearest booth, not in the wall" % [bad])
+		check(Rect2(Vector2.ZERO, level._layout.pixel_size()).has_point(level.player.global_position), "and inside the map")
+		await end_level(level)
+	GameState.start_new_run(GameState.difficulties[1])
+	GameState.set_checkpoint(Vector2.ZERO, {}, {}, {})
+	var plain := await spawn_level(load(STALL_AREA) as LevelData)
+	check(plain.player.global_position.distance_to(plain._layout.player_start) < 48.0, "an area without booths falls back to the start point")
+	await end_level(plain)
+	GameState.start_new_run(GameState.difficulties[1])
+
 
 const SOAK_DEATHS := 30
 const SOAK_NODE_GROWTH := 30

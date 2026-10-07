@@ -692,8 +692,24 @@ func _entry_position() -> Vector2:
 				return spawn["position"]
 		push_error("[Level] %s 沒有出入口「%s」（%s），改用起點" % [data.id, _entry_portal, data.layout_path])
 	elif _from_checkpoint:
-		return GameState.checkpoint_position
+		return _checked_checkpoint_position()
 	return _layout.player_start
+
+
+## 復原點的位置：欄位遺失（舊檔、零向量）或落在地圖外時，記錄具體位置並退回最近的電話亭，沒有電話亭就退回起點，不讓玩家出現在牆裡。
+func _checked_checkpoint_position() -> Vector2:
+	var saved := GameState.checkpoint_position
+	var bounds := Rect2(Vector2.ZERO, _layout.pixel_size())
+	if saved != Vector2.ZERO and bounds.has_point(saved):
+		return saved
+	push_error("[Level] %s 的復原點位置無效（%s，地圖範圍 %s），改用最近的電話亭或起點" % [data.id, saved, bounds])
+	if _layout.checkpoints.is_empty():
+		return _layout.player_start
+	var best := _layout.checkpoints[0]
+	for pos in _layout.checkpoints:
+		if absf(pos.x - saved.x) < absf(best.x - saved.x):
+			best = pos
+	return best
 
 
 func _fall_limit() -> float:
