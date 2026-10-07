@@ -30,4 +30,7 @@
 | [16-audio/SOURCES.md](16-audio/SOURCES.md) | 音訊素材來源目錄：CC0 素材包對應的音效類別與音樂用途、缺口、挑選注意事項 |
 | [17-development-workflow/DESIGN.md](17-development-workflow/DESIGN.md) | 共用開發規範、逐票 commit 與 push、main 同步、作者資訊與舊分支清理 |
 | [17-protagonist-motion/DESIGN.md](17-protagonist-motion/DESIGN.md) | 主角動作重設計與以主角為主的鏡頭：現況診斷、業界做法、跑步與待機、跳躍落地衝刺、腳步聲對齊、鏡頭拉近、票的順序 |
+| [13-story-v2/DIALOGUE_READABILITY.md](13-story-v2/DIALOGUE_READABILITY.md) | 對白可讀性：完整句子、不用兩三字斷句裝酷；現況量測、規則、StoryLint 檢查門檻（覆蓋過去的短句風格指示） |
+| [13-story-v2/PROLOGUE.md](13-story-v2/PROLOGUE.md) | 序章：補上遊戲開頭，交代世界、主角、操作與死亡規則，接到第一章的第一個目標 |
+| [18-quest-map-ux/DESIGN.md](18-quest-map-ux/DESIGN.md) | 任務目錄與地圖指引：玩家要能回答的五個問題、任務目錄、區域與世界地圖、HUD 目標列、資料與自動檢查 |
 | [06-roadmap/open-questions.md](06-roadmap/open-questions.md) | 尚未決定的問題 |

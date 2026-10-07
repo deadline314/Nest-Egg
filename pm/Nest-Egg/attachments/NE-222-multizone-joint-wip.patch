@@ -1,0 +1,464 @@
+diff --git a/game/rig/anim_audit.gd b/game/rig/anim_audit.gd
+index 5ce67e35..099858fc 100644
+--- a/game/rig/anim_audit.gd
++++ b/game/rig/anim_audit.gd
+@@ -20,7 +20,6 @@ const LIMITS := {
+ 	"corpse_height": 0.5,     # 倒下結束時最高的骨頭離地，佔站立身高的比例（躺平或癱倒）
+ 	"corpse_below_ground": 3.0,
+ 	"mesh_fold": 0.4,         # 肢體網格被翻面的三角形佔的比例（格擋與蹲到底時關節內側的皺褶最多約 35%；更多就是網格爛掉）
+-	"limb_pinch": 0.75,       # 關節處混合後比原本窄多少（1 - 比例）；窄太多代表彎得太大、修正量過頭
+ }
+ const ARM_BONES: Array = [[&"arm_front_upper", &"arm_front_lower", &"hand_front"], [&"arm_back_upper", &"arm_back_lower", &"hand_back"]]
+ const LEG_BONES: Array = [[&"leg_front_upper", &"leg_front_lower", &"foot_front"], [&"leg_back_upper", &"leg_back_lower", &"foot_back"]]
+@@ -292,16 +291,13 @@ static func _measure(ctx: Dictionary, with_ground := true) -> void:
+ 	if rig.has_bone(&"head"):
+ 		var head := absf(rig.bone(&"head").rotation + (rig.bone(&"neck").rotation if rig.has_bone(&"neck") else 0.0))
+ 		_record(ctx, "head_turn", head, where, frame)
+-	# 肢體網格：折疊與縮腰
++	# 肢體網格：折疊
+ 	var folds := 0.0
+-	var pinch := 0.0
+ 	for mesh in rig.limb_meshes():
+ 		if mesh.visible:
+ 			folds = maxf(folds, mesh.fold_fraction())
+-			pinch = maxf(pinch, 1.0 - mesh.width_ratio())
+ 	if not rig.limb_meshes().is_empty():
+ 		_record(ctx, "mesh_fold", folds, where, frame)
+-		_record(ctx, "limb_pinch", pinch, where, frame)
+ 	# 腳底與地面
+ 	if with_ground and ctx.get("grounded", false):
+ 		var ground := animator.ground_level()
+diff --git a/game/rig/character_rig.gd b/game/rig/character_rig.gd
+index a24c6942..f523baf2 100644
+--- a/game/rig/character_rig.gd
++++ b/game/rig/character_rig.gd
+@@ -452,22 +452,20 @@ func _make_sprite(texture: Texture2D, glow_texture: Texture2D, pivot: Vector2, p
+ 	return sprite
+ 
+ 
+-## 肢體零件（上臂、前臂、大腿、小腿）靠近關節時做成可彎曲的網格，回傳 null＝這個零件維持剛體（不是肢體、碰不到關節、骨架沒有成對的上下段）。
++## 零件的骨頭靠近關節時做成可彎曲的網格（膝、肘、腕、踝、髖、肩、腰），回傳 null＝這個零件維持剛體（骨頭不在任何關節上、碰不到關節）。
+ func _make_limb_mesh(bone_name: StringName, texture: Texture2D, glow_texture: Texture2D, size: Vector2, pivot: Vector2, part_pos: Vector2, tint: float) -> RigPartMesh:
+-	var limb := _limb_of(bone_name)
+-	if limb.is_empty():
+-		return null
+-	var partner_name: StringName = limb["partner"]
+-	var is_upper: bool = limb["upper"]
+-	var joint_y: float = _rest[limb["lower"]].y if is_upper else 0.0
+-	var zone: float = float(limb["zone"])
+ 	var node_transform := Transform2D(0.0, Vector2.ONE * _texture_scale, 0.0, part_pos)
+-	if not RigPartMesh.reaches_joint(RigPartMesh.vertical_span(size, pivot, node_transform), joint_y, zone, is_upper):
++	var span := RigPartMesh.vertical_span(size, pivot, node_transform)
++	var zones: Array[Dictionary] = []
++	for zone in _joint_zones(bone_name):
++		if RigPartMesh.reaches_joint(span, float(zone["joint_y"]), float(zone["zone"]), int(zone["dir"])):
++			zones.append(zone)
++	if zones.is_empty():
+ 		return null
+ 	var mesh := RigPartMesh.new()
+ 	mesh.position = part_pos
+ 	mesh.scale = Vector2.ONE * _texture_scale
+-	if not mesh.setup(texture, size, pivot, _bones[bone_name], _bones[partner_name], is_upper, _rest[bone_name], _rest[partner_name], zone):
++	if not mesh.setup(texture, size, pivot, _bones[bone_name], _rest[bone_name], zones):
+ 		mesh.free()
+ 		return null
+ 	if glow_texture != null:
+@@ -476,23 +474,58 @@ func _make_limb_mesh(bone_name: StringName, texture: Texture2D, glow_texture: Te
+ 	return mesh
+ 
+ 
+-## 骨頭 bone_name 若是肢體的上段（xxx_upper，子骨頭 xxx_lower）或下段，回傳 {upper, lower, partner, zone}；否則空字典。
+-## 混合半徑 zone ＝ 下段骨頭長度 × limb_zone（骨架定義可用 "limb_zone" 調整，預設 0.3）。
+-func _limb_of(bone_name: StringName) -> Dictionary:
+-	var text := String(bone_name)
+-	var upper_name := bone_name
+-	var lower_name := bone_name
+-	var is_upper := text.ends_with("_upper")
+-	if is_upper:
+-		lower_name = StringName(text.trim_suffix("_upper") + "_lower")
+-	elif text.ends_with("_lower"):
+-		upper_name = StringName(text.trim_suffix("_lower") + "_upper")
+-	else:
+-		return {}
+-	if not (_bones.has(upper_name) and _bones.has(lower_name)) or _parent.get(lower_name, &"") != upper_name:
+-		return {}
+-	var fraction := float(_limb_zone)
+-	return {"upper": is_upper, "lower": lower_name, "partner": lower_name if is_upper else upper_name, "zone": _rest[lower_name].length() * fraction}
++## 骨架上會彎曲的關節（父骨頭、子骨頭、是否兩側的零件都做網格）。{s} 代入 front／back；骨架沒有的骨頭自動略過。
++## 兩側都做＝兩塊零件互相遮住接縫（膝、肘、腕、踝、腰）；只有子骨頭那側＝子零件的上緣塞進父零件底下（髖、肩：骨盆與軀幹維持剛體）。
++const JOINT_LINKS := [
++	{"parent": "hip", "child": "chest", "both": true},
++	{"parent": "hip", "child": "leg_{s}_upper", "both": false},
++	{"parent": "leg_{s}_upper", "child": "leg_{s}_lower", "both": true},
++	{"parent": "leg_{s}_lower", "child": "foot_{s}", "both": true},
++	{"parent": "chest", "child": "arm_{s}_upper", "both": false},
++	{"parent": "arm_{s}_upper", "child": "arm_{s}_lower", "both": true},
++	{"parent": "arm_{s}_lower", "child": "hand_{s}", "both": true},
++]
++const JOINT_SIDES := ["front", "back"]
++
++
++## 骨頭 bone_name 參與的關節區清單（RigPartMesh.setup 的 zones）。混合半徑 ＝ 關節下方那段骨頭長度 × limb_zone（骨架定義可用 "limb_zone" 調整，預設 0.3）。
++func _joint_zones(bone_name: StringName) -> Array[Dictionary]:
++	var zones: Array[Dictionary] = []
++	for link: Dictionary in JOINT_LINKS:
++		var sided: bool = str(link["parent"]).contains("{s}") or str(link["child"]).contains("{s}")
++		for side: String in (JOINT_SIDES if sided else [""]):
++			var parent_name := StringName(str(link["parent"]).replace("{s}", side))
++			var child_name := StringName(str(link["child"]).replace("{s}", side))
++			if not (_bones.has(parent_name) and _bones.has(child_name)) or _parent.get(child_name, &"") != parent_name:
++				continue
++			var zone_size := _bone_length(child_name) * _limb_zone
++			if zone_size <= 0.0:
++				continue
++			if bone_name == child_name:
++				# 子骨頭的零件：關節在自己的原點，父骨頭在自己延伸方向的反側。
++				zones.append({"partner": _bones[parent_name], "child": false, "rest": _rest[child_name], "joint_y": 0.0,
++						"dir": _toward_parent(child_name), "zone": zone_size})
++			elif bone_name == parent_name and bool(link["both"]):
++				var joint: Vector2 = _rest[child_name]
++				zones.append({"partner": _bones[child_name], "child": true, "rest": joint, "joint_y": joint.y,
++						"dir": 1 if joint.y >= 0.0 else -1, "zone": zone_size})
++	return zones
++
++
++## 父骨頭在這根骨頭的哪一側（+1 在下、-1 在上）：骨頭自己往哪邊延伸（第一個子骨頭的方向），父骨頭就在反側；沒有子骨頭時看自己離父骨頭的位置。
++func _toward_parent(bone_name: StringName) -> int:
++	for other in _order:
++		if _parent.get(other, &"") == bone_name and absf(_rest[other].y) > 0.01:
++			return -1 if _rest[other].y > 0.0 else 1
++	return -1 if _rest[bone_name].y >= 0.0 else 1
++
++
++## 骨頭的長度：到它第一個子骨頭的距離；末端骨頭用自己離父骨頭的距離。
++func _bone_length(bone_name: StringName) -> float:
++	for other in _order:
++		if _parent.get(other, &"") == bone_name and _rest[other].length() > 0.01:
++			return _rest[other].length()
++	return _rest[bone_name].length()
+ 
+ 
+ ## 發光層：加法混合、不受場景光源影響、HDR 增亮產生泛光。
+diff --git a/game/rig/rig_part_mesh.gd b/game/rig/rig_part_mesh.gd
+index 853e7329..65958e87 100644
+--- a/game/rig/rig_part_mesh.gd
++++ b/game/rig/rig_part_mesh.gd
+@@ -1,12 +1,14 @@
+ class_name RigPartMesh
+ extends Polygon2D
+-## 可彎曲的肢體零件（NE-204）：一張連續的貼圖鋪在一個小網格上，靠近關節的頂點同時跟著兩根骨頭走，
+-## 膝與肘彎起來時外側被拉開、內側被壓攏，輪廓是連續的曲線而不是兩塊剛體的直線切口。
++## 可彎曲的零件（NE-204、NE-220）：一張連續的貼圖鋪在一個小網格上，靠近關節的頂點同時跟著兩根骨頭走，
++## 膝、肘、髖、肩、腕、踝、腰彎起來時外側被拉開、內側被壓攏，輪廓是連續的曲線而不是兩塊剛體的直線切口。
+ ##
+ ## 做法（骨架動畫的標準線性混合蒙皮，加上限長修正）：
+-##  - 零件本來掛在骨頭 A 上；關節另一側的骨頭 P（A 的子骨頭＝膝、肘的下半，或 A 的父骨頭＝上半）叫夥伴骨頭。
+-##  - 關節附近一段（zone）的頂點依離關節的距離得到權重 w（關節正中 0.5），位置在「跟著 A」與「跟著 P」之間混合。
+-##  - 混合會讓關節處變窄（骨頭夾角越大越窄），所以把頂點到肢體軸線的距離修正回原本長度（保持肢體粗細）。
++##  - 零件本來掛在骨頭 A 上；一個零件可以有一到兩個「關節區」（zone）：每個區有一根夥伴骨頭 P
++##    （A 的子骨頭＝零件下緣的關節，或 A 的父骨頭＝零件上緣的關節）、關節位置 joint_y 與夥伴在哪一側 dir（+1 在下、-1 在上）。
++##  - 關節附近一段的頂點依離關節的距離得到權重 w（關節正中 0.5）：軸線上的位置在「跟著 A」與「跟著 P」之間混合，
++##    離軸線的橫向偏移則「轉」w × 兩根骨頭的夾角（不是線性混合）。線性混合在夾角接近 180° 時會把偏移抵消、關節縮成一點
++##    （糖果紙瑕疵），旋轉混合永遠保持原本的粗細，肩膀舉到頭頂也不會縮。
+ ##  - 上下兩塊零件用同一套權重曲線，重疊的地方互相遮住，接縫看不到。
+ ## 只有靠近關節的頂點每格重算，其餘頂點固定；骨頭沒動就整個跳過。發光層（glow）共用同一份頂點。
+ 
+@@ -14,8 +16,6 @@ extends Polygon2D
+ const COLUMNS := 3
+ ## 關節附近每半段再切幾列（越多越圓，也越耗）。
+ const ZONE_ROWS := 3
+-## 粗細修正的程度：0＝純線性混合（關節縮腰），1＝完全維持原本粗細。實測 1.0 的膝與肘最像真的腿（內側的輕微折疊被貼圖本身的皺褶蓋住）。
+-static var volume_keep := 1.0
+ ## 骨頭相對變換小於這個值就當作沒動。
+ const EPSILON := 0.0005
+ 
+@@ -24,22 +24,19 @@ var deform_count := 0
+ var pivot_offset := Vector2.ZERO  ## 對應 Sprite2D 的 offset（－支點，貼圖像素）
+ 
+ var _self_bone: Bone2D
+-var _partner: Bone2D
+-var _partner_is_child := true
+ var _self_rest := Vector2.ZERO
+-var _partner_rest := Vector2.ZERO
+-var _axis_x := 0.0
++## 關節區：{ partner: Bone2D, child: bool, rest: Vector2（夥伴的靜止位置）, joint_y, dir, zone, axis_x }
++var _zones: Array[Dictionary] = []
+ var _rest_local := PackedVector2Array()
+ var _triangles := PackedInt32Array()
+ var _zone_index := PackedInt32Array()
+ var _zone_rest := PackedVector2Array()  ## 骨頭 A 空間裡的靜止位置
+-var _zone_weight := PackedFloat32Array()
++var _zone_weights: Array[PackedFloat32Array] = []  ## 每個關節區一組權重（和 _zone_index 一一對應）
+ var _to_local := Transform2D.IDENTITY
+-var _last := Transform2D.IDENTITY
++var _last: Array[Transform2D] = []
+ var _dirty := true
+ var _glow: Polygon2D
+ var _deformed := PackedVector2Array()
+-var _min_width_ratio := 1.0
+ var _folds := 0
+ var _folds_stale := false  ## 折疊數只在有人問（測試、稽核）時才算，每格動畫不付這個成本
+ 
+@@ -51,45 +48,50 @@ static func vertical_span(size: Vector2, pivot: Vector2, node_transform: Transfo
+ 	return Vector2(top, bottom)
+ 
+ 
+-## 這個零件要不要做成網格：它得碰到關節附近（zone）才有意義，旋轉過的零件維持剛體。
+-## partner_is_child：關節在零件下緣（離骨頭原點 joint_y 處）；否則關節在骨頭原點（零件上緣）。
+-static func reaches_joint(span: Vector2, joint_y: float, zone: float, partner_is_child: bool) -> bool:
+-	if partner_is_child:
++## 這個關節區碰得到零件嗎：夥伴那一側的零件邊緣要伸到關節附近（zone 的一半）才有意義。
++## dir：夥伴在關節的哪一側（+1 在下、-1 在上）。
++static func reaches_joint(span: Vector2, joint_y: float, zone: float, dir: int) -> bool:
++	if dir > 0:
+ 		return span.y >= joint_y - zone * 0.5
+-	return span.x <= zone * 0.5
++	return span.x <= joint_y + zone * 0.5
+ 
+ 
+ ## 建立網格。回傳 false 代表資料不合理（沒有東西可建），呼叫端改用一般的 Sprite2D。
+-## node_transform：零件節點的位置與縮放（已設到節點上）；joint_y：關節離骨頭原點的距離（骨頭 A 空間的 y）；zone：混合半徑（世界像素）。
+-func setup(p_texture: Texture2D, size: Vector2, pivot: Vector2, self_bone: Bone2D, partner: Bone2D, partner_is_child: bool, self_rest: Vector2, partner_rest: Vector2, zone: float) -> bool:
+-	if p_texture == null or size.x < 2.0 or size.y < 2.0 or zone <= 0.0 or self_bone == null or partner == null:
++## 零件節點的位置與縮放要先設好；zones 是關節區清單（見 _zones 的欄位，不含 axis_x，由這裡補）。
++func setup(p_texture: Texture2D, size: Vector2, pivot: Vector2, self_bone: Bone2D, self_rest: Vector2, zones: Array[Dictionary]) -> bool:
++	if p_texture == null or size.x < 2.0 or size.y < 2.0 or self_bone == null or zones.is_empty():
+ 		return false
+ 	texture = p_texture
+ 	pivot_offset = -pivot
+ 	_self_bone = self_bone
+-	_partner = partner
+-	_partner_is_child = partner_is_child
+ 	_self_rest = self_rest
+-	_partner_rest = partner_rest
+-	_axis_x = partner_rest.x if partner_is_child else 0.0
++	_zones = []
++	for z in zones:
++		if float(z["zone"]) <= 0.0 or z["partner"] == null:
++			return false
++		var entry := z.duplicate()
++		entry["axis_x"] = (z["rest"] as Vector2).x if bool(z["child"]) else 0.0
++		_zones.append(entry)
+ 	var node_transform := Transform2D(0.0, scale, 0.0, position)
+ 	_to_local = node_transform.affine_inverse()
+-	var joint_y := partner_rest.y if partner_is_child else 0.0
+-	# 列：上下緣加上關節附近的幾列（本地貼圖座標的 v，由上到下）。
++	# 列：上下緣加上每個關節附近的幾列（本地貼圖座標的 v，由上到下）。
+ 	var span := vertical_span(size, pivot, node_transform)
+ 	var rows: Array[float] = [0.0, size.y]
+-	var step := zone / float(ZONE_ROWS)
+-	for i in range(-ZONE_ROWS, ZONE_ROWS + 1):
+-		var y := joint_y + float(i) * step
+-		if y <= span.x + 0.001 or y >= span.y - 0.001:
+-			continue
+-		rows.append(((y - position.y) / scale.y) + pivot.y)
++	for z in _zones:
++		var step: float = float(z["zone"]) / float(ZONE_ROWS)
++		for i in range(-ZONE_ROWS, ZONE_ROWS + 1):
++			var y: float = float(z["joint_y"]) + float(i) * step
++			if y <= span.x + 0.001 or y >= span.y - 0.001:
++				continue
++			rows.append(((y - position.y) / scale.y) + pivot.y)
+ 	rows.sort()
+ 	var uv := PackedVector2Array()
+ 	_rest_local = PackedVector2Array()
+ 	_zone_index = PackedInt32Array()
+ 	_zone_rest = PackedVector2Array()
+-	_zone_weight = PackedFloat32Array()
++	_zone_weights = []
++	for _z in _zones:
++		_zone_weights.append(PackedFloat32Array())
+ 	for row in rows:
+ 		for c in COLUMNS:
+ 			var u := size.x * float(c) / float(COLUMNS - 1)
+@@ -97,11 +99,17 @@ func setup(p_texture: Texture2D, size: Vector2, pivot: Vector2, self_bone: Bone2
+ 			var local := Vector2(u, row) - pivot
+ 			_rest_local.append(local)
+ 			var in_a: Vector2 = node_transform * local
+-			var weight := _weight_at(in_a.y, joint_y, zone, partner_is_child)
+-			if weight > 0.0:
++			var weights: Array[float] = []
++			var any := false
++			for z in _zones:
++				var w := _weight_at(in_a.y, float(z["joint_y"]), float(z["zone"]), int(z["dir"]))
++				weights.append(w)
++				any = any or w > 0.0
++			if any:
+ 				_zone_index.append(_rest_local.size() - 1)
+ 				_zone_rest.append(in_a)
+-				_zone_weight.append(weight)
++				for i in _zones.size():
++					_zone_weights[i].append(weights[i])
+ 	_triangles = PackedInt32Array()
+ 	for r in rows.size() - 1:
+ 		for c in COLUMNS - 1:
+@@ -114,7 +122,9 @@ func setup(p_texture: Texture2D, size: Vector2, pivot: Vector2, self_bone: Bone2
+ 	polygon = _rest_local
+ 	polygons = _split_triangles(_triangles)
+ 	_deformed = _rest_local.duplicate()
+-	_last = Transform2D.IDENTITY
++	_last = []
++	for _z in _zones:
++		_last.append(Transform2D.IDENTITY)
+ 	_dirty = false
+ 	return true
+ 
+@@ -135,45 +145,58 @@ func set_glow(glow_texture: Texture2D, glow_material: Material, intensity: Color
+ 	add_child(_glow)
+ 
+ 
+-## 依兩根骨頭現在的相對姿勢重算關節附近的頂點。骨頭沒動就不做事；零件看不到時也不做（顯示時自然補算）。
++## 依骨頭現在的相對姿勢重算關節附近的頂點。骨頭沒動就不做事；零件看不到時也不做（顯示時自然補算）。
+ func refresh() -> void:
+ 	if not visible or _self_bone == null:
+ 		return
+-	var follow := _follow_transform()
+-	if not _dirty and _same(follow, _last):
++	var follows: Array[Transform2D] = []
++	var changed := _dirty
++	for i in _zones.size():
++		var follow := _follow_transform(_zones[i])
++		follows.append(follow)
++		changed = changed or not _same(follow, _last[i])
++	if not changed:
+ 		return
+ 	_dirty = false
+-	_last = follow
+-	_deform(follow)
++	_last = follows
++	_deform(follows)
+ 	polygon = _deformed
+ 	if _glow != null:
+ 		_glow.polygon = _deformed
+ 
+ 
+-func _follow_transform() -> Transform2D:
+-	if _partner_is_child:
+-		return _partner.transform * Transform2D(0.0, -_partner_rest)
++func _follow_transform(zone: Dictionary) -> Transform2D:
++	if bool(zone["child"]):
++		return (zone["partner"] as Bone2D).transform * Transform2D(0.0, -(zone["rest"] as Vector2))
+ 	return _self_bone.transform.affine_inverse() * Transform2D(0.0, _self_rest)
+ 
+ 
+-func _deform(follow: Transform2D) -> void:
++func _deform(follows: Array[Transform2D]) -> void:
+ 	deform_count += 1
+ 	_deformed = _rest_local.duplicate()
+-	var narrowest := 1.0
++	var angles := PackedFloat32Array()
++	for follow in follows:
++		angles.append(follow.get_rotation())
++	var main_axis_x: float = float(_zones[0]["axis_x"])
+ 	for k in _zone_index.size():
+ 		var v := _zone_rest[k]
+-		var w := _zone_weight[k]
+-		var axis := Vector2(_axis_x, v.y)
+-		var offset := Vector2(v.x - _axis_x, 0.0)
+-		var moved_axis: Vector2 = axis.lerp(follow * axis, w)
+-		var moved_offset: Vector2 = offset.lerp(follow.basis_xform(offset), w)
+-		var length := moved_offset.length()
+-		var wanted := absf(offset.x)
+-		if length > 0.0001 and wanted > 0.0001:
+-			moved_offset *= lerpf(1.0, wanted / length, volume_keep)
+-			narrowest = minf(narrowest, length / wanted)
+-		_deformed[_zone_index[k]] = _to_local * (moved_axis + moved_offset)
+-	_min_width_ratio = narrowest
++		var axis := Vector2(main_axis_x, v.y)
++		var offset_x := v.x - main_axis_x
++		# 每個關節區各自的位移累加（關節區在零件的兩端，很少同時作用在同一個頂點）
++		var axis_delta := Vector2.ZERO
++		var angle := 0.0
++		var total := 0.0
++		for i in _zones.size():
++			var w: float = _zone_weights[i][k]
++			if w <= 0.0:
++				continue
++			total += w
++			axis_delta += w * (follows[i] * axis - axis)
++			angle += w * angles[i]
++		if total > 1.0:
++			axis_delta /= total
++			angle /= total
++		_deformed[_zone_index[k]] = _to_local * (axis + axis_delta + Vector2(cos(angle), sin(angle)) * offset_x)
+ 	_folds_stale = true
+ 
+ 
+@@ -190,11 +213,6 @@ func fold_fraction() -> float:
+ 	return float(fold_count()) / maxf(1.0, float(triangle_count()))
+ 
+ 
+-## 關節附近最窄處相對靜止寬度的比例（混合後、修正前）；越接近 1 越沒有縮腰。
+-func width_ratio() -> float:
+-	return _min_width_ratio
+-
+-
+ func triangle_count() -> int:
+ 	return _triangles.size() / 3
+ 
+@@ -229,12 +247,12 @@ func _count_folds() -> int:
+ 	return folds
+ 
+ 
+-static func _weight_at(y: float, joint_y: float, zone: float, partner_is_child: bool) -> float:
+-	var t := clampf((y - (joint_y - zone)) / (2.0 * zone), 0.0, 1.0)
++## 頂點在關節區裡的權重：夥伴那一側（dir）離關節越遠越接近 1，關節正中 0.5，自己這一側 0。
++static func _weight_at(y: float, joint_y: float, zone: float, dir: int) -> float:
++	var t := clampf(float(dir) * (y - joint_y) / (2.0 * zone) + 0.5, 0.0, 1.0)
+ 	var s := t * t * (3.0 - 2.0 * t)
+-	var w := s if partner_is_child else 1.0 - s
+ 	# 關節遠端的頂點完全不動（不需要每格重算）。
+-	return w if w > 0.001 else 0.0
++	return s if s > 0.001 else 0.0
+ 
+ 
+ static func _same(a: Transform2D, b: Transform2D) -> bool:
+diff --git a/tests/suite/test_rig_mesh.gd b/tests/suite/test_rig_mesh.gd
+index 968c6e21..b257df2b 100644
+--- a/tests/suite/test_rig_mesh.gd
++++ b/tests/suite/test_rig_mesh.gd
+@@ -41,10 +41,11 @@ func _mesh(chain: Dictionary, upper_part: bool) -> RigPartMesh:
+ 	var partner: Bone2D = chain["lower"] if upper_part else chain["upper"]
+ 	# 上段零件從骨頭原點往下畫到關節下 1 像素；下段零件從關節上 1 像素往下畫。
+ 	mesh.position = Vector2.ZERO if upper_part else Vector2(0, -1)
+-	var pivot := PIVOT if upper_part else PIVOT
+-	var size := TEXTURE_SIZE
+ 	bone.add_child(mesh)
+-	check(mesh.setup(tex, size, pivot, bone, partner, upper_part, bone.rest.origin, partner.rest.origin, 3.0), "the synthetic %s part builds a mesh" % ("upper" if upper_part else "lower"))
++	var zone := {"partner": partner, "child": upper_part, "rest": partner.rest.origin, "joint_y": 10.0 if upper_part else 0.0,
++			"dir": 1 if upper_part else -1, "zone": 3.0}
++	var zones: Array[Dictionary] = [zone]
++	check(mesh.setup(tex, TEXTURE_SIZE, PIVOT, bone, bone.rest.origin, zones), "the synthetic %s part builds a mesh" % ("upper" if upper_part else "lower"))
+ 	return mesh
+ 
+ 
+@@ -81,7 +82,6 @@ func _test_synthetic() -> void:
+ 		if absf(angle) <= 0.9:
+ 			check(upper.fold_count() == 0 and lower.fold_count() == 0, "no folded triangles up to about 50 degrees at %.2f rad (%d upper, %d lower)" % [angle, upper.fold_count(), lower.fold_count()])
+ 		check(upper.fold_fraction() <= 0.4 and lower.fold_fraction() <= 0.4, "at most a few inner-side wrinkles at %.2f rad (%.2f upper, %.2f lower)" % [angle, upper.fold_fraction(), lower.fold_fraction()])
+-		check(is_finite(upper.width_ratio()) and upper.width_ratio() > 0.2, "the joint keeps most of its width at %.2f rad (ratio %.2f)" % [angle, upper.width_ratio()])
+ 		# 彎曲後關節正中央的頂點由兩根骨頭平均決定，兩塊零件在那裡重合（接縫看不到）。
+ 		var joint_upper := _nearest_world(upper, Vector2(0, 10))
+ 		var joint_lower := _nearest_world(lower, Vector2(0, 10))
+@@ -135,7 +135,7 @@ func _test_real_rigs() -> void:
+ 		var vertices := 0
+ 		for mesh in rig.limb_meshes():
+ 			vertices += mesh.vertex_count()
+-		check(vertices <= 500, "%s: the limb meshes stay small (%d vertices)" % [skin, vertices])
++		check(vertices <= 900, "%s: the limb meshes stay small (%d vertices)" % [skin, vertices])
+ 		# 全部關節同時彎到活動範圍的極限
+ 		for pair in [[&"leg_front_lower", 2.3], [&"leg_back_lower", 2.3], [&"arm_front_lower", -2.3], [&"arm_back_lower", -2.3], [&"leg_front_upper", -1.6], [&"arm_front_upper", -1.4]]:
+ 			if rig.has_bone(pair[0]):
+diff --git a/tools/rig_preview.gd b/tools/rig_preview.gd
+index 636cc6a8..18f424b5 100644
+--- a/tools/rig_preview.gd
++++ b/tools/rig_preview.gd
+@@ -185,7 +185,7 @@ func _ready() -> void:
+ 			_spawn(_chars[i], "", Vector2(320.0 + (i - (mini(_chars.size(), 4) - 1) * 0.5) * 20.0 * _zoom, 190 + 44.0 * _zoom), "idle", _zoom)
+ 	elif _closeup:
+ 		for i in mini(_chars.size(), 4):
+-			_spawn(_chars[i], str(SHEET_WEAPONS.get(_chars[i], "")), Vector2(80 + i * 160, 330), "idle", 3.6)
++			_spawn(_chars[i], str(SHEET_WEAPONS.get(_chars[i], "")), Vector2(80 + i * 160 if _zoom == 6.5 else 320.0 + float(i) * 200.0, 330), "idle", 3.6 if _zoom == 6.5 else _zoom)
+ 	else:
+ 		for row in mini(_chars.size(), 2):
+ 			for i in SHEET_POSES.size():
