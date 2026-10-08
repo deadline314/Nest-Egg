@@ -1,0 +1,13 @@
+改到整個專案或測試流程本身，跑全部測試。
+Running 78 groups in 10 processes (logs: C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\.godot\ne222-debris213-changed-shards)
+  process 0 (estimated 149 s): StageCoverageWorldSuite
+  process 1 (estimated 141 s): ReclaimerSuite
+  process 2 (estimated 106 s): main,MapBubblesSuite,EncounterSuite,MusicSuite,SceneSanitySuite
+  process 3 (estimated 106 s): Chapter2Suite,NewEnemiesSuite,FxMeleePickupsSuite,AnimAuditSuite,NpcLifeSuite,FeelLabSuite,QuestMapSuite
+  process 4 (estimated 106 s): AssaultEnemiesSuite,AttackTokensSuite,DeathReactionSuite,AmmoTraySuite,DeathFlowSuite,CombatHudSuite,WorldPromptSuite,PostureSuite
+  process 5 (estimated 106 s): StageCoverageWeaponsSuite,ExoticEnemiesSuite,UiScreensSuite,HitReactionSuite,EnvironmentSuite,CutsceneSuite,FloodPitSuite,NpcAnimationSuite
+  process 6 (estimated 106 s): Chapter1MapSuite,Chapter2ExpansionSuite,PropsSuite,FxUpgradesSuite,Chapter1EnemiesSuite,TransitionSuite,FeelSuite,LayerOrderSuite
+  process 7 (estimated 106 s): SoundStageSuite,ReconEnemiesSuite,PhoneBoothSuite,SupplySuite,CollectiblesSuite,LocomotionSuite,UiKitSuite,FeelToolsSuite
+  process 8 (estimated 105 s): ContinuitySuite,StrikeEnemiesSuite,ChainCreatureSuite,NpcSuite,ReloadCuesSuite,SoundLabSuite,ExposureSuite,StoryLintSuite,StoryContentSuite,RigMeshSuite,RigActionsSuite,ReadabilityTargetsSuite,ProtagonistMotionSuite,PartCreatureSuite,PacingSuite,InputFeelSuite,EnemyVfxSuite,EconomySuite,DevMenuSuite,ClipEditorSuite,CharactersSuite,ChapterCutscenesSuite,Chapter2ArtSuite,ApplyPanelSuite,AmmoIconsSuite
+  process 9 (estimated 105 s): HeavyEnemiesSuite,StageCoverageCharactersSuite,MeleeWeaponsSuite,AudioSuite,ProgressionSuite,MeleeSuite,AreasSuite
+checks: 50569, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 162 s)

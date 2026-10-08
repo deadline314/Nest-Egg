@@ -158,6 +158,8 @@ def main() -> None:
     uses.sort(key=lambda e: e["z"])
     char = {"id": spec["id"], "display_name": spec["display_name"], "rig": "res://art/rigs/" + Path(args.rig).name,
             "texture_scale": round(1.0 / px_wp, 5), "scale": spec["scale"]}
+    if "armor_debris" in spec:
+        char["armor_debris"] = spec["armor_debris"]
     blink = spec.get("blink")
     if blink and blink["part"] in transforms:
         A, cw, ch = transforms[blink["part"]]

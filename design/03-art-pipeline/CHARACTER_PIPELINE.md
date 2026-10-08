@@ -206,3 +206,10 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py --recipe to
 3. 跑 `check_spec.py`：專屬骨頭沒有定位、`fixed`／`offset` 不是 `[x, y]`、零件指到不存在的骨頭都會指出確切位置。
 4. 專屬動作寫在 `art/rigs/action_poses.json`，用骨頭名稱當 key；敵人資料的 `rig_actions` 把狀態對到動作。預兆線、發光、發射點與判定位置都取同一個骨頭的世界座標（`rig.bone(名稱).global_position`），畫面與判定才不會各走各的。
 5. 預覽：`rig_preview.tscn -- --chars=<id> --action=<動作>`；遊戲內：`screenshot.tscn -- --scenario=warden_core`（監管者範例）。
+
+
+## 衣物受損與可脫落裝甲的區分（NE-222）
+
+`armor_order`控制受損層的顯示順序，不能由此推論整張圖就是可脫落裝甲。包含完整軀幹、骨盆或四肢的衣物零件，應由角色spec設定`armor_debris: false`；切圖流程原樣輸出到character.json。未指定的裝甲角色維持原本的碎片效果。此欄位必須是布林值，錯誤資料需指出角色與欄位並退回原本安全行為。
+
+此修正不需重畫或重新切圖，只更新配方與角色資料；PNG、支點、骨架與受傷／回血順序維持原樣。交付時以實際受傷、回血和致命傷檢查衣物變化與完整身體，再確認真正敵人裝甲仍能飛散。`tools/rig_debris_review.tscn -- --out=<絕對路徑>`保留原生四個致死案例、每例五張影格及碎片數；`--legacy-debris`只作舊錯誤行為的對照，不作修後驗收。

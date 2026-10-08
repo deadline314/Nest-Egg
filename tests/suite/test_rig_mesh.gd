@@ -212,6 +212,14 @@ func _test_part_behaviour() -> void:
 	var rig := CharacterRig.new()
 	holder.add_child(rig)
 	check(rig.setup("rin"), "rin builds")
+	var skin := RigLibrary.character("rin")
+	var debris_setting = skin["armor_debris"]
+	skin["armor_debris"] = "false"
+	var corrupt := CharacterRig.new()
+	holder.add_child(corrupt)
+	check(corrupt.setup("rin") and corrupt._armor_debris, "invalid debris data falls back safely instead of coercing a string")
+	skin["armor_debris"] = debris_setting
+	corrupt.queue_free()
 	var armor := rig.armor_count()
 	check(armor >= 4, "the armor steps still exist with mesh limbs (%d)" % armor)
 	var before := _visible_armor(rig)

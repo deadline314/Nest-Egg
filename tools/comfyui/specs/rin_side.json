@@ -1,6 +1,7 @@
 {
   "description": "凜（7.5 頭身）的分件規格，來源是透明背景的側面圖（Qwen Image 2.1 RGBA）。groups：SAM 3.1 文字提示分出的群組（前面的優先），被別的群組擋住的群組由 Qwen 補全（complete）；parts：把群組在關節處切成零件（y 為水平切線），並指定每個零件怎麼轉正（from/to/mode/pivot）與掛在哪根骨頭（uses）。joints 是原圖像素座標。 沒有被擋住需要補的群組（馬尾、頭、手、槍套、靴子）不補全，零件就是原圖用 SAM 遮罩摳出的像素。",
   "id": "rin",
+  "armor_debris": false,
   "display_name": "凜",
   "scale": 1.15,
   "seam": 10,

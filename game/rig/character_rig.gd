@@ -54,6 +54,7 @@ var _light_material: ShaderMaterial
 var _light_cap := LightKit.CHARACTER_LIGHT_CAP_MAX
 var _fill := 1.0
 var _armor_visible := 0
+var _armor_debris := true
 var _weapon_root: Node2D
 var _weapon_sprite: Sprite2D
 var _weapon_glow: Sprite2D
@@ -73,6 +74,12 @@ func setup(p_skin_id: String, animator_kind := "") -> bool:
 	var skin := RigLibrary.character(skin_id)
 	if skin.is_empty():
 		return false
+	var debris_setting = skin.get("armor_debris", true)
+	_armor_debris = true
+	if typeof(debris_setting) == TYPE_BOOL:
+		_armor_debris = debris_setting
+	else:
+		push_warning("[CharacterRig] %s/armor_debris must be a boolean; using true" % skin_id)
 	var skeleton_def := RigLibrary.load_json(str(skin.get("rig", "")))
 	if skeleton_def.is_empty():
 		return false
@@ -541,9 +548,10 @@ static func _glow_material() -> CanvasItemMaterial:
 
 
 func _spawn_debris(part: CanvasItem) -> void:
-	var offset: Vector2 = (part as RigPartMesh).pivot_offset if part is RigPartMesh else (part as Sprite2D).offset
-	var texture: Texture2D = (part as RigPartMesh).texture if part is RigPartMesh else (part as Sprite2D).texture
-	var debris := RigDebris.spawn(texture, part.global_transform, offset, Vector2(BREAK_IMPULSE.x * -facing * randf_range(0.6, 1.2), BREAK_IMPULSE.y * randf_range(0.8, 1.2)))
-	if debris != null and not Fx.add_world_node(debris):
-		debris.cancel()
+	if _armor_debris:
+		var offset: Vector2 = (part as RigPartMesh).pivot_offset if part is RigPartMesh else (part as Sprite2D).offset
+		var texture: Texture2D = (part as RigPartMesh).texture if part is RigPartMesh else (part as Sprite2D).texture
+		var debris := RigDebris.spawn(texture, part.global_transform, offset, Vector2(BREAK_IMPULSE.x * -facing * randf_range(0.6, 1.2), BREAK_IMPULSE.y * randf_range(0.8, 1.2)))
+		if debris != null and not Fx.add_world_node(debris):
+			debris.cancel()
 	Fx.burst(part.global_position, Palette.ARMOR, 6, 120.0, 0.3)

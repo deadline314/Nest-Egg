@@ -34,6 +34,8 @@ def check(recipe: dict, spec: dict, need_joints: bool) -> tuple[list[str], list[
         return errors, warns
     if spec["id"] != recipe["id"]:
         err("spec.id", f"is '{spec['id']}' but the recipe id is '{recipe['id']}'")
+    if "armor_debris" in spec and type(spec["armor_debris"]) is not bool:
+        err("spec.armor_debris", "must be a boolean")
     joints = spec["joints"]
     for name, value in joints.items():
         if value is None:

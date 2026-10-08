@@ -1,0 +1,93 @@
+{
+  "ticket": "NE-222",
+  "base_commit": "6029f21cf4f4a8b60d5476d223dd30f9070a3707",
+  "scope": "clothing debris only; existing published death pose remains rejected",
+  "renderer": "native Godot 4.7.2 Forward+ HDR 2D, RTX 4070 SUPER, 1920x1080",
+  "generation": "none",
+  "before": "same patched renderer, legacy armor_debris=true override before constructing Rin",
+  "cases": {
+    "before": {
+      "fatal_cases": 4,
+      "pngs": 20,
+      "spawned_body_parts_per_case": 10,
+      "legacy_override": true
+    },
+    "after": {
+      "fatal_cases": 4,
+      "pngs": 20,
+      "spawned_body_parts_per_case": 0,
+      "legacy_override": false
+    }
+  },
+  "source_sha256_lf": {
+    "game/rig/character_rig.gd": "c5e26c1b3980f8c3614637da7ee03801c1563ec8dd27f2853ebc90b7df2a698e",
+    "art/characters/rin/character.json": "00d7d7993cfcfefd5abd1e2974e9fa47008346ce09f5499ab217697fbdd4ab3b",
+    "tools/comfyui/specs/rin_side.json": "d19d454a70335eb5f436e7b69d0a98ea35cba7beeab57550262035ed18dd11ab",
+    "tools/comfyui/cut_layers.py": "02d54b82e2ccae5d98fd6d36c0f782e455619214e07b6496c7f68bbefbce7fab",
+    "tools/rig_debris_review.gd": "e32b8e5b0791b0fd4382b2f7b07583077be0489955bd8e501524171f766c1a33",
+    "tools/rig_debris_review.tscn": "2b000a566048c36cc9a078f8528117ca61087ab496efa0fec1571b0738f388e0",
+    "tools/viewport_capture.gd": "3a41272cf893fd32f7a4db93d4843f46ebee9dffb8881487f172b123466e05f3"
+  },
+  "captured_sha256": {
+    "after/face-1_hit-1_000.png": "6456227a78769973434573f7f572fadbab69c00cf6b3fc642595833f90755313",
+    "after/face-1_hit-1_012.png": "a4a6c1a6965dc57b9cc7bbedb5a6d814f0993c2ed28ac2b00d36cd5b058c2977",
+    "after/face-1_hit-1_028.png": "1f2a29f7cd1b0c9d141474953fbdf8bf5c1af866de22730ac3177039d12f90d8",
+    "after/face-1_hit-1_055.png": "29b0b7c0bc2050515594c1e7708c485663eac57760a6f66b39e3c54d512fa0d2",
+    "after/face-1_hit-1_099.png": "a3c077a5aac539d00081abf4044d25df8e4f8e1bc3e282d468d50a249d8303be",
+    "after/face-1_hit1_000.png": "d4bea828d8354d25f3a4f022321028811a02572184a148ea0b2440b247cc281d",
+    "after/face-1_hit1_012.png": "b9358563ab0fd56f1f1a0e0b00271ad65386894d9db57eddc3f39bd9f2384a43",
+    "after/face-1_hit1_028.png": "f9d508c4bf6670d90fad87d97fda2605d2b97eea0c25cc4dde5935006d7878e0",
+    "after/face-1_hit1_055.png": "f4c03bccd22c676ef9539025d2527202873357deba69e070a82004825bc14cbb",
+    "after/face-1_hit1_099.png": "b18cf51e9acaae55f5fe50755b3d61e3d72c59cbd658d6d7dbf40f3070b6be50",
+    "after/face1_hit-1_000.png": "313c3061900875af9ae1ee570c8b7b46e248f5b7a228e3ca30463ecf2874d8f6",
+    "after/face1_hit-1_012.png": "dbe31c43a1d00f90fe9905d58e5f71694acbac7c9bbfcbd4a734fc9bea4648d4",
+    "after/face1_hit-1_028.png": "52a1093bfadd3e483324a5121ed1afaa3d53913004b70e52c35f2debf44c133f",
+    "after/face1_hit-1_055.png": "856411a45d9242f4ab47f5de0c6656266ae84988ee4104d0f84d4ff7927b131f",
+    "after/face1_hit-1_099.png": "eb54468ce7f6efd936baffa63555b7fe212900c6cb00c08cd4f1886614cce233",
+    "after/face1_hit1_000.png": "fb7c57c2c84f1d7a6c9f10fd6d57afae0112545bd33bf1598623b0cf93715952",
+    "after/face1_hit1_012.png": "96cb1e9166ef047f78a5fd6d616779f44ab887dc3b9a594daf15542bb33237f3",
+    "after/face1_hit1_028.png": "365365141ad1206e0105cd86851c2f1b60a161afb1facd3b960c43a360f392e5",
+    "after/face1_hit1_055.png": "3c8f35046d9468792e1a67985516e8299f1e1fd2cc4fee76919a3d9984fc5cc0",
+    "after/face1_hit1_099.png": "08f236e33c5f2316906a554512d01a52524dff29c86da4b8c6db473c67ca4219",
+    "after/samples.json": "eb1753330bb20634e8583eed311043a20f6554b5d4aee722d57e402296099c23",
+    "before/face-1_hit-1_000.png": "2f1918af23025eca12d099721a0d0e0e287d50468c79fc539a88e3919cc26f00",
+    "before/face-1_hit-1_012.png": "ae8406adfe648054ffa88589a84c6494bc65bdd9762ba9f9fe44c684ed992250",
+    "before/face-1_hit-1_028.png": "e534d2401d5384e8ce2f9f8dc541ee6847be46b034ba22373adac2e279b28fe3",
+    "before/face-1_hit-1_055.png": "f7579d9b2579a8b7ad76de70409b3ca4701606121fd5df8954affbc7fdae9f76",
+    "before/face-1_hit-1_099.png": "8838f097b78043ddd9e8959df73603b1c34b4aff68f71c1aa463cb9aa4942f9a",
+    "before/face-1_hit1_000.png": "17a1e2cb605824811a29801c0992e5f68ca2a6d606daa9490dc8fb47d2d2a159",
+    "before/face-1_hit1_012.png": "4c9285518fe3ae739233137d4765d7cedc2e4c776325fca300f7edc16bc75849",
+    "before/face-1_hit1_028.png": "dca3d18dfebfe92c81c8fd44ccb397b1b94335dc0902a980fce704103d12e753",
+    "before/face-1_hit1_055.png": "c1b3f764d4ace726ac3ce67905a54e8bd40ca82ab7b79a0d1cf5a360313f6190",
+    "before/face-1_hit1_099.png": "08522876c0dd6d62be0ea5fb445c1505fbe4856c1db16d83f1e02714eb7222f6",
+    "before/face1_hit-1_000.png": "bb93ef6559a842fa8859aa2cccf15b95ee3ca34ee6a54be56363d4b0773bb4f9",
+    "before/face1_hit-1_012.png": "3fd4f61a34da3d4f2f9e656717e4bbe246bc78850a1cc124777800c0640ab8ac",
+    "before/face1_hit-1_028.png": "57ee3c87c282e8024671e4f42b3b423488fa578329af28eec7d8a47c2229fa1d",
+    "before/face1_hit-1_055.png": "071387333c6248c874e0ab7cea8b5a9683ce89d0b9a087cc898ba4ae75aa5b2b",
+    "before/face1_hit-1_099.png": "761ecd1323478a61dc48c92f05096f4faef00a458855f7726a90f3946379a4e6",
+    "before/face1_hit1_000.png": "03bae98a114f55ad83d31b06c0920a65c2932ca21dd93117278b98ec8b602fdf",
+    "before/face1_hit1_012.png": "51d5e689bd86378cee0dfa54c394bae551fdb83bf6aef4eb5f59aa2053ed4732",
+    "before/face1_hit1_028.png": "829f07ee88bd94313d83ee40a1d8b7786bb559c9a0c07b56baf0128e45f4411a",
+    "before/face1_hit1_055.png": "bcd3eafff08475b05bbeb21ae2799589e4e9f6692b15034964dbfc16d144cf05",
+    "before/face1_hit1_099.png": "ed3fe397b1854e444e8c14d7b4fa437cc5932e0102d2cb80144ac85db9c3fceb",
+    "before/samples.json": "37a2b473d424e8c87952464e5befc1f6673c06b2265d78d68b85968f3e03a31d"
+  },
+  "tests": {
+    "changed": {
+      "checks": 50569,
+      "groups": 78,
+      "new_failures": 0,
+      "known_failures": 0,
+      "seconds": 162
+    },
+    "full": {
+      "checks": 50562,
+      "groups": 78,
+      "new_failures": 0,
+      "known_failures": 0,
+      "seconds": 163
+    }
+  },
+  "cpu_only_headless_probe": "CPU_ONLY_HEADLESS=true, headless display, null rendering device, empty adapter",
+  "native_capture_gpu_lock": true
+}

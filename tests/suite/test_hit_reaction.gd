@@ -27,6 +27,7 @@ func run() -> void:
 	await _test_corpse_cap()
 	await _test_debris_pool()
 	await _test_armor_still_flies_off()
+	await _test_player_clothing_does_not_fly_off()
 	_test_hurt_part_data()
 	await _test_head_and_body_shots()
 	await _test_parts_follow_the_pose()
@@ -320,6 +321,34 @@ func _test_armor_still_flies_off() -> void:
 
 
 const HEAD_ENEMIES := ["grunt", "elite_grunt", "sniper", "stalker", "slasher", "flamer", "shield_rusher", "heavy_gunner"]
+
+
+func _test_player_clothing_does_not_fly_off() -> void:
+	for facing in [1, -1]:
+		for side in [1, -1]:
+			await open_level(10.0)
+			var player := level.player
+			var rig: CharacterRig = player._visual.rig
+			player.facing = facing
+			player.health.setup(6, 0.0)
+			rig.set_armor_ratio(1.0, false)
+			var before := RigDebris._active
+			for i in 5:
+				var info := DamageInfo.create(1, Combat.Team.ENEMY, &"clothing_test")
+				info.origin = player.global_position + Vector2(side * 30, 0)
+				info.ignore_invulnerability = true
+				player.health.take_damage(info)
+				check(RigDebris._active == before, "Rin's damaged clothing never spawns a complete body part")
+			check(rig._armor_visible < rig.armor_count() and rig._under.all(func(part: CanvasItem) -> bool: return part.visible), "Rin's existing clothing damage remains visible")
+			player.health.heal(6)
+			check(rig._armor_visible == rig.armor_count(), "healing still restores Rin's clothing")
+			var fatal := DamageInfo.create(9999, Combat.Team.ENEMY, &"clothing_test")
+			fatal.origin = player.global_position + Vector2(side * 30, 0)
+			fatal.ignore_invulnerability = true
+			player.health.take_damage(fatal)
+			await physics_frames(2)
+			check(player.is_dead() and rig._armor_visible == 0 and RigDebris._active == before, "a real fatal hit leaves Rin's body intact without physical body-part debris")
+			await end_level(level)
 
 
 func _head_point(enemy: Enemy) -> Vector2:

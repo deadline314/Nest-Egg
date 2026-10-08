@@ -2,13 +2,16 @@
 import json
 import tempfile
 import subprocess
+import sys
 from pathlib import Path
 from unittest.mock import Mock, patch
+from contextlib import nullcontext
 
 import comfy_api
 import comfy_guard
 import sam_masks
 import build_character
+import cut_layers
 from check_spec import check
 from make_parts import near_leg_key
 
@@ -17,7 +20,7 @@ def main():
     common = Path(subprocess.check_output(["git", "rev-parse", "--path-format=absolute", "--git-common-dir"], text=True).strip())
     assert comfy_guard.LOCK_PATH == common.parent / "assets_src/work/comfy.lock"
     for code, message in [(0, "ok"), (0, "SCRIPT ERROR: bad resource"), (1, "failed")]:
-        with patch.object(build_character.subprocess, "run", return_value=subprocess.CompletedProcess([], code, message, "")):
+        with patch.object(comfy_guard, "server_lock", return_value=nullcontext()), patch.object(build_character.subprocess, "run", return_value=subprocess.CompletedProcess([], code, message, "")):
             try:
                 output = build_character.godot("--headless")
                 assert code == 0 and message == "ok" and output == "ok"
@@ -27,6 +30,10 @@ def main():
     recipe = json.loads((root / "tools/comfyui/recipes/enforcer.json").read_text())
     spec = json.loads((root / recipe["spec"]).read_text())
     assert not check(recipe, spec, True)[0]
+    for valid in [True, False]:
+        assert not check(recipe, dict(spec, armor_debris=valid), True)[0]
+    for invalid in ["false", 0, 1, None, [], {}]:
+        assert any("spec.armor_debris" in error for error in check(recipe, dict(spec, armor_debris=invalid), True)[0])
     spec["near_leg"]["stage"] = "missing"
     spec["parts"]["pelvis"]["seam"] = -1
     spec["groups"]["body"]["complete"]["stage_silhouette"] = "yes"
@@ -38,6 +45,19 @@ def main():
         "spec.near_leg.root_overlap", "spec.groups.armor_knee.outline"))
     with tempfile.TemporaryDirectory() as directory:
         out = Path(directory)
+        debris_spec = {"id": "debris", "display_name": "debris", "scale": 1,
+            "tex_px_per_wp": 1, "illustration_px_per_wp": 1, "ground_y": 8,
+            "joints": {"hip": [4, 4]}, "bones": [{"name": "hip", "parent": ""}],
+            "parts": {}, "glow": {},
+            "weapon_anchor": {"bone": "hip", "from": "hip", "to": "hip", "dx": 0, "dy": 0, "reach": 1}}
+        for setting in [None, False, True]:
+            if setting is not None: debris_spec["armor_debris"] = setting
+            spec_file = out / "debris.json"
+            spec_file.write_text(json.dumps(debris_spec))
+            with patch.object(sys, "argv", ["cut_layers", "--spec", str(spec_file), "--work", str(out), "--char", str(out / "skin"), "--rig", str(out / "rig.json")]):
+                cut_layers.main()
+            delivered = json.loads((out / "skin/character.json").read_text())
+            assert delivered.get("armor_debris", True) is (True if setting is None else setting)
         manifest = out / "manifest.json"
         manifest.write_text('[{"step":"design","seed":33}]')
         build_recipe = dict(recipe, work=directory)

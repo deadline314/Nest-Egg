@@ -1,0 +1,12 @@
+Running 78 groups in 10 processes (logs: C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\.godot\ne222-debris213-full-shards)
+  process 0 (estimated 149 s): StageCoverageWorldSuite
+  process 1 (estimated 141 s): ReclaimerSuite
+  process 2 (estimated 104 s): main,MapBubblesSuite,ReloadCuesSuite,SoundLabSuite,AreasSuite
+  process 3 (estimated 104 s): Chapter2Suite,ChainCreatureSuite,DeathReactionSuite,SupplySuite,DeathFlowSuite,NpcLifeSuite,WorldPromptSuite,PostureSuite
+  process 4 (estimated 104 s): AssaultEnemiesSuite,AttackTokensSuite,UiScreensSuite,FxUpgradesSuite,EncounterSuite,TransitionSuite,FeelLabSuite,NpcAnimationSuite
+  process 5 (estimated 104 s): StageCoverageWeaponsSuite,ExoticEnemiesSuite,FxMeleePickupsSuite,AnimAuditSuite,CombatHudSuite,FeelSuite,UiKitSuite,LayerOrderSuite
+  process 6 (estimated 104 s): Chapter1MapSuite,Chapter2ExpansionSuite,PropsSuite,AmmoTraySuite,CollectiblesSuite,MeleeSuite,SceneSanitySuite,FeelToolsSuite
+  process 7 (estimated 103 s): SoundStageSuite,StrikeEnemiesSuite,NewEnemiesSuite,Chapter1EnemiesSuite,ProgressionSuite,LocomotionSuite,QuestMapSuite,StoryLintSuite,StoryContentSuite,RigMeshSuite,RigActionsSuite,ReadabilityTargetsSuite,ProtagonistMotionSuite,PartCreatureSuite,PacingSuite,InputFeelSuite,EnemyVfxSuite,EconomySuite,DevMenuSuite,ClipEditorSuite,CharactersSuite,ChapterCutscenesSuite,Chapter2ArtSuite,ApplyPanelSuite,AmmoIconsSuite
+  process 8 (estimated 103 s): HeavyEnemiesSuite,StageCoverageCharactersSuite,HitReactionSuite,AudioSuite,NpcSuite,MusicSuite,ExposureSuite
+  process 9 (estimated 103 s): ContinuitySuite,ReconEnemiesSuite,MeleeWeaponsSuite,PhoneBoothSuite,CutsceneSuite,FloodPitSuite,EnvironmentSuite
+checks: 50562, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 163 s)

@@ -697,7 +697,7 @@ func _test_gameplay() -> void:
 	var debris := 0
 	for node in level.find_children("*", "RigDebris", true, false):
 		debris += 1
-	_check(debris > 0, "lost armor flies off as debris")
+	_check(debris == 0, "pit damage does not scatter Rin's whole body textures")
 	await _end_level(level)
 
 
