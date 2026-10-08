@@ -15,6 +15,7 @@ const MAX_SAYS := 16
 
 func run() -> void:
 	_test_scene_data()
+	_test_ch1_pose_baseline()
 	_test_script_consistency()
 	_test_level_bindings()
 	_test_chain_rules()
@@ -43,6 +44,25 @@ func _test_scene_data() -> void:
 	check(bool(_scene(&"cut_c8_arm_noise").get("overlay", false)) and bool(_scene(&"cut_c9_alarm").get("overlay", false)), "右臂雜訊與燈幕警報是疊加演出")
 	check(Story.chapter_ids().size() == 3, "只提供場景的檔案不會多出章節（舊的兩章加上新的傘；%s）" % [Story.chapter_ids()])
 	check(not Story.chapter_info(&"chapter_01").is_empty() and not Story.chapter_info(&"chapter_02").is_empty(), "章節資訊沒有被場景檔覆蓋")
+
+
+func _test_ch1_pose_baseline() -> void:
+	for id in ["ch1_c01_open", "ch1_c09_wake", "ch1_c14_home"]:
+		var scene := _scene(StringName(id))
+		check(scene.get("pose_policy", "") == "supported", "%s enforces supported poses" % id)
+		check(CutsceneChecker.validate(id, scene, Story._speakers).is_empty(), "%s has reasons and supports for restricted poses" % id)
+		check(CutsceneChecker.staging_problems(id, scene).is_empty(), "%s keeps actor feet above the dialogue panel" % id)
+	for step: Dictionary in _scene(&"ch1_c01_open")["steps"]:
+		if step.get("do") == "actor" and step.get("id") == "rin":
+			check(step.get("pose") == "idle", "Rin stands at the pawnshop counter in the opening")
+	for action in [{"do": "pose", "id": "rin", "pose": "squat"}, {"do": "move", "id": "rin", "to": [385, 348], "then": "sit"}]:
+		var scene := _scene(&"ch1_c01_open").duplicate(true)
+		scene["steps"].append(action)
+		check("\n".join(CutsceneChecker.validate("pose_negative", scene, Story._speakers)).contains("pose_reason"), "unsupported %s without a reason fails" % action)
+		action["pose_reason"] = "在舞台上檢查地面物件。"
+		check("\n".join(CutsceneChecker.validate("pose_negative", scene, Story._speakers)).contains("pose_support"), "a reason without a support fails")
+		action["pose_support"] = "舞台地板接觸線 y=348。"
+		check(CutsceneChecker.validate("pose_positive", scene, Story._speakers).is_empty(), "explicit pose context passes the data check; geometry still needs visual review")
 
 
 func _test_script_consistency() -> void:

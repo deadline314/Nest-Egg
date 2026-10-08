@@ -1,0 +1,13 @@
+受影響的測試：AmmoIconsSuite,AmmoTraySuite,ApplyPanelSuite,AreasSuite,AssaultEnemiesSuite,AudioSuite,Chapter1MapSuite,Chapter2ArtSuite,Chapter2ExpansionSuite,Chapter2Suite,ChapterCutscenesSuite,ClipEditorSuite,CombatHudSuite,ContinuitySuite,CutsceneSuite,DeathFlowSuite,DeathReactionSuite,DevMenuSuite,EconomySuite,EnvironmentSuite,FeelSuite,HeavyEnemiesSuite,InputFeelSuite,LayerOrderSuite,MusicSuite,NpcAnimationSuite,NpcSuite,PacingSuite,PropsSuite,QuestMapSuite,ReadabilityTargetsSuite,ReconEnemiesSuite,SceneSanitySuite,SoundLabSuite,SoundStageSuite,StageCoverageCharactersSuite,StageCoverageWeaponsSuite,StageCoverageWorldSuite,StrikeEnemiesSuite,TransitionSuite,UiScreensSuite,main
+Running 42 groups in 10 processes (logs: /tmp/tmp.nkly5njgBA)
+  process 0 (estimated 149 s): StageCoverageWorldSuite
+  process 1 (estimated 91 s): main
+  process 2 (estimated 72 s): Chapter2Suite,AmmoTraySuite,TransitionSuite,MusicSuite,NpcAnimationSuite
+  process 3 (estimated 72 s): AssaultEnemiesSuite,PropsSuite,CutsceneSuite,NpcSuite,SceneSanitySuite,LayerOrderSuite
+  process 4 (estimated 72 s): StageCoverageWeaponsSuite,UiScreensSuite,AudioSuite,SoundLabSuite,FeelSuite,Chapter2ArtSuite
+  process 5 (estimated 71 s): Chapter1MapSuite,DeathReactionSuite,DeathFlowSuite,CombatHudSuite,EnvironmentSuite,PacingSuite,InputFeelSuite,EconomySuite,DevMenuSuite,ClipEditorSuite,ChapterCutscenesSuite,ApplyPanelSuite,AmmoIconsSuite
+  process 6 (estimated 71 s): SoundStageSuite,Chapter2ExpansionSuite
+  process 7 (estimated 71 s): ContinuitySuite,ReadabilityTargetsSuite,AreasSuite
+  process 8 (estimated 71 s): HeavyEnemiesSuite,StrikeEnemiesSuite,QuestMapSuite
+  process 9 (estimated 72 s): StageCoverageCharactersSuite,ReconEnemiesSuite
+checks: 43691, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 163 s)

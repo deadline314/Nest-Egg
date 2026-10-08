@@ -148,3 +148,11 @@ description: 做或修改 Nest Egg 的關卡佈景、過場動畫舞台與場景
 - NE-223 介面合入後，玩家地圖提示含 `core/navigation/quest_map_index.gd`；正式 `quests` 的 background／reward／blocked_reason／suggestion 與任務、步驟 title 必須是完整意思，不能把動作目標當名稱標籤豁免。fixtures 只驗 UI；來源尚未生成就留待補驗。
 
 - 既有日英文 `ja`／`en` 與章節副標題 `sub` 亦納入來源盤點；翻譯對照語義與母語審稿分別記錄，不能以中文的零警告代稱母語驗收。
+
+
+## 第一章姿勢資料基線（NE-222；2026-10-08）
+
+- 接手 `tools/story/build_ch1_story.py` 前讀 `design/12-cast-redraw/SCENE_POSE_BASELINE.md`，從已推送的最新 main 工作。開場凜站在櫃台前；不要重新加入無理由蹲姿。
+- animated() 產生 `pose_policy: supported`；actor()／pose()／move() 支援 pose_reason／pose_support。坐、靠、蹲、跪、倒需在同一步描述用途與實際支撐；actor.pose、pose.pose、move.pose／then 及分支都受檢查。未實作的姿勢名稱仍不可使用。
+- 檢查只攔缺漏、空白與錯誤型別；語意、家具接觸、過渡与全角色接縫仍須逐格畫面验证。新第一章三場不能移除政策來過關；未生成的 ST-16 不算已驗收。
+- 重跑產生器保留已合入舞台的 source_width 比例契約，检查输出 diff，不能把其他 Session 的舞台尺寸修正覆盖掉。

@@ -87,7 +87,7 @@ def stall_layers(scale):
     def sprite(name, x, w, h, lift=0.0):
         tex_w = Image.open(disk % name).size[0]
         return {"kind": "sprite", "path": d % name, "pos": [round(x, 1), round(floor - (h + lift) * scale, 1)],
-                "scale": round(scale * w / tex_w, 4), "filter": "linear", "glow": True}
+                "scale": round(scale * w / tex_w, 4), "filter": "linear", "glow": True, "source_width": tex_w}
     # 燈籠（連繩）掛在攤車頂的前緣，下緣高過頭頂（lift 是世界像素，也要乘上縮放）。
     return [sprite('ali_noodle_cart', 395, 58.1, 66.0), sprite('noodle_bowls_table', 335, 30.4, 25.5),
             sprite('hanging_lantern', 405, 16.9, 33.0, 30.0)]
@@ -97,7 +97,7 @@ def write_stage(stage_id, scene, top, bottom, rain, glow, extra):
     layers = [
         {"kind": "gradient", "top": top, "bottom": bottom, "parallax": 0.0},
         {"kind": "sprite", "path": f"res://art/environment/scenes/{scene}.webp", "pos": [-64, -36.0], "scale": 0.5,
-         "filter": "linear"},  # 不能開 life：窗光閃爍會把整張背景切成忽明忽暗的方塊
+         "filter": "linear", "source_width": 1536},  # 原設計寬度；保留縮圖快取下的舞台比例。不能開 life。
         {"kind": "glow", "pos": [glow[0], glow[1]], "radius": glow[2], "color": glow[3], "intensity": 0.7, "additive": True,
          "alpha": 0.35, "pulse": 0.06, "pulse_depth": 0.2},
     ]
@@ -145,7 +145,7 @@ def cam(x, y, zoom=1.0, t=1.2, wait_for=False):
     return step
 
 
-def actor(ident, kind, x, y, facing=1, scale=2.0, speaker=None, pose=None, loop=None, weapon=""):
+def actor(ident, kind, x, y, facing=1, scale=2.0, speaker=None, pose=None, loop=None, weapon="", pose_reason=None, pose_support=None):
     step = {"do": "actor", "id": ident, "kind": kind, "pos": [x, y], "facing": facing, "scale": scale, "weapon": weapon}
     if speaker:
         step["speaker"] = speaker
@@ -153,17 +153,25 @@ def actor(ident, kind, x, y, facing=1, scale=2.0, speaker=None, pose=None, loop=
         step["pose"] = pose
     if loop:
         step["loop"] = loop
+    if pose_reason:
+        step["pose_reason"] = pose_reason
+    if pose_support:
+        step["pose_support"] = pose_support
     return step
 
 
-def pose(ident, name, loop=None):
+def pose(ident, name, loop=None, pose_reason=None, pose_support=None):
     step = {"do": "pose", "id": ident, "pose": name}
     if loop is not None:
         step["loop"] = loop
+    if pose_reason:
+        step["pose_reason"] = pose_reason
+    if pose_support:
+        step["pose_support"] = pose_support
     return step
 
 
-def move(ident, x, y, t=1.5, wait_for=True, pose_name=None, then=None):
+def move(ident, x, y, t=1.5, wait_for=True, pose_name=None, then=None, pose_reason=None, pose_support=None):
     """then：走到之後的姿勢（預設站著）；坐下的移動要寫 then='sit'，不然到了又站起來。"""
     step = {"do": "move", "id": ident, "to": [x, y], "time": t}
     if then:
@@ -172,6 +180,10 @@ def move(ident, x, y, t=1.5, wait_for=True, pose_name=None, then=None):
         step["wait"] = True
     if pose_name:
         step["pose"] = pose_name
+    if pose_reason:
+        step["pose_reason"] = pose_reason
+    if pose_support:
+        step["pose_support"] = pose_support
     return step
 
 
@@ -247,7 +259,7 @@ DEATH_SCENES = []
 
 def animated(scene_id, steps, then=None, flags=None, budget=None):
     """budget：預估秒數上限（過場檢查器會估計並比對，見 CutsceneChecker.estimate_seconds）。"""
-    scene = {"mode": "animated"}
+    scene = {"mode": "animated", "pose_policy": "supported"}
     if budget:
         scene["budget"] = budget
     if then:
@@ -288,7 +300,7 @@ def build():
         fx('lightning', 0.5),
         title("傘", "かさ　Kasa", 1.8),
         stage(st, 320, 250, 1.0, 1.0),
-        actor('rin', 'rin', 385, y, -1, scale=actor_scale(st, 'rin'), pose='squat'),
+        actor('rin', 'rin', 385, y, -1, scale=actor_scale(st, 'rin'), pose='idle'),
         actor('k', 'old_k', 175, y, 1, scale=actor_scale(st, 'old_k'), speaker='old_k', loop='wipe_hands'),
         sfx('pickup', -16),
         wait(0.4),
@@ -415,7 +427,8 @@ def build():
     st = 'ch1_revival_room'
     animated('ch1_c09_wake', [
         stage(st, 316, 205, 1.4, 1.0),
-        actor('rin', 'rin', 316, sit_y(st, 'rin', 196), 1, scale=actor_scale(st, 'rin'), pose='sit', speaker='rin'),
+        actor('rin', 'rin', 316, sit_y(st, 'rin', 196), 1, scale=actor_scale(st, 'rin'), pose='sit', speaker='rin',
+              pose_reason='復原後坐在檢查台邊緣醒來。', pose_support='診間檢查台座面：舞台 x=316、y=196；腳底由 sit_y 量測。'),
         fx('flash', 0.6),
         wait(1.2),
         say('rin', "幹，嘴裡全是金屬味。"),

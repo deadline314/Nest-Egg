@@ -59,6 +59,7 @@
  "scenes": {
   "ch1_c01_open": {
    "mode": "animated",
+   "pose_policy": "supported",
    "budget": 20.0,
    "steps": [
     {
@@ -110,7 +111,7 @@
      "facing": -1,
      "scale": 3.4,
      "weapon": "",
-     "pose": "squat"
+     "pose": "idle"
     },
     {
      "do": "actor",
@@ -538,6 +539,7 @@
   },
   "ch1_c09_wake": {
    "mode": "animated",
+   "pose_policy": "supported",
    "budget": 45.0,
    "set_flags": [
     "ch1_first_death_done"
@@ -565,7 +567,9 @@
      "scale": 2.5,
      "weapon": "",
      "speaker": "rin",
-     "pose": "sit"
+     "pose": "sit",
+     "pose_reason": "復原後坐在檢查台邊緣醒來。",
+     "pose_support": "診間檢查台座面：舞台 x=316、y=196；腳底由 sit_y 量測。"
     },
     {
      "do": "fx",
@@ -861,6 +865,7 @@
   },
   "ch1_c14_home": {
    "mode": "animated",
+   "pose_policy": "supported",
    "budget": 60.0,
    "steps": [
     {

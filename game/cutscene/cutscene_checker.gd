@@ -12,6 +12,7 @@ const SAY_BASE := 1.0
 const SAY_PER_CHAR := 0.08
 const FX_KINDS: PackedStringArray = ["shake", "flash", "lightning", "noise", "tint", "rain", "vignette"]
 const STYLES: PackedStringArray = ["normal", "whisper", "shout", "noise"]
+const SUPPORTED_POSES: PackedStringArray = ["sit", "lean", "squat", "crouch", "kneel", "dead"]
 
 ## 每種步驟的必填欄位。
 const STEP_FIELDS: Dictionary = {
@@ -56,6 +57,8 @@ static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) 
 	var says := 0
 	var run := 0
 	var index := 0
+	if scene.has("pose_policy") and scene["pose_policy"] != "supported":
+		problems.append("動畫場景 %s 的 pose_policy 不存在" % scene_id)
 	for raw: Variant in _expanded_steps(steps):
 		index += 1
 		var where := "動畫場景 %s 第 %d 步" % [scene_id, index]
@@ -64,6 +67,13 @@ static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) 
 			continue
 		var step: Dictionary = raw
 		var kind := str(step.get("do", ""))
+		if scene.get("pose_policy", "") == "supported" and kind in ["actor", "pose", "move"]:
+			for pose_key in ["pose", "then"]:
+				if SUPPORTED_POSES.has(str(step.get(pose_key, ""))):
+					for context_key in ["pose_reason", "pose_support"]:
+						var context: Variant = step.get(context_key, "")
+						if not context is String or (context as String).strip_edges().is_empty():
+							problems.append("%s 的 %s 姿勢「%s」缺少非空文字 %s" % [where, pose_key, step[pose_key], context_key])
 		if not STEP_FIELDS.has(kind):
 			problems.append("%s 的動作「%s」不存在" % [where, kind])
 			continue
