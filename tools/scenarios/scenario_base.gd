@@ -27,7 +27,7 @@ func settle(frames: int) -> void:
 
 
 func capture(file_name: String) -> void:
-	var image := get_viewport().get_texture().get_image()
+	var image := preload("res://tools/viewport_capture.gd").image(get_viewport())
 	var path := out_dir.path_join(file_name + ".png")
 	var err := image.save_png(path)
 	print("saved %s (%s)" % [path, error_string(err)])

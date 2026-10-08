@@ -409,7 +409,7 @@ func _capture() -> void:
 		set_process(false)
 	for i in 90:
 		await get_tree().process_frame
-	var image := get_viewport().get_texture().get_image()
+	var image := preload("res://tools/viewport_capture.gd").image(get_viewport())
 	image.save_png(_out)
 	print("saved ", _out)
 	get_tree().quit()

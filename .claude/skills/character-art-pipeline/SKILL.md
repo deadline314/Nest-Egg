@@ -132,6 +132,8 @@ $env:GODOT = '<实际 Godot console 可执行文件>'
 5. 背包全身立繪、對話頭像与遊戲骨架用途不同；各自从正确的高解析来源裁切／拼合，不从 128×128 头像反推全身细节。
 6. 描邊、眼睛、臉、髮絲、材質与衣物缝线在目标显示尺寸仍有合理可读性；全分辨率被泛光或后制糊掉，也算实机品质失败。
 
+7. HDR 2D 的 `ViewportTexture.get_image()` 回傳線性色彩。彩色 PNG 使用 `tools/viewport_capture.gd` 的原生 sRGB 編碼轉換；不改解析度、alpha、遊戲光照或曝光。未啟用 HDR 的 viewport 不轉換，不能重複 gamma 轉換。以 `tools/test_viewport_capture.tscn` 的已知灰色色塊驗證 HDR／非 HDR 都與原始顏色接近、尺寸與透明區不變。接點 alpha 稽核、normal 與 glow 資料圖不作彩色截圖轉換。保留舊線性 PNG 為失敗證據，重新擷取正確編碼的畫面，不能靠任意提亮遮暗。
+
 ## 8. 每票交付与重跑规则
 
 - 记录受影响步骤和最后一次有效输入 hash，沿用其他步骤。原图没变，不重跑 design；只是坐标／切线问题，不重画整张人。
@@ -143,4 +145,5 @@ $env:GODOT = '<实际 Godot console 可执行文件>'
 ## 参考
 
 - [Godot Multiple resolutions](https://docs.godotengine.org/en/stable/tutorials/rendering/multiple_resolutions.html)：区分设计尺寸、原生渲染与 stretch mode；API 以本项目实际 4.7.2 确认。
+- [Godot ViewportTexture](https://docs.godotengine.org/en/stable/classes/class_viewporttexture.html)：HDR 2D 讀回使用線性編碼，保存彩色 PNG 前須依 viewport 轉成 sRGB。
 - 部件、骨架、动作与手感的原始资料及专案量测，见 rig-animation 的引用与对应票。不得把未经核对的数字标为行业统一标准。
