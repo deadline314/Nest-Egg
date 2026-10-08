@@ -424,6 +424,11 @@ func _test_story_features() -> void:
 	var previous_seen := Story.progress_snapshot()
 	var previous_sequences := Story._death_sequences.duplicate(true)
 	check(Story.load_chapter("res://tests/fixtures/story_features.json"), "ST-3 fixture loads through the chapter API")
+	for entry in [[false, false], [true, true], [0, false], [2, true], [0.0, false], [-0.5, true], ["", false], ["ask", true]]:
+		GameState.set_flag(&"test_story_route", entry[0])
+		check(GameState.has_flag(&"test_story_route") == entry[1], "native story truth handles scalar %s" % str(entry[0]))
+		check(StoryRules.eligible({"requires_flag": "test_story_route"}, GameState.has_flag, StoryItems.owns) == entry[1], "branch prerequisites use the same scalar truth")
+	GameState.set_flag(&"test_story_route", "")
 	var scene: Dictionary = Story._scenes["test_story_choice"]
 	check(CutsceneChecker.validate("test_story_choice", scene, Story._speakers).is_empty(), "choice and inline branches validate")
 	Story.auto_skip = false
@@ -481,18 +486,21 @@ func _test_story_features() -> void:
 	Story._seen[&"test_story_object"] = true
 	Story._completed[&"test_story_object"] = true
 	GameState.set_flag(&"test_story_visits", 2)
+	GameState.set_flag(&"test_story_route", "ask")
 	check(GameState.save_story_progress("user://test_story_progress.json"), "story flags, items and completed interactions save to disk")
 	GameState.world_flags.clear()
 	StoryItems._owned.clear()
 	Story._seen.clear()
 	check(GameState.load_story_progress("user://test_story_progress.json"), "saved story progress can be reopened")
 	check(GameState.get_flag(&"test_story_visits") == 2 and Story.was_seen(&"test_story_object") and StoryItems.owns(&"doc_crayon_drawing"), "disk roundtrip retains numbers, seen objects and story items")
+	check(GameState.get_flag(&"test_story_route") == "ask" and GameState.has_flag(&"test_story_route"), "string route survives disk restore and remains usable as a condition")
 	var broken_file := FileAccess.open("user://test_story_progress.json", FileAccess.WRITE)
 	broken_file.store_string("{ broken JSON")
 	broken_file.close()
 	check(not GameState.load_story_progress("user://test_story_progress.json"), "invalid JSON reports its file and line and restores safe defaults")
 	GameState.restore_story_progress({"flags": {"test_story_visits": []}}, "test_bad_cutscene/save")
 	check(GameState.get_flag(&"test_story_visits") == 0 and GameState.get_flag(&"test_story_decision") == false, "missing or corrupted flags restore declared defaults")
+	check(GameState.get_flag(&"test_story_route") == "" and not GameState.has_flag(&"test_story_route"), "missing string route restores an empty, false default")
 	var npc := NpcData.new()
 	npc.id = &"test_object"
 	npc.display_name = "測試物件"
@@ -524,7 +532,7 @@ func _test_story_features() -> void:
 	screen.queue_free()
 	await frames(2)
 	var table := ContinuityAudit.flag_table({"test": scene}, {}, {})
-	check(table.has("test_story_decision") and table.test_story_decision.writes.size() == 2 and table.test_story_decision.reads.size() == 1, "continuity audit reads all choice writes and branch conditions")
+	check(table.has("test_story_route") and table.test_story_route.writes.size() == 2 and table.test_story_route.reads.size() == 1, "continuity audit reads both string-route writes and the branch condition")
 	DirAccess.remove_absolute(ProjectSettings.globalize_path("user://test_story_progress.json"))
 	Story._scenes.erase("test_story_choice")
 	Story._scenes.erase("test_story_object")

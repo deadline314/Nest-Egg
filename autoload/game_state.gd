@@ -163,7 +163,10 @@ func set_flag(flag: StringName, value: Variant = true) -> void:
 
 
 func has_flag(flag: StringName) -> bool:
-	return flag != &"" and bool(get_flag(flag, false))
+	if flag == &"":
+		return false
+	# Native conditions support scalar strings; Godot has no bool(String) constructor.
+	return true if get_flag(flag, false) else false
 
 
 func get_flag(flag: StringName, default: Variant = null) -> Variant:
