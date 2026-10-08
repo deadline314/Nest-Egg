@@ -1,0 +1,10 @@
+受影響的測試：AmmoIconsSuite,CollectiblesSuite,DevMenuSuite,EconomySuite,MeleeWeaponsSuite,ProgressionSuite,SupplySuite,UiScreensSuite,main
+Running 9 groups in 9 processes (logs: /tmp/tmp.SutTdFJi4k)
+  process 0 (estimated 90 s): main
+  process 1 (estimated 10 s): UiScreensSuite
+  process 2 (estimated 9 s): MeleeWeaponsSuite
+  process 3 (estimated 8 s): SupplySuite
+  process 4 (estimated 4 s): ProgressionSuite
+  process 5 (estimated 4 s): CollectiblesSuite
+  process 6 (estimated 0 s): EconomySuite,DevMenuSuite,AmmoIconsSuite
+checks: 2073, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 101 s)

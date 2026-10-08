@@ -1117,6 +1117,8 @@ func _run_inventory() -> void:
 	inventory.select_tab(inventory.page_index(StatusPage))
 	await _wait(0.9)
 	_capture("inventory_status")
+	var portrait: HdPortrait = (inventory._pages[inventory.page_index(StatusPage)] as StatusPage)._portrait
+	print("PORTRAIT logical=%s target=%s stretch=%s image=%s" % [portrait.size, portrait._viewport.size, get_viewport().get_stretch_transform().get_scale(), get_viewport().get_texture().get_image().get_size()])
 	inventory.close()
 
 

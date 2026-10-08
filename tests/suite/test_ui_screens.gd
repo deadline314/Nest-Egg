@@ -300,6 +300,22 @@ func _test_hd_portrait() -> void:
 	portrait.size = Vector2(96, 128)
 	await frames(2)
 	check(viewport.size == Vector2i(192, 256), "resizing the portrait resizes the render target")
+	portrait.scale = Vector2(4, 3)
+	await frames(2)
+	var screen_scale := (portrait.get_viewport().get_stretch_transform() * portrait.get_global_transform_with_canvas()).get_scale().abs()
+	var physical := Vector2i((portrait.size * screen_scale).ceil())
+	check(viewport.size.x >= physical.x and viewport.size.y >= physical.y, "the portrait covers actual screen pixels after parent/stretch scaling, without resizing the Control")
+	portrait.scale = Vector2.ONE
+	await frames(2)
+	check(viewport.size == Vector2i(192, 256), "returning to a small display releases the oversized render target")
+	var window := runner.get_tree().root
+	var old_factor := window.content_scale_factor
+	window.content_scale_factor = 3.0
+	await frames(2)
+	var stretch_scale := window.get_stretch_transform().get_scale().abs()
+	var stretched := Vector2i((portrait.size * stretch_scale).ceil())
+	check(viewport.size.x >= stretched.x and viewport.size.y >= stretched.y, "window content scaling also preserves native portrait pixels")
+	window.content_scale_factor = old_factor
 	portrait.queue_free()
 	var missing := HdPortrait.new()
 	missing.character = "test_no_such_character"

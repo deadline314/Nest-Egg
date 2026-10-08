@@ -4,7 +4,7 @@ extends Control
 ## 用平滑濾鏡顯示，並播放待機動作（呼吸、眨眼、重心）。與遊戲內的角色共用同一份骨架與貼圖，所以外觀永遠一致、不另外佔貼圖記憶體。
 ## 子視窗只在可見時更新（背包關閉或換頁時不耗效能）。
 
-## 子視窗的解析度相對於顯示大小的倍率（顯示在 4K 螢幕上仍然清晰）。
+## 小視窗至少以邏輯尺寸的兩倍繪製；大視窗須覆蓋實際螢幕像素。
 const RENDER_SCALE := 2.0
 ## 角色在顯示範圍內佔的高度比例（頭頂與腳底各留一點邊）。
 const FILL := 0.92
@@ -60,8 +60,13 @@ func _ready() -> void:
 func _layout() -> void:
 	if _viewport == null:
 		return
-	var pixels := Vector2i((size * RENDER_SCALE).round())
-	_viewport.size = Vector2i(maxi(2, pixels.x), maxi(2, pixels.y))
+	var screen_scale := (get_viewport().get_stretch_transform() * get_global_transform_with_canvas()).get_scale().abs()
+	var density := Vector2(maxf(RENDER_SCALE, screen_scale.x), maxf(RENDER_SCALE, screen_scale.y))
+	var pixels := Vector2i((size * density).ceil())
+	pixels = Vector2i(maxi(2, pixels.x), maxi(2, pixels.y))
+	if _viewport.size == pixels:
+		return
+	_viewport.size = pixels
 	var unit := float(_viewport.size.y) * FILL / RIG_HEIGHT
 	_holder.scale = Vector2.ONE * unit
 	_holder.position = Vector2(float(_viewport.size.x) * 0.5, float(_viewport.size.y) * (1.0 + FILL) * 0.5)
@@ -69,4 +74,6 @@ func _layout() -> void:
 
 func _process(delta: float) -> void:
 	if _rig != null and is_visible_in_tree():
+		# 視窗 stretch 與父節點縮放未必觸發 Control.resized；尺寸相同不重配 render target。
+		_layout()
 		_rig.animate(delta, _input)

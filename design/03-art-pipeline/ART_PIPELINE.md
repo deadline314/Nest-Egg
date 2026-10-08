@@ -137,7 +137,7 @@
 
 ### 想要更高解析度
 
-把 `character.json` 的 `texture_scale` 改小（例如 0.125 代表 8 倍解析度），並把所有 `size` 與 `pivot` 一起乘上同樣倍數即可。只要比例一致，程式就會正確顯示。
+從高解析來源重新切件：依 spec 的 `tex_px_per_wp / illustration_px_per_wp` 保留有效細節，由 `cut_layers.py` 同步產生 PNG、size、pivot、texture_scale，再重建 normal／glow 並匯入。只修改 character.json 的尺寸或把低解析 PNG 插值放大不會恢復細節。上面的 4 倍／8 倍是舊暫代素材範例；完整解析度契約與實機檢查見 [character-art-pipeline Skill](../../.agents/skills/character-art-pipeline/SKILL.md)。
 
 ## 6. 替換與驗收
 

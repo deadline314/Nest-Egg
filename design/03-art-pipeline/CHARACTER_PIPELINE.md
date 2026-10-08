@@ -1,5 +1,9 @@
 # 角色製作流程：從一張透明背景的側面圖到 Godot
 
+固定操作流程見 [character-art-pipeline Skill](../../.agents/skills/character-art-pipeline/SKILL.md)，全部件接合、動畫與實機驗收見 [rig-animation](../../.agents/skills/rig-animation/SKILL.md) 及其詳細驗收文件。本文的歷史尺寸、10px 重疊與披肩式外套記錄描述舊成果，不代表目前合格標準；接點連一個像素的缺口都不能給過。
+
+貼圖密度由 spec 的 `tex_px_per_wp / illustration_px_per_wp` 決定，不固定縮成 4 倍或 8 倍。高解析定稿須保留有效來源細節，重算尺寸、pivot、texture_scale、normal、glow 後核對實際載入尺寸；背包子視窗也須按螢幕實際像素渲染。只改 metadata 或放大既有小圖不會增加細節。
+
 > 來源：2026-10-03 使用者要求把「產出角色原圖 → 拆零件 → 放進 Godot」整條流程寫成腳本，並說明每一步的輸入輸出、零件放在哪裡、日後怎麼替換。凜（NE-17）是第一個依此流程製作的角色。
 
 ## 0. 一句話
