@@ -96,6 +96,12 @@ static func rect_of(value: Variant, fallback := Rect2()) -> Rect2:
 	return fallback
 
 
+## Import resolution changes must preserve stage geometry, including furniture.
+static func sprite_scale(def: Dictionary, texture: Texture2D) -> float:
+	var ratio := float(def.get("source_width", texture.get_width())) / float(maxi(1, texture.get_width()))
+	return float(def.get("scale", 1.0)) * ratio
+
+
 ## 發光色（亮度可超過 1，經 HDR 泛光）。
 static func lit(value: Variant, intensity: float) -> Color:
 	return LightKit.glow(color_of(value), intensity)
@@ -247,7 +253,7 @@ class _Sprite:
 			tex = RigLibrary.texture(path, Vector2i(32, 32))
 		texture = tex
 		position = StageLayers.vec2_of(def["pos"])
-		scale = Vector2.ONE * float(def.get("scale", 1.0))
+		scale = Vector2.ONE * StageLayers.sprite_scale(def, tex)
 		centered = bool(def.get("centered", false))
 		if def.has("modulate"):
 			modulate = StageLayers.color_of(def["modulate"])

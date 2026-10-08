@@ -130,3 +130,13 @@
 - 調色算法只有一份：`tools/assets/grade.py`，各加工腳本（材質、立面、背景、天空、道具、場景圖）都呼叫它。每個清單項目自己的 `grade` 先套用，接著套用全域調色 `assets_src/pipeline/grade_master.json`（`all` 全部、`kinds` 各類別）；預設不改變任何像素。自發光層不套用全域調色。改完重跑對應腳本。
 - 檢查：`python tools/assets/grade.py --check`（驗證調色資料）與 `python tools/assets/check_assets.py`（大小、授權、調色資料、每件道具都有法線與標示的發光層）。環境元件測試套件有同樣的涵蓋檢查。
 - 替換前後的同機對照（2026-10-04，軟體渲染，縮小解析度）：環境貼圖記憶體與取樣成本變高，後續見 BG-17。
+
+## 環境匯入成本（BG-17）
+
+- 原圖與世界尺寸保留，以 Godot 內建無損匯入的 `process/size_limit` 降低貼圖解析度。參數集中在 `assets_src/pipeline/texture_import.json`：以明確世界矩形繪製的道具採受限半解析度，道具至少保留每世界像素 4 貼圖像素；使用區域取樣的地形、前景剪影、立面、舞台與場景整圖保留原尺寸；舞台引用的道具由原尺寸中介資料補償世界大小。視差背景由既有資料記錄原始寬度，依匯入比例補償縮放，保留平鋪尺寸、底邊及擺位。每支加工工具完成後自動套用，直接新增環境圖時匯入前跑 `python tools/assets/texture_import.py`，`check_assets.py` 會拒絕漏套用的圖。只處理環境，不改角色、UI 或舞台家具位置。
+- `tools/environment_probe.tscn -- --level=level_01 --quality=low --out=<folder>`：三個固定位置、五隻靜止敵人、固定種子、關閉 vsync，截圖在計時結束後保存。修前／修後／替換前使用同機、同解析度、相同腳本。記錄 renderer 程序貼圖配置與環境匯入 payload（含法線、實際尺寸、格式及 mipmaps），不能以 PNG 大小或未壓縮估算冒充 GPU 記憶體。軟體 Vulkan 明確標示，不與實體 GPU 舊數字直接互比。
+- GPU 工作使用 `python tools/comfyui/gpu_lock.py -- <command>`。鎖跨 linked worktree 共用並支援 Windows／Linux；鎖不卸載模型，ComfyUI 啟停與生成遵循本次 Session 分工。
+
+舞台圖層僅補充來源寬度 metadata，渲染時補償匯入比例；原始家具位置、圖層順序與既有 scale 資料不變。重建舞台資料後，匯入前再執行同一匯入政策，素材檢查會指出缺少的 metadata。
+
+環境渲染路徑目前均為 linear／nearest（沒有 mipmap sampler）；匯入政策因此不配置未使用的 mipmaps。肖像 UI 的 mipmap 取樣不在環境政策內。未來新增環境 mipmap sampler 時須同步政策與同機畫面／記憶體驗收。細長圖縮圖取整若使來源長寬比偏差超過 1%，保留原尺寸。

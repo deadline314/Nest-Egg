@@ -13,12 +13,29 @@ func run() -> void:
 	_test_theme()
 	_test_missing_texture()
 	_test_sky()
+	_test_backdrop_import_scale()
 	_test_trees()
 	_test_prop_animation()
 	_test_foreground()
 	await _test_level_with_environment()
 	await _test_level_without_environment()
 	_test_chapter_one()
+	_test_import_policy("res://art/environment")
+
+
+func _test_import_policy(directory: String) -> void:
+	for child in DirAccess.get_directories_at(directory):
+		_test_import_policy(directory.path_join(child))
+	for file in DirAccess.get_files_at(directory):
+		if not file.ends_with(".import"):
+			continue
+		var path := directory.path_join(file)
+		var config := ConfigFile.new()
+		check(config.load(path) == OK, "環境匯入設定可讀：%s" % path)
+		check(config.get_value("params", "compress/mode", -1) == 0, "環境使用無損匯入：%s" % file)
+		check(not config.get_value("params", "mipmaps/generate", true), "環境 linear／nearest 取樣不配置未用 mipmaps：%s" % file)
+		if directory.ends_with("materials"):
+			check(config.get_value("params", "process/size_limit", -1) == 0, "區域取樣／視差層保留尺寸：%s" % file)
 
 
 func _png_size(path: String) -> Vector2i:
@@ -399,3 +416,15 @@ func _test_chapter_one() -> void:
 				if layout.cell(x, y) == LevelBuilder.SOLID:
 					solid_cells += 1
 		check(solid_cells > 0, "覆蓋區 %s（%d,%d）蓋在實心格上" % [region["material"], int(region["x0"]), int(region["y0"])])
+
+
+func _test_backdrop_import_scale() -> void:
+	var layer := BackdropLayer.new()
+	layer.texture_scale = 4
+	layer.source_width = 128
+	var texture := ImageTexture.create_from_image(Image.create(64, 32, false, Image.FORMAT_RGBA8))
+	check(is_equal_approx(layer.pixel_scale(texture) * texture.get_width(), 32.0), "視差背景縮小匯入後仍保持原本世界寬度")
+	layer.source_width = 0
+	check(is_equal_approx(layer.pixel_scale(texture), 0.25), "舊背景資料未記錄來源尺寸時保留原倍率")
+	check(is_equal_approx(StageLayers.sprite_scale({"source_width": 128, "scale": 0.25}, texture) * texture.get_width(), 32.0), "舞台縮圖不改家具世界寬度")
+	check(is_equal_approx(StageLayers.sprite_scale({"scale": 0.25}, texture), 0.25), "舊舞台資料保留原倍率")

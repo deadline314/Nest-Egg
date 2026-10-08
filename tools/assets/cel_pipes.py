@@ -157,4 +157,5 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    from texture_import import finish_pipeline
+    sys.exit(finish_pipeline(main()))

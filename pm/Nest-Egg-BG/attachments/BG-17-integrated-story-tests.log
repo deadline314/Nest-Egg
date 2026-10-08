@@ -1,0 +1,4 @@
+Running 5 groups in 2 processes (logs: /tmp/tmp.Nn16D4Z6Nc)
+  process 0 (estimated 89 s): main
+  process 1 (estimated 9 s): MapBubblesSuite,CutsceneSuite,StoryLintSuite,StoryContentSuite
+checks: 2630, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 93 s)

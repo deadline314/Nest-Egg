@@ -252,9 +252,9 @@ func _test_stages() -> void:
 	check(StageLayers.create({"kind": "nonsense"}, "test_bad_cutscene 圖層") == null, "未知圖層種類回傳 null")
 	# 窗光閃爍（life）只能用在小面積的層：整張背景開了它會變成一格一格忽明忽暗的方塊。
 	var scene_art := "res://art/environment/scenes/pawnshop_front.webp"
-	check(StageLibrary.life_covers_stage({"path": scene_art, "scale": 0.5, "life": true}), "整張背景開 life 會被抓到")
-	check(not StageLibrary.life_covers_stage({"path": scene_art, "scale": 0.5}), "沒開 life 的背景沒有問題")
-	check(not StageLibrary.life_covers_stage({"path": scene_art, "scale": 0.1, "life": true}), "小面積的層可以開 life")
+	check(StageLibrary.life_covers_stage({"path": scene_art, "source_width": 1280, "scale": 0.5, "life": true}), "整張背景開 life 會被抓到")
+	check(not StageLibrary.life_covers_stage({"path": scene_art, "source_width": 1280, "scale": 0.5}), "沒開 life 的背景沒有問題")
+	check(not StageLibrary.life_covers_stage({"path": scene_art, "source_width": 1280, "scale": 0.1, "life": true}), "小面積的層可以開 life")
 	for stage_id in ["ch1_pawnshop_front", "ch1_dawn_noodle_stall", "ch1_revival_room", "rainy_harbor", "elevator_rise"]:
 		check(StageLibrary.validate(StringName(stage_id)).is_empty(), "舞台 %s 通過檢查：%s" % [stage_id, StageLibrary.validate(StringName(stage_id))])
 

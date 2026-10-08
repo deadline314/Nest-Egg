@@ -22,7 +22,8 @@
     -36.0
    ],
    "scale": 0.5,
-   "filter": "linear"
+   "filter": "linear",
+   "source_width": 1536
   },
   {
    "kind": "glow",
@@ -47,7 +48,8 @@
    ],
    "scale": 0.283,
    "filter": "linear",
-   "glow": true
+   "glow": true,
+   "source_width": 349
   },
   {
    "kind": "sprite",
@@ -58,7 +60,8 @@
    ],
    "scale": 0.17,
    "filter": "linear",
-   "glow": true
+   "glow": true,
+   "source_width": 304
   },
   {
    "kind": "sprite",
@@ -69,7 +72,8 @@
    ],
    "scale": 0.17,
    "filter": "linear",
-   "glow": true
+   "glow": true,
+   "source_width": 169
   },
   {
    "kind": "poly",

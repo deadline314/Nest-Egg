@@ -1,0 +1,19 @@
+{
+ "version": 1,
+ "params": {
+  "compress/mode": "0",
+  "compress/high_quality": "false",
+  "mipmaps/generate": "false",
+  "compress/normal_map": "0"
+ },
+ "resolution_scale_by_directory": {
+  "props": 0.5,
+  "scene_props": 0.5,
+  "backdrop": 0.5
+ },
+ "minimum_prop_pixels_per_world_pixel": 4,
+ "preserve_resolution_patterns": [
+  "fg_*",
+  "near_foreground*"
+ ]
+}

@@ -1,0 +1,11 @@
+改到整個專案或測試流程本身，跑全部測試。
+Running 77 groups in 8 processes (logs: /workspace/scratch/session5-integrated-tests)
+  process 0 (estimated 215 s): StageCoverageWorldSuite,FxMeleePickupsSuite,CollectiblesSuite,PropsSuite,FeelSuite,EnvironmentSuite
+  process 1 (estimated 214 s): main,ReloadCuesSuite,PartCreatureSuite,HitReactionSuite,EnemyVfxSuite,DeathReactionSuite,AmmoTraySuite,CutsceneSuite,PacingSuite,InputFeelSuite,EconomySuite,DevMenuSuite,ClipEditorSuite,ChapterCutscenesSuite,Chapter2ArtSuite,ApplyPanelSuite,AmmoIconsSuite
+  process 2 (estimated 214 s): Chapter2Suite,UiKitSuite,StoryLintSuite,ProtagonistMotionSuite,MusicSuite,FeelToolsSuite,Chapter1EnemiesSuite,DeathFlowSuite,NpcSuite
+  process 3 (estimated 214 s): AssaultEnemiesSuite,WorldPromptSuite,StrikeEnemiesSuite,QuestMapSuite,NewEnemiesSuite,FloodPitSuite,CharactersSuite,MapBubblesSuite,CombatHudSuite
+  process 4 (estimated 214 s): StageCoverageWeaponsSuite,ReconEnemiesSuite,RigActionsSuite,PhoneBoothSuite,LocomotionSuite,ExoticEnemiesSuite,AnimAuditSuite,SoundLabSuite,SceneSanitySuite
+  process 5 (estimated 214 s): Chapter1MapSuite,Chapter2ExpansionSuite,SupplySuite,ReclaimerSuite,NpcLifeSuite,FxUpgradesSuite,EncounterSuite,UiScreensSuite,AreasSuite
+  process 6 (estimated 214 s): SoundStageSuite,StageCoverageCharactersSuite,StoryContentSuite,ProgressionSuite,MeleeWeaponsSuite,FeelLabSuite,ChainCreatureSuite,AudioSuite,NpcAnimationSuite
+  process 7 (estimated 214 s): HeavyEnemiesSuite,ContinuitySuite,RigMeshSuite,PostureSuite,MeleeSuite,ExposureSuite,AttackTokensSuite,TransitionSuite,LayerOrderSuite
+checks: 50204, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 263 s)

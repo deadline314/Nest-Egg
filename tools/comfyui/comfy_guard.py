@@ -19,13 +19,17 @@ from __future__ import annotations
 import contextlib
 import ctypes
 import json
-import msvcrt
 import os
 import re
 import subprocess
 import time
 import urllib.request
 from pathlib import Path
+
+if os.name == "nt":
+    import msvcrt
+else:
+    import fcntl
 
 ROOT = Path(__file__).resolve().parents[2]
 START_SCRIPT = Path(__file__).with_name("start_comfyui.ps1")
@@ -47,31 +51,44 @@ _RECOVERED = re.compile(r"retrying with tiled", re.I)
 _OOM_TEXT = re.compile(r"out of memory|OutOfMemory|OUT_OF_DEVICE_MEMORY|OUT_OF_HOST_MEMORY|DEVICE_LOST", re.I)
 
 
-LOCK_PATH = ROOT / "assets_src" / "work" / "comfy.lock"
+def _lock_root() -> Path:
+    # Linked worktrees must serialize with generation in the primary checkout.
+    result = subprocess.run(["git", "rev-parse", "--path-format=absolute", "--git-common-dir"],
+                            cwd=ROOT, capture_output=True, text=True)
+    return Path(result.stdout.strip()).parent if result.returncode == 0 else ROOT
+
+
+LOCK_PATH = _lock_root() / "assets_src" / "work" / "comfy.lock"
 
 
 @contextlib.contextmanager
 def server_lock():
     """One generation client at a time. Two clients on one server restart it under each other (seen in the first selftest)
-    and double the memory pressure. The lock is a Windows file lock, so it is released when the process dies."""
+    and double the memory pressure. The OS releases the lock when the process dies."""
     LOCK_PATH.parent.mkdir(parents=True, exist_ok=True)
     f = open(LOCK_PATH, "a+b")
     announced = False
     while True:
         try:
             f.seek(0)
-            msvcrt.locking(f.fileno(), msvcrt.LK_NBLCK, 1)
+            if os.name == "nt":
+                msvcrt.locking(f.fileno(), msvcrt.LK_NBLCK, 1)
+            else:
+                fcntl.flock(f.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
             break
         except OSError:
             if not announced:
-                print("  [comfy] another generation job is running; waiting for it to finish", flush=True)
+                print("  [comfy] another GPU job is running; waiting for it to finish", flush=True)
                 announced = True
             time.sleep(3)
     try:
         yield
     finally:
         f.seek(0)
-        msvcrt.locking(f.fileno(), msvcrt.LK_UNLCK, 1)
+        if os.name == "nt":
+            msvcrt.locking(f.fileno(), msvcrt.LK_UNLCK, 1)
+        else:
+            fcntl.flock(f.fileno(), fcntl.LOCK_UN)
         f.close()
 
 

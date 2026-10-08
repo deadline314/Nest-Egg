@@ -16,6 +16,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import grade as grade_lib  # noqa: E402
+import texture_import  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 ART = ROOT / "art" / "environment"
@@ -60,6 +61,8 @@ def prop_light_problems() -> list[str]:
 
 def main() -> int:
     problems = []
+    if texture_import.apply_policy(check=True):
+        problems.append("environment import policy is stale (run tools/assets/texture_import.py before Godot import)")
     master_path = grade_lib.MASTER_PATH
     try:
         problems += [f"grade_master.json: {p}" for p in grade_lib.validate(json.loads(master_path.read_text(encoding="utf-8")))]

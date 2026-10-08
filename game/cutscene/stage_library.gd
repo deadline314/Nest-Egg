@@ -85,7 +85,7 @@ static func life_covers_stage(layer: Dictionary) -> bool:
 	var tex := RigLibrary.optional_texture(str(layer.get("path", "")))
 	if tex == null:
 		return false
-	var size := tex.get_size() * float(layer.get("scale", 1.0))
+	var size := tex.get_size() * StageLayers.sprite_scale(layer, tex)
 	return size.x * size.y >= STAGE_SIZE.x * STAGE_SIZE.y * LIFE_MAX_COVER
 
 

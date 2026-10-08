@@ -45,7 +45,7 @@ func _add_photo_sky() -> void:
 	if texture == null:
 		push_warning("[LevelBackground] 找不到天空貼圖，改用程式天空：%s" % sky.texture)
 		return
-	var factor := 1.0 / float(maxi(1, sky.texture_scale))
+	var factor := sky.pixel_scale(texture)
 	var parallax := Parallax2D.new()
 	parallax.scroll_scale = Vector2(sky.scroll_scale, sky.scroll_scale * 0.4)
 	parallax.repeat_size = Vector2(float(texture.get_width()) * factor, 0.0)
@@ -69,7 +69,7 @@ func _add_textured_layer(layer: BackdropLayer) -> void:
 	var sprite := Sprite2D.new()
 	sprite.texture = texture
 	sprite.centered = false
-	var factor := 1.0 / float(maxi(1, layer.texture_scale))
+	var factor := layer.pixel_scale(texture)
 	sprite.scale = Vector2.ONE * factor
 	sprite.modulate = layer.tint
 	sprite.light_mask = 0

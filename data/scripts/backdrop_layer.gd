@@ -9,8 +9,15 @@ extends Resource
 @export var bottom_y: float = 300.0
 ## 貼圖解析度倍率（背景用 2 倍）。
 @export var texture_scale: int = 2
+## Original file width, recorded by the import policy. Keeps world geometry after downsizing.
+@export var source_width: int = 0
 @export var tint: Color = Color.WHITE
 @export var glow_intensity: float = 1.3
+
+
+func pixel_scale(imported: Texture2D) -> float:
+	var ratio := float(source_width) / float(imported.get_width()) if source_width > 0 and imported != null and imported.get_width() > 0 else 1.0
+	return ratio / float(maxi(1, texture_scale))
 
 
 func validate() -> PackedStringArray:

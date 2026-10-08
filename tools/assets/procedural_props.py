@@ -110,3 +110,5 @@ if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
     puddle()
     floor_marking()
+    from texture_import import apply_policy
+    apply_policy()

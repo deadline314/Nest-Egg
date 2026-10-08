@@ -6,6 +6,8 @@ from PIL import Image, ImageDraw
 
 before, after, out, names = Path(sys.argv[1]), Path(sys.argv[2]), Path(sys.argv[3]), sys.argv[4:]
 def find(d, n):
+    if (d / (n + ".png")).exists():
+        return d / (n + ".png")
     hits = sorted(d.glob(f"{n}_*.png"))
     return hits[0] if hits else None
 rows = []
