@@ -48,6 +48,7 @@ func _entry_for_slot(loadout: Loadout, slot: int) -> InventoryEntry:
 	entry.title = weapon.display_name
 	entry.accent = weapon.color
 	entry.icon = ItemIcons.for_weapon(weapon)
+	entry.detail_icon = ItemIcons.for_weapon_hd(weapon)
 	entry.ammo_icon = AmmoIcons.for_weapon(weapon)
 	entry.subtitle = "%s　%s" % [_ammo_text(loadout, slot, weapon), _kind_text(weapon)]
 	if is_active:

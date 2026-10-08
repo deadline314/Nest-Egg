@@ -8,9 +8,11 @@ extends RefCounted
 static func frame(canvas: CanvasItem, rect: Rect2, fill: Color, border: Color, notch := 3, thickness := 1) -> void:
 	var origin := rect.position.round()
 	var size := rect.size.round()
+	if size.x <= thickness or size.y <= thickness:
+		return  # Containers may draw once before assigning a nonempty size.
 	# 線的中心線往內縮半個線寬，邊框正好落在像素格上。
 	var inset := float(thickness) * 0.5
-	var n := float(notch)
+	var n := minf(float(notch), (minf(size.x, size.y) - thickness) * 0.5)
 	var x0 := inset
 	var y0 := inset
 	var x1 := size.x - inset

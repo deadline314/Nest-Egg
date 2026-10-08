@@ -36,6 +36,14 @@ func _run() -> void:
 	add_child(LightKit.create_environment())
 	# 劇情演出會暫停遊戲並蓋住畫面；只有 story 情境需要拍到演出。
 	Story.auto_skip = _scenario != "story" and _scenario != "story_ch2"
+	if _scenario == "item_icons":
+		await _run_item_icons()
+		get_tree().quit()
+		return
+	if _scenario == "item_inventory":
+		await _run_item_inventory()
+		get_tree().quit()
+		return
 	if _scenario in ["chapter_roster", "strike_placement"]:
 		var capture_scenario: Node = load("res://tools/scenarios/%s_scenario.gd" % _scenario).new()
 		capture_scenario.out_dir = _out_dir
@@ -1190,6 +1198,65 @@ func _capture_item_sheet() -> void:
 	await _settle(4)
 	_capture("story_items_icons")
 	layer.queue_free()
+
+
+## ST-8：逐項檢查實際詳情底板；不新增道具、旗標或地圖配置。
+func _run_item_icons() -> void:
+	var keys := ["med_injector", "shield_cell", "ch1_data_disk", "ch1_grey_cloth", "doc_flyer", "doc_notice", "doc_log", "doc_news", "doc_stub", "credits_small", "credits_large", "boat_coin", "pistol", "mono_dagger"]
+	var labels := ["醫療針", "護盾電池", "資料盤", "灰布角", "回音派傳單", "收帳通知單", "水閘維修日誌", "港區日報", "當票存根", "信用點・小疊", "信用點・大疊", "船錢硬幣", "手槍", "單分子匕首"]
+	for page in ceili(keys.size() / 6.0):
+		var layer := CanvasLayer.new()
+		add_child(layer)
+		var root := UiKit.full_rect_root(layer)
+		var background := ColorRect.new()
+		background.color = Palette.BG_FAR
+		background.set_anchors_preset(Control.PRESET_FULL_RECT)
+		root.add_child(background)
+		root.add_child(UiKit.label("第一章道具・高清詳情 %d" % (page + 1), 16))
+		for cell in 6:
+			var index := page * 6 + cell
+			if index >= keys.size(): break
+			var plate := IconPlate.new()
+			root.add_child(plate)
+			plate.position = Vector2(96 + (cell % 3) * 166, 40 + (cell / 3) * 152)
+			plate.size = IconPlate.PLATE_SIZE
+			plate.show_icon(ItemIcons.item_hd(keys[index]), 1, Palette.CYAN, false, true)
+			var label := UiKit.label(labels[index], 11)
+			label.position = plate.position + Vector2(0, 108)
+			root.add_child(label)
+		await _settle(4)
+		_capture("item_icons_%d" % (page + 1))
+		layer.queue_free()
+		await _settle(2)
+
+
+func _run_item_inventory() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load("res://data/levels/ch1_pawnshop.tres"))
+	add_child(level)
+	await _settle(30)
+	level.player.loadout.equip(load("res://data/weapons/melee/melee_dagger.tres"))
+	for key in [&"med_injector", &"shield_cell"]:
+		level.player.consumables.add(ConsumableBag.find(key))
+	for item in StoryItems.catalog():
+		if item.chapter == &"ch1_kasa" or item.icon in ["ch1_data_disk", "ch1_grey_cloth"]:
+			StoryItems.acquire(item.id, false)
+	Progression.add_credits(123)
+	var inventory: InventoryScreen = level._inventory
+	inventory.open()
+	await _wait(0.5)
+	for page_type in [WeaponsPage, ConsumablesPage, StoryItemsPage]:
+		var index := inventory.page_index(page_type)
+		inventory.select_tab(index)
+		var page := inventory._pages[index] as CardListPage
+		for selection in page._entries.size():
+			var entry: InventoryEntry = page._entries[selection]
+			if entry.detail_icon == null: continue
+			page._select(selection)
+			await _wait(0.4)
+			_capture("item_inventory_%d_%d" % [index, selection])
+	inventory.close()
 
 
 ## 消耗品：屋頂上的醫療針與拾取提示、撿起後的 HUD 數量、受傷後快速使用。

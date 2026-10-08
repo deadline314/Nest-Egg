@@ -94,7 +94,7 @@ func show_entry(entry: InventoryEntry, empty_text := "", animate := true) -> voi
 	_content.visible = entry != null
 	if entry == null:
 		return
-	_plate.show_icon(entry.detail_icon if entry.detail_icon != null else entry.icon, 1 if entry.detail_icon != null else entry.detail_icon_scale, entry.accent, entry.dimmed)
+	_plate.show_icon(entry.detail_icon if entry.detail_icon != null else entry.icon, 1 if entry.detail_icon != null else entry.detail_icon_scale, entry.accent, entry.dimmed, entry.detail_icon != null)
 	_title.text = entry.title
 	_title.add_theme_color_override(&"font_color", entry.accent)
 	_tag.text = entry.detail_tag

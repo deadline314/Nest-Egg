@@ -7,7 +7,28 @@ func run() -> void:
 	_test_font()
 	_test_sizes()
 	await _test_widgets()
+	await _test_item_icon_density()
 	_test_theme()
+
+
+func _test_item_icon_density() -> void:
+	var plate := IconPlate.new()
+	runner.add_child(plate)
+	await frames(2)
+	for key in ["med_injector", "shield_cell", "ch1_data_disk", "ch1_grey_cloth", "doc_flyer", "doc_notice", "doc_log", "doc_news", "doc_stub", "credits_small", "credits_large", "boat_coin", "pistol", "mono_dagger"]:
+		var texture := ItemIcons.item_hd(key)
+		check(texture != null and texture.get_size() == Vector2(384,384), "native detail density: " + key)
+		plate.show_icon(texture, 1, Palette.CYAN, false, true)
+		check(plate.display_size() == Vector2(96,96), "HD artwork fits the existing detail plate: " + key)
+	plate.show_icon(ItemIcons.item("med_injector"), 3, Palette.CYAN, false)
+	check(plate.display_size() == Vector2(96,96) and plate.texture_filter == CanvasItem.TEXTURE_FILTER_NEAREST, "legacy fallback keeps its original size and filtering")
+	var rifle := load("res://data/weapons/rifle.tres") as WeaponData
+	check(ItemIcons.for_weapon_hd(null) == null and ItemIcons.for_weapon_hd(rifle) == null, "unsupported details safely use the existing card fallback")
+	for path in ["res://data/weapons/pistol.tres", "res://data/weapons/melee/melee_dagger.tres"]:
+		var weapon := load(path) as WeaponData
+		check(ItemIcons.for_weapon_hd(weapon) != null and ItemIcons.for_weapon(weapon).get_size() == Vector2(32,32), "weapon artwork is connected through weapon data: " + path)
+	plate.queue_free()
+	await frames(2)
 
 
 func _test_font() -> void:

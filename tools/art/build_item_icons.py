@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""第一章道具圖示（ST-8）：背包卡片 32×32、詳情大圖 96×96、場景拾取小圖 24×24（另有 _glow 自發光層）。
+"""第一章道具圖示（ST-8）：背包卡片 32×32、原生詳情大圖 384×384、場景拾取小圖 24×24（另有 _glow 自發光層）。
 
 繪製工具見 item_icon_kit.py（8 倍超採樣的向量形狀，縮小後二值化邊緣並描邊）。
 之後要換成手繪或 AI 圖，直接用同名檔案覆蓋 art/items/icons、art/items/world 裡的 PNG 即可，程式不需要改。
@@ -8,6 +8,7 @@
 import math
 import os
 import sys
+from PIL import Image
 
 sys.path.insert(0, os.path.dirname(__file__))
 from item_icon_kit import Canvas, hexc, mix, shade  # noqa: E402
@@ -15,7 +16,7 @@ from item_icon_kit import Canvas, hexc, mix, shade  # noqa: E402
 ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
 ICON_DIR = os.path.join(ROOT, 'art', 'items', 'icons')
 WORLD_DIR = os.path.join(ROOT, 'art', 'items', 'world')
-SIZES = {'': 32, '_hd': 96}
+SIZES = {'': 32, '_hd': 384}
 WORLD_SIZE = 24
 
 
@@ -177,6 +178,44 @@ def credits_large(c):
     grey_coin_stack(c, 6, True)
 
 
+def boat_coin(c):
+    """磨舊的船錢硬幣；素材不會自行新增故事道具或取得配置。"""
+    c.ellipse(10, 11, 55, 56, hexc('775332'))
+    c.ellipse(8, 8, 53, 53, c.vgrad(8, 53, hexc('e8c78d'), hexc('a98757')))
+    c.ellipse(12, 12, 49, 49, hexc('7b674b'))
+    c.ellipse(14, 14, 47, 47, c.vgrad(14, 47, hexc('d5b985'), hexc('ac8e5c')))
+    c.poly([(20, 32), (43, 32), (38, 39), (25, 39)], hexc('665541'))
+    c.line(31, 19, 31, 33, 1.8, hexc('665541'))
+    c.poly([(33, 20), (33, 30), (42, 30)], hexc('f1d6a3'))
+    for y in (42, 45): c.line(22, y, 40, y, 1, hexc('806646'))
+    for x, y in ((16, 20), (43, 17), (46, 39), (20, 47)):
+        c.line(x, y, x+2, y+1, .8, hexc('f5dfb3'))
+
+
+def pistol(c):
+    """與既有手槍相符的灰色滑套、黃色識別線及黑色握把。"""
+    c.poly([(12, 19), (51, 19), (57, 25), (55, 31), (13, 31)], c.vgrad(19, 31, hexc('b9c4d4'), hexc('5d7088')))
+    c.rrect(13, 17, 19, 20, .8, hexc('d3dbe8'))
+    c.rrect(48, 17, 52, 20, .8, hexc('d3dbe8'))
+    c.line(16, 23, 49, 23, 1.3, hexc('ffdf73'))
+    c.rrect(51, 26, 58, 29, .8, hexc('263448'))
+    c.poly([(14, 31), (35, 31), (33, 35), (26, 35), (22, 53), (13, 50), (18, 34)], hexc('354357'))
+    c.poly([(17, 37), (23, 39), (20, 49), (14, 47)], hexc('1b2433'))
+    c.polyline([(29, 34), (40, 34), (38, 42), (27, 42)], 1.8, hexc('7e8b9e'))
+    c.line(33, 32, 31, 37, 1.8, hexc('a8b4c5'))
+    for x in (20, 24, 28): c.line(x, 27, x-1, 30, .9, hexc('37475d'))
+
+
+def mono_dagger(c):
+    """單分子短刃：有刃脊、單側青色刃口、護手和防滑握柄。"""
+    c.poly([(9, 32), (40, 24), (59, 30), (40, 35), (9, 36)], c.vgrad(24, 36, hexc('e3f6fa'), hexc('698aa1')))
+    c.poly([(11, 34), (41, 32), (59, 30), (40, 35), (11, 36)], hexc('9ceaff'), emit=True)
+    c.line(12, 30, 40, 27, 1, hexc('f5feff'))
+    c.rrect(7, 26, 11, 42, 1, hexc('b8c9d8'))
+    c.rrect(1, 31, 8, 37, 1.5, hexc('3d4c62'))
+    for x in (3, 5, 7): c.line(x, 32, x, 36, .7, hexc('8395ad'))
+
+
 ICONS = {
     # 名稱: (繪製函式, 旋轉角度, 是否畫場景小圖)
     'med_injector': (med_injector, 38.0, True),
@@ -190,9 +229,10 @@ ICONS = {
     'doc_stub': (doc_stub, 0.0, True),
     'credits_small': (credits_small, 0.0, True),
     'credits_large': (credits_large, 0.0, True),
+    'boat_coin': (boat_coin, 0.0, False),
+    'pistol': (pistol, 0.0, False),
+    'mono_dagger': (mono_dagger, 38.0, False),
 }
-# 只有場景小圖、沒有背包圖示的項目（信用點是金額，不進背包）。
-WORLD_ONLY = {'credits_small', 'credits_large'}
 
 
 def render(name, size):
@@ -202,18 +242,25 @@ def render(name, size):
     return cv
 
 
+def save_changed(image, path):
+    if os.path.exists(path):
+        with Image.open(path) as previous:
+            if previous.mode == image.mode and previous.size == image.size and previous.tobytes() == image.tobytes():
+                return
+    image.save(path)
+
+
 def main(names):
     os.makedirs(ICON_DIR, exist_ok=True)
     os.makedirs(WORLD_DIR, exist_ok=True)
     for name in names or ICONS:
         fn, angle, world = ICONS[name]
-        if name not in WORLD_ONLY:
-            for suffix, size in SIZES.items():
-                render(name, size).result().save(os.path.join(ICON_DIR, f'{name}{suffix}.png'))
+        for suffix, size in SIZES.items():
+            save_changed(render(name, size).result(), os.path.join(ICON_DIR, f'{name}{suffix}.png'))
         if world:
             cv = render(name, WORLD_SIZE)
-            cv.result().save(os.path.join(WORLD_DIR, f'{name}.png'))
-            cv.glow_result().save(os.path.join(WORLD_DIR, f'{name}_glow.png'))
+            save_changed(cv.result(), os.path.join(WORLD_DIR, f'{name}.png'))
+            save_changed(cv.glow_result(), os.path.join(WORLD_DIR, f'{name}_glow.png'))
         print('drew', name)
 
 

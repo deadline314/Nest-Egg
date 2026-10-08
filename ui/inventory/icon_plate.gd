@@ -9,6 +9,7 @@ var icon: Texture2D
 var icon_scale := 3
 var accent := Palette.CYAN
 var dimmed := false
+var high_resolution := false
 
 var _time := 0.0
 
@@ -19,11 +20,13 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 
-func show_icon(p_icon: Texture2D, p_scale: int, p_accent: Color, p_dimmed: bool) -> void:
+func show_icon(p_icon: Texture2D, p_scale: int, p_accent: Color, p_dimmed: bool, p_high_resolution := false) -> void:
 	icon = p_icon
 	icon_scale = p_scale
 	accent = p_accent
 	dimmed = p_dimmed
+	high_resolution = p_high_resolution
+	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR if high_resolution else CanvasItem.TEXTURE_FILTER_NEAREST
 	queue_redraw()
 
 
@@ -47,7 +50,14 @@ func _draw() -> void:
 			draw_line(Vector2(sx, sy), Vector2(sx, sy + dy), corner, 1.0)
 	if icon == null:
 		return
-	var icon_size := Vector2(icon.get_size()) * float(icon_scale)
+	var icon_size := display_size()
 	var bob := floorf(sin(_time * BOB_SPEED) + 0.5)
 	var origin := (center - icon_size * 0.5 + Vector2(0, bob)).floor()
-	PixelUi.texture(self, icon, origin, icon_scale, Color(1, 1, 1, 0.4 if dimmed else 1.0))
+	draw_texture_rect(icon, Rect2(origin, icon_size), false, Color(1, 1, 1, 0.4 if dimmed else 1.0))
+
+
+func display_size() -> Vector2:
+	if icon == null:
+		return Vector2.ZERO
+	var source := Vector2(icon.get_size())
+	return source * (96.0 / maxf(source.x, source.y)) if high_resolution else source * float(icon_scale)

@@ -12,7 +12,7 @@ var icon: Texture2D
 ## 卡片上與詳情面板上圖示的整數放大倍數。
 var card_icon_scale := 1
 var detail_icon_scale := 3
-## 詳情面板專用的大圖（96×96，逐項繪製，不是放大）；null 時用 icon 放大 detail_icon_scale 倍。
+## 詳情面板專用的大圖（原生高清素材，顯示長邊 96 邏輯像素）；null 時用 icon 放大 detail_icon_scale 倍。
 var detail_icon: Texture2D
 ## 卡片右上角的小標籤（NEW、手上、×2…），空字串不顯示。
 var badge := ""

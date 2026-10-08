@@ -8,7 +8,7 @@ extends RefCounted
 
 const ICON_DIR := "res://art/items/icons"
 const ICON_SIZE := Vector2i(32, 32)
-## 詳情面板的大圖（96×96，與同名 32×32 圖示分開繪製、不是放大）：<icon>_hd.png；沒有就用卡片圖示放大。
+## 詳情面板的大圖（384×384 原生繪製，顯示為 96×96 邏輯像素）：<icon>_hd.png；沒有就用卡片圖示放大。
 const HD_SUFFIX := "_hd"
 ## 場景裡的拾取小圖（24×24）：<key>.png，另有 <key>_glow.png 自發光層。
 const WORLD_DIR := "res://art/items/world"
@@ -62,9 +62,20 @@ static func weapon(visual_id: String) -> Texture2D:
 
 ## 某把武器的背包圖示：槍械用外觀圖，近戰武器用剪影（MeleeArt）。
 static func for_weapon(weapon: WeaponData) -> Texture2D:
+	if weapon != null:
+		var key := str(weapon.melee_profile) if weapon.is_melee() else weapon.visual_id
+		if ResourceLoader.exists(ICON_DIR.path_join(key + ".png")):
+			return item(key)
 	if weapon != null and weapon.is_melee():
 		return MeleeArt.item_icon(weapon)
 	return ItemIcons.weapon(weapon.visual_id if weapon != null else "")
+
+
+## 武器詳細圖沿用同一個高清載入入口；外觀或近戰招式資料決定素材名稱。
+static func for_weapon_hd(weapon: WeaponData) -> Texture2D:
+	if weapon == null:
+		return null
+	return item_hd(str(weapon.melee_profile) if weapon.is_melee() else weapon.visual_id)
 
 
 ## 角色立繪的一層（96×128）。
