@@ -1,0 +1,8 @@
+  [comfy] another GPU job is running; waiting for it to finish
+改到整個專案或測試流程本身，跑全部測試。
+Running 78 groups in 4 processes (logs: C:\Users\stanl\.codex\worktrees\session-character-art\Nest-Egg\.godot\ci-flash-serial-gpu)
+  process 0 (estimated 282 s): StageCoverageWorldSuite,HeavyEnemiesSuite,Chapter2ExpansionSuite,FxMeleePickupsSuite,PhoneBoothSuite,FxUpgradesSuite,AudioSuite,DeathFlowSuite,CombatHudSuite,NpcLifeSuite,FloodPitSuite,FeelSuite,AreasSuite,FeelToolsSuite
+  process 1 (estimated 281 s): ReclaimerSuite,SoundStageSuite,StrikeEnemiesSuite,AttackTokensSuite,DeathReactionSuite,MeleeWeaponsSuite,SupplySuite,MapBubblesSuite,ReloadCuesSuite,SoundLabSuite,MusicSuite,FeelLabSuite,WorldPromptSuite,QuestMapSuite,StoryLintSuite,StoryContentSuite,RigMeshSuite,RigActionsSuite,ReadabilityTargetsSuite,ProtagonistMotionSuite,PartCreatureSuite,PacingSuite,LayerOrderSuite,InputFeelSuite,EnemyVfxSuite,EconomySuite,DevMenuSuite,ClipEditorSuite,CharactersSuite,ChapterCutscenesSuite,Chapter2ArtSuite,ApplyPanelSuite,AmmoIconsSuite
+  process 2 (estimated 281 s): main,StageCoverageWeaponsSuite,ContinuitySuite,ReconEnemiesSuite,NewEnemiesSuite,UiScreensSuite,AmmoTraySuite,Chapter1EnemiesSuite,EncounterSuite,CutsceneSuite,ProgressionSuite,MeleeSuite,ExposureSuite,UiKitSuite,PostureSuite
+  process 3 (estimated 281 s): Chapter2Suite,AssaultEnemiesSuite,Chapter1MapSuite,StageCoverageCharactersSuite,ExoticEnemiesSuite,ChainCreatureSuite,PropsSuite,HitReactionSuite,AnimAuditSuite,CollectiblesSuite,TransitionSuite,NpcSuite,LocomotionSuite,EnvironmentSuite,SceneSanitySuite,NpcAnimationSuite
+checks: 50524, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 298 s)

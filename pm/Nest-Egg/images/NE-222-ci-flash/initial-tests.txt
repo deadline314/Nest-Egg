@@ -1,0 +1,14 @@
+改到整個專案或測試流程本身，跑全部測試。
+Running 78 groups in 10 processes (logs: C:\Users\stanl\.codex\worktrees\session-character-art\Nest-Egg\.godot\ci-flash-full)
+  process 0 (estimated 150 s): StageCoverageWorldSuite
+  process 1 (estimated 141 s): ReclaimerSuite
+  process 2 (estimated 105 s): main,NpcSuite,EncounterSuite,LocomotionSuite,UiKitSuite,LayerOrderSuite
+  process 3 (estimated 105 s): Chapter2Suite,ChainCreatureSuite,DeathReactionSuite,AmmoTraySuite,CollectiblesSuite,FeelLabSuite,SceneSanitySuite,FeelToolsSuite
+  process 4 (estimated 104 s): AssaultEnemiesSuite,AttackTokensSuite,UiScreensSuite,HitReactionSuite,MapBubblesSuite,SoundLabSuite,FloodPitSuite,QuestMapSuite,StoryLintSuite,StoryContentSuite,RigMeshSuite,RigActionsSuite,ReadabilityTargetsSuite,ProtagonistMotionSuite,PartCreatureSuite,PacingSuite,InputFeelSuite,EnemyVfxSuite,EconomySuite,DevMenuSuite,ClipEditorSuite,CharactersSuite,ChapterCutscenesSuite,Chapter2ArtSuite,ApplyPanelSuite,AmmoIconsSuite
+  process 5 (estimated 104 s): StageCoverageWeaponsSuite,ExoticEnemiesSuite,FxMeleePickupsSuite,AudioSuite,CutsceneSuite,ExposureSuite,PostureSuite
+  process 6 (estimated 104 s): Chapter1MapSuite,Chapter2ExpansionSuite,PropsSuite,FxUpgradesSuite,DeathFlowSuite,ProgressionSuite,FeelSuite
+  process 7 (estimated 104 s): SoundStageSuite,StrikeEnemiesSuite,NewEnemiesSuite,AnimAuditSuite,CombatHudSuite,MusicSuite,EnvironmentSuite
+  process 8 (estimated 104 s): HeavyEnemiesSuite,StageCoverageCharactersSuite,MeleeWeaponsSuite,Chapter1EnemiesSuite,TransitionSuite,NpcLifeSuite,AreasSuite
+  process 9 (estimated 104 s): ContinuitySuite,ReconEnemiesSuite,PhoneBoothSuite,SupplySuite,ReloadCuesSuite,MeleeSuite,WorldPromptSuite,NpcAnimationSuite
+[process 5] NEW FAILURE: 12 simultaneous explosions add little to a frame (+12.84 ms, budget 6 ms)
+checks: 50520, new failures: 1, known failures (tests/known_failures.txt): 0  (wall time 164 s)

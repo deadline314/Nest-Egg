@@ -1344,23 +1344,19 @@ func _test_lighting() -> void:
 	# 戰鬥動態光影：爆炸閃光、命中與擊殺點光、低血量暗角、預兆紅光、閃電、減少閃光。
 	await get_tree().create_timer(0.6, true).timeout
 	var flash_before := ambient.color
+	# Drive this one flash with a fixed clock: ongoing combat or a paused death screen
+	# must not change the measured lifetime between the peak and decay assertions.
+	lighting.set_process(false)
 	EventBus.ambient_flash_requested.emit(Color(1, 0.8, 0.6), 0.5, 0.3)
-	# Apply the pending flash without consuming its 0.3-second lifetime on a busy runner.
 	lighting._process(0.0)
-	# 閃光依實際時間衰減；機器忙的時候兩影格就過了半個閃光，所以每影格都量，取最亮的那一次。
-	var peak_level := lighting.flash_level()  # 訊號是同步處理的：發出後立刻量一次，不受影格間隔影響
+	var peak_level := lighting.flash_level()
 	var peak_red := ambient.color.r
-	for i in 3:
-		await get_tree().process_frame
-		peak_level = maxf(peak_level, lighting.flash_level())
-		peak_red = maxf(peak_red, ambient.color.r)
 	_check(peak_level > 0.3 and peak_red > flash_before.r + 0.2, "an ambient flash lifts the ambient light")
-	for i in 40:  # 以實際時間最多等 2 秒，機器忙時衰減也不會讓測試偶爾失敗
-		await get_tree().create_timer(0.05, true).timeout
-		if is_zero_approx(lighting.flash_level()):
-			break
-	await get_tree().process_frame
+	lighting._process(0.15)
+	_check(lighting.flash_level() > 0.0 and lighting.flash_level() < peak_level, "the flash fades during its lifetime")
+	lighting._process(0.16)
 	_check(is_zero_approx(lighting.flash_level()) and ambient.color.is_equal_approx(lighting.current.ambient_color), "the flash decays back to the zone lighting")
+	lighting.set_process(true)
 	Fx.explosion(level.player.global_position + Vector2(240, 0), 40.0, 0, Combat.Team.ENEMY, &"test")
 	# 閃光依實際時間衰減：每影格都量取最亮的一次（機器忙時兩影格就可能過了整個閃光）。
 	var explosion_peak := lighting.flash_level()
