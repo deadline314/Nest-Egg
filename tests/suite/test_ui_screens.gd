@@ -127,7 +127,10 @@ func _test_pause_settings_overlay() -> void:
 		owner = menu.get_viewport().gui_get_focus_owner()
 		check(owner == null or settings.is_ancestor_of(owner), "設定開著時按上下只動設定裡的控制項")
 	settings.close()
-	await frames(4)
+	# Overlay restoration and deferred focus run on idle frames, not physics ticks.
+	await settings.tree_exited
+	await runner.get_tree().process_frame
+	await runner.get_tree().process_frame
 	check(menu._menu_panel.visible and menu._info_panel.visible, "設定關閉後暫停選單還原")
 	check(menu.get_viewport().gui_get_focus_owner() == settings_button, "設定關閉後焦點回到原本的「設定」按鈕")
 	menu.close()

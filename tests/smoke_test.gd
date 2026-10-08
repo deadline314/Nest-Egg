@@ -1345,9 +1345,11 @@ func _test_lighting() -> void:
 	await get_tree().create_timer(0.6, true).timeout
 	var flash_before := ambient.color
 	EventBus.ambient_flash_requested.emit(Color(1, 0.8, 0.6), 0.5, 0.3)
+	# Apply the pending flash without consuming its 0.3-second lifetime on a busy runner.
+	lighting._process(0.0)
 	# 閃光依實際時間衰減；機器忙的時候兩影格就過了半個閃光，所以每影格都量，取最亮的那一次。
 	var peak_level := lighting.flash_level()  # 訊號是同步處理的：發出後立刻量一次，不受影格間隔影響
-	var peak_red := flash_before.r
+	var peak_red := ambient.color.r
 	for i in 3:
 		await get_tree().process_frame
 		peak_level = maxf(peak_level, lighting.flash_level())
