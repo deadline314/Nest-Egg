@@ -101,7 +101,10 @@ MAX_ALIVE = 6          # 成員加一波增援的同屏上限
 ENCOUNTER_DIR = os.path.join(ROOT, 'data', 'props')
 
 CHAPTER = 'ch1_kasa'
-BACKDROP = [("far_skyline", 0.12, 300.0), ("mid_buildings", 0.26, 320.0), ("near_foreground", 0.5, 360.0)]
+# Original source widths (BG-17), not imported GPU texture widths. Preserve the
+# authored world geometry when the import policy halves the raster resolution.
+BACKDROP = [("far_skyline", 0.12, 300.0, 2560), ("mid_buildings", 0.26, 320.0, 2560), ("near_foreground", 0.5, 360.0, 1280)]
+SKY_SOURCE_WIDTH = 4096
 
 
 class Area:
@@ -581,7 +584,10 @@ def build_street():
     a.prop('harbor_street__tide_gauge', 144)
     a.prop('harbor_street__umbrella_vending', 170)
     a.prop('harbor_street__stacked_neon_signs', 178, y=12)
-    for x in (10, 30, 56, 78, 104, 126, 150, 176, 200):
+    # The first combat tutorial's existing lamp is supported by the pole at 54.
+    # Its old row-8 position sat above the pole and barely lit the player's body.
+    a.lamp(54, 12)
+    for x in (10, 30, 78, 104, 126, 150, 176, 200):
         a.lamp(x, 8)
     a.zone(0, 'market')
     a.zone(181, 'freight', 14)
@@ -1024,13 +1030,13 @@ def write_theme(area, theme_key):
     body += [f'hole_chance = {holes}', f'label = "{area.name}"']
     zone = w.sub(body)
     layers = []
-    for tex, scroll, bottom in BACKDROP:
+    for tex, scroll, bottom, source_width in BACKDROP:
         ext = 'png' if tex == 'near_foreground' else 'webp'
         extra = ['tint = Color(1.3, 1.3, 1.4, 1)', 'texture_scale = 4'] if ext == 'webp' else []
         layers.append(w.sub([f'script = ExtResource("{layer_script}")', f'texture = "res://art/environment/backdrop/{tex}.{ext}"'] + extra +
-                            [f'scroll_scale = {scroll}', f'bottom_y = {bottom}']))
+                            [f'scroll_scale = {scroll}', f'bottom_y = {bottom}', f'source_width = {source_width}']))
     sky_sub = w.sub([f'script = ExtResource("{layer_script}")', f'texture = "res://art/environment/backdrop/{sky}.webp"', 'scroll_scale = 0.03',
-                     'bottom_y = 300.0', 'texture_scale = 2', 'tint = Color(1.4, 1.35, 1.5, 1)'])
+                     'bottom_y = 300.0', 'texture_scale = 2', 'tint = Color(1.4, 1.35, 1.5, 1)', f'source_width = {SKY_SOURCE_WIDTH}'])
     dirs = ', '.join(json.dumps(SCENE_PROPS % s) for s in prop_scenes)
     res = [f'script = ExtResource("{w.script_id}")',
            f'zones = Array[ExtResource("{zone_script}")]([SubResource("{zone}")])',

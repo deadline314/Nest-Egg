@@ -1,0 +1,6 @@
+Running 8 groups in 4 processes (logs: /tmp/tmp.jkE5y7dH7J)
+  process 0 (estimated 49 s): Chapter1MapSuite
+  process 1 (estimated 9 s): FxUpgradesSuite
+  process 2 (estimated 8 s): Chapter1EnemiesSuite,FeelSuite,ReadabilityTargetsSuite
+  process 3 (estimated 9 s): AudioSuite,FloodPitSuite,ExposureSuite
+checks: 28011, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 53 s)

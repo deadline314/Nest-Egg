@@ -16,8 +16,15 @@ const SAMPLES := 16
 const SAMPLE_INTERVAL := 0.2
 
 var _failed := false
+var _out_dir := ""
+var _results: Array[Dictionary] = []
 ## --spots=夾層區,中庭：只量測指定名稱的取樣點（開發時加快迭代）。
 var _only_spots: PackedStringArray = []
+
+
+## Subclasses provide campaign targets while sharing the exact probe and thresholds.
+func targets() -> Array[Dictionary]:
+	return LEVELS
 
 
 func _ready() -> void:
@@ -27,6 +34,8 @@ func _ready() -> void:
 func _run() -> void:
 	add_child(LightKit.create_environment())
 	Story.auto_skip = true
+	AimInput.using_gamepad = true
+	AimInput._last_stick_dir = Vector2.RIGHT
 	# --level=level_01 只量測指定的關卡（開發時加快迭代）；--quality=low|medium|high 改用該光影品質檔位量測。
 	var only := ""
 	var original_quality := Settings.get_light_quality()  # 量測會暫時改設定檔裡的光影品質，結束時還原
@@ -37,18 +46,51 @@ func _run() -> void:
 			only = arg.trim_prefix("--level=")
 		if arg.begins_with("--spots="):
 			_only_spots = arg.trim_prefix("--spots=").split(",", false)
-	for entry in LEVELS:
+		if arg.begins_with("--out="):
+			_out_dir = arg.trim_prefix("--out=")
+	if not _out_dir.is_empty():
+		DirAccess.make_dir_recursive_absolute(_out_dir)
+	var matched := 0
+	for entry in targets():
 		if only == "" or str(entry["path"]).contains(only):
-			await _check_level(entry["path"], entry["spots"])
+			matched += 1
+			await _check_level(entry["path"], entry["spots"], str(entry.get("enemy_path", "res://data/enemies/grunt.tres")))
+	if matched == 0 or _results.is_empty():
+		printerr("[readability_check] No sample matches --level=%s / --spots=%s" % [only, _only_spots])
+		_failed = true
+	if not _out_dir.is_empty():
+		var report := FileAccess.open(_out_dir.path_join("readability-report.json"), FileAccess.WRITE)
+		if report == null:
+			printerr("[readability_check] Cannot write report to %s" % _out_dir)
+			_failed = true
+		else:
+			report.store_string(JSON.stringify({"version": 1, "engine": Engine.get_version_info().string,
+				"light_quality": Settings.get_light_quality(), "brightness": Settings.get_brightness(),
+				"viewport": [get_viewport().get_visible_rect().size.x, get_viewport().get_visible_rect().size.y],
+				"samples_per_spot": SAMPLES, "sample_interval": SAMPLE_INTERVAL,
+				"thresholds": {"player": ContrastProbe.MIN_PLAYER_CONTRAST, "edge": ContrastProbe.MIN_EDGE_CONTRAST, "enemy": ContrastProbe.MIN_ENEMY_CONTRAST},
+				"results": _results}, "  ") + "\n")
+			report.close()
 	Settings.set_light_quality(original_quality)
 	get_tree().quit(1 if _failed else 0)
 
 
-func _check_level(path: String, spots: Array) -> void:
+func _check_level(path: String, spots: Array, enemy_path := "res://data/enemies/grunt.tres") -> void:
 	GameState.start_new_run(GameState.difficulties[1])
+	for id: String in Story.scene_ids():
+		Story._seen[StringName(id)] = true
+	var data := (load(path) as LevelData).duplicate()
+	data.intro_scene = &""
+	data.show_chapter_card = false
 	var level := Level.new()
-	level.configure(load(path))
+	level.configure(data)
 	add_child(level)
+	# The rendering lab measures stationary silhouettes, not a combat encounter.
+	# Keep lighting events active, but prevent boss/wave spawns from pushing a probe.
+	level._arena_triggered = true
+	for node in level.find_children("*", "", true, false):
+		if node is EncounterZone:
+			node.restore_state(true)
 	for i in 20:
 		await get_tree().process_frame
 	var player := level.player
@@ -59,6 +101,10 @@ func _check_level(path: String, spots: Array) -> void:
 	for id: String in Story.scene_ids():
 		if id.begins_with("radio_") or id.begins_with("c2_radio_"):
 			Story._seen[StringName(id)] = true
+	# Prompts are UI; their bright text must not inflate the body contrast.
+	for node in level.find_children("*", "", true, false):
+		if node is WorldPrompt:
+			node.visible = false
 	var layout: LevelLayout = level._layout
 	print("== %s" % path.get_file())
 	print("%-8s  %-8s  %-8s  %-8s" % ["區段", "玩家對比", "邊緣對比", "敵人對比"])
@@ -66,19 +112,35 @@ func _check_level(path: String, spots: Array) -> void:
 		if not _only_spots.is_empty() and not _only_spots.has(str(spot[0])):
 			continue
 		var tile: int = spot[1]
-		var y := layout.surface_heights[tile] - 2.0
-		# 室內區段最上面的「地面」是天花板：第一章改用檢查點的高度，其他關卡取第 4 列以下的第一個地面。
-		if spot[0] == "設施入口" or spot[0] == "停電走廊" or spot[0] == "頭目機庫":
-			y = layout.checkpoints[3].y - 2.0
-		elif layout.surface_heights[tile] < layout.tile_size * 4.0:
-			y = layout.floor_below(tile, 4) - 2.0
+		if tile < 0 or tile * layout.tile_size >= layout.pixel_size().x:
+			printerr("[readability_check] %s/%s: column %d is outside the map" % [path, spot[0], tile])
+			_failed = true
+			continue
+		var y := probe_floor(layout, tile, str(spot[0])) - 2.0
+		if spot.size() > 2:
+			var row := int(spot[2])
+			if not layout.cell(tile, row) in ["#", "="]:
+				printerr("[readability_check] %s/%s: explicit floor %d/%d has no support" % [path, spot[0], tile, row])
+				_failed = true
+				continue
+			y = float(row) * layout.tile_size - 2.0
 		player.global_position = Vector2(tile * layout.tile_size + 8.0, y)
 		player.velocity = Vector2.ZERO
 		for node in get_tree().get_nodes_in_group(&"enemies"):
 			node.queue_free()
 		for i in 60:
 			await get_tree().process_frame
-		var foe := _spawn_foe(level, player.global_position + Vector2(ENEMY_DISTANCE, 0.0))
+		var camera := get_viewport().get_camera_2d() as LevelCamera
+		if camera != null:
+			camera.snap_to_target()
+		var foe: Enemy = null
+		var expected_foe_feet := Vector2(tile * layout.tile_size + 8.0 + ENEMY_DISTANCE, y + 2.0)
+		if not enemy_path.is_empty():
+			# Legacy probes can put the enemy on a lower, adjacent roof.
+			# Validate each actor against its own floor instead of assuming flat ground.
+			if spot.size() <= 2:
+				expected_foe_feet.y = probe_floor(layout, tile + int(ENEMY_DISTANCE / layout.tile_size), str(spot[0]))
+			foe = _spawn_foe(level, expected_foe_feet - Vector2(0.0, 2.0), enemy_path)
 		await get_tree().create_timer(1.2).timeout
 		# 警報與霓虹會閃爍：連續取樣幾張取平均，量測才穩定。
 		var player_contrast := 0.0
@@ -91,17 +153,43 @@ func _check_level(path: String, spots: Array) -> void:
 			if is_instance_valid(foe):
 				enemy_contrast += probe.character_contrast(foe.global_position) / float(SAMPLES)
 			await get_tree().create_timer(SAMPLE_INTERVAL).timeout
-		var ok := player_contrast >= ContrastProbe.MIN_PLAYER_CONTRAST and edge_contrast >= ContrastProbe.MIN_EDGE_CONTRAST and enemy_contrast >= ContrastProbe.MIN_ENEMY_CONTRAST
+		var expected_feet := Vector2(tile * layout.tile_size + 8.0, y + 2.0)
+		var standing := player.global_position.distance_to(expected_feet) <= 4.0
+		if not enemy_path.is_empty():
+			standing = standing and is_instance_valid(foe) and foe.global_position.distance_to(expected_foe_feet) <= 4.0
+		if not standing:
+			printerr("[readability_check] %s/%s: probe moved away from its floor; sample is invalid" % [path, spot[0]])
+		var ok := standing and player_contrast >= ContrastProbe.MIN_PLAYER_CONTRAST and edge_contrast >= ContrastProbe.MIN_EDGE_CONTRAST and (enemy_path.is_empty() or (is_instance_valid(foe) and enemy_contrast >= ContrastProbe.MIN_ENEMY_CONTRAST))
 		_failed = _failed or not ok
-		print("%-8s  %-8.2f  %-8.2f  %-8.2f  %s" % [spot[0], player_contrast, edge_contrast, enemy_contrast, "OK" if ok else "太暗（門檻 %.1f / %.1f / %.1f）" % [ContrastProbe.MIN_PLAYER_CONTRAST, ContrastProbe.MIN_EDGE_CONTRAST, ContrastProbe.MIN_ENEMY_CONTRAST]])
+		print("%-8s  %-8.2f  %-8.2f  %-8s  %s" % [spot[0], player_contrast, edge_contrast, "%.2f" % enemy_contrast if not enemy_path.is_empty() else "N/A", "OK" if ok else "太暗（門檻 %.2f / %.2f / %.2f）" % [ContrastProbe.MIN_PLAYER_CONTRAST, ContrastProbe.MIN_EDGE_CONTRAST, ContrastProbe.MIN_ENEMY_CONTRAST]])
+		var shot := "ST-6-%s-%d.png" % [data.id, tile]
+		if not _out_dir.is_empty():
+			var capture_error := get_viewport().get_texture().get_image().save_png(_out_dir.path_join(shot))
+			if capture_error != OK:
+				printerr("[readability_check] %s: %s" % [shot, error_string(capture_error)])
+				_failed = true
+		var materials: Array[String] = []
+		if data.environment != null:
+			for zone: EnvZone in data.environment.zones:
+				materials.append(zone.material.resource_path)
+		_results.append({"level": String(data.id), "path": path, "spot": spot[0], "column": tile, "sampling_valid": standing,
+			"feet": [player.global_position.x, player.global_position.y], "enemy": enemy_path,
+			"player_contrast": player_contrast, "edge_contrast": edge_contrast,
+			"enemy_contrast": enemy_contrast if not enemy_path.is_empty() else null, "passed": ok,
+			"theme": data.environment.resource_path if data.environment != null else "",
+			"materials": materials, "props": data.load_props(), "screenshot": shot})
 	remove_child(level)
 	level.free()
 	await get_tree().process_frame
 
 
 ## 一隻站著不動的敵人（小兵），量測它的輪廓對比用。
-func _spawn_foe(level: Level, position: Vector2) -> Enemy:
-	var enemy := level._create_enemy(load("res://data/enemies/grunt.tres") as EnemyData)
+func _spawn_foe(level: Level, position: Vector2, path := "res://data/enemies/grunt.tres") -> Enemy:
+	var data := load(path) as EnemyData
+	if data == null:
+		push_error("[readability_check] Missing enemy probe: %s" % path)
+		return null
+	var enemy := level._create_enemy(data)
 	enemy.data = enemy.data.duplicate()
 	enemy.data.detect_range = 0.0
 	enemy.data.attack_range = 0.0
@@ -111,3 +199,13 @@ func _spawn_foe(level: Level, position: Vector2) -> Enemy:
 	level._entities.add_child(enemy)
 	enemy.health.setup(999, 0.0)
 	return enemy
+
+
+## The legacy maps use roofs of different heights and indoor ceilings.
+static func probe_floor(layout: LevelLayout, tile: int, spot: String) -> float:
+	if tile < 0 or tile >= layout.surface_heights.size():
+		return -INF
+	if spot in ["設施入口", "停電走廊", "頭目機庫"]:
+		return layout.checkpoints[3].y
+	var floor_y := layout.surface_heights[tile]
+	return layout.floor_below(tile, 4) if floor_y < layout.tile_size * 4.0 else floor_y
