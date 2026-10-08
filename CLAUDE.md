@@ -32,3 +32,14 @@
 - commit 作者用 `Stanley Li <stanley890314@gmail.com>`
 - commit 的作者與提交者都使用 `Stanley Li <stanley890314@gmail.com>`。commit 訊息不得出現 Claude、GPT、GPT-6、Codex 等 AI 名稱或模型署名，也不得加入任何 `Co-Authored-By`、`Claude-Session` 或類似的署名行
 - 遠端拒絕操作（例如刪分支回 403）時，不重試、不繞過，回報使用者
+
+## 5. 專案技能
+
+開始角色美術或動畫工作前，完整讀取適用的 Skill，再依規範執行。
+
+| 技能 | 何時使用 | 規範 |
+|---|---|---|
+| `character-art-pipeline` | 生成或替換角色立繪、透明背景、分件、補全與遊戲貼圖；依固定 SOP 交付 | [.claude/skills/character-art-pipeline/SKILL.md](.claude/skills/character-art-pipeline/SKILL.md) |
+| `rig-animation` | 角色部件接合、骨架綁定、全動作、操作手感、Forward+ 與效能驗證 | [.claude/skills/rig-animation/SKILL.md](.claude/skills/rig-animation/SKILL.md) |
+
+修改共用角色 Skill 時同步 `.agents/skills/`、`.claude/skills/` 與 `.agent/skills/` 的相同副本，避免規則分歧。

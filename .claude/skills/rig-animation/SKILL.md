@@ -161,3 +161,7 @@ description: 做或調整 Nest Egg 的骨架角色與動畫時使用：新增角
 - 多關節網格（髖、肩、腰、腕、踝）的試作在 `pm/Nest-Egg/attachments/NE-222-multizone-joint-wip.patch`：旋轉混合（偏移轉 w×夾角）避免舉手過頭時肩膀縮成一點；已知問題是瞄準上抬時肩區折疊比例 0.62 超過 `mesh_fold` 0.4、試作約 900 頂點超出舊預算、原 `limb_pinch` 不適用該算法，須提出有效替代量測並通過效能與圖像驗證，不能直接放寬預算或刪除稽核。實作時先讀 `design/12-cast-redraw/RIG_QUALITY.md` 的補記。
 - 檢查畫面用 skill `visual-verification`（Forward+ 優先使用可用的實際 GPU，無硬體才使用已存在的軟體 Vulkan；如實記錄環境）；`rig_preview --closeup --zoom=N` 可以調放大倍率。
 - 角色的受光：所有零件與武器共用 `art/shaders/character_light.gdshader`（每盞光有亮度上限、不被補光倍率放大，NE-213）；新增零件走 `CharacterRig._build_parts` 就會自動套用，自己建 Sprite 要記得指定 `_light_material`。
+
+## 蹲姿臀腿輪廓（NE-222）
+
+蹲姿不能只驗接點沒有洞。骨盆保留一份臀部體積，近遠側大腿各只含一條腿；重複臀部、球狀凸塊、尖角、折片與不自然輪廓都失敗。依 [全部件驗收的蹲姿章節](references/character-acceptance.md) 檢查來源歸屬、髖支點、腿根權重、完整蹲入／蹲走／蹲瞄／蹲起、兩面向與最大顯示倍率。深蹲需要局部姿勢修正時，保留原定稿並重驗切換。

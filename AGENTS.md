@@ -42,5 +42,7 @@
 | `pm-ticket` | 開票、改票、補票、交付紀錄；修改 `pm/` 下的 Markdown 前必讀 | [.agents/skills/pm-ticket/SKILL.md](.agents/skills/pm-ticket/SKILL.md) |
 | `audio-pipeline` | 新增、替換或尋找音效、環境音與配樂素材 | [.agents/skills/audio-pipeline/SKILL.md](.agents/skills/audio-pipeline/SKILL.md) |
 | `free-asset-pipeline` | 新增、替換或尋找場景、背景、道具、天空與光影素材 | [.agents/skills/free-asset-pipeline/SKILL.md](.agents/skills/free-asset-pipeline/SKILL.md) |
+| `character-art-pipeline` | 生成或替換角色立繪、透明背景、分件、補全與遊戲貼圖；依固定 SOP 交付 | [.agents/skills/character-art-pipeline/SKILL.md](.agents/skills/character-art-pipeline/SKILL.md) |
+| `rig-animation` | 角色部件接合、骨架綁定、全動作、操作手感、Forward+ 與效能驗證 | [.agents/skills/rig-animation/SKILL.md](.agents/skills/rig-animation/SKILL.md) |
 
 `CLAUDE.md` 與 `.claude/skills/` 保留供 Claude 使用；修改共用規範時，同步更新兩組檔案，避免規則分歧。

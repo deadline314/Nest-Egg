@@ -147,3 +147,7 @@ $env:GODOT = '<实际 Godot console 可执行文件>'
 - [Godot Multiple resolutions](https://docs.godotengine.org/en/stable/tutorials/rendering/multiple_resolutions.html)：区分设计尺寸、原生渲染与 stretch mode；API 以本项目实际 4.7.2 确认。
 - [Godot ViewportTexture](https://docs.godotengine.org/en/stable/classes/class_viewporttexture.html)：HDR 2D 讀回使用線性編碼，保存彩色 PNG 前須依 viewport 轉成 sRGB。
 - 部件、骨架、动作与手感的原始资料及专案量测，见 rig-animation 的引用与对应票。不得把未经核对的数字标为行业统一标准。
+
+## 蹲姿需要輪廓驗收（NE-222）
+
+骨架校準與分割時，先把骨盆臀部與近遠側大腿的素材歸屬標清楚，不能把整個臀部複製進兩條會旋轉的腿。逐格接點檢查之後，仍需依 [rig-animation 的臀腿驗收](../rig-animation/references/character-acceptance.md) 檢查全彩輪廓、支撐與完整蹲姿切換。若出現球狀臀部、折角或重複體積，回到分割／支點／權重修正，必要時補局部彎曲變體；沒有洞不能作為交付理由。
