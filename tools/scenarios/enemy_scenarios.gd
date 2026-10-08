@@ -4,6 +4,7 @@ extends RefCounted
 ## 用法：screenshot.tscn -- --out=<資料夾> --scenario=<名稱>；新增情境只要在 SCENARIOS 加一行。
 
 const SCENARIOS := {
+	"asset_pipeline": "res://tools/scenarios/asset_pipeline_scenario.gd",
 	"characters": "res://tools/scenarios/characters_scenario.gd",
 	"recon_enemies": "res://tools/scenarios/recon_scenario.gd",
 	"heavy_enemies": "res://tools/scenarios/heavy_scenario.gd",

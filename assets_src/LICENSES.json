@@ -924,5 +924,33 @@
     "license": "CC0-1.0",
     "page": "https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky",
     "name": "Kloofendal 48d Partly Cloudy (Pure Sky)"
+  },
+  "kenney_mod_grass_small": {
+    "id": "kenney_mod_grass_small",
+    "source": "kenney",
+    "kind": "model",
+    "asset": "grass-small",
+    "repo": "KenneyNL/Starter-Kit-FPS",
+    "revision": "185fd2326d74a5cf858cffc616f87cf9696f9cc0",
+    "files": [
+      {
+        "path": "models/grass-small.glb",
+        "dest": "grass-small.glb",
+        "sha256": "8dfe00761fa833daab3192148b9b3d573f2a10aa2eff2c01a8a386dd304e7fda"
+      },
+      {
+        "path": "models/Textures/colormap.png",
+        "dest": "Textures/colormap.png",
+        "sha256": "a20683dde0ed575bf6242d68934743ccf954b28f1fc3af9ad781c94b08188f8e"
+      }
+    ],
+    "use": "冷色荒地草叢；NE-67 免費素材新增示例",
+    "author": "Kenney",
+    "license": "CC0-1.0",
+    "page": "https://github.com/KenneyNL/Starter-Kit-FPS/tree/185fd2326d74a5cf858cffc616f87cf9696f9cc0",
+    "name": "grass-small",
+    "license_statement": "Assets included in this package (2D sprites, 3D models and sound effects) are [CC0 licensed](https://creativecommons.org/publicdomain/zero/1.0/)",
+    "license_evidence": "https://raw.githubusercontent.com/KenneyNL/Starter-Kit-FPS/185fd2326d74a5cf858cffc616f87cf9696f9cc0/README.md",
+    "license_evidence_sha256": "69d77c39c3c05692b6a0ddbc626615d403421ab3c7b884b0a5ad4ae90368c02a"
   }
 }

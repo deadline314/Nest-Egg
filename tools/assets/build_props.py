@@ -47,10 +47,10 @@ def render(entries: list[dict]) -> bool:
     for e in entries:
         if "kit_cell" in e:
             continue
-        gltf = next((RAW / e["model"]).glob("*.gltf"), None)  # file name keeps the source's capitalisation (Barrel_01)
+        gltf = next(iter(sorted((RAW / e["model"]).glob("*.gltf")) + sorted((RAW / e["model"]).glob("*.glb"))), None)  # file name keeps the source's capitalisation (Barrel_01)
         if gltf is None:
-            print(f"FAIL  {e['id']}: no .gltf in assets_src/raw/{e['model']} (run fetch_assets.py)", file=sys.stderr)
-            continue
+            print(f"FAIL  {e['id']}: no .gltf/.glb in assets_src/raw/{e['model']} (run fetch_assets.py)", file=sys.stderr)
+            return False  # prevent reuse of an old render after a missing source
         job = {"src": f"assets_src/raw/{e['model']}/{gltf.name}", "out": f"assets_src/work/props/{e['id']}",
                "width": int(e.get("render_width", 768)), "yaw": e.get("yaw", 0), "pitch": e.get("pitch", 0)}
         if e.get("glow"):

@@ -29,14 +29,18 @@ def get_json(url: str):
         return json.load(r)
 
 
-def download(url: str, dest: Path, md5: str = "") -> None:
+def download(url: str, dest: Path, md5: str = "", sha256: str = "") -> None:
     if dest.exists() and dest.stat().st_size > 0:
+        if sha256 and hashlib.sha256(dest.read_bytes()).hexdigest() != sha256:
+            raise IOError(f"cached sha256 mismatch: {dest}")
         return
     dest.parent.mkdir(parents=True, exist_ok=True)
     with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=300) as r:
         data = r.read()
     if md5 and hashlib.md5(data).hexdigest() != md5:
         raise IOError(f"md5 mismatch for {url}")
+    if sha256 and hashlib.sha256(data).hexdigest() != sha256:
+        raise IOError(f"sha256 mismatch for {url}")
     dest.write_bytes(data)
 
 
@@ -85,7 +89,39 @@ def fetch_ambientcg(entry: dict, out: Path) -> dict:
     }
 
 
-FETCHERS = {"polyhaven": fetch_polyhaven, "ambientcg": fetch_ambientcg}
+def fetch_kenney(entry: dict, out: Path) -> dict:
+    """Official Kenney repository, pinned revision and verified asset hashes."""
+    import re
+    from pathlib import PurePosixPath
+    repo, revision = entry['repo'], entry['revision']
+    if not re.fullmatch(r'KenneyNL/[A-Za-z0-9_.-]+', repo) or not re.fullmatch(r'[0-9a-f]{40}', revision):
+        raise ValueError('Kenney source must use the official owner and a full commit hash')
+    def safe(path):
+        parts = PurePosixPath(path)
+        if parts.is_absolute() or '..' in parts.parts or not re.fullmatch(r'[A-Za-z0-9_.\-/]+', path):
+            raise ValueError(f'unsafe source path: {path}')
+        return path
+    for file in entry['files']:
+        safe(file['path']); safe(file['dest'])
+        if not re.fullmatch(r'[0-9a-f]{64}', file['sha256']):
+            raise ValueError('each source file needs a SHA-256')
+    base = f'https://raw.githubusercontent.com/{repo}/{revision}'
+    evidence = out / 'SOURCE_README.md'
+    download(base + '/README.md', evidence)
+    readme = evidence.read_text(encoding='utf-8')
+    statement = 'Assets included in this package (2D sprites, 3D models and sound effects) are [CC0 licensed](https://creativecommons.org/publicdomain/zero/1.0/)'
+    if statement not in readme:
+        raise ValueError('pinned README does not explicitly license these assets as CC0')
+    for file in entry['files']:
+        download(base + '/' + file['path'], out / file['dest'], sha256=file['sha256'])
+    return {'author': 'Kenney', 'license': 'CC0-1.0',
+            'page': f'https://github.com/{repo}/tree/{revision}',
+            'name': entry['asset'], 'license_statement': statement,
+            'license_evidence': base + '/README.md',
+            'license_evidence_sha256': hashlib.sha256(evidence.read_bytes()).hexdigest()}
+
+
+FETCHERS = {"kenney": fetch_kenney, "polyhaven": fetch_polyhaven, "ambientcg": fetch_ambientcg}
 
 
 def main() -> int:

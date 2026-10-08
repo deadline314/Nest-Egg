@@ -58,9 +58,9 @@ description: 把場景素材換進或新增到 Nest Egg 的完整流程：找來
 
 ## 5. 3D 模型 → 2D 貼圖
 
-### 單件道具（`build_props.py`，BG-10 之後清單已清空）
+### 單件道具（`build_props.py`，CC0 模型加工）
 
-**`props.json` 的 `props` 現在是空的**：16 件模型渲染道具（冷氣機、路燈、電線桿……）已全部改成 Qwen 生成（§8）或程式繪製的賽璐璐版本（管線，`tools/assets/cel_pipes.py`），只剩 `aliases`（前景樹）。下面是舊流程，只在又要用免費 3D 模型時參考；新道具走 §8。
+既有 16 件模型道具已改為賽璐璐版本，保持原成果。`props.json` 現在新增一件 Kenney CC0 草叢示例；合適的低多邊形風格模型可沿用這條 3D→2D 流程，支援 glTF／GLB。新素材先找合授權且風格合適的 CC0，再考慮 §8；本次多 Session 的 ComfyUI 生成／啟停只由指定生成 Session 操作。
 
 清單：`assets_src/pipeline/props.json`，每筆 `{id, model(manifest id), crop[x0,y0,x1,y1 比例], fit:"height"|"width", yaw, pitch, glow:[材質名正規式], glow_color, glow_through, render_width}`。
 
@@ -200,3 +200,28 @@ CC0 庫找不到的道具（吊車、龍門吊、控制台、堆高機、閘門�
 舞台圖層僅補充來源寬度 metadata，渲染時補償匯入比例；原始家具位置、圖層順序與既有 scale 資料不變。重建舞台資料後，匯入前再執行同一匯入政策，素材檢查會指出缺少的 metadata。
 
 環境渲染路徑目前均為 linear／nearest（沒有 mipmap sampler）；匯入政策因此不配置未使用的 mipmaps。肖像 UI 的 mipmap 取樣不在環境政策內。未來新增環境 mipmap sampler 時須同步政策與同機畫面／記憶體驗收。細長圖縮圖取整若使來源長寬比偏差超過 1%，保留原尺寸。
+
+## 可重現的新 CC0 素材示例（NE-67）
+
+本示例沿用既有 3D→2D→PropData 路線，新增荒地草叢；不替換已定稿的大批素材、不動地圖或舞台家具。Kenney 官方 Starter-Kit-FPS 的 3D 模型及貼圖明確採 CC0，軟體的 MIT 不拿來當美術授權。`manifest.json` 的 `kenney_mod_grass_small` 固定完整 commit 與兩份檔案 SHA-256，fetcher 驗證快取及授權陳述，不能用浮動 main 或授權不明的來源。
+
+1. 選素材並驗證該版本 README 的 **Assets included … CC0 licensed** 陳述；確認模型是草叢而不是程式碼，外部 `Textures/colormap.png` 一併列入。
+2. 在 `assets_src/manifest.json` 依 `kenney_mod_grass_small` 格式登記 official `KenneyNL/<repo>`、40 字 revision、asset ID、kind=model、files 的 path/dest/SHA-256。
+3. 在 `assets_src/pipeline/props.json` 依 `kenney_sedge` 登記 **新的 id**、model、anchor.size、new.display_name/category/sway、fit、yaw、grade。`build_props.py` 支援 glTF／GLB；沒有模型時失敗，不套用殘留舊 render。
+4. 執行以下完整命令（`GODOT` 指向 Godot 4.7；Linux 的 render 命令用 `python tools/comfyui/gpu_lock.py -- xvfb-run -a python tools/assets/build_props.py --only kenney_sedge`；截圖同樣將 Godot 包在 `xvfb-run -a` 內）：
+
+```sh
+python tools/assets/fetch_assets.py --only kenney_mod_grass_small
+python tools/comfyui/gpu_lock.py -- python tools/assets/build_props.py --only kenney_sedge
+python tools/comfyui/gpu_lock.py -- "$GODOT" --headless --editor --quit
+python tools/assets/check_assets.py
+python -m unittest discover -s tools/assets -p test_fetch_kenney.py
+python tools/comfyui/gpu_lock.py -- "$GODOT" --audio-driver Dummy res://tools/screenshot.tscn -- --scenario=asset_pipeline --out=<絕對截圖目錄>
+SHARDS=8 tools/run_tests_changed.sh <本票提交前的固定基準>
+```
+
+輸出 `art/environment/props/kenney_sedge.png`、`kenney_sedge_n.png`、`data/environment/props/kenney_sedge.tres`，套用既有全域 grade 與 BG-17 匯入政策。尺寸沿 anchor 的高度 18 個世界像素保持，寬度按 silhouette 比例；沒有假冒發光層，低檔關法線、高檔開法線，搖動共用材質。
+
+`asset_pipeline` 在真實第一章市集地圖建立三個 PropNode，拍新增前／低／中／高檔。這是遊戲實景整合預覽；不把驗收用坐標寫進正式 map。正式擺位交 Session 3：`PropLibrary.find(&"kenney_sedge")` 與 `PropNode.setup(data, top_left, flip)`；沿用 `PropData.size` 底邊貼地即可。
+
+需要另外確認新對話自動叫用 Skill。不能在同一個對話重跑命令後聲稱已通過「開新對話」驗收。請使用者開新對話貼原測試提示「幫我換一個新的路燈素材」，檢查 Skill 是否被叫用、是否先選 CC0、是否在保留擺位的情況下加工／匯入／截圖與跑相關測試；本草叢示例證明加工與遊戲接點，沒有證明新對話或另一種路燈來源。

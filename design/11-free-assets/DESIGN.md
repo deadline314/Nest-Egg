@@ -140,3 +140,8 @@
 舞台圖層僅補充來源寬度 metadata，渲染時補償匯入比例；原始家具位置、圖層順序與既有 scale 資料不變。重建舞台資料後，匯入前再執行同一匯入政策，素材檢查會指出缺少的 metadata。
 
 環境渲染路徑目前均為 linear／nearest（沒有 mipmap sampler）；匯入政策因此不配置未使用的 mipmaps。肖像 UI 的 mipmap 取樣不在環境政策內。未來新增環境 mipmap sampler 時須同步政策與同機畫面／記憶體驗收。細長圖縮圖取整若使來源長寬比偏差超過 1%，保留原尺寸。
+
+
+### NE-67：CC0 新素材流程驗證
+
+沿用現有 glTF／GLB→正交顏色／法線→PropData 流程，新增 Kenney 官方 CC0 `grass-small`（固定 source commit 與 SHA-256），遊戲 id `kenney_sedge`。兩組 free-asset-pipeline Skill 同步寫入完整重現命令。正式擺位交 Session 3，資料與真實市集三檔预覽見 NE-67；新對話自動叫用與 NE-66 的全局風格仍待審查，不宣稱相依全數完成。

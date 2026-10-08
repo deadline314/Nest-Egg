@@ -1,0 +1,11 @@
+受影響的測試：AreasSuite,AssaultEnemiesSuite,AudioSuite,Chapter1MapSuite,Chapter2ArtSuite,Chapter2ExpansionSuite,Chapter2Suite,ChapterCutscenesSuite,CombatHudSuite,ContinuitySuite,DeathFlowSuite,DeathReactionSuite,DevMenuSuite,EconomySuite,EnvironmentSuite,HeavyEnemiesSuite,LayerOrderSuite,MapBubblesSuite,MusicSuite,NpcSuite,QuestMapSuite,ReconEnemiesSuite,SceneSanitySuite,SoundStageSuite,StrikeEnemiesSuite,UiScreensSuite,main
+Running 27 groups in 8 processes (logs: /workspace/scratch/NE-67-tests)
+  process 0 (estimated 89 s): main
+  process 1 (estimated 60 s): Chapter2Suite,MusicSuite,AreasSuite
+  process 2 (estimated 60 s): AssaultEnemiesSuite,DeathFlowSuite,LayerOrderSuite
+  process 3 (estimated 60 s): Chapter1MapSuite,AudioSuite,CombatHudSuite,EnvironmentSuite
+  process 4 (estimated 59 s): SoundStageSuite,UiScreensSuite,NpcSuite,SceneSanitySuite,EconomySuite,DevMenuSuite,ChapterCutscenesSuite,Chapter2ArtSuite
+  process 5 (estimated 69 s): HeavyEnemiesSuite,Chapter2ExpansionSuite
+  process 6 (estimated 59 s): ContinuitySuite,DeathReactionSuite,MapBubblesSuite,QuestMapSuite
+  process 7 (estimated 63 s): ReconEnemiesSuite,StrikeEnemiesSuite
+checks: 41732, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 99 s)

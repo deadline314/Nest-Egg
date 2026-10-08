@@ -13,7 +13,36 @@
    "gamma": 1.0
   }
  },
- "props": [],
+ "props": [
+  {
+   "id": "kenney_sedge",
+   "model": "kenney_mod_grass_small",
+   "anchor": {
+    "size": [
+     18,
+     18
+    ]
+   },
+   "fit": "height",
+   "render_width": 384,
+   "yaw": 20,
+   "new": {
+    "display_name": "荒地草叢",
+    "category": "nature",
+    "sway": 0.6
+   },
+   "grade": {
+    "brightness": 0.8,
+    "saturation": 0.65,
+    "contrast": 1.05,
+    "tint": [
+     0.75,
+     0.92,
+     1.05
+    ]
+   }
+  }
+ ],
  "aliases": [
   {
    "id": "tree_pine_front",

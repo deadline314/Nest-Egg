@@ -1,616 +1,637 @@
 [
- {
-  "id": "ph_tex_asphalt_02",
-  "source": "polyhaven",
-  "kind": "texture",
-  "asset": "asphalt_02",
-  "use": "terrain: wet street",
-  "res": "2k"
- },
- {
-  "id": "ph_tex_concrete_floor_worn_001",
-  "source": "polyhaven",
-  "kind": "texture",
-  "asset": "concrete_floor_worn_001",
-  "use": "terrain: concrete",
-  "res": "2k"
- },
- {
-  "id": "ph_tex_rusty_metal_02",
-  "source": "polyhaven",
-  "kind": "texture",
-  "asset": "rusty_metal_02",
-  "use": "terrain: old metal",
-  "res": "2k"
- },
- {
-  "id": "ph_tex_corrugated_iron",
-  "source": "polyhaven",
-  "kind": "texture",
-  "asset": "corrugated_iron",
-  "use": "terrain: container / shutter",
-  "res": "2k"
- },
- {
-  "id": "ph_tex_brick_wall_07",
-  "source": "polyhaven",
-  "kind": "texture",
-  "asset": "brick_wall_07",
-  "use": "terrain/facade: brick",
-  "res": "2k"
- },
- {
-  "id": "ph_tex_metal_plate",
-  "source": "polyhaven",
-  "kind": "texture",
-  "asset": "metal_plate",
-  "use": "terrain: steel plate",
-  "res": "2k"
- },
- {
-  "id": "ph_tex_painted_metal_shutter",
-  "source": "polyhaven",
-  "kind": "texture",
-  "asset": "painted_metal_shutter",
-  "use": "facade: shutter",
-  "res": "2k"
- },
- {
-  "id": "acg_tex_metalplates006",
-  "source": "ambientcg",
-  "kind": "texture",
-  "asset": "MetalPlates006",
-  "use": "terrain: facility panel",
-  "res": "2K"
- },
- {
-  "id": "acg_tex_diamondplate008c",
-  "source": "ambientcg",
-  "kind": "texture",
-  "asset": "DiamondPlate008C",
-  "use": "terrain: grate / floor",
-  "res": "2K"
- },
- {
-  "id": "acg_tex_bricks097",
-  "source": "ambientcg",
-  "kind": "texture",
-  "asset": "Bricks097",
-  "use": "facade: brick",
-  "res": "2K"
- },
- {
-  "id": "acg_tex_corrugatedsteel005",
-  "source": "ambientcg",
-  "kind": "texture",
-  "asset": "CorrugatedSteel005",
-  "use": "terrain: container",
-  "res": "2K"
- },
- {
-  "id": "acg_tex_paintedmetal004",
-  "source": "ambientcg",
-  "kind": "texture",
-  "asset": "PaintedMetal004",
-  "use": "facade: facility wall",
-  "res": "2K"
- },
- {
-  "id": "ph_hdr_rooftop_night",
-  "source": "polyhaven",
-  "kind": "hdri",
-  "asset": "rooftop_night",
-  "use": "sky: rooftop night"
- },
- {
-  "id": "ph_hdr_kloppenheim_02_puresky",
-  "source": "polyhaven",
-  "kind": "hdri",
-  "asset": "kloppenheim_02_puresky",
-  "use": "sky: dusk pure sky"
- },
- {
-  "id": "ph_hdr_qwantani_night_puresky",
-  "source": "polyhaven",
-  "kind": "hdri",
-  "asset": "qwantani_night_puresky",
-  "use": "sky: night pure sky"
- },
- {
-  "id": "ph_hdr_moonless_golf",
-  "source": "polyhaven",
-  "kind": "hdri",
-  "asset": "moonless_golf",
-  "use": "sky: overcast night clouds"
- },
- {
-  "id": "ph_hdr_shanghai_bund",
-  "source": "polyhaven",
-  "kind": "hdri",
-  "asset": "shanghai_bund",
-  "use": "backdrop: city skyline"
- },
- {
-  "id": "ph_hdr_modern_buildings_night",
-  "source": "polyhaven",
-  "kind": "hdri",
-  "asset": "modern_buildings_night",
-  "use": "backdrop: city night"
- },
- {
-  "id": "ph_mod_street_lamp_01",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "street_lamp_01",
-  "use": "prop: street lamp",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_exterior_aircon_unit",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "exterior_aircon_unit",
-  "use": "prop: ac unit",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_modular_fire_escape",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "modular_fire_escape",
-  "use": "prop: fire escape",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_modular_urban_apartments_facade",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "modular_urban_apartments_facade",
-  "use": "facade: apartment",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_modular_factory_facade",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "modular_factory_facade",
-  "use": "facade: factory",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_rollershutter_door",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "rollershutter_door",
-  "use": "facade: shutter door",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_barrel_03",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "barrel_03",
-  "use": "prop: barrel",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_utility_box_01",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "utility_box_01",
-  "use": "prop: utility box",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_fir_tree_01",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "fir_tree_01",
-  "use": "prop: tree",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_dead_tree_trunk_02",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "dead_tree_trunk_02",
-  "use": "prop: dead tree",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_concrete_road_barrier",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "concrete_road_barrier",
-  "use": "prop: barrier",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_metal_trash_can",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "metal_trash_can",
-  "use": "prop: trash can",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_modular_electricity_poles",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "modular_electricity_poles",
-  "use": "prop: power pole",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_security_camera_01",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "security_camera_01",
-  "use": "prop: camera",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_industrial_pipe_lamp",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "industrial_pipe_lamp",
-  "use": "prop: pipe lamp",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_large_iron_gate",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "large_iron_gate",
-  "use": "prop: gate",
-  "res": "1k"
- },
- {
-  "id": "ph_tex_rusty_corrugated_iron",
-  "source": "polyhaven",
-  "kind": "texture",
-  "asset": "rusty_corrugated_iron",
-  "use": "terrain: rust container",
-  "res": "2k"
- },
- {
-  "id": "ph_tex_hangar_concrete_floor",
-  "source": "polyhaven",
-  "kind": "texture",
-  "asset": "hangar_concrete_floor",
-  "use": "terrain: hangar floor",
-  "res": "2k"
- },
- {
-  "id": "ph_tex_rusty_metal_03",
-  "source": "polyhaven",
-  "kind": "texture",
-  "asset": "rusty_metal_03",
-  "use": "terrain: old metal",
-  "res": "2k"
- },
- {
-  "id": "ph_tex_asphalt_05",
-  "source": "polyhaven",
-  "kind": "texture",
-  "asset": "asphalt_05",
-  "use": "terrain: rooftop",
-  "res": "2k"
- },
- {
-  "id": "acg_tex_facade001",
-  "source": "ambientcg",
-  "kind": "texture",
-  "asset": "Facade001",
-  "use": "terrain: glass curtain",
-  "res": "2K"
- },
- {
-  "id": "acg_tex_metalwalkway014",
-  "source": "ambientcg",
-  "kind": "texture",
-  "asset": "MetalWalkway014",
-  "use": "terrain: grate",
-  "res": "2K"
- },
- {
-  "id": "acg_tex_metalplates017a",
-  "source": "ambientcg",
-  "kind": "texture",
-  "asset": "MetalPlates017A",
-  "use": "terrain: facility floor",
-  "res": "2K"
- },
- {
-  "id": "ph_hdr_kloofendal_overcast_puresky",
-  "source": "polyhaven",
-  "kind": "hdri",
-  "asset": "kloofendal_overcast_puresky",
-  "use": "sky: storm clouds"
- },
- {
-  "id": "ph_hdr_kloofendal_misty_morning_puresky",
-  "source": "polyhaven",
-  "kind": "hdri",
-  "asset": "kloofendal_misty_morning_puresky",
-  "use": "sky: misty dawn"
- },
- {
-  "id": "ph_hdr_kloppenheim_07_puresky",
-  "source": "polyhaven",
-  "kind": "hdri",
-  "asset": "kloppenheim_07_puresky",
-  "use": "sky: night"
- },
- {
-  "id": "ph_mod_modular_chainlink_fence",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "modular_chainlink_fence",
-  "use": "prop: fence",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_modular_street_seating",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "modular_street_seating",
-  "use": "prop: bench",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_fire_hydrant",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "fire_hydrant",
-  "use": "prop: hydrant",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_industrial_storage_cart",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "industrial_storage_cart",
-  "use": "prop: cart",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_hand_truck",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "hand_truck",
-  "use": "prop: hand truck",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_caged_hanging_light",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "caged_hanging_light",
-  "use": "prop: hangar light",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_industrial_wall_lamp",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "industrial_wall_lamp",
-  "use": "prop: wall lamp",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_industrial_caged_sconce",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "industrial_caged_sconce",
-  "use": "prop: emergency light",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_portable_searchlight",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "portable_searchlight",
-  "use": "prop: searchlight",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_modular_industrial_pipes_01",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "modular_industrial_pipes_01",
-  "use": "prop: pipes",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_modular_airduct_rectangular_01",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "modular_airduct_rectangular_01",
-  "use": "prop: duct",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_barrel_01",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "Barrel_01",
-  "use": "prop: barrel",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_old_military_crate",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "old_military_crate",
-  "use": "prop: crate",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_metal_tool_chest",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "metal_tool_chest",
-  "use": "prop: chest",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_plastic_crate_01",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "plastic_crate_01",
-  "use": "prop: crate",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_cardboard_box_01",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "cardboard_box_01",
-  "use": "prop: box",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_metal_jerrycan",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "metal_jerrycan",
-  "use": "prop: jerrycan",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_fire_alarm",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "fire_alarm",
-  "use": "prop: alarm",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_boombox",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "boombox",
-  "use": "prop: radio",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_vintage_radio_transceiver",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "vintage_radio_transceiver",
-  "use": "prop: radio",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_television_02",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "television_02",
-  "use": "prop: tv",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_power_box_01",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "power_box_01",
-  "use": "prop: server rack",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_utility_box_02",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "utility_box_02",
-  "use": "prop: utility box",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_pine_tree_01",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "pine_tree_01",
-  "use": "prop: tree",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_island_tree_01",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "island_tree_01",
-  "use": "prop: tree",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_jacaranda_tree",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "jacaranda_tree",
-  "use": "prop: tree",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_tree_stump_01",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "tree_stump_01",
-  "use": "prop: stump",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_quiver_tree_01",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "quiver_tree_01",
-  "use": "prop: tree",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_planter_box_01",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "planter_box_01",
-  "use": "prop: planter",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_modular_electric_cables",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "modular_electric_cables",
-  "use": "prop: cables",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_security_light",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "security_light",
-  "use": "prop: security light",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_street_lamp_02",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "street_lamp_02",
-  "use": "prop: street lamp",
-  "res": "1k"
- },
- {
-  "id": "ph_mod_modular_pipes",
-  "source": "polyhaven",
-  "kind": "model",
-  "asset": "modular_pipes",
-  "use": "prop: pipes",
-  "res": "1k"
- },
- {
-  "id": "ph_hdr_kloofendal_48d_partly_cloudy_puresky",
-  "source": "polyhaven",
-  "kind": "hdri",
-  "asset": "kloofendal_48d_partly_cloudy_puresky",
-  "use": "sky: blue sky with clouds (chapter 2 ending)"
- }
+  {
+    "id": "ph_tex_asphalt_02",
+    "source": "polyhaven",
+    "kind": "texture",
+    "asset": "asphalt_02",
+    "use": "terrain: wet street",
+    "res": "2k"
+  },
+  {
+    "id": "ph_tex_concrete_floor_worn_001",
+    "source": "polyhaven",
+    "kind": "texture",
+    "asset": "concrete_floor_worn_001",
+    "use": "terrain: concrete",
+    "res": "2k"
+  },
+  {
+    "id": "ph_tex_rusty_metal_02",
+    "source": "polyhaven",
+    "kind": "texture",
+    "asset": "rusty_metal_02",
+    "use": "terrain: old metal",
+    "res": "2k"
+  },
+  {
+    "id": "ph_tex_corrugated_iron",
+    "source": "polyhaven",
+    "kind": "texture",
+    "asset": "corrugated_iron",
+    "use": "terrain: container / shutter",
+    "res": "2k"
+  },
+  {
+    "id": "ph_tex_brick_wall_07",
+    "source": "polyhaven",
+    "kind": "texture",
+    "asset": "brick_wall_07",
+    "use": "terrain/facade: brick",
+    "res": "2k"
+  },
+  {
+    "id": "ph_tex_metal_plate",
+    "source": "polyhaven",
+    "kind": "texture",
+    "asset": "metal_plate",
+    "use": "terrain: steel plate",
+    "res": "2k"
+  },
+  {
+    "id": "ph_tex_painted_metal_shutter",
+    "source": "polyhaven",
+    "kind": "texture",
+    "asset": "painted_metal_shutter",
+    "use": "facade: shutter",
+    "res": "2k"
+  },
+  {
+    "id": "acg_tex_metalplates006",
+    "source": "ambientcg",
+    "kind": "texture",
+    "asset": "MetalPlates006",
+    "use": "terrain: facility panel",
+    "res": "2K"
+  },
+  {
+    "id": "acg_tex_diamondplate008c",
+    "source": "ambientcg",
+    "kind": "texture",
+    "asset": "DiamondPlate008C",
+    "use": "terrain: grate / floor",
+    "res": "2K"
+  },
+  {
+    "id": "acg_tex_bricks097",
+    "source": "ambientcg",
+    "kind": "texture",
+    "asset": "Bricks097",
+    "use": "facade: brick",
+    "res": "2K"
+  },
+  {
+    "id": "acg_tex_corrugatedsteel005",
+    "source": "ambientcg",
+    "kind": "texture",
+    "asset": "CorrugatedSteel005",
+    "use": "terrain: container",
+    "res": "2K"
+  },
+  {
+    "id": "acg_tex_paintedmetal004",
+    "source": "ambientcg",
+    "kind": "texture",
+    "asset": "PaintedMetal004",
+    "use": "facade: facility wall",
+    "res": "2K"
+  },
+  {
+    "id": "ph_hdr_rooftop_night",
+    "source": "polyhaven",
+    "kind": "hdri",
+    "asset": "rooftop_night",
+    "use": "sky: rooftop night"
+  },
+  {
+    "id": "ph_hdr_kloppenheim_02_puresky",
+    "source": "polyhaven",
+    "kind": "hdri",
+    "asset": "kloppenheim_02_puresky",
+    "use": "sky: dusk pure sky"
+  },
+  {
+    "id": "ph_hdr_qwantani_night_puresky",
+    "source": "polyhaven",
+    "kind": "hdri",
+    "asset": "qwantani_night_puresky",
+    "use": "sky: night pure sky"
+  },
+  {
+    "id": "ph_hdr_moonless_golf",
+    "source": "polyhaven",
+    "kind": "hdri",
+    "asset": "moonless_golf",
+    "use": "sky: overcast night clouds"
+  },
+  {
+    "id": "ph_hdr_shanghai_bund",
+    "source": "polyhaven",
+    "kind": "hdri",
+    "asset": "shanghai_bund",
+    "use": "backdrop: city skyline"
+  },
+  {
+    "id": "ph_hdr_modern_buildings_night",
+    "source": "polyhaven",
+    "kind": "hdri",
+    "asset": "modern_buildings_night",
+    "use": "backdrop: city night"
+  },
+  {
+    "id": "ph_mod_street_lamp_01",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "street_lamp_01",
+    "use": "prop: street lamp",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_exterior_aircon_unit",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "exterior_aircon_unit",
+    "use": "prop: ac unit",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_modular_fire_escape",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "modular_fire_escape",
+    "use": "prop: fire escape",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_modular_urban_apartments_facade",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "modular_urban_apartments_facade",
+    "use": "facade: apartment",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_modular_factory_facade",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "modular_factory_facade",
+    "use": "facade: factory",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_rollershutter_door",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "rollershutter_door",
+    "use": "facade: shutter door",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_barrel_03",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "barrel_03",
+    "use": "prop: barrel",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_utility_box_01",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "utility_box_01",
+    "use": "prop: utility box",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_fir_tree_01",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "fir_tree_01",
+    "use": "prop: tree",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_dead_tree_trunk_02",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "dead_tree_trunk_02",
+    "use": "prop: dead tree",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_concrete_road_barrier",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "concrete_road_barrier",
+    "use": "prop: barrier",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_metal_trash_can",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "metal_trash_can",
+    "use": "prop: trash can",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_modular_electricity_poles",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "modular_electricity_poles",
+    "use": "prop: power pole",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_security_camera_01",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "security_camera_01",
+    "use": "prop: camera",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_industrial_pipe_lamp",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "industrial_pipe_lamp",
+    "use": "prop: pipe lamp",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_large_iron_gate",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "large_iron_gate",
+    "use": "prop: gate",
+    "res": "1k"
+  },
+  {
+    "id": "ph_tex_rusty_corrugated_iron",
+    "source": "polyhaven",
+    "kind": "texture",
+    "asset": "rusty_corrugated_iron",
+    "use": "terrain: rust container",
+    "res": "2k"
+  },
+  {
+    "id": "ph_tex_hangar_concrete_floor",
+    "source": "polyhaven",
+    "kind": "texture",
+    "asset": "hangar_concrete_floor",
+    "use": "terrain: hangar floor",
+    "res": "2k"
+  },
+  {
+    "id": "ph_tex_rusty_metal_03",
+    "source": "polyhaven",
+    "kind": "texture",
+    "asset": "rusty_metal_03",
+    "use": "terrain: old metal",
+    "res": "2k"
+  },
+  {
+    "id": "ph_tex_asphalt_05",
+    "source": "polyhaven",
+    "kind": "texture",
+    "asset": "asphalt_05",
+    "use": "terrain: rooftop",
+    "res": "2k"
+  },
+  {
+    "id": "acg_tex_facade001",
+    "source": "ambientcg",
+    "kind": "texture",
+    "asset": "Facade001",
+    "use": "terrain: glass curtain",
+    "res": "2K"
+  },
+  {
+    "id": "acg_tex_metalwalkway014",
+    "source": "ambientcg",
+    "kind": "texture",
+    "asset": "MetalWalkway014",
+    "use": "terrain: grate",
+    "res": "2K"
+  },
+  {
+    "id": "acg_tex_metalplates017a",
+    "source": "ambientcg",
+    "kind": "texture",
+    "asset": "MetalPlates017A",
+    "use": "terrain: facility floor",
+    "res": "2K"
+  },
+  {
+    "id": "ph_hdr_kloofendal_overcast_puresky",
+    "source": "polyhaven",
+    "kind": "hdri",
+    "asset": "kloofendal_overcast_puresky",
+    "use": "sky: storm clouds"
+  },
+  {
+    "id": "ph_hdr_kloofendal_misty_morning_puresky",
+    "source": "polyhaven",
+    "kind": "hdri",
+    "asset": "kloofendal_misty_morning_puresky",
+    "use": "sky: misty dawn"
+  },
+  {
+    "id": "ph_hdr_kloppenheim_07_puresky",
+    "source": "polyhaven",
+    "kind": "hdri",
+    "asset": "kloppenheim_07_puresky",
+    "use": "sky: night"
+  },
+  {
+    "id": "ph_mod_modular_chainlink_fence",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "modular_chainlink_fence",
+    "use": "prop: fence",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_modular_street_seating",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "modular_street_seating",
+    "use": "prop: bench",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_fire_hydrant",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "fire_hydrant",
+    "use": "prop: hydrant",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_industrial_storage_cart",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "industrial_storage_cart",
+    "use": "prop: cart",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_hand_truck",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "hand_truck",
+    "use": "prop: hand truck",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_caged_hanging_light",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "caged_hanging_light",
+    "use": "prop: hangar light",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_industrial_wall_lamp",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "industrial_wall_lamp",
+    "use": "prop: wall lamp",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_industrial_caged_sconce",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "industrial_caged_sconce",
+    "use": "prop: emergency light",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_portable_searchlight",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "portable_searchlight",
+    "use": "prop: searchlight",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_modular_industrial_pipes_01",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "modular_industrial_pipes_01",
+    "use": "prop: pipes",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_modular_airduct_rectangular_01",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "modular_airduct_rectangular_01",
+    "use": "prop: duct",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_barrel_01",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "Barrel_01",
+    "use": "prop: barrel",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_old_military_crate",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "old_military_crate",
+    "use": "prop: crate",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_metal_tool_chest",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "metal_tool_chest",
+    "use": "prop: chest",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_plastic_crate_01",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "plastic_crate_01",
+    "use": "prop: crate",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_cardboard_box_01",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "cardboard_box_01",
+    "use": "prop: box",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_metal_jerrycan",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "metal_jerrycan",
+    "use": "prop: jerrycan",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_fire_alarm",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "fire_alarm",
+    "use": "prop: alarm",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_boombox",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "boombox",
+    "use": "prop: radio",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_vintage_radio_transceiver",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "vintage_radio_transceiver",
+    "use": "prop: radio",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_television_02",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "television_02",
+    "use": "prop: tv",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_power_box_01",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "power_box_01",
+    "use": "prop: server rack",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_utility_box_02",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "utility_box_02",
+    "use": "prop: utility box",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_pine_tree_01",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "pine_tree_01",
+    "use": "prop: tree",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_island_tree_01",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "island_tree_01",
+    "use": "prop: tree",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_jacaranda_tree",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "jacaranda_tree",
+    "use": "prop: tree",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_tree_stump_01",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "tree_stump_01",
+    "use": "prop: stump",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_quiver_tree_01",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "quiver_tree_01",
+    "use": "prop: tree",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_planter_box_01",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "planter_box_01",
+    "use": "prop: planter",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_modular_electric_cables",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "modular_electric_cables",
+    "use": "prop: cables",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_security_light",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "security_light",
+    "use": "prop: security light",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_street_lamp_02",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "street_lamp_02",
+    "use": "prop: street lamp",
+    "res": "1k"
+  },
+  {
+    "id": "ph_mod_modular_pipes",
+    "source": "polyhaven",
+    "kind": "model",
+    "asset": "modular_pipes",
+    "use": "prop: pipes",
+    "res": "1k"
+  },
+  {
+    "id": "ph_hdr_kloofendal_48d_partly_cloudy_puresky",
+    "source": "polyhaven",
+    "kind": "hdri",
+    "asset": "kloofendal_48d_partly_cloudy_puresky",
+    "use": "sky: blue sky with clouds (chapter 2 ending)"
+  },
+  {
+    "id": "kenney_mod_grass_small",
+    "source": "kenney",
+    "kind": "model",
+    "asset": "grass-small",
+    "repo": "KenneyNL/Starter-Kit-FPS",
+    "revision": "185fd2326d74a5cf858cffc616f87cf9696f9cc0",
+    "files": [
+      {
+        "path": "models/grass-small.glb",
+        "dest": "grass-small.glb",
+        "sha256": "8dfe00761fa833daab3192148b9b3d573f2a10aa2eff2c01a8a386dd304e7fda"
+      },
+      {
+        "path": "models/Textures/colormap.png",
+        "dest": "Textures/colormap.png",
+        "sha256": "a20683dde0ed575bf6242d68934743ccf954b28f1fc3af9ad781c94b08188f8e"
+      }
+    ],
+    "use": "冷色荒地草叢；NE-67 免費素材新增示例"
+  }
 ]

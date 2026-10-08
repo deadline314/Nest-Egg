@@ -1,0 +1,12 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+Vulkan 1.4.305 - Forward+ - Using Device #0: Unknown - llvmpipe (LLVM 19.1.7, 256 bits)
+
+saved /workspace/Nest-Egg-session5/pm/Nest-Egg/images/NE-67-session5/asset_before.png (OK)
+saved /workspace/Nest-Egg-session5/pm/Nest-Egg/images/NE-67-session5/asset_after_low.png (OK)
+saved /workspace/Nest-Egg-session5/pm/Nest-Egg/images/NE-67-session5/asset_after_medium.png (OK)
+saved /workspace/Nest-Egg-session5/pm/Nest-Egg/images/NE-67-session5/asset_after_high.png (OK)
+ASSET_IN_GAME id=kenney_sedge logical=(22.7, 18.0) imported=(91, 72) mipmaps=false bytes=26208 instances=3
+WARNING: 20 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2535)
+ERROR: 3 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
