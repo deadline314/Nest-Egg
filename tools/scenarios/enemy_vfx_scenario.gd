@@ -9,6 +9,14 @@ var _times: Array[float] = [0.1]
 
 
 func run() -> void:
+	var original_quality := Settings.get_light_quality()
+	var original_scale := Engine.time_scale
+	var review_scale := 1.0
+	var lighting := "transfer"
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--lighting="): lighting = arg.trim_prefix("--lighting=")
+		if arg.begins_with("--quality="): Settings.set_light_quality({"low": 0, "medium": 1, "high": 2}.get(arg.trim_prefix("--quality="), original_quality))
+		if arg.begins_with("--slow="): review_scale = clampf(float(arg.trim_prefix("--slow=")), 0.1, 1.0)
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--enemies="):
 			_enemies = arg.trim_prefix("--enemies=").split(",", false)
@@ -18,7 +26,8 @@ func run() -> void:
 			_times.clear()
 			for part in arg.trim_prefix("--times=").split(",", false):
 				_times.append(float(part))
-	await open_arena("res://data/lighting/transfer.tres", 6.0)
+	await open_arena("res://data/lighting/%s.tres" % lighting, 6.0)
+	Engine.time_scale = review_scale
 	player.global_position = Vector2(4 * 16.0, FLOOR_Y)
 	var lamp := LightKit.create_point_light(Color(0.75, 0.85, 1.0), 220.0, 0.55, false)  # 冷光，讓身體看得到但特效的暖色仍然突出
 	lamp.global_position = Vector2(11.0 * 16.0, FLOOR_Y - 70.0)
@@ -39,4 +48,6 @@ func run() -> void:
 			elapsed = time
 			capture("%s_%s_death_%03d" % [_tag, id, int(time * 100.0)])
 		await wait(1.2)
+	Engine.time_scale = original_scale
+	Settings.set_light_quality(original_quality)
 	await finish()

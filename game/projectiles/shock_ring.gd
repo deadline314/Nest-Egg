@@ -5,13 +5,19 @@ extends Sprite2D
 
 const SHADER := preload("res://art/shaders/shock_ring.gdshader")
 
+static var _surface: ImageTexture
+
 var _tween: Tween
 var _mat: ShaderMaterial
 
 
 func _ready() -> void:
-	texture = PlaceholderTexture2D.new()
-	(texture as PlaceholderTexture2D).size = Vector2(2, 2)
+	# PlaceholderTexture2D produces partial UVs in Forward+; keep one real surface for every pooled ring.
+	if _surface == null:
+		var image := Image.create(2, 2, false, Image.FORMAT_RGBA8)
+		image.fill(Color.WHITE)
+		_surface = ImageTexture.create_from_image(image)
+	texture = _surface
 	_mat = ShaderMaterial.new()
 	_mat.shader = SHADER
 	material = _mat

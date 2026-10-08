@@ -1,0 +1,47 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+Vulkan 1.4.305 - Forward+ - Using Device #0: Unknown - llvmpipe (LLVM 19.1.7, 256 bits)
+
+saved /workspace/Nest-Egg-session5/pm/Nest-Egg/images/NE-95-session5-rifle/light_audit_0_before.png (OK)
+saved /workspace/Nest-Egg-session5/pm/Nest-Egg/images/NE-95-session5-rifle/light_audit_1_during.png (OK)
+saved /workspace/Nest-Egg-session5/pm/Nest-Egg/images/NE-95-session5-rifle/light_audit_2_during.png (OK)
+saved /workspace/Nest-Egg-session5/pm/Nest-Egg/images/NE-95-session5-rifle/light_audit_3_during.png (OK)
+AUDIT capture=true seed=95 time_scale=1.0
+== frame time without vsync (ms): avg 73.36  median 68.98  p95 93.74  p99 190.50  max 214.74  (137 frames)
+== frames over 30 ms: 137  0.1s: 63 ms, 0.1s: 66 ms, 0.2s: 72 ms, 0.3s: 68 ms, 0.3s: 64 ms, 0.4s: 65 ms, 0.5s: 66 ms, 0.5s: 63 ms, 0.6s: 63 ms, 0.7s: 62 ms, 0.7s: 63 ms, 0.8s: 62 ms
+== light_audit level=level_01 tile=115.0 lighting=level-zones quality=2 weapon=rifle enemies=10 samples=19 clock=unscaled_monotonic_wall
+  fps                min    12.00  avg    13.68  max    16.00
+  process_ms         min    54.59  avg   101.24  max   163.31
+  physics_ms         min     5.23  avg     7.82  max    19.03
+  draw_calls         min   616.00  avg   626.79  max   635.00
+  objects_in_frame   min  1128.00  avg  1155.42  max  1184.00
+  nodes              min  2024.00  avg  2026.11  max  2028.00
+  lights_all         min    95.00  avg    95.00  max    95.00
+  lights_on          min    14.00  avg    15.26  max    16.00
+  lights_managed     min    83.00  avg    83.00  max    83.00
+  lights_shadow      min     5.00  avg     5.00  max     5.00
+  particles_alive    min    16.00  avg    38.21  max    59.00
+  texture_mem_mb     min   230.42  avg   230.42  max   230.44
+-- by top-level child of the level (visible CanvasItems below it)
+  World                         1303
+  @CanvasLayer@1409               49
+== census: visible CanvasItems 1389 (distinct materials 37)
+  Sprite2D                     314  (near the camera: 148)
+  Bone2D                       232  (near the camera: 179)
+  RigPartMesh                  148  (near the camera: 124)
+  Node2D                       139  (near the camera: 15)
+  CollisionShape2D             139  (near the camera: 55)
+  PropNode                      85  (near the camera: 8)
+  WorldPrompt                   44  (near the camera: 5)
+  LightOccluder2D               30  (near the camera: 1)
+  Lamp                          27  (near the camera: 3)
+  PointLight2D                  24  (near the camera: 21)
+  Hurtbox                       23  (near the camera: 21)
+  NeonSign                      17  (near the camera: 3)
+  CharacterRig                  14  (near the camera: 11)
+  Skeleton2D                    14  (near the camera: 11)
+  ContactHitbox                 13  (near the camera: 10)
+  WeaponPickup                  11  (near the camera: 2)
+  CreditPickup                  11  (near the camera: 2)
+  CharacterBody2D               10  (near the camera: 10)
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2535)

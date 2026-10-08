@@ -493,7 +493,8 @@ func explosion(position: Vector2, radius: float, damage: int, team: Combat.Team,
 	blast.color = color
 	blast.position = position
 	_container.add_child.call_deferred(blast)
-	_explosion_visual(position, radius, color)
+	if not _explosion_visual(position, radius, color):
+		return  # keep both damage teams, but emit their visual/audio/flash only once
 	flash_light(position, color, radius * 4.0, 2.2, 0.35)
 	# 整個環境光被閃亮一下：爆炸越大越亮。
 	EventBus.ambient_flash_requested.emit(color.lerp(Palette.WHITE, 0.5), clampf(0.12 + radius / 160.0, 0.2, 0.5), 0.3)
@@ -502,13 +503,13 @@ func explosion(position: Vector2, radius: float, damage: int, team: Combat.Team,
 
 
 ## 爆炸的視覺：核心閃光、火球、煙、火花、餘燼、碎片、衝擊波（半徑越大越誇張）。
-func _explosion_visual(position: Vector2, radius: float, color: Color) -> void:
+func _explosion_visual(position: Vector2, radius: float, color: Color) -> bool:
 	if _glow == null:
-		return
+		return false
 	# 同一處同時間的第二次爆炸（玩家陣營與敵人陣營各炸一次）只畫一次。
 	var now := Time.get_ticks_msec()
 	if now - _last_blast_msec < 60 and position.distance_to(_last_blast_position) < 4.0:
-		return
+		return false
 	_last_blast_msec = now
 	_last_blast_position = position
 	var r := maxf(8.0, radius)
@@ -520,4 +521,4 @@ func _explosion_visual(position: Vector2, radius: float, color: Color) -> void:
 	embers(position, color, 6, r * 1.0, 0.9, r * 0.4)
 	shards(position, color, 5, r * 4.5, 0.9, maxf(5.0, r * 0.16))
 	shock(position, r * 3.2, 0.05, color.lerp(Palette.WHITE, 0.3), 0.55)
-
+	return true

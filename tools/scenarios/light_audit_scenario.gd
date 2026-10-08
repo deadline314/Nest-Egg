@@ -4,8 +4,9 @@ extends ScenarioBase
 ## 每 0.5 秒取樣：每影格處理時間、繪製呼叫、畫面物件數、節點數、場景裡的光源數（全部／啟用中／預算管理／想要陰影）、
 ## 粒子場存活的粒子數，結束時印出每一項的最小、平均、最大值，並在幾個時間點截圖。
 ## 用法：screenshot.tscn -- --out=<資料夾> --scenario=light_audit [--lighting=transfer] [--weapon=rifle] [--enemies=10] [--seconds=14]
-##        [--level=level_01 --tile=115] [--quality=low|medium|high]（改在真實關卡的某一欄量測，敵人站在玩家前方；不給就用空曠場地）
+##        [--level=level_01 --tile=115] [--quality=low|medium|high][--no-capture]（計時時不寫截圖；改在真實關卡的某一欄量測，敵人站在玩家前方；不給就用空曠場地）
 
+var _no_capture := false
 var _lighting := "transfer"
 var _weapon := "rifle"
 var _enemies := 10
@@ -19,7 +20,9 @@ var _spikes: Array[String] = []
 
 
 func run() -> void:
+	seed(95)
 	for arg in OS.get_cmdline_user_args():
+		if arg == "--no-capture": _no_capture = true
 		if arg.begins_with("--lighting="):
 			_lighting = arg.trim_prefix("--lighting=")
 		elif arg.begins_with("--weapon="):
@@ -51,7 +54,8 @@ func run() -> void:
 		enemy.data.move_speed = 0.0
 		enemy.health.setup(60, 0.0)
 	await wait(0.8)
-	capture("light_audit_0_before")
+	if not _no_capture:
+		capture("light_audit_0_before")
 	# 關掉垂直同步與幀率上限，量到的才是真實的每影格耗時（不然都被 60 FPS 蓋住）。
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	Engine.max_fps = 0
@@ -60,9 +64,12 @@ func run() -> void:
 	var next_sample := 0.0
 	var next_shot := 0.0
 	var shots_captured := 0
+	var last_usec := Time.get_ticks_usec()
 	while elapsed < _seconds:
 		await get_tree().process_frame
-		var dt := get_process_delta_time()
+		var now_usec := Time.get_ticks_usec()
+		var dt := (now_usec - last_usec) / 1000000.0  # unscaled monotonic wall time, including stalls
+		last_usec = now_usec
 		elapsed += dt
 		_frame_ms.append(dt * 1000.0)
 		if dt > 0.03:
@@ -77,9 +84,10 @@ func run() -> void:
 		if elapsed >= next_sample:
 			next_sample = elapsed + 0.5
 			_sample()
-			if shots_captured < 3 and elapsed > 2.0 + shots_captured * 3.0:
+			if not _no_capture and shots_captured < 3 and elapsed > 2.0 + shots_captured * 3.0:
 				capture("light_audit_%d_during" % (shots_captured + 1))
 				shots_captured += 1
+	print("AUDIT capture=%s seed=95 time_scale=%.1f" % [not _no_capture, Engine.time_scale])
 	_report()
 	_census()
 	Settings.set_light_quality(original_quality)
@@ -161,7 +169,7 @@ func _report() -> void:
 		sum_ms += v
 	print("== frame time without vsync (ms): avg %.2f  median %.2f  p95 %.2f  p99 %.2f  max %.2f  (%d frames)" % [sum_ms / _frame_ms.size(), _frame_ms[_frame_ms.size() / 2], _frame_ms[int(_frame_ms.size() * 0.95)], _frame_ms[int(_frame_ms.size() * 0.99)], _frame_ms[-1], _frame_ms.size()])
 	print("== frames over 30 ms: %d  %s" % [_spikes.size(), ", ".join(_spikes.slice(0, 12))])
-	print("== light_audit lighting=%s weapon=%s enemies=%d samples=%d" % [_lighting, _weapon, _enemies, (_series["fps"] as Array).size()])
+	print("== light_audit level=%s tile=%.1f lighting=%s quality=%d weapon=%s enemies=%d samples=%d clock=unscaled_monotonic_wall" % [_level_id, _tile, _lighting if _level_id.is_empty() else "level-zones", Settings.get_light_quality(), _weapon, _enemies, (_series["fps"] as Array).size()])
 	for key: String in _series:
 		var values: Array = _series[key]
 		var lo: float = values[0]

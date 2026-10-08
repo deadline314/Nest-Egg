@@ -9,6 +9,8 @@ const SOURCE_DIRS: Array[String] = ["res://game", "res://autoload", "res://core"
 
 
 func run() -> void:
+	await _test_ring_surface()
+	await _test_dual_team_explosion()
 	_test_exposure_budget()
 	_test_source_literals()
 	await _test_projectile_trails()
@@ -246,4 +248,45 @@ func _test_environment() -> void:
 	check(sign_node._restrike_left >= 0.0, "the sign re-strikes after a blink")
 	sign_node.queue_free()
 	await physics_frames(3)
+	await end_level(level)
+
+
+func _test_ring_surface() -> void:
+	var first := ShockRing.new()
+	var second := ShockRing.new()
+	runner.add_child(first)
+	runner.add_child(second)
+	check(first.texture is ImageTexture and first.texture == second.texture, "pooled shock rings share one real UV surface")
+	var image := first.texture.get_image()
+	check(image.get_size() == Vector2i(2, 2) and not image.has_mipmaps(), "shock carrier is a tiny unmipped surface")
+	var texture := first.texture
+	first.play(Vector2(123, 87), 46.0, 0.02, Palette.CYAN, 0.1)
+	check(first.global_position == Vector2(123, 87) and first.get_rect().get_center() == Vector2.ZERO, "shock geometry stays centered on its world contact")
+	first.play(Vector2(50, 70), 64.0, 0.02, Palette.WARNING, 0.1)
+	check(first.texture == texture and first.get_child_count() == 0, "replaying a ring reuses its texture and creates no child nodes")
+	first.queue_free()
+	second.queue_free()
+	await frames(2)
+
+
+func _test_dual_team_explosion() -> void:
+	await open_level(10.0)
+	var enemy := spawn(GRUNT_PATH, 12.0)
+	enemy.data = enemy.data.duplicate()
+	enemy.data.detect_range = 0.0
+	enemy.data.attack_range = 0.0
+	enemy.data.move_speed = 0.0
+	enemy.health.setup(999, 0.0)
+	level.player.health.setup(999, 0.0)
+	await physics_frames(2)
+	var flashes: Array[int] = [0]
+	var on_flash := func(_color: Color, _strength: float, _duration: float) -> void: flashes[0] += 1
+	EventBus.ambient_flash_requested.connect(on_flash)
+	var at := level.player.global_position + Vector2(16, -20)
+	Fx.explosion(at, 64.0, 2, Combat.Team.PLAYER, &"test_barrel_dual")
+	Fx.explosion(at, 64.0, 2, Combat.Team.ENEMY, &"test_barrel_dual")
+	await physics_frames(4)
+	EventBus.ambient_flash_requested.disconnect(on_flash)
+	check(flashes[0] == 1, "dual-team barrel emits one ambient flash")
+	check(level.player.health.current < 999 and enemy.health.current < 999, "deduplicating blast visuals preserves damage to both teams")
 	await end_level(level)

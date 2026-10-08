@@ -1,6 +1,6 @@
 class_name Explosion
 extends Node2D
-## 範圍爆炸：在第一個物理影格查詢範圍內的受擊框並造成傷害，之後只播放視覺效果。
+## 範圍爆炸：在第一個物理影格查詢範圍內的受擊框並造成傷害，視覺效果統一由 Fx 的既有圖集與環池播放。
 ## 請透過 Fx.explosion() 生成。
 
 const DURATION := 0.3
@@ -26,7 +26,6 @@ func _physics_process(delta: float) -> void:
 	if _age >= DURATION:
 		queue_free()
 		return
-	queue_redraw()
 
 
 func _apply_damage() -> void:
@@ -54,13 +53,3 @@ func _apply_damage() -> void:
 		info.bypass_guard = true
 		info.impact = BLAST_IMPACT
 		hurtbox.receive(info)
-
-
-func _ready() -> void:
-	LightKit.mark_emissive(self)
-
-
-func _draw() -> void:
-	var t := clampf(_age / DURATION, 0.0, 1.0)
-	draw_circle(Vector2.ZERO, radius * (0.35 + 0.65 * t), Color(color, 0.55 * (1.0 - t)))
-	draw_arc(Vector2.ZERO, radius * (0.6 + 0.4 * t), 0.0, TAU, 32, Color(Palette.WHITE, 1.0 - t), 2.0)

@@ -1,0 +1,45 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+Vulkan 1.4.305 - Forward+ - Using Device #0: Unknown - llvmpipe (LLVM 19.1.7, 256 bits)
+
+AUDIT capture=false seed=95 time_scale=1.0
+== frame time without vsync (ms): avg 35.83  median 35.45  p95 41.70  p99 47.12  max 108.81  (391 frames)
+== frames over 30 ms: 377  0.0s: 39 ms, 0.1s: 39 ms, 0.1s: 37 ms, 0.2s: 38 ms, 0.2s: 37 ms, 0.2s: 36 ms, 0.3s: 36 ms, 0.3s: 34 ms, 0.3s: 34 ms, 0.4s: 35 ms, 0.4s: 35 ms, 0.4s: 37 ms
+== light_audit level=level_01 tile=115.0 lighting=level-zones quality=1 weapon=rifle enemies=10 samples=27 clock=unscaled_monotonic_wall
+  fps                min    26.00  avg    27.89  max    30.00
+  process_ms         min    29.83  avg    36.78  max    92.58
+  physics_ms         min     5.14  avg     6.94  max    11.99
+  draw_calls         min   572.00  avg   584.59  max   596.00
+  objects_in_frame   min  1062.00  avg  1099.19  max  1140.00
+  nodes              min  2024.00  avg  2026.93  max  2031.00
+  lights_all         min    95.00  avg    95.19  max    96.00
+  lights_on          min    14.00  avg    15.56  max    18.00
+  lights_managed     min    83.00  avg    83.00  max    83.00
+  lights_shadow      min     3.00  avg     3.00  max     3.00
+  particles_alive    min    17.00  avg    36.93  max    62.00
+  texture_mem_mb     min   222.51  avg   222.52  max   222.53
+-- by top-level child of the level (visible CanvasItems below it)
+  World                         1309
+  @CanvasLayer@1409               49
+== census: visible CanvasItems 1395 (distinct materials 37)
+  Sprite2D                     318  (near the camera: 142)
+  Bone2D                       232  (near the camera: 165)
+  RigPartMesh                  150  (near the camera: 114)
+  Node2D                       140  (near the camera: 15)
+  CollisionShape2D             138  (near the camera: 50)
+  PropNode                      85  (near the camera: 8)
+  WorldPrompt                   44  (near the camera: 5)
+  LightOccluder2D               30  (near the camera: 1)
+  Lamp                          27  (near the camera: 3)
+  PointLight2D                  24  (near the camera: 22)
+  Hurtbox                       23  (near the camera: 19)
+  NeonSign                      17  (near the camera: 3)
+  CharacterRig                  14  (near the camera: 10)
+  Skeleton2D                    14  (near the camera: 10)
+  ContactHitbox                 13  (near the camera: 9)
+  WeaponPickup                  11  (near the camera: 2)
+  CharacterBody2D               10  (near the camera: 9)
+  CreditPickup                  10  (near the camera: 1)
+WARNING: 32 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2535)
+ERROR: 9 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
