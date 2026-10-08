@@ -151,3 +151,6 @@ $env:GODOT = '<实际 Godot console 可执行文件>'
 ## 蹲姿需要輪廓驗收（NE-222）
 
 骨架校準與分割時，先把骨盆臀部與近遠側大腿的素材歸屬標清楚，不能把整個臀部複製進兩條會旋轉的腿。逐格接點檢查之後，仍需依 [rig-animation 的臀腿驗收](../rig-animation/references/character-acceptance.md) 檢查全彩輪廓、支撐與完整蹲姿切換。若出現球狀臀部、折角或重複體積，回到分割／支點／權重修正，必要時補局部彎曲變體；沒有洞不能作為交付理由。
+
+
+持槍靜止蹲瞄採合理單膝跪姿，一般蹲與低姿移動分別驗證。前脚、後膝與裝備要按實際材質接地及遮擋檢查；完整起落、換向、換槍、卸槍與瞄準掃描遵循 [rig-animation 持槍跪姿驗收](../rig-animation/references/character-acceptance.md)。
