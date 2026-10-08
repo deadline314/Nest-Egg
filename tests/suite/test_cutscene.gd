@@ -45,10 +45,38 @@ func run() -> void:
 	await _test_story_integration()
 	await _test_overlay_and_layers()
 	await _test_stand_up_returns_to_the_floor()
+	_test_walk_matches_stage_motion()
 	await _test_lock_lifecycle()
 	await _test_gameplay_input_lock()
 	await _test_skip_covered_transition()
 	_test_real_data()
+
+
+func _test_walk_matches_stage_motion() -> void:
+	for skin in ["rin", "old_k"]:
+		for actor_scale in [1.0, 3.8, 4.2]:
+			for direction in [1, -1]:
+				var actor := CutsceneActor.new()
+				runner.add_child(actor)
+				actor.set_process(false)
+				check(actor.setup(&"walk_test", skin, "", actor_scale, ""), "walking actor builds")
+				actor.position = Vector2(575, 304)
+				actor.face(direction)
+				actor.set_pose(&"walk")
+				actor._process(1.0 / 60.0)
+				check(actor._input.velocity.is_zero_approx(), "spawning a walking actor does not create a teleport stride")
+				var expected: float = 94.230769 * direction / actor_scale / actor.rig.body_scale()
+				for frame in 30:
+					actor.position.x += 94.230769 * direction / 60.0
+					actor._process(1.0 / 60.0)
+				check(absf(actor._input.velocity.x - expected) < 0.002, "stage speed and direction reach the leg solver at actor scale")
+				actor._process(1.0 / 60.0)
+				check(actor._input.velocity.is_zero_approx(), "a stopped move stops stepping")
+				actor.set_pose(&"run")
+				actor.position.x += 150.0 * direction * actor_scale * actor.rig.body_scale() / 60.0
+				actor._process(1.0 / 60.0)
+				check(absf(actor._input.velocity.x - 150.0 * direction) < 0.002, "run uses actual translation too")
+				actor.free()
 
 
 ## 坐在桌上、箱子上的演員站起來時，腳要落回舞台的地面線，不能留在座位的高度浮空（NE-214）。

@@ -1,0 +1,33 @@
+{
+  "base": "746f7a55e2db32c080ab055e1da2bf4000dd0921",
+  "note": "Actual CutscenePlayer using the published Rin art. Home scene entrance has a 0.01 second diagnostic fade and a 2 second hold; dialogue omitted. Native 1920x1080, no resizing. Only actor locomotion differs. Actor art quality remains under repair.",
+  "measurements": [
+    {
+      "phase": "before",
+      "input_speed_mean": 70.0,
+      "start_x": 573.429504394531,
+      "end_x": 330.0,
+      "frames": 179,
+      "raw_frames": 60,
+      "recording_fps": 20
+    },
+    {
+      "phase": "after",
+      "input_speed_mean": 21.563104303033526,
+      "start_x": 573.429504394531,
+      "end_x": 330.0,
+      "frames": 179,
+      "raw_frames": 60,
+      "recording_fps": 20
+    }
+  ],
+  "source_hashes": {
+    "data/story/ch1_kasa.json": "6d020b5940b96a08a318687bbd6ab0329576bae8a5b54666d22d929f7b2197b4",
+    "art/characters/rin/character.json": "f882a49ca462090a178f046b8cd35145697662028c4daf98227c55cdc7f33689",
+    "art/motion/rin.json": "f4621c805707da10464ee809005ffed97f72dd3299fd5ae96c0848356d3508d7",
+    "art/characters/rin/parts/head.png": "9283d31547f1481fb85f13fc24efa50d367f27122786396682f1c9612c223174"
+  },
+  "old_k_note": "Original two home moves, 120 to 500 and 500 to 190 in 2.8 seconds each, with diagnostic 0.4 second holds. Actual CutscenePlayer, same published art.",
+  "delivered_actor_sha256": "46633a9f4fb7f0d19123e248e3751b41edc80827fb542905f35b60054ed2185c",
+  "test_logs": "test-logs.zip retains unchanged original log bytes"
+}

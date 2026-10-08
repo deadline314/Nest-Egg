@@ -4,8 +4,6 @@ extends Node2D
 ## 沒有骨架的角色用頭像做剪影，輕微呼吸起伏。座標是舞台座標，原點在腳底。
 
 const POSES: PackedStringArray = ["idle", "walk", "run", "crouch", "aim_up", "block", "dead", "jump", "sit", "lean", "squat", "wave", "listen"]
-const WALK_SPEED := 70.0
-const RUN_SPEED := 150.0
 const BREATH_PERIOD := 3.2
 
 var actor_id: StringName = &""
@@ -24,8 +22,8 @@ var rig: CharacterRig
 var _input := RigInput.new()
 var _portrait: Sprite2D
 var _t := 0.0
-var _move_dir := 0.0
-var _unit_scale := 1.0
+var _last_position := Vector2.ZERO
+var _position_known := false
 var _listen_flag := false
 
 
@@ -37,7 +35,6 @@ func _init() -> void:
 ## kind 是骨架外觀 id；找不到時用 portrait（圖片路徑）做剪影，兩者都沒有回傳 false。
 func setup(id: StringName, kind: String, portrait_path: String, unit_scale: float, weapon: String) -> bool:
 	actor_id = id
-	_unit_scale = unit_scale
 	scale = Vector2.ONE * unit_scale
 	if kind != "" and not RigLibrary.character(kind).is_empty():
 		rig = CharacterRig.new()
@@ -92,24 +89,23 @@ func face(direction: int) -> void:
 		_portrait.flip_h = facing < 0
 
 
-## 移動期間由播放器每影格設定方向（-1、0、1）。
-func set_move_direction(direction: float) -> void:
-	_move_dir = direction
-
-
 func _process(delta: float) -> void:
 	_t += delta
 	if _settling:
 		position.y = move_toward(position.y, ground_y, SETTLE_SPEED * delta)
 		_settling = not is_equal_approx(position.y, ground_y)
 	if rig != null:
-		_apply_pose()
+		# Stage translation and enlarged actors must use the same space as the leg solver.
+		var velocity := (position - _last_position) / maxf(delta * absf(scale.x) * rig.body_scale(), 0.0001) if _position_known else Vector2.ZERO
+		_apply_pose(velocity)
 		rig.animate(delta, _input)
 	elif _portrait != null:
 		_portrait.position.y = -32.0 + sin(_t * TAU / BREATH_PERIOD) * 0.8
+	_last_position = position
+	_position_known = true
 
 
-func _apply_pose() -> void:
+func _apply_pose(velocity: Vector2) -> void:
 	_input.facing = facing
 	_input.aim_dir = Vector2(float(facing), 0.0)
 	_input.velocity = Vector2.ZERO
@@ -129,10 +125,8 @@ func _apply_pose() -> void:
 			_input.waving = true
 		&"listen":
 			_input.listening = true
-		&"walk":
-			_input.velocity = Vector2(WALK_SPEED * _move_dir * facing, 0.0) if _move_dir != 0.0 else Vector2(WALK_SPEED * facing, 0.0)
-		&"run":
-			_input.velocity = Vector2(RUN_SPEED * facing, 0.0)
+		&"walk", &"run":
+			_input.velocity = Vector2(velocity.x, 0.0)
 		&"crouch":
 			_input.crouching = true
 		&"aim_up":
