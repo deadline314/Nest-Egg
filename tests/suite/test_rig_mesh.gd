@@ -11,6 +11,8 @@ const SCALE := 0.1
 
 func run() -> void:
 	_test_synthetic()
+	_test_upward_waist()
+	_test_limb_root()
 	await _test_real_rigs()
 	await _test_part_behaviour()
 
@@ -89,16 +91,66 @@ func _test_synthetic() -> void:
 	(chain["root"] as Node2D).queue_free()
 
 
+## 腰與一般肢體方向相反：胸在髖的上方。兩側重疊點必須同變換，遠離腰的頂點維持原狀。
+func _test_upward_waist() -> void:
+	var chain := _chain()
+	var hip: Bone2D = chain["upper"]
+	var chest: Bone2D = chain["lower"]
+	chest.position = Vector2(0, -10)
+	chest.rest = chest.transform
+	var tex := PlaceholderTexture2D.new()
+	tex.size = TEXTURE_SIZE
+	var pelvis := RigPartMesh.new()
+	pelvis.scale = Vector2.ONE * SCALE
+	pelvis.position.y = -11.0
+	hip.add_child(pelvis)
+	var torso := RigPartMesh.new()
+	torso.scale = Vector2.ONE * SCALE
+	chest.add_child(torso)
+	check(pelvis.setup(tex, TEXTURE_SIZE, PIVOT, hip, chest, true, hip.rest.origin, chest.rest.origin, 3.0, -1), "upward waist pelvis builds")
+	check(torso.setup(tex, TEXTURE_SIZE, Vector2(20, 90), chest, hip, false, chest.rest.origin, hip.rest.origin, 3.0, 1), "upward waist torso builds")
+	for angle in [-0.6, 0.3, 0.9]:
+		chest.rotation = angle
+		pelvis.refresh()
+		torso.refresh()
+		# Compare the same material point; nearest deformed vertices can be different rows after bending.
+		check(_nearest_world(pelvis, Vector2(2, -10), true).distance_to(_nearest_world(torso, Vector2(2, -10), true)) < 0.001, "both waist surfaces meet at %.2f rad" % angle)
+		check(pelvis.deformed_vertices()[-1].is_equal_approx(pelvis.rest_vertices()[-1]) and torso.deformed_vertices()[0].is_equal_approx(torso.rest_vertices()[0]), "waist blending leaves distant torso and pelvis vertices unchanged")
+	chain["root"].queue_free()
+
+
+func _test_limb_root() -> void:
+	var chain := _chain()
+	var hip := Bone2D.new()
+	(chain["root"] as Node2D).add_child(hip)
+	var upper: Bone2D = chain["upper"]
+	upper.reparent(hip, false)
+	upper.position = Vector2(-2, 0)
+	upper.rest = upper.transform
+	var part := _mesh(chain, true)
+	check(part.setup(part.texture, TEXTURE_SIZE, PIVOT, upper, chain["lower"], true, upper.rest.origin, (chain["lower"] as Bone2D).rest.origin, 3.0, 1, hip, 3.0), "a thigh has a parent attachment as well as a knee")
+	for angle in [-1.6, -0.4, 0.8]:
+		upper.rotation = angle
+		part.refresh()
+		var edge: Vector2 = upper.transform * (part.transform * part.deformed_vertices()[2])
+		check(edge.distance_to(Vector2(2, 0)) < 0.001, "the thigh root stays attached to the pelvis at %.2f rad" % angle)
+		check(part.fold_fraction() <= 0.4, "the root attachment stays within the fold limit at %.2f rad" % angle)
+	chain["root"].queue_free()
+
+
 ## mesh 的頂點（轉成骨架空間）離 target 最近的那一個。
-func _nearest_world(mesh: RigPartMesh, target: Vector2) -> Vector2:
+func _nearest_world(mesh: RigPartMesh, target: Vector2, rest_sample := false) -> Vector2:
 	var best := Vector2.ZERO
 	var best_distance := INF
-	var bone := mesh.get_parent() as Node2D
-	for vertex in mesh.deformed_vertices():
+	var bone := mesh.get_parent() as Bone2D
+	var vertices := mesh.deformed_vertices()
+	var rest_vertices := mesh.rest_vertices()
+	for i in vertices.size():
 		# 骨架空間 = 骨頭空間經過骨頭本身的變換
-		var point: Vector2 = (bone.transform * (mesh.transform * vertex))
-		if point.distance_to(target) < best_distance:
-			best_distance = point.distance_to(target)
+		var point: Vector2 = (bone.transform * (mesh.transform * vertices[i]))
+		var reference: Vector2 = bone.rest * (mesh.transform * rest_vertices[i]) if rest_sample else point
+		if reference.distance_to(target) < best_distance:
+			best_distance = reference.distance_to(target)
 			best = point
 	return best
 

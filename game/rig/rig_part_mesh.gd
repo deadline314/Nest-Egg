@@ -26,6 +26,7 @@ var pivot_offset := Vector2.ZERO  ## 對應 Sprite2D 的 offset（－支點，�
 var _self_bone: Bone2D
 var _partner: Bone2D
 var _partner_is_child := true
+var _partner_direction := 1
 var _self_rest := Vector2.ZERO
 var _partner_rest := Vector2.ZERO
 var _axis_x := 0.0
@@ -36,6 +37,13 @@ var _zone_rest := PackedVector2Array()  ## 骨頭 A 空間裡的靜止位置
 var _zone_weight := PackedFloat32Array()
 var _to_local := Transform2D.IDENTITY
 var _last := Transform2D.IDENTITY
+var _root_partner: Bone2D
+var _root_radius := 0.0
+var _root_origin := Vector2.ZERO
+var _root_indices := PackedInt32Array()
+var _root_points := PackedVector2Array()
+var _root_weights := PackedFloat32Array()
+var _last_root := Transform2D.IDENTITY
 var _dirty := true
 var _glow: Polygon2D
 var _deformed := PackedVector2Array()
@@ -56,19 +64,25 @@ static func vertical_span(size: Vector2, pivot: Vector2, node_transform: Transfo
 static func reaches_joint(span: Vector2, joint_y: float, zone: float, partner_is_child: bool) -> bool:
 	if partner_is_child:
 		return span.y >= joint_y - zone * 0.5
-	return span.x <= zone * 0.5
+	return span.x <= joint_y + zone * 0.5
 
 
 ## 建立網格。回傳 false 代表資料不合理（沒有東西可建），呼叫端改用一般的 Sprite2D。
 ## node_transform：零件節點的位置與縮放（已設到節點上）；joint_y：關節離骨頭原點的距離（骨頭 A 空間的 y）；zone：混合半徑（世界像素）。
-func setup(p_texture: Texture2D, size: Vector2, pivot: Vector2, self_bone: Bone2D, partner: Bone2D, partner_is_child: bool, self_rest: Vector2, partner_rest: Vector2, zone: float) -> bool:
+func setup(p_texture: Texture2D, size: Vector2, pivot: Vector2, self_bone: Bone2D, partner: Bone2D, partner_is_child: bool, self_rest: Vector2, partner_rest: Vector2, zone: float, direction := 0, root_partner: Bone2D = null, root_radius := 0.0, root_origin := Vector2.ZERO) -> bool:
 	if p_texture == null or size.x < 2.0 or size.y < 2.0 or zone <= 0.0 or self_bone == null or partner == null:
+		return false
+	if root_partner != null and (root_radius <= 0.0 or self_bone.get_parent() != root_partner):
 		return false
 	texture = p_texture
 	pivot_offset = -pivot
 	_self_bone = self_bone
 	_partner = partner
 	_partner_is_child = partner_is_child
+	_partner_direction = direction if direction != 0 else (1 if partner_is_child else -1)
+	_root_partner = root_partner
+	_root_radius = root_radius
+	_root_origin = root_origin
 	_self_rest = self_rest
 	_partner_rest = partner_rest
 	_axis_x = partner_rest.x if partner_is_child else 0.0
@@ -78,32 +92,51 @@ func setup(p_texture: Texture2D, size: Vector2, pivot: Vector2, self_bone: Bone2
 	# 列：上下緣加上關節附近的幾列（本地貼圖座標的 v，由上到下）。
 	var span := vertical_span(size, pivot, node_transform)
 	var rows: Array[float] = [0.0, size.y]
-	var step := zone / float(ZONE_ROWS)
-	for i in range(-ZONE_ROWS, ZONE_ROWS + 1):
+	# Upward waist bends need fewer rows than the sharply bent knee/elbow.
+	var zone_rows := 2 if _partner_direction != (1 if partner_is_child else -1) else ZONE_ROWS
+	var step := zone / float(zone_rows)
+	for i in range(-zone_rows, zone_rows + 1):
 		var y := joint_y + float(i) * step
 		if y <= span.x + 0.001 or y >= span.y - 0.001:
 			continue
 		rows.append(((y - position.y) / scale.y) + pivot.y)
+	if _root_partner != null:
+		for i in range(0, ZONE_ROWS + 1):
+			var y := root_radius * float(i) / float(ZONE_ROWS)
+			if y > span.x + 0.001 and y < span.y - 0.001:
+				rows.append(((y - position.y) / scale.y) + pivot.y)
 	rows.sort()
 	var uv := PackedVector2Array()
 	_rest_local = PackedVector2Array()
 	_zone_index = PackedInt32Array()
 	_zone_rest = PackedVector2Array()
 	_zone_weight = PackedFloat32Array()
+	_root_indices = PackedInt32Array()
+	_root_points = PackedVector2Array()
+	_root_weights = PackedFloat32Array()
+	var previous_row := -INF
 	for row in rows:
+		if is_equal_approx(row, previous_row):
+			continue
+		previous_row = row
 		for c in COLUMNS:
 			var u := size.x * float(c) / float(COLUMNS - 1)
 			uv.append(Vector2(u, row))
 			var local := Vector2(u, row) - pivot
 			_rest_local.append(local)
 			var in_a: Vector2 = node_transform * local
-			var weight := _weight_at(in_a.y, joint_y, zone, partner_is_child)
+			var weight := _weight_at(in_a.y, joint_y, zone, _partner_direction > 0)
 			if weight > 0.0:
 				_zone_index.append(_rest_local.size() - 1)
 				_zone_rest.append(in_a)
 				_zone_weight.append(weight)
+			if _root_partner != null and in_a.y < _root_radius:
+				var t := clampf(in_a.y / _root_radius, 0.0, 1.0)
+				_root_indices.append(_rest_local.size() - 1)
+				_root_points.append(in_a)
+				_root_weights.append(1.0 - t * t * (3.0 - 2.0 * t))
 	_triangles = PackedInt32Array()
-	for r in rows.size() - 1:
+	for r in (_rest_local.size() / COLUMNS) - 1:
 		for c in COLUMNS - 1:
 			var i0 := r * COLUMNS + c
 			var i1 := i0 + 1
@@ -115,6 +148,7 @@ func setup(p_texture: Texture2D, size: Vector2, pivot: Vector2, self_bone: Bone2
 	polygons = _split_triangles(_triangles)
 	_deformed = _rest_local.duplicate()
 	_last = Transform2D.IDENTITY
+	_last_root = Transform2D.IDENTITY
 	_dirty = false
 	return true
 
@@ -140,11 +174,13 @@ func refresh() -> void:
 	if not visible or _self_bone == null:
 		return
 	var follow := _follow_transform()
-	if not _dirty and _same(follow, _last):
+	var root_follow := _self_bone.transform.affine_inverse() * Transform2D(0.0, _root_origin) if _root_partner != null else Transform2D.IDENTITY
+	if not _dirty and _same(follow, _last) and _same(root_follow, _last_root):
 		return
 	_dirty = false
 	_last = follow
-	_deform(follow)
+	_last_root = root_follow
+	_deform(follow, root_follow)
 	polygon = _deformed
 	if _glow != null:
 		_glow.polygon = _deformed
@@ -156,7 +192,7 @@ func _follow_transform() -> Transform2D:
 	return _self_bone.transform.affine_inverse() * Transform2D(0.0, _self_rest)
 
 
-func _deform(follow: Transform2D) -> void:
+func _deform(follow: Transform2D, root_follow: Transform2D) -> void:
 	deform_count += 1
 	_deformed = _rest_local.duplicate()
 	var narrowest := 1.0
@@ -174,6 +210,21 @@ func _deform(follow: Transform2D) -> void:
 			narrowest = minf(narrowest, length / wanted)
 		_deformed[_zone_index[k]] = _to_local * (moved_axis + moved_offset)
 	_min_width_ratio = narrowest
+	# The root edge follows its rigid parent completely; fade to the limb below it.
+	# Rotate the row width instead of averaging opposing vectors at large hip angles.
+	var last_y := INF
+	var moved_axis := Vector2.ZERO
+	var row_direction := Vector2.RIGHT
+	var angle := root_follow.get_rotation()
+	for k in _root_indices.size():
+		var v := _root_points[k]
+		var w := _root_weights[k]
+		if not is_equal_approx(v.y, last_y):
+			last_y = v.y
+			var axis := Vector2(0.0, v.y)
+			moved_axis = axis.lerp(root_follow * axis, w)
+			row_direction = Vector2.from_angle(angle * w)
+		_deformed[_root_indices[k]] = _to_local * (moved_axis + row_direction * v.x)
 	_folds_stale = true
 
 

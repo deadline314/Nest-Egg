@@ -114,7 +114,7 @@
         "legs"
       ],
       "complete": {
-        "stage": "P",
+        "stage": "U",
         "occluders": [
           "arm",
           "hand",
@@ -123,7 +123,10 @@
           "armor_knee",
           "armor_chest"
         ],
-        "near": 120
+        "near": 180,
+        "trim": 4,
+        "mask_close": 3,
+        "stage_silhouette": true
       }
     }
   },
@@ -141,10 +144,11 @@
         }
       ],
       "y": [
-        471,
-        608
+        451,
+        588
       ],
-      "pivot": "hip"
+      "pivot": "hip",
+      "seam": 45
     },
     "torso": {
       "group": "body",
@@ -160,9 +164,10 @@
       ],
       "y": [
         0,
-        471
+        451
       ],
-      "pivot": "waist"
+      "pivot": "waist",
+      "seam": 45
     },
     "head": {
       "group": "head",
@@ -198,9 +203,10 @@
         }
       ],
       "y": [
-        608,
+        588,
         853
-      ]
+      ],
+      "seam": 45
     },
     "leg_lower": {
       "group": "near_leg",
@@ -224,7 +230,8 @@
       "y": [
         853,
         1075
-      ]
+      ],
+      "seam": 35
     },
     "foot": {
       "group": "near_leg",
@@ -539,6 +546,12 @@
       "from": null,
       "seed": 51,
       "prompt": "Remove all the armor plates completely (the shoulder armor, the forearm guards, the knee pads and the chest plate) and paint the undersuit that was beneath them, in exactly the same art style and colors. Keep everything else exactly unchanged."
+    },
+    {
+      "name": "U",
+      "from": "P",
+      "seed": 18151,
+      "prompt": "Remove the entire near-side arm, including the shoulder, sleeve, forearm, wrist and hand. Paint the complete unobstructed torso, waist, hip and near-side thigh that were hidden behind this arm. Keep the helmet, boots, far-side leg, body proportions, outline, pose, colors and all remaining pixels exactly unchanged. The dark undersuit must connect naturally from waist to hip to knee, with the same clean cel-shaded cloth folds. Do not add limbs, armor, weapons, belts, panels or a rectangular gradient. Strict side view facing right."
     }
   ],
   "carry_over": [
@@ -550,47 +563,112 @@
   "near_leg": {
     "pos": [
       [
-        360,
+        390,
+        610
+      ],
+      [
+        400,
         700
       ],
       [
-        350,
-        800
+        370,
+        850
       ],
       [
         355,
-        900
-      ],
-      [
-        350,
         1000
       ],
       [
-        350,
-        1090
-      ],
-      [
-        420,
-        1170
+        400,
+        1165
       ]
     ],
     "neg": [
       [
-        480,
+        505,
+        850
+      ],
+      [
+        485,
         1000
       ],
       [
-        560,
+        555,
         1130
-      ],
-      [
-        520,
-        880
       ]
     ],
     "threshold": 0.3,
     "close": 14,
     "fill": [],
-    "cover_limbs": false
+    "cover_limbs": false,
+    "stage": "U",
+    "stage_until": "hip",
+    "lower_outline": [
+      [
+        280,
+        550
+      ],
+      [
+        455,
+        550
+      ],
+      [
+        485,
+        625
+      ],
+      [
+        472,
+        715
+      ],
+      [
+        442,
+        800
+      ],
+      [
+        445,
+        870
+      ],
+      [
+        405,
+        950
+      ],
+      [
+        400,
+        1010
+      ],
+      [
+        425,
+        1080
+      ],
+      [
+        470,
+        1125
+      ],
+      [
+        510,
+        1180
+      ],
+      [
+        520,
+        1240
+      ],
+      [
+        250,
+        1240
+      ],
+      [
+        250,
+        800
+      ],
+      [
+        300,
+        700
+      ],
+      [
+        285,
+        625
+      ]
+    ],
+    "root_overlap": 45
   }
 }

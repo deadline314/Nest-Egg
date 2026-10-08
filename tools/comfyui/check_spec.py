@@ -7,6 +7,7 @@ Exit code 1 when there is at least one error; warnings never fail.
 """
 import argparse
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -52,6 +53,12 @@ def check(recipe: dict, spec: dict, need_joints: bool) -> tuple[list[str], list[
         if name not in joints:
             err(where, f"unknown joint '{name}' (known: {known_joints})")
 
+    def polygon(where: str, points) -> None:
+        if not isinstance(points, list) or len(points) < 3 or any(
+            not isinstance(pt, list) or len(pt) != 2 or not all(type(v) in (int, float) and math.isfinite(v) for v in pt) for pt in points
+        ):
+            err(where, "needs at least three finite [x, y] points on the original image")
+
     bone_names: list[str] = []
     for i, b in enumerate(spec["bones"]):
         where = f"spec.bones[{i}] ({b.get('name', '?')})"
@@ -90,6 +97,8 @@ def check(recipe: dict, spec: dict, need_joints: bool) -> tuple[list[str], list[
         where = f"spec.groups.{gname}"
         if not g.get("sam"):
             err(f"{where}.sam", "needs at least one SAM text prompt")
+        if "outline" in g:
+            polygon(f"{where}.outline", g["outline"])
         c = g.get("complete")
         if c:
             for o in c.get("occluders", []):
@@ -97,8 +106,22 @@ def check(recipe: dict, spec: dict, need_joints: bool) -> tuple[list[str], list[
                     err(f"{where}.complete.occluders", f"unknown group '{o}'")
             if "stage" in c and c["stage"] not in stages:
                 err(f"{where}.complete.stage", f"unknown stage '{c['stage']}' (stages: {', '.join(sorted(stages)) or 'none'})")
+            if "stage_silhouette" in c and not isinstance(c["stage_silhouette"], bool):
+                err(f"{where}.complete.stage_silhouette", "must be a boolean")
     nl_cfg = spec.get("near_leg")
     if nl_cfg is not None:
+        if "stage" in nl_cfg and nl_cfg["stage"] not in stages:
+            err("spec.near_leg.stage", f"unknown stage '{nl_cfg['stage']}'")
+        if "stage_until" in nl_cfg:
+            joint("spec.near_leg.stage_until", nl_cfg["stage_until"])
+            if "stage" not in nl_cfg:
+                err("spec.near_leg.stage_until", "requires a stage")
+        if "lower_outline" in nl_cfg:
+            polygon("spec.near_leg.lower_outline", nl_cfg["lower_outline"])
+            if "stage_until" not in nl_cfg:
+                err("spec.near_leg.lower_outline", "requires stage_until")
+        if "root_overlap" in nl_cfg and (type(nl_cfg["root_overlap"]) is not int or nl_cfg["root_overlap"] < 0):
+            err("spec.near_leg.root_overlap", "must be a nonnegative integer (source pixels)")
         if not nl_cfg.get("pos"):
             err("spec.near_leg.pos", "needs at least one [x, y] point on the near leg")
         for key in ("pos", "neg"):
@@ -121,6 +144,8 @@ def check(recipe: dict, spec: dict, need_joints: bool) -> tuple[list[str], list[
             err(f"{where}.group", f"unknown group '{p.get('group')}' (near_leg needs spec.near_leg)")
         if p.get("mode") not in MODES:
             err(f"{where}.mode", f"must be one of {sorted(MODES)}, got '{p.get('mode')}'")
+        if "seam" in p and (type(p["seam"]) is not int or p["seam"] < 0):
+            err(f"{where}.seam", "must be a nonnegative integer (source pixels)")
         for key in ("from", "to"):
             joint(f"{where}.{key}", p.get(key, ""))
         if "pivot" in p:

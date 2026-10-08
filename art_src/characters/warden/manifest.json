@@ -12,5 +12,639 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "normals",
+    "seconds": 7.0,
+    "outputs": [
+      "art\\characters\\warden\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.3,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 7.1,
+    "outputs": [
+      "art\\characters\\warden\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.1,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.5,
+    "outputs": [
+      "art_src\\characters\\warden\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 3.2,
+    "outputs": [
+      "art\\characters\\warden\\character.json",
+      "art\\rigs\\warden.json",
+      "art\\characters\\warden\\parts",
+      "art\\portraits\\warden.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 7.2,
+    "outputs": [
+      "art\\characters\\warden\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.7,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.5,
+    "outputs": [
+      "art_src\\characters\\warden\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.9,
+    "outputs": [
+      "art\\characters\\warden\\character.json",
+      "art\\rigs\\warden.json",
+      "art\\characters\\warden\\parts",
+      "art\\portraits\\warden.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 7.0,
+    "outputs": [
+      "art\\characters\\warden\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.4,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "NE-181 source and split provenance",
+    "stage": {
+      "name": "U",
+      "from": "P",
+      "seed": 18151,
+      "prompt": "Remove the entire near-side arm, including the shoulder, sleeve, forearm, wrist and hand. Paint the complete unobstructed torso, waist, hip and near-side thigh that were hidden behind this arm. Keep the helmet, boots, far-side leg, body proportions, outline, pose, colors and all remaining pixels exactly unchanged. The dark undersuit must connect naturally from waist to hip to knee, with the same clean cel-shaded cloth folds. Do not add limbs, armor, weapons, belts, panels or a rectangular gradient. Strict side view facing right."
+    },
+    "original": "base_rgba.png (unchanged)",
+    "mask_source": "04_stages/U_grey.png above knee; reviewed base_rgba.png outline below knee",
+    "near_leg": {
+      "pos": [
+        [
+          435,
+          530
+        ],
+        [
+          445,
+          630
+        ],
+        [
+          420,
+          710
+        ],
+        [
+          365,
+          825
+        ],
+        [
+          345,
+          930
+        ],
+        [
+          340,
+          1020
+        ],
+        [
+          360,
+          1140
+        ]
+      ],
+      "neg": [
+        [
+          550,
+          650
+        ],
+        [
+          500,
+          790
+        ],
+        [
+          455,
+          965
+        ],
+        [
+          540,
+          1125
+        ]
+      ],
+      "threshold": 0.3,
+      "close": 9,
+      "fill": [],
+      "thigh_x": [
+        300,
+        470
+      ],
+      "cover_limbs": false,
+      "stage": "U",
+      "stage_until": "knee",
+      "lower_outline": [
+        [
+          230,
+          740
+        ],
+        [
+          430,
+          740
+        ],
+        [
+          435,
+          815
+        ],
+        [
+          410,
+          875
+        ],
+        [
+          390,
+          970
+        ],
+        [
+          402,
+          1050
+        ],
+        [
+          440,
+          1100
+        ],
+        [
+          490,
+          1140
+        ],
+        [
+          505,
+          1210
+        ],
+        [
+          230,
+          1210
+        ]
+      ]
+    },
+    "cuts": {
+      "torso": {
+        "group": "body",
+        "from": "waist",
+        "to": "neck",
+        "mode": "upright",
+        "uses": [
+          {
+            "name": "torso",
+            "bone": "chest",
+            "z": 1
+          }
+        ],
+        "y": [
+          0,
+          422
+        ],
+        "pivot": "waist",
+        "seam": 45
+      },
+      "pelvis": {
+        "group": "body",
+        "from": "waist",
+        "to": "hip",
+        "mode": "upright",
+        "uses": [
+          {
+            "name": "pelvis",
+            "bone": "hip",
+            "z": 0
+          }
+        ],
+        "y": [
+          422,
+          549
+        ],
+        "pivot": "hip",
+        "seam": 45
+      },
+      "leg_upper": {
+        "group": "near_leg",
+        "from": "hip",
+        "to": "knee",
+        "mode": "bone",
+        "uses": [
+          {
+            "name": "leg_back_upper",
+            "bone": "leg_back_upper",
+            "z": -5,
+            "tint": 0.62
+          },
+          {
+            "name": "leg_front_upper",
+            "bone": "leg_front_upper",
+            "z": 3
+          }
+        ],
+        "y": [
+          549,
+          791
+        ],
+        "seam": 45
+      },
+      "leg_lower": {
+        "group": "near_leg",
+        "from": "knee",
+        "to": "ankle",
+        "mode": "bone",
+        "uses": [
+          {
+            "name": "leg_back_lower",
+            "bone": "leg_back_lower",
+            "z": -5,
+            "tint": 0.62
+          },
+          {
+            "name": "leg_front_lower",
+            "bone": "leg_front_lower",
+            "z": 3
+          }
+        ],
+        "y": [
+          791,
+          1060
+        ],
+        "seam": 35
+      },
+      "foot": {
+        "group": "near_leg",
+        "from": "ankle",
+        "to": "toe",
+        "mode": "upright",
+        "uses": [
+          {
+            "name": "foot_back",
+            "bone": "foot_back",
+            "z": -5,
+            "tint": 0.65
+          },
+          {
+            "name": "foot_front",
+            "bone": "foot_front",
+            "z": 3
+          }
+        ],
+        "pivot": "ankle",
+        "y": [
+          1060,
+          4000
+        ]
+      }
+    }
+  },
+  {
+    "step": "refine",
+    "seconds": 2.5,
+    "outputs": [
+      "art_src\\characters\\warden\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.9,
+    "outputs": [
+      "art\\characters\\warden\\character.json",
+      "art\\rigs\\warden.json",
+      "art\\characters\\warden\\parts",
+      "art\\portraits\\warden.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 7.1,
+    "outputs": [
+      "art\\characters\\warden\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.2,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "NE-181 final mask provenance",
+    "near_leg": {
+      "pos": [
+        [
+          435,
+          530
+        ],
+        [
+          445,
+          630
+        ],
+        [
+          420,
+          710
+        ],
+        [
+          365,
+          825
+        ],
+        [
+          345,
+          930
+        ],
+        [
+          340,
+          1020
+        ],
+        [
+          360,
+          1140
+        ]
+      ],
+      "neg": [
+        [
+          550,
+          650
+        ],
+        [
+          500,
+          790
+        ],
+        [
+          455,
+          965
+        ],
+        [
+          540,
+          1125
+        ]
+      ],
+      "threshold": 0.3,
+      "close": 9,
+      "fill": [],
+      "thigh_x": [
+        300,
+        470
+      ],
+      "cover_limbs": false,
+      "stage": "U",
+      "stage_until": "knee",
+      "lower_outline": [
+        [
+          230,
+          740
+        ],
+        [
+          430,
+          740
+        ],
+        [
+          435,
+          815
+        ],
+        [
+          410,
+          875
+        ],
+        [
+          390,
+          970
+        ],
+        [
+          402,
+          1050
+        ],
+        [
+          440,
+          1100
+        ],
+        [
+          490,
+          1140
+        ],
+        [
+          505,
+          1210
+        ],
+        [
+          230,
+          1210
+        ]
+      ],
+      "root_overlap": 45
+    },
+    "reviewed_groups": {},
+    "reason": "original single boot outline; consistent pelvis/thigh root overlap; near-side knee plate rather than far-side plate"
+  },
+  {
+    "step": "textures",
+    "seconds": 2.9,
+    "outputs": [
+      "art\\characters\\warden\\character.json",
+      "art\\rigs\\warden.json",
+      "art\\characters\\warden\\parts",
+      "art\\portraits\\warden.png"
+    ]
+  },
+  {
+    "step": "textures",
+    "seconds": 2.8,
+    "outputs": [
+      "art\\characters\\warden\\character.json",
+      "art\\rigs\\warden.json",
+      "art\\characters\\warden\\parts",
+      "art\\portraits\\warden.png"
+    ]
+  },
+  {
+    "step": "textures",
+    "seconds": 2.9,
+    "outputs": [
+      "art\\characters\\warden\\character.json",
+      "art\\rigs\\warden.json",
+      "art\\characters\\warden\\parts",
+      "art\\portraits\\warden.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 7.2,
+    "outputs": [
+      "art\\characters\\warden\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.0,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "NE-181-final-joint-validation",
+    "source_design_preserved": true,
+    "stage": "U",
+    "seed": 18151,
+    "coverage": "waist/hip_front/hip_back;8 poses;120 frames;60Hz;both facings;zoom1.0/3.4",
+    "samples": 34560,
+    "failed_samples": 0,
+    "report": "pm/Nest-Egg/images/NE-181-joint-report.json",
+    "seam_source_px": {
+      "torso": 45,
+      "pelvis": 45,
+      "leg_upper": 45,
+      "leg_lower": 35
+    },
+    "near_leg": {
+      "pos": [
+        [
+          435,
+          530
+        ],
+        [
+          445,
+          630
+        ],
+        [
+          420,
+          710
+        ],
+        [
+          365,
+          825
+        ],
+        [
+          345,
+          930
+        ],
+        [
+          340,
+          1020
+        ],
+        [
+          360,
+          1140
+        ]
+      ],
+      "neg": [
+        [
+          550,
+          650
+        ],
+        [
+          500,
+          790
+        ],
+        [
+          455,
+          965
+        ],
+        [
+          540,
+          1125
+        ]
+      ],
+      "threshold": 0.3,
+      "close": 9,
+      "fill": [],
+      "thigh_x": [
+        300,
+        470
+      ],
+      "cover_limbs": false,
+      "stage": "U",
+      "stage_until": "knee",
+      "lower_outline": [
+        [
+          230,
+          740
+        ],
+        [
+          430,
+          740
+        ],
+        [
+          435,
+          815
+        ],
+        [
+          410,
+          875
+        ],
+        [
+          390,
+          970
+        ],
+        [
+          402,
+          1050
+        ],
+        [
+          440,
+          1100
+        ],
+        [
+          490,
+          1140
+        ],
+        [
+          505,
+          1210
+        ],
+        [
+          230,
+          1210
+        ]
+      ],
+      "root_overlap": 45
+    },
+    "armor_knee_outline": null,
+    "notes": "Original visible pixels retained. U fills occluded undersuit only; lower_outline bounds completed alpha but retains original colors below stage_until. Existing original design/pose history retained."
   }
 ]

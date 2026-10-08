@@ -41,5 +41,647 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.4,
+    "outputs": [
+      "art\\characters\\enforcer\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 8.7,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.8,
+    "outputs": [
+      "art\\characters\\enforcer\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.2,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.5,
+    "outputs": [
+      "art_src\\characters\\enforcer\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.5,
+    "outputs": [
+      "art\\characters\\enforcer\\character.json",
+      "art\\rigs\\enforcer.json",
+      "art\\characters\\enforcer\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.9,
+    "outputs": [
+      "art\\characters\\enforcer\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.5,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.5,
+    "outputs": [
+      "art_src\\characters\\enforcer\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.3,
+    "outputs": [
+      "art\\characters\\enforcer\\character.json",
+      "art\\rigs\\enforcer.json",
+      "art\\characters\\enforcer\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.9,
+    "outputs": [
+      "art\\characters\\enforcer\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.4,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "NE-181 source and split provenance",
+    "stage": {
+      "name": "U",
+      "from": "P",
+      "seed": 18151,
+      "prompt": "Remove the entire near-side arm, including the shoulder, sleeve, forearm, wrist and hand. Paint the complete unobstructed torso, waist, hip and near-side thigh that were hidden behind this arm. Keep the helmet, boots, far-side leg, body proportions, outline, pose, colors and all remaining pixels exactly unchanged. The dark undersuit must connect naturally from waist to hip to knee, with the same clean cel-shaded cloth folds. Do not add limbs, armor, weapons, belts, panels or a rectangular gradient. Strict side view facing right."
+    },
+    "original": "base_rgba.png (unchanged)",
+    "mask_source": "04_stages/U_grey.png above knee; reviewed base_rgba.png outline below knee",
+    "near_leg": {
+      "pos": [
+        [
+          390,
+          610
+        ],
+        [
+          400,
+          700
+        ],
+        [
+          370,
+          850
+        ],
+        [
+          355,
+          1000
+        ],
+        [
+          400,
+          1165
+        ]
+      ],
+      "neg": [
+        [
+          505,
+          850
+        ],
+        [
+          485,
+          1000
+        ],
+        [
+          555,
+          1130
+        ]
+      ],
+      "threshold": 0.3,
+      "close": 14,
+      "fill": [],
+      "cover_limbs": false,
+      "stage": "U",
+      "stage_until": "knee",
+      "lower_outline": [
+        [
+          250,
+          800
+        ],
+        [
+          455,
+          800
+        ],
+        [
+          445,
+          870
+        ],
+        [
+          405,
+          950
+        ],
+        [
+          400,
+          1010
+        ],
+        [
+          425,
+          1080
+        ],
+        [
+          470,
+          1125
+        ],
+        [
+          510,
+          1180
+        ],
+        [
+          520,
+          1240
+        ],
+        [
+          250,
+          1240
+        ]
+      ]
+    },
+    "cuts": {
+      "torso": {
+        "group": "body",
+        "from": "waist",
+        "to": "neck",
+        "mode": "upright",
+        "uses": [
+          {
+            "name": "torso",
+            "bone": "chest",
+            "z": 1
+          }
+        ],
+        "y": [
+          0,
+          451
+        ],
+        "pivot": "waist",
+        "seam": 45
+      },
+      "pelvis": {
+        "group": "body",
+        "from": "waist",
+        "to": "hip",
+        "mode": "upright",
+        "uses": [
+          {
+            "name": "pelvis",
+            "bone": "hip",
+            "z": 0
+          }
+        ],
+        "y": [
+          451,
+          588
+        ],
+        "pivot": "hip",
+        "seam": 45
+      },
+      "leg_upper": {
+        "group": "near_leg",
+        "from": "hip",
+        "to": "knee",
+        "mode": "bone",
+        "uses": [
+          {
+            "name": "leg_back_upper",
+            "bone": "leg_back_upper",
+            "z": -5,
+            "tint": 1.05
+          },
+          {
+            "name": "leg_front_upper",
+            "bone": "leg_front_upper",
+            "z": 3,
+            "tint": 1.4
+          }
+        ],
+        "y": [
+          588,
+          853
+        ],
+        "seam": 45
+      },
+      "leg_lower": {
+        "group": "near_leg",
+        "from": "knee",
+        "to": "ankle",
+        "mode": "bone",
+        "uses": [
+          {
+            "name": "leg_back_lower",
+            "bone": "leg_back_lower",
+            "z": -5,
+            "tint": 1.27
+          },
+          {
+            "name": "leg_front_lower",
+            "bone": "leg_front_lower",
+            "z": 3,
+            "tint": 1.7
+          }
+        ],
+        "y": [
+          853,
+          1075
+        ],
+        "seam": 35
+      },
+      "foot": {
+        "group": "near_leg",
+        "from": "ankle",
+        "to": "toe",
+        "mode": "upright",
+        "uses": [
+          {
+            "name": "foot_back",
+            "bone": "foot_back",
+            "z": -5,
+            "tint": 1.26
+          },
+          {
+            "name": "foot_front",
+            "bone": "foot_front",
+            "z": 3,
+            "tint": 1.68
+          }
+        ],
+        "pivot": "ankle",
+        "y": [
+          1075,
+          4000
+        ]
+      }
+    }
+  },
+  {
+    "step": "refine",
+    "seconds": 2.4,
+    "outputs": [
+      "art_src\\characters\\enforcer\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.2,
+    "outputs": [
+      "art\\characters\\enforcer\\character.json",
+      "art\\rigs\\enforcer.json",
+      "art\\characters\\enforcer\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.8,
+    "outputs": [
+      "art\\characters\\enforcer\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.2,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "NE-181 final mask provenance",
+    "near_leg": {
+      "pos": [
+        [
+          390,
+          610
+        ],
+        [
+          400,
+          700
+        ],
+        [
+          370,
+          850
+        ],
+        [
+          355,
+          1000
+        ],
+        [
+          400,
+          1165
+        ]
+      ],
+      "neg": [
+        [
+          505,
+          850
+        ],
+        [
+          485,
+          1000
+        ],
+        [
+          555,
+          1130
+        ]
+      ],
+      "threshold": 0.3,
+      "close": 14,
+      "fill": [],
+      "cover_limbs": false,
+      "stage": "U",
+      "stage_until": "knee",
+      "lower_outline": [
+        [
+          250,
+          800
+        ],
+        [
+          455,
+          800
+        ],
+        [
+          445,
+          870
+        ],
+        [
+          405,
+          950
+        ],
+        [
+          400,
+          1010
+        ],
+        [
+          425,
+          1080
+        ],
+        [
+          470,
+          1125
+        ],
+        [
+          510,
+          1180
+        ],
+        [
+          520,
+          1240
+        ],
+        [
+          250,
+          1240
+        ]
+      ],
+      "root_overlap": 45
+    },
+    "reviewed_groups": {},
+    "reason": "original single boot outline; consistent pelvis/thigh root overlap; near-side knee plate rather than far-side plate"
+  },
+  {
+    "step": "refine",
+    "seconds": 2.4,
+    "outputs": [
+      "art_src\\characters\\enforcer\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.2,
+    "outputs": [
+      "art\\characters\\enforcer\\character.json",
+      "art\\rigs\\enforcer.json",
+      "art\\characters\\enforcer\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.8,
+    "outputs": [
+      "art\\characters\\enforcer\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.1,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "textures",
+    "seconds": 2.1,
+    "outputs": [
+      "art\\characters\\enforcer\\character.json",
+      "art\\rigs\\enforcer.json",
+      "art\\characters\\enforcer\\parts"
+    ]
+  },
+  {
+    "step": "textures",
+    "seconds": 2.1,
+    "outputs": [
+      "art\\characters\\enforcer\\character.json",
+      "art\\rigs\\enforcer.json",
+      "art\\characters\\enforcer\\parts"
+    ]
+  },
+  {
+    "step": "textures",
+    "seconds": 2.2,
+    "outputs": [
+      "art\\characters\\enforcer\\character.json",
+      "art\\rigs\\enforcer.json",
+      "art\\characters\\enforcer\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.8,
+    "outputs": [
+      "art\\characters\\enforcer\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.0,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "NE-181-final-joint-validation",
+    "source_design_preserved": true,
+    "stage": "U",
+    "seed": 18151,
+    "coverage": "waist/hip_front/hip_back;8 poses;120 frames;60Hz;both facings;zoom1.0/3.4",
+    "samples": 34560,
+    "failed_samples": 0,
+    "report": "pm/Nest-Egg/images/NE-181-joint-report.json",
+    "seam_source_px": {
+      "torso": 45,
+      "pelvis": 45,
+      "leg_upper": 45,
+      "leg_lower": 35
+    },
+    "near_leg": {
+      "pos": [
+        [
+          390,
+          610
+        ],
+        [
+          400,
+          700
+        ],
+        [
+          370,
+          850
+        ],
+        [
+          355,
+          1000
+        ],
+        [
+          400,
+          1165
+        ]
+      ],
+      "neg": [
+        [
+          505,
+          850
+        ],
+        [
+          485,
+          1000
+        ],
+        [
+          555,
+          1130
+        ]
+      ],
+      "threshold": 0.3,
+      "close": 14,
+      "fill": [],
+      "cover_limbs": false,
+      "stage": "U",
+      "stage_until": "hip",
+      "lower_outline": [
+        [
+          280,
+          550
+        ],
+        [
+          455,
+          550
+        ],
+        [
+          485,
+          625
+        ],
+        [
+          472,
+          715
+        ],
+        [
+          442,
+          800
+        ],
+        [
+          445,
+          870
+        ],
+        [
+          405,
+          950
+        ],
+        [
+          400,
+          1010
+        ],
+        [
+          425,
+          1080
+        ],
+        [
+          470,
+          1125
+        ],
+        [
+          510,
+          1180
+        ],
+        [
+          520,
+          1240
+        ],
+        [
+          250,
+          1240
+        ],
+        [
+          250,
+          800
+        ],
+        [
+          300,
+          700
+        ],
+        [
+          285,
+          625
+        ]
+      ],
+      "root_overlap": 45
+    },
+    "armor_knee_outline": null,
+    "notes": "Original visible pixels retained. U fills occluded undersuit only; lower_outline bounds completed alpha but retains original colors below stage_until. Existing original design/pose history retained."
   }
 ]

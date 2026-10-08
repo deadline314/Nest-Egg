@@ -41,5 +41,843 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "normals",
+    "seconds": 4.5,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.2,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 4.3,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.4,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.4,
+    "outputs": [
+      "art_src\\characters\\heavy_gunner\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.1,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\character.json",
+      "art\\rigs\\heavy_gunner.json",
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 4.3,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.3,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.4,
+    "outputs": [
+      "art_src\\characters\\heavy_gunner\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 1.9,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\character.json",
+      "art\\rigs\\heavy_gunner.json",
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 4.4,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.1,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "NE-181 source and split provenance",
+    "stage": {
+      "name": "U",
+      "from": "P",
+      "seed": 18151,
+      "prompt": "Remove the entire near-side arm, including the shoulder, sleeve, forearm, wrist and hand. Paint the complete unobstructed torso, waist, hip and near-side thigh that were hidden behind this arm. Keep the helmet, boots, far-side leg, body proportions, outline, pose, colors and all remaining pixels exactly unchanged. The dark undersuit must connect naturally from waist to hip to knee, with the same clean cel-shaded cloth folds. Do not add limbs, armor, weapons, belts, panels or a rectangular gradient. Strict side view facing right."
+    },
+    "original": "base_rgba.png (unchanged)",
+    "mask_source": "04_stages/U_grey.png above knee; reviewed base_rgba.png outline below knee",
+    "near_leg": {
+      "pos": [
+        [
+          420,
+          570
+        ],
+        [
+          430,
+          680
+        ],
+        [
+          395,
+          780
+        ],
+        [
+          355,
+          930
+        ],
+        [
+          360,
+          1020
+        ],
+        [
+          405,
+          1140
+        ]
+      ],
+      "neg": [
+        [
+          535,
+          650
+        ],
+        [
+          490,
+          920
+        ],
+        [
+          470,
+          1010
+        ],
+        [
+          550,
+          1100
+        ]
+      ],
+      "threshold": 0.3,
+      "close": 9,
+      "fill": [],
+      "thigh_x": [
+        300,
+        478
+      ],
+      "cover_limbs": false,
+      "stage": "U",
+      "stage_until": "knee",
+      "lower_outline": [
+        [
+          250,
+          780
+        ],
+        [
+          460,
+          780
+        ],
+        [
+          440,
+          830
+        ],
+        [
+          413,
+          900
+        ],
+        [
+          398,
+          990
+        ],
+        [
+          415,
+          1060
+        ],
+        [
+          440,
+          1100
+        ],
+        [
+          482,
+          1140
+        ],
+        [
+          500,
+          1240
+        ],
+        [
+          250,
+          1240
+        ]
+      ]
+    },
+    "cuts": {
+      "torso": {
+        "group": "body",
+        "from": "waist",
+        "to": "neck",
+        "mode": "upright",
+        "uses": [
+          {
+            "name": "torso",
+            "bone": "chest",
+            "z": 1
+          }
+        ],
+        "y": [
+          0,
+          442
+        ],
+        "pivot": "waist",
+        "seam": 45
+      },
+      "pelvis": {
+        "group": "body",
+        "from": "waist",
+        "to": "hip",
+        "mode": "upright",
+        "uses": [
+          {
+            "name": "pelvis",
+            "bone": "hip",
+            "z": 0
+          }
+        ],
+        "y": [
+          442,
+          578
+        ],
+        "pivot": "hip",
+        "seam": 45
+      },
+      "leg_upper": {
+        "group": "near_leg",
+        "from": "hip",
+        "to": "knee",
+        "mode": "bone",
+        "uses": [
+          {
+            "name": "leg_back_upper",
+            "bone": "leg_back_upper",
+            "z": -5,
+            "tint": 1.5
+          },
+          {
+            "name": "leg_front_upper",
+            "bone": "leg_front_upper",
+            "z": 3,
+            "tint": 1.5
+          }
+        ],
+        "y": [
+          578,
+          838
+        ],
+        "seam": 45
+      },
+      "leg_lower": {
+        "group": "near_leg",
+        "from": "knee",
+        "to": "ankle",
+        "mode": "bone",
+        "uses": [
+          {
+            "name": "leg_back_lower",
+            "bone": "leg_back_lower",
+            "z": -5,
+            "tint": 1.49
+          },
+          {
+            "name": "leg_front_lower",
+            "bone": "leg_front_lower",
+            "z": 3,
+            "tint": 1.5
+          }
+        ],
+        "y": [
+          838,
+          1060
+        ],
+        "seam": 35
+      },
+      "foot": {
+        "group": "near_leg",
+        "from": "ankle",
+        "to": "toe",
+        "mode": "upright",
+        "uses": [
+          {
+            "name": "foot_back",
+            "bone": "foot_back",
+            "z": -5,
+            "tint": 1.44
+          },
+          {
+            "name": "foot_front",
+            "bone": "foot_front",
+            "z": 3,
+            "tint": 1.5
+          }
+        ],
+        "pivot": "ankle",
+        "y": [
+          1060,
+          4000
+        ]
+      }
+    }
+  },
+  {
+    "step": "refine",
+    "seconds": 2.4,
+    "outputs": [
+      "art_src\\characters\\heavy_gunner\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.0,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\character.json",
+      "art\\rigs\\heavy_gunner.json",
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 4.3,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.3,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "NE-181 final mask provenance",
+    "near_leg": {
+      "pos": [
+        [
+          420,
+          570
+        ],
+        [
+          430,
+          680
+        ],
+        [
+          395,
+          780
+        ],
+        [
+          355,
+          930
+        ],
+        [
+          360,
+          1020
+        ],
+        [
+          405,
+          1140
+        ]
+      ],
+      "neg": [
+        [
+          535,
+          650
+        ],
+        [
+          490,
+          920
+        ],
+        [
+          470,
+          1010
+        ],
+        [
+          550,
+          1100
+        ]
+      ],
+      "threshold": 0.3,
+      "close": 9,
+      "fill": [],
+      "thigh_x": [
+        300,
+        478
+      ],
+      "cover_limbs": false,
+      "stage": "U",
+      "stage_until": "knee",
+      "lower_outline": [
+        [
+          250,
+          780
+        ],
+        [
+          460,
+          780
+        ],
+        [
+          440,
+          830
+        ],
+        [
+          413,
+          900
+        ],
+        [
+          398,
+          990
+        ],
+        [
+          415,
+          1060
+        ],
+        [
+          440,
+          1100
+        ],
+        [
+          482,
+          1140
+        ],
+        [
+          500,
+          1240
+        ],
+        [
+          250,
+          1240
+        ]
+      ],
+      "root_overlap": 45
+    },
+    "reviewed_groups": {
+      "armor_knee": [
+        [
+          377,
+          776
+        ],
+        [
+          403,
+          769
+        ],
+        [
+          425,
+          783
+        ],
+        [
+          436,
+          817
+        ],
+        [
+          427,
+          853
+        ],
+        [
+          400,
+          894
+        ],
+        [
+          371,
+          880
+        ],
+        [
+          357,
+          846
+        ],
+        [
+          347,
+          812
+        ],
+        [
+          358,
+          788
+        ]
+      ]
+    },
+    "reason": "original single boot outline; consistent pelvis/thigh root overlap; near-side knee plate rather than far-side plate"
+  },
+  {
+    "step": "refine",
+    "seconds": 2.4,
+    "outputs": [
+      "art_src\\characters\\heavy_gunner\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.4,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\character.json",
+      "art\\rigs\\heavy_gunner.json",
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 4.4,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.3,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "textures",
+    "seconds": 1.9,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\character.json",
+      "art\\rigs\\heavy_gunner.json",
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "textures",
+    "seconds": 1.9,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\character.json",
+      "art\\rigs\\heavy_gunner.json",
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "textures",
+    "seconds": 1.9,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\character.json",
+      "art\\rigs\\heavy_gunner.json",
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "parts",
+    "seconds": 16.3,
+    "outputs": [
+      "art_src\\characters\\heavy_gunner\\06_parts",
+      "art_src\\characters\\heavy_gunner\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.4,
+    "outputs": [
+      "art_src\\characters\\heavy_gunner\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.4,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\character.json",
+      "art\\rigs\\heavy_gunner.json",
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 4.3,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.2,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "parts",
+    "seconds": 2.5,
+    "outputs": [
+      "art_src\\characters\\heavy_gunner\\06_parts",
+      "art_src\\characters\\heavy_gunner\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.4,
+    "outputs": [
+      "art_src\\characters\\heavy_gunner\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.4,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\character.json",
+      "art\\rigs\\heavy_gunner.json",
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 4.3,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.2,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "NE-181-final-joint-validation",
+    "source_design_preserved": true,
+    "stage": "U",
+    "seed": 18151,
+    "coverage": "waist/hip_front/hip_back;8 poses;120 frames;60Hz;both facings;zoom1.0/3.4",
+    "samples": 34560,
+    "failed_samples": 0,
+    "report": "pm/Nest-Egg/images/NE-181-joint-report.json",
+    "seam_source_px": {
+      "torso": 45,
+      "pelvis": 65,
+      "leg_upper": 45,
+      "leg_lower": 35
+    },
+    "near_leg": {
+      "pos": [
+        [
+          420,
+          570
+        ],
+        [
+          430,
+          680
+        ],
+        [
+          395,
+          780
+        ],
+        [
+          355,
+          930
+        ],
+        [
+          360,
+          1020
+        ],
+        [
+          405,
+          1140
+        ]
+      ],
+      "neg": [
+        [
+          535,
+          650
+        ],
+        [
+          490,
+          920
+        ],
+        [
+          470,
+          1010
+        ],
+        [
+          550,
+          1100
+        ]
+      ],
+      "threshold": 0.3,
+      "close": 9,
+      "fill": [],
+      "thigh_x": [
+        300,
+        478
+      ],
+      "cover_limbs": false,
+      "stage": "U",
+      "stage_until": "hip",
+      "lower_outline": [
+        [
+          275,
+          535
+        ],
+        [
+          480,
+          535
+        ],
+        [
+          480,
+          625
+        ],
+        [
+          459,
+          710
+        ],
+        [
+          460,
+          780
+        ],
+        [
+          440,
+          830
+        ],
+        [
+          413,
+          900
+        ],
+        [
+          398,
+          990
+        ],
+        [
+          415,
+          1060
+        ],
+        [
+          440,
+          1100
+        ],
+        [
+          482,
+          1140
+        ],
+        [
+          500,
+          1240
+        ],
+        [
+          250,
+          1240
+        ],
+        [
+          250,
+          875
+        ],
+        [
+          285,
+          775
+        ],
+        [
+          315,
+          680
+        ],
+        [
+          310,
+          580
+        ]
+      ],
+      "root_overlap": 45
+    },
+    "armor_knee_outline": [
+      [
+        377,
+        776
+      ],
+      [
+        403,
+        769
+      ],
+      [
+        425,
+        783
+      ],
+      [
+        436,
+        817
+      ],
+      [
+        427,
+        853
+      ],
+      [
+        400,
+        894
+      ],
+      [
+        371,
+        880
+      ],
+      [
+        357,
+        846
+      ],
+      [
+        347,
+        812
+      ],
+      [
+        358,
+        788
+      ]
+    ],
+    "notes": "Original visible pixels retained. U fills occluded undersuit only; lower_outline bounds completed alpha but retains original colors below stage_until. Existing original design/pose history retained."
   }
 ]

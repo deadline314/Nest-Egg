@@ -114,7 +114,7 @@
         "legs"
       ],
       "complete": {
-        "stage": "P",
+        "stage": "U",
         "occluders": [
           "arm",
           "hand",
@@ -123,7 +123,10 @@
           "armor_knee",
           "armor_chest"
         ],
-        "near": 120
+        "near": 180,
+        "trim": 4,
+        "mask_close": 3,
+        "stage_silhouette": true
       }
     }
   },
@@ -141,10 +144,11 @@
         }
       ],
       "y": [
-        442,
-        569
+        422,
+        549
       ],
-      "pivot": "hip"
+      "pivot": "hip",
+      "seam": 45
     },
     "torso": {
       "group": "body",
@@ -160,9 +164,10 @@
       ],
       "y": [
         0,
-        442
+        422
       ],
-      "pivot": "waist"
+      "pivot": "waist",
+      "seam": 45
     },
     "head": {
       "group": "head",
@@ -197,9 +202,10 @@
         }
       ],
       "y": [
-        569,
+        549,
         791
-      ]
+      ],
+      "seam": 45
     },
     "leg_lower": {
       "group": "near_leg",
@@ -222,7 +228,8 @@
       "y": [
         791,
         1060
-      ]
+      ],
+      "seam": 35
     },
     "foot": {
       "group": "near_leg",
@@ -563,6 +570,12 @@
       "from": null,
       "seed": 51,
       "prompt": "Remove all the armor plates completely (the shoulder armor, the forearm guards, the knee pads and the chest plate) and paint the undersuit that was beneath them, in exactly the same art style and colors. Keep everything else exactly unchanged."
+    },
+    {
+      "name": "U",
+      "from": "P",
+      "seed": 18151,
+      "prompt": "Remove the entire near-side arm, including the shoulder, sleeve, forearm, wrist and hand. Paint the complete unobstructed torso, waist, hip and near-side thigh that were hidden behind this arm. Keep the helmet, boots, far-side leg, body proportions, outline, pose, colors and all remaining pixels exactly unchanged. The dark undersuit must connect naturally from waist to hip to knee, with the same clean cel-shaded cloth folds. Do not add limbs, armor, weapons, belts, panels or a rectangular gradient. Strict side view facing right."
     }
   ],
   "dialog_portrait": {
@@ -577,74 +590,50 @@
   "near_leg": {
     "pos": [
       [
-        400,
-        520
+        435,
+        530
+      ],
+      [
+        445,
+        630
       ],
       [
         420,
-        640
+        710
       ],
       [
-        370,
-        730
-      ],
-      [
-        330,
-        800
-      ],
-      [
-        320,
-        900
-      ],
-      [
-        320,
-        1000
-      ],
-      [
-        300,
-        1070
-      ],
-      [
-        290,
-        1140
-      ],
-      [
-        330,
-        1150
-      ],
-      [
-        360,
-        1130
-      ],
-      [
-        385,
-        1110
+        365,
+        825
       ],
       [
         345,
-        1095
+        930
       ],
       [
-        380,
-        1150
+        340,
+        1020
+      ],
+      [
+        360,
+        1140
       ]
     ],
     "neg": [
       [
-        450,
-        1000
+        550,
+        650
       ],
       [
-        470,
-        1130
+        500,
+        790
       ],
       [
-        490,
-        1150
+        455,
+        965
       ],
       [
-        440,
-        700
+        540,
+        1125
       ]
     ],
     "threshold": 0.3,
@@ -655,11 +644,50 @@
       470
     ],
     "cover_limbs": false,
-    "exclude": [
-      "hand",
-      "arm",
-      "armor_forearm",
-      "armor_shoulder"
-    ]
+    "stage": "U",
+    "stage_until": "knee",
+    "lower_outline": [
+      [
+        230,
+        740
+      ],
+      [
+        430,
+        740
+      ],
+      [
+        435,
+        815
+      ],
+      [
+        410,
+        875
+      ],
+      [
+        390,
+        970
+      ],
+      [
+        402,
+        1050
+      ],
+      [
+        440,
+        1100
+      ],
+      [
+        490,
+        1140
+      ],
+      [
+        505,
+        1210
+      ],
+      [
+        230,
+        1210
+      ]
+    ],
+    "root_overlap": 45
   }
 }

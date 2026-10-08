@@ -77,6 +77,48 @@
     "armor_knee": {
       "sam": [
         "knee armor pad"
+      ],
+      "outline": [
+        [
+          377,
+          776
+        ],
+        [
+          403,
+          769
+        ],
+        [
+          425,
+          783
+        ],
+        [
+          436,
+          817
+        ],
+        [
+          427,
+          853
+        ],
+        [
+          400,
+          894
+        ],
+        [
+          371,
+          880
+        ],
+        [
+          357,
+          846
+        ],
+        [
+          347,
+          812
+        ],
+        [
+          358,
+          788
+        ]
       ]
     },
     "armor_chest": {
@@ -114,7 +156,7 @@
         "legs"
       ],
       "complete": {
-        "stage": "P",
+        "stage": "U",
         "occluders": [
           "arm",
           "hand",
@@ -123,7 +165,10 @@
           "armor_knee",
           "armor_chest"
         ],
-        "near": 120
+        "near": 180,
+        "trim": 4,
+        "mask_close": 3,
+        "stage_silhouette": true
       }
     }
   },
@@ -141,10 +186,11 @@
         }
       ],
       "y": [
-        462,
-        598
+        442,
+        578
       ],
-      "pivot": "hip"
+      "pivot": "hip",
+      "seam": 65
     },
     "torso": {
       "group": "body",
@@ -160,9 +206,10 @@
       ],
       "y": [
         0,
-        462
+        442
       ],
-      "pivot": "waist"
+      "pivot": "waist",
+      "seam": 45
     },
     "head": {
       "group": "head",
@@ -198,9 +245,10 @@
         }
       ],
       "y": [
-        598,
+        578,
         838
-      ]
+      ],
+      "seam": 45
     },
     "leg_lower": {
       "group": "near_leg",
@@ -224,7 +272,8 @@
       "y": [
         838,
         1060
-      ]
+      ],
+      "seam": 35
     },
     "foot": {
       "group": "near_leg",
@@ -538,60 +587,139 @@
       "from": null,
       "seed": 51,
       "prompt": "Remove all the armor plates completely (the shoulder armor, the forearm guards, the knee pads and the chest plate) and paint the undersuit that was beneath them, in exactly the same art style and colors. Keep everything else exactly unchanged."
+    },
+    {
+      "name": "U",
+      "from": "P",
+      "seed": 18151,
+      "prompt": "Remove the entire near-side arm, including the shoulder, sleeve, forearm, wrist and hand. Paint the complete unobstructed torso, waist, hip and near-side thigh that were hidden behind this arm. Keep the helmet, boots, far-side leg, body proportions, outline, pose, colors and all remaining pixels exactly unchanged. The dark undersuit must connect naturally from waist to hip to knee, with the same clean cel-shaded cloth folds. Do not add limbs, armor, weapons, belts, panels or a rectangular gradient. Strict side view facing right."
     }
   ],
   "near_leg": {
     "pos": [
       [
-        350,
-        700
+        420,
+        570
       ],
       [
-        350,
-        800
+        430,
+        680
       ],
       [
-        345,
-        900
+        395,
+        780
       ],
       [
-        345,
-        1000
+        355,
+        930
       ],
       [
-        340,
-        1080
+        360,
+        1020
       ],
       [
-        400,
-        1150
+        405,
+        1140
       ]
     ],
     "neg": [
       [
-        480,
+        535,
+        650
+      ],
+      [
+        490,
+        920
+      ],
+      [
+        470,
         1010
       ],
       [
-        560,
-        1110
-      ],
-      [
-        500,
-        750
+        550,
+        1100
       ]
     ],
     "threshold": 0.3,
     "close": 9,
-    "fill": [
-      "hand",
-      "arm",
-      "armor_forearm",
-      "armor_shoulder"
-    ],
+    "fill": [],
     "thigh_x": [
       300,
       478
-    ]
+    ],
+    "cover_limbs": false,
+    "stage": "U",
+    "stage_until": "hip",
+    "lower_outline": [
+      [
+        275,
+        535
+      ],
+      [
+        480,
+        535
+      ],
+      [
+        480,
+        625
+      ],
+      [
+        459,
+        710
+      ],
+      [
+        460,
+        780
+      ],
+      [
+        440,
+        830
+      ],
+      [
+        413,
+        900
+      ],
+      [
+        398,
+        990
+      ],
+      [
+        415,
+        1060
+      ],
+      [
+        440,
+        1100
+      ],
+      [
+        482,
+        1140
+      ],
+      [
+        500,
+        1240
+      ],
+      [
+        250,
+        1240
+      ],
+      [
+        250,
+        875
+      ],
+      [
+        285,
+        775
+      ],
+      [
+        315,
+        680
+      ],
+      [
+        310,
+        580
+      ]
+    ],
+    "root_overlap": 45
   }
 }

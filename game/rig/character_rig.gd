@@ -426,7 +426,7 @@ func _build_parts(skin: Dictionary) -> void:
 		var part_pos := RigLibrary.vec2(entry.get("offset"))
 		var part_rot := float(entry.get("rotation", 0.0))
 		var part: CanvasItem = null
-		if bend_limbs and is_zero_approx(part_rot):
+		if bend_limbs and is_zero_approx(part_rot) and not (bone_name in [&"hip", &"chest"] and tex_name.begins_with("armor_")):
 			part = _make_limb_mesh(bone_name, texture, glow_texture, size, pivot, part_pos, tint)
 		if part == null:
 			part = _make_sprite(texture, glow_texture, pivot, part_pos, part_rot, tint)
@@ -477,15 +477,20 @@ func _make_limb_mesh(bone_name: StringName, texture: Texture2D, glow_texture: Te
 		return null
 	var partner_name: StringName = limb["partner"]
 	var is_upper: bool = limb["upper"]
-	var joint_y: float = _rest[limb["lower"]].y if is_upper else 0.0
+	var joint_y: float = _rest[partner_name].y if is_upper else 0.0
 	var zone: float = float(limb["zone"])
+	var direction: int = int(limb.get("direction", 1 if is_upper else -1))
 	var node_transform := Transform2D(0.0, Vector2.ONE * _texture_scale, 0.0, part_pos)
-	if not RigPartMesh.reaches_joint(RigPartMesh.vertical_span(size, pivot, node_transform), joint_y, zone, is_upper):
+	if not RigPartMesh.reaches_joint(RigPartMesh.vertical_span(size, pivot, node_transform), joint_y, zone, direction > 0):
 		return null
 	var mesh := RigPartMesh.new()
 	mesh.position = part_pos
 	mesh.scale = Vector2.ONE * _texture_scale
-	if not mesh.setup(texture, size, pivot, _bones[bone_name], _bones[partner_name], is_upper, _rest[bone_name], _rest[partner_name], zone):
+	var root_partner: Bone2D = _bones.get(_parent.get(bone_name, &"")) if is_upper and String(bone_name).begins_with("leg_") else null
+	# Both thigh textures were cut around the same illustrated hip.
+	# A far-side copy offset must not pull that root away from the pelvis.
+	var root_origin := Vector2(0.0, _rest[bone_name].y)
+	if not mesh.setup(texture, size, pivot, _bones[bone_name], _bones[partner_name], is_upper, _rest[bone_name], _rest[partner_name], zone, direction, root_partner, zone, root_origin):
 		mesh.free()
 		return null
 	if glow_texture != null:
@@ -497,6 +502,10 @@ func _make_limb_mesh(bone_name: StringName, texture: Texture2D, glow_texture: Te
 ## 骨頭 bone_name 若是肢體的上段（xxx_upper，子骨頭 xxx_lower）或下段，回傳 {upper, lower, partner, zone}；否則空字典。
 ## 混合半徑 zone ＝ 下段骨頭長度 × limb_zone（骨架定義可用 "limb_zone" 調整，預設 0.3）。
 func _limb_of(bone_name: StringName) -> Dictionary:
+	if bone_name in [&"hip", &"chest"] and _bones.has(&"chest") and _parent.get(&"chest", &"") == &"hip":
+		var is_pelvis := bone_name == &"hip"
+		# Chest extends upward: both sides must blend toward the same waist, not away from it.
+		return {"upper": is_pelvis, "partner": &"chest" if is_pelvis else &"hip", "zone": _rest[&"chest"].length() * _limb_zone, "direction": -1 if is_pelvis else 1}
 	var text := String(bone_name)
 	var upper_name := bone_name
 	var lower_name := bone_name

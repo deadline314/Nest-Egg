@@ -185,11 +185,12 @@ func _ready() -> void:
 			_spawn(_chars[i], "", Vector2(320.0 + (i - (mini(_chars.size(), 4) - 1) * 0.5) * 20.0 * _zoom, 190 + 44.0 * _zoom), "idle", _zoom)
 	elif _closeup:
 		for i in mini(_chars.size(), 4):
-			_spawn(_chars[i], str(SHEET_WEAPONS.get(_chars[i], "")), Vector2(80 + i * 160, 330), "idle", 3.6)
+			_spawn(_chars[i], str(SHEET_WEAPONS.get(_chars[i], "")), Vector2(80 + i * 160, 330), "idle", _zoom if _zoom != 6.5 else 3.6)
 	else:
 		for row in mini(_chars.size(), 2):
 			for i in SHEET_POSES.size():
-				_spawn(_chars[row], str(SHEET_WEAPONS.get(_chars[row], "")), Vector2(40 + i * 80, 160 + row * 180), SHEET_POSES[i], _zoom if _zoom != 6.5 else 2.0)
+				var pos := Vector2(70 + (i % 4) * 140, 160 + (i / 4) * 175) if _chars.size() == 1 else Vector2(40 + i * 80, 160 + row * 180)
+				_spawn(_chars[row], str(SHEET_WEAPONS.get(_chars[row], "")), pos, SHEET_POSES[i], _zoom if _zoom != 6.5 else 2.0)
 	for spot: Array in [[Vector2(160, 40), Palette.CYAN], [Vector2(480, 40), Color("ff2e88")], [Vector2(320, 220), Palette.WARM_LIGHT]]:
 		var light := LightKit.create_point_light(Color("f0f4ff") if _bright else spot[1], 900.0 if _bright else 340.0, 0.75 if _bright else 0.7)
 		light.position = spot[0]

@@ -16,6 +16,9 @@ something in front of them are completed by Qwen (the gap only); limb groups are
 spec["near_leg"] (NE-152): in a side view both legs and both shoes are in the picture, but the rig draws ONE leg texture twice (the far
 copy dimmed), so a leg part must hold exactly one leg. near_leg picks the near (front, unobstructed) leg with SAM point prompts and
 makes it a group of its own ("group": "near_leg" in the parts):
+    {"stage": "U", "stage_until": "knee", "lower_outline": [[x, y], ...]} optionally segment a peeled underlayer above the joint,
+                               preserving the original lower limb below it; lower_outline is a reviewed polygon on base_rgba.png,
+                               bounded by the completed body/boot alpha; colors stay original below stage_until, otherwise reuse the original point mask.
     {"pos": [[x, y], ...],     points on the near thigh, shin and shoe (pixels of base_rgba.png)
      "neg": [[x, y], ...],     points on the far leg and the other shoe
      "threshold": 0.3, "close": 9, "grow": 0,
@@ -32,6 +35,7 @@ makes it a group of its own ("group": "near_leg" in the parts):
 the leg is the SAM mask without those groups, closed and hole-filled; what is not known (hand, knee pad, cracks) gets a colour ramp.
 """
 import argparse
+import hashlib
 import json
 import sys
 import time
@@ -87,6 +91,11 @@ def dilate(mask: np.ndarray, r: int) -> np.ndarray:
     return cv2.dilate(mask.astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * r + 1, 2 * r + 1))) > 0
 
 
+def near_leg_key(cfg: dict, image: Path) -> str:
+    """A regenerated underlayer invalidates its point masks even when the points stay the same."""
+    return json.dumps([cfg["pos"], cfg.get("neg", []), cfg.get("threshold", 0.3), hashlib.sha256(image.read_bytes()).hexdigest()])
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--spec", required=True)
@@ -127,6 +136,10 @@ def main() -> None:
         m = np.zeros((H, W), bool)
         for p in g["sam"]:
             m |= M[p]
+        if "outline" in g:
+            reviewed = np.zeros((H, W), np.uint8)
+            cv2.fillPoly(reviewed, [np.array(g["outline"], np.int32)], 1)
+            m = (reviewed > 0) & alpha
         for p in g.get("minus", []):
             m &= ~M[p]
         if "y" in g:  # a group that SAM over-segments (a knee pad that swallows the whole shin) can be clipped to a pixel-row range
@@ -213,7 +226,8 @@ def main() -> None:
             # semi-transparent rim there that would show up as a halo around the completed part
             if c.get("mask_close"):  # the dark outline strokes between two masked regions belong to no SAM mask: close those cracks
                 sm = cv2.morphologyEx(sm.astype(np.uint8), cv2.MORPH_CLOSE, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * c["mask_close"] + 1,) * 2)) > 0
-            solid = sm & (stage_rgba[c["stage"]][:, :, 3] >= 250)
+            # Peeled underlayers may have a belt/waist SAM omits; the original occluders still bound the replacement.
+            solid = (np.ones((H, W), bool) if c.get("stage_silhouette") else sm) & (stage_rgba[c["stage"]][:, :, 3] >= 250)
             solid = cv2.erode(solid.astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * c.get("edge_trim", 3) + 1,) * 2)) > 0
             if "reject_hue" in c:  # colours the hidden part can not have (e.g. the pale blue wisp Qwen paints at the tip of the hair)
                 hsv = cv2.cvtColor(stage_rgba[c["stage"]][:, :, :3], cv2.COLOR_RGB2HSV)
@@ -291,32 +305,51 @@ def main() -> None:
     # ---- the near leg as a group of its own (NE-152) ----------------------------------------------------------
     if "near_leg" in spec:
         nl_cfg = spec["near_leg"]
-        mask_png = sam_dir / "near_leg.png"
-        key_json = sam_dir / "near_leg.json"
-        key = json.dumps([nl_cfg["pos"], nl_cfg.get("neg", []), nl_cfg.get("threshold", 0.3)])
+        leg_stage = nl_cfg.get("stage")
+        leg_sam_dir = sdir / f"sam_{leg_stage}" if leg_stage else sam_dir
+        leg_image = sdir / f"{leg_stage}_grey.png" if leg_stage else grey
+        leg_alpha = stage_rgba[leg_stage][:, :, 3] > 127 if leg_stage else alpha
+        mask_png = leg_sam_dir / "near_leg.png"
+        key_json = leg_sam_dir / "near_leg.json"
+        key = near_leg_key(nl_cfg, leg_image)
         if not mask_png.exists() or not key_json.exists() or key_json.read_text(encoding="utf8") != key:
             print("SAM 3.1 near_leg:", nl_cfg["pos"], nl_cfg.get("neg", []))
-            segment_points(str(grey), str(sam_dir), {"near_leg": {"pos": [tuple(q) for q in nl_cfg["pos"]], "neg": [tuple(q) for q in nl_cfg.get("neg", [])]}},
+            segment_points(str(leg_image), str(leg_sam_dir), {"near_leg": {"pos": [tuple(q) for q in nl_cfg["pos"]], "neg": [tuple(q) for q in nl_cfg.get("neg", [])]}},
                            threshold=nl_cfg.get("threshold", 0.3))
             key_json.write_text(key, encoding="utf8")
-        near = (np.array(Image.open(mask_png).convert("L").resize((W, H))) > 127) & alpha
+        near = (np.array(Image.open(mask_png).convert("L").resize((W, H))) > 127) & leg_alpha
         far = np.zeros((H, W), bool)
         if nl_cfg.get("neg"):  # the far leg's own mask: the same SAM call with the point lists swapped; nothing of it may end up in the near leg
-            far_png, far_json = sam_dir / "near_leg_far.png", sam_dir / "near_leg_far.json"
+            far_png, far_json = leg_sam_dir / "near_leg_far.png", leg_sam_dir / "near_leg_far.json"
             if not far_png.exists() or not far_json.exists() or far_json.read_text(encoding="utf8") != key:
-                segment_points(str(grey), str(sam_dir), {"near_leg_far": {"pos": [tuple(q) for q in nl_cfg["neg"]], "neg": [tuple(q) for q in nl_cfg["pos"]]}},
+                segment_points(str(leg_image), str(leg_sam_dir), {"near_leg_far": {"pos": [tuple(q) for q in nl_cfg["neg"]], "neg": [tuple(q) for q in nl_cfg["pos"]]}},
                                threshold=nl_cfg.get("threshold", 0.3))
                 far_json.write_text(key, encoding="utf8")
             far = (np.array(Image.open(far_png).convert("L").resize((W, H))) > 127) & ~near
+        if leg_stage and nl_cfg.get("stage_until"):
+            # Preserve the original lower limb: the peeled edit is only needed above this joint.
+            cut = int(spec["joints"][nl_cfg["stage_until"]][1])
+            if nl_cfg.get("lower_outline"):
+                original = np.zeros((H, W), np.uint8)
+                cv2.fillPoly(original, [np.array(nl_cfg["lower_outline"], np.int32)], 1)
+                lower_alpha = (complete["body"][:, :, 3] > 127) | (complete.get("boot", rgba)[:, :, 3] > 127)
+                original = original.astype(bool) & lower_alpha
+                original_far = lower_alpha & ~original
+            else:
+                original = np.array(Image.open(sam_dir / "near_leg.png").convert("L").resize((W, H))) > 127
+                original_far = np.array(Image.open(sam_dir / "near_leg_far.png").convert("L").resize((W, H))) > 127
+            near[cut:] = original[cut:]
+            far[cut:] = original_far[cut:] & ~near[cut:]
+            leg_alpha[cut:] = (original | original_far)[cut:]
         yy_leg = np.mgrid[0:H, 0:W][0]
         occ_leg = np.zeros((H, W), bool)
         for g_ in nl_cfg.get("fill", []):
             occ_leg |= V[g_]
         for i_, cv_ in enumerate(nl_cfg.get("cover", [])):  # things in front of the leg that no group claims (a hand SAM took for the body)
-            cpng, cjson = sam_dir / f"near_leg_cover{i_}.png", sam_dir / f"near_leg_cover{i_}.json"
+            cpng, cjson = leg_sam_dir / f"near_leg_cover{i_}.png", leg_sam_dir / f"near_leg_cover{i_}.json"
             ckey = json.dumps([cv_, nl_cfg.get("threshold", 0.3)])
             if not cpng.exists() or not cjson.exists() or cjson.read_text(encoding="utf8") != ckey:
-                segment_points(str(grey), str(sam_dir), {f"near_leg_cover{i_}": {"pos": [tuple(q) for q in cv_["pos"]], "neg": [tuple(q) for q in cv_.get("neg", [])]}},
+                segment_points(str(leg_image), str(leg_sam_dir), {f"near_leg_cover{i_}": {"pos": [tuple(q) for q in cv_["pos"]], "neg": [tuple(q) for q in cv_.get("neg", [])]}},
                                threshold=nl_cfg.get("threshold", 0.3))
                 cjson.write_text(ckey, encoding="utf8")
             occ_leg |= np.array(Image.open(cpng).convert("L").resize((W, H))) > 127
@@ -324,7 +357,7 @@ def main() -> None:
         k_ = nl_cfg.get("close", 9)
         # closing fills what hangs in front of the leg and cuts a notch into its outline (a hand beside the thigh); it stays inside the picture's
         # silhouette and out of the far leg
-        region = (cv2.morphologyEx(near.astype(np.uint8), cv2.MORPH_CLOSE, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * k_ + 1,) * 2)) > 0) & alpha & ~far
+        region = (cv2.morphologyEx(near.astype(np.uint8), cv2.MORPH_CLOSE, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * k_ + 1,) * 2)) > 0) & leg_alpha & ~far
         for prompt in nl_cfg.get("extra", []):
             region |= M[prompt] & ~occ_leg
         # a hand or forearm that hangs in front of the thigh is inside the leg's silhouette: the leg sprite has to cover it, because the
@@ -344,23 +377,25 @@ def main() -> None:
         for g_ in (("hand", "arm", "armor_forearm", "armor_shoulder", "armor_knee", "armor_chest") if nl_cfg.get("cover_limbs", True) else ()):
             if g_ in V:
                 region |= V[g_] & (yy_leg >= hip_y) & dilate(region, 40) & ~far & inside
-        if nl_cfg.get("thigh_x"):  # a thigh the SAM points did not reach (one big armoured mass where both thighs overlap): take the body pixels of the
+        if nl_cfg.get("thigh_x") and not leg_stage:  # a thigh the SAM points did not reach (one big armoured mass where both thighs overlap): take the body pixels of the
             # rows between hip and knee that lie inside this x range, the far thigh peeks out beyond it
             x0_, x1_ = nl_cfg["thigh_x"]
             knee_y = int(spec["joints"]["knee"][1])
             rows_ = (yy_leg >= int(spec["joints"]["hip"][1])) & (yy_leg <= knee_y)
-            region |= alpha & rows_ & (np.arange(W)[None, :] >= x0_) & (np.arange(W)[None, :] <= x1_) & ~far
+            region |= leg_alpha & rows_ & (np.arange(W)[None, :] >= x0_) & (np.arange(W)[None, :] <= x1_) & ~far
         if nl_cfg.get("close_thigh"):  # a wide closing between hip and knee fills the bite a hand or a pocket took out of the thigh's front
             k2 = nl_cfg["close_thigh"]
             wide = cv2.morphologyEx(region.astype(np.uint8), cv2.MORPH_CLOSE, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * k2 + 1,) * 2)) > 0
-            region |= wide & alpha & ~far & (yy_leg >= int(spec["joints"]["hip"][1])) & (yy_leg <= int(spec["joints"]["knee"][1]))
+            region |= wide & leg_alpha & ~far & (yy_leg >= int(spec["joints"]["hip"][1])) & (yy_leg <= int(spec["joints"]["knee"][1]))
         for g_ in nl_cfg.get("exclude", []):  # plates that the SAM mask took in but that ride another bone (a hip plate on the chest): the leg keeps no copy
             region &= ~V[g_]
         region = ndimage.binary_fill_holes(region)
         region = largest_blobs(region, 0.05)
         if nl_cfg.get("grow"):  # take the outline and the rim light the mask leaves out (a violet glow along the trouser leg), but not the far leg's
-            region = dilate(region, nl_cfg["grow"]) & alpha & ~far
+            region = dilate(region, nl_cfg["grow"]) & leg_alpha & ~far
         body_c, boot_c = complete["body"], complete.get("boot")
+        if nl_cfg.get("root_overlap"):
+            region |= (body_c[:, :, 3] > 127) & (abs(yy_leg - hip_y) <= nl_cfg["root_overlap"])
         have_body = body_c[:, :, 3] > 127
         have_boot = (boot_c[:, :, 3] > 127) if boot_c is not None else np.zeros((H, W), bool)
         # colours come from the body and boot groups (they hold the picture plus what the peeled stage painted behind an arm or a knee pad);
@@ -411,7 +446,7 @@ def main() -> None:
             continue
         grp = complete[pdef["group"]]
         region = parts[pname]
-        grown = dilate(region, 2 if "blob" in pdef else seam) & (grp[:, :, 3] > 127)
+        grown = dilate(region, 2 if "blob" in pdef else pdef.get("seam", seam)) & (grp[:, :, 3] > 127)
         if "minus_group" in pdef:
             grown &= ~(complete[pdef["minus_group"]][:, :, 3] > 127)
         grown = largest_blobs(grown)

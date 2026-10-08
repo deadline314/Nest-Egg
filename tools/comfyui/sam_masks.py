@@ -9,11 +9,11 @@ Writes <out>/<slug>.png (white = the prompted object, all instances merged) and 
 """
 import argparse
 import re
-import time
 import uuid
 from pathlib import Path
 
-from comfy_api import HOST, _get, _post, upload
+from comfy_api import run, upload
+import comfy_guard
 
 SAM_CKPT = "sam3.1_multiplex_fp16.safetensors"
 
@@ -24,7 +24,7 @@ def slug(text: str) -> str:
 
 def segment(image_path: str, prompts: list[str], out_dir: str, threshold: float = 0.4, refine: int = 2) -> dict:
     """Return {prompt: Path}. Prompts that find nothing produce an empty (black) mask."""
-    import json
+    comfy_guard.ensure_server()
     name = upload(image_path)
     g = {"load": {"class_type": "LoadImage", "inputs": {"image": name}},
          "ckpt": {"class_type": "CheckpointLoaderSimple", "inputs": {"ckpt_name": SAM_CKPT}}}
@@ -34,22 +34,15 @@ def segment(image_path: str, prompts: list[str], out_dir: str, threshold: float 
                                                               "threshold": threshold, "refine_iterations": refine, "individual_masks": False}}
         g[f"m{i}"] = {"class_type": "MaskToImage", "inputs": {"mask": [f"d{i}", 0]}}
         g[f"s{i}"] = {"class_type": "SaveImage", "inputs": {"images": [f"m{i}", 0], "filename_prefix": f"sam_{uuid.uuid4().hex[:6]}_{i}"}}
-    pid = _post("/prompt", {"prompt": g, "client_id": str(uuid.uuid4())})["prompt_id"]
-    while True:
-        hist = json.loads(_get(f"/history/{pid}"))
-        if pid in hist:
-            break
-        time.sleep(1)
-    status = hist[pid].get("status", {})
-    if status.get("status_str") == "error":
-        raise RuntimeError(json.dumps(status, ensure_ascii=False)[:2000])
+    job = "sam_" + uuid.uuid4().hex[:8]
+    paths = run(g, job)
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
     (out / ".gdignore").touch()
     result = {}
     for i, text in enumerate(prompts):
-        im = hist[pid]["outputs"][f"s{i}"]["images"][0]
-        data = _get(f"/view?filename={im['filename']}&subfolder={im['subfolder']}&type={im['type']}")
+        source = next(p for p in paths if p.name == (f"{job}_s{i}_0.png" if len(prompts) > 1 else f"{job}_0.png"))
+        data = source.read_bytes()
         path = out / f"{slug(text)}.png"
         path.write_bytes(data)
         result[text] = path
@@ -75,6 +68,7 @@ def segment_points(image_path: str, out_dir: str, jobs: dict, threshold: float =
     """Point-prompted segmentation: jobs = {name: {"pos": [(x, y), ...], "neg": [(x, y), ...]}} (pixels of the picture).
     Lets SAM cut finer than a text prompt can, e.g. only the forearm of a one-piece prosthetic arm."""
     import json
+    comfy_guard.ensure_server()
     name = upload(image_path)
     g = {"load": {"class_type": "LoadImage", "inputs": {"image": name}},
          "ckpt": {"class_type": "CheckpointLoaderSimple", "inputs": {"ckpt_name": SAM_CKPT}}}
@@ -85,22 +79,15 @@ def segment_points(image_path: str, out_dir: str, jobs: dict, threshold: float =
             "negative_coords": json.dumps([{"x": int(x), "y": int(y)} for x, y in pts.get("neg", [])])}}
         g[f"m{i}"] = {"class_type": "MaskToImage", "inputs": {"mask": [f"d{i}", 0]}}
         g[f"s{i}"] = {"class_type": "SaveImage", "inputs": {"images": [f"m{i}", 0], "filename_prefix": f"sampt_{uuid.uuid4().hex[:6]}_{i}"}}
-    pid = _post("/prompt", {"prompt": g, "client_id": str(uuid.uuid4())})["prompt_id"]
-    while True:
-        hist = json.loads(_get(f"/history/{pid}"))
-        if pid in hist:
-            break
-        time.sleep(1)
-    status = hist[pid].get("status", {})
-    if status.get("status_str") == "error":
-        raise RuntimeError(json.dumps(status, ensure_ascii=False)[:2000])
+    job = "sam_" + uuid.uuid4().hex[:8]
+    paths = run(g, job)
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
     result = {}
     for i, key in enumerate(jobs):
-        im = hist[pid]["outputs"][f"s{i}"]["images"][0]
+        source = next(p for p in paths if p.name == (f"{job}_s{i}_0.png" if len(jobs) > 1 else f"{job}_0.png"))
         path = out / f"{slug(key)}.png"
-        path.write_bytes(_get(f"/view?filename={im['filename']}&subfolder={im['subfolder']}&type={im['type']}"))
+        path.write_bytes(source.read_bytes())
         result[key] = path
     return result
 

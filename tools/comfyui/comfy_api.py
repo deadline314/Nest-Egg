@@ -85,10 +85,13 @@ def _run_once(graph, name):
     (OUT / ".gdignore").touch()  # keep Godot from importing generated images
     paths = []
     try:
-        for node in h[pid]["outputs"].values():
+        outputs = h[pid]["outputs"]
+        savers = [key for key, node in outputs.items() if node.get("images")]
+        for node_id, node in outputs.items():
             for i, im in enumerate(node.get("images", [])):
                 data = _get(f"/view?filename={im['filename']}&subfolder={im['subfolder']}&type={im['type']}")
-                p = OUT / f"{name}_{i}.png"
+                suffix = f"_{node_id}" if len(savers) > 1 else ""
+                p = OUT / f"{name}{suffix}_{i}.png"
                 p.write_bytes(data)
                 paths.append(p)
     except OSError as ex:

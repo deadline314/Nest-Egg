@@ -27,17 +27,16 @@ art/characters/<id>/parts/ after `textures`, so re-running never loses it.
 import argparse
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
 import time
-import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
 STEPS = ["design", "pose", "parts", "refine", "damage", "textures", "normals", "import", "preview"]
-COMFY_DIR = Path(os.environ.get("COMFYUI_DIR", "D:/ComfyUI"))
 GODOT = os.environ.get("GODOT", "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe")
 
 
@@ -52,30 +51,6 @@ def rel(path: Path) -> str:
         return str(path)
 
 
-def ensure_comfy() -> None:
-    """Make sure the ComfyUI server answers; start it from COMFYUI_DIR when it does not."""
-    host = os.environ.get("COMFY_HOST", "http://127.0.0.1:8188")
-    try:
-        urllib.request.urlopen(host + "/system_stats", timeout=3)
-        return
-    except Exception:
-        pass
-    py = COMFY_DIR / ".venv/Scripts/python.exe"
-    if not py.exists():
-        sys.exit(f"ComfyUI is not running and {py} does not exist. Start it (ART_PIPELINE.md section 5) or set COMFYUI_DIR.")
-    log("starting ComfyUI ...")
-    subprocess.Popen([str(py), "main.py", "--listen", "127.0.0.1", "--port", "8188", "--disable-auto-launch"], cwd=COMFY_DIR,
-                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
-    for _ in range(120):
-        time.sleep(2)
-        try:
-            urllib.request.urlopen(host + "/system_stats", timeout=3)
-            return
-        except Exception:
-            continue
-    sys.exit("ComfyUI did not come up within 4 minutes.")
-
-
 def run(cmd: list[str], what: str) -> str:
     r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0:
@@ -84,8 +59,13 @@ def run(cmd: list[str], what: str) -> str:
 
 
 def godot(*args: str) -> str:
-    r = subprocess.run([GODOT, "--path", str(ROOT), *args], cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace")
-    return r.stdout + r.stderr
+    from comfy_guard import server_lock
+    with server_lock():
+        r = subprocess.run([GODOT, "--path", str(ROOT), *args], cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace")
+    output = r.stdout + r.stderr
+    if r.returncode != 0 or re.search(r"(?m)^\s*(?:SCRIPT ERROR:|ERROR:)", output):
+        sys.exit(f"[Godot {' '.join(args)}] failed (exit {r.returncode}):\n{output}")
+    return output
 
 
 class Build:
@@ -105,7 +85,8 @@ class Build:
         (self.work / ".gdignore").touch()  # keep Godot from importing the source pictures
         os.environ["OUT_DIR"] = str(self.work / "_gen")
         sys.path.insert(0, str(HERE))
-        self.manifest: list[dict] = []
+        manifest = self.work / "manifest.json"
+        self.manifest: list[dict] = json.loads(manifest.read_text(encoding="utf8")) if manifest.exists() else []
 
     def need(self, path: Path, step: str) -> Path:
         if not path.exists():
@@ -114,7 +95,6 @@ class Build:
 
     def step_design(self) -> list[Path]:
         self.check(joints=False)
-        ensure_comfy()
         from comfy_api import qwen
         d = self.recipe["design"]
         seed = self.seed or d["pick"]
@@ -162,7 +142,6 @@ class Build:
     def step_parts(self) -> list[Path]:
         self.need(self.work / "base_rgba.png", "parts")
         self.check(joints=True)
-        ensure_comfy()
         cmd = [sys.executable, str(HERE / "make_parts.py"), "--spec", str(self.spec), "--work", str(self.work)]
         log("  " + (run(cmd, "parts").strip().splitlines() or [""])[-1])
         return [self.work / "06_parts", self.work / "06_parts/ownership.png"]
@@ -234,7 +213,7 @@ class Build:
             log(f"[{s}]")
             outs = getattr(self, f"step_{s}")()
             self.manifest.append({"step": s, "seconds": round(time.time() - t, 1), "outputs": [rel(o) for o in outs]})
-        (self.work / "manifest.json").write_text(json.dumps(self.manifest, ensure_ascii=False, indent=2), encoding="utf8")
+            (self.work / "manifest.json").write_text(json.dumps(self.manifest, ensure_ascii=False, indent=2), encoding="utf8")
         log(f"done. manifest: {rel(self.work / 'manifest.json')}")
 
 
