@@ -26,7 +26,7 @@ const FORESHADOWING := {
 	},
 	"F02 芽的破綻": {
 		"explicit": [["scene:radio_start", "聽得到嗎"], ["scene:c2_radio_start", "上面"], ["scene:c2_radio_corridor", "這條走廊我走過"]],
-		"hidden": [["scene:radio_start", "一、二、三"], ["scene:c2_radio_start", "到……上面"], ["scene:c2_radio_wall", "管線吧"]],
+		"hidden": [["scene:radio_start", "一二三"], ["scene:c2_radio_start", "到……上面"], ["scene:c2_radio_wall", "管線吧"]],
 	},
 	"F03 七號資料夾": {
 		"explicit": [["scene:radio_facility", "七號"], ["scene:radio_facility", "別點"]],
@@ -36,7 +36,7 @@ const FORESHADOWING := {
 		"explicit": [["scene:prologue", "手沒事吧"], ["scene:radio_last", "手沒事吧"], ["scene:c2_prologue", "手沒事吧"], ["scene:c2_radio_k1", "天天爬"],
 				["scene:c2_radio_k2", "別回頭"], ["scene:c2_epilogue", "是我接的"]],
 		"hidden": [["item:doc_cargo_manifest", "K"], ["item:old_k_order", "青色"], ["scene:radio_mech", "你怎麼知道"], ["scene:radio_last", "算了"],
-				["item:doc_nest_log", "技師：K"]],
+				["item:doc_nest_log", "技師簽名為 K"]],
 	},
 	"F05 航的照片": {
 		"explicit": [["scene:prologue", "天空"], ["scene:c2_radio_voice", "天空是不是真的很藍"]],
@@ -115,6 +115,7 @@ func run() -> void:
 	_test_required_scenes()
 	_test_scene_shapes()
 	_test_voices()
+	_test_variant_answers()
 	_test_foreshadowing()
 	_test_required_details()
 	_test_old_sentences_are_gone()
@@ -256,3 +257,17 @@ func _test_old_sentences_are_gone() -> void:
 		everything += _source_text("item:" + String(item.id))
 	for sentence in old_lines:
 		check(not everything.contains(sentence), "the old line is gone: %s" % sentence)
+
+
+## 重複地點的記憶異常不是問價錢；否認必須回應同一個問題。
+func _test_variant_answers() -> void:
+	var checked := 0
+	for id: String in Story.scene_ids():
+		for variant in StoryReactions.variants_of(Story._scenes[id]):
+			var lines: Array = variant.get("lines", [])
+			for i in range(1, lines.size()):
+				if str(lines[i - 1].get("text", "")).contains("你是不是在這裡停過"):
+					var answer := str(lines[i].get("text", ""))
+					check(answer.contains("沒有在這裡停過") and not answer.contains("錢"), "memory variant answers the location question: %s" % id)
+					checked += 1
+	check(checked >= 6, "all six memory-question variants are checked")

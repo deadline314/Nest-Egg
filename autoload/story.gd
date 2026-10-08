@@ -33,11 +33,11 @@ const MODE_BUBBLES := &"bubbles"
 const MAX_CINEMATIC_LINES := 6
 const MAX_RADIO_LINES := 2
 const MAX_DIALOGUE_LINES := 8
-## 氣泡守則（見 skill chapter-design）：一段 ≤ 4 句、每句 ≤ 18 字；戰鬥中的 bark ≤ 2 句、每句 ≤ 10 字。
+## 氣泡守則（見 skill chapter-design）：一段 ≤ 4 句、每句 ≤ 30 字；戰鬥中的 bark ≤ 2 句、每句 ≤ 16 字。
 const MAX_BUBBLE_LINES := 4
-const MAX_BUBBLE_CHARS := 18
+const MAX_BUBBLE_CHARS := 30
 const MAX_BARK_LINES := 2
-const MAX_BARK_CHARS := 10
+const MAX_BARK_CHARS := 16
 
 ## 測試用：過場立即結束（仍會發出開始／結束訊號）。
 var auto_skip := false
@@ -257,14 +257,18 @@ func text_units(chapter_id: StringName) -> Array[Dictionary]:
 	for scene_id: String in _scenes.keys():
 		if _scene_chapter.get(scene_id, &"") != chapter_id:
 			continue
-		units.append({"id": scene_id, "lines": _scene_text_lines(_scenes[scene_id])})
+		var text_lines := _scene_text_lines(_scenes[scene_id])
+		for line: Dictionary in text_lines:
+			line["mode"] = str(_scenes[scene_id].get("mode", "text"))
+			line["bark"] = bool(_scenes[scene_id].get("bark", false))
+		units.append({"id": scene_id, "lines": text_lines})
 		for variant in StoryReactions.variants_of(_scenes[scene_id]):
 			units.append({"id": "%s（死亡 %d 次起）" % [scene_id, StoryReactions.threshold(variant)], "lines": variant["lines"]})
 	var card: Array = []
 	var info: Dictionary = _chapters.get(chapter_id, {})
 	for key in ["title", "subtitle", "end_title", "teaser"]:
 		if info.has(key):
-			card.append({"speaker": "", "text": str(info[key])})
+			card.append({"speaker": "", "text": str(info[key]), "kind": "label"})
 	units.append({"id": "%s 章節卡" % chapter_id, "lines": card})
 	return units
 
@@ -295,7 +299,8 @@ func _scene_text_lines(scene: Variant) -> Array:
 		return result
 	var lines: Variant = (scene as Dictionary).get("lines", [])
 	if typeof(lines) == TYPE_ARRAY:
-		result.append_array(lines)
+		for line: Variant in lines:
+			result.append(line.duplicate() if line is Dictionary else line)
 	return result
 
 

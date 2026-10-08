@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """第一章「傘」的劇本資料產生器（ST-2、ST-9）：輸出 data/story/ch1_kasa.json 與場景舞台 data/cutscene/stages/ch1_*.json。
 
-台詞來自 design/13-story-v2/SCRIPT_CH01.md（《邊緣行者》式短句）。這個腳本把分鏡表轉成現有的過場動畫資料：
+台詞以 design/13-story-v2/CH01_SCRIPT_REVIEW.md 與 DIALOGUE_READABILITY.md 的完整句子基線為準。這個腳本把分鏡表轉成現有的過場動畫資料：
 - 動畫過場（animated）：C1-xx，用 BG-11 場景立繪當舞台；超過連續 3 句台詞時自動插入短停頓（過場檢查器的限制）。
 - 過場（cinematic）與通訊（radio）：玩法段的對話；通訊每段最多 2 句、過場每段最多 6 句。
 - 對話選項、旗標分支與可互動物件的短台詞屬於 ST-3，這裡先用「預設的那一條路」寫成線性場景；場景結束時用 set_flags 設旗標。
@@ -259,7 +259,7 @@ def animated(scene_id, steps, then=None, flags=None, budget=None):
 
 
 def lines_scene(scene_id, mode, lines, then=None, flags=None, bark=False):
-    """mode：radio（通訊面板）、bubbles（地圖氣泡，bark＝戰鬥短句 ≤10 字）、dialogue（人物對話，玩家主動）、cinematic。"""
+    """mode：radio（通訊面板）、bubbles（地圖氣泡，bark＝戰鬥短句 ≤16 字）、dialogue（人物對話，玩家主動）、cinematic。"""
     scene = {"mode": mode}
     if bark:
         scene["bark"] = True
@@ -292,69 +292,69 @@ def build():
         actor('k', 'old_k', 175, y, 1, scale=actor_scale(st, 'old_k'), speaker='old_k', loop='wipe_hands'),
         sfx('pickup', -16),
         wait(0.4),
-        say('old_k', "水位又上來了。鷺等一下來，有差事。"),
+        say('old_k', "鷺是接案的，她在屋頂等你。"),
         pose('rin', 'idle'),
-        say('rin', "上面指定的？一成照抽。"),
-        say('old_k', "照抽。保費嘛，你自己簽的。去後面試試手感。"),
+        say('rin', "管著這座城的天穹又找我？你還抽一成保我復原？"),
+        say('old_k', "保費照抽喔。先去後面試槍。"),
         fade(1.0, 0.8),
     ], budget=20.0)
 
     # 晚飯（廚房，進門就開始）：老 K 站在桌邊。氣泡不鎖操作；說完才寫旗標，樓梯才會開（出入口 S）。
     lines_scene('ch1_b_dinner', 'bubbles', [
-        ('old_k', "今天的。"),
-        ('rin', "四十。"),
-        ('old_k', "我切很細了啊。"),
+        ('old_k', "今天的飯煮好了喔。"),
+        ('rin', "這是今天的四十信用點。"),
+        ('old_k', "我把紅蘿蔔切很細了啊。"),
         ('rin', "還是看得到。"),
     ], flags=['ch1_dinner_done'])
     lines_scene('ch1_t_oldk_1', 'dialogue', [
-        ('old_k', "幾次了？"),
-        ('rin', "九。"),
-        ('old_k', "九啊。"),
-        ('rin', "別人兩三倍。我還好。"),
-        ('old_k', "喔。吃飯。"),
+        ('old_k', "這個月接了幾次差事？"),
+        ('rin', "已經接了九次。"),
+        ('old_k', "你接得太多了喔。"),
+        ('rin', "別人接得比我多，我還行。"),
+        ('old_k', "飯要涼了喔，先吃飯吧。"),
     ])
     lines_scene('ch1_t_oldk_2', 'dialogue', [
         ('old_k', "記得回來吃飯。"),
-        ('rin', "嗯。"),
-        ('old_k', "路上小心。水大。"),
+        ('rin', "我會記得回來。"),
+        ('old_k', "外面的水又漲了，路上小心喔。"),
     ])
 
     # 老 K 對死亡的反應（累計死亡 1 次、4 次以上時換句子）
     lines_scene('ch1_t_oldk_d1', 'dialogue', [
         ('old_k', "…又死了？"),
-        ('rin', "一次。"),
+        ('rin', "剛才又倒了一次。"),
         ('old_k', "水燒好了。吃完再去。"),
     ])
     lines_scene('ch1_t_oldk_d4', 'dialogue', [
         ('old_k', "這個月第幾次了？"),
-        ('rin', "別數。"),
-        ('old_k', "我數。我替你數。"),
+        ('rin', "別再替我數了。"),
+        ('old_k', "你不肯數，我就替你記著喔。"),
     ])
 
     # 屋頂：鷺在等。到達時氣泡，差事是玩家主動的人物對話（說完旗標 ch1_heard_brief，前門才開）。
     lines_scene('ch1_b_roof', 'bubbles', [
-        ('egret', "小鬼。遲到三分鐘。"),
+        ('egret', "小鬼，你遲到三分鐘了。"),
         ('rin', "老 K 在吃飯。"),
         ('egret', "那老頭永遠在吃飯。"),
     ])
     lines_scene('ch1_t_egret_1', 'dialogue', [
-        ('egret', "地點，碼頭倉庫。目標，保險箱裡一片資料盤。"),
-        ('egret', "有隻看門狗守著。兩條腿，一條尾巴，脾氣不好。"),
-        ('rin', "誰要的。"),
-        ('egret', "上面。我不問，你也別問。"),
-        ('rin', "你呢。"),
-        ('egret', "我今晚有事。…看一個人。"),
-        ('egret', "你一個人去。不要一個人死，浪費。開玩笑啦。"),
-        ('egret', "看到那座塔沒有？上面有太陽。真的太陽。"),
+        ('egret', "這次要去碼頭倉庫，拿回保險箱裡存著帳目的資料盤。"),
+        ('egret', "看門狗是倉庫的保全機甲，牠的脾氣可不好。"),
+        ('rin', "是誰委託的？"),
+        ('egret', "是天穹那邊要的，我沒追問來路，你也別問。"),
+        ('rin', "你不跟我去？"),
+        ('egret', "我今晚要去看一個人，下次再跟你說。"),
+        ('egret', "你可別一個人死，連陪你喝酒的人都沒有。"),
+        ('egret', "看到那座塔沒有？塔頂能看到真的太陽。"),
     ], flags=['ch1_heard_brief'])
     lines_scene('ch1_t_egret_2', 'dialogue', [
-        ('egret', "欸，晴岸？你要買房？"),
-        ('rin', "還早。"),
-        ('egret', "給誰？"),
-        ('rin', "一個人。"),
-        ('egret', "喔——老頭子的喔？"),
-        ('rin', "別說。"),
-        ('egret', "好好好。嘴巴縫起來。你要帶他去喔。"),
+        ('egret', "晴岸是日照區的住宅，你想在那裡買房？"),
+        ('rin', "離買得起還早。"),
+        ('egret', "你想給誰住？"),
+        ('rin', "給家裡那個人住。"),
+        ('egret', "你想讓老頭子住在那裡喔？"),
+        ('rin', "別跟老 K 說。"),
+        ('egret', "我會把嘴巴縫起來，你記得帶他去喔。"),
     ])
 
     # 街道：出門的獨白、燈的廣播與戰鬥提示（廣播不鎖操作）
@@ -363,52 +363,52 @@ def build():
         ('rin', "下面本來就是水。"),
     ])
     lines_scene('ch1_g06_lamp', 'radio', [
-        ('lamp', "喂喂，一、二、三。聽得到嗎？市集被收帳人封了，走碼頭那邊。"),
+        ('lamp', "我是幫你看路的燈，聽得到嗎？收帳人封了市集，改走碼頭那邊。"),
         ('rin', "聽得到。"),
     ])
     lines_scene('ch1_g06_tip_slide', 'radio', [
-        ('lamp', "按閃躲，往旁邊滑。剛按下去那一瞬間，子彈打不到你。"),
+        ('lamp', "往旁邊滑過去，剛滑出去的瞬間子彈打不到你。"),
     ])
     lines_scene('ch1_g06_tip_blade', 'radio', [
         ('lamp', "貼身的時候用刀，省子彈。"),
         ('lamp', "雖然你的子彈用不完。習慣一下，早晚會換槍。"),
     ])
     lines_scene('ch1_g06_tip_collector', 'radio', [
-        ('lamp', "前面穿黃衣服的是收帳人。比保全慢，比保全痛。"),
+        ('lamp', "前面穿黃衣服的是收帳人，他們替人追債，下手比保全重。"),
     ])
     lines_scene('ch1_g06_clear', 'radio', [
-        ('lamp', "好。倉庫在碼頭盡頭，我在你耳邊。"),
+        ('lamp', "倉庫就在碼頭盡頭，我會在耳機裡陪你。"),
     ])
-    # 鎖場開始時凜的戰鬥短句（≤10 字、≤2 句）
+    # 鎖場開始時凜的戰鬥短句（≤16 字、≤2 句）
     lines_scene('ch1_k_plaza', 'bubbles', [('rin', "路封了。")], bark=True)
-    lines_scene('ch1_k_blockade', 'bubbles', [('rin', "收帳人。")], bark=True)
+    lines_scene('ch1_k_blockade', 'bubbles', [('rin', "收帳人擋住路了。")], bark=True)
     lines_scene('ch1_k_vault', 'bubbles', [('rin', "有人守著。")], bark=True)
     lines_scene('ch1_k_walkway', 'bubbles', [('rin', "上面有人。")], bark=True)
 
     # 倉庫：看門狗、水位謎、保險箱（都是廣播或氣泡）
     lines_scene('ch1_g07_dog', 'radio', [
-        ('lamp', "牠在大廳最裡面，睡著。"),
-        ('rin', "多大。"),
+        ('lamp', "看門狗睡在倉庫大廳最裡面。"),
+        ('rin', "那隻機甲有多大？"),
     ])
     lines_scene('ch1_c11_watchdog', 'radio', [
         ('lamp', "看門狗只有一頭。別的紀錄裡，牠有三個頭。"),
-        ('rin', "…什麼紀錄。"),
+        ('rin', "你看的什麼紀錄？"),
     ])
     lines_scene('ch1_g10_pit', 'radio', [
-        ('rin', "站上去，水淹過頭，我就死了。"),
-        ('lamp', "對。我要你死一次。差別很大。"),
+        ('rin', "踩住坑底踏板，水會淹過我的頭。"),
+        ('lamp', "踩下踏板後水會漲滿，你得死一次才能開門。"),
     ])
     lines_scene('ch1_g10_pit2', 'radio', [
         ('rin', "閘門會一直開著？"),
-        ('lamp', "世界不會因為你死了就重來。死是工具。"),
+        ('lamp', "死後閘門和水位都會保留，復原後就能走浮橋過去。"),
     ])
     lines_scene('ch1_g10_cross', 'radio', [
         ('rin', "這很方便。"),
-        ('lamp', "…對。很方便。"),
+        ('lamp', "確實很方便，只要你還能醒來。"),
     ])
     lines_scene('ch1_g10_disk', 'radio', [
-        ('lamp', "那是收帳人的帳。上面為什麼要這個？"),
-        ('rin', "不知道。錢到了就行。"),
+        ('lamp', "資料盤記著收帳人的帳，天穹為什麼要查這個？"),
+        ('rin', "我不知道來路，錢到了就行。"),
     ])
 
     # 過場 2／3：診間醒來（第一次死亡後、重生前播出，≤45 秒）：講清楚怎麼被運來、為什麼在這裡、之後怎麼辦。凜坐在檢查台的邊緣，腿垂下來
@@ -418,30 +418,30 @@ def build():
         actor('rin', 'rin', 316, sit_y(st, 'rin', 196), 1, scale=actor_scale(st, 'rin'), pose='sit', speaker='rin'),
         fx('flash', 0.6),
         wait(1.2),
-        say('rin', "…幹。"),
+        say('rin', "幹，嘴裡全是金屬味。"),
         wait(0.8),
         say('lamp', "歡迎回來。你死了十一分鐘。", ja="おかえり。十一分、死んでたよ。", en="Welcome back. You were dead for eleven minutes."),
         say('rin', "誰把我弄到這的？"),
-        say('lamp', "穿灰外套的人，開貨車。不說話，也不收錢，放下就走。"),
+        say('lamp', "一個灰衣人開貨車送你來，沒收錢就走了。"),
         wait(0.8),
         say('rin', "這間診所我沒登記過。"),
-        say('lamp', "所以他們才送你來。第一次死，要先建檔。"),
-        say('lamp', "建好以後就不用被拖來了。撥過的電話亭，就是你醒來的地方。"),
+        say('lamp', "這裡用天穹的技術復原身體，第一次來要先建檔。"),
+        say('lamp', "建檔後就登記電話亭，下次會在備份的亭子醒來。"),
         say('rin', "你的聲音跟電話亭很像。", ja="電話ボックスの声、お前に似てるな。", en="You sound like the phone booth."),
         say('lamp', "港區少年的聲音，長得都差不多吧。"),
         wait(0.9),
-        say('rin', "要錢吧。"),
-        say('lamp', "復原費，從信用點裡扣一點。還有，每次醒來，記憶的邊角會磨掉一點點。"),
+        say('rin', "復原也要收費吧？"),
+        say('lamp', "這次建檔免費，下次復原要扣信用點，記憶也會磨損。"),
         say('rin', "磨多少？"),
         say('lamp', "沒人量得準。"),
         wait(0.8),
         pose('rin', 'idle'),
-        say('rin', "走了。"),
+        say('rin', "我先回去了。"),
         wait(0.5),
         fade(1.0, 1.2),
     ], flags=['ch1_first_death_done'], budget=45.0)
     # 死亡之後的短演出：在電話亭醒來時的一句通訊（前幾次完整，之後縮短）
-    lines_scene('ch1_d_back_a', 'radio', [('lamp', "歡迎回來。復原費已扣。")])
+    lines_scene('ch1_d_back_a', 'radio', [('lamp', "歡迎回來。復原費已結算。")])
     lines_scene('ch1_d_back_b', 'radio', [('lamp', "再來一次，沒關係。")])
     lines_scene('ch1_d_back_c', 'radio', [('lamp', "…歡迎回來。")])
     DEATH_SCENES.append({"scene": "ch1_c09_wake", "unless_flag": "ch1_first_death_done", "free": True, "register_checkpoint": True})
@@ -450,35 +450,35 @@ def build():
     RESPAWN.append({"scene": "ch1_d_back_c", "min_deaths": 10, "repeat": True})
 
     # 復原館與麵攤（可走動的場景，不是過場）：進門一句氣泡，人物對話由玩家主動；說完才開出口（旗標有人讀）。
-    lines_scene('ch1_b_lounge', 'bubbles', [('ali', "坐吧，湯還熱。")])
+    lines_scene('ch1_b_lounge', 'bubbles', [('ali', "先坐下喝湯吧，湯還熱著。")])
     lines_scene('ch1_t_ali_1', 'dialogue', [
-        ('ali', "今天第幾次？"),
-        ('rin', "一。"),
-        ('ali', "一？那你運氣好。吃什麼？復原餐，還是酒？"),
-        ('rin', "都要。"),
+        ('ali', "剛從電話亭醒來嗎？"),
+        ('rin', "我剛從電話亭醒來。"),
+        ('ali', "你還能自己走進來，運氣真好。復原餐是補身的熱湯，要吃餐還是喝酒？"),
+        ('rin', "湯和酒我都要。"),
         ('ali', "您貴姓？"),
-        ('rin', "凜。"),
-        ('ali', "阿梨。梨子的梨。別分梨吃，會分開。"),
-        ('rin', "好。"),
+        ('rin', "我叫凜。"),
+        ('ali', "我叫阿梨，名字取的是梨子的梨。別跟人分梨吃，老人說這樣會分開。"),
+        ('rin', "我記住了。"),
     ], flags=['ch1_met_ali'])
     lines_scene('ch1_t_ali_2', 'dialogue', [
         ('rin', "這湯怎麼是甜的？"),
         ('ali', "放了一顆梨。"),
         ('ali', "我下班了。這個不是工作。"),
-        ('rin', "多少。"),
+        ('rin', "這份要多少錢？"),
         ('ali', "放著吧。"),
     ])
-    lines_scene('ch1_b_stall', 'bubbles', [('ali', "吃。")])
-    lines_scene('ch1_t_ali_4', 'dialogue', [('ali', "吃完再走。"), ('rin', "好。"), ('ali', "天快亮了。")])
+    lines_scene('ch1_b_stall', 'bubbles', [('ali', "先吃一碗熱麵吧。")])
+    lines_scene('ch1_t_ali_4', 'dialogue', [('ali', "吃完再走。"), ('rin', "我記住了。"), ('ali', "天快亮了。")])
     lines_scene('ch1_t_ali_3', 'dialogue', [
-        ('rin', "多少。"),
+        ('rin', "這份要多少錢？"),
         ('ali', "不收錢。"),
         ('rin', "那我欠你。"),
         ('ali', "那就欠著。"),
         ('ali', "我最近被收帳人盯上了。"),
-        ('rin', "欠多少。"),
+        ('rin', "他們要你還多少？"),
         ('ali', "錢不是問題。他們一直在加。"),
-        ('ali', "市集後面，三樓。敲三下，再敲兩下，是我。"),
+        ('ali', "我住市集後方三樓，敲三下再敲兩下，我就知道是你。"),
     ], flags=['knows_ali_address'])
 
     # 過場 3／3：回家（章末，≤60 秒）：水燒乾了、空眼神（老 K 在爐子前，凜從門口走進來）
@@ -489,13 +489,13 @@ def build():
         actor('rin', 'rin', 575, y, -1, scale=actor_scale(st, 'rin')),
         actor('k', 'old_k', 120, y, -1, scale=actor_scale(st, 'old_k'), speaker='old_k'),
         move('rin', 330, y, 2.6, True, 'walk'),
-        say('rin', "老 K。"),
+        say('rin', "老 K，壺裡沒水了。"),
         face('k', 1),
-        say('old_k', "啊。"),
+        say('old_k', "你已經回來了啊。"),
         say('old_k', "水燒乾了喔。"),
         wait(0.5),
-        say('rin', "是。"),
-        say('old_k', "老了。"),
+        say('rin', "水已經燒乾了。"),
+        say('old_k', "我這記性越來越差了喔。"),
         say('old_k', "我去裝個水。"),
         move('k', 500, y, 2.8, True, 'walk'),
         sfx('switch', -10),
@@ -505,8 +505,8 @@ def build():
         cam(250, 190, 1.05, 1.6),
         wait(3.0),
         say('old_k', "…你什麼時候回來的？"),
-        say('rin', "剛剛。"),
-        say('old_k', "喔。水燒好了。"),
+        say('rin', "我剛剛才回來。"),
+        say('old_k', "水燒好了喔，來喝一杯。"),
         wait(1.4),
         fade(1.0, 1.4),
     ], budget=60.0)

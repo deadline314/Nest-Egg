@@ -1,8 +1,8 @@
 class_name MapBubbles
 extends Node2D
 ## 地圖上的對話氣泡（ST-12）：講話的人頭上冒出一行短句，不鎖操作、不暫停、不改鏡頭，自己消失。
-## 規格（見 .claude/skills/chapter-design）：每句 ≤ 18 字；同屏 ≤ 2 個，新的出現時舊的淡出；顯示時間 1.2 秒 + 0.1 秒 × 字數（上限 4 秒）；
-## 戰鬥中只用 bark（≤ 10 字）。講者不在地圖上時（廣播裡的聲音）改用通訊面板，不會憑空冒出氣泡。
+## 規格（見 .claude/skills/chapter-design）：每句 ≤ 30 字；同屏 ≤ 2 個，新的出現時舊的淡出；顯示時間 1.2 秒 + 0.1 秒 × 字數（上限 4.2 秒）；
+## 戰鬥中只用 bark（≤ 16 字）。講者不在地圖上時（廣播裡的聲音）改用通訊面板，不會憑空冒出氣泡。
 ##
 ## 由 Level 建立並登記給 Story（Story.set_bubble_host）；劇本的 mode 為 bubbles 的場景交給它播。
 ## 氣泡跟著講者移動；講者不見了就留在最後的位置。
@@ -13,7 +13,7 @@ signal scene_finished(scene_id: StringName)
 const MAX_VISIBLE := 2
 const HOLD_BASE := 1.2
 const HOLD_PER_CHAR := 0.1
-const HOLD_MAX := 4.0
+const HOLD_MAX := 4.2
 const FADE_IN := 0.12
 const FADE_OUT := 0.3
 const FONT_SIZE := 9

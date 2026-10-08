@@ -55,3 +55,6 @@
 | 非戰鬥關 | 第八章 | 洪水夜，從塔頂下到港區，回家，只有水 |
 
 文本分三層，讓文字量大也不累：**主線**（必看、短）→ **道具與通訊**（順手看）→ **檔案與回放**（想知道才看）。
+
+
+Session 2 審查基線：[第一章劇本核對](CH01_SCRIPT_REVIEW.md)、[地圖與未決選項](CH01_MAP_REVIEW.md)、[全文與逐場景通讀](ST15_TEXT_REVIEW.md)、[改寫前全部違規位置](ST15_BEFORE_VIOLATIONS.md)。ST-1／ST-4 等待使用者確認；文字以 `DIALOGUE_READABILITY.md` 為準。

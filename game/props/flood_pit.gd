@@ -14,7 +14,7 @@ const HEAD_HEIGHT := 40.0
 const DROWN_SOURCE := &"flood"
 const WATER_Z := 9
 const RAFT_THICKNESS := 6.0
-const PROMPT_TEXT := "踏板：站上去，閘門會一直開著"
+const PROMPT_TEXT := "踩住坑底踏板，讓閘門保持開啟。"
 
 var data: MechanismData
 var cell := Vector2i.ZERO

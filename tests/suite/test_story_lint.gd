@@ -14,6 +14,8 @@ const SPEAKERS := {
 
 func run() -> void:
 	_test_good_lines_pass()
+	_test_readability()
+	_test_player_text_catalog()
 	_test_teaching_words()
 	_test_contrast_patterns()
 	_test_punctuation_limits()
@@ -59,7 +61,7 @@ func _has_rule(issues: Array[Dictionary], rule: String, level: int) -> bool:
 func _test_good_lines_pass() -> void:
 	# 風格指南「好」的寫法都必須通過。
 	var good: Array = [
-		_say("mei", "巷口兩個。你要是被打到我下個月的薪水就沒了。"),
+		_say("mei", "巷口有兩個人。你要是被打到我下個月的薪水就沒了。"),
 		_say("rin", "貴的比較不會動。"),
 		_say("old_k", "四萬三。"),
 		_say("rin", "差多少。"),
@@ -155,7 +157,7 @@ func _test_sentence_length() -> void:
 func _test_abstract_nouns_and_voices() -> void:
 	var four := [{"id": "a", "lines": [_say("rin", "希望。"), _say("rin", "絕望。"), _say("rin", "代價。"), _say("rin", "未來。")]}]
 	check(StoryLint.with_rule(StoryLint.check_chapter("c", four, SPEAKERS), "抽象名詞密度").is_empty(), "four abstract nouns are allowed")
-	var five := [{"id": "a", "lines": [_say("rin", "希望。希望。"), _say("rin", "絕望。"), _say("rin", "代價。"), _say("rin", "未來。")]}]
+	var five := [{"id": "a", "lines": [_say("rin", "我還抱著希望。別讓我失去希望。"), _say("rin", "他滿臉絕望。"), _say("rin", "我付得起代價。"), _say("rin", "他還有未來。")]}]
 	var dense := StoryLint.check_chapter("c", five, SPEAKERS)
 	check(_has_rule(dense, "抽象名詞密度", StoryLint.Level.WARNING) and StoryLint.errors_of(dense).is_empty(), "five abstract nouns are a warning, not an error")
 	# 同一個講者連續 3 句都很長：警告；中間換人就不算。
@@ -264,3 +266,45 @@ func _test_story_validation_integration() -> void:
 	check(_has_rule(Story.lint(), "破折號", StoryLint.Level.ERROR), "chapter card text is checked")
 	info["teaser"] = original
 	check(StoryLint.errors_of(Story.lint()).is_empty(), "the chapter card is clean again")
+
+
+func _test_readability() -> void:
+	for bad in ["嗯。", "地點，碼頭倉庫。目標，資料盤。", "上面。我不問，你別問。", "一？你運氣好。吃什麼？餐，酒？"]:
+		check(not StoryLint.readability(bad, "fixture").is_empty(), "fragmented prose fails: %s" % bad)
+	check(_has_rule(StoryLint.readability("走吧。別問。", "fixture"), "短句並列", StoryLint.Level.WARNING), "two short sentences warn")
+	check(_has_rule(StoryLint.readability("走吧。別問。快走。", "fixture"), "短句並列", StoryLint.Level.ERROR), "three short sentences error")
+	check(_has_rule(StoryLint.readability("地點，碼頭倉庫。", "fixture"), "名詞斷句", StoryLint.Level.WARNING), "noun-led briefing warns")
+	for good in ["好，我先去碼頭倉庫。", "一個灰衣人開貨車送你來，沒收錢就走了。", "記錄時間是 03:12，回收獎勵為 91,000 信用點。"]:
+		check(StoryLint.readability(good, "fixture").is_empty(), "complete prose and numeric punctuation pass: %s" % good)
+	check(StoryLint.readability("字".repeat(30), "fixture", "bubbles").is_empty(), "30 character bubble passes")
+	check(_has_rule(StoryLint.readability("字".repeat(31), "fixture", "bubbles"), "氣泡長度", StoryLint.Level.WARNING), "31 character bubble warns")
+	check(StoryLint.readability("字".repeat(16), "fixture", "bubbles", true).is_empty(), "16 character bark passes")
+	check(_has_rule(StoryLint.readability("字".repeat(17), "fixture", "bubbles", true), "氣泡長度", StoryLint.Level.WARNING), "17 character bark warns")
+	check(not _unit([_say("system", "地點，倉庫。目標，盤。")]).is_empty(), "formal speakers cannot bypass readability")
+	check(StoryLint.readability("前往%s的區域地圖。%s%s", "fixture").is_empty(), "format substitutions are not independent one-letter speech")
+	check(not StoryLint.readability("費用是%s。嗯。", "fixture").is_empty(), "format substitutions cannot exempt fragmented literal prose")
+
+
+func _test_player_text_catalog() -> void:
+	var entries := PlayerTextAudit.catalog()
+	for fragment in ["data/story/ch1_kasa.json", "data/story/chapter_02.json", "data/levels/ch1_warehouse.tres", "data/story_items/doc_nest_log.tres", "data/weapons/pistol.tres", "ui/settings_screen.gd", "ui/inventory/pages/upgrades_page.gd", "game/props/flood_pit.gd", "ui/quest_map_screen.gd", "ui/quest_guidance.gd", "core/navigation/quest_map_index.gd"]:
+		check(entries.any(func(entry: Dictionary) -> bool: return str(entry.id).contains(fragment)), "catalog covers %s" % fragment)
+	check(PlayerTextAudit.lint(entries).is_empty(), "all current player text passes live readability scan")
+	for field in ["ja", "en", "sub"]:
+		check(entries.any(func(entry: Dictionary) -> bool: return str(entry.id).ends_with("/" + field)), "catalog includes existing translations and chapter subtitles: %s" % field)
+	var labels: Array[Dictionary] = [{"id": "button", "text": "返回", "kind": "label"}]
+	check(PlayerTextAudit.lint(labels).is_empty(), "explicit UI labels are not sentences")
+	labels[0].kind = "text"
+	check(not PlayerTextAudit.lint(labels).is_empty(), "the same short text is invalid as dialogue")
+	var button := 'UiKit.button(str(option.get("text", "繼續。")), handler, "提示要完整。")'
+	check(PlayerTextAudit._button_caption(button, button.find("繼續")), "nested default text is a button caption")
+	check(not PlayerTextAudit._button_caption(button, button.find("提示")), "button tooltip is still prose")
+	var quest_entries: Array[Dictionary] = []
+	PlayerTextAudit._json({"quests": [{"title": "去。", "background": "上面。下面。", "reward": "獎勵十信用點。", "blocked_reason": "閘門尚未開啟。", "suggestion": "先去找老 K。", "steps": [{"title": "走。"}]}]}, "fixture", "", quest_entries)
+	check(quest_entries.size() == 6, "future quest descriptions, rewards, blockers, suggestions and step titles are catalogued")
+	check(quest_entries.filter(func(entry: Dictionary) -> bool: return entry.kind == "label").is_empty(), "quest action titles cannot bypass sentence readability as labels")
+	check(not PlayerTextAudit.lint(quest_entries).is_empty(), "fragmented future quest objectives fail the same rules")
+	var scene: Dictionary = Story._scenes["radio_start"]
+	var before := JSON.stringify(scene)
+	Story.text_units("chapter_01")
+	check(JSON.stringify(scene) == before, "lint classification does not mutate dialogue source")

@@ -15,8 +15,8 @@
   "scenes": {
     "c2_prologue": {"mode": "cinematic", "lines": [
       {"speaker": "system", "text": "天穹集團公告：下層港區即日起夜間管制。未登記人員禁止進入升降井。"},
-      {"speaker": "rin", "text": "航呢。"},
-      {"speaker": "old_k", "text": "半夜來接的。手沒事吧？粥熱著，先喝一口喔。"},
+      {"speaker": "rin", "text": "航被帶去哪裡了？"},
+      {"speaker": "old_k", "text": "他們半夜來把航接走了。手沒事吧？先喝一口熱粥喔。"},
       {"speaker": "rin", "text": "這次不用偷什麼。去接他而已。"},
       {"speaker": "old_k", "text": "不准去。通行證在左邊抽屜，我沒講喔。"},
       {"speaker": "mei", "text": "名單上他旁邊寫的是「準備中」。準備什麼，沒寫。"}
@@ -39,7 +39,7 @@
       ]}
     ]},
     "c2_radio_cloak": {"mode": "radio", "lines": [
-      {"speaker": "mei", "text": "欸，前面有人。我這邊看不到，可是熱源在動。"},
+      {"speaker": "mei", "text": "前面有人的熱源在動，可是我看不清他在哪裡。"},
       {"speaker": "rin", "text": "我也沒看到。"}
     ]},
     "c2_radio_wall": {"mode": "radio", "lines": [
@@ -48,11 +48,11 @@
     ]},
     "c2_radio_corridor": {"mode": "radio", "lines": [
       {"speaker": "mei", "text": "這條走廊我走過。……我是說圖紙上。"},
-      {"speaker": "rin", "text": "嗯。"}
+      {"speaker": "rin", "text": "你先帶路吧。"}
     ], "variants": [
       {"min_deaths": 8, "lines": [
         {"speaker": "mei", "text": "這條走廊我走過。剛才……你是不是在這裡停過？"},
-        {"speaker": "rin", "text": "沒有。"}
+        {"speaker": "rin", "text": "我沒有在這裡停過。"}
       ]}
     ]},
     "c2_radio_voice": {"mode": "radio", "lines": [
@@ -64,7 +64,7 @@
       {"speaker": "wataru", "text": "我有一點怕。可是我會乖。"}
     ]},
     "c2_radio_power": {"mode": "radio", "lines": [
-      {"speaker": "mei", "text": "總閘在前面。拉下去，保全全瞎，我們也看不到路。"},
+      {"speaker": "mei", "text": "拉下前面的總閘，保全就看不見了，我們也得摸黑走。"},
       {"speaker": "rin", "text": "有差嗎。"}
     ]},
     "c2_radio_medic": {"mode": "radio", "lines": [
@@ -73,11 +73,11 @@
     ], "variants": [
       {"min_deaths": 8, "lines": [
         {"speaker": "mei", "text": "那台維修機好忙喔。剛才……你是不是在這裡停過？"},
-        {"speaker": "rin", "text": "沒有。"}
+        {"speaker": "rin", "text": "我沒有在這裡停過。"}
       ]}
     ]},
     "c2_radio_k2": {"mode": "radio", "lines": [
-      {"speaker": "old_k", "text": "凜，上面不管有什麼，別回頭看我喔。"},
+      {"speaker": "old_k", "text": "不管上面有什麼，你都別回頭看我喔。"},
       {"speaker": "rin", "text": "我不答應。"}
     ], "variants": [
       {"min_deaths": 15, "lines": [
@@ -91,12 +91,12 @@
     ], "variants": [
       {"min_deaths": 8, "lines": [
         {"speaker": "mei", "text": "轉運站到了。剛才……你是不是在這裡停過？"},
-        {"speaker": "rin", "text": "沒有。"}
+        {"speaker": "rin", "text": "我沒有在這裡停過。"}
       ]}
     ]},
     "c2_curtain": {"mode": "radio", "lines": [
       {"speaker": "system", "text": "回收部作業中，請勿停留。為您的安全，請持續前進。"},
-      {"speaker": "mei", "text": "後面有燈在動。快跑，我不開玩笑。"}
+      {"speaker": "mei", "text": "後面的燈追過來了，這次真得快跑。"}
     ]},
     "c2_radio_captain": {"mode": "radio", "lines": [
       {"speaker": "mei", "text": "那個人的制服比別人舊。他在這裡待很久了。"},
@@ -114,17 +114,17 @@
       {"speaker": "reclaimer", "text": "今天不用。你先上去。"}
     ]},
     "c2_npc_chen_1": {"mode": "dialogue", "lines": [
-      {"speaker": "chen", "text": "囝仔，別走那邊。梯子鬆了。"},
+      {"speaker": "chen", "text": "那邊的梯子鬆了，囝仔別走過去。"},
       {"speaker": "rin", "text": "你流血了。"},
-      {"speaker": "chen", "text": "沒事。我值三班了。十七層……不對，十八。"},
-      {"speaker": "rin", "text": "老伯。"},
-      {"speaker": "chen", "text": "那晚啦。十年前，最後一班。推車上來，蓋著布，我以為是貨。"},
+      {"speaker": "chen", "text": "我已經值了三班。這裡是十八層……我剛才記成十七層了。"},
+      {"speaker": "rin", "text": "老伯，你該休息了。"},
+      {"speaker": "chen", "text": "十年前那晚我值最後一班，他們推了一車蓋著布的東西上來，我以為是貨。"},
       {"speaker": "chen", "text": "布掀開一角，是小孩的腳。有人在數數。"},
       {"speaker": "rin", "text": "誰推的。"},
-      {"speaker": "chen", "text": "戴手套的。穿白的。這個你拿去，電池還有電，我用不到了。"}
+      {"speaker": "chen", "text": "那人穿白衣服戴手套。這顆電池還有電，你拿去用吧。"}
     ]},
     "c2_npc_chen_2": {"mode": "dialogue", "lines": [
-      {"speaker": "chen", "text": "囝仔，還在啊。往上是十九層，別數錯。"},
+      {"speaker": "chen", "text": "上面是十九層，囝仔別再數錯了。"},
       {"speaker": "rin", "text": "你先顧自己。"},
       {"speaker": "chen", "text": "我數了十年。沒人要聽，你剛好站在這。"},
       {"speaker": "chen", "text": "上面的燈很白。我每次上去都瞇著眼。"}
@@ -134,10 +134,10 @@
       {"speaker": "rin", "text": "九點怎樣。"},
       {"speaker": "resident", "text": "有人會來。白衣服，帶小孩去做健康檢查。"},
       {"speaker": "rin", "text": "你的小孩？"},
-      {"speaker": "resident", "text": "老二。上個月去的，說兩天就回來。"},
+      {"speaker": "resident", "text": "我家老二上個月去的，說好兩天就回來。"},
       {"speaker": "resident", "text": "免費的，我們哪敢說不。這支你拿去，放我這也沒人用。"},
       {"speaker": "rin", "text": "回來了嗎。"},
-      {"speaker": "resident", "text": "還沒。你快走，九點了。"}
+      {"speaker": "resident", "text": "他到現在還沒回來。已經九點了，你快走吧。"}
     ]},
     "c2_npc_resident_2": {"mode": "dialogue", "lines": [
       {"speaker": "resident", "text": "你怎麼還在。九點了。"},
@@ -145,12 +145,12 @@
       {"speaker": "resident", "text": "晚上都這樣。我們當沒聽到。你也當沒聽到。"}
     ]},
     "c2_npc_nurse_1": {"mode": "dialogue", "lines": [
-      {"speaker": "nurse", "text": "七號？床位在最裡面。"},
+      {"speaker": "nurse", "text": "七號的床位在最裡面。"},
       {"speaker": "rin", "text": "我找十二號。"},
       {"speaker": "nurse", "text": "家屬請先登記。這張交接單您收好。"},
       {"speaker": "rin", "text": "我不是家屬。"},
       {"speaker": "nurse", "text": "您上次也這麼說。"},
-      {"speaker": "rin", "text": "上次。"},
+      {"speaker": "rin", "text": "上次來的事我還記得。"},
       {"speaker": "nurse", "text": "手環要保持三十七度。我們每小時確認。"}
     ]},
     "c2_npc_nurse_2": {"mode": "dialogue", "lines": [
@@ -160,23 +160,23 @@
     ]},
     "c2_obj_marks": {"mode": "dialogue", "lines": [
       {"speaker": "rin", "text": "牆上有刻痕，旁邊寫了編號。"},
-      {"speaker": "rin", "text": "01。03。05。數到十六。"},
+      {"speaker": "rin", "text": "這裡刻著一號、三號、五號，最後數到十六號。"},
       {"speaker": "rin", "text": "07 那道，到我的肩膀。"}
     ]},
     "c2_boss_intro": {"mode": "cinematic", "lines": [
       {"speaker": "reclaimer", "text": "依規定我得先講一遍。你可以不聽。"},
       {"speaker": "reclaimer", "text": "我是回收部的五號。七號，你是第六個。"},
       {"speaker": "rin", "text": "航在哪。"},
-      {"speaker": "reclaimer", "text": "上面。已經在上面了。你現在趕上去，只會追到空的。"},
-      {"speaker": "mei", "text": "他在拖時間。凜，地板在響。"},
+      {"speaker": "reclaimer", "text": "他已經送上去了，你現在追過去只會看到空床。"},
+      {"speaker": "mei", "text": "他在拖時間，腳下的地板開始響了。"},
       {"speaker": "rin", "text": "那就別讓他說話。"}
     ]},
     "c2_epilogue": {"mode": "cinematic", "lines": [
-      {"speaker": "reclaimer", "text": "回收失敗。又要寫報告。他的進度，九成了。"},
+      {"speaker": "reclaimer", "text": "這次回收失敗了，又得寫報告。航的轉移進度已經到九成。"},
       {"speaker": "rin", "text": "床是空的。手環還是暖的。"},
       {"speaker": "rin", "text": "他剛走。"},
-      {"speaker": "mei", "text": "日誌寫，送去塔頂。電梯就在你後面。"},
-      {"speaker": "old_k", "text": "凜。你右手裡那條線……是我接的。我沒跟你說過，對吧。"},
+      {"speaker": "mei", "text": "日誌寫著航被送去塔頂，搭你身後那座電梯上去。"},
+      {"speaker": "old_k", "text": "你右手裡那條線是我接的，我一直沒跟你說過。"},
       {"speaker": "rin", "text": "上來再說。"}
     ]},
     "c2_respawn_30": {"mode": "radio", "lines": [

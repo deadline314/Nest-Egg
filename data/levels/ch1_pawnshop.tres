@@ -26,7 +26,7 @@ style = "door"
 [sub_resource type="Resource" id="Resource_1"]
 script = ExtResource("2_portal_data")
 id = &"pawn_basement"
-locked_text = "漏水，別開。"
+locked_text = "地下室正在漏水，請別開門。"
 prompt = "{interact} 地下室"
 style = "door"
 

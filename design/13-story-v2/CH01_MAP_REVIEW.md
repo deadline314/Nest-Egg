@@ -50,7 +50,7 @@ flowchart LR
 | 死亡與存檔 | 保留首次免費、之後 5%／上限250、敵人不重生、頭目回傷30% | 提高費用會壓低新手改裝；降低費用會減少失敗代價，須經濟對帳 |
 | 看門狗外觀 | 保留現有監管者骨架／看守長招式暫代；兩腿一尾、兩部位橙色弱點是新美術／共用頭目需求 | 專屬外觀與弱點需對應組接手，不將暫代冒稱完整頭目設計 |
 
-另兩項需一起審查：三段過場預算佔比 6.9% 超過建議 5%；付錢離開支線尚無引擎，未來回家門應讀「宵夜完成」，不能只讀地址。ST-5～9 與 ST-11～14 的已完成成果保持；後續只接未完成界線，沒有重开新票或改其他 Session 核心檔案。
+另兩項需一起審查：三段過場預算佔比 6.9% 超過建議 5%；付錢離開支線尚未接入正式章節資料，未來回家門應讀「宵夜完成」，不能只讀地址。ST-5～9 與 ST-11～14 的已完成成果保持；後續只接未完成界線，沒有重开新票或改其他 Session 核心檔案。
 
 ## 最新資料配置清單（格座標 x/y，從 0 起）
 
@@ -60,7 +60,7 @@ flowchart LR
 | 內容／資料 | 格座標 |
 |---|---|
 | pawn_front / res://data/levels/ch1_street.tres / ch1_heard_brief / 先去屋頂：鷺在等你。 | 74/19 |
-| pawn_basement / 漏水，別開。 | 43/19 |
+| pawn_basement / 地下室正在漏水，請別開門。 | 43/19 |
 | pawn_stairs / res://data/levels/ch1_rooftop.tres / ch1_dinner_done / 先吃晚飯。老 K 在等。 | 108/19 |
 | shops/ch1_pawn | 56/19 |
 | props/credits_small | 24/19, 67/19 |
@@ -179,7 +179,7 @@ flowchart LR
 | 內容／資料 | 格座標 |
 |---|---|
 | pawn_front / res://data/levels/ch1_street.tres / ch1_heard_brief / 先去屋頂：鷺在等你。 | 74/19 |
-| pawn_basement / 漏水，別開。 | 43/19 |
+| pawn_basement / 地下室正在漏水，請別開門。 | 43/19 |
 | pawn_stairs / res://data/levels/ch1_rooftop.tres / ch1_dinner_done / 先吃晚飯。老 K 在等。 | 108/19 |
 | shops/ch1_pawn | 56/19 |
 | props/credits_small | 24/19, 67/19 |
@@ -188,3 +188,6 @@ flowchart LR
 | weapons/melee/melee_dagger | 14/15 |
 | props/ch1_crate | 5/19, 9/19 |
 | 電話亭 | 無 |
+
+
+ST-15 文字同步：配置表中的鎖門說明已跟生成器更新為完整句子。ST-3 引擎已合入，但上述離開分支尚未接入章節來源；不能把引擎測試樣本當正式故事分支。地圖、配置與未決選項不變。

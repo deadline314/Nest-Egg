@@ -25,10 +25,10 @@
       {"speaker": "rin", "text": "差多少。"},
       {"speaker": "old_k", "text": "你自己不會算喔。手沒事吧？"},
       {"speaker": "wataru", "text": "嗯嗯嗯～咳。姐，回來的時候可以順便看天空嗎。"},
-      {"speaker": "rin", "text": "順便。"}
+      {"speaker": "rin", "text": "我會順便看一眼。"}
     ]},
     "radio_start": {"mode": "radio", "lines": [
-      {"speaker": "mei", "text": "喂喂，一、二、三。聽得到嗎，你耳機又有雜音，我說過那顆喇叭該換了。"},
+      {"speaker": "mei", "text": "我是幫你看路的芽。我先數一二三試耳機，聽得到嗎？耳機又有雜音，喇叭該換了。"},
       {"speaker": "rin", "text": "聽得到。"}
     ]},
     "radio_roof": {"mode": "radio", "lines": [
@@ -41,11 +41,11 @@
     ]},
     "radio_market_mei": {"mode": "radio", "lines": [
       {"speaker": "mei", "text": "你在那塊看板前面站了十一秒。我有數。"},
-      {"speaker": "rin", "text": "沒有。"}
+      {"speaker": "rin", "text": "我沒有多的錢。"}
     ], "variants": [
       {"min_deaths": 8, "lines": [
         {"speaker": "mei", "text": "你在那塊看板前面站了十一秒。剛才……你是不是在這裡停過？"},
-        {"speaker": "rin", "text": "沒有。"}
+        {"speaker": "rin", "text": "我沒有在這裡停過。"}
       ]}
     ]},
     "radio_shield": {"mode": "radio", "lines": [
@@ -54,7 +54,7 @@
     ], "variants": [
       {"min_deaths": 8, "lines": [
         {"speaker": "mei", "text": "盾牌那隻看起來很貴欸。剛才……你是不是在這裡停過？"},
-        {"speaker": "rin", "text": "沒有。"}
+        {"speaker": "rin", "text": "我沒有在這裡停過。"}
       ]}
     ]},
     "radio_forecast": {"mode": "radio", "lines": [
@@ -62,7 +62,7 @@
       {"speaker": "rin", "text": "哪來的傘。"}
     ]},
     "radio_mech": {"mode": "radio", "lines": [
-      {"speaker": "old_k", "text": "壁壘的鑰匙在左邊輪胎上面。外套拉鍊拉起來，你喔，會著涼。"},
+      {"speaker": "old_k", "text": "壁壘的鑰匙在左邊輪胎上面。把外套拉好喔，別又著涼。"},
       {"speaker": "rin", "text": "你怎麼知道。"}
     ], "variants": [
       {"min_deaths": 15, "lines": [
@@ -72,11 +72,11 @@
     ]},
     "radio_facility": {"mode": "radio", "lines": [
       {"speaker": "mei", "text": "防火牆上有個資料夾叫「七號」，建立日期是七年前。點開看看？"},
-      {"speaker": "rin", "text": "別點。"}
+      {"speaker": "rin", "text": "別點開我的資料。"}
     ], "variants": [
       {"min_deaths": 8, "lines": [
         {"speaker": "mei", "text": "防火牆上有個資料夾叫「七號」。剛才……你是不是在這裡停過？"},
-        {"speaker": "rin", "text": "沒有。別點。"}
+        {"speaker": "rin", "text": "我沒有在這裡停過，別點開我的資料。"}
       ]}
     ]},
     "radio_arm": {"mode": "radio", "lines": [
@@ -93,28 +93,28 @@
       ]}
     ]},
     "npc_ahpo_1": {"mode": "dialogue", "lines": [
-      {"speaker": "ah_po", "text": "又瘦了喔。坐啦，雨這麼大，站著幹嘛。"},
+      {"speaker": "ah_po", "text": "你又瘦了喔。外面雨這麼大，先坐下喝碗湯。"},
       {"speaker": "rin", "text": "趕時間。"},
-      {"speaker": "ah_po", "text": "趕什麼，湯滾了啦。這碗我多放一顆蛋，不用錢。"},
-      {"speaker": "rin", "text": "多少。"},
-      {"speaker": "ah_po", "text": "說不用錢就不用錢。你弟呢？還咳嗎？"},
-      {"speaker": "rin", "text": "咳。"},
-      {"speaker": "ah_po", "text": "喔。上次他在我這桌畫了一張，我老花，看不懂畫什麼，你拿去。"},
-      {"speaker": "rin", "text": "嗯。"}
+      {"speaker": "ah_po", "text": "湯剛煮滾啦，別急著走。這碗多放一顆蛋，不跟你收錢。"},
+      {"speaker": "rin", "text": "這份要多少錢？"},
+      {"speaker": "ah_po", "text": "我都說不用錢了。你弟弟最近還在咳嗎？"},
+      {"speaker": "rin", "text": "他還在咳嗽。"},
+      {"speaker": "ah_po", "text": "他上次在我這桌畫了一張畫，我看不清畫了什麼，你拿回去吧。"},
+      {"speaker": "rin", "text": "畫我收下了。"}
     ]},
     "npc_ahpo_2": {"mode": "dialogue", "lines": [
       {"speaker": "ah_po", "text": "還沒走喔？蛋涼了我給你熱。"},
-      {"speaker": "rin", "text": "不用。"},
+      {"speaker": "rin", "text": "蛋不用再熱了。"},
       {"speaker": "ah_po", "text": "你們老K十年前也這樣。一邊揹一個，兩個小的坐我這吃麵。"},
       {"speaker": "rin", "text": "十年前。"},
       {"speaker": "ah_po", "text": "對啊，就是你們兩個。那時他還有頭髮。"},
       {"speaker": "rin", "text": "我七年前才認識他。"},
-      {"speaker": "ah_po", "text": "是喔？老了，記錯啦。對了，電視說半夜要停雨。"},
+      {"speaker": "ah_po", "text": "我年紀大了，記錯人啦。電視說半夜要停雨，你有聽見嗎？"},
       {"speaker": "ah_po", "text": "活這麼大沒看過雨停。上面那邊講的，聽聽就好。這個你拿去。"}
     ]},
     "npc_worker_1": {"mode": "dialogue", "lines": [
-      {"speaker": "worker", "text": "欸，這個時間不該有人。你誰。"},
-      {"speaker": "rin", "text": "領貨。NEST-07。"},
+      {"speaker": "worker", "text": "這個時間不該有人來，你是來做什麼的？"},
+      {"speaker": "rin", "text": "我來領 NEST-07 的貨。"},
       {"speaker": "worker", "text": "又一個。"},
       {"speaker": "rin", "text": "什麼又一個。"},
       {"speaker": "worker", "text": "上禮拜也有人來領這個貨櫃。背包扛著，跟你差不多大。"},
@@ -124,27 +124,27 @@
     ]},
     "npc_worker_2": {"mode": "dialogue", "lines": [
       {"speaker": "worker", "text": "還沒進去喔。電鍋裡有飯，沒煮你的份。"},
-      {"speaker": "rin", "text": "不用。"},
+      {"speaker": "rin", "text": "我不用留飯。"},
       {"speaker": "worker", "text": "這個月第三個了。我有在數。"},
       {"speaker": "worker", "text": "你要是看到他的鞋，幫我帶出來。左腳的鞋帶是紅的。"},
-      {"speaker": "rin", "text": "好。"},
+      {"speaker": "rin", "text": "我記住了。"},
       {"speaker": "worker", "text": "這支放著也過期了，你拿去。"}
     ]},
     "boss_intro": {"mode": "cinematic", "lines": [
       {"speaker": "warden", "text": "七號小姐，歡迎回家。您的資料已經等候多時。"},
       {"speaker": "rin", "text": "我不叫七號。"},
-      {"speaker": "warden", "text": "是，抱歉。系統裡只登記了編號。名單我每晚都念一遍，到十六號為止。"},
+      {"speaker": "warden", "text": "系統裡只登記了您的編號。名單我每晚都念一遍，到十六號為止。"},
       {"speaker": "rin", "text": "十六什麼。"},
-      {"speaker": "warden", "text": "請不要在意。請隨我來，路上辛苦了。"},
+      {"speaker": "warden", "text": "請隨我到裡面，路上辛苦了。"},
       {"speaker": "mei", "text": "這個人說話像飯店櫃檯。凜，他手上有槍。"}
     ]},
     "epilogue": {"mode": "cinematic", "lines": [
       {"speaker": "warden", "text": "七號小姐，您終於來取回它了。路上辛苦。"},
-      {"speaker": "mei", "text": "碎片打開了。受試者，航。進度百分之六十二。"},
+      {"speaker": "mei", "text": "碎片裡記的是航的神經資料，轉移進度百分之六十二。"},
       {"speaker": "rin", "text": "六十二。"},
-      {"speaker": "old_k", "text": "出來吧，凜。晶片滿了就回來，粥還熱著喔。"},
+      {"speaker": "old_k", "text": "晶片滿了就回來吧，粥還熱著喔。"},
       {"speaker": "rin", "text": "船票不買了。"},
-      {"speaker": "mei", "text": "……停了。"}
+      {"speaker": "mei", "text": "雨真的停了。"}
     ]},
     "respawn_30": {"mode": "radio", "lines": [
       {"speaker": "system", "text": "天穹集團提醒您：剛剛的雨，在 {death_time}。"}

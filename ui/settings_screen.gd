@@ -178,7 +178,7 @@ func _build_display_tab() -> Control:
 	tree_exiting.connect(func() -> void: Settings.display_changed.disconnect(_sync_fullscreen))
 	_hud_auto_hide = CheckButton.new()
 	_hud_auto_hide.text = "HUD 自動隱藏"
-	_hud_auto_hide.tooltip_text = "開啟：生命與護盾閒置時淡出，受傷或格擋時才出現；關閉：一律顯示"
+	_hud_auto_hide.tooltip_text = "開啟後生命與護盾會在閒置時淡出，受傷或格擋時顯示；關閉後持續顯示。"
 	_hud_auto_hide.focus_mode = Control.FOCUS_ALL
 	_hud_auto_hide.button_pressed = Settings.get_hud_auto_hide()
 	_hud_auto_hide.toggled.connect(func(on: bool) -> void:
@@ -209,7 +209,7 @@ func _build_display_tab() -> Control:
 	box.add_child(_reduce_flashes)
 	_smooth_font = CheckButton.new()
 	_smooth_font.text = "平滑字型"
-	_smooth_font.tooltip_text = "開啟：介面文字用平滑的黑體；關閉：改回像素字。立即生效"
+	_smooth_font.tooltip_text = "開啟後立即改用平滑黑體，關閉後改用像素字。"
 	_smooth_font.focus_mode = Control.FOCUS_ALL
 	_smooth_font.button_pressed = Settings.get_ui_font() == "smooth"
 	_smooth_font.toggled.connect(func(on: bool) -> void:

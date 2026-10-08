@@ -74,7 +74,7 @@ func lint() -> Array[Dictionary]:
 		var lines: Array = []
 		for text in [item.display_name, item.description, item.body]:
 			if not str(text).is_empty():
-				lines.append({"speaker": "", "text": str(text)})
+				lines.append({"speaker": "", "text": str(text), "kind": "label" if text == item.display_name else "text"})
 		units.append({"id": "道具 %s" % item.id, "lines": lines})
 	return StoryLint.check_chapter("道具文字", units, {})
 

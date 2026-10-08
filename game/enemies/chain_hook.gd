@@ -139,7 +139,7 @@ func _reel_enter() -> void:
 	_build_link()
 	if _hooked_player != null:
 		_hooked_player.begin_pull(self, float(spec["reel_speed"]), _reel_left)
-	EventBus.toast_requested.emit("被鉤住了：衝刺掙脫，或打斷鎖鏈")
+	EventBus.toast_requested.emit("衝刺掙脫鉤子，或攻擊鎖鏈將它打斷。")
 
 
 func _reel_tick(delta: float) -> void:

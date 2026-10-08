@@ -52,6 +52,8 @@ static func check_unit(unit_id: String, lines: Array, speakers: Dictionary) -> A
 		var text := str(entry.get("text", ""))
 		var formal := _is_formal(speakers, speaker_id)
 		var where := "%s 第 %d 句" % [unit_id, index + 1]
+		if str(entry.get("kind", "")) != "label":
+			issues.append_array(readability(text, where, str(entry.get("mode", "text")), bool(entry.get("bark", false))))
 		for word in TEACHING_WORDS:
 			if text.contains(word):
 				issues.append(_issue(Level.ERROR, "教學詞", where, "對白出現操作用語「%s」：「%s」" % [word, text]))
@@ -210,3 +212,80 @@ static func _count_dashes(text: String) -> int:
 		_dash = RegEx.new()
 		_dash.compile("—+")
 	return _dash.search_all(text).size()
+
+
+## 完整句子規則供故事、提示、文件與 UI 共用；不把操作用語當成提示的錯誤。
+## 名稱／數值標籤由呼叫端明確分類，不能用 formal 或講者 id 免除對白檢查。
+static func readability(text: String, where: String, mode := "text", bark := false) -> Array[Dictionary]:
+	var issues: Array[Dictionary] = []
+	var clauses := _clauses(text)
+	if clauses.is_empty():
+		return issues
+	var short_sentences := 0
+	for sentence in split_sentences(text):
+		var length := _readable_length(sentence)
+		if length > 0 and length <= 2:
+			issues.append(_issue(Level.ERROR, "短片段", where, "單獨成句的一兩個字：「%s」" % text))
+		if length > 0 and length <= 3:
+			short_sentences += 1
+	if short_sentences >= 2:
+		issues.append(_issue(Level.ERROR if short_sentences >= 3 else Level.WARNING, "短句並列", where, "有 %d 個三字以內的獨立片段：「%s」" % [short_sentences, text]))
+	var tiny := 0
+	var streak := 0
+	var max_streak := 0
+	var total := 0
+	var adjacent_tiny := false
+	var previous_tiny := false
+	for clause in clauses:
+		var length := _readable_length(clause)
+		total += length
+		var is_tiny := length <= 3
+		if is_tiny:
+			tiny += 1
+			adjacent_tiny = adjacent_tiny or previous_tiny
+		previous_tiny = is_tiny
+		streak = streak + 1 if length <= 4 else 0
+		max_streak = maxi(max_streak, streak)
+	if max_streak >= 3:
+		issues.append(_issue(Level.ERROR, "連續短子句", where, "連續 %d 個四字以內子句：「%s」" % [max_streak, text]))
+	if tiny > 1 or adjacent_tiny:
+		issues.append(_issue(Level.WARNING, "短子句數", where, "同一行最多一個三字以內子句且不能相鄰：「%s」" % text))
+	if clauses.size() >= 3 and float(total) / clauses.size() < 5.0:
+		issues.append(_issue(Level.WARNING, "子句平均", where, "子句平均不足五字：「%s」" % text))
+	for noun in ["地點", "目標", "位置", "姓名", "職業"]:
+		if text.begins_with(noun + "，") or text.begins_with(noun + ","):
+			issues.append(_issue(Level.WARNING, "名詞斷句", where, "請用完整句子交代地點或目標：「%s」" % text))
+	if mode == "bubbles":
+		var cap := 16 if bark else 30
+		if text.length() > cap:
+			issues.append(_issue(Level.WARNING, "氣泡長度", where, "氣泡 %d 字，超過 %d 字：「%s」" % [text.length(), cap, text]))
+	return issues
+
+
+static var _clause_regex: RegEx
+static var _length_regex: RegEx
+static var _format_regex: RegEx
+
+
+static func _clauses(text: String) -> PackedStringArray:
+	# 金額 41,000 與時間 03:12 是一個值，不能當作三字片段。
+	if _clause_regex == null:
+		_clause_regex = RegEx.create_from_string("[，。！？!?；;：\\n]+|(?<![0-9])[,:]|[,:](?![0-9])")
+	var separated := _clause_regex.sub(text, "\n", true)
+	var result := PackedStringArray()
+	for clause in separated.split("\n", false):
+		if _readable_length(clause) > 0:
+			result.append(clause)
+	return result
+
+
+static func _readable_length(text: String) -> int:
+	if _length_regex == null:
+		_length_regex = RegEx.create_from_string("[^\\p{L}\\p{N}]+")
+	if _format_regex == null:
+		_format_regex = RegEx.create_from_string("%[-+0-9. ]*[sdfxXocv%]")
+	# A substitution-only tail is not speech. Keep the existing length count
+	# for every segment containing literal words, including formatted prose.
+	if _length_regex.sub(_format_regex.sub(text, "", true), "", true).is_empty():
+		return 0
+	return _length_regex.sub(text, "", true).length()

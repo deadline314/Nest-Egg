@@ -106,5 +106,5 @@ func _activate_entry(index: int) -> bool:
 		context.say("改裝失敗", true)
 		return false
 	Sfx.play(&"reload_done", -4.0)
-	context.say("已改裝：%s・%s（-¥%d）" % [WeaponTuning.base_of(weapon).display_name, upgrade.display_name, upgrade.cost])
+	context.say("已替 %s 安裝 %s，花費 ¥%d。" % [WeaponTuning.base_of(weapon).display_name, upgrade.display_name, upgrade.cost])
 	return true

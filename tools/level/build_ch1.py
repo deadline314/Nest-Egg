@@ -68,7 +68,7 @@ PORTALS = {
               requires='ch1_heard_brief', locked='先去屋頂：鷺在等你。'),
     'S': dict(id='pawn_stairs', to=AREA('rooftop'), target='roof_stairs', mode=0, prompt='{interact} 上屋頂', style='ladder', w=20, h=152,
               requires='ch1_dinner_done', locked='先吃晚飯。老 K 在等。'),
-    'K': dict(id='pawn_basement', to='', target='', mode=0, prompt='{interact} 地下室', locked='漏水，別開。', style='door'),
+    'K': dict(id='pawn_basement', to='', target='', mode=0, prompt='{interact} 地下室', locked='地下室正在漏水，請別開門。', style='door'),
     # 屋頂
     'T': dict(id='roof_stairs', to=AREA('pawnshop'), target='pawn_stairs', mode=0, prompt='{interact} 下樓', style='hidden', w=24, h=44),
     # 街道
@@ -628,7 +628,7 @@ def build_warehouse_full():
     # 前廳（看門狗廳）x=1～72
     a.stand(3, 'O')
     a.stand(4, 'P')
-    a.hint(7, '看門狗睡在大廳深處：牠的傷會留著，死了不白死')
+    a.hint(7, '留意大廳深處的看門狗，死亡後牠仍會保留部分傷勢。')
     a.trigger(10, 'ch1_g07_dog')
     a.stand(9, 'i')
     a.block(14, 19, 14, 16)       # 貨櫃（掩護與平台）
@@ -646,7 +646,7 @@ def build_warehouse_full():
     a.stand(28, 'c')
     a.stand(66, 'c')
     a.stand(68, 'c')
-    a.hint(70, '隔牆：打倒看門狗才會升起')
+    a.hint(70, '打倒看門狗，前方的隔牆才會升起。')
     a.stand(73, 'v')
     a.prop('dock_warehouse__watchdog_dock', 60)
     a.prop('dock_warehouse__hoist_chain', 34, y=9)
@@ -655,11 +655,11 @@ def build_warehouse_full():
     a.prop('dock_warehouse__rotating_beacon', 52)
     # 閘門廳 x=74～160
     a.stand(77, 'C')
-    a.hint(80, '電話亭 B2：先備份，再往裡走')
+    a.hint(80, '先在電話亭 B2 備份，再往倉庫裡走。')
     a.stand(83, 'A')
     a.stand(84, 'l')
     a.stand(90, 'a')
-    a.hint(92, '開關：按 {interact} 切換，閘門跟著開關')
+    a.hint(92, '按 {interact} 操作開關，控制同一頻道的閘門。')
     a.encounter('開關守衛', 93, 96, [(95, 'b')])
     a.block(97, 99, 14, 16)
     a.region(97, 99, 14, 16, 'container_rust')
@@ -671,7 +671,7 @@ def build_warehouse_full():
     a.stand(112, 'r')
     a.stand(113, 'c')
     a.encounter('坑前', 114, 116, [(114, 'b'), (116, 'k')])
-    a.hint(115, '牆上的水位刻度很高：這個坑會漲水')
+    a.hint(115, '留意牆上的水位刻度，前方水坑會漲水。')
     a.trigger(117, 'ch1_g10_pit')
     a.trigger(119, 'ch1_g10_pit2')
     # 水坑：寬 11（x=118～128）、深 6（列 17～22），坑底在第 23 列
@@ -774,7 +774,7 @@ def build_warehouse_pair():
     front.zone(0, 'freight')
     back.zone(0, 'freight')
     front.stand(front.w - 4, 'U')
-    front.hint(front.w - 9, '前面是倉庫深處：保險箱有人守著')
+    front.hint(front.w - 9, '進入前方的倉庫深處，保險箱旁有守衛。')
     back.stand(3, 'M')
     back.stand(4, 'P')
     back.stand(7, 'C')
