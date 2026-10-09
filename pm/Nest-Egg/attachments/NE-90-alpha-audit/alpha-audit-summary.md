@@ -1,0 +1,733 @@
+# 角色透明背景與 alpha 盤點
+
+- Repo HEAD: `9f6438869067f9d155bec2bd6c7d74e1b9e9bfba`
+- Working-tree snapshot: 987 status entries; tracked diff SHA-256 `aba4f8521855c4efa3b28cafd1b9f66cecc05f0d5f78d02a042b5e0d1acb1e8d` (827736 bytes); scan start/end status+diff identical=False. Asset metrics use current file bytes, including uncommitted PNGs; source hashes are listed in JSON.
+- 只讀盤點：1295 張 PNG；掃描前後檔案 SHA-256 完全一致。
+- 類別數量：`{"runtime_character_part": 267, "runtime_character_glow": 25, "runtime_character_normal_map": 267, "runtime_creature_texture_referenced": 31, "runtime_creature_normal_map_referenced": 31, "test_fixture_creature_png": 2, "runtime_portrait": 12, "intermediate_stage_generated": 147, "segmentation_groups_not_final": 64, "refined_source_not_runtime_accepted": 267, "unaccepted_generated_candidate": 90, "recipe_source_base": 20, "active_refined_override_if_consumed": 14, "creature_source_not_runtime_accepted": 57, "user_attachment_screenshot_not_source_asset": 1}`
+- 原檔 PNG mode：`{"RGBA": 1136, "RGB": 159}`。RGBA/RGB mode 僅描述通道格式，另以 alpha0 與 partial bins 判斷實際透明。
+- 每檔 alpha ≤0/1/4/20/127/254 的像素計數在 CSV `alpha_le_*` 欄位及 JSON `alpha_le_counts`；alpha 精確 bins 另列，避免只看到「RGBA」就認定透明背景。
+- 全部檔案像素 alpha bin 合計（因檔案可能含多個版本，不去重）：`{"alpha_0": 393210214, "alpha_1": 55402461, "alpha_2_4": 917037, "alpha_5_20": 440413, "alpha_21_127": 854158, "alpha_128_254": 13401561, "alpha_255": 209586831}`。
+- alpha=0 像素的 RGB 完全不計入可見色邊；1–4、5–20、21–127、128–254 分別列出，低 alpha 色彩只作描述性優先級，不代表全部都是瑕疵。
+- `alpha>127` 的連通元件數與非最大元件只作結構指標；四角與最外圈可見 alpha 數值提供給人工判斷，不自動當作失敗。
+- 自檢：{"opaque_rgba_is_not_transparent": true, "alpha_zero_magenta_is_not_counted_as_visible_rgb_noise": true, "alpha_two_colored_pixel_is_detected_as_low_alpha_chroma": true}
+
+## 優先人工檢視清單
+
+報告檔案：[JSON](alpha-audit.json) · [CSV](alpha-audit.csv) · [盤點程式](audit.py) · [執行 log](audit-run.log)
+
+
+下列來源與正式 runtime 分開排序，描述性排序不是驗收門檻：最大 alpha>127 主體外 1–4 原生像素帶內 RGB channel spread ≥64 的像素數，再看 alpha 1–20 色彩、最外圈可見像素數。normal map 與 glow map 已分類另列，不拿法線色值當 RGB 色邊。先檢查附件與 Slasher stage P，再對照 runtime 部件；此表不能替代角色原生渲染驗收。
+
+### 來源/中間圖
+
+- `creature_source_not_runtime_accepted` `art_src/creatures/shock_hound/body_s1.png` — RGBA [1216, 832]; alpha0=752407, α1=0, α2–4=0, α5–20=3346; α1–20 chroma≥64=2553, partial near-white=1, partial blue-dominant=20315; 1–4px subject-edge near-white=0, blue=8226, chroma≥64=7468; canvas-edge visible=0; review=[creature_source_not_runtime_accepted__body_s1__c03a9079.png](review/creature_source_not_runtime_accepted__body_s1__c03a9079.png)
+- `unaccepted_generated_candidate` `art_src/characters/mei/_gen/nurse_design_s7_0.png` — RGBA [832, 1216]; alpha0=371343, α1=485752, α2–4=1906, α5–20=2010; α1–20 chroma≥64=487636, partial near-white=41, partial blue-dominant=487857; 1–4px subject-edge near-white=0, blue=4144, chroma≥64=5546; canvas-edge visible=1646; review=[unaccepted_generated_candidate__nurse_design_s7_0__6ec310a2.png](review/unaccepted_generated_candidate__nurse_design_s7_0__6ec310a2.png)
+- `creature_source_not_runtime_accepted` `art_src/creatures/shock_hound/tail_s1.png` — RGBA [1216, 832]; alpha0=891857, α1=0, α2–4=0, α5–20=1883; α1–20 chroma≥64=1464, partial near-white=867, partial blue-dominant=10927; 1–4px subject-edge near-white=11, blue=3044, chroma≥64=3448; canvas-edge visible=0; review=[creature_source_not_runtime_accepted__tail_s1__0041df31.png](review/creature_source_not_runtime_accepted__tail_s1__0041df31.png)
+- `unaccepted_generated_candidate` `art_src/creatures/_gen/creature_shaft_bat_body_s5_0.png` — RGBA [1216, 832]; alpha0=355400, α1=522498, α2–4=668, α5–20=824; α1–20 chroma≥64=523703, partial near-white=1, partial blue-dominant=562885; 1–4px subject-edge near-white=0, blue=3624, chroma≥64=3201; canvas-edge visible=2127; review=[unaccepted_generated_candidate__creature_shaft_bat_body_s5_0__3b57b33f.png](review/unaccepted_generated_candidate__creature_shaft_bat_body_s5_0__3b57b33f.png)
+- `unaccepted_generated_candidate` `art_src/creatures/_gen/creature_cloud_jelly_tentacle_s2_0.png` — RGBA [512, 1216]; alpha0=244651, α1=316455, α2–4=840, α5–20=1086; α1–20 chroma≥64=316572, partial near-white=304, partial blue-dominant=345773; 1–4px subject-edge near-white=1, blue=1926, chroma≥64=3184; canvas-edge visible=1296; review=[unaccepted_generated_candidate__creature_cloud_jelly_tentacle_s2_0__f819e0ec.png](review/unaccepted_generated_candidate__creature_cloud_jelly_tentacle_s2_0__f819e0ec.png)
+- `segmentation_groups_not_final` `art_src/characters/rin2/05_groups/jacket_qwen.png` — RGBA [864, 1216]; alpha0=254088, α1=332599, α2–4=4421, α5–20=5687; α1–20 chroma≥64=330656, partial near-white=2780, partial blue-dominant=322708; 1–4px subject-edge near-white=2065, blue=1071, chroma≥64=3140; canvas-edge visible=1578; review=[segmentation_groups_not_final__jacket_qwen__19536ebb.png](review/segmentation_groups_not_final__jacket_qwen__19536ebb.png)
+- `creature_source_not_runtime_accepted` `art_src/creatures/tangle_wire/body_s1.png` — RGBA [832, 832]; alpha0=742, α1=63, α2–4=132, α5–20=723; α1–20 chroma≥64=902, partial near-white=6, partial blue-dominant=2885; 1–4px subject-edge near-white=0, blue=2742, chroma≥64=2501; canvas-edge visible=2599; review=[creature_source_not_runtime_accepted__body_s1__a544660a.png](review/creature_source_not_runtime_accepted__body_s1__a544660a.png)
+- `segmentation_groups_not_final` `art_src/characters/rin2/05_groups/body_qwen.png` — RGBA [576, 1824]; alpha0=310686, α1=414756, α2–4=994, α5–20=1748; α1–20 chroma≥64=414206, partial near-white=694, partial blue-dominant=409115; 1–4px subject-edge near-white=567, blue=65, chroma≥64=2392; canvas-edge visible=1846; review=[segmentation_groups_not_final__body_qwen__1f8b0470.png](review/segmentation_groups_not_final__body_qwen__1f8b0470.png)
+- `creature_source_not_runtime_accepted` `art_src/creatures/shock_hound/body_s2.png` — RGBA [1216, 832]; alpha0=775733, α1=0, α2–4=0, α5–20=2214; α1–20 chroma≥64=715, partial near-white=12, partial blue-dominant=2997; 1–4px subject-edge near-white=0, blue=600, chroma≥64=2124; canvas-edge visible=0; review=[creature_source_not_runtime_accepted__body_s2__c67e0497.png](review/creature_source_not_runtime_accepted__body_s2__c67e0497.png)
+- `unaccepted_generated_candidate` `art_src/creatures/_gen/creature_cloud_jelly_body_s2_0.png` — RGBA [832, 832]; alpha0=204191, α1=249442, α2–4=576, α5–20=919; α1–20 chroma≥64=249830, partial near-white=18, partial blue-dominant=259772; 1–4px subject-edge near-white=8, blue=2413, chroma≥64=2075; canvas-edge visible=1045; review=[unaccepted_generated_candidate__creature_cloud_jelly_body_s2_0__58e2ed9a.png](review/unaccepted_generated_candidate__creature_cloud_jelly_body_s2_0__58e2ed9a.png)
+- `intermediate_stage_generated` `art_src/characters/rin2/04_stages/D.png` — RGBA [832, 1216]; alpha0=351316, α1=475360, α2–4=894, α5–20=1099; α1–20 chroma≥64=474662, partial near-white=9901, partial blue-dominant=1780; 1–4px subject-edge near-white=3101, blue=270, chroma≥64=2037; canvas-edge visible=1211; review=[intermediate_stage_generated__D__9d8eb153.png](review/intermediate_stage_generated__D__9d8eb153.png)
+- `unaccepted_generated_candidate` `art_src/creatures/_gen/creature_tangle_wire_body_s3_0.png` — RGBA [1216, 832]; alpha0=369063, α1=437073, α2–4=35334, α5–20=2885; α1–20 chroma≥64=442727, partial near-white=801, partial blue-dominant=422985; 1–4px subject-edge near-white=0, blue=0, chroma≥64=2006; canvas-edge visible=1042; review=[unaccepted_generated_candidate__creature_tangle_wire_body_s3_0__4d40a843.png](review/unaccepted_generated_candidate__creature_tangle_wire_body_s3_0__4d40a843.png)
+- `intermediate_stage_generated` `art_src/characters/stalker/04_stages/P.png` — RGBA [832, 1216]; alpha0=357177, α1=490497, α2–4=5681, α5–20=5427; α1–20 chroma≥64=490743, partial near-white=133, partial blue-dominant=12911; 1–4px subject-edge near-white=2, blue=2885, chroma≥64=1934; canvas-edge visible=751; review=[intermediate_stage_generated__P__825cd301.png](review/intermediate_stage_generated__P__825cd301.png)
+- `intermediate_stage_generated` `art_src/characters/warden/04_stages/U.png` — RGBA [832, 1216]; alpha0=323805, α1=440487, α2–4=739, α5–20=1017; α1–20 chroma≥64=439829, partial near-white=1421, partial blue-dominant=1264; 1–4px subject-edge near-white=1391, blue=169, chroma≥64=1885; canvas-edge visible=1059; review=[intermediate_stage_generated__U__b954018a.png](review/intermediate_stage_generated__U__b954018a.png)
+- `creature_source_not_runtime_accepted` `art_src/creatures/cloud_jelly/tentacle_s2.png` — RGBA [512, 1216]; alpha0=562370, α1=0, α2–4=0, α5–20=662; α1–20 chroma≥64=295, partial near-white=298, partial blue-dominant=32865; 1–4px subject-edge near-white=1, blue=1632, chroma≥64=1857; canvas-edge visible=0; review=`not in top 30`
+- `unaccepted_generated_candidate` `art_src/characters/mei/_gen/wataru_design_s7_0.png` — RGBA [832, 1216]; alpha0=361643, α1=468798, α2–4=1174, α5–20=1183; α1–20 chroma≥64=467579, partial near-white=574, partial blue-dominant=460961; 1–4px subject-edge near-white=488, blue=135, chroma≥64=1798; canvas-edge visible=1638; review=`not in top 30`
+- `intermediate_stage_generated` `art_src/characters/nurse/04_stages/P.png` — RGBA [832, 1216]; alpha0=344677, α1=464893, α2–4=966, α5–20=1562; α1–20 chroma≥64=464648, partial near-white=1520, partial blue-dominant=1975; 1–4px subject-edge near-white=1420, blue=825, chroma≥64=1618; canvas-edge visible=1096; review=`not in top 30`
+- `unaccepted_generated_candidate` `art_src/creatures/_gen/creature_repair_drone_arm_s2_0.png` — RGBA [512, 1216]; alpha0=244671, α1=313808, α2–4=1063, α5–20=1354; α1–20 chroma≥64=313005, partial near-white=1071, partial blue-dominant=307444; 1–4px subject-edge near-white=792, blue=0, chroma≥64=1600; canvas-edge visible=1444; review=`not in top 30`
+- `unaccepted_generated_candidate` `art_src/characters/warden/_gen/warden_stage_U_0.png` — RGBA [832, 1248]; alpha0=330981, α1=453328, α2–4=873, α5–20=1103; α1–20 chroma≥64=451916, partial near-white=55, partial blue-dominant=446261; 1–4px subject-edge near-white=40, blue=1, chroma≥64=1411; canvas-edge visible=1079; review=`not in top 30`
+- `intermediate_stage_generated` `art_src/characters/rin2/04_stages/A.png` — RGBA [832, 1216]; alpha0=343451, α1=475414, α2–4=2862, α5–20=3835; α1–20 chroma≥64=475277, partial near-white=5745, partial blue-dominant=4674; 1–4px subject-edge near-white=769, blue=2558, chroma≥64=1408; canvas-edge visible=1199; review=`not in top 30`
+
+### 正式 runtime 色彩貼圖/肖像
+
+- `runtime_character_part` `art/characters/flamer/parts/leg_upper.png` — RGBA [255, 200]; alpha0=15626, α1=24, α2–4=39, α5–20=171; α1–20 chroma≥64=159, partial near-white=0, partial blue-dominant=0; 1–4px subject-edge near-white=0, blue=0, chroma≥64=572; canvas-edge visible=368; review=[runtime_character_part__leg_upper__107fd55d.png](review/runtime_character_part__leg_upper__107fd55d.png)
+- `runtime_portrait` `art/portraits/rin.png` — RGBA [256, 256]; alpha0=26333, α1=238, α2–4=407, α5–20=420; α1–20 chroma≥64=278, partial near-white=413, partial blue-dominant=78; 1–4px subject-edge near-white=324, blue=50, chroma≥64=411; canvas-edge visible=259; review=[runtime_portrait__rin__e7c0a5ff.png](review/runtime_portrait__rin__e7c0a5ff.png)
+- `runtime_creature_texture_referenced` `art/creatures/cloud_jelly/tentacle.png` — RGBA [20, 136]; alpha0=1368, α1=74, α2–4=193, α5–20=38; α1–20 chroma≥64=232, partial near-white=8, partial blue-dominant=852; 1–4px subject-edge near-white=7, blue=305, chroma≥64=367; canvas-edge visible=40; review=[runtime_creature_texture_referenced__tentacle__2ca13c24.png](review/runtime_creature_texture_referenced__tentacle__2ca13c24.png)
+- `runtime_character_part` `art/characters/flamer/parts/arm_upper.png` — RGBA [181, 254]; alpha0=8927, α1=24, α2–4=48, α5–20=137; α1–20 chroma≥64=110, partial near-white=0, partial blue-dominant=0; 1–4px subject-edge near-white=0, blue=0, chroma≥64=355; canvas-edge visible=115; review=[runtime_character_part__arm_upper__cd6da74d.png](review/runtime_character_part__arm_upper__cd6da74d.png)
+- `runtime_character_part` `art/characters/reclaimer/parts/armor_chest.png` — RGBA [88, 154]; alpha0=6483, α1=4, α2–4=17, α5–20=68; α1–20 chroma≥64=75, partial near-white=1, partial blue-dominant=0; 1–4px subject-edge near-white=0, blue=0, chroma≥64=311; canvas-edge visible=0; review=[runtime_character_part__armor_chest__307523ad.png](review/runtime_character_part__armor_chest__307523ad.png)
+- `runtime_character_part` `art/characters/night_worker/parts/torso.png` — RGBA [231, 335]; alpha0=16491, α1=15, α2–4=27, α5–20=153; α1–20 chroma≥64=100, partial near-white=7, partial blue-dominant=489; 1–4px subject-edge near-white=3, blue=2, chroma≥64=308; canvas-edge visible=226; review=[runtime_character_part__torso__daf1c9bf.png](review/runtime_character_part__torso__daf1c9bf.png)
+- `runtime_character_part` `art/characters/flamer/parts/torso.png` — RGBA [352, 363]; alpha0=27964, α1=22, α2–4=45, α5–20=140; α1–20 chroma≥64=81, partial near-white=0, partial blue-dominant=0; 1–4px subject-edge near-white=0, blue=0, chroma≥64=298; canvas-edge visible=300; review=[runtime_character_part__torso__fcae2fe1.png](review/runtime_character_part__torso__fcae2fe1.png)
+- `runtime_character_part` `art/characters/flamer/parts/armor_chest.png` — RGBA [193, 254]; alpha0=16151, α1=16, α2–4=29, α5–20=116; α1–20 chroma≥64=54, partial near-white=0, partial blue-dominant=0; 1–4px subject-edge near-white=0, blue=0, chroma≥64=288; canvas-edge visible=0; review=[runtime_character_part__armor_chest__8b257530.png](review/runtime_character_part__armor_chest__8b257530.png)
+- `runtime_character_part` `art/characters/enforcer/parts/hand.png` — RGBA [162, 194]; alpha0=8585, α1=17, α2–4=44, α5–20=119; α1–20 chroma≥64=77, partial near-white=0, partial blue-dominant=5072; 1–4px subject-edge near-white=0, blue=286, chroma≥64=274; canvas-edge visible=0; review=[runtime_character_part__hand__15ac159e.png](review/runtime_character_part__hand__15ac159e.png)
+- `runtime_character_part` `art/characters/rin/parts/hair_back_2.png` — RGBA [123, 198]; alpha0=13082, α1=73, α2–4=80, α5–20=97; α1–20 chroma≥64=51, partial near-white=122, partial blue-dominant=5; 1–4px subject-edge near-white=47, blue=1, chroma≥64=259; canvas-edge visible=76; review=[runtime_character_part__hair_back_2__85ffaefc.png](review/runtime_character_part__hair_back_2__85ffaefc.png)
+- `runtime_character_part` `art/characters/rin/parts/arm_left_upper.png` — RGBA [78, 265]; alpha0=7570, α1=13, α2–4=13, α5–20=68; α1–20 chroma≥64=45, partial near-white=0, partial blue-dominant=0; 1–4px subject-edge near-white=0, blue=0, chroma≥64=242; canvas-edge visible=16; review=[runtime_character_part__arm_left_upper__2ccb5e8a.png](review/runtime_character_part__arm_left_upper__2ccb5e8a.png)
+- `runtime_creature_texture_referenced` `art/creatures/mimic/open.png` — RGBA [144, 116]; alpha0=7727, α1=180, α2–4=309, α5–20=103; α1–20 chroma≥64=163, partial near-white=45, partial blue-dominant=4; 1–4px subject-edge near-white=34, blue=4, chroma≥64=218; canvas-edge visible=57; review=[runtime_creature_texture_referenced__open__a61bd537.png](review/runtime_creature_texture_referenced__open__a61bd537.png)
+- `runtime_character_part` `art/characters/flamer/parts/arm_lower.png` — RGBA [130, 128]; alpha0=5604, α1=11, α2–4=33, α5–20=60; α1–20 chroma≥64=57, partial near-white=0, partial blue-dominant=0; 1–4px subject-edge near-white=0, blue=0, chroma≥64=212; canvas-edge visible=123; review=[runtime_character_part__arm_lower__1c161001.png](review/runtime_character_part__arm_lower__1c161001.png)
+- `runtime_creature_texture_referenced` `art/creatures/shaft_bat/wing.png` — RGBA [44, 88]; alpha0=1443, α1=71, α2–4=170, α5–20=43; α1–20 chroma≥64=147, partial near-white=3, partial blue-dominant=664; 1–4px subject-edge near-white=3, blue=242, chroma≥64=198; canvas-edge visible=30; review=[runtime_creature_texture_referenced__wing__2885d92c.png](review/runtime_creature_texture_referenced__wing__2885d92c.png)
+- `runtime_character_part` `art/characters/warden/parts/armor_forearm.png` — RGBA [337, 529]; alpha0=75505, α1=114, α2–4=215, α5–20=690; α1–20 chroma≥64=46, partial near-white=1213, partial blue-dominant=5876; 1–4px subject-edge near-white=28, blue=324, chroma≥64=193; canvas-edge visible=0; review=`not in top 30`
+- `runtime_character_part` `art/characters/old_k/parts/leg_upper.png` — RGBA [209, 250]; alpha0=2542, α1=13, α2–4=43, α5–20=93; α1–20 chroma≥64=45, partial near-white=0, partial blue-dominant=0; 1–4px subject-edge near-white=0, blue=0, chroma≥64=193; canvas-edge visible=362; review=`not in top 30`
+- `runtime_character_part` `art/characters/rin/parts/arm_left_lower.png` — RGBA [66, 239]; alpha0=6392, α1=7, α2–4=16, α5–20=49; α1–20 chroma≥64=29, partial near-white=0, partial blue-dominant=0; 1–4px subject-edge near-white=0, blue=0, chroma≥64=169; canvas-edge visible=14; review=`not in top 30`
+- `runtime_character_part` `art/characters/heavy_gunner/parts/head.png` — RGBA [168, 171]; alpha0=8794, α1=5, α2–4=25, α5–20=93; α1–20 chroma≥64=39, partial near-white=0, partial blue-dominant=0; 1–4px subject-edge near-white=0, blue=0, chroma≥64=165; canvas-edge visible=0; review=`not in top 30`
+- `runtime_character_part` `art/characters/mei/parts/jacket.png` — RGBA [189, 396]; alpha0=18732, α1=20, α2–4=44, α5–20=171; α1–20 chroma≥64=18, partial near-white=0, partial blue-dominant=5268; 1–4px subject-edge near-white=0, blue=182, chroma≥64=155; canvas-edge visible=0; review=`not in top 30`
+- `runtime_character_part` `art/characters/flamer/parts/leg_lower.png` — RGBA [184, 247]; alpha0=10052, α1=26, α2–4=40, α5–20=107; α1–20 chroma≥64=38, partial near-white=0, partial blue-dominant=0; 1–4px subject-edge near-white=0, blue=0, chroma≥64=146; canvas-edge visible=292; review=`not in top 30`
+
+## 使用者附件 (獨立於 repository source)
+
+- `pm/Nest-Egg/images/NE-90-user-alpha-failure.png`: RGBA [832, 1248], SHA-256 `6c8ced173ba3a462268836356c1b222bc0e8c15a17541bddfa42df53a7eb2498`; alpha bins `{"alpha_0": 361029, "alpha_1": 497224, "alpha_2_4": 786, "alpha_5_20": 1336, "alpha_21_127": 2926, "alpha_128_254": 17570, "alpha_255": 157465}`; α1–20 top RGB `[{"rgb": [255, 0, 255], "count": 495298}, {"rgb": [0, 0, 255], "count": 1348}, {"rgb": [255, 255, 255], "count": 405}, {"rgb": [128, 128, 128], "count": 269}, {"rgb": [0, 0, 0], "count": 186}, {"rgb": [170, 170, 170], "count": 166}, {"rgb": [191, 191, 191], "count": 65}, {"rgb": [0, 0, 128], "count": 48}]`; subject-edge band counts `{"edge_band_1_4px_alpha_1_4": 1823, "edge_band_1_4px_alpha_5_20": 1235, "edge_band_1_4px_alpha_21_127": 2826, "edge_band_1_4px_alpha_128_254": 1, "edge_band_1_4px_near_white": 379, "edge_band_1_4px_blue_dominant": 788, "edge_band_1_4px_rgb_chroma_ge_64": 1375}`; review=[user_attachment_screenshot_not_source_asset__NE-90-user-alpha-failure__498be0f4.png](review/user_attachment_screenshot_not_source_asset__NE-90-user-alpha-failure__498be0f4.png)。此附件是 RGBA 截圖，不等於遊戲執行證據。
+- 直接來源比對限制：附件是 [832, 1248]；repo `04_stages/P.png` 是 [832, 1216]（RGBA），`P_grey.png` 是 [832, 1216]（RGB）。附件尺寸不同且不是目前 P/P_grey 的原檔 copy；視覺色調較接近 maroon 的 P_grey，但不能只憑相似外觀宣稱來源。
+
+## 正式 runtime PNG 概況
+
+- `art/characters/ah_po/parts/apron.png` — RGBA [244, 374]; alpha0=24562 (26.915%), alpha1=15, alpha2–4=26, alpha5–20=209, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/apron_bib.png` — RGBA [183, 275]; alpha0=32564 (64.707%), alpha1=18, alpha2–4=23, alpha5–20=150, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/apron_bib_glow.png` — RGBA [183, 275]; alpha0=49992 (99.338%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=2.
+- `art/characters/ah_po/parts/apron_bib_n.png` — RGBA [183, 275]; alpha0=32564 (64.707%), alpha1=18, alpha2–4=23, alpha5–20=150, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/apron_n.png` — RGBA [244, 374]; alpha0=24562 (26.915%), alpha1=15, alpha2–4=26, alpha5–20=209, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/arm_lower.png` — RGBA [108, 160]; alpha0=8061 (46.649%), alpha1=14, alpha2–4=16, alpha5–20=91, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/arm_lower_n.png` — RGBA [108, 160]; alpha0=8061 (46.649%), alpha1=14, alpha2–4=16, alpha5–20=91, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/arm_upper.png` — RGBA [103, 193]; alpha0=4448 (22.375%), alpha1=10, alpha2–4=21, alpha5–20=87, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/arm_upper_n.png` — RGBA [103, 193]; alpha0=4448 (22.375%), alpha1=10, alpha2–4=21, alpha5–20=87, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/foot.png` — RGBA [138, 80]; alpha0=4299 (38.940%), alpha1=6, alpha2–4=12, alpha5–20=50, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/foot_n.png` — RGBA [138, 80]; alpha0=4299 (38.940%), alpha1=6, alpha2–4=12, alpha5–20=50, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/hand.png` — RGBA [111, 62]; alpha0=2326 (33.798%), alpha1=6, alpha2–4=19, alpha5–20=44, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/hand_n.png` — RGBA [111, 62]; alpha0=2326 (33.798%), alpha1=6, alpha2–4=19, alpha5–20=44, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/head.png` — RGBA [195, 168]; alpha0=12011 (36.664%), alpha1=13, alpha2–4=54, alpha5–20=147, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/head_closed.png` — RGBA [195, 168]; alpha0=12011 (36.664%), alpha1=13, alpha2–4=54, alpha5–20=147, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/head_closed_n.png` — RGBA [195, 168]; alpha0=12011 (36.664%), alpha1=13, alpha2–4=54, alpha5–20=147, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/head_half.png` — RGBA [195, 168]; alpha0=12011 (36.664%), alpha1=13, alpha2–4=54, alpha5–20=147, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/head_half_n.png` — RGBA [195, 168]; alpha0=12011 (36.664%), alpha1=13, alpha2–4=54, alpha5–20=147, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/head_n.png` — RGBA [195, 168]; alpha0=12011 (36.664%), alpha1=13, alpha2–4=54, alpha5–20=147, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/leg_lower.png` — RGBA [123, 226]; alpha0=5730 (20.613%), alpha1=26, alpha2–4=27, alpha5–20=101, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/leg_lower_n.png` — RGBA [123, 226]; alpha0=5730 (20.613%), alpha1=26, alpha2–4=27, alpha5–20=101, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/leg_upper.png` — RGBA [156, 225]; alpha0=7451 (21.228%), alpha1=16, alpha2–4=31, alpha5–20=130, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/leg_upper_n.png` — RGBA [156, 225]; alpha0=7451 (21.228%), alpha1=16, alpha2–4=31, alpha5–20=130, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/pelvis.png` — RGBA [190, 124]; alpha0=1540 (6.537%), alpha1=1, alpha2–4=8, alpha5–20=22, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/pelvis_n.png` — RGBA [190, 124]; alpha0=1540 (6.537%), alpha1=1, alpha2–4=8, alpha5–20=22, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/torso.png` — RGBA [183, 264]; alpha0=8942 (18.509%), alpha1=13, alpha2–4=29, alpha5–20=89, alpha>127 nonprimary components=0.
+- `art/characters/ah_po/parts/torso_n.png` — RGBA [183, 264]; alpha0=8942 (18.509%), alpha1=13, alpha2–4=29, alpha5–20=89, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/arm_lower.png` — RGBA [122, 136]; alpha0=5296 (31.919%), alpha1=9, alpha2–4=12, alpha5–20=75, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/arm_lower_n.png` — RGBA [122, 136]; alpha0=5296 (31.919%), alpha1=9, alpha2–4=12, alpha5–20=75, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/arm_upper.png` — RGBA [183, 258]; alpha0=13817 (29.265%), alpha1=33, alpha2–4=62, alpha5–20=198, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/arm_upper_n.png` — RGBA [183, 258]; alpha0=13817 (29.265%), alpha1=33, alpha2–4=62, alpha5–20=198, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/armor_chest.png` — RGBA [172, 175]; alpha0=12331 (40.967%), alpha1=9, alpha2–4=30, alpha5–20=134, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/armor_chest_n.png` — RGBA [172, 175]; alpha0=12331 (40.967%), alpha1=9, alpha2–4=30, alpha5–20=134, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/armor_forearm.png` — RGBA [173, 249]; alpha0=16329 (37.907%), alpha1=22, alpha2–4=51, alpha5–20=189, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/armor_forearm_n.png` — RGBA [173, 249]; alpha0=16329 (37.907%), alpha1=22, alpha2–4=51, alpha5–20=189, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/armor_knee.png` — RGBA [72, 370]; alpha0=15791 (59.276%), alpha1=28, alpha2–4=60, alpha5–20=190, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/armor_knee_n.png` — RGBA [72, 370]; alpha0=15791 (59.276%), alpha1=28, alpha2–4=60, alpha5–20=190, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/armor_shoulder.png` — RGBA [198, 187]; alpha0=12515 (33.801%), alpha1=31, alpha2–4=36, alpha5–20=124, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/armor_shoulder_n.png` — RGBA [198, 187]; alpha0=12515 (33.801%), alpha1=31, alpha2–4=36, alpha5–20=124, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/foot.png` — RGBA [201, 137]; alpha0=8171 (29.673%), alpha1=5, alpha2–4=16, alpha5–20=60, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/foot_n.png` — RGBA [201, 137]; alpha0=8171 (29.673%), alpha1=5, alpha2–4=16, alpha5–20=60, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/hand.png` — RGBA [162, 194]; alpha0=8585 (27.316%), alpha1=17, alpha2–4=44, alpha5–20=119, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/hand_n.png` — RGBA [162, 194]; alpha0=8585 (27.316%), alpha1=17, alpha2–4=44, alpha5–20=119, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/head.png` — RGBA [152, 158]; alpha0=7360 (30.646%), alpha1=10, alpha2–4=27, alpha5–20=106, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/head_glow.png` — RGBA [152, 158]; alpha0=23484 (97.785%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=1.
+- `art/characters/enforcer/parts/head_n.png` — RGBA [152, 158]; alpha0=7360 (30.646%), alpha1=10, alpha2–4=27, alpha5–20=106, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/leg_lower.png` — RGBA [179, 281]; alpha0=19475 (38.718%), alpha1=19, alpha2–4=46, alpha5–20=142, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/leg_lower_n.png` — RGBA [179, 281]; alpha0=19475 (38.718%), alpha1=19, alpha2–4=46, alpha5–20=142, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/leg_upper.png` — RGBA [228, 341]; alpha0=27957 (35.958%), alpha1=15, alpha2–4=44, alpha5–20=180, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/leg_upper_n.png` — RGBA [228, 341]; alpha0=27957 (35.958%), alpha1=15, alpha2–4=44, alpha5–20=180, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/pelvis.png` — RGBA [229, 214]; alpha0=5687 (11.605%), alpha1=10, alpha2–4=24, alpha5–20=64, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/pelvis_n.png` — RGBA [229, 214]; alpha0=5687 (11.605%), alpha1=10, alpha2–4=24, alpha5–20=64, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/riot_shield.png` — RGBA [200, 440]; alpha0=20179 (22.931%), alpha1=1058, alpha2–4=2343, alpha5–20=952, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/riot_shield_glow.png` — RGBA [200, 440]; alpha0=84888 (96.464%), alpha1=357, alpha2–4=307, alpha5–20=569, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/riot_shield_n.png` — RGBA [200, 440]; alpha0=20179 (22.931%), alpha1=1058, alpha2–4=2343, alpha5–20=952, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/torso.png` — RGBA [251, 368]; alpha0=22317 (24.161%), alpha1=16, alpha2–4=67, alpha5–20=143, alpha>127 nonprimary components=0.
+- `art/characters/enforcer/parts/torso_glow.png` — RGBA [251, 368]; alpha0=91650 (99.223%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=4.
+- `art/characters/enforcer/parts/torso_n.png` — RGBA [251, 368]; alpha0=22317 (24.161%), alpha1=16, alpha2–4=67, alpha5–20=143, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/arm_lower.png` — RGBA [130, 128]; alpha0=5604 (33.678%), alpha1=11, alpha2–4=33, alpha5–20=60, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/arm_lower_n.png` — RGBA [130, 128]; alpha0=5604 (33.678%), alpha1=11, alpha2–4=33, alpha5–20=60, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/arm_upper.png` — RGBA [181, 254]; alpha0=8927 (19.417%), alpha1=24, alpha2–4=48, alpha5–20=137, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/arm_upper_n.png` — RGBA [181, 254]; alpha0=8927 (19.417%), alpha1=24, alpha2–4=48, alpha5–20=137, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/armor_chest.png` — RGBA [193, 254]; alpha0=16151 (32.946%), alpha1=16, alpha2–4=29, alpha5–20=116, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/armor_chest_n.png` — RGBA [193, 254]; alpha0=16151 (32.946%), alpha1=16, alpha2–4=29, alpha5–20=116, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/armor_forearm.png` — RGBA [185, 283]; alpha0=18107 (34.585%), alpha1=30, alpha2–4=42, alpha5–20=162, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/armor_forearm_n.png` — RGBA [185, 283]; alpha0=18107 (34.585%), alpha1=30, alpha2–4=42, alpha5–20=162, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/armor_knee.png` — RGBA [120, 135]; alpha0=5161 (31.858%), alpha1=26, alpha2–4=17, alpha5–20=85, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/armor_knee_n.png` — RGBA [120, 135]; alpha0=5161 (31.858%), alpha1=26, alpha2–4=17, alpha5–20=85, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/armor_shoulder.png` — RGBA [185, 156]; alpha0=7670 (26.577%), alpha1=25, alpha2–4=33, alpha5–20=115, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/armor_shoulder_n.png` — RGBA [185, 156]; alpha0=7670 (26.577%), alpha1=25, alpha2–4=33, alpha5–20=115, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/foot.png` — RGBA [216, 125]; alpha0=8239 (30.515%), alpha1=7, alpha2–4=24, alpha5–20=119, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/foot_n.png` — RGBA [216, 125]; alpha0=8239 (30.515%), alpha1=7, alpha2–4=24, alpha5–20=119, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/hand.png` — RGBA [98, 122]; alpha0=3156 (26.397%), alpha1=15, alpha2–4=21, alpha5–20=96, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/hand_n.png` — RGBA [98, 122]; alpha0=3156 (26.397%), alpha1=15, alpha2–4=21, alpha5–20=96, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/head.png` — RGBA [215, 226]; alpha0=15665 (32.239%), alpha1=34, alpha2–4=37, alpha5–20=153, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/head_n.png` — RGBA [215, 226]; alpha0=15665 (32.239%), alpha1=34, alpha2–4=37, alpha5–20=153, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/leg_lower.png` — RGBA [184, 247]; alpha0=10052 (22.118%), alpha1=26, alpha2–4=40, alpha5–20=107, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/leg_lower_n.png` — RGBA [184, 247]; alpha0=10052 (22.118%), alpha1=26, alpha2–4=40, alpha5–20=107, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/leg_upper.png` — RGBA [255, 200]; alpha0=15626 (30.639%), alpha1=24, alpha2–4=39, alpha5–20=171, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/leg_upper_n.png` — RGBA [255, 200]; alpha0=15626 (30.639%), alpha1=24, alpha2–4=39, alpha5–20=171, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/pelvis.png` — RGBA [324, 154]; alpha0=3812 (7.640%), alpha1=20, alpha2–4=12, alpha5–20=67, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/pelvis_n.png` — RGBA [324, 154]; alpha0=3812 (7.640%), alpha1=20, alpha2–4=12, alpha5–20=67, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/torso.png` — RGBA [352, 363]; alpha0=27964 (21.885%), alpha1=22, alpha2–4=45, alpha5–20=140, alpha>127 nonprimary components=0.
+- `art/characters/flamer/parts/torso_n.png` — RGBA [352, 363]; alpha0=27964 (21.885%), alpha1=22, alpha2–4=45, alpha5–20=140, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/arm_lower.png` — RGBA [135, 162]; alpha0=8197 (37.481%), alpha1=10, alpha2–4=25, alpha5–20=80, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/arm_lower_n.png` — RGBA [135, 162]; alpha0=8197 (37.481%), alpha1=10, alpha2–4=25, alpha5–20=80, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/arm_upper.png` — RGBA [135, 208]; alpha0=5672 (20.199%), alpha1=10, alpha2–4=27, alpha5–20=134, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/arm_upper_n.png` — RGBA [135, 208]; alpha0=5672 (20.199%), alpha1=10, alpha2–4=27, alpha5–20=134, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/armor_chest.png` — RGBA [148, 279]; alpha0=13917 (33.704%), alpha1=19, alpha2–4=38, alpha5–20=110, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/armor_chest_n.png` — RGBA [148, 279]; alpha0=13917 (33.704%), alpha1=19, alpha2–4=38, alpha5–20=110, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/armor_forearm.png` — RGBA [170, 150]; alpha0=11282 (44.243%), alpha1=23, alpha2–4=28, alpha5–20=111, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/armor_forearm_n.png` — RGBA [170, 150]; alpha0=11282 (44.243%), alpha1=23, alpha2–4=28, alpha5–20=111, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/armor_knee.png` — RGBA [39, 101]; alpha0=1722 (43.717%), alpha1=3, alpha2–4=17, alpha5–20=58, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/armor_knee_n.png` — RGBA [39, 101]; alpha0=1722 (43.717%), alpha1=3, alpha2–4=17, alpha5–20=58, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/armor_shoulder.png` — RGBA [151, 154]; alpha0=7247 (31.165%), alpha1=18, alpha2–4=49, alpha5–20=115, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/armor_shoulder_n.png` — RGBA [151, 154]; alpha0=7247 (31.165%), alpha1=18, alpha2–4=49, alpha5–20=115, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/foot.png` — RGBA [177, 198]; alpha0=16392 (46.773%), alpha1=8, alpha2–4=19, alpha5–20=90, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/foot_n.png` — RGBA [177, 198]; alpha0=16392 (46.773%), alpha1=8, alpha2–4=19, alpha5–20=90, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/hand.png` — RGBA [104, 86]; alpha0=2690 (30.076%), alpha1=13, alpha2–4=13, alpha5–20=78, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/hand_n.png` — RGBA [104, 86]; alpha0=2690 (30.076%), alpha1=13, alpha2–4=13, alpha5–20=78, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/head.png` — RGBA [190, 187]; alpha0=13947 (39.254%), alpha1=6, alpha2–4=29, alpha5–20=92, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/head_glow.png` — RGBA [190, 187]; alpha0=35370 (99.550%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=1.
+- `art/characters/grenadier/parts/head_n.png` — RGBA [190, 187]; alpha0=13947 (39.254%), alpha1=6, alpha2–4=29, alpha5–20=92, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/leg_lower.png` — RGBA [152, 162]; alpha0=6519 (26.474%), alpha1=15, alpha2–4=27, alpha5–20=97, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/leg_lower_n.png` — RGBA [152, 162]; alpha0=6519 (26.474%), alpha1=15, alpha2–4=27, alpha5–20=97, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/leg_upper.png` — RGBA [148, 243]; alpha0=13276 (36.915%), alpha1=16, alpha2–4=39, alpha5–20=141, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/leg_upper_n.png` — RGBA [148, 243]; alpha0=13276 (36.915%), alpha1=16, alpha2–4=39, alpha5–20=141, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/pelvis.png` — RGBA [265, 140]; alpha0=4878 (13.148%), alpha1=3, alpha2–4=29, alpha5–20=22, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/pelvis_n.png` — RGBA [265, 140]; alpha0=4878 (13.148%), alpha1=3, alpha2–4=29, alpha5–20=22, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/torso.png` — RGBA [268, 328]; alpha0=20934 (23.815%), alpha1=18, alpha2–4=55, alpha5–20=95, alpha>127 nonprimary components=0.
+- `art/characters/grenadier/parts/torso_glow.png` — RGBA [268, 328]; alpha0=87857 (99.947%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=2.
+- `art/characters/grenadier/parts/torso_n.png` — RGBA [268, 328]; alpha0=20934 (23.815%), alpha1=18, alpha2–4=55, alpha5–20=95, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/arm_lower.png` — RGBA [161, 158]; alpha0=10398 (40.876%), alpha1=13, alpha2–4=31, alpha5–20=109, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/arm_lower_n.png` — RGBA [161, 158]; alpha0=10398 (40.876%), alpha1=13, alpha2–4=31, alpha5–20=109, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/arm_upper.png` — RGBA [230, 318]; alpha0=23020 (31.474%), alpha1=35, alpha2–4=68, alpha5–20=223, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/arm_upper_n.png` — RGBA [230, 318]; alpha0=23020 (31.474%), alpha1=35, alpha2–4=68, alpha5–20=223, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/armor_chest.png` — RGBA [206, 236]; alpha0=21597 (44.424%), alpha1=15, alpha2–4=45, alpha5–20=143, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/armor_chest_n.png` — RGBA [206, 236]; alpha0=21597 (44.424%), alpha1=15, alpha2–4=45, alpha5–20=143, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/armor_forearm.png` — RGBA [243, 280]; alpha0=24987 (36.724%), alpha1=48, alpha2–4=60, alpha5–20=202, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/armor_forearm_n.png` — RGBA [243, 280]; alpha0=24987 (36.724%), alpha1=48, alpha2–4=60, alpha5–20=202, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/armor_knee.png` — RGBA [112, 153]; alpha0=6084 (35.504%), alpha1=26, alpha2–4=37, alpha5–20=93, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/armor_knee_n.png` — RGBA [112, 153]; alpha0=6084 (35.504%), alpha1=26, alpha2–4=37, alpha5–20=93, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/armor_shoulder.png` — RGBA [279, 211]; alpha0=22594 (38.380%), alpha1=46, alpha2–4=90, alpha5–20=227, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/armor_shoulder_n.png` — RGBA [279, 211]; alpha0=22594 (38.380%), alpha1=46, alpha2–4=90, alpha5–20=227, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/foot.png` — RGBA [235, 168]; alpha0=10131 (25.661%), alpha1=4, alpha2–4=24, alpha5–20=86, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/foot_n.png` — RGBA [235, 168]; alpha0=10131 (25.661%), alpha1=4, alpha2–4=24, alpha5–20=86, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/hand.png` — RGBA [153, 156]; alpha0=5395 (22.603%), alpha1=16, alpha2–4=43, alpha5–20=123, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/hand_n.png` — RGBA [153, 156]; alpha0=5395 (22.603%), alpha1=16, alpha2–4=43, alpha5–20=123, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/head.png` — RGBA [168, 171]; alpha0=8794 (30.611%), alpha1=5, alpha2–4=25, alpha5–20=93, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/head_glow.png` — RGBA [168, 171]; alpha0=26911 (93.675%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=7.
+- `art/characters/heavy_gunner/parts/head_n.png` — RGBA [168, 171]; alpha0=8794 (30.611%), alpha1=5, alpha2–4=25, alpha5–20=93, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/leg_lower.png` — RGBA [218, 344]; alpha0=27822 (37.100%), alpha1=35, alpha2–4=64, alpha5–20=186, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/leg_lower_n.png` — RGBA [218, 344]; alpha0=27822 (37.100%), alpha1=35, alpha2–4=64, alpha5–20=186, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/leg_upper.png` — RGBA [288, 409]; alpha0=42441 (36.030%), alpha1=35, alpha2–4=67, alpha5–20=216, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/leg_upper_n.png` — RGBA [288, 409]; alpha0=42441 (36.030%), alpha1=35, alpha2–4=67, alpha5–20=216, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/pelvis.png` — RGBA [305, 308]; alpha0=14343 (15.268%), alpha1=18, alpha2–4=38, alpha5–20=97, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/pelvis_n.png` — RGBA [305, 308]; alpha0=14343 (15.268%), alpha1=18, alpha2–4=38, alpha5–20=97, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/torso.png` — RGBA [340, 446]; alpha0=40486 (26.699%), alpha1=28, alpha2–4=63, alpha5–20=164, alpha>127 nonprimary components=0.
+- `art/characters/heavy_gunner/parts/torso_glow.png` — RGBA [340, 446]; alpha0=149867 (98.831%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=13.
+- `art/characters/heavy_gunner/parts/torso_n.png` — RGBA [340, 446]; alpha0=40486 (26.699%), alpha1=28, alpha2–4=63, alpha5–20=164, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/arm_lower.png` — RGBA [72, 186]; alpha0=7157 (53.442%), alpha1=16, alpha2–4=21, alpha5–20=92, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/arm_lower_dmg.png` — RGBA [72, 186]; alpha0=7157 (53.442%), alpha1=16, alpha2–4=21, alpha5–20=92, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/arm_lower_dmg_n.png` — RGBA [72, 186]; alpha0=7157 (53.442%), alpha1=16, alpha2–4=21, alpha5–20=92, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/arm_lower_n.png` — RGBA [72, 186]; alpha0=7157 (53.442%), alpha1=16, alpha2–4=21, alpha5–20=92, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/arm_upper.png` — RGBA [58, 190]; alpha0=3142 (28.512%), alpha1=13, alpha2–4=19, alpha5–20=69, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/arm_upper_dmg.png` — RGBA [58, 190]; alpha0=3142 (28.512%), alpha1=13, alpha2–4=19, alpha5–20=69, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/arm_upper_dmg_n.png` — RGBA [58, 190]; alpha0=3142 (28.512%), alpha1=13, alpha2–4=19, alpha5–20=69, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/arm_upper_n.png` — RGBA [58, 190]; alpha0=3142 (28.512%), alpha1=13, alpha2–4=19, alpha5–20=69, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/foot.png` — RGBA [162, 105]; alpha0=7206 (42.363%), alpha1=4, alpha2–4=20, alpha5–20=78, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/foot_n.png` — RGBA [162, 105]; alpha0=7206 (42.363%), alpha1=4, alpha2–4=20, alpha5–20=78, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/hand.png` — RGBA [54, 59]; alpha0=1198 (37.602%), alpha1=5, alpha2–4=10, alpha5–20=26, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/hand_n.png` — RGBA [54, 59]; alpha0=1198 (37.602%), alpha1=5, alpha2–4=10, alpha5–20=26, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/head.png` — RGBA [199, 182]; alpha0=12267 (33.870%), alpha1=17, alpha2–4=41, alpha5–20=143, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/head_closed.png` — RGBA [199, 182]; alpha0=12267 (33.870%), alpha1=17, alpha2–4=41, alpha5–20=143, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/head_closed_glow.png` — RGBA [199, 182]; alpha0=33769 (93.238%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=16.
+- `art/characters/mei/parts/head_closed_n.png` — RGBA [199, 182]; alpha0=12267 (33.870%), alpha1=17, alpha2–4=41, alpha5–20=143, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/head_glow.png` — RGBA [199, 182]; alpha0=33742 (93.164%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=17.
+- `art/characters/mei/parts/head_half.png` — RGBA [199, 182]; alpha0=12267 (33.870%), alpha1=17, alpha2–4=41, alpha5–20=143, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/head_half_glow.png` — RGBA [199, 182]; alpha0=33749 (93.183%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=17.
+- `art/characters/mei/parts/head_half_n.png` — RGBA [199, 182]; alpha0=12267 (33.870%), alpha1=17, alpha2–4=41, alpha5–20=143, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/head_n.png` — RGBA [199, 182]; alpha0=12267 (33.870%), alpha1=17, alpha2–4=41, alpha5–20=143, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/jacket.png` — RGBA [189, 396]; alpha0=18732 (25.028%), alpha1=20, alpha2–4=44, alpha5–20=171, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/jacket_front.png` — RGBA [34, 261]; alpha0=4502 (50.732%), alpha1=2, alpha2–4=3, alpha5–20=20, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/jacket_front_n.png` — RGBA [34, 261]; alpha0=4502 (50.732%), alpha1=2, alpha2–4=3, alpha5–20=20, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/jacket_n.png` — RGBA [189, 396]; alpha0=18732 (25.028%), alpha1=20, alpha2–4=44, alpha5–20=171, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/leg_lower.png` — RGBA [89, 221]; alpha0=7363 (37.435%), alpha1=16, alpha2–4=41, alpha5–20=85, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/leg_lower_dmg.png` — RGBA [89, 226]; alpha0=7673 (38.148%), alpha1=17, alpha2–4=44, alpha5–20=97, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/leg_lower_dmg_n.png` — RGBA [89, 226]; alpha0=7673 (38.148%), alpha1=17, alpha2–4=44, alpha5–20=97, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/leg_lower_n.png` — RGBA [89, 221]; alpha0=7363 (37.435%), alpha1=16, alpha2–4=41, alpha5–20=85, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/leg_upper.png` — RGBA [109, 206]; alpha0=8296 (36.947%), alpha1=16, alpha2–4=29, alpha5–20=124, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/leg_upper_dmg.png` — RGBA [109, 206]; alpha0=8296 (36.947%), alpha1=16, alpha2–4=29, alpha5–20=124, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/leg_upper_dmg_n.png` — RGBA [109, 206]; alpha0=8296 (36.947%), alpha1=16, alpha2–4=29, alpha5–20=124, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/leg_upper_n.png` — RGBA [109, 206]; alpha0=8296 (36.947%), alpha1=16, alpha2–4=29, alpha5–20=124, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/pelvis.png` — RGBA [135, 121]; alpha0=1983 (12.140%), alpha1=8, alpha2–4=40, alpha5–20=30, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/pelvis_dmg.png` — RGBA [135, 121]; alpha0=1983 (12.140%), alpha1=8, alpha2–4=40, alpha5–20=30, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/pelvis_dmg_n.png` — RGBA [135, 121]; alpha0=1983 (12.140%), alpha1=8, alpha2–4=40, alpha5–20=30, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/pelvis_n.png` — RGBA [135, 121]; alpha0=1983 (12.140%), alpha1=8, alpha2–4=40, alpha5–20=30, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/sleeve_lower.png` — RGBA [121, 179]; alpha0=6340 (29.272%), alpha1=14, alpha2–4=14, alpha5–20=93, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/sleeve_lower_n.png` — RGBA [121, 179]; alpha0=6340 (29.272%), alpha1=14, alpha2–4=14, alpha5–20=93, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/sleeve_upper.png` — RGBA [103, 184]; alpha0=5230 (27.596%), alpha1=14, alpha2–4=34, alpha5–20=84, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/sleeve_upper_n.png` — RGBA [103, 184]; alpha0=5230 (27.596%), alpha1=14, alpha2–4=34, alpha5–20=84, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/torso.png` — RGBA [147, 254]; alpha0=14059 (37.653%), alpha1=13, alpha2–4=58, alpha5–20=92, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/torso_dmg.png` — RGBA [147, 254]; alpha0=14059 (37.653%), alpha1=13, alpha2–4=58, alpha5–20=92, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/torso_dmg_n.png` — RGBA [147, 254]; alpha0=14059 (37.653%), alpha1=13, alpha2–4=58, alpha5–20=92, alpha>127 nonprimary components=0.
+- `art/characters/mei/parts/torso_n.png` — RGBA [147, 254]; alpha0=14059 (37.653%), alpha1=13, alpha2–4=58, alpha5–20=92, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/arm_lower.png` — RGBA [115, 164]; alpha0=6287 (33.335%), alpha1=13, alpha2–4=23, alpha5–20=81, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/arm_lower_n.png` — RGBA [115, 164]; alpha0=6287 (33.335%), alpha1=13, alpha2–4=23, alpha5–20=81, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/arm_upper.png` — RGBA [124, 235]; alpha0=6135 (21.054%), alpha1=14, alpha2–4=23, alpha5–20=109, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/arm_upper_n.png` — RGBA [124, 235]; alpha0=6135 (21.054%), alpha1=14, alpha2–4=23, alpha5–20=109, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/foot.png` — RGBA [186, 132]; alpha0=9189 (37.427%), alpha1=8, alpha2–4=19, alpha5–20=69, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/foot_n.png` — RGBA [186, 132]; alpha0=9189 (37.427%), alpha1=8, alpha2–4=19, alpha5–20=69, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/hand.png` — RGBA [147, 89]; alpha0=4191 (32.034%), alpha1=18, alpha2–4=26, alpha5–20=89, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/hand_n.png` — RGBA [147, 89]; alpha0=4191 (32.034%), alpha1=18, alpha2–4=26, alpha5–20=89, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/head.png` — RGBA [196, 212]; alpha0=14542 (34.997%), alpha1=15, alpha2–4=43, alpha5–20=132, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/head_closed.png` — RGBA [196, 212]; alpha0=14542 (34.997%), alpha1=15, alpha2–4=43, alpha5–20=132, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/head_closed_n.png` — RGBA [196, 212]; alpha0=14542 (34.997%), alpha1=15, alpha2–4=43, alpha5–20=132, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/head_half.png` — RGBA [196, 212]; alpha0=14542 (34.997%), alpha1=15, alpha2–4=43, alpha5–20=132, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/head_half_n.png` — RGBA [196, 212]; alpha0=14542 (34.997%), alpha1=15, alpha2–4=43, alpha5–20=132, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/head_n.png` — RGBA [196, 212]; alpha0=14542 (34.997%), alpha1=15, alpha2–4=43, alpha5–20=132, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/leg_lower.png` — RGBA [142, 191]; alpha0=5176 (19.084%), alpha1=18, alpha2–4=27, alpha5–20=82, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/leg_lower_n.png` — RGBA [142, 191]; alpha0=5176 (19.084%), alpha1=18, alpha2–4=27, alpha5–20=82, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/leg_upper.png` — RGBA [176, 244]; alpha0=9926 (23.114%), alpha1=17, alpha2–4=40, alpha5–20=138, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/leg_upper_n.png` — RGBA [176, 244]; alpha0=9926 (23.114%), alpha1=17, alpha2–4=40, alpha5–20=138, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/pelvis.png` — RGBA [255, 145]; alpha0=3234 (8.746%), alpha1=1, alpha2–4=10, alpha5–20=53, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/pelvis_n.png` — RGBA [255, 145]; alpha0=3234 (8.746%), alpha1=1, alpha2–4=10, alpha5–20=53, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/torso.png` — RGBA [231, 335]; alpha0=16491 (21.310%), alpha1=15, alpha2–4=27, alpha5–20=153, alpha>127 nonprimary components=0.
+- `art/characters/night_worker/parts/torso_n.png` — RGBA [231, 335]; alpha0=16491 (21.310%), alpha1=15, alpha2–4=27, alpha5–20=153, alpha>127 nonprimary components=0.
+- `art/characters/nurse/parts/arm_lower.png` — RGBA [59, 162]; alpha0=2998 (31.366%), alpha1=12, alpha2–4=34, alpha5–20=82, alpha>127 nonprimary components=0.
+- `art/characters/nurse/parts/arm_lower_n.png` — RGBA [59, 162]; alpha0=2998 (31.366%), alpha1=12, alpha2–4=34, alpha5–20=82, alpha>127 nonprimary components=0.
+- `art/characters/nurse/parts/arm_upper.png` — RGBA [99, 184]; alpha0=4735 (25.994%), alpha1=25, alpha2–4=71, alpha5–20=105, alpha>127 nonprimary components=0.
+- `art/characters/nurse/parts/arm_upper_n.png` — RGBA [99, 184]; alpha0=4735 (25.994%), alpha1=25, alpha2–4=71, alpha5–20=105, alpha>127 nonprimary components=0.
+- `art/characters/nurse/parts/foot.png` — RGBA [154, 81]; alpha0=3785 (30.343%), alpha1=3, alpha2–4=17, alpha5–20=52, alpha>127 nonprimary components=0.
+- `art/characters/nurse/parts/foot_n.png` — RGBA [154, 81]; alpha0=3785 (30.343%), alpha1=3, alpha2–4=17, alpha5–20=52, alpha>127 nonprimary components=0.
+- `art/characters/nurse/parts/hand.png` — RGBA [111, 67]; alpha0=2634 (35.418%), alpha1=9, alpha2–4=25, alpha5–20=52, alpha>127 nonprimary components=0.
+- `art/characters/nurse/parts/hand_n.png` — RGBA [111, 67]; alpha0=2634 (35.418%), alpha1=9, alpha2–4=25, alpha5–20=52, alpha>127 nonprimary components=0.
+- `art/characters/nurse/parts/head.png` — RGBA [212, 190]; alpha0=15565 (38.642%), alpha1=22, alpha2–4=63, alpha5–20=195, alpha>127 nonprimary components=1.
+- `art/characters/nurse/parts/head_closed.png` — RGBA [212, 190]; alpha0=15565 (38.642%), alpha1=22, alpha2–4=63, alpha5–20=195, alpha>127 nonprimary components=1.
+- `art/characters/nurse/parts/head_closed_n.png` — RGBA [212, 190]; alpha0=15565 (38.642%), alpha1=22, alpha2–4=63, alpha5–20=195, alpha>127 nonprimary components=1.
+- `art/characters/nurse/parts/head_half.png` — RGBA [212, 190]; alpha0=15565 (38.642%), alpha1=22, alpha2–4=63, alpha5–20=195, alpha>127 nonprimary components=1.
+- `art/characters/nurse/parts/head_half_n.png` — RGBA [212, 190]; alpha0=15565 (38.642%), alpha1=22, alpha2–4=63, alpha5–20=195, alpha>127 nonprimary components=1.
+- `art/characters/nurse/parts/head_n.png` — RGBA [212, 190]; alpha0=15565 (38.642%), alpha1=22, alpha2–4=63, alpha5–20=195, alpha>127 nonprimary components=1.
+- `art/characters/nurse/parts/leg_lower.png` — RGBA [137, 249]; alpha0=9939 (29.136%), alpha1=11, alpha2–4=39, alpha5–20=120, alpha>127 nonprimary components=0.
+- `art/characters/nurse/parts/leg_lower_n.png` — RGBA [137, 249]; alpha0=9939 (29.136%), alpha1=11, alpha2–4=39, alpha5–20=120, alpha>127 nonprimary components=0.
+- `art/characters/nurse/parts/leg_upper.png` — RGBA [136, 235]; alpha0=5893 (18.439%), alpha1=14, alpha2–4=32, alpha5–20=121, alpha>127 nonprimary components=0.
+- `art/characters/nurse/parts/leg_upper_n.png` — RGBA [136, 235]; alpha0=5893 (18.439%), alpha1=14, alpha2–4=32, alpha5–20=121, alpha>127 nonprimary components=0.
+- `art/characters/nurse/parts/pelvis.png` — RGBA [206, 132]; alpha0=3458 (12.717%), alpha1=3, alpha2–4=11, alpha5–20=53, alpha>127 nonprimary components=0.
+- `art/characters/nurse/parts/pelvis_glow.png` — RGBA [206, 132]; alpha0=21238 (78.104%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=1.
+- `art/characters/nurse/parts/pelvis_n.png` — RGBA [206, 132]; alpha0=3458 (12.717%), alpha1=3, alpha2–4=11, alpha5–20=53, alpha>127 nonprimary components=0.
+- `art/characters/nurse/parts/torso.png` — RGBA [197, 280]; alpha0=15234 (27.618%), alpha1=12, alpha2–4=27, alpha5–20=86, alpha>127 nonprimary components=0.
+- `art/characters/nurse/parts/torso_n.png` — RGBA [197, 280]; alpha0=15234 (27.618%), alpha1=12, alpha2–4=27, alpha5–20=86, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/arm_lower.png` — RGBA [83, 181]; alpha0=5255 (34.980%), alpha1=14, alpha2–4=28, alpha5–20=91, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/arm_lower_n.png` — RGBA [83, 181]; alpha0=5255 (34.980%), alpha1=14, alpha2–4=28, alpha5–20=91, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/arm_upper.png` — RGBA [115, 200]; alpha0=6311 (27.439%), alpha1=16, alpha2–4=28, alpha5–20=104, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/arm_upper_n.png` — RGBA [115, 200]; alpha0=6311 (27.439%), alpha1=16, alpha2–4=28, alpha5–20=104, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/foot.png` — RGBA [165, 131]; alpha0=7765 (35.924%), alpha1=4, alpha2–4=10, alpha5–20=69, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/foot_n.png` — RGBA [165, 131]; alpha0=7765 (35.924%), alpha1=4, alpha2–4=10, alpha5–20=69, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/hand.png` — RGBA [110, 78]; alpha0=3311 (38.590%), alpha1=17, alpha2–4=32, alpha5–20=58, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/hand_n.png` — RGBA [110, 78]; alpha0=3311 (38.590%), alpha1=17, alpha2–4=32, alpha5–20=58, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/head.png` — RGBA [147, 168]; alpha0=7359 (29.798%), alpha1=5, alpha2–4=22, alpha5–20=66, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/head_closed.png` — RGBA [147, 168]; alpha0=7359 (29.798%), alpha1=5, alpha2–4=22, alpha5–20=66, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/head_closed_n.png` — RGBA [147, 168]; alpha0=7359 (29.798%), alpha1=5, alpha2–4=22, alpha5–20=66, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/head_half.png` — RGBA [147, 168]; alpha0=7359 (29.798%), alpha1=5, alpha2–4=22, alpha5–20=66, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/head_half_n.png` — RGBA [147, 168]; alpha0=7359 (29.798%), alpha1=5, alpha2–4=22, alpha5–20=66, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/head_n.png` — RGBA [147, 168]; alpha0=7359 (29.798%), alpha1=5, alpha2–4=22, alpha5–20=66, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/leg_lower.png` — RGBA [203, 213]; alpha0=18827 (43.542%), alpha1=18, alpha2–4=33, alpha5–20=93, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/leg_lower_n.png` — RGBA [203, 213]; alpha0=18827 (43.542%), alpha1=18, alpha2–4=33, alpha5–20=93, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/leg_upper.png` — RGBA [209, 250]; alpha0=2542 (4.865%), alpha1=13, alpha2–4=43, alpha5–20=93, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/leg_upper_n.png` — RGBA [209, 250]; alpha0=2542 (4.865%), alpha1=13, alpha2–4=43, alpha5–20=93, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/pelvis.png` — RGBA [248, 143]; alpha0=1480 (4.173%), alpha1=1, alpha2–4=2, alpha5–20=11, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/pelvis_n.png` — RGBA [248, 143]; alpha0=1480 (4.173%), alpha1=1, alpha2–4=2, alpha5–20=11, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/torso.png` — RGBA [241, 331]; alpha0=17773 (22.280%), alpha1=9, alpha2–4=23, alpha5–20=102, alpha>127 nonprimary components=0.
+- `art/characters/old_k/parts/torso_glow.png` — RGBA [241, 331]; alpha0=79029 (99.070%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=12.
+- `art/characters/old_k/parts/torso_n.png` — RGBA [241, 331]; alpha0=17773 (22.280%), alpha1=9, alpha2–4=23, alpha5–20=102, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/arm_lower.png` — RGBA [71, 164]; alpha0=2984 (25.627%), alpha1=17, alpha2–4=26, alpha5–20=94, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/arm_lower_n.png` — RGBA [71, 164]; alpha0=2984 (25.627%), alpha1=17, alpha2–4=26, alpha5–20=94, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/arm_upper.png` — RGBA [115, 247]; alpha0=7728 (27.206%), alpha1=22, alpha2–4=51, alpha5–20=131, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/arm_upper_n.png` — RGBA [115, 247]; alpha0=7728 (27.206%), alpha1=22, alpha2–4=51, alpha5–20=131, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/armor_chest.png` — RGBA [88, 154]; alpha0=6483 (47.838%), alpha1=4, alpha2–4=17, alpha5–20=68, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/armor_chest_n.png` — RGBA [88, 154]; alpha0=6483 (47.838%), alpha1=4, alpha2–4=17, alpha5–20=68, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/armor_forearm.png` — RGBA [117, 303]; alpha0=15008 (42.334%), alpha1=27, alpha2–4=56, alpha5–20=169, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/armor_forearm_n.png` — RGBA [117, 303]; alpha0=15008 (42.334%), alpha1=27, alpha2–4=56, alpha5–20=169, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/armor_knee.png` — RGBA [99, 96]; alpha0=4122 (43.371%), alpha1=12, alpha2–4=22, alpha5–20=78, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/armor_knee_n.png` — RGBA [99, 96]; alpha0=4122 (43.371%), alpha1=12, alpha2–4=22, alpha5–20=78, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/armor_shoulder.png` — RGBA [132, 149]; alpha0=6724 (34.188%), alpha1=15, alpha2–4=24, alpha5–20=101, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/armor_shoulder_n.png` — RGBA [132, 149]; alpha0=6724 (34.188%), alpha1=15, alpha2–4=24, alpha5–20=101, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/foot.png` — RGBA [197, 131]; alpha0=11292 (43.756%), alpha1=5, alpha2–4=19, alpha5–20=78, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/foot_n.png` — RGBA [197, 131]; alpha0=11292 (43.756%), alpha1=5, alpha2–4=19, alpha5–20=78, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/hand.png` — RGBA [118, 85]; alpha0=5459 (54.427%), alpha1=9, alpha2–4=30, alpha5–20=67, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/hand_n.png` — RGBA [118, 85]; alpha0=5459 (54.427%), alpha1=9, alpha2–4=30, alpha5–20=67, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/head.png` — RGBA [160, 171]; alpha0=9921 (36.261%), alpha1=11, alpha2–4=27, alpha5–20=126, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/head_glow.png` — RGBA [160, 171]; alpha0=27011 (98.724%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=2.
+- `art/characters/reclaimer/parts/head_n.png` — RGBA [160, 171]; alpha0=9921 (36.261%), alpha1=11, alpha2–4=27, alpha5–20=126, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/leg_lower.png` — RGBA [136, 327]; alpha0=16131 (36.272%), alpha1=26, alpha2–4=69, alpha5–20=186, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/leg_lower_n.png` — RGBA [136, 327]; alpha0=16131 (36.272%), alpha1=26, alpha2–4=69, alpha5–20=186, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/leg_upper.png` — RGBA [137, 283]; alpha0=12320 (31.776%), alpha1=24, alpha2–4=66, alpha5–20=161, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/leg_upper_n.png` — RGBA [137, 283]; alpha0=12320 (31.776%), alpha1=24, alpha2–4=66, alpha5–20=161, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/pelvis.png` — RGBA [152, 153]; alpha0=2320 (9.976%), alpha1=5, alpha2–4=7, alpha5–20=23, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/pelvis_n.png` — RGBA [152, 153]; alpha0=2320 (9.976%), alpha1=5, alpha2–4=7, alpha5–20=23, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/torso.png` — RGBA [230, 347]; alpha0=32159 (40.294%), alpha1=15, alpha2–4=32, alpha5–20=143, alpha>127 nonprimary components=0.
+- `art/characters/reclaimer/parts/torso_glow.png` — RGBA [230, 347]; alpha0=75862 (95.053%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=3.
+- `art/characters/reclaimer/parts/torso_n.png` — RGBA [230, 347]; alpha0=32159 (40.294%), alpha1=15, alpha2–4=32, alpha5–20=143, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/arm_lower.png` — RGBA [135, 109]; alpha0=3590 (24.397%), alpha1=4, alpha2–4=21, alpha5–20=57, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/arm_lower_n.png` — RGBA [135, 109]; alpha0=3590 (24.397%), alpha1=4, alpha2–4=21, alpha5–20=57, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/arm_upper.png` — RGBA [138, 198]; alpha0=5371 (19.657%), alpha1=17, alpha2–4=23, alpha5–20=100, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/arm_upper_n.png` — RGBA [138, 198]; alpha0=5371 (19.657%), alpha1=17, alpha2–4=23, alpha5–20=100, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/foot.png` — RGBA [182, 115]; alpha0=7957 (38.017%), alpha1=3, alpha2–4=18, alpha5–20=69, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/foot_n.png` — RGBA [182, 115]; alpha0=7957 (38.017%), alpha1=3, alpha2–4=18, alpha5–20=69, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/hand.png` — RGBA [159, 114]; alpha0=6680 (36.853%), alpha1=14, alpha2–4=28, alpha5–20=104, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/hand_n.png` — RGBA [159, 114]; alpha0=6680 (36.853%), alpha1=14, alpha2–4=28, alpha5–20=104, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/head.png` — RGBA [164, 173]; alpha0=9457 (33.332%), alpha1=3, alpha2–4=26, alpha5–20=92, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/head_closed.png` — RGBA [164, 173]; alpha0=9457 (33.332%), alpha1=3, alpha2–4=26, alpha5–20=92, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/head_closed_n.png` — RGBA [164, 173]; alpha0=9457 (33.332%), alpha1=3, alpha2–4=26, alpha5–20=92, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/head_half.png` — RGBA [164, 173]; alpha0=9457 (33.332%), alpha1=3, alpha2–4=26, alpha5–20=92, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/head_half_n.png` — RGBA [164, 173]; alpha0=9457 (33.332%), alpha1=3, alpha2–4=26, alpha5–20=92, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/head_n.png` — RGBA [164, 173]; alpha0=9457 (33.332%), alpha1=3, alpha2–4=26, alpha5–20=92, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/leg_lower.png` — RGBA [150, 208]; alpha0=5145 (16.490%), alpha1=16, alpha2–4=25, alpha5–20=108, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/leg_lower_n.png` — RGBA [150, 208]; alpha0=5145 (16.490%), alpha1=16, alpha2–4=25, alpha5–20=108, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/leg_upper.png` — RGBA [166, 228]; alpha0=7460 (19.710%), alpha1=20, alpha2–4=49, alpha5–20=135, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/leg_upper_n.png` — RGBA [166, 228]; alpha0=7460 (19.710%), alpha1=20, alpha2–4=49, alpha5–20=135, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/pelvis.png` — RGBA [271, 136]; alpha0=6430 (17.446%), alpha1=1, alpha2–4=10, alpha5–20=32, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/pelvis_n.png` — RGBA [271, 136]; alpha0=6430 (17.446%), alpha1=1, alpha2–4=10, alpha5–20=32, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/torso.png` — RGBA [251, 316]; alpha0=21589 (27.219%), alpha1=4, alpha2–4=27, alpha5–20=113, alpha>127 nonprimary components=0.
+- `art/characters/repairman_chen/parts/torso_n.png` — RGBA [251, 316]; alpha0=21589 (27.219%), alpha1=4, alpha2–4=27, alpha5–20=113, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/arm_lower.png` — RGBA [103, 200]; alpha0=4083 (19.820%), alpha1=8, alpha2–4=31, alpha5–20=107, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/arm_lower_n.png` — RGBA [103, 200]; alpha0=4083 (19.820%), alpha1=8, alpha2–4=31, alpha5–20=107, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/arm_upper.png` — RGBA [101, 186]; alpha0=3373 (17.955%), alpha1=14, alpha2–4=16, alpha5–20=70, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/arm_upper_n.png` — RGBA [101, 186]; alpha0=3373 (17.955%), alpha1=14, alpha2–4=16, alpha5–20=70, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/foot.png` — RGBA [169, 75]; alpha0=3823 (30.162%), alpha1=10, alpha2–4=11, alpha5–20=39, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/foot_n.png` — RGBA [169, 75]; alpha0=3823 (30.162%), alpha1=10, alpha2–4=11, alpha5–20=39, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/hand.png` — RGBA [88, 68]; alpha0=1970 (32.921%), alpha1=11, alpha2–4=16, alpha5–20=44, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/hand_n.png` — RGBA [88, 68]; alpha0=1970 (32.921%), alpha1=11, alpha2–4=16, alpha5–20=44, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/head.png` — RGBA [169, 170]; alpha0=10585 (36.843%), alpha1=18, alpha2–4=43, alpha5–20=154, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/head_closed.png` — RGBA [169, 170]; alpha0=10585 (36.843%), alpha1=18, alpha2–4=43, alpha5–20=154, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/head_closed_n.png` — RGBA [169, 170]; alpha0=10585 (36.843%), alpha1=18, alpha2–4=43, alpha5–20=154, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/head_half.png` — RGBA [169, 170]; alpha0=10585 (36.843%), alpha1=18, alpha2–4=43, alpha5–20=154, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/head_half_n.png` — RGBA [169, 170]; alpha0=10585 (36.843%), alpha1=18, alpha2–4=43, alpha5–20=154, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/head_n.png` — RGBA [169, 170]; alpha0=10585 (36.843%), alpha1=18, alpha2–4=43, alpha5–20=154, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/leg_lower.png` — RGBA [159, 258]; alpha0=14605 (35.603%), alpha1=18, alpha2–4=51, alpha5–20=138, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/leg_lower_n.png` — RGBA [159, 258]; alpha0=14605 (35.603%), alpha1=18, alpha2–4=51, alpha5–20=138, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/leg_upper.png` — RGBA [146, 240]; alpha0=6218 (17.745%), alpha1=29, alpha2–4=67, alpha5–20=127, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/leg_upper_n.png` — RGBA [146, 240]; alpha0=6218 (17.745%), alpha1=29, alpha2–4=67, alpha5–20=127, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/pelvis.png` — RGBA [236, 163]; alpha0=4162 (10.819%), alpha1=11, alpha2–4=19, alpha5–20=85, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/pelvis_n.png` — RGBA [236, 163]; alpha0=4162 (10.819%), alpha1=11, alpha2–4=19, alpha5–20=85, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/torso.png` — RGBA [216, 316]; alpha0=14804 (21.689%), alpha1=7, alpha2–4=30, alpha5–20=109, alpha>127 nonprimary components=0.
+- `art/characters/resident/parts/torso_n.png` — RGBA [216, 316]; alpha0=14804 (21.689%), alpha1=7, alpha2–4=30, alpha5–20=109, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/arm_left_lower.png` — RGBA [66, 239]; alpha0=6392 (40.522%), alpha1=7, alpha2–4=16, alpha5–20=49, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/arm_left_lower_n.png` — RGBA [66, 239]; alpha0=6392 (40.522%), alpha1=7, alpha2–4=16, alpha5–20=49, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/arm_left_upper.png` — RGBA [78, 265]; alpha0=7570 (36.623%), alpha1=13, alpha2–4=13, alpha5–20=68, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/arm_left_upper_n.png` — RGBA [78, 265]; alpha0=7570 (36.623%), alpha1=13, alpha2–4=13, alpha5–20=68, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/arm_lower.png` — RGBA [61, 183]; alpha0=4261 (38.171%), alpha1=12, alpha2–4=11, alpha5–20=49, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/arm_lower_n.png` — RGBA [61, 183]; alpha0=4261 (38.171%), alpha1=12, alpha2–4=11, alpha5–20=49, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/arm_upper.png` — RGBA [91, 223]; alpha0=8175 (40.285%), alpha1=20, alpha2–4=30, alpha5–20=55, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/arm_upper_n.png` — RGBA [91, 223]; alpha0=8175 (40.285%), alpha1=20, alpha2–4=30, alpha5–20=55, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/armor_jacket.png` — RGBA [157, 185]; alpha0=10952 (37.707%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/armor_jacket_n.png` — RGBA [157, 185]; alpha0=10952 (37.707%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/foot.png` — RGBA [163, 212]; alpha0=15863 (45.905%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=1.
+- `art/characters/rin/parts/foot_glow.png` — RGBA [163, 212]; alpha0=32945 (95.338%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=12.
+- `art/characters/rin/parts/foot_n.png` — RGBA [163, 212]; alpha0=15863 (45.905%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=1.
+- `art/characters/rin/parts/hair_back_1.png` — RGBA [109, 218]; alpha0=8838 (37.194%), alpha1=41, alpha2–4=38, alpha5–20=56, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/hair_back_1_n.png` — RGBA [109, 218]; alpha0=8838 (37.194%), alpha1=41, alpha2–4=38, alpha5–20=56, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/hair_back_2.png` — RGBA [123, 198]; alpha0=13082 (53.716%), alpha1=73, alpha2–4=80, alpha5–20=97, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/hair_back_2_n.png` — RGBA [123, 198]; alpha0=13082 (53.716%), alpha1=73, alpha2–4=80, alpha5–20=97, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/hand.png` — RGBA [141, 68]; alpha0=4073 (42.480%), alpha1=9, alpha2–4=13, alpha5–20=49, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/hand_grip.png` — RGBA [95, 56]; alpha0=2033 (38.214%), alpha1=13, alpha2–4=14, alpha5–20=24, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/hand_grip_n.png` — RGBA [95, 56]; alpha0=2033 (38.214%), alpha1=13, alpha2–4=14, alpha5–20=24, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/hand_left.png` — RGBA [134, 65]; alpha0=3570 (40.987%), alpha1=14, alpha2–4=23, alpha5–20=30, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/hand_left_grip.png` — RGBA [90, 70]; alpha0=2103 (33.381%), alpha1=14, alpha2–4=17, alpha5–20=29, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/hand_left_grip_n.png` — RGBA [90, 70]; alpha0=2103 (33.381%), alpha1=14, alpha2–4=17, alpha5–20=29, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/hand_left_n.png` — RGBA [134, 65]; alpha0=3570 (40.987%), alpha1=14, alpha2–4=23, alpha5–20=30, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/hand_n.png` — RGBA [141, 68]; alpha0=4073 (42.480%), alpha1=9, alpha2–4=13, alpha5–20=49, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/head.png` — RGBA [133, 141]; alpha0=5768 (30.758%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/head_closed.png` — RGBA [133, 141]; alpha0=5768 (30.758%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/head_closed_n.png` — RGBA [133, 141]; alpha0=5768 (30.758%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/head_half.png` — RGBA [133, 141]; alpha0=5768 (30.758%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/head_half_n.png` — RGBA [133, 141]; alpha0=5768 (30.758%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/head_n.png` — RGBA [133, 141]; alpha0=5768 (30.758%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/holster.png` — RGBA [113, 109]; alpha0=5922 (48.080%), alpha1=11, alpha2–4=15, alpha5–20=42, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/holster_n.png` — RGBA [113, 109]; alpha0=5922 (48.080%), alpha1=11, alpha2–4=15, alpha5–20=42, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/jacket_hem.png` — RGBA [104, 52]; alpha0=969 (17.918%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/jacket_hem_n.png` — RGBA [104, 52]; alpha0=969 (17.918%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/jacket_sleeve_lower.png` — RGBA [72, 174]; alpha0=4376 (34.930%), alpha1=15, alpha2–4=21, alpha5–20=35, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/jacket_sleeve_lower_n.png` — RGBA [72, 174]; alpha0=4376 (34.930%), alpha1=15, alpha2–4=21, alpha5–20=35, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/jacket_sleeve_upper.png` — RGBA [99, 244]; alpha0=7456 (30.866%), alpha1=40, alpha2–4=41, alpha5–20=53, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/jacket_sleeve_upper_n.png` — RGBA [99, 244]; alpha0=7456 (30.866%), alpha1=40, alpha2–4=41, alpha5–20=53, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/leg_lower.png` — RGBA [89, 222]; alpha0=6969 (35.272%), alpha1=6, alpha2–4=20, alpha5–20=70, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/leg_lower_dmg.png` — RGBA [89, 222]; alpha0=6969 (35.272%), alpha1=6, alpha2–4=20, alpha5–20=70, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/leg_lower_dmg_n.png` — RGBA [89, 222]; alpha0=6969 (35.272%), alpha1=6, alpha2–4=20, alpha5–20=70, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/leg_lower_n.png` — RGBA [89, 222]; alpha0=6969 (35.272%), alpha1=6, alpha2–4=20, alpha5–20=70, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/leg_upper.png` — RGBA [148, 247]; alpha0=15220 (41.635%), alpha1=10, alpha2–4=13, alpha5–20=81, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/leg_upper_dmg.png` — RGBA [148, 247]; alpha0=15220 (41.635%), alpha1=10, alpha2–4=13, alpha5–20=81, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/leg_upper_dmg_n.png` — RGBA [148, 247]; alpha0=15220 (41.635%), alpha1=10, alpha2–4=13, alpha5–20=81, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/leg_upper_n.png` — RGBA [148, 247]; alpha0=15220 (41.635%), alpha1=10, alpha2–4=13, alpha5–20=81, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/pelvis.png` — RGBA [180, 135]; alpha0=4205 (17.305%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/pelvis_dmg.png` — RGBA [180, 135]; alpha0=4205 (17.305%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/pelvis_dmg_n.png` — RGBA [180, 135]; alpha0=4205 (17.305%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/pelvis_glow.png` — RGBA [180, 135]; alpha0=24152 (99.391%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=4.
+- `art/characters/rin/parts/pelvis_n.png` — RGBA [180, 135]; alpha0=4205 (17.305%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/torso.png` — RGBA [200, 336]; alpha0=32930 (49.003%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/torso_dmg.png` — RGBA [200, 336]; alpha0=32930 (49.003%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/torso_dmg_n.png` — RGBA [200, 336]; alpha0=32930 (49.003%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/rin/parts/torso_glow.png` — RGBA [200, 336]; alpha0=65396 (97.315%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=23.
+- `art/characters/rin/parts/torso_n.png` — RGBA [200, 336]; alpha0=32930 (49.003%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/arm_lower.png` — RGBA [91, 183]; alpha0=6204 (37.255%), alpha1=13, alpha2–4=22, alpha5–20=87, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/arm_lower_n.png` — RGBA [91, 183]; alpha0=6204 (37.255%), alpha1=13, alpha2–4=22, alpha5–20=87, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/arm_upper.png` — RGBA [98, 231]; alpha0=7938 (35.065%), alpha1=18, alpha2–4=47, alpha5–20=117, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/arm_upper_n.png` — RGBA [98, 231]; alpha0=7938 (35.065%), alpha1=18, alpha2–4=47, alpha5–20=117, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/armor_chest.png` — RGBA [95, 147]; alpha0=8529 (61.074%), alpha1=13, alpha2–4=27, alpha5–20=78, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/armor_chest_n.png` — RGBA [95, 147]; alpha0=8529 (61.074%), alpha1=13, alpha2–4=27, alpha5–20=78, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/armor_shoulder.png` — RGBA [74, 206]; alpha0=8066 (52.913%), alpha1=11, alpha2–4=29, alpha5–20=98, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/armor_shoulder_n.png` — RGBA [74, 206]; alpha0=8066 (52.913%), alpha1=11, alpha2–4=29, alpha5–20=98, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/foot.png` — RGBA [155, 130]; alpha0=10188 (50.561%), alpha1=3, alpha2–4=10, alpha5–20=40, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/foot_n.png` — RGBA [155, 130]; alpha0=10188 (50.561%), alpha1=3, alpha2–4=10, alpha5–20=40, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/hand.png` — RGBA [122, 67]; alpha0=2516 (30.781%), alpha1=15, alpha2–4=27, alpha5–20=71, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/hand_n.png` — RGBA [122, 67]; alpha0=2516 (30.781%), alpha1=15, alpha2–4=27, alpha5–20=71, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/head.png` — RGBA [156, 174]; alpha0=9968 (36.723%), alpha1=9, alpha2–4=25, alpha5–20=94, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/head_glow.png` — RGBA [156, 174]; alpha0=26807 (98.758%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/head_n.png` — RGBA [156, 174]; alpha0=9968 (36.723%), alpha1=9, alpha2–4=25, alpha5–20=94, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/leg_lower.png` — RGBA [101, 261]; alpha0=8658 (32.844%), alpha1=12, alpha2–4=40, alpha5–20=145, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/leg_lower_n.png` — RGBA [101, 261]; alpha0=8658 (32.844%), alpha1=12, alpha2–4=40, alpha5–20=145, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/leg_upper.png` — RGBA [142, 251]; alpha0=11056 (31.020%), alpha1=19, alpha2–4=44, alpha5–20=146, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/leg_upper_n.png` — RGBA [142, 251]; alpha0=11056 (31.020%), alpha1=19, alpha2–4=44, alpha5–20=146, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/pelvis.png` — RGBA [155, 126]; alpha0=2834 (14.511%), alpha1=1, alpha2–4=10, alpha5–20=27, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/pelvis_n.png` — RGBA [155, 126]; alpha0=2834 (14.511%), alpha1=1, alpha2–4=10, alpha5–20=27, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/torso.png` — RGBA [186, 286]; alpha0=16553 (31.117%), alpha1=17, alpha2–4=35, alpha5–20=110, alpha>127 nonprimary components=0.
+- `art/characters/slasher/parts/torso_n.png` — RGBA [186, 286]; alpha0=16553 (31.117%), alpha1=17, alpha2–4=35, alpha5–20=110, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/arm_lower.png` — RGBA [67, 183]; alpha0=3989 (32.534%), alpha1=13, alpha2–4=24, alpha5–20=67, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/arm_lower_n.png` — RGBA [67, 183]; alpha0=3989 (32.534%), alpha1=13, alpha2–4=24, alpha5–20=67, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/arm_upper.png` — RGBA [98, 204]; alpha0=6198 (31.002%), alpha1=24, alpha2–4=31, alpha5–20=73, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/arm_upper_n.png` — RGBA [98, 204]; alpha0=6198 (31.002%), alpha1=24, alpha2–4=31, alpha5–20=73, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/armor_chest.png` — RGBA [163, 191]; alpha0=18174 (58.375%), alpha1=16, alpha2–4=63, alpha5–20=119, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/armor_chest_n.png` — RGBA [163, 191]; alpha0=18174 (58.375%), alpha1=16, alpha2–4=63, alpha5–20=119, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/armor_forearm.png` — RGBA [60, 117]; alpha0=2018 (28.746%), alpha1=10, alpha2–4=18, alpha5–20=68, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/armor_forearm_n.png` — RGBA [60, 117]; alpha0=2018 (28.746%), alpha1=10, alpha2–4=18, alpha5–20=68, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/armor_knee.png` — RGBA [58, 100]; alpha0=2295 (39.569%), alpha1=10, alpha2–4=15, alpha5–20=49, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/armor_knee_n.png` — RGBA [58, 100]; alpha0=2295 (39.569%), alpha1=10, alpha2–4=15, alpha5–20=49, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/armor_shoulder.png` — RGBA [73, 83]; alpha0=2213 (36.524%), alpha1=21, alpha2–4=19, alpha5–20=42, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/armor_shoulder_n.png` — RGBA [73, 83]; alpha0=2213 (36.524%), alpha1=21, alpha2–4=19, alpha5–20=42, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/foot.png` — RGBA [143, 172]; alpha0=13953 (56.729%), alpha1=10, alpha2–4=23, alpha5–20=106, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/foot_n.png` — RGBA [143, 172]; alpha0=13953 (56.729%), alpha1=10, alpha2–4=23, alpha5–20=106, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/hand.png` — RGBA [118, 71]; alpha0=2820 (33.660%), alpha1=3, alpha2–4=18, alpha5–20=55, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/hand_n.png` — RGBA [118, 71]; alpha0=2820 (33.660%), alpha1=3, alpha2–4=18, alpha5–20=55, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/head.png` — RGBA [140, 169]; alpha0=9252 (39.104%), alpha1=3, alpha2–4=19, alpha5–20=71, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/head_glow.png` — RGBA [140, 169]; alpha0=23515 (99.387%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=4.
+- `art/characters/sniper/parts/head_n.png` — RGBA [140, 169]; alpha0=9252 (39.104%), alpha1=3, alpha2–4=19, alpha5–20=71, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/leg_lower.png` — RGBA [107, 287]; alpha0=12505 (40.721%), alpha1=21, alpha2–4=45, alpha5–20=125, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/leg_lower_n.png` — RGBA [107, 287]; alpha0=12505 (40.721%), alpha1=21, alpha2–4=45, alpha5–20=125, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/leg_upper.png` — RGBA [119, 252]; alpha0=8752 (29.185%), alpha1=25, alpha2–4=47, alpha5–20=124, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/leg_upper_n.png` — RGBA [119, 252]; alpha0=8752 (29.185%), alpha1=25, alpha2–4=47, alpha5–20=124, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/pelvis.png` — RGBA [160, 132]; alpha0=2812 (13.314%), alpha1=3, alpha2–4=11, alpha5–20=36, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/pelvis_n.png` — RGBA [160, 132]; alpha0=2812 (13.314%), alpha1=3, alpha2–4=11, alpha5–20=36, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/torso.png` — RGBA [160, 225]; alpha0=4442 (12.339%), alpha1=7, alpha2–4=10, alpha5–20=75, alpha>127 nonprimary components=0.
+- `art/characters/sniper/parts/torso_n.png` — RGBA [160, 225]; alpha0=4442 (12.339%), alpha1=7, alpha2–4=10, alpha5–20=75, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/arm_lower.png` — RGBA [110, 265]; alpha0=14301 (49.060%), alpha1=16, alpha2–4=38, alpha5–20=159, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/arm_lower_n.png` — RGBA [110, 265]; alpha0=14301 (49.060%), alpha1=16, alpha2–4=38, alpha5–20=159, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/arm_upper.png` — RGBA [81, 203]; alpha0=4612 (28.048%), alpha1=8, alpha2–4=25, alpha5–20=96, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/arm_upper_n.png` — RGBA [81, 203]; alpha0=4612 (28.048%), alpha1=8, alpha2–4=25, alpha5–20=96, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/armor_knee.png` — RGBA [42, 86]; alpha0=1270 (35.161%), alpha1=7, alpha2–4=14, alpha5–20=45, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/armor_knee_n.png` — RGBA [42, 86]; alpha0=1270 (35.161%), alpha1=7, alpha2–4=14, alpha5–20=45, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/armor_shoulder.png` — RGBA [98, 109]; alpha0=3689 (34.535%), alpha1=12, alpha2–4=15, alpha5–20=75, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/armor_shoulder_n.png` — RGBA [98, 109]; alpha0=3689 (34.535%), alpha1=12, alpha2–4=15, alpha5–20=75, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/foot.png` — RGBA [158, 161]; alpha0=12497 (49.127%), alpha1=6, alpha2–4=17, alpha5–20=68, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/foot_n.png` — RGBA [158, 161]; alpha0=12497 (49.127%), alpha1=6, alpha2–4=17, alpha5–20=68, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/hand.png` — RGBA [90, 63]; alpha0=1650 (29.101%), alpha1=9, alpha2–4=23, alpha5–20=42, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/hand_n.png` — RGBA [90, 63]; alpha0=1650 (29.101%), alpha1=9, alpha2–4=23, alpha5–20=42, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/head.png` — RGBA [133, 153]; alpha0=6654 (32.699%), alpha1=8, alpha2–4=15, alpha5–20=80, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/head_glow.png` — RGBA [133, 153]; alpha0=19421 (95.440%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/head_n.png` — RGBA [133, 153]; alpha0=6654 (32.699%), alpha1=8, alpha2–4=15, alpha5–20=80, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/leg_lower.png` — RGBA [112, 299]; alpha0=17338 (51.774%), alpha1=18, alpha2–4=57, alpha5–20=164, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/leg_lower_n.png` — RGBA [112, 299]; alpha0=17338 (51.774%), alpha1=18, alpha2–4=57, alpha5–20=164, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/leg_upper.png` — RGBA [122, 254]; alpha0=9498 (30.651%), alpha1=24, alpha2–4=36, alpha5–20=108, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/leg_upper_n.png` — RGBA [122, 254]; alpha0=9498 (30.651%), alpha1=24, alpha2–4=36, alpha5–20=108, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/pelvis.png` — RGBA [171, 137]; alpha0=3882 (16.571%), alpha1=5, alpha2–4=13, alpha5–20=38, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/pelvis_n.png` — RGBA [171, 137]; alpha0=3882 (16.571%), alpha1=5, alpha2–4=13, alpha5–20=38, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/torso.png` — RGBA [164, 299]; alpha0=13046 (26.605%), alpha1=8, alpha2–4=14, alpha5–20=93, alpha>127 nonprimary components=0.
+- `art/characters/stalker/parts/torso_n.png` — RGBA [164, 299]; alpha0=13046 (26.605%), alpha1=8, alpha2–4=14, alpha5–20=93, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/arm_lower.png` — RGBA [106, 43]; alpha0=1764 (38.701%), alpha1=4, alpha2–4=17, alpha5–20=39, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/arm_lower_n.png` — RGBA [106, 43]; alpha0=1764 (38.701%), alpha1=4, alpha2–4=17, alpha5–20=39, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/arm_upper.png` — RGBA [130, 163]; alpha0=5916 (27.919%), alpha1=17, alpha2–4=32, alpha5–20=86, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/arm_upper_n.png` — RGBA [130, 163]; alpha0=5916 (27.919%), alpha1=17, alpha2–4=32, alpha5–20=86, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/armor_chest.png` — RGBA [120, 215]; alpha0=11194 (43.388%), alpha1=17, alpha2–4=23, alpha5–20=94, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/armor_chest_n.png` — RGBA [120, 215]; alpha0=11194 (43.388%), alpha1=17, alpha2–4=23, alpha5–20=94, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/armor_forearm.png` — RGBA [106, 140]; alpha0=5176 (34.879%), alpha1=10, alpha2–4=27, alpha5–20=69, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/armor_forearm_n.png` — RGBA [106, 140]; alpha0=5176 (34.879%), alpha1=10, alpha2–4=27, alpha5–20=69, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/armor_knee.png` — RGBA [46, 104]; alpha0=2005 (41.911%), alpha1=9, alpha2–4=10, alpha5–20=47, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/armor_knee_n.png` — RGBA [46, 104]; alpha0=2005 (41.911%), alpha1=9, alpha2–4=10, alpha5–20=47, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/armor_shoulder.png` — RGBA [118, 130]; alpha0=4782 (31.173%), alpha1=10, alpha2–4=32, alpha5–20=125, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/armor_shoulder_n.png` — RGBA [118, 130]; alpha0=4782 (31.173%), alpha1=10, alpha2–4=32, alpha5–20=125, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/foot.png` — RGBA [168, 197]; alpha0=17649 (53.327%), alpha1=28, alpha2–4=36, alpha5–20=100, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/foot_n.png` — RGBA [168, 197]; alpha0=17649 (53.327%), alpha1=28, alpha2–4=36, alpha5–20=100, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/hand.png` — RGBA [122, 87]; alpha0=3449 (32.495%), alpha1=5, alpha2–4=33, alpha5–20=68, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/hand_n.png` — RGBA [122, 87]; alpha0=3449 (32.495%), alpha1=5, alpha2–4=33, alpha5–20=68, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/head.png` — RGBA [169, 172]; alpha0=9220 (31.719%), alpha1=11, alpha2–4=25, alpha5–20=101, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/head_n.png` — RGBA [169, 172]; alpha0=9220 (31.719%), alpha1=11, alpha2–4=25, alpha5–20=101, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/leg_lower.png` — RGBA [137, 241]; alpha0=11918 (36.097%), alpha1=18, alpha2–4=30, alpha5–20=112, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/leg_lower_n.png` — RGBA [137, 241]; alpha0=11918 (36.097%), alpha1=18, alpha2–4=30, alpha5–20=112, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/leg_upper.png` — RGBA [160, 241]; alpha0=7908 (20.508%), alpha1=11, alpha2–4=35, alpha5–20=104, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/leg_upper_n.png` — RGBA [160, 241]; alpha0=7908 (20.508%), alpha1=11, alpha2–4=35, alpha5–20=104, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/pelvis.png` — RGBA [195, 128]; alpha0=2175 (8.714%), alpha1=4, alpha2–4=27, alpha5–20=29, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/pelvis_n.png` — RGBA [195, 128]; alpha0=2175 (8.714%), alpha1=4, alpha2–4=27, alpha5–20=29, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/torso.png` — RGBA [211, 202]; alpha0=5658 (13.275%), alpha1=6, alpha2–4=21, alpha5–20=75, alpha>127 nonprimary components=0.
+- `art/characters/trooper/parts/torso_n.png` — RGBA [211, 202]; alpha0=5658 (13.275%), alpha1=6, alpha2–4=21, alpha5–20=75, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/arm_lower.png` — RGBA [102, 134]; alpha0=4538 (33.202%), alpha1=9, alpha2–4=22, alpha5–20=60, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/arm_lower_n.png` — RGBA [102, 134]; alpha0=4538 (33.202%), alpha1=9, alpha2–4=22, alpha5–20=60, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/arm_upper.png` — RGBA [137, 199]; alpha0=7695 (28.225%), alpha1=12, alpha2–4=42, alpha5–20=97, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/arm_upper_n.png` — RGBA [137, 199]; alpha0=7695 (28.225%), alpha1=12, alpha2–4=42, alpha5–20=97, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/armor_chest.png` — RGBA [104, 192]; alpha0=7166 (35.887%), alpha1=13, alpha2–4=32, alpha5–20=73, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/armor_chest_n.png` — RGBA [104, 192]; alpha0=7166 (35.887%), alpha1=13, alpha2–4=32, alpha5–20=73, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/armor_forearm.png` — RGBA [114, 196]; alpha0=8878 (39.733%), alpha1=19, alpha2–4=35, alpha5–20=102, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/armor_forearm_n.png` — RGBA [114, 196]; alpha0=8878 (39.733%), alpha1=19, alpha2–4=35, alpha5–20=102, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/armor_knee.png` — RGBA [115, 114]; alpha0=5353 (40.831%), alpha1=12, alpha2–4=32, alpha5–20=80, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/armor_knee_n.png` — RGBA [115, 114]; alpha0=5353 (40.831%), alpha1=12, alpha2–4=32, alpha5–20=80, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/armor_shoulder.png` — RGBA [153, 161]; alpha0=6222 (25.259%), alpha1=20, alpha2–4=46, alpha5–20=120, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/armor_shoulder_n.png` — RGBA [153, 161]; alpha0=6222 (25.259%), alpha1=20, alpha2–4=46, alpha5–20=120, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/foot.png` — RGBA [154, 105]; alpha0=5202 (32.171%), alpha1=5, alpha2–4=18, alpha5–20=46, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/foot_n.png` — RGBA [154, 105]; alpha0=5202 (32.171%), alpha1=5, alpha2–4=18, alpha5–20=46, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/hand.png` — RGBA [100, 84]; alpha0=2624 (31.238%), alpha1=8, alpha2–4=18, alpha5–20=72, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/hand_n.png` — RGBA [100, 84]; alpha0=2624 (31.238%), alpha1=8, alpha2–4=18, alpha5–20=72, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/head.png` — RGBA [164, 204]; alpha0=11606 (34.690%), alpha1=12, alpha2–4=34, alpha5–20=99, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/head_glow.png` — RGBA [164, 204]; alpha0=33412 (99.868%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/head_n.png` — RGBA [164, 204]; alpha0=11606 (34.690%), alpha1=12, alpha2–4=34, alpha5–20=99, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/leg_lower.png` — RGBA [126, 254]; alpha0=8631 (26.969%), alpha1=11, alpha2–4=41, alpha5–20=99, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/leg_lower_n.png` — RGBA [126, 254]; alpha0=8631 (26.969%), alpha1=11, alpha2–4=41, alpha5–20=99, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/leg_upper.png` — RGBA [136, 238]; alpha0=17443 (53.890%), alpha1=24, alpha2–4=37, alpha5–20=135, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/leg_upper_n.png` — RGBA [136, 238]; alpha0=17443 (53.890%), alpha1=24, alpha2–4=37, alpha5–20=135, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/pelvis.png` — RGBA [207, 135]; alpha0=3392 (12.138%), alpha1=5, alpha2–4=16, alpha5–20=69, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/pelvis_n.png` — RGBA [207, 135]; alpha0=3392 (12.138%), alpha1=5, alpha2–4=16, alpha5–20=69, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/torso.png` — RGBA [229, 258]; alpha0=8960 (15.165%), alpha1=11, alpha2–4=92, alpha5–20=84, alpha>127 nonprimary components=0.
+- `art/characters/trooper_elite/parts/torso_n.png` — RGBA [229, 258]; alpha0=8960 (15.165%), alpha1=11, alpha2–4=92, alpha5–20=84, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/arm_lower.png` — RGBA [205, 415]; alpha0=22453 (26.392%), alpha1=53, alpha2–4=104, alpha5–20=288, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/arm_lower_glow.png` — RGBA [205, 415]; alpha0=83663 (98.340%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=3.
+- `art/characters/warden/parts/arm_lower_n.png` — RGBA [205, 415]; alpha0=22453 (26.392%), alpha1=53, alpha2–4=104, alpha5–20=288, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/arm_upper.png` — RGBA [241, 346]; alpha0=18861 (22.619%), alpha1=58, alpha2–4=101, alpha5–20=278, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/arm_upper_n.png` — RGBA [241, 346]; alpha0=18861 (22.619%), alpha1=58, alpha2–4=101, alpha5–20=278, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/armor_chest.png` — RGBA [391, 445]; alpha0=88978 (51.138%), alpha1=19, alpha2–4=56, alpha5–20=244, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/armor_chest_n.png` — RGBA [391, 445]; alpha0=88978 (51.138%), alpha1=19, alpha2–4=56, alpha5–20=244, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/armor_forearm.png` — RGBA [337, 529]; alpha0=75505 (42.354%), alpha1=114, alpha2–4=215, alpha5–20=690, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/armor_forearm_n.png` — RGBA [337, 529]; alpha0=75505 (42.354%), alpha1=114, alpha2–4=215, alpha5–20=690, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/armor_knee.png` — RGBA [188, 225]; alpha0=11195 (26.466%), alpha1=27, alpha2–4=60, alpha5–20=215, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/armor_knee_n.png` — RGBA [188, 225]; alpha0=11195 (26.466%), alpha1=27, alpha2–4=60, alpha5–20=215, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/armor_shoulder.png` — RGBA [427, 441]; alpha0=53620 (28.475%), alpha1=81, alpha2–4=149, alpha5–20=406, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/armor_shoulder_glow.png` — RGBA [427, 441]; alpha0=187423 (99.531%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=4.
+- `art/characters/warden/parts/armor_shoulder_n.png` — RGBA [427, 441]; alpha0=53620 (28.475%), alpha1=81, alpha2–4=149, alpha5–20=406, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/foot.png` — RGBA [388, 236]; alpha0=21012 (22.947%), alpha1=9, alpha2–4=51, alpha5–20=139, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/foot_n.png` — RGBA [388, 236]; alpha0=21012 (22.947%), alpha1=9, alpha2–4=51, alpha5–20=139, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/hand.png` — RGBA [216, 234]; alpha0=15950 (31.557%), alpha1=44, alpha2–4=69, alpha5–20=220, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/hand_n.png` — RGBA [216, 234]; alpha0=15950 (31.557%), alpha1=44, alpha2–4=69, alpha5–20=220, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/head.png` — RGBA [214, 235]; alpha0=16688 (33.184%), alpha1=9, alpha2–4=37, alpha5–20=121, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/head_glow.png` — RGBA [214, 235]; alpha0=49760 (98.946%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=1.
+- `art/characters/warden/parts/head_n.png` — RGBA [214, 235]; alpha0=16688 (33.184%), alpha1=9, alpha2–4=37, alpha5–20=121, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/leg_lower.png` — RGBA [391, 572]; alpha0=103985 (46.494%), alpha1=67, alpha2–4=133, alpha5–20=412, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/leg_lower_n.png` — RGBA [391, 572]; alpha0=103985 (46.494%), alpha1=67, alpha2–4=133, alpha5–20=412, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/leg_upper.png` — RGBA [454, 547]; alpha0=96667 (38.926%), alpha1=58, alpha2–4=122, alpha5–20=384, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/leg_upper_n.png` — RGBA [454, 547]; alpha0=96667 (38.926%), alpha1=58, alpha2–4=122, alpha5–20=384, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/pelvis.png` — RGBA [389, 354]; alpha0=18696 (13.577%), alpha1=9, alpha2–4=20, alpha5–20=128, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/pelvis_n.png` — RGBA [389, 354]; alpha0=18696 (13.577%), alpha1=9, alpha2–4=20, alpha5–20=128, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/torso.png` — RGBA [479, 601]; alpha0=94380 (32.785%), alpha1=34, alpha2–4=63, alpha5–20=400, alpha>127 nonprimary components=0.
+- `art/characters/warden/parts/torso_n.png` — RGBA [479, 601]; alpha0=94380 (32.785%), alpha1=34, alpha2–4=63, alpha5–20=400, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/arm_lower.png` — RGBA [76, 135]; alpha0=2414 (23.528%), alpha1=7, alpha2–4=21, alpha5–20=60, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/arm_lower_n.png` — RGBA [76, 135]; alpha0=2414 (23.528%), alpha1=7, alpha2–4=21, alpha5–20=60, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/arm_upper.png` — RGBA [71, 116]; alpha0=1878 (22.802%), alpha1=25, alpha2–4=26, alpha5–20=57, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/arm_upper_n.png` — RGBA [71, 116]; alpha0=1878 (22.802%), alpha1=25, alpha2–4=26, alpha5–20=57, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/foot.png` — RGBA [105, 57]; alpha0=2299 (38.413%), alpha1=4, alpha2–4=11, alpha5–20=36, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/foot_n.png` — RGBA [105, 57]; alpha0=2299 (38.413%), alpha1=4, alpha2–4=11, alpha5–20=36, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/hand.png` — RGBA [66, 47]; alpha0=1064 (34.300%), alpha1=4, alpha2–4=12, alpha5–20=37, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/hand_n.png` — RGBA [66, 47]; alpha0=1064 (34.300%), alpha1=4, alpha2–4=12, alpha5–20=37, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/head.png` — RGBA [187, 173]; alpha0=12570 (38.855%), alpha1=20, alpha2–4=50, alpha5–20=161, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/head_closed.png` — RGBA [187, 173]; alpha0=12570 (38.855%), alpha1=20, alpha2–4=50, alpha5–20=161, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/head_closed_n.png` — RGBA [187, 173]; alpha0=12570 (38.855%), alpha1=20, alpha2–4=50, alpha5–20=161, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/head_half.png` — RGBA [187, 173]; alpha0=12570 (38.855%), alpha1=20, alpha2–4=50, alpha5–20=161, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/head_half_n.png` — RGBA [187, 173]; alpha0=12570 (38.855%), alpha1=20, alpha2–4=50, alpha5–20=161, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/head_n.png` — RGBA [187, 173]; alpha0=12570 (38.855%), alpha1=20, alpha2–4=50, alpha5–20=161, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/leg_lower.png` — RGBA [85, 164]; alpha0=3483 (24.986%), alpha1=11, alpha2–4=21, alpha5–20=65, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/leg_lower_n.png` — RGBA [85, 164]; alpha0=3483 (24.986%), alpha1=11, alpha2–4=21, alpha5–20=65, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/leg_upper.png` — RGBA [95, 141]; alpha0=2250 (16.797%), alpha1=13, alpha2–4=15, alpha5–20=64, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/leg_upper_n.png` — RGBA [95, 141]; alpha0=2250 (16.797%), alpha1=13, alpha2–4=15, alpha5–20=64, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/pelvis.png` — RGBA [163, 121]; alpha0=1495 (7.580%), alpha1=2, alpha2–4=7, alpha5–20=65, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/pelvis_n.png` — RGBA [163, 121]; alpha0=1495 (7.580%), alpha1=2, alpha2–4=7, alpha5–20=65, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/torso.png` — RGBA [149, 208]; alpha0=8689 (28.036%), alpha1=7, alpha2–4=22, alpha5–20=61, alpha>127 nonprimary components=0.
+- `art/characters/wataru/parts/torso_n.png` — RGBA [149, 208]; alpha0=8689 (28.036%), alpha1=7, alpha2–4=22, alpha5–20=61, alpha>127 nonprimary components=0.
+- `art/creatures/bomber/body.png` — RGBA [72, 56]; alpha0=540 (13.393%), alpha1=31, alpha2–4=80, alpha5–20=21, alpha>127 nonprimary components=0.
+- `art/creatures/bomber/body_n.png` — RGBA [72, 56]; alpha0=540 (13.393%), alpha1=31, alpha2–4=80, alpha5–20=21, alpha>127 nonprimary components=0.
+- `art/creatures/bomber/leg.png` — RGBA [7, 56]; alpha0=116 (29.592%), alpha1=18, alpha2–4=61, alpha5–20=20, alpha>127 nonprimary components=0.
+- `art/creatures/bomber/leg_n.png` — RGBA [7, 56]; alpha0=116 (29.592%), alpha1=18, alpha2–4=61, alpha5–20=20, alpha>127 nonprimary components=0.
+- `art/creatures/buoy_worm/body.png` — RGBA [96, 38]; alpha0=1584 (43.421%), alpha1=35, alpha2–4=93, alpha5–20=34, alpha>127 nonprimary components=0.
+- `art/creatures/buoy_worm/body_n.png` — RGBA [96, 38]; alpha0=1584 (43.421%), alpha1=35, alpha2–4=93, alpha5–20=34, alpha>127 nonprimary components=0.
+- `art/creatures/buoy_worm/leg.png` — RGBA [10, 28]; alpha0=32 (11.429%), alpha1=3, alpha2–4=15, alpha5–20=12, alpha>127 nonprimary components=0.
+- `art/creatures/buoy_worm/leg_n.png` — RGBA [10, 28]; alpha0=32 (11.429%), alpha1=3, alpha2–4=15, alpha5–20=12, alpha>127 nonprimary components=0.
+- `art/creatures/cloud_jelly/body.png` — RGBA [112, 76]; alpha0=1912 (22.462%), alpha1=65, alpha2–4=177, alpha5–20=41, alpha>127 nonprimary components=0.
+- `art/creatures/cloud_jelly/body_n.png` — RGBA [112, 76]; alpha0=1912 (22.462%), alpha1=65, alpha2–4=177, alpha5–20=41, alpha>127 nonprimary components=0.
+- `art/creatures/cloud_jelly/tentacle.png` — RGBA [20, 136]; alpha0=1368 (50.294%), alpha1=74, alpha2–4=193, alpha5–20=38, alpha>127 nonprimary components=0.
+- `art/creatures/cloud_jelly/tentacle_n.png` — RGBA [20, 136]; alpha0=1368 (50.294%), alpha1=74, alpha2–4=193, alpha5–20=38, alpha>127 nonprimary components=0.
+- `art/creatures/cloud_serpent/head.png` — RGBA [112, 31]; alpha0=950 (27.362%), alpha1=44, alpha2–4=112, alpha5–20=30, alpha>127 nonprimary components=0.
+- `art/creatures/cloud_serpent/head_n.png` — RGBA [112, 31]; alpha0=950 (27.362%), alpha1=44, alpha2–4=112, alpha5–20=30, alpha>127 nonprimary components=0.
+- `art/creatures/cloud_serpent/segment.png` — RGBA [72, 37]; alpha0=158 (5.931%), alpha1=11, alpha2–4=52, alpha5–20=8, alpha>127 nonprimary components=0.
+- `art/creatures/cloud_serpent/segment_n.png` — RGBA [72, 37]; alpha0=158 (5.931%), alpha1=11, alpha2–4=52, alpha5–20=8, alpha>127 nonprimary components=0.
+- `art/creatures/drone/body.png` — RGBA [120, 35]; alpha0=1323 (31.500%), alpha1=47, alpha2–4=151, alpha5–20=25, alpha>127 nonprimary components=0.
+- `art/creatures/drone/body_n.png` — RGBA [120, 35]; alpha0=1323 (31.500%), alpha1=47, alpha2–4=151, alpha5–20=25, alpha>127 nonprimary components=0.
+- `art/creatures/drone/wing.png` — RGBA [13, 64]; alpha0=162 (19.471%), alpha1=18, alpha2–4=41, alpha5–20=11, alpha>127 nonprimary components=0.
+- `art/creatures/drone/wing_n.png` — RGBA [13, 64]; alpha0=162 (19.471%), alpha1=18, alpha2–4=41, alpha5–20=11, alpha>127 nonprimary components=0.
+- `art/creatures/mimic/closed.png` — RGBA [144, 77]; alpha0=847 (7.639%), alpha1=49, alpha2–4=156, alpha5–20=32, alpha>127 nonprimary components=0.
+- `art/creatures/mimic/closed_n.png` — RGBA [144, 77]; alpha0=847 (7.639%), alpha1=49, alpha2–4=156, alpha5–20=32, alpha>127 nonprimary components=0.
+- `art/creatures/mimic/open.png` — RGBA [144, 116]; alpha0=7727 (46.258%), alpha1=180, alpha2–4=309, alpha5–20=103, alpha>127 nonprimary components=0.
+- `art/creatures/mimic/open_n.png` — RGBA [144, 116]; alpha0=7727 (46.258%), alpha1=180, alpha2–4=309, alpha5–20=103, alpha>127 nonprimary components=0.
+- `art/creatures/rail_cannon/barrel.png` — RGBA [104, 26]; alpha0=860 (31.805%), alpha1=62, alpha2–4=111, alpha5–20=35, alpha>127 nonprimary components=0.
+- `art/creatures/rail_cannon/barrel_n.png` — RGBA [104, 26]; alpha0=860 (31.805%), alpha1=62, alpha2–4=111, alpha5–20=35, alpha>127 nonprimary components=0.
+- `art/creatures/rail_cannon/slider.png` — RGBA [72, 118]; alpha0=2884 (33.945%), alpha1=98, alpha2–4=195, alpha5–20=88, alpha>127 nonprimary components=0.
+- `art/creatures/rail_cannon/slider_n.png` — RGBA [72, 118]; alpha0=2884 (33.945%), alpha1=98, alpha2–4=195, alpha5–20=88, alpha>127 nonprimary components=0.
+- `art/creatures/repair_drone/arm.png` — RGBA [8, 88]; alpha0=97 (13.778%), alpha1=9, alpha2–4=43, alpha5–20=26, alpha>127 nonprimary components=0.
+- `art/creatures/repair_drone/arm_n.png` — RGBA [8, 88]; alpha0=97 (13.778%), alpha1=9, alpha2–4=43, alpha5–20=26, alpha>127 nonprimary components=0.
+- `art/creatures/repair_drone/body.png` — RGBA [96, 77]; alpha0=2750 (37.202%), alpha1=64, alpha2–4=151, alpha5–20=45, alpha>127 nonprimary components=0.
+- `art/creatures/repair_drone/body_n.png` — RGBA [96, 77]; alpha0=2750 (37.202%), alpha1=64, alpha2–4=151, alpha5–20=45, alpha>127 nonprimary components=0.
+- `art/creatures/salvage_arm/body.png` — RGBA [176, 117]; alpha0=6301 (30.599%), alpha1=123, alpha2–4=274, alpha5–20=55, alpha>127 nonprimary components=0.
+- `art/creatures/salvage_arm/body_n.png` — RGBA [176, 117]; alpha0=6301 (30.599%), alpha1=123, alpha2–4=274, alpha5–20=55, alpha>127 nonprimary components=0.
+- `art/creatures/salvage_arm/tentacle.png` — RGBA [18, 136]; alpha0=453 (18.505%), alpha1=46, alpha2–4=102, alpha5–20=26, alpha>127 nonprimary components=0.
+- `art/creatures/salvage_arm/tentacle_n.png` — RGBA [18, 136]; alpha0=453 (18.505%), alpha1=46, alpha2–4=102, alpha5–20=26, alpha>127 nonprimary components=0.
+- `art/creatures/searchlight_drone/body.png` — RGBA [120, 34]; alpha0=1472 (36.078%), alpha1=55, alpha2–4=129, alpha5–20=28, alpha>127 nonprimary components=0.
+- `art/creatures/searchlight_drone/body_n.png` — RGBA [120, 34]; alpha0=1472 (36.078%), alpha1=55, alpha2–4=129, alpha5–20=28, alpha>127 nonprimary components=0.
+- `art/creatures/searchlight_drone/thruster.png` — RGBA [27, 48]; alpha0=119 (9.182%), alpha1=33, alpha2–4=33, alpha5–20=21, alpha>127 nonprimary components=0.
+- `art/creatures/searchlight_drone/thruster_n.png` — RGBA [27, 48]; alpha0=119 (9.182%), alpha1=33, alpha2–4=33, alpha5–20=21, alpha>127 nonprimary components=0.
+- `art/creatures/shaft_bat/body.png` — RGBA [120, 46]; alpha0=3322 (60.181%), alpha1=74, alpha2–4=197, alpha5–20=38, alpha>127 nonprimary components=0.
+- `art/creatures/shaft_bat/body_n.png` — RGBA [120, 46]; alpha0=3322 (60.181%), alpha1=74, alpha2–4=197, alpha5–20=38, alpha>127 nonprimary components=0.
+- `art/creatures/shaft_bat/wing.png` — RGBA [44, 88]; alpha0=1443 (37.268%), alpha1=71, alpha2–4=170, alpha5–20=43, alpha>127 nonprimary components=0.
+- `art/creatures/shaft_bat/wing_n.png` — RGBA [44, 88]; alpha0=1443 (37.268%), alpha1=71, alpha2–4=170, alpha5–20=43, alpha>127 nonprimary components=0.
+- `art/creatures/shock_hound/body.png` — RGBA [136, 63]; alpha0=4524 (52.801%), alpha1=161, alpha2–4=308, alpha5–20=94, alpha>127 nonprimary components=5.
+- `art/creatures/shock_hound/body_n.png` — RGBA [136, 63]; alpha0=4524 (52.801%), alpha1=161, alpha2–4=308, alpha5–20=94, alpha>127 nonprimary components=5.
+- `art/creatures/shock_hound/tail.png` — RGBA [72, 13]; alpha0=273 (29.167%), alpha1=36, alpha2–4=79, alpha5–20=25, alpha>127 nonprimary components=0.
+- `art/creatures/shock_hound/tail_n.png` — RGBA [72, 13]; alpha0=273 (29.167%), alpha1=36, alpha2–4=79, alpha5–20=25, alpha>127 nonprimary components=0.
+- `art/creatures/swarm_bee/body.png` — RGBA [36, 24]; alpha0=277 (32.060%), alpha1=26, alpha2–4=67, alpha5–20=30, alpha>127 nonprimary components=0.
+- `art/creatures/swarm_bee/body_n.png` — RGBA [36, 24]; alpha0=277 (32.060%), alpha1=26, alpha2–4=67, alpha5–20=30, alpha>127 nonprimary components=0.
+- `art/creatures/tangle_wire/body.png` — RGBA [120, 40]; alpha0=1410 (29.375%), alpha1=44, alpha2–4=198, alpha5–20=27, alpha>127 nonprimary components=0.
+- `art/creatures/tangle_wire/body_n.png` — RGBA [120, 40]; alpha0=1410 (29.375%), alpha1=44, alpha2–4=198, alpha5–20=27, alpha>127 nonprimary components=0.
+- `art/creatures/tangle_wire/tentacle.png` — RGBA [13, 120]; alpha0=548 (35.128%), alpha1=68, alpha2–4=161, alpha5–20=28, alpha>127 nonprimary components=0.
+- `art/creatures/tangle_wire/tentacle_n.png` — RGBA [13, 120]; alpha0=548 (35.128%), alpha1=68, alpha2–4=161, alpha5–20=28, alpha>127 nonprimary components=0.
+- `art/creatures/test_body.png` — RGBA [160, 160]; alpha0=10257 (40.066%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/creatures/test_tentacle.png` — RGBA [64, 512]; alpha0=15342 (46.820%), alpha1=0, alpha2–4=0, alpha5–20=0, alpha>127 nonprimary components=0.
+- `art/creatures/turret/barrel.png` — RGBA [96, 17]; alpha0=262 (16.054%), alpha1=64, alpha2–4=81, alpha5–20=59, alpha>127 nonprimary components=0.
+- `art/creatures/turret/barrel_n.png` — RGBA [96, 17]; alpha0=262 (16.054%), alpha1=64, alpha2–4=81, alpha5–20=59, alpha>127 nonprimary components=0.
+- `art/creatures/turret/base.png` — RGBA [96, 77]; alpha0=1831 (24.770%), alpha1=47, alpha2–4=159, alpha5–20=39, alpha>127 nonprimary components=0.
+- `art/creatures/turret/base_n.png` — RGBA [96, 77]; alpha0=1831 (24.770%), alpha1=47, alpha2–4=159, alpha5–20=39, alpha>127 nonprimary components=0.
+- `art/creatures/turret/head.png` — RGBA [88, 62]; alpha0=1379 (25.275%), alpha1=43, alpha2–4=131, alpha5–20=30, alpha>127 nonprimary components=0.
+- `art/creatures/turret/head_n.png` — RGBA [88, 62]; alpha0=1379 (25.275%), alpha1=43, alpha2–4=131, alpha5–20=30, alpha>127 nonprimary components=0.
+- `art/creatures/wall_gecko/body.png` — RGBA [104, 41]; alpha0=1741 (40.830%), alpha1=98, alpha2–4=213, alpha5–20=61, alpha>127 nonprimary components=0.
+- `art/creatures/wall_gecko/body_n.png` — RGBA [104, 41]; alpha0=1741 (40.830%), alpha1=98, alpha2–4=213, alpha5–20=61, alpha>127 nonprimary components=0.
+- `art/portraits/ah_po.png` — RGBA [128, 128]; alpha0=6782 (41.394%), alpha1=127, alpha2–4=296, alpha5–20=98, alpha>127 nonprimary components=1.
+- `art/portraits/mei.png` — RGBA [128, 128]; alpha0=7150 (43.640%), alpha1=129, alpha2–4=263, alpha5–20=83, alpha>127 nonprimary components=0.
+- `art/portraits/night_worker.png` — RGBA [128, 128]; alpha0=7858 (47.961%), alpha1=94, alpha2–4=204, alpha5–20=54, alpha>127 nonprimary components=0.
+- `art/portraits/nurse.png` — RGBA [128, 128]; alpha0=8120 (49.561%), alpha1=164, alpha2–4=286, alpha5–20=99, alpha>127 nonprimary components=2.
+- `art/portraits/old_k.png` — RGBA [128, 128]; alpha0=7444 (45.435%), alpha1=109, alpha2–4=235, alpha5–20=63, alpha>127 nonprimary components=0.
+- `art/portraits/reclaimer.png` — RGBA [128, 128]; alpha0=7435 (45.380%), alpha1=107, alpha2–4=272, alpha5–20=77, alpha>127 nonprimary components=0.
+- `art/portraits/repairman_chen.png` — RGBA [128, 128]; alpha0=7221 (44.073%), alpha1=97, alpha2–4=252, alpha5–20=71, alpha>127 nonprimary components=0.
+- `art/portraits/resident.png` — RGBA [128, 128]; alpha0=7164 (43.726%), alpha1=125, alpha2–4=242, alpha5–20=99, alpha>127 nonprimary components=0.
+- `art/portraits/rin.png` — RGBA [256, 256]; alpha0=26333 (40.181%), alpha1=238, alpha2–4=407, alpha5–20=420, alpha>127 nonprimary components=0.
+- `art/portraits/system.png` — RGBA [128, 128]; alpha0=11307 (69.012%), alpha1=170, alpha2–4=94, alpha5–20=24, alpha>127 nonprimary components=1.
+- `art/portraits/warden.png` — RGBA [128, 128]; alpha0=3539 (21.600%), alpha1=62, alpha2–4=182, alpha5–20=26, alpha>127 nonprimary components=0.
+- `art/portraits/wataru.png` — RGBA [128, 128]; alpha0=8729 (53.278%), alpha1=132, alpha2–4=305, alpha5–20=64, alpha>127 nonprimary components=0.
+
+## 非人形 creature model 與貼圖來源
+
+- 掃描 `art/creatures/*.json` 設定 17 個；引用 0 張 PNG 的設定數=0，不可當作通過；缺失引用數=0。引用清單與每個模型類型在 JSON `creature_models`。
+- Creature 設定摘要：`bomber` (part_creature_sprite_parts, PNG=2, normal=2); `buoy_worm` (chain_creature_sprite_mesh_geometry, PNG=2, normal=2); `cloud_jelly` (chain_creature_sprite_mesh_geometry, PNG=2, normal=2); `cloud_serpent` (worm_creature_sprite_geometry, PNG=2, normal=2); `drone` (part_creature_sprite_parts, PNG=2, normal=2); `mimic` (part_creature_sprite_parts, PNG=2, normal=2); `rail_cannon` (part_creature_sprite_parts, PNG=2, normal=2); `repair_drone` (part_creature_sprite_parts, PNG=2, normal=2); `salvage_arm` (chain_creature_sprite_mesh_geometry, PNG=2, normal=2); `searchlight_drone` (part_creature_sprite_parts, PNG=2, normal=2); `shaft_bat` (part_creature_sprite_parts, PNG=2, normal=2); `shock_hound` (part_creature_sprite_parts, PNG=2, normal=2); `swarm_bee` (part_creature_sprite_parts, PNG=1, normal=1); `tangle_wire` (chain_creature_sprite_mesh_geometry, PNG=2, normal=2); `test_creature` (chain_creature_sprite_mesh_geometry, PNG=2, normal=0); `turret` (part_creature_sprite_parts, PNG=3, normal=3); `wall_gecko` (part_creature_sprite_parts, PNG=1, normal=1).
+- 零 PNG Creature 設定：無（0 個；這只表示設定引用到現存 PNG，不等同視覺通過）.
+- art/creatures runtime/test/normal 圖共 64 張；art_src/creatures source與`_gen`候選已分開分類。Creature JSON 直接 PNG 引用解析自設定檔字串，normal companion 依實際 `_n.png` 同名檔檢查。
+- EnemyData 沒有明確 `rig_skin`/`creature_skin`、會走 Enemy 程式繪製路徑的項目：無（0/34；JSON 仍保存完整 34 筆綁定）.
+- EnemyData 外觀綁定：`bomber` (rig=`—`, creature=`bomber`); `buoy_worm` (rig=`—`, creature=`buoy_worm`); `buoy_worm_small` (rig=`—`, creature=`buoy_worm`); `ch1_inspector` (rig=`enforcer`, creature=`—`); `cloud_jelly` (rig=`—`, creature=`cloud_jelly`); `cloud_serpent` (rig=`—`, creature=`cloud_serpent`); `collector_brute` (rig=`enforcer`, creature=`—`); `collector_gunner` (rig=`enforcer`, creature=`—`); `custodian` (rig=`warden`, creature=`—`); `drone` (rig=`—`, creature=`drone`); `elite_grunt` (rig=`trooper_elite`, creature=`—`); `flamer` (rig=`flamer`, creature=`—`); `grunt` (rig=`trooper`, creature=`—`); `heavy_gunner` (rig=`heavy_gunner`, creature=`—`); `mimic` (rig=`—`, creature=`mimic`); `mortar` (rig=`grenadier`, creature=`—`); `rail_cannon` (rig=`—`, creature=`rail_cannon`); `reclaimer` (rig=`reclaimer`, creature=`—`); `repair_drone` (rig=`—`, creature=`repair_drone`); `salvage_arm` (rig=`—`, creature=`salvage_arm`); `searchlight_drone` (rig=`—`, creature=`searchlight_drone`); `shaft_bat` (rig=`—`, creature=`shaft_bat`); `shield_rusher` (rig=`enforcer`, creature=`—`); `shock_hound` (rig=`—`, creature=`shock_hound`); `slasher` (rig=`slasher`, creature=`—`); `sniper` (rig=`sniper`, creature=`—`); `stalker` (rig=`stalker`, creature=`—`); `swarm_bee` (rig=`—`, creature=`swarm_bee`); `sweeper` (rig=`trooper`, creature=`—`); `tangle_wire` (rig=`—`, creature=`tangle_wire`); `turret` (rig=`—`, creature=`turret`); `wall_gecko` (rig=`—`, creature=`wall_gecko`); `warden` (rig=`warden`, creature=`—`); `watchdog` (rig=`warden`, creature=`—`).
+- 看門狗 `watchdog` 明確使用 `rig_skin=warden`，即借用 Warden 骨架角色貼圖。
+
+## 原始/中間分件來源注意事項
+
+Recipe 的 base/stage/group/refined/override 與 `_gen` 都按來源階段分類；`04_stages` 和 `_gen` 圖即使目前帶 alpha，也不自動代表已接受。`_gen` 標為未接受候選；`05_groups`/`07_refined` 是分件輸入，不等同最終 runtime part。請以 `alpha-audit.csv` / JSON 的來源路徑和 SHA 回到實際 workflow/人工確認。
+
+預期輸入缺漏：無。
+
+## 合成裁切與限制
+
+前 30 個帶 alpha 的候選輸出原尺寸、未縮放裁切：原始 RGBA、alpha over black/white/teal 四欄。裁切框是 native pixel bbox 並加 16px 邊界，另有 64x64 原始四角合成板，所有檔名均在 repo-relative `review/`。零 alpha 區域即使 RGB 是洋紅也不可見，不能用該 RGB 本身作為問題證據。
+
+本報告是 CPU 圖像資料檢查，不宣稱人眼驗收、遊戲截圖通過或所有角色透明度缺陷已修復；沒有修改正式檔案，也未執行 Godot/GPU/ComfyUI。
+
+
+JSON 中的 `review_sheet` 與 `corner_sheet` 保留原始 `.godot/ne90-alpha-roster-audit/review/` 路徑作為本次私有掃描的歷史位置；本附件中的對應圖檔位於 `review/`，摘要連結可直接開啟。工作樹快照顯示掃描期間狀態有變動（`same_status_and_tracked_diff=false`），但所有 1295 個掃描 PNG 及 51 個模型/EnemyData 設定在掃描期間 SHA-256 前後一致；完整前後快照及檔案雜湊保留於 JSON。

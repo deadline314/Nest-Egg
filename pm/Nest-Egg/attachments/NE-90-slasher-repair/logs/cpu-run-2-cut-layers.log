@@ -1,0 +1,18 @@
+Label: run-n
+Command: D:\ComfyUI\.venv\Scripts\python.exe C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\tools\comfyui\cut_layers.py --spec C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\tools\comfyui\specs\slasher_side.json --work C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\.godot\ne90-slasher-final-repro\run-n\work --char C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\.godot\ne90-slasher-final-repro\run-n\char --rig C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\.godot\ne90-slasher-final-repro\run-n\rig\slasher.json
+Exit code: 0
+--- stdout ---
+  pelvis: 155x126 pivot=(73.4,99.4)
+  torso: 186x286 pivot=(101.0,258.4)
+  head: 156x174 pivot=(15.5,150.6)
+  leg_upper: 142x251 pivot=(59.5,-7.9)
+  leg_lower: 101x261 pivot=(62.3,9.2)
+  foot: 155x130 pivot=(38.7,57.1)
+  arm_upper: 98x231 pivot=(45.7,40.9)
+  arm_lower: 91x183 pivot=(47.7,9.9)
+  hand: 122x67 pivot=(9.4,35.7)
+  armor_chest: 95x147 pivot=(2.0,194.4)
+  armor_shoulder: 74x206 pivot=(71.0,51.5)
+rig bones: 16  textures: 11  parts: 18
+
+--- stderr ---

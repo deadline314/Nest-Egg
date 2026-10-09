@@ -1,0 +1,4 @@
+Running 5 groups in 2 processes (logs: /tmp/tmp.Q6FeWa4DCq)
+  process 0 (estimated 20 s): NewEnemiesSuite,LocomotionSuite
+  process 1 (estimated 18 s): HitReactionSuite,AnimAuditSuite,PostureSuite
+checks: 684, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 28 s)

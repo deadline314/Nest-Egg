@@ -47,6 +47,8 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
 
 每一步結束，腳本把輸出清單寫進 `work/manifest.json`。
 
+**透明來源核對**：本 repo 的 `build_character.py` 已在既有 Qwen 提示詞前後加上 RGBA／透明背景說明，`comfy_api.py` 也已接 Qwen Image 2.1 VAE；不用重複加提示詞。官方工作流說明 VAE 支援四通道 alpha，可直接生成透明背景圖（[Comfy-Org：Qwen Image 2.1](https://github.com/Comfy-Org/docs/blob/main/tutorials/image/qwen/qwen-image-2-1.mdx)）。提示詞與工作流只說明預期，交付仍須檢查實際 PNG：分開記錄 RGBA 模式、alpha 分布與人物 bbox，並把原圖以最近鄰原尺寸分別合成黑、灰、白底檢視，也要在實際 Forward+ 場景檢查最終貼圖。alpha=0 的 RGB 值不表示有可見雜點；alpha=1 的洋紅點及帶色半透明邊緣則要看合成後是否形成彩邊，不可只看棋盤格或 `RGBA` 字樣判定透明品質。來源 alpha、SAM 遮罩所有權、最終貼圖外觀及動畫接合是不同檢查；任一項通過都不代替其他項。沿用 `refine.speckle: 30`（`components` 最小連通像素數）與 `alpha_floor: 40` 等既有設定做指定零件清理，不把它們當成容許碎片／孔洞的新驗收門檻；一像素裂縫仍失敗。
+
 ### 第 3 步細節：怎麼分、怎麼補
 
 1. **分群**（spec `groups`）：SAM 3.1 對每個文字提示（"hand"、"chrome robotic arm"、"jacket"、"ponytail"、"head"、"boot"、"thigh holster"、"torso"、"skin"、"black stockings leg"）給一張遮罩。前面的群組優先；沒被任何遮罩認領的零星像素分給最近的群組。
@@ -199,7 +201,9 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py --recipe to
 ```
 腿零件的 `y` 照舊是切線：`leg_lower` 到腳踝、`foot` 從腳踝切線以下（`foot.y`），鞋底平整貼在零件最底邊，支點在腳踝。靴子與褲管的分界不一定是水平的（深色高筒靴、白襪），所以用 `foot_y`（腳零件的上緣）指定，不靠 SAM 的 "boot" 遮罩。
 
-**怎麼挑點**：先用 `sam_masks.py` 的點提示（`segment_points`）試，疊在腿部區域看遮罩有沒有只吃到近側那一條；兩隻鞋重疊時，正向點要打在近側鞋的前、後、鞋底，負向點打在遠側鞋露出來的前端與靴筒；遠側腿大面積露出時，在大腿與小腿中段各打一個負向點。遮罩吃不乾淨再依序：(2) 在腳踝以下依兩隻鞋的間隙用 `foot_y`／`y` 幾何切；(3) 只對那條腿的裁切小圖用 Qwen 編輯模式做「只保留近側腿與鞋」，不重畫整個角色。
+**怎麼挑點**：先用 `sam_masks.py` 的點提示（`segment_points`）試，疊在腿部區域看遮罩有沒有只吃到近側那一條；兩隻鞋重疊時，正向點要打在近側鞋的前、後、鞋底，負向點打在遠側鞋露出來的前端與靴筒；遠側腿大面積露出時，在大腿與小腿中段各打一個負向點。最終 `foot` 遮罩必須是一隻連續的近側鞋，不能把遠側鞋、第二個鞋尖或遠側靴筒切進來；以原尺寸來源 crop 與遮罩邊界核對，並在黑、灰、白底查看單鞋剪影。分開標出 `ankle` 關節、靴筒頂／鞋口與鞋底真實接地列；靴筒頂不是踝點，鞋底接地也不能用陰影、發光或另一隻鞋的像素代替。近遠側手的 `wrist`／`palm` source joints 也要各自校準到其實際腕口與掌心；遮擋或側視看不到的點標記未知，不沿用另一側的座標或鏡像猜點。遮罩吃不乾淨再依序：(2) 在腳踝以下依兩隻鞋的間隙用 `foot_y`／`y` 幾何切；(3) 只對那條腿的裁切小圖用 Qwen 編輯模式做「只保留近側腿與鞋」，不重畫整個角色。
+
+點位與來源覆寫：把原圖 SHA-256、正／負點的原圖座標、遮罩檔與遮罩 SHA-256、實際選取的零件輪廓一併記錄。確認分件像素只來自正確那隻手／鞋後，輸出與 `base_rgba.png` 同畫布、同座標的 RGBA override，透過配方 `source_rebuilds` 在 `textures` 前重建；保留原始 PNG 與舊遮罩。重跑至少兩次比對 override 雜湊，並確認目標遮罩外逐位元組不變。重建與雜湊一致只證明來源流程可重現，接點、鞋底接地、手部握持及動態仍須各自驗收。
 
 **亮度**：遠側腿要看得出來，近側腿也不能糊進背景。規格 `parts.*.uses[].tint` 依貼圖實際平均亮度決定（近側目標約 0.2、遠側目標約 0.15，近側最多乘 2.0、遠側最少 0.62，遠側不超過近側的 0.8 倍），改規格後重跑 `textures`。
 

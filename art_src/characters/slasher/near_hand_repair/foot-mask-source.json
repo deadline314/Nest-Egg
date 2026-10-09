@@ -1,0 +1,48 @@
+{
+  "source": "art_src\\characters\\slasher\\base_rgba.png",
+  "source_sha256": "ba9af5139d225d492019c24c261bcd1ba9387d1bca7d10e7fd0fa3f5f1931bf3",
+  "points": {
+    "near_foot": {
+      "pos": [
+        [
+          347,
+          1085
+        ],
+        [
+          354,
+          1144
+        ],
+        [
+          412,
+          1176
+        ],
+        [
+          327,
+          1180
+        ]
+      ],
+      "neg": [
+        [
+          439,
+          1138
+        ],
+        [
+          491,
+          1159
+        ],
+        [
+          370,
+          1026
+        ],
+        [
+          279,
+          1160
+        ]
+      ]
+    }
+  },
+  "threshold": 0.3,
+  "refine": 2,
+  "model": "sam3.1_multiplex_fp16.safetensors",
+  "mask_sha256": "f72640cc2736ce50335a8c719e4362e3bac6e0eecd9513c30e12e5e6ef709a85"
+}
