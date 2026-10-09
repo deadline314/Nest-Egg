@@ -9,11 +9,97 @@ const DT := 1.0 / 60.0
 
 func run() -> void:
 	_test_data()
+	await _test_reach_leg_canonical_angles()
 	await _test_feet_stay_on_the_ground()
 	await _test_planted_stride()
 	await _test_relaxed_and_ready()
 	await _test_recoil_depends_on_the_weapon()
 	await _test_weapon_less_and_airborne_are_safe()
+
+
+## 固定 Rin rest 骨長做 two-bone IK：象限、atan2 分支、前後鏈及翻面都必須保留端點與腳掌角度，
+## 同時輸出的 local rotation 應是 canonical；AnimAudit 仍須抓到真正的反膝控制案例。
+func _test_reach_leg_canonical_angles() -> void:
+	var holder := Node2D.new()
+	runner.get_tree().root.add_child(holder)
+	var rig := CharacterRig.new()
+	holder.add_child(rig)
+	check(rig.setup("rin"), "Rin rig builds for fixed-rest leg IK regression")
+	var animator := rig.animator
+	var expected_bones := rig.bone_order().size()
+	check(expected_bones == 20, "Rin test uses the native 20-bone humanoid_tall rest skeleton (%d bones)" % expected_bones)
+	var angle_cases: Array[float] = [-2.35, -0.75, 0.75, 2.35, -PI + 0.02, PI - 0.02]
+	var parent_cases: Array[float] = [0.0, 2.7, -2.7]
+	var fixed_rest: Dictionary = {}
+	var fixed_parents: Dictionary = {}
+	for bone_name in rig.bone_order():
+		fixed_rest[bone_name] = rig.rest(bone_name)
+		fixed_parents[bone_name] = rig.parent_of(bone_name)
+	var max_target_error := 0.0
+	var max_foot_angle_error := 0.0
+	var max_audit_knee_hyper := -INF
+	var all_local_angles_canonical := true
+	var all_knees_bend_forward := true
+	var tested_cases := 0
+	var worst_case := "none"
+	var worst_audit_case := "none"
+	for facing in [1, -1]:
+		rig.facing = facing
+		for parent_angle in parent_cases:
+			rig.bone(&"hip").rotation = parent_angle
+			animator._forward_kinematics()
+			for chain: Array in AnimAudit.LEG_BONES:
+				var upper: StringName = chain[0]
+				var lower: StringName = chain[1]
+				var foot: StringName = chain[2]
+				var length_upper := rig.rest(lower).length()
+				var length_lower := rig.rest(foot).length()
+				var target_distance := (length_upper + length_lower) * 0.7
+				for test_angle in angle_cases:
+					var local_target_angle := test_angle if facing > 0 else PI - test_angle
+					var hip: Vector2 = animator._global_pos[upper]
+					var target := hip + Vector2.RIGHT.rotated(local_target_angle) * target_distance
+					var requested_foot_angle := test_angle * 0.37
+					animator._reach_leg(upper, lower, foot, target, requested_foot_angle)
+					animator._forward_kinematics()
+					tested_cases += 1
+					var endpoint_error := animator._global_pos[foot].distance_to(target)
+					if endpoint_error > max_target_error:
+						max_target_error = endpoint_error
+						worst_case = "%s %s face=%d parent=%.3f target_angle=%.3f" % [upper, lower, facing, parent_angle, local_target_angle]
+					max_foot_angle_error = maxf(max_foot_angle_error, absf(angle_difference(requested_foot_angle, animator._global_angle[foot])))
+					var audit_entry := _measure_leg_audit(rig, "%s face=%d parent=%.3f target=%.3f" % [upper, facing, parent_angle, local_target_angle])
+					if float(audit_entry.get("value", -INF)) > max_audit_knee_hyper:
+						max_audit_knee_hyper = float(audit_entry["value"])
+						worst_audit_case = str(audit_entry.get("where", "unknown"))
+					for bone_name: StringName in [upper, lower, foot]:
+						var local_rotation := rig.bone(bone_name).rotation
+						if local_rotation < -PI - 0.000001 or local_rotation > PI + 0.000001:
+							all_local_angles_canonical = false
+					if rig.bone(lower).rotation < -0.000001:
+						all_knees_bend_forward = false
+	check(tested_cases == 72, "IK regression covers quadrants, atan2 branch, front/back chains and both facings (%d cases)" % tested_cases)
+	check(max_target_error < 0.001, "reachable Rin leg targets stay within 0.001 skeleton units (max %.6f at %s)" % [max_target_error, worst_case])
+	check(max_foot_angle_error < 0.001, "solved foot global angle matches requested angle modulo 2pi (max %.6f rad)" % max_foot_angle_error)
+	check(all_local_angles_canonical, "leg local rotations remain in [-PI, PI]")
+	check(all_knees_bend_forward, "IK solutions keep the knee bend nonnegative in the canonical local range")
+	check(max_audit_knee_hyper <= float(AnimAudit.LIMITS["knee_hyper"]), "AnimAudit accepts every canonical IK branch case (%.3f <= %.3f at %s)" % [max_audit_knee_hyper, float(AnimAudit.LIMITS["knee_hyper"]), worst_audit_case])
+	var fixed_rest_unchanged := true
+	for bone_name in fixed_rest:
+		if rig.rest(bone_name) != fixed_rest[bone_name] or rig.parent_of(bone_name) != fixed_parents[bone_name]:
+			fixed_rest_unchanged = false
+	check(fixed_rest_unchanged, "all native Rin rest offsets and parent links remain unchanged throughout IK regression")
+	rig.bone(&"leg_front_lower").rotation = -0.2
+	var negative_control := _measure_leg_audit(rig, "negative control lower=-0.2")
+	check(float(negative_control.get("value", 0.0)) > float(negative_control.get("limit", 0.0)), "AnimAudit still flags a real reverse-knee control (%.3f > %.3f)" % [float(negative_control.get("value", 0.0)), float(negative_control.get("limit", 0.0))])
+	holder.queue_free()
+	await frames(1)
+
+
+func _measure_leg_audit(rig: CharacterRig, label: String) -> Dictionary:
+	var ctx := {"rig": rig, "results": {}, "where": label, "frame": 0, "prev": {}, "grounded": false, "pop_scale": 1.0, "skip_pop": 0}
+	AnimAudit._measure(ctx, false)
+	return (ctx["results"] as Dictionary).get("knee_hyper", {"value": 0.0, "limit": AnimAudit.LIMITS["knee_hyper"], "where": label})
 
 
 func _make(skin: String, input: RigInput) -> CharacterRig:

@@ -1,0 +1,246 @@
+{
+  "scope": "CPU geometry feasibility scan only; not a bound pose, AnimAudit run, native render, or art acceptance",
+  "head_snapshot": "811351caf8e0d6229d366037522bba7d77ecd3f4",
+  "inputs_sha256": {
+    "art/rigs/humanoid_tall.json": "5d9f2e3bb53d28410533fc9682fd54f8c6a56274fd8ecda2e0eb5a28bb42ff44",
+    "art/characters/rin/character.json": "20cd9902e03ddf3f17b96adad3776cacab06c6e092b3e014e3736315adb91bad",
+    "art/characters/rin/parts/foot.png": "1bfff06cfe3c11bcaf2182c4bb6db3513697ff58cde439c487594624ea36cae9",
+    ".godot/rin-kneel-anatomy-review/geometry-kneel-audit.json": "f83dc15e7d3b485c006d678f76fc3ea212a70768078c74c3396cadf2de0d9a9b",
+    "art_src/characters/rin_pose_variants/04_bind_poses/kneel-connected.reference.png": "a5b0af73c6805be7be960809c0207d5e8d3be3cb0b2b2a79bc7f0c9ecdfecdfc",
+    "art_src/characters/rin_pose_variants/04_bind_poses/kneel-connected.source.json": "bd1949e44cb6488af8e093398aa2d2c29235d5d97929cb1c1f225ab90cce2436",
+    "art_src/characters/rin_pose_variants/04_bind_poses/_gen/rin_kneel_native_alpha_22292_0.png": "1ef1b3c3925f70a2341187f729ffdb16ef892f1379cf233c8286e43238355a7a",
+    "game/rig/anim_audit.gd": "cdac4eddb09af82f4792566edfb1f559e8a552a30b8113c97e6fac88c3f86b48",
+    "tests/suite/test_anim_audit.gd": "8dd55ee0580751efcfb8744f3780c77a6f27a8bfe770c561cc1ba2caf1f345cc",
+    "tests/suite/test_phone_booth.gd": "3d3aeb073b79b18858df8988749fea022a7c6e2d1fb42d5b0bec2d10a86ac5a3"
+  },
+  "coordinate_units": {
+    "primary": "unscaled skeleton units; y positive down",
+    "world_conversion": "multiply coordinates and distances by 1.15",
+    "angle": "degrees; leg flexion is absolute segment-direction turn; interior angle = 180 - flexion"
+  },
+  "limits": {
+    "knee_flexion_max_degrees": 140.0,
+    "front_thigh_up_max_degrees": 25.0,
+    "front_shin_from_vertical_max_degrees": 45.0,
+    "AnimAudit_knee_hyper_max_radians": 0.1,
+    "bone_length_error_max_skeleton_units": 1e-06
+  },
+  "anim_audit_callers_and_full_limits": {
+    "callers": [
+      "tests/suite/test_anim_audit.gd: AnimAudit.audit for skins and AnimAudit.audit_npc for NPC poses",
+      "tests/suite/test_phone_booth.gd: AnimAudit.audit_actions for rin.phone_call"
+    ],
+    "limits_from_game/rig/anim_audit.gd": {
+      "bone_stretch": 0.3,
+      "elbow_hyper": 0.6,
+      "knee_hyper": 0.1,
+      "trunk_lean": 1.15,
+      "head_turn": 1.0,
+      "foot_below_ground": 2.0,
+      "foot_floating": 0.5,
+      "grip_gap": 1.5,
+      "angle_pop": 0.9,
+      "corpse_height": 0.5,
+      "corpse_below_ground": 3.0,
+      "mesh_fold": 0.4,
+      "limb_pinch": 0.75
+    },
+    "knee_measurement": "positive value is reverse bend; report is max(0, -lower_bone.rotation), not total knee flexion"
+  },
+  "rest_lengths": {
+    "femur_skeleton": 10.31,
+    "shin_skeleton": 11.4,
+    "femur_world": 11.8565,
+    "shin_world": 13.11,
+    "front_upper_rest_offset_skeleton": [
+      0.0,
+      0.0
+    ],
+    "rear_upper_rest_offset_skeleton": [
+      -0.7,
+      0.0
+    ],
+    "rear_upper_rest_offset_world": [
+      -0.8049999999999999,
+      0.0
+    ]
+  },
+  "source_constraints": {
+    "front_sole_alpha_extension_skeleton": 5.76085,
+    "rear_knee_alpha_extension_skeleton": 0.7008095609207592,
+    "rear_knee_alpha_measurement_provenance": "opaque contour from the existing connected runtime reference capture; this is not 22292 source binding evidence",
+    "rear_knee_joint_y_for_alpha_contact": -0.7008095609207592,
+    "22292_manual_landmark_angles_for_ranking_only": {
+      "front_thigh_up": 10.6568482469,
+      "front_shin_from_vertical": 8.6641354331,
+      "rear_thigh_direction": 98.2267224641,
+      "rear_calf_direction": 209.0546040991,
+      "uncertainty_native_px": 25
+    }
+  },
+  "scan": {
+    "rear_thigh_direction_degrees": [
+      90.0,
+      150.0,
+      0.5
+    ],
+    "front_thigh_up_fixed_degrees": 20.0,
+    "rear_ankle_alpha_contact_angle_range": [
+      160.0,
+      250.0
+    ],
+    "accepted_candidates": 42
+  },
+  "preferred_candidate_selection": "among accepted candidates, require front shin <=40 degrees from vertical (5 degree margin to 45 degree limit), then rank against manual source estimates",
+  "selected_candidate": {
+    "score_vs_manual_22292_landmark_estimates": 1.0075759515256768,
+    "hip": [
+      0.0,
+      -10.971576898246656
+    ],
+    "front_upper_origin": [
+      0.0,
+      -10.971576898246656
+    ],
+    "rear_upper_origin": [
+      -0.7,
+      -10.971576898246656
+    ],
+    "front_knee": [
+      9.688230920302717,
+      -14.497804575934301
+    ],
+    "front_ankle": [
+      17.011182834528334,
+      -5.76085
+    ],
+    "rear_knee": [
+      -1.5985757077283564,
+      -0.7008095609207601
+    ],
+    "rear_ankle": [
+      -12.697293378324007,
+      -3.3043583060776234
+    ],
+    "front_thigh_up_degrees": 20.0,
+    "front_shin_from_vertical_degrees": 39.96833892014647,
+    "rear_thigh_direction_degrees": 95.0,
+    "rear_shin_direction_degrees": 193.2018007646028,
+    "front_knee_flexion_degrees": 70.03166107985354,
+    "front_knee_interior_angle_degrees": 109.96833892014646,
+    "rear_knee_flexion_degrees": 98.20180076460281,
+    "rear_knee_interior_angle_degrees": 81.79819923539719,
+    "front_anim_audit_knee_hyper_radians": -1.2222830664842117,
+    "rear_anim_audit_knee_hyper_radians": -1.713944754729804,
+    "front_sole_y": 0.0,
+    "rear_knee_material_bottom_y": -8.881784197001252e-16,
+    "rear_sole_y": 4.884981308350689e-15,
+    "rear_foot_global_angle_degrees": -256.7981992353972,
+    "rear_foot_global_orientation_degrees": 103.20180076460281,
+    "rear_foot_local_rotation_degrees": 0.0,
+    "front_ik_knee_error": 3.972054645195637e-15,
+    "rear_ik_knee_error": 2.220446049250313e-15,
+    "facing_mirror_knee_errors": [
+      0.0,
+      1.1102230246251565e-15
+    ],
+    "max_bone_length_error": 1.7763568394002505e-15,
+    "min_non_root_leg_segment_separation": 10.970397590261888,
+    "leg_segment_crossing": false,
+    "forward_back_side_check": true,
+    "hip_offset_from_rest_y": 16.448423101753345,
+    "front_boot_global_angle_degrees": 0.0
+  },
+  "selected_candidate_world_units": {
+    "hip": [
+      0.0,
+      -12.617313432983654
+    ],
+    "front_upper_origin": [
+      0.0,
+      -12.617313432983654
+    ],
+    "rear_upper_origin": [
+      -0.8049999999999999,
+      -12.617313432983654
+    ],
+    "front_knee": [
+      11.141465558348123,
+      -16.672475262324447
+    ],
+    "front_ankle": [
+      19.562860259707584,
+      -6.624977499999999
+    ],
+    "rear_knee": [
+      -1.8383620638876097,
+      -0.805930995058874
+    ],
+    "rear_ankle": [
+      -14.601887385072606,
+      -3.8000120519892664
+    ]
+  },
+  "mirrored_facing_candidate_skeleton_units": {
+    "hip": [
+      -0.0,
+      -10.971576898246656
+    ],
+    "front_upper_origin": [
+      -0.0,
+      -10.971576898246656
+    ],
+    "rear_upper_origin": [
+      0.7,
+      -10.971576898246656
+    ],
+    "front_knee": [
+      -9.688230920302717,
+      -14.497804575934301
+    ],
+    "front_ankle": [
+      -17.011182834528334,
+      -5.76085
+    ],
+    "rear_knee": [
+      1.5985757077283564,
+      -0.7008095609207601
+    ],
+    "rear_ankle": [
+      12.697293378324007,
+      -3.3043583060776234
+    ]
+  },
+  "negative_controls": {
+    "previous_raised_knee_thigh_angle": 35.55699362552924,
+    "max_allowed": 25.0,
+    "deliberate_overflex_turn": 150.0,
+    "max_allowed_flex": 140.0,
+    "deliberate_wrong_side_front_knee": true,
+    "rejected": true
+  },
+  "geometry_checks": {
+    "both_existing_law_of_cosines_branches_match_targets": true,
+    "facing_mirror_errors_le_1e_6": true,
+    "all_rest_lengths_preserved_le_1e_6": true,
+    "mirrored_facing_rest_length_errors": [
+      0.0,
+      1.7763568394002505e-15,
+      0.0,
+      0.0
+    ],
+    "front_opaque_sole_and_rear_knee_material_contact_y_zero": true,
+    "rear_opaque_boot_sole_contact_y_zero": true,
+    "no_front_rear_leg_segment_crossing": true,
+    "front_and_rear_limbs_on_expected_sides_of_hip": true,
+    "body_surface_penetration": "not decidable from bone polylines; rendered/source silhouette still requires review"
+  },
+  "not_verified": [
+    "full AnimAudit or action transitions",
+    "actual Godot IK node transforms",
+    "limb mesh fold/pinch",
+    "source-contour/body penetration",
+    "native image or Forward+ appearance",
+    "visual acceptance of 22292"
+  ]
+}

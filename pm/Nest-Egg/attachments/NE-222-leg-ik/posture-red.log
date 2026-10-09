@@ -1,0 +1,7 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME PostureSuite 1.2
+checks: 100, failures: 2
+FAIL: leg local rotations remain in [-PI, PI]
+FAIL: IK solutions keep the knee bend nonnegative in the canonical local range

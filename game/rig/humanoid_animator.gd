@@ -652,9 +652,9 @@ func _reach_leg(upper: StringName, lower: StringName, foot: StringName, target: 
 	var parent_angle: float = _global_angle.get(_rig.parent_of(upper), 0.0)
 	var upper_global := upper_dir - PI * 0.5
 	var lower_global := lower_dir - PI * 0.5
-	_rig.bone(upper).rotation = upper_global - parent_angle
-	_rig.bone(lower).rotation = lower_global - upper_global
-	_rig.bone(foot).rotation = foot_angle - lower_global
+	_rig.bone(upper).rotation = angle_difference(parent_angle, upper_global)
+	_rig.bone(lower).rotation = angle_difference(upper_global, lower_global)
+	_rig.bone(foot).rotation = angle_difference(lower_global, foot_angle)
 
 
 ## 倒下的身體不陷進地裡：倒下途中只把陷進去的部分往上推，倒完（姿勢到位）後整個貼地躺平。
