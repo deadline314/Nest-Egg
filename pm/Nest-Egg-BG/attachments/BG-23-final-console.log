@@ -1,0 +1,4 @@
+受影響的測試：Chapter1MapSuite,Chapter2Suite,DeathReactionSuite,InputFeelSuite,UiScreensSuite
+Running 5 groups in 1 processes (logs: C:/tmp/bg23-final-changed)
+  process 0 (estimated 150 s): Chapter1MapSuite,UiScreensSuite,InputFeelSuite,DeathReactionSuite,Chapter2Suite
+checks: 1872, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 141 s)

@@ -1,0 +1,949 @@
+WorkerThreadPool: 12 threads, 3 max low-priority.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Using "default" pen tablet driver...
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 2004498165
+EDITOR API HASH: 1696660745
+SceneTreeFTI: traversal method DEFAULT
+Loading resource: res://autoload/settings.gd remapped: res://autoload/settings.gd
+Loading resource: res://game/level/environment/window_life.gdshader remapped: res://game/level/environment/window_life.gdshader
+Completed load for: 'res://game/level/environment/window_life.gdshader' remapped 'res://game/level/environment/window_life.gdshader' at thread -1
+Loading resource: res://art/shaders/shock_ring.gdshader remapped: res://art/shaders/shock_ring.gdshader
+Completed load for: 'res://art/shaders/shock_ring.gdshader' remapped 'res://art/shaders/shock_ring.gdshader' at thread -1
+Loading resource: res://art/shaders/dissolve.gdshader remapped: res://art/shaders/dissolve.gdshader
+Completed load for: 'res://art/shaders/dissolve.gdshader' remapped 'res://art/shaders/dissolve.gdshader' at thread -1
+Loading resource: res://art/shaders/character_light.gdshader remapped: res://art/shaders/character_light.gdshader
+Completed load for: 'res://art/shaders/character_light.gdshader' remapped 'res://art/shaders/character_light.gdshader' at thread -1
+Completed load for: 'res://autoload/settings.gd' remapped 'res://autoload/settings.gd' at thread -1
+Loading resource: res://autoload/defeat_codex.gd remapped: res://autoload/defeat_codex.gd
+Completed load for: 'res://autoload/defeat_codex.gd' remapped 'res://autoload/defeat_codex.gd' at thread -1
+Loading resource: res://autoload/ambience.gd remapped: res://autoload/ambience.gd
+Completed load for: 'res://autoload/ambience.gd' remapped 'res://autoload/ambience.gd' at thread -1
+Loading resource: res://autoload/dev_menu.gd remapped: res://autoload/dev_menu.gd
+Completed load for: 'res://autoload/dev_menu.gd' remapped 'res://autoload/dev_menu.gd' at thread -1
+Loaded system CA certificates
+Loading resource: res://tools/prefetch_lifetime_probe.tscn remapped: res://tools/prefetch_lifetime_probe.tscn
+Loading resource: res://tools/prefetch_lifetime_probe.gd remapped: res://tools/prefetch_lifetime_probe.gd
+Loading resource: res://game/level/environment/sway.gdshader remapped: res://game/level/environment/sway.gdshader
+Completed load for: 'res://game/level/environment/sway.gdshader' remapped 'res://game/level/environment/sway.gdshader' at thread -1
+Loading resource: res://game/level/environment/sway_emissive.gdshader remapped: res://game/level/environment/sway_emissive.gdshader
+Completed load for: 'res://game/level/environment/sway_emissive.gdshader' remapped 'res://game/level/environment/sway_emissive.gdshader' at thread -1
+Loading resource: res://game/level/environment/glow_scan.gdshader remapped: res://game/level/environment/glow_scan.gdshader
+Completed load for: 'res://game/level/environment/glow_scan.gdshader' remapped 'res://game/level/environment/glow_scan.gdshader' at thread -1
+Loading resource: res://game/level/environment/puddle_ripple.gdshader remapped: res://game/level/environment/puddle_ripple.gdshader
+Completed load for: 'res://game/level/environment/puddle_ripple.gdshader' remapped 'res://game/level/environment/puddle_ripple.gdshader' at thread -1
+Completed load for: 'res://tools/prefetch_lifetime_probe.gd' remapped 'res://tools/prefetch_lifetime_probe.gd' at thread -1
+Completed load for: 'res://tools/prefetch_lifetime_probe.tscn' remapped 'res://tools/prefetch_lifetime_probe.tscn' at thread -1
+Loading resource: res://data/difficulty/assist.tres remapped: res://data/difficulty/assist.tres
+Completed load for: 'res://data/difficulty/assist.tres' remapped 'res://data/difficulty/assist.tres' at thread -1
+Loading resource: res://data/difficulty/standard.tres remapped: res://data/difficulty/standard.tres
+Completed load for: 'res://data/difficulty/standard.tres' remapped 'res://data/difficulty/standard.tres' at thread -1
+Loading resource: res://data/difficulty/hardcore.tres remapped: res://data/difficulty/hardcore.tres
+Completed load for: 'res://data/difficulty/hardcore.tres' remapped 'res://data/difficulty/hardcore.tres' at thread -1
+Loading resource: res://data/codex/defeat_cards.json remapped: res://data/codex/defeat_cards.json
+Completed load for: 'res://data/codex/defeat_cards.json' remapped 'res://data/codex/defeat_cards.json' at thread -1
+Loading resource: res://art/fonts/NotoSansTC-Regular-subset.ttf remapped: res://art/fonts/NotoSansTC-Regular-subset.ttf
+Loading resource: res://.godot/imported/NotoSansTC-Regular-subset.ttf-238b7d6e8ee2c1093bbf101b996e646b.fontdata remapped: res://.godot/imported/NotoSansTC-Regular-subset.ttf-238b7d6e8ee2c1093bbf101b996e646b.fontdata
+Completed load for: 'res://art/fonts/NotoSansTC-Regular-subset.ttf' remapped 'res://art/fonts/NotoSansTC-Regular-subset.ttf' at thread -1
+Loading resource: res://data/story/chapter_01.json remapped: res://data/story/chapter_01.json
+Completed load for: 'res://data/story/chapter_01.json' remapped 'res://data/story/chapter_01.json' at thread -1
+Loading resource: res://data/story/chapter_02.json remapped: res://data/story/chapter_02.json
+Completed load for: 'res://data/story/chapter_02.json' remapped 'res://data/story/chapter_02.json' at thread -1
+Loading resource: res://data/story/ch1_kasa.json remapped: res://data/story/ch1_kasa.json
+Completed load for: 'res://data/story/ch1_kasa.json' remapped 'res://data/story/ch1_kasa.json' at thread -1
+Loading resource: res://data/story/cutscenes_ch1.json remapped: res://data/story/cutscenes_ch1.json
+Completed load for: 'res://data/story/cutscenes_ch1.json' remapped 'res://data/story/cutscenes_ch1.json' at thread -1
+Loading resource: res://data/story/cutscenes_ch2.json remapped: res://data/story/cutscenes_ch2.json
+Completed load for: 'res://data/story/cutscenes_ch2.json' remapped 'res://data/story/cutscenes_ch2.json' at thread -1
+Loading resource: res://data/cutscene/stages/rainy_harbor.json remapped: res://data/cutscene/stages/rainy_harbor.json
+Completed load for: 'res://data/cutscene/stages/rainy_harbor.json' remapped 'res://data/cutscene/stages/rainy_harbor.json' at thread -1
+Loading resource: res://art/environment/backdrop/sky_storm.webp remapped: res://art/environment/backdrop/sky_storm.webp
+Loading resource: res://.godot/imported/sky_storm.webp-aa8c3bce1c43b599484ec78f34c3dfd3.ctex remapped: res://.godot/imported/sky_storm.webp-aa8c3bce1c43b599484ec78f34c3dfd3.ctex
+Completed load for: 'res://art/environment/backdrop/sky_storm.webp' remapped 'res://art/environment/backdrop/sky_storm.webp' at thread -1
+Loading resource: res://art/environment/backdrop/far_skyline.webp remapped: res://art/environment/backdrop/far_skyline.webp
+Loading resource: res://.godot/imported/far_skyline.webp-6a4cebf3428496ed664cc2a1481ec6d5.ctex remapped: res://.godot/imported/far_skyline.webp-6a4cebf3428496ed664cc2a1481ec6d5.ctex
+Completed load for: 'res://art/environment/backdrop/far_skyline.webp' remapped 'res://art/environment/backdrop/far_skyline.webp' at thread -1
+Loading resource: res://art/environment/backdrop/mid_buildings.webp remapped: res://art/environment/backdrop/mid_buildings.webp
+Loading resource: res://.godot/imported/mid_buildings.webp-7a654e79a48f9efd018ca218b9d62a5e.ctex remapped: res://.godot/imported/mid_buildings.webp-7a654e79a48f9efd018ca218b9d62a5e.ctex
+Completed load for: 'res://art/environment/backdrop/mid_buildings.webp' remapped 'res://art/environment/backdrop/mid_buildings.webp' at thread -1
+Loading resource: res://data/cutscene/stages/ch1_pawnshop_front.json remapped: res://data/cutscene/stages/ch1_pawnshop_front.json
+Completed load for: 'res://data/cutscene/stages/ch1_pawnshop_front.json' remapped 'res://data/cutscene/stages/ch1_pawnshop_front.json' at thread -1
+Loading resource: res://art/environment/scenes/pawnshop_front.webp remapped: res://art/environment/scenes/pawnshop_front.webp
+Loading resource: res://.godot/imported/pawnshop_front.webp-19c9d14ac12e87f62ddf3dad47acd2ef.ctex remapped: res://.godot/imported/pawnshop_front.webp-19c9d14ac12e87f62ddf3dad47acd2ef.ctex
+Completed load for: 'res://art/environment/scenes/pawnshop_front.webp' remapped 'res://art/environment/scenes/pawnshop_front.webp' at thread -1
+Loading resource: res://art/characters/rin/character.json remapped: res://art/characters/rin/character.json
+Completed load for: 'res://art/characters/rin/character.json' remapped 'res://art/characters/rin/character.json' at thread -1
+Loading resource: res://art/characters/old_k/character.json remapped: res://art/characters/old_k/character.json
+Completed load for: 'res://art/characters/old_k/character.json' remapped 'res://art/characters/old_k/character.json' at thread -1
+Loading resource: res://data/cutscene/stages/ch1_revival_room.json remapped: res://data/cutscene/stages/ch1_revival_room.json
+Completed load for: 'res://data/cutscene/stages/ch1_revival_room.json' remapped 'res://data/cutscene/stages/ch1_revival_room.json' at thread -1
+Loading resource: res://art/environment/scenes/revival_room.webp remapped: res://art/environment/scenes/revival_room.webp
+Loading resource: res://.godot/imported/revival_room.webp-e24f1d820c2c8182d09c1a74eec993db.ctex remapped: res://.godot/imported/revival_room.webp-e24f1d820c2c8182d09c1a74eec993db.ctex
+Completed load for: 'res://art/environment/scenes/revival_room.webp' remapped 'res://art/environment/scenes/revival_room.webp' at thread -1
+Loading resource: res://data/cutscene/stages/ch1_pawnshop_kitchen.json remapped: res://data/cutscene/stages/ch1_pawnshop_kitchen.json
+Completed load for: 'res://data/cutscene/stages/ch1_pawnshop_kitchen.json' remapped 'res://data/cutscene/stages/ch1_pawnshop_kitchen.json' at thread -1
+Loading resource: res://art/environment/scenes/pawnshop_kitchen.webp remapped: res://art/environment/scenes/pawnshop_kitchen.webp
+Loading resource: res://.godot/imported/pawnshop_kitchen.webp-dfaaad2294c34cbfdcc39cbf759f0076.ctex remapped: res://.godot/imported/pawnshop_kitchen.webp-dfaaad2294c34cbfdcc39cbf759f0076.ctex
+Completed load for: 'res://art/environment/scenes/pawnshop_kitchen.webp' remapped 'res://art/environment/scenes/pawnshop_kitchen.webp' at thread -1
+Loading resource: res://data/cutscene/stages/old_k_shop.json remapped: res://data/cutscene/stages/old_k_shop.json
+Completed load for: 'res://data/cutscene/stages/old_k_shop.json' remapped 'res://data/cutscene/stages/old_k_shop.json' at thread -1
+Loading resource: res://art/environment/stages/old_k_shop.webp remapped: res://art/environment/stages/old_k_shop.webp
+Loading resource: res://.godot/imported/old_k_shop.webp-b7311832d5a217f6af96b162462b7504.ctex remapped: res://.godot/imported/old_k_shop.webp-b7311832d5a217f6af96b162462b7504.ctex
+Completed load for: 'res://art/environment/stages/old_k_shop.webp' remapped 'res://art/environment/stages/old_k_shop.webp' at thread -1
+Loading resource: res://art/environment/stages/old_k_shop_bed.webp remapped: res://art/environment/stages/old_k_shop_bed.webp
+Loading resource: res://.godot/imported/old_k_shop_bed.webp-aac422a3cb8126d05a1ad8bdf0ee8468.ctex remapped: res://.godot/imported/old_k_shop_bed.webp-aac422a3cb8126d05a1ad8bdf0ee8468.ctex
+Completed load for: 'res://art/environment/stages/old_k_shop_bed.webp' remapped 'res://art/environment/stages/old_k_shop_bed.webp' at thread -1
+Loading resource: res://art/characters/wataru/character.json remapped: res://art/characters/wataru/character.json
+Completed load for: 'res://art/characters/wataru/character.json' remapped 'res://art/characters/wataru/character.json' at thread -1
+Loading resource: res://data/cutscene/stages/hangar_red.json remapped: res://data/cutscene/stages/hangar_red.json
+Completed load for: 'res://data/cutscene/stages/hangar_red.json' remapped 'res://data/cutscene/stages/hangar_red.json' at thread -1
+Loading resource: res://art/environment/stages/hangar_red.webp remapped: res://art/environment/stages/hangar_red.webp
+Loading resource: res://.godot/imported/hangar_red.webp-38dece19c79e37363d18df0a9941a389.ctex remapped: res://.godot/imported/hangar_red.webp-38dece19c79e37363d18df0a9941a389.ctex
+Completed load for: 'res://art/environment/stages/hangar_red.webp' remapped 'res://art/environment/stages/hangar_red.webp' at thread -1
+Loading resource: res://art/environment/props/fuel_tank.png remapped: res://art/environment/props/fuel_tank.png
+Loading resource: res://.godot/imported/fuel_tank.png-f70021a46e3ccc980e00ffaf44be6690.ctex remapped: res://.godot/imported/fuel_tank.png-f70021a46e3ccc980e00ffaf44be6690.ctex
+Completed load for: 'res://art/environment/props/fuel_tank.png' remapped 'res://art/environment/props/fuel_tank.png' at thread -1
+Loading resource: res://art/characters/warden/character.json remapped: res://art/characters/warden/character.json
+Completed load for: 'res://art/characters/warden/character.json' remapped 'res://art/characters/warden/character.json' at thread -1
+Loading resource: res://data/cutscene/stages/terminal_room.json remapped: res://data/cutscene/stages/terminal_room.json
+Completed load for: 'res://data/cutscene/stages/terminal_room.json' remapped 'res://data/cutscene/stages/terminal_room.json' at thread -1
+Loading resource: res://art/environment/stages/terminal_room.webp remapped: res://art/environment/stages/terminal_room.webp
+Loading resource: res://.godot/imported/terminal_room.webp-a38829ce99662a22c4aa2192fdc8b0f3.ctex remapped: res://.godot/imported/terminal_room.webp-a38829ce99662a22c4aa2192fdc8b0f3.ctex
+Completed load for: 'res://art/environment/stages/terminal_room.webp' remapped 'res://art/environment/stages/terminal_room.webp' at thread -1
+Loading resource: res://art/environment/props/terminal_holo.png remapped: res://art/environment/props/terminal_holo.png
+Loading resource: res://.godot/imported/terminal_holo.png-94b3b9c13b715acac435660305dae669.ctex remapped: res://.godot/imported/terminal_holo.png-94b3b9c13b715acac435660305dae669.ctex
+Completed load for: 'res://art/environment/props/terminal_holo.png' remapped 'res://art/environment/props/terminal_holo.png' at thread -1
+Loading resource: res://data/cutscene/stages/old_k_shop_dawn.json remapped: res://data/cutscene/stages/old_k_shop_dawn.json
+Completed load for: 'res://data/cutscene/stages/old_k_shop_dawn.json' remapped 'res://data/cutscene/stages/old_k_shop_dawn.json' at thread -1
+Loading resource: res://art/environment/stages/old_k_shop_dawn.webp remapped: res://art/environment/stages/old_k_shop_dawn.webp
+Loading resource: res://.godot/imported/old_k_shop_dawn.webp-a593636649f82f2369f10ca078a18743.ctex remapped: res://.godot/imported/old_k_shop_dawn.webp-a593636649f82f2369f10ca078a18743.ctex
+Completed load for: 'res://art/environment/stages/old_k_shop_dawn.webp' remapped 'res://art/environment/stages/old_k_shop_dawn.webp' at thread -1
+Loading resource: res://art/environment/stages/old_k_shop_dawn_bed.webp remapped: res://art/environment/stages/old_k_shop_dawn_bed.webp
+Loading resource: res://.godot/imported/old_k_shop_dawn_bed.webp-80227d3aca42ea4607c60da2e551c80d.ctex remapped: res://.godot/imported/old_k_shop_dawn_bed.webp-80227d3aca42ea4607c60da2e551c80d.ctex
+Completed load for: 'res://art/environment/stages/old_k_shop_dawn_bed.webp' remapped 'res://art/environment/stages/old_k_shop_dawn_bed.webp' at thread -1
+Loading resource: res://data/cutscene/stages/shaft_descent.json remapped: res://data/cutscene/stages/shaft_descent.json
+Completed load for: 'res://data/cutscene/stages/shaft_descent.json' remapped 'res://data/cutscene/stages/shaft_descent.json' at thread -1
+Loading resource: res://art/environment/props/pipe_vertical.png remapped: res://art/environment/props/pipe_vertical.png
+Loading resource: res://.godot/imported/pipe_vertical.png-faf03ea83fda1bebdbf8cebd905f81db.ctex remapped: res://.godot/imported/pipe_vertical.png-faf03ea83fda1bebdbf8cebd905f81db.ctex
+Completed load for: 'res://art/environment/props/pipe_vertical.png' remapped 'res://art/environment/props/pipe_vertical.png' at thread -1
+Loading resource: res://data/cutscene/stages/white_room.json remapped: res://data/cutscene/stages/white_room.json
+Completed load for: 'res://data/cutscene/stages/white_room.json' remapped 'res://data/cutscene/stages/white_room.json' at thread -1
+Loading resource: res://art/environment/stages/white_room.webp remapped: res://art/environment/stages/white_room.webp
+Loading resource: res://.godot/imported/white_room.webp-1f0bf6920f3639d20fe5cba15c10585e.ctex remapped: res://.godot/imported/white_room.webp-1f0bf6920f3639d20fe5cba15c10585e.ctex
+Completed load for: 'res://art/environment/stages/white_room.webp' remapped 'res://art/environment/stages/white_room.webp' at thread -1
+Loading resource: res://art/environment/stages/white_room_feet.webp remapped: res://art/environment/stages/white_room_feet.webp
+Loading resource: res://.godot/imported/white_room_feet.webp-7798d2b10e982656d5cd8e2661777bea.ctex remapped: res://.godot/imported/white_room_feet.webp-7798d2b10e982656d5cd8e2661777bea.ctex
+Completed load for: 'res://art/environment/stages/white_room_feet.webp' remapped 'res://art/environment/stages/white_room_feet.webp' at thread -1
+Loading resource: res://data/cutscene/stages/transfer_corridor.json remapped: res://data/cutscene/stages/transfer_corridor.json
+Completed load for: 'res://data/cutscene/stages/transfer_corridor.json' remapped 'res://data/cutscene/stages/transfer_corridor.json' at thread -1
+Loading resource: res://art/environment/stages/transfer_corridor.webp remapped: res://art/environment/stages/transfer_corridor.webp
+Loading resource: res://.godot/imported/transfer_corridor.webp-6eb164e0f4ab7b1eade9f0ac38c2e2b5.ctex remapped: res://.godot/imported/transfer_corridor.webp-6eb164e0f4ab7b1eade9f0ac38c2e2b5.ctex
+Completed load for: 'res://art/environment/stages/transfer_corridor.webp' remapped 'res://art/environment/stages/transfer_corridor.webp' at thread -1
+Loading resource: res://art/characters/reclaimer/character.json remapped: res://art/characters/reclaimer/character.json
+Completed load for: 'res://art/characters/reclaimer/character.json' remapped 'res://art/characters/reclaimer/character.json' at thread -1
+Loading resource: res://data/cutscene/stages/elevator_rise.json remapped: res://data/cutscene/stages/elevator_rise.json
+Completed load for: 'res://data/cutscene/stages/elevator_rise.json' remapped 'res://data/cutscene/stages/elevator_rise.json' at thread -1
+Loading resource: res://art/environment/props/elevator_door.png remapped: res://art/environment/props/elevator_door.png
+Loading resource: res://.godot/imported/elevator_door.png-326be8fe101f3ca62fed5e754f6de2c2.ctex remapped: res://.godot/imported/elevator_door.png-326be8fe101f3ca62fed5e754f6de2c2.ctex
+Completed load for: 'res://art/environment/props/elevator_door.png' remapped 'res://art/environment/props/elevator_door.png' at thread -1
+Loading resource: res://data/cutscene/stages/blue_sky_seam.json remapped: res://data/cutscene/stages/blue_sky_seam.json
+Completed load for: 'res://data/cutscene/stages/blue_sky_seam.json' remapped 'res://data/cutscene/stages/blue_sky_seam.json' at thread -1
+Loading resource: res://art/environment/backdrop/sky_blue_clouds.webp remapped: res://art/environment/backdrop/sky_blue_clouds.webp
+Loading resource: res://.godot/imported/sky_blue_clouds.webp-75e515179c1e44a2e878ffc22d50f984.ctex remapped: res://.godot/imported/sky_blue_clouds.webp-75e515179c1e44a2e878ffc22d50f984.ctex
+Completed load for: 'res://art/environment/backdrop/sky_blue_clouds.webp' remapped 'res://art/environment/backdrop/sky_blue_clouds.webp' at thread -1
+Loading resource: res://data/audio/sound_bank.json remapped: res://data/audio/sound_bank.json
+Completed load for: 'res://data/audio/sound_bank.json' remapped 'res://data/audio/sound_bank.json' at thread -1
+Loading resource: res://audio/sfx/shot_pistol_01.ogg remapped: res://audio/sfx/shot_pistol_01.ogg
+Loading resource: res://.godot/imported/shot_pistol_01.ogg-008f952146e1cc435f933d8d9903d153.oggvorbisstr remapped: res://.godot/imported/shot_pistol_01.ogg-008f952146e1cc435f933d8d9903d153.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_pistol_01.ogg' remapped 'res://audio/sfx/shot_pistol_01.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_pistol_02.ogg remapped: res://audio/sfx/shot_pistol_02.ogg
+Loading resource: res://.godot/imported/shot_pistol_02.ogg-fe469846e8c9e1855c0d943a462ce7f6.oggvorbisstr remapped: res://.godot/imported/shot_pistol_02.ogg-fe469846e8c9e1855c0d943a462ce7f6.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_pistol_02.ogg' remapped 'res://audio/sfx/shot_pistol_02.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_pistol_01_x125.ogg remapped: res://audio/sfx/shot_pistol_01_x125.ogg
+Loading resource: res://.godot/imported/shot_pistol_01_x125.ogg-0c46a5321bcb7b4584e11efab6a09cd8.oggvorbisstr remapped: res://.godot/imported/shot_pistol_01_x125.ogg-0c46a5321bcb7b4584e11efab6a09cd8.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_pistol_01_x125.ogg' remapped 'res://audio/sfx/shot_pistol_01_x125.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_pistol_02_x125.ogg remapped: res://audio/sfx/shot_pistol_02_x125.ogg
+Loading resource: res://.godot/imported/shot_pistol_02_x125.ogg-18d1efbbcb31090290b1f95bf4292dfb.oggvorbisstr remapped: res://.godot/imported/shot_pistol_02_x125.ogg-18d1efbbcb31090290b1f95bf4292dfb.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_pistol_02_x125.ogg' remapped 'res://audio/sfx/shot_pistol_02_x125.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_pistol_01_x150.ogg remapped: res://audio/sfx/shot_pistol_01_x150.ogg
+Loading resource: res://.godot/imported/shot_pistol_01_x150.ogg-03d33b7e6bd9a24280561000b8ed22ed.oggvorbisstr remapped: res://.godot/imported/shot_pistol_01_x150.ogg-03d33b7e6bd9a24280561000b8ed22ed.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_pistol_01_x150.ogg' remapped 'res://audio/sfx/shot_pistol_01_x150.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_pistol_02_x150.ogg remapped: res://audio/sfx/shot_pistol_02_x150.ogg
+Loading resource: res://.godot/imported/shot_pistol_02_x150.ogg-e27c281c9bdc5e9726756d157c4107e9.oggvorbisstr remapped: res://.godot/imported/shot_pistol_02_x150.ogg-e27c281c9bdc5e9726756d157c4107e9.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_pistol_02_x150.ogg' remapped 'res://audio/sfx/shot_pistol_02_x150.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_pistol_01_x200.ogg remapped: res://audio/sfx/shot_pistol_01_x200.ogg
+Loading resource: res://.godot/imported/shot_pistol_01_x200.ogg-94e7ea0536717da4955d0513f6bb6090.oggvorbisstr remapped: res://.godot/imported/shot_pistol_01_x200.ogg-94e7ea0536717da4955d0513f6bb6090.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_pistol_01_x200.ogg' remapped 'res://audio/sfx/shot_pistol_01_x200.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_pistol_02_x200.ogg remapped: res://audio/sfx/shot_pistol_02_x200.ogg
+Loading resource: res://.godot/imported/shot_pistol_02_x200.ogg-246b068ab26881c7f31f59933853239f.oggvorbisstr remapped: res://.godot/imported/shot_pistol_02_x200.ogg-246b068ab26881c7f31f59933853239f.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_pistol_02_x200.ogg' remapped 'res://audio/sfx/shot_pistol_02_x200.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_rifle_01.ogg remapped: res://audio/sfx/shot_rifle_01.ogg
+Loading resource: res://.godot/imported/shot_rifle_01.ogg-3bab347aa3c1bb4c1fa0e143dcc9e592.oggvorbisstr remapped: res://.godot/imported/shot_rifle_01.ogg-3bab347aa3c1bb4c1fa0e143dcc9e592.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_rifle_01.ogg' remapped 'res://audio/sfx/shot_rifle_01.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_rifle_02.ogg remapped: res://audio/sfx/shot_rifle_02.ogg
+Loading resource: res://.godot/imported/shot_rifle_02.ogg-aef69b7d975f3c6e43cc2a592e6f4867.oggvorbisstr remapped: res://.godot/imported/shot_rifle_02.ogg-aef69b7d975f3c6e43cc2a592e6f4867.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_rifle_02.ogg' remapped 'res://audio/sfx/shot_rifle_02.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_rifle_01_x125.ogg remapped: res://audio/sfx/shot_rifle_01_x125.ogg
+Loading resource: res://.godot/imported/shot_rifle_01_x125.ogg-3413b2cf0c4827aba078f4a11158e626.oggvorbisstr remapped: res://.godot/imported/shot_rifle_01_x125.ogg-3413b2cf0c4827aba078f4a11158e626.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_rifle_01_x125.ogg' remapped 'res://audio/sfx/shot_rifle_01_x125.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_rifle_02_x125.ogg remapped: res://audio/sfx/shot_rifle_02_x125.ogg
+Loading resource: res://.godot/imported/shot_rifle_02_x125.ogg-5fd55a46b2f59167a89f2f63dd0cb6f3.oggvorbisstr remapped: res://.godot/imported/shot_rifle_02_x125.ogg-5fd55a46b2f59167a89f2f63dd0cb6f3.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_rifle_02_x125.ogg' remapped 'res://audio/sfx/shot_rifle_02_x125.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_rifle_01_x150.ogg remapped: res://audio/sfx/shot_rifle_01_x150.ogg
+Loading resource: res://.godot/imported/shot_rifle_01_x150.ogg-a3a3274c0f0a688fcce7be11f132818f.oggvorbisstr remapped: res://.godot/imported/shot_rifle_01_x150.ogg-a3a3274c0f0a688fcce7be11f132818f.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_rifle_01_x150.ogg' remapped 'res://audio/sfx/shot_rifle_01_x150.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_rifle_02_x150.ogg remapped: res://audio/sfx/shot_rifle_02_x150.ogg
+Loading resource: res://.godot/imported/shot_rifle_02_x150.ogg-7c924b294fcdf967f29c011f02fecf63.oggvorbisstr remapped: res://.godot/imported/shot_rifle_02_x150.ogg-7c924b294fcdf967f29c011f02fecf63.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_rifle_02_x150.ogg' remapped 'res://audio/sfx/shot_rifle_02_x150.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_rifle_01_x200.ogg remapped: res://audio/sfx/shot_rifle_01_x200.ogg
+Loading resource: res://.godot/imported/shot_rifle_01_x200.ogg-154721fdc8a7cc16a25b93d7c42487b0.oggvorbisstr remapped: res://.godot/imported/shot_rifle_01_x200.ogg-154721fdc8a7cc16a25b93d7c42487b0.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_rifle_01_x200.ogg' remapped 'res://audio/sfx/shot_rifle_01_x200.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_rifle_02_x200.ogg remapped: res://audio/sfx/shot_rifle_02_x200.ogg
+Loading resource: res://.godot/imported/shot_rifle_02_x200.ogg-21f3f86a06cf8db5749d622e40c41f02.oggvorbisstr remapped: res://.godot/imported/shot_rifle_02_x200.ogg-21f3f86a06cf8db5749d622e40c41f02.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_rifle_02_x200.ogg' remapped 'res://audio/sfx/shot_rifle_02_x200.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_smg_01.ogg remapped: res://audio/sfx/shot_smg_01.ogg
+Loading resource: res://.godot/imported/shot_smg_01.ogg-8b1979a20741d76d29298259df997461.oggvorbisstr remapped: res://.godot/imported/shot_smg_01.ogg-8b1979a20741d76d29298259df997461.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_smg_01.ogg' remapped 'res://audio/sfx/shot_smg_01.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_smg_02.ogg remapped: res://audio/sfx/shot_smg_02.ogg
+Loading resource: res://.godot/imported/shot_smg_02.ogg-6e3fb23b24378704db1b1de1bf255f32.oggvorbisstr remapped: res://.godot/imported/shot_smg_02.ogg-6e3fb23b24378704db1b1de1bf255f32.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_smg_02.ogg' remapped 'res://audio/sfx/shot_smg_02.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_smg_03.ogg remapped: res://audio/sfx/shot_smg_03.ogg
+Loading resource: res://.godot/imported/shot_smg_03.ogg-33f1dd2b8e7d7a7572eaaed38e3f9da3.oggvorbisstr remapped: res://.godot/imported/shot_smg_03.ogg-33f1dd2b8e7d7a7572eaaed38e3f9da3.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_smg_03.ogg' remapped 'res://audio/sfx/shot_smg_03.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_smg_01_x125.ogg remapped: res://audio/sfx/shot_smg_01_x125.ogg
+Loading resource: res://.godot/imported/shot_smg_01_x125.ogg-605c4e01f7c102b4294d5ffad37f5eb7.oggvorbisstr remapped: res://.godot/imported/shot_smg_01_x125.ogg-605c4e01f7c102b4294d5ffad37f5eb7.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_smg_01_x125.ogg' remapped 'res://audio/sfx/shot_smg_01_x125.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_smg_02_x125.ogg remapped: res://audio/sfx/shot_smg_02_x125.ogg
+Loading resource: res://.godot/imported/shot_smg_02_x125.ogg-33793d81c7c70a458707501e80e71955.oggvorbisstr remapped: res://.godot/imported/shot_smg_02_x125.ogg-33793d81c7c70a458707501e80e71955.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_smg_02_x125.ogg' remapped 'res://audio/sfx/shot_smg_02_x125.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_smg_03_x125.ogg remapped: res://audio/sfx/shot_smg_03_x125.ogg
+Loading resource: res://.godot/imported/shot_smg_03_x125.ogg-e8e2851d64f8c64ed6aaabc0ecfc4019.oggvorbisstr remapped: res://.godot/imported/shot_smg_03_x125.ogg-e8e2851d64f8c64ed6aaabc0ecfc4019.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_smg_03_x125.ogg' remapped 'res://audio/sfx/shot_smg_03_x125.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_smg_01_x150.ogg remapped: res://audio/sfx/shot_smg_01_x150.ogg
+Loading resource: res://.godot/imported/shot_smg_01_x150.ogg-48f895a48f30be25f616f6452e0871a6.oggvorbisstr remapped: res://.godot/imported/shot_smg_01_x150.ogg-48f895a48f30be25f616f6452e0871a6.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_smg_01_x150.ogg' remapped 'res://audio/sfx/shot_smg_01_x150.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_smg_02_x150.ogg remapped: res://audio/sfx/shot_smg_02_x150.ogg
+Loading resource: res://.godot/imported/shot_smg_02_x150.ogg-c77f1bbdf3ef05a545c7dae53dd2224d.oggvorbisstr remapped: res://.godot/imported/shot_smg_02_x150.ogg-c77f1bbdf3ef05a545c7dae53dd2224d.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_smg_02_x150.ogg' remapped 'res://audio/sfx/shot_smg_02_x150.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_smg_03_x150.ogg remapped: res://audio/sfx/shot_smg_03_x150.ogg
+Loading resource: res://.godot/imported/shot_smg_03_x150.ogg-f2cc52adcbfa8d3ab9877b85d70d24e0.oggvorbisstr remapped: res://.godot/imported/shot_smg_03_x150.ogg-f2cc52adcbfa8d3ab9877b85d70d24e0.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_smg_03_x150.ogg' remapped 'res://audio/sfx/shot_smg_03_x150.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_smg_01_x200.ogg remapped: res://audio/sfx/shot_smg_01_x200.ogg
+Loading resource: res://.godot/imported/shot_smg_01_x200.ogg-078487bbec9a113514f9622457bea3a4.oggvorbisstr remapped: res://.godot/imported/shot_smg_01_x200.ogg-078487bbec9a113514f9622457bea3a4.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_smg_01_x200.ogg' remapped 'res://audio/sfx/shot_smg_01_x200.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_smg_02_x200.ogg remapped: res://audio/sfx/shot_smg_02_x200.ogg
+Loading resource: res://.godot/imported/shot_smg_02_x200.ogg-b36da50ae196bf762a0187f17050a376.oggvorbisstr remapped: res://.godot/imported/shot_smg_02_x200.ogg-b36da50ae196bf762a0187f17050a376.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_smg_02_x200.ogg' remapped 'res://audio/sfx/shot_smg_02_x200.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_smg_03_x200.ogg remapped: res://audio/sfx/shot_smg_03_x200.ogg
+Loading resource: res://.godot/imported/shot_smg_03_x200.ogg-67457b44944cc8b1bd2be0afde8a66e0.oggvorbisstr remapped: res://.godot/imported/shot_smg_03_x200.ogg-67457b44944cc8b1bd2be0afde8a66e0.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_smg_03_x200.ogg' remapped 'res://audio/sfx/shot_smg_03_x200.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_spread_01.ogg remapped: res://audio/sfx/shot_spread_01.ogg
+Loading resource: res://.godot/imported/shot_spread_01.ogg-0179272981971da623cd80273ce44972.oggvorbisstr remapped: res://.godot/imported/shot_spread_01.ogg-0179272981971da623cd80273ce44972.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_spread_01.ogg' remapped 'res://audio/sfx/shot_spread_01.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_spread_02.ogg remapped: res://audio/sfx/shot_spread_02.ogg
+Loading resource: res://.godot/imported/shot_spread_02.ogg-fffdc88eed03a98a5a64af988ec70d64.oggvorbisstr remapped: res://.godot/imported/shot_spread_02.ogg-fffdc88eed03a98a5a64af988ec70d64.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_spread_02.ogg' remapped 'res://audio/sfx/shot_spread_02.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_spread_01_x125.ogg remapped: res://audio/sfx/shot_spread_01_x125.ogg
+Loading resource: res://.godot/imported/shot_spread_01_x125.ogg-10922e1184ef6164ccd8a04e34a639f2.oggvorbisstr remapped: res://.godot/imported/shot_spread_01_x125.ogg-10922e1184ef6164ccd8a04e34a639f2.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_spread_01_x125.ogg' remapped 'res://audio/sfx/shot_spread_01_x125.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_spread_02_x125.ogg remapped: res://audio/sfx/shot_spread_02_x125.ogg
+Loading resource: res://.godot/imported/shot_spread_02_x125.ogg-94450855752648aeb2fb98a056ba6489.oggvorbisstr remapped: res://.godot/imported/shot_spread_02_x125.ogg-94450855752648aeb2fb98a056ba6489.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_spread_02_x125.ogg' remapped 'res://audio/sfx/shot_spread_02_x125.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_spread_01_x150.ogg remapped: res://audio/sfx/shot_spread_01_x150.ogg
+Loading resource: res://.godot/imported/shot_spread_01_x150.ogg-d3ea3855dfe93771004a36a58c17a3dd.oggvorbisstr remapped: res://.godot/imported/shot_spread_01_x150.ogg-d3ea3855dfe93771004a36a58c17a3dd.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_spread_01_x150.ogg' remapped 'res://audio/sfx/shot_spread_01_x150.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_spread_02_x150.ogg remapped: res://audio/sfx/shot_spread_02_x150.ogg
+Loading resource: res://.godot/imported/shot_spread_02_x150.ogg-1bd690373cee04cb528d18f3841ee128.oggvorbisstr remapped: res://.godot/imported/shot_spread_02_x150.ogg-1bd690373cee04cb528d18f3841ee128.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_spread_02_x150.ogg' remapped 'res://audio/sfx/shot_spread_02_x150.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_spread_01_x200.ogg remapped: res://audio/sfx/shot_spread_01_x200.ogg
+Loading resource: res://.godot/imported/shot_spread_01_x200.ogg-980bd2ab78da64e71e98aba438d37c49.oggvorbisstr remapped: res://.godot/imported/shot_spread_01_x200.ogg-980bd2ab78da64e71e98aba438d37c49.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_spread_01_x200.ogg' remapped 'res://audio/sfx/shot_spread_01_x200.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_spread_02_x200.ogg remapped: res://audio/sfx/shot_spread_02_x200.ogg
+Loading resource: res://.godot/imported/shot_spread_02_x200.ogg-3b45f1bf04c3345f43e13136ab8a000d.oggvorbisstr remapped: res://.godot/imported/shot_spread_02_x200.ogg-3b45f1bf04c3345f43e13136ab8a000d.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_spread_02_x200.ogg' remapped 'res://audio/sfx/shot_spread_02_x200.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_launcher_01.ogg remapped: res://audio/sfx/shot_launcher_01.ogg
+Loading resource: res://.godot/imported/shot_launcher_01.ogg-ca10c7992ddb8f0fc4b982f5e956ed8b.oggvorbisstr remapped: res://.godot/imported/shot_launcher_01.ogg-ca10c7992ddb8f0fc4b982f5e956ed8b.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_launcher_01.ogg' remapped 'res://audio/sfx/shot_launcher_01.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_launcher_02.ogg remapped: res://audio/sfx/shot_launcher_02.ogg
+Loading resource: res://.godot/imported/shot_launcher_02.ogg-801a944f0f78a943488544cec4919d57.oggvorbisstr remapped: res://.godot/imported/shot_launcher_02.ogg-801a944f0f78a943488544cec4919d57.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_launcher_02.ogg' remapped 'res://audio/sfx/shot_launcher_02.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_launcher_01_x125.ogg remapped: res://audio/sfx/shot_launcher_01_x125.ogg
+Loading resource: res://.godot/imported/shot_launcher_01_x125.ogg-fdf1183553cb0bc32aee877f1e04e700.oggvorbisstr remapped: res://.godot/imported/shot_launcher_01_x125.ogg-fdf1183553cb0bc32aee877f1e04e700.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_launcher_01_x125.ogg' remapped 'res://audio/sfx/shot_launcher_01_x125.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_launcher_02_x125.ogg remapped: res://audio/sfx/shot_launcher_02_x125.ogg
+Loading resource: res://.godot/imported/shot_launcher_02_x125.ogg-8fa9f627ecafcf4e88c7e5febf8c79e0.oggvorbisstr remapped: res://.godot/imported/shot_launcher_02_x125.ogg-8fa9f627ecafcf4e88c7e5febf8c79e0.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_launcher_02_x125.ogg' remapped 'res://audio/sfx/shot_launcher_02_x125.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_launcher_01_x150.ogg remapped: res://audio/sfx/shot_launcher_01_x150.ogg
+Loading resource: res://.godot/imported/shot_launcher_01_x150.ogg-b6a5cd1957b98a1a8733414d2e52d60f.oggvorbisstr remapped: res://.godot/imported/shot_launcher_01_x150.ogg-b6a5cd1957b98a1a8733414d2e52d60f.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_launcher_01_x150.ogg' remapped 'res://audio/sfx/shot_launcher_01_x150.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_launcher_02_x150.ogg remapped: res://audio/sfx/shot_launcher_02_x150.ogg
+Loading resource: res://.godot/imported/shot_launcher_02_x150.ogg-38e0c3183f78b742656e6a198ba16594.oggvorbisstr remapped: res://.godot/imported/shot_launcher_02_x150.ogg-38e0c3183f78b742656e6a198ba16594.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_launcher_02_x150.ogg' remapped 'res://audio/sfx/shot_launcher_02_x150.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_launcher_01_x200.ogg remapped: res://audio/sfx/shot_launcher_01_x200.ogg
+Loading resource: res://.godot/imported/shot_launcher_01_x200.ogg-88a96357d7f083a4da4fd6574d06e57b.oggvorbisstr remapped: res://.godot/imported/shot_launcher_01_x200.ogg-88a96357d7f083a4da4fd6574d06e57b.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_launcher_01_x200.ogg' remapped 'res://audio/sfx/shot_launcher_01_x200.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_launcher_02_x200.ogg remapped: res://audio/sfx/shot_launcher_02_x200.ogg
+Loading resource: res://.godot/imported/shot_launcher_02_x200.ogg-e2f456eb8c2d35162e3041c35ab5e225.oggvorbisstr remapped: res://.godot/imported/shot_launcher_02_x200.ogg-e2f456eb8c2d35162e3041c35ab5e225.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_launcher_02_x200.ogg' remapped 'res://audio/sfx/shot_launcher_02_x200.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_railgun_01.ogg remapped: res://audio/sfx/shot_railgun_01.ogg
+Loading resource: res://.godot/imported/shot_railgun_01.ogg-1219e0911bbfc578f1f72a646e91f700.oggvorbisstr remapped: res://.godot/imported/shot_railgun_01.ogg-1219e0911bbfc578f1f72a646e91f700.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_railgun_01.ogg' remapped 'res://audio/sfx/shot_railgun_01.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_railgun_02.ogg remapped: res://audio/sfx/shot_railgun_02.ogg
+Loading resource: res://.godot/imported/shot_railgun_02.ogg-9da3912d4fdcb102319c0a681bbb967a.oggvorbisstr remapped: res://.godot/imported/shot_railgun_02.ogg-9da3912d4fdcb102319c0a681bbb967a.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_railgun_02.ogg' remapped 'res://audio/sfx/shot_railgun_02.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_railgun_01_x125.ogg remapped: res://audio/sfx/shot_railgun_01_x125.ogg
+Loading resource: res://.godot/imported/shot_railgun_01_x125.ogg-ae3809caceb7a9cd25778a21491b5085.oggvorbisstr remapped: res://.godot/imported/shot_railgun_01_x125.ogg-ae3809caceb7a9cd25778a21491b5085.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_railgun_01_x125.ogg' remapped 'res://audio/sfx/shot_railgun_01_x125.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_railgun_02_x125.ogg remapped: res://audio/sfx/shot_railgun_02_x125.ogg
+Loading resource: res://.godot/imported/shot_railgun_02_x125.ogg-34254ca20d518ff4e00b48f64972a7e9.oggvorbisstr remapped: res://.godot/imported/shot_railgun_02_x125.ogg-34254ca20d518ff4e00b48f64972a7e9.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_railgun_02_x125.ogg' remapped 'res://audio/sfx/shot_railgun_02_x125.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_railgun_01_x150.ogg remapped: res://audio/sfx/shot_railgun_01_x150.ogg
+Loading resource: res://.godot/imported/shot_railgun_01_x150.ogg-db8a6aa5706ceb5a6dc6b0f512742a26.oggvorbisstr remapped: res://.godot/imported/shot_railgun_01_x150.ogg-db8a6aa5706ceb5a6dc6b0f512742a26.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_railgun_01_x150.ogg' remapped 'res://audio/sfx/shot_railgun_01_x150.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_railgun_02_x150.ogg remapped: res://audio/sfx/shot_railgun_02_x150.ogg
+Loading resource: res://.godot/imported/shot_railgun_02_x150.ogg-1105f7f3dfb0f91b784d27070fad8b44.oggvorbisstr remapped: res://.godot/imported/shot_railgun_02_x150.ogg-1105f7f3dfb0f91b784d27070fad8b44.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_railgun_02_x150.ogg' remapped 'res://audio/sfx/shot_railgun_02_x150.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_railgun_01_x200.ogg remapped: res://audio/sfx/shot_railgun_01_x200.ogg
+Loading resource: res://.godot/imported/shot_railgun_01_x200.ogg-4ce0bb262a6dd6867bee8d518a3a9a8a.oggvorbisstr remapped: res://.godot/imported/shot_railgun_01_x200.ogg-4ce0bb262a6dd6867bee8d518a3a9a8a.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_railgun_01_x200.ogg' remapped 'res://audio/sfx/shot_railgun_01_x200.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_railgun_02_x200.ogg remapped: res://audio/sfx/shot_railgun_02_x200.ogg
+Loading resource: res://.godot/imported/shot_railgun_02_x200.ogg-7015c6f6a5f9628dc0794420fd140f40.oggvorbisstr remapped: res://.godot/imported/shot_railgun_02_x200.ogg-7015c6f6a5f9628dc0794420fd140f40.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_railgun_02_x200.ogg' remapped 'res://audio/sfx/shot_railgun_02_x200.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_laser_01.ogg remapped: res://audio/sfx/shot_laser_01.ogg
+Loading resource: res://.godot/imported/shot_laser_01.ogg-21a27f6848571a7adb1fc56a08d99a1a.oggvorbisstr remapped: res://.godot/imported/shot_laser_01.ogg-21a27f6848571a7adb1fc56a08d99a1a.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_laser_01.ogg' remapped 'res://audio/sfx/shot_laser_01.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_laser_02.ogg remapped: res://audio/sfx/shot_laser_02.ogg
+Loading resource: res://.godot/imported/shot_laser_02.ogg-972629b163a9d0178abf7efb2d0fe785.oggvorbisstr remapped: res://.godot/imported/shot_laser_02.ogg-972629b163a9d0178abf7efb2d0fe785.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_laser_02.ogg' remapped 'res://audio/sfx/shot_laser_02.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_laser_01_x125.ogg remapped: res://audio/sfx/shot_laser_01_x125.ogg
+Loading resource: res://.godot/imported/shot_laser_01_x125.ogg-d6e339491f1c1dbd2f74265d4ac94973.oggvorbisstr remapped: res://.godot/imported/shot_laser_01_x125.ogg-d6e339491f1c1dbd2f74265d4ac94973.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_laser_01_x125.ogg' remapped 'res://audio/sfx/shot_laser_01_x125.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_laser_02_x125.ogg remapped: res://audio/sfx/shot_laser_02_x125.ogg
+Loading resource: res://.godot/imported/shot_laser_02_x125.ogg-2c6b6ce1fa151aad3cf9fa011459903e.oggvorbisstr remapped: res://.godot/imported/shot_laser_02_x125.ogg-2c6b6ce1fa151aad3cf9fa011459903e.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_laser_02_x125.ogg' remapped 'res://audio/sfx/shot_laser_02_x125.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_laser_01_x150.ogg remapped: res://audio/sfx/shot_laser_01_x150.ogg
+Loading resource: res://.godot/imported/shot_laser_01_x150.ogg-11571bd574c9e607a7c007adffd631c3.oggvorbisstr remapped: res://.godot/imported/shot_laser_01_x150.ogg-11571bd574c9e607a7c007adffd631c3.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_laser_01_x150.ogg' remapped 'res://audio/sfx/shot_laser_01_x150.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_laser_02_x150.ogg remapped: res://audio/sfx/shot_laser_02_x150.ogg
+Loading resource: res://.godot/imported/shot_laser_02_x150.ogg-5f1da848f5b1e44924d72c1586388ba1.oggvorbisstr remapped: res://.godot/imported/shot_laser_02_x150.ogg-5f1da848f5b1e44924d72c1586388ba1.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_laser_02_x150.ogg' remapped 'res://audio/sfx/shot_laser_02_x150.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_laser_01_x200.ogg remapped: res://audio/sfx/shot_laser_01_x200.ogg
+Loading resource: res://.godot/imported/shot_laser_01_x200.ogg-fa3e27cf64aca55597ea9b0bc9c8042f.oggvorbisstr remapped: res://.godot/imported/shot_laser_01_x200.ogg-fa3e27cf64aca55597ea9b0bc9c8042f.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_laser_01_x200.ogg' remapped 'res://audio/sfx/shot_laser_01_x200.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_laser_02_x200.ogg remapped: res://audio/sfx/shot_laser_02_x200.ogg
+Loading resource: res://.godot/imported/shot_laser_02_x200.ogg-86c95cebc699e0957a804ac6c404bd75.oggvorbisstr remapped: res://.godot/imported/shot_laser_02_x200.ogg-86c95cebc699e0957a804ac6c404bd75.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_laser_02_x200.ogg' remapped 'res://audio/sfx/shot_laser_02_x200.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_cannon_01.ogg remapped: res://audio/sfx/shot_cannon_01.ogg
+Loading resource: res://.godot/imported/shot_cannon_01.ogg-c875f3b8b07881e54876df8db2c2ea11.oggvorbisstr remapped: res://.godot/imported/shot_cannon_01.ogg-c875f3b8b07881e54876df8db2c2ea11.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_cannon_01.ogg' remapped 'res://audio/sfx/shot_cannon_01.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_cannon_02.ogg remapped: res://audio/sfx/shot_cannon_02.ogg
+Loading resource: res://.godot/imported/shot_cannon_02.ogg-16283d912c038dfcb42df1846f232a69.oggvorbisstr remapped: res://.godot/imported/shot_cannon_02.ogg-16283d912c038dfcb42df1846f232a69.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_cannon_02.ogg' remapped 'res://audio/sfx/shot_cannon_02.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_cannon_01_x125.ogg remapped: res://audio/sfx/shot_cannon_01_x125.ogg
+Loading resource: res://.godot/imported/shot_cannon_01_x125.ogg-551b5f9a41abecb5871e45549ad9c18a.oggvorbisstr remapped: res://.godot/imported/shot_cannon_01_x125.ogg-551b5f9a41abecb5871e45549ad9c18a.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_cannon_01_x125.ogg' remapped 'res://audio/sfx/shot_cannon_01_x125.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_cannon_02_x125.ogg remapped: res://audio/sfx/shot_cannon_02_x125.ogg
+Loading resource: res://.godot/imported/shot_cannon_02_x125.ogg-5647b159d9860d5fcb96ccd3fb7bea04.oggvorbisstr remapped: res://.godot/imported/shot_cannon_02_x125.ogg-5647b159d9860d5fcb96ccd3fb7bea04.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_cannon_02_x125.ogg' remapped 'res://audio/sfx/shot_cannon_02_x125.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_cannon_01_x150.ogg remapped: res://audio/sfx/shot_cannon_01_x150.ogg
+Loading resource: res://.godot/imported/shot_cannon_01_x150.ogg-35789d6b28986d9cd3689d7007bc8a0e.oggvorbisstr remapped: res://.godot/imported/shot_cannon_01_x150.ogg-35789d6b28986d9cd3689d7007bc8a0e.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_cannon_01_x150.ogg' remapped 'res://audio/sfx/shot_cannon_01_x150.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_cannon_02_x150.ogg remapped: res://audio/sfx/shot_cannon_02_x150.ogg
+Loading resource: res://.godot/imported/shot_cannon_02_x150.ogg-116023536c7061d5ad63ca4e8e0fff1d.oggvorbisstr remapped: res://.godot/imported/shot_cannon_02_x150.ogg-116023536c7061d5ad63ca4e8e0fff1d.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_cannon_02_x150.ogg' remapped 'res://audio/sfx/shot_cannon_02_x150.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_cannon_01_x200.ogg remapped: res://audio/sfx/shot_cannon_01_x200.ogg
+Loading resource: res://.godot/imported/shot_cannon_01_x200.ogg-34b9918567b20684a713c911cf4cc068.oggvorbisstr remapped: res://.godot/imported/shot_cannon_01_x200.ogg-34b9918567b20684a713c911cf4cc068.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_cannon_01_x200.ogg' remapped 'res://audio/sfx/shot_cannon_01_x200.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_cannon_02_x200.ogg remapped: res://audio/sfx/shot_cannon_02_x200.ogg
+Loading resource: res://.godot/imported/shot_cannon_02_x200.ogg-ee93d1dfb07f4494bb7ff49d616c7683.oggvorbisstr remapped: res://.godot/imported/shot_cannon_02_x200.ogg-ee93d1dfb07f4494bb7ff49d616c7683.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_cannon_02_x200.ogg' remapped 'res://audio/sfx/shot_cannon_02_x200.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_enemy_01.ogg remapped: res://audio/sfx/shot_enemy_01.ogg
+Loading resource: res://.godot/imported/shot_enemy_01.ogg-c49fa8c753c190e200fd54397831d6fb.oggvorbisstr remapped: res://.godot/imported/shot_enemy_01.ogg-c49fa8c753c190e200fd54397831d6fb.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_enemy_01.ogg' remapped 'res://audio/sfx/shot_enemy_01.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_enemy_sniper_01.ogg remapped: res://audio/sfx/shot_enemy_sniper_01.ogg
+Loading resource: res://.godot/imported/shot_enemy_sniper_01.ogg-cd99b6ad5f43c97f4291c61e4581272f.oggvorbisstr remapped: res://.godot/imported/shot_enemy_sniper_01.ogg-cd99b6ad5f43c97f4291c61e4581272f.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_enemy_sniper_01.ogg' remapped 'res://audio/sfx/shot_enemy_sniper_01.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_enemy_heavy_01.ogg remapped: res://audio/sfx/shot_enemy_heavy_01.ogg
+Loading resource: res://.godot/imported/shot_enemy_heavy_01.ogg-2aa9a239b0bc3d3a168e93b2ba81547b.oggvorbisstr remapped: res://.godot/imported/shot_enemy_heavy_01.ogg-2aa9a239b0bc3d3a168e93b2ba81547b.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_enemy_heavy_01.ogg' remapped 'res://audio/sfx/shot_enemy_heavy_01.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_enemy_heavy_02.ogg remapped: res://audio/sfx/shot_enemy_heavy_02.ogg
+Loading resource: res://.godot/imported/shot_enemy_heavy_02.ogg-aa6b04f4c8613e5cab0c7500ccae2c14.oggvorbisstr remapped: res://.godot/imported/shot_enemy_heavy_02.ogg-aa6b04f4c8613e5cab0c7500ccae2c14.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_enemy_heavy_02.ogg' remapped 'res://audio/sfx/shot_enemy_heavy_02.ogg' at thread -1
+Loading resource: res://audio/sfx/shot_enemy_turret_01.ogg remapped: res://audio/sfx/shot_enemy_turret_01.ogg
+Loading resource: res://.godot/imported/shot_enemy_turret_01.ogg-79f7f9965670c9d8cc6d580fd604da24.oggvorbisstr remapped: res://.godot/imported/shot_enemy_turret_01.ogg-79f7f9965670c9d8cc6d580fd604da24.oggvorbisstr
+Completed load for: 'res://audio/sfx/shot_enemy_turret_01.ogg' remapped 'res://audio/sfx/shot_enemy_turret_01.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_start_pistol_01.ogg remapped: res://audio/sfx/reload_start_pistol_01.ogg
+Loading resource: res://.godot/imported/reload_start_pistol_01.ogg-4244575b2f269cfec5a8e2c197021745.oggvorbisstr remapped: res://.godot/imported/reload_start_pistol_01.ogg-4244575b2f269cfec5a8e2c197021745.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_start_pistol_01.ogg' remapped 'res://audio/sfx/reload_start_pistol_01.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_mid_pistol_01.ogg remapped: res://audio/sfx/reload_mid_pistol_01.ogg
+Loading resource: res://.godot/imported/reload_mid_pistol_01.ogg-7738b0d231e492f3b2e84511105b0f44.oggvorbisstr remapped: res://.godot/imported/reload_mid_pistol_01.ogg-7738b0d231e492f3b2e84511105b0f44.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_mid_pistol_01.ogg' remapped 'res://audio/sfx/reload_mid_pistol_01.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_done_pistol_01.ogg remapped: res://audio/sfx/reload_done_pistol_01.ogg
+Loading resource: res://.godot/imported/reload_done_pistol_01.ogg-ed045b0e352b98567094590e614bc994.oggvorbisstr remapped: res://.godot/imported/reload_done_pistol_01.ogg-ed045b0e352b98567094590e614bc994.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_done_pistol_01.ogg' remapped 'res://audio/sfx/reload_done_pistol_01.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_start_rifle_01.ogg remapped: res://audio/sfx/reload_start_rifle_01.ogg
+Loading resource: res://.godot/imported/reload_start_rifle_01.ogg-291a586de6fb9af454962853d6e9d154.oggvorbisstr remapped: res://.godot/imported/reload_start_rifle_01.ogg-291a586de6fb9af454962853d6e9d154.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_start_rifle_01.ogg' remapped 'res://audio/sfx/reload_start_rifle_01.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_mid_rifle_01.ogg remapped: res://audio/sfx/reload_mid_rifle_01.ogg
+Loading resource: res://.godot/imported/reload_mid_rifle_01.ogg-2bdc592430f9da4ced3ceab293c3723d.oggvorbisstr remapped: res://.godot/imported/reload_mid_rifle_01.ogg-2bdc592430f9da4ced3ceab293c3723d.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_mid_rifle_01.ogg' remapped 'res://audio/sfx/reload_mid_rifle_01.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_done_rifle_01.ogg remapped: res://audio/sfx/reload_done_rifle_01.ogg
+Loading resource: res://.godot/imported/reload_done_rifle_01.ogg-f768e5743615747c813a29373170d1fc.oggvorbisstr remapped: res://.godot/imported/reload_done_rifle_01.ogg-f768e5743615747c813a29373170d1fc.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_done_rifle_01.ogg' remapped 'res://audio/sfx/reload_done_rifle_01.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_start_smg_01.ogg remapped: res://audio/sfx/reload_start_smg_01.ogg
+Loading resource: res://.godot/imported/reload_start_smg_01.ogg-5bdb3faf3cbf885676f7c022bfd0445b.oggvorbisstr remapped: res://.godot/imported/reload_start_smg_01.ogg-5bdb3faf3cbf885676f7c022bfd0445b.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_start_smg_01.ogg' remapped 'res://audio/sfx/reload_start_smg_01.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_mid_smg_01.ogg remapped: res://audio/sfx/reload_mid_smg_01.ogg
+Loading resource: res://.godot/imported/reload_mid_smg_01.ogg-e51f27a0680ae4b68eed7df06be10c0c.oggvorbisstr remapped: res://.godot/imported/reload_mid_smg_01.ogg-e51f27a0680ae4b68eed7df06be10c0c.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_mid_smg_01.ogg' remapped 'res://audio/sfx/reload_mid_smg_01.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_done_smg_01.ogg remapped: res://audio/sfx/reload_done_smg_01.ogg
+Loading resource: res://.godot/imported/reload_done_smg_01.ogg-bc516b81dcb22de35a9d4497cd507744.oggvorbisstr remapped: res://.godot/imported/reload_done_smg_01.ogg-bc516b81dcb22de35a9d4497cd507744.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_done_smg_01.ogg' remapped 'res://audio/sfx/reload_done_smg_01.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_start_shotgun_01.ogg remapped: res://audio/sfx/reload_start_shotgun_01.ogg
+Loading resource: res://.godot/imported/reload_start_shotgun_01.ogg-8203410d645b62f6ee74c6047699ed0b.oggvorbisstr remapped: res://.godot/imported/reload_start_shotgun_01.ogg-8203410d645b62f6ee74c6047699ed0b.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_start_shotgun_01.ogg' remapped 'res://audio/sfx/reload_start_shotgun_01.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_mid_shotgun_01.ogg remapped: res://audio/sfx/reload_mid_shotgun_01.ogg
+Loading resource: res://.godot/imported/reload_mid_shotgun_01.ogg-21493093c1d6178f333754d90e97ccdf.oggvorbisstr remapped: res://.godot/imported/reload_mid_shotgun_01.ogg-21493093c1d6178f333754d90e97ccdf.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_mid_shotgun_01.ogg' remapped 'res://audio/sfx/reload_mid_shotgun_01.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_done_shotgun_01.ogg remapped: res://audio/sfx/reload_done_shotgun_01.ogg
+Loading resource: res://.godot/imported/reload_done_shotgun_01.ogg-885a066b7072fd6f01b941b84213812b.oggvorbisstr remapped: res://.godot/imported/reload_done_shotgun_01.ogg-885a066b7072fd6f01b941b84213812b.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_done_shotgun_01.ogg' remapped 'res://audio/sfx/reload_done_shotgun_01.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_start_heavy_01.ogg remapped: res://audio/sfx/reload_start_heavy_01.ogg
+Loading resource: res://.godot/imported/reload_start_heavy_01.ogg-95f933419178906a066930cb203e0a25.oggvorbisstr remapped: res://.godot/imported/reload_start_heavy_01.ogg-95f933419178906a066930cb203e0a25.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_start_heavy_01.ogg' remapped 'res://audio/sfx/reload_start_heavy_01.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_start_heavy_02.ogg remapped: res://audio/sfx/reload_start_heavy_02.ogg
+Loading resource: res://.godot/imported/reload_start_heavy_02.ogg-37e5b841774857d78aae111d9945da8c.oggvorbisstr remapped: res://.godot/imported/reload_start_heavy_02.ogg-37e5b841774857d78aae111d9945da8c.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_start_heavy_02.ogg' remapped 'res://audio/sfx/reload_start_heavy_02.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_mid_heavy_01.ogg remapped: res://audio/sfx/reload_mid_heavy_01.ogg
+Loading resource: res://.godot/imported/reload_mid_heavy_01.ogg-1adfbd86b11aab8a7c528e076fd79015.oggvorbisstr remapped: res://.godot/imported/reload_mid_heavy_01.ogg-1adfbd86b11aab8a7c528e076fd79015.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_mid_heavy_01.ogg' remapped 'res://audio/sfx/reload_mid_heavy_01.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_mid_heavy_02.ogg remapped: res://audio/sfx/reload_mid_heavy_02.ogg
+Loading resource: res://.godot/imported/reload_mid_heavy_02.ogg-8398e0f0e25b6b87e592dfd1cf0ea906.oggvorbisstr remapped: res://.godot/imported/reload_mid_heavy_02.ogg-8398e0f0e25b6b87e592dfd1cf0ea906.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_mid_heavy_02.ogg' remapped 'res://audio/sfx/reload_mid_heavy_02.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_done_heavy_01.ogg remapped: res://audio/sfx/reload_done_heavy_01.ogg
+Loading resource: res://.godot/imported/reload_done_heavy_01.ogg-5541eb33456b601e2b0b1d16cb310bdb.oggvorbisstr remapped: res://.godot/imported/reload_done_heavy_01.ogg-5541eb33456b601e2b0b1d16cb310bdb.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_done_heavy_01.ogg' remapped 'res://audio/sfx/reload_done_heavy_01.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_done_heavy_02.ogg remapped: res://audio/sfx/reload_done_heavy_02.ogg
+Loading resource: res://.godot/imported/reload_done_heavy_02.ogg-2e87c42c4a105530278a2d7262f0bfdf.oggvorbisstr remapped: res://.godot/imported/reload_done_heavy_02.ogg-2e87c42c4a105530278a2d7262f0bfdf.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_done_heavy_02.ogg' remapped 'res://audio/sfx/reload_done_heavy_02.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_start_energy_01.ogg remapped: res://audio/sfx/reload_start_energy_01.ogg
+Loading resource: res://.godot/imported/reload_start_energy_01.ogg-ff0d05ddb48fa0f154a9a6513937a880.oggvorbisstr remapped: res://.godot/imported/reload_start_energy_01.ogg-ff0d05ddb48fa0f154a9a6513937a880.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_start_energy_01.ogg' remapped 'res://audio/sfx/reload_start_energy_01.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_mid_energy_01.ogg remapped: res://audio/sfx/reload_mid_energy_01.ogg
+Loading resource: res://.godot/imported/reload_mid_energy_01.ogg-3349a07e87c50cef714f5a855027b122.oggvorbisstr remapped: res://.godot/imported/reload_mid_energy_01.ogg-3349a07e87c50cef714f5a855027b122.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_mid_energy_01.ogg' remapped 'res://audio/sfx/reload_mid_energy_01.ogg' at thread -1
+Loading resource: res://audio/sfx/reload_done_energy_01.ogg remapped: res://audio/sfx/reload_done_energy_01.ogg
+Loading resource: res://.godot/imported/reload_done_energy_01.ogg-99a07da6e463840039f08ccdcc995459.oggvorbisstr remapped: res://.godot/imported/reload_done_energy_01.ogg-99a07da6e463840039f08ccdcc995459.oggvorbisstr
+Completed load for: 'res://audio/sfx/reload_done_energy_01.ogg' remapped 'res://audio/sfx/reload_done_energy_01.ogg' at thread -1
+Loading resource: res://audio/sfx/empty_ballistic_01.ogg remapped: res://audio/sfx/empty_ballistic_01.ogg
+Loading resource: res://.godot/imported/empty_ballistic_01.ogg-dc34e584f5e8be3ae43a7f447a74fafa.oggvorbisstr remapped: res://.godot/imported/empty_ballistic_01.ogg-dc34e584f5e8be3ae43a7f447a74fafa.oggvorbisstr
+Completed load for: 'res://audio/sfx/empty_ballistic_01.ogg' remapped 'res://audio/sfx/empty_ballistic_01.ogg' at thread -1
+Loading resource: res://audio/sfx/empty_heavy_01.ogg remapped: res://audio/sfx/empty_heavy_01.ogg
+Loading resource: res://.godot/imported/empty_heavy_01.ogg-9a5f25d4043d271c449f40f9cb3758fb.oggvorbisstr remapped: res://.godot/imported/empty_heavy_01.ogg-9a5f25d4043d271c449f40f9cb3758fb.oggvorbisstr
+Completed load for: 'res://audio/sfx/empty_heavy_01.ogg' remapped 'res://audio/sfx/empty_heavy_01.ogg' at thread -1
+Loading resource: res://audio/sfx/empty_energy_01.ogg remapped: res://audio/sfx/empty_energy_01.ogg
+Loading resource: res://.godot/imported/empty_energy_01.ogg-4a28dd1e7a5032bd3bec82ca9d8aa237.oggvorbisstr remapped: res://.godot/imported/empty_energy_01.ogg-4a28dd1e7a5032bd3bec82ca9d8aa237.oggvorbisstr
+Completed load for: 'res://audio/sfx/empty_energy_01.ogg' remapped 'res://audio/sfx/empty_energy_01.ogg' at thread -1
+Loading resource: res://audio/sfx/equip_ballistic_01.ogg remapped: res://audio/sfx/equip_ballistic_01.ogg
+Loading resource: res://.godot/imported/equip_ballistic_01.ogg-69151803312288948d586cd645516aba.oggvorbisstr remapped: res://.godot/imported/equip_ballistic_01.ogg-69151803312288948d586cd645516aba.oggvorbisstr
+Completed load for: 'res://audio/sfx/equip_ballistic_01.ogg' remapped 'res://audio/sfx/equip_ballistic_01.ogg' at thread -1
+Loading resource: res://audio/sfx/equip_heavy_01.ogg remapped: res://audio/sfx/equip_heavy_01.ogg
+Loading resource: res://.godot/imported/equip_heavy_01.ogg-bfa4abf75a48550f49f7a504b4121435.oggvorbisstr remapped: res://.godot/imported/equip_heavy_01.ogg-bfa4abf75a48550f49f7a504b4121435.oggvorbisstr
+Completed load for: 'res://audio/sfx/equip_heavy_01.ogg' remapped 'res://audio/sfx/equip_heavy_01.ogg' at thread -1
+Loading resource: res://audio/sfx/equip_energy_01.ogg remapped: res://audio/sfx/equip_energy_01.ogg
+Loading resource: res://.godot/imported/equip_energy_01.ogg-108fc601a045526cfdc29bf17613f45d.oggvorbisstr remapped: res://.godot/imported/equip_energy_01.ogg-108fc601a045526cfdc29bf17613f45d.oggvorbisstr
+Completed load for: 'res://audio/sfx/equip_energy_01.ogg' remapped 'res://audio/sfx/equip_energy_01.ogg' at thread -1
+Loading resource: res://audio/sfx/melee_swing_01.ogg remapped: res://audio/sfx/melee_swing_01.ogg
+Loading resource: res://.godot/imported/melee_swing_01.ogg-8a474f0a75079fab4f0f65e44903f369.oggvorbisstr remapped: res://.godot/imported/melee_swing_01.ogg-8a474f0a75079fab4f0f65e44903f369.oggvorbisstr
+Completed load for: 'res://audio/sfx/melee_swing_01.ogg' remapped 'res://audio/sfx/melee_swing_01.ogg' at thread -1
+Loading resource: res://audio/sfx/melee_swing_02.ogg remapped: res://audio/sfx/melee_swing_02.ogg
+Loading resource: res://.godot/imported/melee_swing_02.ogg-dacf73773ef0c182063bf0ce932e303e.oggvorbisstr remapped: res://.godot/imported/melee_swing_02.ogg-dacf73773ef0c182063bf0ce932e303e.oggvorbisstr
+Completed load for: 'res://audio/sfx/melee_swing_02.ogg' remapped 'res://audio/sfx/melee_swing_02.ogg' at thread -1
+Loading resource: res://audio/sfx/melee_swing_heavy_01.ogg remapped: res://audio/sfx/melee_swing_heavy_01.ogg
+Loading resource: res://.godot/imported/melee_swing_heavy_01.ogg-8d5a7ee0675b0fb740b810a6377e4bd8.oggvorbisstr remapped: res://.godot/imported/melee_swing_heavy_01.ogg-8d5a7ee0675b0fb740b810a6377e4bd8.oggvorbisstr
+Completed load for: 'res://audio/sfx/melee_swing_heavy_01.ogg' remapped 'res://audio/sfx/melee_swing_heavy_01.ogg' at thread -1
+Loading resource: res://audio/sfx/melee_hit_01.ogg remapped: res://audio/sfx/melee_hit_01.ogg
+Loading resource: res://.godot/imported/melee_hit_01.ogg-59d85b5a24b483e026f25a3d4a16e6e6.oggvorbisstr remapped: res://.godot/imported/melee_hit_01.ogg-59d85b5a24b483e026f25a3d4a16e6e6.oggvorbisstr
+Completed load for: 'res://audio/sfx/melee_hit_01.ogg' remapped 'res://audio/sfx/melee_hit_01.ogg' at thread -1
+Loading resource: res://audio/sfx/melee_hit_heavy_01.ogg remapped: res://audio/sfx/melee_hit_heavy_01.ogg
+Loading resource: res://.godot/imported/melee_hit_heavy_01.ogg-0f0513334ec421ff57ec0847bac15d2e.oggvorbisstr remapped: res://.godot/imported/melee_hit_heavy_01.ogg-0f0513334ec421ff57ec0847bac15d2e.oggvorbisstr
+Completed load for: 'res://audio/sfx/melee_hit_heavy_01.ogg' remapped 'res://audio/sfx/melee_hit_heavy_01.ogg' at thread -1
+Loading resource: res://audio/sfx/finisher_01.ogg remapped: res://audio/sfx/finisher_01.ogg
+Loading resource: res://.godot/imported/finisher_01.ogg-9997b2bce7e0c7fd1d4e73b75caa2140.oggvorbisstr remapped: res://.godot/imported/finisher_01.ogg-9997b2bce7e0c7fd1d4e73b75caa2140.oggvorbisstr
+Completed load for: 'res://audio/sfx/finisher_01.ogg' remapped 'res://audio/sfx/finisher_01.ogg' at thread -1
+Loading resource: res://audio/sfx/hit_01.ogg remapped: res://audio/sfx/hit_01.ogg
+Loading resource: res://.godot/imported/hit_01.ogg-26d14e1821e0716ef9217ae6e912ceb1.oggvorbisstr remapped: res://.godot/imported/hit_01.ogg-26d14e1821e0716ef9217ae6e912ceb1.oggvorbisstr
+Completed load for: 'res://audio/sfx/hit_01.ogg' remapped 'res://audio/sfx/hit_01.ogg' at thread -1
+Loading resource: res://audio/sfx/hit_a_01.ogg remapped: res://audio/sfx/hit_a_01.ogg
+Loading resource: res://.godot/imported/hit_a_01.ogg-c0c4e34b2c3414f31f7a4561b818d0c7.oggvorbisstr remapped: res://.godot/imported/hit_a_01.ogg-c0c4e34b2c3414f31f7a4561b818d0c7.oggvorbisstr
+Completed load for: 'res://audio/sfx/hit_a_01.ogg' remapped 'res://audio/sfx/hit_a_01.ogg' at thread -1
+Loading resource: res://audio/sfx/hit_b_01.ogg remapped: res://audio/sfx/hit_b_01.ogg
+Loading resource: res://.godot/imported/hit_b_01.ogg-712521e3ef7fa454c99325d909e953af.oggvorbisstr remapped: res://.godot/imported/hit_b_01.ogg-712521e3ef7fa454c99325d909e953af.oggvorbisstr
+Completed load for: 'res://audio/sfx/hit_b_01.ogg' remapped 'res://audio/sfx/hit_b_01.ogg' at thread -1
+Loading resource: res://audio/sfx/hit_c_01.ogg remapped: res://audio/sfx/hit_c_01.ogg
+Loading resource: res://.godot/imported/hit_c_01.ogg-40a6f5fc3cf910ca64ee975678e81594.oggvorbisstr remapped: res://.godot/imported/hit_c_01.ogg-40a6f5fc3cf910ca64ee975678e81594.oggvorbisstr
+Completed load for: 'res://audio/sfx/hit_c_01.ogg' remapped 'res://audio/sfx/hit_c_01.ogg' at thread -1
+Loading resource: res://audio/sfx/hit_tail_01.ogg remapped: res://audio/sfx/hit_tail_01.ogg
+Loading resource: res://.godot/imported/hit_tail_01.ogg-f66012c36f6d05d6fcb39a363a0a778b.oggvorbisstr remapped: res://.godot/imported/hit_tail_01.ogg-f66012c36f6d05d6fcb39a363a0a778b.oggvorbisstr
+Completed load for: 'res://audio/sfx/hit_tail_01.ogg' remapped 'res://audio/sfx/hit_tail_01.ogg' at thread -1
+Loading resource: res://audio/sfx/hit_tail_02.ogg remapped: res://audio/sfx/hit_tail_02.ogg
+Loading resource: res://.godot/imported/hit_tail_02.ogg-1d133255d7c7f3777c3955f6de1df87c.oggvorbisstr remapped: res://.godot/imported/hit_tail_02.ogg-1d133255d7c7f3777c3955f6de1df87c.oggvorbisstr
+Completed load for: 'res://audio/sfx/hit_tail_02.ogg' remapped 'res://audio/sfx/hit_tail_02.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_generic_01.ogg remapped: res://audio/sfx/mat_generic_01.ogg
+Loading resource: res://.godot/imported/mat_generic_01.ogg-2745f2a12be9d89d01b072ef9248e36d.oggvorbisstr remapped: res://.godot/imported/mat_generic_01.ogg-2745f2a12be9d89d01b072ef9248e36d.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_generic_01.ogg' remapped 'res://audio/sfx/mat_generic_01.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_flesh_01.ogg remapped: res://audio/sfx/mat_flesh_01.ogg
+Loading resource: res://.godot/imported/mat_flesh_01.ogg-528c99154a9dc55ef4e482c649e2f1d4.oggvorbisstr remapped: res://.godot/imported/mat_flesh_01.ogg-528c99154a9dc55ef4e482c649e2f1d4.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_flesh_01.ogg' remapped 'res://audio/sfx/mat_flesh_01.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_flesh_02.ogg remapped: res://audio/sfx/mat_flesh_02.ogg
+Loading resource: res://.godot/imported/mat_flesh_02.ogg-01ae4bd56d40e2e0fb696437b7afd9be.oggvorbisstr remapped: res://.godot/imported/mat_flesh_02.ogg-01ae4bd56d40e2e0fb696437b7afd9be.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_flesh_02.ogg' remapped 'res://audio/sfx/mat_flesh_02.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_armor_01.ogg remapped: res://audio/sfx/mat_armor_01.ogg
+Loading resource: res://.godot/imported/mat_armor_01.ogg-c9be0658a0cd7235c4bfc11a452add83.oggvorbisstr remapped: res://.godot/imported/mat_armor_01.ogg-c9be0658a0cd7235c4bfc11a452add83.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_armor_01.ogg' remapped 'res://audio/sfx/mat_armor_01.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_armor_02.ogg remapped: res://audio/sfx/mat_armor_02.ogg
+Loading resource: res://.godot/imported/mat_armor_02.ogg-d85215f2f4374dc031da1ae86169217a.oggvorbisstr remapped: res://.godot/imported/mat_armor_02.ogg-d85215f2f4374dc031da1ae86169217a.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_armor_02.ogg' remapped 'res://audio/sfx/mat_armor_02.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_metal_01.ogg remapped: res://audio/sfx/mat_metal_01.ogg
+Loading resource: res://.godot/imported/mat_metal_01.ogg-f2c1ca421524f62d61be846d43e0b69d.oggvorbisstr remapped: res://.godot/imported/mat_metal_01.ogg-f2c1ca421524f62d61be846d43e0b69d.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_metal_01.ogg' remapped 'res://audio/sfx/mat_metal_01.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_metal_02.ogg remapped: res://audio/sfx/mat_metal_02.ogg
+Loading resource: res://.godot/imported/mat_metal_02.ogg-02493a5dffa4dde8a9ed2499f7a8fb43.oggvorbisstr remapped: res://.godot/imported/mat_metal_02.ogg-02493a5dffa4dde8a9ed2499f7a8fb43.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_metal_02.ogg' remapped 'res://audio/sfx/mat_metal_02.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_metal_03.ogg remapped: res://audio/sfx/mat_metal_03.ogg
+Loading resource: res://.godot/imported/mat_metal_03.ogg-c795760384984cbb5ff456eb92ad7cb5.oggvorbisstr remapped: res://.godot/imported/mat_metal_03.ogg-c795760384984cbb5ff456eb92ad7cb5.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_metal_03.ogg' remapped 'res://audio/sfx/mat_metal_03.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_concrete_01.ogg remapped: res://audio/sfx/mat_concrete_01.ogg
+Loading resource: res://.godot/imported/mat_concrete_01.ogg-cc0cc4208d71a86085fbcc7f6730fe1a.oggvorbisstr remapped: res://.godot/imported/mat_concrete_01.ogg-cc0cc4208d71a86085fbcc7f6730fe1a.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_concrete_01.ogg' remapped 'res://audio/sfx/mat_concrete_01.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_concrete_02.ogg remapped: res://audio/sfx/mat_concrete_02.ogg
+Loading resource: res://.godot/imported/mat_concrete_02.ogg-e74a378b1fdbbaf648bdac16c81c9fd7.oggvorbisstr remapped: res://.godot/imported/mat_concrete_02.ogg-e74a378b1fdbbaf648bdac16c81c9fd7.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_concrete_02.ogg' remapped 'res://audio/sfx/mat_concrete_02.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_concrete_03.ogg remapped: res://audio/sfx/mat_concrete_03.ogg
+Loading resource: res://.godot/imported/mat_concrete_03.ogg-f84981b2056d665360e068f2306b6c08.oggvorbisstr remapped: res://.godot/imported/mat_concrete_03.ogg-f84981b2056d665360e068f2306b6c08.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_concrete_03.ogg' remapped 'res://audio/sfx/mat_concrete_03.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_glass_01.ogg remapped: res://audio/sfx/mat_glass_01.ogg
+Loading resource: res://.godot/imported/mat_glass_01.ogg-0880e299246986c29561ebb102b23306.oggvorbisstr remapped: res://.godot/imported/mat_glass_01.ogg-0880e299246986c29561ebb102b23306.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_glass_01.ogg' remapped 'res://audio/sfx/mat_glass_01.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_glass_02.ogg remapped: res://audio/sfx/mat_glass_02.ogg
+Loading resource: res://.godot/imported/mat_glass_02.ogg-26c2ed99199dc7e4bae8078355069862.oggvorbisstr remapped: res://.godot/imported/mat_glass_02.ogg-26c2ed99199dc7e4bae8078355069862.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_glass_02.ogg' remapped 'res://audio/sfx/mat_glass_02.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_glass_03.ogg remapped: res://audio/sfx/mat_glass_03.ogg
+Loading resource: res://.godot/imported/mat_glass_03.ogg-ecd45b05bee44fa2d277c25424bbcc8e.oggvorbisstr remapped: res://.godot/imported/mat_glass_03.ogg-ecd45b05bee44fa2d277c25424bbcc8e.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_glass_03.ogg' remapped 'res://audio/sfx/mat_glass_03.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_glass_04.ogg remapped: res://audio/sfx/mat_glass_04.ogg
+Loading resource: res://.godot/imported/mat_glass_04.ogg-197d680a0c2fdd9ad5138c7425a14d2c.oggvorbisstr remapped: res://.godot/imported/mat_glass_04.ogg-197d680a0c2fdd9ad5138c7425a14d2c.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_glass_04.ogg' remapped 'res://audio/sfx/mat_glass_04.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_glass_05.ogg remapped: res://audio/sfx/mat_glass_05.ogg
+Loading resource: res://.godot/imported/mat_glass_05.ogg-e3f1718acb4d141701b1a0bad2a104a8.oggvorbisstr remapped: res://.godot/imported/mat_glass_05.ogg-e3f1718acb4d141701b1a0bad2a104a8.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_glass_05.ogg' remapped 'res://audio/sfx/mat_glass_05.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_wood_01.ogg remapped: res://audio/sfx/mat_wood_01.ogg
+Loading resource: res://.godot/imported/mat_wood_01.ogg-b201a0aaa21669f72ac913a30dc2f2f1.oggvorbisstr remapped: res://.godot/imported/mat_wood_01.ogg-b201a0aaa21669f72ac913a30dc2f2f1.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_wood_01.ogg' remapped 'res://audio/sfx/mat_wood_01.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_wood_02.ogg remapped: res://audio/sfx/mat_wood_02.ogg
+Loading resource: res://.godot/imported/mat_wood_02.ogg-e9820bc1b33f6f6d0e547f5aa5cfcad0.oggvorbisstr remapped: res://.godot/imported/mat_wood_02.ogg-e9820bc1b33f6f6d0e547f5aa5cfcad0.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_wood_02.ogg' remapped 'res://audio/sfx/mat_wood_02.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_wood_03.ogg remapped: res://audio/sfx/mat_wood_03.ogg
+Loading resource: res://.godot/imported/mat_wood_03.ogg-6f009a4a1bf65f689740dfecb10619a5.oggvorbisstr remapped: res://.godot/imported/mat_wood_03.ogg-6f009a4a1bf65f689740dfecb10619a5.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_wood_03.ogg' remapped 'res://audio/sfx/mat_wood_03.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_energy_01.ogg remapped: res://audio/sfx/mat_energy_01.ogg
+Loading resource: res://.godot/imported/mat_energy_01.ogg-66582652edccda368b2894a3d8c6001f.oggvorbisstr remapped: res://.godot/imported/mat_energy_01.ogg-66582652edccda368b2894a3d8c6001f.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_energy_01.ogg' remapped 'res://audio/sfx/mat_energy_01.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_energy_02.ogg remapped: res://audio/sfx/mat_energy_02.ogg
+Loading resource: res://.godot/imported/mat_energy_02.ogg-4e170f8935e2fd0f42a7e8dc65c3e2cb.oggvorbisstr remapped: res://.godot/imported/mat_energy_02.ogg-4e170f8935e2fd0f42a7e8dc65c3e2cb.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_energy_02.ogg' remapped 'res://audio/sfx/mat_energy_02.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_energy_03.ogg remapped: res://audio/sfx/mat_energy_03.ogg
+Loading resource: res://.godot/imported/mat_energy_03.ogg-e9fa1807885450efaacf22c41c695b5a.oggvorbisstr remapped: res://.godot/imported/mat_energy_03.ogg-e9fa1807885450efaacf22c41c695b5a.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_energy_03.ogg' remapped 'res://audio/sfx/mat_energy_03.ogg' at thread -1
+Loading resource: res://audio/sfx/mat_energy_04.ogg remapped: res://audio/sfx/mat_energy_04.ogg
+Loading resource: res://.godot/imported/mat_energy_04.ogg-bbe6c647717b181d7ba0c5a94e255ef2.oggvorbisstr remapped: res://.godot/imported/mat_energy_04.ogg-bbe6c647717b181d7ba0c5a94e255ef2.oggvorbisstr
+Completed load for: 'res://audio/sfx/mat_energy_04.ogg' remapped 'res://audio/sfx/mat_energy_04.ogg' at thread -1
+Loading resource: res://audio/sfx/ricochet_01.ogg remapped: res://audio/sfx/ricochet_01.ogg
+Loading resource: res://.godot/imported/ricochet_01.ogg-2c75ba148e889060a4e60643ece94bbc.oggvorbisstr remapped: res://.godot/imported/ricochet_01.ogg-2c75ba148e889060a4e60643ece94bbc.oggvorbisstr
+Completed load for: 'res://audio/sfx/ricochet_01.ogg' remapped 'res://audio/sfx/ricochet_01.ogg' at thread -1
+Loading resource: res://audio/sfx/ricochet_02.ogg remapped: res://audio/sfx/ricochet_02.ogg
+Loading resource: res://.godot/imported/ricochet_02.ogg-2815290463f16197992125de0e787806.oggvorbisstr remapped: res://.godot/imported/ricochet_02.ogg-2815290463f16197992125de0e787806.oggvorbisstr
+Completed load for: 'res://audio/sfx/ricochet_02.ogg' remapped 'res://audio/sfx/ricochet_02.ogg' at thread -1
+Loading resource: res://audio/sfx/hit_weak_01.ogg remapped: res://audio/sfx/hit_weak_01.ogg
+Loading resource: res://.godot/imported/hit_weak_01.ogg-3dfb327e34abecf761ade21684ef0d3b.oggvorbisstr remapped: res://.godot/imported/hit_weak_01.ogg-3dfb327e34abecf761ade21684ef0d3b.oggvorbisstr
+Completed load for: 'res://audio/sfx/hit_weak_01.ogg' remapped 'res://audio/sfx/hit_weak_01.ogg' at thread -1
+Loading resource: res://audio/sfx/block_01.ogg remapped: res://audio/sfx/block_01.ogg
+Loading resource: res://.godot/imported/block_01.ogg-871d9c6d5b82ad06bb84ce9bbdca4533.oggvorbisstr remapped: res://.godot/imported/block_01.ogg-871d9c6d5b82ad06bb84ce9bbdca4533.oggvorbisstr
+Completed load for: 'res://audio/sfx/block_01.ogg' remapped 'res://audio/sfx/block_01.ogg' at thread -1
+Loading resource: res://audio/sfx/kill_01.ogg remapped: res://audio/sfx/kill_01.ogg
+Loading resource: res://.godot/imported/kill_01.ogg-ce980d729f1a6c492e3a7830d22629f8.oggvorbisstr remapped: res://.godot/imported/kill_01.ogg-ce980d729f1a6c492e3a7830d22629f8.oggvorbisstr
+Completed load for: 'res://audio/sfx/kill_01.ogg' remapped 'res://audio/sfx/kill_01.ogg' at thread -1
+Loading resource: res://audio/sfx/explosion_01.ogg remapped: res://audio/sfx/explosion_01.ogg
+Loading resource: res://.godot/imported/explosion_01.ogg-5e33cab7eee30a3baa45b6dc5ad8a9dc.oggvorbisstr remapped: res://.godot/imported/explosion_01.ogg-5e33cab7eee30a3baa45b6dc5ad8a9dc.oggvorbisstr
+Completed load for: 'res://audio/sfx/explosion_01.ogg' remapped 'res://audio/sfx/explosion_01.ogg' at thread -1
+Loading resource: res://audio/sfx/explosion_02.ogg remapped: res://audio/sfx/explosion_02.ogg
+Loading resource: res://.godot/imported/explosion_02.ogg-41d800d8032cc710125c6b1052659d84.oggvorbisstr remapped: res://.godot/imported/explosion_02.ogg-41d800d8032cc710125c6b1052659d84.oggvorbisstr
+Completed load for: 'res://audio/sfx/explosion_02.ogg' remapped 'res://audio/sfx/explosion_02.ogg' at thread -1
+Loading resource: res://audio/sfx/explosion_03.ogg remapped: res://audio/sfx/explosion_03.ogg
+Loading resource: res://.godot/imported/explosion_03.ogg-0f8f7145ab5d7e7bfd670bdffd2f1e65.oggvorbisstr remapped: res://.godot/imported/explosion_03.ogg-0f8f7145ab5d7e7bfd670bdffd2f1e65.oggvorbisstr
+Completed load for: 'res://audio/sfx/explosion_03.ogg' remapped 'res://audio/sfx/explosion_03.ogg' at thread -1
+Loading resource: res://audio/sfx/explosion_small_01.ogg remapped: res://audio/sfx/explosion_small_01.ogg
+Loading resource: res://.godot/imported/explosion_small_01.ogg-2a09efc2b5c4b61b461ef7373c857058.oggvorbisstr remapped: res://.godot/imported/explosion_small_01.ogg-2a09efc2b5c4b61b461ef7373c857058.oggvorbisstr
+Completed load for: 'res://audio/sfx/explosion_small_01.ogg' remapped 'res://audio/sfx/explosion_small_01.ogg' at thread -1
+Loading resource: res://audio/sfx/explosion_small_02.ogg remapped: res://audio/sfx/explosion_small_02.ogg
+Loading resource: res://.godot/imported/explosion_small_02.ogg-82f89cf219f6614ee194a3794fda9f98.oggvorbisstr remapped: res://.godot/imported/explosion_small_02.ogg-82f89cf219f6614ee194a3794fda9f98.oggvorbisstr
+Completed load for: 'res://audio/sfx/explosion_small_02.ogg' remapped 'res://audio/sfx/explosion_small_02.ogg' at thread -1
+Loading resource: res://audio/sfx/hurt_01.ogg remapped: res://audio/sfx/hurt_01.ogg
+Loading resource: res://.godot/imported/hurt_01.ogg-d537a2fa76db37bc1efa558465d891bc.oggvorbisstr remapped: res://.godot/imported/hurt_01.ogg-d537a2fa76db37bc1efa558465d891bc.oggvorbisstr
+Completed load for: 'res://audio/sfx/hurt_01.ogg' remapped 'res://audio/sfx/hurt_01.ogg' at thread -1
+Loading resource: res://audio/sfx/death_player_01.ogg remapped: res://audio/sfx/death_player_01.ogg
+Loading resource: res://.godot/imported/death_player_01.ogg-93e6f595f249c8a0f2352f77519dd707.oggvorbisstr remapped: res://.godot/imported/death_player_01.ogg-93e6f595f249c8a0f2352f77519dd707.oggvorbisstr
+Completed load for: 'res://audio/sfx/death_player_01.ogg' remapped 'res://audio/sfx/death_player_01.ogg' at thread -1
+Loading resource: res://audio/sfx/hurt_humanoid_01.ogg remapped: res://audio/sfx/hurt_humanoid_01.ogg
+Loading resource: res://.godot/imported/hurt_humanoid_01.ogg-95afdee625cdcf2484b9872e174f8d79.oggvorbisstr remapped: res://.godot/imported/hurt_humanoid_01.ogg-95afdee625cdcf2484b9872e174f8d79.oggvorbisstr
+Completed load for: 'res://audio/sfx/hurt_humanoid_01.ogg' remapped 'res://audio/sfx/hurt_humanoid_01.ogg' at thread -1
+Loading resource: res://audio/sfx/hurt_humanoid_02.ogg remapped: res://audio/sfx/hurt_humanoid_02.ogg
+Loading resource: res://.godot/imported/hurt_humanoid_02.ogg-9273426cb8e1d0fd6c67c16caa215b2e.oggvorbisstr remapped: res://.godot/imported/hurt_humanoid_02.ogg-9273426cb8e1d0fd6c67c16caa215b2e.oggvorbisstr
+Completed load for: 'res://audio/sfx/hurt_humanoid_02.ogg' remapped 'res://audio/sfx/hurt_humanoid_02.ogg' at thread -1
+Loading resource: res://audio/sfx/hurt_humanoid_03.ogg remapped: res://audio/sfx/hurt_humanoid_03.ogg
+Loading resource: res://.godot/imported/hurt_humanoid_03.ogg-ea7df2b4cbe42759059985c12ffc3ca5.oggvorbisstr remapped: res://.godot/imported/hurt_humanoid_03.ogg-ea7df2b4cbe42759059985c12ffc3ca5.oggvorbisstr
+Completed load for: 'res://audio/sfx/hurt_humanoid_03.ogg' remapped 'res://audio/sfx/hurt_humanoid_03.ogg' at thread -1
+Loading resource: res://audio/sfx/hurt_humanoid_04.ogg remapped: res://audio/sfx/hurt_humanoid_04.ogg
+Loading resource: res://.godot/imported/hurt_humanoid_04.ogg-3f9dc4c8a17afc88d1a25188e6f027ae.oggvorbisstr remapped: res://.godot/imported/hurt_humanoid_04.ogg-3f9dc4c8a17afc88d1a25188e6f027ae.oggvorbisstr
+Completed load for: 'res://audio/sfx/hurt_humanoid_04.ogg' remapped 'res://audio/sfx/hurt_humanoid_04.ogg' at thread -1
+Loading resource: res://audio/sfx/hurt_humanoid_05.ogg remapped: res://audio/sfx/hurt_humanoid_05.ogg
+Loading resource: res://.godot/imported/hurt_humanoid_05.ogg-18ccb129e3e9a46eb8ee2cff8108dee7.oggvorbisstr remapped: res://.godot/imported/hurt_humanoid_05.ogg-18ccb129e3e9a46eb8ee2cff8108dee7.oggvorbisstr
+Completed load for: 'res://audio/sfx/hurt_humanoid_05.ogg' remapped 'res://audio/sfx/hurt_humanoid_05.ogg' at thread -1
+Loading resource: res://audio/sfx/death_humanoid_01.ogg remapped: res://audio/sfx/death_humanoid_01.ogg
+Loading resource: res://.godot/imported/death_humanoid_01.ogg-dec716821ea82758958d183bcd912350.oggvorbisstr remapped: res://.godot/imported/death_humanoid_01.ogg-dec716821ea82758958d183bcd912350.oggvorbisstr
+Completed load for: 'res://audio/sfx/death_humanoid_01.ogg' remapped 'res://audio/sfx/death_humanoid_01.ogg' at thread -1
+Loading resource: res://audio/sfx/hurt_machine_01.ogg remapped: res://audio/sfx/hurt_machine_01.ogg
+Loading resource: res://.godot/imported/hurt_machine_01.ogg-3653c333ed435be24175163cd680ef44.oggvorbisstr remapped: res://.godot/imported/hurt_machine_01.ogg-3653c333ed435be24175163cd680ef44.oggvorbisstr
+Completed load for: 'res://audio/sfx/hurt_machine_01.ogg' remapped 'res://audio/sfx/hurt_machine_01.ogg' at thread -1
+Loading resource: res://audio/sfx/death_machine_01.ogg remapped: res://audio/sfx/death_machine_01.ogg
+Loading resource: res://.godot/imported/death_machine_01.ogg-9c929243f2fa6d198d291cd0b54c3453.oggvorbisstr remapped: res://.godot/imported/death_machine_01.ogg-9c929243f2fa6d198d291cd0b54c3453.oggvorbisstr
+Completed load for: 'res://audio/sfx/death_machine_01.ogg' remapped 'res://audio/sfx/death_machine_01.ogg' at thread -1
+Loading resource: res://audio/sfx/hurt_creature_01.ogg remapped: res://audio/sfx/hurt_creature_01.ogg
+Loading resource: res://.godot/imported/hurt_creature_01.ogg-8c7c7efaad611f49e2415ee4466ca355.oggvorbisstr remapped: res://.godot/imported/hurt_creature_01.ogg-8c7c7efaad611f49e2415ee4466ca355.oggvorbisstr
+Completed load for: 'res://audio/sfx/hurt_creature_01.ogg' remapped 'res://audio/sfx/hurt_creature_01.ogg' at thread -1
+Loading resource: res://audio/sfx/hurt_creature_02.ogg remapped: res://audio/sfx/hurt_creature_02.ogg
+Loading resource: res://.godot/imported/hurt_creature_02.ogg-8580e19046cf4f12f6b08686982d487c.oggvorbisstr remapped: res://.godot/imported/hurt_creature_02.ogg-8580e19046cf4f12f6b08686982d487c.oggvorbisstr
+Completed load for: 'res://audio/sfx/hurt_creature_02.ogg' remapped 'res://audio/sfx/hurt_creature_02.ogg' at thread -1
+Loading resource: res://audio/sfx/hurt_creature_03.ogg remapped: res://audio/sfx/hurt_creature_03.ogg
+Loading resource: res://.godot/imported/hurt_creature_03.ogg-7920d6435813747fe5dda2b29bf98c71.oggvorbisstr remapped: res://.godot/imported/hurt_creature_03.ogg-7920d6435813747fe5dda2b29bf98c71.oggvorbisstr
+Completed load for: 'res://audio/sfx/hurt_creature_03.ogg' remapped 'res://audio/sfx/hurt_creature_03.ogg' at thread -1
+Loading resource: res://audio/sfx/hurt_creature_04.ogg remapped: res://audio/sfx/hurt_creature_04.ogg
+Loading resource: res://.godot/imported/hurt_creature_04.ogg-1d797c4af331eec34dc30002f1065f27.oggvorbisstr remapped: res://.godot/imported/hurt_creature_04.ogg-1d797c4af331eec34dc30002f1065f27.oggvorbisstr
+Completed load for: 'res://audio/sfx/hurt_creature_04.ogg' remapped 'res://audio/sfx/hurt_creature_04.ogg' at thread -1
+Loading resource: res://audio/sfx/death_creature_01.ogg remapped: res://audio/sfx/death_creature_01.ogg
+Loading resource: res://.godot/imported/death_creature_01.ogg-9805c26f0707da874101c620e2616a18.oggvorbisstr remapped: res://.godot/imported/death_creature_01.ogg-9805c26f0707da874101c620e2616a18.oggvorbisstr
+Completed load for: 'res://audio/sfx/death_creature_01.ogg' remapped 'res://audio/sfx/death_creature_01.ogg' at thread -1
+Loading resource: res://audio/sfx/death_creature_02.ogg remapped: res://audio/sfx/death_creature_02.ogg
+Loading resource: res://.godot/imported/death_creature_02.ogg-02d5c18540d66f86b3621788865f45f7.oggvorbisstr remapped: res://.godot/imported/death_creature_02.ogg-02d5c18540d66f86b3621788865f45f7.oggvorbisstr
+Completed load for: 'res://audio/sfx/death_creature_02.ogg' remapped 'res://audio/sfx/death_creature_02.ogg' at thread -1
+Loading resource: res://audio/sfx/death_creature_03.ogg remapped: res://audio/sfx/death_creature_03.ogg
+Loading resource: res://.godot/imported/death_creature_03.ogg-7e87101a9eb1e74b0c4177961fa0ba70.oggvorbisstr remapped: res://.godot/imported/death_creature_03.ogg-7e87101a9eb1e74b0c4177961fa0ba70.oggvorbisstr
+Completed load for: 'res://audio/sfx/death_creature_03.ogg' remapped 'res://audio/sfx/death_creature_03.ogg' at thread -1
+Loading resource: res://audio/sfx/death_creature_04.ogg remapped: res://audio/sfx/death_creature_04.ogg
+Loading resource: res://.godot/imported/death_creature_04.ogg-903a4057a4f6c25ecf8d5a762e385a08.oggvorbisstr remapped: res://.godot/imported/death_creature_04.ogg-903a4057a4f6c25ecf8d5a762e385a08.oggvorbisstr
+Completed load for: 'res://audio/sfx/death_creature_04.ogg' remapped 'res://audio/sfx/death_creature_04.ogg' at thread -1
+Loading resource: res://audio/sfx/parry_01.ogg remapped: res://audio/sfx/parry_01.ogg
+Loading resource: res://.godot/imported/parry_01.ogg-440c25f6816c1905f9b734020a576569.oggvorbisstr remapped: res://.godot/imported/parry_01.ogg-440c25f6816c1905f9b734020a576569.oggvorbisstr
+Completed load for: 'res://audio/sfx/parry_01.ogg' remapped 'res://audio/sfx/parry_01.ogg' at thread -1
+Loading resource: res://audio/sfx/guard_break_01.ogg remapped: res://audio/sfx/guard_break_01.ogg
+Loading resource: res://.godot/imported/guard_break_01.ogg-30ce0dfe5261aa030e024201a608712f.oggvorbisstr remapped: res://.godot/imported/guard_break_01.ogg-30ce0dfe5261aa030e024201a608712f.oggvorbisstr
+Completed load for: 'res://audio/sfx/guard_break_01.ogg' remapped 'res://audio/sfx/guard_break_01.ogg' at thread -1
+Loading resource: res://audio/sfx/step_metal_01.ogg remapped: res://audio/sfx/step_metal_01.ogg
+Loading resource: res://.godot/imported/step_metal_01.ogg-5aa8df2a773c0da7212d0a3ee88c083f.oggvorbisstr remapped: res://.godot/imported/step_metal_01.ogg-5aa8df2a773c0da7212d0a3ee88c083f.oggvorbisstr
+Completed load for: 'res://audio/sfx/step_metal_01.ogg' remapped 'res://audio/sfx/step_metal_01.ogg' at thread -1
+Loading resource: res://audio/sfx/step_metal_02.ogg remapped: res://audio/sfx/step_metal_02.ogg
+Loading resource: res://.godot/imported/step_metal_02.ogg-329cb2e5d14862426cfdc6d0fad8e165.oggvorbisstr remapped: res://.godot/imported/step_metal_02.ogg-329cb2e5d14862426cfdc6d0fad8e165.oggvorbisstr
+Completed load for: 'res://audio/sfx/step_metal_02.ogg' remapped 'res://audio/sfx/step_metal_02.ogg' at thread -1
+Loading resource: res://audio/sfx/step_concrete_01.ogg remapped: res://audio/sfx/step_concrete_01.ogg
+Loading resource: res://.godot/imported/step_concrete_01.ogg-a85628307fcb79dc64fca6dfdf390511.oggvorbisstr remapped: res://.godot/imported/step_concrete_01.ogg-a85628307fcb79dc64fca6dfdf390511.oggvorbisstr
+Completed load for: 'res://audio/sfx/step_concrete_01.ogg' remapped 'res://audio/sfx/step_concrete_01.ogg' at thread -1
+Loading resource: res://audio/sfx/step_concrete_02.ogg remapped: res://audio/sfx/step_concrete_02.ogg
+Loading resource: res://.godot/imported/step_concrete_02.ogg-3060ef6daf510839eae002b9a00e0f45.oggvorbisstr remapped: res://.godot/imported/step_concrete_02.ogg-3060ef6daf510839eae002b9a00e0f45.oggvorbisstr
+Completed load for: 'res://audio/sfx/step_concrete_02.ogg' remapped 'res://audio/sfx/step_concrete_02.ogg' at thread -1
+Loading resource: res://audio/sfx/step_wet_01.ogg remapped: res://audio/sfx/step_wet_01.ogg
+Loading resource: res://.godot/imported/step_wet_01.ogg-874eb5da2e059ebb0067db627e082498.oggvorbisstr remapped: res://.godot/imported/step_wet_01.ogg-874eb5da2e059ebb0067db627e082498.oggvorbisstr
+Completed load for: 'res://audio/sfx/step_wet_01.ogg' remapped 'res://audio/sfx/step_wet_01.ogg' at thread -1
+Loading resource: res://audio/sfx/step_wet_02.ogg remapped: res://audio/sfx/step_wet_02.ogg
+Loading resource: res://.godot/imported/step_wet_02.ogg-61fcc74bba665f7f75f4d8839a562034.oggvorbisstr remapped: res://.godot/imported/step_wet_02.ogg-61fcc74bba665f7f75f4d8839a562034.oggvorbisstr
+Completed load for: 'res://audio/sfx/step_wet_02.ogg' remapped 'res://audio/sfx/step_wet_02.ogg' at thread -1
+Loading resource: res://audio/sfx/land_metal_01.ogg remapped: res://audio/sfx/land_metal_01.ogg
+Loading resource: res://.godot/imported/land_metal_01.ogg-f36ca5f08296469feebea4a568746545.oggvorbisstr remapped: res://.godot/imported/land_metal_01.ogg-f36ca5f08296469feebea4a568746545.oggvorbisstr
+Completed load for: 'res://audio/sfx/land_metal_01.ogg' remapped 'res://audio/sfx/land_metal_01.ogg' at thread -1
+Loading resource: res://audio/sfx/land_concrete_01.ogg remapped: res://audio/sfx/land_concrete_01.ogg
+Loading resource: res://.godot/imported/land_concrete_01.ogg-e4aba90f3ebb927ab736fc6794bc2639.oggvorbisstr remapped: res://.godot/imported/land_concrete_01.ogg-e4aba90f3ebb927ab736fc6794bc2639.oggvorbisstr
+Completed load for: 'res://audio/sfx/land_concrete_01.ogg' remapped 'res://audio/sfx/land_concrete_01.ogg' at thread -1
+Loading resource: res://audio/sfx/land_wet_01.ogg remapped: res://audio/sfx/land_wet_01.ogg
+Loading resource: res://.godot/imported/land_wet_01.ogg-e8585bffab097657ff24ab0a4d3f928f.oggvorbisstr remapped: res://.godot/imported/land_wet_01.ogg-e8585bffab097657ff24ab0a4d3f928f.oggvorbisstr
+Completed load for: 'res://audio/sfx/land_wet_01.ogg' remapped 'res://audio/sfx/land_wet_01.ogg' at thread -1
+Loading resource: res://audio/sfx/land_01.ogg remapped: res://audio/sfx/land_01.ogg
+Loading resource: res://.godot/imported/land_01.ogg-eb30c4cf5877a94e7126e22e87825624.oggvorbisstr remapped: res://.godot/imported/land_01.ogg-eb30c4cf5877a94e7126e22e87825624.oggvorbisstr
+Completed load for: 'res://audio/sfx/land_01.ogg' remapped 'res://audio/sfx/land_01.ogg' at thread -1
+Loading resource: res://audio/sfx/jump_01.ogg remapped: res://audio/sfx/jump_01.ogg
+Loading resource: res://.godot/imported/jump_01.ogg-3c1f75ec2347f58c03a7c840102c2996.oggvorbisstr remapped: res://.godot/imported/jump_01.ogg-3c1f75ec2347f58c03a7c840102c2996.oggvorbisstr
+Completed load for: 'res://audio/sfx/jump_01.ogg' remapped 'res://audio/sfx/jump_01.ogg' at thread -1
+Loading resource: res://audio/sfx/dash_01.ogg remapped: res://audio/sfx/dash_01.ogg
+Loading resource: res://.godot/imported/dash_01.ogg-591de67495891e1d4ce1ad7316666aaf.oggvorbisstr remapped: res://.godot/imported/dash_01.ogg-591de67495891e1d4ce1ad7316666aaf.oggvorbisstr
+Completed load for: 'res://audio/sfx/dash_01.ogg' remapped 'res://audio/sfx/dash_01.ogg' at thread -1
+Loading resource: res://audio/sfx/switch_01.ogg remapped: res://audio/sfx/switch_01.ogg
+Loading resource: res://.godot/imported/switch_01.ogg-072ebe6bc8cebf11f1b02e3c8fe90a98.oggvorbisstr remapped: res://.godot/imported/switch_01.ogg-072ebe6bc8cebf11f1b02e3c8fe90a98.oggvorbisstr
+Completed load for: 'res://audio/sfx/switch_01.ogg' remapped 'res://audio/sfx/switch_01.ogg' at thread -1
+Loading resource: res://audio/sfx/gate_01.ogg remapped: res://audio/sfx/gate_01.ogg
+Loading resource: res://.godot/imported/gate_01.ogg-3d1e273f60ddb239bb7fa5f82a5b3ace.oggvorbisstr remapped: res://.godot/imported/gate_01.ogg-3d1e273f60ddb239bb7fa5f82a5b3ace.oggvorbisstr
+Completed load for: 'res://audio/sfx/gate_01.ogg' remapped 'res://audio/sfx/gate_01.ogg' at thread -1
+Loading resource: res://audio/sfx/power_down_01.ogg remapped: res://audio/sfx/power_down_01.ogg
+Loading resource: res://.godot/imported/power_down_01.ogg-3825b021db45e44139c508715a555e15.oggvorbisstr remapped: res://.godot/imported/power_down_01.ogg-3825b021db45e44139c508715a555e15.oggvorbisstr
+Completed load for: 'res://audio/sfx/power_down_01.ogg' remapped 'res://audio/sfx/power_down_01.ogg' at thread -1
+Loading resource: res://audio/sfx/power_up_01.ogg remapped: res://audio/sfx/power_up_01.ogg
+Loading resource: res://.godot/imported/power_up_01.ogg-848cbdc43d6775b99a5d466dfc8cc9d8.oggvorbisstr remapped: res://.godot/imported/power_up_01.ogg-848cbdc43d6775b99a5d466dfc8cc9d8.oggvorbisstr
+Completed load for: 'res://audio/sfx/power_up_01.ogg' remapped 'res://audio/sfx/power_up_01.ogg' at thread -1
+Loading resource: res://audio/sfx/emp_01.ogg remapped: res://audio/sfx/emp_01.ogg
+Loading resource: res://.godot/imported/emp_01.ogg-6afae41715e948f0af7d3cfe88d5c2a5.oggvorbisstr remapped: res://.godot/imported/emp_01.ogg-6afae41715e948f0af7d3cfe88d5c2a5.oggvorbisstr
+Completed load for: 'res://audio/sfx/emp_01.ogg' remapped 'res://audio/sfx/emp_01.ogg' at thread -1
+Loading resource: res://audio/sfx/overclock_01.ogg remapped: res://audio/sfx/overclock_01.ogg
+Loading resource: res://.godot/imported/overclock_01.ogg-4715b007ac80e985a4e0f2f36b611170.oggvorbisstr remapped: res://.godot/imported/overclock_01.ogg-4715b007ac80e985a4e0f2f36b611170.oggvorbisstr
+Completed load for: 'res://audio/sfx/overclock_01.ogg' remapped 'res://audio/sfx/overclock_01.ogg' at thread -1
+Loading resource: res://audio/sfx/ability_ready_01.ogg remapped: res://audio/sfx/ability_ready_01.ogg
+Loading resource: res://.godot/imported/ability_ready_01.ogg-5e2d3534fa4a91eab5cb20524689aca3.oggvorbisstr remapped: res://.godot/imported/ability_ready_01.ogg-5e2d3534fa4a91eab5cb20524689aca3.oggvorbisstr
+Completed load for: 'res://audio/sfx/ability_ready_01.ogg' remapped 'res://audio/sfx/ability_ready_01.ogg' at thread -1
+Loading resource: res://audio/sfx/pickup_01.ogg remapped: res://audio/sfx/pickup_01.ogg
+Loading resource: res://.godot/imported/pickup_01.ogg-8ec7b80c0212480a0220b99b32543ceb.oggvorbisstr remapped: res://.godot/imported/pickup_01.ogg-8ec7b80c0212480a0220b99b32543ceb.oggvorbisstr
+Completed load for: 'res://audio/sfx/pickup_01.ogg' remapped 'res://audio/sfx/pickup_01.ogg' at thread -1
+Loading resource: res://audio/sfx/pickup_02.ogg remapped: res://audio/sfx/pickup_02.ogg
+Loading resource: res://.godot/imported/pickup_02.ogg-3a887a5593be49b86229fd78e864b811.oggvorbisstr remapped: res://.godot/imported/pickup_02.ogg-3a887a5593be49b86229fd78e864b811.oggvorbisstr
+Completed load for: 'res://audio/sfx/pickup_02.ogg' remapped 'res://audio/sfx/pickup_02.ogg' at thread -1
+Loading resource: res://audio/sfx/crate_break_01.ogg remapped: res://audio/sfx/crate_break_01.ogg
+Loading resource: res://.godot/imported/crate_break_01.ogg-bdc946c3c75515d2931030d6804cfb7e.oggvorbisstr remapped: res://.godot/imported/crate_break_01.ogg-bdc946c3c75515d2931030d6804cfb7e.oggvorbisstr
+Completed load for: 'res://audio/sfx/crate_break_01.ogg' remapped 'res://audio/sfx/crate_break_01.ogg' at thread -1
+Loading resource: res://audio/sfx/crate_break_02.ogg remapped: res://audio/sfx/crate_break_02.ogg
+Loading resource: res://.godot/imported/crate_break_02.ogg-c2f384accb471b528bcba54fd1cb3a62.oggvorbisstr remapped: res://.godot/imported/crate_break_02.ogg-c2f384accb471b528bcba54fd1cb3a62.oggvorbisstr
+Completed load for: 'res://audio/sfx/crate_break_02.ogg' remapped 'res://audio/sfx/crate_break_02.ogg' at thread -1
+Loading resource: res://audio/sfx/crate_break_03.ogg remapped: res://audio/sfx/crate_break_03.ogg
+Loading resource: res://.godot/imported/crate_break_03.ogg-644fa792efb63b2a425ed044536b2281.oggvorbisstr remapped: res://.godot/imported/crate_break_03.ogg-644fa792efb63b2a425ed044536b2281.oggvorbisstr
+Completed load for: 'res://audio/sfx/crate_break_03.ogg' remapped 'res://audio/sfx/crate_break_03.ogg' at thread -1
+Loading resource: res://audio/sfx/crate_break_04.ogg remapped: res://audio/sfx/crate_break_04.ogg
+Loading resource: res://.godot/imported/crate_break_04.ogg-90b6a87b94e9a9ec1cf8dc507242dfdc.oggvorbisstr remapped: res://.godot/imported/crate_break_04.ogg-90b6a87b94e9a9ec1cf8dc507242dfdc.oggvorbisstr
+Completed load for: 'res://audio/sfx/crate_break_04.ogg' remapped 'res://audio/sfx/crate_break_04.ogg' at thread -1
+Loading resource: res://audio/sfx/crate_break_05.ogg remapped: res://audio/sfx/crate_break_05.ogg
+Loading resource: res://.godot/imported/crate_break_05.ogg-ba207f5136c492e087995ff7b89642d1.oggvorbisstr remapped: res://.godot/imported/crate_break_05.ogg-ba207f5136c492e087995ff7b89642d1.oggvorbisstr
+Completed load for: 'res://audio/sfx/crate_break_05.ogg' remapped 'res://audio/sfx/crate_break_05.ogg' at thread -1
+Loading resource: res://audio/sfx/glass_break_01.ogg remapped: res://audio/sfx/glass_break_01.ogg
+Loading resource: res://.godot/imported/glass_break_01.ogg-5d1a036b7140f9dc8c6dcb39459da309.oggvorbisstr remapped: res://.godot/imported/glass_break_01.ogg-5d1a036b7140f9dc8c6dcb39459da309.oggvorbisstr
+Completed load for: 'res://audio/sfx/glass_break_01.ogg' remapped 'res://audio/sfx/glass_break_01.ogg' at thread -1
+Loading resource: res://audio/sfx/glass_break_02.ogg remapped: res://audio/sfx/glass_break_02.ogg
+Loading resource: res://.godot/imported/glass_break_02.ogg-affada1bc4ae7ca7118a118715a739ae.oggvorbisstr remapped: res://.godot/imported/glass_break_02.ogg-affada1bc4ae7ca7118a118715a739ae.oggvorbisstr
+Completed load for: 'res://audio/sfx/glass_break_02.ogg' remapped 'res://audio/sfx/glass_break_02.ogg' at thread -1
+Loading resource: res://audio/sfx/glass_break_03.ogg remapped: res://audio/sfx/glass_break_03.ogg
+Loading resource: res://.godot/imported/glass_break_03.ogg-1f080eff56dffbc64234c0910b2ee084.oggvorbisstr remapped: res://.godot/imported/glass_break_03.ogg-1f080eff56dffbc64234c0910b2ee084.oggvorbisstr
+Completed load for: 'res://audio/sfx/glass_break_03.ogg' remapped 'res://audio/sfx/glass_break_03.ogg' at thread -1
+Loading resource: res://audio/sfx/glass_break_04.ogg remapped: res://audio/sfx/glass_break_04.ogg
+Loading resource: res://.godot/imported/glass_break_04.ogg-546301d2464867986f7abee80ac34c72.oggvorbisstr remapped: res://.godot/imported/glass_break_04.ogg-546301d2464867986f7abee80ac34c72.oggvorbisstr
+Completed load for: 'res://audio/sfx/glass_break_04.ogg' remapped 'res://audio/sfx/glass_break_04.ogg' at thread -1
+Loading resource: res://audio/sfx/glass_break_05.ogg remapped: res://audio/sfx/glass_break_05.ogg
+Loading resource: res://.godot/imported/glass_break_05.ogg-57bccbadcdadbd5f9c4a10bd9b355de6.oggvorbisstr remapped: res://.godot/imported/glass_break_05.ogg-57bccbadcdadbd5f9c4a10bd9b355de6.oggvorbisstr
+Completed load for: 'res://audio/sfx/glass_break_05.ogg' remapped 'res://audio/sfx/glass_break_05.ogg' at thread -1
+Loading resource: res://audio/sfx/telegraph_01.ogg remapped: res://audio/sfx/telegraph_01.ogg
+Loading resource: res://.godot/imported/telegraph_01.ogg-206100f39988b638675c53f22ad4f324.oggvorbisstr remapped: res://.godot/imported/telegraph_01.ogg-206100f39988b638675c53f22ad4f324.oggvorbisstr
+Completed load for: 'res://audio/sfx/telegraph_01.ogg' remapped 'res://audio/sfx/telegraph_01.ogg' at thread -1
+Loading resource: res://audio/sfx/beep_01.ogg remapped: res://audio/sfx/beep_01.ogg
+Loading resource: res://.godot/imported/beep_01.ogg-bd907985c52aec6f802ea5f337d5ceaf.oggvorbisstr remapped: res://.godot/imported/beep_01.ogg-bd907985c52aec6f802ea5f337d5ceaf.oggvorbisstr
+Completed load for: 'res://audio/sfx/beep_01.ogg' remapped 'res://audio/sfx/beep_01.ogg' at thread -1
+Loading resource: res://audio/sfx/beep_02.ogg remapped: res://audio/sfx/beep_02.ogg
+Loading resource: res://.godot/imported/beep_02.ogg-4b36dfdd965963eb9068f3dbfc91667e.oggvorbisstr remapped: res://.godot/imported/beep_02.ogg-4b36dfdd965963eb9068f3dbfc91667e.oggvorbisstr
+Completed load for: 'res://audio/sfx/beep_02.ogg' remapped 'res://audio/sfx/beep_02.ogg' at thread -1
+Loading resource: res://audio/sfx/beep_03.ogg remapped: res://audio/sfx/beep_03.ogg
+Loading resource: res://.godot/imported/beep_03.ogg-c6affedf368fc0cd7c306ddedc2f0522.oggvorbisstr remapped: res://.godot/imported/beep_03.ogg-c6affedf368fc0cd7c306ddedc2f0522.oggvorbisstr
+Completed load for: 'res://audio/sfx/beep_03.ogg' remapped 'res://audio/sfx/beep_03.ogg' at thread -1
+Loading resource: res://audio/sfx/alarm_01.ogg remapped: res://audio/sfx/alarm_01.ogg
+Loading resource: res://.godot/imported/alarm_01.ogg-2ac2c64fb3cce41199c429ef96e33f52.oggvorbisstr remapped: res://.godot/imported/alarm_01.ogg-2ac2c64fb3cce41199c429ef96e33f52.oggvorbisstr
+Completed load for: 'res://audio/sfx/alarm_01.ogg' remapped 'res://audio/sfx/alarm_01.ogg' at thread -1
+Loading resource: res://audio/sfx/laser_flash_01.ogg remapped: res://audio/sfx/laser_flash_01.ogg
+Loading resource: res://.godot/imported/laser_flash_01.ogg-4ef9bc0f1d1f0d53375c94d6a7b21c3c.oggvorbisstr remapped: res://.godot/imported/laser_flash_01.ogg-4ef9bc0f1d1f0d53375c94d6a7b21c3c.oggvorbisstr
+Completed load for: 'res://audio/sfx/laser_flash_01.ogg' remapped 'res://audio/sfx/laser_flash_01.ogg' at thread -1
+Loading resource: res://audio/sfx/flame_01.ogg remapped: res://audio/sfx/flame_01.ogg
+Loading resource: res://.godot/imported/flame_01.ogg-dd43afef1b13a63bab06c9d50ee278fc.oggvorbisstr remapped: res://.godot/imported/flame_01.ogg-dd43afef1b13a63bab06c9d50ee278fc.oggvorbisstr
+Completed load for: 'res://audio/sfx/flame_01.ogg' remapped 'res://audio/sfx/flame_01.ogg' at thread -1
+Loading resource: res://audio/sfx/ignite_01.ogg remapped: res://audio/sfx/ignite_01.ogg
+Loading resource: res://.godot/imported/ignite_01.ogg-276cb39ae91e97d0f5fc314e677b3f6e.oggvorbisstr remapped: res://.godot/imported/ignite_01.ogg-276cb39ae91e97d0f5fc314e677b3f6e.oggvorbisstr
+Completed load for: 'res://audio/sfx/ignite_01.ogg' remapped 'res://audio/sfx/ignite_01.ogg' at thread -1
+Loading resource: res://audio/sfx/spin_01.ogg remapped: res://audio/sfx/spin_01.ogg
+Loading resource: res://.godot/imported/spin_01.ogg-01cb6e42012dc178f4df67cc1a66a91c.oggvorbisstr remapped: res://.godot/imported/spin_01.ogg-01cb6e42012dc178f4df67cc1a66a91c.oggvorbisstr
+Completed load for: 'res://audio/sfx/spin_01.ogg' remapped 'res://audio/sfx/spin_01.ogg' at thread -1
+Loading resource: res://audio/sfx/vent_01.ogg remapped: res://audio/sfx/vent_01.ogg
+Loading resource: res://.godot/imported/vent_01.ogg-3cce97d446d1bef5bc869a8074f7af06.oggvorbisstr remapped: res://.godot/imported/vent_01.ogg-3cce97d446d1bef5bc869a8074f7af06.oggvorbisstr
+Completed load for: 'res://audio/sfx/vent_01.ogg' remapped 'res://audio/sfx/vent_01.ogg' at thread -1
+Loading resource: res://audio/sfx/vent_02.ogg remapped: res://audio/sfx/vent_02.ogg
+Loading resource: res://.godot/imported/vent_02.ogg-c1af2d6107e9dc475f0a18703ac81da0.oggvorbisstr remapped: res://.godot/imported/vent_02.ogg-c1af2d6107e9dc475f0a18703ac81da0.oggvorbisstr
+Completed load for: 'res://audio/sfx/vent_02.ogg' remapped 'res://audio/sfx/vent_02.ogg' at thread -1
+Loading resource: res://audio/sfx/vent_03.ogg remapped: res://audio/sfx/vent_03.ogg
+Loading resource: res://.godot/imported/vent_03.ogg-125922fb7c7ca1fc9b19492a68c2b524.oggvorbisstr remapped: res://.godot/imported/vent_03.ogg-125922fb7c7ca1fc9b19492a68c2b524.oggvorbisstr
+Completed load for: 'res://audio/sfx/vent_03.ogg' remapped 'res://audio/sfx/vent_03.ogg' at thread -1
+Loading resource: res://audio/sfx/growl_01.ogg remapped: res://audio/sfx/growl_01.ogg
+Loading resource: res://.godot/imported/growl_01.ogg-8d66a9037592aa938409dd455f7fadcd.oggvorbisstr remapped: res://.godot/imported/growl_01.ogg-8d66a9037592aa938409dd455f7fadcd.oggvorbisstr
+Completed load for: 'res://audio/sfx/growl_01.ogg' remapped 'res://audio/sfx/growl_01.ogg' at thread -1
+Loading resource: res://audio/sfx/growl_02.ogg remapped: res://audio/sfx/growl_02.ogg
+Loading resource: res://.godot/imported/growl_02.ogg-8765dcb72d2d2d561285552775070705.oggvorbisstr remapped: res://.godot/imported/growl_02.ogg-8765dcb72d2d2d561285552775070705.oggvorbisstr
+Completed load for: 'res://audio/sfx/growl_02.ogg' remapped 'res://audio/sfx/growl_02.ogg' at thread -1
+Loading resource: res://audio/sfx/growl_03.ogg remapped: res://audio/sfx/growl_03.ogg
+Loading resource: res://.godot/imported/growl_03.ogg-76d2d2deddc0a3d50ff9695aed2bf1c6.oggvorbisstr remapped: res://.godot/imported/growl_03.ogg-76d2d2deddc0a3d50ff9695aed2bf1c6.oggvorbisstr
+Completed load for: 'res://audio/sfx/growl_03.ogg' remapped 'res://audio/sfx/growl_03.ogg' at thread -1
+Loading resource: res://audio/sfx/zap_01.ogg remapped: res://audio/sfx/zap_01.ogg
+Loading resource: res://.godot/imported/zap_01.ogg-5238ffa1f2914ff187ce796ba154f79c.oggvorbisstr remapped: res://.godot/imported/zap_01.ogg-5238ffa1f2914ff187ce796ba154f79c.oggvorbisstr
+Completed load for: 'res://audio/sfx/zap_01.ogg' remapped 'res://audio/sfx/zap_01.ogg' at thread -1
+Loading resource: res://audio/sfx/rattle_01.ogg remapped: res://audio/sfx/rattle_01.ogg
+Loading resource: res://.godot/imported/rattle_01.ogg-4c4431290ac34c787eb68b8b379c1be6.oggvorbisstr remapped: res://.godot/imported/rattle_01.ogg-4c4431290ac34c787eb68b8b379c1be6.oggvorbisstr
+Completed load for: 'res://audio/sfx/rattle_01.ogg' remapped 'res://audio/sfx/rattle_01.ogg' at thread -1
+Loading resource: res://audio/sfx/chomp_01.ogg remapped: res://audio/sfx/chomp_01.ogg
+Loading resource: res://.godot/imported/chomp_01.ogg-d3b9f1f53d5b7f908c83f46f4278091c.oggvorbisstr remapped: res://.godot/imported/chomp_01.ogg-d3b9f1f53d5b7f908c83f46f4278091c.oggvorbisstr
+Completed load for: 'res://audio/sfx/chomp_01.ogg' remapped 'res://audio/sfx/chomp_01.ogg' at thread -1
+Loading resource: res://audio/sfx/chomp_02.ogg remapped: res://audio/sfx/chomp_02.ogg
+Loading resource: res://.godot/imported/chomp_02.ogg-4bc883e3c9ad687482fcb16c64b66799.oggvorbisstr remapped: res://.godot/imported/chomp_02.ogg-4bc883e3c9ad687482fcb16c64b66799.oggvorbisstr
+Completed load for: 'res://audio/sfx/chomp_02.ogg' remapped 'res://audio/sfx/chomp_02.ogg' at thread -1
+Loading resource: res://audio/sfx/thunder_01.ogg remapped: res://audio/sfx/thunder_01.ogg
+Loading resource: res://.godot/imported/thunder_01.ogg-629c27c32aeb42736e68bd63d2a84732.oggvorbisstr remapped: res://.godot/imported/thunder_01.ogg-629c27c32aeb42736e68bd63d2a84732.oggvorbisstr
+Completed load for: 'res://audio/sfx/thunder_01.ogg' remapped 'res://audio/sfx/thunder_01.ogg' at thread -1
+Loading resource: res://audio/sfx/thunder_02.ogg remapped: res://audio/sfx/thunder_02.ogg
+Loading resource: res://.godot/imported/thunder_02.ogg-c98220f3b8baaed70e7c9ab31b0465f0.oggvorbisstr remapped: res://.godot/imported/thunder_02.ogg-c98220f3b8baaed70e7c9ab31b0465f0.oggvorbisstr
+Completed load for: 'res://audio/sfx/thunder_02.ogg' remapped 'res://audio/sfx/thunder_02.ogg' at thread -1
+Loading resource: res://audio/sfx/thunder_03.ogg remapped: res://audio/sfx/thunder_03.ogg
+Loading resource: res://.godot/imported/thunder_03.ogg-0b751f6d9a0d1e5a3560616fef7db5bd.oggvorbisstr remapped: res://.godot/imported/thunder_03.ogg-0b751f6d9a0d1e5a3560616fef7db5bd.oggvorbisstr
+Completed load for: 'res://audio/sfx/thunder_03.ogg' remapped 'res://audio/sfx/thunder_03.ogg' at thread -1
+Loading resource: res://audio/sfx/thunder_04.ogg remapped: res://audio/sfx/thunder_04.ogg
+Loading resource: res://.godot/imported/thunder_04.ogg-f76a49d81f39993d9314e858143182c9.oggvorbisstr remapped: res://.godot/imported/thunder_04.ogg-f76a49d81f39993d9314e858143182c9.oggvorbisstr
+Completed load for: 'res://audio/sfx/thunder_04.ogg' remapped 'res://audio/sfx/thunder_04.ogg' at thread -1
+Loading resource: res://audio/sfx/phone_pickup_01.ogg remapped: res://audio/sfx/phone_pickup_01.ogg
+Loading resource: res://.godot/imported/phone_pickup_01.ogg-2572299cf19c0dd3aae963cdbaa4accf.oggvorbisstr remapped: res://.godot/imported/phone_pickup_01.ogg-2572299cf19c0dd3aae963cdbaa4accf.oggvorbisstr
+Completed load for: 'res://audio/sfx/phone_pickup_01.ogg' remapped 'res://audio/sfx/phone_pickup_01.ogg' at thread -1
+Loading resource: res://audio/sfx/phone_hangup_01.ogg remapped: res://audio/sfx/phone_hangup_01.ogg
+Loading resource: res://.godot/imported/phone_hangup_01.ogg-247894cba881b1042e901e2d5aa077e6.oggvorbisstr remapped: res://.godot/imported/phone_hangup_01.ogg-247894cba881b1042e901e2d5aa077e6.oggvorbisstr
+Completed load for: 'res://audio/sfx/phone_hangup_01.ogg' remapped 'res://audio/sfx/phone_hangup_01.ogg' at thread -1
+Loading resource: res://audio/sfx/phone_ring_01.ogg remapped: res://audio/sfx/phone_ring_01.ogg
+Loading resource: res://.godot/imported/phone_ring_01.ogg-4c410e976206aaf10fba1738a760dd10.oggvorbisstr remapped: res://.godot/imported/phone_ring_01.ogg-4c410e976206aaf10fba1738a760dd10.oggvorbisstr
+Completed load for: 'res://audio/sfx/phone_ring_01.ogg' remapped 'res://audio/sfx/phone_ring_01.ogg' at thread -1
+Loading resource: res://audio/sfx/phone_voice_01.ogg remapped: res://audio/sfx/phone_voice_01.ogg
+Loading resource: res://.godot/imported/phone_voice_01.ogg-ea46a03d7bfc5a451fcb5a2d87db88d0.oggvorbisstr remapped: res://.godot/imported/phone_voice_01.ogg-ea46a03d7bfc5a451fcb5a2d87db88d0.oggvorbisstr
+Completed load for: 'res://audio/sfx/phone_voice_01.ogg' remapped 'res://audio/sfx/phone_voice_01.ogg' at thread -1
+Loading resource: res://audio/sfx/ui_move_01.ogg remapped: res://audio/sfx/ui_move_01.ogg
+Loading resource: res://.godot/imported/ui_move_01.ogg-3b5b40f26fcd50a51e8b430ae18da4d6.oggvorbisstr remapped: res://.godot/imported/ui_move_01.ogg-3b5b40f26fcd50a51e8b430ae18da4d6.oggvorbisstr
+Completed load for: 'res://audio/sfx/ui_move_01.ogg' remapped 'res://audio/sfx/ui_move_01.ogg' at thread -1
+Loading resource: res://audio/sfx/ui_move_02.ogg remapped: res://audio/sfx/ui_move_02.ogg
+Loading resource: res://.godot/imported/ui_move_02.ogg-54d1f589a63abdb7a93046cc1381bbd8.oggvorbisstr remapped: res://.godot/imported/ui_move_02.ogg-54d1f589a63abdb7a93046cc1381bbd8.oggvorbisstr
+Completed load for: 'res://audio/sfx/ui_move_02.ogg' remapped 'res://audio/sfx/ui_move_02.ogg' at thread -1
+Loading resource: res://audio/sfx/ui_move_03.ogg remapped: res://audio/sfx/ui_move_03.ogg
+Loading resource: res://.godot/imported/ui_move_03.ogg-794a8d2457e5fae7a83e6fe4222ebc4c.oggvorbisstr remapped: res://.godot/imported/ui_move_03.ogg-794a8d2457e5fae7a83e6fe4222ebc4c.oggvorbisstr
+Completed load for: 'res://audio/sfx/ui_move_03.ogg' remapped 'res://audio/sfx/ui_move_03.ogg' at thread -1
+Loading resource: res://audio/sfx/ui_confirm_01.ogg remapped: res://audio/sfx/ui_confirm_01.ogg
+Loading resource: res://.godot/imported/ui_confirm_01.ogg-9ebdb48dfd7b8212a8e0ea6d4aa2e4ad.oggvorbisstr remapped: res://.godot/imported/ui_confirm_01.ogg-9ebdb48dfd7b8212a8e0ea6d4aa2e4ad.oggvorbisstr
+Completed load for: 'res://audio/sfx/ui_confirm_01.ogg' remapped 'res://audio/sfx/ui_confirm_01.ogg' at thread -1
+Loading resource: res://audio/sfx/ui_confirm_02.ogg remapped: res://audio/sfx/ui_confirm_02.ogg
+Loading resource: res://.godot/imported/ui_confirm_02.ogg-f45ef480cd25f0f0bc79005d82b2e1ca.oggvorbisstr remapped: res://.godot/imported/ui_confirm_02.ogg-f45ef480cd25f0f0bc79005d82b2e1ca.oggvorbisstr
+Completed load for: 'res://audio/sfx/ui_confirm_02.ogg' remapped 'res://audio/sfx/ui_confirm_02.ogg' at thread -1
+Loading resource: res://audio/sfx/ui_confirm_03.ogg remapped: res://audio/sfx/ui_confirm_03.ogg
+Loading resource: res://.godot/imported/ui_confirm_03.ogg-e269a7778246fec9034603ddccb5b823.oggvorbisstr remapped: res://.godot/imported/ui_confirm_03.ogg-e269a7778246fec9034603ddccb5b823.oggvorbisstr
+Completed load for: 'res://audio/sfx/ui_confirm_03.ogg' remapped 'res://audio/sfx/ui_confirm_03.ogg' at thread -1
+Loading resource: res://audio/sfx/ui_cancel_01.ogg remapped: res://audio/sfx/ui_cancel_01.ogg
+Loading resource: res://.godot/imported/ui_cancel_01.ogg-a6ea79a9bb0342af329a865d1dd73b58.oggvorbisstr remapped: res://.godot/imported/ui_cancel_01.ogg-a6ea79a9bb0342af329a865d1dd73b58.oggvorbisstr
+Completed load for: 'res://audio/sfx/ui_cancel_01.ogg' remapped 'res://audio/sfx/ui_cancel_01.ogg' at thread -1
+Loading resource: res://audio/sfx/ui_cancel_02.ogg remapped: res://audio/sfx/ui_cancel_02.ogg
+Loading resource: res://.godot/imported/ui_cancel_02.ogg-ee72b86660b1e49d92b9d152507a191d.oggvorbisstr remapped: res://.godot/imported/ui_cancel_02.ogg-ee72b86660b1e49d92b9d152507a191d.oggvorbisstr
+Completed load for: 'res://audio/sfx/ui_cancel_02.ogg' remapped 'res://audio/sfx/ui_cancel_02.ogg' at thread -1
+Loading resource: res://audio/sfx/ui_cancel_03.ogg remapped: res://audio/sfx/ui_cancel_03.ogg
+Loading resource: res://.godot/imported/ui_cancel_03.ogg-78f9af236463f4ae616c720b7843741d.oggvorbisstr remapped: res://.godot/imported/ui_cancel_03.ogg-78f9af236463f4ae616c720b7843741d.oggvorbisstr
+Completed load for: 'res://audio/sfx/ui_cancel_03.ogg' remapped 'res://audio/sfx/ui_cancel_03.ogg' at thread -1
+Loading resource: res://audio/sfx/ui_error_01.ogg remapped: res://audio/sfx/ui_error_01.ogg
+Loading resource: res://.godot/imported/ui_error_01.ogg-4371c6ab5bbea5942ff68bfa9861e5f9.oggvorbisstr remapped: res://.godot/imported/ui_error_01.ogg-4371c6ab5bbea5942ff68bfa9861e5f9.oggvorbisstr
+Completed load for: 'res://audio/sfx/ui_error_01.ogg' remapped 'res://audio/sfx/ui_error_01.ogg' at thread -1
+Loading resource: res://audio/sfx/amb_rain_01.ogg remapped: res://audio/sfx/amb_rain_01.ogg
+Loading resource: res://.godot/imported/amb_rain_01.ogg-1ef12a94ed3cb53738bf0b6ebf8ece90.oggvorbisstr remapped: res://.godot/imported/amb_rain_01.ogg-1ef12a94ed3cb53738bf0b6ebf8ece90.oggvorbisstr
+Completed load for: 'res://audio/sfx/amb_rain_01.ogg' remapped 'res://audio/sfx/amb_rain_01.ogg' at thread -1
+Loading resource: res://audio/sfx/amb_rain_light_01.ogg remapped: res://audio/sfx/amb_rain_light_01.ogg
+Loading resource: res://.godot/imported/amb_rain_light_01.ogg-0de8b55660392a329cd7a04da240196d.oggvorbisstr remapped: res://.godot/imported/amb_rain_light_01.ogg-0de8b55660392a329cd7a04da240196d.oggvorbisstr
+Completed load for: 'res://audio/sfx/amb_rain_light_01.ogg' remapped 'res://audio/sfx/amb_rain_light_01.ogg' at thread -1
+Loading resource: res://audio/sfx/amb_wind_01.ogg remapped: res://audio/sfx/amb_wind_01.ogg
+Loading resource: res://.godot/imported/amb_wind_01.ogg-02bd16dd4949b5fd9dab73d296c379bf.oggvorbisstr remapped: res://.godot/imported/amb_wind_01.ogg-02bd16dd4949b5fd9dab73d296c379bf.oggvorbisstr
+Completed load for: 'res://audio/sfx/amb_wind_01.ogg' remapped 'res://audio/sfx/amb_wind_01.ogg' at thread -1
+Loading resource: res://audio/sfx/amb_city_night_01.ogg remapped: res://audio/sfx/amb_city_night_01.ogg
+Loading resource: res://.godot/imported/amb_city_night_01.ogg-4b7a6288cd8a2633c2000c53b9075f95.oggvorbisstr remapped: res://.godot/imported/amb_city_night_01.ogg-4b7a6288cd8a2633c2000c53b9075f95.oggvorbisstr
+Completed load for: 'res://audio/sfx/amb_city_night_01.ogg' remapped 'res://audio/sfx/amb_city_night_01.ogg' at thread -1
+Loading resource: res://audio/sfx/amb_machine_room_01.ogg remapped: res://audio/sfx/amb_machine_room_01.ogg
+Loading resource: res://.godot/imported/amb_machine_room_01.ogg-5362d2c06128f8de1c845307a44f3595.oggvorbisstr remapped: res://.godot/imported/amb_machine_room_01.ogg-5362d2c06128f8de1c845307a44f3595.oggvorbisstr
+Completed load for: 'res://audio/sfx/amb_machine_room_01.ogg' remapped 'res://audio/sfx/amb_machine_room_01.ogg' at thread -1
+Loading resource: res://audio/sfx/amb_ventilation_01.ogg remapped: res://audio/sfx/amb_ventilation_01.ogg
+Loading resource: res://.godot/imported/amb_ventilation_01.ogg-0b150f7226a49d0ed9629e3cda4a76ff.oggvorbisstr remapped: res://.godot/imported/amb_ventilation_01.ogg-0b150f7226a49d0ed9629e3cda4a76ff.oggvorbisstr
+Completed load for: 'res://audio/sfx/amb_ventilation_01.ogg' remapped 'res://audio/sfx/amb_ventilation_01.ogg' at thread -1
+Loading resource: res://audio/sfx/amb_generator_01.ogg remapped: res://audio/sfx/amb_generator_01.ogg
+Loading resource: res://.godot/imported/amb_generator_01.ogg-743c4b8d790a0b72523daff809383425.oggvorbisstr remapped: res://.godot/imported/amb_generator_01.ogg-743c4b8d790a0b72523daff809383425.oggvorbisstr
+Completed load for: 'res://audio/sfx/amb_generator_01.ogg' remapped 'res://audio/sfx/amb_generator_01.ogg' at thread -1
+Loading resource: res://audio/sfx/amb_drip_01.ogg remapped: res://audio/sfx/amb_drip_01.ogg
+Loading resource: res://.godot/imported/amb_drip_01.ogg-87b49f473ce26785848ada2d6a140aaa.oggvorbisstr remapped: res://.godot/imported/amb_drip_01.ogg-87b49f473ce26785848ada2d6a140aaa.oggvorbisstr
+Completed load for: 'res://audio/sfx/amb_drip_01.ogg' remapped 'res://audio/sfx/amb_drip_01.ogg' at thread -1
+Loading resource: res://audio/sfx/phone_dial_01.ogg remapped: res://audio/sfx/phone_dial_01.ogg
+Loading resource: res://.godot/imported/phone_dial_01.ogg-849ccfecc8c6328f99f4d4971f641191.oggvorbisstr remapped: res://.godot/imported/phone_dial_01.ogg-849ccfecc8c6328f99f4d4971f641191.oggvorbisstr
+Completed load for: 'res://audio/sfx/phone_dial_01.ogg' remapped 'res://audio/sfx/phone_dial_01.ogg' at thread -1
+Loading resource: res://audio/sfx/phone_dial2_01.ogg remapped: res://audio/sfx/phone_dial2_01.ogg
+Loading resource: res://.godot/imported/phone_dial2_01.ogg-99d265d97d66e4a04f78cfbac3b5162e.oggvorbisstr remapped: res://.godot/imported/phone_dial2_01.ogg-99d265d97d66e4a04f78cfbac3b5162e.oggvorbisstr
+Completed load for: 'res://audio/sfx/phone_dial2_01.ogg' remapped 'res://audio/sfx/phone_dial2_01.ogg' at thread -1
+Loading resource: res://audio/sfx/phone_dial3_01.ogg remapped: res://audio/sfx/phone_dial3_01.ogg
+Loading resource: res://.godot/imported/phone_dial3_01.ogg-594170c426d4facff25e97337d97d15a.oggvorbisstr remapped: res://.godot/imported/phone_dial3_01.ogg-594170c426d4facff25e97337d97d15a.oggvorbisstr
+Completed load for: 'res://audio/sfx/phone_dial3_01.ogg' remapped 'res://audio/sfx/phone_dial3_01.ogg' at thread -1
+Loading resource: res://audio/sfx/step_wood_01.ogg remapped: res://audio/sfx/step_wood_01.ogg
+Loading resource: res://.godot/imported/step_wood_01.ogg-c93b216604ba39c5422d8636f50c9f14.oggvorbisstr remapped: res://.godot/imported/step_wood_01.ogg-c93b216604ba39c5422d8636f50c9f14.oggvorbisstr
+Completed load for: 'res://audio/sfx/step_wood_01.ogg' remapped 'res://audio/sfx/step_wood_01.ogg' at thread -1
+Loading resource: res://audio/sfx/step_wood_02.ogg remapped: res://audio/sfx/step_wood_02.ogg
+Loading resource: res://.godot/imported/step_wood_02.ogg-ba934e4ab40c7926ca7ca404abab8c72.oggvorbisstr remapped: res://.godot/imported/step_wood_02.ogg-ba934e4ab40c7926ca7ca404abab8c72.oggvorbisstr
+Completed load for: 'res://audio/sfx/step_wood_02.ogg' remapped 'res://audio/sfx/step_wood_02.ogg' at thread -1
+Loading resource: res://audio/sfx/step_wood_03.ogg remapped: res://audio/sfx/step_wood_03.ogg
+Loading resource: res://.godot/imported/step_wood_03.ogg-f81391cbf50462f0276a000073d9bd6d.oggvorbisstr remapped: res://.godot/imported/step_wood_03.ogg-f81391cbf50462f0276a000073d9bd6d.oggvorbisstr
+Completed load for: 'res://audio/sfx/step_wood_03.ogg' remapped 'res://audio/sfx/step_wood_03.ogg' at thread -1
+Loading resource: res://audio/sfx/step_dirt_01.ogg remapped: res://audio/sfx/step_dirt_01.ogg
+Loading resource: res://.godot/imported/step_dirt_01.ogg-b4668231f17afa443f1bbf38ad4d8d93.oggvorbisstr remapped: res://.godot/imported/step_dirt_01.ogg-b4668231f17afa443f1bbf38ad4d8d93.oggvorbisstr
+Completed load for: 'res://audio/sfx/step_dirt_01.ogg' remapped 'res://audio/sfx/step_dirt_01.ogg' at thread -1
+Loading resource: res://audio/sfx/step_dirt_02.ogg remapped: res://audio/sfx/step_dirt_02.ogg
+Loading resource: res://.godot/imported/step_dirt_02.ogg-98cf44b235b19148c3be742254c4c13e.oggvorbisstr remapped: res://.godot/imported/step_dirt_02.ogg-98cf44b235b19148c3be742254c4c13e.oggvorbisstr
+Completed load for: 'res://audio/sfx/step_dirt_02.ogg' remapped 'res://audio/sfx/step_dirt_02.ogg' at thread -1
+Loading resource: res://audio/sfx/step_dirt_03.ogg remapped: res://audio/sfx/step_dirt_03.ogg
+Loading resource: res://.godot/imported/step_dirt_03.ogg-9b2f798802cc180b636a996b078a6b7c.oggvorbisstr remapped: res://.godot/imported/step_dirt_03.ogg-9b2f798802cc180b636a996b078a6b7c.oggvorbisstr
+Completed load for: 'res://audio/sfx/step_dirt_03.ogg' remapped 'res://audio/sfx/step_dirt_03.ogg' at thread -1
+Loading resource: res://audio/sfx/land_wood_01.ogg remapped: res://audio/sfx/land_wood_01.ogg
+Loading resource: res://.godot/imported/land_wood_01.ogg-c2d37d03236412886295ffaf4ae997ca.oggvorbisstr remapped: res://.godot/imported/land_wood_01.ogg-c2d37d03236412886295ffaf4ae997ca.oggvorbisstr
+Completed load for: 'res://audio/sfx/land_wood_01.ogg' remapped 'res://audio/sfx/land_wood_01.ogg' at thread -1
+Loading resource: res://audio/sfx/land_wood_02.ogg remapped: res://audio/sfx/land_wood_02.ogg
+Loading resource: res://.godot/imported/land_wood_02.ogg-4338a4676579224d00d91c398a450b19.oggvorbisstr remapped: res://.godot/imported/land_wood_02.ogg-4338a4676579224d00d91c398a450b19.oggvorbisstr
+Completed load for: 'res://audio/sfx/land_wood_02.ogg' remapped 'res://audio/sfx/land_wood_02.ogg' at thread -1
+Loading resource: res://audio/sfx/land_dirt_01.ogg remapped: res://audio/sfx/land_dirt_01.ogg
+Loading resource: res://.godot/imported/land_dirt_01.ogg-5ac2baec32c71aceb7f6a590932647d7.oggvorbisstr remapped: res://.godot/imported/land_dirt_01.ogg-5ac2baec32c71aceb7f6a590932647d7.oggvorbisstr
+Completed load for: 'res://audio/sfx/land_dirt_01.ogg' remapped 'res://audio/sfx/land_dirt_01.ogg' at thread -1
+Loading resource: res://data/feel/sound_events.json remapped: res://data/feel/sound_events.json
+Completed load for: 'res://data/feel/sound_events.json' remapped 'res://data/feel/sound_events.json' at thread -1
+Loading resource: res://data/audio/ambience.json remapped: res://data/audio/ambience.json
+Completed load for: 'res://data/audio/ambience.json' remapped 'res://data/audio/ambience.json' at thread -1
+Loading resource: res://data/audio/music.json remapped: res://data/audio/music.json
+Completed load for: 'res://data/audio/music.json' remapped 'res://data/audio/music.json' at thread -1
+Loading resource: res://data/feel/events.json remapped: res://data/feel/events.json
+Completed load for: 'res://data/feel/events.json' remapped 'res://data/feel/events.json' at thread -1
+Loading resource: res://ui/transition/transition.gdshader remapped: res://ui/transition/transition.gdshader
+Completed load for: 'res://ui/transition/transition.gdshader' remapped 'res://ui/transition/transition.gdshader' at thread -1
+BG23_PID 4764
+BG23_RUNTIME { "major": 4, "minor": 7, "patch": 2, "hex": 263938, "status": "stable", "build": "official", "hash": "ed1daf0bf001b61586d9930840f2f1394092c079", "timestamp": 0, "string": "4.7.2-stable (official)" } renderer=forward_plus
+BG23_EXPECTED_NATIVE_FAILURE user://bg23-intentional-invalid-texture.tres
+Loading resource: user://bg23-intentional-invalid-texture.tres remapped: user://bg23-intentional-invalid-texture.tres
+Failed loading resource: user://bg23-intentional-invalid-texture.tres
+Completed load for: 'user://bg23-intentional-invalid-texture.tres' remapped 'user://bg23-intentional-invalid-texture.tres' at thread 0
+load_threaded_get_status(): No threaded load for resource path 'user://bg23-intentional-invalid-texture.tres' has been initiated or its result has already been collected.
+BG23_SAMPLE {"cached":0,"collected_total":1,"estimated_bytes":0,"evicted_total":0,"failed_total":1,"inflight":0,"inflight_limit":1,"ms":3659,"phase":"failed-request-collected","queued":0,"render_texture_monitor_bytes":0.0,"requested_total":1,"retiring":0,"scope":"","static_memory_bytes":142301327.0}
+BG23_RESULT mode=failure checks=5 failures=0
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"
+
+ERROR: user://bg23-intentional-invalid-texture.tres:3 - Parse Error: Expected value, got 'ERROR'.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+ERROR: Failed loading resource: user://bg23-intentional-invalid-texture.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+WARNING: [AssetPrefetch] 背景載入失敗或請求已不存在：user://bg23-intentional-invalid-texture.tres（狀態 2）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _poll (res://core/asset_prefetch.gd:246)
+       [1] _process (res://core/asset_prefetch.gd:38)

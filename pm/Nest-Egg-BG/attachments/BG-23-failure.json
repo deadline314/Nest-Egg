@@ -1,0 +1,25 @@
+{
+	"checks": 5,
+	"failures": 0,
+	"mode": "failure",
+	"pid": 4764,
+	"samples": [
+		{
+			"cached": 0,
+			"collected_total": 1,
+			"estimated_bytes": 0,
+			"evicted_total": 0,
+			"failed_total": 1,
+			"inflight": 0,
+			"inflight_limit": 1,
+			"ms": 3659,
+			"phase": "failed-request-collected",
+			"queued": 0,
+			"render_texture_monitor_bytes": 0.0,
+			"requested_total": 1,
+			"retiring": 0,
+			"scope": "",
+			"static_memory_bytes": 142301327.0
+		}
+	]
+}

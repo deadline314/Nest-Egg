@@ -1,0 +1,25 @@
+{
+	"checks": 2,
+	"failures": 0,
+	"mode": "shutdown",
+	"pid": 8896,
+	"samples": [
+		{
+			"cached": 0,
+			"collected_total": 1,
+			"estimated_bytes": 0,
+			"evicted_total": 0,
+			"failed_total": 0,
+			"inflight": 1,
+			"inflight_limit": 1,
+			"ms": 3171,
+			"phase": "shutdown-with-active-request",
+			"queued": 0,
+			"render_texture_monitor_bytes": 0.0,
+			"requested_total": 2,
+			"retiring": 0,
+			"scope": "",
+			"static_memory_bytes": 142299703.0
+		}
+	]
+}

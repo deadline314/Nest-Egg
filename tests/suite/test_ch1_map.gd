@@ -41,7 +41,7 @@ func run() -> void:
 	_test_items()
 	_test_entry_point()
 	_test_story_hooks()
-	_test_prefetch()
+	await _test_prefetch()
 	_test_staging()
 	await _test_story_flags()
 	await _test_scenes_play_through()
@@ -534,6 +534,100 @@ func _test_prefetch() -> void:
 	check(AssetPrefetch.warm_level("res://data/levels/ch1_street.tres") >= 0, "an area can be warmed by its path")
 	check(AssetPrefetch.warm_level("res://data/levels/no_such_level.tres") == 0 and AssetPrefetch.warm_level(null) == 0, "a missing path or nothing is skipped")
 
+	check(AssetPrefetch.stats()["inflight"] <= AssetPrefetch.inflight_limit() and AssetPrefetch.stats()["queued"] <= AssetPrefetch.MAX_QUEUED, "neighbor warming has bounded backend loading slots and queue")
+	check(AssetPrefetch.inflight_limit() == (1 if DisplayServer.get_name() == "headless" else 4), "declared backend capacity remains asynchronous one-slot Dummy or four-slot native")
+	AssetPrefetch.clear()
+	await _prefetch_drain()
+	var texture_path := "res://art/weapons/pistol.png"
+	check(AssetPrefetch.request(PackedStringArray([texture_path])) == 1 and AssetPrefetch.request(PackedStringArray([texture_path])) == 0, "one native request owns each texture path")
+	await _prefetch_dispatch()
+	AssetPrefetch.clear()
+	check(AssetPrefetch.stats()["inflight"] == 1 and AssetPrefetch.stats()["cached"] == 0, "clear preserves its outstanding token but drops queued/cache state")
+	await _prefetch_drain()
+	check(ResourceLoader.load_threaded_get_status(texture_path) == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE and AssetPrefetch.stats()["cached"] == 0, "cleared generation is collected without entering the new cache")
+	AssetPrefetch.request(PackedStringArray([texture_path]))
+	await _prefetch_dispatch()
+	var sent_before: int = AssetPrefetch.stats()["requested_total"]
+	AssetPrefetch.clear()
+	AssetPrefetch.request(PackedStringArray([texture_path]))
+	check(AssetPrefetch.stats()["requested_total"] == sent_before and AssetPrefetch.stats()["inflight"] == 1, "same-path request after clear reuses its outstanding native token")
+	var was_paused := runner.get_tree().paused
+	runner.get_tree().paused = true
+	await _prefetch_drain()
+	runner.get_tree().paused = was_paused
+	check(AssetPrefetch.stats()["cached"] == 1 and ResourceLoader.load_threaded_get_status(texture_path) == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE, "current generation is collected and cached even while paused")
+	var other_path := "res://art/weapons/rifle.png"
+	AssetPrefetch.request(PackedStringArray([other_path]))
+	await _prefetch_dispatch()
+	AssetPrefetch.clear()
+	var retiring: int = AssetPrefetch.stats()["retiring"]
+	check(AssetPrefetch.stats()["cached"] == 0 and retiring == (1 if DisplayServer.get_name() == "headless" else 0), "clear during loading defers Dummy cache release without keeping it reusable")
+	AssetPrefetch.clear()
+	check(AssetPrefetch.stats()["retiring"] == retiring and AssetPrefetch.stats()["estimated_bytes"] <= AssetPrefetch.MAX_CACHE_BYTES, "repeated clear cannot accumulate retiring cache references or exceed the estimate")
+	AssetPrefetch.request(PackedStringArray([other_path]))
+	await _prefetch_drain()
+	check(AssetPrefetch.stats()["retiring"] == 0 and AssetPrefetch.stats()["cached"] == 1 and ResourceLoader.load_threaded_get_status(other_path) == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE, "clear and same-path reuse releases old cache before the next background allocation")
+	AssetPrefetch.clear()
+	var tiny := ImageTexture.create_from_image(Image.create(8, 8, false, Image.FORMAT_RGBA8))
+	var held := Sprite2D.new()
+	held.texture = tiny
+	for i in AssetPrefetch.MAX_CACHED:
+		AssetPrefetch._remember("user://bg23-cache-%d.png" % i, tiny)
+	AssetPrefetch.request(PackedStringArray(["user://bg23-cache-0.png"]))
+	AssetPrefetch._remember("user://bg23-cache-extra.png", tiny)
+	check(AssetPrefetch.stats()["cached"] == AssetPrefetch.MAX_CACHED and AssetPrefetch._cache.has("user://bg23-cache-0.png") and not AssetPrefetch._cache.has("user://bg23-cache-1.png"), "cache count evicts the least recently used texture and retains a touched texture")
+	check(held.texture == tiny and held.texture.get_width() == 8, "eviction cannot release a texture still owned by a scene")
+	held.free()
+	AssetPrefetch.clear()
+	AssetPrefetch._remember("user://bg23-budget-a.png", PrefetchSizedTexture.new(4096))
+	AssetPrefetch._remember("user://bg23-budget-b.png", PrefetchSizedTexture.new(4096))
+	check(AssetPrefetch.stats()["cached"] == 1 and AssetPrefetch.stats()["estimated_bytes"] <= AssetPrefetch.MAX_CACHE_BYTES, "managed estimate evicts before its byte budget is exceeded without decoding large test images")
+	AssetPrefetch._remember("user://bg23-too-large.png", PrefetchSizedTexture.new(8192))
+	check(not AssetPrefetch._cache.has("user://bg23-too-large.png"), "an individually oversized estimate is not retained")
+	AssetPrefetch.clear()
+	var candidates := PackedStringArray([texture_path])
+	_prefetch_candidates("res://art", candidates)
+	check(candidates.size() >= AssetPrefetch.MAX_QUEUED + AssetPrefetch.MAX_INFLIGHT + 1, "queue saturation uses distinct real texture paths")
+	for batch in 5:
+		AssetPrefetch.request(candidates.slice(batch * 160, (batch + 1) * 160))
+	check(AssetPrefetch.stats()["queued"] == AssetPrefetch.MAX_QUEUED and AssetPrefetch.stats()["inflight"] == AssetPrefetch.inflight_limit(), "request bursts stop at both queue and declared backend-loading limits")
+	AssetPrefetch.clear()
+	await _prefetch_drain()
+	check(AssetPrefetch.stats()["queued"] == 0 and AssetPrefetch.stats()["inflight"] == 0 and AssetPrefetch.stats()["cached"] == 0, "clear drains only the active burst without decoding the discarded queue")
+
+
+class PrefetchSizedTexture extends Texture2D:
+	var extent: int
+	func _init(size: int) -> void:
+		extent = size
+	func _get_width() -> int:
+		return extent
+	func _get_height() -> int:
+		return extent
+
+
+func _prefetch_drain() -> void:
+	var deadline := Time.get_ticks_msec() + 10000
+	while AssetPrefetch.stats()["inflight"] + AssetPrefetch.stats()["queued"] > 0 and Time.get_ticks_msec() < deadline:
+		await runner.get_tree().process_frame
+	check(AssetPrefetch.stats()["inflight"] + AssetPrefetch.stats()["queued"] == 0, "native prefetch drains without blocking the game frame")
+
+
+func _prefetch_dispatch() -> void:
+	var deadline := Time.get_ticks_msec() + 10000
+	while AssetPrefetch.stats()["inflight"] == 0 and AssetPrefetch.stats()["queued"] > 0 and Time.get_ticks_msec() < deadline:
+		await runner.get_tree().process_frame
+	check(AssetPrefetch.stats()["inflight"] > 0, "preload pump owns its native tokens before clear")
+
+
+func _prefetch_candidates(directory: String, paths: PackedStringArray) -> void:
+	if paths.size() > AssetPrefetch.MAX_QUEUED + AssetPrefetch.MAX_INFLIGHT + 160:
+		return
+	for file in DirAccess.get_files_at(directory):
+		if file.ends_with(".png") and not paths.has(directory.path_join(file)):
+			paths.append(directory.path_join(file))
+	for child in DirAccess.get_directories_at(directory):
+		_prefetch_candidates(directory.path_join(child), paths)
 
 ## 場景結束時設旗標：吃完晚飯才能上樓，聽完差事才能出門。
 func _test_story_flags() -> void:

@@ -1,71 +1,295 @@
 class_name AssetPrefetch
 extends RefCounted
-## 預載：玩家還在別處的時候，用背景執行緒先把「接下來要去的區域」與「接下來要播的過場」用到的貼圖載進資源快取，
-## 進場時 load() 直接拿到，不用當場解碼（第一次進場的卡頓就是從磁碟讀取與解碼貼圖）。
-## 只請求、不等待：請求過的路徑不重複請求；缺檔、請求失敗都略過並記錄，不影響遊戲。
-## 區域的出入口目標、進場過場與劇情觸發點的場景舞台都會預載（見 warm_neighbors）。
+## 有界預載：只有背景請求完成後才領取，額外持有的貼圖使用 LRU 預算。
+## 清除保留進行中請求的追蹤；遊戲影格不等待背景執行緒。
 
-## 一次最多請求的貼圖數量（避免背景載入一口氣占滿記憶體與磁碟）。
 const MAX_REQUESTS_PER_CALL := 160
+const MAX_INFLIGHT := 4
+const MAX_QUEUED := 512
+const MAX_CACHED := 64
+const MAX_CACHE_BYTES := 128 * 1024 * 1024
 const STAGE_DIR := "res://data/cutscene/stages"
 
+## 相容既有診斷工具，僅記有界的 queue／active／cache，不保留全歷史。
 static var _requested: Dictionary[String, bool] = {}
+static var _queued: Dictionary[String, bool] = {}
+static var _active_paths: Array[String] = ["", "", "", ""]
+static var _active_epochs: Array[int] = [0, 0, 0, 0]
+static var _cache: Dictionary[String, Texture2D] = {}
+static var _cache_sizes: Dictionary[String, int] = {}
+static var _cache_bytes := 0
+static var _retiring: Array[Texture2D] = []
+static var _retiring_bytes := 0
+static var _generation := 0
+static var _scope := ""
+static var _pump: Node
+static var _install_pending := false
+static var _sent_total := 0
+static var _collected_total := 0
+static var _failed_total := 0
+static var _evicted_total := 0
 
 
-## 預載一個區域用到的貼圖。data 可以是 LevelData 或 .tres 路徑。回傳新發出的請求數量。
+class Pump extends Node:
+	func _ready() -> void:
+		process_mode = Node.PROCESS_MODE_ALWAYS
+		AssetPrefetch._refresh_pump()
+	func _process(_delta: float) -> void:
+		AssetPrefetch._poll()
+	func _exit_tree() -> void:
+		AssetPrefetch._shutdown()
+
+
+## 預載一個區域；主選單使用此入口建立新範圍，釋放上一輪額外快取。
 static func warm_level(data: Variant) -> int:
-	# 字串不能直接 as 成物件型別（會是執行期錯誤），所以先依型別分流。
-	var level: LevelData = null
-	match typeof(data):
-		TYPE_OBJECT:
-			level = data as LevelData
-		TYPE_STRING, TYPE_STRING_NAME:
-			var path := str(data)
-			if ResourceLoader.exists(path):
-				level = load(path) as LevelData
-			else:
-				push_warning("[AssetPrefetch] 找不到要預載的區域：%s" % path)
+	var level := _resolve_level(data)
 	if level == null:
 		return 0
+	_select_scope("level:%s:%s" % [level.resource_path, level.id], true)
 	return request(level_texture_paths(level))
 
 
-## 預載一個區域的鄰居（出入口通往的區域）與這個區域會播的過場舞台。
+static func _resolve_level(data: Variant) -> LevelData:
+	match typeof(data):
+		TYPE_OBJECT:
+			return data as LevelData
+		TYPE_STRING, TYPE_STRING_NAME:
+			var path := str(data)
+			if ResourceLoader.exists(path):
+				return load(path) as LevelData
+			push_warning("[AssetPrefetch] 找不到要預載的區域：%s" % path)
+	return null
+
+
+## 全部鄰居與過場共用同一範圍，不讓逐個鄰居互相清除。
 static func warm_neighbors(data: LevelData) -> int:
+	if data == null:
+		return 0
+	_select_scope("neighbors:%s:%s" % [data.resource_path, data.id], false)
 	var count := 0
 	var targets: Dictionary[String, bool] = {}
 	for resource in data.legend.values():
 		if resource is PortalData and not (resource as PortalData).target_level.is_empty():
 			targets[(resource as PortalData).target_level] = true
 	for path in targets:
-		count += warm_level(path)
+		var neighbor := _resolve_level(path)
+		if neighbor != null:
+			count += request(level_texture_paths(neighbor))
 	count += request(scene_texture_paths(data.intro_scene))
 	for scene in data.story_triggers:
 		count += request(scene_texture_paths(StringName(scene)))
 	for scene in data.channel_scenes.values():
 		count += request(scene_texture_paths(scene))
-	# 死亡重生後的過場（第一次死亡就播）。
 	for scene in Story.respawn_scene_ids(data.chapter, 1):
 		count += request(scene_texture_paths(scene))
 	return count
 
 
-## 發出背景載入請求；回傳新發出的數量。
+## 回傳新接受的非同步請求數；重複路徑不增加引擎的 user token 次數。
 static func request(paths: PackedStringArray) -> int:
-	var sent := 0
+	var accepted := 0
 	for path in paths:
-		if sent >= MAX_REQUESTS_PER_CALL:
+		if accepted >= MAX_REQUESTS_PER_CALL:
 			break
-		if _requested.has(path) or not ResourceLoader.exists(path):
+		if path.is_empty():
 			continue
+		var active_slot := _active_paths.find(path)
+		if active_slot >= 0:
+			_active_epochs[active_slot] = _generation
+			continue
+		if _requested.has(path):
+			if _cache.has(path):
+				var texture := _cache[path]
+				_cache.erase(path)
+				_cache[path] = texture
+			continue
+		if not ResourceLoader.exists(path):
+			push_warning("[AssetPrefetch] 找不到要預載的貼圖：%s" % path)
+			continue
+		if _queued.size() >= MAX_QUEUED:
+			push_warning("[AssetPrefetch] 待載已達 %d，略過本次剩餘貼圖（首項：%s）。" % [MAX_QUEUED, path])
+			break
 		_requested[path] = true
-		if ResourceLoader.load_threaded_request(path) == OK:
-			sent += 1
-	return sent
+		_queued[path] = true
+		accepted += 1
+	_refresh_pump()
+	if is_instance_valid(_pump) and _pump.is_inside_tree():
+		_dispatch()
+	return accepted
+
+
+static func _select_scope(key: String, release_cache: bool) -> void:
+	if _scope == key:
+		return
+	_reset_scope(key, release_cache)
 
 
 static func clear() -> void:
+	_reset_scope("", true)
+
+
+static func _reset_scope(key: String, release_cache: bool) -> void:
+	_generation += 1
+	_scope = key
+	_queued.clear()
+	if release_cache:
+		# Dummy 的 RID owner 沒有執行緒保護；清除引用也不可與自己的
+		# 背景配置並行。只短暫保留原有 ≤64 份引用，完成領取後釋放。
+		if inflight_limit() == 1 and _active_paths.count("") < MAX_INFLIGHT:
+			for path in _cache:
+				_retiring.append(_cache[path])
+			_retiring_bytes += _cache_bytes
+		_cache.clear()
+		_cache_sizes.clear()
+		_cache_bytes = 0
 	_requested.clear()
+	for path in _cache:
+		_requested[path] = true
+	for path in _active_paths:
+		if not path.is_empty():
+			_requested[path] = true
+	_refresh_pump()
+
+
+## 快照只讀；估算採 RGBA8 加完整 mip chain，不代表實際 RAM 或 VRAM。
+static func stats() -> Dictionary:
+	var active := 0
+	for path in _active_paths:
+		active += 0 if path.is_empty() else 1
+	return {"queued": _queued.size(), "inflight": active, "inflight_limit": inflight_limit(),
+		"cached": _cache.size(), "retiring": _retiring.size(),
+		"estimated_bytes": _cache_bytes + _retiring_bytes, "requested_total": _sent_total,
+		"collected_total": _collected_total, "failed_total": _failed_total,
+		"evicted_total": _evicted_total, "scope": _scope}
+
+
+## 4.7.2 Dummy TextureStorage 的 RID_PtrOwner 非 thread-safe；最小探針
+## 已重現四槽 alloc/free 錯誤，單槽與 Forward+ 四槽均乾淨。
+## 無頭仍用真正非同步請求／領取，只串行配置，沒有停用或 blocking load。
+static func inflight_limit() -> int:
+	return 1 if DisplayServer.get_name() == "headless" else MAX_INFLIGHT
+
+
+static func _refresh_pump() -> void:
+	var working := not _queued.is_empty() or _active_paths.count("") < MAX_INFLIGHT
+	if working and not is_instance_valid(_pump) and not _install_pending:
+		_install_pending = true
+		_install_pump.call_deferred()
+	if is_instance_valid(_pump):
+		_pump.set_process(working)
+
+
+static func _install_pump() -> void:
+	_install_pending = false
+	if is_instance_valid(_pump) or (_queued.is_empty() and _active_paths.count("") == MAX_INFLIGHT):
+		return
+	var tree := Engine.get_main_loop() as SceneTree
+	if tree != null:
+		_pump = Pump.new()
+		_pump.name = "AssetPrefetchPump"
+		_pump.process_mode = Node.PROCESS_MODE_ALWAYS
+		tree.root.add_child(_pump)
+
+
+static func _first_path(entries: Dictionary) -> String:
+	for path: String in entries:
+		return path
+	return ""
+
+
+static func _dispatch() -> void:
+	var attempts := 0
+	while not _queued.is_empty() and attempts < MAX_INFLIGHT:
+		if MAX_INFLIGHT - _active_paths.count("") >= inflight_limit():
+			return
+		var slot := _active_paths.find("")
+		if slot < 0:
+			return
+		var path := _first_path(_queued)
+		_queued.erase(path)
+		attempts += 1
+		var error := ResourceLoader.load_threaded_request(path, "Texture2D")
+		if error == OK:
+			_active_paths[slot] = path
+			_active_epochs[slot] = _generation
+			_sent_total += 1
+		else:
+			_requested.erase(path)
+			_failed_total += 1
+			push_warning("[AssetPrefetch] 無法請求貼圖：%s（%s）" % [path, error_string(error)])
+
+
+## 固定四槽逆序檢查；沒有每影格 keys() 或整佇列副本。
+static func _poll() -> void:
+	for offset in MAX_INFLIGHT:
+		var slot := MAX_INFLIGHT - 1 - offset
+		var path := _active_paths[slot]
+		if path.is_empty():
+			continue
+		var status := ResourceLoader.load_threaded_get_status(path)
+		if status == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+			continue
+		var resource: Resource = null
+		if status != ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
+			resource = ResourceLoader.load_threaded_get(path)
+			_collected_total += 1
+		_active_paths[slot] = ""
+		_requested.erase(path)
+		if not _retiring.is_empty() and _active_paths.count("") == MAX_INFLIGHT:
+			_retiring.clear()
+			_retiring_bytes = 0
+		if status == ResourceLoader.THREAD_LOAD_LOADED and resource is Texture2D:
+			if _active_epochs[slot] == _generation:
+				_remember(path, resource as Texture2D)
+		else:
+			_failed_total += 1
+			push_warning("[AssetPrefetch] 背景載入失敗或請求已不存在：%s（狀態 %d）" % [path, status])
+		# 下一次背景配置前，放掉這個完成結果的最後一份區域引用。
+		resource = null
+	_dispatch()
+	_refresh_pump()
+
+
+static func _remember(path: String, texture: Texture2D) -> void:
+	# 不 get_image()，避免為估算觸發 GPU readback／另一份大像素副本。
+	var estimate := int(ceilf(float(texture.get_width()) * float(texture.get_height()) * 16.0 / 3.0))
+	if estimate <= 0 or estimate > MAX_CACHE_BYTES:
+		return
+	if _cache.has(path):
+		_cache_bytes -= _cache_sizes[path]
+		_cache.erase(path)
+	while not _cache.is_empty() and (_cache.size() >= MAX_CACHED or _cache_bytes + estimate > MAX_CACHE_BYTES):
+		var victim := _first_path(_cache)
+		_cache_bytes -= _cache_sizes[victim]
+		_cache.erase(victim)
+		_cache_sizes.erase(victim)
+		_requested.erase(victim)
+		_evicted_total += 1
+	_cache[path] = texture
+	_cache_sizes[path] = estimate
+	_cache_bytes += estimate
+	_requested[path] = true
+
+
+## 只在整棵 SceneTree 退出時等自己最多四個請求；遊戲中的 clear 不等待。
+static func _shutdown() -> void:
+	_queued.clear()
+	for slot in MAX_INFLIGHT:
+		var path := _active_paths[slot]
+		if path.is_empty():
+			continue
+		if ResourceLoader.load_threaded_get_status(path) != ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
+			ResourceLoader.load_threaded_get(path)
+			_collected_total += 1
+		_active_paths[slot] = ""
+	_cache.clear()
+	_retiring.clear()
+	_retiring_bytes = 0
+	_cache_sizes.clear()
+	_cache_bytes = 0
+	_requested.clear()
+	_scope = ""
+	_pump = null
 
 
 ## 一個區域用到的貼圖：場景擺設（含法線與發光層）、環境主題的地形材質、立面、室內牆面、背景與天空、敵人的角色零件。
@@ -143,5 +367,9 @@ static func _add_with_variants(paths: PackedStringArray, path: String) -> void:
 	paths.append(path)
 	var base := path.get_basename()
 	var ext := path.get_extension()
-	paths.append("%s_n.%s" % [base, ext])
-	paths.append("%s_glow.%s" % [base, ext])
+	var normal := "%s_n.%s" % [base, ext]
+	if ResourceLoader.exists(normal):
+		paths.append(normal)
+	var glow := "%s_glow.%s" % [base, ext]
+	if ResourceLoader.exists(glow):
+		paths.append(glow)
