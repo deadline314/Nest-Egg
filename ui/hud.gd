@@ -23,6 +23,7 @@ var boss_bar: BossBar
 var toast_banner: UiBanner
 var quest_guidance: QuestGuidance
 var _controls: Label
+var _items_template := ""
 
 
 func _ready() -> void:
@@ -115,10 +116,15 @@ func _ready() -> void:
 
 func _refresh_controls() -> void:
 	_controls.text = controls_hint()
+	_items_label.text = InputBindings.format(_items_template)
+	cyber_gauge.tooltip_text = InputBindings.format("義體能力：{ability} 使用；電量隨時間與擊敗敵人回復")
 
 
 static func controls_hint() -> String:
-	return InputBindings.format(CONTROLS_TEMPLATE)
+	var template := CONTROLS_TEMPLATE
+	if InputBindings.using_gamepad:
+		template = template.replace("／1～4", "")
+	return InputBindings.format(template)
 
 
 func _process(_delta: float) -> void:
@@ -163,8 +169,9 @@ func _on_consumables_changed(bag: ConsumableBag) -> void:
 	for item in ConsumableBag.catalog():
 		var count := bag.count(item.id)
 		if count > 0:
-			parts.append("%s ×%d%s" % [item.display_name, count, InputBindings.format("　{use_item}") if item.quick_use else ""])
-	_items_label.text = "　".join(parts)
+			parts.append("%s ×%d%s" % [item.display_name, count, "　{use_item}" if item.quick_use else ""])
+	_items_template = "　".join(parts)
+	_items_label.text = InputBindings.format(_items_template)
 
 
 func _on_vehicle_mounted(_vehicle: Node2D) -> void:

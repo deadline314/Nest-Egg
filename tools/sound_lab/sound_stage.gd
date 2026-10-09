@@ -74,6 +74,7 @@ func set_speed(value: float) -> void:
 
 func set_free_play(on: bool) -> void:
 	_free_play = on
+	arena.set_synthetic_aim(not on)
 	if on:
 		_input_lock.unlock()
 	else:

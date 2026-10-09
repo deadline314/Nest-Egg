@@ -19,7 +19,7 @@ const TABS_LEFT := 96.0
 const TAB_GAP := 4
 const TAB_MAX_WIDTH := 104.0
 const LEGEND_WIDTH := 292.0
-const LEGEND_TEMPLATE := "{inventory} 關閉　Q／E 切換分頁　↑↓ 選擇　Enter 確認"
+const LEGEND_TEMPLATE := "{inventory} 關閉　{inventory_prev_tab}/{inventory_next_tab} 分頁　↑↓ 選擇　{ui_accept} 確認"
 
 ## 死亡或過關時由關卡關閉，避免和結算畫面同時出現。
 var allowed := true
@@ -55,6 +55,7 @@ func _ready() -> void:
 	_context.message.connect(_show_message)
 	_build_layout()
 	_create_pages()
+	InputBindings.bindings_changed.connect(_refresh_legend)
 	_set_open_state(false)
 
 
@@ -117,7 +118,7 @@ func open() -> void:
 		page.visible = false
 	_show_page(_current, false)
 	_refresh_tab_labels()
-	_legend_label.text = InputBindings.format(_legend_template())
+	_refresh_legend()
 	_play_open_animation()
 	Sfx.play(&"ui_confirm", -8.0, 0.0)
 	opened.emit()
@@ -127,6 +128,7 @@ func close() -> void:
 	if not _is_open:
 		return
 	_is_open = false
+	InputBindings.clear_held_inputs()
 	_pages[_current].page_hidden()
 	# 遊戲立刻繼續，關閉動畫只是視覺上的收合。
 	get_tree().paused = false
@@ -221,7 +223,14 @@ func _screen_title() -> String:
 
 ## 底部右側的操作提示（可用 {動作} 佔位符）。
 func _legend_template() -> String:
+	if InputBindings.using_gamepad:
+		return "{ui_cancel} 返回　{inventory_prev_tab}/{inventory_next_tab} 分頁　{ui_accept} 確認"
 	return LEGEND_TEMPLATE
+
+
+func _refresh_legend() -> void:
+	if _is_open:
+		_legend_label.text = InputBindings.format(_legend_template())
 
 
 ## 這個畫面是否由背包鍵開啟（補給點之類由場景物件開啟的畫面覆寫成 false）。

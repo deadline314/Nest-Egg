@@ -19,6 +19,8 @@ var _controls_label: Label
 var _status_label: Label
 var _navigation: QuestMapScreen
 var _settings: SettingsScreen
+var _quest_button: Button
+var _map_button: Button
 
 
 func _ready() -> void:
@@ -37,8 +39,10 @@ func _ready() -> void:
 	_menu_panel = menu
 	_resume_button = UiKit.button("繼續", close, "回到遊戲")
 	menu.body.add_child(_resume_button)
-	menu.body.add_child(UiKit.button("任務", _open_navigation.bind("quests"), InputBindings.format("查看任務並釘選目標；快捷鍵 {quests}。")))
-	menu.body.add_child(UiKit.button("地圖", _open_navigation.bind("region"), InputBindings.format("查看區域與世界地圖；快捷鍵 {map}。")))
+	_quest_button = UiKit.button("任務", _open_navigation.bind("quests"))
+	_map_button = UiKit.button("地圖", _open_navigation.bind("region"))
+	menu.body.add_child(_quest_button)
+	menu.body.add_child(_map_button)
 	menu.body.add_child(UiKit.button("設定", _open_settings, "音量、按鍵、顯示"))
 	menu.body.add_child(UiKit.button("從檢查點重來", _on_retry, "回到最後的檢查點，武器保留"))
 	menu.body.add_child(UiKit.button("回主選單", _on_menu, "放棄這次進度"))
@@ -55,6 +59,15 @@ func _ready() -> void:
 	_controls_label = UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED)
 	info.body.add_child(_controls_label)
 	_root.visible = false
+	InputBindings.bindings_changed.connect(_on_bindings_changed)
+	_on_bindings_changed()
+
+
+func _on_bindings_changed() -> void:
+	_quest_button.tooltip_text = "查看任務步驟並釘選目標。" if InputBindings.using_gamepad else InputBindings.format("查看任務並釘選目標；快捷鍵 {quests}。")
+	_map_button.tooltip_text = "查看目前區域與世界地圖。" if InputBindings.using_gamepad else InputBindings.format("查看區域與世界地圖；快捷鍵 {map}。")
+	if _root.visible:
+		_refresh_info()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -97,6 +110,7 @@ func close() -> void:
 	if _root.visible:
 		Sfx.play(&"ui_cancel", -8.0, 0.0)
 	_root.visible = false
+	InputBindings.clear_held_inputs()
 	get_tree().paused = false
 	UiKit.set_cursor_visible(false)
 

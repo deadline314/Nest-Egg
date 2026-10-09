@@ -16,6 +16,12 @@ var level: Level
 var source_revision := ""
 
 
+func _exit_tree() -> void:
+	if is_instance_valid(level) and is_instance_valid(level.player):
+		AimInput.set_virtual_gamepad(level.player, false)
+	Input.action_release(&"aim_right")
+
+
 func _ready() -> void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--out="):
@@ -174,6 +180,8 @@ func _open_level(path: String) -> void:
 
 
 func _close_level() -> void:
+	if is_instance_valid(level) and is_instance_valid(level.player):
+		AimInput.set_virtual_gamepad(level.player, false)
 	for action in [&"shoot", &"move_right", &"jump", &"interact", &"aim_right"]:
 		Input.action_release(action)
 	GameplayLock.set_base_paused(false)
@@ -228,6 +236,7 @@ func _game() -> void:
 					level.player.cyber._ability = (load("res://data/abilities/overclock.tres") as CyberAbilityData).duplicate()
 					level.player.cyber._ability.magnitude = rate - 1.0
 					level.player.cyber._active_left = 10.0 if rate > 1.0 else 0.0
+					AimInput.set_virtual_gamepad(level.player, true)
 					Input.action_press(&"aim_right")
 					_begin()
 					Input.action_press(&"shoot")
@@ -236,6 +245,8 @@ func _game() -> void:
 					await _wait(maxf(0.7, weapon.fire_interval / rate * 2.3))
 					Input.action_release(&"shoot")
 					await _wait(0.8)
+					Input.action_release(&"aim_right")
+					AimInput.set_virtual_gamepad(level.player, false)
 					_end(name + "_" + weapon_id + "_x" + str(int(rate)), {"level": path, "weapon": weapon_id,
 						"rate": rate, "method": "real held-fire input; selected weapon; injected overclock magnitude for 2x; BGM muted"})
 		if name == "ch1_booth_alley":

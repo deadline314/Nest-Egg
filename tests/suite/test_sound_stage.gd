@@ -75,8 +75,10 @@ func _test_cancel_and_replace() -> void:
 	check(not _stage.running and Sfx.preview_ids().is_empty(), "stopping leaves nothing running or replaced")
 	_stage.set_free_play(true)
 	check(_stage.is_free_play() and not InputMap.action_get_events(&"shoot").is_empty(), "free play gives the keyboard and mouse back")
+	check(not _stage.arena.player.has_meta(AimInput.VIRTUAL_GAMEPAD_META), "free play removes the stage actor's virtual aim source")
 	_stage.set_free_play(false)
 	check(not _stage.is_free_play() and InputMap.action_get_events(&"shoot").is_empty(), "and locks them again")
+	check(_stage.arena.player.has_meta(AimInput.VIRTUAL_GAMEPAD_META), "scripted stage actions explicitly restore the actor's virtual aim source")
 	_stage.speed = 0.01
 	check(is_equal_approx(_stage.speed, SoundStage.MIN_SPEED), "the speed cannot go below the minimum")
 	_stage.speed = TEST_SPEED_UP / 3.0

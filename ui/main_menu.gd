@@ -25,6 +25,7 @@ var _confirm_button: Button
 var _dev_button: Button
 var _cards: Array[UiCard] = []
 var _time := 0.0
+var _legends: Array[Label] = []
 
 
 func _ready() -> void:
@@ -50,6 +51,8 @@ func _ready() -> void:
 	_ui.add_child(_make_shade())
 	_build_main_page()
 	_build_difficulty_page()
+	InputBindings.bindings_changed.connect(_refresh_legends)
+	_refresh_legends()
 	_show_page(_main_page)
 	_start_button.grab_focus.call_deferred()
 
@@ -129,9 +132,7 @@ func _build_main_page() -> void:
 	_hint.size = Vector2(260, 16)
 	_main_page.add_child(_hint)
 
-	var legend := UiKit.label(InputBindings.format("↑↓ 選擇　Enter 確認　Esc 返回"), UiKit.FS_BODY, Palette.UI_MUTED)
-	legend.position = Vector2(38, 334)
-	_main_page.add_child(legend)
+	_add_legend(_main_page)
 	var version := UiKit.label(VERSION_TEXT, UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
 	_main_page.add_child(version)
 	version.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
@@ -213,6 +214,19 @@ func _build_difficulty_page() -> void:
 	var back := UiKit.button("返回", _on_back, "回到主選單")
 	back.custom_minimum_size = Vector2(110, 26)
 	buttons.add_child(back)
+	_add_legend(_difficulty_page)
+
+
+func _add_legend(page: Control) -> void:
+	var legend := UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED)
+	legend.position = Vector2(38, 334)
+	page.add_child(legend)
+	_legends.append(legend)
+
+
+func _refresh_legends() -> void:
+	for legend in _legends:
+		legend.text = InputBindings.format("{ui_up}/{ui_down} 選擇　{ui_accept} 確認　{ui_cancel} 返回")
 
 
 func _make_difficulty_card(difficulty: DifficultyData, group: ButtonGroup) -> UiCard:

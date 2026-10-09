@@ -26,6 +26,7 @@ var _spawned: Array[Node] = []
 var _codex_before: Array = []
 var _codex_guarded := false
 var _culling_before := true
+var _synthetic_aim := true
 
 
 ## 建立場地；完成後 player 可用。可以重複呼叫（會先拆掉舊的）。
@@ -57,6 +58,7 @@ func build(p_lighting: StringName = DEFAULT_LIGHTING, with_audio := false) -> vo
 	level = Level.new()
 	level.configure(data)
 	add_child(level)
+	set_synthetic_aim(_synthetic_aim)
 	for i in SETTLE_FRAMES:
 		await get_tree().process_frame
 	player = level.player
@@ -74,6 +76,8 @@ func build(p_lighting: StringName = DEFAULT_LIGHTING, with_audio := false) -> vo
 
 
 func _exit_tree() -> void:
+	if is_instance_valid(player):
+		AimInput.set_virtual_gamepad(player, false)
 	_release_codex()
 	Enemy.activation_culling_enabled = _culling_before
 
@@ -97,6 +101,8 @@ func _release_codex() -> void:
 
 func teardown() -> void:
 	release_all()
+	if is_instance_valid(player):
+		AimInput.set_virtual_gamepad(player, false)
 	# 舊關卡要先從樹上拿掉：它離開時會通知背景音樂「離開關卡」，要在新關卡進來之前發生，不然會把新關卡的音樂關掉。
 	for node in [level, _environment]:
 		if node != null and is_instance_valid(node):
@@ -291,6 +297,15 @@ func release_all() -> void:
 
 func aim_right() -> void:
 	hold(&"aim_right")
+	set_synthetic_aim(_synthetic_aim)
+
+
+## Preview uses virtual stick actions; free play returns this actor to real devices.
+func set_synthetic_aim(enabled: bool) -> void:
+	_synthetic_aim = enabled
+	var actor := level.player if is_instance_valid(level) else null
+	if is_instance_valid(actor):
+		AimInput.set_virtual_gamepad(actor, enabled)
 
 
 ## 瞄準某個世界座標（用瞄準動作的強度組出方向，所以走的是和手把一樣的真實瞄準路徑）。

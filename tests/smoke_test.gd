@@ -607,6 +607,7 @@ func _test_gameplay() -> void:
 	var hits := [0]
 	EventBus.hit_confirmed.connect(func(_p: Vector2, _k: bool) -> void: hits[0] += 1)
 	# 以右搖桿瞄準向右（無頭環境沒有滑鼠）。
+	AimInput.using_gamepad = true
 	Input.action_press(&"aim_right")
 	Input.action_press(&"move_right")
 	Input.action_press(&"shoot")
@@ -717,6 +718,7 @@ func _test_block_and_parry() -> void:
 	# 清掉關卡原有的敵人，讓格擋測試只受測試子彈影響。
 	for node in get_tree().get_nodes_in_group(&"enemies"):
 		node.free()
+	AimInput.using_gamepad = true
 	Input.action_press(&"aim_right")
 	await _frames(5)
 	Input.action_press(&"block")

@@ -44,6 +44,7 @@ func _test_side_and_fade() -> void:
 	var level := await start_level(PropsSuite.level_data())
 	var tray := level.hud.ammo_tray
 	await frames(30)
+	AimInput.using_gamepad = true  # Synthetic action presses choose their source explicitly.
 	Input.action_press(&"aim_right")
 	await frames(10)
 	var right_side := tray.side()

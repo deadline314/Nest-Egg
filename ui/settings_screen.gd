@@ -30,6 +30,12 @@ var _brightness_slider: HSlider
 var _brightness_value: Label
 ## "action:slot" -> Button
 var _binding_buttons: Dictionary[String, Button] = {}
+var _controller_sliders: Dictionary[String, HSlider] = {}
+var _controller_values: Dictionary[String, Label] = {}
+var _controller_invert: CheckButton
+var _controller_note: Label
+var _cancel_hold: Timer
+var _cancel_hold_pressed := false
 
 var _capturing := false
 var _capture_action: StringName = &""
@@ -38,6 +44,12 @@ var _capture_slot := 0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	_cancel_hold = Timer.new()
+	_cancel_hold.one_shot = true
+	_cancel_hold.wait_time = 0.6
+	_cancel_hold.ignore_time_scale = true
+	_cancel_hold.timeout.connect(_cancel_capture)
+	add_child(_cancel_hold)
 	UiKit.fill_parent(self)
 	if not get_parent() is Control:
 		UiKit.fit_to_viewport(self)
@@ -69,6 +81,7 @@ func _ready() -> void:
 	_tabs.add_child(_build_audio_tab())
 	_tabs.add_child(_build_bindings_tab())
 	_tabs.add_child(_build_display_tab())
+	_tabs.add_child(_build_controller_tab())
 
 	_status = UiKit.label("", 10, Palette.UI_MUTED)
 	layout.add_child(_status)
@@ -82,6 +95,7 @@ func _ready() -> void:
 
 	_bind_hints(_tabs)
 	InputBindings.bindings_changed.connect(_refresh_bindings)
+	InputBindings.controller_options_changed.connect(_sync_controller_options)
 	_refresh_bindings()
 	_set_status("所有變更即時生效並自動儲存。")
 	_focus_first.call_deferred()
@@ -100,6 +114,7 @@ func _bind_hints(node: Node) -> void:
 
 func close() -> void:
 	_cancel_capture()
+	InputBindings.clear_held_inputs()
 	Settings.save_now()
 	closed.emit()
 	queue_free()
@@ -395,6 +410,7 @@ func _build_bindings_tab() -> Control:
 	var scroll := ScrollContainer.new()
 	scroll.name = "按鍵"
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.follow_focus = true
 	var grid := GridContainer.new()
 	grid.columns = 2 + InputBindings.KEY_SLOTS
 	grid.add_theme_constant_override(&"h_separation", 6)
@@ -419,6 +435,67 @@ func _build_bindings_tab() -> Control:
 	return scroll
 
 
+func _build_controller_tab() -> Control:
+	var scroll := ScrollContainer.new()
+	scroll.name = "手把"
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.follow_focus = true
+	var box := VBoxContainer.new()
+	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	box.add_theme_constant_override(&"separation", 10)
+	scroll.add_child(box)
+	box.add_child(_controller_row("aim_deadzone", "瞄準死區", "忽略右搖桿中心的微小偏移。", 10, 60))
+	_controller_invert = CheckButton.new()
+	_controller_invert.text = "反轉瞄準上下"
+	_controller_invert.tooltip_text = "反轉右搖桿上下瞄準方向。"
+	_controller_invert.focus_mode = Control.FOCUS_ALL
+	_controller_invert.button_pressed = InputBindings.get_invert_aim_y()
+	_controller_invert.toggled.connect(InputBindings.set_invert_aim_y)
+	box.add_child(_controller_invert)
+	box.add_child(_controller_row("vibration_strength", "震動強度", "調整射擊、受擊與格擋震動；0為關閉。", 0, 100))
+	_controller_note = UiKit.label("", 11, Palette.UI_MUTED)
+	_controller_note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	box.add_child(_controller_note)
+	return scroll
+
+
+func _controller_row(key: String, title: String, hint: String, minimum: float, maximum: float) -> Control:
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override(&"separation", 10)
+	var label := UiKit.label(title, 12)
+	label.custom_minimum_size.x = LABEL_WIDTH
+	row.add_child(label)
+	var slider := HSlider.new()
+	slider.min_value = minimum
+	slider.max_value = maximum
+	slider.step = 1
+	slider.custom_minimum_size = Vector2(260, 16)
+	slider.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	slider.focus_mode = Control.FOCUS_ALL
+	slider.tooltip_text = hint
+	slider.value = (InputBindings.get_aim_deadzone() if key == "aim_deadzone" else InputBindings.get_vibration_strength()) * 100.0
+	slider.value_changed.connect(func(value: float) -> void:
+		if key == "aim_deadzone":
+			InputBindings.set_aim_deadzone(value / 100.0)
+		else:
+			InputBindings.set_vibration_strength(value / 100.0))
+	row.add_child(slider)
+	var value_label := UiKit.label("%d%%" % roundi(slider.value), 12, Palette.CYAN)
+	value_label.custom_minimum_size.x = 48
+	row.add_child(value_label)
+	_controller_sliders[key] = slider
+	_controller_values[key] = value_label
+	return row
+
+
+func _sync_controller_options() -> void:
+	for key: String in _controller_sliders:
+		var value := InputBindings.get_aim_deadzone() if key == "aim_deadzone" else InputBindings.get_vibration_strength()
+		_controller_sliders[key].set_value_no_signal(value * 100.0)
+		_controller_values[key].text = "%d%%" % roundi(value * 100.0)
+	_controller_invert.set_pressed_no_signal(InputBindings.get_invert_aim_y())
+
+
 func _make_binding_button(action: StringName, slot: int, tooltip: String) -> Button:
 	var button := UiKit.button("", _begin_capture.bind(action, slot), tooltip)
 	button.custom_minimum_size = Vector2(BINDING_WIDTH, 0)
@@ -431,6 +508,7 @@ func _binding_key(action: StringName, slot: int) -> String:
 
 
 func _refresh_bindings() -> void:
+	_controller_note.text = InputBindings.format("{inventory_prev_tab}/{inventory_next_tab}切換分頁；改鍵時短按{ui_cancel}可綁定，長按取消。")
 	for entry in InputBindings.ACTIONS:
 		var action: StringName = entry["id"]
 		for slot in InputBindings.KEY_SLOTS:
@@ -445,15 +523,17 @@ func _begin_capture(action: StringName, slot: int) -> void:
 	_capture_slot = slot
 	_binding_buttons[_binding_key(action, slot)].text = "按下…"
 	if slot == JOY_SLOT:
-		_set_status("為「%s」按下手把按鈕（Esc 取消）" % InputBindings.action_label(action), Palette.WARNING)
+		_set_status(InputBindings.format("按新按鈕；{ui_cancel}短按可綁，長按0.6秒取消。"), Palette.WARNING)
 	else:
-		_set_status("為「%s」按下按鍵或滑鼠鍵（Esc 取消、Backspace 清除）" % InputBindings.action_label(action), Palette.WARNING)
+		_set_status(InputBindings.format("按新按鍵；{ui_cancel}或Esc取消，Backspace清除。"), Palette.WARNING)
 
 
 func _cancel_capture() -> void:
 	if not _capturing:
 		return
 	_capturing = false
+	_cancel_hold_pressed = false
+	_cancel_hold.stop()
 	_refresh_bindings()
 	_set_status("已取消。")
 
@@ -463,16 +543,43 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed(&"ui_cancel"):
 			close()
 			get_viewport().set_input_as_handled()
+		elif event.is_action_pressed(&"inventory_prev_tab") or event.is_action_pressed(&"inventory_next_tab"):
+			var step := -1 if event.is_action_pressed(&"inventory_prev_tab") else 1
+			_tabs.current_tab = posmod(_tabs.current_tab + step, _tabs.get_tab_count())
+			get_viewport().set_input_as_handled()
+		return
+	if event is InputEventAction:
+		# 類比導航轉出的邏輯事件不能移走改鍵視窗焦點。
+		get_viewport().set_input_as_handled()
 		return
 	var pressed_key: bool = event is InputEventKey and event.is_pressed() and not event.is_echo()
 	var pressed_mouse: bool = event is InputEventMouseButton and event.is_pressed()
 	if pressed_key or pressed_mouse:
 		get_viewport().set_input_as_handled()
 		_capture_code(InputBindings.code_from_event(event))
-	elif event is InputEventJoypadButton and event.pressed:
+	elif event is InputEventJoypadButton:
 		get_viewport().set_input_as_handled()
-		if _capture_slot == JOY_SLOT:
-			_finish_capture(InputBindings.set_joy_button(_capture_action, (event as InputEventJoypadButton).button_index))
+		var button := event as InputEventJoypadButton
+		if button.button_index == JOY_BUTTON_B:
+			if _capture_slot != JOY_SLOT and button.pressed:
+				_cancel_capture()
+			elif button.pressed:
+				_cancel_hold_pressed = true
+				_cancel_hold.start()
+			elif _cancel_hold_pressed:
+				_cancel_hold_pressed = false
+				_cancel_hold.stop()
+				_capture_joy(button.button_index)
+		elif button.pressed and _capture_slot == JOY_SLOT:
+			_capture_joy(button.button_index)
+
+
+func _capture_joy(button: int) -> void:
+	var reason := InputBindings.joy_binding_error(_capture_action, button)
+	if not reason.is_empty():
+		_set_status(reason, Palette.DANGER)
+		return
+	_finish_capture(InputBindings.set_joy_button(_capture_action, button))
 
 
 func _capture_code(code: int) -> void:
@@ -493,6 +600,8 @@ func _capture_code(code: int) -> void:
 func _finish_capture(swapped: StringName) -> void:
 	var action := _capture_action
 	_capturing = false
+	_cancel_hold_pressed = false
+	_cancel_hold.stop()
 	_refresh_bindings()
 	var message := "已更新「%s」。" % InputBindings.action_label(action)
 	if swapped != &"":
@@ -514,6 +623,11 @@ func _reset_current_tab() -> void:
 	elif _tabs.current_tab == 1:
 		InputBindings.reset_to_defaults()
 		_set_status("按鍵已恢復預設。", Palette.CYAN)
+	elif _tabs.current_tab == 3:
+		InputBindings.set_aim_deadzone(InputBindings.AIM_DEADZONE_DEFAULT)
+		InputBindings.set_invert_aim_y(false)
+		InputBindings.set_vibration_strength(1.0)
+		_set_status("手把選項已恢復預設。", Palette.CYAN)
 	else:
 		Settings.reset_display()
 		for key: String in _quest_toggles:

@@ -11,6 +11,28 @@ var _scenario := "all"
 ## --brightness=0..1：拍攝時暫時調整亮度設定（看材質細節用；結束後還原）。-1 代表不動。
 var _brightness := -1.0
 var _legacy_exposure := false
+var _scripted_aim_actor: WeakRef
+
+
+func _set_scripted_aim(player: Player, enabled: bool) -> void:
+	if enabled and not is_instance_valid(player):
+		push_error("[Screenshot] Scripted aim requires a live player.")
+		return
+	if is_instance_valid(player):
+		AimInput.set_virtual_gamepad(player, enabled)
+	_scripted_aim_actor = weakref(player) if enabled else null
+	if enabled:
+		Input.action_press(&"aim_right")
+	else:
+		Input.action_release(&"aim_right")
+
+
+func _exit_tree() -> void:
+	if _scripted_aim_actor != null:
+		var actor := _scripted_aim_actor.get_ref() as Player
+		if is_instance_valid(actor):
+			AimInput.set_virtual_gamepad(actor, false)
+	Input.action_release(&"aim_right")
 
 
 func _ready() -> void:
@@ -869,7 +891,7 @@ func _run_normals() -> void:
 	var layout: LevelLayout = level._layout
 	player.global_position = Vector2(20 * layout.tile_size + 8.0, layout.surface_heights[20] - 2.0)
 	level_camera_snap()
-	Input.action_press(&"aim_right")
+	_set_scripted_aim(player, true)
 	var torch := LightKit.create_point_light(Color(1.0, 0.62, 0.3), 170.0, 1.8, false, false)
 	torch.global_position = player.global_position + Vector2(-70, -40)
 	level.add_child(torch)
@@ -879,7 +901,7 @@ func _run_normals() -> void:
 	await _wait(0.5)
 	_capture("normals_low")
 	Settings.set_light_quality(LightQuality.DEFAULT_TIER)
-	Input.action_release(&"aim_right")
+	_set_scripted_aim(player, false)
 
 
 ## 戰鬥光影：爆炸閃光、閃電、低血量暗角、敵人攻擊預兆的紅光。
@@ -899,7 +921,7 @@ func _run_combat_light() -> void:
 	var layout: LevelLayout = level._layout
 	player.global_position = Vector2(30 * layout.tile_size + 8.0, layout.surface_heights[30] - 2.0)
 	level_camera_snap()
-	Input.action_press(&"aim_right")
+	_set_scripted_aim(player, true)
 	await _wait(4.6)
 	_capture("combat_calm")
 	Fx.explosion(player.global_position + Vector2(130, -10), 44.0, 0, Combat.Team.ENEMY, &"test")
@@ -925,7 +947,7 @@ func _run_combat_light() -> void:
 	await _wait(1.4)
 	_capture("combat_low_health")
 	EventBus.player_health_changed.emit(6, 6)
-	Input.action_release(&"aim_right")
+	_set_scripted_aim(player, false)
 
 
 ## 光影品質：霓虹市集在高／低品質的對照、停電時場景燈熄滅，以及設定畫面的光影品質選項。
@@ -945,7 +967,7 @@ func _run_quality() -> void:
 	var layout: LevelLayout = level._layout
 	player.global_position = Vector2(115 * layout.tile_size + 8.0, layout.surface_heights[115] - 2.0)
 	level_camera_snap()
-	Input.action_press(&"aim_right")
+	_set_scripted_aim(player, true)
 	await _wait(4.6)
 	_capture("quality_high")
 	Settings.set_light_quality(LightQuality.Tier.LOW)
@@ -960,7 +982,7 @@ func _run_quality() -> void:
 	await _wait(1.6)
 	_capture("quality_blackout")
 	EventBus.lighting_override_cleared.emit(&"blackout", 0.5)
-	Input.action_release(&"aim_right")
+	_set_scripted_aim(player, false)
 	var settings := SettingsScreen.new()
 	var layer := CanvasLayer.new()
 	layer.layer = 70
@@ -988,14 +1010,14 @@ func _run_brightness() -> void:
 	var layout: LevelLayout = level._layout
 	player.global_position = Vector2(275 * layout.tile_size + 8.0, layout.checkpoints[3].y - 2.0)
 	level_camera_snap()
-	Input.action_press(&"aim_right")
+	_set_scripted_aim(player, true)
 	await _wait(4.6)
 	for value in [0.0, 0.5, 1.0]:
 		Settings.set_brightness(value)
 		await _wait(0.4)
 		_capture("brightness_%d" % int(value * 100.0))
 	Settings.set_brightness(Settings.BRIGHTNESS_DEFAULT)
-	Input.action_release(&"aim_right")
+	_set_scripted_aim(player, false)
 	var settings := SettingsScreen.new()
 	var layer := CanvasLayer.new()
 	layer.layer = 70
@@ -1023,7 +1045,7 @@ func _run_postfx() -> void:
 	var layout: LevelLayout = level._layout
 	player.global_position = Vector2(115 * layout.tile_size + 8.0, layout.surface_heights[115] - 2.0)
 	level_camera_snap()
-	Input.action_press(&"aim_right")
+	_set_scripted_aim(player, true)
 	await _wait(4.6)
 	_capture("postfx_on")
 	level._post.visible = false
@@ -1034,7 +1056,7 @@ func _run_postfx() -> void:
 	await _wait(0.4)
 	_capture("postfx_menu")
 	level._pause_menu.close()
-	Input.action_release(&"aim_right")
+	_set_scripted_aim(player, false)
 
 
 ## 光影：第一章五個區段各一張（環境光、光池、霧、背景），以及停電覆蓋。
@@ -1061,7 +1083,7 @@ func _run_lighting() -> void:
 	# 設施入口是室內，最上面的「地面」是天花板，改用檢查點的高度。
 	for name in ["facility", "corridor", "hangar"]:
 		spots[name].y = layout.checkpoints[3].y - 2.0
-	Input.action_press(&"aim_right")
+	_set_scripted_aim(player, true)
 	for zone in spots:
 		player.global_position = spots[zone]
 		level_camera_snap()
@@ -1074,7 +1096,7 @@ func _run_lighting() -> void:
 			_capture("lighting_blackout")
 			EventBus.lighting_override_cleared.emit(&"blackout", 0.3)
 			await _wait(0.6)
-	Input.action_release(&"aim_right")
+	_set_scripted_aim(player, false)
 
 
 ## 背包：武器與彈藥、消耗品（使用醫療針）、劇情道具（NEW）、角色狀態，以及開啟動畫的中途畫面。
@@ -1269,7 +1291,7 @@ func _run_consumables() -> void:
 	var player := level.player
 	for node in get_tree().get_nodes_in_group(&"enemies"):
 		node.queue_free()
-	Input.action_press(&"aim_right")
+	_set_scripted_aim(player, true)
 	player.global_position = Vector2(760, 240)
 	level_camera_snap()
 	await _wait(4.5)
@@ -1284,7 +1306,7 @@ func _run_consumables() -> void:
 	player.use_consumable(&"med_injector")
 	await _wait(0.12)
 	_capture("consumables_use")
-	Input.action_release(&"aim_right")
+	_set_scripted_aim(player, false)
 
 
 ## 換彈：手槍彈匣偏低的換彈提示、打空後自動換彈（槍口壓低、彈藥環顯示進度）。
@@ -1300,7 +1322,7 @@ func _run_reload() -> void:
 	for node in get_tree().get_nodes_in_group(&"enemies"):
 		node.queue_free()
 	level_camera_snap()
-	Input.action_press(&"aim_right")
+	_set_scripted_aim(player, true)
 	await _wait(4.5)
 	for i in 10:
 		player.loadout.consume_ammo()
@@ -1310,7 +1332,7 @@ func _run_reload() -> void:
 	player.loadout.consume_ammo()
 	await _wait(0.45)
 	_capture("reload_progress")
-	Input.action_release(&"aim_right")
+	_set_scripted_aim(player, false)
 
 
 ## 武器陣容：每把玩家武器各開火一段時間，拼成一張 4×2 的總覽圖。
@@ -1326,7 +1348,7 @@ func _run_weapons() -> void:
 	for node in get_tree().get_nodes_in_group(&"enemies"):
 		node.queue_free()
 	level_camera_snap()
-	Input.action_press(&"aim_right")
+	_set_scripted_aim(player, true)
 	# 等章節標題淡出。
 	await _wait(4.5)
 	var ids := ["pistol", "smg", "rifle", "spread", "launcher", "laser", "railgun"]
@@ -1348,7 +1370,7 @@ func _run_weapons() -> void:
 		tile.resize(320, 180)
 		sheet.blit_rect(tile, Rect2i(Vector2i.ZERO, tile.get_size()), Vector2i((i % 4) * 320, (i / 4) * 180))
 		await _wait(0.4)
-	Input.action_release(&"aim_right")
+	_set_scripted_aim(player, false)
 	var path := _out_dir.path_join("weapons_roster.png")
 	print("saved %s (%s)" % [path, error_string(sheet.save_png(path))])
 
@@ -1366,7 +1388,7 @@ func _run_dynamic_hud() -> void:
 		node.queue_free()
 	level_camera_snap()
 	# 用右搖桿瞄準，不受系統滑鼠位置影響。
-	Input.action_press(&"aim_right")
+	_set_scripted_aim(player, true)
 	await _wait(3.5)
 	_capture("dynamic_hud_idle")
 	var info := DamageInfo.create(2, Combat.Team.ENEMY, &"test")
@@ -1390,7 +1412,7 @@ func _run_dynamic_hud() -> void:
 	await _wait(0.25)
 	_capture("dynamic_hud_break")
 	Input.action_release(&"block")
-	Input.action_release(&"aim_right")
+	_set_scripted_aim(player, false)
 
 
 ## 滑鼠瞄準：準星、擴散、命中標記、武器欄。
@@ -1651,7 +1673,7 @@ func _run_hud() -> void:
 		player.loadout.equip(load("res://data/weapons/%s.tres" % weapon_id))
 	player.global_position = Vector2(330, 320)
 	level_camera_snap()
-	Input.action_press(&"aim_right")
+	_set_scripted_aim(player, true)
 	await _wait(1.0)
 	_capture("hud_idle")
 	player.loadout.select(0)
@@ -1680,7 +1702,7 @@ func _run_hud() -> void:
 		player.loadout.consume_ammo()
 	await _wait(0.4)
 	_capture("hud_empty")
-	Input.action_release(&"aim_right")
+	_set_scripted_aim(player, false)
 	level.queue_free()
 	await _settle(4)
 	await _run_hud_full()
@@ -1704,7 +1726,7 @@ func _run_hud_full() -> void:
 	Progression.credits = 1280
 	Progression.credits_changed.emit(1280, 0)
 	EventBus.player_cyber_changed.emit(100.0, true, "EMP", 1.0)
-	Input.action_press(&"aim_right")
+	_set_scripted_aim(player, true)
 	EventBus.boss_started.emit("監管者", 100)
 	await _wait(0.25)
 	_capture("hud_boss_open")
@@ -1723,7 +1745,7 @@ func _run_hud_full() -> void:
 	await _wait(0.12)
 	_capture("hud_boss_phase")
 	await _wait(1.0)
-	Input.action_release(&"aim_right")
+	_set_scripted_aim(player, false)
 	level.queue_free()
 	await _settle(4)
 

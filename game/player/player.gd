@@ -550,6 +550,7 @@ func _try_fire() -> void:
 	if weapon.recoil > 0.0:
 		velocity -= aim_dir * weapon.recoil * (1.0 if not is_on_floor() else 0.3)
 	_visual.notify_fired(weapon.color)
+	InputBindings.vibrate(0.18, 0.08, 0.05)
 
 
 func _try_dash(input_x: float) -> void:
@@ -811,6 +812,7 @@ func _melee_hit_pass() -> void:
 			HitFeedback.play(target_hurtbox.material_id(), target_hurtbox.global_position, Vector2(-facing, -0.2), Palette.CYAN, {"weak": info.weak_hit})
 	if landed_now and not _melee_feedback_done:
 		_melee_feedback_done = true
+		InputBindings.vibrate(0.25, 0.45 if heavy else 0.2, 0.1)
 		# 延後到物理步驟之後：頓幀會停用自己，不能在自己的物理處理中途做。被打到的敵人在 Enemy 裡依受擊層級自己凍結。
 		var ctx := {"targets": [self], "dir": aim_dir, "origin": global_position}
 		if float(attack["hitstop"]) > 0.0:
@@ -1136,6 +1138,7 @@ func _on_parry(info: DamageInfo, at: Vector2) -> void:
 	Fx.flash_light(at, Palette.CYAN, 110.0, 2.6, 0.25)
 	Sfx.play(&"parry", -2.0, 0.03)
 	_visual.notify_parry()
+	InputBindings.vibrate(0.5, 0.35, 0.12)
 	EventBus.player_parried.emit(at)
 
 
@@ -1151,6 +1154,7 @@ func _on_block(info: DamageInfo, at: Vector2) -> void:
 	PlayerFx.block(at, info.origin - at)
 	Sfx.play(&"block", -4.0)
 	_visual.notify_block()
+	InputBindings.vibrate(0.15, 0.3, 0.09)
 	if guard <= 0.0:
 		_guard_break()
 	_emit_guard()
@@ -1185,6 +1189,7 @@ func _on_damaged(info: DamageInfo) -> void:
 	Fx.flash_light(global_position + Vector2(0, -24), Palette.DANGER, 70.0, 1.5, 0.2)
 	CharacterSounds.play(PLAYER_SOUND_ID, &"hurt", -2.0)
 	_visual.notify_hurt()
+	InputBindings.vibrate(0.15, 0.65, 0.15)
 
 
 func _on_died(info: DamageInfo) -> void:

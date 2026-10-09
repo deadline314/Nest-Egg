@@ -27,7 +27,9 @@ func _opens_with_key() -> bool:
 
 
 func _legend_template() -> String:
-	return "{inventory} 離開　Q／E 切換分頁　↑↓ 選擇　Enter 確認"
+	if InputBindings.using_gamepad:
+		return "{ui_cancel} 返回　{inventory_prev_tab}/{inventory_next_tab} 分頁　{ui_accept} 確認"
+	return "{ui_cancel} 離開　{inventory_prev_tab}/{inventory_next_tab} 分頁　↑↓ 選擇　{ui_accept} 確認"
 
 
 ## 分頁依貨架的功能決定：有商品就有貨架、收購就有典當、工作檯就有改裝。
