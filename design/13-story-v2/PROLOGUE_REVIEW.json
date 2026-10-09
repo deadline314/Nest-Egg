@@ -1,0 +1,134 @@
+{
+  "ticket": "ST-16",
+  "baseline": "5366453717f9488d16b661a67299a7ad6360f242",
+  "status": "passed_source_review",
+  "script": {
+    "path": "design/13-story-v2/PROLOGUE_SCRIPT.md",
+    "sha256": "1dd72db75cb2926dc9019fee0352a961979ac1033c647ab7324a2e632b12bde6",
+    "lines": 283
+  },
+  "inputs": [
+    {
+      "path": "design/13-story-v2/PROLOGUE.md",
+      "sha256": "d8753de9111147a35bd0e4018b276941885ff7be11d1c464d0866ad7465023a4"
+    },
+    {
+      "path": "design/13-story-v2/WORLD.md",
+      "sha256": "bbc8aa37b0391498f32ca9c18c236640dcf85c1e231bb0e2b2c1388b883cf80b"
+    },
+    {
+      "path": "design/13-story-v2/CHARACTERS.md",
+      "sha256": "a5c3106a1b79a2f2421600cb81e90233df3a0c6e5b6492d421913e025c66667f"
+    },
+    {
+      "path": "design/13-story-v2/OUTLINE.md",
+      "sha256": "92c0d784b4beeb6ac5948aae5bb4afac47e6b036d8c83159f5728b331fb501e7"
+    },
+    {
+      "path": "design/13-story-v2/DIALOGUE_READABILITY.md",
+      "sha256": "6d0a79467e0f5fc293c681960027c49426638228c3bc72149c77b8404579f937"
+    },
+    {
+      "path": "design/13-story-v2/CH01_CLOSURE_SCRIPT.md",
+      "sha256": "55afc2af42f109e84563e69f71f2dca2232be2283ac1196a460d14f36a8099d1"
+    },
+    {
+      "path": "design/20-campaign-experience/FIRST_CHAPTER_REVIEW.md",
+      "sha256": "8bccb998ceec5449d1f033eec234caed0e80a109481683f334fb54ddb77a9ff6"
+    },
+    {
+      "path": "design/20-campaign-experience/SCRIPT_REVIEW_GATE.md",
+      "sha256": "04c43814e458076997a0d0d7804e57b14be30eca54a88289a7ef74835a2e58fd"
+    },
+    {
+      "path": "design/20-campaign-experience/CAMPAIGN_NARRATIVE.md",
+      "sha256": "1c09f3ad50c6efc912d3f40f55bc50a533e395829f8afd5047c08b68a3920b8a"
+    }
+  ],
+  "structural_checks": {
+    "ordered_sections": [
+      [
+        "P01",
+        "雨港門前：把門帶上"
+      ],
+      [
+        "P02",
+        "貨架：有陽光的房間"
+      ],
+      [
+        "P03",
+        "店後試貨區：先打背板"
+      ],
+      [
+        "P04",
+        "低傷害訓練器：槍不是每次都用得上"
+      ],
+      [
+        "P05",
+        "公開服務單：不是睡一覺就沒事"
+      ],
+      [
+        "P06",
+        "工作燈：吃完再上去"
+      ]
+    ],
+    "quoted_entries": 50,
+    "state_matrix_rows": 12,
+    "estimated_seconds": [
+      190,
+      320
+    ],
+    "measured_seconds": null,
+    "mandatory_presentation_budget_seconds": 90
+  },
+  "source_decisions": [
+    "Professional protagonist tests shop equipment; six real player actions taught in order.",
+    "Training never invokes true death, first-clinic, fees, memory loss or checkpoint registration.",
+    "27400 historical paper savings and 480000 price do not become spendable credits.",
+    "Borrowed equipment restored on owner disposal, exit or whole skip; pause only suspends training.",
+    "Complete and whole-skip reach actual first-chapter dinner without completing dinner or briefing.",
+    "Whole skip does not mark unperformed actions successful; replay cannot mutate the live run.",
+    "Old saves already beyond prologue retain current progress; unknown save handling preserves evidence.",
+    "Late-chapter anchor identities, rain mechanism and backup transaction are not prematurely revealed.",
+    "Movie skip and whole-prologue skip are distinct; menus allow digital single-press alternatives.",
+    "Door-latch promise is completed at P06; firearm safe-line and mat recovery staging are explicit."
+  ],
+  "review_scope": {
+    "primary_source_read": true,
+    "language_edit": true,
+    "independent_source_read": true,
+    "native_speaker_review": false,
+    "runtime_storylint": false,
+    "continuity_audit": false,
+    "engine_execution": false,
+    "native_hdr": false,
+    "real_controller": false,
+    "first_player_timing": false,
+    "formal_quests_generated": false,
+    "playable_prologue": false
+  },
+  "revision_checks": [
+    "P04 dash-to-melee avoids firing an already-returned training gun; P06 only clears work tape and papers.",
+    "P05 has actual-down, no-failure and unpracticed variants instead of inventing a fall.",
+    "Saving borrowed equipment requires a formal-loadout projection before disk write, not only cleanup after owner exit."
+  ],
+  "runtime_handoffs": [
+    "Safe training interception before real death and all fee/first-clinic hooks.",
+    "Actual action success and next safe step saved together; unperformed actions remain unpracticed.",
+    "Borrowed-loadout projection verified on autosave, quit, menu and cross-process continue.",
+    "Local movie skip, whole skip and isolated replay verified separately.",
+    "Actual prologue exit to dinner, with roof opening only after dinner completion."
+  ],
+  "references": [
+    {
+      "url": "https://deepnight.net/tutorial/the-level-design-of-dead-cells-a-hybrid-approach/",
+      "read_date": "2026-10-10",
+      "adopted": "Fixed links, room purpose and pacing contrast; no industry timing claim."
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/xbox/accessibility/xbox-accessibility-guidelines/107",
+      "read_date": "2026-10-10",
+      "adopted": "Remapped prompts, digital menus and alternatives to prolonged hold/rapid input."
+    }
+  ]
+}
