@@ -120,9 +120,10 @@ STAGE_LAYERS = {
     ],
     "terminal_room": [
         {"kind": "gradient", "top": "#060c12", "bottom": "#10202c", "parallax": 0.0},
-        bg("terminal_room", dy=-12, modulate=[1.35, 1.35, 1.35, 1.0]),
-        glow([356, 190], 190, "#35e0ff", 1.0, 0.4, pulse=0.25, pulse_depth=0.3),
-        {"kind": "sprite", "path": "res://art/environment/props/terminal_holo.png", "pos": [306, 141], "scale": 0.205, "filter": "linear"},
+        bg("terminal_room", dy=-12, modulate=[1.35, 1.35, 1.35, 1.0], source_width=1536),
+        glow([315, 180], 190, "#35e0ff", 1.0, 0.4, pulse=0.25, pulse_depth=0.3),
+        {"kind": "sprite", "path": "res://art/environment/props/terminal_holo.png", "pos": [265, 132.36], "scale": 0.205, "filter": "linear", "source_width": 487,
+         "support_rect": [258, 216, 116, 4]},
         motes(64, "#35e0ff", 0.6, [0, 30, 640, 240], [0, -9], 1.1, 21),
         grain(40, 0.07),
     ],

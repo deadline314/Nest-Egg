@@ -19,6 +19,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
+from scenery_placement import prepare_props, prepare_grid
 from level_kit import Grid, PLAYER_JUMP_TILES, TILE  # noqa: E402
 
 W, H = 510, 24
@@ -435,6 +436,9 @@ place("floor_marking", 484); place("floor_marking", 498); place("hazard_sign", 4
 
 if problems:
     raise SystemExit("\n".join(problems))
+
+prepare_grid(grid, "level_02")
+props = prepare_props(props, "level_02")
 
 grid.write("level_02", (os.path.dirname(__file__), '..', '..', 'data', 'levels', 'level_02_map.json'),
            {"regions": regions, "props": props})

@@ -68,6 +68,9 @@ static func validate(id: StringName) -> PackedStringArray:
 			problems.append("過場場景 %s 第 %d 層圖片不存在：%s" % [id, index, layer.get("path", "")])
 		if kind == "sprite" and life_covers_stage(layer):
 			problems.append("過場場景 %s 第 %d 層是整張背景卻開了 life：窗光閃爍會把整張圖切成一格一格忽明忽暗的方塊，life 只能用在窗光等小面積的層" % [id, index])
+		var anchor_issue := ScenerySupport.stage_anchor_issue(layer, def)
+		if not anchor_issue.is_empty():
+			problems.append("過場場景 %s 第 %d 層支撐無效：%s" % [id, index, anchor_issue])
 	return problems
 
 
@@ -100,6 +103,10 @@ static func build(id: StringName) -> Stage:
 		for layer_def: Variant in layers:
 			index += 1
 			if typeof(layer_def) != TYPE_DICTIONARY:
+				continue
+			var anchor_issue := ScenerySupport.stage_anchor_issue(layer_def, def)
+			if not anchor_issue.is_empty():
+				push_warning("[Stage] %s 第 %d 層支撐無效（%s），已略過" % [id, index, anchor_issue])
 				continue
 			var node := StageLayers.create(layer_def, "場景 %s 第 %d 層" % [id, index])
 			if node != null:

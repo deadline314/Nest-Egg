@@ -1,0 +1,8138 @@
+{
+  "base": "e0f5c157",
+  "levels": [
+    {
+      "map": "data/levels/ch1_booth_alley_map.json",
+      "terrain_and_spawns_unchanged": true,
+      "props_before": 9,
+      "props_after": 9,
+      "decor_removed_cells": [],
+      "decor_moved_cells": [],
+      "props": [
+        {
+          "id": "anchor_phone_booth__shutter_graffiti",
+          "before": {
+            "id": "anchor_phone_booth__shutter_graffiti",
+            "x": 8,
+            "ground": true
+          },
+          "after": {
+            "id": "anchor_phone_booth__shutter_graffiti",
+            "x": 8,
+            "ground": true
+          },
+          "before_world_rect": [
+            128,
+            254.0,
+            73.2,
+            66.0
+          ],
+          "after_world_rect": [
+            128,
+            254.0,
+            73.2,
+            66.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "anchor_phone_booth__trash_bags",
+          "before": {
+            "id": "anchor_phone_booth__trash_bags",
+            "x": 13,
+            "ground": true
+          },
+          "after": {
+            "id": "anchor_phone_booth__trash_bags",
+            "x": 13,
+            "ground": true
+          },
+          "before_world_rect": [
+            208,
+            293.0,
+            52.9,
+            27.0
+          ],
+          "after_world_rect": [
+            208,
+            293.0,
+            52.9,
+            27.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "anchor_phone_booth__news_rack",
+          "before": {
+            "id": "anchor_phone_booth__news_rack",
+            "x": 34,
+            "ground": true
+          },
+          "after": {
+            "id": "anchor_phone_booth__news_rack",
+            "x": 34,
+            "ground": true
+          },
+          "before_world_rect": [
+            544,
+            275.0,
+            48.4,
+            45.0
+          ],
+          "after_world_rect": [
+            544,
+            275.0,
+            48.4,
+            45.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "anchor_phone_booth__leaning_bicycle",
+          "before": {
+            "id": "anchor_phone_booth__leaning_bicycle",
+            "x": 40,
+            "ground": true
+          },
+          "after": {
+            "id": "anchor_phone_booth__leaning_bicycle",
+            "x": 40,
+            "ground": true
+          },
+          "before_world_rect": [
+            640,
+            287.0,
+            43.2,
+            33.0
+          ],
+          "after_world_rect": [
+            640,
+            287.0,
+            43.2,
+            33.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "anchor_phone_booth__restore_arrow_sign",
+          "before": {
+            "id": "anchor_phone_booth__restore_arrow_sign",
+            "x": 48,
+            "ground": true
+          },
+          "after": {
+            "id": "anchor_phone_booth__restore_arrow_sign",
+            "x": 48,
+            "ground": true
+          },
+          "before_world_rect": [
+            768,
+            272.0,
+            15.4,
+            48.0
+          ],
+          "after_world_rect": [
+            768,
+            272.0,
+            15.4,
+            48.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "anchor_phone_booth__backup_kiosk",
+          "before": {
+            "id": "anchor_phone_booth__backup_kiosk",
+            "x": 51,
+            "ground": true
+          },
+          "after": {
+            "id": "anchor_phone_booth__backup_kiosk",
+            "x": 51,
+            "ground": true
+          },
+          "before_world_rect": [
+            816,
+            278.0,
+            18.9,
+            42.0
+          ],
+          "after_world_rect": [
+            816,
+            278.0,
+            18.9,
+            42.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "anchor_phone_booth__poster_wall",
+          "before": {
+            "id": "anchor_phone_booth__poster_wall",
+            "x": 28,
+            "y": 14
+          },
+          "after": {
+            "id": "anchor_phone_booth__poster_wall",
+            "x": 28,
+            "y": 19,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            448,
+            174.0,
+            40.5,
+            66.0
+          ],
+          "after_world_rect": [
+            448,
+            254.0,
+            40.5,
+            66.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "anchor_phone_booth__flicker_lamp_post",
+          "before": {
+            "id": "anchor_phone_booth__flicker_lamp_post",
+            "x": 31,
+            "ground": true
+          },
+          "after": {
+            "id": "anchor_phone_booth__flicker_lamp_post",
+            "x": 31,
+            "ground": true
+          },
+          "before_world_rect": [
+            496,
+            218.0,
+            12.3,
+            102.0
+          ],
+          "after_world_rect": [
+            496,
+            218.0,
+            12.3,
+            102.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "anchor_phone_booth__gutter_downpipe",
+          "before": {
+            "id": "anchor_phone_booth__gutter_downpipe",
+            "x": 20,
+            "ground": true
+          },
+          "after": {
+            "id": "anchor_phone_booth__gutter_downpipe",
+            "x": 20,
+            "ground": true
+          },
+          "before_world_rect": [
+            320,
+            236.0,
+            18.4,
+            84.0
+          ],
+          "after_world_rect": [
+            320,
+            236.0,
+            18.4,
+            84.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        }
+      ]
+    },
+    {
+      "map": "data/levels/ch1_lounge_map.json",
+      "terrain_and_spawns_unchanged": true,
+      "props_before": 9,
+      "props_after": 9,
+      "decor_removed_cells": [],
+      "decor_moved_cells": [],
+      "props": [
+        {
+          "id": "revival_lounge__booth_sofa",
+          "before": {
+            "id": "revival_lounge__booth_sofa",
+            "x": 6,
+            "ground": true
+          },
+          "after": {
+            "id": "revival_lounge__booth_sofa",
+            "x": 6,
+            "ground": true
+          },
+          "before_world_rect": [
+            96,
+            -36.0,
+            50.5,
+            36.0
+          ],
+          "after_world_rect": [
+            96,
+            284.0,
+            50.5,
+            36.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "revival_lounge__round_table_stools",
+          "before": {
+            "id": "revival_lounge__round_table_stools",
+            "x": 14,
+            "ground": true
+          },
+          "after": {
+            "id": "revival_lounge__round_table_stools",
+            "x": 14,
+            "ground": true
+          },
+          "before_world_rect": [
+            224,
+            -30.0,
+            37.7,
+            30.0
+          ],
+          "after_world_rect": [
+            224,
+            290.0,
+            37.7,
+            30.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "revival_lounge__jukebox",
+          "before": {
+            "id": "revival_lounge__jukebox",
+            "x": 21,
+            "ground": true
+          },
+          "after": {
+            "id": "revival_lounge__jukebox",
+            "x": 21,
+            "ground": true
+          },
+          "before_world_rect": [
+            336,
+            -48.0,
+            29.4,
+            48.0
+          ],
+          "after_world_rect": [
+            336,
+            272.0,
+            29.4,
+            48.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "revival_lounge__bar_counter",
+          "before": {
+            "id": "revival_lounge__bar_counter",
+            "x": 27,
+            "ground": true
+          },
+          "after": {
+            "id": "revival_lounge__bar_counter",
+            "x": 27,
+            "ground": true
+          },
+          "before_world_rect": [
+            432,
+            -57.0,
+            124.8,
+            57.0
+          ],
+          "after_world_rect": [
+            432,
+            263.0,
+            124.8,
+            57.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "revival_lounge__bottle_wall_shelf",
+          "before": {
+            "id": "revival_lounge__bottle_wall_shelf",
+            "x": 28,
+            "y": 14
+          },
+          "after": {
+            "id": "revival_lounge__bottle_wall_shelf",
+            "x": 28,
+            "y": 14,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            448,
+            195.0,
+            53.4,
+            45.0
+          ],
+          "after_world_rect": [
+            448,
+            195.0,
+            53.4,
+            45.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "revival_lounge__menu_board",
+          "before": {
+            "id": "revival_lounge__menu_board",
+            "x": 38,
+            "y": 14
+          },
+          "after": {
+            "id": "revival_lounge__menu_board",
+            "x": 38,
+            "y": 14,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            608,
+            204.0,
+            23.6,
+            36.0
+          ],
+          "after_world_rect": [
+            608,
+            204.0,
+            23.6,
+            36.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "revival_lounge__corner_plant_string_lights",
+          "before": {
+            "id": "revival_lounge__corner_plant_string_lights",
+            "x": 40,
+            "ground": true
+          },
+          "after": {
+            "id": "revival_lounge__corner_plant_string_lights",
+            "x": 40,
+            "ground": true
+          },
+          "before_world_rect": [
+            640,
+            -51.0,
+            33.1,
+            51.0
+          ],
+          "after_world_rect": [
+            640,
+            269.0,
+            33.1,
+            51.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "revival_lounge__hat_coat_rack",
+          "before": {
+            "id": "revival_lounge__hat_coat_rack",
+            "x": 46,
+            "ground": true
+          },
+          "after": {
+            "id": "revival_lounge__hat_coat_rack",
+            "x": 46,
+            "ground": true
+          },
+          "before_world_rect": [
+            736,
+            -54.0,
+            15.3,
+            54.0
+          ],
+          "after_world_rect": [
+            736,
+            266.0,
+            15.3,
+            54.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "revival_lounge__neon_glass_sign",
+          "before": {
+            "id": "revival_lounge__neon_glass_sign",
+            "x": 10,
+            "y": 13
+          },
+          "after": {
+            "id": "revival_lounge__neon_glass_sign",
+            "x": 10,
+            "y": 13,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            160,
+            197.0,
+            17.7,
+            27.0
+          ],
+          "after_world_rect": [
+            160,
+            197.0,
+            17.7,
+            27.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        }
+      ]
+    },
+    {
+      "map": "data/levels/ch1_pawnshop_map.json",
+      "terrain_and_spawns_unchanged": true,
+      "props_before": 19,
+      "props_after": 19,
+      "decor_removed_cells": [],
+      "decor_moved_cells": [],
+      "props": [
+        {
+          "id": "pawnshop_front__tag_shelf",
+          "before": {
+            "id": "pawnshop_front__tag_shelf",
+            "x": 33,
+            "ground": true
+          },
+          "after": {
+            "id": "pawnshop_front__tag_shelf",
+            "x": 33,
+            "ground": true
+          },
+          "before_world_rect": [
+            528,
+            -72.0,
+            37.2,
+            72.0
+          ],
+          "after_world_rect": [
+            528,
+            248.0,
+            37.2,
+            72.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "basement_door__locked_iron_door",
+          "before": {
+            "id": "basement_door__locked_iron_door",
+            "x": 42,
+            "ground": true
+          },
+          "after": {
+            "id": "basement_door__locked_iron_door",
+            "x": 42,
+            "ground": true
+          },
+          "before_world_rect": [
+            672,
+            -63.0,
+            31.1,
+            63.0
+          ],
+          "after_world_rect": [
+            672,
+            257.0,
+            31.1,
+            63.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "pawnshop_front__wall_instruments",
+          "before": {
+            "id": "pawnshop_front__wall_instruments",
+            "x": 49,
+            "y": 14
+          },
+          "after": {
+            "id": "pawnshop_front__wall_instruments",
+            "x": 49,
+            "y": 14,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            784,
+            192.0,
+            56.4,
+            48.0
+          ],
+          "after_world_rect": [
+            784,
+            192.0,
+            56.4,
+            48.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "pawnshop_front__counter_register",
+          "before": {
+            "id": "pawnshop_front__counter_register",
+            "x": 52,
+            "ground": true
+          },
+          "after": {
+            "id": "pawnshop_front__counter_register",
+            "x": 52,
+            "ground": true
+          },
+          "before_world_rect": [
+            832,
+            -36.0,
+            105.0,
+            36.0
+          ],
+          "after_world_rect": [
+            832,
+            284.0,
+            105.0,
+            36.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "pawnshop_front__locked_ledger_box",
+          "before": {
+            "id": "pawnshop_front__locked_ledger_box",
+            "x": 53,
+            "dy": -36,
+            "ground": true
+          },
+          "after": {
+            "id": "pawnshop_front__locked_ledger_box",
+            "x": 53,
+            "dy": -20,
+            "ground": true,
+            "support": "prop",
+            "support_id": "pawnshop_front__counter_register",
+            "support_x": 52,
+            "support_dy": 16
+          },
+          "before_world_rect": [
+            848,
+            -49.5,
+            29.8,
+            13.5
+          ],
+          "after_world_rect": [
+            848,
+            286.5,
+            29.8,
+            13.5
+          ],
+          "action": "corrected",
+          "support": "prop"
+        },
+        {
+          "id": "pawnshop_front__arms_workbench",
+          "before": {
+            "id": "pawnshop_front__arms_workbench",
+            "x": 61,
+            "ground": true
+          },
+          "after": {
+            "id": "pawnshop_front__arms_workbench",
+            "x": 61,
+            "ground": true
+          },
+          "before_world_rect": [
+            976,
+            -31.5,
+            50.6,
+            31.5
+          ],
+          "after_world_rect": [
+            976,
+            288.5,
+            50.6,
+            31.5
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "pawnshop_front__pawn_sign",
+          "before": {
+            "id": "pawnshop_front__pawn_sign",
+            "x": 64,
+            "y": 11
+          },
+          "after": {
+            "id": "pawnshop_front__pawn_sign",
+            "x": 64,
+            "y": 11,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            1024,
+            165.0,
+            69.5,
+            27.0
+          ],
+          "after_world_rect": [
+            1024,
+            165.0,
+            69.5,
+            27.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "pawnshop_front__leak_bucket",
+          "before": {
+            "id": "pawnshop_front__leak_bucket",
+            "x": 69,
+            "ground": true
+          },
+          "after": {
+            "id": "pawnshop_front__leak_bucket",
+            "x": 69,
+            "ground": true
+          },
+          "before_world_rect": [
+            1104,
+            -42.0,
+            20.7,
+            42.0
+          ],
+          "after_world_rect": [
+            1104,
+            278.0,
+            20.7,
+            42.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "pawnshop_front__crate_pile",
+          "before": {
+            "id": "pawnshop_front__crate_pile",
+            "x": 72,
+            "ground": true
+          },
+          "after": {
+            "id": "pawnshop_front__crate_pile",
+            "x": 72,
+            "ground": true
+          },
+          "before_world_rect": [
+            1152,
+            -33.0,
+            30.3,
+            33.0
+          ],
+          "after_world_rect": [
+            1152,
+            287.0,
+            30.3,
+            33.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "harbor_street__umbrella_stand",
+          "before": {
+            "id": "harbor_street__umbrella_stand",
+            "x": 76,
+            "ground": true
+          },
+          "after": {
+            "id": "harbor_street__umbrella_stand",
+            "x": 76,
+            "ground": true
+          },
+          "before_world_rect": [
+            1216,
+            -30.0,
+            14.9,
+            30.0
+          ],
+          "after_world_rect": [
+            1216,
+            290.0,
+            14.9,
+            30.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "pawnshop_kitchen__dish_cabinet",
+          "before": {
+            "id": "pawnshop_kitchen__dish_cabinet",
+            "x": 81,
+            "ground": true
+          },
+          "after": {
+            "id": "pawnshop_kitchen__dish_cabinet",
+            "x": 81,
+            "ground": true
+          },
+          "before_world_rect": [
+            1296,
+            -51.0,
+            19.6,
+            51.0
+          ],
+          "after_world_rect": [
+            1296,
+            269.0,
+            19.6,
+            51.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "pawnshop_kitchen__water_urn",
+          "before": {
+            "id": "pawnshop_kitchen__water_urn",
+            "x": 83,
+            "ground": true
+          },
+          "after": {
+            "id": "pawnshop_kitchen__water_urn",
+            "x": 83,
+            "ground": true
+          },
+          "before_world_rect": [
+            1328,
+            -27.0,
+            30.2,
+            27.0
+          ],
+          "after_world_rect": [
+            1328,
+            293.0,
+            30.2,
+            27.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "pawnshop_kitchen__dining_table",
+          "before": {
+            "id": "pawnshop_kitchen__dining_table",
+            "x": 90,
+            "ground": true
+          },
+          "after": {
+            "id": "pawnshop_kitchen__dining_table",
+            "x": 90,
+            "ground": true
+          },
+          "before_world_rect": [
+            1440,
+            -25.5,
+            45.1,
+            25.5
+          ],
+          "after_world_rect": [
+            1440,
+            294.5,
+            45.1,
+            25.5
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "pawnshop_kitchen__lunch_left_for_today",
+          "before": {
+            "id": "pawnshop_kitchen__lunch_left_for_today",
+            "x": 91,
+            "dy": -25,
+            "ground": true
+          },
+          "after": {
+            "id": "pawnshop_kitchen__lunch_left_for_today",
+            "x": 91,
+            "dy": -19,
+            "ground": true,
+            "support": "prop",
+            "support_id": "pawnshop_kitchen__dining_table",
+            "support_x": 90,
+            "support_dy": 6.5
+          },
+          "before_world_rect": [
+            1456,
+            -44.5,
+            38.4,
+            19.5
+          ],
+          "after_world_rect": [
+            1456,
+            281.5,
+            38.4,
+            19.5
+          ],
+          "action": "corrected",
+          "support": "prop"
+        },
+        {
+          "id": "pawnshop_kitchen__hanging_pans",
+          "before": {
+            "id": "pawnshop_kitchen__hanging_pans",
+            "x": 94,
+            "y": 13
+          },
+          "after": {
+            "id": "pawnshop_kitchen__hanging_pans",
+            "x": 94,
+            "y": 13,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            1504,
+            194.0,
+            49.9,
+            30.0
+          ],
+          "after_world_rect": [
+            1504,
+            194.0,
+            49.9,
+            30.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "pawnshop_kitchen__paper_shade_lamp",
+          "before": {
+            "id": "pawnshop_kitchen__paper_shade_lamp",
+            "x": 88,
+            "y": 11
+          },
+          "after": {
+            "id": "pawnshop_kitchen__paper_shade_lamp",
+            "x": 88,
+            "y": 11,
+            "support": "ceiling",
+            "ceiling_row": 10
+          },
+          "before_world_rect": [
+            1408,
+            168.0,
+            16.2,
+            24.0
+          ],
+          "after_world_rect": [
+            1408,
+            160.0,
+            16.2,
+            24.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "pawnshop_kitchen__kettle_stove",
+          "before": {
+            "id": "pawnshop_kitchen__kettle_stove",
+            "x": 98,
+            "ground": true
+          },
+          "after": {
+            "id": "pawnshop_kitchen__kettle_stove",
+            "x": 98,
+            "ground": true
+          },
+          "before_world_rect": [
+            1568,
+            -28.5,
+            18.6,
+            28.5
+          ],
+          "after_world_rect": [
+            1568,
+            291.5,
+            18.6,
+            28.5
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "pawnshop_kitchen__old_fridge",
+          "before": {
+            "id": "pawnshop_kitchen__old_fridge",
+            "x": 102,
+            "ground": true
+          },
+          "after": {
+            "id": "pawnshop_kitchen__old_fridge",
+            "x": 102,
+            "ground": true
+          },
+          "before_world_rect": [
+            1632,
+            -48.0,
+            21.9,
+            48.0
+          ],
+          "after_world_rect": [
+            1632,
+            272.0,
+            21.9,
+            48.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "pawnshop_kitchen__tear_off_calendar",
+          "before": {
+            "id": "pawnshop_kitchen__tear_off_calendar",
+            "x": 100,
+            "y": 14
+          },
+          "after": {
+            "id": "pawnshop_kitchen__tear_off_calendar",
+            "x": 100,
+            "y": 14,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            1600,
+            222.0,
+            8.9,
+            18.0
+          ],
+          "after_world_rect": [
+            1600,
+            222.0,
+            8.9,
+            18.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        }
+      ]
+    },
+    {
+      "map": "data/levels/ch1_rooftop_map.json",
+      "terrain_and_spawns_unchanged": true,
+      "props_before": 8,
+      "props_after": 8,
+      "decor_removed_cells": [],
+      "decor_moved_cells": [],
+      "props": [
+        {
+          "id": "rooftop__stairwell_hut",
+          "before": {
+            "id": "rooftop__stairwell_hut",
+            "x": 1,
+            "ground": true
+          },
+          "after": {
+            "id": "rooftop__stairwell_hut",
+            "x": 1,
+            "ground": true
+          },
+          "before_world_rect": [
+            16,
+            216.0,
+            70.4,
+            72.0
+          ],
+          "after_world_rect": [
+            16,
+            216.0,
+            70.4,
+            72.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "rooftop__rusty_water_tank",
+          "before": {
+            "id": "rooftop__rusty_water_tank",
+            "x": 44,
+            "ground": true
+          },
+          "after": {
+            "id": "rooftop__rusty_water_tank",
+            "x": 44,
+            "ground": true
+          },
+          "before_world_rect": [
+            704,
+            186.0,
+            55.9,
+            102.0
+          ],
+          "after_world_rect": [
+            704,
+            186.0,
+            55.9,
+            102.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "rooftop__antenna_forest",
+          "before": {
+            "id": "rooftop__antenna_forest",
+            "x": 64,
+            "ground": true
+          },
+          "after": {
+            "id": "rooftop__antenna_forest",
+            "x": 64,
+            "ground": true
+          },
+          "before_world_rect": [
+            1024,
+            180.0,
+            40.6,
+            108.0
+          ],
+          "after_world_rect": [
+            1024,
+            180.0,
+            40.6,
+            108.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "rooftop__dish_pair",
+          "before": {
+            "id": "rooftop__dish_pair",
+            "x": 9,
+            "ground": true
+          },
+          "after": {
+            "id": "rooftop__dish_pair",
+            "x": 9,
+            "ground": true
+          },
+          "before_world_rect": [
+            144,
+            240.0,
+            54.5,
+            48.0
+          ],
+          "after_world_rect": [
+            144,
+            240.0,
+            54.5,
+            48.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "rooftop__rain_collecting_barrel",
+          "before": {
+            "id": "rooftop__rain_collecting_barrel",
+            "x": 34,
+            "ground": true
+          },
+          "after": {
+            "id": "rooftop__rain_collecting_barrel",
+            "x": 34,
+            "ground": true
+          },
+          "before_world_rect": [
+            544,
+            258.0,
+            15.1,
+            30.0
+          ],
+          "after_world_rect": [
+            544,
+            258.0,
+            15.1,
+            30.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "rooftop__torn_umbrella_tea",
+          "before": {
+            "id": "rooftop__torn_umbrella_tea",
+            "x": 38,
+            "ground": true
+          },
+          "after": {
+            "id": "rooftop__torn_umbrella_tea",
+            "x": 38,
+            "ground": true
+          },
+          "before_world_rect": [
+            608,
+            243.0,
+            45.5,
+            45.0
+          ],
+          "after_world_rect": [
+            608,
+            243.0,
+            45.5,
+            45.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "rooftop__folding_chairs_boxes",
+          "before": {
+            "id": "rooftop__folding_chairs_boxes",
+            "x": 49,
+            "ground": true
+          },
+          "after": {
+            "id": "rooftop__folding_chairs_boxes",
+            "x": 49,
+            "ground": true
+          },
+          "before_world_rect": [
+            784,
+            255.0,
+            37.7,
+            33.0
+          ],
+          "after_world_rect": [
+            784,
+            255.0,
+            37.7,
+            33.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "rooftop__rope_coil_hook",
+          "before": {
+            "id": "rooftop__rope_coil_hook",
+            "x": 22,
+            "y": 10
+          },
+          "after": {
+            "id": "rooftop__rope_coil_hook",
+            "x": 22,
+            "ground": true
+          },
+          "before_world_rect": [
+            352,
+            149.0,
+            70.6,
+            27.0
+          ],
+          "after_world_rect": [
+            352,
+            261.0,
+            70.6,
+            27.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        }
+      ]
+    },
+    {
+      "map": "data/levels/ch1_stall_map.json",
+      "terrain_and_spawns_unchanged": true,
+      "props_before": 7,
+      "props_after": 6,
+      "decor_removed_cells": [],
+      "decor_moved_cells": [],
+      "props": [
+        {
+          "id": "dawn_noodle_stall__ali_noodle_cart",
+          "before": {
+            "id": "dawn_noodle_stall__ali_noodle_cart",
+            "x": 18,
+            "ground": true
+          },
+          "after": {
+            "id": "dawn_noodle_stall__ali_noodle_cart",
+            "x": 18,
+            "ground": true
+          },
+          "before_world_rect": [
+            288,
+            254.0,
+            58.1,
+            66.0
+          ],
+          "after_world_rect": [
+            288,
+            254.0,
+            58.1,
+            66.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "dawn_noodle_stall__noodle_bowls_table",
+          "before": {
+            "id": "dawn_noodle_stall__noodle_bowls_table",
+            "x": 26,
+            "ground": true
+          },
+          "after": {
+            "id": "dawn_noodle_stall__noodle_bowls_table",
+            "x": 26,
+            "ground": true
+          },
+          "before_world_rect": [
+            416,
+            294.5,
+            30.4,
+            25.5
+          ],
+          "after_world_rect": [
+            416,
+            294.5,
+            30.4,
+            25.5
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "dawn_noodle_stall__stool_stack",
+          "before": {
+            "id": "dawn_noodle_stall__stool_stack",
+            "x": 32,
+            "ground": true
+          },
+          "after": {
+            "id": "dawn_noodle_stall__stool_stack",
+            "x": 32,
+            "ground": true
+          },
+          "before_world_rect": [
+            512,
+            284.0,
+            17.3,
+            36.0
+          ],
+          "after_world_rect": [
+            512,
+            284.0,
+            17.3,
+            36.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "dawn_noodle_stall__hanging_lantern",
+          "before": {
+            "id": "dawn_noodle_stall__hanging_lantern",
+            "x": 22,
+            "y": 12
+          },
+          "after": {
+            "id": "dawn_noodle_stall__hanging_lantern",
+            "x": 20,
+            "y": 17,
+            "dy": -1,
+            "support": "hang_prop",
+            "support_id": "dawn_noodle_stall__ali_noodle_cart",
+            "support_x": 18
+          },
+          "before_world_rect": [
+            352,
+            175.0,
+            16.9,
+            33.0
+          ],
+          "after_world_rect": [
+            320,
+            254.0,
+            16.9,
+            33.0
+          ],
+          "action": "corrected",
+          "support": "hang_prop"
+        },
+        {
+          "id": "dawn_noodle_stall__dawn_string_lights",
+          "before": {
+            "id": "dawn_noodle_stall__dawn_string_lights",
+            "x": 14,
+            "y": 10
+          },
+          "after": null,
+          "before_world_rect": [
+            224,
+            140.0,
+            155.5,
+            36.0
+          ],
+          "after_world_rect": null,
+          "action": "removed",
+          "support": "none"
+        },
+        {
+          "id": "dawn_noodle_stall__cat_box_bed",
+          "before": {
+            "id": "dawn_noodle_stall__cat_box_bed",
+            "x": 36,
+            "ground": true
+          },
+          "after": {
+            "id": "dawn_noodle_stall__cat_box_bed",
+            "x": 36,
+            "ground": true
+          },
+          "before_world_rect": [
+            576,
+            305.0,
+            26.3,
+            15.0
+          ],
+          "after_world_rect": [
+            576,
+            305.0,
+            26.3,
+            15.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "dawn_noodle_stall__shop_shutter_dawn",
+          "before": {
+            "id": "dawn_noodle_stall__shop_shutter_dawn",
+            "x": 6,
+            "ground": true
+          },
+          "after": {
+            "id": "dawn_noodle_stall__shop_shutter_dawn",
+            "x": 6,
+            "ground": true
+          },
+          "before_world_rect": [
+            96,
+            251.0,
+            65.6,
+            69.0
+          ],
+          "after_world_rect": [
+            96,
+            251.0,
+            65.6,
+            69.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        }
+      ]
+    },
+    {
+      "map": "data/levels/ch1_street_map.json",
+      "terrain_and_spawns_unchanged": true,
+      "props_before": 10,
+      "props_after": 10,
+      "decor_removed_cells": [],
+      "decor_moved_cells": [],
+      "props": [
+        {
+          "id": "harbor_street__fish_cart",
+          "before": {
+            "id": "harbor_street__fish_cart",
+            "x": 14,
+            "ground": true
+          },
+          "after": {
+            "id": "harbor_street__fish_cart",
+            "x": 14,
+            "ground": true
+          },
+          "before_world_rect": [
+            224,
+            275.0,
+            44.7,
+            45.0
+          ],
+          "after_world_rect": [
+            224,
+            275.0,
+            44.7,
+            45.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "harbor_street__parked_scooter",
+          "before": {
+            "id": "harbor_street__parked_scooter",
+            "x": 42,
+            "ground": true
+          },
+          "after": {
+            "id": "harbor_street__parked_scooter",
+            "x": 42,
+            "ground": true
+          },
+          "before_world_rect": [
+            672,
+            284.0,
+            48.5,
+            36.0
+          ],
+          "after_world_rect": [
+            672,
+            284.0,
+            48.5,
+            36.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "harbor_street__pole_wire_knot",
+          "before": {
+            "id": "harbor_street__pole_wire_knot",
+            "x": 54,
+            "ground": true
+          },
+          "after": {
+            "id": "harbor_street__pole_wire_knot",
+            "x": 54,
+            "ground": true
+          },
+          "before_world_rect": [
+            864,
+            185.0,
+            27.8,
+            135.0
+          ],
+          "after_world_rect": [
+            864,
+            185.0,
+            27.8,
+            135.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "harbor_street__restore_queue_sign",
+          "before": {
+            "id": "harbor_street__restore_queue_sign",
+            "x": 28,
+            "ground": true
+          },
+          "after": {
+            "id": "harbor_street__restore_queue_sign",
+            "x": 28,
+            "ground": true
+          },
+          "before_world_rect": [
+            448,
+            266.0,
+            18.3,
+            54.0
+          ],
+          "after_world_rect": [
+            448,
+            266.0,
+            18.3,
+            54.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "harbor_street__stacked_neon_signs",
+          "before": {
+            "id": "harbor_street__stacked_neon_signs",
+            "x": 74,
+            "y": 12
+          },
+          "after": {
+            "id": "harbor_street__stacked_neon_signs",
+            "x": 74,
+            "ground": true
+          },
+          "before_world_rect": [
+            1184,
+            112.0,
+            18.6,
+            96.0
+          ],
+          "after_world_rect": [
+            1184,
+            224.0,
+            18.6,
+            96.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "harbor_street__rebirth_billboard",
+          "before": {
+            "id": "harbor_street__rebirth_billboard",
+            "x": 102,
+            "y": 8
+          },
+          "after": {
+            "id": "harbor_street__rebirth_billboard",
+            "x": 102,
+            "ground": true
+          },
+          "before_world_rect": [
+            1632,
+            54.0,
+            119.6,
+            90.0
+          ],
+          "after_world_rect": [
+            1632,
+            230.0,
+            119.6,
+            90.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "harbor_street__steam_manhole",
+          "before": {
+            "id": "harbor_street__steam_manhole",
+            "x": 118,
+            "ground": true
+          },
+          "after": {
+            "id": "harbor_street__steam_manhole",
+            "x": 118,
+            "ground": true
+          },
+          "before_world_rect": [
+            1888,
+            293.0,
+            29.9,
+            27.0
+          ],
+          "after_world_rect": [
+            1888,
+            293.0,
+            29.9,
+            27.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "harbor_street__tide_gauge",
+          "before": {
+            "id": "harbor_street__tide_gauge",
+            "x": 144,
+            "ground": true
+          },
+          "after": {
+            "id": "harbor_street__tide_gauge",
+            "x": 144,
+            "ground": true
+          },
+          "before_world_rect": [
+            2304,
+            94.0,
+            8.2,
+            66.0
+          ],
+          "after_world_rect": [
+            2304,
+            94.0,
+            8.2,
+            66.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "harbor_street__umbrella_vending",
+          "before": {
+            "id": "harbor_street__umbrella_vending",
+            "x": 170,
+            "ground": true
+          },
+          "after": {
+            "id": "harbor_street__umbrella_vending",
+            "x": 173,
+            "ground": true
+          },
+          "before_world_rect": [
+            2720,
+            263.0,
+            19.6,
+            57.0
+          ],
+          "after_world_rect": [
+            2768,
+            263.0,
+            19.6,
+            57.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "harbor_street__stacked_neon_signs",
+          "before": {
+            "id": "harbor_street__stacked_neon_signs",
+            "x": 178,
+            "y": 12
+          },
+          "after": {
+            "id": "harbor_street__stacked_neon_signs",
+            "x": 178,
+            "ground": true
+          },
+          "before_world_rect": [
+            2848,
+            112.0,
+            18.6,
+            96.0
+          ],
+          "after_world_rect": [
+            2848,
+            144.0,
+            18.6,
+            96.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        }
+      ]
+    },
+    {
+      "map": "data/levels/ch1_vault_map.json",
+      "terrain_and_spawns_unchanged": true,
+      "props_before": 1,
+      "props_after": 1,
+      "decor_removed_cells": [],
+      "decor_moved_cells": [],
+      "props": [
+        {
+          "id": "dock_warehouse__open_container",
+          "before": {
+            "id": "dock_warehouse__open_container",
+            "x": 23,
+            "ground": true
+          },
+          "after": {
+            "id": "dock_warehouse__open_container",
+            "x": 8,
+            "ground": true
+          },
+          "before_world_rect": [
+            368,
+            -81.0,
+            184.9,
+            81.0
+          ],
+          "after_world_rect": [
+            128,
+            191.0,
+            184.9,
+            81.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        }
+      ]
+    },
+    {
+      "map": "data/levels/ch1_warehouse_map.json",
+      "terrain_and_spawns_unchanged": true,
+      "props_before": 8,
+      "props_after": 8,
+      "decor_removed_cells": [],
+      "decor_moved_cells": [],
+      "props": [
+        {
+          "id": "dock_warehouse__watchdog_dock",
+          "before": {
+            "id": "dock_warehouse__watchdog_dock",
+            "x": 60,
+            "ground": true
+          },
+          "after": {
+            "id": "dock_warehouse__watchdog_dock",
+            "x": 60,
+            "ground": true
+          },
+          "before_world_rect": [
+            960,
+            -60.0,
+            56.5,
+            60.0
+          ],
+          "after_world_rect": [
+            960,
+            212.0,
+            56.5,
+            60.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "dock_warehouse__hoist_chain",
+          "before": {
+            "id": "dock_warehouse__hoist_chain",
+            "x": 34,
+            "y": 9
+          },
+          "after": {
+            "id": "dock_warehouse__hoist_chain",
+            "x": 34,
+            "y": 9,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            544,
+            64.0,
+            11.0,
+            96.0
+          ],
+          "after_world_rect": [
+            544,
+            64.0,
+            11.0,
+            96.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "dock_warehouse__searchlight_post",
+          "before": {
+            "id": "dock_warehouse__searchlight_post",
+            "x": 11,
+            "ground": true
+          },
+          "after": {
+            "id": "dock_warehouse__searchlight_post",
+            "x": 11,
+            "ground": true
+          },
+          "before_world_rect": [
+            176,
+            -72.0,
+            13.0,
+            72.0
+          ],
+          "after_world_rect": [
+            176,
+            200.0,
+            13.0,
+            72.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "dock_warehouse__wrapped_pallets",
+          "before": {
+            "id": "dock_warehouse__wrapped_pallets",
+            "x": 41,
+            "ground": true
+          },
+          "after": {
+            "id": "dock_warehouse__wrapped_pallets",
+            "x": 41,
+            "ground": true
+          },
+          "before_world_rect": [
+            656,
+            -42.0,
+            44.1,
+            42.0
+          ],
+          "after_world_rect": [
+            656,
+            230.0,
+            44.1,
+            42.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "dock_warehouse__rotating_beacon",
+          "before": {
+            "id": "dock_warehouse__rotating_beacon",
+            "x": 52,
+            "ground": true
+          },
+          "after": {
+            "id": "dock_warehouse__rotating_beacon",
+            "x": 52,
+            "ground": true
+          },
+          "before_world_rect": [
+            832,
+            -33.0,
+            9.0,
+            33.0
+          ],
+          "after_world_rect": [
+            832,
+            239.0,
+            9.0,
+            33.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "dock_warehouse__floor_switch_plate",
+          "before": {
+            "id": "dock_warehouse__floor_switch_plate",
+            "x": 121,
+            "y": 22,
+            "dx": -3
+          },
+          "after": {
+            "id": "dock_warehouse__floor_switch_plate",
+            "x": 121,
+            "y": 22,
+            "dx": -3
+          },
+          "before_world_rect": [
+            1933,
+            351.5,
+            42.6,
+            16.5
+          ],
+          "after_world_rect": [
+            1933,
+            351.5,
+            42.6,
+            16.5
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "dock_warehouse__water_pump",
+          "before": {
+            "id": "dock_warehouse__water_pump",
+            "x": 86,
+            "ground": true
+          },
+          "after": {
+            "id": "dock_warehouse__water_pump",
+            "x": 86,
+            "ground": true
+          },
+          "before_world_rect": [
+            1376,
+            -36.0,
+            44.6,
+            36.0
+          ],
+          "after_world_rect": [
+            1376,
+            236.0,
+            44.6,
+            36.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "dock_warehouse__float_drum_crate",
+          "before": {
+            "id": "dock_warehouse__float_drum_crate",
+            "x": 106,
+            "y": 10
+          },
+          "after": {
+            "id": "dock_warehouse__float_drum_crate",
+            "x": 106,
+            "y": 10
+          },
+          "before_world_rect": [
+            1696,
+            146.0,
+            37.1,
+            30.0
+          ],
+          "after_world_rect": [
+            1696,
+            146.0,
+            37.1,
+            30.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        }
+      ]
+    },
+    {
+      "map": "data/levels/level_01_map.json",
+      "terrain_and_spawns_unchanged": true,
+      "props_before": 85,
+      "props_after": 81,
+      "decor_removed_cells": [
+        [
+          84,
+          4
+        ],
+        [
+          118,
+          4
+        ],
+        [
+          150,
+          4
+        ],
+        [
+          174,
+          6
+        ],
+        [
+          24,
+          9
+        ],
+        [
+          208,
+          10
+        ],
+        [
+          95,
+          11
+        ],
+        [
+          156,
+          11
+        ],
+        [
+          166,
+          11
+        ],
+        [
+          228,
+          11
+        ],
+        [
+          122,
+          12
+        ],
+        [
+          139,
+          12
+        ],
+        [
+          66,
+          13
+        ],
+        [
+          29,
+          16
+        ]
+      ],
+      "decor_moved_cells": [
+        [
+          47,
+          8,
+          47,
+          9
+        ],
+        [
+          72,
+          11,
+          72,
+          12
+        ],
+        [
+          133,
+          11,
+          133,
+          12
+        ],
+        [
+          101,
+          13,
+          101,
+          14
+        ]
+      ],
+      "props": [
+        {
+          "id": "antenna",
+          "before": {
+            "id": "antenna",
+            "x": 1,
+            "ground": true
+          },
+          "after": {
+            "id": "antenna",
+            "x": 1,
+            "ground": true
+          },
+          "before_world_rect": [
+            16,
+            132.0,
+            16.3,
+            108.0
+          ],
+          "after_world_rect": [
+            16,
+            132.0,
+            16.3,
+            108.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "clothesline",
+          "before": {
+            "id": "clothesline",
+            "x": 12,
+            "ground": true
+          },
+          "after": {
+            "id": "clothesline",
+            "x": 12,
+            "ground": true
+          },
+          "before_world_rect": [
+            192,
+            186.0,
+            105.3,
+            54.0
+          ],
+          "after_world_rect": [
+            192,
+            186.0,
+            105.3,
+            54.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "satellite_dish",
+          "before": {
+            "id": "satellite_dish",
+            "x": 17,
+            "ground": true
+          },
+          "after": {
+            "id": "satellite_dish",
+            "x": 17,
+            "ground": true
+          },
+          "before_world_rect": [
+            272,
+            183.0,
+            37.5,
+            57.0
+          ],
+          "after_world_rect": [
+            272,
+            183.0,
+            37.5,
+            57.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "water_tower",
+          "before": {
+            "id": "water_tower",
+            "x": 19,
+            "ground": true
+          },
+          "after": {
+            "id": "water_tower",
+            "x": 19,
+            "ground": true
+          },
+          "before_world_rect": [
+            304,
+            126.0,
+            52.1,
+            114.0
+          ],
+          "after_world_rect": [
+            304,
+            126.0,
+            52.1,
+            114.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "vent_stack",
+          "before": {
+            "id": "vent_stack",
+            "x": 24,
+            "ground": true
+          },
+          "after": {
+            "id": "vent_stack",
+            "x": 24,
+            "ground": true
+          },
+          "before_world_rect": [
+            384,
+            183.0,
+            16.4,
+            57.0
+          ],
+          "after_world_rect": [
+            384,
+            183.0,
+            16.4,
+            57.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "rooftop_hut",
+          "before": {
+            "id": "rooftop_hut",
+            "x": 25,
+            "ground": true,
+            "allow_overlap": true
+          },
+          "after": {
+            "id": "rooftop_hut",
+            "x": 14,
+            "ground": true,
+            "allow_overlap": true
+          },
+          "before_world_rect": [
+            400,
+            245.0,
+            107.6,
+            75.0
+          ],
+          "after_world_rect": [
+            224,
+            165.0,
+            107.6,
+            75.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "pipe_vertical",
+          "before": {
+            "id": "pipe_vertical",
+            "x": 31,
+            "y": 19
+          },
+          "after": {
+            "id": "pipe_vertical",
+            "x": 31,
+            "y": 19
+          },
+          "before_world_rect": [
+            496,
+            256.0,
+            6.7,
+            64.0
+          ],
+          "after_world_rect": [
+            496,
+            256.0,
+            6.7,
+            64.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "fire_escape",
+          "before": {
+            "id": "fire_escape",
+            "x": 29,
+            "y": 19,
+            "allow_overlap": true
+          },
+          "after": {
+            "id": "fire_escape",
+            "x": 32,
+            "y": 14,
+            "allow_overlap": true,
+            "support": "wall",
+            "ground": false
+          },
+          "before_world_rect": [
+            464,
+            248.0,
+            48.0,
+            72.0
+          ],
+          "after_world_rect": [
+            512,
+            168.0,
+            48.0,
+            72.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "vent_stack",
+          "before": {
+            "id": "vent_stack",
+            "x": 40,
+            "ground": true
+          },
+          "after": {
+            "id": "vent_stack",
+            "x": 40,
+            "ground": true
+          },
+          "before_world_rect": [
+            640,
+            183.0,
+            16.4,
+            57.0
+          ],
+          "after_world_rect": [
+            640,
+            183.0,
+            16.4,
+            57.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "ac_unit",
+          "before": {
+            "id": "ac_unit",
+            "x": 42,
+            "ground": true,
+            "dx": 4
+          },
+          "after": {
+            "id": "ac_unit",
+            "x": 42,
+            "ground": true,
+            "dx": 4
+          },
+          "before_world_rect": [
+            676,
+            219.0,
+            27.8,
+            21.0
+          ],
+          "after_world_rect": [
+            676,
+            219.0,
+            27.8,
+            21.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "antenna",
+          "before": {
+            "id": "antenna",
+            "x": 48,
+            "ground": true,
+            "flip": true
+          },
+          "after": {
+            "id": "antenna",
+            "x": 48,
+            "ground": true,
+            "flip": true
+          },
+          "before_world_rect": [
+            768,
+            132.0,
+            16.3,
+            108.0
+          ],
+          "after_world_rect": [
+            768,
+            132.0,
+            16.3,
+            108.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "chimney_stack",
+          "before": {
+            "id": "chimney_stack",
+            "x": 45,
+            "ground": true
+          },
+          "after": {
+            "id": "chimney_stack",
+            "x": 45,
+            "ground": true
+          },
+          "before_world_rect": [
+            720,
+            144.0,
+            38.6,
+            96.0
+          ],
+          "after_world_rect": [
+            720,
+            144.0,
+            38.6,
+            96.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "trash_can",
+          "before": {
+            "id": "trash_can",
+            "x": 55,
+            "ground": true
+          },
+          "after": {
+            "id": "trash_can",
+            "x": 55,
+            "ground": true
+          },
+          "before_world_rect": [
+            880,
+            255.5,
+            9.6,
+            16.5
+          ],
+          "after_world_rect": [
+            880,
+            255.5,
+            9.6,
+            16.5
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "graffiti",
+          "before": {
+            "id": "graffiti",
+            "x": 64,
+            "y": 18
+          },
+          "after": {
+            "id": "graffiti",
+            "x": 64,
+            "y": 19,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            1024,
+            244.0,
+            50.1,
+            60.0
+          ],
+          "after_world_rect": [
+            1024,
+            260.0,
+            50.1,
+            60.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "puddle",
+          "before": {
+            "id": "puddle",
+            "x": 60,
+            "ground": true
+          },
+          "after": {
+            "id": "puddle",
+            "x": 60,
+            "ground": true
+          },
+          "before_world_rect": [
+            960,
+            284.0,
+            40.0,
+            4.0
+          ],
+          "after_world_rect": [
+            960,
+            284.0,
+            40.0,
+            4.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "vending_machine",
+          "before": {
+            "id": "vending_machine",
+            "x": 67,
+            "ground": true
+          },
+          "after": {
+            "id": "vending_machine",
+            "x": 67,
+            "ground": true
+          },
+          "before_world_rect": [
+            1072,
+            263.0,
+            29.8,
+            57.0
+          ],
+          "after_world_rect": [
+            1072,
+            263.0,
+            29.8,
+            57.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "street_lamp",
+          "before": {
+            "id": "street_lamp",
+            "x": 52,
+            "ground": true
+          },
+          "after": {
+            "id": "street_lamp",
+            "x": 52,
+            "ground": true
+          },
+          "before_world_rect": [
+            832,
+            180.0,
+            12.9,
+            60.0
+          ],
+          "after_world_rect": [
+            832,
+            180.0,
+            12.9,
+            60.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "lantern_string",
+          "before": {
+            "id": "lantern_string",
+            "x": 72,
+            "y": 10
+          },
+          "after": null,
+          "before_world_rect": [
+            1152,
+            160.0,
+            96.0,
+            16.0
+          ],
+          "after_world_rect": null,
+          "action": "removed",
+          "support": "none"
+        },
+        {
+          "id": "lantern_string",
+          "before": {
+            "id": "lantern_string",
+            "x": 120,
+            "y": 10
+          },
+          "after": null,
+          "before_world_rect": [
+            1920,
+            160.0,
+            96.0,
+            16.0
+          ],
+          "after_world_rect": null,
+          "action": "removed",
+          "support": "none"
+        },
+        {
+          "id": "noodle_stall",
+          "before": {
+            "id": "noodle_stall",
+            "x": 70,
+            "ground": true
+          },
+          "after": {
+            "id": "noodle_stall",
+            "x": 70,
+            "ground": true
+          },
+          "before_world_rect": [
+            1120,
+            272.0,
+            64.0,
+            48.0
+          ],
+          "after_world_rect": [
+            1120,
+            272.0,
+            64.0,
+            48.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "vending_machine",
+          "before": {
+            "id": "vending_machine",
+            "x": 87,
+            "ground": true
+          },
+          "after": {
+            "id": "vending_machine",
+            "x": 87,
+            "ground": true
+          },
+          "before_world_rect": [
+            1392,
+            263.0,
+            29.8,
+            57.0
+          ],
+          "after_world_rect": [
+            1392,
+            263.0,
+            29.8,
+            57.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "street_lamp",
+          "before": {
+            "id": "street_lamp",
+            "x": 82,
+            "ground": true
+          },
+          "after": {
+            "id": "street_lamp",
+            "x": 82,
+            "ground": true
+          },
+          "before_world_rect": [
+            1312,
+            260.0,
+            12.9,
+            60.0
+          ],
+          "after_world_rect": [
+            1312,
+            260.0,
+            12.9,
+            60.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "street_lamp",
+          "before": {
+            "id": "street_lamp",
+            "x": 128,
+            "ground": true
+          },
+          "after": {
+            "id": "street_lamp",
+            "x": 128,
+            "ground": true
+          },
+          "before_world_rect": [
+            2048,
+            196.0,
+            12.9,
+            60.0
+          ],
+          "after_world_rect": [
+            2048,
+            196.0,
+            12.9,
+            60.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "utility_pole",
+          "before": {
+            "id": "utility_pole",
+            "x": 75,
+            "ground": true,
+            "dx": -16
+          },
+          "after": {
+            "id": "utility_pole",
+            "x": 75,
+            "ground": true,
+            "dx": -16
+          },
+          "before_world_rect": [
+            1184,
+            176.0,
+            16.2,
+            80.0
+          ],
+          "after_world_rect": [
+            1184,
+            176.0,
+            16.2,
+            80.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "utility_pole",
+          "before": {
+            "id": "utility_pole",
+            "x": 156,
+            "ground": true,
+            "dx": -16
+          },
+          "after": {
+            "id": "utility_pole",
+            "x": 156,
+            "ground": true,
+            "dx": -16
+          },
+          "before_world_rect": [
+            2480,
+            240.0,
+            16.2,
+            80.0
+          ],
+          "after_world_rect": [
+            2480,
+            240.0,
+            16.2,
+            80.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "puddle",
+          "before": {
+            "id": "puddle",
+            "x": 100,
+            "ground": true
+          },
+          "after": {
+            "id": "puddle",
+            "x": 100,
+            "ground": true
+          },
+          "before_world_rect": [
+            1600,
+            316.0,
+            40.0,
+            4.0
+          ],
+          "after_world_rect": [
+            1600,
+            316.0,
+            40.0,
+            4.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "puddle",
+          "before": {
+            "id": "puddle",
+            "x": 118,
+            "ground": true
+          },
+          "after": {
+            "id": "puddle",
+            "x": 118,
+            "ground": true
+          },
+          "before_world_rect": [
+            1888,
+            316.0,
+            40.0,
+            4.0
+          ],
+          "after_world_rect": [
+            1888,
+            316.0,
+            40.0,
+            4.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "puddle",
+          "before": {
+            "id": "puddle",
+            "x": 136,
+            "ground": true
+          },
+          "after": {
+            "id": "puddle",
+            "x": 136,
+            "ground": true
+          },
+          "before_world_rect": [
+            2176,
+            316.0,
+            40.0,
+            4.0
+          ],
+          "after_world_rect": [
+            2176,
+            316.0,
+            40.0,
+            4.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "bus_stop",
+          "before": {
+            "id": "bus_stop",
+            "x": 134,
+            "ground": true
+          },
+          "after": {
+            "id": "bus_stop",
+            "x": 134,
+            "ground": true
+          },
+          "before_world_rect": [
+            2144,
+            251.0,
+            107.9,
+            69.0
+          ],
+          "after_world_rect": [
+            2144,
+            251.0,
+            107.9,
+            69.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "bench",
+          "before": {
+            "id": "bench",
+            "x": 121,
+            "ground": true
+          },
+          "after": {
+            "id": "bench",
+            "x": 121,
+            "ground": true
+          },
+          "before_world_rect": [
+            1936,
+            294.5,
+            55.9,
+            25.5
+          ],
+          "after_world_rect": [
+            1936,
+            294.5,
+            55.9,
+            25.5
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "dumpster",
+          "before": {
+            "id": "dumpster",
+            "x": 114,
+            "ground": true
+          },
+          "after": {
+            "id": "dumpster",
+            "x": 114,
+            "ground": true
+          },
+          "before_world_rect": [
+            1824,
+            279.5,
+            56.3,
+            40.5
+          ],
+          "after_world_rect": [
+            1824,
+            279.5,
+            56.3,
+            40.5
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "fire_escape",
+          "before": {
+            "id": "fire_escape",
+            "x": 106,
+            "y": 19
+          },
+          "after": {
+            "id": "fire_escape",
+            "x": 106,
+            "y": 16,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            1696,
+            248.0,
+            48.0,
+            72.0
+          ],
+          "after_world_rect": [
+            1696,
+            200.0,
+            48.0,
+            72.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "trash_can",
+          "before": {
+            "id": "trash_can",
+            "x": 90,
+            "ground": true
+          },
+          "after": {
+            "id": "trash_can",
+            "x": 90,
+            "ground": true
+          },
+          "before_world_rect": [
+            1440,
+            239.5,
+            9.6,
+            16.5
+          ],
+          "after_world_rect": [
+            1440,
+            239.5,
+            9.6,
+            16.5
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "graffiti",
+          "before": {
+            "id": "graffiti",
+            "x": 144,
+            "y": 18
+          },
+          "after": {
+            "id": "graffiti",
+            "x": 144,
+            "y": 15,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            2304,
+            244.0,
+            50.1,
+            60.0
+          ],
+          "after_world_rect": [
+            2304,
+            196.0,
+            50.1,
+            60.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "billboard_ad",
+          "before": {
+            "id": "billboard_ad",
+            "x": 148,
+            "y": 12
+          },
+          "after": {
+            "id": "billboard_ad",
+            "x": 148,
+            "ground": true
+          },
+          "before_world_rect": [
+            2368,
+            130.0,
+            92.7,
+            78.0
+          ],
+          "after_world_rect": [
+            2368,
+            242.0,
+            92.7,
+            78.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "worker_hut",
+          "before": {
+            "id": "worker_hut",
+            "x": 163,
+            "ground": true
+          },
+          "after": {
+            "id": "worker_hut",
+            "x": 163,
+            "ground": true
+          },
+          "before_world_rect": [
+            2608,
+            242.0,
+            82.7,
+            78.0
+          ],
+          "after_world_rect": [
+            2608,
+            242.0,
+            82.7,
+            78.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "forklift",
+          "before": {
+            "id": "forklift",
+            "x": 170,
+            "ground": true
+          },
+          "after": {
+            "id": "forklift",
+            "x": 170,
+            "ground": true
+          },
+          "before_world_rect": [
+            2720,
+            254.0,
+            103.6,
+            66.0
+          ],
+          "after_world_rect": [
+            2720,
+            254.0,
+            103.6,
+            66.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "pallet_stack",
+          "before": {
+            "id": "pallet_stack",
+            "x": 174,
+            "ground": true
+          },
+          "after": {
+            "id": "pallet_stack",
+            "x": 174,
+            "ground": true
+          },
+          "before_world_rect": [
+            2784,
+            275.0,
+            57.1,
+            45.0
+          ],
+          "after_world_rect": [
+            2784,
+            275.0,
+            57.1,
+            45.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "crane_arm",
+          "before": {
+            "id": "crane_arm",
+            "x": 189,
+            "ground": true
+          },
+          "after": {
+            "id": "crane_arm",
+            "x": 189,
+            "ground": true
+          },
+          "before_world_rect": [
+            3024,
+            248.0,
+            128.0,
+            72.0
+          ],
+          "after_world_rect": [
+            3024,
+            248.0,
+            128.0,
+            72.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "crates_stack",
+          "before": {
+            "id": "crates_stack",
+            "x": 190,
+            "ground": true
+          },
+          "after": {
+            "id": "crates_stack",
+            "x": 190,
+            "ground": true
+          },
+          "before_world_rect": [
+            3040,
+            211.5,
+            41.4,
+            28.5
+          ],
+          "after_world_rect": [
+            3040,
+            211.5,
+            41.4,
+            28.5
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "fence",
+          "before": {
+            "id": "fence",
+            "x": 196,
+            "ground": true
+          },
+          "after": null,
+          "before_world_rect": [
+            3136,
+            228.0,
+            180.4,
+            60.0
+          ],
+          "after_world_rect": null,
+          "action": "removed",
+          "support": "none"
+        },
+        {
+          "id": "fence",
+          "before": {
+            "id": "fence",
+            "x": 212,
+            "ground": true,
+            "allow_overlap": true
+          },
+          "after": null,
+          "before_world_rect": [
+            3392,
+            260.0,
+            180.4,
+            60.0
+          ],
+          "after_world_rect": null,
+          "action": "removed",
+          "support": "none"
+        },
+        {
+          "id": "crane_arm",
+          "before": {
+            "id": "crane_arm",
+            "x": 224,
+            "ground": true
+          },
+          "after": {
+            "id": "crane_arm",
+            "x": 224,
+            "ground": true
+          },
+          "before_world_rect": [
+            3584,
+            248.0,
+            128.0,
+            72.0
+          ],
+          "after_world_rect": [
+            3584,
+            248.0,
+            128.0,
+            72.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "barrels",
+          "before": {
+            "id": "barrels",
+            "x": 227,
+            "ground": true
+          },
+          "after": {
+            "id": "barrels",
+            "x": 227,
+            "ground": true
+          },
+          "before_world_rect": [
+            3632,
+            291.5,
+            53.7,
+            28.5
+          ],
+          "after_world_rect": [
+            3632,
+            291.5,
+            53.7,
+            28.5
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "puddle",
+          "before": {
+            "id": "puddle",
+            "x": 207,
+            "ground": true
+          },
+          "after": {
+            "id": "puddle",
+            "x": 207,
+            "ground": true
+          },
+          "before_world_rect": [
+            3312,
+            316.0,
+            40.0,
+            4.0
+          ],
+          "after_world_rect": [
+            3312,
+            316.0,
+            40.0,
+            4.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "puddle",
+          "before": {
+            "id": "puddle",
+            "x": 200,
+            "ground": true
+          },
+          "after": {
+            "id": "puddle",
+            "x": 200,
+            "ground": true
+          },
+          "before_world_rect": [
+            3200,
+            284.0,
+            40.0,
+            4.0
+          ],
+          "after_world_rect": [
+            3200,
+            284.0,
+            40.0,
+            4.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "puddle",
+          "before": {
+            "id": "puddle",
+            "x": 225,
+            "ground": true
+          },
+          "after": {
+            "id": "puddle",
+            "x": 225,
+            "ground": true
+          },
+          "before_world_rect": [
+            3600,
+            316.0,
+            40.0,
+            4.0
+          ],
+          "after_world_rect": [
+            3600,
+            316.0,
+            40.0,
+            4.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "hazard_sign",
+          "before": {
+            "id": "hazard_sign",
+            "x": 176,
+            "y": 14
+          },
+          "after": {
+            "id": "hazard_sign",
+            "x": 176,
+            "ground": true
+          },
+          "before_world_rect": [
+            2816,
+            189.0,
+            29.1,
+            51.0
+          ],
+          "after_world_rect": [
+            2816,
+            269.0,
+            29.1,
+            51.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "pipe_horizontal",
+          "before": {
+            "id": "pipe_horizontal",
+            "x": 206,
+            "y": 12
+          },
+          "after": {
+            "id": "pipe_horizontal",
+            "x": 206,
+            "y": 17,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            3296,
+            201.3,
+            64.0,
+            6.7
+          ],
+          "after_world_rect": [
+            3296,
+            281.3,
+            64.0,
+            6.7
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "facility_pipes",
+          "before": {
+            "id": "facility_pipes",
+            "x": 246,
+            "y": 4
+          },
+          "after": {
+            "id": "facility_pipes",
+            "x": 246,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            3936,
+            64.5,
+            64.0,
+            15.5
+          ],
+          "after_world_rect": [
+            3936,
+            64.0,
+            64.0,
+            15.5
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "facility_pipes",
+          "before": {
+            "id": "facility_pipes",
+            "x": 290,
+            "y": 4
+          },
+          "after": {
+            "id": "facility_pipes",
+            "x": 290,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            4640,
+            64.5,
+            64.0,
+            15.5
+          ],
+          "after_world_rect": [
+            4640,
+            64.0,
+            64.0,
+            15.5
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "camera_wall",
+          "before": {
+            "id": "camera_wall",
+            "x": 250,
+            "y": 5
+          },
+          "after": {
+            "id": "camera_wall",
+            "x": 250,
+            "y": 5,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            4000,
+            88.5,
+            10.7,
+            7.5
+          ],
+          "after_world_rect": [
+            4000,
+            88.5,
+            10.7,
+            7.5
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "camera_wall",
+          "before": {
+            "id": "camera_wall",
+            "x": 280,
+            "y": 5
+          },
+          "after": {
+            "id": "camera_wall",
+            "x": 280,
+            "y": 5,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            4480,
+            88.5,
+            10.7,
+            7.5
+          ],
+          "after_world_rect": [
+            4480,
+            88.5,
+            10.7,
+            7.5
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "camera_wall",
+          "before": {
+            "id": "camera_wall",
+            "x": 300,
+            "y": 5,
+            "flip": true
+          },
+          "after": {
+            "id": "camera_wall",
+            "x": 300,
+            "y": 5,
+            "flip": true,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            4800,
+            88.5,
+            10.7,
+            7.5
+          ],
+          "after_world_rect": [
+            4800,
+            88.5,
+            10.7,
+            7.5
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "control_console",
+          "before": {
+            "id": "control_console",
+            "x": 248,
+            "ground": true
+          },
+          "after": {
+            "id": "control_console",
+            "x": 248,
+            "ground": true
+          },
+          "before_world_rect": [
+            3968,
+            -33.0,
+            44.8,
+            33.0
+          ],
+          "after_world_rect": [
+            3968,
+            287.0,
+            44.8,
+            33.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "server_rack",
+          "before": {
+            "id": "server_rack",
+            "x": 254,
+            "ground": true
+          },
+          "after": {
+            "id": "server_rack",
+            "x": 254,
+            "ground": true
+          },
+          "before_world_rect": [
+            4064,
+            -51.0,
+            19.8,
+            51.0
+          ],
+          "after_world_rect": [
+            4064,
+            269.0,
+            19.8,
+            51.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "gate_door",
+          "before": {
+            "id": "gate_door",
+            "x": 296,
+            "ground": true,
+            "dx": 32
+          },
+          "after": {
+            "id": "gate_door",
+            "x": 296,
+            "ground": true,
+            "dx": 32
+          },
+          "before_world_rect": [
+            4768,
+            -75.0,
+            67.8,
+            75.0
+          ],
+          "after_world_rect": [
+            4768,
+            245.0,
+            67.8,
+            75.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "hazard_sign",
+          "before": {
+            "id": "hazard_sign",
+            "x": 254,
+            "y": 10
+          },
+          "after": {
+            "id": "hazard_sign",
+            "x": 254,
+            "ground": true
+          },
+          "before_world_rect": [
+            4064,
+            125.0,
+            29.1,
+            51.0
+          ],
+          "after_world_rect": [
+            4064,
+            269.0,
+            29.1,
+            51.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "hazard_sign",
+          "before": {
+            "id": "hazard_sign",
+            "x": 278,
+            "y": 10
+          },
+          "after": {
+            "id": "hazard_sign",
+            "x": 278,
+            "ground": true
+          },
+          "before_world_rect": [
+            4448,
+            125.0,
+            29.1,
+            51.0
+          ],
+          "after_world_rect": [
+            4448,
+            269.0,
+            29.1,
+            51.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "floor_marking",
+          "before": {
+            "id": "floor_marking",
+            "x": 244,
+            "ground": true
+          },
+          "after": {
+            "id": "floor_marking",
+            "x": 244,
+            "ground": true
+          },
+          "before_world_rect": [
+            3904,
+            -4.0,
+            64.0,
+            4.0
+          ],
+          "after_world_rect": [
+            3904,
+            316.12,
+            64.0,
+            4.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "floor_marking",
+          "before": {
+            "id": "floor_marking",
+            "x": 300,
+            "ground": true
+          },
+          "after": {
+            "id": "floor_marking",
+            "x": 300,
+            "ground": true
+          },
+          "before_world_rect": [
+            4800,
+            -4.0,
+            64.0,
+            4.0
+          ],
+          "after_world_rect": [
+            4800,
+            316.12,
+            64.0,
+            4.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 264,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 264,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            4224,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            4224,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 274,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 274,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            4384,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            4384,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 284,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 284,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            4544,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            4544,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "cables_hang",
+          "before": {
+            "id": "cables_hang",
+            "x": 266,
+            "y": 5,
+            "allow_overlap": true
+          },
+          "after": {
+            "id": "cables_hang",
+            "x": 266,
+            "y": 5,
+            "allow_overlap": true,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            4256,
+            48.0,
+            37.8,
+            48.0
+          ],
+          "after_world_rect": [
+            4256,
+            64.0,
+            37.8,
+            48.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "cables_hang",
+          "before": {
+            "id": "cables_hang",
+            "x": 296,
+            "y": 5,
+            "allow_overlap": true
+          },
+          "after": {
+            "id": "cables_hang",
+            "x": 296,
+            "y": 5,
+            "allow_overlap": true,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            4736,
+            48.0,
+            37.8,
+            48.0
+          ],
+          "after_world_rect": [
+            4736,
+            64.0,
+            37.8,
+            48.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "gantry_crane",
+          "before": {
+            "id": "gantry_crane",
+            "x": 316,
+            "y": 8
+          },
+          "after": {
+            "id": "gantry_crane",
+            "x": 316,
+            "ground": false,
+            "y": 19
+          },
+          "before_world_rect": [
+            5056,
+            64.0,
+            160.0,
+            80.0
+          ],
+          "after_world_rect": [
+            5056,
+            240.0,
+            160.0,
+            80.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "hangar_light",
+          "before": {
+            "id": "hangar_light",
+            "x": 318,
+            "y": 4
+          },
+          "after": {
+            "id": "hangar_light",
+            "x": 318,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            5088,
+            70.0,
+            5.3,
+            10.0
+          ],
+          "after_world_rect": [
+            5088,
+            64.0,
+            5.3,
+            10.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "hangar_light",
+          "before": {
+            "id": "hangar_light",
+            "x": 330,
+            "y": 4
+          },
+          "after": {
+            "id": "hangar_light",
+            "x": 330,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            5280,
+            70.0,
+            5.3,
+            10.0
+          ],
+          "after_world_rect": [
+            5280,
+            64.0,
+            5.3,
+            10.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "hangar_light",
+          "before": {
+            "id": "hangar_light",
+            "x": 342,
+            "y": 4
+          },
+          "after": {
+            "id": "hangar_light",
+            "x": 342,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            5472,
+            70.0,
+            5.3,
+            10.0
+          ],
+          "after_world_rect": [
+            5472,
+            64.0,
+            5.3,
+            10.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "fuel_tank",
+          "before": {
+            "id": "fuel_tank",
+            "x": 313,
+            "ground": true
+          },
+          "after": {
+            "id": "fuel_tank",
+            "x": 313,
+            "ground": true
+          },
+          "before_world_rect": [
+            5008,
+            -39.0,
+            21.0,
+            39.0
+          ],
+          "after_world_rect": [
+            5008,
+            281.0,
+            21.0,
+            39.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "fuel_tank",
+          "before": {
+            "id": "fuel_tank",
+            "x": 345,
+            "ground": true
+          },
+          "after": {
+            "id": "fuel_tank",
+            "x": 345,
+            "ground": true
+          },
+          "before_world_rect": [
+            5520,
+            -39.0,
+            21.0,
+            39.0
+          ],
+          "after_world_rect": [
+            5520,
+            281.0,
+            21.0,
+            39.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "floor_marking",
+          "before": {
+            "id": "floor_marking",
+            "x": 322,
+            "ground": true
+          },
+          "after": {
+            "id": "floor_marking",
+            "x": 322,
+            "ground": true
+          },
+          "before_world_rect": [
+            5152,
+            -4.0,
+            64.0,
+            4.0
+          ],
+          "after_world_rect": [
+            5152,
+            316.12,
+            64.0,
+            4.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "floor_marking",
+          "before": {
+            "id": "floor_marking",
+            "x": 336,
+            "ground": true
+          },
+          "after": {
+            "id": "floor_marking",
+            "x": 331,
+            "ground": false,
+            "y": 19
+          },
+          "before_world_rect": [
+            5376,
+            -4.0,
+            64.0,
+            4.0
+          ],
+          "after_world_rect": [
+            5296,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "hazard_sign",
+          "before": {
+            "id": "hazard_sign",
+            "x": 326,
+            "y": 14
+          },
+          "after": {
+            "id": "hazard_sign",
+            "x": 326,
+            "ground": true
+          },
+          "before_world_rect": [
+            5216,
+            189.0,
+            29.1,
+            51.0
+          ],
+          "after_world_rect": [
+            5216,
+            125.0,
+            29.1,
+            51.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "tree_island",
+          "before": {
+            "id": "tree_island",
+            "x": 7,
+            "ground": true,
+            "allow_overlap": true
+          },
+          "after": {
+            "id": "tree_island",
+            "x": 7,
+            "ground": true,
+            "allow_overlap": true
+          },
+          "before_world_rect": [
+            112,
+            170.0,
+            43.1,
+            70.0
+          ],
+          "after_world_rect": [
+            112,
+            170.0,
+            43.1,
+            70.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "tree_pine_front",
+          "before": {
+            "id": "tree_pine_front",
+            "x": 27,
+            "ground": true,
+            "allow_overlap": true
+          },
+          "after": {
+            "id": "tree_pine_front",
+            "x": 27,
+            "ground": true,
+            "allow_overlap": true
+          },
+          "before_world_rect": [
+            432,
+            166.0,
+            54.3,
+            154.0
+          ],
+          "after_world_rect": [
+            432,
+            166.0,
+            54.3,
+            154.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "tree_quiver",
+          "before": {
+            "id": "tree_quiver",
+            "x": 36,
+            "ground": true
+          },
+          "after": {
+            "id": "tree_quiver",
+            "x": 41,
+            "ground": true
+          },
+          "before_world_rect": [
+            576,
+            118.0,
+            60.5,
+            90.0
+          ],
+          "after_world_rect": [
+            656,
+            150.0,
+            60.5,
+            90.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "tree_pine_1",
+          "before": {
+            "id": "tree_pine_1",
+            "x": 50,
+            "ground": true
+          },
+          "after": {
+            "id": "tree_pine_1",
+            "x": 50,
+            "ground": true
+          },
+          "before_world_rect": [
+            800,
+            130.0,
+            38.8,
+            110.0
+          ],
+          "after_world_rect": [
+            800,
+            130.0,
+            38.8,
+            110.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "tree_jacaranda",
+          "before": {
+            "id": "tree_jacaranda",
+            "x": 96,
+            "ground": true
+          },
+          "after": {
+            "id": "tree_jacaranda",
+            "x": 96,
+            "ground": true
+          },
+          "before_world_rect": [
+            1536,
+            256.0,
+            43.9,
+            64.0
+          ],
+          "after_world_rect": [
+            1536,
+            256.0,
+            43.9,
+            64.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "tree_fir_1",
+          "before": {
+            "id": "tree_fir_1",
+            "x": 142,
+            "ground": true
+          },
+          "after": {
+            "id": "tree_fir_1",
+            "x": 142,
+            "ground": true
+          },
+          "before_world_rect": [
+            2272,
+            156.0,
+            34.5,
+            100.0
+          ],
+          "after_world_rect": [
+            2272,
+            156.0,
+            34.5,
+            100.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "tree_fir_front",
+          "before": {
+            "id": "tree_fir_front",
+            "x": 157,
+            "ground": true
+          },
+          "after": {
+            "id": "tree_fir_front",
+            "x": 157,
+            "ground": true
+          },
+          "before_world_rect": [
+            2512,
+            180.0,
+            48.3,
+            140.0
+          ],
+          "after_world_rect": [
+            2512,
+            180.0,
+            48.3,
+            140.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "tree_stump",
+          "before": {
+            "id": "tree_stump",
+            "x": 205,
+            "ground": true
+          },
+          "after": {
+            "id": "tree_stump",
+            "x": 205,
+            "ground": true
+          },
+          "before_world_rect": [
+            3280,
+            274.0,
+            17.9,
+            14.0
+          ],
+          "after_world_rect": [
+            3280,
+            274.0,
+            17.9,
+            14.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "tree_branch",
+          "before": {
+            "id": "tree_branch",
+            "x": 217,
+            "ground": true
+          },
+          "after": {
+            "id": "tree_branch",
+            "x": 217,
+            "ground": true
+          },
+          "before_world_rect": [
+            3472,
+            310.0,
+            4.2,
+            10.0
+          ],
+          "after_world_rect": [
+            3472,
+            310.0,
+            4.2,
+            10.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "tree_pine_2",
+          "before": {
+            "id": "tree_pine_2",
+            "x": 233,
+            "ground": true
+          },
+          "after": {
+            "id": "tree_pine_2",
+            "x": 233,
+            "ground": true
+          },
+          "before_world_rect": [
+            3728,
+            228.0,
+            43.1,
+            92.0
+          ],
+          "after_world_rect": [
+            3728,
+            228.0,
+            43.1,
+            92.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        }
+      ]
+    },
+    {
+      "map": "data/levels/level_02_map.json",
+      "terrain_and_spawns_unchanged": true,
+      "props_before": 133,
+      "props_after": 131,
+      "decor_removed_cells": [],
+      "decor_moved_cells": [],
+      "props": [
+        {
+          "id": "elevator_door",
+          "before": {
+            "id": "elevator_door",
+            "x": 10,
+            "y": 19
+          },
+          "after": {
+            "id": "elevator_door",
+            "x": 10,
+            "y": 19
+          },
+          "before_world_rect": [
+            160,
+            260.0,
+            46.2,
+            60.0
+          ],
+          "after_world_rect": [
+            160,
+            260.0,
+            46.2,
+            60.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "hazard_sign",
+          "before": {
+            "id": "hazard_sign",
+            "x": 20,
+            "y": 19
+          },
+          "after": {
+            "id": "hazard_sign",
+            "x": 20,
+            "ground": true
+          },
+          "before_world_rect": [
+            320,
+            269.0,
+            29.1,
+            51.0
+          ],
+          "after_world_rect": [
+            320,
+            269.0,
+            29.1,
+            51.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "crates_stack",
+          "before": {
+            "id": "crates_stack",
+            "x": 38,
+            "y": 19
+          },
+          "after": {
+            "id": "crates_stack",
+            "x": 38,
+            "y": 19
+          },
+          "before_world_rect": [
+            608,
+            291.5,
+            41.4,
+            28.5
+          ],
+          "after_world_rect": [
+            608,
+            291.5,
+            41.4,
+            28.5
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "floor_marking",
+          "before": {
+            "id": "floor_marking",
+            "x": 48,
+            "y": 19
+          },
+          "after": {
+            "id": "floor_marking",
+            "x": 48,
+            "y": 19
+          },
+          "before_world_rect": [
+            768,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "after_world_rect": [
+            768,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "pipe_vertical",
+          "before": {
+            "id": "pipe_vertical",
+            "x": 57,
+            "y": 19
+          },
+          "after": {
+            "id": "pipe_vertical",
+            "x": 57,
+            "y": 19
+          },
+          "before_world_rect": [
+            912,
+            256.0,
+            6.7,
+            64.0
+          ],
+          "after_world_rect": [
+            912,
+            256.0,
+            6.7,
+            64.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "floor_marking",
+          "before": {
+            "id": "floor_marking",
+            "x": 16,
+            "y": 19
+          },
+          "after": {
+            "id": "floor_marking",
+            "x": 16,
+            "y": 19
+          },
+          "before_world_rect": [
+            256,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "after_world_rect": [
+            256,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "facility_pipes",
+          "before": {
+            "id": "facility_pipes",
+            "x": 12,
+            "y": 4
+          },
+          "after": {
+            "id": "facility_pipes",
+            "x": 12,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            192,
+            64.5,
+            64.0,
+            15.5
+          ],
+          "after_world_rect": [
+            192,
+            64.0,
+            64.0,
+            15.5
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "facility_pipes",
+          "before": {
+            "id": "facility_pipes",
+            "x": 38,
+            "y": 4
+          },
+          "after": {
+            "id": "facility_pipes",
+            "x": 38,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            608,
+            64.5,
+            64.0,
+            15.5
+          ],
+          "after_world_rect": [
+            608,
+            64.0,
+            64.0,
+            15.5
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "facility_pipes",
+          "before": {
+            "id": "facility_pipes",
+            "x": 58,
+            "y": 4
+          },
+          "after": {
+            "id": "facility_pipes",
+            "x": 58,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            928,
+            64.5,
+            64.0,
+            15.5
+          ],
+          "after_world_rect": [
+            928,
+            64.0,
+            64.0,
+            15.5
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 24,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 24,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            384,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            384,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 46,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 46,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            736,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            736,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 64,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 64,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            1024,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            1024,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "camera_wall",
+          "before": {
+            "id": "camera_wall",
+            "x": 44,
+            "y": 6
+          },
+          "after": {
+            "id": "camera_wall",
+            "x": 44,
+            "y": 6,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            704,
+            104.5,
+            10.7,
+            7.5
+          ],
+          "after_world_rect": [
+            704,
+            104.5,
+            10.7,
+            7.5
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "cables_hang",
+          "before": {
+            "id": "cables_hang",
+            "x": 30,
+            "y": 6
+          },
+          "after": {
+            "id": "cables_hang",
+            "x": 30,
+            "y": 6,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            480,
+            64.0,
+            37.8,
+            48.0
+          ],
+          "after_world_rect": [
+            480,
+            64.0,
+            37.8,
+            48.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "pipe_vertical",
+          "before": {
+            "id": "pipe_vertical",
+            "x": 75,
+            "y": 13
+          },
+          "after": {
+            "id": "pipe_vertical",
+            "x": 75,
+            "y": 13
+          },
+          "before_world_rect": [
+            1200,
+            160.0,
+            6.7,
+            64.0
+          ],
+          "after_world_rect": [
+            1200,
+            160.0,
+            6.7,
+            64.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "hazard_sign",
+          "before": {
+            "id": "hazard_sign",
+            "x": 104,
+            "y": 13
+          },
+          "after": {
+            "id": "hazard_sign",
+            "x": 104,
+            "ground": true
+          },
+          "before_world_rect": [
+            1664,
+            173.0,
+            29.1,
+            51.0
+          ],
+          "after_world_rect": [
+            1664,
+            173.0,
+            29.1,
+            51.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "barrels",
+          "before": {
+            "id": "barrels",
+            "x": 127,
+            "y": 13
+          },
+          "after": {
+            "id": "barrels",
+            "x": 127,
+            "y": 13
+          },
+          "before_world_rect": [
+            2032,
+            195.5,
+            53.7,
+            28.5
+          ],
+          "after_world_rect": [
+            2032,
+            195.5,
+            53.7,
+            28.5
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "crates_stack",
+          "before": {
+            "id": "crates_stack",
+            "x": 112,
+            "y": 13
+          },
+          "after": {
+            "id": "crates_stack",
+            "x": 112,
+            "y": 13
+          },
+          "before_world_rect": [
+            1792,
+            195.5,
+            41.4,
+            28.5
+          ],
+          "after_world_rect": [
+            1792,
+            195.5,
+            41.4,
+            28.5
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "floor_marking",
+          "before": {
+            "id": "floor_marking",
+            "x": 112,
+            "y": 13
+          },
+          "after": {
+            "id": "floor_marking",
+            "x": 112,
+            "y": 13
+          },
+          "before_world_rect": [
+            1792,
+            220.0,
+            64.0,
+            4.0
+          ],
+          "after_world_rect": [
+            1792,
+            220.0,
+            64.0,
+            4.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "elevator_door",
+          "before": {
+            "id": "elevator_door",
+            "x": 128,
+            "y": 13
+          },
+          "after": {
+            "id": "elevator_door",
+            "x": 128,
+            "y": 13
+          },
+          "before_world_rect": [
+            2048,
+            164.0,
+            46.2,
+            60.0
+          ],
+          "after_world_rect": [
+            2048,
+            164.0,
+            46.2,
+            60.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 78,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 78,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            1248,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            1248,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 104,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 104,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            1664,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            1664,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 122,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 122,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            1952,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            1952,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "facility_pipes",
+          "before": {
+            "id": "facility_pipes",
+            "x": 82,
+            "y": 4
+          },
+          "after": {
+            "id": "facility_pipes",
+            "x": 82,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            1312,
+            64.5,
+            64.0,
+            15.5
+          ],
+          "after_world_rect": [
+            1312,
+            64.0,
+            64.0,
+            15.5
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "facility_pipes",
+          "before": {
+            "id": "facility_pipes",
+            "x": 112,
+            "y": 4
+          },
+          "after": {
+            "id": "facility_pipes",
+            "x": 112,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            1792,
+            64.5,
+            64.0,
+            15.5
+          ],
+          "after_world_rect": [
+            1792,
+            64.0,
+            64.0,
+            15.5
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "cables_hang",
+          "before": {
+            "id": "cables_hang",
+            "x": 96,
+            "y": 6
+          },
+          "after": {
+            "id": "cables_hang",
+            "x": 96,
+            "y": 6,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            1536,
+            64.0,
+            37.8,
+            48.0
+          ],
+          "after_world_rect": [
+            1536,
+            64.0,
+            37.8,
+            48.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "server_rack",
+          "before": {
+            "id": "server_rack",
+            "x": 134,
+            "y": 7
+          },
+          "after": {
+            "id": "server_rack",
+            "x": 134,
+            "y": 7
+          },
+          "before_world_rect": [
+            2144,
+            77.0,
+            19.8,
+            51.0
+          ],
+          "after_world_rect": [
+            2144,
+            77.0,
+            19.8,
+            51.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "pipe_horizontal",
+          "before": {
+            "id": "pipe_horizontal",
+            "x": 140,
+            "y": 7
+          },
+          "after": {
+            "id": "pipe_horizontal",
+            "x": 140,
+            "y": 7,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            2240,
+            121.3,
+            64.0,
+            6.7
+          ],
+          "after_world_rect": [
+            2240,
+            121.3,
+            64.0,
+            6.7
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "camera_wall",
+          "before": {
+            "id": "camera_wall",
+            "x": 138,
+            "y": 4
+          },
+          "after": {
+            "id": "camera_wall",
+            "x": 138,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            2208,
+            72.5,
+            10.7,
+            7.5
+          ],
+          "after_world_rect": [
+            2208,
+            72.5,
+            10.7,
+            7.5
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "vending_machine",
+          "before": {
+            "id": "vending_machine",
+            "x": 147,
+            "y": 19
+          },
+          "after": {
+            "id": "vending_machine",
+            "x": 147,
+            "y": 19
+          },
+          "before_world_rect": [
+            2352,
+            263.0,
+            29.8,
+            57.0
+          ],
+          "after_world_rect": [
+            2352,
+            263.0,
+            29.8,
+            57.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "lamp_warm",
+          "before": {
+            "id": "lamp_warm",
+            "x": 157,
+            "y": 19
+          },
+          "after": {
+            "id": "lamp_warm",
+            "x": 157,
+            "y": 19,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            2512,
+            286.0,
+            21.4,
+            34.0
+          ],
+          "after_world_rect": [
+            2512,
+            64.0,
+            21.4,
+            34.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "bench",
+          "before": {
+            "id": "bench",
+            "x": 162,
+            "y": 19
+          },
+          "after": {
+            "id": "bench",
+            "x": 162,
+            "y": 19
+          },
+          "before_world_rect": [
+            2592,
+            294.5,
+            55.9,
+            25.5
+          ],
+          "after_world_rect": [
+            2592,
+            294.5,
+            55.9,
+            25.5
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "graffiti",
+          "before": {
+            "id": "graffiti",
+            "x": 180,
+            "y": 19
+          },
+          "after": {
+            "id": "graffiti",
+            "x": 180,
+            "y": 19,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            2880,
+            260.0,
+            50.1,
+            60.0
+          ],
+          "after_world_rect": [
+            2880,
+            260.0,
+            50.1,
+            60.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "ac_unit",
+          "before": {
+            "id": "ac_unit",
+            "x": 174,
+            "y": 12
+          },
+          "after": {
+            "id": "ac_unit",
+            "x": 174,
+            "y": 12,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            2784,
+            187.0,
+            27.8,
+            21.0
+          ],
+          "after_world_rect": [
+            2784,
+            187.0,
+            27.8,
+            21.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "trash_can",
+          "before": {
+            "id": "trash_can",
+            "x": 170,
+            "y": 19
+          },
+          "after": {
+            "id": "trash_can",
+            "x": 170,
+            "y": 19
+          },
+          "before_world_rect": [
+            2720,
+            303.5,
+            9.6,
+            16.5
+          ],
+          "after_world_rect": [
+            2720,
+            303.5,
+            9.6,
+            16.5
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "dumpster",
+          "before": {
+            "id": "dumpster",
+            "x": 180,
+            "y": 19
+          },
+          "after": {
+            "id": "dumpster",
+            "x": 180,
+            "y": 19
+          },
+          "before_world_rect": [
+            2880,
+            279.5,
+            56.3,
+            40.5
+          ],
+          "after_world_rect": [
+            2880,
+            279.5,
+            56.3,
+            40.5
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "crayon_drawing",
+          "before": {
+            "id": "crayon_drawing",
+            "x": 188,
+            "y": 17
+          },
+          "after": {
+            "id": "crayon_drawing",
+            "x": 188,
+            "y": 17,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            3008,
+            273.0,
+            20.3,
+            15.0
+          ],
+          "after_world_rect": [
+            3008,
+            273.0,
+            20.3,
+            15.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "billboard_ad",
+          "before": {
+            "id": "billboard_ad",
+            "x": 198,
+            "y": 12
+          },
+          "after": null,
+          "before_world_rect": [
+            3168,
+            130.0,
+            92.7,
+            78.0
+          ],
+          "after_world_rect": null,
+          "action": "removed",
+          "support": "none"
+        },
+        {
+          "id": "lamp_warm",
+          "before": {
+            "id": "lamp_warm",
+            "x": 207,
+            "y": 19
+          },
+          "after": {
+            "id": "lamp_warm",
+            "x": 207,
+            "y": 19,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            3312,
+            286.0,
+            21.4,
+            34.0
+          ],
+          "after_world_rect": [
+            3312,
+            64.0,
+            21.4,
+            34.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "ac_unit_big",
+          "before": {
+            "id": "ac_unit_big",
+            "x": 204,
+            "y": 12
+          },
+          "after": {
+            "id": "ac_unit_big",
+            "x": 204,
+            "y": 12,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            3264,
+            175.0,
+            50.2,
+            33.0
+          ],
+          "after_world_rect": [
+            3264,
+            175.0,
+            50.2,
+            33.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "vending_machine",
+          "before": {
+            "id": "vending_machine",
+            "x": 208,
+            "y": 19
+          },
+          "after": {
+            "id": "vending_machine",
+            "x": 208,
+            "y": 19
+          },
+          "before_world_rect": [
+            3328,
+            263.0,
+            29.8,
+            57.0
+          ],
+          "after_world_rect": [
+            3328,
+            263.0,
+            29.8,
+            57.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "window_rain",
+          "before": {
+            "id": "window_rain",
+            "x": 176,
+            "y": 14
+          },
+          "after": {
+            "id": "window_rain",
+            "x": 176,
+            "y": 14,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            2816,
+            195.0,
+            39.2,
+            45.0
+          ],
+          "after_world_rect": [
+            2816,
+            195.0,
+            39.2,
+            45.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 150,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 150,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            2400,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            2400,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 178,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 178,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            2848,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            2848,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 206,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 206,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            3296,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            3296,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "tree_fir_1",
+          "before": {
+            "id": "tree_fir_1",
+            "x": 219,
+            "y": 19
+          },
+          "after": {
+            "id": "tree_fir_1",
+            "x": 219,
+            "y": 19
+          },
+          "before_world_rect": [
+            3504,
+            220.0,
+            34.5,
+            100.0
+          ],
+          "after_world_rect": [
+            3504,
+            220.0,
+            34.5,
+            100.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "tree_jacaranda",
+          "before": {
+            "id": "tree_jacaranda",
+            "x": 232,
+            "y": 19
+          },
+          "after": {
+            "id": "tree_jacaranda",
+            "x": 232,
+            "y": 19
+          },
+          "before_world_rect": [
+            3712,
+            256.0,
+            43.9,
+            64.0
+          ],
+          "after_world_rect": [
+            3712,
+            256.0,
+            43.9,
+            64.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "tree_stump",
+          "before": {
+            "id": "tree_stump",
+            "x": 238,
+            "y": 19
+          },
+          "after": {
+            "id": "tree_stump",
+            "x": 238,
+            "y": 19
+          },
+          "before_world_rect": [
+            3808,
+            306.0,
+            17.9,
+            14.0
+          ],
+          "after_world_rect": [
+            3808,
+            306.0,
+            17.9,
+            14.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "bench",
+          "before": {
+            "id": "bench",
+            "x": 240,
+            "y": 19
+          },
+          "after": {
+            "id": "bench",
+            "x": 240,
+            "y": 19
+          },
+          "before_world_rect": [
+            3840,
+            294.5,
+            55.9,
+            25.5
+          ],
+          "after_world_rect": [
+            3840,
+            294.5,
+            55.9,
+            25.5
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "lamp_warm",
+          "before": {
+            "id": "lamp_warm",
+            "x": 226,
+            "y": 15
+          },
+          "after": {
+            "id": "lamp_warm",
+            "x": 226,
+            "y": 15,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            3616,
+            222.0,
+            21.4,
+            34.0
+          ],
+          "after_world_rect": [
+            3616,
+            64.0,
+            21.4,
+            34.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "bench",
+          "before": {
+            "id": "bench",
+            "x": 234,
+            "y": 12
+          },
+          "after": {
+            "id": "bench",
+            "x": 234,
+            "y": 12
+          },
+          "before_world_rect": [
+            3744,
+            182.5,
+            55.9,
+            25.5
+          ],
+          "after_world_rect": [
+            3744,
+            182.5,
+            55.9,
+            25.5
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "lamp_warm",
+          "before": {
+            "id": "lamp_warm",
+            "x": 245,
+            "y": 15
+          },
+          "after": {
+            "id": "lamp_warm",
+            "x": 239,
+            "y": 15,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            3920,
+            222.0,
+            21.4,
+            34.0
+          ],
+          "after_world_rect": [
+            3824,
+            64.0,
+            21.4,
+            34.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "vending_machine",
+          "before": {
+            "id": "vending_machine",
+            "x": 251,
+            "y": 19
+          },
+          "after": {
+            "id": "vending_machine",
+            "x": 251,
+            "y": 19
+          },
+          "before_world_rect": [
+            4016,
+            263.0,
+            29.8,
+            57.0
+          ],
+          "after_world_rect": [
+            4016,
+            263.0,
+            29.8,
+            57.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "window_rain",
+          "before": {
+            "id": "window_rain",
+            "x": 224,
+            "y": 12
+          },
+          "after": {
+            "id": "window_rain",
+            "x": 224,
+            "y": 12,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            3584,
+            163.0,
+            39.2,
+            45.0
+          ],
+          "after_world_rect": [
+            3584,
+            163.0,
+            39.2,
+            45.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "ac_unit",
+          "before": {
+            "id": "ac_unit",
+            "x": 250,
+            "y": 12
+          },
+          "after": {
+            "id": "ac_unit",
+            "x": 250,
+            "y": 12,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            4000,
+            187.0,
+            27.8,
+            21.0
+          ],
+          "after_world_rect": [
+            4000,
+            187.0,
+            27.8,
+            21.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 222,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 222,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            3552,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            3552,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 236,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 236,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            3776,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            3776,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 250,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 250,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            4000,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            4000,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "hazard_sign",
+          "before": {
+            "id": "hazard_sign",
+            "x": 270,
+            "y": 19
+          },
+          "after": {
+            "id": "hazard_sign",
+            "x": 270,
+            "ground": true
+          },
+          "before_world_rect": [
+            4320,
+            269.0,
+            29.1,
+            51.0
+          ],
+          "after_world_rect": [
+            4320,
+            269.0,
+            29.1,
+            51.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "hazard_sign",
+          "before": {
+            "id": "hazard_sign",
+            "x": 292,
+            "y": 19
+          },
+          "after": {
+            "id": "hazard_sign",
+            "x": 292,
+            "ground": true
+          },
+          "before_world_rect": [
+            4672,
+            269.0,
+            29.1,
+            51.0
+          ],
+          "after_world_rect": [
+            4672,
+            269.0,
+            29.1,
+            51.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "hazard_sign",
+          "before": {
+            "id": "hazard_sign",
+            "x": 303,
+            "y": 19
+          },
+          "after": {
+            "id": "hazard_sign",
+            "x": 303,
+            "ground": true
+          },
+          "before_world_rect": [
+            4848,
+            269.0,
+            29.1,
+            51.0
+          ],
+          "after_world_rect": [
+            4848,
+            269.0,
+            29.1,
+            51.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "hazard_sign",
+          "before": {
+            "id": "hazard_sign",
+            "x": 312,
+            "y": 19
+          },
+          "after": {
+            "id": "hazard_sign",
+            "x": 312,
+            "ground": true
+          },
+          "before_world_rect": [
+            4992,
+            269.0,
+            29.1,
+            51.0
+          ],
+          "after_world_rect": [
+            4992,
+            269.0,
+            29.1,
+            51.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "floor_marking",
+          "before": {
+            "id": "floor_marking",
+            "x": 275,
+            "y": 19
+          },
+          "after": {
+            "id": "floor_marking",
+            "x": 263,
+            "y": 19
+          },
+          "before_world_rect": [
+            4400,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "after_world_rect": [
+            4208,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "floor_marking",
+          "before": {
+            "id": "floor_marking",
+            "x": 292,
+            "y": 19
+          },
+          "after": {
+            "id": "floor_marking",
+            "x": 287,
+            "y": 19
+          },
+          "before_world_rect": [
+            4672,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "after_world_rect": [
+            4592,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "floor_marking",
+          "before": {
+            "id": "floor_marking",
+            "x": 306,
+            "y": 19
+          },
+          "after": {
+            "id": "floor_marking",
+            "x": 310,
+            "y": 19
+          },
+          "before_world_rect": [
+            4896,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "after_world_rect": [
+            4960,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 270,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 270,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            4320,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            4320,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 282,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 282,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            4512,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            4512,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 298,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 298,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            4768,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            4768,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 314,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 314,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            5024,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            5024,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "camera_wall",
+          "before": {
+            "id": "camera_wall",
+            "x": 276,
+            "y": 6
+          },
+          "after": {
+            "id": "camera_wall",
+            "x": 276,
+            "y": 6,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            4416,
+            104.5,
+            10.7,
+            7.5
+          ],
+          "after_world_rect": [
+            4416,
+            104.5,
+            10.7,
+            7.5
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "camera_wall",
+          "before": {
+            "id": "camera_wall",
+            "x": 304,
+            "y": 6,
+            "flip": true
+          },
+          "after": {
+            "id": "camera_wall",
+            "x": 304,
+            "y": 6,
+            "flip": true,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            4864,
+            104.5,
+            10.7,
+            7.5
+          ],
+          "after_world_rect": [
+            4864,
+            104.5,
+            10.7,
+            7.5
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "facility_pipes",
+          "before": {
+            "id": "facility_pipes",
+            "x": 288,
+            "y": 4
+          },
+          "after": {
+            "id": "facility_pipes",
+            "x": 288,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            4608,
+            64.5,
+            64.0,
+            15.5
+          ],
+          "after_world_rect": [
+            4608,
+            64.0,
+            64.0,
+            15.5
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "cables_hang",
+          "before": {
+            "id": "cables_hang",
+            "x": 318,
+            "y": 6
+          },
+          "after": {
+            "id": "cables_hang",
+            "x": 318,
+            "y": 6,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            5088,
+            64.0,
+            37.8,
+            48.0
+          ],
+          "after_world_rect": [
+            5088,
+            64.0,
+            37.8,
+            48.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "server_rack",
+          "before": {
+            "id": "server_rack",
+            "x": 333,
+            "y": 19
+          },
+          "after": {
+            "id": "server_rack",
+            "x": 333,
+            "y": 19
+          },
+          "before_world_rect": [
+            5328,
+            269.0,
+            19.8,
+            51.0
+          ],
+          "after_world_rect": [
+            5328,
+            269.0,
+            19.8,
+            51.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "control_console",
+          "before": {
+            "id": "control_console",
+            "x": 340,
+            "y": 19
+          },
+          "after": {
+            "id": "control_console",
+            "x": 340,
+            "y": 19
+          },
+          "before_world_rect": [
+            5440,
+            287.0,
+            44.8,
+            33.0
+          ],
+          "after_world_rect": [
+            5440,
+            287.0,
+            44.8,
+            33.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "server_rack",
+          "before": {
+            "id": "server_rack",
+            "x": 342,
+            "y": 19
+          },
+          "after": {
+            "id": "server_rack",
+            "x": 342,
+            "y": 19
+          },
+          "before_world_rect": [
+            5472,
+            269.0,
+            19.8,
+            51.0
+          ],
+          "after_world_rect": [
+            5472,
+            269.0,
+            19.8,
+            51.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "hazard_sign",
+          "before": {
+            "id": "hazard_sign",
+            "x": 348,
+            "y": 19
+          },
+          "after": {
+            "id": "hazard_sign",
+            "x": 348,
+            "ground": true
+          },
+          "before_world_rect": [
+            5568,
+            269.0,
+            29.1,
+            51.0
+          ],
+          "after_world_rect": [
+            5568,
+            269.0,
+            29.1,
+            51.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "server_rack",
+          "before": {
+            "id": "server_rack",
+            "x": 366,
+            "y": 19
+          },
+          "after": {
+            "id": "server_rack",
+            "x": 366,
+            "y": 19
+          },
+          "before_world_rect": [
+            5856,
+            269.0,
+            19.8,
+            51.0
+          ],
+          "after_world_rect": [
+            5856,
+            269.0,
+            19.8,
+            51.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "control_console",
+          "before": {
+            "id": "control_console",
+            "x": 376,
+            "y": 19
+          },
+          "after": {
+            "id": "control_console",
+            "x": 376,
+            "y": 19
+          },
+          "before_world_rect": [
+            6016,
+            287.0,
+            44.8,
+            33.0
+          ],
+          "after_world_rect": [
+            6016,
+            287.0,
+            44.8,
+            33.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "floor_marking",
+          "before": {
+            "id": "floor_marking",
+            "x": 356,
+            "y": 19
+          },
+          "after": {
+            "id": "floor_marking",
+            "x": 356,
+            "y": 19
+          },
+          "before_world_rect": [
+            5696,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "after_world_rect": [
+            5696,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "floor_marking",
+          "before": {
+            "id": "floor_marking",
+            "x": 372,
+            "y": 19
+          },
+          "after": {
+            "id": "floor_marking",
+            "x": 372,
+            "y": 19
+          },
+          "before_world_rect": [
+            5952,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "after_world_rect": [
+            5952,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "gate_door",
+          "before": {
+            "id": "gate_door",
+            "x": 390,
+            "y": 19
+          },
+          "after": {
+            "id": "gate_door",
+            "x": 390,
+            "y": 19
+          },
+          "before_world_rect": [
+            6240,
+            245.0,
+            67.8,
+            75.0
+          ],
+          "after_world_rect": [
+            6240,
+            245.0,
+            67.8,
+            75.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "facility_pipes",
+          "before": {
+            "id": "facility_pipes",
+            "x": 330,
+            "y": 4
+          },
+          "after": {
+            "id": "facility_pipes",
+            "x": 330,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            5280,
+            64.5,
+            64.0,
+            15.5
+          ],
+          "after_world_rect": [
+            5280,
+            64.0,
+            64.0,
+            15.5
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "facility_pipes",
+          "before": {
+            "id": "facility_pipes",
+            "x": 345,
+            "y": 4
+          },
+          "after": {
+            "id": "facility_pipes",
+            "x": 345,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            5520,
+            64.5,
+            64.0,
+            15.5
+          ],
+          "after_world_rect": [
+            5520,
+            64.0,
+            64.0,
+            15.5
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "facility_pipes",
+          "before": {
+            "id": "facility_pipes",
+            "x": 362,
+            "y": 4
+          },
+          "after": {
+            "id": "facility_pipes",
+            "x": 362,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            5792,
+            64.5,
+            64.0,
+            15.5
+          ],
+          "after_world_rect": [
+            5792,
+            64.0,
+            64.0,
+            15.5
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "facility_pipes",
+          "before": {
+            "id": "facility_pipes",
+            "x": 384,
+            "y": 4
+          },
+          "after": {
+            "id": "facility_pipes",
+            "x": 384,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            6144,
+            64.5,
+            64.0,
+            15.5
+          ],
+          "after_world_rect": [
+            6144,
+            64.0,
+            64.0,
+            15.5
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 336,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 336,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            5376,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            5376,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 352,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 352,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            5632,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            5632,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 368,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 368,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            5888,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            5888,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "camera_wall",
+          "before": {
+            "id": "camera_wall",
+            "x": 340,
+            "y": 6
+          },
+          "after": {
+            "id": "camera_wall",
+            "x": 340,
+            "y": 6,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            5440,
+            104.5,
+            10.7,
+            7.5
+          ],
+          "after_world_rect": [
+            5440,
+            104.5,
+            10.7,
+            7.5
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "camera_wall",
+          "before": {
+            "id": "camera_wall",
+            "x": 372,
+            "y": 6,
+            "flip": true
+          },
+          "after": {
+            "id": "camera_wall",
+            "x": 372,
+            "y": 6,
+            "flip": true,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            5952,
+            104.5,
+            10.7,
+            7.5
+          ],
+          "after_world_rect": [
+            5952,
+            104.5,
+            10.7,
+            7.5
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "cables_hang",
+          "before": {
+            "id": "cables_hang",
+            "x": 350,
+            "y": 6
+          },
+          "after": {
+            "id": "cables_hang",
+            "x": 350,
+            "y": 6,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            5600,
+            64.0,
+            37.8,
+            48.0
+          ],
+          "after_world_rect": [
+            5600,
+            64.0,
+            37.8,
+            48.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "cables_hang",
+          "before": {
+            "id": "cables_hang",
+            "x": 378,
+            "y": 6
+          },
+          "after": {
+            "id": "cables_hang",
+            "x": 378,
+            "y": 6,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            6048,
+            64.0,
+            37.8,
+            48.0
+          ],
+          "after_world_rect": [
+            6048,
+            64.0,
+            37.8,
+            48.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "hangar_light",
+          "before": {
+            "id": "hangar_light",
+            "x": 392,
+            "y": 4
+          },
+          "after": {
+            "id": "hangar_light",
+            "x": 392,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            6272,
+            70.0,
+            5.3,
+            10.0
+          ],
+          "after_world_rect": [
+            6272,
+            64.0,
+            5.3,
+            10.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "hangar_light",
+          "before": {
+            "id": "hangar_light",
+            "x": 400,
+            "y": 4
+          },
+          "after": {
+            "id": "hangar_light",
+            "x": 400,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            6400,
+            70.0,
+            5.3,
+            10.0
+          ],
+          "after_world_rect": [
+            6400,
+            64.0,
+            5.3,
+            10.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "hangar_light",
+          "before": {
+            "id": "hangar_light",
+            "x": 408,
+            "y": 4
+          },
+          "after": {
+            "id": "hangar_light",
+            "x": 408,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            6528,
+            70.0,
+            5.3,
+            10.0
+          ],
+          "after_world_rect": [
+            6528,
+            64.0,
+            5.3,
+            10.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "gantry_crane",
+          "before": {
+            "id": "gantry_crane",
+            "x": 396,
+            "y": 9
+          },
+          "after": null,
+          "before_world_rect": [
+            6336,
+            80.0,
+            160.0,
+            80.0
+          ],
+          "after_world_rect": null,
+          "action": "removed",
+          "support": "none"
+        },
+        {
+          "id": "fuel_tank",
+          "before": {
+            "id": "fuel_tank",
+            "x": 390,
+            "y": 19
+          },
+          "after": {
+            "id": "fuel_tank",
+            "x": 390,
+            "y": 19
+          },
+          "before_world_rect": [
+            6240,
+            281.0,
+            21.0,
+            39.0
+          ],
+          "after_world_rect": [
+            6240,
+            281.0,
+            21.0,
+            39.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "fuel_tank",
+          "before": {
+            "id": "fuel_tank",
+            "x": 411,
+            "y": 19
+          },
+          "after": {
+            "id": "fuel_tank",
+            "x": 411,
+            "y": 19
+          },
+          "before_world_rect": [
+            6576,
+            281.0,
+            21.0,
+            39.0
+          ],
+          "after_world_rect": [
+            6576,
+            281.0,
+            21.0,
+            39.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "floor_marking",
+          "before": {
+            "id": "floor_marking",
+            "x": 392,
+            "y": 19
+          },
+          "after": {
+            "id": "floor_marking",
+            "x": 392,
+            "y": 19
+          },
+          "before_world_rect": [
+            6272,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "after_world_rect": [
+            6272,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "floor_marking",
+          "before": {
+            "id": "floor_marking",
+            "x": 404,
+            "y": 19
+          },
+          "after": {
+            "id": "floor_marking",
+            "x": 404,
+            "y": 19
+          },
+          "before_world_rect": [
+            6464,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "after_world_rect": [
+            6464,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "hazard_sign",
+          "before": {
+            "id": "hazard_sign",
+            "x": 390,
+            "y": 19
+          },
+          "after": {
+            "id": "hazard_sign",
+            "x": 390,
+            "ground": true
+          },
+          "before_world_rect": [
+            6240,
+            269.0,
+            29.1,
+            51.0
+          ],
+          "after_world_rect": [
+            6240,
+            269.0,
+            29.1,
+            51.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "elevator_door",
+          "before": {
+            "id": "elevator_door",
+            "x": 420,
+            "y": 19
+          },
+          "after": {
+            "id": "elevator_door",
+            "x": 420,
+            "y": 19
+          },
+          "before_world_rect": [
+            6720,
+            260.0,
+            46.2,
+            60.0
+          ],
+          "after_world_rect": [
+            6720,
+            260.0,
+            46.2,
+            60.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "terminal_holo",
+          "before": {
+            "id": "terminal_holo",
+            "x": 421,
+            "y": 19
+          },
+          "after": {
+            "id": "terminal_holo",
+            "x": 421,
+            "y": 19
+          },
+          "before_world_rect": [
+            6736,
+            269.0,
+            60.9,
+            51.0
+          ],
+          "after_world_rect": [
+            6736,
+            269.0,
+            60.9,
+            51.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "vending_machine",
+          "before": {
+            "id": "vending_machine",
+            "x": 430,
+            "y": 19
+          },
+          "after": {
+            "id": "vending_machine",
+            "x": 430,
+            "y": 19
+          },
+          "before_world_rect": [
+            6880,
+            263.0,
+            29.8,
+            57.0
+          ],
+          "after_world_rect": [
+            6880,
+            263.0,
+            29.8,
+            57.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "lamp_warm",
+          "before": {
+            "id": "lamp_warm",
+            "x": 439,
+            "y": 19
+          },
+          "after": {
+            "id": "lamp_warm",
+            "x": 439,
+            "y": 19,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            7024,
+            286.0,
+            21.4,
+            34.0
+          ],
+          "after_world_rect": [
+            7024,
+            64.0,
+            21.4,
+            34.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 418,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 418,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            6688,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            6688,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 432,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 432,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            6912,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            6912,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "facility_pipes",
+          "before": {
+            "id": "facility_pipes",
+            "x": 424,
+            "y": 4
+          },
+          "after": {
+            "id": "facility_pipes",
+            "x": 424,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            6784,
+            64.5,
+            64.0,
+            15.5
+          ],
+          "after_world_rect": [
+            6784,
+            64.0,
+            64.0,
+            15.5
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "hospital_bed",
+          "before": {
+            "id": "hospital_bed",
+            "x": 442,
+            "y": 17
+          },
+          "after": {
+            "id": "hospital_bed",
+            "x": 442,
+            "y": 17,
+            "dx": -7.6
+          },
+          "before_world_rect": [
+            7072,
+            261.0,
+            63.6,
+            27.0
+          ],
+          "after_world_rect": [
+            7064.4,
+            261.0,
+            63.6,
+            27.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "hospital_bed",
+          "before": {
+            "id": "hospital_bed",
+            "x": 448,
+            "y": 17
+          },
+          "after": {
+            "id": "hospital_bed",
+            "x": 448,
+            "y": 17,
+            "dx": -7.6
+          },
+          "before_world_rect": [
+            7168,
+            261.0,
+            63.6,
+            27.0
+          ],
+          "after_world_rect": [
+            7160.4,
+            261.0,
+            63.6,
+            27.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "hospital_bed",
+          "before": {
+            "id": "hospital_bed",
+            "x": 454,
+            "y": 17
+          },
+          "after": {
+            "id": "hospital_bed",
+            "x": 454,
+            "y": 17,
+            "dx": -7.6
+          },
+          "before_world_rect": [
+            7264,
+            261.0,
+            63.6,
+            27.0
+          ],
+          "after_world_rect": [
+            7256.4,
+            261.0,
+            63.6,
+            27.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "hospital_bed",
+          "before": {
+            "id": "hospital_bed",
+            "x": 460,
+            "y": 17
+          },
+          "after": {
+            "id": "hospital_bed",
+            "x": 460,
+            "y": 17,
+            "dx": -7.6
+          },
+          "before_world_rect": [
+            7360,
+            261.0,
+            63.6,
+            27.0
+          ],
+          "after_world_rect": [
+            7352.4,
+            261.0,
+            63.6,
+            27.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "hospital_bed",
+          "before": {
+            "id": "hospital_bed",
+            "x": 466,
+            "y": 17
+          },
+          "after": {
+            "id": "hospital_bed",
+            "x": 466,
+            "y": 17,
+            "dx": -7.6
+          },
+          "before_world_rect": [
+            7456,
+            261.0,
+            63.6,
+            27.0
+          ],
+          "after_world_rect": [
+            7448.4,
+            261.0,
+            63.6,
+            27.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "crayon_drawing",
+          "before": {
+            "id": "crayon_drawing",
+            "x": 444,
+            "y": 14
+          },
+          "after": {
+            "id": "crayon_drawing",
+            "x": 444,
+            "y": 14,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            7104,
+            225.0,
+            20.3,
+            15.0
+          ],
+          "after_world_rect": [
+            7104,
+            225.0,
+            20.3,
+            15.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "crayon_drawing",
+          "before": {
+            "id": "crayon_drawing",
+            "x": 456,
+            "y": 14
+          },
+          "after": {
+            "id": "crayon_drawing",
+            "x": 456,
+            "y": 14,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            7296,
+            225.0,
+            20.3,
+            15.0
+          ],
+          "after_world_rect": [
+            7296,
+            225.0,
+            20.3,
+            15.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "radio_set",
+          "before": {
+            "id": "radio_set",
+            "x": 450,
+            "y": 14
+          },
+          "after": {
+            "id": "radio_set",
+            "x": 450,
+            "y": 19
+          },
+          "before_world_rect": [
+            7200,
+            229.5,
+            14.6,
+            10.5
+          ],
+          "after_world_rect": [
+            7200,
+            309.5,
+            14.6,
+            10.5
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "lamp_warm",
+          "before": {
+            "id": "lamp_warm",
+            "x": 462,
+            "y": 14
+          },
+          "after": {
+            "id": "lamp_warm",
+            "x": 462,
+            "y": 14,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            7392,
+            206.0,
+            21.4,
+            34.0
+          ],
+          "after_world_rect": [
+            7392,
+            64.0,
+            21.4,
+            34.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "window_rain",
+          "before": {
+            "id": "window_rain",
+            "x": 468,
+            "y": 14
+          },
+          "after": {
+            "id": "window_rain",
+            "x": 468,
+            "y": 14,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            7488,
+            195.0,
+            39.2,
+            45.0
+          ],
+          "after_world_rect": [
+            7488,
+            195.0,
+            39.2,
+            45.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 444,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 444,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            7104,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            7104,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 450,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 450,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            7200,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            7200,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 456,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 456,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            7296,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            7296,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 462,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 462,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            7392,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            7392,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "emergency_light",
+          "before": {
+            "id": "emergency_light",
+            "x": 468,
+            "y": 4
+          },
+          "after": {
+            "id": "emergency_light",
+            "x": 468,
+            "y": 4,
+            "support": "wall"
+          },
+          "before_world_rect": [
+            7488,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "after_world_rect": [
+            7488,
+            72.0,
+            5.5,
+            8.0
+          ],
+          "action": "corrected",
+          "support": "wall"
+        },
+        {
+          "id": "gantry_crane",
+          "before": {
+            "id": "gantry_crane",
+            "x": 486,
+            "y": 8
+          },
+          "after": {
+            "id": "gantry_crane",
+            "x": 486,
+            "ground": false,
+            "y": 19
+          },
+          "before_world_rect": [
+            7776,
+            64.0,
+            160.0,
+            80.0
+          ],
+          "after_world_rect": [
+            7776,
+            240.0,
+            160.0,
+            80.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        },
+        {
+          "id": "fuel_tank",
+          "before": {
+            "id": "fuel_tank",
+            "x": 480,
+            "y": 19
+          },
+          "after": {
+            "id": "fuel_tank",
+            "x": 480,
+            "y": 19
+          },
+          "before_world_rect": [
+            7680,
+            281.0,
+            21.0,
+            39.0
+          ],
+          "after_world_rect": [
+            7680,
+            281.0,
+            21.0,
+            39.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "fuel_tank",
+          "before": {
+            "id": "fuel_tank",
+            "x": 505,
+            "y": 19
+          },
+          "after": {
+            "id": "fuel_tank",
+            "x": 505,
+            "y": 19
+          },
+          "before_world_rect": [
+            8080,
+            281.0,
+            21.0,
+            39.0
+          ],
+          "after_world_rect": [
+            8080,
+            281.0,
+            21.0,
+            39.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "hangar_light",
+          "before": {
+            "id": "hangar_light",
+            "x": 478,
+            "y": 4
+          },
+          "after": {
+            "id": "hangar_light",
+            "x": 478,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            7648,
+            70.0,
+            5.3,
+            10.0
+          ],
+          "after_world_rect": [
+            7648,
+            64.0,
+            5.3,
+            10.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "hangar_light",
+          "before": {
+            "id": "hangar_light",
+            "x": 490,
+            "y": 4
+          },
+          "after": {
+            "id": "hangar_light",
+            "x": 490,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            7840,
+            70.0,
+            5.3,
+            10.0
+          ],
+          "after_world_rect": [
+            7840,
+            64.0,
+            5.3,
+            10.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "hangar_light",
+          "before": {
+            "id": "hangar_light",
+            "x": 502,
+            "y": 4
+          },
+          "after": {
+            "id": "hangar_light",
+            "x": 502,
+            "y": 4,
+            "support": "ceiling",
+            "ceiling_row": 4
+          },
+          "before_world_rect": [
+            8032,
+            70.0,
+            5.3,
+            10.0
+          ],
+          "after_world_rect": [
+            8032,
+            64.0,
+            5.3,
+            10.0
+          ],
+          "action": "corrected",
+          "support": "ceiling"
+        },
+        {
+          "id": "floor_marking",
+          "before": {
+            "id": "floor_marking",
+            "x": 484,
+            "y": 19
+          },
+          "after": {
+            "id": "floor_marking",
+            "x": 484,
+            "y": 19
+          },
+          "before_world_rect": [
+            7744,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "after_world_rect": [
+            7744,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "floor_marking",
+          "before": {
+            "id": "floor_marking",
+            "x": 498,
+            "y": 19
+          },
+          "after": {
+            "id": "floor_marking",
+            "x": 498,
+            "y": 19
+          },
+          "before_world_rect": [
+            7968,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "after_world_rect": [
+            7968,
+            316.0,
+            64.0,
+            4.0
+          ],
+          "action": "retained",
+          "support": "ground"
+        },
+        {
+          "id": "hazard_sign",
+          "before": {
+            "id": "hazard_sign",
+            "x": 494,
+            "y": 19
+          },
+          "after": {
+            "id": "hazard_sign",
+            "x": 494,
+            "ground": true
+          },
+          "before_world_rect": [
+            7904,
+            269.0,
+            29.1,
+            51.0
+          ],
+          "after_world_rect": [
+            7904,
+            269.0,
+            29.1,
+            51.0
+          ],
+          "action": "corrected",
+          "support": "ground"
+        }
+      ]
+    }
+  ],
+  "stages": [
+    "blue_sky_seam",
+    "ch1_dawn_noodle_stall",
+    "ch1_pawnshop_front",
+    "ch1_pawnshop_kitchen",
+    "ch1_revival_lounge",
+    "ch1_revival_room",
+    "ch1_rooftop",
+    "elevator_rise",
+    "hangar_red",
+    "old_k_shop",
+    "old_k_shop_dawn",
+    "rainy_harbor",
+    "shaft_descent",
+    "terminal_room",
+    "test_room",
+    "transfer_corridor",
+    "white_room"
+  ]
+}

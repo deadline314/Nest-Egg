@@ -9,6 +9,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
+from scenery_placement import prepare_props, prepare_grid
 from level_kit import Grid, PLAYER_JUMP_TILES, MECH_JUMP_TILES  # noqa: E402,F401
 
 W, H = 350, 24
@@ -259,6 +260,9 @@ props = [
 for entry in props:
     if (entry["id"], entry["x"]) in [('rooftop_hut', 25), ('fire_escape', 29), ('fence', 212), ('cables_hang', 266), ('cables_hang', 296), ('tree_island', 7), ('tree_pine_front', 27)]:
         entry["allow_overlap"] = True
+
+prepare_grid(grid, "level_01")
+props = prepare_props(props, "level_01")
 
 grid.write("level_01", (os.path.dirname(__file__), '..', '..', 'data', 'levels', 'level_01_map.json'),
            {"regions": regions, "props": props})

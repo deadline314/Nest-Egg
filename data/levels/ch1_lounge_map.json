@@ -58,10 +58,10 @@
     {"id": "revival_lounge__round_table_stools", "x": 14, "ground": true},
     {"id": "revival_lounge__jukebox", "x": 21, "ground": true},
     {"id": "revival_lounge__bar_counter", "x": 27, "ground": true},
-    {"id": "revival_lounge__bottle_wall_shelf", "x": 28, "y": 14},
-    {"id": "revival_lounge__menu_board", "x": 38, "y": 14},
+    {"id": "revival_lounge__bottle_wall_shelf", "x": 28, "y": 14, "support": "wall"},
+    {"id": "revival_lounge__menu_board", "x": 38, "y": 14, "support": "wall"},
     {"id": "revival_lounge__corner_plant_string_lights", "x": 40, "ground": true},
     {"id": "revival_lounge__hat_coat_rack", "x": 46, "ground": true},
-    {"id": "revival_lounge__neon_glass_sign", "x": 10, "y": 13}
+    {"id": "revival_lounge__neon_glass_sign", "x": 10, "y": 13, "support": "wall"}
   ]
 }

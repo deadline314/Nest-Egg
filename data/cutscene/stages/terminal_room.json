@@ -33,8 +33,8 @@
   {
    "kind": "glow",
    "pos": [
-    356,
-    190
+    315,
+    180
    ],
    "radius": 190,
    "color": "#35e0ff",
@@ -48,12 +48,18 @@
    "kind": "sprite",
    "path": "res://art/environment/props/terminal_holo.png",
    "pos": [
-    306,
-    141
+    265,
+    132.36
    ],
    "scale": 0.205,
    "filter": "linear",
-   "source_width": 487
+   "source_width": 487,
+   "support_rect": [
+    258,
+    216,
+    116,
+    4
+   ]
   },
   {
    "kind": "motes",

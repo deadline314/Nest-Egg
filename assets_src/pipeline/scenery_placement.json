@@ -1,0 +1,265 @@
+{
+  "wall": [
+    "graffiti",
+    "camera_wall",
+    "emergency_light",
+    "ac_unit",
+    "ac_unit_big",
+    "crayon_drawing",
+    "window_rain",
+    "pipe_horizontal",
+    "anchor_phone_booth__poster_wall",
+    "revival_lounge__bottle_wall_shelf",
+    "revival_lounge__menu_board",
+    "revival_lounge__neon_glass_sign",
+    "pawnshop_front__wall_instruments",
+    "pawnshop_front__pawn_sign",
+    "pawnshop_kitchen__hanging_pans",
+    "pawnshop_kitchen__tear_off_calendar",
+    "fire_escape"
+  ],
+  "ceiling": [
+    "facility_pipes",
+    "cables_hang",
+    "hangar_light",
+    "lamp_warm",
+    "pawnshop_kitchen__paper_shade_lamp",
+    "dock_warehouse__hoist_chain"
+  ],
+  "ground": [
+    "rooftop__rope_coil_hook",
+    "harbor_street__rebirth_billboard",
+    "harbor_street__stacked_neon_signs",
+    "billboard_ad",
+    "gantry_crane",
+    "hazard_sign"
+  ],
+  "overrides": {
+    "ch1_pawnshop": {
+      "pawnshop_front__locked_ledger_box:53": {
+        "support": "prop",
+        "support_id": "pawnshop_front__counter_register",
+        "support_x": 52,
+        "dy": -20,
+        "support_dy": 16
+      },
+      "pawnshop_kitchen__lunch_left_for_today:91": {
+        "support": "prop",
+        "support_id": "pawnshop_kitchen__dining_table",
+        "support_x": 90,
+        "dy": -19,
+        "support_dy": 6.5
+      },
+      "pawnshop_kitchen__paper_shade_lamp:88": {
+        "ceiling_row": 10
+      }
+    },
+    "ch1_rooftop": {},
+    "ch1_street": {
+      "harbor_street__umbrella_vending:170": {
+        "x": 173
+      }
+    },
+    "ch1_stall": {
+      "dawn_noodle_stall__dawn_string_lights:14": {
+        "remove": true
+      },
+      "dawn_noodle_stall__hanging_lantern:22": {
+        "x": 20,
+        "y": 17,
+        "dy": -1,
+        "support": "hang_prop",
+        "support_id": "dawn_noodle_stall__ali_noodle_cart",
+        "support_x": 18
+      }
+    },
+    "ch1_vault": {
+      "dock_warehouse__open_container:23": {
+        "x": 8
+      }
+    },
+    "level_01": {
+      "lantern_string:72": {
+        "remove": true
+      },
+      "lantern_string:120": {
+        "remove": true
+      },
+      "rooftop_hut:25": {
+        "x": 14,
+        "ground": true
+      },
+      "fire_escape:29": {
+        "x": 32,
+        "ground": false,
+        "support": "wall",
+          "y": 14
+      },
+      "fence:196": {
+        "remove": true
+      },
+      "fence:212": {
+        "remove": true
+      },
+      "pipe_horizontal:206": {
+        "y": 17
+      },
+      "tree_quiver:36": {
+        "x": 41
+      },
+      "floor_marking:336": {
+        "x": 331,
+        "ground": false,
+        "y": 19
+      },
+      "gantry_crane:316": {
+        "ground": false,
+        "y": 19
+      },
+      "graffiti:144": {
+        "y": 15
+      },
+      "graffiti:64": {
+        "y": 19
+      },
+      "fire_escape:106": {
+          "y": 16
+      }
+    },
+    "level_02": {
+      "radio_set:450": {
+        "y": 19
+      },
+      "hospital_bed:442": {
+        "dx": -7.6
+      },
+      "hospital_bed:448": {
+        "dx": -7.6
+      },
+      "hospital_bed:454": {
+        "dx": -7.6
+      },
+      "hospital_bed:460": {
+        "dx": -7.6
+      },
+      "hospital_bed:466": {
+        "dx": -7.6
+      },
+      "floor_marking:275": {
+        "x": 263
+      },
+      "floor_marking:292": {
+        "x": 287
+      },
+      "floor_marking:306": {
+        "x": 310
+      },
+      "gantry_crane:396": {
+        "remove": true
+      },
+      "gantry_crane:486": {
+        "ground": false,
+        "y": 19
+      },
+      "billboard_ad:198": {
+        "remove": true
+      },
+      "lamp_warm:245": {
+        "x": 239
+      }
+    },
+    "ch1_booth_alley": {
+      "anchor_phone_booth__poster_wall:28": {
+        "y": 19
+      }
+    }
+  },
+  "remove_decor": {
+    "level_01": [
+      [
+        84,
+        4
+      ],
+      [
+        118,
+        4
+      ],
+      [
+        150,
+        4
+      ],
+      [
+        174,
+        6
+      ],
+      [
+        24,
+        9
+      ],
+      [
+        208,
+        10
+      ],
+      [
+        95,
+        11
+      ],
+      [
+        156,
+        11
+      ],
+      [
+        166,
+        11
+      ],
+      [
+        228,
+        11
+      ],
+      [
+        122,
+        12
+      ],
+      [
+        139,
+        12
+      ],
+      [
+        66,
+        13
+      ],
+      [
+        29,
+        16
+      ]
+    ]
+  },
+  "move_decor": {
+    "level_01": [
+      [
+        47,
+        8,
+        47,
+        9
+      ],
+      [
+        72,
+        11,
+        72,
+        12
+      ],
+      [
+        133,
+        11,
+        133,
+        12
+      ],
+      [
+        101,
+        13,
+        101,
+        14
+      ]
+    ]
+  }
+}

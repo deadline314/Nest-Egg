@@ -38,6 +38,7 @@ var _tokens: AttackTokens
 var _pause_menu: PauseMenu
 var _inventory: InventoryScreen
 var _background: LevelBackground
+var _scenery_walls: BackWallGeometry
 var _fog: FogLayer
 var _lighting: LightingController
 var _post: PostProcess
@@ -103,6 +104,7 @@ func _ready() -> void:
 	var back_wall := BackWall.new()
 	_world.add_child(back_wall)
 	back_wall.setup(_layout, hash(data.id), data.environment)
+	_scenery_walls = back_wall.geometry
 
 	var scenery_start := _world.get_child_count()
 	_spawn_decor()
@@ -430,6 +432,9 @@ func _lower_scenery(from_child: int, z: int) -> void:
 ## 招牌、看板、排氣孔等裝飾（畫在地形與角色之後方）。
 func _spawn_decor() -> void:
 	for entry in _layout.decor:
+		if entry["kind"] in ["neon_sign", "neon_sign_h", "billboard"] and not _scenery_walls.covers(ScenerySupport.decor_rect(entry, data)):
+			push_warning("[Level] %s 裝飾 %s 格 %s 沒有完整牆面支撐，已略過" % [data.id, entry["kind"], entry["cell"]])
+			continue
 		var cell: Vector2i = entry["cell"]
 		var position: Vector2 = entry["position"]
 		var hash_value := absi(cell.x * 73856093 ^ cell.y * 19349663)
@@ -468,7 +473,8 @@ func _spawn_decor() -> void:
 ## 地圖 JSON 的 props 清單（見 LevelData.load_props）：以道具資料的 id 擺放。
 func _spawn_props() -> void:
 	var dirs := _prop_dirs()
-	for entry in data.load_props():
+	var entries := data.load_props()
+	for entry in entries:
 		var prop := PropLibrary.find_in(StringName(str(entry["id"])), dirs)
 		if prop == null:
 			continue
@@ -477,6 +483,10 @@ func _spawn_props() -> void:
 			push_warning("[Level] 道具 %s 第 %d 欄下方沒有地表，已略過" % [prop.id, int(entry["x"])])
 			continue
 		var rect: Rect2 = placed["rect"]
+		var issue := ScenerySupport.check_prop(entry, prop, rect, _layout, _scenery_walls, entries, dirs)
+		if not issue.is_empty():
+			push_warning("[Level] %s 道具 %s 第 %d 欄支撐無效（%s），已略過" % [data.id, prop.id, int(entry["x"]), issue])
+			continue
 		_place_prop(prop, rect.position, bool(placed["flip"]))
 
 

@@ -94,15 +94,97 @@
    "source_width": 2560
   },
   {
+   "kind": "rect",
+   "rect": [
+    216,
+    -400,
+    8,
+    1000
+   ],
+   "color": "#343f51"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    424,
+    -400,
+    8,
+    1000
+   ],
+   "color": "#343f51"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    219,
+    -400,
+    2,
+    1000
+   ],
+   "color": "#8194ac"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    427,
+    -400,
+    2,
+    1000
+   ],
+   "color": "#8194ac"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    278,
+    -400,
+    2,
+    450
+   ],
+   "color": "#697686"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    359,
+    -400,
+    2,
+    450
+   ],
+   "color": "#697686"
+  },
+  {
+   "kind": "rect",
+   "id": "cabin_platform",
+   "rect": [
+    216,
+    272,
+    216,
+    12
+   ],
+   "color": "#343f51"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    216,
+    272,
+    216,
+    2
+   ],
+   "color": "#8194ac"
+  },
+  {
    "kind": "sprite",
    "path": "res://art/environment/props/elevator_door.png",
    "pos": [
-    230,
+    234.67,
     50
    ],
-   "scale": 1.0,
+   "scale": 0.4625,
    "filter": "linear",
-   "source_width": 369
+   "source_width": 369,
+   "support_id": "cabin_platform"
   },
   {
    "kind": "counter",
@@ -136,5 +218,6 @@
    "opacity": 0.07,
    "depth": "front"
   }
- ]
+ ],
+ "floor": 272
 }

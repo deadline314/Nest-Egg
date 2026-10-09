@@ -74,7 +74,7 @@ class Grid:
         rows = self.rows()
         segments = [[r[i:i + SEGMENT_WIDTH] for r in rows] for i in range(0, self.w, SEGMENT_WIDTH)]
         path = os.path.join(*path_parts)
-        with open(path, 'w') as f:
+        with open(path, 'w', encoding='utf-8') as f:
             f.write('{\n  "segments": [\n')
             for si, seg in enumerate(segments):
                 f.write('    [\n' + ',\n'.join('      "' + r + '"' for r in seg) + '\n    ]' + (',' if si < len(segments) - 1 else '') + '\n')

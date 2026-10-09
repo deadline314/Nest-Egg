@@ -5,6 +5,8 @@ extends TestSuite
 
 
 func run() -> void:
+	_test_prop_floor()
+	_test_scenery_support()
 	_test_standing()
 	_test_ladders()
 	_test_reachability()
@@ -12,6 +14,85 @@ func run() -> void:
 	_test_stages()
 	_test_real_levels()
 	_test_real_stages()
+
+
+func _test_prop_floor() -> void:
+	var room := _layout(["######", "#....#", "#....#", "#....#", "######", "######"], Vector2i(2, 3))
+	room.tile_size = 16
+	room.surface_heights = PackedFloat32Array([0, 0, 0, 0, 0, 0])
+	var prop := PropData.new()
+	prop.size = Vector2(16, 24)
+	var placed := PropPlacement.resolve({"id": "test", "x": 2, "ground": true}, prop, room)
+	check(not placed.is_empty() and is_equal_approx((placed["rect"] as Rect2).end.y, 64.0), "ground furniture inside a roofed room stands on the floor, not above the ceiling")
+	var floating_data := LevelData.new()
+	floating_data.id = &"floating_prop_fixture"
+	floating_data.height = 12
+	floating_data.environment = load("res://data/environment/themes/chapter1.tres")
+	floating_data.layout_path = "res://tests/fixtures/scenery_support_map.json"
+	check(_codes(SceneAudit.audit(floating_data, LevelBuilder.parse(floating_data))).has("prop_floating"), "fixed-y furniture floating midway up a room is rejected")
+
+
+func _test_scenery_support() -> void:
+	var room := _layout(["######", "#....#", "#....#", "#....#", "######", "######"])
+	room.tile_size = 16
+	check(ScenerySupport.has_ceiling(room, Rect2(16, 16, 32, 24)), "a pendant touches the underside of the roof")
+	check(not ScenerySupport.has_ceiling(room, Rect2(16, 32, 32, 24)), "a pendant suspended in empty air is rejected")
+	check(not ScenerySupport.has_ceiling(room, Rect2(0, 16, 32, 24)), "a pendant embedded inside the side wall is rejected")
+	check(ScenerySupport.has_ground(room, Rect2(16, 40, 32, 24)), "furniture contacts the visible floor")
+	check(not ScenerySupport.has_ground(room, Rect2(16, 56, 32, 24)), "furniture embedded one cell below the floor is rejected")
+	var bridge := _layout(["........", "........", "........", "..#..#.."])
+	bridge.tile_size = 16
+	check(not ScenerySupport.has_ground(bridge, Rect2(32, 24, 64, 24)), "a wide prop cannot balance over a support gap using only its center")
+	ScenerySupport._contacts["fixture_two_feet"] = [[0.0, 0.1], [0.9, 1.0]]
+	check(ScenerySupport.has_ground(bridge, Rect2(32, 24, 64, 24), &"fixture_two_feet"), "transparent space between two grounded feet does not require a full platform")
+	ScenerySupport._contacts.erase("fixture_two_feet")
+	ScenerySupport._contacts["fixture_one_foot"] = [[0.0, 0.1]]
+	bridge.rows[3] = "..#....."
+	check(ScenerySupport.has_ground(bridge, Rect2(32, 24, 64, 24), &"fixture_one_foot") and not ScenerySupport.has_ground(bridge, Rect2(32, 24, 64, 24), &"fixture_one_foot", true), "flipped art also flips the ground contact footprint")
+	ScenerySupport._contacts.erase("fixture_one_foot")
+	check(not ScenerySupport.has_ground(room, Rect2(16, -8, 48, 72), &"fire_escape"), "a padded canvas bottom on the floor does not mean the actual ladder touches the floor")
+	var ladder := PropLibrary.find_in(&"fire_escape", PackedStringArray([PropLibrary.DEFAULT_DIR]))
+	var padded: Rect2 = PropPlacement.resolve({"id": "fire_escape", "x": 1, "ground": true}, ladder, room)["rect"]
+	check(is_equal_approx(padded.end.y, 82.5) and ScenerySupport.has_ground(room, padded, &"fire_escape"), "ground placement compensates the ladder's 18.5 px transparent bottom margin")
+	check(is_equal_approx(padded.position.y + ladder.platform.position.y, 36.5), "a padded prop's collision platform moves with its sprite placement")
+	var walls := BackWallGeometry.new()
+	walls.support_rects = [Rect2(0, 0, 32, 32), Rect2(32, 0, 32, 16), Rect2(32, 32, 32, 32)]
+	check(walls.covers(Rect2(16, 4, 40, 8)), "adjacent facade modules jointly support a wall sign")
+	check(not walls.covers(Rect2(16, 4, 40, 24)), "a sign crossing a changing roof height or a wall hole is rejected")
+	check(not walls.covers(Rect2(32, 16, 16, 16)), "a decoration in a wall hole has no support")
+	var tall := _layout(["........", "........", "........", "........", "........", "........", "........", "........", "........", "........", "........", "........", "########", "########"])
+	tall.tile_size = 16
+	tall.covered_columns = PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0])
+	tall.surface_heights = PackedFloat32Array([192, 192, 192, 192, 192, 192, 192, 192])
+	walls.setup(tall, 123, load("res://data/environment/themes/chapter1.tres"))
+	check(not walls.covers(Rect2(16, 0, 32, 16)), "generated facades do not claim the sky above the actual cap as wall")
+	check(walls.covers(Rect2(16, 176, 32, 16)), "generated facade basement supports a sign above the floor")
+	var cap: Rect2 = walls.modules[0].back()["rect"]
+	check(not walls.covers(Rect2(cap.position, Vector2(16, 1))), "transparent sky and antennas above the opaque roof cap do not support a wall sign")
+	check(walls.covers(Rect2(Vector2(cap.position.x, cap.end.y - 1), Vector2(16, 1))), "the actual opaque bottom strip of a roof cap provides support")
+	var crate := PropLibrary.find_in(&"crates_stack", PackedStringArray([PropLibrary.DEFAULT_DIR]))
+	var invalid: Array[Dictionary] = [{"id": "crates_stack", "x": 2, "y": 3, "support": "prop", "support_id": "absent", "support_x": 2}]
+	check(ScenerySupport.check_prop(invalid[0], crate, Rect2(32, 16, 32, 32), room, walls, invalid, PackedStringArray([PropLibrary.DEFAULT_DIR])) == "prop_anchor_missing", "a tabletop prop must name an existing physical support")
+	var anchored := {"kind": "sprite", "path": "res://art/environment/props/terminal_holo.png", "pos": [265, 132.36], "scale": 0.205, "support_rect": [258, 216, 116, 4]}
+	check(ScenerySupport.stage_anchor_issue(anchored, {}).is_empty(), "a stage terminal sits on the visible table top")
+	anchored["pos"] = [306, 141]
+	check(ScenerySupport.stage_anchor_issue(anchored, {}) == "stage_prop_floating", "the previous stage terminal floating past the table edge is rejected")
+	anchored.erase("support_rect")
+	anchored["support_id"] = "absent"
+	check(ScenerySupport.stage_anchor_issue(anchored, {}) == "stage_anchor_missing", "a stage prop cannot cite an absent platform")
+	var wide := _layout(["####################", "#..................#", "#..................#", "#..................#", "####################", "####################"])
+	wide.tile_size = 16
+	var dirs := PackedStringArray(["res://data/environment/scene_props/pawnshop_front"])
+	var ledger := PropLibrary.find_in(&"pawnshop_front__locked_ledger_box", dirs)
+	var furniture: Array[Dictionary] = [{"id": "pawnshop_front__counter_register", "x": 3, "ground": true}, {"id": "pawnshop_front__locked_ledger_box", "x": 4, "ground": true, "dy": -20, "support": "prop", "support_id": "pawnshop_front__counter_register", "support_x": 3, "support_dy": 16}]
+	var ledger_rect: Rect2 = PropPlacement.resolve(furniture[1], ledger, wide)["rect"]
+	check(ScenerySupport.check_prop(furniture[1], ledger, ledger_rect, wide, walls, furniture, dirs).is_empty(), "a ledger sits on the counter surface below the register's top")
+	ledger_rect.position.y -= 16
+	check(ScenerySupport.check_prop(furniture[1], ledger, ledger_rect, wide, walls, furniture, dirs) == "prop_anchor_missing", "the top of a register bounding box is not the counter surface")
+	furniture[0].erase("ground")
+	furniture[0]["y"] = 2
+	ledger_rect.position.y += 16
+	check(ScenerySupport.check_prop(furniture[1], ledger, ledger_rect, wide, walls, furniture, dirs) == "prop_anchor_missing", "a floating parent cannot provide support for another prop")
 
 
 # ---------------------------------------------------------------------------
@@ -227,6 +308,14 @@ func _test_real_levels() -> void:
 			continue
 		datas[path] = data
 		layouts[path] = LevelBuilder.parse(data)
+		if data.id == &"level_01":
+			var escapes := 0
+			for entry in data.load_props():
+				if entry["id"] == "fire_escape":
+					var prop := PropLibrary.find_in(&"fire_escape", data.environment.prop_dirs())
+					if prop != null and prop.platform.has_area():
+						escapes += 1
+			check(escapes == 2, "both relocated fire escapes retain their interactive landing platforms")
 		var split := SceneAudit.split(SceneAudit.audit(data, layouts[path]))
 		for issue: Dictionary in split["errors"]:
 			check(false, "scene sanity: %s" % SceneAudit.describe(issue))
@@ -240,6 +329,10 @@ func _test_real_levels() -> void:
 
 
 func _test_real_stages() -> void:
+	for id in StageLibrary.ids():
+		var definition := StageLibrary.definition(id)
+		for layer: Dictionary in definition.get("layers", []):
+			check(ScenerySupport.stage_anchor_issue(layer, definition).is_empty(), "authored stage prop contacts its actual support: %s %s" % [id, layer.get("path", layer.get("kind", ""))])
 	var issues := SceneAudit.audit_stages(Story.audit_data()["scenes"], StageLibrary.definition)
 	for issue in issues:
 		check(false, "stage sanity: %s" % SceneAudit.describe(issue))

@@ -10,6 +10,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
+from scenery_placement import prepare_props
 from level_kit import Grid, PLAYER_JUMP_TILES, HEADROOM  # noqa: E402
 
 ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
@@ -401,7 +402,7 @@ def write_data_files():
             continue
         w = TresWriter(cls, script)
         body = [f'script = ExtResource("{w.script_id}")'] + lines
-        with open(path, 'w') as f:
+        with open(path, 'w', encoding='utf-8') as f:
             f.write(w.render(body))
         print('wrote', path)
 
@@ -876,7 +877,7 @@ def write_npc_files():
             lines.append(f'pose = &"{n["pose"]}"')
         lines += [f'loop = &"{n["loop"]}"', f'facing = {n["facing"]}', f'prompt = {json.dumps(n["prompt"], ensure_ascii=False)}',
                   f'talks = Array[ExtResource("{talk_script}")]([' + ', '.join(f'SubResource("{x}")' for x in subs) + '])']
-        with open(os.path.join(NPC_DIR, f'{ident}.tres'), 'w') as f:
+        with open(os.path.join(NPC_DIR, f'{ident}.tres'), 'w', encoding='utf-8') as f:
             f.write(w.render(lines))
 
 
@@ -907,13 +908,13 @@ def write_encounter_files(areas):
                 lines.append(f'clear_text = {json.dumps(e["clear_text"], ensure_ascii=False)}')
             if e['start_scene']:
                 lines.append(f'start_scene = &"{e["start_scene"]}"')
-            with open(os.path.join(ENCOUNTER_DIR, f'ch1_enc_{e["key"]}.tres'), 'w') as f:
+            with open(os.path.join(ENCOUNTER_DIR, f'ch1_enc_{e["key"]}.tres'), 'w', encoding='utf-8') as f:
                 f.write(w.render(lines))
             g = TresWriter('MechanismData', 'res://data/scripts/mechanism_data.gd')
             glines = [f'script = ExtResource("{g.script_id}")', f'id = &"ch1_arena_{e["key"]}"', 'kind = 1',
                       f'display_name = "競技場閘門"', 'hint = ""', 'color = Color(1, 0.35, 0.3, 1)', f'channel = &"{channel}"',
                       f'size_tiles = Vector2i(1, {e["gate_h"]})', 'arena_gate = true']
-            with open(os.path.join(ENCOUNTER_DIR, f'ch1_arena_{e["key"]}.tres'), 'w') as f:
+            with open(os.path.join(ENCOUNTER_DIR, f'ch1_arena_{e["key"]}.tres'), 'w', encoding='utf-8') as f:
                 f.write(g.render(glines))
 
 
@@ -936,7 +937,7 @@ def write_design(areas):
             'encounters': [{'name': e['name'], 'lock': e['lock'], 'x0': e['x0'], 'x1': e['x1'], 'members': [ENEMY_NAMES[c] for c in e['members']],
                             'reinforcements': [ENEMY_NAMES[c] for c in e['reinforcements']]} for e in a.encounters],
         }
-    with open(os.path.join(LEVEL_DIR, 'ch1_design.json'), 'w') as f:
+    with open(os.path.join(LEVEL_DIR, 'ch1_design.json'), 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=1)
         f.write('\n')
 
@@ -1044,7 +1045,7 @@ def write_theme(area, theme_key):
            f'sky = SubResource("{sky_sub}")',
            f'extra_prop_dirs = PackedStringArray({dirs})']
     path = os.path.join(THEME_DIR, f'ch1_{area.id}.tres')
-    with open(path, 'w') as f:
+    with open(path, 'w', encoding='utf-8') as f:
         f.write(w.render(res))
     return f'res://data/environment/themes/ch1_{area.id}.tres'
 
@@ -1121,7 +1122,7 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
     for key, value in opts.items():
         res.append(f'{key} = {value}')
     path = os.path.join(LEVEL_DIR, f'ch1_{level_id}.tres')
-    with open(path, 'w') as f:
+    with open(path, 'w', encoding='utf-8') as f:
         f.write(w.render(res))
     print('wrote', path)
 
@@ -1148,7 +1149,7 @@ def main():
     if '--render' in sys.argv:
         render_overview(areas, os.path.join(ROOT, 'pm', 'ST', 'images'))
     for a in areas:
-        extra = {"props": a.props}
+        extra = {"props": prepare_props(a.props, a.id)}
         if a.regions:
             extra["regions"] = a.regions
         a.grid.write(a.id, (LEVEL_DIR, f'ch1_{a.id}_map.json'), extra)

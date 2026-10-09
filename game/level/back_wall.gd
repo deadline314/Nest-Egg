@@ -28,6 +28,7 @@ var _ground := PackedFloat32Array()
 var _theme: EnvironmentTheme
 ## 每一欄的立面模組（由下往上）：{ "rect": Rect2, "path": String }。只在有立面主題時使用。
 var _col_modules: Array[Array] = []
+var geometry := BackWallGeometry.new()
 
 
 func setup(layout: LevelLayout, p_seed := 1, theme: EnvironmentTheme = null) -> void:
@@ -36,38 +37,14 @@ func setup(layout: LevelLayout, p_seed := 1, theme: EnvironmentTheme = null) -> 
 	_theme = theme
 	z_index = WorldLayers.BACK_WALL
 	var size := layout.pixel_size()
-	var panel := float(_tile * PANEL_TILES)
-	_columns = ceili(size.x / panel)
-	_rows = ceili(size.y / panel)
-	var rng := RandomNumberGenerator.new()
-	rng.seed = _seed
-	_holes.resize(_columns * _rows)
-	for row in _rows:
-		for col in _columns:
-			var y := row * panel
-			var hole := y > panel and y < size.y - panel * 2.0 and rng.randf() < _hole_chance(col)
-			_holes[row * _columns + col] = 1 if hole else 0
-	_outdoor.resize(_columns)
-	_facade_top.resize(_columns)
-	_ground.resize(_columns)
-	for col in _columns:
-		var first := col * PANEL_TILES
-		var covered := 0
-		var ground := INF
-		for x in range(first, mini(first + PANEL_TILES, layout.width)):
-			covered += layout.covered_columns[x]
-			ground = minf(ground, layout.surface_heights[x]) if layout.surface_heights[x] > 0.0 else ground
-		_outdoor[col] = 1 if covered * 2 < PANEL_TILES else 0
-		_ground[col] = ground if ground != INF else size.y
-		# 立面高度以「每兩塊牆板一棟樓」變化。
-		if col % 2 == 0:
-			_facade_top[col] = _ground[col] - rng.randf_range(4.0, 9.0) * _tile
-		else:
-			_facade_top[col] = _facade_top[col - 1]
-		# 相鄰兩塊共用高度時，另一塊的地面可能更高（平台）：頂端不能低於地面，否則立面高度會是負的。
-		_facade_top[col] = minf(_facade_top[col], _ground[col] - 2.0 * _tile)
-	if _theme != null:
-		_build_modules(layout)
+	geometry.setup(layout, p_seed, theme)
+	_columns = geometry.columns
+	_rows = geometry.rows
+	_holes = geometry.holes
+	_outdoor = geometry.outdoor
+	_facade_top = geometry.facade_top
+	_ground = geometry.ground
+	_col_modules = geometry.modules
 	build_chunks(Rect2(Vector2.ZERO, size))
 	if not _col_modules.is_empty():
 		var glow := _FacadeGlow.new()
@@ -84,34 +61,6 @@ func _zone_of_col(col: int) -> EnvZone:
 func _hole_chance(col: int) -> float:
 	var zone := _zone_of_col(col)
 	return zone.hole_chance if zone != null else HOLE_CHANCE
-
-
-## 依各欄所在區段的立面清單，把每一欄的樓層模組（一樓、標準樓層、女兒牆）排好。
-## 相鄰兩欄共用同一種立面與樓層變化，看起來是一棟比較寬的樓。
-func _build_modules(layout: LevelLayout) -> void:
-	_col_modules.clear()
-	_col_modules.resize(_columns)
-	var panel := float(_tile * PANEL_TILES)
-	for col in _columns:
-		var zone := _zone_of_col(col)
-		if _outdoor[col] != 1 or zone == null or zone.facades.is_empty():
-			continue
-		var group := col / 2
-		var facade: FacadeData = zone.facades[(_seed + group * 7) % zone.facades.size()]
-		var key := _seed + group * 13
-		var ground := _ground[col]
-		var modules: Array[Dictionary] = []
-		var left := col * panel
-		var y := ground - FacadeData.GROUND_HEIGHT
-		modules.append({"rect": Rect2(left, y, panel, FacadeData.GROUND_HEIGHT), "path": FacadeData.pick(facade.ground, key)})
-		var building_h := ground - _facade_top[col]
-		var floors := maxi(1, int((building_h - FacadeData.GROUND_HEIGHT - FacadeData.CAP_HEIGHT) / FacadeData.BODY_HEIGHT))
-		for i in floors:
-			y -= FacadeData.BODY_HEIGHT
-			modules.append({"rect": Rect2(left, y, panel, FacadeData.BODY_HEIGHT), "path": FacadeData.pick(facade.body, key + i * 3 + col % 2)})
-		y -= FacadeData.CAP_HEIGHT
-		modules.append({"rect": Rect2(left, y, panel, FacadeData.CAP_HEIGHT), "path": FacadeData.pick(facade.cap, key)})
-		_col_modules[col] = modules
 
 
 func _draw_chunk(canvas: CanvasItem, rect: Rect2) -> void:

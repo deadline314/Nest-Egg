@@ -59,6 +59,7 @@ static func audit(data: LevelData, layout: LevelLayout) -> Array[Dictionary]:
 	for point in layout.health_pickups:
 		_check_standing(data, layout, "health", point, Vector2(12.0, 12.0), false, issues)
 	_check_props(data, layout, issues)
+	_check_decor(data, layout, issues)
 	_check_reachability(data, layout, issues)
 	return issues
 
@@ -225,7 +226,10 @@ static func _check_props(data: LevelData, layout: LevelLayout, issues: Array[Dic
 	if data.environment == null or data.layout_path.is_empty():
 		return
 	var dirs := data.environment.prop_dirs()
-	for entry in data.load_props():
+	var walls := BackWallGeometry.new()
+	walls.setup(layout, hash(data.id), data.environment)
+	var entries := data.load_props()
+	for entry in entries:
 		var prop := PropLibrary.find_in(StringName(str(entry["id"])), dirs)
 		var where := "%s 欄 %d" % [data.id, int(entry["x"])]
 		if prop == null:
@@ -236,12 +240,27 @@ static func _check_props(data: LevelData, layout: LevelLayout, issues: Array[Dic
 			_add(issues, ERROR, "prop_floating", where, "擺設 %s 腳下沒有地表" % entry["id"])
 			continue
 		var rect: Rect2 = placed["rect"]
+		var support_issue := ScenerySupport.check_prop(entry, prop, rect, layout, walls, entries, dirs)
+		if not support_issue.is_empty():
+			_add(issues, ERROR, support_issue, where, "擺設 %s 缺少 %s 支撐／接觸面：%s" % [entry["id"], entry.get("support", "ground"), rect])
 		if rect.position.x < 0.0 or rect.end.x > layout.pixel_size().x:
 			_add(issues, ERROR, "prop_outside", where, "擺設 %s 超出地圖左右邊界" % entry["id"])
 		var buried := _buried_depth(layout, rect)
 		# allow_overlap：看過畫面確認是景深（物件在牆後、吊掛在天花板上、貼著高牆）的擺設，不再警告。
 		if buried > PROP_OVERLAP_TOLERANCE and not bool(entry.get("allow_overlap", false)):
 			_add(issues, WARN, "prop_buried", where, "擺設 %s 有 %.0f 像素陷進實心地形" % [entry["id"], buried])
+
+
+static func _check_decor(data: LevelData, layout: LevelLayout, issues: Array[Dictionary]) -> void:
+	if layout.decor.is_empty():
+		return
+	var walls := BackWallGeometry.new()
+	walls.setup(layout, hash(data.id), data.environment)
+	for entry in layout.decor:
+		if str(entry["kind"]) in ["neon_sign", "neon_sign_h", "billboard"]:
+			var rect := ScenerySupport.decor_rect(entry, data)
+			if not walls.covers(rect):
+				_add(issues, ERROR, "decor_wall_missing", "%s %s" % [data.id, entry["cell"]], "%s 沒有完整的可見牆面：%s" % [entry["kind"], rect])
 
 
 ## rect 與實心格重疊的最小邊長（像素）；沒重疊為 0。上緣以下才算，貼著地面的底邊不算。
