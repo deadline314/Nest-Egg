@@ -17,8 +17,10 @@ var _fullscreen: CheckButton
 var _hud_auto_hide: CheckButton
 var _quality_option: OptionButton
 var _reduce_flashes: CheckButton
+var _reduce_ui_motion: CheckButton
 var _skip_cutscenes: CheckButton
 var _smooth_font: CheckButton
+var _text_scale_option: OptionButton
 var _zoom_pulse: CheckButton
 var _damage_numbers: CheckButton
 var _feel_sliders: Dictionary[String, HSlider] = {}
@@ -43,7 +45,7 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
 
 	var shade := ColorRect.new()
-	shade.color = Color(Palette.BG_FAR, 0.97)
+	shade.color = Color(0.025, 0.04, 0.065, 1.0)
 	shade.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(shade)
 
@@ -60,7 +62,9 @@ func _ready() -> void:
 
 	_tabs = TabContainer.new()
 	_tabs.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_tabs.tab_changed.connect(func(_tab: int) -> void: _cancel_capture())
+	_tabs.tab_changed.connect(func(_tab: int) -> void:
+		_cancel_capture()
+		_focus_first.call_deferred())
 	layout.add_child(_tabs)
 	_tabs.add_child(_build_audio_tab())
 	_tabs.add_child(_build_bindings_tab())
@@ -207,6 +211,15 @@ func _build_display_tab() -> Control:
 		Settings.set_reduce_flashes(on)
 		Sfx.play(&"ui_confirm", -6.0, 0.0))
 	box.add_child(_reduce_flashes)
+	_reduce_ui_motion = CheckButton.new()
+	_reduce_ui_motion.text = "減少介面動態"
+	_reduce_ui_motion.tooltip_text = "選單直接顯示，關閉滑入與數字跳動；遊戲動作照常。"
+	_reduce_ui_motion.focus_mode = Control.FOCUS_ALL
+	_reduce_ui_motion.button_pressed = Settings.get_reduce_ui_motion()
+	_reduce_ui_motion.toggled.connect(func(on: bool) -> void:
+		Settings.set_reduce_ui_motion(on)
+		Sfx.play(&"ui_confirm", -6.0, 0.0))
+	box.add_child(_reduce_ui_motion)
 	_smooth_font = CheckButton.new()
 	_smooth_font.text = "平滑字型"
 	_smooth_font.tooltip_text = "開啟後立即改用平滑黑體，關閉後改用像素字。"
@@ -216,6 +229,19 @@ func _build_display_tab() -> Control:
 		Settings.set_ui_font("smooth" if on else "pixel")
 		Sfx.play(&"ui_confirm", -6.0, 0.0))
 	box.add_child(_smooth_font)
+	var text_row := HBoxContainer.new()
+	var text_label := UiKit.label("介面文字")
+	text_label.custom_minimum_size.x = LABEL_WIDTH
+	text_row.add_child(text_label)
+	_text_scale_option = OptionButton.new()
+	_text_scale_option.add_item("標準（100%）", 100)
+	_text_scale_option.add_item("放大（120%）", 120)
+	_text_scale_option.tooltip_text = "只放大介面文字，圖示與遊戲畫面保持原尺寸。"
+	_text_scale_option.select(1 if Settings.get_ui_text_scale() > 1.1 else 0)
+	_text_scale_option.item_selected.connect(func(index: int) -> void:
+		Settings.set_ui_text_scale(float(_text_scale_option.get_item_id(index)) / 100.0))
+	text_row.add_child(_text_scale_option)
+	box.add_child(text_row)
 	_skip_cutscenes = CheckButton.new()
 	_skip_cutscenes.text = "略過過場動畫"
 	_skip_cutscenes.tooltip_text = "開啟：每次都直接略過過場動畫與劇情對話；已看過的演出重來時本來就不會重播"
@@ -498,8 +524,10 @@ func _reset_current_tab() -> void:
 		_update_brightness_label()
 		_select_quality_item()
 		_reduce_flashes.set_pressed_no_signal(Settings.get_reduce_flashes())
+		_reduce_ui_motion.set_pressed_no_signal(Settings.get_reduce_ui_motion())
 		_skip_cutscenes.set_pressed_no_signal(Settings.get_skip_cutscenes())
 		_smooth_font.set_pressed_no_signal(Settings.get_ui_font() == "smooth")
+		_text_scale_option.select(1 if Settings.get_ui_text_scale() > 1.1 else 0)
 		_zoom_pulse.set_pressed_no_signal(Settings.get_zoom_pulse())
 		_damage_numbers.set_pressed_no_signal(Settings.get_damage_numbers())
 		for key: String in _feel_sliders.keys():
@@ -515,5 +543,10 @@ func _set_status(text: String, color := Palette.UI_MUTED) -> void:
 
 
 func _focus_first() -> void:
-	if not _sliders.is_empty():
-		_sliders.values()[0].grab_focus()
+	var page := _tabs.get_current_tab_control()
+	if page == null:
+		return
+	for control: Control in page.find_children("*", "Control", true, false):
+		if control.is_visible_in_tree() and control.focus_mode == Control.FOCUS_ALL:
+			control.grab_focus()
+			return

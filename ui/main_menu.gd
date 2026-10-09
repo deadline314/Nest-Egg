@@ -10,7 +10,7 @@ const VERSION_TEXT := "DEMO 0.1"
 const CAMERA_SWAY := 56.0
 const CAMERA_PERIOD := 48.0
 const MENU_WIDTH := 168.0
-const CARD_SIZE := Vector2(184, 172)
+const CARD_SIZE := Vector2(184, 194)
 ## 開發工具按鈕離右下角的距離（右、下）；下方留給版本字樣。
 const DEV_BUTTON_MARGIN := Vector2(12, 30)
 
@@ -55,6 +55,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if Settings.get_reduce_ui_motion():
+		return
 	# 緩慢左右搖鏡：視差層錯開移動，城市看起來有深度。
 	_time += delta
 	_camera.position.x = 320.0 + sin(_time * TAU / CAMERA_PERIOD) * CAMERA_SWAY
@@ -131,10 +133,15 @@ func _build_main_page() -> void:
 	legend.position = Vector2(38, 334)
 	_main_page.add_child(legend)
 	var version := UiKit.label(VERSION_TEXT, UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
-	version.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
-	version.position = Vector2(640 - 120 - 12, 334)
-	version.size = Vector2(120, 16)
 	_main_page.add_child(version)
+	version.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+	version.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+	version.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	version.custom_minimum_size.x = 120
+	version.offset_left = -132
+	version.offset_top = -30
+	version.offset_right = -12
+	version.offset_bottom = -8
 	_build_dev_entry()
 
 	UiMotion.stagger_in([title, subtitle, rule] + entries, 0.06, 24.0)
@@ -222,8 +229,7 @@ func _make_difficulty_card(difficulty: DifficultyData, group: ButtonGroup) -> Ui
 	card.content.add_child(spacer)
 	card.content.add_child(UiDivider.new())
 	var lives := "無限" if not difficulty.has_limited_lives() else "%d" % difficulty.lives
-	card.add_text("生命　%d" % difficulty.player_max_health)
-	card.add_text("殘機　%s" % lives)
+	card.add_text("生命 %d　殘機 %s" % [difficulty.player_max_health, lives])
 	card.add_text("敵人節奏　%s" % _pace_text(difficulty.enemy_cooldown_multiplier))
 	card.add_text("檢查點回血　%s" % ("有" if difficulty.checkpoint_heals else "沒有"))
 	card.pressed.connect(_select_difficulty.bind(difficulty))

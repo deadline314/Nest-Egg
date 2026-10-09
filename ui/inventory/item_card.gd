@@ -30,6 +30,7 @@ var _tween: Tween
 
 
 func _ready() -> void:
+	add_to_group(UiKit.TEXT_GROUP)
 	custom_minimum_size = CARD_SIZE
 	size = CARD_SIZE
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
@@ -47,6 +48,8 @@ func setup(p_entry: InventoryEntry, p_index: int) -> void:
 
 ## 資料更新後閃一下（例如使用消耗品後數量改變）。
 func flash() -> void:
+	if Settings.get_reduce_ui_motion() or Settings.get_reduce_flashes():
+		return
 	_flash = 1.0
 	set_process(true)
 
@@ -58,6 +61,13 @@ func _gui_input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
+	if Settings.get_reduce_ui_motion():
+		_lift = 0.0
+		_shine = -1.0
+		_flash = 0.0
+		set_process(false)
+		queue_redraw()
+		return
 	var busy := false
 	var target_lift := 1.0 if selected else 0.0
 	if not is_equal_approx(_lift, target_lift):
@@ -77,6 +87,11 @@ func _process(delta: float) -> void:
 
 
 func _animate_selection() -> void:
+	if Settings.get_reduce_ui_motion():
+		_lift = 0.0
+		_shine = -1.0
+		queue_redraw()
+		return
 	if selected:
 		_shine = 0.0
 	set_process(true)
@@ -100,9 +115,9 @@ func _draw() -> void:
 	var font := UiKit.font()
 	var text_x := rect.position.x + 10.0 + ICON_CELL.x + 6.0
 	draw_string(font, Vector2(text_x, rect.position.y + 19.0), entry.title, HORIZONTAL_ALIGNMENT_LEFT,
-			CARD_SIZE.x - text_x - 8.0, 12, Color(accent, dim) if selected else Color(Palette.UI_TEXT, dim))
+			CARD_SIZE.x - text_x - 8.0, UiKit.scaled_size(12), Color(accent, dim) if selected else Color(Palette.UI_TEXT, dim))
 	draw_string(font, Vector2(text_x, rect.position.y + 34.0), entry.subtitle, HORIZONTAL_ALIGNMENT_LEFT,
-			CARD_SIZE.x - text_x - 8.0, 10, Color(Palette.UI_MUTED, dim))
+			CARD_SIZE.x - text_x - 8.0, UiKit.scaled_size(10), Color(Palette.UI_MUTED, dim))
 	if entry.ammo_icon != null:
 		var ammo_rect := Rect2(rect.position + Vector2(CARD_SIZE.x - 22.0, CARD_SIZE.y - 26.0), AmmoIcons.CELL * 1.3)
 		draw_texture_rect(entry.ammo_icon, ammo_rect, false, Color(1, 1, 1, dim))

@@ -79,7 +79,8 @@ func _make_row(def: Dictionary) -> Control:
 		&"guard":
 			_guard_bar = _add_bar(bar_slot)
 	var value := CountUpLabel.new()
-	value.add_theme_font_size_override(&"font_size", 13)
+	value.set_meta(UiKit.TEXT_SIZE_META, 13)
+	value.add_theme_font_size_override(&"font_size", UiKit.scaled_size(13))
 	value.add_theme_color_override(&"font_color", Palette.CYAN)
 	value.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	value.mouse_filter = Control.MOUSE_FILTER_PASS

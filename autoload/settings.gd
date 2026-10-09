@@ -99,6 +99,7 @@ func use_storage(path: String) -> void:
 	_path = path
 	_load()
 	_apply_audio()
+	UiKit.apply_text_scale()
 
 
 func storage_path() -> String:
@@ -205,6 +206,17 @@ func set_reduce_flashes(enabled: bool) -> void:
 	display_changed.emit()
 
 
+## 介面改為立即顯示，保留清楚的靜態焦點與遊戲本身的動作。
+func get_reduce_ui_motion() -> bool:
+	var value: Variant = get_value(DISPLAY_SECTION, "reduce_ui_motion", false)
+	return value if typeof(value) == TYPE_BOOL else false
+
+
+func set_reduce_ui_motion(enabled: bool) -> void:
+	set_value(DISPLAY_SECTION, "reduce_ui_motion", enabled)
+	display_changed.emit()
+
+
 ## 是否每次都跳過過場動畫（已看過的演出本來就不會重播）。
 func get_skip_cutscenes() -> bool:
 	var value: Variant = get_value(DISPLAY_SECTION, "skip_cutscenes", false)
@@ -225,6 +237,20 @@ func get_ui_font() -> String:
 func set_ui_font(style: String) -> void:
 	set_value(DISPLAY_SECTION, "ui_font", style if UiKit.FONT_STYLES.has(style) else UiKit.DEFAULT_FONT_STYLE)
 	UiKit.apply_font_style()
+	display_changed.emit()
+
+
+## 介面文字放大，限制在已驗證的範圍；不縮放場景或像素圖示。
+func get_ui_text_scale() -> float:
+	var value: Variant = get_value(DISPLAY_SECTION, "ui_text_scale", 1.0)
+	if typeof(value) != TYPE_FLOAT and typeof(value) != TYPE_INT:
+		return 1.0
+	return clampf(float(value), 1.0, 1.2) if is_finite(float(value)) else 1.0
+
+
+func set_ui_text_scale(scale: float) -> void:
+	set_value(DISPLAY_SECTION, "ui_text_scale", clampf(scale, 1.0, 1.2) if is_finite(scale) else 1.0)
+	UiKit.apply_text_scale()
 	display_changed.emit()
 
 
@@ -281,7 +307,9 @@ func reset_display() -> void:
 	set_damage_numbers(false)
 	set_skip_cutscenes(false)
 	set_ui_font(UiKit.DEFAULT_FONT_STYLE)
+	set_ui_text_scale(1.0)
 	set_reduce_flashes(false)
+	set_reduce_ui_motion(false)
 	set_hud_auto_hide(HUD_AUTO_HIDE_DEFAULT)
 	set_fullscreen(false)
 	set_brightness(BRIGHTNESS_DEFAULT)

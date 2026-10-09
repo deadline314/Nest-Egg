@@ -1,0 +1,4 @@
+Running 5 groups in 2 processes (logs: /c/tmp/ne227-sync-logs)
+  process 0 (estimated 25 s): PostureSuite
+  process 1 (estimated 11 s): UiScreensSuite,UiKitSuite,ProtagonistMotionSuite,RigActionsSuite
+checks: 5218, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 21 s)

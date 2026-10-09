@@ -1,6 +1,6 @@
 class_name ChamferBox
 extends StyleBox
-## 切角面板外框：底色、細邊線、掃描線、角落小括號。
+## 共用像素面板：實心底、階梯轉角、低亮內緣與角標。
 ## 所有繪製座標取整數，邊線落在像素格上；禁用狀態改畫虛線。
 ## 這是全專案共用的面板形狀，按鈕、頁籤、提示框、面板都由它組成。
 
@@ -17,6 +17,10 @@ var scanlines: float = 0.0
 var dashed: bool = false
 ## 頁籤用：不畫下邊線，讓選取中的頁籤與面板相連。
 var open_bottom: bool = false
+## 階梯像素角保持水平／垂直線段；舊工具仍可選斜切角。
+var pixel_corners: bool = true
+## 低亮度內緣；焦點覆蓋框關閉此項，避免覆蓋下方材質。
+var bevel: bool = true
 ## 內側光暈（亮度 0 表示不畫）。
 var glow: Color = Color(0, 0, 0, 0)
 
@@ -53,6 +57,8 @@ func _outline(rect: Rect2) -> PackedVector2Array:
 	var x1 := origin.x + size.x - half
 	var y1 := origin.y + size.y - half
 	var n := float(mini(notch, int(minf(size.x, size.y) * 0.5) - 1))
+	if pixel_corners:
+		return pixel_outline(x0, y0, x1, y1, maxf(n, 0.0), corners)
 	var pts := PackedVector2Array()
 	pts.append(Vector2(x0 + (n if corners & Corner.TL else 0.0), y0))
 	pts.append(Vector2(x1 - (n if corners & Corner.TR else 0.0), y0))
@@ -70,6 +76,40 @@ func _outline(rect: Rect2) -> PackedVector2Array:
 	return pts
 
 
+## 自繪卡片與 StyleBox 共用輪廓，避免兩套像素轉角不一致。
+static func pixel_outline(x0: float, y0: float, x1: float, y1: float, n: float, corner_flags: int) -> PackedVector2Array:
+	if n < 2.0:
+		return PackedVector2Array([Vector2(x0, y0), Vector2(x1, y0), Vector2(x1, y1), Vector2(x0, y1), Vector2(x0, y0)])
+	var h := floorf(n * 0.5)
+	var pts := PackedVector2Array([Vector2(x0 + (n if corner_flags & Corner.TL else 0.0), y0)])
+	pts.append(Vector2(x1 - (n if corner_flags & Corner.TR else 0.0), y0))
+	if corner_flags & Corner.TR:
+		pts.append(Vector2(x1 - n, y0 + h))
+		pts.append(Vector2(x1 - h, y0 + h))
+		pts.append(Vector2(x1 - h, y0 + n))
+		pts.append(Vector2(x1, y0 + n))
+	pts.append(Vector2(x1, y1 - (n if corner_flags & Corner.BR else 0.0)))
+	if corner_flags & Corner.BR:
+		pts.append(Vector2(x1 - h, y1 - n))
+		pts.append(Vector2(x1 - h, y1 - h))
+		pts.append(Vector2(x1 - n, y1 - h))
+		pts.append(Vector2(x1 - n, y1))
+	pts.append(Vector2(x0 + (n if corner_flags & Corner.BL else 0.0), y1))
+	if corner_flags & Corner.BL:
+		pts.append(Vector2(x0 + n, y1 - h))
+		pts.append(Vector2(x0 + h, y1 - h))
+		pts.append(Vector2(x0 + h, y1 - n))
+		pts.append(Vector2(x0, y1 - n))
+	pts.append(Vector2(x0, y0 + (n if corner_flags & Corner.TL else 0.0)))
+	if corner_flags & Corner.TL:
+		pts.append(Vector2(x0 + h, y0 + n))
+		pts.append(Vector2(x0 + h, y0 + h))
+		pts.append(Vector2(x0 + n, y0 + h))
+	if pts[pts.size() - 1] != pts[0]:
+		pts.append(pts[0])
+	return pts
+
+
 func _draw(canvas: RID, rect: Rect2) -> void:
 	if rect.size.x < 4.0 or rect.size.y < 4.0:
 		return
@@ -78,6 +118,8 @@ func _draw(canvas: RID, rect: Rect2) -> void:
 	var fill_pts := pts.duplicate()
 	fill_pts.remove_at(fill_pts.size() - 1)
 	RenderingServer.canvas_item_add_polygon(canvas, fill_pts, PackedColorArray([fill]))
+	if bevel and fill.a > 0.0:
+		_draw_bevel(canvas, rect)
 	if glow.a > 0.0:
 		_draw_glow(canvas, rect)
 	if scanlines > 0.0:
@@ -85,6 +127,19 @@ func _draw(canvas: RID, rect: Rect2) -> void:
 	_draw_border(canvas, pts)
 	if bracket.a > 0.0:
 		_draw_brackets(canvas, rect)
+
+
+func _draw_bevel(canvas: RID, rect: Rect2) -> void:
+	var origin := rect.position.round()
+	var size := rect.size.round()
+	var inset := float(maxi(notch + 1, border_width + 2))
+	if size.x <= inset * 2.0 or size.y <= 6.0:
+		return
+	var top := Color(fill.lightened(0.16), fill.a)
+	var bottom := Color(fill.darkened(0.55), fill.a)
+	RenderingServer.canvas_item_add_line(canvas, origin + Vector2(inset, 2), origin + Vector2(size.x - inset, 2), top, 1.0)
+	if not open_bottom:
+		RenderingServer.canvas_item_add_line(canvas, origin + Vector2(inset, size.y - 3), origin + Vector2(size.x - inset, size.y - 3), bottom, 2.0)
 
 
 func _draw_border(canvas: RID, pts: PackedVector2Array) -> void:

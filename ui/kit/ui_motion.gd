@@ -9,7 +9,7 @@ const HOME_META := &"ui_motion_home"
 const TWEEN_META := &"ui_motion_tween"
 
 
-## 依序從左側滑入並淡入。reduce 為 true（減少動態）時直接顯示。
+## 依序從左側滑入並淡入。開啟減少介面動態時直接顯示。
 ## 容器內的節點要等容器排好版才知道正確位置（版面是在影格結束時才排），所以先等兩個影格；
 ## 重複呼叫時會先停掉上一次的動畫並回到原位，不會以滑到一半的位置當基準。
 static func stagger_in(nodes: Array, step := STEP, distance := DISTANCE, start_delay := 0.0) -> void:
@@ -19,6 +19,12 @@ static func stagger_in(nodes: Array, step := STEP, distance := DISTANCE, start_d
 	if not is_instance_valid(first) or not first.is_inside_tree():
 		return
 	var tree := first.get_tree()
+	if Settings.get_reduce_ui_motion():
+		for item: Variant in nodes:
+			if is_instance_valid(item) and item is Control:
+				_stop_motion(item as Control)
+				(item as Control).modulate.a = 1.0
+		return
 	for n: Variant in nodes:
 		if is_instance_valid(n):
 			_stop_motion(n as Control)
@@ -34,6 +40,9 @@ static func stagger_in(nodes: Array, step := STEP, distance := DISTANCE, start_d
 		if not is_instance_valid(item) or not (item as Control).is_inside_tree():
 			continue
 		var n := item as Control
+		if Settings.get_reduce_ui_motion():
+			n.modulate.a = 1.0
+			continue
 		var home := n.position
 		n.set_meta(HOME_META, home)
 		n.position = home + Vector2(-distance, 0)
@@ -69,6 +78,8 @@ static func reveal_sequence(nodes: Array, interval: float, on_each: Callable = C
 		n.modulate.a = 1.0
 		if on_each.is_valid():
 			on_each.call(n)
+		if Settings.get_reduce_ui_motion():
+			continue
 		if should_stop.is_valid() and should_stop.call():
 			for rest: Variant in nodes:
 				if is_instance_valid(rest):
@@ -80,6 +91,9 @@ static func reveal_sequence(nodes: Array, interval: float, on_each: Callable = C
 ## 數字從 from 數到 to。
 static func count_up(label: Label, from: int, to: int, seconds: float, format := "%d") -> void:
 	if not is_instance_valid(label) or not label.is_inside_tree():
+		return
+	if Settings.get_reduce_ui_motion():
+		label.text = format % to
 		return
 	var tween := label.create_tween()
 	tween.tween_method(func(v: float) -> void:

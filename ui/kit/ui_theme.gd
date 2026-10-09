@@ -4,6 +4,12 @@ extends RefCounted
 ## 只在 UiKit 第一次要主題時呼叫一次。
 
 const SLIDER_H := 14
+const PANEL_BODY := Color(0.045, 0.075, 0.11, 0.98)
+const PANEL_EDGE := Color("45596c")
+const BUTTON_IDLE := Color("1a2a38")
+const BUTTON_HOVER := Color("263e4f")
+const BUTTON_SELECTED := Color("174555")
+const BUTTON_EDGE := Color("455e70")
 
 
 static func build(font: Font, base_size: int) -> Theme:
@@ -12,10 +18,14 @@ static func build(font: Font, base_size: int) -> Theme:
 	t.default_font_size = base_size
 
 	# 按鈕
-	t.set_stylebox(&"normal", &"Button", _button_box(Color(0.05, 0.09, 0.12, 0.92), Palette.CYAN_DIM))
-	t.set_stylebox(&"hover", &"Button", _button_box(Palette.UI_PANEL_HI, Palette.CYAN))
-	t.set_stylebox(&"pressed", &"Button", _button_box(Palette.UI_PANEL_SEL, Palette.CYAN))
-	t.set_stylebox(&"focus", &"Button", _button_box(Palette.UI_PANEL_HI, Palette.CYAN, true))
+	t.set_stylebox(&"normal", &"Button", _button_box(BUTTON_IDLE, BUTTON_EDGE))
+	t.set_stylebox(&"hover", &"Button", _button_box(BUTTON_HOVER, Palette.CYAN_DIM))
+	var pressed := _button_box(BUTTON_SELECTED, Palette.CYAN)
+	pressed.bevel = false
+	t.set_stylebox(&"pressed", &"Button", pressed)
+	var focus := _button_box(Color(0, 0, 0, 0), Palette.WHITE, true)
+	focus.bevel = false
+	t.set_stylebox(&"focus", &"Button", focus)
 	var disabled := _button_box(Color(0.04, 0.06, 0.08, 0.8), Palette.UI_LINE_OFF)
 	disabled.dashed = true
 	t.set_stylebox(&"disabled", &"Button", disabled)
@@ -27,12 +37,11 @@ static func build(font: Font, base_size: int) -> Theme:
 	t.set_constant(&"h_separation", &"Button", 6)
 
 	# 面板與提示框
-	var panel := ChamferBox.make(Palette.UI_PANEL, Palette.CYAN_DIM, 5)
+	var panel := ChamferBox.make(PANEL_BODY, PANEL_EDGE, 6)
 	panel.bracket = Palette.CYAN
-	panel.scanlines = 0.1
 	panel.margins(14, 10, 14, 10)
 	t.set_stylebox(&"panel", &"PanelContainer", panel)
-	var tip := ChamferBox.make(Color(0.03, 0.05, 0.07, 0.97), Palette.CYAN_DIM, 3)
+	var tip := ChamferBox.make(Color(0.07, 0.10, 0.14, 0.99), Palette.CYAN_DIM, 4)
 	tip.margins(8, 4, 8, 4)
 	t.set_stylebox(&"panel", &"TooltipPanel", tip)
 	t.set_color(&"font_color", &"TooltipLabel", Palette.UI_TEXT)
@@ -55,8 +64,8 @@ static func _button_box(bg: Color, line: Color, wide_line := false) -> ChamferBo
 ## 頁籤：只切上面兩角；選取的頁籤下沿開口，與面板相連。
 static func tab_box(selected: bool) -> ChamferBox:
 	var box := ChamferBox.make(
-			Palette.UI_PANEL_SEL if selected else Color(0.04, 0.07, 0.1, 0.9),
-			Palette.CYAN if selected else Palette.CYAN_DIM, 4)
+			BUTTON_SELECTED if selected else BUTTON_IDLE,
+			Palette.CYAN if selected else BUTTON_EDGE, 4)
 	box.corners = ChamferBox.Corner.TOP
 	box.open_bottom = selected
 	box.margins(12, 4, 12, 4)
@@ -67,8 +76,11 @@ static func _tabs(t: Theme) -> void:
 	t.set_stylebox(&"tab_selected", &"TabContainer", tab_box(true))
 	t.set_stylebox(&"tab_unselected", &"TabContainer", tab_box(false))
 	t.set_stylebox(&"tab_hovered", &"TabContainer", tab_box(true))
-	t.set_stylebox(&"tab_focus", &"TabContainer", tab_box(true))
-	var content := ChamferBox.make(Color(0.03, 0.06, 0.09, 0.85), Palette.CYAN_DIM, 5)
+	var focus := ChamferBox.make(Color(0, 0, 0, 0), Palette.WHITE, 4, 2)
+	focus.bevel = false
+	focus.corners = ChamferBox.Corner.TOP
+	t.set_stylebox(&"tab_focus", &"TabContainer", focus)
+	var content := ChamferBox.make(PANEL_BODY, PANEL_EDGE, 5)
 	content.corners = ChamferBox.Corner.ALL ^ ChamferBox.Corner.TL
 	content.margins(12, 10, 12, 10)
 	t.set_stylebox(&"panel", &"TabContainer", content)
@@ -104,7 +116,10 @@ static func _toggles(t: Theme) -> void:
 		var empty := StyleBoxEmpty.new()
 		for state: StringName in [&"normal", &"hover", &"pressed", &"hover_pressed", &"disabled"]:
 			t.set_stylebox(state, kind, empty)
-		t.set_stylebox(&"focus", kind, _plain(Color(Palette.CYAN, 0.12), 0))
+		var focus := ChamferBox.make(Color(0, 0, 0, 0), Palette.WHITE, 2, 2)
+		focus.bevel = false
+		focus.margins(2, 2, 2, 2)
+		t.set_stylebox(&"focus", kind, focus)
 		t.set_constant(&"h_separation", kind, 8)
 	# 下拉選單沿用按鈕外觀。
 	for state: StringName in [&"normal", &"hover", &"pressed", &"focus", &"disabled"]:
@@ -150,7 +165,7 @@ static func _diamond(color: Color, px: int) -> ImageTexture:
 	return ImageTexture.create_from_image(img)
 
 
-## 方形勾選框：邊框 + 勾選時內部填滿。
+## 勾選框的勾形由像素組成，不只以顏色區分開關。
 static func _check_icon(checked: bool, color: Color = Palette.CYAN) -> ImageTexture:
 	var px := 11
 	var img := Image.create(px, px, false, Image.FORMAT_RGBA8)
@@ -159,7 +174,7 @@ static func _check_icon(checked: bool, color: Color = Palette.CYAN) -> ImageText
 			img.set_pixel(i, edge, color)
 			img.set_pixel(edge, i, color)
 	if checked:
-		for y in range(3, px - 3):
-			for x in range(3, px - 3):
-				img.set_pixel(x, y, color)
+		for point in [Vector2i(2, 5), Vector2i(3, 6), Vector2i(4, 7), Vector2i(5, 6), Vector2i(6, 5), Vector2i(7, 4), Vector2i(8, 3)]:
+			img.set_pixelv(point, color)
+			img.set_pixelv(point + Vector2i(0, 1), color)
 	return ImageTexture.create_from_image(img)

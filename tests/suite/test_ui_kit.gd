@@ -9,6 +9,46 @@ func run() -> void:
 	await _test_widgets()
 	await _test_item_icon_density()
 	_test_theme()
+	_test_pixel_geometry()
+	await _test_accessibility()
+
+
+func _test_accessibility() -> void:
+	var previous_scale := Settings.get_ui_text_scale()
+	var previous_motion := Settings.get_reduce_ui_motion()
+	Settings.set_ui_text_scale(1.0)
+	var root := UiKit.full_rect_root(runner)
+	var label := UiKit.label("長篇任務目標，放大後仍能閱讀")
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	label.size = Vector2(160, 60)
+	root.add_child(label)
+	await frames(2)
+	var original_height := label.get_minimum_size().y
+	Settings.set_ui_text_scale(1.2)
+	await frames(2)
+	check(label.get_theme_font_size(&"font_size") == 13, "文字放大即時更新已開啟的標籤")
+	check(UiKit.theme().default_font_size == 13 and label.get_minimum_size().y >= original_height, "放大同步主題並重新計算文字版面")
+	Settings.set_value(Settings.DISPLAY_SECTION, "ui_text_scale", "broken")
+	check(Settings.get_ui_text_scale() == 1.0, "損毀的文字大小退回標準")
+	Settings.set_ui_text_scale(INF)
+	check(Settings.get_ui_text_scale() == 1.0, "無限大的文字設定退回標準")
+	Settings.set_reduce_ui_motion(true)
+	label.modulate.a = 0.0
+	UiMotion.stagger_in([label])
+	check(label.modulate.a == 1.0 and not label.has_meta(UiMotion.TWEEN_META), "減少動態直接顯示而不建立滑入動畫")
+	UiMotion.count_up(label, 0, 120, 0.5)
+	check(label.text == "120", "減少動態直接顯示最終數值")
+	var button := UiKit.button("確認", Callable())
+	root.add_child(button)
+	button.grab_focus()
+	await frames(2)
+	check(button._marker == 1.0 and button._marker_tween == null, "減少動態保留靜態焦點提示")
+	Settings.set_value(Settings.DISPLAY_SECTION, "reduce_ui_motion", "broken")
+	check(not Settings.get_reduce_ui_motion(), "損毀的介面動態設定退回預設")
+	Settings.set_ui_text_scale(previous_scale)
+	Settings.set_reduce_ui_motion(previous_motion)
+	root.queue_free()
+	await frames(2)
 
 
 func _test_item_icon_density() -> void:
@@ -140,3 +180,21 @@ func _test_theme() -> void:
 	check(t.get_stylebox(&"tab_selected", &"TabContainer") is ChamferBox, "頁籤使用切角外框")
 	check(t.has_icon(&"checked", &"CheckButton"), "勾選框有圖示")
 	check(t.default_font_size == UiKit.FS_BODY, "預設字級為內文字級")
+	var focus := t.get_stylebox(&"focus", &"Button") as ChamferBox
+	check(is_zero_approx(focus.fill.a), "焦點框不以底色蓋住按鈕的目前狀態")
+
+
+func _test_pixel_geometry() -> void:
+	# 小圖示、窄頁籤及大面板都必須能填色；階梯轉角不能產生退化多邊形。
+	for mask in [ChamferBox.Corner.ALL, ChamferBox.Corner.TOP, ChamferBox.Corner.TL, 0]:
+		for dimensions: Vector2 in [Vector2(4, 4), Vector2(7, 17), Vector2(80, 30)]:
+			var box := ChamferBox.make(Palette.UI_PANEL, Palette.CYAN, 6)
+			box.corners = mask
+			var points := box._outline(Rect2(Vector2(9, 13), dimensions))
+			var axis_aligned := true
+			for i in points.size() - 1:
+				var step := points[i + 1] - points[i]
+				axis_aligned = axis_aligned and (is_zero_approx(step.x) or is_zero_approx(step.y))
+			points.remove_at(points.size() - 1)
+			check(axis_aligned and not Geometry2D.triangulate_polygon(points).is_empty(),
+					"像素面板可填色且保持階梯邊緣：%s／%s" % [mask, dimensions])

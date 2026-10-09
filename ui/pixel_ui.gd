@@ -1,6 +1,6 @@
 class_name PixelUi
 extends RefCounted
-## 像素風介面的共用繪製：缺角像素外框、貼圖最近鄰放大、NEW 標記。
+## 像素風介面的共用繪製：階梯外框、低亮內緣、貼圖最近鄰放大與標記。
 ## 所有座標取整數，邊緣不做抗鋸齒，放大後保持銳利。
 
 
@@ -17,15 +17,13 @@ static func frame(canvas: CanvasItem, rect: Rect2, fill: Color, border: Color, n
 	var y0 := inset
 	var x1 := size.x - inset
 	var y1 := size.y - inset
-	var points := PackedVector2Array([
-		Vector2(x0 + n, y0), Vector2(x1 - n, y0), Vector2(x1, y0 + n), Vector2(x1, y1 - n),
-		Vector2(x1 - n, y1), Vector2(x0 + n, y1), Vector2(x0, y1 - n), Vector2(x0, y0 + n),
-	])
-	for i in points.size():
-		points[i] += origin
+	var outline := ChamferBox.pixel_outline(origin.x + x0, origin.y + y0, origin.x + x1, origin.y + y1, n, ChamferBox.Corner.ALL)
+	var points := outline.duplicate()
+	points.remove_at(points.size() - 1)
 	canvas.draw_colored_polygon(points, fill)
-	var outline := points.duplicate()
-	outline.append(points[0])
+	if fill.a > 0.0 and size.y >= 12 and size.x > n * 2.0 + 4:
+		canvas.draw_line(origin + Vector2(n + 1, 2), origin + Vector2(size.x - n - 1, 2), Color(fill.lightened(0.16), fill.a), 1.0, false)
+		canvas.draw_line(origin + Vector2(n + 1, size.y - 3), origin + Vector2(size.x - n - 1, size.y - 3), Color(fill.darkened(0.55), fill.a), 1.0, false)
 	canvas.draw_polyline(outline, border, float(thickness), false)
 
 
@@ -38,6 +36,7 @@ static func texture(canvas: CanvasItem, tex: Texture2D, position: Vector2, scale
 
 ## 小標籤（NEW、數量）：像素外框底 + 文字。回傳標籤寬度。
 static func badge(canvas: CanvasItem, right_top: Vector2, text: String, color: Color, font_size := 9) -> float:
+	font_size = UiKit.scaled_size(font_size)
 	var font := UiKit.font()
 	var text_size := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size)
 	var size := Vector2(text_size.x + 8.0, text_size.y + 2.0)

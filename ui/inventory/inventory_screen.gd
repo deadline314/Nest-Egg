@@ -278,7 +278,7 @@ func _show_page(index: int, animate: bool) -> void:
 		_page_tween.kill()
 	page.position = Vector2.ZERO
 	page.modulate.a = 1.0
-	if animate:
+	if animate and not Settings.get_reduce_ui_motion():
 		page.position.x = PAGE_SLIDE
 		page.modulate.a = 0.0
 		_page_tween = create_tween().set_parallel(true)
@@ -321,10 +321,16 @@ func _set_open_state(open_state: bool) -> void:
 
 func _play_open_animation() -> void:
 	_kill_open_tween()
+	if Settings.get_reduce_ui_motion():
+		_frame.scale = Vector2.ONE
+		_frame.modulate = Color.WHITE
+		_root.modulate.a = 1.0
+		_scan.visible = false
+		return
 	_frame.scale = Vector2(1.0, 0.03)
-	_frame.modulate = Color(2.2, 2.2, 2.2, 0.0)
+	_frame.modulate = Color(1, 1, 1, 0)
 	_root.modulate.a = 0.0
-	_scan.visible = true
+	_scan.visible = not Settings.get_reduce_flashes()
 	_scan.modulate.a = 1.0
 	_open_tween = create_tween().set_parallel(true)
 	_open_tween.tween_property(_root, "modulate:a", 1.0, 0.1)
@@ -336,6 +342,9 @@ func _play_open_animation() -> void:
 
 func _play_close_animation() -> void:
 	_kill_open_tween()
+	if Settings.get_reduce_ui_motion():
+		_set_open_state(false)
+		return
 	_open_tween = create_tween().set_parallel(true)
 	_open_tween.tween_property(_frame, "scale:y", 0.03, CLOSE_TIME).set_ease(Tween.EASE_IN)
 	_open_tween.tween_property(_root, "modulate:a", 0.0, CLOSE_TIME)

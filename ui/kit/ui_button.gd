@@ -26,7 +26,7 @@ func _init() -> void:
 
 func _on_pressed() -> void:
 	Sfx.play(&"ui_confirm", -6.0, 0.0)
-	if Settings.get_reduce_flashes():
+	if Settings.get_reduce_flashes() or Settings.get_reduce_ui_motion():
 		return
 	_tween_property(&"_flash", 1.0, 0.0, FLASH_TIME, true)
 
@@ -54,6 +54,10 @@ func _tween_property(prop: StringName, from: float, to: float, time: float, is_f
 	var old: Tween = _flash_tween if is_flash else _marker_tween
 	if old != null and old.is_valid():
 		old.kill()
+	if Settings.get_reduce_ui_motion():
+		set(prop, to)
+		queue_redraw()
+		return
 	set(prop, from)
 	var tween := create_tween()
 	tween.tween_method(func(v: float) -> void:

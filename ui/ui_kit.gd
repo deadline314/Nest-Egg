@@ -22,6 +22,8 @@ const FS_BODY := 11
 const FS_TITLE := 22
 const FS_DISPLAY := 33
 const BASE_FONT_SIZE := FS_BODY
+const TEXT_GROUP := &"ui_scalable_text"
+const TEXT_SIZE_META := &"ui_base_font_size"
 
 static var _theme: Theme
 ## 工具與測試用：不為空時強制用這個樣式（不讀也不寫設定檔，截圖比較字型時不會把使用者的設定改掉）。
@@ -94,8 +96,27 @@ static func snap_size(size: int) -> int:
 
 static func theme() -> Theme:
 	if _theme == null:
-		_theme = UiTheme.build(font(), BASE_FONT_SIZE)
+		_theme = UiTheme.build(font(), scaled_size(BASE_FONT_SIZE))
 	return _theme
+
+
+static func scaled_size(base: int) -> int:
+	return maxi(1, roundi(float(base) * Settings.get_ui_text_scale()))
+
+
+## 僅在設定改變時更新；群組不持有節點，關閉頁面不留下參照。
+static func apply_text_scale() -> void:
+	if _theme != null:
+		_theme.default_font_size = scaled_size(BASE_FONT_SIZE)
+		_theme.set_font_size(&"font_size", &"TooltipLabel", scaled_size(BASE_FONT_SIZE))
+	var tree := Engine.get_main_loop() as SceneTree
+	if tree == null:
+		return
+	for node in tree.get_nodes_in_group(TEXT_GROUP):
+		if node is Label and node.has_meta(TEXT_SIZE_META):
+			(node as Label).add_theme_font_size_override(&"font_size", scaled_size(int(node.get_meta(TEXT_SIZE_META))))
+		elif node is CanvasItem:
+			(node as CanvasItem).queue_redraw()
 
 
 ## 頁籤外框：選取中亮青色底與邊、下沿與面板相連，未選取暗色。
@@ -108,7 +129,11 @@ static func label(text: String, size := BASE_FONT_SIZE, color := Palette.UI_TEXT
 	var l := Label.new()
 	l.text = text
 	l.horizontal_alignment = align
-	l.add_theme_font_size_override(&"font_size", snap_size(size))
+	l.set_meta(TEXT_SIZE_META, snap_size(size))
+	l.add_theme_font_size_override(&"font_size", scaled_size(snap_size(size)))
+	l.tree_entered.connect(func() -> void:
+		l.add_to_group(TEXT_GROUP)
+		l.add_theme_font_size_override(&"font_size", scaled_size(int(l.get_meta(TEXT_SIZE_META)))))
 	l.add_theme_color_override(&"font_color", color)
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return l
@@ -171,6 +196,8 @@ static func fit_to_viewport(control: Control) -> void:
 	var viewport := control.get_viewport()
 	if viewport == null:
 		return
+	# 此分支由 viewport 明確指定尺寸，避免全幅錨點再覆寫同一尺寸。
+	control.set_anchors_preset(Control.PRESET_TOP_LEFT)
 	var resize := func() -> void:
 		if is_instance_valid(control):
 			control.position = Vector2.ZERO

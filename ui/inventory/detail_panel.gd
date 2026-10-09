@@ -84,7 +84,7 @@ func _ready() -> void:
 
 
 func _draw() -> void:
-	PixelUi.frame(self, Rect2(Vector2.ZERO, size), Color(0.04, 0.07, 0.1, 0.9), Color(Palette.CYAN_DIM, 0.8), 4, 1)
+	PixelUi.frame(self, Rect2(Vector2.ZERO, size), UiTheme.PANEL_BODY, UiTheme.PANEL_EDGE, 6, 1)
 
 
 ## 顯示一個項目；animate = true 時圖示彈出、內容淡入。entry 為 null 時顯示 empty_text。
@@ -117,6 +117,10 @@ func show_entry(entry: InventoryEntry, empty_text := "", animate := true) -> voi
 func _pop_in() -> void:
 	if _tween != null and _tween.is_valid():
 		_tween.kill()
+	if Settings.get_reduce_ui_motion():
+		_plate.scale = Vector2.ONE
+		_content.modulate.a = 1.0
+		return
 	_plate.pivot_offset = IconPlate.PLATE_SIZE * 0.5
 	_plate.scale = Vector2.ONE * POP_FROM
 	_content.modulate.a = FADE_FROM
