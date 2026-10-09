@@ -3,7 +3,7 @@
 Python dependencies: Pillow, numpy. Render requires existing software Xvfb DISPLAY.
 No network/install/runtime/art/selector/ticket mutations. Full contact render ~15min.
 """
-import argparse, os, shutil, subprocess, time, json
+import argparse, os, shutil, subprocess, time, json, re
 from pathlib import Path
 p=argparse.ArgumentParser();p.add_argument('--repo',required=True);p.add_argument('--godot',required=True)
 p.add_argument('--step',choices=['install','inventory','source','affected','numeric','gait','gait_capture','metadata','capture','watchdog','joints','negative','check','controls','repro'],required=True)
@@ -40,6 +40,11 @@ else:
 start=time.monotonic()
 with (owned/('rerun-'+a.step+'.log')).open('w') as f:
  result=subprocess.run(cmd,cwd=root,env=env,stdout=f,stderr=subprocess.STDOUT)
+if a.step=='affected':
+ text=(owned/('rerun-'+a.step+'.log')).read_text()
+ actual=set(re.findall(r'^SUITE_TIME (\w+) ',text,re.M));checks=re.search(r'checks: (\d+), failures: (\d+)',text)
+ if actual!=set(suites) or not checks or int(checks[1])<=0 or int(checks[2])!=0:
+  result.returncode=1;print('FAIL suite coverage/assertions',actual)
 (owned/('command-'+a.step+'.json')).write_text(json.dumps({'command':cmd,'engine':version,'exit':result.returncode,'elapsed_seconds':time.monotonic()-start,'baseline':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'render':render},indent=2)+'\n')
 print(a.step,result.returncode,'elapsed',round(time.monotonic()-start,3))
 raise SystemExit(result.returncode)

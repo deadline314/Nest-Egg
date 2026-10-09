@@ -9,8 +9,8 @@
 - 17 JSON＝16正式既有模型＋test_creature fixture；38 EnemyData，另watchdog為預期四足但仍人形。所有16模型都盤點，不漏第三章保留未配置的飛行單位／模型。buoy_worm_small真倍率0.62另測；沒有把無腿／飛行體要求走路。
 - 全57原始PNG／62 runtime PNG的SHA與原生RGBA尺寸、alpha bbox、部件pivot/pos/parent/z、gait、掛點及caller見inventory.json。31張實際selected來源按既有make_creature_parts轉製在記憶體重現，RGBA byte一致31/31（source-check.json）；不修改來源／mask／runtime PNG。alpha0 RGB另計、不當extra parts。灰底composite維持原始source尺寸。
 - Godot實載11種PartCreature、30個part node；各normal與diffuse尺寸一致。Chain/Worm材料品質沒有由此代驗；LitTextures只認_n，並沒有自動_glow掛載契約，發光自調色與HDR gate分開。
-- 精確affected：PartCreatureSuite、ChainCreatureSuite、ExoticEnemiesSuite、Chapter1EnemiesSuite、AssaultEnemiesSuite，681 checks/0 assertion failures，~103.6秒。bad-data no_such_creature及exit資源/RID ERROR保留，按既有test_filters排除；沒有SCRIPT ERROR，不改known_failures。完整CI未驗（statuses=[]不是pass）。更新後首次缺.ctex的失敗log也保留，重import後才計數。
-- finite transforms：所有真JSON states×120frames×兩face×兩zoom，43,200樣本0非有限值／空part失敗，2590ms。只證數值／非空，不證解剖、rest長、骨架、材質接地。
+- 精確affected：PartCreatureSuite、ChainCreatureSuite、ExoticEnemiesSuite、Chapter1EnemiesSuite、AssaultEnemiesSuite，681 checks/0 assertion failures，~103.6秒。bad-data no_such_creature及exit資源/RID ERROR保留，按既有test_filters排除；沒有SCRIPT ERROR，不改known_failures。rebase後同5個explicit Suite實跑686 checks/0 failures、107.681秒，見rerun-affected.log與command-affected.json；不硬把assert數改成舊681。完整CI未驗（statuses=[]不是pass）。更新後首次缺.ctex的失敗log也保留，重import後才計數。
+- finite transforms：所有真JSON states×120frames×兩face×兩zoom，43,200樣本0非有限值／空part失敗，2590ms（最新重跑值見numeric.json）。只證數值／非空，不證解剖、rest長、骨架、材質接地。
 - 非human registry從真part父子／每個chain bone生成，15種模型、628,800樣本、2,160張原生atlas；render846.601秒，既有alpha checker268.911秒，138,875旗標（checker exit1）。alpha≥128、8世界像素radius、連通件、一像素洞門檻不變。全部旗標保留contact-failures.jsonl.gz，不提高門檻、不known_failure、不遮暗。rail_cannon的4800 band無旗標只算這個band gate。
 - 負控制：同樣真渲染移開child32world px，與乾淨原樣本逐key比較，6個**新增**失敗；不借既存失敗證工具有效。controls.py可重跑；原checker的一像素洞／斷件self_check通過。
 - FootGait兩assertion通過；salvage_arm/buoy_worm/小蟲48組（idle/half/full/turn、兩face、1/3.4）、每組120格：兩格都踩地的world target slip=0、target ground error=0。這不是材質腳掌pass。全worst frame/leg/target/tip/rest segment記gait.json；12張原生幾何診斷PNG復現全部worst error。轉身重定位／大誤差屬rig/gait待查，不改runtime。官方原始犬步態來源請求404/403，未取得、已停，不宣稱官方相位驗證。
@@ -49,7 +49,7 @@ watchdog：data rig_skin優先使PartCreature永遠不建；真Enemy screenshot�
 
 shock_hound/wall_gecko：source灰底與native snapshot可見完整犬／壁虎身體，四肢／爪／尾不是被alpha0 RGB虛增；source轉製31/31排除轉檔破壞。真正缺口在切件／rig-gait資料：沒有可獨立四腳，sx/sy拉伸改體長。root於原NE90/NE100/NE99處理，勿讓現有宣稱四肢交替的description變成假pass。
 
-drone：原生idle frame119 face1 zoom3.4全彩可见上方wing懸離body；frame119兩面向接點旗標見confirmed-failures.json（含native SHA／來源SHA／最小repro）。source轉製一致，優先回查wing的source hinge pivot=[6,62]、body上的pos=(-5,-3)/(-1,-3)與state rotation；不是missing PNG。不能只是減小radius或改透明threshold讓它消失。root按NE90/NE91修source pivot／mask／rig對位，無戰鬥改動。
+drone：原生idle frame119 face1 zoom3.4全彩可见上方wing懸離body；frame119近側wing_near接點旗標見confirmed-failures.json（含native SHA／來源SHA／最小repro）。source轉製一致，優先回查wing的source hinge pivot=[6,62]、body上的pos=(-5,-3)/(-1,-3)與state rotation；不是missing PNG。不能只是減小radius或改透明threshold讓它消失。root按NE90/NE91修source pivot／mask／rig對位，無戰鬥改動。source hinge視覺候選(433,642)，真alpha裁框(339,86,458,686)，換算runtime約(10.269,59.307)；既有pivot(6,62) alpha=0、反推source(393.923,667.25)，候選(10,59) alpha=250。見drone-source-coordinate.json；候選尚未套用，不當作已修pass。
 
 Chain轉身：gait.json與gait-render.log原生重現target與geometry tip誤差，salvage_arm turn58.937、buoy_worm turn45.128、small37.343（face1×3.4）。紅圈=世界FootGait target，青圈=geometry tip，白線=ground_probe y0；marker是診斷不當正常美術。tip不是材質最低點，因此仍須source-mask接地驗證，不直接把每個數字當腳掌離地。初始idle frame0也記錄，不能丟掉預熱前失敗。
 

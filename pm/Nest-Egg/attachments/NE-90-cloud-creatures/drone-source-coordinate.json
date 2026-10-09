@@ -1,0 +1,29 @@
+{
+  "source": "art_src/creatures/drone/wing_s1.png",
+  "effective_cut_bbox": [
+    339,
+    86,
+    458,
+    686
+  ],
+  "existing_pivot": [
+    6,
+    62
+  ],
+  "existing_pivot_alpha": 0,
+  "inverse_source_pivot": [
+    393.9230769230769,
+    667.25
+  ],
+  "source_hinge_visual_candidate": [
+    433,
+    642
+  ],
+  "candidate_runtime_pivot": [
+    10.268907563025211,
+    59.306666666666665
+  ],
+  "candidate_runtime_alpha_at_10_59": 250,
+  "status": "SOURCE_COORDINATE_CANDIDATE_NOT_APPLIED",
+  "note": "candidate center read on original gray composite; source hinge, body anchor and all states must be jointly revalidated, not a threshold change"
+}

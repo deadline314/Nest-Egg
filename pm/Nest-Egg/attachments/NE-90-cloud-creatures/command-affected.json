@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/workspace/.nest-egg-env/godot/Godot_v4.7-stable_linux.x86_64",
+    "--audio-driver",
+    "Dummy",
+    "--path",
+    "/workspace/work/cloud-creature-audit",
+    "--headless",
+    "tests/smoke_test.tscn",
+    "--",
+    "--only=PartCreatureSuite,ChainCreatureSuite,ExoticEnemiesSuite,Chapter1EnemiesSuite,AssaultEnemiesSuite"
+  ],
+  "engine": "4.7.stable.official.5b4e0cb0f",
+  "exit": 0,
+  "elapsed_seconds": 107.67919235499994,
+  "baseline": "592ccf012a1e8b9bc14edd61147b3885ec7aa344",
+  "render": false
+}
