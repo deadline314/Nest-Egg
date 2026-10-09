@@ -15,6 +15,7 @@ func run() -> void:
 	_test_limb_root()
 	_test_reference_geometry()
 	_test_cloth_binding()
+	_test_pose_part_attachments()
 	await _test_real_rigs()
 	await _test_part_behaviour()
 
@@ -167,6 +168,238 @@ func _test_cloth_binding() -> void:
 	check(rig._make_limb_mesh(&"coat_1", texture, null, texture.size, Vector2.ZERO, Vector2.ZERO, 1.0, true, &"missing") == null, "missing cloth partner safely falls back to a rigid part")
 	check(rig._make_limb_mesh(&"coat_1", texture, null, texture.size, Vector2.ZERO, Vector2.ZERO, 1.0, true, &"chest") == null, "unrelated cloth partner cannot bind to the wrong chain")
 	rig.queue_free()
+
+
+## Pose-part runtime coverage uses an explicitly marked synthetic config injected into the real Rin skin cache.
+## It exercises CharacterRig.setup()/set_pose_parts()/set_armor_ratio() with existing, source-sized assets;
+## it is not pose art or an acceptance claim for Rin.
+func _test_pose_part_attachments() -> void:
+	var old_lit_enabled := LitTextures.is_enabled()
+	LitTextures.set_enabled(true)
+	var plain := CharacterRig.new()
+	runner.add_child(plain)
+	check(plain.setup("rin"), "the production Rin rig builds without pose_parts")
+	check(plain._pose_slots.is_empty() and plain._parts.size() == (RigLibrary.character("rin")["parts"] as Array).size(), "a skin without pose_parts keeps exactly its original part nodes")
+	var plain_parts_before := _pose_part_snapshot(plain)
+	check(plain.set_pose_parts(&"") and plain.active_pose_parts() == &"", "an empty selector keeps the original pose for an unconfigured skin")
+	check(_pose_part_snapshot(plain) == plain_parts_before, "an empty selector leaves all original part identities, parents, textures, transforms, order and visibility exact")
+	plain.free()
+
+	var fixture := _pose_fixture()
+	check(fixture.get("pose_parts_fixture_id", "") == "RigMeshSuite.synthetic.pose_parts.v1", "the pose fixture is explicitly test-only")
+	var rig := _setup_pose_fixture(fixture)
+	check(rig.bone_order().size() == 20, "the synthetic attachment config uses the production 20-bone Rin skeleton")
+	var rest_before := _pose_bone_snapshot(rig)
+	check(rig.set_pose_parts(&"kneel"), "a complete configured pose set is selectable")
+	check(rig.active_pose_parts() == &"kneel", "the active set is observable after selection")
+	var injected_base := _pose_base(rig, &"armor_pelvis")
+	injected_base.visible = true
+	check(_visible_pose_node_count(rig, &"armor_pelvis") == 2, "negative control: the visible-slot detector catches an injected base-plus-alternate duplicate")
+	check(rig.set_pose_parts(&"alternate") and _visible_pose_node_count(rig, &"armor_pelvis") == 1, "changing sets repairs an injected duplicate by restoring exactly one visible slot node")
+	check(rig.set_pose_parts(&"kneel") and _visible_pose_node_count(rig, &"armor_pelvis") == 1, "returning to the first set clears the previous alternate")
+	for facing in [1, -1]:
+		rig.facing = facing
+		check(signf(rig.scale.x) == float(facing), "pose alternatives follow the existing root facing flip (%d)" % facing)
+		for slot_name in [&"armor_pelvis", &"foot_front"]:
+			check(_visible_pose_node_count(rig, slot_name) == 1, "exactly one node is visible for logical slot %s at facing %d" % [slot_name, facing])
+		check(_visible_pose_node_count(rig, &"pelvis_dmg") == 0, "the hidden underlayer slot stays hidden while its armor is intact at facing %d" % facing)
+		var pelvis_base := _pose_base(rig, &"armor_pelvis")
+		var pelvis_alt := _pose_alternative(rig, &"armor_pelvis", &"kneel")
+		check(pelvis_base != null and pelvis_alt != null and pelvis_base.get_parent() == pelvis_alt.get_parent(), "the pose-specific pelvis stays attached to the same canonical bone")
+		check(pelvis_alt.position == Vector2(2.0, -3.0) and is_equal_approx(pelvis_alt.rotation, 0.2), "a pose attachment carries its authored position and rotation")
+		check(pelvis_alt.scale.is_equal_approx(Vector2.ONE * 0.08), "a pose set can preserve its source-specific native texture density")
+		check(pelvis_alt.z_index == pelvis_base.z_index and pelvis_alt.material == rig._light_material, "pose parts reuse base z ordering and shared lighting material")
+		var pelvis_canvas := pelvis_alt.texture as CanvasTexture
+		check(pelvis_canvas != null and pelvis_canvas.diffuse_texture != null and pelvis_canvas.normal_texture != null, "pose alternatives load through LitTextures with diffuse and normal channels")
+		check(rig._part_has_glow(pelvis_alt), "a base slot with glow keeps a matching pose glow child")
+		var foot_alt := _pose_alternative(rig, &"foot_front", &"kneel")
+		check(rig._part_has_glow(foot_alt), "foot pose alternatives preserve the existing glow channel")
+		check(_pose_bone_snapshot(rig) == rest_before, "attachment selection and both facings leave all 20 canonical bone nodes/rest transforms unchanged")
+	check(rig.set_pose_parts(&"kneel"), "the kneel set can be restored after facing changes")
+	check(not rig.set_pose_parts(&"not_configured") and rig.active_pose_parts() == &"kneel", "an unknown selector is rejected without disturbing the active set")
+	for slot_name in [&"armor_pelvis", &"foot_front"]:
+		check(_visible_pose_node_count(rig, slot_name) == 1, "the active set has one visible node per configured slot (%s)" % slot_name)
+	check(_visible_pose_node_count(rig, &"pelvis_dmg") == 0, "the selected damage alternative remains hidden until armor breaks")
+
+	var active_pelvis := _pose_alternative(rig, &"armor_pelvis", &"kneel")
+	rig._apply_fill(0.4)
+	check(is_equal_approx(active_pelvis.self_modulate.r, 0.4), "pose sprites receive the existing character fill path")
+	rig._apply_fill(1.0)
+	rig.set_armor_ratio(0.5, false)
+	check(_visible_pose_node_count(rig, &"armor_pelvis") == 1 and _pose_alternative(rig, &"armor_pelvis", &"kneel").visible, "partial armor ratio keeps the selected intact logical slot visible")
+	check(_visible_pose_node_count(rig, &"pelvis_dmg") == 1 and _pose_alternative(rig, &"pelvis_dmg", &"kneel").visible, "partial armor shows the selected damage underlayer without a base/pose duplicate")
+	rig.set_armor_ratio(0.0, false)
+	check(_visible_pose_node_count(rig, &"armor_pelvis") == 0, "zero armor hides both base and pose armor nodes")
+	check(_visible_pose_node_count(rig, &"pelvis_dmg") == 1 and _pose_alternative(rig, &"pelvis_dmg", &"kneel").visible, "zero armor retains exactly the selected damage layer")
+	check(rig.set_pose_parts(&"alternate"), "switching to another validated set succeeds")
+	check(not _pose_alternative(rig, &"armor_pelvis", &"kneel").visible and not _pose_alternative(rig, &"armor_pelvis", &"alternate").visible, "switching sets clears stale alternatives while broken armor keeps its slot hidden")
+	check(_pose_alternative(rig, &"armor_pelvis", &"alternate").scale.is_equal_approx(Vector2.ONE * rig._texture_scale), "a pose set without texture_scale uses the character's base texture density")
+	check(_visible_pose_node_count(rig, &"foot_front") == 1 and _pose_base(rig, &"foot_front").visible, "slots absent from a set fall back to their canonical node")
+	rig.set_armor_ratio(1.0, false)
+	check(_pose_alternative(rig, &"armor_pelvis", &"alternate").visible and not _pose_alternative(rig, &"armor_pelvis", &"kneel").visible, "the selected alternative appears when its armor slot becomes eligible")
+	rig.set_armor_ratio(0.0, false)
+	check(_pose_alternative(rig, &"pelvis_dmg", &"alternate").visible, "the alternate pose also switches to its matching same-bone damage underlayer")
+	check(rig.set_pose_parts(&""), "clearing the selector succeeds")
+	check(rig.active_pose_parts() == &"" and _visible_pose_node_count(rig, &"armor_pelvis") == 0, "clearing restores base nodes according to current armor state and hides all alternatives")
+	rig.set_armor_ratio(1.0, false)
+	check(_pose_base(rig, &"armor_pelvis").visible and not _pose_alternative(rig, &"armor_pelvis", &"kneel").visible, "restoring armor after clearing restores the currently eligible base part")
+	check(_pose_bone_snapshot(rig) == rest_before, "armor and attachment switching preserve canonical bone rest and node transforms")
+	rig.flash()
+	check(rig._skeleton.modulate.r > 1.0, "pose parts remain under the existing skeleton flash path")
+	check(rig.set_dissolve(0.25) and active_pelvis.material == rig._dissolve_material, "pose sprites participate in the existing dissolve path")
+	rig.free()
+
+	check(_write_optional_normal_mismatch_fixture(), "the optional-normal negative-control textures are written to the ignored .godot test area")
+	for invalid_case in ["missing_file", "wrong_size", "size_overflow", "wrong_pivot", "wrong_bone", "missing_normal", "wrong_optional_normal_size", "duplicate_slot", "invalid_texture_scale", "missing_underlayer", "missing_armor", "eye_part"]:
+		var bad_rig := _setup_pose_fixture(_pose_fixture(invalid_case))
+		var base := _pose_base(bad_rig, &"armor_pelvis")
+		check(bad_rig.is_valid() and base != null and base.visible, "%s invalid variant leaves the base rig intact" % invalid_case)
+		check(not bad_rig.set_pose_parts(&"kneel") and bad_rig.active_pose_parts() == &"", "%s invalid set is rejected at selection" % invalid_case)
+		check(base.visible and bad_rig._pose_slots.is_empty(), "%s invalid set creates no partial alternate nodes" % invalid_case)
+		bad_rig.free()
+	LitTextures.set_enabled(old_lit_enabled)
+
+
+func _pose_fixture(invalid_case := "") -> Dictionary:
+	var fixture: Dictionary = RigLibrary.character("rin").duplicate(true)
+	fixture["pose_parts_fixture_id"] = "RigMeshSuite.synthetic.pose_parts.v1"
+	var textures: Dictionary = fixture["textures"]
+	textures["fixture_pose_pelvis"] = (textures["pelvis"] as Dictionary).duplicate(true)
+	textures["fixture_pose_pelvis_dmg"] = (textures["pelvis_dmg"] as Dictionary).duplicate(true)
+	textures["fixture_pose_foot"] = (textures["foot"] as Dictionary).duplicate(true)
+	var kneel: Array = [
+		{"slot": "armor_pelvis", "texture": "fixture_pose_pelvis", "bone": "hip", "offset": [2.0, -3.0], "rotation": 0.2},
+		{"slot": "pelvis_dmg", "texture": "fixture_pose_pelvis_dmg", "bone": "hip"},
+		{"slot": "foot_front", "texture": "fixture_pose_foot", "bone": "foot_front"},
+	]
+	var sets := {
+		"kneel": {"texture_scale": 0.08, "parts": kneel},
+		"alternate": {"parts": [
+			{"slot": "armor_pelvis", "texture": "fixture_pose_pelvis", "bone": "hip", "offset": [-1.0, 4.0], "rotation": -0.1},
+			{"slot": "pelvis_dmg", "texture": "fixture_pose_pelvis_dmg", "bone": "hip"},
+		]},
+	}
+	match invalid_case:
+		"missing_file":
+			textures["fixture_pose_pelvis"]["file"] = "parts/no_such_pose_texture.png"
+		"wrong_size":
+			textures["fixture_pose_pelvis"]["size"] = [1, 1]
+		"size_overflow":
+			textures["fixture_pose_pelvis"]["size"] = [4294967297, 1280]
+		"wrong_pivot":
+			textures["fixture_pose_pelvis"]["pivot"] = [1000.0, 0.0]
+		"wrong_bone":
+			kneel[0]["bone"] = "chest"
+		"missing_normal":
+			textures["fixture_pose_pelvis"]["file"] = "../../portraits/rin.png"
+			textures["fixture_pose_pelvis"]["size"] = [256, 256]
+			textures["fixture_pose_pelvis"]["pivot"] = [128.0, 128.0]
+			textures["fixture_pose_pelvis"]["glow"] = ""
+		"wrong_optional_normal_size":
+			textures["foot"]["file"] = "../../../.godot/ne222-pose-fixture/base.tres"
+			textures["foot"]["size"] = [16, 16]
+			textures["foot"]["pivot"] = [8.0, 8.0]
+			textures["foot"]["glow"] = ""
+			textures["fixture_pose_foot"]["file"] = "../../../.godot/ne222-pose-fixture/alt.tres"
+			textures["fixture_pose_foot"]["size"] = [16, 16]
+			textures["fixture_pose_foot"]["pivot"] = [8.0, 8.0]
+			textures["fixture_pose_foot"]["glow"] = ""
+		"duplicate_slot":
+			kneel.append(kneel[0].duplicate(true))
+		"invalid_texture_scale":
+			sets["kneel"]["texture_scale"] = 0.0
+		"missing_underlayer":
+			kneel = [kneel[0], kneel[2]]
+		"missing_armor":
+			kneel = [kneel[1], kneel[2]]
+		"eye_part":
+			kneel = [{"slot": "head", "texture": "head", "bone": "head"}]
+	sets["kneel"]["parts"] = kneel
+	if not invalid_case.is_empty():
+		sets.erase("alternate")
+	fixture["pose_parts"] = sets
+	return fixture
+
+
+func _write_optional_normal_mismatch_fixture() -> bool:
+	var fixture_dir := "res://.godot/ne222-pose-fixture"
+	var absolute_dir := ProjectSettings.globalize_path(fixture_dir)
+	if DirAccess.make_dir_recursive_absolute(absolute_dir) != OK:
+		return DirAccess.dir_exists_absolute(absolute_dir)
+	var base := GradientTexture2D.new()
+	base.width = 16
+	base.height = 16
+	var alt := GradientTexture2D.new()
+	alt.width = 16
+	alt.height = 16
+	var alt_normal := GradientTexture2D.new()
+	alt_normal.width = 15
+	alt_normal.height = 16
+	return ResourceSaver.save(base, fixture_dir.path_join("base.tres")) == OK \
+		and ResourceSaver.save(alt, fixture_dir.path_join("alt.tres")) == OK \
+		and ResourceSaver.save(alt_normal, fixture_dir.path_join("alt_n.tres")) == OK
+
+
+func _setup_pose_fixture(fixture: Dictionary) -> CharacterRig:
+	var key := RigLibrary.CHARACTER_PATH % "rin"
+	var had_cached := RigLibrary._json_cache.has(key)
+	var previous: Dictionary = RigLibrary._json_cache.get(key, {})
+	RigLibrary._json_cache[key] = fixture
+	var rig := CharacterRig.new()
+	runner.add_child(rig)
+	check(rig.setup("rin"), "CharacterRig.setup accepts synthetic fixture through the production skin load path")
+	if had_cached:
+		RigLibrary._json_cache[key] = previous
+	else:
+		RigLibrary._json_cache.erase(key)
+	return rig
+
+
+func _pose_base(rig: CharacterRig, slot_name: StringName) -> CanvasItem:
+	return rig._pose_slots[slot_name]["base"] as CanvasItem if rig._pose_slots.has(slot_name) else _find_base_part(rig, slot_name)
+
+
+func _find_base_part(rig: CharacterRig, slot_name: StringName) -> CanvasItem:
+	for part in rig._parts:
+		if part.name == String(slot_name):
+			return part
+	return null
+
+
+func _pose_alternative(rig: CharacterRig, slot_name: StringName, pose_key: StringName) -> Sprite2D:
+	if not rig._pose_slots.has(slot_name):
+		return null
+	var alternatives: Dictionary = rig._pose_slots[slot_name]["alternatives"]
+	return alternatives.get(pose_key) as Sprite2D
+
+
+func _visible_pose_node_count(rig: CharacterRig, slot_name: StringName) -> int:
+	var count := 0
+	var base := _pose_base(rig, slot_name)
+	if base != null and base.visible:
+		count += 1
+	if rig._pose_slots.has(slot_name):
+		for alternate: CanvasItem in (rig._pose_slots[slot_name]["alternatives"] as Dictionary).values():
+			if alternate.visible:
+				count += 1
+	return count
+
+
+func _pose_bone_snapshot(rig: CharacterRig) -> Dictionary:
+	var snapshot: Dictionary = {}
+	for name in rig.bone_order():
+		var bone := rig.bone(name)
+		snapshot[name] = [bone.get_instance_id(), bone.get_parent().get_instance_id(), bone.rest, bone.position, bone.rotation, bone.scale]
+	return snapshot
+
+
+func _pose_part_snapshot(rig: CharacterRig) -> Array[Array]:
+	var snapshot: Array[Array] = []
+	for part in rig._parts:
+		var texture: Texture2D = (part as Sprite2D).texture if part is Sprite2D else (part as RigPartMesh).texture
+		var node := part as Node2D
+		snapshot.append([part.get_instance_id(), part.get_parent().get_instance_id(), texture, node.position, node.rotation, node.scale, part.z_index, part.visible])
+	return snapshot
 
 
 func _test_reference_geometry() -> void:

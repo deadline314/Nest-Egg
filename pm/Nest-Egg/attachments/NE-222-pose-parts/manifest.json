@@ -1,0 +1,29 @@
+{
+  "scope": "Pose attachment support only; synthetic native controls, not authored-pose or gameplay acceptance",
+  "fixed_test_base": "7d22ad9226c29a931f8d9214d21919a3537d289a",
+  "files": {
+    "pm/Nest-Egg/attachments/NE-222-pose-parts/affected-test-shards.zip": "be9a023ea118fe61a64ee566f38b50148421d749cf9e0916c0a3fd5aa90e8262",
+    "pm/Nest-Egg/attachments/NE-222-pose-parts/affected-tests.log": "236844b93987921dd1c522c7015bfd45903b5f33b58ff08f8aa516a7706a1067",
+    "pm/Nest-Egg/attachments/NE-222-pose-parts/baseline-warnings.json": "d6364d2c60fd54fafeb6e43d7fe5a8490e7fb45bccfe60b893d63cb23c943959",
+    "pm/Nest-Egg/attachments/NE-222-pose-parts/capture.gd": "2e12095b302dd5d4a7b5e6702ebf9649502cd6dd819894fb76efd329318e1c18",
+    "pm/Nest-Egg/attachments/NE-222-pose-parts/capture.tscn": "ff43c229fb389396cbed0aad3cc9644d7fa2fd867fdd2f64e6cee141b1a2adde",
+    "pm/Nest-Egg/attachments/NE-222-pose-parts/capture_rigid_control.gd": "d2c0acc9a200825c18f6515101bf85715e17b14e94ea1d66e61076d4b912d53a",
+    "pm/Nest-Egg/attachments/NE-222-pose-parts/capture_rigid_control.tscn": "f248b849e9182f13d243a1e083a9a70d461e021819834ff7f2d5437d577a16d9",
+    "pm/Nest-Egg/attachments/NE-222-pose-parts/cpu-perf.json": "f6cfc78c7f01b1e6e19ee7d19589797be86ccf021c54537050e679f133291a5e",
+    "pm/Nest-Egg/attachments/NE-222-pose-parts/four-suite-baseline.log": "4ca5677f58aa146d46fb81ee9121f078beb88eaebf7d9f85fb13b2e14b8d77d1",
+    "pm/Nest-Egg/attachments/NE-222-pose-parts/four-suite-candidate.log": "4db3b5687ccf0af52cabbdeb8a580f8efbb65fdc7ad337e24645f3c484726f71",
+    "pm/Nest-Egg/attachments/NE-222-pose-parts/mesh-comparison-failed.json": "296a1698cb4ecefaea57ab3682e1c47ed053b7faa665e540e7a4364c30b12405",
+    "pm/Nest-Egg/attachments/NE-222-pose-parts/mesh-comparison-failed.log": "0954f11066207cd2f63729548a8604ee5c76279e4515e224189f06aa0f862941",
+    "pm/Nest-Egg/attachments/NE-222-pose-parts/mesh-pixel-diff.json": "96ddcd74864d78b3d796f118af5cd25475ab2da90f7f12da570597be73e440e0",
+    "pm/Nest-Egg/attachments/NE-222-pose-parts/native-and-four-suite-raw.zip": "7d10b2cd9b9e77adafcdc79252f9b9746a9c9d279945161136e7c6de85aae979",
+    "pm/Nest-Egg/attachments/NE-222-pose-parts/README.md": "67cb6b36762cd250170d5a3bdf3d1effe24589eb401d981b3c343fca78302c1f",
+    "pm/Nest-Egg/attachments/NE-222-pose-parts/rest-comparison-failed.json": "7e128fadb1d7302de02551885bf1d2698a8200a14ebc7bf6447083682c86f78d",
+    "pm/Nest-Egg/attachments/NE-222-pose-parts/rest-comparison-failed.log": "9324d3d77a63e0314d89ff0ecdfe773484c8279b3b2c0cd673d04ad611ce432b",
+    "pm/Nest-Egg/attachments/NE-222-pose-parts/rest-parse-failed.log": "03aa9099a60ba0621dca940ee5aa3f56e245417c54ec5a3de1a51216f688e00c",
+    "pm/Nest-Egg/attachments/NE-222-pose-parts/rigid-control.json": "ea5ffb492dda4e2c35436ecb9903b866d84dca116dca2a9506b7b8727faa7fa4",
+    "pm/Nest-Egg/attachments/NE-222-pose-parts/rigid-control.log": "a2916951de75c86076701a0781ca7e8969ecefaa0fe1d01cbbb8c90b8246827b",
+    "pm/Nest-Egg/images/NE-222-pose-parts/mesh-base-pose-clear.png": "4d8c1157d45f08da4ae4f04566b348cc6bea5b8913fe84ca34f2e5dc9360396a",
+    "pm/Nest-Egg/images/NE-222-pose-parts/rest-base-pose-clear.png": "9e8a42c1db966ebd4e0c1b5ce9b1fafeb99fcf4acb05285bc0e13d3ea75e2d0d",
+    "pm/Nest-Egg/images/NE-222-pose-parts/rigid-base-pose-clear.png": "39738bcf43242e2e6c9545f0377843ac6fcad84d54577bbbfe023dcd13b74b4e"
+  }
+}

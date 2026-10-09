@@ -46,6 +46,12 @@ var _armor: Array[Array] = []
 var _under: Array[CanvasItem] = []
 ## 零件與它們的原始明暗（補光倍率套用在 self_modulate 上，發光層不受影響）。
 var _parts: Array[CanvasItem] = []
+## Validated pose alternatives keyed by the logical parts[].name (not the texture alias).
+## A slot keeps the armor-controlled base visibility separately from the currently selected node.
+var _pose_slots: Dictionary[StringName, Dictionary] = {}
+var _pose_slot_by_base_id: Dictionary[int, StringName] = {}
+var _pose_sets: Dictionary[StringName, bool] = {}
+var _active_pose_set: StringName = &""
 ## 做成可彎曲網格的肢體零件（RigPartMesh；也在 _parts 裡）：每格動畫之後依骨頭姿勢重算關節附近的頂點。
 var _meshes: Array[RigPartMesh] = []
 var _hand_grips: Array[Dictionary] = []
@@ -84,6 +90,10 @@ var _valid := false
 ## animator_kind：空字串＝依外觀定義（character.json 的 animator，沒寫就是人形）；"npc"＝NPC 動畫器（場景人物與過場演員用）。
 func setup(p_skin_id: String, animator_kind := "") -> bool:
 	skin_id = p_skin_id
+	_pose_slots.clear()
+	_pose_slot_by_base_id.clear()
+	_pose_sets.clear()
+	_active_pose_set = &""
 	var skin := RigLibrary.character(skin_id)
 	if skin.is_empty():
 		return false
@@ -104,6 +114,7 @@ func setup(p_skin_id: String, animator_kind := "") -> bool:
 	_light_material.shader = LIGHT_SHADER
 	_build_skeleton(skeleton_def)
 	_build_parts(skin)
+	_build_pose_parts(skin)
 	var kind := animator_kind if animator_kind != "" else str(skin.get("animator", "humanoid"))
 	if not ANIMATORS.has(kind):
 		push_warning("[CharacterRig] %s 的 animator「%s」沒有登記（有：%s），改用人形動畫器。" % [skin_id, kind, ", ".join(ANIMATORS.keys())])
@@ -347,25 +358,43 @@ func set_armor_ratio(ratio: float, burst := true) -> void:
 		var step := _armor[_armor.size() - _armor_visible]
 		_armor_visible -= 1
 		var broke := false
-		for part: CanvasItem in step:
-			if part.visible:
-				part.visible = false
+		for base_part: CanvasItem in step:
+			if _base_part_is_visible(base_part):
+				var visible_part := _active_part_for_base(base_part)
+				_set_base_part_visible(base_part, false)
 				broke = true
 				if burst:
-					_spawn_debris(part)
+					_spawn_debris(visible_part)
 		if broke:
 			armor_broken.emit(StringName((step[0] as Node).name))
 	while _armor_visible < target:
 		_armor_visible += 1
-		for part: CanvasItem in _armor[_armor.size() - _armor_visible]:
-			part.visible = true
+		for base_part: CanvasItem in _armor[_armor.size() - _armor_visible]:
+			_set_base_part_visible(base_part, true)
 	var broken := _armor_visible < _armor.size()
-	for part in _under:
-		part.visible = broken
+	for base_part in _under:
+		_set_base_part_visible(base_part, broken)
 
 
 func armor_count() -> int:
 	return _armor.size()
+
+
+## Select one prevalidated attachment set. Empty clears alternatives and restores the current armor/damage visibility.
+## Selection is explicit; animate() performs no pose-set dictionary work per frame.
+func set_pose_parts(pose_key: StringName) -> bool:
+	if pose_key != &"" and not _pose_sets.has(pose_key):
+		push_warning("[CharacterRig] %s.pose_parts.%s is unavailable; keeping pose set '%s'" % [skin_id, pose_key, _active_pose_set])
+		return false
+	if pose_key == _active_pose_set:
+		return true
+	_active_pose_set = pose_key
+	_apply_pose_part_visibility()
+	return true
+
+
+func active_pose_parts() -> StringName:
+	return _active_pose_set
 
 
 # ---------------------------------------------------------------------------
@@ -494,6 +523,285 @@ func _build_parts(skin: Dictionary) -> void:
 		_armor[_armor.size() - 1].append(pair[1])
 	_armor_visible = _armor.size()
 	_setup_eye_states(skin)
+
+
+## Pose assets are optional. Validate each whole set before adding any of its nodes so a bad file
+## cannot leave a partially selectable pose. Runtime selection only switches cached CanvasItems.
+func _build_pose_parts(skin: Dictionary) -> void:
+	if not skin.has("pose_parts"):
+		return
+	var pose_parts_value: Variant = skin.get("pose_parts")
+	if typeof(pose_parts_value) != TYPE_DICTIONARY:
+		_pose_warning("pose_parts", "expected a dictionary keyed by pose name; ignoring all pose sets")
+		return
+	var textures_value: Variant = skin.get("textures", {})
+	var parts_value: Variant = skin.get("parts", [])
+	if typeof(textures_value) != TYPE_DICTIONARY or typeof(parts_value) != TYPE_ARRAY:
+		_pose_warning("pose_parts", "textures and parts must be dictionaries/arrays; ignoring all pose sets")
+		return
+	var textures: Dictionary = textures_value
+	var base_entries: Dictionary[StringName, Dictionary] = {}
+	var duplicate_base_slots: Dictionary[StringName, bool] = {}
+	for entry: Variant in parts_value:
+		if typeof(entry) != TYPE_DICTIONARY:
+			continue
+		var part_def: Dictionary = entry
+		var slot_name := StringName(str(part_def.get("name", part_def.get("texture", ""))))
+		if slot_name == &"":
+			continue
+		if base_entries.has(slot_name):
+			duplicate_base_slots[slot_name] = true
+		else:
+			base_entries[slot_name] = part_def
+	var base_nodes: Dictionary[StringName, CanvasItem] = {}
+	for part in _parts:
+		var slot_name := StringName(str(part.name))
+		if base_nodes.has(slot_name):
+			duplicate_base_slots[slot_name] = true
+		else:
+			base_nodes[slot_name] = part
+
+	var base_dir := RigLibrary.character_dir(skin_id)
+	for raw_pose_key: Variant in pose_parts_value.keys():
+		var pose_key := StringName(str(raw_pose_key))
+		var field := "pose_parts.%s" % pose_key
+		var pose_def_value: Variant = pose_parts_value[raw_pose_key]
+		if pose_key == &"" or typeof(pose_def_value) != TYPE_DICTIONARY:
+			_pose_warning(field, "each named pose must be a dictionary; rejecting this set")
+			continue
+		var pose_def: Dictionary = pose_def_value
+		var pose_entries_value: Variant = pose_def.get("parts", [])
+		var pose_texture_scale := _texture_scale
+		if pose_def.has("texture_scale"):
+			var raw_scale: Variant = pose_def["texture_scale"]
+			if typeof(raw_scale) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(raw_scale)) or float(raw_scale) <= 0.0:
+				_pose_warning(field, "texture_scale must be a finite positive number; rejecting this set")
+				continue
+			pose_texture_scale = float(raw_scale)
+		if typeof(pose_entries_value) != TYPE_ARRAY or (pose_entries_value as Array).is_empty():
+			_pose_warning(field, "each named pose must contain a non-empty parts array; rejecting this set")
+			continue
+		var seen_slots: Dictionary[StringName, bool] = {}
+		var pending: Array[Dictionary] = []
+		var failure := ""
+		for entry: Variant in pose_entries_value:
+			if typeof(entry) != TYPE_DICTIONARY:
+				failure = "entries must be dictionaries"
+				break
+			var alternative: Dictionary = entry
+			var slot_name := StringName(str(alternative.get("slot", "")))
+			if slot_name == &"":
+				failure = "every entry requires a logical slot name"
+				break
+			if seen_slots.has(slot_name):
+				failure = "duplicate logical slot '%s'" % slot_name
+				break
+			seen_slots[slot_name] = true
+			if duplicate_base_slots.has(slot_name) or not base_entries.has(slot_name) or not base_nodes.has(slot_name):
+				failure = "slot '%s' must resolve to exactly one existing base part" % slot_name
+				break
+			var base_part := base_nodes[slot_name] as CanvasItem
+			var base_def: Dictionary = base_entries[slot_name]
+			if base_part == _eye_part and _eye_part != null:
+				failure = "slot '%s' is controlled by eye_states blink and cannot be replaced by pose_parts" % slot_name
+				break
+			var base_bone := StringName(str(base_def.get("bone", "")))
+			var alternative_bone := StringName(str(alternative.get("bone", "")))
+			if base_bone == &"" or alternative_bone != base_bone or base_part.get_parent() != _bones.get(base_bone):
+				failure = "slot '%s' must keep its existing bone '%s'" % [slot_name, base_bone]
+				break
+			var texture_key := str(alternative.get("texture", ""))
+			if texture_key.is_empty() or typeof(textures.get(texture_key)) != TYPE_DICTIONARY:
+				failure = "slot '%s' references a missing texture definition" % slot_name
+				break
+			var texture_def: Dictionary = textures[texture_key]
+			var file_value: Variant = texture_def.get("file", "")
+			var size_value: Variant = texture_def.get("size")
+			var pivot_value: Variant = texture_def.get("pivot")
+			if typeof(file_value) != TYPE_STRING or str(file_value).is_empty():
+				failure = "texture '%s' requires a non-empty file path" % texture_key
+				break
+			if not _pose_numeric_pair(size_value, true) or not _pose_numeric_pair(pivot_value, false):
+				failure = "texture '%s' requires finite [width,height] and [pivot_x,pivot_y] pairs" % texture_key
+				break
+			if float(size_value[0]) > 2147483647.0 or float(size_value[1]) > 2147483647.0:
+				failure = "texture '%s' native size exceeds Vector2i limits" % texture_key
+				break
+			var size := Vector2i(int(size_value[0]), int(size_value[1]))
+			var pivot := Vector2(float(pivot_value[0]), float(pivot_value[1]))
+			if size.x <= 0 or size.y <= 0 or pivot.x < 0.0 or pivot.y < 0.0 or pivot.x > float(size.x) or pivot.y > float(size.y):
+				failure = "texture '%s' has an invalid native size or out-of-canvas pivot" % texture_key
+				break
+			var offset := (base_part as Node2D).position
+			if alternative.has("offset"):
+				if not _pose_numeric_pair(alternative["offset"], false):
+					failure = "slot '%s' offset must be a finite pair" % slot_name
+					break
+				offset = Vector2(float(alternative["offset"][0]), float(alternative["offset"][1]))
+			var rotation := (base_part as Node2D).rotation
+			if alternative.has("rotation"):
+				if typeof(alternative["rotation"]) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(alternative["rotation"])):
+					failure = "slot '%s' rotation must be finite" % slot_name
+					break
+				rotation = float(alternative["rotation"])
+			var texture_path := base_dir.path_join(str(file_value))
+			if not ResourceLoader.exists(texture_path):
+				failure = "texture '%s' file is missing: %s" % [texture_key, texture_path]
+				break
+			var raw_texture := load(texture_path) as Texture2D
+			if raw_texture == null or raw_texture.get_size() != Vector2(size):
+				failure = "texture '%s' native size does not match metadata %s: %s" % [texture_key, size, texture_path]
+				break
+			var base_texture_key := str(base_def.get("texture", ""))
+			var base_texture_def: Dictionary = textures.get(base_texture_key, {})
+			var base_path := base_dir.path_join(str(base_texture_def.get("file", "")))
+			var base_normal_path := _normal_path(base_path)
+			var normal_required := ResourceLoader.exists(base_normal_path)
+			var normal_path := _normal_path(texture_path)
+			var normal_exists := ResourceLoader.exists(normal_path)
+			if normal_required and not normal_exists:
+				failure = "texture '%s' requires a matching normal map: %s" % [texture_key, normal_path]
+				break
+			if normal_exists:
+				var normal_texture := load(normal_path) as Texture2D
+				if normal_texture == null or normal_texture.get_size() != Vector2(size):
+					failure = "texture '%s' normal map must match native size %s: %s" % [texture_key, size, normal_path]
+					break
+			var glow_value: Variant = texture_def.get("glow", "")
+			if typeof(glow_value) != TYPE_STRING:
+				failure = "texture '%s' glow path must be a string" % texture_key
+				break
+			var glow_path := base_dir.path_join(str(glow_value)) if not str(glow_value).is_empty() else ""
+			var base_has_glow := _part_has_glow(base_part)
+			if base_has_glow and glow_path.is_empty():
+				failure = "slot '%s' requires a glow companion like its base part" % slot_name
+				break
+			var glow_texture := RigLibrary.optional_texture(glow_path)
+			if not glow_path.is_empty() and (glow_texture == null or glow_texture.get_size() != Vector2(size)):
+				failure = "texture '%s' glow must exist and match native size %s: %s" % [texture_key, size, glow_path]
+				break
+			var lit_texture := LitTextures.load_texture(texture_path, size)
+			if lit_texture == null:
+				failure = "texture '%s' could not be loaded by LitTextures" % texture_key
+				break
+			if normal_exists and LitTextures.is_enabled():
+				if not lit_texture is CanvasTexture or (lit_texture as CanvasTexture).normal_texture == null:
+					failure = "texture '%s' did not retain its CanvasTexture normal channel" % texture_key
+					break
+			pending.append({"slot": slot_name, "base": base_part, "texture": lit_texture, "glow": glow_texture,
+				"size": size, "pivot": pivot, "offset": offset, "rotation": rotation, "texture_scale": pose_texture_scale})
+		if not failure.is_empty():
+			_pose_warning(field, "%s; rejecting this set" % failure)
+			continue
+		failure = _pose_layer_counterpart_error(seen_slots, base_entries)
+		if not failure.is_empty():
+			_pose_warning(field, "%s; rejecting this set" % failure)
+			continue
+		for item: Dictionary in pending:
+			var slot_name: StringName = item["slot"]
+			var base_part: CanvasItem = item["base"]
+			if not _pose_slots.has(slot_name):
+				_pose_slots[slot_name] = {"base": base_part, "base_visible": base_part.visible, "alternatives": {}}
+			_pose_slot_by_base_id[base_part.get_instance_id()] = slot_name
+			var alternate := _make_sprite(item["texture"], item["glow"], item["pivot"], item["offset"], item["rotation"], base_part.self_modulate.r)
+			alternate.scale = Vector2.ONE * float(item["texture_scale"])
+			alternate.name = "Pose_%s__%s" % [pose_key, slot_name]
+			alternate.material = _light_material
+			alternate.z_index = base_part.z_index
+			alternate.self_modulate = base_part.self_modulate
+			alternate.visible = false
+			(base_part.get_parent() as Node).add_child(alternate)
+			(_pose_slots[slot_name]["alternatives"] as Dictionary)[pose_key] = alternate
+			_parts.append(alternate)
+			_part_tints.append(base_part.self_modulate.r)
+		_pose_sets[pose_key] = true
+	_active_pose_set = &""
+	_apply_pose_part_visibility()
+
+
+## Keep pose art coherent across intact armor and the same-bone underlayers it reveals.
+func _pose_layer_counterpart_error(selected_slots: Dictionary[StringName, bool], base_entries: Dictionary[StringName, Dictionary]) -> String:
+	for slot_name: StringName in selected_slots:
+		var part_def: Dictionary = base_entries[slot_name]
+		var part_bone := str(part_def.get("bone", ""))
+		var is_armor := int(part_def.get("armor_order", 0)) > 0
+		var is_under := bool(part_def.get("under", false))
+		if not is_armor and not is_under:
+			continue
+		for counterpart_slot: StringName in base_entries:
+			var counterpart: Dictionary = base_entries[counterpart_slot]
+			if str(counterpart.get("bone", "")) != part_bone:
+				continue
+			var counterpart_required := (is_armor and bool(counterpart.get("under", false))) or (is_under and int(counterpart.get("armor_order", 0)) > 0)
+			if counterpart_required and not selected_slots.has(counterpart_slot):
+				return "slot '%s' must include same-bone armor/damage counterpart '%s'" % [slot_name, counterpart_slot]
+	return ""
+
+
+func _pose_numeric_pair(value: Variant, integral: bool) -> bool:
+	if typeof(value) != TYPE_ARRAY or (value as Array).size() != 2:
+		return false
+	for component: Variant in value:
+		if typeof(component) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(component)):
+			return false
+		if integral and not is_equal_approx(float(component), roundf(float(component))):
+			return false
+	return true
+
+
+func _normal_path(texture_path: String) -> String:
+	return texture_path.get_basename() + "_n." + texture_path.get_extension()
+
+
+func _part_has_glow(part: CanvasItem) -> bool:
+	for child in part.get_children():
+		if child is Sprite2D and (child as Sprite2D).material == _glow_material() and (child as Sprite2D).texture != null:
+			return true
+		if child is Polygon2D and (child as Polygon2D).material == _glow_material() and (child as Polygon2D).texture != null:
+			return true
+	return false
+
+
+func _pose_warning(field: String, reason: String) -> void:
+	push_warning("[CharacterRig] %s.%s invalid; %s" % [skin_id, field, reason])
+
+
+func _apply_pose_part_visibility() -> void:
+	for slot_name: StringName in _pose_slots:
+		var slot: Dictionary = _pose_slots[slot_name]
+		var base_part: CanvasItem = slot["base"]
+		var selected: CanvasItem = base_part
+		var alternatives: Dictionary = slot["alternatives"]
+		if _active_pose_set != &"" and alternatives.has(_active_pose_set):
+			selected = alternatives[_active_pose_set]
+		var eligible := bool(slot["base_visible"])
+		base_part.visible = eligible and selected == base_part
+		for alternative: CanvasItem in alternatives.values():
+			alternative.visible = eligible and alternative == selected
+
+
+func _base_part_is_visible(base_part: CanvasItem) -> bool:
+	var slot_name: StringName = _pose_slot_by_base_id.get(base_part.get_instance_id(), &"")
+	if slot_name != &"" and _pose_slots.has(slot_name):
+		return bool(_pose_slots[slot_name]["base_visible"])
+	return base_part.visible
+
+
+func _active_part_for_base(base_part: CanvasItem) -> CanvasItem:
+	var slot_name: StringName = _pose_slot_by_base_id.get(base_part.get_instance_id(), &"")
+	if slot_name == &"" or not _pose_slots.has(slot_name):
+		return base_part
+	var alternatives: Dictionary = _pose_slots[slot_name]["alternatives"]
+	return alternatives.get(_active_pose_set, base_part) if _active_pose_set != &"" else base_part
+
+
+func _set_base_part_visible(base_part: CanvasItem, visible: bool) -> void:
+	var slot_name: StringName = _pose_slot_by_base_id.get(base_part.get_instance_id(), &"")
+	if slot_name == &"" or not _pose_slots.has(slot_name):
+		base_part.visible = visible
+		return
+	_pose_slots[slot_name]["base_visible"] = visible
+	_apply_pose_part_visibility()
 
 
 ## Optional top-level eye_states are intentionally separate from portrait.blink, which describes portrait paint-over data.

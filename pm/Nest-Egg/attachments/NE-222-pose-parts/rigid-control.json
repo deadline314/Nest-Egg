@@ -1,0 +1,188 @@
+{
+	"adapter": "NVIDIA GeForce RTX 4070 SUPER",
+	"animator_advanced_between_columns": false,
+	"canonical_pose_art_acceptance": false,
+	"character_rig_force_rigid_limbs": false,
+	"checks": 92,
+	"composite_size": [
+		960,
+		1560
+	],
+	"driver": "vulkan",
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"failures": [],
+	"fixture_geometry": "rigid control: fixture limb_bend=false; production CharacterRig API",
+	"fixture_id": "Ne222PoseAttachmentNative.synthetic.same-source.rigid-control.v1",
+	"fixture_is_synthetic": true,
+	"fixture_limb_bend": false,
+	"hdr_2d": true,
+	"image": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/ne222-pose-attachment-native/output-rigid-control/attachment-plumbing-forward-plus.png",
+	"lighting": "LightKit.create_environment + LightKit.create_point_light",
+	"native_forward_plus_capture": true,
+	"notes": [
+		"The pose set uses the same existing Rin textures, pivots, offsets, rotations, scale, z and bones as the base parts.",
+		"This verifies attachment plumbing and deterministic state restoration only; it does not validate anatomy, authored pose pixels, grip, or gameplay.",
+		"No weapon is attached in this plumbing capture."
+	],
+	"renderer": "forward_plus",
+	"row_order": [
+		{
+			"armor_ratio": 1.0,
+			"facing": 1,
+			"row": 0,
+			"states": {
+				"base": {
+					"armor_pelvis": 1,
+					"foot_front": 1,
+					"pelvis_dmg": 0
+				},
+				"cleared": {
+					"armor_pelvis": 1,
+					"foot_front": 1,
+					"pelvis_dmg": 0
+				},
+				"pose": {
+					"armor_pelvis": 1,
+					"foot_front": 1,
+					"pelvis_dmg": 0
+				}
+			}
+		},
+		{
+			"armor_ratio": 0.5,
+			"facing": 1,
+			"row": 1,
+			"states": {
+				"base": {
+					"armor_pelvis": 1,
+					"foot_front": 1,
+					"pelvis_dmg": 1
+				},
+				"cleared": {
+					"armor_pelvis": 1,
+					"foot_front": 1,
+					"pelvis_dmg": 1
+				},
+				"pose": {
+					"armor_pelvis": 1,
+					"foot_front": 1,
+					"pelvis_dmg": 1
+				}
+			}
+		},
+		{
+			"armor_ratio": 0.0,
+			"facing": 1,
+			"row": 2,
+			"states": {
+				"base": {
+					"armor_pelvis": 0,
+					"foot_front": 1,
+					"pelvis_dmg": 1
+				},
+				"cleared": {
+					"armor_pelvis": 0,
+					"foot_front": 1,
+					"pelvis_dmg": 1
+				},
+				"pose": {
+					"armor_pelvis": 0,
+					"foot_front": 1,
+					"pelvis_dmg": 1
+				}
+			}
+		},
+		{
+			"armor_ratio": 1.0,
+			"facing": -1,
+			"row": 3,
+			"states": {
+				"base": {
+					"armor_pelvis": 1,
+					"foot_front": 1,
+					"pelvis_dmg": 0
+				},
+				"cleared": {
+					"armor_pelvis": 1,
+					"foot_front": 1,
+					"pelvis_dmg": 0
+				},
+				"pose": {
+					"armor_pelvis": 1,
+					"foot_front": 1,
+					"pelvis_dmg": 0
+				}
+			}
+		},
+		{
+			"armor_ratio": 0.5,
+			"facing": -1,
+			"row": 4,
+			"states": {
+				"base": {
+					"armor_pelvis": 1,
+					"foot_front": 1,
+					"pelvis_dmg": 1
+				},
+				"cleared": {
+					"armor_pelvis": 1,
+					"foot_front": 1,
+					"pelvis_dmg": 1
+				},
+				"pose": {
+					"armor_pelvis": 1,
+					"foot_front": 1,
+					"pelvis_dmg": 1
+				}
+			}
+		},
+		{
+			"armor_ratio": 0.0,
+			"facing": -1,
+			"row": 5,
+			"states": {
+				"base": {
+					"armor_pelvis": 0,
+					"foot_front": 1,
+					"pelvis_dmg": 1
+				},
+				"cleared": {
+					"armor_pelvis": 0,
+					"foot_front": 1,
+					"pelvis_dmg": 1
+				},
+				"pose": {
+					"armor_pelvis": 0,
+					"foot_front": 1,
+					"pelvis_dmg": 1
+				}
+			}
+		}
+	],
+	"settled_animator_steps_per_row": 90,
+	"source_texture_files": {
+		"foot": "res://art/characters/rin/parts/foot.png",
+		"pelvis": "res://art/characters/rin/parts/pelvis.png",
+		"pelvis_dmg": "res://art/characters/rin/parts/pelvis_dmg.png"
+	},
+	"states_columns": [
+		"base",
+		"pose",
+		"cleared"
+	],
+	"uses_existing_rin_diffuse_normal_glow_sources": true,
+	"viewport_cell_size": [
+		320,
+		260
+	]
+}

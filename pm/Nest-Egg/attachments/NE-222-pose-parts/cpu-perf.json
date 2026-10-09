@@ -1,0 +1,57 @@
+{
+  "scope": "Existing Rin without configured pose_parts; CPU animation only, not rendering or authored pose acceptance",
+  "base": "7d22ad92",
+  "count": 10,
+  "frames": 3000,
+  "samples": [
+    {
+      "run": 0,
+      "kind": "baseline",
+      "rigid_us": 1634.5,
+      "mesh_us": 2240.2,
+      "vertices": 477
+    },
+    {
+      "run": 0,
+      "kind": "candidate",
+      "rigid_us": 1632.7,
+      "mesh_us": 2297.2,
+      "vertices": 477
+    },
+    {
+      "run": 1,
+      "kind": "baseline",
+      "rigid_us": 1700.6,
+      "mesh_us": 2180.4,
+      "vertices": 477
+    },
+    {
+      "run": 1,
+      "kind": "candidate",
+      "rigid_us": 1638.0,
+      "mesh_us": 2282.9,
+      "vertices": 477
+    },
+    {
+      "run": 2,
+      "kind": "baseline",
+      "rigid_us": 1651.5,
+      "mesh_us": 2123.6,
+      "vertices": 477
+    },
+    {
+      "run": 2,
+      "kind": "candidate",
+      "rigid_us": 1656.9,
+      "mesh_us": 2254.0,
+      "vertices": 477
+    }
+  ],
+  "mesh_means_us": {
+    "baseline": 2181.4,
+    "candidate": 2278.0333333333333
+  },
+  "ratio": 1.0442987683750495,
+  "comfy_resident": false,
+  "candidate_restored_exactly": true
+}

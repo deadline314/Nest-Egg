@@ -1,0 +1,81 @@
+{
+  "base_commit": "7d22ad92",
+  "candidate_checkout": "C:\\Users\\stanl\\.codex\\worktrees\\character-source-verify\\Nest-Egg",
+  "report_root": "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\.godot\\ne222-pose-baseline-warning-check",
+  "command": [
+    "C:\\Tools\\Godot\\Godot_v4.7.2-stable_win64_console.exe",
+    "--headless",
+    "--audio-driver",
+    "Dummy",
+    "--path",
+    ".",
+    "res://tests/smoke_test.tscn",
+    "--",
+    "--only=RigMeshSuite,RigActionsSuite,LayerOrderSuite,HitReactionSuite"
+  ],
+  "suites": [
+    "RigMeshSuite",
+    "RigActionsSuite",
+    "LayerOrderSuite",
+    "HitReactionSuite"
+  ],
+  "started_utc": "2026-10-09T22:12:22.548147+00:00",
+  "timeout_seconds": 30,
+  "baseline_sha256": {
+    "game/rig/character_rig.gd": "8a3efa9e5acc5868985ff9c149607983e37dc5ca8af38316750bf2c3cbf4b318",
+    "tests/suite/test_rig_mesh.gd": "39d9cd4c8fe18e1b73e59d0f1163fb71f3bc7f98ea78e96f7b22d327e7f7de6b"
+  },
+  "baseline_installed_sha256": {
+    "game/rig/character_rig.gd": "8a3efa9e5acc5868985ff9c149607983e37dc5ca8af38316750bf2c3cbf4b318",
+    "tests/suite/test_rig_mesh.gd": "39d9cd4c8fe18e1b73e59d0f1163fb71f3bc7f98ea78e96f7b22d327e7f7de6b"
+  },
+  "process_started_utc": "2026-10-09T22:12:22.678166+00:00",
+  "pid": 9752,
+  "timed_out": false,
+  "returncode": 0,
+  "candidate_sha256_before": {
+    "game/rig/character_rig.gd": "55ab174b83a60c252f4a0d3901e1035c6f49799d6c8e7132af66d5e1b9642546",
+    "tests/suite/test_rig_mesh.gd": "8dcbba3a8a070503c4f8928cd14dec9a45033bafe6179165477c3788926fabb5"
+  },
+  "candidate_sha256_after_restore": {
+    "game/rig/character_rig.gd": "55ab174b83a60c252f4a0d3901e1035c6f49799d6c8e7132af66d5e1b9642546",
+    "tests/suite/test_rig_mesh.gd": "8dcbba3a8a070503c4f8928cd14dec9a45033bafe6179165477c3788926fabb5"
+  },
+  "restored_byte_exact": true,
+  "run_error": null,
+  "finished_utc": "2026-10-09T22:12:51.061126+00:00",
+  "log_path": "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\.godot\\ne222-pose-baseline-warning-check\\baseline.log",
+  "summary_path": "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\.godot\\ne222-pose-baseline-warning-check\\baseline-summary.json",
+  "log_sha256": "cb603184206f9543da9166fcab83cc77df0cab19773283c2e9a1d45e984d739b",
+  "line_count": 184,
+  "script_error_lines": [],
+  "error_lines": [
+    "ERROR: [HumanoidAnimator] res://art/rigs/action_poses.json 沒有專屬動作「no_such_action」",
+    "ERROR: [Enemy] test_missing_part 的 hurt_parts 有無效的部位（id、size、mult）：{ \"id\": \"\", \"size\": (4.0, 4.0), \"mult\": 2.0 }",
+    "ERROR: [EnemyVfx] res://art/vfx/enemies/test_missing_part.json 沒有特效資料，不播放專屬特效。",
+    "ERROR: 3 resources still in use at exit (run with --verbose for details)."
+  ],
+  "warning_lines": [
+    "WARNING: [Enemy] test_missing_part 的部位 ok 找不到骨頭 no_such_bone，改用固定位置。",
+    "WARNING: [LitTextures] 沒有法線貼圖，改用平面貼圖：res://art/creatures/test_tentacle_n.png（可用 tools/art/paint_normals.tscn 產生）",
+    "WARNING: [LitTextures] 沒有法線貼圖，改用平面貼圖：res://art/creatures/test_body_n.png（可用 tools/art/paint_normals.tscn 產生）",
+    "WARNING: No Bone2D children of node @Bone2D@11912. Cannot calculate bone length or angle reliably.",
+    "WARNING: No Bone2D children of node @Bone2D@11917. Cannot calculate bone length or angle reliably.",
+    "WARNING: No Bone2D children of node @Bone2D@11922. Cannot calculate bone length or angle reliably.",
+    "WARNING: No Bone2D children of node @Bone2D@11924. Cannot calculate bone length or angle reliably.",
+    "WARNING: No Bone2D children of node @Bone2D@11927. Cannot calculate bone length or angle reliably.",
+    "WARNING: [CharacterRig] rin/coat_1 bend_partner must be an immediate child bone: missing; using rigid part",
+    "WARNING: [CharacterRig] rin/coat_1 bend_partner must be an immediate child bone: chest; using rigid part",
+    "WARNING: [CharacterRig] rin/armor_debris must be a boolean; using true",
+    "WARNING: 233 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+  ],
+  "known_objectdb_lines": [
+    "ERROR: 3 resources still in use at exit (run with --verbose for details)."
+  ],
+  "check_lines": [
+    "SUITE_TIME RigActionsSuite 3.0",
+    "SUITE_TIME HitReactionSuite 10.3",
+    "SUITE_TIME RigMeshSuite 2.3",
+    "SUITE_TIME LayerOrderSuite 5.4"
+  ]
+}
