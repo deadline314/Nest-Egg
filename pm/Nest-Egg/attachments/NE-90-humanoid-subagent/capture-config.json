@@ -1,0 +1,101 @@
+[
+  {
+    "enemy": "data/enemies/elite_grunt.tres",
+    "skin": "trooper_elite",
+    "weapon": "rifle",
+    "speed": 46.0,
+    "two_handed": true,
+    "creature": "",
+    "in_scope": true
+  },
+  {
+    "enemy": "data/enemies/flamer.tres",
+    "skin": "flamer",
+    "weapon": "flamethrower",
+    "speed": 28.0,
+    "two_handed": true,
+    "creature": "",
+    "in_scope": true
+  },
+  {
+    "enemy": "data/enemies/grunt.tres",
+    "skin": "trooper",
+    "weapon": "smg",
+    "speed": 36.0,
+    "two_handed": true,
+    "creature": "",
+    "in_scope": true
+  },
+  {
+    "enemy": "data/enemies/mortar.tres",
+    "skin": "grenadier",
+    "weapon": "launcher",
+    "speed": 55.0,
+    "two_handed": true,
+    "creature": "",
+    "in_scope": true
+  },
+  {
+    "enemy": "data/enemies/reclaimer.tres",
+    "skin": "reclaimer",
+    "weapon": "",
+    "speed": 70.0,
+    "two_handed": true,
+    "creature": "",
+    "in_scope": true
+  },
+  {
+    "enemy": "data/enemies/slasher.tres",
+    "skin": "slasher",
+    "weapon": "",
+    "speed": 44.0,
+    "two_handed": true,
+    "creature": "",
+    "in_scope": true
+  },
+  {
+    "enemy": "data/enemies/sniper.tres",
+    "skin": "sniper",
+    "weapon": "sniper",
+    "speed": 22.0,
+    "two_handed": true,
+    "creature": "",
+    "in_scope": true
+  },
+  {
+    "enemy": "data/enemies/stalker.tres",
+    "skin": "stalker",
+    "weapon": "rifle",
+    "speed": 46.0,
+    "two_handed": true,
+    "creature": "",
+    "in_scope": true
+  },
+  {
+    "enemy": "data/enemies/strike/chainsaw_arm.tres",
+    "skin": "trooper",
+    "weapon": "",
+    "speed": 42.0,
+    "two_handed": false,
+    "creature": "",
+    "in_scope": true
+  },
+  {
+    "enemy": "data/enemies/strike/plasma_whip.tres",
+    "skin": "stalker",
+    "weapon": "",
+    "speed": 38.0,
+    "two_handed": false,
+    "creature": "",
+    "in_scope": true
+  },
+  {
+    "enemy": "data/enemies/sweeper.tres",
+    "skin": "trooper",
+    "weapon": "pistol",
+    "speed": 34.0,
+    "two_handed": false,
+    "creature": "",
+    "in_scope": true
+  }
+]
