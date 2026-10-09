@@ -1,4 +1,4 @@
-"""Dialogue head-and-shoulders portrait (128x128, transparent) cut from the cleaned part layers.
+"""Dialogue head-and-shoulders portrait (transparent) cut from the cleaned part layers.
 
     D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/make_portrait.py --spec tools/comfyui/specs/rin_side.json --work art_src/characters/rin2
 
@@ -22,16 +22,22 @@ def main() -> None:
     cfg = spec["dialog_portrait"]
     work = Path(args.work)
     src = work / "07_refined" if (work / "07_refined").exists() else work / "06_parts"
+    overrides = {path.stem: path for path in (work / "overrides/refined").glob("*.png")}
+    canvas_size = Image.open(work / "base_rgba.png").size if overrides else None
+    for name, path in overrides.items():
+        with Image.open(path) as image:
+            if name not in spec["parts"] or image.mode != "RGBA" or image.size != canvas_size:
+                raise ValueError(f"{path}: portrait source override requires a known part and full-canvas RGBA of size {canvas_size}")
     layers = []
     for part, p in spec["parts"].items():
         for use in p["uses"]:
             if use.get("tint") and "_back" in use["name"]:  # the dimmed copies for the far-side limbs (a front part can carry a tint too: a brightened coat)
                 continue
             layers.append((use["z"], part))
-    first = Image.open(src / f"{layers[0][1]}.png")
+    first = Image.open(overrides.get(layers[0][1], src / f"{layers[0][1]}.png"))
     canvas = Image.new("RGBA", first.size, (0, 0, 0, 0))
     for _, part in sorted(layers):
-        canvas.alpha_composite(Image.open(src / f"{part}.png").convert("RGBA"))
+        canvas.alpha_composite(Image.open(overrides.get(part, src / f"{part}.png")).convert("RGBA"))
     crop = canvas.crop(tuple(cfg["box"]))
     size = cfg.get("size", 128)
     out = Path(cfg["out"])

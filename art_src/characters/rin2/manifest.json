@@ -12,5 +12,29 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "textures",
+    "seconds": 2.8,
+    "outputs": [
+      "art\\characters\\rin\\character.json",
+      "art\\rigs\\humanoid_tall.json",
+      "art\\characters\\rin\\parts",
+      "art\\portraits\\rin.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 4.0,
+    "outputs": [
+      "art\\characters\\rin\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 7.9,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

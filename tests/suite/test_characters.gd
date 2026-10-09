@@ -36,10 +36,26 @@ const POSES: Array[String] = ["idle", "run", "aim", "crouch", "jump", "block", "
 
 func run() -> void:
 	_test_definitions()
+	_test_rin_density()
 	_test_alignment()
 	_test_portraits()
 	_test_weapons()
 	await _test_rigs()
+
+
+func _test_rin_density() -> void:
+	var spec: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tools/comfyui/specs/rin_side.json"))
+	var skin := RigLibrary.character("rin")
+	check(is_equal_approx(float(spec["tex_px_per_wp"]), float(spec["illustration_px_per_wp"])), "Rin parts keep the approved source density without intermediate downsampling")
+	check(absf(float(skin["texture_scale"]) * float(spec["tex_px_per_wp"]) - 1.0) < 0.0001, "Rin texture density and runtime world scale agree")
+	for def: Dictionary in (skin["textures"] as Dictionary).values():
+		var path := RigLibrary.character_dir("rin").path_join(str(def["file"]))
+		var size := Vector2i(RigLibrary.vec2(def["size"]))
+		for file in [path, path.get_basename() + "_n.png"]:
+			var image := _texture_image(file)
+			check(image != null and image.get_size() == size, "Rin loaded diffuse/normal keeps its declared native size: %s" % file)
+	var portrait := _texture_image("res://art/portraits/rin.png")
+	check(portrait != null and portrait.get_size() == Vector2i(256, 256), "Rin dialogue portrait is rendered from the 256-pixel source export")
 
 
 ## 零件 tex_name 的規格（尺寸與支點），在 REFERENCES 裡找到的第一個；沒有就回傳空字典。

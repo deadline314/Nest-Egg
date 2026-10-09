@@ -163,7 +163,7 @@ func _test_cloth_binding() -> void:
 		rig.bone(&"coat_2").rotation = -0.08
 		part.refresh()
 		var edge: Vector2 = rig.bone(&"coat_1").transform * (part.transform * part.deformed_vertices()[2])
-		check(edge.distance_to(rig.rest(&"coat_1") + Vector2(1, 0)) < 0.001, "hem root stays attached to the authored chest location while its tail bends")
+		check(edge.distance_to(rig.rest(&"coat_1") + Vector2(20.0 * rig._texture_scale, 0)) < 0.001, "hem root stays attached to the authored chest location while its tail bends")
 	check(rig._make_limb_mesh(&"coat_1", texture, null, texture.size, Vector2.ZERO, Vector2.ZERO, 1.0, true, &"missing") == null, "missing cloth partner safely falls back to a rigid part")
 	check(rig._make_limb_mesh(&"coat_1", texture, null, texture.size, Vector2.ZERO, Vector2.ZERO, 1.0, true, &"chest") == null, "unrelated cloth partner cannot bind to the wrong chain")
 	rig.queue_free()

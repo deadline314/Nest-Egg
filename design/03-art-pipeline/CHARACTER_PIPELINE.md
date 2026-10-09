@@ -62,6 +62,8 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
 
 全部在 `art/characters/rin/`，由 `character.json` 描述；骨架在 `art/rigs/humanoid_tall.json`（`character.json` 的 `rig` 欄指向它）。
 
+2026-10-09：凜已改為保留来源密度23.78貼圖像素／世界像素（原圖也是23.78，k=1）。貼圖縮放0.04205，切圖、支點、normal／glow與眨眼座標同步重建；身體骨架和武器掛點資料未變。對話頭像直接由280×280來源裁切輸出256×256，與遊戲使用相同來源覆蓋層，不再略過已核對的修補。歷史20密度與固定128頭像只描述舊交付；來源、載入尺寸及原生UI畫面見NE-222。
+
 | 零件圖 `parts/<名稱>.png` | 掛在哪根骨頭 | 圖層 z | 說明 |
 |---|---|---|---|
 | `hair_back_1`、`hair_back_2` | `hair_1`、`hair_2` | −9 | 馬尾上半、下半；跟著彈簧骨飄動 |

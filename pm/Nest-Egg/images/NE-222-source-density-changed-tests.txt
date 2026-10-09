@@ -1,0 +1,7 @@
+受影響的測試：CharactersSuite,ContinuitySuite,LayerOrderSuite,NpcAnimationSuite,RigActionsSuite,RigMeshSuite
+Running 6 groups in 6 processes (logs: /tmp/tmp.EG2zy2amsP)
+  process 0 (estimated 44 s): ContinuitySuite
+  process 1 (estimated 2 s): LayerOrderSuite
+  process 2 (estimated 1 s): NpcAnimationSuite
+  process 3 (estimated 0 s): RigMeshSuite,RigActionsSuite,CharactersSuite
+checks: 3299, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 53 s)

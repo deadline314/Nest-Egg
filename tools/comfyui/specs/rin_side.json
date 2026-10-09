@@ -6,7 +6,7 @@
   "scale": 1.15,
   "seam": 10,
   "illustration_px_per_wp": 23.78,
-  "tex_px_per_wp": 20,
+  "tex_px_per_wp": 23.78,
   "ground_y": 1197,
   "joints": {
     "hip": [
@@ -975,7 +975,8 @@
       530,
       280
     ],
-    "out": "art/portraits/rin.png"
+    "out": "art/portraits/rin.png",
+    "size": 256
   },
   "springs": [
     {
