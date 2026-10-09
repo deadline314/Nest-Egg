@@ -1,0 +1,69 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME ExposureSuite 2.9
+SUITE_TIME FxUpgradesSuite 9.9
+ERROR: [InputFeel] res://data/feel/input.json 沒有 windows.test_no_such_window，改用預設 0.07
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://core/input_feel.gd:140)
+       [1] window (res://core/input_feel.gd:37)
+       [2] _test_windows_from_data (res://tests/suite/test_input_feel.gd:229)
+       [3] run (res://tests/suite/test_input_feel.gd:7)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_fx_upgrades.gd:21)
+       [6] _test_environment (res://tests/suite/test_fx_upgrades.gd:297)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:599)
+       [9] _frames (res://tests/smoke_test.gd:122)
+WARNING: [InputBindings] controller/aim_deadzone 不是有效數值，使用預設值。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _number_option (res://autoload/input_bindings.gd:626)
+       [1] _reload_controller_options (res://autoload/input_bindings.gd:612)
+       [2] reload_from_settings (res://autoload/input_bindings.gd:419)
+       [3] _test_controller_options (res://tests/suite/test_input_feel.gd:121)
+       [4] _test_controller_flow (res://tests/suite/test_input_feel.gd:48)
+       [5] run (res://tests/suite/test_input_feel.gd:10)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_fx_upgrades.gd:21)
+       [8] _test_environment (res://tests/suite/test_fx_upgrades.gd:297)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:599)
+       [11] _frames (res://tests/smoke_test.gd:122)
+WARNING: [InputBindings] controller/vibration_strength 不是有效數值，使用預設值。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _number_option (res://autoload/input_bindings.gd:626)
+       [1] _reload_controller_options (res://autoload/input_bindings.gd:613)
+       [2] reload_from_settings (res://autoload/input_bindings.gd:419)
+       [3] _test_controller_options (res://tests/suite/test_input_feel.gd:121)
+       [4] _test_controller_flow (res://tests/suite/test_input_feel.gd:48)
+       [5] run (res://tests/suite/test_input_feel.gd:10)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_fx_upgrades.gd:21)
+       [8] _test_environment (res://tests/suite/test_fx_upgrades.gd:297)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:599)
+       [11] _frames (res://tests/smoke_test.gd:122)
+WARNING: [InputBindings] controller/invert_aim_y 不是布林值，使用預設值。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _reload_controller_options (res://autoload/input_bindings.gd:617)
+       [1] reload_from_settings (res://autoload/input_bindings.gd:419)
+       [2] _test_controller_options (res://tests/suite/test_input_feel.gd:121)
+       [3] _test_controller_flow (res://tests/suite/test_input_feel.gd:48)
+       [4] run (res://tests/suite/test_input_feel.gd:10)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] run (res://tests/suite/test_fx_upgrades.gd:21)
+       [7] _test_environment (res://tests/suite/test_fx_upgrades.gd:297)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:599)
+       [10] _frames (res://tests/smoke_test.gd:122)
+NE229_PHYSICAL_JOYPADS [] | probe uses synthetic device 999
+NE229_SYNTHETIC_FLOW checks=36 failures=0
+SUITE_TIME InputFeelSuite 3.8
+SUITE_TIME ReadabilityTargetsSuite 0.2
+checks: 513, failures: 0
+WARNING: 265 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

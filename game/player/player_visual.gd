@@ -13,7 +13,6 @@ const SQUASH_RECOVERY := 14.0
 const SQUASH_SCALE := 0.3
 const PARRY_FLASH_TIME := 0.25
 const BLOCK_FLASH_TIME := 0.1
-const SHIELD_RADIUS := 15.0
 const GHOST_INTERVAL := 0.03
 const GHOST_LIFETIME := 0.18
 const MAX_GHOSTS := 8
@@ -21,7 +20,6 @@ const MAX_GHOSTS := 8
 const STREAK_COUNT := 3
 const STREAK_LENGTH := 34.0
 const MATERIALIZE_TIME := 0.7
-const PARRY_RAYS := 8
 const LASH_SEGMENTS := 10
 ## 軌跡一開始就已經掃過的比例（0~1，掃出弧度的段落在前 40%）。
 const TRAIL_HEAD_START := 0.3
@@ -55,6 +53,7 @@ var _dash_dir := 1.0
 var _materialize_left := 0.0
 var _phone_t := -1.0  # 撥號動作已經過的秒數；負值＝不在撥號
 var _phone_weapon := ""
+var _shield := ShieldSurface.new()
 
 
 func _ready() -> void:
@@ -144,12 +143,14 @@ func _soft_squash(full: Vector2) -> Vector2:
 	return Vector2.ONE + (full - Vector2.ONE) * SQUASH_SCALE
 
 
-func notify_parry() -> void:
+func notify_parry(at := Vector2.INF) -> void:
 	_parry_flash = PARRY_FLASH_TIME
+	_shield.notify_impact(at - (player.global_position + Vector2(0, -Player.BODY_SIZE.y * 0.5)) if at.is_finite() and player != null else _shield.direction)
 
 
-func notify_block() -> void:
+func notify_block(at := Vector2.INF) -> void:
 	_block_flash = BLOCK_FLASH_TIME
+	_shield.notify_impact(at - (player.global_position + Vector2(0, -Player.BODY_SIZE.y * 0.5)) if at.is_finite() and player != null else _shield.direction)
 
 
 func notify_dash() -> void:
@@ -253,6 +254,7 @@ func _process(delta: float) -> void:
 	_finisher_flash = maxf(0.0, _finisher_flash - delta)
 	_parry_flash = maxf(0.0, _parry_flash - delta)
 	_block_flash = maxf(0.0, _block_flash - delta)
+	_shield.update(delta, player.is_blocking, player.is_guard_broken(), player.aim_dir, player.tuning.block_arc_degrees)
 	_squash = _squash.lerp(Vector2.ONE, minf(1.0, SQUASH_RECOVERY * delta))
 	scale = _squash
 	_update_ghosts(delta)
@@ -368,31 +370,13 @@ func _draw_ghosts() -> void:
 			draw_line(from, from + Vector2(-_dash_dir * length, 0.0), Color(LightKit.glow(Palette.CYAN, 1.4), 0.4), 1.2)
 
 
-## 能量護盾：沿準星方向的弧形；剛舉起（完美格擋時間窗）時更亮，完美格擋成功時爆閃。
+## 義體方向護盾：與實際方向判定共用身體中心；動畫不改防禦窗口。
 func _draw_shield() -> void:
-	if not player.is_blocking and _parry_flash <= 0.0:
-		return
-	var center := to_local(player.aim_origin()) + player.aim_dir * 6.0
-	var angle := player.aim_dir.angle()
-	var half_arc := deg_to_rad(player.tuning.block_arc_degrees * 0.5) * 0.8
-	var guard_ratio := clampf(player.guard / player.tuning.guard_max, 0.0, 1.0)
-	var intensity := 1.4 + (1.2 if player.is_parry_window() else 0.0) + _block_flash * 10.0 + _parry_flash * 8.0
-	var color := LightKit.glow(Palette.CYAN.lerp(Palette.DANGER, 1.0 - guard_ratio), intensity)
-	draw_arc(center, SHIELD_RADIUS, angle - half_arc, angle + half_arc, 16, Color(color, 0.25), 7.0)
-	draw_arc(center, SHIELD_RADIUS, angle - half_arc, angle + half_arc, 16, color, 1.5)
-	if player.is_parry_window():
-		# 窗口提示：外圈隨剩餘時間收進盾面，收到盾上就是窗口結束。
-		var left := clampf(1.0 - player._block_time / player.parry_window_length(), 0.0, 1.0)
-		draw_arc(center, SHIELD_RADIUS + 2.0 + 9.0 * left, angle - half_arc, angle + half_arc, 16, Color(LightKit.glow(Palette.WHITE, 2.0), 0.35 + 0.5 * left), 1.5)
-	if _parry_flash > 0.0:
-		var t := _parry_flash / PARRY_FLASH_TIME
-		draw_arc(center, SHIELD_RADIUS + (1.0 - t) * 12.0, angle - half_arc, angle + half_arc, 16, Color(Fx.hdr(Palette.WHITE, 3.0), t), 2.0)
-		# 星芒：從盾面中心向外的射線，隨時間變長、變淡。
-		for i in PARRY_RAYS:
-			var ray := Vector2.RIGHT.rotated(angle + float(i) / PARRY_RAYS * TAU)
-			var inner := 4.0 + (1.0 - t) * 6.0
-			var outer := inner + (6.0 if i % 2 == 0 else 3.5) * (0.4 + (1.0 - t))
-			draw_line(center + ray * inner, center + ray * outer, Color(Fx.hdr(Palette.WHITE, 2.4), t), 1.2)
+	var center := to_local(player.global_position + Vector2(0, -Player.BODY_SIZE.y * 0.5))
+	var ratio := clampf(player.guard / maxf(player.tuning.guard_max, 0.001), 0.0, 1.0)
+	var left := clampf(1.0 - player._block_time / maxf(player.parry_window_length(), 0.001), 0.0, 1.0)
+	_shield.paint(self, center, ratio, player.is_parry_window(), left, _block_flash, _parry_flash,
+		Settings.flash_scale(), Settings.get_feel_scale("shake"))
 
 
 ## 手上的近戰武器：接在骨架前手上、沿前臂方向延伸，跟著揮砍動作轉；出招時更亮。撥號與乘載時不畫。

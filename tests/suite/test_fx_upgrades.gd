@@ -16,6 +16,7 @@ func run() -> void:
 	await _test_projectile_trails()
 	await _test_projectile_sweeps()
 	await _test_player_fx()
+	await _test_shield_presentation()
 	await _test_dash_and_materialize()
 	await _test_environment()
 
@@ -146,6 +147,50 @@ func _test_projectile_trails() -> void:
 # ---------------------------------------------------------------------------
 # 玩家特效
 # ---------------------------------------------------------------------------
+
+func _test_shield_presentation() -> void:
+	var surface := ShieldSurface.new()
+	surface.update(0.04, true, false, Vector2.RIGHT, 120.0)
+	check(surface.extension > 0.0 and surface.extension < 1.0, "shield raises progressively without delaying guard")
+	check(is_equal_approx(surface._rim[0].angle(), -PI / 3.0) and is_equal_approx(surface._rim[-1].angle(), PI / 3.0), "shield endpoints match the real 120 degree defence cone")
+	var front_only := true
+	for point in surface._rim:
+		front_only = front_only and point.x > 0.0 and is_equal_approx(point.length(), ShieldSurface.RADIUS)
+	check(front_only, "the field has body-sized reach and never depicts rear protection")
+	surface.update(0.04, true, false, Vector2.UP, 120.0)
+	check(is_equal_approx(surface.extension, 1.0) and surface.direction == Vector2.UP, "raised shield follows vertical aim")
+	surface.notify_impact(Vector2(-1, 0))
+	check(surface.impact_direction == Vector2.LEFT, "impact feedback records the incoming direction")
+	surface.update(0.04, false, true, Vector2.LEFT, 120.0)
+	check(surface.break_left > 0.0 and surface.extension < 1.0 and surface.direction == Vector2.UP, "guard break fragments retain their direction while lowering")
+	surface.update(0.09, false, true, Vector2.LEFT, 120.0)
+	check(surface.extension == 0.0 and surface.break_left > 0.0 and surface.direction == Vector2.UP, "break fragments keep the old direction after the base field disappears")
+	surface.update(1.0, false, true, Vector2.RIGHT, 120.0)
+	check(surface.break_left == 0.0 and surface.extension == 0.0, "lower and break presentation expire without lingering particles")
+	var center := Vector2(10, -22)
+	check(ShieldSurface.contact(center, Vector2(1, 1), Vector2.RIGHT).is_equal_approx(center + Vector2(1, 1).normalized() * ShieldSurface.RADIUS), "shield contact mark follows the source angle")
+	check(ShieldSurface.contact(center, Vector2.ZERO, Vector2.ZERO).is_equal_approx(center + Vector2.RIGHT * ShieldSurface.RADIUS), "missing contact direction has a finite safe fallback")
+	await open_level(10.0)
+	var player := level.player
+	player.set_physics_process(false)
+	player.aim_dir = Vector2.RIGHT
+	player.is_blocking = true
+	player._block_time = player.parry_window_length() + 0.01
+	var energy := player.guard
+	var info := DamageInfo.create(1, Combat.Team.ENEMY, &"test_shield", Vector2.LEFT * 100.0)
+	info.is_projectile = true
+	check(player._guard(info) == Hurtbox.Guard.BLOCK and player.guard < energy, "larger shield still consumes normal guard energy")
+	energy = player.guard
+	info.knockback = Vector2.RIGHT * 100.0
+	check(player._guard(info) == Hurtbox.Guard.NONE and player.guard == energy, "rear projectile passes through without spending guard")
+	info.knockback = -Vector2.RIGHT.rotated(deg_to_rad(61.0)) * 100.0
+	check(player._guard(info) == Hurtbox.Guard.NONE, "one degree beyond visible shield remains undefended")
+	info.knockback = -Vector2.RIGHT.rotated(deg_to_rad(59.0)) * 100.0
+	player._block_time = 0.0
+	check(player._guard(info) == Hurtbox.Guard.REFLECT, "inside the visible cone the original perfect window reflects once")
+	check(player._visual._shield.impact_direction.is_equal_approx(Vector2.RIGHT.rotated(deg_to_rad(59.0))), "off-centre reflection marks its own shield segment")
+	await end_level(level)
+
 
 func _test_player_fx() -> void:
 	await open_level(10.0)

@@ -1117,7 +1117,7 @@ func _guard(info: DamageInfo) -> Hurtbox.Guard:
 		return Hurtbox.Guard.BLOCK
 	if not info.is_projectile:
 		_contact_block_left = CONTACT_BLOCK_INTERVAL
-	var shield_point := aim_origin() + aim_dir * 12.0
+	var shield_point := ShieldSurface.contact(global_position + Vector2(0, -BODY_SIZE.y * 0.5), incoming, aim_dir)
 	if is_parry_window():
 		_on_parry(info, shield_point)
 		return Hurtbox.Guard.REFLECT if info.is_projectile else Hurtbox.Guard.BLOCK
@@ -1137,7 +1137,7 @@ func _on_parry(info: DamageInfo, at: Vector2) -> void:
 	PlayerFx.parry(at, aim_dir)
 	Fx.flash_light(at, Palette.CYAN, 110.0, 2.6, 0.25)
 	Sfx.play(&"parry", -2.0, 0.03)
-	_visual.notify_parry()
+	_visual.notify_parry(at)
 	InputBindings.vibrate(0.5, 0.35, 0.12)
 	EventBus.player_parried.emit(at)
 
@@ -1153,7 +1153,7 @@ func _on_block(info: DamageInfo, at: Vector2) -> void:
 	Fx.impact(at, aim_dir, Palette.WHITE, 6)
 	PlayerFx.block(at, info.origin - at)
 	Sfx.play(&"block", -4.0)
-	_visual.notify_block()
+	_visual.notify_block(at)
 	InputBindings.vibrate(0.15, 0.3, 0.09)
 	if guard <= 0.0:
 		_guard_break()
