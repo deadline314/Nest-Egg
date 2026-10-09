@@ -1,0 +1,150 @@
+{
+  "source": "01_candidates/crouch_layout_0.png",
+  "source_sha256": "c024120be03ef013d45bf284c62e5f2a376c376ec3b151c07558ee74aa498de6",
+  "status": "candidate: final anatomy, contacts and transitions require native review",
+  "px_per_world": 26.5,
+  "waist": [
+    368,
+    350
+  ],
+  "joints": {
+    "hip": [
+      395,
+      485
+    ],
+    "hip_back": [
+      375,
+      485
+    ],
+    "knee_front": [
+      650,
+      555
+    ],
+    "ankle_front": [
+      480,
+      790
+    ],
+    "knee_back": [
+      605,
+      550
+    ],
+    "ankle_back": [
+      535,
+      785
+    ]
+  },
+  "parts": [
+    {
+      "name": "pelvis",
+      "joint": "hip",
+      "bone": "hip",
+      "z": 0,
+      "file": "pelvis.png",
+      "box": [
+        294,
+        340,
+        501,
+        564
+      ],
+      "pivot": [
+        101,
+        145
+      ],
+      "source_pixels": 26410,
+      "components": 1,
+      "sha256": "081ac4091f5bbd7afd3e4ff5519313a74eb4cab6462574e6c00e1a6f80b8b021"
+    },
+    {
+      "name": "thigh_front",
+      "joint": "hip",
+      "bone": "leg_front_upper",
+      "z": 2,
+      "file": "thigh_front.png",
+      "box": [
+        335,
+        440,
+        696,
+        625
+      ],
+      "pivot": [
+        60,
+        45
+      ],
+      "source_pixels": 49244,
+      "components": 1,
+      "sha256": "cbcde5b6afaad3ae2a58cf63e1de9bd1337cdfe3801931b7952820fc5660a4d6"
+    },
+    {
+      "name": "calf_front",
+      "joint": "knee_front",
+      "bone": "leg_front_lower",
+      "z": 3,
+      "file": "calf_front.png",
+      "box": [
+        467,
+        540,
+        696,
+        721
+      ],
+      "pivot": [
+        183,
+        15
+      ],
+      "source_pixels": 23546,
+      "components": 1,
+      "sha256": "b34125627882f93fdb350410fd15cad25f15066256cad5c2108d96d5b0774fb8"
+    },
+    {
+      "name": "foot_front",
+      "joint": "ankle_front",
+      "bone": "foot_front",
+      "z": 4,
+      "file": "foot_front.png",
+      "box": [
+        414,
+        650,
+        608,
+        904
+      ],
+      "pivot": [
+        66,
+        140
+      ],
+      "source_pixels": 30149,
+      "components": 1,
+      "sha256": "c533b9a1b74ae0aa5d669a3f7a01707f128f21156eb44713268853c2f0e822a7"
+    },
+    {
+      "name": "foot_back",
+      "joint": "ankle_back",
+      "bone": "foot_back",
+      "z": 1,
+      "file": "foot_back.png",
+      "box": [
+        532,
+        780,
+        609,
+        854
+      ],
+      "pivot": [
+        3,
+        5
+      ],
+      "source_pixels": 2635,
+      "components": 1,
+      "sha256": "ead9cca95f7420751608ec0a2145a08543cf4c133dbb121b0bcdcdabf992bc68"
+    }
+  ],
+  "clear_polygons": [],
+  "clear_reason": "",
+  "replacement": null,
+  "review_adjustment": {
+    "rear_foot_shift": [
+      0,
+      1.7735849056603774
+    ],
+    "reason": "Art placement proposal for visible rear toe only; hidden boot and far leg are incomplete. Not a canonical pose."
+  },
+  "waist_alignment": "Approved torso row 260: alpha x 42..132, pivot x47.51, texture_scale.05 => waist span -.275..4.2245 world px. Align candidate top waist span to this, not to the image center.",
+  "unassigned_pixels": 0
+}

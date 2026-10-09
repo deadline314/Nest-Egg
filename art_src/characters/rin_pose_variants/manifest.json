@@ -1,0 +1,229 @@
+{
+  "source": "art_src\\characters\\rin2\\04_stages\\C.png",
+  "source_sha256": "27a73833b3be4eb4dbee370f5d5d4640fe9892871c1600c70db3e85dd028b43d",
+  "approved_source": "art_src/characters/rin2/base_rgba.png",
+  "approved_sha256": "401888dc14dcca469428e4df45c07648e36fd1822497031f8c28213fafc24fd9",
+  "crop": [
+    240,
+    350,
+    620,
+    1216
+  ],
+  "reference_background": [
+    180,
+    180,
+    180
+  ],
+  "purpose": "Local new-pose lower-body assets only; original face and approved standing design unchanged",
+  "model": {
+    "unet": "qwen-image-2.1-UC-int8_convrot.safetensors",
+    "clip": "qwen3vl_8b_int8_convrot.safetensors",
+    "vae": "qwen_image_2.1_vae_bf16.safetensors"
+  },
+  "poses": {
+    "crouch": {
+      "prompt": "Create a new pose asset of ONLY the waist, hips and two legs of the SAME adult female character shown in the reference. Strict right-facing side view, clean anime cel-shaded game art, crisp black outlines, simple hard-edged two-tone shading. Match the reference white high-cut bodysuit, cyan piping around the waist and hip, black sheer thigh-high stockings, and black chunky-heeled combat boots with hot-pink soles exactly. Preserve her adult proportions and original garment design. The top of the image stops at her narrow waist; no chest, head, arms, hands, jacket, weapon, holster, straps or extra limbs. There is ONE pelvis and EXACTLY TWO anatomically correct legs and TWO boots. No exaggerated buttocks, no spherical hip bulges, no duplicated buttocks, no long bird-like neck or torso, no melted patterns, no text. Both thighs and calves retain the reference length; keep the waist and hips upright and natural. Center the complete lower-body pose, with every boot fully visible and generous empty space. Native transparent RGBA background. A stable ordinary low crouch: both knees bend naturally forward, hips lower backward with a modest balanced squat, both boot soles and chunky heels stay flat on the same ground. The hips remain above the heels, thighs slope forward rather than folding into the belly. No kneeling; no sitting on an imaginary chair. The farther leg is slightly offset behind the nearer leg so two boots can be distinguished, with natural overlap.",
+      "seed": 4401,
+      "steps": 25,
+      "resolution": 1024,
+      "reference": "lower_body_reference.png",
+      "status": "rejected: did not achieve the required crouch or ground-bearing kneel",
+      "outputs": [
+        {
+          "file": "01_candidates\\crouch_0.png",
+          "sha256": "afe8e082ac5a4d63364cdf0c84f02ded0f1ba7662dfdd848cfabeea4fb739d25"
+        }
+      ]
+    },
+    "kneel": {
+      "prompt": "Create a new pose asset of ONLY the waist, hips and two legs of the SAME adult female character shown in the reference. Strict right-facing side view, clean anime cel-shaded game art, crisp black outlines, simple hard-edged two-tone shading. Match the reference white high-cut bodysuit, cyan piping around the waist and hip, black sheer thigh-high stockings, and black chunky-heeled combat boots with hot-pink soles exactly. Preserve her adult proportions and original garment design. The top of the image stops at her narrow waist; no chest, head, arms, hands, jacket, weapon, holster, straps or extra limbs. There is ONE pelvis and EXACTLY TWO anatomically correct legs and TWO boots. No exaggerated buttocks, no spherical hip bulges, no duplicated buttocks, no long bird-like neck or torso, no melted patterns, no text. Both thighs and calves retain the reference length; keep the waist and hips upright and natural. Center the complete lower-body pose, with every boot fully visible and generous empty space. Native transparent RGBA background. A stable one-knee kneeling firing stance, lower body only: the near leg steps forward to the right, its thigh slopes forward and its shin is near vertical, the entire front boot sole and heel firmly on the ground. The far knee rests on the same ground behind and to the left, with the far shin folded backward along the ground and the rear boot bent naturally at the ankle, heel raised, toe resting behind. The pelvis is above the rear knee, the two legs are clearly distinguishable with believable hip joints. No deep squat and no third boot.",
+      "seed": 4402,
+      "steps": 25,
+      "resolution": 1024,
+      "reference": "lower_body_reference.png",
+      "status": "rejected: did not achieve the required crouch or ground-bearing kneel",
+      "outputs": [
+        {
+          "file": "01_candidates\\kneel_0.png",
+          "sha256": "c6bfed1f4a67b4a9cd045fe04626526a68c214dc828e1536ad1f65fde42fbaf6"
+        }
+      ]
+    },
+    "crouch_layout": {
+      "prompt": "Image 1 is the mandatory pose layout. Image 2 supplies ONLY the garment design, materials and drawing style. Redraw image 1 as a finished lower-body illustration, matching its bent thighs, bent calves, waist position and boot positions precisely. Do NOT copy the straight-leg standing pose from image 2. Create a new pose asset of ONLY the waist, hips and two legs of the SAME adult female character shown in image 2. Strict right-facing side view, clean anime cel-shaded game art, crisp black outlines, simple hard-edged two-tone shading. Match the reference white high-cut bodysuit, cyan piping around the waist and hip, black sheer thigh-high stockings, and black chunky-heeled combat boots with hot-pink soles exactly. Preserve her adult proportions and original garment design. The top of the image stops at her narrow waist; no chest, head, arms, hands, jacket, weapon, holster, straps or extra limbs. There is ONE pelvis and EXACTLY TWO anatomically correct legs and TWO boots. No exaggerated buttocks, no spherical hip bulges, no duplicated buttocks, no long bird-like neck or torso, no melted patterns, no text. Both thighs and calves retain the reference length; keep the waist and hips upright and natural. Center the complete lower-body pose, with every boot fully visible and generous empty space. Native transparent RGBA background. A stable ordinary low crouch: both knees bend naturally forward, hips lower backward with a modest balanced squat, both boot soles and chunky heels stay flat on the same ground. The hips remain above the heels, thighs slope forward rather than folding into the belly. No kneeling; no sitting on an imaginary chair. The farther leg is slightly offset behind the nearer leg so two boots can be distinguished, with natural overlap.",
+      "seed": 4403,
+      "steps": 25,
+      "resolution": 1024,
+      "references": [
+        "crouch_layout.png",
+        "lower_body_reference.png"
+      ],
+      "status": "candidate; incomplete hidden rear leg/boot, ground contacts and canonical binding not accepted",
+      "outputs": [
+        {
+          "file": "01_candidates\\crouch_layout_0.png",
+          "sha256": "c024120be03ef013d45bf284c62e5f2a376c376ec3b151c07558ee74aa498de6"
+        }
+      ]
+    },
+    "kneel_layout": {
+      "prompt": "Image 1 is the mandatory pose layout. Image 2 supplies ONLY the garment design, materials and drawing style. Redraw image 1 as a finished lower-body illustration, matching its bent thighs, bent calves, waist position and boot positions precisely. Do NOT copy the straight-leg standing pose from image 2. Create a new pose asset of ONLY the waist, hips and two legs of the SAME adult female character shown in image 2. Strict right-facing side view, clean anime cel-shaded game art, crisp black outlines, simple hard-edged two-tone shading. Match the reference white high-cut bodysuit, cyan piping around the waist and hip, black sheer thigh-high stockings, and black chunky-heeled combat boots with hot-pink soles exactly. Preserve her adult proportions and original garment design. The top of the image stops at her narrow waist; no chest, head, arms, hands, jacket, weapon, holster, straps or extra limbs. There is ONE pelvis and EXACTLY TWO anatomically correct legs and TWO boots. No exaggerated buttocks, no spherical hip bulges, no duplicated buttocks, no long bird-like neck or torso, no melted patterns, no text. Both thighs and calves retain the reference length; keep the waist and hips upright and natural. Center the complete lower-body pose, with every boot fully visible and generous empty space. Native transparent RGBA background. A stable one-knee kneeling firing stance, lower body only: the near leg steps forward to the right, its thigh slopes forward and its shin is near vertical, the entire front boot sole and heel firmly on the ground. The far knee rests on the same ground behind and to the left, with the far shin folded backward along the ground and the rear boot bent naturally at the ankle, heel raised, toe resting behind. The pelvis is above the rear knee, the two legs are clearly distinguishable with believable hip joints. No deep squat and no third boot.",
+      "seed": 4404,
+      "steps": 25,
+      "resolution": 1024,
+      "references": [
+        "kneel_layout.png",
+        "lower_body_reference.png"
+      ],
+      "status": "candidate; garment locally refined; canonical binding and transitions not accepted",
+      "outputs": [
+        {
+          "file": "01_candidates\\kneel_layout_0.png",
+          "sha256": "e69ae959d9aeac4bf5d84a021eb6e057065b72adb28e69a0b58b72e35fce3326"
+        }
+      ]
+    }
+  },
+  "refinement": {
+    "seed": 4405,
+    "steps": 25,
+    "resolution": 1024,
+    "references": [
+      "01_candidates/kneel_layout_0.png",
+      "lower_body_reference.png"
+    ],
+    "status": "unreviewed local garment refinement",
+    "graph": {
+      "1": {
+        "class_type": "UNETLoader",
+        "inputs": {
+          "unet_name": "qwen-image-2.1-UC-int8_convrot.safetensors",
+          "weight_dtype": "default"
+        }
+      },
+      "1c": {
+        "class_type": "QwenImage21Cache",
+        "inputs": {
+          "model": [
+            "1",
+            0
+          ],
+          "device": "cpu",
+          "dtype": "default"
+        }
+      },
+      "2": {
+        "class_type": "CLIPLoader",
+        "inputs": {
+          "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+          "type": "qwen_image",
+          "device": "default"
+        }
+      },
+      "3": {
+        "class_type": "VAELoader",
+        "inputs": {
+          "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+        }
+      },
+      "4": {
+        "class_type": "TextEncodeQwenImage21",
+        "inputs": {
+          "clip": [
+            "2",
+            0
+          ],
+          "prompt": "Edit ONLY the waist and hip garment in image 1, above the crotch; image 2 supplies the approved clothing design. Preserve image 1 exact right-facing one-knee kneeling pose, anatomy, bent thighs, two legs, two black boots and their positions. Do not move the waist, hips, knees or boots. Match image 2 high-cut white-and-black bodysuit with narrow white FRONT panel and cyan piping, bare skin cut-out on the upper REAR hip, black thigh-high stockings with a black garter band covering the buttock BELOW the exposed upper hip. The posterior buttock on the LEFT must be black stocking below a small exposed skin hip window; NOT wide white panties covering the whole buttock. The white fabric remains a narrow curved FRONT panel on the RIGHT of the pelvis, ending at the crotch and bordered with cyan. Preserve the thick black outline and clean anime cel shading. No arms, hands, torso, head, weapon, extra limbs or new accessories. Complete lower body only. Transparent RGBA background.",
+          "negative_prompt": "",
+          "vae": [
+            "3",
+            0
+          ],
+          "resolution": 1024,
+          "images.image_1": [
+            "L0",
+            0
+          ],
+          "images.image_2": [
+            "L1",
+            0
+          ]
+        }
+      },
+      "6": {
+        "class_type": "KSampler",
+        "inputs": {
+          "model": [
+            "1c",
+            0
+          ],
+          "positive": [
+            "4",
+            0
+          ],
+          "negative": [
+            "4",
+            1
+          ],
+          "latent_image": [
+            "4",
+            2
+          ],
+          "seed": 4405,
+          "steps": 25,
+          "cfg": 1.0,
+          "sampler_name": "euler",
+          "scheduler": "simple",
+          "denoise": 1.0
+        }
+      },
+      "7": {
+        "class_type": "VAEDecode",
+        "inputs": {
+          "samples": [
+            "6",
+            0
+          ],
+          "vae": [
+            "3",
+            0
+          ]
+        }
+      },
+      "8": {
+        "class_type": "SaveImage",
+        "inputs": {
+          "images": [
+            "7",
+            0
+          ],
+          "filename_prefix": "kneel_garment"
+        }
+      },
+      "L0": {
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "kneel_layout_0.png"
+        },
+        "is_changed": [
+          "e69ae959d9aeac4bf5d84a021eb6e057065b72adb28e69a0b58b72e35fce3326"
+        ]
+      },
+      "L1": {
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "lower_body_reference.png"
+        },
+        "is_changed": [
+          "418781eb8c3406daa34334cd3bde892532f0c329b34449ff3eb1edae6edaca60"
+        ]
+      }
+    },
+    "outputs": [
+      {
+        "file": "04_refinement/kneel_garment_0.png",
+        "sha256": "52aed73080c8a6407e00b4bbfc2a89fe1ce0af66718e035028eaf155b66a0e00"
+      }
+    ]
+  }
+}

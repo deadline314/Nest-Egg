@@ -1,0 +1,236 @@
+{
+  "source": "01_candidates/kneel_layout_0.png",
+  "source_sha256": "e69ae959d9aeac4bf5d84a021eb6e057065b72adb28e69a0b58b72e35fce3326",
+  "status": "candidate: final anatomy, contacts and transitions require native review",
+  "px_per_world": 27.5,
+  "waist": [
+    421,
+    380
+  ],
+  "joints": {
+    "hip": [
+      475,
+      535
+    ],
+    "hip_back": [
+      455,
+      565
+    ],
+    "knee_front": [
+      779,
+      500
+    ],
+    "ankle_front": [
+      748,
+      786
+    ],
+    "knee_back": [
+      405,
+      819
+    ],
+    "ankle_back": [
+      165,
+      780
+    ]
+  },
+  "parts": [
+    {
+      "name": "pelvis",
+      "joint": "hip",
+      "bone": "hip",
+      "z": 0,
+      "file": "pelvis.png",
+      "box": [
+        365,
+        376,
+        540,
+        601
+      ],
+      "pivot": [
+        110,
+        159
+      ],
+      "source_pixels": 29491,
+      "components": 1,
+      "sha256": "4ef1b4e73dad42850cf07a907952a6138ea8c888c278e89954083fde8dcfc6e3"
+    },
+    {
+      "name": "thigh_front",
+      "joint": "hip",
+      "bone": "leg_front_upper",
+      "z": 2,
+      "file": "thigh_front.png",
+      "box": [
+        460,
+        420,
+        820,
+        611
+      ],
+      "pivot": [
+        15,
+        115
+      ],
+      "source_pixels": 53434,
+      "components": 1,
+      "sha256": "9ba9272ed747ce595c0a3b927f38839d0db51bdb043da6362e99f63d7f3143f6"
+    },
+    {
+      "name": "calf_front",
+      "joint": "knee_front",
+      "bone": "leg_front_lower",
+      "z": 3,
+      "file": "calf_front.png",
+      "box": [
+        697,
+        480,
+        820,
+        706
+      ],
+      "pivot": [
+        82,
+        20
+      ],
+      "source_pixels": 19756,
+      "components": 1,
+      "sha256": "008459e95f1d623bd7fe8bae90e9ddf36f3f8a34032fa3231c2c0926af35b1b0"
+    },
+    {
+      "name": "foot_front",
+      "joint": "ankle_front",
+      "bone": "foot_front",
+      "z": 4,
+      "file": "foot_front.png",
+      "box": [
+        701,
+        668,
+        870,
+        873
+      ],
+      "pivot": [
+        47,
+        118
+      ],
+      "source_pixels": 20598,
+      "components": 1,
+      "sha256": "c8caed56be705b2a1e73cfa65a2b248c468275ee7ea72f19e94f563e4fbd3bf3"
+    },
+    {
+      "name": "thigh_back",
+      "joint": "hip_back",
+      "bone": "leg_back_upper",
+      "z": -2,
+      "file": "thigh_back.png",
+      "box": [
+        330,
+        582,
+        541,
+        871
+      ],
+      "pivot": [
+        125,
+        -17
+      ],
+      "source_pixels": 36173,
+      "components": 1,
+      "sha256": "47ce27185551c8f29160e1abd9c59a6995e41d877ec3d13e30b39927ff37cb91"
+    },
+    {
+      "name": "calf_back",
+      "joint": "knee_back",
+      "bone": "leg_back_lower",
+      "z": -2,
+      "file": "calf_back.png",
+      "box": [
+        175,
+        739,
+        456,
+        871
+      ],
+      "pivot": [
+        230,
+        80
+      ],
+      "source_pixels": 23167,
+      "components": 1,
+      "sha256": "12f796d6c97fd8aaca8e0fe16f788efae980f0162f6d67fbf266e2f3d3c67f25"
+    },
+    {
+      "name": "foot_back",
+      "joint": "ankle_back",
+      "bone": "foot_back",
+      "z": -1,
+      "file": "foot_back.png",
+      "box": [
+        21,
+        697,
+        241,
+        848
+      ],
+      "pivot": [
+        144,
+        83
+      ],
+      "source_pixels": 18414,
+      "components": 1,
+      "sha256": "78d99e38b72a12a387fede2f4c31e298ce7ee6b88ddc07956b54f66f570c3a2b"
+    }
+  ],
+  "clear_polygons": [
+    [
+      [
+        135,
+        801
+      ],
+      [
+        159,
+        801
+      ],
+      [
+        159,
+        811
+      ],
+      [
+        135,
+        811
+      ]
+    ]
+  ],
+  "clear_reason": "Detached short lace fragment below the rear boot; original output retained.",
+  "replacement": {
+    "image": "04_refinement/kneel_garment_0.png",
+    "polygon": [
+      [
+        350,
+        370
+      ],
+      [
+        550,
+        370
+      ],
+      [
+        550,
+        437
+      ],
+      [
+        505,
+        470
+      ],
+      [
+        505,
+        598
+      ],
+      [
+        350,
+        610
+      ]
+    ],
+    "reason": "Restore approved high-cut bodysuit and black stocking hip material; preserve source silhouette and all other pixels.",
+    "sha256": "52aed73080c8a6407e00b4bbfc2a89fe1ce0af66718e035028eaf155b66a0e00"
+  },
+  "review_adjustment": {
+    "rear_foot_rotation": -0.18,
+    "reason": "Art contact proposal; canonical chain and boot/ankle seam still require separate validation."
+  },
+  "waist_alignment": "Approved torso row 260: alpha x 42..132, pivot x47.51, texture_scale.05 => waist span -.275..4.2245 world px. Align candidate top waist span to this, not to the image center.",
+  "unassigned_pixels": 0
+}

@@ -1,0 +1,538 @@
+{
+  "kneel": {
+    "source": "01_candidates/kneel_layout_0.png",
+    "px_per_world": 27.5,
+    "waist": [
+      421,
+      380
+    ],
+    "joints": {
+      "hip": [
+        475,
+        535
+      ],
+      "hip_back": [
+        455,
+        565
+      ],
+      "knee_front": [
+        779,
+        500
+      ],
+      "ankle_front": [
+        748,
+        786
+      ],
+      "knee_back": [
+        405,
+        819
+      ],
+      "ankle_back": [
+        165,
+        780
+      ]
+    },
+    "parts": [
+      {
+        "name": "pelvis",
+        "joint": "hip",
+        "bone": "hip",
+        "polygon": [
+          [
+            0,
+            0
+          ],
+          [
+            570,
+            0
+          ],
+          [
+            570,
+            425
+          ],
+          [
+            540,
+            435
+          ],
+          [
+            505,
+            540
+          ],
+          [
+            505,
+            600
+          ],
+          [
+            0,
+            600
+          ]
+        ],
+        "z": 0
+      },
+      {
+        "name": "thigh_front",
+        "joint": "hip",
+        "bone": "leg_front_upper",
+        "polygon": [
+          [
+            460,
+            420
+          ],
+          [
+            1024,
+            420
+          ],
+          [
+            1024,
+            610
+          ],
+          [
+            683,
+            610
+          ],
+          [
+            660,
+            660
+          ],
+          [
+            510,
+            608
+          ],
+          [
+            460,
+            595
+          ]
+        ],
+        "z": 2
+      },
+      {
+        "name": "calf_front",
+        "joint": "knee_front",
+        "bone": "leg_front_lower",
+        "polygon": [
+          [
+            700,
+            480
+          ],
+          [
+            1024,
+            480
+          ],
+          [
+            1024,
+            705
+          ],
+          [
+            690,
+            705
+          ]
+        ],
+        "z": 3
+      },
+      {
+        "name": "foot_front",
+        "joint": "ankle_front",
+        "bone": "foot_front",
+        "polygon": [
+          [
+            675,
+            668
+          ],
+          [
+            1024,
+            668
+          ],
+          [
+            1024,
+            1024
+          ],
+          [
+            675,
+            1024
+          ]
+        ],
+        "z": 4
+      },
+      {
+        "name": "thigh_back",
+        "joint": "hip_back",
+        "bone": "leg_back_upper",
+        "polygon": [
+          [
+            340,
+            582
+          ],
+          [
+            540,
+            582
+          ],
+          [
+            540,
+            835
+          ],
+          [
+            360,
+            900
+          ],
+          [
+            330,
+            810
+          ]
+        ],
+        "z": -2
+      },
+      {
+        "name": "calf_back",
+        "joint": "knee_back",
+        "bone": "leg_back_lower",
+        "polygon": [
+          [
+            175,
+            739
+          ],
+          [
+            405,
+            739
+          ],
+          [
+            455,
+            815
+          ],
+          [
+            440,
+            900
+          ],
+          [
+            175,
+            900
+          ]
+        ],
+        "z": -2
+      },
+      {
+        "name": "foot_back",
+        "joint": "ankle_back",
+        "bone": "foot_back",
+        "polygon": [
+          [
+            0,
+            660
+          ],
+          [
+            240,
+            660
+          ],
+          [
+            240,
+            840
+          ],
+          [
+            170,
+            900
+          ],
+          [
+            0,
+            900
+          ]
+        ],
+        "z": -1
+      }
+    ],
+    "clear_polygons": [
+      [
+        [
+          135,
+          801
+        ],
+        [
+          159,
+          801
+        ],
+        [
+          159,
+          811
+        ],
+        [
+          135,
+          811
+        ]
+      ]
+    ],
+    "clear_reason": "Detached short lace fragment below the rear boot; original output retained.",
+    "replacement": {
+      "image": "04_refinement/kneel_garment_0.png",
+      "polygon": [
+        [
+          350,
+          370
+        ],
+        [
+          550,
+          370
+        ],
+        [
+          550,
+          437
+        ],
+        [
+          505,
+          470
+        ],
+        [
+          505,
+          598
+        ],
+        [
+          350,
+          610
+        ]
+      ],
+      "reason": "Restore approved high-cut bodysuit and black stocking hip material; preserve source silhouette and all other pixels.",
+      "sha256": "52aed73080c8a6407e00b4bbfc2a89fe1ce0af66718e035028eaf155b66a0e00"
+    },
+    "review_adjustment": {
+      "rear_foot_rotation": -0.18,
+      "reason": "Art contact proposal; canonical chain and boot/ankle seam still require separate validation."
+    },
+    "waist_alignment": "Approved torso row 260: alpha x 42..132, pivot x47.51, texture_scale.05 => waist span -.275..4.2245 world px. Align candidate top waist span to this, not to the image center.",
+    "source_sha256": "e69ae959d9aeac4bf5d84a021eb6e057065b72adb28e69a0b58b72e35fce3326"
+  },
+  "crouch": {
+    "source": "01_candidates/crouch_layout_0.png",
+    "matte": "border",
+    "px_per_world": 26.5,
+    "waist": [
+      368,
+      350
+    ],
+    "joints": {
+      "hip": [
+        395,
+        485
+      ],
+      "hip_back": [
+        375,
+        485
+      ],
+      "knee_front": [
+        650,
+        555
+      ],
+      "ankle_front": [
+        480,
+        790
+      ],
+      "knee_back": [
+        605,
+        550
+      ],
+      "ankle_back": [
+        535,
+        785
+      ]
+    },
+    "parts": [
+      {
+        "name": "pelvis",
+        "joint": "hip",
+        "bone": "hip",
+        "polygon": [
+          [
+            0,
+            0
+          ],
+          [
+            500,
+            0
+          ],
+          [
+            500,
+            445
+          ],
+          [
+            430,
+            470
+          ],
+          [
+            400,
+            515
+          ],
+          [
+            335,
+            566
+          ],
+          [
+            0,
+            566
+          ]
+        ],
+        "z": 0
+      },
+      {
+        "name": "thigh_front",
+        "joint": "hip",
+        "bone": "leg_front_upper",
+        "polygon": [
+          [
+            335,
+            440
+          ],
+          [
+            1024,
+            440
+          ],
+          [
+            1024,
+            624
+          ],
+          [
+            510,
+            624
+          ],
+          [
+            335,
+            570
+          ]
+        ],
+        "z": 2
+      },
+      {
+        "name": "calf_front",
+        "joint": "knee_front",
+        "bone": "leg_front_lower",
+        "polygon": [
+          [
+            500,
+            540
+          ],
+          [
+            1024,
+            540
+          ],
+          [
+            1024,
+            687
+          ],
+          [
+            545,
+            722
+          ],
+          [
+            480,
+            705
+          ],
+          [
+            440,
+            678
+          ]
+        ],
+        "z": 3
+      },
+      {
+        "name": "foot_front",
+        "joint": "ankle_front",
+        "bone": "foot_front",
+        "polygon": [
+          [
+            0,
+            650
+          ],
+          [
+            595,
+            650
+          ],
+          [
+            595,
+            780
+          ],
+          [
+            535,
+            780
+          ],
+          [
+            534,
+            809
+          ],
+          [
+            551,
+            817
+          ],
+          [
+            562,
+            837
+          ],
+          [
+            581,
+            847
+          ],
+          [
+            597,
+            851
+          ],
+          [
+            650,
+            851
+          ],
+          [
+            650,
+            1024
+          ],
+          [
+            0,
+            1024
+          ]
+        ],
+        "z": 4
+      },
+      {
+        "name": "foot_back",
+        "joint": "ankle_back",
+        "bone": "foot_back",
+        "polygon": [
+          [
+            535,
+            780
+          ],
+          [
+            640,
+            780
+          ],
+          [
+            640,
+            853
+          ],
+          [
+            597,
+            853
+          ],
+          [
+            581,
+            849
+          ],
+          [
+            562,
+            839
+          ],
+          [
+            549,
+            819
+          ],
+          [
+            532,
+            811
+          ]
+        ],
+        "z": 1
+      }
+    ],
+    "review_adjustment": {
+      "rear_foot_shift": [
+        0,
+        1.7735849056603774
+      ],
+      "reason": "Art placement proposal for visible rear toe only; hidden boot and far leg are incomplete. Not a canonical pose."
+    },
+    "waist_alignment": "Approved torso row 260: alpha x 42..132, pivot x47.51, texture_scale.05 => waist span -.275..4.2245 world px. Align candidate top waist span to this, not to the image center.",
+    "source_sha256": "c024120be03ef013d45bf284c62e5f2a376c376ec3b151c07558ee74aa498de6"
+  }
+}
