@@ -1,0 +1,15 @@
+{
+  "prompt": "This is an RGBA image with transparency. Hand drawn anime cel shaded cyberpunk game inventory prop, clean dark navy contour, broad flat local color areas, exactly two hard edged shadow tones, light from upper left, restrained matte surfaces, readable silhouette at tiny size, orthographic side view. A single isolated object centered with generous transparent margin; the subject is the only visible content, surfaces are plain and unlettered. A single coiled monomolecular cable whip with a separate dark blue cylindrical grip attached to the coil, silver cable in two broad loops, small violet accent. The image has alpha channel and the background is transparent.",
+  "seed": 225012,
+  "width": 640,
+  "height": 640,
+  "steps": 20,
+  "models": [
+    "qwen-image-2.1-UC-int8_convrot.safetensors",
+    "qwen3vl_8b_int8_convrot.safetensors",
+    "qwen_image_2.1_vae_bf16.safetensors"
+  ],
+  "source_sha256": "5413cfc377f9ada19335b8b561105a50bbb3b86c3b6cb8e9e942946b1a1dd37b",
+  "ram_available_after_gb": 17.792,
+  "minimum_observed_ram_gb": 1.791
+}

@@ -1,0 +1,23 @@
+{
+  "style": "Hand drawn anime cel shaded cyberpunk game inventory prop, clean dark navy contour, broad flat local color areas, exactly two hard edged shadow tones, light from upper left, restrained matte surfaces, readable silhouette at tiny size, orthographic side view. A single isolated object centered with generous transparent margin; the subject is the only visible content, surfaces are plain and unlettered.",
+  "generation": {"width": 640, "height": 640, "steps": 20},
+  "texture_size": 96,
+  "logical_size": 24,
+  "items": [
+    {"id":"pistol","seed":225001,"subject":"A compact grey industrial semiautomatic pistol, short squared slide, black grip, tiny muted teal accent, muzzle to the right."},
+    {"id":"rifle","seed":225002,"subject":"An angular steel grey assault rifle, straight barrel pointing right, modest red accent, stock, curved magazine and hand grip each clearly separated."},
+    {"id":"smg","seed":225003,"subject":"A compact blue grey submachine gun pointing right, short barrel, folding stock and straight magazine, one muted yellow stripe."},
+    {"id":"shotgun","seed":225004,"subject":"A robust pump action shotgun pointing right, wide barrel, reddish brown pump grip and stock, steel grey receiver."},
+    {"id":"launcher","seed":225005,"subject":"A short cylindrical industrial grenade launcher pointing right, orange drum magazine, slate grey receiver and black rear grip."},
+    {"id":"laser","seed":225006,"subject":"A compact futuristic beam rifle pointing right, angular pale steel shell with a narrow teal capacitor slot, plain solid matte panels."},
+    {"id":"railgun","seed":225007,"subject":"A long narrow industrial electromagnetic rifle pointing right, twin parallel barrel rails, slate grey shell, small pale violet capacitor plates."},
+    {"id":"melee_dagger","seed":225008,"subject":"A single compact monomolecular dagger lying diagonally from lower left to upper right, clean pale steel blade, short dark handle, one small cyan guard."},
+    {"id":"melee_blade","seed":225009,"subject":"A single angular thermal longsword lying diagonally lower left to upper right, dark steel blade with a thin warm orange edge, wrapped black handle."},
+    {"id":"melee_maul","seed":225010,"subject":"A single short handled industrial hydraulic hammer lying diagonally, rectangular heavy steel head, exposed yellow piston inset, black grip."},
+    {"id":"melee_glaive","seed":225011,"subject":"A single slim futuristic polearm lying diagonally, long straight dark shaft and a compact teal edged blade at its upper right end."},
+    {"id":"melee_whip","seed":225012,"subject":"A single coiled monomolecular cable whip with a separate dark blue cylindrical grip attached to the coil, silver cable in two broad loops, small violet accent."},
+    {"id":"repair_pack","seed":225013,"subject":"A compact green and cream industrial armor repair supply pouch, two matte reinforced corners, folded gauze and one small green wrench emblem."},
+    {"id":"document","seed":225014,"subject":"A folded cream paper maintenance document, clipped upper left corner, broad grey graphic lines and one small muted red circular stamp; printed areas are simple abstract bars."},
+    {"id":"recording","seed":225015,"subject":"A small slate grey pocket audio recorder with two clear circular tape reels, a teal rectangular status panel and three simple pale buttons."}
+  ]
+}

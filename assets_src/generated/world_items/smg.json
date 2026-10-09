@@ -1,0 +1,15 @@
+{
+  "prompt": "This is an RGBA image with transparency. Hand drawn anime cel shaded cyberpunk game inventory prop, clean dark navy contour, broad flat local color areas, exactly two hard edged shadow tones, light from upper left, restrained matte surfaces, readable silhouette at tiny size, orthographic side view. A single isolated object centered with generous transparent margin; the subject is the only visible content, surfaces are plain and unlettered. A compact blue grey submachine gun pointing right, short barrel, folding stock and straight magazine, one muted yellow stripe. The image has alpha channel and the background is transparent.",
+  "seed": 225003,
+  "width": 640,
+  "height": 640,
+  "steps": 20,
+  "models": [
+    "qwen-image-2.1-UC-int8_convrot.safetensors",
+    "qwen3vl_8b_int8_convrot.safetensors",
+    "qwen_image_2.1_vae_bf16.safetensors"
+  ],
+  "source_sha256": "2fe992c0e883aa909e493a252dc76a101358831dde4f9a1db320d50ecc2c5f5c",
+  "ram_available_after_gb": 16.139,
+  "minimum_observed_ram_gb": 0.215
+}

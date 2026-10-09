@@ -11,10 +11,34 @@ const HIDDEN_ITEM := &"doc_nest_log"
 
 func run() -> void:
 	_test_data()
+	_test_world_item_assets()
 	await _test_pickup_and_progress()
 	await _test_persistence()
 	await _test_hidden_room()
 	await _test_inventory_page()
+
+
+func _test_world_item_assets() -> void:
+	# A generated sprite must actually be reachable from the pickup, not only exist on disk.
+	for file in DirAccess.get_files_at("res://data/weapons"):
+		if not file.ends_with(".tres"):
+			continue
+		var weapon := load("res://data/weapons/" + file) as WeaponData
+		var pickup := WeaponPickup.new()
+		pickup.configure(weapon)
+		check(pickup.has_method("world_icon_key"), "%s exposes its actual world sprite key" % weapon.id)
+		if pickup.has_method("world_icon_key"):
+			var key: String = pickup.call("world_icon_key")
+			check(not ItemIcons.world(key).is_empty(), "%s has a real world sprite (%s)" % [weapon.id, key])
+		pickup.free()
+	for file in DirAccess.get_files_at("res://data/weapons/melee"):
+		if not file.ends_with(".tres"):
+			continue
+		var weapon := load("res://data/weapons/melee/" + file) as WeaponData
+		check(not ItemIcons.world(str(weapon.id)).is_empty(), "%s world silhouette has dedicated art" % weapon.id)
+	for key in ["repair_pack", "document", "recording"]:
+		check(not ItemIcons.world(key).is_empty(), "%s geometric placeholder has replacement world art" % key)
+	check(ItemIcons.world("ne225_absent_resource").is_empty(), "missing world art keeps the geometric fallback")
 
 
 static func level_data() -> LevelData:

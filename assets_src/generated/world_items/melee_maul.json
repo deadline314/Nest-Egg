@@ -1,0 +1,15 @@
+{
+  "prompt": "This is an RGBA image with transparency. Hand drawn anime cel shaded cyberpunk game inventory prop, clean dark navy contour, broad flat local color areas, exactly two hard edged shadow tones, light from upper left, restrained matte surfaces, readable silhouette at tiny size, orthographic side view. A single isolated object centered with generous transparent margin; the subject is the only visible content, surfaces are plain and unlettered. A single short handled industrial hydraulic hammer lying diagonally, rectangular heavy steel head, exposed yellow piston inset, black grip. The image has alpha channel and the background is transparent.",
+  "seed": 225010,
+  "width": 640,
+  "height": 640,
+  "steps": 20,
+  "models": [
+    "qwen-image-2.1-UC-int8_convrot.safetensors",
+    "qwen3vl_8b_int8_convrot.safetensors",
+    "qwen_image_2.1_vae_bf16.safetensors"
+  ],
+  "source_sha256": "b9d0232452d1631eb5113ade9fc2db6d727c685b2ffda2c31adc0b70856e6c1a",
+  "ram_available_after_gb": 17.771,
+  "minimum_observed_ram_gb": 1.164
+}

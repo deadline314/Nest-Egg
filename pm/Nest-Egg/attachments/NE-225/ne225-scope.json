@@ -1,0 +1,146 @@
+{
+	"levels": [
+		{
+			"counts": {
+				"credits_small": 2,
+				"doc_news": 1
+			},
+			"level": "ch1_booth_alley",
+			"map": "res://data/levels/ch1_booth_alley_map.json"
+		},
+		{
+			"counts": {},
+			"level": "ch1_lounge",
+			"map": "res://data/levels/ch1_lounge_map.json"
+		},
+		{
+			"counts": {
+				"credits_small": 2,
+				"doc_stub": 1,
+				"melee_dagger": 1
+			},
+			"level": "ch1_pawnshop",
+			"map": "res://data/levels/ch1_pawnshop_map.json"
+		},
+		{
+			"counts": {
+				"credits_small": 2,
+				"doc_stub": 1,
+				"melee_dagger": 1
+			},
+			"level": "ch1_pawnshop_dawn",
+			"map": "res://data/levels/ch1_pawnshop_map.json"
+		},
+		{
+			"counts": {
+				"credits_small": 2
+			},
+			"level": "ch1_rooftop",
+			"map": "res://data/levels/ch1_rooftop_map.json"
+		},
+		{
+			"counts": {},
+			"level": "ch1_stall",
+			"map": "res://data/levels/ch1_stall_map.json"
+		},
+		{
+			"counts": {
+				"credits_large": 2,
+				"credits_small": 2,
+				"doc_flyer": 1,
+				"doc_notice": 1,
+				"med_injector": 1,
+				"shield_cell": 1
+			},
+			"level": "ch1_street",
+			"map": "res://data/levels/ch1_street_map.json"
+		},
+		{
+			"counts": {
+				"ch1_data_disk": 1,
+				"credits_large": 1,
+				"credits_small": 3,
+				"med_injector": 2
+			},
+			"level": "ch1_vault",
+			"map": "res://data/levels/ch1_vault_map.json"
+		},
+		{
+			"counts": {
+				"credits_small": 4,
+				"doc_log": 1,
+				"med_injector": 2
+			},
+			"level": "ch1_warehouse",
+			"map": "res://data/levels/ch1_warehouse_map.json"
+		},
+		{
+			"counts": {
+				"credits_large": 1,
+				"credits_small": 9,
+				"document": 2,
+				"laser": 1,
+				"launcher": 1,
+				"med_injector": 4,
+				"melee_blade": 1,
+				"melee_dagger": 1,
+				"melee_glaive": 1,
+				"melee_maul": 1,
+				"melee_whip": 1,
+				"railgun": 1,
+				"recording": 1,
+				"repair_pack": 4,
+				"rifle": 1,
+				"shield_cell": 2,
+				"shotgun": 1,
+				"smg": 1
+			},
+			"level": "level_01",
+			"map": "res://data/levels/level_01_map.json"
+		},
+		{
+			"counts": {
+				"credits_large": 4,
+				"credits_small": 11,
+				"document": 4,
+				"laser": 1,
+				"med_injector": 7,
+				"recording": 2,
+				"repair_pack": 5,
+				"rifle": 1,
+				"shield_cell": 7,
+				"shotgun": 1,
+				"smg": 1
+			},
+			"level": "level_02",
+			"map": "res://data/levels/level_02_map.json"
+		}
+	],
+	"missing": [],
+	"total_by_key": {
+		"ch1_data_disk": 1,
+		"credits_large": 8,
+		"credits_small": 37,
+		"doc_flyer": 1,
+		"doc_log": 1,
+		"doc_news": 1,
+		"doc_notice": 1,
+		"doc_stub": 2,
+		"document": 6,
+		"laser": 2,
+		"launcher": 1,
+		"med_injector": 16,
+		"melee_blade": 1,
+		"melee_dagger": 3,
+		"melee_glaive": 1,
+		"melee_maul": 1,
+		"melee_whip": 1,
+		"railgun": 1,
+		"recording": 3,
+		"repair_pack": 9,
+		"rifle": 2,
+		"shield_cell": 10,
+		"shotgun": 2,
+		"smg": 2
+	}
+}

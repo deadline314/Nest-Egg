@@ -65,15 +65,17 @@ func _draw_world_sprite(key: String) -> bool:
 	if sprite.is_empty():
 		return false
 	var base: Texture2D = sprite["base"]
-	var origin := Vector2(-base.get_width() * 0.5, -base.get_height() * 0.5 - 4.0)
+	var size := ItemIcons.WORLD_SIZE
+	var ratio := size / base.get_size()
+	var origin := Vector2(-size.x * 0.5, -size.y * 0.5 - 4.0)
 	var outline: Texture2D = sprite.get("outline")
 	if outline != null:
-		var pad := Vector2(outline.get_size() - base.get_size()) * 0.5
-		draw_texture(outline, origin - pad, Color(0.62, 0.85, 0.88, 0.65))
-	draw_texture(base, origin)
+		var pad := Vector2(outline.get_size() - base.get_size()) * 0.5 * ratio
+		draw_texture_rect(outline, Rect2(origin - pad, size + pad * 2.0), false, Color(0.62, 0.85, 0.88, 0.65))
+	draw_texture_rect(base, Rect2(origin, size), false)
 	var glow: Texture2D = sprite["glow"]
 	if glow != null:
-		draw_texture(glow, origin, LightKit.glow(Color.WHITE, 1.4 + 0.4 * sin(_time * 5.0)))
+		draw_texture_rect(glow, Rect2(origin, size), false, LightKit.glow(Color(1, 1, 1, 0.25), 1.1 + 0.1 * sin(_time * 5.0)))
 	return true
 
 

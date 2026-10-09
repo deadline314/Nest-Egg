@@ -3,6 +3,7 @@ extends ScenarioBase
 ## --out=<absolute directory> --label=before|after
 
 var label := "after"
+var ticket := "NE-226"
 
 func _ready() -> void:
 	for arg in OS.get_cmdline_user_args():
@@ -10,6 +11,8 @@ func _ready() -> void:
 			out_dir = arg.trim_prefix("--out=")
 		elif arg.begins_with("--label="):
 			label = arg.trim_prefix("--label=")
+		elif arg.begins_with("--ticket="):
+			ticket = arg.trim_prefix("--ticket=")
 	DirAccess.make_dir_recursive_absolute(out_dir)
 	_run.call_deferred()
 
@@ -51,19 +54,27 @@ func _run() -> void:
 			player.global_position = Vector2(tile * 16.0, floor_y)
 			player.velocity = Vector2.ZERO
 			player.set_physics_process(false)
+			player.facing = 1
+			player.aim_dir = Vector2.RIGHT
+			AimInput.using_gamepad = true
+			AimInput._last_stick_dir = Vector2.RIGHT
 			snap_camera()
 			var credit := CreditPickup.new()
 			var injector := ConsumablePickup.new()
 			injector.configure(load("res://data/consumables/med_injector.tres"))
 			var doc := CollectiblePickup.new()
-			doc.configure(load("res://data/story_items/doc_echo_flyer.tres"))
+			doc.configure(load("res://data/story_items/doc_shaft_memo.tres"))
+			var recording := CollectiblePickup.new()
+			recording.configure(load("res://data/story_items/rec_wataru_1.tres"))
 			var health := HealthPickup.new()
 			var gun := WeaponPickup.new()
 			gun.configure(load("res://data/weapons/rifle.tres"))
-			var items: Array[Pickup] = [credit, injector, doc, health, gun]
+			var glaive := WeaponPickup.new()
+			glaive.configure(load("res://data/weapons/melee/melee_glaive.tres"))
+			var items: Array[Pickup] = [credit, injector, doc, recording, health, gun, glaive]
 			for i in items.size():
 				var item := items[i]
-				item.position = Vector2((tile + 3 + i * 3) * 16.0, floor_y)
+				item.position = Vector2((tile + 2 + i * 2) * 16.0, floor_y)
 				level._entities.add_child(item)
 				item._glint_offset = 1.0
 			await settle(40)
@@ -75,7 +86,8 @@ func _run() -> void:
 				item._time = 0.0
 				item.queue_redraw()
 			await settle(2)
-			capture("NE-226-%s-%s-%s" % [label, scene, "low" if quality == LightQuality.Tier.LOW else "high"])
+			capture("%s-%s-%s-%s" % [ticket, label, scene, "low" if quality == LightQuality.Tier.LOW else "high"])
 			await finish()
 	Settings.set_light_quality(original_quality)
+	AimInput.using_gamepad = false
 	get_tree().quit()

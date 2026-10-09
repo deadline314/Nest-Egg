@@ -1,0 +1,4 @@
+Running 6 groups in 2 processes (logs: C:/tmp/ne225-rebase-tests)
+  process 0 (estimated 19 s): FxMeleePickupsSuite
+  process 1 (estimated 7 s): CollectiblesSuite,WorldPromptSuite,SceneSanitySuite,ProtagonistMotionSuite,ChapterCutscenesSuite
+checks: 3197, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 27 s)

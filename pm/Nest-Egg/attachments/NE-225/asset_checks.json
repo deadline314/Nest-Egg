@@ -1,0 +1,317 @@
+[
+  {
+    "id": "pistol",
+    "source_sha256": "6f9f8f9c8c33f47de65c5d0c1bc320a52a507cb94e35421aab0f999c9cc1c61d",
+    "seed": 225001,
+    "source_size": [
+      640,
+      640
+    ],
+    "runtime_size": [
+      96,
+      96
+    ],
+    "logical_size": [
+      24,
+      24
+    ],
+    "native_alpha": [
+      0,
+      255
+    ]
+  },
+  {
+    "id": "rifle",
+    "source_sha256": "b6d6b0bf6cc57f4efa6398f17891c363d7f406b10b90c9c605981fcd2762d1be",
+    "seed": 225002,
+    "source_size": [
+      640,
+      640
+    ],
+    "runtime_size": [
+      96,
+      96
+    ],
+    "logical_size": [
+      24,
+      24
+    ],
+    "native_alpha": [
+      0,
+      255
+    ]
+  },
+  {
+    "id": "smg",
+    "source_sha256": "2fe992c0e883aa909e493a252dc76a101358831dde4f9a1db320d50ecc2c5f5c",
+    "seed": 225003,
+    "source_size": [
+      640,
+      640
+    ],
+    "runtime_size": [
+      96,
+      96
+    ],
+    "logical_size": [
+      24,
+      24
+    ],
+    "native_alpha": [
+      0,
+      255
+    ]
+  },
+  {
+    "id": "shotgun",
+    "source_sha256": "0860839bd67632c6623ea940f9c0dcf43be9fa68f8dd8960494fa4ff9c95b0ae",
+    "seed": 225004,
+    "source_size": [
+      640,
+      640
+    ],
+    "runtime_size": [
+      96,
+      96
+    ],
+    "logical_size": [
+      24,
+      24
+    ],
+    "native_alpha": [
+      0,
+      255
+    ]
+  },
+  {
+    "id": "launcher",
+    "source_sha256": "8bcab6775f00c1f6312697fa1bdd9aad1cf31b9e1a8aaeba4b52884a561cd95d",
+    "seed": 225005,
+    "source_size": [
+      640,
+      640
+    ],
+    "runtime_size": [
+      96,
+      96
+    ],
+    "logical_size": [
+      24,
+      24
+    ],
+    "native_alpha": [
+      0,
+      255
+    ]
+  },
+  {
+    "id": "laser",
+    "source_sha256": "4f02ef7bf8ecbdcd249a873e4b5509f5c803b8945e34908dba38b5e3b40ff453",
+    "seed": 225006,
+    "source_size": [
+      640,
+      640
+    ],
+    "runtime_size": [
+      96,
+      96
+    ],
+    "logical_size": [
+      24,
+      24
+    ],
+    "native_alpha": [
+      0,
+      255
+    ]
+  },
+  {
+    "id": "railgun",
+    "source_sha256": "1651c8aa5cab3840eef6b13540849cee4625282a39870c594ea0026a698035fe",
+    "seed": 225007,
+    "source_size": [
+      640,
+      640
+    ],
+    "runtime_size": [
+      96,
+      96
+    ],
+    "logical_size": [
+      24,
+      24
+    ],
+    "native_alpha": [
+      0,
+      255
+    ]
+  },
+  {
+    "id": "melee_dagger",
+    "source_sha256": "0382e99305e79676b791b342450597b76ac92e2fd4e6c5b4d3ef3b4b3059793f",
+    "seed": 225008,
+    "source_size": [
+      640,
+      640
+    ],
+    "runtime_size": [
+      96,
+      96
+    ],
+    "logical_size": [
+      24,
+      24
+    ],
+    "native_alpha": [
+      0,
+      255
+    ]
+  },
+  {
+    "id": "melee_blade",
+    "source_sha256": "efd4f915af02dd4f6e07b9d395ed1c65f6c96a5b3fee27f2ef6a5f2cd7d78464",
+    "seed": 225009,
+    "source_size": [
+      640,
+      640
+    ],
+    "runtime_size": [
+      96,
+      96
+    ],
+    "logical_size": [
+      24,
+      24
+    ],
+    "native_alpha": [
+      0,
+      255
+    ]
+  },
+  {
+    "id": "melee_maul",
+    "source_sha256": "b9d0232452d1631eb5113ade9fc2db6d727c685b2ffda2c31adc0b70856e6c1a",
+    "seed": 225010,
+    "source_size": [
+      640,
+      640
+    ],
+    "runtime_size": [
+      96,
+      96
+    ],
+    "logical_size": [
+      24,
+      24
+    ],
+    "native_alpha": [
+      0,
+      255
+    ]
+  },
+  {
+    "id": "melee_glaive",
+    "source_sha256": "0fd459fdf23902a3fccac4b4999d2e1871ad7706712b14b37990e0f9b7e19eca",
+    "seed": 225011,
+    "source_size": [
+      640,
+      640
+    ],
+    "runtime_size": [
+      96,
+      96
+    ],
+    "logical_size": [
+      24,
+      24
+    ],
+    "native_alpha": [
+      0,
+      255
+    ]
+  },
+  {
+    "id": "melee_whip",
+    "source_sha256": "5413cfc377f9ada19335b8b561105a50bbb3b86c3b6cb8e9e942946b1a1dd37b",
+    "seed": 225012,
+    "source_size": [
+      640,
+      640
+    ],
+    "runtime_size": [
+      96,
+      96
+    ],
+    "logical_size": [
+      24,
+      24
+    ],
+    "native_alpha": [
+      0,
+      255
+    ]
+  },
+  {
+    "id": "repair_pack",
+    "source_sha256": "4b7b29814358e422785ae5e64d373a9de9231135fff425f0293aebf2567aef82",
+    "seed": 225013,
+    "source_size": [
+      640,
+      640
+    ],
+    "runtime_size": [
+      96,
+      96
+    ],
+    "logical_size": [
+      24,
+      24
+    ],
+    "native_alpha": [
+      0,
+      255
+    ]
+  },
+  {
+    "id": "document",
+    "source_sha256": "db22e6e4e989364f5b2f66a9824f024dba6316f3dbab10db68dab0230a0b8e72",
+    "seed": 225014,
+    "source_size": [
+      640,
+      640
+    ],
+    "runtime_size": [
+      96,
+      96
+    ],
+    "logical_size": [
+      24,
+      24
+    ],
+    "native_alpha": [
+      0,
+      255
+    ]
+  },
+  {
+    "id": "recording",
+    "source_sha256": "4e3a65226eb5dc68505ca030c00773bc3dd48ff26d8022c655090d4756eaba4f",
+    "seed": 225015,
+    "source_size": [
+      640,
+      640
+    ],
+    "runtime_size": [
+      96,
+      96
+    ],
+    "logical_size": [
+      24,
+      24
+    ],
+    "native_alpha": [
+      0,
+      255
+    ]
+  }
+]

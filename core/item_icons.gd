@@ -10,8 +10,9 @@ const ICON_DIR := "res://art/items/icons"
 const ICON_SIZE := Vector2i(32, 32)
 ## 詳情面板的大圖（384×384 原生繪製，顯示為 96×96 邏輯像素）：<icon>_hd.png；沒有就用卡片圖示放大。
 const HD_SUFFIX := "_hd"
-## 場景裡的拾取小圖（24×24）：<key>.png，另有 <key>_glow.png 自發光層。
+## 場景拾取圖以 24×24 世界單位顯示；貼圖可用更高解析度，另有 _glow 自發光層。
 const WORLD_DIR := "res://art/items/world"
+const WORLD_SIZE := Vector2(24, 24)
 const WEAPON_DIR := "res://art/items/weapons"
 const WEAPON_SIZE := Vector2i(64, 24)
 const PORTRAIT_DIR := "res://art/items/portraits"

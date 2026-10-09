@@ -1,0 +1,20 @@
+GENERATE repair_pack RAM available=14.26 GiB, one image
+  [comfy] ComfyUI ready on port 8188 (log: C:\ComfyUI\nest_egg\comfy.log)
+  [comfy] no websocket heartbeat (ModuleNotFoundError); relying on log and RAM checks
+  [comfy] world_repair_pack: system RAM exhausted for 2 s (2.56 GB free, limit 3.0 GB) (attempt 1/1)
+stopped 3 ComfyUI process(es)
+Traceback (most recent call last):
+  File "C:\tmp\Nest-Egg-chapter-art\tools\art\build_world_items.py", line 128, in <module>
+    main()
+  File "C:\tmp\Nest-Egg-chapter-art\tools\art\build_world_items.py", line 120, in main
+    source = SOURCE / (entry["id"] + ".png") if args.no_gen else generate(entry, cfg)
+                                                                 ^^^^^^^^^^^^^^^^^^^^
+  File "C:\tmp\Nest-Egg-chapter-art\tools\art\build_world_items.py", line 71, in generate
+    generated = qwen(prompt, w=generation["width"], h=generation["height"],
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\tmp\Nest-Egg-chapter-art\tools\comfyui\comfy_api.py", line 170, in qwen
+    paths = run(g, prefix)
+            ^^^^^^^^^^^^^^
+  File "C:\tmp\Nest-Egg-chapter-art\tools\comfyui\comfy_api.py", line 119, in run
+    raise ComfyFailure(comfy_guard.record_failure(name, reasons))
+comfy_guard.ComfyFailure: job 'world_repair_pack' failed after 1 attempt(s): #1 system RAM exhausted for 2 s (2.56 GB free, limit 3.0 GB)

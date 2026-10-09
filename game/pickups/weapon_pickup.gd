@@ -38,6 +38,8 @@ func _fx_kind() -> StringName:
 
 
 func _draw_icon() -> void:
+	if _draw_world_sprite(world_icon_key()):
+		return
 	if weapon.is_melee():
 		_draw_melee_icon()
 		return
@@ -47,6 +49,12 @@ func _draw_icon() -> void:
 	draw_polyline(PackedVector2Array([Vector2(0, -7), Vector2(7, 0), Vector2(0, 7), Vector2(-7, 0), Vector2(0, -7)]), glow, 1.0)
 	draw_line(Vector2(-3, 0), Vector2(4, 0), glow, 2.0)
 	draw_circle(Vector2(4, 0), 1.5, glow)
+
+
+func world_icon_key() -> String:
+	if weapon == null:
+		return ""
+	return str(weapon.id) if weapon.is_melee() else weapon.visual_id
 
 
 ## 近戰武器：同樣的菱形底座，中間放斜擺的武器剪影。

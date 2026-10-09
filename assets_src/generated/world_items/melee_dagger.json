@@ -1,0 +1,15 @@
+{
+  "prompt": "This is an RGBA image with transparency. Hand drawn anime cel shaded cyberpunk game inventory prop, clean dark navy contour, broad flat local color areas, exactly two hard edged shadow tones, light from upper left, restrained matte surfaces, readable silhouette at tiny size, orthographic side view. A single isolated object centered with generous transparent margin; the subject is the only visible content, surfaces are plain and unlettered. A single compact monomolecular dagger lying diagonally from lower left to upper right, clean pale steel blade, short dark handle, one small cyan guard. The image has alpha channel and the background is transparent.",
+  "seed": 225008,
+  "width": 640,
+  "height": 640,
+  "steps": 20,
+  "models": [
+    "qwen-image-2.1-UC-int8_convrot.safetensors",
+    "qwen3vl_8b_int8_convrot.safetensors",
+    "qwen_image_2.1_vae_bf16.safetensors"
+  ],
+  "source_sha256": "0382e99305e79676b791b342450597b76ac92e2fd4e6c5b4d3ef3b4b3059793f",
+  "ram_available_after_gb": 17.144,
+  "minimum_observed_ram_gb": 1.484
+}
