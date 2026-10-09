@@ -13,6 +13,7 @@ func run() -> void:
 	_test_synthetic()
 	_test_upward_waist()
 	_test_limb_root()
+	_test_reference_geometry()
 	await _test_real_rigs()
 	await _test_part_behaviour()
 
@@ -135,6 +136,39 @@ func _test_limb_root() -> void:
 		var edge: Vector2 = upper.transform * (part.transform * part.deformed_vertices()[2])
 		check(edge.distance_to(Vector2(2, 0)) < 0.001, "the thigh root stays attached to the pelvis at %.2f rad" % angle)
 		check(part.fold_fraction() <= 0.4, "the root attachment stays within the fold limit at %.2f rad" % angle)
+	chain["root"].queue_free()
+
+
+func _test_reference_geometry() -> void:
+	var reference := preload("res://tools/comfyui/rig_reference.gd")
+	var chain := _chain()
+	var mesh := _mesh(chain, true)
+	(chain["root"] as Node2D).position = Vector2(31, 17)
+	(chain["root"] as Node2D).scale = Vector2(2, 2)
+	(chain["upper"] as Bone2D).rotation = -0.6
+	(chain["lower"] as Bone2D).rotation = 1.2
+	mesh.refresh()
+	var exported: Dictionary = reference.geometry(mesh)
+	check(exported["kind"] == "mesh" and not exported.has("xform"), "deformed references cannot claim a single affine transform")
+	check(exported["vertices"].size() == mesh.vertex_count() and exported["triangles"].size() == mesh.triangle_count(), "reference retains every mesh vertex and triangle")
+	for i in mesh.vertex_count():
+		var point := RigLibrary.vec2(exported["vertices"][i])
+		check(point.distance_to(mesh.get_global_transform() * mesh.deformed_vertices()[i]) < 0.0001, "reference vertex %d matches rendered deformation" % i)
+		check(RigLibrary.vec2(exported["uv"][i]) == mesh.uv[i], "reference vertex %d keeps original texture pixels" % i)
+	var sprite := Sprite2D.new()
+	sprite.texture = mesh.texture
+	sprite.centered = false
+	sprite.offset = Vector2(-20, -3)
+	sprite.scale = Vector2.ONE * SCALE
+	(chain["upper"] as Bone2D).add_child(sprite)
+	var rigid: Dictionary = reference.geometry(sprite)
+	var xf: Array = rigid["xform"]
+	var matrix := Transform2D(Vector2(xf[0], xf[1]), Vector2(xf[2], xf[3]), Vector2(xf[4], xf[5]))
+	check(rigid["kind"] == "sprite" and (matrix * Vector2(14, 26)).distance_to(sprite.get_global_transform() * (sprite.offset + Vector2(14, 26))) < 0.0001, "rigid reference retains pixel-to-output transform")
+	var canvas := CanvasTexture.new()
+	canvas.diffuse_texture = load("res://art/characters/rin/parts/head.png")
+	sprite.texture = canvas
+	check(reference.geometry(sprite)["file"] == "res://art/characters/rin/parts/head.png", "reference resolves CanvasTexture to its source diffuse image")
 	chain["root"].queue_free()
 
 

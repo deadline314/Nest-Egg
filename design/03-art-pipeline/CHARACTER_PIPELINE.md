@@ -213,3 +213,11 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py --recipe to
 `armor_order`控制受損層的顯示順序，不能由此推論整張圖就是可脫落裝甲。包含完整軀幹、骨盆或四肢的衣物零件，應由角色spec設定`armor_debris: false`；切圖流程原樣輸出到character.json。未指定的裝甲角色維持原本的碎片效果。此欄位必須是布林值，錯誤資料需指出角色與欄位並退回原本安全行為。
 
 此修正不需重畫或重新切圖，只更新配方與角色資料；PNG、支點、骨架與受傷／回血順序維持原樣。交付時以實際受傷、回血和致命傷檢查衣物變化與完整身體，再確認真正敵人裝甲仍能飛散。`tools/rig_debris_review.tscn -- --out=<絕對路徑>`保留原生四個致死案例、每例五張影格及碎片數；`--legacy-debris`只作舊錯誤行為的對照，不作修後驗收。
+
+## 實際姿勢參考與UV（2026-10-09，NE-222）
+
+`tools/comfyui/rig_reference.tscn`現在包含Sprite及RigPartMesh。`--pose=stand|sit|crouch|lean`啟用實際NPC姿勢，保留近遠側，子骨位置與正式rest一致；預設`reference`仍提供單側製作參考。JSON version 2記錄角色密度、全部骨頭變換、網格的實際頂點／UV／三角形及剛體的像素變換。
+
+舊工具的PNG仍畫出網格，但JSON只記錄9件，漏掉軀幹與四肢的座標。修正後一般完整服裝參考記錄16件，雙側坐／蹲22件。body會顯示既有護甲下層，凜的這些層是受損衣物，不能當完整未受傷立繪。實際輸出及來源雜湊見`art_src/characters/rin_pose_variants/00_bind_reference/`。
+
+`cut_parts.py`對網格採用三角形的UV反算，不將已彎圖当剛體再折一次；直接採樣至目標貼圖，不先縮後放或自動銳化。兩個pass的幾何在任何寫圖前檢查，非法UV／頂點／索引／退化三角形拒絕。近遠側共用來源貼圖時，兩個姿勢不得寫入同一輸出，工具會拒絕，要求各側隔離後交付獨立attachment。這是坐標流程修復，舊工具的最近色填補仍不代表完整隱藏層；正式角色仍按character-art-pipeline及rig-animation全部件驗收。

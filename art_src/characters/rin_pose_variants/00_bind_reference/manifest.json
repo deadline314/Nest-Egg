@@ -1,0 +1,101 @@
+{
+  "base_commit": "861b09d05ebe6624c61d20f3ed35b09e6188e524",
+  "outputs": {
+    "before/body": {
+      "json_sha256": "6be86409824392531411a6ec45c14998d15a3ff3dc45f3337210ce21305a8d66",
+      "png_sha256": "0cb6068de5da2ae347cb1c33b6ec053c7cb9ce55d4c5bcf3e4a117906eb868f3",
+      "parts": 9,
+      "mesh_parts": 0,
+      "size": [
+        832,
+        1216
+      ],
+      "purpose": "reference export; old character art is not accepted"
+    },
+    "before/armor": {
+      "json_sha256": "6be86409824392531411a6ec45c14998d15a3ff3dc45f3337210ce21305a8d66",
+      "png_sha256": "0cb6068de5da2ae347cb1c33b6ec053c7cb9ce55d4c5bcf3e4a117906eb868f3",
+      "parts": 9,
+      "mesh_parts": 0,
+      "size": [
+        832,
+        1216
+      ],
+      "purpose": "reference export; old character art is not accepted"
+    },
+    "reference/body": {
+      "json_sha256": "4ecb7325c218755ed1d5bc9a21229c6f1299247e6086b904a4546a41fad140c0",
+      "png_sha256": "ff4068050807aae1beeb01382d51cf3091022574e206f425eedb3ae4002df4fb",
+      "parts": 15,
+      "mesh_parts": 6,
+      "size": [
+        832,
+        1216
+      ],
+      "purpose": "reference export; old character art is not accepted"
+    },
+    "reference/armor": {
+      "json_sha256": "667d6873581a25dcdc2bd12216c81355517a378dd39d8c14c3278d5c3a9079e0",
+      "png_sha256": "c44094836c2844f9f9d36d9324be66f4f3f06b47b8ac465b205d42739a7d299c",
+      "parts": 16,
+      "mesh_parts": 7,
+      "size": [
+        832,
+        1216
+      ],
+      "purpose": "reference export; old character art is not accepted"
+    },
+    "sit/body": {
+      "json_sha256": "d7a65a780a2e867fb06bc234ee445afea745cb47505fec19445577d96eafba4f",
+      "png_sha256": "749afeae87e3a057122e30ca93c63c183fe546d7feddb5a0b75a360ccfcb0d00",
+      "parts": 23,
+      "mesh_parts": 12,
+      "size": [
+        832,
+        1216
+      ],
+      "purpose": "reference export; old character art is not accepted"
+    },
+    "sit/armor": {
+      "json_sha256": "cd3751f3693fa5ff58ae857ebea1965bbbaafb457fe8011dda25af1391a31ab1",
+      "png_sha256": "62601703d9c8b7dd43409e5c7163061702a48642ed2a4cec72dfe4e8a04795c7",
+      "parts": 22,
+      "mesh_parts": 11,
+      "size": [
+        832,
+        1216
+      ],
+      "purpose": "reference export; old character art is not accepted"
+    },
+    "crouch/body": {
+      "json_sha256": "c7864087e93f42850e13bf1f41b62f41cd8dab1180012fe133c1419c74f8e64e",
+      "png_sha256": "40065a5d852100503e31adad3e201621b5ae078439059f8a8e86792d84f2bcb5",
+      "parts": 23,
+      "mesh_parts": 12,
+      "size": [
+        832,
+        1216
+      ],
+      "purpose": "reference export; old character art is not accepted"
+    },
+    "crouch/armor": {
+      "json_sha256": "0cbc5df48cc5046d823b2ec4de21c255bb75445535e3e819cc44191da2d0a1e5",
+      "png_sha256": "992d39fd942b2c35ef505ef32434cd8d8671303d8030913ff41cc10f89d263f3",
+      "parts": 22,
+      "mesh_parts": 11,
+      "size": [
+        832,
+        1216
+      ],
+      "purpose": "reference export; old character art is not accepted"
+    }
+  },
+  "inputs": {
+    "tools/comfyui/rig_reference.gd": "25fcecc651b1b18563304aaede551eb3d54373677cdc7e3d5e01167fa901b318",
+    "tools/comfyui/cut_parts.py": "8ea84c5ce6aac6cbf7f0cff9d1a7d1f3ec17aa913a99382f9f6e42573c6220dd",
+    "art/characters/rin/character.json": "00d7d7993cfcfefd5abd1e2974e9fa47008346ce09f5499ab217697fbdd4ab3b",
+    "art/rigs/humanoid_tall.json": "01cdf85250eacbc61b05bdebd1d39f45fd6341b8c9262d6cf96cefc4118dcb57",
+    "art/rigs/npc_animations.json": "9949d5333ea60d3684ddc43968881a553f0c939fadaf0be6178f9358c68fd2ab",
+    "art_src/characters/rin2/base_rgba.png": "401888dc14dcca469428e4df45c07648e36fd1822497031f8c28213fafc24fd9"
+  }
+}

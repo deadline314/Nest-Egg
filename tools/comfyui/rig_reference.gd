@@ -20,6 +20,7 @@ const HIDDEN_PREFIXES := ["arm_back", "leg_back", "foot_back", "hand_back", "arm
 var _skin := "rin"
 var _out := ""
 var _zoom := BASE_ZOOM
+var _pose := "reference"
 
 
 func _ready() -> void:
@@ -30,6 +31,12 @@ func _ready() -> void:
 			_out = arg.trim_prefix("--out=")
 		elif arg.begins_with("--zoom="):
 			_zoom = maxf(1.0, float(arg.trim_prefix("--zoom=")))
+		elif arg.begins_with("--pose="):
+			_pose = arg.trim_prefix("--pose=")
+	if _pose not in ["reference", "stand", "sit", "crouch", "lean"]:
+		push_error("[rig_reference] unsupported pose: %s" % _pose)
+		get_tree().quit(1)
+		return
 	if _out.is_empty():
 		push_error("[rig_reference] 需要 --out=資料夾")
 		get_tree().quit(1)
@@ -53,49 +60,102 @@ func _render_pass(pass_name: String, with_armor: bool) -> void:
 	viewport.add_child(holder)
 	var rig := CharacterRig.new()
 	holder.add_child(rig)
-	if not rig.setup(_skin):
+	if not rig.setup(_skin, "npc" if _pose != "reference" else ""):
 		push_error("[rig_reference] 無法建立角色：%s" % _skin)
 		return
 	rig.weapon_root().visible = false
-	for bone_name: StringName in POSE:
-		if rig.has_bone(bone_name):
-			rig.bone(bone_name).rotation = POSE[bone_name]
-	var sprites: Array[Sprite2D] = []
+	if _pose == "reference":
+		for bone_name: StringName in POSE:
+			if rig.has_bone(bone_name):
+				rig.bone(bone_name).rotation = POSE[bone_name]
+	else:
+		var input := RigInput.new()
+		input.two_handed = false
+		input.npc_pose = StringName(_pose)
+		for frame in 180:
+			rig.animate(1.0 / 60.0, input)
+		assert((rig.animator as NpcAnimator)._use_npc, "requested NPC pose must actually be active")
+	for bone_name in rig.bone_order():
+		if bone_name != &"hip":
+			assert(rig.bone(bone_name).position.distance_to(rig.rest(bone_name)) < 0.001, "pose reference cannot change bone lengths")
+	rig.refresh_limbs()
+	var sprites: Array[CanvasItem] = []
 	_collect(rig, sprites)
+	assert(sprites.size() == rig._parts.size(), "reference must include every body part")
 	var parts: Array[Dictionary] = []
 	for i in sprites.size():
 		var sprite := sprites[i]
 		for child in sprite.get_children():
-			if child is Sprite2D:
-				(child as Sprite2D).visible = false
-		var hidden := HIDDEN_PREFIXES.any(func(p: String) -> bool: return sprite.name.begins_with(p))
+			if child is CanvasItem:
+				(child as CanvasItem).visible = false
+		var parent_name := str(sprite.get_parent().name)
+		var hidden := _pose == "reference" and HIDDEN_PREFIXES.any(func(p: String) -> bool: return sprite.name.begins_with(p) or parent_name.begins_with(p))
 		if sprite.name.begins_with("armor_") and not with_armor:
+			hidden = true
+		if rig._under.has(sprite) and with_armor:
 			hidden = true
 		sprite.visible = not hidden
 		if hidden:
 			continue
 		parts.append({"name": String(sprite.name), "tree_index": i, "z": sprite.z_index,
-				"file": sprite.texture.resource_path if sprite.texture != null else ""})
+				"bone": parent_name})
+	rig.refresh_limbs()
 	await get_tree().process_frame
 	await get_tree().process_frame
 	await RenderingServer.frame_post_draw
 	for part in parts:
 		var sprite := sprites[part["tree_index"]]
-		# 貼圖像素 uv → 輸出圖像素：global_transform * (offset + uv)
-		var xf := sprite.get_global_transform() * Transform2D(0.0, sprite.offset)
-		part["xform"] = [xf.x.x, xf.x.y, xf.y.x, xf.y.y, xf.origin.x, xf.origin.y]
-		part["tex_size"] = [sprite.texture.get_width(), sprite.texture.get_height()]
+		part.merge(geometry(sprite))
+	var bones: Array[Dictionary] = []
+	for bone_name in rig.bone_order():
+		var bone := rig.bone(bone_name)
+		var xf := bone.get_global_transform()
+		bones.append({"name": str(bone_name), "parent": str(rig.parent_of(bone_name)),
+			"position": [bone.global_position.x, bone.global_position.y],
+			"rotation": bone.global_rotation, "rest": [rig.rest(bone_name).x, rig.rest(bone_name).y],
+			"xform": [xf.x.x, xf.x.y, xf.y.x, xf.y.y, xf.origin.x, xf.origin.y]})
 	var image := viewport.get_texture().get_image()
-	image.save_png(_out.path_join(pass_name + ".png"))
+	assert(image.save_png(_out.path_join(pass_name + ".png")) == OK)
 	var file := FileAccess.open(_out.path_join(pass_name + ".json"), FileAccess.WRITE)
-	file.store_string(JSON.stringify({"size": [viewport.size.x, viewport.size.y], "zoom": _zoom, "parts": parts}, "  "))
+	assert(file != null)
+	file.store_string(JSON.stringify({"version": 2, "skin": _skin, "pose": _pose, "size": [viewport.size.x, viewport.size.y], "zoom": _zoom, "texture_scale": rig._texture_scale, "body_scale": rig.body_scale(), "bones": bones, "parts": parts}, "  "))
 	file.close()
 	print("rig_reference: %s (%d parts)" % [pass_name, parts.size()])
 	viewport.queue_free()
 
 
-func _collect(node: Node, out: Array[Sprite2D]) -> void:
+static func geometry(part: CanvasItem) -> Dictionary:
+	var texture: Texture2D
+	var result: Dictionary = {}
+	if part is RigPartMesh:
+		var mesh := part as RigPartMesh
+		texture = mesh.texture
+		result["kind"] = "mesh"
+		result["vertices"] = []
+		result["uv"] = []
+		result["triangles"] = []
+		for vertex in mesh.deformed_vertices():
+			var point: Vector2 = mesh.get_global_transform() * vertex
+			result["vertices"].append([point.x, point.y])
+		for uv in mesh.uv:
+			result["uv"].append([uv.x, uv.y])
+		for triangle in mesh.polygons:
+			result["triangles"].append(Array(triangle))
+	else:
+		var sprite := part as Sprite2D
+		texture = sprite.texture
+		result["kind"] = "sprite"
+		var xf := sprite.get_global_transform() * Transform2D(0.0, sprite.offset)
+		result["xform"] = [xf.x.x, xf.x.y, xf.y.x, xf.y.y, xf.origin.x, xf.origin.y]
+	assert(texture != null)
+	var diffuse := (texture as CanvasTexture).diffuse_texture if texture is CanvasTexture else texture
+	result["file"] = diffuse.resource_path
+	result["tex_size"] = [texture.get_width(), texture.get_height()]
+	return result
+
+
+func _collect(node: Node, out: Array[CanvasItem]) -> void:
 	for child in node.get_children():
-		if child is Sprite2D and child.get_parent() is Bone2D:
+		if (child is Sprite2D or child is RigPartMesh) and child.get_parent() is Bone2D:
 			out.append(child)
 		_collect(child, out)

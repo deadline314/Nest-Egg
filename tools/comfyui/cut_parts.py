@@ -106,15 +106,20 @@ def affine(xform: list, scale: float, shift: tuple[int, int]) -> np.ndarray:
 
 def cut_pass(ref: dict, gen: np.ndarray, orig_dir: Path, wanted: set, upscale: int) -> dict:
     """Return {texture: (RGB, alpha)} for the wanted textures of one pass, at original size * upscale."""
+    validate_reference(ref)
+    require_single_instance(ref, wanted)
     h, w = gen.shape[:2]
-    px = ref["zoom"] * 0.25  # illustration px per original texture px
+    px = ref["zoom"] * ref.get("body_scale", 1.0) * ref.get("texture_scale", 0.25)
     fg = foreground(gen)
     parts = sorted(ref["parts"], key=lambda p: (p["z"], p["tree_index"]), reverse=True)  # topmost first
     for p in parts:
         tw, th = p["tex_size"]
         orig = cv2.imread(str(orig_dir / (p["texture"] + ".png")), cv2.IMREAD_UNCHANGED)[:, :, 3]
-        a = cv2.resize(orig, (round(tw * px), round(th * px)), interpolation=cv2.INTER_CUBIC)
-        p["region"] = cv2.warpAffine(a, affine(p["xform"], px, (0, 0)), (w, h), flags=cv2.INTER_LINEAR) > 100  # canvas -> illustration
+        if p.get("kind") == "mesh":
+            p["region"] = mesh_warp(orig, p, (w, h)) > 100
+        else:
+            a = cv2.resize(orig, (round(tw * px), round(th * px)), interpolation=cv2.INTER_CUBIC)
+            p["region"] = cv2.warpAffine(a, affine(p["xform"], px, (0, 0)), (w, h), flags=cv2.INTER_LINEAR) > 100  # canvas -> illustration
         p["shift"] = refine_shift(p["region"], fg)
         if p["shift"] != (0, 0):
             p["region"] = cv2.warpAffine(p["region"].astype(np.uint8), np.float32([[1, 0, p["shift"][0]], [0, 1, p["shift"][1]]]), (w, h)) > 0
@@ -162,16 +167,81 @@ def cut_pass(ref: dict, gen: np.ndarray, orig_dir: Path, wanted: set, upscale: i
         mask_full = np.zeros((h, w), np.uint8)
         mask_full[sl] = full.astype(np.uint8) * 255
         tw, th = p["tex_size"]
-        m = affine(p["xform"], px, p["shift"])
-        size = (round(tw * px), round(th * px))
-        col = cv2.warpAffine(canvas_full, m, size, flags=cv2.INTER_LANCZOS4 | cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REPLICATE)
-        msk = cv2.warpAffine(mask_full, m, size, flags=cv2.INTER_LINEAR | cv2.WARP_INVERSE_MAP)
-        target = (tw * upscale, th * upscale)
-        col = cv2.resize(col, target, interpolation=cv2.INTER_AREA)
-        msk = cv2.resize(msk, target, interpolation=cv2.INTER_AREA)
-        col = cv2.addWeighted(col, 1.5, cv2.GaussianBlur(col, (0, 0), 0.9), -0.5, 0)  # mild unsharp after averaging down
+        size = (tw * upscale, th * upscale)
+        if p.get("kind") == "mesh":
+            col = mesh_warp(canvas_full, p, size, inverse=True, scale=upscale, shift=p["shift"])
+            msk = mesh_warp(mask_full, p, size, inverse=True, scale=upscale, shift=p["shift"])
+        else:
+            m = affine(p["xform"], upscale, p["shift"])
+            col = cv2.warpAffine(canvas_full, m, size, flags=cv2.INTER_LANCZOS4 | cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REPLICATE)
+            msk = cv2.warpAffine(mask_full, m, size, flags=cv2.INTER_LINEAR | cv2.WARP_INVERSE_MAP)
         result[p["texture"]] = (col, msk)
     return result
+
+
+def validate_reference(ref: dict) -> None:
+    for part in ref["parts"]:
+        size = np.asarray(part.get("tex_size", []))
+        if size.shape != (2,) or not np.issubdtype(size.dtype, np.integer) or (size <= 0).any():
+            raise ValueError(f"{part['name']}: invalid reference texture size")
+        if part.get("kind") == "mesh":
+            vertices = np.asarray(part["vertices"], dtype=np.float64)
+            uv = np.asarray(part["uv"], dtype=np.float64)
+            indices = np.asarray(part["triangles"])
+            valid = (vertices.ndim == 2 and vertices.shape[1] == 2 and uv.shape == vertices.shape
+                     and np.isfinite(vertices).all() and np.isfinite(uv).all()
+                     and indices.ndim == 2 and indices.shape[1] == 3 and indices.size > 0
+                     and np.issubdtype(indices.dtype, np.integer) and indices.min() >= 0
+                     and indices.max() < len(vertices))
+            if not valid:
+                raise ValueError(f"{part['name']}: invalid posed mesh vertices, UV or triangles")
+            for points in (vertices, uv):
+                t = points[indices]
+                a, b = t[:, 1] - t[:, 0], t[:, 2] - t[:, 0]
+                if (np.abs(a[:, 0] * b[:, 1] - a[:, 1] * b[:, 0]) < 1e-8).any():
+                    raise ValueError(f"{part['name']}: singular posed mesh triangle")
+        else:
+            xf = np.asarray(part.get("xform", []), dtype=np.float64)
+            if (part.get("kind", "sprite") != "sprite" or xf.shape != (6,) or not np.isfinite(xf).all()
+                    or abs(xf[0] * xf[3] - xf[1] * xf[2]) < 1e-8):
+                raise ValueError(f"{part['name']}: invalid rigid reference transform")
+
+
+def require_single_instance(ref: dict, wanted: set) -> None:
+    seen = {}
+    for part in ref["parts"]:
+        texture = part["texture"]
+        if texture not in wanted:
+            continue
+        if texture in seen:
+            raise ValueError(f"{texture}: {seen[texture]} and {part['name']} share one output; "
+                             "isolate each posed side and publish distinct attachments")
+        seen[texture] = part["name"]
+
+
+def mesh_warp(image: np.ndarray, part: dict, size: tuple[int, int], inverse=False, scale=1.0, shift=(0, 0)) -> np.ndarray:
+    """Sample the exported triangles rather than pretending a bent limb is affine."""
+    validate_reference({"parts": [part]})
+    uv = np.asarray(part["uv"], dtype=np.float64) * scale
+    vertices = np.asarray(part["vertices"], dtype=np.float64) + shift
+    src, dst = (vertices, uv) if inverse else (uv, vertices)
+    w, h = size
+    map_x, map_y = np.full((h, w), -1, np.float32), np.full((h, w), -1, np.float32)
+    for indices in part["triangles"]:
+        source, triangle = src[indices], dst[indices]
+        lo = np.maximum(np.ceil(triangle.min(axis=0)).astype(int), 0)
+        hi = np.minimum(np.floor(triangle.max(axis=0)).astype(int) + 1, [w, h])
+        if (hi <= lo).any():
+            continue
+        yy, xx = np.mgrid[lo[1]:hi[1], lo[0]:hi[0]]
+        v = np.stack((xx - triangle[0, 0], yy - triangle[0, 1]), axis=-1)
+        basis = np.stack((triangle[1] - triangle[0], triangle[2] - triangle[0]), axis=1)
+        weights = v @ np.linalg.inv(basis).T
+        inside = (weights.min(axis=-1) >= -1e-7) & (weights.sum(axis=-1) <= 1 + 1e-7)
+        sampled = source[0] + weights @ np.stack((source[1] - source[0], source[2] - source[0]))
+        region = np.s_[lo[1]:hi[1], lo[0]:hi[0]]
+        map_x[region][inside], map_y[region][inside] = sampled[inside, 0], sampled[inside, 1]
+    return cv2.remap(image, map_x, map_y, cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
 
 
 def glow_layer(rgb: np.ndarray, alpha: np.ndarray, kinds: str, sat_min: int = 140, val_min: int = 190) -> np.ndarray | None:
@@ -215,14 +285,21 @@ def main() -> None:
     ap.add_argument("--upscale", type=int, default=2, help="output texels per original texture pixel")
     args = ap.parse_args()
     out = Path(args.out)
-    out.mkdir(parents=True, exist_ok=True)
+    references = {name: json.loads((Path(args.ref) / f"{name}.json").read_text(encoding="utf-8"))
+                  for name in ("body", "armor")}
+    for ref in references.values():
+        validate_reference(ref)
     cfg = json.loads((Path(args.char) / "character.json").read_text(encoding="utf8"))
     tex_of = {p["name"]: p["texture"] for p in cfg["parts"]}
-    orig_dir = Path(args.orig)
-    for name, gen_path in (("body", args.body), ("armor", args.armor)):
-        ref = json.loads((Path(args.ref) / f"{name}.json").read_text())
+    for name, ref in references.items():
         for p in ref["parts"]:
             p["texture"] = tex_of[p["name"]]
+        wanted = {t for t in tex_of.values() if t.startswith("armor_") == (name == "armor")}
+        require_single_instance(ref, wanted)
+    out.mkdir(parents=True, exist_ok=True)
+    orig_dir = Path(args.orig)
+    for name, gen_path in (("body", args.body), ("armor", args.armor)):
+        ref = references[name]
         ref_alpha = cv2.imread(str(Path(args.ref) / f"{name}.png"), cv2.IMREAD_UNCHANGED)[:, :, 3]
         w, h = ref["size"]
         gen = cv2.cvtColor(cv2.imread(gen_path), cv2.COLOR_BGR2RGB)
