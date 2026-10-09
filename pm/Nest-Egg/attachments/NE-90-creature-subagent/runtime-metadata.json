@@ -1,0 +1,1530 @@
+{
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"mounts": [
+		{
+			"behavior_chain": [
+				"res://game/enemies/bomber.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				16.0,
+				13.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "bomber",
+			"creature_states": {},
+			"id": "bomber",
+			"is_boss": false,
+			"move_speed": 105.0,
+			"path": "res://data/enemies/bomber.tres",
+			"rig_skin": "",
+			"rig_weapon": "",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/buoy_worm.gd",
+				"res://game/enemies/chain_enemy.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				24.0,
+				15.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "buoy_worm",
+			"creature_states": {
+				"chase": "walk",
+				"patrol": "walk",
+				"recover": "idle"
+			},
+			"id": "buoy_worm",
+			"is_boss": false,
+			"move_speed": 34.0,
+			"path": "res://data/enemies/buoy_worm.tres",
+			"rig_skin": "",
+			"rig_weapon": "",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/buoy_worm.gd",
+				"res://game/enemies/chain_enemy.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				14.8999996185303,
+				9.30000019073486
+			],
+			"creature_scale": 0.62,
+			"creature_skin": "buoy_worm",
+			"creature_states": {
+				"chase": "walk",
+				"patrol": "walk",
+				"recover": "idle"
+			},
+			"id": "buoy_worm_small",
+			"is_boss": false,
+			"move_speed": 43.0,
+			"path": "res://data/enemies/buoy_worm_small.tres",
+			"rig_skin": "",
+			"rig_weapon": "",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/slasher.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				18.0,
+				50.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "ch1_inspector",
+			"is_boss": false,
+			"move_speed": 44.0,
+			"path": "res://data/enemies/ch1_inspector.tres",
+			"rig_skin": "enforcer",
+			"rig_weapon": "",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/cloud_jelly.gd",
+				"res://game/enemies/chain_enemy.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				28.0,
+				20.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "cloud_jelly",
+			"creature_states": {
+				"idle": "idle",
+				"recover": "drift"
+			},
+			"id": "cloud_jelly",
+			"is_boss": false,
+			"move_speed": 28.0,
+			"path": "res://data/enemies/cloud_jelly.tres",
+			"rig_skin": "",
+			"rig_weapon": "",
+			"uses_gravity": false
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/cloud_serpent.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				16.0,
+				10.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "cloud_serpent",
+			"creature_states": {},
+			"id": "cloud_serpent",
+			"is_boss": false,
+			"move_speed": 55.0,
+			"path": "res://data/enemies/cloud_serpent.tres",
+			"rig_skin": "",
+			"rig_weapon": "",
+			"uses_gravity": false
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/slasher.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				16.0,
+				46.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "collector_brute",
+			"is_boss": false,
+			"move_speed": 38.0,
+			"path": "res://data/enemies/collector_brute.tres",
+			"rig_skin": "enforcer",
+			"rig_weapon": "",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/grunt.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				14.0,
+				44.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "collector_gunner",
+			"is_boss": false,
+			"move_speed": 30.0,
+			"path": "res://data/enemies/collector_gunner.tres",
+			"rig_skin": "enforcer",
+			"rig_weapon": "pistol",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/custodian.gd",
+				"res://game/enemies/warden_boss.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				34.0,
+				78.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "custodian",
+			"is_boss": false,
+			"move_speed": 50.0,
+			"path": "res://data/enemies/custodian.tres",
+			"rig_skin": "warden",
+			"rig_weapon": "minigun",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/drone.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				20.0,
+				14.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "drone",
+			"creature_states": {},
+			"id": "drone",
+			"is_boss": false,
+			"move_speed": 90.0,
+			"path": "res://data/enemies/drone.tres",
+			"rig_skin": "",
+			"rig_weapon": "",
+			"uses_gravity": false
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/grunt.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				14.0,
+				44.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "elite_grunt",
+			"is_boss": false,
+			"move_speed": 46.0,
+			"path": "res://data/enemies/elite_grunt.tres",
+			"rig_skin": "trooper_elite",
+			"rig_weapon": "rifle",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/flamer.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				18.0,
+				50.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "flamer",
+			"is_boss": false,
+			"move_speed": 28.0,
+			"path": "res://data/enemies/flamer.tres",
+			"rig_skin": "flamer",
+			"rig_weapon": "flamethrower",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/grunt.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				14.0,
+				44.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "grunt",
+			"is_boss": false,
+			"move_speed": 36.0,
+			"path": "res://data/enemies/grunt.tres",
+			"rig_skin": "trooper",
+			"rig_weapon": "smg",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/heavy_gunner.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				22.0,
+				56.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "heavy_gunner",
+			"is_boss": false,
+			"move_speed": 20.0,
+			"path": "res://data/enemies/heavy_gunner.tres",
+			"rig_skin": "heavy_gunner",
+			"rig_weapon": "minigun",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/mimic.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				34.0,
+				24.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "mimic",
+			"creature_states": {},
+			"id": "mimic",
+			"is_boss": false,
+			"move_speed": 0.0,
+			"path": "res://data/enemies/mimic.tres",
+			"rig_skin": "",
+			"rig_weapon": "",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/mortar.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				16.0,
+				46.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "mortar",
+			"is_boss": false,
+			"move_speed": 55.0,
+			"path": "res://data/enemies/mortar.tres",
+			"rig_skin": "grenadier",
+			"rig_weapon": "launcher",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/rail_cannon.gd",
+				"res://game/enemies/turret.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				18.0,
+				30.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "rail_cannon",
+			"creature_states": {
+				"slide": "slide"
+			},
+			"id": "rail_cannon",
+			"is_boss": false,
+			"move_speed": 90.0,
+			"path": "res://data/enemies/rail_cannon.tres",
+			"rig_skin": "",
+			"rig_weapon": "",
+			"uses_gravity": false
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/reclaimer_boss.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				20.0,
+				54.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "reclaimer",
+			"is_boss": true,
+			"move_speed": 70.0,
+			"path": "res://data/enemies/reclaimer.tres",
+			"rig_skin": "reclaimer",
+			"rig_weapon": "",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/repair_drone.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				18.0,
+				16.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "repair_drone",
+			"creature_states": {},
+			"id": "repair_drone",
+			"is_boss": false,
+			"move_speed": 80.0,
+			"path": "res://data/enemies/repair_drone.tres",
+			"rig_skin": "",
+			"rig_weapon": "",
+			"uses_gravity": false
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/salvage_arm.gd",
+				"res://game/enemies/chain_enemy.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				52.0,
+				70.0
+			],
+			"creature_scale": 1.3,
+			"creature_skin": "salvage_arm",
+			"creature_states": {
+				"chase": "walk",
+				"recover": "idle"
+			},
+			"id": "salvage_arm",
+			"is_boss": false,
+			"move_speed": 34.0,
+			"path": "res://data/enemies/salvage_arm.tres",
+			"rig_skin": "",
+			"rig_weapon": "",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/searchlight_drone.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				22.0,
+				16.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "searchlight_drone",
+			"creature_states": {},
+			"id": "searchlight_drone",
+			"is_boss": false,
+			"move_speed": 38.0,
+			"path": "res://data/enemies/searchlight_drone.tres",
+			"rig_skin": "",
+			"rig_weapon": "",
+			"uses_gravity": false
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/shaft_bat.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				30.0,
+				12.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "shaft_bat",
+			"creature_states": {},
+			"id": "shaft_bat",
+			"is_boss": false,
+			"move_speed": 85.0,
+			"path": "res://data/enemies/shaft_bat.tres",
+			"rig_skin": "",
+			"rig_weapon": "",
+			"uses_gravity": false
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/shield_rusher.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				18.0,
+				46.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "shield_rusher",
+			"is_boss": false,
+			"move_speed": 30.0,
+			"path": "res://data/enemies/shield_rusher.tres",
+			"rig_skin": "enforcer",
+			"rig_weapon": "pistol",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/shock_hound.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				24.0,
+				14.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "shock_hound",
+			"creature_states": {},
+			"id": "shock_hound",
+			"is_boss": false,
+			"move_speed": 60.0,
+			"path": "res://data/enemies/shock_hound.tres",
+			"rig_skin": "",
+			"rig_weapon": "",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/slasher.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				14.0,
+				44.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "slasher",
+			"is_boss": false,
+			"move_speed": 44.0,
+			"path": "res://data/enemies/slasher.tres",
+			"rig_skin": "slasher",
+			"rig_weapon": "",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/sniper.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				14.0,
+				46.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "sniper",
+			"is_boss": false,
+			"move_speed": 22.0,
+			"path": "res://data/enemies/sniper.tres",
+			"rig_skin": "sniper",
+			"rig_weapon": "sniper",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/stalker.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				13.0,
+				42.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "stalker",
+			"is_boss": false,
+			"move_speed": 46.0,
+			"path": "res://data/enemies/stalker.tres",
+			"rig_skin": "stalker",
+			"rig_weapon": "rifle",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/swarm_bee.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				8.0,
+				6.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "swarm_bee",
+			"creature_states": {
+				"fly": "fly"
+			},
+			"id": "swarm_bee",
+			"is_boss": false,
+			"move_speed": 95.0,
+			"path": "res://data/enemies/swarm_bee.tres",
+			"rig_skin": "",
+			"rig_weapon": "",
+			"uses_gravity": false
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/grunt.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				14.0,
+				44.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "sweeper",
+			"is_boss": false,
+			"move_speed": 34.0,
+			"path": "res://data/enemies/sweeper.tres",
+			"rig_skin": "trooper",
+			"rig_weapon": "pistol",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/tangle_wire.gd",
+				"res://game/enemies/chain_enemy.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				30.0,
+				12.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "tangle_wire",
+			"creature_states": {},
+			"id": "tangle_wire",
+			"is_boss": false,
+			"move_speed": 0.0,
+			"path": "res://data/enemies/tangle_wire.tres",
+			"rig_skin": "",
+			"rig_weapon": "",
+			"uses_gravity": false
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/turret.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				22.0,
+				20.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "turret",
+			"creature_states": {},
+			"id": "turret",
+			"is_boss": false,
+			"move_speed": 0.0,
+			"path": "res://data/enemies/turret.tres",
+			"rig_skin": "",
+			"rig_weapon": "",
+			"uses_gravity": false
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/wall_gecko.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				22.0,
+				10.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "wall_gecko",
+			"creature_states": {
+				"windup": "windup"
+			},
+			"id": "wall_gecko",
+			"is_boss": false,
+			"move_speed": 42.0,
+			"path": "res://data/enemies/wall_gecko.tres",
+			"rig_skin": "",
+			"rig_weapon": "",
+			"uses_gravity": false
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/warden_boss.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				40.0,
+				86.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "warden",
+			"is_boss": true,
+			"move_speed": 55.0,
+			"path": "res://data/enemies/warden.tres",
+			"rig_skin": "warden",
+			"rig_weapon": "minigun",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/watchdog.gd",
+				"res://game/enemies/custodian.gd",
+				"res://game/enemies/warden_boss.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				34.0,
+				78.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "watchdog",
+			"is_boss": false,
+			"move_speed": 46.0,
+			"path": "res://data/enemies/watchdog.tres",
+			"rig_skin": "warden",
+			"rig_weapon": "minigun",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/chain_hook.gd",
+				"res://game/enemies/strike_enemy.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				18.0,
+				46.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "chain_hook",
+			"is_boss": false,
+			"move_speed": 36.0,
+			"path": "res://data/enemies/strike/chain_hook.tres",
+			"rig_skin": "enforcer",
+			"rig_weapon": "",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/chainsaw_arm.gd",
+				"res://game/enemies/strike_enemy.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				14.0,
+				44.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "chainsaw_arm",
+			"is_boss": false,
+			"move_speed": 42.0,
+			"path": "res://data/enemies/strike/chainsaw_arm.tres",
+			"rig_skin": "trooper",
+			"rig_weapon": "",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/hydraulic_claw.gd",
+				"res://game/enemies/strike_enemy.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				22.0,
+				56.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "hydraulic_claw",
+			"is_boss": false,
+			"move_speed": 30.0,
+			"path": "res://data/enemies/strike/hydraulic_claw.tres",
+			"rig_skin": "heavy_gunner",
+			"rig_weapon": "",
+			"uses_gravity": true
+		},
+		{
+			"behavior_chain": [
+				"res://game/enemies/plasma_whip.gd",
+				"res://game/enemies/strike_enemy.gd",
+				"res://game/enemies/enemy.gd"
+			],
+			"body_size": [
+				13.0,
+				42.0
+			],
+			"creature_scale": 1.0,
+			"creature_skin": "",
+			"creature_states": {},
+			"id": "plasma_whip",
+			"is_boss": false,
+			"move_speed": 38.0,
+			"path": "res://data/enemies/strike/plasma_whip.tres",
+			"rig_skin": "stalker",
+			"rig_weapon": "",
+			"uses_gravity": true
+		}
+	],
+	"textures": [
+		{
+			"actual_joint_parent": "Root",
+			"actual_z": 0,
+			"id": "bomber",
+			"loaded_size": [
+				72,
+				56
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				72,
+				56
+			],
+			"part": "body",
+			"sprite_offset": [
+				-36.0,
+				-28.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "body",
+			"actual_z": -1,
+			"id": "bomber",
+			"loaded_size": [
+				7,
+				56
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				7,
+				56
+			],
+			"part": "leg_0",
+			"sprite_offset": [
+				-3.5,
+				-3.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "body",
+			"actual_z": 1,
+			"id": "bomber",
+			"loaded_size": [
+				7,
+				56
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				7,
+				56
+			],
+			"part": "leg_1",
+			"sprite_offset": [
+				-3.5,
+				-3.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "body",
+			"actual_z": -1,
+			"id": "bomber",
+			"loaded_size": [
+				7,
+				56
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				7,
+				56
+			],
+			"part": "leg_2",
+			"sprite_offset": [
+				-3.5,
+				-3.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "body",
+			"actual_z": 1,
+			"id": "bomber",
+			"loaded_size": [
+				7,
+				56
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				7,
+				56
+			],
+			"part": "leg_3",
+			"sprite_offset": [
+				-3.5,
+				-3.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "body",
+			"actual_z": -1,
+			"id": "bomber",
+			"loaded_size": [
+				7,
+				56
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				7,
+				56
+			],
+			"part": "leg_4",
+			"sprite_offset": [
+				-3.5,
+				-3.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "body",
+			"actual_z": 1,
+			"id": "bomber",
+			"loaded_size": [
+				7,
+				56
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				7,
+				56
+			],
+			"part": "leg_5",
+			"sprite_offset": [
+				-3.5,
+				-3.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "Root",
+			"actual_z": 0,
+			"id": "drone",
+			"loaded_size": [
+				120,
+				35
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				120,
+				35
+			],
+			"part": "body",
+			"sprite_offset": [
+				-60.0,
+				-17.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "body",
+			"actual_z": -1,
+			"id": "drone",
+			"loaded_size": [
+				13,
+				64
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				13,
+				64
+			],
+			"part": "wing_far",
+			"sprite_offset": [
+				-6.0,
+				-62.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "body",
+			"actual_z": 1,
+			"id": "drone",
+			"loaded_size": [
+				13,
+				64
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				13,
+				64
+			],
+			"part": "wing_near",
+			"sprite_offset": [
+				-6.0,
+				-62.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "Root",
+			"actual_z": 0,
+			"id": "mimic",
+			"loaded_size": [
+				144,
+				77
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				144,
+				77
+			],
+			"part": "closed",
+			"sprite_offset": [
+				-72.0,
+				-77.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "Root",
+			"actual_z": 0,
+			"id": "mimic",
+			"loaded_size": [
+				144,
+				116
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				144,
+				116
+			],
+			"part": "open",
+			"sprite_offset": [
+				-72.0,
+				-116.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "Root",
+			"actual_z": 0,
+			"id": "rail_cannon",
+			"loaded_size": [
+				72,
+				118
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				72,
+				118
+			],
+			"part": "slider",
+			"sprite_offset": [
+				-33.0,
+				-2.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "slider",
+			"actual_z": 1,
+			"id": "rail_cannon",
+			"loaded_size": [
+				104,
+				26
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				104,
+				26
+			],
+			"part": "barrel",
+			"sprite_offset": [
+				-8.0,
+				-13.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "Root",
+			"actual_z": 0,
+			"id": "repair_drone",
+			"loaded_size": [
+				96,
+				77
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				96,
+				77
+			],
+			"part": "body",
+			"sprite_offset": [
+				-48.0,
+				-38.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "body",
+			"actual_z": -1,
+			"id": "repair_drone",
+			"loaded_size": [
+				8,
+				88
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				8,
+				88
+			],
+			"part": "arm_far",
+			"sprite_offset": [
+				-4.0,
+				-3.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "body",
+			"actual_z": 1,
+			"id": "repair_drone",
+			"loaded_size": [
+				8,
+				88
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				8,
+				88
+			],
+			"part": "arm_near",
+			"sprite_offset": [
+				-4.0,
+				-3.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "Root",
+			"actual_z": 0,
+			"id": "searchlight_drone",
+			"loaded_size": [
+				120,
+				34
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				120,
+				34
+			],
+			"part": "body",
+			"sprite_offset": [
+				-60.0,
+				-17.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "body",
+			"actual_z": -1,
+			"id": "searchlight_drone",
+			"loaded_size": [
+				27,
+				48
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				27,
+				48
+			],
+			"part": "thruster_far",
+			"sprite_offset": [
+				-13.0,
+				-3.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "body",
+			"actual_z": 1,
+			"id": "searchlight_drone",
+			"loaded_size": [
+				27,
+				48
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				27,
+				48
+			],
+			"part": "thruster_near",
+			"sprite_offset": [
+				-13.0,
+				-3.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "Root",
+			"actual_z": 0,
+			"id": "shaft_bat",
+			"loaded_size": [
+				120,
+				46
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				120,
+				46
+			],
+			"part": "body",
+			"sprite_offset": [
+				-60.0,
+				-30.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "body",
+			"actual_z": -1,
+			"id": "shaft_bat",
+			"loaded_size": [
+				44,
+				88
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				44,
+				88
+			],
+			"part": "wing_far",
+			"sprite_offset": [
+				-22.0,
+				-80.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "body",
+			"actual_z": 1,
+			"id": "shaft_bat",
+			"loaded_size": [
+				44,
+				88
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				44,
+				88
+			],
+			"part": "wing_near",
+			"sprite_offset": [
+				-22.0,
+				-80.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "Root",
+			"actual_z": 0,
+			"id": "shock_hound",
+			"loaded_size": [
+				136,
+				63
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				136,
+				63
+			],
+			"part": "body",
+			"sprite_offset": [
+				-68.0,
+				-63.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "body",
+			"actual_z": -1,
+			"id": "shock_hound",
+			"loaded_size": [
+				72,
+				13
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				72,
+				13
+			],
+			"part": "tail",
+			"sprite_offset": [
+				-68.0,
+				-6.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "Root",
+			"actual_z": 0,
+			"id": "swarm_bee",
+			"loaded_size": [
+				36,
+				24
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				36,
+				24
+			],
+			"part": "body",
+			"sprite_offset": [
+				-18.0,
+				-12.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "Root",
+			"actual_z": 0,
+			"id": "turret",
+			"loaded_size": [
+				96,
+				77
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				96,
+				77
+			],
+			"part": "base",
+			"sprite_offset": [
+				-48.0,
+				-77.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "base",
+			"actual_z": 1,
+			"id": "turret",
+			"loaded_size": [
+				88,
+				62
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				88,
+				62
+			],
+			"part": "head",
+			"sprite_offset": [
+				-38.0,
+				-31.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "head",
+			"actual_z": -1,
+			"id": "turret",
+			"loaded_size": [
+				96,
+				17
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				96,
+				17
+			],
+			"part": "barrel",
+			"sprite_offset": [
+				-8.0,
+				-8.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		},
+		{
+			"actual_joint_parent": "Root",
+			"actual_z": 0,
+			"id": "wall_gecko",
+			"loaded_size": [
+				104,
+				41
+			],
+			"normal_loaded": true,
+			"normal_size": [
+				104,
+				41
+			],
+			"part": "body",
+			"sprite_offset": [
+				-52.0,
+				-30.0
+			],
+			"sprite_scale": [
+				0.25,
+				0.25
+			],
+			"texture_class": "CanvasTexture"
+		}
+	]
+}

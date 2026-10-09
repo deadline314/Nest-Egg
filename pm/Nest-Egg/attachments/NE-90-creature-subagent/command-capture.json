@@ -1,0 +1,17 @@
+{
+  "command": [
+    "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+    "--audio-driver",
+    "Dummy",
+    "--path",
+    "C:\\tmp\\Nest-Egg-creature-subagent",
+    "--rendering-driver",
+    "vulkan",
+    "--rendering-method",
+    "forward_plus",
+    "res://.godot/creature-subagent/capture.tscn"
+  ],
+  "available_ram_gib_before_start": 13.993144989013672,
+  "exit_code": 0,
+  "shared_lock": "C:\\Github\\Nest-Egg\\assets_src\\work\\comfy.lock"
+}
