@@ -1,0 +1,17 @@
+COMMAND: D:\ComfyUI\.venv\Scripts\python.exe tools/comfyui/check_spec.py --recipe tools/comfyui/recipes/enforcer.json --joints
+check_spec enforcer: 0 error(s), 0 warning(s)
+EXIT: 0
+
+COMMAND: D:\ComfyUI\.venv\Scripts\python.exe tools/comfyui/check_spec.py --recipe tools/comfyui/recipes/heavy_gunner.json --joints
+check_spec heavy_gunner: 0 error(s), 0 warning(s)
+EXIT: 0
+
+COMMAND: D:\ComfyUI\.venv\Scripts\python.exe tools/comfyui/check_spec.py --recipe tools/comfyui/recipes/warden.json --joints
+check_spec warden: 0 error(s), 0 warning(s)
+EXIT: 0
+
+COMMAND: D:\ComfyUI\.venv\Scripts\python.exe tools/comfyui/check_parts.py enforcer heavy_gunner warden --normals
+OK   enforcer
+OK   heavy_gunner
+OK   warden
+EXIT: 0
