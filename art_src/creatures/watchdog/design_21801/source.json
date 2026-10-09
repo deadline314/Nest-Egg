@@ -1,0 +1,26 @@
+{
+  "status": "UNACCEPTED SOURCE CANDIDATE",
+  "seed": 21801,
+  "steps": 30,
+  "prompt": "A native RGBA game character illustration on completely transparent alpha-zero background. One complete quadrupedal armored robotic guard dog in strict lateral side view facing right, a low canine silhouette with a long horizontal torso, angular wolf-like snout and small sensor ears. Exactly four separate mechanical legs, two front legs and two rear legs, each with clearly distinct round hip or shoulder axle, one upper segment, one lower segment, one compact rubber paw. All four paws rest on the same floor height, far-side legs are offset slightly so their complete silhouettes can be read. Calm neutral standing pose, slightly bent articulations with natural canine proportions; rear upper thighs slope forward and the rear shin folds back. Matte slate-blue and off-white corporate armor, black exposed joint mechanisms, small restrained red sensor and circuit lights. One small dorsal gun turret with barrel pointing right, visibly separate from the dog head. One short mechanical tail on the rear. Hand-drawn 2D anime cyberpunk cel art: decisive thin black ink contours, simple two-tone hard shadow shapes, clean purposeful panel designs and modest wear. Readable, economical detail, no photorealism, airbrush gradients, shiny plastic, rendering noise or generic intricate greebles. No person, human hand, human boots, biped posture, additional limb, duplicate paw, ground line, cast shadow, background, checkerboard, magenta backdrop, text or watermark. Leave empty transparent margin around the entire head, tail, barrel and all four feet.",
+  "models": [
+    "qwen-image-2.1-UC-int8_convrot.safetensors",
+    "qwen3vl_8b_int8_convrot.safetensors",
+    "qwen_image_2.1_vae_bf16.safetensors"
+  ],
+  "requested_canvas": [
+    1536,
+    1024
+  ],
+  "references": [],
+  "scope": "appearance only; no story, encounter or gameplay edits",
+  "output": {
+    "path": "art_src\\creatures\\watchdog\\design_21801\\_gen\\watchdog_design_21801_0.png",
+    "sha256": "8b7561a01f928772ce9543907625f6e2648fc0b037cf29cccb40092e69d30fbe",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA"
+  }
+}

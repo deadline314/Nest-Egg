@@ -1,0 +1,108 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "qwen-image-2.1-UC-int8_convrot.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "1c": {
+    "class_type": "QwenImage21Cache",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "device": "cpu",
+      "dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+      "type": "qwen_image",
+      "device": "default"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+    }
+  },
+  "4": {
+    "class_type": "TextEncodeQwenImage21",
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "prompt": "A native RGBA game character illustration on completely transparent alpha-zero background. One complete quadrupedal armored robotic guard dog in strict lateral side view facing right, a low canine silhouette with a long horizontal torso, angular wolf-like snout and small sensor ears. Exactly four separate mechanical legs, two front legs and two rear legs, each with clearly distinct round hip or shoulder axle, one upper segment, one lower segment, one compact rubber paw. All four paws rest on the same floor height, far-side legs are offset slightly so their complete silhouettes can be read. Calm neutral standing pose, slightly bent articulations with natural canine proportions; rear upper thighs slope forward and the rear shin folds back. Matte slate-blue and off-white corporate armor, black exposed joint mechanisms, small restrained red sensor and circuit lights. One small dorsal gun turret with barrel pointing right, visibly separate from the dog head. One short mechanical tail on the rear. Hand-drawn 2D anime cyberpunk cel art: decisive thin black ink contours, simple two-tone hard shadow shapes, clean purposeful panel designs and modest wear. Readable, economical detail, no photorealism, airbrush gradients, shiny plastic, rendering noise or generic intricate greebles. No person, human hand, human boots, biped posture, additional limb, duplicate paw, ground line, cast shadow, background, checkerboard, magenta backdrop, text or watermark. Leave empty transparent margin around the entire head, tail, barrel and all four feet.",
+      "negative_prompt": "",
+      "vae": [
+        "3",
+        0
+      ],
+      "resolution": 1024
+    }
+  },
+  "5": {
+    "class_type": "EmptyLatentImage",
+    "inputs": {
+      "width": 1536,
+      "height": 1024,
+      "batch_size": 1
+    }
+  },
+  "6": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": [
+        "1c",
+        0
+      ],
+      "positive": [
+        "4",
+        0
+      ],
+      "negative": [
+        "4",
+        1
+      ],
+      "latent_image": [
+        "5",
+        0
+      ],
+      "seed": 21801,
+      "steps": 30,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0
+    }
+  },
+  "7": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "6",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "8": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "7",
+        0
+      ],
+      "filename_prefix": "watchdog_design_21801"
+    }
+  }
+}

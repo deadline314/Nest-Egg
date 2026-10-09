@@ -1,0 +1,37 @@
+{
+  "scope": "static source and six native source previews only",
+  "deterministic_replay": true,
+  "one_byte_source_negative_control": "rejected before overwrite",
+  "native_composites": [
+    {
+      "image": "black_face1.png",
+      "max_channel_error": 0,
+      "sha256": "bdb19dc34a4c512386e639e48d5b9a1eb8ed21a678b9060f8fcbb4bca9618e32"
+    },
+    {
+      "image": "gray_face1.png",
+      "max_channel_error": 1,
+      "sha256": "f2dc86dc11357f4afa5b2f5e13dce48ee2bcdfc5c31e7b922267edbaedcd3240"
+    },
+    {
+      "image": "white_face1.png",
+      "max_channel_error": 0,
+      "sha256": "5f27a41de1def20f645106f661e8c83dc79df9e6506020f933ad92062aa5702e"
+    },
+    {
+      "image": "black_face-1.png",
+      "max_channel_error": 0,
+      "sha256": "d493b6948c4ee2ac9b09a46d5b8567b6acd02ef7fe7440d583e34f5a7c4bcb0e"
+    },
+    {
+      "image": "gray_face-1.png",
+      "max_channel_error": 1,
+      "sha256": "0307139aa217c4b7e3d6c439fa735cf55f2e74c61604c40f60df396239139b6b"
+    },
+    {
+      "image": "white_face-1.png",
+      "max_channel_error": 0,
+      "sha256": "65fa99d2bcf54ba1a8f8b35621e9c7e5742342916b8a69f2d6d24023233fd62b"
+    }
+  ]
+}
