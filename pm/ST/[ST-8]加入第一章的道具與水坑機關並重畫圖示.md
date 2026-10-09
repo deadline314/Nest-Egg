@@ -78,3 +78,35 @@
 ![醫療針在第一章背包](images/ST-8-item_inventory/item_inventory_2_0.png)
 ![五種文件的背包檢查之一](images/ST-8-item_inventory/item_inventory_4_2.png)
 ![拾取與使用回歸](images/ST-8-consumables/consumables_use.png)
+
+
+---
+
+# Commit-3
+
+## 內文
+
+以 `842dcd6c3561352b1c9f0df3b13119e7efd46b5f` 為固定基準，補上目前版本的素材驗證與原生 UI 證據。十四張 384×384 詳情圖可由資料目錄與道具資源引用；信用點、硬幣、手槍和單分子匕首也納入高清圖清單。素材頁與背包畫面維持各自分頁與固定詳情面板配置，沒有因高清圖尺寸撐開介面。
+
+逐張檢視三張圖示頁與十一張背包頁，均為 1280×720 原生擷取。畫面顯示武器與近戰、消耗品、劇情道具分頁；詳情圖、名稱與說明仍在面板範圍內。這些畫面是 UI 外觀檢視，不代表逐件拾取或完整關卡操作驗收。此交付只補驗證記錄與證據，沒有改動遊戲程式、道具內容、水坑或第一章地圖。
+
+### 測試結果
+
+| 項目 | 結果 |
+|---|---|
+| 固定基準與版本 | `842dcd6c3561352b1c9f0df3b13119e7efd46b5f`；Godot 4.7.2、Forward+、NVIDIA GeForce RTX 4070 SUPER |
+| ST-8 受影響套件 | 11 套：UiKit、Collectibles、StoryContent、FloodPit、Chapter1Map、Areas、Economy、Progression、Supply、FxMeleePickups、MeleeWeapons；2,801 項檢查，新增失敗 0、已知失敗 0，59 秒 |
+| 圖示 CPU 驗證 | 14 個目錄項目、18 個資源圖示引用、50 張 PNG、294 項檢查、失敗 0；包含重建像素比對及來源／輸出 SHA-256 |
+| 原生畫面 | 三張圖示頁與十一張背包頁，1280×720；已逐張檢視面板與分頁配置。畫面不作為人工拾取或水坑完整玩法驗收 |
+| 執行診斷 | 測試輸出含負向測試預期的錯誤回退訊息與引擎退出時的 RID、ObjectDB、資源清理診斷。背包擷取退出時記錄 212 個 ObjectDB instances leaked；未將日誌描述成「無 ERROR」。斷言結果仍為新增失敗 0、已知失敗 0 |
+
+套件分片、素材雜湊、擷取日誌與 14 張畫面的雜湊索引見[本次驗證證據](images/ST-8-current-validation/README.md)。完整 CI 由 CI 流程執行。
+
+### 截圖
+
+![第一章道具高清詳情：醫療針、護盾電池、資料盤、灰布角與文件](images/ST-8-current-item-icons/item_icons_1.png)
+![第一章道具高清詳情：文件、信用點與船錢硬幣](images/ST-8-current-item-icons/item_icons_2.png)
+![手槍與單分子匕首高清詳情](images/ST-8-current-item-icons/item_icons_3.png)
+![背包武器分頁與手槍詳情](images/ST-8-current-item-inventory/item_inventory_0_0.png)
+![背包消耗品分頁與醫療針詳情](images/ST-8-current-item-inventory/item_inventory_2_0.png)
+![背包劇情道具分頁與資料盤詳情](images/ST-8-current-item-inventory/item_inventory_4_7.png)

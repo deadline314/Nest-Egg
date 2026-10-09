@@ -1,0 +1,6 @@
+Running 11 groups in 4 processes (logs: [workspace]/.godot/st8-regression/root-suite-logs)
+  process 0 (estimated 49 s): Chapter1MapSuite
+  process 1 (estimated 17 s): FxMeleePickupsSuite
+  process 2 (estimated 15 s): MeleeWeaponsSuite,CollectiblesSuite,AreasSuite,StoryContentSuite,EconomySuite
+  process 3 (estimated 15 s): SupplySuite,ProgressionSuite,FloodPitSuite,UiKitSuite
+checks: 2801, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 59 s)

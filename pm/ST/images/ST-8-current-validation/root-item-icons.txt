@@ -1,0 +1,111 @@
+ST-8 CPU item icon regression
+root: [workspace]
+python: D:\ComfyUI\.venv\Scripts\python.exe
+generator: tools\art\build_item_icons.py
+generated catalog entries: 14
+resource icon ids checked: 18
+PNG assets checked: 50
+checks: 294, failures: 0
+source/output SHA-256 entries: 51
+
+SHA256 tools\art\build_item_icons.py f701ddc1a931d4db5836ec614b1649e466f622004b7565f53cca70fd74a014cc
+SHA256 art\items\icons\med_injector.png d1700626c69b98adb018076914827cbd066c653c1ac5c0abc796c67958bbe64d
+SHA256 art\items\icons\med_injector_hd.png d3b43988e02fbac78e9f8b02d35a3c089bdc66aa4febe39f62c4351798584492
+SHA256 art\items\world\med_injector.png 059f6db916f1b7e83dee6c5aad0861c08312a9d304fbdc2a8ebb637071b6e084
+SHA256 art\items\world\med_injector_glow.png 1ae448ed6fdcd7a1f830e000c2b6a2c3c959c1a50704f38cdc3bf5149e2ac340
+SHA256 art\items\icons\shield_cell.png c20c9cf6a16b907f5c22bccdd1b8d920d18a86d7a2dff28717d03f2b4e7ba1e1
+SHA256 art\items\icons\shield_cell_hd.png 88fa4369af34ecdb9b8289a7a5026a44c8001e9c518402e26a34fb2b93211e64
+SHA256 art\items\world\shield_cell.png 673ea265bf643b0f2df11896cc5a778b2ec3bd261cf6a9bc97bdead34098ae3b
+SHA256 art\items\world\shield_cell_glow.png 98d216d9ea34e31199c11f49b2cb47531bc83eadd8eeb0c8c0d835cb37adb59a
+SHA256 art\items\icons\ch1_data_disk.png ba6c314fd43d1d6330be3134a58888f31ede9ee68f09186dc50e268f7c89e02a
+SHA256 art\items\icons\ch1_data_disk_hd.png 9c46eed6ca4aff438ded5c86ee6b37f03f76b6f6b3ef4111a03a8ea0a06e419d
+SHA256 art\items\world\ch1_data_disk.png 7f224847e017660501a6cf834d6314377a346f3a32ea26ab83cce5d292c58e30
+SHA256 art\items\world\ch1_data_disk_glow.png d33327c6d0e2a86e420d337468df41d15a8fb2109560a595ede8dd3691cea52c
+SHA256 art\items\icons\ch1_grey_cloth.png f45b0d97af68afde96074163b9f42baf30b10197716d2142754057ab291b39e6
+SHA256 art\items\icons\ch1_grey_cloth_hd.png f1a7bf7cd491a719022486b1ae773e666f71a6955dbfbaad3950cbaa39117e6f
+SHA256 art\items\world\ch1_grey_cloth.png 4120624206b19f47a8e72bcda089bfce06edc05530efdf0abf5f57c8e3c4f12a
+SHA256 art\items\world\ch1_grey_cloth_glow.png 1028e0b4ecb350274189b954e3392cc5f2784fdd71d87aaa3b7be0f6c87336b6
+SHA256 art\items\icons\doc_flyer.png fbb951cfb25a72c43d73be44ec8d25b1a8070edf5ec91b47a1e40df8c9c053d9
+SHA256 art\items\icons\doc_flyer_hd.png 91883aafe86f836edb7bae78ed489fa69109253f846a478af844cc5af26c23c2
+SHA256 art\items\world\doc_flyer.png 0bc75ceb64aa268463668d93647253cef8bbb9075b7cd20152487779a1e7f2be
+SHA256 art\items\world\doc_flyer_glow.png 0e97e125c8d22b7827f2e03f4eb0d6a1e00a8b0ed120879d646c151ed6b56719
+SHA256 art\items\icons\doc_notice.png c33b5dabbad0478c1140988999dba0c5087daa060dd30078677147475d502b66
+SHA256 art\items\icons\doc_notice_hd.png 7b931b245e101f0f1b62bd8dacb45d5a3a2d729ad2cc96e7158a2fabdfaeb4a1
+SHA256 art\items\world\doc_notice.png 9af156c777262f6d625ef8a296ea4029cac67f44c4eba4c85b031038b692d3c4
+SHA256 art\items\world\doc_notice_glow.png f1089bf43aa225a0dfebca82a43e110a2690a276029a01e6f5c378b53697bb1f
+SHA256 art\items\icons\doc_log.png 538fa789383af0e3e5074dee142ef9afc5a83bf53bdf12d7ee0cb0bab6ec0511
+SHA256 art\items\icons\doc_log_hd.png 5536fbc6a478f6f187eacf7d7b25a8ff671bcd061eff09ee55ae9d1b0f6ed185
+SHA256 art\items\world\doc_log.png 22366bad6206ce6164a6c9501bad63642434c782ad95176cd6a4f6281dc85f57
+SHA256 art\items\world\doc_log_glow.png 1028e0b4ecb350274189b954e3392cc5f2784fdd71d87aaa3b7be0f6c87336b6
+SHA256 art\items\icons\doc_news.png 2ec82ce3cf3e2c940139d58b935bca2754d3e1094cb468904fac8fe4b3bc49cb
+SHA256 art\items\icons\doc_news_hd.png c5f34000cb0d5075bc59bf44d41fecd4ba6c36bb22f0586364d3c5b11aaedd4e
+SHA256 art\items\world\doc_news.png 31011e8af7e13d5331b5948af5575f510210c7ff9d731b6dc4c171d3bd689d54
+SHA256 art\items\world\doc_news_glow.png 1028e0b4ecb350274189b954e3392cc5f2784fdd71d87aaa3b7be0f6c87336b6
+SHA256 art\items\icons\doc_stub.png e1a43dbf475ecdd44f9f4054f21dbc8cec8d7a5744e66b9d0aa8d08b7d24efef
+SHA256 art\items\icons\doc_stub_hd.png 7b929801374eb7e2a07b35c4ab32650c6b0c434e1593d5fe7c9be84752b0c37f
+SHA256 art\items\world\doc_stub.png d2664f59951bc77d713eeb768b4ea40896af83c89b874a5e776e1774c99473b0
+SHA256 art\items\world\doc_stub_glow.png a5d0730138ee4a896f38cf698b8a2dc9811c417b2cbe2650c1dc51d4bf4aa62e
+SHA256 art\items\icons\credits_small.png 3acbe01ff579c34cc3f58d9ccf3dcb692f7fe9ce7f0326de4c2a522fb2df10e3
+SHA256 art\items\icons\credits_small_hd.png 378da515d4877f5e129cae97e775d0d81f7c388c440d18abcf556c4c43d9fb26
+SHA256 art\items\world\credits_small.png 8ff2745336c071e723ce5f3f7e84d5f12773d4887ca593cdd817a1eb06541cfb
+SHA256 art\items\world\credits_small_glow.png fb3a2fb0bead5206c0d4b18f9ba05e7c91e1e41740b335f3d88837f2e455cabd
+SHA256 art\items\icons\credits_large.png 2b97b2e75adb7a5e5065e7f8214d681616fd2bcb1bd5ddc81f8d8f1c5195655c
+SHA256 art\items\icons\credits_large_hd.png ac98f689347bdc88207f1cc336db5aeae9fd2f338cebfc6718a3d386774e8674
+SHA256 art\items\world\credits_large.png e8eb3bfdc27108ca5890313326fdaf95323aa14148c3c823511d9f2fc2e9b2f3
+SHA256 art\items\world\credits_large_glow.png 11724bd837806ab832652ffcd6ec43b9d28eff8e0efb3ed5b70c0e457dacdea2
+SHA256 art\items\icons\boat_coin.png 7643cd8590f839a8fb15f1d2724a181b36099331125449544d38b39b7f603093
+SHA256 art\items\icons\boat_coin_hd.png d18744ce550db196c8248fb76f1e60cc7599a35b69fc2127669ffa118d11135c
+SHA256 art\items\icons\pistol.png 7d180205adbfc7410af787913d689452cf5c6ec3debbbacf947b2b579453918b
+SHA256 art\items\icons\pistol_hd.png 3ae303131405137484dfce9479afb9c7214b9c3150dd39b5a072a616b15c08af
+SHA256 art\items\icons\mono_dagger.png ff380d69581c06b1454a5130e24f03639dc2a909511db77dc04cfe718cf9e3d8
+SHA256 art\items\icons\mono_dagger_hd.png ede9c5fc4063cea61615c683030080a38158949a62746014591dabf487e8770f
+OK: regenerated in memory art\items\icons\med_injector.png
+OK: regenerated in memory art\items\icons\med_injector_hd.png
+OK: regenerated in memory art\items\world\med_injector.png
+OK: regenerated in memory art\items\world\med_injector_glow.png
+OK: regenerated in memory art\items\icons\shield_cell.png
+OK: regenerated in memory art\items\icons\shield_cell_hd.png
+OK: regenerated in memory art\items\world\shield_cell.png
+OK: regenerated in memory art\items\world\shield_cell_glow.png
+OK: regenerated in memory art\items\icons\ch1_data_disk.png
+OK: regenerated in memory art\items\icons\ch1_data_disk_hd.png
+OK: regenerated in memory art\items\world\ch1_data_disk.png
+OK: regenerated in memory art\items\world\ch1_data_disk_glow.png
+OK: regenerated in memory art\items\icons\ch1_grey_cloth.png
+OK: regenerated in memory art\items\icons\ch1_grey_cloth_hd.png
+OK: regenerated in memory art\items\world\ch1_grey_cloth.png
+OK: regenerated in memory art\items\world\ch1_grey_cloth_glow.png
+OK: regenerated in memory art\items\icons\doc_flyer.png
+OK: regenerated in memory art\items\icons\doc_flyer_hd.png
+OK: regenerated in memory art\items\world\doc_flyer.png
+OK: regenerated in memory art\items\world\doc_flyer_glow.png
+OK: regenerated in memory art\items\icons\doc_notice.png
+OK: regenerated in memory art\items\icons\doc_notice_hd.png
+OK: regenerated in memory art\items\world\doc_notice.png
+OK: regenerated in memory art\items\world\doc_notice_glow.png
+OK: regenerated in memory art\items\icons\doc_log.png
+OK: regenerated in memory art\items\icons\doc_log_hd.png
+OK: regenerated in memory art\items\world\doc_log.png
+OK: regenerated in memory art\items\world\doc_log_glow.png
+OK: regenerated in memory art\items\icons\doc_news.png
+OK: regenerated in memory art\items\icons\doc_news_hd.png
+OK: regenerated in memory art\items\world\doc_news.png
+OK: regenerated in memory art\items\world\doc_news_glow.png
+OK: regenerated in memory art\items\icons\doc_stub.png
+OK: regenerated in memory art\items\icons\doc_stub_hd.png
+OK: regenerated in memory art\items\world\doc_stub.png
+OK: regenerated in memory art\items\world\doc_stub_glow.png
+OK: regenerated in memory art\items\icons\credits_small.png
+OK: regenerated in memory art\items\icons\credits_small_hd.png
+OK: regenerated in memory art\items\world\credits_small.png
+OK: regenerated in memory art\items\world\credits_small_glow.png
+OK: regenerated in memory art\items\icons\credits_large.png
+OK: regenerated in memory art\items\icons\credits_large_hd.png
+OK: regenerated in memory art\items\world\credits_large.png
+OK: regenerated in memory art\items\world\credits_large_glow.png
+OK: regenerated in memory art\items\icons\boat_coin.png
+OK: regenerated in memory art\items\icons\boat_coin_hd.png
+OK: regenerated in memory art\items\icons\pistol.png
+OK: regenerated in memory art\items\icons\pistol_hd.png
+OK: regenerated in memory art\items\icons\mono_dagger.png
+OK: regenerated in memory art\items\icons\mono_dagger_hd.png
