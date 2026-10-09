@@ -66,6 +66,10 @@ func _draw_world_sprite(key: String) -> bool:
 		return false
 	var base: Texture2D = sprite["base"]
 	var origin := Vector2(-base.get_width() * 0.5, -base.get_height() * 0.5 - 4.0)
+	var outline: Texture2D = sprite.get("outline")
+	if outline != null:
+		var pad := Vector2(outline.get_size() - base.get_size()) * 0.5
+		draw_texture(outline, origin - pad, Color(0.62, 0.85, 0.88, 0.65))
 	draw_texture(base, origin)
 	var glow: Texture2D = sprite["glow"]
 	if glow != null:

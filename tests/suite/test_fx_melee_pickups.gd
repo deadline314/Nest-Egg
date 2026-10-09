@@ -14,12 +14,78 @@ func run() -> void:
 	await _test_melee_fx()
 	await _test_trail_styles()
 	_test_pickup_kinds()
+	_test_pickup_outline()
+	await _test_pickup_prompt_lifecycle()
 	await _test_pickup_collect()
 	await _test_explosion_budget()
 
 
+func _test_pickup_outline() -> void:
+	var sprite := ItemIcons.world("credits_small")
+	check(sprite.has("outline"), "world art has a persistent pickup contour")
+	if not sprite.has("outline"):
+		return
+	var outline := sprite["outline"] as Texture2D
+	var base := sprite["base"] as Texture2D
+	check(outline != null and outline.get_width() > base.get_width(), "contour extends outside the item without clipping")
+	check(ItemIcons.world("credits_small")["outline"] == outline, "contour texture is reused instead of allocating per frame")
+	var image := outline.get_image()
+	var pixels := 0
+	var center_pixels := 0
+	var pad := int((image.get_width() - base.get_width()) / 2)
+	var original := base.get_image()
+	for y in image.get_height():
+		for x in image.get_width():
+			if image.get_pixel(x, y).a <= 0.01:
+				continue
+			pixels += 1
+			if x >= pad and y >= pad and x < pad + original.get_width() and y < pad + original.get_height():
+				if original.get_pixel(x - pad, y - pad).a > 0.1:
+					center_pixels += 1
+	check(pixels > 0 and center_pixels == 0, "highlight follows only the outside silhouette and preserves item detail")
+
+
 func _weapon(id: String) -> WeaponData:
 	return load("res://data/weapons/melee/%s.tres" % id) as WeaponData
+
+
+func _test_pickup_prompt_lifecycle() -> void:
+	await open_level(10.0)
+	var player := level.player
+	player.set_physics_process(false)
+	var health := HealthPickup.new()
+	health.position = player.position + Vector2(30, 0)
+	level._entities.add_child(health)
+	var prompt := health.get_child(1) as WorldPrompt
+	health._on_body_entered(player)
+	await frames(30)
+	check(is_instance_valid(health) and prompt.is_showing(), "a full-health pickup remains and shows its nearby hint")
+	player.position.x -= 180.0
+	await frames(30)
+	check(not prompt.is_showing() and is_zero_approx(prompt._alpha), "leaving the pickup hides its hint")
+	player.position.x += 180.0
+	await frames(30)
+	check(prompt.is_showing(), "returning to the retained pickup restores its hint")
+	player.health.current -= 1
+	health._on_body_entered(player)
+	await frames(2)
+	check(not is_instance_valid(health) and not is_instance_valid(prompt), "collecting health removes both the pickup and its hint")
+	var med := ConsumableBag.find(&"med_injector")
+	for i in med.max_carry:
+		player.consumables.add(med)
+	var supply := ConsumablePickup.new()
+	supply.configure(med)
+	supply.position = player.position + Vector2(30, 0)
+	level._entities.add_child(supply)
+	var supply_prompt := supply.get_child(1) as WorldPrompt
+	supply._on_body_entered(player)
+	await frames(30)
+	check(is_instance_valid(supply) and supply_prompt.is_showing(), "a full bag retains the item and its nearby hint")
+	player.consumables.restore({str(med.id): med.max_carry - 1})
+	supply._on_body_entered(player)
+	await frames(2)
+	check(not is_instance_valid(supply) and not is_instance_valid(supply_prompt), "collecting after freeing bag space leaves no stale hint")
+	await end_level(level)
 
 
 func _test_melee_data() -> void:

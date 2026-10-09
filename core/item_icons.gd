@@ -50,8 +50,39 @@ static func world(key: String) -> Dictionary:
 		if base != null:
 			var glow_path := WORLD_DIR.path_join(key + "_glow.png")
 			result = {"base": base, "glow": load(glow_path) as Texture2D if ResourceLoader.exists(glow_path) else null}
+			result["outline"] = _world_outline(base)
 	_world_cache[key] = result
 	return result
+
+
+## One world-pixel contour, built once per cached sprite, never a full-body glow.
+static func _world_outline(base: Texture2D) -> Texture2D:
+	var image := base.get_image()
+	if image == null:
+		return null
+	if image.is_compressed() and image.decompress() != OK:
+		push_warning("[ItemIcons] 無法讀取拾取輪廓：%s" % base.resource_path)
+		return null
+	var pad := maxi(1, ceili(float(image.get_width()) / 24.0))
+	var outline := Image.create(image.get_width() + pad * 2, image.get_height() + pad * 2, false, Image.FORMAT_RGBA8)
+	const DIRECTIONS := [Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1), Vector2i(-1, 0), Vector2i(1, 0), Vector2i(-1, 1), Vector2i(0, 1), Vector2i(1, 1)]
+	for y in outline.get_height():
+		for x in outline.get_width():
+			var source := Vector2i(x - pad, y - pad)
+			if _world_alpha(image, source) > 0.01:
+				continue
+			var alpha := 0.0
+			for direction: Vector2i in DIRECTIONS:
+				alpha = maxf(alpha, _world_alpha(image, source + direction * pad))
+			if alpha > 0.01:
+				outline.set_pixel(x, y, Color(1, 1, 1, alpha))
+	return ImageTexture.create_from_image(outline)
+
+
+static func _world_alpha(image: Image, at: Vector2i) -> float:
+	if at.x < 0 or at.y < 0 or at.x >= image.get_width() or at.y >= image.get_height():
+		return 0.0
+	return image.get_pixelv(at).a
 
 
 ## 武器圖示（64×24）；visual_id 是 WeaponData.visual_id。
