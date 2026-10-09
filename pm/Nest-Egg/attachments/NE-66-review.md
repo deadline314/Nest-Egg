@@ -41,3 +41,7 @@ medium / level_02：[tile 30](../images/NE-66-session5-medium/level_02_30_medium
 high / level_01：[tile 30](../images/NE-66-session5-high/level_01_30_high.png), [tile 115](../images/NE-66-session5-high/level_01_115_high.png), [tile 200](../images/NE-66-session5-high/level_01_200_high.png)。
 
 high / level_02：[tile 30](../images/NE-66-session5-high/level_02_30_high.png), [tile 175](../images/NE-66-session5-high/level_02_175_high.png), [tile 350](../images/NE-66-session5-high/level_02_350_high.png)。
+
+## 2026-10-09 當前版補充
+
+前述 level_01 圖為歷史關卡；最新第一章改由九份 campaign 關卡資料構成。新角色與地圖已重新匯入，sRGB 原生圖、低檔及三檔數據见 [本輪審查](NE-66-followup/review.md)。舊圖與本輪顯示編碼不同，不直接作像素差異比較；第一章目前低檔電話亭與高檔市集未達門檻，風格與 BG-17 效能條件仍待驗收。

@@ -41,6 +41,16 @@ func run() -> void:
 	var legacy := LevelBuilder.parse(load("res://data/levels/level_01.tres") as LevelData)
 	check(PROBE.probe_floor(legacy, 30, "屋頂巷弄") == 18.0 * legacy.tile_size, "legacy player probe stands on its upper roof")
 	check(PROBE.probe_floor(legacy, 36, "屋頂巷弄") == 15.0 * legacy.tile_size, "legacy enemy probe stands on its own adjacent roof")
+	var chapter2 := LevelBuilder.parse(load("res://data/levels/level_02.tres") as LevelData)
+	for entry: Dictionary in PROBE.LEVELS:
+		if not str(entry["path"]).ends_with("level_02.tres"):
+			continue
+		for spot: Array in entry["spots"]:
+			if spot.size() < 4:
+				continue
+			_check_floor(chapter2, "level_02", str(spot[0]), int(spot[1]), int(spot[2]))
+			_check_floor(chapter2, "level_02", str(spot[0]) + " enemy", int(spot[3]), int(spot[2]))
+			check(chapter2.cell(int(spot[3]), int(spot[2]) - 1) != "o", "%s enemy probe avoids the solid oil barrel" % spot[0])
 
 
 func _check_floor(layout: LevelLayout, id: String, label: String, column: int, row: int) -> void:

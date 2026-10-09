@@ -1,0 +1,1088 @@
+{
+  "brightness": 0.5,
+  "contrast_encoding": "native viewport (linear HDR)",
+  "engine": "4.7-stable (official)",
+  "light_quality": 2,
+  "results": [
+    {
+      "column": 18,
+      "edge_contrast": 9.88760662002251,
+      "enemy": "",
+      "enemy_contrast": null,
+      "feet": [
+        296.0,
+        319.997741699219
+      ],
+      "level": "ch1_pawnshop",
+      "materials": [
+        "res://data/environment/materials/concrete.tres"
+      ],
+      "passed": true,
+      "path": "res://data/levels/ch1_pawnshop.tres",
+      "player_contrast": 0.730389878586371,
+      "props": [
+        {
+          "ground": true,
+          "id": "pawnshop_front__tag_shelf",
+          "x": 33.0
+        },
+        {
+          "ground": true,
+          "id": "basement_door__locked_iron_door",
+          "x": 42.0
+        },
+        {
+          "id": "pawnshop_front__wall_instruments",
+          "x": 49.0,
+          "y": 14.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_front__counter_register",
+          "x": 52.0
+        },
+        {
+          "dy": -36.0,
+          "ground": true,
+          "id": "pawnshop_front__locked_ledger_box",
+          "x": 53.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_front__arms_workbench",
+          "x": 61.0
+        },
+        {
+          "id": "pawnshop_front__pawn_sign",
+          "x": 64.0,
+          "y": 11.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_front__leak_bucket",
+          "x": 69.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_front__crate_pile",
+          "x": 72.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__umbrella_stand",
+          "x": 76.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_kitchen__dish_cabinet",
+          "x": 81.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_kitchen__water_urn",
+          "x": 83.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_kitchen__dining_table",
+          "x": 90.0
+        },
+        {
+          "dy": -25.0,
+          "ground": true,
+          "id": "pawnshop_kitchen__lunch_left_for_today",
+          "x": 91.0
+        },
+        {
+          "id": "pawnshop_kitchen__hanging_pans",
+          "x": 94.0,
+          "y": 13.0
+        },
+        {
+          "id": "pawnshop_kitchen__paper_shade_lamp",
+          "x": 88.0,
+          "y": 11.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_kitchen__kettle_stove",
+          "x": 98.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_kitchen__old_fridge",
+          "x": 102.0
+        },
+        {
+          "id": "pawnshop_kitchen__tear_off_calendar",
+          "x": 100.0,
+          "y": 14.0
+        }
+      ],
+      "sampling_valid": true,
+      "screenshot": "NE-66-ch1_pawnshop-18.png",
+      "spot": "後空地",
+      "theme": "res://data/environment/themes/ch1_pawnshop.tres"
+    },
+    {
+      "column": 55,
+      "edge_contrast": 4.92934636130772,
+      "enemy": "",
+      "enemy_contrast": null,
+      "feet": [
+        888.0,
+        319.997741699219
+      ],
+      "level": "ch1_pawnshop",
+      "materials": [
+        "res://data/environment/materials/concrete.tres"
+      ],
+      "passed": true,
+      "path": "res://data/levels/ch1_pawnshop.tres",
+      "player_contrast": 0.860346205370696,
+      "props": [
+        {
+          "ground": true,
+          "id": "pawnshop_front__tag_shelf",
+          "x": 33.0
+        },
+        {
+          "ground": true,
+          "id": "basement_door__locked_iron_door",
+          "x": 42.0
+        },
+        {
+          "id": "pawnshop_front__wall_instruments",
+          "x": 49.0,
+          "y": 14.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_front__counter_register",
+          "x": 52.0
+        },
+        {
+          "dy": -36.0,
+          "ground": true,
+          "id": "pawnshop_front__locked_ledger_box",
+          "x": 53.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_front__arms_workbench",
+          "x": 61.0
+        },
+        {
+          "id": "pawnshop_front__pawn_sign",
+          "x": 64.0,
+          "y": 11.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_front__leak_bucket",
+          "x": 69.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_front__crate_pile",
+          "x": 72.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__umbrella_stand",
+          "x": 76.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_kitchen__dish_cabinet",
+          "x": 81.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_kitchen__water_urn",
+          "x": 83.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_kitchen__dining_table",
+          "x": 90.0
+        },
+        {
+          "dy": -25.0,
+          "ground": true,
+          "id": "pawnshop_kitchen__lunch_left_for_today",
+          "x": 91.0
+        },
+        {
+          "id": "pawnshop_kitchen__hanging_pans",
+          "x": 94.0,
+          "y": 13.0
+        },
+        {
+          "id": "pawnshop_kitchen__paper_shade_lamp",
+          "x": 88.0,
+          "y": 11.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_kitchen__kettle_stove",
+          "x": 98.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_kitchen__old_fridge",
+          "x": 102.0
+        },
+        {
+          "id": "pawnshop_kitchen__tear_off_calendar",
+          "x": 100.0,
+          "y": 14.0
+        }
+      ],
+      "sampling_valid": true,
+      "screenshot": "NE-66-ch1_pawnshop-55.png",
+      "spot": "店面",
+      "theme": "res://data/environment/themes/ch1_pawnshop.tres"
+    },
+    {
+      "column": 88,
+      "edge_contrast": 4.01428699693714,
+      "enemy": "",
+      "enemy_contrast": null,
+      "feet": [
+        1416.0,
+        319.997741699219
+      ],
+      "level": "ch1_pawnshop",
+      "materials": [
+        "res://data/environment/materials/concrete.tres"
+      ],
+      "passed": true,
+      "path": "res://data/levels/ch1_pawnshop.tres",
+      "player_contrast": 0.78412669266675,
+      "props": [
+        {
+          "ground": true,
+          "id": "pawnshop_front__tag_shelf",
+          "x": 33.0
+        },
+        {
+          "ground": true,
+          "id": "basement_door__locked_iron_door",
+          "x": 42.0
+        },
+        {
+          "id": "pawnshop_front__wall_instruments",
+          "x": 49.0,
+          "y": 14.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_front__counter_register",
+          "x": 52.0
+        },
+        {
+          "dy": -36.0,
+          "ground": true,
+          "id": "pawnshop_front__locked_ledger_box",
+          "x": 53.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_front__arms_workbench",
+          "x": 61.0
+        },
+        {
+          "id": "pawnshop_front__pawn_sign",
+          "x": 64.0,
+          "y": 11.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_front__leak_bucket",
+          "x": 69.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_front__crate_pile",
+          "x": 72.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__umbrella_stand",
+          "x": 76.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_kitchen__dish_cabinet",
+          "x": 81.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_kitchen__water_urn",
+          "x": 83.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_kitchen__dining_table",
+          "x": 90.0
+        },
+        {
+          "dy": -25.0,
+          "ground": true,
+          "id": "pawnshop_kitchen__lunch_left_for_today",
+          "x": 91.0
+        },
+        {
+          "id": "pawnshop_kitchen__hanging_pans",
+          "x": 94.0,
+          "y": 13.0
+        },
+        {
+          "id": "pawnshop_kitchen__paper_shade_lamp",
+          "x": 88.0,
+          "y": 11.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_kitchen__kettle_stove",
+          "x": 98.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_kitchen__old_fridge",
+          "x": 102.0
+        },
+        {
+          "id": "pawnshop_kitchen__tear_off_calendar",
+          "x": 100.0,
+          "y": 14.0
+        }
+      ],
+      "sampling_valid": true,
+      "screenshot": "NE-66-ch1_pawnshop-88.png",
+      "spot": "廚房",
+      "theme": "res://data/environment/themes/ch1_pawnshop.tres"
+    },
+    {
+      "column": 42,
+      "edge_contrast": 10.7730542530746,
+      "enemy": "",
+      "enemy_contrast": null,
+      "feet": [
+        680.0,
+        287.997741699219
+      ],
+      "level": "ch1_rooftop",
+      "materials": [
+        "res://data/environment/materials/rooftop.tres"
+      ],
+      "passed": true,
+      "path": "res://data/levels/ch1_rooftop.tres",
+      "player_contrast": 0.822628022981755,
+      "props": [
+        {
+          "ground": true,
+          "id": "rooftop__stairwell_hut",
+          "x": 1.0
+        },
+        {
+          "ground": true,
+          "id": "rooftop__rusty_water_tank",
+          "x": 44.0
+        },
+        {
+          "ground": true,
+          "id": "rooftop__antenna_forest",
+          "x": 64.0
+        },
+        {
+          "ground": true,
+          "id": "rooftop__dish_pair",
+          "x": 9.0
+        },
+        {
+          "ground": true,
+          "id": "rooftop__rain_collecting_barrel",
+          "x": 34.0
+        },
+        {
+          "ground": true,
+          "id": "rooftop__torn_umbrella_tea",
+          "x": 38.0
+        },
+        {
+          "ground": true,
+          "id": "rooftop__folding_chairs_boxes",
+          "x": 49.0
+        },
+        {
+          "id": "rooftop__rope_coil_hook",
+          "x": 22.0,
+          "y": 10.0
+        }
+      ],
+      "sampling_valid": true,
+      "screenshot": "NE-66-ch1_rooftop-42.png",
+      "spot": "屋頂水塔",
+      "theme": "res://data/environment/themes/ch1_rooftop.tres"
+    },
+    {
+      "column": 60,
+      "edge_contrast": 5.1805113518383,
+      "enemy": "res://data/enemies/sweeper.tres",
+      "enemy_contrast": 0.571014397092391,
+      "feet": [
+        968.0,
+        319.997741699219
+      ],
+      "level": "ch1_street",
+      "materials": [
+        "res://data/environment/materials/asphalt.tres"
+      ],
+      "passed": false,
+      "path": "res://data/levels/ch1_street.tres",
+      "player_contrast": 0.560391019776415,
+      "props": [
+        {
+          "ground": true,
+          "id": "harbor_street__fish_cart",
+          "x": 14.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__parked_scooter",
+          "x": 42.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__pole_wire_knot",
+          "x": 54.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__restore_queue_sign",
+          "x": 28.0
+        },
+        {
+          "id": "harbor_street__stacked_neon_signs",
+          "x": 74.0,
+          "y": 12.0
+        },
+        {
+          "id": "harbor_street__rebirth_billboard",
+          "x": 102.0,
+          "y": 8.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__steam_manhole",
+          "x": 118.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__tide_gauge",
+          "x": 144.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__umbrella_vending",
+          "x": 170.0
+        },
+        {
+          "id": "harbor_street__stacked_neon_signs",
+          "x": 178.0,
+          "y": 12.0
+        }
+      ],
+      "sampling_valid": true,
+      "screenshot": "NE-66-ch1_street-60.png",
+      "spot": "市集",
+      "theme": "res://data/environment/themes/ch1_street.tres"
+    },
+    {
+      "column": 200,
+      "edge_contrast": 2.91360136677435,
+      "enemy": "res://data/enemies/sweeper.tres",
+      "enemy_contrast": 0.563354499940282,
+      "feet": [
+        3208.0,
+        319.997741699219
+      ],
+      "level": "ch1_street",
+      "materials": [
+        "res://data/environment/materials/asphalt.tres"
+      ],
+      "passed": true,
+      "path": "res://data/levels/ch1_street.tres",
+      "player_contrast": 0.770035042025315,
+      "props": [
+        {
+          "ground": true,
+          "id": "harbor_street__fish_cart",
+          "x": 14.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__parked_scooter",
+          "x": 42.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__pole_wire_knot",
+          "x": 54.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__restore_queue_sign",
+          "x": 28.0
+        },
+        {
+          "id": "harbor_street__stacked_neon_signs",
+          "x": 74.0,
+          "y": 12.0
+        },
+        {
+          "id": "harbor_street__rebirth_billboard",
+          "x": 102.0,
+          "y": 8.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__steam_manhole",
+          "x": 118.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__tide_gauge",
+          "x": 144.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__umbrella_vending",
+          "x": 170.0
+        },
+        {
+          "id": "harbor_street__stacked_neon_signs",
+          "x": 178.0,
+          "y": 12.0
+        }
+      ],
+      "sampling_valid": true,
+      "screenshot": "NE-66-ch1_street-200.png",
+      "spot": "碼頭入口",
+      "theme": "res://data/environment/themes/ch1_street.tres"
+    },
+    {
+      "column": 26,
+      "edge_contrast": 1.36400957974347,
+      "enemy": "",
+      "enemy_contrast": null,
+      "feet": [
+        424.0,
+        319.997741699219
+      ],
+      "level": "ch1_booth_alley",
+      "materials": [
+        "res://data/environment/materials/asphalt.tres"
+      ],
+      "passed": true,
+      "path": "res://data/levels/ch1_booth_alley.tres",
+      "player_contrast": 0.607078213156863,
+      "props": [
+        {
+          "ground": true,
+          "id": "anchor_phone_booth__shutter_graffiti",
+          "x": 8.0
+        },
+        {
+          "ground": true,
+          "id": "anchor_phone_booth__trash_bags",
+          "x": 13.0
+        },
+        {
+          "ground": true,
+          "id": "anchor_phone_booth__news_rack",
+          "x": 34.0
+        },
+        {
+          "ground": true,
+          "id": "anchor_phone_booth__leaning_bicycle",
+          "x": 40.0
+        },
+        {
+          "ground": true,
+          "id": "anchor_phone_booth__restore_arrow_sign",
+          "x": 48.0
+        },
+        {
+          "ground": true,
+          "id": "anchor_phone_booth__backup_kiosk",
+          "x": 51.0
+        },
+        {
+          "id": "anchor_phone_booth__poster_wall",
+          "x": 28.0,
+          "y": 14.0
+        },
+        {
+          "ground": true,
+          "id": "anchor_phone_booth__flicker_lamp_post",
+          "x": 31.0
+        },
+        {
+          "ground": true,
+          "id": "anchor_phone_booth__gutter_downpipe",
+          "x": 20.0
+        }
+      ],
+      "sampling_valid": true,
+      "screenshot": "NE-66-ch1_booth_alley-26.png",
+      "spot": "電話亭",
+      "theme": "res://data/environment/themes/ch1_booth_alley.tres"
+    },
+    {
+      "column": 54,
+      "edge_contrast": 27.6243131929137,
+      "enemy": "res://data/enemies/sweeper.tres",
+      "enemy_contrast": 0.797563511013015,
+      "feet": [
+        872.0,
+        271.997741699219
+      ],
+      "level": "ch1_warehouse",
+      "materials": [
+        "res://data/environment/materials/concrete.tres"
+      ],
+      "passed": true,
+      "path": "res://data/levels/ch1_warehouse.tres",
+      "player_contrast": 0.642513876749473,
+      "props": [
+        {
+          "ground": true,
+          "id": "dock_warehouse__watchdog_dock",
+          "x": 60.0
+        },
+        {
+          "id": "dock_warehouse__hoist_chain",
+          "x": 34.0,
+          "y": 9.0
+        },
+        {
+          "ground": true,
+          "id": "dock_warehouse__searchlight_post",
+          "x": 11.0
+        },
+        {
+          "ground": true,
+          "id": "dock_warehouse__wrapped_pallets",
+          "x": 41.0
+        },
+        {
+          "ground": true,
+          "id": "dock_warehouse__rotating_beacon",
+          "x": 52.0
+        },
+        {
+          "dx": -3.0,
+          "id": "dock_warehouse__floor_switch_plate",
+          "x": 121.0,
+          "y": 22.0
+        },
+        {
+          "ground": true,
+          "id": "dock_warehouse__water_pump",
+          "x": 86.0
+        },
+        {
+          "id": "dock_warehouse__float_drum_crate",
+          "x": 106.0,
+          "y": 10.0
+        }
+      ],
+      "sampling_valid": true,
+      "screenshot": "NE-66-ch1_warehouse-54.png",
+      "spot": "看門狗前廳",
+      "theme": "res://data/environment/themes/ch1_warehouse.tres"
+    },
+    {
+      "column": 86,
+      "edge_contrast": 26.7376178131321,
+      "enemy": "res://data/enemies/sweeper.tres",
+      "enemy_contrast": 0.606004071896472,
+      "feet": [
+        1384.0,
+        271.997741699219
+      ],
+      "level": "ch1_warehouse",
+      "materials": [
+        "res://data/environment/materials/concrete.tres"
+      ],
+      "passed": true,
+      "path": "res://data/levels/ch1_warehouse.tres",
+      "player_contrast": 0.702331346994601,
+      "props": [
+        {
+          "ground": true,
+          "id": "dock_warehouse__watchdog_dock",
+          "x": 60.0
+        },
+        {
+          "id": "dock_warehouse__hoist_chain",
+          "x": 34.0,
+          "y": 9.0
+        },
+        {
+          "ground": true,
+          "id": "dock_warehouse__searchlight_post",
+          "x": 11.0
+        },
+        {
+          "ground": true,
+          "id": "dock_warehouse__wrapped_pallets",
+          "x": 41.0
+        },
+        {
+          "ground": true,
+          "id": "dock_warehouse__rotating_beacon",
+          "x": 52.0
+        },
+        {
+          "dx": -3.0,
+          "id": "dock_warehouse__floor_switch_plate",
+          "x": 121.0,
+          "y": 22.0
+        },
+        {
+          "ground": true,
+          "id": "dock_warehouse__water_pump",
+          "x": 86.0
+        },
+        {
+          "id": "dock_warehouse__float_drum_crate",
+          "x": 106.0,
+          "y": 10.0
+        }
+      ],
+      "sampling_valid": true,
+      "screenshot": "NE-66-ch1_warehouse-86.png",
+      "spot": "閘門廳",
+      "theme": "res://data/environment/themes/ch1_warehouse.tres"
+    },
+    {
+      "column": 22,
+      "edge_contrast": 28.0378728181063,
+      "enemy": "res://data/enemies/sweeper.tres",
+      "enemy_contrast": 0.682478657976275,
+      "feet": [
+        360.0,
+        271.997741699219
+      ],
+      "level": "ch1_vault",
+      "materials": [
+        "res://data/environment/materials/concrete.tres"
+      ],
+      "passed": true,
+      "path": "res://data/levels/ch1_vault.tres",
+      "player_contrast": 0.625020744586171,
+      "props": [
+        {
+          "ground": true,
+          "id": "dock_warehouse__open_container",
+          "x": 23.0
+        }
+      ],
+      "sampling_valid": true,
+      "screenshot": "NE-66-ch1_vault-22.png",
+      "spot": "倉庫深處",
+      "theme": "res://data/environment/themes/ch1_vault.tres"
+    },
+    {
+      "column": 83,
+      "edge_contrast": 20.5466975615971,
+      "enemy": "res://data/enemies/sweeper.tres",
+      "enemy_contrast": 0.943333399409838,
+      "feet": [
+        1336.0,
+        143.997741699219
+      ],
+      "level": "ch1_vault",
+      "materials": [
+        "res://data/environment/materials/concrete.tres"
+      ],
+      "passed": true,
+      "path": "res://data/levels/ch1_vault.tres",
+      "player_contrast": 0.641581077936774,
+      "props": [
+        {
+          "ground": true,
+          "id": "dock_warehouse__open_container",
+          "x": 23.0
+        }
+      ],
+      "sampling_valid": true,
+      "screenshot": "NE-66-ch1_vault-83.png",
+      "spot": "上層走道",
+      "theme": "res://data/environment/themes/ch1_vault.tres"
+    },
+    {
+      "column": 25,
+      "edge_contrast": 10.9985754578044,
+      "enemy": "",
+      "enemy_contrast": null,
+      "feet": [
+        408.0,
+        319.997741699219
+      ],
+      "level": "ch1_lounge",
+      "materials": [
+        "res://data/environment/materials/facility_floor.tres"
+      ],
+      "passed": true,
+      "path": "res://data/levels/ch1_lounge.tres",
+      "player_contrast": 0.869219689637453,
+      "props": [
+        {
+          "ground": true,
+          "id": "revival_lounge__booth_sofa",
+          "x": 6.0
+        },
+        {
+          "ground": true,
+          "id": "revival_lounge__round_table_stools",
+          "x": 14.0
+        },
+        {
+          "ground": true,
+          "id": "revival_lounge__jukebox",
+          "x": 21.0
+        },
+        {
+          "ground": true,
+          "id": "revival_lounge__bar_counter",
+          "x": 27.0
+        },
+        {
+          "id": "revival_lounge__bottle_wall_shelf",
+          "x": 28.0,
+          "y": 14.0
+        },
+        {
+          "id": "revival_lounge__menu_board",
+          "x": 38.0,
+          "y": 14.0
+        },
+        {
+          "ground": true,
+          "id": "revival_lounge__corner_plant_string_lights",
+          "x": 40.0
+        },
+        {
+          "ground": true,
+          "id": "revival_lounge__hat_coat_rack",
+          "x": 46.0
+        },
+        {
+          "id": "revival_lounge__neon_glass_sign",
+          "x": 10.0,
+          "y": 13.0
+        }
+      ],
+      "sampling_valid": true,
+      "screenshot": "NE-66-ch1_lounge-25.png",
+      "spot": "復原館",
+      "theme": "res://data/environment/themes/ch1_lounge.tres"
+    },
+    {
+      "column": 25,
+      "edge_contrast": 13.1596493877179,
+      "enemy": "",
+      "enemy_contrast": null,
+      "feet": [
+        408.0,
+        319.997741699219
+      ],
+      "level": "ch1_stall",
+      "materials": [
+        "res://data/environment/materials/asphalt.tres"
+      ],
+      "passed": true,
+      "path": "res://data/levels/ch1_stall.tres",
+      "player_contrast": 0.653898667356,
+      "props": [
+        {
+          "ground": true,
+          "id": "dawn_noodle_stall__ali_noodle_cart",
+          "x": 18.0
+        },
+        {
+          "ground": true,
+          "id": "dawn_noodle_stall__noodle_bowls_table",
+          "x": 26.0
+        },
+        {
+          "ground": true,
+          "id": "dawn_noodle_stall__stool_stack",
+          "x": 32.0
+        },
+        {
+          "id": "dawn_noodle_stall__hanging_lantern",
+          "x": 22.0,
+          "y": 12.0
+        },
+        {
+          "id": "dawn_noodle_stall__dawn_string_lights",
+          "x": 14.0,
+          "y": 10.0
+        },
+        {
+          "ground": true,
+          "id": "dawn_noodle_stall__cat_box_bed",
+          "x": 36.0
+        },
+        {
+          "ground": true,
+          "id": "dawn_noodle_stall__shop_shutter_dawn",
+          "x": 6.0
+        }
+      ],
+      "sampling_valid": true,
+      "screenshot": "NE-66-ch1_stall-25.png",
+      "spot": "宵夜麵攤",
+      "theme": "res://data/environment/themes/ch1_stall.tres"
+    },
+    {
+      "column": 55,
+      "edge_contrast": 3.86359029170043,
+      "enemy": "",
+      "enemy_contrast": null,
+      "feet": [
+        888.0,
+        319.997741699219
+      ],
+      "level": "ch1_pawnshop_dawn",
+      "materials": [
+        "res://data/environment/materials/concrete.tres"
+      ],
+      "passed": true,
+      "path": "res://data/levels/ch1_pawnshop_dawn.tres",
+      "player_contrast": 0.803129495150229,
+      "props": [
+        {
+          "ground": true,
+          "id": "pawnshop_front__tag_shelf",
+          "x": 33.0
+        },
+        {
+          "ground": true,
+          "id": "basement_door__locked_iron_door",
+          "x": 42.0
+        },
+        {
+          "id": "pawnshop_front__wall_instruments",
+          "x": 49.0,
+          "y": 14.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_front__counter_register",
+          "x": 52.0
+        },
+        {
+          "dy": -36.0,
+          "ground": true,
+          "id": "pawnshop_front__locked_ledger_box",
+          "x": 53.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_front__arms_workbench",
+          "x": 61.0
+        },
+        {
+          "id": "pawnshop_front__pawn_sign",
+          "x": 64.0,
+          "y": 11.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_front__leak_bucket",
+          "x": 69.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_front__crate_pile",
+          "x": 72.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__umbrella_stand",
+          "x": 76.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_kitchen__dish_cabinet",
+          "x": 81.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_kitchen__water_urn",
+          "x": 83.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_kitchen__dining_table",
+          "x": 90.0
+        },
+        {
+          "dy": -25.0,
+          "ground": true,
+          "id": "pawnshop_kitchen__lunch_left_for_today",
+          "x": 91.0
+        },
+        {
+          "id": "pawnshop_kitchen__hanging_pans",
+          "x": 94.0,
+          "y": 13.0
+        },
+        {
+          "id": "pawnshop_kitchen__paper_shade_lamp",
+          "x": 88.0,
+          "y": 11.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_kitchen__kettle_stove",
+          "x": 98.0
+        },
+        {
+          "ground": true,
+          "id": "pawnshop_kitchen__old_fridge",
+          "x": 102.0
+        },
+        {
+          "id": "pawnshop_kitchen__tear_off_calendar",
+          "x": 100.0,
+          "y": 14.0
+        }
+      ],
+      "sampling_valid": true,
+      "screenshot": "NE-66-ch1_pawnshop_dawn-55.png",
+      "spot": "天亮店面",
+      "theme": "res://data/environment/themes/ch1_pawnshop.tres"
+    }
+  ],
+  "sample_interval": 0.2,
+  "samples_per_spot": 16,
+  "screenshot_encoding": "sRGB",
+  "thresholds": {
+    "edge": 1.0,
+    "enemy": 0.45,
+    "player": 0.6
+  },
+  "version": 1,
+  "viewport": [
+    640.0,
+    360.0
+  ]
+}

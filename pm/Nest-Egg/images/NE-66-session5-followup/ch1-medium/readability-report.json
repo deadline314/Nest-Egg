@@ -1,0 +1,167 @@
+{
+  "brightness": 0.5,
+  "contrast_encoding": "native viewport (linear HDR)",
+  "engine": "4.7-stable (official)",
+  "light_quality": 1,
+  "results": [
+    {
+      "column": 60,
+      "edge_contrast": 5.21786441264034,
+      "enemy": "res://data/enemies/sweeper.tres",
+      "enemy_contrast": 0.640256256744482,
+      "feet": [
+        968.0,
+        319.997741699219
+      ],
+      "level": "ch1_street",
+      "materials": [
+        "res://data/environment/materials/asphalt.tres"
+      ],
+      "passed": true,
+      "path": "res://data/levels/ch1_street.tres",
+      "player_contrast": 0.610711957106435,
+      "props": [
+        {
+          "ground": true,
+          "id": "harbor_street__fish_cart",
+          "x": 14.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__parked_scooter",
+          "x": 42.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__pole_wire_knot",
+          "x": 54.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__restore_queue_sign",
+          "x": 28.0
+        },
+        {
+          "id": "harbor_street__stacked_neon_signs",
+          "x": 74.0,
+          "y": 12.0
+        },
+        {
+          "id": "harbor_street__rebirth_billboard",
+          "x": 102.0,
+          "y": 8.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__steam_manhole",
+          "x": 118.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__tide_gauge",
+          "x": 144.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__umbrella_vending",
+          "x": 170.0
+        },
+        {
+          "id": "harbor_street__stacked_neon_signs",
+          "x": 178.0,
+          "y": 12.0
+        }
+      ],
+      "sampling_valid": true,
+      "screenshot": "NE-66-ch1_street-60.png",
+      "spot": "市集",
+      "theme": "res://data/environment/themes/ch1_street.tres"
+    },
+    {
+      "column": 200,
+      "edge_contrast": 3.15953722986455,
+      "enemy": "res://data/enemies/sweeper.tres",
+      "enemy_contrast": 0.589285830634569,
+      "feet": [
+        3208.0,
+        319.997741699219
+      ],
+      "level": "ch1_street",
+      "materials": [
+        "res://data/environment/materials/asphalt.tres"
+      ],
+      "passed": true,
+      "path": "res://data/levels/ch1_street.tres",
+      "player_contrast": 0.820991618037824,
+      "props": [
+        {
+          "ground": true,
+          "id": "harbor_street__fish_cart",
+          "x": 14.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__parked_scooter",
+          "x": 42.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__pole_wire_knot",
+          "x": 54.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__restore_queue_sign",
+          "x": 28.0
+        },
+        {
+          "id": "harbor_street__stacked_neon_signs",
+          "x": 74.0,
+          "y": 12.0
+        },
+        {
+          "id": "harbor_street__rebirth_billboard",
+          "x": 102.0,
+          "y": 8.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__steam_manhole",
+          "x": 118.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__tide_gauge",
+          "x": 144.0
+        },
+        {
+          "ground": true,
+          "id": "harbor_street__umbrella_vending",
+          "x": 170.0
+        },
+        {
+          "id": "harbor_street__stacked_neon_signs",
+          "x": 178.0,
+          "y": 12.0
+        }
+      ],
+      "sampling_valid": true,
+      "screenshot": "NE-66-ch1_street-200.png",
+      "spot": "碼頭入口",
+      "theme": "res://data/environment/themes/ch1_street.tres"
+    }
+  ],
+  "sample_interval": 0.2,
+  "samples_per_spot": 16,
+  "screenshot_encoding": "sRGB",
+  "thresholds": {
+    "edge": 1.0,
+    "enemy": 0.45,
+    "player": 0.6
+  },
+  "version": 1,
+  "viewport": [
+    640.0,
+    360.0
+  ]
+}

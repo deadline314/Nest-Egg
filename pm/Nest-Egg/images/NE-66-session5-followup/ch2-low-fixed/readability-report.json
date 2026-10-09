@@ -1,0 +1,1437 @@
+{
+  "brightness": 0.5,
+  "contrast_encoding": "native viewport (linear HDR)",
+  "engine": "4.7-stable (official)",
+  "light_quality": 0,
+  "results": [
+    {
+      "column": 100,
+      "edge_contrast": 27.189614631337,
+      "enemy": "res://data/enemies/grunt.tres",
+      "enemy_column": 108,
+      "enemy_contrast": 0.562587845237631,
+      "enemy_feet": [
+        1736.0,
+        223.99609375
+      ],
+      "expected_enemy_feet": [
+        1736.0,
+        224.0
+      ],
+      "feet": [
+        1608.0,
+        223.997741699219
+      ],
+      "level": "level_02",
+      "materials": [
+        "res://data/environment/materials/steel_plate.tres",
+        "res://data/environment/materials/grate.tres",
+        "res://data/environment/materials/brick.tres",
+        "res://data/environment/materials/brick.tres",
+        "res://data/environment/materials/steel_plate.tres",
+        "res://data/environment/materials/facility_floor.tres",
+        "res://data/environment/materials/hangar.tres",
+        "res://data/environment/materials/facility_floor.tres",
+        "res://data/environment/materials/facility_floor.tres",
+        "res://data/environment/materials/hangar.tres"
+      ],
+      "passed": true,
+      "path": "res://data/levels/level_02.tres",
+      "player_contrast": 0.702395387099886,
+      "props": [
+        {
+          "id": "elevator_door",
+          "x": 10.0,
+          "y": 19.0
+        },
+        {
+          "id": "hazard_sign",
+          "x": 20.0,
+          "y": 19.0
+        },
+        {
+          "id": "crates_stack",
+          "x": 38.0,
+          "y": 19.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 48.0,
+          "y": 19.0
+        },
+        {
+          "id": "pipe_vertical",
+          "x": 57.0,
+          "y": 19.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 16.0,
+          "y": 19.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 12.0,
+          "y": 4.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 38.0,
+          "y": 4.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 58.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 24.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 46.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 64.0,
+          "y": 4.0
+        },
+        {
+          "id": "camera_wall",
+          "x": 44.0,
+          "y": 6.0
+        },
+        {
+          "id": "cables_hang",
+          "x": 30.0,
+          "y": 6.0
+        },
+        {
+          "id": "pipe_vertical",
+          "x": 75.0,
+          "y": 13.0
+        },
+        {
+          "id": "hazard_sign",
+          "x": 104.0,
+          "y": 13.0
+        },
+        {
+          "id": "barrels",
+          "x": 127.0,
+          "y": 13.0
+        },
+        {
+          "id": "crates_stack",
+          "x": 112.0,
+          "y": 13.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 112.0,
+          "y": 13.0
+        },
+        {
+          "id": "elevator_door",
+          "x": 128.0,
+          "y": 13.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 78.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 104.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 122.0,
+          "y": 4.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 82.0,
+          "y": 4.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 112.0,
+          "y": 4.0
+        },
+        {
+          "id": "cables_hang",
+          "x": 96.0,
+          "y": 6.0
+        },
+        {
+          "id": "server_rack",
+          "x": 134.0,
+          "y": 7.0
+        },
+        {
+          "id": "pipe_horizontal",
+          "x": 140.0,
+          "y": 7.0
+        },
+        {
+          "id": "camera_wall",
+          "x": 138.0,
+          "y": 4.0
+        },
+        {
+          "id": "vending_machine",
+          "x": 147.0,
+          "y": 19.0
+        },
+        {
+          "id": "lamp_warm",
+          "x": 157.0,
+          "y": 19.0
+        },
+        {
+          "id": "bench",
+          "x": 162.0,
+          "y": 19.0
+        },
+        {
+          "id": "graffiti",
+          "x": 180.0,
+          "y": 19.0
+        },
+        {
+          "id": "ac_unit",
+          "x": 174.0,
+          "y": 12.0
+        },
+        {
+          "id": "trash_can",
+          "x": 170.0,
+          "y": 19.0
+        },
+        {
+          "id": "dumpster",
+          "x": 180.0,
+          "y": 19.0
+        },
+        {
+          "id": "crayon_drawing",
+          "x": 188.0,
+          "y": 17.0
+        },
+        {
+          "id": "billboard_ad",
+          "x": 198.0,
+          "y": 12.0
+        },
+        {
+          "id": "lamp_warm",
+          "x": 207.0,
+          "y": 19.0
+        },
+        {
+          "id": "ac_unit_big",
+          "x": 204.0,
+          "y": 12.0
+        },
+        {
+          "id": "vending_machine",
+          "x": 208.0,
+          "y": 19.0
+        },
+        {
+          "id": "window_rain",
+          "x": 176.0,
+          "y": 14.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 150.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 178.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 206.0,
+          "y": 4.0
+        },
+        {
+          "id": "tree_fir_1",
+          "x": 219.0,
+          "y": 19.0
+        },
+        {
+          "id": "tree_jacaranda",
+          "x": 232.0,
+          "y": 19.0
+        },
+        {
+          "id": "tree_stump",
+          "x": 238.0,
+          "y": 19.0
+        },
+        {
+          "id": "bench",
+          "x": 240.0,
+          "y": 19.0
+        },
+        {
+          "id": "lamp_warm",
+          "x": 226.0,
+          "y": 15.0
+        },
+        {
+          "id": "bench",
+          "x": 234.0,
+          "y": 12.0
+        },
+        {
+          "id": "lamp_warm",
+          "x": 245.0,
+          "y": 15.0
+        },
+        {
+          "id": "vending_machine",
+          "x": 251.0,
+          "y": 19.0
+        },
+        {
+          "id": "window_rain",
+          "x": 224.0,
+          "y": 12.0
+        },
+        {
+          "id": "ac_unit",
+          "x": 250.0,
+          "y": 12.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 222.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 236.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 250.0,
+          "y": 4.0
+        },
+        {
+          "id": "hazard_sign",
+          "x": 270.0,
+          "y": 19.0
+        },
+        {
+          "id": "hazard_sign",
+          "x": 292.0,
+          "y": 19.0
+        },
+        {
+          "id": "hazard_sign",
+          "x": 303.0,
+          "y": 19.0
+        },
+        {
+          "id": "hazard_sign",
+          "x": 312.0,
+          "y": 19.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 275.0,
+          "y": 19.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 292.0,
+          "y": 19.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 306.0,
+          "y": 19.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 270.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 282.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 298.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 314.0,
+          "y": 4.0
+        },
+        {
+          "id": "camera_wall",
+          "x": 276.0,
+          "y": 6.0
+        },
+        {
+          "flip": true,
+          "id": "camera_wall",
+          "x": 304.0,
+          "y": 6.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 288.0,
+          "y": 4.0
+        },
+        {
+          "id": "cables_hang",
+          "x": 318.0,
+          "y": 6.0
+        },
+        {
+          "id": "server_rack",
+          "x": 333.0,
+          "y": 19.0
+        },
+        {
+          "id": "control_console",
+          "x": 340.0,
+          "y": 19.0
+        },
+        {
+          "id": "server_rack",
+          "x": 342.0,
+          "y": 19.0
+        },
+        {
+          "id": "hazard_sign",
+          "x": 348.0,
+          "y": 19.0
+        },
+        {
+          "id": "server_rack",
+          "x": 366.0,
+          "y": 19.0
+        },
+        {
+          "id": "control_console",
+          "x": 376.0,
+          "y": 19.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 356.0,
+          "y": 19.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 372.0,
+          "y": 19.0
+        },
+        {
+          "id": "gate_door",
+          "x": 390.0,
+          "y": 19.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 330.0,
+          "y": 4.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 345.0,
+          "y": 4.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 362.0,
+          "y": 4.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 384.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 336.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 352.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 368.0,
+          "y": 4.0
+        },
+        {
+          "id": "camera_wall",
+          "x": 340.0,
+          "y": 6.0
+        },
+        {
+          "flip": true,
+          "id": "camera_wall",
+          "x": 372.0,
+          "y": 6.0
+        },
+        {
+          "id": "cables_hang",
+          "x": 350.0,
+          "y": 6.0
+        },
+        {
+          "id": "cables_hang",
+          "x": 378.0,
+          "y": 6.0
+        },
+        {
+          "id": "hangar_light",
+          "x": 392.0,
+          "y": 4.0
+        },
+        {
+          "id": "hangar_light",
+          "x": 400.0,
+          "y": 4.0
+        },
+        {
+          "id": "hangar_light",
+          "x": 408.0,
+          "y": 4.0
+        },
+        {
+          "id": "gantry_crane",
+          "x": 396.0,
+          "y": 9.0
+        },
+        {
+          "id": "fuel_tank",
+          "x": 390.0,
+          "y": 19.0
+        },
+        {
+          "id": "fuel_tank",
+          "x": 411.0,
+          "y": 19.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 392.0,
+          "y": 19.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 404.0,
+          "y": 19.0
+        },
+        {
+          "id": "hazard_sign",
+          "x": 390.0,
+          "y": 19.0
+        },
+        {
+          "id": "elevator_door",
+          "x": 420.0,
+          "y": 19.0
+        },
+        {
+          "id": "terminal_holo",
+          "x": 421.0,
+          "y": 19.0
+        },
+        {
+          "id": "vending_machine",
+          "x": 430.0,
+          "y": 19.0
+        },
+        {
+          "id": "lamp_warm",
+          "x": 439.0,
+          "y": 19.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 418.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 432.0,
+          "y": 4.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 424.0,
+          "y": 4.0
+        },
+        {
+          "id": "hospital_bed",
+          "x": 442.0,
+          "y": 17.0
+        },
+        {
+          "id": "hospital_bed",
+          "x": 448.0,
+          "y": 17.0
+        },
+        {
+          "id": "hospital_bed",
+          "x": 454.0,
+          "y": 17.0
+        },
+        {
+          "id": "hospital_bed",
+          "x": 460.0,
+          "y": 17.0
+        },
+        {
+          "id": "hospital_bed",
+          "x": 466.0,
+          "y": 17.0
+        },
+        {
+          "id": "crayon_drawing",
+          "x": 444.0,
+          "y": 14.0
+        },
+        {
+          "id": "crayon_drawing",
+          "x": 456.0,
+          "y": 14.0
+        },
+        {
+          "id": "radio_set",
+          "x": 450.0,
+          "y": 14.0
+        },
+        {
+          "id": "lamp_warm",
+          "x": 462.0,
+          "y": 14.0
+        },
+        {
+          "id": "window_rain",
+          "x": 468.0,
+          "y": 14.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 444.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 450.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 456.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 462.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 468.0,
+          "y": 4.0
+        },
+        {
+          "id": "gantry_crane",
+          "x": 486.0,
+          "y": 8.0
+        },
+        {
+          "id": "fuel_tank",
+          "x": 480.0,
+          "y": 19.0
+        },
+        {
+          "id": "fuel_tank",
+          "x": 505.0,
+          "y": 19.0
+        },
+        {
+          "id": "hangar_light",
+          "x": 478.0,
+          "y": 4.0
+        },
+        {
+          "id": "hangar_light",
+          "x": 490.0,
+          "y": 4.0
+        },
+        {
+          "id": "hangar_light",
+          "x": 502.0,
+          "y": 4.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 484.0,
+          "y": 19.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 498.0,
+          "y": 19.0
+        },
+        {
+          "id": "hazard_sign",
+          "x": 494.0,
+          "y": 19.0
+        }
+      ],
+      "sampling_valid": true,
+      "screenshot": "NE-66-level_02-100.png",
+      "spot": "升降井",
+      "theme": "res://data/environment/themes/chapter2.tres"
+    },
+    {
+      "column": 350,
+      "edge_contrast": 25.6880242656089,
+      "enemy": "res://data/enemies/grunt.tres",
+      "enemy_column": 356,
+      "enemy_contrast": 0.643400608130337,
+      "enemy_feet": [
+        5704.0,
+        319.99609375
+      ],
+      "expected_enemy_feet": [
+        5704.0,
+        320.0
+      ],
+      "feet": [
+        5608.0,
+        319.997741699219
+      ],
+      "level": "level_02",
+      "materials": [
+        "res://data/environment/materials/steel_plate.tres",
+        "res://data/environment/materials/grate.tres",
+        "res://data/environment/materials/brick.tres",
+        "res://data/environment/materials/brick.tres",
+        "res://data/environment/materials/steel_plate.tres",
+        "res://data/environment/materials/facility_floor.tres",
+        "res://data/environment/materials/hangar.tres",
+        "res://data/environment/materials/facility_floor.tres",
+        "res://data/environment/materials/facility_floor.tres",
+        "res://data/environment/materials/hangar.tres"
+      ],
+      "passed": true,
+      "path": "res://data/levels/level_02.tres",
+      "player_contrast": 0.828640220237188,
+      "props": [
+        {
+          "id": "elevator_door",
+          "x": 10.0,
+          "y": 19.0
+        },
+        {
+          "id": "hazard_sign",
+          "x": 20.0,
+          "y": 19.0
+        },
+        {
+          "id": "crates_stack",
+          "x": 38.0,
+          "y": 19.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 48.0,
+          "y": 19.0
+        },
+        {
+          "id": "pipe_vertical",
+          "x": 57.0,
+          "y": 19.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 16.0,
+          "y": 19.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 12.0,
+          "y": 4.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 38.0,
+          "y": 4.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 58.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 24.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 46.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 64.0,
+          "y": 4.0
+        },
+        {
+          "id": "camera_wall",
+          "x": 44.0,
+          "y": 6.0
+        },
+        {
+          "id": "cables_hang",
+          "x": 30.0,
+          "y": 6.0
+        },
+        {
+          "id": "pipe_vertical",
+          "x": 75.0,
+          "y": 13.0
+        },
+        {
+          "id": "hazard_sign",
+          "x": 104.0,
+          "y": 13.0
+        },
+        {
+          "id": "barrels",
+          "x": 127.0,
+          "y": 13.0
+        },
+        {
+          "id": "crates_stack",
+          "x": 112.0,
+          "y": 13.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 112.0,
+          "y": 13.0
+        },
+        {
+          "id": "elevator_door",
+          "x": 128.0,
+          "y": 13.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 78.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 104.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 122.0,
+          "y": 4.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 82.0,
+          "y": 4.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 112.0,
+          "y": 4.0
+        },
+        {
+          "id": "cables_hang",
+          "x": 96.0,
+          "y": 6.0
+        },
+        {
+          "id": "server_rack",
+          "x": 134.0,
+          "y": 7.0
+        },
+        {
+          "id": "pipe_horizontal",
+          "x": 140.0,
+          "y": 7.0
+        },
+        {
+          "id": "camera_wall",
+          "x": 138.0,
+          "y": 4.0
+        },
+        {
+          "id": "vending_machine",
+          "x": 147.0,
+          "y": 19.0
+        },
+        {
+          "id": "lamp_warm",
+          "x": 157.0,
+          "y": 19.0
+        },
+        {
+          "id": "bench",
+          "x": 162.0,
+          "y": 19.0
+        },
+        {
+          "id": "graffiti",
+          "x": 180.0,
+          "y": 19.0
+        },
+        {
+          "id": "ac_unit",
+          "x": 174.0,
+          "y": 12.0
+        },
+        {
+          "id": "trash_can",
+          "x": 170.0,
+          "y": 19.0
+        },
+        {
+          "id": "dumpster",
+          "x": 180.0,
+          "y": 19.0
+        },
+        {
+          "id": "crayon_drawing",
+          "x": 188.0,
+          "y": 17.0
+        },
+        {
+          "id": "billboard_ad",
+          "x": 198.0,
+          "y": 12.0
+        },
+        {
+          "id": "lamp_warm",
+          "x": 207.0,
+          "y": 19.0
+        },
+        {
+          "id": "ac_unit_big",
+          "x": 204.0,
+          "y": 12.0
+        },
+        {
+          "id": "vending_machine",
+          "x": 208.0,
+          "y": 19.0
+        },
+        {
+          "id": "window_rain",
+          "x": 176.0,
+          "y": 14.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 150.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 178.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 206.0,
+          "y": 4.0
+        },
+        {
+          "id": "tree_fir_1",
+          "x": 219.0,
+          "y": 19.0
+        },
+        {
+          "id": "tree_jacaranda",
+          "x": 232.0,
+          "y": 19.0
+        },
+        {
+          "id": "tree_stump",
+          "x": 238.0,
+          "y": 19.0
+        },
+        {
+          "id": "bench",
+          "x": 240.0,
+          "y": 19.0
+        },
+        {
+          "id": "lamp_warm",
+          "x": 226.0,
+          "y": 15.0
+        },
+        {
+          "id": "bench",
+          "x": 234.0,
+          "y": 12.0
+        },
+        {
+          "id": "lamp_warm",
+          "x": 245.0,
+          "y": 15.0
+        },
+        {
+          "id": "vending_machine",
+          "x": 251.0,
+          "y": 19.0
+        },
+        {
+          "id": "window_rain",
+          "x": 224.0,
+          "y": 12.0
+        },
+        {
+          "id": "ac_unit",
+          "x": 250.0,
+          "y": 12.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 222.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 236.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 250.0,
+          "y": 4.0
+        },
+        {
+          "id": "hazard_sign",
+          "x": 270.0,
+          "y": 19.0
+        },
+        {
+          "id": "hazard_sign",
+          "x": 292.0,
+          "y": 19.0
+        },
+        {
+          "id": "hazard_sign",
+          "x": 303.0,
+          "y": 19.0
+        },
+        {
+          "id": "hazard_sign",
+          "x": 312.0,
+          "y": 19.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 275.0,
+          "y": 19.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 292.0,
+          "y": 19.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 306.0,
+          "y": 19.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 270.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 282.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 298.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 314.0,
+          "y": 4.0
+        },
+        {
+          "id": "camera_wall",
+          "x": 276.0,
+          "y": 6.0
+        },
+        {
+          "flip": true,
+          "id": "camera_wall",
+          "x": 304.0,
+          "y": 6.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 288.0,
+          "y": 4.0
+        },
+        {
+          "id": "cables_hang",
+          "x": 318.0,
+          "y": 6.0
+        },
+        {
+          "id": "server_rack",
+          "x": 333.0,
+          "y": 19.0
+        },
+        {
+          "id": "control_console",
+          "x": 340.0,
+          "y": 19.0
+        },
+        {
+          "id": "server_rack",
+          "x": 342.0,
+          "y": 19.0
+        },
+        {
+          "id": "hazard_sign",
+          "x": 348.0,
+          "y": 19.0
+        },
+        {
+          "id": "server_rack",
+          "x": 366.0,
+          "y": 19.0
+        },
+        {
+          "id": "control_console",
+          "x": 376.0,
+          "y": 19.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 356.0,
+          "y": 19.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 372.0,
+          "y": 19.0
+        },
+        {
+          "id": "gate_door",
+          "x": 390.0,
+          "y": 19.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 330.0,
+          "y": 4.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 345.0,
+          "y": 4.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 362.0,
+          "y": 4.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 384.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 336.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 352.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 368.0,
+          "y": 4.0
+        },
+        {
+          "id": "camera_wall",
+          "x": 340.0,
+          "y": 6.0
+        },
+        {
+          "flip": true,
+          "id": "camera_wall",
+          "x": 372.0,
+          "y": 6.0
+        },
+        {
+          "id": "cables_hang",
+          "x": 350.0,
+          "y": 6.0
+        },
+        {
+          "id": "cables_hang",
+          "x": 378.0,
+          "y": 6.0
+        },
+        {
+          "id": "hangar_light",
+          "x": 392.0,
+          "y": 4.0
+        },
+        {
+          "id": "hangar_light",
+          "x": 400.0,
+          "y": 4.0
+        },
+        {
+          "id": "hangar_light",
+          "x": 408.0,
+          "y": 4.0
+        },
+        {
+          "id": "gantry_crane",
+          "x": 396.0,
+          "y": 9.0
+        },
+        {
+          "id": "fuel_tank",
+          "x": 390.0,
+          "y": 19.0
+        },
+        {
+          "id": "fuel_tank",
+          "x": 411.0,
+          "y": 19.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 392.0,
+          "y": 19.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 404.0,
+          "y": 19.0
+        },
+        {
+          "id": "hazard_sign",
+          "x": 390.0,
+          "y": 19.0
+        },
+        {
+          "id": "elevator_door",
+          "x": 420.0,
+          "y": 19.0
+        },
+        {
+          "id": "terminal_holo",
+          "x": 421.0,
+          "y": 19.0
+        },
+        {
+          "id": "vending_machine",
+          "x": 430.0,
+          "y": 19.0
+        },
+        {
+          "id": "lamp_warm",
+          "x": 439.0,
+          "y": 19.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 418.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 432.0,
+          "y": 4.0
+        },
+        {
+          "id": "facility_pipes",
+          "x": 424.0,
+          "y": 4.0
+        },
+        {
+          "id": "hospital_bed",
+          "x": 442.0,
+          "y": 17.0
+        },
+        {
+          "id": "hospital_bed",
+          "x": 448.0,
+          "y": 17.0
+        },
+        {
+          "id": "hospital_bed",
+          "x": 454.0,
+          "y": 17.0
+        },
+        {
+          "id": "hospital_bed",
+          "x": 460.0,
+          "y": 17.0
+        },
+        {
+          "id": "hospital_bed",
+          "x": 466.0,
+          "y": 17.0
+        },
+        {
+          "id": "crayon_drawing",
+          "x": 444.0,
+          "y": 14.0
+        },
+        {
+          "id": "crayon_drawing",
+          "x": 456.0,
+          "y": 14.0
+        },
+        {
+          "id": "radio_set",
+          "x": 450.0,
+          "y": 14.0
+        },
+        {
+          "id": "lamp_warm",
+          "x": 462.0,
+          "y": 14.0
+        },
+        {
+          "id": "window_rain",
+          "x": 468.0,
+          "y": 14.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 444.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 450.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 456.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 462.0,
+          "y": 4.0
+        },
+        {
+          "id": "emergency_light",
+          "x": 468.0,
+          "y": 4.0
+        },
+        {
+          "id": "gantry_crane",
+          "x": 486.0,
+          "y": 8.0
+        },
+        {
+          "id": "fuel_tank",
+          "x": 480.0,
+          "y": 19.0
+        },
+        {
+          "id": "fuel_tank",
+          "x": 505.0,
+          "y": 19.0
+        },
+        {
+          "id": "hangar_light",
+          "x": 478.0,
+          "y": 4.0
+        },
+        {
+          "id": "hangar_light",
+          "x": 490.0,
+          "y": 4.0
+        },
+        {
+          "id": "hangar_light",
+          "x": 502.0,
+          "y": 4.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 484.0,
+          "y": 19.0
+        },
+        {
+          "id": "floor_marking",
+          "x": 498.0,
+          "y": 19.0
+        },
+        {
+          "id": "hazard_sign",
+          "x": 494.0,
+          "y": 19.0
+        }
+      ],
+      "sampling_valid": true,
+      "screenshot": "NE-66-level_02-350.png",
+      "spot": "電力室",
+      "theme": "res://data/environment/themes/chapter2.tres"
+    }
+  ],
+  "sample_interval": 0.2,
+  "samples_per_spot": 16,
+  "screenshot_encoding": "sRGB",
+  "thresholds": {
+    "edge": 1.0,
+    "enemy": 0.45,
+    "player": 0.6
+  },
+  "version": 1,
+  "viewport": [
+    640.0,
+    360.0
+  ]
+}

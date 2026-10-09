@@ -1,0 +1,21 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+Vulkan 1.4.305 - Forward+ - Using Device #0: Unknown - llvmpipe (LLVM 19.1.7, 256 bits)
+
+== level_02.tres
+區段        玩家對比      邊緣對比      敵人對比    
+升降井入口     0.86      14.24     0.75      OK
+[readability_check] res://data/levels/level_02.tres/升降井: probe moved away from its floor; sample is invalid
+升降井       0.70      27.24     0.65      太暗（門檻 0.60 / 1.00 / 0.45）
+夾層區       0.67      10.95     0.90      OK
+中庭        0.82      11.68     0.74      OK
+回收燈幕      0.71      17.36     0.55      OK
+[readability_check] res://data/levels/level_02.tres/電力室: probe moved away from its floor; sample is invalid
+電力室       0.83      25.24     0.00      太暗（門檻 0.60 / 1.00 / 0.45）
+看守長場地     0.87      10.16     1.00      OK
+轉運站       0.91      19.59     0.94      OK
+病房區       0.90      28.19     0.91      OK
+回收員場地     0.83      9.97      0.65      OK
+WARNING: 14 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2535)
+ERROR: 3 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

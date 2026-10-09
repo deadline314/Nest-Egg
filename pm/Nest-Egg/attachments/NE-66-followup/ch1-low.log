@@ -1,0 +1,39 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+Vulkan 1.4.305 - Forward+ - Using Device #0: Unknown - llvmpipe (LLVM 19.1.7, 256 bits)
+
+== ch1_pawnshop.tres
+區段        玩家對比      邊緣對比      敵人對比    
+後空地       0.76      9.90      N/A       OK
+店面        0.88      9.45      N/A       OK
+廚房        0.85      9.00      N/A       OK
+== ch1_rooftop.tres
+區段        玩家對比      邊緣對比      敵人對比    
+屋頂水塔      0.74      22.86     N/A       OK
+== ch1_street.tres
+區段        玩家對比      邊緣對比      敵人對比    
+市集        0.63      5.20      0.62      OK
+碼頭入口      0.80      6.77      0.79      OK
+== ch1_booth_alley.tres
+區段        玩家對比      邊緣對比      敵人對比    
+電話亭       0.59      1.87      N/A       太暗（門檻 0.60 / 1.00 / 0.45）
+== ch1_warehouse.tres
+區段        玩家對比      邊緣對比      敵人對比    
+看門狗前廳     0.71      28.00     0.87      OK
+閘門廳       0.76      28.01     0.66      OK
+== ch1_vault.tres
+區段        玩家對比      邊緣對比      敵人對比    
+倉庫深處      0.72      27.98     0.76      OK
+上層走道      0.71      20.22     0.93      OK
+== ch1_lounge.tres
+區段        玩家對比      邊緣對比      敵人對比    
+復原館       0.86      20.07     N/A       OK
+== ch1_stall.tres
+區段        玩家對比      邊緣對比      敵人對比    
+宵夜麵攤      0.74      12.56     N/A       OK
+== ch1_pawnshop_dawn.tres
+區段        玩家對比      邊緣對比      敵人對比    
+天亮店面      0.86      7.89      N/A       OK
+WARNING: 451 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2535)
+ERROR: 3 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
