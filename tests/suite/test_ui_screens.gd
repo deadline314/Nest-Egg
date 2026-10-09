@@ -3,6 +3,12 @@ extends TestSuite
 ## 介面畫面（NE-36）：主選單與難度卡片、圖鑑卡片牆、暫停資訊、死亡畫面、結算逐項顯示。
 
 
+# GUI input, layout and focus are processed on idle frames, independent of physics.
+func frames(count: int) -> void:
+	for i in count:
+		await runner.get_tree().process_frame
+
+
 func run() -> void:
 	await _test_game_boots_to_menu()
 	await _test_main_menu()
@@ -109,8 +115,10 @@ func _test_pause_settings_overlay() -> void:
 	runner.add_child(menu)
 	menu.open()
 	await frames(3)
-	var settings_button: Button = menu._menu_panel.body.get_child(1)
+	var settings_button := menu._menu_panel.body.get_children().filter(
+		func(child: Node) -> bool: return child is Button and (child as Button).text == "設定")[0] as Button
 	settings_button.grab_focus()
+	check(menu.get_viewport().gui_get_focus_owner() == settings_button, "開設定前焦點在原本的設定按鈕")
 	menu._open_settings()
 	await frames(4)
 	var settings := menu._settings
@@ -124,6 +132,10 @@ func _test_pause_settings_overlay() -> void:
 		event.pressed = true
 		Input.parse_input_event(event)
 		await frames(2)
+		var release := event.duplicate() as InputEventAction
+		release.pressed = false
+		Input.parse_input_event(release)
+		await frames(1)
 		owner = menu.get_viewport().gui_get_focus_owner()
 		check(owner == null or settings.is_ancestor_of(owner), "設定開著時按上下只動設定裡的控制項")
 	settings.close()

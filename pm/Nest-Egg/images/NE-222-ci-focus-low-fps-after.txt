@@ -1,0 +1,106 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/main_menu.gd:33)
+       [3] _swap_screen (res://game/main.gd:33)
+       [4] _run (res://autoload/transition.gd:180)
+       [5] play (res://autoload/transition.gd:77)
+       [6] _switch_to (res://game/main.gd:23)
+       [7] _show_main_menu (res://game/main.gd:45)
+       [8] _ready (res://game/main.gd:17)
+       [9] _test_game_boots_to_menu (res://tests/suite/test_ui_screens.gd:30)
+       [10] run (res://tests/suite/test_ui_screens.gd:13)
+       [11] _run_suites (res://tests/smoke_test.gd:109)
+       [12] _run (res://tests/smoke_test.gd:38)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/main_menu.gd:33)
+       [3] _test_main_menu (res://tests/suite/test_ui_screens.gd:49)
+       [4] run (res://tests/suite/test_ui_screens.gd:14)
+       [5] _test_game_boots_to_menu (res://tests/suite/test_ui_screens.gd:42)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/codex_screen.gd:22)
+       [3] _test_codex (res://tests/suite/test_ui_screens.gd:76)
+       [4] run (res://tests/suite/test_ui_screens.gd:15)
+       [5] _test_main_menu (res://tests/suite/test_ui_screens.gd:71)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/main_menu.gd:33)
+       [3] _test_main_menu_overlays (res://tests/suite/test_ui_screens.gd:156)
+       [4] run (res://tests/suite/test_ui_screens.gd:18)
+       [5] _test_pause_settings_overlay (res://tests/suite/test_ui_screens.gd:150)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/main_menu.gd:33)
+       [3] _test_difficulty_cards_never_overlap (res://tests/suite/test_ui_screens.gd:174)
+       [4] run (res://tests/suite/test_ui_screens.gd:19)
+       [5] _test_main_menu_overlays (res://tests/suite/test_ui_screens.gd:168)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/settings_screen.gd:41)
+       [3] _test_fullscreen_setting (res://tests/suite/test_ui_screens.gd:221)
+       [4] run (res://tests/suite/test_ui_screens.gd:21)
+       [5] _test_chapter_card_under_pause (res://tests/suite/test_ui_screens.gd:208)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/victory_screen.gd:22)
+       [3] _test_victory_screen (res://tests/suite/test_ui_screens.gd:281)
+       [4] run (res://tests/suite/test_ui_screens.gd:23)
+       [5] _test_death_screen (res://tests/suite/test_ui_screens.gd:275)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/test_no_such_character/character.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] load_json (res://game/rig/rig_library.gd:21)
+       [2] character (res://game/rig/rig_library.gd:29)
+       [3] setup (res://game/rig/character_rig.gd:75)
+       [4] _ready (res://ui/inventory/hd_portrait.gd:48)
+       [5] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:338)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+ERROR: [HdPortrait] 找不到角色骨架「test_no_such_character」，立繪不顯示。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://ui/inventory/hd_portrait.gd:49)
+       [1] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:338)
+       [2] frames (res://tests/suite/test_ui_screens.gd:9)
+SUITE_TIME UiScreensSuite 21.9
+checks: 71, failures: 0
+WARNING: 112 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
