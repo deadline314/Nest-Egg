@@ -20,10 +20,12 @@ const JOINTS := {
 	"wrist_front": [&"hand_front", "arm_front_lower", "hand_front"],
 	"wrist_back": [&"hand_back", "arm_back_lower", "hand_back"],
 	"neck": [&"head", "torso", "head"],
-	"coat_shoulder_front": [&"arm_front_upper", "armor_jacket", "jacket_sleeve_front"],
-	"coat_shoulder_back": [&"arm_back_upper", "armor_jacket", "jacket_sleeve_back"],
-	"coat_cuff_front": [&"hand_front", "jacket_sleeve_front", "arm_front_lower", "hand_front"],
-	"coat_cuff_back": [&"hand_back", "jacket_sleeve_back", "arm_back_lower", "hand_back"],
+	"coat_shoulder_front": [&"arm_front_upper", "armor_jacket", "jacket_sleeve_front_upper"],
+	"coat_shoulder_back": [&"arm_back_upper", "armor_jacket", "jacket_sleeve_back_upper"],
+	"coat_cuff_front": [&"hand_front", "jacket_sleeve_front_upper", "jacket_sleeve_front_lower", "arm_front_upper", "arm_front_lower", "hand_front"],
+	"coat_cuff_back": [&"hand_back", "jacket_sleeve_back_upper", "jacket_sleeve_back_lower", "arm_back_upper", "arm_back_lower", "hand_back"],
+	"coat_elbow_front": [&"arm_front_lower", "jacket_sleeve_front_upper", "jacket_sleeve_front_lower", "arm_front_upper", "arm_front_lower"],
+	"coat_elbow_back": [&"arm_back_lower", "jacket_sleeve_back_upper", "jacket_sleeve_back_lower", "arm_back_upper", "arm_back_lower"],
 	"coat_hem": [&"coat_1", "armor_jacket", "jacket_hem"],
 }
 const ALIASES := {"torso": "armor_torso", "pelvis": "armor_pelvis", "leg_front_upper": "armor_thigh", "leg_front_lower": "armor_calf"}

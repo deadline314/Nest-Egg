@@ -1,0 +1,13 @@
+受影響的測試：AmmoIconsSuite,AmmoTraySuite,AnimAuditSuite,ApplyPanelSuite,AreasSuite,AssaultEnemiesSuite,AudioSuite,ChainCreatureSuite,Chapter1EnemiesSuite,Chapter1MapSuite,Chapter2ArtSuite,Chapter2ExpansionSuite,Chapter2Suite,ChapterCutscenesSuite,CharactersSuite,ClipEditorSuite,CollectiblesSuite,CombatHudSuite,ContinuitySuite,CutsceneSuite,DeathFlowSuite,DeathReactionSuite,DevMenuSuite,EconomySuite,EnemyVfxSuite,EnvironmentSuite,ExoticEnemiesSuite,ExposureSuite,FeelSuite,FxMeleePickupsSuite,FxUpgradesSuite,HeavyEnemiesSuite,HitReactionSuite,InputFeelSuite,LayerOrderSuite,LocomotionSuite,MapBubblesSuite,MeleeSuite,MeleeWeaponsSuite,MusicSuite,NpcAnimationSuite,NpcLifeSuite,NpcSuite,PacingSuite,PhoneBoothSuite,PostureSuite,ProgressionSuite,PropsSuite,ProtagonistMotionSuite,QuestMapSuite,ReadabilityTargetsSuite,ReconEnemiesSuite,RigActionsSuite,RigMeshSuite,SceneSanitySuite,SoundLabSuite,SoundStageSuite,StageCoverageCharactersSuite,StageCoverageWeaponsSuite,StageCoverageWorldSuite,StrikeEnemiesSuite,SupplySuite,TransitionSuite,UiScreensSuite,main
+Running 65 groups in 10 processes (logs: C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/hand-current-shards)
+  process 0 (estimated 149 s): StageCoverageWorldSuite
+  process 1 (estimated 90 s): main
+  process 2 (estimated 87 s): Chapter2Suite,UiScreensSuite,PhoneBoothSuite,AudioSuite,SoundLabSuite,ExposureSuite
+  process 3 (estimated 87 s): AssaultEnemiesSuite,DeathReactionSuite,PropsSuite,Chapter1EnemiesSuite,CollectiblesSuite,AreasSuite
+  process 4 (estimated 87 s): StageCoverageWeaponsSuite,FxMeleePickupsSuite,HitReactionSuite,DeathFlowSuite,NpcLifeSuite,SceneSanitySuite,LayerOrderSuite
+  process 5 (estimated 86 s): Chapter1MapSuite,ChainCreatureSuite,MeleeWeaponsSuite,MapBubblesSuite,TransitionSuite,FeelSuite,RigMeshSuite,RigActionsSuite,ReadabilityTargetsSuite,ProtagonistMotionSuite,PacingSuite,InputFeelSuite,EnemyVfxSuite,EconomySuite,DevMenuSuite,ClipEditorSuite,CharactersSuite,ChapterCutscenesSuite,Chapter2ArtSuite,ApplyPanelSuite,AmmoIconsSuite
+  process 6 (estimated 86 s): SoundStageSuite,ExoticEnemiesSuite,FxUpgradesSuite,CombatHudSuite,MeleeSuite,QuestMapSuite
+  process 7 (estimated 86 s): HeavyEnemiesSuite,StrikeEnemiesSuite,AmmoTraySuite,NpcSuite,EnvironmentSuite
+  process 8 (estimated 86 s): ContinuitySuite,Chapter2ExpansionSuite,SupplySuite,ProgressionSuite,LocomotionSuite,PostureSuite
+  process 9 (estimated 86 s): StageCoverageCharactersSuite,ReconEnemiesSuite,AnimAuditSuite,CutsceneSuite,MusicSuite,NpcAnimationSuite
+checks: 49168, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 161 s)

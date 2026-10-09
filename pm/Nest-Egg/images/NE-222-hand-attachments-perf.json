@@ -1,0 +1,23 @@
+{
+	"mode": "headless CPU only; ComfyUI stopped; 10 actors; 3000 fixed frames; 120 warmup; baseline ebc65bf5; no concurrent Godot",
+	"runs": [
+		{
+			"after_us": 2057.50633333333,
+			"after_vertices": 477,
+			"before_us": 1941.687,
+			"before_vertices": 429
+		},
+		{
+			"after_us": 1992.68733333333,
+			"after_vertices": 477,
+			"before_us": 1951.60366666667,
+			"before_vertices": 429
+		},
+		{
+			"after_us": 2139.17833333333,
+			"after_vertices": 477,
+			"before_us": 1941.60433333333,
+			"before_vertices": 429
+		}
+	]
+}

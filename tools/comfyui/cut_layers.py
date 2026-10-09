@@ -74,11 +74,9 @@ def main() -> None:
         ex, ey = frame(p["mode"], a_pt, b_pt)
         rel = np.stack([xs, ys], 1) - pivot_pt
         u, v = rel @ ex, rel @ ey
-        # A side where make_parts cut the limb at a joint line (spec "y") is not a silhouette: keep no transparent margin there, so the
-        # normal map (which bevels every alpha edge) sees an open edge instead of lighting a bright rim along the cut.
+        # Joint cuts have no transparent margin; preserve their painted overlap instead of cropping inside it.
         lo, hi = p.get("y", (0, src.height))
-        # (-2: start two pixels inside the part, so the warp's half-covered edge row is cropped away and the first row is solid)
-        pad_top, pad_bottom = (-2 if lo > 0 else PAD), (-2 if hi < src.height else PAD)
+        pad_top, pad_bottom = (0 if lo > 0 else PAD), (1 if hi < src.height else PAD)
         umin, umax, vmin, vmax = u.min() - PAD, u.max() + PAD, v.min() - pad_top, v.max() + pad_bottom
         cw, ch = int(math.ceil(umax - umin)), int(math.ceil(vmax - vmin))
         piv = np.array([-umin, -vmin])
@@ -181,6 +179,14 @@ def main() -> None:
     char["description"] = "外觀（skin）定義：textures 是零件圖片的尺寸與支點；parts 是把圖片掛到骨頭上的方式。" + NOTE + "。"
     char["textures"] = textures
     char["parts"] = [{"name": u["name"], "texture": u["texture"], "bone": u["bone"], "z": u["z"], **({"tint": u["tint"]} if "tint" in u else {}), **({"armor_order": u["armor_order"]} if "armor_order" in u else {}), **({"under": True} if u.get("under") else {}), **({"offset": u["offset"]} if "offset" in u else {}), **({"root_attach": True} if u.get("root_attach") else {}), **({"bend_partner": u["bend_partner"]} if "bend_partner" in u else {})} for u in uses]
+    for entry, use in zip(char["parts"], uses):
+        if "grip_texture" not in use:
+            continue
+        name = use["grip_texture"]
+        inverse = cv2.invertAffineTransform(transforms[name][0])
+        grasp = inverse @ np.array([*np.array(spec["parts"][name]["grasp"]) * k, 1.0])
+        offset = (grasp - np.array(textures[name]["pivot"])) / px_wp
+        entry.update(grip_texture=name, grip_offset=[round(float(v), 5) for v in offset])
     # swap in the new files only now that everything above worked
     for path in (work / "overrides").glob("*.png"):
         target = out_parts / path.name

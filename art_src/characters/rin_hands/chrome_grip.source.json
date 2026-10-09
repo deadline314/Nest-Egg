@@ -1,0 +1,31 @@
+{
+  "purpose": "NE-222 independent right mechanical gripping-hand source; only hand pixels may be consumed",
+  "prompt": "Edit the single chrome cybernetic hand into one compact closed gripping hand. Keep the wrist at the SAME position near the top center and the same width, axis and chrome connector. All four fingers curl fully around an invisible narrow cylindrical weapon grip, with their tips tucked into the palm; show four distinct articulated metal knuckles and exactly one opposed thumb. The silhouette is a short closed fist below the wrist, not the long open hanging fingers in the reference. Right hand of the same adult woman, strict side view. Preserve the exact silver chrome plates, black joints, bold ink lines and flat anime cel shading of the reference. No extra fingers, no second thumb, no extra hand, no arm, no weapon, no jewelry, no torso. True transparent RGBA background. Preserve the framing, original wrist center and wrist connection; change only the finger pose. The hand is relaxed around a grip, not punching.",
+  "seed": 22275,
+  "steps": 25,
+  "resolution": 512,
+  "reference": "chrome_hand_reference_alpha.png",
+  "reference_sha256": "18f78e072f3099f551aed4e81552d325a0c62c7026b84b3859c931c63689a945",
+  "source_wrist": [
+    369,
+    560
+  ],
+  "crop": [
+    320,
+    530,
+    440,
+    690
+  ],
+  "approved_source_sha256": "401888dc14dcca469428e4df45c07648e36fd1822497031f8c28213fafc24fd9",
+  "models": [
+    "qwen-image-2.1-UC-int8_convrot.safetensors",
+    "qwen3vl_8b_int8_convrot.safetensors",
+    "qwen_image_2.1_vae_bf16.safetensors"
+  ],
+  "raw_output": "_gen/rin_chrome_grip_22275_0.png",
+  "raw_size": [
+    448,
+    576
+  ],
+  "raw_sha256": "277e8d169b701f6a9b866d9fb9476ff73b013a8d5cbd7ed40c724d6daff6ace9"
+}

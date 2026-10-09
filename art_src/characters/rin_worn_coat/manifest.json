@@ -19,8 +19,9 @@
   },
   "outputs": {
     "armor_jacket": "6ba3f842b6f6c53866e5baa29956503f6791413dfb8e084743bf058adb51e0be",
-    "jacket_sleeve": "a58ef423e4f08ac81331f26839c8f9339bc0561ab2cf086a6c7fbf5c3e24f99b",
-    "jacket_hem": "c6d275f7a49c5e9eeec011d98cef13f39e9fb0d6ffdae8380661208bb682a490"
+    "jacket_hem": "c6d275f7a49c5e9eeec011d98cef13f39e9fb0d6ffdae8380661208bb682a490",
+    "jacket_sleeve_upper": "4f9e13e36fa7960546e26c231ff425e4bdff92cb62a54e6bc67e105070d7d81b",
+    "jacket_sleeve_lower": "459a57858e46d65af6e67fe428a9c2fb57c3e873405159e3e28625c912208f5e"
   },
   "split": {
     "body_end_y": 355,
@@ -33,6 +34,20 @@
       452,
       365
     ],
-    "reason": "15 source pixels of real garment overlap, fixed shoulder/collar, continuous two-bone cropped lapel"
+    "reason": "15 source pixels of real garment overlap, fixed shoulder/collar, continuous two-bone cropped lapel",
+    "elbow_overlap_source_rows": [
+      385,
+      420
+    ],
+    "sleeve_binding": "Upper and lower sleeve straighten around their respective canonical shoulder-elbow and elbow-wrist source axes; shared source overlap, same existing two-bone elbow weights.",
+    "source_outline_recovery": {
+      "source": "source/04_stages/J.png",
+      "scope": "One source-pixel boundary around the registered sleeve alpha >=128; only opaque actual source navy ink B>1.8R and G>=R, no invented colors/alpha or body pixels.",
+      "recovered_source_pixels": 533,
+      "reproducible": "rebuild.py validates source and output hashes before replacing any registered output."
+    }
+  },
+  "retired_outputs": {
+    "jacket_sleeve": "a58ef423e4f08ac81331f26839c8f9339bc0561ab2cf086a6c7fbf5c3e24f99b"
   }
 }

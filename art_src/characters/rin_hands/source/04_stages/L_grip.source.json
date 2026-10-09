@@ -1,0 +1,66 @@
+{
+  "purpose": "NE-222 left supporting hand pose candidate; not approved or published",
+  "source": "art_src/characters/rin2/05_groups/human_hand.png",
+  "source_sha256": "6e61c46d53a7a1a22d0c2ea5eccfdbb3919385a8a9bd8a2b69b7a8257c17e557",
+  "crop": [
+    320,
+    530,
+    440,
+    690
+  ],
+  "reference": "art_src/characters/rin2/_gen/inputs/rin_left_grip_input.png",
+  "reference_sha256": "1fd4d6571bffb8b655d7a87271b4c1e1944be648dd01efbf0c26adacaba303ed",
+  "prompt": "Redraw this open human hand into a SMALL TIGHTLY CLENCHED FIST. ALL FOUR FINGERS MUST BE FULLY CURLED into the palm, their fingertips tucked inside and invisible, with the thumb wrapped across the folded fingers. The final silhouette is a compact short rounded fist below the wrist, NOT a long hanging open hand. No straight or extended finger remains. Show four anatomical knuckle segments and the thumb on the visible side, in clean hand-drawn anime cel shading matching the exact warm skin palette and dark line weight of the reference. Exactly one adult female LEFT hand. Keep the wrist at the same TOP-center position, width and vertical downward axis; edit the lower hand aggressively into the fist, do not move the wrist. This compact closed fist will wrap under a rifle fore-end after rig rotation. No visible object or weapon. No duplicate thumb, extra fingers, extra hand, glove, jewelry, body or background. True transparent RGBA. Keep the reference framing. The fingers must fold; do not copy the original extended finger pose.",
+  "seed": 22274,
+  "steps": 25,
+  "resolution": 512,
+  "models": [
+    "qwen-image-2.1-UC-int8_convrot.safetensors",
+    "qwen3vl_8b_int8_convrot.safetensors",
+    "qwen_image_2.1_vae_bf16.safetensors"
+  ],
+  "raw_output": "art_src/characters/rin2/_gen/rin_left_grip_L2_0.png",
+  "raw_sha256": "1c9fbff0afa14efefcc68df4e235ac6879dd6e5e383f258b634ed2b956aacb79",
+  "raw_size": [
+    448,
+    576
+  ],
+  "review": "provisional: native idle/kneel silhouette reviewed; full wrist/state audit still required",
+  "consumed_parts": [
+    "hand_left_grip"
+  ],
+  "alignment": {
+    "raw_wrist": [
+      200,
+      160
+    ],
+    "source_wrist": [
+      369,
+      560
+    ],
+    "scale": [
+      0.26785714285714285,
+      0.2777777777777778
+    ],
+    "matrix": [
+      [
+        0.26785714285714285,
+        0,
+        315.42857142857144
+      ],
+      [
+        0,
+        0.2777777777777778,
+        515.5555555555555
+      ]
+    ],
+    "sam_mask": "_gen/sam_grip_L2/supporting_hand.png",
+    "sam_edge_dilation": 2,
+    "premultiplied_warp": "INTER_CUBIC",
+    "clip_above_y": 550,
+    "alpha_zero_below": 4
+  },
+  "aligned_sha256": "1c8dd2b2a22428fffea45b8dd848a0871ffb2d8c4c6af7877d3fa4e22c474776",
+  "workflow": "art_src/characters/rin2/_gen/rin_left_grip_L2.workflow.json",
+  "workflow_record": "Reconstructed offline from retained prompt/reference/model/seed and the exact API graph builder; no generation rerun."
+}

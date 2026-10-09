@@ -1,0 +1,38 @@
+{
+  "purpose": "NE-222 human far-side left arm and hand underlayer; consume arm pixels only",
+  "source": "art_src/characters/rin2/base_rgba.png",
+  "source_sha256": "401888dc14dcca469428e4df45c07648e36fd1822497031f8c28213fafc24fd9",
+  "prompt": "This is a transparent RGBA side-view character illustration. Edit ONLY the visible chrome arm and hand to make a separate HUMAN LEFT ARM underlayer for this same adult woman. Replace the chrome shoulder, upper arm, forearm, wrist and hand with natural light warm skin, with clean anime cel shading and strong precise outlines matching her original illustration. The arm hangs in exactly the original resting pose, at the same shoulder, elbow, wrist and fingertip locations and with the same length and scale. The human wrist is slim and anatomically connected, the palm has exactly one thumb and four distinct fingers with proper knuckles, relaxed naturally down beside the thigh. Remove the jacket ONLY where it covers this one arm so the entire human arm is visible for cutting. Do not add another arm or hand, do not draw metallic plates or chrome fingers on this arm. The white bodysuit stays unchanged. Keep her original face, hairstyle, ears, body, legs, boots and other accessories unchanged. Keep the full body canvas, side view facing right, and transparent background. This is a local human arm replacement, not a character redesign.",
+  "seed": 22272,
+  "steps": 25,
+  "resolution": 1024,
+  "models": [
+    "qwen-image-2.1-UC-int8_convrot.safetensors",
+    "qwen3vl_8b_int8_convrot.safetensors",
+    "qwen_image_2.1_vae_bf16.safetensors"
+  ],
+  "raw_output": "art_src/characters/rin2/_gen/rin_human_left_K_0.png",
+  "raw_sha256": "200135153b8335c309d8cdfc50b01e3063f02e7c28ee495f1e9915916edb7754",
+  "raw_size": [
+    832,
+    1248
+  ],
+  "stage": "K",
+  "aligned_size": [
+    832,
+    1216
+  ],
+  "aligned_sha256": "cb45ea2ba0856d9055bebb84e8c8560240ce8b26c85eaa549131bd618df03805",
+  "alignment": {
+    "filter": "PIL.Image.Resampling.LANCZOS",
+    "x_scale": 1,
+    "y_scale": 0.9743589743589743
+  },
+  "consumed_groups": [
+    "human_arm",
+    "human_hand"
+  ],
+  "preserved_approved_parts": "Only far-side left arm/hand change. Head, hair, body, legs, boots, right chrome arm and J jacket are retained.",
+  "workflow": "art_src/characters/rin2/_gen/rin_human_left_K_0.workflow.json",
+  "workflow_sha256": "3c68ead3ff0d6d0533d71ea3cfaab4df4650426f06667df8818eaaff062efe35"
+}

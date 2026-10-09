@@ -41,6 +41,59 @@ func run() -> void:
 	_test_portraits()
 	_test_weapons()
 	await _test_rigs()
+	await _test_rin_hand_grips()
+
+
+func _test_rin_hand_grips() -> void:
+	var rig := CharacterRig.new()
+	runner.get_tree().root.add_child(rig)
+	check(rig.setup("rin"), "Rin independent hands build")
+	check(is_equal_approx(rig.bone(&"hand_front").rotation, HumanoidAnimator.HAND_FOLLOWS_FOREARM) and is_equal_approx(rig.bone(&"hand_back").rotation, HumanoidAnimator.HAND_FOLLOWS_FOREARM), "freshly built hands use the forearm rest direction rather than turning ninety degrees on their first update")
+	var hands := rig.find_children("hand_*", "Sprite2D", true, false)
+	check(hands.size() == 2 and rig._hand_grips.size() == 2, "Rin has exactly two hand slots and two cached gripping attachments")
+	var input := RigInput.new()
+	input.on_floor = true
+	var rest_textures := [hands[0].texture, hands[1].texture]
+	for side in [1, -1]:
+		input.facing = side
+		for weapon in ["rifle", "pistol"]:
+			rig.set_weapon(weapon)
+			for angle in [-0.6, 0.0, 0.6]:
+				input.aim_dir = Vector2(cos(angle) * side, sin(angle))
+				input.two_handed = weapon == "rifle"
+				for frame in 30:
+					rig.animate(1.0 / 60.0, input)
+				var palm := rig.bone(&"hand_front").global_transform * rig.hand_grip_offset(&"hand_front")
+				check(palm.distance_to(rig.weapon_root().global_position) < 0.025, "Rin front palm holds the weapon without moving the wrist pivot: %s/%d/%.1f" % [weapon, side, angle])
+				if input.two_handed:
+					var def := rig.weapon_def()
+					var point := (RigLibrary.vec2(def["foregrip"]) - RigLibrary.vec2(def["grip"])) * rig.weapon_scale()
+					palm = rig.bone(&"hand_back").global_transform * rig.hand_grip_offset(&"hand_back")
+					check(palm.distance_to(rig.weapon_root().global_transform * point) < 0.025, "Rin supporting palm holds the foregrip: %d/%.1f" % [side, angle])
+				else:
+					check(rig.hand_grip_offset(&"hand_back") == Vector2.ZERO, "single-handed weapon keeps the free left hand open")
+		rig.set_weapon("")
+		rig.animate(1.0 / 60.0, input)
+		check(hands[0].texture == rest_textures[0] and hands[1].texture == rest_textures[1], "unarmed restores the same two resting hand textures")
+		rig.set_weapon("rifle")
+		input.dead = true
+		rig.animate(1.0 / 60.0, input)
+		check(rig.hand_grip_offset(&"hand_front") == Vector2.ZERO and rig.hand_grip_offset(&"hand_back") == Vector2.ZERO, "death releases both gripping attachments")
+		input.dead = false
+	input.two_handed = true
+	input.action = &"rin.phone_call"
+	input.action_t = 0.6
+	rig.set_weapon("handset")
+	for frame in 30: rig.animate(1.0 / 60.0, input)
+	check(rig.hand_grip_offset(&"hand_back") == Vector2.ZERO, "phone action keeps the human supporting hand free")
+	var phone_palm := rig.bone(&"hand_front").global_transform * rig.hand_grip_offset(&"hand_front")
+	check(phone_palm.distance_to(rig.weapon_root().global_position) < 0.025, "phone action attaches the handset to the palm rather than the wrist")
+	rig.get_parent().remove_child(rig)
+	rig.free()
+	var other := CharacterRig.new()
+	runner.get_tree().root.add_child(other)
+	check(other.setup("enforcer") and other._hand_grips.is_empty(), "unconfigured characters retain their original hands and zero grasp offsets")
+	other.free()
 
 
 func _test_rin_density() -> void:

@@ -27,6 +27,9 @@ def check(recipe: dict, spec: dict, need_joints: bool) -> tuple[list[str], list[
     for key in ["id", "spec", "rig", "work", "design"]:
         if key not in recipe:
             err(f"recipe.{key}", "missing")
+    rebuilds = recipe.get("source_rebuilds", [])
+    if not isinstance(rebuilds, list) or any(not isinstance(path, str) for path in rebuilds):
+        err("recipe.source_rebuilds", "must be a list of registered source script paths")
     for key in REQUIRED_TOP:
         if key not in spec:
             err(f"spec.{key}", "missing")
@@ -136,6 +139,7 @@ def check(recipe: dict, spec: dict, need_joints: bool) -> tuple[list[str], list[
                     err(f"spec.near_leg.{key}", f"unknown group '{g}'")
     uses_names: list[str] = []
     orders: dict[int, list[str]] = {}
+    grip_textures = {u["grip_texture"] for p in spec["parts"].values() for u in p.get("uses", []) if isinstance(u.get("grip_texture"), str)}
     for pname, p in spec["parts"].items():
         where = f"spec.parts.{pname}"
         if "damage_of" in p:
@@ -156,9 +160,13 @@ def check(recipe: dict, spec: dict, need_joints: bool) -> tuple[list[str], list[
             err(f"{where}.y", "must be [low, high]")
         elif "y" in p and need_joints and any(isinstance(v, str) for v in p["y"]):
             err(f"{where}.y", f"{p['y']} still has an unresolved '@joint' (run the pose step)")
-        if not p.get("uses"):
+        if not p.get("uses") and pname not in grip_textures:
             err(f"{where}.uses", "needs at least one use (name, bone, z)")
+        if pname in grip_textures and not (isinstance(p.get("grasp"), list) and len(p["grasp"]) == 2 and all(type(v) in (int, float) and math.isfinite(v) for v in p["grasp"])):
+            err(f"{where}.grasp", "gripping attachment needs a finite [x, y] palm grasp point")
         for u in p.get("uses", []):
+            if "grip_texture" in u and (not isinstance(u["grip_texture"], str) or u["grip_texture"] not in spec["parts"] or u.get("bone") not in ("hand_front", "hand_back")):
+                err(f"{where}.uses.{u.get('name')}.grip_texture", "must reference a known gripping attachment on a hand bone")
             if u.get("bone") not in bone_names:
                 err(f"{where}.uses.{u.get('name')}.bone", f"unknown bone '{u.get('bone')}'")
             if "offset" in u and not (isinstance(u["offset"], list) and len(u["offset"]) == 2 and all(isinstance(v, (int, float)) for v in u["offset"])):

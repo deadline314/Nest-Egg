@@ -167,7 +167,7 @@ func _init(rig: CharacterRig) -> void:
 	_rig = rig
 	_motion = _load_motion(rig.skin_id)
 	for bone_name in rig.bone_order():
-		_angles[bone_name] = 0.0
+		_angles[bone_name] = HAND_FOLLOWS_FOREARM if bone_name in [&"hand_front", &"hand_back"] else 0.0
 	_forward_kinematics()
 	_ground_y = _lowest_foot_y()
 	if _global_pos.has(&"leg_front_upper"):
@@ -632,7 +632,7 @@ func _record_idle_feet() -> void:
 		for i in 2:
 			_idle_foot_x[i] = _rig.rest(&"hip").x + float(feet_x[i])
 	for bone_name: StringName in _angles.keys():
-		_angles[bone_name] = 0.0
+		_angles[bone_name] = HAND_FOLLOWS_FOREARM if bone_name in [&"hand_front", &"hand_back"] else 0.0
 	_apply_body()
 	_forward_kinematics()
 
@@ -764,7 +764,7 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 		# 手臂在「動作姿勢」與「握槍瞄準」之間依權重混合，才不會瞬間跳位。
 		if _rig.has_bone(&"hand_front"):
 			weapon_root.visible = not weapon.is_empty()
-			action_hand = _global_pos.get(&"hand_front", Vector2.ZERO)
+			action_hand = _global_pos.get(&"hand_front", Vector2.ZERO) + _rig.hand_grip_offset(&"hand_front").rotated(_global_angle.get(&"hand_front", 0.0))
 			action_weapon_angle = _global_angle.get(&"hand_front", 0.0) - PI * 0.5 if is_nan(_action_weapon_angle) else _action_weapon_angle
 			if _action_w >= 0.999:
 				weapon_root.position = action_hand
@@ -779,6 +779,28 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 	var anchor_point: Vector2 = _global_pos.get(anchor_bone, Vector2.ZERO) + (anchor[1] as Vector2).rotated(_global_angle.get(anchor_bone, 0.0))
 	var reach: float = anchor[2] * (0.7 if input.blocking else 1.0) - _recoil * float((_motion["recoil"] as Dictionary)["reach"])
 	var aim := Vector2.RIGHT.rotated(aim_angle)
+	if not _rig.hand_grip_offset(&"hand_front").is_zero_approx():
+		var minimum := 0.0
+		var maximum := INF
+		for chain: Array in ARM_CHAINS:
+			var hand: StringName = chain[2]
+			if hand == &"hand_back" and (not input.two_handed or input.shield_forward or _rig.hand_grip_offset(hand).is_zero_approx()):
+				continue
+			var fore := (RigLibrary.vec2(weapon.get("foregrip")) - RigLibrary.vec2(weapon.get("grip"))) * _rig.weapon_scale() if hand == &"hand_back" else Vector2.ZERO
+			var delta_to_shoulder: Vector2 = anchor_point + (fore - _rig.hand_grip_offset(hand)).rotated(aim_angle) - _global_pos[chain[0]]
+			var length := _rig.rest(chain[1]).length() + _rig.rest(hand).length() - 0.01
+			var along := delta_to_shoulder.dot(aim)
+			var discriminant := length * length - (delta_to_shoulder.length_squared() - along * along)
+			if discriminant < 0.0:
+				maximum = -INF
+				break
+			var span := sqrt(discriminant)
+			minimum = maxf(minimum, -along - span)
+			maximum = minf(maximum, -along + span)
+		if minimum <= maximum:
+			reach = clampf(reach, minimum, maximum)
+		else:
+			RigLibrary.report_once("grip-reach:%s:%s" % [_rig.skin_id, weapon.get("file", "")], "[HumanoidAnimator] %s weapon %s has no reachable two-hand grip at %.2f radians" % [_rig.skin_id, weapon.get("file", ""), aim_angle])
 	var grip := anchor_point + aim * reach
 
 	if weapon.is_empty():
@@ -791,7 +813,7 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 		weapon_root.visible = true
 		weapon_root.position = grip
 		weapon_root.rotation = aim_angle
-		_reach_arm(&"arm_front_upper", &"arm_front_lower", &"hand_front", grip, aim_angle)
+		_reach_arm(&"arm_front_upper", &"arm_front_lower", &"hand_front", grip - _rig.hand_grip_offset(&"hand_front").rotated(aim_angle), aim_angle)
 
 	if input.shield_forward:
 		var shoulder: Vector2 = _global_pos.get(&"arm_back_upper", anchor_point)
@@ -799,7 +821,7 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 		_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back", shoulder + aim * 13.0 + Vector2(0, 2), aim_angle * 0.3)
 	elif input.two_handed and not weapon.is_empty():
 		var offset := (RigLibrary.vec2(weapon.get("foregrip")) - RigLibrary.vec2(weapon.get("grip"))) * _rig.weapon_scale()
-		_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back", grip + offset.rotated(aim_angle), aim_angle)
+		_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back", grip + (offset - _rig.hand_grip_offset(&"hand_back")).rotated(aim_angle), aim_angle)
 	else:
 		# 空著的後手自然下垂、隨步伐輕擺。
 		var swing := sin(_phase + PI) * 0.4

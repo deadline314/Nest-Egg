@@ -73,10 +73,12 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
 | `holster` | `leg_front_upper` | 4 | **配件**：大腿槍套 |
 | `torso_dmg`、`pelvis_dmg`、`thigh_dmg`／`calf_dmg`（含後腳）| 與完整零件同骨頭 | 完整零件 z−1 | **破損底層**：撕裂衣物版的身體，平時被完整零件蓋住，衣物飛走後露出來 |
 | `armor_jacket` | `chest` | 4 | 穿著的短外套本體，肩領固定於胸骨；來源只取局部衣物，不替換已批准的臉與身體 |
-| `jacket_sleeve` | `arm_front_upper`／`arm_back_upper` | 9／−6 | 每側一張連續衣袖，沿上臂／前臂變形；`root_attach` 將袖根接至胸骨，袖口露出原義肢手 |
+| `jacket_sleeve_upper`、`jacket_sleeve_lower` | 前後側各自的上臂／前臂 | 9／−6 | 按各段來源軸分割，肘部保留35來源像素重疊；上段`root_attach`將袖根接至胸骨 |
 | `jacket_hem` | `coat_1` | 4 | 連續衣襬，`bend_partner: coat_2` 綁定兩段彈簧鏈；`root_attach` 固定根部，與本體保留 15 原圖像素的真實布料重疊，活動量限制在短外套範圍 |
 | `head` | `head` | 5 | 臉、前髮、耳環 |
-| `arm_upper`、`arm_lower`、`hand` | `arm_front_*`／`hand_front`（z 8～10）與 `arm_back_*`／`hand_back`（z −7～−6，亮度 0.62） | | 金屬義肢 |
+| `arm_upper`、`arm_lower`、`hand` | `arm_front_*`／`hand_front` | 8～10 | 右手機械義肢；原圖金屬粉紅反光保留，不作洋紅雜點刪除 |
+| `arm_left_upper`、`arm_left_lower`、`hand_left` | `arm_back_*`／`hand_back` | −7～−6 | 獨立左側人體手臂，亮度0.62；不複製右側機械手 |
+| `hand_grip`、`hand_left_grip` | 上述兩個手部slot | 同原手 | 握持附件換貼圖，不增加第三個可見手；source-space掌心握點經同一切圖變換匯出，與腕支點分開 |
 
 每張圖旁邊還有 `<名稱>_glow.png`（霓虹發光層，加法混合）與 `<名稱>_n.png`（法線）。`character.json` 的 `textures` 記錄每張圖的尺寸與**支點**（旋轉中心），`parts` 記錄掛載（骨頭、z、亮度）。
 
@@ -86,7 +88,9 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
 
 **肢體偏移**：spec `bones` 的 `dx` 是骨頭相對關節的水平位移。圖是從同一張側面圖切出的，近側（前）手腳必須是 0，否則會和骨盆、夾克、衣服對不齊，切口沿線出現方框；遠側（後）手腳用負值讓兩條腿分得開。
 
-**切口不留透明邊**：spec `parts` 有 `y` 的零件（在關節處切開的），切口那一側不留透明邊，法線貼圖（會把每個透明邊緣做成圓邊）才不會沿切口打出亮邊。
+**切口保留真實材質**：spec `parts`有`y`的零件，切口那一側不另留透明邊，但必須保留第一與最後已畫好的像素列；不可為了避開法線亮邊而向內裁掉來源重疊。離線回歸用逐列顏色及alpha核對。正常輪廓的描邊若被SAM漏掉，先核對原圖材質與遮罩，恢復可追溯的來源像素；不可把衣物顏色塗進皮膚、金屬或背景。
+
+**登記局部來源**：recipe的`source_rebuilds`在textures前恢復已核對的source overrides。腳本須位於角色來源目錄，先驗證全部輸入與輸出hash再寫入；凜登記外套及獨立左右手。不必為重切或法線重跑生成、SAM和全角色補全。腕部校準以原圖接頭邊界為據，setup後骨長固定；掌心偏移用於IK與物件掛載，武器材質握點不變。
 
 ## 3b. 受傷時衣物脫落
 

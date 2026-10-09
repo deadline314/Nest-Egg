@@ -50,7 +50,7 @@
       405
     ],
     "palm": [
-      369,
+      374,
       560
     ],
     "fingertip": [
@@ -435,12 +435,6 @@
       "mode": "bone",
       "uses": [
         {
-          "name": "arm_back_upper",
-          "bone": "arm_back_upper",
-          "z": -7,
-          "tint": 0.62
-        },
-        {
           "name": "arm_front_upper",
           "bone": "arm_front_upper",
           "z": 8
@@ -457,12 +451,6 @@
       "to": "palm",
       "mode": "bone",
       "uses": [
-        {
-          "name": "arm_back_lower",
-          "bone": "arm_back_lower",
-          "z": -7,
-          "tint": 0.62
-        },
         {
           "name": "arm_front_lower",
           "bone": "arm_front_lower",
@@ -481,42 +469,13 @@
       "mode": "hand",
       "uses": [
         {
-          "name": "hand_back",
-          "bone": "hand_back",
-          "z": -6,
-          "tint": 0.62
-        },
-        {
           "name": "hand_front",
           "bone": "hand_front",
-          "z": 10
+          "z": 10,
+          "grip_texture": "hand_grip"
         }
       ],
       "pivot": "palm"
-    },
-    "jacket_sleeve": {
-      "group": "sleeve",
-      "from": "shoulder",
-      "to": "elbow",
-      "mode": "bone",
-      "pivot": "shoulder",
-      "uses": [
-        {
-          "name": "jacket_sleeve_back",
-          "bone": "arm_back_upper",
-          "z": -6,
-          "tint": 0.62,
-          "armor_order": 1,
-          "root_attach": true
-        },
-        {
-          "name": "jacket_sleeve_front",
-          "bone": "arm_front_upper",
-          "z": 9,
-          "armor_order": 1,
-          "root_attach": true
-        }
-      ]
     },
     "armor_jacket": {
       "group": "jacket",
@@ -556,6 +515,136 @@
           "root_attach": true,
           "bend_partner": "coat_2"
         }
+      ]
+    },
+    "arm_left_upper": {
+      "group": "arm",
+      "from": "shoulder",
+      "to": "elbow",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "arm_back_upper",
+          "bone": "arm_back_upper",
+          "z": -7,
+          "tint": 0.62
+        }
+      ],
+      "y": [
+        0,
+        405
+      ]
+    },
+    "arm_left_lower": {
+      "group": "arm",
+      "from": "elbow",
+      "to": "palm",
+      "mode": "bone",
+      "uses": [
+        {
+          "name": "arm_back_lower",
+          "bone": "arm_back_lower",
+          "z": -7,
+          "tint": 0.62
+        }
+      ],
+      "y": [
+        405,
+        1300
+      ]
+    },
+    "hand_left": {
+      "group": "hand",
+      "from": "palm",
+      "to": "fingertip",
+      "mode": "hand",
+      "uses": [
+        {
+          "name": "hand_back",
+          "bone": "hand_back",
+          "z": -6,
+          "tint": 0.62,
+          "grip_texture": "hand_left_grip"
+        }
+      ],
+      "pivot": "palm"
+    },
+    "hand_grip": {
+      "group": "hand",
+      "from": "palm",
+      "to": "fingertip",
+      "mode": "hand",
+      "pivot": "palm",
+      "uses": [],
+      "grasp": [
+        374,
+        588
+      ]
+    },
+    "hand_left_grip": {
+      "group": "hand",
+      "from": "palm",
+      "to": "fingertip",
+      "mode": "hand",
+      "pivot": "palm",
+      "uses": [],
+      "grasp": [
+        382,
+        599
+      ]
+    },
+    "jacket_sleeve_upper": {
+      "group": "sleeve",
+      "from": "shoulder",
+      "to": "elbow",
+      "mode": "bone",
+      "pivot": "shoulder",
+      "uses": [
+        {
+          "name": "jacket_sleeve_back_upper",
+          "bone": "arm_back_upper",
+          "z": -6,
+          "tint": 0.62,
+          "armor_order": 1,
+          "root_attach": true
+        },
+        {
+          "name": "jacket_sleeve_front_upper",
+          "bone": "arm_front_upper",
+          "z": 9,
+          "armor_order": 1,
+          "root_attach": true
+        }
+      ],
+      "y": [
+        0,
+        420
+      ]
+    },
+    "jacket_sleeve_lower": {
+      "group": "sleeve",
+      "from": "elbow",
+      "to": "palm",
+      "mode": "bone",
+      "pivot": "elbow",
+      "uses": [
+        {
+          "name": "jacket_sleeve_back_lower",
+          "bone": "arm_back_lower",
+          "z": -6,
+          "tint": 0.62,
+          "armor_order": 1
+        },
+        {
+          "name": "jacket_sleeve_front_lower",
+          "bone": "arm_front_lower",
+          "z": 9,
+          "armor_order": 1
+        }
+      ],
+      "y": [
+        385,
+        1216
       ]
     }
   },
@@ -895,10 +984,7 @@
     "magenta_specks": {
       "parts": [
         "torso",
-        "pelvis",
-        "arm_upper",
-        "arm_lower",
-        "hand"
+        "pelvis"
       ],
       "max_area": 80
     },

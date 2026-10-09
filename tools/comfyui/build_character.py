@@ -165,6 +165,11 @@ class Build:
     def step_textures(self) -> list[Path]:
         self.need(self.work / "06_parts", "textures")
         self.check(joints=True)
+        for registered in self.recipe.get("source_rebuilds", []):
+            path = (ROOT / registered).resolve()
+            if not path.is_relative_to(ROOT / "art_src/characters") or path.suffix != ".py" or not path.is_file():
+                sys.exit(f"[textures] invalid registered source rebuild: {registered}")
+            log("  " + run([sys.executable, str(path)], "registered sources").strip())
         out = run([sys.executable, str(HERE / "cut_layers.py"), "--spec", str(self.spec), "--work", str(self.work),
                    "--char", str(self.char_dir), "--rig", str(self.rig)], "textures")
         log("  " + (out.strip().splitlines() or [""])[-1])

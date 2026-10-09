@@ -40,6 +40,7 @@ def check_character(char_id: str, normals: bool = False) -> list[str]:
         return [f"character.json: cannot read ({ex})"]
     problems: list[str] = []
     used = {p.get("texture") for p in definition.get("parts", [])}
+    used.update(p["grip_texture"] for p in definition.get("parts", []) if isinstance(p.get("grip_texture"), str))
     for name, tex in definition.get("textures", {}).items():
         if name not in used and not name.endswith("_dmg"):
             problems.append(f"{name}: no part uses this texture")

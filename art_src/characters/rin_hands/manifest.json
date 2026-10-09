@@ -1,0 +1,352 @@
+{
+  "approved_source": "art_src/characters/rin2/base_rgba.png",
+  "approved_sha256": "401888dc14dcca469428e4df45c07648e36fd1822497031f8c28213fafc24fd9",
+  "sources": {
+    "source/04_stages/K.png": "cb45ea2ba0856d9055bebb84e8c8560240ce8b26c85eaa549131bd618df03805",
+    "source/04_stages/K.source.json": "0a2abad26a2c30d6de8a69e2b2ef1df7e5a1ff82a9717c75f96891697ec0389f",
+    "source/04_stages/L_grip.png": "1c8dd2b2a22428fffea45b8dd848a0871ffb2d8c4c6af7877d3fa4e22c474776",
+    "source/04_stages/L_grip.source.json": "d0875aa74f713e6ff32d51582ef581375ebacfc1781a2ce237412ea821168b6d",
+    "source/05_groups/human_arm.png": "e4bf852ce24af7327f2a4c0b444c05e3fc00a0d575434ccd50896810061a0ef0",
+    "source/05_groups/human_hand.png": "6e61c46d53a7a1a22d0c2ea5eccfdbb3919385a8a9bd8a2b69b7a8257c17e557",
+    "source/07_refined/arm_left_lower.png": "06d6d9f4e29ff89e0dc4adb17294682922649532cbb383c83896974519612ebe",
+    "source/07_refined/arm_left_upper.png": "a55e5c3bb5700f692ef1e5e8a7c37637559d141d28d80007887abdcfe2a1d1ac",
+    "source/07_refined/hand_left.png": "c15bdfc01c26956a3f2a34d480d41b8ee08afcb35562a6a4d96d612d27221b26",
+    "source/_gen/rin_human_left_K.job.json": "2dd10ac6b789208f438e0befd71c91beb225ce8c5d16f7f1ab9096ecb87c6ba1",
+    "source/_gen/rin_human_left_K_0.png": "200135153b8335c309d8cdfc50b01e3063f02e7c28ee495f1e9915916edb7754",
+    "source/_gen/rin_human_left_K_0.workflow.json": "2ce0677a15f669995c54ab8de9a97fce576ccd6f01ba0cdfee5de2ca30257b24",
+    "source/_gen/rin_left_grip_L2.job.json": "8d440064d705a6c5762ec201cdb72f1652943b94edfaf0ac9fa8f82e02a2e502",
+    "source/_gen/rin_left_grip_L2.workflow.json": "9f393c6387cfa50e7f98f615ca696c04d6e889ded8b4f7f49302496668c70964",
+    "source/_gen/rin_left_grip_L2_0.png": "1c9fbff0afa14efefcc68df4e235ac6879dd6e5e383f258b634ed2b956aacb79",
+    "source/_gen/inputs/rin_left_grip_input.png": "1fd4d6571bffb8b655d7a87271b4c1e1944be648dd01efbf0c26adacaba303ed",
+    "source/_gen/sam_grip_L2/supporting_hand.png": "88792e24a4ddb2374b4d180dd9a790a907f818289d52c694dd86c111d70a7782",
+    "_gen/rin_chrome_grip_22275.job.json": "89859efb30bd52fd89adf6c6eba3f164e5d67402041702037fcbc0526c07bbdb",
+    "_gen/rin_chrome_grip_22275_0.png": "277e8d169b701f6a9b866d9fb9476ff73b013a8d5cbd7ed40c724d6daff6ace9",
+    "_gen/rin_chrome_grip_22275_0.workflow.json": "4e38ac699df70aeb63ad4206275b659d9a839b73b086fe7606baf7508c4fb1cc",
+    "_gen/sam_chrome_grip/mechanical_hand.png": "eb17e553f01fa31026e64a0ef20b0a9b26e39d98ba44d3c035666675e1774c42",
+    "chrome_grip.source.json": "953b472c9a1ee50291e2bd045c4b9e4945982b161dcbf7ab8db7d8c30ddf078e",
+    "chrome_hand_reference_alpha.png": "18f78e072f3099f551aed4e81552d325a0c62c7026b84b3859c931c63689a945",
+    "source/approved/arm_lower.png": "518b2d79830649aa6802bf28153b1c94f4b89f3ca2dd7dfa2ceb5fa4e0f1cb5d",
+    "source/approved/hand.png": "239ddcbef2f0e866c633cc0765901ee0e786282de38b74d60f4fcc9d85ca25b0",
+    "_gen/sam_chrome_grip/mechanical_hand.workflow.json": "8f418b33482159ee0cacd2c79204f64a06a21221b206ceccbffeb0ed0db9daa5",
+    "source/approved/arm_upper.png": "87e41071e9cff5d8c614afd992d45c47618430b611d6ee8281740b7c925c7ff7",
+    "source/approved/original_arm_upper.png": "8fb282e74be352d17e47099b295d61b228b3e22a4782302c7875928f98bdb0e8",
+    "source/approved/original_hand.png": "92e806e3859a1eb7766b0bc6a0b484f5d6209111a8a1f945938058d4f3dfea57"
+  },
+  "open_layers": {
+    "hand_left": "source/07_refined/hand_left.png",
+    "arm_left_upper": "source/07_refined/arm_left_upper.png",
+    "arm_left_lower": "source/07_refined/arm_left_lower.png"
+  },
+  "grips": {
+    "hand_left_grip": {
+      "raw": "source/_gen/rin_left_grip_L2_0.png",
+      "mask": "source/_gen/sam_grip_L2/supporting_hand.png",
+      "mask_dilation": 2,
+      "matrix": [
+        [
+          0.26785714285714285,
+          0,
+          320.42857142857144
+        ],
+        [
+          0,
+          0.2777777777777778,
+          515.5555555555555
+        ]
+      ],
+      "clip_above_y": 550,
+      "raw_wrist": [
+        200,
+        160
+      ],
+      "source_wrist": [
+        374,
+        560
+      ],
+      "source_grasp": [
+        382,
+        599
+      ]
+    },
+    "hand_grip": {
+      "raw": "_gen/rin_chrome_grip_22275_0.png",
+      "mask": "_gen/sam_chrome_grip/mechanical_hand.png",
+      "mask_dilation": 0,
+      "matrix": [
+        [
+          0.26785714285714285,
+          0,
+          313.73214285714283
+        ],
+        [
+          0,
+          0.2777777777777778,
+          497.5
+        ]
+      ],
+      "clip_above_y": 534,
+      "raw_wrist": [
+        225,
+        225
+      ],
+      "source_wrist": [
+        374,
+        560
+      ],
+      "source_grasp": [
+        374,
+        588
+      ],
+      "preserved_approved_connector_rows": [
+        528,
+        573
+      ]
+    }
+  },
+  "outputs": {
+    "hand_left": "9d3966c79e4db265ab98b286d3269128bdac3288a32d895a921cf61765fc9ba9",
+    "arm_left_upper": "7c34e6e60dd064f5ae693c1c86442f237b3df344c5c63c24a78648cc1c564ff9",
+    "arm_left_lower": "eebb9a640f7bf40a4b9d083a07e91f70dc929a05b5f1b90be4dc1064ee28f1ae",
+    "hand_left_grip": "06c7cf0dc943a00ea349a841c465a0af8a5843d00f5f3455a332e735c9361636",
+    "hand_grip": "912fc4ee0bd3c474f1ed28740615f5a10ee2c4905c23a355dd11602e8dcae033",
+    "arm_lower": "e6a5a5d046865e332961562ea0f35e54410a627c029c527887e049278a56fdf3",
+    "hand": "e30094a87d38b8b183b69af6b4cee95b64ce1cb92869e3c020ee5524f658c384",
+    "arm_upper": "a6b63cfd7c81982813f246ca57ce6d560656672d8881bb3607dbed99837786c2"
+  },
+  "mechanical_wrist": {
+    "forearm": "source/approved/arm_lower.png",
+    "hand": "source/approved/hand.png",
+    "connector_source_rows": [
+      542,
+      573
+    ],
+    "reason": "Existing true chrome wrist connector retained across the forearm/hand boundary; no synthetic filler pixels.",
+    "hand_connector_source_rows": [
+      528,
+      560
+    ],
+    "calibration": {
+      "previous_joint": [
+        369,
+        560
+      ],
+      "measured_joint": [
+        374,
+        560
+      ],
+      "opaque_connector_row_560": [
+        363,
+        386
+      ],
+      "reason": "The source wrist was 5 pixels left of the actual connector center (374.5); preserve source anatomy and calibrate the shared wrist, never vary bone length by animation pose."
+    },
+    "missing_connector_pixels": [
+      [
+        358,
+        577
+      ],
+      [
+        359,
+        577
+      ],
+      [
+        360,
+        577
+      ],
+      [
+        358,
+        578
+      ],
+      [
+        359,
+        578
+      ],
+      [
+        360,
+        578
+      ],
+      [
+        358,
+        579
+      ],
+      [
+        359,
+        579
+      ],
+      [
+        360,
+        579
+      ]
+    ],
+    "connector_repair_source": "Original opaque chrome pixels from 06_parts; the later magenta_specks refinement incorrectly erased legitimate metal reflections.",
+    "upper": "source/approved/arm_upper.png",
+    "original_upper": "source/approved/original_arm_upper.png",
+    "original_hand": "source/approved/original_hand.png",
+    "missing_upper_pixels": [
+      [
+        365,
+        314
+      ],
+      [
+        366,
+        314
+      ],
+      [
+        365,
+        315
+      ],
+      [
+        366,
+        315
+      ],
+      [
+        365,
+        316
+      ],
+      [
+        366,
+        316
+      ],
+      [
+        378,
+        329
+      ],
+      [
+        379,
+        329
+      ],
+      [
+        378,
+        330
+      ],
+      [
+        379,
+        330
+      ],
+      [
+        383,
+        336
+      ],
+      [
+        384,
+        336
+      ],
+      [
+        385,
+        336
+      ],
+      [
+        383,
+        337
+      ],
+      [
+        384,
+        337
+      ],
+      [
+        385,
+        337
+      ],
+      [
+        386,
+        337
+      ],
+      [
+        383,
+        338
+      ],
+      [
+        384,
+        338
+      ],
+      [
+        385,
+        338
+      ],
+      [
+        386,
+        338
+      ],
+      [
+        384,
+        339
+      ],
+      [
+        385,
+        339
+      ],
+      [
+        386,
+        339
+      ],
+      [
+        388,
+        341
+      ],
+      [
+        389,
+        341
+      ],
+      [
+        388,
+        342
+      ],
+      [
+        389,
+        342
+      ],
+      [
+        388,
+        343
+      ],
+      [
+        389,
+        343
+      ],
+      [
+        390,
+        343
+      ],
+      [
+        388,
+        344
+      ],
+      [
+        389,
+        344
+      ],
+      [
+        390,
+        344
+      ],
+      [
+        391,
+        344
+      ],
+      [
+        388,
+        345
+      ],
+      [
+        389,
+        345
+      ],
+      [
+        390,
+        345
+      ],
+      [
+        391,
+        345
+      ],
+      [
+        389,
+        346
+      ],
+      [
+        390,
+        346
+      ]
+    ]
+  }
+}

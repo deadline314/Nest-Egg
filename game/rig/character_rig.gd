@@ -47,6 +47,7 @@ var _under: Array[CanvasItem] = []
 var _parts: Array[CanvasItem] = []
 ## 做成可彎曲網格的肢體零件（RigPartMesh；也在 _parts 裡）：每格動畫之後依骨頭姿勢重算關節附近的頂點。
 var _meshes: Array[RigPartMesh] = []
+var _hand_grips: Array[Dictionary] = []
 var _part_tints: PackedFloat32Array = PackedFloat32Array()
 var _dissolve_material: ShaderMaterial
 ## 零件與武器共用的受光材質（每盞光有亮度上限、不被補光倍率放大；NE-213）。
@@ -164,6 +165,14 @@ func weapon_root() -> Node2D:
 	return _weapon_root
 
 
+## 握點相對手腕（骨架單位）；沒有握持變體的角色保持原有 IK。
+func hand_grip_offset(hand: StringName) -> Vector2:
+	for entry in _hand_grips:
+		if entry["bone"] == hand and entry["closed"]:
+			return entry["offset"]
+	return Vector2.ZERO
+
+
 ## 骨架空間（未翻轉、未縮放）→ 世界座標。
 func skeleton_to_global(point: Vector2) -> Vector2:
 	return _skeleton.to_global(point) if _skeleton != null else global_position
@@ -179,6 +188,7 @@ func animate(delta: float, input: RigInput) -> void:
 	facing = input.facing
 	_apply_fill(LightKit.character_fill)
 	_apply_light_cap(LightKit.character_light_cap)
+	_update_hand_grips(input)
 	animator.update(delta, input)
 	refresh_limbs()
 	if _flash_left > 0.0:
@@ -443,6 +453,16 @@ func _build_parts(skin: Dictionary) -> void:
 		part.self_modulate = Color(tint, tint, tint, 1.0)
 		_parts.append(part)
 		_part_tints.append(tint)
+		if entry.has("grip_texture"):
+			var grip_def: Dictionary = textures.get(str(entry["grip_texture"]), {})
+			var grip_path := base_dir.path_join(str(grip_def.get("file", "")))
+			var offset := RigLibrary.vec2(entry.get("grip_offset"))
+			if not part is Sprite2D or bone_name not in [&"hand_front", &"hand_back"] or grip_def.is_empty() or not ResourceLoader.exists(grip_path) or not offset.is_finite():
+				push_warning("[CharacterRig] %s/%s invalid gripping attachment %s; keeping resting hand" % [skin_id, part_name, entry["grip_texture"]])
+			else:
+				_hand_grips.append({"sprite": part, "bone": bone_name, "open_texture": texture, "open_pivot": pivot,
+					"grip_texture": LitTextures.load_texture(grip_path, Vector2i(RigLibrary.vec2(grip_def.get("size")))),
+					"grip_pivot": RigLibrary.vec2(grip_def.get("pivot")), "offset": offset, "closed": false})
 		target_bone.add_child(part)
 		if int(entry.get("armor_order", 0)) > 0:
 			armor_entries.append([int(entry["armor_order"]), part])
@@ -458,6 +478,19 @@ func _build_parts(skin: Dictionary) -> void:
 			last_order = int(pair[0])
 		_armor[_armor.size() - 1].append(pair[1])
 	_armor_visible = _armor.size()
+
+
+func _update_hand_grips(input: RigInput) -> void:
+	for entry in _hand_grips:
+		var closed := not _weapon_def.is_empty() and not input.dead
+		if entry["bone"] == &"hand_back":
+			closed = closed and input.two_handed and not input.shield_forward and input.action == &""
+		if closed == entry["closed"]:
+			continue
+		var sprite: Sprite2D = entry["sprite"]
+		sprite.texture = entry["grip_texture"] if closed else entry["open_texture"]
+		sprite.offset = -entry["grip_pivot"] if closed else -entry["open_pivot"]
+		entry["closed"] = closed
 
 
 func _make_sprite(texture: Texture2D, glow_texture: Texture2D, pivot: Vector2, part_pos: Vector2, part_rot: float, tint: float) -> Sprite2D:

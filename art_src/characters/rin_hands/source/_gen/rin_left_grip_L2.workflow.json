@@ -1,0 +1,110 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "qwen-image-2.1-UC-int8_convrot.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "1c": {
+    "class_type": "QwenImage21Cache",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "device": "cpu",
+      "dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+      "type": "qwen_image",
+      "device": "default"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+    }
+  },
+  "4": {
+    "class_type": "TextEncodeQwenImage21",
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "prompt": "Redraw this open human hand into a SMALL TIGHTLY CLENCHED FIST. ALL FOUR FINGERS MUST BE FULLY CURLED into the palm, their fingertips tucked inside and invisible, with the thumb wrapped across the folded fingers. The final silhouette is a compact short rounded fist below the wrist, NOT a long hanging open hand. No straight or extended finger remains. Show four anatomical knuckle segments and the thumb on the visible side, in clean hand-drawn anime cel shading matching the exact warm skin palette and dark line weight of the reference. Exactly one adult female LEFT hand. Keep the wrist at the same TOP-center position, width and vertical downward axis; edit the lower hand aggressively into the fist, do not move the wrist. This compact closed fist will wrap under a rifle fore-end after rig rotation. No visible object or weapon. No duplicate thumb, extra fingers, extra hand, glove, jewelry, body or background. True transparent RGBA. Keep the reference framing. The fingers must fold; do not copy the original extended finger pose.",
+      "negative_prompt": "",
+      "vae": [
+        "3",
+        0
+      ],
+      "resolution": 512,
+      "images.image_1": [
+        "L0",
+        0
+      ]
+    }
+  },
+  "6": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": [
+        "1c",
+        0
+      ],
+      "positive": [
+        "4",
+        0
+      ],
+      "negative": [
+        "4",
+        1
+      ],
+      "latent_image": [
+        "4",
+        2
+      ],
+      "seed": 22274,
+      "steps": 25,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0
+    }
+  },
+  "7": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "6",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "8": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "7",
+        0
+      ],
+      "filename_prefix": "rin_left_grip_L2"
+    }
+  },
+  "L0": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "rin_left_grip_input.png"
+    }
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "qwen-image-2.1-UC-int8_convrot.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "1c": {
+    "class_type": "QwenImage21Cache",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "device": "cpu",
+      "dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+      "type": "qwen_image",
+      "device": "default"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+    }
+  },
+  "4": {
+    "class_type": "TextEncodeQwenImage21",
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "prompt": "This is a transparent RGBA side-view character illustration. Edit ONLY the visible chrome arm and hand to make a separate HUMAN LEFT ARM underlayer for this same adult woman. Replace the chrome shoulder, upper arm, forearm, wrist and hand with natural light warm skin, with clean anime cel shading and strong precise outlines matching her original illustration. The arm hangs in exactly the original resting pose, at the same shoulder, elbow, wrist and fingertip locations and with the same length and scale. The human wrist is slim and anatomically connected, the palm has exactly one thumb and four distinct fingers with proper knuckles, relaxed naturally down beside the thigh. Remove the jacket ONLY where it covers this one arm so the entire human arm is visible for cutting. Do not add another arm or hand, do not draw metallic plates or chrome fingers on this arm. The white bodysuit stays unchanged. Keep her original face, hairstyle, ears, body, legs, boots and other accessories unchanged. Keep the full body canvas, side view facing right, and transparent background. This is a local human arm replacement, not a character redesign.",
+      "negative_prompt": "",
+      "vae": [
+        "3",
+        0
+      ],
+      "resolution": 1024,
+      "images.image_1": [
+        "L0",
+        0
+      ]
+    }
+  },
+  "6": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": [
+        "1c",
+        0
+      ],
+      "positive": [
+        "4",
+        0
+      ],
+      "negative": [
+        "4",
+        1
+      ],
+      "latent_image": [
+        "4",
+        2
+      ],
+      "seed": 22272,
+      "steps": 25,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0
+    }
+  },
+  "7": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "6",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "8": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "7",
+        0
+      ],
+      "filename_prefix": "rin_human_left_K"
+    }
+  },
+  "L0": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "base_rgba.png"
+    },
+    "is_changed": [
+      "401888dc14dcca469428e4df45c07648e36fd1822497031f8c28213fafc24fd9"
+    ]
+  }
+}

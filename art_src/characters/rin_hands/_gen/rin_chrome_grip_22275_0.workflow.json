@@ -1,0 +1,113 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "qwen-image-2.1-UC-int8_convrot.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "1c": {
+    "class_type": "QwenImage21Cache",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "device": "cpu",
+      "dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+      "type": "qwen_image",
+      "device": "default"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+    }
+  },
+  "4": {
+    "class_type": "TextEncodeQwenImage21",
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "prompt": "Edit the single chrome cybernetic hand into one compact closed gripping hand. Keep the wrist at the SAME position near the top center and the same width, axis and chrome connector. All four fingers curl fully around an invisible narrow cylindrical weapon grip, with their tips tucked into the palm; show four distinct articulated metal knuckles and exactly one opposed thumb. The silhouette is a short closed fist below the wrist, not the long open hanging fingers in the reference. Right hand of the same adult woman, strict side view. Preserve the exact silver chrome plates, black joints, bold ink lines and flat anime cel shading of the reference. No extra fingers, no second thumb, no extra hand, no arm, no weapon, no jewelry, no torso. True transparent RGBA background. Preserve the framing, original wrist center and wrist connection; change only the finger pose. The hand is relaxed around a grip, not punching.",
+      "negative_prompt": "",
+      "vae": [
+        "3",
+        0
+      ],
+      "resolution": 512,
+      "images.image_1": [
+        "L0",
+        0
+      ]
+    }
+  },
+  "6": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": [
+        "1c",
+        0
+      ],
+      "positive": [
+        "4",
+        0
+      ],
+      "negative": [
+        "4",
+        1
+      ],
+      "latent_image": [
+        "4",
+        2
+      ],
+      "seed": 22275,
+      "steps": 25,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0
+    }
+  },
+  "7": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "6",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "8": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "7",
+        0
+      ],
+      "filename_prefix": "rin_chrome_grip_22275"
+    }
+  },
+  "L0": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "chrome_hand_reference_alpha.png"
+    },
+    "is_changed": [
+      "18f78e072f3099f551aed4e81552d325a0c62c7026b84b3859c931c63689a945"
+    ]
+  }
+}

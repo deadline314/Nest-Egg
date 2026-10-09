@@ -35,11 +35,11 @@
       "file": "parts/hair_back_2.png",
       "size": [
         123,
-        196
+        198
       ],
       "pivot": [
         78.71,
-        23.05
+        25.05
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -47,7 +47,7 @@
       "file": "parts/hair_back_1.png",
       "size": [
         109,
-        215
+        218
       ],
       "pivot": [
         62.33,
@@ -59,11 +59,11 @@
       "file": "parts/pelvis.png",
       "size": [
         180,
-        130
+        135
       ],
       "pivot": [
         81.0,
-        103.0
+        105.0
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
       "glow": "parts/pelvis_glow.png"
@@ -72,11 +72,11 @@
       "file": "parts/pelvis_dmg.png",
       "size": [
         180,
-        130
+        135
       ],
       "pivot": [
         81.0,
-        103.0
+        105.0
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -84,7 +84,7 @@
       "file": "parts/torso.png",
       "size": [
         200,
-        333
+        336
       ],
       "pivot": [
         55.0,
@@ -97,7 +97,7 @@
       "file": "parts/torso_dmg.png",
       "size": [
         200,
-        333
+        336
       ],
       "pivot": [
         55.0,
@@ -133,11 +133,11 @@
       "file": "parts/leg_upper.png",
       "size": [
         148,
-        242
+        247
       ],
       "pivot": [
         63.76,
-        -11.99
+        -9.99
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -145,11 +145,11 @@
       "file": "parts/leg_upper_dmg.png",
       "size": [
         148,
-        242
+        247
       ],
       "pivot": [
         63.76,
-        -11.99
+        -9.99
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -157,11 +157,11 @@
       "file": "parts/leg_lower.png",
       "size": [
         89,
-        220
+        222
       ],
       "pivot": [
         64.16,
-        8.05
+        10.05
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -169,11 +169,11 @@
       "file": "parts/leg_lower_dmg.png",
       "size": [
         89,
-        220
+        222
       ],
       "pivot": [
         64.16,
-        8.05
+        10.05
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -194,7 +194,7 @@
       "file": "parts/arm_upper.png",
       "size": [
         91,
-        220
+        223
       ],
       "pivot": [
         28.27,
@@ -205,36 +205,24 @@
     "arm_lower": {
       "file": "parts/arm_lower.png",
       "size": [
-        60,
-        172
+        61,
+        183
       ],
       "pivot": [
-        31.23,
-        8.03
+        32.78,
+        10.36
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "hand": {
       "file": "parts/hand.png",
       "size": [
-        112,
-        69
+        141,
+        68
       ],
       "pivot": [
-        8.33,
-        32.44
-      ],
-      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
-    },
-    "jacket_sleeve": {
-      "file": "parts/jacket_sleeve.png",
-      "size": [
-        98,
-        374
-      ],
-      "pivot": [
-        28.71,
-        68.69
+        38.06,
+        29.43
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -242,7 +230,7 @@
       "file": "parts/armor_jacket.png",
       "size": [
         157,
-        182
+        185
       ],
       "pivot": [
         68.0,
@@ -254,11 +242,95 @@
       "file": "parts/jacket_hem.png",
       "size": [
         104,
-        50
+        52
       ],
       "pivot": [
         56.0,
-        8.0
+        10.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "arm_left_upper": {
+      "file": "parts/arm_left_upper.png",
+      "size": [
+        78,
+        265
+      ],
+      "pivot": [
+        25.44,
+        46.12
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "arm_left_lower": {
+      "file": "parts/arm_left_lower.png",
+      "size": [
+        66,
+        239
+      ],
+      "pivot": [
+        26.27,
+        60.98
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "hand_left": {
+      "file": "parts/hand_left.png",
+      "size": [
+        134,
+        65
+      ],
+      "pivot": [
+        24.91,
+        29.83
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "hand_grip": {
+      "file": "parts/hand_grip.png",
+      "size": [
+        95,
+        56
+      ],
+      "pivot": [
+        38.06,
+        22.93
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "hand_left_grip": {
+      "file": "parts/hand_left_grip.png",
+      "size": [
+        90,
+        70
+      ],
+      "pivot": [
+        15.89,
+        35.51
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "jacket_sleeve_upper": {
+      "file": "parts/jacket_sleeve_upper.png",
+      "size": [
+        99,
+        244
+      ],
+      "pivot": [
+        28.71,
+        69.76
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "jacket_sleeve_lower": {
+      "file": "parts/jacket_sleeve_lower.png",
+      "size": [
+        72,
+        174
+      ],
+      "pivot": [
+        29.01,
+        21.64
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     }
@@ -278,14 +350,14 @@
     },
     {
       "name": "arm_back_upper",
-      "texture": "arm_upper",
+      "texture": "arm_left_upper",
       "bone": "arm_back_upper",
       "z": -7,
       "tint": 0.62
     },
     {
       "name": "arm_back_lower",
-      "texture": "arm_lower",
+      "texture": "arm_left_lower",
       "bone": "arm_back_lower",
       "z": -7,
       "tint": 0.62
@@ -308,19 +380,32 @@
     },
     {
       "name": "hand_back",
-      "texture": "hand",
+      "texture": "hand_left",
       "bone": "hand_back",
       "z": -6,
-      "tint": 0.62
+      "tint": 0.62,
+      "grip_texture": "hand_left_grip",
+      "grip_offset": [
+        1.67408,
+        -0.01506
+      ]
     },
     {
-      "name": "jacket_sleeve_back",
-      "texture": "jacket_sleeve",
+      "name": "jacket_sleeve_back_upper",
+      "texture": "jacket_sleeve_upper",
       "bone": "arm_back_upper",
       "z": -6,
       "tint": 0.62,
       "armor_order": 1,
       "root_attach": true
+    },
+    {
+      "name": "jacket_sleeve_back_lower",
+      "texture": "jacket_sleeve_lower",
+      "bone": "arm_back_lower",
+      "z": -6,
+      "tint": 0.62,
+      "armor_order": 1
     },
     {
       "name": "leg_back_upper",
@@ -448,18 +533,30 @@
       "z": 8
     },
     {
-      "name": "jacket_sleeve_front",
-      "texture": "jacket_sleeve",
+      "name": "jacket_sleeve_front_upper",
+      "texture": "jacket_sleeve_upper",
       "bone": "arm_front_upper",
       "z": 9,
       "armor_order": 1,
       "root_attach": true
     },
     {
+      "name": "jacket_sleeve_front_lower",
+      "texture": "jacket_sleeve_lower",
+      "bone": "arm_front_lower",
+      "z": 9,
+      "armor_order": 1
+    },
+    {
       "name": "hand_front",
       "texture": "hand",
       "bone": "hand_front",
-      "z": 10
+      "z": 10,
+      "grip_texture": "hand_grip",
+      "grip_offset": [
+        1.15531,
+        0.22636
+      ]
     }
   ]
 }
