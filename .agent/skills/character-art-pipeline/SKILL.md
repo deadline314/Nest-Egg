@@ -87,6 +87,15 @@ texture_scale = 1 / tex_px_per_wp
 
 輸出：`sam/`、`04_stages/`、`05_groups/`、`06_parts/ownership.png`、`07_refined/` 與補全依據。錯切、多手或腿重影不進下一關。
 
+## 局部重跑與可重現修復
+
+- `make_parts.py --only <群組>` 在發布零件時保留既有無關 PNG；被選定群組影響的 `within`／`not_within`／`minus_group` 與衍生 `near_leg` 仍須重算。`refine_parts.py --only <非損傷部件>` 只發布選定部件。兩個 `--only` 的單位不同；空名稱、未知名稱或包含空項的清單須在寫圖或啟動模型前拒絕。
+- 先保存各步驟輸入／輸出 hash。局部重跑後，既有無關部件須逐位元組一致；必要相依部件要確實更新。完整重跑維持原有流程，不把後續損傷、貼圖、normal 或匯入自動當成已驗證。
+- 校準與人工修補的來源層可放在 `<work>/overrides/refined/<part>.png`；必須是 spec 中已知部件、與 `base_rgba.png` 完全相同畫布的 RGBA。它優先於 07_refined／06_parts。保留修前、所用底層、取用座標／遮罩、修補理由與原圖／修補 hash；不得把修補寫成重新生成或批准的新定稿。
+- `<work>/overrides/*.png` 是最終遊戲尺寸的覆蓋圖，由 build_character 套用。部件名稱、RGBA 格式與新切出 PNG 尺寸都須吻合；不符時，在替換既有遊戲 PNG、骨架與外觀資料前停止，錯誤指向實際來源路徑。不得警告後略過、繼續交付混合版本。
+- 用獨立暫存目錄從相同來源重跑 refine → damage → cut，與候選交付逐件比對 PNG、character.json 和骨架資料；資料相等和影像檔案相等分開記錄。normal／Godot 匯入／Forward+ 外觀另驗，不把 CPU 可重現結果當成動畫或人體驗收。
+- 離線回歸：`python tools/comfyui/test_mask_delivery.py`；此檢查不載入模型、不使用 GPU。它驗證局部發布、相依重算、來源覆蓋與拒絕無效輸入時保留交付。全角色及全動作驗收仍交給 rig-animation。
+
 ## 5. 遊戲貼圖、法線與匯入
 
 1. 使用既有 `cut_layers.py`，輸出匹配尺寸與 pivot 的 parts、glow、character.json、rig。完成全套後再替換，失敗保留舊資源。

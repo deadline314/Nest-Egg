@@ -101,11 +101,14 @@ def main() -> None:
     ap.add_argument("--spec", required=True)
     ap.add_argument("--work", required=True)
     ap.add_argument("--no-complete", action="store_true", help="skip Qwen: parts are just the visible pixels")
-    ap.add_argument("--only", help="comma list of groups to (re)complete; the others reuse 05_groups/<group>.png when present")
+    ap.add_argument("--only", help="comma list of groups to (re)complete and export; preserve existing unrelated part PNGs")
     ap.add_argument("--seed", type=int)
     ap.add_argument("--redo-stage", help="comma list of stage pictures to generate again")
     args = ap.parse_args()
     spec = json.loads(Path(args.spec).read_text(encoding="utf8"))
+    only = {name.strip() for name in args.only.split(",")} if args.only is not None else None
+    if only is not None and (not only or "" in only or not only <= spec["groups"].keys()):
+        ap.error("--only requires nonempty group names from spec.groups")
     work = Path(args.work)
     rgba = np.array(Image.open(work / "base_rgba.png").convert("RGBA"))
     H, W = rgba.shape[:2]
@@ -194,7 +197,6 @@ def main() -> None:
         stage_masks[sname] = {p: (np.array(Image.open(have[p]).convert("L").resize((W, H))) > 127) & (arr_[:, :, 3] > 127) for p in need}
 
     # ---- completion of hidden groups --------------------------------------------------------------------------
-    only = set(args.only.split(",")) if args.only else None
     complete: dict[str, np.ndarray] = {}  # group -> full-canvas RGBA
     for name in order:
         g = spec["groups"][name]
@@ -446,6 +448,14 @@ def main() -> None:
             continue
         grp = complete[pdef["group"]]
         region = parts[pname]
+        dependencies = {pdef["group"]} | {pdef[key] for key in ("minus_group", "within", "not_within") if key in pdef}
+        dependencies.update(rule["group"] for rule in pdef.get("joint_overlap", []))
+        if "near_leg" in dependencies:
+            dependencies.update(spec["groups"])
+        target = pdir / f"{pname}.png"
+        if only is not None and dependencies.isdisjoint(only) and target.exists():
+            parts[pname] = np.array(Image.open(target).convert("RGBA"))[:, :, 3] > 127
+            continue
         grown = dilate(region, 2 if "blob" in pdef else pdef.get("seam", seam)) & (grp[:, :, 3] > 127)
         if "minus_group" in pdef:
             grown &= ~(complete[pdef["minus_group"]][:, :, 3] > 127)

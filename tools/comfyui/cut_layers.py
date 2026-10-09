@@ -41,6 +41,14 @@ def main() -> None:
     px_wp = spec["tex_px_per_wp"]
     J = {n: np.array(p, float) * k for n, p in spec["joints"].items()}
     src_dir = work / "07_refined" if (work / "07_refined").exists() else work / "06_parts"  # refine_parts.py output wins
+    source_overrides = work / "overrides/refined"
+    overrides = {path.stem: path for path in source_overrides.glob("*.png")}
+    if overrides:
+        canvas = Image.open(work / "base_rgba.png").size
+        for name, path in overrides.items():
+            with Image.open(path) as image:
+                if name not in spec["parts"] or image.mode != "RGBA" or image.size != canvas:
+                    raise ValueError(f"{path}: source override requires a known part and full-canvas RGBA of size {canvas}")
     final_parts = Path(args.char) / "parts"
     out_parts = Path(args.char) / "parts.tmp"  # written here first; swapped in only when every part was cut (a failed run keeps the old textures)
     if out_parts.exists():
@@ -50,7 +58,7 @@ def main() -> None:
 
     textures, transforms = {}, {}
     for name, p in spec["parts"].items():
-        src = Image.open(src_dir / f"{name}.png").convert("RGBA")
+        src = Image.open(overrides.get(name, src_dir / f"{name}.png")).convert("RGBA")
         arr = np.array(src).astype(np.float32)
         pm = arr.copy(); pm[:, :, :3] *= pm[:, :, 3:4] / 255.0  # premultiplied resize keeps edges clean
         pm = cv2.resize(pm, None, fx=k, fy=k, interpolation=cv2.INTER_AREA)
@@ -174,6 +182,10 @@ def main() -> None:
     char["textures"] = textures
     char["parts"] = [{"name": u["name"], "texture": u["texture"], "bone": u["bone"], "z": u["z"], **({"tint": u["tint"]} if "tint" in u else {}), **({"armor_order": u["armor_order"]} if "armor_order" in u else {}), **({"under": True} if u.get("under") else {}), **({"offset": u["offset"]} if "offset" in u else {})} for u in uses]
     # swap in the new files only now that everything above worked
+    for path in (work / "overrides").glob("*.png"):
+        target = out_parts / path.name
+        if not target.exists() or Image.open(path).mode != "RGBA" or Image.open(path).size != Image.open(target).size:
+            raise ValueError(f"{path}: final override requires an existing part and RGBA PNG of the same size")
     (out_parts / ".gdignore").unlink()
     if final_parts.exists():
         for imp in final_parts.glob("*.import"):  # keep the engine's import records (and their uids) of textures that still exist

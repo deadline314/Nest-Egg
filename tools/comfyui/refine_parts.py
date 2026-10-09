@@ -109,8 +109,13 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--spec", required=True)
     ap.add_argument("--work", required=True)
+    ap.add_argument("--only", help="comma list of non-damage parts to refine; preserve unrelated 07_refined PNGs")
     args = ap.parse_args()
     spec = json.loads(Path(args.spec).read_text(encoding="utf8"))
+    names = {name for name, part in spec["parts"].items() if "damage_of" not in part}
+    only = {name.strip() for name in args.only.split(",")} if args.only is not None else names
+    if not only or "" in only or not only <= names:
+        ap.error("--only requires nonempty, non-damage part names from spec.parts")
     cfg = spec.get("refine", {})
     work = Path(args.work)
     src_dir, out_dir = work / "06_parts", work / "07_refined"
@@ -183,6 +188,8 @@ def main() -> None:
 
     sm = cfg.get("smooth_alpha")
     for n, L in layers.items():
+        if n not in only:
+            continue
         if sm and n in sm["parts"]:  # soften stair-stepped outlines: blur the mask, then re-sharpen it around 50 %
             blur = cv2.GaussianBlur(L[:, :, 3].astype(np.float32), (0, 0), sm.get("sigma", 1.0))
             L[:, :, 3] = np.clip((blur - 127.5) * sm.get("gain", 3.0) + 127.5, 0, 255).astype(np.uint8)
@@ -204,7 +211,7 @@ def main() -> None:
             layers[n] = defringe(L, cfg["defringe"]["width"])
         Image.fromarray(layers[n]).save(out_dir / f"{n}.png")
     shutil.copy(src_dir / "ownership.png", out_dir / "ownership.png") if (src_dir / "ownership.png").exists() else None
-    print(f"refined {len(layers)} parts -> {out_dir}")
+    print(f"refined {len(only)} parts -> {out_dir}")
 
 
 if __name__ == "__main__":

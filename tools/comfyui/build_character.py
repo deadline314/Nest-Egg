@@ -172,9 +172,8 @@ class Build:
         for f in sorted((self.work / "overrides").glob("*.png")) if (self.work / "overrides").exists() else []:
             target = self.char_dir / "parts" / f.name
             from PIL import Image
-            if not target.exists() or Image.open(f).size != Image.open(target).size:
-                log(f"  WARN override {f.name} ignored (no such part, or a different size)")
-                continue
+            if not target.exists() or Image.open(f).mode != "RGBA" or Image.open(f).size != Image.open(target).size:
+                sys.exit(f"[textures] override {f} requires an existing part and RGBA PNG of the same size: {target}")
             shutil.copy(f, target)
             n += 1
         if n:
