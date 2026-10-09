@@ -22,6 +22,10 @@ extends Resource
 @export var explode_on_expire: bool = false
 
 @export_group("Visual")
+## Shape is decorative; radius remains the shared physical head radius.
+@export_enum("round", "rifle", "compact", "pellet", "energy", "rail", "grenade", "shell", "organic", "wave") var visual_style: String = "round"
+## Maximum decorative trail in world pixels, independent of speed and frame rate.
+@export_range(0.0, 40.0) var trail_distance: float = 14.0
 @export var radius: float = 3.0
 @export var length: float = 8.0
 @export var color: Color = Color.WHITE

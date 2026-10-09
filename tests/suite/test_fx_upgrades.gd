@@ -14,6 +14,7 @@ func run() -> void:
 	_test_exposure_budget()
 	_test_source_literals()
 	await _test_projectile_trails()
+	await _test_projectile_sweeps()
 	await _test_player_fx()
 	await _test_dash_and_materialize()
 	await _test_environment()
@@ -290,3 +291,144 @@ func _test_dual_team_explosion() -> void:
 	check(flashes[0] == 1, "dual-team barrel emits one ambient flash")
 	check(level.player.health.current < 999 and enemy.health.current < 999, "deduplicating blast visuals preserves damage to both teams")
 	await end_level(level)
+
+
+## NE-238: a fast head must hit a thin target before its visible tail crosses it.
+func _test_projectile_sweeps() -> void:
+	var container := Node2D.new()
+	runner.add_child(container)
+	ProjectilePool.bind_container(container)
+	var target := _projectile_target(container, Vector2(100, 0), Combat.Team.ENEMY)
+	await physics_frames(2)
+	for id in ["pistol", "rifle", "smg", "spread", "laser", "railgun", "launcher", "mech_cannon"]:
+		var weapon := load("res://data/weapons/%s.tres" % id) as WeaponData
+		var projectile_spec := weapon.projectile.duplicate() as ProjectileSpec
+		projectile_spec.gravity = 0.0 # A straight lane isolates collision from ballistic aim.
+		projectile_spec.explosion_radius = 0.0
+		target.health.setup(100, 0.0)
+		var bullet := ProjectilePool.spawn(projectile_spec, Vector2.ZERO, Vector2.RIGHT, Combat.Team.PLAYER)
+		bullet.set_physics_process(false)
+		bullet._physics_process(0.5)
+		check(target.health.current == 100 - projectile_spec.damage, "%s does not tunnel through a thin target on a long frame" % id)
+		check(bullet.global_position.x < 108.0 or projectile_spec.pierce > 0, "%s impact stays at the head rather than the far end of its frame" % id)
+		bullet.deactivate()
+		await physics_frames(1)
+	var rail := (load("res://data/projectiles/rail_slug.tres") as ProjectileSpec).duplicate() as ProjectileSpec
+	var second := _projectile_target(container, Vector2(150, 0), Combat.Team.ENEMY)
+	await physics_frames(2)
+	target.health.setup(100, 0.0)
+	var piercing := ProjectilePool.spawn(rail, Vector2.ZERO, Vector2.RIGHT, Combat.Team.PLAYER)
+	piercing.set_physics_process(false)
+	piercing._physics_process(0.2)
+	check(target.health.current == 94 and second.health.current == 94, "rail sweep pierces two separate targets once each within one frame")
+	piercing.deactivate()
+	target.guard = func(_info: DamageInfo) -> Hurtbox.Guard: return Hurtbox.Guard.REFLECT
+	target.reflect_direction = Vector2.LEFT
+	var friendly := _projectile_target(container, Vector2(30, 0), Combat.Team.PLAYER)
+	await physics_frames(2)
+	var reflected := ProjectilePool.spawn(rail, Vector2(50, 0), Vector2.RIGHT, Combat.Team.PLAYER)
+	reflected.set_physics_process(false)
+	reflected._physics_process(0.15)
+	check(reflected.team == Combat.Team.ENEMY and friendly.health.current == 88, "reflection changes the swept mask and hits the new opposing team in the remaining frame")
+	check(reflected.spec == rail and reflected._trail_len <= 1, "reflection keeps its original projectile type without a trail across the reflector")
+	reflected.deactivate()
+	target.guard = Callable()
+	var wall := StaticBody2D.new()
+	wall.position = Vector2(100, 80)
+	wall.collision_layer = Layers.WORLD
+	var wall_shape := CollisionShape2D.new()
+	var rectangle := RectangleShape2D.new()
+	rectangle.size = Vector2(2, 50)
+	wall_shape.shape = rectangle
+	wall.add_child(wall_shape)
+	container.add_child(wall)
+	await physics_frames(2)
+	var blocked := ProjectilePool.spawn(rail, Vector2(0, 80), Vector2.RIGHT, Combat.Team.PLAYER)
+	blocked.set_physics_process(false)
+	blocked._physics_process(0.2)
+	check(not blocked.active and blocked.position.x < 103, "fast piercing heads stop at thin solid walls")
+	rail.passes_walls = true
+	var bypass := ProjectilePool.spawn(rail, Vector2(0, 80), Vector2.RIGHT, Combat.Team.PLAYER)
+	bypass.set_physics_process(false)
+	bypass._physics_process(0.2)
+	check(bypass.active and bypass.position.x > 200, "wall-passing projectiles preserve their actual collision rule")
+	bypass.deactivate()
+	var reuse := ProjectilePool.spawn(load("res://data/projectiles/spread_pellet.tres"), Vector2(0, 160), Vector2.RIGHT, Combat.Team.PLAYER)
+	check(reuse == bypass and reuse._damage_scale == 1.0 and reuse.team == Combat.Team.PLAYER and reuse._trail_len == 0, "reused projectile clears reflection, team and old trajectory when the gun changes")
+	reuse.deactivate()
+	# An invulnerable foreground hurtbox cannot eat a round aimed at a valid target.
+	target.health.setup(100, 0.0)
+	second.health.setup(100, 0.0)
+	target.health.grant_invulnerability(60.0)
+	var pistol := load("res://data/projectiles/pistol_shot.tres") as ProjectileSpec
+	var through_immune := ProjectilePool.spawn(pistol, Vector2.ZERO, Vector2.RIGHT, Combat.Team.PLAYER)
+	through_immune.set_physics_process(false)
+	through_immune._physics_process(0.4)
+	check(target.health.current == 100 and second.health.current == 99, "an invulnerable foreground hurtbox does not hide a valid target behind it")
+	through_immune.deactivate()
+	target.health._physics_process(60.0) # Expire the temporary immunity through the real timer.
+	var overlap := ProjectilePool.spawn(pistol, target.global_position, Vector2.RIGHT, Combat.Team.PLAYER)
+	overlap.set_physics_process(false)
+	overlap._physics_process(1.0 / 60.0)
+	check(target.health.current == 99 and not overlap.active, "initial overlap health=%d active=%s position=%s can_receive=%s" % [target.health.current, overlap.active, overlap.position, target.can_receive()])
+	# Reuse and reflect every shipped player gun, not only the fastest rail slug.
+	target.position.x = 300.0
+	friendly.position.x = 200.0
+	target.guard = func(_info: DamageInfo) -> Hurtbox.Guard: return Hurtbox.Guard.REFLECT
+	await physics_frames(2)
+	var gun_names := ["pistol", "rifle", "smg", "spread", "laser", "railgun", "launcher", "mech_cannon"]
+	var doubled_damage := [2, 2, 2, 2, 6, 12, 2, 6]
+	for i in gun_names.size():
+		var weapon := load("res://data/weapons/%s.tres" % gun_names[i]) as WeaponData
+		var gun_spec := weapon.projectile.duplicate() as ProjectileSpec
+		gun_spec.gravity = 0.0
+		gun_spec.explosion_radius = 0.0
+		friendly.health.setup(100, 0.0)
+		var round_trip := ProjectilePool.spawn(gun_spec, Vector2(250, 0), Vector2.RIGHT, Combat.Team.PLAYER)
+		round_trip.set_physics_process(false)
+		round_trip._physics_process(0.6)
+		check(round_trip.team == Combat.Team.ENEMY and friendly.health.current == 100 - doubled_damage[i], "%s reflection team=%d health=%d position=%s target_receives=%s" % [gun_names[i], round_trip.team, friendly.health.current, round_trip.position, target.can_receive()])
+		check(round_trip.spec == gun_spec, "%s reflection retains its gun-specific head" % gun_names[i])
+		round_trip.deactivate()
+		await physics_frames(1)
+	target.guard = Callable()
+	# Damage is counted by shared health, even when a head and body overlap.
+	target.add_part(&"overlap", Vector2(4, 40), Vector2.ZERO, 1.0)
+	second.position.x = 350.0
+	target.health.setup(100, 0.0)
+	second.health.setup(100, 0.0)
+	await physics_frames(2)
+	var layered := ProjectilePool.spawn(rail, Vector2(250, 0), Vector2.RIGHT, Combat.Team.PLAYER)
+	layered.set_physics_process(false)
+	layered._physics_process(0.2)
+	check(target.health.current == 94 and second.health.current == 94, "piercing overlapping parts damage once: %d/%d at %s" % [target.health.current, second.health.current, layered.position])
+	layered.deactivate()
+	# The physical radius, not the drawn tail, decides a near miss and a graze.
+	target.health.setup(100, 0.0)
+	var markers: Array[StringName] = []
+	var listener := func(kind: StringName) -> void: markers.append(kind)
+	EventBus.hit_marker.connect(listener)
+	var miss := ProjectilePool.spawn(pistol, Vector2(250, 22.1), Vector2.RIGHT, Combat.Team.PLAYER)
+	miss.set_physics_process(false)
+	miss._physics_process(0.1)
+	check(target.health.current == 100 and markers.is_empty(), "a round outside the physical head radius causes neither damage nor hit feedback")
+	miss.deactivate()
+	var graze := ProjectilePool.spawn(pistol, Vector2(250, 21.9), Vector2.RIGHT, Combat.Team.PLAYER)
+	graze.set_physics_process(false)
+	graze._physics_process(0.1)
+	check(target.health.current == 99 and markers.size() == 1, "grazing physical head hits once: health=%d markers=%d at %s" % [target.health.current, markers.size(), graze.position])
+	graze.deactivate()
+	EventBus.hit_marker.disconnect(listener)
+	container.queue_free()
+	await physics_frames(2)
+
+
+func _projectile_target(container: Node2D, at: Vector2, owner_team: Combat.Team) -> Hurtbox:
+	var health := HealthComponent.new()
+	container.add_child(health)
+	health.setup(100, 0.0)
+	var target := Hurtbox.new()
+	target.position = at
+	target.setup(owner_team, health, Vector2(4, 40))
+	container.add_child(target)
+	return target

@@ -14,6 +14,9 @@ const TRAIL_ALPHA := 0.5
 const SMOKE_INTERVAL := 0.045
 ## 傷害數字只在重擊（衝擊力達此值）或弱點時顯示。
 const HEAVY_NUMBER_IMPACT := 6.0
+const MAX_SWEEP_CONTACTS := 24
+const CONTACT_ADVANCE := 0.05
+const ProjectileArt := preload("res://game/projectiles/projectile_art.gd")
 
 var spec: ProjectileSpec
 var team: Combat.Team = Combat.Team.PLAYER
@@ -27,6 +30,8 @@ var _damage_scale := 1.0
 var _color := Color.WHITE
 var _hit_ids: Dictionary[int, bool] = {}
 var _shape := CircleShape2D.new()
+var _sweep := PhysicsShapeQueryParameters2D.new()
+var _sweep_exclude: Array[RID] = []
 ## 拖尾環形緩衝：_trail_head 是最新的一筆，往回數就是越舊；固定容量。
 var _trail := PackedVector2Array()
 var _trail_len := 0
@@ -36,6 +41,10 @@ var _smoke_left := 0.0
 
 func _init() -> void:
 	_trail.resize(MAX_TRAIL_POINTS)
+	_sweep.shape = _shape
+	_sweep.collide_with_areas = true
+	_sweep.collide_with_bodies = true
+	_sweep.margin = 0.0
 	collision_layer = 0
 	monitorable = false
 	monitoring = false
@@ -91,16 +100,61 @@ func _physics_process(delta: float) -> void:
 	if spec.gravity != 0.0:
 		velocity.y += spec.gravity * delta
 		rotation = velocity.angle()
-	global_position += velocity * delta
+	_move_swept(delta)
+	if not active:
+		return
 	_record_trail(delta)
 	_life -= delta
 	if _life <= 0.0:
 		_finish(false)
 
 
+## Sweep the same circle used by Area2D. Trails never participate in collision.
+## The bounded contact loop also handles penetration and a new team after a parry.
+func _move_swept(delta: float) -> void:
+	var space := get_world_2d().direct_space_state
+	var remaining := delta
+	_sweep_exclude.clear()
+	_sweep_exclude.append(get_rid())
+	for contact in MAX_SWEEP_CONTACTS:
+		if not active or remaining <= 0.000001:
+			return
+		_sweep.collision_mask = Combat.hurtbox_mask_against(team) | (0 if spec.passes_walls else Layers.WORLD)
+		_sweep.exclude = _sweep_exclude
+		_sweep.transform = Transform2D(0.0, global_position)
+		_sweep.motion = Vector2.ZERO
+		# cast_motion intentionally ignores initial overlaps: resolve these first.
+		var hit := space.get_rest_info(_sweep)
+		if hit.is_empty():
+			var motion := velocity * remaining
+			_sweep.motion = motion
+			var fractions := space.cast_motion(_sweep)
+			if fractions.size() < 2 or fractions[0] >= 1.0:
+				global_position += motion
+				return
+			var fraction := minf(1.0, fractions[1] + CONTACT_ADVANCE / maxf(motion.length(), CONTACT_ADVANCE))
+			global_position += motion * fraction
+			remaining *= 1.0 - fraction
+			_sweep.transform.origin = global_position
+			_sweep.motion = Vector2.ZERO
+			hit = space.get_rest_info(_sweep)
+			if hit.is_empty():
+				# Conservatively stop at the safe point if the physics contact disappears.
+				global_position -= motion * (fraction - fractions[0])
+				return
+		var collider := instance_from_id(int(hit["collider_id"])) as Node2D
+		_sweep_exclude.append(hit["rid"])
+		if collider is Area2D:
+			_on_area_entered(collider)
+		elif collider != null:
+			_on_body_entered(collider)
+	# Dense overlap cannot turn into unbounded query work or a head passing through walls.
+	deactivate()
+
+
 ## 記下目前位置當作拖尾的一點；火箭另外冒煙。拖尾要重畫，所以有拖尾的子彈每個影格重畫。
 func _record_trail(delta: float) -> void:
-	if spec.smoke_trail:
+	if spec.smoke_trail and LightQuality.tier() != LightQuality.Tier.LOW:
 		_smoke_left -= delta
 		if _smoke_left <= 0.0:
 			_smoke_left = SMOKE_INTERVAL
@@ -180,17 +234,18 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 	if body.has_method(&"hit_by_projectile"):
 		var id := body.get_instance_id()
-		if not _hit_ids.has(id):
-			_hit_ids[id] = true
-			var result: int = body.call(&"hit_by_projectile", _make_damage())
-			if result == Hurtbox.Result.DAMAGED:
-				var box: Variant = body.get(&"hurtbox")
-				HitFeedback.play((box as Hurtbox).material_id() if box is Hurtbox else &"", global_position, -velocity.normalized(), spec.color)
-				if team == Combat.Team.PLAYER:
-					EventBus.hit_confirmed.emit(global_position, false)
-				if _pierce_left > 0:
-					_pierce_left -= 1
-					return
+		if _hit_ids.has(id):
+			return
+		_hit_ids[id] = true
+		var result: int = body.call(&"hit_by_projectile", _make_damage())
+		if result == Hurtbox.Result.DAMAGED:
+			var box: Variant = body.get(&"hurtbox")
+			HitFeedback.play((box as Hurtbox).material_id() if box is Hurtbox else &"", global_position, -velocity.normalized(), spec.color)
+			if team == Combat.Team.PLAYER:
+				EventBus.hit_confirmed.emit(global_position, false)
+			if _pierce_left > 0:
+				_pierce_left -= 1
+				return
 	HitFeedback.play(&"concrete", global_position, -velocity.normalized(), _color.darkened(0.2))
 	_finish(true)
 
@@ -205,6 +260,8 @@ func _reflect(direction: Vector2) -> void:
 	_color = Palette.CYAN
 	_life = spec.lifetime
 	_hit_ids.clear()
+	_trail_len = 0
+	_smoke_left = 0.0
 	_update_mask()
 	queue_redraw()
 
@@ -222,21 +279,8 @@ func _finish(impact: bool) -> void:
 func _draw() -> void:
 	if spec == null:
 		return
-	# HDR 發光核心 + 外暈 + 速度拖尾，在泛光下呈現霓虹子彈。
-	var half := maxf(spec.length, spec.radius * 2.0) * 0.5
-	var tail := clampf(spec.speed * 0.02, 0.0, 14.0)
-	var glow := LightKit.glow(_color, 2.0)
-	if _damage_scale > 1.0:
-		# 被完美格擋彈回的子彈：拖著一道漸細的青色長尾，一眼看出是被打回去的。
-		for i in 3:
-			var k := float(i) / 3.0
-			draw_line(Vector2(-half - 8.0 - 22.0 * k, 0), Vector2(-half - 22.0 * (k + 0.34), 0), Color(LightKit.glow(Palette.CYAN, 1.8), 0.55 * (1.0 - k)), spec.radius * (1.6 - k))
 	_draw_trail()
-	draw_line(Vector2(-half - tail, 0), Vector2(-half, 0), Color(_color, 0.35), spec.radius)
-	draw_line(Vector2(-half + spec.radius, 0), Vector2(half - spec.radius, 0), glow, spec.radius * 2.0)
-	draw_circle(Vector2(-half + spec.radius, 0), spec.radius, glow)
-	draw_circle(Vector2(half - spec.radius, 0), spec.radius, glow)
-	draw_line(Vector2(-half + spec.radius, 0), Vector2(half - spec.radius, 0), LightKit.glow(Palette.WHITE, 2.5), maxf(1.0, spec.radius * 0.8))
+	ProjectileArt.paint(self, spec, _color, team, _damage_scale > 1.0)
 
 
 ## 彈道拖尾：沿最近的位置畫漸細漸淡的線段（亮度不超過發光上限，克制不搶眼）；彈道有重力時尾巴會彎。
@@ -245,7 +289,20 @@ func _draw_trail() -> void:
 	if count < 2:
 		return
 	var head_width := spec.radius * 1.5 * spec.trail_width
+	var distance_left := clampf(spec.trail_distance, 0.0, 40.0)
+	if LightQuality.tier() == LightQuality.Tier.LOW:
+		distance_left = minf(distance_left, 6.0)
 	for i in range(count - 1):
+		var start := _trail_at(i)
+		var end := _trail_at(i + 1)
+		var length := start.distance_to(end)
+		if length <= 0.001:
+			continue
+		var used := minf(length, distance_left)
+		end = start.lerp(end, used / length)
 		var k := float(i) / float(count - 1)
-		var color := Color(LightKit.glow(_color, 1.2), TRAIL_ALPHA * (1.0 - k))
-		draw_line(to_local(_trail_at(i)), to_local(_trail_at(i + 1)), color, maxf(0.6, lerpf(head_width, head_width * 0.2, k)))
+		var color := Color(_color, TRAIL_ALPHA * 0.5 * (1.0 - k))
+		draw_line(to_local(start), to_local(end), color, maxf(0.6, lerpf(head_width * 0.65, 0.6, k)))
+		distance_left -= used
+		if distance_left <= 0.001:
+			break
