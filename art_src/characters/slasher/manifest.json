@@ -50,5 +50,28 @@
       "art\\rigs\\slasher.json",
       "art\\characters\\slasher\\parts"
     ]
+  },
+  {
+    "step": "textures",
+    "seconds": 3.6,
+    "outputs": [
+      "art\\characters\\slasher\\character.json",
+      "art\\rigs\\slasher.json",
+      "art\\characters\\slasher\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.0,
+    "outputs": [
+      "art\\characters\\slasher\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 25.3,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

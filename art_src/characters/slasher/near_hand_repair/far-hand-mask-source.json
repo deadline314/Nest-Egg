@@ -1,0 +1,173 @@
+{
+  "status": "Reviewed current-stage far-hand removal only; full character acceptance pending",
+  "source": "art_src/characters/slasher/05_groups/near_leg.png",
+  "source_sha256": "4177f94120b6e124d67458e0aed9b917f7f788f21e4dc30ea073ae037b8ddd82",
+  "jobs": {
+    "near_pants_current": {
+      "pos": [
+        [
+          380,
+          582
+        ],
+        [
+          386,
+          600
+        ],
+        [
+          391,
+          620
+        ],
+        [
+          393,
+          642
+        ],
+        [
+          392,
+          660
+        ],
+        [
+          362,
+          520
+        ],
+        [
+          348,
+          750
+        ],
+        [
+          350,
+          880
+        ],
+        [
+          352,
+          1020
+        ]
+      ],
+      "neg": [
+        [
+          430,
+          584
+        ],
+        [
+          434,
+          598
+        ],
+        [
+          434,
+          611
+        ],
+        [
+          431,
+          622
+        ],
+        [
+          427,
+          634
+        ],
+        [
+          422,
+          647
+        ],
+        [
+          418,
+          660
+        ],
+        [
+          413,
+          673
+        ],
+        [
+          362,
+          430
+        ],
+        [
+          340,
+          260
+        ],
+        [
+          470,
+          130
+        ],
+        [
+          358,
+          1130
+        ]
+      ]
+    },
+    "far_hand_current": {
+      "pos": [
+        [
+          430,
+          584
+        ],
+        [
+          434,
+          598
+        ],
+        [
+          434,
+          611
+        ],
+        [
+          431,
+          622
+        ],
+        [
+          427,
+          634
+        ],
+        [
+          422,
+          647
+        ],
+        [
+          418,
+          660
+        ],
+        [
+          413,
+          673
+        ]
+      ],
+      "neg": [
+        [
+          380,
+          582
+        ],
+        [
+          386,
+          600
+        ],
+        [
+          391,
+          620
+        ],
+        [
+          393,
+          642
+        ],
+        [
+          392,
+          660
+        ]
+      ]
+    }
+  },
+  "threshold": 0.3,
+  "refine": 2,
+  "model": "sam3.1_multiplex_fp16.safetensors",
+  "outputs": {
+    "near_pants_current": {
+      "path": ".godot/ne90-humanoid-part-ownership/sam-current/near_pants_current.png",
+      "sha256": "4f880af29310ddc23d6f6494113c6f684bbdd7f108f08abc8a97add42c2cb5eb",
+      "status": "REJECTED: clips other parts; never applied"
+    },
+    "far_hand_current": {
+      "path": "art_src/characters/slasher/near_hand_repair/far_hand_current.png",
+      "sha256": "718b09533a53441f2143cd9133d4714fdebcd6b1c923fe90f087c817c245f610"
+    }
+  },
+  "applied_source": "art_src/characters/slasher/07_refined/leg_upper.png",
+  "applied_source_sha256": "f3bff90fa46785af4ff94a820b92826d6bf9bd0d434e8493ebfb61c4e75767fb",
+  "workflow": "art_src/characters/slasher/near_hand_repair/far-hand-sam.workflow.json",
+  "raw_output": "art_src/characters/slasher/near_hand_repair/far-hand-sam-raw.png"
+}

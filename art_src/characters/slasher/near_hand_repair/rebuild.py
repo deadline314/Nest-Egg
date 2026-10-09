@@ -1,4 +1,4 @@
-"""Replay the reviewed near-side hand and single boot without repainting the source."""
+"""Replay reviewed limb ownership without repainting the source."""
 import argparse
 import hashlib
 import json
@@ -46,13 +46,23 @@ def rebuild(work):
         assert owned.sum() > 150 and np.array_equal(pixels[owned], source[owned])
         assert not owned[:20].any() and not owned[-20:].any()
         outputs[part] = pixels
+    # The completed thigh has moved pixels; a mask from base_rgba cuts a hole here.
+    leg = checked_image(work / "07_refined/leg_upper.png", "f3bff90fa46785af4ff94a820b92826d6bf9bd0d434e8493ebfb61c4e75767fb", "RGBA")
+    mask = checked_image(HERE / "far_hand_current.png", "718b09533a53441f2143cd9133d4714fdebcd6b1c923fe90f087c817c245f610", "RGB")[:, :, 0]
+    if set(np.unique(mask)) != {0, 255} or np.count_nonzero(mask) != 4029:
+        raise ValueError("Expected reviewed current-stage far-hand mask")
+    owned = mask == 255
+    pixels = leg.copy()
+    pixels[:, :, 3][owned] = 0
+    assert np.array_equal(pixels[~owned], leg[~owned])
+    outputs["leg_upper"] = pixels
     target = work / "overrides/refined"
     target.mkdir(parents=True, exist_ok=True)
     for part, pixels in outputs.items():
         temporary = target / (part + ".tmp.png")
         Image.fromarray(pixels).save(temporary)
         temporary.replace(target / (part + ".png"))
-    print("Rebuilt reviewed near hand and single boot; source colors unchanged")
+    print("Rebuilt reviewed near hand, single boot and thigh ownership; source colors unchanged")
 
 
 if __name__ == "__main__":

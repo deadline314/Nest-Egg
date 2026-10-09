@@ -1,0 +1,5 @@
+受影響的測試：CharactersSuite,ContinuitySuite,EnemyArtDeliverySuite,LayerOrderSuite,NpcAnimationSuite,RigActionsSuite,RigMeshSuite
+Running 7 groups in 2 processes (logs: /tmp/tmp.iKmh9wWKpk)
+  process 0 (estimated 43 s): ContinuitySuite
+  process 1 (estimated 28 s): EnemyArtDeliverySuite,RigActionsSuite,NpcAnimationSuite,LayerOrderSuite,RigMeshSuite,CharactersSuite
+checks: 3363, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 54 s)

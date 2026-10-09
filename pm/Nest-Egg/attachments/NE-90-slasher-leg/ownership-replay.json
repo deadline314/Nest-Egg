@@ -1,0 +1,147 @@
+{
+  "status": "PASS_REPLAY_AND_DYNAMIC_FORMAL_EQUIVALENCE_AND_NEGATIVE_CONTROLS; NOT_ANATOMY_ACCEPTANCE",
+  "python": "3.12.11 (main, Aug 18 2025, 19:17:54) [MSC v.1944 64 bit (AMD64)]",
+  "inputs": {
+    "art_src/characters/slasher/base_rgba.png": "ba9af5139d225d492019c24c261bcd1ba9387d1bca7d10e7fd0fa3f5f1931bf3",
+    "art_src/characters/slasher/07_refined/leg_upper.png": "f3bff90fa46785af4ff94a820b92826d6bf9bd0d434e8493ebfb61c4e75767fb",
+    "art_src/characters/slasher/overrides/refined/hand.png": "18d024d38da8f329226bc09339cbed7758b9cef6a683a1a886931d2c2419270b",
+    "art_src/characters/slasher/overrides/refined/foot.png": "702d37fd217b851a5aae959b657471eafd1bd847d3b236a90a73576e45943c36",
+    "art_src/characters/slasher/near_hand_repair/far_hand_current.png": "718b09533a53441f2143cd9133d4714fdebcd6b1c923fe90f087c817c245f610"
+  },
+  "formal_rebuild_sha256": "15f6d6399ae9e8882be8971dc4ba39e438168b33a774220aa0977d22a4ee1a7d",
+  "spec_sha256": "b489984c89e80e610ee181da12c781499821cf3c47d68e64aac206705efe2827",
+  "runs": [
+    {
+      "run": 1,
+      "rebuild_stdout": null,
+      "fullcanvas_override_sha256": {
+        "hand": "18d024d38da8f329226bc09339cbed7758b9cef6a683a1a886931d2c2419270b",
+        "foot": "702d37fd217b851a5aae959b657471eafd1bd847d3b236a90a73576e45943c36",
+        "leg_upper": "3a0a4852db6015bdd75b99588316dd4a43f564a3b43d8fce3fa28f372266661b"
+      },
+      "cut_layers": {
+        "command": [
+          "D:\\ComfyUI\\.venv\\Scripts\\python.exe",
+          "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\tools\\comfyui\\cut_layers.py",
+          "--spec",
+          "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\tools\\comfyui\\specs\\slasher_side.json",
+          "--work",
+          "C:\\Users\\stanl\\AppData\\Local\\Temp\\ne90-leg-replay-spi90fyk\\art_src\\characters\\slasher",
+          "--char",
+          "C:\\Users\\stanl\\AppData\\Local\\Temp\\ne90-leg-replay-spi90fyk\\character-1",
+          "--rig",
+          "C:\\Users\\stanl\\AppData\\Local\\Temp\\ne90-leg-replay-spi90fyk\\rig-1\\slasher.json"
+        ],
+        "exit_code": 0,
+        "stdout": "  pelvis: 155x126 pivot=(73.4,99.4)\n  torso: 186x286 pivot=(101.0,258.4)\n  head: 156x174 pivot=(15.5,150.6)\n  leg_upper: 119x251 pivot=(59.5,-7.9)\n  leg_lower: 101x261 pivot=(62.3,9.2)\n  foot: 155x130 pivot=(38.7,57.1)\n  arm_upper: 98x231 pivot=(45.7,40.9)\n  arm_lower: 91x183 pivot=(47.7,9.9)\n  hand: 122x67 pivot=(9.4,35.7)\n  armor_chest: 95x147 pivot=(2.0,194.4)\n  armor_shoulder: 74x206 pivot=(71.0,51.5)\nrig bones: 16  textures: 11  parts: 18\n",
+        "stderr": ""
+      },
+      "diffuse_part_sha256": {
+        "arm_lower.png": "34f083a42b7c5f71595d6bfc18aea0275c273e700db08af57210f66ff686bd63",
+        "arm_upper.png": "363bea81ecdb5a51e6d51df4a39e21fe9b6fdd2257a0d43577eb4fea8453dde2",
+        "armor_chest.png": "cceb3fd807e75d785d7891813ddb9a53405062d7f2774d478573fd7deee57cbe",
+        "armor_shoulder.png": "56988596f5e9465b089290fcc36d25db73549c5e999e5a4226da2947bbbd1f71",
+        "foot.png": "a7df6bcb13a9ddb43dc10ccc0f06f8a92f02a398a67cb573f6206aeb3f8b2ec2",
+        "hand.png": "4bdd1bb1faddf92b6eb7b8257db7ba4fbaa4b78aaf2512989ff23f2d8f9a9622",
+        "head.png": "814a90940bf65246a1c179043f724826192964a51131afb1b1028d617147053e",
+        "head_glow.png": "6f45681a15aa17aef9de7dbd472442ca4f7dbfa07d58497f38014d743ec3c72c",
+        "leg_lower.png": "ed353f97e9a340d3cfba333a05008cdec085386a84da88e6862174460dd95c9a",
+        "leg_upper.png": "2e96d417a1b8876d3a8fcfbd91c2c3880ed3e608f99ab36306730b656f3ee5d9",
+        "pelvis.png": "c554e63f9b91fbce643ee91c5c852b0703539da4fe109fad8f713cf0813fa97e",
+        "torso.png": "296000d15601c161010d99f9e9c18e777dfef7ccf746b020164a6d6a1f050d38"
+      },
+      "character_json_sha256": "b205092cdd9297085f176afd8129e53fa1f147fe2e249fe0877c401b26718883",
+      "rig_json_sha256": "352494aef54f41d8bcc3263142c6c764acdae086313ed2054217baf9d877e52e",
+      "leg_upper_size": [
+        119,
+        251
+      ]
+    },
+    {
+      "run": 2,
+      "rebuild_stdout": null,
+      "fullcanvas_override_sha256": {
+        "hand": "18d024d38da8f329226bc09339cbed7758b9cef6a683a1a886931d2c2419270b",
+        "foot": "702d37fd217b851a5aae959b657471eafd1bd847d3b236a90a73576e45943c36",
+        "leg_upper": "3a0a4852db6015bdd75b99588316dd4a43f564a3b43d8fce3fa28f372266661b"
+      },
+      "cut_layers": {
+        "command": [
+          "D:\\ComfyUI\\.venv\\Scripts\\python.exe",
+          "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\tools\\comfyui\\cut_layers.py",
+          "--spec",
+          "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\tools\\comfyui\\specs\\slasher_side.json",
+          "--work",
+          "C:\\Users\\stanl\\AppData\\Local\\Temp\\ne90-leg-replay-spi90fyk\\art_src\\characters\\slasher",
+          "--char",
+          "C:\\Users\\stanl\\AppData\\Local\\Temp\\ne90-leg-replay-spi90fyk\\character-2",
+          "--rig",
+          "C:\\Users\\stanl\\AppData\\Local\\Temp\\ne90-leg-replay-spi90fyk\\rig-2\\slasher.json"
+        ],
+        "exit_code": 0,
+        "stdout": "  pelvis: 155x126 pivot=(73.4,99.4)\n  torso: 186x286 pivot=(101.0,258.4)\n  head: 156x174 pivot=(15.5,150.6)\n  leg_upper: 119x251 pivot=(59.5,-7.9)\n  leg_lower: 101x261 pivot=(62.3,9.2)\n  foot: 155x130 pivot=(38.7,57.1)\n  arm_upper: 98x231 pivot=(45.7,40.9)\n  arm_lower: 91x183 pivot=(47.7,9.9)\n  hand: 122x67 pivot=(9.4,35.7)\n  armor_chest: 95x147 pivot=(2.0,194.4)\n  armor_shoulder: 74x206 pivot=(71.0,51.5)\nrig bones: 16  textures: 11  parts: 18\n",
+        "stderr": ""
+      },
+      "diffuse_part_sha256": {
+        "arm_lower.png": "34f083a42b7c5f71595d6bfc18aea0275c273e700db08af57210f66ff686bd63",
+        "arm_upper.png": "363bea81ecdb5a51e6d51df4a39e21fe9b6fdd2257a0d43577eb4fea8453dde2",
+        "armor_chest.png": "cceb3fd807e75d785d7891813ddb9a53405062d7f2774d478573fd7deee57cbe",
+        "armor_shoulder.png": "56988596f5e9465b089290fcc36d25db73549c5e999e5a4226da2947bbbd1f71",
+        "foot.png": "a7df6bcb13a9ddb43dc10ccc0f06f8a92f02a398a67cb573f6206aeb3f8b2ec2",
+        "hand.png": "4bdd1bb1faddf92b6eb7b8257db7ba4fbaa4b78aaf2512989ff23f2d8f9a9622",
+        "head.png": "814a90940bf65246a1c179043f724826192964a51131afb1b1028d617147053e",
+        "head_glow.png": "6f45681a15aa17aef9de7dbd472442ca4f7dbfa07d58497f38014d743ec3c72c",
+        "leg_lower.png": "ed353f97e9a340d3cfba333a05008cdec085386a84da88e6862174460dd95c9a",
+        "leg_upper.png": "2e96d417a1b8876d3a8fcfbd91c2c3880ed3e608f99ab36306730b656f3ee5d9",
+        "pelvis.png": "c554e63f9b91fbce643ee91c5c852b0703539da4fe109fad8f713cf0813fa97e",
+        "torso.png": "296000d15601c161010d99f9e9c18e777dfef7ccf746b020164a6d6a1f050d38"
+      },
+      "character_json_sha256": "b205092cdd9297085f176afd8129e53fa1f147fe2e249fe0877c401b26718883",
+      "rig_json_sha256": "352494aef54f41d8bcc3263142c6c764acdae086313ed2054217baf9d877e52e",
+      "leg_upper_size": [
+        119,
+        251
+      ]
+    }
+  ],
+  "negative_controls": {
+    "changed_one_source_pixel": {
+      "rejected": true,
+      "error": "Source hash changed: C:\\Users\\stanl\\AppData\\Local\\Temp\\ne90-leg-replay-spi90fyk\\art_src\\characters\\slasher\\07_refined\\leg_upper.png"
+    },
+    "corrupted_mask_hash": {
+      "rejected": true,
+      "corrupted_sha256": "8e1e97fca1f41d97a373d10d2ee735b2b2e533e1bed56b8f7d575468b2d2808c",
+      "error": "Source hash changed: C:\\Users\\stanl\\AppData\\Local\\Temp\\ne90-leg-replay-spi90fyk\\art_src\\characters\\slasher\\near_hand_repair\\far_hand_current.png"
+    },
+    "existing_temp_outputs_unchanged_on_fail": true
+  },
+  "limitations": [
+    "CPU replay validates source ownership and deterministic recut only; no claim of anatomy/native visual acceptance."
+  ],
+  "formal_equivalence": {
+    "diffuse_parts_exact": true,
+    "part_count": 12,
+    "character_json_exact": true,
+    "rig_json_exact": true,
+    "leg_upper_size": [
+      119,
+      251
+    ],
+    "leg_upper_sha256": "2e96d417a1b8876d3a8fcfbd91c2c3880ed3e608f99ab36306730b656f3ee5d9"
+  },
+  "leg_pixel_contract": {
+    "fullcanvas_size": [
+      832,
+      1216,
+      "source_pixels"
+    ],
+    "mask_pixels": 4029,
+    "changed_rgba_pixels": 2243,
+    "outside_mask_changed_pixels": 0,
+    "mask_alpha_nonzero_before": 2243,
+    "mask_alpha_nonzero_after": 0,
+    "leg_override_sha256": "3a0a4852db6015bdd75b99588316dd4a43f564a3b43d8fce3fa28f372266661b"
+  },
+  "temporary_outputs_discarded": true
+}

@@ -1,0 +1,562 @@
+{
+  "scope": "CPU-only private replay of reviewed near hand and single boot plus cut-layer comparison; no Godot/GPU/ComfyUI run",
+  "source": {
+    "path": "art_src/characters/slasher/base_rgba.png",
+    "sha256": "ba9af5139d225d492019c24c261bcd1ba9387d1bca7d10e7fd0fa3f5f1931bf3",
+    "dimensions": [
+      832,
+      1216
+    ],
+    "mode": "RGBA"
+  },
+  "spec": {
+    "path": "tools/comfyui/specs/slasher_side.json",
+    "sha256": "b489984c89e80e610ee181da12c781499821cf3c47d68e64aac206705efe2827",
+    "palm_wrist": [
+      333,
+      570
+    ],
+    "fingertip": [
+      346,
+      690
+    ],
+    "ground_y": 1192
+  },
+  "rebuild_script": {
+    "path": "art_src/characters/slasher/near_hand_repair/rebuild.py",
+    "sha256": "15f6d6399ae9e8882be8971dc4ba39e438168b33a774220aa0977d22a4ee1a7d"
+  },
+  "runs": [
+    {
+      "label": "replay-1791578590359856700-a",
+      "commands": [
+        {
+          "command": [
+            "D:\\ComfyUI\\.venv\\Scripts\\python.exe",
+            "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\art_src\\characters\\slasher\\near_hand_repair\\rebuild.py",
+            "--work",
+            "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\.godot\\ne90-slasher-final-repro\\replay-1791578590359856700-a\\work"
+          ],
+          "exit_code": 0,
+          "stdout": "Rebuilt reviewed near hand, single boot and thigh ownership; source colors unchanged\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "D:\\ComfyUI\\.venv\\Scripts\\python.exe",
+            "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\tools\\comfyui\\cut_layers.py",
+            "--spec",
+            "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\tools\\comfyui\\specs\\slasher_side.json",
+            "--work",
+            "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\.godot\\ne90-slasher-final-repro\\replay-1791578590359856700-a\\work",
+            "--char",
+            "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\.godot\\ne90-slasher-final-repro\\replay-1791578590359856700-a\\char",
+            "--rig",
+            "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\.godot\\ne90-slasher-final-repro\\replay-1791578590359856700-a\\rig\\slasher.json"
+          ],
+          "exit_code": 0,
+          "stdout": "  pelvis: 155x126 pivot=(73.4,99.4)\n  torso: 186x286 pivot=(101.0,258.4)\n  head: 156x174 pivot=(15.5,150.6)\n  leg_upper: 119x251 pivot=(59.5,-7.9)\n  leg_lower: 101x261 pivot=(62.3,9.2)\n  foot: 155x130 pivot=(38.7,57.1)\n  arm_upper: 98x231 pivot=(45.7,40.9)\n  arm_lower: 91x183 pivot=(47.7,9.9)\n  hand: 122x67 pivot=(9.4,35.7)\n  armor_chest: 95x147 pivot=(2.0,194.4)\n  armor_shoulder: 74x206 pivot=(71.0,51.5)\nrig bones: 16  textures: 11  parts: 18\n",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "label": "replay-1791578590359856700-b",
+      "commands": [
+        {
+          "command": [
+            "D:\\ComfyUI\\.venv\\Scripts\\python.exe",
+            "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\art_src\\characters\\slasher\\near_hand_repair\\rebuild.py",
+            "--work",
+            "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\.godot\\ne90-slasher-final-repro\\replay-1791578590359856700-b\\work"
+          ],
+          "exit_code": 0,
+          "stdout": "Rebuilt reviewed near hand, single boot and thigh ownership; source colors unchanged\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "D:\\ComfyUI\\.venv\\Scripts\\python.exe",
+            "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\tools\\comfyui\\cut_layers.py",
+            "--spec",
+            "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\tools\\comfyui\\specs\\slasher_side.json",
+            "--work",
+            "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\.godot\\ne90-slasher-final-repro\\replay-1791578590359856700-b\\work",
+            "--char",
+            "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\.godot\\ne90-slasher-final-repro\\replay-1791578590359856700-b\\char",
+            "--rig",
+            "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\.godot\\ne90-slasher-final-repro\\replay-1791578590359856700-b\\rig\\slasher.json"
+          ],
+          "exit_code": 0,
+          "stdout": "  pelvis: 155x126 pivot=(73.4,99.4)\n  torso: 186x286 pivot=(101.0,258.4)\n  head: 156x174 pivot=(15.5,150.6)\n  leg_upper: 119x251 pivot=(59.5,-7.9)\n  leg_lower: 101x261 pivot=(62.3,9.2)\n  foot: 155x130 pivot=(38.7,57.1)\n  arm_upper: 98x231 pivot=(45.7,40.9)\n  arm_lower: 91x183 pivot=(47.7,9.9)\n  hand: 122x67 pivot=(9.4,35.7)\n  armor_chest: 95x147 pivot=(2.0,194.4)\n  armor_shoulder: 74x206 pivot=(71.0,51.5)\nrig bones: 16  textures: 11  parts: 18\n",
+          "stderr": ""
+        }
+      ]
+    }
+  ],
+  "masks_and_rebuilt_overrides": {
+    "hand": {
+      "mask_file": "art_src/characters/slasher/near_hand_repair/near_hand.png",
+      "mask_sha256": "32462c3a380bc3ff7a7c43891e248a7a61d9f3441bacdae0fb610c66411762c2",
+      "record_file": "art_src/characters/slasher/near_hand_repair/mask-source.json",
+      "record_sha256": "aa280771ca21b044ae1b0715e811f5e582c652af2c02665cb9ee78d48c3a16f4",
+      "positive_points_native": [
+        [
+          328,
+          588
+        ],
+        [
+          338,
+          639
+        ],
+        [
+          358,
+          655
+        ],
+        [
+          319,
+          624
+        ]
+      ],
+      "negative_points_native": [
+        [
+          331,
+          547
+        ],
+        [
+          416,
+          622
+        ],
+        [
+          381,
+          676
+        ],
+        [
+          285,
+          623
+        ]
+      ],
+      "positive_count": 4,
+      "negative_count": 4,
+      "foreground_mask_pixels_before_component_filter": 6819,
+      "connected_components_before_filter_areas_desc": [
+        6819
+      ],
+      "owned_alpha_pixels_after_existing_30px_component_rule": 6819,
+      "connected_components_after_filter_areas_desc": [
+        6819
+      ],
+      "removed_pixels_from_existing_component_rule": 0,
+      "owned_source_bbox_xyxy_inclusive": [
+        309,
+        562,
+        377,
+        691
+      ],
+      "owned_source_alpha_y_max": 691,
+      "alpha_source_pixel_count_alpha_ge_40": 6819
+    },
+    "foot": {
+      "mask_file": "art_src/characters/slasher/near_hand_repair/near_foot.png",
+      "mask_sha256": "f72640cc2736ce50335a8c719e4362e3bac6e0eecd9513c30e12e5e6ef709a85",
+      "record_file": "art_src/characters/slasher/near_hand_repair/foot-mask-source.json",
+      "record_sha256": "83a0393d4bd9f759e09dc3c187a54e8e09f7caf40f6b4f97ec7e4f323c00dbd0",
+      "positive_points_native": [
+        [
+          347,
+          1085
+        ],
+        [
+          354,
+          1144
+        ],
+        [
+          412,
+          1176
+        ],
+        [
+          327,
+          1180
+        ]
+      ],
+      "negative_points_native": [
+        [
+          439,
+          1138
+        ],
+        [
+          491,
+          1159
+        ],
+        [
+          370,
+          1026
+        ],
+        [
+          279,
+          1160
+        ]
+      ],
+      "positive_count": 4,
+      "negative_count": 4,
+      "foreground_mask_pixels_before_component_filter": 12371,
+      "connected_components_before_filter_areas_desc": [
+        12365,
+        5,
+        1
+      ],
+      "owned_alpha_pixels_after_existing_30px_component_rule": 12365,
+      "connected_components_after_filter_areas_desc": [
+        12365
+      ],
+      "removed_pixels_from_existing_component_rule": 6,
+      "owned_source_bbox_xyxy_inclusive": [
+        306,
+        1053,
+        473,
+        1192
+      ],
+      "owned_source_alpha_y_max": 1192,
+      "alpha_source_pixel_count_alpha_ge_40": 12365
+    }
+  },
+  "override_outputs": {
+    "replay-1791578590359856700-a/hand": {
+      "sha256": "18d024d38da8f329226bc09339cbed7758b9cef6a683a1a886931d2c2419270b",
+      "dimensions": [
+        832,
+        1216
+      ],
+      "alpha_nonzero_pixels": 6819,
+      "alpha_ge_40_pixels": 6819,
+      "connected_components_alpha1_areas_desc": [
+        6819
+      ],
+      "source_rgb_and_alpha_exact_for_owned_mask": true,
+      "native_palm_wrist_alpha": 255,
+      "native_sole_probe_alpha": null
+    },
+    "replay-1791578590359856700-a/foot": {
+      "sha256": "702d37fd217b851a5aae959b657471eafd1bd847d3b236a90a73576e45943c36",
+      "dimensions": [
+        832,
+        1216
+      ],
+      "alpha_nonzero_pixels": 12365,
+      "alpha_ge_40_pixels": 12365,
+      "connected_components_alpha1_areas_desc": [
+        12365
+      ],
+      "source_rgb_and_alpha_exact_for_owned_mask": true,
+      "native_palm_wrist_alpha": 255,
+      "native_sole_probe_alpha": 255
+    },
+    "replay-1791578590359856700-b/hand": {
+      "sha256": "18d024d38da8f329226bc09339cbed7758b9cef6a683a1a886931d2c2419270b",
+      "dimensions": [
+        832,
+        1216
+      ],
+      "alpha_nonzero_pixels": 6819,
+      "alpha_ge_40_pixels": 6819,
+      "connected_components_alpha1_areas_desc": [
+        6819
+      ],
+      "source_rgb_and_alpha_exact_for_owned_mask": true,
+      "native_palm_wrist_alpha": 255,
+      "native_sole_probe_alpha": null
+    },
+    "replay-1791578590359856700-b/foot": {
+      "sha256": "702d37fd217b851a5aae959b657471eafd1bd847d3b236a90a73576e45943c36",
+      "dimensions": [
+        832,
+        1216
+      ],
+      "alpha_nonzero_pixels": 12365,
+      "alpha_ge_40_pixels": 12365,
+      "connected_components_alpha1_areas_desc": [
+        12365
+      ],
+      "source_rgb_and_alpha_exact_for_owned_mask": true,
+      "native_palm_wrist_alpha": 255,
+      "native_sole_probe_alpha": 255
+    }
+  },
+  "repeatability": {
+    "all_runtime_part_and_semantic_file_hashes_equal": true,
+    "output_file_sha256": {
+      "character.json": "b205092cdd9297085f176afd8129e53fa1f147fe2e249fe0877c401b26718883",
+      "rig/slasher.json": "352494aef54f41d8bcc3263142c6c764acdae086313ed2054217baf9d877e52e",
+      "overrides/refined/hand.png": "18d024d38da8f329226bc09339cbed7758b9cef6a683a1a886931d2c2419270b",
+      "overrides/refined/foot.png": "702d37fd217b851a5aae959b657471eafd1bd847d3b236a90a73576e45943c36",
+      "parts/arm_lower.png": "34f083a42b7c5f71595d6bfc18aea0275c273e700db08af57210f66ff686bd63",
+      "parts/arm_upper.png": "363bea81ecdb5a51e6d51df4a39e21fe9b6fdd2257a0d43577eb4fea8453dde2",
+      "parts/armor_chest.png": "cceb3fd807e75d785d7891813ddb9a53405062d7f2774d478573fd7deee57cbe",
+      "parts/armor_shoulder.png": "56988596f5e9465b089290fcc36d25db73549c5e999e5a4226da2947bbbd1f71",
+      "parts/foot.png": "a7df6bcb13a9ddb43dc10ccc0f06f8a92f02a398a67cb573f6206aeb3f8b2ec2",
+      "parts/hand.png": "4bdd1bb1faddf92b6eb7b8257db7ba4fbaa4b78aaf2512989ff23f2d8f9a9622",
+      "parts/head.png": "814a90940bf65246a1c179043f724826192964a51131afb1b1028d617147053e",
+      "parts/head_glow.png": "6f45681a15aa17aef9de7dbd472442ca4f7dbfa07d58497f38014d743ec3c72c",
+      "parts/leg_lower.png": "ed353f97e9a340d3cfba333a05008cdec085386a84da88e6862174460dd95c9a",
+      "parts/leg_upper.png": "2e96d417a1b8876d3a8fcfbd91c2c3880ed3e608f99ab36306730b656f3ee5d9",
+      "parts/pelvis.png": "c554e63f9b91fbce643ee91c5c852b0703539da4fe109fad8f713cf0813fa97e",
+      "parts/torso.png": "296000d15601c161010d99f9e9c18e777dfef7ccf746b020164a6d6a1f050d38"
+    }
+  },
+  "formal_source_override_comparison": {
+    "hand": {
+      "formal_sha256": "18d024d38da8f329226bc09339cbed7758b9cef6a683a1a886931d2c2419270b",
+      "replay_sha256": "18d024d38da8f329226bc09339cbed7758b9cef6a683a1a886931d2c2419270b",
+      "pixel_exact": true
+    },
+    "foot": {
+      "formal_sha256": "702d37fd217b851a5aae959b657471eafd1bd847d3b236a90a73576e45943c36",
+      "replay_sha256": "702d37fd217b851a5aae959b657471eafd1bd847d3b236a90a73576e45943c36",
+      "pixel_exact": true
+    }
+  },
+  "formal_runtime_comparison": {
+    "diffuse_part_png_names_match": true,
+    "diffuse_part_pngs_pixel_exact": true,
+    "diffuse_part_pngs": {
+      "arm_lower.png": {
+        "formal_sha256": "34f083a42b7c5f71595d6bfc18aea0275c273e700db08af57210f66ff686bd63",
+        "replay_sha256": "34f083a42b7c5f71595d6bfc18aea0275c273e700db08af57210f66ff686bd63",
+        "dimensions_formal": [
+          91,
+          183
+        ],
+        "dimensions_replay": [
+          91,
+          183
+        ],
+        "pixel_exact": true
+      },
+      "arm_upper.png": {
+        "formal_sha256": "363bea81ecdb5a51e6d51df4a39e21fe9b6fdd2257a0d43577eb4fea8453dde2",
+        "replay_sha256": "363bea81ecdb5a51e6d51df4a39e21fe9b6fdd2257a0d43577eb4fea8453dde2",
+        "dimensions_formal": [
+          98,
+          231
+        ],
+        "dimensions_replay": [
+          98,
+          231
+        ],
+        "pixel_exact": true
+      },
+      "armor_chest.png": {
+        "formal_sha256": "cceb3fd807e75d785d7891813ddb9a53405062d7f2774d478573fd7deee57cbe",
+        "replay_sha256": "cceb3fd807e75d785d7891813ddb9a53405062d7f2774d478573fd7deee57cbe",
+        "dimensions_formal": [
+          95,
+          147
+        ],
+        "dimensions_replay": [
+          95,
+          147
+        ],
+        "pixel_exact": true
+      },
+      "armor_shoulder.png": {
+        "formal_sha256": "56988596f5e9465b089290fcc36d25db73549c5e999e5a4226da2947bbbd1f71",
+        "replay_sha256": "56988596f5e9465b089290fcc36d25db73549c5e999e5a4226da2947bbbd1f71",
+        "dimensions_formal": [
+          74,
+          206
+        ],
+        "dimensions_replay": [
+          74,
+          206
+        ],
+        "pixel_exact": true
+      },
+      "foot.png": {
+        "formal_sha256": "a7df6bcb13a9ddb43dc10ccc0f06f8a92f02a398a67cb573f6206aeb3f8b2ec2",
+        "replay_sha256": "a7df6bcb13a9ddb43dc10ccc0f06f8a92f02a398a67cb573f6206aeb3f8b2ec2",
+        "dimensions_formal": [
+          155,
+          130
+        ],
+        "dimensions_replay": [
+          155,
+          130
+        ],
+        "pixel_exact": true
+      },
+      "hand.png": {
+        "formal_sha256": "4bdd1bb1faddf92b6eb7b8257db7ba4fbaa4b78aaf2512989ff23f2d8f9a9622",
+        "replay_sha256": "4bdd1bb1faddf92b6eb7b8257db7ba4fbaa4b78aaf2512989ff23f2d8f9a9622",
+        "dimensions_formal": [
+          122,
+          67
+        ],
+        "dimensions_replay": [
+          122,
+          67
+        ],
+        "pixel_exact": true
+      },
+      "head.png": {
+        "formal_sha256": "814a90940bf65246a1c179043f724826192964a51131afb1b1028d617147053e",
+        "replay_sha256": "814a90940bf65246a1c179043f724826192964a51131afb1b1028d617147053e",
+        "dimensions_formal": [
+          156,
+          174
+        ],
+        "dimensions_replay": [
+          156,
+          174
+        ],
+        "pixel_exact": true
+      },
+      "head_glow.png": {
+        "formal_sha256": "6f45681a15aa17aef9de7dbd472442ca4f7dbfa07d58497f38014d743ec3c72c",
+        "replay_sha256": "6f45681a15aa17aef9de7dbd472442ca4f7dbfa07d58497f38014d743ec3c72c",
+        "dimensions_formal": [
+          156,
+          174
+        ],
+        "dimensions_replay": [
+          156,
+          174
+        ],
+        "pixel_exact": true
+      },
+      "leg_lower.png": {
+        "formal_sha256": "ed353f97e9a340d3cfba333a05008cdec085386a84da88e6862174460dd95c9a",
+        "replay_sha256": "ed353f97e9a340d3cfba333a05008cdec085386a84da88e6862174460dd95c9a",
+        "dimensions_formal": [
+          101,
+          261
+        ],
+        "dimensions_replay": [
+          101,
+          261
+        ],
+        "pixel_exact": true
+      },
+      "leg_upper.png": {
+        "formal_sha256": "2e96d417a1b8876d3a8fcfbd91c2c3880ed3e608f99ab36306730b656f3ee5d9",
+        "replay_sha256": "2e96d417a1b8876d3a8fcfbd91c2c3880ed3e608f99ab36306730b656f3ee5d9",
+        "dimensions_formal": [
+          119,
+          251
+        ],
+        "dimensions_replay": [
+          119,
+          251
+        ],
+        "pixel_exact": true
+      },
+      "pelvis.png": {
+        "formal_sha256": "c554e63f9b91fbce643ee91c5c852b0703539da4fe109fad8f713cf0813fa97e",
+        "replay_sha256": "c554e63f9b91fbce643ee91c5c852b0703539da4fe109fad8f713cf0813fa97e",
+        "dimensions_formal": [
+          155,
+          126
+        ],
+        "dimensions_replay": [
+          155,
+          126
+        ],
+        "pixel_exact": true
+      },
+      "torso.png": {
+        "formal_sha256": "296000d15601c161010d99f9e9c18e777dfef7ccf746b020164a6d6a1f050d38",
+        "replay_sha256": "296000d15601c161010d99f9e9c18e777dfef7ccf746b020164a6d6a1f050d38",
+        "dimensions_formal": [
+          186,
+          286
+        ],
+        "dimensions_replay": [
+          186,
+          286
+        ],
+        "pixel_exact": true
+      }
+    },
+    "character_json_semantic_equal": true,
+    "rig_json_semantic_equal": true,
+    "character_json_sha256_formal": "b205092cdd9297085f176afd8129e53fa1f147fe2e249fe0877c401b26718883",
+    "character_json_sha256_replay": "b205092cdd9297085f176afd8129e53fa1f147fe2e249fe0877c401b26718883",
+    "rig_json_sha256_formal": "352494aef54f41d8bcc3263142c6c764acdae086313ed2054217baf9d877e52e",
+    "rig_json_sha256_replay": "352494aef54f41d8bcc3263142c6c764acdae086313ed2054217baf9d877e52e"
+  },
+  "native_wrist_and_single_boot_checks": {
+    "spec_palm_wrist_native": [
+      333.0,
+      570.0
+    ],
+    "spec_fingertip_native": [
+      346.0,
+      690.0
+    ],
+    "near_hand_texture_palm_point": [
+      9.4378662109375,
+      35.6971435546875
+    ],
+    "near_arm_lower_texture_palm_point": [
+      47.74249267578125,
+      161.77496337890625
+    ],
+    "hand_opaque_contact": {
+      "nearest_alpha20_pixel": [
+        9,
+        36
+      ],
+      "distance_texture_px": 0.5323991408220777,
+      "within_1px": true,
+      "within_3px": true
+    },
+    "arm_lower_opaque_contact": {
+      "nearest_alpha20_pixel": [
+        48,
+        162
+      ],
+      "distance_texture_px": 0.34198172883882616,
+      "within_1px": true,
+      "within_3px": true
+    },
+    "arm_lower_native_output_components_alpha20": [
+      10331
+    ],
+    "hand_native_output_components_alpha20": [
+      5550
+    ],
+    "measurement_note": "Distance is to true output alpha rendered by the production cut_layers transform; 3px is reported descriptively only, not a new acceptance threshold.",
+    "foot_native_ground_y": 1192,
+    "foot_owned_alpha_pixels_on_ground_line": 4,
+    "foot_owned_alpha_ground_x_min_max": [
+      406,
+      409
+    ],
+    "foot_source_alpha_at_ground_pixels": [
+      227,
+      247,
+      251,
+      238
+    ],
+    "foot_native_positive_sole_marker": [
+      327,
+      1180
+    ],
+    "foot_native_positive_sole_marker_alpha": 255,
+    "native_ground_crop_image": ".godot/ne90-slasher-final-repro/foot-ground-ownership.png"
+  },
+  "negative_controls": {
+    "wrong_source_sha_rejected": true,
+    "all_opaque_alpha_rejected": true,
+    "one_channel_owned_source_rgb_mutation_rejected": true,
+    "mutated_pixel_native": [
+      342,
+      562
+    ]
+  },
+  "not_verified": [
+    "runtime scene animation and combat",
+    "full armor removal and underneath-body coverage",
+    "Forward+ lighting/native screenshot",
+    "near/far foot pose visual acceptance"
+  ]
+}
