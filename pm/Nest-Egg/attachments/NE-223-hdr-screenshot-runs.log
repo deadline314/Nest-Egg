@@ -1,0 +1,84 @@
+START pawnshop-1280-fixture
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+Vulkan 1.4.305 - Forward+ - Using Device #0: Unknown - llvmpipe (LLVM 19.1.7, 256 bits)
+
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-pawnshop-hud-1280-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-pawnshop-quests_all-1280-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-pawnshop-quests_main-1280-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-pawnshop-quests_side-1280-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-pawnshop-quests_completed-1280-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-pawnshop-region-1280-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-pawnshop-world-1280-fixture.png (OK)
+NE-223 PROBE: { "resolution": [1280, 720], "level": "pawnshop", "fixture_tasks": true, "layout_issues": [], "story_quest_count": 3, "renderer": "forward_plus" }
+WARNING: 212 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2535)
+
+DONE pawnshop-1280-fixture
+START vault-1280-fixture
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+Vulkan 1.4.305 - Forward+ - Using Device #0: Unknown - llvmpipe (LLVM 19.1.7, 256 bits)
+
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-vault-hud-1280-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-vault-quests_all-1280-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-vault-quests_main-1280-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-vault-quests_side-1280-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-vault-quests_completed-1280-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-vault-region-1280-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-vault-world-1280-fixture.png (OK)
+NE-223 PROBE: { "resolution": [1280, 720], "level": "vault", "fixture_tasks": true, "layout_issues": [], "story_quest_count": 3, "renderer": "forward_plus" }
+WARNING: 213 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2535)
+ERROR: 3 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+
+DONE vault-1280-fixture
+START pawnshop-1920-fixture
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+Vulkan 1.4.305 - Forward+ - Using Device #0: Unknown - llvmpipe (LLVM 19.1.7, 256 bits)
+
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-pawnshop-hud-1920-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-pawnshop-quests_all-1920-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-pawnshop-quests_main-1920-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-pawnshop-quests_side-1920-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-pawnshop-quests_completed-1920-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-pawnshop-region-1920-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-pawnshop-world-1920-fixture.png (OK)
+NE-223 PROBE: { "resolution": [1920, 1080], "level": "pawnshop", "fixture_tasks": true, "layout_issues": [], "story_quest_count": 3, "renderer": "forward_plus" }
+WARNING: 224 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2535)
+ERROR: 3 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+
+DONE pawnshop-1920-fixture
+START vault-1920-fixture
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+Vulkan 1.4.305 - Forward+ - Using Device #0: Unknown - llvmpipe (LLVM 19.1.7, 256 bits)
+
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-vault-hud-1920-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-vault-quests_all-1920-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-vault-quests_main-1920-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-vault-quests_side-1920-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-vault-quests_completed-1920-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-vault-region-1920-fixture.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-vault-world-1920-fixture.png (OK)
+NE-223 PROBE: { "resolution": [1920, 1080], "level": "vault", "fixture_tasks": true, "layout_issues": [], "story_quest_count": 3, "renderer": "forward_plus" }
+WARNING: 201 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2535)
+
+DONE vault-1920-fixture
+START pawnshop-1280-source
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+Vulkan 1.4.305 - Forward+ - Using Device #0: Unknown - llvmpipe (LLVM 19.1.7, 256 bits)
+
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-pawnshop-hud-1280-source.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-pawnshop-pause-1280-source.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-pawnshop-quests-1280-source.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-pawnshop-region-1280-source.png (OK)
+CAPTURE: /workspace/Nest-Egg-session-quest-map/pm/Nest-Egg/images/NE-223-hdr-20261009/NE-223-pawnshop-world-1280-source.png (OK)
+NE-223 PROBE: { "resolution": [1280, 720], "level": "pawnshop", "fixture_tasks": false, "layout_issues": [], "story_quest_count": 0, "renderer": "forward_plus" }
+WARNING: 224 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2535)
+ERROR: 3 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+
+DONE pawnshop-1280-source

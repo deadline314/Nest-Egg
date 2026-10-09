@@ -121,7 +121,7 @@ func _capture(page: String) -> void:
 		await get_tree().process_frame
 	await RenderingServer.frame_post_draw
 	var path := _out.path_join("NE-223-%s-%s-%d%s.png" % [_level_id, page, _width, "-fixture" if _fixtures else "-source"])
-	var error := get_viewport().get_texture().get_image().save_png(path)
+	var error := preload("res://tools/viewport_capture.gd").image(get_viewport()).save_png(path)
 	print("CAPTURE: %s (%s)" % [path, error_string(error)])
 	if error != OK:
 		_layout_issues.append("無法儲存截圖：" + path)

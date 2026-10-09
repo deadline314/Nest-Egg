@@ -5,7 +5,7 @@ description: 新增或驗證任務、地圖標記、探索狀態、釘選及 HUD
 
 # 任務與地圖
 
-先讀 `design/18-quest-map-ux/DESIGN.md`、`DIALOGUE_READABILITY.md` 和本票完整交付紀錄。跨 Session 接線先核對 origin/main，依 `design/18-quest-map-ux/SESSION3_INTERFACE.md` 一次交接，不同時重寫故事、旗標或主流程。
+先讀 `design/18-quest-map-ux/DESIGN.md`、`design/13-story-v2/DIALOGUE_READABILITY.md` 和本票完整交付紀錄。跨 Session 接線先核對 origin/main，依 `design/18-quest-map-ux/SESSION3_INTERFACE.md` 一次交接，不同時重寫故事、旗標或主流程。
 
 ## 唯一資料來源
 
@@ -22,7 +22,7 @@ description: 新增或驗證任務、地圖標記、探索狀態、釘選及 HUD
 3. 跑任務資料檢查與故事的順序模擬。每一個可玩狀態都至少有一個可進行主線目標；包含新遊戲、第一章結尾、序章正常結束與跳過。
 4. 對照完成旗標的生產者、位置有效性、公開時機及前置可達性；存在旗標名稱不代表玩家實際到得了。
 5. 跑 `tools/run_tests_changed.sh <交付前基準SHA>`；NE-223 還要求完整測試。提交或 rebase 後使用保留的基準，不能誤跑空集合。
-6. 使用 `tools/quest_map_probe.tscn` 在 Forward+、亮暗區域、1280×720 與 1920×1080 檢視所有分頁及 HUD。`--fixtures` 的樣本畫面不能當正式任務驗收。
+6. 使用 `tools/quest_map_probe.tscn` 在 Forward+、亮暗區域、1280×720 與 1920×1080 檢視所有分頁及 HUD。HDR 2D 截圖沿用 `tools/viewport_capture.gd` 將線性色彩轉為 PNG 的 sRGB；不要直接儲存線性 readback。`--fixtures` 的樣本畫面不能當正式任務驗收。渲染和匯入使用 `tools/comfyui/gpu_lock.py` 的共享鎖。
 
 ## 地圖與狀態
 
