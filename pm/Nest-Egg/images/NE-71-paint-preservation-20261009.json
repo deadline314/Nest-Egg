@@ -1,0 +1,233 @@
+{
+  "basis": "88f9485a82ae5f53e49394e82c1b25c8a0bae9dc",
+  "engine": "Godot 4.7.stable.official.5b4e0cb0f",
+  "mode": "CPU headless / Dummy audio",
+  "command": "python tools/comfyui/gpu_lock.py -- \"$GODOT\" --headless --audio-driver Dummy --path . res://tools/art/paint_assets.tscn -- --only=rin",
+  "written_files": 0,
+  "art_png_json_count": 2380,
+  "changed_removed_or_added_art_png_json": 0,
+  "before_aggregate_sha256": "308f75c905e099b5df2c387de195790a686cfc976d8a13fc21ddeafc017da457",
+  "after_aggregate_sha256": "308f75c905e099b5df2c387de195790a686cfc976d8a13fc21ddeafc017da457",
+  "rin_and_portrait_sha256": {
+    "art/characters/rin/character.json": {
+      "before": "4ca81f9b9249fa80d99a5cf05e04cd51b54fcb6e30df1892a759be4a349ed1d3",
+      "after": "4ca81f9b9249fa80d99a5cf05e04cd51b54fcb6e30df1892a759be4a349ed1d3"
+    },
+    "art/characters/rin/parts/arm_left_lower.png": {
+      "before": "5e13a611b7f3ce74ecdfbdca7220f6dbb1ad1fe85fafe0c6b82bfc04c70b2b59",
+      "after": "5e13a611b7f3ce74ecdfbdca7220f6dbb1ad1fe85fafe0c6b82bfc04c70b2b59"
+    },
+    "art/characters/rin/parts/arm_left_lower_n.png": {
+      "before": "5b33c3126dc7c8ebbf2a7f615ad516f4395055eef6c0dd96c0efa2f4727da020",
+      "after": "5b33c3126dc7c8ebbf2a7f615ad516f4395055eef6c0dd96c0efa2f4727da020"
+    },
+    "art/characters/rin/parts/arm_left_upper.png": {
+      "before": "b0dbfc072577b20add0496eeda744ff015b190d0ba9c9a36e52b9b6a67f2a006",
+      "after": "b0dbfc072577b20add0496eeda744ff015b190d0ba9c9a36e52b9b6a67f2a006"
+    },
+    "art/characters/rin/parts/arm_left_upper_n.png": {
+      "before": "ea051bd73dd7064151b6df0fa920e64413c5ae49e14c0376c90eca5a1786df69",
+      "after": "ea051bd73dd7064151b6df0fa920e64413c5ae49e14c0376c90eca5a1786df69"
+    },
+    "art/characters/rin/parts/arm_lower.png": {
+      "before": "16dcc04f76d89cbcab2cd3ddf1ca2b634a96baef016bf4ae588e827c1a0911a8",
+      "after": "16dcc04f76d89cbcab2cd3ddf1ca2b634a96baef016bf4ae588e827c1a0911a8"
+    },
+    "art/characters/rin/parts/arm_lower_n.png": {
+      "before": "15194d11c5e75b28ac9fa80cb4ec4c27aa67556af474c486f983f0ffee9f4d1c",
+      "after": "15194d11c5e75b28ac9fa80cb4ec4c27aa67556af474c486f983f0ffee9f4d1c"
+    },
+    "art/characters/rin/parts/arm_upper.png": {
+      "before": "a153b20c67733c56561e8076acb2a83a65729e635c666c160d337873aa2d043e",
+      "after": "a153b20c67733c56561e8076acb2a83a65729e635c666c160d337873aa2d043e"
+    },
+    "art/characters/rin/parts/arm_upper_n.png": {
+      "before": "4b56e9d728bb677e75f30d5e77cc073444491049eac3cfa7530512bffd2314cd",
+      "after": "4b56e9d728bb677e75f30d5e77cc073444491049eac3cfa7530512bffd2314cd"
+    },
+    "art/characters/rin/parts/armor_jacket.png": {
+      "before": "cc69d10458f55644f2cf3f1c34ab5918ae9251176898ec6573fc5eb7568100b6",
+      "after": "cc69d10458f55644f2cf3f1c34ab5918ae9251176898ec6573fc5eb7568100b6"
+    },
+    "art/characters/rin/parts/armor_jacket_n.png": {
+      "before": "6ce744297085b447ee09372110cf4442a222258eef636215e26b99fa7b2bdced",
+      "after": "6ce744297085b447ee09372110cf4442a222258eef636215e26b99fa7b2bdced"
+    },
+    "art/characters/rin/parts/foot.png": {
+      "before": "1bfff06cfe3c11bcaf2182c4bb6db3513697ff58cde439c487594624ea36cae9",
+      "after": "1bfff06cfe3c11bcaf2182c4bb6db3513697ff58cde439c487594624ea36cae9"
+    },
+    "art/characters/rin/parts/foot_glow.png": {
+      "before": "09bfe7d89e4b2f4927bfce3c468d19a7636e7a845ad3540ab03213d3bacbfe62",
+      "after": "09bfe7d89e4b2f4927bfce3c468d19a7636e7a845ad3540ab03213d3bacbfe62"
+    },
+    "art/characters/rin/parts/foot_n.png": {
+      "before": "dfa19117a195d4e58daa56e10a2ab35b7eca06ac603c076b44832ab58d3a64db",
+      "after": "dfa19117a195d4e58daa56e10a2ab35b7eca06ac603c076b44832ab58d3a64db"
+    },
+    "art/characters/rin/parts/hair_back_1.png": {
+      "before": "8ccb56bab2f3a8fcb0ae9f2fdf9fbf434dc75228107702ff2ca74c0aaa008e63",
+      "after": "8ccb56bab2f3a8fcb0ae9f2fdf9fbf434dc75228107702ff2ca74c0aaa008e63"
+    },
+    "art/characters/rin/parts/hair_back_1_n.png": {
+      "before": "e8c97c029019ba17a78da25a7f114e1b609fc0194e296c9426a5d7c462f8a84a",
+      "after": "e8c97c029019ba17a78da25a7f114e1b609fc0194e296c9426a5d7c462f8a84a"
+    },
+    "art/characters/rin/parts/hair_back_2.png": {
+      "before": "1e5ee7326c1c3f4d6efd97aacc85c4b20cb2df236e479cd8f11ac1a4cb97fa79",
+      "after": "1e5ee7326c1c3f4d6efd97aacc85c4b20cb2df236e479cd8f11ac1a4cb97fa79"
+    },
+    "art/characters/rin/parts/hair_back_2_n.png": {
+      "before": "198951e08b72fe7636f898bd76a346ed50554ec1fea5926473c916406e8868db",
+      "after": "198951e08b72fe7636f898bd76a346ed50554ec1fea5926473c916406e8868db"
+    },
+    "art/characters/rin/parts/hand.png": {
+      "before": "db5db2e306cea2d67a7058d7aa14c580b79fecedc99b9f37c4beba6eecfe9a03",
+      "after": "db5db2e306cea2d67a7058d7aa14c580b79fecedc99b9f37c4beba6eecfe9a03"
+    },
+    "art/characters/rin/parts/hand_grip.png": {
+      "before": "882f2d74588aed4669a6650386c4004c810b8e05ebda76b2816657a671171617",
+      "after": "882f2d74588aed4669a6650386c4004c810b8e05ebda76b2816657a671171617"
+    },
+    "art/characters/rin/parts/hand_grip_n.png": {
+      "before": "772fa95d2e86145cde4f673eeabe46e6fc6095aa5fbddd25bd1550c41b9ba792",
+      "after": "772fa95d2e86145cde4f673eeabe46e6fc6095aa5fbddd25bd1550c41b9ba792"
+    },
+    "art/characters/rin/parts/hand_left.png": {
+      "before": "03696ce5f24f02c935be5b38163bc63e926807c9a42cc6eeba4c3c7caa6d5bde",
+      "after": "03696ce5f24f02c935be5b38163bc63e926807c9a42cc6eeba4c3c7caa6d5bde"
+    },
+    "art/characters/rin/parts/hand_left_grip.png": {
+      "before": "109d252d0633790cb4017aa9d263909fd40b09b7ffd4d2ecc72e676e683e5e24",
+      "after": "109d252d0633790cb4017aa9d263909fd40b09b7ffd4d2ecc72e676e683e5e24"
+    },
+    "art/characters/rin/parts/hand_left_grip_n.png": {
+      "before": "47d66e5b2d2170db8873490f48df3de6faa80c0b8fdbb2014400319ff16173b3",
+      "after": "47d66e5b2d2170db8873490f48df3de6faa80c0b8fdbb2014400319ff16173b3"
+    },
+    "art/characters/rin/parts/hand_left_n.png": {
+      "before": "adb1a2c2b41e95a015f56b29ccfa4abd042db64722e7860f9deced31814b51d4",
+      "after": "adb1a2c2b41e95a015f56b29ccfa4abd042db64722e7860f9deced31814b51d4"
+    },
+    "art/characters/rin/parts/hand_n.png": {
+      "before": "764dc0862fbeeacb5f908f6a6863e518b66faac2b08e136ff16ee61197340065",
+      "after": "764dc0862fbeeacb5f908f6a6863e518b66faac2b08e136ff16ee61197340065"
+    },
+    "art/characters/rin/parts/head.png": {
+      "before": "a17f75ea88cadc52f7f9201508216c3fb2195024026469015a168bd850d1dc7e",
+      "after": "a17f75ea88cadc52f7f9201508216c3fb2195024026469015a168bd850d1dc7e"
+    },
+    "art/characters/rin/parts/head_n.png": {
+      "before": "e3bc5f5f1d55c901b6174b8f22fab51181c87d33e25f3f5f9d66c75341ec3df4",
+      "after": "e3bc5f5f1d55c901b6174b8f22fab51181c87d33e25f3f5f9d66c75341ec3df4"
+    },
+    "art/characters/rin/parts/holster.png": {
+      "before": "6a60b1c8b4c241de84876140e7c682c071d6ee396abec3042f2832610521eb98",
+      "after": "6a60b1c8b4c241de84876140e7c682c071d6ee396abec3042f2832610521eb98"
+    },
+    "art/characters/rin/parts/holster_n.png": {
+      "before": "6e4c3ea67b010e9bf72336492244ba8d92e7ec08844b8bbd64c557d37015d90c",
+      "after": "6e4c3ea67b010e9bf72336492244ba8d92e7ec08844b8bbd64c557d37015d90c"
+    },
+    "art/characters/rin/parts/jacket_hem.png": {
+      "before": "8c8a3b674b471e3e336592138097c04174fb99a45862f93f0ad5b4fedf55f130",
+      "after": "8c8a3b674b471e3e336592138097c04174fb99a45862f93f0ad5b4fedf55f130"
+    },
+    "art/characters/rin/parts/jacket_hem_n.png": {
+      "before": "d419fc1a1dc0ddadab9003b0f4c6771d1dae8a9eb107001031e26b6065828e92",
+      "after": "d419fc1a1dc0ddadab9003b0f4c6771d1dae8a9eb107001031e26b6065828e92"
+    },
+    "art/characters/rin/parts/jacket_sleeve_lower.png": {
+      "before": "d43145d747f56682d6ae4e61e2031dd461661b98f4952edd773f7f31656d3a13",
+      "after": "d43145d747f56682d6ae4e61e2031dd461661b98f4952edd773f7f31656d3a13"
+    },
+    "art/characters/rin/parts/jacket_sleeve_lower_n.png": {
+      "before": "6494d72f90386f59c28771ffeb5a4b8fc22c8de27d263c0f7d899858a2377d55",
+      "after": "6494d72f90386f59c28771ffeb5a4b8fc22c8de27d263c0f7d899858a2377d55"
+    },
+    "art/characters/rin/parts/jacket_sleeve_upper.png": {
+      "before": "3d2b748276a40c10c4d842a0b24243d2a9cdeaad0f45cf07a04f3cd0b72b968d",
+      "after": "3d2b748276a40c10c4d842a0b24243d2a9cdeaad0f45cf07a04f3cd0b72b968d"
+    },
+    "art/characters/rin/parts/jacket_sleeve_upper_n.png": {
+      "before": "ec545876b38144a435164e2c59be4b1a6af08ec24215b147e00f3507857592b7",
+      "after": "ec545876b38144a435164e2c59be4b1a6af08ec24215b147e00f3507857592b7"
+    },
+    "art/characters/rin/parts/leg_lower.png": {
+      "before": "414c016fe453c22470ee6a9eef5fa4c8e804d2df5016fa27cb743190f3a1c67d",
+      "after": "414c016fe453c22470ee6a9eef5fa4c8e804d2df5016fa27cb743190f3a1c67d"
+    },
+    "art/characters/rin/parts/leg_lower_dmg.png": {
+      "before": "4bc537ad1d090bed3beb95ce1d1f91e52dbd2474cdd0d8b5213ad6e0e82e8ad2",
+      "after": "4bc537ad1d090bed3beb95ce1d1f91e52dbd2474cdd0d8b5213ad6e0e82e8ad2"
+    },
+    "art/characters/rin/parts/leg_lower_dmg_n.png": {
+      "before": "faddfc9fe0946fb091539a2457976b7f5f7a275d0a9f090d84f88f166335be76",
+      "after": "faddfc9fe0946fb091539a2457976b7f5f7a275d0a9f090d84f88f166335be76"
+    },
+    "art/characters/rin/parts/leg_lower_n.png": {
+      "before": "cb8ee1a0bda7b6d21e50a1d70b868e9f6213b19e79fc6ba8f1d7bce376bec2cc",
+      "after": "cb8ee1a0bda7b6d21e50a1d70b868e9f6213b19e79fc6ba8f1d7bce376bec2cc"
+    },
+    "art/characters/rin/parts/leg_upper.png": {
+      "before": "c21fea7b2ea1cd4687b92162ca37ca7914a9d6274090bc3af60ffbcb1dc07f12",
+      "after": "c21fea7b2ea1cd4687b92162ca37ca7914a9d6274090bc3af60ffbcb1dc07f12"
+    },
+    "art/characters/rin/parts/leg_upper_dmg.png": {
+      "before": "4801cb6d5c5c6e0db605d103accca9786a8d8cf8c65fe7effafb7587a0d884c1",
+      "after": "4801cb6d5c5c6e0db605d103accca9786a8d8cf8c65fe7effafb7587a0d884c1"
+    },
+    "art/characters/rin/parts/leg_upper_dmg_n.png": {
+      "before": "9d598e9ae97982178e69e7219f852a903e9b531235df47c5402b41a907f170e7",
+      "after": "9d598e9ae97982178e69e7219f852a903e9b531235df47c5402b41a907f170e7"
+    },
+    "art/characters/rin/parts/leg_upper_n.png": {
+      "before": "d9991a3f37c85136df972cc052b15dd0ef0cbaab30a2f311a44d77ef77c9ceee",
+      "after": "d9991a3f37c85136df972cc052b15dd0ef0cbaab30a2f311a44d77ef77c9ceee"
+    },
+    "art/characters/rin/parts/pelvis.png": {
+      "before": "f1eb1ffd402ce5a4ca3d5a0e054b76a16111e9878a8c9073c8a5ae9443807330",
+      "after": "f1eb1ffd402ce5a4ca3d5a0e054b76a16111e9878a8c9073c8a5ae9443807330"
+    },
+    "art/characters/rin/parts/pelvis_dmg.png": {
+      "before": "62292217a0b4ec5a76393026415df903bc47f21ec033bca24d723b162d5a27f7",
+      "after": "62292217a0b4ec5a76393026415df903bc47f21ec033bca24d723b162d5a27f7"
+    },
+    "art/characters/rin/parts/pelvis_dmg_n.png": {
+      "before": "fcf783ebed1173670c36073de6144b923e83042a95a6dbb6ce0f38be1c681d4d",
+      "after": "fcf783ebed1173670c36073de6144b923e83042a95a6dbb6ce0f38be1c681d4d"
+    },
+    "art/characters/rin/parts/pelvis_glow.png": {
+      "before": "ba0c9e8ae5c85427a0cb4b565cf0895a5640d3a181015d47c1998081e4cc49d3",
+      "after": "ba0c9e8ae5c85427a0cb4b565cf0895a5640d3a181015d47c1998081e4cc49d3"
+    },
+    "art/characters/rin/parts/pelvis_n.png": {
+      "before": "82437d14a17bd47c1554a5bb7701ac9b7d129447c261bd3fb52750b39a7e13ec",
+      "after": "82437d14a17bd47c1554a5bb7701ac9b7d129447c261bd3fb52750b39a7e13ec"
+    },
+    "art/characters/rin/parts/torso.png": {
+      "before": "9cb49daa7a166a2f7ed31e44f3995c8e5192446294f5c41d0aa67a40263e3d4f",
+      "after": "9cb49daa7a166a2f7ed31e44f3995c8e5192446294f5c41d0aa67a40263e3d4f"
+    },
+    "art/characters/rin/parts/torso_dmg.png": {
+      "before": "63f88f3339bb2b14ff017213c06dfee702ecb6b7ed52523a8d9e1a384d480afa",
+      "after": "63f88f3339bb2b14ff017213c06dfee702ecb6b7ed52523a8d9e1a384d480afa"
+    },
+    "art/characters/rin/parts/torso_dmg_n.png": {
+      "before": "c8853eec0afb5b9c39310349523947c3a9ce8dbc05d882e88d173519e22e8795",
+      "after": "c8853eec0afb5b9c39310349523947c3a9ce8dbc05d882e88d173519e22e8795"
+    },
+    "art/characters/rin/parts/torso_glow.png": {
+      "before": "f03c4ed588da7573e7e9808862ce83ea2929d4415e11310ae8b5858dfbdb82f7",
+      "after": "f03c4ed588da7573e7e9808862ce83ea2929d4415e11310ae8b5858dfbdb82f7"
+    },
+    "art/characters/rin/parts/torso_n.png": {
+      "before": "4a5c7d2aaf076c12e5591cf790319322422f838858055950a90aa1ce22892ffa",
+      "after": "4a5c7d2aaf076c12e5591cf790319322422f838858055950a90aa1ce22892ffa"
+    },
+    "art/portraits/rin.png": {
+      "before": "4c944cfd4ddc71dda91e0b3f8415ad27cdf4fc3447da19e64afa5cbd55a473b3",
+      "after": "4c944cfd4ddc71dda91e0b3f8415ad27cdf4fc3447da19e64afa5cbd55a473b3"
+    }
+  }
+}
