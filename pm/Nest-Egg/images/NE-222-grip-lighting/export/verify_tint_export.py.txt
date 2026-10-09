@@ -1,0 +1,305 @@
+from __future__ import annotations
+
+import hashlib
+import json
+import subprocess
+import sys
+from pathlib import Path
+from typing import Any
+
+ROOT = Path(__file__).resolve().parents[2]
+PROOF = Path(__file__).resolve().parent
+PYTHON = Path("D:/ComfyUI/.venv/Scripts/python.exe")
+CUT = ROOT / "tools/comfyui/cut_layers.py"
+WORK = ROOT / "art_src/characters/rin2"
+BASELINE_SPEC = PROOF / "rin_side-baseline.json"
+AFTER_SPEC_SOURCE = ROOT / "tools/comfyui/specs/rin_side.json"
+AFTER_SPEC = PROOF / "rin_side-after.json"
+FORMAL_CHAR = ROOT / "art/characters/rin/character.json"
+FORMAL_RIG = ROOT / "art/rigs/humanoid_tall.json"
+FORMAL_PARTS = ROOT / "art/characters/rin/parts"
+RECIPE = ROOT / "tools/comfyui/recipes/rin.json"
+BASELINE_COMMIT = "4a754af0a234d4e3fcdaf0ecedc2bf284afc8350"
+TARGETS = {
+    "arm_left_lower": ("arm_back_lower", 0.62, 1.0),
+    "arm_left_upper": ("arm_back_upper", 0.62, 1.0),
+    "hand_left": ("hand_back", 0.62, 1.0),
+    "jacket_sleeve_lower": ("jacket_sleeve_back_lower", 0.62, 1.0),
+    "jacket_sleeve_upper": ("jacket_sleeve_back_upper", 0.62, 1.0),
+}
+
+
+def sha(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def read_json(path: Path) -> dict[str, Any]:
+    return json.loads(path.read_text(encoding="utf-8-sig"))
+
+
+def canonical(value: Any) -> str:
+    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+
+
+def json_diffs(left: Any, right: Any, prefix: str = "$") -> list[str]:
+    if type(left) is not type(right):
+        return [prefix]
+    if isinstance(left, dict):
+        diffs: list[str] = []
+        for key in sorted(set(left) | set(right)):
+            if key not in left or key not in right:
+                diffs.append(f"{prefix}.{key}")
+            else:
+                diffs.extend(json_diffs(left[key], right[key], f"{prefix}.{key}"))
+        return diffs
+    if isinstance(left, list):
+        if len(left) != len(right):
+            return [prefix]
+        diffs = []
+        for index, (a, b) in enumerate(zip(left, right)):
+            diffs.extend(json_diffs(a, b, f"{prefix}[{index}]"))
+        return diffs
+    return [] if left == right else [prefix]
+
+
+def all_hashes(paths: list[Path]) -> dict[str, str]:
+    result: dict[str, str] = {}
+    for path in paths:
+        if path.is_file():
+            result[path.relative_to(ROOT).as_posix()] = sha(path)
+        elif path.is_dir():
+            for file in sorted(path.rglob("*")):
+                if file.is_file():
+                    result[file.relative_to(ROOT).as_posix()] = sha(file)
+    return result
+
+
+def collect_pngs(char_dir: Path) -> dict[str, str]:
+    folder = char_dir / "parts"
+    return {path.relative_to(folder).as_posix(): sha(path) for path in sorted(folder.rglob("*.png"))}
+
+
+def output_for(run_dir: Path, label: str) -> tuple[Path, Path, Path]:
+    base = run_dir / label
+    char_dir = base / "char"
+    rig_path = base / "rig/humanoid_tall.json"
+    char_dir.mkdir(parents=True)
+    rig_path.parent.mkdir(parents=True)
+    return base, char_dir, rig_path
+
+
+def run_export(run_dir: Path, label: str, spec_path: Path) -> dict[str, Any]:
+    base, char_dir, rig_path = output_for(run_dir, label)
+    cmd = [
+        str(PYTHON), str(CUT), "--spec", str(spec_path), "--work", str(WORK),
+        "--char", str(char_dir), "--rig", str(rig_path),
+    ]
+    result = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace")
+    (run_dir / f"{label}-export.log").write_text(
+        "COMMAND: " + subprocess.list2cmdline(cmd) + "\n"
+        + f"RETURN_CODE: {result.returncode}\n--- STDOUT ---\n{result.stdout}\n--- STDERR ---\n{result.stderr}",
+        encoding="utf-8",
+    )
+    if result.returncode != 0:
+        raise RuntimeError(f"{label} cut_layers export failed ({result.returncode}); see {run_dir / f'{label}-export.log'}")
+    char_path = char_dir / "character.json"
+    if not char_path.is_file() or not rig_path.is_file():
+        raise RuntimeError(f"{label} export omitted character or rig JSON")
+    return {
+        "label": label,
+        "command": subprocess.list2cmdline(cmd),
+        "return_code": result.returncode,
+        "char_dir": char_dir,
+        "char": read_json(char_path),
+        "rig": read_json(rig_path),
+        "pngs": collect_pngs(char_dir),
+        "char_path": char_path,
+        "rig_path": rig_path,
+        "base_dir": base,
+    }
+
+
+def runtime_tints(char: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    result = {}
+    for entry in char.get("parts", []):
+        if entry.get("name") in {spec[0] for spec in TARGETS.values()}:
+            result[str(entry["name"])] = {
+                "texture": entry.get("texture"),
+                "tint": entry.get("tint", 1.0),
+                "bone": entry.get("bone"),
+                "z": entry.get("z"),
+                **({"grip_texture": entry["grip_texture"]} if "grip_texture" in entry else {}),
+                **({"grip_offset": entry["grip_offset"]} if "grip_offset" in entry else {}),
+            }
+    return result
+
+
+def main() -> int:
+    if not PYTHON.is_file():
+        raise RuntimeError(f"configured Python runtime does not exist: {PYTHON}")
+    if not BASELINE_SPEC.is_file():
+        raise RuntimeError(f"baseline must come from git show 4a754af0:tools/comfyui/specs/rin_side.json: {BASELINE_SPEC}")
+    AFTER_SPEC.write_bytes(AFTER_SPEC_SOURCE.read_bytes())
+    baseline = read_json(BASELINE_SPEC)
+    after = read_json(AFTER_SPEC)
+    recipe = read_json(RECIPE)
+    recipe_matches = recipe.get("spec") == "tools/comfyui/specs/rin_side.json" and recipe.get("work") == "art_src/characters/rin2"
+
+    expected_spec_paths = {
+        "$.parts.arm_left_lower.uses[0].tint",
+        "$.parts.arm_left_upper.uses[0].tint",
+        "$.parts.hand_left.uses[0].tint",
+        "$.parts.jacket_sleeve_lower.uses[0].tint",
+        "$.parts.jacket_sleeve_upper.uses[0].tint",
+    }
+    spec_changes = json_diffs(baseline, after)
+    spec_diff_ok = set(spec_changes) == expected_spec_paths
+    target_spec_values: dict[str, dict[str, Any]] = {}
+    for spec_part, (runtime_part, old_tint, new_tint) in TARGETS.items():
+        before_tint = baseline["parts"][spec_part]["uses"][0].get("tint", 1.0)
+        after_tint = after["parts"][spec_part]["uses"][0].get("tint", 1.0)
+        target_spec_values[spec_part] = {"runtime_part": runtime_part, "baseline": before_tint, "current": after_tint}
+        if before_tint != old_tint or after_tint != new_tint:
+            spec_diff_ok = False
+
+    source_paths = [
+        WORK / "07_refined", WORK / "overrides/refined", WORK / "base_rgba.png",
+        FORMAL_PARTS, FORMAL_CHAR, FORMAL_RIG, RECIPE,
+    ]
+    pre_hashes = all_hashes(source_paths)
+    run_index = 1
+    while (PROOF / f"run-{run_index:02d}").exists():
+        run_index += 1
+    run_dir = PROOF / f"run-{run_index:02d}"
+    run_dir.mkdir()
+    baseline_export = run_export(run_dir, "baseline", BASELINE_SPEC)
+    after_export = run_export(run_dir, "after", AFTER_SPEC)
+    post_hashes = all_hashes(source_paths)
+
+    png_path_diffs = sorted(set(baseline_export["pngs"]) ^ set(after_export["pngs"]))
+    png_hash_diffs = [
+        {"path": path, "baseline": baseline_export["pngs"].get(path), "after": after_export["pngs"].get(path)}
+        for path in sorted(set(baseline_export["pngs"]) & set(after_export["pngs"]))
+        if baseline_export["pngs"][path] != after_export["pngs"][path]
+    ]
+
+    baseline_char = baseline_export["char"]
+    after_char = after_export["char"]
+    normalized_after_char = json.loads(json.dumps(after_char))
+    target_by_runtime = {runtime_name: old_tint for _source_name, (runtime_name, old_tint, _new) in TARGETS.items()}
+    for entry in normalized_after_char.get("parts", []):
+        if entry.get("name") in target_by_runtime:
+            entry["tint"] = target_by_runtime[entry["name"]]
+    export_char_normalization_ok = canonical(baseline_char) == canonical(normalized_after_char)
+    export_rig_equal = canonical(baseline_export["rig"]) == canonical(after_export["rig"])
+    export_texture_equal = canonical(baseline_char.get("textures")) == canonical(after_char.get("textures"))
+    export_parts_equal_except_tints = export_char_normalization_ok
+    grip_baseline = [
+        {key: entry.get(key) for key in ("name", "texture", "bone", "z", "grip_texture", "grip_offset")}
+        for entry in baseline_char["parts"] if "grip_offset" in entry
+    ]
+    grip_after = [
+        {key: entry.get(key) for key in ("name", "texture", "bone", "z", "grip_texture", "grip_offset")}
+        for entry in after_char["parts"] if "grip_offset" in entry
+    ]
+    grip_equal = canonical(grip_baseline) == canonical(grip_after)
+
+    after_runtime = runtime_tints(after_char)
+    formal_runtime = runtime_tints(read_json(FORMAL_CHAR))
+    expected_runtime_names = {value[0] for value in TARGETS.values()}
+    runtime_values_ok = set(after_runtime) == expected_runtime_names and set(formal_runtime) == expected_runtime_names
+    for source_name, (runtime_name, _old, new) in TARGETS.items():
+        if after_runtime.get(runtime_name, {}).get("tint") != new or formal_runtime.get(runtime_name, {}).get("tint") != new:
+            runtime_values_ok = False
+
+    source_unchanged = pre_hashes == post_hashes
+    runtime_code = (ROOT / "game/rig/character_rig.gd").read_text(encoding="utf-8")
+    runtime_contract = {
+        "file": "game/rig/character_rig.gd",
+        "reads_entry_tint_default": 'entry.get("tint", 1.0)' in runtime_code,
+        "sets_part_self_modulate": "part.self_modulate = Color(tint, tint, tint, 1.0)" in runtime_code,
+        "applies_fill_to_part_tint": "var tint := _part_tints[i] * fill" in runtime_code,
+    }
+    runtime_code_ok = all(runtime_contract[key] for key in ("reads_entry_tint_default", "sets_part_self_modulate", "applies_fill_to_part_tint"))
+
+    checks = {
+        "rin_recipe_points_to_verified_spec_and_source": recipe_matches,
+        "only_five_expected_spec_tint_changes": spec_diff_ok,
+        "all_exported_part_pngs_byte_identical": not png_path_diffs and not png_hash_diffs,
+        "baseline_and_after_texture_metadata_identical": export_texture_equal,
+        "all_exported_character_data_equal_except_five_intended_tints": export_parts_equal_except_tints,
+        "exported_rig_bones_positions_anchor_identical": export_rig_equal,
+        "all_exported_grip_offsets_identical": grip_equal,
+        "formal_and_private_export_runtimes_use_new_tints": runtime_values_ok,
+        "runtime_loader_applies_entry_tint": runtime_code_ok,
+        "source_and_formal_assets_unchanged": source_unchanged,
+    }
+    glow_count = sum(path.endswith("_glow.png") for path in after_export["pngs"])
+    normal_count = sum(path.endswith("_n.png") for path in after_export["pngs"])
+    report = {
+        "status": "passed" if all(checks.values()) else "failed",
+        "purpose": "CPU-only cut_layers export parity for NE-222 five far-side Rin tints; no normal-map builder or GPU run",
+        "baseline_commit": BASELINE_COMMIT,
+        "current_head": subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip(),
+        "baseline_spec_path": str(BASELINE_SPEC),
+        "baseline_spec_sha256": sha(BASELINE_SPEC),
+        "after_spec_path": str(AFTER_SPEC),
+        "after_spec_sha256": sha(AFTER_SPEC),
+        "recipe": {"path": str(RECIPE), "spec": recipe.get("spec"), "work": recipe.get("work"), "rig": recipe.get("rig"), "sha256": sha(RECIPE)},
+        "run_dir": str(run_dir),
+        "source_work_path": str(WORK),
+        "source_dir_selected_by_cut_layers": "07_refined" if (WORK / "07_refined").is_dir() else "06_parts",
+        "source_overrides_selected": sorted(path.name for path in (WORK / "overrides/refined").glob("*.png")),
+        "target_spec_tints": target_spec_values,
+        "spec_diff_paths": spec_changes,
+        "baseline_export": {
+            "command": baseline_export["command"],
+            "exit_code": 0,
+            "character_json": str(baseline_export["char_path"]),
+            "rig_json": str(baseline_export["rig_path"]),
+            "png_count": len(baseline_export["pngs"]),
+            "output_hashes": baseline_export["pngs"],
+        },
+        "after_export": {
+            "command": after_export["command"],
+            "exit_code": 0,
+            "character_json": str(after_export["char_path"]),
+            "rig_json": str(after_export["rig_path"]),
+            "png_count": len(after_export["pngs"]),
+            "glow_png_count": glow_count,
+            "normal_png_count": normal_count,
+            "output_hashes": after_export["pngs"],
+        },
+        "png_path_set_differences": png_path_diffs,
+        "png_hash_differences": png_hash_diffs,
+        "exported_texture_entry_count": len(after_char.get("textures", {})),
+        "exported_part_use_count": len(after_char.get("parts", [])),
+        "exported_bone_count": len(after_export["rig"].get("bones", [])),
+        "grip_attachment_count": len(grip_after),
+        "runtime_tints_private_export": after_runtime,
+        "runtime_tints_formal_json": formal_runtime,
+        "runtime_code_contract": runtime_contract,
+        "input_and_formal_asset_hashes_before": pre_hashes,
+        "input_and_formal_asset_hashes_after": post_hashes,
+        "checks": checks,
+        "normal_map_note": "cut_layers.py does not generate *_n.png normal maps; normal_count is recorded, not compared as a generated normal-map result.",
+        "glow_note": "glow layers are generated by cut_layers.py and included in the byte-for-byte PNG comparison.",
+    }
+    report_path = PROOF / "report.json"
+    report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps({"status": report["status"], "checks": checks, "png_count": len(after_export["pngs"]), "glow_png_count": glow_count, "normal_png_count": normal_count, "grip_attachment_count": len(grip_after), "report": str(report_path)}, ensure_ascii=False, indent=2))
+    return 0 if report["status"] == "passed" else 1
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except Exception as error:
+        failure = {"status": "failed", "error": str(error)}
+        (PROOF / "error.json").write_text(json.dumps(failure, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(failure, ensure_ascii=False, indent=2), file=sys.stderr)
+        sys.exit(1)

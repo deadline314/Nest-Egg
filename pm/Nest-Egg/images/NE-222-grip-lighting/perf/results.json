@@ -1,0 +1,766 @@
+{
+	"actors_per_case": 10,
+	"configuration": "facing=1, aim=right, velocity=actual EnemyData.move_speed, two_handed=true, on_floor=true; both modes use identical data and mesh generation",
+	"created_utc": "2026-10-09 18:01:05",
+	"dt": 0.0166666666666667,
+	"failed": false,
+	"godot": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"measured_frames": 3000,
+	"order_by_run": [
+		"before,after",
+		"after,before",
+		"before,after"
+	],
+	"renderer": "headless CPU; script animation only",
+	"results": [
+		{
+			"enemy": "elite_grunt",
+			"mode": "before",
+			"order": [
+				"before",
+				"after"
+			],
+			"run": 1,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4824626,
+				"max_back_grip_gap_px": 2.95755481719971,
+				"max_front_grip_gap_px": 0.0,
+				"mesh_count": 14,
+				"usec_per_actor_frame": 160.820866666667,
+				"vertices_per_actor": 276
+			},
+			"skin": "trooper_elite",
+			"weapon": "rifle"
+		},
+		{
+			"enemy": "elite_grunt",
+			"mode": "after",
+			"order": [
+				"before",
+				"after"
+			],
+			"run": 1,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4834237,
+				"max_back_grip_gap_px": 0.00000095367431640625,
+				"max_front_grip_gap_px": 0.0,
+				"mesh_count": 14,
+				"usec_per_actor_frame": 161.141233333333,
+				"vertices_per_actor": 276
+			},
+			"skin": "trooper_elite",
+			"weapon": "rifle"
+		},
+		{
+			"enemy": "elite_grunt",
+			"mode": "after",
+			"order": [
+				"after",
+				"before"
+			],
+			"run": 2,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 5217082,
+				"max_back_grip_gap_px": 0.00000095367431640625,
+				"max_front_grip_gap_px": 0.0,
+				"mesh_count": 14,
+				"usec_per_actor_frame": 173.902733333333,
+				"vertices_per_actor": 276
+			},
+			"skin": "trooper_elite",
+			"weapon": "rifle"
+		},
+		{
+			"enemy": "elite_grunt",
+			"mode": "before",
+			"order": [
+				"after",
+				"before"
+			],
+			"run": 2,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4685882,
+				"max_back_grip_gap_px": 2.95755481719971,
+				"max_front_grip_gap_px": 0.0,
+				"mesh_count": 14,
+				"usec_per_actor_frame": 156.196066666667,
+				"vertices_per_actor": 276
+			},
+			"skin": "trooper_elite",
+			"weapon": "rifle"
+		},
+		{
+			"enemy": "elite_grunt",
+			"mode": "before",
+			"order": [
+				"before",
+				"after"
+			],
+			"run": 3,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4692872,
+				"max_back_grip_gap_px": 2.95755481719971,
+				"max_front_grip_gap_px": 0.0,
+				"mesh_count": 14,
+				"usec_per_actor_frame": 156.429066666667,
+				"vertices_per_actor": 276
+			},
+			"skin": "trooper_elite",
+			"weapon": "rifle"
+		},
+		{
+			"enemy": "elite_grunt",
+			"mode": "after",
+			"order": [
+				"before",
+				"after"
+			],
+			"run": 3,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4951703,
+				"max_back_grip_gap_px": 0.00000095367431640625,
+				"max_front_grip_gap_px": 0.0,
+				"mesh_count": 14,
+				"usec_per_actor_frame": 165.056766666667,
+				"vertices_per_actor": 276
+			},
+			"skin": "trooper_elite",
+			"weapon": "rifle"
+		},
+		{
+			"enemy": "flamer",
+			"mode": "before",
+			"order": [
+				"before",
+				"after"
+			],
+			"run": 1,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 5186167,
+				"max_back_grip_gap_px": 1.51421737670898,
+				"max_front_grip_gap_px": 0.0,
+				"mesh_count": 14,
+				"usec_per_actor_frame": 172.872233333333,
+				"vertices_per_actor": 300
+			},
+			"skin": "flamer",
+			"weapon": "flamethrower"
+		},
+		{
+			"enemy": "flamer",
+			"mode": "after",
+			"order": [
+				"before",
+				"after"
+			],
+			"run": 1,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4855617,
+				"max_back_grip_gap_px": 0.0000019073486328125,
+				"max_front_grip_gap_px": 0.0,
+				"mesh_count": 14,
+				"usec_per_actor_frame": 161.8539,
+				"vertices_per_actor": 300
+			},
+			"skin": "flamer",
+			"weapon": "flamethrower"
+		},
+		{
+			"enemy": "flamer",
+			"mode": "after",
+			"order": [
+				"after",
+				"before"
+			],
+			"run": 2,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4754428,
+				"max_back_grip_gap_px": 0.0000019073486328125,
+				"max_front_grip_gap_px": 0.0,
+				"mesh_count": 14,
+				"usec_per_actor_frame": 158.480933333333,
+				"vertices_per_actor": 300
+			},
+			"skin": "flamer",
+			"weapon": "flamethrower"
+		},
+		{
+			"enemy": "flamer",
+			"mode": "before",
+			"order": [
+				"after",
+				"before"
+			],
+			"run": 2,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4605612,
+				"max_back_grip_gap_px": 1.51421737670898,
+				"max_front_grip_gap_px": 0.0,
+				"mesh_count": 14,
+				"usec_per_actor_frame": 153.5204,
+				"vertices_per_actor": 300
+			},
+			"skin": "flamer",
+			"weapon": "flamethrower"
+		},
+		{
+			"enemy": "flamer",
+			"mode": "before",
+			"order": [
+				"before",
+				"after"
+			],
+			"run": 3,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4624811,
+				"max_back_grip_gap_px": 1.51421737670898,
+				"max_front_grip_gap_px": 0.0,
+				"mesh_count": 14,
+				"usec_per_actor_frame": 154.160366666667,
+				"vertices_per_actor": 300
+			},
+			"skin": "flamer",
+			"weapon": "flamethrower"
+		},
+		{
+			"enemy": "flamer",
+			"mode": "after",
+			"order": [
+				"before",
+				"after"
+			],
+			"run": 3,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4758886,
+				"max_back_grip_gap_px": 0.0000019073486328125,
+				"max_front_grip_gap_px": 0.0,
+				"mesh_count": 14,
+				"usec_per_actor_frame": 158.629533333333,
+				"vertices_per_actor": 300
+			},
+			"skin": "flamer",
+			"weapon": "flamethrower"
+		},
+		{
+			"enemy": "mortar",
+			"mode": "before",
+			"order": [
+				"before",
+				"after"
+			],
+			"run": 1,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4869913,
+				"max_back_grip_gap_px": 2.11442518234253,
+				"max_front_grip_gap_px": 0.00000095367431640625,
+				"mesh_count": 14,
+				"usec_per_actor_frame": 162.330433333333,
+				"vertices_per_actor": 258
+			},
+			"skin": "grenadier",
+			"weapon": "launcher"
+		},
+		{
+			"enemy": "mortar",
+			"mode": "after",
+			"order": [
+				"before",
+				"after"
+			],
+			"run": 1,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 5052577,
+				"max_back_grip_gap_px": 0.0000019073486328125,
+				"max_front_grip_gap_px": 0.0,
+				"mesh_count": 14,
+				"usec_per_actor_frame": 168.419233333333,
+				"vertices_per_actor": 258
+			},
+			"skin": "grenadier",
+			"weapon": "launcher"
+		},
+		{
+			"enemy": "mortar",
+			"mode": "after",
+			"order": [
+				"after",
+				"before"
+			],
+			"run": 2,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4821379,
+				"max_back_grip_gap_px": 0.0000019073486328125,
+				"max_front_grip_gap_px": 0.0,
+				"mesh_count": 14,
+				"usec_per_actor_frame": 160.712633333333,
+				"vertices_per_actor": 258
+			},
+			"skin": "grenadier",
+			"weapon": "launcher"
+		},
+		{
+			"enemy": "mortar",
+			"mode": "before",
+			"order": [
+				"after",
+				"before"
+			],
+			"run": 2,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4668947,
+				"max_back_grip_gap_px": 2.11442518234253,
+				"max_front_grip_gap_px": 0.00000095367431640625,
+				"mesh_count": 14,
+				"usec_per_actor_frame": 155.631566666667,
+				"vertices_per_actor": 258
+			},
+			"skin": "grenadier",
+			"weapon": "launcher"
+		},
+		{
+			"enemy": "mortar",
+			"mode": "before",
+			"order": [
+				"before",
+				"after"
+			],
+			"run": 3,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4683084,
+				"max_back_grip_gap_px": 2.11442518234253,
+				"max_front_grip_gap_px": 0.00000095367431640625,
+				"mesh_count": 14,
+				"usec_per_actor_frame": 156.1028,
+				"vertices_per_actor": 258
+			},
+			"skin": "grenadier",
+			"weapon": "launcher"
+		},
+		{
+			"enemy": "mortar",
+			"mode": "after",
+			"order": [
+				"before",
+				"after"
+			],
+			"run": 3,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 5411672,
+				"max_back_grip_gap_px": 0.0000019073486328125,
+				"max_front_grip_gap_px": 0.0,
+				"mesh_count": 14,
+				"usec_per_actor_frame": 180.389066666667,
+				"vertices_per_actor": 258
+			},
+			"skin": "grenadier",
+			"weapon": "launcher"
+		},
+		{
+			"enemy": "sniper",
+			"mode": "before",
+			"order": [
+				"before",
+				"after"
+			],
+			"run": 1,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4829593,
+				"max_back_grip_gap_px": 4.3626446723938,
+				"max_front_grip_gap_px": 0.00000095367431640625,
+				"mesh_count": 12,
+				"usec_per_actor_frame": 160.986433333333,
+				"vertices_per_actor": 228
+			},
+			"skin": "sniper",
+			"weapon": "sniper"
+		},
+		{
+			"enemy": "sniper",
+			"mode": "after",
+			"order": [
+				"before",
+				"after"
+			],
+			"run": 1,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4786843,
+				"max_back_grip_gap_px": 0.00000095367431640625,
+				"max_front_grip_gap_px": 0.0,
+				"mesh_count": 12,
+				"usec_per_actor_frame": 159.561433333333,
+				"vertices_per_actor": 228
+			},
+			"skin": "sniper",
+			"weapon": "sniper"
+		},
+		{
+			"enemy": "sniper",
+			"mode": "after",
+			"order": [
+				"after",
+				"before"
+			],
+			"run": 2,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4961294,
+				"max_back_grip_gap_px": 0.00000095367431640625,
+				"max_front_grip_gap_px": 0.0,
+				"mesh_count": 12,
+				"usec_per_actor_frame": 165.376466666667,
+				"vertices_per_actor": 228
+			},
+			"skin": "sniper",
+			"weapon": "sniper"
+		},
+		{
+			"enemy": "sniper",
+			"mode": "before",
+			"order": [
+				"after",
+				"before"
+			],
+			"run": 2,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4632749,
+				"max_back_grip_gap_px": 4.3626446723938,
+				"max_front_grip_gap_px": 0.00000095367431640625,
+				"mesh_count": 12,
+				"usec_per_actor_frame": 154.424966666667,
+				"vertices_per_actor": 228
+			},
+			"skin": "sniper",
+			"weapon": "sniper"
+		},
+		{
+			"enemy": "sniper",
+			"mode": "before",
+			"order": [
+				"before",
+				"after"
+			],
+			"run": 3,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4680751,
+				"max_back_grip_gap_px": 4.3626446723938,
+				"max_front_grip_gap_px": 0.00000095367431640625,
+				"mesh_count": 12,
+				"usec_per_actor_frame": 156.025033333333,
+				"vertices_per_actor": 228
+			},
+			"skin": "sniper",
+			"weapon": "sniper"
+		},
+		{
+			"enemy": "sniper",
+			"mode": "after",
+			"order": [
+				"before",
+				"after"
+			],
+			"run": 3,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4835223,
+				"max_back_grip_gap_px": 0.00000095367431640625,
+				"max_front_grip_gap_px": 0.0,
+				"mesh_count": 12,
+				"usec_per_actor_frame": 161.1741,
+				"vertices_per_actor": 228
+			},
+			"skin": "sniper",
+			"weapon": "sniper"
+		},
+		{
+			"enemy": "stalker",
+			"mode": "before",
+			"order": [
+				"before",
+				"after"
+			],
+			"run": 1,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 5168482,
+				"max_back_grip_gap_px": 2.29789113998413,
+				"max_front_grip_gap_px": 0.0000019073486328125,
+				"mesh_count": 12,
+				"usec_per_actor_frame": 172.282733333333,
+				"vertices_per_actor": 222
+			},
+			"skin": "stalker",
+			"weapon": "rifle"
+		},
+		{
+			"enemy": "stalker",
+			"mode": "after",
+			"order": [
+				"before",
+				"after"
+			],
+			"run": 1,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4721312,
+				"max_back_grip_gap_px": 0.00000393209984395071,
+				"max_front_grip_gap_px": 0.000000476837158203125,
+				"mesh_count": 12,
+				"usec_per_actor_frame": 157.377066666667,
+				"vertices_per_actor": 222
+			},
+			"skin": "stalker",
+			"weapon": "rifle"
+		},
+		{
+			"enemy": "stalker",
+			"mode": "after",
+			"order": [
+				"after",
+				"before"
+			],
+			"run": 2,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4707323,
+				"max_back_grip_gap_px": 0.00000393209984395071,
+				"max_front_grip_gap_px": 0.000000476837158203125,
+				"mesh_count": 12,
+				"usec_per_actor_frame": 156.910766666667,
+				"vertices_per_actor": 222
+			},
+			"skin": "stalker",
+			"weapon": "rifle"
+		},
+		{
+			"enemy": "stalker",
+			"mode": "before",
+			"order": [
+				"after",
+				"before"
+			],
+			"run": 2,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4627410,
+				"max_back_grip_gap_px": 2.29789113998413,
+				"max_front_grip_gap_px": 0.0000019073486328125,
+				"mesh_count": 12,
+				"usec_per_actor_frame": 154.247,
+				"vertices_per_actor": 222
+			},
+			"skin": "stalker",
+			"weapon": "rifle"
+		},
+		{
+			"enemy": "stalker",
+			"mode": "before",
+			"order": [
+				"before",
+				"after"
+			],
+			"run": 3,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4620948,
+				"max_back_grip_gap_px": 2.29789113998413,
+				"max_front_grip_gap_px": 0.0000019073486328125,
+				"mesh_count": 12,
+				"usec_per_actor_frame": 154.0316,
+				"vertices_per_actor": 222
+			},
+			"skin": "stalker",
+			"weapon": "rifle"
+		},
+		{
+			"enemy": "stalker",
+			"mode": "after",
+			"order": [
+				"before",
+				"after"
+			],
+			"run": 3,
+			"sample": {
+				"bone_count": 16,
+				"elapsed_usec": 4790808,
+				"max_back_grip_gap_px": 0.00000393209984395071,
+				"max_front_grip_gap_px": 0.000000476837158203125,
+				"mesh_count": 12,
+				"usec_per_actor_frame": 159.6936,
+				"vertices_per_actor": 222
+			},
+			"skin": "stalker",
+			"weapon": "rifle"
+		}
+	],
+	"runs_per_mode": 3,
+	"summary": [
+		{
+			"actor_count": 10,
+			"after_median_usec_per_actor_frame": 165.056766666667,
+			"after_samples_usec_per_actor_frame": [
+				161.141233333333,
+				173.902733333333,
+				165.056766666667
+			],
+			"before_median_usec_per_actor_frame": 156.429066666667,
+			"before_samples_usec_per_actor_frame": [
+				160.820866666667,
+				156.196066666667,
+				156.429066666667
+			],
+			"bone_count_per_actor": 16,
+			"delta_percent": 5.51540719627555,
+			"enemy": "elite_grunt",
+			"measured_frames": 3000,
+			"mesh_count_per_actor": 14,
+			"move_speed": 46.0,
+			"run_speed": 92.0,
+			"runs_per_mode": 3,
+			"skin": "trooper_elite",
+			"vertices_per_actor": 276,
+			"warmup_frames": 120,
+			"weapon": "rifle"
+		},
+		{
+			"actor_count": 10,
+			"after_median_usec_per_actor_frame": 158.629533333333,
+			"after_samples_usec_per_actor_frame": [
+				161.8539,
+				158.480933333333,
+				158.629533333333
+			],
+			"before_median_usec_per_actor_frame": 154.160366666667,
+			"before_samples_usec_per_actor_frame": [
+				172.872233333333,
+				153.5204,
+				154.160366666667
+			],
+			"bone_count_per_actor": 16,
+			"delta_percent": 2.89903738769,
+			"enemy": "flamer",
+			"measured_frames": 3000,
+			"mesh_count_per_actor": 14,
+			"move_speed": 28.0,
+			"run_speed": 56.0,
+			"runs_per_mode": 3,
+			"skin": "flamer",
+			"vertices_per_actor": 300,
+			"warmup_frames": 120,
+			"weapon": "flamethrower"
+		},
+		{
+			"actor_count": 10,
+			"after_median_usec_per_actor_frame": 168.419233333333,
+			"after_samples_usec_per_actor_frame": [
+				168.419233333333,
+				160.712633333333,
+				180.389066666667
+			],
+			"before_median_usec_per_actor_frame": 156.1028,
+			"before_samples_usec_per_actor_frame": [
+				162.330433333333,
+				155.631566666667,
+				156.1028
+			],
+			"bone_count_per_actor": 16,
+			"delta_percent": 7.8899502977098,
+			"enemy": "mortar",
+			"measured_frames": 3000,
+			"mesh_count_per_actor": 14,
+			"move_speed": 55.0,
+			"run_speed": 110.0,
+			"runs_per_mode": 3,
+			"skin": "grenadier",
+			"vertices_per_actor": 258,
+			"warmup_frames": 120,
+			"weapon": "launcher"
+		},
+		{
+			"actor_count": 10,
+			"after_median_usec_per_actor_frame": 161.1741,
+			"after_samples_usec_per_actor_frame": [
+				159.561433333333,
+				165.376466666667,
+				161.1741
+			],
+			"before_median_usec_per_actor_frame": 156.025033333333,
+			"before_samples_usec_per_actor_frame": [
+				160.986433333333,
+				154.424966666667,
+				156.025033333333
+			],
+			"bone_count_per_actor": 16,
+			"delta_percent": 3.30015418465968,
+			"enemy": "sniper",
+			"measured_frames": 3000,
+			"mesh_count_per_actor": 12,
+			"move_speed": 22.0,
+			"run_speed": 44.0,
+			"runs_per_mode": 3,
+			"skin": "sniper",
+			"vertices_per_actor": 228,
+			"warmup_frames": 120,
+			"weapon": "sniper"
+		},
+		{
+			"actor_count": 10,
+			"after_median_usec_per_actor_frame": 157.377066666667,
+			"after_samples_usec_per_actor_frame": [
+				157.377066666667,
+				156.910766666667,
+				159.6936
+			],
+			"before_median_usec_per_actor_frame": 154.247,
+			"before_samples_usec_per_actor_frame": [
+				172.282733333333,
+				154.247,
+				154.0316
+			],
+			"bone_count_per_actor": 16,
+			"delta_percent": 2.02925610654772,
+			"enemy": "stalker",
+			"measured_frames": 3000,
+			"mesh_count_per_actor": 12,
+			"move_speed": 46.0,
+			"run_speed": 92.0,
+			"runs_per_mode": 3,
+			"skin": "stalker",
+			"vertices_per_actor": 222,
+			"warmup_frames": 120,
+			"weapon": "rifle"
+		}
+	],
+	"warmup_frames": 120
+}

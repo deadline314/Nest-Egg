@@ -377,14 +377,14 @@
       "texture": "arm_left_upper",
       "bone": "arm_back_upper",
       "z": -7,
-      "tint": 0.62
+      "tint": 1.0
     },
     {
       "name": "arm_back_lower",
       "texture": "arm_left_lower",
       "bone": "arm_back_lower",
       "z": -7,
-      "tint": 0.62
+      "tint": 1.0
     },
     {
       "name": "leg_back_upper_dmg",
@@ -407,7 +407,7 @@
       "texture": "hand_left",
       "bone": "hand_back",
       "z": -6,
-      "tint": 0.62,
+      "tint": 1.0,
       "grip_texture": "hand_left_grip",
       "grip_offset": [
         1.67408,
@@ -419,7 +419,7 @@
       "texture": "jacket_sleeve_upper",
       "bone": "arm_back_upper",
       "z": -6,
-      "tint": 0.62,
+      "tint": 1.0,
       "armor_order": 1,
       "root_attach": true
     },
@@ -428,7 +428,7 @@
       "texture": "jacket_sleeve_lower",
       "bone": "arm_back_lower",
       "z": -6,
-      "tint": 0.62,
+      "tint": 1.0,
       "armor_order": 1
     },
     {

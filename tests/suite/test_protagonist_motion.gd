@@ -8,6 +8,13 @@ extends TestSuite
 
 const DT := 1.0 / 60.0
 const OTHERS: Array[String] = ["trooper", "trooper_elite", "sniper", "flamer", "grenadier", "enforcer", "heavy_gunner", "warden", "reclaimer", "slasher", "stalker", "old_k", "mei"]
+const LEGACY_TWO_HANDERS := [
+	{"enemy": "elite_grunt", "skin": "trooper_elite", "weapon": "rifle"},
+	{"enemy": "flamer", "skin": "flamer", "weapon": "flamethrower"},
+	{"enemy": "mortar", "skin": "grenadier", "weapon": "launcher"},
+	{"enemy": "sniper", "skin": "sniper", "weapon": "sniper"},
+	{"enemy": "stalker", "skin": "stalker", "weapon": "rifle"},
+]
 
 
 func run() -> void:
@@ -22,6 +29,7 @@ func run() -> void:
 	await _test_spring_impulses()
 	_test_node_squash_is_soft()
 	await _test_footfall_events()
+	await _test_legacy_two_hand_grips()
 
 
 func _make(skin: String, input: RigInput) -> CharacterRig:
@@ -301,4 +309,109 @@ func _test_footfall_events() -> void:
 	_run(rig, input, 60)
 	check(rig.animator.consume_footfalls() == 0 and not rig.animator.is_stepping(), "stopping ends the footfalls")
 	rig.get_parent().queue_free()
+	await frames(1)
+
+
+## 舊敵人角色沒有手掌偏移：雙手武器仍須在兩面向、實際巡邏／滿速步態中維持可達握點。
+func _test_legacy_two_hand_grips() -> void:
+	var failures: Array[String] = []
+	var case_results: Array[String] = []
+	var worst := 0.0
+	for entry: Dictionary in LEGACY_TWO_HANDERS:
+		var skin := str(entry["skin"])
+		var weapon := str(entry["weapon"])
+		var enemy := load("res://data/enemies/%s.tres" % str(entry["enemy"])) as EnemyData
+		check(enemy != null, "%s enemy fixture exists" % str(entry["enemy"]))
+		if enemy == null:
+			continue
+		for facing in [1, -1]:
+			for speed in [enemy.move_speed, maxf(40.0, enemy.move_speed * 2.0)]:
+				var input := RigInput.new()
+				var rig := _make(skin, input)
+				rig.set_weapon(weapon)
+				input.facing = facing
+				input.two_handed = true
+				input.run_speed = maxf(40.0, enemy.move_speed * 2.0)
+				input.velocity = Vector2(float(facing) * speed, 0.0)
+				input.aim_dir = Vector2(float(facing), 0.0)
+				var front_max := 0.0
+				var back_max := 0.0
+				var label := "%s/%s facing %d speed %.1f" % [skin, weapon, facing, speed]
+				for frame in 60:
+					rig.animate(DT, input)
+					var definition := rig.weapon_def()
+					var foregrip := (RigLibrary.vec2(definition["foregrip"]) - RigLibrary.vec2(definition["grip"])) * rig.weapon_scale()
+					var expected_front: Vector2 = rig.weapon_root().global_position
+					var expected_back: Vector2 = rig.weapon_root().global_transform * foregrip
+					var front_palm: Vector2 = rig.bone(&"hand_front").global_transform * rig.hand_grip_offset(&"hand_front")
+					var back_palm: Vector2 = rig.bone(&"hand_back").global_transform * rig.hand_grip_offset(&"hand_back")
+					front_max = maxf(front_max, front_palm.distance_to(expected_front))
+					back_max = maxf(back_max, back_palm.distance_to(expected_back))
+					for chain in [[&"arm_front_upper", &"arm_front_lower", &"hand_front"], [&"arm_back_upper", &"arm_back_lower", &"hand_back"]]:
+						var upper := str(chain[0])
+						var lower := str(chain[1])
+						var hand := str(chain[2])
+						var expected_upper := rig.rest(StringName(lower)).length() * absf(rig.global_scale.x)
+						var expected_lower := rig.rest(StringName(hand)).length() * absf(rig.global_scale.x)
+						var actual_upper := rig.bone(StringName(upper)).global_position.distance_to(rig.bone(StringName(lower)).global_position)
+						var actual_lower := rig.bone(StringName(lower)).global_position.distance_to(rig.bone(StringName(hand)).global_position)
+						check(absf(actual_upper - expected_upper) < 0.001 and absf(actual_lower - expected_lower) < 0.001, "%s preserves %s bone lengths" % [label, upper])
+					worst = maxf(worst, maxf(front_max, back_max))
+				if front_max > 0.025 or back_max > 0.025:
+					failures.append("%s front %.3f back %.3f" % [label, front_max, back_max])
+				case_results.append("%s front=%.3f back=%.3f" % [label, front_max, back_max])
+				rig.get_parent().queue_free()
+		await frames(1)
+	for result: String in case_results:
+		print("LEGACY_GRIP " + result)
+	check(failures.is_empty(), "legacy two-hand grip gaps stay within 0.025 world px; worst %.3f (%s)" % [worst, "; ".join(failures)])
+
+	# Controls: Rin's authored palm offsets remain engaged; unarmed/two-hand, pistol/offhand,
+	# shield/offhand and the NpcAnimator path keep their existing behavior.
+	var input := RigInput.new()
+	var rin := _make("rin", input)
+	rin.set_weapon("rifle")
+	input.velocity = Vector2(0.0, 0.0)
+	input.run_speed = 150.0
+	for frame in 30:
+		rin.animate(DT, input)
+	var rin_foregrip := (RigLibrary.vec2(rin.weapon_def()["foregrip"]) - RigLibrary.vec2(rin.weapon_def()["grip"])) * rin.weapon_scale()
+	var rin_back_palm := rin.bone(&"hand_back").global_transform * rin.hand_grip_offset(&"hand_back")
+	var rin_front_palm := rin.bone(&"hand_front").global_transform * rin.hand_grip_offset(&"hand_front")
+	check(rin.hand_grip_offset(&"hand_front").length() > 0.0 and rin.hand_grip_offset(&"hand_back").length() > 0.0, "Rin retains authored two-hand palm offsets")
+	check(rin_front_palm.distance_to(rin.weapon_root().global_position) < 0.025, "Rin authored front palm still meets rifle grip")
+	check(rin_back_palm.distance_to(rin.weapon_root().global_transform * rin_foregrip) < 0.025, "Rin authored back palm still meets rifle foregrip")
+	rin.set_weapon("")
+	input.two_handed = true
+	rin.animate(DT, input)
+	check(not rin.weapon_root().visible, "unarmed two-handed input has no visible weapon")
+	rin.set_weapon("pistol")
+	input.two_handed = false
+	rin.animate(DT, input)
+	check(rin.hand_grip_offset(&"hand_back") == Vector2.ZERO, "single-hand pistol leaves the supporting hand unattached")
+	var pistol_front_palm := rin.bone(&"hand_front").global_transform * rin.hand_grip_offset(&"hand_front")
+	check(pistol_front_palm.distance_to(rin.weapon_root().global_position) < 0.025, "single-hand pistol remains attached to Rin's front palm")
+	rin.set_weapon("pistol")
+	input.shield_forward = true
+	input.two_handed = false
+	rin.animate(DT, input)
+	check(rin.weapon_root().visible and rin.hand_grip_offset(&"hand_back") == Vector2.ZERO, "shield pose keeps pistol visible and left hand outside the two-hand grip")
+	var shield_hand := rin.bone(&"hand_back").global_position
+	input.shield_forward = false
+	rin.animate(DT, input)
+	check(shield_hand.distance_to(rin.bone(&"hand_back").global_position) > 1.0, "lowering the shield restores the relaxed offhand pose")
+	rin.get_parent().queue_free()
+
+	var npc_holder := Node2D.new()
+	runner.get_tree().root.add_child(npc_holder)
+	var npc := CharacterRig.new()
+	npc_holder.add_child(npc)
+	check(npc.setup("old_k", "npc"), "NPC animator fixture builds")
+	npc.set_weapon("rifle")
+	var npc_input := RigInput.new()
+	npc_input.two_handed = false
+	for frame in 30:
+		npc.animate(DT, npc_input)
+	check(not npc.weapon_root().visible, "NPC path continues to suppress weapon display even with a loaded rifle")
+	npc_holder.queue_free()
 	await frames(1)

@@ -527,7 +527,7 @@
           "name": "arm_back_upper",
           "bone": "arm_back_upper",
           "z": -7,
-          "tint": 0.62
+          "tint": 1.0
         }
       ],
       "y": [
@@ -545,7 +545,7 @@
           "name": "arm_back_lower",
           "bone": "arm_back_lower",
           "z": -7,
-          "tint": 0.62
+          "tint": 1.0
         }
       ],
       "y": [
@@ -563,7 +563,7 @@
           "name": "hand_back",
           "bone": "hand_back",
           "z": -6,
-          "tint": 0.62,
+          "tint": 1.0,
           "grip_texture": "hand_left_grip"
         }
       ],
@@ -604,7 +604,7 @@
           "name": "jacket_sleeve_back_upper",
           "bone": "arm_back_upper",
           "z": -6,
-          "tint": 0.62,
+          "tint": 1.0,
           "armor_order": 1,
           "root_attach": true
         },
@@ -632,7 +632,7 @@
           "name": "jacket_sleeve_back_lower",
           "bone": "arm_back_lower",
           "z": -6,
-          "tint": 0.62,
+          "tint": 1.0,
           "armor_order": 1
         },
         {

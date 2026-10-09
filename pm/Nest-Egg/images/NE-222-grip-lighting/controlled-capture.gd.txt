@@ -1,0 +1,534 @@
+extends Node2D
+
+const CASES := [
+	{"name": "hand_sleeves_0p62", "tint": 0.62, "all_five": false},
+	{"name": "hand_sleeves_0p9", "tint": 0.9, "all_five": false},
+	{"name": "hand_sleeves_1p0", "tint": 1.0, "all_five": false},
+	{"name": "all_five_1p0_control", "tint": 1.0, "all_five": true},
+]
+const SIDES := [1, -1]
+const GROUP_PARTS := ["hand_back", "jacket_sleeve_back_upper", "jacket_sleeve_back_lower"]
+const ARM_PARTS := ["arm_back_upper", "arm_back_lower"]
+const INVARIANT_PROBES := {"torso": "armor_torso", "navy_shoulder": "jacket_sleeve_front_upper", "mechanical_palm": "hand_front"}
+const INVARIANT_REGIONS := {"head": "head", "torso": "armor_torso", "front_sleeve_upper": "jacket_sleeve_front_upper", "front_sleeve_lower": "jacket_sleeve_front_lower", "mechanical_palm": "hand_front"}
+const VIEW_SIZE := Vector2i(1536, 1216)
+const ZOOM := 23.78
+const HOLDER_POSITION := Vector2(768.0, 1600.0)
+const SOURCE_ROOT := "res://.godot/rin-hand-lighting-review/"
+const KEY_POSITION := Vector2(590, 385)
+const KEY_RADIUS := 720.0
+const KEY_ENERGY := 0.85
+
+var _errors: Array[String] = []
+var _manifest: Array[Dictionary] = []
+var _out_dir := ""
+var _viewport: SubViewport
+var _holder: Node2D
+var _rig: CharacterRig
+var _input: RigInput
+var _base_tints: Dictionary = {}
+var _parts_by_name: Dictionary = {}
+var _baseline_records: Array[Dictionary] = []
+
+
+func _ready() -> void:
+	call_deferred("_run")
+
+
+func _run() -> void:
+	_out_dir = SOURCE_ROOT + "runtime-native-" + str(Time.get_ticks_msec()) + "/"
+	var absolute_out := ProjectSettings.globalize_path(_out_dir)
+	if DirAccess.dir_exists_absolute(absolute_out):
+		_abort("refusing to reuse existing output directory: " + absolute_out)
+		return
+	if DirAccess.make_dir_recursive_absolute(absolute_out) != OK:
+		_abort("cannot create output directory: " + absolute_out)
+		return
+	if not _setup_persistent_viewport():
+		get_tree().quit(1)
+		return
+	if not _setup_persistent_rig():
+		_push_error("Rin grip-tint setup aborted: " + "; ".join(_errors))
+		get_tree().quit(1)
+		return
+
+	for side: int in SIDES:
+		_restore_baseline_tints()
+		_input.facing = side
+		_input.aim_dir = Vector2(float(side), 0.0)
+		for frame in 120:
+			_rig.animate(1.0 / 60.0, _input)
+		var baseline_image: Image = await _capture_image("baseline " + ("right" if side > 0 else "left"))
+		if baseline_image == null:
+			break
+		var baseline_record := _capture_baseline(side, baseline_image)
+		if baseline_record.is_empty():
+			break
+		var baseline_name := "baseline_" + ("right" if side > 0 else "left")
+		var baseline_path := ProjectSettings.globalize_path(_out_dir + baseline_name + ".png")
+		if baseline_image.save_png(baseline_path) != OK:
+			_fail("cannot save " + baseline_name)
+			break
+		_baseline_records.append({"facing": baseline_record["facing"], "image": _out_dir + baseline_name + ".png", "samples": baseline_record["samples"], "regions": baseline_record["regions"]})
+		_write_diagnostics()
+		for case: Dictionary in CASES:
+			_restore_baseline_tints()
+			var label := ("right" if side > 0 else "left") + "_" + str(case["name"])
+			if not _apply_case_tint(float(case["tint"]), bool(case["all_five"]), label):
+				break
+			var record := _inspect_case(_rig, float(case["tint"]), side, label, case, _base_tints)
+			if record.is_empty():
+				break
+			var image: Image = await _capture_image(label)
+			if image == null:
+				break
+			var image_path := ProjectSettings.globalize_path(_out_dir + label + ".png")
+			if image.save_png(image_path) != OK:
+				_fail(label + ": image save failed")
+				break
+			record["image"] = _out_dir + label + ".png"
+			record["validation"] = "pending"
+			_manifest.append(record)
+			if not _assert_unchanged_appearance(image, baseline_image, baseline_record, record, label):
+				record["validation"] = "rejected"
+				_write_diagnostics()
+				break
+			record["validation"] = "invariant_regions_pass"
+			_write_diagnostics()
+		if not _errors.is_empty():
+			break
+
+	if not _errors.is_empty():
+		_write_diagnostics()
+		_push_error("Rin grip-tint capture aborted: " + "; ".join(_errors))
+		get_tree().quit(1)
+		return
+	var manifest_path := absolute_out.path_join("manifest.json")
+	var file := FileAccess.open(manifest_path, FileAccess.WRITE)
+	if file == null:
+		_abort("cannot write manifest: " + manifest_path)
+		return
+	file.store_string(JSON.stringify({
+		"scope": "private runtime comparison; production character art, normals, shared material, weapon and glow remain loaded unchanged",
+		"palm_error_scope": "distance from the runtime IK palm-anchor target to the configured weapon grip/foregrip; it does not measure drawn finger/palm surface contact",
+		"output_directory": _out_dir,
+		"viewport_px": [VIEW_SIZE.x, VIEW_SIZE.y],
+		"camera_zoom": ZOOM,
+		"holder_position": [HOLDER_POSITION.x, HOLDER_POSITION.y],
+		"viewport_use_hdr_2d": _viewport.use_hdr_2d,
+		"capture_conversion": "tools/viewport_capture.gd: HDR linear readback converted to sRGB PNG",
+		"key": {"kind": "LightKit white PointLight2D", "position": [KEY_POSITION.x, KEY_POSITION.y], "radius_px": KEY_RADIUS, "energy": KEY_ENERGY},
+		"lightkit": {"glow": true, "character_fill": LightKit.character_fill, "character_light_cap": LightKit.character_light_cap},
+		"cases": _manifest,
+		"baselines": _baseline_records,
+		"errors": _errors,
+	}, "\t"))
+	file.close()
+	print("Rin grip-tint comparison saved: " + _out_dir)
+	get_tree().quit(0)
+
+
+func _setup_persistent_viewport() -> bool:
+	_viewport = SubViewport.new()
+	_viewport.name = "PersistentRinComparisonViewport"
+	_viewport.size = VIEW_SIZE
+	_viewport.transparent_bg = true
+	_viewport.use_hdr_2d = true
+	_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	add_child(_viewport)
+	_viewport.add_child(LightKit.create_environment())
+	var key := LightKit.create_point_light(Color.WHITE, KEY_RADIUS, KEY_ENERGY, false, false)
+	key.position = KEY_POSITION
+	_viewport.add_child(key)
+	_holder = Node2D.new()
+	_holder.position = HOLDER_POSITION
+	_holder.scale = Vector2.ONE * ZOOM
+	_viewport.add_child(_holder)
+	if not _viewport.use_hdr_2d:
+		_abort("comparison viewport failed to enable HDR 2D")
+		return false
+	return true
+
+
+func _setup_persistent_rig() -> bool:
+	_rig = CharacterRig.new()
+	_holder.add_child(_rig)
+	if not _rig.setup("rin"):
+		_fail("CharacterRig.setup(rin) failed")
+		return false
+	_rig.set_weapon("rifle")
+	_input = RigInput.new()
+	_input.on_floor = true
+	_input.two_handed = true
+	_input.facing = 1
+	_input.aim_dir = Vector2.RIGHT
+	for index in _rig._parts.size():
+		var part: CanvasItem = _rig._parts[index]
+		var name := str(part.name)
+		_parts_by_name[name] = {"part": part, "index": index}
+		if name in (GROUP_PARTS + ARM_PARTS):
+			_base_tints[name] = float(_rig._part_tints[index])
+	for part_name: String in GROUP_PARTS + ARM_PARTS:
+		if not _base_tints.has(part_name):
+			_fail("missing expected production part " + part_name)
+			return false
+	for kind: String in INVARIANT_REGIONS:
+		if not _parts_by_name.has(str(INVARIANT_REGIONS[kind])):
+			_fail("missing invariant region part " + str(INVARIANT_REGIONS[kind]))
+			return false
+	return true
+
+
+func _capture_image(label: String) -> Image:
+	if not _rig.weapon_root().visible:
+		_fail(label + ": production rifle is not visible")
+		return null
+	for frame in 3:
+		await RenderingServer.frame_post_draw
+	var image: Image = preload("res://tools/viewport_capture.gd").image(_viewport)
+	if image == null or image.get_size() != VIEW_SIZE:
+		_fail(label + ": viewport readback missing or wrong size")
+		return null
+	if not _assert_subject_visible(image, label):
+		return null
+	return image
+
+
+func _capture_baseline(side: int, image: Image) -> Dictionary:
+	var label := "baseline " + ("right" if side > 0 else "left")
+	var samples: Dictionary = {}
+	for kind: String in INVARIANT_PROBES:
+		var part_name: String = INVARIANT_PROBES[kind]
+		if not _parts_by_name.has(part_name):
+			_fail(label + ": invariant probe part missing: " + part_name)
+			return {}
+		var sample := _find_probe_sample(image, _parts_by_name[part_name]["part"], kind)
+		if sample.is_empty():
+			_fail(label + ": no visible non-glow sample pixel for " + kind)
+			return {}
+		samples[kind] = sample
+	var regions: Dictionary = {}
+	for kind: String in INVARIANT_REGIONS:
+		var part_name: String = INVARIANT_REGIONS[kind]
+		var part: CanvasItem = _parts_by_name[part_name]["part"]
+		var stats := _region_stats(image, part)
+		if int(stats["eligible_pixels"]) < 80:
+			_fail(label + ": too few stable pixels in invariant region " + kind + ": " + str(stats))
+			return {}
+		regions[kind] = stats
+	return {"samples": samples, "regions": regions, "facing": "right" if side > 0 else "left"}
+
+
+func _assert_subject_visible(image: Image, label: String) -> bool:
+	var head := _part_screen_rect(_parts_by_name["head"]["part"])
+	var chest := _part_screen_rect(_parts_by_name["armor_torso"]["part"])
+	var head_counts := _pixel_counts(image, head)
+	var chest_counts := _pixel_counts(image, chest)
+	if int(head_counts["opaque_colored"]) < 500:
+		_fail(label + ": head region clipped/blank (" + str(head_counts) + "; rect=" + str(head) + ")")
+		return false
+	if int(chest_counts["opaque_colored"]) < 1200:
+		_fail(label + ": torso region clipped/blank (" + str(chest_counts) + "; rect=" + str(chest) + ")")
+		return false
+	return true
+
+
+func _assert_unchanged_appearance(image: Image, baseline: Image, baseline_record: Dictionary, record: Dictionary, label: String) -> bool:
+	var comparisons: Dictionary = {}
+	for kind: String in INVARIANT_PROBES:
+		var point: Vector2i = Vector2i(baseline_record["samples"][kind]["xy"][0], baseline_record["samples"][kind]["xy"][1])
+		var before := baseline.get_pixel(point.x, point.y)
+		var after := image.get_pixel(point.x, point.y)
+		var diff := maxf(absf(before.r - after.r), maxf(absf(before.g - after.g), absf(before.b - after.b)))
+		comparisons[kind] = {"xy": [point.x, point.y], "baseline_rgb": [before.r, before.g, before.b], "case_rgb": [after.r, after.g, after.b], "max_channel_delta": diff}
+		if before.a <= 0.9 or after.a <= 0.9 or maxf(before.r, maxf(before.g, before.b)) < 0.12 or diff > 0.025:
+			_fail(label + ": invariant non-glow " + kind + " sample changed/black (" + str(comparisons[kind]) + ")")
+			record["invariant_samples"] = comparisons
+			return false
+	record["invariant_samples"] = comparisons
+	var region_comparisons: Dictionary = {}
+	for kind: String in INVARIANT_REGIONS:
+		var part_name: String = INVARIANT_REGIONS[kind]
+		var part: CanvasItem = _parts_by_name[part_name]["part"]
+		var stats := _compare_region(image, baseline, part)
+		region_comparisons[kind] = stats
+		if int(stats["eligible_pixels"]) < 80 or float(stats["mean_abs_rgb_delta"]) > 0.012 or int(stats["new_dark_pixels"]) > maxi(3, floori(float(stats["eligible_pixels"]) / 100.0)):
+			_fail(label + ": invariant region changed/black: " + kind + " " + str(stats))
+			record["invariant_regions"] = region_comparisons
+			return false
+	record["invariant_regions"] = region_comparisons
+	return true
+
+
+func _region_stats(image: Image, part: CanvasItem) -> Dictionary:
+	var rect := _part_screen_rect(part)
+	var eligible := 0
+	var non_glow := 0
+	var dark := 0
+	for y in range(rect.position.y, rect.end.y):
+		for x in range(rect.position.x, rect.end.x):
+			var color := image.get_pixel(x, y)
+			if color.a < 0.98:
+				continue
+			eligible += 1
+			var bright := maxf(color.r, maxf(color.g, color.b))
+			if bright < 0.985:
+				non_glow += 1
+				if (color.r + color.g + color.b) / 3.0 < 0.04:
+					dark += 1
+	return {"rect": _rect_json(rect), "eligible_pixels": eligible, "non_glow_pixels": non_glow, "dark_pixels": dark}
+
+
+func _compare_region(image: Image, baseline: Image, part: CanvasItem) -> Dictionary:
+	var rect := _part_screen_rect(part)
+	var eligible := 0
+	var total_delta := 0.0
+	var max_delta := 0.0
+	var new_dark := 0
+	var changed := 0
+	for y in range(rect.position.y, rect.end.y):
+		for x in range(rect.position.x, rect.end.x):
+			var before := baseline.get_pixel(x, y)
+			var after := image.get_pixel(x, y)
+			if before.a < 0.98 or after.a < 0.98:
+				continue
+			var before_bright := maxf(before.r, maxf(before.g, before.b))
+			var after_bright := maxf(after.r, maxf(after.g, after.b))
+			if before_bright >= 0.985 or after_bright >= 0.985:
+				continue
+			eligible += 1
+			var delta := maxf(absf(before.r - after.r), maxf(absf(before.g - after.g), absf(before.b - after.b)))
+			total_delta += delta
+			max_delta = maxf(max_delta, delta)
+			if delta > 0.01:
+				changed += 1
+			if (before.r + before.g + before.b) / 3.0 >= 0.12 and (after.r + after.g + after.b) / 3.0 < 0.04:
+				new_dark += 1
+	return {
+		"rect": _rect_json(rect),
+		"eligible_pixels": eligible,
+		"mean_abs_rgb_delta": total_delta / maxf(1.0, float(eligible)),
+		"max_channel_delta": max_delta,
+		"changed_pixels_over_0p01": changed,
+		"new_dark_pixels": new_dark,
+	}
+
+
+func _rect_json(rect: Rect2i) -> Array[int]:
+	return [rect.position.x, rect.position.y, rect.size.x, rect.size.y]
+
+
+func _write_diagnostics() -> void:
+	if _out_dir.is_empty():
+		return
+	var path := ProjectSettings.globalize_path(_out_dir).path_join("diagnostics.json")
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	if file == null:
+		printerr("could not write runtime comparison diagnostics: " + path)
+		return
+	file.store_string(JSON.stringify({"baselines": _baseline_records, "attempted_cases": _manifest, "errors": _errors}, "\t"))
+	file.close()
+
+
+func _find_probe_sample(image: Image, part: CanvasItem, kind: String) -> Dictionary:
+	var rect := _part_screen_rect(part)
+	var center := rect.get_center()
+	var best_score := INF
+	var best := Vector2i(-1, -1)
+	for radius in range(0, 36):
+		for y in range(maxi(rect.position.y, int(center.y) - radius), mini(rect.end.y, int(center.y) + radius + 1)):
+			for x in range(maxi(rect.position.x, int(center.x) - radius), mini(rect.end.x, int(center.x) + radius + 1)):
+				var color := image.get_pixel(x, y)
+				if color.a < 0.98:
+					continue
+				var max_color := maxf(color.r, maxf(color.g, color.b))
+				var qualifies := max_color > 0.12 and max_color < 0.98
+				if kind == "navy_shoulder":
+					qualifies = qualifies and color.b > color.r * 1.15
+				elif kind == "mechanical_palm":
+					qualifies = qualifies and max_color > 0.45
+				if not qualifies:
+					continue
+				var score := Vector2(x, y).distance_squared_to(center)
+				if score < best_score:
+					best_score = score
+					best = Vector2i(x, y)
+		if best.x >= 0:
+			break
+	if best.x < 0:
+		return {}
+	var chosen := image.get_pixel(best.x, best.y)
+	var count := _pixel_counts(image, rect)
+	return {"xy": [best.x, best.y], "rgb": [chosen.r, chosen.g, chosen.b], "region_counts": count, "region": _rect_json(rect)}
+
+
+func _part_screen_rect(part: CanvasItem) -> Rect2i:
+	var xform: Transform2D = part.get_global_transform_with_canvas()
+	var points: Array[Vector2] = []
+	if part is RigPartMesh:
+		for vertex in (part as RigPartMesh).deformed_vertices():
+			points.append(xform * vertex)
+	elif part is Sprite2D:
+		var local_rect := (part as Sprite2D).get_rect()
+		for point in [local_rect.position, Vector2(local_rect.end.x, local_rect.position.y), local_rect.end, Vector2(local_rect.position.x, local_rect.end.y)]:
+			points.append(xform * point)
+	if points.is_empty():
+		return Rect2i()
+	var left := INF
+	var top := INF
+	var right := -INF
+	var bottom := -INF
+	for point: Vector2 in points:
+		left = minf(left, point.x)
+		top = minf(top, point.y)
+		right = maxf(right, point.x)
+		bottom = maxf(bottom, point.y)
+	var raw := Rect2i(Vector2i(floori(left), floori(top)), Vector2i(ceili(right - left), ceili(bottom - top)))
+	return raw.intersection(Rect2i(Vector2i.ZERO, VIEW_SIZE))
+
+
+func _pixel_counts(image: Image, rect: Rect2i) -> Dictionary:
+	var opaque := 0
+	var colored := 0
+	for y in range(rect.position.y, rect.end.y):
+		for x in range(rect.position.x, rect.end.x):
+			var pixel := image.get_pixel(x, y)
+			if pixel.a > 0.5:
+				opaque += 1
+				if maxf(pixel.r, maxf(pixel.g, pixel.b)) > 0.08:
+					colored += 1
+	return {"opaque": opaque, "opaque_colored": colored}
+
+
+func _restore_baseline_tints() -> void:
+	for part_name: String in _base_tints:
+		var index: int = int(_parts_by_name[part_name]["index"])
+		var tint := float(_base_tints[part_name])
+		_rig._part_tints[index] = tint
+		_rig._parts[index].self_modulate = Color(tint * LightKit.character_fill, tint * LightKit.character_fill, tint * LightKit.character_fill, 1.0)
+
+
+func _apply_case_tint(tint: float, all_five: bool, label: String) -> bool:
+	var target_parts := GROUP_PARTS + (ARM_PARTS if all_five else [])
+	for part_name: String in target_parts:
+		if not _parts_by_name.has(part_name):
+			_fail(label + ": missing part " + part_name)
+			return false
+		var index: int = int(_parts_by_name[part_name]["index"])
+		_rig._part_tints[index] = tint
+		_rig._parts[index].self_modulate = Color(tint * LightKit.character_fill, tint * LightKit.character_fill, tint * LightKit.character_fill, 1.0)
+	return true
+
+
+func _inspect_case(rig: CharacterRig, tint: float, side: int, label: String, case: Dictionary, baseline_tints: Dictionary) -> Dictionary:
+	var parts: Dictionary = {}
+	for index in rig._parts.size():
+		var part: CanvasItem = rig._parts[index]
+		parts[str(part.name)] = {"node": part, "index": index}
+	var result_parts: Dictionary = {}
+	for part_name: String in GROUP_PARTS + ARM_PARTS:
+		if not parts.has(part_name):
+			_fail(label + ": missing part during report: " + part_name)
+			return {}
+		var part: CanvasItem = parts[part_name]["node"]
+		var texture: Variant = part.get("texture")
+		if not texture is CanvasTexture:
+			_fail(label + ": " + part_name + " is not a production CanvasTexture")
+			return {}
+		var canvas := texture as CanvasTexture
+		if canvas.diffuse_texture == null or canvas.normal_texture == null:
+			_fail(label + ": " + part_name + " lost diffuse or normal texture")
+			return {}
+		var actual_tint := float(rig._part_tints[int(parts[part_name]["index"])])
+		var actual_modulate: Color = part.self_modulate
+		if part_name in (GROUP_PARTS + (ARM_PARTS if bool(case["all_five"]) else [])) and not is_equal_approx(actual_tint, tint):
+			_fail(label + ": case tint did not remain on " + part_name)
+			return {}
+		if part_name in ARM_PARTS and not bool(case["all_five"]) and not is_equal_approx(actual_tint, 0.62):
+			_fail(label + ": underlying arm tint differs from the current 0.62 source definition")
+			return {}
+		result_parts[part_name] = {
+			"texture_class": texture.get_class(),
+			"diffuse_class": canvas.diffuse_texture.get_class(),
+			"normal_class": canvas.normal_texture.get_class(),
+			"diffuse_path": canvas.diffuse_texture.resource_path,
+			"normal_path": canvas.normal_texture.resource_path,
+			"normal_present": true,
+			"baseline_part_tint": float(baseline_tints.get(part_name, actual_tint)),
+			"runtime_part_tint": actual_tint,
+			"self_modulate": [actual_modulate.r, actual_modulate.g, actual_modulate.b, actual_modulate.a],
+		}
+	var arm_tints: Dictionary = {}
+	var baseline_arm_tints: Dictionary = {}
+	for part_name: String in ARM_PARTS:
+		var arm_index: int = int(parts[part_name]["index"])
+		arm_tints[part_name] = float(rig._part_tints[arm_index])
+		baseline_arm_tints[part_name] = float(baseline_tints.get(part_name, arm_tints[part_name]))
+	var weapon_def: Dictionary = RigLibrary.weapon("rifle")
+	var grip_global: Vector2 = rig.weapon_root().to_global(Vector2.ZERO)
+	var foregrip_local: Vector2 = (RigLibrary.vec2(weapon_def["foregrip"]) - RigLibrary.vec2(weapon_def["grip"])) * rig.weapon_scale()
+	var foregrip_global: Vector2 = rig.weapon_root().to_global(foregrip_local)
+	var muzzle_global: Vector2 = rig.muzzle_global()
+	for point_name: String in ["grip", "foregrip", "muzzle"]:
+		var point: Vector2 = grip_global if point_name == "grip" else (foregrip_global if point_name == "foregrip" else muzzle_global)
+		if point.x < 0.0 or point.y < 0.0 or point.x >= VIEW_SIZE.x or point.y >= VIEW_SIZE.y:
+			_fail(label + ": rifle " + point_name + " clipped outside viewport at " + str(point))
+			return {}
+	var animator := rig.animator
+	var back_target_local: Vector2 = animator._global_pos[&"hand_back"] + rig.hand_grip_offset(&"hand_back").rotated(animator._global_angle[&"hand_back"])
+	var front_target_local: Vector2 = animator._global_pos[&"hand_front"] + rig.hand_grip_offset(&"hand_front").rotated(animator._global_angle[&"hand_front"])
+	var back_target: Vector2 = rig._skeleton.to_global(back_target_local)
+	var front_target: Vector2 = rig._skeleton.to_global(front_target_local)
+	var back_error := back_target.distance_to(foregrip_global)
+	var front_error := front_target.distance_to(grip_global)
+	if back_error > 0.05 or front_error > 0.05:
+		_fail(label + ": hand anchor / rifle grip residual exceeded 0.05 world px (back %.5f front %.5f)" % [back_error, front_error])
+		return {}
+	return {
+		"label": label,
+		"facing": "right" if side > 0 else "left",
+		"grounded": true,
+		"two_handed_rifle": true,
+		"head_bone_global": [rig.bone(&"head").global_position.x, rig.bone(&"head").global_position.y],
+		"chest_bone_global": [rig.bone(&"chest").global_position.x, rig.bone(&"chest").global_position.y],
+		"tested_tint": tint,
+		"case_name": case["name"],
+		"all_five_back_parts_tinted": bool(case["all_five"]),
+		"underlying_arm_baseline_tints": baseline_arm_tints,
+		"underlying_arm_tints_preserved": not bool(case["all_five"]),
+		"case_baseline_tints": baseline_tints,
+		"group_parts": result_parts,
+		"arm_part_runtime_tints": arm_tints,
+		"production_glow_layers_modified": false,
+		"weapon": {
+			"id": "rifle",
+			"texture_class": rig._weapon_sprite.texture.get_class(),
+			"glow_visible": rig._weapon_glow.visible,
+			"grip_global": [grip_global.x, grip_global.y],
+			"foregrip_global": [foregrip_global.x, foregrip_global.y],
+			"muzzle_global": [muzzle_global.x, muzzle_global.y],
+			"front_palm_target_global": [front_target.x, front_target.y],
+			"back_palm_target_global": [back_target.x, back_target.y],
+			"front_grip_error_world_px": front_error,
+			"back_foregrip_error_world_px": back_error,
+		},
+		"hand_grip_offsets": {
+			"front": [rig.hand_grip_offset(&"hand_front").x, rig.hand_grip_offset(&"hand_front").y],
+			"back": [rig.hand_grip_offset(&"hand_back").x, rig.hand_grip_offset(&"hand_back").y],
+		},
+	}
+
+
+func _fail(message: String) -> void:
+	_errors.append(message)
+
+
+func _abort(message: String) -> void:
+	push_error(message)
+	printerr(message)
+	get_tree().quit(1)
+
+
+func _push_error(message: String) -> void:
+	push_error(message)
+	printerr(message)

@@ -1,0 +1,355 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME TransitionSuite 3.9
+SUITE_TIME NpcLifeSuite 3.9
+WARN 場景「c2_boss_intro」沒有任何地方引用
+WARN 場景「c2_epilogue」沒有任何地方引用
+WARN 場景「c2_memory」沒有任何地方引用
+WARN 場景「c2_prologue」沒有任何地方引用
+WARN 場景「epilogue」沒有任何地方引用
+WARN 場景「prologue」沒有任何地方引用
+WARN 場景「radio_arm」沒有任何地方引用
+ERROR: [Level] ch1_stall 沒有電話亭可登記復原點（res://data/levels/ch1_stall_map.json），重生會退回區域起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _register_nearest_checkpoint (res://game/level/level.gd:816)
+       [1] _run_death_scene (res://game/level/level.gd:805)
+       [2] play_and_wait (res://autoload/story.gd:483)
+       [3] _on_cinematic_finished (res://autoload/story.gd:519)
+WARNING: [Story] 找不到劇情場景：test_no_such_scene
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] play (res://autoload/story.gd:440)
+       [1] play_and_wait (res://autoload/story.gd:476)
+       [2] _run_death_scene (res://game/level/level.gd:802)
+       [3] _test_death_matrix (res://tests/suite/test_continuity.gd:313)
+       [4] spawn_level (res://tests/suite/test_suite.gd:43)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Level] ch1_booth_alley 的復原點位置無效（(0.0, 0.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _checked_checkpoint_position (res://game/level/level.gd:705)
+       [1] _entry_position (res://game/level/level.gd:695)
+       [2] _spawn_player (res://game/level/level.gd:671)
+       [3] _ready (res://game/level/level.gd:157)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_lost_checkpoint_field (res://tests/suite/test_continuity.gd:207)
+       [6] run (res://tests/suite/test_continuity.gd:21)
+       [7] _test_death_matrix (res://tests/suite/test_continuity.gd:316)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:599)
+       [10] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Level] ch1_booth_alley 的復原點位置無效（(-500.0, 100.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _checked_checkpoint_position (res://game/level/level.gd:705)
+       [1] _entry_position (res://game/level/level.gd:695)
+       [2] _spawn_player (res://game/level/level.gd:671)
+       [3] _ready (res://game/level/level.gd:157)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_lost_checkpoint_field (res://tests/suite/test_continuity.gd:207)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:599)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Level] ch1_booth_alley 的復原點位置無效（(99999.0, 99999.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _checked_checkpoint_position (res://game/level/level.gd:705)
+       [1] _entry_position (res://game/level/level.gd:695)
+       [2] _spawn_player (res://game/level/level.gd:671)
+       [3] _ready (res://game/level/level.gd:157)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_lost_checkpoint_field (res://tests/suite/test_continuity.gd:207)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:599)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Level] ch1_stall 的復原點位置無效（(0.0, 0.0)，地圖範圍 [P: (0.0, 0.0), S: (768.0, 384.0)]），改用最近的電話亭或起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _checked_checkpoint_position (res://game/level/level.gd:705)
+       [1] _entry_position (res://game/level/level.gd:695)
+       [2] _spawn_player (res://game/level/level.gd:671)
+       [3] _ready (res://game/level/level.gd:157)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_lost_checkpoint_field (res://tests/suite/test_continuity.gd:217)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:599)
+       [8] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME ContinuitySuite 44.9
+SUITE_TIME Chapter2ExpansionSuite 27.6
+ERROR: [SoundBank] 音效「test_audio_half」的檔案無法載入：res://tests/fixtures/audio/test_audio_missing_a.ogg（res://tests/fixtures/audio/bank_ok.json），改用其他變體或合成音
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_entry (res://core/audio/sound_bank.gd:53)
+       [2] load_bank (res://core/audio/sound_bank.gd:37)
+       [3] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [4] _test_bank_loading (res://tests/suite/test_audio.gd:158)
+       [5] run (res://tests/suite/test_audio.gd:15)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_chapter2_expansion.gd:26)
+       [8] _test_ghost_path (res://tests/suite/test_chapter2_expansion.gd:259)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:599)
+       [11] _frames (res://tests/smoke_test.gd:122)
+ERROR: [SoundBank] 音效「test_audio_none」的檔案無法載入：res://tests/fixtures/audio/test_audio_missing_b.ogg（res://tests/fixtures/audio/bank_ok.json），改用其他變體或合成音
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_entry (res://core/audio/sound_bank.gd:53)
+       [2] load_bank (res://core/audio/sound_bank.gd:37)
+       [3] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [4] _test_bank_loading (res://tests/suite/test_audio.gd:158)
+       [5] run (res://tests/suite/test_audio.gd:15)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_chapter2_expansion.gd:26)
+       [8] _test_ghost_path (res://tests/suite/test_chapter2_expansion.gd:259)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:599)
+       [11] _frames (res://tests/smoke_test.gd:122)
+ERROR: [SoundBank] 找不到資料檔：res://tests/fixtures/audio/test_audio_missing_bank.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] read_root (res://core/audio/audio_data.gd:13)
+       [2] load_bank (res://core/audio/sound_bank.gd:32)
+       [3] _test_bank_loading (res://tests/suite/test_audio.gd:167)
+       [4] run (res://tests/suite/test_audio.gd:15)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] run (res://tests/suite/test_chapter2_expansion.gd:26)
+       [7] _test_ghost_path (res://tests/suite/test_chapter2_expansion.gd:259)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:599)
+       [10] _frames (res://tests/smoke_test.gd:122)
+ERROR: [SoundBank] 音效「test_audio_badext」的檔案無法載入：res://tests/fixtures/audio/bank_ok.json（res://tests/fixtures/audio/bank_bad.json），改用其他變體或合成音
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_entry (res://core/audio/sound_bank.gd:53)
+       [2] load_bank (res://core/audio/sound_bank.gd:37)
+       [3] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [4] _test_bank_validation (res://tests/suite/test_audio.gd:236)
+       [5] run (res://tests/suite/test_audio.gd:16)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_chapter2_expansion.gd:26)
+       [8] _test_ghost_path (res://tests/suite/test_chapter2_expansion.gd:259)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:599)
+       [11] _frames (res://tests/smoke_test.gd:122)
+ERROR: [SoundBank] 音效「test_audio_gone」的檔案無法載入：res://tests/fixtures/audio/test_audio_missing_c.ogg（res://tests/fixtures/audio/bank_bad.json），改用其他變體或合成音
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_entry (res://core/audio/sound_bank.gd:53)
+       [2] load_bank (res://core/audio/sound_bank.gd:37)
+       [3] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [4] _test_bank_validation (res://tests/suite/test_audio.gd:236)
+       [5] run (res://tests/suite/test_audio.gd:16)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_chapter2_expansion.gd:26)
+       [8] _test_ghost_path (res://tests/suite/test_chapter2_expansion.gd:259)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:599)
+       [11] _frames (res://tests/smoke_test.gd:122)
+ERROR: [SoundBank] 音效「test_audio_halffast」的 1.5 倍加速檔無法載入：res://tests/fixtures/audio/test_audio_missing_fast.ogg（res://tests/fixtures/audio/bank_speed.json），這一級退回原速
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_speed_entry (res://core/audio/sound_bank.gd:84)
+       [2] _load_entry (res://core/audio/sound_bank.gd:58)
+       [3] load_bank (res://core/audio/sound_bank.gd:37)
+       [4] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [5] _test_speed_variants (res://tests/suite/test_audio.gd:173)
+       [6] run (res://tests/suite/test_audio.gd:17)
+       [7] _run_suites (res://tests/smoke_test.gd:109)
+       [8] run (res://tests/suite/test_chapter2_expansion.gd:26)
+       [9] _test_ghost_path (res://tests/suite/test_chapter2_expansion.gd:259)
+       [10] end_level (res://tests/suite/test_suite.gd:47)
+       [11] _end_level (res://tests/smoke_test.gd:599)
+       [12] _frames (res://tests/smoke_test.gd:122)
+ERROR: [SoundBank] 音效「test_audio_not_a_table」的 speed_files 要是 {倍率: [檔案]}（res://tests/fixtures/audio/bank_speed_bad.json）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_speed_entry (res://core/audio/sound_bank.gd:69)
+       [2] _load_entry (res://core/audio/sound_bank.gd:58)
+       [3] load_bank (res://core/audio/sound_bank.gd:37)
+       [4] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [5] _test_speed_variants (res://tests/suite/test_audio.gd:183)
+       [6] run (res://tests/suite/test_audio.gd:17)
+       [7] _run_suites (res://tests/smoke_test.gd:109)
+       [8] run (res://tests/suite/test_chapter2_expansion.gd:26)
+       [9] _test_ghost_path (res://tests/suite/test_chapter2_expansion.gd:259)
+       [10] end_level (res://tests/suite/test_suite.gd:47)
+       [11] _end_level (res://tests/smoke_test.gd:599)
+       [12] _frames (res://tests/smoke_test.gd:122)
+ERROR: [SoundBank] 音效「test_audio_slow」的 speed_files「0.5」要是大於 1 的倍率加檔案陣列（res://tests/fixtures/audio/bank_speed_bad.json），略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_speed_entry (res://core/audio/sound_bank.gd:76)
+       [2] _load_entry (res://core/audio/sound_bank.gd:58)
+       [3] load_bank (res://core/audio/sound_bank.gd:37)
+       [4] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [5] _test_speed_variants (res://tests/suite/test_audio.gd:183)
+       [6] run (res://tests/suite/test_audio.gd:17)
+       [7] _run_suites (res://tests/smoke_test.gd:109)
+       [8] run (res://tests/suite/test_chapter2_expansion.gd:26)
+       [9] _test_ghost_path (res://tests/suite/test_chapter2_expansion.gd:259)
+       [10] end_level (res://tests/suite/test_suite.gd:47)
+       [11] _end_level (res://tests/smoke_test.gd:599)
+       [12] _frames (res://tests/smoke_test.gd:122)
+ERROR: [SoundBank] 音效「test_audio_gone」的 1.5 倍加速檔無法載入：res://tests/fixtures/audio/test_audio_missing_speed.ogg（res://tests/fixtures/audio/bank_speed_bad.json），這一級退回原速
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_speed_entry (res://core/audio/sound_bank.gd:84)
+       [2] _load_entry (res://core/audio/sound_bank.gd:58)
+       [3] load_bank (res://core/audio/sound_bank.gd:37)
+       [4] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [5] _test_speed_variants (res://tests/suite/test_audio.gd:183)
+       [6] run (res://tests/suite/test_audio.gd:17)
+       [7] _run_suites (res://tests/smoke_test.gd:109)
+       [8] run (res://tests/suite/test_chapter2_expansion.gd:26)
+       [9] _test_ghost_path (res://tests/suite/test_chapter2_expansion.gd:259)
+       [10] end_level (res://tests/suite/test_suite.gd:47)
+       [11] _end_level (res://tests/smoke_test.gd:599)
+       [12] _frames (res://tests/smoke_test.gd:122)
+ERROR: [AudioSuite] 找不到資料檔：res://tests/fixtures/audio/test_audio_missing_profiles.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] read_root (res://core/audio/audio_data.gd:13)
+       [2] reload (res://core/audio/sound_profile_table.gd:30)
+       [3] _init (res://core/audio/sound_profile_table.gd:24)
+       [4] _test_profile_table (res://tests/suite/test_audio.gd:302)
+       [5] run (res://tests/suite/test_audio.gd:19)
+       [6] _test_sfx_uses_files (res://tests/suite/test_audio.gd:285)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [PlacementDoc] user://test_audio_placements.md 沒有位置「P-XXX-999」，無法寫入
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _write_cell (res://core/audio/placement_doc.gd:158)
+       [2] set_planned (res://core/audio/placement_doc.gd:114)
+       [3] _test_placement_doc (res://tests/suite/test_audio.gd:685)
+       [4] run (res://tests/suite/test_audio.gd:35)
+       [5] _test_ambience (res://tests/suite/test_audio.gd:606)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+ERROR: [PlacementDoc] 找不到位置清單文件：user://test_audio_no_such_placements.md（先執行 tools/audio/build_slots.py）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _reload (res://core/audio/placement_doc.gd:36)
+       [2] load_doc (res://core/audio/placement_doc.gd:29)
+       [3] _test_placement_doc (res://tests/suite/test_audio.gd:717)
+       [4] run (res://tests/suite/test_audio.gd:35)
+       [5] _test_ambience (res://tests/suite/test_audio.gd:606)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME AudioSuite 6.5
+ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/props/portal.gd:34)
+       [1] _spawn_static_entities (res://game/level/level.gd:402)
+       [2] _ready (res://game/level/level.gd:156)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] _test_entry_and_walk (res://tests/suite/test_areas.gd:137)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:599)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://tests/fixtures/areas/no_such_level.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] warm_level (res://core/asset_prefetch.gd:27)
+       [1] warm_neighbors (res://core/asset_prefetch.gd:41)
+ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/props/portal.gd:34)
+       [1] _spawn_static_entities (res://game/level/level.gd:402)
+       [2] _ready (res://game/level/level.gd:156)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] _test_checkpoint_area (res://tests/suite/test_areas.gd:247)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:599)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://tests/fixtures/areas/no_such_level.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] warm_level (res://core/asset_prefetch.gd:27)
+       [1] warm_neighbors (res://core/asset_prefetch.gd:41)
+ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/props/portal.gd:34)
+       [1] _spawn_static_entities (res://game/level/level.gd:402)
+       [2] _ready (res://game/level/level.gd:156)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_locked_and_flagged_doors (res://tests/suite/test_areas.gd:267)
+       [6] run (res://tests/suite/test_areas.gd:23)
+       [7] _test_checkpoint_area (res://tests/suite/test_areas.gd:259)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:599)
+       [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://tests/fixtures/areas/no_such_level.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] warm_level (res://core/asset_prefetch.gd:27)
+       [1] warm_neighbors (res://core/asset_prefetch.gd:41)
+ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/props/portal.gd:34)
+       [1] _spawn_static_entities (res://game/level/level.gd:402)
+       [2] _ready (res://game/level/level.gd:156)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_bad_data (res://tests/suite/test_areas.gd:284)
+       [6] run (res://tests/suite/test_areas.gd:24)
+       [7] _test_locked_and_flagged_doors (res://tests/suite/test_areas.gd:280)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:599)
+       [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://tests/fixtures/areas/no_such_level.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] warm_level (res://core/asset_prefetch.gd:27)
+       [1] warm_neighbors (res://core/asset_prefetch.gd:41)
+ERROR: [Level] test_area_b 的出入口「test_area_bad_missing」目標不是可載入的區域：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _on_portal_used (res://game/level/level.gd:884)
+       [1] try_use (res://game/props/portal.gd:82)
+       [2] _test_bad_data (res://tests/suite/test_areas.gd:287)
+       [3] start_level (res://tests/suite/test_suite.gd:34)
+       [4] spawn_level (res://tests/suite/test_suite.gd:43)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Level] test_area_a 沒有出入口「test_area_bad_entry」（res://tests/fixtures/areas/area_map_a.json），改用起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _entry_position (res://game/level/level.gd:693)
+       [1] _spawn_player (res://game/level/level.gd:671)
+       [2] _ready (res://game/level/level.gd:157)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] _test_bad_data (res://tests/suite/test_areas.gd:294)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:599)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [Story] 找不到章節：test_area_no_chapter
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] chapter_info (res://autoload/story.gd:144)
+       [1] _run_ending (res://game/level/level.gd:847)
+       [2] _begin_intro (res://game/level/level.gd:258)
+SUITE_TIME AreasSuite 2.3
+checks: 26009, failures: 0
+WARNING: 245 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

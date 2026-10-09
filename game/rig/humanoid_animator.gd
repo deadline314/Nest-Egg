@@ -779,12 +779,14 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 	var anchor_point: Vector2 = _global_pos.get(anchor_bone, Vector2.ZERO) + (anchor[1] as Vector2).rotated(_global_angle.get(anchor_bone, 0.0))
 	var reach: float = anchor[2] * (0.7 if input.blocking else 1.0) - _recoil * float((_motion["recoil"] as Dictionary)["reach"])
 	var aim := Vector2.RIGHT.rotated(aim_angle)
-	if not _rig.hand_grip_offset(&"hand_front").is_zero_approx():
+	if not weapon.is_empty():
 		var minimum := 0.0
 		var maximum := INF
 		for chain: Array in ARM_CHAINS:
 			var hand: StringName = chain[2]
-			if hand == &"hand_back" and (not input.two_handed or input.shield_forward or _rig.hand_grip_offset(hand).is_zero_approx()):
+			if hand == &"hand_back" and (not input.two_handed or input.shield_forward):
+				continue
+			if not (_rig.has_bone(chain[0]) and _rig.has_bone(chain[1]) and _rig.has_bone(hand)):
 				continue
 			var fore := (RigLibrary.vec2(weapon.get("foregrip")) - RigLibrary.vec2(weapon.get("grip"))) * _rig.weapon_scale() if hand == &"hand_back" else Vector2.ZERO
 			var delta_to_shoulder: Vector2 = anchor_point + (fore - _rig.hand_grip_offset(hand)).rotated(aim_angle) - _global_pos[chain[0]]

@@ -1,0 +1,2487 @@
+{
+	"baselines": [
+		{
+			"facing": "right",
+			"image": "res://.godot/rin-hand-lighting-review/runtime-native-2620/baseline_right.png",
+			"regions": {
+				"front_sleeve_lower": {
+					"dark_pixels": 2,
+					"eligible_pixels": 29280,
+					"non_glow_pixels": 26337,
+					"rect": [
+						795,
+						542,
+						141,
+						214
+					]
+				},
+				"front_sleeve_upper": {
+					"dark_pixels": 7,
+					"eligible_pixels": 35073,
+					"non_glow_pixels": 32562,
+					"rect": [
+						749,
+						467,
+						150,
+						289
+					]
+				},
+				"head": {
+					"dark_pixels": 0,
+					"eligible_pixels": 21651,
+					"non_glow_pixels": 10973,
+					"rect": [
+						763,
+						301,
+						160,
+						168
+					]
+				},
+				"mechanical_palm": {
+					"dark_pixels": 114,
+					"eligible_pixels": 7144,
+					"non_glow_pixels": 6997,
+					"rect": [
+						863,
+						533,
+						110,
+						65
+					]
+				},
+				"torso": {
+					"dark_pixels": 119,
+					"eligible_pixels": 69723,
+					"non_glow_pixels": 60351,
+					"rect": [
+						756,
+						405,
+						244,
+						389
+					]
+				}
+			},
+			"samples": {
+				"mechanical_palm": {
+					"region": [
+						863,
+						533,
+						110,
+						65
+					],
+					"region_counts": {
+						"opaque": 7150,
+						"opaque_colored": 7036
+					},
+					"rgb": [
+						0.623529434204102,
+						0.631372570991516,
+						0.631372570991516
+					],
+					"xy": [
+						918,
+						565
+					]
+				},
+				"navy_shoulder": {
+					"region": [
+						749,
+						467,
+						150,
+						289
+					],
+					"region_counts": {
+						"opaque": 35657,
+						"opaque_colored": 35576
+					},
+					"rgb": [
+						0.129411771893501,
+						0.20392157137394,
+						0.364705890417099
+					],
+					"xy": [
+						824,
+						611
+					]
+				},
+				"torso": {
+					"region": [
+						756,
+						405,
+						244,
+						389
+					],
+					"region_counts": {
+						"opaque": 72280,
+						"opaque_colored": 71734
+					},
+					"rgb": [
+						0.129411771893501,
+						0.20392157137394,
+						0.356862753629684
+					],
+					"xy": [
+						878,
+						599
+					]
+				}
+			}
+		},
+		{
+			"facing": "left",
+			"image": "res://.godot/rin-hand-lighting-review/runtime-native-2620/baseline_left.png",
+			"regions": {
+				"front_sleeve_lower": {
+					"dark_pixels": 0,
+					"eligible_pixels": 29066,
+					"non_glow_pixels": 25272,
+					"rect": [
+						690,
+						556,
+						140,
+						214
+					]
+				},
+				"front_sleeve_upper": {
+					"dark_pixels": 0,
+					"eligible_pixels": 34897,
+					"non_glow_pixels": 32442,
+					"rect": [
+						727,
+						482,
+						151,
+						287
+					]
+				},
+				"head": {
+					"dark_pixels": 0,
+					"eligible_pixels": 20749,
+					"non_glow_pixels": 9236,
+					"rect": [
+						712,
+						315,
+						154,
+						163
+					]
+				},
+				"mechanical_palm": {
+					"dark_pixels": 0,
+					"eligible_pixels": 7150,
+					"non_glow_pixels": 6912,
+					"rect": [
+						653,
+						547,
+						110,
+						65
+					]
+				},
+				"torso": {
+					"dark_pixels": 0,
+					"eligible_pixels": 67278,
+					"non_glow_pixels": 56780,
+					"rect": [
+						630,
+						420,
+						232,
+						387
+					]
+				}
+			},
+			"samples": {
+				"mechanical_palm": {
+					"region": [
+						653,
+						547,
+						110,
+						65
+					],
+					"region_counts": {
+						"opaque": 7150,
+						"opaque_colored": 7150
+					},
+					"rgb": [
+						0.964705884456635,
+						0.968627452850342,
+						0.972549021244049
+					],
+					"xy": [
+						708,
+						579
+					]
+				},
+				"navy_shoulder": {
+					"region": [
+						727,
+						482,
+						151,
+						287
+					],
+					"region_counts": {
+						"opaque": 35510,
+						"opaque_colored": 35430
+					},
+					"rgb": [
+						0.129411771893501,
+						0.215686276555061,
+						0.364705890417099
+					],
+					"xy": [
+						802,
+						625
+					]
+				},
+				"torso": {
+					"region": [
+						630,
+						420,
+						232,
+						387
+					],
+					"region_counts": {
+						"opaque": 69657,
+						"opaque_colored": 69657
+					},
+					"rgb": [
+						0.149019613862038,
+						0.227450981736183,
+						0.368627458810806
+					],
+					"xy": [
+						746,
+						613
+					]
+				}
+			}
+		}
+	],
+	"camera_zoom": 23.78,
+	"capture_conversion": "tools/viewport_capture.gd: HDR linear readback converted to sRGB PNG",
+	"cases": [
+		{
+			"all_five_back_parts_tinted": false,
+			"arm_part_runtime_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372
+			},
+			"case_baseline_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372,
+				"hand_back": 0.620000004768372,
+				"jacket_sleeve_back_lower": 0.620000004768372,
+				"jacket_sleeve_back_upper": 0.620000004768372
+			},
+			"case_name": "hand_sleeves_0p62",
+			"chest_bone_global": [
+				820.211608886719,
+				759.80419921875
+			],
+			"facing": "right",
+			"grounded": true,
+			"group_parts": {
+				"arm_back_lower": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/arm_left_lower.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/arm_left_lower_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.620000004768372,
+					"self_modulate": [
+						0.620000004768372,
+						0.620000004768372,
+						0.620000004768372,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"arm_back_upper": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/arm_left_upper.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/arm_left_upper_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.620000004768372,
+					"self_modulate": [
+						0.620000004768372,
+						0.620000004768372,
+						0.620000004768372,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"hand_back": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/hand_left_grip.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/hand_left_grip_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.620000004768372,
+					"self_modulate": [
+						0.620000004768372,
+						0.620000004768372,
+						0.620000004768372,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"jacket_sleeve_back_lower": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/jacket_sleeve_lower.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/jacket_sleeve_lower_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.620000004768372,
+					"self_modulate": [
+						0.620000004768372,
+						0.620000004768372,
+						0.620000004768372,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"jacket_sleeve_back_upper": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/jacket_sleeve_upper.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/jacket_sleeve_upper_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.620000004768372,
+					"self_modulate": [
+						0.620000004768372,
+						0.620000004768372,
+						0.620000004768372,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				}
+			},
+			"hand_grip_offsets": {
+				"back": [
+					1.67408001422882,
+					-0.0150600001215935
+				],
+				"front": [
+					1.15531003475189,
+					0.226359993219376
+				]
+			},
+			"head_bone_global": [
+				820.739501953125,
+				504.487884521484
+			],
+			"image": "res://.godot/rin-hand-lighting-review/runtime-native-2620/right_hand_sleeves_0p62.png",
+			"invariant_regions": {
+				"front_sleeve_lower": {
+					"changed_pixels_over_0p01": 0,
+					"eligible_pixels": 26337,
+					"max_channel_delta": 0.0,
+					"mean_abs_rgb_delta": 0.0,
+					"new_dark_pixels": 0,
+					"rect": [
+						795,
+						542,
+						141,
+						214
+					]
+				},
+				"front_sleeve_upper": {
+					"changed_pixels_over_0p01": 0,
+					"eligible_pixels": 32562,
+					"max_channel_delta": 0.0,
+					"mean_abs_rgb_delta": 0.0,
+					"new_dark_pixels": 0,
+					"rect": [
+						749,
+						467,
+						150,
+						289
+					]
+				},
+				"head": {
+					"changed_pixels_over_0p01": 0,
+					"eligible_pixels": 10973,
+					"max_channel_delta": 0.0,
+					"mean_abs_rgb_delta": 0.0,
+					"new_dark_pixels": 0,
+					"rect": [
+						763,
+						301,
+						160,
+						168
+					]
+				},
+				"mechanical_palm": {
+					"changed_pixels_over_0p01": 0,
+					"eligible_pixels": 6997,
+					"max_channel_delta": 0.0,
+					"mean_abs_rgb_delta": 0.0,
+					"new_dark_pixels": 0,
+					"rect": [
+						863,
+						533,
+						110,
+						65
+					]
+				},
+				"torso": {
+					"changed_pixels_over_0p01": 0,
+					"eligible_pixels": 60351,
+					"max_channel_delta": 0.0,
+					"mean_abs_rgb_delta": 0.0,
+					"new_dark_pixels": 0,
+					"rect": [
+						756,
+						405,
+						244,
+						389
+					]
+				}
+			},
+			"invariant_samples": {
+				"mechanical_palm": {
+					"baseline_rgb": [
+						0.623529434204102,
+						0.631372570991516,
+						0.631372570991516
+					],
+					"case_rgb": [
+						0.623529434204102,
+						0.631372570991516,
+						0.631372570991516
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						918,
+						565
+					]
+				},
+				"navy_shoulder": {
+					"baseline_rgb": [
+						0.129411771893501,
+						0.20392157137394,
+						0.364705890417099
+					],
+					"case_rgb": [
+						0.129411771893501,
+						0.20392157137394,
+						0.364705890417099
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						824,
+						611
+					]
+				},
+				"torso": {
+					"baseline_rgb": [
+						0.129411771893501,
+						0.20392157137394,
+						0.356862753629684
+					],
+					"case_rgb": [
+						0.129411771893501,
+						0.20392157137394,
+						0.356862753629684
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						878,
+						599
+					]
+				}
+			},
+			"label": "right_hand_sleeves_0p62",
+			"production_glow_layers_modified": false,
+			"tested_tint": 0.62,
+			"two_handed_rifle": true,
+			"underlying_arm_baseline_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372
+			},
+			"underlying_arm_tints_preserved": true,
+			"validation": "invariant_regions_pass",
+			"weapon": {
+				"back_foregrip_error_world_px": 0.00006103515625,
+				"back_palm_target_global": [
+					1171.32214355469,
+					552.551025390625
+				],
+				"foregrip_global": [
+					1171.32214355469,
+					552.551086425781
+				],
+				"front_grip_error_world_px": 0.0,
+				"front_palm_target_global": [
+					938.872619628906,
+					566.224609375
+				],
+				"glow_visible": true,
+				"grip_global": [
+					938.872619628906,
+					566.224609375
+				],
+				"id": "rifle",
+				"muzzle_global": [
+					1431.11865234375,
+					511.530609130859
+				],
+				"texture_class": "CanvasTexture"
+			}
+		},
+		{
+			"all_five_back_parts_tinted": false,
+			"arm_part_runtime_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372
+			},
+			"case_baseline_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372,
+				"hand_back": 0.620000004768372,
+				"jacket_sleeve_back_lower": 0.620000004768372,
+				"jacket_sleeve_back_upper": 0.620000004768372
+			},
+			"case_name": "hand_sleeves_0p9",
+			"chest_bone_global": [
+				820.211608886719,
+				759.80419921875
+			],
+			"facing": "right",
+			"grounded": true,
+			"group_parts": {
+				"arm_back_lower": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/arm_left_lower.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/arm_left_lower_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.620000004768372,
+					"self_modulate": [
+						0.620000004768372,
+						0.620000004768372,
+						0.620000004768372,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"arm_back_upper": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/arm_left_upper.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/arm_left_upper_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.620000004768372,
+					"self_modulate": [
+						0.620000004768372,
+						0.620000004768372,
+						0.620000004768372,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"hand_back": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/hand_left_grip.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/hand_left_grip_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.899999976158142,
+					"self_modulate": [
+						0.899999976158142,
+						0.899999976158142,
+						0.899999976158142,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"jacket_sleeve_back_lower": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/jacket_sleeve_lower.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/jacket_sleeve_lower_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.899999976158142,
+					"self_modulate": [
+						0.899999976158142,
+						0.899999976158142,
+						0.899999976158142,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"jacket_sleeve_back_upper": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/jacket_sleeve_upper.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/jacket_sleeve_upper_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.899999976158142,
+					"self_modulate": [
+						0.899999976158142,
+						0.899999976158142,
+						0.899999976158142,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				}
+			},
+			"hand_grip_offsets": {
+				"back": [
+					1.67408001422882,
+					-0.0150600001215935
+				],
+				"front": [
+					1.15531003475189,
+					0.226359993219376
+				]
+			},
+			"head_bone_global": [
+				820.739501953125,
+				504.487884521484
+			],
+			"image": "res://.godot/rin-hand-lighting-review/runtime-native-2620/right_hand_sleeves_0p9.png",
+			"invariant_regions": {
+				"front_sleeve_lower": {
+					"changed_pixels_over_0p01": 0,
+					"eligible_pixels": 26337,
+					"max_channel_delta": 0.0,
+					"mean_abs_rgb_delta": 0.0,
+					"new_dark_pixels": 0,
+					"rect": [
+						795,
+						542,
+						141,
+						214
+					]
+				},
+				"front_sleeve_upper": {
+					"changed_pixels_over_0p01": 351,
+					"eligible_pixels": 32562,
+					"max_channel_delta": 0.0901960730552673,
+					"mean_abs_rgb_delta": 0.000427540350840613,
+					"new_dark_pixels": 0,
+					"rect": [
+						749,
+						467,
+						150,
+						289
+					]
+				},
+				"head": {
+					"changed_pixels_over_0p01": 0,
+					"eligible_pixels": 10973,
+					"max_channel_delta": 0.0,
+					"mean_abs_rgb_delta": 0.0,
+					"new_dark_pixels": 0,
+					"rect": [
+						763,
+						301,
+						160,
+						168
+					]
+				},
+				"mechanical_palm": {
+					"changed_pixels_over_0p01": 96,
+					"eligible_pixels": 6997,
+					"max_channel_delta": 0.0745097994804382,
+					"mean_abs_rgb_delta": 0.000623236297049045,
+					"new_dark_pixels": 0,
+					"rect": [
+						863,
+						533,
+						110,
+						65
+					]
+				},
+				"torso": {
+					"changed_pixels_over_0p01": 704,
+					"eligible_pixels": 60351,
+					"max_channel_delta": 0.0901960730552673,
+					"mean_abs_rgb_delta": 0.000523798531277968,
+					"new_dark_pixels": 0,
+					"rect": [
+						756,
+						405,
+						244,
+						389
+					]
+				}
+			},
+			"invariant_samples": {
+				"mechanical_palm": {
+					"baseline_rgb": [
+						0.623529434204102,
+						0.631372570991516,
+						0.631372570991516
+					],
+					"case_rgb": [
+						0.623529434204102,
+						0.631372570991516,
+						0.631372570991516
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						918,
+						565
+					]
+				},
+				"navy_shoulder": {
+					"baseline_rgb": [
+						0.129411771893501,
+						0.20392157137394,
+						0.364705890417099
+					],
+					"case_rgb": [
+						0.129411771893501,
+						0.20392157137394,
+						0.364705890417099
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						824,
+						611
+					]
+				},
+				"torso": {
+					"baseline_rgb": [
+						0.129411771893501,
+						0.20392157137394,
+						0.356862753629684
+					],
+					"case_rgb": [
+						0.129411771893501,
+						0.20392157137394,
+						0.356862753629684
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						878,
+						599
+					]
+				}
+			},
+			"label": "right_hand_sleeves_0p9",
+			"production_glow_layers_modified": false,
+			"tested_tint": 0.9,
+			"two_handed_rifle": true,
+			"underlying_arm_baseline_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372
+			},
+			"underlying_arm_tints_preserved": true,
+			"validation": "invariant_regions_pass",
+			"weapon": {
+				"back_foregrip_error_world_px": 0.00006103515625,
+				"back_palm_target_global": [
+					1171.32214355469,
+					552.551025390625
+				],
+				"foregrip_global": [
+					1171.32214355469,
+					552.551086425781
+				],
+				"front_grip_error_world_px": 0.0,
+				"front_palm_target_global": [
+					938.872619628906,
+					566.224609375
+				],
+				"glow_visible": true,
+				"grip_global": [
+					938.872619628906,
+					566.224609375
+				],
+				"id": "rifle",
+				"muzzle_global": [
+					1431.11865234375,
+					511.530609130859
+				],
+				"texture_class": "CanvasTexture"
+			}
+		},
+		{
+			"all_five_back_parts_tinted": false,
+			"arm_part_runtime_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372
+			},
+			"case_baseline_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372,
+				"hand_back": 0.620000004768372,
+				"jacket_sleeve_back_lower": 0.620000004768372,
+				"jacket_sleeve_back_upper": 0.620000004768372
+			},
+			"case_name": "hand_sleeves_1p0",
+			"chest_bone_global": [
+				820.211608886719,
+				759.80419921875
+			],
+			"facing": "right",
+			"grounded": true,
+			"group_parts": {
+				"arm_back_lower": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/arm_left_lower.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/arm_left_lower_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.620000004768372,
+					"self_modulate": [
+						0.620000004768372,
+						0.620000004768372,
+						0.620000004768372,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"arm_back_upper": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/arm_left_upper.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/arm_left_upper_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.620000004768372,
+					"self_modulate": [
+						0.620000004768372,
+						0.620000004768372,
+						0.620000004768372,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"hand_back": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/hand_left_grip.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/hand_left_grip_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 1.0,
+					"self_modulate": [
+						1.0,
+						1.0,
+						1.0,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"jacket_sleeve_back_lower": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/jacket_sleeve_lower.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/jacket_sleeve_lower_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 1.0,
+					"self_modulate": [
+						1.0,
+						1.0,
+						1.0,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"jacket_sleeve_back_upper": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/jacket_sleeve_upper.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/jacket_sleeve_upper_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 1.0,
+					"self_modulate": [
+						1.0,
+						1.0,
+						1.0,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				}
+			},
+			"hand_grip_offsets": {
+				"back": [
+					1.67408001422882,
+					-0.0150600001215935
+				],
+				"front": [
+					1.15531003475189,
+					0.226359993219376
+				]
+			},
+			"head_bone_global": [
+				820.739501953125,
+				504.487884521484
+			],
+			"image": "res://.godot/rin-hand-lighting-review/runtime-native-2620/right_hand_sleeves_1p0.png",
+			"invariant_regions": {
+				"front_sleeve_lower": {
+					"changed_pixels_over_0p01": 0,
+					"eligible_pixels": 26337,
+					"max_channel_delta": 0.0,
+					"mean_abs_rgb_delta": 0.0,
+					"new_dark_pixels": 0,
+					"rect": [
+						795,
+						542,
+						141,
+						214
+					]
+				},
+				"front_sleeve_upper": {
+					"changed_pixels_over_0p01": 384,
+					"eligible_pixels": 32562,
+					"max_channel_delta": 0.125490188598633,
+					"mean_abs_rgb_delta": 0.000599038222191792,
+					"new_dark_pixels": 0,
+					"rect": [
+						749,
+						467,
+						150,
+						289
+					]
+				},
+				"head": {
+					"changed_pixels_over_0p01": 0,
+					"eligible_pixels": 10973,
+					"max_channel_delta": 0.0,
+					"mean_abs_rgb_delta": 0.0,
+					"new_dark_pixels": 0,
+					"rect": [
+						763,
+						301,
+						160,
+						168
+					]
+				},
+				"mechanical_palm": {
+					"changed_pixels_over_0p01": 102,
+					"eligible_pixels": 6997,
+					"max_channel_delta": 0.0980392098426819,
+					"mean_abs_rgb_delta": 0.000830608083722386,
+					"new_dark_pixels": 0,
+					"rect": [
+						863,
+						533,
+						110,
+						65
+					]
+				},
+				"torso": {
+					"changed_pixels_over_0p01": 792,
+					"eligible_pixels": 60351,
+					"max_channel_delta": 0.125490188598633,
+					"mean_abs_rgb_delta": 0.000736086060439019,
+					"new_dark_pixels": 0,
+					"rect": [
+						756,
+						405,
+						244,
+						389
+					]
+				}
+			},
+			"invariant_samples": {
+				"mechanical_palm": {
+					"baseline_rgb": [
+						0.623529434204102,
+						0.631372570991516,
+						0.631372570991516
+					],
+					"case_rgb": [
+						0.623529434204102,
+						0.631372570991516,
+						0.631372570991516
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						918,
+						565
+					]
+				},
+				"navy_shoulder": {
+					"baseline_rgb": [
+						0.129411771893501,
+						0.20392157137394,
+						0.364705890417099
+					],
+					"case_rgb": [
+						0.129411771893501,
+						0.20392157137394,
+						0.364705890417099
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						824,
+						611
+					]
+				},
+				"torso": {
+					"baseline_rgb": [
+						0.129411771893501,
+						0.20392157137394,
+						0.356862753629684
+					],
+					"case_rgb": [
+						0.129411771893501,
+						0.20392157137394,
+						0.356862753629684
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						878,
+						599
+					]
+				}
+			},
+			"label": "right_hand_sleeves_1p0",
+			"production_glow_layers_modified": false,
+			"tested_tint": 1.0,
+			"two_handed_rifle": true,
+			"underlying_arm_baseline_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372
+			},
+			"underlying_arm_tints_preserved": true,
+			"validation": "invariant_regions_pass",
+			"weapon": {
+				"back_foregrip_error_world_px": 0.00006103515625,
+				"back_palm_target_global": [
+					1171.32214355469,
+					552.551025390625
+				],
+				"foregrip_global": [
+					1171.32214355469,
+					552.551086425781
+				],
+				"front_grip_error_world_px": 0.0,
+				"front_palm_target_global": [
+					938.872619628906,
+					566.224609375
+				],
+				"glow_visible": true,
+				"grip_global": [
+					938.872619628906,
+					566.224609375
+				],
+				"id": "rifle",
+				"muzzle_global": [
+					1431.11865234375,
+					511.530609130859
+				],
+				"texture_class": "CanvasTexture"
+			}
+		},
+		{
+			"all_five_back_parts_tinted": true,
+			"arm_part_runtime_tints": {
+				"arm_back_lower": 1.0,
+				"arm_back_upper": 1.0
+			},
+			"case_baseline_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372,
+				"hand_back": 0.620000004768372,
+				"jacket_sleeve_back_lower": 0.620000004768372,
+				"jacket_sleeve_back_upper": 0.620000004768372
+			},
+			"case_name": "all_five_1p0_control",
+			"chest_bone_global": [
+				820.211608886719,
+				759.80419921875
+			],
+			"facing": "right",
+			"grounded": true,
+			"group_parts": {
+				"arm_back_lower": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/arm_left_lower.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/arm_left_lower_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 1.0,
+					"self_modulate": [
+						1.0,
+						1.0,
+						1.0,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"arm_back_upper": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/arm_left_upper.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/arm_left_upper_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 1.0,
+					"self_modulate": [
+						1.0,
+						1.0,
+						1.0,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"hand_back": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/hand_left_grip.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/hand_left_grip_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 1.0,
+					"self_modulate": [
+						1.0,
+						1.0,
+						1.0,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"jacket_sleeve_back_lower": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/jacket_sleeve_lower.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/jacket_sleeve_lower_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 1.0,
+					"self_modulate": [
+						1.0,
+						1.0,
+						1.0,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"jacket_sleeve_back_upper": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/jacket_sleeve_upper.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/jacket_sleeve_upper_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 1.0,
+					"self_modulate": [
+						1.0,
+						1.0,
+						1.0,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				}
+			},
+			"hand_grip_offsets": {
+				"back": [
+					1.67408001422882,
+					-0.0150600001215935
+				],
+				"front": [
+					1.15531003475189,
+					0.226359993219376
+				]
+			},
+			"head_bone_global": [
+				820.739501953125,
+				504.487884521484
+			],
+			"image": "res://.godot/rin-hand-lighting-review/runtime-native-2620/right_all_five_1p0_control.png",
+			"invariant_regions": {
+				"front_sleeve_lower": {
+					"changed_pixels_over_0p01": 13,
+					"eligible_pixels": 26337,
+					"max_channel_delta": 0.0470588244497776,
+					"mean_abs_rgb_delta": 0.0000105718713057549,
+					"new_dark_pixels": 0,
+					"rect": [
+						795,
+						542,
+						141,
+						214
+					]
+				},
+				"front_sleeve_upper": {
+					"changed_pixels_over_0p01": 639,
+					"eligible_pixels": 32562,
+					"max_channel_delta": 0.294117629528046,
+					"mean_abs_rgb_delta": 0.00122541493513859,
+					"new_dark_pixels": 0,
+					"rect": [
+						749,
+						467,
+						150,
+						289
+					]
+				},
+				"head": {
+					"changed_pixels_over_0p01": 1,
+					"eligible_pixels": 10973,
+					"max_channel_delta": 0.0117647051811218,
+					"mean_abs_rgb_delta": 0.0000064329017667667,
+					"new_dark_pixels": 0,
+					"rect": [
+						763,
+						301,
+						160,
+						168
+					]
+				},
+				"mechanical_palm": {
+					"changed_pixels_over_0p01": 102,
+					"eligible_pixels": 6997,
+					"max_channel_delta": 0.0980392098426819,
+					"mean_abs_rgb_delta": 0.000830608083722386,
+					"new_dark_pixels": 0,
+					"rect": [
+						863,
+						533,
+						110,
+						65
+					]
+				},
+				"torso": {
+					"changed_pixels_over_0p01": 956,
+					"eligible_pixels": 60351,
+					"max_channel_delta": 0.25882351398468,
+					"mean_abs_rgb_delta": 0.000834854669838453,
+					"new_dark_pixels": 0,
+					"rect": [
+						756,
+						405,
+						244,
+						389
+					]
+				}
+			},
+			"invariant_samples": {
+				"mechanical_palm": {
+					"baseline_rgb": [
+						0.623529434204102,
+						0.631372570991516,
+						0.631372570991516
+					],
+					"case_rgb": [
+						0.623529434204102,
+						0.631372570991516,
+						0.631372570991516
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						918,
+						565
+					]
+				},
+				"navy_shoulder": {
+					"baseline_rgb": [
+						0.129411771893501,
+						0.20392157137394,
+						0.364705890417099
+					],
+					"case_rgb": [
+						0.129411771893501,
+						0.20392157137394,
+						0.364705890417099
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						824,
+						611
+					]
+				},
+				"torso": {
+					"baseline_rgb": [
+						0.129411771893501,
+						0.20392157137394,
+						0.356862753629684
+					],
+					"case_rgb": [
+						0.129411771893501,
+						0.20392157137394,
+						0.356862753629684
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						878,
+						599
+					]
+				}
+			},
+			"label": "right_all_five_1p0_control",
+			"production_glow_layers_modified": false,
+			"tested_tint": 1.0,
+			"two_handed_rifle": true,
+			"underlying_arm_baseline_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372
+			},
+			"underlying_arm_tints_preserved": false,
+			"validation": "invariant_regions_pass",
+			"weapon": {
+				"back_foregrip_error_world_px": 0.00006103515625,
+				"back_palm_target_global": [
+					1171.32214355469,
+					552.551025390625
+				],
+				"foregrip_global": [
+					1171.32214355469,
+					552.551086425781
+				],
+				"front_grip_error_world_px": 0.0,
+				"front_palm_target_global": [
+					938.872619628906,
+					566.224609375
+				],
+				"glow_visible": true,
+				"grip_global": [
+					938.872619628906,
+					566.224609375
+				],
+				"id": "rifle",
+				"muzzle_global": [
+					1431.11865234375,
+					511.530609130859
+				],
+				"texture_class": "CanvasTexture"
+			}
+		},
+		{
+			"all_five_back_parts_tinted": false,
+			"arm_part_runtime_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372
+			},
+			"case_baseline_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372,
+				"hand_back": 0.620000004768372,
+				"jacket_sleeve_back_lower": 0.620000004768372,
+				"jacket_sleeve_back_upper": 0.620000004768372
+			},
+			"case_name": "hand_sleeves_0p62",
+			"chest_bone_global": [
+				799.095581054688,
+				772.562622070313
+			],
+			"facing": "left",
+			"grounded": true,
+			"group_parts": {
+				"arm_back_lower": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/arm_left_lower.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/arm_left_lower_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.620000004768372,
+					"self_modulate": [
+						0.620000004768372,
+						0.620000004768372,
+						0.620000004768372,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"arm_back_upper": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/arm_left_upper.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/arm_left_upper_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.620000004768372,
+					"self_modulate": [
+						0.620000004768372,
+						0.620000004768372,
+						0.620000004768372,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"hand_back": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/hand_left_grip.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/hand_left_grip_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.620000004768372,
+					"self_modulate": [
+						0.620000004768372,
+						0.620000004768372,
+						0.620000004768372,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"jacket_sleeve_back_lower": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/jacket_sleeve_lower.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/jacket_sleeve_lower_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.620000004768372,
+					"self_modulate": [
+						0.620000004768372,
+						0.620000004768372,
+						0.620000004768372,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"jacket_sleeve_back_upper": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/jacket_sleeve_upper.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/jacket_sleeve_upper_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.620000004768372,
+					"self_modulate": [
+						0.620000004768372,
+						0.620000004768372,
+						0.620000004768372,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				}
+			},
+			"hand_grip_offsets": {
+				"back": [
+					1.67408001422882,
+					-0.0150600001215935
+				],
+				"front": [
+					1.15531003475189,
+					0.226359993219376
+				]
+			},
+			"head_bone_global": [
+				807.317321777344,
+				517.378173828125
+			],
+			"image": "res://.godot/rin-hand-lighting-review/runtime-native-2620/left_hand_sleeves_0p62.png",
+			"invariant_regions": {
+				"front_sleeve_lower": {
+					"changed_pixels_over_0p01": 0,
+					"eligible_pixels": 25272,
+					"max_channel_delta": 0.0,
+					"mean_abs_rgb_delta": 0.0,
+					"new_dark_pixels": 0,
+					"rect": [
+						690,
+						556,
+						140,
+						214
+					]
+				},
+				"front_sleeve_upper": {
+					"changed_pixels_over_0p01": 0,
+					"eligible_pixels": 32442,
+					"max_channel_delta": 0.0,
+					"mean_abs_rgb_delta": 0.0,
+					"new_dark_pixels": 0,
+					"rect": [
+						727,
+						482,
+						151,
+						287
+					]
+				},
+				"head": {
+					"changed_pixels_over_0p01": 0,
+					"eligible_pixels": 9236,
+					"max_channel_delta": 0.0,
+					"mean_abs_rgb_delta": 0.0,
+					"new_dark_pixels": 0,
+					"rect": [
+						712,
+						315,
+						154,
+						163
+					]
+				},
+				"mechanical_palm": {
+					"changed_pixels_over_0p01": 0,
+					"eligible_pixels": 6912,
+					"max_channel_delta": 0.0,
+					"mean_abs_rgb_delta": 0.0,
+					"new_dark_pixels": 0,
+					"rect": [
+						653,
+						547,
+						110,
+						65
+					]
+				},
+				"torso": {
+					"changed_pixels_over_0p01": 0,
+					"eligible_pixels": 56780,
+					"max_channel_delta": 0.0,
+					"mean_abs_rgb_delta": 0.0,
+					"new_dark_pixels": 0,
+					"rect": [
+						630,
+						420,
+						232,
+						387
+					]
+				}
+			},
+			"invariant_samples": {
+				"mechanical_palm": {
+					"baseline_rgb": [
+						0.964705884456635,
+						0.968627452850342,
+						0.972549021244049
+					],
+					"case_rgb": [
+						0.964705884456635,
+						0.968627452850342,
+						0.972549021244049
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						708,
+						579
+					]
+				},
+				"navy_shoulder": {
+					"baseline_rgb": [
+						0.129411771893501,
+						0.215686276555061,
+						0.364705890417099
+					],
+					"case_rgb": [
+						0.129411771893501,
+						0.215686276555061,
+						0.364705890417099
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						802,
+						625
+					]
+				},
+				"torso": {
+					"baseline_rgb": [
+						0.149019613862038,
+						0.227450981736183,
+						0.368627458810806
+					],
+					"case_rgb": [
+						0.149019613862038,
+						0.227450981736183,
+						0.368627458810806
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						746,
+						613
+					]
+				}
+			},
+			"label": "left_hand_sleeves_0p62",
+			"production_glow_layers_modified": false,
+			"tested_tint": 0.62,
+			"two_handed_rifle": true,
+			"underlying_arm_baseline_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372
+			},
+			"underlying_arm_tints_preserved": true,
+			"validation": "invariant_regions_pass",
+			"weapon": {
+				"back_foregrip_error_world_px": 0.0000682393801980652,
+				"back_palm_target_global": [
+					455.184875488281,
+					565.993041992188
+				],
+				"foregrip_global": [
+					455.184906005859,
+					565.992980957031
+				],
+				"front_grip_error_world_px": 0.0,
+				"front_palm_target_global": [
+					687.634399414063,
+					579.66650390625
+				],
+				"glow_visible": true,
+				"grip_global": [
+					687.634399414063,
+					579.66650390625
+				],
+				"id": "rifle",
+				"muzzle_global": [
+					195.388397216797,
+					524.972534179688
+				],
+				"texture_class": "CanvasTexture"
+			}
+		},
+		{
+			"all_five_back_parts_tinted": false,
+			"arm_part_runtime_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372
+			},
+			"case_baseline_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372,
+				"hand_back": 0.620000004768372,
+				"jacket_sleeve_back_lower": 0.620000004768372,
+				"jacket_sleeve_back_upper": 0.620000004768372
+			},
+			"case_name": "hand_sleeves_0p9",
+			"chest_bone_global": [
+				799.095581054688,
+				772.562622070313
+			],
+			"facing": "left",
+			"grounded": true,
+			"group_parts": {
+				"arm_back_lower": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/arm_left_lower.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/arm_left_lower_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.620000004768372,
+					"self_modulate": [
+						0.620000004768372,
+						0.620000004768372,
+						0.620000004768372,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"arm_back_upper": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/arm_left_upper.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/arm_left_upper_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.620000004768372,
+					"self_modulate": [
+						0.620000004768372,
+						0.620000004768372,
+						0.620000004768372,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"hand_back": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/hand_left_grip.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/hand_left_grip_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.899999976158142,
+					"self_modulate": [
+						0.899999976158142,
+						0.899999976158142,
+						0.899999976158142,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"jacket_sleeve_back_lower": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/jacket_sleeve_lower.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/jacket_sleeve_lower_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.899999976158142,
+					"self_modulate": [
+						0.899999976158142,
+						0.899999976158142,
+						0.899999976158142,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"jacket_sleeve_back_upper": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/jacket_sleeve_upper.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/jacket_sleeve_upper_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.899999976158142,
+					"self_modulate": [
+						0.899999976158142,
+						0.899999976158142,
+						0.899999976158142,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				}
+			},
+			"hand_grip_offsets": {
+				"back": [
+					1.67408001422882,
+					-0.0150600001215935
+				],
+				"front": [
+					1.15531003475189,
+					0.226359993219376
+				]
+			},
+			"head_bone_global": [
+				807.317321777344,
+				517.378173828125
+			],
+			"image": "res://.godot/rin-hand-lighting-review/runtime-native-2620/left_hand_sleeves_0p9.png",
+			"invariant_regions": {
+				"front_sleeve_lower": {
+					"changed_pixels_over_0p01": 0,
+					"eligible_pixels": 25272,
+					"max_channel_delta": 0.0,
+					"mean_abs_rgb_delta": 0.0,
+					"new_dark_pixels": 0,
+					"rect": [
+						690,
+						556,
+						140,
+						214
+					]
+				},
+				"front_sleeve_upper": {
+					"changed_pixels_over_0p01": 349,
+					"eligible_pixels": 32442,
+					"max_channel_delta": 0.0823529362678528,
+					"mean_abs_rgb_delta": 0.000405912947858845,
+					"new_dark_pixels": 0,
+					"rect": [
+						727,
+						482,
+						151,
+						287
+					]
+				},
+				"head": {
+					"changed_pixels_over_0p01": 0,
+					"eligible_pixels": 9236,
+					"max_channel_delta": 0.0,
+					"mean_abs_rgb_delta": 0.0,
+					"new_dark_pixels": 0,
+					"rect": [
+						712,
+						315,
+						154,
+						163
+					]
+				},
+				"mechanical_palm": {
+					"changed_pixels_over_0p01": 67,
+					"eligible_pixels": 6912,
+					"max_channel_delta": 0.0745097994804382,
+					"mean_abs_rgb_delta": 0.000402823164929739,
+					"new_dark_pixels": 0,
+					"rect": [
+						653,
+						547,
+						110,
+						65
+					]
+				},
+				"torso": {
+					"changed_pixels_over_0p01": 692,
+					"eligible_pixels": 56780,
+					"max_channel_delta": 0.0862745195627213,
+					"mean_abs_rgb_delta": 0.000519998075966056,
+					"new_dark_pixels": 0,
+					"rect": [
+						630,
+						420,
+						232,
+						387
+					]
+				}
+			},
+			"invariant_samples": {
+				"mechanical_palm": {
+					"baseline_rgb": [
+						0.964705884456635,
+						0.968627452850342,
+						0.972549021244049
+					],
+					"case_rgb": [
+						0.964705884456635,
+						0.968627452850342,
+						0.972549021244049
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						708,
+						579
+					]
+				},
+				"navy_shoulder": {
+					"baseline_rgb": [
+						0.129411771893501,
+						0.215686276555061,
+						0.364705890417099
+					],
+					"case_rgb": [
+						0.129411771893501,
+						0.215686276555061,
+						0.364705890417099
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						802,
+						625
+					]
+				},
+				"torso": {
+					"baseline_rgb": [
+						0.149019613862038,
+						0.227450981736183,
+						0.368627458810806
+					],
+					"case_rgb": [
+						0.149019613862038,
+						0.227450981736183,
+						0.368627458810806
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						746,
+						613
+					]
+				}
+			},
+			"label": "left_hand_sleeves_0p9",
+			"production_glow_layers_modified": false,
+			"tested_tint": 0.9,
+			"two_handed_rifle": true,
+			"underlying_arm_baseline_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372
+			},
+			"underlying_arm_tints_preserved": true,
+			"validation": "invariant_regions_pass",
+			"weapon": {
+				"back_foregrip_error_world_px": 0.0000682393801980652,
+				"back_palm_target_global": [
+					455.184875488281,
+					565.993041992188
+				],
+				"foregrip_global": [
+					455.184906005859,
+					565.992980957031
+				],
+				"front_grip_error_world_px": 0.0,
+				"front_palm_target_global": [
+					687.634399414063,
+					579.66650390625
+				],
+				"glow_visible": true,
+				"grip_global": [
+					687.634399414063,
+					579.66650390625
+				],
+				"id": "rifle",
+				"muzzle_global": [
+					195.388397216797,
+					524.972534179688
+				],
+				"texture_class": "CanvasTexture"
+			}
+		},
+		{
+			"all_five_back_parts_tinted": false,
+			"arm_part_runtime_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372
+			},
+			"case_baseline_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372,
+				"hand_back": 0.620000004768372,
+				"jacket_sleeve_back_lower": 0.620000004768372,
+				"jacket_sleeve_back_upper": 0.620000004768372
+			},
+			"case_name": "hand_sleeves_1p0",
+			"chest_bone_global": [
+				799.095581054688,
+				772.562622070313
+			],
+			"facing": "left",
+			"grounded": true,
+			"group_parts": {
+				"arm_back_lower": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/arm_left_lower.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/arm_left_lower_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.620000004768372,
+					"self_modulate": [
+						0.620000004768372,
+						0.620000004768372,
+						0.620000004768372,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"arm_back_upper": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/arm_left_upper.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/arm_left_upper_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 0.620000004768372,
+					"self_modulate": [
+						0.620000004768372,
+						0.620000004768372,
+						0.620000004768372,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"hand_back": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/hand_left_grip.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/hand_left_grip_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 1.0,
+					"self_modulate": [
+						1.0,
+						1.0,
+						1.0,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"jacket_sleeve_back_lower": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/jacket_sleeve_lower.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/jacket_sleeve_lower_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 1.0,
+					"self_modulate": [
+						1.0,
+						1.0,
+						1.0,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"jacket_sleeve_back_upper": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/jacket_sleeve_upper.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/jacket_sleeve_upper_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 1.0,
+					"self_modulate": [
+						1.0,
+						1.0,
+						1.0,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				}
+			},
+			"hand_grip_offsets": {
+				"back": [
+					1.67408001422882,
+					-0.0150600001215935
+				],
+				"front": [
+					1.15531003475189,
+					0.226359993219376
+				]
+			},
+			"head_bone_global": [
+				807.317321777344,
+				517.378173828125
+			],
+			"image": "res://.godot/rin-hand-lighting-review/runtime-native-2620/left_hand_sleeves_1p0.png",
+			"invariant_regions": {
+				"front_sleeve_lower": {
+					"changed_pixels_over_0p01": 0,
+					"eligible_pixels": 25272,
+					"max_channel_delta": 0.0,
+					"mean_abs_rgb_delta": 0.0,
+					"new_dark_pixels": 0,
+					"rect": [
+						690,
+						556,
+						140,
+						214
+					]
+				},
+				"front_sleeve_upper": {
+					"changed_pixels_over_0p01": 386,
+					"eligible_pixels": 32442,
+					"max_channel_delta": 0.109803929924965,
+					"mean_abs_rgb_delta": 0.000565473714157977,
+					"new_dark_pixels": 0,
+					"rect": [
+						727,
+						482,
+						151,
+						287
+					]
+				},
+				"head": {
+					"changed_pixels_over_0p01": 0,
+					"eligible_pixels": 9236,
+					"max_channel_delta": 0.0,
+					"mean_abs_rgb_delta": 0.0,
+					"new_dark_pixels": 0,
+					"rect": [
+						712,
+						315,
+						154,
+						163
+					]
+				},
+				"mechanical_palm": {
+					"changed_pixels_over_0p01": 71,
+					"eligible_pixels": 6912,
+					"max_channel_delta": 0.10196079313755,
+					"mean_abs_rgb_delta": 0.000532180475096943,
+					"new_dark_pixels": 0,
+					"rect": [
+						653,
+						547,
+						110,
+						65
+					]
+				},
+				"torso": {
+					"changed_pixels_over_0p01": 731,
+					"eligible_pixels": 56780,
+					"max_channel_delta": 0.113725498318672,
+					"mean_abs_rgb_delta": 0.000701917973506111,
+					"new_dark_pixels": 0,
+					"rect": [
+						630,
+						420,
+						232,
+						387
+					]
+				}
+			},
+			"invariant_samples": {
+				"mechanical_palm": {
+					"baseline_rgb": [
+						0.964705884456635,
+						0.968627452850342,
+						0.972549021244049
+					],
+					"case_rgb": [
+						0.964705884456635,
+						0.968627452850342,
+						0.972549021244049
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						708,
+						579
+					]
+				},
+				"navy_shoulder": {
+					"baseline_rgb": [
+						0.129411771893501,
+						0.215686276555061,
+						0.364705890417099
+					],
+					"case_rgb": [
+						0.129411771893501,
+						0.215686276555061,
+						0.364705890417099
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						802,
+						625
+					]
+				},
+				"torso": {
+					"baseline_rgb": [
+						0.149019613862038,
+						0.227450981736183,
+						0.368627458810806
+					],
+					"case_rgb": [
+						0.149019613862038,
+						0.227450981736183,
+						0.368627458810806
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						746,
+						613
+					]
+				}
+			},
+			"label": "left_hand_sleeves_1p0",
+			"production_glow_layers_modified": false,
+			"tested_tint": 1.0,
+			"two_handed_rifle": true,
+			"underlying_arm_baseline_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372
+			},
+			"underlying_arm_tints_preserved": true,
+			"validation": "invariant_regions_pass",
+			"weapon": {
+				"back_foregrip_error_world_px": 0.0000682393801980652,
+				"back_palm_target_global": [
+					455.184875488281,
+					565.993041992188
+				],
+				"foregrip_global": [
+					455.184906005859,
+					565.992980957031
+				],
+				"front_grip_error_world_px": 0.0,
+				"front_palm_target_global": [
+					687.634399414063,
+					579.66650390625
+				],
+				"glow_visible": true,
+				"grip_global": [
+					687.634399414063,
+					579.66650390625
+				],
+				"id": "rifle",
+				"muzzle_global": [
+					195.388397216797,
+					524.972534179688
+				],
+				"texture_class": "CanvasTexture"
+			}
+		},
+		{
+			"all_five_back_parts_tinted": true,
+			"arm_part_runtime_tints": {
+				"arm_back_lower": 1.0,
+				"arm_back_upper": 1.0
+			},
+			"case_baseline_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372,
+				"hand_back": 0.620000004768372,
+				"jacket_sleeve_back_lower": 0.620000004768372,
+				"jacket_sleeve_back_upper": 0.620000004768372
+			},
+			"case_name": "all_five_1p0_control",
+			"chest_bone_global": [
+				799.095581054688,
+				772.562622070313
+			],
+			"facing": "left",
+			"grounded": true,
+			"group_parts": {
+				"arm_back_lower": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/arm_left_lower.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/arm_left_lower_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 1.0,
+					"self_modulate": [
+						1.0,
+						1.0,
+						1.0,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"arm_back_upper": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/arm_left_upper.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/arm_left_upper_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 1.0,
+					"self_modulate": [
+						1.0,
+						1.0,
+						1.0,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"hand_back": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/hand_left_grip.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/hand_left_grip_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 1.0,
+					"self_modulate": [
+						1.0,
+						1.0,
+						1.0,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"jacket_sleeve_back_lower": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/jacket_sleeve_lower.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/jacket_sleeve_lower_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 1.0,
+					"self_modulate": [
+						1.0,
+						1.0,
+						1.0,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				},
+				"jacket_sleeve_back_upper": {
+					"baseline_part_tint": 0.620000004768372,
+					"diffuse_class": "CompressedTexture2D",
+					"diffuse_path": "res://art/characters/rin/parts/jacket_sleeve_upper.png",
+					"normal_class": "CompressedTexture2D",
+					"normal_path": "res://art/characters/rin/parts/jacket_sleeve_upper_n.png",
+					"normal_present": true,
+					"runtime_part_tint": 1.0,
+					"self_modulate": [
+						1.0,
+						1.0,
+						1.0,
+						1.0
+					],
+					"texture_class": "CanvasTexture"
+				}
+			},
+			"hand_grip_offsets": {
+				"back": [
+					1.67408001422882,
+					-0.0150600001215935
+				],
+				"front": [
+					1.15531003475189,
+					0.226359993219376
+				]
+			},
+			"head_bone_global": [
+				807.317321777344,
+				517.378173828125
+			],
+			"image": "res://.godot/rin-hand-lighting-review/runtime-native-2620/left_all_five_1p0_control.png",
+			"invariant_regions": {
+				"front_sleeve_lower": {
+					"changed_pixels_over_0p01": 0,
+					"eligible_pixels": 25272,
+					"max_channel_delta": 0.0,
+					"mean_abs_rgb_delta": 0.0,
+					"new_dark_pixels": 0,
+					"rect": [
+						690,
+						556,
+						140,
+						214
+					]
+				},
+				"front_sleeve_upper": {
+					"changed_pixels_over_0p01": 483,
+					"eligible_pixels": 32442,
+					"max_channel_delta": 0.274509817361832,
+					"mean_abs_rgb_delta": 0.000960265759420699,
+					"new_dark_pixels": 0,
+					"rect": [
+						727,
+						482,
+						151,
+						287
+					]
+				},
+				"head": {
+					"changed_pixels_over_0p01": 0,
+					"eligible_pixels": 9236,
+					"max_channel_delta": 0.0,
+					"mean_abs_rgb_delta": 0.0,
+					"new_dark_pixels": 0,
+					"rect": [
+						712,
+						315,
+						154,
+						163
+					]
+				},
+				"mechanical_palm": {
+					"changed_pixels_over_0p01": 71,
+					"eligible_pixels": 6912,
+					"max_channel_delta": 0.10196079313755,
+					"mean_abs_rgb_delta": 0.000540123468790962,
+					"new_dark_pixels": 0,
+					"rect": [
+						653,
+						547,
+						110,
+						65
+					]
+				},
+				"torso": {
+					"changed_pixels_over_0p01": 732,
+					"eligible_pixels": 56780,
+					"max_channel_delta": 0.113725498318672,
+					"mean_abs_rgb_delta": 0.000710136830470813,
+					"new_dark_pixels": 0,
+					"rect": [
+						630,
+						420,
+						232,
+						387
+					]
+				}
+			},
+			"invariant_samples": {
+				"mechanical_palm": {
+					"baseline_rgb": [
+						0.964705884456635,
+						0.968627452850342,
+						0.972549021244049
+					],
+					"case_rgb": [
+						0.964705884456635,
+						0.968627452850342,
+						0.972549021244049
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						708,
+						579
+					]
+				},
+				"navy_shoulder": {
+					"baseline_rgb": [
+						0.129411771893501,
+						0.215686276555061,
+						0.364705890417099
+					],
+					"case_rgb": [
+						0.129411771893501,
+						0.215686276555061,
+						0.364705890417099
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						802,
+						625
+					]
+				},
+				"torso": {
+					"baseline_rgb": [
+						0.149019613862038,
+						0.227450981736183,
+						0.368627458810806
+					],
+					"case_rgb": [
+						0.149019613862038,
+						0.227450981736183,
+						0.368627458810806
+					],
+					"max_channel_delta": 0.0,
+					"xy": [
+						746,
+						613
+					]
+				}
+			},
+			"label": "left_all_five_1p0_control",
+			"production_glow_layers_modified": false,
+			"tested_tint": 1.0,
+			"two_handed_rifle": true,
+			"underlying_arm_baseline_tints": {
+				"arm_back_lower": 0.620000004768372,
+				"arm_back_upper": 0.620000004768372
+			},
+			"underlying_arm_tints_preserved": false,
+			"validation": "invariant_regions_pass",
+			"weapon": {
+				"back_foregrip_error_world_px": 0.0000682393801980652,
+				"back_palm_target_global": [
+					455.184875488281,
+					565.993041992188
+				],
+				"foregrip_global": [
+					455.184906005859,
+					565.992980957031
+				],
+				"front_grip_error_world_px": 0.0,
+				"front_palm_target_global": [
+					687.634399414063,
+					579.66650390625
+				],
+				"glow_visible": true,
+				"grip_global": [
+					687.634399414063,
+					579.66650390625
+				],
+				"id": "rifle",
+				"muzzle_global": [
+					195.388397216797,
+					524.972534179688
+				],
+				"texture_class": "CanvasTexture"
+			}
+		}
+	],
+	"errors": [],
+	"holder_position": [
+		768.0,
+		1600.0
+	],
+	"key": {
+		"energy": 0.85,
+		"kind": "LightKit white PointLight2D",
+		"position": [
+			590.0,
+			385.0
+		],
+		"radius_px": 720.0
+	},
+	"lightkit": {
+		"character_fill": 1.0,
+		"character_light_cap": 0.5,
+		"glow": true
+	},
+	"output_directory": "res://.godot/rin-hand-lighting-review/runtime-native-2620/",
+	"palm_error_scope": "distance from the runtime IK palm-anchor target to the configured weapon grip/foregrip; it does not measure drawn finger/palm surface contact",
+	"scope": "private runtime comparison; production character art, normals, shared material, weapon and glow remain loaded unchanged",
+	"viewport_px": [
+		1536,
+		1216
+	],
+	"viewport_use_hdr_2d": true
+}

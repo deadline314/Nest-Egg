@@ -1,0 +1,11 @@
+受影響的測試：AmmoIconsSuite,AmmoTraySuite,AnimAuditSuite,ApplyPanelSuite,AreasSuite,AudioSuite,Chapter1MapSuite,Chapter2ExpansionSuite,Chapter2Suite,ChapterCutscenesSuite,CharactersSuite,ClipEditorSuite,CombatHudSuite,ContinuitySuite,CutsceneSuite,DeathFlowSuite,DeathReactionSuite,EconomySuite,EnemyArtDeliverySuite,FeelSuite,FxMeleePickupsSuite,FxUpgradesSuite,InputFeelSuite,LayerOrderSuite,LocomotionSuite,MapBubblesSuite,MeleeSuite,MeleeWeaponsSuite,MusicSuite,NpcAnimationSuite,NpcLifeSuite,NpcSuite,PacingSuite,PhoneBoothSuite,ProgressionSuite,PropsSuite,ProtagonistMotionSuite,QuestMapSuite,ReadabilityTargetsSuite,RigActionsSuite,RigMeshSuite,SceneSanitySuite,SoundLabSuite,SoundStageSuite,StageCoverageCharactersSuite,StageCoverageWeaponsSuite,StageCoverageWorldSuite,StrikeEnemiesSuite,SupplySuite,TransitionSuite,UiScreensSuite,main
+Running 52 groups in 8 processes (logs: C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/ne222-final-grip-affected-tests)
+  process 0 (estimated 149 s): StageCoverageWorldSuite
+  process 1 (estimated 92 s): main
+  process 2 (estimated 87 s): Chapter2Suite,PropsSuite,FxUpgradesSuite,DeathFlowSuite,NpcSuite,LocomotionSuite
+  process 3 (estimated 87 s): StageCoverageWeaponsSuite,DeathReactionSuite,UiScreensSuite,AmmoTraySuite,ProgressionSuite,NpcAnimationSuite,SceneSanitySuite
+  process 4 (estimated 87 s): Chapter1MapSuite,FxMeleePickupsSuite,MeleeWeaponsSuite,MapBubblesSuite,CutsceneSuite,FeelSuite,RigActionsSuite
+  process 5 (estimated 87 s): SoundStageSuite,EnemyArtDeliverySuite,SupplySuite,CombatHudSuite,MusicSuite,QuestMapSuite
+  process 6 (estimated 87 s): ContinuitySuite,Chapter2ExpansionSuite,AudioSuite,TransitionSuite,NpcLifeSuite,AreasSuite
+  process 7 (estimated 86 s): StageCoverageCharactersSuite,StrikeEnemiesSuite,PhoneBoothSuite,AnimAuditSuite,SoundLabSuite,MeleeSuite,RigMeshSuite,ReadabilityTargetsSuite,ProtagonistMotionSuite,PacingSuite,LayerOrderSuite,InputFeelSuite,EconomySuite,ClipEditorSuite,CharactersSuite,ChapterCutscenesSuite,ApplyPanelSuite,AmmoIconsSuite
+checks: 39083, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 163 s)

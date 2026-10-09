@@ -1,0 +1,29 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/main_menu.gd:33)
+       [3] act_screen (res://tools/sound_lab/stage_actions.gd:587)
+       [4] run (res://tools/sound_lab/stage_actions.gd:46)
+       [5] run_action (res://tools/sound_lab/sound_stage.gd:119)
+       [6] reset (res://tools/sound_lab/lab_arena.gd:121)
+       [7] build (res://tools/sound_lab/lab_arena.gd:73)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/victory_screen.gd:22)
+       [3] act_screen (res://tools/sound_lab/stage_actions.gd:587)
+       [4] run (res://tools/sound_lab/stage_actions.gd:46)
+       [5] run_action (res://tools/sound_lab/sound_stage.gd:119)
+       [6] reset (res://tools/sound_lab/lab_arena.gd:121)
+       [7] build (res://tools/sound_lab/lab_arena.gd:73)
+SUITE_TIME StageCoverageWorldSuite 150.0
+checks: 93, failures: 0

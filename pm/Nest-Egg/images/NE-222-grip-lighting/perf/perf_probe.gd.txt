@@ -1,0 +1,123 @@
+extends Node
+
+const BaselineAnimator := preload("res://.godot/legacy-grip-fix/perf/perf_baseline_animator.gd")
+const DT := 1.0 / 60.0
+const ACTORS := 10
+const WARMUP_FRAMES := 120
+const MEASURE_FRAMES := 3000
+const RUNS := 3
+const CASES := [
+	{"enemy": "elite_grunt", "skin": "trooper_elite", "weapon": "rifle"},
+	{"enemy": "flamer", "skin": "flamer", "weapon": "flamethrower"},
+	{"enemy": "mortar", "skin": "grenadier", "weapon": "launcher"},
+	{"enemy": "sniper", "skin": "sniper", "weapon": "sniper"},
+	{"enemy": "stalker", "skin": "stalker", "weapon": "rifle"},
+]
+const OUTPUT_PATH := "res://.godot/legacy-grip-fix/perf/results.json"
+
+var _all_results: Array[Dictionary] = []
+var _all_summary: Array[Dictionary] = []
+var _failed := false
+
+
+func _ready() -> void:
+	CharacterRig.force_rigid_limbs = false
+	for spec: Dictionary in CASES:
+		var enemy := load("res://data/enemies/%s.tres" % str(spec["enemy"])) as EnemyData
+		if enemy == null:
+			_fail("missing EnemyData: %s" % str(spec["enemy"]))
+			get_tree().quit(1)
+			return
+		var speeds := {"move_speed": enemy.move_speed, "run_speed": maxf(40.0, enemy.move_speed * 2.0)}
+		var timing := {"before": [], "after": []}
+		var expected_geometry: Dictionary = {}
+		for run_index in RUNS:
+			var order: Array = ["before", "after"] if run_index % 2 == 0 else ["after", "before"]
+			for mode: String in order:
+				var sample := await _measure(spec, enemy.move_speed, mode)
+				timing[mode].append(float(sample["usec_per_actor_frame"]))
+				_all_results.append({"enemy": spec["enemy"], "skin": spec["skin"], "weapon": spec["weapon"], "run": run_index + 1, "order": order, "mode": mode, "sample": sample})
+				var geometry := {"bone_count": sample["bone_count"], "mesh_count": sample["mesh_count"], "vertices_per_actor": sample["vertices_per_actor"]}
+				if expected_geometry.is_empty():
+					expected_geometry = geometry
+				elif geometry != expected_geometry:
+					_fail("geometry changed for %s %s %s: %s != %s" % [spec["skin"], spec["weapon"], mode, geometry, expected_geometry])
+				if mode == "before" and float(sample["max_back_grip_gap_px"]) <= 0.1:
+					_fail("baseline did not reproduce offhand gap for %s: %.4f" % [spec["skin"], float(sample["max_back_grip_gap_px"])])
+				if mode == "after" and float(sample["max_back_grip_gap_px"]) > 0.025:
+					_fail("fixed offhand gap exceeds 0.025 for %s: %.4f" % [spec["skin"], float(sample["max_back_grip_gap_px"])])
+		var before_median := _median(timing["before"])
+		var after_median := _median(timing["after"])
+		var delta_percent := ((after_median / before_median) - 1.0) * 100.0 if before_median > 0.0 else 0.0
+		var summary := {"enemy": spec["enemy"], "skin": spec["skin"], "weapon": spec["weapon"], "move_speed": enemy.move_speed, "run_speed": speeds["run_speed"], "actor_count": ACTORS, "warmup_frames": WARMUP_FRAMES, "measured_frames": MEASURE_FRAMES, "runs_per_mode": RUNS, "before_samples_usec_per_actor_frame": timing["before"], "after_samples_usec_per_actor_frame": timing["after"], "before_median_usec_per_actor_frame": before_median, "after_median_usec_per_actor_frame": after_median, "delta_percent": delta_percent, "bone_count_per_actor": expected_geometry.get("bone_count", -1), "mesh_count_per_actor": expected_geometry.get("mesh_count", -1), "vertices_per_actor": expected_geometry.get("vertices_per_actor", -1)}
+		_all_summary.append(summary)
+		print("PERF_SUMMARY %s/%s before=%.3f after=%.3f us/actor/frame delta=%+.2f%% geometry bones=%d meshes=%d vertices=%d" % [spec["skin"], spec["weapon"], before_median, after_median, delta_percent, int(summary["bone_count_per_actor"]), int(summary["mesh_count_per_actor"]), int(summary["vertices_per_actor"])])
+	var payload := {"created_utc": Time.get_datetime_string_from_system(true, true), "godot": Engine.get_version_info(), "renderer": "headless CPU; script animation only", "dt": DT, "actors_per_case": ACTORS, "warmup_frames": WARMUP_FRAMES, "measured_frames": MEASURE_FRAMES, "runs_per_mode": RUNS, "order_by_run": ["before,after", "after,before", "before,after"], "configuration": "facing=1, aim=right, velocity=actual EnemyData.move_speed, two_handed=true, on_floor=true; both modes use identical data and mesh generation", "failed": _failed, "results": _all_results, "summary": _all_summary}
+	var file := FileAccess.open(OUTPUT_PATH, FileAccess.WRITE)
+	if file == null:
+		_fail("cannot write %s" % OUTPUT_PATH)
+		get_tree().quit(1)
+		return
+	file.store_string(JSON.stringify(payload, "\t"))
+	file.close()
+	get_tree().quit(1 if _failed else 0)
+
+
+func _measure(spec: Dictionary, speed: float, mode: String) -> Dictionary:
+	var rigs: Array[CharacterRig] = []
+	var inputs: Array[RigInput] = []
+	for actor_index in ACTORS:
+		var rig := CharacterRig.new()
+		add_child(rig)
+		if not rig.setup(str(spec["skin"])):
+			_fail("failed CharacterRig.setup for %s" % str(spec["skin"]))
+		rig.set_weapon(str(spec["weapon"]))
+		if mode == "before":
+			rig.animator = BaselineAnimator.new(rig)
+		var input := RigInput.new()
+		input.facing = 1
+		input.on_floor = true
+		input.two_handed = true
+		input.run_speed = maxf(40.0, speed * 2.0)
+		input.velocity = Vector2(speed, 0.0)
+		input.aim_dir = Vector2.RIGHT
+		rigs.append(rig)
+		inputs.append(input)
+	for frame in WARMUP_FRAMES:
+		for i in ACTORS:
+			rigs[i].animate(DT, inputs[i])
+	var started := Time.get_ticks_usec()
+	for frame in MEASURE_FRAMES:
+		for i in ACTORS:
+			rigs[i].animate(DT, inputs[i])
+	var elapsed := Time.get_ticks_usec() - started
+	var max_front_gap := 0.0
+	var max_back_gap := 0.0
+	var first := rigs[0]
+	var vertices_per_actor := 0
+	for mesh: RigPartMesh in first.limb_meshes():
+		vertices_per_actor += mesh.vertex_count()
+	var mesh_count := first.limb_meshes().size()
+	var bone_count := first.bone_order().size()
+	for actor_index in ACTORS:
+		var rig := rigs[actor_index]
+		var weapon := rig.weapon_def()
+		var foregrip := (RigLibrary.vec2(weapon["foregrip"]) - RigLibrary.vec2(weapon["grip"])) * rig.weapon_scale()
+		var front_palm: Vector2 = rig.bone(&"hand_front").global_transform * rig.hand_grip_offset(&"hand_front")
+		var back_palm: Vector2 = rig.bone(&"hand_back").global_transform * rig.hand_grip_offset(&"hand_back")
+		max_front_gap = maxf(max_front_gap, front_palm.distance_to(rig.weapon_root().global_position))
+		max_back_gap = maxf(max_back_gap, back_palm.distance_to(rig.weapon_root().global_transform * foregrip))
+		rig.queue_free()
+	await get_tree().process_frame
+	return {"elapsed_usec": elapsed, "usec_per_actor_frame": float(elapsed) / (float(MEASURE_FRAMES) * ACTORS), "max_front_grip_gap_px": max_front_gap, "max_back_grip_gap_px": max_back_gap, "bone_count": bone_count, "mesh_count": mesh_count, "vertices_per_actor": vertices_per_actor}
+
+
+func _median(values: Array) -> float:
+	var sorted: Array = values.duplicate()
+	sorted.sort()
+	return float(sorted[sorted.size() / 2])
+
+
+func _fail(message: String) -> void:
+	_failed = true
+	push_error("PERF_ASSERT " + message)

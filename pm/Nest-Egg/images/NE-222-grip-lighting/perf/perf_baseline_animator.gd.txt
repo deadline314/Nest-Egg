@@ -1,0 +1,80 @@
+extends HumanoidAnimator
+## Historical _solve_arms from 4a754af0; this private subclass provides a baseline
+## without changing CharacterRig's production animator registration or runtime files.
+
+func _solve_arms(input: RigInput, aim_angle: float) -> void:
+	var weapon := _rig.weapon_def()
+	var weapon_root := _rig.weapon_root()
+	var action_arms := {}
+	var action_hand := Vector2.ZERO
+	var action_weapon_angle := 0.0
+	if _action_skip_ik and _action_w > 0.001:
+		if _rig.has_bone(&"hand_front"):
+			weapon_root.visible = not weapon.is_empty()
+			action_hand = _global_pos.get(&"hand_front", Vector2.ZERO) + _rig.hand_grip_offset(&"hand_front").rotated(_global_angle.get(&"hand_front", 0.0))
+			action_weapon_angle = _global_angle.get(&"hand_front", 0.0) - PI * 0.5 if is_nan(_action_weapon_angle) else _action_weapon_angle
+			if _action_w >= 0.999:
+				weapon_root.position = action_hand
+				weapon_root.rotation = action_weapon_angle
+				return
+			for arm: Array in ARM_CHAINS:
+				for bone_name: StringName in arm:
+					if _rig.has_bone(bone_name):
+						action_arms[bone_name] = _rig.bone(bone_name).rotation
+	var anchor: Array = _rig.weapon_anchor()
+	var anchor_bone: StringName = anchor[0]
+	var anchor_point: Vector2 = _global_pos.get(anchor_bone, Vector2.ZERO) + (anchor[1] as Vector2).rotated(_global_angle.get(anchor_bone, 0.0))
+	var reach: float = anchor[2] * (0.7 if input.blocking else 1.0) - _recoil * float((_motion["recoil"] as Dictionary)["reach"])
+	var aim := Vector2.RIGHT.rotated(aim_angle)
+	if not _rig.hand_grip_offset(&"hand_front").is_zero_approx():
+		var minimum := 0.0
+		var maximum := INF
+		for chain: Array in ARM_CHAINS:
+			var hand: StringName = chain[2]
+			if hand == &"hand_back" and (not input.two_handed or input.shield_forward or _rig.hand_grip_offset(hand).is_zero_approx()):
+				continue
+			var fore := (RigLibrary.vec2(weapon.get("foregrip")) - RigLibrary.vec2(weapon.get("grip"))) * _rig.weapon_scale() if hand == &"hand_back" else Vector2.ZERO
+			var delta_to_shoulder: Vector2 = anchor_point + (fore - _rig.hand_grip_offset(hand)).rotated(aim_angle) - _global_pos[chain[0]]
+			var length := _rig.rest(chain[1]).length() + _rig.rest(hand).length() - 0.01
+			var along := delta_to_shoulder.dot(aim)
+			var discriminant := length * length - (delta_to_shoulder.length_squared() - along * along)
+			if discriminant < 0.0:
+				maximum = -INF
+				break
+			var span := sqrt(discriminant)
+			minimum = maxf(minimum, -along - span)
+			maximum = minf(maximum, -along + span)
+		if minimum <= maximum:
+			reach = clampf(reach, minimum, maximum)
+		else:
+			RigLibrary.report_once("grip-reach:%s:%s" % [_rig.skin_id, weapon.get("file", "")], "[HumanoidAnimator] %s weapon %s has no reachable two-hand grip at %.2f radians" % [_rig.skin_id, weapon.get("file", ""), aim_angle])
+	var grip := anchor_point + aim * reach
+
+	if weapon.is_empty():
+		weapon_root.visible = false
+		_set_rotation(&"arm_front_upper", 0.2 + sin(_phase) * 0.4)
+		_set_rotation(&"arm_front_lower", -0.3)
+		_set_rotation(&"hand_front", HAND_FOLLOWS_FOREARM)
+	else:
+		weapon_root.visible = true
+		weapon_root.position = grip
+		weapon_root.rotation = aim_angle
+		_reach_arm(&"arm_front_upper", &"arm_front_lower", &"hand_front", grip - _rig.hand_grip_offset(&"hand_front").rotated(aim_angle), aim_angle)
+
+	if input.shield_forward:
+		var shoulder: Vector2 = _global_pos.get(&"arm_back_upper", anchor_point)
+		_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back", shoulder + aim * 13.0 + Vector2(0, 2), aim_angle * 0.3)
+	elif input.two_handed and not weapon.is_empty():
+		var offset := (RigLibrary.vec2(weapon.get("foregrip")) - RigLibrary.vec2(weapon.get("grip"))) * _rig.weapon_scale()
+		_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back", grip + (offset - _rig.hand_grip_offset(&"hand_back")).rotated(aim_angle), aim_angle)
+	else:
+		var swing := sin(_phase + PI) * 0.4
+		_set_rotation(&"arm_back_upper", 0.2 + swing)
+		_set_rotation(&"arm_back_lower", -0.3)
+		_set_rotation(&"hand_back", HAND_FOLLOWS_FOREARM)
+	if not action_arms.is_empty():
+		var w := smoothstep(0.0, 1.0, _action_w)
+		for bone_name: StringName in action_arms.keys():
+			_rig.bone(bone_name).rotation = lerp_angle(_rig.bone(bone_name).rotation, float(action_arms[bone_name]), w)
+		weapon_root.position = weapon_root.position.lerp(action_hand, w)
+		weapon_root.rotation = lerp_angle(weapon_root.rotation, action_weapon_angle, w)

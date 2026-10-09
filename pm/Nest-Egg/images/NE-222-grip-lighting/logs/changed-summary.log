@@ -1,0 +1,11 @@
+受影響的測試：AmmoIconsSuite,AmmoTraySuite,AnimAuditSuite,ApplyPanelSuite,AreasSuite,AssaultEnemiesSuite,AudioSuite,Chapter1MapSuite,Chapter2ArtSuite,Chapter2ExpansionSuite,Chapter2Suite,ChapterCutscenesSuite,CharactersSuite,ClipEditorSuite,CombatHudSuite,ContinuitySuite,CutsceneSuite,DeathFlowSuite,DeathReactionSuite,DevMenuSuite,EconomySuite,EnemyArtDeliverySuite,EnvironmentSuite,FeelSuite,FxMeleePickupsSuite,FxUpgradesSuite,HeavyEnemiesSuite,InputFeelSuite,LayerOrderSuite,LocomotionSuite,MapBubblesSuite,MeleeSuite,MeleeWeaponsSuite,MusicSuite,NpcAnimationSuite,NpcLifeSuite,NpcSuite,PacingSuite,PhoneBoothSuite,ProgressionSuite,PropsSuite,ProtagonistMotionSuite,QuestMapSuite,ReadabilityTargetsSuite,ReconEnemiesSuite,RigActionsSuite,RigMeshSuite,SceneSanitySuite,SoundLabSuite,SoundStageSuite,StageCoverageCharactersSuite,StageCoverageWeaponsSuite,StageCoverageWorldSuite,StrikeEnemiesSuite,SupplySuite,TransitionSuite,UiScreensSuite,main
+Running 58 groups in 8 processes (logs: C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/ne222-shared-grip-affected-tests)
+  process 0 (estimated 150 s): StageCoverageWorldSuite
+  process 1 (estimated 108 s): main,AnimAuditSuite,SoundLabSuite,EnvironmentSuite,AmmoIconsSuite
+  process 2 (estimated 107 s): Chapter2Suite,EnemyArtDeliverySuite,DeathReactionSuite,NpcSuite,ProgressionSuite,MeleeSuite,RigMeshSuite,ReadabilityTargetsSuite,ProtagonistMotionSuite,PacingSuite,LayerOrderSuite,InputFeelSuite,EconomySuite,DevMenuSuite,ClipEditorSuite,CharactersSuite,ChapterCutscenesSuite,Chapter2ArtSuite,ApplyPanelSuite
+  process 3 (estimated 107 s): AssaultEnemiesSuite,Chapter2ExpansionSuite,PropsSuite,AmmoTraySuite,CutsceneSuite,LocomotionSuite
+  process 4 (estimated 107 s): StageCoverageWeaponsSuite,StrikeEnemiesSuite,FxMeleePickupsSuite,DeathFlowSuite,CombatHudSuite,AreasSuite
+  process 5 (estimated 107 s): Chapter1MapSuite,ReconEnemiesSuite,MeleeWeaponsSuite,PhoneBoothSuite,TransitionSuite,MusicSuite,RigActionsSuite
+  process 6 (estimated 107 s): SoundStageSuite,StageCoverageCharactersSuite,UiScreensSuite,SupplySuite,MapBubblesSuite,FeelSuite,QuestMapSuite
+  process 7 (estimated 107 s): ContinuitySuite,HeavyEnemiesSuite,FxUpgradesSuite,AudioSuite,NpcLifeSuite,SceneSanitySuite,NpcAnimationSuite
+checks: 50407, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 161 s)

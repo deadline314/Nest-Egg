@@ -1,0 +1,31 @@
+COMMAND: D:\ComfyUI\.venv\Scripts\python.exe C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\tools\comfyui\cut_layers.py --spec C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\.godot\ne222-tint-export-proof\rin_side-baseline.json --work C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\art_src\characters\rin2 --char C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\.godot\ne222-tint-export-proof\run-02\baseline\char --rig C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\.godot\ne222-tint-export-proof\run-02\baseline\rig\humanoid_tall.json
+RETURN_CODE: 0
+--- STDOUT ---
+  hair_back_2: 123x198 pivot=(78.7,25.0)
+  hair_back_1: 109x218 pivot=(62.3,32.9)
+  pelvis: 180x135 pivot=(81.0,105.0)
+  pelvis_dmg: 180x135 pivot=(81.0,105.0)
+  torso: 200x336 pivot=(55.0,306.0)
+  torso_dmg: 200x336 pivot=(55.0,306.0)
+  head: 133x141 pivot=(51.0,175.0)
+  holster: 113x109 pivot=(50.3,-44.2)
+  leg_upper: 148x247 pivot=(63.8,-10.0)
+  leg_upper_dmg: 148x247 pivot=(63.8,-10.0)
+  leg_lower: 89x222 pivot=(64.2,10.0)
+  leg_lower_dmg: 89x222 pivot=(64.2,10.0)
+  foot: 163x212 pivot=(57.0,72.0)
+  arm_upper: 91x223 pivot=(28.3,54.5)
+  arm_lower: 61x183 pivot=(32.8,10.4)
+  hand: 141x68 pivot=(38.1,29.4)
+  armor_jacket: 157x185 pivot=(68.0,260.0)
+  jacket_hem: 104x52 pivot=(56.0,10.0)
+  arm_left_upper: 78x265 pivot=(25.4,46.1)
+  arm_left_lower: 66x239 pivot=(26.3,61.0)
+  hand_left: 134x65 pivot=(24.9,29.8)
+  hand_grip: 95x56 pivot=(38.1,22.9)
+  hand_left_grip: 90x70 pivot=(15.9,35.5)
+  jacket_sleeve_upper: 99x244 pivot=(28.7,69.8)
+  jacket_sleeve_lower: 72x174 pivot=(29.0,21.6)
+rig bones: 20  textures: 27  parts: 30
+
+--- STDERR ---

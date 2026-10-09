@@ -1,0 +1,15 @@
+extends "res://tools/screenshot.gd"
+
+func _run() -> void:
+	var skin := RigLibrary.character("rin").duplicate(true)
+	var names := ["arm_back_upper", "arm_back_lower", "hand_back", "jacket_sleeve_back_upper", "jacket_sleeve_back_lower"]
+	var changed := 0
+	for part: Dictionary in skin["parts"]:
+		if part["name"] in names:
+			assert(is_equal_approx(float(part["tint"]), 1.0))
+			part["tint"] = 0.62
+			changed += 1
+	assert(changed == 5)
+	RigLibrary._json_cache[RigLibrary.CHARACTER_PATH % "rin"] = skin
+	print("BASELINE: in-memory five back-arm tints 0.62; all formal textures and render settings retained")
+	await super._run()

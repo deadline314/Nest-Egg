@@ -1,0 +1,869 @@
+{
+  "scope": "CPU raw-PNG audit of the private standing Rin rifle grip/sleeve tint comparison. It does not certify drawn finger contact, kneeling pose, hips, seams, full-body styling, or gameplay acceptance.",
+  "source_run": "runtime-native-2620",
+  "renderer_context": "Parent-reported GPU run: Godot 4.7.2 Forward+ with HDR 2D. This audit used CPU PNG reads only.",
+  "capture": {
+    "viewport_px": [
+      1536,
+      1216
+    ],
+    "camera_zoom": 23.78,
+    "holder_position": [
+      768.0,
+      1600.0
+    ],
+    "viewport_use_hdr_2d": true,
+    "capture_conversion": "tools/viewport_capture.gd: HDR linear readback converted to sRGB PNG",
+    "lightkit": {
+      "character_fill": 1.0,
+      "character_light_cap": 0.5,
+      "glow": true
+    },
+    "key": {
+      "energy": 0.85,
+      "kind": "LightKit white PointLight2D",
+      "position": [
+        590.0,
+        385.0
+      ],
+      "radius_px": 720.0
+    },
+    "standing_grounded_two_handed_rifle": true,
+    "captures": 10,
+    "manifest_errors": []
+  },
+  "baseline_loaded_tints": {
+    "all_five_back_part_tints": 0.62,
+    "meaning": "Values recorded by the runtime harness when the baseline rig loaded."
+  },
+  "shared_character_json_at_audit": {
+    "path": "art/characters/rin/character.json",
+    "five_back_part_tints": {
+      "arm_back_upper": 1.0,
+      "arm_back_lower": 1.0,
+      "hand_back": 1.0,
+      "jacket_sleeve_back_upper": 1.0,
+      "jacket_sleeve_back_lower": 1.0
+    },
+    "note": "Read-only snapshot in the shared worktree during this evidence pass; no formal file was edited here."
+  },
+  "tested_five_parts": {
+    "arm_back_lower": {
+      "texture_class": "CanvasTexture",
+      "diffuse_path": "res://art/characters/rin/parts/arm_left_lower.png",
+      "normal_path": "res://art/characters/rin/parts/arm_left_lower_n.png",
+      "normal_present": true,
+      "baseline_part_tint": 0.620000004768372,
+      "runtime_part_tint": 0.620000004768372
+    },
+    "arm_back_upper": {
+      "texture_class": "CanvasTexture",
+      "diffuse_path": "res://art/characters/rin/parts/arm_left_upper.png",
+      "normal_path": "res://art/characters/rin/parts/arm_left_upper_n.png",
+      "normal_present": true,
+      "baseline_part_tint": 0.620000004768372,
+      "runtime_part_tint": 0.620000004768372
+    },
+    "hand_back": {
+      "texture_class": "CanvasTexture",
+      "diffuse_path": "res://art/characters/rin/parts/hand_left_grip.png",
+      "normal_path": "res://art/characters/rin/parts/hand_left_grip_n.png",
+      "normal_present": true,
+      "baseline_part_tint": 0.620000004768372,
+      "runtime_part_tint": 0.620000004768372
+    },
+    "jacket_sleeve_back_lower": {
+      "texture_class": "CanvasTexture",
+      "diffuse_path": "res://art/characters/rin/parts/jacket_sleeve_lower.png",
+      "normal_path": "res://art/characters/rin/parts/jacket_sleeve_lower_n.png",
+      "normal_present": true,
+      "baseline_part_tint": 0.620000004768372,
+      "runtime_part_tint": 0.620000004768372
+    },
+    "jacket_sleeve_back_upper": {
+      "texture_class": "CanvasTexture",
+      "diffuse_path": "res://art/characters/rin/parts/jacket_sleeve_upper.png",
+      "normal_path": "res://art/characters/rin/parts/jacket_sleeve_upper_n.png",
+      "normal_present": true,
+      "baseline_part_tint": 0.620000004768372,
+      "runtime_part_tint": 0.620000004768372
+    }
+  },
+  "baseline_non_glow_samples_srgb_rgba": {
+    "right": {
+      "mechanical_palm": {
+        "xy_px": [
+          918,
+          565
+        ],
+        "rgba_srgb": [
+          159,
+          161,
+          161,
+          255
+        ],
+        "baseline_channel_delta_max": 0.0
+      },
+      "navy_shoulder": {
+        "xy_px": [
+          824,
+          611
+        ],
+        "rgba_srgb": [
+          33,
+          52,
+          93,
+          255
+        ],
+        "baseline_channel_delta_max": 0.0
+      },
+      "torso": {
+        "xy_px": [
+          878,
+          599
+        ],
+        "rgba_srgb": [
+          33,
+          52,
+          91,
+          255
+        ],
+        "baseline_channel_delta_max": 0.0
+      }
+    },
+    "left": {
+      "mechanical_palm": {
+        "xy_px": [
+          708,
+          579
+        ],
+        "rgba_srgb": [
+          246,
+          247,
+          248,
+          255
+        ],
+        "baseline_channel_delta_max": 0.0
+      },
+      "navy_shoulder": {
+        "xy_px": [
+          802,
+          625
+        ],
+        "rgba_srgb": [
+          33,
+          55,
+          93,
+          255
+        ],
+        "baseline_channel_delta_max": 0.0
+      },
+      "torso": {
+        "xy_px": [
+          746,
+          613
+        ],
+        "rgba_srgb": [
+          38,
+          58,
+          94,
+          255
+        ],
+        "baseline_channel_delta_max": 0.0
+      }
+    }
+  },
+  "result": {
+    "cases_passed": 8,
+    "cases_total": 8,
+    "same_facing_sample_max_delta": 0.0,
+    "max_invariant_region_mean_abs_rgb_delta": 0.00122541493513859,
+    "max_new_dark_pixels_any_region": 0,
+    "front_grip_residual_world_px_max": 0.0,
+    "back_foregrip_residual_world_px_max": 6.82393801980652e-05,
+    "interpretation": "The 0.62 baseline matches raw same-facing samples; tested tint changes preserve head/torso/front-sleeve/mechanical-palm sample RGB. Small region deltas occur only where tinted back parts overlap the ROI; no newly dark pixels were measured. Runtime anchors coincide with configured weapon points within the residuals shown, which does not prove visual palm/finger contact."
+  },
+  "cases": [
+    {
+      "label": "right_hand_sleeves_0p62",
+      "facing": "right",
+      "tint_case": "hand_sleeves_0p62",
+      "part_tints": {
+        "arm_back_lower": 0.620000004768372,
+        "arm_back_upper": 0.620000004768372,
+        "hand_back": 0.620000004768372,
+        "jacket_sleeve_back_lower": 0.620000004768372,
+        "jacket_sleeve_back_upper": 0.620000004768372
+      },
+      "all_five_back_parts_tinted": false,
+      "underlying_arm_baseline_tints": {
+        "arm_back_lower": 0.620000004768372,
+        "arm_back_upper": 0.620000004768372
+      },
+      "canvas_normals_present_all_five": true,
+      "front_grip_residual_world_px": 0.0,
+      "back_foregrip_residual_world_px": 6.103515625e-05,
+      "invariant_sample_max_channel_delta": 0.0,
+      "max_invariant_region_mean_abs_rgb_delta": 0.0,
+      "new_dark_pixels_by_region": {
+        "front_sleeve_lower": 0,
+        "front_sleeve_upper": 0,
+        "head": 0,
+        "mechanical_palm": 0,
+        "torso": 0
+      },
+      "validation": "invariant_regions_pass",
+      "image": "right_hand_sleeves_0p62.png"
+    },
+    {
+      "label": "right_hand_sleeves_0p9",
+      "facing": "right",
+      "tint_case": "hand_sleeves_0p9",
+      "part_tints": {
+        "arm_back_lower": 0.620000004768372,
+        "arm_back_upper": 0.620000004768372,
+        "hand_back": 0.899999976158142,
+        "jacket_sleeve_back_lower": 0.899999976158142,
+        "jacket_sleeve_back_upper": 0.899999976158142
+      },
+      "all_five_back_parts_tinted": false,
+      "underlying_arm_baseline_tints": {
+        "arm_back_lower": 0.620000004768372,
+        "arm_back_upper": 0.620000004768372
+      },
+      "canvas_normals_present_all_five": true,
+      "front_grip_residual_world_px": 0.0,
+      "back_foregrip_residual_world_px": 6.103515625e-05,
+      "invariant_sample_max_channel_delta": 0.0,
+      "max_invariant_region_mean_abs_rgb_delta": 0.000623236297049045,
+      "new_dark_pixels_by_region": {
+        "front_sleeve_lower": 0,
+        "front_sleeve_upper": 0,
+        "head": 0,
+        "mechanical_palm": 0,
+        "torso": 0
+      },
+      "validation": "invariant_regions_pass",
+      "image": "right_hand_sleeves_0p9.png"
+    },
+    {
+      "label": "right_hand_sleeves_1p0",
+      "facing": "right",
+      "tint_case": "hand_sleeves_1p0",
+      "part_tints": {
+        "arm_back_lower": 0.620000004768372,
+        "arm_back_upper": 0.620000004768372,
+        "hand_back": 1.0,
+        "jacket_sleeve_back_lower": 1.0,
+        "jacket_sleeve_back_upper": 1.0
+      },
+      "all_five_back_parts_tinted": false,
+      "underlying_arm_baseline_tints": {
+        "arm_back_lower": 0.620000004768372,
+        "arm_back_upper": 0.620000004768372
+      },
+      "canvas_normals_present_all_five": true,
+      "front_grip_residual_world_px": 0.0,
+      "back_foregrip_residual_world_px": 6.103515625e-05,
+      "invariant_sample_max_channel_delta": 0.0,
+      "max_invariant_region_mean_abs_rgb_delta": 0.000830608083722386,
+      "new_dark_pixels_by_region": {
+        "front_sleeve_lower": 0,
+        "front_sleeve_upper": 0,
+        "head": 0,
+        "mechanical_palm": 0,
+        "torso": 0
+      },
+      "validation": "invariant_regions_pass",
+      "image": "right_hand_sleeves_1p0.png"
+    },
+    {
+      "label": "right_all_five_1p0_control",
+      "facing": "right",
+      "tint_case": "all_five_1p0_control",
+      "part_tints": {
+        "arm_back_lower": 1.0,
+        "arm_back_upper": 1.0,
+        "hand_back": 1.0,
+        "jacket_sleeve_back_lower": 1.0,
+        "jacket_sleeve_back_upper": 1.0
+      },
+      "all_five_back_parts_tinted": true,
+      "underlying_arm_baseline_tints": {
+        "arm_back_lower": 0.620000004768372,
+        "arm_back_upper": 0.620000004768372
+      },
+      "canvas_normals_present_all_five": true,
+      "front_grip_residual_world_px": 0.0,
+      "back_foregrip_residual_world_px": 6.103515625e-05,
+      "invariant_sample_max_channel_delta": 0.0,
+      "max_invariant_region_mean_abs_rgb_delta": 0.00122541493513859,
+      "new_dark_pixels_by_region": {
+        "front_sleeve_lower": 0,
+        "front_sleeve_upper": 0,
+        "head": 0,
+        "mechanical_palm": 0,
+        "torso": 0
+      },
+      "validation": "invariant_regions_pass",
+      "image": "right_all_five_1p0_control.png"
+    },
+    {
+      "label": "left_hand_sleeves_0p62",
+      "facing": "left",
+      "tint_case": "hand_sleeves_0p62",
+      "part_tints": {
+        "arm_back_lower": 0.620000004768372,
+        "arm_back_upper": 0.620000004768372,
+        "hand_back": 0.620000004768372,
+        "jacket_sleeve_back_lower": 0.620000004768372,
+        "jacket_sleeve_back_upper": 0.620000004768372
+      },
+      "all_five_back_parts_tinted": false,
+      "underlying_arm_baseline_tints": {
+        "arm_back_lower": 0.620000004768372,
+        "arm_back_upper": 0.620000004768372
+      },
+      "canvas_normals_present_all_five": true,
+      "front_grip_residual_world_px": 0.0,
+      "back_foregrip_residual_world_px": 6.82393801980652e-05,
+      "invariant_sample_max_channel_delta": 0.0,
+      "max_invariant_region_mean_abs_rgb_delta": 0.0,
+      "new_dark_pixels_by_region": {
+        "front_sleeve_lower": 0,
+        "front_sleeve_upper": 0,
+        "head": 0,
+        "mechanical_palm": 0,
+        "torso": 0
+      },
+      "validation": "invariant_regions_pass",
+      "image": "left_hand_sleeves_0p62.png"
+    },
+    {
+      "label": "left_hand_sleeves_0p9",
+      "facing": "left",
+      "tint_case": "hand_sleeves_0p9",
+      "part_tints": {
+        "arm_back_lower": 0.620000004768372,
+        "arm_back_upper": 0.620000004768372,
+        "hand_back": 0.899999976158142,
+        "jacket_sleeve_back_lower": 0.899999976158142,
+        "jacket_sleeve_back_upper": 0.899999976158142
+      },
+      "all_five_back_parts_tinted": false,
+      "underlying_arm_baseline_tints": {
+        "arm_back_lower": 0.620000004768372,
+        "arm_back_upper": 0.620000004768372
+      },
+      "canvas_normals_present_all_five": true,
+      "front_grip_residual_world_px": 0.0,
+      "back_foregrip_residual_world_px": 6.82393801980652e-05,
+      "invariant_sample_max_channel_delta": 0.0,
+      "max_invariant_region_mean_abs_rgb_delta": 0.000519998075966056,
+      "new_dark_pixels_by_region": {
+        "front_sleeve_lower": 0,
+        "front_sleeve_upper": 0,
+        "head": 0,
+        "mechanical_palm": 0,
+        "torso": 0
+      },
+      "validation": "invariant_regions_pass",
+      "image": "left_hand_sleeves_0p9.png"
+    },
+    {
+      "label": "left_hand_sleeves_1p0",
+      "facing": "left",
+      "tint_case": "hand_sleeves_1p0",
+      "part_tints": {
+        "arm_back_lower": 0.620000004768372,
+        "arm_back_upper": 0.620000004768372,
+        "hand_back": 1.0,
+        "jacket_sleeve_back_lower": 1.0,
+        "jacket_sleeve_back_upper": 1.0
+      },
+      "all_five_back_parts_tinted": false,
+      "underlying_arm_baseline_tints": {
+        "arm_back_lower": 0.620000004768372,
+        "arm_back_upper": 0.620000004768372
+      },
+      "canvas_normals_present_all_five": true,
+      "front_grip_residual_world_px": 0.0,
+      "back_foregrip_residual_world_px": 6.82393801980652e-05,
+      "invariant_sample_max_channel_delta": 0.0,
+      "max_invariant_region_mean_abs_rgb_delta": 0.000701917973506111,
+      "new_dark_pixels_by_region": {
+        "front_sleeve_lower": 0,
+        "front_sleeve_upper": 0,
+        "head": 0,
+        "mechanical_palm": 0,
+        "torso": 0
+      },
+      "validation": "invariant_regions_pass",
+      "image": "left_hand_sleeves_1p0.png"
+    },
+    {
+      "label": "left_all_five_1p0_control",
+      "facing": "left",
+      "tint_case": "all_five_1p0_control",
+      "part_tints": {
+        "arm_back_lower": 1.0,
+        "arm_back_upper": 1.0,
+        "hand_back": 1.0,
+        "jacket_sleeve_back_lower": 1.0,
+        "jacket_sleeve_back_upper": 1.0
+      },
+      "all_five_back_parts_tinted": true,
+      "underlying_arm_baseline_tints": {
+        "arm_back_lower": 0.620000004768372,
+        "arm_back_upper": 0.620000004768372
+      },
+      "canvas_normals_present_all_five": true,
+      "front_grip_residual_world_px": 0.0,
+      "back_foregrip_residual_world_px": 6.82393801980652e-05,
+      "invariant_sample_max_channel_delta": 0.0,
+      "max_invariant_region_mean_abs_rgb_delta": 0.000960265759420699,
+      "new_dark_pixels_by_region": {
+        "front_sleeve_lower": 0,
+        "front_sleeve_upper": 0,
+        "head": 0,
+        "mechanical_palm": 0,
+        "torso": 0
+      },
+      "validation": "invariant_regions_pass",
+      "image": "left_all_five_1p0_control.png"
+    }
+  ],
+  "ten_capture_pngs": [
+    {
+      "file": "baseline_right.png",
+      "sha256": "7624027db37d6438c7c5f9a9307bcfbb64f55c485bdba25be539421c93bcb21c",
+      "size_px": [
+        1536,
+        1216
+      ],
+      "alpha_bbox_xyxy": [
+        603,
+        272,
+        1445,
+        1216
+      ],
+      "opaque_pixels_alpha_ge_250": 219757
+    },
+    {
+      "file": "baseline_left.png",
+      "sha256": "7ce25e2b2719acb684a5704fba2df4c168ca63faff2156db267d517129dc9449",
+      "size_px": [
+        1536,
+        1216
+      ],
+      "alpha_bbox_xyxy": [
+        182,
+        287,
+        1001,
+        1216
+      ],
+      "opaque_pixels_alpha_ge_250": 212408
+    },
+    {
+      "file": "right_hand_sleeves_0p62.png",
+      "sha256": "7624027db37d6438c7c5f9a9307bcfbb64f55c485bdba25be539421c93bcb21c",
+      "size_px": [
+        1536,
+        1216
+      ],
+      "alpha_bbox_xyxy": [
+        603,
+        272,
+        1445,
+        1216
+      ],
+      "opaque_pixels_alpha_ge_250": 219757
+    },
+    {
+      "file": "right_hand_sleeves_0p9.png",
+      "sha256": "8524a220c1b91ce730a3726cbf6a566f756b6d8f48a7ba9e1653682f04950094",
+      "size_px": [
+        1536,
+        1216
+      ],
+      "alpha_bbox_xyxy": [
+        603,
+        272,
+        1445,
+        1216
+      ],
+      "opaque_pixels_alpha_ge_250": 219757
+    },
+    {
+      "file": "right_hand_sleeves_1p0.png",
+      "sha256": "4d25d02aa1923f96edf01ae9eaa056ff1d027cf0a8a7cf615bc5fecd62fabe8e",
+      "size_px": [
+        1536,
+        1216
+      ],
+      "alpha_bbox_xyxy": [
+        603,
+        272,
+        1445,
+        1216
+      ],
+      "opaque_pixels_alpha_ge_250": 219757
+    },
+    {
+      "file": "right_all_five_1p0_control.png",
+      "sha256": "9ce156a5ae12326633ad87cf518eee57153d7c6ba233f392c1496af2184e2850",
+      "size_px": [
+        1536,
+        1216
+      ],
+      "alpha_bbox_xyxy": [
+        603,
+        272,
+        1445,
+        1216
+      ],
+      "opaque_pixels_alpha_ge_250": 219757
+    },
+    {
+      "file": "left_hand_sleeves_0p62.png",
+      "sha256": "7ce25e2b2719acb684a5704fba2df4c168ca63faff2156db267d517129dc9449",
+      "size_px": [
+        1536,
+        1216
+      ],
+      "alpha_bbox_xyxy": [
+        182,
+        287,
+        1001,
+        1216
+      ],
+      "opaque_pixels_alpha_ge_250": 212408
+    },
+    {
+      "file": "left_hand_sleeves_0p9.png",
+      "sha256": "6156a3277fa65b65a7f3a16d815d7bcdd23ee4be9c264ae57be2b417968bd3fd",
+      "size_px": [
+        1536,
+        1216
+      ],
+      "alpha_bbox_xyxy": [
+        182,
+        287,
+        1001,
+        1216
+      ],
+      "opaque_pixels_alpha_ge_250": 212408
+    },
+    {
+      "file": "left_hand_sleeves_1p0.png",
+      "sha256": "92492c4e9262c6170e838115f74e3716e9e23776c032c77c1edf7ff7f2999f8b",
+      "size_px": [
+        1536,
+        1216
+      ],
+      "alpha_bbox_xyxy": [
+        182,
+        287,
+        1001,
+        1216
+      ],
+      "opaque_pixels_alpha_ge_250": 212408
+    },
+    {
+      "file": "left_all_five_1p0_control.png",
+      "sha256": "46d36792861a904cb5c643dd7969f5eb8d6de1bcdc9ab4e84918b054ed06d5cd",
+      "size_px": [
+        1536,
+        1216
+      ],
+      "alpha_bbox_xyxy": [
+        182,
+        287,
+        1001,
+        1216
+      ],
+      "opaque_pixels_alpha_ge_250": 212408
+    }
+  ],
+  "prior_run_raw_audit": {
+    "runtime-native-2561": {
+      "dir": "runtime-native-2561",
+      "viewport_px": [
+        1536,
+        1216
+      ],
+      "cases": 8,
+      "baselines": 0,
+      "errors": [],
+      "zero62_samples": {
+        "right": {
+          "sha256": "3359f6229ba8b3b09ae3b613621fa4aba927b925cb27165987c611cf71fe6b71",
+          "alpha_bbox_xyxy": [
+            516,
+            0,
+            1445,
+            1098
+          ],
+          "opaque_pixels_alpha_ge_250": 234264,
+          "rgb_median_opaque": [
+            45,
+            41,
+            56
+          ],
+          "rgb_mean_opaque": [
+            68.192,
+            56.445,
+            80.056
+          ]
+        },
+        "left": {
+          "sha256": "079a03cc41691f434c759b466abcdb7b65f9484f504260448cfbb22b802af310",
+          "alpha_bbox_xyxy": [
+            91,
+            0,
+            1020,
+            1098
+          ],
+          "opaque_pixels_alpha_ge_250": 234264,
+          "rgb_median_opaque": [
+            48,
+            43,
+            61
+          ],
+          "rgb_mean_opaque": [
+            72.568,
+            60.952,
+            85.27
+          ]
+        }
+      },
+      "muzzle_global_right": null,
+      "grip_and_foregrip_right_y_px": [
+        60.6246337890625,
+        46.9511337280273
+      ]
+    },
+    "runtime-native-3177": {
+      "dir": "runtime-native-3177",
+      "viewport_px": [
+        1536,
+        1216
+      ],
+      "cases": 8,
+      "baselines": 0,
+      "errors": [],
+      "zero62_samples": {
+        "right": {
+          "sha256": "7624027db37d6438c7c5f9a9307bcfbb64f55c485bdba25be539421c93bcb21c",
+          "alpha_bbox_xyxy": [
+            603,
+            272,
+            1445,
+            1216
+          ],
+          "opaque_pixels_alpha_ge_250": 219757,
+          "rgb_median_opaque": [
+            58,
+            61,
+            86
+          ],
+          "rgb_mean_opaque": [
+            93.637,
+            93.896,
+            109.931
+          ]
+        },
+        "left": {
+          "sha256": "b9b9849bd53dc2c59dbfa3e7d6248b320e004a4d153bb664ac5eb85f459b7409",
+          "alpha_bbox_xyxy": [
+            91,
+            272,
+            933,
+            1216
+          ],
+          "opaque_pixels_alpha_ge_250": 219757,
+          "rgb_median_opaque": [
+            61,
+            63,
+            91
+          ],
+          "rgb_mean_opaque": [
+            96.114,
+            97.577,
+            113.615
+          ]
+        }
+      },
+      "muzzle_global_right": [
+        1431.11865234375,
+        511.530609130859
+      ],
+      "grip_and_foregrip_right_y_px": [
+        566.224609375,
+        552.551086425781
+      ],
+      "per_case_interior_samples": {
+        "hand_sleeves_0p62": {
+          "torso": {
+            "xy_px": [
+              656,
+              600
+            ],
+            "rgba_srgb": [
+              38,
+              58,
+              96,
+              255
+            ]
+          },
+          "navy_shoulder": {
+            "xy_px": [
+              712,
+              612
+            ],
+            "rgba_srgb": [
+              38,
+              55,
+              96,
+              255
+            ]
+          },
+          "mechanical_palm": {
+            "xy_px": [
+              618,
+              566
+            ],
+            "rgba_srgb": [
+              255,
+              255,
+              255,
+              255
+            ]
+          }
+        },
+        "hand_sleeves_0p9": {
+          "torso": {
+            "xy_px": [
+              656,
+              600
+            ],
+            "rgba_srgb": [
+              38,
+              58,
+              96,
+              255
+            ]
+          },
+          "navy_shoulder": {
+            "xy_px": [
+              712,
+              612
+            ],
+            "rgba_srgb": [
+              38,
+              55,
+              96,
+              255
+            ]
+          },
+          "mechanical_palm": {
+            "xy_px": [
+              618,
+              566
+            ],
+            "rgba_srgb": [
+              255,
+              255,
+              255,
+              255
+            ]
+          }
+        },
+        "hand_sleeves_1p0": {
+          "torso": {
+            "xy_px": [
+              656,
+              600
+            ],
+            "rgba_srgb": [
+              38,
+              58,
+              96,
+              255
+            ]
+          },
+          "navy_shoulder": {
+            "xy_px": [
+              712,
+              612
+            ],
+            "rgba_srgb": [
+              38,
+              55,
+              96,
+              255
+            ]
+          },
+          "mechanical_palm": {
+            "xy_px": [
+              618,
+              566
+            ],
+            "rgba_srgb": [
+              255,
+              255,
+              255,
+              255
+            ]
+          }
+        },
+        "all_five_1p0_control": {
+          "torso": {
+            "xy_px": [
+              656,
+              600
+            ],
+            "rgba_srgb": [
+              38,
+              58,
+              96,
+              255
+            ]
+          },
+          "navy_shoulder": {
+            "xy_px": [
+              712,
+              612
+            ],
+            "rgba_srgb": [
+              38,
+              55,
+              96,
+              255
+            ]
+          },
+          "mechanical_palm": {
+            "xy_px": [
+              618,
+              566
+            ],
+            "rgba_srgb": [
+              255,
+              255,
+              255,
+              255
+            ]
+          }
+        }
+      },
+      "sample_note": "All three manually chosen torso/navy shoulder/mechanical-palm interior points are alpha 255 and byte-identical across all four tint variants within each facing. Left-facing coordinates are measured in the v2 capture frame (90 px left, 13 px up from v3 sample points); do not compare cross-version at the same absolute coordinates."
+    },
+    "correction": "Do not call runtime-native-3177 body-black based on the previous multi-image display. Its right-facing 0.62 PNG SHA equals runtime-native-2620 baseline_right.png exactly; the three right-facing unchanged interior RGB points also match exactly. The left-facing image is repositioned relative to v3 but its raw opaque-color median/mean are normal-range and its alpha bbox does not touch the top edge. The visible-black impression was a display artifact, not a raw PNG finding."
+  },
+  "limitations": [
+    "runtime-native-2561 is invalid for appearance conclusions: its alpha bbox touches y=0 for both facings, and grip/foregrip points are at y≈47–61 px, confirming the subject/rifle were cropped near the top; its manifest has no muzzle coordinate.",
+    "runtime-native-3177 has no matching v3 left-facing baseline and differs in left-facing placement; do not compare left pixels at identical screen coordinates across versions. It does not provide evidence of black body output.",
+    "Tint comparison uses standing pose and one fixed LightKit white key; the parent plans further three-light arena review.",
+    "A zero hand-anchor residual means the rig target equals configured weapon grip/foregrip coordinates; it does not validate drawn hand anatomy or contact."
+  ]
+}

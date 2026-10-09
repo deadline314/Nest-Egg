@@ -1,0 +1,70 @@
+{
+  "source": "art/weapons/rifle.png",
+  "source_sha256": "484f7756b0cf232fa9f52df1f0aff2851f1f37294172e9453f420afc1288ce5b",
+  "size_px": [
+    104,
+    36
+  ],
+  "alpha_bbox_half_open": [
+    0,
+    1,
+    104,
+    36
+  ],
+  "weapons_json": "art/weapons/weapons.json",
+  "configured_rifle_points": {
+    "grip": {
+      "xy_px": [
+        30,
+        22
+      ],
+      "source_rgba": [
+        5,
+        6,
+        11,
+        255
+      ]
+    },
+    "foregrip": {
+      "xy_px": [
+        64,
+        20
+      ],
+      "source_rgba": [
+        10,
+        11,
+        17,
+        255
+      ]
+    },
+    "muzzle": {
+      "xy_px": [
+        102,
+        14
+      ],
+      "source_rgba": [
+        1,
+        2,
+        5,
+        193
+      ]
+    }
+  },
+  "visual_observation": {
+    "rear_pistol_grip_visual_roi_half_open_px": [
+      22,
+      20,
+      33,
+      33
+    ],
+    "roi_is_manual_visual_estimate_not_mask": true,
+    "grip_point_location": "inside the rear lower grip silhouette but near its upper-right edge; its y=22 coordinate sits toward the top of the visible vertical handle pixels (roughly y=20..32).",
+    "foregrip_point_location": "x=64,y=20 sits on the underside/forward handguard region; this PNG does not show a separate long vertical foregrip at that coordinate.",
+    "interpretation": "The numeric grip coordinates are in the weapon texture frame and do map to opaque pixels, but IK anchor coincidence does not prove the drawn palm/finger contact is anatomically centered on the handle. Confirm with the corrected HDR native-resolution runtime crop; do not change weapons.json from this atlas alone."
+  },
+  "private_previews": [
+    ".godot/rin-hand-lighting-review/rifle-grip-annotated-1x.png",
+    ".godot/rin-hand-lighting-review/rifle-grip-gray-12x.png",
+    ".godot/rin-hand-lighting-review/rifle-grip-nearest-10x.png"
+  ]
+}
