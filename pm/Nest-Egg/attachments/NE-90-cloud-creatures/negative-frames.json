@@ -1,0 +1,11620 @@
+[
+	{
+		"cells": [
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": -1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					0,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": -1,
+				"joint": "leg_0",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					128,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": -1,
+				"joint": "leg_1",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					256,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": -1,
+				"joint": "leg_2",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					384,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": -1,
+				"joint": "leg_3",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					512,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": -1,
+				"joint": "leg_4",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					640,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": -1,
+				"joint": "leg_5",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					768,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": 1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					896,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": 1,
+				"joint": "leg_0",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					1024,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": 1,
+				"joint": "leg_1",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					1152,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": 1,
+				"joint": "leg_2",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					1280,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": 1,
+				"joint": "leg_3",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					1408,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": 1,
+				"joint": "leg_4",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					1536,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": 1,
+				"joint": "leg_5",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					1664,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain0_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1792,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain0_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain0_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					0,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain1_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					128,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain1_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					256,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain1_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain2_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					512,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain2_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain2_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					768,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain3_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					896,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain3_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain3_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain4_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1280,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain4_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1408,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain4_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1536,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain5_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1664,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain5_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1792,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain5_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain0_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					0,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain0_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					128,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain0_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					256,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain1_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					384,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain1_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					512,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain1_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain2_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					768,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain2_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					896,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain2_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain3_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1152,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain3_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain3_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1408,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain4_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1536,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain4_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain4_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1792,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain5_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1920,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain5_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					0,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain5_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					128,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain0_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					256,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain0_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain0_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					512,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain0_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain0_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					768,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain0_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					896,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain0_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain0_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain0_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain1_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1408,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain1_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1536,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain1_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain1_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1792,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain1_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain1_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					0,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain1_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					128,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain1_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					256,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain1_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain2_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					512,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain2_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain2_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					768,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain2_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					896,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain2_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain2_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain2_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain2_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1408,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain2_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1536,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain3_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1664,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain3_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1792,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain3_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain3_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					0,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain3_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					128,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain3_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					256,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain3_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain3_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					512,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain3_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain4_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					768,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain4_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					896,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain4_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain4_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain4_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain4_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1408,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain4_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1536,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain4_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain4_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1792,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain5_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1920,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain5_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					0,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain5_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					128,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain5_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					256,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain5_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain5_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					512,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain5_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain5_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					768,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain5_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					896,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain0_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1024,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain0_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain0_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain0_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1408,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain0_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1536,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain0_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain0_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1792,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain0_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain0_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					0,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain1_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					128,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain1_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					256,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain1_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain1_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					512,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain1_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain1_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					768,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain1_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					896,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain1_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain1_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain2_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1280,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain2_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1408,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain2_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1536,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain2_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain2_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1792,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain2_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain2_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					0,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain2_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					128,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain2_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					256,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain3_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					384,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain3_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					512,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain3_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain3_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					768,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain3_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					896,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain3_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain3_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain3_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain3_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1408,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain4_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1536,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain4_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain4_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1792,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain4_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain4_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					0,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain4_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					128,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain4_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					256,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain4_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain4_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					512,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain5_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					640,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain5_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					768,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain5_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					896,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain5_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain5_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain5_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain5_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1408,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain5_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1536,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain5_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "drone",
+				"facing": -1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					1792,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "drone",
+				"facing": -1,
+				"joint": "wing_far",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					1920,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "drone",
+				"facing": -1,
+				"joint": "wing_near",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					0,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "drone",
+				"facing": 1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					128,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "drone",
+				"facing": 1,
+				"joint": "wing_far",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					256,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "drone",
+				"facing": 1,
+				"joint": "wing_near",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					384,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "mimic",
+				"facing": -1,
+				"joint": "closed",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					512,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "mimic",
+				"facing": -1,
+				"joint": "open",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					640,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "mimic",
+				"facing": 1,
+				"joint": "closed",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					768,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "mimic",
+				"facing": 1,
+				"joint": "open",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					896,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "rail_cannon",
+				"facing": -1,
+				"joint": "slider",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "rail_cannon",
+				"facing": -1,
+				"joint": "barrel",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					1152,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "rail_cannon",
+				"facing": 1,
+				"joint": "slider",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "rail_cannon",
+				"facing": 1,
+				"joint": "barrel",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					1408,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "repair_drone",
+				"facing": -1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					1536,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "repair_drone",
+				"facing": -1,
+				"joint": "arm_far",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					1664,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "repair_drone",
+				"facing": -1,
+				"joint": "arm_near",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					1792,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "repair_drone",
+				"facing": 1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "repair_drone",
+				"facing": 1,
+				"joint": "arm_far",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					0,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "repair_drone",
+				"facing": 1,
+				"joint": "arm_near",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					128,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain0_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					256,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain0_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain0_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					512,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain0_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain0_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					768,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain0_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					896,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain0_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain0_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain0_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain0_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1408,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain1_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1536,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain1_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain1_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1792,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain1_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain1_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					0,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain1_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					128,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain1_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					256,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain1_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain1_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					512,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain1_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain2_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					768,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain2_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					896,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain2_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain2_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain2_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain2_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1408,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain2_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1536,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain2_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain2_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1792,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain2_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain3_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					0,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain3_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					128,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain3_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					256,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain3_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain3_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					512,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain3_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain3_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					768,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain3_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					896,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain3_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain3_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain4_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1280,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain4_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1408,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain4_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1536,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain4_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain4_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1792,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain4_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain4_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					0,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain4_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					128,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain4_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					256,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain4_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain5_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					512,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain5_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain5_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					768,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain5_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					896,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain5_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain5_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain5_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain5_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1408,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain5_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1536,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain5_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain0_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1792,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain0_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain0_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					0,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain0_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					128,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain0_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					256,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain0_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain0_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					512,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain0_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain0_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					768,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain0_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					896,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain1_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1024,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain1_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain1_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain1_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1408,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain1_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1536,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain1_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain1_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1792,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain1_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain1_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					0,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain1_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					128,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain2_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					256,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain2_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain2_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					512,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain2_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain2_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					768,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain2_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					896,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain2_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain2_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain2_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain2_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1408,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain3_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1536,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain3_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain3_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1792,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain3_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain3_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					0,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain3_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					128,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain3_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					256,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain3_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain3_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					512,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain3_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain4_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					768,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain4_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					896,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain4_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain4_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain4_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain4_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1408,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain4_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1536,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain4_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain4_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1792,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain4_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain5_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					0,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain5_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					128,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain5_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					256,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain5_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain5_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					512,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain5_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain5_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					768,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain5_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					896,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain5_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain5_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "searchlight_drone",
+				"facing": -1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "searchlight_drone",
+				"facing": -1,
+				"joint": "thruster_far",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					1408,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "searchlight_drone",
+				"facing": -1,
+				"joint": "thruster_near",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					1536,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "searchlight_drone",
+				"facing": 1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "searchlight_drone",
+				"facing": 1,
+				"joint": "thruster_far",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					1792,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "searchlight_drone",
+				"facing": 1,
+				"joint": "thruster_near",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					1920,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "shaft_bat",
+				"facing": -1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					0,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "shaft_bat",
+				"facing": -1,
+				"joint": "wing_far",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					128,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "shaft_bat",
+				"facing": -1,
+				"joint": "wing_near",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					256,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "shaft_bat",
+				"facing": 1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					384,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "shaft_bat",
+				"facing": 1,
+				"joint": "wing_far",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					512,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "shaft_bat",
+				"facing": 1,
+				"joint": "wing_near",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					640,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "shock_hound",
+				"facing": -1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					768,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "shock_hound",
+				"facing": -1,
+				"joint": "tail",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					896,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "shock_hound",
+				"facing": 1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "shock_hound",
+				"facing": 1,
+				"joint": "tail",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					1152,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "fly",
+				"char": "swarm_bee",
+				"facing": -1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "fly",
+				"char": "swarm_bee",
+				"facing": 1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					1408,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain0_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1536,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain0_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain0_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1792,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain0_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain0_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					0,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain0_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					128,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain0_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					256,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain0_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain0_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					512,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain1_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					640,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain1_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					768,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain1_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					896,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain1_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain1_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain1_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain1_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1408,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain1_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1536,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain1_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain2_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1792,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain2_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain2_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					0,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain2_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					128,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain2_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					256,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain2_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain2_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					512,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain2_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain2_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					768,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain3_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					896,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain3_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain3_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain3_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain3_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1408,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain3_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1536,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain3_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain3_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1792,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain3_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain4_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					0,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain4_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					128,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain4_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					256,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain4_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain4_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					512,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain4_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain4_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					768,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain4_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					896,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain4_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain0_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1152,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain0_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain0_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1408,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain0_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1536,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain0_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain0_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1792,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain0_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain0_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					0,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain0_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					128,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain1_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					256,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain1_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain1_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					512,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain1_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain1_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					768,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain1_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					896,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain1_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain1_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain1_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain2_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1408,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain2_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1536,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain2_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain2_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1792,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain2_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain2_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					0,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain2_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					128,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain2_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					256,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain2_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain3_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					512,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain3_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain3_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					768,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain3_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					896,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain3_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1024,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain3_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain3_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1280,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain3_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1408,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain3_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1536,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain4_bone0",
+				"kind": "body_chain",
+				"radius": 8,
+				"rect": [
+					1664,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain4_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1792,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain4_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					1920,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain4_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					0,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain4_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					128,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain4_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					256,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain4_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					384,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain4_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					512,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain4_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 8,
+				"rect": [
+					640,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "turret",
+				"facing": -1,
+				"joint": "base",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					768,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "turret",
+				"facing": -1,
+				"joint": "head",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					896,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "turret",
+				"facing": -1,
+				"joint": "barrel",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					1024,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "turret",
+				"facing": 1,
+				"joint": "base",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					1152,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "turret",
+				"facing": 1,
+				"joint": "head",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					1280,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "turret",
+				"facing": 1,
+				"joint": "barrel",
+				"kind": "hinge",
+				"radius": 8,
+				"rect": [
+					1408,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "wall_gecko",
+				"facing": -1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					1536,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "wall_gecko",
+				"facing": 1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 8,
+				"rect": [
+					1664,
+					3200,
+					128,
+					128
+				]
+			}
+		],
+		"pose": "actual_state_index0",
+		"samples": [
+			{
+				"file": "../../images/NE-90-cloud-creatures/joints/negative_index0_zoom1.0_frame000.png",
+				"frame": 0,
+				"seconds": 0.0166666666666667
+			}
+		],
+		"zoom": 1.0
+	},
+	{
+		"cells": [
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": -1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					0,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": -1,
+				"joint": "leg_0",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					128,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": -1,
+				"joint": "leg_1",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					256,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": -1,
+				"joint": "leg_2",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					384,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": -1,
+				"joint": "leg_3",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					512,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": -1,
+				"joint": "leg_4",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					640,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": -1,
+				"joint": "leg_5",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					768,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": 1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					896,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": 1,
+				"joint": "leg_0",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					1024,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": 1,
+				"joint": "leg_1",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					1152,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": 1,
+				"joint": "leg_2",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					1280,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": 1,
+				"joint": "leg_3",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					1408,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": 1,
+				"joint": "leg_4",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					1536,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "bomber",
+				"facing": 1,
+				"joint": "leg_5",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					1664,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain0_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1792,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain0_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain0_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					0,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain1_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					128,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain1_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					256,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain1_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain2_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					512,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain2_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain2_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					768,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain3_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					896,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain3_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain3_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain4_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1280,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain4_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1408,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain4_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1536,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain5_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1664,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain5_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1792,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": -1,
+				"joint": "chain5_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					128,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain0_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					0,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain0_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					128,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain0_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					256,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain1_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					384,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain1_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					512,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain1_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain2_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					768,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain2_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					896,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain2_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain3_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1152,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain3_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain3_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1408,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain4_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1536,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain4_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain4_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1792,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain5_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1920,
+					256,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain5_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					0,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "buoy_worm",
+				"facing": 1,
+				"joint": "chain5_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					128,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain0_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					256,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain0_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain0_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					512,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain0_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain0_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					768,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain0_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					896,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain0_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain0_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain0_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain1_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1408,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain1_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1536,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain1_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain1_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1792,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain1_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					384,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain1_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					0,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain1_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					128,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain1_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					256,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain1_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain2_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					512,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain2_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain2_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					768,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain2_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					896,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain2_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain2_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain2_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain2_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1408,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain2_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1536,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain3_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1664,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain3_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1792,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain3_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					512,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain3_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					0,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain3_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					128,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain3_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					256,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain3_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain3_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					512,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain3_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain4_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					768,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain4_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					896,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain4_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain4_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain4_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain4_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1408,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain4_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1536,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain4_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain4_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1792,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain5_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1920,
+					640,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain5_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					0,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain5_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					128,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain5_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					256,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain5_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain5_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					512,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain5_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain5_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					768,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": -1,
+				"joint": "chain5_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					896,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain0_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1024,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain0_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain0_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain0_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1408,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain0_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1536,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain0_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain0_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1792,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain0_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					768,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain0_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					0,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain1_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					128,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain1_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					256,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain1_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain1_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					512,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain1_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain1_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					768,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain1_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					896,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain1_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain1_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain2_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1280,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain2_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1408,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain2_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1536,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain2_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain2_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1792,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain2_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					896,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain2_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					0,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain2_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					128,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain2_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					256,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain3_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					384,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain3_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					512,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain3_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain3_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					768,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain3_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					896,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain3_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain3_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain3_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain3_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1408,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain4_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1536,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain4_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain4_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1792,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain4_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					1024,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain4_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					0,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain4_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					128,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain4_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					256,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain4_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain4_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					512,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain5_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					640,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain5_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					768,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain5_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					896,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain5_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain5_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain5_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain5_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1408,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain5_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1536,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "cloud_jelly",
+				"facing": 1,
+				"joint": "chain5_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "drone",
+				"facing": -1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					1792,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "drone",
+				"facing": -1,
+				"joint": "wing_far",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					1920,
+					1152,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "drone",
+				"facing": -1,
+				"joint": "wing_near",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					0,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "drone",
+				"facing": 1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					128,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "drone",
+				"facing": 1,
+				"joint": "wing_far",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					256,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "drone",
+				"facing": 1,
+				"joint": "wing_near",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					384,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "mimic",
+				"facing": -1,
+				"joint": "closed",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					512,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "mimic",
+				"facing": -1,
+				"joint": "open",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					640,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "mimic",
+				"facing": 1,
+				"joint": "closed",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					768,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "mimic",
+				"facing": 1,
+				"joint": "open",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					896,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "rail_cannon",
+				"facing": -1,
+				"joint": "slider",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "rail_cannon",
+				"facing": -1,
+				"joint": "barrel",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					1152,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "rail_cannon",
+				"facing": 1,
+				"joint": "slider",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "rail_cannon",
+				"facing": 1,
+				"joint": "barrel",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					1408,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "repair_drone",
+				"facing": -1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					1536,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "repair_drone",
+				"facing": -1,
+				"joint": "arm_far",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					1664,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "repair_drone",
+				"facing": -1,
+				"joint": "arm_near",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					1792,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "repair_drone",
+				"facing": 1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					1280,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "repair_drone",
+				"facing": 1,
+				"joint": "arm_far",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					0,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "repair_drone",
+				"facing": 1,
+				"joint": "arm_near",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					128,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain0_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					256,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain0_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain0_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					512,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain0_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain0_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					768,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain0_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					896,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain0_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain0_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain0_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain0_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1408,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain1_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1536,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain1_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain1_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1792,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain1_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					1408,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain1_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					0,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain1_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					128,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain1_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					256,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain1_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain1_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					512,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain1_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain2_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					768,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain2_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					896,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain2_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain2_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain2_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain2_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1408,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain2_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1536,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain2_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain2_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1792,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain2_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					1536,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain3_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					0,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain3_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					128,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain3_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					256,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain3_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain3_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					512,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain3_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain3_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					768,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain3_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					896,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain3_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain3_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain4_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1280,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain4_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1408,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain4_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1536,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain4_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain4_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1792,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain4_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					1664,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain4_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					0,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain4_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					128,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain4_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					256,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain4_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain5_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					512,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain5_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain5_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					768,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain5_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					896,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain5_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain5_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain5_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain5_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1408,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain5_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1536,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": -1,
+				"joint": "chain5_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain0_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1792,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain0_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					1792,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain0_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					0,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain0_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					128,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain0_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					256,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain0_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain0_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					512,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain0_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain0_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					768,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain0_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					896,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain1_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1024,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain1_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain1_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain1_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1408,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain1_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1536,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain1_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain1_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1792,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain1_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					1920,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain1_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					0,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain1_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					128,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain2_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					256,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain2_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain2_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					512,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain2_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain2_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					768,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain2_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					896,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain2_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain2_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain2_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain2_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1408,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain3_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1536,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain3_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain3_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1792,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain3_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					2048,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain3_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					0,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain3_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					128,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain3_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					256,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain3_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain3_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					512,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain3_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain4_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					768,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain4_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					896,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain4_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain4_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain4_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain4_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1408,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain4_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1536,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain4_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain4_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1792,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain4_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					2176,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain5_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					0,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain5_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					128,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain5_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					256,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain5_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain5_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					512,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain5_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain5_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					768,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain5_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					896,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain5_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "salvage_arm",
+				"facing": 1,
+				"joint": "chain5_bone9",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "searchlight_drone",
+				"facing": -1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "searchlight_drone",
+				"facing": -1,
+				"joint": "thruster_far",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					1408,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "searchlight_drone",
+				"facing": -1,
+				"joint": "thruster_near",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					1536,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "searchlight_drone",
+				"facing": 1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "searchlight_drone",
+				"facing": 1,
+				"joint": "thruster_far",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					1792,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "searchlight_drone",
+				"facing": 1,
+				"joint": "thruster_near",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					1920,
+					2304,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "shaft_bat",
+				"facing": -1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					0,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "shaft_bat",
+				"facing": -1,
+				"joint": "wing_far",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					128,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "shaft_bat",
+				"facing": -1,
+				"joint": "wing_near",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					256,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "shaft_bat",
+				"facing": 1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					384,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "shaft_bat",
+				"facing": 1,
+				"joint": "wing_far",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					512,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "shaft_bat",
+				"facing": 1,
+				"joint": "wing_near",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					640,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "shock_hound",
+				"facing": -1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					768,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "shock_hound",
+				"facing": -1,
+				"joint": "tail",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					896,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "shock_hound",
+				"facing": 1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "shock_hound",
+				"facing": 1,
+				"joint": "tail",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					1152,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "fly",
+				"char": "swarm_bee",
+				"facing": -1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "fly",
+				"char": "swarm_bee",
+				"facing": 1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					1408,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain0_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1536,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain0_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain0_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1792,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain0_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					2432,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain0_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					0,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain0_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					128,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain0_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					256,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain0_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain0_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					512,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain1_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					640,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain1_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					768,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain1_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					896,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain1_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain1_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain1_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain1_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1408,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain1_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1536,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain1_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain2_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1792,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain2_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					2560,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain2_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					0,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain2_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					128,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain2_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					256,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain2_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain2_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					512,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain2_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain2_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					768,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain3_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					896,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain3_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain3_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain3_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain3_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1408,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain3_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1536,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain3_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain3_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1792,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain3_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					2688,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain4_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					0,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain4_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					128,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain4_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					256,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain4_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain4_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					512,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain4_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain4_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					768,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain4_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					896,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": -1,
+				"joint": "chain4_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain0_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1152,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain0_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain0_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1408,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain0_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1536,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain0_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain0_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1792,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain0_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					2816,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain0_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					0,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain0_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					128,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain1_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					256,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain1_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain1_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					512,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain1_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain1_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					768,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain1_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					896,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain1_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain1_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain1_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain2_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1408,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain2_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1536,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain2_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain2_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1792,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain2_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					2944,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain2_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					0,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain2_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					128,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain2_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					256,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain2_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain3_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					512,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain3_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain3_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					768,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain3_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					896,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain3_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1024,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain3_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain3_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1280,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain3_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1408,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain3_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1536,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain4_bone0",
+				"kind": "body_chain",
+				"radius": 28,
+				"rect": [
+					1664,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain4_bone1",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1792,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain4_bone2",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					1920,
+					3072,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain4_bone3",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					0,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain4_bone4",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					128,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain4_bone5",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					256,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain4_bone6",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					384,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain4_bone7",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					512,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "tangle_wire",
+				"facing": 1,
+				"joint": "chain4_bone8",
+				"kind": "continuous_mesh_band",
+				"radius": 28,
+				"rect": [
+					640,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "turret",
+				"facing": -1,
+				"joint": "base",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					768,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "turret",
+				"facing": -1,
+				"joint": "head",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					896,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "turret",
+				"facing": -1,
+				"joint": "barrel",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					1024,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "turret",
+				"facing": 1,
+				"joint": "base",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					1152,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "turret",
+				"facing": 1,
+				"joint": "head",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					1280,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "turret",
+				"facing": 1,
+				"joint": "barrel",
+				"kind": "hinge",
+				"radius": 28,
+				"rect": [
+					1408,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "wall_gecko",
+				"facing": -1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					1536,
+					3200,
+					128,
+					128
+				]
+			},
+			{
+				"actual_state": "idle",
+				"char": "wall_gecko",
+				"facing": 1,
+				"joint": "body",
+				"kind": "single_source_band",
+				"radius": 28,
+				"rect": [
+					1664,
+					3200,
+					128,
+					128
+				]
+			}
+		],
+		"pose": "actual_state_index0",
+		"samples": [
+			{
+				"file": "../../images/NE-90-cloud-creatures/joints/negative_index0_zoom3.4_frame000.png",
+				"frame": 0,
+				"seconds": 0.0166666666666667
+			}
+		],
+		"zoom": 3.4
+	}
+]

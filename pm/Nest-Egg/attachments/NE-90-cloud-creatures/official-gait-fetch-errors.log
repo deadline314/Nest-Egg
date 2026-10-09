@@ -1,0 +1,6 @@
+curl --fail --location --max-time 25 https://raw.githubusercontent.com/benjiebob/3D-Dog-Pose/master/README.md -o official-dog-motion-readme.txt
+curl: (22) The requested URL returned error: 404
+exit22; no reference file obtained
+curl --fail --location --max-time 25 https://api.github.com/repos/benjiebob/3D-Dog-Pose/contents -o /workspace/work/dog-repo-contents.json
+curl: (22) The requested URL returned error: 403
+exit22; stopped, no auth/network bypass; no gait source acceptance

@@ -1,0 +1,1590 @@
+{
+	"failures": [],
+	"footgait_assertions": 2,
+	"rows": [
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": -1,
+			"frames": 120,
+			"id": "salvage_arm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 20.1802845001221,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "salvage_arm",
+			"overlapping_group_frames": 0,
+			"phase": "idle",
+			"planted_samples": 720,
+			"worst_tip": {
+				"foot_target": [
+					25.0,
+					0.0
+				],
+				"frame": 0,
+				"geometry_tip": [
+					24.5353355407715,
+					-20.174934387207
+				],
+				"leg": 0,
+				"rig_origin": [
+					0.0,
+					-19.97900390625
+				],
+				"segment_length": 3.61
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": -1,
+			"frames": 120,
+			"id": "salvage_arm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 1.07892215251923,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "salvage_arm",
+			"overlapping_group_frames": 0,
+			"phase": "walk_half_speed",
+			"planted_samples": 422,
+			"worst_tip": {
+				"foot_target": [
+					-40.4133491516113,
+					0.0
+				],
+				"frame": 97,
+				"geometry_tip": [
+					-40.4549179077148,
+					1.07812106609344
+				],
+				"leg": 3,
+				"rig_origin": [
+					-32.6666870117188,
+					-18.3199939727783
+				],
+				"segment_length": 3.8
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": -1,
+			"frames": 120,
+			"id": "salvage_arm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 1.16403067111969,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "salvage_arm",
+			"overlapping_group_frames": 0,
+			"phase": "walk_full_speed",
+			"planted_samples": 388,
+			"worst_tip": {
+				"foot_target": [
+					-79.1200332641602,
+					0.0
+				],
+				"frame": 59,
+				"geometry_tip": [
+					-79.3542938232422,
+					1.14021468162537
+				],
+				"leg": 3,
+				"rig_origin": [
+					-79.9999771118164,
+					-19.8037567138672
+				],
+				"segment_length": 3.8
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": -1,
+			"frames": 120,
+			"id": "salvage_arm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 6.73074769973755,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "salvage_arm",
+			"overlapping_group_frames": 9,
+			"phase": "turn",
+			"planted_samples": 370,
+			"worst_tip": {
+				"foot_target": [
+					-182.120025634766,
+					0.0
+				],
+				"frame": 69,
+				"geometry_tip": [
+					-175.989303588867,
+					-2.777987241745
+				],
+				"leg": 4,
+				"rig_origin": [
+					-153.333312988281,
+					-18.6107940673828
+				],
+				"segment_length": 3.8
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": -1,
+			"frames": 120,
+			"id": "salvage_arm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 68.6129455566406,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "salvage_arm",
+			"overlapping_group_frames": 0,
+			"phase": "idle",
+			"planted_samples": 720,
+			"worst_tip": {
+				"foot_target": [
+					85.0,
+					0.0
+				],
+				"frame": 0,
+				"geometry_tip": [
+					83.4201431274414,
+					-68.5947570800781
+				],
+				"leg": 0,
+				"rig_origin": [
+					0.0,
+					-67.9286117553711
+				],
+				"segment_length": 3.61
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": -1,
+			"frames": 120,
+			"id": "salvage_arm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 3.33768677711487,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "salvage_arm",
+			"overlapping_group_frames": 0,
+			"phase": "walk_half_speed",
+			"planted_samples": 421,
+			"worst_tip": {
+				"foot_target": [
+					-84.8133163452148,
+					0.0
+				],
+				"frame": 69,
+				"geometry_tip": [
+					-85.7254486083984,
+					3.21063351631165
+				],
+				"leg": 3,
+				"rig_origin": [
+					-79.3333587646484,
+					-63.964714050293
+				],
+				"segment_length": 3.8
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": -1,
+			"frames": 120,
+			"id": "salvage_arm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 3.97814702987671,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "salvage_arm",
+			"overlapping_group_frames": 0,
+			"phase": "walk_full_speed",
+			"planted_samples": 387,
+			"worst_tip": {
+				"foot_target": [
+					-339.719940185547,
+					0.0
+				],
+				"frame": 80,
+				"geometry_tip": [
+					-340.375427246094,
+					3.92377233505249
+				],
+				"leg": 4,
+				"rig_origin": [
+					-319.599761962891,
+					-67.5824127197266
+				],
+				"segment_length": 3.8
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": -1,
+			"frames": 120,
+			"id": "salvage_arm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 58.9366607666016,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "salvage_arm",
+			"overlapping_group_frames": 37,
+			"phase": "turn",
+			"planted_samples": 368,
+			"worst_tip": {
+				"foot_target": [
+					-633.253479003906,
+					0.0
+				],
+				"frame": 68,
+				"geometry_tip": [
+					-579.777587890625,
+					-24.7761764526367
+				],
+				"leg": 5,
+				"rig_origin": [
+					-523.599975585938,
+					-64.3924102783203
+				],
+				"segment_length": 3.61
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": 1,
+			"frames": 120,
+			"id": "salvage_arm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 20.1802845001221,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "salvage_arm",
+			"overlapping_group_frames": 0,
+			"phase": "idle",
+			"planted_samples": 720,
+			"worst_tip": {
+				"foot_target": [
+					-25.0,
+					0.0
+				],
+				"frame": 0,
+				"geometry_tip": [
+					-24.5353355407715,
+					-20.174934387207
+				],
+				"leg": 0,
+				"rig_origin": [
+					0.0,
+					-19.97900390625
+				],
+				"segment_length": 3.61
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": 1,
+			"frames": 120,
+			"id": "salvage_arm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 1.07892215251923,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "salvage_arm",
+			"overlapping_group_frames": 0,
+			"phase": "walk_half_speed",
+			"planted_samples": 422,
+			"worst_tip": {
+				"foot_target": [
+					40.4133491516113,
+					0.0
+				],
+				"frame": 97,
+				"geometry_tip": [
+					40.4549179077148,
+					1.07812106609344
+				],
+				"leg": 3,
+				"rig_origin": [
+					32.6666870117188,
+					-18.3199939727783
+				],
+				"segment_length": 3.8
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": 1,
+			"frames": 120,
+			"id": "salvage_arm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 1.16403067111969,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "salvage_arm",
+			"overlapping_group_frames": 0,
+			"phase": "walk_full_speed",
+			"planted_samples": 388,
+			"worst_tip": {
+				"foot_target": [
+					79.1200332641602,
+					0.0
+				],
+				"frame": 59,
+				"geometry_tip": [
+					79.3542938232422,
+					1.14021468162537
+				],
+				"leg": 3,
+				"rig_origin": [
+					79.9999771118164,
+					-19.8037567138672
+				],
+				"segment_length": 3.8
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": 1,
+			"frames": 120,
+			"id": "salvage_arm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 6.73074769973755,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "salvage_arm",
+			"overlapping_group_frames": 9,
+			"phase": "turn",
+			"planted_samples": 370,
+			"worst_tip": {
+				"foot_target": [
+					182.120025634766,
+					0.0
+				],
+				"frame": 69,
+				"geometry_tip": [
+					175.989303588867,
+					-2.777987241745
+				],
+				"leg": 4,
+				"rig_origin": [
+					153.333312988281,
+					-18.6107940673828
+				],
+				"segment_length": 3.8
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": 1,
+			"frames": 120,
+			"id": "salvage_arm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 68.6129455566406,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "salvage_arm",
+			"overlapping_group_frames": 0,
+			"phase": "idle",
+			"planted_samples": 720,
+			"worst_tip": {
+				"foot_target": [
+					-85.0,
+					0.0
+				],
+				"frame": 0,
+				"geometry_tip": [
+					-83.4201431274414,
+					-68.5947570800781
+				],
+				"leg": 0,
+				"rig_origin": [
+					0.0,
+					-67.9286117553711
+				],
+				"segment_length": 3.61
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": 1,
+			"frames": 120,
+			"id": "salvage_arm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 3.33768677711487,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "salvage_arm",
+			"overlapping_group_frames": 0,
+			"phase": "walk_half_speed",
+			"planted_samples": 421,
+			"worst_tip": {
+				"foot_target": [
+					84.8133163452148,
+					0.0
+				],
+				"frame": 69,
+				"geometry_tip": [
+					85.7254486083984,
+					3.21063351631165
+				],
+				"leg": 3,
+				"rig_origin": [
+					79.3333587646484,
+					-63.964714050293
+				],
+				"segment_length": 3.8
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": 1,
+			"frames": 120,
+			"id": "salvage_arm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 3.97814702987671,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "salvage_arm",
+			"overlapping_group_frames": 0,
+			"phase": "walk_full_speed",
+			"planted_samples": 387,
+			"worst_tip": {
+				"foot_target": [
+					339.719940185547,
+					0.0
+				],
+				"frame": 80,
+				"geometry_tip": [
+					340.375427246094,
+					3.92377233505249
+				],
+				"leg": 4,
+				"rig_origin": [
+					319.599761962891,
+					-67.5824127197266
+				],
+				"segment_length": 3.8
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": 1,
+			"frames": 120,
+			"id": "salvage_arm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 58.9366607666016,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "salvage_arm",
+			"overlapping_group_frames": 37,
+			"phase": "turn",
+			"planted_samples": 368,
+			"worst_tip": {
+				"foot_target": [
+					633.253479003906,
+					0.0
+				],
+				"frame": 68,
+				"geometry_tip": [
+					579.777587890625,
+					-24.7761764526367
+				],
+				"leg": 5,
+				"rig_origin": [
+					523.599975585938,
+					-64.3924102783203
+				],
+				"segment_length": 3.61
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": -1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 5.21902227401733,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm",
+			"overlapping_group_frames": 110,
+			"phase": "idle",
+			"planted_samples": 60,
+			"worst_tip": {
+				"foot_target": [
+					-9.5,
+					0.0
+				],
+				"frame": 0,
+				"geometry_tip": [
+					-9.48020362854004,
+					-5.21898460388184
+				],
+				"leg": 5,
+				"rig_origin": [
+					0.0,
+					-5.18775272369385
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": -1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 2.78847432136536,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm",
+			"overlapping_group_frames": 115,
+			"phase": "walk_half_speed",
+			"planted_samples": 150,
+			"worst_tip": {
+				"foot_target": [
+					9.5,
+					0.0
+				],
+				"frame": 10,
+				"geometry_tip": [
+					7.25074625015259,
+					-1.64816439151764
+				],
+				"leg": 0,
+				"rig_origin": [
+					-3.66666626930237,
+					-2.37950849533081
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": -1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 1.08166527748108,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm",
+			"overlapping_group_frames": 115,
+			"phase": "walk_full_speed",
+			"planted_samples": 206,
+			"worst_tip": {
+				"foot_target": [
+					-33.7533264160156,
+					0.0
+				],
+				"frame": 9,
+				"geometry_tip": [
+					-34.5935249328613,
+					-0.68122398853302
+				],
+				"leg": 0,
+				"rig_origin": [
+					-46.6666717529297,
+					-0.506402134895325
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": -1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 12.5843477249146,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm",
+			"overlapping_group_frames": 100,
+			"phase": "turn",
+			"planted_samples": 288,
+			"worst_tip": {
+				"foot_target": [
+					-169.420013427734,
+					0.0
+				],
+				"frame": 64,
+				"geometry_tip": [
+					-156.85173034668,
+					-0.635662615299225
+				],
+				"leg": 5,
+				"rig_origin": [
+					-156.66667175293,
+					4.10696029663086
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": -1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 17.7446746826172,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm",
+			"overlapping_group_frames": 110,
+			"phase": "idle",
+			"planted_samples": 60,
+			"worst_tip": {
+				"foot_target": [
+					-32.2999992370605,
+					0.0
+				],
+				"frame": 0,
+				"geometry_tip": [
+					-32.2326927185059,
+					-17.7445468902588
+				],
+				"leg": 5,
+				"rig_origin": [
+					0.0,
+					-17.6383590698242
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": -1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 9.48081016540527,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm",
+			"overlapping_group_frames": 115,
+			"phase": "walk_half_speed",
+			"planted_samples": 142,
+			"worst_tip": {
+				"foot_target": [
+					32.2999992370605,
+					0.0
+				],
+				"frame": 10,
+				"geometry_tip": [
+					24.6525382995605,
+					-5.60375785827637
+				],
+				"leg": 0,
+				"rig_origin": [
+					-12.4666652679443,
+					-8.09032917022705
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": -1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 5.66908407211304,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm",
+			"overlapping_group_frames": 118,
+			"phase": "walk_full_speed",
+			"planted_samples": 170,
+			"worst_tip": {
+				"foot_target": [
+					-110.153327941895,
+					0.0
+				],
+				"frame": 9,
+				"geometry_tip": [
+					-115.004516601562,
+					-2.93334007263184
+				],
+				"leg": 0,
+				"rig_origin": [
+					-158.666687011719,
+					0.658232867717743
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": -1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 45.1281623840332,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm",
+			"overlapping_group_frames": 116,
+			"phase": "turn",
+			"planted_samples": 210,
+			"worst_tip": {
+				"foot_target": [
+					-497.753295898438,
+					0.0
+				],
+				"frame": 60,
+				"geometry_tip": [
+					-542.5498046875,
+					5.461106300354
+				],
+				"leg": 0,
+				"rig_origin": [
+					-541.733459472656,
+					25.6856632232666
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": 1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 5.21902227401733,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm",
+			"overlapping_group_frames": 110,
+			"phase": "idle",
+			"planted_samples": 60,
+			"worst_tip": {
+				"foot_target": [
+					9.5,
+					0.0
+				],
+				"frame": 0,
+				"geometry_tip": [
+					9.48020362854004,
+					-5.21898460388184
+				],
+				"leg": 5,
+				"rig_origin": [
+					0.0,
+					-5.18775272369385
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": 1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 2.78847432136536,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm",
+			"overlapping_group_frames": 115,
+			"phase": "walk_half_speed",
+			"planted_samples": 150,
+			"worst_tip": {
+				"foot_target": [
+					-9.5,
+					0.0
+				],
+				"frame": 10,
+				"geometry_tip": [
+					-7.25074625015259,
+					-1.64816439151764
+				],
+				"leg": 0,
+				"rig_origin": [
+					3.66666626930237,
+					-2.37950849533081
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": 1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 1.08166527748108,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm",
+			"overlapping_group_frames": 115,
+			"phase": "walk_full_speed",
+			"planted_samples": 206,
+			"worst_tip": {
+				"foot_target": [
+					33.7533264160156,
+					0.0
+				],
+				"frame": 9,
+				"geometry_tip": [
+					34.5935249328613,
+					-0.68122398853302
+				],
+				"leg": 0,
+				"rig_origin": [
+					46.6666717529297,
+					-0.506402134895325
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": 1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 12.5843477249146,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm",
+			"overlapping_group_frames": 100,
+			"phase": "turn",
+			"planted_samples": 288,
+			"worst_tip": {
+				"foot_target": [
+					169.420013427734,
+					0.0
+				],
+				"frame": 64,
+				"geometry_tip": [
+					156.85173034668,
+					-0.635662615299225
+				],
+				"leg": 5,
+				"rig_origin": [
+					156.66667175293,
+					4.10696029663086
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": 1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 17.7446746826172,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm",
+			"overlapping_group_frames": 110,
+			"phase": "idle",
+			"planted_samples": 60,
+			"worst_tip": {
+				"foot_target": [
+					32.2999992370605,
+					0.0
+				],
+				"frame": 0,
+				"geometry_tip": [
+					32.2326927185059,
+					-17.7445468902588
+				],
+				"leg": 5,
+				"rig_origin": [
+					0.0,
+					-17.6383590698242
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": 1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 9.48081016540527,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm",
+			"overlapping_group_frames": 115,
+			"phase": "walk_half_speed",
+			"planted_samples": 142,
+			"worst_tip": {
+				"foot_target": [
+					-32.2999992370605,
+					0.0
+				],
+				"frame": 10,
+				"geometry_tip": [
+					-24.6525382995605,
+					-5.60375785827637
+				],
+				"leg": 0,
+				"rig_origin": [
+					12.4666652679443,
+					-8.09032917022705
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": 1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 5.66908407211304,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm",
+			"overlapping_group_frames": 118,
+			"phase": "walk_full_speed",
+			"planted_samples": 170,
+			"worst_tip": {
+				"foot_target": [
+					110.153327941895,
+					0.0
+				],
+				"frame": 9,
+				"geometry_tip": [
+					115.004516601562,
+					-2.93334007263184
+				],
+				"leg": 0,
+				"rig_origin": [
+					158.666687011719,
+					0.658232867717743
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 1.0,
+			"face": 1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 45.1281623840332,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm",
+			"overlapping_group_frames": 116,
+			"phase": "turn",
+			"planted_samples": 210,
+			"worst_tip": {
+				"foot_target": [
+					497.753295898438,
+					0.0
+				],
+				"frame": 60,
+				"geometry_tip": [
+					542.5498046875,
+					5.461106300354
+				],
+				"leg": 0,
+				"rig_origin": [
+					541.733459472656,
+					25.6856632232666
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 0.62,
+			"face": -1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 3.23579359054565,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm_small",
+			"overlapping_group_frames": 110,
+			"phase": "idle",
+			"planted_samples": 60,
+			"worst_tip": {
+				"foot_target": [
+					-5.8899998664856,
+					0.0
+				],
+				"frame": 0,
+				"geometry_tip": [
+					-5.87772607803345,
+					-3.2357702255249
+				],
+				"leg": 5,
+				"rig_origin": [
+					0.0,
+					-3.21640682220459
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 0.62,
+			"face": -1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 2.66344428062439,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm_small",
+			"overlapping_group_frames": 115,
+			"phase": "walk_half_speed",
+			"planted_samples": 118,
+			"worst_tip": {
+				"foot_target": [
+					5.8899998664856,
+					0.0
+				],
+				"frame": 10,
+				"geometry_tip": [
+					3.63246631622314,
+					-1.41332161426544
+				],
+				"leg": 0,
+				"rig_origin": [
+					-3.66666626930237,
+					-1.47529530525208
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 0.62,
+			"face": -1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 1.21305751800537,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm_small",
+			"overlapping_group_frames": 120,
+			"phase": "walk_full_speed",
+			"planted_samples": 131,
+			"worst_tip": {
+				"foot_target": [
+					-37.3633270263672,
+					0.0
+				],
+				"frame": 9,
+				"geometry_tip": [
+					-38.5145721435547,
+					-0.382286727428436
+				],
+				"leg": 0,
+				"rig_origin": [
+					-46.6666717529297,
+					0.55403071641922
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 0.62,
+			"face": -1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 8.88440418243408,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm_small",
+			"overlapping_group_frames": 120,
+			"phase": "turn",
+			"planted_samples": 90,
+			"worst_tip": {
+				"foot_target": [
+					-151.363327026367,
+					0.0
+				],
+				"frame": 60,
+				"geometry_tip": [
+					-159.681930541992,
+					3.11985015869141
+				],
+				"leg": 0,
+				"rig_origin": [
+					-159.333358764648,
+					7.72185564041138
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 0.62,
+			"face": -1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 11.0016984939575,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm_small",
+			"overlapping_group_frames": 110,
+			"phase": "idle",
+			"planted_samples": 60,
+			"worst_tip": {
+				"foot_target": [
+					-20.0260009765625,
+					0.0
+				],
+				"frame": 0,
+				"geometry_tip": [
+					-19.9842700958252,
+					-11.0016193389893
+				],
+				"leg": 5,
+				"rig_origin": [
+					0.0,
+					-10.9357833862305
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 0.62,
+			"face": -1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 9.0557107925415,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm_small",
+			"overlapping_group_frames": 114,
+			"phase": "walk_half_speed",
+			"planted_samples": 96,
+			"worst_tip": {
+				"foot_target": [
+					20.0260009765625,
+					0.0
+				],
+				"frame": 10,
+				"geometry_tip": [
+					12.3503875732422,
+					-4.80529499053955
+				],
+				"leg": 0,
+				"rig_origin": [
+					-12.4666652679443,
+					-5.01600408554077
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 0.62,
+			"face": -1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 9.0443172454834,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm_small",
+			"overlapping_group_frames": 119,
+			"phase": "walk_full_speed",
+			"planted_samples": 91,
+			"worst_tip": {
+				"foot_target": [
+					-367.226837158203,
+					0.0
+				],
+				"frame": 117,
+				"geometry_tip": [
+					-374.478393554688,
+					5.40505313873291
+				],
+				"leg": 0,
+				"rig_origin": [
+					-403.466094970703,
+					21.5648422241211
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 0.62,
+			"face": -1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 37.3431663513184,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm_small",
+			"overlapping_group_frames": 120,
+			"phase": "turn",
+			"planted_samples": 78,
+			"worst_tip": {
+				"foot_target": [
+					-510.027313232422,
+					0.0
+				],
+				"frame": 60,
+				"geometry_tip": [
+					-543.344421386719,
+					16.8666095733643
+				],
+				"leg": 0,
+				"rig_origin": [
+					-541.733459472656,
+					33.6323089599609
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 0.62,
+			"face": 1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 3.23579359054565,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm_small",
+			"overlapping_group_frames": 110,
+			"phase": "idle",
+			"planted_samples": 60,
+			"worst_tip": {
+				"foot_target": [
+					5.8899998664856,
+					0.0
+				],
+				"frame": 0,
+				"geometry_tip": [
+					5.87772607803345,
+					-3.2357702255249
+				],
+				"leg": 5,
+				"rig_origin": [
+					0.0,
+					-3.21640682220459
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 0.62,
+			"face": 1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 2.66344428062439,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm_small",
+			"overlapping_group_frames": 115,
+			"phase": "walk_half_speed",
+			"planted_samples": 118,
+			"worst_tip": {
+				"foot_target": [
+					-5.8899998664856,
+					0.0
+				],
+				"frame": 10,
+				"geometry_tip": [
+					-3.63246631622314,
+					-1.41332161426544
+				],
+				"leg": 0,
+				"rig_origin": [
+					3.66666626930237,
+					-1.47529530525208
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 0.62,
+			"face": 1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 1.21305751800537,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm_small",
+			"overlapping_group_frames": 120,
+			"phase": "walk_full_speed",
+			"planted_samples": 131,
+			"worst_tip": {
+				"foot_target": [
+					37.3633270263672,
+					0.0
+				],
+				"frame": 9,
+				"geometry_tip": [
+					38.5145721435547,
+					-0.382286727428436
+				],
+				"leg": 0,
+				"rig_origin": [
+					46.6666717529297,
+					0.55403071641922
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 0.62,
+			"face": 1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 8.88440418243408,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm_small",
+			"overlapping_group_frames": 120,
+			"phase": "turn",
+			"planted_samples": 90,
+			"worst_tip": {
+				"foot_target": [
+					151.363327026367,
+					0.0
+				],
+				"frame": 60,
+				"geometry_tip": [
+					159.681930541992,
+					3.11985015869141
+				],
+				"leg": 0,
+				"rig_origin": [
+					159.333358764648,
+					7.72185564041138
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 1.0
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 0.62,
+			"face": 1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 11.0016984939575,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm_small",
+			"overlapping_group_frames": 110,
+			"phase": "idle",
+			"planted_samples": 60,
+			"worst_tip": {
+				"foot_target": [
+					20.0260009765625,
+					0.0
+				],
+				"frame": 0,
+				"geometry_tip": [
+					19.9842700958252,
+					-11.0016193389893
+				],
+				"leg": 5,
+				"rig_origin": [
+					0.0,
+					-10.9357833862305
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 0.62,
+			"face": 1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 9.0557107925415,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm_small",
+			"overlapping_group_frames": 114,
+			"phase": "walk_half_speed",
+			"planted_samples": 96,
+			"worst_tip": {
+				"foot_target": [
+					-20.0260009765625,
+					0.0
+				],
+				"frame": 10,
+				"geometry_tip": [
+					-12.3503875732422,
+					-4.80529499053955
+				],
+				"leg": 0,
+				"rig_origin": [
+					12.4666652679443,
+					-5.01600408554077
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 0.62,
+			"face": 1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 9.0443172454834,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm_small",
+			"overlapping_group_frames": 119,
+			"phase": "walk_full_speed",
+			"planted_samples": 91,
+			"worst_tip": {
+				"foot_target": [
+					367.226837158203,
+					0.0
+				],
+				"frame": 117,
+				"geometry_tip": [
+					374.478393554688,
+					5.40505313873291
+				],
+				"leg": 0,
+				"rig_origin": [
+					403.466094970703,
+					21.5648422241211
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 3.4
+		},
+		{
+			"actual_legs": 6,
+			"body_scale": 0.62,
+			"face": 1,
+			"frames": 120,
+			"id": "buoy_worm",
+			"material_contact": "UNVERIFIED",
+			"max_geometry_tip_to_foot_target": 37.3431663513184,
+			"max_target_ground_error": 0.0,
+			"max_world_slip_both_frames_planted": 0.0,
+			"mount": "buoy_worm_small",
+			"overlapping_group_frames": 120,
+			"phase": "turn",
+			"planted_samples": 78,
+			"worst_tip": {
+				"foot_target": [
+					510.027313232422,
+					0.0
+				],
+				"frame": 60,
+				"geometry_tip": [
+					543.344421386719,
+					16.8666095733643
+				],
+				"leg": 0,
+				"rig_origin": [
+					541.733459472656,
+					33.6323089599609
+				],
+				"segment_length": 2.33333333333333
+			},
+			"zoom": 3.4
+		}
+	]
+}

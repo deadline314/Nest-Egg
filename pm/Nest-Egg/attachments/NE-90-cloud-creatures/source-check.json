@@ -1,0 +1,1185 @@
+{
+  "rows": [
+    {
+      "id": "drone",
+      "part": "body",
+      "source": "art_src/creatures/drone/body_s1.png",
+      "source_sha256": "5012c6f194916978a49c7f2a51ee3238994fe712be7ee2d92c3cc432e8318c52",
+      "runtime": "art/creatures/drone/body.png",
+      "runtime_sha256": "35d0f1791ac5d4018eb191527522aee7dd4133f6b5b6f05cd333094344693c28",
+      "source_native_size": [
+        1216,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        41,
+        228,
+        1120,
+        543
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        1078,
+        314
+      ],
+      "k": 0.11131725417439703,
+      "runtime_native_size": [
+        120,
+        35
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        120,
+        35
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/drone-body_s1.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "drone",
+      "part": "wing",
+      "source": "art_src/creatures/drone/wing_s1.png",
+      "source_sha256": "febd657312d762a4e33ffd4699e183e884277822c968ada07eab904930dffa84",
+      "runtime": "art/creatures/drone/wing.png",
+      "runtime_sha256": "3caca891c116eaedb6717fd6bb40f2f0580d1c6e7db4cccdb1208ca12d784f5d",
+      "source_native_size": [
+        832,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        338,
+        85,
+        459,
+        687
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        119,
+        600
+      ],
+      "k": 0.10666666666666667,
+      "runtime_native_size": [
+        13,
+        64
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        13,
+        64
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/drone-wing_s1.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "searchlight_drone",
+      "part": "body",
+      "source": "art_src/creatures/searchlight_drone/body_s2.png",
+      "source_sha256": "d9e319e3f328542296ad23266a7c13f83ac315701ac28a33d12d3eb2170e59e5",
+      "runtime": "art/creatures/searchlight_drone/body.png",
+      "runtime_sha256": "bed021d7eb144b4c771b4014e4cbf2805904490aeafa94393d020641b6006e71",
+      "source_native_size": [
+        1216,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        66,
+        247,
+        1150,
+        553
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        1084,
+        306
+      ],
+      "k": 0.11070110701107011,
+      "runtime_native_size": [
+        120,
+        34
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        120,
+        34
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/searchlight_drone-body_s2.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "searchlight_drone",
+      "part": "thruster",
+      "source": "art_src/creatures/searchlight_drone/thruster_s1.png",
+      "source_sha256": "eef3437f2a1fec97b7acb195726de62fd4f50aa4901b2f6b5a387a3cd8bd6187",
+      "runtime": "art/creatures/searchlight_drone/thruster.png",
+      "runtime_sha256": "3c6a83192d3b90a670ef75bada45c1130a49fbeab8698de7a166ab0c09fcb4ce",
+      "source_native_size": [
+        832,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        281,
+        153,
+        552,
+        628
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        271,
+        474
+      ],
+      "k": 0.10126582278481013,
+      "runtime_native_size": [
+        27,
+        48
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        27,
+        48
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/searchlight_drone-thruster_s1.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "repair_drone",
+      "part": "body",
+      "source": "art_src/creatures/repair_drone/body_s2.png",
+      "source_sha256": "eb0664a63b594dc851599b14c95556c968907502268d57d0f47b0c29d8e6b16d",
+      "runtime": "art/creatures/repair_drone/body.png",
+      "runtime_sha256": "eadcb42dd769ba7a3d05290b4f114a95ae656e9f2c807e8bfd94fe66394638aa",
+      "source_native_size": [
+        832,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        102,
+        107,
+        715,
+        599
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        612,
+        492
+      ],
+      "k": 0.1568627450980392,
+      "runtime_native_size": [
+        96,
+        77
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        96,
+        77
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/repair_drone-body_s2.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "repair_drone",
+      "part": "arm",
+      "source": "art_src/creatures/repair_drone/arm_s3.png",
+      "source_sha256": "9a642d1e112ae1393b802f32b1dafc335d8a458cac37eade92e824e787a459ba",
+      "runtime": "art/creatures/repair_drone/arm.png",
+      "runtime_sha256": "dafcb6ed1cb9396bab87ed45a3d84b066e5b2e26baa285a7940387579f348d0f",
+      "source_native_size": [
+        512,
+        1216
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        220,
+        29,
+        321,
+        1099
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        101,
+        1065
+      ],
+      "k": 0.08262910798122065,
+      "runtime_native_size": [
+        8,
+        88
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        8,
+        88
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/repair_drone-arm_s3.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "bomber",
+      "part": "body",
+      "source": "art_src/creatures/bomber/body_s1.png",
+      "source_sha256": "ba6a50a66d253fd8896bf0205f908be08f2d4456fa70565c235b22ce505bc95d",
+      "runtime": "art/creatures/bomber/body.png",
+      "runtime_sha256": "bea3b9c09e8fbdcd45a04c6405dfbc653185f49bab87fe44cd32201a2742f209",
+      "source_native_size": [
+        832,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        95,
+        160,
+        740,
+        660
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        645,
+        499
+      ],
+      "k": 0.11162790697674418,
+      "runtime_native_size": [
+        72,
+        56
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        72,
+        56
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/bomber-body_s1.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "bomber",
+      "part": "leg",
+      "source": "art_src/creatures/bomber/leg_s1.png",
+      "source_sha256": "34b39a9973f9d94aa4d1648bfded65ced7e022470387ab1436551aa8f02dd777",
+      "runtime": "art/creatures/bomber/leg.png",
+      "runtime_sha256": "97196a1968c1ec21914a4407cfb729fc0be168a179da79c5e143f80bfc015b94",
+      "source_native_size": [
+        512,
+        1216
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        187,
+        15,
+        341,
+        1205
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        153,
+        1189
+      ],
+      "k": 0.04709840201850295,
+      "runtime_native_size": [
+        7,
+        56
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        7,
+        56
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/bomber-leg_s1.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "shock_hound",
+      "part": "body",
+      "source": "art_src/creatures/shock_hound/body_s2.png",
+      "source_sha256": "fefad0ad5bb8607444646e03fca30880420c0f436e411b982941cf737d78e06b",
+      "runtime": "art/creatures/shock_hound/body.png",
+      "runtime_sha256": "12fd9fd7842e15371f4dbb1b2ee66614177722dee14efbde79f6ae1c652cc428",
+      "source_native_size": [
+        1216,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        24,
+        167,
+        1189,
+        703
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        1164,
+        535
+      ],
+      "k": 0.11683848797250859,
+      "runtime_native_size": [
+        136,
+        63
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        136,
+        63
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/shock_hound-body_s2.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "shock_hound",
+      "part": "tail",
+      "source": "art_src/creatures/shock_hound/tail_s1.png",
+      "source_sha256": "58e5f6765e2c2a59da12936ce914bbc2657cf58b83f4d60410917cb7bb187719",
+      "runtime": "art/creatures/shock_hound/tail.png",
+      "runtime_sha256": "56f3299751cb615016dd9143c3b2f2238b8332334e2f326368e1194205c6c2af",
+      "source_native_size": [
+        1216,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        25,
+        300,
+        1186,
+        514
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        1161,
+        212
+      ],
+      "k": 0.06201550387596899,
+      "runtime_native_size": [
+        72,
+        13
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        72,
+        13
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/shock_hound-tail_s1.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "turret",
+      "part": "base",
+      "source": "art_src/creatures/turret/base_s1.png",
+      "source_sha256": "ac47370d914a7410eebdc4165d37fb320cf3ec3392bbaf445e1774ee267c6934",
+      "runtime": "art/creatures/turret/base.png",
+      "runtime_sha256": "713d55510d11adfc3b18a971b2998e8bab191546a91a0c137cc45c00fed339cd",
+      "source_native_size": [
+        832,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        147,
+        227,
+        681,
+        656
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        534,
+        429
+      ],
+      "k": 0.1797752808988764,
+      "runtime_native_size": [
+        96,
+        77
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        96,
+        77
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/turret-base_s1.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "turret",
+      "part": "head",
+      "source": "art_src/creatures/turret/turret_s3.png",
+      "source_sha256": "b4daefafac3222f58d907482c2e961452e7e4cb2fade0c17ed2b94e24207048c",
+      "runtime": "art/creatures/turret/head.png",
+      "runtime_sha256": "80da376dbb3d4a1503ff0b2b4210e4011aab2fc0c2023bbbc8ecd35b27869458",
+      "source_native_size": [
+        832,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        76,
+        195,
+        712,
+        640
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        634,
+        444
+      ],
+      "k": 0.138801261829653,
+      "runtime_native_size": [
+        88,
+        62
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        88,
+        62
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/turret-turret_s3.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "turret",
+      "part": "barrel",
+      "source": "art_src/creatures/turret/barrel_s1.png",
+      "source_sha256": "b59b300eab6418230e867184d5823b5469e004774d53cef533783dcf092a2f7e",
+      "runtime": "art/creatures/turret/barrel.png",
+      "runtime_sha256": "070c11ab054886c585a6c8a6eec7808cb27dc42dcafa95de7028ec04f85e29fc",
+      "source_native_size": [
+        1216,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        41,
+        313,
+        1183,
+        511
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        1141,
+        197
+      ],
+      "k": 0.08413672217353199,
+      "runtime_native_size": [
+        96,
+        17
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        96,
+        17
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/turret-barrel_s1.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "mimic",
+      "part": "closed",
+      "source": "art_src/creatures/mimic/closed_s4.png",
+      "source_sha256": "29bcc49c4050be95d3f020d8dabfed3b076982e7de21e4b31258ba5d62c51fee",
+      "runtime": "art/creatures/mimic/closed.png",
+      "runtime_sha256": "198f2a918cab3c86e7a0c4e74ebab15a99afcc2e962ab7ac4242922962e6f49a",
+      "source_native_size": [
+        1248,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        222,
+        332,
+        1010,
+        755
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        786,
+        421
+      ],
+      "k": 0.183206106870229,
+      "runtime_native_size": [
+        144,
+        77
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        144,
+        77
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/mimic-closed_s4.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "mimic",
+      "part": "open",
+      "source": "art_src/creatures/mimic/open_s1.png",
+      "source_sha256": "05e4e8a7814311464035a8dcc2921aacb5090b0589c271c9aac923a225d56c45",
+      "runtime": "art/creatures/mimic/open.png",
+      "runtime_sha256": "78e40e770d5d82eff206c5547963b8ccea6bb6ab20afb44bd89d52739c1b3f9a",
+      "source_native_size": [
+        1216,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        147,
+        27,
+        1047,
+        750
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        900,
+        723
+      ],
+      "k": 0.16,
+      "runtime_native_size": [
+        144,
+        116
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        144,
+        116
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/mimic-open_s1.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "salvage_arm",
+      "part": "body",
+      "source": "art_src/creatures/salvage_arm/body_s1.png",
+      "source_sha256": "efc464e22b2bcb8e2674feb9fb8d51a658f17626bc003a054ec618e94e479ef7",
+      "runtime": "art/creatures/salvage_arm/body.png",
+      "runtime_sha256": "1fd59a4a97f70314a8fbc3a06ae3138dfd1482d9a9ce97d92f3769686fcf3650",
+      "source_native_size": [
+        1216,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        152,
+        104,
+        988,
+        661
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        836,
+        556
+      ],
+      "k": 0.21052631578947367,
+      "runtime_native_size": [
+        176,
+        117
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        176,
+        117
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/salvage_arm-body_s1.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "salvage_arm",
+      "part": "tentacle",
+      "source": "art_src/creatures/salvage_arm/tentacle_s1.png",
+      "source_sha256": "280cf788c3351a9c750b64b95ccd66f4503f38513297539b545e87dc7dafba33",
+      "runtime": "art/creatures/salvage_arm/tentacle.png",
+      "runtime_sha256": "7e9345acaa237783210be18b57720c8b075864168283b2e77ce07bf84bb33df0",
+      "source_native_size": [
+        512,
+        1216
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        182,
+        14,
+        337,
+        1199
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        154,
+        1183
+      ],
+      "k": 0.11496196111580727,
+      "runtime_native_size": [
+        18,
+        136
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        18,
+        136
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/salvage_arm-tentacle_s1.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "tangle_wire",
+      "part": "body",
+      "source": "art_src/creatures/tangle_wire/body_s3.png",
+      "source_sha256": "3a330384a7091647397b6474e0b4073b639044dcd269561eacabbc638aab5428",
+      "runtime": "art/creatures/tangle_wire/body.png",
+      "runtime_sha256": "5c5404c27cbee35d1be2e76bb2007c05c021684c9aaf0d1d334678d4fb2478df",
+      "source_native_size": [
+        1216,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        169,
+        283,
+        1070,
+        584
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        898,
+        300
+      ],
+      "k": 0.133630289532294,
+      "runtime_native_size": [
+        120,
+        40
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        120,
+        40
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/tangle_wire-body_s3.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "tangle_wire",
+      "part": "tentacle",
+      "source": "art_src/creatures/tangle_wire/tentacle_s1.png",
+      "source_sha256": "eb3921446cc9c894cabcc0330d0eaed8b224d20ee410a8edcb2faaa80c313c68",
+      "runtime": "art/creatures/tangle_wire/tentacle.png",
+      "runtime_sha256": "5814473762649a6078507a98d32f42ae38bc3c96a2d28f26d330af3d92c15376",
+      "source_native_size": [
+        512,
+        1216
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        188,
+        14,
+        318,
+        1207
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        129,
+        1191
+      ],
+      "k": 0.10075566750629723,
+      "runtime_native_size": [
+        13,
+        120
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        13,
+        120
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/tangle_wire-tentacle_s1.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "buoy_worm",
+      "part": "body",
+      "source": "art_src/creatures/buoy_worm/body_s4.png",
+      "source_sha256": "9a3ae305fe2c5d0ff56c4ceb1b7fe66cdc2ef96d0186237509b6a1338900b747",
+      "runtime": "art/creatures/buoy_worm/body.png",
+      "runtime_sha256": "023eb89a3f2b0ab36121af0b3023d6dc6c703fc071d488958a92f7cfcbbf5581",
+      "source_native_size": [
+        1248,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        64,
+        130,
+        1164,
+        565
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        1100,
+        435
+      ],
+      "k": 0.08727272727272728,
+      "runtime_native_size": [
+        96,
+        38
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        96,
+        38
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/buoy_worm-body_s4.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "buoy_worm",
+      "part": "leg",
+      "source": "art_src/creatures/buoy_worm/leg_s1.png",
+      "source_sha256": "722e49a1042a912c11ef783c30c0116be7558b20bd161297a511a1b324141cb7",
+      "runtime": "art/creatures/buoy_worm/leg.png",
+      "runtime_sha256": "d19cab9fb1236fb5baaa8270a76259f7c60cf323e73c097940258d130cf8ec56",
+      "source_native_size": [
+        832,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        312,
+        146,
+        503,
+        662
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        190,
+        516
+      ],
+      "k": 0.05426356589147287,
+      "runtime_native_size": [
+        10,
+        28
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        10,
+        28
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/buoy_worm-leg_s1.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "shaft_bat",
+      "part": "body",
+      "source": "art_src/creatures/shaft_bat/body_s5.png",
+      "source_sha256": "09704f54cf08ea94c4de54e43371ad9212958313c0d719b33b20433d43011a4a",
+      "runtime": "art/creatures/shaft_bat/body.png",
+      "runtime_sha256": "cbf20a307b737e359fc08860c7607b7d5db5dbbd04cf863c089c26a190ce8ff5",
+      "source_native_size": [
+        1216,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        95,
+        160,
+        1128,
+        559
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        1033,
+        399
+      ],
+      "k": 0.11616650532429816,
+      "runtime_native_size": [
+        120,
+        46
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        120,
+        46
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/shaft_bat-body_s5.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "shaft_bat",
+      "part": "wing",
+      "source": "art_src/creatures/shaft_bat/wing_s1.png",
+      "source_sha256": "83c6c05916fe83209ec7c130c457be1b0903c734f0ebc076af79372d65860f9a",
+      "runtime": "art/creatures/shaft_bat/wing.png",
+      "runtime_sha256": "7e8560ab5e87636a0cc12e42bf2b420b9fc107bbf5b504fb2e19fc3f6d61530c",
+      "source_native_size": [
+        832,
+        1216
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        197,
+        50,
+        737,
+        1143
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        540,
+        1092
+      ],
+      "k": 0.08058608058608059,
+      "runtime_native_size": [
+        44,
+        88
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        44,
+        88
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/shaft_bat-wing_s1.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "wall_gecko",
+      "part": "body",
+      "source": "art_src/creatures/wall_gecko/design_s1.png",
+      "source_sha256": "286df5db609488397d4dd402e9a1d8de44ce2c6cbe8147599620ad6e6060599b",
+      "runtime": "art/creatures/wall_gecko/body.png",
+      "runtime_sha256": "ba79fdae9e0e4a1c8944a191e39e078ee0b94ff2c4dafa5d4e66a5e4838ff155",
+      "source_native_size": [
+        1216,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        67,
+        233,
+        1145,
+        657
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        1077,
+        423
+      ],
+      "k": 0.09656453110492108,
+      "runtime_native_size": [
+        104,
+        41
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        104,
+        41
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/wall_gecko-design_s1.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "cloud_jelly",
+      "part": "body",
+      "source": "art_src/creatures/cloud_jelly/body_s2.png",
+      "source_sha256": "b96d054abbdd2263a606fce214ab1e7598854911b951944b25462ba83a12fdad",
+      "runtime": "art/creatures/cloud_jelly/body.png",
+      "runtime_sha256": "4cb841bbed3661ae1cded8c7a99b61a61a9fc615f593bc3c172ca61d2d146ab8",
+      "source_native_size": [
+        832,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        69,
+        206,
+        762,
+        675
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        693,
+        468
+      ],
+      "k": 0.16161616161616163,
+      "runtime_native_size": [
+        112,
+        76
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        112,
+        76
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/cloud_jelly-body_s2.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "cloud_jelly",
+      "part": "tentacle",
+      "source": "art_src/creatures/cloud_jelly/tentacle_s2.png",
+      "source_sha256": "831b9d9f0e236e7a2fc87a8ee5fae404d1b7568f4b9ef30756f0c509785ee62b",
+      "runtime": "art/creatures/cloud_jelly/tentacle.png",
+      "runtime_sha256": "9dd41b36b9b099935cbdc97f1a15e8c1db3d85ec7969608470dbf76acdaacbce",
+      "source_native_size": [
+        512,
+        1216
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        184,
+        48,
+        342,
+        1129
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        158,
+        1080
+      ],
+      "k": 0.1259259259259259,
+      "runtime_native_size": [
+        20,
+        136
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        20,
+        136
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/cloud_jelly-tentacle_s2.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "rail_cannon",
+      "part": "slider",
+      "source": "art_src/creatures/rail_cannon/slider_s2.png",
+      "source_sha256": "0f47268f84834b4b95a4804c12c38f66a36ce9325d9c841a3cc2d68c2dd18053",
+      "runtime": "art/creatures/rail_cannon/slider.png",
+      "runtime_sha256": "dcf0becf57a085dccc607793220c8c9a7a1c8e14dbc491b5f5b9f5dd3bd493b7",
+      "source_native_size": [
+        832,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        214,
+        48,
+        645,
+        755
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        431,
+        706
+      ],
+      "k": 0.16705336426914152,
+      "runtime_native_size": [
+        72,
+        118
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        72,
+        118
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/rail_cannon-slider_s2.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "rail_cannon",
+      "part": "barrel",
+      "source": "art_src/creatures/rail_cannon/barrel_s3.png",
+      "source_sha256": "25fb3f88d3f2cb2e2a2136e4268ada58c3181f244d10020b47dc6188ffc6c92e",
+      "runtime": "art/creatures/rail_cannon/barrel.png",
+      "runtime_sha256": "b8916a7b8be7d2ce46fe9beb183253255bdbbbb9a86510212892b10cca592b1c",
+      "source_native_size": [
+        1216,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        66,
+        287,
+        1159,
+        561
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        1093,
+        274
+      ],
+      "k": 0.09515096065873742,
+      "runtime_native_size": [
+        104,
+        26
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        104,
+        26
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/rail_cannon-barrel_s3.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "swarm_bee",
+      "part": "body",
+      "source": "art_src/creatures/swarm_bee/design_s2.png",
+      "source_sha256": "66b662bb8f9ce6fe952673736b75a9d3fdb748e3137ebfee778a2bb7d11e01d7",
+      "runtime": "art/creatures/swarm_bee/body.png",
+      "runtime_sha256": "306fd78240be75dd2bac1e2f56adc586586b0eaa57fb282edef3674757d8a519",
+      "source_native_size": [
+        832,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        91,
+        212,
+        717,
+        630
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        625,
+        418
+      ],
+      "k": 0.0576,
+      "runtime_native_size": [
+        36,
+        24
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        36,
+        24
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/swarm_bee-design_s2.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "cloud_serpent",
+      "part": "head",
+      "source": "art_src/creatures/cloud_serpent/head_s1.png",
+      "source_sha256": "12fea5c40a0c31280004abc1cc27b08e60ac481f1f3ac672bec6608330f78250",
+      "runtime": "art/creatures/cloud_serpent/head.png",
+      "runtime_sha256": "22e21b157d1ce53f30a3d5f75ed43fd3c80f862da2f909408eefddc03fbc9dd9",
+      "source_native_size": [
+        1216,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        47,
+        253,
+        1181,
+        564
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        1133,
+        310
+      ],
+      "k": 0.09885260370697264,
+      "runtime_native_size": [
+        112,
+        31
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        112,
+        31
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/cloud_serpent-head_s1.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    },
+    {
+      "id": "cloud_serpent",
+      "part": "segment",
+      "source": "art_src/creatures/cloud_serpent/segment_s1.png",
+      "source_sha256": "95675e166f36aae2fb51359b9c33f8f55ea702116b77a4089589e859789c2907",
+      "runtime": "art/creatures/cloud_serpent/segment.png",
+      "runtime_sha256": "d5392e0cb49d9bb921fb9dcd69d75502c88322ba6c4f251c17ae28064b43dcb0",
+      "source_native_size": [
+        832,
+        832
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_bbox": [
+        77,
+        251,
+        757,
+        598
+      ],
+      "existing_cut_alpha": 24,
+      "existing_crop_size": [
+        680,
+        346
+      ],
+      "k": 0.10588235294117647,
+      "runtime_native_size": [
+        72,
+        37
+      ],
+      "reproduced_rgba_equal": true,
+      "reproduced_native_size": [
+        72,
+        37
+      ],
+      "alpha0_nonzero_rgb_pixels": 0,
+      "composite": "pm/Nest-Egg/attachments/NE-90-cloud-creatures/source-gray/cloud_serpent-segment_s1.png",
+      "anatomy": "UNVERIFIED",
+      "normal_glow": "SEPARATE_GATE"
+    }
+  ],
+  "parts": 31,
+  "mismatches": 0,
+  "elapsed_seconds": 3.793841086000157
+}

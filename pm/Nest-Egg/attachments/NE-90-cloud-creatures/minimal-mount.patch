@@ -1,0 +1,18 @@
+--- a/data/enemies/watchdog.tres
++++ b/data/enemies/watchdog.tres
+@@ -34,2 +34,13 @@
+-rig_skin = "warden"
+-rig_weapon = "minigun"
++rig_skin = ""
++rig_weapon = ""
++creature_skin = "watchdog"
++creature_states = {
++"dormant": "idle",
++"intro": "idle",
++"burst_windup": "attack_windup",
++"burst": "attack",
++"leap_windup": "leap_windup",
++"leap": "leap",
++"fan_windup": "fan_windup",
++"phase_shift": "phase_shift"
++}

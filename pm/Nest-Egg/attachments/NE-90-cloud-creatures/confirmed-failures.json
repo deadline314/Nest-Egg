@@ -1,0 +1,87 @@
+[
+  {
+    "model": "watchdog",
+    "issue": "wrong humanoid mount, no quadruped",
+    "state": "dormant",
+    "frame": 119,
+    "face": 1,
+    "zoom": 1,
+    "driver": "opengl3",
+    "renderer": "gl_compatibility",
+    "native_png": "pm/Nest-Egg/images/NE-90-cloud-creatures/watchdog-borrowed-warden-dormant-frame119-face1-zoom1.png",
+    "native_png_sha256": "715d2e199a57e7557bcfa5bcd00df545f5c6ead224e1870d3b409a84897f097f",
+    "native_size": [
+      1280,
+      720
+    ],
+    "source_data_sha256": "8de31a4285c301db26c5e781ef204ada7f8a0738a1fcd88bb01f46f10fbbf2f7",
+    "source_png_sha256": {},
+    "repro": "runner/watchdog.tscn"
+  },
+  {
+    "model": "shock_hound",
+    "issue": "no independent four feet; fused body sx/sy",
+    "state": "idle",
+    "frame": 119,
+    "face": 1,
+    "zoom": 3.4,
+    "driver": "opengl3",
+    "renderer": "gl_compatibility",
+    "native_png": "pm/Nest-Egg/images/NE-90-cloud-creatures/shock_hound-idle-frame119-face1-zoom3.4.png",
+    "native_png_sha256": "fb0008c889875fc2f571fb772bfe066707eaa515f98ddcce279d84f24181dd11",
+    "native_size": [
+      1280,
+      720
+    ],
+    "source_data_sha256": "357646aa442c236e70406cf56315a2d7cc4acbfc56e77e5f8d827244e4d4b3c6",
+    "source_png_sha256": {
+      "art_src/creatures/shock_hound/body_s1.png": "1a6d7dc671725ca05ceea0e7871190c5223aad3c3cfded265522f7f6ec0652bc",
+      "art_src/creatures/shock_hound/body_s2.png": "fefad0ad5bb8607444646e03fca30880420c0f436e411b982941cf737d78e06b",
+      "art_src/creatures/shock_hound/tail_s1.png": "58e5f6765e2c2a59da12936ce914bbc2657cf58b83f4d60410917cb7bb187719"
+    },
+    "repro": "runner/capture.tscn"
+  },
+  {
+    "model": "wall_gecko",
+    "issue": "no independent four feet; fused body sx/sy",
+    "state": "idle",
+    "frame": 119,
+    "face": 1,
+    "zoom": 3.4,
+    "driver": "opengl3",
+    "renderer": "gl_compatibility",
+    "native_png": "pm/Nest-Egg/images/NE-90-cloud-creatures/wall_gecko-idle-frame119-face1-zoom3.4.png",
+    "native_png_sha256": "4e026d70ad6070ba119aab920d75edea7d590ee03f8e9502acb52cab1341410a",
+    "native_size": [
+      1280,
+      720
+    ],
+    "source_data_sha256": "861e4460f883caf1466017270a28d3ee8f268e5951a7def45327cb7eb51d098a",
+    "source_png_sha256": {
+      "art_src/creatures/wall_gecko/design_s1.png": "286df5db609488397d4dd402e9a1d8de44ce2c6cbe8147599620ad6e6060599b"
+    },
+    "repro": "runner/capture.tscn"
+  },
+  {
+    "model": "drone",
+    "issue": "visibly detached wing on native full-color snapshot",
+    "state": "idle",
+    "frame": 119,
+    "face": 1,
+    "zoom": 3.4,
+    "driver": "opengl3",
+    "renderer": "gl_compatibility",
+    "native_png": "pm/Nest-Egg/images/NE-90-cloud-creatures/drone-idle-frame119-face1-zoom3.4.png",
+    "native_png_sha256": "e1be632416cfe5acdada93da99e18d1a57db389c82d070e49f51bc85ef95ad22",
+    "native_size": [
+      1280,
+      720
+    ],
+    "source_data_sha256": "a45e4b8c192781799e2919ae8fb630c8dad91c8aeb76ef0656ae56453eae80ff",
+    "source_png_sha256": {
+      "art_src/creatures/drone/body_s1.png": "5012c6f194916978a49c7f2a51ee3238994fe712be7ee2d92c3cc432e8318c52",
+      "art_src/creatures/drone/wing_s1.png": "febd657312d762a4e33ffd4699e183e884277822c968ada07eab904930dffa84"
+    },
+    "repro": "runner/capture.tscn"
+  }
+]
