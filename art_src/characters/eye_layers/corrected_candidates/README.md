@@ -26,7 +26,7 @@ The nine half/closed variants have been exported with the existing production cu
 
 ## Measured eye-stage trial
 
-The corrected head-only stage audit passed with no reported errors: 30.047 seconds of real wall time, 4,303 processed frames, Godot 4.7.2 Forward+ HDR 2D on an RTX 4070 SUPER, and a 1280×720 viewport. It captured stage frames at 0, 15 and 30 seconds plus 27 actual rendered head-pixel crops at 3.4×. Root visually reviewed all three groups and the 15-second stage frame. Earlier directory-save and stretched-crop runs were rejected; only the corrected final run counts. The raw JSON and captures are still under ignored `.godot/eye-stage-audit/` and have not been copied to a published evidence path.
+The corrected head-only stage audit passed with no reported errors: 30.047 seconds of real wall time, 4,297 processed frames, Godot 4.7.2 Forward+ HDR 2D on an RTX 4070 SUPER, and a 1280×720 viewport. It captured stage frames at 0, 15 and 30 seconds plus 27 actual rendered head-pixel crops at 3.4×. Root visually reviewed all three groups and the 15-second stage frame. Earlier directory-save and stretched-crop runs were rejected; only the corrected final run counts. The raw JSON and captures are still under ignored `.godot/eye-stage-audit/` and have not been copied to a published evidence path.
 
 The registered `EyeBlinkSuite` standard-runner result was 256 executed tests with zero new failures and zero known failures. The previous affected-run record reports 65 affected and 49,204 executed, also with zero new or known failures.
 
@@ -39,3 +39,5 @@ The deterministic Wataru fill uses only source skin samples from upper band `[47
 ## Repairer half revision
 
 The previous repairer half candidate is preserved at `rejected_history/repairer-half-v1/` with its original SHA-256 and root's rejection reason. The revised half replaces only pixels inside the existing repairer eye mask: it interpolates same-row skin color from the explicit left `[440,89,443,95)` and right `[467,89,471,95)` source bands, then draws a curved y=92–94 upper-lid contour. This keeps lower sclera and pupil pixels from the open source. Open, closed, and the other eight characters retain their earlier hashes. `self_check.py` verifies those invariants. Root accepted this revision as a runtime-trial source; runtime acceptance remains pending.
+
+The initial NPC-animator setup retained the default two-handed input and used the humanoid fallback body branch. That eye-switch evidence is superseded for NPC posture coverage by the actual unarmed NPC-branch rerun: every frame required `_use_npc == true`, nine characters, 30.047 real wall seconds, 4,297 frames, errors empty. See NE-221 Commit-2; the branch check validates eye-only rendering, not clothing or whole-body motion.

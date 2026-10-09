@@ -62,3 +62,33 @@ NPC 與凜的動作已有重心轉移、轉頭與說話手勢（NE-206），但�
 ![阿婆、渡、梅：原生三狀態，未放大](images/NE-221-eyes/NE221-native-states-group2.png)
 
 [原生逐格時序與環境](images/NE-221-eyes/NE221.json) · [原生執行log](images/NE-221-eyes/ne221-eye-stage-native.log) · [受影響測試](images/NE-221-eyes/ne221-affected-result.txt) · [新套件](images/NE-221-eyes/ne221-registered-eye-result.txt) · [完整證據SHA索引](images/NE-221-eyes/manifest.json) · [來源與重建](../../art_src/characters/eye_layers/README.md)
+
+# Commit-2
+
+## 內文
+
+補正Commit-1的場景分支描述：雖選了NPC動畫器，測試輸入仍沿用「雙手持武器」預設，待機／說話實際進入其人形備援分支。該次仍驗到眼圖切換，但不能稱真正NPC姿勢分支通過；原紀錄保留。現在明確使用未持武器的NPC輸入，九人每格都驗證實際進入NPC分支，重新以Forward+播放30.047秒、4297格並擷取眼部三狀態，無錯誤。
+
+本次沒有改角色遊戲行為、立繪或眨眼時序，也沒有將衣物或全身動作條件勾選；頭部場景仍只代表眼部驗收。第一段的正式受影響測試與256項眨眼套件仍適用，本次以完整重跑原生場景驗證工具差異。
+
+### 測試結果
+
+| 項目 | 結果 |
+|---|---|
+| 實際分支 | 九角色×4297格要求NPC分支，errors為空；不能再以動畫器類型代替實際分支 |
+| 眼部連續播放 | 真實牆鐘30.047秒，待機／說話各15秒；九人皆有完整半閉→閉眼→半閉→睜眼周期與三狀態原生圖 |
+| 原生畫面 | Godot4.7.2、RTX4070SUPER、Forward+ HDR2D、1280×720；33張原生PNG／未縮放裁切拼版，逐圖核對可見頭部 |
+| CI | Commit-1對應37963721947已完成且success；完整測試由CI執行，本機沒有重跑完整測試 |
+| 文件 | 圖像可解碼、SHA索引與相對連結有效；狀態進行中與後兩條未勾選維持相同 |
+
+### 截圖
+
+![真正NPC分支的待機／說話舞台，隔離頭部](images/NE-221-eyes-npc-branch/NE221-stage-15.png)
+
+![凜、老 K、護理師：實際NPC分支原生三狀態](images/NE-221-eyes-npc-branch/NE221-native-states-group0.png)
+
+![夜班工人、維修員、居民：實際NPC分支原生三狀態](images/NE-221-eyes-npc-branch/NE221-native-states-group1.png)
+
+![阿婆、渡、梅：實際NPC分支原生三狀態](images/NE-221-eyes-npc-branch/NE221-native-states-group2.png)
+
+[逐格分支與時序](images/NE-221-eyes-npc-branch/NE221.json) · [原生log](images/NE-221-eyes-npc-branch/ne221-eye-npc-branch-native.log) · [證據SHA索引](images/NE-221-eyes-npc-branch/manifest.json)

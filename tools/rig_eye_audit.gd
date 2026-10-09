@@ -71,8 +71,9 @@ func _add_rig(i: int, skin_id: String) -> bool:
 		rests[String(bone)] = [rig.rest(bone), rig.bone(bone).rest, rig.bone(bone).get_instance_id(), rig.parent_of(bone)]
 	var col := i % 3; var row := floori(float(i) / 3.0)
 	var label := Label.new(); label.text = skin_id; label.position = Vector2(col * SIZE.x / 3.0 + 12, row * SIZE.y / 3.0 + 10); add_child(label)
+	var npc_input := RigInput.new(); npc_input.two_handed = false
 	_rows.append({"id": skin_id, "rig": rig, "holder": holder, "head": head, "head_id": head.get_instance_id(), "glow": glow,
-		"parts": parts, "part_ids": part_ids, "rests": rests, "textures": tex, "glows": glows, "input": RigInput.new(),
+		"parts": parts, "part_ids": part_ids, "rests": rests, "textures": tex, "glows": glows, "input": npc_input,
 		"target": Vector2((col + 0.5) * SIZE.x / 3.0, (row + 0.5) * SIZE.y / 3.0),
 		"size": head.texture.get_size(), "offset": head.offset, "position": head.position, "rotation": head.rotation,
 		"scale": head.scale, "centered": head.centered, "material": head.material, "state": StringName(rig.get("_eye_state")),
@@ -128,6 +129,7 @@ func _queue(row: Dictionary, state: String, wall: float) -> void:
 
 func _invariants(row: Dictionary) -> bool:
 	var rig: CharacterRig = row["rig"]; var head: Sprite2D = row["head"]; var state := String(rig.get("_eye_state"))
+	if not _check(rig.animator.get("_use_npc") == true, "%s: expected actual NPC animation branch" % row["id"]): return false
 	if not _check(row["textures"].has(state) and head.texture == row["textures"][state] and head.texture.get_size() == row["size"], "%s: state texture/canvas changed" % row["id"]): return false
 	if not _check(head.get_instance_id() == row["head_id"] and head.material == row["material"] and head.offset == row["offset"] and head.position == row["position"] and head.rotation == row["rotation"] and head.scale == row["scale"] and head.centered == row["centered"], "%s: head node/material/pivot/transform changed" % row["id"]): return false
 	if not _check(row["parts"].size() == row["part_ids"].size(), "%s: part count changed" % row["id"]): return false
@@ -190,7 +192,7 @@ func _finish() -> void:
 		for cycle in row["cycles"]:
 			if not cycle["sequence_ok"] or not cycle["duration_ok"]: _fail("%s invalid blink cycle" % row["id"])
 		if not row["files"].has("stage-15") or not row["files"].has("stage-30"): _fail("%s missing stage-15/30 capture" % row["id"])
-		results.append({"skin_id": row["id"], "npc_mode": true, "stage_zoom": ZOOM, "timing_config": row["timing"], "part_count": row["parts"].size(), "state_frame_counts": row["counts"], "transitions": row["transitions"], "blink_cycles": row["cycles"], "capture_files": row["files"]})
+		results.append({"skin_id": row["id"], "npc_mode": true, "npc_branch_required_each_frame": true, "stage_zoom": ZOOM, "timing_config": row["timing"], "part_count": row["parts"].size(), "state_frame_counts": row["counts"], "transitions": row["transitions"], "blink_cycles": row["cycles"], "capture_files": row["files"]})
 	var report := {"status": "passed" if _errors.is_empty() else "failed", "errors": _errors, "godot": Engine.get_version_info(),
 		"renderer": RenderingServer.get_current_rendering_method(), "driver": RenderingServer.get_current_rendering_driver_name(), "hdr_2d": ProjectSettings.get_setting("rendering/viewport/hdr_2d", false),
 		"gpu_adapter": RenderingServer.get_video_adapter_name(), "gpu_vendor": RenderingServer.get_video_adapter_vendor(), "cpu": OS.get_processor_name(),
