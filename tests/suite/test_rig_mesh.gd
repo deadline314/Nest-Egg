@@ -14,6 +14,7 @@ func run() -> void:
 	_test_upward_waist()
 	_test_limb_root()
 	_test_reference_geometry()
+	_test_cloth_binding()
 	await _test_real_rigs()
 	await _test_part_behaviour()
 
@@ -136,7 +137,36 @@ func _test_limb_root() -> void:
 		var edge: Vector2 = upper.transform * (part.transform * part.deformed_vertices()[2])
 		check(edge.distance_to(Vector2(2, 0)) < 0.001, "the thigh root stays attached to the pelvis at %.2f rad" % angle)
 		check(part.fold_fraction() <= 0.4, "the root attachment stays within the fold limit at %.2f rad" % angle)
+	upper.position = Vector2(-2, -7)
+	upper.rotation = 0.0
+	upper.rest = upper.transform
+	check(part.setup(part.texture, TEXTURE_SIZE, PIVOT, upper, chain["lower"], true, upper.rest.origin, (chain["lower"] as Bone2D).rest.origin, 3.0, 1, hip, 3.0, upper.position), "shoulder binding preserves its offset from the chest")
+	for angle in [-1.2, 0.5, 1.8]:
+		upper.rotation = angle
+		part.refresh()
+		var shoulder_edge: Vector2 = upper.transform * (part.transform * part.deformed_vertices()[2])
+		check(shoulder_edge.distance_to(Vector2(0, -7)) < 0.001, "the sleeve root stays at its authored chest attachment at %.2f rad" % angle)
 	chain["root"].queue_free()
+
+
+func _test_cloth_binding() -> void:
+	var rig := CharacterRig.new()
+	runner.add_child(rig)
+	rig.setup("rin")
+	var texture := PlaceholderTexture2D.new()
+	texture.size = Vector2(40, 100)
+	var part := rig._make_limb_mesh(&"coat_1", texture, null, texture.size, Vector2(20, 0), Vector2.ZERO, 1.0, true, &"coat_2")
+	check(part != null, "a continuous hem can bind to an explicitly named child bone")
+	if part != null:
+		rig.bone(&"coat_1").add_child(part)
+		rig.bone(&"coat_1").rotation = 0.15
+		rig.bone(&"coat_2").rotation = -0.08
+		part.refresh()
+		var edge: Vector2 = rig.bone(&"coat_1").transform * (part.transform * part.deformed_vertices()[2])
+		check(edge.distance_to(rig.rest(&"coat_1") + Vector2(1, 0)) < 0.001, "hem root stays attached to the authored chest location while its tail bends")
+	check(rig._make_limb_mesh(&"coat_1", texture, null, texture.size, Vector2.ZERO, Vector2.ZERO, 1.0, true, &"missing") == null, "missing cloth partner safely falls back to a rigid part")
+	check(rig._make_limb_mesh(&"coat_1", texture, null, texture.size, Vector2.ZERO, Vector2.ZERO, 1.0, true, &"chest") == null, "unrelated cloth partner cannot bind to the wrong chain")
+	rig.queue_free()
 
 
 func _test_reference_geometry() -> void:

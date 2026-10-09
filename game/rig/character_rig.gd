@@ -434,7 +434,7 @@ func _build_parts(skin: Dictionary) -> void:
 		var part_rot := float(entry.get("rotation", 0.0))
 		var part: CanvasItem = null
 		if bend_limbs and is_zero_approx(part_rot) and not (bone_name in [&"hip", &"chest"] and tex_name.begins_with("armor_")):
-			part = _make_limb_mesh(bone_name, texture, glow_texture, size, pivot, part_pos, tint)
+			part = _make_limb_mesh(bone_name, texture, glow_texture, size, pivot, part_pos, tint, bool(entry.get("root_attach", false)), StringName(str(entry.get("bend_partner", ""))))
 		if part == null:
 			part = _make_sprite(texture, glow_texture, pivot, part_pos, part_rot, tint)
 		part.name = part_name
@@ -478,8 +478,13 @@ func _make_sprite(texture: Texture2D, glow_texture: Texture2D, pivot: Vector2, p
 
 
 ## 肢體零件（上臂、前臂、大腿、小腿）靠近關節時做成可彎曲的網格，回傳 null＝這個零件維持剛體（不是肢體、碰不到關節、骨架沒有成對的上下段）。
-func _make_limb_mesh(bone_name: StringName, texture: Texture2D, glow_texture: Texture2D, size: Vector2, pivot: Vector2, part_pos: Vector2, tint: float) -> RigPartMesh:
+func _make_limb_mesh(bone_name: StringName, texture: Texture2D, glow_texture: Texture2D, size: Vector2, pivot: Vector2, part_pos: Vector2, tint: float, attach_root := false, bend_partner: StringName = &"") -> RigPartMesh:
 	var limb := _limb_of(bone_name)
+	if bend_partner != &"":
+		if not _bones.has(bend_partner) or _parent.get(bend_partner, &"") != bone_name:
+			push_warning("[CharacterRig] %s/%s bend_partner must be an immediate child bone: %s; using rigid part" % [skin_id, bone_name, bend_partner])
+			return null
+		limb = {"upper": true, "partner": bend_partner, "zone": _rest[bend_partner].length() * _limb_zone}
 	if limb.is_empty():
 		return null
 	var partner_name: StringName = limb["partner"]
@@ -493,10 +498,10 @@ func _make_limb_mesh(bone_name: StringName, texture: Texture2D, glow_texture: Te
 	var mesh := RigPartMesh.new()
 	mesh.position = part_pos
 	mesh.scale = Vector2.ONE * _texture_scale
-	var root_partner: Bone2D = _bones.get(_parent.get(bone_name, &"")) if is_upper and String(bone_name).begins_with("leg_") else null
+	var root_partner: Bone2D = _bones.get(_parent.get(bone_name, &"")) if is_upper and (String(bone_name).begins_with("leg_") or attach_root) else null
 	# Both thigh textures were cut around the same illustrated hip.
 	# A far-side copy offset must not pull that root away from the pelvis.
-	var root_origin := Vector2(0.0, _rest[bone_name].y)
+	var root_origin: Vector2 = Vector2(0.0, _rest[bone_name].y) if String(bone_name).begins_with("leg_") else _rest[bone_name]
 	if not mesh.setup(texture, size, pivot, _bones[bone_name], _bones[partner_name], is_upper, _rest[bone_name], _rest[partner_name], zone, direction, root_partner, zone, root_origin):
 		mesh.free()
 		return null

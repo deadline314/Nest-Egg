@@ -70,16 +70,16 @@
       1150
     ],
     "hem_root": [
-      345,
-      438
+      452,
+      350
     ],
     "hem_mid": [
-      335,
-      480
+      452,
+      365
     ],
     "hem_tip": [
-      335,
-      512
+      452,
+      390
     ]
   },
   "groups": {
@@ -158,6 +158,11 @@
         "avoid": "Do NOT draw the arm, the hand, the jacket, the holster, the hair, the head or the boot.",
         "seed": 91
       }
+    },
+    "sleeve": {
+      "sam": [
+        "jacket sleeve"
+      ]
     }
   },
   "parts": {
@@ -287,82 +292,6 @@
       ],
       "pivot": "head"
     },
-    "jacket": {
-      "group": "jacket",
-      "from": "waist",
-      "to": "neck",
-      "mode": "upright",
-      "uses": [
-        {
-          "name": "armor_jacket",
-          "bone": "chest",
-          "z": 4,
-          "armor_order": 1
-        }
-      ],
-      "pivot": "waist",
-      "blob": "main",
-      "y": [
-        0,
-        440
-      ]
-    },
-    "jacket_collar": {
-      "group": "jacket",
-      "blob": "rest",
-      "from": "neck",
-      "to": "head",
-      "mode": "upright",
-      "pivot": "neck",
-      "uses": [
-        {
-          "name": "jacket_collar",
-          "bone": "neck",
-          "z": 4,
-          "armor_order": 1
-        }
-      ]
-    },
-    "jacket_hem_1": {
-      "group": "jacket",
-      "blob": "main",
-      "from": "hem_root",
-      "to": "hem_mid",
-      "mode": "bone",
-      "pivot": "hem_root",
-      "uses": [
-        {
-          "name": "jacket_hem_1",
-          "bone": "coat_1",
-          "z": 4,
-          "armor_order": 1
-        }
-      ],
-      "y": [
-        440,
-        480
-      ]
-    },
-    "jacket_hem_2": {
-      "group": "jacket",
-      "blob": "main",
-      "from": "hem_mid",
-      "to": "hem_tip",
-      "mode": "bone",
-      "pivot": "hem_mid",
-      "uses": [
-        {
-          "name": "jacket_hem_2",
-          "bone": "coat_2",
-          "z": 4,
-          "armor_order": 1
-        }
-      ],
-      "y": [
-        480,
-        1300
-      ]
-    },
     "holster": {
       "group": "holster",
       "from": "hip",
@@ -387,7 +316,7 @@
           "name": "leg_back_upper",
           "bone": "leg_back_upper",
           "z": -5,
-          "tint": 0.62,
+          "tint": 1.0,
           "armor_order": 4
         },
         {
@@ -412,7 +341,7 @@
           "name": "leg_back_upper_dmg",
           "bone": "leg_back_upper",
           "z": -6,
-          "tint": 0.62,
+          "tint": 0.9,
           "under": true
         },
         {
@@ -438,7 +367,7 @@
           "name": "leg_back_lower",
           "bone": "leg_back_lower",
           "z": -5,
-          "tint": 0.62,
+          "tint": 1.0,
           "armor_order": 5
         },
         {
@@ -463,7 +392,7 @@
           "name": "leg_back_lower_dmg",
           "bone": "leg_back_lower",
           "z": -6,
-          "tint": 0.62,
+          "tint": 0.9,
           "under": true
         },
         {
@@ -489,7 +418,7 @@
           "name": "foot_back",
           "bone": "foot_back",
           "z": -5,
-          "tint": 0.62
+          "tint": 1.0
         },
         {
           "name": "foot_front",
@@ -564,6 +493,70 @@
         }
       ],
       "pivot": "palm"
+    },
+    "jacket_sleeve": {
+      "group": "sleeve",
+      "from": "shoulder",
+      "to": "elbow",
+      "mode": "bone",
+      "pivot": "shoulder",
+      "uses": [
+        {
+          "name": "jacket_sleeve_back",
+          "bone": "arm_back_upper",
+          "z": -6,
+          "tint": 0.62,
+          "armor_order": 1,
+          "root_attach": true
+        },
+        {
+          "name": "jacket_sleeve_front",
+          "bone": "arm_front_upper",
+          "z": 9,
+          "armor_order": 1,
+          "root_attach": true
+        }
+      ]
+    },
+    "armor_jacket": {
+      "group": "jacket",
+      "from": "waist",
+      "to": "neck",
+      "mode": "upright",
+      "pivot": "waist",
+      "uses": [
+        {
+          "name": "armor_jacket",
+          "bone": "chest",
+          "z": 4,
+          "armor_order": 1
+        }
+      ],
+      "y": [
+        0,
+        355
+      ]
+    },
+    "jacket_hem": {
+      "group": "jacket",
+      "from": "hem_root",
+      "to": "hem_mid",
+      "mode": "bone",
+      "pivot": "hem_root",
+      "y": [
+        340,
+        1300
+      ],
+      "uses": [
+        {
+          "name": "jacket_hem",
+          "bone": "coat_1",
+          "z": 4,
+          "armor_order": 1,
+          "root_attach": true,
+          "bend_partner": "coat_2"
+        }
+      ]
     }
   },
   "glow": {
@@ -878,7 +871,7 @@
         ]
       },
       {
-        "part": "jacket",
+        "part": "armor_jacket",
         "poly": [
           [
             394,
@@ -915,27 +908,21 @@
         "arm_lower",
         "hand",
         "holster",
-        "jacket",
+        "armor_jacket",
         "leg_upper",
         "leg_lower",
         "foot",
         "pelvis",
-        "torso",
-        "jacket_collar",
-        "jacket_hem_1",
-        "jacket_hem_2"
+        "torso"
       ],
       "sigma": 1.0
     },
     "white_specks": {
       "parts": [
-        "jacket",
-        "jacket_collar",
+        "armor_jacket",
         "holster",
         "leg_upper",
-        "leg_lower",
-        "jacket_hem_1",
-        "jacket_hem_2"
+        "leg_lower"
       ],
       "max_area": 60
     },
@@ -994,16 +981,20 @@
     {
       "bone": "coat_1",
       "rest": 0.0,
-      "gain": 0.7,
+      "gain": 0.14,
       "stiffness": 120,
-      "damping": 9
+      "damping": 14,
+      "min": -0.12,
+      "max": 0.16
     },
     {
       "bone": "coat_2",
       "rest": 0.0,
-      "gain": 0.5,
-      "stiffness": 100,
-      "damping": 7
+      "gain": 0.08,
+      "stiffness": 110,
+      "damping": 12,
+      "min": -0.08,
+      "max": 0.12
     },
     {
       "bone": "hair_1",

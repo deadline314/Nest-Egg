@@ -70,9 +70,9 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
 | `leg_upper`、`leg_lower`、`foot` | `leg_front_*`／`foot_front`（z 3）與 `leg_back_*`／`foot_back`（z −5，亮度 0.62） | | 前後腿共用同一張圖 |
 | `holster` | `leg_front_upper` | 4 | **配件**：大腿槍套 |
 | `torso_dmg`、`pelvis_dmg`、`thigh_dmg`／`calf_dmg`（含後腳）| 與完整零件同骨頭 | 完整零件 z−1 | **破損底層**：撕裂衣物版的身體，平時被完整零件蓋住，衣物飛走後露出來 |
-| `jacket` | `chest` | 4 | **配件**：披在肩上的夾克上半（含洋紅襯裡）；袖子不另外拆，手臂圖層比夾克高，夾克像披在肩上、手臂從裡面滑出來 |
-| `jacket_hem_1`、`jacket_hem_2` | `coat_1`、`coat_2` | 4 | **配件**：夾克下擺，兩段彈簧骨（`coat_1` 掛在胸骨的下擺根部，`coat_2` 掛在 `coat_1` 底下），跑步向後飄、上升下垂、下落掀起 |
-| `jacket_collar` | `neck` | 4 | **配件**：脖子旁的遠側翻領（原本是夾克上獨立的一塊，spec 用 `blob: "rest"` 分出） |
+| `armor_jacket` | `chest` | 4 | 穿著的短外套本體，肩領固定於胸骨；來源只取局部衣物，不替換已批准的臉與身體 |
+| `jacket_sleeve` | `arm_front_upper`／`arm_back_upper` | 9／−6 | 每側一張連續衣袖，沿上臂／前臂變形；`root_attach` 將袖根接至胸骨，袖口露出原義肢手 |
+| `jacket_hem` | `coat_1` | 4 | 連續衣襬，`bend_partner: coat_2` 綁定兩段彈簧鏈；`root_attach` 固定根部，與本體保留 15 原圖像素的真實布料重疊，活動量限制在短外套範圍 |
 | `head` | `head` | 5 | 臉、前髮、耳環 |
 | `arm_upper`、`arm_lower`、`hand` | `arm_front_*`／`hand_front`（z 8～10）與 `arm_back_*`／`hand_back`（z −7～−6，亮度 0.62） | | 金屬義肢 |
 

@@ -1,0 +1,38 @@
+{
+  "purpose": "NE-222 localized worn coat study; original s33 stays unchanged",
+  "source": "base_rgba.png",
+  "stage": "J",
+  "prompt": "This is an RGBA character illustration with a transparent background. Edit ONLY the dark navy jacket with magenta lining. The adult woman is actually wearing this fitted cropped open jacket: the shoulder seam sits on her shoulder above her cybernetic upper arm; the arm passes through a proper armhole; a fitted long sleeve follows her upper arm and elbow down to a neat cuff just above her cybernetic wrist. The collar joins the jacket body naturally around the neck, and the short back hem falls to the upper hip. The open front exposes the existing white bodysuit. No shawl, no cape, no slipped shoulder, no loose empty sleeve, no detached cloth chunks. Keep exactly the same side-facing-right resting pose, shoulder, elbow, wrist, waist and hip locations, body proportions, clean hand-drawn anime cel shading, line weight, navy color, magenta piping and fabric folds. Keep the original face, hair, earrings, body, cybernetic hands, legs, boots and holster unchanged. Do not add any arm, hand, finger, leg, weapon or accessory. No background. Produce the complete figure in the same framing; only the jacket changes.",
+  "seed": 22261,
+  "resolution": 1024,
+  "models": [
+    "qwen-image-2.1-UC-int8_convrot.safetensors",
+    "qwen3vl_8b_int8_convrot.safetensors",
+    "qwen_image_2.1_vae_bf16.safetensors"
+  ],
+  "source_sha256": "401888dc14dcca469428e4df45c07648e36fd1822497031f8c28213fafc24fd9",
+  "raw_output": "art_src/characters/rin2/_gen/rin_worn_coat_J_0.png",
+  "raw_output_sha256": "4a7de6240cea956fb8ca2b9b7c75e6089e2cd6b79dd7c7dbaf657676684a0cdc",
+  "raw_size": [
+    832,
+    1248
+  ],
+  "aligned_size": [
+    832,
+    1216
+  ],
+  "aligned_sha256": "e130f3b3d452e3884010edea449bad23df27d093efd073e547c9086a4c256d34",
+  "alignment": {
+    "filter": "PIL.Image.Resampling.LANCZOS",
+    "x_scale": 1,
+    "y_scale": 0.9743589743589743,
+    "measured_canvas": "J.png"
+  },
+  "consumed_groups": [
+    "jacket",
+    "sleeve"
+  ],
+  "preserved_approved_parts": "head, hair, body, hands, legs and boots remain from s33 or its existing hidden-layer completions",
+  "workflow": "art_src/characters/rin2/_gen/rin_worn_coat_J_0.workflow.json",
+  "workflow_sha256": "9ffaf5f1eae912411722e27ad666ea64b1b0a122c0551827d6b1204dd05b7f07"
+}

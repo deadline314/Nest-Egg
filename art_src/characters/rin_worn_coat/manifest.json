@@ -1,0 +1,38 @@
+{
+  "scope": "NE-222 localized worn cropped jacket, registered to existing approved s33; no face/body replacement",
+  "base_commit": "d8087fe73315275e2723d722919c18c802c90ad3",
+  "approved_source": "art_src/characters/rin2/base_rgba.png",
+  "approved_sha256": "401888dc14dcca469428e4df45c07648e36fd1822497031f8c28213fafc24fd9",
+  "sources": {
+    "source/04_stages/J.png": "e130f3b3d452e3884010edea449bad23df27d093efd073e547c9086a4c256d34",
+    "source/04_stages/J.source.json": "fc626f95e38667464df3ba2d14c936fd667c90d7f49830939a84888eb19d5d45",
+    "source/04_stages/sam_J/jacket.png": "260e7f21bece87dc4dbe60b023b2b99b801f8393c9209bd966384762e5969eef",
+    "source/04_stages/sam_J/jacket_sleeve.png": "885e49c2a227c5b7f8f32bc4d6cfb88bd015d1ed1eeed1c6bccb3c290cdc8a7f",
+    "source/05_groups/jacket.png": "5e4ec10eaa5a9ad084d2e931ecd82127a78acdb8c286e379c98b2ca10a272bce",
+    "source/05_groups/sleeve.png": "4fd9ae9eea3ad5e78bf385c109603c32c7de35505d094aa6f083d1458cbb7f71",
+    "source/07_refined/jacket.png": "c9be1714423334c25935c6ebf4da836e1af2e6c31bc20b7f6eec35efd2c07436",
+    "source/07_refined/jacket_collar.png": "e3009b64725627e7d274d6c03b2eb1bf29d6c97dd3f4c31acd9de62981a16b8e",
+    "source/07_refined/jacket_sleeve_upper.png": "a58ef423e4f08ac81331f26839c8f9339bc0561ab2cf086a6c7fbf5c3e24f99b",
+    "source/_gen/rin_worn_coat_J.job.json": "163be79387df938426d0e89f39e346c8449f52fabbaa7dd95302fb1a07495428",
+    "source/_gen/rin_worn_coat_J_0.png": "4a7de6240cea956fb8ca2b9b7c75e6089e2cd6b79dd7c7dbaf657676684a0cdc",
+    "source/_gen/rin_worn_coat_J_0.workflow.json": "b6ecf358eb72ecb828fb88b5f9c398719337880f1dd77cd2b0746e6ac9a9da30"
+  },
+  "outputs": {
+    "armor_jacket": "6ba3f842b6f6c53866e5baa29956503f6791413dfb8e084743bf058adb51e0be",
+    "jacket_sleeve": "a58ef423e4f08ac81331f26839c8f9339bc0561ab2cf086a6c7fbf5c3e24f99b",
+    "jacket_hem": "c6d275f7a49c5e9eeec011d98cef13f39e9fb0d6ffdae8380661208bb682a490"
+  },
+  "split": {
+    "body_end_y": 355,
+    "hem_start_y": 340,
+    "hem_root": [
+      452,
+      350
+    ],
+    "hem_mid": [
+      452,
+      365
+    ],
+    "reason": "15 source pixels of real garment overlap, fixed shoulder/collar, continuous two-bone cropped lapel"
+  }
+}

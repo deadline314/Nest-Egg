@@ -20,6 +20,11 @@ const JOINTS := {
 	"wrist_front": [&"hand_front", "arm_front_lower", "hand_front"],
 	"wrist_back": [&"hand_back", "arm_back_lower", "hand_back"],
 	"neck": [&"head", "torso", "head"],
+	"coat_shoulder_front": [&"arm_front_upper", "armor_jacket", "jacket_sleeve_front"],
+	"coat_shoulder_back": [&"arm_back_upper", "armor_jacket", "jacket_sleeve_back"],
+	"coat_cuff_front": [&"hand_front", "jacket_sleeve_front", "arm_front_lower", "hand_front"],
+	"coat_cuff_back": [&"hand_back", "jacket_sleeve_back", "arm_back_lower", "hand_back"],
+	"coat_hem": [&"coat_1", "armor_jacket", "jacket_hem"],
 }
 const ALIASES := {"torso": "armor_torso", "pelvis": "armor_pelvis", "leg_front_upper": "armor_thigh", "leg_front_lower": "armor_calf"}
 const POSES := ["idle", "run", "aim_up", "crouch", "jump", "block", "stagger", "dead"]
@@ -30,7 +35,7 @@ func _ready() -> void:
 func _run() -> void:
 	var out := ""
 	var chars := PackedStringArray(["enforcer", "heavy_gunner", "warden"])
-	var joints := PackedStringArray(JOINTS.keys())
+	var joints := PackedStringArray(JOINTS.keys().filter(func(key: String) -> bool: return not key.begins_with("coat_")))
 	var frames := 120
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--out="): out = arg.trim_prefix("--out=")
@@ -78,9 +83,9 @@ func _run() -> void:
 						var available: Array[String] = []
 						for part in rig._parts: available.append(str(part.name))
 						var keep: Array[String] = []
-						for key: String in [pair[1], pair[2]]:
+						for key: String in pair.slice(1):
 							keep.append(key if available.has(key) else str(ALIASES.get(key, key)))
-						if not available.has(keep[0]) or not available.has(keep[1]):
+						if not keep.all(func(key: String) -> bool: return available.has(key)):
 							push_error("[rig_joint_audit] %s %s missing pair %s" % [chars[row], joint, keep])
 							get_tree().quit(1)
 							return

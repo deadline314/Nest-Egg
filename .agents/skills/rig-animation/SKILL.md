@@ -76,6 +76,8 @@ description: 做或調整 Nest Egg 的骨架角色與動畫時使用：新增角
 
 ## 零件與關節
 
+- 穿著衣物的固定根部：實際有需要的上段零件以 `root_attach: true` 固定到父骨，保留肩骨完整 rest 位移；不對所有上臂自動啟用。非肢體的連續衣襬可指定 `bend_partner` 為直接子骨，沿用既有兩骨網格並固定衣襬根部。來源、切圖匯出與 runtime 共用此契約；缺失或非直接子骨退回剛體並警告。小幅彈簧與真實布料重疊仍須驗證，肩袖、袖口、手腕、衣襬分別隔離逐格檢查；衣襬通過不能推論全部外套接點通過。
+
 - **肢體關節網格（NE-204，已實作）**：上臂／前臂、大腿／小腿（骨頭名 `xxx_upper`／`xxx_lower` 且下段是上段的子骨頭）的零件，碰得到關節的自動做成 `RigPartMesh`（Polygon2D 網格，`game/rig/rig_part_mesh.gd`）：關節兩側各約下段骨長 0.3 倍（`limb_zone`，骨架定義或外觀定義可調）的頂點依距離在「跟自己的骨頭」與「跟夥伴骨頭」之間線性混合（關節正中 0.5），再把到肢體軸線的距離修回原本粗細（`volume_keep`）。**新角色不需要任何額外資料**；外觀定義 `limb_bend: false` 可關掉退回剛體。每格只重算關節附近的頂點、骨頭沒動就跳過、看不到的零件不算。折疊與縮腰由稽核量（`mesh_fold`、`limb_pinch`），彎到 90° 以上內側一定有皺褶，比例上限 40%。手腕、腳踝、髖、肩目前仍是剛體。看畫面：`rig_preview --chars=<角色> --joints --level=0~3`（左剛體、右網格）、`--rigid` 全部維持剛體；效能：`tools/rig_perf_probe.tscn`（每隻約 +36 µs/格）。
 - **所有腳踩實地的角色（`grounding: true`）都要啟用等高跑法**（`move.level`、`bounce`、`rise`、`bob_slow`，數值抄 `art/motion/rin.json` 再依角色微調）：不寫的話骨盆起伏會有 0.10–0.16 L（sniper、stalker、reclaimer 曾經如此），`LocomotionSuite` 對所有 grounding 角色驗證起伏 ≤ 0.09 L、腳滑 ≤ 0.03 L。
 - 零件節點的型別現在是 `Sprite2D` 或 `RigPartMesh`（都是 `CanvasItem`）：找零件用 `find_children("名稱", "CanvasItem")`，不要寫死 `Sprite2D`。

@@ -150,16 +150,16 @@
       "name": "coat_1",
       "parent": "chest",
       "pos": [
-        -2.82,
-        0.34
+        1.68,
+        -3.36
       ]
     },
     {
       "name": "coat_2",
       "parent": "coat_1",
       "pos": [
-        -0.42,
-        1.77
+        0.0,
+        0.63
       ]
     }
   ],
@@ -167,16 +167,20 @@
     {
       "bone": "coat_1",
       "rest": 0.0,
-      "gain": 0.7,
+      "gain": 0.14,
       "stiffness": 120,
-      "damping": 9
+      "damping": 14,
+      "min": -0.12,
+      "max": 0.16
     },
     {
       "bone": "coat_2",
       "rest": 0.0,
-      "gain": 0.5,
-      "stiffness": 100,
-      "damping": 7
+      "gain": 0.08,
+      "stiffness": 110,
+      "damping": 12,
+      "min": -0.08,
+      "max": 0.12
     },
     {
       "bone": "hair_1",

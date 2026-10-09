@@ -1,10 +1,10 @@
 {
   "id": "rin",
-  "armor_debris": false,
   "display_name": "凜",
   "rig": "res://art/rigs/humanoid_tall.json",
   "texture_scale": 0.05,
   "scale": 1.15,
+  "armor_debris": false,
   "portrait": {
     "description": "背包立繪的眨眼設定（頭部貼圖像素座標）：part＝頭部零件名稱；eye＝要被抹成膚色的眼睛範圍（四邊形）；lid＝閉眼時畫上的眼線。",
     "blink": {
@@ -117,54 +117,6 @@
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
-    "jacket": {
-      "file": "parts/jacket.png",
-      "size": [
-        122,
-        157
-      ],
-      "pivot": [
-        100.51,
-        149.65
-      ],
-      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
-    },
-    "jacket_collar": {
-      "file": "parts/jacket_collar.png",
-      "size": [
-        69,
-        54
-      ],
-      "pivot": [
-        -22.22,
-        16.98
-      ],
-      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
-    },
-    "jacket_hem_1": {
-      "file": "parts/jacket_hem_1.png",
-      "size": [
-        86,
-        36
-      ],
-      "pivot": [
-        41.09,
-        -1.3
-      ],
-      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
-    },
-    "jacket_hem_2": {
-      "file": "parts/jacket_hem_2.png",
-      "size": [
-        66,
-        36
-      ],
-      "pivot": [
-        44.75,
-        -0.3
-      ],
-      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
-    },
     "holster": {
       "file": "parts/holster.png",
       "size": [
@@ -273,6 +225,42 @@
         28.45
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "jacket_sleeve": {
+      "file": "parts/jacket_sleeve.png",
+      "size": [
+        85,
+        317
+      ],
+      "pivot": [
+        25.5,
+        59.11
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "armor_jacket": {
+      "file": "parts/armor_jacket.png",
+      "size": [
+        134,
+        154
+      ],
+      "pivot": [
+        58.51,
+        219.65
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "jacket_hem": {
+      "file": "parts/jacket_hem.png",
+      "size": [
+        89,
+        42
+      ],
+      "pivot": [
+        48.15,
+        6.37
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     }
   },
   "parts": [
@@ -324,6 +312,15 @@
       "bone": "hand_back",
       "z": -6,
       "tint": 0.62
+    },
+    {
+      "name": "jacket_sleeve_back",
+      "texture": "jacket_sleeve",
+      "bone": "arm_back_upper",
+      "z": -6,
+      "tint": 0.62,
+      "armor_order": 1,
+      "root_attach": true
     },
     {
       "name": "leg_back_upper",
@@ -411,38 +408,26 @@
       "z": 3
     },
     {
+      "name": "holster",
+      "texture": "holster",
+      "bone": "leg_front_upper",
+      "z": 4
+    },
+    {
       "name": "armor_jacket",
-      "texture": "jacket",
+      "texture": "armor_jacket",
       "bone": "chest",
       "z": 4,
       "armor_order": 1
     },
     {
-      "name": "jacket_collar",
-      "texture": "jacket_collar",
-      "bone": "neck",
-      "z": 4,
-      "armor_order": 1
-    },
-    {
-      "name": "jacket_hem_1",
-      "texture": "jacket_hem_1",
+      "name": "jacket_hem",
+      "texture": "jacket_hem",
       "bone": "coat_1",
       "z": 4,
-      "armor_order": 1
-    },
-    {
-      "name": "jacket_hem_2",
-      "texture": "jacket_hem_2",
-      "bone": "coat_2",
-      "z": 4,
-      "armor_order": 1
-    },
-    {
-      "name": "holster",
-      "texture": "holster",
-      "bone": "leg_front_upper",
-      "z": 4
+      "armor_order": 1,
+      "root_attach": true,
+      "bend_partner": "coat_2"
     },
     {
       "name": "head",
@@ -461,6 +446,14 @@
       "texture": "arm_lower",
       "bone": "arm_front_lower",
       "z": 8
+    },
+    {
+      "name": "jacket_sleeve_front",
+      "texture": "jacket_sleeve",
+      "bone": "arm_front_upper",
+      "z": 9,
+      "armor_order": 1,
+      "root_attach": true
     },
     {
       "name": "hand_front",

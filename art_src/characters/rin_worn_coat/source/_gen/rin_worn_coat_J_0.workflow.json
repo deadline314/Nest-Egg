@@ -1,0 +1,113 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "qwen-image-2.1-UC-int8_convrot.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "1c": {
+    "class_type": "QwenImage21Cache",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "device": "cpu",
+      "dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+      "type": "qwen_image",
+      "device": "default"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+    }
+  },
+  "4": {
+    "class_type": "TextEncodeQwenImage21",
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "prompt": "This is an RGBA character illustration with a transparent background. Edit ONLY the dark navy jacket with magenta lining. The adult woman is actually wearing this fitted cropped open jacket: the shoulder seam sits on her shoulder above her cybernetic upper arm; the arm passes through a proper armhole; a fitted long sleeve follows her upper arm and elbow down to a neat cuff just above her cybernetic wrist. The collar joins the jacket body naturally around the neck, and the short back hem falls to the upper hip. The open front exposes the existing white bodysuit. No shawl, no cape, no slipped shoulder, no loose empty sleeve, no detached cloth chunks. Keep exactly the same side-facing-right resting pose, shoulder, elbow, wrist, waist and hip locations, body proportions, clean hand-drawn anime cel shading, line weight, navy color, magenta piping and fabric folds. Keep the original face, hair, earrings, body, cybernetic hands, legs, boots and holster unchanged. Do not add any arm, hand, finger, leg, weapon or accessory. No background. Produce the complete figure in the same framing; only the jacket changes.",
+      "negative_prompt": "",
+      "vae": [
+        "3",
+        0
+      ],
+      "resolution": 1024,
+      "images.image_1": [
+        "L0",
+        0
+      ]
+    }
+  },
+  "6": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": [
+        "1c",
+        0
+      ],
+      "positive": [
+        "4",
+        0
+      ],
+      "negative": [
+        "4",
+        1
+      ],
+      "latent_image": [
+        "4",
+        2
+      ],
+      "seed": 22261,
+      "steps": 25,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0
+    }
+  },
+  "7": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "6",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "8": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "7",
+        0
+      ],
+      "filename_prefix": "rin_worn_coat_J"
+    }
+  },
+  "L0": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "base_rgba.png"
+    },
+    "is_changed": [
+      "401888dc14dcca469428e4df45c07648e36fd1822497031f8c28213fafc24fd9"
+    ]
+  }
+}
