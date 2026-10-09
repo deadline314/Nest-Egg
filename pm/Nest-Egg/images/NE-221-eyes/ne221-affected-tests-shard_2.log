@@ -1,0 +1,140 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME CollectiblesSuite 5.4
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/main_menu.gd:33)
+       [3] _swap_screen (res://game/main.gd:33)
+       [4] _run (res://autoload/transition.gd:180)
+       [5] play (res://autoload/transition.gd:77)
+       [6] _switch_to (res://game/main.gd:23)
+       [7] _show_main_menu (res://game/main.gd:45)
+       [8] _ready (res://game/main.gd:17)
+       [9] _test_campaign_flow (res://tests/suite/test_chapter2.gd:208)
+       [10] run (res://tests/suite/test_chapter2.gd:20)
+       [11] _test_required_route (res://tests/suite/test_chapter2.gd:201)
+       [12] end_level (res://tests/suite/test_suite.gd:47)
+       [13] _end_level (res://tests/smoke_test.gd:599)
+       [14] _frames (res://tests/smoke_test.gd:122)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/victory_screen.gd:22)
+       [3] _swap_screen (res://game/main.gd:33)
+       [4] _run (res://autoload/transition.gd:180)
+       [5] play (res://autoload/transition.gd:77)
+       [6] _switch_to (res://game/main.gd:23)
+       [7] _show_victory (res://game/main.gd:105)
+       [8] _on_level_completed (res://game/main.gd:97)
+       [9] _test_campaign_flow (res://tests/suite/test_chapter2.gd:232)
+       [10] frames (res://tests/suite/test_suite.gd:23)
+       [11] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME Chapter2Suite 56.7
+WARNING: [PropLibrary] 找不到道具「no_such_prop」（res://data/environment/props）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] find (res://core/prop_library.gd:14)
+       [1] _test_props (res://tests/suite/test_environment.gd:95)
+       [2] run (res://tests/suite/test_environment.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_chapter2.gd:21)
+       [5] _test_difficulties (res://tests/suite/test_chapter2.gd:276)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:599)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/environment/props/test_missing_prop.png
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] texture (res://game/rig/rig_library.gd:81)
+       [2] load_texture (res://core/lit_textures.gd:20)
+       [3] _ready (res://game/level/environment/prop_node.gd:41)
+       [4] _test_missing_texture (res://tests/suite/test_environment.gd:157)
+       [5] run (res://tests/suite/test_environment.gd:14)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_chapter2.gd:21)
+       [8] _test_difficulties (res://tests/suite/test_chapter2.gd:276)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:599)
+       [11] _frames (res://tests/smoke_test.gd:122)
+WARNING: [LevelBackground] 找不到天空貼圖，改用程式天空：res://art/environment/backdrop/test_missing_prop_sky.webp
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _add_photo_sky (res://game/level/level_background.gd:46)
+       [1] _ready (res://game/level/level_background.gd:24)
+       [2] _test_sky (res://tests/suite/test_environment.gd:184)
+       [3] run (res://tests/suite/test_environment.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_chapter2.gd:21)
+       [6] _test_difficulties (res://tests/suite/test_chapter2.gd:276)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:599)
+       [9] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Foreground] 找不到前景貼圖，改用程式繪製的剪影：res://art/test_missing_prop_fg.webp
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _add_strip (res://game/level/environment/foreground_layer.gd:63)
+       [1] _test_foreground (res://tests/suite/test_environment.gd:314)
+       [2] run (res://tests/suite/test_environment.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_chapter2.gd:21)
+       [5] _test_difficulties (res://tests/suite/test_chapter2.gd:276)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:599)
+       [8] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME EnvironmentSuite 2.5
+SUITE_TIME AmmoTraySuite 9.1
+ERROR: [NpcAnimator] res://art/rigs/npc_animations.json 沒有 poses「no_such_pose」，改用「stand」。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _entry (res://game/rig/npc_animator.gd:191)
+       [1] _body_pose (res://game/rig/npc_animator.gd:50)
+       [2] update (res://game/rig/humanoid_animator.gd:242)
+       [3] animate (res://game/rig/character_rig.gd:204)
+       [4] _rig_with (res://tests/suite/test_npc_animation.gd:29)
+       [5] _test_fallbacks (res://tests/suite/test_npc_animation.gd:178)
+       [6] run (res://tests/suite/test_npc_animation.gd:16)
+       [7] _test_loops (res://tests/suite/test_npc_animation.gd:161)
+       [8] _rig_with (res://tests/suite/test_npc_animation.gd:31)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:122)
+ERROR: [NpcAnimator] res://art/rigs/npc_animations.json 沒有 loops「no_such_loop」，改用無。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _entry (res://game/rig/npc_animator.gd:191)
+       [1] _body_pose (res://game/rig/npc_animator.gd:78)
+       [2] update (res://game/rig/humanoid_animator.gd:242)
+       [3] animate (res://game/rig/character_rig.gd:204)
+       [4] _rig_with (res://tests/suite/test_npc_animation.gd:29)
+       [5] _test_fallbacks (res://tests/suite/test_npc_animation.gd:178)
+       [6] run (res://tests/suite/test_npc_animation.gd:16)
+       [7] _test_loops (res://tests/suite/test_npc_animation.gd:161)
+       [8] _rig_with (res://tests/suite/test_npc_animation.gd:31)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME NpcAnimationSuite 1.4
+SUITE_TIME NpcLifeSuite 3.8
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/creatures/no_such_creature.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] load_json (res://game/rig/rig_library.gd:21)
+       [2] setup (res://game/creature/chain_creature.gd:80)
+       [3] _test_bad_data_is_safe (res://tests/suite/test_chain_creature.gd:200)
+       [4] run (res://tests/suite/test_chain_creature.gd:21)
+       [5] _test_severing (res://tests/suite/test_chain_creature.gd:194)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:599)
+       [8] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME ChainCreatureSuite 18.6
+checks: 7024, failures: 0
+WARNING: 118 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

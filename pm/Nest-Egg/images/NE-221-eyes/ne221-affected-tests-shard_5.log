@@ -1,0 +1,416 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/ammo/test_missing_ammo.png
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] texture (res://game/rig/rig_library.gd:81)
+       [2] texture (res://core/ammo_icons.gd:36)
+       [3] _test_missing_icon (res://tests/suite/test_ammo_icons.gd:48)
+       [4] run (res://tests/suite/test_ammo_icons.gd:10)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+SUITE_TIME AmmoIconsSuite 1.4
+SUITE_TIME CombatHudSuite 4.6
+SUITE_TIME ChapterCutscenesSuite 0.4
+ERROR: [EnemyVfx] res://art/vfx/enemies/test_no_such_enemy.json 沒有特效資料，不播放專屬特效。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] report_once (res://game/rig/rig_library.gd:125)
+       [2] load_for (res://game/enemies/enemy_vfx.gd:31)
+       [3] _test_missing_file_is_safe (res://tests/suite/test_enemy_vfx.gd:69)
+       [4] run (res://tests/suite/test_enemy_vfx.gd:13)
+       [5] _test_playback (res://tests/suite/test_enemy_vfx.gd:65)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME EnemyVfxSuite 0.2
+SUITE_TIME DeathReactionSuite 13.2
+SUITE_TIME PacingSuite 0.1
+SUITE_TIME EconomySuite 0.3
+WARNING: No Bone2D children of node @Bone2D@9990. Cannot calculate bone length or angle reliably.
+Using transform rotation for bone angle.
+   at: calculate_length_and_rotation (scene/2d/skeleton_2d.cpp:451)
+   GDScript backtrace (most recent call first):
+       [0] _chain (res://tests/suite/test_rig_mesh.gd:35)
+       [1] _test_synthetic (res://tests/suite/test_rig_mesh.gd:56)
+       [2] run (res://tests/suite/test_rig_mesh.gd:13)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_economy.gd:21)
+       [5] _test_counter_and_pages (res://tests/suite/test_economy.gd:224)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:599)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: No Bone2D children of node @Bone2D@9995. Cannot calculate bone length or angle reliably.
+Using transform rotation for bone angle.
+   at: calculate_length_and_rotation (scene/2d/skeleton_2d.cpp:451)
+   GDScript backtrace (most recent call first):
+       [0] _chain (res://tests/suite/test_rig_mesh.gd:35)
+       [1] _test_upward_waist (res://tests/suite/test_rig_mesh.gd:98)
+       [2] run (res://tests/suite/test_rig_mesh.gd:14)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_economy.gd:21)
+       [5] _test_counter_and_pages (res://tests/suite/test_economy.gd:224)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:599)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: No Bone2D children of node @Bone2D@10000. Cannot calculate bone length or angle reliably.
+Using transform rotation for bone angle.
+   at: calculate_length_and_rotation (scene/2d/skeleton_2d.cpp:451)
+   GDScript backtrace (most recent call first):
+       [0] _chain (res://tests/suite/test_rig_mesh.gd:35)
+       [1] _test_limb_root (res://tests/suite/test_rig_mesh.gd:125)
+       [2] run (res://tests/suite/test_rig_mesh.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_economy.gd:21)
+       [5] _test_counter_and_pages (res://tests/suite/test_economy.gd:224)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:599)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: No Bone2D children of node @Bone2D@10002. Cannot calculate bone length or angle reliably.
+Using transform rotation for bone angle.
+   at: calculate_length_and_rotation (scene/2d/skeleton_2d.cpp:451)
+   GDScript backtrace (most recent call first):
+       [0] _test_limb_root (res://tests/suite/test_rig_mesh.gd:127)
+       [1] run (res://tests/suite/test_rig_mesh.gd:15)
+       [2] _run_suites (res://tests/smoke_test.gd:109)
+       [3] run (res://tests/suite/test_economy.gd:21)
+       [4] _test_counter_and_pages (res://tests/suite/test_economy.gd:224)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:599)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: No Bone2D children of node @Bone2D@10005. Cannot calculate bone length or angle reliably.
+Using transform rotation for bone angle.
+   at: calculate_length_and_rotation (scene/2d/skeleton_2d.cpp:451)
+   GDScript backtrace (most recent call first):
+       [0] _chain (res://tests/suite/test_rig_mesh.gd:35)
+       [1] _test_reference_geometry (res://tests/suite/test_rig_mesh.gd:174)
+       [2] run (res://tests/suite/test_rig_mesh.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_economy.gd:21)
+       [5] _test_counter_and_pages (res://tests/suite/test_economy.gd:224)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:599)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/coat_1 bend_partner must be an immediate child bone: missing; using rigid part
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _make_limb_mesh (res://game/rig/character_rig.gd:806)
+       [1] _test_cloth_binding (res://tests/suite/test_rig_mesh.gd:167)
+       [2] run (res://tests/suite/test_rig_mesh.gd:17)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_economy.gd:21)
+       [5] _test_counter_and_pages (res://tests/suite/test_economy.gd:224)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:599)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/coat_1 bend_partner must be an immediate child bone: chest; using rigid part
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _make_limb_mesh (res://game/rig/character_rig.gd:806)
+       [1] _test_cloth_binding (res://tests/suite/test_rig_mesh.gd:168)
+       [2] run (res://tests/suite/test_rig_mesh.gd:17)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_economy.gd:21)
+       [5] _test_counter_and_pages (res://tests/suite/test_economy.gd:224)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:599)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/armor_debris must be a boolean; using true
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] setup (res://game/rig/character_rig.gd:95)
+       [1] _test_part_behaviour (res://tests/suite/test_rig_mesh.gd:284)
+       [2] run (res://tests/suite/test_rig_mesh.gd:19)
+       [3] _test_real_rigs (res://tests/suite/test_rig_mesh.gd:270)
+       [4] frames (res://tests/suite/test_suite.gd:23)
+       [5] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME RigMeshSuite 0.8
+SUITE_TIME ProtagonistMotionSuite 0.6
+SUITE_TIME PhoneBoothSuite 8.9
+SUITE_TIME Chapter2ArtSuite 0.6
+ERROR: [Feel] 沒有這個回饋事件「test_no_such_feel_event」（res://data/feel/events.json）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://autoload/feel.gd:241)
+       [1] play (res://autoload/feel.gd:126)
+       [2] _test_bad_events_are_safe (res://tests/suite/test_feel.gd:89)
+       [3] run (res://tests/suite/test_feel.gd:13)
+       [4] _test_shake_duration_is_honored (res://tests/suite/test_feel.gd:84)
+ERROR: [Sfx] 沒有這個聲音事件「test_no_such_sound_event」（res://data/feel/sound_events.json），改播「hit」
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report_once (res://autoload/sfx.gd:734)
+       [1] play_event (res://autoload/sfx.gd:650)
+       [2] _test_sound_events (res://tests/suite/test_feel.gd:317)
+ERROR: [HitFeedback] 沒有這個命中材質「test_no_such_material」（res://data/feel/materials.json），改用 generic
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/fx/hit_feedback.gd:159)
+       [1] play (res://game/fx/hit_feedback.gd:81)
+       [2] _test_hit_materials (res://tests/suite/test_feel.gd:334)
+       [3] run (res://tests/suite/test_feel.gd:19)
+       [4] _test_sound_events (res://tests/suite/test_feel.gd:318)
+ERROR: [Feel] 沒有這個預設組合「test_no_such_preset」（res://data/feel/presets.json）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://autoload/feel.gd:241)
+       [1] set_preset (res://autoload/feel.gd:62)
+       [2] _test_params_and_presets (res://tests/suite/test_feel.gd:496)
+       [3] run (res://tests/suite/test_feel.gd:23)
+       [4] _test_block_feel (res://tests/suite/test_feel.gd:468)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:599)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME FeelSuite 2.5
+ERROR: [InputFeel] res://data/feel/input.json 沒有 windows.test_no_such_window，改用預設 0.07
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://core/input_feel.gd:140)
+       [1] window (res://core/input_feel.gd:37)
+       [2] _test_windows_from_data (res://tests/suite/test_input_feel.gd:19)
+       [3] run (res://tests/suite/test_input_feel.gd:7)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_feel.gd:30)
+       [6] _test_damage_numbers (res://tests/suite/test_feel.gd:760)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:599)
+       [9] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME InputFeelSuite 0.5
+ERROR: [SoundBank] 音效「test_audio_half」的檔案無法載入：res://tests/fixtures/audio/test_audio_missing_a.ogg（res://tests/fixtures/audio/bank_ok.json），改用其他變體或合成音
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_entry (res://core/audio/sound_bank.gd:53)
+       [2] load_bank (res://core/audio/sound_bank.gd:37)
+       [3] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [4] _test_bank_loading (res://tests/suite/test_audio.gd:158)
+       [5] run (res://tests/suite/test_audio.gd:15)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_input_feel.gd:10)
+       [8] _test_dash_buffer (res://tests/suite/test_input_feel.gd:81)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:599)
+       [11] _frames (res://tests/smoke_test.gd:122)
+ERROR: [SoundBank] 音效「test_audio_none」的檔案無法載入：res://tests/fixtures/audio/test_audio_missing_b.ogg（res://tests/fixtures/audio/bank_ok.json），改用其他變體或合成音
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_entry (res://core/audio/sound_bank.gd:53)
+       [2] load_bank (res://core/audio/sound_bank.gd:37)
+       [3] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [4] _test_bank_loading (res://tests/suite/test_audio.gd:158)
+       [5] run (res://tests/suite/test_audio.gd:15)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_input_feel.gd:10)
+       [8] _test_dash_buffer (res://tests/suite/test_input_feel.gd:81)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:599)
+       [11] _frames (res://tests/smoke_test.gd:122)
+ERROR: [SoundBank] 找不到資料檔：res://tests/fixtures/audio/test_audio_missing_bank.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] read_root (res://core/audio/audio_data.gd:13)
+       [2] load_bank (res://core/audio/sound_bank.gd:32)
+       [3] _test_bank_loading (res://tests/suite/test_audio.gd:167)
+       [4] run (res://tests/suite/test_audio.gd:15)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] run (res://tests/suite/test_input_feel.gd:10)
+       [7] _test_dash_buffer (res://tests/suite/test_input_feel.gd:81)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:599)
+       [10] _frames (res://tests/smoke_test.gd:122)
+ERROR: [SoundBank] 音效「test_audio_badext」的檔案無法載入：res://tests/fixtures/audio/bank_ok.json（res://tests/fixtures/audio/bank_bad.json），改用其他變體或合成音
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_entry (res://core/audio/sound_bank.gd:53)
+       [2] load_bank (res://core/audio/sound_bank.gd:37)
+       [3] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [4] _test_bank_validation (res://tests/suite/test_audio.gd:236)
+       [5] run (res://tests/suite/test_audio.gd:16)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_input_feel.gd:10)
+       [8] _test_dash_buffer (res://tests/suite/test_input_feel.gd:81)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:599)
+       [11] _frames (res://tests/smoke_test.gd:122)
+ERROR: [SoundBank] 音效「test_audio_gone」的檔案無法載入：res://tests/fixtures/audio/test_audio_missing_c.ogg（res://tests/fixtures/audio/bank_bad.json），改用其他變體或合成音
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_entry (res://core/audio/sound_bank.gd:53)
+       [2] load_bank (res://core/audio/sound_bank.gd:37)
+       [3] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [4] _test_bank_validation (res://tests/suite/test_audio.gd:236)
+       [5] run (res://tests/suite/test_audio.gd:16)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_input_feel.gd:10)
+       [8] _test_dash_buffer (res://tests/suite/test_input_feel.gd:81)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:599)
+       [11] _frames (res://tests/smoke_test.gd:122)
+ERROR: [SoundBank] 音效「test_audio_halffast」的 1.5 倍加速檔無法載入：res://tests/fixtures/audio/test_audio_missing_fast.ogg（res://tests/fixtures/audio/bank_speed.json），這一級退回原速
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_speed_entry (res://core/audio/sound_bank.gd:84)
+       [2] _load_entry (res://core/audio/sound_bank.gd:58)
+       [3] load_bank (res://core/audio/sound_bank.gd:37)
+       [4] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [5] _test_speed_variants (res://tests/suite/test_audio.gd:173)
+       [6] run (res://tests/suite/test_audio.gd:17)
+       [7] _run_suites (res://tests/smoke_test.gd:109)
+       [8] run (res://tests/suite/test_input_feel.gd:10)
+       [9] _test_dash_buffer (res://tests/suite/test_input_feel.gd:81)
+       [10] end_level (res://tests/suite/test_suite.gd:47)
+       [11] _end_level (res://tests/smoke_test.gd:599)
+       [12] _frames (res://tests/smoke_test.gd:122)
+ERROR: [SoundBank] 音效「test_audio_not_a_table」的 speed_files 要是 {倍率: [檔案]}（res://tests/fixtures/audio/bank_speed_bad.json）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_speed_entry (res://core/audio/sound_bank.gd:69)
+       [2] _load_entry (res://core/audio/sound_bank.gd:58)
+       [3] load_bank (res://core/audio/sound_bank.gd:37)
+       [4] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [5] _test_speed_variants (res://tests/suite/test_audio.gd:183)
+       [6] run (res://tests/suite/test_audio.gd:17)
+       [7] _run_suites (res://tests/smoke_test.gd:109)
+       [8] run (res://tests/suite/test_input_feel.gd:10)
+       [9] _test_dash_buffer (res://tests/suite/test_input_feel.gd:81)
+       [10] end_level (res://tests/suite/test_suite.gd:47)
+       [11] _end_level (res://tests/smoke_test.gd:599)
+       [12] _frames (res://tests/smoke_test.gd:122)
+ERROR: [SoundBank] 音效「test_audio_slow」的 speed_files「0.5」要是大於 1 的倍率加檔案陣列（res://tests/fixtures/audio/bank_speed_bad.json），略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_speed_entry (res://core/audio/sound_bank.gd:76)
+       [2] _load_entry (res://core/audio/sound_bank.gd:58)
+       [3] load_bank (res://core/audio/sound_bank.gd:37)
+       [4] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [5] _test_speed_variants (res://tests/suite/test_audio.gd:183)
+       [6] run (res://tests/suite/test_audio.gd:17)
+       [7] _run_suites (res://tests/smoke_test.gd:109)
+       [8] run (res://tests/suite/test_input_feel.gd:10)
+       [9] _test_dash_buffer (res://tests/suite/test_input_feel.gd:81)
+       [10] end_level (res://tests/suite/test_suite.gd:47)
+       [11] _end_level (res://tests/smoke_test.gd:599)
+       [12] _frames (res://tests/smoke_test.gd:122)
+ERROR: [SoundBank] 音效「test_audio_gone」的 1.5 倍加速檔無法載入：res://tests/fixtures/audio/test_audio_missing_speed.ogg（res://tests/fixtures/audio/bank_speed_bad.json），這一級退回原速
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_speed_entry (res://core/audio/sound_bank.gd:84)
+       [2] _load_entry (res://core/audio/sound_bank.gd:58)
+       [3] load_bank (res://core/audio/sound_bank.gd:37)
+       [4] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [5] _test_speed_variants (res://tests/suite/test_audio.gd:183)
+       [6] run (res://tests/suite/test_audio.gd:17)
+       [7] _run_suites (res://tests/smoke_test.gd:109)
+       [8] run (res://tests/suite/test_input_feel.gd:10)
+       [9] _test_dash_buffer (res://tests/suite/test_input_feel.gd:81)
+       [10] end_level (res://tests/suite/test_suite.gd:47)
+       [11] _end_level (res://tests/smoke_test.gd:599)
+       [12] _frames (res://tests/smoke_test.gd:122)
+ERROR: [AudioSuite] 找不到資料檔：res://tests/fixtures/audio/test_audio_missing_profiles.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] read_root (res://core/audio/audio_data.gd:13)
+       [2] reload (res://core/audio/sound_profile_table.gd:30)
+       [3] _init (res://core/audio/sound_profile_table.gd:24)
+       [4] _test_profile_table (res://tests/suite/test_audio.gd:302)
+       [5] run (res://tests/suite/test_audio.gd:19)
+       [6] _test_sfx_uses_files (res://tests/suite/test_audio.gd:285)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [PlacementDoc] user://test_audio_placements.md 沒有位置「P-XXX-999」，無法寫入
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _write_cell (res://core/audio/placement_doc.gd:158)
+       [2] set_planned (res://core/audio/placement_doc.gd:114)
+       [3] _test_placement_doc (res://tests/suite/test_audio.gd:685)
+       [4] run (res://tests/suite/test_audio.gd:35)
+       [5] _test_ambience (res://tests/suite/test_audio.gd:606)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+ERROR: [PlacementDoc] 找不到位置清單文件：user://test_audio_no_such_placements.md（先執行 tools/audio/build_slots.py）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _reload (res://core/audio/placement_doc.gd:36)
+       [2] load_doc (res://core/audio/placement_doc.gd:29)
+       [3] _test_placement_doc (res://tests/suite/test_audio.gd:717)
+       [4] run (res://tests/suite/test_audio.gd:35)
+       [5] _test_ambience (res://tests/suite/test_audio.gd:606)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME AudioSuite 6.3
+SUITE_TIME ClipEditorSuite 0.9
+SUITE_TIME ApplyPanelSuite 0.7
+ERROR: [DevMenu] 工具清單格式錯誤（要有 tools 陣列）：res://tests/fixtures/dev_menu/bad_format.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_entries (res://autoload/dev_menu.gd:44)
+       [1] _test_tool_list_validation (res://tests/suite/test_dev_menu.gd:37)
+       [2] run (res://tests/suite/test_dev_menu.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_apply_panel.gd:67)
+       [5] _test_panel (res://tests/suite/test_apply_panel.gd:192)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+ERROR: [DevMenu] res://tests/fixtures/dev_menu/mixed.json 的第 2 個工具缺少 id、name 或 scene，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_entries (res://autoload/dev_menu.gd:50)
+       [1] _test_tool_list_validation (res://tests/suite/test_dev_menu.gd:38)
+       [2] run (res://tests/suite/test_dev_menu.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_apply_panel.gd:67)
+       [5] _test_panel (res://tests/suite/test_apply_panel.gd:192)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+ERROR: [DevMenu] res://tests/fixtures/dev_menu/mixed.json 的工具 id 重複：ok_tool，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_entries (res://autoload/dev_menu.gd:53)
+       [1] _test_tool_list_validation (res://tests/suite/test_dev_menu.gd:38)
+       [2] run (res://tests/suite/test_dev_menu.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_apply_panel.gd:67)
+       [5] _test_panel (res://tests/suite/test_apply_panel.gd:192)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+ERROR: [DevMenu] 找不到 test_dev_menu_missing 的場景：res://tools/test_dev_menu_missing.tscn
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] choose (res://autoload/dev_menu.gd:109)
+       [1] _test_choose (res://tests/suite/test_dev_menu.gd:80)
+       [2] run (res://tests/suite/test_dev_menu.gd:12)
+       [3] _test_open_close (res://tests/suite/test_dev_menu.gd:64)
+       [4] frames (res://tests/suite/test_suite.gd:23)
+       [5] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME DevMenuSuite 0.1
+SUITE_TIME ReconEnemiesSuite 35.7
+SUITE_TIME ReadabilityTargetsSuite 0.2
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://data/levels/no_such_level.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] warm_level (res://core/asset_prefetch.gd:27)
+       [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:535)
+       [2] run (res://tests/suite/test_ch1_map.gd:44)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_recon_enemies.gd:20)
+       [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:599)
+       [8] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME Chapter1MapSuite 49.6
+checks: 33917, failures: 0
+WARNING: 452 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

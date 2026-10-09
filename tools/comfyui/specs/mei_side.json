@@ -1125,5 +1125,83 @@
       "hand",
       "arm"
     ]
+  },
+  "eye_states": {
+    "part": "head",
+    "half_texture": "head_half",
+    "closed_texture": "head_closed",
+    "timing": {},
+    "sources": {
+      "original_head": {
+        "path": "art_src/characters/mei/07_refined/head.png",
+        "sha256": "581d715bde1d881a998a30e9019565e7853e952e8bd6bf5b29694282caa86909"
+      },
+      "half": {
+        "path": "art_src/characters/eye_layers/corrected_candidates/characters/mei/half.png",
+        "sha256": "30b148fbdba939188a3f752125f639d1c3ec8cf7eb83e627de420c754847313a"
+      },
+      "closed": {
+        "path": "art_src/characters/eye_layers/corrected_candidates/characters/mei/closed.png",
+        "sha256": "e2e9bc1e4a45200a7cdb3e0dddf9b54f37fcd775f9682ccbaf411c62653cd2ca"
+      }
+    },
+    "eye_mask": [
+      [
+        441,
+        126
+      ],
+      [
+        445,
+        125
+      ],
+      [
+        451,
+        126
+      ],
+      [
+        458,
+        126
+      ],
+      [
+        464,
+        127
+      ],
+      [
+        469,
+        130
+      ],
+      [
+        470,
+        135
+      ],
+      [
+        468,
+        140
+      ],
+      [
+        464,
+        145
+      ],
+      [
+        458,
+        146
+      ],
+      [
+        452,
+        144
+      ],
+      [
+        446,
+        141
+      ],
+      [
+        442,
+        137
+      ],
+      [
+        440,
+        132
+      ]
+    ]
   }
 }

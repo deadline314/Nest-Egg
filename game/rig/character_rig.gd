@@ -15,6 +15,7 @@ const FLASH_BRIGHTNESS := 1.4
 const BREAK_IMPULSE := Vector2(80, -170)
 const DISSOLVE_SHADER := preload("res://art/shaders/dissolve.gdshader")
 const LIGHT_SHADER := preload("res://art/shaders/character_light.gdshader")
+const EYE_BLINK_SCRIPT := preload("res://game/rig/eye_blink.gd")
 ## 動畫器登記表：名稱 → 類別（需要繼承 HumanoidAnimator，建構時收到骨架）。外觀定義的 animator 欄位或 setup 的 animator_kind 用這些名稱；
 ## 特殊角色（專屬骨架、專屬攻擊動作）在這裡加一行即可，不需要動其他角色。
 static var ANIMATORS: Dictionary = {"humanoid": HumanoidAnimator, "npc": NpcAnimator}
@@ -48,6 +49,17 @@ var _parts: Array[CanvasItem] = []
 ## 做成可彎曲網格的肢體零件（RigPartMesh；也在 _parts 裡）：每格動畫之後依骨頭姿勢重算關節附近的頂點。
 var _meshes: Array[RigPartMesh] = []
 var _hand_grips: Array[Dictionary] = []
+## Optional head-only eye state. All textures are resolved once during setup; animation only swaps cached references.
+var _eye_blink: RefCounted
+var _eye_part: Sprite2D
+var _eye_glow: Sprite2D
+var _eye_open_texture: Texture2D
+var _eye_half_texture: Texture2D
+var _eye_closed_texture: Texture2D
+var _eye_open_glow: Texture2D
+var _eye_half_glow: Texture2D
+var _eye_closed_glow: Texture2D
+var _eye_state: StringName = &"open"
 var _part_tints: PackedFloat32Array = PackedFloat32Array()
 var _dissolve_material: ShaderMaterial
 ## 零件與武器共用的受光材質（每盞光有亮度上限、不被補光倍率放大；NE-213）。
@@ -190,6 +202,9 @@ func animate(delta: float, input: RigInput) -> void:
 	_apply_light_cap(LightKit.character_light_cap)
 	_update_hand_grips(input)
 	animator.update(delta, input)
+	var scene_tree := get_tree()
+	if scene_tree == null or not scene_tree.paused:
+		_update_eye_states(delta, input)
 	refresh_limbs()
 	if _flash_left > 0.0:
 		_flash_left -= delta
@@ -478,6 +493,279 @@ func _build_parts(skin: Dictionary) -> void:
 			last_order = int(pair[0])
 		_armor[_armor.size() - 1].append(pair[1])
 	_armor_visible = _armor.size()
+	_setup_eye_states(skin)
+
+
+## Optional top-level eye_states are intentionally separate from portrait.blink, which describes portrait paint-over data.
+## A bad or incomplete state set leaves the original head texture and its glow untouched.
+func _setup_eye_states(skin: Dictionary) -> void:
+	_eye_blink = null
+	_eye_part = null
+	_eye_glow = null
+	_eye_open_texture = null
+	_eye_half_texture = null
+	_eye_closed_texture = null
+	_eye_open_glow = null
+	_eye_half_glow = null
+	_eye_closed_glow = null
+	_eye_state = &"open"
+	if not skin.has("eye_states"):
+		return
+	var config: Variant = skin["eye_states"]
+	if typeof(config) != TYPE_DICTIONARY:
+		_eye_warning("eye_states", "expected a dictionary; keeping the original head")
+		return
+	var part_name := str(config.get("part", ""))
+	if part_name.is_empty():
+		_eye_warning("eye_states.part", "expected the name of an existing head Sprite2D")
+		return
+	var head_sprite: Sprite2D
+	for candidate in _parts:
+		if str(candidate.name) != part_name:
+			continue
+		if not candidate is Sprite2D or head_sprite != null:
+			_eye_warning("eye_states.part", "must identify exactly one Sprite2D; keeping the original head")
+			return
+		head_sprite = candidate as Sprite2D
+	if head_sprite == null or head_sprite.texture == null:
+		_eye_warning("eye_states.part", "does not resolve to a textured Sprite2D; keeping the original head")
+		return
+	if head_sprite.material != _light_material:
+		_eye_warning("eye_states.part", "head does not use the shared character-light material; keeping the original head")
+		return
+
+	var texture_defs_value: Variant = skin.get("textures", {})
+	var parts_value: Variant = skin.get("parts", [])
+	if typeof(texture_defs_value) != TYPE_DICTIONARY or typeof(parts_value) != TYPE_ARRAY:
+		_eye_warning("eye_states", "textures and parts must be dictionaries/arrays; keeping the original head")
+		return
+	var textures: Dictionary = texture_defs_value
+	var original_key := ""
+	var part_matches := 0
+	for entry: Variant in parts_value:
+		if typeof(entry) != TYPE_DICTIONARY:
+			continue
+		var entry_name := str(entry.get("name", entry.get("texture", "")))
+		if entry_name == part_name:
+			part_matches += 1
+			original_key = str(entry.get("texture", ""))
+	if part_matches != 1 or not textures.has(original_key):
+		_eye_warning("eye_states.part", "must map to exactly one existing parts texture; keeping the original head")
+		return
+
+	var open_key := str(config.get("open_texture", original_key))
+	var half_key := str(config.get("half_texture", ""))
+	var closed_key := str(config.get("closed_texture", ""))
+	if open_key.is_empty() or half_key.is_empty() or closed_key.is_empty():
+		_eye_warning("eye_states", "open_texture (optional), half_texture, and closed_texture must name textures")
+		return
+	var open_def_value: Variant = textures.get(open_key)
+	if typeof(open_def_value) != TYPE_DICTIONARY:
+		_eye_warning("eye_states.open_texture", "texture definition is missing; keeping the original head")
+		return
+	var open_def: Dictionary = open_def_value
+	var expected_size := head_sprite.texture.get_size()
+	var expected_pivot := -head_sprite.offset
+	if not _valid_eye_metadata(open_def, expected_size, expected_pivot, "eye_states.open_texture"):
+		return
+	var open_path := _eye_texture_path(open_def)
+	var original_path := _eye_texture_path(textures[original_key])
+	var normal_required := ResourceLoader.exists(_eye_normal_map_path(original_path))
+	if not ResourceLoader.exists(open_path):
+		_eye_warning("eye_states.open_texture", "source file is missing: %s; keeping the original head" % open_path)
+		return
+	var open_raw := load(open_path) as Texture2D
+	if open_raw == null or open_raw.get_size() != Vector2(expected_size):
+		_eye_warning("eye_states.open_texture", "source file is unreadable or has the wrong dimensions: %s" % open_path)
+		return
+	var open_texture := head_sprite.texture if open_key == original_key else LitTextures.load_texture(open_path, expected_size)
+	if open_texture == null or open_texture.get_size() != Vector2(expected_size):
+		_eye_warning("eye_states.open_texture", "LitTextures returned an invalid texture; keeping the original head")
+		return
+	if not _eye_normal_map_matches(open_path, expected_size, "eye_states.open_texture", normal_required):
+		return
+
+	var half_texture := _load_eye_state_texture(textures, half_key, expected_size, expected_pivot, "eye_states.half_texture", normal_required)
+	if half_texture == null:
+		return
+	var closed_texture := _load_eye_state_texture(textures, closed_key, expected_size, expected_pivot, "eye_states.closed_texture", normal_required)
+	if closed_texture == null:
+		return
+
+	var glow_node := _find_eye_glow(head_sprite)
+	var has_glow := glow_node != null
+	var open_glow := _load_eye_glow(open_def, expected_size, has_glow, "eye_states.open_texture")
+	if has_glow and open_glow == null:
+		return
+	var half_def: Dictionary = textures[half_key]
+	var half_glow := _load_eye_glow(half_def, expected_size, has_glow, "eye_states.half_texture")
+	if has_glow and half_glow == null:
+		return
+	var closed_def: Dictionary = textures[closed_key]
+	var closed_glow := _load_eye_glow(closed_def, expected_size, has_glow, "eye_states.closed_texture")
+	if has_glow and closed_glow == null:
+		return
+	if not has_glow:
+		for pair: Array in [["open_texture", open_def], ["half_texture", half_def], ["closed_texture", closed_def]]:
+			var glow_value: Variant = pair[1].get("glow", "")
+			if typeof(glow_value) != TYPE_STRING or not str(glow_value).is_empty():
+				_eye_warning("eye_states.%s" % pair[0], "glow data requires an existing glow slot; keeping the original head")
+				return
+
+	var timing_value: Variant = config.get("timing", {})
+	var timing: Dictionary = timing_value if typeof(timing_value) == TYPE_DICTIONARY else {}
+	if typeof(timing_value) != TYPE_DICTIONARY:
+		_eye_warning("eye_states.timing", "expected a dictionary; using EyeBlink safe defaults")
+	var blink: Variant = EYE_BLINK_SCRIPT.new()
+	blink.setup(skin_id, timing)
+	_eye_part = head_sprite
+	_eye_glow = glow_node
+	_eye_open_texture = open_texture
+	_eye_half_texture = half_texture
+	_eye_closed_texture = closed_texture
+	_eye_open_glow = open_glow
+	_eye_half_glow = half_glow
+	_eye_closed_glow = closed_glow
+	_eye_blink = blink
+	_eye_part.texture = _eye_open_texture
+	if _eye_glow != null:
+		_eye_glow.texture = _eye_open_glow
+
+
+func _valid_eye_metadata(definition: Dictionary, expected_size: Vector2i, expected_pivot: Vector2, field: String) -> bool:
+	var file_value: Variant = definition.get("file", "")
+	var size_value: Variant = definition.get("size")
+	var pivot_value: Variant = definition.get("pivot")
+	if typeof(file_value) != TYPE_STRING or str(file_value).is_empty():
+		_eye_warning(field, "texture file must be a non-empty path")
+		return false
+	if typeof(size_value) != TYPE_ARRAY or (size_value as Array).size() != 2:
+		_eye_warning(field, "texture size must contain two values")
+		return false
+	if typeof(pivot_value) != TYPE_ARRAY or (pivot_value as Array).size() != 2:
+		_eye_warning(field, "texture pivot must contain two values")
+		return false
+	for value: Variant in size_value:
+		if typeof(value) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(value)):
+			_eye_warning(field, "texture size contains a non-finite or non-numeric value")
+			return false
+	for value: Variant in pivot_value:
+		if typeof(value) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(value)):
+			_eye_warning(field, "texture pivot contains a non-finite or non-numeric value")
+			return false
+	var declared_size := Vector2(float(size_value[0]), float(size_value[1]))
+	var declared_pivot := Vector2(float(pivot_value[0]), float(pivot_value[1]))
+	if declared_size.x <= 0.0 or declared_size.y <= 0.0 or declared_size != Vector2(expected_size):
+		_eye_warning(field, "texture size must match the original head canvas %s" % expected_size)
+		return false
+	if not declared_pivot.is_equal_approx(expected_pivot):
+		_eye_warning(field, "texture pivot must match the original head pivot %s" % expected_pivot)
+		return false
+	return true
+
+
+func _eye_texture_path(definition: Dictionary) -> String:
+	return RigLibrary.character_dir(skin_id).path_join(str(definition.get("file", "")))
+
+
+func _load_eye_state_texture(textures: Dictionary, texture_key: String, expected_size: Vector2i, expected_pivot: Vector2, field: String, normal_required: bool) -> Texture2D:
+	var definition_value: Variant = textures.get(texture_key)
+	if typeof(definition_value) != TYPE_DICTIONARY:
+		_eye_warning(field, "texture '%s' is missing; keeping the original head" % texture_key)
+		return null
+	var definition: Dictionary = definition_value
+	if not _valid_eye_metadata(definition, expected_size, expected_pivot, field):
+		return null
+	var path := _eye_texture_path(definition)
+	if not ResourceLoader.exists(path):
+		_eye_warning(field, "source file is missing: %s; keeping the original head" % path)
+		return null
+	var raw := load(path) as Texture2D
+	if raw == null or raw.get_size() != Vector2(expected_size):
+		_eye_warning(field, "source file is unreadable or has the wrong dimensions: %s" % path)
+		return null
+	if not _eye_normal_map_matches(path, expected_size, field, normal_required):
+		return null
+	var texture := LitTextures.load_texture(path, expected_size)
+	if texture == null or texture.get_size() != Vector2(expected_size):
+		_eye_warning(field, "LitTextures returned an invalid texture; keeping the original head")
+		return null
+	return texture
+
+
+func _eye_normal_map_path(path: String) -> String:
+	return path.get_basename() + "_n." + path.get_extension()
+
+
+func _eye_normal_map_matches(path: String, expected_size: Vector2i, field: String, required: bool) -> bool:
+	var normal_path := _eye_normal_map_path(path)
+	if not ResourceLoader.exists(normal_path):
+		if required:
+			_eye_warning(field, "a normal map is required to preserve the original head lighting: %s" % normal_path)
+			return false
+		return true
+	var normal := load(normal_path) as Texture2D
+	if normal == null or normal.get_size() != Vector2(expected_size):
+		_eye_warning(field, "normal map must match the head canvas %s: %s" % [expected_size, normal_path])
+		return false
+	return true
+
+
+func _find_eye_glow(sprite: Sprite2D) -> Sprite2D:
+	for child in sprite.get_children():
+		if child is Sprite2D and (child as Sprite2D).material == _glow_material():
+			return child as Sprite2D
+	return null
+
+
+func _load_eye_glow(definition: Dictionary, expected_size: Vector2i, required: bool, field: String) -> Texture2D:
+	var glow_value: Variant = definition.get("glow", "")
+	if typeof(glow_value) != TYPE_STRING:
+		_eye_warning(field, "glow must be a path string when present")
+		return null
+	var glow_file := str(glow_value)
+	if glow_file.is_empty():
+		if required:
+			_eye_warning(field, "glow texture is required to preserve the existing head glow")
+		return null
+	if not required:
+		_eye_warning(field, "glow texture has no existing glow slot; keeping the original head")
+		return null
+	var path := RigLibrary.character_dir(skin_id).path_join(glow_file)
+	if not ResourceLoader.exists(path):
+		_eye_warning(field, "glow source file is missing: %s" % path)
+		return null
+	var glow := RigLibrary.optional_texture(path)
+	if glow == null or glow.get_size() != Vector2(expected_size):
+		_eye_warning(field, "glow texture must match the head canvas %s: %s" % [expected_size, path])
+		return null
+	return glow
+
+
+func _eye_warning(field: String, reason: String) -> void:
+	push_warning("[CharacterRig] %s.%s invalid; %s" % [skin_id, field, reason])
+
+
+func _update_eye_states(delta: float, input: RigInput) -> void:
+	if _eye_blink == null or _eye_part == null:
+		return
+	var state: StringName = _eye_blink.update(delta, input.talking, input.dead)
+	if state == _eye_state:
+		return
+	_eye_state = state
+	match state:
+		&"open":
+			_eye_part.texture = _eye_open_texture
+			if _eye_glow != null:
+				_eye_glow.texture = _eye_open_glow
+		&"half":
+			_eye_part.texture = _eye_half_texture
+			if _eye_glow != null:
+				_eye_glow.texture = _eye_half_glow
+		&"closed":
+			_eye_part.texture = _eye_closed_texture
+			if _eye_glow != null:
+				_eye_glow.texture = _eye_closed_glow
 
 
 func _update_hand_grips(input: RigInput) -> void:

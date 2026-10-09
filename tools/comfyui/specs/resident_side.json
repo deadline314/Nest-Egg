@@ -499,5 +499,67 @@
       318,
       440
     ]
+  },
+  "eye_states": {
+    "part": "head",
+    "half_texture": "head_half",
+    "closed_texture": "head_closed",
+    "timing": {},
+    "sources": {
+      "original_head": {
+        "path": "art_src/characters/resident/07_refined/head.png",
+        "sha256": "7cee257cc70c8aef458aa69ec1e887b60814cb7b532a2c752fc65dde571adaa2"
+      },
+      "half": {
+        "path": "art_src/characters/eye_layers/corrected_candidates/characters/resident/half.png",
+        "sha256": "39b5763c145afc82ed567601929530c92fdd3edfea1450c8a0e340d728f16637"
+      },
+      "closed": {
+        "path": "art_src/characters/eye_layers/corrected_candidates/characters/resident/closed.png",
+        "sha256": "1717a2462e62c91952c2eb70100804eae3ce8a4e386f7b08758cb8d4b8019028"
+      }
+    },
+    "eye_mask": [
+      [
+        479,
+        114
+      ],
+      [
+        483,
+        112
+      ],
+      [
+        489,
+        113
+      ],
+      [
+        494,
+        116
+      ],
+      [
+        496,
+        119
+      ],
+      [
+        494,
+        122
+      ],
+      [
+        490,
+        125
+      ],
+      [
+        486,
+        126
+      ],
+      [
+        482,
+        124
+      ],
+      [
+        479,
+        120
+      ]
+    ]
   }
 }

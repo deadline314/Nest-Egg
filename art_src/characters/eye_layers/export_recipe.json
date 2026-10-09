@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "candidate_manifest": "art_src/characters/eye_layers/corrected_candidates/manifest.json",
+  "output": ".godot/eye-state-export",
+  "characters": {
+    "rin": {
+      "candidate_id": "rin",
+      "recipe": "tools/comfyui/recipes/rin.json"
+    },
+    "old_k": {
+      "candidate_id": "old_k",
+      "recipe": "tools/comfyui/recipes/old_k.json"
+    },
+    "nurse": {
+      "candidate_id": "nurse",
+      "recipe": "tools/comfyui/recipes/nurse.json"
+    },
+    "night_worker": {
+      "candidate_id": "night_worker",
+      "recipe": "tools/comfyui/recipes/night_worker.json"
+    },
+    "repairer": {
+      "candidate_id": "repairer",
+      "recipe": "tools/comfyui/recipes/repairman_chen.json"
+    },
+    "resident": {
+      "candidate_id": "resident",
+      "recipe": "tools/comfyui/recipes/resident.json"
+    },
+    "granny": {
+      "candidate_id": "granny",
+      "recipe": "tools/comfyui/recipes/ah_po.json"
+    },
+    "wataru": {
+      "candidate_id": "wataru",
+      "recipe": "tools/comfyui/recipes/wataru.json"
+    },
+    "mei": {
+      "candidate_id": "mei",
+      "recipe": "tools/comfyui/recipes/mei.json"
+    }
+  }
+}

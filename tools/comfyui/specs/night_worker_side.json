@@ -471,5 +471,71 @@
     "fill": [
       "hand"
     ]
+  },
+  "eye_states": {
+    "part": "head",
+    "half_texture": "head_half",
+    "closed_texture": "head_closed",
+    "timing": {},
+    "sources": {
+      "original_head": {
+        "path": "art_src/characters/night_worker/07_refined/head.png",
+        "sha256": "07f30b125f061a3f0355eeceab97b0c9cc3f4d8fa9708cd20eb532e947590606"
+      },
+      "half": {
+        "path": "art_src/characters/eye_layers/corrected_candidates/characters/night_worker/half.png",
+        "sha256": "21d5d78dcefc7bfc9206dcb6bc6527979e2a9de71f146ac7ac77bda0503daf7f"
+      },
+      "closed": {
+        "path": "art_src/characters/eye_layers/corrected_candidates/characters/night_worker/closed.png",
+        "sha256": "cfd5b251df94c5aaaba238b4f2124a6fda262c0455f2adbc07c5e2e61f04b114"
+      }
+    },
+    "eye_mask": [
+      [
+        496,
+        148
+      ],
+      [
+        500,
+        147
+      ],
+      [
+        506,
+        148
+      ],
+      [
+        512,
+        150
+      ],
+      [
+        516,
+        153
+      ],
+      [
+        515,
+        156
+      ],
+      [
+        511,
+        159
+      ],
+      [
+        506,
+        160
+      ],
+      [
+        501,
+        159
+      ],
+      [
+        497,
+        156
+      ],
+      [
+        495,
+        152
+      ]
+    ]
   }
 }

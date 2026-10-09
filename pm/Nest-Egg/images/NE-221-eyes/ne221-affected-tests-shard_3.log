@@ -1,0 +1,139 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME ProgressionSuite 4.5
+SUITE_TIME SupplySuite 8.0
+[swarm] steering 24 bees costs 0.194 ms per frame
+SUITE_TIME ExoticEnemiesSuite 23.6
+SUITE_TIME Chapter2ExpansionSuite 27.7
+ERROR: [Music] cue「c_gone」的曲目「t_gone」找不到檔案：res://tests/fixtures/audio/test_audio_missing_track.ogg（res://tests/fixtures/audio/music_bad.json），維持靜音
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_stream (res://autoload/music.gd:270)
+       [2] _switch_to (res://autoload/music.gd:246)
+       [3] play_cue (res://autoload/music.gd:143)
+       [4] _test_missing_track (res://tests/suite/test_music.gd:137)
+       [5] run (res://tests/suite/test_music.gd:17)
+       [6] _test_playback_and_crossfade (res://tests/suite/test_music.gd:131)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Music] 沒有這個 cue「test_audio_no_such_cue」（res://tests/fixtures/audio/music_bad.json），維持目前的音樂
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _switch_to (res://autoload/music.gd:241)
+       [2] play_cue (res://autoload/music.gd:143)
+       [3] _test_missing_track (res://tests/suite/test_music.gd:139)
+       [4] run (res://tests/suite/test_music.gd:17)
+       [5] _test_playback_and_crossfade (res://tests/suite/test_music.gd:131)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME MusicSuite 2.9
+SUITE_TIME AssaultEnemiesSuite 54.7
+ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/props/portal.gd:34)
+       [1] _spawn_static_entities (res://game/level/level.gd:402)
+       [2] _ready (res://game/level/level.gd:156)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] _test_entry_and_walk (res://tests/suite/test_areas.gd:137)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:599)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://tests/fixtures/areas/no_such_level.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] warm_level (res://core/asset_prefetch.gd:27)
+       [1] warm_neighbors (res://core/asset_prefetch.gd:41)
+ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/props/portal.gd:34)
+       [1] _spawn_static_entities (res://game/level/level.gd:402)
+       [2] _ready (res://game/level/level.gd:156)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] _test_checkpoint_area (res://tests/suite/test_areas.gd:247)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:599)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://tests/fixtures/areas/no_such_level.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] warm_level (res://core/asset_prefetch.gd:27)
+       [1] warm_neighbors (res://core/asset_prefetch.gd:41)
+ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/props/portal.gd:34)
+       [1] _spawn_static_entities (res://game/level/level.gd:402)
+       [2] _ready (res://game/level/level.gd:156)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_locked_and_flagged_doors (res://tests/suite/test_areas.gd:267)
+       [6] run (res://tests/suite/test_areas.gd:23)
+       [7] _test_checkpoint_area (res://tests/suite/test_areas.gd:259)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:599)
+       [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://tests/fixtures/areas/no_such_level.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] warm_level (res://core/asset_prefetch.gd:27)
+       [1] warm_neighbors (res://core/asset_prefetch.gd:41)
+ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/props/portal.gd:34)
+       [1] _spawn_static_entities (res://game/level/level.gd:402)
+       [2] _ready (res://game/level/level.gd:156)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_bad_data (res://tests/suite/test_areas.gd:284)
+       [6] run (res://tests/suite/test_areas.gd:24)
+       [7] _test_locked_and_flagged_doors (res://tests/suite/test_areas.gd:280)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:599)
+       [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://tests/fixtures/areas/no_such_level.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] warm_level (res://core/asset_prefetch.gd:27)
+       [1] warm_neighbors (res://core/asset_prefetch.gd:41)
+ERROR: [Level] test_area_b 的出入口「test_area_bad_missing」目標不是可載入的區域：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _on_portal_used (res://game/level/level.gd:884)
+       [1] try_use (res://game/props/portal.gd:82)
+       [2] _test_bad_data (res://tests/suite/test_areas.gd:287)
+       [3] start_level (res://tests/suite/test_suite.gd:34)
+       [4] spawn_level (res://tests/suite/test_suite.gd:43)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Level] test_area_a 沒有出入口「test_area_bad_entry」（res://tests/fixtures/areas/area_map_a.json），改用起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _entry_position (res://game/level/level.gd:693)
+       [1] _spawn_player (res://game/level/level.gd:671)
+       [2] _ready (res://game/level/level.gd:157)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] _test_bad_data (res://tests/suite/test_areas.gd:294)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:599)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [Story] 找不到章節：test_area_no_chapter
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] chapter_info (res://autoload/story.gd:144)
+       [1] _run_ending (res://game/level/level.gd:847)
+       [2] _begin_intro (res://game/level/level.gd:258)
+SUITE_TIME AreasSuite 2.3
+checks: 876, failures: 0
+ERROR: 1 RID allocations of type 'P11GodotArea2D' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 44 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 2 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

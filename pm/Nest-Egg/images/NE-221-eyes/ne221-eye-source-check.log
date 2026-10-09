@@ -1,0 +1,3 @@
+PASS: 9 sources; RGBA/native size/hash; unchanged pixels outside eye masks; distinct states; deterministic rerun; modified source rejected
+PASS: cut-layer eye-state gate accepts valid native variants and rejects bad hash, outside-mask edits, alpha edits, wrong canvas, and out-of-bounds masks
+PASS: shared cut helpers match old rendering byte-for-byte across all nine recipe part sets; all nine open heads rebuild byte-exactly and preserve size/pivot; deterministic rerun, source/open hashes unchanged

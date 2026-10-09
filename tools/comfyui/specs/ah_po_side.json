@@ -568,5 +568,71 @@
     "close": 9,
     "fill": [],
     "close_thigh": 25
+  },
+  "eye_states": {
+    "part": "head",
+    "half_texture": "head_half",
+    "closed_texture": "head_closed",
+    "timing": {},
+    "sources": {
+      "original_head": {
+        "path": "art_src/characters/ah_po/07_refined/head.png",
+        "sha256": "2ebe79ac1bffd986f38e5ff2d9dd2642fdddedb30f1bfb447569a34d02bba615"
+      },
+      "half": {
+        "path": "art_src/characters/eye_layers/corrected_candidates/characters/granny/half.png",
+        "sha256": "7a1a02a7ccb4b45641df2d7d904ea9c6b1bf0482b2fd90120b53986b6352c0cb"
+      },
+      "closed": {
+        "path": "art_src/characters/eye_layers/corrected_candidates/characters/granny/closed.png",
+        "sha256": "4b273fc55ba11cf209642884e2f7a1444a35daa143b5c4c9b5ce2ce2ee406c62"
+      }
+    },
+    "eye_mask": [
+      [
+        477,
+        122
+      ],
+      [
+        481,
+        120
+      ],
+      [
+        488,
+        121
+      ],
+      [
+        495,
+        123
+      ],
+      [
+        499,
+        126
+      ],
+      [
+        498,
+        129
+      ],
+      [
+        494,
+        132
+      ],
+      [
+        489,
+        134
+      ],
+      [
+        484,
+        133
+      ],
+      [
+        480,
+        131
+      ],
+      [
+        477,
+        127
+      ]
+    ]
   }
 }

@@ -1,0 +1,3 @@
+PASS: source hashes, native RGBA 832x1216, exact open, masked outside-pixel equality, 3 distinct states, bad-source rejection, deterministic rerun
+PASS: saved unchanged-character output hashes match v1 and v4 baselines
+PASS: repairer open/closed/mask preserved; rejected half archived; curved half retains lower sclera and pupil

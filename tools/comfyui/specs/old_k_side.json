@@ -507,5 +507,71 @@
     "extra": [
       "brown coat"
     ]
+  },
+  "eye_states": {
+    "part": "head",
+    "half_texture": "head_half",
+    "closed_texture": "head_closed",
+    "timing": {},
+    "sources": {
+      "original_head": {
+        "path": "art_src/characters/old_k/07_refined/head.png",
+        "sha256": "4865c0af4d1061cbdd66d9e7ccbb5ae6faad5c6010fcff5e4268bb0375140d26"
+      },
+      "half": {
+        "path": "art_src/characters/eye_layers/corrected_candidates/characters/old_k/half.png",
+        "sha256": "83c53f44a8e01fdffe8c6d9ee850249e5cb3499fadf08ab43c835f918183f2e6"
+      },
+      "closed": {
+        "path": "art_src/characters/eye_layers/corrected_candidates/characters/old_k/closed.png",
+        "sha256": "3f02466f97470e5c1a1ccdbe7056697560af5b2d49aa06a4705615756abc4a65"
+      }
+    },
+    "eye_mask": [
+      [
+        459,
+        94
+      ],
+      [
+        463,
+        92
+      ],
+      [
+        469,
+        92
+      ],
+      [
+        475,
+        93
+      ],
+      [
+        480,
+        95
+      ],
+      [
+        482,
+        98
+      ],
+      [
+        480,
+        101
+      ],
+      [
+        476,
+        103
+      ],
+      [
+        470,
+        103
+      ],
+      [
+        464,
+        101
+      ],
+      [
+        460,
+        99
+      ]
+    ]
   }
 }

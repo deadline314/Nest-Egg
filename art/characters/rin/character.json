@@ -333,6 +333,30 @@
         21.64
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "head_half": {
+      "file": "parts/head_half.png",
+      "size": [
+        133,
+        141
+      ],
+      "pivot": [
+        51.0,
+        175.0
+      ],
+      "note": "NE-221: same-canvas source eye variant; original head retained"
+    },
+    "head_closed": {
+      "file": "parts/head_closed.png",
+      "size": [
+        133,
+        141
+      ],
+      "pivot": [
+        51.0,
+        175.0
+      ],
+      "note": "NE-221: same-canvas source eye variant; original head retained"
     }
   },
   "parts": [
@@ -558,5 +582,11 @@
         0.22636
       ]
     }
-  ]
+  ],
+  "eye_states": {
+    "part": "head",
+    "half_texture": "head_half",
+    "closed_texture": "head_closed",
+    "timing": {}
+  }
 }

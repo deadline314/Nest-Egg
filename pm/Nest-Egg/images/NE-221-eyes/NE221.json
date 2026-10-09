@@ -1,0 +1,4168 @@
+{
+	"characters": [
+		{
+			"blink_cycles": [
+				{
+					"duration_expected_seconds": 0.141738295555115,
+					"duration_measured_simulation_seconds": 0.144789,
+					"duration_ok": true,
+					"end_wall_seconds": 2.460885,
+					"frame_epsilon_seconds": 0.0113770000000001,
+					"sequence_ok": true,
+					"start_wall_seconds": 2.316086
+				},
+				{
+					"duration_expected_seconds": 0.120830319821835,
+					"duration_measured_simulation_seconds": 0.121889185185187,
+					"duration_ok": true,
+					"end_wall_seconds": 7.334368,
+					"frame_epsilon_seconds": 0.00740740740740741,
+					"sequence_ok": true,
+					"start_wall_seconds": 7.215376
+				},
+				{
+					"duration_expected_seconds": 0.135996624827385,
+					"duration_measured_simulation_seconds": 0.138880000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 10.957832,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 10.81928
+				},
+				{
+					"duration_expected_seconds": 0.149116516113281,
+					"duration_measured_simulation_seconds": 0.152768000000016,
+					"duration_ok": true,
+					"end_wall_seconds": 15.28929,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 15.136517
+				},
+				{
+					"duration_expected_seconds": 0.142462193965912,
+					"duration_measured_simulation_seconds": 0.148594666666686,
+					"duration_ok": true,
+					"end_wall_seconds": 17.214135,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 17.061395
+				},
+				{
+					"duration_expected_seconds": 0.121827408671379,
+					"duration_measured_simulation_seconds": 0.124992000000013,
+					"duration_ok": true,
+					"end_wall_seconds": 20.015327,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 19.890587
+				},
+				{
+					"duration_expected_seconds": 0.122477442026138,
+					"duration_measured_simulation_seconds": 0.124992000000013,
+					"duration_ok": true,
+					"end_wall_seconds": 22.565454,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 22.440908
+				},
+				{
+					"duration_expected_seconds": 0.126564010977745,
+					"duration_measured_simulation_seconds": 0.131936000000014,
+					"duration_ok": true,
+					"end_wall_seconds": 24.719484,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 24.588009
+				},
+				{
+					"duration_expected_seconds": 0.13331912457943,
+					"duration_measured_simulation_seconds": 0.138880000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 26.248766,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 26.109771
+				},
+				{
+					"duration_expected_seconds": 0.142164438962936,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 27.186802,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 27.04126
+				},
+				{
+					"duration_expected_seconds": 0.144541785120964,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 29.399002,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 29.250963
+				}
+			],
+			"capture_files": {
+				"closed": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-rin-closed-rendered-crop.png",
+				"half": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-rin-half-rendered-crop.png",
+				"open": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-rin-open-rendered-crop.png",
+				"stage-00": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-00.png",
+				"stage-15": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-15.png",
+				"stage-30": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-30.png"
+			},
+			"npc_mode": true,
+			"part_count": 30,
+			"skin_id": "rin",
+			"stage_zoom": 3.4,
+			"state_frame_counts": {
+				"idle": {
+					"closed": 31,
+					"half": 23,
+					"open": 2093
+				},
+				"talking": {
+					"closed": 78,
+					"half": 83,
+					"open": 1995
+				}
+			},
+			"timing_config": {},
+			"transitions": [
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 2.48325466666667,
+					"to": "half",
+					"wall_seconds": 2.316086
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 2.520314,
+					"to": "closed",
+					"wall_seconds": 2.344812
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 2.61666666666667,
+					"to": "half",
+					"wall_seconds": 2.453429
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 2.62804366666667,
+					"to": "open",
+					"wall_seconds": 2.460885
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 7.37589377777785,
+					"to": "half",
+					"wall_seconds": 7.215376
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 7.41061600000008,
+					"to": "closed",
+					"wall_seconds": 7.250147
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 7.46815333333341,
+					"to": "half",
+					"wall_seconds": 7.309331
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 7.49778296296304,
+					"to": "open",
+					"wall_seconds": 7.334368
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 11.0045570000002,
+					"to": "half",
+					"wall_seconds": 10.81928
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 11.0392770000002,
+					"to": "closed",
+					"wall_seconds": 10.854022
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 11.1087170000002,
+					"to": "half",
+					"wall_seconds": 10.9231
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 11.1434370000002,
+					"to": "open",
+					"wall_seconds": 10.957832
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 15.3237250000006,
+					"to": "half",
+					"wall_seconds": 15.136517
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 15.3653890000006,
+					"to": "closed",
+					"wall_seconds": 15.177625
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 15.4417730000006,
+					"to": "half",
+					"wall_seconds": 15.254635
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 15.4764930000006,
+					"to": "open",
+					"wall_seconds": 15.28929
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 17.2430530000008,
+					"to": "half",
+					"wall_seconds": 17.061395
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 17.2830530000008,
+					"to": "closed",
+					"wall_seconds": 17.106015
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 17.3499836666675,
+					"to": "half",
+					"wall_seconds": 17.173088
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 17.3916476666675,
+					"to": "open",
+					"wall_seconds": 17.214135
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 20.0650876666678,
+					"to": "half",
+					"wall_seconds": 19.890587
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 20.0998076666678,
+					"to": "closed",
+					"wall_seconds": 19.925761
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 20.1623036666678,
+					"to": "half",
+					"wall_seconds": 19.987951
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 20.1900796666678,
+					"to": "open",
+					"wall_seconds": 20.015327
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 22.6135356666681,
+					"to": "half",
+					"wall_seconds": 22.440908
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 22.6482556666681,
+					"to": "closed",
+					"wall_seconds": 22.476039
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 22.7107516666681,
+					"to": "half",
+					"wall_seconds": 22.539752
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 22.7385276666681,
+					"to": "open",
+					"wall_seconds": 22.565454
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 24.7592316666683,
+					"to": "half",
+					"wall_seconds": 24.588009
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 24.7939516666683,
+					"to": "closed",
+					"wall_seconds": 24.623264
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 24.8564476666683,
+					"to": "half",
+					"wall_seconds": 24.684726
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 24.8911676666683,
+					"to": "open",
+					"wall_seconds": 24.719484
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 26.2799676666684,
+					"to": "half",
+					"wall_seconds": 26.109771
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 26.3146876666685,
+					"to": "closed",
+					"wall_seconds": 26.14465
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 26.3841276666685,
+					"to": "half",
+					"wall_seconds": 26.214031
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 26.4188476666685,
+					"to": "open",
+					"wall_seconds": 26.248766
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 27.2104636666685,
+					"to": "half",
+					"wall_seconds": 27.04126
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 27.2521276666685,
+					"to": "closed",
+					"wall_seconds": 27.082687
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 27.3215676666686,
+					"to": "half",
+					"wall_seconds": 27.153426
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 27.3562876666686,
+					"to": "open",
+					"wall_seconds": 27.186802
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 29.4186556666688,
+					"to": "half",
+					"wall_seconds": 29.250963
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 29.4603196666688,
+					"to": "closed",
+					"wall_seconds": 29.292546
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 29.5297596666688,
+					"to": "half",
+					"wall_seconds": 29.365096
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 29.5644796666688,
+					"to": "open",
+					"wall_seconds": 29.399002
+				}
+			]
+		},
+		{
+			"blink_cycles": [
+				{
+					"duration_expected_seconds": 0.123379625380039,
+					"duration_measured_simulation_seconds": 0.125185111111114,
+					"duration_ok": true,
+					"end_wall_seconds": 3.94912,
+					"frame_epsilon_seconds": 0.00694444444444444,
+					"sequence_ok": true,
+					"start_wall_seconds": 3.825059
+				},
+				{
+					"duration_expected_seconds": 0.121387496590614,
+					"duration_measured_simulation_seconds": 0.125000000000003,
+					"duration_ok": true,
+					"end_wall_seconds": 6.924186,
+					"frame_epsilon_seconds": 0.00694444444444444,
+					"sequence_ok": true,
+					"start_wall_seconds": 6.79862
+				},
+				{
+					"duration_expected_seconds": 0.1399797052145,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 12.333778,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 12.188289
+				},
+				{
+					"duration_expected_seconds": 0.132561653852463,
+					"duration_measured_simulation_seconds": 0.138880000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 16.046573,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 15.90767
+				},
+				{
+					"duration_expected_seconds": 0.124488681554794,
+					"duration_measured_simulation_seconds": 0.124992000000013,
+					"duration_ok": true,
+					"end_wall_seconds": 17.812168,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 17.68753
+				},
+				{
+					"duration_expected_seconds": 0.122580848634243,
+					"duration_measured_simulation_seconds": 0.124992000000013,
+					"duration_ok": true,
+					"end_wall_seconds": 20.536578,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 20.411323
+				},
+				{
+					"duration_expected_seconds": 0.140331536531448,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 21.740948,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 21.595289
+				},
+				{
+					"duration_expected_seconds": 0.14016917347908,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 23.246227,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 23.100629
+				},
+				{
+					"duration_expected_seconds": 0.132404133677483,
+					"duration_measured_simulation_seconds": 0.138880000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 24.57403,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 24.434559
+				},
+				{
+					"duration_expected_seconds": 0.123250551521778,
+					"duration_measured_simulation_seconds": 0.124992000000013,
+					"duration_ok": true,
+					"end_wall_seconds": 26.14465,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 26.019652
+				},
+				{
+					"duration_expected_seconds": 0.133393824100494,
+					"duration_measured_simulation_seconds": 0.138880000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 28.152735,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 28.013739
+				}
+			],
+			"capture_files": {
+				"closed": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-old_k-closed-rendered-crop.png",
+				"half": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-old_k-half-rendered-crop.png",
+				"open": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-old_k-open-rendered-crop.png",
+				"stage-00": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-00.png",
+				"stage-15": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-15.png",
+				"stage-30": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-30.png"
+			},
+			"npc_mode": true,
+			"part_count": 15,
+			"skin_id": "old_k",
+			"stage_zoom": 3.4,
+			"state_frame_counts": {
+				"idle": {
+					"closed": 28,
+					"half": 29,
+					"open": 2090
+				},
+				"talking": {
+					"closed": 77,
+					"half": 79,
+					"open": 2000
+				}
+			},
+			"timing_config": {},
+			"transitions": [
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 3.99916644444446,
+					"to": "half",
+					"wall_seconds": 3.825059
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 4.03404700000002,
+					"to": "closed",
+					"wall_seconds": 3.858554
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 4.0965737777778,
+					"to": "half",
+					"wall_seconds": 3.92166
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 4.12435155555558,
+					"to": "open",
+					"wall_seconds": 3.94912
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 6.9583333333334,
+					"to": "half",
+					"wall_seconds": 6.79862
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 6.99480377777785,
+					"to": "closed",
+					"wall_seconds": 6.833405
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 7.05555555555562,
+					"to": "half",
+					"wall_seconds": 6.895966
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 7.0833333333334,
+					"to": "open",
+					"wall_seconds": 6.924186
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 12.3725250000003,
+					"to": "half",
+					"wall_seconds": 12.188289
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 12.4141890000003,
+					"to": "closed",
+					"wall_seconds": 12.229525
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 12.4836290000003,
+					"to": "half",
+					"wall_seconds": 12.299103
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 12.5183490000004,
+					"to": "open",
+					"wall_seconds": 12.333778
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 16.0945090000007,
+					"to": "half",
+					"wall_seconds": 15.90767
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 16.1292290000007,
+					"to": "closed",
+					"wall_seconds": 15.942395
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 16.1986690000007,
+					"to": "half",
+					"wall_seconds": 16.011623
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 16.2333890000007,
+					"to": "open",
+					"wall_seconds": 16.046573
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 17.8638396666676,
+					"to": "half",
+					"wall_seconds": 17.68753
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 17.8985596666676,
+					"to": "closed",
+					"wall_seconds": 17.723811
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 17.9610556666676,
+					"to": "half",
+					"wall_seconds": 17.787312
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 17.9888316666676,
+					"to": "open",
+					"wall_seconds": 17.812168
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 20.5858876666679,
+					"to": "half",
+					"wall_seconds": 20.411323
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 20.6206076666679,
+					"to": "closed",
+					"wall_seconds": 20.44629
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 20.6831036666679,
+					"to": "half",
+					"wall_seconds": 20.508801
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 20.7108796666679,
+					"to": "open",
+					"wall_seconds": 20.536578
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 21.766367666668,
+					"to": "half",
+					"wall_seconds": 21.595289
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 21.808031666668,
+					"to": "closed",
+					"wall_seconds": 21.636169
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 21.877471666668,
+					"to": "half",
+					"wall_seconds": 21.704366
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 21.912191666668,
+					"to": "open",
+					"wall_seconds": 21.740948
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 23.2732156666681,
+					"to": "half",
+					"wall_seconds": 23.100629
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 23.3148796666681,
+					"to": "closed",
+					"wall_seconds": 23.142179
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 23.3843196666681,
+					"to": "half",
+					"wall_seconds": 23.211481
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 23.4190396666681,
+					"to": "open",
+					"wall_seconds": 23.246227
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 24.6064636666683,
+					"to": "half",
+					"wall_seconds": 24.434559
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 24.6411836666683,
+					"to": "closed",
+					"wall_seconds": 24.469923
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 24.7106236666683,
+					"to": "half",
+					"wall_seconds": 24.539433
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 24.7453436666683,
+					"to": "open",
+					"wall_seconds": 24.57403
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 26.1896956666684,
+					"to": "half",
+					"wall_seconds": 26.019652
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 26.2244156666684,
+					"to": "closed",
+					"wall_seconds": 26.054652
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 26.2869116666684,
+					"to": "half",
+					"wall_seconds": 26.11687
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 26.3146876666685,
+					"to": "open",
+					"wall_seconds": 26.14465
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 28.1826236666686,
+					"to": "half",
+					"wall_seconds": 28.013739
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 28.2173436666687,
+					"to": "closed",
+					"wall_seconds": 28.048512
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 28.2867836666687,
+					"to": "half",
+					"wall_seconds": 28.118009
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 28.3215036666687,
+					"to": "open",
+					"wall_seconds": 28.152735
+				}
+			]
+		},
+		{
+			"blink_cycles": [
+				{
+					"duration_expected_seconds": 0.14169342815876,
+					"duration_measured_simulation_seconds": 0.147227666666667,
+					"duration_ok": true,
+					"end_wall_seconds": 6.034191,
+					"frame_epsilon_seconds": 0.00771833333333341,
+					"sequence_ok": true,
+					"start_wall_seconds": 5.88889
+				},
+				{
+					"duration_expected_seconds": 0.124204814434052,
+					"duration_measured_simulation_seconds": 0.125000000000004,
+					"duration_ok": true,
+					"end_wall_seconds": 8.980869,
+					"frame_epsilon_seconds": 0.00694444444444444,
+					"sequence_ok": true,
+					"start_wall_seconds": 8.856203
+				},
+				{
+					"duration_expected_seconds": 0.129810974001884,
+					"duration_measured_simulation_seconds": 0.131936000000014,
+					"duration_ok": true,
+					"end_wall_seconds": 12.070178,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 11.938076
+				},
+				{
+					"duration_expected_seconds": 0.145549133419991,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 14.724722,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 14.578811
+				},
+				{
+					"duration_expected_seconds": 0.146711453795433,
+					"duration_measured_simulation_seconds": 0.152768000000016,
+					"duration_ok": true,
+					"end_wall_seconds": 17.416005,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 17.265108
+				},
+				{
+					"duration_expected_seconds": 0.147362142801285,
+					"duration_measured_simulation_seconds": 0.152768000000016,
+					"duration_ok": true,
+					"end_wall_seconds": 19.188697,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 19.035342
+				},
+				{
+					"duration_expected_seconds": 0.147735595703125,
+					"duration_measured_simulation_seconds": 0.152768000000016,
+					"duration_ok": true,
+					"end_wall_seconds": 20.870172,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 20.717226
+				},
+				{
+					"duration_expected_seconds": 0.126621440052986,
+					"duration_measured_simulation_seconds": 0.131936000000014,
+					"duration_ok": true,
+					"end_wall_seconds": 23.455328,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 23.323877
+				},
+				{
+					"duration_expected_seconds": 0.145474940538406,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 25.931227,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 25.78403
+				},
+				{
+					"duration_expected_seconds": 0.127906322479248,
+					"duration_measured_simulation_seconds": 0.131936000000014,
+					"duration_ok": true,
+					"end_wall_seconds": 27.854357,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 27.723197
+				},
+				{
+					"duration_expected_seconds": 0.141098707914352,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 29.4876,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 29.341671
+				}
+			],
+			"capture_files": {
+				"closed": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-nurse-closed-rendered-crop.png",
+				"half": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-nurse-half-rendered-crop.png",
+				"open": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-nurse-open-rendered-crop.png",
+				"stage-00": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-00.png",
+				"stage-15": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-15.png",
+				"stage-30": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-30.png"
+			},
+			"npc_mode": true,
+			"part_count": 15,
+			"skin_id": "nurse",
+			"stage_zoom": 3.4,
+			"state_frame_counts": {
+				"idle": {
+					"closed": 44,
+					"half": 35,
+					"open": 2068
+				},
+				"talking": {
+					"closed": 68,
+					"half": 78,
+					"open": 2010
+				}
+			},
+			"timing_config": {},
+			"transitions": [
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 6.04771833333339,
+					"to": "half",
+					"wall_seconds": 5.88889
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 6.08333333333339,
+					"to": "closed",
+					"wall_seconds": 5.921497
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 6.15761333333339,
+					"to": "half",
+					"wall_seconds": 5.99878
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 6.19494600000005,
+					"to": "open",
+					"wall_seconds": 6.034191
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 9.0303200000001,
+					"to": "half",
+					"wall_seconds": 8.856203
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 9.06504222222233,
+					"to": "closed",
+					"wall_seconds": 8.890962
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 9.12754222222233,
+					"to": "half",
+					"wall_seconds": 8.953141
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 9.15532000000011,
+					"to": "open",
+					"wall_seconds": 8.980869
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 12.1225410000003,
+					"to": "half",
+					"wall_seconds": 11.938076
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 12.1572610000003,
+					"to": "closed",
+					"wall_seconds": 11.97285
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 12.2267010000003,
+					"to": "half",
+					"wall_seconds": 12.041884
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 12.2544770000003,
+					"to": "open",
+					"wall_seconds": 12.070178
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 14.7612610000006,
+					"to": "half",
+					"wall_seconds": 14.578811
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 14.8029250000006,
+					"to": "closed",
+					"wall_seconds": 14.621004
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 14.8723650000006,
+					"to": "half",
+					"wall_seconds": 14.690226
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 14.9070850000006,
+					"to": "open",
+					"wall_seconds": 14.724722
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 17.4402556666675,
+					"to": "half",
+					"wall_seconds": 17.265108
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 17.4819196666675,
+					"to": "closed",
+					"wall_seconds": 17.306484
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 17.5513596666675,
+					"to": "half",
+					"wall_seconds": 17.374276
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 17.5930236666675,
+					"to": "open",
+					"wall_seconds": 17.416005
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 19.2109756666677,
+					"to": "half",
+					"wall_seconds": 19.035342
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 19.2526396666677,
+					"to": "closed",
+					"wall_seconds": 19.077057
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 19.3220796666677,
+					"to": "half",
+					"wall_seconds": 19.146533
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 19.3637436666677,
+					"to": "open",
+					"wall_seconds": 19.188697
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 20.8914236666679,
+					"to": "half",
+					"wall_seconds": 20.717226
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 20.9330876666679,
+					"to": "closed",
+					"wall_seconds": 20.758917
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 21.0025276666679,
+					"to": "half",
+					"wall_seconds": 20.830418
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 21.0441916666679,
+					"to": "open",
+					"wall_seconds": 20.870172
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 23.4954236666682,
+					"to": "half",
+					"wall_seconds": 23.323877
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 23.5301436666682,
+					"to": "closed",
+					"wall_seconds": 23.35764
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 23.5926396666682,
+					"to": "half",
+					"wall_seconds": 23.42051
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 23.6273596666682,
+					"to": "open",
+					"wall_seconds": 23.455328
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 25.9535996666684,
+					"to": "half",
+					"wall_seconds": 25.78403
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 25.9952636666684,
+					"to": "closed",
+					"wall_seconds": 25.824972
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 26.0647036666684,
+					"to": "half",
+					"wall_seconds": 25.894353
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 26.0994236666684,
+					"to": "open",
+					"wall_seconds": 25.931227
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 27.8909756666686,
+					"to": "half",
+					"wall_seconds": 27.723197
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 27.9256956666686,
+					"to": "closed",
+					"wall_seconds": 27.757006
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 27.9881916666686,
+					"to": "half",
+					"wall_seconds": 27.819144
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 28.0229116666686,
+					"to": "open",
+					"wall_seconds": 27.854357
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 29.5089276666688,
+					"to": "half",
+					"wall_seconds": 29.341671
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 29.5505916666688,
+					"to": "closed",
+					"wall_seconds": 29.38306
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 29.6200316666688,
+					"to": "half",
+					"wall_seconds": 29.452451
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 29.6547516666688,
+					"to": "open",
+					"wall_seconds": 29.4876
+				}
+			]
+		},
+		{
+			"blink_cycles": [
+				{
+					"duration_expected_seconds": 0.125043079257011,
+					"duration_measured_simulation_seconds": 0.125256333333333,
+					"duration_ok": true,
+					"end_wall_seconds": 3.02513,
+					"frame_epsilon_seconds": 0.00666666666666667,
+					"sequence_ok": true,
+					"start_wall_seconds": 2.892953
+				},
+				{
+					"duration_expected_seconds": 0.124745383858681,
+					"duration_measured_simulation_seconds": 0.129665333333334,
+					"duration_ok": true,
+					"end_wall_seconds": 6.096719,
+					"frame_epsilon_seconds": 0.006687,
+					"sequence_ok": true,
+					"start_wall_seconds": 5.978175
+				},
+				{
+					"duration_expected_seconds": 0.125793501734734,
+					"duration_measured_simulation_seconds": 0.131944444444448,
+					"duration_ok": true,
+					"end_wall_seconds": 8.001615,
+					"frame_epsilon_seconds": 0.00694444444444444,
+					"sequence_ok": true,
+					"start_wall_seconds": 7.868906
+				},
+				{
+					"duration_expected_seconds": 0.132439255714417,
+					"duration_measured_simulation_seconds": 0.138880000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 11.21498,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 11.075979
+				},
+				{
+					"duration_expected_seconds": 0.143348336219788,
+					"duration_measured_simulation_seconds": 0.151378666666679,
+					"duration_ok": true,
+					"end_wall_seconds": 15.050056,
+					"frame_epsilon_seconds": 0.00833333333333333,
+					"sequence_ok": true,
+					"start_wall_seconds": 14.877751
+				},
+				{
+					"duration_expected_seconds": 0.143792435526848,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 18.124932,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 17.978918
+				},
+				{
+					"duration_expected_seconds": 0.131956323981285,
+					"duration_measured_simulation_seconds": 0.138880000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 19.758087,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 19.619097
+				},
+				{
+					"duration_expected_seconds": 0.142091885209084,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 21.516473,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 21.371002
+				},
+				{
+					"duration_expected_seconds": 0.130003109574318,
+					"duration_measured_simulation_seconds": 0.131936000000014,
+					"duration_ok": true,
+					"end_wall_seconds": 23.711943,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 23.580528
+				},
+				{
+					"duration_expected_seconds": 0.128706946969032,
+					"duration_measured_simulation_seconds": 0.131936000000014,
+					"duration_ok": true,
+					"end_wall_seconds": 25.852773,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 25.723825
+				},
+				{
+					"duration_expected_seconds": 0.137384876608849,
+					"duration_measured_simulation_seconds": 0.138880000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 27.575902,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 27.437317
+				},
+				{
+					"duration_expected_seconds": 0.148903399705887,
+					"duration_measured_simulation_seconds": 0.152768000000016,
+					"duration_ok": true,
+					"end_wall_seconds": 28.855312,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 28.703177
+				}
+			],
+			"capture_files": {
+				"closed": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-night_worker-closed-rendered-crop.png",
+				"half": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-night_worker-half-rendered-crop.png",
+				"open": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-night_worker-open-rendered-crop.png",
+				"stage-00": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-00.png",
+				"stage-15": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-15.png",
+				"stage-30": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-30.png"
+			},
+			"npc_mode": true,
+			"part_count": 15,
+			"skin_id": "night_worker",
+			"stage_zoom": 3.4,
+			"state_frame_counts": {
+				"idle": {
+					"closed": 43,
+					"half": 50,
+					"open": 2054
+				},
+				"talking": {
+					"closed": 70,
+					"half": 74,
+					"open": 2012
+				}
+			},
+			"timing_config": {},
+			"transitions": [
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 3.058704,
+					"to": "half",
+					"wall_seconds": 2.892953
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 3.1,
+					"to": "closed",
+					"wall_seconds": 2.930627
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 3.15540177777778,
+					"to": "half",
+					"wall_seconds": 2.990673
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 3.18396033333334,
+					"to": "open",
+					"wall_seconds": 3.02513
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 6.13700133333339,
+					"to": "half",
+					"wall_seconds": 5.978175
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 6.17152233333339,
+					"to": "closed",
+					"wall_seconds": 6.012697
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 6.23676500000005,
+					"to": "half",
+					"wall_seconds": 6.061269
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 6.26666666666672,
+					"to": "open",
+					"wall_seconds": 6.096719
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 8.04420888888897,
+					"to": "half",
+					"wall_seconds": 7.868906
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 8.07893111111119,
+					"to": "closed",
+					"wall_seconds": 7.904085
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 8.14143111111119,
+					"to": "half",
+					"wall_seconds": 7.968384
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 8.17615333333341,
+					"to": "open",
+					"wall_seconds": 8.001615
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 11.2614850000002,
+					"to": "half",
+					"wall_seconds": 11.075979
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 11.2962050000002,
+					"to": "closed",
+					"wall_seconds": 11.110708
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 11.3656450000002,
+					"to": "half",
+					"wall_seconds": 11.180229
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 11.4003650000002,
+					"to": "open",
+					"wall_seconds": 11.21498
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 15.0598530000006,
+					"to": "half",
+					"wall_seconds": 14.877751
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 15.1015170000006,
+					"to": "closed",
+					"wall_seconds": 14.919921
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 15.1709570000006,
+					"to": "half",
+					"wall_seconds": 14.989259
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 15.2112316666673,
+					"to": "open",
+					"wall_seconds": 15.050056
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 18.1554876666676,
+					"to": "half",
+					"wall_seconds": 17.978918
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 18.1971516666676,
+					"to": "closed",
+					"wall_seconds": 18.021333
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 18.2665916666676,
+					"to": "half",
+					"wall_seconds": 18.090423
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 18.3013116666676,
+					"to": "open",
+					"wall_seconds": 18.124932
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 19.7942716666678,
+					"to": "half",
+					"wall_seconds": 19.619097
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 19.8289916666678,
+					"to": "closed",
+					"wall_seconds": 19.654288
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 19.8984316666678,
+					"to": "half",
+					"wall_seconds": 19.725405
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 19.9331516666678,
+					"to": "open",
+					"wall_seconds": 19.758087
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 21.544159666668,
+					"to": "half",
+					"wall_seconds": 21.371002
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 21.585823666668,
+					"to": "closed",
+					"wall_seconds": 21.412238
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 21.655263666668,
+					"to": "half",
+					"wall_seconds": 21.481759
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 21.689983666668,
+					"to": "open",
+					"wall_seconds": 21.516473
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 23.7523516666682,
+					"to": "half",
+					"wall_seconds": 23.580528
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 23.7870716666682,
+					"to": "closed",
+					"wall_seconds": 23.614532
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 23.8565116666682,
+					"to": "half",
+					"wall_seconds": 23.685216
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 23.8842876666682,
+					"to": "open",
+					"wall_seconds": 23.711943
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 25.8911036666684,
+					"to": "half",
+					"wall_seconds": 25.723825
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 25.9258236666684,
+					"to": "closed",
+					"wall_seconds": 25.755853
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 25.9883196666684,
+					"to": "half",
+					"wall_seconds": 25.818063
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 26.0230396666684,
+					"to": "open",
+					"wall_seconds": 25.852773
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 27.6062716666686,
+					"to": "half",
+					"wall_seconds": 27.437317
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 27.6409916666686,
+					"to": "closed",
+					"wall_seconds": 27.472188
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 27.7104316666686,
+					"to": "half",
+					"wall_seconds": 27.541454
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 27.7451516666686,
+					"to": "open",
+					"wall_seconds": 27.575902
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 28.8700796666687,
+					"to": "half",
+					"wall_seconds": 28.703177
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 28.9117436666687,
+					"to": "closed",
+					"wall_seconds": 28.743328
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 28.9881276666687,
+					"to": "half",
+					"wall_seconds": 28.822821
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 29.0228476666687,
+					"to": "open",
+					"wall_seconds": 28.855312
+				}
+			]
+		},
+		{
+			"blink_cycles": [
+				{
+					"duration_expected_seconds": 0.132160514593124,
+					"duration_measured_simulation_seconds": 0.138333,
+					"duration_ok": true,
+					"end_wall_seconds": 2.559337,
+					"frame_epsilon_seconds": 0.007628,
+					"sequence_ok": true,
+					"start_wall_seconds": 2.420994
+				},
+				{
+					"duration_expected_seconds": 0.123736642301083,
+					"duration_measured_simulation_seconds": 0.125002333333336,
+					"duration_ok": true,
+					"end_wall_seconds": 6.604286,
+					"frame_epsilon_seconds": 0.00694444444444444,
+					"sequence_ok": true,
+					"start_wall_seconds": 6.478621
+				},
+				{
+					"duration_expected_seconds": 0.128196656703949,
+					"duration_measured_simulation_seconds": 0.131936000000014,
+					"duration_ok": true,
+					"end_wall_seconds": 11.798629,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 11.666651
+				},
+				{
+					"duration_expected_seconds": 0.126190230250359,
+					"duration_measured_simulation_seconds": 0.127768000000005,
+					"duration_ok": true,
+					"end_wall_seconds": 15.184613,
+					"frame_epsilon_seconds": 0.00833333333333333,
+					"sequence_ok": true,
+					"start_wall_seconds": 15.066451
+				},
+				{
+					"duration_expected_seconds": 0.14055147767067,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 16.581731,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 16.435834
+				},
+				{
+					"duration_expected_seconds": 0.134258449077606,
+					"duration_measured_simulation_seconds": 0.138880000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 18.653104,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 18.514029
+				},
+				{
+					"duration_expected_seconds": 0.120648428797722,
+					"duration_measured_simulation_seconds": 0.124992000000013,
+					"duration_ok": true,
+					"end_wall_seconds": 19.973992,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 19.848537
+				},
+				{
+					"duration_expected_seconds": 0.124193027615547,
+					"duration_measured_simulation_seconds": 0.124992000000013,
+					"duration_ok": true,
+					"end_wall_seconds": 23.016972,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 22.893697
+				},
+				{
+					"duration_expected_seconds": 0.137498095631599,
+					"duration_measured_simulation_seconds": 0.138880000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 24.14959,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 24.010598
+				},
+				{
+					"duration_expected_seconds": 0.122419364750385,
+					"duration_measured_simulation_seconds": 0.124992000000013,
+					"duration_ok": true,
+					"end_wall_seconds": 25.414793,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 25.290216
+				},
+				{
+					"duration_expected_seconds": 0.132029101252556,
+					"duration_measured_simulation_seconds": 0.138880000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 26.519971,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 26.381088
+				},
+				{
+					"duration_expected_seconds": 0.139480486512184,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 28.132509,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 27.985978
+				},
+				{
+					"duration_expected_seconds": 0.127983719110489,
+					"duration_measured_simulation_seconds": 0.131936000000014,
+					"duration_ok": true,
+					"end_wall_seconds": 29.181419,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 29.049337
+				}
+			],
+			"capture_files": {
+				"closed": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-repairman_chen-closed-rendered-crop.png",
+				"half": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-repairman_chen-half-rendered-crop.png",
+				"open": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-repairman_chen-open-rendered-crop.png",
+				"stage-00": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-00.png",
+				"stage-15": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-15.png",
+				"stage-30": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-30.png"
+			},
+			"npc_mode": true,
+			"part_count": 15,
+			"skin_id": "repairman_chen",
+			"stage_zoom": 3.4,
+			"state_frame_counts": {
+				"idle": {
+					"closed": 31,
+					"half": 26,
+					"open": 2090
+				},
+				"talking": {
+					"closed": 95,
+					"half": 97,
+					"open": 1964
+				}
+			},
+			"timing_config": {},
+			"transitions": [
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 2.57982833333334,
+					"to": "half",
+					"wall_seconds": 2.420994
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 2.61666666666667,
+					"to": "closed",
+					"wall_seconds": 2.453429
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 2.68333333333333,
+					"to": "half",
+					"wall_seconds": 2.517665
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 2.71816133333334,
+					"to": "open",
+					"wall_seconds": 2.559337
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 6.63888655555561,
+					"to": "half",
+					"wall_seconds": 6.478621
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 6.67360877777784,
+					"to": "closed",
+					"wall_seconds": 6.513396
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 6.73681744444451,
+					"to": "half",
+					"wall_seconds": 6.57593
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 6.76388888888895,
+					"to": "open",
+					"wall_seconds": 6.604286
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 11.8517250000003,
+					"to": "half",
+					"wall_seconds": 11.666651
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 11.8864450000003,
+					"to": "closed",
+					"wall_seconds": 11.701424
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 11.9489410000003,
+					"to": "half",
+					"wall_seconds": 11.763922
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 11.9836610000003,
+					"to": "open",
+					"wall_seconds": 11.798629
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 15.2445650000006,
+					"to": "half",
+					"wall_seconds": 15.066451
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 15.277898333334,
+					"to": "closed",
+					"wall_seconds": 15.094525
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 15.3445570000006,
+					"to": "half",
+					"wall_seconds": 15.157011
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 15.3723330000006,
+					"to": "open",
+					"wall_seconds": 15.184613
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 16.6222530000008,
+					"to": "half",
+					"wall_seconds": 16.435834
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 16.6639170000008,
+					"to": "closed",
+					"wall_seconds": 16.477538
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 16.7333570000008,
+					"to": "half",
+					"wall_seconds": 16.546997
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 16.7680770000008,
+					"to": "open",
+					"wall_seconds": 16.581731
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 18.6901756666677,
+					"to": "half",
+					"wall_seconds": 18.514029
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 18.7248956666677,
+					"to": "closed",
+					"wall_seconds": 18.548787
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 18.7943356666677,
+					"to": "half",
+					"wall_seconds": 18.618285
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 18.8290556666677,
+					"to": "open",
+					"wall_seconds": 18.653104
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 20.0234236666678,
+					"to": "half",
+					"wall_seconds": 19.848537
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 20.0581436666678,
+					"to": "closed",
+					"wall_seconds": 19.885514
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 20.1206396666678,
+					"to": "half",
+					"wall_seconds": 19.945878
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 20.1484156666678,
+					"to": "open",
+					"wall_seconds": 19.973992
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 23.0648956666681,
+					"to": "half",
+					"wall_seconds": 22.893697
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 23.0996156666681,
+					"to": "closed",
+					"wall_seconds": 22.927017
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 23.1621116666681,
+					"to": "half",
+					"wall_seconds": 22.992267
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 23.1898876666681,
+					"to": "open",
+					"wall_seconds": 23.016972
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 24.1828796666682,
+					"to": "half",
+					"wall_seconds": 24.010598
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 24.2175996666682,
+					"to": "closed",
+					"wall_seconds": 24.045354
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 24.2870396666682,
+					"to": "half",
+					"wall_seconds": 24.114827
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 24.3217596666682,
+					"to": "open",
+					"wall_seconds": 24.14959
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 25.4605756666684,
+					"to": "half",
+					"wall_seconds": 25.290216
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 25.4952956666684,
+					"to": "closed",
+					"wall_seconds": 25.324737
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 25.5577916666684,
+					"to": "half",
+					"wall_seconds": 25.38744
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 25.5855676666684,
+					"to": "open",
+					"wall_seconds": 25.414793
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 26.5507836666685,
+					"to": "half",
+					"wall_seconds": 26.381088
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 26.5855036666685,
+					"to": "closed",
+					"wall_seconds": 26.41562
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 26.6549436666685,
+					"to": "half",
+					"wall_seconds": 26.485105
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 26.6896636666685,
+					"to": "open",
+					"wall_seconds": 26.519971
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 28.1548476666686,
+					"to": "half",
+					"wall_seconds": 27.985978
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 28.1965116666686,
+					"to": "closed",
+					"wall_seconds": 28.027608
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 28.2659516666687,
+					"to": "half",
+					"wall_seconds": 28.09868
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 28.3006716666687,
+					"to": "open",
+					"wall_seconds": 28.132509
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 29.2172796666688,
+					"to": "half",
+					"wall_seconds": 29.049337
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 29.2519996666688,
+					"to": "closed",
+					"wall_seconds": 29.084161
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 29.3144956666688,
+					"to": "half",
+					"wall_seconds": 29.146654
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 29.3492156666688,
+					"to": "open",
+					"wall_seconds": 29.181419
+				}
+			]
+		},
+		{
+			"blink_cycles": [
+				{
+					"duration_expected_seconds": 0.134323701262474,
+					"duration_measured_simulation_seconds": 0.13961888888889,
+					"duration_ok": true,
+					"end_wall_seconds": 2.795678,
+					"frame_epsilon_seconds": 0.006977,
+					"sequence_ok": true,
+					"start_wall_seconds": 2.64973
+				},
+				{
+					"duration_expected_seconds": 0.144524395465851,
+					"duration_measured_simulation_seconds": 0.145833333333337,
+					"duration_ok": true,
+					"end_wall_seconds": 5.505971,
+					"frame_epsilon_seconds": 0.00694444444444444,
+					"sequence_ok": true,
+					"start_wall_seconds": 5.359415
+				},
+				{
+					"duration_expected_seconds": 0.14836785197258,
+					"duration_measured_simulation_seconds": 0.149999999999999,
+					"duration_ok": true,
+					"end_wall_seconds": 7.583921,
+					"frame_epsilon_seconds": 0.00714285714285714,
+					"sequence_ok": true,
+					"start_wall_seconds": 7.438401
+				},
+				{
+					"duration_expected_seconds": 0.123815760016441,
+					"duration_measured_simulation_seconds": 0.125000000000004,
+					"duration_ok": true,
+					"end_wall_seconds": 9.51699,
+					"frame_epsilon_seconds": 0.00694444444444444,
+					"sequence_ok": true,
+					"start_wall_seconds": 9.391195
+				},
+				{
+					"duration_expected_seconds": 0.144136279821396,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 13.61982,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 13.473444
+				},
+				{
+					"duration_expected_seconds": 0.124546714127064,
+					"duration_measured_simulation_seconds": 0.124992000000013,
+					"duration_ok": true,
+					"end_wall_seconds": 16.567877,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 16.44276
+				},
+				{
+					"duration_expected_seconds": 0.142050459980965,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 18.841139,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 18.695356
+				},
+				{
+					"duration_expected_seconds": 0.129942238330841,
+					"duration_measured_simulation_seconds": 0.131936000000014,
+					"duration_ok": true,
+					"end_wall_seconds": 20.830418,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 20.698174
+				},
+				{
+					"duration_expected_seconds": 0.147301465272903,
+					"duration_measured_simulation_seconds": 0.152768000000016,
+					"duration_ok": true,
+					"end_wall_seconds": 22.447828,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 22.295079
+				},
+				{
+					"duration_expected_seconds": 0.149140149354935,
+					"duration_measured_simulation_seconds": 0.152768000000016,
+					"duration_ok": true,
+					"end_wall_seconds": 24.80969,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 24.657439
+				},
+				{
+					"duration_expected_seconds": 0.137305602431297,
+					"duration_measured_simulation_seconds": 0.138880000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 26.062514,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 25.923817
+				},
+				{
+					"duration_expected_seconds": 0.144555911421776,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 28.076267,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 27.932016
+				},
+				{
+					"duration_expected_seconds": 0.131483271718025,
+					"duration_measured_simulation_seconds": 0.131936000000014,
+					"duration_ok": true,
+					"end_wall_seconds": 29.654488,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 29.522724
+				}
+			],
+			"capture_files": {
+				"closed": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-resident-closed-rendered-crop.png",
+				"half": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-resident-half-rendered-crop.png",
+				"open": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-resident-open-rendered-crop.png",
+				"stage-00": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-00.png",
+				"stage-15": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-15.png",
+				"stage-30": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-30.png"
+			},
+			"npc_mode": true,
+			"part_count": 15,
+			"skin_id": "resident",
+			"stage_zoom": 3.4,
+			"state_frame_counts": {
+				"idle": {
+					"closed": 49,
+					"half": 53,
+					"open": 2045
+				},
+				"talking": {
+					"closed": 80,
+					"half": 82,
+					"open": 1994
+				}
+			},
+			"timing_config": {},
+			"transitions": [
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 2.825229,
+					"to": "half",
+					"wall_seconds": 2.64973
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 2.859928,
+					"to": "closed",
+					"wall_seconds": 2.684427
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 2.92734788888889,
+					"to": "half",
+					"wall_seconds": 2.754666
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 2.96484788888889,
+					"to": "open",
+					"wall_seconds": 2.795678
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 5.52083333333338,
+					"to": "half",
+					"wall_seconds": 5.359415
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 5.56285822222227,
+					"to": "closed",
+					"wall_seconds": 5.401176
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 5.6319444444445,
+					"to": "half",
+					"wall_seconds": 5.471074
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 5.66666666666672,
+					"to": "open",
+					"wall_seconds": 5.505971
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 7.6070305238096,
+					"to": "half",
+					"wall_seconds": 7.438401
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 7.64988766666674,
+					"to": "closed",
+					"wall_seconds": 7.479611
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 7.72131623809531,
+					"to": "half",
+					"wall_seconds": 7.54916
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 7.7570305238096,
+					"to": "open",
+					"wall_seconds": 7.583921
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 9.56504222222234,
+					"to": "half",
+					"wall_seconds": 9.391195
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 9.59976444444457,
+					"to": "closed",
+					"wall_seconds": 9.428555
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 9.66226444444457,
+					"to": "half",
+					"wall_seconds": 9.488653
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 9.69004222222235,
+					"to": "open",
+					"wall_seconds": 9.51699
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 13.6571650000005,
+					"to": "half",
+					"wall_seconds": 13.473444
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 13.6988290000005,
+					"to": "closed",
+					"wall_seconds": 13.515137
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 13.7682690000005,
+					"to": "half",
+					"wall_seconds": 13.584536
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 13.8029890000005,
+					"to": "open",
+					"wall_seconds": 13.61982
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 16.6291970000008,
+					"to": "half",
+					"wall_seconds": 16.44276
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 16.6639170000008,
+					"to": "closed",
+					"wall_seconds": 16.477538
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 16.7264130000008,
+					"to": "half",
+					"wall_seconds": 16.540688
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 16.7541890000008,
+					"to": "open",
+					"wall_seconds": 16.567877
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 18.8707196666677,
+					"to": "half",
+					"wall_seconds": 18.695356
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 18.9123836666677,
+					"to": "closed",
+					"wall_seconds": 18.736467
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 18.9818236666677,
+					"to": "half",
+					"wall_seconds": 18.806434
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 19.0165436666677,
+					"to": "open",
+					"wall_seconds": 18.841139
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 20.8705916666679,
+					"to": "half",
+					"wall_seconds": 20.698174
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 20.9053116666679,
+					"to": "closed",
+					"wall_seconds": 20.733058
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 20.9747516666679,
+					"to": "half",
+					"wall_seconds": 20.802429
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 21.0025276666679,
+					"to": "open",
+					"wall_seconds": 20.830418
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 22.467711666668,
+					"to": "half",
+					"wall_seconds": 22.295079
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 22.5093756666681,
+					"to": "closed",
+					"wall_seconds": 22.336112
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 22.5788156666681,
+					"to": "half",
+					"wall_seconds": 22.407418
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 22.6204796666681,
+					"to": "open",
+					"wall_seconds": 22.447828
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 24.8286716666683,
+					"to": "half",
+					"wall_seconds": 24.657439
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 24.8703356666683,
+					"to": "closed",
+					"wall_seconds": 24.698978
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 24.9467196666683,
+					"to": "half",
+					"wall_seconds": 24.775028
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 24.9814396666683,
+					"to": "open",
+					"wall_seconds": 24.80969
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 26.0924796666684,
+					"to": "half",
+					"wall_seconds": 25.923817
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 26.1271996666684,
+					"to": "closed",
+					"wall_seconds": 25.957353
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 26.1966396666684,
+					"to": "half",
+					"wall_seconds": 26.026393
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 26.2313596666684,
+					"to": "open",
+					"wall_seconds": 26.062514
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 28.0992956666686,
+					"to": "half",
+					"wall_seconds": 27.932016
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 28.1409596666686,
+					"to": "closed",
+					"wall_seconds": 27.972431
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 28.2103996666687,
+					"to": "half",
+					"wall_seconds": 28.041531
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 28.2451196666687,
+					"to": "open",
+					"wall_seconds": 28.076267
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 29.6894716666688,
+					"to": "half",
+					"wall_seconds": 29.522724
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 29.7241916666688,
+					"to": "closed",
+					"wall_seconds": 29.557439
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 29.7936316666688,
+					"to": "half",
+					"wall_seconds": 29.626194
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 29.8214076666688,
+					"to": "open",
+					"wall_seconds": 29.654488
+				}
+			]
+		},
+		{
+			"blink_cycles": [
+				{
+					"duration_expected_seconds": 0.142608880996704,
+					"duration_measured_simulation_seconds": 0.144518777777777,
+					"duration_ok": true,
+					"end_wall_seconds": 5.666243,
+					"frame_epsilon_seconds": 0.00775014285714286,
+					"sequence_ok": true,
+					"start_wall_seconds": 5.519949
+				},
+				{
+					"duration_expected_seconds": 0.128958687186241,
+					"duration_measured_simulation_seconds": 0.131944444444448,
+					"duration_ok": true,
+					"end_wall_seconds": 8.542935,
+					"frame_epsilon_seconds": 0.00694444444444444,
+					"sequence_ok": true,
+					"start_wall_seconds": 8.410989
+				},
+				{
+					"duration_expected_seconds": 0.149476990103722,
+					"duration_measured_simulation_seconds": 0.152768000000016,
+					"duration_ok": true,
+					"end_wall_seconds": 12.215643,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 12.062807
+				},
+				{
+					"duration_expected_seconds": 0.126002997159958,
+					"duration_measured_simulation_seconds": 0.126381333333333,
+					"duration_ok": true,
+					"end_wall_seconds": 15.149904,
+					"frame_epsilon_seconds": 0.00833333333333333,
+					"sequence_ok": true,
+					"start_wall_seconds": 15.050056
+				},
+				{
+					"duration_expected_seconds": 0.125282108783722,
+					"duration_measured_simulation_seconds": 0.131936000000014,
+					"duration_ok": true,
+					"end_wall_seconds": 18.312514,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 18.181224
+				},
+				{
+					"duration_expected_seconds": 0.145310804247856,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 19.619097,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 19.473612
+				},
+				{
+					"duration_expected_seconds": 0.125513017177582,
+					"duration_measured_simulation_seconds": 0.131936000000014,
+					"duration_ok": true,
+					"end_wall_seconds": 21.907421,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 21.773813
+				},
+				{
+					"duration_expected_seconds": 0.136496052145958,
+					"duration_measured_simulation_seconds": 0.138880000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 24.184414,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 24.045354
+				},
+				{
+					"duration_expected_seconds": 0.128675296902657,
+					"duration_measured_simulation_seconds": 0.131936000000014,
+					"duration_ok": true,
+					"end_wall_seconds": 26.276593,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 26.14465
+				},
+				{
+					"duration_expected_seconds": 0.144843176007271,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 27.708111,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 27.562063
+				}
+			],
+			"capture_files": {
+				"closed": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-ah_po-closed-rendered-crop.png",
+				"half": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-ah_po-half-rendered-crop.png",
+				"open": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-ah_po-open-rendered-crop.png",
+				"stage-00": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-00.png",
+				"stage-15": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-15.png",
+				"stage-30": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-30.png"
+			},
+			"npc_mode": true,
+			"part_count": 17,
+			"skin_id": "ah_po",
+			"stage_zoom": 3.4,
+			"state_frame_counts": {
+				"idle": {
+					"closed": 34,
+					"half": 28,
+					"open": 2085
+				},
+				"talking": {
+					"closed": 65,
+					"half": 70,
+					"open": 2021
+				}
+			},
+			"timing_config": {},
+			"transitions": [
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 5.68055555555561,
+					"to": "half",
+					"wall_seconds": 5.519949
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 5.72272400000005,
+					"to": "closed",
+					"wall_seconds": 5.547333
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 5.78964533333339,
+					"to": "half",
+					"wall_seconds": 5.630819
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 5.82507433333339,
+					"to": "open",
+					"wall_seconds": 5.666243
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 8.58587555555565,
+					"to": "half",
+					"wall_seconds": 8.410989
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 8.62059777777787,
+					"to": "closed",
+					"wall_seconds": 8.445796
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 8.68309777777787,
+					"to": "half",
+					"wall_seconds": 8.509488
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 8.7178200000001,
+					"to": "open",
+					"wall_seconds": 8.542935
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 12.2475330000003,
+					"to": "half",
+					"wall_seconds": 12.062807
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 12.2891970000003,
+					"to": "closed",
+					"wall_seconds": 12.10497
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 12.3655810000003,
+					"to": "half",
+					"wall_seconds": 12.180881
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 12.4003010000003,
+					"to": "open",
+					"wall_seconds": 12.215643
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 15.2112316666673,
+					"to": "half",
+					"wall_seconds": 15.050056
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 15.2445650000006,
+					"to": "closed",
+					"wall_seconds": 15.066451
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 15.3098370000006,
+					"to": "half",
+					"wall_seconds": 15.122493
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 15.3376130000006,
+					"to": "open",
+					"wall_seconds": 15.149904
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 18.3568636666676,
+					"to": "half",
+					"wall_seconds": 18.181224
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 18.3915836666676,
+					"to": "closed",
+					"wall_seconds": 18.215462
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 18.4540796666676,
+					"to": "half",
+					"wall_seconds": 18.277721
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 18.4887996666676,
+					"to": "open",
+					"wall_seconds": 18.312514
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 19.6484476666678,
+					"to": "half",
+					"wall_seconds": 19.473612
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 19.6901116666678,
+					"to": "closed",
+					"wall_seconds": 19.514869
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 19.7595516666678,
+					"to": "half",
+					"wall_seconds": 19.585612
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 19.7942716666678,
+					"to": "open",
+					"wall_seconds": 19.619097
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 21.946911666668,
+					"to": "half",
+					"wall_seconds": 21.773813
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 21.981631666668,
+					"to": "closed",
+					"wall_seconds": 21.808268
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 22.044127666668,
+					"to": "half",
+					"wall_seconds": 21.870987
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 22.078847666668,
+					"to": "open",
+					"wall_seconds": 21.907421
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 24.2175996666682,
+					"to": "half",
+					"wall_seconds": 24.045354
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 24.2523196666682,
+					"to": "closed",
+					"wall_seconds": 24.080135
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 24.3217596666682,
+					"to": "half",
+					"wall_seconds": 24.14959
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 24.3564796666682,
+					"to": "open",
+					"wall_seconds": 24.184414
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 26.3146876666685,
+					"to": "half",
+					"wall_seconds": 26.14465
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 26.3494076666685,
+					"to": "closed",
+					"wall_seconds": 26.179456
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 26.4119036666685,
+					"to": "half",
+					"wall_seconds": 26.241837
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 26.4466236666685,
+					"to": "open",
+					"wall_seconds": 26.276593
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 27.7312636666686,
+					"to": "half",
+					"wall_seconds": 27.562063
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 27.7729276666686,
+					"to": "closed",
+					"wall_seconds": 27.604304
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 27.8423676666686,
+					"to": "half",
+					"wall_seconds": 27.673635
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 27.8770876666686,
+					"to": "open",
+					"wall_seconds": 27.708111
+				}
+			]
+		},
+		{
+			"blink_cycles": [
+				{
+					"duration_expected_seconds": 0.127085983753204,
+					"duration_measured_simulation_seconds": 0.129819666666666,
+					"duration_ok": true,
+					"end_wall_seconds": 4.449099,
+					"frame_epsilon_seconds": 0.00694444444444444,
+					"sequence_ok": true,
+					"start_wall_seconds": 4.32414
+				},
+				{
+					"duration_expected_seconds": 0.128107830882072,
+					"duration_measured_simulation_seconds": 0.131944444444448,
+					"duration_ok": true,
+					"end_wall_seconds": 8.809868,
+					"frame_epsilon_seconds": 0.00694444444444444,
+					"sequence_ok": true,
+					"start_wall_seconds": 8.67507
+				},
+				{
+					"duration_expected_seconds": 0.124964445829391,
+					"duration_measured_simulation_seconds": 0.124992000000013,
+					"duration_ok": true,
+					"end_wall_seconds": 14.425772,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 14.300826
+				},
+				{
+					"duration_expected_seconds": 0.127592220902443,
+					"duration_measured_simulation_seconds": 0.131936000000014,
+					"duration_ok": true,
+					"end_wall_seconds": 16.581731,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 16.44971
+				},
+				{
+					"duration_expected_seconds": 0.139945045113564,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 19.237258,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 19.091233
+				},
+				{
+					"duration_expected_seconds": 0.139253050088882,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 21.891422,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 21.74579
+				},
+				{
+					"duration_expected_seconds": 0.147283598780632,
+					"duration_measured_simulation_seconds": 0.152768000000016,
+					"duration_ok": true,
+					"end_wall_seconds": 23.378247,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 23.225549
+				},
+				{
+					"duration_expected_seconds": 0.144054010510445,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 25.519402,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 25.373545
+				},
+				{
+					"duration_expected_seconds": 0.123079620301723,
+					"duration_measured_simulation_seconds": 0.124992000000013,
+					"duration_ok": true,
+					"end_wall_seconds": 26.791252,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 26.667595
+				},
+				{
+					"duration_expected_seconds": 0.120706662535667,
+					"duration_measured_simulation_seconds": 0.124992000000013,
+					"duration_ok": true,
+					"end_wall_seconds": 28.431264,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 28.306147
+				},
+				{
+					"duration_expected_seconds": 0.141151890158653,
+					"duration_measured_simulation_seconds": 0.145824000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 29.605803,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 29.459484
+				}
+			],
+			"capture_files": {
+				"closed": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-wataru-closed-rendered-crop.png",
+				"half": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-wataru-half-rendered-crop.png",
+				"open": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-wataru-open-rendered-crop.png",
+				"stage-00": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-00.png",
+				"stage-15": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-15.png",
+				"stage-30": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-30.png"
+			},
+			"npc_mode": true,
+			"part_count": 15,
+			"skin_id": "wataru",
+			"stage_zoom": 3.4,
+			"state_frame_counts": {
+				"idle": {
+					"closed": 27,
+					"half": 28,
+					"open": 2092
+				},
+				"talking": {
+					"closed": 77,
+					"half": 84,
+					"open": 1995
+				}
+			},
+			"timing_config": {},
+			"transitions": [
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 4.49111233333336,
+					"to": "half",
+					"wall_seconds": 4.32414
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 4.52380952380955,
+					"to": "closed",
+					"wall_seconds": 4.354718
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 4.58843200000003,
+					"to": "half",
+					"wall_seconds": 4.414341
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 4.62093200000003,
+					"to": "open",
+					"wall_seconds": 4.449099
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 8.84976444444454,
+					"to": "half",
+					"wall_seconds": 8.67507
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 8.88448666666677,
+					"to": "closed",
+					"wall_seconds": 8.709861
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 8.94698666666677,
+					"to": "half",
+					"wall_seconds": 8.774331
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 8.98170888888899,
+					"to": "open",
+					"wall_seconds": 8.809868
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 14.4835010000006,
+					"to": "half",
+					"wall_seconds": 14.300826
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 14.5182210000006,
+					"to": "closed",
+					"wall_seconds": 14.33608
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 14.5807170000006,
+					"to": "half",
+					"wall_seconds": 14.398259
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 14.6084930000006,
+					"to": "open",
+					"wall_seconds": 14.425772
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 16.6361410000008,
+					"to": "half",
+					"wall_seconds": 16.44971
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 16.6708610000008,
+					"to": "closed",
+					"wall_seconds": 16.485784
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 16.7333570000008,
+					"to": "half",
+					"wall_seconds": 16.546997
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 16.7680770000008,
+					"to": "open",
+					"wall_seconds": 16.581731
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 19.2665276666677,
+					"to": "half",
+					"wall_seconds": 19.091233
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 19.3081916666677,
+					"to": "closed",
+					"wall_seconds": 19.133258
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 19.3776316666677,
+					"to": "half",
+					"wall_seconds": 19.202291
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 19.4123516666677,
+					"to": "open",
+					"wall_seconds": 19.237258
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 21.919135666668,
+					"to": "half",
+					"wall_seconds": 21.74579
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 21.960799666668,
+					"to": "closed",
+					"wall_seconds": 21.787811
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 22.030239666668,
+					"to": "half",
+					"wall_seconds": 21.85702
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 22.064959666668,
+					"to": "open",
+					"wall_seconds": 21.891422
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 23.3982076666681,
+					"to": "half",
+					"wall_seconds": 23.225549
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 23.4398716666682,
+					"to": "closed",
+					"wall_seconds": 23.267093
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 23.5093116666682,
+					"to": "half",
+					"wall_seconds": 23.33711
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 23.5509756666682,
+					"to": "open",
+					"wall_seconds": 23.378247
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 25.5439036666684,
+					"to": "half",
+					"wall_seconds": 25.373545
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 25.5855676666684,
+					"to": "closed",
+					"wall_seconds": 25.414793
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 25.6550076666684,
+					"to": "half",
+					"wall_seconds": 25.484387
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 25.6897276666684,
+					"to": "open",
+					"wall_seconds": 25.519402
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 26.8354876666685,
+					"to": "half",
+					"wall_seconds": 26.667595
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 26.8702076666685,
+					"to": "closed",
+					"wall_seconds": 26.702518
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 26.9327036666685,
+					"to": "half",
+					"wall_seconds": 26.764988
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 26.9604796666685,
+					"to": "open",
+					"wall_seconds": 26.791252
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 28.4742716666687,
+					"to": "half",
+					"wall_seconds": 28.306147
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 28.5089916666687,
+					"to": "closed",
+					"wall_seconds": 28.340741
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 28.5714876666687,
+					"to": "half",
+					"wall_seconds": 28.403532
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 28.5992636666687,
+					"to": "open",
+					"wall_seconds": 28.431264
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 29.6269756666688,
+					"to": "half",
+					"wall_seconds": 29.459484
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 29.6686396666688,
+					"to": "closed",
+					"wall_seconds": 29.504825
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 29.7380796666688,
+					"to": "half",
+					"wall_seconds": 29.571198
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 29.7727996666688,
+					"to": "open",
+					"wall_seconds": 29.605803
+				}
+			]
+		},
+		{
+			"blink_cycles": [
+				{
+					"duration_expected_seconds": 0.148773491382599,
+					"duration_measured_simulation_seconds": 0.152814555555558,
+					"duration_ok": true,
+					"end_wall_seconds": 3.352396,
+					"frame_epsilon_seconds": 0.00694444444444444,
+					"sequence_ok": true,
+					"start_wall_seconds": 3.201928
+				},
+				{
+					"duration_expected_seconds": 0.139319121837616,
+					"duration_measured_simulation_seconds": 0.143738000000001,
+					"duration_ok": true,
+					"end_wall_seconds": 5.868241,
+					"frame_epsilon_seconds": 0.00782833333333333,
+					"sequence_ok": true,
+					"start_wall_seconds": 5.709493
+				},
+				{
+					"duration_expected_seconds": 0.147826164960861,
+					"duration_measured_simulation_seconds": 0.152777777777782,
+					"duration_ok": true,
+					"end_wall_seconds": 8.022178,
+					"frame_epsilon_seconds": 0.00694444444444444,
+					"sequence_ok": true,
+					"start_wall_seconds": 7.868906
+				},
+				{
+					"duration_expected_seconds": 0.1230179220438,
+					"duration_measured_simulation_seconds": 0.124992000000013,
+					"duration_ok": true,
+					"end_wall_seconds": 11.152824,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 11.027401
+				},
+				{
+					"duration_expected_seconds": 0.12951597571373,
+					"duration_measured_simulation_seconds": 0.131936000000014,
+					"duration_ok": true,
+					"end_wall_seconds": 14.488962,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 14.356736
+				},
+				{
+					"duration_expected_seconds": 0.124624148011208,
+					"duration_measured_simulation_seconds": 0.124992000000011,
+					"duration_ok": true,
+					"end_wall_seconds": 15.873236,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 15.74774
+				},
+				{
+					"duration_expected_seconds": 0.134148180484772,
+					"duration_measured_simulation_seconds": 0.138880000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 17.910131,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 17.770921
+				},
+				{
+					"duration_expected_seconds": 0.126279413700104,
+					"duration_measured_simulation_seconds": 0.131936000000014,
+					"duration_ok": true,
+					"end_wall_seconds": 20.758917,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 20.626941
+				},
+				{
+					"duration_expected_seconds": 0.135951712727547,
+					"duration_measured_simulation_seconds": 0.138880000000015,
+					"duration_ok": true,
+					"end_wall_seconds": 22.887975,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 22.746131
+				},
+				{
+					"duration_expected_seconds": 0.122183032333851,
+					"duration_measured_simulation_seconds": 0.124992000000013,
+					"duration_ok": true,
+					"end_wall_seconds": 24.039013,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 23.913406
+				},
+				{
+					"duration_expected_seconds": 0.127249881625175,
+					"duration_measured_simulation_seconds": 0.131936000000014,
+					"duration_ok": true,
+					"end_wall_seconds": 25.79926,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 25.667143
+				},
+				{
+					"duration_expected_seconds": 0.126564309000969,
+					"duration_measured_simulation_seconds": 0.131936000000014,
+					"duration_ok": true,
+					"end_wall_seconds": 27.667056,
+					"frame_epsilon_seconds": 0.006944,
+					"sequence_ok": true,
+					"start_wall_seconds": 27.534922
+				}
+			],
+			"capture_files": {
+				"closed": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-mei-closed-rendered-crop.png",
+				"half": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-mei-half-rendered-crop.png",
+				"open": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-mei-open-rendered-crop.png",
+				"stage-00": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-00.png",
+				"stage-15": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-15.png",
+				"stage-30": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221-stage-30.png"
+			},
+			"npc_mode": true,
+			"part_count": 31,
+			"skin_id": "mei",
+			"stage_zoom": 3.4,
+			"state_frame_counts": {
+				"idle": {
+					"closed": 50,
+					"half": 54,
+					"open": 2043
+				},
+				"talking": {
+					"closed": 65,
+					"half": 68,
+					"open": 2023
+				}
+			},
+			"timing_config": {},
+			"transitions": [
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 3.37424533333334,
+					"to": "half",
+					"wall_seconds": 3.201928
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 3.41628800000001,
+					"to": "closed",
+					"wall_seconds": 3.240786
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 3.49233766666667,
+					"to": "half",
+					"wall_seconds": 3.316883
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 3.5270598888889,
+					"to": "open",
+					"wall_seconds": 3.352396
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 5.88333333333339,
+					"to": "half",
+					"wall_seconds": 5.709493
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 5.92222222222227,
+					"to": "closed",
+					"wall_seconds": 5.756034
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 5.99157233333339,
+					"to": "half",
+					"wall_seconds": 5.832741
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 6.02707133333339,
+					"to": "open",
+					"wall_seconds": 5.868241
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 8.04420888888897,
+					"to": "half",
+					"wall_seconds": 7.868906
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 8.08587555555563,
+					"to": "closed",
+					"wall_seconds": 7.910534
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 8.15532000000008,
+					"to": "half",
+					"wall_seconds": 7.98005
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 8.19698666666675,
+					"to": "open",
+					"wall_seconds": 8.022178
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 11.2128770000002,
+					"to": "half",
+					"wall_seconds": 11.027401
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 11.2475970000002,
+					"to": "closed",
+					"wall_seconds": 11.062149
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 11.3100930000002,
+					"to": "half",
+					"wall_seconds": 11.124639
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 11.3378690000002,
+					"to": "open",
+					"wall_seconds": 11.152824
+				},
+				{
+					"from": "open",
+					"phase": "idle",
+					"simulation_seconds": 14.5390530000006,
+					"to": "half",
+					"wall_seconds": 14.356736
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 14.5737730000006,
+					"to": "closed",
+					"wall_seconds": 14.391108
+				},
+				{
+					"from": "closed",
+					"phase": "idle",
+					"simulation_seconds": 14.6362690000006,
+					"to": "half",
+					"wall_seconds": 14.454117
+				},
+				{
+					"from": "half",
+					"phase": "idle",
+					"simulation_seconds": 14.6709890000006,
+					"to": "open",
+					"wall_seconds": 14.488962
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 15.9347970000007,
+					"to": "half",
+					"wall_seconds": 15.74774
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 15.9695170000007,
+					"to": "closed",
+					"wall_seconds": 15.782501
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 16.0320130000007,
+					"to": "half",
+					"wall_seconds": 15.846221
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 16.0597890000007,
+					"to": "open",
+					"wall_seconds": 15.873236
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 17.9471676666676,
+					"to": "half",
+					"wall_seconds": 17.770921
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 17.9818876666676,
+					"to": "closed",
+					"wall_seconds": 17.808615
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 18.0513276666676,
+					"to": "half",
+					"wall_seconds": 17.8747
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 18.0860476666676,
+					"to": "open",
+					"wall_seconds": 17.910131
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 20.8011516666679,
+					"to": "half",
+					"wall_seconds": 20.626941
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 20.8358716666679,
+					"to": "closed",
+					"wall_seconds": 20.663521
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 20.8983676666679,
+					"to": "half",
+					"wall_seconds": 20.72576
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 20.9330876666679,
+					"to": "open",
+					"wall_seconds": 20.758917
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 22.9190716666681,
+					"to": "half",
+					"wall_seconds": 22.746131
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 22.9537916666681,
+					"to": "closed",
+					"wall_seconds": 22.781076
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 23.0232316666681,
+					"to": "half",
+					"wall_seconds": 22.850335
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 23.0579516666681,
+					"to": "open",
+					"wall_seconds": 22.887975
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 24.0856636666682,
+					"to": "half",
+					"wall_seconds": 23.913406
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 24.1203836666682,
+					"to": "closed",
+					"wall_seconds": 23.948103
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 24.1828796666682,
+					"to": "half",
+					"wall_seconds": 24.010598
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 24.2106556666682,
+					"to": "open",
+					"wall_seconds": 24.039013
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 25.8355516666684,
+					"to": "half",
+					"wall_seconds": 25.667143
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 25.8702716666684,
+					"to": "closed",
+					"wall_seconds": 25.702271
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 25.9327676666684,
+					"to": "half",
+					"wall_seconds": 25.764589
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 25.9674876666684,
+					"to": "open",
+					"wall_seconds": 25.79926
+				},
+				{
+					"from": "open",
+					"phase": "talking",
+					"simulation_seconds": 27.7034876666686,
+					"to": "half",
+					"wall_seconds": 27.534922
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 27.7382076666686,
+					"to": "closed",
+					"wall_seconds": 27.568938
+				},
+				{
+					"from": "closed",
+					"phase": "talking",
+					"simulation_seconds": 27.8007036666686,
+					"to": "half",
+					"wall_seconds": 27.632327
+				},
+				{
+					"from": "half",
+					"phase": "talking",
+					"simulation_seconds": 27.8354236666686,
+					"to": "open",
+					"wall_seconds": 27.667056
+				}
+			]
+		}
+	],
+	"cpu": "AMD Ryzen 7 7800X3D 8-Core Processor",
+	"driver": "vulkan",
+	"end_utc": "2026-10-09 16:59:05",
+	"errors": [],
+	"estimated_dropped_frames_at_60fps": 18,
+	"godot": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"gpu_adapter": "NVIDIA GeForce RTX 4070 SUPER",
+	"gpu_vendor": "NVIDIA",
+	"hdr_2d": true,
+	"head_crops": "rendered viewport pixel crops at 3.4x; no resampling",
+	"idle_seconds": 15.0,
+	"max_delta_seconds": 0.15,
+	"out": "C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/eye-stage-audit/NE221.json",
+	"processed_frames": 4303,
+	"renderer": "forward_plus",
+	"resolution": [
+		1280,
+		720
+	],
+	"simulation_delta_sum_seconds": 30.1686076666689,
+	"simulation_equals_wall_claimed": false,
+	"start_utc": "2026-10-09 16:58:35",
+	"status": "passed",
+	"talking_seconds": 15.0,
+	"wall_at_least_30_seconds": true,
+	"wall_elapsed_ms": 30047,
+	"wall_elapsed_seconds": 30.047
+}

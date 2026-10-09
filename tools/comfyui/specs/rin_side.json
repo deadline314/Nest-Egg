@@ -1097,5 +1097,71 @@
   "damage": {
     "stage": "D",
     "description": "受傷時衣物逐片脫落：完整的衣物零件（armor_order）依序飛走，底下是 D 圖（撕裂的衣物）切出的同形零件（*_dmg）。順序：夾克 → 連身衣胸口 → 連身衣下半 → 絲襪大腿 → 絲襪小腿。"
+  },
+  "eye_states": {
+    "part": "head",
+    "half_texture": "head_half",
+    "closed_texture": "head_closed",
+    "timing": {},
+    "sources": {
+      "original_head": {
+        "path": "art_src/characters/rin2/07_refined/head.png",
+        "sha256": "dfa477e0070700ff96c80ce791e5fe8e77c5492308912370a12ca1a798b63d6c"
+      },
+      "half": {
+        "path": "art_src/characters/eye_layers/corrected_candidates/characters/rin/half.png",
+        "sha256": "c255d16097652a988be2ec6da81fb42096de16615b4c69997b941b9e4c7b6c2f"
+      },
+      "closed": {
+        "path": "art_src/characters/eye_layers/corrected_candidates/characters/rin/closed.png",
+        "sha256": "4fe4d71bf0676c82a9302fc96d1600dcc2f4f62f0c596de289bde2e32157234f"
+      }
+    },
+    "eye_mask": [
+      [
+        454,
+        106
+      ],
+      [
+        457,
+        104
+      ],
+      [
+        462,
+        105
+      ],
+      [
+        468,
+        107
+      ],
+      [
+        472,
+        110
+      ],
+      [
+        473,
+        113
+      ],
+      [
+        470,
+        117
+      ],
+      [
+        465,
+        120
+      ],
+      [
+        460,
+        118
+      ],
+      [
+        456,
+        115
+      ],
+      [
+        454,
+        111
+      ]
+    ]
   }
 }

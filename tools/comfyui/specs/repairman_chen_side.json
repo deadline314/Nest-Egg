@@ -472,5 +472,75 @@
     "fill": [
       "hand"
     ]
+  },
+  "eye_states": {
+    "part": "head",
+    "half_texture": "head_half",
+    "closed_texture": "head_closed",
+    "timing": {},
+    "sources": {
+      "original_head": {
+        "path": "art_src/characters/repairman_chen/07_refined/head.png",
+        "sha256": "bbfcb705ba6e6bc8e6390fad1eea0ce61f000d4dcc2f64eab6cdf7bef06b64e1"
+      },
+      "half": {
+        "path": "art_src/characters/eye_layers/corrected_candidates/characters/repairer/half.png",
+        "sha256": "0801291799a50ac49c0a0a8de62acead463f2124091d7873f65262b10bdb7a29"
+      },
+      "closed": {
+        "path": "art_src/characters/eye_layers/corrected_candidates/characters/repairer/closed.png",
+        "sha256": "bb6fc16de060b7ada505e2984bf5cff7fb2b92596518bf2efc23ea05fb8cb939"
+      }
+    },
+    "eye_mask": [
+      [
+        440,
+        92
+      ],
+      [
+        444,
+        90
+      ],
+      [
+        451,
+        90
+      ],
+      [
+        458,
+        90
+      ],
+      [
+        465,
+        91
+      ],
+      [
+        470,
+        94
+      ],
+      [
+        470,
+        97
+      ],
+      [
+        466,
+        100
+      ],
+      [
+        460,
+        101
+      ],
+      [
+        453,
+        100
+      ],
+      [
+        447,
+        99
+      ],
+      [
+        442,
+        97
+      ]
+    ]
   }
 }

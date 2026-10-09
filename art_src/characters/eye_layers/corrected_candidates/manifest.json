@@ -1,0 +1,1501 @@
+{
+  "status": "pending_visual_review",
+  "note": "Candidates are not approved for runtime; inspect every contact sheet. Open images are exact source copies.",
+  "characters": {
+    "rin": {
+      "source": "art_src/characters/rin2/07_refined/head.png",
+      "source_sha256": "dfa477e0070700ff96c80ce791e5fe8e77c5492308912370a12ca1a798b63d6c",
+      "native_canvas": [
+        832,
+        1216
+      ],
+      "eye_mask": [
+        [
+          454,
+          106
+        ],
+        [
+          457,
+          104
+        ],
+        [
+          462,
+          105
+        ],
+        [
+          468,
+          107
+        ],
+        [
+          472,
+          110
+        ],
+        [
+          473,
+          113
+        ],
+        [
+          470,
+          117
+        ],
+        [
+          465,
+          120
+        ],
+        [
+          460,
+          118
+        ],
+        [
+          456,
+          115
+        ],
+        [
+          454,
+          111
+        ]
+      ],
+      "half_cover": [
+        [
+          454,
+          106
+        ],
+        [
+          457,
+          104
+        ],
+        [
+          462,
+          105
+        ],
+        [
+          468,
+          107
+        ],
+        [
+          472,
+          110
+        ],
+        [
+          473,
+          111
+        ],
+        [
+          469,
+          111
+        ],
+        [
+          465,
+          110
+        ],
+        [
+          460,
+          109
+        ],
+        [
+          456,
+          108
+        ]
+      ],
+      "half_lid": [
+        [
+          456,
+          108
+        ],
+        [
+          460,
+          108
+        ],
+        [
+          465,
+          109
+        ],
+        [
+          469,
+          110
+        ],
+        [
+          472,
+          111
+        ]
+      ],
+      "closed_lid": [
+        [
+          456,
+          109.5
+        ],
+        [
+          463,
+          112
+        ],
+        [
+          471,
+          110.5
+        ]
+      ],
+      "confidence": "medium",
+      "notes": "Use spec blink.lid only for closed eye; true open contour independently fitted from native pixels. Far eye is not visible.",
+      "skin_fill_method": "same-character local skin sample (median 3x3)",
+      "skin_sample_offset": [
+        0,
+        16
+      ],
+      "outputs_sha256": {
+        "open": "dfa477e0070700ff96c80ce791e5fe8e77c5492308912370a12ca1a798b63d6c",
+        "half": "c255d16097652a988be2ec6da81fb42096de16615b4c69997b941b9e4c7b6c2f",
+        "closed": "4fe4d71bf0676c82a9302fc96d1600dcc2f4f62f0c596de289bde2e32157234f"
+      },
+      "visual_status": "candidate_pending_root_review",
+      "visual_review_note": "Half retains cyan iris; closed line is source-colored but small jagged raster contour needs root review."
+    },
+    "mei": {
+      "source": "art_src/characters/mei/07_refined/head.png",
+      "source_sha256": "581d715bde1d881a998a30e9019565e7853e952e8bd6bf5b29694282caa86909",
+      "native_canvas": [
+        832,
+        1216
+      ],
+      "eye_mask": [
+        [
+          441,
+          126
+        ],
+        [
+          445,
+          125
+        ],
+        [
+          451,
+          126
+        ],
+        [
+          458,
+          126
+        ],
+        [
+          464,
+          127
+        ],
+        [
+          469,
+          130
+        ],
+        [
+          470,
+          135
+        ],
+        [
+          468,
+          140
+        ],
+        [
+          464,
+          145
+        ],
+        [
+          458,
+          146
+        ],
+        [
+          452,
+          144
+        ],
+        [
+          446,
+          141
+        ],
+        [
+          442,
+          137
+        ],
+        [
+          440,
+          132
+        ]
+      ],
+      "half_cover": [
+        [
+          441,
+          126
+        ],
+        [
+          445,
+          125
+        ],
+        [
+          451,
+          126
+        ],
+        [
+          458,
+          126
+        ],
+        [
+          464,
+          127
+        ],
+        [
+          469,
+          130
+        ],
+        [
+          470,
+          132
+        ],
+        [
+          465,
+          133
+        ],
+        [
+          459,
+          132
+        ],
+        [
+          452,
+          132
+        ],
+        [
+          446,
+          132
+        ],
+        [
+          442,
+          131
+        ]
+      ],
+      "half_lid": [
+        [
+          442,
+          128
+        ],
+        [
+          448,
+          128
+        ],
+        [
+          455,
+          129
+        ],
+        [
+          462,
+          130
+        ],
+        [
+          468,
+          132
+        ]
+      ],
+      "closed_lid": [
+        [
+          442,
+          130
+        ],
+        [
+          449,
+          132
+        ],
+        [
+          457,
+          134
+        ],
+        [
+          463,
+          134
+        ],
+        [
+          467,
+          133
+        ]
+      ],
+      "confidence": "medium",
+      "notes": "Use existing spec blink.lid only as the closed midline, not as open upper lid. Far eye is hidden by hair.",
+      "skin_fill_method": "same-character local skin sample (median 3x3)",
+      "skin_sample_offset": [
+        0,
+        22
+      ],
+      "outputs_sha256": {
+        "open": "581d715bde1d881a998a30e9019565e7853e952e8bd6bf5b29694282caa86909",
+        "half": "30b148fbdba939188a3f752125f639d1c3ec8cf7eb83e627de420c754847313a",
+        "closed": "e2e9bc1e4a45200a7cdb3e0dddf9b54f37fcd775f9682ccbaf411c62653cd2ca"
+      },
+      "visual_status": "candidate_pending_root_review",
+      "visual_review_note": "Far eye stays hair-occluded; half keeps purple iris. Pink fill and curved closed line need root review."
+    },
+    "old_k": {
+      "source": "art_src/characters/old_k/07_refined/head.png",
+      "source_sha256": "4865c0af4d1061cbdd66d9e7ccbb5ae6faad5c6010fcff5e4268bb0375140d26",
+      "native_canvas": [
+        832,
+        1216
+      ],
+      "eye_mask": [
+        [
+          459,
+          94
+        ],
+        [
+          463,
+          92
+        ],
+        [
+          469,
+          92
+        ],
+        [
+          475,
+          93
+        ],
+        [
+          480,
+          95
+        ],
+        [
+          482,
+          98
+        ],
+        [
+          480,
+          101
+        ],
+        [
+          476,
+          103
+        ],
+        [
+          470,
+          103
+        ],
+        [
+          464,
+          101
+        ],
+        [
+          460,
+          99
+        ]
+      ],
+      "half_cover": [
+        [
+          459,
+          94
+        ],
+        [
+          463,
+          92
+        ],
+        [
+          469,
+          92
+        ],
+        [
+          475,
+          93
+        ],
+        [
+          480,
+          95
+        ],
+        [
+          482,
+          97
+        ],
+        [
+          478,
+          98
+        ],
+        [
+          473,
+          98
+        ],
+        [
+          468,
+          97
+        ],
+        [
+          463,
+          97
+        ],
+        [
+          460,
+          97
+        ]
+      ],
+      "half_lid": [
+        [
+          460,
+          97
+        ],
+        [
+          465,
+          96
+        ],
+        [
+          471,
+          96
+        ],
+        [
+          476,
+          97
+        ],
+        [
+          480,
+          98
+        ]
+      ],
+      "closed_lid": [
+        [
+          460,
+          100
+        ],
+        [
+          466,
+          99
+        ],
+        [
+          472,
+          99
+        ],
+        [
+          477,
+          100
+        ],
+        [
+          480,
+          99
+        ]
+      ],
+      "confidence": "medium",
+      "notes": "One profile eye; nearby brow and lower age lines excluded.",
+      "skin_fill_method": "harmonic continuation from eye-mask boundary",
+      "skin_sample_offset": null,
+      "outputs_sha256": {
+        "open": "4865c0af4d1061cbdd66d9e7ccbb5ae6faad5c6010fcff5e4268bb0375140d26",
+        "half": "83c53f44a8e01fdffe8c6d9ee850249e5cb3499fadf08ab43c835f918183f2e6",
+        "closed": "3f02466f97470e5c1a1ccdbe7056697560af5b2d49aa06a4705615756abc4a65"
+      },
+      "visual_status": "candidate_pending_root_review",
+      "visual_review_note": "Half keeps a narrow sclera sliver; closed eye line sits beneath brow without altering nearby wrinkles."
+    },
+    "nurse": {
+      "source": "art_src/characters/nurse/07_refined/head.png",
+      "source_sha256": "b93ba8aa2ce774ea0d15ddd2728c1d5ab3d38201b67af721e7d7121358566fc8",
+      "native_canvas": [
+        832,
+        1216
+      ],
+      "eye_mask": [
+        [
+          462,
+          120
+        ],
+        [
+          466,
+          119
+        ],
+        [
+          473,
+          119
+        ],
+        [
+          480,
+          120
+        ],
+        [
+          484,
+          122
+        ],
+        [
+          484,
+          126
+        ],
+        [
+          481,
+          130
+        ],
+        [
+          477,
+          132
+        ],
+        [
+          471,
+          131
+        ],
+        [
+          466,
+          129
+        ],
+        [
+          463,
+          125
+        ]
+      ],
+      "half_cover": [
+        [
+          462,
+          120
+        ],
+        [
+          466,
+          119
+        ],
+        [
+          473,
+          119
+        ],
+        [
+          480,
+          120
+        ],
+        [
+          484,
+          122
+        ],
+        [
+          483,
+          124
+        ],
+        [
+          478,
+          125
+        ],
+        [
+          473,
+          125
+        ],
+        [
+          468,
+          124
+        ],
+        [
+          464,
+          123
+        ]
+      ],
+      "half_lid": [
+        [
+          464,
+          123
+        ],
+        [
+          469,
+          123
+        ],
+        [
+          474,
+          124
+        ],
+        [
+          479,
+          124
+        ],
+        [
+          483,
+          125
+        ]
+      ],
+      "closed_lid": [
+        [
+          464,
+          126
+        ],
+        [
+          469,
+          126
+        ],
+        [
+          474,
+          127
+        ],
+        [
+          479,
+          128
+        ],
+        [
+          482,
+          128
+        ]
+      ],
+      "confidence": "medium",
+      "notes": "One profile eye; eyebrow above and under-eye bag below are outside mask.",
+      "skin_fill_method": "harmonic continuation from eye-mask boundary",
+      "skin_sample_offset": null,
+      "outputs_sha256": {
+        "open": "b93ba8aa2ce774ea0d15ddd2728c1d5ab3d38201b67af721e7d7121358566fc8",
+        "half": "d25922b9ad9080401ed8a9b2718abddcd1ad2530936ad2824ae836a6513ee61b",
+        "closed": "8f6ebaca78c01acbc044dc2d961fabe2809be6b750e19ef5bfc8658010fca955"
+      },
+      "visual_status": "candidate_pending_root_review",
+      "visual_review_note": "Half keeps visible sclera/iris; under-eye fold and brow remain outside the eye mask."
+    },
+    "night_worker": {
+      "source": "art_src/characters/night_worker/07_refined/head.png",
+      "source_sha256": "07f30b125f061a3f0355eeceab97b0c9cc3f4d8fa9708cd20eb532e947590606",
+      "native_canvas": [
+        832,
+        1216
+      ],
+      "eye_mask": [
+        [
+          496,
+          148
+        ],
+        [
+          500,
+          147
+        ],
+        [
+          506,
+          148
+        ],
+        [
+          512,
+          150
+        ],
+        [
+          516,
+          153
+        ],
+        [
+          515,
+          156
+        ],
+        [
+          511,
+          159
+        ],
+        [
+          506,
+          160
+        ],
+        [
+          501,
+          159
+        ],
+        [
+          497,
+          156
+        ],
+        [
+          495,
+          152
+        ]
+      ],
+      "half_cover": [
+        [
+          496,
+          148
+        ],
+        [
+          500,
+          147
+        ],
+        [
+          506,
+          148
+        ],
+        [
+          512,
+          150
+        ],
+        [
+          516,
+          153
+        ],
+        [
+          514,
+          154
+        ],
+        [
+          510,
+          154
+        ],
+        [
+          505,
+          153
+        ],
+        [
+          500,
+          152
+        ],
+        [
+          497,
+          151
+        ]
+      ],
+      "half_lid": [
+        [
+          497,
+          150
+        ],
+        [
+          501,
+          151
+        ],
+        [
+          506,
+          152
+        ],
+        [
+          510,
+          153
+        ],
+        [
+          514,
+          154
+        ]
+      ],
+      "closed_lid": [
+        [
+          497,
+          152
+        ],
+        [
+          501,
+          153
+        ],
+        [
+          506,
+          154
+        ],
+        [
+          510,
+          155
+        ],
+        [
+          514,
+          156
+        ]
+      ],
+      "confidence": "low",
+      "notes": "Eye and hardhat shadow overlap closely; preserve lower eye bag and reject if candidate patch cannot be separated cleanly.",
+      "skin_fill_method": "harmonic continuation from eye-mask boundary",
+      "skin_sample_offset": null,
+      "outputs_sha256": {
+        "open": "07f30b125f061a3f0355eeceab97b0c9cc3f4d8fa9708cd20eb532e947590606",
+        "half": "21d5d78dcefc7bfc9206dcb6bc6527979e2a9de71f146ac7ac77bda0503daf7f",
+        "closed": "cfd5b251df94c5aaaba238b4f2124a6fda262c0455f2adbc07c5e2e61f04b114"
+      },
+      "visual_status": "candidate_pending_root_review",
+      "visual_review_note": "Retains hardhat cast shadow; subtle dark line follows upper-lid slope without brightening the skin. Visual art acceptance is pending."
+    },
+    "repairer": {
+      "source": "art_src/characters/repairman_chen/07_refined/head.png",
+      "source_sha256": "bbfcb705ba6e6bc8e6390fad1eea0ce61f000d4dcc2f64eab6cdf7bef06b64e1",
+      "native_canvas": [
+        832,
+        1216
+      ],
+      "eye_mask": [
+        [
+          440,
+          92
+        ],
+        [
+          444,
+          90
+        ],
+        [
+          451,
+          90
+        ],
+        [
+          458,
+          90
+        ],
+        [
+          465,
+          91
+        ],
+        [
+          470,
+          94
+        ],
+        [
+          470,
+          97
+        ],
+        [
+          466,
+          100
+        ],
+        [
+          460,
+          101
+        ],
+        [
+          453,
+          100
+        ],
+        [
+          447,
+          99
+        ],
+        [
+          442,
+          97
+        ]
+      ],
+      "half_cover": [
+        [
+          440,
+          92
+        ],
+        [
+          444,
+          90
+        ],
+        [
+          451,
+          90
+        ],
+        [
+          458,
+          90
+        ],
+        [
+          465,
+          91
+        ],
+        [
+          470,
+          94
+        ],
+        [
+          468,
+          94
+        ],
+        [
+          464,
+          94
+        ],
+        [
+          460,
+          93
+        ],
+        [
+          456,
+          92
+        ],
+        [
+          452,
+          92
+        ],
+        [
+          448,
+          93
+        ],
+        [
+          444,
+          94
+        ]
+      ],
+      "half_lid": [
+        [
+          444,
+          94
+        ],
+        [
+          448,
+          93
+        ],
+        [
+          452,
+          92
+        ],
+        [
+          456,
+          92
+        ],
+        [
+          460,
+          93
+        ],
+        [
+          464,
+          94
+        ],
+        [
+          468,
+          94
+        ]
+      ],
+      "closed_lid": [
+        [
+          443,
+          98
+        ],
+        [
+          449,
+          98
+        ],
+        [
+          456,
+          99
+        ],
+        [
+          462,
+          99
+        ],
+        [
+          467,
+          98
+        ]
+      ],
+      "confidence": "medium",
+      "notes": "repairer ticket name maps to repairman_chen source; half lid covers only the upper eye; retain lower sclera/iris; keep heavy eyebrow and lower wrinkle outside mask.",
+      "skin_fill_method": "same-row interpolation from explicit left and right native-source skin bands, excluding eye pixels",
+      "skin_donor_bands": {
+        "left": [
+          440,
+          89,
+          443,
+          95
+        ],
+        "right": [
+          467,
+          89,
+          471,
+          95
+        ]
+      },
+      "random_seed": null,
+      "skin_sample_offset": null,
+      "outputs_sha256": {
+        "open": "bbfcb705ba6e6bc8e6390fad1eea0ce61f000d4dcc2f64eab6cdf7bef06b64e1",
+        "half": "0801291799a50ac49c0a0a8de62acead463f2124091d7873f65262b10bdb7a29",
+        "closed": "bb6fc16de060b7ada505e2984bf5cff7fb2b92596518bf2efc23ea05fb8cb939"
+      },
+      "visual_status": "candidate_pending_root_review",
+      "visual_review_note": "Revised half lowers the upper lid on an arched y=92-94 contour while retaining lower sclera/pupil pixels; root visual review required."
+    },
+    "resident": {
+      "source": "art_src/characters/resident/07_refined/head.png",
+      "source_sha256": "7cee257cc70c8aef458aa69ec1e887b60814cb7b532a2c752fc65dde571adaa2",
+      "native_canvas": [
+        832,
+        1216
+      ],
+      "eye_mask": [
+        [
+          479,
+          114
+        ],
+        [
+          483,
+          112
+        ],
+        [
+          489,
+          113
+        ],
+        [
+          494,
+          116
+        ],
+        [
+          496,
+          119
+        ],
+        [
+          494,
+          122
+        ],
+        [
+          490,
+          125
+        ],
+        [
+          486,
+          126
+        ],
+        [
+          482,
+          124
+        ],
+        [
+          479,
+          120
+        ]
+      ],
+      "half_cover": [
+        [
+          479,
+          114
+        ],
+        [
+          483,
+          112
+        ],
+        [
+          489,
+          113
+        ],
+        [
+          494,
+          116
+        ],
+        [
+          496,
+          119
+        ],
+        [
+          493,
+          120
+        ],
+        [
+          489,
+          120
+        ],
+        [
+          485,
+          119
+        ],
+        [
+          481,
+          118
+        ],
+        [
+          479,
+          117
+        ]
+      ],
+      "half_lid": [
+        [
+          480,
+          118
+        ],
+        [
+          484,
+          118
+        ],
+        [
+          488,
+          119
+        ],
+        [
+          492,
+          119
+        ],
+        [
+          495,
+          120
+        ]
+      ],
+      "closed_lid": [
+        [
+          480,
+          122
+        ],
+        [
+          484,
+          122
+        ],
+        [
+          488,
+          123
+        ],
+        [
+          492,
+          123
+        ],
+        [
+          494,
+          122
+        ]
+      ],
+      "confidence": "medium",
+      "notes": "One profile eye; brow and lower cheek contour are outside mask.",
+      "skin_fill_method": "harmonic continuation from eye-mask boundary",
+      "skin_sample_offset": null,
+      "outputs_sha256": {
+        "open": "7cee257cc70c8aef458aa69ec1e887b60814cb7b532a2c752fc65dde571adaa2",
+        "half": "39b5763c145afc82ed567601929530c92fdd3edfea1450c8a0e340d728f16637",
+        "closed": "1717a2462e62c91952c2eb70100804eae3ce8a4e386f7b08758cb8d4b8019028"
+      },
+      "visual_status": "candidate_pending_root_review",
+      "visual_review_note": "Half keeps visible sclera; closed line is visible, with cheek contour and brow preserved."
+    },
+    "granny": {
+      "source": "art_src/characters/ah_po/07_refined/head.png",
+      "source_sha256": "2ebe79ac1bffd986f38e5ff2d9dd2642fdddedb30f1bfb447569a34d02bba615",
+      "native_canvas": [
+        832,
+        1216
+      ],
+      "eye_mask": [
+        [
+          477,
+          122
+        ],
+        [
+          481,
+          120
+        ],
+        [
+          488,
+          121
+        ],
+        [
+          495,
+          123
+        ],
+        [
+          499,
+          126
+        ],
+        [
+          498,
+          129
+        ],
+        [
+          494,
+          132
+        ],
+        [
+          489,
+          134
+        ],
+        [
+          484,
+          133
+        ],
+        [
+          480,
+          131
+        ],
+        [
+          477,
+          127
+        ]
+      ],
+      "half_cover": [
+        [
+          477,
+          122
+        ],
+        [
+          481,
+          120
+        ],
+        [
+          488,
+          121
+        ],
+        [
+          495,
+          123
+        ],
+        [
+          499,
+          126
+        ],
+        [
+          497,
+          127
+        ],
+        [
+          493,
+          128
+        ],
+        [
+          488,
+          127
+        ],
+        [
+          483,
+          126
+        ],
+        [
+          479,
+          125
+        ],
+        [
+          477,
+          124
+        ]
+      ],
+      "half_lid": [
+        [
+          478,
+          126
+        ],
+        [
+          483,
+          126
+        ],
+        [
+          488,
+          127
+        ],
+        [
+          493,
+          127
+        ],
+        [
+          497,
+          128
+        ]
+      ],
+      "closed_lid": [
+        [
+          478,
+          130
+        ],
+        [
+          483,
+          131
+        ],
+        [
+          488,
+          131
+        ],
+        [
+          493,
+          130
+        ],
+        [
+          496,
+          129
+        ]
+      ],
+      "confidence": "low",
+      "notes": "granny maps to ah_po; avoid visible eye-bag wrinkles immediately below the lid; reject if seam damages wrinkles.",
+      "skin_fill_method": "harmonic continuation from eye-mask boundary",
+      "skin_sample_offset": null,
+      "outputs_sha256": {
+        "open": "2ebe79ac1bffd986f38e5ff2d9dd2642fdddedb30f1bfb447569a34d02bba615",
+        "half": "7a1a02a7ccb4b45641df2d7d904ea9c6b1bf0482b2fd90120b53986b6352c0cb",
+        "closed": "4b273fc55ba11cf209642884e2f7a1444a35daa143b5c4c9b5ce2ce2ee406c62"
+      },
+      "visual_status": "candidate_pending_root_review",
+      "visual_review_note": "Eye bag/wrinkles remain; lower-lid boundary is tight and needs root review for age-line continuity."
+    },
+    "wataru": {
+      "source": "art_src/characters/wataru/07_refined/head.png",
+      "source_sha256": "2148fe37a65198c2bda39d465df2b2ea24789f3596139d5afeb65110f88516e1",
+      "native_canvas": [
+        832,
+        1216
+      ],
+      "eye_mask": [
+        [
+          470,
+          174
+        ],
+        [
+          471,
+          171
+        ],
+        [
+          473,
+          169
+        ],
+        [
+          478,
+          169
+        ],
+        [
+          484,
+          169
+        ],
+        [
+          490,
+          169
+        ],
+        [
+          496,
+          171
+        ],
+        [
+          498,
+          174
+        ],
+        [
+          498,
+          179
+        ],
+        [
+          496,
+          185
+        ],
+        [
+          493,
+          189
+        ],
+        [
+          489,
+          191
+        ],
+        [
+          484,
+          192
+        ],
+        [
+          479,
+          190
+        ],
+        [
+          475,
+          188
+        ],
+        [
+          472,
+          184
+        ],
+        [
+          470,
+          179
+        ]
+      ],
+      "half_cover": [
+        [
+          470,
+          174
+        ],
+        [
+          471,
+          171
+        ],
+        [
+          473,
+          169
+        ],
+        [
+          478,
+          169
+        ],
+        [
+          484,
+          169
+        ],
+        [
+          490,
+          169
+        ],
+        [
+          496,
+          171
+        ],
+        [
+          498,
+          174
+        ],
+        [
+          497,
+          175
+        ],
+        [
+          494,
+          177
+        ],
+        [
+          490,
+          179
+        ],
+        [
+          485,
+          180
+        ],
+        [
+          480,
+          180
+        ],
+        [
+          475,
+          178
+        ],
+        [
+          471,
+          176
+        ]
+      ],
+      "half_lid": [
+        [
+          471,
+          176
+        ],
+        [
+          475,
+          178
+        ],
+        [
+          480,
+          180
+        ],
+        [
+          485,
+          180
+        ],
+        [
+          490,
+          179
+        ],
+        [
+          494,
+          177
+        ],
+        [
+          497,
+          175
+        ]
+      ],
+      "closed_lid": [
+        [
+          471,
+          179
+        ],
+        [
+          475,
+          181
+        ],
+        [
+          480,
+          183
+        ],
+        [
+          485,
+          184
+        ],
+        [
+          490,
+          183
+        ],
+        [
+          494,
+          181
+        ],
+        [
+          497,
+          178
+        ]
+      ],
+      "confidence": "medium",
+      "notes": "v4 includes the complete visible upper lash/sclera/iris, stopping at the lower socket shadow. Skin donors are source rows x470-498,y163 and x492-498,y192-193; lower delta is extrapolated left from the overlapping x492-498 skin samples. No harmonic eye-boundary sampling.",
+      "skin_fill_method": "curvilinear vertical interpolation from same-source upper brow-bone and outer lower-eyelid skin bands",
+      "skin_donor_bands": {
+        "upper": [
+          470,
+          163,
+          499,
+          164
+        ],
+        "lower": [
+          492,
+          192,
+          499,
+          194
+        ]
+      },
+      "random_seed": null,
+      "skin_sample_offset": null,
+      "outputs_sha256": {
+        "open": "2148fe37a65198c2bda39d465df2b2ea24789f3596139d5afeb65110f88516e1",
+        "half": "36bb36fdce755d12388a2829744569411a9fab182271b9c396acc5487de8d794",
+        "closed": "dce3b8011aed501076791b0338fa5770e5eed205946b33dd85b1e1e9fd74e868"
+      },
+      "visual_status": "candidate_pending_root_review",
+      "visual_review_note": "v4 rebuilds the full visible eye from two explicit clean same-source skin bands; curved half lid leaves the lower iris, closed lid is a single thin contour. Root visual review required."
+    }
+  }
+}

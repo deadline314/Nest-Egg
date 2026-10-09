@@ -12,6 +12,7 @@ To replace a texture by hand: paint a PNG with the SAME size and pivot and overw
 <work>/overrides/ - build_character.py copies those over after every run).
 """
 import argparse
+import hashlib
 import json
 import math
 import os
@@ -20,12 +21,149 @@ from pathlib import Path
 
 import cv2
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageDraw
 
 from cut_rig_parts import frame, glow_layer
 
 PAD = 3
 NOTE = "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+
+
+def sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def validate_eye_state_sources(config: dict, source_path: Path, expected_canvas: tuple[int, int] | None = None) -> tuple[Image.Image, dict[str, Image.Image]]:
+    """Validate full-canvas source variants before cut output can be replaced."""
+    if not isinstance(config, dict) or config.get("part") != "head":
+        raise ValueError("spec.eye_states.part must be 'head'")
+    sources = config.get("sources")
+    if not isinstance(sources, dict) or not isinstance(sources.get("original_head"), dict):
+        raise ValueError("spec.eye_states.sources.original_head is required")
+    original_meta = sources["original_head"]
+    for key in ("path", "sha256"):
+        if not isinstance(original_meta.get(key), str) or not original_meta[key]:
+            raise ValueError(f"spec.eye_states.sources.original_head.{key} is required")
+    original_resolved = Path(original_meta["path"]).resolve()
+    if original_resolved != source_path.resolve():
+        raise ValueError(f"eye-state original_head path differs from the selected head source: {original_resolved} != {source_path.resolve()}")
+    if sha256(original_resolved) != original_meta["sha256"]:
+        raise ValueError(f"eye-state original_head hash mismatch: {original_resolved}")
+    with Image.open(original_resolved) as image:
+        if image.mode != "RGBA":
+            raise ValueError(f"eye-state original head must be RGBA: {original_resolved} got {image.mode}")
+        original = image.copy()
+    if expected_canvas and original.size != expected_canvas:
+        raise ValueError(f"eye-state original head canvas mismatch: expected {expected_canvas}, got {original.size}")
+
+    polygon = config.get("eye_mask")
+    if not isinstance(polygon, list) or len(polygon) < 3:
+        raise ValueError("spec.eye_states.eye_mask must contain at least three native-coordinate points")
+    points: list[tuple[int, int]] = []
+    for point in polygon:
+        if not isinstance(point, list) or len(point) != 2:
+            raise ValueError("spec.eye_states.eye_mask points must be [x, y]")
+        x, y = point
+        if not isinstance(x, (int, float)) or not isinstance(y, (int, float)) or not math.isfinite(x) or not math.isfinite(y):
+            raise ValueError("spec.eye_states.eye_mask contains a non-finite point")
+        if not (0 <= x < original.width and 0 <= y < original.height):
+            raise ValueError(f"spec.eye_states.eye_mask point is outside {original.size}: {point}")
+        points.append((round(x), round(y)))
+    mask = Image.new("L", original.size, 0)
+    ImageDraw.Draw(mask).polygon(points, fill=255)
+    mp = np.array(mask) > 0
+    if not mp.any():
+        raise ValueError("spec.eye_states.eye_mask is empty")
+
+    states: dict[str, Image.Image] = {}
+    for state in ("half", "closed"):
+        meta = sources.get(state)
+        if not isinstance(meta, dict) or not isinstance(meta.get("path"), str) or not isinstance(meta.get("sha256"), str):
+            raise ValueError(f"spec.eye_states.sources.{state} requires path and sha256")
+        path = Path(meta["path"]).resolve()
+        if not path.is_file():
+            raise ValueError(f"missing eye-state source: {path}")
+        actual_hash = sha256(path)
+        if actual_hash != meta["sha256"]:
+            raise ValueError(f"eye-state source hash mismatch for {state}: expected {meta['sha256']}, got {actual_hash}")
+        with Image.open(path) as image:
+            if image.mode != "RGBA" or image.size != original.size:
+                raise ValueError(f"eye-state {state} must be native RGBA {original.size}: {path} got {image.mode} {image.size}")
+            candidate = image.copy()
+        source_pixels = np.array(original)
+        candidate_pixels = np.array(candidate)
+        if not np.array_equal(source_pixels[:, :, 3], candidate_pixels[:, :, 3]):
+            raise ValueError(f"eye-state {state} changed source alpha: {path}")
+        if not np.array_equal(source_pixels[~mp], candidate_pixels[~mp]):
+            raise ValueError(f"eye-state {state} changed pixels outside eye_mask: {path}")
+        states[state] = candidate
+    return original, states
+
+
+def _resized_premultiplied(source: Image.Image, k: float) -> tuple[np.ndarray, np.ndarray]:
+    arr = np.array(source.convert("RGBA")).astype(np.float32)
+    pm = arr.copy()
+    pm[:, :, :3] *= pm[:, :, 3:4] / 255.0
+    pm = cv2.resize(pm, None, fx=k, fy=k, interpolation=cv2.INTER_AREA)
+    arr = pm.copy()
+    arr[:, :, :3] = pm[:, :, :3] / np.maximum(pm[:, :, 3:4] / 255.0, 1e-3)
+    a = arr[:, :, 3]
+    prem = arr[:, :, :3] * (a[:, :, None] / 255.0)
+    return prem, a
+
+
+def part_transform(source: Image.Image, part: dict, joints: dict[str, np.ndarray], k: float) -> tuple[np.ndarray, int, int, np.ndarray] | None:
+    """Compute the exact source-to-part transform used by the cut loop."""
+    _, a = _resized_premultiplied(source, k)
+    ys, xs = np.nonzero(a > 20)
+    if len(ys) == 0:
+        return None
+    a_pt, b_pt = joints[part["from"]], joints[part["to"]]
+    pivot_pt = joints[part.get("pivot", part["from"])]
+    ex, ey = frame(part["mode"], a_pt, b_pt)
+    rel = np.stack([xs, ys], 1) - pivot_pt
+    u, v = rel @ ex, rel @ ey
+    lo, hi = part.get("y", (0, source.height))
+    pad_top, pad_bottom = (0 if lo > 0 else PAD), (1 if hi < source.height else PAD)
+    umin, umax, vmin, vmax = u.min() - PAD, u.max() + PAD, v.min() - pad_top, v.max() + pad_bottom
+    cw, ch = int(math.ceil(umax - umin)), int(math.ceil(vmax - vmin))
+    piv = np.array([-umin, -vmin])
+    A = np.float32([[ex[0], ey[0], pivot_pt[0] - piv[0] * ex[0] - piv[1] * ey[0]],
+                    [ex[1], ey[1], pivot_pt[1] - piv[0] * ex[1] - piv[1] * ey[1]]])
+    return A, cw, ch, piv
+
+
+def render_part(source: Image.Image, transform: tuple[np.ndarray, int, int, np.ndarray], k: float) -> np.ndarray:
+    """Run the same INTER_AREA resize and premultiplied CUBIC affine warp as cut_layers."""
+    A, cw, ch, _ = transform
+    prem, a = _resized_premultiplied(source, k)
+    flags = cv2.INTER_CUBIC | cv2.WARP_INVERSE_MAP
+    wa = np.clip(cv2.warpAffine(a, A, (cw, ch), flags=flags), 0, 255)
+    wc = cv2.warpAffine(prem, A, (cw, ch), flags=flags)
+    col = np.clip(wc / np.maximum(wa[:, :, None] / 255.0, 1e-3), 0, 255)
+    col[wa < 4] = 0
+    return np.dstack([col, wa]).astype(np.uint8)
+
+
+def make_normal_map(rgba: np.ndarray) -> np.ndarray:
+    """CPU port of NormalMapMaker.make(source, 2, 3.0, 1.4)."""
+    rgb = rgba[:, :, :3].astype(np.float32) / 255.0
+    alpha = rgba[:, :, 3].astype(np.float32) / 255.0
+    luma = (rgb[:, :, 0] * 0.2126 + rgb[:, :, 1] * 0.7152 + rgb[:, :, 2] * 0.0722) * alpha
+    blurred = cv2.boxFilter(alpha, cv2.CV_32F, (5, 5), normalize=True, borderType=cv2.BORDER_REPLICATE)
+    height = blurred * 3.0 + luma * 1.4
+    dx = np.pad(height, ((0, 0), (1, 1)), mode="edge")[:, 2:] - np.pad(height, ((0, 0), (1, 1)), mode="edge")[:, :-2]
+    dy = np.pad(height, ((1, 1), (0, 0)), mode="edge")[2:, :] - np.pad(height, ((1, 1), (0, 0)), mode="edge")[:-2, :]
+    vector = np.stack((-dx, dy, np.full_like(dx, 2.0)), axis=2)
+    vector /= np.linalg.norm(vector, axis=2, keepdims=True)
+    normal = np.empty_like(rgba)
+    normal[:, :, :3] = np.clip(np.rint((vector * 0.5 + 0.5) * 255.0), 0, 255).astype(np.uint8)
+    normal[:, :, 3] = rgba[:, :, 3]
+    return normal
 
 
 def main() -> None:
@@ -49,6 +187,14 @@ def main() -> None:
             with Image.open(path) as image:
                 if name not in spec["parts"] or image.mode != "RGBA" or image.size != canvas:
                     raise ValueError(f"{path}: source override requires a known part and full-canvas RGBA of size {canvas}")
+    eye_config = spec.get("eye_states")
+    eye_sources = None
+    eye_source_path = None
+    if eye_config is not None:
+        if "head" not in spec["parts"]:
+            raise ValueError("spec.eye_states requires spec.parts.head")
+        eye_source_path = overrides.get("head", src_dir / "head.png")
+        eye_sources = validate_eye_state_sources(eye_config, eye_source_path)
     final_parts = Path(args.char) / "parts"
     out_parts = Path(args.char) / "parts.tmp"  # written here first; swapped in only when every part was cut (a failed run keeps the old textures)
     if out_parts.exists():
@@ -58,36 +204,15 @@ def main() -> None:
 
     textures, transforms = {}, {}
     for name, p in spec["parts"].items():
-        src = Image.open(overrides.get(name, src_dir / f"{name}.png")).convert("RGBA")
-        arr = np.array(src).astype(np.float32)
-        pm = arr.copy(); pm[:, :, :3] *= pm[:, :, 3:4] / 255.0  # premultiplied resize keeps edges clean
-        pm = cv2.resize(pm, None, fx=k, fy=k, interpolation=cv2.INTER_AREA)
-        arr = pm.copy(); arr[:, :, :3] = pm[:, :, :3] / np.maximum(pm[:, :, 3:4] / 255.0, 1e-3)
-        a = arr[:, :, 3]
-        prem = arr[:, :, :3] * (a[:, :, None] / 255.0)
-        ys, xs = np.nonzero(a > 20)
-        if len(ys) == 0:
+        source_path = overrides.get(name, src_dir / f"{name}.png")
+        with Image.open(source_path) as image:
+            src = image.convert("RGBA")
+        transform = part_transform(src, p, J, k)
+        if transform is None:
             print("WARN empty part", name)
             continue
-        a_pt, b_pt = J[p["from"]], J[p["to"]]
-        pivot_pt = J[p.get("pivot", p["from"])]
-        ex, ey = frame(p["mode"], a_pt, b_pt)
-        rel = np.stack([xs, ys], 1) - pivot_pt
-        u, v = rel @ ex, rel @ ey
-        # Joint cuts have no transparent margin; preserve their painted overlap instead of cropping inside it.
-        lo, hi = p.get("y", (0, src.height))
-        pad_top, pad_bottom = (0 if lo > 0 else PAD), (1 if hi < src.height else PAD)
-        umin, umax, vmin, vmax = u.min() - PAD, u.max() + PAD, v.min() - pad_top, v.max() + pad_bottom
-        cw, ch = int(math.ceil(umax - umin)), int(math.ceil(vmax - vmin))
-        piv = np.array([-umin, -vmin])
-        A = np.float32([[ex[0], ey[0], pivot_pt[0] - piv[0] * ex[0] - piv[1] * ey[0]],
-                        [ex[1], ey[1], pivot_pt[1] - piv[0] * ex[1] - piv[1] * ey[1]]])
-        flags = cv2.INTER_CUBIC | cv2.WARP_INVERSE_MAP
-        wa = np.clip(cv2.warpAffine(a, A, (cw, ch), flags=flags), 0, 255)
-        wc = cv2.warpAffine(prem, A, (cw, ch), flags=flags)
-        col = np.clip(wc / np.maximum(wa[:, :, None] / 255.0, 1e-3), 0, 255)
-        col[wa < 4] = 0
-        rgba = np.dstack([col, wa]).astype(np.uint8)
+        A, cw, ch, piv = transform
+        rgba = render_part(src, transform, k)
         Image.fromarray(rgba).save(out_parts / f"{name}.png")
         entry = {"file": f"parts/{name}.png", "size": [cw, ch], "pivot": [round(float(piv[0]), 2), round(float(piv[1]), 2)], "note": NOTE}
         kind = spec["glow"].get(name)
@@ -102,6 +227,40 @@ def main() -> None:
         textures[name] = entry
         transforms[name] = (A, cw, ch)
         print(f"  {name}: {cw}x{ch} pivot=({piv[0]:.1f},{piv[1]:.1f})")
+
+    eye_runtime = None
+    if eye_sources is not None and eye_config is not None:
+        part_name = eye_config["part"]
+        if part_name not in transforms or part_name not in textures:
+            raise ValueError(f"spec.eye_states part has no rendered texture: {part_name}")
+        head_texture = textures[part_name]
+        state_names = {"half": eye_config.get("half_texture", "head_half"),
+                       "closed": eye_config.get("closed_texture", "head_closed")}
+        if any(not isinstance(name, str) or not name or "/" in name or "\\" in name for name in state_names.values()):
+            raise ValueError("spec.eye_states texture names must be nonempty filenames")
+        if len(set(state_names.values())) != 2 or any(name in textures for name in state_names.values()):
+            raise ValueError("spec.eye_states texture names must be unique and not collide with existing textures")
+        _, state_images = eye_sources
+        for state, texture_name in state_names.items():
+            rgba = render_part(state_images[state], transforms[part_name] + (np.array(head_texture["pivot"], dtype=float),), k)
+            Image.fromarray(rgba).save(out_parts / f"{texture_name}.png")
+            entry = {"file": f"parts/{texture_name}.png", "size": list(rgba.shape[1::-1]),
+                     "pivot": list(head_texture["pivot"]), "note": NOTE}
+            kind = spec.get("glow", {}).get(part_name)
+            if kind:
+                threshold = spec.get("glow_threshold", {})
+                glow = glow_layer(rgba[:, :, :3], rgba[:, :, 3], kind,
+                                  threshold.get("sat", 140), threshold.get("val", 190))
+                if glow is not None:
+                    glow_name = f"{texture_name}_glow"
+                    Image.fromarray(glow).save(out_parts / f"{glow_name}.png")
+                    entry["glow"] = f"parts/{glow_name}.png"
+            textures[texture_name] = entry
+        timing = eye_config.get("timing", {})
+        if not isinstance(timing, dict):
+            raise ValueError("spec.eye_states.timing must be an object")
+        eye_runtime = {"part": part_name, "half_texture": state_names["half"],
+                       "closed_texture": state_names["closed"], "timing": timing}
 
     # ---- carried-over textures (e.g. a riot shield drawn earlier): <dir>/<name>.png (+_glow.png) and <name>.json {size, pivot, factor, use} --------
     extra_uses: list[dict] = []
@@ -176,6 +335,8 @@ def main() -> None:
             return [round(float(q[0]), 1), round(float(q[1]), 1)]
         char["portrait"] = {"description": "背包立繪的眨眼設定（頭部貼圖像素座標）：part＝頭部零件名稱；eye＝要被抹成膚色的眼睛範圍（四邊形）；lid＝閉眼時畫上的眼線。",
                             "blink": {"part": blink["part"], "eye": sum((to_canvas(q) for q in blink["eye"]), []), "lid": sum((to_canvas(q) for q in blink["lid"]), [])}}
+    if eye_runtime is not None:
+        char["eye_states"] = eye_runtime
     char["description"] = "外觀（skin）定義：textures 是零件圖片的尺寸與支點；parts 是把圖片掛到骨頭上的方式。" + NOTE + "。"
     char["textures"] = textures
     char["parts"] = [{"name": u["name"], "texture": u["texture"], "bone": u["bone"], "z": u["z"], **({"tint": u["tint"]} if "tint" in u else {}), **({"armor_order": u["armor_order"]} if "armor_order" in u else {}), **({"under": True} if u.get("under") else {}), **({"offset": u["offset"]} if "offset" in u else {}), **({"root_attach": True} if u.get("root_attach") else {}), **({"bend_partner": u["bend_partner"]} if "bend_partner" in u else {})} for u in uses]

@@ -491,5 +491,71 @@
     "threshold": 0.3,
     "close": 9,
     "fill": []
+  },
+  "eye_states": {
+    "part": "head",
+    "half_texture": "head_half",
+    "closed_texture": "head_closed",
+    "timing": {},
+    "sources": {
+      "original_head": {
+        "path": "art_src/characters/nurse/07_refined/head.png",
+        "sha256": "b93ba8aa2ce774ea0d15ddd2728c1d5ab3d38201b67af721e7d7121358566fc8"
+      },
+      "half": {
+        "path": "art_src/characters/eye_layers/corrected_candidates/characters/nurse/half.png",
+        "sha256": "d25922b9ad9080401ed8a9b2718abddcd1ad2530936ad2824ae836a6513ee61b"
+      },
+      "closed": {
+        "path": "art_src/characters/eye_layers/corrected_candidates/characters/nurse/closed.png",
+        "sha256": "8f6ebaca78c01acbc044dc2d961fabe2809be6b750e19ef5bfc8658010fca955"
+      }
+    },
+    "eye_mask": [
+      [
+        462,
+        120
+      ],
+      [
+        466,
+        119
+      ],
+      [
+        473,
+        119
+      ],
+      [
+        480,
+        120
+      ],
+      [
+        484,
+        122
+      ],
+      [
+        484,
+        126
+      ],
+      [
+        481,
+        130
+      ],
+      [
+        477,
+        132
+      ],
+      [
+        471,
+        131
+      ],
+      [
+        466,
+        129
+      ],
+      [
+        463,
+        125
+      ]
+    ]
   }
 }

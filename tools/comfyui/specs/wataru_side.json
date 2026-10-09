@@ -512,5 +512,95 @@
     "threshold": 0.3,
     "close": 9,
     "fill": []
+  },
+  "eye_states": {
+    "part": "head",
+    "half_texture": "head_half",
+    "closed_texture": "head_closed",
+    "timing": {},
+    "sources": {
+      "original_head": {
+        "path": "art_src/characters/wataru/07_refined/head.png",
+        "sha256": "2148fe37a65198c2bda39d465df2b2ea24789f3596139d5afeb65110f88516e1"
+      },
+      "half": {
+        "path": "art_src/characters/eye_layers/corrected_candidates/characters/wataru/half.png",
+        "sha256": "36bb36fdce755d12388a2829744569411a9fab182271b9c396acc5487de8d794"
+      },
+      "closed": {
+        "path": "art_src/characters/eye_layers/corrected_candidates/characters/wataru/closed.png",
+        "sha256": "dce3b8011aed501076791b0338fa5770e5eed205946b33dd85b1e1e9fd74e868"
+      }
+    },
+    "eye_mask": [
+      [
+        470,
+        174
+      ],
+      [
+        471,
+        171
+      ],
+      [
+        473,
+        169
+      ],
+      [
+        478,
+        169
+      ],
+      [
+        484,
+        169
+      ],
+      [
+        490,
+        169
+      ],
+      [
+        496,
+        171
+      ],
+      [
+        498,
+        174
+      ],
+      [
+        498,
+        179
+      ],
+      [
+        496,
+        185
+      ],
+      [
+        493,
+        189
+      ],
+      [
+        489,
+        191
+      ],
+      [
+        484,
+        192
+      ],
+      [
+        479,
+        190
+      ],
+      [
+        475,
+        188
+      ],
+      [
+        472,
+        184
+      ],
+      [
+        470,
+        179
+      ]
+    ]
   }
 }

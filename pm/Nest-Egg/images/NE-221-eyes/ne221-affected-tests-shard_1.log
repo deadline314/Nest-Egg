@@ -1,0 +1,253 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+WARNING: [StateMachine] 未知狀態：missing
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] transition (res://core/state_machine.gd:44)
+       [1] _test_state_machine (res://tests/smoke_test.gd:201)
+       [2] _run_main (res://tests/smoke_test.gd:51)
+       [3] _run (res://tests/smoke_test.gd:37)
+ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/missing_part.png
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] texture (res://game/rig/rig_library.gd:81)
+       [2] _test_rigs (res://tests/smoke_test.gd:317)
+       [3] _frames (res://tests/smoke_test.gd:122)
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/no_such_character/character.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] load_json (res://game/rig/rig_library.gd:21)
+       [2] character (res://game/rig/rig_library.gd:29)
+       [3] setup (res://game/rig/character_rig.gd:87)
+       [4] _test_rigs (res://tests/smoke_test.gd:319)
+       [5] _frames (res://tests/smoke_test.gd:122)
+WARNING: [InputBindings] 按鍵設定來自舊版操作，已改回新預設。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] reload_from_settings (res://autoload/input_bindings.gd:283)
+       [1] _test_settings_and_bindings (res://tests/smoke_test.gd:538)
+       [2] _run_main (res://tests/smoke_test.gd:54)
+       [3] _test_rigs (res://tests/smoke_test.gd:320)
+       [4] _frames (res://tests/smoke_test.gd:122)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/settings_screen.gd:41)
+       [3] _test_settings_and_bindings (res://tests/smoke_test.gd:548)
+       [4] _run_main (res://tests/smoke_test.gd:54)
+       [5] _test_rigs (res://tests/smoke_test.gd:320)
+       [6] _frames (res://tests/smoke_test.gd:122)
+WARNING: [Story] 找不到章節：no_such_chapter
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] chapter_info (res://autoload/story.gd:144)
+       [1] _test_story (res://tests/smoke_test.gd:367)
+       [2] _run_main (res://tests/smoke_test.gd:55)
+       [3] _test_settings_and_bindings (res://tests/smoke_test.gd:577)
+       [4] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] 找不到劇情道具：no_such_item
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] acquire (res://autoload/story_items.gd:120)
+       [1] _test_story_items (res://tests/smoke_test.gd:434)
+       [2] _run_main (res://tests/smoke_test.gd:56)
+       [3] _test_story (res://tests/smoke_test.gd:404)
+       [4] _end_level (res://tests/smoke_test.gd:599)
+       [5] _frames (res://tests/smoke_test.gd:122)
+ERROR: [test_catalog] id「fixture_a」重複：user://test_catalog/a.tres 與 user://test_catalog/c_duplicate.tres，已略過後者
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_dir (res://core/resource_catalog.gd:31)
+       [1] _test_story_items (res://tests/smoke_test.gd:484)
+       [2] _end_level (res://tests/smoke_test.gd:599)
+       [3] _frames (res://tests/smoke_test.gd:122)
+ERROR: [test_catalog] 無法讀取或型別不符：user://test_catalog/d_wrong_type.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_dir (res://core/resource_catalog.gd:27)
+       [1] _test_story_items (res://tests/smoke_test.gd:484)
+       [2] _end_level (res://tests/smoke_test.gd:599)
+       [3] _frames (res://tests/smoke_test.gd:122)
+ERROR: [test_catalog] 找不到資料夾：user://no_such_catalog_dir
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_dir (res://core/resource_catalog.gd:12)
+       [1] _test_story_items (res://tests/smoke_test.gd:486)
+       [2] _end_level (res://tests/smoke_test.gd:599)
+       [3] _frames (res://tests/smoke_test.gd:122)
+ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/items/icons/no_such_icon.png
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] texture (res://game/rig/rig_library.gd:81)
+       [2] item (res://core/item_icons.gd:29)
+       [3] _test_inventory (res://tests/smoke_test.gd:938)
+       [4] _run_main (res://tests/smoke_test.gd:61)
+       [5] _test_consumables (res://tests/smoke_test.gd:905)
+       [6] _end_level (res://tests/smoke_test.gd:599)
+       [7] _frames (res://tests/smoke_test.gd:122)
+ERROR: [LightingController] 略過沒有光影設定的區段（起點 987654）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] setup (res://game/level/lighting_controller.gd:58)
+       [1] _test_lighting (res://tests/smoke_test.gd:1102)
+       [2] _run_main (res://tests/smoke_test.gd:62)
+       [3] _test_inventory (res://tests/smoke_test.gd:1044)
+       [4] _end_level (res://tests/smoke_test.gd:599)
+       [5] _frames (res://tests/smoke_test.gd:122)
+WARNING: [LitTextures] 沒有法線貼圖，改用平面貼圖：res://icon_n.png（可用 tools/art/paint_normals.tscn 產生）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] load_texture (res://core/lit_textures.gd:34)
+       [1] _test_lighting (res://tests/smoke_test.gd:1449)
+ERROR: Parameter "body->get_space()" is null.
+   at: body_test_motion (modules/godot_physics_2d/godot_physics_server_2d.cpp:996)
+   GDScript backtrace (most recent call first):
+       [0] _physics_process (res://game/enemies/enemy.gd:459)
+ERROR: Parameter "body->get_space()" is null.
+   at: body_test_motion (modules/godot_physics_2d/godot_physics_server_2d.cpp:996)
+   GDScript backtrace (most recent call first):
+       [0] _physics_process (res://game/enemies/enemy.gd:459)
+SUITE_TIME main 94.5
+SUITE_TIME TransitionSuite 3.9
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/main_menu.gd:33)
+       [3] _swap_screen (res://game/main.gd:33)
+       [4] _run (res://autoload/transition.gd:180)
+       [5] play (res://autoload/transition.gd:77)
+       [6] _switch_to (res://game/main.gd:23)
+       [7] _show_main_menu (res://game/main.gd:45)
+       [8] _ready (res://game/main.gd:17)
+       [9] _test_game_boots_to_menu (res://tests/suite/test_ui_screens.gd:30)
+       [10] run (res://tests/suite/test_ui_screens.gd:13)
+       [11] _run_suites (res://tests/smoke_test.gd:109)
+       [12] run (res://tests/suite/test_transition.gd:16)
+       [13] _test_no_leaks (res://tests/suite/test_transition.gd:171)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/main_menu.gd:33)
+       [3] _test_main_menu (res://tests/suite/test_ui_screens.gd:49)
+       [4] run (res://tests/suite/test_ui_screens.gd:14)
+       [5] _test_game_boots_to_menu (res://tests/suite/test_ui_screens.gd:42)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/codex_screen.gd:22)
+       [3] _test_codex (res://tests/suite/test_ui_screens.gd:76)
+       [4] run (res://tests/suite/test_ui_screens.gd:15)
+       [5] _test_main_menu (res://tests/suite/test_ui_screens.gd:71)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/main_menu.gd:33)
+       [3] _test_main_menu_overlays (res://tests/suite/test_ui_screens.gd:156)
+       [4] run (res://tests/suite/test_ui_screens.gd:18)
+       [5] _test_pause_settings_overlay (res://tests/suite/test_ui_screens.gd:150)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/main_menu.gd:33)
+       [3] _test_difficulty_cards_never_overlap (res://tests/suite/test_ui_screens.gd:174)
+       [4] run (res://tests/suite/test_ui_screens.gd:19)
+       [5] _test_main_menu_overlays (res://tests/suite/test_ui_screens.gd:168)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/settings_screen.gd:41)
+       [3] _test_fullscreen_setting (res://tests/suite/test_ui_screens.gd:221)
+       [4] run (res://tests/suite/test_ui_screens.gd:21)
+       [5] _test_chapter_card_under_pause (res://tests/suite/test_ui_screens.gd:208)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/victory_screen.gd:22)
+       [3] _test_victory_screen (res://tests/suite/test_ui_screens.gd:281)
+       [4] run (res://tests/suite/test_ui_screens.gd:23)
+       [5] _test_death_screen (res://tests/suite/test_ui_screens.gd:275)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/test_no_such_character/character.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] load_json (res://game/rig/rig_library.gd:21)
+       [2] character (res://game/rig/rig_library.gd:29)
+       [3] setup (res://game/rig/character_rig.gd:87)
+       [4] _ready (res://ui/inventory/hd_portrait.gd:48)
+       [5] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:338)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+ERROR: [HdPortrait] 找不到角色骨架「test_no_such_character」，立繪不顯示。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://ui/inventory/hd_portrait.gd:49)
+       [1] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:338)
+       [2] frames (res://tests/suite/test_ui_screens.gd:9)
+SUITE_TIME UiScreensSuite 9.3
+SUITE_TIME MapBubblesSuite 5.4
+SUITE_TIME PostureSuite 0.7
+ERROR: [MeleeSet] 無法讀取近戰資料：res://data/melee/test_no_such_attack.json（需要 attacks 字典），改用內建預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_loaded (res://game/player/melee_set.gd:37)
+       [1] attack (res://game/player/melee_set.gd:69)
+       [2] _test_data (res://tests/suite/test_melee_weapons.gd:38)
+       [3] run (res://tests/suite/test_melee_weapons.gd:10)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_posture.gd:16)
+       [6] _test_weapon_less_and_airborne_are_safe (res://tests/suite/test_posture.gd:154)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [MeleeSet] res://data/melee/test_no_such_attack.json 沒有招式「whatever」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:73)
+       [1] _test_data (res://tests/suite/test_melee_weapons.gd:38)
+       [2] run (res://tests/suite/test_melee_weapons.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_posture.gd:16)
+       [5] _test_weapon_less_and_airborne_are_safe (res://tests/suite/test_posture.gd:154)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME MeleeWeaponsSuite 9.0
+SUITE_TIME LayerOrderSuite 0.9
+checks: 1806, failures: 0
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 283 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 5 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
