@@ -1,0 +1,142 @@
+{
+  "baseline": "19df828b2e795795b16912725a3210868276756d",
+  "cpu": "AMD EPYC 7763",
+  "cpu_visible": 5,
+  "cpu_quota": 4,
+  "renderer": "Forward+ Vulkan llvmpipe LLVM 19.1.7",
+  "engine": "Godot 4.7 stable",
+  "resolution": [
+    320,
+    180
+  ],
+  "level": "level_01",
+  "tile": 115,
+  "enemies": 10,
+  "weapon": "launcher",
+  "quality": "medium",
+  "seconds_per_run": 14,
+  "seed": 95,
+  "order": [
+    "before-1",
+    "after-1",
+    "after-2",
+    "before-2",
+    "before-3",
+    "after-3",
+    "after-4",
+    "before-4"
+  ],
+  "runs": [
+    {
+      "mean_ms": 52.63,
+      "median_ms": 51.21,
+      "p95_ms": 60.71,
+      "p99_ms": 69.94,
+      "max_ms": 177.84,
+      "frames": 266,
+      "side": "before",
+      "run": 1,
+      "cleanup_resource_error": false
+    },
+    {
+      "mean_ms": 51.78,
+      "median_ms": 50.91,
+      "p95_ms": 61.1,
+      "p99_ms": 69.27,
+      "max_ms": 70.35,
+      "frames": 271,
+      "side": "before",
+      "run": 2,
+      "cleanup_resource_error": true
+    },
+    {
+      "mean_ms": 52.81,
+      "median_ms": 50.81,
+      "p95_ms": 63.49,
+      "p99_ms": 113.49,
+      "max_ms": 131.36,
+      "frames": 266,
+      "side": "before",
+      "run": 3,
+      "cleanup_resource_error": true
+    },
+    {
+      "mean_ms": 50.67,
+      "median_ms": 49.66,
+      "p95_ms": 61.12,
+      "p99_ms": 69.6,
+      "max_ms": 80.47,
+      "frames": 277,
+      "side": "before",
+      "run": 4,
+      "cleanup_resource_error": true
+    },
+    {
+      "mean_ms": 50.95,
+      "median_ms": 50.23,
+      "p95_ms": 60.71,
+      "p99_ms": 65.21,
+      "max_ms": 76.93,
+      "frames": 275,
+      "side": "after",
+      "run": 1,
+      "cleanup_resource_error": false
+    },
+    {
+      "mean_ms": 48.85,
+      "median_ms": 48.93,
+      "p95_ms": 56.16,
+      "p99_ms": 62.0,
+      "max_ms": 109.91,
+      "frames": 287,
+      "side": "after",
+      "run": 2,
+      "cleanup_resource_error": true
+    },
+    {
+      "mean_ms": 48.99,
+      "median_ms": 48.66,
+      "p95_ms": 59.53,
+      "p99_ms": 65.23,
+      "max_ms": 67.14,
+      "frames": 286,
+      "side": "after",
+      "run": 3,
+      "cleanup_resource_error": false
+    },
+    {
+      "mean_ms": 50.72,
+      "median_ms": 50.38,
+      "p95_ms": 58.85,
+      "p99_ms": 66.49,
+      "max_ms": 67.67,
+      "frames": 277,
+      "side": "after",
+      "run": 4,
+      "cleanup_resource_error": false
+    }
+  ],
+  "before_mean_ms": 51.972500000000004,
+  "after_mean_ms": 49.8775,
+  "ratio": 0.9596902207898407,
+  "paired_ratios": [
+    0.9680790423712712,
+    0.9434144457319429,
+    0.9276652149214164,
+    1.0009867771857115
+  ],
+  "production_files": {
+    "autoload/fx.gd": {
+      "before": "3753ce6e72c8df1299ba0b22d3514005b20aa325605a4c8e98e168db28a39211",
+      "after": "a4d36f2eafd300e069d1b044cc722838cd2b59713a7fb791599de5df654a3726"
+    },
+    "game/projectiles/explosion.gd": {
+      "before": "634cd00f5b6f5ec687b307da6798cca053a191a2b6214cd3f8cfe7c942d187f9",
+      "after": "5761ec7abf7b386591e1727cc38cba6893e1523711c1f2d17bb34eb53e3d933e"
+    },
+    "game/projectiles/shock_ring.gd": {
+      "before": "1ddd052077df04ba80fc3593b32419c9476efc833a30040cbb2fa1c8d5635498",
+      "after": "67ce08594c9c66e7a13ebce2ae619606b74a80fb25d2af1ec8c44b969252554a"
+    }
+  }
+}

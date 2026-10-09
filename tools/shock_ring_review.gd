@@ -6,6 +6,10 @@ func _ready() -> void:
 
 
 func _run() -> void:
+	var out := "res://pm/Nest-Egg/images/NE-95-ring-surface-before-after.png"
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--out="):
+			out = arg.trim_prefix("--out=")
 	for index in 2:
 		var sprite: Sprite2D = Sprite2D.new() if index == 0 else ShockRing.new()
 		if index == 0:
@@ -25,5 +29,7 @@ func _run() -> void:
 		print("RING type=%s center=%s rect=%s" % [sprite.texture.get_class(), sprite.position, sprite.get_rect()])
 	for i in 10:
 		await get_tree().process_frame
-	get_viewport().get_texture().get_image().save_png("res://pm/Nest-Egg/images/NE-95-ring-surface-before-after.png")
-	get_tree().quit()
+	var error := preload("res://tools/viewport_capture.gd").image(get_viewport()).save_png(out)
+	if error != OK:
+		push_error("[shock_ring_review] Cannot save %s: %s" % [out, error_string(error)])
+	get_tree().quit(0 if error == OK else 1)

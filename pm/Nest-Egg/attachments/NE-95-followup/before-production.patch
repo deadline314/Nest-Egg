@@ -1,0 +1,97 @@
+diff --git a/autoload/fx.gd b/autoload/fx.gd
+index 759b6908..c08dd0fa 100644
+--- a/autoload/fx.gd
++++ b/autoload/fx.gd
+@@ -493,8 +493,7 @@ func explosion(position: Vector2, radius: float, damage: int, team: Combat.Team,
+ 	blast.color = color
+ 	blast.position = position
+ 	_container.add_child.call_deferred(blast)
+-	if not _explosion_visual(position, radius, color):
+-		return  # keep both damage teams, but emit their visual/audio/flash only once
++	_explosion_visual(position, radius, color)
+ 	flash_light(position, color, radius * 4.0, 2.2, 0.35)
+ 	# 整個環境光被閃亮一下：爆炸越大越亮。
+ 	EventBus.ambient_flash_requested.emit(color.lerp(Palette.WHITE, 0.5), clampf(0.12 + radius / 160.0, 0.2, 0.5), 0.3)
+@@ -503,13 +502,13 @@ func explosion(position: Vector2, radius: float, damage: int, team: Combat.Team,
+ 
+ 
+ ## 爆炸的視覺：核心閃光、火球、煙、火花、餘燼、碎片、衝擊波（半徑越大越誇張）。
+-func _explosion_visual(position: Vector2, radius: float, color: Color) -> bool:
++func _explosion_visual(position: Vector2, radius: float, color: Color) -> void:
+ 	if _glow == null:
+-		return false
++		return
+ 	# 同一處同時間的第二次爆炸（玩家陣營與敵人陣營各炸一次）只畫一次。
+ 	var now := Time.get_ticks_msec()
+ 	if now - _last_blast_msec < 60 and position.distance_to(_last_blast_position) < 4.0:
+-		return false
++		return
+ 	_last_blast_msec = now
+ 	_last_blast_position = position
+ 	var r := maxf(8.0, radius)
+@@ -521,4 +520,4 @@ func _explosion_visual(position: Vector2, radius: float, color: Color) -> bool:
+ 	embers(position, color, 6, r * 1.0, 0.9, r * 0.4)
+ 	shards(position, color, 5, r * 4.5, 0.9, maxf(5.0, r * 0.16))
+ 	shock(position, r * 3.2, 0.05, color.lerp(Palette.WHITE, 0.3), 0.55)
+-	return true
++
+diff --git a/game/projectiles/explosion.gd b/game/projectiles/explosion.gd
+index 3425bfac..363f50fb 100644
+--- a/game/projectiles/explosion.gd
++++ b/game/projectiles/explosion.gd
+@@ -1,6 +1,6 @@
+ class_name Explosion
+ extends Node2D
+-## 範圍爆炸：在第一個物理影格查詢範圍內的受擊框並造成傷害，視覺效果統一由 Fx 的既有圖集與環池播放。
++## 範圍爆炸：在第一個物理影格查詢範圍內的受擊框並造成傷害，之後只播放視覺效果。
+ ## 請透過 Fx.explosion() 生成。
+ 
+ const DURATION := 0.3
+@@ -26,6 +26,7 @@ func _physics_process(delta: float) -> void:
+ 	if _age >= DURATION:
+ 		queue_free()
+ 		return
++	queue_redraw()
+ 
+ 
+ func _apply_damage() -> void:
+@@ -53,3 +54,13 @@ func _apply_damage() -> void:
+ 		info.bypass_guard = true
+ 		info.impact = BLAST_IMPACT
+ 		hurtbox.receive(info)
++
++
++func _ready() -> void:
++	LightKit.mark_emissive(self)
++
++
++func _draw() -> void:
++	var t := clampf(_age / DURATION, 0.0, 1.0)
++	draw_circle(Vector2.ZERO, radius * (0.35 + 0.65 * t), Color(color, 0.55 * (1.0 - t)))
++	draw_arc(Vector2.ZERO, radius * (0.6 + 0.4 * t), 0.0, TAU, 32, Color(Palette.WHITE, 1.0 - t), 2.0)
+diff --git a/game/projectiles/shock_ring.gd b/game/projectiles/shock_ring.gd
+index 2dd31930..50430497 100644
+--- a/game/projectiles/shock_ring.gd
++++ b/game/projectiles/shock_ring.gd
+@@ -5,19 +5,13 @@ extends Sprite2D
+ 
+ const SHADER := preload("res://art/shaders/shock_ring.gdshader")
+ 
+-static var _surface: ImageTexture
+-
+ var _tween: Tween
+ var _mat: ShaderMaterial
+ 
+ 
+ func _ready() -> void:
+-	# PlaceholderTexture2D produces partial UVs in Forward+; keep one real surface for every pooled ring.
+-	if _surface == null:
+-		var image := Image.create(2, 2, false, Image.FORMAT_RGBA8)
+-		image.fill(Color.WHITE)
+-		_surface = ImageTexture.create_from_image(image)
+-	texture = _surface
++	texture = PlaceholderTexture2D.new()
++	(texture as PlaceholderTexture2D).size = Vector2(2, 2)
+ 	_mat = ShaderMaterial.new()
+ 	_mat.shader = SHADER
+ 	material = _mat
