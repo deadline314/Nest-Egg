@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "runtime_roots": ["autoload", "core", "data", "game", "scenes", "ui", "art", "audio"],
+  "runtime_files": ["project.godot", "icon.png"],
+  "optional_missing": ["tools/dev_tools.json"],
+  "chapters": [
+    {"id": "prologue", "status": "draft", "acceptance_ticket": "ST-16", "entry": "", "terminal": "", "evidence": []},
+    {"id": "ch1_kasa", "status": "draft", "acceptance_ticket": "NE-233", "entry": "data/levels/ch1_pawnshop.tres", "terminal": "data/levels/ch1_pawnshop_dawn.tres", "evidence": []},
+    {"id": "chapter_2", "status": "draft", "acceptance_ticket": "NE-234", "entry": "", "terminal": "", "evidence": []},
+    {"id": "chapter_3", "status": "draft", "acceptance_ticket": "NE-235", "entry": "", "terminal": "", "evidence": []}
+  ]
+}

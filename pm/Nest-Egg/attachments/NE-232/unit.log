@@ -1,0 +1,17 @@
+test_accepted_chapter_without_evidence_never_becomes_ready (test_campaign_release.CampaignReleaseTests.test_accepted_chapter_without_evidence_never_becomes_ready) ... ok
+test_cli_report_is_created_once_and_existing_report_is_preserved (test_campaign_release.CampaignReleaseTests.test_cli_report_is_created_once_and_existing_report_is_preserved) ... ok
+test_draft_chapter_never_becomes_ready (test_campaign_release.CampaignReleaseTests.test_draft_chapter_never_becomes_ready) ... ok
+test_fixed_reference_to_existing_but_unincluded_file_is_reported (test_campaign_release.CampaignReleaseTests.test_fixed_reference_to_existing_but_unincluded_file_is_reported) ... ok
+test_fixed_reference_to_missing_file_is_reported (test_campaign_release.CampaignReleaseTests.test_fixed_reference_to_missing_file_is_reported) ... ok
+test_formatted_dynamic_reference_is_listed_separately (test_campaign_release.CampaignReleaseTests.test_formatted_dynamic_reference_is_listed_separately) ... ok
+test_gd_comments_are_ignored_but_hash_inside_string_is_not_comment (test_campaign_release.CampaignReleaseTests.test_gd_comments_are_ignored_but_hash_inside_string_is_not_comment) ... ok
+test_inventory_rejects_symlink (test_campaign_release.CampaignReleaseTests.test_inventory_rejects_symlink) ... ok
+test_local_path_rejects_traversal_absolute_and_hidden_paths (test_campaign_release.CampaignReleaseTests.test_local_path_rejects_traversal_absolute_and_hidden_paths) ... ok
+test_malformed_spec_fields_report_audit_error (test_campaign_release.CampaignReleaseTests.test_malformed_spec_fields_report_audit_error) ... ok
+test_story_source_missing_from_inventory_is_an_error (test_campaign_release.CampaignReleaseTests.test_story_source_missing_from_inventory_is_an_error) ... ok
+test_story_sources_reads_every_chapter_path_and_reports_counts (test_campaign_release.CampaignReleaseTests.test_story_sources_reads_every_chapter_path_and_reports_counts) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.254s
+
+OK
