@@ -1,0 +1,37 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.356 - Forward+ - Using Device #0: Intel - Intel(R) Arc(TM) B580 Graphics
+
+WARNING: [Main] 拒絕無效或過時關卡完成：received=res://data/levels/level_01.tres current=res://data/levels/ch1_pawnshop.tres（畫面=Control）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _on_level_completed (res://game/main.gd:211)
+       [1] _route (res://tools/run_save_probe.gd:102)
+       [2] _run (res://tools/run_save_probe.gd:45)
+       [3] _frames (res://tools/run_save_probe.gd:499)
+PASS completion from a menu is safely rejected without creating a route
+PASS noninstant start owns unparented destination
+PASS duplicate same-frame start and continue preserve original route
+PASS duplicate route does not start a second new-round transaction
+PASS covered callback installs exactly one original live Level
+WARNING: [Main] 拒絕無效或過時關卡完成：received=res://data/levels/level_02.tres current=res://data/levels/ch1_pawnshop.tres（畫面=Node2D）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _on_level_completed (res://game/main.gd:211)
+       [1] _route (res://tools/run_save_probe.gd:119)
+PASS stale completion data cannot replace the current source Level
+PASS retry installs a new source Level sharing cached LevelData
+WARNING: [Main] 拒絕舊畫面的關卡完成：received=res://data/levels/ch1_pawnshop.tres current=res://data/levels/ch1_pawnshop.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _on_level_completed (res://game/main.gd:206)
+PASS old deferred completion cannot complete the retried Level with identical data
+PASS same-frame menu signals own one unparented destination
+PASS duplicate deferred menu requests install exactly one original menu
+WARNING: [RunSave] run/level 目的地無效：res://data/levels/ne230_missing.tres，原存檔保留並返回選單
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _save_destination (res://game/main.gd:294)
+       [1] _on_area_requested (res://game/main.gd:195)
+       [2] _route (res://tools/run_save_probe.gd:147)
+PASS invalid destination still falls back to safe menu without pending save lock
+[RunSaveProbe] route checks=11 failures=0

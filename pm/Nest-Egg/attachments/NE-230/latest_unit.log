@@ -1,0 +1,144 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.356 - Forward+ - Using Device #0: Intel - Intel(R) Arc(TM) B580 Graphics
+
+[RunSaveSuite] initial preparation: OK
+PASS valid whole-run schema prepares before applying
+PASS missing legacy aim falls back to saved facing
+PASS restore aim normalizes without switching device
+PASS nonfinite restore direction leaves existing input unchanged
+PASS checksum envelope round-trips JSON data
+PASS truncated envelope rejected
+PASS payload edits invalidate checksum
+PASS malformed envelope version allows recovery: {}
+PASS malformed envelope version allows recovery: {"version":null}
+PASS malformed envelope version allows recovery: {"version":"1"}
+PASS malformed envelope version allows recovery: {"version":1.5}
+PASS missing snapshot version is corruption rather than future format
+PASS malformed release is corruption rather than future format
+PASS NaN rejected before serialization
+PASS infinite values rejected before serialization
+PASS objects cannot enter save data
+PASS cyclic raw data rejects before JSON serialization
+PASS high fanout rejects before pending nodes exceed tightened budget
+PASS diagnostic paths stay bounded and retain latest key suffix
+PASS deep JSON rejected before parser
+PASS quoted escaped brackets do not count as nesting
+PASS oversized files rejected
+PASS missing component cannot partially overwrite current run
+PASS missing owned-item container cannot silently erase mainline items
+PASS level paths restricted to project level resources
+WARNING: [RunSave] run/loadout/weapons/0 無效資源：res://autoload/story.gd，略過該欄
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _loadout (res://core/run_snapshot.gd:201)
+       [1] prepare (res://core/run_snapshot.gd:98)
+       [2] run (res://tests/suite/test_run_save.gd:69)
+       [3] _run (res://tools/run_save_probe.gd:36)
+PASS wrong weapon type cannot load script
+PASS invalid ammo repairs to bounded number
+PASS invalid current-area container rejected
+PASS unsettled zero-health state cannot become live player
+PASS standalone progression restore handles nonfinite scalars
+PASS standalone story death count handles infinity
+PASS first complete snapshot writes
+PASS second snapshot rotates valid backup
+PASS primary is latest complete transaction
+PASS valid JSON corrupted primary falls back to healthy backup
+PASS corrupt empty object primary repairs without future-format authorization
+PASS corrupt primary restores previous complete backup
+PASS backup recovery names real path
+PASS repair keeps valid backup and writes complete primary
+WARNING: [RunSave] C:/tmp/ne230-evidence/latest-unit/unit.json：未知版本保留；請明確選擇新遊戲覆寫
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:86)
+       [2] run (res://tests/suite/test_run_save.gd:102)
+       [3] _run (res://tools/run_save_probe.gd:36)
+PASS unknown-version primary is protected even without prior read
+PASS unknown original remains untouched
+WARNING: [RunSave] C:/tmp/ne230-evidence/latest-unit/unknown_backup.json：未知版本保留；請明確選擇新遊戲覆寫
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:86)
+       [2] run (res://tests/suite/test_run_save.gd:110)
+       [3] _run (res://tools/run_save_probe.gd:36)
+PASS unknown-version backup is protected without prior read or primary
+PASS unknown backup remains unchanged
+WARNING: [RunSave] C:/tmp/ne230-evidence/latest-unit/unknown_backup.json：未知版本保留；請明確選擇新遊戲覆寫
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:86)
+       [2] run (res://tests/suite/test_run_save.gd:115)
+       [3] _run (res://tools/run_save_probe.gd:36)
+PASS corrupt primary cannot overwrite its unknown-version backup
+PASS failed unknown-backup write also retains corrupt original
+PASS explicit new-game overwrite can replace unknown format
+WARNING: [RunSave] C:/tmp/ne230-evidence/latest-unit/unit.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:97)
+       [2] run (res://tests/suite/test_run_save.gd:122)
+       [3] _run (res://tools/run_save_probe.gd:36)
+PASS confirmed overwrite authorization survives first IO failure
+PASS failed confirmed overwrite retains unknown original
+PASS automatic retry uses prior authorization until first successful write
+WARNING: [RunSave] C:/tmp/ne230-evidence/latest-unit/unit.json/blocked.json.tmp：無法寫入（7）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:97)
+       [2] run (res://tests/suite/test_run_save.gd:127)
+       [3] _run (res://tools/run_save_probe.gd:36)
+PASS write failure reports false, not fake success
+PASS failed unrelated write does not mutate prior slot
+PASS new run replaces current slot explicitly
+PASS fresh-run backup cannot resurrect previous run
+PASS rollback fixture establishes a valid old run
+WARNING: [RunSave] C:/tmp/ne230-evidence/latest-unit/rollback.json：新輪替換失敗；原存檔已回復
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] _install_new_run (res://core/run_save_store.gd:168)
+       [2] write (res://core/run_save_store.gd:106)
+       [3] run (res://tests/suite/test_run_save.gd:142)
+       [4] _run (res://tools/run_save_probe.gd:36)
+PASS backup replacement failure is not reported as saved
+PASS failure after replacing primary rolls back the old valid run
+PASS delayed authorized retry installs new-run primary and matching backup
+PASS interrupted fixture has old run: 0
+PASS unmarked freshbak never becomes active new game: 0
+PASS verified new-round marker installed: 0
+PASS marked rename window recovers new round rather than archived old round: 0
+PASS recovery resolves marker and retains matching new-round backup: 0
+PASS interrupted fixture has old run: 1
+PASS unmarked freshbak never becomes active new game: 1
+PASS verified new-round marker installed: 1
+PASS marked rename window recovers new round rather than archived old round: 1
+PASS recovery resolves marker and retains matching new-round backup: 1
+PASS interrupted fixture has old run: 2
+PASS unmarked freshbak never becomes active new game: 2
+PASS verified new-round marker installed: 2
+PASS marked rename window recovers new round rather than archived old round: 2
+PASS recovery resolves marker and retains matching new-round backup: 2
+PASS interrupted fixture has old run: 3
+PASS unmarked freshbak never becomes active new game: 3
+PASS verified new-round marker installed: 3
+PASS marked rename window recovers new round rather than archived old round: 3
+PASS recovery resolves marker and retains matching new-round backup: 3
+PASS future transaction fixture begins with valid slot
+PASS future transaction fixture has legitimate matching marker
+WARNING: [RunSave] C:/tmp/ne230-evidence/latest-unit/unknown_transaction.json.newrun：C:/tmp/ne230-evidence/latest-unit/unknown_transaction.json版本較新，新輪恢復未覆寫原件
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] read (res://core/run_save_store.gd:30)
+       [2] run (res://tests/suite/test_run_save.gd:180)
+       [3] _run (res://tools/run_save_probe.gd:36)
+PASS matching current freshbak cannot overwrite unknown-version primary during recovery
+PASS explicit new-game authorization may replace protected pending future format
+PASS suite restores aim source direction and timestamp without polluting later suites
+[RunSaveProbe] unit checks=82 failures=0

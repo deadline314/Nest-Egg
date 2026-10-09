@@ -10,9 +10,36 @@ const RETRY_HOLD := 0.22
 var _screen: Node
 ## 目前這一關的資料路徑（重試會重載同一關；通關後依 LevelData.next_level 接續）。
 var _level_path := FIRST_LEVEL
+var _run_store := RunSaveStore.new()
+var _active_run := false
+var _save_queued := false
+var _continue_data: Dictionary = {}
+var _resume_runtime: Dictionary = {}
+var _cinematic := ""
+var _cinematic_entry: Dictionary = {}
+var _chapter_complete := false
+var _navigation: QuestMapState
+var _runtime_save_queued := false
+var _pending_screen: Node
+var _quitting := false
+var _destination_pending := false
 
 
 func _ready() -> void:
+	get_tree().auto_accept_quit = false
+	_run_store.validator = RunSnapshot.prepare
+	GameState.run_save_requested.connect(_queue_save)
+	Progression.credits_changed.connect(func(_value: int, _delta: int) -> void: _queue_save())
+	Progression.upgrades_changed.connect(_queue_save)
+	Progression.abilities_changed.connect(_queue_save)
+	Progression.pawned_changed.connect(_queue_save)
+	EventBus.mechanism_toggled.connect(func(_id: StringName, _active: bool) -> void: _queue_save())
+	EventBus.player_health_changed.connect(func(_value: int, _max: int) -> void: _queue_runtime_save())
+	EventBus.player_loadout_changed.connect(func(_loadout: Loadout) -> void: _queue_runtime_save())
+	EventBus.player_consumables_changed.connect(func(_bag: ConsumableBag) -> void: _queue_save())
+	EventBus.enemy_killed.connect(func(_id: StringName, _finisher: bool) -> void: _queue_save())
+	Story.scene_started.connect(_on_scene_started)
+	Story.scene_finished.connect(_on_scene_finished)
 	add_child(LightKit.create_environment())
 	_show_main_menu()
 
@@ -20,10 +47,13 @@ func _ready() -> void:
 ## 換畫面：用轉場蓋住 → 釋放舊畫面並加入新畫面 → 揭開。
 func _switch_to(screen: Node, kind := Transition.Kind.FADE, center := Vector2(0.5, 0.5),
 		caption := "", hold := 0.0) -> void:
+	_pending_screen = screen
 	await Transition.play(kind, _swap_screen.bind(screen), -1.0, center, caption, hold)
 
 
 func _swap_screen(screen: Node) -> void:
+	_pending_screen = null
+	_destination_pending = false
 	if is_instance_valid(_screen):
 		remove_child(_screen)
 		_screen.queue_free()
@@ -31,25 +61,77 @@ func _swap_screen(screen: Node) -> void:
 	Fx.reset_time()
 	_screen = screen
 	add_child(screen)
+	_queue_save()
 
 
 func _show_main_menu() -> void:
+	if _route_pending():
+		return
+	_save_run()
+	_active_run = false
+	_continue_data = _run_store.read()
 	# 在主選單的時候，背景先把新遊戲第一個區域與開場過場的貼圖載進來。
 	AssetPrefetch.warm_level(FIRST_LEVEL)
 	var first := load(FIRST_LEVEL) as LevelData if ResourceLoader.exists(FIRST_LEVEL) else null
 	if first != null:
 		AssetPrefetch.request(AssetPrefetch.scene_texture_paths(first.intro_scene))
 	var menu := MainMenu.new()
+	menu.continue_available = not _continue_data.is_empty()
+	menu.overwrite_required = _run_store.exists()
+	if _run_store.unknown_version:
+		menu.save_notice = "存檔版本較新，請更新遊戲或明確覆寫。"
+	elif not _run_store.issues.is_empty():
+		menu.save_notice = "已從備份恢復進度，可以繼續遊戲。" if not _continue_data.is_empty() else "存檔讀取失敗，原檔已保留；可開始新遊戲。"
+	elif _continue_data.is_empty() and FileAccess.file_exists(GameState.STORY_SAVE_PATH):
+		menu.save_notice = "舊版只保存故事，無法繼續整輪；可開始新遊戲，原故事檔會保留。"
+	for issue in _run_store.issues:
+		push_warning("[RunSave] %s" % issue)
+	menu.continue_requested.connect(_on_continue_requested, CONNECT_DEFERRED)
 	menu.start_requested.connect(_on_start_requested, CONNECT_DEFERRED)
-	menu.quit_requested.connect(get_tree().quit, CONNECT_DEFERRED)
+	menu.quit_requested.connect(_quit, CONNECT_DEFERRED)
 	_switch_to(menu, Transition.Kind.SCAN)
 
 
 func _on_start_requested(difficulty: DifficultyData) -> void:
-	GameState.story_autosave = true
+	if _route_pending():
+		return
+	_active_run = false
+	GameState.story_autosave = false
 	GameState.start_new_run(difficulty)
+	_cinematic = ""
+	_cinematic_entry = {}
+	_resume_runtime = {}
+	_chapter_complete = false
 	_level_path = FIRST_LEVEL
+	_active_run = true
+	_bind_navigation()
+	# 選單已明確確認覆寫；新輪先落起點，載入失敗不復活舊輪。
+	if not _run_store.write(RunSnapshot.capture(_level_path, {"loadout": {}, "world": {}, "position": [-1, -1], "health": difficulty.player_max_health}), true):
+		EventBus.toast_requested.emit("新遊戲尚未保存，原檔已保留；會再嘗試保存。")
 	_load_level(Transition.Kind.SCAN)
+
+
+func _on_continue_requested() -> void:
+	if _route_pending():
+		return
+	var data := _run_store.read()
+	if data.is_empty():
+		_show_main_menu()
+		return
+	_active_run = false
+	RunSnapshot.apply(data)
+	_level_path = data["level"]
+	_resume_runtime = data["runtime"]
+	_resume_runtime["cinematic"] = data["cinematic"]
+	_chapter_complete = data["chapter_complete"]
+	_cinematic = data["cinematic"]
+	_cinematic_entry = data.duplicate(true) if _cinematic != "" else {}
+	_active_run = true
+	_bind_navigation()
+	if _chapter_complete:
+		_show_victory((load(_level_path) as LevelData).chapter)
+	else:
+		_load_level(Transition.Kind.SCAN)
 
 
 func _load_level(kind := Transition.Kind.IRIS, caption := "", hold := 0.0) -> void:
@@ -60,19 +142,41 @@ func _load_level(kind := Transition.Kind.IRIS, caption := "", hold := 0.0) -> vo
 		return
 	var level := Level.new()
 	level.configure(data)
+	if not _resume_runtime.is_empty():
+		level.configure_resume(_resume_runtime)
+		_resume_runtime = {}
+	level.critical_save_requested.connect(_save_run)
 	level.retry_requested.connect(_on_retry_requested.bind(level), CONNECT_DEFERRED)
 	level.menu_requested.connect(_show_main_menu, CONNECT_DEFERRED)
-	level.completed.connect(_on_level_completed.bind(data), CONNECT_DEFERRED)
+	level.completed.connect(_on_level_completed.bind(data, weakref(level)), CONNECT_DEFERRED)
 	level.area_requested.connect(_on_area_requested, CONNECT_DEFERRED)
 	_switch_to(level, kind, Vector2(0.5, 0.5), caption, hold)
 
 
 ## 死亡後重來用雜訊溶解並標示回溯編號；暫停選單的「從檢查點重來」用光圈。
 func _on_retry_requested(level: Level) -> void:
+	if _route_pending():
+		return
 	# 檢查點在別的區域（區域組）：回到那個區域；舊式關卡的檢查點一定在同一關。
 	var checkpoint_level := GameState.checkpoint_level_path
-	if GameState.has_checkpoint and not checkpoint_level.is_empty() and ResourceLoader.exists(checkpoint_level):
+	if GameState.has_checkpoint and not checkpoint_level.is_empty() and RunSaveCodec.resource(checkpoint_level, "level", "res://data/levels/") != null:
 		_level_path = checkpoint_level
+	var runtime := level.run_snapshot()
+	GameState.pending_portal = &""
+	GameState.carried_health = -1
+	runtime["loadout"] = GameState.checkpoint_loadout.duplicate(true)
+	if not level.data.persistent_world:
+		Progression.restore(GameState.checkpoint_progress if GameState.checkpoint_applies(_level_path) else GameState.level_start_progress)
+	runtime["dead"] = false
+	runtime["ending"] = false
+	runtime["health"] = GameState.difficulty.player_max_health
+	runtime["position"] = [-1, -1]
+	runtime["velocity"] = [0, 0]
+	runtime["crouching"] = false
+	_cinematic = ""
+	_cinematic_entry = {}
+	if not _save_destination(runtime):
+		return
 	if is_instance_valid(level) and level.died:
 		_load_level(Transition.Kind.GLITCH, RETRY_CAPTION % GameState.deaths, RETRY_HOLD)
 	else:
@@ -81,17 +185,45 @@ func _on_retry_requested(level: Level) -> void:
 
 ## 穿過出入口：載入目標區域（玩家出現在 GameState.pending_portal 指定的出入口）。
 func _on_area_requested(level_path: String) -> void:
+	if _route_pending():
+		return
+	_save_run()
 	_level_path = level_path
+	# 保存目標入口而不是舊區位置；切換中關閉也能進新區。
+	var runtime := (_screen as Level).run_snapshot() if _screen is Level else {}
+	runtime["position"] = [-1, -1]
+	if not _save_destination(runtime):
+		return
 	_load_level(Transition.Kind.FADE)
 
 
 ## 過關：有下一關就接續（帶著成長與裝備），否則進入結算畫面。下一關讀不到時退回結算，不會卡住。
-func _on_level_completed(data: LevelData) -> void:
-	if not data.next_level.is_empty() and ResourceLoader.exists(data.next_level):
+func _on_level_completed(data: LevelData, source_ref: WeakRef = null) -> void:
+	if _route_pending():
+		return
+	var source := _screen as Level
+	if source_ref != null and source_ref.get_ref() != source:
+		push_warning("[Main] 拒絕舊畫面的關卡完成：received=%s current=%s" % [data.resource_path if data != null else "<null>", source.data.resource_path if source != null and source.data != null else _level_path])
+		return
+	if source == null or data == null or source.data != data:
+		var received := data.resource_path if data != null else "<null>"
+		var current := source.data.resource_path if source != null and source.data != null else _level_path
+		push_warning("[Main] 拒絕無效或過時關卡完成：received=%s current=%s（畫面=%s）" % [received, current, _screen.get_class() if is_instance_valid(_screen) else "<null>"])
+		return
+	_save_run()
+	if RunSaveCodec.resource(data.next_level, "level", "res://data/levels/") != null:
 		_level_path = data.next_level
 		GameState.enter_level()
+		var runtime := (_screen as Level).run_snapshot()
+		runtime["ending"] = false
+		runtime["position"] = [-1, -1]
+		runtime["health"] = GameState.difficulty.player_max_health
+		if not _save_destination(runtime):
+			return
 		_load_level(Transition.Kind.ELEVATOR)
 	else:
+		_chapter_complete = true
+		_save_run()
 		if not data.next_level.is_empty():
 			push_error("[Main] 找不到下一關：%s，直接進入結算。" % data.next_level)
 		_show_victory(data.chapter)
@@ -103,3 +235,125 @@ func _show_victory(chapter: StringName) -> void:
 	screen.replay_requested.connect(_on_start_requested.bind(GameState.difficulty), CONNECT_DEFERRED)
 	screen.menu_requested.connect(_show_main_menu, CONNECT_DEFERRED)
 	_switch_to(screen, Transition.Kind.BLINDS)
+
+
+func _route_pending() -> bool:
+	return _quitting or (is_instance_valid(_pending_screen) and not _pending_screen.is_inside_tree())
+
+
+func _bind_navigation() -> void:
+	if _navigation != null and _navigation.changed.is_connected(_queue_runtime_save):
+		_navigation.changed.disconnect(_queue_runtime_save)
+	_navigation = QuestMapState.for_run()
+	_navigation.changed.connect(_queue_runtime_save)
+
+
+func _queue_runtime_save() -> void:
+	if not _active_run or _runtime_save_queued:
+		return
+	_runtime_save_queued = true
+	get_tree().create_timer(1.0, true, false, true).timeout.connect(func() -> void:
+		_runtime_save_queued = false
+		_queue_save())
+
+
+func _queue_save() -> void:
+	if not _active_run or _save_queued:
+		return
+	_save_queued = true
+	_flush_save.call_deferred()
+
+
+func _flush_save() -> void:
+	_save_queued = false
+	_save_run()
+
+
+func _save_run() -> void:
+	if not _active_run or _destination_pending or not _screen is Level:
+		return
+	var level := _screen as Level
+	if level.data.resource_path != _level_path:
+		return  # 轉場期間已保存新區入口，不拿舊畫面的座標覆蓋。
+	var runtime := level.run_snapshot()
+	if runtime.is_empty():
+		return
+	var snapshot := RunSnapshot.capture(_level_path, runtime, _cinematic, _chapter_complete)
+	if _cinematic != "" and not _cinematic_entry.is_empty():
+		# 尚未結束的選項／物品／款項皆暫定；完整入口快照避免A殘留再選B。
+		snapshot = _cinematic_entry.duplicate(true)
+		snapshot["cinematic"] = _cinematic
+	var saved := _run_store.write(snapshot)
+	if not saved:
+		EventBus.toast_requested.emit("存檔未成功，原進度仍保留。")
+
+
+func _save_destination(runtime: Dictionary) -> bool:
+	var destination := RunSaveCodec.resource(_level_path, "level", "res://data/levels/") as LevelData
+	if destination == null:
+		push_warning("[RunSave] run/level 目的地無效：%s，原存檔保留並返回選單" % _level_path)
+		_show_main_menu()
+		return false
+	_destination_pending = true  # 同一區重試亦不能被舊畫面的 queued/close 保存蓋回。
+	var area := {"consumed": {}, "damage": {}, "world": {}}
+	if destination.persistent_world:
+		area = GameState.area_state(destination.id).duplicate(true)
+	elif GameState.checkpoint_applies(_level_path):
+		area["world"] = GameState.checkpoint_world.duplicate(true)
+	runtime["world"] = area["world"].duplicate(true)
+	runtime["area"] = area
+	runtime["loose"] = []
+	runtime["enemies"] = []
+	runtime["encounters"] = {}
+	runtime["arena"] = false
+	runtime["boss_pending"] = false
+	runtime["velocity"] = [0, 0]
+	runtime["facing"] = 1
+	runtime["aim_dir"] = [1, 0]
+	runtime["crouching"] = false
+	runtime["guard"] = 100
+	runtime["dead"] = false
+	runtime["death_entry"] = {}
+	runtime["death_cause"] = "unknown"
+	runtime["ending"] = false
+	if not _run_store.write(RunSnapshot.capture(_level_path, runtime)):
+		EventBus.toast_requested.emit("區域進度尚未保存，原存檔仍保留。")
+	return true
+
+
+func _on_scene_started(id: StringName, mode: StringName) -> void:
+	if not _active_run or not _screen is Level or mode not in [Story.MODE_CINEMATIC, Story.MODE_ANIMATED]:
+		return
+	_cinematic_entry = RunSnapshot.capture(_level_path, (_screen as Level).run_snapshot())
+	_cinematic = String(id)
+	_queue_save()
+
+
+func _on_scene_finished(id: StringName) -> void:
+	if _cinematic == String(id):
+		_cinematic = ""
+		_cinematic_entry = {}
+	_queue_save()
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		_quit()
+
+
+func _quit(exit_code := 0) -> void:
+	if _quitting:
+		return
+	_quitting = true
+	_save_run()
+	_active_run = false
+	Transition.abort()
+	# 切換途中尚未加入樹的目標畫面也必須釋放。
+	if is_instance_valid(_pending_screen) and not _pending_screen.is_inside_tree():
+		_pending_screen.free()
+	_pending_screen = null
+	if is_instance_valid(_screen):
+		_screen.queue_free()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	get_tree().quit(exit_code)

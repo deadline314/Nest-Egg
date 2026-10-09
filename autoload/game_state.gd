@@ -1,4 +1,5 @@
 extends Node
+signal run_save_requested
 ## 一輪遊戲的狀態：難度、檢查點、殘機與統計。
 ## 關卡重載時由此還原進度，關卡本身保持無狀態。
 
@@ -120,6 +121,7 @@ func set_checkpoint(position: Vector2, loadout_snapshot: Dictionary, world_snaps
 	checkpoint_world = world_snapshot.duplicate(true)
 	checkpoint_progress = progress_snapshot.duplicate(true)
 	EventBus.checkpoint_reached.emit(position)
+	request_story_save()
 
 
 func clear_checkpoint() -> void:
@@ -284,7 +286,7 @@ func restore_story_progress(raw: Variant, where := STORY_SAVE_PATH) -> void:
 	Story.restore_progress(data.get("seen", []), where + "/seen")
 	StoryItems.restore(data.get("items", {}), where + "/items")
 	var count: Variant = data.get("deaths", 0)
-	deaths = maxi(0, int(count)) if count is int or count is float else 0
+	deaths = int(RunSaveCodec.number(count, 0, 0, 1000000))
 
 
 func save_story_progress(path := STORY_SAVE_PATH) -> bool:
@@ -324,6 +326,8 @@ func load_story_progress(path := STORY_SAVE_PATH) -> bool:
 
 
 func request_story_save() -> void:
+	# Main 聚合整輪；舊故事檔僅供明確使用舊介面的工具，不另寫第二份正式進度。
+	run_save_requested.emit()
 	if not story_autosave or _story_save_queued:
 		return
 	_story_save_queued = true

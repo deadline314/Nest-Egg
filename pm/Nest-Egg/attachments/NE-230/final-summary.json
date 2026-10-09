@@ -1,0 +1,54 @@
+{
+  "head": "2c90b9e2593fe47c00cd7aec1bff08f96e5da780",
+  "command": "SHARDS=2 tools/run_tests_changed.sh HEAD",
+  "exit_code": 0,
+  "checks": 54073,
+  "new_failures": 0,
+  "known_failures": 0,
+  "wall_seconds": 592,
+  "shards": [
+    {
+      "log": "shard_0.log",
+      "suite_count": 50,
+      "checks": [
+        "checks: 41226, failures: 0"
+      ],
+      "script_errors": 0,
+      "expected_errors": 43,
+      "exit_error_lines": [
+        "ERROR: 7 RID allocations of type 'P11GodotArea2D' were leaked at exit.",
+        "ERROR: 8 resources still in use at exit (run with --verbose for details)."
+      ],
+      "unexpected_errors": [],
+      "exit_warning_lines": [
+        "WARNING: 7 RIDs of type \"CanvasItem\" were leaked.",
+        "WARNING: 17 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    {
+      "log": "shard_1.log",
+      "suite_count": 30,
+      "checks": [
+        "checks: 12847, failures: 0"
+      ],
+      "script_errors": 0,
+      "expected_errors": 39,
+      "exit_error_lines": [
+        "ERROR: 5 resources still in use at exit (run with --verbose for details)."
+      ],
+      "unexpected_errors": [],
+      "exit_warning_lines": [
+        "WARNING: 1 RID of type \"CanvasItem\" was leaked.",
+        "WARNING: 9 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+      ]
+    }
+  ],
+  "source_count": 19,
+  "source_changes": [],
+  "selector_cp950_diagnostic": true,
+  "ci": {
+    "run": 38001873893,
+    "check": 114061606400,
+    "not_started": "account payment/spending limit annotation; steps=[]"
+  }
+}

@@ -5,6 +5,12 @@ extends Control
 
 signal start_requested(difficulty: DifficultyData)
 signal quit_requested
+signal continue_requested
+var continue_available := false
+var overwrite_required := false
+var save_notice := ""
+var _overwrite_dialog: RunOverwritePrompt
+var _continue_button: Button
 
 const VERSION_TEXT := "DEMO 0.1"
 const CAMERA_SWAY := 56.0
@@ -54,7 +60,7 @@ func _ready() -> void:
 	InputBindings.bindings_changed.connect(_refresh_legends)
 	_refresh_legends()
 	_show_page(_main_page)
-	_start_button.grab_focus.call_deferred()
+	(_continue_button if _continue_button != null else _start_button).grab_focus.call_deferred()
 
 
 func _process(delta: float) -> void:
@@ -119,6 +125,9 @@ func _build_main_page() -> void:
 	list.add_theme_constant_override(&"separation", 6)
 	_main_page.add_child(list)
 	var entries: Array[Button] = []
+	if continue_available:
+		_continue_button = _menu_button("繼續遊戲", continue_requested.emit, "恢復上次保存的整輪進度")
+		entries.append(_continue_button)
 	_start_button = _menu_button("開始任務", _open_difficulty, "選擇難度，從第一章開始")
 	entries.append(_start_button)
 	entries.append(_menu_button("敗北圖鑑", _open_codex, "看已解鎖的失敗紀錄與對應的攻略"))
@@ -128,9 +137,17 @@ func _build_main_page() -> void:
 		list.add_child(b)
 
 	_hint = UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED)
-	_hint.position = Vector2(38, 262)
+	_hint.position = Vector2(38, 288)
 	_hint.size = Vector2(260, 16)
 	_main_page.add_child(_hint)
+	list.resized.connect(func() -> void: _hint.position.y = list.position.y + list.size.y + 8)
+	_hint.position.y = list.position.y + list.size.y + 8
+	if not save_notice.is_empty():
+		var notice := UiKit.label(save_notice, UiKit.FS_BODY, Palette.UI_MUTED)
+		notice.position = Vector2(310, 250)
+		notice.size = Vector2(300, 64)
+		notice.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		_main_page.add_child(notice)
 
 	_add_legend(_main_page)
 	var version := UiKit.label(VERSION_TEXT, UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
@@ -290,7 +307,14 @@ func _on_back() -> void:
 
 
 func _on_start() -> void:
-	start_requested.emit(_selected)
+	if not overwrite_required:
+		start_requested.emit(_selected)
+		return
+	if is_instance_valid(_overwrite_dialog):
+		return
+	_overwrite_dialog = RunOverwritePrompt.new()
+	_overwrite_dialog.confirmed.connect(func() -> void: start_requested.emit(_selected))
+	UiOverlay.open(_ui, _overwrite_dialog)
 
 
 func _open_settings() -> void:

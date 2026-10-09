@@ -1,0 +1,17 @@
+{
+  "for_chapter": "ch1_kasa",
+  "flag_defaults": {"ne230_choice_a": false, "ne230_choice_b": false},
+  "scenes": {
+    "ne230_choice_atomic": {
+      "mode": "animated",
+      "overlay": true,
+      "steps": [
+        {"do": "choice", "text": "這是存檔框架的選擇驗證。", "default": "b", "options": [
+          {"id": "a", "text": "選擇第一條測試路線。", "set_flags": {"ne230_choice_a": true, "ne230_choice_b": false}},
+          {"id": "b", "text": "選擇第二條測試路線。", "set_flags": {"ne230_choice_a": false, "ne230_choice_b": true}}
+        ]},
+        {"do": "wait", "time": 3.0}
+      ]
+    }
+  }
+}

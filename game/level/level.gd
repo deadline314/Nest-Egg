@@ -6,6 +6,7 @@ extends Node2D
 signal retry_requested
 signal menu_requested
 signal completed
+signal critical_save_requested
 ## 玩家穿過出入口：請 Main 載入目標區域（路徑是 LevelData 的 .tres）。
 signal area_requested(level_path: String)
 
@@ -51,6 +52,8 @@ var _lighting_event_ids: Dictionary[StringName, bool] = {}
 ## 正在生效中的光影事件（id -> true）。
 var _active_lighting_events: Dictionary[StringName, bool] = {}
 var _arena_triggered := false
+var _death_can_continue := true
+var _boss_spawned := false
 var _finished := false
 var _next_story_trigger := 0
 ## 持久世界（LevelData.persistent_world）：本輪的世界狀態跨區域與死亡保留。
@@ -64,10 +67,17 @@ var _area: Dictionary = {}
 ## 生成格鍵 -> 節點（敵人與拾取物；離開或死亡時據此判斷誰被消滅或撿走，節點可能已被釋放，所以不用型別字典）。
 var _tracked: Dictionary = {}
 var _portals: Dictionary[StringName, Portal] = {}
+var _resume: Dictionary = {}
+var _death_entry: Dictionary = {}
+var _death_cause: StringName = &""
 
 
 func configure(p_data: LevelData) -> void:
 	data = p_data
+
+
+func configure_resume(snapshot: Dictionary) -> void:
+	_resume = snapshot
 
 
 func _ready() -> void:
@@ -78,14 +88,24 @@ func _ready() -> void:
 		return
 
 	_persistent = data.persistent_world
+	if _resume.get("dead", false):
+		died = true
+		_finished = true
+		_death_entry = _resume.get("death_entry", {})
+		_death_cause = StringName(_resume.get("death_cause", "unknown"))
+		_death_can_continue = _resume.get("can_continue", true)
+	elif _resume.get("ending", false):
+		_finished = true
 	GameState.current_level_path = data.resource_path
 	_entry_portal = GameState.take_pending_portal()
 	_from_checkpoint = _entry_portal == &"" and GameState.checkpoint_applies(data.resource_path)
 	if _persistent:
 		_area = GameState.area_state(data.id)
+	elif not _resume.is_empty():
+		_area = _resume.get("area", {"consumed": {}, "damage": {}, "world": {}})
 	# 成長進度（信用點、改裝）：從檢查點重生就還原成檢查點當下，否則還原成進入關卡時；要在玩家（武器欄）建立之前。
 	# 持久世界不回溯：成長一直往前累積（死亡只扣信用點）。
-	if not _persistent:
+	if not _persistent and _resume.is_empty():
 		Progression.restore(GameState.checkpoint_progress if _from_checkpoint else GameState.level_start_progress)
 	# 環境光：沒被光源照到的東西會被壓暗；發光的東西用自發光材質不受影響（見 LightKit.mark_emissive）。
 	var ambient := CanvasModulate.new()
@@ -158,7 +178,8 @@ func _ready() -> void:
 	_spawn_static_entities()
 	_spawn_player()
 	# 從檢查點重生：還原被打破的箱子、開關、閘門與電力（要在光影設定之前，事件才會正確）。
-	WorldState.restore(get_tree(), _area.get("world", {}) if _persistent else GameState.checkpoint_world)
+	WorldState.restore(get_tree(), _resume.get("world", {}) if not _resume.is_empty() else (_area.get("world", {}) if _persistent else GameState.checkpoint_world))
+	_restore_run_entities()
 	_rebuild_lighting_events()
 
 	for problem in data.validate_lighting():
@@ -213,8 +234,15 @@ func _ready() -> void:
 		EventBus.mechanism_toggled.connect(_on_channel_toggled)  # 關卡釋放時自動斷線
 	# 玩家在這個區域的時候，背景預載鄰居與接下來的過場舞台（下次進場不用當場解碼貼圖）。
 	AssetPrefetch.warm_neighbors.call_deferred(data)
-	_begin_intro.call_deferred()
-	_begin_death_reactions.call_deferred()
+	if _resume.get("dead", false):
+		_resume_death.call_deferred()
+	elif _resume.get("cinematic", "") != "":
+		_resume_cinematic.call_deferred()
+	elif _resume.get("ending", false):
+		_resume_ending.call_deferred()
+	else:
+		_begin_intro.call_deferred()
+		_begin_death_reactions.call_deferred()
 
 
 func _process(delta: float) -> void:
@@ -249,7 +277,7 @@ func _begin_intro() -> void:
 		# 穿過出入口進來：只標示區域名稱，不重播章節標題。
 		if data.announce_area and not data.display_name.is_empty():
 			EventBus.toast_requested.emit(data.display_name)
-	elif data.show_chapter_card:
+	elif data.show_chapter_card and _resume.is_empty():
 		var info := Story.chapter_info(data.chapter)
 		_show_chapter_card(str(info.get("title", data.display_name)), str(info.get("subtitle", "")), false)
 	if _finished:
@@ -372,9 +400,13 @@ func _spawn_static_entities() -> void:
 		checkpoint.position = pos
 		_entities.add_child(checkpoint)
 	for pos in _layout.health_pickups:
+		var key := "health@%d,%d" % [int(pos.x), int(pos.y)]
+		if _area.get("consumed", {}).has(key):
+			continue
 		var pickup := HealthPickup.new()
 		pickup.position = pos
 		_entities.add_child(pickup)
+		_tracked[key] = pickup
 	for i in _layout.lamps.size():
 		var lamp := Lamp.new()
 		lamp.position = _layout.lamps[i] + Vector2(0, 2)
@@ -395,8 +427,8 @@ func _spawn_static_entities() -> void:
 	for spawn in _layout.spawns:
 		var resource: Resource = spawn["resource"]
 		var key := _spawn_key(spawn)
-		var trackable := _persistent and (resource is EnemyData or resource is WeaponData or resource is ConsumableData)
-		if trackable and (_area["consumed"] as Dictionary).has(key):
+		var trackable := resource is EnemyData or resource is WeaponData or resource is ConsumableData or resource is StoryItemData or resource is CreditPileData
+		if trackable and _area.get("consumed", {}).has(key):
 			continue  # 本輪已經被消滅或撿走
 		var node := _create_prop(spawn) if _is_prop_resource(resource) else _create_entity(resource)
 		if node != null:
@@ -409,7 +441,7 @@ func _spawn_static_entities() -> void:
 				node.used.connect(_on_portal_used)
 			if trackable:
 				_tracked[key] = node
-				var lost: int = int((_area["damage"] as Dictionary).get(key, 0))
+				var lost: int = int(_area.get("damage", {}).get(key, 0))
 				if lost > 0 and node is Enemy:
 					(node as Enemy).restore_lost_health(lost)
 
@@ -677,10 +709,25 @@ func _spawn_player() -> void:
 	if tuning == null:
 		push_error("[Level] 無法載入玩家參數：%s" % PLAYER_TUNING_PATH)
 	player = Player.new()
-	player.configure(tuning, GameState.difficulty.player_max_health, GameState.checkpoint_loadout)
+	player.configure(tuning, GameState.difficulty.player_max_health, _resume.get("loadout", GameState.checkpoint_loadout))
 	player.position = _entry_position()
 	player.fall_limit_y = _fall_limit()
 	_entities.add_child(player)
+	if not _resume.is_empty():
+		var saved_position := RunSaveCodec.vector(_resume.get("position"), Vector2(-1, -1))
+		player.position = _entry_position() if saved_position == Vector2(-1, -1) else _safe_resume_position(saved_position)
+		player.facing = -1 if _resume.get("facing") == -1 else 1
+		player.aim_dir = RunSaveCodec.vector(_resume.get("aim_dir"), Vector2(player.facing, 0))
+		AimInput.restore_direction(player.aim_dir)
+		player.velocity = RunSaveCodec.vector(_resume.get("velocity"))
+		player.is_crouching = _resume.get("crouching", false)
+		player.guard = clampf(float(_resume.get("guard", player.guard)), 0, player.tuning.guard_max)
+		if not _resume.get("dead", false):
+			player.health.current = clampi(int(_resume.get("health", player.health.current)), 1, player.health.max_health)
+			player.health.health_changed.emit(player.health.current, player.health.max_health)
+		else:
+			# 此時 Level 尚未接 player_died；只恢復死者姿勢，不再次結算。
+			player.health.kill(DamageInfo.create(0, Combat.Team.ENEMY, StringName(_resume.get("death_cause", "unknown"))))
 	if GameState.respawn_pending and _from_checkpoint:
 		player.play_respawn_fx()
 	# 穿過出入口時帶著上一個區域的生命值（不會因為換個房間就補滿）。
@@ -710,7 +757,7 @@ func _entry_position() -> Vector2:
 func _checked_checkpoint_position() -> Vector2:
 	var saved := GameState.checkpoint_position
 	var bounds := Rect2(Vector2.ZERO, _layout.pixel_size())
-	if saved != Vector2.ZERO and bounds.has_point(saved):
+	if saved != Vector2.ZERO and _resume_position_valid(saved):
 		return saved
 	push_error("[Level] %s 的復原點位置無效（%s，地圖範圍 %s），改用最近的電話亭或起點" % [data.id, saved, bounds])
 	if _layout.checkpoints.is_empty():
@@ -730,7 +777,7 @@ func _fall_limit() -> float:
 # 頭目戰
 # ---------------------------------------------------------------------------
 
-func _start_boss_fight() -> void:
+func _lock_boss_arena() -> void:
 	_arena_triggered = true
 	var tile := float(_layout.tile_size)
 	# 關上身後的閘門並鎖住鏡頭左界。
@@ -750,6 +797,10 @@ func _start_boss_fight() -> void:
 	camera.lock_left(_layout.arena_x)
 	if data.boss_lighting != null:
 		EventBus.lighting_override_requested.emit(BOSS_LIGHTING_ID, data.boss_lighting, BOSS_LIGHTING_FADE)
+
+
+func _start_boss_fight() -> void:
+	_lock_boss_arena()
 	Feel.play(&"boss_arena_lock")
 	EventBus.toast_requested.emit("警告：偵測到大型反應")
 	if _layout.boss_spawn.is_empty():
@@ -769,6 +820,7 @@ func _spawn_boss() -> void:
 	var boss := _create_enemy(_layout.boss_spawn["resource"])
 	if boss == null:
 		return
+	_boss_spawned = true
 	boss.position = _layout.boss_spawn["position"]
 	# 場地範圍：從戰場左界到關卡右緣（機動型頭目與場地機關用）。
 	if boss.has_method(&"set_arena"):
@@ -789,9 +841,14 @@ func _on_player_died(cause: StringName) -> void:
 	_close_menus()
 	var card := DefeatCodex.unlock(cause)
 	var can_continue := GameState.register_death()
+	_death_can_continue = can_continue
 	# 特殊的死亡場景（第一次死亡的診間）：不扣復原費（劇情必死）、不經過死亡畫面，直接播完再重生。
 	var scene_entry := Story.death_scene_entry(data.chapter, cause) if can_continue else {}
+	_death_entry = scene_entry
+	_death_cause = cause
 	_apply_death_to_world(not bool(scene_entry.get("free", false)))
+	# 同一份快照先落死亡計數、世界與扣款；黑幕前必須保存。
+	critical_save_requested.emit()
 	await get_tree().create_timer(DEATH_SCREEN_DELAY, false).timeout
 	if not is_inside_tree():
 		return
@@ -933,6 +990,11 @@ func _apply_death_to_world(charge_fee := true) -> void:
 	if not _persistent:
 		return
 	_save_area_state(data.death_boss_recovery)
+	# 真續玩暫存一般敵人損血；死亡仍沿資料的 persists_damage 規則回復。
+	for key: String in _tracked:
+		var node: Variant = _tracked[key]
+		if is_instance_valid(node) and node is Enemy and not node.data.persists_damage:
+			_area["damage"].erase(key)
 	if is_instance_valid(player):
 		GameState.checkpoint_loadout = player.checkpoint_snapshot()
 	if not charge_fee:
@@ -944,6 +1006,188 @@ func _apply_death_to_world(charge_fee := true) -> void:
 
 func _request_menu() -> void:
 	menu_requested.emit()
+
+
+## 只在保存事件或退出時捕捉，不每影格複製世界。
+func run_snapshot() -> Dictionary:
+	if not is_instance_valid(player) or _layout == null:
+		return {}
+	var area := _capture_run_area()
+	if _persistent and not died:
+		_area.merge(area, true)
+	return {"position": [player.position.x, player.position.y], "velocity": [player.velocity.x, player.velocity.y],
+		"facing": player.facing, "crouching": player.is_crouching, "guard": player.guard,
+		"aim_dir": [player.aim_dir.x, player.aim_dir.y],
+		"health": player.health.current, "loadout": player.checkpoint_snapshot(), "world": area["world"],
+		"area": area, "dead": died, "death_cause": String(_death_cause), "death_entry": _death_entry,
+		"ending": _finished and not died, "arena": _arena_triggered, "boss_pending": _arena_triggered and not _boss_spawned,
+		"can_continue": _death_can_continue,
+		"loose": _capture_loose(), "enemies": _capture_enemies(), "encounters": _capture_encounters()}
+
+
+func _capture_run_area() -> Dictionary:
+	var result := {"consumed": _area.get("consumed", {}).duplicate(true), "damage": _area.get("damage", {}).duplicate(true), "world": WorldState.capture(get_tree())}
+	for key: String in _tracked:
+		var node: Variant = _tracked[key]
+		var gone := not is_instance_valid(node) or (node as Node).is_queued_for_deletion()
+		if not gone and node is Enemy:
+			gone = node.is_dying()
+		if gone:
+			result["consumed"][key] = true
+			result["damage"].erase(key)
+		elif node is Enemy:
+			# 真續玩保留所有敵人目前損血；死亡重建沿原規則。
+			result["damage"][key] = node.lost_health()
+	return result
+
+
+func _safe_resume_position(position: Vector2) -> Vector2:
+	if _resume_position_valid(position):
+		return position
+	push_warning("[RunSave] run/runtime/position %s 在%s越界或受阻，退有效起點" % [position, data.resource_path])
+	return _checked_checkpoint_position() if _from_checkpoint else _layout.player_start
+
+
+func _resume_position_valid(position: Vector2) -> bool:
+	var body := Rect2(position - Vector2(Player.BODY_SIZE.x * 0.5, Player.BODY_SIZE.y), Player.BODY_SIZE)
+	var valid := position.is_finite() and Rect2(Vector2.ZERO, _layout.pixel_size()).encloses(body)
+	if valid:
+		for solid in _layout.solid_rects:
+			if body.intersects(_layout.cells_to_pixels(solid)):
+				valid = false
+				break
+	return valid
+
+
+## 已結算的死亡只恢復演出／重試，不再次 register_death 或扣款。
+func _resume_death() -> void:
+	_finished = true
+	died = true
+	_death_entry = _resume.get("death_entry", {})
+	_death_cause = StringName(_resume.get("death_cause", "unknown"))
+	_death_can_continue = _resume.get("can_continue", true)
+	_close_menus()
+	if not _death_entry.is_empty():
+		await _run_death_scene(_death_entry)
+	else:
+		var screen := DeathScreen.new()
+		screen.sequence = Story.death_sequence(data.chapter)
+		screen.setup(DefeatCodex.unlock(_death_cause), _death_can_continue)
+		screen.retry_requested.connect(_request_retry)
+		screen.menu_requested.connect(_request_menu)
+		add_child(screen)
+
+
+func _resume_cinematic() -> void:
+	await Story.play_and_wait(StringName(_resume["cinematic"]), false)
+	if not is_inside_tree():
+		return
+	if _resume.get("ending", false) or data.complete_after_intro:
+		_finished = true
+		_close_menus()
+		await _run_ending()
+
+
+func _resume_ending() -> void:
+	_finished = true
+	_close_menus()
+	await _run_ending()
+
+
+func _resume_pending_boss() -> void:
+	await get_tree().process_frame
+	if _resume.get("cinematic", "") != "":
+		while Story.is_cinematic_active() and is_inside_tree():
+			await Story.scene_finished
+	else:
+		await Story.play_and_wait(data.boss_scene)
+	if is_inside_tree() and not _finished and not _boss_spawned:
+		_spawn_boss()
+
+
+func _capture_loose() -> Array:
+	var result: Array = []
+	for node in _entities.get_children():
+		if not node is Pickup or node.is_queued_for_deletion() or _tracked.values().has(node):
+			continue
+		var entry := {"position": [node.position.x, node.position.y]}
+		if node is CreditPickup and node.cell == Vector2i(-1, -1) and not node.collected:
+			entry.merge({"kind": "credit", "value": node.value})
+		elif node is HealthPickup:
+			entry["kind"] = "health"
+		elif node is WeaponPickup:
+			entry.merge({"kind": "weapon", "resource": node.weapon.resource_path})
+		elif node is ConsumablePickup:
+			entry.merge({"kind": "consumable", "resource": node.item.resource_path})
+		else:
+			continue
+		result.append(entry)
+	return result
+
+
+func _capture_enemies() -> Array:
+	var result: Array = []
+	for node in _entities.get_children():
+		if not node is Enemy or node.is_dying() or node.is_queued_for_deletion():
+			continue
+		var key := ""
+		for tracked_key: String in _tracked:
+			if is_same(_tracked[tracked_key], node):
+				key = tracked_key
+				break
+		result.append({"key": key, "resource": node.data.resource_path, "position": [node.position.x, node.position.y], "lost": node.lost_health()})
+	return result
+
+
+func _capture_encounters() -> Dictionary:
+	var result: Dictionary = {}
+	for node in _entities.get_children():
+		if node is EncounterZone and node.state == &"active":
+			result[node.state_key()] = {"reinforce": node.get("_reinforce_index"), "time": node.get("_lock_time")}
+	return result
+
+
+func _restore_run_entities() -> void:
+	if _resume.get("arena", false) and _layout.arena_x >= 0.0:
+		_lock_boss_arena()
+		_boss_spawned = not _resume.get("boss_pending", false)
+		if not _boss_spawned and not _resume.get("ending", false) and not _resume.get("dead", false):
+			_resume_pending_boss.call_deferred()
+	for entry: Dictionary in _resume.get("loose", []):
+		var node: Node2D
+		match entry["kind"]:
+			"credit":
+				node = CreditPickup.new()
+				node.value = entry["value"]
+			"health": node = HealthPickup.new()
+			"weapon", "consumable": node = _create_entity(load(entry["resource"]))
+		if node != null:
+			node.position = RunSaveCodec.vector(entry["position"])
+			_entities.add_child(node)
+	for entry: Dictionary in _resume.get("enemies", []):
+		var node := _tracked.get(entry["key"]) as Enemy if entry["key"] != "" else null
+		if node == null and entry["key"] == "":
+			node = _create_enemy(load(entry["resource"]) as EnemyData)
+			if node != null:
+				_entities.add_child(node)
+		if node != null:
+			node.position = RunSaveCodec.vector(entry["position"])
+			node.restore_lost_health(entry["lost"])
+			if node.has_method(&"set_arena") and _arena_triggered:
+				node.call(&"set_arena", Rect2(_layout.arena_x, 0.0, _layout.pixel_size().x - _layout.arena_x - _layout.tile_size, _layout.pixel_size().y))
+	for node in _entities.get_children():
+		if not node is EncounterZone or not _resume.get("encounters", {}).has(node.state_key()):
+			continue
+		var entry: Dictionary = _resume["encounters"][node.state_key()]
+		node.state = &"active"
+		node.set("_reinforce_index", clampi(entry["reinforce"], 0, node.data.reinforcements.size()))
+		node.set("_lock_time", minf(entry["time"], node.data.max_lock_seconds))
+		var members: Array[WeakRef] = []
+		for enemy in _entities.get_children():
+			if enemy is Enemy and node.call("_zone_world_rect").has_point(enemy.position):
+				members.append(weakref(enemy))
+		node.set("_members", members)
+		node.set_physics_process(true)
 
 
 ## 頭目戰閘門外觀。

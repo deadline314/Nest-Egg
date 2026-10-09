@@ -329,7 +329,7 @@ func snapshot() -> Dictionary:
 
 ## 從快照還原；資料損毀、型別不符或引用到已不存在的改裝時略過該部分，保證不崩潰。
 func restore(data: Dictionary) -> void:
-	credits = clampi(int(data.get("credits", 0)) if typeof(data.get("credits", 0)) in [TYPE_INT, TYPE_FLOAT] else 0, 0, MAX_CREDITS)
+	credits = int(RunSaveCodec.number(data.get("credits"), 0, 0, MAX_CREDITS))
 	_upgrades.clear()
 	var raw: Variant = data.get("upgrades", {})
 	if typeof(raw) == TYPE_DICTIONARY:
@@ -360,12 +360,12 @@ func _restore_pawned(data: Dictionary) -> void:
 		return
 	for id: Variant in raw:
 		var count: Variant = raw[id]
-		if typeof(count) not in [TYPE_INT, TYPE_FLOAT] or int(count) <= 0 or ConsumableBag.find(StringName(str(id))) == null:
+		if typeof(count) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(count)) or count <= 0 or ConsumableBag.find(StringName(str(id))) == null:
 			continue
 		var room := MAX_PAWNED - total_pawned()
 		if room <= 0:
 			break
-		_pawned[StringName(str(id))] = mini(int(count), room)
+		_pawned[StringName(str(id))] = int(RunSaveCodec.number(count, 0, 0, room))
 
 
 func _restore_abilities(data: Dictionary) -> void:

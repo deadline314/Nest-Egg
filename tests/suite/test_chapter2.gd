@@ -203,16 +203,35 @@ func _test_required_route() -> void:
 
 ## 第一章通關 → 第二章：成長（信用點、改裝）與裝備（武器、消耗品）帶進去；重試重載同一關。
 func _test_campaign_flow() -> void:
+	var previous_autosave := GameState.story_autosave
+	var previous_run := RunSnapshot.capture(LEVEL_1, {})
+	var previous_carried: Dictionary = GameState.get("_carried_loadout").duplicate(true)
+	GameState.story_autosave = false
 	GameState.start_new_run(GameState.difficulties[1])
 	var main: Node = load("res://game/main.gd").new()
+	var campaign_slot := "user://test_campaign_run/slot.json"
+	_cleanup_campaign_slot(campaign_slot)
+	main.set("_run_store", RunSaveStore.new(campaign_slot))
 	runner.get_tree().root.add_child(main)
 	await frames(3)
 	var level_1 := load(LEVEL_1) as LevelData
+	main._level_path = LEVEL_1
+	main._active_run = true
+	main._load_level()
+	await frames(6)
+	var source := main._screen as Level
+	check(source != null and source.data == level_1, "campaign fixture loads a real source Level before completion")
+	if source == null:
+		main.free()
+		_cleanup_campaign_slot(campaign_slot)
+		RunSnapshot.apply(previous_run)
+		GameState.set("_carried_loadout", previous_carried)
+		GameState.story_autosave = previous_autosave
+		return
 	# 第一章的成果：信用點、改裝、武器。
 	Progression.add_credits(321)
 	Progression.buy_upgrade(load("res://data/weapons/pistol.tres"), Progression.find_upgrade(&"quick_reload")) if Progression.credits >= 100 else null
-	var loadout := Loadout.new()
-	loadout.reset(load("res://data/weapons/pistol.tres") as WeaponData)
+	var loadout := source.player.loadout
 	loadout.equip(load("res://data/weapons/rifle.tres") as WeaponData)
 	GameState.carry_over({"weapons": loadout.snapshot()["weapons"], "mag": loadout.snapshot()["mag"], "reserve": loadout.snapshot()["reserve"], "active": 1, "version": Loadout.SNAPSHOT_VERSION})
 	var credits := Progression.credits
@@ -235,7 +254,18 @@ func _test_campaign_flow() -> void:
 	runner.get_tree().root.remove_child(main)
 	main.free()
 	await frames(2)
-	GameState.clear_checkpoint()
+	_cleanup_campaign_slot(campaign_slot)
+	RunSnapshot.apply(previous_run)
+	GameState.set("_carried_loadout", previous_carried)
+	GameState.story_autosave = previous_autosave
+
+
+func _cleanup_campaign_slot(slot: String) -> void:
+	# 只移除固定fixture槽的檔案，不碰正式整輪／故事檔。
+	for suffix: String in ["", ".bak", ".tmp", ".invalid", ".previous", ".previous.bak", ".freshbak", ".newrun", ".newrun.tmp", ".newrun.previous", ".recover"]:
+		if FileAccess.file_exists(slot + suffix):
+			DirAccess.remove_absolute(ProjectSettings.globalize_path(slot + suffix))
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(slot.get_base_dir()))
 
 
 ## 三種難度都能打完第二章的頭目並接上結尾（頭目由測試直接擊倒，戰鬥本身由頭目套件測試）。

@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.356 - Forward+ - Using Device #0: Intel - Intel(R) Arc(TM) B580 Graphics
+
+PASS Main actually creates playable Level from isolated slot
+PASS second process retains purchase, reward, pawn and collected cash
+[RunSaveProbe] pawn actual={ "shield_cell": 1 } expected={ "shield_cell": 1.0 } pose=-1/true
+PASS pawn ticket survives process restart
+PASS second process restores injured health
+PASS second process restores facing and crouch pose
+PASS active equipment survives process restart
+PASS magazine and reserve remain separate
+PASS unlocked and equipped ability survives process restart
+PASS paid weapon upgrade survives without recharging
+PASS completed reward flag survives
+PASS navigation survives with same story and world
+PASS repeated disk apply does not re-grant reward
+[RunSaveProbe] read checks=12 failures=0

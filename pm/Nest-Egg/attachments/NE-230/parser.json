@@ -1,0 +1,22 @@
+{
+  "gdscript_count": 16,
+  "files": [
+    "autoload/game_state.gd",
+    "autoload/progression.gd",
+    "core/aim_input.gd",
+    "core/run_save_codec.gd",
+    "core/run_save_store.gd",
+    "core/run_snapshot.gd",
+    "game/main.gd",
+    "game/level/level.gd",
+    "ui/main_menu.gd",
+    "ui/run_overwrite_prompt.gd",
+    "tests/suite/test_run_save.gd",
+    "tools/run_save_probe.gd",
+    "tools/run_save_ui_probe.gd",
+    "tests/smoke_test.gd",
+    "tests/suite/test_chapter2.gd",
+    "ui/pause_menu.gd"
+  ],
+  "success": true
+}

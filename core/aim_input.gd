@@ -10,6 +10,14 @@ static var _last_stick_msec := 0
 const VIRTUAL_GAMEPAD_META := &"aim_input_virtual_gamepad"
 
 
+## 主流程恢復朝向；不改變目前輸入裝置或操作提示。
+static func restore_direction(direction: Vector2) -> void:
+	if not direction.is_finite() or direction.length_squared() < 0.000001:
+		return
+	_last_stick_dir = direction.normalized()
+	_last_stick_msec = Time.get_ticks_msec()
+
+
 ## Scripted tool actors choose a source locally; real device history stays intact.
 static func set_virtual_gamepad(node: Node2D, enabled: bool) -> void:
 	if enabled:

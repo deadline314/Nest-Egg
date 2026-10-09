@@ -45,7 +45,7 @@ func _ready() -> void:
 	menu.body.add_child(_map_button)
 	menu.body.add_child(UiKit.button("設定", _open_settings, "音量、按鍵、顯示"))
 	menu.body.add_child(UiKit.button("從檢查點重來", _on_retry, "回到最後的檢查點，武器保留"))
-	menu.body.add_child(UiKit.button("回主選單", _on_menu, "放棄這次進度"))
+	menu.body.add_child(UiKit.button("回主選單", _on_menu, "返回主選單；會嘗試保存進度"))
 
 	var info := UiPanel.new("目前進度", Palette.NEON_YELLOW)
 	info.position = Vector2(250, 48)

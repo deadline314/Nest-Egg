@@ -1,0 +1,15 @@
+Exception in thread Thread-6 (_readerthread):
+Traceback (most recent call last):
+  File "C:\Users\stanl\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "C:\Users\stanl\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\stanl\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1599, in _readerthread
+    buffer.append(fh.read())
+                  ^^^^^^^^^
+UnicodeDecodeError: 'cp950' codec can't decode byte 0xe5 in position 53: illegal multibyte sequence
+改到整個專案或測試流程本身，跑全部測試。
+Running 80 groups in 2 processes (logs: C:/tmp/ne230-evidence/final-all)
+  process 0 (estimated 560 s): StageCoverageWorldSuite,Chapter2Suite,AssaultEnemiesSuite,Chapter1MapSuite,ContinuitySuite,StageCoverageCharactersSuite,StrikeEnemiesSuite,ExoticEnemiesSuite,FxMeleePickupsSuite,NewEnemiesSuite,UiScreensSuite,PhoneBoothSuite,HitReactionSuite,AnimAuditSuite,SupplySuite,AudioSuite,DeathFlowSuite,ReloadCuesSuite,NpcLifeSuite,EncounterSuite,CombatHudSuite,NpcSuite,InputFeelSuite,MusicSuite,FeelSuite,ExposureSuite,WorldPromptSuite,UiKitSuite,QuestMapSuite,NpcAnimationSuite,EyeBlinkSuite,StoryLintSuite,StoryContentSuite,RunSaveSuite,RigMeshSuite,RigActionsSuite,ReadabilityTargetsSuite,PostureSuite,PartCreatureSuite,PacingSuite,LayerOrderSuite,EnemyVfxSuite,EconomySuite,DevMenuSuite,ClipEditorSuite,CharactersSuite,ChapterCutscenesSuite,Chapter2ArtSuite,ApplyPanelSuite,AmmoIconsSuite
+  process 1 (estimated 560 s): ReclaimerSuite,main,StageCoverageWeaponsSuite,SoundStageSuite,HeavyEnemiesSuite,ReconEnemiesSuite,Chapter2ExpansionSuite,AttackTokensSuite,ChainCreatureSuite,DeathReactionSuite,PropsSuite,MeleeWeaponsSuite,FxUpgradesSuite,AmmoTraySuite,Chapter1EnemiesSuite,MapBubblesSuite,CollectiblesSuite,LocomotionSuite,CutsceneSuite,TransitionSuite,ProgressionSuite,MeleeSuite,SoundLabSuite,FloodPitSuite,FeelLabSuite,AreasSuite,SceneSanitySuite,ProtagonistMotionSuite,FeelToolsSuite,EnvironmentSuite
+checks: 54073, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 592 s)

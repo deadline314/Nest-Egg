@@ -1,0 +1,10 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.356 - Forward+ - Using Device #0: Intel - Intel(R) Arc(TM) B580 Graphics
+
+PASS Main actually creates playable Level from isolated slot
+PASS second process restores real nonpersistent checkpoint switch
+PASS same-region retry checkpoint world and transaction match
+PASS continued retry does not retain later paid upgrade or ability
+PASS continued retry restores checkpoint weapons
+PASS ordinary no-close retry matches interrupted-retry continuation
+[RunSaveProbe] retry_read checks=6 failures=0

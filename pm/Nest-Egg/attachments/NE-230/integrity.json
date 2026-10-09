@@ -1,0 +1,466 @@
+{
+  "autoload/game_state.gd": {
+    "bytes": 13166,
+    "sha256": "98ca00d0557d2599d3eceb496f17eeb05f795cf9f831d3095deb2df70dd29363",
+    "crc32": "c16762cd",
+    "repository_bytes": 13166,
+    "repository_sha256": "98ca00d0557d2599d3eceb496f17eeb05f795cf9f831d3095deb2df70dd29363",
+    "repository_crc32": "c16762cd"
+  },
+  "autoload/progression.gd": {
+    "bytes": 13100,
+    "sha256": "9f6f13e01306c75c855399bc00d93c4465452550595a2a3e537ee4e08a17588e",
+    "crc32": "936b6d18",
+    "repository_bytes": 13100,
+    "repository_sha256": "9f6f13e01306c75c855399bc00d93c4465452550595a2a3e537ee4e08a17588e",
+    "repository_crc32": "936b6d18"
+  },
+  "core/aim_input.gd": {
+    "bytes": 3059,
+    "sha256": "09ed0f5a183528de692217bdce1a6af6e5becc7ec6d5977930ae8603f402d7d3",
+    "crc32": "a53f74da",
+    "repository_bytes": 3059,
+    "repository_sha256": "09ed0f5a183528de692217bdce1a6af6e5becc7ec6d5977930ae8603f402d7d3",
+    "repository_crc32": "a53f74da"
+  },
+  "core/run_save_codec.gd": {
+    "bytes": 5825,
+    "sha256": "f767c41a24633a73ca48a865c991146a01c7491325e3f0129952ed457fa9d9af",
+    "crc32": "d86d6cc3",
+    "repository_bytes": 5825,
+    "repository_sha256": "f767c41a24633a73ca48a865c991146a01c7491325e3f0129952ed457fa9d9af",
+    "repository_crc32": "d86d6cc3"
+  },
+  "core/run_save_store.gd": {
+    "bytes": 12766,
+    "sha256": "9865f3cc28c3e2299c90ee46ca72a0812fa040acf9257c01ff93f1a6776c443f",
+    "crc32": "1ab9cd06",
+    "repository_bytes": 12766,
+    "repository_sha256": "9865f3cc28c3e2299c90ee46ca72a0812fa040acf9257c01ff93f1a6776c443f",
+    "repository_crc32": "1ab9cd06"
+  },
+  "core/run_snapshot.gd": {
+    "bytes": 15400,
+    "sha256": "d2cfe4ff709d5e7ee42fc6954c7ecc0b419f14b5b478b68a485a47c55272fe46",
+    "crc32": "19ce8fde",
+    "repository_bytes": 15400,
+    "repository_sha256": "d2cfe4ff709d5e7ee42fc6954c7ecc0b419f14b5b478b68a485a47c55272fe46",
+    "repository_crc32": "19ce8fde"
+  },
+  "game/main.gd": {
+    "bytes": 14054,
+    "sha256": "071f40637fd12ec70c3dda348eff717f5911f144d1a67b48a52f42557cbe9517",
+    "crc32": "f2c7dce3",
+    "repository_bytes": 14054,
+    "repository_sha256": "071f40637fd12ec70c3dda348eff717f5911f144d1a67b48a52f42557cbe9517",
+    "repository_crc32": "f2c7dce3"
+  },
+  "game/level/level.gd": {
+    "bytes": 47323,
+    "sha256": "b453fcd1e88448665de3dfe98a1e5f0f82111579c37cf2923101c6ca6686bb28",
+    "crc32": "256075ce",
+    "repository_bytes": 47323,
+    "repository_sha256": "b453fcd1e88448665de3dfe98a1e5f0f82111579c37cf2923101c6ca6686bb28",
+    "repository_crc32": "256075ce"
+  },
+  "ui/main_menu.gd": {
+    "bytes": 11721,
+    "sha256": "791deba4bff8928c100098bf73a6593cc96542965a81a35d826a21d22b108444",
+    "crc32": "95451a4c",
+    "repository_bytes": 11721,
+    "repository_sha256": "791deba4bff8928c100098bf73a6593cc96542965a81a35d826a21d22b108444",
+    "repository_crc32": "95451a4c"
+  },
+  "ui/run_overwrite_prompt.gd": {
+    "bytes": 1756,
+    "sha256": "0f29c6b1dd2f4ac558d76822087eb0713977f03a929acb52ee6ea7ba72c176c6",
+    "crc32": "e78d348c",
+    "repository_bytes": 1756,
+    "repository_sha256": "0f29c6b1dd2f4ac558d76822087eb0713977f03a929acb52ee6ea7ba72c176c6",
+    "repository_crc32": "e78d348c"
+  },
+  "tests/suite/test_run_save.gd": {
+    "bytes": 13134,
+    "sha256": "11d76b556a8580392ab6f63e4cd9c187650a6d0882cab50add913a782065f0e3",
+    "crc32": "2b9c72a3",
+    "repository_bytes": 12948,
+    "repository_sha256": "7f7fd103799467ee2c743a505f913eaedb90e9d0eaebcb160ac599cb832e4577",
+    "repository_crc32": "9c0221c1"
+  },
+  "tools/run_save_probe.gd": {
+    "bytes": 25563,
+    "sha256": "a61dd589b40c28590213e7973605e54afb6f0b8badfd8012af3f0aa0e4802e37",
+    "crc32": "08ca83d6",
+    "repository_bytes": 25563,
+    "repository_sha256": "a61dd589b40c28590213e7973605e54afb6f0b8badfd8012af3f0aa0e4802e37",
+    "repository_crc32": "08ca83d6"
+  },
+  "tools/run_save_ui_probe.gd": {
+    "bytes": 4437,
+    "sha256": "224cb9be41530675ccb1eb2fa88672d993a0f9a8a8fb60c693a2f03c8a272f47",
+    "crc32": "6dd13aed",
+    "repository_bytes": 4437,
+    "repository_sha256": "224cb9be41530675ccb1eb2fa88672d993a0f9a8a8fb60c693a2f03c8a272f47",
+    "repository_crc32": "6dd13aed"
+  },
+  "tests/smoke_test.gd": {
+    "bytes": 96276,
+    "sha256": "348ac615242cb266b4998da835b3778ac2ec18d1032097624259528528f7c17d",
+    "crc32": "d6a4e1a1",
+    "repository_bytes": 96276,
+    "repository_sha256": "348ac615242cb266b4998da835b3778ac2ec18d1032097624259528528f7c17d",
+    "repository_crc32": "d6a4e1a1"
+  },
+  "tests/fixtures/run_save_choice.json": {
+    "bytes": 638,
+    "sha256": "659b48890dc6eadbe3a5d0c9d63948fdbd449bc36e64772e4fa0236dbfc1f02a",
+    "crc32": "c8419c2e",
+    "repository_bytes": 638,
+    "repository_sha256": "659b48890dc6eadbe3a5d0c9d63948fdbd449bc36e64772e4fa0236dbfc1f02a",
+    "repository_crc32": "c8419c2e"
+  },
+  "tools/run_save_probe.tscn": {
+    "bytes": 173,
+    "sha256": "5346480a919db1a8c9e58b3546ff3045339f579c6e89f8d3141af1f44def1aee",
+    "crc32": "7034f668",
+    "repository_bytes": 173,
+    "repository_sha256": "5346480a919db1a8c9e58b3546ff3045339f579c6e89f8d3141af1f44def1aee",
+    "repository_crc32": "7034f668"
+  },
+  "tools/run_save_ui_probe.tscn": {
+    "bytes": 178,
+    "sha256": "4fa9944e9319dba662afdfb133bfbdcea8e8aeb977409aab8db58ce742746295",
+    "crc32": "eb462649",
+    "repository_bytes": 178,
+    "repository_sha256": "4fa9944e9319dba662afdfb133bfbdcea8e8aeb977409aab8db58ce742746295",
+    "repository_crc32": "eb462649"
+  },
+  "tests/suite/test_chapter2.gd": {
+    "bytes": 15126,
+    "sha256": "d12ab3086515c3baaa29bf888c0c101ad04b08c313db582d933d65a5e430b15a",
+    "crc32": "8238775f",
+    "repository_bytes": 15126,
+    "repository_sha256": "d12ab3086515c3baaa29bf888c0c101ad04b08c313db582d933d65a5e430b15a",
+    "repository_crc32": "8238775f"
+  },
+  "ui/pause_menu.gd": {
+    "bytes": 6038,
+    "sha256": "07bd0cad90feb737be8dd44f971ba62e4f38c98b5ca7289afacb977363e7f543",
+    "crc32": "f7a9cc45",
+    "repository_bytes": 6038,
+    "repository_sha256": "07bd0cad90feb737be8dd44f971ba62e4f38c98b5ca7289afacb977363e7f543",
+    "repository_crc32": "f7a9cc45"
+  },
+  "core/run_save_codec.gd.uid": {
+    "bytes": 20,
+    "sha256": "4511771d8a5c1cb2db6ea025a73146c47651cedec307a94a041e3de22b5fb70c",
+    "crc32": "16a78b7d",
+    "repository_bytes": 20,
+    "repository_sha256": "4511771d8a5c1cb2db6ea025a73146c47651cedec307a94a041e3de22b5fb70c",
+    "repository_crc32": "16a78b7d"
+  },
+  "core/run_save_store.gd.uid": {
+    "bytes": 20,
+    "sha256": "92f6d302cbb433fe0ddcd9a981e2aebe638d112ea922565c8f351291516768e8",
+    "crc32": "4f7c669b",
+    "repository_bytes": 20,
+    "repository_sha256": "92f6d302cbb433fe0ddcd9a981e2aebe638d112ea922565c8f351291516768e8",
+    "repository_crc32": "4f7c669b"
+  },
+  "core/run_snapshot.gd.uid": {
+    "bytes": 20,
+    "sha256": "372fb6c2976971722409833081d074c7737cbafa02d8e8ba0a89fd5a7419a63f",
+    "crc32": "1110f4e7",
+    "repository_bytes": 20,
+    "repository_sha256": "372fb6c2976971722409833081d074c7737cbafa02d8e8ba0a89fd5a7419a63f",
+    "repository_crc32": "1110f4e7"
+  },
+  "tests/suite/test_run_save.gd.uid": {
+    "bytes": 19,
+    "sha256": "df28e631d553207e44928301f21af02561596b47c4e71a9e1df3f7795efe6cfc",
+    "crc32": "e7e8d110",
+    "repository_bytes": 19,
+    "repository_sha256": "df28e631d553207e44928301f21af02561596b47c4e71a9e1df3f7795efe6cfc",
+    "repository_crc32": "e7e8d110"
+  },
+  "tools/run_save_probe.gd.uid": {
+    "bytes": 20,
+    "sha256": "6a6d127db5e7c36faba959c118bfd6dc91cdfad79bee465ed814156d31471603",
+    "crc32": "b061a404",
+    "repository_bytes": 20,
+    "repository_sha256": "6a6d127db5e7c36faba959c118bfd6dc91cdfad79bee465ed814156d31471603",
+    "repository_crc32": "b061a404"
+  },
+  "tools/run_save_ui_probe.gd.uid": {
+    "bytes": 20,
+    "sha256": "ad5a9639a2a098d02fb7ee0163329043bd7c1350822bb94f49c7fa74afad750f",
+    "crc32": "fe893354",
+    "repository_bytes": 20,
+    "repository_sha256": "ad5a9639a2a098d02fb7ee0163329043bd7c1350822bb94f49c7fa74afad750f",
+    "repository_crc32": "fe893354"
+  },
+  "ui/run_overwrite_prompt.gd.uid": {
+    "bytes": 19,
+    "sha256": "ad5ab62802fc73d31ab4742fdaeee421f9a30b0637677354d9af5473a392da71",
+    "crc32": "1c7cced9",
+    "repository_bytes": 19,
+    "repository_sha256": "ad5ab62802fc73d31ab4742fdaeee421f9a30b0637677354d9af5473a392da71",
+    "repository_crc32": "1c7cced9"
+  },
+  "design/20-campaign-experience/RUN_SAVE.md": {
+    "bytes": 12659,
+    "sha256": "a76bb802a5e746c5567a990b28a83c857fd39febfdde68eda409079846ff7431",
+    "crc32": "80371d82",
+    "repository_bytes": 12566,
+    "repository_sha256": "2291327df2736e4474d5902f4def809d35b2f082de335b9e6193071d636af698",
+    "repository_crc32": "f3c36b25"
+  },
+  "pm/Nest-Egg/[NE-230]加入整輪存檔與續玩.md": {
+    "bytes": 6311,
+    "sha256": "9024d8ea5663e6b30b0844500003540bdc12d40ce33b4f4b5654925e1fb338a1",
+    "crc32": "07849698",
+    "repository_bytes": 6230,
+    "repository_sha256": "2f6ec18e013733b420a5a0a236818fe04cf79f41e1182a33798f1f3805961d18",
+    "repository_crc32": "ab19d7d6"
+  },
+  "pm/Nest-Egg/images/NE-230-menu-1280.png": {
+    "bytes": 86905,
+    "sha256": "12994cdf69b25c2213f9837c25a5b8272e7e1adde7202659962e965f60f49e0a",
+    "crc32": "d12a5b62",
+    "repository_bytes": 86905,
+    "repository_sha256": "12994cdf69b25c2213f9837c25a5b8272e7e1adde7202659962e965f60f49e0a",
+    "repository_crc32": "d12a5b62"
+  },
+  "pm/Nest-Egg/images/NE-230-overwrite-1280.png": {
+    "bytes": 49487,
+    "sha256": "a99d4b134edd26d971705031ff6eebf9173f4ed73d46f56cf08e9d506a2bb573",
+    "crc32": "e2a6bc6c",
+    "repository_bytes": 49487,
+    "repository_sha256": "a99d4b134edd26d971705031ff6eebf9173f4ed73d46f56cf08e9d506a2bb573",
+    "repository_crc32": "e2a6bc6c"
+  },
+  "pm/Nest-Egg/images/NE-230-menu-1600.png": {
+    "bytes": 139163,
+    "sha256": "d9a0a41e8a1f123d2748bffdecb1f8e8ef1948ff68bc5c4652ef8842f6ee00f1",
+    "crc32": "e35974bd",
+    "repository_bytes": 139163,
+    "repository_sha256": "d9a0a41e8a1f123d2748bffdecb1f8e8ef1948ff68bc5c4652ef8842f6ee00f1",
+    "repository_crc32": "e35974bd"
+  },
+  "pm/Nest-Egg/images/NE-230-overwrite-1600.png": {
+    "bytes": 91146,
+    "sha256": "5a2add0d6591b4d3df78b18fd4230c3c4f05ca8000064df0654673e181c4ac6a",
+    "crc32": "a933165a",
+    "repository_bytes": 91146,
+    "repository_sha256": "5a2add0d6591b4d3df78b18fd4230c3c4f05ca8000064df0654673e181c4ac6a",
+    "repository_crc32": "a933165a"
+  },
+  "pm/Nest-Egg/attachments/NE-230/.gdignore": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "crc32": "00000000",
+    "repository_bytes": 0,
+    "repository_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "repository_crc32": "00000000"
+  },
+  "pm/Nest-Egg/attachments/NE-230/bounds-1280.json": {
+    "bytes": 1136,
+    "sha256": "c37afb37c6cb818090840dcec7571b16c46ec72ce3a0f1f6f5b6485011384e81",
+    "crc32": "bc354c74",
+    "repository_bytes": 1136,
+    "repository_sha256": "c37afb37c6cb818090840dcec7571b16c46ec72ce3a0f1f6f5b6485011384e81",
+    "repository_crc32": "bc354c74"
+  },
+  "pm/Nest-Egg/attachments/NE-230/bounds-1600.json": {
+    "bytes": 1137,
+    "sha256": "7b891be75c8c12ac65378720c6e282c616b7635f56bc474d578e7550b2e00cd7",
+    "crc32": "54018e0b",
+    "repository_bytes": 1137,
+    "repository_sha256": "7b891be75c8c12ac65378720c6e282c616b7635f56bc474d578e7550b2e00cd7",
+    "repository_crc32": "54018e0b"
+  },
+  "pm/Nest-Egg/attachments/NE-230/final-console.log": {
+    "bytes": 2206,
+    "sha256": "9911a78f9f6106be14b6508d977f16d2b9a1c69559a6a2f8fd2ed97ed61811c2",
+    "crc32": "affb311a",
+    "repository_bytes": 2191,
+    "repository_sha256": "3b2d6bb5403a2d330139d74a61a11c1ee3a9c765c94c08ff173e76a7236ab290",
+    "repository_crc32": "0bccc654"
+  },
+  "pm/Nest-Egg/attachments/NE-230/final-shard-0.log": {
+    "bytes": 101948,
+    "sha256": "6d059aa1f5fdb689c0122236e2811422893a4f627a3a4337de376c41ff173984",
+    "crc32": "eef7f242",
+    "repository_bytes": 100345,
+    "repository_sha256": "e390914325fe751a9fbfd3a08a381a4b6eed961fef0534ca2593830587ba8d94",
+    "repository_crc32": "ea81b41a"
+  },
+  "pm/Nest-Egg/attachments/NE-230/final-shard-1.log": {
+    "bytes": 34561,
+    "sha256": "c6ceccf3a4ce31735f1aa612219faca8e42ec556a8eed4c2c6016e98fa83781c",
+    "crc32": "be0ebef9",
+    "repository_bytes": 34004,
+    "repository_sha256": "28a803edfc9550cef784879763da10bd929de23c98e6bee11591dd591f4a868c",
+    "repository_crc32": "a4d74e09"
+  },
+  "pm/Nest-Egg/attachments/NE-230/final-summary.json": {
+    "bytes": 1661,
+    "sha256": "8d0db18ab3985d97e376fd133395f1142d99dee512e45b758be4956fe9bb8714",
+    "crc32": "d7ed95dc",
+    "repository_bytes": 1607,
+    "repository_sha256": "c096852cd826bed157a0ccb34a2881272f729a928b52899b661896a40e7672e6",
+    "repository_crc32": "2ef10b5d"
+  },
+  "pm/Nest-Egg/attachments/NE-230/first-all-console.log": {
+    "bytes": 1734,
+    "sha256": "2c122a85f47d17d458c9f31f4f45953d861efbf215764d7065e9ba530478c8e9",
+    "crc32": "a3a0e023",
+    "repository_bytes": 1727,
+    "repository_sha256": "5454c87da6f1e2122caca639efa243562b9722e95ee43addc3151056f41c1bf5",
+    "repository_crc32": "ff6c86f5"
+  },
+  "pm/Nest-Egg/attachments/NE-230/first-all-failure-shard-1.log": {
+    "bytes": 77177,
+    "sha256": "77c12395c684a360db9417239bd9878b7131c2bceddb3bdd70efab67bf77e275",
+    "crc32": "2b059c99",
+    "repository_bytes": 75973,
+    "repository_sha256": "8050ce197b541e32171c3cb8506d02dea47ea7be74a7a964421c5e582e59aa25",
+    "repository_crc32": "e4dbb4d6"
+  },
+  "pm/Nest-Egg/attachments/NE-230/integrated_read.log": {
+    "bytes": 916,
+    "sha256": "8ab7e2f764357c0601e4e213b45fadcedbc59fe9c51e614468c95b451da8914d",
+    "crc32": "ed24d94c",
+    "repository_bytes": 899,
+    "repository_sha256": "a3109e4af43d2f1f92d06200308184ac642943a3bb6079587c242dd963646cab",
+    "repository_crc32": "f49cb8b1"
+  },
+  "pm/Nest-Egg/attachments/NE-230/integrated_retry_read.log": {
+    "bytes": 586,
+    "sha256": "97d35f68caad2f94123935db0f8b4f62d1790e960a0bcf9750f186fe2446b2d6",
+    "crc32": "767cd02e",
+    "repository_bytes": 576,
+    "repository_sha256": "684f04da7f31392c2f0e70c547d7e0a87411fa375416d1c09c2249ed253e8e25",
+    "repository_crc32": "49602ced"
+  },
+  "pm/Nest-Egg/attachments/NE-230/integrated_retry_write.log": {
+    "bytes": 727,
+    "sha256": "695cad90188a1d9f6109f27feee6ca56c021d2d01cea5ae32f5f0dcdbdfdad06",
+    "crc32": "fec772a5",
+    "repository_bytes": 715,
+    "repository_sha256": "38440350fcf28a198825a30cc414fb48e1dc4eb2be72ed77bdf42c508e288678",
+    "repository_crc32": "f197514a"
+  },
+  "pm/Nest-Egg/attachments/NE-230/integrated_write.log": {
+    "bytes": 480,
+    "sha256": "cdcc91226ae9486341db0d6d42305e6962030d24260d9af8361e80f8e52412e2",
+    "crc32": "1e8d1226",
+    "repository_bytes": 470,
+    "repository_sha256": "92fb6c78408406c63615ca05386070e4228bdfee127c409c376bf234323abaa8",
+    "repository_crc32": "080c42cd"
+  },
+  "pm/Nest-Egg/attachments/NE-230/latest_choice_read.log": {
+    "bytes": 575,
+    "sha256": "335436d42e3c0d0ab0b6354afbbc6987c48e85af119281bbe2cde5be6ecfc4e9",
+    "crc32": "48386f8e",
+    "repository_bytes": 565,
+    "repository_sha256": "4159fa4fad6838e3d99c74f9c0ae38e6631bf46a959a3521e51d03c121d758a4",
+    "repository_crc32": "16b5ac24"
+  },
+  "pm/Nest-Egg/attachments/NE-230/latest_choice_write.log": {
+    "bytes": 543,
+    "sha256": "0ffc02db2b1ee9065592e1aa2dbe0860a2ee24969c28b346ec68405fb041f703",
+    "crc32": "73c2f89f",
+    "repository_bytes": 534,
+    "repository_sha256": "b781cf3361a8835f3ee3914e5bae9b3f07fc51cf933508bcde1419af181a1cfe",
+    "repository_crc32": "8970afa0"
+  },
+  "pm/Nest-Egg/attachments/NE-230/latest_end_read.log": {
+    "bytes": 290,
+    "sha256": "39870d532fae2df989d9ee60720338137b89cf020f3a3858dd246b7a07f4c8eb",
+    "crc32": "7e78b4a0",
+    "repository_bytes": 285,
+    "repository_sha256": "79fbbbd0f07536ced285b45506fe945e4a39f30938ed5f04e9f180ab05aca91e",
+    "repository_crc32": "a4688032"
+  },
+  "pm/Nest-Egg/attachments/NE-230/latest_end_write.log": {
+    "bytes": 383,
+    "sha256": "905556275b0d9c67096100ad0726764939d3c00e51fcf2f2692f5fecfb0a0605",
+    "crc32": "b1abfbff",
+    "repository_bytes": 376,
+    "repository_sha256": "fe28910e0d388bcc0f354e7decb406cd34afa165bf4f3fd199eae951f1e08500",
+    "repository_crc32": "4f89983f"
+  },
+  "pm/Nest-Egg/attachments/NE-230/latest_import.log": {
+    "bytes": 3513,
+    "sha256": "979f27ff321ca5068be9933bbcd10ac6ffa392883abb80dd1d98d5974b874c5e",
+    "crc32": "5424d8cb",
+    "repository_bytes": 3458,
+    "repository_sha256": "00acab2898c54eb5c530053205ce3787588fce1c7a0e275c9ca58287238915be",
+    "repository_crc32": "7bd3c712"
+  },
+  "pm/Nest-Egg/attachments/NE-230/latest_route.log": {
+    "bytes": 2529,
+    "sha256": "37dccbd56d65debe650ce959d2c79f230b74ffe704680b97fe8d577e8c018df8",
+    "crc32": "7e140e7c",
+    "repository_bytes": 2492,
+    "repository_sha256": "abb1e4500b24500a633214205b9507e2a635ec6219b96d7a8f9f1d5f5dbdc689",
+    "repository_crc32": "9b09fe00"
+  },
+  "pm/Nest-Egg/attachments/NE-230/latest_ui1280.log": {
+    "bytes": 520,
+    "sha256": "5564d7c27fef1512530d1c1be269b0e45aefbf563e38fe04e80b606c68c02d47",
+    "crc32": "20198d1a",
+    "repository_bytes": 508,
+    "repository_sha256": "23782b9b81ee2657cf3f306d1e985d709306ac7d32572908ef3e61557d2709bb",
+    "repository_crc32": "b20041f0"
+  },
+  "pm/Nest-Egg/attachments/NE-230/latest_ui1600.log": {
+    "bytes": 520,
+    "sha256": "5564d7c27fef1512530d1c1be269b0e45aefbf563e38fe04e80b606c68c02d47",
+    "crc32": "20198d1a",
+    "repository_bytes": 508,
+    "repository_sha256": "23782b9b81ee2657cf3f306d1e985d709306ac7d32572908ef3e61557d2709bb",
+    "repository_crc32": "b20041f0"
+  },
+  "pm/Nest-Egg/attachments/NE-230/latest_unit.log": {
+    "bytes": 8610,
+    "sha256": "29ed7fa462fc0445bf0353af391e3871ef2cc7b933f5dcb894286692da0a56b3",
+    "crc32": "16ce3761",
+    "repository_bytes": 8466,
+    "repository_sha256": "f6149fbe05684805bb9fd9da0b61d1ea353822055c10e0de0f1d5a9f7dbec98e",
+    "repository_crc32": "3dfbdf69"
+  },
+  "pm/Nest-Egg/attachments/NE-230/parser.json": {
+    "bytes": 551,
+    "sha256": "880a434da9a9cfd286540305b65be41a2c0a8ef65dc833a4bed71611961cbd53",
+    "crc32": "0e18f516",
+    "repository_bytes": 529,
+    "repository_sha256": "7e21ab2c5c0099b5816186126f83905da7b7a2cab5cda232569f493d7d1ac71e",
+    "repository_crc32": "2145d59b"
+  },
+  "pm/Nest-Egg/attachments/NE-230/README.md": {
+    "bytes": 2044,
+    "sha256": "fd016533dd6204f0b6cae526854649e783d53c35a2b053b2f0b9e74aea01067b",
+    "crc32": "b6877dca",
+    "repository_bytes": 2027,
+    "repository_sha256": "7d5dc8eb68626d084e7bd7aec8fe966fe91760440642782cef28e810435bd9f8",
+    "repository_crc32": "13f4f1da"
+  },
+  "pm/Nest-Egg/attachments/NE-230/selector-utf8.log": {
+    "bytes": 5,
+    "sha256": "7f733c936730d47248d5910dc2afc71e6645581975c98fc559cda5e678767c41",
+    "crc32": "5e888296",
+    "repository_bytes": 4,
+    "repository_sha256": "2ac0e9a8ba07bd0f293212ead925c4042977c863592546f3e87567133103535c",
+    "repository_crc32": "c7757df7"
+  },
+  "pm/Nest-Egg/attachments/NE-230/source-sha256.json": {
+    "bytes": 1856,
+    "sha256": "2d5c1f8022b57d125ad475d7e4c7a837c93c5a507a2c2a28b3597519ca08604f",
+    "crc32": "90296308",
+    "repository_bytes": 1835,
+    "repository_sha256": "7f6ce9ed7e5d7188220abd793a13227140c3389a2c0a8c730bb952cc01b891b2",
+    "repository_crc32": "667d9590"
+  }
+}
