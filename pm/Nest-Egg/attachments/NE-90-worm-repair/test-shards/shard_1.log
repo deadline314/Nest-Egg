@@ -1,0 +1,611 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME ProgressionSuite 4.0
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/main_menu.gd:33)
+       [3] _swap_screen (res://game/main.gd:33)
+       [4] _run (res://autoload/transition.gd:180)
+       [5] play (res://autoload/transition.gd:77)
+       [6] _switch_to (res://game/main.gd:23)
+       [7] _show_main_menu (res://game/main.gd:45)
+       [8] _ready (res://game/main.gd:17)
+       [9] _test_game_boots_to_menu (res://tests/suite/test_ui_screens.gd:30)
+       [10] run (res://tests/suite/test_ui_screens.gd:13)
+       [11] _run_suites (res://tests/smoke_test.gd:109)
+       [12] run (res://tests/suite/test_progression.gd:22)
+       [13] _test_upgrades_page (res://tests/suite/test_progression.gd:306)
+       [14] end_level (res://tests/suite/test_suite.gd:47)
+       [15] _end_level (res://tests/smoke_test.gd:599)
+       [16] _frames (res://tests/smoke_test.gd:122)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/main_menu.gd:33)
+       [3] _test_main_menu (res://tests/suite/test_ui_screens.gd:49)
+       [4] run (res://tests/suite/test_ui_screens.gd:14)
+       [5] _test_game_boots_to_menu (res://tests/suite/test_ui_screens.gd:42)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/codex_screen.gd:22)
+       [3] _test_codex (res://tests/suite/test_ui_screens.gd:76)
+       [4] run (res://tests/suite/test_ui_screens.gd:15)
+       [5] _test_main_menu (res://tests/suite/test_ui_screens.gd:71)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/main_menu.gd:33)
+       [3] _test_main_menu_overlays (res://tests/suite/test_ui_screens.gd:156)
+       [4] run (res://tests/suite/test_ui_screens.gd:18)
+       [5] _test_pause_settings_overlay (res://tests/suite/test_ui_screens.gd:150)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/main_menu.gd:33)
+       [3] _test_difficulty_cards_never_overlap (res://tests/suite/test_ui_screens.gd:174)
+       [4] run (res://tests/suite/test_ui_screens.gd:19)
+       [5] _test_main_menu_overlays (res://tests/suite/test_ui_screens.gd:168)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/settings_screen.gd:41)
+       [3] _test_fullscreen_setting (res://tests/suite/test_ui_screens.gd:221)
+       [4] run (res://tests/suite/test_ui_screens.gd:21)
+       [5] _test_chapter_card_under_pause (res://tests/suite/test_ui_screens.gd:208)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/victory_screen.gd:22)
+       [3] _test_victory_screen (res://tests/suite/test_ui_screens.gd:281)
+       [4] run (res://tests/suite/test_ui_screens.gd:23)
+       [5] _test_death_screen (res://tests/suite/test_ui_screens.gd:275)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/test_no_such_character/character.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] load_json (res://game/rig/rig_library.gd:21)
+       [2] character (res://game/rig/rig_library.gd:29)
+       [3] setup (res://game/rig/character_rig.gd:87)
+       [4] _ready (res://ui/inventory/hd_portrait.gd:48)
+       [5] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:338)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+ERROR: [HdPortrait] 找不到角色骨架「test_no_such_character」，立繪不顯示。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://ui/inventory/hd_portrait.gd:49)
+       [1] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:338)
+       [2] frames (res://tests/suite/test_ui_screens.gd:9)
+SUITE_TIME UiScreensSuite 9.4
+WARNING: [GameState] user://test_story_progress.json:0 存檔損毀：Expected key，故事進度退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] load_story_progress (res://autoload/game_state.gd:319)
+       [1] _test_story_features (res://tests/suite/test_cutscene.gd:528)
+       [2] frames (res://tests/suite/test_suite.gd:23)
+       [3] _frames (res://tests/smoke_test.gd:122)
+WARNING: [GameState] user://test_story_progress.json/flags/test_story_decision 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:283)
+       [1] load_story_progress (res://autoload/game_state.gd:320)
+       [2] _test_story_features (res://tests/suite/test_cutscene.gd:528)
+       [3] frames (res://tests/suite/test_suite.gd:23)
+       [4] _frames (res://tests/smoke_test.gd:122)
+WARNING: [GameState] user://test_story_progress.json/flags/test_story_visits 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:283)
+       [1] load_story_progress (res://autoload/game_state.gd:320)
+       [2] _test_story_features (res://tests/suite/test_cutscene.gd:528)
+       [3] frames (res://tests/suite/test_suite.gd:23)
+       [4] _frames (res://tests/smoke_test.gd:122)
+WARNING: [GameState] user://test_story_progress.json/flags/test_story_route 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:283)
+       [1] load_story_progress (res://autoload/game_state.gd:320)
+       [2] _test_story_features (res://tests/suite/test_cutscene.gd:528)
+       [3] frames (res://tests/suite/test_suite.gd:23)
+       [4] _frames (res://tests/smoke_test.gd:122)
+WARNING: [GameState] test_bad_cutscene/save/flags/test_story_visits 損毀，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:280)
+       [1] _test_story_features (res://tests/suite/test_cutscene.gd:529)
+       [2] frames (res://tests/suite/test_suite.gd:23)
+       [3] _frames (res://tests/smoke_test.gd:122)
+WARNING: [GameState] test_bad_cutscene/save/flags/test_story_decision 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:283)
+       [1] _test_story_features (res://tests/suite/test_cutscene.gd:529)
+       [2] frames (res://tests/suite/test_suite.gd:23)
+       [3] _frames (res://tests/smoke_test.gd:122)
+WARNING: [GameState] test_bad_cutscene/save/flags/test_story_route 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:283)
+       [1] _test_story_features (res://tests/suite/test_cutscene.gd:529)
+       [2] frames (res://tests/suite/test_suite.gd:23)
+       [3] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Stage] test_bad_cutscene 圖層：gradient 圖層缺少欄位「top」
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] create (res://game/cutscene/stage_layers.gd:39)
+       [1] _test_stages (res://tests/suite/test_cutscene.gd:278)
+       [2] run (res://tests/suite/test_cutscene.gd:40)
+       [3] _test_story_features (res://tests/suite/test_cutscene.gd:574)
+       [4] frames (res://tests/suite/test_suite.gd:23)
+       [5] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Stage] test_bad_cutscene 圖層：未知的圖層種類「nonsense」
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] create (res://game/cutscene/stage_layers.gd:35)
+       [1] _test_stages (res://tests/suite/test_cutscene.gd:280)
+       [2] run (res://tests/suite/test_cutscene.gd:40)
+       [3] _test_story_features (res://tests/suite/test_cutscene.gd:574)
+       [4] frames (res://tests/suite/test_suite.gd:23)
+       [5] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Cutscene] 場景 test_bad_cutscene 第 1 步（move）：找不到角色「ghost」，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _need_actor (res://game/cutscene/cutscene_player.gd:335)
+       [1] _do_move (res://game/cutscene/cutscene_player.gd:460)
+       [2] _run (res://game/cutscene/cutscene_player.gd:135)
+ERROR: [Cutscene] 場景 test_bad_cutscene 第 2 步（scene）：場景「no_such_stage」不存在，保留原本的場景
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _do_scene (res://game/cutscene/cutscene_player.gd:350)
+       [1] _run (res://game/cutscene/cutscene_player.gd:135)
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/no_such_character/character.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] load_json (res://game/rig/rig_library.gd:21)
+       [2] character (res://game/rig/rig_library.gd:29)
+       [3] setup (res://game/cutscene/cutscene_actor.gd:39)
+       [4] _do_actor (res://game/cutscene/cutscene_player.gd:395)
+       [5] _run (res://game/cutscene/cutscene_player.gd:135)
+       [6] _do_scene (res://game/cutscene/cutscene_player.gd:363)
+       [7] _do_fade (res://game/cutscene/cutscene_player.gd:605)
+       [8] _wait_tween (res://game/cutscene/cutscene_player.gd:328)
+ERROR: [Cutscene] 場景 test_bad_cutscene 第 4 步（actor）：角色「bad」沒有可用的外觀或頭像，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _do_actor (res://game/cutscene/cutscene_player.gd:398)
+       [1] _run (res://game/cutscene/cutscene_player.gd:135)
+       [2] _do_scene (res://game/cutscene/cutscene_player.gd:363)
+       [3] _do_fade (res://game/cutscene/cutscene_player.gd:605)
+       [4] _wait_tween (res://game/cutscene/cutscene_player.gd:328)
+ERROR: [Cutscene] 場景 test_bad_cutscene 第 5 步的動作「dance」不存在，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://game/cutscene/cutscene_player.gd:130)
+       [1] _do_scene (res://game/cutscene/cutscene_player.gd:363)
+       [2] _do_fade (res://game/cutscene/cutscene_player.gd:605)
+       [3] _wait_tween (res://game/cutscene/cutscene_player.gd:328)
+ERROR: [Cutscene] 場景 test_bad_cutscene 第 6 步不是物件，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://game/cutscene/cutscene_player.gd:122)
+       [1] _do_scene (res://game/cutscene/cutscene_player.gd:363)
+       [2] _do_fade (res://game/cutscene/cutscene_player.gd:605)
+       [3] _wait_tween (res://game/cutscene/cutscene_player.gd:328)
+ERROR: [Cutscene] 場景 test_bad_cutscene 第 8 步（transition）：轉場「spin」不存在，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _do_transition (res://game/cutscene/cutscene_player.gd:611)
+       [1] _run (res://game/cutscene/cutscene_player.gd:135)
+       [2] _do_scene (res://game/cutscene/cutscene_player.gd:363)
+       [3] _do_fade (res://game/cutscene/cutscene_player.gd:605)
+       [4] _wait_tween (res://game/cutscene/cutscene_player.gd:328)
+SUITE_TIME CutsceneSuite 4.0
+ERROR: [HumanoidAnimator] res://art/rigs/action_poses.json 沒有專屬動作「no_such_action」
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] report_once (res://game/rig/rig_library.gd:125)
+       [2] _apply_action (res://game/rig/humanoid_animator.gd:872)
+       [3] update (res://game/rig/humanoid_animator.gd:248)
+       [4] animate (res://game/rig/character_rig.gd:204)
+       [5] _rig (res://tests/suite/test_rig_actions.gd:26)
+       [6] _test_unknown_action (res://tests/suite/test_rig_actions.gd:116)
+       [7] run (res://tests/suite/test_rig_actions.gd:13)
+       [8] _test_playback (res://tests/suite/test_rig_actions.gd:75)
+       [9] _rig (res://tests/suite/test_rig_actions.gd:28)
+       [10] frames (res://tests/suite/test_suite.gd:23)
+       [11] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME RigActionsSuite 0.8
+ERROR: [Enemy] test_missing_part 的 hurt_parts 有無效的部位（id、size、mult）：{ "id": "", "size": (4.0, 4.0), "mult": 2.0 }
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _build_hurt_parts (res://game/enemies/enemy.gd:242)
+       [1] _build_components (res://game/enemies/enemy.gd:180)
+       [2] _ready (res://game/enemies/enemy.gd:140)
+       [3] _test_bad_part_data (res://tests/suite/test_hit_reaction.gd:427)
+       [4] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [5] start_level (res://tests/suite/test_suite.gd:34)
+       [6] spawn_level (res://tests/suite/test_suite.gd:43)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [Enemy] test_missing_part 的部位 ok 找不到骨頭 no_such_bone，改用固定位置。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _build_hurt_parts (res://game/enemies/enemy.gd:246)
+       [1] _build_components (res://game/enemies/enemy.gd:180)
+       [2] _ready (res://game/enemies/enemy.gd:140)
+       [3] _test_bad_part_data (res://tests/suite/test_hit_reaction.gd:427)
+       [4] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [5] start_level (res://tests/suite/test_suite.gd:34)
+       [6] spawn_level (res://tests/suite/test_suite.gd:43)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [EnemyVfx] res://art/vfx/enemies/test_missing_part.json 沒有特效資料，不播放專屬特效。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] report_once (res://game/rig/rig_library.gd:125)
+       [2] load_for (res://game/enemies/enemy_vfx.gd:31)
+       [3] _ready (res://game/enemies/enemy.gd:148)
+       [4] _test_bad_part_data (res://tests/suite/test_hit_reaction.gd:427)
+       [5] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [6] start_level (res://tests/suite/test_suite.gd:34)
+       [7] spawn_level (res://tests/suite/test_suite.gd:43)
+       [8] frames (res://tests/suite/test_suite.gd:23)
+       [9] _frames (res://tests/smoke_test.gd:122)
+WARNING: [LitTextures] 沒有法線貼圖，改用平面貼圖：res://art/creatures/test_tentacle_n.png（可用 tools/art/paint_normals.tscn 產生）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] load_texture (res://core/lit_textures.gd:34)
+       [1] setup (res://game/creature/chain_creature.gd:88)
+       [2] _test_tentacle_wave_and_sever (res://tests/suite/test_hit_reaction.gd:506)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [LitTextures] 沒有法線貼圖，改用平面貼圖：res://art/creatures/test_body_n.png（可用 tools/art/paint_normals.tscn 產生）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] load_texture (res://core/lit_textures.gd:34)
+       [1] _build_body (res://game/creature/chain_creature.gd:125)
+       [2] setup (res://game/creature/chain_creature.gd:99)
+       [3] _test_tentacle_wave_and_sever (res://tests/suite/test_hit_reaction.gd:506)
+       [4] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [5] start_level (res://tests/suite/test_suite.gd:34)
+       [6] spawn_level (res://tests/suite/test_suite.gd:43)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME HitReactionSuite 9.7
+ERROR: [Feel] 沒有這個回饋事件「test_no_such_feel_event」（res://data/feel/events.json）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://autoload/feel.gd:241)
+       [1] play (res://autoload/feel.gd:126)
+       [2] _test_bad_events_are_safe (res://tests/suite/test_feel.gd:89)
+       [3] run (res://tests/suite/test_feel.gd:13)
+       [4] _test_shake_duration_is_honored (res://tests/suite/test_feel.gd:84)
+ERROR: [Sfx] 沒有這個聲音事件「test_no_such_sound_event」（res://data/feel/sound_events.json），改播「hit」
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report_once (res://autoload/sfx.gd:734)
+       [1] play_event (res://autoload/sfx.gd:650)
+       [2] _test_sound_events (res://tests/suite/test_feel.gd:317)
+ERROR: [HitFeedback] 沒有這個命中材質「test_no_such_material」（res://data/feel/materials.json），改用 generic
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/fx/hit_feedback.gd:159)
+       [1] play (res://game/fx/hit_feedback.gd:81)
+       [2] _test_hit_materials (res://tests/suite/test_feel.gd:334)
+       [3] run (res://tests/suite/test_feel.gd:19)
+       [4] _test_sound_events (res://tests/suite/test_feel.gd:318)
+ERROR: [Feel] 沒有這個預設組合「test_no_such_preset」（res://data/feel/presets.json）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://autoload/feel.gd:241)
+       [1] set_preset (res://autoload/feel.gd:62)
+       [2] _test_params_and_presets (res://tests/suite/test_feel.gd:496)
+       [3] run (res://tests/suite/test_feel.gd:23)
+       [4] _test_block_feel (res://tests/suite/test_feel.gd:468)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:599)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME FeelSuite 2.6
+SUITE_TIME StrikeEnemiesSuite 27.6
+ERROR: [FeelLab] 沒有這把武器：res://data/weapons/test_no_such_weapon.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] equip_weapon (res://tools/feel_lab/feel_lab.gd:131)
+       [1] _test_lab_runs (res://tests/suite/test_feel_lab.gd:99)
+       [2] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [FeelLab] 沒有這個敵人：res://data/enemies/test_no_such_enemy.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn_enemy (res://tools/feel_lab/feel_lab.gd:103)
+       [1] _test_lab_runs (res://tests/suite/test_feel_lab.gd:99)
+       [2] physics_frames (res://tests/suite/test_suite.gd:28)
+SUITE_TIME FeelLabSuite 2.6
+ERROR: [SoundBank] 音效「test_audio_half」的檔案無法載入：res://tests/fixtures/audio/test_audio_missing_a.ogg（res://tests/fixtures/audio/bank_ok.json），改用其他變體或合成音
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_entry (res://core/audio/sound_bank.gd:53)
+       [2] load_bank (res://core/audio/sound_bank.gd:37)
+       [3] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [4] _test_bank_loading (res://tests/suite/test_audio.gd:158)
+       [5] run (res://tests/suite/test_audio.gd:15)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_feel_lab.gd:11)
+       [8] _test_lab_runs (res://tests/suite/test_feel_lab.gd:103)
+       [9] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [SoundBank] 音效「test_audio_none」的檔案無法載入：res://tests/fixtures/audio/test_audio_missing_b.ogg（res://tests/fixtures/audio/bank_ok.json），改用其他變體或合成音
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_entry (res://core/audio/sound_bank.gd:53)
+       [2] load_bank (res://core/audio/sound_bank.gd:37)
+       [3] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [4] _test_bank_loading (res://tests/suite/test_audio.gd:158)
+       [5] run (res://tests/suite/test_audio.gd:15)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_feel_lab.gd:11)
+       [8] _test_lab_runs (res://tests/suite/test_feel_lab.gd:103)
+       [9] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [SoundBank] 找不到資料檔：res://tests/fixtures/audio/test_audio_missing_bank.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] read_root (res://core/audio/audio_data.gd:13)
+       [2] load_bank (res://core/audio/sound_bank.gd:32)
+       [3] _test_bank_loading (res://tests/suite/test_audio.gd:167)
+       [4] run (res://tests/suite/test_audio.gd:15)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] run (res://tests/suite/test_feel_lab.gd:11)
+       [7] _test_lab_runs (res://tests/suite/test_feel_lab.gd:103)
+       [8] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [SoundBank] 音效「test_audio_badext」的檔案無法載入：res://tests/fixtures/audio/bank_ok.json（res://tests/fixtures/audio/bank_bad.json），改用其他變體或合成音
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_entry (res://core/audio/sound_bank.gd:53)
+       [2] load_bank (res://core/audio/sound_bank.gd:37)
+       [3] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [4] _test_bank_validation (res://tests/suite/test_audio.gd:236)
+       [5] run (res://tests/suite/test_audio.gd:16)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_feel_lab.gd:11)
+       [8] _test_lab_runs (res://tests/suite/test_feel_lab.gd:103)
+       [9] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [SoundBank] 音效「test_audio_gone」的檔案無法載入：res://tests/fixtures/audio/test_audio_missing_c.ogg（res://tests/fixtures/audio/bank_bad.json），改用其他變體或合成音
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_entry (res://core/audio/sound_bank.gd:53)
+       [2] load_bank (res://core/audio/sound_bank.gd:37)
+       [3] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [4] _test_bank_validation (res://tests/suite/test_audio.gd:236)
+       [5] run (res://tests/suite/test_audio.gd:16)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_feel_lab.gd:11)
+       [8] _test_lab_runs (res://tests/suite/test_feel_lab.gd:103)
+       [9] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [SoundBank] 音效「test_audio_halffast」的 1.5 倍加速檔無法載入：res://tests/fixtures/audio/test_audio_missing_fast.ogg（res://tests/fixtures/audio/bank_speed.json），這一級退回原速
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_speed_entry (res://core/audio/sound_bank.gd:84)
+       [2] _load_entry (res://core/audio/sound_bank.gd:58)
+       [3] load_bank (res://core/audio/sound_bank.gd:37)
+       [4] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [5] _test_speed_variants (res://tests/suite/test_audio.gd:173)
+       [6] run (res://tests/suite/test_audio.gd:17)
+       [7] _run_suites (res://tests/smoke_test.gd:109)
+       [8] run (res://tests/suite/test_feel_lab.gd:11)
+       [9] _test_lab_runs (res://tests/suite/test_feel_lab.gd:103)
+       [10] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [SoundBank] 音效「test_audio_not_a_table」的 speed_files 要是 {倍率: [檔案]}（res://tests/fixtures/audio/bank_speed_bad.json）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_speed_entry (res://core/audio/sound_bank.gd:69)
+       [2] _load_entry (res://core/audio/sound_bank.gd:58)
+       [3] load_bank (res://core/audio/sound_bank.gd:37)
+       [4] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [5] _test_speed_variants (res://tests/suite/test_audio.gd:183)
+       [6] run (res://tests/suite/test_audio.gd:17)
+       [7] _run_suites (res://tests/smoke_test.gd:109)
+       [8] run (res://tests/suite/test_feel_lab.gd:11)
+       [9] _test_lab_runs (res://tests/suite/test_feel_lab.gd:103)
+       [10] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [SoundBank] 音效「test_audio_slow」的 speed_files「0.5」要是大於 1 的倍率加檔案陣列（res://tests/fixtures/audio/bank_speed_bad.json），略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_speed_entry (res://core/audio/sound_bank.gd:76)
+       [2] _load_entry (res://core/audio/sound_bank.gd:58)
+       [3] load_bank (res://core/audio/sound_bank.gd:37)
+       [4] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [5] _test_speed_variants (res://tests/suite/test_audio.gd:183)
+       [6] run (res://tests/suite/test_audio.gd:17)
+       [7] _run_suites (res://tests/smoke_test.gd:109)
+       [8] run (res://tests/suite/test_feel_lab.gd:11)
+       [9] _test_lab_runs (res://tests/suite/test_feel_lab.gd:103)
+       [10] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [SoundBank] 音效「test_audio_gone」的 1.5 倍加速檔無法載入：res://tests/fixtures/audio/test_audio_missing_speed.ogg（res://tests/fixtures/audio/bank_speed_bad.json），這一級退回原速
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_speed_entry (res://core/audio/sound_bank.gd:84)
+       [2] _load_entry (res://core/audio/sound_bank.gd:58)
+       [3] load_bank (res://core/audio/sound_bank.gd:37)
+       [4] _fixture_bank (res://tests/suite/test_audio.gd:43)
+       [5] _test_speed_variants (res://tests/suite/test_audio.gd:183)
+       [6] run (res://tests/suite/test_audio.gd:17)
+       [7] _run_suites (res://tests/smoke_test.gd:109)
+       [8] run (res://tests/suite/test_feel_lab.gd:11)
+       [9] _test_lab_runs (res://tests/suite/test_feel_lab.gd:103)
+       [10] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [AudioSuite] 找不到資料檔：res://tests/fixtures/audio/test_audio_missing_profiles.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] read_root (res://core/audio/audio_data.gd:13)
+       [2] reload (res://core/audio/sound_profile_table.gd:30)
+       [3] _init (res://core/audio/sound_profile_table.gd:24)
+       [4] _test_profile_table (res://tests/suite/test_audio.gd:302)
+       [5] run (res://tests/suite/test_audio.gd:19)
+       [6] _test_sfx_uses_files (res://tests/suite/test_audio.gd:285)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [PlacementDoc] user://test_audio_placements.md 沒有位置「P-XXX-999」，無法寫入
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _write_cell (res://core/audio/placement_doc.gd:158)
+       [2] set_planned (res://core/audio/placement_doc.gd:114)
+       [3] _test_placement_doc (res://tests/suite/test_audio.gd:685)
+       [4] run (res://tests/suite/test_audio.gd:35)
+       [5] _test_ambience (res://tests/suite/test_audio.gd:606)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+ERROR: [PlacementDoc] 找不到位置清單文件：user://test_audio_no_such_placements.md（先執行 tools/audio/build_slots.py）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _reload (res://core/audio/placement_doc.gd:36)
+       [2] load_doc (res://core/audio/placement_doc.gd:29)
+       [3] _test_placement_doc (res://tests/suite/test_audio.gd:717)
+       [4] run (res://tests/suite/test_audio.gd:35)
+       [5] _test_ambience (res://tests/suite/test_audio.gd:606)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME AudioSuite 6.7
+ERROR: [StageScenes] 找不到資料檔：res://tests/fixtures/audio/no_such_scenes.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] read_root (res://core/audio/audio_data.gd:13)
+       [2] reload (res://core/audio/stage_scenes.gd:37)
+       [3] _init (res://core/audio/stage_scenes.gd:30)
+       [4] _test_scene_data (res://tests/suite/test_sound_stage.gd:61)
+       [5] run (res://tests/suite/test_sound_stage.gd:9)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_audio.gd:38)
+       [8] _test_ambience (res://tests/suite/test_audio.gd:606)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/main_menu.gd:33)
+       [3] act_screen (res://tools/sound_lab/stage_actions.gd:587)
+       [4] run (res://tools/sound_lab/stage_actions.gd:46)
+       [5] run_action (res://tools/sound_lab/sound_stage.gd:119)
+       [6] reset (res://tools/sound_lab/lab_arena.gd:121)
+       [7] build (res://tools/sound_lab/lab_arena.gd:73)
+SUITE_TIME SoundStageSuite 44.6
+SUITE_TIME StageCoverageWeaponsSuite 50.8
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/main_menu.gd:33)
+       [3] act_screen (res://tools/sound_lab/stage_actions.gd:587)
+       [4] run (res://tools/sound_lab/stage_actions.gd:46)
+       [5] run_action (res://tools/sound_lab/sound_stage.gd:119)
+       [6] reset (res://tools/sound_lab/lab_arena.gd:121)
+       [7] build (res://tools/sound_lab/lab_arena.gd:73)
+WARNING: Nodes with non-equal opposite anchors will have their size overridden after _ready(). 
+If you want to set size, change the anchors or consider using set_deferred().
+   at: _set_size (scene/gui/control.cpp:1519)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://ui/ui_kit.gd:177)
+       [1] fit_to_viewport (res://ui/ui_kit.gd:178)
+       [2] _ready (res://ui/victory_screen.gd:22)
+       [3] act_screen (res://tools/sound_lab/stage_actions.gd:587)
+       [4] run (res://tools/sound_lab/stage_actions.gd:46)
+       [5] run_action (res://tools/sound_lab/sound_stage.gd:119)
+       [6] reset (res://tools/sound_lab/lab_arena.gd:121)
+       [7] build (res://tools/sound_lab/lab_arena.gd:73)
+SUITE_TIME StageCoverageWorldSuite 149.3
+ERROR: [DevMenu] 工具清單格式錯誤（要有 tools 陣列）：res://tests/fixtures/dev_menu/bad_format.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_entries (res://autoload/dev_menu.gd:44)
+       [1] _test_tool_list_validation (res://tests/suite/test_dev_menu.gd:37)
+       [2] run (res://tests/suite/test_dev_menu.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_stage_coverage_world.gd:10)
+       [5] _close_stage (res://tests/suite/stage_suite_base.gd:29)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+ERROR: [DevMenu] res://tests/fixtures/dev_menu/mixed.json 的第 2 個工具缺少 id、name 或 scene，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_entries (res://autoload/dev_menu.gd:50)
+       [1] _test_tool_list_validation (res://tests/suite/test_dev_menu.gd:38)
+       [2] run (res://tests/suite/test_dev_menu.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_stage_coverage_world.gd:10)
+       [5] _close_stage (res://tests/suite/stage_suite_base.gd:29)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+ERROR: [DevMenu] res://tests/fixtures/dev_menu/mixed.json 的工具 id 重複：ok_tool，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_entries (res://autoload/dev_menu.gd:53)
+       [1] _test_tool_list_validation (res://tests/suite/test_dev_menu.gd:38)
+       [2] run (res://tests/suite/test_dev_menu.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_stage_coverage_world.gd:10)
+       [5] _close_stage (res://tests/suite/stage_suite_base.gd:29)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+ERROR: [DevMenu] 找不到 test_dev_menu_missing 的場景：res://tools/test_dev_menu_missing.tscn
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] choose (res://autoload/dev_menu.gd:109)
+       [1] _test_choose (res://tests/suite/test_dev_menu.gd:80)
+       [2] run (res://tests/suite/test_dev_menu.gd:12)
+       [3] _test_open_close (res://tests/suite/test_dev_menu.gd:64)
+       [4] frames (res://tests/suite/test_suite.gd:23)
+       [5] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME DevMenuSuite 0.0
+checks: 29621, failures: 0
+WARNING: 115 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

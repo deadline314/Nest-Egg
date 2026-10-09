@@ -1,0 +1,22 @@
+{
+  "command": [
+    "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+    "--headless",
+    "--editor",
+    "--path",
+    "C:\\tmp\\Nest-Egg-creature-subagent",
+    "--quit"
+  ],
+  "base": "4d3de9d8fd0aebb326f713c85fcad3ea3cecce2e",
+  "source_head": "4d3de9d8fd0aebb326f713c85fcad3ea3cecce2e",
+  "source_sha256": {
+    "game/creature/worm_creature.gd": "2ac660ca8c6e9c61092f44022504a81a277bdae0d73d6540ad7df2bc57902a95",
+    "game/creature/worm_belly.gdshader": "937c9d7bbee607a047d1fe5d0f160ae98a7e9e7c655bf3aca97e63c9bb3babb6",
+    "art/creatures/cloud_serpent.json": "76f59df173fec046520b486b86413ec12be3f7911e00b224e97da72aa465832b",
+    "tests/suite/test_chain_creature.gd": "92f8ae12faecd6ea6defa6d779cf44533570e94f881113ff3a73b42c21beda6e"
+  },
+  "source_unchanged_during_run": true,
+  "available_ram_gib": 17.930801391601562,
+  "exit_code": 0,
+  "processes": 1
+}

@@ -1,0 +1,19 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+WORM_TURN_METRICS max_visible_uv_step=3.70000123977661 opposing_tail_samples=3
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/creatures/no_such_creature.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] load_json (res://game/rig/rig_library.gd:21)
+       [2] setup (res://game/creature/chain_creature.gd:80)
+       [3] _test_bad_data_is_safe (res://tests/suite/test_chain_creature.gd:281)
+       [4] run (res://tests/suite/test_chain_creature.gd:22)
+       [5] _test_severing (res://tests/suite/test_chain_creature.gd:275)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:599)
+       [8] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME ChainCreatureSuite 19.1
+SUITE_TIME FloodPitSuite 2.6
+checks: 246, failures: 0

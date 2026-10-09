@@ -1,0 +1,41 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+WARNING: [PropLibrary] 找不到道具「no_such_prop」（res://data/environment/props）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] find (res://core/prop_library.gd:14)
+       [1] _test_props (res://tests/suite/test_environment.gd:95)
+       [2] run (res://tests/suite/test_environment.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/environment/props/test_missing_prop.png
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] texture (res://game/rig/rig_library.gd:81)
+       [2] load_texture (res://core/lit_textures.gd:20)
+       [3] _ready (res://game/level/environment/prop_node.gd:41)
+       [4] _test_missing_texture (res://tests/suite/test_environment.gd:157)
+       [5] run (res://tests/suite/test_environment.gd:14)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] _run (res://tests/smoke_test.gd:38)
+WARNING: [LevelBackground] 找不到天空貼圖，改用程式天空：res://art/environment/backdrop/test_missing_prop_sky.webp
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _add_photo_sky (res://game/level/level_background.gd:46)
+       [1] _ready (res://game/level/level_background.gd:24)
+       [2] _test_sky (res://tests/suite/test_environment.gd:184)
+       [3] run (res://tests/suite/test_environment.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+ERROR: [Foreground] 找不到前景貼圖，改用程式繪製的剪影：res://art/test_missing_prop_fg.webp
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _add_strip (res://game/level/environment/foreground_layer.gd:63)
+       [1] _test_foreground (res://tests/suite/test_environment.gd:314)
+       [2] run (res://tests/suite/test_environment.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SUITE_TIME EnvironmentSuite 9.5
+checks: 6036, failures: 0

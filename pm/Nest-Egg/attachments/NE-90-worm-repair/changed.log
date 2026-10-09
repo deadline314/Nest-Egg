@@ -1,0 +1,5 @@
+受影響的測試：ApplyPanelSuite,AudioSuite,ChainCreatureSuite,ClipEditorSuite,CutsceneSuite,DevMenuSuite,EnemyVfxSuite,ExoticEnemiesSuite,FeelLabSuite,FeelSuite,HitReactionSuite,PartCreatureSuite,ProgressionSuite,ProtagonistMotionSuite,RigActionsSuite,SoundLabSuite,SoundStageSuite,StageCoverageCharactersSuite,StageCoverageWeaponsSuite,StageCoverageWorldSuite,StrikeEnemiesSuite,UiScreensSuite,main
+Running 23 groups in 2 processes (logs: C:\tmp\Nest-Egg-creature-subagent\pm\Nest-Egg\attachments\NE-90-worm-repair\test-shards)
+  process 0 (estimated 264 s): main,StageCoverageCharactersSuite,SoundLabSuite,ProtagonistMotionSuite,PartCreatureSuite,ExoticEnemiesSuite,ClipEditorSuite,ChainCreatureSuite,EnemyVfxSuite,ApplyPanelSuite
+  process 1 (estimated 265 s): UiScreensSuite,StrikeEnemiesSuite,StageCoverageWorldSuite,StageCoverageWeaponsSuite,SoundStageSuite,RigActionsSuite,ProgressionSuite,FeelSuite,DevMenuSuite,AudioSuite,HitReactionSuite,CutsceneSuite,FeelLabSuite
+checks: 34802, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 319 s)

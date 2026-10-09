@@ -15,6 +15,7 @@ const DT := 1.0 / 60.0
 func run() -> void:
 	_test_pose_math()
 	_test_mesh_topology()
+	_test_worm_belly_and_neck()
 	_test_data()
 	await _test_gait()
 	await _test_severing()
@@ -103,6 +104,86 @@ func _test_data() -> void:
 		skins[skin] = true
 	for id in ["salvage_arm", "tangle_wire", "buoy_worm", "buoy_worm_small", "cloud_serpent"]:
 		check(ResourceLoader.exists(EnemyVfx.PATH % id), "%s has its own effects file" % id)
+
+
+## The pale underside must follow the head on both sides, including its first frame.
+## The leading body cross-section must overlap opaque neck pixels, not meet a cut edge.
+func _test_worm_belly_and_neck() -> void:
+	var head_image := (load("res://art/creatures/cloud_serpent/head.png") as Texture2D).get_image()
+	for direction: Vector2 in [Vector2.RIGHT, Vector2.LEFT, Vector2(1, 0.4).normalized(), Vector2(-1, 0.4).normalized()]:
+		var worm := WormCreature.new()
+		runner.get_tree().root.add_child(worm)
+		check(worm.setup("cloud_serpent"), "the serpent neck fixture builds")
+		worm.global_position = Vector2(160, 100)
+		worm.reset_trail(direction)
+		for sample: int in [1, 119]:
+			for frame in sample:
+				worm.animate(DT, &"idle")
+			var body := worm.get_node("Body") as Polygon2D
+			var head := worm.get_node("Head") as Sprite2D
+			var belly := Vector2.ZERO
+			var back := Vector2.ZERO
+			if body.uv[0].y > body.uv[1].y:
+				belly = body.polygon[0]
+				back = body.polygon[1]
+			else:
+				belly = body.polygon[1]
+				back = body.polygon[0]
+			var underside_agrees := (belly - back).dot(head.global_transform.y) > 0.0
+			for row in range(1, body.polygon.size() / 2):
+				var first := row * 2
+				var row_belly := body.polygon[first] if body.uv[first].y > body.uv[first + 1].y else body.polygon[first + 1]
+				var row_back := body.polygon[first + 1] if body.uv[first].y > body.uv[first + 1].y else body.polygon[first]
+				underside_agrees = underside_agrees and (row_belly - row_back).dot(head.global_transform.y) > 0.0
+			check(underside_agrees,
+					"body UV underside agrees with head underside for %s at frame %d" % [direction, sample])
+			var neck_covered := true
+			for step in 9:
+				var world := body.polygon[0].lerp(body.polygon[1], float(step) / 8.0)
+				var pixel := head.to_local(world) - head.offset
+				var inside := pixel.x >= 1.0 and pixel.x < head_image.get_width() - 1 and pixel.y >= 0 and pixel.y < head_image.get_height()
+				neck_covered = neck_covered and inside
+				if inside:
+					neck_covered = neck_covered and head_image.get_pixel(int(pixel.x), int(pixel.y)).a >= 0.5
+			check(neck_covered, "the whole body end overlaps opaque head pixels for %s at frame %d" % [direction, sample])
+			check(worm.joint_position(0).distance_to(worm.joint_position(19)) > 85.0,
+					"the neck repair keeps the complete twenty-joint trail")
+		worm.free()
+	var turning := WormCreature.new()
+	runner.get_tree().root.add_child(turning)
+	turning.setup("cloud_serpent")
+	turning.reset_trail(Vector2.RIGHT)
+	var belly_down := true
+	var previous_uv := PackedVector2Array()
+	var largest_visible_uv_step := 0.0
+	var tail_belly_down := true
+	var previous_head_mirrored := false
+	var opposing_tail_samples := 0
+	for frame in 480:
+		turning.global_position += Vector2.from_angle(float(frame) * TAU / 240.0) * 1.2
+		turning.animate(DT, &"erupt")
+		belly_down = belly_down and (turning.get_node("Head") as Sprite2D).global_transform.y.y >= -0.00001
+		var mesh := turning.get_node("Body") as Polygon2D
+		if not previous_uv.is_empty():
+			# Row zero is covered by the opaque head; every exposed row must roll gradually.
+			for index in range(2, mesh.uv.size()):
+				largest_visible_uv_step = maxf(largest_visible_uv_step, absf(mesh.uv[index].y - previous_uv[index].y))
+		previous_uv = mesh.uv.duplicate()
+		var last := mesh.polygon.size() - 2
+		var tail_direction := ((mesh.polygon[last - 2] + mesh.polygon[last - 1]) - (mesh.polygon[last] + mesh.polygon[last + 1])).normalized()
+		var head_mirrored := (turning.get_node("Head") as Sprite2D).scale.y < 0.0
+		if head_mirrored != previous_head_mirrored and absf(tail_direction.x) > 0.5 and (tail_direction.x < 0.0) != head_mirrored:
+			opposing_tail_samples += 1
+			var lower := mesh.polygon[last] if mesh.uv[last].y > mesh.uv[last + 1].y else mesh.polygon[last + 1]
+			var upper := mesh.polygon[last + 1] if mesh.uv[last].y > mesh.uv[last + 1].y else mesh.polygon[last]
+			tail_belly_down = tail_belly_down and lower.y > upper.y
+		previous_head_mirrored = head_mirrored
+	check(belly_down, "the head underside stays on the lower side throughout two full turns")
+	check(largest_visible_uv_step <= 4.0001, "a head direction change cannot instantly flip the exposed body texture (largest UV step %.2f)" % largest_visible_uv_step)
+	check(tail_belly_down, "the far tail underside follows its own direction while the head turns the other way")
+	check(opposing_tail_samples > 0, "the turn fixture actually includes a head flip with a tail still pointing the other way")
+	print("WORM_TURN_METRICS max_visible_uv_step=", largest_visible_uv_step, " opposing_tail_samples=", opposing_tail_samples)
+	turning.free()
 
 
 ## 落腳步行：走路時腳交替離地，釘住的腳在世界座標不動，腳都落在地面上，身體隨斷肢變低。

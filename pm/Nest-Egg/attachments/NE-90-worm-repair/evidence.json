@@ -1,0 +1,920 @@
+{
+  "base": "4d3de9d8fd0aebb326f713c85fcad3ea3cecce2e",
+  "source_files": [
+    {
+      "path": "art/creatures/cloud_serpent/head.png",
+      "base_git_blob": "c04df21e1803e5f9b5c5e162b5a133cfff44c401",
+      "current_git_blob": "c04df21e1803e5f9b5c5e162b5a133cfff44c401",
+      "unchanged": true
+    },
+    {
+      "path": "art/creatures/cloud_serpent/head_n.png",
+      "base_git_blob": "61d29db1f0179a1a2cd8385dc9e416e37e43832d",
+      "current_git_blob": "61d29db1f0179a1a2cd8385dc9e416e37e43832d",
+      "unchanged": true
+    },
+    {
+      "path": "art/creatures/cloud_serpent/segment.png",
+      "base_git_blob": "1076b91d76d1ff89c2d225264bcec0304242e945",
+      "current_git_blob": "1076b91d76d1ff89c2d225264bcec0304242e945",
+      "unchanged": true
+    },
+    {
+      "path": "art/creatures/cloud_serpent/segment_n.png",
+      "base_git_blob": "80680844f57ab382ece23a1726c4d36e21e4c809",
+      "current_git_blob": "80680844f57ab382ece23a1726c4d36e21e4c809",
+      "unchanged": true
+    },
+    {
+      "path": "art_src/creatures/cloud_serpent/head_s1.png",
+      "base_git_blob": "1364ca8279c920307da5f3ab7aa8ff1ad202a823",
+      "current_git_blob": "1364ca8279c920307da5f3ab7aa8ff1ad202a823",
+      "unchanged": true
+    },
+    {
+      "path": "art_src/creatures/cloud_serpent/segment_s1.png",
+      "base_git_blob": "f3d142f7d876293e954ae4f465a8b5f5f0cc648c",
+      "current_git_blob": "f3d142f7d876293e954ae4f465a8b5f5f0cc648c",
+      "unchanged": true
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-creature-subagent/cloud_serpent-idle-frame119-face-1-zoom3.4.png",
+      "base_git_blob": "c81c0ef38e07b7a7eab67f18dc03d1a784b6b0dc",
+      "current_git_blob": "c81c0ef38e07b7a7eab67f18dc03d1a784b6b0dc",
+      "unchanged": true
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-creature-subagent/cloud_serpent-idle-frame119-face1-zoom3.4.png",
+      "base_git_blob": "f6095b3d4e67e712ff86603ee581a80fac49d70f",
+      "current_git_blob": "f6095b3d4e67e712ff86603ee581a80fac49d70f",
+      "unchanged": true
+    }
+  ],
+  "source_unchanged": true,
+  "native_png": [
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame176.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "88e6d481ecb080a4a2edc9780f332dfaadc711118d00eb1f2ae5e5794b6b764e"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame177.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "93e159c817e9be20c4acb720533e90f576852c50f2102fd8c45e1eeb68735e57"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame178.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "b764e3b3d9ae4a45e9ce63f6422a103a7f01abd590872ced4772e85bbca5a743"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame179.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "9eb986fab82a7da2d9c42029bc149e0828db2c9c29408b289dc5ceca59390231"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame180.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "d59719d799d5bca91c27232b3c68eb37089bc2dcd876d88cc4405344ca03057c"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame181.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "55c1431db593229349e549444de8fe92d8b3133c8542c375f786f46a5c34b0b0"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame182.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "3ac6dce8fc059627105847ccdcf030c142d22b8b14e5d69d084fbbf2a9c2c4f2"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame183.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "cd13515b38e814156f6c866c156e5cad1043155a03ca8bc4108eb891acefa215"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame184.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "34c3973636ae7ed3d0ba91131716ddc487ed63352c8d3459a472535fa7352a16"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame185.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "bac2d0290d7a51ddd05c62563e27d1424bfeb474286f778300d37a9671b40020"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame186.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "de12eb39b9d5badc7cb5240dd2e762f439e6578e3d2e8b0399f653ab1771889f"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame187.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "b67da7ad6536ee7cb9301dd42b96baf201ab7913ff60d1428feedd0df2f70799"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame188.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "e7f23ed666fefefa15f809a52ff74796f00a3515a424283a0c238e1558895e79"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame189.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "e8488804a54bbab0fae2d025a836d94e228e458e2989c2d897856a546f924872"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame190.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "8bb20ec56aebcff8f6fc0c3a329473f053933eb2ce507038ba38f14ccbafe414"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame191.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "0fc3d398f7bf4d7efce5e9bf1f0753b091875d6126ccc57dd2916301971ef1c2"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame192.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "6b70bea265c7fab3f2fac740f2aa21029355f5ec42304ec468d0964d163cde39"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame193.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "3ce488eb954557ee91b43134ddec443707472eb621bd8e8380685175ae36eb3a"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame194.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "401fe644c4363923a5df275da784467cf48cf611037b4637bf0e882fc7756f52"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame296.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "ae016ea882935273b3d14d52063ed3d91e2d70c80e928b54e1637a0254782879"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame297.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "7cbb3f1380a7f17fcd8df84c3081105bf2d177adbbbb8d111ddf61a6d0c53c90"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame298.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "58ca78608607b65a9bcb3dc82ab169207c24028f83e60cffa4a7bf3c7343cb32"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame299.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "4bd7959312983b8ee031690212a90bf837c0510c2e880068ee534d1fc0b150ea"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame300.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "14daf591aa9c9d0c56b3cbe490480707ae9bf6b597026fdf571d1d8590cd362e"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame301.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "84c12c6fb53446d50d190e506ab44d8d30114e1bb5200f24a5e864dc0029a144"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame302.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "d6b3c77d48e61124da6aa7c6a70fa0636c467b2d193fc759ed8c352fee38cf58"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame303.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "accdfac6c493c3349a25077049c385594b73fe4243d89fe9c2aefcf81f63ad16"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame304.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "14370eb04e80674c779738bfade93b280aa1cd9f7f27a18f493fee3b02b8b5d4"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame305.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "a34ec5f420a70a28051e0448b0994ae8d662554e37e6ce1ef4eb2e565c1f8f1b"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame306.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "e522c8302f9723268d14c4165ad50b6c02da40539efd9d0570c89069e443f5ad"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame307.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "9b156b63c8f565f980f2b10f56b0bbaa45e7a28e735e7eb8f6799b39aa3b0905"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame308.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "5ccc9893429e42ea23310e0a0bbef787d3e61601e018153b3a88e4ddf44e34df"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame309.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "f350828771a88402a90cd9fb4dd4a005fa010842d232d35956b6a9317be37a4c"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame310.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "dc25eb27d6bd1d150f4773bc5739844046038e4a4f090ba8b760ec1b30746f03"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame311.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "0300ca3c6e1bd37e5d9e5a40715cf1ea8c0bf10bd92d5a62116ed1481209e357"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame312.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "f47955ed07071354e0ac4fcd9a257cb7bb20c3e5e6de64259c316c088cdd4a1e"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame313.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "ac8107f8f505a0b8f194c4bb5d7ac0a51f1bb0213a2c57810bd1e498783a70a2"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame314.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "01d6059862367c91cec49ea73f34ea421856f96f0296f55feecc19edcd0c8cfb"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame315.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "e21f67bb80d84b499676838f7b0eb2a17453985c9e5cd9ad3e815c0d85075273"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame417.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "55397b6fa7e0dc161c105bca5971e6c80712743cd8fed74f56d328f8ccb0b487"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame418.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "ad6f2a1357ce59ddafadddb9a1e27547951b8533c0c99432210679a50e787798"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame419.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "fe5da93af7a9834a9d1078133cfb54297615d9fd86e9d0637659fe141ee26a93"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame420.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "1a278e008d8b2e517ede703c855f4b5de08f696ec32520f2c7c57c072b92697a"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame421.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "a0f666600b48167ff135d6494607a40049f7f890c6b53d603be095df64a94a27"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame422.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "8c4a55cea1d42f79a0db42da68f7b9405c783193188aae385558bb7a07ad2286"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame423.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "916bbeed6571a3a1757b711d3dc8a2374cc38d9cc1977e3269108420cd4e18bb"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame424.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "9b0ae4a764bc68b854c7c7aba56f205595d51d3b87cc57d1fdb2adaeaf3ee407"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame425.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "4f11c054d13a1fabd7e30e15bcbeb1a04ac0ec9482e564e08c1631ab148b015c"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame426.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "3b3ab58c9a5149d009e7493a7476087ec76c059902ce716b60960a687ba1fb72"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame427.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "2b4cd35f3d4164d183e8fe23e12c50a911d8bc58446158a531b1d2bcf8fad467"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame428.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "a700ef365d22ef6fd62cdce524f15ad474afe2e19349a1558ee032ddfed3b9c6"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame429.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "b34e4244a7ffb2187884c8c75bb12f4fe875eb31746648442b853437923ac8bb"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame430.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "c11bbc1d55539fed6d098f9e3135339a89971312f0f86c0fe67dbc76af5f0dc9"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame431.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "e2905f54ace20d7252bd2b1ce0c4746d826f6bf4b34404b709624b1086fca6a5"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame432.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "e4ab819b45122d89466cf4cdfedeb9eed7cbe69bebc386dffe0079af1a9bab8a"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame433.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "aa9bff8c9c7149fe2538d7fada6d253ce609573c868c08990c39487b9c3cb868"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame434.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "02dab1f7f87a121c2594659978a41bfdcf7a95334c9f7dc08a7516293f1d177f"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame435.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "1e0d11ceba313c9405ba69a3caca9c5a13679f843fded0a49db4090980cfe4b0"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame436.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "e065ec5033d7fa5efd150fc944c406d115f161b138b5cf8ee82ffb4d19445802"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame55.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "7f1fa63903f7c5c4d7c99e4f219aaf685ad101682581de53e03911a79b6a1fa7"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame56.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "5cf3a13d840dbf3fe2813e5880b0b6e90a15c2f4e65cc7f17695acffd3fe7e3e"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame57.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "84569886b2e135459a3c186aa59c42ab89bbc1a6fc5fcf0e2df862dbd0a130e3"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame58.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "1639b321630d06c644299ad069471f6608a95eebc3f7872911b35d42bc7b0b2d"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame59.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "11aaeb6e2fd129a3caf0cb7dfd3b1f1c9ee525c0f868d6ca74dbec7f4392c23c"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame60.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "6cfbce1e61caaaab336438e00f6047a79081634dfbba6914a326dffa439cb772"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame61.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "9ed30865fbd073b2837b3e6f3874758d3c78bdb3d2b782250bbccb833d2d32b2"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame62.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "289fd6987183ddfbecf621af7357c3018e3dc14eb0694b037386b8c7c593b8ac"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame63.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "a9e60230dd7d65658838d181becfd269ed1229701f0135c9b3fe642a8884847d"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame64.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "4ac259e668278d68f98f3c44a48a72c729fd79be894125dab864f006d45ee1df"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame65.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "627afe2f7c926973061894fc29caab0e027463eed34f6b60f13782a5e1ee52ce"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame66.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "cc4a9a79fae1344d6a462bb2ed8cdf127ab474cb544707ac2a7e30067e174d7b"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame67.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "ceb81de4905e36eae4e42162802be33159db8c9bcdb105d9e9ecb25280f708e6"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame68.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "31f67ecbbaaeedac0a172f8634152250ad839b84b283e712dbdedaaa3480f22d"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame69.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "f85469c237b55918695bd5f9e656b178da744767eeef31098b5939e46ccadc0d"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame70.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "a3c38a2b57e131a8f6de251489792a4b65221cde70fc1e2d8ba5600ca238fff0"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame71.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "776daaf25bf1ed18134876490c5060a91ae7b7375688eb63f38925c73854fada"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame72.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "31037ea4044b93bbad32e25dce94b76d8222942e44ce650b14ee8e213586cf47"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame73.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "68bd6f79383c3e82c9000e89b77d05273543024cf46a1ede237628439cb8da68"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame74.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "177a91e1cb6df36eedc14fac51c636826b90c6e108e060c3c9199560102d4ac1"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame75.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "fde98b5c2b622a912ff08d0af3e268fd21f3ca4d64aa0123ff9a962046a2b7bb"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-frame76.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "adce5cb0fc61a196f56c85b6e258079ae95bc7e97aabac4250756fe23416a552"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/dead-face-1-frame119.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "30afbf48daf3d7e7e4136f71534df65312ed3fbdb7808120afd9fefd8444694f"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/dead-face1-frame119.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "7b874cf76b8b5e0099405966a8385f4185b64ba34c611cfd030ef467556e707d"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/dive-face-1-frame119.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "f44d125d55d19038d8f74ef59d9285857713c7ea6d9b095c9f34f79488122e9e"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/dive-face1-frame119.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "555ae832cafa44d1f75f07d09cf78604cce06c90ccf352431b045f8681f00ad7"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/erupt-face-1-frame119.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "db00382b834e65f7742b2c14b7dd0b56967434fbcc72dd33a46abc7d188c42c4"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/erupt-face1-frame119.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "b58cb95e66f87c4be5cf310e66b2caf5f9dc1ec8d1059f25af9303675608f02e"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/idle-face-1-frame119.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "c43818abb5528555385cbdea2b425770548d530327dc60241c984bf401fee721"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/idle-face1-frame119.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "b35972d399105b07a22e22db8743ed80a9044cbf72474cad82154dff524c92eb"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/lurk-face-1-frame119.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "357b30365561d6ec9a019f673f374fd4369a72f6d97b0f31e241e6b1647f8605"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/lurk-face1-frame119.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "1950214e28e7a20fc75269a583898a713feaf458c11fb9c8c8bf72451d2741ce"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/rumble-face-1-frame119.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "ae6a35c98fd5d186f75518b1378667e939c48a76f216cecd4d992a72cfc79e4b"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/rumble-face1-frame119.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "c379f9190efb26ac7fcc50d83575096ece7ef9e9935a13e5413c832a2c8df4dc"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/turn-frame119.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "6771f40c4c89438514059f90341df418bc58bdef3e2a2bcd5542a3fce200a50e"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/turn-frame239.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "5136c6cdcc6152df1aa05526ad03342bce01359a397c58eabe5851e528e68a07"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/turn-frame359.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "238ad39090ad243353b66d293ac32798f22c4642cf740049bcc891dab6f2a76f"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/turn-frame479.png",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "4d5b678ed592baeb3fc4c5b34088899117ead2aab41df79720fbaf9d24e1c5f4"
+    }
+  ],
+  "native_count": 97,
+  "native_sizes_valid": true,
+  "review_crops": [
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-native-crops-1.png",
+      "size": [
+        3120,
+        2520
+      ],
+      "sha256": "8c1414b2c08ff9cfef363078f3b2d2230b3aa1637d842d0ae8a6dd68880361a8"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-native-crops-2.png",
+      "size": [
+        3120,
+        2520
+      ],
+      "sha256": "c121976a5cbcd4029b42d2dc0ecd1f3ba35250b40109cd93f917aa3cfdb41e02"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-native-crops-3.png",
+      "size": [
+        3120,
+        2520
+      ],
+      "sha256": "0a447ea2a1c8539841dc5a02c39840fb4356df2e211ec7a40d0ce5c9025e1211"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-native-crops-4.png",
+      "size": [
+        3120,
+        2520
+      ],
+      "sha256": "863590c81e1862cc5cb78d83399c1284defecdb8cb602f6ae1afb9a1533baee1"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-native-crops-5.png",
+      "size": [
+        3120,
+        2520
+      ],
+      "sha256": "be9e7553d1b61c8385332c52a9f4caf51eb86ed780ec791776047dc2ea9f112c"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-native-crops-6.png",
+      "size": [
+        3120,
+        2520
+      ],
+      "sha256": "f86c0ff1960b5634e97759b7b51ed07bc220019d630ee88c4602f02ddf3cb080"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-90-worm-repair/boundary-native-crops-7.png",
+      "size": [
+        3120,
+        1890
+      ],
+      "sha256": "4ac018cf948ef30c3c015075ea2aac9128479730322724371cc2cc971473bfa3"
+    }
+  ],
+  "crop_count": 7,
+  "full_head_and_body_inside": true,
+  "render": {
+    "command": [
+      "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "C:\\tmp\\Nest-Egg-creature-subagent",
+      "--rendering-driver",
+      "vulkan",
+      "--rendering-method",
+      "forward_plus",
+      "res://.godot/worm-repair/render.tscn"
+    ],
+    "base": "4d3de9d8fd0aebb326f713c85fcad3ea3cecce2e",
+    "source_head": "4d3de9d8fd0aebb326f713c85fcad3ea3cecce2e",
+    "source_sha256": {
+      "game/creature/worm_creature.gd": "2ac660ca8c6e9c61092f44022504a81a277bdae0d73d6540ad7df2bc57902a95",
+      "game/creature/worm_belly.gdshader": "937c9d7bbee607a047d1fe5d0f160ae98a7e9e7c655bf3aca97e63c9bb3babb6",
+      "art/creatures/cloud_serpent.json": "76f59df173fec046520b486b86413ec12be3f7911e00b224e97da72aa465832b",
+      "tests/suite/test_chain_creature.gd": "92f8ae12faecd6ea6defa6d779cf44533570e94f881113ff3a73b42c21beda6e"
+    },
+    "source_unchanged_during_run": true,
+    "available_ram_gib": 17.885150909423828,
+    "exit_code": 0,
+    "processes": 1
+  }
+}
