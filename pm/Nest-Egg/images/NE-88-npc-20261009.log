@@ -1,0 +1,59 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+== Nest Egg smoke test ==
+ERROR: [NpcActor] 格 (34, 19)：人物 test_npc_bad 沒有任何對話
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/npc/npc_actor.gd:54)
+       [1] _spawn_static_entities (res://game/level/level.gd:402)
+       [2] _ready (res://game/level/level.gd:156)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_fallbacks (res://tests/suite/test_npc.gd:422)
+       [6] run (res://tests/suite/test_npc.gd:28)
+       [7] _test_real_npcs (res://tests/suite/test_npc.gd:410)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:599)
+       [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [Story] 找不到劇情場景：test_no_such_scene
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] play (res://autoload/story.gd:440)
+         [1] play_and_wait (res://autoload/story.gd:476)
+         [2] _talk (res://game/npc/npc_actor.gd:163)
+         [3] _test_fallbacks (res://tests/suite/test_npc.gd:443)
+         [4] frames (res://tests/suite/test_suite.gd:23)
+         [5] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME NpcSuite 4.2
+ERROR: [NpcAnimator] res://art/rigs/npc_animations.json 沒有 poses「no_such_pose」，改用「stand」。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _entry (res://game/rig/npc_animator.gd:191)
+       [1] _body_pose (res://game/rig/npc_animator.gd:50)
+       [2] update (res://game/rig/humanoid_animator.gd:242)
+       [3] animate (res://game/rig/character_rig.gd:192)
+       [4] _rig_with (res://tests/suite/test_npc_animation.gd:29)
+       [5] _test_fallbacks (res://tests/suite/test_npc_animation.gd:178)
+       [6] run (res://tests/suite/test_npc_animation.gd:16)
+       [7] _test_loops (res://tests/suite/test_npc_animation.gd:161)
+       [8] _rig_with (res://tests/suite/test_npc_animation.gd:31)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:122)
+ERROR: [NpcAnimator] res://art/rigs/npc_animations.json 沒有 loops「no_such_loop」，改用無。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _entry (res://game/rig/npc_animator.gd:191)
+       [1] _body_pose (res://game/rig/npc_animator.gd:78)
+       [2] update (res://game/rig/humanoid_animator.gd:242)
+       [3] animate (res://game/rig/character_rig.gd:192)
+       [4] _rig_with (res://tests/suite/test_npc_animation.gd:29)
+       [5] _test_fallbacks (res://tests/suite/test_npc_animation.gd:178)
+       [6] run (res://tests/suite/test_npc_animation.gd:16)
+       [7] _test_loops (res://tests/suite/test_npc_animation.gd:161)
+       [8] _rig_with (res://tests/suite/test_npc_animation.gd:31)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME NpcAnimationSuite 1.4
+checks: 664, failures: 0
+WARNING: 14 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2535)
