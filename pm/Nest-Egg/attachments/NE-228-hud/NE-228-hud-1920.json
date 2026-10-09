@@ -1,0 +1,45 @@
+{
+	"checks": 26,
+	"controlled_scene": "ch1_street; intro and triggers disabled only in capture copy",
+	"failures": 0,
+	"layouts": [
+		{
+			"panel": [
+				410.0,
+				299.0,
+				218.0,
+				49.0
+			],
+			"tag": "keyboard",
+			"text": "移動 A/D　跳躍 Space　衝刺 Shift\n射擊 左鍵　格擋 右鍵　完整操作 Escape",
+			"text_lines": 2
+		},
+		{
+			"panel": [
+				374.0,
+				293.0,
+				254.0,
+				55.0
+			],
+			"tag": "large-text",
+			"text": "移動 A/D　跳躍 Space　衝刺 Shift\n射擊 左鍵　格擋 右鍵　完整操作 Escape",
+			"text_lines": 2
+		},
+		{
+			"panel": [
+				361.0,
+				293.0,
+				267.0,
+				55.0
+			],
+			"tag": "gamepad-synthetic",
+			"text": "移動 左搖桿　跳躍 A（下）　衝刺 B（右）\n射擊 RT　格擋 LT　完整操作 Start",
+			"text_lines": 2
+		}
+	],
+	"physical_controller": false,
+	"resolution": [
+		1920,
+		1080
+	]
+}

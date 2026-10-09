@@ -23,6 +23,9 @@ var boss_bar: BossBar
 var toast_banner: UiBanner
 var quest_guidance: QuestGuidance
 var _controls: Label
+var _controls_card: PanelContainer
+var _controls_read_time := CONTROLS_HINT_TIME
+var _controls_dismissing := false
 var _items_template := ""
 
 
@@ -84,19 +87,28 @@ func _ready() -> void:
 	toast_banner.center_x = 320.0
 	root.add_child(toast_banner)
 
-	_controls = UiKit.label(controls_hint(), UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_CENTER)
-	# 先開啟折行再設定尺寸，否則單行文字會把寬度撐開。
+	_controls_card = PanelContainer.new()
+	_controls_card.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(_controls_card)
+	_controls_card.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+	_controls_card.offset_left = -476
+	_controls_card.offset_right = -12
+	_controls_card.offset_top = -52
+	_controls_card.offset_bottom = -12
+	_controls_card.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	var hint_box := ChamferBox.make(UiTheme.PANEL_BODY, UiTheme.PANEL_EDGE, 3)
+	hint_box.margins(10, 6, 10, 6)
+	_controls_card.add_theme_stylebox_override(&"panel", hint_box)
+	_controls = UiKit.label(quick_controls_hint(), UiKit.FS_BODY, Palette.UI_TEXT)
 	_controls.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_controls.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	_controls.custom_minimum_size = Vector2(500, 0)
-	_controls.position = Vector2(130, 330)
-	_controls.size = Vector2(500, 26)
-	root.add_child(_controls)
-	var fade := create_tween()
-	fade.tween_interval(CONTROLS_HINT_TIME)
-	fade.tween_property(_controls, "modulate:a", 0.0, 1.0)
+	_controls.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_controls_card.add_child(_controls)
+	_controls.minimum_size_changed.connect(_layout_controls)
+	root.resized.connect(_layout_controls)
+	_layout_controls()
 
 	EventBus.player_loadout_changed.connect(_on_loadout_changed)
+	GameplayLock.started.connect(_controls_card.hide)
 	EventBus.player_consumables_changed.connect(_on_consumables_changed)
 	EventBus.vehicle_mounted.connect(_on_vehicle_mounted)
 	EventBus.vehicle_dismounted.connect(_on_vehicle_dismounted)
@@ -115,9 +127,31 @@ func _ready() -> void:
 
 
 func _refresh_controls() -> void:
-	_controls.text = controls_hint()
+	_controls.text = quick_controls_hint()
+	_layout_controls()
 	_items_label.text = InputBindings.format(_items_template)
 	cyber_gauge.tooltip_text = InputBindings.format("義體能力：{ability} 使用；電量隨時間與擊敗敵人回復")
+
+
+func _layout_controls() -> void:
+	var width := 0.0
+	var font := _controls.get_theme_font(&"font")
+	var font_size := _controls.get_theme_font_size(&"font_size")
+	for line in _controls.text.split("\n"):
+		width = maxf(width, font.get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x)
+	var available := maxf(64.0, minf(464.0, get_viewport().get_visible_rect().size.x - 164.0))
+	var left := -minf(ceilf(width + 20.0), available) - 12.0
+	if not is_equal_approx(_controls_card.offset_left, left):
+		_controls_card.offset_left = left
+
+
+func _dismiss_controls() -> void:
+	_controls_dismissing = true
+	if Settings.get_reduce_ui_motion():
+		_controls_card.modulate.a = 0.0
+		_controls_card.hide()
+	else:
+		create_tween().tween_property(_controls_card, "modulate:a", 0.0, 1.0)
 
 
 static func controls_hint() -> String:
@@ -127,8 +161,20 @@ static func controls_hint() -> String:
 	return InputBindings.format(template)
 
 
-func _process(_delta: float) -> void:
+## 遊戲中先給基本操作；完整清單仍由暫停頁使用 controls_hint()。
+static func quick_controls_hint() -> String:
+	var movement := "移動 左搖桿" if InputBindings.using_gamepad else "移動 {move_left}/{move_right}"
+	return InputBindings.format(movement + "　跳躍 {jump}　衝刺 {dash}\n射擊 {shoot}　格擋 {block}　完整操作 {pause}")
+
+
+func _process(delta: float) -> void:
 	_timer_label.text = UiKit.format_time(GameState.run_time)
+	if _controls_card.modulate.a > 0.0:
+		_controls_card.visible = not get_tree().paused and not Story.is_cinematic_active() and not GameplayLock.is_locked()
+		if _controls_card.visible and not _controls_dismissing:
+			_controls_read_time -= delta
+			if _controls_read_time <= 0.0:
+				_dismiss_controls()
 
 
 ## 取得、檢查點、警告都用橫幅；種類依文字判斷（取得／警告），其餘是一般提示。
