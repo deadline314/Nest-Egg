@@ -26,6 +26,8 @@ var _controls: Label
 var _controls_card: PanelContainer
 var _controls_read_time := CONTROLS_HINT_TIME
 var _controls_dismissing := false
+var _controls_framed := false
+var _framing_edge_root: Control
 var _items_template := ""
 
 
@@ -107,8 +109,15 @@ func _ready() -> void:
 	root.resized.connect(_layout_controls)
 	_layout_controls()
 
+	# 整個edge元件一起隱藏，避免黑邊切半行；子元件原有visible/值/動畫不變。
+	_framing_edge_root = UiKit.full_rect_root(root)
+	_framing_edge_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	for item: Control in [_lives_label, _timer_label, credits_tag, cyber_gauge, boss_bar, weapon_bar]:
+		item.reparent(_framing_edge_root, false)
 	EventBus.player_loadout_changed.connect(_on_loadout_changed)
 	GameplayLock.started.connect(_controls_card.hide)
+	Story.framing.safe_rect_changed.connect(_on_framing_safe_rect)
+	_on_framing_safe_rect(Story.framing.safe_rect())
 	EventBus.player_consumables_changed.connect(_on_consumables_changed)
 	EventBus.vehicle_mounted.connect(_on_vehicle_mounted)
 	EventBus.vehicle_dismounted.connect(_on_vehicle_dismounted)
@@ -167,10 +176,17 @@ static func quick_controls_hint() -> String:
 	return InputBindings.format(movement + "　跳躍 {jump}　衝刺 {dash}\n射擊 {shoot}　格擋 {block}　完整操作 {pause}")
 
 
+func _on_framing_safe_rect(rect: Rect2) -> void:
+	_controls_framed = rect.position.y > 0.01
+	_framing_edge_root.visible = not _controls_framed
+	if _controls_framed:
+		_controls_card.hide()
+
+
 func _process(delta: float) -> void:
 	_timer_label.text = UiKit.format_time(GameState.run_time)
 	if _controls_card.modulate.a > 0.0:
-		_controls_card.visible = not get_tree().paused and not Story.is_cinematic_active() and not GameplayLock.is_locked()
+		_controls_card.visible = not get_tree().paused and not Story.is_cinematic_active() and not GameplayLock.is_locked() and not _controls_framed
 		if _controls_card.visible and not _controls_dismissing:
 			_controls_read_time -= delta
 			if _controls_read_time <= 0.0:

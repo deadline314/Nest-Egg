@@ -30,6 +30,11 @@ var _last_blip := 0
 var _speaker_key := ""
 var _time := 0.0
 var _slide_tween: Tween
+var _box_rect := BOX_RECT
+var _frame_slide := 0.0:
+	set(value):
+		_frame_slide = value
+		_layout_portrait()
 
 
 func _init() -> void:
@@ -144,11 +149,14 @@ func complete() -> void:
 func _slide_frame() -> void:
 	if _slide_tween != null and _slide_tween.is_valid():
 		_slide_tween.kill()
-	var home := Vector2(BOX_RECT.position.x + 6.0, BOX_RECT.position.y - 8.0)
-	_frame.position = home + Vector2(-24, 0)
+	if Settings.get_reduce_ui_motion():
+		_frame_slide = 0.0
+		_frame.modulate.a = 1.0
+		return
+	_frame_slide = -24.0
 	_frame.modulate.a = 0.0
 	_slide_tween = create_tween().set_parallel(true)
-	_slide_tween.tween_property(_frame, "position", home, 0.18).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	_slide_tween.tween_property(self, "_frame_slide", 0.0, 0.18).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	_slide_tween.tween_property(_frame, "modulate:a", 1.0, 0.14)
 
 
@@ -175,7 +183,7 @@ func _process(delta: float) -> void:
 			if after > before:
 				_after_reveal(before, after)
 		_apply_visible()
-	_continue.visible = is_complete() and int(_time * 3.0) % 2 == 0
+	_continue.visible = is_complete() and (Settings.get_reduce_ui_motion() or int(_time * 3.0) % 2 == 0)
 	_apply_style_motion()
 
 
@@ -201,8 +209,12 @@ func _apply_visible() -> void:
 
 ## 吼叫抖動、雜訊色散；其他風格固定不動。文字在容器裡不能直接動，所以抖動整個面板。
 func _apply_style_motion() -> void:
-	var origin := BOX_RECT.position + Vector2(PORTRAIT_SIZE + 22.0, 8.0 + 14.0)
-	_panel.position = BOX_RECT.position
+	var origin := _box_rect.position + Vector2(PORTRAIT_SIZE + 22.0, 8.0 + 14.0)
+	_panel.position = _box_rect.position
+	if Settings.get_reduce_ui_motion():
+		_ghost_a.position = origin
+		_ghost_b.position = origin
+		return
 	match _style:
 		"shout":
 			_panel.position += Vector2(sin(_time * 80.0) * 0.8, cos(_time * 70.0) * 0.6)
@@ -210,3 +222,25 @@ func _apply_style_motion() -> void:
 			var jitter := float(int(_time * 20.0) % 3) - 1.0
 			_ghost_a.position = origin + Vector2(1.5 + jitter, 0.0)
 			_ghost_b.position = origin + Vector2(-1.5 - jitter, 0.5)
+
+
+func layout_safe_rect(rect: Rect2) -> void:
+	_box_rect = Rect2(Vector2(28, rect.end.y - 84), Vector2(maxf(0, rect.size.x - 56), 76))
+	_panel.position = _box_rect.position
+	_panel.custom_minimum_size.x = _box_rect.size.x
+	_panel.size = _box_rect.size
+	if Settings.get_reduce_ui_motion():
+		if _slide_tween != null and _slide_tween.is_valid():
+			_slide_tween.kill()
+		_frame_slide = 0.0
+		_frame.modulate.a = 1.0
+	_layout_portrait()
+	_continue.position = _box_rect.end - Vector2(28, 18)
+	for ghost in [_ghost_a, _ghost_b]:
+		ghost.size.x = maxf(0, _box_rect.size.x - PORTRAIT_SIZE - 40)
+	_apply_style_motion()
+
+
+func _layout_portrait() -> void:
+	if is_instance_valid(_frame):
+		_frame.position = _box_rect.position + Vector2(6.0 + _frame_slide, -8.0)

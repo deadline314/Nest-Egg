@@ -11,7 +11,6 @@ signal finished(scene_id: StringName)
 const LAYER := UiLayers.CUTSCENE
 const SCREEN := Vector2(640, 360)
 const CENTER := Vector2(320, 180)
-const BAR_HEIGHT := 34.0
 const NOISE_SHADER := "res://ui/transition/transition.gdshader"
 const TITLE_FADE := 0.5
 ## 效果層（色調、閃光、雜訊、淡入淡出、黑邊、字幕、對話）的 z_index 起點，需高於任何角色零件。
@@ -42,8 +41,6 @@ var _stage_holder: Node2D
 var _actors: Dictionary[StringName, CutsceneActor] = {}
 var _root: Control
 var _dialogue: CutsceneDialogue
-var _top_bar: ColorRect
-var _bottom_bar: ColorRect
 var _fade: ColorRect
 var _tint: ColorRect
 var _flash: ColorRect
@@ -56,6 +53,7 @@ var _shake := 0.0
 var _shake_time := 0.0
 var _running := false
 var _lock_token := 0
+var _framing_token := 0
 var _tweens: Array[Tween] = []
 ## 疊加模式：不蓋黑底、不放舞台，直接在遊戲畫面上演出（右臂雜訊、警報等短演出）。
 var _overlay_mode := false
@@ -95,6 +93,11 @@ func play(id: StringName, scene: Dictionary) -> void:
 	_steps = raw.duplicate(true) if typeof(raw) == TYPE_ARRAY else []
 	_overlay_mode = bool(scene.get("overlay", false))
 	_build_ui()
+	if not _overlay_mode:
+		_framing_token = Story.framing.acquire(self)
+	Story.framing.safe_rect_changed.connect(_layout_safe_rect)
+	InputBindings.bindings_changed.connect(_refresh_skip_hint)
+	_layout_safe_rect(Story.framing.safe_rect())
 	_lock_token = GameplayLock.acquire(self, Input.MOUSE_MODE_HIDDEN)
 	Fx.reset_time()
 	_running = true
@@ -133,6 +136,8 @@ func _run() -> void:
 		_next_is_say = index < _steps.size() and typeof(_steps[index]) == TYPE_DICTIONARY \
 				and str((_steps[index] as Dictionary).get("do", "")) == "say"
 		await handler.call(step)
+		if not _running or not is_inside_tree():
+			return
 		if not _pending_steps.is_empty():
 			for offset in _pending_steps.size():
 				_steps.insert(index + offset, _pending_steps[offset])
@@ -153,6 +158,8 @@ func _finish() -> void:
 	Transition.abort_owned(self)
 	GameplayLock.release(_lock_token)
 	_lock_token = 0
+	Story.framing.release(_framing_token)
+	_framing_token = 0
 	finished.emit(scene_id)
 	queue_free()
 
@@ -161,9 +168,29 @@ func _exit_tree() -> void:
 	_running = false
 	skipping = true
 	Transition.abort_owned(self)
+	Story.framing.release(_framing_token)
+	GameplayLock.release(_lock_token)
 	for tween in _tweens:
 		if tween != null and tween.is_valid():
 			tween.kill()
+
+
+## 中止不等同跳過：不套用尚未做出的選項、旗標或完成事件。
+func cancel() -> void:
+	_running = false
+	skipping = true
+	_advance_requested = true
+	Transition.abort_owned(self)
+	for tween in _tweens:
+		if tween != null and tween.is_valid():
+			tween.kill()
+	GameplayLock.release(_lock_token)
+	_lock_token = 0
+	Story.framing.release(_framing_token)
+	_framing_token = 0
+	if is_instance_valid(_root):
+		_root.hide()
+	queue_free()
 
 
 # ---------------------------------------------------------------------------
@@ -215,8 +242,6 @@ func _build_ui() -> void:
 	_flash = _overlay(Color(1, 1, 1, 0))
 	_noise = _make_noise_rect()
 	_fade = _overlay(Color(0, 0, 0, 0.0 if _overlay_mode else 1.0))
-	_top_bar = _bar(true)
-	_bottom_bar = _bar(false)
 	_center_text = UiKit.label("", UiKit.FS_DISPLAY, Palette.UI_TEXT, HORIZONTAL_ALIGNMENT_CENTER)
 	_center_text.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_center_text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
@@ -232,7 +257,7 @@ func _build_ui() -> void:
 	_root.add_child(_center_sub)
 	_dialogue = CutsceneDialogue.new()
 	_root.add_child(_dialogue)
-	_skip_hint = UiKit.label(InputBindings.format("Esc 跳過"), UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
+	_skip_hint = UiKit.label(InputBindings.format("{ui_cancel} 跳過"), UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
 	_skip_hint.set_anchors_preset(Control.PRESET_TOP_RIGHT)
 	_skip_hint.offset_left = -110
 	_skip_hint.offset_right = -10
@@ -251,17 +276,6 @@ func _overlay(color: Color) -> ColorRect:
 	rect.color = color
 	rect.set_anchors_preset(Control.PRESET_FULL_RECT)
 	rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_root.add_child(rect)
-	return rect
-
-
-func _bar(top: bool) -> ColorRect:
-	var rect := ColorRect.new()
-	rect.color = Color.BLACK
-	rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	rect.set_anchors_preset(Control.PRESET_TOP_WIDE if top else Control.PRESET_BOTTOM_WIDE)
-	rect.offset_top = 0.0 if top else 0.0
-	rect.offset_bottom = 0.0
 	_root.add_child(rect)
 	return rect
 
@@ -287,7 +301,7 @@ func _apply_camera() -> void:
 	if _stage_holder == null:
 		return
 	_stage_holder.scale = Vector2.ONE * cam_zoom
-	_stage_holder.position = CENTER - cam_pos * cam_zoom + _shake_offset()
+	_stage_holder.position = get_viewport().get_visible_rect().size * 0.5 - cam_pos * cam_zoom + _shake_offset()
 	if _stage != null:
 		_stage.apply_parallax(cam_pos)
 
@@ -364,13 +378,9 @@ func _do_scene(step: Dictionary) -> void:
 
 
 func _do_letterbox(step: Dictionary) -> void:
-	var height := BAR_HEIGHT if bool(step.get("on", true)) else 0.0
-	var time := float(step.get("time", 0.4))
-	var tween := _new_tween().set_parallel(true)
-	tween.tween_property(_top_bar, "offset_bottom", height, time)
-	tween.tween_property(_bottom_bar, "offset_top", -height, time)
+	# 舊腳本命令保留等待語義；正式演出整段維持共用21:9，普通overlay FX不因這步取得畫幅。
 	if bool(step.get("wait", false)):
-		await _wait_tween(tween)
+		await _wait_time(float(step.get("time", 0.4)))
 
 
 func _do_camera(step: Dictionary) -> void:
@@ -652,11 +662,14 @@ func _do_choice(step: Dictionary) -> void:
 		var button := UiKit.button(str(_choice_options[i].get("text", "繼續。")), choose.bind(i))
 		button.custom_minimum_size = Vector2(448, 32)
 		_choice.add_child(button)
+	_layout_safe_rect(Story.framing.safe_rect())
 	(_choice.get_child(1) as Button).grab_focus()
 	var mouse_mode := Input.mouse_mode
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	while _chosen < 0 and not skipping and _running:
 		await get_tree().process_frame
+	if not _running:
+		return
 	var option := _choice_options[_chosen] if _chosen >= 0 else StoryRules.default_option(step, _choice_options)
 	if _chosen < 0:
 		Story.apply_choice(option)
@@ -671,3 +684,25 @@ func _do_branch(step: Dictionary) -> void:
 	var raw: Variant = step.get(key, [])
 	if raw is Array:
 		_pending_steps = raw.duplicate(true)
+
+
+func _layout_safe_rect(rect: Rect2) -> void:
+	if not is_instance_valid(_root):
+		return
+	_dialogue.layout_safe_rect(rect)
+	_apply_camera()
+	_skip_hint.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	_skip_hint.position = Vector2(maxf(8, rect.end.x - 120), rect.position.y + 6)
+	_skip_hint.size = Vector2(110, 18)
+	if is_instance_valid(_choice):
+		var width := minf(448.0, maxf(0, rect.size.x - 48))
+		_choice.position = Vector2((rect.size.x - width) * 0.5, rect.position.y + 24)
+		_choice.custom_minimum_size.x = width
+		_choice.size.x = width
+		for control in _choice.get_children():
+			(control as Control).custom_minimum_size.x = width
+
+
+func _refresh_skip_hint() -> void:
+	if is_instance_valid(_skip_hint):
+		_skip_hint.text = InputBindings.format("{ui_cancel} 跳過")

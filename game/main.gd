@@ -17,6 +17,8 @@ var _continue_data: Dictionary = {}
 var _resume_runtime: Dictionary = {}
 var _cinematic := ""
 var _cinematic_entry: Dictionary = {}
+var _cinematic_context: Dictionary = {}
+var _cinematic_request := 0
 var _chapter_complete := false
 var _navigation: QuestMapState
 var _runtime_save_queued := false
@@ -40,6 +42,7 @@ func _ready() -> void:
 	EventBus.enemy_killed.connect(func(_id: StringName, _finisher: bool) -> void: _queue_save())
 	Story.scene_started.connect(_on_scene_started)
 	Story.scene_finished.connect(_on_scene_finished)
+	Story.presentation_cancelled.connect(_on_presentation_cancelled)
 	add_child(LightKit.create_environment())
 	_show_main_menu()
 
@@ -69,6 +72,7 @@ func _show_main_menu() -> void:
 		return
 	_save_run()
 	_active_run = false
+	Story.reset_active_presentation(&"menu")
 	_continue_data = _run_store.read()
 	# 在主選單的時候，背景先把新遊戲第一個區域與開場過場的貼圖載進來。
 	AssetPrefetch.warm_level(FIRST_LEVEL)
@@ -98,8 +102,7 @@ func _on_start_requested(difficulty: DifficultyData) -> void:
 	_active_run = false
 	GameState.story_autosave = false
 	GameState.start_new_run(difficulty)
-	_cinematic = ""
-	_cinematic_entry = {}
+	_clear_cinematic()
 	_resume_runtime = {}
 	_chapter_complete = false
 	_level_path = FIRST_LEVEL
@@ -123,7 +126,10 @@ func _on_continue_requested() -> void:
 	_level_path = data["level"]
 	_resume_runtime = data["runtime"]
 	_resume_runtime["cinematic"] = data["cinematic"]
+	_resume_runtime["cinematic_context"] = data.get("cinematic_context", {}).duplicate(true)
 	_chapter_complete = data["chapter_complete"]
+	_cinematic_context = data.get("cinematic_context", {}).duplicate(true)
+	_cinematic_request = 0
 	_cinematic = data["cinematic"]
 	_cinematic_entry = data.duplicate(true) if _cinematic != "" else {}
 	_active_run = true
@@ -157,6 +163,7 @@ func _load_level(kind := Transition.Kind.IRIS, caption := "", hold := 0.0) -> vo
 func _on_retry_requested(level: Level) -> void:
 	if _route_pending():
 		return
+	Story.reset_active_presentation(&"retry")
 	# 檢查點在別的區域（區域組）：回到那個區域；舊式關卡的檢查點一定在同一關。
 	var checkpoint_level := GameState.checkpoint_level_path
 	if GameState.has_checkpoint and not checkpoint_level.is_empty() and RunSaveCodec.resource(checkpoint_level, "level", "res://data/levels/") != null:
@@ -173,8 +180,7 @@ func _on_retry_requested(level: Level) -> void:
 	runtime["position"] = [-1, -1]
 	runtime["velocity"] = [0, 0]
 	runtime["crouching"] = false
-	_cinematic = ""
-	_cinematic_entry = {}
+	_clear_cinematic()
 	if not _save_destination(runtime):
 		return
 	if is_instance_valid(level) and level.died:
@@ -187,6 +193,10 @@ func _on_retry_requested(level: Level) -> void:
 func _on_area_requested(level_path: String) -> void:
 	if _route_pending():
 		return
+	# 撤回未完成演出的暫定效果，再保存新區入口；入口Portal由實際路由保留。
+	var portal := GameState.pending_portal
+	Story.reset_active_presentation(&"route")
+	GameState.pending_portal = portal
 	_save_run()
 	_level_path = level_path
 	# 保存目標入口而不是舊區位置；切換中關閉也能進新區。
@@ -270,19 +280,22 @@ func _flush_save() -> void:
 
 
 func _save_run() -> void:
-	if not _active_run or _destination_pending or not _screen is Level:
+	if not _active_run or _destination_pending or not is_instance_valid(_screen) or not _screen is Level:
 		return
 	var level := _screen as Level
+	if not level.is_inside_tree() or level.is_queued_for_deletion():
+		return
 	if level.data.resource_path != _level_path:
 		return  # 轉場期間已保存新區入口，不拿舊畫面的座標覆蓋。
 	var runtime := level.run_snapshot()
 	if runtime.is_empty():
 		return
-	var snapshot := RunSnapshot.capture(_level_path, runtime, _cinematic, _chapter_complete)
+	var snapshot := RunSnapshot.capture(_level_path, runtime, _cinematic, _chapter_complete, _cinematic_context)
 	if _cinematic != "" and not _cinematic_entry.is_empty():
 		# 尚未結束的選項／物品／款項皆暫定；完整入口快照避免A殘留再選B。
 		snapshot = _cinematic_entry.duplicate(true)
 		snapshot["cinematic"] = _cinematic
+		snapshot["cinematic_context"] = _cinematic_context.duplicate(true)
 	var saved := _run_store.write(snapshot)
 	if not saved:
 		EventBus.toast_requested.emit("存檔未成功，原進度仍保留。")
@@ -322,18 +335,41 @@ func _save_destination(runtime: Dictionary) -> bool:
 
 
 func _on_scene_started(id: StringName, mode: StringName) -> void:
-	if not _active_run or not _screen is Level or mode not in [Story.MODE_CINEMATIC, Story.MODE_ANIMATED]:
+	if not _active_run or not is_instance_valid(_screen) or not _screen is Level or mode not in [Story.MODE_CINEMATIC, Story.MODE_ANIMATED]:
 		return
-	_cinematic_entry = RunSnapshot.capture(_level_path, (_screen as Level).run_snapshot())
+	_cinematic_context = Story.current_presentation_context()
+	_cinematic_request = Story.current_presentation_request()
+	_cinematic_entry = RunSnapshot.capture(_level_path, (_screen as Level).run_snapshot(), "", false, _cinematic_context)
 	_cinematic = String(id)
 	_queue_save()
 
 
 func _on_scene_finished(id: StringName) -> void:
-	if _cinematic == String(id):
-		_cinematic = ""
-		_cinematic_entry = {}
+	var request := Story.finished_presentation_request()
+	if _cinematic == String(id) and (request == 0 or request == _cinematic_request):
+		_clear_cinematic()
 	_queue_save()
+
+
+func _clear_cinematic() -> void:
+	_cinematic = ""
+	_cinematic_entry = {}
+	_cinematic_context = {}
+	_cinematic_request = 0
+
+
+## 純取消不套完成旗標。死亡通知在Level結算前抵達，只撤回暫定資料，保留live玩家死亡演出。
+func _on_presentation_cancelled(id: StringName, _context: Dictionary, reason: StringName, request: int) -> void:
+	if _cinematic != String(id) or (_cinematic_request != 0 and request != _cinematic_request):
+		return
+	var level: Level = _screen as Level if is_instance_valid(_screen) else null
+	if _active_run and not _destination_pending and level != null and level.data.resource_path == _level_path \
+			and reason in [&"death", &"route", &"retry", &"leave"] and not _cinematic_entry.is_empty():
+		var entry := _cinematic_entry.duplicate(true)
+		RunSnapshot.rollback_presentation(entry)
+		if level.is_inside_tree() and not level.is_queued_for_deletion():
+			level.rollback_presentation_world(entry.get("runtime", {}))
+	_clear_cinematic()
 
 
 func _notification(what: int) -> void:
@@ -347,6 +383,7 @@ func _quit(exit_code := 0) -> void:
 	_quitting = true
 	_save_run()
 	_active_run = false
+	Story.reset_active_presentation(&"quit")
 	Transition.abort()
 	# 切換途中尚未加入樹的目標畫面也必須釋放。
 	if is_instance_valid(_pending_screen) and not _pending_screen.is_inside_tree():

@@ -89,7 +89,7 @@ PORTALS = {
     'G': dict(id='lounge_exit', to=AREA('stall'), target='', mode=1, prompt='', style='road', w=20, h=44,
               requires='ch1_met_ali', locked='先和阿梨說話。'),
     # 宵夜麵攤
-    'Z': dict(id='stall_home', to=AREA('pawnshop_dawn'), target='pawn_front', mode=0, prompt='{interact} 回家', style='door',
+    'Z': dict(id='stall_home', to=AREA('pawnshop_dawn'), target='pawn_front', mode=0, prompt='{interact} 回家後播放劇情。', style='door', preview='ch1_c14_home',
               requires='knows_ali_address', locked='先吃點東西，和阿梨說話。'),
 }
 
@@ -1087,6 +1087,8 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
                 body.append(f'mode = {p["mode"]}')
             if p.get('prompt'):
                 body.append(f'prompt = "{p["prompt"]}"')
+            if p.get('preview'):
+                body.append(f'cinematic_preview_scene = &"{p["preview"]}"')
             if p.get('w'):
                 body.append(f'width = {p["w"]}')
             if p.get('h'):

@@ -6,7 +6,7 @@ const SCALARS := ["lives_left", "deaths", "kills", "finishers", "run_time", "las
 const DICTIONARIES := ["area_states", "checkpoint_world", "checkpoint_progress", "level_start_progress", "level_start_loadout", "checkpoint_loadout"]
 
 
-static func capture(level_path: String, runtime: Dictionary, cinematic := "", completed := false) -> Dictionary:
+static func capture(level_path: String, runtime: Dictionary, cinematic := "", completed := false, context: Dictionary = {}) -> Dictionary:
 	var state: Dictionary = {}
 	for key: String in SCALARS:
 		state[key] = GameState.get(key)
@@ -17,7 +17,7 @@ static func capture(level_path: String, runtime: Dictionary, cinematic := "", co
 	return {"version": RunSaveCodec.VERSION, "release": "demo-0.1", "saved_at": Time.get_datetime_string_from_system(true), "level": level_path,
 		"difficulty": GameState.difficulty.resource_path, "state": state, "progression": Progression.snapshot(),
 		"story": GameState.story_progress_snapshot(), "navigation": QuestMapState.for_run().snapshot(),
-		"runtime": runtime, "cinematic": cinematic, "chapter_complete": completed}
+		"runtime": runtime, "cinematic": cinematic, "cinematic_context": Story.presentation_context(context), "chapter_complete": completed}
 
 
 static func prepare(raw: Dictionary) -> Dictionary:
@@ -146,6 +146,8 @@ static func prepare(raw: Dictionary) -> Dictionary:
 		push_warning("[RunSave] run/cinematic 找不到場景，保留未完成旗標並恢復區域入口")
 		result["cinematic"] = ""
 	result["cinematic"] = result.get("cinematic", "")
+	var context: Variant = result.get("cinematic_context", {})
+	result["cinematic_context"] = Story.presentation_context(context) if context is Dictionary and result["cinematic"] != "" else {}
 	result["chapter_complete"] = result.get("chapter_complete") == true
 	return {"data": result}
 
@@ -154,6 +156,21 @@ static func apply(data: Dictionary) -> void:
 	# 呼叫端只交 prepare 的結果；此處沒有新的讀檔或任意資源載入。
 	GameState.story_autosave = false
 	GameState.start_new_run(load(data["difficulty"]) as DifficultyData)
+	_apply_components(data)
+
+
+## 中止演出時撤回暫定效果，保留場景中的玩家死亡事實；死亡計數／費用由Level隨後結算。
+static func rollback_presentation(data: Dictionary) -> void:
+	# 演出期間經過的時計、戰鬥統計與live死亡事實並非劇情暫定效果。
+	var actual: Dictionary = {}
+	for key in ["run_time", "kills", "finishers", "deaths", "lives_left", "last_death_clock"]:
+		actual[key] = GameState.get(key)
+	_apply_components(data.duplicate(true))
+	for key in actual:
+		GameState.set(key, actual[key])
+
+
+static func _apply_components(data: Dictionary) -> void:
 	var state: Dictionary = data["state"]
 	for key: String in SCALARS + DICTIONARIES:
 		GameState.set(key, state[key])

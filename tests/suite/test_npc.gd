@@ -27,7 +27,233 @@ func run() -> void:
 	await _test_real_npcs()
 	await _test_fallbacks()
 	await _test_once_object()
+	await _test_cinematic_framing()
+	await _test_formal_portal_preview()
+	await _test_waiter_teardown()
 	_remove_test_scenes()
+	Story.auto_skip = true
+
+
+func _test_cinematic_framing() -> void:
+	var reduced := Settings.get_reduce_ui_motion()
+	Settings.set_reduce_ui_motion(true)
+	Story.auto_skip = false
+	var alias_modes: Array[StringName] = []
+	var on_started := func(id: StringName, mode: StringName) -> void:
+		if id == TEST_SCENE_A:
+			alias_modes.append(mode)
+	Story.scene_started.connect(on_started)
+	for view_size in [Vector2(640, 360), Vector2(1600, 900), Vector2(840, 360), Vector2(1000, 360)]:
+		var rect := CinematicFraming.rect_for(view_size)
+		check(is_equal_approx(rect.size.x, view_size.x), "framing preserves world width at %s" % view_size)
+		check(rect.position.y >= 0 and rect.end.y <= view_size.y, "safe rect remains in viewport at %s" % view_size)
+		check(is_equal_approx(rect.size.x / rect.size.y, maxf(CinematicFraming.ASPECT, view_size.x / view_size.y)), "framing uses 21:9 without narrowing ultrawide %s" % view_size)
+	check(absf(CinematicFraming.rect_for(Vector2(640, 360)).position.y - 42.857142) < 0.001, "640x360 uses 42.857px per edge")
+	var person := _npc(&"framing_person", [_talk(TEST_SCENE_A, 0, &"", 15)])
+	var object := _npc(&"framing_object", [_talk(TEST_SCENE_A)])
+	object.kind = NpcData.Kind.OBJECT
+	var data := _level_data({"A": person, "Z": object})
+	var entry := CinematicEntryData.new()
+	entry.id = &"framing_entry"
+	entry.cell = Vector2i(34, 19)
+	entry.scene = &"framing_entry_scene"
+	Story._scenes[String(entry.scene)] = {"mode": "cinematic", "lines": [{"speaker": "rin", "text": "入口確認後才會開始這段演出。"}]}
+	data.cinematic_entries = [entry]
+	var level := await start_level(data)
+	var npc := _find_npc(level, 14)
+	var marker := _find_npc(level, 24)
+	await _test_preview_boundaries(level, npc)
+	await _stand_next_to(level, npc)
+	Story.framing._physics_process(1.0)
+	check(Story.framing.selected_target() == npc and is_equal_approx(Story.framing.amount, 1.0), "eligible PERSON previews at conversation range")
+	check(not runner.get_tree().paused and not GameplayLock.is_locked(), "preview does not lock gameplay")
+	var hud := level.hud
+	if hud != null:
+		var read_time := hud._controls_read_time
+		await frames(2)
+		check(not hud._controls_card.visible and not hud._framing_edge_root.visible, "preview hides whole edge HUD and controls card without clipping")
+		check(is_equal_approx(read_time, hud._controls_read_time), "hidden controls retain remaining reading time")
+	check(not Story.was_seen(TEST_SCENE_A) and npc.talk_count == 0 and Progression.credits == 0, "preview does not alter story, conversations or rewards")
+	npc._talk()
+	await frames(2)
+	check(Story.current_presentation_context().get("framing_source") == "person", "PERSON context accompanies the actual conversation")
+	check(Story.framing.scope_count() == 1, "PERSON dialogue owns one formal framing scope")
+	check(not npc._prompt.visible and not npc._prompt.reach_check.call(), "active NPC dialogue hides repeat-interact prompt synchronously")
+	var safe := Story.framing.safe_rect()
+	check(Story._layer._portrait.get_rect().position.y >= safe.position.y and Story._layer._text.get_rect().end.y <= safe.end.y, "portrait and subtitles lie within actual safe rect")
+	Story.reset_active_presentation()
+	await frames(2)
+	check(not GameplayLock.is_locked() and Story.framing.scope_count() == 0, "interruption restores gameplay and all framing scopes")
+	check(npc.talk_count == 0 and Progression.credits == 0 and not Story.was_seen(TEST_SCENE_A), "cancelled conversation grants no reward and remains playable")
+	await _stand_next_to(level, marker)
+	Story.framing._physics_process(1.0)
+	check(Story.framing.selected_target() != marker and is_zero_approx(Story.framing.amount), "OBJECT using the same dialogue scene never previews")
+	check(npc._prompt.visible and hud._framing_edge_root.visible, "retreat restores NPC prompt state and whole edge HUD")
+	marker._talk()
+	await frames(2)
+	check(Story.current_presentation_context().get("framing_source") == "object" and Story.framing.scope_count() == 0, "OBJECT dialogue remains unframed during formal reading")
+	Story.skip_cinematic()
+	await frames(2)
+	# 同一scene的兩個真正NPC waiter必須按每次請求結算，不能由第一個finished(id)喚醒全部。
+	var person_count := npc.talk_count
+	var object_count := marker.talk_count
+	var credits_before := Progression.credits
+	npc._talk()
+	marker._talk()
+	await frames(2)
+	Story.skip_cinematic()
+	await frames(2)
+	check(npc.talk_count == person_count + 1 and Progression.credits == credits_before + 15, "first same-id waiter completes and receives only its own reward")
+	check(marker.talk_count == object_count and marker._talking and Story.is_cinematic_active(), "second same-id waiter keeps waiting after the first occurrence finishes")
+	Story.reset_active_presentation()
+	await frames(2)
+	check(marker.talk_count == object_count and not marker._talking and Progression.credits == credits_before + 15, "cancelling the second same-id occurrence grants no extra reward or talk count")
+	var queued_context := {"framing_source": "object", "source_id": "queued_object"}
+	Story.play(TEST_SCENE_B, false, {"framing_source": "person", "source_id": "queued_person"})
+	Story.play(TEST_SCENE_A, false, queued_context)
+	queued_context.framing_source = "person"
+	Story.skip_cinematic()
+	await frames(2)
+	check(Story.current_presentation_context().get("framing_source") == "object" and Story.framing.scope_count() == 0, "each queued occurrence copies its own source rather than inferring by scene id")
+	Story.reset_active_presentation()
+	var entrances := level.find_children("", "CinematicEntrance", true, false)
+	check(entrances.size() == 1, "LevelData creates the explicitly declared movie entrance")
+	if entrances.size() == 1:
+		var entrance := entrances[0] as CinematicEntrance
+		level.player.global_position = entrance.global_position + Vector2(-12, -2)
+		await frames(6)
+		Story.framing._physics_process(1.0)
+		check(Story.framing.selected_target() == entrance and not Story.was_seen(entry.scene), "declared entrance previews without starting its movie")
+		entrance.process_mode = Node.PROCESS_MODE_ALWAYS
+		runner.get_tree().paused = true
+		Input.action_press(&"interact")
+		await frames(3)
+		Input.action_release(&"interact")
+		check(not Story.is_cinematic_active() and not Story.was_seen(entry.scene), "ALWAYS entrance cannot consume interact through pause")
+		runner.get_tree().paused = false
+		var lock := GameplayLock.acquire(level)
+		Input.action_press(&"interact")
+		await frames(3)
+		Input.action_release(&"interact")
+		check(not Story.is_cinematic_active(), "ALWAYS entrance cannot consume interact through another gameplay lock")
+		GameplayLock.release(lock)
+		entrance.process_mode = Node.PROCESS_MODE_INHERIT
+		Input.action_press(&"interact")
+		await frames(3)
+		Input.action_release(&"interact")
+		check(Story.is_cinematic_active() and Story.current_presentation_context().get("framing_source") == "entry", "explicit interact starts the declared movie")
+		Story.skip_cinematic()
+		await frames(3)
+	Story.reset_active_presentation()
+	await end_level(level)
+	Story._scenes.erase(String(entry.scene))
+	check(alias_modes.size() >= 4 and alias_modes.all(func(mode: StringName) -> bool: return mode == Story.MODE_CINEMATIC), "PERSON and OBJECT preserve the public dialogue-to-cinematic start alias")
+	Story.scene_started.disconnect(on_started)
+	Settings.set_reduce_ui_motion(reduced)
+	Story.auto_skip = true
+
+
+func _test_preview_boundaries(level: Level, npc: NpcActor) -> void:
+	var framing := Story.framing
+	framing.clear_preview()
+	level.player.global_position = npc.global_position + Vector2(-81, 0)
+	framing._physics_process(1.0)
+	check(framing.selected_target() == null, "an unselected PERSON does not preview outside 80px")
+	level.player.global_position.x = npc.global_position.x - 79.0
+	framing._physics_process(1.0)
+	check(framing.selected_target() == npc and framing.amount > 0.0 and framing.amount < 1.0, "approaching PERSON progressively previews between entry and talk range")
+	level.player.global_position.x = npc.global_position.x - 90.0
+	framing._physics_process(1.0)
+	check(framing.selected_target() == npc, "the current preview survives retreat across the entry boundary")
+	level.player.global_position.x = npc.global_position.x - 101.0
+	framing._physics_process(1.0)
+	check(framing.selected_target() == null and is_zero_approx(framing.amount), "retreat beyond 100px restores the full viewport")
+	var neighbour := NpcActor.new()
+	neighbour.configure(_npc(&"framing_neighbour", [_talk(TEST_SCENE_B)]), Vector2i(18, 19))
+	level.add_child(neighbour)
+	neighbour.global_position = npc.global_position + Vector2(64, 0)
+	level.player.global_position = npc.global_position + Vector2(8, 0)
+	framing._physics_process(1.0)
+	level.player.global_position.x = npc.global_position.x + 35.0
+	framing._physics_process(1.0)
+	check(framing.selected_target() == npc, "a neighbour only 6px nearer does not steal the selected preview")
+	level.player.global_position.x = npc.global_position.x + 44.0
+	framing._physics_process(1.0)
+	check(framing.selected_target() == neighbour, "a neighbour 24px nearer becomes the preview target")
+	neighbour.queue_free()
+	await frames(2)
+	await _stand_next_to(level, npc)
+	framing._physics_process(1.0)
+	var threat := level._create_enemy(load("res://data/enemies/grunt.tres") as EnemyData)
+	threat.position = level.player.position + Vector2(96, 0)
+	level._entities.add_child(threat)
+	threat.raise_alert(level.player.global_position, 5.0)
+	check(Music.engaged_enemies() > 0, "the combat fixture uses a real nearby alerted enemy")
+	framing._physics_process(1.0)
+	check(framing.selected_target() == null and is_zero_approx(framing.amount), "an engaged enemy immediately suppresses approach framing")
+	threat.queue_free()
+	await frames(2)
+	framing._physics_process(1.0)
+	check(framing.selected_target() == npc, "the eligible conversation preview returns after the threat leaves")
+
+
+func _test_formal_portal_preview() -> void:
+	var reduced := Settings.get_reduce_ui_motion()
+	Settings.set_reduce_ui_motion(true)
+	Story.auto_skip = true
+	var level := await start_level(load("res://data/levels/ch1_stall.tres") as LevelData)
+	var portal := level._portals.get(&"stall_home") as Portal
+	check(portal != null and portal.data.cinematic_preview_scene == &"ch1_c14_home", "the formal stall_home portal declares the existing home movie")
+	if portal == null:
+		await end_level(level)
+		Settings.set_reduce_ui_motion(reduced)
+		return
+	level.player.global_position = portal.global_position + Vector2(-70, 0)
+	level.player.velocity = Vector2.ZERO
+	await frames(3)
+	GameState.clear_flag(&"knows_ali_address")
+	Story.framing._physics_process(1.0)
+	check(not portal.preview_available() and Story.framing.selected_target() != portal, "locked formal movie entrance does not preview")
+	GameState.set_flag(&"knows_ali_address")
+	Story.framing._physics_process(1.0)
+	check(portal.preview_available() and Story.framing.selected_target() == portal, "unlocked formal portal previews before its actual interaction area")
+	check(not portal._player_in_range and not portal.interaction_available(), "80px preview does not falsely advertise being within the real portal interaction area")
+	check(portal._cinematic_notice != null and portal._cinematic_notice.text == "前方將播放劇情。", "formal movie approach explicitly announces the unavoidable story")
+	check(not Story.was_seen(&"ch1_c14_home") and not Story.is_cinematic_active(), "formal entrance preview has not started or marked the movie seen")
+	portal.disarm()
+	Story.framing._physics_process(1.0)
+	check(not portal.preview_available() and Story.framing.selected_target() != portal, "a disarmed arrival portal does not preview")
+	portal._armed = true
+	Story._seen[&"ch1_c14_home"] = true
+	Story.framing._physics_process(1.0)
+	check(not portal.preview_available() and Story.framing.selected_target() != portal, "an already seen home movie is not advertised for replay")
+	Story._seen.erase(&"ch1_c14_home")
+	await end_level(level)
+	Settings.set_reduce_ui_motion(reduced)
+
+
+func _test_waiter_teardown() -> void:
+	Story.auto_skip = false
+	for cycle in 12:
+		var data := _level_data({"A": _npc(&"framing_waiter_owner", [_talk(TEST_SCENE_A, 0, &"", 15)])})
+		var level := await start_level(data)
+		var npc := _find_npc(level, 14)
+		npc._talk()
+		await frames(2)
+		check(Story.is_cinematic_active() and Story._waiters.size() == 1, "cycle %d has an actual NPC coroutine waiting on one request" % cycle)
+		if cycle % 2 == 0:
+			# Caller先被刪除，Story coroutine是否仍能消耗結果必須由引擎實測。
+			npc.queue_free()
+			await frames(2)
+			Story.reset_active_presentation(&"leave")
+			await frames(2)
+			await end_level(level)
+		else:
+			# 真Level離樹在NPC coroutine等待期間取消，覆蓋換區釋放順序。
+			await end_level(level)
+		await frames(2)
+		check(not Story.is_cinematic_active() and Story._waiters.is_empty() and Story._request_results.is_empty(), "cycle %d caller/level teardown leaves no waiting or retained request result" % cycle)
+		check(Progression.credits == 0 and Story.framing.scope_count() == 0, "cycle %d teardown grants no NPC reward and releases framing" % cycle)
 	Story.auto_skip = true
 
 

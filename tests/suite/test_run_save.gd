@@ -15,6 +15,28 @@ func run() -> void:
 	var valid := RunSnapshot.capture(FIRST, {"position": [100, 160], "health": 4, "world": {}, "loadout": {}})
 	print("[RunSaveSuite] initial preparation: %s" % RunSnapshot.prepare(valid).get("error", "OK"))
 	check(RunSnapshot.prepare(valid).has("data"), "valid whole-run schema prepares before applying")
+	var detached_main: Node = load("res://game/main.gd").new()
+	var freed_level := Level.new()
+	detached_main.set("_screen", freed_level)
+	detached_main.set("_active_run", true)
+	detached_main.set("_cinematic", "st22_freed_owner")
+	detached_main.set("_cinematic_request", 23)
+	detached_main.set("_cinematic_entry", valid.duplicate(true))
+	freed_level.free()
+	detached_main.call("_on_presentation_cancelled", &"st22_freed_owner", {}, &"leave", 23)
+	check(detached_main.get("_cinematic") == "" and detached_main.get("_cinematic_entry").is_empty(), "matching delayed cancellation safely clears entry after screen owner was freed")
+	detached_main.free()
+	var legacy_context := valid.duplicate(true)
+	legacy_context.erase("cinematic_context")
+	legacy_context["future_same_version"] = {"retained": true}
+	var legacy_prepared: Dictionary = RunSnapshot.prepare(legacy_context)["data"]
+	check(legacy_prepared["cinematic_context"].is_empty() and legacy_prepared["future_same_version"]["retained"], "legacy context absent and unknown same-version fields remain compatible")
+	var context := {"framing_source": "person", "source_id": "npc:fixture@1,2", "talk_index": 2, "request": 500, "bar_pose": 0.8}
+	var context_roundtrip: Dictionary = JSON.parse_string(JSON.stringify(Story.presentation_context(context)))
+	var sanitized := Story.presentation_context(context_roundtrip)
+	check(sanitized.get("talk_index") == 2 and sanitized.size() == 3, "JSON numeric NPC index becomes pure int while runtime handle and bar pose are excluded")
+	check(Story.presentation_context({"framing_source": "object", "talk_index": -1}).is_empty(), "negative NPC index cannot enter resume context")
+	check(Story.presentation_context({"framing_source": "radio"}).is_empty(), "only three declared presentation sources can enter snapshot")
 	var older := valid.duplicate(true)
 	older["runtime"]["facing"] = -1
 	check(RunSaveCodec.vector(RunSnapshot.prepare(older)["data"]["runtime"]["aim_dir"]) == Vector2.LEFT, "missing legacy aim falls back to saved facing")

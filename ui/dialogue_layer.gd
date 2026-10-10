@@ -11,19 +11,18 @@ const CHARS_PER_SECOND := 42.0
 const RADIO_CHARS_PER_SECOND := 60.0
 const RADIO_HOLD_BASE := 1.6
 const RADIO_HOLD_PER_CHAR := 0.055
-const BAR_HEIGHT := 34.0
 const PORTRAIT_SIZE := 56.0
 const RADIO_PORTRAIT_SIZE := 32.0
 const RADIO_HOME := Vector2(170, 46)
 const RADIO_SLIDE := 28.0
 
 var _cinematic_root: Control
-var _top_bar: ColorRect
-var _bottom_bar: ColorRect
 var _portrait: TextureRect
 var _name: Label
 var _text: Label
 var _continue: Label
+var _skip: Label
+var _dialogue_panel: Panel
 var _cinematic_id: StringName = &""
 var _cinematic_lines: Array[Dictionary] = []
 var _cinematic_index := 0
@@ -48,6 +47,9 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_build_cinematic()
 	_build_radio()
+	Story.framing.safe_rect_changed.connect(_layout_cinematic)
+	InputBindings.bindings_changed.connect(_refresh_skip_hint)
+	_layout_cinematic(Story.framing.safe_rect())
 
 
 # ---------------------------------------------------------------------------
@@ -99,6 +101,24 @@ func finish_cinematic() -> void:
 	GameplayLock.release(_lock_token)
 	_lock_token = 0
 	cinematic_finished.emit(id)
+
+
+func cancel_cinematic() -> void:
+	_cinematic_id = &""
+	_cinematic_lines.clear()
+	_cinematic_root.visible = false
+	GameplayLock.release(_lock_token)
+	_lock_token = 0
+
+
+func cancel_radio() -> void:
+	_radio_queue.clear()
+	_radio_active = false
+	_radio_wait = 0.0
+	_radio_hold = 0.0
+	_radio_root.hide()
+	if _radio_slide != null and _radio_slide.is_valid():
+		_radio_slide.kill()
 
 
 func _show_line() -> void:
@@ -169,7 +189,7 @@ func _process(delta: float) -> void:
 	if is_cinematic_active():
 		if _text.visible_ratio < 1.0:
 			_text.visible_ratio = minf(1.0, _text.visible_ratio + delta * CHARS_PER_SECOND / maxf(1.0, _text.text.length()))
-		_continue.visible = _text.visible_ratio >= 1.0 and int(_time * 3.0) % 2 == 0
+		_continue.visible = _text.visible_ratio >= 1.0 and (Settings.get_reduce_ui_motion() or int(_time * 3.0) % 2 == 0)
 		return
 	if not _radio_active or get_tree().paused:
 		return
@@ -206,17 +226,12 @@ func _build_cinematic() -> void:
 	dim.color = Color(0, 0, 0, 0.35)
 	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_cinematic_root.add_child(dim)
-	_top_bar = ColorRect.new()
-	_top_bar.color = Color.BLACK
-	_place(_top_bar, Control.PRESET_TOP_WIDE, Rect2(0, 0, 0, BAR_HEIGHT))
-	_cinematic_root.add_child(_top_bar)
-	_bottom_bar = ColorRect.new()
-	_bottom_bar.color = Color.BLACK
-	_place(_bottom_bar, Control.PRESET_BOTTOM_WIDE, Rect2(0, -BAR_HEIGHT - 66.0, 0, BAR_HEIGHT + 66.0))
-	_cinematic_root.add_child(_bottom_bar)
-	var skip := UiKit.label("Esc 跳過", 9, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
-	_place(skip, Control.PRESET_TOP_RIGHT, Rect2(-90, 10, 80, 14))
-	_cinematic_root.add_child(skip)
+	_dialogue_panel = Panel.new()
+	_dialogue_panel.add_theme_stylebox_override(&"panel", UiKit.theme().get_stylebox(&"panel", &"PanelContainer"))
+	_dialogue_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_cinematic_root.add_child(_dialogue_panel)
+	_skip = UiKit.label(InputBindings.format("{ui_cancel} 跳過"), UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
+	_cinematic_root.add_child(_skip)
 	_portrait = TextureRect.new()
 	_portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	_portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
@@ -234,6 +249,33 @@ func _build_cinematic() -> void:
 	_continue = UiKit.label("▼", 10, Palette.CYAN, HORIZONTAL_ALIGNMENT_RIGHT)
 	_place(_continue, Control.PRESET_BOTTOM_RIGHT, Rect2(-40, -26, 20, 14))
 	_cinematic_root.add_child(_continue)
+
+
+func _layout_cinematic(rect: Rect2) -> void:
+	if _portrait == null:
+		return
+	var height := minf(88.0, rect.size.y * 0.36)
+	var top := rect.end.y - height - 6.0
+	_dialogue_panel.position = Vector2(16, top)
+	_dialogue_panel.size = Vector2(maxf(0, rect.size.x - 32), height)
+	_skip.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	_skip.position = Vector2(maxf(8, rect.end.x - 96), rect.position.y + 6)
+	_skip.size = Vector2(88, 14)
+	for control in [_portrait, _name, _text, _continue]:
+		control.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	_portrait.position = Vector2(24, top + 10)
+	_portrait.size = Vector2(PORTRAIT_SIZE, PORTRAIT_SIZE)
+	_name.position = Vector2(92, top + 8)
+	_name.size = Vector2(maxf(0, rect.size.x - 124), 16)
+	_text.position = Vector2(92, top + 26)
+	_text.custom_minimum_size.x = maxf(0, rect.size.x - 124)
+	_text.size = Vector2(maxf(0, rect.size.x - 124), height - 32)
+	_continue.position = Vector2(rect.end.x - 40, rect.end.y - 26)
+	_continue.size = Vector2(20, 14)
+
+
+func _refresh_skip_hint() -> void:
+	_skip.text = InputBindings.format("{ui_cancel} 跳過")
 
 
 func _build_radio() -> void:

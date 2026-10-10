@@ -14,7 +14,8 @@ target_level = "res://data/levels/ch1_pawnshop_dawn.tres"
 target_portal = &"pawn_front"
 requires_flag = &"knows_ali_address"
 locked_text = "先吃點東西，和阿梨說話。"
-prompt = "{interact} 回家"
+prompt = "{interact} 回家後播放劇情。"
+cinematic_preview_scene = &"ch1_c14_home"
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]

@@ -238,6 +238,9 @@ static func level_model(datas: Dictionary, layouts: Dictionary, scenes: Dictiona
 			scene_entries.append({"id": str(id), "after": ""})
 		for id in data.story_triggers:
 			scene_entries.append({"id": str(id), "after": ""})
+		for entry in data.cinematic_entries:
+			if entry != null:
+				scene_entries.append({"id": str(entry.scene), "after": ""})
 		var portals: Array = []
 		if not data.next_level.is_empty():
 			portals.append({"to": data.next_level, "requires": ""})

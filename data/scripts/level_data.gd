@@ -42,6 +42,8 @@ extends Resource
 @export var channel_scenes: Dictionary[StringName, StringName] = {}
 ## 地圖上 & 字元由左至右對應的劇情場景 id。
 @export var story_triggers: PackedStringArray = PackedStringArray()
+## 玩家確認才開始的電影入口，與 & 強制事件分開宣告，不改既有觸發語義。
+@export var cinematic_entries: Array[CinematicEntryData] = []
 @export_group("Area")
 ## 持久世界（區域組）：殺掉的敵人、撿過的東西、開過的機關與受傷的頭目在區域之間與死亡之後都保留；
 ## 死亡改為扣信用點而不是回溯成就之前的狀態。關閉＝舊式關卡（死後敵人重生、世界還原到檢查點）。

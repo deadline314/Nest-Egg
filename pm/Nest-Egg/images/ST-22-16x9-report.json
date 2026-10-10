@@ -1,0 +1,130 @@
+{
+	"checks": 37,
+	"evidence": [
+		{
+			"amount": 0.0,
+			"classification": "formal map; controlled placement",
+			"context": {},
+			"file": "ST-22-16x9-stall-locked.png",
+			"request": 0,
+			"request_results": 0,
+			"safe_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+			"scopes": 0,
+			"ui_text_scale": 1.2,
+			"viewport": "(640.0, 360.0)",
+			"waiters": 0,
+			"window_aspect": "formal KEEP"
+		},
+		{
+			"amount": 0.576923076923077,
+			"classification": "formal PERSON; controlled placement",
+			"context": {},
+			"file": "ST-22-16x9-person-approach.png",
+			"request": 0,
+			"request_results": 0,
+			"safe_rect": "[P: (0.0, 24.72528), S: (640.0, 310.5494)]",
+			"scopes": 0,
+			"ui_text_scale": 1.2,
+			"viewport": "(640.0, 360.0)",
+			"waiters": 0,
+			"window_aspect": "formal KEEP"
+		},
+		{
+			"amount": 1.0,
+			"classification": "formal PERSON; synthetic key event",
+			"context": {
+				"framing_source": "person",
+				"source_id": "npc:ch1_ali_stall@21,19",
+				"talk_index": 0
+			},
+			"file": "ST-22-16x9-person-dialogue.png",
+			"request": 3,
+			"request_results": 0,
+			"safe_rect": "[P: (0.0, 42.85714), S: (640.0, 274.2857)]",
+			"scopes": 1,
+			"ui_text_scale": 1.2,
+			"viewport": "(640.0, 360.0)",
+			"waiters": 1,
+			"window_aspect": "formal KEEP"
+		},
+		{
+			"amount": 0.576923076923077,
+			"classification": "formal movie entrance; controlled placement",
+			"context": {},
+			"file": "ST-22-16x9-stall-preview.png",
+			"request": 0,
+			"request_results": 0,
+			"safe_rect": "[P: (0.0, 24.72528), S: (640.0, 310.5494)]",
+			"scopes": 0,
+			"ui_text_scale": 1.2,
+			"viewport": "(640.0, 360.0)",
+			"waiters": 0,
+			"window_aspect": "formal KEEP"
+		},
+		{
+			"amount": 0.0,
+			"classification": "formal movie entrance; controlled retreat",
+			"context": {},
+			"file": "ST-22-16x9-stall-retreat.png",
+			"request": 0,
+			"request_results": 0,
+			"safe_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+			"scopes": 0,
+			"ui_text_scale": 1.2,
+			"viewport": "(640.0, 360.0)",
+			"waiters": 0,
+			"window_aspect": "formal KEEP"
+		},
+		{
+			"amount": 0.0,
+			"classification": "synthetic OBJECT fixture in formal map",
+			"context": {
+				"framing_source": "object",
+				"source_id": "npc:st22_synthetic_object@0,0",
+				"talk_index": 0
+			},
+			"file": "ST-22-16x9-synthetic-object.png",
+			"request": 4,
+			"request_results": 0,
+			"safe_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+			"scopes": 0,
+			"ui_text_scale": 1.2,
+			"viewport": "(640.0, 360.0)",
+			"waiters": 1,
+			"window_aspect": "formal KEEP"
+		},
+		{
+			"amount": 1.0,
+			"classification": "synthetic explicit movie entry and choice",
+			"context": {
+				"framing_source": "entry",
+				"source_id": "st22_synthetic_entry"
+			},
+			"file": "ST-22-16x9-synthetic-choice.png",
+			"request": 5,
+			"request_results": 0,
+			"safe_rect": "[P: (0.0, 42.85714), S: (640.0, 274.2857)]",
+			"scopes": 1,
+			"ui_text_scale": 1.2,
+			"viewport": "(640.0, 360.0)",
+			"waiters": 1,
+			"window_aspect": "formal KEEP"
+		},
+		{
+			"amount": 1.0,
+			"classification": "formal home intro; actual portal route from synthetic key event",
+			"context": {},
+			"file": "ST-22-16x9-home-movie.png",
+			"request": 6,
+			"request_results": 0,
+			"safe_rect": "[P: (0.0, 42.85714), S: (640.0, 274.2857)]",
+			"scopes": 1,
+			"ui_text_scale": 1.2,
+			"viewport": "(640.0, 360.0)",
+			"waiters": 1,
+			"window_aspect": "formal KEEP"
+		}
+	],
+	"failures": 0,
+	"scope": "controlled route with synthetic key events; not a human walkthrough"
+}

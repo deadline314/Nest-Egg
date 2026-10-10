@@ -35,6 +35,7 @@ var _actor: CutsceneActor
 var _prompt: WorldPrompt
 var _bubble_pos := BUBBLE_POS
 var _player_in_range := false
+var _prompt_player: Player
 var _talking := false
 var _cooldown := 0.0
 var _time := 0.0
@@ -72,7 +73,7 @@ func _ready() -> void:
 	_prompt.text = data.prompt_text()
 	_prompt.radius = PROMPT_RADIUS
 	_prompt.offset = PROMPT_OFFSET
-	_prompt.reach_check = func() -> bool: return _player_in_range
+	_prompt.reach_check = _prompt_available
 	add_child(_prompt)
 	PromptLayout.add_obstacle(self, prompt_obstacle_rect)
 	var light := LightKit.create_point_light(Palette.NEON_YELLOW if data.kind == NpcData.Kind.PERSON else Palette.CYAN, 56.0, 0.35, false)
@@ -80,6 +81,7 @@ func _ready() -> void:
 	add_child(light)
 	add_to_group(WorldState.GROUP)
 	add_to_group(GROUP)
+	Story.framing.register_target(self)
 	if _actor != null and _actor.rig != null:
 		_fit_to_figure()
 
@@ -133,7 +135,8 @@ func _physics_process(delta: float) -> void:
 		_actor.set_listening(_player_in_range and not _talking)
 	if _player_in_range:
 		_face_player()
-		if _cooldown <= 0.0 and not _talking and not get_tree().paused and Input.is_action_just_pressed(&"interact"):
+		if _cooldown <= 0.0 and not _talking and not get_tree().paused and Input.is_action_just_pressed(&"interact") \
+				and Story.framing.is_interaction_target(self):
 			_talk()
 	queue_redraw()
 
@@ -149,27 +152,67 @@ func current_talk_index() -> int:
 	return data.pick_talk(talk_count, Story.was_seen, GameState.deaths, GameState.has_flag, StoryItems.owns)
 
 
+func preview_available() -> bool:
+	if data == null or data.kind != NpcData.Kind.PERSON or _talking or _cooldown > 0.0:
+		return false
+	var index := current_talk_index()
+	return index >= 0 and Story.has_scene(data.talks[index].scene) and Story.scene_mode(data.talks[index].scene) == Story.MODE_DIALOGUE
+
+
+func _prompt_available() -> bool:
+	return _player_in_range and not _talking and is_instance_valid(_prompt_player) and not _prompt_player.is_dead() and _prompt_player.state != Player.State.MOUNTED
+
+
+func interaction_available() -> bool:
+	return _player_in_range and not _talking and _cooldown <= 0.0 and current_talk_index() >= 0
+
+
 ## 開始對話：說完記下次數並發放獎勵。可用於測試直接呼叫。
-func _talk() -> void:
-	var player := get_tree().get_first_node_in_group(&"player") as Player
-	if player == null or player.is_dead() or player.state == Player.State.MOUNTED:
-		return
+func _talk() -> bool:
 	var index := current_talk_index()
 	if index < 0:
-		return
+		return false
+	return await _present_talk(index, data.talks[index].scene, data.talks[index].once)
+
+
+func _present_talk(index: int, scene: StringName, once: bool) -> bool:
+	var player := get_tree().get_first_node_in_group(&"player") as Player
+	if player == null or player.is_dead() or player.state == Player.State.MOUNTED:
+		return false
+	Story.framing.interaction_started(self)
 	_talking = true
+	_prompt.hide()  # gameplay暫停後WorldPrompt不會再淡出，先同步隱藏避免重複互動提示。
 	if _actor != null:
 		_actor.set_talking(true)
-	await Story.play_and_wait(data.talks[index].scene, data.talks[index].once)
+	var completed := await Story.play_and_wait(scene, once,
+		{"framing_source": "person" if data.kind == NpcData.Kind.PERSON else "object", "source_id": state_key(), "talk_index": index})
 	_talking = false
+	if is_instance_valid(_prompt):
+		_prompt.show()
 	if _actor != null and is_instance_valid(_actor):
 		_actor.set_talking(false)
-	if not is_inside_tree():
-		return
+	if not is_inside_tree() or not completed:
+		return false
 	talk_count += 1
 	_cooldown = TALK_COOLDOWN
 	if is_instance_valid(player):
 		_give_reward(index, player)
+	return true
+
+
+## 續玩必須經真正人物的結算路徑；來源與目前可用場景不符時不猜測或發獎勵。
+func can_resume_presentation(scene: StringName, index := -1) -> bool:
+	if index < 0:
+		index = current_talk_index()
+	return not _talking and index >= 0 and index < data.talks.size() and Story.is_chained_scene(data.talks[index].scene, scene)
+
+
+func resume_presentation(scene: StringName, index := -1) -> bool:
+	if index < 0:
+		index = current_talk_index()
+	if not can_resume_presentation(scene, index):
+		return false
+	return await _present_talk(index, scene, false)
 
 
 ## 發放這一段對話的獎勵（每一段只領一次）。補給帶滿時整份先保留，下次再說話時補領。
@@ -196,6 +239,7 @@ func _give_reward(index: int, player: Player) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if Pickup.resolve_player(body) != null:
+		_prompt_player = Pickup.resolve_player(body)
 		_player_in_range = true
 		if data.kind != NpcData.Kind.OBJECT:
 			Music.set_safe(self, true)  # 場景人物旁是安全區，背景音樂放輕

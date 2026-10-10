@@ -49,7 +49,107 @@ func run() -> void:
 	await _test_lock_lifecycle()
 	await _test_gameplay_input_lock()
 	await _test_skip_covered_transition()
+	await _test_framing_lifecycle()
+	await _test_resumed_boss_cancel()
+	await _test_saved_arena_initialization()
 	_test_real_data()
+
+
+func _test_saved_arena_initialization() -> void:
+	Story.auto_skip = true
+	var data := (load("res://data/levels/level_01.tres") as LevelData).duplicate() as LevelData
+	data.intro_scene = &""
+	data.boss_scene = &""
+	data.show_chapter_card = false
+	var original := await start_level(data)
+	original._start_boss_fight()
+	var deadline := Time.get_ticks_msec() + 4000
+	while not original._boss_spawned and Time.get_ticks_msec() < deadline:
+		await runner.get_tree().process_frame
+	check(original._arena_triggered and original._boss_spawned and original.camera != null, "normal new arena initializes camera before boss lock and spawn")
+	var runtime := original.run_snapshot()
+	var boss_resource: String = original._layout.boss_spawn["resource"].resource_path
+	await end_level(original)
+	var restored := Level.new()
+	restored.configure(data)
+	restored.configure_resume(runtime)
+	runner.get_tree().root.add_child(restored)
+	await frames(4)
+	check(restored._arena_triggered and restored._boss_spawned and restored.camera != null, "saved active arena restores lock only after camera ready")
+	var bosses := 0
+	for entry: Dictionary in restored._capture_enemies():
+		if entry["resource"] == boss_resource:
+			bosses += 1
+	check(bosses == 1, "saved active arena restores exactly its existing boss without spawning another")
+	await end_level(restored)
+
+
+func _test_resumed_boss_cancel() -> void:
+	var scene := &"st22_resumed_boss"
+	Story._scenes[String(scene)] = {"mode": "cinematic", "lines": [{"speaker": "rin", "text": "電影真正完成後才開始頭目戰。"}]}
+	for cancel in [true, false]:
+		GameState.start_new_run(GameState.difficulties[1])
+		Story.auto_skip = false
+		var data := (load("res://data/levels/level_01.tres") as LevelData).duplicate() as LevelData
+		data.intro_scene = &""
+		data.boss_scene = scene
+		data.show_chapter_card = false
+		var level := Level.new()
+		level.configure(data)
+		level.configure_resume({"arena": true, "boss_pending": true, "cinematic": String(scene), "loadout": {}, "world": {}, "position": [-1, -1]})
+		runner.get_tree().root.add_child(level)
+		for frame in 4:
+			await runner.get_tree().process_frame
+		check(Story.is_cinematic_active() and not level._boss_spawned, "actual boss_pending resume waits for its movie")
+		if cancel:
+			Story.reset_active_presentation(&"route")
+		else:
+			Story.skip_cinematic()
+		for frame in 4:
+			await runner.get_tree().process_frame
+		check(level._boss_spawned == not cancel, "resumed boss completion gate: cancel=%s spawned=%s settled=%s" % [cancel, level._boss_spawned, level._resumed_presentation_settled])
+		await end_level(level)
+	Story._scenes.erase(String(scene))
+	Story.auto_skip = true
+
+
+func _test_framing_lifecycle() -> void:
+	var reduced := Settings.get_reduce_ui_motion()
+	Settings.set_reduce_ui_motion(true)
+	var first := Node.new()
+	var second := Node.new()
+	runner.add_child(first)
+	runner.add_child(second)
+	var first_token := Story.framing.acquire(first)
+	Story.framing.acquire(second)
+	check(Story.framing.scope_count() == 2 and is_equal_approx(Story.framing.amount, 1.0), "nested cinematic owners share one full framing scope")
+	Story.framing.release(first_token)
+	check(Story.framing.scope_count() == 1 and is_equal_approx(Story.framing.amount, 1.0), "out-of-order release keeps the remaining owner framed")
+	second.queue_free()
+	await frames(2)
+	check(Story.framing.scope_count() == 0 and is_zero_approx(Story.framing.amount), "owner removal automatically restores framing")
+	first.queue_free()
+	var movie := _play(&"framing_choice", {"steps": [{"do": "choice", "text": "請選擇要走的方向。", "default": "stay", "options": [
+		{"id": "stay", "text": "先留在這裡。", "set_flags": {"st22_cancel_default": true}}, {"id": "go", "text": "前往下一個房間。"}
+	]}]}, 1.0)
+	for i in 30:
+		if movie.choice_active():
+			break
+		await frames(1)
+	check(movie.choice_active() and Story.framing.scope_count() == 1, "real movie choice owns formal framing")
+	var safe := Story.framing.safe_rect()
+	check(safe.encloses(movie._choice.get_rect()), "choice buttons lie inside the actual cinematic safe rect")
+	movie.cancel()
+	await frames(2)
+	check(not GameplayLock.is_locked() and Story.framing.scope_count() == 0, "cancelling a choice releases both input and framing")
+	check(not _finished_ids.has(&"framing_choice"), "cancelled movie choice is not reported as completed")
+	check(not GameState.has_flag(&"st22_cancel_default"), "cancellation does not apply a skipped choice default flag")
+	var overlay := _play(&"framing_overlay", {"overlay": true, "steps": [{"do": "wait", "time": 10.0}]}, 1.0)
+	await frames(2)
+	check(Story.framing.scope_count() == 0 and is_zero_approx(Story.framing.amount), "ordinary overlay FX never acquires cinematic framing")
+	overlay.cancel()
+	await frames(2)
+	Settings.set_reduce_ui_motion(reduced)
 
 
 func _test_walk_matches_stage_motion() -> void:

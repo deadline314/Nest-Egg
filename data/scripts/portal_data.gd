@@ -20,6 +20,8 @@ enum Mode {
 @export var mode: Mode = Mode.INTERACT
 ## 互動提示（可用 {interact} 佔位符）；空白時用預設。一句話講重點，例如「{interact} 回家」。
 @export var prompt: String = ""
+## 明確指定穿過本門後必然播放的目標區域intro；僅預告，不改通行／觸發語義。
+@export var cinematic_preview_scene: StringName = &""
 ## 需要的旗標（GameState.set_flag）；空白＝一直可以通行。
 @export var requires_flag: StringName = &""
 ## 鎖住（缺旗標或沒有目標）時顯示的提示。

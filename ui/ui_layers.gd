@@ -8,6 +8,7 @@ const HUD := 10
 const DEATH := 25
 const CHAPTER_CARD := 55
 const CUTSCENE := 58
+const FRAMING := 59
 const DIALOGUE := 60
 const INVENTORY := 61
 const PAUSE := 70

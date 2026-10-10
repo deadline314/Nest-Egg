@@ -64,6 +64,9 @@ var _entry_portal: StringName = &""
 var _from_checkpoint := false
 ## 本區域這一輪的狀態（GameState.area_state 的參考；非持久世界為空字典）。
 var _area: Dictionary = {}
+var _resumed_presentation_completed := false
+var _resumed_presentation_settled := false
+var _resume_presentation_generation := 0
 ## 生成格鍵 -> 節點（敵人與拾取物；離開或死亡時據此判斷誰被消滅或撿走，節點可能已被釋放，所以不用型別字典）。
 var _tracked: Dictionary = {}
 var _portals: Dictionary[StringName, Portal] = {}
@@ -176,10 +179,10 @@ func _ready() -> void:
 	_power_grid.zone_changed.connect(func(_zone: StringName, _powered: bool) -> void: _rebuild_lighting_events())
 
 	_spawn_static_entities()
+	_spawn_cinematic_entries()
 	_spawn_player()
 	# 從檢查點重生：還原被打破的箱子、開關、閘門與電力（要在光影設定之前，事件才會正確）。
 	WorldState.restore(get_tree(), _resume.get("world", {}) if not _resume.is_empty() else (_area.get("world", {}) if _persistent else GameState.checkpoint_world))
-	_restore_run_entities()
 	_rebuild_lighting_events()
 
 	for problem in data.validate_lighting():
@@ -203,6 +206,8 @@ func _ready() -> void:
 	camera.set_bounds(Rect2(Vector2.ZERO, _layout.pixel_size()))
 	camera.target = player
 	camera.snap_to_target()
+	# 恢復arena會鎖camera；須在玩家與鏡頭完成初始化後領回runtime。
+	_restore_run_entities()
 
 	_tokens = AttackTokens.new(data.attack_caps)
 	AttackTokens.active = _tokens
@@ -270,7 +275,8 @@ func _begin_intro() -> void:
 	if _from_checkpoint or not is_inside_tree():
 		return
 	if data.intro_scene != &"" and not Story.was_seen(data.intro_scene):
-		await Story.play_and_wait(data.intro_scene)
+		if not await _play_flow_scene(data.intro_scene):
+			return
 		if not is_inside_tree():
 			return
 	if _entry_portal != &"":
@@ -579,6 +585,17 @@ func _create_entity(resource: Resource) -> Node2D:
 	return null
 
 
+func _spawn_cinematic_entries() -> void:
+	for entry in data.cinematic_entries:
+		if entry == null or entry.cell.x < 0 or entry.cell.y < 0 or entry.cell.x >= _layout.width or entry.cell.y >= _layout.height:
+			push_error("[Level] %s 的電影入口位置無效，已略過。" % data.id)
+			continue
+		var entrance := CinematicEntrance.new()
+		entrance.configure(entry)
+		entrance.position = _layout.cell_to_feet(entry.cell.x, entry.cell.y)
+		_entities.add_child(entrance)
+
+
 static func _is_prop_resource(resource: Resource) -> bool:
 	return resource is BreakableData or resource is MechanismData or resource is CreditPileData \
 			or resource is ShopData or resource is NpcData or resource is PortalData
@@ -809,8 +826,9 @@ func _start_boss_fight() -> void:
 	await get_tree().create_timer(BOSS_SPAWN_DELAY, false).timeout
 	if not is_inside_tree():
 		return
-	await Story.play_and_wait(data.boss_scene)
-	if is_inside_tree():
+	if not await _play_flow_scene(data.boss_scene):
+		return
+	if is_inside_tree() and not _finished:
 		_spawn_boss()
 
 
@@ -866,7 +884,8 @@ func _on_player_died(cause: StringName) -> void:
 ## 死亡後、重生前的特殊過場（見 StoryReactions 的 death_scenes）。播完（含按 Esc 跳過）才登記復原點，然後重生。
 ## once = false：是否再播由資料的旗標決定，過場中途退出就會從頭再播。
 func _run_death_scene(entry: Dictionary) -> void:
-	await Story.play_and_wait(StringName(str(entry.get("scene", ""))), false)
+	if not await _play_flow_scene(StringName(str(entry.get("scene", ""))), false):
+		return
 	if not is_inside_tree():
 		return
 	if bool(entry.get("register_checkpoint", false)) and _register_nearest_checkpoint():
@@ -908,7 +927,8 @@ func _on_boss_defeated() -> void:
 func _run_ending() -> void:
 	if not is_inside_tree():
 		return
-	await Story.play_and_wait(data.outro_scene)
+	if not await _play_flow_scene(data.outro_scene):
+		return
 	if not is_inside_tree():
 		return
 	var info := Story.chapter_info(data.chapter)
@@ -1078,14 +1098,56 @@ func _resume_death() -> void:
 		add_child(screen)
 
 
+## 空白／已完成的舊資料維持原流程；真正入隊後被取消則停止後續結算。
+func _play_flow_scene(id: StringName, once := true, context: Dictionary = {}) -> bool:
+	var expected := Story.has_scene(id) and (not once or not Story.was_seen(id))
+	var completed := await Story.play_and_wait(id, once, context)
+	return completed or not expected
+
+
 func _resume_cinematic() -> void:
-	await Story.play_and_wait(StringName(_resume["cinematic"]), false)
-	if not is_inside_tree():
+	_resume_presentation_generation += 1
+	var generation := _resume_presentation_generation
+	_resumed_presentation_completed = false
+	_resumed_presentation_settled = false
+	var scene := StringName(_resume["cinematic"])
+	var context := Story.presentation_context(_resume.get("cinematic_context", {}))
+	var completed := false
+	var resumed_owner := false
+	if context.get("framing_source", "") in ["person", "object"]:
+		for node in get_tree().get_nodes_in_group(&"stateful"):
+			if not node is NpcActor or node.state_key() != context.get("source_id", ""):
+				continue
+			var source := "person" if node.data.kind == NpcData.Kind.PERSON else "object"
+			var index: int = context.get("talk_index", -1)
+			if source == context["framing_source"] and node.can_resume_presentation(scene, index):
+				resumed_owner = true
+				completed = await node.resume_presentation(scene, index)
+			break
+		if not resumed_owner:
+			push_warning("[Level] 續玩來源不符，不發放NPC獎勵：%s / %s" % [context.get("source_id", ""), scene])
+	if not resumed_owner:
+		completed = await Story.play_and_wait(scene, false, context)
+	if generation != _resume_presentation_generation:
+		return
+	_resumed_presentation_completed = completed
+	_resumed_presentation_settled = true
+	if not is_inside_tree() or not completed:
 		return
 	if _resume.get("ending", false) or data.complete_after_intro:
 		_finished = true
 		_close_menus()
 		await _run_ending()
+
+
+## 取消演出只還原物品／世界暫定資料，不套玩家health、state、位置或死亡原因。
+func rollback_presentation_world(runtime: Dictionary) -> void:
+	_area = GameState.area_state(data.id) if _persistent else runtime.get("area", {}).duplicate(true)
+	WorldState.restore(get_tree(), runtime.get("world", {}))
+	if is_instance_valid(player):
+		var loadout: Dictionary = runtime.get("loadout", {})
+		player.loadout.restore(loadout, player.tuning.default_weapon)
+		player.consumables.restore(loadout.get("consumables", {}))
 
 
 func _resume_ending() -> void:
@@ -1097,10 +1159,14 @@ func _resume_ending() -> void:
 func _resume_pending_boss() -> void:
 	await get_tree().process_frame
 	if _resume.get("cinematic", "") != "":
-		while Story.is_cinematic_active() and is_inside_tree():
-			await Story.scene_finished
+		var generation := _resume_presentation_generation
+		while not _resumed_presentation_settled and generation == _resume_presentation_generation and is_inside_tree():
+			await get_tree().process_frame
+		if generation != _resume_presentation_generation or not _resumed_presentation_completed:
+			return
 	else:
-		await Story.play_and_wait(data.boss_scene)
+		if not await _play_flow_scene(data.boss_scene):
+			return
 	if is_inside_tree() and not _finished and not _boss_spawned:
 		_spawn_boss()
 

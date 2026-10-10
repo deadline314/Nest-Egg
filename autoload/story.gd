@@ -10,6 +10,9 @@ extends Node
 
 signal scene_started(scene_id: StringName, mode: StringName)
 signal scene_finished(scene_id: StringName)
+## 完成或取消的等待接點；取消不觸發 scene_finished，因而不寫完成旗標或發放獎勵。
+signal request_settled(request: int, completed: bool)
+signal presentation_cancelled(scene_id: StringName, context: Dictionary, reason: StringName, request: int)
 
 const CHAPTER_PATHS: Array[String] = [
 	"res://data/story/chapter_01.json",
@@ -57,24 +60,36 @@ var _death_scenes: Dictionary = {}
 var _death_sequences: Dictionary = {}
 var _seen: Dictionary[StringName, bool] = {}
 var _completed: Dictionary[StringName, bool] = {}
-var _cinematic_queue: Array[StringName] = []
+var _cinematic_queue: Array[Dictionary] = []
 var _current_cinematic: StringName = &""
-## 剛結束的場景 -> 因 then 而自動接上的場景（play_and_wait 據此一路等到最後一段）。
-var _chained: Dictionary[StringName, StringName] = {}
+var _presentation_context: Dictionary = {}
+var _framing_token := 0
+var _presentation_generation := 0
+var _request_serial := 0
+var _current_request := 0
+var _finished_request := 0
+var _waiters: Dictionary[int, bool] = {}
+var _request_results: Dictionary[int, bool] = {}
+var _passive_requests: Dictionary[StringName, Array] = {}
+var _resetting_presentation := false
+var framing: CinematicFraming
 var _layer: DialogueLayer
 var _player: CutscenePlayer
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	framing = CinematicFraming.new()
+	add_child(framing)
 	_layer = DialogueLayer.new()
 	add_child(_layer)
 	_layer.cinematic_finished.connect(_on_cinematic_finished)
-	_layer.radio_finished.connect(func(id: StringName) -> void: scene_finished.emit(id))
+	_layer.radio_finished.connect(_on_passive_finished)
 	scene_finished.connect(_apply_scene_flags)
 	scene_finished.connect(func(id: StringName) -> void:
 		_completed[id] = true
 		GameState.request_story_save())
+	EventBus.player_died.connect(func(_cause: StringName) -> void: reset_active_presentation(&"death"))
 	load_all()
 	if FileAccess.file_exists(GameState.STORY_SAVE_PATH):
 		GameState.load_story_progress()
@@ -408,6 +423,7 @@ func was_seen(id: StringName) -> bool:
 
 ## 新的一輪遊戲開始時清除觀看紀錄。
 func reset_progress() -> void:
+	reset_active_presentation(&"new_run")
 	_seen.clear()
 	_completed.clear()
 	_cinematic_queue.clear()
@@ -415,6 +431,103 @@ func reset_progress() -> void:
 
 func is_cinematic_active() -> bool:
 	return _current_cinematic != &""
+
+
+## 可保存的入隊來源，不包含畫幅位置、Node、token 或 Tween。
+static func presentation_context(raw: Dictionary) -> Dictionary:
+	var source := str(raw.get("framing_source", ""))
+	if source not in ["person", "object", "entry"]:
+		return {}
+	var result := {"framing_source": source, "source_id": str(raw.get("source_id", ""))}
+	var index: Variant = raw.get("talk_index")
+	if source in ["person", "object"] and raw.has("talk_index") and not (typeof(index) in [TYPE_INT, TYPE_FLOAT] and is_finite(float(index)) and float(index) == floorf(float(index)) and index >= 0 and index < 256):
+		return {}
+	if source in ["person", "object"] and typeof(index) in [TYPE_INT, TYPE_FLOAT] and is_finite(float(index)) and float(index) == floorf(float(index)) and index >= 0 and index < 256:
+		result["talk_index"] = int(index)
+	return result
+
+
+func current_presentation_context() -> Dictionary:
+	return _presentation_context.duplicate(true)
+
+
+## runtime 關聯用，不能存檔；讀檔重新入隊會得到新handle。
+func current_presentation_request() -> int:
+	return _current_request
+
+
+func finished_presentation_request() -> int:
+	return _finished_request
+
+
+## 續玩NPC後續segment只接受原talk的then鏈，不將任意同來源scene當成獎勵入口。
+func is_chained_scene(origin: StringName, segment: StringName) -> bool:
+	var visited: Dictionary[StringName, bool] = {}
+	for i in 64:
+		if origin == segment:
+			return has_scene(origin)
+		if not has_scene(origin) or visited.has(origin):
+			return false
+		visited[origin] = true
+		origin = StringName(str((_scenes[String(origin)] as Dictionary).get("then", "")))
+	return false
+
+
+func scene_mode(id: StringName) -> StringName:
+	return StringName(str((_scenes.get(String(id), {}) as Dictionary).get("mode", "radio")))
+
+
+## 對外 scene_started 的 dialogue→cinematic 別名是存檔契約；資格判斷必須讀實際資料模式。
+func uses_cinematic_framing(id: StringName, context: Dictionary = {}) -> bool:
+	var mode := scene_mode(id)
+	if mode == MODE_DIALOGUE:
+		return str(context.get("framing_source", "")) == "person"
+	if mode == MODE_CINEMATIC:
+		return true
+	return mode == MODE_ANIMATED and not bool((_scenes.get(String(id), {}) as Dictionary).get("overlay", false))
+
+
+## 換區、死亡、新局或讀檔時中止演出。不當作看完，不套用跳過預設選項或完成旗標。
+func reset_active_presentation(reason: StringName = &"leave") -> void:
+	if _resetting_presentation:
+		return
+	_resetting_presentation = true
+	_presentation_generation += 1
+	var interrupted := _current_cinematic
+	var interrupted_request := _current_request
+	if interrupted != &"":
+		presentation_cancelled.emit(interrupted, current_presentation_context(), reason, interrupted_request)
+	_current_cinematic = &""
+	_current_request = 0
+	_presentation_context = {}
+	if is_instance_valid(_player):
+		_player.cancel()
+		_player = null
+	if is_instance_valid(_layer):
+		_layer.cancel_cinematic()
+	if is_instance_valid(framing):
+		framing.reset()
+	_framing_token = 0
+	var pending := _cinematic_queue
+	_cinematic_queue = []
+	if interrupted != &"":
+		if not _completed.has(interrupted):
+			_seen.erase(interrupted)
+		_complete_request(interrupted_request, false)
+	for queued in pending:
+		if not _completed.has(queued.id):
+			_seen.erase(queued.id)
+		_complete_request(queued.request, false)
+	for id: StringName in _passive_requests:
+		if not _completed.has(id):
+			_seen.erase(id)
+		var requests: Array = _passive_requests[id]
+		for request in requests:
+			_complete_request(request, false)
+	_passive_requests.clear()
+	if is_instance_valid(_layer):
+		_layer.cancel_radio()
+	_resetting_presentation = false
 
 
 ## 播放場景。once = true 時同一輪只播一次。回傳是否有開始（或排入佇列）。
@@ -427,42 +540,68 @@ func set_bubble_host(host: MapBubbles) -> void:
 		host.scene_finished.connect(_on_bubbles_finished)
 		host.tree_exiting.connect(func() -> void:
 			if _bubble_host == host:
-				_bubble_host = null, CONNECT_ONE_SHOT)
+				_bubble_host = null
+				reset_active_presentation(), CONNECT_ONE_SHOT)
 
 
 func _on_bubbles_finished(id: StringName) -> void:
+	_on_passive_finished(id)
+
+
+func _on_passive_finished(id: StringName, expected_request := 0) -> void:
+	var requests: Array = _passive_requests.get(id, [])
+	if requests.is_empty():
+		return  # 已取消或舊宿主的延遲回呼，不再寫完成旗標。
+	if expected_request != 0 and int(requests[0]) != expected_request:
+		return  # auto-skip 舊請求的延遲回呼不能完成取消後新入隊的同名場景。
+	var request := int(requests.pop_front())
+	if requests.is_empty():
+		_passive_requests.erase(id)
+	_finished_request = request
 	scene_finished.emit(id)
+	_finished_request = 0
+	_complete_request(request, true)
 
 
-func play(id: StringName, once := true) -> bool:
+func play(id: StringName, once := true, context: Dictionary = {}) -> bool:
+	return _enqueue_request(id, once, context) != 0
+
+
+func _enqueue_request(id: StringName, once: bool, context: Dictionary, waiting := false) -> int:
 	if id == &"" or not has_scene(id):
 		if id != &"":
 			push_warning("[Story] 找不到劇情場景：%s" % id)
-		return false
+		return 0
 	if once and _seen.has(id):
-		return false
+		return 0
+	_request_serial += 1
+	var request := _request_serial
+	if waiting:
+		_waiters[request] = true
 	_seen[id] = true
 	var scene: Dictionary = _scenes[String(id)]
 	var mode := StringName(str(scene.get("mode", "radio")))
 	if mode == MODE_CINEMATIC or mode == MODE_ANIMATED or mode == MODE_DIALOGUE:
 		if is_cinematic_active():
-			_cinematic_queue.append(id)
+			_cinematic_queue.append({"id": id, "context": presentation_context(context), "request": request})
 		else:
-			_start_cinematic(id)
-	elif mode == MODE_BUBBLES and _play_bubbles(id):
-		pass
+			_start_cinematic(id, context, request)
 	else:
-		scene_started.emit(id, MODE_RADIO)
-		_layer.enqueue_radio(id, resolved_lines(id))
-	return true
+		if not _passive_requests.has(id):
+			_passive_requests[id] = []
+		_passive_requests[id].append(request)
+		if mode != MODE_BUBBLES or not _play_bubbles(id, request):
+			scene_started.emit(id, MODE_RADIO)
+			_layer.enqueue_radio(id, resolved_lines(id))
+	return request
 
 
 ## 氣泡場景：有宿主、講者全都在地圖上才用氣泡；測試的 auto_skip 立即結束。回傳 false 代表改用通訊。
-func _play_bubbles(id: StringName) -> bool:
+func _play_bubbles(id: StringName, request: int) -> bool:
 	var lines := resolved_lines(id)
 	if auto_skip:
 		scene_started.emit(id, MODE_BUBBLES)
-		scene_finished.emit.call_deferred(id)
+		_on_passive_finished.call_deferred(id, request)
 		return true
 	if not is_instance_valid(_bubble_host) or not _bubble_host.can_show_all(lines):
 		return false
@@ -472,15 +611,24 @@ func _play_bubbles(id: StringName) -> bool:
 
 
 ## 播放並等待該場景結束，包含接在後面的 then 場景（場景不存在，或 once 為 true 且已看過時立即返回）。
-func play_and_wait(id: StringName, once := true) -> void:
-	if not play(id, once):
+func play_and_wait(id: StringName, once := true, context: Dictionary = {}) -> bool:
+	var request := _enqueue_request(id, once, context, true)
+	if request == 0:
+		return false
+	while not _request_results.has(request):
+		await request_settled
+	var completed := _request_results[request]
+	_request_results.erase(request)
+	_waiters.erase(request)
+	return completed
+
+
+func _complete_request(request: int, completed: bool) -> void:
+	if request == 0:
 		return
-	var current := id
-	while current != &"":
-		var finished: StringName = await scene_finished
-		if finished == current:
-			current = _chained.get(current, &"")
-			_chained.erase(finished)
+	if _waiters.has(request):
+		_request_results[request] = completed
+	request_settled.emit(request, completed)
 
 
 ## 跳過目前的過場（與按 Esc 相同）。
@@ -493,15 +641,22 @@ func skip_cinematic() -> void:
 		_layer.finish_cinematic()
 
 
-func _start_cinematic(id: StringName) -> void:
+func _start_cinematic(id: StringName, context: Dictionary = {}, request := 0) -> void:
+	_presentation_generation += 1
 	_current_cinematic = id
+	_current_request = request
+	_presentation_context = presentation_context(context)
 	var scene: Dictionary = _scenes.get(String(id), {})
 	var animated := str(scene.get("mode", "")) == String(MODE_ANIMATED)
 	scene_started.emit(id, MODE_ANIMATED if animated else MODE_CINEMATIC)
 	if auto_skip or Settings.get_skip_cutscenes():
 		apply_default_choices(scene)
-		_on_cinematic_finished.call_deferred(id)
+		_finish_auto_skip.call_deferred(id, _presentation_generation)
 		return
+	if not animated and uses_cinematic_framing(id, _presentation_context):
+		_framing_token = framing.acquire(self)
+	elif not uses_cinematic_framing(id, _presentation_context):
+		framing.clear_preview()
 	if animated:
 		_player = CutscenePlayer.new()
 		add_child(_player)
@@ -511,26 +666,41 @@ func _start_cinematic(id: StringName) -> void:
 	_layer.start_cinematic(id, resolved_lines(id))
 
 
+func _finish_auto_skip(id: StringName, generation: int) -> void:
+	if generation == _presentation_generation:
+		_on_cinematic_finished(id)
+
+
 func _on_cinematic_finished(id: StringName) -> void:
 	if _current_cinematic != id:
 		return
 	_current_cinematic = &""
-	_queue_chained_scene(id)
+	var completed_request := _current_request
+	_current_request = 0
+	framing.release(_framing_token)
+	_framing_token = 0
+	var chained := _queue_chained_scene(id, completed_request)
+	_presentation_context = {}
+	_finished_request = completed_request
 	scene_finished.emit(id)
+	_finished_request = 0
+	if not chained:
+		_complete_request(completed_request, true)
 	if not _cinematic_queue.is_empty():
-		_start_cinematic(_cinematic_queue.pop_front())
+		var queued: Dictionary = _cinematic_queue.pop_front()
+		_start_cinematic(queued.id, queued.context, queued.request)
 
 
 ## 場景設定了 then 時，結束後立刻接著播（排在佇列最前面）；玩家按 Esc 略過時整串都略過，已看過的場景不重播。
-func _queue_chained_scene(id: StringName) -> void:
+func _queue_chained_scene(id: StringName, request: int) -> bool:
 	var next := StringName(str((_scenes.get(String(id), {}) as Dictionary).get("then", "")))
 	if next == &"" or not has_scene(next) or _seen.has(next):
-		return
+		return false
 	if is_instance_valid(_player) and _player.user_skipped:
-		return
+		return false
 	_seen[next] = true
-	_cinematic_queue.push_front(next)
-	_chained[id] = next
+	_cinematic_queue.push_front({"id": next, "context": _presentation_context.duplicate(true), "request": request})
+	return true
 
 
 ## 把台詞的講者 id 換成顯示資料（名字、顏色、頭像），填入 {death_time}，帶上顯示前的沉默秒數 delay。
@@ -566,6 +736,7 @@ func progress_snapshot() -> Array:
 
 
 func restore_progress(raw: Variant, where := "story/seen") -> void:
+	reset_active_presentation(&"load")
 	_seen.clear()
 	_completed.clear()
 	if not raw is Array:

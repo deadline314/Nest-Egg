@@ -18,6 +18,8 @@ var _armed := true
 var _time := 0.0
 var _toast_left := 0.0
 var _prompt: WorldPrompt
+var _cinematic_notice: WorldPrompt
+var _preview_valid := false
 
 
 func configure(p_data: PortalData, p_cell: Vector2i) -> void:
@@ -50,6 +52,22 @@ func _ready() -> void:
 	_prompt.reach_check = func() -> bool: return _player_in_range and _armed and data.mode == PortalData.Mode.INTERACT
 	_prompt.offset = Vector2(0, -data.height - 10.0)
 	add_child(_prompt)
+	if data.cinematic_preview_scene != &"":
+		var target := load(data.target_level) as LevelData if ResourceLoader.exists(data.target_level) else null
+		_preview_valid = target != null and target.intro_scene == data.cinematic_preview_scene \
+			and Story.has_scene(data.cinematic_preview_scene) \
+			and Story.scene_mode(data.cinematic_preview_scene) in [Story.MODE_CINEMATIC, Story.MODE_ANIMATED] \
+			and Story.uses_cinematic_framing(data.cinematic_preview_scene)
+		if not _preview_valid:
+			push_error("[Portal] %s 的電影預告 %s 必須對應目標區域的正式intro：%s" % [data.id, data.cinematic_preview_scene, data.target_level])
+		else:
+			Story.framing.register_target(self)
+			_cinematic_notice = WorldPrompt.new()
+			_cinematic_notice.text = "前方將播放劇情。"
+			_cinematic_notice.offset = Vector2(-20, -data.height - 10)
+			_cinematic_notice.reach_check = func() -> bool:
+				return preview_available() and not _player_in_range and Story.framing.selected_target() == self
+			add_child(_cinematic_notice)
 	if data.style != "road" and data.style != "hidden":
 		var light := LightKit.create_point_light(_accent(), 70.0, 0.5, false)
 		light.position = Vector2(0, -data.height * 0.5)
@@ -72,6 +90,14 @@ func is_open() -> bool:
 	return data.requires_flag == &"" or GameState.has_flag(data.requires_flag)
 
 
+func preview_available() -> bool:
+	return _preview_valid and _armed and is_open() and not Story.was_seen(data.cinematic_preview_scene)
+
+
+func interaction_available() -> bool:
+	return _armed and _player_in_range and data.mode == PortalData.Mode.INTERACT
+
+
 ## 嘗試使用：可通行就發出 used，否則顯示鎖住的提示。回傳是否通行。
 func try_use() -> bool:
 	if not is_open():
@@ -79,6 +105,8 @@ func try_use() -> bool:
 			_toast_left = LOCKED_TOAST_COOLDOWN
 			EventBus.toast_requested.emit(data.locked_text)
 		return false
+	if _preview_valid:
+		Story.framing.interaction_started(self)
 	used.emit(self)
 	return true
 
@@ -87,7 +115,8 @@ func _physics_process(delta: float) -> void:
 	_time += delta
 	_toast_left = maxf(0.0, _toast_left - delta)
 	if _player_in_range and _armed and data.mode == PortalData.Mode.INTERACT \
-			and Input.is_action_just_pressed(&"interact") and not get_tree().paused:
+			and Input.is_action_just_pressed(&"interact") and not get_tree().paused \
+			and (not _preview_valid or Story.framing.is_interaction_target(self)):
 		var player := get_tree().get_first_node_in_group(&"player") as Player
 		if player != null and not player.is_dead():
 			try_use()
