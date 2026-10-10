@@ -1,0 +1,31 @@
+{
+ "name": "record",
+ "args": [
+  "--rendering-method",
+  "forward_plus",
+  "--audio-driver",
+  "Dummy",
+  "res://tools/bg31_main_lifecycle_probe.tscn",
+  "--",
+  "--out=C:/Users/stanl/AppData/Local/Temp/claude/C--Github-Nest-Egg/1afb8a9e-c213-442c-9589-61350b2318ab/scratchpad/bg31/base",
+  "--slot=C:/Users/stanl/AppData/Local/Temp/claude/C--Github-Nest-Egg/1afb8a9e-c213-442c-9589-61350b2318ab/scratchpad/bg31/base/slot.json",
+  "--phase=record"
+ ],
+ "pid": 30948,
+ "exit": 0,
+ "natural_exit": true,
+ "elapsed_seconds": 32.0,
+ "raw_errors": [
+  "ERROR: 4 resources still in use at exit (run with --verbose for details)."
+ ],
+ "raw_error_count": 1,
+ "warning_count": 1,
+ "warnings_head": [
+  "WARNING: 16 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+ ],
+ "peak_working_set_mb": 537.3,
+ "peak_private_mb": 820.1,
+ "samples": 124,
+ "log_sha256": "565ec6d8b3261a3ac2d63f6777667a2ed3980607c34d56901c30d261c23a76b9",
+ "renderer_line": "Vulkan 1.4.356 - Forward+ - Using Device #0: Intel - Intel(R) Arc(TM) B580 Graphics"
+}

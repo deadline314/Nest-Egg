@@ -1,0 +1,25 @@
+{
+ "name": "cold",
+ "args": [
+  "--rendering-method",
+  "forward_plus",
+  "res://tools/bg31_main_lifecycle_probe.tscn",
+  "--",
+  "--out=C:/Users/stanl/AppData/Local/Temp/claude/C--Github-Nest-Egg/1afb8a9e-c213-442c-9589-61350b2318ab/scratchpad/bg31/real1",
+  "--slot=C:/Users/stanl/AppData/Local/Temp/claude/C--Github-Nest-Egg/1afb8a9e-c213-442c-9589-61350b2318ab/scratchpad/bg31/real1/slot.json",
+  "--phase=cold"
+ ],
+ "pid": 1632,
+ "exit": 0,
+ "natural_exit": true,
+ "elapsed_seconds": 20.2,
+ "raw_errors": [],
+ "raw_error_count": 0,
+ "warning_count": 0,
+ "warnings_head": [],
+ "peak_working_set_mb": 502.7,
+ "peak_private_mb": 793.2,
+ "samples": 78,
+ "log_sha256": "5d6d06f18b6c9314cc4a8f51fb121bbcabf3e27b0f4416a7c9f9d6dc5a98e731",
+ "renderer_line": "Vulkan 1.4.356 - Forward+ - Using Device #0: Intel - Intel(R) Arc(TM) B580 Graphics"
+}

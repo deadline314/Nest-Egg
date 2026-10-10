@@ -5,6 +5,8 @@ const Capture := preload("res://tools/viewport_capture.gd")
 const INTRO := &"ch1_c01_open"
 const ROUNDS := 3
 const MAX_EVENTS := 128
+const RECLAIM_TEXTURE_SLACK_BYTES := 1048576
+const RECLAIM_OBJECTS_PER_ROUND := 8
 const OLD_PREFETCH_SHA := "899a16248df56a7da81ed857bb96840c2463b94bb9f2e698fe53212f78643528"
 const NEW_PREFETCH_SHA := "7d338a07ba48c7d716d465d63276ac6fa92fbcdbc79778068a762dd50eb5f558"
 var _main: Node
@@ -27,6 +29,9 @@ var _finished := false
 var _tool_sha := ""
 var _policy := "main-thread-rd-472"
 var _prefetch_sha := ""
+var _talks: Array[String] = []
+var _talk_lines := 0
+var _interact_presses := 0
 
 
 func _ready() -> void:
@@ -73,6 +78,10 @@ func _stage(label: String, extra: Dictionary = {}) -> void:
 		"process_frame": Engine.get_process_frames(), "physics_frame": Engine.get_physics_frames(),
 		"engine_static_bytes": OS.get_static_memory_usage(),
 		"engine_node_count": int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT)),
+		"engine_object_count": int(Performance.get_monitor(Performance.OBJECT_COUNT)),
+		"engine_orphan_nodes": int(Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT)),
+		"render_texture_bytes": RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TEXTURE_MEM_USED),
+		"render_video_bytes": RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_VIDEO_MEM_USED),
 		"prefetch": AssetPrefetch.stats()}
 	event.merge(extra)
 	_events.append(event)
@@ -202,6 +211,93 @@ func _opening() -> bool:
 		"natural pawnshop opening: three actual complete lines, one start/completion, playable world")
 
 
+func _find_person(root: Node) -> NpcActor:
+	for child: Node in root.get_children():
+		var person := child as NpcActor
+		if person != null and person.data != null and person.data.kind == NpcData.Kind.PERSON:
+			return person
+		person = _find_person(child)
+		if person != null:
+			return person
+	return null
+
+
+## 用移動鍵走到人物面前、按互動鍵，逐句讀完他目前要說的那一段；不直接呼叫對話或授予旗標。
+func _npc_talk(label: String) -> bool:
+	if not _check(_world_ready(), "live playable Level before NPC talk: " + label):
+		return false
+	var level := _main._screen as Level
+	var person := _find_person(level)
+	if not _check(person != null and person.current_talk_index() >= 0, "loaded person with an available talk: " + label):
+		return false
+	var scene: StringName = person.data.talks[person.current_talk_index()].scene
+	var expected_lines := Story.resolved_lines(scene).size()
+	var count_before := person.talk_count
+	if not _check(Story.scene_mode(scene) == Story.MODE_DIALOGUE and expected_lines > 0
+		and not Story.was_seen(scene) and not _talks.has(String(scene)),
+		"current talk is an unread dialogue, never a replay of a finished one: " + label):
+		return false
+	var direction := &"move_right" if person.global_position.x > level.player.global_position.x else &"move_left"
+	_stage("npc-walk-input", {"label": label, "scene": String(scene), "direction": String(direction),
+		"player_x": level.player.global_position.x, "person_x": person.global_position.x, "talk_count": count_before})
+	_action(direction, true)
+	var reached := await _wait(func() -> bool: return person.interaction_available() and Story.framing.is_interaction_target(person),
+		"actual walk input reaches the person's interaction range: " + label, 20000)
+	_action(direction, false)
+	if not reached:
+		return false
+	var presses := 0
+	while presses < 5 and not Story.is_cinematic_active() and _failures == 0:
+		presses += 1
+		await get_tree().physics_frame
+		_action(&"interact", true)
+		await get_tree().physics_frame
+		await get_tree().physics_frame
+		_action(&"interact", false)
+		for _frame in 12:
+			if Story.is_cinematic_active():
+				break
+			await get_tree().process_frame
+	_interact_presses += presses
+	if not _check(Story.is_cinematic_active() and Story._current_cinematic == scene,
+			"interact input starts the person's current talk: " + label):
+		return false
+	var layer := Story._layer as DialogueLayer
+	var accepted := 0
+	var last_line := ""
+	var shot := _phase != "record"
+	var deadline := Time.get_ticks_msec() + 90000
+	while Time.get_ticks_msec() < deadline and _failures == 0 and Story.is_cinematic_active():
+		if layer.is_cinematic_active() and _opaque(layer._text) and layer._text.visible_ratio >= 1.0 and not layer._text.text.is_empty():
+			var line := "%s|%d" % [layer._cinematic_id, layer._cinematic_index]
+			if line != last_line:
+				if not shot:
+					await _shot("npc")
+					shot = _failures == 0
+				if _failures != 0:
+					break
+				last_line = line
+				accepted += 1
+				_stage("npc-line-accept", {"label": label, "scene": String(layer._cinematic_id),
+					"index": layer._cinematic_index, "text": layer._text.text})
+				_action(&"ui_accept", true)
+				await get_tree().process_frame
+				_action(&"ui_accept", false)
+		await get_tree().process_frame
+	_talk_lines += accepted
+	if not await _wait(func() -> bool: return _world_ready() and person.talk_count == count_before + 1,
+			"talk settles once into the playable world: " + label):
+		return false
+	if not _check(accepted >= expected_lines and Story.was_seen(scene) and not get_tree().paused
+		and not GameplayLock.is_locked() and level.player.is_physics_processing(),
+		"every authored line accepted once, scene recorded, no residual freeze: " + label):
+		return false
+	_talks.append(String(scene))
+	_stage("npc-talk-settled", {"label": label, "scene": String(scene), "lines": accepted,
+		"interact_presses": presses, "talk_count": person.talk_count})
+	return true
+
+
 func _find_menu_button(root: Node) -> Button:
 	for child: Node in root.get_children():
 		if child is Button and child.text == "回主選單":
@@ -286,6 +382,9 @@ func _back_to_menu(label: String) -> bool:
 		and _saved.get("level") == _main.FIRST_LEVEL and _saved.get("cinematic") == ""
 		and _saved["story"]["seen"].has(String(INTRO)), "genuine canonical completed-opening slot: " + label):
 		return false
+	for talk: String in _talks:
+		if not _check(_saved["story"]["seen"].count(talk) == 1, "saved slot records finished talk exactly once: %s / %s" % [talk, label]):
+			return false
 	_stage("menu-settled", {"label": label, "slot_sha256": FileAccess.get_sha256(_slot)})
 	return true
 
@@ -330,11 +429,12 @@ func _continue(label: String) -> bool:
 
 
 func _shot(kind: String) -> void:
-	if not _check(_phase == "record" and _images.size() < 3 and kind in ["menu", "cinematic", "world"],
+	if not _check(_phase == "record" and _images.size() < 4 and kind in ["menu", "cinematic", "world", "npc"],
 			"bounded genuine viewport capture: " + kind):
 		return
 	await RenderingServer.frame_post_draw
 	var valid := _menu_ready() if kind == "menu" else _world_ready() if kind == "world" \
+		else Story._layer.is_cinematic_active() and _talks.is_empty() if kind == "npc" \
 		else is_instance_valid(Story._player) and Story._current_cinematic == INTRO \
 			and _opaque(Story._player._dialogue) and Story._player._dialogue.is_complete()
 	if not _check(valid and not Transition.is_active(), "capture still matches actual displayed stage: " + kind):
@@ -381,12 +481,18 @@ func _run() -> void:
 			await _finish()
 			return
 		_cold_record = record
+		for talk: Variant in record.get("npc_talks", []):
+			_talks.append(str(talk))
 		_saved = store.read()
 		if not _check(not _saved.is_empty() and store.issues.is_empty()
 			and FileAccess.get_sha256(_slot) == str(record.get("slot_sha256_after_record", "")),
 			"cold genuine slot exact record checksum before actual Main initialization"):
 			await _finish()
 			return
+		for talk: String in _talks:
+			if not _check(_saved["story"]["seen"].count(talk) == 1, "cold slot holds the record talk exactly once: " + talk):
+				await _finish()
+				return
 	Story.scene_started.connect(_on_started)
 	Story.scene_finished.connect(_on_finished)
 	_main = MainScene.instantiate()
@@ -425,6 +531,9 @@ func _run() -> void:
 		if not await _continue("cold-first"):
 			await _finish()
 			return
+	if not await _npc_talk(_phase):
+		await _finish()
+		return
 	for round_index in ROUNDS:
 		var label := "%s-round-%d" % [_phase, round_index + 1]
 		if not await _back_to_menu(label) or not await _continue(label):
@@ -435,9 +544,12 @@ func _run() -> void:
 		return
 	_check(_starts == (1 if _phase == "record" else 0) and _finishes == _starts,
 		"completed opening never replays across genuine Continue routes")
+	_check(_talks.size() == (1 if _phase == "record" else 2),
+		"one new talk finished per process; none skipped or replayed")
 	for reference: WeakRef in _retired:
 		_check(reference.get_ref() == null, "naturally retired screen/actor weak reference released")
-	_check(_images.size() == (3 if _phase == "record" else 0), "exact menu/cinematic/world evidence cap; no cold duplicate captures")
+	_check_reclaim()
+	_check(_images.size() == (4 if _phase == "record" else 0), "exact menu/cinematic/world/npc evidence cap; no cold duplicate captures")
 	var prefetch := AssetPrefetch.stats()
 	if _policy == "main-thread-rd-472":
 		_check(prefetch.get("strategy", -1) == 2 and prefetch.get("main_load_total", 0) > 0
@@ -448,6 +560,34 @@ func _run() -> void:
 			and prefetch["requested_total"] > 0 and prefetch["collected_total"] > 0 and prefetch["failed_total"] == 0,
 			"exact original four-slot native async policy exercised without failed loads")
 	await _finish()
+
+
+## 每次回到選單都要回到同一個水位：節點數相同、沒有孤兒節點，貼圖與物件不隨輪數累積。
+## 物件數容許每輪多出本工具自己保存的弱參照。
+func _check_reclaim() -> void:
+	var settled: Array[Dictionary] = []
+	for event: Dictionary in _events:
+		if event["stage"] == "menu-settled":
+			settled.append(event)
+	if not _check(settled.size() == ROUNDS + 1, "one settled menu record per return"):
+		return
+	var first := settled[0]
+	var last := settled[settled.size() - 1]
+	var orphans := 0
+	var same_nodes := true
+	var texture_min := int(first["render_texture_bytes"])
+	var texture_max := texture_min
+	for event: Dictionary in settled:
+		orphans += int(event["engine_orphan_nodes"])
+		same_nodes = same_nodes and event["engine_node_count"] == first["engine_node_count"]
+		texture_min = mini(texture_min, int(event["render_texture_bytes"]))
+		texture_max = maxi(texture_max, int(event["render_texture_bytes"]))
+	_check(same_nodes and orphans == 0, "every return to menu settles at the same node count with no orphan nodes")
+	_check(texture_max - texture_min <= RECLAIM_TEXTURE_SLACK_BYTES,
+		"renderer texture memory does not grow across repeated returns (spread %d bytes)" % (texture_max - texture_min))
+	var growth := int(last["engine_object_count"]) - int(settled[1]["engine_object_count"])
+	_check(growth <= (ROUNDS - 1) * RECLAIM_OBJECTS_PER_ROUND,
+		"object count does not accumulate across repeated returns (growth %d after warm-up round)" % growth)
 
 
 func _finish() -> void:
@@ -461,10 +601,11 @@ func _finish() -> void:
 		"policy": _policy, "prefetch_sha256": _prefetch_sha,
 		"failures": _failures, "rounds_requested": ROUNDS, "opening_starts": _starts,
 		"opening_finishes": _finishes, "complete_authored_lines_accepted": _accept_lines,
+		"npc_talks": _talks, "npc_lines_accepted": _talk_lines, "interact_presses": _interact_presses,
 		"images": _images, "events": _events, "cold_record_pid": _cold_record.get("pid", 0),
 		"slot_sha256_after_record": FileAccess.get_sha256(_slot) if FileAccess.file_exists(_slot) else "",
 		"raw_error_gate": "Root wrapper must reject all ERROR/SCRIPT/Parse/Compile output through natural EOF, including real Main quit",
-		"memory_scope": "stage engine static allocator bytes only; Root external PID WorkingSet/Private sampling is required"}
+		"memory_scope": "stage engine static bytes, object counts and renderer-reported texture/video bytes; process WorkingSet/Private sampled externally by PID"}
 	var summary_path := _out.path_join(_phase + "-summary.json")
 	var file: FileAccess = null
 	if FileAccess.file_exists(summary_path):

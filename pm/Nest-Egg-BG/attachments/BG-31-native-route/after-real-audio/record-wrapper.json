@@ -1,0 +1,25 @@
+{
+ "name": "record",
+ "args": [
+  "--rendering-method",
+  "forward_plus",
+  "res://tools/bg31_main_lifecycle_probe.tscn",
+  "--",
+  "--out=C:/Users/stanl/AppData/Local/Temp/claude/C--Github-Nest-Egg/1afb8a9e-c213-442c-9589-61350b2318ab/scratchpad/bg31/real1",
+  "--slot=C:/Users/stanl/AppData/Local/Temp/claude/C--Github-Nest-Egg/1afb8a9e-c213-442c-9589-61350b2318ab/scratchpad/bg31/real1/slot.json",
+  "--phase=record"
+ ],
+ "pid": 6728,
+ "exit": 0,
+ "natural_exit": true,
+ "elapsed_seconds": 35.9,
+ "raw_errors": [],
+ "raw_error_count": 0,
+ "warning_count": 0,
+ "warnings_head": [],
+ "peak_working_set_mb": 506.8,
+ "peak_private_mb": 797.6,
+ "samples": 139,
+ "log_sha256": "7f929a54b0cba24c07a985b51a133c6528ef52994816b685a73c9cf0cfa9f630",
+ "renderer_line": "Vulkan 1.4.356 - Forward+ - Using Device #0: Intel - Intel(R) Arc(TM) B580 Graphics"
+}

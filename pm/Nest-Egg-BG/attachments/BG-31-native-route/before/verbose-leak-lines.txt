@@ -1,0 +1,23 @@
+5295:Leaked instance: OggPacketSequence:9223372400568043974 - Reference count: 3
+5296:Leaked instance: OggPacketSequence:9223372401071360458 - Reference count: 3
+5297:Leaked instance: OggPacketSequence:9223372458482993765 - Reference count: 3
+5298:Leaked instance: AudioStreamOggVorbis:9223373277160803063 - Reference count: 1
+5299:Leaked instance: AudioStreamPlaybackOggVorbis:9223373277194357788 - Reference count: 1
+5300:Leaked instance: OggPacketSequence:9223372707876311301 - Reference count: 3
+5301:Leaked instance: OggPacketSequencePlayback:9223373277211136413 - Reference count: 1
+5302:Leaked instance: AudioStreamOggVorbis:9223373357892768158 - Reference count: 1
+5303:Leaked instance: OggPacketSequencePlayback:9223373357943099827 - Reference count: 1
+5304:Leaked instance: AudioStreamOggVorbis:9223373277647344053 - Reference count: 1
+5305:Leaked instance: OggPacketSequencePlayback:9223373277697675705 - Reference count: 1
+5306:Leaked instance: AudioStreamPlaybackOggVorbis:9223373277680898490 - Reference count: 1
+5307:Leaked instance: AudioStreamOggVorbis:9223373277714452923 - Reference count: 1
+5308:Leaked instance: AudioStreamPlaybackOggVorbis:9223373277748007356 - Reference count: 1
+5309:Leaked instance: OggPacketSequencePlayback:9223373277764784573 - Reference count: 1
+5310:Leaked instance: AudioStreamPlaybackOggVorbis:9223373357926324405 - Reference count: 1
+5311:Hint: Leaked instances typically happen when nodes are removed from the scene tree (with `remove_child()`) but not freed (with `free()` or `queue_free()`).
+5312:Resource still in use: res://audio/sfx/amb_rain_light_01.ogg::OggPacketSequence_j68iu (OggPacketSequence)
+5313:Resource still in use: res://audio/sfx/amb_city_night_01.ogg::OggPacketSequence_ubf1e (OggPacketSequence)
+5314:Resource still in use: res://audio/music/menu_dark.ogg::OggPacketSequence_gnupm (OggPacketSequence)
+5315:Resource still in use: res://audio/music/safe_pawnshop.ogg::OggPacketSequence_hu571 (OggPacketSequence)
+5357:WARNING: 16 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+5359:ERROR: 4 resources still in use at exit.
