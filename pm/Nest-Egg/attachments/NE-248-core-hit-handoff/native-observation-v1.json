@@ -1,0 +1,2391 @@
+{
+	"checks": 14,
+	"events": [
+		{
+			"data": {
+				"enemy_health": 90,
+				"enemy_position": [
+					459.9296875,
+					319.999237060547
+				],
+				"facing": -1,
+				"fsm": "intro",
+				"phase": 1,
+				"player_health": 999,
+				"player_position": [
+					288.0,
+					320.0
+				],
+				"rig_skin": "warden"
+			},
+			"event": "NE81_spawned",
+			"t_msec": 3488
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					438.006317138672,
+					277.106292724609
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 3623
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 3628
+		},
+		{
+			"data": {
+				"ammo_before": 12,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					459.9296875,
+					319.999237060547
+				],
+				"fired": true,
+				"health_after": 89,
+				"health_before": 90,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					285.018585205078,
+					258.057403564453
+				],
+				"reload_started": false,
+				"target_world": [
+					459.9296875,
+					276.999237060547
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 3644
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					438.014801025391,
+					276.613220214844
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 3892
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 3893
+		},
+		{
+			"data": {
+				"ammo_before": 11,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					459.9296875,
+					319.999237060547
+				],
+				"fired": true,
+				"health_after": 88,
+				"health_before": 89,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					286.545623779297,
+					257.74462890625
+				],
+				"reload_started": false,
+				"target_world": [
+					459.9296875,
+					276.999237060547
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 3908
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					438.006713867188,
+					272.116577148438
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 4159
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 4160
+		},
+		{
+			"data": {
+				"ammo_before": 10,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					459.9296875,
+					319.999237060547
+				],
+				"fired": true,
+				"health_after": 87,
+				"health_before": 88,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					284.333831787109,
+					258.101531982422
+				],
+				"reload_started": false,
+				"target_world": [
+					459.9296875,
+					276.999237060547
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 4175
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					437.981414794922,
+					275.83056640625
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 4439
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 4440
+		},
+		{
+			"data": {
+				"ammo_before": 9,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					459.9296875,
+					319.999237060547
+				],
+				"fired": true,
+				"health_after": 86,
+				"health_before": 87,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					282.718719482422,
+					258.496307373047
+				],
+				"reload_started": false,
+				"target_world": [
+					459.9296875,
+					276.999237060547
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 4456
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					437.868865966797,
+					275.206634521484
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 4723
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 4724
+		},
+		{
+			"data": {
+				"ammo_before": 8,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					459.9296875,
+					319.999237060547
+				],
+				"fired": true,
+				"health_after": 85,
+				"health_before": 86,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					281.778259277344,
+					258.678161621094
+				],
+				"reload_started": false,
+				"target_world": [
+					459.9296875,
+					276.999237060547
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 4740
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					432.194061279297,
+					275.261901855469
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 4999
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 5000
+		},
+		{
+			"data": {
+				"ammo_before": 7,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					459.596343994141,
+					319.925262451172
+				],
+				"fired": true,
+				"health_after": 84,
+				"health_before": 85,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					281.368835449219,
+					258.684875488281
+				],
+				"reload_started": false,
+				"target_world": [
+					459.596343994141,
+					276.925262451172
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 5015
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					426.334411621094,
+					276.549346923828
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 5263
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 5264
+		},
+		{
+			"data": {
+				"ammo_before": 6,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					453.762969970703,
+					319.925262451172
+				],
+				"fired": true,
+				"health_after": 83,
+				"health_before": 84,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					281.273010253906,
+					258.630310058594
+				],
+				"reload_started": false,
+				"target_world": [
+					453.762969970703,
+					276.925262451172
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 5280
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					420.836456298828,
+					275.78515625
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 5511
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 5512
+		},
+		{
+			"data": {
+				"ammo_before": 5,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					447.896270751953,
+					319.925262451172
+				],
+				"fired": true,
+				"health_after": 82,
+				"health_before": 83,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					281.335754394531,
+					258.589508056641
+				],
+				"reload_started": false,
+				"target_world": [
+					447.896270751953,
+					276.925262451172
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 5527
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					415.689910888672,
+					273.040435791016
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 5748
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 5748
+		},
+		{
+			"data": {
+				"ammo_before": 4,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					442.396240234375,
+					319.925262451172
+				],
+				"fired": true,
+				"health_after": 81,
+				"health_before": 82,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					281.487762451172,
+					258.594024658203
+				],
+				"reload_started": false,
+				"target_world": [
+					442.396240234375,
+					276.925262451172
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 5762
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					414.598083496094,
+					274.738464355469
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 5977
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 5977
+		},
+		{
+			"data": {
+				"ammo_before": 3,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					437.262878417969,
+					319.925262451172
+				],
+				"fired": true,
+				"health_after": 80,
+				"health_before": 81,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					281.697784423828,
+					258.629272460938
+				],
+				"reload_started": false,
+				"target_world": [
+					437.262878417969,
+					276.925262451172
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 5992
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					414.620727539063,
+					275.483306884766
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 6212
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 6213
+		},
+		{
+			"data": {
+				"ammo_before": 2,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					436.529541015625,
+					319.925262451172
+				],
+				"fired": true,
+				"health_after": 79,
+				"health_before": 80,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					281.979461669922,
+					258.665618896484
+				],
+				"reload_started": false,
+				"target_world": [
+					436.529541015625,
+					276.925262451172
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 6229
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					414.631072998047,
+					274.252899169922
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 6443
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 6444
+		},
+		{
+			"data": {
+				"ammo_before": 1,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					436.529541015625,
+					319.925262451172
+				],
+				"fired": true,
+				"health_after": 78,
+				"health_before": 79,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					282.352966308594,
+					258.666168212891
+				],
+				"reload_started": false,
+				"target_world": [
+					436.529541015625,
+					276.925262451172
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 6458
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					403.690673828125,
+					271.842041015625
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 7478
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 7479
+		},
+		{
+			"data": {
+				"ammo_before": 12,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					429.996154785156,
+					319.925262451172
+				],
+				"fired": true,
+				"health_after": 77,
+				"health_before": 78,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					280.803558349609,
+					251.236145019531
+				],
+				"reload_started": false,
+				"target_world": [
+					429.996154785156,
+					276.925262451172
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 7494
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					398.518951416016,
+					267.485931396484
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 7714
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 7715
+		},
+		{
+			"data": {
+				"ammo_before": 11,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					425.229461669922,
+					319.925262451172
+				],
+				"fired": true,
+				"health_after": 76,
+				"health_before": 77,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					267.696380615234,
+					232.955657958984
+				],
+				"reload_started": false,
+				"target_world": [
+					425.229461669922,
+					276.925262451172
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 7729
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					393.063568115234,
+					270.312133789063
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 7959
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 7959
+		},
+		{
+			"data": {
+				"ammo_before": 10,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					420.096099853516,
+					319.925262451172
+				],
+				"fired": true,
+				"health_after": 75,
+				"health_before": 76,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					255.906341552734,
+					230.351989746094
+				],
+				"reload_started": false,
+				"target_world": [
+					420.096099853516,
+					276.925262451172
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 7975
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					391.185546875,
+					275.758544921875
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 8196
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 8197
+		},
+		{
+			"data": {
+				"ammo_before": 9,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					414.596069335938,
+					319.925262451172
+				],
+				"fired": true,
+				"health_after": 74,
+				"health_before": 75,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					257.485992431641,
+					263.400115966797
+				],
+				"reload_started": false,
+				"target_world": [
+					414.596069335938,
+					276.925262451172
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 8212
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					391.214416503906,
+					273.089141845703
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 8433
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 8434
+		},
+		{
+			"data": {
+				"ammo_before": 8,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					413.12939453125,
+					319.925262451172
+				],
+				"fired": true,
+				"health_after": 73,
+				"health_before": 74,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					258.800476074219,
+					259.237365722656
+				],
+				"reload_started": false,
+				"target_world": [
+					413.12939453125,
+					276.925262451172
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 8449
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					388.308685302734,
+					276.199859619141
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 8662
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 8662
+		},
+		{
+			"data": {
+				"ammo_before": 7,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					413.12939453125,
+					319.925262451172
+				],
+				"fired": true,
+				"health_after": 72,
+				"health_before": 73,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					258.798309326172,
+					259.461120605469
+				],
+				"reload_started": false,
+				"target_world": [
+					413.12939453125,
+					276.925262451172
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 8677
+		},
+		{
+			"data": {
+				"ammo_before": 6,
+				"damage": 0,
+				"enemy_position_at_fire": [
+					407.340484619141,
+					306.840911865234
+				],
+				"fired": true,
+				"health_after": 72,
+				"health_before": 72,
+				"label": "NE81_phase_damage",
+				"marker": "timeout",
+				"markers": [],
+				"muzzle_world": [
+					258.756561279297,
+					259.554504394531
+				],
+				"reload_started": false,
+				"target_world": [
+					407.340484619141,
+					263.840911865234
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 9679
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					250.760070800781,
+					245.84977722168
+				],
+				"part": "core",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 9740
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 9741
+		},
+		{
+			"data": {
+				"ammo_before": 5,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					256.24072265625,
+					317.67431640625
+				],
+				"fired": true,
+				"health_after": 71,
+				"health_before": 72,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					250.160064697266,
+					245.84977722168
+				],
+				"reload_started": false,
+				"target_world": [
+					256.24072265625,
+					274.67431640625
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 9763
+		},
+		{
+			"data": {
+				"amount": 2,
+				"origin": [
+					234.172286987305,
+					231.998947143555
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 10107
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 10108
+		},
+		{
+			"data": {
+				"ammo_before": 4,
+				"damage": 2,
+				"enemy_position_at_fire": [
+					251.446472167969,
+					319.925231933594
+				],
+				"fired": true,
+				"health_after": 69,
+				"health_before": 71,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					228.53190612793,
+					218.137191772461
+				],
+				"reload_started": false,
+				"target_world": [
+					251.446472167969,
+					276.925231933594
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 10122
+		},
+		{
+			"data": {
+				"amount": 2,
+				"origin": [
+					226.417007446289,
+					232.098861694336
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 10297
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 10298
+		},
+		{
+			"data": {
+				"ammo_before": 3,
+				"damage": 2,
+				"enemy_position_at_fire": [
+					247.77978515625,
+					319.925231933594
+				],
+				"fired": true,
+				"health_after": 67,
+				"health_before": 69,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					214.750457763672,
+					206.902603149414
+				],
+				"reload_started": false,
+				"target_world": [
+					247.77978515625,
+					276.925231933594
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 10315
+		},
+		{
+			"data": {
+				"amount": 2,
+				"origin": [
+					221.791885375977,
+					239.767181396484
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 10454
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 10455
+		},
+		{
+			"data": {
+				"ammo_before": 2,
+				"damage": 2,
+				"enemy_position_at_fire": [
+					244.113098144531,
+					319.925231933594
+				],
+				"fired": true,
+				"health_after": 65,
+				"health_before": 67,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					214.735656738281,
+					228.533294677734
+				],
+				"reload_started": false,
+				"target_world": [
+					244.113098144531,
+					276.925231933594
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 10470
+		},
+		{
+			"data": {
+				"amount": 2,
+				"origin": [
+					218.504135131836,
+					265.814392089844
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 10603
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 10604
+		},
+		{
+			"data": {
+				"ammo_before": 1,
+				"damage": 2,
+				"enemy_position_at_fire": [
+					240.446411132813,
+					319.925231933594
+				],
+				"fired": true,
+				"health_after": 63,
+				"health_before": 65,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					213.793838500977,
+					263.47119140625
+				],
+				"reload_started": false,
+				"target_world": [
+					240.446411132813,
+					276.925231933594
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 10619
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					208.609497070313,
+					262.809997558594
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 11590
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 11590
+		},
+		{
+			"data": {
+				"ammo_before": 12,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					230.546356201172,
+					319.925231933594
+				],
+				"fired": true,
+				"health_after": 62,
+				"health_before": 63,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					199.483001708984,
+					257.191436767578
+				],
+				"reload_started": false,
+				"target_world": [
+					230.546356201172,
+					276.925231933594
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 11605
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					208.589859008789,
+					262.805541992188
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 11739
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 11740
+		},
+		{
+			"data": {
+				"ammo_before": 11,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					230.546356201172,
+					319.925231933594
+				],
+				"fired": true,
+				"health_after": 61,
+				"health_before": 62,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					200.746948242188,
+					257.580505371094
+				],
+				"reload_started": false,
+				"target_world": [
+					230.546356201172,
+					276.925231933594
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 11754
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					208.588821411133,
+					263.016326904297
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 11908
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 11908
+		},
+		{
+			"data": {
+				"ammo_before": 10,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					230.546356201172,
+					319.925231933594
+				],
+				"fired": true,
+				"health_after": 60,
+				"health_before": 61,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					200.422943115234,
+					257.846618652344
+				],
+				"reload_started": false,
+				"target_world": [
+					230.546356201172,
+					276.925231933594
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 11930
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					214.209442138672,
+					243.22509765625
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 12206
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 12206
+		},
+		{
+			"data": {
+				"ammo_before": 9,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					231.146362304688,
+					319.925231933594
+				],
+				"fired": true,
+				"health_after": 59,
+				"health_before": 60,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					214.809448242188,
+					243.22509765625
+				],
+				"reload_started": false,
+				"target_world": [
+					231.146362304688,
+					276.925231933594
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 12221
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					218.824584960938,
+					232.009796142578
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 12639
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 12640
+		},
+		{
+			"data": {
+				"ammo_before": 8,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					228.779678344727,
+					319.925231933594
+				],
+				"fired": true,
+				"health_after": 58,
+				"health_before": 59,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					215.243896484375,
+					216.353622436523
+				],
+				"reload_started": false,
+				"target_world": [
+					228.779678344727,
+					276.925231933594
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 12654
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					209.069549560547,
+					232.012130737305
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 12865
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 12865
+		},
+		{
+			"data": {
+				"ammo_before": 7,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					225.112991333008,
+					319.925231933594
+				],
+				"fired": true,
+				"health_after": 57,
+				"health_before": 58,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					195.192016601563,
+					194.919082641602
+				],
+				"reload_started": false,
+				"target_world": [
+					225.112991333008,
+					276.925231933594
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 12886
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					203.501510620117,
+					232.004760742188
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 13023
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 13023
+		},
+		{
+			"data": {
+				"ammo_before": 6,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					221.446304321289,
+					319.925231933594
+				],
+				"fired": true,
+				"health_after": 56,
+				"health_before": 57,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					191.142700195313,
+					202.36994934082
+				],
+				"reload_started": false,
+				"target_world": [
+					221.446304321289,
+					276.925231933594
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 13037
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					195.82421875,
+					250.232635498047
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 13133
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 13133
+		},
+		{
+			"data": {
+				"ammo_before": 5,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					217.77961730957,
+					319.925231933594
+				],
+				"fired": true,
+				"health_after": 55,
+				"health_before": 56,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					192.002716064453,
+					245.684326171875
+				],
+				"reload_started": false,
+				"target_world": [
+					217.77961730957,
+					276.925231933594
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 13154
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					192.189636230469,
+					265.349273681641
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 13302
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 13303
+		},
+		{
+			"data": {
+				"ammo_before": 4,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					214.112930297852,
+					319.925231933594
+				],
+				"fired": true,
+				"health_after": 54,
+				"health_before": 55,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					187.427505493164,
+					262.8583984375
+				],
+				"reload_started": false,
+				"target_world": [
+					214.112930297852,
+					276.925231933594
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 13319
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					188.704650878906,
+					257.873779296875
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 13467
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 13467
+		},
+		{
+			"data": {
+				"ammo_before": 3,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					210.446243286133,
+					319.925231933594
+				],
+				"fired": true,
+				"health_after": 53,
+				"health_before": 54,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					188.704650878906,
+					257.873779296875
+				],
+				"reload_started": false,
+				"target_world": [
+					210.446243286133,
+					276.925231933594
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 13489
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					185.190124511719,
+					244.3828125
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 13710
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 13710
+		},
+		{
+			"data": {
+				"ammo_before": 2,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					207.146224975586,
+					319.925231933594
+				],
+				"fired": true,
+				"health_after": 52,
+				"health_before": 53,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					182.652572631836,
+					240.751342773438
+				],
+				"reload_started": false,
+				"target_world": [
+					207.146224975586,
+					276.925231933594
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 13731
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					185.183578491211,
+					253.420120239258
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 13875
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 13875
+		},
+		{
+			"data": {
+				"ammo_before": 1,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					207.146224975586,
+					319.925231933594
+				],
+				"fired": true,
+				"health_after": 51,
+				"health_before": 52,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					180.48664855957,
+					248.232666015625
+				],
+				"reload_started": false,
+				"target_world": [
+					207.146224975586,
+					276.925231933594
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 13897
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					182.585891723633,
+					231.429336547852
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 14811
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 14811
+		},
+		{
+			"data": {
+				"ammo_before": 12,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					190.783615112305,
+					228.090744018555
+				],
+				"fired": true,
+				"health_after": 50,
+				"health_before": 51,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					178.169067382813,
+					257.349212646484
+				],
+				"reload_started": false,
+				"target_world": [
+					190.783615112305,
+					185.090744018555
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 14826
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					180.940399169922,
+					248.283050537109
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 14972
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 14973
+		},
+		{
+			"data": {
+				"ammo_before": 11,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					185.141372680664,
+					245.174026489258
+				],
+				"fired": true,
+				"health_after": 49,
+				"health_before": 50,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					180.149368286133,
+					257.917297363281
+				],
+				"reload_started": false,
+				"target_world": [
+					185.141372680664,
+					202.174026489258
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 14973
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					180.552993774414,
+					258.206604003906
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 15121
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 15121
+		},
+		{
+			"data": {
+				"ammo_before": 10,
+				"damage": 1,
+				"enemy_position_at_fire": [
+					179.499130249023,
+					287.257415771484
+				],
+				"fired": true,
+				"health_after": 48,
+				"health_before": 49,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					180.552993774414,
+					258.206604003906
+				],
+				"reload_started": false,
+				"target_world": [
+					179.499130249023,
+					244.257415771484
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 15135
+		},
+		{
+			"data": {
+				"amount": 2,
+				"origin": [
+					164.363250732422,
+					231.99494934082
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 15660
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 15661
+		},
+		{
+			"data": {
+				"ammo_before": 9,
+				"damage": 2,
+				"enemy_position_at_fire": [
+					175.447128295898,
+					319.925231933594
+				],
+				"fired": true,
+				"health_after": 46,
+				"health_before": 48,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					164.266738891602,
+					231.578384399414
+				],
+				"reload_started": false,
+				"target_world": [
+					175.447128295898,
+					276.925231933594
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 15682
+		},
+		{
+			"data": {
+				"amount": 2,
+				"origin": [
+					148.725997924805,
+					239.683853149414
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 15920
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 15921
+		},
+		{
+			"data": {
+				"ammo_before": 8,
+				"damage": 2,
+				"enemy_position_at_fire": [
+					171.78044128418,
+					319.925231933594
+				],
+				"fired": true,
+				"health_after": 44,
+				"health_before": 46,
+				"label": "NE81_phase_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					132.239349365234,
+					212.660552978516
+				],
+				"reload_started": false,
+				"target_world": [
+					171.78044128418,
+					276.925231933594
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 15936
+		},
+		{
+			"data": {
+				"confirmed_player_hits": 40,
+				"fsm": "phase_shift",
+				"phase": 2,
+				"player_health": 954,
+				"player_weapon": "pistol",
+				"shots_fired": 41,
+				"warden_health": 44,
+				"warden_max_health": 90
+			},
+			"event": "NE81_phase_threshold",
+			"t_msec": 15936
+		},
+		{
+			"data": {
+				"enemy_position": [
+					36.0747299194336,
+					319.996429443359
+				],
+				"fsm_time": 0.0,
+				"state": "core_windup"
+			},
+			"event": "fsm_state",
+			"t_msec": 26222
+		},
+		{
+			"data": {
+				"active_projectiles_before": 0,
+				"core_world": [
+					32.4437599182129,
+					246.862869262695
+				],
+				"fsm": "core_windup",
+				"fsm_time": 0.0,
+				"phase": 2,
+				"player_health_before_volley": 879,
+				"telegraph": true
+			},
+			"event": "NE81_core_windup",
+			"t_msec": 26222
+		},
+		{
+			"data": {
+				"name": "NE81_warden_core_windup",
+				"path": "D:/NestEggVerification/ne81-core-red-e286a1be/images/NE81_warden_core_windup.png",
+				"simulation_after": {
+					"enemy_fsm": "core_windup",
+					"enemy_fsm_time": 0.0,
+					"enemy_position": [
+						36.0747299194336,
+						319.996429443359
+					],
+					"player_health": 879,
+					"player_position": [
+						22.0747299194336,
+						229.908340454102
+					]
+				},
+				"simulation_before": {
+					"enemy_fsm": "core_windup",
+					"enemy_fsm_time": 0.0,
+					"enemy_position": [
+						36.0747299194336,
+						319.996429443359
+					],
+					"player_health": 879,
+					"player_position": [
+						22.0747299194336,
+						229.908340454102
+					]
+				},
+				"simulation_frozen": true,
+				"size": [
+					1280,
+					720
+				]
+			},
+			"event": "native_capture",
+			"t_msec": 26295
+		},
+		{
+			"data": {
+				"enemy_position": [
+					36.0747299194336,
+					319.996429443359
+				],
+				"fsm_time": 0.0,
+				"state": "core_recover"
+			},
+			"event": "fsm_state",
+			"t_msec": 26790
+		},
+		{
+			"data": {
+				"active_projectiles_before": 0,
+				"active_projectiles_immediately_after_fire": 3,
+				"core_damage_scale": 2.0,
+				"enemy_position": [
+					36.0747299194336,
+					319.996429443359
+				],
+				"fsm": "core_recover",
+				"fsm_time": 0.0,
+				"player_health": 877,
+				"player_position": [
+					22.0748081207275,
+					319.992004394531
+				]
+			},
+			"event": "NE81_core_recover_entry",
+			"t_msec": 26790
+		},
+		{
+			"data": {
+				"name": "NE81_warden_core_recover_entry",
+				"path": "D:/NestEggVerification/ne81-core-red-e286a1be/images/NE81_warden_core_recover_entry.png",
+				"simulation_after": {
+					"enemy_fsm": "core_recover",
+					"enemy_fsm_time": 0.0,
+					"enemy_position": [
+						36.0747299194336,
+						319.996429443359
+					],
+					"player_health": 877,
+					"player_position": [
+						22.0748081207275,
+						319.992004394531
+					]
+				},
+				"simulation_before": {
+					"enemy_fsm": "core_recover",
+					"enemy_fsm_time": 0.0,
+					"enemy_position": [
+						36.0747299194336,
+						319.996429443359
+					],
+					"player_health": 877,
+					"player_position": [
+						22.0748081207275,
+						319.992004394531
+					]
+				},
+				"simulation_frozen": true,
+				"size": [
+					1280,
+					720
+				]
+			},
+			"event": "native_capture",
+			"t_msec": 26877
+		},
+		{
+			"data": {
+				"active_projectiles_at_end": 3,
+				"active_projectiles_before": 0,
+				"active_projectiles_immediately_after_fire": 3,
+				"core_damage_scale": 2.0,
+				"frames_until_player_damage": 0,
+				"fsm": "core_recover",
+				"fsm_time": 0.0,
+				"player_health_after_volley": 877,
+				"player_health_before_volley": 879,
+				"projectile_delta_at_fire": 3
+			},
+			"event": "NE81_core_recover",
+			"t_msec": 26877
+		},
+		{
+			"data": {
+				"name": "NE81_warden_core_volley_player_hit",
+				"path": "D:/NestEggVerification/ne81-core-red-e286a1be/images/NE81_warden_core_volley_player_hit.png",
+				"simulation_after": {
+					"enemy_fsm": "core_recover",
+					"enemy_fsm_time": 0.0,
+					"enemy_position": [
+						36.0747299194336,
+						319.996429443359
+					],
+					"player_health": 877,
+					"player_position": [
+						22.0748081207275,
+						319.992004394531
+					]
+				},
+				"simulation_before": {
+					"enemy_fsm": "core_recover",
+					"enemy_fsm_time": 0.0,
+					"enemy_position": [
+						36.0747299194336,
+						319.996429443359
+					],
+					"player_health": 877,
+					"player_position": [
+						22.0748081207275,
+						319.992004394531
+					]
+				},
+				"simulation_frozen": true,
+				"size": [
+					1280,
+					720
+				]
+			},
+			"event": "native_capture",
+			"t_msec": 26954
+		},
+		{
+			"data": {
+				"ammo_before": 7,
+				"damage": 0,
+				"enemy_position_at_fire": [
+					36.0747299194336,
+					319.996429443359
+				],
+				"fired": true,
+				"health_after": 44,
+				"health_before": 44,
+				"label": "NE81_exposed_core_damage",
+				"marker": "timeout",
+				"markers": [],
+				"muzzle_world": [
+					-28.5484828948975,
+					259.511596679688
+				],
+				"reload_started": false,
+				"target_world": [
+					33.7291793823242,
+					246.514801025391
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 27901
+		},
+		{
+			"data": {
+				"core_center_world": [
+					32.3337860107422,
+					246.844131469727
+				],
+				"core_damage_scale": 2.0,
+				"health_after": 44,
+				"health_before": 44,
+				"markers": [],
+				"part_hit_events": [],
+				"resolved_core_part": false,
+				"root_damage_scale": 1.0,
+				"shot": {
+					"ammo_before": 7,
+					"damage": 0,
+					"enemy_position_at_fire": [
+						36.0747299194336,
+						319.996429443359
+					],
+					"fired": true,
+					"health_after": 44,
+					"health_before": 44,
+					"label": "NE81_exposed_core_damage",
+					"marker": "timeout",
+					"markers": [],
+					"muzzle_world": [
+						-28.5484828948975,
+						259.511596679688
+					],
+					"reload_started": false,
+					"target_world": [
+						33.7291793823242,
+						246.514801025391
+					]
+				}
+			},
+			"event": "NE81_core_player_hit",
+			"t_msec": 27901
+		},
+		{
+			"data": {
+				"name": "NE81_warden_core_recover_player_hit",
+				"path": "D:/NestEggVerification/ne81-core-red-e286a1be/images/NE81_warden_core_recover_player_hit.png",
+				"simulation_after": {
+					"enemy_fsm": "core_recover",
+					"enemy_fsm_time": 0.933333333333335,
+					"enemy_position": [
+						36.0747299194336,
+						319.996429443359
+					],
+					"player_health": 875,
+					"player_position": [
+						22.0748081207275,
+						319.992004394531
+					]
+				},
+				"simulation_before": {
+					"enemy_fsm": "core_recover",
+					"enemy_fsm_time": 0.933333333333335,
+					"enemy_position": [
+						36.0747299194336,
+						319.996429443359
+					],
+					"player_health": 875,
+					"player_position": [
+						22.0748081207275,
+						319.992004394531
+					]
+				},
+				"simulation_frozen": true,
+				"size": [
+					1280,
+					720
+				]
+			},
+			"event": "native_capture",
+			"t_msec": 27959
+		}
+	],
+	"failures": [
+		"real exposed-core projectile resolves core with weak_hit=true",
+		"actual Player projectile damages Warden during the naturally exposed-core recovery window"
+	],
+	"godot": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"head": "e286a1be92226d70f9432a5213eb9c48d98b9393",
+	"source_sha256": {
+		"res://.godot/ne79-ne80-ne81-organic-combat/enforcer_preflight.gd": "00d0bf1d730bba13d3da1280cd31c466fd79aab17d4baeaac0fe8086ee31c041",
+		"res://.godot/ne81-core-real-hit/native_probe.gd": "12f73ea5212755d32d0c63fa1d2f1d18c4bdf83d71fe2a4f76f20c9e46fe9c48",
+		"res://core/components/hurtbox.gd": "8da545725886ae29c64eda534de3f4a7483ba0ce667aef84545796debf9edc7d",
+		"res://data/enemies/warden.tres": "41760c61a715254fdfaa8f211ae234cf99fb4913ebf5f77366971276bab0d06e",
+		"res://game/enemies/enemy.gd": "95cf1cc9ef2e9b15b2d95f5e79955a75869461026c9df2fb3bd637eaa8fa6ce2",
+		"res://game/enemies/warden_boss.gd": "3410ce2b8680b63b92f8f88b6f65e5cb42d3d9fed32f28bf29b63f5549054aba",
+		"res://game/projectiles/projectile.gd": "183c6ad9f4bcfbfd71a1475f1409e7a3402dc8f85f466a2ed8d4dcf480ebe534"
+	},
+	"status": "REGRESSION_RED_NOT_ACCEPTED"
+}
