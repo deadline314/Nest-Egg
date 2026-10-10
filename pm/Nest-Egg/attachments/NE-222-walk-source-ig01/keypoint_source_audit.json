@@ -1,0 +1,1273 @@
+{
+  "source_sha256": "3af1fa39fd7325c92ed8f1dd75562a98f7636ce723f619643a8eb4235ed71c75",
+  "proposal_sha256": "7fa4e1e4364c8f901462cd96df24464cde4cc4527674d174d9c5c7486c5dc4e9",
+  "source_size_wh": [
+    1037,
+    1516
+  ],
+  "model_point_count": 70,
+  "status": "SAM3DBody proposal only. No point is an accepted rig joint or dynamic pass.",
+  "side_mapping": "Do not trust SAM left/right labels for this profile. The model right arm/wrist proposal corresponds to the image-left metallic arm; model left arm/wrist corresponds to the image-right natural arm.",
+  "points": {
+    "nose": {
+      "xy_model_float": [
+        645.9,
+        183.4
+      ],
+      "nearest_native_sample_xy": [
+        646,
+        183
+      ],
+      "source_rgba_at_nearest_pixel": [
+        88,
+        49,
+        41,
+        243
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Model face point; profile nose is visibly locatable, still not a rig joint."
+    },
+    "kp1": {
+      "xy_model_float": [
+        623.1,
+        156.3
+      ],
+      "nearest_native_sample_xy": [
+        623,
+        156
+      ],
+      "source_rgba_at_nearest_pixel": [
+        165,
+        124,
+        109,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp2": {
+      "xy_model_float": [
+        624.5,
+        147.3
+      ],
+      "nearest_native_sample_xy": [
+        624,
+        147
+      ],
+      "source_rgba_at_nearest_pixel": [
+        188,
+        130,
+        109,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp3": {
+      "xy_model_float": [
+        548.5,
+        176.4
+      ],
+      "nearest_native_sample_xy": [
+        548,
+        176
+      ],
+      "source_rgba_at_nearest_pixel": [
+        231,
+        176,
+        153,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp4": {
+      "xy_model_float": [
+        546.8,
+        156.8
+      ],
+      "nearest_native_sample_xy": [
+        547,
+        157
+      ],
+      "source_rgba_at_nearest_pixel": [
+        180,
+        117,
+        101,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "left_shoulder": {
+      "xy_model_float": [
+        580.6,
+        343.1
+      ],
+      "nearest_native_sample_xy": [
+        581,
+        343
+      ],
+      "source_rgba_at_nearest_pixel": [
+        41,
+        43,
+        73,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Model-labelled shoulder falls on the coat/upper sleeve boundary; actual shoulder center is hidden by clothing. Candidate only."
+    },
+    "right_shoulder": {
+      "xy_model_float": [
+        480.3,
+        299.9
+      ],
+      "nearest_native_sample_xy": [
+        480,
+        300
+      ],
+      "source_rgba_at_nearest_pixel": [
+        40,
+        39,
+        65,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Model-labelled shoulder falls on the coat/upper sleeve boundary; actual shoulder center is hidden by clothing. Candidate only."
+    },
+    "left_elbow": {
+      "xy_model_float": [
+        659.3,
+        527.3
+      ],
+      "nearest_native_sample_xy": [
+        659,
+        527
+      ],
+      "source_rgba_at_nearest_pixel": [
+        22,
+        21,
+        45,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "On coat/sleeve fabric; elbow center is occluded, not directly visible."
+    },
+    "right_elbow": {
+      "xy_model_float": [
+        438.1,
+        512.1
+      ],
+      "nearest_native_sample_xy": [
+        438,
+        512
+      ],
+      "source_rgba_at_nearest_pixel": [
+        23,
+        24,
+        47,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "On coat sleeve fabric; elbow center is occluded, not directly visible."
+    },
+    "left_hip": {
+      "xy_model_float": [
+        546.2,
+        697.7
+      ],
+      "nearest_native_sample_xy": [
+        546,
+        698
+      ],
+      "source_rgba_at_nearest_pixel": [
+        81,
+        61,
+        67,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Inside the dark hip/legging silhouette; anatomical hip rotation center is occluded and remains unknown."
+    },
+    "right_hip": {
+      "xy_model_float": [
+        540.7,
+        678.1
+      ],
+      "nearest_native_sample_xy": [
+        541,
+        678
+      ],
+      "source_rgba_at_nearest_pixel": [
+        80,
+        61,
+        67,
+        252
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Inside the dark hip/legging silhouette; anatomical hip rotation center is occluded and remains unknown."
+    },
+    "left_knee": {
+      "xy_model_float": [
+        455.5,
+        1004.8
+      ],
+      "nearest_native_sample_xy": [
+        456,
+        1005
+      ],
+      "source_rgba_at_nearest_pixel": [
+        49,
+        42,
+        48,
+        252
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Model estimate on legging surface; knee joint is not visually defined in this stride source."
+    },
+    "right_knee": {
+      "xy_model_float": [
+        681.1,
+        985.9
+      ],
+      "nearest_native_sample_xy": [
+        681,
+        986
+      ],
+      "source_rgba_at_nearest_pixel": [
+        52,
+        44,
+        51,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Model estimate on legging surface; knee joint is not visually defined in this stride source."
+    },
+    "left_ankle": {
+      "xy_model_float": [
+        271.4,
+        1289.9
+      ],
+      "nearest_native_sample_xy": [
+        271,
+        1290
+      ],
+      "source_rgba_at_nearest_pixel": [
+        18,
+        17,
+        19,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Falls on boot/upper shaft region rather than a clearly visible ankle joint; do not use as accepted ankle."
+    },
+    "right_ankle": {
+      "xy_model_float": [
+        755.4,
+        1347.9
+      ],
+      "nearest_native_sample_xy": [
+        755,
+        1348
+      ],
+      "source_rgba_at_nearest_pixel": [
+        15,
+        16,
+        17,
+        254
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Falls on boot/upper shaft region rather than a clearly visible ankle joint; do not use as accepted ankle."
+    },
+    "left_big_toe": {
+      "xy_model_float": [
+        327.9,
+        1438.4
+      ],
+      "nearest_native_sample_xy": [
+        328,
+        1438
+      ],
+      "source_rgba_at_nearest_pixel": [
+        20,
+        18,
+        23,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Footwear point on boot/sole region; visual candidate only."
+    },
+    "kp16": {
+      "xy_model_float": [
+        294.4,
+        1405.8
+      ],
+      "nearest_native_sample_xy": [
+        294,
+        1406
+      ],
+      "source_rgba_at_nearest_pixel": [
+        57,
+        53,
+        54,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "left_heel": {
+      "xy_model_float": [
+        228.6,
+        1305.0
+      ],
+      "nearest_native_sample_xy": [
+        229,
+        1305
+      ],
+      "source_rgba_at_nearest_pixel": [
+        26,
+        24,
+        28,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Footwear point; distinguish shoe heel geometry from ankle/joint."
+    },
+    "right_big_toe": {
+      "xy_model_float": [
+        922.6,
+        1423.3
+      ],
+      "nearest_native_sample_xy": [
+        923,
+        1423
+      ],
+      "source_rgba_at_nearest_pixel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "source_alpha_nonzero": false,
+      "assessment": "Nearest native sample (923,1423) is fully transparent, just beyond the visible boot. Reject this model point and place a human prompt inside the visible toe at native scale."
+    },
+    "kp19": {
+      "xy_model_float": [
+        879.1,
+        1438.4
+      ],
+      "nearest_native_sample_xy": [
+        879,
+        1438
+      ],
+      "source_rgba_at_nearest_pixel": [
+        27,
+        26,
+        32,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "right_heel": {
+      "xy_model_float": [
+        732.9,
+        1389.1
+      ],
+      "nearest_native_sample_xy": [
+        733,
+        1389
+      ],
+      "source_rgba_at_nearest_pixel": [
+        27,
+        26,
+        29,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Footwear point; distinguish shoe heel geometry from ankle/joint."
+    },
+    "kp21": {
+      "xy_model_float": [
+        391.8,
+        821.1
+      ],
+      "nearest_native_sample_xy": [
+        392,
+        821
+      ],
+      "source_rgba_at_nearest_pixel": [
+        10,
+        8,
+        13,
+        233
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp22": {
+      "xy_model_float": [
+        398.9,
+        803.5
+      ],
+      "nearest_native_sample_xy": [
+        399,
+        804
+      ],
+      "source_rgba_at_nearest_pixel": [
+        17,
+        16,
+        20,
+        228
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp23": {
+      "xy_model_float": [
+        409.2,
+        776.3
+      ],
+      "nearest_native_sample_xy": [
+        409,
+        776
+      ],
+      "source_rgba_at_nearest_pixel": [
+        20,
+        17,
+        20,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp24": {
+      "xy_model_float": [
+        405.9,
+        749.2
+      ],
+      "nearest_native_sample_xy": [
+        406,
+        749
+      ],
+      "source_rgba_at_nearest_pixel": [
+        37,
+        31,
+        37,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp25": {
+      "xy_model_float": [
+        387.2,
+        834.1
+      ],
+      "nearest_native_sample_xy": [
+        387,
+        834
+      ],
+      "source_rgba_at_nearest_pixel": [
+        20,
+        20,
+        22,
+        126
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp26": {
+      "xy_model_float": [
+        381.7,
+        828.2
+      ],
+      "nearest_native_sample_xy": [
+        382,
+        828
+      ],
+      "source_rgba_at_nearest_pixel": [
+        21,
+        20,
+        23,
+        241
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp27": {
+      "xy_model_float": [
+        376.4,
+        817.3
+      ],
+      "nearest_native_sample_xy": [
+        376,
+        817
+      ],
+      "source_rgba_at_nearest_pixel": [
+        9,
+        8,
+        11,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp28": {
+      "xy_model_float": [
+        382.1,
+        788.1
+      ],
+      "nearest_native_sample_xy": [
+        382,
+        788
+      ],
+      "source_rgba_at_nearest_pixel": [
+        55,
+        52,
+        56,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp29": {
+      "xy_model_float": [
+        383.5,
+        825.8
+      ],
+      "nearest_native_sample_xy": [
+        384,
+        826
+      ],
+      "source_rgba_at_nearest_pixel": [
+        26,
+        24,
+        29,
+        249
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp30": {
+      "xy_model_float": [
+        371.9,
+        822.8
+      ],
+      "nearest_native_sample_xy": [
+        372,
+        823
+      ],
+      "source_rgba_at_nearest_pixel": [
+        29,
+        29,
+        32,
+        94
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp31": {
+      "xy_model_float": [
+        360.5,
+        815.4
+      ],
+      "nearest_native_sample_xy": [
+        360,
+        815
+      ],
+      "source_rgba_at_nearest_pixel": [
+        127,
+        127,
+        0,
+        2
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp32": {
+      "xy_model_float": [
+        360.6,
+        783.2
+      ],
+      "nearest_native_sample_xy": [
+        361,
+        783
+      ],
+      "source_rgba_at_nearest_pixel": [
+        37,
+        35,
+        38,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp33": {
+      "xy_model_float": [
+        376.5,
+        815.9
+      ],
+      "nearest_native_sample_xy": [
+        376,
+        816
+      ],
+      "source_rgba_at_nearest_pixel": [
+        16,
+        15,
+        21,
+        252
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp34": {
+      "xy_model_float": [
+        363.4,
+        812.7
+      ],
+      "nearest_native_sample_xy": [
+        363,
+        813
+      ],
+      "source_rgba_at_nearest_pixel": [
+        2,
+        1,
+        4,
+        177
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp35": {
+      "xy_model_float": [
+        350.2,
+        803.9
+      ],
+      "nearest_native_sample_xy": [
+        350,
+        804
+      ],
+      "source_rgba_at_nearest_pixel": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp36": {
+      "xy_model_float": [
+        350.9,
+        774.7
+      ],
+      "nearest_native_sample_xy": [
+        351,
+        775
+      ],
+      "source_rgba_at_nearest_pixel": [
+        2,
+        1,
+        4,
+        251
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp37": {
+      "xy_model_float": [
+        365.6,
+        806.3
+      ],
+      "nearest_native_sample_xy": [
+        366,
+        806
+      ],
+      "source_rgba_at_nearest_pixel": [
+        0,
+        0,
+        0,
+        252
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp38": {
+      "xy_model_float": [
+        353.4,
+        800.2
+      ],
+      "nearest_native_sample_xy": [
+        353,
+        800
+      ],
+      "source_rgba_at_nearest_pixel": [
+        6,
+        5,
+        6,
+        196
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp39": {
+      "xy_model_float": [
+        344.7,
+        790.2
+      ],
+      "nearest_native_sample_xy": [
+        345,
+        790
+      ],
+      "source_rgba_at_nearest_pixel": [
+        127,
+        191,
+        127,
+        4
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp40": {
+      "xy_model_float": [
+        345.0,
+        767.5
+      ],
+      "nearest_native_sample_xy": [
+        345,
+        768
+      ],
+      "source_rgba_at_nearest_pixel": [
+        28,
+        28,
+        28,
+        9
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "right_wrist": {
+      "xy_model_float": [
+        386.5,
+        719.4
+      ],
+      "nearest_native_sample_xy": [
+        386,
+        719
+      ],
+      "source_rgba_at_nearest_pixel": [
+        129,
+        125,
+        128,
+        251
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Near the visible prosthetic wrist joint; use metal-arm/hand source ownership to calibrate."
+    },
+    "kp42": {
+      "xy_model_float": [
+        797.0,
+        754.0
+      ],
+      "nearest_native_sample_xy": [
+        797,
+        754
+      ],
+      "source_rgba_at_nearest_pixel": [
+        179,
+        112,
+        100,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp43": {
+      "xy_model_float": [
+        793.2,
+        737.2
+      ],
+      "nearest_native_sample_xy": [
+        793,
+        737
+      ],
+      "source_rgba_at_nearest_pixel": [
+        177,
+        117,
+        102,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp44": {
+      "xy_model_float": [
+        784.0,
+        713.6
+      ],
+      "nearest_native_sample_xy": [
+        784,
+        714
+      ],
+      "source_rgba_at_nearest_pixel": [
+        227,
+        171,
+        149,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp45": {
+      "xy_model_float": [
+        771.3,
+        697.4
+      ],
+      "nearest_native_sample_xy": [
+        771,
+        697
+      ],
+      "source_rgba_at_nearest_pixel": [
+        226,
+        167,
+        145,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp46": {
+      "xy_model_float": [
+        798.5,
+        771.2
+      ],
+      "nearest_native_sample_xy": [
+        798,
+        771
+      ],
+      "source_rgba_at_nearest_pixel": [
+        192,
+        123,
+        108,
+        252
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp47": {
+      "xy_model_float": [
+        807.2,
+        762.2
+      ],
+      "nearest_native_sample_xy": [
+        807,
+        762
+      ],
+      "source_rgba_at_nearest_pixel": [
+        147,
+        93,
+        83,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp48": {
+      "xy_model_float": [
+        814.5,
+        748.2
+      ],
+      "nearest_native_sample_xy": [
+        814,
+        748
+      ],
+      "source_rgba_at_nearest_pixel": [
+        152,
+        97,
+        85,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp49": {
+      "xy_model_float": [
+        810.4,
+        720.6
+      ],
+      "nearest_native_sample_xy": [
+        810,
+        721
+      ],
+      "source_rgba_at_nearest_pixel": [
+        225,
+        166,
+        145,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp50": {
+      "xy_model_float": [
+        787.1,
+        771.0
+      ],
+      "nearest_native_sample_xy": [
+        787,
+        771
+      ],
+      "source_rgba_at_nearest_pixel": [
+        180,
+        118,
+        103,
+        249
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp51": {
+      "xy_model_float": [
+        797.0,
+        766.1
+      ],
+      "nearest_native_sample_xy": [
+        797,
+        766
+      ],
+      "source_rgba_at_nearest_pixel": [
+        181,
+        120,
+        107,
+        252
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp52": {
+      "xy_model_float": [
+        806.3,
+        756.2
+      ],
+      "nearest_native_sample_xy": [
+        806,
+        756
+      ],
+      "source_rgba_at_nearest_pixel": [
+        228,
+        173,
+        153,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp53": {
+      "xy_model_float": [
+        804.2,
+        726.7
+      ],
+      "nearest_native_sample_xy": [
+        804,
+        727
+      ],
+      "source_rgba_at_nearest_pixel": [
+        235,
+        176,
+        155,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp54": {
+      "xy_model_float": [
+        776.9,
+        767.1
+      ],
+      "nearest_native_sample_xy": [
+        777,
+        767
+      ],
+      "source_rgba_at_nearest_pixel": [
+        191,
+        127,
+        127,
+        4
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp55": {
+      "xy_model_float": [
+        785.0,
+        763.9
+      ],
+      "nearest_native_sample_xy": [
+        785,
+        764
+      ],
+      "source_rgba_at_nearest_pixel": [
+        112,
+        63,
+        55,
+        252
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp56": {
+      "xy_model_float": [
+        793.6,
+        754.7
+      ],
+      "nearest_native_sample_xy": [
+        794,
+        755
+      ],
+      "source_rgba_at_nearest_pixel": [
+        101,
+        54,
+        48,
+        251
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp57": {
+      "xy_model_float": [
+        791.5,
+        728.7
+      ],
+      "nearest_native_sample_xy": [
+        792,
+        729
+      ],
+      "source_rgba_at_nearest_pixel": [
+        219,
+        162,
+        142,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp58": {
+      "xy_model_float": [
+        772.2,
+        766.4
+      ],
+      "nearest_native_sample_xy": [
+        772,
+        766
+      ],
+      "source_rgba_at_nearest_pixel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "source_alpha_nonzero": false,
+      "assessment": "Nearest native sample (772,766) is fully transparent just outside the image-right hand contour. Reject this model point and manually recalibrate the hand boundary."
+    },
+    "kp59": {
+      "xy_model_float": [
+        776.4,
+        761.0
+      ],
+      "nearest_native_sample_xy": [
+        776,
+        761
+      ],
+      "source_rgba_at_nearest_pixel": [
+        127,
+        73,
+        63,
+        216
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp60": {
+      "xy_model_float": [
+        780.0,
+        751.0
+      ],
+      "nearest_native_sample_xy": [
+        780,
+        751
+      ],
+      "source_rgba_at_nearest_pixel": [
+        170,
+        85,
+        85,
+        3
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp61": {
+      "xy_model_float": [
+        777.8,
+        731.1
+      ],
+      "nearest_native_sample_xy": [
+        778,
+        731
+      ],
+      "source_rgba_at_nearest_pixel": [
+        172,
+        113,
+        100,
+        252
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "left_wrist": {
+      "xy_model_float": [
+        763.5,
+        682.1
+      ],
+      "nearest_native_sample_xy": [
+        764,
+        682
+      ],
+      "source_rgba_at_nearest_pixel": [
+        227,
+        174,
+        152,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Near the visible human wrist/coat cuff transition; calibrate against actual forearm and palm ownership."
+    },
+    "kp63": {
+      "xy_model_float": [
+        649.2,
+        544.1
+      ],
+      "nearest_native_sample_xy": [
+        649,
+        544
+      ],
+      "source_rgba_at_nearest_pixel": [
+        113,
+        110,
+        122,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp64": {
+      "xy_model_float": [
+        412.2,
+        523.3
+      ],
+      "nearest_native_sample_xy": [
+        412,
+        523
+      ],
+      "source_rgba_at_nearest_pixel": [
+        24,
+        25,
+        50,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp65": {
+      "xy_model_float": [
+        671.4,
+        523.4
+      ],
+      "nearest_native_sample_xy": [
+        671,
+        523
+      ],
+      "source_rgba_at_nearest_pixel": [
+        26,
+        25,
+        44,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "kp66": {
+      "xy_model_float": [
+        455.3,
+        514.4
+      ],
+      "nearest_native_sample_xy": [
+        455,
+        514
+      ],
+      "source_rgba_at_nearest_pixel": [
+        35,
+        35,
+        62,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Unmapped model landmark (mostly kpN hand/finger points); no semantic bone assignment accepted."
+    },
+    "right_acromion": {
+      "xy_model_float": [
+        585.0,
+        309.2
+      ],
+      "nearest_native_sample_xy": [
+        585,
+        309
+      ],
+      "source_rgba_at_nearest_pixel": [
+        102,
+        162,
+        164,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Model acromion is on collar/coat fabric; actual bony landmark is occluded. Candidate estimate only."
+    },
+    "left_acromion": {
+      "xy_model_float": [
+        492.3,
+        267.3
+      ],
+      "nearest_native_sample_xy": [
+        492,
+        267
+      ],
+      "source_rgba_at_nearest_pixel": [
+        14,
+        11,
+        21,
+        246
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "Model acromion is on dark coat fabric; actual bony landmark is occluded. Candidate estimate only."
+    },
+    "neck": {
+      "xy_model_float": [
+        545.4,
+        277.4
+      ],
+      "nearest_native_sample_xy": [
+        545,
+        277
+      ],
+      "source_rgba_at_nearest_pixel": [
+        110,
+        66,
+        112,
+        253
+      ],
+      "source_alpha_nonzero": true,
+      "assessment": "On collar/neck boundary; neck pivot is partly hidden by high collar."
+    }
+  }
+}

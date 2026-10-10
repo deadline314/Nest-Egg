@@ -1,0 +1,535 @@
+{
+  "load": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "sam-gray.png"
+    },
+    "is_changed": [
+      "e0fc1cceb3adbc860cd639c689f2809848702080b47a051ad082d4a50b3a6242"
+    ]
+  },
+  "ckpt": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "sam3.1_multiplex_fp16.safetensors"
+    }
+  },
+  "d0": {
+    "class_type": "SAM3_Detect",
+    "inputs": {
+      "model": [
+        "ckpt",
+        0
+      ],
+      "image": [
+        "load",
+        0
+      ],
+      "threshold": 0.3,
+      "refine_iterations": 2,
+      "individual_masks": false,
+      "positive_coords": "[{\"x\": 350, \"y\": 350}, {\"x\": 320, \"y\": 450}, {\"x\": 450, \"y\": 90}]",
+      "negative_coords": "[{\"x\": 620, \"y\": 180}, {\"x\": 480, \"y\": 300}, {\"x\": 100, \"y\": 350}]"
+    }
+  },
+  "m0": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "d0",
+        0
+      ]
+    }
+  },
+  "s0": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "m0",
+        0
+      ],
+      "filename_prefix": "sampt_df5a58_0"
+    }
+  },
+  "d1": {
+    "class_type": "SAM3_Detect",
+    "inputs": {
+      "model": [
+        "ckpt",
+        0
+      ],
+      "image": [
+        "load",
+        0
+      ],
+      "threshold": 0.3,
+      "refine_iterations": 2,
+      "individual_masks": false,
+      "positive_coords": "[{\"x\": 620, \"y\": 180}, {\"x\": 590, \"y\": 155}]",
+      "negative_coords": "[{\"x\": 350, \"y\": 350}, {\"x\": 550, \"y\": 265}, {\"x\": 720, \"y\": 300}]"
+    }
+  },
+  "m1": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "d1",
+        0
+      ]
+    }
+  },
+  "s1": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "m1",
+        0
+      ],
+      "filename_prefix": "sampt_407428_1"
+    }
+  },
+  "d2": {
+    "class_type": "SAM3_Detect",
+    "inputs": {
+      "model": [
+        "ckpt",
+        0
+      ],
+      "image": [
+        "load",
+        0
+      ],
+      "threshold": 0.3,
+      "refine_iterations": 2,
+      "individual_masks": false,
+      "positive_coords": "[{\"x\": 640, \"y\": 390}, {\"x\": 650, \"y\": 480}, {\"x\": 620, \"y\": 505}]",
+      "negative_coords": "[{\"x\": 500, \"y\": 450}, {\"x\": 545, \"y\": 670}, {\"x\": 420, \"y\": 530}]"
+    }
+  },
+  "m2": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "d2",
+        0
+      ]
+    }
+  },
+  "s2": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "m2",
+        0
+      ],
+      "filename_prefix": "sampt_c6f7ed_2"
+    }
+  },
+  "d3": {
+    "class_type": "SAM3_Detect",
+    "inputs": {
+      "model": [
+        "ckpt",
+        0
+      ],
+      "image": [
+        "load",
+        0
+      ],
+      "threshold": 0.3,
+      "refine_iterations": 2,
+      "individual_masks": false,
+      "positive_coords": "[{\"x\": 540, \"y\": 380}, {\"x\": 540, \"y\": 485}]",
+      "negative_coords": "[{\"x\": 640, \"y\": 390}, {\"x\": 420, \"y\": 460}, {\"x\": 715, \"y\": 600}, {\"x\": 405, \"y\": 650}]"
+    }
+  },
+  "m3": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "d3",
+        0
+      ]
+    }
+  },
+  "s3": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "m3",
+        0
+      ],
+      "filename_prefix": "sampt_a21829_3"
+    }
+  },
+  "d4": {
+    "class_type": "SAM3_Detect",
+    "inputs": {
+      "model": [
+        "ckpt",
+        0
+      ],
+      "image": [
+        "load",
+        0
+      ],
+      "threshold": 0.3,
+      "refine_iterations": 2,
+      "individual_masks": false,
+      "positive_coords": "[{\"x\": 425, \"y\": 440}, {\"x\": 420, \"y\": 530}]",
+      "negative_coords": "[{\"x\": 540, \"y\": 380}, {\"x\": 420, \"y\": 600}, {\"x\": 405, \"y\": 660}, {\"x\": 300, \"y\": 650}]"
+    }
+  },
+  "m4": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "d4",
+        0
+      ]
+    }
+  },
+  "s4": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "m4",
+        0
+      ],
+      "filename_prefix": "sampt_8fce80_4"
+    }
+  },
+  "d5": {
+    "class_type": "SAM3_Detect",
+    "inputs": {
+      "model": [
+        "ckpt",
+        0
+      ],
+      "image": [
+        "load",
+        0
+      ],
+      "threshold": 0.3,
+      "refine_iterations": 2,
+      "individual_masks": false,
+      "positive_coords": "[{\"x\": 420, \"y\": 600}, {\"x\": 405, \"y\": 660}, {\"x\": 405, \"y\": 700}]",
+      "negative_coords": "[{\"x\": 420, \"y\": 530}, {\"x\": 385, \"y\": 760}, {\"x\": 500, \"y\": 500}]"
+    }
+  },
+  "m5": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "d5",
+        0
+      ]
+    }
+  },
+  "s5": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "m5",
+        0
+      ],
+      "filename_prefix": "sampt_7292ae_5"
+    }
+  },
+  "d6": {
+    "class_type": "SAM3_Detect",
+    "inputs": {
+      "model": [
+        "ckpt",
+        0
+      ],
+      "image": [
+        "load",
+        0
+      ],
+      "threshold": 0.3,
+      "refine_iterations": 2,
+      "individual_masks": false,
+      "positive_coords": "[{\"x\": 385, \"y\": 760}, {\"x\": 375, \"y\": 800}]",
+      "negative_coords": "[{\"x\": 405, \"y\": 660}, {\"x\": 500, \"y\": 800}, {\"x\": 300, \"y\": 760}]"
+    }
+  },
+  "m6": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "d6",
+        0
+      ]
+    }
+  },
+  "s6": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "m6",
+        0
+      ],
+      "filename_prefix": "sampt_14f41d_6"
+    }
+  },
+  "d7": {
+    "class_type": "SAM3_Detect",
+    "inputs": {
+      "model": [
+        "ckpt",
+        0
+      ],
+      "image": [
+        "load",
+        0
+      ],
+      "threshold": 0.3,
+      "refine_iterations": 2,
+      "individual_masks": false,
+      "positive_coords": "[{\"x\": 715, \"y\": 600}, {\"x\": 680, \"y\": 570}]",
+      "negative_coords": "[{\"x\": 500, \"y\": 500}, {\"x\": 760, \"y\": 690}, {\"x\": 780, \"y\": 580}]"
+    }
+  },
+  "m7": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "d7",
+        0
+      ]
+    }
+  },
+  "s7": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "m7",
+        0
+      ],
+      "filename_prefix": "sampt_9363b6_7"
+    }
+  },
+  "d8": {
+    "class_type": "SAM3_Detect",
+    "inputs": {
+      "model": [
+        "ckpt",
+        0
+      ],
+      "image": [
+        "load",
+        0
+      ],
+      "threshold": 0.3,
+      "refine_iterations": 2,
+      "individual_masks": false,
+      "positive_coords": "[{\"x\": 760, \"y\": 690}, {\"x\": 805, \"y\": 740}]",
+      "negative_coords": "[{\"x\": 715, \"y\": 600}, {\"x\": 650, \"y\": 800}, {\"x\": 850, \"y\": 760}]"
+    }
+  },
+  "m8": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "d8",
+        0
+      ]
+    }
+  },
+  "s8": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "m8",
+        0
+      ],
+      "filename_prefix": "sampt_86ba1b_8"
+    }
+  },
+  "d9": {
+    "class_type": "SAM3_Detect",
+    "inputs": {
+      "model": [
+        "ckpt",
+        0
+      ],
+      "image": [
+        "load",
+        0
+      ],
+      "threshold": 0.3,
+      "refine_iterations": 2,
+      "individual_masks": false,
+      "positive_coords": "[{\"x\": 650, \"y\": 900}, {\"x\": 681, \"y\": 985}, {\"x\": 700, \"y\": 1080}, {\"x\": 700, \"y\": 1200}]",
+      "negative_coords": "[{\"x\": 500, \"y\": 900}, {\"x\": 430, \"y\": 1080}, {\"x\": 800, \"y\": 1380}, {\"x\": 600, \"y\": 820}]"
+    }
+  },
+  "m9": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "d9",
+        0
+      ]
+    }
+  },
+  "s9": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "m9",
+        0
+      ],
+      "filename_prefix": "sampt_faced9_9"
+    }
+  },
+  "d10": {
+    "class_type": "SAM3_Detect",
+    "inputs": {
+      "model": [
+        "ckpt",
+        0
+      ],
+      "image": [
+        "load",
+        0
+      ],
+      "threshold": 0.3,
+      "refine_iterations": 2,
+      "individual_masks": false,
+      "positive_coords": "[{\"x\": 500, \"y\": 900}, {\"x\": 455, \"y\": 1000}, {\"x\": 390, \"y\": 1050}, {\"x\": 330, \"y\": 1160}]",
+      "negative_coords": "[{\"x\": 650, \"y\": 900}, {\"x\": 700, \"y\": 1080}, {\"x\": 250, \"y\": 1320}, {\"x\": 600, \"y\": 820}]"
+    }
+  },
+  "m10": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "d10",
+        0
+      ]
+    }
+  },
+  "s10": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "m10",
+        0
+      ],
+      "filename_prefix": "sampt_29c42d_10"
+    }
+  },
+  "d11": {
+    "class_type": "SAM3_Detect",
+    "inputs": {
+      "model": [
+        "ckpt",
+        0
+      ],
+      "image": [
+        "load",
+        0
+      ],
+      "threshold": 0.3,
+      "refine_iterations": 2,
+      "individual_masks": false,
+      "positive_coords": "[{\"x\": 750, \"y\": 1330}, {\"x\": 800, \"y\": 1380}, {\"x\": 900, \"y\": 1440}]",
+      "negative_coords": "[{\"x\": 750, \"y\": 1250}, {\"x\": 700, \"y\": 1200}, {\"x\": 250, \"y\": 1320}, {\"x\": 940, \"y\": 1400}]"
+    }
+  },
+  "m11": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "d11",
+        0
+      ]
+    }
+  },
+  "s11": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "m11",
+        0
+      ],
+      "filename_prefix": "sampt_d9030d_11"
+    }
+  },
+  "d12": {
+    "class_type": "SAM3_Detect",
+    "inputs": {
+      "model": [
+        "ckpt",
+        0
+      ],
+      "image": [
+        "load",
+        0
+      ],
+      "threshold": 0.3,
+      "refine_iterations": 2,
+      "individual_masks": false,
+      "positive_coords": "[{\"x\": 250, \"y\": 1320}, {\"x\": 300, \"y\": 1250}, {\"x\": 280, \"y\": 1410}]",
+      "negative_coords": "[{\"x\": 390, \"y\": 1050}, {\"x\": 800, \"y\": 1380}, {\"x\": 100, \"y\": 1400}, {\"x\": 520, \"y\": 1400}]"
+    }
+  },
+  "m12": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "d12",
+        0
+      ]
+    }
+  },
+  "s12": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "m12",
+        0
+      ],
+      "filename_prefix": "sampt_ab9009_12"
+    }
+  },
+  "d13": {
+    "class_type": "SAM3_Detect",
+    "inputs": {
+      "model": [
+        "ckpt",
+        0
+      ],
+      "image": [
+        "load",
+        0
+      ],
+      "threshold": 0.3,
+      "refine_iterations": 2,
+      "individual_masks": false,
+      "positive_coords": "[{\"x\": 600, \"y\": 820}, {\"x\": 620, \"y\": 865}]",
+      "negative_coords": "[{\"x\": 530, \"y\": 900}, {\"x\": 650, \"y\": 900}, {\"x\": 780, \"y\": 900}]"
+    }
+  },
+  "m13": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "d13",
+        0
+      ]
+    }
+  },
+  "s13": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "m13",
+        0
+      ],
+      "filename_prefix": "sampt_418078_13"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+WARNING:root:WARNING: You need pytorch with cu130 or higher to use optimized CUDA operations.
+WARNING WARNING WARNING
+If you are on nvidia 20 series and above it is required that you update your pytorch to cu130 or higher.
+
+
+SAM3D body inference:   0%|          | 0/1 [00:00<?, ?it/s]
+SAM3D body inference: 100%|██████████| 1/1 [00:01<00:00,  1.01s/it]
+SAM3D body inference: 100%|██████████| 1/1 [00:01<00:00,  1.01s/it]
+keypoints: (70, 2)

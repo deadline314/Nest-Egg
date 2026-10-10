@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\art_src\characters\rin_walk_source_ig01\verify.py", line 62, in <module>
+    main()
+  File "C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\art_src\characters\rin_walk_source_ig01\verify.py", line 20, in main
+    manifest = json.loads((HERE / 'manifest.json').read_text(encoding='utf8'))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\stanl\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\stanl\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\art_src\\characters\\rin_walk_source_ig01\\manifest.json'

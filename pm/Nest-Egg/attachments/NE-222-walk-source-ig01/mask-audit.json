@@ -1,0 +1,292 @@
+{
+  "status": "NOT_ACCEPTED_SEMANTIC_MASK_AUDIT",
+  "source_sha256": "3af1fa39fd7325c92ed8f1dd75562a98f7636ce723f619643a8eb4235ed71c75",
+  "mask_rule": "SAM mask >127 intersect original alpha >0; no source alpha threshold or replacement",
+  "parts": {
+    "hair_back": {
+      "owned_source_pixels": 54007,
+      "bbox_xyxy": [
+        256,
+        23,
+        626,
+        509
+      ],
+      "positive_hits": [
+        255,
+        255,
+        255
+      ],
+      "negative_hits": [
+        0,
+        0,
+        0
+      ]
+    },
+    "head": {
+      "owned_source_pixels": 21687,
+      "bbox_xyxy": [
+        480,
+        58,
+        647,
+        240
+      ],
+      "positive_hits": [
+        255,
+        255
+      ],
+      "negative_hits": [
+        0,
+        0,
+        0
+      ]
+    },
+    "inner_torso": {
+      "owned_source_pixels": 18384,
+      "bbox_xyxy": [
+        568,
+        317,
+        698,
+        676
+      ],
+      "positive_hits": [
+        255,
+        255,
+        255
+      ],
+      "negative_hits": [
+        0,
+        0,
+        0
+      ]
+    },
+    "coat_body": {
+      "owned_source_pixels": 18256,
+      "bbox_xyxy": [
+        413,
+        233,
+        672,
+        562
+      ],
+      "positive_hits": [
+        255,
+        255
+      ],
+      "negative_hits": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "near_sleeve": {
+      "owned_source_pixels": 25555,
+      "bbox_xyxy": [
+        383,
+        298,
+        585,
+        569
+      ],
+      "positive_hits": [
+        255,
+        255
+      ],
+      "negative_hits": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "metal_forearm": {
+      "owned_source_pixels": 7830,
+      "bbox_xyxy": [
+        383,
+        547,
+        470,
+        722
+      ],
+      "positive_hits": [
+        255,
+        255,
+        255
+      ],
+      "negative_hits": [
+        0,
+        0,
+        0
+      ]
+    },
+    "metal_hand": {
+      "owned_source_pixels": 8043,
+      "bbox_xyxy": [
+        348,
+        553,
+        465,
+        835
+      ],
+      "positive_hits": [
+        255,
+        255
+      ],
+      "negative_hits": [
+        0,
+        0,
+        0
+      ]
+    },
+    "far_sleeve": {
+      "owned_source_pixels": 11674,
+      "bbox_xyxy": [
+        573,
+        270,
+        756,
+        669
+      ],
+      "positive_hits": [
+        255,
+        255
+      ],
+      "negative_hits": [
+        0,
+        0,
+        0
+      ]
+    },
+    "natural_hand_forearm": {
+      "owned_source_pixels": 6071,
+      "bbox_xyxy": [
+        724,
+        637,
+        831,
+        784
+      ],
+      "positive_hits": [
+        255,
+        255
+      ],
+      "negative_hits": [
+        0,
+        0,
+        0
+      ]
+    },
+    "near_leg": {
+      "owned_source_pixels": 35954,
+      "bbox_xyxy": [
+        357,
+        671,
+        763,
+        1266
+      ],
+      "positive_hits": [
+        255,
+        255,
+        255,
+        255
+      ],
+      "negative_hits": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "far_leg": {
+      "owned_source_pixels": 40655,
+      "bbox_xyxy": [
+        295,
+        758,
+        565,
+        1223
+      ],
+      "positive_hits": [
+        255,
+        255,
+        255,
+        255
+      ],
+      "negative_hits": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "near_boot": {
+      "owned_source_pixels": 25046,
+      "bbox_xyxy": [
+        357,
+        371,
+        922,
+        1483
+      ],
+      "positive_hits": [
+        255,
+        255,
+        255
+      ],
+      "negative_hits": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "far_boot": {
+      "owned_source_pixels": 26301,
+      "bbox_xyxy": [
+        159,
+        1205,
+        355,
+        1472
+      ],
+      "positive_hits": [
+        255,
+        255,
+        255
+      ],
+      "negative_hits": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "holster": {
+      "owned_source_pixels": 9779,
+      "bbox_xyxy": [
+        524,
+        759,
+        676,
+        898
+      ],
+      "positive_hits": [
+        255,
+        255
+      ],
+      "negative_hits": [
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "overlaps": {
+    "hair_back / head": 1019,
+    "inner_torso / far_sleeve": 39,
+    "coat_body / near_sleeve": 6496,
+    "coat_body / far_sleeve": 1,
+    "coat_body / near_boot": 8,
+    "near_sleeve / metal_forearm": 2,
+    "near_sleeve / near_boot": 8,
+    "metal_forearm / metal_hand": 2264,
+    "far_sleeve / near_boot": 1,
+    "near_leg / far_leg": 5,
+    "near_leg / near_boot": 53,
+    "far_leg / near_boot": 3,
+    "far_leg / far_boot": 1,
+    "near_boot / holster": 8
+  },
+  "unassigned_source_pixels": 123256,
+  "multi_owned_source_pixels": 9886
+}
