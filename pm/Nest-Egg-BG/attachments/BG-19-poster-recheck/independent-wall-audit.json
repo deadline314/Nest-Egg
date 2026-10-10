@@ -1,0 +1,7277 @@
+{
+  "root": "C:\\Github\\Nest-Egg",
+  "method": "Source-translated guaranteed wall region common to all legal seeds. Not exact seed/native renderer execution. Uncovered does not imply actual-seed failure. Pillow >=128 base texture alpha; no glow as structural support. H=56 authoring reference.",
+  "wall_count": 62,
+  "wall_records": [
+    {
+      "level": "ch1_booth_alley",
+      "entry": {
+        "id": "anchor_phone_booth__poster_wall",
+        "x": 28,
+        "y": 19,
+        "support": "wall"
+      },
+      "resource": "data/environment/scene_props/anchor_phone_booth/anchor_phone_booth__poster_wall.tres",
+      "rect": [
+        448,
+        254.0,
+        40.5,
+        66.0
+      ],
+      "visible_rect": [
+        448.0,
+        254.0,
+        40.5,
+        66.0
+      ],
+      "size_H": [
+        0.7232142857142857,
+        1.1785714285714286
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 7,
+          "outdoor": true,
+          "ground": 320,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "ch1_lounge",
+      "entry": {
+        "id": "revival_lounge__bottle_wall_shelf",
+        "x": 28,
+        "y": 14,
+        "support": "wall"
+      },
+      "resource": "data/environment/scene_props/revival_lounge/revival_lounge__bottle_wall_shelf.tres",
+      "rect": [
+        448,
+        195.0,
+        53.4,
+        45.0
+      ],
+      "visible_rect": [
+        448.0,
+        195.0,
+        53.4,
+        45.0
+      ],
+      "size_H": [
+        0.9535714285714285,
+        0.8035714285714286
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 7,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "ch1_lounge",
+      "entry": {
+        "id": "revival_lounge__menu_board",
+        "x": 38,
+        "y": 14,
+        "support": "wall"
+      },
+      "resource": "data/environment/scene_props/revival_lounge/revival_lounge__menu_board.tres",
+      "rect": [
+        608,
+        204.0,
+        23.6,
+        36.0
+      ],
+      "visible_rect": [
+        608.0,
+        204.0,
+        23.6,
+        36.0
+      ],
+      "size_H": [
+        0.42142857142857143,
+        0.6428571428571429
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 9,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "ch1_lounge",
+      "entry": {
+        "id": "revival_lounge__neon_glass_sign",
+        "x": 10,
+        "y": 13,
+        "support": "wall"
+      },
+      "resource": "data/environment/scene_props/revival_lounge/revival_lounge__neon_glass_sign.tres",
+      "rect": [
+        160,
+        197.0,
+        17.7,
+        27.0
+      ],
+      "visible_rect": [
+        160.0,
+        197.0,
+        17.7,
+        27.0
+      ],
+      "size_H": [
+        0.31607142857142856,
+        0.48214285714285715
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 2,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "ch1_pawnshop",
+      "entry": {
+        "id": "pawnshop_front__wall_instruments",
+        "x": 49,
+        "y": 14,
+        "support": "wall"
+      },
+      "resource": "data/environment/scene_props/pawnshop_front/pawnshop_front__wall_instruments.tres",
+      "rect": [
+        784,
+        192.0,
+        56.4,
+        48.0
+      ],
+      "visible_rect": [
+        784.0,
+        192.0,
+        56.4,
+        48.0
+      ],
+      "size_H": [
+        1.0071428571428571,
+        0.8571428571428571
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 12,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        },
+        {
+          "column": 13,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "ch1_pawnshop",
+      "entry": {
+        "id": "pawnshop_front__pawn_sign",
+        "x": 64,
+        "y": 11,
+        "support": "wall"
+      },
+      "resource": "data/environment/scene_props/pawnshop_front/pawnshop_front__pawn_sign.tres",
+      "rect": [
+        1024,
+        165.0,
+        69.5,
+        27.0
+      ],
+      "visible_rect": [
+        1024.0,
+        165.0,
+        69.5,
+        27.0
+      ],
+      "size_H": [
+        1.2410714285714286,
+        0.48214285714285715
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 16,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        },
+        {
+          "column": 17,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "ch1_pawnshop",
+      "entry": {
+        "id": "pawnshop_kitchen__hanging_pans",
+        "x": 94,
+        "y": 13,
+        "support": "wall"
+      },
+      "resource": "data/environment/scene_props/pawnshop_kitchen/pawnshop_kitchen__hanging_pans.tres",
+      "rect": [
+        1504,
+        194.0,
+        49.9,
+        30.0
+      ],
+      "visible_rect": [
+        1504.0,
+        194.0,
+        49.9,
+        30.0
+      ],
+      "size_H": [
+        0.8910714285714285,
+        0.5357142857142857
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 23,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        },
+        {
+          "column": 24,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "ch1_pawnshop",
+      "entry": {
+        "id": "pawnshop_kitchen__tear_off_calendar",
+        "x": 100,
+        "y": 14,
+        "support": "wall"
+      },
+      "resource": "data/environment/scene_props/pawnshop_kitchen/pawnshop_kitchen__tear_off_calendar.tres",
+      "rect": [
+        1600,
+        222.0,
+        8.9,
+        18.0
+      ],
+      "visible_rect": [
+        1600.0,
+        222.0,
+        8.9,
+        18.0
+      ],
+      "size_H": [
+        0.15892857142857145,
+        0.32142857142857145
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 25,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "fire_escape",
+        "x": 32,
+        "y": 14,
+        "allow_overlap": true,
+        "support": "wall",
+        "ground": false
+      },
+      "resource": "data/environment/props/fire_escape.tres",
+      "rect": [
+        512,
+        168.0,
+        48.0,
+        72.0
+      ],
+      "visible_rect": [
+        512.0,
+        179.74999968,
+        48.0,
+        41.750000639999996
+      ],
+      "size_H": [
+        0.8571428571428571,
+        1.2857142857142858
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 8,
+          "outdoor": true,
+          "ground": 240,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "graffiti",
+        "x": 64,
+        "y": 19,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/graffiti.tres",
+      "rect": [
+        1024,
+        260.0,
+        50.1,
+        60.0
+      ],
+      "visible_rect": [
+        1024.0,
+        260.0,
+        50.1,
+        60.0
+      ],
+      "size_H": [
+        0.8946428571428572,
+        1.0714285714285714
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 16,
+          "outdoor": true,
+          "ground": 320,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "fire_escape",
+        "x": 106,
+        "y": 16,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/fire_escape.tres",
+      "rect": [
+        1696,
+        200.0,
+        48.0,
+        72.0
+      ],
+      "visible_rect": [
+        1696.0,
+        211.74999968,
+        48.0,
+        41.750000639999996
+      ],
+      "size_H": [
+        0.8571428571428571,
+        1.2857142857142858
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 26,
+          "outdoor": true,
+          "ground": 256,
+          "possible_floors": [
+            1,
+            3
+          ]
+        },
+        {
+          "column": 27,
+          "outdoor": true,
+          "ground": 256,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "graffiti",
+        "x": 144,
+        "y": 15,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/graffiti.tres",
+      "rect": [
+        2304,
+        196.0,
+        50.1,
+        60.0
+      ],
+      "visible_rect": [
+        2304.0,
+        196.0,
+        50.1,
+        60.0
+      ],
+      "size_H": [
+        0.8946428571428572,
+        1.0714285714285714
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 36,
+          "outdoor": true,
+          "ground": 256,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "pipe_horizontal",
+        "x": 206,
+        "y": 17,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/pipe_horizontal.tres",
+      "rect": [
+        3296,
+        281.3,
+        64.0,
+        6.7
+      ],
+      "visible_rect": [
+        3296.0,
+        281.3,
+        64.0,
+        6.7
+      ],
+      "size_H": [
+        1.1428571428571428,
+        0.11964285714285715
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 51,
+          "outdoor": true,
+          "ground": 288,
+          "possible_floors": [
+            1,
+            3
+          ]
+        },
+        {
+          "column": 52,
+          "outdoor": true,
+          "ground": 320,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "camera_wall",
+        "x": 250,
+        "y": 5,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/camera_wall.tres",
+      "rect": [
+        4000,
+        88.5,
+        10.7,
+        7.5
+      ],
+      "visible_rect": [
+        4000.0,
+        88.5,
+        10.7,
+        7.5
+      ],
+      "size_H": [
+        0.19107142857142856,
+        0.13392857142857142
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 62,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "camera_wall",
+        "x": 280,
+        "y": 5,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/camera_wall.tres",
+      "rect": [
+        4480,
+        88.5,
+        10.7,
+        7.5
+      ],
+      "visible_rect": [
+        4480.0,
+        88.5,
+        10.7,
+        7.5
+      ],
+      "size_H": [
+        0.19107142857142856,
+        0.13392857142857142
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 70,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "camera_wall",
+        "x": 300,
+        "y": 5,
+        "flip": true,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/camera_wall.tres",
+      "rect": [
+        4800,
+        88.5,
+        10.7,
+        7.5
+      ],
+      "visible_rect": [
+        4800.0,
+        88.5,
+        10.7,
+        7.5
+      ],
+      "size_H": [
+        0.19107142857142856,
+        0.13392857142857142
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 75,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "emergency_light",
+        "x": 264,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        4224,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        4224.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 66,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "emergency_light",
+        "x": 274,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        4384,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        4384.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 68,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "emergency_light",
+        "x": 284,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        4544,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        4544.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 71,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 24,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        384,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        384.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 6,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 46,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        736,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        736.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 11,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 64,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        1024,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        1024.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 16,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "camera_wall",
+        "x": 44,
+        "y": 6,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/camera_wall.tres",
+      "rect": [
+        704,
+        104.5,
+        10.7,
+        7.5
+      ],
+      "visible_rect": [
+        704.0,
+        104.5,
+        10.7,
+        7.5
+      ],
+      "size_H": [
+        0.19107142857142856,
+        0.13392857142857142
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 11,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 78,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        1248,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        1248.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 19,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 104,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        1664,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        1664.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 26,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 122,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        1952,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        1952.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 30,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "pipe_horizontal",
+        "x": 140,
+        "y": 7,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/pipe_horizontal.tres",
+      "rect": [
+        2240,
+        121.3,
+        64.0,
+        6.7
+      ],
+      "visible_rect": [
+        2240.0,
+        121.3,
+        64.0,
+        6.7
+      ],
+      "size_H": [
+        1.1428571428571428,
+        0.11964285714285715
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 35,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "camera_wall",
+        "x": 138,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/camera_wall.tres",
+      "rect": [
+        2208,
+        72.5,
+        10.7,
+        7.5
+      ],
+      "visible_rect": [
+        2208.0,
+        72.5,
+        10.7,
+        7.5
+      ],
+      "size_H": [
+        0.19107142857142856,
+        0.13392857142857142
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 34,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "graffiti",
+        "x": 180,
+        "y": 19,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/graffiti.tres",
+      "rect": [
+        2880,
+        260.0,
+        50.1,
+        60.0
+      ],
+      "visible_rect": [
+        2880.0,
+        260.0,
+        50.1,
+        60.0
+      ],
+      "size_H": [
+        0.8946428571428572,
+        1.0714285714285714
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 45,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "ac_unit",
+        "x": 174,
+        "y": 12,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/ac_unit.tres",
+      "rect": [
+        2784,
+        187.0,
+        27.8,
+        21.0
+      ],
+      "visible_rect": [
+        2784.0,
+        187.0,
+        27.8,
+        21.0
+      ],
+      "size_H": [
+        0.49642857142857144,
+        0.375
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 43,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "crayon_drawing",
+        "x": 188,
+        "y": 17,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/crayon_drawing.tres",
+      "rect": [
+        3008,
+        273.0,
+        20.3,
+        15.0
+      ],
+      "visible_rect": [
+        3008.0,
+        273.0,
+        20.3,
+        15.0
+      ],
+      "size_H": [
+        0.3625,
+        0.26785714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 47,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "ac_unit_big",
+        "x": 204,
+        "y": 12,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/ac_unit_big.tres",
+      "rect": [
+        3264,
+        175.0,
+        50.2,
+        33.0
+      ],
+      "visible_rect": [
+        3264.0,
+        175.0,
+        50.2,
+        33.0
+      ],
+      "size_H": [
+        0.8964285714285715,
+        0.5892857142857143
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 51,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "window_rain",
+        "x": 176,
+        "y": 14,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/window_rain.tres",
+      "rect": [
+        2816,
+        195.0,
+        39.2,
+        45.0
+      ],
+      "visible_rect": [
+        2816.0,
+        195.0,
+        39.2,
+        45.0
+      ],
+      "size_H": [
+        0.7000000000000001,
+        0.8035714285714286
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 44,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 150,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        2400,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        2400.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 37,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 178,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        2848,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        2848.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 44,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 206,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        3296,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        3296.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 51,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "window_rain",
+        "x": 224,
+        "y": 12,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/window_rain.tres",
+      "rect": [
+        3584,
+        163.0,
+        39.2,
+        45.0
+      ],
+      "visible_rect": [
+        3584.0,
+        163.0,
+        39.2,
+        45.0
+      ],
+      "size_H": [
+        0.7000000000000001,
+        0.8035714285714286
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 56,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "ac_unit",
+        "x": 250,
+        "y": 12,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/ac_unit.tres",
+      "rect": [
+        4000,
+        187.0,
+        27.8,
+        21.0
+      ],
+      "visible_rect": [
+        4000.0,
+        187.0,
+        27.8,
+        21.0
+      ],
+      "size_H": [
+        0.49642857142857144,
+        0.375
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 62,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 222,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        3552,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        3552.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 55,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 236,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        3776,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        3776.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 59,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 250,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        4000,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        4000.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 62,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 270,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        4320,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        4320.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 67,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 282,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        4512,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        4512.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 70,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 298,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        4768,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        4768.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 74,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 314,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        5024,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        5024.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 78,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "camera_wall",
+        "x": 276,
+        "y": 6,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/camera_wall.tres",
+      "rect": [
+        4416,
+        104.5,
+        10.7,
+        7.5
+      ],
+      "visible_rect": [
+        4416.0,
+        104.5,
+        10.7,
+        7.5
+      ],
+      "size_H": [
+        0.19107142857142856,
+        0.13392857142857142
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 69,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "camera_wall",
+        "x": 304,
+        "y": 6,
+        "flip": true,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/camera_wall.tres",
+      "rect": [
+        4864,
+        104.5,
+        10.7,
+        7.5
+      ],
+      "visible_rect": [
+        4864.0,
+        104.5,
+        10.7,
+        7.5
+      ],
+      "size_H": [
+        0.19107142857142856,
+        0.13392857142857142
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 76,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 336,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        5376,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        5376.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 84,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 352,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        5632,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        5632.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 88,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 368,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        5888,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        5888.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 92,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "camera_wall",
+        "x": 340,
+        "y": 6,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/camera_wall.tres",
+      "rect": [
+        5440,
+        104.5,
+        10.7,
+        7.5
+      ],
+      "visible_rect": [
+        5440.0,
+        104.5,
+        10.7,
+        7.5
+      ],
+      "size_H": [
+        0.19107142857142856,
+        0.13392857142857142
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 85,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "camera_wall",
+        "x": 372,
+        "y": 6,
+        "flip": true,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/camera_wall.tres",
+      "rect": [
+        5952,
+        104.5,
+        10.7,
+        7.5
+      ],
+      "visible_rect": [
+        5952.0,
+        104.5,
+        10.7,
+        7.5
+      ],
+      "size_H": [
+        0.19107142857142856,
+        0.13392857142857142
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 93,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 418,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        6688,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        6688.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 104,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 432,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        6912,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        6912.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 108,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "crayon_drawing",
+        "x": 444,
+        "y": 14,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/crayon_drawing.tres",
+      "rect": [
+        7104,
+        225.0,
+        20.3,
+        15.0
+      ],
+      "visible_rect": [
+        7104.0,
+        225.0,
+        20.3,
+        15.0
+      ],
+      "size_H": [
+        0.3625,
+        0.26785714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 111,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "crayon_drawing",
+        "x": 456,
+        "y": 14,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/crayon_drawing.tres",
+      "rect": [
+        7296,
+        225.0,
+        20.3,
+        15.0
+      ],
+      "visible_rect": [
+        7296.0,
+        225.0,
+        20.3,
+        15.0
+      ],
+      "size_H": [
+        0.3625,
+        0.26785714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 114,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "window_rain",
+        "x": 468,
+        "y": 14,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/window_rain.tres",
+      "rect": [
+        7488,
+        195.0,
+        39.2,
+        45.0
+      ],
+      "visible_rect": [
+        7488.0,
+        195.0,
+        39.2,
+        45.0
+      ],
+      "size_H": [
+        0.7000000000000001,
+        0.8035714285714286
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 117,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 444,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        7104,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        7104.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 111,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 450,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        7200,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        7200.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 112,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 456,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        7296,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        7296.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 114,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 462,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        7392,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        7392.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 115,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "emergency_light",
+        "x": 468,
+        "y": 4,
+        "support": "wall"
+      },
+      "resource": "data/environment/props/emergency_light.tres",
+      "rect": [
+        7488,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "visible_rect": [
+        7488.0,
+        72.0,
+        5.5,
+        8.0
+      ],
+      "size_H": [
+        0.09821428571428571,
+        0.14285714285714285
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 117,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    }
+  ],
+  "other_mount_style_records": [
+    {
+      "level": "ch1_booth_alley",
+      "entry": {
+        "id": "anchor_phone_booth__shutter_graffiti",
+        "x": 8,
+        "ground": true
+      },
+      "resource": "data/environment/scene_props/anchor_phone_booth/anchor_phone_booth__shutter_graffiti.tres",
+      "rect": [
+        128,
+        254.0,
+        73.2,
+        66.0
+      ],
+      "visible_rect": [
+        128.0,
+        254.0,
+        73.2,
+        66.0
+      ],
+      "size_H": [
+        1.3071428571428572,
+        1.1785714285714286
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 2,
+          "outdoor": true,
+          "ground": 320,
+          "possible_floors": [
+            1,
+            3
+          ]
+        },
+        {
+          "column": 3,
+          "outdoor": true,
+          "ground": 320,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "ch1_booth_alley",
+      "entry": {
+        "id": "anchor_phone_booth__restore_arrow_sign",
+        "x": 48,
+        "ground": true
+      },
+      "resource": "data/environment/scene_props/anchor_phone_booth/anchor_phone_booth__restore_arrow_sign.tres",
+      "rect": [
+        768,
+        272.0,
+        15.4,
+        48.0
+      ],
+      "visible_rect": [
+        768.0,
+        272.0,
+        15.4,
+        48.0
+      ],
+      "size_H": [
+        0.275,
+        0.8571428571428571
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 12,
+          "outdoor": true,
+          "ground": 320,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "ch1_booth_alley",
+      "entry": {
+        "id": "anchor_phone_booth__flicker_lamp_post",
+        "x": 31,
+        "ground": true
+      },
+      "resource": "data/environment/scene_props/anchor_phone_booth/anchor_phone_booth__flicker_lamp_post.tres",
+      "rect": [
+        496,
+        218.0,
+        12.3,
+        102.0
+      ],
+      "visible_rect": [
+        496.0,
+        218.0,
+        12.3,
+        102.0
+      ],
+      "size_H": [
+        0.21964285714285717,
+        1.8214285714285714
+      ],
+      "all_seed_wall_covered": false,
+      "uncovered_all_seed_guarantee": [
+        [
+          496.0,
+          218.0,
+          12.3,
+          30.0
+        ]
+      ],
+      "columns": [
+        {
+          "column": 7,
+          "outdoor": true,
+          "ground": 320,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "ch1_booth_alley",
+      "entry": {
+        "id": "anchor_phone_booth__gutter_downpipe",
+        "x": 20,
+        "ground": true
+      },
+      "resource": "data/environment/scene_props/anchor_phone_booth/anchor_phone_booth__gutter_downpipe.tres",
+      "rect": [
+        320,
+        236.0,
+        18.4,
+        84.0
+      ],
+      "visible_rect": [
+        320.0,
+        236.0,
+        18.4,
+        84.0
+      ],
+      "size_H": [
+        0.32857142857142857,
+        1.5
+      ],
+      "all_seed_wall_covered": false,
+      "uncovered_all_seed_guarantee": [
+        [
+          320.0,
+          236.0,
+          18.4,
+          12.0
+        ]
+      ],
+      "columns": [
+        {
+          "column": 5,
+          "outdoor": true,
+          "ground": 320,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "ch1_pawnshop",
+      "entry": {
+        "id": "pawnshop_front__tag_shelf",
+        "x": 33,
+        "ground": true
+      },
+      "resource": "data/environment/scene_props/pawnshop_front/pawnshop_front__tag_shelf.tres",
+      "rect": [
+        528,
+        248.0,
+        37.2,
+        72.0
+      ],
+      "visible_rect": [
+        528.0,
+        248.0,
+        37.2,
+        72.0
+      ],
+      "size_H": [
+        0.6642857142857144,
+        1.2857142857142858
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 8,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "ch1_pawnshop",
+      "entry": {
+        "id": "pawnshop_kitchen__paper_shade_lamp",
+        "x": 88,
+        "y": 11,
+        "support": "ceiling",
+        "ceiling_row": 10
+      },
+      "resource": "data/environment/scene_props/pawnshop_kitchen/pawnshop_kitchen__paper_shade_lamp.tres",
+      "rect": [
+        1408,
+        160.0,
+        16.2,
+        24.0
+      ],
+      "visible_rect": [
+        1408.0,
+        160.0,
+        16.2,
+        24.0
+      ],
+      "size_H": [
+        0.28928571428571426,
+        0.42857142857142855
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 22,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.8,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "ch1_rooftop",
+      "entry": {
+        "id": "rooftop__rope_coil_hook",
+        "x": 22,
+        "ground": true
+      },
+      "resource": "data/environment/scene_props/rooftop/rooftop__rope_coil_hook.tres",
+      "rect": [
+        352,
+        261.0,
+        70.6,
+        27.0
+      ],
+      "visible_rect": [
+        352.0,
+        261.0,
+        70.6,
+        27.0
+      ],
+      "size_H": [
+        1.2607142857142857,
+        0.48214285714285715
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 5,
+          "outdoor": true,
+          "ground": 288,
+          "possible_floors": [
+            1,
+            4
+          ]
+        },
+        {
+          "column": 6,
+          "outdoor": true,
+          "ground": 288,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "ch1_stall",
+      "entry": {
+        "id": "dawn_noodle_stall__hanging_lantern",
+        "x": 20,
+        "y": 17,
+        "dy": -1,
+        "support": "hang_prop",
+        "support_id": "dawn_noodle_stall__ali_noodle_cart",
+        "support_x": 18
+      },
+      "resource": "data/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__hanging_lantern.tres",
+      "rect": [
+        320,
+        254.0,
+        16.9,
+        33.0
+      ],
+      "visible_rect": [
+        320.0,
+        254.0,
+        16.9,
+        33.0
+      ],
+      "size_H": [
+        0.30178571428571427,
+        0.5892857142857143
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 5,
+          "outdoor": true,
+          "ground": 320,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 1.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "ch1_street",
+      "entry": {
+        "id": "harbor_street__restore_queue_sign",
+        "x": 28,
+        "ground": true
+      },
+      "resource": "data/environment/scene_props/harbor_street/harbor_street__restore_queue_sign.tres",
+      "rect": [
+        448,
+        266.0,
+        18.3,
+        54.0
+      ],
+      "visible_rect": [
+        448.0,
+        266.0,
+        18.3,
+        54.0
+      ],
+      "size_H": [
+        0.3267857142857143,
+        0.9642857142857143
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 7,
+          "outdoor": true,
+          "ground": 320,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "ch1_street",
+      "entry": {
+        "id": "harbor_street__stacked_neon_signs",
+        "x": 74,
+        "ground": true
+      },
+      "resource": "data/environment/scene_props/harbor_street/harbor_street__stacked_neon_signs.tres",
+      "rect": [
+        1184,
+        224.0,
+        18.6,
+        96.0
+      ],
+      "visible_rect": [
+        1184.0,
+        224.0,
+        18.6,
+        96.0
+      ],
+      "size_H": [
+        0.3321428571428572,
+        1.7142857142857142
+      ],
+      "all_seed_wall_covered": false,
+      "uncovered_all_seed_guarantee": [
+        [
+          1184.0,
+          272.0,
+          18.6,
+          48.0
+        ]
+      ],
+      "columns": [
+        {
+          "column": 18,
+          "outdoor": true,
+          "ground": 272,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "ch1_street",
+      "entry": {
+        "id": "harbor_street__rebirth_billboard",
+        "x": 102,
+        "ground": true
+      },
+      "resource": "data/environment/scene_props/harbor_street/harbor_street__rebirth_billboard.tres",
+      "rect": [
+        1632,
+        230.0,
+        119.6,
+        90.0
+      ],
+      "visible_rect": [
+        1632.0,
+        230.0,
+        119.6,
+        90.0
+      ],
+      "size_H": [
+        2.1357142857142857,
+        1.6071428571428572
+      ],
+      "all_seed_wall_covered": false,
+      "uncovered_all_seed_guarantee": [
+        [
+          1632.0,
+          256.0,
+          119.6,
+          64.0
+        ],
+        [
+          1664,
+          230.0,
+          87.59999999999991,
+          26.0
+        ]
+      ],
+      "columns": [
+        {
+          "column": 25,
+          "outdoor": true,
+          "ground": 256,
+          "possible_floors": [
+            1,
+            3
+          ]
+        },
+        {
+          "column": 26,
+          "outdoor": true,
+          "ground": 208,
+          "possible_floors": [
+            1,
+            3
+          ]
+        },
+        {
+          "column": 27,
+          "outdoor": true,
+          "ground": 208,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "ch1_street",
+      "entry": {
+        "id": "harbor_street__stacked_neon_signs",
+        "x": 178,
+        "ground": true
+      },
+      "resource": "data/environment/scene_props/harbor_street/harbor_street__stacked_neon_signs.tres",
+      "rect": [
+        2848,
+        144.0,
+        18.6,
+        96.0
+      ],
+      "visible_rect": [
+        2848.0,
+        144.0,
+        18.6,
+        96.0
+      ],
+      "size_H": [
+        0.3321428571428572,
+        1.7142857142857142
+      ],
+      "all_seed_wall_covered": false,
+      "uncovered_all_seed_guarantee": [
+        [
+          2848.0,
+          144.0,
+          18.6,
+          24.0
+        ]
+      ],
+      "columns": [
+        {
+          "column": 44,
+          "outdoor": true,
+          "ground": 240,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "pipe_vertical",
+        "x": 31,
+        "y": 19
+      },
+      "resource": "data/environment/props/pipe_vertical.tres",
+      "rect": [
+        496,
+        256.0,
+        6.7,
+        64.0
+      ],
+      "visible_rect": [
+        496.0,
+        256.0,
+        6.7,
+        64.0
+      ],
+      "size_H": [
+        0.11964285714285715,
+        1.1428571428571428
+      ],
+      "all_seed_wall_covered": false,
+      "uncovered_all_seed_guarantee": [
+        [
+          496.0,
+          288.0,
+          6.7,
+          32.0
+        ]
+      ],
+      "columns": [
+        {
+          "column": 7,
+          "outdoor": true,
+          "ground": 288,
+          "possible_floors": [
+            2,
+            4
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "ac_unit",
+        "x": 42,
+        "ground": true,
+        "dx": 4
+      },
+      "resource": "data/environment/props/ac_unit.tres",
+      "rect": [
+        676,
+        219.0,
+        27.8,
+        21.0
+      ],
+      "visible_rect": [
+        676.0,
+        219.0,
+        27.8,
+        21.0
+      ],
+      "size_H": [
+        0.49642857142857144,
+        0.375
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 10,
+          "outdoor": true,
+          "ground": 240,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "street_lamp",
+        "x": 52,
+        "ground": true
+      },
+      "resource": "data/environment/props/street_lamp.tres",
+      "rect": [
+        832,
+        180.0,
+        12.9,
+        60.0
+      ],
+      "visible_rect": [
+        832.0,
+        180.0,
+        12.9,
+        60.0
+      ],
+      "size_H": [
+        0.23035714285714287,
+        1.0714285714285714
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 13,
+          "outdoor": true,
+          "ground": 240,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "street_lamp",
+        "x": 82,
+        "ground": true
+      },
+      "resource": "data/environment/props/street_lamp.tres",
+      "rect": [
+        1312,
+        260.0,
+        12.9,
+        60.0
+      ],
+      "visible_rect": [
+        1312.0,
+        260.0,
+        12.9,
+        60.0
+      ],
+      "size_H": [
+        0.23035714285714287,
+        1.0714285714285714
+      ],
+      "all_seed_wall_covered": false,
+      "uncovered_all_seed_guarantee": [
+        [
+          1312.0,
+          260.0,
+          12.9,
+          60.0
+        ]
+      ],
+      "columns": [
+        {
+          "column": 20,
+          "outdoor": true,
+          "ground": 256,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "street_lamp",
+        "x": 128,
+        "ground": true
+      },
+      "resource": "data/environment/props/street_lamp.tres",
+      "rect": [
+        2048,
+        196.0,
+        12.9,
+        60.0
+      ],
+      "visible_rect": [
+        2048.0,
+        196.0,
+        12.9,
+        60.0
+      ],
+      "size_H": [
+        0.23035714285714287,
+        1.0714285714285714
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 32,
+          "outdoor": true,
+          "ground": 256,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "billboard_ad",
+        "x": 148,
+        "ground": true
+      },
+      "resource": "data/environment/props/billboard_ad.tres",
+      "rect": [
+        2368,
+        242.0,
+        92.7,
+        78.0
+      ],
+      "visible_rect": [
+        2368.0,
+        242.0,
+        92.7,
+        78.0
+      ],
+      "size_H": [
+        1.655357142857143,
+        1.3928571428571428
+      ],
+      "all_seed_wall_covered": false,
+      "uncovered_all_seed_guarantee": [
+        [
+          2368.0,
+          256.0,
+          64.0,
+          24.0
+        ],
+        [
+          2368.0,
+          280.0,
+          64.0,
+          40.0
+        ],
+        [
+          2432,
+          242.0,
+          28.699999999999818,
+          6.0
+        ]
+      ],
+      "columns": [
+        {
+          "column": 37,
+          "outdoor": true,
+          "ground": 256,
+          "possible_floors": [
+            1,
+            3
+          ]
+        },
+        {
+          "column": 38,
+          "outdoor": true,
+          "ground": 320,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "hazard_sign",
+        "x": 176,
+        "ground": true
+      },
+      "resource": "data/environment/props/hazard_sign.tres",
+      "rect": [
+        2816,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "visible_rect": [
+        2816.0,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "size_H": [
+        0.5196428571428572,
+        0.9107142857142857
+      ],
+      "all_seed_wall_covered": false,
+      "uncovered_all_seed_guarantee": [
+        [
+          2816.0,
+          272.0,
+          29.1,
+          48.0
+        ]
+      ],
+      "columns": [
+        {
+          "column": 44,
+          "outdoor": true,
+          "ground": 272,
+          "possible_floors": [
+            1,
+            3
+          ]
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "facility_pipes",
+        "x": 246,
+        "y": 4,
+        "support": "ceiling",
+        "ceiling_row": 4
+      },
+      "resource": "data/environment/props/facility_pipes.tres",
+      "rect": [
+        3936,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "visible_rect": [
+        3936.0,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "size_H": [
+        1.1428571428571428,
+        0.2767857142857143
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 61,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        },
+        {
+          "column": 62,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "facility_pipes",
+        "x": 290,
+        "y": 4,
+        "support": "ceiling",
+        "ceiling_row": 4
+      },
+      "resource": "data/environment/props/facility_pipes.tres",
+      "rect": [
+        4640,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "visible_rect": [
+        4640.0,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "size_H": [
+        1.1428571428571428,
+        0.2767857142857143
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 72,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        },
+        {
+          "column": 73,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "hazard_sign",
+        "x": 254,
+        "ground": true
+      },
+      "resource": "data/environment/props/hazard_sign.tres",
+      "rect": [
+        4064,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "visible_rect": [
+        4064.0,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "size_H": [
+        0.5196428571428572,
+        0.9107142857142857
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 63,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "hazard_sign",
+        "x": 278,
+        "ground": true
+      },
+      "resource": "data/environment/props/hazard_sign.tres",
+      "rect": [
+        4448,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "visible_rect": [
+        4448.0,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "size_H": [
+        0.5196428571428572,
+        0.9107142857142857
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 69,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_01",
+      "entry": {
+        "id": "hazard_sign",
+        "x": 326,
+        "ground": true
+      },
+      "resource": "data/environment/props/hazard_sign.tres",
+      "rect": [
+        5216,
+        125.0,
+        29.1,
+        51.0
+      ],
+      "visible_rect": [
+        5216.0,
+        125.0,
+        29.1,
+        51.0
+      ],
+      "size_H": [
+        0.5196428571428572,
+        0.9107142857142857
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 81,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "hazard_sign",
+        "x": 20,
+        "ground": true
+      },
+      "resource": "data/environment/props/hazard_sign.tres",
+      "rect": [
+        320,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "visible_rect": [
+        320.0,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "size_H": [
+        0.5196428571428572,
+        0.9107142857142857
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 5,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "pipe_vertical",
+        "x": 57,
+        "y": 19
+      },
+      "resource": "data/environment/props/pipe_vertical.tres",
+      "rect": [
+        912,
+        256.0,
+        6.7,
+        64.0
+      ],
+      "visible_rect": [
+        912.0,
+        256.0,
+        6.7,
+        64.0
+      ],
+      "size_H": [
+        0.11964285714285715,
+        1.1428571428571428
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 14,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "facility_pipes",
+        "x": 12,
+        "y": 4,
+        "support": "ceiling",
+        "ceiling_row": 4
+      },
+      "resource": "data/environment/props/facility_pipes.tres",
+      "rect": [
+        192,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "visible_rect": [
+        192.0,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "size_H": [
+        1.1428571428571428,
+        0.2767857142857143
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 3,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "facility_pipes",
+        "x": 38,
+        "y": 4,
+        "support": "ceiling",
+        "ceiling_row": 4
+      },
+      "resource": "data/environment/props/facility_pipes.tres",
+      "rect": [
+        608,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "visible_rect": [
+        608.0,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "size_H": [
+        1.1428571428571428,
+        0.2767857142857143
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 9,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        },
+        {
+          "column": 10,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "facility_pipes",
+        "x": 58,
+        "y": 4,
+        "support": "ceiling",
+        "ceiling_row": 4
+      },
+      "resource": "data/environment/props/facility_pipes.tres",
+      "rect": [
+        928,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "visible_rect": [
+        928.0,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "size_H": [
+        1.1428571428571428,
+        0.2767857142857143
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 14,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        },
+        {
+          "column": 15,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "pipe_vertical",
+        "x": 75,
+        "y": 13
+      },
+      "resource": "data/environment/props/pipe_vertical.tres",
+      "rect": [
+        1200,
+        160.0,
+        6.7,
+        64.0
+      ],
+      "visible_rect": [
+        1200.0,
+        160.0,
+        6.7,
+        64.0
+      ],
+      "size_H": [
+        0.11964285714285715,
+        1.1428571428571428
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 18,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "hazard_sign",
+        "x": 104,
+        "ground": true
+      },
+      "resource": "data/environment/props/hazard_sign.tres",
+      "rect": [
+        1664,
+        173.0,
+        29.1,
+        51.0
+      ],
+      "visible_rect": [
+        1664.0,
+        173.0,
+        29.1,
+        51.0
+      ],
+      "size_H": [
+        0.5196428571428572,
+        0.9107142857142857
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 26,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "facility_pipes",
+        "x": 82,
+        "y": 4,
+        "support": "ceiling",
+        "ceiling_row": 4
+      },
+      "resource": "data/environment/props/facility_pipes.tres",
+      "rect": [
+        1312,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "visible_rect": [
+        1312.0,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "size_H": [
+        1.1428571428571428,
+        0.2767857142857143
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 20,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        },
+        {
+          "column": 21,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "facility_pipes",
+        "x": 112,
+        "y": 4,
+        "support": "ceiling",
+        "ceiling_row": 4
+      },
+      "resource": "data/environment/props/facility_pipes.tres",
+      "rect": [
+        1792,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "visible_rect": [
+        1792.0,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "size_H": [
+        1.1428571428571428,
+        0.2767857142857143
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 28,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "lamp_warm",
+        "x": 157,
+        "y": 19,
+        "support": "ceiling",
+        "ceiling_row": 4
+      },
+      "resource": "data/environment/props/lamp_warm.tres",
+      "rect": [
+        2512,
+        64.0,
+        21.4,
+        34.0
+      ],
+      "visible_rect": [
+        2512.0,
+        64.0,
+        21.4,
+        34.0
+      ],
+      "size_H": [
+        0.3821428571428571,
+        0.6071428571428571
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 39,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "lamp_warm",
+        "x": 207,
+        "y": 19,
+        "support": "ceiling",
+        "ceiling_row": 4
+      },
+      "resource": "data/environment/props/lamp_warm.tres",
+      "rect": [
+        3312,
+        64.0,
+        21.4,
+        34.0
+      ],
+      "visible_rect": [
+        3312.0,
+        64.0,
+        21.4,
+        34.0
+      ],
+      "size_H": [
+        0.3821428571428571,
+        0.6071428571428571
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 51,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        },
+        {
+          "column": 52,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "lamp_warm",
+        "x": 226,
+        "y": 15,
+        "support": "ceiling",
+        "ceiling_row": 4
+      },
+      "resource": "data/environment/props/lamp_warm.tres",
+      "rect": [
+        3616,
+        64.0,
+        21.4,
+        34.0
+      ],
+      "visible_rect": [
+        3616.0,
+        64.0,
+        21.4,
+        34.0
+      ],
+      "size_H": [
+        0.3821428571428571,
+        0.6071428571428571
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 56,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "lamp_warm",
+        "x": 239,
+        "y": 15,
+        "support": "ceiling",
+        "ceiling_row": 4
+      },
+      "resource": "data/environment/props/lamp_warm.tres",
+      "rect": [
+        3824,
+        64.0,
+        21.4,
+        34.0
+      ],
+      "visible_rect": [
+        3824.0,
+        64.0,
+        21.4,
+        34.0
+      ],
+      "size_H": [
+        0.3821428571428571,
+        0.6071428571428571
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 59,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        },
+        {
+          "column": 60,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "hazard_sign",
+        "x": 270,
+        "ground": true
+      },
+      "resource": "data/environment/props/hazard_sign.tres",
+      "rect": [
+        4320,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "visible_rect": [
+        4320.0,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "size_H": [
+        0.5196428571428572,
+        0.9107142857142857
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 67,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "hazard_sign",
+        "x": 292,
+        "ground": true
+      },
+      "resource": "data/environment/props/hazard_sign.tres",
+      "rect": [
+        4672,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "visible_rect": [
+        4672.0,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "size_H": [
+        0.5196428571428572,
+        0.9107142857142857
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 73,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "hazard_sign",
+        "x": 303,
+        "ground": true
+      },
+      "resource": "data/environment/props/hazard_sign.tres",
+      "rect": [
+        4848,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "visible_rect": [
+        4848.0,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "size_H": [
+        0.5196428571428572,
+        0.9107142857142857
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 75,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        },
+        {
+          "column": 76,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "hazard_sign",
+        "x": 312,
+        "ground": true
+      },
+      "resource": "data/environment/props/hazard_sign.tres",
+      "rect": [
+        4992,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "visible_rect": [
+        4992.0,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "size_H": [
+        0.5196428571428572,
+        0.9107142857142857
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 78,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "facility_pipes",
+        "x": 288,
+        "y": 4,
+        "support": "ceiling",
+        "ceiling_row": 4
+      },
+      "resource": "data/environment/props/facility_pipes.tres",
+      "rect": [
+        4608,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "visible_rect": [
+        4608.0,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "size_H": [
+        1.1428571428571428,
+        0.2767857142857143
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 72,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "hazard_sign",
+        "x": 348,
+        "ground": true
+      },
+      "resource": "data/environment/props/hazard_sign.tres",
+      "rect": [
+        5568,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "visible_rect": [
+        5568.0,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "size_H": [
+        0.5196428571428572,
+        0.9107142857142857
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 87,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "facility_pipes",
+        "x": 330,
+        "y": 4,
+        "support": "ceiling",
+        "ceiling_row": 4
+      },
+      "resource": "data/environment/props/facility_pipes.tres",
+      "rect": [
+        5280,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "visible_rect": [
+        5280.0,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "size_H": [
+        1.1428571428571428,
+        0.2767857142857143
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 82,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        },
+        {
+          "column": 83,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "facility_pipes",
+        "x": 345,
+        "y": 4,
+        "support": "ceiling",
+        "ceiling_row": 4
+      },
+      "resource": "data/environment/props/facility_pipes.tres",
+      "rect": [
+        5520,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "visible_rect": [
+        5520.0,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "size_H": [
+        1.1428571428571428,
+        0.2767857142857143
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 86,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        },
+        {
+          "column": 87,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "facility_pipes",
+        "x": 362,
+        "y": 4,
+        "support": "ceiling",
+        "ceiling_row": 4
+      },
+      "resource": "data/environment/props/facility_pipes.tres",
+      "rect": [
+        5792,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "visible_rect": [
+        5792.0,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "size_H": [
+        1.1428571428571428,
+        0.2767857142857143
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 90,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        },
+        {
+          "column": 91,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "facility_pipes",
+        "x": 384,
+        "y": 4,
+        "support": "ceiling",
+        "ceiling_row": 4
+      },
+      "resource": "data/environment/props/facility_pipes.tres",
+      "rect": [
+        6144,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "visible_rect": [
+        6144.0,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "size_H": [
+        1.1428571428571428,
+        0.2767857142857143
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 96,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "hazard_sign",
+        "x": 390,
+        "ground": true
+      },
+      "resource": "data/environment/props/hazard_sign.tres",
+      "rect": [
+        6240,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "visible_rect": [
+        6240.0,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "size_H": [
+        0.5196428571428572,
+        0.9107142857142857
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 97,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "lamp_warm",
+        "x": 439,
+        "y": 19,
+        "support": "ceiling",
+        "ceiling_row": 4
+      },
+      "resource": "data/environment/props/lamp_warm.tres",
+      "rect": [
+        7024,
+        64.0,
+        21.4,
+        34.0
+      ],
+      "visible_rect": [
+        7024.0,
+        64.0,
+        21.4,
+        34.0
+      ],
+      "size_H": [
+        0.3821428571428571,
+        0.6071428571428571
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 109,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        },
+        {
+          "column": 110,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "facility_pipes",
+        "x": 424,
+        "y": 4,
+        "support": "ceiling",
+        "ceiling_row": 4
+      },
+      "resource": "data/environment/props/facility_pipes.tres",
+      "rect": [
+        6784,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "visible_rect": [
+        6784.0,
+        64.0,
+        64.0,
+        15.5
+      ],
+      "size_H": [
+        1.1428571428571428,
+        0.2767857142857143
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 106,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "lamp_warm",
+        "x": 462,
+        "y": 14,
+        "support": "ceiling",
+        "ceiling_row": 4
+      },
+      "resource": "data/environment/props/lamp_warm.tres",
+      "rect": [
+        7392,
+        64.0,
+        21.4,
+        34.0
+      ],
+      "visible_rect": [
+        7392.0,
+        64.0,
+        21.4,
+        34.0
+      ],
+      "size_H": [
+        0.3821428571428571,
+        0.6071428571428571
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 115,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    },
+    {
+      "level": "level_02",
+      "entry": {
+        "id": "hazard_sign",
+        "x": 494,
+        "ground": true
+      },
+      "resource": "data/environment/props/hazard_sign.tres",
+      "rect": [
+        7904,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "visible_rect": [
+        7904.0,
+        269.0,
+        29.1,
+        51.0
+      ],
+      "size_H": [
+        0.5196428571428572,
+        0.9107142857142857
+      ],
+      "all_seed_wall_covered": true,
+      "uncovered_all_seed_guarantee": [],
+      "columns": [
+        {
+          "column": 123,
+          "outdoor": false,
+          "hole_chance": 0.0,
+          "interior_opaque": true
+        }
+      ],
+      "sway": 0.0,
+      "contact_bbox_correct": true
+    }
+  ],
+  "facade_alpha_metadata_mismatch": [],
+  "alpha_files": {
+    "res://art/environment/facades/apartment_b0.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/apartment_b1.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/apartment_b2.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/apartment_b3.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/apartment_cap0.png": {
+      "size": [
+        384,
+        48
+      ],
+      "bbox": [
+        0,
+        4,
+        384,
+        48
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 0.5208333333333334
+    },
+    "res://art/environment/facades/apartment_g0.png": {
+      "size": [
+        384,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        240
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/apartment_g1.png": {
+      "size": [
+        384,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        240
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/brick_block_b0.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/brick_block_b1.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/brick_block_b2.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/brick_block_b3.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/brick_block_b4.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/brick_block_b5.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/brick_block_cap0.png": {
+      "size": [
+        384,
+        48
+      ],
+      "bbox": [
+        0,
+        11,
+        384,
+        48
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 0.5208333333333334
+    },
+    "res://art/environment/facades/brick_block_g0.png": {
+      "size": [
+        384,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        240
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/brick_block_g1.png": {
+      "size": [
+        384,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        240
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/brick_block_g2.png": {
+      "size": [
+        384,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        240
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/facility_wall_b0.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/facility_wall_b1.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/facility_wall_b2.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/facility_wall_b3.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/facility_wall_cap0.png": {
+      "size": [
+        384,
+        48
+      ],
+      "bbox": [
+        0,
+        10,
+        384,
+        48
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 0.5416666666666666
+    },
+    "res://art/environment/facades/facility_wall_g0.png": {
+      "size": [
+        384,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        240
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/facility_wall_g1.png": {
+      "size": [
+        384,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        240
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/glass_tower_b0.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/glass_tower_b1.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/glass_tower_b2.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/glass_tower_b3.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/glass_tower_cap0.png": {
+      "size": [
+        384,
+        48
+      ],
+      "bbox": [
+        0,
+        2,
+        384,
+        48
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 0.5416666666666666
+    },
+    "res://art/environment/facades/glass_tower_g0.png": {
+      "size": [
+        384,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        240
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/glass_tower_g1.png": {
+      "size": [
+        384,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        240
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/shopfront_b0.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/shopfront_b1.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/shopfront_b2.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/shopfront_b3.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/shopfront_cap0.png": {
+      "size": [
+        384,
+        48
+      ],
+      "bbox": [
+        0,
+        2,
+        384,
+        48
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 0.5208333333333334
+    },
+    "res://art/environment/facades/shopfront_g0.png": {
+      "size": [
+        384,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        240
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/shopfront_g1.png": {
+      "size": [
+        384,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        240
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/shutter_block_b0.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/shutter_block_b1.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/shutter_block_b2.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/shutter_block_b3.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/shutter_block_cap0.png": {
+      "size": [
+        384,
+        48
+      ],
+      "bbox": [
+        0,
+        11,
+        384,
+        48
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 0.5208333333333334
+    },
+    "res://art/environment/facades/shutter_block_g0.png": {
+      "size": [
+        384,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        240
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/shutter_block_g1.png": {
+      "size": [
+        384,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        240
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/warehouse_b0.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/warehouse_b1.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/warehouse_b2.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/warehouse_b3.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/warehouse_b4.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/warehouse_b5.png": {
+      "size": [
+        384,
+        192
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        192
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/warehouse_cap0.png": {
+      "size": [
+        384,
+        48
+      ],
+      "bbox": [
+        0,
+        14,
+        384,
+        48
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 0.6666666666666666
+    },
+    "res://art/environment/facades/warehouse_g0.png": {
+      "size": [
+        384,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        240
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/facades/warehouse_g1.png": {
+      "size": [
+        384,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        240
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/scene_props/anchor_phone_booth/anchor_phone_booth__shutter_graffiti.png": {
+      "size": [
+        439,
+        396
+      ],
+      "bbox": [
+        0,
+        0,
+        439,
+        396
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/anchor_phone_booth/anchor_phone_booth__trash_bags.png": {
+      "size": [
+        423,
+        216
+      ],
+      "bbox": [
+        0,
+        0,
+        423,
+        216
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/anchor_phone_booth/anchor_phone_booth__news_rack.png": {
+      "size": [
+        387,
+        360
+      ],
+      "bbox": [
+        0,
+        0,
+        387,
+        360
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/anchor_phone_booth/anchor_phone_booth__leaning_bicycle.png": {
+      "size": [
+        346,
+        264
+      ],
+      "bbox": [
+        0,
+        0,
+        346,
+        264
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/anchor_phone_booth/anchor_phone_booth__restore_arrow_sign.png": {
+      "size": [
+        123,
+        384
+      ],
+      "bbox": [
+        0,
+        0,
+        123,
+        384
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/anchor_phone_booth/anchor_phone_booth__backup_kiosk.png": {
+      "size": [
+        151,
+        336
+      ],
+      "bbox": [
+        0,
+        0,
+        151,
+        336
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/anchor_phone_booth/anchor_phone_booth__poster_wall.png": {
+      "size": [
+        243,
+        396
+      ],
+      "bbox": [
+        0,
+        0,
+        243,
+        396
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/anchor_phone_booth/anchor_phone_booth__flicker_lamp_post.png": {
+      "size": [
+        74,
+        612
+      ],
+      "bbox": [
+        0,
+        0,
+        74,
+        612
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/anchor_phone_booth/anchor_phone_booth__gutter_downpipe.png": {
+      "size": [
+        147,
+        672
+      ],
+      "bbox": [
+        0,
+        0,
+        147,
+        672
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/materials/facility_panel_body.png": {
+      "size": [
+        384,
+        384
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        384
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/scene_props/revival_lounge/revival_lounge__booth_sofa.png": {
+      "size": [
+        404,
+        288
+      ],
+      "bbox": [
+        0,
+        0,
+        404,
+        288
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/revival_lounge/revival_lounge__round_table_stools.png": {
+      "size": [
+        302,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        302,
+        240
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/revival_lounge/revival_lounge__jukebox.png": {
+      "size": [
+        235,
+        384
+      ],
+      "bbox": [
+        0,
+        0,
+        235,
+        384
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/revival_lounge/revival_lounge__bar_counter.png": {
+      "size": [
+        749,
+        342
+      ],
+      "bbox": [
+        0,
+        0,
+        749,
+        342
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/revival_lounge/revival_lounge__bottle_wall_shelf.png": {
+      "size": [
+        321,
+        270
+      ],
+      "bbox": [
+        0,
+        0,
+        321,
+        270
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/revival_lounge/revival_lounge__menu_board.png": {
+      "size": [
+        189,
+        288
+      ],
+      "bbox": [
+        0,
+        0,
+        189,
+        288
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/revival_lounge/revival_lounge__corner_plant_string_lights.png": {
+      "size": [
+        265,
+        408
+      ],
+      "bbox": [
+        0,
+        0,
+        265,
+        408
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/revival_lounge/revival_lounge__hat_coat_rack.png": {
+      "size": [
+        123,
+        432
+      ],
+      "bbox": [
+        0,
+        0,
+        123,
+        432
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/revival_lounge/revival_lounge__neon_glass_sign.png": {
+      "size": [
+        177,
+        270
+      ],
+      "bbox": [
+        0,
+        0,
+        177,
+        270
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/materials/brick_body.png": {
+      "size": [
+        384,
+        384
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        384
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/scene_props/pawnshop_front/pawnshop_front__tag_shelf.png": {
+      "size": [
+        223,
+        432
+      ],
+      "bbox": [
+        0,
+        0,
+        223,
+        432
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/basement_door/basement_door__locked_iron_door.png": {
+      "size": [
+        249,
+        504
+      ],
+      "bbox": [
+        0,
+        0,
+        249,
+        504
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/pawnshop_front/pawnshop_front__wall_instruments.png": {
+      "size": [
+        338,
+        288
+      ],
+      "bbox": [
+        0,
+        0,
+        338,
+        288
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/pawnshop_front/pawnshop_front__counter_register.png": {
+      "size": [
+        630,
+        216
+      ],
+      "bbox": [
+        0,
+        0,
+        630,
+        216
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/pawnshop_front/pawnshop_front__locked_ledger_box.png": {
+      "size": [
+        477,
+        216
+      ],
+      "bbox": [
+        0,
+        0,
+        477,
+        216
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/pawnshop_front/pawnshop_front__arms_workbench.png": {
+      "size": [
+        304,
+        189
+      ],
+      "bbox": [
+        0,
+        0,
+        304,
+        189
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/pawnshop_front/pawnshop_front__pawn_sign.png": {
+      "size": [
+        556,
+        216
+      ],
+      "bbox": [
+        0,
+        0,
+        556,
+        216
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/pawnshop_front/pawnshop_front__leak_bucket.png": {
+      "size": [
+        124,
+        252
+      ],
+      "bbox": [
+        0,
+        0,
+        124,
+        252
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/pawnshop_front/pawnshop_front__crate_pile.png": {
+      "size": [
+        182,
+        198
+      ],
+      "bbox": [
+        0,
+        0,
+        182,
+        198
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/harbor_street/harbor_street__umbrella_stand.png": {
+      "size": [
+        120,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        120,
+        240
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/pawnshop_kitchen/pawnshop_kitchen__dish_cabinet.png": {
+      "size": [
+        157,
+        408
+      ],
+      "bbox": [
+        0,
+        0,
+        157,
+        408
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/pawnshop_kitchen/pawnshop_kitchen__water_urn.png": {
+      "size": [
+        302,
+        270
+      ],
+      "bbox": [
+        0,
+        0,
+        302,
+        270
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/pawnshop_kitchen/pawnshop_kitchen__dining_table.png": {
+      "size": [
+        361,
+        204
+      ],
+      "bbox": [
+        0,
+        0,
+        361,
+        204
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/pawnshop_kitchen/pawnshop_kitchen__lunch_left_for_today.png": {
+      "size": [
+        614,
+        312
+      ],
+      "bbox": [
+        0,
+        0,
+        614,
+        312
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/pawnshop_kitchen/pawnshop_kitchen__hanging_pans.png": {
+      "size": [
+        399,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        399,
+        240
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/pawnshop_kitchen/pawnshop_kitchen__paper_shade_lamp.png": {
+      "size": [
+        194,
+        288
+      ],
+      "bbox": [
+        0,
+        0,
+        194,
+        288
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/pawnshop_kitchen/pawnshop_kitchen__kettle_stove.png": {
+      "size": [
+        149,
+        228
+      ],
+      "bbox": [
+        0,
+        0,
+        149,
+        228
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/pawnshop_kitchen/pawnshop_kitchen__old_fridge.png": {
+      "size": [
+        175,
+        384
+      ],
+      "bbox": [
+        0,
+        0,
+        175,
+        384
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/pawnshop_kitchen/pawnshop_kitchen__tear_off_calendar.png": {
+      "size": [
+        125,
+        252
+      ],
+      "bbox": [
+        0,
+        0,
+        125,
+        252
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/rooftop/rooftop__stairwell_hut.png": {
+      "size": [
+        422,
+        432
+      ],
+      "bbox": [
+        0,
+        0,
+        422,
+        432
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/rooftop/rooftop__rusty_water_tank.png": {
+      "size": [
+        335,
+        612
+      ],
+      "bbox": [
+        0,
+        0,
+        335,
+        612
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/rooftop/rooftop__antenna_forest.png": {
+      "size": [
+        244,
+        648
+      ],
+      "bbox": [
+        0,
+        0,
+        244,
+        648
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/rooftop/rooftop__dish_pair.png": {
+      "size": [
+        436,
+        384
+      ],
+      "bbox": [
+        0,
+        0,
+        436,
+        384
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/rooftop/rooftop__rain_collecting_barrel.png": {
+      "size": [
+        121,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        121,
+        240
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/rooftop/rooftop__torn_umbrella_tea.png": {
+      "size": [
+        364,
+        360
+      ],
+      "bbox": [
+        0,
+        0,
+        364,
+        360
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/rooftop/rooftop__folding_chairs_boxes.png": {
+      "size": [
+        302,
+        264
+      ],
+      "bbox": [
+        0,
+        0,
+        302,
+        264
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/rooftop/rooftop__rope_coil_hook.png": {
+      "size": [
+        988,
+        378
+      ],
+      "bbox": [
+        0,
+        0,
+        988,
+        378
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__ali_noodle_cart.png": {
+      "size": [
+        349,
+        396
+      ],
+      "bbox": [
+        0,
+        0,
+        349,
+        396
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.png": {
+      "size": [
+        304,
+        255
+      ],
+      "bbox": [
+        0,
+        0,
+        304,
+        255
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__stool_stack.png": {
+      "size": [
+        138,
+        288
+      ],
+      "bbox": [
+        0,
+        0,
+        138,
+        288
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__hanging_lantern.png": {
+      "size": [
+        169,
+        330
+      ],
+      "bbox": [
+        0,
+        0,
+        169,
+        330
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__cat_box_bed.png": {
+      "size": [
+        368,
+        210
+      ],
+      "bbox": [
+        0,
+        0,
+        368,
+        210
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__shop_shutter_dawn.png": {
+      "size": [
+        394,
+        414
+      ],
+      "bbox": [
+        0,
+        0,
+        394,
+        414
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/harbor_street/harbor_street__fish_cart.png": {
+      "size": [
+        268,
+        270
+      ],
+      "bbox": [
+        0,
+        0,
+        268,
+        270
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/harbor_street/harbor_street__parked_scooter.png": {
+      "size": [
+        388,
+        288
+      ],
+      "bbox": [
+        0,
+        0,
+        388,
+        288
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/harbor_street/harbor_street__pole_wire_knot.png": {
+      "size": [
+        139,
+        675
+      ],
+      "bbox": [
+        0,
+        0,
+        139,
+        675
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/harbor_street/harbor_street__restore_queue_sign.png": {
+      "size": [
+        146,
+        432
+      ],
+      "bbox": [
+        0,
+        0,
+        146,
+        432
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/harbor_street/harbor_street__stacked_neon_signs.png": {
+      "size": [
+        112,
+        576
+      ],
+      "bbox": [
+        0,
+        0,
+        112,
+        576
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/harbor_street/harbor_street__rebirth_billboard.png": {
+      "size": [
+        718,
+        540
+      ],
+      "bbox": [
+        0,
+        0,
+        718,
+        540
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/harbor_street/harbor_street__steam_manhole.png": {
+      "size": [
+        299,
+        270
+      ],
+      "bbox": [
+        0,
+        0,
+        299,
+        270
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/harbor_street/harbor_street__tide_gauge.png": {
+      "size": [
+        82,
+        660
+      ],
+      "bbox": [
+        0,
+        0,
+        82,
+        660
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/harbor_street/harbor_street__umbrella_vending.png": {
+      "size": [
+        118,
+        342
+      ],
+      "bbox": [
+        0,
+        0,
+        118,
+        342
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/materials/hangar_wall_body.png": {
+      "size": [
+        384,
+        384
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        384
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/scene_props/dock_warehouse/dock_warehouse__open_container.png": {
+      "size": [
+        925,
+        405
+      ],
+      "bbox": [
+        0,
+        0,
+        925,
+        405
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/dock_warehouse/dock_warehouse__watchdog_dock.png": {
+      "size": [
+        452,
+        480
+      ],
+      "bbox": [
+        0,
+        0,
+        452,
+        480
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/dock_warehouse/dock_warehouse__hoist_chain.png": {
+      "size": [
+        88,
+        768
+      ],
+      "bbox": [
+        0,
+        0,
+        88,
+        768
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/dock_warehouse/dock_warehouse__searchlight_post.png": {
+      "size": [
+        104,
+        576
+      ],
+      "bbox": [
+        0,
+        0,
+        104,
+        576
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/dock_warehouse/dock_warehouse__wrapped_pallets.png": {
+      "size": [
+        353,
+        336
+      ],
+      "bbox": [
+        0,
+        0,
+        353,
+        336
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/dock_warehouse/dock_warehouse__rotating_beacon.png": {
+      "size": [
+        108,
+        396
+      ],
+      "bbox": [
+        0,
+        0,
+        108,
+        396
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/dock_warehouse/dock_warehouse__floor_switch_plate.png": {
+      "size": [
+        596,
+        231
+      ],
+      "bbox": [
+        0,
+        0,
+        596,
+        231
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/dock_warehouse/dock_warehouse__water_pump.png": {
+      "size": [
+        357,
+        288
+      ],
+      "bbox": [
+        0,
+        0,
+        357,
+        288
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/scene_props/dock_warehouse/dock_warehouse__float_drum_crate.png": {
+      "size": [
+        297,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        297,
+        240
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/materials/steel_plate_body.png": {
+      "size": [
+        384,
+        384
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        384
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/props/antenna.png": {
+      "size": [
+        130,
+        864
+      ],
+      "bbox": [
+        0,
+        0,
+        130,
+        864
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/clothesline.png": {
+      "size": [
+        842,
+        432
+      ],
+      "bbox": [
+        0,
+        0,
+        842,
+        432
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/satellite_dish.png": {
+      "size": [
+        300,
+        456
+      ],
+      "bbox": [
+        0,
+        0,
+        300,
+        456
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/water_tower.png": {
+      "size": [
+        417,
+        912
+      ],
+      "bbox": [
+        0,
+        0,
+        417,
+        912
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/vent_stack.png": {
+      "size": [
+        131,
+        456
+      ],
+      "bbox": [
+        0,
+        0,
+        131,
+        456
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/rooftop_hut.png": {
+      "size": [
+        861,
+        600
+      ],
+      "bbox": [
+        0,
+        0,
+        861,
+        600
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/pipe_vertical.png": {
+      "size": [
+        53,
+        512
+      ],
+      "bbox": [
+        0,
+        0,
+        53,
+        512
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/fire_escape.png": {
+      "size": [
+        384,
+        576
+      ],
+      "bbox": [
+        0,
+        94,
+        384,
+        428
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/ac_unit.png": {
+      "size": [
+        222,
+        168
+      ],
+      "bbox": [
+        0,
+        0,
+        222,
+        168
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/chimney_stack.png": {
+      "size": [
+        309,
+        768
+      ],
+      "bbox": [
+        0,
+        0,
+        309,
+        768
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/trash_can.png": {
+      "size": [
+        77,
+        132
+      ],
+      "bbox": [
+        0,
+        0,
+        77,
+        132
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/graffiti.png": {
+      "size": [
+        401,
+        480
+      ],
+      "bbox": [
+        0,
+        0,
+        401,
+        480
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/puddle.png": {
+      "size": [
+        320,
+        32
+      ],
+      "bbox": [
+        7,
+        0,
+        320,
+        32
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/vending_machine.png": {
+      "size": [
+        238,
+        456
+      ],
+      "bbox": [
+        0,
+        0,
+        238,
+        456
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/street_lamp.png": {
+      "size": [
+        103,
+        480
+      ],
+      "bbox": [
+        0,
+        0,
+        103,
+        480
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/noodle_stall.png": {
+      "size": [
+        512,
+        384
+      ],
+      "bbox": [
+        24,
+        37,
+        488,
+        384
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/utility_pole.png": {
+      "size": [
+        130,
+        640
+      ],
+      "bbox": [
+        0,
+        0,
+        130,
+        640
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/bus_stop.png": {
+      "size": [
+        863,
+        552
+      ],
+      "bbox": [
+        0,
+        0,
+        863,
+        552
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/bench.png": {
+      "size": [
+        447,
+        204
+      ],
+      "bbox": [
+        0,
+        0,
+        447,
+        204
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/dumpster.png": {
+      "size": [
+        450,
+        324
+      ],
+      "bbox": [
+        0,
+        0,
+        450,
+        324
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/billboard_ad.png": {
+      "size": [
+        742,
+        624
+      ],
+      "bbox": [
+        0,
+        0,
+        742,
+        624
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/worker_hut.png": {
+      "size": [
+        662,
+        624
+      ],
+      "bbox": [
+        0,
+        0,
+        662,
+        624
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/forklift.png": {
+      "size": [
+        829,
+        528
+      ],
+      "bbox": [
+        0,
+        0,
+        829,
+        528
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/pallet_stack.png": {
+      "size": [
+        457,
+        360
+      ],
+      "bbox": [
+        0,
+        0,
+        457,
+        360
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/crane_arm.png": {
+      "size": [
+        1024,
+        576
+      ],
+      "bbox": [
+        0,
+        0,
+        1024,
+        576
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/crates_stack.png": {
+      "size": [
+        331,
+        228
+      ],
+      "bbox": [
+        0,
+        0,
+        331,
+        228
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/barrels.png": {
+      "size": [
+        430,
+        228
+      ],
+      "bbox": [
+        0,
+        0,
+        430,
+        228
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/hazard_sign.png": {
+      "size": [
+        232,
+        408
+      ],
+      "bbox": [
+        0,
+        0,
+        232,
+        408
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/pipe_horizontal.png": {
+      "size": [
+        512,
+        53
+      ],
+      "bbox": [
+        0,
+        0,
+        512,
+        53
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/facility_pipes.png": {
+      "size": [
+        512,
+        124
+      ],
+      "bbox": [
+        0,
+        0,
+        512,
+        124
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/camera_wall.png": {
+      "size": [
+        86,
+        60
+      ],
+      "bbox": [
+        0,
+        0,
+        86,
+        60
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/control_console.png": {
+      "size": [
+        358,
+        264
+      ],
+      "bbox": [
+        0,
+        0,
+        358,
+        264
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/server_rack.png": {
+      "size": [
+        158,
+        408
+      ],
+      "bbox": [
+        0,
+        0,
+        158,
+        408
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/gate_door.png": {
+      "size": [
+        543,
+        600
+      ],
+      "bbox": [
+        0,
+        0,
+        543,
+        600
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/floor_marking.png": {
+      "size": [
+        512,
+        32
+      ],
+      "bbox": [
+        0,
+        1,
+        512,
+        31
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/emergency_light.png": {
+      "size": [
+        44,
+        64
+      ],
+      "bbox": [
+        0,
+        0,
+        44,
+        64
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/cables_hang.png": {
+      "size": [
+        303,
+        384
+      ],
+      "bbox": [
+        0,
+        0,
+        303,
+        384
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/gantry_crane.png": {
+      "size": [
+        1024,
+        512
+      ],
+      "bbox": [
+        0,
+        0,
+        1024,
+        512
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/hangar_light.png": {
+      "size": [
+        42,
+        80
+      ],
+      "bbox": [
+        0,
+        0,
+        42,
+        80
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/fuel_tank.png": {
+      "size": [
+        168,
+        312
+      ],
+      "bbox": [
+        0,
+        0,
+        168,
+        312
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/tree_island.png": {
+      "size": [
+        345,
+        560
+      ],
+      "bbox": [
+        0,
+        0,
+        345,
+        560
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/tree_pine_1.png": {
+      "size": [
+        311,
+        880
+      ],
+      "bbox": [
+        0,
+        0,
+        311,
+        880
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/tree_quiver.png": {
+      "size": [
+        484,
+        720
+      ],
+      "bbox": [
+        0,
+        0,
+        484,
+        720
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/tree_jacaranda.png": {
+      "size": [
+        351,
+        512
+      ],
+      "bbox": [
+        0,
+        0,
+        351,
+        512
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/tree_fir_1.png": {
+      "size": [
+        276,
+        800
+      ],
+      "bbox": [
+        0,
+        0,
+        276,
+        800
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/tree_stump.png": {
+      "size": [
+        144,
+        112
+      ],
+      "bbox": [
+        0,
+        0,
+        144,
+        112
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/tree_branch.png": {
+      "size": [
+        34,
+        80
+      ],
+      "bbox": [
+        0,
+        0,
+        34,
+        80
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/tree_pine_2.png": {
+      "size": [
+        344,
+        736
+      ],
+      "bbox": [
+        0,
+        0,
+        344,
+        736
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/materials/old_metal_body.png": {
+      "size": [
+        384,
+        384
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        384
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/materials/asphalt_body.png": {
+      "size": [
+        512,
+        512
+      ],
+      "bbox": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/materials/grate_body.png": {
+      "size": [
+        256,
+        256
+      ],
+      "bbox": [
+        0,
+        0,
+        256,
+        256
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/materials/concrete_body.png": {
+      "size": [
+        512,
+        512
+      ],
+      "bbox": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/materials/glass_curtain_body.png": {
+      "size": [
+        384,
+        384
+      ],
+      "bbox": [
+        0,
+        0,
+        384,
+        384
+      ],
+      "min_alpha": 255,
+      "fullwidth_opaque_start": 0.0
+    },
+    "res://art/environment/props/elevator_door.png": {
+      "size": [
+        369,
+        480
+      ],
+      "bbox": [
+        0,
+        0,
+        369,
+        480
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/lamp_warm.png": {
+      "size": [
+        172,
+        272
+      ],
+      "bbox": [
+        0,
+        0,
+        172,
+        272
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/crayon_drawing.png": {
+      "size": [
+        324,
+        240
+      ],
+      "bbox": [
+        0,
+        0,
+        324,
+        240
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/ac_unit_big.png": {
+      "size": [
+        401,
+        264
+      ],
+      "bbox": [
+        0,
+        0,
+        401,
+        264
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/window_rain.png": {
+      "size": [
+        314,
+        360
+      ],
+      "bbox": [
+        0,
+        0,
+        314,
+        360
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/terminal_holo.png": {
+      "size": [
+        487,
+        408
+      ],
+      "bbox": [
+        0,
+        0,
+        487,
+        408
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/hospital_bed.png": {
+      "size": [
+        509,
+        216
+      ],
+      "bbox": [
+        0,
+        0,
+        509,
+        216
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    },
+    "res://art/environment/props/radio_set.png": {
+      "size": [
+        117,
+        84
+      ],
+      "bbox": [
+        0,
+        0,
+        117,
+        84
+      ],
+      "min_alpha": 0,
+      "fullwidth_opaque_start": 1.0
+    }
+  }
+}

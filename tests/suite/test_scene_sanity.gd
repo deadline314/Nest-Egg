@@ -7,6 +7,7 @@ extends TestSuite
 func run() -> void:
 	_test_prop_floor()
 	_test_scenery_support()
+	_test_booth_poster_support()
 	_test_standing()
 	_test_ladders()
 	_test_reachability()
@@ -14,6 +15,28 @@ func run() -> void:
 	_test_stages()
 	_test_real_levels()
 	_test_real_stages()
+
+
+func _test_booth_poster_support() -> void:
+	var data := load("res://data/levels/ch1_booth_alley.tres") as LevelData
+	var layout := LevelBuilder.parse(data)
+	var entries := data.load_props()
+	var dirs := data.environment.prop_dirs()
+	var walls := BackWallGeometry.new()
+	walls.setup(layout, hash(data.id), data.environment)
+	var found := false
+	for entry in entries:
+		if str(entry["id"]) != "anchor_phone_booth__poster_wall":
+			continue
+		found = true
+		var prop := PropLibrary.find_in(StringName(entry["id"]), dirs)
+		var actual: Rect2 = PropPlacement.resolve(entry, prop, layout)["rect"]
+		check(ScenerySupport.check_prop(entry, prop, actual, layout, walls, entries, dirs).is_empty(), "the complete booth poster rests on the actual visible facade")
+		var old_entry := entry.duplicate()
+		old_entry["y"] = 14
+		var old_rect: Rect2 = PropPlacement.resolve(old_entry, prop, layout)["rect"]
+		check(ScenerySupport.check_prop(old_entry, prop, old_rect, layout, walls, entries, dirs) == "prop_wall_missing", "the reported old booth poster position extends into sky and is rejected")
+	check(found, "the real booth poster is included in the wall support regression")
 
 
 func _test_prop_floor() -> void:

@@ -610,7 +610,8 @@ def build_booth_alley():
     a.prop('anchor_phone_booth__leaning_bicycle', 40)
     a.prop('anchor_phone_booth__restore_arrow_sign', 48)
     a.prop('anchor_phone_booth__backup_kiosk', 51)
-    a.prop('anchor_phone_booth__poster_wall', 28, y=14)
+    # Keep the whole 66 px poster below the visible facade, not in the sky.
+    a.prop('anchor_phone_booth__poster_wall', 28, y=19)
     a.prop('anchor_phone_booth__flicker_lamp_post', 31)
     a.prop('anchor_phone_booth__gutter_downpipe', 20)
     a.lamp(26, 8)
