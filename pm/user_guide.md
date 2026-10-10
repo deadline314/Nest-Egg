@@ -2,6 +2,8 @@
 
 更新：2026-10-11。這份文件保存 Stanley 在本 Session 的要求、設計依據與退回原因；票的實際狀態仍以各票為準。使用者已要求本 Session 收尾後停止開發，換到其他 Session 工作。詳細分支、失敗紀錄與接手步驟見 [本次交接](SESSION_HANDOFF_2026-10-11.md)。
 
+2026-10-11 補充：使用者要求同步最新 main、清理其他 worktree／舊分支，並提供[可直接貼到新 Session 的指令](NEXT_SESSION_PROMPT.md)。下一個 Session 已獲授權接續序章至第一章；舊停止要求只限制上一個 Session 的新增開發。未驗收來源先保存至[可恢復封存](attachments/worktree-retirement-2026-10-11/README.md)，不把失敗候選當作已合併成果。
+
 ## 交付目標與優先順序
 
 1. 先把**序章至第一章從正式新遊戲入口完整玩完**，再交雲端打包；不是直接跳到倉庫、授予旗標或只跑測試場景。
@@ -90,7 +92,7 @@
 
 ## 執行、記憶體與協作習慣
 
-- 本機原生驗收一次一個 Godot；ComfyUI 如要並行，先確認當前 RAM／VRAM 和模型占用，圖像先單张、小批，生成完回收。使用者允許正常執行、不要額外過度保護，但要求持續觀察，不能在資源已滿時繼續堆。
+- 本機原生驗收一次一個 Godot；ComfyUI 如要並行，先確認當前 RAM／VRAM 和模型占用，圖像先單張、小批，生成完回收。使用者最新明確允許**多用一些 RAM**，不必沿用保守的固定可用記憶體門檻；持續觀察實體可用量、系統 commit／pagefile 餘量、程序峰值與 VRAM，不讓耗盡、OOM 或過度換頁導致關機／重啟。新增批次或模型前依實際占用調整並行量，接近容量時先回收或縮批，不在已滿時繼續堆。
 - 本機本次 RAM 約 31.76 GiB，收尾前觀察剩 8.49 GiB；不是永久可用額度。Intel Arc 的 VRAM 此輪未量測，不能因沒有 nvidia-smi 就說顯存為零。
 - 雲端 Nest-Egg：CPU 約 4 核配額、無硬體 GPU，軟體 Vulkan可做邏輯／輸入／打包與部分畫面；每個 Session 先驗 repo／Git／Godot／實際 cgroup 記憶體／磁碟。本輪一個雲端 cgroup 實際 16 GiB，不能沿用申稱的 32 GiB。
 - 可以平行用 subagent，複雜工作選 6.1 Sol、較簡單盤點可用 Luna；父 Session 驗收。subagent 是目前工作的子任務，新 chat 是侧欄獨立 Session，兩者不同。生成／GPU留主 Session；不同代理不要同時改同一檔案。
@@ -103,7 +105,7 @@
 
 每張實作票：原 `tools/run_tests_changed.sh` 選出的受影響範圍全過 → 真實截圖 → Commit 段落／完成／實際驗收勾選 → 獨立 commit＋push。文件和票不啟動遊戲測試；完整 CI 由既有排程處理，但框架更動若原 selector 要 ALL，不能自行縮小選擇範圍。測試失敗如實保留，CI 新失敗依 AGENTS 優先處理。
 
-分支用 `codex/`，推前 fetch origin main／必要 rebase；`git push origin HEAD:main` 只能快轉，確認本機 main＝origin/main。作者與提交者 **Stanley Li <stanley890314@gmail.com>**；commit 訊息沒有模型／工具署名和 Co-Authored-By。只刪已合併且屬於本 Session 的分支；遠端拒絕不重試、不繞過。
+分支用 `codex/`，推前 fetch origin main／必要 rebase；`git push origin HEAD:main` 只能快轉，確認本機 main＝origin/main。作者與提交者 **Stanley Li <stanley890314@gmail.com>**；commit 訊息沒有模型／工具署名和 Co-Authored-By。通常只刪已合併分支；本次使用者另明確要求移除其他 worktree／舊分支，未驗收內容須先封存、驗 hash 與恢復能力，再依清理紀錄移除。封存不等於程式合併或票完成；遠端拒絕不重試、不繞過。
 
 精選截圖放 `pm/Nest-Egg/images/`（BG／ST依自己的项目也可存），完整 raw／hash／必要來源放票的 attachments。`pm/.gdignore` 排除票據與 CSV 的引擎匯入，避免無用途的翻譯與 import 產物。必要歷史失敗保留一次、有清楚索引；無用途臨時腳本與重複輸出清掉。交接的 WIP 明示未採用、未驗收，避免混入正式遊戲。
 

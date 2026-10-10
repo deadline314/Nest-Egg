@@ -1,0 +1,1007 @@
+{
+  "date": "2026-10-11",
+  "main_at_inventory": "4198f1f9fc19f9bb7e19694b07ce96336ad3357d",
+  "user_authorization": "Remove other worktrees and branches; retain meaningful unpublished work; do not publish failed/unverified runtime.",
+  "bundle": {
+    "path": "preserved-branches.bundle",
+    "sha256": "8c986ecb0e9767db03465fc462de7115c23613c45fa7d8ad8ace5bf5bef45de9",
+    "bytes": 3959710,
+    "verify": "PASS",
+    "prerequisite": "full latest main history; run git bundle verify before restoration"
+  },
+  "refs": [
+    {
+      "ref": "refs/heads/codex/chapter-one-producers",
+      "head": "a5f2a1ba9eb64233b56108c3e930c68bffa52158",
+      "ancestor_of_main": false,
+      "disposition": "archived_unaccepted_not_merged"
+    },
+    {
+      "ref": "refs/heads/codex/chapter2-layout",
+      "head": "6eab4af4b51049296e66f2724aa9c32fd18bc02a",
+      "ancestor_of_main": true,
+      "disposition": "already_merged"
+    },
+    {
+      "ref": "refs/heads/codex/stage-framing",
+      "head": "480ff6bf0975d57f76b78a38478eb9d45efa8718",
+      "ancestor_of_main": true,
+      "disposition": "already_merged"
+    },
+    {
+      "ref": "refs/heads/codex/world-ui-clarity",
+      "head": "5300e7c06c68cd2852e731041ac44a8334ddab66",
+      "ancestor_of_main": true,
+      "disposition": "already_merged"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/chapter-one-producers",
+      "head": "a5f2a1ba9eb64233b56108c3e930c68bffa52158",
+      "ancestor_of_main": false,
+      "disposition": "archived_unaccepted_not_merged"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/cloud-melee-catalog-review",
+      "head": "89abdc388c9cc0938af25c576131b6ce42320cb3",
+      "ancestor_of_main": false,
+      "disposition": "archived_unaccepted_not_merged"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/cloud-radio-reading",
+      "head": "5226457788f42b6826b6a55e5512609a110b845e",
+      "ancestor_of_main": false,
+      "disposition": "archived_unaccepted_not_merged"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/cloud-weapon-balance-audit",
+      "head": "c5b8a6b3959871a0eb5829d1e8322d25fe1d62b2",
+      "ancestor_of_main": false,
+      "disposition": "archived_unaccepted_not_merged"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/cloud-weapon-caller-safety-review",
+      "head": "9333c0d1713bddb6c787d6684241de461d7d84f4",
+      "ancestor_of_main": false,
+      "disposition": "archived_unaccepted_not_merged"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/cloud-weapon-catalog-fix",
+      "head": "1b09688eadcca7543d695a7e1b47e6500e2778ed",
+      "ancestor_of_main": false,
+      "disposition": "archived_unaccepted_not_merged"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/cloud-weapon-phone-context-review",
+      "head": "41f326ab09060ebff2b58907ac50122926b9f17d",
+      "ancestor_of_main": false,
+      "disposition": "archived_unaccepted_not_merged"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/cloud-weapon-safety-89-review",
+      "head": "77c2e51795428a8ad390de1b21b80f3cc44db1df",
+      "ancestor_of_main": false,
+      "disposition": "archived_unaccepted_not_merged"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/cloud-weapon-safety-b9-review",
+      "head": "df8118666b5f5593d0b4f99a96c351d0162b19c3",
+      "ancestor_of_main": false,
+      "disposition": "archived_unaccepted_not_merged"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/cloud-weapon-safety-bounds",
+      "head": "deb4608eec7376582e6bb86069d0a5e66d9875dc",
+      "ancestor_of_main": false,
+      "disposition": "archived_unaccepted_not_merged"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/ne245-validation-evidence",
+      "head": "fc2b1b4c9733d703bbb5a117e142515af0220b91",
+      "ancestor_of_main": false,
+      "disposition": "archived_unaccepted_not_merged"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/ne246-story-cloud-evidence",
+      "head": "16d448d8ed10ae90ba1514c8aaeb942b218ebd2c",
+      "ancestor_of_main": false,
+      "disposition": "archived_unaccepted_not_merged"
+    }
+  ],
+  "worktrees": [
+    {
+      "name": "chapter2-layout",
+      "path": "C:/tmp/Nest-Egg-chapter2-layout",
+      "head": "6eab4af4b51049296e66f2724aa9c32fd18bc02a",
+      "uncommitted_files_preserved": 43,
+      "generated_metadata_omitted": 0,
+      "archive": "chapter2-layout-uncommitted.zip",
+      "archive_sha256": "895f4de90e94d7b692668b7d24ae3d20d805891ce0f45d5edc2dc7030bf3ec4b",
+      "files": [
+        {
+          "path": "assets_src/chapter2_candidate/layout_atlas.html",
+          "sha256": "126e68224f5a972e96cf372de8cdda43cb7de5e6cfd7dfb20ec1f609db64d80d",
+          "bytes": 66122,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_ali_home.tres",
+          "sha256": "b5e89d352a7ff94e3fb9f4a819242320b0ae7b13e2763aee7dc84cbb99a216ff",
+          "bytes": 1880,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_ali_home_map.json",
+          "sha256": "ccdc9e2955ac880bbad3ffa9630cbf86d87b59a893d1fe3b07678c260434925a",
+          "bytes": 3937,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_antechamber.tres",
+          "sha256": "ddb6be3e491fc9bb44c32b425da3a9764738e3348a438103f3e08be9ded10ef7",
+          "bytes": 1892,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_antechamber_map.json",
+          "sha256": "c1438d0eb86b047ecc684e21b56cb5bb1ade6dc34aa83e4de1d6c3e3d3ddb973",
+          "bytes": 4137,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_dry_room.tres",
+          "sha256": "d1eca1cd3ec76d9292b36289da3740366ef5af449831570068da7caa78eb046e",
+          "bytes": 2013,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_dry_room_map.json",
+          "sha256": "f1cac40b33392db193950f3fbcc16967f11492bce42a5c9d2e7b18483ca1187e",
+          "bytes": 4251,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_freight.tres",
+          "sha256": "19f982a9d44d29281f513b06332511800e6dd0fbbaa3c23b54af5f585b67e0c0",
+          "bytes": 3207,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_freight_map.json",
+          "sha256": "f1f3eb1c760403ce548cb1a42b6366a0e7fc3dbb9ffe8ef903de189c2c12a472",
+          "bytes": 8801,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_guestbook.tres",
+          "sha256": "5ac83b9f4bbb7325d39d1360caef116b4e8f08e4a932474c9b245f11caaa7951",
+          "bytes": 1581,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_guestbook_map.json",
+          "sha256": "6946cbd2a3e662ed5136e93329fc3aa30ef554370c8da01bc163c87f2cf26bbe",
+          "bytes": 5157,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_lounge.tres",
+          "sha256": "9173a6789d4b8e02f4f32fa4ea52c482eb715b6a6e1a97290d6d3f6eb3d5d169",
+          "bytes": 2481,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_lounge_map.json",
+          "sha256": "be5bffac5bbff5fedf499149fb3ddaf2413d144b10ffc6c12b6960efb999bdea",
+          "bytes": 6258,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_market.tres",
+          "sha256": "76520222823585fd75d64acdabcbe0c685cc2dee7b81b60b41951a97ad97aff2",
+          "bytes": 2630,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_market_entry.tres",
+          "sha256": "3cbce43c9fb4e7746d56a1d7606ce456ff3424ff10ef39f2c286776dead588ce",
+          "bytes": 2939,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_market_entry_map.json",
+          "sha256": "2575ac2cb8a39b19e17c455f89caa3f6921b6f844db58216c9cc573dd48fe94a",
+          "bytes": 7125,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_market_map.json",
+          "sha256": "95843c2d25d5f6291e955fa8fbee0d98c0a35812c5f575b80c734ab86bb2acb6",
+          "bytes": 7055,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_office.tres",
+          "sha256": "52e7476ccbba258f399c33afa17e95d1f3afe23cc66e786eef03a08fe848a65b",
+          "bytes": 2009,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_office_map.json",
+          "sha256": "57d576fdaf303b1a6752edacde52efa9d55f3ff6f81df5e8c2a12abb8a41ca33",
+          "bytes": 6721,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_pawnshop.tres",
+          "sha256": "8b4eb8b90deda34a429994b0e6f0b69a192d9aaf1dfde3a1e9419a00ca5ef309",
+          "bytes": 1879,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_pawnshop_map.json",
+          "sha256": "28f3342da860627ba84c278c8270c5ab5c98abc206b79bd3b3e971a03a8c6c86",
+          "bytes": 4527,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_rooftop.tres",
+          "sha256": "6b1793227971f592c71907f094d45e70ad42872c814c8c8f7c9e77c297f5eca8",
+          "bytes": 1557,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_rooftop_map.json",
+          "sha256": "81501c6a390c69b2f37dc4364729e8a23ef5f0289bf4e618e973f88fc5d3b297",
+          "bytes": 5077,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_street.tres",
+          "sha256": "ab3cc49216e1e2744c5de8636e575259c967d36969612aeba74423720c2bb71d",
+          "bytes": 2590,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/levels/ch2_campaign_street_map.json",
+          "sha256": "8ee34d408bf0f2868a5c27918262540a716e281e6e5e89bf1b5fd74d5e269dcc",
+          "bytes": 6302,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/manifest.json",
+          "sha256": "9186941360262e33d8d9236016be37f8ef9a1a0d858604ec22f8d441016d859b",
+          "bytes": 36377,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/themes/ali_home.tres",
+          "sha256": "efb2588246e7fb6d0e0f275a3616487948599128a64f49546eb83c760bf60c3e",
+          "bytes": 790,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/themes/antechamber.tres",
+          "sha256": "981028d4b9f9632b6da1a0223d3f6cc0290a662b681a5406ba441c8967e23dc0",
+          "bytes": 744,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/themes/dry_room.tres",
+          "sha256": "3950762555d4a68768aa18f857edacc10ee4ea899f726a4424ba84c435ae0d70",
+          "bytes": 791,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/themes/freight.tres",
+          "sha256": "e7ed983e7651bd8dbbee1900b102f8163edcb1b487155cd6dec7d98b53a1871b",
+          "bytes": 745,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/themes/guestbook.tres",
+          "sha256": "cb5d3e36956b8e313b9f38f51d2bfed4155440b692202d207c1b446823664620",
+          "bytes": 789,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/themes/lounge.tres",
+          "sha256": "525dac129f5122294ccc0041e9ddcef32d93cf4a2ef3686191d6b4708903f216",
+          "bytes": 850,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/themes/market.tres",
+          "sha256": "d7a1d477f7a9c0ba014c7c23cdde7a5846d4fec9b9845d4727e0b475063cd283",
+          "bytes": 788,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/themes/market_entry.tres",
+          "sha256": "15aee0440975b51bf993a82f58ab6a923c22f90cc2d862cecfa286ef7aeb538a",
+          "bytes": 804,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/themes/office.tres",
+          "sha256": "8ec3e36b4f0120583c188deeab43e2d8148edc47b8f9193bf51f782ddd59e49d",
+          "bytes": 799,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/themes/pawnshop.tres",
+          "sha256": "53e72c1d6023a08bfa65264e3d74fc79279d4d4484e8328fdf0ac2de78dfe71d",
+          "bytes": 785,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/themes/rooftop.tres",
+          "sha256": "5ba950d2bfee7db45b1378e1fac5b29ea5e514dcb6b425b327d4fdfe99624b5f",
+          "bytes": 737,
+          "tracked_change": false
+        },
+        {
+          "path": "assets_src/chapter2_candidate/themes/street.tres",
+          "sha256": "ab4d56f20b7b328b58373f500302d81c50e16248d4790e353c445f2cee44fa5e",
+          "bytes": 731,
+          "tracked_change": false
+        },
+        {
+          "path": "design/13-story-v2/CH02_LEVEL_LAYOUT.md",
+          "sha256": "f03d57eff63aeab6a5e5caa29c219734978a59f8b55973111e137ff2a4120a66",
+          "bytes": 20503,
+          "tracked_change": false
+        },
+        {
+          "path": "tools/story/build_ch2_levels.py",
+          "sha256": "3604081e3af6d4da8893b386dd30f8c8233295f69ddbcebbe397b16112493d51",
+          "bytes": 38484,
+          "tracked_change": false
+        },
+        {
+          "path": "tools/story/ch2_layout_probe.gd",
+          "sha256": "7a2c55560bac9e126d89f66a07135a78ea523db151672b88f6618e9d812e1742",
+          "bytes": 4774,
+          "tracked_change": false
+        },
+        {
+          "path": "tools/story/ch2_layout_probe.tscn",
+          "sha256": "9bbcb7bee558b509df9f735497f28050596692dc14233b6ba7d2fefc00535ea9",
+          "bytes": 191,
+          "tracked_change": false
+        },
+        {
+          "path": "tools/story/test_ch2_levels.py",
+          "sha256": "cea16d319dc46498c9d3a9c4b24d308dce12fd07bc1486da1b3822fdee0bab95",
+          "bytes": 10497,
+          "tracked_change": false
+        }
+      ],
+      "cleanup_status": "PENDING"
+    },
+    {
+      "name": "stage-framing",
+      "path": "C:/tmp/Nest-Egg-stage-framing",
+      "head": "480ff6bf0975d57f76b78a38478eb9d45efa8718",
+      "uncommitted_files_preserved": 21,
+      "generated_metadata_omitted": 0,
+      "archive": "stage-framing-uncommitted.zip",
+      "archive_sha256": "e3440945cbda57c87358b267238657c9fa85a1381ff80968b0e21a21a2f5dca0",
+      "files": [
+        {
+          "path": "design/20-campaign-experience/STAGE_FRAMING_REVIEW.md",
+          "sha256": "d23905c92050d2827d36a45734c8b6fec0290955d64e6f8a5450ecb5d2ed56dc",
+          "bytes": 17312,
+          "tracked_change": false
+        },
+        {
+          "path": "design/20-campaign-experience/evidence/ST-10-spring-certificates/certificate-12-0.6.json",
+          "sha256": "6071a425dddd535eec162739e8355dd9a53264ada28ef1593e40de951f70eed2",
+          "bytes": 7654,
+          "tracked_change": false
+        },
+        {
+          "path": "design/20-campaign-experience/evidence/ST-10-spring-certificates/certificate-14-0.5.json",
+          "sha256": "3963c9d626b98e840949b616198a7d14d412eba1cbd9d4829fba347045a5d89f",
+          "bytes": 7679,
+          "tracked_change": false
+        },
+        {
+          "path": "design/20-campaign-experience/evidence/ST-10-spring-certificates/certificate-14-0.7.json",
+          "sha256": "9e414f6abafa1ea882bb81a68bfa99d72426c062ed7b572e210b9039d29688b8",
+          "bytes": 7615,
+          "tracked_change": false
+        },
+        {
+          "path": "design/20-campaign-experience/evidence/ST-10-spring-certificates/certificate-16-0.55.json",
+          "sha256": "e655692d1fc181863967ac87ac4cd0cb044a007e6375d9d58b136c7e863a85ff",
+          "bytes": 7672,
+          "tracked_change": false
+        },
+        {
+          "path": "design/20-campaign-experience/evidence/ST-10-spring-certificates/certificate-18-0.5.json",
+          "sha256": "b425ab10c4fca7abc0cb9eb182985852ae9865abb74ce58b89c69363c4b17678",
+          "bytes": 7679,
+          "tracked_change": false
+        },
+        {
+          "path": "design/20-campaign-experience/evidence/ST-10-spring-certificates/verify_parameter_rounding.py",
+          "sha256": "d4c1ccd6b471913be457113f317691ebb749b0e834ca5997373678d57a3df969",
+          "bytes": 2188,
+          "tracked_change": false
+        },
+        {
+          "path": "design/20-campaign-experience/evidence/ST-10-spring-certificates/verify_polygon_integer.py",
+          "sha256": "9baa471ca70bf6fa1bf65b9134ba236fae029f26c4db9886f04648860f66bec3",
+          "bytes": 2007,
+          "tracked_change": false
+        },
+        {
+          "path": "game/cutscene/cutscene_player.gd",
+          "sha256": "5feeb5fe05aaf28a28ee1add71b9db0521b881c292318870edba0523a77f3b87",
+          "bytes": 33271,
+          "tracked_change": true
+        },
+        {
+          "path": "game/cutscene/stage_framing_plan.gd",
+          "sha256": "4480cb081098f58cc2ac53a1783a3c85ea1c48c0a69972a170321e43f6665b17",
+          "bytes": 11017,
+          "tracked_change": false
+        },
+        {
+          "path": "game/cutscene/stage_framing_plan.gd.uid",
+          "sha256": "587f0280400e1b212fbf5cb2a5e9f0f0fe96099f35c2fdb58cbcaa72b75fbc09",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "game/cutscene/stage_pose_envelope.gd",
+          "sha256": "36f59872fb4747d945557bcf2fd225b731233f03181f3fc205cde23e3480ddcf",
+          "bytes": 44551,
+          "tracked_change": false
+        },
+        {
+          "path": "game/cutscene/stage_pose_envelope.gd.uid",
+          "sha256": "09bdcaa9577daa0a737585b5da8efd32b8490939c91cc3aa7f1a258295b5008c",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "game/projectiles/projectile_art.gd.uid",
+          "sha256": "6ecbb64141f8aa8cffd2ebe2624240997dd3d8158d34a2b4c180a79e5ecd6ef5",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "tests/suite/test_cutscene.gd",
+          "sha256": "17bc68994a92650b0452454114c935f387b5437e9ca1238fe2f56df261fb2dde",
+          "bytes": 75226,
+          "tracked_change": true
+        },
+        {
+          "path": "tools/pixel_ui_capture.gd.uid",
+          "sha256": "845d43461a7d29fd0aaa9615bf5ada83c8875ca9a65ca0c0fa88676fa5dfb9b5",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "tools/projectile_visual_capture.gd.uid",
+          "sha256": "e765e46ef670b349be04f77cd14f4c82d89102e9d71834c7b1f0cf76e0253c9b",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "tools/scenery_stage_capture.gd.uid",
+          "sha256": "ee8ac5ea59d93b0239b14de7430f4cf632add47e391d45f68d423ec814de0c0f",
+          "bytes": 18,
+          "tracked_change": false
+        },
+        {
+          "path": "tools/stage_framing_probe.gd",
+          "sha256": "ce601d04f09254cdd7a74ff16ded38719cc9a197702aecac5b6e1e64a6d2a56a",
+          "bytes": 35798,
+          "tracked_change": false
+        },
+        {
+          "path": "tools/stage_framing_probe.gd.uid",
+          "sha256": "2a7f8466dbb07d2580f81868ea3ff64acd92d39a7a2513c7b55d25339a58c9b1",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "tools/stage_framing_probe.tscn",
+          "sha256": "0338b46c13f785e02096ea24e1e8c7d0a65ae8f857b9221b1989489426192031",
+          "bytes": 183,
+          "tracked_change": false
+        }
+      ],
+      "cleanup_status": "PENDING"
+    },
+    {
+      "name": "chapter-one-runtime",
+      "path": "C:/Users/stanl/.codex/worktrees/chapter-one-runtime/Nest-Egg",
+      "head": "a5f2a1ba9eb64233b56108c3e930c68bffa52158",
+      "uncommitted_files_preserved": 38,
+      "generated_metadata_omitted": 3715,
+      "archive": "chapter-one-runtime-uncommitted.zip",
+      "archive_sha256": "01734dfabf11912bcf6c7a73679bb0a3f70772de12fe650faf62166ce0c87392",
+      "files": [
+        {
+          "path": "game/projectiles/projectile_art.gd.uid",
+          "sha256": "6ecbb64141f8aa8cffd2ebe2624240997dd3d8158d34a2b4c180a79e5ecd6ef5",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg-BG/attachments/BG-19-poster-recheck/fixed-camera-probe.gd.uid",
+          "sha256": "04807528fec91277f68d95f80b6ce6bbcca9f76282eeb84f5ead5498831f1494",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-218-watchdog-source/capture.gd.uid",
+          "sha256": "79ff5427f0ba2c16243bbd9e53d6e7c6a1590fc0fdabec3391d4d0dfac704d76",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-221-eyes-dual-facing/runtime_capture.gd.uid",
+          "sha256": "4bdb18df20eb0fefd3fa9bdb5f1e4014fe095634f70252555e7c4b108afaa123",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-221-spring-pose/capture.gd.uid",
+          "sha256": "a219ea32d8d04b92ccff44984abf513f3a46bd1515c63985e969be8fed265b2c",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-ci-focus-capture.gd.uid",
+          "sha256": "79bd0237b5efe9c67ac447e49bbbed91c10c3c835accfd94d126385b141427b8",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-cloth-fx/capture.gd.uid",
+          "sha256": "d1a62670ce4cbaff43db994a5d5c0ee7bf69caa869eb4d43b32d5368bbce0974",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-death-action-priority/replay/capture_helper.gd.uid",
+          "sha256": "c0342d6405f2cdc46f203bba83479b686e3c765ab61a8ef4c94d23002bfefa7e",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-death-action-priority/replay/death_action_capture.gd.uid",
+          "sha256": "409e9b76c56dab901a3af080d8044bb5b7b2414af36581d6bb66f78752613fa3",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-leg-ik/capture.gd.uid",
+          "sha256": "8b1ba03d804fc1948adc7133d1e96991f6f334792706584516df5f42210d5072",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-material-axis/preview.gd.uid",
+          "sha256": "4842561a82f685c2eb51f2c11888f3749862a8ac051b11239a4f99ff77181904",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-native-mesh-audit/capture.gd.uid",
+          "sha256": "e601dc4eebf0b2a39ab58ed1d02dde6612c9778c23cda9a1a93312426b26c6a7",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-native-pose/capture_shared_bind.gd.uid",
+          "sha256": "af95082d6b4596cf7213e4a3e6e93f2b7ecff27a93993d6fac610fd6b21d8f32",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-native-pose/formal_pose_native.gd.uid",
+          "sha256": "ca842b42a4b92270f525793fabfe3b85dbbc21bb15bb82cabdea3ce63d662b78",
+          "bytes": 18,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-native-support-hand/capture_api.gd.uid",
+          "sha256": "e34c081c9659e8103861cdbca34c381bd2b8f6efea57753cd5ccfa90d9580bdb",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-native-support-hand/capture_base.gd.uid",
+          "sha256": "ae45773fa46906951da919827f39b90f47ea6ab71c00432837f72e91f5d3b8d1",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-native-support-hand/portable_support_capture.gd.uid",
+          "sha256": "6e03473b4da766df7e856551e5e9cf9ab89f4ebb8044e80f6ccf030f2aabfdb9",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-neutral-torso-mask/capture.gd.uid",
+          "sha256": "7c2d00838d58610886fb52f31dda7ea12c3984f649fd81079ff4bcd29558c347",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-pose-parts/capture.gd.uid",
+          "sha256": "41c16fb3cf1b1c782f9e417715f276c4997aa3e34e2e7e6c34e75e7a0e8e6451",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-pose-parts/capture_rigid_control.gd.uid",
+          "sha256": "709e9b47a58dbfc713be56096bcb8d32790b1a963a1a595785f5bc7e94d03a6b",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-walk-torso-review/document_capture.gd.uid",
+          "sha256": "6cd6ab2839ce04f5b77631009c21634b0e999d1ad82eaad45ae0685bc0bfd27b",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-248-core-hit-handoff/native-observation-v2.gd.uid",
+          "sha256": "da15c8f5c0aa12fb706e82b836377f319603cffabe8b6fe32aa012187ac5336d",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-248-core-hit-handoff/original-base.gd.uid",
+          "sha256": "590d83682b57f41e5c8e53df080685aeb4df7db0ec86402f577553ea788ff236",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-248-core-hit-handoff/original-probe.gd.uid",
+          "sha256": "d46ff9fef4ae365c48b9a67cdc5688854cede601fc4f706284bb642a351340b2",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-249-input-fix/capture.gd.uid",
+          "sha256": "3e8836205b022df2bb89b16f3a85dde395562b40660eff0e5b4f73bf94de8955",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-249-input-fix/probe.gd.uid",
+          "sha256": "8fd3537e2dada5e1ce700dd83b72de764bb28734859c91914530ba2f7070b3dc",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-249-input-isolation/probe.gd.uid",
+          "sha256": "2aac848de4887f4733c82308454178c19e359a60437c7c3d435e8a830f5d768f",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-79-organic-combat/replay.gd.uid",
+          "sha256": "677b76da9213f50cd7023ccea72887fa14ebad3c26de638b3bb10483905f3350",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-80-organic-combat/archive-fixture.gd.uid",
+          "sha256": "f4d0a7f6fd9d5726579d347a39726c29c0d291c48b4e1dd684d599148a03c9e7",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-80-organic-combat/replay.gd.uid",
+          "sha256": "ea3384d6141011b93219c345265f160a5b576c9cfd19113704368b104672f3bb",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-90-enforcer-wrist/whole-character.gd.uid",
+          "sha256": "b92f180be708777a6740d447075ad8d5702632daab5b8bc019466709881a3031",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-90-heavy-wrist/whole-character.gd.uid",
+          "sha256": "45fc60dbf17fc09c6cba5df0351a7787e92581905f6a62c049671a4998dfb9c6",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-90-reference-rgba/capture.gd.uid",
+          "sha256": "a603437cfea81e8a8821e10f8058ec1b03a13f149eabd3d25167b98c30259813",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-90-slasher-repair/slasher-hand-capture.gd.uid",
+          "sha256": "1d712fd4c2fbf882d4367e89492c26cd806d8101220ac074fc66daa5ec927e00",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "tools/environment_steam_probe.gd.uid",
+          "sha256": "40a8c6c3f19d7424de7e741e22fb4daa48057ed8eb8f3ef34f0d21e5f4f33945",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "tools/pixel_ui_capture.gd.uid",
+          "sha256": "845d43461a7d29fd0aaa9615bf5ada83c8875ca9a65ca0c0fa88676fa5dfb9b5",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "tools/projectile_visual_capture.gd.uid",
+          "sha256": "e765e46ef670b349be04f77cd14f4c82d89102e9d71834c7b1f0cf76e0253c9b",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "tools/scenery_stage_capture.gd.uid",
+          "sha256": "ee8ac5ea59d93b0239b14de7430f4cf632add47e391d45f68d423ec814de0c0f",
+          "bytes": 18,
+          "tracked_change": false
+        }
+      ],
+      "cleanup_status": "PENDING"
+    },
+    {
+      "name": "contextual-game-ui",
+      "path": "C:/Users/stanl/.codex/worktrees/contextual-game-ui/Nest-Egg",
+      "head": "89b16e63d39ca18a7385d930a744f09c28846d61",
+      "uncommitted_files_preserved": 34,
+      "generated_metadata_omitted": 3603,
+      "archive": "contextual-game-ui-uncommitted.zip",
+      "archive_sha256": "a88b6e7609345c06299c750373e423eb2289419d97dd6041c929d05ed07101b8",
+      "files": [
+        {
+          "path": "game/projectiles/projectile_art.gd.uid",
+          "sha256": "6ecbb64141f8aa8cffd2ebe2624240997dd3d8158d34a2b4c180a79e5ecd6ef5",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg-BG/attachments/BG-19-poster-recheck/fixed-camera-probe.gd.uid",
+          "sha256": "04807528fec91277f68d95f80b6ce6bbcca9f76282eeb84f5ead5498831f1494",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-218-watchdog-source/capture.gd.uid",
+          "sha256": "79ff5427f0ba2c16243bbd9e53d6e7c6a1590fc0fdabec3391d4d0dfac704d76",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-221-eyes-dual-facing/runtime_capture.gd.uid",
+          "sha256": "4bdb18df20eb0fefd3fa9bdb5f1e4014fe095634f70252555e7c4b108afaa123",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-221-spring-pose/capture.gd.uid",
+          "sha256": "a219ea32d8d04b92ccff44984abf513f3a46bd1515c63985e969be8fed265b2c",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-ci-focus-capture.gd.uid",
+          "sha256": "79bd0237b5efe9c67ac447e49bbbed91c10c3c835accfd94d126385b141427b8",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-cloth-fx/capture.gd.uid",
+          "sha256": "d1a62670ce4cbaff43db994a5d5c0ee7bf69caa869eb4d43b32d5368bbce0974",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-death-action-priority/replay/capture_helper.gd.uid",
+          "sha256": "c0342d6405f2cdc46f203bba83479b686e3c765ab61a8ef4c94d23002bfefa7e",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-death-action-priority/replay/death_action_capture.gd.uid",
+          "sha256": "409e9b76c56dab901a3af080d8044bb5b7b2414af36581d6bb66f78752613fa3",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-leg-ik/capture.gd.uid",
+          "sha256": "8b1ba03d804fc1948adc7133d1e96991f6f334792706584516df5f42210d5072",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-native-mesh-audit/capture.gd.uid",
+          "sha256": "e601dc4eebf0b2a39ab58ed1d02dde6612c9778c23cda9a1a93312426b26c6a7",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-native-pose/capture_shared_bind.gd.uid",
+          "sha256": "af95082d6b4596cf7213e4a3e6e93f2b7ecff27a93993d6fac610fd6b21d8f32",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-native-pose/formal_pose_native.gd.uid",
+          "sha256": "ca842b42a4b92270f525793fabfe3b85dbbc21bb15bb82cabdea3ce63d662b78",
+          "bytes": 18,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-native-support-hand/capture_api.gd.uid",
+          "sha256": "e34c081c9659e8103861cdbca34c381bd2b8f6efea57753cd5ccfa90d9580bdb",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-native-support-hand/capture_base.gd.uid",
+          "sha256": "ae45773fa46906951da919827f39b90f47ea6ab71c00432837f72e91f5d3b8d1",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-native-support-hand/portable_support_capture.gd.uid",
+          "sha256": "6e03473b4da766df7e856551e5e9cf9ab89f4ebb8044e80f6ccf030f2aabfdb9",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-neutral-torso-mask/capture.gd.uid",
+          "sha256": "7c2d00838d58610886fb52f31dda7ea12c3984f649fd81079ff4bcd29558c347",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-pose-parts/capture.gd.uid",
+          "sha256": "41c16fb3cf1b1c782f9e417715f276c4997aa3e34e2e7e6c34e75e7a0e8e6451",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-pose-parts/capture_rigid_control.gd.uid",
+          "sha256": "709e9b47a58dbfc713be56096bcb8d32790b1a963a1a595785f5bc7e94d03a6b",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-222-walk-torso-review/document_capture.gd.uid",
+          "sha256": "6cd6ab2839ce04f5b77631009c21634b0e999d1ad82eaad45ae0685bc0bfd27b",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-248-core-hit-handoff/native-observation-v2.gd.uid",
+          "sha256": "da15c8f5c0aa12fb706e82b836377f319603cffabe8b6fe32aa012187ac5336d",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-248-core-hit-handoff/original-base.gd.uid",
+          "sha256": "590d83682b57f41e5c8e53df080685aeb4df7db0ec86402f577553ea788ff236",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-248-core-hit-handoff/original-probe.gd.uid",
+          "sha256": "d46ff9fef4ae365c48b9a67cdc5688854cede601fc4f706284bb642a351340b2",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-79-organic-combat/replay.gd.uid",
+          "sha256": "677b76da9213f50cd7023ccea72887fa14ebad3c26de638b3bb10483905f3350",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-80-organic-combat/archive-fixture.gd.uid",
+          "sha256": "f4d0a7f6fd9d5726579d347a39726c29c0d291c48b4e1dd684d599148a03c9e7",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-80-organic-combat/replay.gd.uid",
+          "sha256": "ea3384d6141011b93219c345265f160a5b576c9cfd19113704368b104672f3bb",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-90-enforcer-wrist/whole-character.gd.uid",
+          "sha256": "b92f180be708777a6740d447075ad8d5702632daab5b8bc019466709881a3031",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-90-heavy-wrist/whole-character.gd.uid",
+          "sha256": "45fc60dbf17fc09c6cba5df0351a7787e92581905f6a62c049671a4998dfb9c6",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-90-reference-rgba/capture.gd.uid",
+          "sha256": "a603437cfea81e8a8821e10f8058ec1b03a13f149eabd3d25167b98c30259813",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "pm/Nest-Egg/attachments/NE-90-slasher-repair/slasher-hand-capture.gd.uid",
+          "sha256": "1d712fd4c2fbf882d4367e89492c26cd806d8101220ac074fc66daa5ec927e00",
+          "bytes": 19,
+          "tracked_change": false
+        },
+        {
+          "path": "tools/environment_steam_probe.gd.uid",
+          "sha256": "40a8c6c3f19d7424de7e741e22fb4daa48057ed8eb8f3ef34f0d21e5f4f33945",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "tools/pixel_ui_capture.gd.uid",
+          "sha256": "845d43461a7d29fd0aaa9615bf5ada83c8875ca9a65ca0c0fa88676fa5dfb9b5",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "tools/projectile_visual_capture.gd.uid",
+          "sha256": "e765e46ef670b349be04f77cd14f4c82d89102e9d71834c7b1f0cf76e0253c9b",
+          "bytes": 20,
+          "tracked_change": false
+        },
+        {
+          "path": "tools/scenery_stage_capture.gd.uid",
+          "sha256": "ee8ac5ea59d93b0239b14de7430f4cf632add47e391d45f68d423ec814de0c0f",
+          "bytes": 18,
+          "tracked_change": false
+        }
+      ],
+      "cleanup_status": "PENDING"
+    }
+  ],
+  "primary_unaccepted_ticket_edits": {
+    "archive": "primary-unaccepted-ticket-edits.zip",
+    "sha256": "b8921ff2a4ad8b58716c827748a1b0c9f4b8f1bbb444522c2a5cd52b5b4434ae",
+    "files": [
+      {
+        "path": "pm/Nest-Egg-BG/[BG-17]降低替換後環境貼圖的記憶體與取樣成本.md",
+        "sha256": "e380b65df0f9717ad6d890130de7e31a147f68985062a9fbd471ab084d79d94e"
+      },
+      {
+        "path": "pm/ST/[ST-1]撰寫第一章傘的劇本.md",
+        "sha256": "35108036c74d94b69b9a15529adc0cdd523d7a112c3c0246b89766a950dbfd75"
+      }
+    ],
+    "status": "PRESERVED_THEN_RESTORED_TO_MAIN"
+  },
+  "remote_deletions": [],
+  "status": "BACKUPS_VERIFIED_CLEANUP_PENDING",
+  "preserved_local_stashes": [
+    {
+      "sha": "0b8c174149b4c5a68b7ac4655cd1a549f8a1a58a",
+      "message": "On codex/chapter-one-producers: ST-9 preserve chapter integration during main update"
+    },
+    {
+      "sha": "88ba75d0ec5a91c9e418d7bff92f208f182fdd04",
+      "message": "On codex/ne247-dash-silhouette: 暫存衝刺殘影候選以交付自由遭遇"
+    },
+    {
+      "sha": "e82df9606148603f783c3d04154fe08095e627eb",
+      "message": "On main: pre-rebase local files"
+    }
+  ]
+}

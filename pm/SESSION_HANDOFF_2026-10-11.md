@@ -2,6 +2,16 @@
 
 使用者要求把本輪做到一半的工作保存、整理偏好和紀錄、清掉無用途檔案，然後停止開發。永久要求見 [user_guide.md](user_guide.md)。**序章至第一章尚未完整通關，也没有正式累積單檔可交付。**新 Session 先讀本文件、相關票和最新 origin/main，再決定接手哪一部分。
 
+## 最新接手與清理補充（2026-10-11）
+
+使用者後續授權：同步最新 main，移除其他 worktree 和舊分支，下一個 Session 繼續把序章至第一章做成完整可玩。本機已快轉至 `4198f1f9fc19f9bb7e19694b07ce96336ad3357d`，含另一台電腦的角色交接；接手仍先 fetch 最新 main。可直接貼上的[新 Session 指令](NEXT_SESSION_PROMPT.md)和[分支／未提交候選封存與恢復方式](attachments/worktree-retirement-2026-10-11/README.md)優先於下文歷史「保留 worktree／分支」敘述。精確刪除結果以封存 manifest 為準。
+
+舊 `codex/chapter2-layout`、`codex/stage-framing`、`codex/world-ui-clarity` 的提交已在 main；前兩者另有未提交候選，已保存原始 bytes、patch 和來源 HEAD。第一章 `a5f2a1ba` 與武器 `41f326ab` 未完成驗收，不直接合入 main；其提交歷史與其他雲端候選均在 Git bundle，重新 fetch 後可恢復成新審查分支。移除舊分支不抹掉候選、不表示整章通過。原三個 stash 仍保留，另見封存 manifest。
+
+主工作区兩張票的既有未提交打勾（BG-17 暗場量測、ST-1 使用者確認）另存 `primary-unaccepted-ticket-edits.zip`；本次沒有新增證據支持這兩個勾選，不將其混入正式票狀態。檔案原始 hash 與 patch 都在封包。
+
+最新記憶體偏好：**可以多用一些 RAM**，避免不必要的固定門檻；監看系統剩餘實體量、commit／pagefile、程序峰值及 VRAM，依實際占用控制模型和批次，避免耗盡、關機或重啟。不同電腦的 GPU／記憶體數字不能混用。
+
 ## 已交付與仍在分支的界線
 
 | 範圍 | 精確狀態 |
