@@ -34,6 +34,8 @@ $env:COMFYUI_DIR='D:/ComfyUI'
 
 verify只核對36個來源／工作流／紀錄／PNG的SHA、來源四通道保護與10張原始擷取尺寸，並拒絕單像素alpha污染、錯誤尺寸、非二值遮罩三種負例。**它通過不會把拒收候選改成合格素材**。正式來源hash在參考輸入核對；本次只有隔離素材、文件及證據，受影響Godot測試應為零，另記實際selector結果。
 
+原生日誌保留實際CRLF換行並由本目錄Git attributes停用文字正規化；交付另外核對index內36個實際Git blob的SHA，防止先加入index的日誌仍存成LF。相同檢查也須在同步後的另一checkout執行，不能只檢查工作目錄。
+
 需要重做原生診斷時，先準備本次基準的獨立runtime checkout並完成匯入；不能用根目錄或包含既有診斷輸出的路徑。prepare_native只寫入該隔離checkout的`.godot/ne222-walk-torso-22316-native/`，由既有工具重建normal／glow，不觸碰角色正式資源：
 
 ```powershell
