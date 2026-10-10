@@ -1,0 +1,2504 @@
+{
+  "status": "SEMANTIC_REVIEW_REJECTS_MASKS_NOT_ADOPTED",
+  "source": {
+    "path": "D:\\NestEggVerification\\ne222-neutral-walk-ig02\\raw\\source.png",
+    "sha256": "bf3eb04ae13460f9ffe1349cfcdcf511f08fc964fbec78532e36e75a030d92c5",
+    "size": [
+      1037,
+      1517
+    ],
+    "mode": "RGBA",
+    "alpha_histogram": {
+      "0": 1152811,
+      "1": 15117,
+      "2": 5345,
+      "3": 3033,
+      "4": 2085,
+      "5": 1489,
+      "6": 1104,
+      "7": 732,
+      "8": 582,
+      "9": 457,
+      "10": 302,
+      "11": 271,
+      "12": 248,
+      "13": 226,
+      "14": 179,
+      "15": 182,
+      "16": 149,
+      "17": 168,
+      "18": 177,
+      "19": 171,
+      "20": 166,
+      "21": 129,
+      "22": 148,
+      "23": 130,
+      "24": 123,
+      "25": 115,
+      "26": 106,
+      "27": 102,
+      "28": 112,
+      "29": 102,
+      "30": 94,
+      "31": 90,
+      "32": 92,
+      "33": 80,
+      "34": 86,
+      "35": 99,
+      "36": 91,
+      "37": 72,
+      "38": 72,
+      "39": 65,
+      "40": 81,
+      "41": 78,
+      "42": 67,
+      "43": 84,
+      "44": 72,
+      "45": 74,
+      "46": 81,
+      "47": 77,
+      "48": 62,
+      "49": 63,
+      "50": 69,
+      "51": 61,
+      "52": 71,
+      "53": 69,
+      "54": 62,
+      "55": 61,
+      "56": 84,
+      "57": 83,
+      "58": 74,
+      "59": 60,
+      "60": 64,
+      "61": 70,
+      "62": 69,
+      "63": 61,
+      "64": 53,
+      "65": 61,
+      "66": 64,
+      "67": 63,
+      "68": 63,
+      "69": 48,
+      "70": 48,
+      "71": 69,
+      "72": 60,
+      "73": 53,
+      "74": 51,
+      "75": 59,
+      "76": 49,
+      "77": 56,
+      "78": 67,
+      "79": 53,
+      "80": 55,
+      "81": 55,
+      "82": 53,
+      "83": 40,
+      "84": 51,
+      "85": 54,
+      "86": 48,
+      "87": 50,
+      "88": 69,
+      "89": 61,
+      "90": 57,
+      "91": 53,
+      "92": 39,
+      "93": 54,
+      "94": 51,
+      "95": 51,
+      "96": 49,
+      "97": 51,
+      "98": 60,
+      "99": 47,
+      "100": 52,
+      "101": 46,
+      "102": 46,
+      "103": 56,
+      "104": 47,
+      "105": 48,
+      "106": 42,
+      "107": 57,
+      "108": 39,
+      "109": 53,
+      "110": 69,
+      "111": 61,
+      "112": 56,
+      "113": 60,
+      "114": 51,
+      "115": 56,
+      "116": 54,
+      "117": 58,
+      "118": 43,
+      "119": 44,
+      "120": 58,
+      "121": 39,
+      "122": 47,
+      "123": 44,
+      "124": 45,
+      "125": 57,
+      "126": 58,
+      "127": 53,
+      "128": 44,
+      "129": 51,
+      "130": 51,
+      "131": 56,
+      "132": 45,
+      "133": 56,
+      "134": 52,
+      "135": 44,
+      "136": 50,
+      "137": 46,
+      "138": 43,
+      "139": 48,
+      "140": 59,
+      "141": 53,
+      "142": 51,
+      "143": 59,
+      "144": 56,
+      "145": 62,
+      "146": 49,
+      "147": 58,
+      "148": 60,
+      "149": 55,
+      "150": 58,
+      "151": 59,
+      "152": 65,
+      "153": 65,
+      "154": 63,
+      "155": 56,
+      "156": 53,
+      "157": 63,
+      "158": 49,
+      "159": 49,
+      "160": 61,
+      "161": 49,
+      "162": 52,
+      "163": 63,
+      "164": 50,
+      "165": 80,
+      "166": 50,
+      "167": 60,
+      "168": 61,
+      "169": 66,
+      "170": 63,
+      "171": 66,
+      "172": 63,
+      "173": 61,
+      "174": 69,
+      "175": 59,
+      "176": 68,
+      "177": 60,
+      "178": 59,
+      "179": 55,
+      "180": 63,
+      "181": 69,
+      "182": 74,
+      "183": 56,
+      "184": 61,
+      "185": 63,
+      "186": 60,
+      "187": 56,
+      "188": 70,
+      "189": 60,
+      "190": 71,
+      "191": 62,
+      "192": 94,
+      "193": 66,
+      "194": 78,
+      "195": 77,
+      "196": 69,
+      "197": 72,
+      "198": 72,
+      "199": 73,
+      "200": 79,
+      "201": 74,
+      "202": 64,
+      "203": 94,
+      "204": 90,
+      "205": 67,
+      "206": 65,
+      "207": 73,
+      "208": 83,
+      "209": 88,
+      "210": 88,
+      "211": 73,
+      "212": 91,
+      "213": 97,
+      "214": 87,
+      "215": 80,
+      "216": 88,
+      "217": 80,
+      "218": 118,
+      "219": 100,
+      "220": 106,
+      "221": 112,
+      "222": 102,
+      "223": 125,
+      "224": 114,
+      "225": 119,
+      "226": 132,
+      "227": 124,
+      "228": 151,
+      "229": 148,
+      "230": 153,
+      "231": 158,
+      "232": 192,
+      "233": 192,
+      "234": 215,
+      "235": 258,
+      "236": 223,
+      "237": 271,
+      "238": 317,
+      "239": 363,
+      "240": 431,
+      "241": 493,
+      "242": 610,
+      "243": 748,
+      "244": 954,
+      "245": 1265,
+      "246": 1559,
+      "247": 1839,
+      "248": 2233,
+      "249": 3163,
+      "250": 4693,
+      "251": 10135,
+      "252": 58535,
+      "253": 268170,
+      "254": 15713,
+      "255": 1022
+    },
+    "alpha_gt0": 420318,
+    "alpha_ge40": 386227,
+    "alpha_ge128": 381126
+  },
+  "masks": {
+    "inner_torso": {
+      "sha256": "cb0c822d7e3e56034d03b2e4ea50ad8fe586e8879718f8ef9c2a84eda7619285",
+      "mode": "RGB",
+      "size": [
+        1037,
+        1517
+      ],
+      "selected_pixels": 13800,
+      "bbox": [
+        587,
+        323,
+        672,
+        675
+      ],
+      "components_8conn": {
+        "count": 2,
+        "components": [
+          {
+            "pixels": 13796,
+            "bbox": [
+              587,
+              323,
+              672,
+              675
+            ]
+          },
+          {
+            "pixels": 4,
+            "bbox": [
+              602,
+              329,
+              604,
+              331
+            ]
+          }
+        ]
+      },
+      "levels": {
+        "0": 1559329,
+        "255": 13800
+      },
+      "selected_where_source_alpha_zero": 0,
+      "selected_where_source_alpha_1_39": 0,
+      "selected_where_source_alpha_ge40": 13800
+    },
+    "coat_body": {
+      "sha256": "3e5d7086a05cb8a0fc4e4ae2f7e1d4d379b3179bf959ca82a15b2a33e5d21664",
+      "mode": "RGB",
+      "size": [
+        1037,
+        1517
+      ],
+      "selected_pixels": 25257,
+      "bbox": [
+        390,
+        233,
+        592,
+        575
+      ],
+      "components_8conn": {
+        "count": 28,
+        "components": [
+          {
+            "pixels": 22887,
+            "bbox": [
+              450,
+              233,
+              592,
+              575
+            ]
+          },
+          {
+            "pixels": 668,
+            "bbox": [
+              421,
+              400,
+              447,
+              485
+            ]
+          },
+          {
+            "pixels": 428,
+            "bbox": [
+              399,
+              440,
+              419,
+              479
+            ]
+          },
+          {
+            "pixels": 184,
+            "bbox": [
+              452,
+              349,
+              462,
+              377
+            ]
+          },
+          {
+            "pixels": 158,
+            "bbox": [
+              479,
+              311,
+              504,
+              325
+            ]
+          },
+          {
+            "pixels": 153,
+            "bbox": [
+              465,
+              402,
+              475,
+              427
+            ]
+          },
+          {
+            "pixels": 138,
+            "bbox": [
+              390,
+              489,
+              403,
+              506
+            ]
+          },
+          {
+            "pixels": 133,
+            "bbox": [
+              412,
+              483,
+              422,
+              510
+            ]
+          },
+          {
+            "pixels": 83,
+            "bbox": [
+              464,
+              312,
+              475,
+              325
+            ]
+          },
+          {
+            "pixels": 82,
+            "bbox": [
+              471,
+              431,
+              476,
+              459
+            ]
+          },
+          {
+            "pixels": 43,
+            "bbox": [
+              439,
+              400,
+              447,
+              408
+            ]
+          },
+          {
+            "pixels": 42,
+            "bbox": [
+              410,
+              546,
+              420,
+              553
+            ]
+          },
+          {
+            "pixels": 35,
+            "bbox": [
+              466,
+              337,
+              474,
+              342
+            ]
+          },
+          {
+            "pixels": 30,
+            "bbox": [
+              456,
+              317,
+              462,
+              323
+            ]
+          },
+          {
+            "pixels": 28,
+            "bbox": [
+              487,
+              495,
+              494,
+              501
+            ]
+          },
+          {
+            "pixels": 26,
+            "bbox": [
+              399,
+              539,
+              403,
+              549
+            ]
+          },
+          {
+            "pixels": 25,
+            "bbox": [
+              431,
+              472,
+              436,
+              478
+            ]
+          },
+          {
+            "pixels": 25,
+            "bbox": [
+              414,
+              516,
+              417,
+              526
+            ]
+          },
+          {
+            "pixels": 24,
+            "bbox": [
+              450,
+              319,
+              455,
+              326
+            ]
+          },
+          {
+            "pixels": 14,
+            "bbox": [
+              426,
+              549,
+              432,
+              552
+            ]
+          },
+          {
+            "pixels": 10,
+            "bbox": [
+              436,
+              479,
+              439,
+              483
+            ]
+          },
+          {
+            "pixels": 9,
+            "bbox": [
+              504,
+              348,
+              507,
+              352
+            ]
+          },
+          {
+            "pixels": 9,
+            "bbox": [
+              483,
+              417,
+              487,
+              420
+            ]
+          },
+          {
+            "pixels": 8,
+            "bbox": [
+              490,
+              327,
+              493,
+              331
+            ]
+          },
+          {
+            "pixels": 6,
+            "bbox": [
+              451,
+              333,
+              453,
+              336
+            ]
+          },
+          {
+            "pixels": 5,
+            "bbox": [
+              472,
+              380,
+              474,
+              383
+            ]
+          },
+          {
+            "pixels": 2,
+            "bbox": [
+              473,
+              297,
+              474,
+              299
+            ]
+          },
+          {
+            "pixels": 2,
+            "bbox": [
+              487,
+              360,
+              489,
+              361
+            ]
+          }
+        ]
+      },
+      "levels": {
+        "0": 1547872,
+        "255": 25257
+      },
+      "selected_where_source_alpha_zero": 0,
+      "selected_where_source_alpha_1_39": 0,
+      "selected_where_source_alpha_ge40": 25257
+    },
+    "metal_side_sleeve": {
+      "sha256": "641231e6fa383a8aa47dfba56f03fefc7181bd8fab1fdfde2b0c56c7bfb05b86",
+      "mode": "RGB",
+      "size": [
+        1037,
+        1517
+      ],
+      "selected_pixels": 18751,
+      "bbox": [
+        388,
+        370,
+        582,
+        571
+      ],
+      "components_8conn": {
+        "count": 3,
+        "components": [
+          {
+            "pixels": 18684,
+            "bbox": [
+              388,
+              370,
+              519,
+              571
+            ]
+          },
+          {
+            "pixels": 63,
+            "bbox": [
+              563,
+              470,
+              571,
+              483
+            ]
+          },
+          {
+            "pixels": 4,
+            "bbox": [
+              580,
+              465,
+              582,
+              468
+            ]
+          }
+        ]
+      },
+      "levels": {
+        "0": 1554378,
+        "255": 18751
+      },
+      "selected_where_source_alpha_zero": 0,
+      "selected_where_source_alpha_1_39": 0,
+      "selected_where_source_alpha_ge40": 18751
+    },
+    "human_side_sleeve": {
+      "sha256": "a881bbf23e6ce05ea529fcc80ab0cce9c1f01ffb0ac0e13b7d2a6be893337480",
+      "mode": "RGB",
+      "size": [
+        1037,
+        1517
+      ],
+      "selected_pixels": 11605,
+      "bbox": [
+        400,
+        454,
+        755,
+        667
+      ],
+      "components_8conn": {
+        "count": 6,
+        "components": [
+          {
+            "pixels": 11279,
+            "bbox": [
+              643,
+              454,
+              755,
+              667
+            ]
+          },
+          {
+            "pixels": 271,
+            "bbox": [
+              560,
+              572,
+              590,
+              596
+            ]
+          },
+          {
+            "pixels": 31,
+            "bbox": [
+              542,
+              574,
+              548,
+              581
+            ]
+          },
+          {
+            "pixels": 13,
+            "bbox": [
+              537,
+              585,
+              542,
+              588
+            ]
+          },
+          {
+            "pixels": 10,
+            "bbox": [
+              400,
+              455,
+              402,
+              461
+            ]
+          },
+          {
+            "pixels": 1,
+            "bbox": [
+              595,
+              497,
+              596,
+              498
+            ]
+          }
+        ]
+      },
+      "levels": {
+        "0": 1561524,
+        "255": 11605
+      },
+      "selected_where_source_alpha_zero": 4,
+      "selected_where_source_alpha_1_39": 13,
+      "selected_where_source_alpha_ge40": 11588
+    }
+  },
+  "source_roi_windows": {
+    "torso_white_core": {
+      "expected_owner": "inner_torso",
+      "polygon_xy": [
+        [
+          612,
+          335
+        ],
+        [
+          634,
+          333
+        ],
+        [
+          650,
+          357
+        ],
+        [
+          667,
+          398
+        ],
+        [
+          673,
+          431
+        ],
+        [
+          659,
+          448
+        ],
+        [
+          640,
+          432
+        ],
+        [
+          623,
+          403
+        ],
+        [
+          611,
+          372
+        ]
+      ],
+      "review_window_pixels": 4250,
+      "source_alpha_gt0_pixels": 4177,
+      "source_alpha_ge128_pixels": 3765,
+      "source_visible_bbox": [
+        611,
+        333,
+        674,
+        449
+      ],
+      "mask_selected_pixels_by_owner": {
+        "inner_torso": 3136,
+        "coat_body": 0,
+        "metal_side_sleeve": 0,
+        "human_side_sleeve": 0
+      },
+      "expected_owner_missing_alpha_ge128": 629,
+      "covered_only_by_other_owner_alpha_ge128": 0,
+      "unclaimed_source_alpha_gt0": 1041,
+      "unclaimed_source_alpha_ge128": 629,
+      "multiowned_source_alpha_gt0": 0,
+      "multiowned_source_alpha_ge128": 0,
+      "per_pixel_owner_count_0_1_2plus": {
+        "0": 1041,
+        "1": 3136,
+        "2plus": 0
+      }
+    },
+    "coat_body_core": {
+      "expected_owner": "coat_body",
+      "polygon_xy": [
+        [
+          514,
+          343
+        ],
+        [
+          542,
+          336
+        ],
+        [
+          559,
+          360
+        ],
+        [
+          571,
+          405
+        ],
+        [
+          578,
+          455
+        ],
+        [
+          572,
+          500
+        ],
+        [
+          561,
+          531
+        ],
+        [
+          535,
+          538
+        ],
+        [
+          516,
+          520
+        ],
+        [
+          507,
+          482
+        ],
+        [
+          504,
+          435
+        ]
+      ],
+      "review_window_pixels": 11656,
+      "source_alpha_gt0_pixels": 11656,
+      "source_alpha_ge128_pixels": 11656,
+      "source_visible_bbox": [
+        504,
+        336,
+        579,
+        539
+      ],
+      "mask_selected_pixels_by_owner": {
+        "inner_torso": 0,
+        "coat_body": 10861,
+        "metal_side_sleeve": 535,
+        "human_side_sleeve": 0
+      },
+      "expected_owner_missing_alpha_ge128": 795,
+      "covered_only_by_other_owner_alpha_ge128": 139,
+      "unclaimed_source_alpha_gt0": 656,
+      "unclaimed_source_alpha_ge128": 656,
+      "multiowned_source_alpha_gt0": 396,
+      "multiowned_source_alpha_ge128": 396,
+      "per_pixel_owner_count_0_1_2plus": {
+        "0": 656,
+        "1": 10604,
+        "2plus": 396
+      }
+    },
+    "metal_side_sleeve_core": {
+      "expected_owner": "metal_side_sleeve",
+      "polygon_xy": [
+        [
+          414,
+          391
+        ],
+        [
+          438,
+          378
+        ],
+        [
+          466,
+          382
+        ],
+        [
+          482,
+          405
+        ],
+        [
+          480,
+          443
+        ],
+        [
+          474,
+          474
+        ],
+        [
+          480,
+          502
+        ],
+        [
+          466,
+          518
+        ],
+        [
+          437,
+          516
+        ],
+        [
+          417,
+          497
+        ],
+        [
+          405,
+          465
+        ],
+        [
+          407,
+          429
+        ]
+      ],
+      "review_window_pixels": 8913,
+      "source_alpha_gt0_pixels": 8913,
+      "source_alpha_ge128_pixels": 8913,
+      "source_visible_bbox": [
+        405,
+        378,
+        483,
+        519
+      ],
+      "mask_selected_pixels_by_owner": {
+        "inner_torso": 0,
+        "coat_body": 2264,
+        "metal_side_sleeve": 8619,
+        "human_side_sleeve": 0
+      },
+      "expected_owner_missing_alpha_ge128": 294,
+      "covered_only_by_other_owner_alpha_ge128": 0,
+      "unclaimed_source_alpha_gt0": 294,
+      "unclaimed_source_alpha_ge128": 294,
+      "multiowned_source_alpha_gt0": 2264,
+      "multiowned_source_alpha_ge128": 2264,
+      "per_pixel_owner_count_0_1_2plus": {
+        "0": 294,
+        "1": 6355,
+        "2plus": 2264
+      }
+    },
+    "opposite_sleeve_core": {
+      "expected_owner": "human_side_sleeve",
+      "polygon_xy": [
+        [
+          667,
+          535
+        ],
+        [
+          685,
+          539
+        ],
+        [
+          697,
+          558
+        ],
+        [
+          704,
+          581
+        ],
+        [
+          718,
+          598
+        ],
+        [
+          731,
+          610
+        ],
+        [
+          725,
+          622
+        ],
+        [
+          709,
+          617
+        ],
+        [
+          692,
+          602
+        ],
+        [
+          679,
+          584
+        ],
+        [
+          669,
+          563
+        ]
+      ],
+      "review_window_pixels": 2254,
+      "source_alpha_gt0_pixels": 2254,
+      "source_alpha_ge128_pixels": 2254,
+      "source_visible_bbox": [
+        667,
+        535,
+        732,
+        623
+      ],
+      "mask_selected_pixels_by_owner": {
+        "inner_torso": 0,
+        "coat_body": 0,
+        "metal_side_sleeve": 0,
+        "human_side_sleeve": 2245
+      },
+      "expected_owner_missing_alpha_ge128": 9,
+      "covered_only_by_other_owner_alpha_ge128": 0,
+      "unclaimed_source_alpha_gt0": 9,
+      "unclaimed_source_alpha_ge128": 9,
+      "multiowned_source_alpha_gt0": 0,
+      "multiowned_source_alpha_ge128": 0,
+      "per_pixel_owner_count_0_1_2plus": {
+        "0": 9,
+        "1": 2245,
+        "2plus": 0
+      }
+    },
+    "coat_hem_core": {
+      "expected_owner": "coat_body",
+      "polygon_xy": [
+        [
+          505,
+          536
+        ],
+        [
+          529,
+          537
+        ],
+        [
+          554,
+          539
+        ],
+        [
+          574,
+          538
+        ],
+        [
+          578,
+          550
+        ],
+        [
+          570,
+          565
+        ],
+        [
+          548,
+          568
+        ],
+        [
+          522,
+          564
+        ],
+        [
+          504,
+          554
+        ]
+      ],
+      "review_window_pixels": 1916,
+      "source_alpha_gt0_pixels": 1916,
+      "source_alpha_ge128_pixels": 1916,
+      "source_visible_bbox": [
+        504,
+        536,
+        579,
+        569
+      ],
+      "mask_selected_pixels_by_owner": {
+        "inner_torso": 0,
+        "coat_body": 1858,
+        "metal_side_sleeve": 0,
+        "human_side_sleeve": 0
+      },
+      "expected_owner_missing_alpha_ge128": 58,
+      "covered_only_by_other_owner_alpha_ge128": 0,
+      "unclaimed_source_alpha_gt0": 58,
+      "unclaimed_source_alpha_ge128": 58,
+      "multiowned_source_alpha_gt0": 0,
+      "multiowned_source_alpha_ge128": 0,
+      "per_pixel_owner_count_0_1_2plus": {
+        "0": 58,
+        "1": 1858,
+        "2plus": 0
+      }
+    }
+  },
+  "visible_upper_material_roi": {
+    "polygon_sets": "Union of the five hand-traced high-confidence interior review windows listed above; excludes obvious hair/skin/background and intentionally does not claim full garment extents or boundaries.",
+    "window_pixels": 28988,
+    "source_alpha_gt0_pixels": 28915,
+    "source_alpha_ge128_pixels": 28503,
+    "mask_selected_pixels_by_owner": {
+      "inner_torso": 3136,
+      "coat_body": 14982,
+      "metal_side_sleeve": 9154,
+      "human_side_sleeve": 2245
+    },
+    "unclaimed_source_alpha_gt0": 2058,
+    "unclaimed_source_alpha_ge128": 1646,
+    "multiowned_source_alpha_gt0": 2660,
+    "multiowned_source_alpha_ge128": 2660,
+    "expected_owner_missing_alpha_ge128": 1785
+  },
+  "manual_control_windows": {
+    "exposed_forearm_skin": {
+      "polygon_xy": [
+        [
+          711,
+          636
+        ],
+        [
+          729,
+          633
+        ],
+        [
+          751,
+          641
+        ],
+        [
+          773,
+          650
+        ],
+        [
+          790,
+          673
+        ],
+        [
+          779,
+          690
+        ],
+        [
+          754,
+          685
+        ],
+        [
+          734,
+          675
+        ],
+        [
+          719,
+          660
+        ]
+      ],
+      "source_alpha_gt0": 2427,
+      "source_alpha_ge128": 2281,
+      "selected_by_mask_alpha_gt0": {
+        "inner_torso": 0,
+        "coat_body": 0,
+        "metal_side_sleeve": 0,
+        "human_side_sleeve": 457
+      },
+      "selected_foreground_by_each_owner": {
+        "inner_torso": 0,
+        "coat_body": 0,
+        "metal_side_sleeve": 0,
+        "human_side_sleeve": 457
+      }
+    },
+    "exposed_waist_skin_and_trim": {
+      "polygon_xy": [
+        [
+          558,
+          510
+        ],
+        [
+          580,
+          506
+        ],
+        [
+          602,
+          512
+        ],
+        [
+          618,
+          528
+        ],
+        [
+          617,
+          546
+        ],
+        [
+          600,
+          559
+        ],
+        [
+          578,
+          553
+        ],
+        [
+          562,
+          538
+        ]
+      ],
+      "source_alpha_gt0": 2344,
+      "source_alpha_ge128": 2344,
+      "selected_by_mask_alpha_gt0": {
+        "inner_torso": 541,
+        "coat_body": 605,
+        "metal_side_sleeve": 0,
+        "human_side_sleeve": 0
+      },
+      "selected_foreground_by_each_owner": {
+        "inner_torso": 541,
+        "coat_body": 605,
+        "metal_side_sleeve": 0,
+        "human_side_sleeve": 0
+      }
+    },
+    "hair_overhang_at_metal_shoulder": {
+      "polygon_xy": [
+        [
+          380,
+          230
+        ],
+        [
+          436,
+          230
+        ],
+        [
+          449,
+          264
+        ],
+        [
+          426,
+          287
+        ],
+        [
+          412,
+          323
+        ],
+        [
+          406,
+          373
+        ],
+        [
+          404,
+          431
+        ],
+        [
+          396,
+          468
+        ],
+        [
+          379,
+          459
+        ],
+        [
+          370,
+          403
+        ],
+        [
+          372,
+          334
+        ]
+      ],
+      "source_alpha_gt0": 10019,
+      "source_alpha_ge128": 9586,
+      "selected_by_mask_alpha_gt0": {
+        "inner_torso": 0,
+        "coat_body": 0,
+        "metal_side_sleeve": 0,
+        "human_side_sleeve": 0
+      },
+      "selected_foreground_by_each_owner": {
+        "inner_torso": 0,
+        "coat_body": 0,
+        "metal_side_sleeve": 0,
+        "human_side_sleeve": 0
+      }
+    },
+    "lower_body_below_jacket_hem": {
+      "polygon_xy": [
+        [
+          444,
+          580
+        ],
+        [
+          495,
+          576
+        ],
+        [
+          550,
+          578
+        ],
+        [
+          601,
+          580
+        ],
+        [
+          652,
+          582
+        ],
+        [
+          679,
+          607
+        ],
+        [
+          671,
+          676
+        ],
+        [
+          620,
+          688
+        ],
+        [
+          545,
+          680
+        ],
+        [
+          477,
+          650
+        ]
+      ],
+      "source_alpha_gt0": 18623,
+      "source_alpha_ge128": 17199,
+      "selected_by_mask_alpha_gt0": {
+        "inner_torso": 1540,
+        "coat_body": 0,
+        "metal_side_sleeve": 0,
+        "human_side_sleeve": 1484
+      },
+      "selected_foreground_by_each_owner": {
+        "inner_torso": 1540,
+        "coat_body": 0,
+        "metal_side_sleeve": 0,
+        "human_side_sleeve": 1475
+      }
+    }
+  },
+  "detail_crops": {
+    "collar-and-coat-front": {
+      "source_crop_xyxy": [
+        485,
+        218,
+        635,
+        305
+      ],
+      "native_size": [
+        150,
+        87
+      ],
+      "resampled": false
+    },
+    "coat-front-and-torso-edge": {
+      "source_crop_xyxy": [
+        505,
+        285,
+        660,
+        505
+      ],
+      "native_size": [
+        155,
+        220
+      ],
+      "resampled": false
+    },
+    "metal-side-armhole-and-folds": {
+      "source_crop_xyxy": [
+        380,
+        275,
+        545,
+        500
+      ],
+      "native_size": [
+        165,
+        225
+      ],
+      "resampled": false
+    },
+    "jacket-hem-and-waist-interface": {
+      "source_crop_xyxy": [
+        380,
+        500,
+        680,
+        605
+      ],
+      "native_size": [
+        300,
+        105
+      ],
+      "resampled": false
+    },
+    "metal-side-cuff": {
+      "source_crop_xyxy": [
+        365,
+        525,
+        475,
+        600
+      ],
+      "native_size": [
+        110,
+        75
+      ],
+      "resampled": false
+    },
+    "opposite-sleeve-cuff-and-skin": {
+      "source_crop_xyxy": [
+        675,
+        585,
+        795,
+        690
+      ],
+      "native_size": [
+        120,
+        105
+      ],
+      "resampled": false
+    }
+  },
+  "global_mask_counts": {
+    "mask_union_pixels": 65073,
+    "pixels_selected_by_0": 1508056,
+    "pixels_selected_by_1": 60743,
+    "pixels_selected_by_2plus": 4330,
+    "union_on_source_alpha_zero": 4,
+    "union_on_source_alpha_gt0": 65069,
+    "union_on_source_alpha_ge128": 65034
+  },
+  "pairwise_overlap": {
+    "inner_torso__coat_body": {
+      "overlap_pixels_all": 0,
+      "overlap_source_alpha_gt0": 0,
+      "overlap_source_alpha_ge128": 0,
+      "overlap_bbox": null
+    },
+    "inner_torso__metal_side_sleeve": {
+      "overlap_pixels_all": 0,
+      "overlap_source_alpha_gt0": 0,
+      "overlap_source_alpha_ge128": 0,
+      "overlap_bbox": null
+    },
+    "inner_torso__human_side_sleeve": {
+      "overlap_pixels_all": 1,
+      "overlap_source_alpha_gt0": 1,
+      "overlap_source_alpha_ge128": 1,
+      "overlap_bbox": [
+        595,
+        497,
+        596,
+        498
+      ]
+    },
+    "coat_body__metal_side_sleeve": {
+      "overlap_pixels_all": 4329,
+      "overlap_source_alpha_gt0": 4329,
+      "overlap_source_alpha_ge128": 4329,
+      "overlap_bbox": [
+        390,
+        370,
+        582,
+        553
+      ]
+    },
+    "coat_body__human_side_sleeve": {
+      "overlap_pixels_all": 10,
+      "overlap_source_alpha_gt0": 10,
+      "overlap_source_alpha_ge128": 10,
+      "overlap_bbox": [
+        400,
+        455,
+        402,
+        461
+      ]
+    },
+    "metal_side_sleeve__human_side_sleeve": {
+      "overlap_pixels_all": 10,
+      "overlap_source_alpha_gt0": 10,
+      "overlap_source_alpha_ge128": 10,
+      "overlap_bbox": [
+        400,
+        455,
+        402,
+        461
+      ]
+    }
+  },
+  "prompt_point_results": {
+    "inner_torso": {
+      "positive": [
+        {
+          "xy": [
+            645,
+            410
+          ],
+          "mask_selected": true,
+          "source_rgba": [
+            237,
+            230,
+            231,
+            253
+          ],
+          "other_selected_masks": []
+        },
+        {
+          "xy": [
+            630,
+            480
+          ],
+          "mask_selected": true,
+          "source_rgba": [
+            229,
+            218,
+            220,
+            253
+          ],
+          "other_selected_masks": []
+        }
+      ],
+      "negative": [
+        {
+          "xy": [
+            525,
+            400
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            26,
+            26,
+            45,
+            253
+          ],
+          "other_selected_masks": [
+            "coat_body"
+          ]
+        },
+        {
+          "xy": [
+            450,
+            400
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            49,
+            47,
+            74,
+            253
+          ],
+          "other_selected_masks": [
+            "metal_side_sleeve"
+          ]
+        },
+        {
+          "xy": [
+            700,
+            540
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            34,
+            36,
+            56,
+            244
+          ],
+          "other_selected_masks": [
+            "human_side_sleeve"
+          ]
+        },
+        {
+          "xy": [
+            600,
+            625
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            45,
+            40,
+            41,
+            253
+          ],
+          "other_selected_masks": []
+        },
+        {
+          "xy": [
+            350,
+            400
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            237,
+            28,
+            148,
+            253
+          ],
+          "other_selected_masks": []
+        }
+      ]
+    },
+    "coat_body": {
+      "positive": [
+        {
+          "xy": [
+            525,
+            400
+          ],
+          "mask_selected": true,
+          "source_rgba": [
+            26,
+            26,
+            45,
+            253
+          ],
+          "other_selected_masks": []
+        },
+        {
+          "xy": [
+            550,
+            550
+          ],
+          "mask_selected": true,
+          "source_rgba": [
+            35,
+            33,
+            56,
+            253
+          ],
+          "other_selected_masks": []
+        }
+      ],
+      "negative": [
+        {
+          "xy": [
+            645,
+            410
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            237,
+            230,
+            231,
+            253
+          ],
+          "other_selected_masks": [
+            "inner_torso"
+          ]
+        },
+        {
+          "xy": [
+            450,
+            400
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            49,
+            47,
+            74,
+            253
+          ],
+          "other_selected_masks": [
+            "metal_side_sleeve"
+          ]
+        },
+        {
+          "xy": [
+            485,
+            515
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            45,
+            45,
+            72,
+            253
+          ],
+          "other_selected_masks": [
+            "metal_side_sleeve"
+          ]
+        },
+        {
+          "xy": [
+            700,
+            540
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            34,
+            36,
+            56,
+            244
+          ],
+          "other_selected_masks": [
+            "human_side_sleeve"
+          ]
+        },
+        {
+          "xy": [
+            730,
+            625
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            47,
+            47,
+            73,
+            253
+          ],
+          "other_selected_masks": [
+            "human_side_sleeve"
+          ]
+        },
+        {
+          "xy": [
+            600,
+            625
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            45,
+            40,
+            41,
+            253
+          ],
+          "other_selected_masks": []
+        },
+        {
+          "xy": [
+            350,
+            400
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            237,
+            28,
+            148,
+            253
+          ],
+          "other_selected_masks": []
+        }
+      ]
+    },
+    "metal_side_sleeve": {
+      "positive": [
+        {
+          "xy": [
+            450,
+            400
+          ],
+          "mask_selected": true,
+          "source_rgba": [
+            49,
+            47,
+            74,
+            253
+          ],
+          "other_selected_masks": []
+        },
+        {
+          "xy": [
+            485,
+            515
+          ],
+          "mask_selected": true,
+          "source_rgba": [
+            45,
+            45,
+            72,
+            253
+          ],
+          "other_selected_masks": []
+        }
+      ],
+      "negative": [
+        {
+          "xy": [
+            525,
+            400
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            26,
+            26,
+            45,
+            253
+          ],
+          "other_selected_masks": [
+            "coat_body"
+          ]
+        },
+        {
+          "xy": [
+            550,
+            550
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            35,
+            33,
+            56,
+            253
+          ],
+          "other_selected_masks": [
+            "coat_body"
+          ]
+        },
+        {
+          "xy": [
+            645,
+            410
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            237,
+            230,
+            231,
+            253
+          ],
+          "other_selected_masks": [
+            "inner_torso"
+          ]
+        },
+        {
+          "xy": [
+            700,
+            540
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            34,
+            36,
+            56,
+            244
+          ],
+          "other_selected_masks": [
+            "human_side_sleeve"
+          ]
+        },
+        {
+          "xy": [
+            730,
+            625
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            47,
+            47,
+            73,
+            253
+          ],
+          "other_selected_masks": [
+            "human_side_sleeve"
+          ]
+        },
+        {
+          "xy": [
+            600,
+            625
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            45,
+            40,
+            41,
+            253
+          ],
+          "other_selected_masks": []
+        },
+        {
+          "xy": [
+            350,
+            400
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            237,
+            28,
+            148,
+            253
+          ],
+          "other_selected_masks": []
+        }
+      ]
+    },
+    "human_side_sleeve": {
+      "positive": [
+        {
+          "xy": [
+            700,
+            540
+          ],
+          "mask_selected": true,
+          "source_rgba": [
+            34,
+            36,
+            56,
+            244
+          ],
+          "other_selected_masks": []
+        },
+        {
+          "xy": [
+            730,
+            625
+          ],
+          "mask_selected": true,
+          "source_rgba": [
+            47,
+            47,
+            73,
+            253
+          ],
+          "other_selected_masks": []
+        }
+      ],
+      "negative": [
+        {
+          "xy": [
+            525,
+            400
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            26,
+            26,
+            45,
+            253
+          ],
+          "other_selected_masks": [
+            "coat_body"
+          ]
+        },
+        {
+          "xy": [
+            645,
+            410
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            237,
+            230,
+            231,
+            253
+          ],
+          "other_selected_masks": [
+            "inner_torso"
+          ]
+        },
+        {
+          "xy": [
+            450,
+            400
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            49,
+            47,
+            74,
+            253
+          ],
+          "other_selected_masks": [
+            "metal_side_sleeve"
+          ]
+        },
+        {
+          "xy": [
+            485,
+            515
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            45,
+            45,
+            72,
+            253
+          ],
+          "other_selected_masks": [
+            "metal_side_sleeve"
+          ]
+        },
+        {
+          "xy": [
+            742,
+            665
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            237,
+            178,
+            152,
+            253
+          ],
+          "other_selected_masks": []
+        },
+        {
+          "xy": [
+            600,
+            625
+          ],
+          "mask_selected": false,
+          "source_rgba": [
+            45,
+            40,
+            41,
+            253
+          ],
+          "other_selected_masks": []
+        }
+      ]
+    }
+  },
+  "human_sleeve_skin_control": {
+    "roi_xy": [
+      [
+        711,
+        636
+      ],
+      [
+        729,
+        633
+      ],
+      [
+        751,
+        641
+      ],
+      [
+        773,
+        650
+      ],
+      [
+        790,
+        673
+      ],
+      [
+        779,
+        690
+      ],
+      [
+        754,
+        685
+      ],
+      [
+        734,
+        675
+      ],
+      [
+        719,
+        660
+      ]
+    ],
+    "source_alpha_gt0_pixels": 2427,
+    "human_side_sleeve_selected_pixels": 457,
+    "selected_bbox": [
+      711,
+      633,
+      744,
+      662
+    ],
+    "selected_examples_xy": [
+      [
+        729,
+        633
+      ],
+      [
+        721,
+        635
+      ],
+      [
+        712,
+        636
+      ],
+      [
+        727,
+        636
+      ],
+      [
+        715,
+        637
+      ],
+      [
+        730,
+        637
+      ],
+      [
+        716,
+        638
+      ],
+      [
+        731,
+        638
+      ],
+      [
+        714,
+        639
+      ],
+      [
+        729,
+        639
+      ],
+      [
+        712,
+        640
+      ],
+      [
+        727,
+        640
+      ],
+      [
+        713,
+        641
+      ],
+      [
+        728,
+        641
+      ],
+      [
+        715,
+        642
+      ],
+      [
+        730,
+        642
+      ],
+      [
+        719,
+        643
+      ],
+      [
+        734,
+        643
+      ],
+      [
+        726,
+        644
+      ],
+      [
+        719,
+        645
+      ],
+      [
+        734,
+        645
+      ],
+      [
+        727,
+        646
+      ],
+      [
+        722,
+        647
+      ],
+      [
+        718,
+        648
+      ],
+      [
+        716,
+        649
+      ],
+      [
+        716,
+        650
+      ],
+      [
+        717,
+        651
+      ],
+      [
+        719,
+        652
+      ],
+      [
+        723,
+        653
+      ],
+      [
+        719,
+        655
+      ]
+    ]
+  },
+  "manual_trace_proposals_not_masks": [
+    {
+      "name": "collar_trim_visible_path",
+      "xy": [
+        [
+          501,
+          229
+        ],
+        [
+          518,
+          232
+        ],
+        [
+          540,
+          242
+        ],
+        [
+          575,
+          250
+        ]
+      ],
+      "confidence": "visible cyan trim only; hidden neck/shoulder connection unknown"
+    },
+    {
+      "name": "coat_front_opening_visible_path",
+      "xy": [
+        [
+          520,
+          235
+        ],
+        [
+          540,
+          248
+        ],
+        [
+          559,
+          258
+        ],
+        [
+          580,
+          273
+        ],
+        [
+          592,
+          297
+        ],
+        [
+          599,
+          330
+        ],
+        [
+          602,
+          380
+        ],
+        [
+          603,
+          430
+        ],
+        [
+          600,
+          485
+        ],
+        [
+          594,
+          535
+        ],
+        [
+          587,
+          565
+        ]
+      ],
+      "confidence": "pink/zipper-side edge is visible in sections; points are approximate tracing anchors, not certified split pixels"
+    },
+    {
+      "name": "coat_hem_visible_path",
+      "xy": [
+        [
+          410,
+          550
+        ],
+        [
+          445,
+          558
+        ],
+        [
+          490,
+          564
+        ],
+        [
+          535,
+          568
+        ],
+        [
+          570,
+          570
+        ],
+        [
+          603,
+          568
+        ],
+        [
+          629,
+          560
+        ],
+        [
+          650,
+          548
+        ]
+      ],
+      "confidence": "visible lower jacket edge partly overlaps torso/hip; exact hem/inner lining ownership unknown"
+    },
+    {
+      "name": "metal_side_cuff_interface",
+      "xy": [
+        [
+          391,
+          546
+        ],
+        [
+          406,
+          551
+        ],
+        [
+          431,
+          554
+        ],
+        [
+          455,
+          553
+        ]
+      ],
+      "confidence": "fabric rib cuff to mechanical forearm transition visible; pixel-exact seam needs manual trace"
+    },
+    {
+      "name": "opposite_side_cuff_interface",
+      "xy": [
+        [
+          696,
+          617
+        ],
+        [
+          708,
+          628
+        ],
+        [
+          724,
+          638
+        ],
+        [
+          740,
+          643
+        ],
+        [
+          755,
+          638
+        ]
+      ],
+      "confidence": "fabric cuff edge is partially visible; hand/forearm begins immediately beyond cuff; do not extend sleeve mask into skin"
+    },
+    {
+      "name": "metal_side_armhole_boundary",
+      "xy": [
+        [
+          478,
+          306
+        ],
+        [
+          500,
+          323
+        ],
+        [
+          516,
+          346
+        ],
+        [
+          527,
+          380
+        ],
+        [
+          536,
+          418
+        ]
+      ],
+      "confidence": "partly occluded by hair and same-color folds; only visible fold references, not a complete armhole cut"
+    },
+    {
+      "name": "opposite_side_armhole_boundary",
+      "xy": [
+        [
+          631,
+          476
+        ],
+        [
+          653,
+          489
+        ],
+        [
+          670,
+          508
+        ],
+        [
+          682,
+          534
+        ]
+      ],
+      "confidence": "partly occluded by coat front and hair/torso; hidden root is unknown"
+    }
+  ],
+  "proposed_eight_slot_trace_ledger_not_runtime_schema": [
+    {
+      "slot": "front_torso",
+      "observed_core_xyxy": [
+        612,
+        333,
+        673,
+        449
+      ],
+      "evidence": "white torso panel inside torso_white_core review window",
+      "unknown": "lower/side extension under coat; cannot trace the waist attachment from this view"
+    },
+    {
+      "slot": "coat_body",
+      "observed_core_xyxy": [
+        504,
+        336,
+        579,
+        569
+      ],
+      "evidence": "navy central shell and visible coat opening/hem paths",
+      "unknown": "inner lining, rear panel and hidden torso/hip overlap"
+    },
+    {
+      "slot": "metal_side_upper_sleeve",
+      "observed_xyxy": [
+        405,
+        305,
+        519,
+        475
+      ],
+      "evidence": "visible sleeve fabric and shoulder-area folds in metal_side_sleeve_core",
+      "unknown": "armhole root behind hair/coat; elbow cut is not a visible seam"
+    },
+    {
+      "slot": "metal_side_lower_sleeve_and_cuff",
+      "observed_bbox_native_xyxy": [
+        388,
+        470,
+        510,
+        571
+      ],
+      "evidence": "lower navy sleeve and rib cuff; cuff transition anchors (391,546),(406,551),(431,554),(455,553)",
+      "unknown": "exact elbow hinge line; sleeve-to-mechanical-arm overlap width"
+    },
+    {
+      "slot": "opposite_side_upper_sleeve",
+      "observed_xyxy": [
+        643,
+        484,
+        718,
+        600
+      ],
+      "evidence": "visible navy sleeve from coat-side root to lower-arm folds",
+      "unknown": "shoulder/armhole root behind coat front; upper/lower split not defined by a clear seam"
+    },
+    {
+      "slot": "opposite_side_lower_sleeve_and_cuff",
+      "observed_bbox_native_xyxy": [
+        686,
+        585,
+        763,
+        647
+      ],
+      "evidence": "sleeve continuation and rib cuff; cuff anchors (696,617),(708,628),(724,638),(740,643),(755,638)",
+      "unknown": "forearm/hand connection is visible immediately beyond cuff but no validated wrist pivot"
+    },
+    {
+      "slot": "collar_trim",
+      "observed_polyline_xy": [
+        [
+          501,
+          229
+        ],
+        [
+          518,
+          232
+        ],
+        [
+          540,
+          242
+        ],
+        [
+          575,
+          250
+        ]
+      ],
+      "evidence": "visible cyan collar trim only",
+      "unknown": "neck pivot and trim hidden beneath hair/face"
+    },
+    {
+      "slot": "visible_waist_hip_underlayer",
+      "observed_xyxy": [
+        558,
+        506,
+        618,
+        559
+      ],
+      "evidence": "partial cyan/black garment and skin window; source window is mixed, not a clean owner region",
+      "unknown": "undercoat continuation and body beneath jacket; no safe complete ownership boundary"
+    }
+  ],
+  "interpretation": {
+    "point_tests": "Prompt positives/negatives only sample isolated pixels; all-point passes do not certify boundary ownership or continuity.",
+    "coat_body": "SAM output visibly loses large interior/side coat areas and fragments the coat into disconnected islands despite positive points; reject for authoring.",
+    "human_side_sleeve": "SAM output includes a detached exposed-skin-colored component in the visible forearm control region; reject for authoring.",
+    "unknown": "The hidden back-side torso, armhole roots behind hair/coat, sleeve undersides, and torso-to-waist extension are occluded and cannot be assigned from this image."
+  },
+  "limitations": [
+    "Review windows are hand-traced measurement regions, not accepted owner masks.",
+    "Raw source alpha was not changed; SAM masks were not modified.",
+    "No thresholds were relaxed; all source alpha classes are reported separately.",
+    "No hidden anatomy or color pixels were fabricated.",
+    "No rig, pivot, sprite, game, runtime, ticket, or GPU claim is made."
+  ]
+}

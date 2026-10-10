@@ -1,0 +1,43 @@
+{
+  "repeat_output_hashes_identical": true,
+  "outputs_count": 28,
+  "outputs": {
+    "detail-coat-front-and-torso-edge-black-native.png": "9ab6a028ca724c566240a6ca37cffd4347a432f183f1a66bdb3b3aefff63f59d",
+    "detail-coat-front-and-torso-edge-gray-native.png": "6121867620abdf3982164feeef3663c72b398d453eb7007c77161316863ffc6b",
+    "detail-coat-front-and-torso-edge-white-native.png": "865f51d74d7c9e8eb45bce0f800fa26fcc947c261abc795aa0647cb8f5eb5700",
+    "detail-collar-and-coat-front-black-native.png": "4c5f6b4b9e4a277ca38011aea46e1e06d3d8a535d2eb87163fa596161d1968e3",
+    "detail-collar-and-coat-front-gray-native.png": "b9867de539f313cc9884d96d3dfa2cebe26bc58830a050244058a7b66a7141aa",
+    "detail-collar-and-coat-front-white-native.png": "63d9592c936b31655531d3e1721e41f025ada8b6cfad3bf2dbe889efeff9f6a7",
+    "detail-jacket-hem-and-waist-interface-black-native.png": "2b1778224ca957914d7bd99e57bd63818529e29fe5a683718267eefa35e9c59c",
+    "detail-jacket-hem-and-waist-interface-gray-native.png": "f1add2e584f6270a43cf4ba026be1c48f513298c95481c7f7eea7174b030ecb5",
+    "detail-jacket-hem-and-waist-interface-white-native.png": "ad0e47ae28caf6320000edefa9caf67b93c92d672f811f069e62f84ae284f361",
+    "detail-metal-side-armhole-and-folds-black-native.png": "54006104da3b92be143e4f1f022c77478c64b6cd5b24a115365502c4ffc494d1",
+    "detail-metal-side-armhole-and-folds-gray-native.png": "1f92d6112519604cb1704d599a448889d6782817ef22d1f0a5b280e68908dc48",
+    "detail-metal-side-armhole-and-folds-white-native.png": "7b6709c64e66872c512ecf01df05002fd7165ad8c686aaf83754cd02d5adc491",
+    "detail-metal-side-cuff-black-native.png": "5c816dc4cfef74dce1248478a42ebbe5f4eaf5cb66a1dccb764a4f57e97fbe44",
+    "detail-metal-side-cuff-gray-native.png": "c2b8afd9b0538facf141afd9338efab4208cf65cfe4e726d06c4de4c78b230d6",
+    "detail-metal-side-cuff-white-native.png": "befe71f2539876a39915a2d6ad6760fc8cabdafbdde99a1558467d6bf7a45d2e",
+    "detail-opposite-sleeve-cuff-and-skin-black-native.png": "9964d36b9e160bb862cf8c61bedbd7ba120c1490dac29172959b48f91dd9fb1b",
+    "detail-opposite-sleeve-cuff-and-skin-gray-native.png": "2a724ed980f14532767b9f779db1968b7550f85aa9a84060cfb8026b5d6719ce",
+    "detail-opposite-sleeve-cuff-and-skin-white-native.png": "a1baaebad9614c54dc2c54af11182a78093a3fc2e556cbad6d5fe42898d706da",
+    "make_contacts.py": "2dd5c99f5606f1dfaf871b9e4ac5e9491aa6c1123fec685a1a9d5faedc34dec5",
+    "README.md": "43362fcb94e2824c9c1a658c6f06253eb2be0fcd7590c2a9ca413ff9c92793c5",
+    "review.json": "0cc9a0c5b5f18b924447b82555d723d23a35150559c1502a68537f987583d4dd",
+    "source-mask-overlays-native.png": "ac79601885a2c0b9ec1220adc38b31f4a318bc790f1627ec7f5042496a1203b6",
+    "source-upper-review-windows-native.png": "a5b06283b7bc809ee592b4534174b9308543a8754498e57618dbdf8cc4a3741c",
+    "upper-black-native.png": "cbd49efed36aa7aa89d2dc3590cb19fe744d463b25e2c966b0418a286ca4ca9b",
+    "upper-gray-grid-native.png": "a6982d200483400ee9db645ea4bee23b7469c017639d5e384c4116493af621ce",
+    "upper-gray-native.png": "a1d2584ff214f91c8fedc66fa78abc84875422bbca3ce2a2458b909439b059b7",
+    "upper-white-native.png": "951246fecc3623701e1eb4c61f5cf16a85b4f82e3929ab23331f69baebf43383",
+    "visible-seam-proposals-native.png": "85a3928b4e1aff95c9f335c321007cd720f349d65f9b252eef88712bd7be3c62"
+  },
+  "source_unchanged_sha256": "bf3eb04ae13460f9ffe1349cfcdcf511f08fc964fbec78532e36e75a030d92c5",
+  "four_mask_input_hashes_verified": true,
+  "all_prompt_points_behave_as_requested": true,
+  "semantic_failures_preserved": {
+    "coat_body_8_connected_components": 28,
+    "human_sleeve_pixels_in_exposed_forearm_skin_window": 457,
+    "upper_material_roi_unclaimed_alpha_ge128": 1646,
+    "upper_material_roi_multiowned_alpha_ge128": 2660
+  }
+}

@@ -1,0 +1,195 @@
+{
+  "date": "2026-10-11",
+  "scope": "Stop and handoff; no feature/art changes",
+  "sidecars_deleted": 3583,
+  "sidecars_bytes": 3794271.0,
+  "sidecar_scope": "Only verified untracked generated texture .import files under pm/Nest-Egg images/attachments; PNGs and tracked metadata retained",
+  "deleted_verification_worktrees": [
+    {
+      "path": "D:\\NestEggVerification\\ne222-light-fix",
+      "branch": "codex/ne222-light-check",
+      "published_baseline": "7daaa578",
+      "important_files_verified": [
+        {
+          "path": "art/shaders/character_light.gdshader",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "0151d06c26060ce4c5844daf87f0597cb00f15079f0d952e9aa2cf62dcaae887"
+        },
+        {
+          "path": "game/cutscene/cutscene_actor.gd",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "b68eb8de5fb7032dca0a4116ab239e4ce4e31a93c7cbffb54c77d2d303c57d17"
+        },
+        {
+          "path": "game/rig/character_rig.gd",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "e6bec61294cbe3f6a259d574b81ff2f868195d497c4a16783715967bddb57001"
+        },
+        {
+          "path": "tests/suite/test_cutscene.gd",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "948048baa80c8b87e3e807acc43de5f9e6b71baad235d04704406ae4279d4242"
+        },
+        {
+          "path": "tools/ne222_cutscene_fill_probe.gd",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "30426617e9ff193b63f16bc7f56b49b42de9b25514f6bcbcae6f955ff713f335"
+        },
+        {
+          "path": "tools/ne222_cutscene_fill_probe.tscn",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "37bda4b05cb4cea4ed8f1afad6a46236dca9fa690eb0b7c69037284cb909663d"
+        },
+        {
+          "path": "tools/ne222_light_energy_probe.gd",
+          "byte_equal": false,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "f3f40fe676024418bae53704a3170f62683a867f97057e02ec3cf2f93d1abe9d"
+        },
+        {
+          "path": "tools/ne222_light_energy_probe.tscn",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "c0d212c1a1c69c06b4d2c4a288541c6dc22146a86fbbdfa85d6d0326002a92b6"
+        }
+      ],
+      "generated_sidecars": 1824
+    },
+    {
+      "path": "D:\\NestEggVerification\\ne222-shadow-check",
+      "branch": "codex/ne222-shadow-check",
+      "published_baseline": "7daaa578",
+      "important_files_verified": [
+        {
+          "path": "art_src/characters/rin_sit_lower_ig01/.gdignore",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "art_src/characters/rin_sit_lower_ig01/prompt.txt",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "5b45d3f61656e561df80f4c4fc7bdd840ba76cfb304a27bf836e9338a296fb51"
+        },
+        {
+          "path": "art_src/characters/rin_sit_lower_ig01/raw/source.png",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "8115265f8ca9e0dbb554c172a8a39f70148b5ab700b3cfd639f4abb690ea9550"
+        },
+        {
+          "path": "art_src/characters/rin_sit_lower_ig01/source.json",
+          "byte_equal": false,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "776aadc6d4701fdd2b623bc8be3a7662a1e2045c42a0ef1cdef36beff2d50529"
+        },
+        {
+          "path": "art_src/characters/rin_sit_lower_ig02/.gdignore",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "art_src/characters/rin_sit_lower_ig02/README.md",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "c0a9c171c010a0c69f5e038743d3e63576d48c7227b4b40033c82f37b52d033c"
+        },
+        {
+          "path": "art_src/characters/rin_sit_lower_ig02/compare_sources.py",
+          "byte_equal": false,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "78671b998ba8ef6af6b34cbb5c053bbb02723439daed9f819e514e7c8b035aa6"
+        },
+        {
+          "path": "art_src/characters/rin_sit_lower_ig02/prompt.txt",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "42182d4866bb0f46ba3e15a3ad758581255f915e5b1e351402cccfafb3372b74"
+        },
+        {
+          "path": "art_src/characters/rin_sit_lower_ig02/raw/source.png",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "4d6f40cabb7854071d5b7be71bf2185089e425043c1da0adbc7e1cf29bffc520"
+        },
+        {
+          "path": "art_src/characters/rin_sit_lower_ig02/review/.gitattributes",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "f06202a408fef9b9ea69bb6b1cb8160dbb0378c5bb67a444d510d231813824c8"
+        },
+        {
+          "path": "art_src/characters/rin_sit_lower_ig02/review/REVIEW.md",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "100b06c58edfd32b22e4c13ebd6cb2901ad73c118ca44614dec0e9a5089eab34"
+        },
+        {
+          "path": "art_src/characters/rin_sit_lower_ig02/review/broad_hip_roi_side_by_side_native.png",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "591e791a911f0f6fdba2e447b1dce40725b925816326b98852c20a582e073ae4"
+        },
+        {
+          "path": "art_src/characters/rin_sit_lower_ig02/review/lower_legs_boots_side_by_side_native.png",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "7af1072be7573120ceeee35ef994e48ae029f9e48aec4e6a51a8a1f39d86fb3c"
+        },
+        {
+          "path": "art_src/characters/rin_sit_lower_ig02/review/pixel_diff_metrics.json",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "166fb3f5d5ffd01741932c9336e8b125eca0ecf13b7ad14cacea0ffd2889ed7f"
+        },
+        {
+          "path": "art_src/characters/rin_sit_lower_ig02/review/target_roi_side_by_side_native.png",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "41ef94de0fe8a6dad87f986fe0e67e2800f88a3871ad32005d0e21bea736cf0e"
+        },
+        {
+          "path": "art_src/characters/rin_sit_lower_ig02/review/waist_buttock_holster_side_by_side_native.png",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "ccfd9eba1dad6c12ed7500ed3cfbd4322a8baa067a7fefcd988a57310a8605eb"
+        },
+        {
+          "path": "art_src/characters/rin_sit_lower_ig02/source.json",
+          "byte_equal": false,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "d3e4e50749dbe85ce6c88681556e76fe64f3a1d81b4d093e8c69ac61927d7edf"
+        },
+        {
+          "path": "pm/Nest-Egg/images/NE-222-sit-hip-shadow-source-compare.png",
+          "byte_equal": true,
+          "equal_after_only_crlf_normalization": true,
+          "sha256": "591e791a911f0f6fdba2e447b1dce40725b925816326b98852c20a582e073ae4"
+        }
+      ],
+      "generated_sidecars": 0
+    }
+  ],
+  "retained_work_branch": "codex/session-character-poses",
+  "retained_reason": "Foreign tracked changes and historical untracked sources/failed evidence; do not use this directory as a new clean branch",
+  "remote_branches_deleted": [],
+  "source_candidates_retained": "28 original source/SAM/review records archived in PM; original raw paths preserved",
+  "protected_files": [
+    {
+      "path": "art/portraits/rin.png",
+      "sha256": "dcb57512a46fa99b2a6b1aab1ae463f8892c5c0b2f04df05464a28e107b654ed"
+    },
+    {
+      "path": "game/enemies/watchdog.gd",
+      "sha256": "65ea2dfd0e599004ef3d37da8bba09c240c5fbc7e41c159c55a0e4cda6b4fc69"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "status": "CANDIDATE_NOT_ADOPTED",
+  "provider": "builtin image_gen.imagegen edit",
+  "seed": null,
+  "model": null,
+  "workflow": null,
+  "transparent_background_requested": true,
+  "prompt": "prompt.txt",
+  "reference": "../rin_walk_source_ig01/raw/source.png",
+  "reference_sha256": "3af1fa39fd7325c92ed8f1dd75562a98f7636ce723f619643a8eb4235ed71c75",
+  "output": "raw/source.png",
+  "output_sha256": "bf3eb04ae13460f9ffe1349cfcdcf511f08fc964fbec78532e36e75a030d92c5",
+  "native_size": [
+    1037,
+    1517
+  ],
+  "mode": "RGBA",
+  "original_standing": "../rin2/base_rgba.png",
+  "original_standing_sha256": "401888dc14dcca469428e4df45c07648e36fd1822497031f8c28213fafc24fd9",
+  "limits": "Provider did not return seed/model/workflow. Raw source retained, not claimed generatively reproducible. Keep original standing unchanged; only candidate paired torso/coat pieces may be tested."
+}

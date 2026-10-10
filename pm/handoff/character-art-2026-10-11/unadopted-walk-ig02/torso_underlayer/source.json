@@ -1,0 +1,18 @@
+{
+  "status": "CANDIDATE_NOT_ADOPTED",
+  "provider": "builtin image_gen.imagegen edit",
+  "seed": null,
+  "model": null,
+  "workflow": null,
+  "prompt": "prompt.txt",
+  "reference": "../raw/source.png",
+  "reference_sha256": "bf3eb04ae13460f9ffe1349cfcdcf511f08fc964fbec78532e36e75a030d92c5",
+  "output": "raw/source.png",
+  "output_sha256": "ff9bda4aed98116d01b1ba9763796dcafa5e9652410e88fcc46abeb759fb0cc6",
+  "native_size": [
+    1037,
+    1516
+  ],
+  "mode": "RGBA",
+  "limits": "Reframed isolated full underlayer; not registered to the original source coordinate space; collar/waist/armhole matching required. No anatomy, alpha, binding or runtime pass."
+}
