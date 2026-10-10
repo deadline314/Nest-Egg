@@ -517,6 +517,11 @@ func _test_staging() -> void:
 
 ## 預載：區域與過場用到的貼圖路徑找得到、請求只發一次、缺檔不報錯。
 func _test_prefetch() -> void:
+	if AssetPrefetch.uses_main_thread():
+		# Thread-token assertions below retain their original async contract and are
+		# executed by the genuine headless runner. Native RD has a separate contract.
+		await _test_main_thread_prefetch()
+		return
 	AssetPrefetch.clear()
 	var street := _datas["street"]
 	var paths := AssetPrefetch.level_texture_paths(street)
@@ -596,6 +601,137 @@ func _test_prefetch() -> void:
 	AssetPrefetch.clear()
 	await _prefetch_drain()
 	check(AssetPrefetch.stats()["queued"] == 0 and AssetPrefetch.stats()["inflight"] == 0 and AssetPrefetch.stats()["cached"] == 0, "clear drains only the active burst without decoding the discarded queue")
+
+	await _test_main_thread_prefetch()
+
+
+## After draining genuine threaded tokens, exercise main policy with real textures.
+## Only the initialized policy selector is a fixture; no ResourceLoader fake.
+func _test_main_thread_prefetch() -> void:
+	var old_strategy: int = AssetPrefetch.stats().strategy
+	var was_paused := runner.get_tree().paused
+	await _run_main_thread_prefetch_fixture()
+	# Every fixture failure/timeout returns here; outstanding old async tokens
+	# keep their original policy and remain owned by the live Pump.
+	AssetPrefetch.clear()
+	AssetPrefetch._strategy = old_strategy
+	runner.get_tree().paused = was_paused
+	AssetPrefetch._refresh_pump()
+	check(AssetPrefetch.stats().strategy == old_strategy and AssetPrefetch.stats().queued == 0
+		and AssetPrefetch.stats().inflight == 0 and not AssetPrefetch._main_loading
+		and runner.get_tree().paused == was_paused,
+		"main-policy fixture restores the prior initialized backend and pause state and leaves no work")
+
+
+func _prefetch_fixture_idle() -> bool:
+	var value := AssetPrefetch.stats()
+	return value.queued == 0 and value.inflight == 0 and not AssetPrefetch._main_loading
+
+
+func _prefetch_fixture_check(value: bool, label: String) -> bool:
+	check(value, label)
+	return value
+
+
+func _run_main_thread_prefetch_fixture() -> void:
+	AssetPrefetch.clear()
+	await _prefetch_drain()
+	if not _prefetch_fixture_check(_prefetch_fixture_idle(),
+			"all queued/inflight/loading work drains before changing fixture policy"):
+		return
+	if not _prefetch_fixture_check(AssetPrefetch._strategy_for(4, 7, 2, "headless", "forward_plus") == AssetPrefetch.STRATEGY_THREADED_HEADLESS,
+		"headless 4.7.2 retains genuine one-slot async policy"):
+		return
+	if not _prefetch_fixture_check(AssetPrefetch._strategy_for(4, 7, 2, "windows", "forward_plus") == AssetPrefetch.STRATEGY_MAIN_THREAD_RD_472
+		and AssetPrefetch._strategy_for(4, 7, 2, "windows", "mobile") == AssetPrefetch.STRATEGY_MAIN_THREAD_RD_472,
+		"only native 4.7.2 RD renderers select deferred main-thread policy"):
+		return
+	if not _prefetch_fixture_check(AssetPrefetch._strategy_for(4, 7, 1, "windows", "forward_plus") == AssetPrefetch.STRATEGY_THREADED_NATIVE
+		and AssetPrefetch._strategy_for(4, 7, 3, "windows", "forward_plus") == AssetPrefetch.STRATEGY_THREADED_NATIVE
+		and AssetPrefetch._strategy_for(4, 7, 2, "windows", "gl_compatibility") == AssetPrefetch.STRATEGY_THREADED_NATIVE,
+		"other versions and Compatibility retain original four-slot async policy"):
+		return
+	AssetPrefetch._strategy = AssetPrefetch.STRATEGY_MAIN_THREAD_RD_472
+	await runner.get_tree().process_frame
+	var paths := PackedStringArray(["res://art/weapons/pistol.png", "res://art/weapons/rifle.png"])
+	var before := AssetPrefetch.stats()
+	if not _prefetch_fixture_check(AssetPrefetch.request(paths) == 2 and AssetPrefetch.stats().requested_total == before.requested_total
+		and AssetPrefetch.stats().queued == 2 and AssetPrefetch.stats().inflight == 0,
+		"main policy queues real textures without immediate ResourceLoader or threaded dispatch"):
+		return
+	AssetPrefetch.clear()
+	AssetPrefetch._poll()
+	if not _prefetch_fixture_check(AssetPrefetch.stats().main_load_total == before.main_load_total and AssetPrefetch.stats().cached == 0,
+		"scope cancellation before Pump load cannot cache a canceled texture"):
+		return
+	AssetPrefetch.request(paths)
+	AssetPrefetch._poll()
+	var first := AssetPrefetch.stats()
+	if not _prefetch_fixture_check(first.main_load_total == before.main_load_total + 1 and first.queued == 1 and first.cached == 1
+		and first.main_last_frame == Engine.get_process_frames(), "main Pump performs exactly one real texture load in its frame"):
+		return
+	AssetPrefetch.clear()
+	AssetPrefetch.request(PackedStringArray([paths[1]]))
+	AssetPrefetch._poll()
+	if not _prefetch_fixture_check(AssetPrefetch.stats().main_load_total == first.main_load_total and AssetPrefetch.stats().queued == 1
+		and AssetPrefetch.stats().cached == 0, "clear and request cannot reset the same-frame load cap"):
+		return
+	runner.get_tree().paused = true
+	await _prefetch_drain()
+	if not _prefetch_fixture_check(_prefetch_fixture_idle(),
+			"main-policy paused drain finishes before inspecting fixture resources"):
+		return
+	var done := AssetPrefetch.stats()
+	if not _prefetch_fixture_check(done.cached == 1 and AssetPrefetch._cache.has(paths[1]) and not AssetPrefetch._cache.has(paths[0])
+		and done.main_load_total == before.main_load_total + 2, "paused Pump loads only the current generation after cancellation"):
+		return
+	if not _prefetch_fixture_check(done.threaded_request_calls == before.threaded_request_calls and done.inflight == 0
+		and ResourceLoader.load_threaded_get_status(paths[0]) == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE
+		and ResourceLoader.load_threaded_get_status(paths[1]) == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE,
+		"deferred main policy issued no own threaded requests or native tokens"):
+		return
+	var retained := AssetPrefetch._cache.get(paths[1]) as Texture2D
+	if not _prefetch_fixture_check(retained != null, "actual rifle texture exists before scene-owned retention check"):
+		return
+	var live := Sprite2D.new()
+	live.texture = retained
+	retained = null
+	AssetPrefetch.clear()
+	var retained_ok := live.texture is Texture2D and live.texture.get_width() > 0
+	live.free()
+	if not _prefetch_fixture_check(retained_ok, "main cache clear cannot release a scene-owned texture"):
+		return
+	var tiny := ImageTexture.create_from_image(Image.create(8, 8, false, Image.FORMAT_RGBA8))
+	if not _prefetch_fixture_check(tiny != null and tiny.get_width() == 8,
+			"actual tiny cache fixture texture is valid before cache calls"):
+		return
+	for i in AssetPrefetch.MAX_CACHED + 1:
+		AssetPrefetch._remember("user://bg31-main-cache-%d.png" % i, tiny)
+	if not _prefetch_fixture_check(AssetPrefetch.stats().cached == AssetPrefetch.MAX_CACHED
+		and not AssetPrefetch._cache.has("user://bg31-main-cache-0.png"), "main policy retains the same 64-entry LRU bound"):
+		return
+	AssetPrefetch.clear()
+	AssetPrefetch._remember("user://bg31-main-budget-a.png", PrefetchSizedTexture.new(4096))
+	AssetPrefetch._remember("user://bg31-main-budget-b.png", PrefetchSizedTexture.new(4096))
+	if not _prefetch_fixture_check(AssetPrefetch.stats().cached == 1 and AssetPrefetch.stats().estimated_bytes <= AssetPrefetch.MAX_CACHE_BYTES,
+		"main policy preserves the same estimated byte budget"):
+		return
+	AssetPrefetch.clear()
+	var candidates := PackedStringArray()
+	_prefetch_candidates("res://art", candidates)
+	var burst_before: int = AssetPrefetch.stats().main_load_total
+	for batch in 5:
+		AssetPrefetch.request(candidates.slice(batch * 160, (batch + 1) * 160))
+	if not _prefetch_fixture_check(AssetPrefetch.stats().queued == AssetPrefetch.MAX_QUEUED and AssetPrefetch.stats().inflight == 0
+		and AssetPrefetch.stats().main_load_total == burst_before,
+		"main request bursts retain the 512 queue bound without immediate loads"):
+		return
+	AssetPrefetch._select_scope("bg31-main-canceled-burst", true)
+	AssetPrefetch._poll()
+	if not _prefetch_fixture_check(AssetPrefetch.stats().queued == 0 and AssetPrefetch.stats().cached == 0
+		and AssetPrefetch.stats().main_load_total == burst_before, "scope replacement discards the complete unstarted burst"):
+		return
+	AssetPrefetch.clear()
 
 
 class PrefetchSizedTexture extends Texture2D:

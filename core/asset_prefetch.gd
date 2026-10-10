@@ -1,10 +1,14 @@
 class_name AssetPrefetch
 extends RefCounted
-## 有界預載：只有背景請求完成後才領取，額外持有的貼圖使用 LRU 預算。
-## 清除保留進行中請求的追蹤；遊戲影格不等待背景執行緒。
+## 有界預載：額外持有的貼圖使用 LRU 預算，clear 不釋放場景自己的引用。
+## 4.7.2 原生 RD 由主線 Pump 逐影格載入；其他後端保留真正背景請求。
 
 const MAX_REQUESTS_PER_CALL := 160
 const MAX_INFLIGHT := 4
+const MAIN_SOFT_BUDGET_US := 2000
+const STRATEGY_THREADED_NATIVE := 0
+const STRATEGY_THREADED_HEADLESS := 1
+const STRATEGY_MAIN_THREAD_RD_472 := 2
 const MAX_QUEUED := 512
 const MAX_CACHED := 64
 const MAX_CACHE_BYTES := 128 * 1024 * 1024
@@ -28,6 +32,16 @@ static var _sent_total := 0
 static var _collected_total := 0
 static var _failed_total := 0
 static var _evicted_total := 0
+static var _strategy := -1
+static var _threaded_request_calls := 0
+static var _main_load_total := 0
+static var _main_last_frame := -1
+static var _main_max_load_us := 0
+static var _main_max_work_us := 0
+static var _main_last_load_us := 0
+static var _main_last_work_us := 0
+static var _main_over_budget_total := 0
+static var _main_loading := false
 
 
 class Pump extends Node:
@@ -85,7 +99,7 @@ static func warm_neighbors(data: LevelData) -> int:
 	return count
 
 
-## 回傳新接受的非同步請求數；重複路徑不增加引擎的 user token 次數。
+## 回傳新接受的排隊數；重複路徑不增加引擎的 user token 次數。
 static func request(paths: PackedStringArray) -> int:
 	var accepted := 0
 	for path in paths:
@@ -153,6 +167,7 @@ static func _reset_scope(key: String, release_cache: bool) -> void:
 
 ## 快照只讀；估算採 RGBA8 加完整 mip chain，不代表實際 RAM 或 VRAM。
 static func stats() -> Dictionary:
+	_ensure_strategy()
 	var active := 0
 	for path in _active_paths:
 		active += 0 if path.is_empty() else 1
@@ -160,14 +175,44 @@ static func stats() -> Dictionary:
 		"cached": _cache.size(), "retiring": _retiring.size(),
 		"estimated_bytes": _cache_bytes + _retiring_bytes, "requested_total": _sent_total,
 		"collected_total": _collected_total, "failed_total": _failed_total,
-		"evicted_total": _evicted_total, "scope": _scope}
+		"evicted_total": _evicted_total, "scope": _scope, "generation": _generation,
+		"strategy": _strategy, "threaded_request_calls": _threaded_request_calls,
+		"main_load_total": _main_load_total, "main_last_frame": _main_last_frame,
+		"main_max_load_us": _main_max_load_us, "main_max_work_us": _main_max_work_us,
+		"main_last_load_us": _main_last_load_us, "main_last_work_us": _main_last_work_us,
+		"main_over_budget_total": _main_over_budget_total,
+		"main_assets_per_frame_limit": 1 if uses_main_thread() else 0,
+		"main_soft_budget_us": MAIN_SOFT_BUDGET_US if uses_main_thread() else 0}
 
 
-## 4.7.2 Dummy TextureStorage 的 RID_PtrOwner 非 thread-safe；最小探針
-## 已重現四槽 alloc/free 錯誤，單槽與 Forward+ 四槽均乾淨。
-## 無頭仍用真正非同步請求／領取，只串行配置，沒有停用或 blocking load。
+## 策略只初始化一次；原生 RD 的 CanvasTexture／背景 texture 配置錯誤有
+## 實測關聯，這是有界 workaround，不宣稱已定位或修正引擎 RID owner。
+static func _strategy_for(major: int, minor: int, patch: int, display: String, renderer: String) -> int:
+	if display == "headless":
+		return STRATEGY_THREADED_HEADLESS
+	if major == 4 and minor == 7 and patch == 2 and renderer in ["forward_plus", "mobile"]:
+		return STRATEGY_MAIN_THREAD_RD_472
+	return STRATEGY_THREADED_NATIVE
+
+
+static func _ensure_strategy() -> void:
+	if _strategy >= 0:
+		return
+	var version := Engine.get_version_info()
+	_strategy = _strategy_for(int(version.major), int(version.minor), int(version.patch),
+		DisplayServer.get_name(), RenderingServer.get_current_rendering_method())
+
+
+static func uses_main_thread() -> bool:
+	_ensure_strategy()
+	return _strategy == STRATEGY_MAIN_THREAD_RD_472
+
+
+## 此數值是服務容量；主線策略的 inflight 始終為零，工作在下一影格完成。
+## Dummy 保留真正非同步單槽，其他原生版本／Compatibility 保留四槽。
 static func inflight_limit() -> int:
-	return 1 if DisplayServer.get_name() == "headless" else MAX_INFLIGHT
+	_ensure_strategy()
+	return MAX_INFLIGHT if _strategy == STRATEGY_THREADED_NATIVE else 1
 
 
 static func _refresh_pump() -> void:
@@ -198,6 +243,8 @@ static func _first_path(entries: Dictionary) -> String:
 
 
 static func _dispatch() -> void:
+	if uses_main_thread():
+		return  # request/scope changes never perform a synchronous texture load.
 	var attempts := 0
 	while not _queued.is_empty() and attempts < MAX_INFLIGHT:
 		if MAX_INFLIGHT - _active_paths.count("") >= inflight_limit():
@@ -208,6 +255,7 @@ static func _dispatch() -> void:
 		var path := _first_path(_queued)
 		_queued.erase(path)
 		attempts += 1
+		_threaded_request_calls += 1
 		var error := ResourceLoader.load_threaded_request(path, "Texture2D")
 		if error == OK:
 			_active_paths[slot] = path
@@ -221,6 +269,10 @@ static func _dispatch() -> void:
 
 ## 固定四槽逆序檢查；沒有每影格 keys() 或整佇列副本。
 static func _poll() -> void:
+	if uses_main_thread():
+		_poll_main_thread()
+		_refresh_pump()
+		return
 	for offset in MAX_INFLIGHT:
 		var slot := MAX_INFLIGHT - 1 - offset
 		var path := _active_paths[slot]
@@ -248,6 +300,53 @@ static func _poll() -> void:
 		resource = null
 	_dispatch()
 	_refresh_pump()
+
+
+## Pump 的主線 process 入口；不是 whole-level load，也不等待／同步 renderer。
+## 每個 process frame 至多開始一張，即使 clear／scope 在同一影格改變。
+## 2ms 只在載入前守門，單張 ResourceLoader.load 無法中止，超時如實記錄。
+static func _poll_main_thread() -> void:
+	if _queued.is_empty() or _main_loading:
+		return
+	if OS.get_thread_caller_id() != OS.get_main_thread_id():
+		push_warning("[AssetPrefetch] 主線貼圖 Pump 在非主線呼叫，保留待載佇列。")
+		return
+	var frame := Engine.get_process_frames()
+	if frame == _main_last_frame:
+		return
+	var work_start := Time.get_ticks_usec()
+	var deadline := work_start + MAIN_SOFT_BUDGET_US
+	var path := _first_path(_queued)
+	var epoch := _generation
+	var scope := _scope
+	var load_start := Time.get_ticks_usec()
+	if load_start >= deadline:
+		return
+	# Reserve the frame before calling ResourceLoader, also preventing reentrant loads.
+	_main_last_frame = frame
+	_main_loading = true
+	_queued.erase(path)
+	_sent_total += 1
+	_main_load_total += 1
+	var resource := ResourceLoader.load(path, "Texture2D", ResourceLoader.CACHE_MODE_REUSE)
+	_main_last_load_us = Time.get_ticks_usec() - load_start
+	_main_max_load_us = maxi(_main_max_load_us, _main_last_load_us)
+	_collected_total += 1
+	if epoch == _generation:
+		_requested.erase(path)
+	if resource is Texture2D:
+		if epoch == _generation:
+			_remember(path, resource as Texture2D)
+	else:
+		_failed_total += 1
+		push_warning("[AssetPrefetch] 主線貼圖載入失敗或型別錯誤：%s（範圍 %s，generation %d）。" % [path, scope, epoch])
+	resource = null
+	_main_loading = false
+	var work_us := Time.get_ticks_usec() - work_start
+	_main_last_work_us = work_us
+	_main_max_work_us = maxi(_main_max_work_us, work_us)
+	if work_us > MAIN_SOFT_BUDGET_US:
+		_main_over_budget_total += 1
 
 
 static func _remember(path: String, texture: Texture2D) -> void:
