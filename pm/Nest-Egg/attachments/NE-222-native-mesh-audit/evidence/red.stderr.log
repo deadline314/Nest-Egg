@@ -1,0 +1,256 @@
+WARNING: [CharacterRig] rin.pose_parts.missing is unavailable; keeping pose set 'mesh_a'
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] set_pose_parts (res://game/rig/character_rig.gd:389)
+       [1] _test_bind_switch_and_slots (res://tests/suite/test_pose_mesh.gd:52)
+       [2] run (res://tests/suite/test_pose_mesh.gd:11)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; bind_pose must define every existing bone exactly once (20 required); rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:634)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; bind_pose must define every existing bone exactly once (20 required); rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:634)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; bind_pose.hip contains a non-finite transform component; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:634)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; bind_pose.hip exceeds native transform precision; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:634)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; bind_pose.hip must be invertible; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:634)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; slot 'armor_pelvis' mesh weights reference missing bone 'missing_bone'; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:755)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; slot 'armor_pelvis' mesh weights repeat bone 'hip'; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:755)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; slot 'armor_pelvis' mesh weight 'hip' at vertex 0 must be finite and in [0,1]; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:755)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; slot 'armor_pelvis' mesh weight 'hip' at vertex 0 must be finite and in [0,1]; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:755)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; slot 'armor_pelvis' mesh weights at vertex 0 sum to 0.89999997615814, expected 1; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:755)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; slot 'armor_pelvis' mesh weight array for 'hip' must match vertex count 4; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:755)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; slot 'armor_pelvis' mesh vertex or UV 0 exceeds native coordinate precision; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:755)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; slot 'armor_pelvis' mesh vertex or UV 0 exceeds native coordinate precision; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:755)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; slot 'armor_pelvis' mesh UV 0 lies outside native texture bounds (180, 135); rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:755)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; slot 'armor_pelvis' mesh triangle 0 is degenerate; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:755)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; slot 'armor_pelvis' mesh triangle index 99 is outside 4 vertices; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:755)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; slot 'armor_pelvis' mesh triangle indices must be finite integers; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:755)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; slot 'armor_pelvis' mesh triangle indices must be finite integers; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:755)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; slot 'armor_pelvis' mesh triangle indices must be finite integers; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:755)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; slot 'armor_pelvis' mesh triangle index 999999999999999970000000000000000000000000000000000000000000000000000000000000000000000000000000000.0 is outside 4 vertices; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:755)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; slot 'armor_pelvis' mesh vertex/UV/topology counts are incomplete or mismatched; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:755)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; slot 'armor_pelvis' mesh weights require one to four bone influence arrays; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:755)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; active logical mesh geometry uses 524 vertices; the existing limit is 500; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:760)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [CharacterRig] rin.pose_parts.mesh_a invalid; slot 'pelvis_dmg' mesh triangle 0 is degenerate; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1025)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:755)
+       [2] _new_rig (res://tests/suite/test_pose_mesh.gd:252)
+       [3] _test_invalid_sets (res://tests/suite/test_pose_mesh.gd:176)
+       [4] run (res://tests/suite/test_pose_mesh.gd:13)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+FAIL: active geometry excludes hidden damage alternatives and glow children
+FAIL: two-bone 50/50 skinning matches an independent translation-plus-rotation oracle
+FAIL: pose-only native mesh contributes visible bounds when all legacy parts are hidden
+FAIL: native pose bounds follow current weighted bone deformation
+FAIL: pose-only native mesh contributes to mesh-fold audit without legacy limb meshes
+FAIL: visible damage counterpart joins intact geometry without counting glow children: 
+FAIL: native fold negative control records a mesh-fold result
+FAIL: deliberately reflected native triangles exceed the unchanged fold limit: {  }

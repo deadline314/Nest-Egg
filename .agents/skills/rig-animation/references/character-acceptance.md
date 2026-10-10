@@ -266,3 +266,5 @@ python tools/comfyui/gpu_lock.py -- $env:GODOT --headless --path . res://tools/r
 ### 原生網格的必過關卡
 
 共享接邊使用同一source-space頂點及權重，貼圖仍各自只包含自己的部件。source RGBA不變的控制組與原生渲染各自保存；任一新增單像素孔洞即拒收。原生bind必須記錄全部既有骨頭的局部Transform2D，網格頂點位於根縮放前的Skeleton2D坐標。骨頭權重路徑由Skeleton2D解析，不能由Polygon2D驗證冒充GPU成功。清除與網格／剛體切換須還原rests、骨長、掛點、圖層、normal/glow及損傷狀態；即使局部480樣本全過，仍逐一驗全身、所有动作與實際遊戲品質。不得把未驗的人體輪廓或合成損傷控制列為完成。
+
+原生姿勢網格必須實際進入外觀 bounds 與 AnimAudit 的 mesh_fold：用只有原生部件、沒有舊肢體網格的負控制故意翻面，確認原門檻會拒收；另驗證非零 authored bind、兩骨不同動作的加權端點、根縮放／反射／旋轉只套一次，以及隱藏、損傷、切換與清除。發光子層及未顯示替代件不能重複計入。mesh_fold 只量三角形翻面，不能代表原生網格縮窄、面積壓縮、來源 alpha 接縫或人體輪廓已通過；這些仍各自逐格與原生畫面檢查。

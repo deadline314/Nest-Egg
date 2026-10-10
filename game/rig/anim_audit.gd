@@ -299,8 +299,30 @@ static func _measure(ctx: Dictionary, with_ground := true) -> void:
 		if mesh.visible:
 			folds = maxf(folds, mesh.fold_fraction())
 			pinch = maxf(pinch, 1.0 - mesh.width_ratio())
-	if not rig.limb_meshes().is_empty():
+	var has_mesh_geometry := not rig.limb_meshes().is_empty()
+	for geometry: Dictionary in rig.active_pose_mesh_geometries():
+		var mesh := geometry["mesh"] as Polygon2D
+		var source_vertices: PackedVector2Array = geometry["source_vertices"]
+		var vertices: PackedVector2Array = geometry["vertices"]
+		var triangle_count := 0
+		var folded_count := 0
+		for triangle: PackedInt32Array in mesh.polygons:
+			if triangle.size() != 3:
+				continue
+			var a: int = triangle[0]
+			var b: int = triangle[1]
+			var c: int = triangle[2]
+			var source_area := (source_vertices[b] - source_vertices[a]).cross(source_vertices[c] - source_vertices[a])
+			var current_area := (vertices[b] - vertices[a]).cross(vertices[c] - vertices[a])
+			if source_area * current_area < 0.0:
+				folded_count += 1
+			triangle_count += 1
+		if triangle_count > 0:
+			folds = maxf(folds, float(folded_count) / float(triangle_count))
+			has_mesh_geometry = true
+	if has_mesh_geometry:
 		_record(ctx, "mesh_fold", folds, where, frame)
+	if not rig.limb_meshes().is_empty():
 		_record(ctx, "limb_pinch", pinch, where, frame)
 	# 腳底與地面
 	if with_ground and ctx.get("grounded", false):

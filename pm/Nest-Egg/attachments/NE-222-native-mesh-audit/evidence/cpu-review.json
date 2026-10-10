@@ -1,0 +1,75 @@
+{
+  "task": "NE-222 native pose mesh bounds and fold audit",
+  "base": "3b14844a089a08f6b0720e4d2f54a0dd3dc7fdca",
+  "owned_formal_files": {
+    "game/rig/character_rig.gd": "C216F08C5649C8BF9603F98C065F901F23DF2D83FC4E39A0DC0C3F6D664B58C4",
+    "game/rig/anim_audit.gd": "45CA7DDE855D2D8A9BE20FB776F9B999B6C59A996DBF5B96CC4930DD2513D92D",
+    "tests/suite/test_pose_mesh.gd": "068F89493157C205814A43BC19303B915CBC52280B4F7A628781E4BCD9F50E68"
+  },
+  "valid_red": {
+    "checkout": "D:/NestEggVerification/ne222-native-mesh-red-48f94",
+    "base": "48f94b12179f50258c2689ce0e416c0fa2434a1a",
+    "test_sha256": "068F89493157C205814A43BC19303B915CBC52280B4F7A628781E4BCD9F50E68",
+    "command": "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe --headless --audio-driver Dummy --path D:/NestEggVerification/ne222-native-mesh-red-48f94 res://tests/smoke_test.tscn -- --only=PoseMeshSuite",
+    "runner": ".godot/ne222-native-mesh-audit/run_red_baseline.py",
+    "result": {
+      "checks": 140,
+      "failures": 8,
+      "script_errors": 0,
+      "errors": 0,
+      "restored_runtime_source_exactly": true
+    },
+    "logs": [
+      "D:/NestEggVerification/ne222-native-mesh-red-48f94/.godot/ne222-native-mesh-audit/red-baseline.stdout.log",
+      "D:/NestEggVerification/ne222-native-mesh-red-48f94/.godot/ne222-native-mesh-audit/red-baseline.stderr.log"
+    ]
+  },
+  "import_cache": {
+    "copied_only_imported_resources": true,
+    "source_checkout": "D:/NestEggVerification/ne222-native-pose-c744",
+    "source_commit": "951f3add2981bd69c04609a21b87fa8d42139597",
+    "file_count": 8866,
+    "script_class_cache_copied": false,
+    "matching_png_sha256": {
+      "art/characters/rin/parts/head.png": "A17F75EA88CADC52F7F9201508216C3FB2195024026469015A168BD850D1DC7E",
+      "art/characters/rin/parts/pelvis.png": "F1EB1FFD402CE5A4CA3D5A0E054B76A16111E9878A8C9073C8A5AE9443807330"
+    },
+    "matching_import_sha256": {
+      "head.png-6a0c5eb5e14cdf5c2cd7136cbe661d80.ctex": "69621842F9D300651953423D25483ACD845594A9C41C64DA23EAA28C240DC050",
+      "pelvis.png-fbc005be2538ac877b92fc99035048b3.ctex": "976A682D7BD70A64527D8878CF993BC52747511E734F9695EA813667E17AEA39"
+    }
+  },
+  "green": {
+    "pose_mesh_suite": {
+      "checks": 141,
+      "failures": 0,
+      "script_errors": 0,
+      "errors": 0,
+      "log": ".godot/ne222-native-mesh-audit/weighted-oracle.stdout.log"
+    },
+    "affected_suites_before_final_two_assertions": {
+      "suites": [
+        "PoseMeshSuite",
+        "AnimAuditSuite",
+        "RigMeshSuite",
+        "CharactersSuite",
+        "PostureSuite"
+      ],
+      "checks": 1257,
+      "failures": 0,
+      "script_errors": 0,
+      "errors": 0,
+      "log": ".godot/ne222-native-mesh-audit/final-affected.stdout.log"
+    },
+    "scope_limit": "The five-suite run predates the final weighted-oracle and hidden-rig assertions; the latest PoseMeshSuite includes them. Root is running the updated test in its isolated latest-main worktree."
+  },
+  "metric_coverage": {
+    "native_pose_mesh_fold": "Counts signed triangle orientation flips using the existing mesh_fold threshold 0.4, unchanged.",
+    "native_limb_pinch": "Not measured. Existing limb_pinch remains limited to legacy RigPartMesh; no native compression threshold was invented.",
+    "gpu_or_manual_animation_acceptance": "Not performed in this CPU task."
+  },
+  "invalid_attempts_not_counted": [
+    "Primary checkout startup before class-cache refresh failed on missing StoryTransaction*/RunSaveCodec/ShieldSurface classes; not RED evidence.",
+    "Fresh RED checkout editor import timed out at 53%; subsequent run lacked Rin imports and emitted unrelated resource errors; not RED evidence."
+  ]
+}

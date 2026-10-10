@@ -9,6 +9,7 @@ func run() -> void:
 	LitTextures.set_enabled(true)
 	CharacterRig.force_rigid_limbs = true
 	_test_bind_switch_and_slots()
+	_test_native_mesh_bounds_and_audit()
 	_test_invalid_sets()
 	CharacterRig.force_rigid_limbs = rigid_limbs
 	LitTextures.set_enabled(lit_enabled)
@@ -52,6 +53,122 @@ func _test_bind_switch_and_slots() -> void:
 	check(rig.set_pose_parts(&""), "mesh pose can be cleared")
 	check(_rests(rig) == original_rests and _transforms(rig) == original_transforms, "clear restores original rests and all current bone transforms")
 	rig.free()
+
+
+func _test_native_mesh_bounds_and_audit() -> void:
+	var rig := _new_rig(_fixture())
+	check(rig.set_pose_parts(&"mesh_a"), "native mesh pose activates before bounds and audit checks")
+	var active := _alternative(rig, &"armor_pelvis", &"mesh_a") as Polygon2D
+	for bone_name: StringName in rig.bone_order():
+		rig.bone(bone_name).transform = rig.bone(bone_name).rest
+	var bind_geometry := _pose_geometry(rig)
+	check(bind_geometry.size() == 1, "active geometry excludes hidden damage alternatives and glow children")
+	if not bind_geometry.is_empty():
+		var source_vertices: PackedVector2Array = bind_geometry[0]["source_vertices"]
+		var bound_vertices: PackedVector2Array = bind_geometry[0]["vertices"]
+		var bind_matches := source_vertices.size() == bound_vertices.size()
+		for i in mini(source_vertices.size(), bound_vertices.size()):
+			bind_matches = bind_matches and source_vertices[i].is_equal_approx(bound_vertices[i])
+		check(bind_matches, "authored bind pose reproduces every native source vertex")
+	var hip_skin := Transform2D(0.0, Vector2(10.0, 0.0))
+	var chest_skin := Transform2D(PI * 0.5, Vector2.ZERO)
+	var hip := rig.bone(&"hip")
+	var chest := rig.bone(&"chest")
+	hip.global_transform = rig._skeleton.global_transform * hip_skin * hip.get_skeleton_rest()
+	chest.global_transform = rig._skeleton.global_transform * chest_skin * chest.get_skeleton_rest()
+	var oracle_geometry := _pose_geometry(rig)
+	var oracle_matches := not oracle_geometry.is_empty()
+	if oracle_matches:
+		var oracle_mesh := oracle_geometry[0]["mesh"] as Polygon2D
+		var source_point := rig._skeleton.global_transform.affine_inverse() * oracle_mesh.global_transform * oracle_mesh.polygon[0]
+		var expected_point := (hip_skin * source_point + chest_skin * source_point) * 0.5
+		var actual_vertices: PackedVector2Array = oracle_geometry[0]["vertices"]
+		oracle_matches = actual_vertices.size() > 0 and actual_vertices[0].is_equal_approx(expected_point)
+	check(oracle_matches, "two-bone 50/50 skinning matches an independent translation-plus-rotation oracle")
+	for bone_name: StringName in rig.bone_order():
+		rig.bone(bone_name).transform = rig.bone(bone_name).rest
+	var was_visible := rig.visible
+	rig.visible = false
+	check(_pose_geometry(rig).is_empty(), "hidden rig returns no active native geometry")
+	rig.visible = was_visible
+	for part: CanvasItem in rig._parts:
+		part.visible = part == active
+	rig.position = Vector2(31.0, -17.0)
+	rig.scale = Vector2(-1.2, 0.85)
+	rig.rotation = 0.2
+	var bounds := rig.visual_bounds()
+	check(bounds.has_area(), "pose-only native mesh contributes visible bounds when all legacy parts are hidden")
+	var expected_bounds := _world_bounds(rig, bind_geometry[0]["vertices"] if not bind_geometry.is_empty() else PackedVector2Array())
+	check(_rects_match(bounds, expected_bounds), "native skeleton-local bounds apply root translation, rotation and reflection once")
+	var first_center := bounds.get_center()
+	rig.bone(&"hip").rotation += 0.35
+	var moved_bounds := rig.visual_bounds()
+	check(moved_bounds.has_area() and not moved_bounds.get_center().is_equal_approx(first_center), "native pose bounds follow current weighted bone deformation")
+	var ctx := {"rig": rig, "where": "pose-only", "frame": 0, "results": {}, "prev": {}}
+	AnimAudit._measure(ctx, false)
+	check((ctx["results"] as Dictionary).has("mesh_fold"), "pose-only native mesh contributes to mesh-fold audit without legacy limb meshes")
+	check(rig.limb_meshes().is_empty(), "native mesh audit fixture has no legacy limb-mesh fallback")
+	rig.set_armor_ratio(0.5, false)
+	var damage_geometry := _pose_geometry(rig)
+	var damage_is_included := false
+	for geometry: Dictionary in damage_geometry:
+		var mesh := geometry.get("mesh") as Polygon2D
+		damage_is_included = damage_is_included or (mesh != null and str(mesh.name).ends_with("__pelvis_dmg"))
+	var active_names: Array[String] = []
+	for geometry: Dictionary in damage_geometry:
+		active_names.append(str((geometry.get("mesh") as Polygon2D).name))
+	check(damage_is_included and damage_geometry.size() == 2, "visible damage counterpart joins intact geometry without counting glow children: %s" % ",".join(active_names))
+	check(rig.set_pose_parts(&"sprite") and _pose_geometry(rig).is_empty() and rig.visual_bounds().has_area(), "sprite-pose transition restores legacy bounds and clears native mesh geometry")
+	check(rig.set_pose_parts(&"") and _pose_geometry(rig).is_empty() and rig.visual_bounds().has_area(), "clearing native pose restores base-sprite bounds")
+	rig.free()
+	_test_native_pose_fold_negative_control()
+
+
+func _test_native_pose_fold_negative_control() -> void:
+	var skin := _fixture()
+	for pose_data: Dictionary in (skin["pose_parts"] as Dictionary).values():
+		for part_data: Dictionary in pose_data["parts"]:
+			if not part_data.has("mesh"):
+				continue
+			var mesh_data: Dictionary = part_data["mesh"]
+			var values: Array = []
+			values.resize(mesh_data["vertices"].size())
+			values.fill(1.0)
+			mesh_data["weights"] = [{"bone": "hip", "values": values}]
+	var rig := _new_rig(skin)
+	rig.set_pose_parts(&"mesh_a")
+	for part: CanvasItem in rig._parts:
+		part.visible = part is Polygon2D and str(part.name).ends_with("__armor_pelvis")
+	var hip := rig.bone(&"hip")
+	hip.transform = Transform2D(Vector2(-1.0, 0.0), Vector2(0.0, 1.0), Vector2.ZERO) * hip.rest
+	var ctx := {"rig": rig, "where": "native-fold-negative", "frame": 0, "results": {}, "prev": {}}
+	AnimAudit._measure(ctx, false)
+	var results: Dictionary = ctx["results"]
+	var fold_result: Dictionary = results.get("mesh_fold", {})
+	check(rig.limb_meshes().is_empty(), "native fold negative control has no legacy limb meshes")
+	check(results.has("mesh_fold"), "native fold negative control records a mesh-fold result")
+	check(float(fold_result.get("value", 0.0)) > AnimAudit.LIMITS["mesh_fold"], "deliberately reflected native triangles exceed the unchanged fold limit: %s" % str(fold_result))
+	rig.free()
+
+
+func _world_bounds(rig: CharacterRig, vertices: PackedVector2Array) -> Rect2:
+	if vertices.is_empty():
+		return Rect2()
+	var skeleton_xf := rig._skeleton.global_transform
+	var result := Rect2(skeleton_xf * vertices[0], Vector2.ZERO)
+	for vertex in vertices:
+		result = result.expand(skeleton_xf * vertex)
+	return result
+
+
+func _pose_geometry(rig: CharacterRig) -> Array[Dictionary]:
+	if not rig.has_method("active_pose_mesh_geometries"):
+		return []
+	return rig.call("active_pose_mesh_geometries")
+
+
+func _rects_match(a: Rect2, b: Rect2) -> bool:
+	return a.position.is_equal_approx(b.position) and a.size.is_equal_approx(b.size)
 
 
 func _test_invalid_sets() -> void:

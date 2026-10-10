@@ -236,6 +236,62 @@ func limb_meshes() -> Array[RigPartMesh]:
 	return _meshes
 
 
+## 目前可見的原生 pose Polygon2D 蒙皮幾何（骨架本地座標）；供 bounds 與動畫稽核共用。
+## 只讀目前選中的邏輯零件，不包含隱藏替代圖、發光子層或舊 RigPartMesh。
+func active_pose_mesh_geometries() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	if _skeleton == null or _active_pose_set == &"":
+		return result
+	var skeleton_xf := _skeleton.global_transform
+	if is_zero_approx(skeleton_xf.determinant()):
+		return result
+	var skeleton_inverse := skeleton_xf.affine_inverse()
+	for slot_data: Dictionary in _pose_slots.values():
+		if not bool(slot_data.get("base_visible", false)):
+			continue
+		var alternatives: Dictionary = slot_data.get("alternatives", {})
+		var mesh := alternatives.get(_active_pose_set) as Polygon2D
+		if mesh == null or mesh is RigPartMesh or not mesh.is_visible_in_tree():
+			continue
+		var source_vertices := PackedVector2Array()
+		var vertices := PackedVector2Array()
+		var weights_by_bone: Array[PackedFloat32Array] = []
+		var bone_skin_transforms: Array[Transform2D] = []
+		var mesh_to_skeleton := skeleton_inverse * mesh.global_transform
+		var valid := true
+		for bone_index in mesh.get_bone_count():
+			var bone_weights := mesh.get_bone_weights(bone_index)
+			if bone_weights.size() != mesh.polygon.size():
+				valid = false
+				break
+			var bone := _skeleton.get_node_or_null(mesh.get_bone_path(bone_index)) as Bone2D
+			if bone == null:
+				valid = false
+				break
+			weights_by_bone.append(bone_weights)
+			bone_skin_transforms.append(skeleton_inverse * bone.global_transform * bone.get_skeleton_rest().affine_inverse())
+		if not valid or weights_by_bone.is_empty():
+			continue
+		for source_vertex in mesh.polygon:
+			var in_skeleton := mesh_to_skeleton * source_vertex
+			var skinned := Vector2.ZERO
+			var weight_sum := 0.0
+			for bone_index in weights_by_bone.size():
+				var weight := weights_by_bone[bone_index][source_vertices.size()]
+				if weight <= 0.0:
+					continue
+				skinned += (bone_skin_transforms[bone_index] * in_skeleton) * weight
+				weight_sum += weight
+			if weight_sum <= 0.0:
+				valid = false
+				break
+			source_vertices.append(in_skeleton)
+			vertices.append(skinned / weight_sum)
+		if valid and vertices.size() == mesh.polygon.size():
+			result.append({"mesh": mesh, "source_vertices": source_vertices, "vertices": vertices})
+	return result
+
+
 ## 所有看得見的零件（不含手持武器）合起來的世界座標範圍；沒有零件時回傳空的 Rect2。
 func visual_bounds() -> Rect2:
 	var total := Rect2()
@@ -256,6 +312,16 @@ func visual_bounds() -> Rect2:
 		var rect := Rect2(xf * corners[0], Vector2.ZERO)
 		for corner in corners:
 			rect = rect.expand(xf * corner)
+		total = rect if first else total.merge(rect)
+		first = false
+	for geometry: Dictionary in active_pose_mesh_geometries():
+		var vertices: PackedVector2Array = geometry["vertices"]
+		if vertices.is_empty():
+			continue
+		var first_world := _skeleton.global_transform * vertices[0]
+		var rect := Rect2(first_world, Vector2.ZERO)
+		for vertex in vertices:
+			rect = rect.expand(_skeleton.global_transform * vertex)
 		total = rect if first else total.merge(rect)
 		first = false
 	return total

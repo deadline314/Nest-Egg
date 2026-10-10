@@ -1,0 +1,665 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME ProgressionSuite 4.0
+SUITE_TIME SupplySuite 8.0
+SUITE_TIME AmmoTraySuite 9.2
+SUITE_TIME CombatHudSuite 4.8
+SUITE_TIME ChapterCutscenesSuite 0.4
+SUITE_TIME NpcLifeSuite 3.9
+SUITE_TIME DeathReactionSuite 28.5
+WARNING: No Bone2D children of node @Bone2D@15639. Cannot calculate bone length or angle reliably.
+Using transform rotation for bone angle.
+   at: calculate_length_and_rotation (scene/2d/skeleton_2d.cpp:451)
+   GDScript backtrace (most recent call first):
+       [0] _chain (res://tests/suite/test_rig_mesh.gd:36)
+       [1] _test_synthetic (res://tests/suite/test_rig_mesh.gd:57)
+       [2] run (res://tests/suite/test_rig_mesh.gd:13)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_death_reactions.gd:26)
+       [5] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: No Bone2D children of node @Bone2D@15644. Cannot calculate bone length or angle reliably.
+Using transform rotation for bone angle.
+   at: calculate_length_and_rotation (scene/2d/skeleton_2d.cpp:451)
+   GDScript backtrace (most recent call first):
+       [0] _chain (res://tests/suite/test_rig_mesh.gd:36)
+       [1] _test_upward_waist (res://tests/suite/test_rig_mesh.gd:99)
+       [2] run (res://tests/suite/test_rig_mesh.gd:14)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_death_reactions.gd:26)
+       [5] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: No Bone2D children of node @Bone2D@15649. Cannot calculate bone length or angle reliably.
+Using transform rotation for bone angle.
+   at: calculate_length_and_rotation (scene/2d/skeleton_2d.cpp:451)
+   GDScript backtrace (most recent call first):
+       [0] _chain (res://tests/suite/test_rig_mesh.gd:36)
+       [1] _test_limb_root (res://tests/suite/test_rig_mesh.gd:126)
+       [2] run (res://tests/suite/test_rig_mesh.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_death_reactions.gd:26)
+       [5] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: No Bone2D children of node @Bone2D@15651. Cannot calculate bone length or angle reliably.
+Using transform rotation for bone angle.
+   at: calculate_length_and_rotation (scene/2d/skeleton_2d.cpp:451)
+   GDScript backtrace (most recent call first):
+       [0] _test_limb_root (res://tests/suite/test_rig_mesh.gd:128)
+       [1] run (res://tests/suite/test_rig_mesh.gd:15)
+       [2] _run_suites (res://tests/smoke_test.gd:109)
+       [3] run (res://tests/suite/test_death_reactions.gd:26)
+       [4] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:605)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: No Bone2D children of node @Bone2D@15654. Cannot calculate bone length or angle reliably.
+Using transform rotation for bone angle.
+   at: calculate_length_and_rotation (scene/2d/skeleton_2d.cpp:451)
+   GDScript backtrace (most recent call first):
+       [0] _chain (res://tests/suite/test_rig_mesh.gd:36)
+       [1] _test_reference_geometry (res://tests/suite/test_rig_mesh.gd:407)
+       [2] run (res://tests/suite/test_rig_mesh.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_death_reactions.gd:26)
+       [5] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/coat_1 bend_partner must be an immediate child bone: missing; using rigid part
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _make_limb_mesh (res://game/rig/character_rig.gd:1439)
+       [1] _test_cloth_binding (res://tests/suite/test_rig_mesh.gd:168)
+       [2] run (res://tests/suite/test_rig_mesh.gd:17)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_death_reactions.gd:26)
+       [5] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/coat_1 bend_partner must be an immediate child bone: chest; using rigid part
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _make_limb_mesh (res://game/rig/character_rig.gd:1439)
+       [1] _test_cloth_binding (res://tests/suite/test_rig_mesh.gd:169)
+       [2] run (res://tests/suite/test_rig_mesh.gd:17)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_death_reactions.gd:26)
+       [5] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.not_configured is unavailable; keeping pose set 'kneel'
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+       [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:219)
+       [2] run (res://tests/suite/test_rig_mesh.gd:18)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_death_reactions.gd:26)
+       [5] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; texture 'fixture_pose_pelvis' file is missing: res://art/characters/rin/parts/no_such_pose_texture.png; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:821)
+       [2] setup (res://game/rig/character_rig.gd:119)
+       [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+       [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+       [5] run (res://tests/suite/test_rig_mesh.gd:18)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_death_reactions.gd:26)
+       [8] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:605)
+       [11] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+       [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+       [2] run (res://tests/suite/test_rig_mesh.gd:18)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_death_reactions.gd:26)
+       [5] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; texture 'fixture_pose_pelvis' has an invalid native size or out-of-canvas pivot; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:821)
+       [2] setup (res://game/rig/character_rig.gd:119)
+       [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+       [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+       [5] run (res://tests/suite/test_rig_mesh.gd:18)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_death_reactions.gd:26)
+       [8] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:605)
+       [11] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+       [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+       [2] run (res://tests/suite/test_rig_mesh.gd:18)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_death_reactions.gd:26)
+       [5] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; texture 'fixture_pose_pelvis' native size exceeds Vector2i limits; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:821)
+       [2] setup (res://game/rig/character_rig.gd:119)
+       [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+       [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+       [5] run (res://tests/suite/test_rig_mesh.gd:18)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_death_reactions.gd:26)
+       [8] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:605)
+       [11] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+       [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+       [2] run (res://tests/suite/test_rig_mesh.gd:18)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_death_reactions.gd:26)
+       [5] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; texture 'fixture_pose_pelvis' has an invalid native size or out-of-canvas pivot; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:821)
+       [2] setup (res://game/rig/character_rig.gd:119)
+       [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+       [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+       [5] run (res://tests/suite/test_rig_mesh.gd:18)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_death_reactions.gd:26)
+       [8] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:605)
+       [11] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+       [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+       [2] run (res://tests/suite/test_rig_mesh.gd:18)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_death_reactions.gd:26)
+       [5] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; slot 'armor_pelvis' must resolve to its existing base bone 'hip'; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:821)
+       [2] setup (res://game/rig/character_rig.gd:119)
+       [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+       [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+       [5] run (res://tests/suite/test_rig_mesh.gd:18)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_death_reactions.gd:26)
+       [8] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:605)
+       [11] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+       [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+       [2] run (res://tests/suite/test_rig_mesh.gd:18)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_death_reactions.gd:26)
+       [5] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; texture 'fixture_pose_pelvis' requires a matching normal map: res://art/characters/rin/../../portraits/rin_n.png; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:821)
+       [2] setup (res://game/rig/character_rig.gd:119)
+       [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+       [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+       [5] run (res://tests/suite/test_rig_mesh.gd:18)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_death_reactions.gd:26)
+       [8] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:605)
+       [11] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+       [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+       [2] run (res://tests/suite/test_rig_mesh.gd:18)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_death_reactions.gd:26)
+       [5] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [LitTextures] 沒有法線貼圖，改用平面貼圖：res://art/characters/rin/../../../.godot/ne222-pose-fixture/base_n.tres（可用 tools/art/paint_normals.tscn 產生）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] load_texture (res://core/lit_textures.gd:34)
+       [1] _build_parts (res://game/rig/character_rig.gd:587)
+       [2] setup (res://game/rig/character_rig.gd:118)
+       [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+       [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+       [5] run (res://tests/suite/test_rig_mesh.gd:18)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_death_reactions.gd:26)
+       [8] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:605)
+       [11] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; texture 'fixture_pose_foot' normal map must match native size (16, 16): res://art/characters/rin/../../../.godot/ne222-pose-fixture/alt_n.tres; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:821)
+       [2] setup (res://game/rig/character_rig.gd:119)
+       [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+       [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+       [5] run (res://tests/suite/test_rig_mesh.gd:18)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_death_reactions.gd:26)
+       [8] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:605)
+       [11] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+       [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+       [2] run (res://tests/suite/test_rig_mesh.gd:18)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_death_reactions.gd:26)
+       [5] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; duplicate logical slot 'armor_pelvis'; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:821)
+       [2] setup (res://game/rig/character_rig.gd:119)
+       [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+       [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+       [5] run (res://tests/suite/test_rig_mesh.gd:18)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_death_reactions.gd:26)
+       [8] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:605)
+       [11] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+       [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+       [2] run (res://tests/suite/test_rig_mesh.gd:18)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_death_reactions.gd:26)
+       [5] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; texture_scale must be a finite positive number; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:682)
+       [2] setup (res://game/rig/character_rig.gd:119)
+       [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+       [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+       [5] run (res://tests/suite/test_rig_mesh.gd:18)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_death_reactions.gd:26)
+       [8] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:605)
+       [11] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+       [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+       [2] run (res://tests/suite/test_rig_mesh.gd:18)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_death_reactions.gd:26)
+       [5] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; slot 'armor_pelvis' must include same-bone armor/damage counterpart 'pelvis_dmg'; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:830)
+       [2] setup (res://game/rig/character_rig.gd:119)
+       [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+       [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+       [5] run (res://tests/suite/test_rig_mesh.gd:18)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_death_reactions.gd:26)
+       [8] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:605)
+       [11] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+       [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+       [2] run (res://tests/suite/test_rig_mesh.gd:18)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_death_reactions.gd:26)
+       [5] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; slot 'pelvis_dmg' must include same-bone armor/damage counterpart 'armor_pelvis'; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:830)
+       [2] setup (res://game/rig/character_rig.gd:119)
+       [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+       [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+       [5] run (res://tests/suite/test_rig_mesh.gd:18)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_death_reactions.gd:26)
+       [8] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:605)
+       [11] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+       [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+       [2] run (res://tests/suite/test_rig_mesh.gd:18)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_death_reactions.gd:26)
+       [5] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; slot 'head' is controlled by eye_states blink and cannot be replaced by pose_parts; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:821)
+       [2] setup (res://game/rig/character_rig.gd:119)
+       [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+       [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+       [5] run (res://tests/suite/test_rig_mesh.gd:18)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_death_reactions.gd:26)
+       [8] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:605)
+       [11] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+       [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+       [2] run (res://tests/suite/test_rig_mesh.gd:18)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_death_reactions.gd:26)
+       [5] _test_death_screen (res://tests/suite/test_death_reactions.gd:454)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/armor_debris must be a boolean; using true
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] setup (res://game/rig/character_rig.gd:107)
+       [1] _test_part_behaviour (res://tests/suite/test_rig_mesh.gd:517)
+       [2] run (res://tests/suite/test_rig_mesh.gd:20)
+       [3] _test_real_rigs (res://tests/suite/test_rig_mesh.gd:503)
+       [4] frames (res://tests/suite/test_suite.gd:23)
+       [5] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME RigMeshSuite 0.5
+SUITE_TIME PhoneBoothSuite 9.0
+[swarm] steering 24 bees costs 0.150 ms per frame
+SUITE_TIME ExoticEnemiesSuite 23.5
+ERROR: [MeleeSet] 無法讀取近戰資料：res://data/melee/test_no_such_attack.json（需要 attacks 字典），改用內建預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_loaded (res://game/player/melee_set.gd:37)
+       [1] attack (res://game/player/melee_set.gd:69)
+       [2] _test_data (res://tests/suite/test_melee_weapons.gd:38)
+       [3] run (res://tests/suite/test_melee_weapons.gd:10)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_exotic_enemies.gd:30)
+       [6] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:605)
+       [9] _frames (res://tests/smoke_test.gd:122)
+ERROR: [MeleeSet] res://data/melee/test_no_such_attack.json 沒有招式「whatever」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:73)
+       [1] _test_data (res://tests/suite/test_melee_weapons.gd:38)
+       [2] run (res://tests/suite/test_melee_weapons.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_exotic_enemies.gd:30)
+       [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME MeleeWeaponsSuite 9.1
+ERROR: [MeleeSet] 無法讀取近戰資料：res://data/melee/test_no_such_attack.json（需要 attacks 字典），改用內建預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_loaded (res://game/player/melee_set.gd:37)
+       [1] attack (res://game/player/melee_set.gd:69)
+       [2] _test_melee_data (res://tests/suite/test_fx_melee_pickups.gd:103)
+       [3] run (res://tests/suite/test_fx_melee_pickups.gd:13)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_melee_weapons.gd:18)
+       [6] _test_gun_unchanged (res://tests/suite/test_melee_weapons.gd:241)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:605)
+       [9] _frames (res://tests/smoke_test.gd:122)
+ERROR: [MeleeSet] res://data/melee/test_no_such_attack.json 沒有招式「x」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:73)
+       [1] _test_melee_data (res://tests/suite/test_fx_melee_pickups.gd:103)
+       [2] run (res://tests/suite/test_fx_melee_pickups.gd:13)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_melee_weapons.gd:18)
+       [5] _test_gun_unchanged (res://tests/suite/test_melee_weapons.gd:241)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+FX_PERF idle=1.01 ms, 12 explosions=0.78 ms per frame, particles=292, nodes +0
+SUITE_TIME FxMeleePickupsSuite 19.1
+ERROR: 音效實驗室：版面比例檔 user://test_audio_lab_layout.cfg 的 [split_ratios] rows 不是 0.1 到 0.9 的數字，改用預設比例
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _load (res://tools/sound_lab/lab_layout.gd:66)
+       [1] _init (res://tools/sound_lab/lab_layout.gd:19)
+       [2] _test_layout_store (res://tests/suite/test_sound_lab.gd:135)
+       [3] run (res://tests/suite/test_sound_lab.gd:18)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_fx_melee_pickups.gd:20)
+       [6] _test_explosion_budget (res://tests/suite/test_fx_melee_pickups.gd:219)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:605)
+       [9] _frames (res://tests/smoke_test.gd:122)
+ERROR: 音效實驗室：版面比例檔 user://test_audio_lab_layout.cfg 的 [split_ratios] cols 不是 0.1 到 0.9 的數字，改用預設比例
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _load (res://tools/sound_lab/lab_layout.gd:66)
+       [1] _init (res://tools/sound_lab/lab_layout.gd:19)
+       [2] _test_layout_store (res://tests/suite/test_sound_lab.gd:135)
+       [3] run (res://tests/suite/test_sound_lab.gd:18)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_fx_melee_pickups.gd:20)
+       [6] _test_explosion_budget (res://tests/suite/test_fx_melee_pickups.gd:219)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:605)
+       [9] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME SoundLabSuite 2.6
+SUITE_TIME LayerOrderSuite 0.9
+SUITE_TIME StageCoverageWeaponsSuite 50.5
+[QuestMap] Current story quest count: 0; chapter walkthrough requires Session 3 sources.
+WARNING: [QuestMap] navigation.version: 格式不符，改用預設導覽狀態。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+       [2] run (res://tests/suite/test_quest_map.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_stage_coverage_weapons.gd:10)
+       [5] _close_stage (res://tests/suite/stage_suite_base.gd:29)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.version: 格式不符，改用預設導覽狀態。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+       [2] run (res://tests/suite/test_quest_map.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_stage_coverage_weapons.gd:10)
+       [5] _close_stage (res://tests/suite/stage_suite_base.gd:29)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.version: 格式不符，改用預設導覽狀態。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+       [2] run (res://tests/suite/test_quest_map.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_stage_coverage_weapons.gd:10)
+       [5] _close_stage (res://tests/suite/stage_suite_base.gd:29)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.pinned_id: 找不到任務，改為追蹤主線。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+       [2] run (res://tests/suite/test_quest_map.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_stage_coverage_weapons.gd:10)
+       [5] _close_stage (res://tests/suite/stage_suite_base.gd:29)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.explored: 必須是物件，改用未探索狀態。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+       [2] run (res://tests/suite/test_quest_map.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_stage_coverage_weapons.gd:10)
+       [5] _close_stage (res://tests/suite/stage_suite_base.gd:29)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.activated: 必須是物件，改用未啟用狀態。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+       [2] run (res://tests/suite/test_quest_map.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_stage_coverage_weapons.gd:10)
+       [5] _close_stage (res://tests/suite/stage_suite_base.gd:29)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.pinned_id: 找不到任務，改為追蹤主線。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+       [2] run (res://tests/suite/test_quest_map.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_stage_coverage_weapons.gd:10)
+       [5] _close_stage (res://tests/suite/stage_suite_base.gd:29)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.explored.res://data/levels/ch1_pawnshop.tres.bad: 無效格座標，已略過。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+       [2] run (res://tests/suite/test_quest_map.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_stage_coverage_weapons.gd:10)
+       [5] _close_stage (res://tests/suite/stage_suite_base.gd:29)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.explored.res://data/levels/ch1_pawnshop.tres.9999,1: 無效格座標，已略過。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+       [2] run (res://tests/suite/test_quest_map.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_stage_coverage_weapons.gd:10)
+       [5] _close_stage (res://tests/suite/stage_suite_base.gd:29)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.activated.fake: 找不到存檔點，已略過。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+       [2] run (res://tests/suite/test_quest_map.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_stage_coverage_weapons.gd:10)
+       [5] _close_stage (res://tests/suite/stage_suite_base.gd:29)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME QuestMapSuite 1.7
+SUITE_TIME Chapter1EnemiesSuite 6.3
+checks: 1981, failures: 0
+ERROR: 7 RID allocations of type 'P11GodotArea2D' were leaked at exit.
+WARNING: 8 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 26 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 13 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
