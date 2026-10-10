@@ -14,6 +14,8 @@
 
 已請同一 session 透過既有 Cloud Environment 官方能力檢查網路就緒與正常等待／重連入口，只在狀態變化後有限重試一次 fetch。不能停用或繞過代理、網路政策，不能取出憑證，不能用另一份 clone 冒充設定好的環境。這個錯誤不是 remote 403；真正權限拒絕仍不重試或繞過。
 
+後續核對：官方狀態 revision 由 2 變為 5，回報 `running / connected`，網路政策就緒仍為 `unknown`。狀態變化後僅重試一次 fetch，仍 exit 128、相同 proxy 8080 錯誤。代理 TCP 檢查回報 `Operation not permitted`，官方能力沒有 reconnect 入口，因此沒有继续重試或繞過。原始 log 位於該雲端環境 `/workspace/Nest-Egg/work/bg25-network/fetch-origin-main.log`；session 已停止 source 工作、保留環境，BG-25 尚未實作，B/C 尚未派到正確環境。這是環境連線阻擋，不能誤稱任務已在背景開發。
+
 ## 分工
 
 | 工作 | 票 | 範圍 | 實際派工狀態 |
