@@ -37,7 +37,9 @@ the leg is the SAM mask without those groups, closed and hole-filled; what is no
 import argparse
 import hashlib
 import json
+import os
 import sys
+import tempfile
 import time
 from pathlib import Path
 
@@ -48,7 +50,12 @@ from scipy import ndimage
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-from sam_masks import segment, segment_points, slug  # noqa: E402
+from sam_masks import SAM_CKPT, segment, segment_points, slug  # noqa: E402
+
+TEXT_MASK_THRESHOLD = 0.4
+TEXT_MASK_REFINE = 2
+TEXT_MASK_CACHE_VERSION = 1
+TEXT_MASK_CACHE_NAME = ".text_mask_cache.json"
 
 
 def largest_blobs(mask: np.ndarray, min_share: float = 0.02) -> np.ndarray:
@@ -96,6 +103,112 @@ def near_leg_key(cfg: dict, image: Path) -> str:
     return json.dumps([cfg["pos"], cfg.get("neg", []), cfg.get("threshold", 0.3), hashlib.sha256(image.read_bytes()).hexdigest()])
 
 
+def text_mask_key(image: Path, stage: str, prompt: str, threshold: float = TEXT_MASK_THRESHOLD,
+                  refine: int = TEXT_MASK_REFINE, model: str = SAM_CKPT) -> str:
+    """Stable key for a SAM text mask, tied to the exact composited input and all segmentation inputs."""
+    payload = {
+        "version": TEXT_MASK_CACHE_VERSION,
+        "image_sha256": hashlib.sha256(image.read_bytes()).hexdigest(),
+        "stage": stage,
+        "prompt": prompt,
+        "model": model,
+        "threshold": float(threshold),
+        "refine": int(refine),
+        "individual_masks": False,
+    }
+    return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf8")).hexdigest()
+
+
+def _read_text_mask_cache(path: Path) -> dict:
+    try:
+        value = json.loads(path.read_text(encoding="utf8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return value if isinstance(value, dict) else {}
+
+
+def _write_text_mask_cache(path: Path, value: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile("w", encoding="utf8", dir=path.parent, prefix=path.name + ".", suffix=".tmp", delete=False) as handle:
+        temp = Path(handle.name)
+        json.dump(value, handle, sort_keys=True, separators=(",", ":"))
+        handle.write("\n")
+    os.replace(temp, path)
+
+
+def _text_mask_cache_entry(key: str, mask_path: Path) -> dict:
+    return {"key": key, "mask_sha256": hashlib.sha256(mask_path.read_bytes()).hexdigest()}
+
+
+def ensure_text_masks(image: Path, prompts: list[str], out_dir: Path, stage: str,
+                      threshold: float = TEXT_MASK_THRESHOLD, refine: int = TEXT_MASK_REFINE) -> dict[str, Path]:
+    """Reuse only masks whose exact image, stage, prompt, model and SAM settings still match."""
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / ".gdignore").touch(exist_ok=True)
+    slugs = [slug(prompt) for prompt in prompts]
+    if len(slugs) != len(set(slugs)):
+        raise ValueError(f"SAM prompts collide after slugging for {stage}: {prompts}")
+    cache_path = out_dir / TEXT_MASK_CACHE_NAME
+    cache = _read_text_mask_cache(cache_path)
+    keys = {prompt: text_mask_key(image, stage, prompt, threshold, refine) for prompt in prompts}
+    with Image.open(image) as source_image:
+        source_size = source_image.size
+    missing = []
+    for prompt, key in keys.items():
+        mask_path = out_dir / f"{slug(prompt)}.png"
+        entry = cache.get(slug(prompt))
+        if not isinstance(entry, dict) or entry.get("key") != key or not mask_path.is_file():
+            missing.append(prompt)
+            cache.pop(slug(prompt), None)
+        else:
+            try:
+                with Image.open(mask_path) as mask_image:
+                    if mask_image.size != source_size or entry.get("mask_sha256") != hashlib.sha256(mask_path.read_bytes()).hexdigest():
+                        missing.append(prompt)
+                        cache.pop(slug(prompt), None)
+            except (OSError, ValueError):
+                missing.append(prompt)
+                cache.pop(slug(prompt), None)
+    if missing:
+        # Keep the prior mask as evidence until all regenerated files validate.
+        # Removing only its key ensures a failed SAM run cannot reuse stale pixels.
+        _write_text_mask_cache(cache_path, cache)
+        before_sha = hashlib.sha256(image.read_bytes()).hexdigest()
+        with tempfile.TemporaryDirectory(prefix="text-mask-", dir=out_dir) as temp_name:
+            temp_dir = Path(temp_name)
+            generated = segment(str(image), missing, str(temp_dir), threshold=threshold, refine=refine)
+            after_sha = hashlib.sha256(image.read_bytes()).hexdigest()
+            if before_sha != after_sha:
+                raise RuntimeError(f"SAM input changed while segmenting {stage}; masks were not cached")
+            staged = {}
+            for prompt in missing:
+                path = temp_dir / f"{slug(prompt)}.png"
+                if prompt not in generated or not path.is_file():
+                    raise RuntimeError(f"SAM did not write the {stage} mask for prompt {prompt!r}")
+                try:
+                    with Image.open(path) as mask_image:
+                        mask_image.verify()
+                    with Image.open(path) as mask_image:
+                        if mask_image.size != source_size:
+                            raise RuntimeError(f"SAM mask has wrong dimensions for {stage}/{prompt}: {mask_image.size}")
+                except OSError as error:
+                    raise RuntimeError(f"SAM wrote an invalid mask for {stage}/{prompt}: {path}") from error
+                staged[prompt] = path
+            for prompt, path in staged.items():
+                os.replace(path, out_dir / f"{slug(prompt)}.png")
+                cache[slug(prompt)] = _text_mask_cache_entry(keys[prompt], out_dir / f"{slug(prompt)}.png")
+        _write_text_mask_cache(cache_path, cache)
+    return {prompt: out_dir / f"{slug(prompt)}.png" for prompt in prompts}
+
+
+def write_grey_composite(rgba: np.ndarray, destination: Path) -> None:
+    """Deterministically rebuild the gray SAM reference from the current RGBA source."""
+    height, width = rgba.shape[:2]
+    background = Image.new("RGBA", (width, height), (128, 128, 128, 255))
+    background.alpha_composite(Image.fromarray(rgba, "RGBA"))
+    background.convert("RGB").save(destination)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--spec", required=True)
@@ -120,15 +233,9 @@ def main() -> None:
                      | set(spec.get("near_leg", {}).get("extra", [])))
     sam_dir = work / "sam"
     grey = work / "base_grey.png"
-    if not grey.exists():
-        bg = Image.new("RGBA", (W, H), (128, 128, 128, 255))
-        bg.alpha_composite(Image.fromarray(rgba))
-        bg.convert("RGB").save(grey)
-    missing = [p for p in prompts if not (sam_dir / f"{slug(p)}.png").exists()]
-    if missing:
-        print("SAM 3.1:", missing)
-        segment(str(grey), missing, str(sam_dir))
-    M = {p: (np.array(Image.open(sam_dir / f"{slug(p)}.png").convert("L").resize((W, H))) > 127) & alpha for p in prompts}
+    write_grey_composite(rgba, grey)
+    base_masks = ensure_text_masks(grey, prompts, sam_dir, "base")
+    M = {p: (np.array(Image.open(base_masks[p]).convert("L").resize((W, H))) > 127) & alpha for p in prompts}
 
     # ---- visible group masks (first group in spec order wins) -------------------------------------------------
     order = list(spec["groups"].keys())
@@ -182,18 +289,16 @@ def main() -> None:
                         images=[str(src)], seed=st.get("seed", 51), prefix=f"{spec['id']}_stage_{st['name']}", w=W, h=H)[0]
             Image.open(made).convert("RGBA").resize((W, H)).save(sp_)
             print(f"stage {st['name']}: {time.time() - t0:.0f}s")
-        stage_rgba[st["name"]] = np.array(Image.open(sp_).convert("RGBA"))
+        with Image.open(sp_) as stage_image:
+            if stage_image.size != (W, H):
+                raise ValueError(f"stage image size mismatch for {sp_}: expected {(W, H)}, got {stage_image.size}")
+            stage_rgba[st["name"]] = np.array(stage_image.convert("RGBA"))
     stage_masks: dict[str, dict[str, np.ndarray]] = {}
     for sname, arr_ in stage_rgba.items():
         gimg = sdir / f"{sname}_grey.png"
-        bgi = Image.new("RGBA", (W, H), (128, 128, 128, 255))
-        bgi.alpha_composite(Image.fromarray(arr_))
-        bgi.convert("RGB").save(gimg)
+        write_grey_composite(arr_, gimg)
         need = sorted({p for gname, g in spec["groups"].items() if g.get("complete", {}).get("stage") == sname for p in g["sam"]})
-        have = {p: sdir / f"sam_{sname}" / f"{slug(p)}.png" for p in need}
-        miss = [p for p in need if not have[p].exists()]
-        if miss:
-            segment(str(gimg), miss, str(sdir / f"sam_{sname}"))
+        have = ensure_text_masks(gimg, need, sdir / f"sam_{sname}", f"stage:{sname}")
         stage_masks[sname] = {p: (np.array(Image.open(have[p]).convert("L").resize((W, H))) > 127) & (arr_[:, :, 3] > 127) for p in need}
 
     # ---- completion of hidden groups --------------------------------------------------------------------------

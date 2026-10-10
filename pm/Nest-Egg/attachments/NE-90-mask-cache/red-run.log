@@ -1,0 +1,10 @@
+parts: body=37
+Traceback (most recent call last):
+  File "C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\pm\Nest-Egg\attachments\NE-90-mask-cache\repro_cache_bug.py", line 197, in <module>
+    main()
+  File "C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\pm\Nest-Egg\attachments\NE-90-mask-cache\repro_cache_bug.py", line 192, in main
+    run_case(args.mode, evidence)
+  File "C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\pm\Nest-Egg\attachments\NE-90-mask-cache\repro_cache_bug.py", line 145, in run_case
+    assert len(calls) == 2, "legacy bug: same-size base/stage source edits should invalidate both SAM masks"
+           ^^^^^^^^^^^^^^^
+AssertionError: legacy bug: same-size base/stage source edits should invalidate both SAM masks

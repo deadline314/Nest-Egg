@@ -1,0 +1,30 @@
+{
+  "mode": "green",
+  "legacy_revision": null,
+  "legacy_source_sha256": null,
+  "base_source_sha256": "c6b0c1a9b9e89949e372d1aa3349c171daaead03d30e2264d0e74cfed5294e7c",
+  "stage_source_sha256": "57c004718fa2d4a7d89b9c0edc832d1b416b973937c7453cf66db908ab33c2a4",
+  "base_gray_before_sha256": "2d9110d464fe640ecc6b193671dd65f26a21b4277db342e693d88dd88ea92aaf",
+  "base_gray_after_sha256": "d4cfc5f261039c8c5a8c63516ae193b7b5aa0df99baf6ea3c95500e63a629610",
+  "base_gray_refreshed": true,
+  "sam_segment_calls": [
+    {
+      "input_sha256": "d4cfc5f261039c8c5a8c63516ae193b7b5aa0df99baf6ea3c95500e63a629610",
+      "prompts": [
+        "body"
+      ],
+      "threshold": 0.4,
+      "refine": 2
+    },
+    {
+      "input_sha256": "9b4a39316b8be1f5bc5db59a92fdfa97fe2edecbb14acb7e8ab073a681c5e4b8",
+      "prompts": [
+        "body"
+      ],
+      "threshold": 0.4,
+      "refine": 2
+    }
+  ],
+  "sam_segment_call_count": 2,
+  "expected_calls": 2
+}

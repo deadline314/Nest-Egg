@@ -53,6 +53,8 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
 
 ### 第 3 步細節：怎麼分、怎麼補
 
+文字遮罩快取綁定目前 RGBA 灰底參考的 SHA-256、階段、提示、SAM 模型、threshold／refine，並核對遮罩 PNG 的 SHA-256 與原生尺寸。灰底每次由当前 RGBA 重建；未變的來源可重用，來源或遮罩改動、缺鍵或壞鍵只使受影響遮罩失效。生成失敗保留舊 PNG、撤銷其有效鍵並停止，不拿舊圖繼續交付；新結果全部驗證後才替換。快取可追溯不代替所有權、解剖或動畫驗收。離線重現檢查為 `python tools/comfyui/test_mask_delivery.py`。
+
 1. **分群**（spec `groups`）：SAM 3.1 對每個文字提示（"hand"、"chrome robotic arm"、"jacket"、"ponytail"、"head"、"boot"、"thigh holster"、"torso"、"skin"、"black stockings leg"）給一張遮罩。前面的群組優先；沒被任何遮罩認領的零星像素分給最近的群組。
 2. **補全**：只有**被別的東西擋住**的群組需要。
    - 手臂（肘被夾克袖子擋住）：把殘缺手臂裁出來當第一張參考圖，手臂附近的原圖當第二張，請 Qwen 補成完整一條。
