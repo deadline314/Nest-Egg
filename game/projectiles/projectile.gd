@@ -32,6 +32,10 @@ var _hit_ids: Dictionary[int, bool] = {}
 var _shape := CircleShape2D.new()
 var _sweep := PhysicsShapeQueryParameters2D.new()
 var _sweep_exclude: Array[RID] = []
+## 部位路徑檢查（resolve_along）用的射線；只在接觸點落在整體、路徑上可能有部位時才查詢。
+var _path_ray := PhysicsRayQueryParameters2D.new()
+var _path_exclude: Array[RID] = []
+var _path_owner: Hurtbox
 ## 拖尾環形緩衝：_trail_head 是最新的一筆，往回數就是越舊；固定容量。
 var _trail := PackedVector2Array()
 var _trail_len := 0
@@ -183,7 +187,10 @@ func _on_area_entered(area: Area2D) -> void:
 
 ## 命中受擊框：造成傷害、格擋或反彈；傷害後依貫穿數決定是否繼續飛。
 func _strike(hurtbox: Hurtbox) -> void:
-	hurtbox = hurtbox.resolve_at(global_position)
+	# 依子彈路徑選部位：身體框先被碰到時，沿著彈道在同一個目標裡找外露的核心或頭部（NE-248）。
+	_path_owner = hurtbox.root()
+	hurtbox = hurtbox.resolve_along(global_position, velocity, 3.0, _is_path_blocked)
+	_path_owner = null
 	# 同一發子彈對同一個目標只算一次（頭與身體的受擊框重疊時也一樣）。
 	var id := hurtbox.health.get_instance_id() if hurtbox.health != null else hurtbox.get_instance_id()
 	if _hit_ids.has(id):
@@ -216,6 +223,25 @@ func _strike(hurtbox: Hurtbox) -> void:
 		_pierce_left -= 1
 	else:
 		_finish(true)
+
+
+## 從身體接觸點到部位之間是否先有牆（可穿牆的子彈除外）或其他目標的受擊框；同一個目標的整體與部位不算阻擋。
+func _is_path_blocked(from: Vector2, to: Vector2) -> bool:
+	if from.distance_squared_to(to) < 0.01:
+		return false
+	_path_exclude.clear()
+	_path_exclude.append(get_rid())
+	if _path_owner != null:
+		_path_exclude.append(_path_owner.get_rid())
+		for part in _path_owner.parts:
+			_path_exclude.append(part.get_rid())
+	_path_ray.from = from
+	_path_ray.to = to
+	_path_ray.exclude = _path_exclude
+	_path_ray.collide_with_areas = true
+	_path_ray.collide_with_bodies = not spec.passes_walls
+	_path_ray.collision_mask = Combat.hurtbox_mask_against(team) | (0 if spec.passes_walls else Layers.WORLD)
+	return not get_world_2d().direct_space_state.intersect_ray(_path_ray).is_empty()
 
 
 func _make_damage() -> DamageInfo:

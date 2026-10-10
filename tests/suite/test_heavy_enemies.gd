@@ -6,6 +6,7 @@ extends EnemySuiteBase
 const FLAMER_PATH := "res://data/enemies/flamer.tres"
 const GUNNER_PATH := "res://data/enemies/heavy_gunner.tres"
 const WARDEN_PATH := "res://data/enemies/warden.tres"
+const PISTOL_SHOT_PATH := "res://data/projectiles/pistol_shot.tres"
 
 
 func run() -> void:
@@ -19,6 +20,8 @@ func run() -> void:
 	await _test_gunner_armor()
 	await _test_warden_core_cannon()
 	await _test_warden_core_origin()
+	await _test_core_hit_along_path()
+	await _test_path_resolution_contract()
 	await _test_codex_unlocks()
 	await check_defeatable_on_every_difficulty([FLAMER_PATH, GUNNER_PATH])
 
@@ -340,4 +343,125 @@ func _test_codex_unlocks() -> void:
 	await expect_codex_unlock(&"heavy_gunner_shot", "the heavy gunner's bullets", 60 * 8)
 	gunner.set_physics_process(false)
 	await physics_frames(120)
+	await end_level(level)
+
+
+# ---------------------------------------------------------------------------
+# 命中部位與畫面一致（NE-248 外露核心）
+# ---------------------------------------------------------------------------
+
+## 畫面上零件的世界外框（Sprite2D 或關節網格）。
+static func _visual_rect(node: CanvasItem) -> Rect2:
+	var local := Rect2()
+	if node is Sprite2D:
+		local = (node as Sprite2D).get_rect()
+	elif node is Polygon2D and not (node as Polygon2D).polygon.is_empty():
+		var points := (node as Polygon2D).polygon
+		local = Rect2(points[0], Vector2.ZERO)
+		for point in points:
+			local = local.expand(point)
+	else:
+		return Rect2()
+	var xf := (node as Node2D).global_transform
+	var a := xf * local.position
+	var b := xf * local.end
+	return Rect2(Vector2(minf(a.x, b.x), minf(a.y, b.y)), (b - a).abs())
+
+
+static func _head_center(enemy: Enemy) -> Vector2:
+	for node: Node in enemy.rig.find_children("head", "CanvasItem", true, false):
+		if not (node is Bone2D):
+			var rect := _visual_rect(node as CanvasItem)
+			if rect.has_area():
+				return rect.get_center()
+	return Vector2.INF
+
+
+## 讓敵人面向 side（-1 左、1 右）後凍住，部位判定停在當下的骨頭位置。
+func _freeze_facing(enemy: Enemy, side: int) -> void:
+	place_player(enemy.global_position.x / 16.0 + side * 8.0)
+	enemy.facing = side
+	enemy._rig_input.facing = side
+	enemy._rig_input.aim_dir = Vector2(side, 0)
+	if enemy.rig != null:
+		enemy.rig.animate(1.0 / 60.0, enemy._rig_input)
+	enemy._update_hurt_parts()
+	enemy.set_physics_process(false)
+	await physics_frames(2)
+
+
+## 一發真實子彈（物件池、掃掠碰撞）從 origin 打向 target，回傳這個敵人收到的每次傷害 [部位, 傷害, 弱點]。
+func _shot(enemy: Enemy, origin: Vector2, target: Vector2) -> Array:
+	var hits: Array = []
+	var record := func(info: DamageInfo) -> void: hits.append([info.part, info.amount, info.weak_hit])
+	enemy.health.damaged.connect(record)
+	ProjectilePool.spawn(load(PISTOL_SHOT_PATH) as ProjectileSpec, origin, (target - origin).normalized(), Combat.Team.PLAYER)
+	await physics_frames(25)
+	enemy.health.damaged.disconnect(record)
+	return hits
+
+
+## 監管者的外露核心藏在身體框裡：子彈先碰到身體框，但彈道會穿過核心，就算核心命中（雙倍、弱點、只扣一次）。
+## 偏離核心是一般命中；核心關閉不是弱點；牆與擋在前面的敵人照原規則先擋。
+func _test_core_hit_along_path() -> void:
+	await open_level(10.0)
+	var warden := spawn(WARDEN_PATH, 45.0)
+	await physics_frames(2)
+	var base_damage := roundi((load(PISTOL_SHOT_PATH) as ProjectileSpec).damage)
+	var core_part: Hurtbox = null
+	for part in warden.hurtbox.parts:
+		if part.part_id == &"core":
+			core_part = part
+	for side: int in [-1, 1]:
+		for from: int in [-1, 1]:
+			await _freeze_facing(warden, side)
+			warden.call(&"_set_core_exposed", true)
+			var core := core_part.center()
+			var entry_gap := absf(core.x - (warden.hurtbox.center().x - from * warden.data.body_size.x * 0.5))
+			var hits := await _shot(warden, core + Vector2(from * 160.0, 0), core)
+			check(entry_gap > 10.0 and hits.size() == 1 and hits[0][0] == &"core" and hits[0][2] and hits[0][1] == base_damage * 2,
+					"an exposed core behind the body edge (%.1f px in) is hit along the path (facing %d, from %d): %s" % [entry_gap, side, from, hits])
+			var miss := core + Vector2(0, 22)
+			hits = await _shot(warden, miss + Vector2(from * 160.0, 0), miss)
+			check(hits.size() == 1 and hits[0][0] == &"" and not hits[0][2], "a body shot below the core stays ordinary: %s" % [hits])
+			warden.call(&"_set_core_exposed", false)
+			hits = await _shot(warden, core + Vector2(from * 160.0, 0), core)
+			check(hits.size() == 1 and not hits[0][2] and hits[0][1] == base_damage, "a closed core is not a weak hit: %s" % [hits])
+			warden.health.setup(warden.data.max_health, 0.0)
+	# 擋在前面的另一個監管者先被打到，不會越過它選後面的核心。
+	await _freeze_facing(warden, -1)
+	warden.call(&"_set_core_exposed", true)
+	var shield_body := spawn(WARDEN_PATH, 41.0)
+	await physics_frames(2)
+	shield_body.set_physics_process(false)
+	var core := core_part.center()
+	var front_hits := await _shot(shield_body, core + Vector2(-200, 0), core)
+	check(front_hits.size() == 1, "the enemy in front takes the shot: %s" % [front_hits])
+	shield_body.queue_free()
+	await physics_frames(2)
+	# 牆（欄 30～31，x 480～512）在前面：打不到核心。
+	place_player(20.0)
+	var wall_hits := await _shot(warden, Vector2(26 * 16.0, core.y), core)
+	check(wall_hits.is_empty(), "a wall in front still stops the shot: %s" % [wall_hits])
+	await end_level(level)
+
+
+## 合約：接觸點已在部位裡就用它；路徑被擋住時維持整體；沒有方向時等同 resolve_at。
+func _test_path_resolution_contract() -> void:
+	await open_level(10.0)
+	var warden := spawn(WARDEN_PATH, 45.0)
+	await physics_frames(2)
+	await _freeze_facing(warden, -1)
+	warden.call(&"_set_core_exposed", true)
+	var box := warden.hurtbox
+	var core := Vector2.ZERO
+	for part in box.parts:
+		if part.part_id == &"core":
+			core = part.center()
+	var edge := Vector2(box.center().x - warden.data.body_size.x * 0.5 + 0.05, core.y)
+	check(box.resolve_along(edge, Vector2.RIGHT).part_id == &"core", "the path from the body edge reaches the core")
+	check(box.resolve_along(edge, Vector2.LEFT) == box, "a path leaving the body never selects the core")
+	check(box.resolve_along(edge, Vector2.RIGHT, 3.0, func(_a: Vector2, _b: Vector2) -> bool: return true) == box, "a blocked path keeps the body hit")
+	check(box.resolve_along(edge, Vector2.ZERO) == box.resolve_at(edge), "no direction falls back to the contact point")
+	check(box.resolve_along(core, Vector2.LEFT).part_id == &"core", "a contact already inside the core uses it")
 	await end_level(level)

@@ -24,6 +24,7 @@ const SCENARIOS := {
 	"hit_reaction": "res://tools/scenarios/hit_reaction_scenario.gd",
 	"hit_direction": "res://tools/scenarios/hit_direction_scenario.gd",
 	"hurt_parts": "res://tools/scenarios/hurt_parts_scenario.gd",
+	"boss_hit_parts": "res://tools/scenarios/boss_hit_parts_scenario.gd",
 	"creature_combat": "res://tools/scenarios/creature_combat_scenario.gd",
 	"exotic_enemies": "res://tools/scenarios/exotic_enemies_scenario.gd",
 	"chapter2_expansion": "res://tools/scenarios/chapter2_expansion_scenario.gd",

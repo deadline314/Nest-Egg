@@ -105,6 +105,60 @@ func resolve_at(point: Vector2, margin := 3.0) -> Hurtbox:
 	return owner_box
 
 
+## 子彈命中用：先看接觸點；接觸點只碰到整體時，沿著子彈的行進方向、只在同一個整體受擊框裡往前找，
+## 取路徑上最先碰到的啟用部位（例如藏在身體框裡的外露核心）。is_blocked(from, to) 回傳 true 代表這段路徑先被牆或其他目標擋住，
+## 此時維持整體命中。沒有方向（近戰、爆炸）的呼叫者繼續用 resolve_at。
+func resolve_along(point: Vector2, direction: Vector2, margin := 3.0, is_blocked := Callable()) -> Hurtbox:
+	var owner_box := root()
+	var at_point := resolve_at(point, margin)
+	if at_point != owner_box or owner_box.parts.is_empty() or direction.length_squared() < 0.000001:
+		return at_point
+	var span := owner_box._segment_span(point, direction.normalized(), 0.0)
+	if span.y <= 0.0:
+		return owner_box
+	var end := point + direction.normalized() * span.y
+	var best := owner_box
+	var best_t := INF
+	for part in owner_box.parts:
+		if not part.enabled:
+			continue
+		var t := part._segment_span(point, end - point, margin).x
+		if t >= 0.0 and t <= 1.0 and t < best_t:
+			best = part
+			best_t = t
+	if best != owner_box and is_blocked.is_valid() and bool(is_blocked.call(point, point.lerp(end, best_t))):
+		return owner_box
+	return best
+
+
+## 射線 origin + motion·t 與判定形狀（四周放寬 margin）的交集區間 (t 進入, t 離開)；沒有交集回傳 (-1, -1)。
+## 進入點在起點之前時 t 進入為 0。轉到形狀的本地座標計算，翻面、縮放與旋轉都正確。
+func _segment_span(origin: Vector2, motion: Vector2, margin: float) -> Vector2:
+	const NONE := Vector2(-1.0, -1.0)
+	if _shape_node == null or _shape == null:
+		return NONE
+	var inv := _shape_node.global_transform.affine_inverse()
+	var from := inv * origin
+	var step := inv.basis_xform(motion)
+	var half := _shape.size * 0.5 + Vector2(margin, margin)
+	var t_in := 0.0
+	var t_out := INF
+	for axis in 2:
+		var o := from[axis]
+		var d := step[axis]
+		if absf(d) < 0.000001:
+			if absf(o) > half[axis]:
+				return NONE
+			continue
+		var t1 := (-half[axis] - o) / d
+		var t2 := (half[axis] - o) / d
+		t_in = maxf(t_in, minf(t1, t2))
+		t_out = minf(t_out, maxf(t1, t2))
+	if t_out < t_in or t_out < 0.0:
+		return NONE
+	return Vector2(t_in, t_out)
+
+
 func contains_point(point: Vector2, margin := 0.0) -> bool:
 	if _shape_node == null:
 		return false
