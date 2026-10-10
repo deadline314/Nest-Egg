@@ -6,12 +6,17 @@ extends Node
 
 ## 取得新道具時發出（背包、提示用）。
 signal acquired(item: StoryItemData)
+## 原件交出時發出；取得史、持有與交付已全部同步，這裡不發報酬。
+signal transferred(item: StoryItemData)
 
 const DATA_DIR := "res://data/story_items"
+const CUSTODY_VERSION := 1
 
 var _catalog: Array[StoryItemData] = []
 var _catalog_loaded := false
 var _owned: Dictionary[StringName, bool] = {}
+var _held: Dictionary[StringName, bool] = {}
+var _transferred: Dictionary[StringName, bool] = {}
 ## 某一章的收集總數（文件與錄音）。
 func collectible_total(chapter: StringName) -> int:
 	var total := 0
@@ -90,6 +95,30 @@ func owns(id: StringName) -> bool:
 	return _owned.has(id)
 
 
+## 目前仍持有原件；owns 保留本輪曾取得的資料目錄語義。
+func holds(id: StringName) -> bool:
+	return _held.has(id)
+
+
+func was_transferred(id: StringName) -> bool:
+	return _transferred.has(id)
+
+
+## 只有已知且目前持有的原件可交付一次；失敗沒有任何效果。
+func transfer(id: StringName) -> bool:
+	var item := find(id)
+	if item == null:
+		push_warning("[StoryItems] transfer/%s 未知道具，交付未生效" % id)
+		return false
+	if not _owned.has(id) or not _held.has(id) or _transferred.has(id):
+		return false
+	_held.erase(id)
+	_transferred[id] = true
+	GameState.request_story_save()
+	transferred.emit(item)
+	return true
+
+
 ## 已取得的道具（依 order 排序）。
 func owned_items() -> Array[StoryItemData]:
 	var result: Array[StoryItemData] = []
@@ -113,7 +142,7 @@ func mark_seen(id: StringName) -> void:
 	_unseen.erase(id)
 
 
-## 取得道具。announce = true 時跳出提示。未知或已持有的道具回傳 false。
+## 首次取得道具。已取得史即拒絕，交出後也不重新發放。
 func acquire(id: StringName, announce := true) -> bool:
 	var item := find(id)
 	if item == null:
@@ -122,6 +151,7 @@ func acquire(id: StringName, announce := true) -> bool:
 	if _owned.has(id):
 		return false
 	_owned[id] = true
+	_held[id] = true
 	_unseen[id] = true
 	GameState.request_story_save()
 	acquired.emit(item)
@@ -142,6 +172,8 @@ func acquire_message(item: StoryItemData) -> String:
 func reset_run() -> void:
 	_owned.clear()
 	_unseen.clear()
+	_held.clear()
+	_transferred.clear()
 	_grant(StoryItemData.Trigger.RUN_START, &"", false)
 
 
@@ -163,26 +195,78 @@ func _grant(trigger: StoryItemData.Trigger, scene_id := &"", announce := true) -
 
 
 func snapshot() -> Dictionary:
-	return {"owned": _owned.keys(), "unseen": _unseen.keys()}
+	return {"owned": _owned.keys(), "unseen": _unseen.keys(), "custody_version": CUSTODY_VERSION,
+		"held": _held.keys(), "transferred": _transferred.keys()}
 
 
-func restore(raw: Variant, where := "story/items") -> void:
+## 先驗完整快照；直接 restore 與整輪 prepare 共用同一個拒絕邊界。
+func prepare_snapshot(raw: Variant, where := "story/items") -> Dictionary:
+	# 直接 restore 也可能收外來資料：轉 StringName 或複製前先擋長字串、深度、循環與物件。
+	var tree_errors := RunSaveCodec.validate_tree(raw)
+	if not tree_errors.is_empty():
+		return {"error": RunSaveCodec._diagnostic_path(where, tree_errors[0].trim_prefix("run/"))}
+	if not raw is Dictionary:
+		return {"error": "%s 必須是完整物品物件，保留原資料" % where}
+	var legacy: bool = not raw.has("custody_version") and not raw.has("held") and not raw.has("transferred")
+	if not legacy:
+		var version: Variant = raw.get("custody_version")
+		if not RunSaveCodec.valid_version(version):
+			return {"error": "%s/custody_version 缺漏或損毀，保留原資料" % where}
+		if version != CUSTODY_VERSION:
+			return {"error": "%s/custody_version 不支援，原檔保留" % where, "unknown_version": true}
+	var keys: Array[String] = ["owned", "unseen"]
+	if not legacy:
+		keys.append_array(["held", "transferred"])
+	var sets: Dictionary = {}
+	var result: Dictionary = {"custody_version": CUSTODY_VERSION}
+	var limit := catalog().size()
+	for key: String in keys:
+		var values: Variant = raw.get(key)
+		if not values is Array or values.size() > limit:
+			return {"error": "%s/%s 必須是有界物品陣列（上限 %d），保留原資料" % [where, key, limit]}
+		var ids: Dictionary[StringName, bool] = {}
+		for i in values.size():
+			var value: Variant = values[i]
+			if typeof(value) not in [TYPE_STRING, TYPE_STRING_NAME]:
+				return {"error": "%s/%s/%d 必須是物品 id，保留原資料" % [where, key, i]}
+			var id := StringName(value)
+			if find(id) == null or ids.has(id):
+				return {"error": "%s/%s/%d 未知或重複物品 id，保留原資料" % [where, key, i]}
+			ids[id] = true
+		sets[key] = ids
+		result[key] = ids.keys()
+	if legacy:
+		sets["held"] = sets["owned"].duplicate()
+		sets["transferred"] = {}
+		result["held"] = result["owned"].duplicate()
+		result["transferred"] = []
+	for key: String in ["unseen", "held", "transferred"]:
+		for id: StringName in sets[key]:
+			if not sets["owned"].has(id):
+				return {"error": "%s/%s/%s 不在取得史，保留原資料" % [where, key, id]}
+	for id: StringName in sets["owned"]:
+		if sets["held"].has(id) == sets["transferred"].has(id):
+			return {"error": "%s/held/%s 必須且只能屬於 held 或 transferred，保留原資料" % [where, id]}
+	return {"data": result}
+
+
+func restore(raw: Variant, where := "story/items") -> bool:
+	var prepared := prepare_snapshot(raw, where)
+	if prepared.has("error"):
+		push_warning("[StoryItems] %s；目前物品保持" % prepared["error"])
+		return false
+	var state: Dictionary = prepared["data"]
+	# 驗證完成後才替換，沒有訊號或保存可觀察到半份狀態。
 	_owned.clear()
 	_unseen.clear()
-	if not raw is Dictionary:
-		push_warning("[StoryItems] %s 損毀，退回空清單" % where)
-		return
-	for key in ["owned", "unseen"]:
-		var values: Variant = raw.get(key, [])
-		if not values is Array:
-			push_warning("[StoryItems] %s/%s 不是清單，已略過" % [where, key])
-			continue
-		for value: Variant in values:
-			var id := StringName(str(value))
-			if find(id) == null:
-				push_warning("[StoryItems] %s/%s/%s 未知道具，已略過" % [where, key, id])
-				continue
-			if key == "owned":
-				_owned[id] = true
-			elif _owned.has(id):
-				_unseen[id] = true
+	_held.clear()
+	_transferred.clear()
+	for id: StringName in state["owned"]:
+		_owned[id] = true
+	for id: StringName in state["unseen"]:
+		_unseen[id] = true
+	for id: StringName in state["held"]:
+		_held[id] = true
+	for id: StringName in state["transferred"]:
+		_transferred[id] = true
+	return true

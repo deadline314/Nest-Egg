@@ -1,0 +1,51 @@
+{
+  "collectibles": {
+    "script": 0,
+    "exit": 0,
+    "failures": 0,
+    "compile": 0,
+    "parse": 0,
+    "checks": 292
+  },
+  "head": "d68ddb79a041d8d76ffb076ce48fb0b38c5834ba",
+  "formal_st9_integration_verified": false,
+  "engine_slot_released": true,
+  "source_scope": [
+    "autoload/story_items.gd",
+    "core/run_snapshot.gd",
+    "tests/suite/test_collectibles.gd",
+    "design/20-campaign-experience/STORY_ITEM_CUSTODY.md"
+  ],
+  "screenshots": "N/A framework source change",
+  "engine": "Godot v4.7.2.stable.official.ed1daf0bf",
+  "changed": {
+    "checks": 9005,
+    "raw_error_lines": 49,
+    "groups": 42,
+    "parse": 0,
+    "known_failures": 0,
+    "new_failures": 0,
+    "excluded_shutdown_error_lines": 2,
+    "expected_fixture_error_lines": 47,
+    "runner_exit": 0,
+    "script": 0,
+    "wall_seconds": 705,
+    "shards": 1,
+    "command": "tools/run_tests_changed.sh HEAD",
+    "compile": 0,
+    "unexpected_errors": false
+  },
+  "branch": "codex/story-item-custody",
+  "import": {
+    "compile": 0,
+    "parse": 0,
+    "script": 0,
+    "exit": 0
+  },
+  "preserved_new_untracked_uid": [
+    "game/projectiles/projectile_art.gd.uid",
+    "tools/pixel_ui_capture.gd.uid",
+    "tools/projectile_visual_capture.gd.uid",
+    "tools/scenery_stage_capture.gd.uid"
+  ]
+}

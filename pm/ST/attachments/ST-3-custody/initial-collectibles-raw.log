@@ -1,0 +1,2076 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Cannot infer the type of "legacy" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://autoload/story_items.gd:210)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://game/npc/npc_actor.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://ui/cinematic_framing.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://autoload/story.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://autoload/game_state.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://game/enemies/enemy.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://autoload/feel.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://autoload/sfx.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://ui/kit/ui_button.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://ui/ui_kit.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://autoload/settings.gd:0)
+ERROR: Failed to load script "res://autoload/settings.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+ERROR: Failed to instantiate an autoload, script 'res://autoload/story_items.gd' does not inherit from 'Node'.
+   at: start (main/main.cpp:4539)
+== Nest Egg smoke test ==
+SCRIPT ERROR: Invalid call. Nonexistent function 'catalog' in base 'Nil'.
+   at: CollectiblesSuite._test_data (res://tests/suite/test_collectibles.gd:255)
+   GDScript backtrace (most recent call first):
+       [0] _test_data (res://tests/suite/test_collectibles.gd:255)
+       [1] run (res://tests/suite/test_collectibles.gd:13)
+       [2] _run_suites (res://tests/smoke_test.gd:109)
+       [3] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid call. Nonexistent function 'reset_run' in base 'Nil'.
+   at: start_new_run (res://autoload/game_state.gd:106)
+   GDScript backtrace (most recent call first):
+       [0] start_new_run (res://autoload/game_state.gd:106)
+       [1] _test_item_custody (res://tests/suite/test_collectibles.gd:27)
+       [2] run (res://tests/suite/test_collectibles.gd:14)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'acquired' on a base object of type 'Nil'.
+   at: CollectiblesSuite._test_item_custody (res://tests/suite/test_collectibles.gd:37)
+   GDScript backtrace (most recent call first):
+       [0] _test_item_custody (res://tests/suite/test_collectibles.gd:37)
+       [1] run (res://tests/suite/test_collectibles.gd:14)
+       [2] _run_suites (res://tests/smoke_test.gd:109)
+       [3] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid call. Nonexistent function 'restore' in base 'Nil'.
+   at: CollectiblesSuite._test_custody_validation (res://tests/suite/test_collectibles.gd:81)
+   GDScript backtrace (most recent call first):
+       [0] _test_custody_validation (res://tests/suite/test_collectibles.gd:81)
+       [1] run (res://tests/suite/test_collectibles.gd:15)
+       [2] _run_suites (res://tests/smoke_test.gd:109)
+       [3] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid call. Nonexistent function 'snapshot' in base 'Nil'.
+   at: CollectiblesSuite._test_custody_bounded_input (res://tests/suite/test_collectibles.gd:166)
+   GDScript backtrace (most recent call first):
+       [0] _test_custody_bounded_input (res://tests/suite/test_collectibles.gd:166)
+       [1] run (res://tests/suite/test_collectibles.gd:16)
+       [2] _run_suites (res://tests/smoke_test.gd:109)
+       [3] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid call. Nonexistent function 'reset_run' in base 'Nil'.
+   at: start_new_run (res://autoload/game_state.gd:106)
+   GDScript backtrace (most recent call first):
+       [0] start_new_run (res://autoload/game_state.gd:106)
+       [1] start_level (res://tests/suite/test_suite.gd:33)
+       [2] _test_custody_lifecycle (res://tests/suite/test_collectibles.gd:191)
+       [3] run (res://tests/suite/test_collectibles.gd:17)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid call. Nonexistent function 'owns' in base 'Nil'.
+   at: Level._create_entity (res://game/level/level.gd:571)
+   GDScript backtrace (most recent call first):
+       [0] _create_entity (res://game/level/level.gd:571)
+       [1] _spawn_static_entities (res://game/level/level.gd:439)
+       [2] _ready (res://game/level/level.gd:181)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_custody_lifecycle (res://tests/suite/test_collectibles.gd:191)
+       [6] run (res://tests/suite/test_collectibles.gd:17)
+       [7] _run_suites (res://tests/smoke_test.gd:109)
+       [8] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid call. Nonexistent function 'owns' in base 'Nil'.
+   at: Level._create_entity (res://game/level/level.gd:571)
+   GDScript backtrace (most recent call first):
+       [0] _create_entity (res://game/level/level.gd:571)
+       [1] _spawn_static_entities (res://game/level/level.gd:439)
+       [2] _ready (res://game/level/level.gd:181)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_custody_lifecycle (res://tests/suite/test_collectibles.gd:191)
+       [6] run (res://tests/suite/test_collectibles.gd:17)
+       [7] _run_suites (res://tests/smoke_test.gd:109)
+       [8] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid call. Nonexistent function 'overall_collection' in base 'Nil'.
+   at: StoryItemsPage.tab_tooltip (res://ui/inventory/pages/story_items_page.gd:11)
+   GDScript backtrace (most recent call first):
+       [0] tab_tooltip (res://ui/inventory/pages/story_items_page.gd:11)
+       [1] _create_pages (res://ui/inventory/inventory_screen.gd:262)
+       [2] _ready (res://ui/inventory/inventory_screen.gd:57)
+       [3] _ready (res://game/level/level.gd:231)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] start_level (res://tests/suite/test_suite.gd:34)
+       [6] _test_custody_lifecycle (res://tests/suite/test_collectibles.gd:191)
+       [7] run (res://tests/suite/test_collectibles.gd:17)
+       [8] _run_suites (res://tests/smoke_test.gd:109)
+       [9] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new_count' in base 'Nil'.
+   at: StoryItemsPage.tab_has_alert (res://ui/inventory/pages/story_items_page.gd:18)
+   GDScript backtrace (most recent call first):
+       [0] tab_has_alert (res://ui/inventory/pages/story_items_page.gd:18)
+       [1] _refresh_tab_labels (res://ui/inventory/inventory_screen.gd:272)
+       [2] _create_pages (res://ui/inventory/inventory_screen.gd:265)
+       [3] _ready (res://ui/inventory/inventory_screen.gd:57)
+       [4] _ready (res://game/level/level.gd:231)
+       [5] spawn_level (res://tests/suite/test_suite.gd:41)
+       [6] start_level (res://tests/suite/test_suite.gd:34)
+       [7] _test_custody_lifecycle (res://tests/suite/test_collectibles.gd:191)
+       [8] run (res://tests/suite/test_collectibles.gd:17)
+       [9] _run_suites (res://tests/smoke_test.gd:109)
+       [10] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new_count' in base 'Nil'.
+   at: StoryItemsPage.tab_has_alert (res://ui/inventory/pages/story_items_page.gd:18)
+   GDScript backtrace (most recent call first):
+       [0] tab_has_alert (res://ui/inventory/pages/story_items_page.gd:18)
+       [1] _refresh_tab_labels (res://ui/inventory/inventory_screen.gd:276)
+       [2] _create_pages (res://ui/inventory/inventory_screen.gd:265)
+       [3] _ready (res://ui/inventory/inventory_screen.gd:57)
+       [4] _ready (res://game/level/level.gd:231)
+       [5] spawn_level (res://tests/suite/test_suite.gd:41)
+       [6] start_level (res://tests/suite/test_suite.gd:34)
+       [7] _test_custody_lifecycle (res://tests/suite/test_collectibles.gd:191)
+       [8] run (res://tests/suite/test_collectibles.gd:17)
+       [9] _run_suites (res://tests/smoke_test.gd:109)
+       [10] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid call. Nonexistent function 'acquire' in base 'Nil'.
+   at: CollectiblesSuite._test_custody_lifecycle (res://tests/suite/test_collectibles.gd:192)
+   GDScript backtrace (most recent call first):
+       [0] _test_custody_lifecycle (res://tests/suite/test_collectibles.gd:192)
+       [1] start_level (res://tests/suite/test_suite.gd:34)
+       [2] spawn_level (res://tests/suite/test_suite.gd:43)
+       [3] frames (res://tests/suite/test_suite.gd:23)
+       [4] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid call. Nonexistent function 'reset_run' in base 'Nil'.
+   at: start_new_run (res://autoload/game_state.gd:106)
+   GDScript backtrace (most recent call first):
+       [0] start_new_run (res://autoload/game_state.gd:106)
+       [1] start_level (res://tests/suite/test_suite.gd:33)
+       [2] _test_pickup_and_progress (res://tests/suite/test_collectibles.gd:304)
+       [3] run (res://tests/suite/test_collectibles.gd:19)
+       [4] _test_custody_lifecycle (res://tests/suite/test_collectibles.gd:192)
+       [5] start_level (res://tests/suite/test_suite.gd:34)
+       [6] spawn_level (res://tests/suite/test_suite.gd:43)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid call. Nonexistent function 'owns' in base 'Nil'.
+   at: Level._create_entity (res://game/level/level.gd:571)
+   GDScript backtrace (most recent call first):
+       [0] _create_entity (res://game/level/level.gd:571)
+       [1] _spawn_static_entities (res://game/level/level.gd:439)
+       [2] _ready (res://game/level/level.gd:181)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_pickup_and_progress (res://tests/suite/test_collectibles.gd:304)
+       [6] run (res://tests/suite/test_collectibles.gd:19)
+       [7] _test_custody_lifecycle (res://tests/suite/test_collectibles.gd:192)
+       [8] start_level (res://tests/suite/test_suite.gd:34)
+       [9] spawn_level (res://tests/suite/test_suite.gd:43)
+       [10] frames (res://tests/suite/test_suite.gd:23)
+       [11] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid call. Nonexistent function 'owns' in base 'Nil'.
+   at: Level._create_entity (res://game/level/level.gd:571)
+   GDScript backtrace (most recent call first):
+       [0] _create_entity (res://game/level/level.gd:571)
+       [1] _spawn_static_entities (res://game/level/level.gd:439)
+       [2] _ready (res://game/level/level.gd:181)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_pickup_and_progress (res://tests/suite/test_collectibles.gd:304)
+       [6] run (res://tests/suite/test_collectibles.gd:19)
+       [7] _test_custody_lifecycle (res://tests/suite/test_collectibles.gd:192)
+       [8] start_level (res://tests/suite/test_suite.gd:34)
+       [9] spawn_level (res://tests/suite/test_suite.gd:43)
+       [10] frames (res://tests/suite/test_suite.gd:23)
+       [11] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid call. Nonexistent function 'overall_collection' in base 'Nil'.
+   at: StoryItemsPage.tab_tooltip (res://ui/inventory/pages/story_items_page.gd:11)
+   GDScript backtrace (most recent call first):
+       [0] tab_tooltip (res://ui/inventory/pages/story_items_page.gd:11)
+       [1] _create_pages (res://ui/inventory/inventory_screen.gd:262)
+       [2] _ready (res://ui/inventory/inventory_screen.gd:57)
+       [3] _ready (res://game/level/level.gd:231)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] start_level (res://tests/suite/test_suite.gd:34)
+       [6] _test_pickup_and_progress (res://tests/suite/test_collectibles.gd:304)
+       [7] run (res://tests/suite/test_collectibles.gd:19)
+       [8] _test_custody_lifecycle (res://tests/suite/test_collectibles.gd:192)
+       [9] start_level (res://tests/suite/test_suite.gd:34)
+       [10] spawn_level (res://tests/suite/test_suite.gd:43)
+       [11] frames (res://tests/suite/test_suite.gd:23)
+       [12] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new_count' in base 'Nil'.
+   at: StoryItemsPage.tab_has_alert (res://ui/inventory/pages/story_items_page.gd:18)
+   GDScript backtrace (most recent call first):
+       [0] tab_has_alert (res://ui/inventory/pages/story_items_page.gd:18)
+       [1] _refresh_tab_labels (res://ui/inventory/inventory_screen.gd:272)
+       [2] _create_pages (res://ui/inventory/inventory_screen.gd:265)
+       [3] _ready (res://ui/inventory/inventory_screen.gd:57)
+       [4] _ready (res://game/level/level.gd:231)
+       [5] spawn_level (res://tests/suite/test_suite.gd:41)
+       [6] start_level (res://tests/suite/test_suite.gd:34)
+       [7] _test_pickup_and_progress (res://tests/suite/test_collectibles.gd:304)
+       [8] run (res://tests/suite/test_collectibles.gd:19)
+       [9] _test_custody_lifecycle (res://tests/suite/test_collectibles.gd:192)
+       [10] start_level (res://tests/suite/test_suite.gd:34)
+       [11] spawn_level (res://tests/suite/test_suite.gd:43)
+       [12] frames (res://tests/suite/test_suite.gd:23)
+       [13] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new_count' in base 'Nil'.
+   at: StoryItemsPage.tab_has_alert (res://ui/inventory/pages/story_items_page.gd:18)
+   GDScript backtrace (most recent call first):
+       [0] tab_has_alert (res://ui/inventory/pages/story_items_page.gd:18)
+       [1] _refresh_tab_labels (res://ui/inventory/inventory_screen.gd:276)
+       [2] _create_pages (res://ui/inventory/inventory_screen.gd:265)
+       [3] _ready (res://ui/inventory/inventory_screen.gd:57)
+       [4] _ready (res://game/level/level.gd:231)
+       [5] spawn_level (res://tests/suite/test_suite.gd:41)
+       [6] start_level (res://tests/suite/test_suite.gd:34)
+       [7] _test_pickup_and_progress (res://tests/suite/test_collectibles.gd:304)
+       [8] run (res://tests/suite/test_collectibles.gd:19)
+       [9] _test_custody_lifecycle (res://tests/suite/test_collectibles.gd:192)
+       [10] start_level (res://tests/suite/test_suite.gd:34)
+       [11] spawn_level (res://tests/suite/test_suite.gd:43)
+       [12] frames (res://tests/suite/test_suite.gd:23)
+       [13] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid call. Nonexistent function 'collected_count' in base 'Nil'.
+   at: CollectiblesSuite._test_pickup_and_progress (res://tests/suite/test_collectibles.gd:305)
+   GDScript backtrace (most recent call first):
+       [0] _test_pickup_and_progress (res://tests/suite/test_collectibles.gd:305)
+       [1] start_level (res://tests/suite/test_suite.gd:34)
+       [2] spawn_level (res://tests/suite/test_suite.gd:43)
+       [3] frames (res://tests/suite/test_suite.gd:23)
+       [4] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid call. Nonexistent function 'owns' in base 'Nil'.
+   at: Level._create_entity (res://game/level/level.gd:571)
+   GDScript backtrace (most recent call first):
+       [0] _create_entity (res://game/level/level.gd:571)
+       [1] _spawn_static_entities (res://game/level/level.gd:439)
+       [2] _ready (res://game/level/level.gd:181)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] _test_persistence (res://tests/suite/test_collectibles.gd:324)
+       [5] run (res://tests/suite/test_collectibles.gd:20)
+       [6] _test_pickup_and_progress (res://tests/suite/test_collectibles.gd:305)
+       [7] start_level (res://tests/suite/test_suite.gd:34)
+       [8] spawn_level (res://tests/suite/test_suite.gd:43)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid call. Nonexistent function 'owns' in base 'Nil'.
+   at: Level._create_entity (res://game/level/level.gd:571)
+   GDScript backtrace (most recent call first):
+       [0] _create_entity (res://game/level/level.gd:571)
+       [1] _spawn_static_entities (res://game/level/level.gd:439)
+       [2] _ready (res://game/level/level.gd:181)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] _test_persistence (res://tests/suite/test_collectibles.gd:324)
+       [5] run (res://tests/suite/test_collectibles.gd:20)
+       [6] _test_pickup_and_progress (res://tests/suite/test_collectibles.gd:305)
+       [7] start_level (res://tests/suite/test_suite.gd:34)
+       [8] spawn_level (res://tests/suite/test_suite.gd:43)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid call. Nonexistent function 'overall_collection' in base 'Nil'.
+   at: StoryItemsPage.tab_tooltip (res://ui/inventory/pages/story_items_page.gd:11)
+   GDScript backtrace (most recent call first):
+       [0] tab_tooltip (res://ui/inventory/pages/story_items_page.gd:11)
+       [1] _create_pages (res://ui/inventory/inventory_screen.gd:262)
+       [2] _ready (res://ui/inventory/inventory_screen.gd:57)
+       [3] _ready (res://game/level/level.gd:231)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_persistence (res://tests/suite/test_collectibles.gd:324)
+       [6] run (res://tests/suite/test_collectibles.gd:20)
+       [7] _test_pickup_and_progress (res://tests/suite/test_collectibles.gd:305)
+       [8] start_level (res://tests/suite/test_suite.gd:34)
+       [9] spawn_level (res://tests/suite/test_suite.gd:43)
+       [10] frames (res://tests/suite/test_suite.gd:23)
+       [11] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new_count' in base 'Nil'.
+   at: StoryItemsPage.tab_has_alert (res://ui/inventory/pages/story_items_page.gd:18)
+   GDScript backtrace (most recent call first):
+       [0] tab_has_alert (res://ui/inventory/pages/story_items_page.gd:18)
+       [1] _refresh_tab_labels (res://ui/inventory/inventory_screen.gd:272)
+       [2] _create_pages (res://ui/inventory/inventory_screen.gd:265)
+       [3] _ready (res://ui/inventory/inventory_screen.gd:57)
+       [4] _ready (res://game/level/level.gd:231)
+       [5] spawn_level (res://tests/suite/test_suite.gd:41)
+       [6] _test_persistence (res://tests/suite/test_collectibles.gd:324)
+       [7] run (res://tests/suite/test_collectibles.gd:20)
+       [8] _test_pickup_and_progress (res://tests/suite/test_collectibles.gd:305)
+       [9] start_level (res://tests/suite/test_suite.gd:34)
+       [10] spawn_level (res://tests/suite/test_suite.gd:43)
+       [11] frames (res://tests/suite/test_suite.gd:23)
+       [12] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new_count' in base 'Nil'.
+   at: StoryItemsPage.tab_has_alert (res://ui/inventory/pages/story_items_page.gd:18)
+   GDScript backtrace (most recent call first):
+       [0] tab_has_alert (res://ui/inventory/pages/story_items_page.gd:18)
+       [1] _refresh_tab_labels (res://ui/inventory/inventory_screen.gd:276)
+       [2] _create_pages (res://ui/inventory/inventory_screen.gd:265)
+       [3] _ready (res://ui/inventory/inventory_screen.gd:57)
+       [4] _ready (res://game/level/level.gd:231)
+       [5] spawn_level (res://tests/suite/test_suite.gd:41)
+       [6] _test_persistence (res://tests/suite/test_collectibles.gd:324)
+       [7] run (res://tests/suite/test_collectibles.gd:20)
+       [8] _test_pickup_and_progress (res://tests/suite/test_collectibles.gd:305)
+       [9] start_level (res://tests/suite/test_suite.gd:34)
+       [10] spawn_level (res://tests/suite/test_suite.gd:43)
+       [11] frames (res://tests/suite/test_suite.gd:23)
+       [12] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid call. Nonexistent function 'owns' in base 'Nil'.
+   at: CollectiblesSuite._test_persistence (res://tests/suite/test_collectibles.gd:325)
+   GDScript backtrace (most recent call first):
+       [0] _test_persistence (res://tests/suite/test_collectibles.gd:325)
+       [1] spawn_level (res://tests/suite/test_suite.gd:43)
+       [2] frames (res://tests/suite/test_suite.gd:23)
+       [3] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid call. Nonexistent function 'reset_run' in base 'Nil'.
+   at: start_new_run (res://autoload/game_state.gd:106)
+   GDScript backtrace (most recent call first):
+       [0] start_new_run (res://autoload/game_state.gd:106)
+       [1] start_level (res://tests/suite/test_suite.gd:33)
+       [2] _test_hidden_room (res://tests/suite/test_collectibles.gd:336)
+       [3] run (res://tests/suite/test_collectibles.gd:21)
+       [4] _test_persistence (res://tests/suite/test_collectibles.gd:325)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid call. Nonexistent function 'owns' in base 'Nil'.
+   at: Level._create_entity (res://game/level/level.gd:571)
+   GDScript backtrace (most recent call first):
+       [0] _create_entity (res://game/level/level.gd:571)
+       [1] _spawn_static_entities (res://game/level/level.gd:439)
+       [2] _ready (res://game/level/level.gd:181)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_hidden_room (res://tests/suite/test_collectibles.gd:336)
+       [6] run (res://tests/suite/test_collectibles.gd:21)
+       [7] _test_persistence (res://tests/suite/test_collectibles.gd:325)
+       [8] spawn_level (res://tests/suite/test_suite.gd:43)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid call. Nonexistent function 'owns' in base 'Nil'.
+   at: Level._create_entity (res://game/level/level.gd:571)
+   GDScript backtrace (most recent call first):
+       [0] _create_entity (res://game/level/level.gd:571)
+       [1] _spawn_static_entities (res://game/level/level.gd:439)
+       [2] _ready (res://game/level/level.gd:181)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_hidden_room (res://tests/suite/test_collectibles.gd:336)
+       [6] run (res://tests/suite/test_collectibles.gd:21)
+       [7] _test_persistence (res://tests/suite/test_collectibles.gd:325)
+       [8] spawn_level (res://tests/suite/test_suite.gd:43)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid call. Nonexistent function 'overall_collection' in base 'Nil'.
+   at: StoryItemsPage.tab_tooltip (res://ui/inventory/pages/story_items_page.gd:11)
+   GDScript backtrace (most recent call first):
+       [0] tab_tooltip (res://ui/inventory/pages/story_items_page.gd:11)
+       [1] _create_pages (res://ui/inventory/inventory_screen.gd:262)
+       [2] _ready (res://ui/inventory/inventory_screen.gd:57)
+       [3] _ready (res://game/level/level.gd:231)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] start_level (res://tests/suite/test_suite.gd:34)
+       [6] _test_hidden_room (res://tests/suite/test_collectibles.gd:336)
+       [7] run (res://tests/suite/test_collectibles.gd:21)
+       [8] _test_persistence (res://tests/suite/test_collectibles.gd:325)
+       [9] spawn_level (res://tests/suite/test_suite.gd:43)
+       [10] frames (res://tests/suite/test_suite.gd:23)
+       [11] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new_count' in base 'Nil'.
+   at: StoryItemsPage.tab_has_alert (res://ui/inventory/pages/story_items_page.gd:18)
+   GDScript backtrace (most recent call first):
+       [0] tab_has_alert (res://ui/inventory/pages/story_items_page.gd:18)
+       [1] _refresh_tab_labels (res://ui/inventory/inventory_screen.gd:272)
+       [2] _create_pages (res://ui/inventory/inventory_screen.gd:265)
+       [3] _ready (res://ui/inventory/inventory_screen.gd:57)
+       [4] _ready (res://game/level/level.gd:231)
+       [5] spawn_level (res://tests/suite/test_suite.gd:41)
+       [6] start_level (res://tests/suite/test_suite.gd:34)
+       [7] _test_hidden_room (res://tests/suite/test_collectibles.gd:336)
+       [8] run (res://tests/suite/test_collectibles.gd:21)
+       [9] _test_persistence (res://tests/suite/test_collectibles.gd:325)
+       [10] spawn_level (res://tests/suite/test_suite.gd:43)
+       [11] frames (res://tests/suite/test_suite.gd:23)
+       [12] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new_count' in base 'Nil'.
+   at: StoryItemsPage.tab_has_alert (res://ui/inventory/pages/story_items_page.gd:18)
+   GDScript backtrace (most recent call first):
+       [0] tab_has_alert (res://ui/inventory/pages/story_items_page.gd:18)
+       [1] _refresh_tab_labels (res://ui/inventory/inventory_screen.gd:276)
+       [2] _create_pages (res://ui/inventory/inventory_screen.gd:265)
+       [3] _ready (res://ui/inventory/inventory_screen.gd:57)
+       [4] _ready (res://game/level/level.gd:231)
+       [5] spawn_level (res://tests/suite/test_suite.gd:41)
+       [6] start_level (res://tests/suite/test_suite.gd:34)
+       [7] _test_hidden_room (res://tests/suite/test_collectibles.gd:336)
+       [8] run (res://tests/suite/test_collectibles.gd:21)
+       [9] _test_persistence (res://tests/suite/test_collectibles.gd:325)
+       [10] spawn_level (res://tests/suite/test_suite.gd:43)
+       [11] frames (res://tests/suite/test_suite.gd:23)
+       [12] _frames (res://tests/smoke_test.gd:122)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+SCRIPT ERROR: Invalid call. Nonexistent function 'owns' in base 'Nil'.
+   at: CollectiblesSuite._test_hidden_room (res://tests/suite/test_collectibles.gd:360)
+   GDScript backtrace (most recent call first):
+       [0] _test_hidden_room (res://tests/suite/test_collectibles.gd:360)
+       [1] physics_frames (res://tests/suite/test_suite.gd:28)
+SCRIPT ERROR: Invalid call. Nonexistent function 'reset_run' in base 'Nil'.
+   at: start_new_run (res://autoload/game_state.gd:106)
+   GDScript backtrace (most recent call first):
+       [0] start_new_run (res://autoload/game_state.gd:106)
+       [1] _test_inventory_page (res://tests/suite/test_collectibles.gd:365)
+       [2] run (res://tests/suite/test_collectibles.gd:22)
+       [3] _test_hidden_room (res://tests/suite/test_collectibles.gd:360)
+       [4] physics_frames (res://tests/suite/test_suite.gd:28)
+SCRIPT ERROR: Invalid call. Nonexistent function 'acquire' in base 'Nil'.
+   at: CollectiblesSuite._test_inventory_page (res://tests/suite/test_collectibles.gd:366)
+   GDScript backtrace (most recent call first):
+       [0] _test_inventory_page (res://tests/suite/test_collectibles.gd:366)
+       [1] run (res://tests/suite/test_collectibles.gd:22)
+       [2] _test_hidden_room (res://tests/suite/test_collectibles.gd:360)
+       [3] physics_frames (res://tests/suite/test_suite.gd:28)
+SUITE_TIME CollectiblesSuite 5.4
+checks: 29, failures: 1
+FAIL: the broken wall opens the hidden room
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)
+WARNING: [WorldState] 狀態 key 重複：breakable@31,19
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] capture (res://game/level/world_state.gd:20)
+       [1] _sample (res://ui/quest_guidance.gd:69)
+       [2] _process (res://ui/quest_guidance.gd:59)

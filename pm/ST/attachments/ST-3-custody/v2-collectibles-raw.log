@@ -1,0 +1,1660 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+WARNING: [StoryItems] transfer/unknown_item 未知道具，交付未生效
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] transfer (res://autoload/story_items.gd:111)
+       [1] _test_item_custody (res://tests/suite/test_collectibles.gd:45)
+       [2] run (res://tests/suite/test_collectibles.gd:14)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_item_custody (res://tests/suite/test_collectibles.gd:69)
+       [3] run (res://tests/suite/test_collectibles.gd:14)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_item_custody (res://tests/suite/test_collectibles.gd:69)
+       [2] run (res://tests/suite/test_collectibles.gd:14)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_item_custody (res://tests/suite/test_collectibles.gd:70)
+       [3] run (res://tests/suite/test_collectibles.gd:14)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_item_custody (res://tests/suite/test_collectibles.gd:70)
+       [2] run (res://tests/suite/test_collectibles.gd:14)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:81)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:81)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items 必須是完整物品物件，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:254)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/custody_version 缺漏或損毀，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:254)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/custody_version 缺漏或損毀，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:254)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/custody_version 不支援，原檔保留；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:254)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/custody_version 缺漏或損毀，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:254)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/custody_version 缺漏或損毀，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:254)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/custody_version 缺漏或損毀，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:254)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:129)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:136)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:139)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:139)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _read_file (res://core/run_save_store.gd:58)
+       [3] write (res://core/run_save_store.gd:102)
+       [4] _test_custody_validation (res://tests/suite/test_collectibles.gd:144)
+       [5] run (res://tests/suite/test_collectibles.gd:15)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _read_file (res://core/run_save_store.gd:58)
+       [2] write (res://core/run_save_store.gd:102)
+       [3] _test_custody_validation (res://tests/suite/test_collectibles.gd:144)
+       [4] run (res://tests/suite/test_collectibles.gd:15)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [RunSave] user://st3_custody_suite.json.tmp：寫入或驗證失敗（0），原檔保留
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:104)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:144)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] prepare (res://core/run_snapshot.gd:43)
+       [2] _read_file (res://core/run_save_store.gd:58)
+       [3] write (res://core/run_save_store.gd:102)
+       [4] _test_custody_validation (res://tests/suite/test_collectibles.gd:148)
+       [5] run (res://tests/suite/test_collectibles.gd:15)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: prepare (res://core/run_snapshot.gd:53)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:53)
+       [1] _read_file (res://core/run_save_store.gd:58)
+       [2] write (res://core/run_save_store.gd:102)
+       [3] _test_custody_validation (res://tests/suite/test_collectibles.gd:148)
+       [4] run (res://tests/suite/test_collectibles.gd:15)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+WARNING: [RunSave] user://st3_custody_suite.json.tmp：寫入或驗證失敗（0），原檔保留
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:104)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:148)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Invalid access to property or key 'story' on a base object of type 'Dictionary'.
+   at: CollectiblesSuite._test_custody_validation (res://tests/suite/test_collectibles.gd:149)
+   GDScript backtrace (most recent call first):
+       [0] _test_custody_validation (res://tests/suite/test_collectibles.gd:149)
+       [1] run (res://tests/suite/test_collectibles.gd:15)
+       [2] _run_suites (res://tests/smoke_test.gd:109)
+       [3] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/held/0：文字超過上限；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:254)
+       [1] _test_custody_bounded_input (res://tests/suite/test_collectibles.gd:185)
+       [2] run (res://tests/suite/test_collectibles.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/extra/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0：資料數量或深度超過上限；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:254)
+       [1] _test_custody_bounded_input (res://tests/suite/test_collectibles.gd:185)
+       [2] run (res://tests/suite/test_collectibles.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/extra/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0：資料數量或深度超過上限；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:254)
+       [1] _test_custody_bounded_input (res://tests/suite/test_collectibles.gd:185)
+       [2] run (res://tests/suite/test_collectibles.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] restore_story_progress (res://autoload/game_state.gd:287)
+       [3] _apply_components (res://core/run_snapshot.gd:178)
+       [4] rollback_presentation (res://core/run_snapshot.gd:166)
+       [5] _test_custody_lifecycle (res://tests/suite/test_collectibles.gd:198)
+       [6] start_level (res://tests/suite/test_suite.gd:34)
+       [7] spawn_level (res://tests/suite/test_suite.gd:43)
+       [8] frames (res://tests/suite/test_suite.gd:23)
+       [9] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] restore_story_progress (res://autoload/game_state.gd:287)
+       [2] _apply_components (res://core/run_snapshot.gd:178)
+       [3] rollback_presentation (res://core/run_snapshot.gd:166)
+       [4] _test_custody_lifecycle (res://tests/suite/test_collectibles.gd:198)
+       [5] start_level (res://tests/suite/test_suite.gd:34)
+       [6] spawn_level (res://tests/suite/test_suite.gd:43)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.activated.@3,20: 找不到存檔點，已略過。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _apply_components (res://core/run_snapshot.gd:187)
+       [2] rollback_presentation (res://core/run_snapshot.gd:166)
+       [3] _test_custody_lifecycle (res://tests/suite/test_collectibles.gd:198)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Trying to assign an array of type "Array" to a variable of type "Array[String]".
+   at: prepare_snapshot (res://autoload/story_items.gd:217)
+   GDScript backtrace (most recent call first):
+       [0] prepare_snapshot (res://autoload/story_items.gd:217)
+       [1] restore (res://autoload/story_items.gd:252)
+       [2] restore_story_progress (res://autoload/game_state.gd:287)
+       [3] _apply_components (res://core/run_snapshot.gd:178)
+       [4] rollback_presentation (res://core/run_snapshot.gd:166)
+       [5] _test_custody_lifecycle (res://tests/suite/test_collectibles.gd:208)
+       [6] start_level (res://tests/suite/test_suite.gd:34)
+       [7] spawn_level (res://tests/suite/test_suite.gd:43)
+       [8] frames (res://tests/suite/test_suite.gd:23)
+       [9] _frames (res://tests/smoke_test.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'.
+   at: restore (res://autoload/story_items.gd:256)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:256)
+       [1] restore_story_progress (res://autoload/game_state.gd:287)
+       [2] _apply_components (res://core/run_snapshot.gd:178)
+       [3] rollback_presentation (res://core/run_snapshot.gd:166)
+       [4] _test_custody_lifecycle (res://tests/suite/test_collectibles.gd:208)
+       [5] start_level (res://tests/suite/test_suite.gd:34)
+       [6] spawn_level (res://tests/suite/test_suite.gd:43)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME CollectiblesSuite 7.2
+checks: 288, failures: 69
+FAIL: custody: valid empty legacy restore succeeds
+FAIL: custody: true JSON roundtrip restores transferred disk without resurrection
+FAIL: custody: complete legacy maps history to held
+FAIL: custody: malformed 1 has exact component diagnostic
+FAIL: custody: malformed 1 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 2 has exact component diagnostic
+FAIL: custody: malformed 2 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 5 has exact component diagnostic
+FAIL: custody: malformed 5 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 6 has exact component diagnostic
+FAIL: custody: malformed 6 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 7 has exact component diagnostic
+FAIL: custody: malformed 7 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 8 has exact component diagnostic
+FAIL: custody: malformed 8 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 9 has exact component diagnostic
+FAIL: custody: malformed 9 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 10 has exact component diagnostic
+FAIL: custody: malformed 10 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 11 has exact component diagnostic
+FAIL: custody: malformed 11 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 12 has exact component diagnostic
+FAIL: custody: malformed 12 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 17 has exact component diagnostic
+FAIL: custody: malformed 17 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 18 has exact component diagnostic
+FAIL: custody: malformed 18 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 19 has exact component diagnostic
+FAIL: custody: malformed 19 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 20 has exact component diagnostic
+FAIL: custody: malformed 20 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 21 has exact component diagnostic
+FAIL: custody: malformed 21 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 22 has exact component diagnostic
+FAIL: custody: malformed 22 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 23 has exact component diagnostic
+FAIL: custody: malformed 23 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 24 has exact component diagnostic
+FAIL: custody: malformed 24 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 25 has exact component diagnostic
+FAIL: custody: malformed 25 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 26 has exact component diagnostic
+FAIL: custody: malformed 26 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 27 has exact component diagnostic
+FAIL: custody: malformed 27 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 28 has exact component diagnostic
+FAIL: custody: malformed 28 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 29 has exact component diagnostic
+FAIL: custody: malformed 29 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 30 has exact component diagnostic
+FAIL: custody: malformed 30 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 31 has exact component diagnostic
+FAIL: custody: malformed 31 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 32 has exact component diagnostic
+FAIL: custody: malformed 32 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 33 has exact component diagnostic
+FAIL: custody: malformed 33 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 34 has exact component diagnostic
+FAIL: custody: malformed 34 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 35 has exact component diagnostic
+FAIL: custody: malformed 35 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 36 has exact component diagnostic
+FAIL: custody: malformed 36 rejects whole-run without partial state or source repair
+FAIL: custody: malformed 37 has exact component diagnostic
+FAIL: custody: malformed 37 rejects whole-run without partial state or source repair
+FAIL: custody: run prepare normalizes legacy in detached result only
+FAIL: custody: valid transferred whole-run writes to private fixture slot
+FAIL: custody: cancelling unfinished segment restores entry custody and keeps live death
+FAIL: custody: cancellation of later segment keeps earlier committed transfer and removes only provisional acquisition

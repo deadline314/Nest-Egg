@@ -1,0 +1,59 @@
+SCRIPT_ERROR=0
+Parse_Error=0
+Compile_Error=0
+raw_ERROR_lines=49
+raw_FAIL_lines=0
+completed_group_markers=42
+unexpected_errors=false
+SUITE_TIME main 91.8
+SUITE_TIME PropsSuite 9.3
+SUITE_TIME CollectiblesSuite 5.4
+SUITE_TIME ProgressionSuite 3.6
+SUITE_TIME SupplySuite 8.0
+SUITE_TIME RunSaveSuite 0.4
+SUITE_TIME Chapter2Suite 57.0
+SUITE_TIME TransitionSuite 3.9
+SUITE_TIME UiScreensSuite 9.3
+SUITE_TIME CutsceneSuite 5.9
+SUITE_TIME AmmoIconsSuite 0.2
+SUITE_TIME AmmoTraySuite 9.1
+SUITE_TIME CombatHudSuite 4.8
+SUITE_TIME ChapterCutscenesSuite 0.4
+SUITE_TIME NpcSuite 6.5
+SUITE_TIME NpcAnimationSuite 1.4
+SUITE_TIME StoryLintSuite 0.6
+SUITE_TIME StoryContentSuite 0.0
+SUITE_TIME DeathReactionSuite 27.7
+SUITE_TIME DeathFlowSuite 5.0
+SUITE_TIME ContinuitySuite 43.1
+SUITE_TIME PacingSuite 0.1
+SUITE_TIME SceneSanitySuite 1.5
+SUITE_TIME EconomySuite 0.4
+SUITE_TIME Chapter2ExpansionSuite 27.0
+SUITE_TIME FeelSuite 2.6
+SUITE_TIME MeleeWeaponsSuite 9.1
+SUITE_TIME FxMeleePickupsSuite 19.1
+SUITE_TIME InputFeelSuite 3.5
+SUITE_TIME MusicSuite 2.5
+SUITE_TIME SoundLabSuite 2.8
+SUITE_TIME ClipEditorSuite 0.7
+SUITE_TIME ApplyPanelSuite 0.6
+SUITE_TIME LayerOrderSuite 0.7
+SUITE_TIME SoundStageSuite 44.5
+SUITE_TIME StageCoverageWeaponsSuite 50.5
+SUITE_TIME StageCoverageCharactersSuite 37.3
+SUITE_TIME StageCoverageWorldSuite 148.9
+SUITE_TIME DevMenuSuite 0.0
+SUITE_TIME QuestMapSuite 1.8
+SUITE_TIME ReadabilityTargetsSuite 0.1
+SUITE_TIME Chapter1MapSuite 49.8
+checks: 9005, failures: 0
+EOF_TAIL
+checks: 9005, failures: 0
+ERROR: 6 RID allocations of type 'P11GodotArea2D' were leaked at exit.
+WARNING: 7 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 25 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 13 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

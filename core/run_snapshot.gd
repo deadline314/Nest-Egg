@@ -40,12 +40,9 @@ static func prepare(raw: Dictionary) -> Dictionary:
 	var story: Dictionary = raw["story"]
 	if not story.get("flags") is Dictionary or not story.get("seen") is Array or not story.get("items") is Dictionary:
 		return {"error": "run/story缺漏旗標、演出或物品；原檔保留"}
-	for key: String in ["owned", "unseen"]:
-		if not story["items"].get(key) is Array:
-			return {"error": "run/story/items/%s缺漏，不能移除已取得的主線物品" % key}
-		for item: Variant in story["items"][key]:
-			if typeof(item) not in [TYPE_STRING, TYPE_STRING_NAME] or StoryItems.find(StringName(item)) == null:
-				return {"error": "run/story/items/%s包含未知物品，原檔保留" % key}
+	var items := StoryItems.prepare_snapshot(story["items"], "run/story/items")
+	if items.has("error"):
+		return items
 	for flag: Variant in story["flags"]:
 		if not GameState._flag_value_valid(story["flags"][flag]):
 			return {"error": "run/story/flags/%s不是有效旗標值" % flag}
@@ -53,6 +50,7 @@ static func prepare(raw: Dictionary) -> Dictionary:
 		if typeof(scene) not in [TYPE_STRING, TYPE_STRING_NAME]:
 			return {"error": "run/story/seen包含非文字場景"}
 	var result := raw.duplicate(true)
+	result["story"]["items"] = items["data"]
 	var state: Dictionary = result["state"]
 	for key: String in DICTIONARIES:
 		if not state.get(key, {}) is Dictionary:
