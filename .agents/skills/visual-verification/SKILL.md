@@ -39,6 +39,11 @@ xvfb-run -a -s "-screen 0 1280x720x24" godot_x11 --path . --rendering-driver vul
 | `tools/lamp_gallery.tscn` | 場景燈具一覽：每一款亮與熄滅、原本的裝法與掛在桿子上的樣子 |
 | `tools/weapon_light_probe.tscn` | 槍燈：在真實關卡套上暗的光影，每把槍朝三個方向各拍一張；量開、關槍燈時 8 格外敵人的亮度，以及開火時每影格的耗時（開、關交替量）。這支工具也能原封不動拿去量還沒有槍燈的舊版本 |
 | `tools/vfx_exposure_probe.tscn` ＋ `tools/vfx_exposure_sheet.py` | 每一份光影設定下的槍口、敵人死亡、油桶爆炸連拍與全白比例（`--level` 換成真實關卡、`--stress` 量連續爆炸的每影格間隔）；改爆炸或新增光影設定後重跑 |
+| `tools/screenshot.tscn --scenario=screens --text-scale=1.2` | 主選單、難度、設定、圖鑑、暫停、死亡、結算一次拍完；`--text-scale` 寫入獨立設定檔，`--size=寬x高` 改視窗大小 |
+| `tools/ui_textscale_sweep.tscn [--text-scale=1.2]` | 設定四個分頁與補給商店，並列出超出畫面或被裁切的文字（可捲動清單裡的列不算問題） |
+| `tools/quest_map_probe.tscn --text-scale=1.2` | 任務與地圖各分頁的放大文字版面；`--fixtures` 畫面會標示驗證樣本 |
+| `tools/hud_hover_modal_capture.tscn [--legacy]` | 滑鼠停在 HUD 上再開暫停頁／通訊／交談；`--legacy` 拿掉守門重現修前畫面 |
+| `tools/pickup_feed_capture.tscn` | 拾取紀錄與舊的中央取得橫幅對照 |
 | `tools/ne251_wake_probe.tscn -- --mode=route\|isolated\|resume\|sweep` | 過場舞台上主角頭部的純白比例，以及白髮和正後方背景分不分得開（`route` 走真正的倉庫溺斃 → 診間醒來；`sweep` 量所有有主角登場的舞台）；門檻純白 2%、糊掉 5% |
 
 量測陷阱（都踩過）：
@@ -50,6 +55,8 @@ xvfb-run -a -s "-screen 0 1280x720x24" godot_x11 --path . --rendering-driver vul
 - 比「開」與「關」兩張畫面時，鏡頭要先停下來（瞄準方向改變後鏡頭會慢慢偏過去，等 2 秒以上），雨、蒸汽、閃爍要先定住或藏起來，否則兩張的差別大部分是雜訊。用「開比關暗兩成以上的畫面比例」減去「關比開暗兩成以上的比例」，不要用整張的平均亮度差。
 - 量每影格耗時：機器同時有別的工作時，整段各量一次再相除會差到一成以上。改成「開、關緊接著各量 45 格」算一組，量 60 組取比值的中位數。
 - 著色器看起來沒作用時，先把中間值直接輸出成顏色（一個色版一個值）再用開與關兩張的比值量，不要只用眼睛看縮圖：曾經在「資料有沒有傳進著色器」上繞了很久，其實是傳了、但算出來的效果被霧與光錐蓋掉。
+- 軟體渲染約每秒數格：等待提示、橫幅這類有時效的畫面要用「幾格」而不是「幾十格」，否則截到的是已經淡出的畫面；需要等時間時用實際毫秒計時。
+- 新增 `class_name` 後要先跑一次 `--headless --editor --quit` 更新類別快取，否則其他腳本找不到新類別。
 - 過場的問題要走實際路線量一次：關卡在過場播放時還留在底下（補光倍率、泛光設定都是那一關的），單獨播放場景量到的不一定是玩家看到的（NE-251）。
 
 ## 驗收規則
