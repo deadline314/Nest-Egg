@@ -1,0 +1,27 @@
+{
+  "mode": "bare-direct",
+  "actual_pid": 33728,
+  "elapsed_seconds": 12.125,
+  "checks": 1582,
+  "failures": 0,
+  "observer_errors": 0,
+  "draws": 186,
+  "overlap_phases": 8,
+  "exit": 0,
+  "natural_exit": true,
+  "script_terminated": false,
+  "overflow_terminated": false,
+  "raw_errors": [],
+  "source_drift": [],
+  "memory": {
+    "samples": 32,
+    "peak_ws": 569585664,
+    "peak_private": 852512768,
+    "errors": [],
+    "vram_measured": false
+  },
+  "log_sha256": "1033d6a514bdbda7567cca4624bdcbe863853d8970211ee991a521061e7a3ca4",
+  "sources_sha256": "9fdb58208d04ee24dcbd18f7f50e7725f5b2e6a491c4888b9e0101644dc86010",
+  "report_sha256": "d4ca04cabfeba00f0b7e4f5747ba20188a74fbfc70916b3ec31cfeceb294cdf4",
+  "passed": true
+}

@@ -1,0 +1,61 @@
+{
+  "identical_ordered_batches": true,
+  "source_count": 7870,
+  "results": [
+    {
+      "mode": "prefetch-canvas",
+      "actual_pid": 34668,
+      "checks": 198,
+      "failures": 1,
+      "observer_errors": 3,
+      "overlap_phases": 8,
+      "natural_exit": true,
+      "passed": false,
+      "log_sha256": "76c62a92e8cf1919e991ce85bb0c26fec5db5389dfc831c4697a4e0a77c5ce5d",
+      "memory": {
+        "samples": 31,
+        "peak_ws": 568930304,
+        "peak_private": 849457152,
+        "errors": [],
+        "vram_measured": false
+      }
+    },
+    {
+      "mode": "bare-canvas",
+      "actual_pid": 4952,
+      "checks": 1582,
+      "failures": 1,
+      "observer_errors": 2,
+      "overlap_phases": 8,
+      "natural_exit": true,
+      "passed": false,
+      "log_sha256": "52fef6e8dc727c3a404fbcbfe6172a64c05723de4e4eef73e0e24d685351d671",
+      "memory": {
+        "samples": 32,
+        "peak_ws": 570114048,
+        "peak_private": 851349504,
+        "errors": [],
+        "vram_measured": false
+      }
+    },
+    {
+      "mode": "bare-direct",
+      "actual_pid": 33728,
+      "checks": 1582,
+      "failures": 0,
+      "observer_errors": 0,
+      "overlap_phases": 8,
+      "natural_exit": true,
+      "passed": true,
+      "log_sha256": "1033d6a514bdbda7567cca4624bdcbe863853d8970211ee991a521061e7a3ca4",
+      "memory": {
+        "samples": 32,
+        "peak_ws": 569585664,
+        "peak_private": 852512768,
+        "errors": [],
+        "vram_measured": false
+      }
+    }
+  ],
+  "interpretation": "Canvas wrappers/native asynchronous texture loading combination reproduced with and without AssetPrefetch; bare direct control result separate. No exact native call stack/owner confirmed; no product fix or previous Main acceptance inferred."
+}

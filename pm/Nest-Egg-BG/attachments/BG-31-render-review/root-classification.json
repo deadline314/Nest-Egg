@@ -1,0 +1,10 @@
+{
+  "original_wrapper_sha256": "1dda98d39ea953dde68ed71f8110123eb66bf15e223a2a6d06cb04fd0a96bfcc",
+  "corrected_wrapper_sha256": "fbd9cae5775c65172adb9d8f30e1385c3e1e8a2472dd8f20703516daa1fce173",
+  "first_run_stays_rejected": true,
+  "native_errors": 4,
+  "wrapper_false_script_match": "the phrase native/script errors in failed assertion matched case-insensitive SCRIPT ERROR without colon",
+  "natural_exit_first_run": false,
+  "source_modified": false,
+  "scope": "correct diagnostic wrapper early-stop classifier only; first raw/result untouched. Use fresh matrix-2 outputs for all three modes."
+}

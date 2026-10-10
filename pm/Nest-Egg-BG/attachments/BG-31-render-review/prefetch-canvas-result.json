@@ -1,0 +1,44 @@
+{
+  "mode": "prefetch-canvas",
+  "actual_pid": 34668,
+  "elapsed_seconds": 12.10899999999674,
+  "checks": 198,
+  "failures": 1,
+  "observer_errors": 3,
+  "draws": 209,
+  "overlap_phases": 8,
+  "exit": 1,
+  "natural_exit": true,
+  "script_terminated": false,
+  "overflow_terminated": false,
+  "raw_errors": [
+    {
+      "line": 4,
+      "text": "ERROR: Attempting to use an uninitialized RID"
+    },
+    {
+      "line": 6,
+      "text": "ERROR: Attempting to use an uninitialized RID"
+    },
+    {
+      "line": 8,
+      "text": "ERROR: Attempting to use an uninitialized RID"
+    },
+    {
+      "line": 10,
+      "text": "BG31_CHECK:FAIL:all observed native/script errors are rejected"
+    }
+  ],
+  "source_drift": [],
+  "memory": {
+    "samples": 31,
+    "peak_ws": 568930304,
+    "peak_private": 849457152,
+    "errors": [],
+    "vram_measured": false
+  },
+  "log_sha256": "76c62a92e8cf1919e991ce85bb0c26fec5db5389dfc831c4697a4e0a77c5ce5d",
+  "sources_sha256": "a51a5e7762ef667637cc037dc59e29f7d35ad8ba0f2d9f5569bde5dc8511eb69",
+  "report_sha256": "cf6441354789ebcada7b169f80c0e52c6e3e8b6ba28ecdc1a851ad43a1dbfdc7",
+  "passed": false
+}
