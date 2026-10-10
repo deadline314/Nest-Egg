@@ -18,6 +18,7 @@ func run() -> void:
 	await _test_gunner_sequence()
 	await _test_gunner_armor()
 	await _test_warden_core_cannon()
+	await _test_warden_core_origin()
 	await _test_codex_unlocks()
 	await check_defeatable_on_every_difficulty([FLAMER_PATH, GUNNER_PATH])
 
@@ -142,6 +143,42 @@ func _test_warden_core_cannon() -> void:
 	var exposed := await wait_state(warden, &"idle", 150)
 	check(exposed and core_part.damage_scale == 1.0, "the core closes again afterwards")
 	await physics_frames(60)
+	await end_level(level)
+
+
+func _test_warden_core_origin() -> void:
+	await open_level(10.0)
+	var warden := spawn(WARDEN_PATH, 40.0)
+	await physics_frames(3)
+	warden.set_physics_process(false)
+	level.player.set_physics_process(false)
+	var original_rig := warden.rig
+	for use_rig: bool in [true, false]:
+		warden.rig = original_rig if use_rig else null
+		for face: int in [-1, 1]:
+			for configuration: Vector2 in [Vector2(1, 0), Vector2(1.3, 0), Vector2(1, .35), Vector2(1.3, -.35)]:
+				warden.scale = Vector2.ONE * configuration.x
+				warden.rotation = configuration.y
+				warden.facing = face
+				level.player.global_position = warden.global_position + Vector2(face * 150.0, 0)
+				if use_rig:
+					warden._rig_input.facing = face
+					warden._rig_input.aim_dir = Vector2(face, 0)
+					warden.rig.animate(1.0 / 60.0, warden._rig_input)
+				ProjectilePool.clear_in_radius(warden.global_position, 10000.0, Combat.Team.ENEMY)
+				warden.fsm.transition(&"core_windup")
+				warden._telegraph_left = 0.0
+				var expected := original_rig.bone(&"core_port").global_position if use_rig else warden.to_global(Vector2(0, -warden.data.body_size.y * .62))
+				warden.call(&"_core_windup_tick", 0.0)
+				var count := 0
+				var worst := 0.0
+				for child: Node in ProjectilePool.container().get_children():
+					if child is Projectile and child.active and child.team == Combat.Team.ENEMY:
+						count += 1
+						worst = maxf(worst, child.global_position.distance_to(expected))
+				check(count == 3 and warden.fsm.is_in(&"core_recover"), "core cannon fires three real projectiles before recovering")
+				check(warden.facing == face and worst < .001, "core world origin rig=%s face=%d scale=%.1f rotation=%.2f gap=%.6f" % [use_rig, face, configuration.x, configuration.y, worst])
+	warden.rig = original_rig
 	await end_level(level)
 
 

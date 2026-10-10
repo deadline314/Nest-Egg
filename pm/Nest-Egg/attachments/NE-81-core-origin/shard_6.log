@@ -1,0 +1,25 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME ProgressionSuite 4.2
+SUITE_TIME SupplySuite 8.0
+SUITE_TIME SceneSanitySuite 1.5
+SUITE_TIME MapBubblesSuite 5.5
+ERROR: [StageScenes] 找不到資料檔：res://tests/fixtures/audio/no_such_scenes.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] read_root (res://core/audio/audio_data.gd:13)
+       [2] reload (res://core/audio/stage_scenes.gd:37)
+       [3] _init (res://core/audio/stage_scenes.gd:30)
+       [4] _test_scene_data (res://tests/suite/test_sound_stage.gd:61)
+       [5] run (res://tests/suite/test_sound_stage.gd:9)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_map_bubbles.gd:16)
+       [8] _test_released_host_does_not_hang (res://tests/suite/test_map_bubbles.gd:124)
+       [9] play_and_wait (res://autoload/story.gd:672)
+       [10] _complete_request (res://autoload/story.gd:680)
+       [11] _on_passive_finished (res://autoload/story.gd:612)
+SUITE_TIME SoundStageSuite 44.6
+SUITE_TIME StageCoverageCharactersSuite 37.4
+checks: 731, failures: 0

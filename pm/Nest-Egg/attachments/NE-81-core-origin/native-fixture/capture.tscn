@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://.godot/ne81-core-origin-native/capture.gd" id="1"]
+
+[node name="NE81CoreOriginCapture" type="Node"]
+script = ExtResource("1")

@@ -197,7 +197,7 @@ func _core_windup_tick(_delta: float) -> void:
 	_face_target()
 	if is_telegraphing():
 		return
-	var origin := _core_point() + global_position
+	var origin := to_global(_core_point())
 	WeaponSystem.fire_spread(data.find_projectile(&"boss_fan"), origin, _direction_to_target(), CORE_FIRE_COUNT, CORE_FIRE_SPREAD, 0.0,
 			Combat.Team.ENEMY, _projectile_speed_multiplier())
 	_rig_input.recoil = 1.0

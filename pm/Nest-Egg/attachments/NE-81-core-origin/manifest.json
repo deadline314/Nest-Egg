@@ -1,0 +1,950 @@
+{
+  "base": "b4c186ea401dfb29b92e28a0a9c8e7de46f604e3",
+  "files": [
+    {
+      "path": "game/enemies/warden_boss.gd",
+      "bytes": 13000,
+      "sha256": "3410ce2b8680b63b92f8f88b6f65e5cb42d3d9fed32f28bf29b63f5549054aba"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/.gitattributes",
+      "bytes": 110,
+      "sha256": "02e37422817dafcb3a203ead50e090b2d75d7edc9bf7ed5e33b7eb56921ceefe"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/affected-summary.log",
+      "bytes": 1762,
+      "sha256": "a25d0c041c24b058f15df3b0f1f3829114405321ee42bb4247eb6c2835899996"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/after/capture.json",
+      "bytes": 18572,
+      "sha256": "6d87de997dbe808737daa9ada7a6dedbe7cb153e4090ec056a0c9ccaf130c161"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/after/native.log",
+      "bytes": 10778,
+      "sha256": "c354b3b38a15b1bae43b64a66fe1e8cd49249e9b3459c3c08b58615f5b2a054a"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/after/registered.log",
+      "bytes": 113,
+      "sha256": "7591261808fdf8e6965c58ea4969fa69d3f697516d247dd019e628838b916801"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/before/capture.json",
+      "bytes": 18560,
+      "sha256": "a876c9c5e59d85fedb95ba180a2388be40c351dfb606ce59608402c1fdd3d4f0"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/before/native.log",
+      "bytes": 10936,
+      "sha256": "90a97274f8d9b1ceae339e0b4465432a35ce809f207b8f5e1f8ee889ac7ac895"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/before/registered.log",
+      "bytes": 1078,
+      "sha256": "480427979bba5fb0dbe2b80f056fa36f6839519779357a774a2ded6f3557095e"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/cloud-minimal.patch",
+      "bytes": 3927,
+      "sha256": "e84d08de9a077e4fbf0bd220cfc8302457210dca0191edebefe15887afdb8cd5"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/comparison.json",
+      "bytes": 2895,
+      "sha256": "2bc3f046a2a3000fbb510547bfaff7be977ec0b72d9494fb972abd00b1fce922"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/merged-shard_0.log",
+      "bytes": 2070,
+      "sha256": "21b0fb5cca913e95c9d9d4c970107b53bc00b5e33d33114301aa0268b4b9f11e"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/merged-shard_1.log",
+      "bytes": 163,
+      "sha256": "4902651feeab544438609c00f01de60652b3a8e8c2912516b23866b139c0a185"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/merged-shard_2.log",
+      "bytes": 3006,
+      "sha256": "d6ca6c27062b182bca311a4a66ab98d4684004ab23fbddfd3414269181c0253b"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/merged-shard_3.log",
+      "bytes": 161,
+      "sha256": "d0ae036d5ce0a194c1e6d519fe2dc22bb64a1b004a9007afe4b6edb2147f165c"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/merged-summary.log",
+      "bytes": 372,
+      "sha256": "992641488754b00ef7fa97b90e3fdd37c8a814831c1f8c7068dc9277df897ed3"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/native-fixture/capture.gd",
+      "bytes": 9163,
+      "sha256": "2b1a3ecbd9252cd74fbc2488747b3de6d7688e6a776eaf0b93d8044469165803"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/native-fixture/capture.tscn",
+      "bytes": 200,
+      "sha256": "e0a729c5d3ab7604f9b7dc3e16bda43343e70509af6ea3121de25ef34217d5c2"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/native-fixture/warden_origin_probe.gd",
+      "bytes": 1973,
+      "sha256": "33bd0cee11977590160570ef9157adcdf22b215261ea1b4f5749913ef4eacfc5"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/README.md",
+      "bytes": 4382,
+      "sha256": "ea6e87e07e0ee371488262e70170245f90b893e6aed34b208b96b2bf1140ea1e"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/shard_0.log",
+      "bytes": 169,
+      "sha256": "c5537820dbfdd0e5e43c072a83e2dc873e306ca526499b62e59222c7597b5fd1"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/shard_1.log",
+      "bytes": 160,
+      "sha256": "dfa91a80df2daf7c340970af00cf1f42024915c146bd2c89fbd68732f87cc356"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/shard_2.log",
+      "bytes": 20864,
+      "sha256": "e38214d563c74ce99713a79187d8d6bb0ba34d58a319a5df36e3ede90f25049c"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/shard_3.log",
+      "bytes": 5511,
+      "sha256": "584a45c3982da4a9cbb19e7440e2ceb8f56846fbd4ad2e08fffb50c73809f017"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/shard_4.log",
+      "bytes": 35558,
+      "sha256": "2bdb075f93aadecad685a121133e2f7b9677b10b69048af575fecbda7705f6e7"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/shard_5.log",
+      "bytes": 22080,
+      "sha256": "8323903c9e05fa98a22e50de3a47434a980c1ffcf9b9c6686f01aecc6e14950a"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/shard_6.log",
+      "bytes": 1273,
+      "sha256": "bff06ba7bde7811e26fc6b43cc6ff8d26f54618b35845ebbe221080d3b92c613"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-81-core-origin/shard_7.log",
+      "bytes": 13159,
+      "sha256": "8573117da9b96bf1d0165ac47173738941470d64c030919327bdc776f54f4d65"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/identity_face+1_fired_z1p5.png",
+      "bytes": 224951,
+      "sha256": "f2968b790d28aff686e15fb50ea3e7186ba6ef499b7b4ecaac37060517380393",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/identity_face+1_fired_z1p8.png",
+      "bytes": 263777,
+      "sha256": "bfe0ba732c7fafbc79d11e4cd1642cc4eb0d782ea73484d246fd2944fc8f8440",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/identity_face+1_windup_z1p5.png",
+      "bytes": 251624,
+      "sha256": "09669df652920b4e86d3f3771f7fd099a1e2c824193cf9010f596df953747754",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/identity_face+1_windup_z1p8.png",
+      "bytes": 262534,
+      "sha256": "566c8a912084c2e26171ab9f2d35d8eb85a6f85fa6e362cd9cbdd37c75d5ef15",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/identity_face-1_fired_z1p5.png",
+      "bytes": 238659,
+      "sha256": "983008cd3afa8235935afd022bbd42861629ae54cd11959fd9c34a92c854d9ee",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/identity_face-1_fired_z1p8.png",
+      "bytes": 258713,
+      "sha256": "f12afad7b46e655a8444af4042d7a6f13326b0ed4afde0fd6e4875fac7943b94",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/identity_face-1_windup_z1p5.png",
+      "bytes": 247760,
+      "sha256": "bce9e2e0a95434d89bd496cd8ed6d2f6b30743972aeaf87424b3eda57645137e",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/identity_face-1_windup_z1p8.png",
+      "bytes": 266845,
+      "sha256": "05f10325d679cebb226f8fffdec8df06ef06a612dee0f44f42c2f20f7ca2fb30",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/rotated_minus_0p15_face+1_fired_z1p5.png",
+      "bytes": 215664,
+      "sha256": "78457e246200f6633d88c1b706f7d86b95ae89b853a6a5a13c7c8a6a1c791696",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/rotated_minus_0p15_face+1_fired_z1p8.png",
+      "bytes": 250099,
+      "sha256": "953f782205e354c988303b14763d070c0faf50d8c1dbc801ad8b74fddd68deec",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/rotated_minus_0p15_face+1_windup_z1p5.png",
+      "bytes": 250270,
+      "sha256": "06983491db3c072a984ca6bfef0e679336f3cae5c3a168bc223589771230c2dc",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/rotated_minus_0p15_face+1_windup_z1p8.png",
+      "bytes": 261221,
+      "sha256": "40a3a8dbf41d7155f9e190d8bedcfb2cfa449706222fd7164ae426376113f769",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/rotated_minus_0p15_face-1_fired_z1p5.png",
+      "bytes": 248674,
+      "sha256": "ac983e1de681b6d5d208c3916181499658115898a708eac69146fddc416000af",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/rotated_minus_0p15_face-1_fired_z1p8.png",
+      "bytes": 258506,
+      "sha256": "a01f1bd543c1f2234cf5c25c2dce66e07ea95489b30b764ee9b279f27bdc9240",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/rotated_minus_0p15_face-1_windup_z1p5.png",
+      "bytes": 253613,
+      "sha256": "f5e1b816e95c7d343f800fa06fbc092ba93eb0d9e940b4af2ff78eb4a1a47c49",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/rotated_minus_0p15_face-1_windup_z1p8.png",
+      "bytes": 255591,
+      "sha256": "a596108b2a642f05a548af52856581fcdc35d98db173fc42c10283ec657a4bd6",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/rotated_plus_0p15_face+1_fired_z1p5.png",
+      "bytes": 237692,
+      "sha256": "98453f587216d9e2cb27fca764a506aa838e3239384ee35e087ae148bdc1c3ec",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/rotated_plus_0p15_face+1_fired_z1p8.png",
+      "bytes": 252164,
+      "sha256": "d5b53a6d6101bce119dcfdba07c4bbe83159afa74970c227377c631f3e32939c",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/rotated_plus_0p15_face+1_windup_z1p5.png",
+      "bytes": 235967,
+      "sha256": "98d0974bd844f732c0e7789f79df0edd0194eef49cabf87452e15c9ea7c5ea6a",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/rotated_plus_0p15_face+1_windup_z1p8.png",
+      "bytes": 273927,
+      "sha256": "a151e863ec46ff575c78605831c9349b2b62d35c44f8a30eb892df84740696cd",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/rotated_plus_0p15_face-1_fired_z1p5.png",
+      "bytes": 229880,
+      "sha256": "dab742a6a23f577a6dd386ebcc0665db8255c581e137322b76dd1543eed44a07",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/rotated_plus_0p15_face-1_fired_z1p8.png",
+      "bytes": 237694,
+      "sha256": "0bd1907dcadefca72c01489e2213c9a52a762259b4551e89367dc925dbea7795",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/rotated_plus_0p15_face-1_windup_z1p5.png",
+      "bytes": 253408,
+      "sha256": "b639a66c69c4102a12ed33e336672198eb417467c490ebf745de22c27ee47edf",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/rotated_plus_0p15_face-1_windup_z1p8.png",
+      "bytes": 274711,
+      "sha256": "d10be5900ce0f94d6fc95ba48fd34bc9d151b517b04a506840a16dad299e57ff",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/scaled_1p5_face+1_fired_z1p5.png",
+      "bytes": 265973,
+      "sha256": "e7082bd3dc9cf91082ef7fe040d6206d16984bcc591a5e166588bc6920e38df4",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/scaled_1p5_face+1_fired_z1p8.png",
+      "bytes": 297371,
+      "sha256": "4ee87a237acf3775618fccb6066ef483e80e94a9e8a1d15969f2723eb4c8b5b1",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/scaled_1p5_face+1_windup_z1p5.png",
+      "bytes": 304644,
+      "sha256": "706ac2317fc1b37c3cded8318c75ab0dd32a2879f85b670fec230aa444c128c6",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/scaled_1p5_face+1_windup_z1p8.png",
+      "bytes": 331865,
+      "sha256": "2861560fda515c56d12f838168e9b29abbce7fae79034dd0f1ec64ecdf9c1e8a",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/scaled_1p5_face-1_fired_z1p5.png",
+      "bytes": 274080,
+      "sha256": "a5281bc0b8be4d9df0ec713297b6a206cf6a07c2d19301bc5258120f24dba857",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/scaled_1p5_face-1_fired_z1p8.png",
+      "bytes": 305313,
+      "sha256": "9546c287da64b2f2ea7c813ced3c38ed0b061ed911238f750cf8680de499943a",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/scaled_1p5_face-1_windup_z1p5.png",
+      "bytes": 298620,
+      "sha256": "3735eefcb601a1bfc17318134400ae4d0adeda7260bca5ed86f2c3a2143a853c",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/scaled_1p5_face-1_windup_z1p8.png",
+      "bytes": 325298,
+      "sha256": "3054cdede4273be25c4a79be3a8a55e24a8d49e36ac372ee61bdaeaa909c53ab",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/translated_face+1_fired_z1p5.png",
+      "bytes": 235686,
+      "sha256": "69f028d125a0ded0ed520c9513a4d27866aa22ae4b6a45b4e925e6c4c5f59322",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/translated_face+1_fired_z1p8.png",
+      "bytes": 241175,
+      "sha256": "db760d1dec795f2b8cb9f6634dcb75a712739eabfa3c55d836f6ff039aadf717",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/translated_face+1_windup_z1p5.png",
+      "bytes": 242149,
+      "sha256": "552f6947002d65da1607a7c97228358d4340bd2edfdbab6ef59ced9be603bec4",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/translated_face+1_windup_z1p8.png",
+      "bytes": 261655,
+      "sha256": "9555ad158f4c8cf2f1cfdfe51fe736ac876862dd146926dfb2178e5e6072964c",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/translated_face-1_fired_z1p5.png",
+      "bytes": 229247,
+      "sha256": "8d99dbad399906025a2b2e228f08a03a1bc4064c681239873b4004356d91b376",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/translated_face-1_fired_z1p8.png",
+      "bytes": 242721,
+      "sha256": "7a2c5a1f058d284ec3ce6d704fa83604b47407d0f30f3229dd7c129e168311a9",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/translated_face-1_windup_z1p5.png",
+      "bytes": 240847,
+      "sha256": "087187c73df4f9adc2fc357abe7e9f0f8cccb15a7380d1ba5860064af50944c5",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/after/translated_face-1_windup_z1p8.png",
+      "bytes": 267374,
+      "sha256": "4683b3f97159d4b649648b070d21d840bb2283e99af9bde6ec7d8a27ed689e90",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/identity_face+1_fired_z1p5.png",
+      "bytes": 238322,
+      "sha256": "4a0737b29d31ad8bc90f125d8b8052aadcc1ffbcbc6ce03adf3f20ff9ee32215",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/identity_face+1_fired_z1p8.png",
+      "bytes": 246531,
+      "sha256": "70494c8a0ced5d4c11490607a9615afd22ddba4ab7a1e1c5eebb532587745dc2",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/identity_face+1_windup_z1p5.png",
+      "bytes": 244342,
+      "sha256": "46b925934f7ae1769767e4dd8887ab3fd9a67ba8c8f4030a1f3b2697b1174fc4",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/identity_face+1_windup_z1p8.png",
+      "bytes": 268446,
+      "sha256": "2b6ecc000840dbbe719b37c56d46dc617239e15579c4ee8a71f5017af8559d91",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/identity_face-1_fired_z1p5.png",
+      "bytes": 225634,
+      "sha256": "24b5439857f3a118cca5fd457cbb70b32fdfbe44ba9f67f9006abdd442901c08",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/identity_face-1_fired_z1p8.png",
+      "bytes": 247938,
+      "sha256": "c3473f153cf64832296c0e15331060a466435c48c121d9abe78086a3df495750",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/identity_face-1_windup_z1p5.png",
+      "bytes": 251289,
+      "sha256": "0f6f9d31ab6137b24ff5fcd51aef5d8810d1460c8244e578f6fc7ea5e5b98da6",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/identity_face-1_windup_z1p8.png",
+      "bytes": 269611,
+      "sha256": "a5410a8827ecffb0bd20c91d30119cf0e1b67a353ef8c0b2d95e33d988cf07c6",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/rotated_minus_0p15_face+1_fired_z1p5.png",
+      "bytes": 237069,
+      "sha256": "a5ebd34fb922516ff002265aaec3da2f9580ca66e9e41aa6a7ced39e19957411",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/rotated_minus_0p15_face+1_fired_z1p8.png",
+      "bytes": 243571,
+      "sha256": "f3cbf64a8b6c360fc784568b59dd83da505fa39bf7d3e53f4df69c70987a9dea",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/rotated_minus_0p15_face+1_windup_z1p5.png",
+      "bytes": 240954,
+      "sha256": "a59c044ea0c3267267173daba48e30dc282fa14bb4323346b0e5c8b5b370cbe2",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/rotated_minus_0p15_face+1_windup_z1p8.png",
+      "bytes": 265232,
+      "sha256": "ba82b172b3de0283a0670197b00376b9cc3b56549be17d717b68c591eedc084d",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/rotated_minus_0p15_face-1_fired_z1p5.png",
+      "bytes": 230889,
+      "sha256": "e88258245a7e8c77a9d936f4a43489f0ff17147c6ceccbf572a42ad0a14c381d",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/rotated_minus_0p15_face-1_fired_z1p8.png",
+      "bytes": 249860,
+      "sha256": "f144766fb022d2aaf83e4f4f6fa03ecb7b0957dd979dde32e444ffeca9f94d08",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/rotated_minus_0p15_face-1_windup_z1p5.png",
+      "bytes": 261213,
+      "sha256": "a687b2bc649825d4e5895bf116b439bf1c22ed6016a23661f4871dc587083ab2",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/rotated_minus_0p15_face-1_windup_z1p8.png",
+      "bytes": 268036,
+      "sha256": "2f29b57e5da591b0feffaf557fee19d141933e92c4d85a16c7cd1f2f4f5fdf63",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/rotated_plus_0p15_face+1_fired_z1p5.png",
+      "bytes": 242255,
+      "sha256": "78823caad9050f82aa15016685fc910a6b46dd0c56b0b7e5a6f0696901ab8287",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/rotated_plus_0p15_face+1_fired_z1p8.png",
+      "bytes": 256902,
+      "sha256": "abe896c6565e00c6a22af20d67ddaac6366d03a7390c5d94421c155bb498aadf",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/rotated_plus_0p15_face+1_windup_z1p5.png",
+      "bytes": 248799,
+      "sha256": "f1837201360d7eca698e25649f72bf0f107db8ca2b8a729a9ad9302c3610e442",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/rotated_plus_0p15_face+1_windup_z1p8.png",
+      "bytes": 262132,
+      "sha256": "7b29f4d6262239a330596d0c750fe04914e829d676df06fc44f5984ffaa5d6d3",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/rotated_plus_0p15_face-1_fired_z1p5.png",
+      "bytes": 235861,
+      "sha256": "0de370299001f41cdc66735b097dc7b76355e740ba55d996655d5052e6f276a7",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/rotated_plus_0p15_face-1_fired_z1p8.png",
+      "bytes": 247131,
+      "sha256": "4e285abe6f2e727e7be7270c466dd236949486e190543515280c4cd84832efa4",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/rotated_plus_0p15_face-1_windup_z1p5.png",
+      "bytes": 239357,
+      "sha256": "d5ddccbd6fddea33d7d9dc364421fea918f94194f1d04f3ceb358248e5eb4b55",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/rotated_plus_0p15_face-1_windup_z1p8.png",
+      "bytes": 259751,
+      "sha256": "33afcb7d5839be04be600ba040ddadcad9e50874b0a5e49d4155001d6717c171",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/scaled_1p5_face+1_fired_z1p5.png",
+      "bytes": 271239,
+      "sha256": "f8f26bd305a930f055a17b5a08f1d66172cd3abf76af7b74768f21c1d87e1450",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/scaled_1p5_face+1_fired_z1p8.png",
+      "bytes": 290996,
+      "sha256": "b6dcfe353caaa8a1c8293f4ad72c78274fec11fc6b7d1aca5c96a874fd4f08da",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/scaled_1p5_face+1_windup_z1p5.png",
+      "bytes": 308815,
+      "sha256": "8fffa08efdfe9debb7a3ec310844daf1ef62cb0bd2a289523f0ccd9c7648029a",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/scaled_1p5_face+1_windup_z1p8.png",
+      "bytes": 339739,
+      "sha256": "88421b352e82e89f0e80dce59e078a624bcdff421f1aa608fc8474509f71dbef",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/scaled_1p5_face-1_fired_z1p5.png",
+      "bytes": 262934,
+      "sha256": "be7227b0eb6d6c3571982a0e009cac6478fdaf77e0b278122d70f5b23a7603ce",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/scaled_1p5_face-1_fired_z1p8.png",
+      "bytes": 308670,
+      "sha256": "3508bce0728cc2b374d76d6685f20831aa5bdf316dddf0ca41bd101d7210b7a2",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/scaled_1p5_face-1_windup_z1p5.png",
+      "bytes": 305432,
+      "sha256": "85a337b74ed01448dd1b2e0cc396fb26737d834c0b5e15a0b0420445175228a7",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/scaled_1p5_face-1_windup_z1p8.png",
+      "bytes": 337673,
+      "sha256": "d5517d0dd6cd81de2dd536e827042877e9783482d62872a29b681ad1926523d6",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/translated_face+1_fired_z1p5.png",
+      "bytes": 226166,
+      "sha256": "2116a178dd7f9c83a890e5f3cc1e52880bf385b8a15b125037b5f7dddc2058c7",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/translated_face+1_fired_z1p8.png",
+      "bytes": 248842,
+      "sha256": "72ac445ec50f21658b485d1fc53278c09aa381405c7119924964db5861207e38",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/translated_face+1_windup_z1p5.png",
+      "bytes": 245166,
+      "sha256": "ec41d426a6a4ae4f1a5130b5d56aec9d1a00e4c769bc7e57c3c17fda1ace043f",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/translated_face+1_windup_z1p8.png",
+      "bytes": 253000,
+      "sha256": "4c98b29c983c06b60fd48999066f62b39014bbfa5df7abe5768cc75c7ab773d1",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/translated_face-1_fired_z1p5.png",
+      "bytes": 233432,
+      "sha256": "23cc1288ebe9624e90c950634d4279d2940df54daf5a1bbb772e551e79ce2c43",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/translated_face-1_fired_z1p8.png",
+      "bytes": 252186,
+      "sha256": "fc41005e8cdc97d3d4a603d5bfd999cc524130366617ca7b3f676f50b0e2ca67",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/translated_face-1_windup_z1p5.png",
+      "bytes": 232007,
+      "sha256": "46a5ce6c7291f505504a230933da8d696a3c71952a8903ccff8af66dc0b772c3",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-81-core-origin/before/translated_face-1_windup_z1p8.png",
+      "bytes": 272345,
+      "sha256": "fd9fd3f72c34b227c1bae170957a51a2f3e13219fd904d751f390547be604c9a",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "tests/suite/test_heavy_enemies.gd",
+      "bytes": 17216,
+      "sha256": "779460fc2a2dff79f4d853413ca7d2e7941cbbafed4552d2906a577f5bf1ec78"
+    }
+  ]
+}

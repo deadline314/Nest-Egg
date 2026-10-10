@@ -1,0 +1,102 @@
+{
+  "base": "b4c186ea401dfb29b92e28a0a9c8e7de46f604e3",
+  "fixed_runtime_sha256": "3410ce2b8680b63b92f8f88b6f65e5cb42d3d9fed32f28bf29b63f5549054aba",
+  "expected_world_origin_max_error": 0.0,
+  "before_world_origin_max_error": 36.7649078369141,
+  "before_records": 10,
+  "after_records": 10,
+  "after_shots": 30.0,
+  "after_failures": 0,
+  "records": [
+    {
+      "case": "identity",
+      "facing": 1,
+      "before_max_world_error": 0.0,
+      "after_max_world_error": 0.0,
+      "before_legacy_error": 0.0,
+      "after_legacy_error": 0.0,
+      "shots": 3
+    },
+    {
+      "case": "identity",
+      "facing": -1,
+      "before_max_world_error": 0.0,
+      "after_max_world_error": 0.0,
+      "before_legacy_error": 0.0,
+      "after_legacy_error": 0.0,
+      "shots": 3
+    },
+    {
+      "case": "translated",
+      "facing": 1,
+      "before_max_world_error": 0.0,
+      "after_max_world_error": 0.0,
+      "before_legacy_error": 0.0,
+      "after_legacy_error": 0.0,
+      "shots": 3
+    },
+    {
+      "case": "translated",
+      "facing": -1,
+      "before_max_world_error": 0.0,
+      "after_max_world_error": 0.0,
+      "before_legacy_error": 0.0,
+      "after_legacy_error": 0.0,
+      "shots": 3
+    },
+    {
+      "case": "scaled_1p5",
+      "facing": 1,
+      "before_max_world_error": 36.7648849487305,
+      "after_max_world_error": 0.0,
+      "before_legacy_error": 36.7648849487305,
+      "after_legacy_error": 36.7649078369141,
+      "shots": 3
+    },
+    {
+      "case": "scaled_1p5",
+      "facing": -1,
+      "before_max_world_error": 36.7649078369141,
+      "after_max_world_error": 0.0,
+      "before_legacy_error": 36.7649078369141,
+      "after_legacy_error": 36.7649078369141,
+      "shots": 3
+    },
+    {
+      "case": "rotated_plus_0p15",
+      "facing": 1,
+      "before_max_world_error": 11.0191431045532,
+      "after_max_world_error": 0.0,
+      "before_legacy_error": 11.0191431045532,
+      "after_legacy_error": 11.0191431045532,
+      "shots": 3
+    },
+    {
+      "case": "rotated_plus_0p15",
+      "facing": -1,
+      "before_max_world_error": 11.0191535949707,
+      "after_max_world_error": 0.0,
+      "before_legacy_error": 11.0191535949707,
+      "after_legacy_error": 11.0191535949707,
+      "shots": 3
+    },
+    {
+      "case": "rotated_minus_0p15",
+      "facing": 1,
+      "before_max_world_error": 11.0191335678101,
+      "after_max_world_error": 0.0,
+      "before_legacy_error": 11.0191335678101,
+      "after_legacy_error": 11.0191535949707,
+      "shots": 3
+    },
+    {
+      "case": "rotated_minus_0p15",
+      "facing": -1,
+      "before_max_world_error": 11.0191440582275,
+      "after_max_world_error": 0.0,
+      "before_legacy_error": 11.0191440582275,
+      "after_legacy_error": 11.0191421508789,
+      "shots": 3
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+diff --git a/game/enemies/warden_boss.gd b/game/enemies/warden_boss.gd
+index 1da8ad7c..2493f8a2 100644
+--- a/game/enemies/warden_boss.gd
++++ b/game/enemies/warden_boss.gd
+@@ -197,7 +197,7 @@ func _core_windup_tick(_delta: float) -> void:
+ 	_face_target()
+ 	if is_telegraphing():
+ 		return
+-	var origin := _core_point() + global_position
++	var origin := to_global(_core_point())
+ 	WeaponSystem.fire_spread(data.find_projectile(&"boss_fan"), origin, _direction_to_target(), CORE_FIRE_COUNT, CORE_FIRE_SPREAD, 0.0,
+ 			Combat.Team.ENEMY, _projectile_speed_multiplier())
+ 	_rig_input.recoil = 1.0
+diff --git a/pm/Nest-Egg/attachments/NE-81-cloud-warden/core_origin.gd b/pm/Nest-Egg/attachments/NE-81-cloud-warden/core_origin.gd
+new file mode 100644
+index 00000000..0bad7ec8
+--- /dev/null
++++ b/pm/Nest-Egg/attachments/NE-81-cloud-warden/core_origin.gd
+@@ -0,0 +1,63 @@
++extends Node
++var failures := 0
++var checks := 0
++func _ready() -> void:
++	_run.call_deferred()
++func _check(condition: bool, label: String) -> void:
++	checks += 1
++	if not condition:
++		failures += 1
++		printerr("FAIL: ", label)
++func _frames(count: int) -> void:
++	for i in count: await get_tree().process_frame
++func _end_level(level: Level) -> void:
++	get_tree().root.remove_child(level)
++	level.free()
++	await _frames(2)
++func _run() -> void:
++	Enemy.activation_culling_enabled = false
++	Story.auto_skip = true
++	var suite := HeavyEnemiesSuite.new(self)
++	await suite.open_level(10.0)
++	var actor := suite.spawn(suite.WARDEN_PATH, 40.0)
++	await _frames(3)
++	actor.set_physics_process(false)
++	var records: Array = []
++	for facing: int in [-1, 1]:
++		for transform_case: Vector2 in [Vector2(1.0, 0.0), Vector2(1.3, 0.0), Vector2(1.0, 0.35), Vector2(1.3, -0.35)]:
++			actor.scale = Vector2.ONE * transform_case.x
++			actor.rotation = transform_case.y
++			actor.facing = facing
++			actor._rig_input.facing = facing
++			actor._rig_input.aim_dir = Vector2(facing, 0.0)
++			actor.rig.animate(1.0 / 60.0, actor._rig_input)
++			ProjectilePool.clear_in_radius(actor.global_position, 10000.0, Combat.Team.ENEMY)
++			actor.fsm.transition(&"core_windup")
++			actor._telegraph_left = 0.0
++			var expected := actor.rig.bone(&"core_port").global_position
++			actor.call(&"_core_windup_tick", 0.0)
++			var count := 0
++			var worst := 0.0
++			for child in ProjectilePool.container().get_children():
++				if child is Projectile and child.active and child.team == Combat.Team.ENEMY:
++					count += 1
++					worst = maxf(worst, child.global_position.distance_to(expected))
++			_check(count == 3, "three core projectiles")
++			_check(worst < 0.001, "core origin facing=%d scale=%.1f rotation=%.2f gap=%.6f" % [facing, transform_case.x, transform_case.y, worst])
++			records.append({"facing": facing, "scale": transform_case.x, "rotation": transform_case.y, "count": count, "gap": worst})
++	var out := ""
++	for arg in OS.get_cmdline_user_args():
++		if arg.begins_with("--out="): out = arg.trim_prefix("--out=")
++	if not out.is_empty():
++		var file := FileAccess.open(out, FileAccess.WRITE)
++		file.store_string(JSON.stringify(records, "\t"))
++	await _end_level(suite.level)
++	actor = null
++	suite = null
++	await get_tree().create_timer(0.2, true, false, true).timeout
++	Sfx.stop_all()
++	Music.stop(0.0)
++	Ambience.stop_all(0.0)
++	await get_tree().create_timer(0.2, true, false, true).timeout
++	print("checks: %d, failures: %d" % [checks, failures])
++	get_tree().quit(1 if failures else 0)
+diff --git a/pm/Nest-Egg/attachments/NE-81-cloud-warden/core_origin.tscn b/pm/Nest-Egg/attachments/NE-81-cloud-warden/core_origin.tscn
+new file mode 100644
+index 00000000..c7f5154d
+--- /dev/null
++++ b/pm/Nest-Egg/attachments/NE-81-cloud-warden/core_origin.tscn
+@@ -0,0 +1,4 @@
++[gd_scene load_steps=2 format=3]
++[ext_resource type="Script" path="res://pm/Nest-Egg/attachments/NE-81-cloud-warden/core_origin.gd" id="1"]
++[node name="WardenCoreOrigin" type="Node"]
++script = ExtResource("1")

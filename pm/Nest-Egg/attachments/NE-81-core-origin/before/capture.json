@@ -1,0 +1,864 @@
+{
+	"actor": "real WardenBoss behavior subclass + res://data/enemies/warden.tres, EnemyData max_health retained at 90",
+	"base": "b4c186ea401dfb29b92e28a0a9c8e7de46f604e3",
+	"core_attack": "phase2 FSM core_windup telegraph then actual _core_windup_tick and WeaponSystem.fire_spread boss_fan x3",
+	"expected_origin": "legacy",
+	"failures": 0,
+	"label": "before-b4",
+	"passed": true,
+	"records": [
+		{
+			"core_fire_probe": {
+				"expected_core_world": [
+					482.859558105469,
+					246.525543212891
+				],
+				"legacy_formula_world": [
+					482.859558105469,
+					246.525543212891
+				],
+				"legacy_to_expected_error": 0.0,
+				"local_core": [
+					2.85955810546875,
+					-73.4744567871094
+				],
+				"rig_core_bone_world": [
+					482.859558105469,
+					246.525543212891
+				],
+				"spawn_count": 3,
+				"spawned_projectiles": [
+					{
+						"error_to_expected_core": 0.0,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							482.859558105469,
+							246.525543212891
+						],
+						"velocity": [
+							127.505317687988,
+							79.0088348388672
+						]
+					},
+					{
+						"error_to_expected_core": 0.0,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							482.859558105469,
+							246.525543212891
+						],
+						"velocity": [
+							136.183670043945,
+							62.880931854248
+						]
+					},
+					{
+						"error_to_expected_core": 0.0,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							482.859558105469,
+							246.525543212891
+						],
+						"velocity": [
+							142.831832885742,
+							45.8156089782715
+						]
+					}
+				]
+			},
+			"expected_core_world": [
+				483.875610351563,
+				246.892364501953
+			],
+			"facing": 1,
+			"fire_state": "core_recover",
+			"hp": 90,
+			"legacy_formula_world": [
+				483.875610351563,
+				246.892364501953
+			],
+			"legacy_to_expected_error": 0.0,
+			"local_core": [
+				3.8756103515625,
+				-73.1076354980469
+			],
+			"local_to_bone_error": 0.0,
+			"max_hp": 90,
+			"parent_case": "identity",
+			"rig_core_bone_world": [
+				483.875610351563,
+				246.892364501953
+			],
+			"telegraphing": true,
+			"windup_state": "core_windup"
+		},
+		{
+			"core_fire_probe": {
+				"expected_core_world": [
+					477.148101806641,
+					246.525497436523
+				],
+				"legacy_formula_world": [
+					477.148101806641,
+					246.525497436523
+				],
+				"legacy_to_expected_error": 0.0,
+				"local_core": [
+					-2.85189819335938,
+					-73.4745025634766
+				],
+				"rig_core_bone_world": [
+					477.148101806641,
+					246.525497436523
+				],
+				"spawn_count": 3,
+				"spawned_projectiles": [
+					{
+						"error_to_expected_core": 0.0,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							477.148101806641,
+							246.525497436523
+						],
+						"velocity": [
+							-142.832885742188,
+							45.8123207092285
+						]
+					},
+					{
+						"error_to_expected_core": 0.0,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							477.148101806641,
+							246.525497436523
+						],
+						"velocity": [
+							-136.185119628906,
+							62.8777923583984
+						]
+					},
+					{
+						"error_to_expected_core": 0.0,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							477.148101806641,
+							246.525497436523
+						],
+						"velocity": [
+							-127.507125854492,
+							79.0059051513672
+						]
+					}
+				]
+			},
+			"expected_core_world": [
+				476.177001953125,
+				246.851806640625
+			],
+			"facing": -1,
+			"fire_state": "core_recover",
+			"hp": 90,
+			"legacy_formula_world": [
+				476.177001953125,
+				246.851806640625
+			],
+			"legacy_to_expected_error": 0.0,
+			"local_core": [
+				-3.822998046875,
+				-73.148193359375
+			],
+			"local_to_bone_error": 0.0,
+			"max_hp": 90,
+			"parent_case": "identity",
+			"rig_core_bone_world": [
+				476.177001953125,
+				246.851806640625
+			],
+			"telegraphing": true,
+			"windup_state": "core_windup"
+		},
+		{
+			"core_fire_probe": {
+				"expected_core_world": [
+					520.849670410156,
+					246.514984130859
+				],
+				"legacy_formula_world": [
+					520.849670410156,
+					246.514984130859
+				],
+				"legacy_to_expected_error": 0.0,
+				"local_core": [
+					2.84967041015625,
+					-73.4732971191406
+				],
+				"rig_core_bone_world": [
+					520.849670410156,
+					246.514984130859
+				],
+				"spawn_count": 3,
+				"spawned_projectiles": [
+					{
+						"error_to_expected_core": 0.0,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							520.849670410156,
+							246.514984130859
+						],
+						"velocity": [
+							127.506340026855,
+							79.0071868896484
+						]
+					},
+					{
+						"error_to_expected_core": 0.0,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							520.849670410156,
+							246.514984130859
+						],
+						"velocity": [
+							136.184494018555,
+							62.8791618347168
+						]
+					},
+					{
+						"error_to_expected_core": 0.0,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							520.849670410156,
+							246.514984130859
+						],
+						"velocity": [
+							142.832427978516,
+							45.8137512207031
+						]
+					}
+				]
+			},
+			"expected_core_world": [
+				521.658813476563,
+				240.416748046875
+			],
+			"facing": 1,
+			"fire_state": "core_recover",
+			"hp": 90,
+			"legacy_formula_world": [
+				521.658813476563,
+				240.416748046875
+			],
+			"legacy_to_expected_error": 0.0,
+			"local_core": [
+				3.6588134765625,
+				-72.833251953125
+			],
+			"local_to_bone_error": 0.0,
+			"max_hp": 90,
+			"parent_case": "translated",
+			"rig_core_bone_world": [
+				521.658813476563,
+				240.416748046875
+			],
+			"telegraphing": true,
+			"windup_state": "core_windup"
+		},
+		{
+			"core_fire_probe": {
+				"expected_core_world": [
+					515.150268554688,
+					246.514999389648
+				],
+				"legacy_formula_world": [
+					515.150268554688,
+					246.514999389648
+				],
+				"legacy_to_expected_error": 0.0,
+				"local_core": [
+					-2.8497314453125,
+					-73.4732818603516
+				],
+				"rig_core_bone_world": [
+					515.150268554688,
+					246.514999389648
+				],
+				"spawn_count": 3,
+				"spawned_projectiles": [
+					{
+						"error_to_expected_core": 0.0,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							515.150268554688,
+							246.514999389648
+						],
+						"velocity": [
+							-142.832397460938,
+							45.813793182373
+						]
+					},
+					{
+						"error_to_expected_core": 0.0,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							515.150268554688,
+							246.514999389648
+						],
+						"velocity": [
+							-136.184463500977,
+							62.8791961669922
+						]
+					},
+					{
+						"error_to_expected_core": 0.0,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							515.150268554688,
+							246.514999389648
+						],
+						"velocity": [
+							-127.506317138672,
+							79.007209777832
+						]
+					}
+				]
+			},
+			"expected_core_world": [
+				514.331726074219,
+				240.420471191406
+			],
+			"facing": -1,
+			"fire_state": "core_recover",
+			"hp": 90,
+			"legacy_formula_world": [
+				514.331726074219,
+				240.420471191406
+			],
+			"legacy_to_expected_error": 0.0,
+			"local_core": [
+				-3.66827392578125,
+				-72.8295288085938
+			],
+			"local_to_bone_error": 0.0,
+			"max_hp": 90,
+			"parent_case": "translated",
+			"rig_core_bone_world": [
+				514.331726074219,
+				240.420471191406
+			],
+			"telegraphing": true,
+			"windup_state": "core_windup"
+		},
+		{
+			"core_fire_probe": {
+				"expected_core_world": [
+					484.275085449219,
+					209.788223266602
+				],
+				"legacy_formula_world": [
+					482.850067138672,
+					246.525482177734
+				],
+				"legacy_to_expected_error": 36.7648849487305,
+				"local_core": [
+					2.85006713867188,
+					-73.4745178222656
+				],
+				"rig_core_bone_world": [
+					484.275085449219,
+					209.788223266602
+				],
+				"spawn_count": 3,
+				"spawned_projectiles": [
+					{
+						"error_to_expected_core": 36.7648849487305,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							482.850067138672,
+							246.525482177734
+						],
+						"velocity": [
+							107.005783081055,
+							105.117851257324
+						]
+					},
+					{
+						"error_to_expected_core": 36.7648849487305,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							482.850067138672,
+							246.525482177734
+						],
+						"velocity": [
+							119.018829345703,
+							91.2935943603516
+						]
+					},
+					{
+						"error_to_expected_core": 36.7648849487305,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							482.850067138672,
+							246.525482177734
+						],
+						"velocity": [
+							129.257568359375,
+							76.1083602905273
+						]
+					}
+				]
+			},
+			"expected_core_world": [
+				485.822845458984,
+				210.299377441406
+			],
+			"facing": 1,
+			"fire_state": "core_recover",
+			"hp": 90,
+			"legacy_formula_world": [
+				483.881896972656,
+				246.866256713867
+			],
+			"legacy_to_expected_error": 36.6183586120605,
+			"local_core": [
+				3.88189697265625,
+				-73.1337432861328
+			],
+			"local_to_bone_error": 0.0000152587890625,
+			"max_hp": 90,
+			"parent_case": "scaled_1p5",
+			"rig_core_bone_world": [
+				485.822845458984,
+				210.299392700195
+			],
+			"telegraphing": true,
+			"windup_state": "core_windup"
+		},
+		{
+			"core_fire_probe": {
+				"expected_core_world": [
+					475.722015380859,
+					209.788269042969
+				],
+				"legacy_formula_world": [
+					477.148010253906,
+					246.525512695313
+				],
+				"legacy_to_expected_error": 36.7649078369141,
+				"local_core": [
+					-2.85198974609375,
+					-73.4744873046875
+				],
+				"rig_core_bone_world": [
+					475.722015380859,
+					209.788269042969
+				],
+				"spawn_count": 3,
+				"spawned_projectiles": [
+					{
+						"error_to_expected_core": 36.7649078369141,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							477.148010253906,
+							246.525512695313
+						],
+						"velocity": [
+							-129.256744384766,
+							76.109748840332
+						]
+					},
+					{
+						"error_to_expected_core": 36.7649078369141,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							477.148010253906,
+							246.525512695313
+						],
+						"velocity": [
+							-119.017837524414,
+							91.2948760986328
+						]
+					},
+					{
+						"error_to_expected_core": 36.7649078369141,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							477.148010253906,
+							246.525512695313
+						],
+						"velocity": [
+							-107.004653930664,
+							105.118995666504
+						]
+					}
+				]
+			},
+			"expected_core_world": [
+				474.159118652344,
+				210.321807861328
+			],
+			"facing": -1,
+			"fire_state": "core_recover",
+			"hp": 90,
+			"legacy_formula_world": [
+				476.106079101563,
+				246.881210327148
+			],
+			"legacy_to_expected_error": 36.6112098693848,
+			"local_core": [
+				-3.8939208984375,
+				-73.1187896728516
+			],
+			"local_to_bone_error": 0.0000152587890625,
+			"max_hp": 90,
+			"parent_case": "scaled_1p5",
+			"rig_core_bone_world": [
+				474.159118652344,
+				210.321823120117
+			],
+			"telegraphing": true,
+			"windup_state": "core_windup"
+		},
+		{
+			"core_fire_probe": {
+				"expected_core_world": [
+					493.797912597656,
+					244.763122558594
+				],
+				"legacy_formula_world": [
+					482.850006103516,
+					243.512176513672
+				],
+				"legacy_to_expected_error": 11.0191431045532,
+				"local_core": [
+					2.8499755859375,
+					-73.4745483398438
+				],
+				"rig_core_bone_world": [
+					493.797882080078,
+					244.763107299805
+				],
+				"spawn_count": 3,
+				"spawned_projectiles": [
+					{
+						"error_to_expected_core": 11.0191431045532,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							482.850006103516,
+							243.512176513672
+						],
+						"velocity": [
+							126.265060424805,
+							80.9761428833008
+						]
+					},
+					{
+						"error_to_expected_core": 11.0191431045532,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							482.850006103516,
+							243.512176513672
+						],
+						"velocity": [
+							135.192413330078,
+							64.9847183227539
+						]
+					},
+					{
+						"error_to_expected_core": 11.0191431045532,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							482.850006103516,
+							243.512176513672
+						],
+						"velocity": [
+							142.104354858398,
+							48.0245170593262
+						]
+					}
+				]
+			},
+			"expected_core_world": [
+				494.700927734375,
+				245.21435546875
+			],
+			"facing": 1,
+			"fire_state": "core_recover",
+			"hp": 90,
+			"legacy_formula_world": [
+				483.810333251953,
+				243.82341003418
+			],
+			"legacy_to_expected_error": 10.979061126709,
+			"local_core": [
+				3.810302734375,
+				-73.1633148193359
+			],
+			"local_to_bone_error": 0.0,
+			"max_hp": 90,
+			"parent_case": "rotated_plus_0p15",
+			"rig_core_bone_world": [
+				494.700927734375,
+				245.21435546875
+			],
+			"telegraphing": true,
+			"windup_state": "core_windup"
+		},
+		{
+			"core_fire_probe": {
+				"expected_core_world": [
+					488.160095214844,
+					243.911071777344
+				],
+				"legacy_formula_world": [
+					477.148162841797,
+					243.51220703125
+				],
+				"legacy_to_expected_error": 11.0191535949707,
+				"local_core": [
+					-2.85186767578125,
+					-73.4745178222656
+				],
+				"rig_core_bone_world": [
+					488.160034179688,
+					243.911071777344
+				],
+				"spawn_count": 3,
+				"spawned_projectiles": [
+					{
+						"error_to_expected_core": 11.0191535949707,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							477.148162841797,
+							243.51220703125
+						],
+						"velocity": [
+							-142.268707275391,
+							47.5354042053223
+						]
+					},
+					{
+						"error_to_expected_core": 11.0191535949707,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							477.148162841797,
+							243.51220703125
+						],
+						"velocity": [
+							-135.415161132813,
+							64.5192794799805
+						]
+					},
+					{
+						"error_to_expected_core": 11.0191535949707,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							477.148162841797,
+							243.51220703125
+						],
+						"velocity": [
+							-126.542869567871,
+							80.5413208007813
+						]
+					}
+				]
+			},
+			"expected_core_world": [
+				487.150695800781,
+				244.08869934082
+			],
+			"facing": -1,
+			"fire_state": "core_recover",
+			"hp": 90,
+			"legacy_formula_world": [
+				476.176666259766,
+				243.838684082031
+			],
+			"legacy_to_expected_error": 10.9768772125244,
+			"local_core": [
+				-3.8233642578125,
+				-73.1480407714844
+			],
+			"local_to_bone_error": 0.0000152587890625,
+			"max_hp": 90,
+			"parent_case": "rotated_plus_0p15",
+			"rig_core_bone_world": [
+				487.150695800781,
+				244.088714599609
+			],
+			"telegraphing": true,
+			"windup_state": "core_windup"
+		},
+		{
+			"core_fire_probe": {
+				"expected_core_world": [
+					471.838073730469,
+					243.911315917969
+				],
+				"legacy_formula_world": [
+					482.849975585938,
+					243.512176513672
+				],
+				"legacy_to_expected_error": 11.0191335678101,
+				"local_core": [
+					2.8499755859375,
+					-73.4745483398438
+				],
+				"rig_core_bone_world": [
+					471.838043212891,
+					243.911346435547
+				],
+				"spawn_count": 3,
+				"spawned_projectiles": [
+					{
+						"error_to_expected_core": 11.0191335678101,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							482.849975585938,
+							243.512176513672
+						],
+						"velocity": [
+							126.543449401855,
+							80.540397644043
+						]
+					},
+					{
+						"error_to_expected_core": 11.0191335678101,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							482.849975585938,
+							243.512176513672
+						],
+						"velocity": [
+							135.415618896484,
+							64.5182952880859
+						]
+					},
+					{
+						"error_to_expected_core": 11.0191335678101,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							482.849975585938,
+							243.512176513672
+						],
+						"velocity": [
+							142.269058227539,
+							47.5343704223633
+						]
+					}
+				]
+			},
+			"expected_core_world": [
+				472.831878662109,
+				244.074981689453
+			],
+			"facing": 1,
+			"fire_state": "core_recover",
+			"hp": 90,
+			"legacy_formula_world": [
+				483.808166503906,
+				243.822509765625
+			],
+			"legacy_to_expected_error": 10.979190826416,
+			"local_core": [
+				3.80816650390625,
+				-73.1642150878906
+			],
+			"local_to_bone_error": 0.0,
+			"max_hp": 90,
+			"parent_case": "rotated_minus_0p15",
+			"rig_core_bone_world": [
+				472.831878662109,
+				244.074981689453
+			],
+			"telegraphing": true,
+			"windup_state": "core_windup"
+		},
+		{
+			"core_fire_probe": {
+				"expected_core_world": [
+					466.200256347656,
+					244.763427734375
+				],
+				"legacy_formula_world": [
+					477.148132324219,
+					243.51220703125
+				],
+				"legacy_to_expected_error": 11.0191440582275,
+				"local_core": [
+					-2.85186767578125,
+					-73.4745178222656
+				],
+				"rig_core_bone_world": [
+					466.200256347656,
+					244.763427734375
+				],
+				"spawn_count": 3,
+				"spawned_projectiles": [
+					{
+						"error_to_expected_core": 11.0191440582275,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							477.148132324219,
+							243.51220703125
+						],
+						"velocity": [
+							-142.104156494141,
+							48.0251045227051
+						]
+					},
+					{
+						"error_to_expected_core": 11.0191440582275,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							477.148132324219,
+							243.51220703125
+						],
+						"velocity": [
+							-135.192138671875,
+							64.9852676391602
+						]
+					},
+					{
+						"error_to_expected_core": 11.0191440582275,
+						"error_to_legacy_formula": 0.0,
+						"global_position": [
+							477.148132324219,
+							243.51220703125
+						],
+						"velocity": [
+							-126.26473236084,
+							80.9766693115234
+						]
+					}
+				]
+			},
+			"expected_core_world": [
+				465.285369873047,
+				245.233276367188
+			],
+			"facing": -1,
+			"fire_state": "core_recover",
+			"hp": 90,
+			"legacy_formula_world": [
+				476.173309326172,
+				243.840057373047
+			],
+			"legacy_to_expected_error": 10.9767150878906,
+			"local_core": [
+				-3.82669067382813,
+				-73.1466674804688
+			],
+			"local_to_bone_error": 0.0,
+			"max_hp": 90,
+			"parent_case": "rotated_minus_0p15",
+			"rig_core_bone_world": [
+				465.285369873047,
+				245.233276367188
+			],
+			"telegraphing": true,
+			"windup_state": "core_windup"
+		}
+	],
+	"renderer": "Forward+ Vulkan expected; verify capture log",
+	"transforms": "identity, translated, scaled parent 1.5, rotated parent +/-0.15 radians; both requested facings",
+	"variant": "before: D game/enemies/warden_boss.gd unchanged; probe subclass calls super._core_windup_tick"
+}

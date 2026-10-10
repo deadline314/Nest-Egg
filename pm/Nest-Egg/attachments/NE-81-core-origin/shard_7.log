@@ -1,0 +1,208 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME CombatHudSuite 5.3
+WARN 場景「c2_boss_intro」沒有任何地方引用
+WARN 場景「c2_epilogue」沒有任何地方引用
+WARN 場景「c2_memory」沒有任何地方引用
+WARN 場景「c2_prologue」沒有任何地方引用
+WARN 場景「epilogue」沒有任何地方引用
+WARN 場景「prologue」沒有任何地方引用
+WARN 場景「radio_arm」沒有任何地方引用
+ERROR: [Level] ch1_stall 沒有電話亭可登記復原點（res://data/levels/ch1_stall_map.json），重生會退回區域起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _register_nearest_checkpoint (res://game/level/level.gd:902)
+       [1] _run_death_scene (res://game/level/level.gd:891)
+       [2] _play_flow_scene (res://game/level/level.gd:1105)
+       [3] play_and_wait (res://autoload/story.gd:672)
+       [4] _complete_request (res://autoload/story.gd:680)
+       [5] _on_cinematic_finished (res://autoload/story.gd:737)
+       [6] _finish_auto_skip (res://autoload/story.gd:720)
+WARNING: [Story] 找不到劇情場景：test_no_such_scene
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _enqueue_request (res://autoload/story.gd:622)
+       [1] play_and_wait (res://autoload/story.gd:664)
+       [2] _play_flow_scene (res://game/level/level.gd:1104)
+       [3] _run_death_scene (res://game/level/level.gd:887)
+       [4] _test_death_matrix (res://tests/suite/test_continuity.gd:313)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Level] ch1_booth_alley 的復原點位置無效（(0.0, 0.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _checked_checkpoint_position (res://game/level/level.gd:779)
+       [1] _entry_position (res://game/level/level.gd:769)
+       [2] _spawn_player (res://game/level/level.gd:730)
+       [3] _ready (res://game/level/level.gd:183)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_lost_checkpoint_field (res://tests/suite/test_continuity.gd:207)
+       [6] run (res://tests/suite/test_continuity.gd:21)
+       [7] _test_death_matrix (res://tests/suite/test_continuity.gd:316)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:605)
+       [10] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Level] ch1_booth_alley 的復原點位置無效（(-500.0, 100.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _checked_checkpoint_position (res://game/level/level.gd:779)
+       [1] _entry_position (res://game/level/level.gd:769)
+       [2] _spawn_player (res://game/level/level.gd:730)
+       [3] _ready (res://game/level/level.gd:183)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_lost_checkpoint_field (res://tests/suite/test_continuity.gd:207)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Level] ch1_booth_alley 的復原點位置無效（(99999.0, 99999.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _checked_checkpoint_position (res://game/level/level.gd:779)
+       [1] _entry_position (res://game/level/level.gd:769)
+       [2] _spawn_player (res://game/level/level.gd:730)
+       [3] _ready (res://game/level/level.gd:183)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_lost_checkpoint_field (res://tests/suite/test_continuity.gd:207)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Level] ch1_stall 的復原點位置無效（(0.0, 0.0)，地圖範圍 [P: (0.0, 0.0), S: (768.0, 384.0)]），改用最近的電話亭或起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _checked_checkpoint_position (res://game/level/level.gd:779)
+       [1] _entry_position (res://game/level/level.gd:769)
+       [2] _spawn_player (res://game/level/level.gd:730)
+       [3] _ready (res://game/level/level.gd:183)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_lost_checkpoint_field (res://tests/suite/test_continuity.gd:217)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME ContinuitySuite 44.3
+SUITE_TIME HeavyEnemiesSuite 43.2
+[QuestMap] Current story quest count: 0; chapter walkthrough requires Session 3 sources.
+WARNING: [QuestMap] navigation.version: 格式不符，改用預設導覽狀態。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+       [2] run (res://tests/suite/test_quest_map.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_heavy_enemies.gd:23)
+       [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.version: 格式不符，改用預設導覽狀態。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+       [2] run (res://tests/suite/test_quest_map.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_heavy_enemies.gd:23)
+       [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.version: 格式不符，改用預設導覽狀態。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+       [2] run (res://tests/suite/test_quest_map.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_heavy_enemies.gd:23)
+       [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.pinned_id: 找不到任務，改為追蹤主線。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+       [2] run (res://tests/suite/test_quest_map.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_heavy_enemies.gd:23)
+       [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.explored: 必須是物件，改用未探索狀態。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+       [2] run (res://tests/suite/test_quest_map.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_heavy_enemies.gd:23)
+       [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.activated: 必須是物件，改用未啟用狀態。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+       [2] run (res://tests/suite/test_quest_map.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_heavy_enemies.gd:23)
+       [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.pinned_id: 找不到任務，改為追蹤主線。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+       [2] run (res://tests/suite/test_quest_map.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_heavy_enemies.gd:23)
+       [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.explored.res://data/levels/ch1_pawnshop.tres.bad: 無效格座標，已略過。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+       [2] run (res://tests/suite/test_quest_map.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_heavy_enemies.gd:23)
+       [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.explored.res://data/levels/ch1_pawnshop.tres.9999,1: 無效格座標，已略過。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+       [2] run (res://tests/suite/test_quest_map.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_heavy_enemies.gd:23)
+       [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.activated.fake: 找不到存檔點，已略過。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+       [2] run (res://tests/suite/test_quest_map.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_heavy_enemies.gd:23)
+       [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME QuestMapSuite 2.0
+SUITE_TIME Chapter1EnemiesSuite 6.3
+checks: 616, failures: 0
