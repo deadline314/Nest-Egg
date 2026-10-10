@@ -1,0 +1,993 @@
+{
+  "description": "鷺（46 歲，資深傭兵）的分件規格（NE-218）。來源是 Qwen Image 2.1 文生圖的功能姿勢（自然走姿、四肢分開，seed 21812）。欄位說明同 rin_side.json；做法見 .claude/skills/character-art-pipeline 的「功能姿勢來源與關節處理」。",
+  "id": "egret",
+  "display_name": "鷺",
+  "scale": 1.0,
+  "height": 60.0,
+  "seam": 12,
+  "illustration_px_per_wp": 25.6,
+  "tex_px_per_wp": 25.6,
+  "ground_y": 1544,
+  "joints": {
+    "hip": [
+      493,
+      722
+    ],
+    "waist": [
+      495,
+      575
+    ],
+    "neck": [
+      510,
+      215
+    ],
+    "head": [
+      510,
+      209
+    ],
+    "head_top": [
+      520,
+      10
+    ],
+    "shoulder": [
+      400,
+      295
+    ],
+    "elbow": [
+      318,
+      512
+    ],
+    "palm": [
+      262,
+      708
+    ],
+    "fingertip": [
+      266,
+      800
+    ],
+    "knee": [
+      666,
+      1022
+    ],
+    "ankle": [
+      745,
+      1385
+    ],
+    "toe": [
+      924,
+      1393
+    ]
+  },
+  "groups": {
+    "hand": {
+      "sam": [
+        "glove"
+      ]
+    },
+    "hand_far": {
+      "sam": [
+        "coat"
+      ],
+      "outline": [
+        [
+          722,
+          598
+        ],
+        [
+          856,
+          598
+        ],
+        [
+          856,
+          745
+        ],
+        [
+          722,
+          745
+        ]
+      ]
+    },
+    "umbrella": {
+      "sam": [
+        "umbrella"
+      ]
+    },
+    "arm": {
+      "sam": [
+        "coat sleeve"
+      ]
+    },
+    "arm_far": {
+      "sam": [
+        "coat"
+      ],
+      "outline": [
+        [
+          632,
+          470
+        ],
+        [
+          725,
+          470
+        ],
+        [
+          760,
+          600
+        ],
+        [
+          725,
+          628
+        ],
+        [
+          640,
+          628
+        ],
+        [
+          628,
+          560
+        ]
+      ],
+      "minus": [
+        "torso",
+        "trousers",
+        "glove"
+      ]
+    },
+    "coat": {
+      "sam": [
+        "coat",
+        "harness"
+      ],
+      "complete": {
+        "stage": "P",
+        "occluders": [
+          "arm",
+          "hand"
+        ],
+        "near": 200,
+        "trim": 4,
+        "edge_trim": 1,
+        "keep_rim": true
+      }
+    },
+    "head": {
+      "sam": [
+        "head",
+        "hair"
+      ]
+    },
+    "leg_far": {
+      "sam": [
+        "leg"
+      ]
+    },
+    "body": {
+      "sam": [
+        "torso",
+        "trousers",
+        "boot"
+      ],
+      "complete": {
+        "stage": "C",
+        "occluders": [
+          "arm",
+          "hand",
+          "coat",
+          "umbrella"
+        ],
+        "near": 260,
+        "trim": 4,
+        "edge_trim": 1,
+        "keep_rim": true,
+        "stage_silhouette": true
+      }
+    }
+  },
+  "stages": [
+    {
+      "name": "P",
+      "from": null,
+      "seed": 54,
+      "prompt": "Remove her near-side arm entirely: the whole near grey coat sleeve with its rolled cuff, the bare forearm and the black fingerless glove, so the coat becomes sleeveless on the near side with a neat round armhole seam at the shoulder. No skin and no arm are drawn there. Paint the side panel of the grey coat with its teal piping and pocket, the harness strap and the trousers that were hidden behind the arm, in exactly the same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
+    },
+    {
+      "name": "C",
+      "from": "P",
+      "seed": 62,
+      "prompt": "Remove the whole grey storm coat completely, including its collar, its white feather lining, its far sleeve, the harness straps and the umbrella on her back. Do not draw the near-side arm: the near shoulder ends in a clean sleeveless armhole of the top, no near arm, no near hand, no skin hanging beside the body. Paint what was behind the coat: a fitted black sleeveless tactical top with a high neck, the belt at the waist and the black cargo trousers over the hips and thighs, in exactly the same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the boots."
+    }
+  ],
+  "parts": {
+    "umbrella": {
+      "group": "umbrella",
+      "from": "waist",
+      "to": "neck",
+      "mode": "upright",
+      "pivot": "waist",
+      "uses": [
+        {
+          "name": "umbrella",
+          "bone": "chest",
+          "z": -3
+        }
+      ]
+    },
+    "pelvis": {
+      "group": "body",
+      "from": "waist",
+      "to": "hip",
+      "mode": "upright",
+      "pivot": "hip",
+      "y": [
+        595,
+        700
+      ],
+      "caps": [
+        {
+          "joint": "hip",
+          "radius": 56,
+          "feather": 1.5
+        }
+      ],
+      "uses": [
+        {
+          "name": "pelvis",
+          "bone": "hip",
+          "z": 0
+        }
+      ]
+    },
+    "torso": {
+      "group": "body",
+      "from": "waist",
+      "to": "neck",
+      "mode": "upright",
+      "pivot": "waist",
+      "y": [
+        0,
+        595
+      ],
+      "uses": [
+        {
+          "name": "torso",
+          "bone": "chest",
+          "z": 1
+        }
+      ]
+    },
+    "coat": {
+      "group": "coat",
+      "from": "waist",
+      "to": "neck",
+      "mode": "upright",
+      "pivot": "waist",
+      "y": [
+        0,
+        600
+      ],
+      "uses": [
+        {
+          "name": "coat",
+          "bone": "chest",
+          "z": 4
+        }
+      ]
+    },
+    "coat_hem": {
+      "group": "coat",
+      "from": "waist",
+      "to": "hip",
+      "mode": "upright",
+      "pivot": "hip",
+      "y": [
+        588,
+        3000
+      ],
+      "uses": [
+        {
+          "name": "coat_hem",
+          "bone": "hip",
+          "z": 4
+        }
+      ]
+    },
+    "head": {
+      "group": "head",
+      "from": "head",
+      "to": "head_top",
+      "mode": "upright",
+      "pivot": "head",
+      "uses": [
+        {
+          "name": "head",
+          "bone": "head",
+          "z": 5
+        }
+      ]
+    },
+    "leg_upper": {
+      "group": "body",
+      "from": "hip",
+      "to": "knee",
+      "mode": "bone",
+      "y": [
+        742,
+        1022
+      ],
+      "caps": [
+        {
+          "joint": "hip",
+          "radius": 90,
+          "feather": 10,
+          "sam": [
+            "trousers"
+          ]
+        }
+      ],
+      "uses": [
+        {
+          "name": "leg_back_upper",
+          "bone": "leg_back_upper",
+          "z": -5,
+          "tint": 0.9
+        },
+        {
+          "name": "leg_front_upper",
+          "bone": "leg_front_upper",
+          "z": 3
+        }
+      ]
+    },
+    "leg_lower": {
+      "group": "body",
+      "from": "knee",
+      "to": "ankle",
+      "mode": "bone",
+      "y": [
+        1022,
+        1400
+      ],
+      "caps": [
+        {
+          "joint": "ankle",
+          "radius": 46,
+          "feather": 1.5
+        }
+      ],
+      "uses": [
+        {
+          "name": "leg_back_lower",
+          "bone": "leg_back_lower",
+          "z": -5,
+          "tint": 0.9
+        },
+        {
+          "name": "leg_front_lower",
+          "bone": "leg_front_lower",
+          "z": 3
+        }
+      ]
+    },
+    "foot": {
+      "group": "body",
+      "from": "ankle",
+      "to": "toe",
+      "mode": "upright",
+      "pivot": "ankle",
+      "y": [
+        1375,
+        3000
+      ],
+      "caps": [
+        {
+          "joint": "ankle",
+          "radius": 62,
+          "feather": 8
+        }
+      ],
+      "uses": [
+        {
+          "name": "foot_back",
+          "bone": "foot_back",
+          "z": -5,
+          "tint": 0.9
+        },
+        {
+          "name": "foot_front",
+          "bone": "foot_front",
+          "z": 3
+        }
+      ]
+    },
+    "arm_upper": {
+      "group": "arm",
+      "from": "shoulder",
+      "to": "elbow",
+      "mode": "bone",
+      "y": [
+        0,
+        512
+      ],
+      "uses": [
+        {
+          "name": "arm_back_upper",
+          "bone": "arm_back_upper",
+          "z": -7,
+          "tint": 0.9
+        },
+        {
+          "name": "arm_front_upper",
+          "bone": "arm_front_upper",
+          "z": 8
+        }
+      ]
+    },
+    "arm_lower": {
+      "group": "arm",
+      "from": "elbow",
+      "to": "palm",
+      "mode": "bone",
+      "y": [
+        512,
+        3000
+      ],
+      "uses": [
+        {
+          "name": "arm_back_lower",
+          "bone": "arm_back_lower",
+          "z": -7,
+          "tint": 0.9
+        },
+        {
+          "name": "arm_front_lower",
+          "bone": "arm_front_lower",
+          "z": 8
+        }
+      ]
+    },
+    "hand": {
+      "group": "hand",
+      "from": "palm",
+      "to": "fingertip",
+      "mode": "hand",
+      "pivot": "palm",
+      "uses": [
+        {
+          "name": "hand_back",
+          "bone": "hand_back",
+          "z": -6,
+          "tint": 0.9
+        },
+        {
+          "name": "hand_front",
+          "bone": "hand_front",
+          "z": 10
+        }
+      ]
+    }
+  },
+  "glow": {},
+  "bones": [
+    {
+      "name": "hip",
+      "parent": "",
+      "from": "ground_hip"
+    },
+    {
+      "name": "chest",
+      "parent": "hip",
+      "at": "waist"
+    },
+    {
+      "name": "neck",
+      "parent": "chest",
+      "at": "neck"
+    },
+    {
+      "name": "head",
+      "parent": "neck",
+      "at": "head"
+    },
+    {
+      "name": "arm_back_upper",
+      "parent": "chest",
+      "at": "shoulder",
+      "dx": -0.6,
+      "tip": "elbow"
+    },
+    {
+      "name": "arm_back_lower",
+      "parent": "arm_back_upper",
+      "tip": "palm"
+    },
+    {
+      "name": "hand_back",
+      "parent": "arm_back_lower",
+      "tip": "fingertip"
+    },
+    {
+      "name": "arm_front_upper",
+      "parent": "chest",
+      "at": "shoulder",
+      "dx": 0.0,
+      "tip": "elbow"
+    },
+    {
+      "name": "arm_front_lower",
+      "parent": "arm_front_upper",
+      "tip": "palm"
+    },
+    {
+      "name": "hand_front",
+      "parent": "arm_front_lower",
+      "tip": "fingertip"
+    },
+    {
+      "name": "leg_back_upper",
+      "parent": "hip",
+      "at": "hip",
+      "dx": -0.7,
+      "tip": "knee"
+    },
+    {
+      "name": "leg_back_lower",
+      "parent": "leg_back_upper",
+      "tip": "ankle"
+    },
+    {
+      "name": "foot_back",
+      "parent": "leg_back_lower"
+    },
+    {
+      "name": "leg_front_upper",
+      "parent": "hip",
+      "at": "hip",
+      "dx": 0.0,
+      "tip": "knee"
+    },
+    {
+      "name": "leg_front_lower",
+      "parent": "leg_front_upper",
+      "tip": "ankle"
+    },
+    {
+      "name": "foot_front",
+      "parent": "leg_front_lower"
+    }
+  ],
+  "weapon_anchor": {
+    "bone": "chest",
+    "from": "waist",
+    "to": "shoulder",
+    "dx": 0.8,
+    "dy": 0.6,
+    "reach": 9.7
+  },
+  "refine": {
+    "defringe": {
+      "width": 2
+    },
+    "speckle": 30,
+    "smooth_alpha": {
+      "parts": [
+        "pelvis",
+        "torso",
+        "coat",
+        "coat_hem",
+        "leg_upper",
+        "leg_lower",
+        "foot",
+        "arm_upper",
+        "arm_lower",
+        "hand",
+        "umbrella"
+      ],
+      "sigma": 1.0
+    },
+    "fill_holes": {
+      "parts": [
+        "pelvis",
+        "torso",
+        "coat",
+        "coat_hem",
+        "leg_upper",
+        "leg_lower",
+        "foot",
+        "arm_upper",
+        "arm_lower",
+        "hand",
+        "head",
+        "umbrella"
+      ],
+      "max_area": 800
+    },
+    "close_fill": {
+      "parts": [
+        "hand",
+        "foot",
+        "arm_lower",
+        "arm_upper"
+      ],
+      "radius": 4
+    },
+    "underlap": [
+      {
+        "part": "torso",
+        "under": "head",
+        "poly": [
+          [
+            557,
+            200
+          ],
+          [
+            554,
+            216
+          ],
+          [
+            545,
+            230
+          ],
+          [
+            531,
+            239
+          ],
+          [
+            515,
+            242
+          ],
+          [
+            499,
+            239
+          ],
+          [
+            485,
+            230
+          ],
+          [
+            476,
+            216
+          ],
+          [
+            473,
+            200
+          ],
+          [
+            476,
+            184
+          ],
+          [
+            485,
+            170
+          ],
+          [
+            499,
+            161
+          ],
+          [
+            515,
+            158
+          ],
+          [
+            531,
+            161
+          ],
+          [
+            545,
+            170
+          ],
+          [
+            554,
+            184
+          ]
+        ]
+      },
+      {
+        "part": "coat",
+        "under": "head",
+        "poly": [
+          [
+            557,
+            200
+          ],
+          [
+            554,
+            216
+          ],
+          [
+            545,
+            230
+          ],
+          [
+            531,
+            239
+          ],
+          [
+            515,
+            242
+          ],
+          [
+            499,
+            239
+          ],
+          [
+            485,
+            230
+          ],
+          [
+            476,
+            216
+          ],
+          [
+            473,
+            200
+          ],
+          [
+            476,
+            184
+          ],
+          [
+            485,
+            170
+          ],
+          [
+            499,
+            161
+          ],
+          [
+            515,
+            158
+          ],
+          [
+            531,
+            161
+          ],
+          [
+            545,
+            170
+          ],
+          [
+            554,
+            184
+          ]
+        ]
+      },
+      {
+        "part": "arm_lower",
+        "under": "hand",
+        "poly": [
+          [
+            278,
+            708
+          ],
+          [
+            277,
+            714
+          ],
+          [
+            273,
+            719
+          ],
+          [
+            268,
+            723
+          ],
+          [
+            262,
+            724
+          ],
+          [
+            256,
+            723
+          ],
+          [
+            251,
+            719
+          ],
+          [
+            247,
+            714
+          ],
+          [
+            246,
+            708
+          ],
+          [
+            247,
+            702
+          ],
+          [
+            251,
+            697
+          ],
+          [
+            256,
+            693
+          ],
+          [
+            262,
+            692
+          ],
+          [
+            268,
+            693
+          ],
+          [
+            273,
+            697
+          ],
+          [
+            277,
+            702
+          ]
+        ]
+      },
+      {
+        "part": "coat",
+        "under": "arm_upper",
+        "poly": [
+          [
+            430,
+            295
+          ],
+          [
+            428,
+            306
+          ],
+          [
+            421,
+            316
+          ],
+          [
+            411,
+            323
+          ],
+          [
+            400,
+            325
+          ],
+          [
+            389,
+            323
+          ],
+          [
+            379,
+            316
+          ],
+          [
+            372,
+            306
+          ],
+          [
+            370,
+            295
+          ],
+          [
+            372,
+            284
+          ],
+          [
+            379,
+            274
+          ],
+          [
+            389,
+            267
+          ],
+          [
+            400,
+            265
+          ],
+          [
+            411,
+            267
+          ],
+          [
+            421,
+            274
+          ],
+          [
+            428,
+            284
+          ]
+        ]
+      }
+    ],
+    "inpaint": [
+      {
+        "part": "coat",
+        "poly": [
+          [
+            385,
+            255
+          ],
+          [
+            420,
+            250
+          ],
+          [
+            445,
+            275
+          ],
+          [
+            455,
+            330
+          ],
+          [
+            445,
+            385
+          ],
+          [
+            415,
+            410
+          ],
+          [
+            385,
+            400
+          ],
+          [
+            368,
+            350
+          ],
+          [
+            368,
+            290
+          ]
+        ]
+      }
+    ]
+  },
+  "eye_states": {
+    "part": "head",
+    "half_texture": "head_half",
+    "closed_texture": "head_closed",
+    "timing": {},
+    "head_box": [
+      358,
+      0,
+      614,
+      256
+    ],
+    "sources": {
+      "original_head": {
+        "path": "art_src/characters/egret/07_refined/head.png",
+        "sha256": "27789bd9f13ae9218e77b1d96277cc6341b96ac412e29ae9e8cb35258b4e019a"
+      },
+      "half": {
+        "path": "art_src/characters/egret/eyes/half.png",
+        "sha256": "427653bdc0278085c395a9636ff920c6bc7e036ed60223d988dd00a534a567fd"
+      },
+      "closed": {
+        "path": "art_src/characters/egret/eyes/closed.png",
+        "sha256": "243a3573100a72685ee4374a76aa0f8c12b852129356a02d94675fc085572cea"
+      }
+    },
+    "eye_mask": [
+      [
+        533,
+        98
+      ],
+      [
+        560,
+        98
+      ],
+      [
+        560,
+        119
+      ],
+      [
+        533,
+        119
+      ]
+    ]
+  },
+  "dialog_portrait": {
+    "box": [
+      352,
+      2,
+      639,
+      289
+    ],
+    "out": "art/portraits/egret.png",
+    "size": 256
+  }
+}
