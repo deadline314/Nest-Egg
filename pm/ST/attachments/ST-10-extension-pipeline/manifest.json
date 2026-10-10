@@ -1,0 +1,170 @@
+{
+  "baseline": "48f94b12179f50258c2689ce0e416c0fa2434a1a",
+  "source_only_delivery": true,
+  "native_adopted": false,
+  "sources": {
+    "tools/comfyui/comfy_api.py": {
+      "raw_sha256": "203010f358fca37ff8e143ab006293c65108b2911d4c4d27bb8af556097c90cf",
+      "git_sha256": "203010f358fca37ff8e143ab006293c65108b2911d4c4d27bb8af556097c90cf",
+      "bytes": 9719
+    },
+    "tools/comfyui/test_cache_options.py": {
+      "raw_sha256": "3806f69e2108f4f60a328832e1c635bd3be00571061dbb432f9512c29a9bd231",
+      "git_sha256": "3806f69e2108f4f60a328832e1c635bd3be00571061dbb432f9512c29a9bd231",
+      "bytes": 3522
+    },
+    "tools/assets/stage_extension.py": {
+      "raw_sha256": "32f9cac4cff7d30b8620e95517e7c7186ba29753809578c19880293fc8ec8199",
+      "git_sha256": "32f9cac4cff7d30b8620e95517e7c7186ba29753809578c19880293fc8ec8199",
+      "bytes": 10449
+    },
+    "tools/assets/test_stage_extension.py": {
+      "raw_sha256": "ed415604541553d1a702ac239815969cb6f56bc653e0a317e5f0def9f191b717",
+      "git_sha256": "ed415604541553d1a702ac239815969cb6f56bc653e0a317e5f0def9f191b717",
+      "bytes": 4201
+    },
+    "assets_src/pipeline/qwen_stage_extensions.json": {
+      "raw_sha256": "a0128d9e176e4bae52333080291e3510d5e6581b933964b00fffa3b20dd532cd",
+      "git_sha256": "52825710f107ce7f81da8b45452c170242c91a0cae3cffa30f784fc8609b0546",
+      "bytes": 8077
+    },
+    "assets_src/generated/stage_extensions/pawnshop_front.png": {
+      "raw_sha256": "4e0114ce8480a8fea667b406516983b0cf07c05ca09b381b6bc02557eadf397d",
+      "git_sha256": "4e0114ce8480a8fea667b406516983b0cf07c05ca09b381b6bc02557eadf397d",
+      "bytes": 919387
+    },
+    "assets_src/generated/stage_extensions/pawnshop_kitchen.png": {
+      "raw_sha256": "c71e2de3fe1361f8d13227b96a9aff2cb04eea9c0a90cec963b978743e01b83f",
+      "git_sha256": "c71e2de3fe1361f8d13227b96a9aff2cb04eea9c0a90cec963b978743e01b83f",
+      "bytes": 827660
+    },
+    "art/environment/scenes/pawnshop_front_extended.webp": {
+      "raw_sha256": "54a5d7e38c4bb7a5a9573402b3859a3f9ef869dc1bf327d90aba15425dd26ca1",
+      "git_sha256": "54a5d7e38c4bb7a5a9573402b3859a3f9ef869dc1bf327d90aba15425dd26ca1",
+      "bytes": 1166530
+    },
+    "art/environment/scenes/pawnshop_front_extended.webp.import": {
+      "raw_sha256": "eed00a32767eaf13b054422f299652b7fe28765ac5157f2551efb6bcd546f885",
+      "git_sha256": "eed00a32767eaf13b054422f299652b7fe28765ac5157f2551efb6bcd546f885",
+      "bytes": 999
+    },
+    "art/environment/scenes/pawnshop_kitchen_extended.webp": {
+      "raw_sha256": "ab357d407f560de9dcd094fc1599201f4990bdd043927cf86a92dc1c5987950a",
+      "git_sha256": "ab357d407f560de9dcd094fc1599201f4990bdd043927cf86a92dc1c5987950a",
+      "bytes": 1414176
+    },
+    "art/environment/scenes/pawnshop_kitchen_extended.webp.import": {
+      "raw_sha256": "5e1ddc62187364f3248e50a99533da815b7cfbc570851c2ec81aff530d571800",
+      "git_sha256": "5e1ddc62187364f3248e50a99533da815b7cfbc570851c2ec81aff530d571800",
+      "bytes": 1004
+    },
+    "design/20-campaign-experience/STAGE_EXTENSION_PIPELINE.md": {
+      "raw_sha256": "9959535aee1c8a50c50f2987aeefbfc09cf9b28ba093b72b3266834fd6b2dc6d",
+      "git_sha256": "9959535aee1c8a50c50f2987aeefbfc09cf9b28ba093b72b3266834fd6b2dc6d",
+      "bytes": 3671
+    }
+  },
+  "full_logs": {
+    "import-951.log": {
+      "bytes": 257194,
+      "raw_sha256": "a4b707d4dbc69dc735643131c5b53610459e1e2673cca46e752372adc4f094f6",
+      "git_lf_sha256": "06470299096c187d4280db7ad3c3c0eec0eaacc85655ffdcc2a47784c3cc7480",
+      "error_lines": 0,
+      "natural_exit": 0
+    },
+    "import-444.log": {
+      "bytes": 1421,
+      "raw_sha256": "d4d639c9e96b00d174957a8a784064915c72616841a8c9dfa2b22c6c3b9064cf",
+      "git_lf_sha256": "3c509f39901e1a3d45af513c66b2851dca310bfdfc51b496b229975fdea05c52",
+      "error_lines": 0,
+      "natural_exit": 0
+    },
+    "import-48.log": {
+      "bytes": 1732,
+      "raw_sha256": "4941e03470a84b030b070c2eb8e10e54981ece41f25487da61a65bd42bb0a6cc",
+      "git_lf_sha256": "5c3232cd3f7ad40bca4e746737317f4a0308358d8986c03464cd24f8630cb14d",
+      "error_lines": 0,
+      "natural_exit": 0
+    },
+    "changed-951-console.log": {
+      "bytes": 306,
+      "raw_sha256": "1182e314624c0054a9a18d279854cb28e9641523e2a081e3edd807ae600276bd",
+      "git_lf_sha256": "64ad3d0985404001beea1227e1ab2b6db9cc82273e6164cfb58b3644a0bd73ee",
+      "error_lines": 0,
+      "natural_exit": 0
+    },
+    "changed-951-shard.log": {
+      "bytes": 12421,
+      "raw_sha256": "6f713727e9a5629f032d9cc0c72143ac67e644aa888c1abacb09dd3edd21a78a",
+      "git_lf_sha256": "d3920594fc4bc8212fe003364486ae2addc7ccf35440078d9d648ec1727949f3",
+      "error_lines": 15,
+      "natural_exit": 0
+    },
+    "changed-444-console.log": {
+      "bytes": 306,
+      "raw_sha256": "c23832ce9414a734c809aa969c8a4295aac6f9bf17d6e4c845c23fc7ac74288d",
+      "git_lf_sha256": "80200d5c1f8e7ba7ee4e9a4c1527856410d568cdfcf6450bc73deeec59aca9d4",
+      "error_lines": 0,
+      "natural_exit": 0
+    },
+    "changed-444-shard.log": {
+      "bytes": 12422,
+      "raw_sha256": "17b159cc1e92afec13dc411319371c8f452651a00dc5db5b266310b7072d814a",
+      "git_lf_sha256": "ba07d45a326d75397c32b932ad5e8ac43348b5326ddd87a4b7679c9b8c3a6f0a",
+      "error_lines": 15,
+      "natural_exit": 0
+    },
+    "extension-tests.log": {
+      "bytes": 1188,
+      "raw_sha256": "d5865002447a095d77f5fe918df16e99cefffce73e8f786aec063223b08b59b7",
+      "git_lf_sha256": "9f188cbffbb4840915936b99e72c6fb4e5c89fe96355bdda73d0e515a4583de7",
+      "error_lines": 0,
+      "natural_exit": null
+    },
+    "cache-options-cpu.log": {
+      "bytes": 199,
+      "raw_sha256": "82d50274fa620e9eb7c16f51e6a8fcd3110923d9cf595398d336e5f58d147068",
+      "git_lf_sha256": "6f8e6999ea73dfb6592c98914b325349693dc96451ecb743ce1d0db2cd468096",
+      "error_lines": 0,
+      "natural_exit": null
+    },
+    "extension-asset-check.log": {
+      "bytes": 727,
+      "raw_sha256": "84fd918eea59dbac71352ec527dd4c2ea5b728d8685598703e6dda5c7013477d",
+      "git_lf_sha256": "474d4db167606d49c21a182dadbd083b1344cf0c7c32cc05a9d335d28f52b72c",
+      "error_lines": 0,
+      "natural_exit": null
+    },
+    "extension-reproduce.log": {
+      "bytes": 592,
+      "raw_sha256": "c76b8eca8575ab6f7010ddeb499b00c72280b262c3c3ba8497150950575f3432",
+      "git_lf_sha256": "126871e0676430f251257e27a9db27dd0c577649a6ed6c585268533885be1338",
+      "error_lines": 0,
+      "natural_exit": null
+    },
+    "art-selector.log": {
+      "bytes": 566,
+      "raw_sha256": "0688f6e514e8475457f5d53746c814a85d82f7ef23090722c97ce0237691cc95",
+      "git_lf_sha256": "f3b7cfbf8c6851673a3d7d9fea48ea4dea8621b24f4666518ae42f276ecaf52f",
+      "error_lines": 0,
+      "natural_exit": null
+    }
+  },
+  "affected_groups": [
+    "main",
+    "EnvironmentSuite",
+    "DevMenuSuite"
+  ],
+  "checks": 7557,
+  "new_failures": 0,
+  "known_failures": 0,
+  "raw_errors": "15 existing expected missing-resource/invalid-data/body-space fixture lines; no script/parse/compile errors",
+  "cpu_checks": {
+    "stage_extension": 7,
+    "cache_options": 5
+  },
+  "limits": [
+    "No formal stage, actor or furniture coordinates changed.",
+    "Exploratory native image has clipping and is explicitly not an adoption pass."
+  ]
+}

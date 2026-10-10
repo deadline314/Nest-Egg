@@ -1,0 +1,4 @@
+DevMenuSuite: tests/suite/test_dev_menu.gd ← tests/fixtures/dev_menu/mixed.json ← tests/smoke_test.tscn ← tests/smoke_test.gd ← tools/scenarios/lighting_scene_scenario.gd ← art/environment/scenes/pawnshop_front_extended.webp
+EnvironmentSuite: tests/suite/test_environment.gd ← art/environment/scenes/pawnshop_front_extended.webp
+main: tests/smoke_test.gd ← tools/scenarios/lighting_scene_scenario.gd ← art/environment/scenes/pawnshop_front_extended.webp
+（更動 12 個檔案，其中 4 個會影響遊戲或工具；挑出 3 個測試群組）

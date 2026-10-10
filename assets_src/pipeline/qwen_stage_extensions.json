@@ -1,0 +1,205 @@
+{
+  "version": 1,
+  "processing": "original-centre-preserving extension, no global regrade",
+  "software": {
+    "opencv": "5.0.0"
+  },
+  "images": [
+    {
+      "id": "pawnshop_kitchen",
+      "kind": "scene_extension",
+      "original": "art/environment/scenes/pawnshop_kitchen.webp",
+      "original_sha256": "18b43ea14d509a4548938a34213b05a28e7bbfb4f06ecfa8077c25c588581711",
+      "original_size": [
+        1536,
+        864
+      ],
+      "reference": "assets_src/work/stage_extensions/pawnshop_kitchen/reference.png",
+      "reference_size": [
+        1152,
+        648
+      ],
+      "reference_centre_size": [
+        692,
+        388
+      ],
+      "reference_padding_xy": [
+        230,
+        130
+      ],
+      "reference_sha256": "b8e368328888064602ef44f1fbdece0b451c225b6b47b20e90ab88bf08bafbf3",
+      "prompt": "Edit this expanded game background reference. The sharp rectangular scene in the centre is the preserved original artwork. Replace the stretched flat outer bands with a seamless continuation of the same room, in the same straight-on side-scrolling stage view. Keep the central original composition, horizon, furniture scale, ink line weight, restrained colours and hard-edged cel shadows. The result is a completely deserted and uninhabited room where nobody is present, with open bare floor for game actors. The added borders are quiet architectural context, sparsely detailed and darker than the central action area. The existing scene is a modest green-tiled kitchen behind an old pawnshop. Extend the worn green wall and dark timber door framing sideways and the dark ceiling framing upward. The interior wooden kitchen floor remains INSIDE the central room behind its threshold. The lower outer band is a continuous empty charcoal-grey concrete corridor floor, the same dark cool grey material already visible below the central kitchen threshold. Match this concrete foreground across the entire lower band and both lower corners. Continue the existing yellow-green lamplight and blue rainy night through the window. Keep the two wooden chairs, table, stove, kettle, hanging pans and existing doorway exactly where they are in the central reference.",
+      "seed": 824502,
+      "steps": 25,
+      "resolution": 0,
+      "cache_device": "off",
+      "batch_size": 1,
+      "models": [
+        "qwen-image-2.1-UC-int8_convrot.safetensors",
+        "qwen3vl_8b_int8_convrot.safetensors",
+        "qwen_image_2.1_vae_bf16.safetensors"
+      ],
+      "raw": "assets_src/generated/stage_extensions/pawnshop_kitchen.png",
+      "raw_size": [
+        1152,
+        640
+      ],
+      "raw_sha256": "c71e2de3fe1361f8d13227b96a9aff2cb04eea9c0a90cec963b978743e01b83f",
+      "registration_canvas": [
+        2560,
+        1440
+      ],
+      "registration_matrix": [
+        [
+          1.0494400281354919,
+          0.001336576336850816,
+          -64.09722346596985
+        ],
+        [
+          -0.001336576336850816,
+          1.0494400281354919,
+          90.57519156292193
+        ]
+      ],
+      "original_canvas_xy": [
+        512,
+        288
+      ],
+      "crop_xywh": [
+        0,
+        0,
+        2560,
+        1440
+      ],
+      "edge_match_fade_px": 96,
+      "out": "art/environment/scenes/pawnshop_kitchen_extended.webp",
+      "out_sha256": "ab357d407f560de9dcd094fc1599201f4990bdd043927cf86a92dc1c5987950a",
+      "source_width": 2560,
+      "scale": 0.5,
+      "world_origin": [
+        -320,
+        -180
+      ],
+      "original_world_origin": [
+        -64,
+        -36
+      ],
+      "centre_pixels_unchanged": true,
+      "native_adopted": false,
+      "manual_visual_review": "candidate margins inspected; original furniture and floor pixels preserved; final camera and contact verification pending",
+      "registration_evidence": {
+        "method": "SIFT6000 ratio0.70 + similarity RANSAC6px confidence0.995",
+        "matches": 60,
+        "inliers": 48,
+        "span": [
+          1165.4008483886719,
+          578.3762664794922
+        ],
+        "continuation_source_px_ltrb": [
+          0.0,
+          86.23018709421692,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "id": "pawnshop_front",
+      "kind": "scene_extension",
+      "original": "art/environment/scenes/pawnshop_front.webp",
+      "original_sha256": "1734258535c5a0dcf3eca45d961adb090a2f79469ac13849204b90021baa3377",
+      "original_size": [
+        1536,
+        864
+      ],
+      "reference": "assets_src/work/stage_extensions/pawnshop_front/reference.png",
+      "reference_size": [
+        1152,
+        648
+      ],
+      "reference_centre_size": [
+        692,
+        388
+      ],
+      "reference_padding_xy": [
+        230,
+        130
+      ],
+      "reference_sha256": "0b46daf4aa949d7c0c4ae7eeb46b9dd317d00201fb30d33d3629e5391daac999",
+      "prompt": "Edit this expanded game background reference. The sharp rectangular scene in the centre is the preserved original artwork. Replace the stretched flat outer bands with a seamless continuation of the same room, in the same straight-on side-scrolling stage view. Keep the central original composition, horizon, furniture scale, ink line weight, restrained colours and hard-edged cel shadows. The result is a completely deserted and uninhabited room where nobody is present, with open bare floor for game actors. The added borders are quiet architectural context, sparsely detailed and darker than the central action area. The existing scene is the interior of an old pawnshop. Extend the existing dark timber shelves and brown wall sideways, the dark ceiling upward, and the empty tiled floor downward. Continue the existing warm amber bulb lighting and cold blue rainy light from the right-hand glass shop door. Preserve the existing central counter, register, shelves and shop door positions and sizes. The new outer floor is clear and continuous.",
+      "seed": 937401,
+      "steps": 25,
+      "resolution": 0,
+      "cache_device": "off",
+      "batch_size": 1,
+      "models": [
+        "qwen-image-2.1-UC-int8_convrot.safetensors",
+        "qwen3vl_8b_int8_convrot.safetensors",
+        "qwen_image_2.1_vae_bf16.safetensors"
+      ],
+      "raw": "assets_src/generated/stage_extensions/pawnshop_front.png",
+      "raw_size": [
+        1152,
+        640
+      ],
+      "raw_sha256": "4e0114ce8480a8fea667b406516983b0cf07c05ca09b381b6bc02557eadf397d",
+      "registration_canvas": [
+        2560,
+        1440
+      ],
+      "registration_matrix": [
+        [
+          0.9853246612706072,
+          -5.731658661610318e-05,
+          22.35338763312886
+        ],
+        [
+          5.731658661610318e-05,
+          0.9853246612706072,
+          11.900457807171897
+        ]
+      ],
+      "original_canvas_xy": [
+        512,
+        288
+      ],
+      "crop_xywh": [
+        480,
+        224,
+        1600,
+        1216
+      ],
+      "edge_match_fade_px": 96,
+      "out": "art/environment/scenes/pawnshop_front_extended.webp",
+      "out_sha256": "54a5d7e38c4bb7a5a9573402b3859a3f9ef869dc1bf327d90aba15425dd26ca1",
+      "source_width": 1600,
+      "scale": 0.5,
+      "world_origin": [
+        -80,
+        -68
+      ],
+      "original_world_origin": [
+        -64,
+        -36
+      ],
+      "centre_pixels_unchanged": true,
+      "native_adopted": false,
+      "manual_visual_review": "candidate margins inspected; original furniture and floor pixels preserved; final camera and contact verification pending",
+      "registration_evidence": {
+        "method": "SIFT6000 ratio0.70 + similarity RANSAC6px confidence0.995",
+        "matches": 208,
+        "inliers": 183,
+        "span": [
+          1460.001075744629,
+          611.0889167785645
+        ],
+        "continuation_source_px_ltrb": [
+          22.687019506163892,
+          12.227457222749893,
+          15.51144606078833,
+          9.355951860372443
+        ]
+      }
+    }
+  ]
+}

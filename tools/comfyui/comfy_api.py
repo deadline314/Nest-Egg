@@ -126,15 +126,25 @@ def _job_key(prompt, w, h, steps, seed, resolution, images):
     return hashlib.sha1(blob.encode("utf-8")).hexdigest()
 
 
-def qwen(prompt, w=1024, h=1024, steps=25, seed=None, prefix="qwen", images=(), resolution=1024, retries=4, reuse=True):
+def qwen(prompt, w=1024, h=1024, steps=25, seed=None, prefix="qwen", images=(), resolution=1024, retries=4, reuse=True,
+         cache_device="cpu", cache_dtype="default"):
     """Text-to-image, or edit mode when reference images (local paths) are given.
 
     Intel Arc occasionally returns an all-black (NaN) image; it is detected and regenerated with seed+1.
     With a fixed seed and reuse=True, an identical finished job (same prompt, size, steps, seed, references) is returned
     from OUT instead of generated again, so re-running a batch after a failure only does the unfinished jobs.
+    cache_device="off" recomputes the reference prefix instead of retaining its
+    KV cache in RAM. It trades sampling speed for memory; it does not unload
+    model weights. The defaults preserve existing generation and cache keys.
     """
+    if cache_device not in ("auto", "gpu", "cpu", "off"):
+        raise ValueError(f"Unsupported Qwen cache device: {cache_device!r}")
+    if cache_dtype not in ("default", "int8", "int4"):
+        raise ValueError(f"Unsupported Qwen cache dtype: {cache_dtype!r}")
     from PIL import Image
     key = _job_key(prompt, w, h, steps, seed, resolution, images) if seed is not None else None
+    if key and (cache_device, cache_dtype) != ("cpu", "default"):
+        key = hashlib.sha1(json.dumps([key, cache_device, cache_dtype]).encode("utf-8")).hexdigest()
     meta = OUT / f"{prefix}.job.json"
     if reuse and key and meta.exists() and json.loads(meta.read_text(encoding="utf-8")).get("key") == key:
         cached = sorted(OUT.glob(f"{prefix}_[0-9].png"))
@@ -149,7 +159,7 @@ def qwen(prompt, w=1024, h=1024, steps=25, seed=None, prefix="qwen", images=(), 
         g = {
             "1": {"class_type": "UNETLoader", "inputs": {"unet_name": QWEN_UNET, "weight_dtype": "default"}},
             # Cache on system RAM: "auto" pushes a 12 GB card over its VRAM limit (160 s/step instead of 2 s).
-            "1c": {"class_type": "QwenImage21Cache", "inputs": {"model": ["1", 0], "device": "cpu", "dtype": "default"}},
+            "1c": {"class_type": "QwenImage21Cache", "inputs": {"model": ["1", 0], "device": cache_device, "dtype": cache_dtype}},
             "2": {"class_type": "CLIPLoader", "inputs": {"clip_name": QWEN_CLIP, "type": "qwen_image", "device": "default"}},
             "3": {"class_type": "VAELoader", "inputs": {"vae_name": QWEN_VAE}},
             "4": {"class_type": "TextEncodeQwenImage21", "inputs": {"clip": ["2", 0], "prompt": prompt, "negative_prompt": "",
