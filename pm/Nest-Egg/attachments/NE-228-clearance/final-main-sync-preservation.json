@@ -1,0 +1,267 @@
+{
+  "previous_base": "212768fa4a98e9db5bb1b3f4c067ef6027c7547d",
+  "new_base": "cd96d6b00eccf28712e4b7de5c854cb3edea5d4e",
+  "source_delta": [
+    "design/20-campaign-experience/WEAPON_COMBOS.md",
+    "game/player/player.gd",
+    "tests/suite/test_melee_weapons.gd",
+    "tools/weapon_guard_probe.gd",
+    "tools/weapon_guard_probe.gd.uid",
+    "tools/weapon_guard_probe.tscn"
+  ],
+  "preserved_ui_paths": [
+    {
+      "path": "game/level/prompt_layout.gd",
+      "sha256": "9c79b20dbd15b7d6eefd92260f983ff6c8e4461eebb16dba4c6e0dc740d41271"
+    },
+    {
+      "path": "game/level/world_prompt.gd",
+      "sha256": "d311565e2fa144ba3c6ffff566f82ed2b9414b2a9a70a0eaec43f0b605cc883b"
+    },
+    {
+      "path": "tests/suite/test_world_prompt.gd",
+      "sha256": "f960bd2cdb70d98092ba4bc7dcae2e3543e0edd9ca1ccb181fe6796e36018865"
+    },
+    {
+      "path": "tools/contextual_ui_probe.gd",
+      "sha256": "6c11fd46d839360ccd731238f8d95124ada7ccc055599b6fad44e04c60bfc613"
+    },
+    {
+      "path": "ui/ammo_tray.gd",
+      "sha256": "c51d8d506c1adc5052a5a5b3b0a19554b4cc0e6c4359c6bcd791c588d9d44d6a"
+    },
+    {
+      "path": "ui/chapter_card.gd",
+      "sha256": "fd5b5fa36052b9e0853da38616278d638734959c7985646eee81a2b691350c86"
+    },
+    {
+      "path": "tests/helpers/contextual_priority_checks.gd",
+      "sha256": "9a3cd4536bdd2cc2cfcf88cc3da1e89c1290efcf6263afea00076f4842d83e14"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/native-720.log",
+      "sha256": "4a184c0fe25600f746f12d4271fdc452986096ab128a6440c280f3ffdbf46b13"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/native-720-exit.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-720-actual-crouching-left.png",
+      "sha256": "c7bae6b79b31a8e98923d82110a151834e0a4cd7b3e54949b2055b0b4cb83eed"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-720-actual-crouching-right.png",
+      "sha256": "9c39f846020ec4eacd3fa472e120de183cbdd5c080908f5c864e8e75595af172"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-720-actual-standing-left.png",
+      "sha256": "f01854c32f98cafce7b6cbaaa526195691aa8b24fbfa68055a645047255d9e84"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-720-actual-standing-right.png",
+      "sha256": "c9f7d87cbc53f753dedda7da0106cc1832c5f18017ac70e6b765348accdac7e7"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-720-authored-object-reading.png",
+      "sha256": "768c299be9c2c465b315928941779b589382f5af71addf545e8f39258a2fa7c9"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-720-authored-old-k-dialogue.png",
+      "sha256": "d0b9060cfabd512d409b8a25f2dd1e3cbabd40e3d08f74283ca7165ddac0e68d"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-720-authored-pawnshop-compact-hint.png",
+      "sha256": "4a2adb346a144271d73607c7119add72d3643b08b3af7f7506e3cfc6492625c5"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-720-authored-radio-ui-only.png",
+      "sha256": "8878678def14729e29db67fb7b444fe9e20257c712f33c06fd23d8b91b8f7cc3"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/native-1080.log",
+      "sha256": "c36d36f7ef30df0b6d94561dfe25168cb028c254e5288490321be53e37be04f4"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/native-1080-exit.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-1080-actual-crouching-left.png",
+      "sha256": "79b58dba5540b00eb3c616767e49fc29ff8a173f42e8e0efce84c681b0dfac7f"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-1080-actual-crouching-right.png",
+      "sha256": "7a34a0784d3ea5f55d3e9004e6853231b88d28b3c2da4cc8c17eecc17d6fe0c8"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-1080-actual-standing-left.png",
+      "sha256": "09d7b3903ed66ad4103708a2840bf289f541cfee05a1a9ec3903da27c1f38f03"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-1080-actual-standing-right.png",
+      "sha256": "200cd6a78b844f68a6ee73e30e5344d2e0cbb3f49cc23f4b63d8226eb5c7e67f"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-1080-authored-object-reading.png",
+      "sha256": "5d627f6806b6c083b89997b57e3e1c5e72bc1ceb5548975ff37617e7ff741528"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-1080-authored-old-k-dialogue.png",
+      "sha256": "339c959d4eeba58260994d07f2a9c4a8288605f2186e4ed427d3ede53c9e74e4"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-1080-authored-pawnshop-compact-hint.png",
+      "sha256": "bd5ba40ac105dd88dedd206789ee1e6f945dc01324a76cfc03a873ebaa25118e"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-1080-authored-radio-ui-only.png",
+      "sha256": "c115669ca7fbaf4c3ec6d9195c3b13c553e65762ae3deba9b71e59e6734df505"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/native-wide.log",
+      "sha256": "3073d616f34e4594fc1dde92ad55043081caa855cbf20d48554b4af9483f8362"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/native-wide-exit.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-wide-actual-crouching-left.png",
+      "sha256": "0821d1a97adb1c041b783d286a0279f33cab087aaf806d809c8d05794db5af0f"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-wide-actual-crouching-right.png",
+      "sha256": "d111b0b7d6fe932c888df446ad532fe9d1b2399ba94bb9b6515ee29ef62df9f4"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-wide-actual-standing-left.png",
+      "sha256": "b9a61541947e61796a67183bd8ed53fb9c6f1dd89c19a5cf357f71d8835174ff"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-wide-actual-standing-right.png",
+      "sha256": "d2743e7ab95910298ef53bca8db9f531cc8292b64c702b8a98f4d627952da09d"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-wide-authored-object-reading.png",
+      "sha256": "84d716299ecda35a9ea20da4d7327437932e4dd6e53c672dd94a65643636e2dc"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-wide-authored-old-k-dialogue.png",
+      "sha256": "346bdd2eb517ba4e02e8f3e5e7fccaf9a753c22e7b1f4fe8bad0b40d02b2ab96"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-wide-authored-pawnshop-compact-hint.png",
+      "sha256": "f668d66b86a479f1b26cb0674512bb20f7635c5e74f5da5e61e0e0a5cb439987"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-wide-authored-radio-ui-only.png",
+      "sha256": "380a893f778b881e56a822d34fe2b12247c07c24a9ec8382b38d525f601eac7d"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/changed-console.log",
+      "sha256": "18ec71f161a3bc634dc22e313d9ff1fa446a5792f115b947815183dde48b7289"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/changed-shard-0.log",
+      "sha256": "110f61d63b84e928d2cbc325b025bfd9e5d3abe833bb95dd0b0ee3fbb0ae7699"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/changed-exit.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/local-console.log",
+      "sha256": "8d73ac0303464198bac4f7b813c2b6bf1e26406b49f2ba786e3adc1a748b7056"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/local-shard-0.log",
+      "sha256": "acb8e8ab21ead5b12d1d661fa0c83cfaaee7a77293355a72773f353adac9e804"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/local-exit.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/latest-rig-console.log",
+      "sha256": "1f2fe7e2a8623d86b2606ba2576b51a90985c3252d96de40fc33f7b669240c4d"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/latest-rig-shard-0.log",
+      "sha256": "5d8a4fb5a78a60c727be1d7f8fdfa2ed8f2dd1eaaf4316af08e8653d5f0d22ba"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/latest-rig-exit.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/visual-review.md",
+      "sha256": "464e5d0c6f9c8d750fe6434f12111b5eb4bc55045691e52336bd7fb4f6fa0bf3"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/visual-review.json",
+      "sha256": "0f8d84f60cf89623aab8c589d735f87c489c69e1aed07a6a6eba327b1c47b3ca"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/main-sync-preservation.json",
+      "sha256": "2050c409a7ddfa48829ecabc3a6e347ccb3ede2ee25fbb13f258642d9c01a7ec"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/manifest.json",
+      "sha256": "d6e1372abc93fd9ccbd6a1dbe1da3a83787ac807927669039b81827339ff7821"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/README.md",
+      "sha256": "74a4c45a25a18c22d656ed0840b1a82c13f8703c676895529f81ef6c7c613b7e"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-contextual/manifest.json",
+      "sha256": "3b8e703267866c8c5cd5fe4e07c883cf21dfdf26f583786a4278565641c54692"
+    },
+    {
+      "path": "pm/Nest-Egg/[NE-228]重整全遊戲介面體驗.md",
+      "sha256": "565aa572afd8cd0cff3c3a383b3a9c7bcaf6b406ed9584e141a151d24d122361"
+    },
+    {
+      "path": "design/20-campaign-experience/HUD_GUIDANCE.md",
+      "sha256": "e591b6ec387758b5a3908312c8bdda9c33102eb21522f7384287fdd988f960b7"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/cloud/actual-shard-processes.log",
+      "sha256": "7137ae96a76bb92a7b2db089fee6dfbf54de53c4226e49550fe3339ca56137a2"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/cloud/capsule-provenance.json",
+      "sha256": "b1bb0a317ae70c0ef8ab52c7925ee214d21058261478465075cb02fcc319ac60"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/cloud/input-checksums.json",
+      "sha256": "a396751fe4ef01b9fa9ec781da4e741baa690930c50f0064a9d5831fa649215c"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/cloud/run/shard_0.log",
+      "sha256": "d3551044f462801f2610dac2f1a3323b68fbc85cf7f97eecc8990e2157cf1dcf"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/cloud/run/shard_1.log",
+      "sha256": "23fd51e56344c0a65890a6436038046ff1585d47bc1ee69df2a53f86b756fed9"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/cloud/run-command.json",
+      "sha256": "9469b92486c1b390ce07def3a1f4070d87eb43e37b34a699beae0dc654ed3237"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/cloud/run.log",
+      "sha256": "45a0cb5a58eb50363e95aaab3bbd34a34589b05656eec39b4dde2d17f4be2aef"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/cloud/zip-provenance.json",
+      "sha256": "54e612b44d6e1985c402eadee246cae702555f9d759424a1f33fb0e3a9d1010d"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/cloud/root-review.json",
+      "sha256": "9a380b6d3788aa1068a98b57530c8e81294f8231839f450f3042f3b5349421d2"
+    }
+  ],
+  "preserved": true
+}

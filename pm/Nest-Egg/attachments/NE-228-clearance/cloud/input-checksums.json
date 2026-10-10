@@ -1,0 +1,114 @@
+{
+  "baseline": "82882bb455ad2d57a5904a6cfbdf6b9c8d6645fa",
+  "patch_sha256": "45aa2b20388dcfe6596bd43356b073600467432e9595b8136f30c8896c09527c",
+  "patch_bytes": 28182,
+  "candidate": [
+    {
+      "path": "game/level/prompt_layout.gd",
+      "base_sha256": "9888f412778fffd9a882610612f2b0a36fe1df144789621a2711cf65db1d0d1d",
+      "patched_sha256": "9c79b20dbd15b7d6eefd92260f983ff6c8e4461eebb16dba4c6e0dc740d41271",
+      "current_sha256": "9c79b20dbd15b7d6eefd92260f983ff6c8e4461eebb16dba4c6e0dc740d41271"
+    },
+    {
+      "path": "game/level/world_prompt.gd",
+      "base_sha256": "b7d316054df1ee5c6e02ceb4b44bcc3204df8670004757a4e4787d3f37ecc107",
+      "patched_sha256": "d311565e2fa144ba3c6ffff566f82ed2b9414b2a9a70a0eaec43f0b605cc883b",
+      "current_sha256": "d311565e2fa144ba3c6ffff566f82ed2b9414b2a9a70a0eaec43f0b605cc883b"
+    },
+    {
+      "path": "tests/suite/test_world_prompt.gd",
+      "base_sha256": "8c9aaa1d6494ebda5358f42307c83e48008cddcec269446b6ec950cb608b723e",
+      "patched_sha256": "f960bd2cdb70d98092ba4bc7dcae2e3543e0edd9ca1ccb181fe6796e36018865",
+      "current_sha256": "f960bd2cdb70d98092ba4bc7dcae2e3543e0edd9ca1ccb181fe6796e36018865"
+    },
+    {
+      "path": "tools/contextual_ui_probe.gd",
+      "base_sha256": "415796af61c1060a929792bece6122cf66f82c501f40d00082ae89e83edaaa3b",
+      "patched_sha256": "6c11fd46d839360ccd731238f8d95124ada7ccc055599b6fad44e04c60bfc613",
+      "current_sha256": "6c11fd46d839360ccd731238f8d95124ada7ccc055599b6fad44e04c60bfc613"
+    },
+    {
+      "path": "ui/ammo_tray.gd",
+      "base_sha256": "4fc1bbc1996bf8fc4fee29875f64f5dc95a005808478ea8017f3af4f571a8fc0",
+      "patched_sha256": "c51d8d506c1adc5052a5a5b3b0a19554b4cc0e6c4359c6bcd791c588d9d44d6a",
+      "current_sha256": "c51d8d506c1adc5052a5a5b3b0a19554b4cc0e6c4359c6bcd791c588d9d44d6a"
+    },
+    {
+      "path": "ui/chapter_card.gd",
+      "base_sha256": "133ee3070dff3d4ae761f5de06479804e41c87234ca518b480d1766a66215f90",
+      "patched_sha256": "fd5b5fa36052b9e0853da38616278d638734959c7985646eee81a2b691350c86",
+      "current_sha256": "fd5b5fa36052b9e0853da38616278d638734959c7985646eee81a2b691350c86"
+    },
+    {
+      "path": "tests/helpers/contextual_priority_checks.gd",
+      "base_sha256": "f5d0311f60d8da2d88d64c1e4764fab7ec39b235bc9395a4679882abbfb8aa05",
+      "patched_sha256": "9a3cd4536bdd2cc2cfcf88cc3da1e89c1290efcf6263afea00076f4842d83e14",
+      "current_sha256": "9a3cd4536bdd2cc2cfcf88cc3da1e89c1290efcf6263afea00076f4842d83e14"
+    }
+  ],
+  "protected": [
+    {
+      "path": "tools/select_tests.py",
+      "baseline_sha256": "9ba6c288341e885979d7e171509e907b46b2b7347f1fc99e4145ec5d83986c03",
+      "test_before_sha256": "9ba6c288341e885979d7e171509e907b46b2b7347f1fc99e4145ec5d83986c03",
+      "test_after_sha256": "9ba6c288341e885979d7e171509e907b46b2b7347f1fc99e4145ec5d83986c03",
+      "current_sha256": "9ba6c288341e885979d7e171509e907b46b2b7347f1fc99e4145ec5d83986c03"
+    },
+    {
+      "path": "tools/run_tests_changed.sh",
+      "baseline_sha256": "14d71b3922cd580b9f85b774d431a3ff7e1e7e2ff0c1d5052740aac8b3ae604a",
+      "test_before_sha256": "14d71b3922cd580b9f85b774d431a3ff7e1e7e2ff0c1d5052740aac8b3ae604a",
+      "test_after_sha256": "14d71b3922cd580b9f85b774d431a3ff7e1e7e2ff0c1d5052740aac8b3ae604a",
+      "current_sha256": "14d71b3922cd580b9f85b774d431a3ff7e1e7e2ff0c1d5052740aac8b3ae604a"
+    },
+    {
+      "path": "tools/run_tests_parallel.sh",
+      "baseline_sha256": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba",
+      "test_before_sha256": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba",
+      "test_after_sha256": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba",
+      "current_sha256": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba"
+    },
+    {
+      "path": "tools/run_tests.sh",
+      "baseline_sha256": "4afc77326702271f062d3e1849485f7fab080e878fcb2307f9e48c5332ecea65",
+      "test_before_sha256": "4afc77326702271f062d3e1849485f7fab080e878fcb2307f9e48c5332ecea65",
+      "test_after_sha256": "4afc77326702271f062d3e1849485f7fab080e878fcb2307f9e48c5332ecea65",
+      "current_sha256": "4afc77326702271f062d3e1849485f7fab080e878fcb2307f9e48c5332ecea65"
+    },
+    {
+      "path": "tools/test_filters.sh",
+      "baseline_sha256": "319fea9acacfdad9f7dab7948ea5a2d76652757623b428829605160a210e678a",
+      "test_before_sha256": "319fea9acacfdad9f7dab7948ea5a2d76652757623b428829605160a210e678a",
+      "test_after_sha256": "319fea9acacfdad9f7dab7948ea5a2d76652757623b428829605160a210e678a",
+      "current_sha256": "319fea9acacfdad9f7dab7948ea5a2d76652757623b428829605160a210e678a"
+    },
+    {
+      "path": "tests/known_failures.txt",
+      "baseline_sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf",
+      "test_before_sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf",
+      "test_after_sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf",
+      "current_sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+    },
+    {
+      "path": "tests/smoke_test.gd",
+      "baseline_sha256": "fcef9118c7b7df128d9f409748492ec64beb22c815f4c09b400e5e5846438849",
+      "test_before_sha256": "fcef9118c7b7df128d9f409748492ec64beb22c815f4c09b400e5e5846438849",
+      "test_after_sha256": "fcef9118c7b7df128d9f409748492ec64beb22c815f4c09b400e5e5846438849",
+      "current_sha256": "fcef9118c7b7df128d9f409748492ec64beb22c815f4c09b400e5e5846438849"
+    },
+    {
+      "path": "tests/smoke_test.tscn",
+      "baseline_sha256": "197fd497674b8cdb09edfc4893c40acaccc745c552bc2d70afc6f7abefc0f401",
+      "test_before_sha256": "197fd497674b8cdb09edfc4893c40acaccc745c552bc2d70afc6f7abefc0f401",
+      "test_after_sha256": "197fd497674b8cdb09edfc4893c40acaccc745c552bc2d70afc6f7abefc0f401",
+      "current_sha256": "197fd497674b8cdb09edfc4893c40acaccc745c552bc2d70afc6f7abefc0f401"
+    },
+    {
+      "path": "tests/suite/test_suite.gd",
+      "baseline_sha256": "ac678fa9813ef2902dbb10a26bc455e91319e7ae5b8828640656471f67bd1ba0",
+      "test_before_sha256": "ac678fa9813ef2902dbb10a26bc455e91319e7ae5b8828640656471f67bd1ba0",
+      "test_after_sha256": "ac678fa9813ef2902dbb10a26bc455e91319e7ae5b8828640656471f67bd1ba0",
+      "current_sha256": "ac678fa9813ef2902dbb10a26bc455e91319e7ae5b8828640656471f67bd1ba0"
+    }
+  ]
+}

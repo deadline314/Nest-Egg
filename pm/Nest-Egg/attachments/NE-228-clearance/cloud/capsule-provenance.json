@@ -1,0 +1,93 @@
+{
+  "created_utc": "2026-10-10T10:32:02.769116+00:00",
+  "source_evidence_dir": "/workspace/work/ui-ne228-check/evidence",
+  "baseline": "82882bb455ad2d57a5904a6cfbdf6b9c8d6645fa",
+  "patch_sha256": "45aa2b20388dcfe6596bd43356b073600467432e9595b8136f30c8896c09527c",
+  "candidate_and_protected_checksums_verified_current": true,
+  "runner_result": [
+    "checks: 9002, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 463 s)"
+  ],
+  "original_runner_exit_code": 0,
+  "original_shard_result_lines": [
+    [
+      "checks: 6026, failures: 0"
+    ],
+    [
+      "checks: 2976, failures: 0"
+    ]
+  ],
+  "original_shard_child_exit_codes": null,
+  "child_exit_note": "Unmodified runner does not retain individual child exit codes. Raw result lines and actual overall exit are preserved.",
+  "suite_coverage_verified": true,
+  "observed_suite_count": 46,
+  "script_parse_compile_errors": 0,
+  "scope": "Linux headless affected regression only; chapter package remains pending Root closure.",
+  "environment": {
+    "hostname": "415f826d087f",
+    "cwd": "/workspace/work/ui-ne228-check/checkout",
+    "godot_path": "/workspace/.nest-egg-env/bin/Godot_v4.7.2-stable_linux.x86_64",
+    "godot_sha256": "8d106cbe6144c2dc7e881d61d2429c1a8a76e6b22ef48bd5e48dcf934953f71e",
+    "godot_version": "4.7.2.stable.official.ed1daf0bf",
+    "os_release": "PRETTY_NAME=\"Debian GNU/Linux 13 (trixie)\"\nNAME=\"Debian GNU/Linux\"\nVERSION_ID=\"13\"\nVERSION=\"13 (trixie)\"\nVERSION_CODENAME=trixie\nDEBIAN_VERSION_FULL=13.6\nID=debian\nHOME_URL=\"https://www.debian.org/\"\nSUPPORT_URL=\"https://www.debian.org/support\"\nBUG_REPORT_URL=\"https://bugs.debian.org/\"\n",
+    "debian_version": "13.6",
+    "cpu_max": "400000 100000",
+    "memory_max": "17179869184",
+    "disk_available_bytes": 21989683200,
+    "baseline": "82882bb455ad2d57a5904a6cfbdf6b9c8d6645fa",
+    "origin_main": "82882bb455ad2d57a5904a6cfbdf6b9c8d6645fa"
+  },
+  "runtime": {
+    "environment_id": "ccarenv_b64_Y2NhcmVudl9jYTlkYjczZmVhMjQ4MTkxOGZmYTA0NTUxOGQyM2U2Nw",
+    "source_config_id": "2e3a76e9-4d43-465e-ab9f-38347aaab9f8~cecfg_6ac933d15ae4819cb0db16ac0622b33a",
+    "source_config_version_id": "2e3a76e9-4d43-465e-ab9f-38347aaab9f8~cecfgver_6ac939ad43a8819cb3319e68c43e466d",
+    "spec_revision": "17",
+    "observed_spec_revision": "17",
+    "observations_current": true,
+    "provider": "cloud",
+    "desired_phase": "running",
+    "observed_phase": "running",
+    "failure": null,
+    "connectivity": "connected",
+    "network_policy": {
+      "mode": "unrestricted",
+      "state": "enforced"
+    }
+  },
+  "files": [
+    {
+      "path": "actual-shard-processes.log",
+      "bytes": 1054,
+      "sha256": "7137ae96a76bb92a7b2db089fee6dfbf54de53c4226e49550fe3339ca56137a2"
+    },
+    {
+      "path": "input-checksums.json",
+      "bytes": 6379,
+      "sha256": "a396751fe4ef01b9fa9ec781da4e741baa690930c50f0064a9d5831fa649215c"
+    },
+    {
+      "path": "run-command.json",
+      "bytes": 780,
+      "sha256": "9469b92486c1b390ce07def3a1f4070d87eb43e37b34a699beae0dc654ed3237"
+    },
+    {
+      "path": "run.log",
+      "bytes": 1725,
+      "sha256": "45a0cb5a58eb50363e95aaab3bbd34a34589b05656eec39b4dde2d17f4be2aef"
+    },
+    {
+      "path": "run/shard_0.log",
+      "bytes": 67288,
+      "sha256": "d3551044f462801f2610dac2f1a3323b68fbc85cf7f97eecc8990e2157cf1dcf"
+    },
+    {
+      "path": "run/shard_1.log",
+      "bytes": 61673,
+      "sha256": "23fd51e56344c0a65890a6436038046ff1585d47bc1ee69df2a53f86b756fed9"
+    },
+    {
+      "path": "zip-provenance.json",
+      "bytes": 286,
+      "sha256": "54e612b44d6e1985c402eadee246cae702555f9d759424a1f33fb0e3a9d1010d"
+    }
+  ]
+}

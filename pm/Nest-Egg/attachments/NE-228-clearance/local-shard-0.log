@@ -1,0 +1,23 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/test_no_such_character/character.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] load_json (res://game/rig/rig_library.gd:21)
+       [2] character (res://game/rig/rig_library.gd:29)
+       [3] setup (res://game/rig/character_rig.gd:99)
+       [4] _ready (res://ui/inventory/hd_portrait.gd:48)
+       [5] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:340)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+ERROR: [HdPortrait] 找不到角色骨架「test_no_such_character」，立繪不顯示。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://ui/inventory/hd_portrait.gd:49)
+       [1] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:340)
+       [2] frames (res://tests/suite/test_ui_screens.gd:9)
+SUITE_TIME UiScreensSuite 22.4
+SUITE_TIME AmmoTraySuite 9.2
+SUITE_TIME WorldPromptSuite 1.8
+checks: 200, failures: 0

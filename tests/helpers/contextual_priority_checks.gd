@@ -6,6 +6,7 @@ extends RefCounted
 static func run(suite: TestSuite) -> void:
 	await _reading_priority(suite)
 	await _actual_player_obstacle(suite)
+	await _actual_hud_obstacles(suite)
 
 
 static func _reading_priority(suite: TestSuite) -> void:
@@ -193,3 +194,90 @@ static func _actual_player_obstacle(suite: TestSuite) -> void:
 		retained = retained or (is_instance_valid(value) and value.get_instance_id() == prompt_id)
 	suite.check(not retained,
 		"real Level removal cleans Player obstacle, prompt registration and reusable active scratch")
+
+
+static func _actual_hud_obstacles(suite: TestSuite) -> void:
+	var level: Level = await suite.start_level(PropsSuite.level_data())
+	var tray: AmmoTray = level.hud.ammo_tray
+	await suite.frames(4)
+	var tray_id := tray.get_instance_id()
+	suite.check(PromptLayout._obstacles.has(tray), "real AmmoTray registers its actual owner and drawing getter")
+	suite.check(tray.prompt_obstacle_rect().has_area(), "visible loaded AmmoTray protects its actual world-space drawing")
+	var alpha := tray.presence.alpha
+	tray.presence.alpha = 0.0
+	suite.check(not tray.prompt_obstacle_rect().has_area(), "transparent AmmoTray exposes no obstruction")
+	tray.presence.alpha = alpha
+	var saved := {"pos": tray._pos, "has_pos": tray._has_pos, "side": tray._side, "ammo": tray.ammo,
+		"reloading": tray._reloading, "hint_width": tray._obstacle_hint_width}
+	tray._has_pos = true
+	tray._reloading = false
+	tray.ammo = 0
+	tray._pos = Vector2(320.0, 180.0)
+	var canvas := tray.get_viewport().get_canvas_transform()
+	for side: float in [-1.0, 1.0]:
+		tray._side = side
+		var hint_rect := canvas * tray.prompt_obstacle_rect()
+		var anchor_x := tray._pos.x - 16.0 if side < 0.0 else tray._pos.x
+		suite.check(hint_rect.has_area() and hint_rect.end.x >= anchor_x + tray._obstacle_hint_width,
+			"left-aligned empty-ammo hint full text width is included on both HUD sides")
+	tray._pos = saved["pos"]
+	tray._has_pos = saved["has_pos"]
+	tray._side = saved["side"]
+	tray.ammo = saved["ammo"]
+	tray._reloading = saved["reloading"]
+	tray._obstacle_hint_width = saved["hint_width"]
+	# A shell already in the actual fixed pool remains drawable after an energy switch.
+	var saved_energy := tray.is_energy
+	var saved_age := tray._eject_age[0]
+	var saved_position := tray._eject_pos[0]
+	var saved_spin := tray._eject_spin[0]
+	var saved_icon := tray._icon_id
+	tray._icon_id = &"pistol"
+	tray._eject_age[0] = 0.15
+	tray._eject_pos[0] = Vector2(300.0, 170.0)
+	tray._eject_spin[0] = 7.0
+	tray.is_energy = true
+	var shell_center := tray._eject_pos[0] + AmmoTray.ICON * 0.5
+	# Check the actual rotated draw rectangle, independently of the getter's
+	# circumscribed-radius calculation, so a skipped shell cannot pass this check.
+	var shell_transform := Transform2D(tray._eject_spin[0] * tray._eject_age[0], shell_center)
+	var shell_local := shell_transform * Rect2(-AmmoTray.ICON * 0.5, AmmoTray.ICON)
+	var shell_world := canvas.affine_inverse() * (tray.get_global_transform() * shell_local)
+	suite.check(tray.prompt_obstacle_rect().encloses(shell_world), "actual retained shell draw condition stays protected after energy weapon switch")
+	tray._icon_id = saved_icon
+	tray._eject_age[0] = saved_age
+	tray._eject_pos[0] = saved_position
+	tray._eject_spin[0] = saved_spin
+	tray.is_energy = saved_energy
+	var card := ChapterCard.new()
+	card.title = "第一章"
+	card.subtitle = "請帶著資料盤離開倉庫。"
+	card.hold = 10.0
+	suite.runner.add_child(card)
+	await suite.frames(3)
+	var card_id := card.get_instance_id()
+	var card_rect := card.prompt_obstacle_rect()
+	var card_screen := card.get_viewport().get_canvas_transform() * card_rect
+	suite.check(PromptLayout._obstacles.has(card) and card_rect.has_area(), "visible ChapterCard registers the real owner and text bounds")
+	suite.check(card_screen.size.x < 440.0, "ChapterCard protects measured labels rather than full VBox width")
+	var old_extent := card._title_extent
+	var old_font_size := card._title_label.get_theme_font_size(&"font_size")
+	card._title_label.add_theme_font_size_override(&"font_size", old_font_size + 6)
+	await suite.frames(2)
+	suite.check(card._title_extent.x > old_extent.x, "actual Label theme reflow refreshes cached title extent")
+	card._root.visible = false
+	suite.check(not card.prompt_obstacle_rect().has_area(), "hidden ChapterCard reserves no prompt space")
+	card._root.visible = true
+	card._root.modulate.a = 0.0
+	suite.check(not card.prompt_obstacle_rect().has_area(), "faded ChapterCard reserves no prompt space")
+	card.queue_free()
+	await suite.frames(2)
+	var retained := false
+	for owner: Node in PromptLayout._obstacles:
+		retained = retained or (is_instance_valid(owner) and owner.get_instance_id() == card_id)
+	suite.check(not retained, "ChapterCard tree exit automatically removes its obstacle owner")
+	await suite.end_level(level)
+	retained = false
+	for owner: Node in PromptLayout._obstacles:
+		retained = retained or (is_instance_valid(owner) and owner.get_instance_id() == tray_id)
+	suite.check(not retained, "Level removal automatically cleans real AmmoTray obstacle owner")

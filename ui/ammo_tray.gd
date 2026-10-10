@@ -49,6 +49,11 @@ var _side := -1.0
 var _time := 0.0
 var _flip_left := 0.0
 var _hint := ""
+var _obstacle_reserve_width := 0.0
+var _obstacle_hint_width := 0.0
+var _obstacle_icon_label_width := 0.0
+var _obstacle_ascent := 0.0
+var _obstacle_descent := 0.0
 ## 換彈動畫：已經顯示為滿的發數（連續值），與上一次發出的提示音所在的發數。
 var _refill := 0.0
 var _refill_from := 0
@@ -75,6 +80,8 @@ func _ready() -> void:
 	_eject_spin.resize(EJECT_SLOTS)
 	_eject_age.fill(EJECT_TIME)
 	_refresh_hint()
+	Settings.display_changed.connect(_refresh_obstacle_text_metrics)
+	PromptLayout.add_obstacle(self, prompt_obstacle_rect)
 	InputBindings.bindings_changed.connect(_refresh_hint)
 	EventBus.player_loadout_changed.connect(_on_loadout_changed)
 	EventBus.player_spawned.connect(func(_p: Node2D) -> void:
@@ -109,6 +116,7 @@ func side() -> float:
 
 func _refresh_hint() -> void:
 	_hint = InputBindings.format(EMPTY_HINT)
+	_refresh_obstacle_text_metrics()
 
 
 func _on_loadout_changed(loadout: Loadout) -> void:
@@ -138,6 +146,7 @@ func _on_loadout_changed(loadout: Loadout) -> void:
 		presence.poke()
 	if not _reloading:
 		_refill = float(_icons_for(ammo))
+	_refresh_obstacle_text_metrics()
 
 
 ## 彈匣容量超過 MAX_ICONS 時，一顆圖示代表幾發（容量 / MAX_ICONS，不到時一發一顆）。
@@ -262,19 +271,7 @@ func _draw_icons(alpha: float, pulse: float, state_low: bool, flip: float) -> vo
 	var empty_tex := AmmoIcons.texture(_icon_id, AmmoIcons.State.EMPTY)
 	var shown := _icons_for(ammo) if not _reloading else int(_refill)
 	for i in count:
-		var p := _slot_position(i)
-		if i < shown:
-			p.x += _side * _slide  # 補位：從遠一格的位置滑回來
-		var size := ICON
-		var origin := p
-		if _pop_left > 0.0 and i == _pop_slot:
-			var k := 1.0 + 0.45 * (_pop_left / 0.14)
-			origin -= (size * k - size) * 0.5
-			size *= k
-		# 沿圖示中心壓扁寬度。
-		var center_x := origin.x + size.x * 0.5
-		var width := size.x * flip
-		var rect := Rect2(center_x - width * 0.5, origin.y, width, size.y)
+		var rect := _icon_draw_rect(i, shown, flip)
 		if i < shown:
 			draw_texture_rect(full_tex, rect, false, Color(1, 1, 1, alpha * pulse))
 		else:
@@ -283,6 +280,20 @@ func _draw_icons(alpha: float, pulse: float, state_low: bool, flip: float) -> vo
 		_text(_slot_position(count - 1) + Vector2(0, -3), "×%d" % roundi(_per_icon), Palette.UI_MUTED, alpha, 9)
 	if ammo == 0 and not _reloading:
 		_text(_pos + Vector2(-16 if _side < 0.0 else 0.0, 7.0), _hint, LightKit.glow(Palette.NEON_YELLOW, 1.3), alpha * (0.6 + 0.4 * sin(_time * 6.0)), 9)
+
+
+## Pure geometry shared by drawing and prompt obstruction; preserves current slide/pop/flip animation.
+func _icon_draw_rect(index: int, shown: int, flip: float) -> Rect2:
+	var origin := _slot_position(index)
+	if index < shown:
+		origin.x += _side * _slide
+	var size := ICON
+	if _pop_left > 0.0 and index == _pop_slot:
+		var scale := 1.0 + 0.45 * (_pop_left / 0.14)
+		origin -= (size * scale - size) * 0.5
+		size *= scale
+	var width := size.x * flip
+	return Rect2(origin.x + (size.x - width) * 0.5, origin.y, width, size.y)
 
 
 ## 能量武器：圖示在前、後面是分段的電池格。
@@ -305,6 +316,73 @@ func _draw_battery(alpha: float, pulse: float, state_low: bool, flip: float) -> 
 			draw_rect(rect, Color(0.5, 0.62, 0.75, alpha * 0.3), false, 1.0)
 	if ammo == 0 and not _reloading:
 		_text(_pos + Vector2(-16 if _side < 0.0 else 0.0, 7.0), _hint, LightKit.glow(Palette.NEON_YELLOW, 1.3), alpha * (0.6 + 0.4 * sin(_time * 6.0)), 9)
+
+
+## Actual visible AmmoTray drawing bounds in world space, including transient pooled shells.
+func prompt_obstacle_rect() -> Rect2:
+	if not is_visible_in_tree() or presence.alpha <= 0.01 or modulate.a <= 0.01 \
+				or self_modulate.a <= 0.01 or not _has_mag or not _has_pos:
+		return Rect2()
+	var bounds := Rect2()
+	var flip := 1.0
+	if _flip_left > 0.0:
+		flip = absf(1.0 - 2.0 * (_flip_left / FLIP_TIME))
+	if is_energy:
+		var origin := Vector2(_pos.x - (AmmoIcons.CELL.x if _side < 0.0 else 0.0), _pos.y - AmmoIcons.CELL.y)
+		var width := AmmoIcons.CELL.x * flip
+		bounds = _merge_prompt_rect(bounds, Rect2(Vector2(origin.x + (AmmoIcons.CELL.x - width) * 0.5, origin.y), Vector2(width, AmmoIcons.CELL.y)))
+		var dir := -1.0 if _side < 0.0 else 1.0
+		for i in max_ammo:
+			var x := origin.x + dir * (AmmoIcons.CELL.x + 3.0 + float(i) * CELL_STEP) - (CELL.x if dir < 0.0 else 0.0)
+			bounds = _merge_prompt_rect(bounds, Rect2(x, origin.y + AmmoIcons.CELL.y - CELL.y, CELL.x, CELL.y))
+	else:
+		var count := icon_count()
+		var shown := _icons_for(ammo) if not _reloading else int(_refill)
+		for i in count:
+			bounds = _merge_prompt_rect(bounds, _icon_draw_rect(i, shown, flip))
+		if _per_icon >= 2.0 and count > 0:
+			bounds = _merge_prompt_rect(bounds, _baseline_rect(_slot_position(count - 1) + Vector2(0, -3), _obstacle_icon_label_width, false))
+	if ammo == 0 and not _reloading:
+		var hint_anchor := _pos + Vector2(-16.0 if _side < 0.0 else 0.0, 7.0)
+		# Both draw paths call _text without right_aligned, so the hint begins at this anchor.
+		bounds = _merge_prompt_rect(bounds, _baseline_rect(hint_anchor, _obstacle_hint_width, false))
+	# _draw_ejects checks only icon identity; pooled shells remain drawable after energy switch.
+	if _icon_id != &"":
+		var radius := Vector2(ICON.x * 0.5, ICON.y * 0.5).length()
+		for i in EJECT_SLOTS:
+			if _eject_age[i] < EJECT_TIME:
+				var center := _eject_pos[i] + ICON * 0.5
+				bounds = _merge_prompt_rect(bounds, Rect2(center - Vector2.ONE * radius, Vector2.ONE * radius * 2.0))
+	var reserve_anchor := _pos + Vector2(-2.0 if _side < 0.0 else 2.0, 9.0)
+	bounds = _merge_prompt_rect(bounds, _baseline_rect(reserve_anchor, _obstacle_reserve_width, _side < 0.0))
+	if not bounds.has_area():
+		return Rect2()
+	var canvas := get_viewport().get_canvas_transform()
+	if not is_finite(canvas.determinant()) or is_zero_approx(canvas.determinant()):
+		return Rect2()
+	return canvas.affine_inverse() * (get_global_transform() * bounds)
+
+
+func _baseline_rect(anchor: Vector2, text_width: float, right_aligned: bool) -> Rect2:
+	if text_width <= 0.0:
+		return Rect2()
+	var left := anchor.x - text_width if right_aligned else anchor.x
+	return Rect2(left - 1.0, anchor.y - _obstacle_ascent - 1.0, text_width + 2.0, _obstacle_ascent + _obstacle_descent + 2.0)
+
+
+func _merge_prompt_rect(bounds: Rect2, next: Rect2) -> Rect2:
+	if not next.has_area():
+		return bounds
+	return next if not bounds.has_area() else bounds.merge(next)
+
+
+func _refresh_obstacle_text_metrics() -> void:
+	var font := UiKit.font()
+	_obstacle_ascent = font.get_ascent(9)
+	_obstacle_descent = font.get_descent(9)
+	_obstacle_reserve_width = font.get_string_size("∞" if reserve < 0 else str(reserve), HORIZONTAL_ALIGNMENT_LEFT, -1, 9).x
+	_obstacle_hint_width = font.get_string_size(_hint, HORIZONTAL_ALIGNMENT_LEFT, -1, 9).x
+	_obstacle_icon_label_width = font.get_string_size("×%d" % roundi(_per_icon), HORIZONTAL_ALIGNMENT_LEFT, -1, 9).x if _per_icon >= 2.0 else 0.0
 
 
 func _draw_ejects(alpha: float) -> void:

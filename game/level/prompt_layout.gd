@@ -60,12 +60,7 @@ static func update() -> void:
 	_rects.clear()
 	for prompt in _active:
 		_rects.append(prompt.base_rect())
-	_obstacle_rects.clear()
-	for owner in _obstacles:
-		if is_instance_valid(owner):
-			var rect: Rect2 = _obstacles[owner].call()
-			if rect.has_area() and rect.position.is_finite() and rect.size.is_finite():
-				_obstacle_rects.append(rect)
+	_collect_obstacles()
 	solve(_rects, _obstacle_rects)
 	for i in _active.size():
 		_active[i].set_nudge_target(_nudges[i])
@@ -131,3 +126,80 @@ static func _is_blocked(rect: Rect2, obstacles: Array[Rect2], gap: float) -> boo
 		if rect.intersects(other.grow(OBSTACLE_MARGIN)):
 			return true
 	return false
+
+
+## Fresh real-world rectangles; do not reuse an earlier frame's screen-HUD position.
+static func _collect_obstacles() -> void:
+	_obstacle_rects.clear()
+	for owner in _obstacles:
+		if is_instance_valid(owner) and not owner.is_queued_for_deletion() and _obstacles[owner].is_valid():
+			var rect: Rect2 = _obstacles[owner].call()
+			if rect.has_area() and rect.position.is_finite() and rect.size.is_finite():
+				_obstacle_rects.append(rect)
+
+
+## Caller-owned high-water output holds world endpoint pairs; returned prefix count is valid. Never move the target.
+static func leader_segments(from: Vector2, to: Vector2, output: Array[Vector2], clearance := 0.0) -> int:
+	_collect_obstacles()
+	return clip_leader_segments(from, to, _obstacle_rects, output, clearance)
+
+
+## Pure segment minus union of closed rectangles, without sorting/copying arrays.
+## Every cursor advance reaches a new interval endpoint; at most N+1 visible spans.
+static func clip_leader_segments(from: Vector2, to: Vector2, obstacles: Array[Rect2], output: Array[Vector2], clearance := 0.0) -> int:
+	var written := 0
+	if not from.is_finite() or not to.is_finite() or from == to or not is_finite(clearance) or clearance < 0.0:
+		return 0
+	var delta := to - from
+	if not delta.is_finite():
+		return 0
+	var cursor := 0.0
+	while cursor < 1.0:
+		var covered_end := cursor
+		var next_start := 1.0
+		var next_end := 1.0
+		for obstacle in obstacles:
+			if not obstacle.has_area() or not obstacle.position.is_finite() or not obstacle.size.is_finite() or not obstacle.end.is_finite():
+				continue
+			var cut := segment_rect_interval(from, to, obstacle.grow(clearance))
+			if cut.x >= cut.y:
+				continue
+			if cut.x <= cursor:
+				covered_end = maxf(covered_end, cut.y)
+			elif cut.x < next_start or (cut.x == next_start and cut.y > next_end):
+				next_start = cut.x
+				next_end = cut.y
+		if covered_end > cursor:
+			cursor = covered_end
+			continue
+		if next_start > cursor:
+			if output.size() < written + 2:
+				output.resize(written + 2)
+			output[written] = from + delta * cursor
+			output[written + 1] = from + delta * next_start
+			written += 2
+		cursor = next_end
+	return written
+
+
+## Slab interval in t=0..1; x>y means no cut. Exact-zero parallel handling.
+static func segment_rect_interval(from: Vector2, to: Vector2, rect: Rect2) -> Vector2:
+	if not from.is_finite() or not to.is_finite() or not rect.has_area() or not rect.position.is_finite() or not rect.size.is_finite() or not rect.end.is_finite():
+		return Vector2(1.0, -1.0)
+	var start := 0.0
+	var stop := 1.0
+	var delta := to - from
+	if not delta.is_finite():
+		return Vector2(1.0, -1.0)
+	for axis in 2:
+		if delta[axis] == 0.0:
+			if from[axis] < rect.position[axis] or from[axis] > rect.end[axis]:
+				return Vector2(1.0, -1.0)
+		else:
+			var a := (rect.position[axis] - from[axis]) / delta[axis]
+			var b := (rect.end[axis] - from[axis]) / delta[axis]
+			start = maxf(start, minf(a, b))
+			stop = minf(stop, maxf(a, b))
+			if start > stop:
+				return Vector2(1.0, -1.0)
+	return Vector2(start, stop)

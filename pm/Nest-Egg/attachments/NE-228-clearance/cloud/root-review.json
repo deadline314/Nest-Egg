@@ -1,0 +1,21 @@
+{
+  "scope": "Linux headless affected regression; not native GPU, human controller, story closure or chapter package acceptance.",
+  "baseline": "82882bb455ad2d57a5904a6cfbdf6b9c8d6645fa",
+  "patch_sha256": "45aa2b20388dcfe6596bd43356b073600467432e9595b8136f30c8896c09527c",
+  "transport_capsule_bytes": 15805,
+  "transport_capsule_sha256": "1eb36d58358cb490e30c2707733981a795d4f48380ff84ca1cd73aa6b3125a68",
+  "candidate_source_files": 7,
+  "candidate_and_protected_hashes_independently_verified": true,
+  "original_runner_exit": 0,
+  "groups": 46,
+  "shards": 2,
+  "checks": 9002,
+  "new_failures": 0,
+  "known_failures": 0,
+  "seconds": 463,
+  "native_windows_checks": 8982,
+  "check_count_difference": 20,
+  "difference_note": "Original runners only retain per-suite timing and total checks. Exact attribution of the 20-check difference remains unestablished; no platform cause is claimed and tests were not weakened or rerun to normalize counts.",
+  "child_exit_note": "Unmodified runner does not retain individual child exit codes. Raw result lines and actual overall exit are preserved.",
+  "raw_diagnostics": "Fault-injection and exit diagnostics remain in unfiltered raw logs; success means zero new/known failures and no Script/Parse/Compile Error, not absence of every ERROR word."
+}

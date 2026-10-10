@@ -1,0 +1,693 @@
+{
+  "date": "2026-10-10",
+  "reviewer_role": "independent CPU/view_image reviewer",
+  "scope": "24 native static screenshots, no engine/Git/repo/image mutations",
+  "verdict": "bounded visual acceptance for captured line clearance and text/frame fit; no blocking visual defect within these pictures",
+  "source_base": "82882bb455ad2d57a5904a6cfbdf6b9c8d6645fa",
+  "source_patch_sha256": "45aa2b20388dcfe6596bd43356b073600467432e9595b8136f30c8896c09527c",
+  "sources": [
+    {
+      "path": "game/level/prompt_layout.gd",
+      "base_sha256": "9888f412778fffd9a882610612f2b0a36fe1df144789621a2711cf65db1d0d1d",
+      "patched_sha256": "9c79b20dbd15b7d6eefd92260f983ff6c8e4461eebb16dba4c6e0dc740d41271",
+      "actual_sha256": "9c79b20dbd15b7d6eefd92260f983ff6c8e4461eebb16dba4c6e0dc740d41271",
+      "matches_manifest": true
+    },
+    {
+      "path": "game/level/world_prompt.gd",
+      "base_sha256": "b7d316054df1ee5c6e02ceb4b44bcc3204df8670004757a4e4787d3f37ecc107",
+      "patched_sha256": "d311565e2fa144ba3c6ffff566f82ed2b9414b2a9a70a0eaec43f0b605cc883b",
+      "actual_sha256": "d311565e2fa144ba3c6ffff566f82ed2b9414b2a9a70a0eaec43f0b605cc883b",
+      "matches_manifest": true
+    },
+    {
+      "path": "tests/suite/test_world_prompt.gd",
+      "base_sha256": "8c9aaa1d6494ebda5358f42307c83e48008cddcec269446b6ec950cb608b723e",
+      "patched_sha256": "f960bd2cdb70d98092ba4bc7dcae2e3543e0edd9ca1ccb181fe6796e36018865",
+      "actual_sha256": "f960bd2cdb70d98092ba4bc7dcae2e3543e0edd9ca1ccb181fe6796e36018865",
+      "matches_manifest": true
+    },
+    {
+      "path": "tools/contextual_ui_probe.gd",
+      "base_sha256": "415796af61c1060a929792bece6122cf66f82c501f40d00082ae89e83edaaa3b",
+      "patched_sha256": "6c11fd46d839360ccd731238f8d95124ada7ccc055599b6fad44e04c60bfc613",
+      "actual_sha256": "6c11fd46d839360ccd731238f8d95124ada7ccc055599b6fad44e04c60bfc613",
+      "matches_manifest": true
+    },
+    {
+      "path": "ui/ammo_tray.gd",
+      "base_sha256": "4fc1bbc1996bf8fc4fee29875f64f5dc95a005808478ea8017f3af4f571a8fc0",
+      "patched_sha256": "c51d8d506c1adc5052a5a5b3b0a19554b4cc0e6c4359c6bcd791c588d9d44d6a",
+      "actual_sha256": "c51d8d506c1adc5052a5a5b3b0a19554b4cc0e6c4359c6bcd791c588d9d44d6a",
+      "matches_manifest": true
+    },
+    {
+      "path": "ui/chapter_card.gd",
+      "base_sha256": "133ee3070dff3d4ae761f5de06479804e41c87234ca518b480d1766a66215f90",
+      "patched_sha256": "fd5b5fa36052b9e0853da38616278d638734959c7985646eee81a2b691350c86",
+      "actual_sha256": "fd5b5fa36052b9e0853da38616278d638734959c7985646eee81a2b691350c86",
+      "matches_manifest": true
+    },
+    {
+      "path": "tests/helpers/contextual_priority_checks.gd",
+      "base_sha256": "f5d0311f60d8da2d88d64c1e4764fab7ec39b235bc9395a4679882abbfb8aa05",
+      "patched_sha256": "9a3cd4536bdd2cc2cfcf88cc3da1e89c1290efcf6263afea00076f4842d83e14",
+      "actual_sha256": "9a3cd4536bdd2cc2cfcf88cc3da1e89c1290efcf6263afea00076f4842d83e14",
+      "matches_manifest": true
+    }
+  ],
+  "profiles": [
+    {
+      "name": "720",
+      "resolution": [
+        1280,
+        720
+      ],
+      "text_scale": 1.0,
+      "exit": 0
+    },
+    {
+      "name": "1080",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "text_scale": 1.2,
+      "exit": 0
+    },
+    {
+      "name": "wide",
+      "resolution": [
+        2100,
+        900
+      ],
+      "text_scale": 1.2,
+      "expand": true,
+      "exit": 0
+    }
+  ],
+  "images": [
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-720/NE228-scripted-actual-crouching-left.png",
+      "sha256": "c7bae6b79b31a8e98923d82110a151834e0a4cd7b3e54949b2055b0b4cb83eed",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "profile": "720",
+      "text_scale": 1.0,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Original continuous leader/dot remains over actual movement sign; no actual crouched art overlap; prompt contained.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-720/NE228-scripted-actual-crouching-left.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-720/NE228-scripted-actual-crouching-right.png",
+      "sha256": "9c39f846020ec4eacd3fa472e120de183cbdd5c080908f5c864e8e75595af172",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "profile": "720",
+      "text_scale": 1.0,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Visible leader gap clears health/guard and ammunition; original target retained; complete movement text clear of actual crouched player.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-720/NE228-scripted-actual-crouching-right.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-720/NE228-scripted-actual-standing-left.png",
+      "sha256": "f01854c32f98cafce7b6cbaaa526195691aa8b24fbfa68055a645047255d9e84",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "profile": "720",
+      "text_scale": 1.0,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Original continuous leader/dot remains over actual movement sign; no art/vitals/ammo overlap.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-720/NE228-scripted-actual-standing-left.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-720/NE228-scripted-actual-standing-right.png",
+      "sha256": "c9f7d87cbc53f753dedda7da0106cc1832c5f18017ac70e6b765348accdac7e7",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "profile": "720",
+      "text_scale": 1.0,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Visible leader gap clears health/guard and ammunition; original target retained; frame/text/player clear.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-720/NE228-scripted-actual-standing-right.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-720/NE228-scripted-authored-object-reading.png",
+      "sha256": "768c299be9c2c465b315928941779b589382f5af71addf545e8f39258a2fa7c9",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "profile": "720",
+      "text_scale": 1.0,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Reading title and body complete; no portrait/added black bars; modal timer and full ambient suppression; small NPC marker remains; Enter blink-off.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-720/NE228-scripted-authored-object-reading.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-720/NE228-scripted-authored-old-k-dialogue.png",
+      "sha256": "d0b9060cfabd512d409b8a25f2dd1e3cbabd40e3d08f74283ca7165ddac0e68d",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "profile": "720",
+      "text_scale": 1.0,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Speaker header/body/portrait complete; no full ambient/world prompt/timer collision; small NPC marker remains; Enter blink-off; capture-only pistol posture.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-720/NE228-scripted-authored-old-k-dialogue.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-720/NE228-scripted-authored-pawnshop-compact-hint.png",
+      "sha256": "4a2adb346a144271d73607c7119add72d3643b08b3af7f7506e3cfc6492625c5",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "profile": "720",
+      "text_scale": 1.0,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Complete movement and pause cue; 1080/wide chapter-title/subtitle leader gap visible; original target retained.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-720/NE228-scripted-authored-pawnshop-compact-hint.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-720/NE228-scripted-authored-radio-ui-only.png",
+      "sha256": "8878678def14729e29db67fb7b444fe9e20257c712f33c06fd23d8b91b8f7cc3",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "profile": "720",
+      "text_scale": 1.0,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Distinct speaker/portrait; full two lines at720 and three lines at120% including final sentence; faces clear; passive HUD visible but no panel intersection; capture-only pistol posture.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-720/NE228-scripted-authored-radio-ui-only.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-1080/NE228-scripted-actual-crouching-left.png",
+      "sha256": "79b58dba5540b00eb3c616767e49fc29ff8a173f42e8e0efce84c681b0dfac7f",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "profile": "1080",
+      "text_scale": 1.2,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Original continuous leader/dot remains over actual movement sign; no actual crouched art overlap; prompt contained.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-1080/NE228-scripted-actual-crouching-left.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-1080/NE228-scripted-actual-crouching-right.png",
+      "sha256": "7a34a0784d3ea5f55d3e9004e6853231b88d28b3c2da4cc8c17eecc17d6fe0c8",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "profile": "1080",
+      "text_scale": 1.2,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Visible leader gap clears health/guard and ammunition; original target retained; complete movement text clear of actual crouched player.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-1080/NE228-scripted-actual-crouching-right.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-1080/NE228-scripted-actual-standing-left.png",
+      "sha256": "09d7b3903ed66ad4103708a2840bf289f541cfee05a1a9ec3903da27c1f38f03",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "profile": "1080",
+      "text_scale": 1.2,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Original continuous leader/dot remains over actual movement sign; no art/vitals/ammo overlap.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-1080/NE228-scripted-actual-standing-left.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-1080/NE228-scripted-actual-standing-right.png",
+      "sha256": "200cd6a78b844f68a6ee73e30e5344d2e0cbb3f49cc23f4b63d8226eb5c7e67f",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "profile": "1080",
+      "text_scale": 1.2,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Visible leader gap clears health/guard and ammunition; original target retained; frame/text/player clear.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-1080/NE228-scripted-actual-standing-right.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-1080/NE228-scripted-authored-object-reading.png",
+      "sha256": "5d627f6806b6c083b89997b57e3e1c5e72bc1ceb5548975ff37617e7ff741528",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "profile": "1080",
+      "text_scale": 1.2,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Reading title and body complete; no portrait/added black bars; modal timer and full ambient suppression; small NPC marker remains; Enter blink-off.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-1080/NE228-scripted-authored-object-reading.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-1080/NE228-scripted-authored-old-k-dialogue.png",
+      "sha256": "339c959d4eeba58260994d07f2a9c4a8288605f2186e4ed427d3ede53c9e74e4",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "profile": "1080",
+      "text_scale": 1.2,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Speaker header/body/portrait complete; no full ambient/world prompt/timer collision; small NPC marker remains; Enter blink-off; capture-only pistol posture.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-1080/NE228-scripted-authored-old-k-dialogue.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-1080/NE228-scripted-authored-pawnshop-compact-hint.png",
+      "sha256": "bd5ba40ac105dd88dedd206789ee1e6f945dc01324a76cfc03a873ebaa25118e",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "profile": "1080",
+      "text_scale": 1.2,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Complete movement and pause cue; 1080/wide chapter-title/subtitle leader gap visible; original target retained.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-1080/NE228-scripted-authored-pawnshop-compact-hint.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-1080/NE228-scripted-authored-radio-ui-only.png",
+      "sha256": "c115669ca7fbaf4c3ec6d9195c3b13c553e65762ae3deba9b71e59e6734df505",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "profile": "1080",
+      "text_scale": 1.2,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Distinct speaker/portrait; full two lines at720 and three lines at120% including final sentence; faces clear; passive HUD visible but no panel intersection; capture-only pistol posture.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-1080/NE228-scripted-authored-radio-ui-only.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-wide/NE228-scripted-actual-crouching-left.png",
+      "sha256": "0821d1a97adb1c041b783d286a0279f33cab087aaf806d809c8d05794db5af0f",
+      "dimensions": [
+        2100,
+        900
+      ],
+      "profile": "wide",
+      "text_scale": 1.2,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Original continuous leader/dot remains over actual movement sign; no actual crouched art overlap; prompt contained.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-wide/NE228-scripted-actual-crouching-left.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-wide/NE228-scripted-actual-crouching-right.png",
+      "sha256": "d111b0b7d6fe932c888df446ad532fe9d1b2399ba94bb9b6515ee29ef62df9f4",
+      "dimensions": [
+        2100,
+        900
+      ],
+      "profile": "wide",
+      "text_scale": 1.2,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Visible leader gap clears health/guard and ammunition; original target retained; complete movement text clear of actual crouched player.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-wide/NE228-scripted-actual-crouching-right.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-wide/NE228-scripted-actual-standing-left.png",
+      "sha256": "b9a61541947e61796a67183bd8ed53fb9c6f1dd89c19a5cf357f71d8835174ff",
+      "dimensions": [
+        2100,
+        900
+      ],
+      "profile": "wide",
+      "text_scale": 1.2,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Original continuous leader/dot remains over actual movement sign; no art/vitals/ammo overlap.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-wide/NE228-scripted-actual-standing-left.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-wide/NE228-scripted-actual-standing-right.png",
+      "sha256": "d2743e7ab95910298ef53bca8db9f531cc8292b64c702b8a98f4d627952da09d",
+      "dimensions": [
+        2100,
+        900
+      ],
+      "profile": "wide",
+      "text_scale": 1.2,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Visible leader gap clears health/guard and ammunition; original target retained; frame/text/player clear.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-wide/NE228-scripted-actual-standing-right.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-wide/NE228-scripted-authored-object-reading.png",
+      "sha256": "84d716299ecda35a9ea20da4d7327437932e4dd6e53c672dd94a65643636e2dc",
+      "dimensions": [
+        2100,
+        900
+      ],
+      "profile": "wide",
+      "text_scale": 1.2,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Reading title and body complete; no portrait/added black bars; modal timer and full ambient suppression; small NPC marker remains; Enter blink-off.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-wide/NE228-scripted-authored-object-reading.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-wide/NE228-scripted-authored-old-k-dialogue.png",
+      "sha256": "346bdd2eb517ba4e02e8f3e5e7fccaf9a753c22e7b1f4fe8bad0b40d02b2ab96",
+      "dimensions": [
+        2100,
+        900
+      ],
+      "profile": "wide",
+      "text_scale": 1.2,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Speaker header/body/portrait complete; no full ambient/world prompt/timer collision; small NPC marker remains; Enter blink-off; capture-only pistol posture.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-wide/NE228-scripted-authored-old-k-dialogue.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-wide/NE228-scripted-authored-pawnshop-compact-hint.png",
+      "sha256": "f668d66b86a479f1b26cb0674512bb20f7635c5e74f5da5e61e0e0a5cb439987",
+      "dimensions": [
+        2100,
+        900
+      ],
+      "profile": "wide",
+      "text_scale": 1.2,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Complete movement and pause cue; 1080/wide chapter-title/subtitle leader gap visible; original target retained.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-wide/NE228-scripted-authored-pawnshop-compact-hint.png"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-wide/NE228-scripted-authored-radio-ui-only.png",
+      "sha256": "380a893f778b881e56a822d34fe2b12247c07c24a9ec8382b38d525f601eac7d",
+      "dimensions": [
+        2100,
+        900
+      ],
+      "profile": "wide",
+      "text_scale": 1.2,
+      "viewed_original": true,
+      "verdict": "bounded_accept",
+      "findings": "Distinct speaker/portrait; full two lines at720 and three lines at120% including final sentence; faces clear; passive HUD visible but no panel intersection; capture-only pistol posture.",
+      "paired_baseline": "C:/tmp/contextual-ui-checks/delivered-wide/NE228-scripted-authored-radio-ui-only.png"
+    }
+  ],
+  "baseline_images": [
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-720/NE228-scripted-actual-crouching-left.png",
+      "sha256": "ea6db8c938a459f078aec86727614ee07aa156ada3aa0533c777b840ec572f51",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-720/NE228-scripted-actual-crouching-right.png",
+      "sha256": "e665168353e3b6f9e94e6d69df6221507e90e468d5507865f31b11d011c93d5f",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-720/NE228-scripted-actual-standing-left.png",
+      "sha256": "95aeedecb2c5b441b4f1cee002ac4937b63dcef2d5267efd5311a3857b880560",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-720/NE228-scripted-actual-standing-right.png",
+      "sha256": "de4cb5f6af11b0e0652e4ae0ee0abfdf3a65231c931a743168bf48f0868d5068",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-720/NE228-scripted-authored-object-reading.png",
+      "sha256": "62ee1b83f0b4cfc453bb41425bbc3338d3199c3b0be757d501c01cdd5f1749b9",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-720/NE228-scripted-authored-old-k-dialogue.png",
+      "sha256": "b3b71e387458d8d49ad96eb2b2cca904ea47769fedde7c5bd5c3741354116718",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-720/NE228-scripted-authored-pawnshop-compact-hint.png",
+      "sha256": "8e70f741bdb83c9039421a135092c543674791946ebe100fcec9b3114724f14d",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-720/NE228-scripted-authored-radio-ui-only.png",
+      "sha256": "15476637471cce7db48e9ccecea6596c03e03620fdc9c9c399128338e0c79351",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-1080/NE228-scripted-actual-crouching-left.png",
+      "sha256": "d6ad57574717d8edefb527df44525582f5377712648889525783d4ec2c4878d1",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-1080/NE228-scripted-actual-crouching-right.png",
+      "sha256": "d8c67a17d8202b6c47af42df7fad603967151318fbbaf4dd6e099d28130db75e",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-1080/NE228-scripted-actual-standing-left.png",
+      "sha256": "ea3e63d7aaeed486dee8dbb08d3206ad92a8486070e7a11e702b8e262e12054e",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-1080/NE228-scripted-actual-standing-right.png",
+      "sha256": "852faf15e9bc44905b2766881a0c67eb60cbe9cd0acaf97f66435febf7481534",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-1080/NE228-scripted-authored-object-reading.png",
+      "sha256": "af95365380db503fdfdeaa8ca1e5c5fa07c33d83bcbf466dda87067449772843",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-1080/NE228-scripted-authored-old-k-dialogue.png",
+      "sha256": "473f8fa0b1637c3025abb4b3e0376380eb606ab81f0354beaa1235c2bb050356",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-1080/NE228-scripted-authored-pawnshop-compact-hint.png",
+      "sha256": "cad9254b439e9c2838caaf5764f875f4aea24e9ecb627e8f9c5e742d72410c21",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-1080/NE228-scripted-authored-radio-ui-only.png",
+      "sha256": "44882282f2994c5ec68c6f786b9a04524e8aa23f5c2fbbb2e88acdb72fdfc045",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-wide/NE228-scripted-actual-crouching-left.png",
+      "sha256": "aeb294f66edcd69e1607a957d92baf7dc1cf7557712457a99ef7b62ba41236e9",
+      "dimensions": [
+        2100,
+        900
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-wide/NE228-scripted-actual-crouching-right.png",
+      "sha256": "3c3c63e0c5022dc613bf7b586aedb0563ca8c6b4e2dcd2ff8191e6789b464a77",
+      "dimensions": [
+        2100,
+        900
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-wide/NE228-scripted-actual-standing-left.png",
+      "sha256": "184715f1004d043ceb0a576df50eb23f2e673a723eb57d1a96687acad15d2874",
+      "dimensions": [
+        2100,
+        900
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-wide/NE228-scripted-actual-standing-right.png",
+      "sha256": "7033a0b09e70e3d0a4cd5c86426cf950367df5fac5466bdf9f538f49d789c32c",
+      "dimensions": [
+        2100,
+        900
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-wide/NE228-scripted-authored-object-reading.png",
+      "sha256": "68ecbb5b6c2923963e77d39720e264550a04ec298c6415715553b3985cca6f3d",
+      "dimensions": [
+        2100,
+        900
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-wide/NE228-scripted-authored-old-k-dialogue.png",
+      "sha256": "a9205332a54ae679e63d19b857d5ee030ac3f1bbd4229306b69174d74c5fcbd2",
+      "dimensions": [
+        2100,
+        900
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-wide/NE228-scripted-authored-pawnshop-compact-hint.png",
+      "sha256": "a3ba2e2d59d43b477fc8c011b5c89e031fafeea4dabb804a4222038d25b3422c",
+      "dimensions": [
+        2100,
+        900
+      ],
+      "previously_viewed": true
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/delivered-wide/NE228-scripted-authored-radio-ui-only.png",
+      "sha256": "100a36f1059b64af3179b5820ac6e9f2c1fce25300623d7f2e71391abf17afb9",
+      "dimensions": [
+        2100,
+        900
+      ],
+      "previously_viewed": true
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-720.log",
+      "sha256": "dcd4ed994cd785c2b9329c2441b9ce4c7828554128194c786217f52e4ad830be"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-720-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-1080.log",
+      "sha256": "91bfcea27a9d70dd8bd7f51f232c488880135ccc0f071f68c4c0fe437e236c43"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-1080-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-wide.log",
+      "sha256": "0da9b3d9d381605aa0b7afebf621acf950c0fcb531a8b0d28fdb41e355d4f210"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/clearance-wide-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/cloud-clearance-payload.json",
+      "sha256": "cfb699a01a3dfcb7653d76348537a619bce89a47ddd6210b3707fe368f410870"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/cloud-clearance.patch",
+      "sha256": "45aa2b20388dcfe6596bd43356b073600467432e9595b8136f30c8896c09527c"
+    },
+    {
+      "path": "C:/tmp/contextual-ui-checks/VISUAL_REVIEW_CLEARANCE.md",
+      "sha256": "464e5d0c6f9c8d750fe6434f12111b5eb4bc55045691e52336bd7fb4f6fa0bf3"
+    }
+  ],
+  "limitations": [
+    "Small NPC ellipsis/cyan markers remain.",
+    "Enter hint is blink-off in these snapshots.",
+    "Capture lacks full MainStage behavior: retained pistol may point into NPC face; not normal dialogue posture acceptance.",
+    "No continuous combat/other weapons/dynamic vitals/arbitrary parent transforms coverage.",
+    "No physical controller/human study/tutorial/chapter/Story completion or capabilities claim.",
+    "Late radio absence of startup card does not prove preserved card lifetime.",
+    "Original changed-selector result pending; local200 checks is Root-reported separately.",
+    "Geometry observer uses same clipping implementation and is not independent draw-pixel proof."
+  ]
+}

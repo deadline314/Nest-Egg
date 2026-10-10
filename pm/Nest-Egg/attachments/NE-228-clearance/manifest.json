@@ -1,0 +1,451 @@
+{
+  "changed_test_base": "82882bb455ad2d57a5904a6cfbdf6b9c8d6645fa",
+  "latest_main_base": "00a19ad5e6aab2b75a17d2344e53d0faabedbff3",
+  "patch_sha256": "45aa2b20388dcfe6596bd43356b073600467432e9595b8136f30c8896c09527c",
+  "source_files": [
+    {
+      "path": "game/level/prompt_layout.gd",
+      "base_sha256": "9888f412778fffd9a882610612f2b0a36fe1df144789621a2711cf65db1d0d1d",
+      "patched_sha256": "9c79b20dbd15b7d6eefd92260f983ff6c8e4461eebb16dba4c6e0dc740d41271"
+    },
+    {
+      "path": "game/level/world_prompt.gd",
+      "base_sha256": "b7d316054df1ee5c6e02ceb4b44bcc3204df8670004757a4e4787d3f37ecc107",
+      "patched_sha256": "d311565e2fa144ba3c6ffff566f82ed2b9414b2a9a70a0eaec43f0b605cc883b"
+    },
+    {
+      "path": "tests/suite/test_world_prompt.gd",
+      "base_sha256": "8c9aaa1d6494ebda5358f42307c83e48008cddcec269446b6ec950cb608b723e",
+      "patched_sha256": "f960bd2cdb70d98092ba4bc7dcae2e3543e0edd9ca1ccb181fe6796e36018865"
+    },
+    {
+      "path": "tools/contextual_ui_probe.gd",
+      "base_sha256": "415796af61c1060a929792bece6122cf66f82c501f40d00082ae89e83edaaa3b",
+      "patched_sha256": "6c11fd46d839360ccd731238f8d95124ada7ccc055599b6fad44e04c60bfc613"
+    },
+    {
+      "path": "ui/ammo_tray.gd",
+      "base_sha256": "4fc1bbc1996bf8fc4fee29875f64f5dc95a005808478ea8017f3af4f571a8fc0",
+      "patched_sha256": "c51d8d506c1adc5052a5a5b3b0a19554b4cc0e6c4359c6bcd791c588d9d44d6a"
+    },
+    {
+      "path": "ui/chapter_card.gd",
+      "base_sha256": "133ee3070dff3d4ae761f5de06479804e41c87234ca518b480d1766a66215f90",
+      "patched_sha256": "fd5b5fa36052b9e0853da38616278d638734959c7985646eee81a2b691350c86"
+    },
+    {
+      "path": "tests/helpers/contextual_priority_checks.gd",
+      "base_sha256": "f5d0311f60d8da2d88d64c1e4764fab7ec39b235bc9395a4679882abbfb8aa05",
+      "patched_sha256": "9a3cd4536bdd2cc2cfcf88cc3da1e89c1290efcf6263afea00076f4842d83e14"
+    }
+  ],
+  "runner_sha256": {
+    "tools/select_tests.py": "9ba6c288341e885979d7e171509e907b46b2b7347f1fc99e4145ec5d83986c03",
+    "tools/run_tests_changed.sh": "14d71b3922cd580b9f85b774d431a3ff7e1e7e2ff0c1d5052740aac8b3ae604a",
+    "tools/run_tests_parallel.sh": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba",
+    "tools/test_filters.sh": "319fea9acacfdad9f7dab7948ea5a2d76652757623b428829605160a210e678a",
+    "tests/known_failures.txt": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf",
+    "tests/smoke_test.gd": "fcef9118c7b7df128d9f409748492ec64beb22c815f4c09b400e5e5846438849"
+  },
+  "changed_tests": {
+    "groups": 46,
+    "checks": 8982,
+    "new_failures": 0,
+    "known_failures": 0,
+    "exit": 0,
+    "seconds": 832
+  },
+  "local_tests": {
+    "suites": [
+      "UiScreensSuite",
+      "WorldPromptSuite",
+      "AmmoTraySuite"
+    ],
+    "checks": 200,
+    "new_failures": 0,
+    "exit": 0
+  },
+  "latest_main_tests": {
+    "suite": "RigActionsSuite",
+    "checks": 4382,
+    "new_failures": 0,
+    "known_failures": 0,
+    "exit": 0,
+    "seconds": 11,
+    "baseline": "212768fa4a98e9db5bb1b3f4c067ef6027c7547d"
+  },
+  "scope": "24 actual standing/crouching and authored reading captures; not continuous combat, physical controller, tutorial or full chapter acceptance.",
+  "files": [
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/native-720.log",
+      "original_file_sha256": "dcd4ed994cd785c2b9329c2441b9ce4c7828554128194c786217f52e4ad830be",
+      "repository_file_sha256": "4a184c0fe25600f746f12d4271fdc452986096ab128a6440c280f3ffdbf46b13",
+      "bytes": 8276
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/native-720-exit.txt",
+      "original_file_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "repository_file_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "bytes": 2
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-720-actual-crouching-left.png",
+      "original_file_sha256": "c7bae6b79b31a8e98923d82110a151834e0a4cd7b3e54949b2055b0b4cb83eed",
+      "repository_file_sha256": "c7bae6b79b31a8e98923d82110a151834e0a4cd7b3e54949b2055b0b4cb83eed",
+      "bytes": 670248
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-720-actual-crouching-right.png",
+      "original_file_sha256": "9c39f846020ec4eacd3fa472e120de183cbdd5c080908f5c864e8e75595af172",
+      "repository_file_sha256": "9c39f846020ec4eacd3fa472e120de183cbdd5c080908f5c864e8e75595af172",
+      "bytes": 884131
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-720-actual-standing-left.png",
+      "original_file_sha256": "f01854c32f98cafce7b6cbaaa526195691aa8b24fbfa68055a645047255d9e84",
+      "repository_file_sha256": "f01854c32f98cafce7b6cbaaa526195691aa8b24fbfa68055a645047255d9e84",
+      "bytes": 603435
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-720-actual-standing-right.png",
+      "original_file_sha256": "c9f7d87cbc53f753dedda7da0106cc1832c5f18017ac70e6b765348accdac7e7",
+      "repository_file_sha256": "c9f7d87cbc53f753dedda7da0106cc1832c5f18017ac70e6b765348accdac7e7",
+      "bytes": 887598
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-720-authored-object-reading.png",
+      "original_file_sha256": "768c299be9c2c465b315928941779b589382f5af71addf545e8f39258a2fa7c9",
+      "repository_file_sha256": "768c299be9c2c465b315928941779b589382f5af71addf545e8f39258a2fa7c9",
+      "bytes": 609378
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-720-authored-old-k-dialogue.png",
+      "original_file_sha256": "d0b9060cfabd512d409b8a25f2dd1e3cbabd40e3d08f74283ca7165ddac0e68d",
+      "repository_file_sha256": "d0b9060cfabd512d409b8a25f2dd1e3cbabd40e3d08f74283ca7165ddac0e68d",
+      "bytes": 572322
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-720-authored-pawnshop-compact-hint.png",
+      "original_file_sha256": "4a2adb346a144271d73607c7119add72d3643b08b3af7f7506e3cfc6492625c5",
+      "repository_file_sha256": "4a2adb346a144271d73607c7119add72d3643b08b3af7f7506e3cfc6492625c5",
+      "bytes": 846683
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-720-authored-radio-ui-only.png",
+      "original_file_sha256": "8878678def14729e29db67fb7b444fe9e20257c712f33c06fd23d8b91b8f7cc3",
+      "repository_file_sha256": "8878678def14729e29db67fb7b444fe9e20257c712f33c06fd23d8b91b8f7cc3",
+      "bytes": 776878
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/native-1080.log",
+      "original_file_sha256": "91bfcea27a9d70dd8bd7f51f232c488880135ccc0f071f68c4c0fe437e236c43",
+      "repository_file_sha256": "c36d36f7ef30df0b6d94561dfe25168cb028c254e5288490321be53e37be04f4",
+      "bytes": 8289
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/native-1080-exit.txt",
+      "original_file_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "repository_file_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "bytes": 2
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-1080-actual-crouching-left.png",
+      "original_file_sha256": "79b58dba5540b00eb3c616767e49fc29ff8a173f42e8e0efce84c681b0dfac7f",
+      "repository_file_sha256": "79b58dba5540b00eb3c616767e49fc29ff8a173f42e8e0efce84c681b0dfac7f",
+      "bytes": 1009455
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-1080-actual-crouching-right.png",
+      "original_file_sha256": "7a34a0784d3ea5f55d3e9004e6853231b88d28b3c2da4cc8c17eecc17d6fe0c8",
+      "repository_file_sha256": "7a34a0784d3ea5f55d3e9004e6853231b88d28b3c2da4cc8c17eecc17d6fe0c8",
+      "bytes": 1347041
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-1080-actual-standing-left.png",
+      "original_file_sha256": "09d7b3903ed66ad4103708a2840bf289f541cfee05a1a9ec3903da27c1f38f03",
+      "repository_file_sha256": "09d7b3903ed66ad4103708a2840bf289f541cfee05a1a9ec3903da27c1f38f03",
+      "bytes": 1029709
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-1080-actual-standing-right.png",
+      "original_file_sha256": "200cd6a78b844f68a6ee73e30e5344d2e0cbb3f49cc23f4b63d8226eb5c7e67f",
+      "repository_file_sha256": "200cd6a78b844f68a6ee73e30e5344d2e0cbb3f49cc23f4b63d8226eb5c7e67f",
+      "bytes": 1353105
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-1080-authored-object-reading.png",
+      "original_file_sha256": "5d627f6806b6c083b89997b57e3e1c5e72bc1ceb5548975ff37617e7ff741528",
+      "repository_file_sha256": "5d627f6806b6c083b89997b57e3e1c5e72bc1ceb5548975ff37617e7ff741528",
+      "bytes": 943538
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-1080-authored-old-k-dialogue.png",
+      "original_file_sha256": "339c959d4eeba58260994d07f2a9c4a8288605f2186e4ed427d3ede53c9e74e4",
+      "repository_file_sha256": "339c959d4eeba58260994d07f2a9c4a8288605f2186e4ed427d3ede53c9e74e4",
+      "bytes": 868806
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-1080-authored-pawnshop-compact-hint.png",
+      "original_file_sha256": "bd5ba40ac105dd88dedd206789ee1e6f945dc01324a76cfc03a873ebaa25118e",
+      "repository_file_sha256": "bd5ba40ac105dd88dedd206789ee1e6f945dc01324a76cfc03a873ebaa25118e",
+      "bytes": 931123
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-1080-authored-radio-ui-only.png",
+      "original_file_sha256": "c115669ca7fbaf4c3ec6d9195c3b13c553e65762ae3deba9b71e59e6734df505",
+      "repository_file_sha256": "c115669ca7fbaf4c3ec6d9195c3b13c553e65762ae3deba9b71e59e6734df505",
+      "bytes": 1037441
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/native-wide.log",
+      "original_file_sha256": "0da9b3d9d381605aa0b7afebf621acf950c0fcb531a8b0d28fdb41e355d4f210",
+      "repository_file_sha256": "3073d616f34e4594fc1dde92ad55043081caa855cbf20d48554b4af9483f8362",
+      "bytes": 8272
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/native-wide-exit.txt",
+      "original_file_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "repository_file_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "bytes": 2
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-wide-actual-crouching-left.png",
+      "original_file_sha256": "0821d1a97adb1c041b783d286a0279f33cab087aaf806d809c8d05794db5af0f",
+      "repository_file_sha256": "0821d1a97adb1c041b783d286a0279f33cab087aaf806d809c8d05794db5af0f",
+      "bytes": 981853
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-wide-actual-crouching-right.png",
+      "original_file_sha256": "d111b0b7d6fe932c888df446ad532fe9d1b2399ba94bb9b6515ee29ef62df9f4",
+      "repository_file_sha256": "d111b0b7d6fe932c888df446ad532fe9d1b2399ba94bb9b6515ee29ef62df9f4",
+      "bytes": 1182940
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-wide-actual-standing-left.png",
+      "original_file_sha256": "b9a61541947e61796a67183bd8ed53fb9c6f1dd89c19a5cf357f71d8835174ff",
+      "repository_file_sha256": "b9a61541947e61796a67183bd8ed53fb9c6f1dd89c19a5cf357f71d8835174ff",
+      "bytes": 1015811
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-wide-actual-standing-right.png",
+      "original_file_sha256": "d2743e7ab95910298ef53bca8db9f531cc8292b64c702b8a98f4d627952da09d",
+      "repository_file_sha256": "d2743e7ab95910298ef53bca8db9f531cc8292b64c702b8a98f4d627952da09d",
+      "bytes": 1243716
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-wide-authored-object-reading.png",
+      "original_file_sha256": "84d716299ecda35a9ea20da4d7327437932e4dd6e53c672dd94a65643636e2dc",
+      "repository_file_sha256": "84d716299ecda35a9ea20da4d7327437932e4dd6e53c672dd94a65643636e2dc",
+      "bytes": 872170
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-wide-authored-old-k-dialogue.png",
+      "original_file_sha256": "346bdd2eb517ba4e02e8f3e5e7fccaf9a753c22e7b1f4fe8bad0b40d02b2ab96",
+      "repository_file_sha256": "346bdd2eb517ba4e02e8f3e5e7fccaf9a753c22e7b1f4fe8bad0b40d02b2ab96",
+      "bytes": 1235690
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-wide-authored-pawnshop-compact-hint.png",
+      "original_file_sha256": "f668d66b86a479f1b26cb0674512bb20f7635c5e74f5da5e61e0e0a5cb439987",
+      "repository_file_sha256": "f668d66b86a479f1b26cb0674512bb20f7635c5e74f5da5e61e0e0a5cb439987",
+      "bytes": 1011910
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-228-clearance-wide-authored-radio-ui-only.png",
+      "original_file_sha256": "380a893f778b881e56a822d34fe2b12247c07c24a9ec8382b38d525f601eac7d",
+      "repository_file_sha256": "380a893f778b881e56a822d34fe2b12247c07c24a9ec8382b38d525f601eac7d",
+      "bytes": 1286864
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/changed-console.log",
+      "original_file_sha256": "f952c50243b4463dd816b45383220581d66ff226ecfeaf83e98be50cf1cb2ed8",
+      "repository_file_sha256": "18ec71f161a3bc634dc22e313d9ff1fa446a5792f115b947815183dde48b7289",
+      "bytes": 1696
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/changed-shard-0.log",
+      "original_file_sha256": "8e782d3ffbfadf3c783abf3609caa8f42ce579050ffc71a777beced7fa179b7f",
+      "repository_file_sha256": "110f61d63b84e928d2cbc325b025bfd9e5d3abe833bb95dd0b0ee3fbb0ae7699",
+      "bytes": 126285
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/changed-exit.txt",
+      "original_file_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "repository_file_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "bytes": 2
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/local-console.log",
+      "original_file_sha256": "aeab4431bb21b7d2d744a74761742843ac6475af0ec8a473a7a941940adba0b3",
+      "repository_file_sha256": "8d73ac0303464198bac4f7b813c2b6bf1e26406b49f2ba786e3adc1a748b7056",
+      "bytes": 259
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/local-shard-0.log",
+      "original_file_sha256": "339aa8519be8fa7785ee2996f54a244e1188bdb3aa5934fa1bce1cc722884a8b",
+      "repository_file_sha256": "acb8e8ab21ead5b12d1d661fa0c83cfaaee7a77293355a72773f353adac9e804",
+      "bytes": 1219
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/local-exit.txt",
+      "original_file_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "repository_file_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "bytes": 2
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/latest-rig-console.log",
+      "original_file_sha256": "63014046f25b893d56856bb2f82d8ade4c0356346b8cbdcf131ab2214da400fd",
+      "repository_file_sha256": "1f2fe7e2a8623d86b2606ba2576b51a90985c3252d96de40fc33f7b669240c4d",
+      "bytes": 228
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/latest-rig-shard-0.log",
+      "original_file_sha256": "5c4598228aedb4cd86964600942b57c0a3bb202d76fab30fe4a1235bdb135d70",
+      "repository_file_sha256": "5d8a4fb5a78a60c727be1d7f8fdfa2ed8f2dd1eaaf4316af08e8653d5f0d22ba",
+      "bytes": 1109
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/latest-rig-exit.txt",
+      "original_file_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "repository_file_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "bytes": 2
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/visual-review.md",
+      "original_file_sha256": "464e5d0c6f9c8d750fe6434f12111b5eb4bc55045691e52336bd7fb4f6fa0bf3",
+      "repository_file_sha256": "464e5d0c6f9c8d750fe6434f12111b5eb4bc55045691e52336bd7fb4f6fa0bf3",
+      "bytes": 7175
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/visual-review.json",
+      "original_file_sha256": "0f8d84f60cf89623aab8c589d735f87c489c69e1aed07a6a6eba327b1c47b3ca",
+      "repository_file_sha256": "0f8d84f60cf89623aab8c589d735f87c489c69e1aed07a6a6eba327b1c47b3ca",
+      "bytes": 27939
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/main-sync-preservation.json",
+      "original_file_sha256": "1d1453e03e63c8d84fef560920b20d62949a3e71f0e7731e8cc549a16bf70a0d",
+      "repository_file_sha256": "2050c409a7ddfa48829ecabc3a6e347ccb3ede2ee25fbb13f258642d9c01a7ec",
+      "bytes": 991
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/cloud/actual-shard-processes.log",
+      "original_file_sha256": "7137ae96a76bb92a7b2db089fee6dfbf54de53c4226e49550fe3339ca56137a2",
+      "repository_file_sha256": "7137ae96a76bb92a7b2db089fee6dfbf54de53c4226e49550fe3339ca56137a2",
+      "bytes": 1054
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/cloud/capsule-provenance.json",
+      "original_file_sha256": "b1bb0a317ae70c0ef8ab52c7925ee214d21058261478465075cb02fcc319ac60",
+      "repository_file_sha256": "b1bb0a317ae70c0ef8ab52c7925ee214d21058261478465075cb02fcc319ac60",
+      "bytes": 3675
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/cloud/input-checksums.json",
+      "original_file_sha256": "a396751fe4ef01b9fa9ec781da4e741baa690930c50f0064a9d5831fa649215c",
+      "repository_file_sha256": "a396751fe4ef01b9fa9ec781da4e741baa690930c50f0064a9d5831fa649215c",
+      "bytes": 6379
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/cloud/run/shard_0.log",
+      "original_file_sha256": "d3551044f462801f2610dac2f1a3323b68fbc85cf7f97eecc8990e2157cf1dcf",
+      "repository_file_sha256": "d3551044f462801f2610dac2f1a3323b68fbc85cf7f97eecc8990e2157cf1dcf",
+      "bytes": 67288
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/cloud/run/shard_1.log",
+      "original_file_sha256": "23fd51e56344c0a65890a6436038046ff1585d47bc1ee69df2a53f86b756fed9",
+      "repository_file_sha256": "23fd51e56344c0a65890a6436038046ff1585d47bc1ee69df2a53f86b756fed9",
+      "bytes": 61673
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/cloud/run-command.json",
+      "original_file_sha256": "9469b92486c1b390ce07def3a1f4070d87eb43e37b34a699beae0dc654ed3237",
+      "repository_file_sha256": "9469b92486c1b390ce07def3a1f4070d87eb43e37b34a699beae0dc654ed3237",
+      "bytes": 780
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/cloud/run.log",
+      "original_file_sha256": "45a0cb5a58eb50363e95aaab3bbd34a34589b05656eec39b4dde2d17f4be2aef",
+      "repository_file_sha256": "45a0cb5a58eb50363e95aaab3bbd34a34589b05656eec39b4dde2d17f4be2aef",
+      "bytes": 1725
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/cloud/zip-provenance.json",
+      "original_file_sha256": "54e612b44d6e1985c402eadee246cae702555f9d759424a1f33fb0e3a9d1010d",
+      "repository_file_sha256": "54e612b44d6e1985c402eadee246cae702555f9d759424a1f33fb0e3a9d1010d",
+      "bytes": 286
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/cloud/root-review.json",
+      "original_file_sha256": "9a380b6d3788aa1068a98b57530c8e81294f8231839f450f3042f3b5349421d2",
+      "repository_file_sha256": "9a380b6d3788aa1068a98b57530c8e81294f8231839f450f3042f3b5349421d2",
+      "bytes": 1316
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/latest-combat-console.log",
+      "original_file_sha256": "94abf8bb121c9c0fd47650d76884bc580a5148e8a721c4259971119fa68994e0",
+      "repository_file_sha256": "f49d9c00e81bd4678300bf1686149c33c1336bbeee94cfeb250846d678ff240b",
+      "bytes": 260
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/latest-combat-shard-0.log",
+      "original_file_sha256": "e18ff9abcb1fdd67267a47d24bf1f27e8c6cfe7da05faf397db6a5eaa489daa3",
+      "repository_file_sha256": "5ba5a3ce706b6b6a2918d815d50fa1cce2a121b1e3ec86023d76ea505a9eb2be",
+      "bytes": 18188
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/latest-combat-exit.txt",
+      "original_file_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "repository_file_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "bytes": 2
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/final-main-sync-preservation.json",
+      "original_file_sha256": "f1dc7c3b9e5f2b063f93951e8c1a91b34b9504aa7a9db5043253aeba792cc0c1",
+      "repository_file_sha256": "399aeac537693c0041af79bc880146b2c1a33a068849dfc4458288c01fbbc8f5",
+      "bytes": 11324
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-228-clearance/documentation-main-sync.json",
+      "original_file_sha256": "75f5ec93674583d0cf7a69be87ff57c461e8a561a2ba263b825e0dcdc05814b3",
+      "repository_file_sha256": "75f5ec93674583d0cf7a69be87ff57c461e8a561a2ba263b825e0dcdc05814b3",
+      "bytes": 10452
+    }
+  ],
+  "cloud_tests": {
+    "scope": "Linux headless affected regression; not native GPU, human controller, story closure or chapter package acceptance.",
+    "baseline": "82882bb455ad2d57a5904a6cfbdf6b9c8d6645fa",
+    "patch_sha256": "45aa2b20388dcfe6596bd43356b073600467432e9595b8136f30c8896c09527c",
+    "transport_capsule_bytes": 15805,
+    "transport_capsule_sha256": "1eb36d58358cb490e30c2707733981a795d4f48380ff84ca1cd73aa6b3125a68",
+    "candidate_source_files": 7,
+    "candidate_and_protected_hashes_independently_verified": true,
+    "original_runner_exit": 0,
+    "groups": 46,
+    "shards": 2,
+    "checks": 9002,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 463,
+    "native_windows_checks": 8982,
+    "check_count_difference": 20,
+    "difference_note": "Original runners only retain per-suite timing and total checks. Exact attribution of the 20-check difference remains unestablished; no platform cause is claimed and tests were not weakened or rerun to normalize counts.",
+    "child_exit_note": "Unmodified runner does not retain individual child exit codes. Raw result lines and actual overall exit are preserved.",
+    "raw_diagnostics": "Fault-injection and exit diagnostics remain in unfiltered raw logs; success means zero new/known failures and no Script/Parse/Compile Error, not absence of every ERROR word."
+  },
+  "latest_combat_tests": {
+    "baseline": "cd96d6b00eccf28712e4b7de5c854cb3edea5d4e",
+    "suites": [
+      "MeleeWeaponsSuite",
+      "MeleeSuite",
+      "InputFeelSuite"
+    ],
+    "checks": 729,
+    "new_failures": 0,
+    "known_failures": 0,
+    "exit": 0,
+    "seconds": 138,
+    "reason": "Latest main shield entry ends the prior melee chain; the existing affected combat and input suites were rerun without modifying runners or expectations."
+  }
+}

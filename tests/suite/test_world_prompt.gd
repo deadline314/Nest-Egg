@@ -5,6 +5,8 @@ extends TestSuite
 
 func run() -> void:
 	_test_solver()
+	_test_leader_geometry()
+	await _test_leader_world_transform()
 	await _test_nodes()
 	await _test_npc_obstacle()
 	await _test_modal_suppression()
@@ -125,3 +127,48 @@ func _test_npc_obstacle() -> void:
 	stage.queue_free()
 	await frames(2)
 	check(PromptLayout._obstacles.is_empty(), "人物離開場景時取消障礙登記")
+
+
+func _test_leader_geometry() -> void:
+	var spans: Array[Vector2] = []
+	var obstacles: Array[Rect2] = [Rect2(-2, 4, 4, 2)]
+	PromptLayout.clip_leader_segments(Vector2.ZERO, Vector2(0, 10), obstacles, spans, 0.5)
+	check(spans == [Vector2.ZERO, Vector2(0, 3.5), Vector2(0, 6.5), Vector2(0, 10)], "leader keeps both original-end spans and removes the status plate plus actual half-stroke clearance")
+	obstacles = [Rect2(6, -1, 2, 2), Rect2(2, -1, 3, 2), Rect2(4, -1, 3, 2)]
+	PromptLayout.clip_leader_segments(Vector2.ZERO, Vector2(10, 0), obstacles, spans)
+	check(spans == [Vector2.ZERO, Vector2(2, 0), Vector2(8, 0), Vector2(10, 0)], "unsorted overlapping body/status obstacles merge as a union without hiding unblocked endpoints")
+	obstacles = [Rect2(-1, 2, 2, 3)]
+	PromptLayout.clip_leader_segments(Vector2(0, 10), Vector2.ZERO, obstacles, spans)
+	check(spans == [Vector2(0, 10), Vector2(0, 5), Vector2(0, 2), Vector2.ZERO], "reverse and parallel-axis leader retains direction and the real target")
+	obstacles = [Rect2(0, 0, 0, 5), Rect2(NAN, 0, 2, 2), Rect2(20, 20, 2, 2)]
+	var count := PromptLayout.clip_leader_segments(Vector2.ZERO, Vector2(0, 10), obstacles, spans)
+	var misses := count == 2 and spans.slice(0, count) == [Vector2.ZERO, Vector2(0, 10)]
+	obstacles = [Rect2(-1, -1, 2, 12)]
+	count = PromptLayout.clip_leader_segments(Vector2.ZERO, Vector2(0, 10), obstacles, spans)
+	var covered := count == 0
+	count = PromptLayout.clip_leader_segments(Vector2.ZERO, Vector2.ZERO, [], spans)
+	check(misses and covered and count == 0, "invalid/empty/missing obstacles do not cut valid line; full coverage and zero-length line produce no false span")
+
+
+func _test_leader_world_transform() -> void:
+	var stage := Node2D.new()
+	stage.position = Vector2(20, -7)
+	stage.rotation = 0.3
+	stage.scale = Vector2(2, 1.5)
+	runner.add_child(stage)
+	var prompt := _spawn_prompt(stage, 0, "{interact} 補給")
+	var owner := Node.new()
+	stage.add_child(owner)
+	var start := prompt._leader.to_global(Vector2(0, -30))
+	var target := prompt._leader.to_global(Vector2.ZERO)
+	var middle := start.lerp(target, 0.5)
+	PromptLayout.add_obstacle(owner, func() -> Rect2: return Rect2(middle - Vector2(3, 3), Vector2(6, 6)))
+	var spans: Array[Vector2] = []
+	var count := PromptLayout.leader_segments(start, target, spans, 1.0)
+	var clipped := count == 4 and spans[0].is_equal_approx(start) and spans[3].is_equal_approx(target)
+	var roundtrip := clipped and prompt._leader.to_local(spans[0]).is_equal_approx(Vector2(0, -30)) \
+			and prompt._leader.to_local(spans[3]).is_equal_approx(Vector2.ZERO)
+	stage.queue_free()
+	await frames(2)
+	count = PromptLayout.leader_segments(start, target, spans)
+	check(roundtrip and count == 2 and spans.slice(0, count) == [start, target] and PromptLayout._obstacles.is_empty(), "real transformed leader cuts registered world obstacle; owner removal restores original line and target without stale cuts")

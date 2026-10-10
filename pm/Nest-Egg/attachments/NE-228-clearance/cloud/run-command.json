@@ -1,0 +1,22 @@
+{
+  "phase": "run",
+  "command": [
+    "tools/run_tests_changed.sh",
+    "82882bb455ad2d57a5904a6cfbdf6b9c8d6645fa"
+  ],
+  "cwd": "/workspace/work/ui-ne228-check/checkout",
+  "started_utc": "2026-10-10T10:13:11.852744+00:00",
+  "scoped_environment": {
+    "GODOT": "/workspace/.nest-egg-env/bin/Godot_v4.7.2-stable_linux.x86_64",
+    "SHARDS": "2",
+    "LOG_DIR": "/workspace/work/ui-ne228-check/evidence/run",
+    "XDG_CONFIG_HOME": "/workspace/work/ui-ne228-check/evidence/test-user/config",
+    "XDG_CACHE_HOME": "/workspace/work/ui-ne228-check/evidence/test-user/cache",
+    "XDG_DATA_HOME": "/workspace/.nest-egg-env/data",
+    "APPDATA": null,
+    "LOCALAPPDATA": null,
+    "LP_NUM_THREADS": "4"
+  },
+  "exit_code": 0,
+  "finished_utc": "2026-10-10T10:20:55.194711+00:00"
+}

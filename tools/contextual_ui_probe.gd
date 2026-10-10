@@ -8,6 +8,7 @@ var _scale := 1.0
 var _failed := false
 var _expand := false
 var _level: Level
+var _leader_check_spans: Array[Vector2] = []
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -161,7 +162,7 @@ func _capture(tag: String) -> void:
 		print("NE228_PLAYER_POSE ", tag, " facing=", player.facing, " crouch=", player.is_crouching, " floor=", player.is_on_floor(), " weapon=", player.loadout.active_weapon().id, " ui_proxy=", player.prompt_obstacle_rect(), " actual_art=", player._visual.rig.visual_bounds())
 		if tag.begins_with("actual-") and not player.prompt_obstacle_rect().encloses(player._visual.rig.visual_bounds()):
 			_fail("reading-space proxy failed to enclose the pictured actual player art")
-		if tag.begins_with("actual-"):
+		if tag.begins_with("actual-") or tag == "authored-pawnshop-compact-hint":
 			var vitals := _level.hud.vitals_tag.prompt_obstacle_rect()
 			for prompt in PromptLayout._prompts:
 				if not is_instance_valid(prompt) or not prompt.is_showing() or not _level.is_ancestor_of(prompt):
@@ -170,6 +171,28 @@ func _capture(tag: String) -> void:
 				print("NE228_READING_SPACE ", tag, " prompt=", shown, " vitals=", vitals)
 				if shown.intersects(vitals) or shown.intersects(player.prompt_obstacle_rect()):
 					_fail("actual pictured world prompt intersects character or visible vitals")
+				var screen_rect := get_viewport().get_canvas_transform() * shown
+				if not get_viewport().get_visible_rect().grow(0.5).encloses(screen_rect):
+					_fail("actual pictured world prompt is outside the viewport")
+				var from := prompt._leader.to_global(Vector2(prompt._nudge.x, prompt._box.end.y + prompt._nudge.y))
+				var to := prompt._leader.to_global(Vector2(0, prompt._box.end.y + WorldPrompt.LEADER_STEM))
+				var transform := prompt._leader.global_transform
+				var stroke := 0.5 * sqrt(transform.x.length_squared() + transform.y.length_squared())
+				var count := PromptLayout.leader_segments(from, to, _leader_check_spans, stroke)
+				print("NE228_LEADER_SPACE ", tag, " from=", from, " original_target=", to,
+						" endpoint_count=", count, " spans=", _leader_check_spans.slice(0, count))
+				for owner: Node in PromptLayout._obstacles:
+					if not is_instance_valid(owner) or owner.is_queued_for_deletion():
+						continue
+					var obstacle: Rect2 = PromptLayout._obstacles[owner].call()
+					if not obstacle.has_area():
+						continue
+					if shown.intersects(obstacle):
+						_fail("actual pictured prompt frame intersects a visible registered reading surface")
+					for i in range(0, count, 2):
+						var interval := PromptLayout.segment_rect_interval(_leader_check_spans[i], _leader_check_spans[i + 1], obstacle)
+						if interval.y - interval.x > 0.0001:
+							_fail("visible pictured leader span crosses a registered reading surface")
 
 
 func _capture_player_poses() -> void:

@@ -35,6 +35,7 @@ var _text_baseline := Vector2.ZERO
 var _nudge := Vector2.ZERO
 var _nudge_target := Vector2.ZERO
 var _leader: Node2D
+var _leader_spans: Array[Vector2] = []
 
 
 func _ready() -> void:
@@ -142,5 +143,15 @@ func _draw_leader() -> void:
 	var from := Vector2(_nudge.x, _box.end.y + _nudge.y)
 	var to := Vector2(0.0, _box.end.y + LEADER_STEM)
 	var color := Color(Palette.CYAN, 0.7 * _alpha)
-	_leader.draw_line(from, to, color, 1.0)
+	# Clip in the real leader Node's world frame. Frobenius norm bounds a
+	# transformed half-pixel stroke, including nonuniform scale/skew.
+	var transform := _leader.global_transform
+	if not is_finite(transform.determinant()) or is_zero_approx(transform.determinant()):
+		_leader.draw_circle(to, LEADER_DOT, color)
+		return
+	var stroke_radius := 0.5 * sqrt(transform.x.length_squared() + transform.y.length_squared())
+	var span_count := PromptLayout.leader_segments(_leader.to_global(from), _leader.to_global(to), _leader_spans, stroke_radius)
+	for i in range(0, span_count, 2):
+		_leader.draw_line(_leader.to_local(_leader_spans[i]), _leader.to_local(_leader_spans[i + 1]), color, 1.0)
+	# The authored target remains visible, even when every line span is hidden.
 	_leader.draw_circle(to, LEADER_DOT, color)
