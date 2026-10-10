@@ -77,6 +77,8 @@ func _ready() -> void:
 	info.body.add_child(UiKit.label("操作", UiKit.FS_BODY, Palette.CYAN))
 	_controls_label = UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED)
 	info.body.add_child(_controls_label)
+	# 鍵盤與手把移動焦點時，在底部顯示同一句說明。
+	FocusHintBar.attach(_root, FocusHintBar.Placement.BELOW, menu)
 	_root.visible = false
 	InputBindings.bindings_changed.connect(_on_bindings_changed)
 	_on_bindings_changed()

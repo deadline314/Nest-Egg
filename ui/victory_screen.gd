@@ -74,6 +74,8 @@ func _ready() -> void:
 	for b in _buttons:
 		b.disabled = true
 	replay.grab_focus.call_deferred()
+	# 鍵盤與手把移動焦點時，在底部顯示同一句說明。
+	FocusHintBar.attach(self, FocusHintBar.Placement.BOTTOM_RIGHT)
 	_run_reveal.call_deferred()
 
 

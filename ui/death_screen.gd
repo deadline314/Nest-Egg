@@ -68,6 +68,8 @@ func _ready() -> void:
 	buttons.add_child(menu)
 	column.add_child(buttons)
 	retry.grab_focus.call_deferred()
+	# 鍵盤與手把移動焦點時，在底部顯示同一句說明。
+	FocusHintBar.attach(root)
 
 	_play_noise_in(root)
 	if sequence.get("steps") is Array and not sequence.steps.is_empty():
