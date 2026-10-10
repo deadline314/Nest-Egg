@@ -20,10 +20,21 @@ static func segments(weapon: WeaponData) -> Array[Dictionary]:
 	var out: Array[Dictionary] = []
 	match weapon.melee_shape:
 		"heavy":
-			out.append(_seg(-5.0, 0.0, length * 0.72, 0.0, 2.2, STEEL, false))
+			# 連續柄穿入槌頭；握把跨手腕前後，避免只在手後方畫一段暗線。
+			out.append(_seg(-5.0, 0.0, length * 0.86, 0.0, 3.2, GRIP.darkened(0.2), false))
+			out.append(_seg(-5.0, 0.0, length * 0.86, 0.0, 2.2, STEEL, false))
+			out.append(_seg(2.5, -0.55, length * 0.82, -0.55, 0.65, STEEL.lightened(0.35), false))
+			out.append(_seg(length * 0.68, -1.7, length * 0.68, 1.7, 2.4, GRIP, false))
+			out.append(_seg(length * 0.68, -1.2, length * 0.68, 1.2, 1.0, STEEL, false))
+			# 外殼、內側平面與斜邊分開；液壓縫保持暗色，不把整個槌頭發光。
 			out.append(_seg(length * 0.86, -5.5, length * 0.86, 5.5, length * 0.3, STEEL.darkened(0.15), false))
-			out.append(_seg(length * 0.98, -5.0, length * 0.98, 5.0, 1.5, tint, true))
-			out.append(_seg(-5.0, 0.0, 0.0, 0.0, 2.6, GRIP, false))
+			out.append(_seg(length * 0.86, -4.4, length * 0.86, 4.4, length * 0.23, STEEL.lightened(0.12), false))
+			out.append(_seg(length * 0.75, -4.4, length * 0.97, -4.4, 0.8, STEEL.lightened(0.4), false))
+			out.append(_seg(length * 0.75, 4.4, length * 0.97, 4.4, 0.8, STEEL.darkened(0.35), false))
+			out.append(_seg(length * 0.8, 0.0, length * 0.94, 0.0, 0.8, GRIP, false))
+			out.append(_seg(length * 0.98, -3.7, length * 0.98, 3.7, 1.0, tint, true))
+			out.append(_seg(-4.0, 0.0, 3.0, 0.0, 3.0, GRIP, false))
+			out.append(_seg(-2.5, -0.8, 1.5, -0.8, 0.6, GRIP.lightened(0.2), false))
 		"polearm":
 			out.append(_seg(-length * 0.3, 0.0, length * 0.82, 0.0, 1.8, STEEL, false))
 			out.append(_seg(length * 0.78, 0.0, length, 0.0, 3.0, tint, true))

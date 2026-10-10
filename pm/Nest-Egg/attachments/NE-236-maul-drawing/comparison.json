@@ -1,0 +1,86 @@
+{
+  "before": {
+    "frames": 440,
+    "closed_frames": 0,
+    "light_quality": "high",
+    "closed_grasp_to_grip_centerline": {
+      "min": 1.35385191440582,
+      "max": 1.35388398170471
+    },
+    "nearest_opaque_hand_to_grip_centerline": {
+      "min": 0.000164342185598798,
+      "max": 0.000220065383473411
+    },
+    "opaque_hand_centroid_to_grip_centerline": {
+      "min": 1.8034770488739,
+      "max": 1.80487823486328
+    },
+    "axis_error_radians": {
+      "min": 1.49010848105036e-08,
+      "max": 1.70171133504482e-05
+    }
+  },
+  "after-material-only": {
+    "frames": 440,
+    "closed_frames": 0,
+    "light_quality": "high",
+    "closed_grasp_to_grip_centerline": {
+      "min": 0.0306730661541224,
+      "max": 0.0307437647134066
+    },
+    "nearest_opaque_hand_to_grip_centerline": {
+      "min": 0.000164342185598798,
+      "max": 0.000222171322093345
+    },
+    "opaque_hand_centroid_to_grip_centerline": {
+      "min": 0.119484983384609,
+      "max": 0.120983466506004
+    },
+    "axis_error_radians": {
+      "min": 1.49010848105036e-08,
+      "max": 1.70171133504482e-05
+    }
+  },
+  "after": {
+    "frames": 440,
+    "closed_frames": 0,
+    "light_quality": "high",
+    "closed_grasp_to_grip_centerline": {
+      "min": 0.0306730661541224,
+      "max": 0.0307437647134066
+    },
+    "nearest_opaque_hand_to_grip_centerline": {
+      "min": 0.000164342185598798,
+      "max": 0.000222171322093345
+    },
+    "opaque_hand_centroid_to_grip_centerline": {
+      "min": 0.119484983384609,
+      "max": 0.120983466506004
+    },
+    "axis_error_radians": {
+      "min": 1.49010848105036e-08,
+      "max": 1.70171133504482e-05
+    }
+  },
+  "after-low": {
+    "frames": 440,
+    "closed_frames": 0,
+    "light_quality": "low",
+    "closed_grasp_to_grip_centerline": {
+      "min": 0.0306730661541224,
+      "max": 0.0307437647134066
+    },
+    "nearest_opaque_hand_to_grip_centerline": {
+      "min": 0.000164342185598798,
+      "max": 0.000222171322093345
+    },
+    "opaque_hand_centroid_to_grip_centerline": {
+      "min": 0.119484983384609,
+      "max": 0.120983466506004
+    },
+    "axis_error_radians": {
+      "min": 1.49010848105036e-08,
+      "max": 1.70171133504482e-05
+    }
+  }
+}

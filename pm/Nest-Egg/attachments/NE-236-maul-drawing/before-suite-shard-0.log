@@ -1,0 +1,38 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+NE237_ECONOMY {"list":["改裝・擴充彈匣 ¥120","改裝・穩定槍管 ¥150","改裝・快速換彈 ¥100","醫療針 ×2 ¥120","護盾電池 ×1 ¥80"],"optional":540,"optional_list":["改裝・突進斬 ¥100","改裝・回切 ¥80","改裝・交叉掃 ¥120","改裝・蓄力砸擊 ¥140","改裝・回甩 ¥100"],"required":570,"supplies":200,"upgrades":910}
+NE237_INSTALL_CONTRACT install/progression/upgrades unknown weapon or invalid list
+ERROR: [MeleeSet] 無法讀取近戰資料：res://data/melee/test_no_such_attack.json（需要 attacks 字典），改用內建預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_loaded (res://game/player/melee_set.gd:37)
+       [1] attack (res://game/player/melee_set.gd:83)
+       [2] _test_data (res://tests/suite/test_melee_weapons.gd:73)
+       [3] run (res://tests/suite/test_melee_weapons.gd:11)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://data/melee/test_no_such_attack.json 沒有招式「whatever」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:87)
+       [1] _test_data (res://tests/suite/test_melee_weapons.gd:73)
+       [2] run (res://tests/suite/test_melee_weapons.gd:11)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+NE236_MAUL_DRAWING {"grip_crosses_authored_palm":false,"head_materials":1,"shaft_reaches_head":false}
+NE236_NATURAL_LATE_HIT {"attacker_frozen":false,"first_health":997,"first_pause_deadline":54551,"hits":[{"amount":2,"flash":0.08,"flinch":0.0,"frame":2466,"freeze_attacker":false,"phase":2,"stun":0.45,"third_ticks":12,"true_attacker":true,"velocity_x":80.0,"velocity_y":-24.0}],"late_after":997,"late_before":999,"third_after":31,"third_before":9}
+COMMAND_DIAG event=false phase=1 index=0 pending=0.0
+COMMAND_DIAG event=true phase=1 index=0 pending=0.0
+FROZEN_BUFFER_DIAG remaining=0.0 time=70498
+SUITE_TIME MeleeWeaponsSuite 72.9
+checks: 301, failures: 3
+FAIL: the maul shaft visibly extends into the head instead of barely meeting its edge
+FAIL: the maul grip runs across the authored palm position, not only behind the wrist
+FAIL: the maul head has separate non-emissive body, bevel and hydraulic detail
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 9 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 5 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

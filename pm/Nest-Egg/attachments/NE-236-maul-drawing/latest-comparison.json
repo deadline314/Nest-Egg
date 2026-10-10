@@ -1,0 +1,1854 @@
+{
+  "latest-high": {
+    "frames": 440,
+    "archived_native_frames": 94,
+    "closed_frames": 0,
+    "light_quality": "high",
+    "renderer": "forward_plus",
+    "adapter": "llvmpipe (LLVM 19.1.7, 256 bits)",
+    "actions": [
+      "",
+      "rin.melee_hydraulic_maul_crush",
+      "rin.melee_hydraulic_maul_slam",
+      "rin.melee_hydraulic_maul_smash"
+    ],
+    "representatives": [
+      {
+        "image": "NE-236-maul-latest-high-right-0-contact.png",
+        "row": {
+          "attacker_frozen": true,
+          "authored_closed_grasp_world": [
+            205.364761352539,
+            281.812957763672
+          ],
+          "axis_error_radians": 1.38135146698914e-05,
+          "closed_grasp_to_grip_centerline": 0.030675133690238,
+          "closed_grasp_to_grip_native_px": 0.104302927851677,
+          "face": 1,
+          "forearm_axis": [
+            0.974921345710754,
+            0.22254990041256
+          ],
+          "forearm_world": [
+            196.719635009766,
+            279.808013916016
+          ],
+          "frame": 19,
+          "grip_a_native": [
+            239.961395263672,
+            194.823928833008
+          ],
+          "grip_a_world": [
+            200.152328491211,
+            280.591613769531
+          ],
+          "grip_b_native": [
+            263.164520263672,
+            200.120651245117
+          ],
+          "grip_b_world": [
+            206.976776123047,
+            282.149475097656
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            204.052017211914,
+            281.481811523438
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f1-s0-p2-0019.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.000218472618144006,
+          "opaque_hand_centroid_to_grip_centerline": 0.120578899979591,
+          "opaque_hand_centroid_to_grip_native_px": 0.409987062215805,
+          "opaque_hand_centroid_world": [
+            205.833877563477,
+            281.764892578125
+          ],
+          "phase": 2,
+          "phase_time": 0.0,
+          "pose_t": 0.4,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            0.974924385547638,
+            0.222536414861679
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_smash",
+          "rendered_input_action_t": 0.392156862745098,
+          "step": 0,
+          "target_health": 993,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-high-right-0-active.png",
+        "row": {
+          "attacker_frozen": false,
+          "authored_closed_grasp_world": [
+            195.415008544922,
+            292.897338867188
+          ],
+          "axis_error_radians": 1.05799290395225e-05,
+          "closed_grasp_to_grip_centerline": 0.0307204592972994,
+          "closed_grasp_to_grip_native_px": 0.104452088475227,
+          "face": 1,
+          "forearm_axis": [
+            0.276191890239716,
+            0.961102485656738
+          ],
+          "forearm_world": [
+            192.993453979492,
+            284.359527587891
+          ],
+          "frame": 27,
+          "grip_a_native": [
+            222.550369262695,
+            219.636199951172
+          ],
+          "grip_a_world": [
+            193.965927124023,
+            287.743560791016
+          ],
+          "grip_b_native": [
+            229.123748779297,
+            242.510467529297
+          ],
+          "grip_b_world": [
+            195.899276733398,
+            294.471282958984
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            195.070693969727,
+            291.587982177734
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f1-s0-p2-0027.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.000193010113434866,
+          "opaque_hand_centroid_to_grip_centerline": 0.120481953024864,
+          "opaque_hand_centroid_to_grip_native_px": 0.409657150506973,
+          "opaque_hand_centroid_world": [
+            195.683746337891,
+            293.285034179688
+          ],
+          "phase": 2,
+          "phase_time": 0.116666666666667,
+          "pose_t": 0.691666666666667,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            0.276202082633972,
+            0.961099624633789
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_smash",
+          "rendered_input_action_t": 0.691666666666667,
+          "step": 0,
+          "target_health": 993,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-high-right-1-contact.png",
+        "row": {
+          "attacker_frozen": true,
+          "authored_closed_grasp_world": [
+            202.976272583008,
+            287.318084716797
+          ],
+          "axis_error_radians": 1.33215362438932e-05,
+          "closed_grasp_to_grip_centerline": 0.030721440911293,
+          "closed_grasp_to_grip_native_px": 0.104455158114433,
+          "face": 1,
+          "forearm_axis": [
+            0.84831291437149,
+            0.529495120048523
+          ],
+          "forearm_world": [
+            195.464172363281,
+            282.593017578125
+          ],
+          "frame": 83,
+          "grip_a_native": [
+            239.932739257812,
+            208.754592895508
+          ],
+          "grip_a_world": [
+            198.451080322266,
+            284.457366943359
+          ],
+          "grip_b_native": [
+            260.12255859375,
+            221.356536865234
+          ],
+          "grip_b_world": [
+            204.389266967773,
+            288.163818359375
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            201.844329833984,
+            286.575347900391
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f1-s1-p2-0083.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.000177946523763239,
+          "opaque_hand_centroid_to_grip_centerline": 0.120328612625599,
+          "opaque_hand_centroid_to_grip_native_px": 0.409128576517105,
+          "opaque_hand_centroid_world": [
+            203.435211181641,
+            287.426483154297
+          ],
+          "phase": 2,
+          "phase_time": 0.0,
+          "pose_t": 0.4,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            0.848305881023407,
+            0.52950644493103
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_slam",
+          "rendered_input_action_t": 0.4,
+          "step": 1,
+          "target_health": 991,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-high-right-1-active.png",
+        "row": {
+          "attacker_frozen": false,
+          "authored_closed_grasp_world": [
+            192.58740234375,
+            293.963836669922
+          ],
+          "axis_error_radians": 2.27989676204743e-06,
+          "closed_grasp_to_grip_centerline": 0.0307214595377445,
+          "closed_grasp_to_grip_native_px": 0.104435369372368,
+          "face": 1,
+          "forearm_axis": [
+            0.101351991295815,
+            0.994850635528564
+          ],
+          "forearm_world": [
+            191.718505859375,
+            285.131896972656
+          ],
+          "frame": 92,
+          "grip_a_native": [
+            218.255966186523,
+            222.957748413086
+          ],
+          "grip_a_world": [
+            192.07536315918,
+            288.634765625
+          ],
+          "grip_b_native": [
+            220.668167114258,
+            246.635208129883
+          ],
+          "grip_b_world": [
+            192.78483581543,
+            295.598724365234
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            192.480773925781,
+            292.614166259766
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f1-s1-p2-0092.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.000200698035769165,
+          "opaque_hand_centroid_to_grip_centerline": 0.120371542870998,
+          "opaque_hand_centroid_to_grip_native_px": 0.40922674536705,
+          "opaque_hand_centroid_world": [
+            192.782974243164,
+            294.392883300781
+          ],
+          "phase": 2,
+          "phase_time": 0.133333333333333,
+          "pose_t": 0.685714285714286,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            0.101349726319313,
+            0.994850873947144
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_slam",
+          "rendered_input_action_t": 0.685714285714286,
+          "step": 1,
+          "target_health": 991,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-high-right-2-contact.png",
+        "row": {
+          "attacker_frozen": true,
+          "authored_closed_grasp_world": [
+            206.375961303711,
+            285.1630859375
+          ],
+          "axis_error_radians": 1.4305223885458e-05,
+          "closed_grasp_to_grip_centerline": 0.0307065229862928,
+          "closed_grasp_to_grip_native_px": 0.104366585612297,
+          "face": 1,
+          "forearm_axis": [
+            0.85963362455368,
+            0.510910987854004
+          ],
+          "forearm_world": [
+            198.762817382812,
+            280.602600097656
+          ],
+          "frame": 162,
+          "grip_a_native": [
+            251.28434753418,
+            201.764709472656
+          ],
+          "grip_a_world": [
+            201.789581298828,
+            282.401519775391
+          ],
+          "grip_b_native": [
+            271.74365234375,
+            213.924423217773
+          ],
+          "grip_b_world": [
+            207.807022094727,
+            285.977905273438
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            205.228118896484,
+            284.445159912109
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f1-s2-p2-0162.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.00021198186732363,
+          "opaque_hand_centroid_to_grip_centerline": 0.120274595916271,
+          "opaque_hand_centroid_to_grip_native_px": 0.408929944038391,
+          "opaque_hand_centroid_world": [
+            206.837112426758,
+            285.261535644531
+          ],
+          "phase": 2,
+          "phase_time": 0.0,
+          "pose_t": 0.4,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            0.859640955924988,
+            0.510898649692535
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_crush",
+          "rendered_input_action_t": 0.397435897435897,
+          "step": 2,
+          "target_health": 988,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-high-right-2-active.png",
+        "row": {
+          "attacker_frozen": false,
+          "authored_closed_grasp_world": [
+            199.016265869141,
+            291.073120117188
+          ],
+          "axis_error_radians": 1.10266910269274e-06,
+          "closed_grasp_to_grip_centerline": 0.0307080131024122,
+          "closed_grasp_to_grip_native_px": 0.104419194161892,
+          "face": 1,
+          "forearm_axis": [
+            0.380623698234558,
+            0.924730062484741
+          ],
+          "forearm_world": [
+            195.666809082031,
+            282.854888916016
+          ],
+          "frame": 171,
+          "grip_a_native": [
+            235.023574829102,
+            214.376495361328
+          ],
+          "grip_a_world": [
+            197.006988525391,
+            286.110870361328
+          ],
+          "grip_b_native": [
+            244.082427978516,
+            236.385101318359
+          ],
+          "grip_b_world": [
+            199.671356201172,
+            292.583984375
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            198.529479980469,
+            289.809783935547
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f1-s2-p2-0171.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.000204718133318238,
+          "opaque_hand_centroid_to_grip_centerline": 0.120451703667641,
+          "opaque_hand_centroid_to_grip_native_px": 0.409549713134766,
+          "opaque_hand_centroid_world": [
+            199.326034545898,
+            291.428558349609
+          ],
+          "phase": 2,
+          "phase_time": 0.133333333333333,
+          "pose_t": 0.666666666666667,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            0.380624741315842,
+            0.924729645252228
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_crush",
+          "rendered_input_action_t": 0.666666666666667,
+          "step": 2,
+          "target_health": 988,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-high-left-0-contact.png",
+        "row": {
+          "attacker_frozen": true,
+          "authored_closed_grasp_world": [
+            174.159927368164,
+            281.736175537109
+          ],
+          "axis_error_radians": 1.08629947135341e-05,
+          "closed_grasp_to_grip_centerline": 0.0307178031653166,
+          "closed_grasp_to_grip_native_px": 0.104450508952141,
+          "face": -1,
+          "forearm_axis": [
+            -0.975572645664215,
+            0.219677105545998
+          ],
+          "forearm_world": [
+            182.810913085938,
+            279.756683349609
+          ],
+          "frame": 239,
+          "grip_a_native": [
+            366.995697021484,
+            194.614944458008
+          ],
+          "grip_a_world": [
+            179.375915527344,
+            280.530151367188
+          ],
+          "grip_b_native": [
+            343.777130126953,
+            199.843307495117
+          ],
+          "grip_b_world": [
+            172.546920776367,
+            282.067901611328
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            175.4736328125,
+            281.408874511719
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f-1-s0-p2-0239.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.000188740799785592,
+          "opaque_hand_centroid_to_grip_centerline": 0.120246328413486,
+          "opaque_hand_centroid_to_grip_native_px": 0.408791899681091,
+          "opaque_hand_centroid_world": [
+            173.690963745117,
+            281.687042236328
+          ],
+          "phase": 2,
+          "phase_time": 0.0,
+          "pose_t": 0.4,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            -0.975575029850006,
+            0.219666510820389
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_smash",
+          "rendered_input_action_t": 0.392156862745098,
+          "step": 0,
+          "target_health": 993,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-high-left-0-active.png",
+        "row": {
+          "attacker_frozen": false,
+          "authored_closed_grasp_world": [
+            183.916702270508,
+            292.811676025391
+          ],
+          "axis_error_radians": 2.92064237328304e-06,
+          "closed_grasp_to_grip_centerline": 0.0307204592972994,
+          "closed_grasp_to_grip_native_px": 0.104445859789848,
+          "face": -1,
+          "forearm_axis": [
+            -0.276539266109467,
+            0.96100264787674
+          ],
+          "forearm_world": [
+            186.341339111328,
+            284.274749755859
+          ],
+          "frame": 247,
+          "grip_a_native": [
+            394.971405029297,
+            219.346832275391
+          ],
+          "grip_a_world": [
+            185.367645263672,
+            287.658447265625
+          ],
+          "grip_b_native": [
+            388.389770507812,
+            242.218597412109
+          ],
+          "grip_b_world": [
+            183.431869506836,
+            294.385437011719
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            184.261489868164,
+            291.50244140625
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f-1-s0-p2-0247.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.000193010113434866,
+          "opaque_hand_centroid_to_grip_centerline": 0.12043172121048,
+          "opaque_hand_centroid_to_grip_native_px": 0.409462481737137,
+          "opaque_hand_centroid_world": [
+            183.647903442383,
+            293.199188232422
+          ],
+          "phase": 2,
+          "phase_time": 0.116666666666667,
+          "pose_t": 0.691666666666667,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            -0.276536464691162,
+            0.961003482341766
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_smash",
+          "rendered_input_action_t": 0.691666666666667,
+          "step": 0,
+          "target_health": 993,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-high-left-1-contact.png",
+        "row": {
+          "attacker_frozen": true,
+          "authored_closed_grasp_world": [
+            176.83757019043,
+            285.617156982422
+          ],
+          "axis_error_radians": 1.19209926197072e-06,
+          "closed_grasp_to_grip_centerline": 0.030721440911293,
+          "closed_grasp_to_grip_native_px": 0.104447081685066,
+          "face": -1,
+          "forearm_axis": [
+            -0.848300993442535,
+            0.529514312744141
+          ],
+          "forearm_world": [
+            184.349578857422,
+            280.891906738281
+          ],
+          "frame": 303,
+          "grip_a_native": [
+            385.831146240234,
+            202.971130371094
+          ],
+          "grip_a_world": [
+            181.362701416016,
+            282.75634765625
+          ],
+          "grip_b_native": [
+            365.641571044922,
+            215.573486328125
+          ],
+          "grip_b_world": [
+            175.424591064453,
+            286.462921142578
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            177.969497680664,
+            284.874389648438
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f-1-s1-p2-0303.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.000177946523763239,
+          "opaque_hand_centroid_to_grip_centerline": 0.120412707328796,
+          "opaque_hand_centroid_to_grip_native_px": 0.409429430961609,
+          "opaque_hand_centroid_world": [
+            176.378570556641,
+            285.725494384766
+          ],
+          "phase": 2,
+          "phase_time": 0.0,
+          "pose_t": 0.4,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            -0.848301589488983,
+            0.529513299465179
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_slam",
+          "rendered_input_action_t": 0.4,
+          "step": 1,
+          "target_health": 991,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-high-left-1-active.png",
+        "row": {
+          "attacker_frozen": false,
+          "authored_closed_grasp_world": [
+            187.575256347656,
+            292.154052734375
+          ],
+          "axis_error_radians": 2.53321843501908e-07,
+          "closed_grasp_to_grip_centerline": 0.0307062808424234,
+          "closed_grasp_to_grip_native_px": 0.104418642818928,
+          "face": -1,
+          "forearm_axis": [
+            -0.101349979639053,
+            0.994850814342499
+          ],
+          "forearm_world": [
+            188.444137573242,
+            283.322113037109
+          ],
+          "frame": 312,
+          "grip_a_native": [
+            408.696166992188,
+            216.804473876953
+          ],
+          "grip_a_world": [
+            188.087280273438,
+            286.824981689453
+          ],
+          "grip_b_native": [
+            406.284057617188,
+            240.48193359375
+          ],
+          "grip_b_world": [
+            187.377838134766,
+            293.788940429688
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            187.681884765625,
+            290.804382324219
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f-1-s1-p2-0312.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.000200698035769165,
+          "opaque_hand_centroid_to_grip_centerline": 0.120325997471809,
+          "opaque_hand_centroid_to_grip_native_px": 0.409088581800461,
+          "opaque_hand_centroid_world": [
+            187.379730224609,
+            292.583129882812
+          ],
+          "phase": 2,
+          "phase_time": 0.133333333333333,
+          "pose_t": 0.685714285714286,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            -0.101349726319313,
+            0.994850873947144
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_slam",
+          "rendered_input_action_t": 0.685714285714286,
+          "step": 1,
+          "target_health": 991,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-high-left-2-contact.png",
+        "row": {
+          "attacker_frozen": true,
+          "authored_closed_grasp_world": [
+            178.806610107422,
+            286.291564941406
+          ],
+          "axis_error_radians": 1.3291936738824e-05,
+          "closed_grasp_to_grip_centerline": 0.0307065229862928,
+          "closed_grasp_to_grip_native_px": 0.104382179677486,
+          "face": -1,
+          "forearm_axis": [
+            -0.859634160995483,
+            0.510910093784332
+          ],
+          "forearm_world": [
+            186.419769287109,
+            281.731079101562
+          ],
+          "frame": 382,
+          "grip_a_native": [
+            392.735961914062,
+            205.601531982422
+          ],
+          "grip_a_world": [
+            183.392990112305,
+            283.529998779297
+          ],
+          "grip_b_native": [
+            372.276672363281,
+            217.761260986328
+          ],
+          "grip_b_world": [
+            177.375549316406,
+            287.106384277344
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            179.954452514648,
+            285.573638916016
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f-1-s2-p2-0382.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.00021198186732363,
+          "opaque_hand_centroid_to_grip_centerline": 0.120384484529495,
+          "opaque_hand_centroid_to_grip_native_px": 0.409340769052505,
+          "opaque_hand_centroid_world": [
+            178.34538269043,
+            286.389923095703
+          ],
+          "phase": 2,
+          "phase_time": 0.0,
+          "pose_t": 0.4,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            -0.859640955924988,
+            0.510898649692535
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_crush",
+          "rendered_input_action_t": 0.397435897435897,
+          "step": 2,
+          "target_health": 988,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-high-left-2-active.png",
+        "row": {
+          "attacker_frozen": false,
+          "authored_closed_grasp_world": [
+            186.734603881836,
+            292.493377685547
+          ],
+          "axis_error_radians": 1.10266910269274e-06,
+          "closed_grasp_to_grip_centerline": 0.0307080131024122,
+          "closed_grasp_to_grip_native_px": 0.104413382709026,
+          "face": -1,
+          "forearm_axis": [
+            -0.380623698234558,
+            0.924730062484741
+          ],
+          "forearm_world": [
+            190.084060668945,
+            284.275146484375
+          ],
+          "frame": 391,
+          "grip_a_native": [
+            410.929016113281,
+            219.205383300781
+          ],
+          "grip_a_world": [
+            188.743881225586,
+            287.531127929688
+          ],
+          "grip_b_native": [
+            401.870178222656,
+            241.213958740234
+          ],
+          "grip_b_world": [
+            186.079513549805,
+            294.004241943359
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            187.221389770508,
+            291.230041503906
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f-1-s2-p2-0391.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.000178599540959112,
+          "opaque_hand_centroid_to_grip_centerline": 0.120313093066216,
+          "opaque_hand_centroid_to_grip_native_px": 0.40908494591713,
+          "opaque_hand_centroid_world": [
+            186.424926757812,
+            292.848968505859
+          ],
+          "phase": 2,
+          "phase_time": 0.133333333333333,
+          "pose_t": 0.666666666666667,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            -0.380624741315842,
+            0.924729645252228
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_crush",
+          "rendered_input_action_t": 0.666666666666667,
+          "step": 2,
+          "target_health": 988,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      }
+    ],
+    "closed_grasp_to_grip_centerline": {
+      "min": 0.0306730661541224,
+      "max": 0.0307437647134066
+    },
+    "opaque_hand_centroid_to_grip_centerline": {
+      "min": 0.119484983384609,
+      "max": 0.120983466506004
+    },
+    "closed_grasp_to_grip_native_px": {
+      "min": 0.104302927851677,
+      "max": 0.104501873254776
+    },
+    "opaque_hand_centroid_to_grip_native_px": {
+      "min": 0.406258791685104,
+      "max": 0.41130605340004
+    },
+    "axis_error_radians": {
+      "min": 1.49010848105036e-08,
+      "max": 1.70171133504482e-05
+    },
+    "active_input_action_range": {
+      "rin.melee_hydraulic_maul_crush": [
+        0.397435897435897,
+        0.666666666666667
+      ],
+      "rin.melee_hydraulic_maul_slam": [
+        0.4,
+        0.685714285714286
+      ],
+      "rin.melee_hydraulic_maul_smash": [
+        0.392156862745098,
+        0.691666666666667
+      ]
+    }
+  },
+  "latest-low": {
+    "frames": 440,
+    "archived_native_frames": 94,
+    "closed_frames": 0,
+    "light_quality": "low",
+    "renderer": "forward_plus",
+    "adapter": "llvmpipe (LLVM 19.1.7, 256 bits)",
+    "actions": [
+      "",
+      "rin.melee_hydraulic_maul_crush",
+      "rin.melee_hydraulic_maul_slam",
+      "rin.melee_hydraulic_maul_smash"
+    ],
+    "representatives": [
+      {
+        "image": "NE-236-maul-latest-low-right-0-contact.png",
+        "row": {
+          "attacker_frozen": true,
+          "authored_closed_grasp_world": [
+            205.364761352539,
+            281.812957763672
+          ],
+          "axis_error_radians": 1.38135146698914e-05,
+          "closed_grasp_to_grip_centerline": 0.030675133690238,
+          "closed_grasp_to_grip_native_px": 0.104302927851677,
+          "face": 1,
+          "forearm_axis": [
+            0.974921345710754,
+            0.22254990041256
+          ],
+          "forearm_world": [
+            196.719635009766,
+            279.808013916016
+          ],
+          "frame": 19,
+          "grip_a_native": [
+            239.961395263672,
+            194.823928833008
+          ],
+          "grip_a_world": [
+            200.152328491211,
+            280.591613769531
+          ],
+          "grip_b_native": [
+            263.164520263672,
+            200.120651245117
+          ],
+          "grip_b_world": [
+            206.976776123047,
+            282.149475097656
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            204.052017211914,
+            281.481811523438
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f1-s0-p2-0019.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.000218472618144006,
+          "opaque_hand_centroid_to_grip_centerline": 0.120578899979591,
+          "opaque_hand_centroid_to_grip_native_px": 0.409987062215805,
+          "opaque_hand_centroid_world": [
+            205.833877563477,
+            281.764892578125
+          ],
+          "phase": 2,
+          "phase_time": 0.0,
+          "pose_t": 0.4,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            0.974924385547638,
+            0.222536414861679
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_smash",
+          "rendered_input_action_t": 0.392156862745098,
+          "step": 0,
+          "target_health": 993,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-low-right-0-active.png",
+        "row": {
+          "attacker_frozen": false,
+          "authored_closed_grasp_world": [
+            195.415008544922,
+            292.897338867188
+          ],
+          "axis_error_radians": 1.05799290395225e-05,
+          "closed_grasp_to_grip_centerline": 0.0307204592972994,
+          "closed_grasp_to_grip_native_px": 0.104452088475227,
+          "face": 1,
+          "forearm_axis": [
+            0.276191890239716,
+            0.961102485656738
+          ],
+          "forearm_world": [
+            192.993453979492,
+            284.359527587891
+          ],
+          "frame": 27,
+          "grip_a_native": [
+            222.550369262695,
+            219.636199951172
+          ],
+          "grip_a_world": [
+            193.965927124023,
+            287.743560791016
+          ],
+          "grip_b_native": [
+            229.123748779297,
+            242.510467529297
+          ],
+          "grip_b_world": [
+            195.899276733398,
+            294.471282958984
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            195.070693969727,
+            291.587982177734
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f1-s0-p2-0027.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.000193010113434866,
+          "opaque_hand_centroid_to_grip_centerline": 0.120481953024864,
+          "opaque_hand_centroid_to_grip_native_px": 0.409657150506973,
+          "opaque_hand_centroid_world": [
+            195.683746337891,
+            293.285034179688
+          ],
+          "phase": 2,
+          "phase_time": 0.116666666666667,
+          "pose_t": 0.691666666666667,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            0.276202082633972,
+            0.961099624633789
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_smash",
+          "rendered_input_action_t": 0.691666666666667,
+          "step": 0,
+          "target_health": 993,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-low-right-1-contact.png",
+        "row": {
+          "attacker_frozen": true,
+          "authored_closed_grasp_world": [
+            202.976272583008,
+            287.318084716797
+          ],
+          "axis_error_radians": 1.33215362438932e-05,
+          "closed_grasp_to_grip_centerline": 0.030721440911293,
+          "closed_grasp_to_grip_native_px": 0.104455158114433,
+          "face": 1,
+          "forearm_axis": [
+            0.84831291437149,
+            0.529495120048523
+          ],
+          "forearm_world": [
+            195.464172363281,
+            282.593017578125
+          ],
+          "frame": 83,
+          "grip_a_native": [
+            239.932739257812,
+            208.754592895508
+          ],
+          "grip_a_world": [
+            198.451080322266,
+            284.457366943359
+          ],
+          "grip_b_native": [
+            260.12255859375,
+            221.356536865234
+          ],
+          "grip_b_world": [
+            204.389266967773,
+            288.163818359375
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            201.844329833984,
+            286.575347900391
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f1-s1-p2-0083.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.000177946523763239,
+          "opaque_hand_centroid_to_grip_centerline": 0.120328612625599,
+          "opaque_hand_centroid_to_grip_native_px": 0.409128576517105,
+          "opaque_hand_centroid_world": [
+            203.435211181641,
+            287.426483154297
+          ],
+          "phase": 2,
+          "phase_time": 0.0,
+          "pose_t": 0.4,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            0.848305881023407,
+            0.52950644493103
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_slam",
+          "rendered_input_action_t": 0.4,
+          "step": 1,
+          "target_health": 991,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-low-right-1-active.png",
+        "row": {
+          "attacker_frozen": false,
+          "authored_closed_grasp_world": [
+            192.58740234375,
+            293.963836669922
+          ],
+          "axis_error_radians": 2.27989676204743e-06,
+          "closed_grasp_to_grip_centerline": 0.0307214595377445,
+          "closed_grasp_to_grip_native_px": 0.104435369372368,
+          "face": 1,
+          "forearm_axis": [
+            0.101351991295815,
+            0.994850635528564
+          ],
+          "forearm_world": [
+            191.718505859375,
+            285.131896972656
+          ],
+          "frame": 92,
+          "grip_a_native": [
+            218.255966186523,
+            222.957748413086
+          ],
+          "grip_a_world": [
+            192.07536315918,
+            288.634765625
+          ],
+          "grip_b_native": [
+            220.668167114258,
+            246.635208129883
+          ],
+          "grip_b_world": [
+            192.78483581543,
+            295.598724365234
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            192.480773925781,
+            292.614166259766
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f1-s1-p2-0092.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.000200698035769165,
+          "opaque_hand_centroid_to_grip_centerline": 0.120371542870998,
+          "opaque_hand_centroid_to_grip_native_px": 0.40922674536705,
+          "opaque_hand_centroid_world": [
+            192.782974243164,
+            294.392883300781
+          ],
+          "phase": 2,
+          "phase_time": 0.133333333333333,
+          "pose_t": 0.685714285714286,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            0.101349726319313,
+            0.994850873947144
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_slam",
+          "rendered_input_action_t": 0.685714285714286,
+          "step": 1,
+          "target_health": 991,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-low-right-2-contact.png",
+        "row": {
+          "attacker_frozen": true,
+          "authored_closed_grasp_world": [
+            206.375961303711,
+            285.1630859375
+          ],
+          "axis_error_radians": 1.4305223885458e-05,
+          "closed_grasp_to_grip_centerline": 0.0307065229862928,
+          "closed_grasp_to_grip_native_px": 0.104366585612297,
+          "face": 1,
+          "forearm_axis": [
+            0.85963362455368,
+            0.510910987854004
+          ],
+          "forearm_world": [
+            198.762817382812,
+            280.602600097656
+          ],
+          "frame": 162,
+          "grip_a_native": [
+            251.28434753418,
+            201.764709472656
+          ],
+          "grip_a_world": [
+            201.789581298828,
+            282.401519775391
+          ],
+          "grip_b_native": [
+            271.74365234375,
+            213.924423217773
+          ],
+          "grip_b_world": [
+            207.807022094727,
+            285.977905273438
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            205.228118896484,
+            284.445159912109
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f1-s2-p2-0162.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.00021198186732363,
+          "opaque_hand_centroid_to_grip_centerline": 0.120274595916271,
+          "opaque_hand_centroid_to_grip_native_px": 0.408929944038391,
+          "opaque_hand_centroid_world": [
+            206.837112426758,
+            285.261535644531
+          ],
+          "phase": 2,
+          "phase_time": 0.0,
+          "pose_t": 0.4,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            0.859640955924988,
+            0.510898649692535
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_crush",
+          "rendered_input_action_t": 0.397435897435897,
+          "step": 2,
+          "target_health": 988,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-low-right-2-active.png",
+        "row": {
+          "attacker_frozen": false,
+          "authored_closed_grasp_world": [
+            199.016265869141,
+            291.073120117188
+          ],
+          "axis_error_radians": 1.10266910269274e-06,
+          "closed_grasp_to_grip_centerline": 0.0307080131024122,
+          "closed_grasp_to_grip_native_px": 0.104419194161892,
+          "face": 1,
+          "forearm_axis": [
+            0.380623698234558,
+            0.924730062484741
+          ],
+          "forearm_world": [
+            195.666809082031,
+            282.854888916016
+          ],
+          "frame": 171,
+          "grip_a_native": [
+            235.023574829102,
+            214.376495361328
+          ],
+          "grip_a_world": [
+            197.006988525391,
+            286.110870361328
+          ],
+          "grip_b_native": [
+            244.082427978516,
+            236.385101318359
+          ],
+          "grip_b_world": [
+            199.671356201172,
+            292.583984375
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            198.529479980469,
+            289.809783935547
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f1-s2-p2-0171.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.000204718133318238,
+          "opaque_hand_centroid_to_grip_centerline": 0.120451703667641,
+          "opaque_hand_centroid_to_grip_native_px": 0.409549713134766,
+          "opaque_hand_centroid_world": [
+            199.326034545898,
+            291.428558349609
+          ],
+          "phase": 2,
+          "phase_time": 0.133333333333333,
+          "pose_t": 0.666666666666667,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            0.380624741315842,
+            0.924729645252228
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_crush",
+          "rendered_input_action_t": 0.666666666666667,
+          "step": 2,
+          "target_health": 988,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-low-left-0-contact.png",
+        "row": {
+          "attacker_frozen": true,
+          "authored_closed_grasp_world": [
+            174.159927368164,
+            281.736175537109
+          ],
+          "axis_error_radians": 1.08629947135341e-05,
+          "closed_grasp_to_grip_centerline": 0.0307178031653166,
+          "closed_grasp_to_grip_native_px": 0.104450508952141,
+          "face": -1,
+          "forearm_axis": [
+            -0.975572645664215,
+            0.219677105545998
+          ],
+          "forearm_world": [
+            182.810913085938,
+            279.756683349609
+          ],
+          "frame": 239,
+          "grip_a_native": [
+            366.995697021484,
+            194.614944458008
+          ],
+          "grip_a_world": [
+            179.375915527344,
+            280.530151367188
+          ],
+          "grip_b_native": [
+            343.777130126953,
+            199.843307495117
+          ],
+          "grip_b_world": [
+            172.546920776367,
+            282.067901611328
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            175.4736328125,
+            281.408874511719
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f-1-s0-p2-0239.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.000188740799785592,
+          "opaque_hand_centroid_to_grip_centerline": 0.120246328413486,
+          "opaque_hand_centroid_to_grip_native_px": 0.408791899681091,
+          "opaque_hand_centroid_world": [
+            173.690963745117,
+            281.687042236328
+          ],
+          "phase": 2,
+          "phase_time": 0.0,
+          "pose_t": 0.4,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            -0.975575029850006,
+            0.219666510820389
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_smash",
+          "rendered_input_action_t": 0.392156862745098,
+          "step": 0,
+          "target_health": 993,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-low-left-0-active.png",
+        "row": {
+          "attacker_frozen": false,
+          "authored_closed_grasp_world": [
+            183.916702270508,
+            292.811676025391
+          ],
+          "axis_error_radians": 2.92064237328304e-06,
+          "closed_grasp_to_grip_centerline": 0.0307204592972994,
+          "closed_grasp_to_grip_native_px": 0.104445859789848,
+          "face": -1,
+          "forearm_axis": [
+            -0.276539266109467,
+            0.96100264787674
+          ],
+          "forearm_world": [
+            186.341339111328,
+            284.274749755859
+          ],
+          "frame": 247,
+          "grip_a_native": [
+            394.971405029297,
+            219.346832275391
+          ],
+          "grip_a_world": [
+            185.367645263672,
+            287.658447265625
+          ],
+          "grip_b_native": [
+            388.389770507812,
+            242.218597412109
+          ],
+          "grip_b_world": [
+            183.431869506836,
+            294.385437011719
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            184.261489868164,
+            291.50244140625
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f-1-s0-p2-0247.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.000193010113434866,
+          "opaque_hand_centroid_to_grip_centerline": 0.12043172121048,
+          "opaque_hand_centroid_to_grip_native_px": 0.409462481737137,
+          "opaque_hand_centroid_world": [
+            183.647903442383,
+            293.199188232422
+          ],
+          "phase": 2,
+          "phase_time": 0.116666666666667,
+          "pose_t": 0.691666666666667,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            -0.276536464691162,
+            0.961003482341766
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_smash",
+          "rendered_input_action_t": 0.691666666666667,
+          "step": 0,
+          "target_health": 993,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-low-left-1-contact.png",
+        "row": {
+          "attacker_frozen": true,
+          "authored_closed_grasp_world": [
+            176.83757019043,
+            285.617156982422
+          ],
+          "axis_error_radians": 1.19209926197072e-06,
+          "closed_grasp_to_grip_centerline": 0.030721440911293,
+          "closed_grasp_to_grip_native_px": 0.104447081685066,
+          "face": -1,
+          "forearm_axis": [
+            -0.848300993442535,
+            0.529514312744141
+          ],
+          "forearm_world": [
+            184.349578857422,
+            280.891906738281
+          ],
+          "frame": 303,
+          "grip_a_native": [
+            385.831146240234,
+            202.971130371094
+          ],
+          "grip_a_world": [
+            181.362701416016,
+            282.75634765625
+          ],
+          "grip_b_native": [
+            365.641571044922,
+            215.573486328125
+          ],
+          "grip_b_world": [
+            175.424591064453,
+            286.462921142578
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            177.969497680664,
+            284.874389648438
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f-1-s1-p2-0303.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.000177946523763239,
+          "opaque_hand_centroid_to_grip_centerline": 0.120412707328796,
+          "opaque_hand_centroid_to_grip_native_px": 0.409429430961609,
+          "opaque_hand_centroid_world": [
+            176.378570556641,
+            285.725494384766
+          ],
+          "phase": 2,
+          "phase_time": 0.0,
+          "pose_t": 0.4,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            -0.848301589488983,
+            0.529513299465179
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_slam",
+          "rendered_input_action_t": 0.4,
+          "step": 1,
+          "target_health": 991,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-low-left-1-active.png",
+        "row": {
+          "attacker_frozen": false,
+          "authored_closed_grasp_world": [
+            187.575256347656,
+            292.154052734375
+          ],
+          "axis_error_radians": 2.53321843501908e-07,
+          "closed_grasp_to_grip_centerline": 0.0307062808424234,
+          "closed_grasp_to_grip_native_px": 0.104418642818928,
+          "face": -1,
+          "forearm_axis": [
+            -0.101349979639053,
+            0.994850814342499
+          ],
+          "forearm_world": [
+            188.444137573242,
+            283.322113037109
+          ],
+          "frame": 312,
+          "grip_a_native": [
+            408.696166992188,
+            216.804473876953
+          ],
+          "grip_a_world": [
+            188.087280273438,
+            286.824981689453
+          ],
+          "grip_b_native": [
+            406.284057617188,
+            240.48193359375
+          ],
+          "grip_b_world": [
+            187.377838134766,
+            293.788940429688
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            187.681884765625,
+            290.804382324219
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f-1-s1-p2-0312.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.000200698035769165,
+          "opaque_hand_centroid_to_grip_centerline": 0.120325997471809,
+          "opaque_hand_centroid_to_grip_native_px": 0.409088581800461,
+          "opaque_hand_centroid_world": [
+            187.379730224609,
+            292.583129882812
+          ],
+          "phase": 2,
+          "phase_time": 0.133333333333333,
+          "pose_t": 0.685714285714286,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            -0.101349726319313,
+            0.994850873947144
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_slam",
+          "rendered_input_action_t": 0.685714285714286,
+          "step": 1,
+          "target_health": 991,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-low-left-2-contact.png",
+        "row": {
+          "attacker_frozen": true,
+          "authored_closed_grasp_world": [
+            178.806610107422,
+            286.291564941406
+          ],
+          "axis_error_radians": 1.3291936738824e-05,
+          "closed_grasp_to_grip_centerline": 0.0307065229862928,
+          "closed_grasp_to_grip_native_px": 0.104382179677486,
+          "face": -1,
+          "forearm_axis": [
+            -0.859634160995483,
+            0.510910093784332
+          ],
+          "forearm_world": [
+            186.419769287109,
+            281.731079101562
+          ],
+          "frame": 382,
+          "grip_a_native": [
+            392.735961914062,
+            205.601531982422
+          ],
+          "grip_a_world": [
+            183.392990112305,
+            283.529998779297
+          ],
+          "grip_b_native": [
+            372.276672363281,
+            217.761260986328
+          ],
+          "grip_b_world": [
+            177.375549316406,
+            287.106384277344
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            179.954452514648,
+            285.573638916016
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f-1-s2-p2-0382.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.00021198186732363,
+          "opaque_hand_centroid_to_grip_centerline": 0.120384484529495,
+          "opaque_hand_centroid_to_grip_native_px": 0.409340769052505,
+          "opaque_hand_centroid_world": [
+            178.34538269043,
+            286.389923095703
+          ],
+          "phase": 2,
+          "phase_time": 0.0,
+          "pose_t": 0.4,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            -0.859640955924988,
+            0.510898649692535
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_crush",
+          "rendered_input_action_t": 0.397435897435897,
+          "step": 2,
+          "target_health": 988,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      },
+      {
+        "image": "NE-236-maul-latest-low-left-2-active.png",
+        "row": {
+          "attacker_frozen": false,
+          "authored_closed_grasp_world": [
+            186.734603881836,
+            292.493377685547
+          ],
+          "axis_error_radians": 1.10266910269274e-06,
+          "closed_grasp_to_grip_centerline": 0.0307080131024122,
+          "closed_grasp_to_grip_native_px": 0.104413382709026,
+          "face": -1,
+          "forearm_axis": [
+            -0.380623698234558,
+            0.924730062484741
+          ],
+          "forearm_world": [
+            190.084060668945,
+            284.275146484375
+          ],
+          "frame": 391,
+          "grip_a_native": [
+            410.929016113281,
+            219.205383300781
+          ],
+          "grip_a_world": [
+            188.743881225586,
+            287.531127929688
+          ],
+          "grip_b_native": [
+            401.870178222656,
+            241.213958740234
+          ],
+          "grip_b_world": [
+            186.079513549805,
+            294.004241943359
+          ],
+          "grip_variant_closed": false,
+          "hand_texture": "",
+          "hand_world": [
+            187.221389770508,
+            291.230041503906
+          ],
+          "hits": 1,
+          "native_frame": "frames/after-f-1-s2-p2-0391.png",
+          "nearest_opaque_hand_to_grip_centerline": 0.000178599540959112,
+          "opaque_hand_centroid_to_grip_centerline": 0.120313093066216,
+          "opaque_hand_centroid_to_grip_native_px": 0.40908494591713,
+          "opaque_hand_centroid_world": [
+            186.424926757812,
+            292.848968505859
+          ],
+          "phase": 2,
+          "phase_time": 0.133333333333333,
+          "pose_t": 0.666666666666667,
+          "public_grip_offset": [
+            0.0,
+            0.0
+          ],
+          "rendered_axis": [
+            -0.380624741315842,
+            0.924729645252228
+          ],
+          "rendered_input_action": "rin.melee_hydraulic_maul_crush",
+          "rendered_input_action_t": 0.666666666666667,
+          "step": 2,
+          "target_health": 988,
+          "viewport_pixels": [
+            640.0,
+            360.0
+          ]
+        }
+      }
+    ],
+    "closed_grasp_to_grip_centerline": {
+      "min": 0.0306730661541224,
+      "max": 0.0307437647134066
+    },
+    "opaque_hand_centroid_to_grip_centerline": {
+      "min": 0.119484983384609,
+      "max": 0.120983466506004
+    },
+    "closed_grasp_to_grip_native_px": {
+      "min": 0.104302927851677,
+      "max": 0.104501873254776
+    },
+    "opaque_hand_centroid_to_grip_native_px": {
+      "min": 0.406258791685104,
+      "max": 0.41130605340004
+    },
+    "axis_error_radians": {
+      "min": 1.49010848105036e-08,
+      "max": 1.70171133504482e-05
+    },
+    "active_input_action_range": {
+      "rin.melee_hydraulic_maul_crush": [
+        0.397435897435897,
+        0.666666666666667
+      ],
+      "rin.melee_hydraulic_maul_slam": [
+        0.4,
+        0.685714285714286
+      ],
+      "rin.melee_hydraulic_maul_smash": [
+        0.392156862745098,
+        0.691666666666667
+      ]
+    }
+  }
+}

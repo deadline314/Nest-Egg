@@ -9,6 +9,7 @@ const WEAPONS: Array[String] = ["melee_dagger", "melee_blade", "melee_maul", "me
 func run() -> void:
 	_test_growth_contract()
 	_test_data()
+	_test_maul_drawing()
 	_test_balance()
 	_test_loadout()
 	await _test_reach_and_dead_zone()
@@ -30,6 +31,30 @@ func run() -> void:
 
 func _weapon(id: String) -> WeaponData:
 	return load("res://data/weapons/melee/%s.tres" % id) as WeaponData
+
+
+func _test_maul_drawing() -> void:
+	var weapon := _weapon("melee_maul")
+	var grip_offset := Vector2.ZERO
+	for part: Dictionary in RigLibrary.character("rin").get("parts", []):
+		if part.get("name") == "hand_front":
+			grip_offset = RigLibrary.vec2(part.get("grip_offset"))
+	var shaft_reaches_head := false
+	var grip_crosses_authored_palm := false
+	var head_materials: Array[Color] = []
+	for segment in MeleeArt.segments(weapon):
+		var a: Vector2 = segment.a
+		var b: Vector2 = segment.b
+		if segment.c == MeleeArt.STEEL and is_zero_approx(a.y) and is_zero_approx(b.y):
+			shaft_reaches_head = a.x <= 0.0 and b.x >= weapon.melee_length * 0.82
+		if segment.c == MeleeArt.GRIP:
+			grip_crosses_authored_palm = a.x < grip_offset.x and b.x > grip_offset.x
+		if not segment.glow and minf(a.x, b.x) > weapon.melee_length * 0.73 and not head_materials.has(segment.c):
+			head_materials.append(segment.c)
+	check(shaft_reaches_head, "the maul shaft visibly extends into the head instead of barely meeting its edge")
+	check(grip_crosses_authored_palm, "the maul grip runs across the authored palm position, not only behind the wrist")
+	check(head_materials.size() >= 3, "the maul head has separate non-emissive body, bevel and hydraulic detail")
+	print("NE236_MAUL_DRAWING ", JSON.stringify({"shaft_reaches_head":shaft_reaches_head, "grip_crosses_authored_palm":grip_crosses_authored_palm, "head_materials":head_materials.size()}))
 
 
 func _test_data() -> void:

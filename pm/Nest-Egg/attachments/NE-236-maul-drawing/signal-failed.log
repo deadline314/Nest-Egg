@@ -1,0 +1,71 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.305 - Forward+ - Using Device #0: Unknown - llvmpipe (LLVM 19.1.7, 256 bits)
+
+MAUL_RENDERER forward_plus | llvmpipe (LLVM 19.1.7, 256 bits)
+ERROR: Error calling from signal 'damaged' to callable: 'Node(maul_attachment_probe.gd)::<anonymous lambda>': Method expected 2 argument(s), but called with 1.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] take_damage (res://core/components/health_component.gd:60)
+       [1] receive (res://core/components/hurtbox.gd:135)
+       [2] _melee_hit_pass (res://game/player/player.gd:883)
+       [3] _melee_strike (res://game/player/player.gd:841)
+       [4] _tick_melee (res://game/player/player.gd:765)
+       [5] _tick_timers (res://game/player/player.gd:323)
+       [6] _physics_process (res://game/player/player.gd:270)
+MAUL_ACTION {"face":1,"frames":60,"health":993,"hits":0,"step":0}
+ERROR: Error calling from signal 'damaged' to callable: 'Node(maul_attachment_probe.gd)::<anonymous lambda>': Method expected 2 argument(s), but called with 1.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] take_damage (res://core/components/health_component.gd:60)
+       [1] receive (res://core/components/hurtbox.gd:135)
+       [2] _melee_hit_pass (res://game/player/player.gd:883)
+       [3] _melee_strike (res://game/player/player.gd:841)
+       [4] _tick_melee (res://game/player/player.gd:765)
+       [5] _tick_timers (res://game/player/player.gd:323)
+       [6] _physics_process (res://game/player/player.gd:270)
+MAUL_ACTION {"face":1,"frames":72,"health":991,"hits":0,"step":1}
+ERROR: Error calling from signal 'damaged' to callable: 'Node(maul_attachment_probe.gd)::<anonymous lambda>': Method expected 2 argument(s), but called with 1.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] take_damage (res://core/components/health_component.gd:60)
+       [1] receive (res://core/components/hurtbox.gd:135)
+       [2] _melee_hit_pass (res://game/player/player.gd:883)
+       [3] _melee_strike (res://game/player/player.gd:841)
+       [4] _tick_melee (res://game/player/player.gd:765)
+       [5] _tick_timers (res://game/player/player.gd:323)
+       [6] _physics_process (res://game/player/player.gd:270)
+MAUL_ACTION {"face":1,"frames":88,"health":988,"hits":0,"step":2}
+ERROR: Error calling from signal 'damaged' to callable: 'Node(maul_attachment_probe.gd)::<anonymous lambda>': Method expected 2 argument(s), but called with 1.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] take_damage (res://core/components/health_component.gd:60)
+       [1] receive (res://core/components/hurtbox.gd:135)
+       [2] _melee_hit_pass (res://game/player/player.gd:883)
+       [3] _melee_strike (res://game/player/player.gd:841)
+       [4] _tick_melee (res://game/player/player.gd:765)
+       [5] _tick_timers (res://game/player/player.gd:323)
+       [6] _physics_process (res://game/player/player.gd:270)
+MAUL_ACTION {"face":-1,"frames":60,"health":993,"hits":0,"step":0}
+ERROR: Error calling from signal 'damaged' to callable: 'Node(maul_attachment_probe.gd)::<anonymous lambda>': Method expected 2 argument(s), but called with 1.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] take_damage (res://core/components/health_component.gd:60)
+       [1] receive (res://core/components/hurtbox.gd:135)
+       [2] _melee_hit_pass (res://game/player/player.gd:883)
+       [3] _melee_strike (res://game/player/player.gd:841)
+       [4] _tick_melee (res://game/player/player.gd:765)
+       [5] _tick_timers (res://game/player/player.gd:323)
+       [6] _physics_process (res://game/player/player.gd:270)
+MAUL_ACTION {"face":-1,"frames":72,"health":991,"hits":0,"step":1}
+ERROR: Error calling from signal 'damaged' to callable: 'Node(maul_attachment_probe.gd)::<anonymous lambda>': Method expected 2 argument(s), but called with 1.
+   at: emit_signalp (core/object/object.cpp:1311)
+   GDScript backtrace (most recent call first):
+       [0] take_damage (res://core/components/health_component.gd:60)
+       [1] receive (res://core/components/hurtbox.gd:135)
+       [2] _melee_hit_pass (res://game/player/player.gd:883)
+       [3] _melee_strike (res://game/player/player.gd:841)
+       [4] _tick_melee (res://game/player/player.gd:765)
+       [5] _tick_timers (res://game/player/player.gd:323)
+       [6] _physics_process (res://game/player/player.gd:270)
+MAUL_ACTION {"face":-1,"frames":88,"health":988,"hits":0,"step":2}
+MAUL_FRAMES 440 failed=true

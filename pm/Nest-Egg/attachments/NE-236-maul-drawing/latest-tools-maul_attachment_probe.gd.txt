@@ -1,0 +1,165 @@
+extends ScenarioBase
+## 真正 Player 物理出招與逐個原生渲染影格；只讀骨架、握持素材與繪製幾何。
+## --out=<absolute directory> --variant=before/after；不改角色掛點或動畫核心。
+
+var variant := ""
+var low_quality := false
+var rows: Array[Dictionary] = []
+var frame_number := 0
+var hand_pixels := PackedVector2Array()
+var pixel_texture: Texture2D
+var target: Enemy
+var hits := 0
+var capture_failure := false
+
+func _ready() -> void:
+	low_quality = OS.get_cmdline_user_args().has("--low")
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--out="):
+			out_dir = argument.trim_prefix("--out=")
+		elif argument.begins_with("--variant="):
+			variant = argument.trim_prefix("--variant=")
+	if not out_dir.is_absolute_path() or variant not in ["before", "after"]:
+		get_tree().quit(2)
+		return
+	DirAccess.make_dir_recursive_absolute(out_dir.path_join("frames"))
+	_run.call_deferred()
+
+func _run() -> void:
+	print("MAUL_RENDERER ", RenderingServer.get_current_rendering_method(), " | ", RenderingServer.get_video_adapter_name())
+	Story.auto_skip = true
+	await open_arena("res://data/lighting/neutral.tres", 12.0)
+	Settings.set_light_quality(LightQuality.Tier.LOW if low_quality else LightQuality.Tier.HIGH)
+	Settings.set_feel_scale("shake", 0.0)
+	Settings.set_feel_scale("particles", 0.25)
+	Settings.set_reduce_flashes(true)
+	var weapon := load("res://data/weapons/melee/melee_maul.tres") as WeaponData
+	Progression.add_credits(1000)
+	if not Progression.buy_upgrade(weapon, Progression.find_upgrade(&"technique_maul")):
+		get_tree().quit(2)
+		return
+	AimInput.using_gamepad = true
+	var camera := get_viewport().get_camera_2d()
+	camera.set_physics_process(false)
+	camera.zoom = Vector2.ONE * 3.4
+	for face in [1, -1]:
+		player._interrupt_melee()
+		player.loadout.reset(weapon)
+		player._melee_cooldown_left = 0.0
+		player.guard = player.tuning.guard_max
+		place_player(12.0)
+		player.facing = face
+		player.aim_dir = Vector2(face, 0.0)
+		AimInput._last_stick_dir = player.aim_dir
+		camera.global_position = player.global_position + Vector2(face * 30, -44)
+		await settle(3)
+		for step in 3:
+			target = spawn_enemy("res://data/enemies/grunt.tres", 30.0)
+			target.data = target.data.duplicate()
+			target.data.detect_range = 0.0
+			target.data.attack_range = 0.0
+			target.data.move_speed = 0.0
+			target.health.setup(999, 0.0)
+			hits = 0
+			target.health.damaged.connect(func(_info: DamageInfo) -> void: hits += 1)
+			await settle(3)
+			target.global_position = player.global_position + Vector2(face * 24.0, 0.0)
+			await get_tree().physics_frame
+			await get_tree().physics_frame
+			if not player._try_melee():
+				push_error("maul probe could not start real step %d" % step)
+				get_tree().quit(2)
+				return
+			var guard := 300
+			while player._melee_phase != Player.MeleePhase.NONE and guard > 0:
+				await get_tree().physics_frame
+				await RenderingServer.frame_post_draw
+				var row := _measurement(face, step, weapon)
+				var name := "%s-f%d-s%d-p%d-%04d.png" % [variant, face, step, player._melee_phase, frame_number]
+				var path := out_dir.path_join("frames").path_join(name)
+				var error := preload("res://tools/viewport_capture.gd").image(get_viewport()).save_png(path)
+				capture_failure = capture_failure or error != OK
+				row["native_frame"] = "frames/" + name
+				rows.append(row)
+				frame_number += 1
+				guard -= 1
+			print("MAUL_ACTION ", JSON.stringify({"face":face,"step":step,"frames":300-guard,"hits":hits,"health":target.health.current}))
+			if guard == 0 or hits != 1:
+				capture_failure = true
+			target.queue_free()
+			await settle(1)
+	var file := FileAccess.open(out_dir.path_join("measurements.json"), FileAccess.WRITE)
+	file.store_string(JSON.stringify({"variant":variant,"renderer":RenderingServer.get_current_rendering_method(),
+		"adapter":RenderingServer.get_video_adapter_name(),"zoom":3.4,"synthetic_input":true,
+		"fixed_render_fps":60,"light_quality":"low" if low_quality else "high",
+		"particles":0.25,"shake":0.0,"reduce_flashes":true,"rows":rows}, "\t"))
+	file.close()
+	print("MAUL_FRAMES ", frame_number, " failed=",capture_failure)
+	await finish()
+	Sfx.stop_all()
+	Music.stop(0.0)
+	Ambience.stop_all(0.0)
+	await get_tree().create_timer(1.1, true, false, true).timeout
+	get_tree().quit(1 if capture_failure else 0)
+
+func _measurement(face: int, step: int, weapon: WeaponData) -> Dictionary:
+	var visual := player._visual
+	var rig := visual.rig
+	var hand := rig.bone(&"hand_front")
+	var forearm := rig.bone(&"arm_front_lower")
+	var along := (hand.global_position - forearm.global_position).normalized()
+	var xf := Transform2D(along.angle(), visual.to_local(hand.global_position))
+	var grip: Dictionary
+	for segment in MeleeArt.segments(weapon):
+		if segment.c == MeleeArt.GRIP:
+			grip = segment
+	var a := visual.to_global(xf * (grip.a as Vector2))
+	var b := visual.to_global(xf * (grip.b as Vector2))
+	var entry: Dictionary
+	for candidate: Dictionary in rig._hand_grips:
+		if candidate.bone == &"hand_front":
+			entry = candidate
+	var sprite := entry.sprite as Sprite2D
+	if pixel_texture != sprite.texture:
+		pixel_texture = sprite.texture
+		hand_pixels.clear()
+		var image := pixel_texture.get_image()
+		for y in image.get_height():
+			for x in image.get_width():
+				if image.get_pixel(x, y).a >= 0.5:
+					hand_pixels.append(Vector2(x + 0.5, y + 0.5))
+	var nearest := INF
+	var centroid := Vector2.ZERO
+	for pixel in hand_pixels:
+		var world := sprite.to_global(pixel + sprite.offset)
+		nearest = minf(nearest, world.distance_to(Geometry2D.get_closest_point_to_segment(world, a, b)))
+		centroid += world
+	centroid /= maxf(1.0, hand_pixels.size())
+	var authored_closed_grasp := hand.to_global(entry.offset as Vector2)
+	var rendered_axis := visual.to_global(xf * Vector2.RIGHT) - visual.to_global(xf * Vector2.ZERO)
+	var canvas_xf := visual.get_global_transform_with_canvas()
+	var native_a := canvas_xf * visual.to_local(a)
+	var native_b := canvas_xf * visual.to_local(b)
+	var native_grasp := canvas_xf * visual.to_local(authored_closed_grasp)
+	var native_centroid := canvas_xf * visual.to_local(centroid)
+	return {"frame":frame_number,"face":face,"step":step,"phase":player._melee_phase,
+		"pose_t":player.melee_pose_progress(),"phase_time":player._melee_time,
+		"hand_world":_vec(hand.global_position),"forearm_world":_vec(forearm.global_position),
+		"grip_a_world":_vec(a),"grip_b_world":_vec(b),"forearm_axis":_vec(along),
+		"rendered_axis":_vec(rendered_axis.normalized()),
+		"axis_error_radians":absf(along.angle_to(rendered_axis)),
+		"hand_texture":sprite.texture.resource_path,"grip_variant_closed":entry.closed,
+		"public_grip_offset":_vec(rig.hand_grip_offset(&"hand_front")),
+		"authored_closed_grasp_world":_vec(authored_closed_grasp),
+		"closed_grasp_to_grip_centerline":authored_closed_grasp.distance_to(Geometry2D.get_closest_point_to_segment(authored_closed_grasp, a, b)),
+		"nearest_opaque_hand_to_grip_centerline":nearest,"opaque_hand_centroid_world":_vec(centroid),
+		"opaque_hand_centroid_to_grip_centerline":centroid.distance_to(Geometry2D.get_closest_point_to_segment(centroid, a, b)),
+		"grip_a_native":_vec(native_a),"grip_b_native":_vec(native_b),
+		"closed_grasp_to_grip_native_px":native_grasp.distance_to(Geometry2D.get_closest_point_to_segment(native_grasp, native_a, native_b)),
+		"opaque_hand_centroid_to_grip_native_px":native_centroid.distance_to(Geometry2D.get_closest_point_to_segment(native_centroid, native_a, native_b)),
+		"rendered_input_action":String(visual._input.action),"rendered_input_action_t":visual._input.action_t,
+		"viewport_pixels":_vec(get_viewport().get_visible_rect().size),
+		"attacker_frozen":Fx._frozen.has(player),"hits":hits,"target_health":target.health.current}
+
+func _vec(value: Vector2) -> Array[float]:
+	return [value.x, value.y]

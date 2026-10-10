@@ -1,0 +1,135 @@
+{
+ "_說明": "近戰武器的招式組（欄位說明見 data/feel/melee.json 的 _說明）。新增欄位：shape（box 面前矩形／arc 扇形）、height（矩形高，0＝身高）、arc_degrees（扇形總角度）、min_range（近身死角，這段距離內打不到）、aim_follow（跟著準星揮）、sweep（出招區間內每影格判定，同一目標只算一次）、hitstop（命中頓幀秒數）、pose（slash 斜斬／overhead 劈砍／thrust 刺擊／sweep 橫掃，對應角色動作 rin.melee_<pose>）。每揮的電量消耗在武器資料（WeaponData 的 magazine_size、ammo_per_shot、reload_time）。",
+ "combo": [
+  "smash",
+  "slam"
+ ],
+ "combo_window": 0.6,
+ "attacks": {
+  "smash": {
+   "windup": 0.34,
+   "active": 0.12,
+   "recovery": 0.5,
+   "cancel_after": 0.28,
+   "damage": 6,
+   "range": 38,
+   "advance": 40,
+   "move_scale": 0.15,
+   "stagger": 3,
+   "impact": 12.0,
+   "knockback": [
+    420,
+    -160
+   ],
+   "event": "player_melee_heavy",
+   "shape": "box",
+   "height": 40,
+   "arc_degrees": 120,
+   "min_range": 0,
+   "aim_follow": false,
+   "sweep": true,
+   "hitstop": 0.07,
+   "pose": "hydraulic_maul_smash",
+   "trail": {
+    "radius": 32,
+    "arc": 170,
+    "life": 0.14,
+    "width": 5.5,
+    "brightness": 2.0,
+    "afterimage": true,
+    "color": "#ffd24a",
+    "style": "arc"
+   },
+   "sounds": {
+    "swing": "melee_swing_heavy",
+    "hit": "melee_hit_heavy"
+   },
+   "impact_fx": "crush"
+  },
+  "slam": {
+   "windup": 0.4,
+   "active": 0.14,
+   "recovery": 0.62,
+   "cancel_after": 0.62,
+   "damage": 8,
+   "range": 42,
+   "advance": 30,
+   "move_scale": 0.1,
+   "stagger": 3,
+   "impact": 14.0,
+   "knockback": [
+    520,
+    -200
+   ],
+   "event": "player_melee_heavy",
+   "shape": "box",
+   "height": 44,
+   "arc_degrees": 120,
+   "min_range": 0,
+   "aim_follow": false,
+   "sweep": true,
+   "hitstop": 0.09,
+   "pose": "hydraulic_maul_slam",
+   "trail": {
+    "radius": 34,
+    "arc": 180,
+    "life": 0.16,
+    "width": 6.0,
+    "brightness": 2.1,
+    "afterimage": true,
+    "color": "#ffd24a",
+    "style": "arc"
+   },
+   "sounds": {
+    "swing": "melee_swing_heavy",
+    "hit": "melee_hit_heavy"
+   },
+   "impact_fx": "crush"
+  },
+  "crush": {
+   "windup": 0.52,
+   "active": 0.15,
+   "recovery": 0.78,
+   "cancel_after": 0.78,
+   "damage": 11,
+   "range": 36,
+   "advance": 0,
+   "move_scale": 0.1,
+   "stagger": 3,
+   "impact": 15,
+   "knockback": [
+    580,
+    -50
+   ],
+   "event": "player_melee_heavy",
+   "shape": "arc",
+   "height": 0,
+   "arc_degrees": 180,
+   "min_range": 0,
+   "aim_follow": false,
+   "sweep": true,
+   "hitstop": 0.09,
+   "pose": "hydraulic_maul_crush",
+   "trail": {
+    "radius": 36,
+    "arc": 180,
+    "life": 0.12,
+    "width": 6.0,
+    "brightness": 1.8,
+    "afterimage": true,
+    "color": "#ffd24a",
+    "style": "arc"
+   },
+   "sounds": {
+    "swing": "melee_swing_heavy",
+    "hit": "melee_hit_heavy"
+   },
+   "impact_fx": "crush",
+   "guard_cost": 30
+  }
+ },
+ "extension": {
+  "upgrade": "technique_maul",
+  "attack": "crush"
+ }
+}

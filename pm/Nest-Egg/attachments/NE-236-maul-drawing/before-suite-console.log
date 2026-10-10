@@ -1,0 +1,6 @@
+Running 1 groups in 1 processes (logs: /workspace/work/cloud-weapon-combos/maul-draw/before-suite)
+  process 0 (estimated 70 s): MeleeWeaponsSuite
+[process 0] NEW FAILURE: the maul shaft visibly extends into the head instead of barely meeting its edge
+[process 0] NEW FAILURE: the maul grip runs across the authored palm position, not only behind the wrist
+[process 0] NEW FAILURE: the maul head has separate non-emissive body, bevel and hydraulic detail
+checks: 301, new failures: 3, known failures (tests/known_failures.txt): 0  (wall time 85 s)
