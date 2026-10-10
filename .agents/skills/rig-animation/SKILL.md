@@ -65,8 +65,9 @@ description: 做或調整 Nest Egg 的骨架角色與動畫時使用：新增角
 - 踩過的坑：腳踩實地的重心轉移**不能只移骨盆**（腳跟著滑）；空出來的腳彎膝也會讓腳踝後退，要同時把大腿反向轉一半；嘆氣的起伏不能加在骨盆上（腳被帶著上下）。`npc.stand` 的角色專屬站姿調整以前因為 `_merge_into` 對空字典逐鍵蓋過而**從來沒套用**，現在整份採用且只在站著時加。
 - 還做不到（需要美術，見 NE-221）：眨眼（頭是一整張圖、沒有眼睛分層）、大衣與圍裙的次級動態（NPC 骨架沒有衣襬骨頭與零件）。
 - **已實作（NE-250，詳見 `design/12-cast-redraw/NPC_PERFORMANCE.md`）**：說話不再用正弦循環，改成手勢（`NpcGesture`：反向蓄勢→準備→重音→停留→收回；`drag`／`drag_out` 讓舉起時手肘先彎、放下時肩先落；`sag` 讓停留不凍住）；角色的 `npc.life.beat` 有 `vocab`（手勢權重）、`every`（頻率）、`speed`、`expanse`、`rest`（手勢之間放下的機率）——Hu、Walker、Neff 的 rate／speed／expanse 個性參數；`listen` 點頭、`fidget` 角色專屬小動作（手忙或說話時不做）；`posture` 的 `speed`／`lead` 決定坐站切換的快慢與預備幅度。姿勢切換資料在 `npc_animations.json` 的 `transitions`（「舊>新」，time／delay／peak／lead），工作循環可用 `keys` 關鍵影格＋`period`＋`vary`（每圈不同）。新角色只要寫資料，不用改程式。
-- 檢查工具：`tools/npc_motion_strip.tscn`——連續畫面（`--script=converse|talk|sit_cycle|stand_up|lean_cycle|wave|idle|loop:名稱[@姿勢]|gallery:手勢,…`、`--zoom=3.4` 過場倍率、`--facing=-1`），`--metrics` 印 pop（跳格）、repeat（說話重複度）、same_pair（最同步的兩根骨頭），`--trace=骨頭@秒` 印逐格值找原因。
-- 踩過的坑（NE-250）：兩骨 IK 腿接近打直時膝角對骨盆高度是平方根關係，起身終點不能是打直的 IK（`poses.stand.feet_handoff` 保留膝彎）；`max(姿勢下沉, 搆腳下沉)` 交叉處骨盆急停（讓姿勢下沉收斂到交接位置的搆腳下沉）；IK 淡出時不要把下沉乘權重（骨盆升高把腿拉直），也不要在 IK 之後呼叫 `_apply_body()`（會蓋掉 IK 腿）；手勢總長要含最晚的拖曳延遲；舉手姿勢要算手的落點（揉後頸上臂 -1.75、前臂 -2.45 才在頸後），每個角色手臂長不同要逐一看畫面。
+- **場景人物的短反應（NE-240，`NpcAwareness`）**：走近時依 `NpcData.reactions`（條件同對話：初見 `max_talks 0`、回訪、`min_deaths`、旗標，越後越優先、`once` 存檔）做一個手勢；`EventBus.world_noise`（拋彈殼＝槍響、爆炸、可破壞物、鎖門）讓附近人物縮一下轉頭，6 秒三聲蹲下抱頭並停工，安靜 3 秒站起來回去工作。指定手勢（`play_gesture`）播放時工作循環先淡出；站起來時用 `release_gesture` 從目前位置收回。清單與用途見 `design/20-campaign-experience/SITUATIONAL_REACTIONS.md`；實機連續截圖：`tools/screenshot.tscn --scenario=reactions:關卡id:欄`。
+- 檢查工具：`tools/npc_motion_strip.tscn`——連續畫面（`--script=converse|talk|sit_cycle|stand_up|lean_cycle|wave|idle|loop:名稱[@姿勢]|gallery:手勢,…`、`--zoom=3.4` 過場倍率、`--facing=-1`），`--metrics` 印 pop（跳格）、repeat（說話重複度）、same_pair（最同步的兩根骨頭），`--trace=骨頭@秒` 印逐格值找原因；腳本可用 `cue:手勢`／`cue:release` 在指定秒數觸發手勢（`cower`、`greet`、`crouch_cycle`）。
+- 踩過的坑（NE-250）：兩骨 IK 腿接近打直時膝角對骨盆高度是平方根關係，起身終點不能是打直的 IK（`poses.stand.feet_handoff` 保留膝彎）；`max(姿勢下沉, 搆腳下沉)` 交叉處骨盆急停（讓姿勢下沉收斂到交接位置的搆腳下沉）；IK 淡出時不要把下沉乘權重（骨盆升高把腿拉直），也不要在 IK 之後呼叫 `_apply_body()`（會蓋掉 IK 腿）；手勢總長要含最晚的拖曳延遲；舉手姿勢要算手的落點（揉後頸上臂 -1.75、前臂 -2.45 才在頸後），每個角色手臂長不同要逐一看畫面；深蹲會碰到共用的 `GROUND_MAX_SHIFT`，硬夾會讓起身急起步（NPC 端用軟上限）；平滑最小值會連小數值一起往下拉（把下沉壓到搆腳所需以下），要用「低於門檻原樣、之上指數逼近」的軟上限。
 
 ## 姿勢（坐、蹲、靠、起身）
 

@@ -58,7 +58,7 @@ NE-206 讓 NPC 有了重心轉移、轉頭與說話手勢，但使用者看過�
 |---|---|
 | 受影響範圍的測試（59 套件，19917 項） | 通過，新失敗 0 |
 | 新增檢查：手勢回到原位不跳格、說話不是固定循環、聆聽點頭、小動作與個性差異、九位角色坐站無跳格與起身預備、關鍵影格與每圈變化、手勢與切換資料的骨頭對每個 NPC 骨架都存在 | 通過 |
-| 畫面 | 雲端軟體渲染（Compatibility）連續畫面；原生 Forward+ 待本機 |
+| 畫面 | 雲端軟體渲染（Compatibility）連續畫面；雲端軟體 Vulkan 的 Forward+ 拍了開場過場（老 K 邊擦手邊說話時只點頭、不疊手勢，沒有看到露縫）；原生 GPU Forward+ 待本機 |
 
 ### 截圖
 
@@ -76,4 +76,4 @@ NE-206 讓 NPC 有了重心轉移、轉頭與說話手勢，但使用者看過�
 ![小動作停在動作中段（老 K）](images/NE-250-gestures-old-k.png)
 ![小動作停在動作中段（凜）](images/NE-250-gestures-rin.png)
 ![說話手勢停在重音後（阿莉）](images/NE-250-gestures-nurse-talk.png)
-
+![開場過場，Forward+（雲端軟體 Vulkan）：老 K 邊擦手邊說話](images/NE-250-forward-plus-cutscene.png)
