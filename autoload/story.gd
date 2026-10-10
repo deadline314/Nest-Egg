@@ -784,8 +784,9 @@ func progress_snapshot() -> Array:
 	return _completed.keys()
 
 
-func restore_progress(raw: Variant, where := "story/seen") -> void:
-	reset_active_presentation(&"load")
+func restore_progress(raw: Variant, where := "story/seen", cancel_presentation := true) -> void:
+	if cancel_presentation:
+		reset_active_presentation(&"load")
 	_seen.clear()
 	_completed.clear()
 	if not raw is Array:

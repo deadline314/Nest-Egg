@@ -428,7 +428,10 @@ func story_progress_snapshot() -> Dictionary:
 
 
 ## This component can be embedded in a future whole-run save without creating a second quest list.
-func restore_story_progress(raw: Variant, where := STORY_SAVE_PATH) -> void:
+func restore_story_progress(raw: Variant, where := STORY_SAVE_PATH, cancel_presentation := true) -> void:
+	# 取消通知必須看見舊的完整故事；不能先換旗標再通知舊演出。
+	if cancel_presentation:
+		Story.reset_active_presentation(&"load")
 	world_flags = flag_defaults.duplicate(true)
 	var data: Dictionary = raw if raw is Dictionary else {}
 	if not raw is Dictionary:
@@ -450,7 +453,7 @@ func restore_story_progress(raw: Variant, where := STORY_SAVE_PATH) -> void:
 	for flag: Variant in flag_defaults:
 		if not flags.has(flag):
 			push_warning("[GameState] %s/flags/%s 缺漏，退回預設值" % [where, flag])
-	Story.restore_progress(data.get("seen", []), where + "/seen")
+	Story.restore_progress(data.get("seen", []), where + "/seen", false)
 	StoryItems.restore(data.get("items", {}), where + "/items")
 	var count: Variant = data.get("deaths", 0)
 	deaths = int(RunSaveCodec.number(count, 0, 0, 1000000))

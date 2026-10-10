@@ -25,6 +25,8 @@ var _runtime_save_queued := false
 var _pending_screen: Node
 var _quitting := false
 var _destination_pending := false
+var _restore_publish_pending := false
+var _publishing_restore := false
 
 
 func _ready() -> void:
@@ -64,6 +66,12 @@ func _swap_screen(screen: Node) -> void:
 	Fx.reset_time()
 	_screen = screen
 	add_child(screen)
+	# Level._ready 已裝齊玩家、世界及續玩資料，通知才可離開 Main。
+	if _restore_publish_pending:
+		_restore_publish_pending = false
+		_publishing_restore = true
+		RunSnapshot.publish_restored()
+		_publishing_restore = false
 	_queue_save()
 
 
@@ -122,7 +130,8 @@ func _on_continue_requested() -> void:
 		_show_main_menu()
 		return
 	_active_run = false
-	RunSnapshot.apply(data)
+	_restore_publish_pending = true
+	RunSnapshot.apply(data, false)
 	_level_path = data["level"]
 	_resume_runtime = data["runtime"]
 	_resume_runtime["cinematic"] = data["cinematic"]
@@ -144,6 +153,7 @@ func _load_level(kind := Transition.Kind.IRIS, caption := "", hold := 0.0) -> vo
 	var data: LevelData = load(_level_path) as LevelData if ResourceLoader.exists(_level_path) else null
 	if data == null:
 		push_error("[Main] 無法載入關卡：%s" % _level_path)
+		_restore_publish_pending = false
 		_show_main_menu()
 		return
 	var level := Level.new()
@@ -248,7 +258,7 @@ func _show_victory(chapter: StringName) -> void:
 
 
 func _route_pending() -> bool:
-	return _quitting or (is_instance_valid(_pending_screen) and not _pending_screen.is_inside_tree())
+	return _quitting or _publishing_restore or (is_instance_valid(_pending_screen) and not _pending_screen.is_inside_tree())
 
 
 func _bind_navigation() -> void:
@@ -259,7 +269,7 @@ func _bind_navigation() -> void:
 
 
 func _queue_runtime_save() -> void:
-	if not _active_run or _runtime_save_queued:
+	if not _active_run or _runtime_save_queued or _restore_publish_pending or _publishing_restore:
 		return
 	_runtime_save_queued = true
 	get_tree().create_timer(1.0, true, false, true).timeout.connect(func() -> void:
@@ -268,7 +278,7 @@ func _queue_runtime_save() -> void:
 
 
 func _queue_save() -> void:
-	if not _active_run or _save_queued:
+	if not _active_run or _save_queued or _restore_publish_pending or _publishing_restore:
 		return
 	_save_queued = true
 	_flush_save.call_deferred()
@@ -280,7 +290,7 @@ func _flush_save() -> void:
 
 
 func _save_run() -> void:
-	if not _active_run or _destination_pending or not is_instance_valid(_screen) or not _screen is Level:
+	if not _active_run or _destination_pending or _restore_publish_pending or _publishing_restore or not is_instance_valid(_screen) or not _screen is Level:
 		return
 	var level := _screen as Level
 	if not level.is_inside_tree() or level.is_queued_for_deletion():
@@ -363,13 +373,22 @@ func _on_presentation_cancelled(id: StringName, _context: Dictionary, reason: St
 	if _cinematic != String(id) or (_cinematic_request != 0 and request != _cinematic_request):
 		return
 	var level: Level = _screen as Level if is_instance_valid(_screen) else null
+	var rolled_back := false
 	if _active_run and not _destination_pending and level != null and level.data.resource_path == _level_path \
 			and reason in [&"death", &"route", &"retry", &"leave"] and not _cinematic_entry.is_empty():
 		var entry := _cinematic_entry.duplicate(true)
-		RunSnapshot.rollback_presentation(entry)
+		_publishing_restore = true
+		RunSnapshot.rollback_presentation(entry, false)
+		_clear_cinematic()
 		if level.is_inside_tree() and not level.is_queued_for_deletion():
 			level.rollback_presentation_world(entry.get("runtime", {}))
+		rolled_back = true
 	_clear_cinematic()
+	if rolled_back:
+		_bind_navigation()
+		RunSnapshot.publish_restored()
+		_publishing_restore = false
+		_queue_save()
 
 
 func _notification(what: int) -> void:
@@ -378,6 +397,9 @@ func _notification(what: int) -> void:
 
 
 func _quit(exit_code := 0) -> void:
+	if _publishing_restore:
+		_quit.call_deferred(exit_code)
+		return
 	if _quitting:
 		return
 	_quitting = true

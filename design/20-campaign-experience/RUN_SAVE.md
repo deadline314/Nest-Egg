@@ -91,3 +91,9 @@ NE-230，2026-10-10。主流程保存真正可續玩的整輪狀態；既有故�
 當舖初死缺電話亭是既有關卡缺口；本票未改地圖／故事，真電話亭通過不代表所有區域完整。非持久重試用舊 level02 明確 fixture，章末 probe 直接定位正式末區，只驗路由，不算整章通關。正式序章、新第二／第三章及實體硬體仍未全面驗收。票維持進行中，第一項實際整輪續玩已逐項覆蓋，其餘完整任務／跨版／主線條件保留待驗收。
 
 精簡可追溯附件索引：[NE-230 完整紀錄](../../pm/Nest-Egg/attachments/NE-230/README.md)。原始最後兩 shard、console、最新 124 項短測、實測邊界、來源 19 檔及必要第一輪失敗已收入；其餘歷史原件仍保留前述私有證據目錄。
+
+## 2026-10-10 還原通知與 live Level 邊界
+
+整輪資料恢復保留既有遷移規則，但不再經由 start_new_run 觸發暫時 wallet=0／物品清空。舊演出取消時仍是完整舊 run；Main 安装資料、導航、Level._ready 的 player／WorldState／NPC 后才發布恢復通知。回滾先把實際時間／kill／death／life 放進完整來源，再一次靜默安裝，Main 還原世界及導航後通知。同步監聽者不可在發布期間換畫面或捕捉半份存檔。
+
+這與未接妥的正式 Story 四 owner durable coordinator 分開：本阶段修復 Continue／取消的觀察順序，不授正式 compiler capabilities。來源 eadc5f8，65 組 42226 項通過；cd0d454f6 整合主流程／存檔／近戰 1954 項通過，實際 Forward+ 真 Main Continue 各 7 項通過。原始輸出、來源 freeze、出口診斷和截圖見 [NE-230 還原證據](../../pm/Nest-Egg/attachments/NE-230-restore-order/README.md)。

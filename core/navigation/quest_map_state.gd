@@ -65,7 +65,7 @@ func snapshot() -> Dictionary:
 	return {"version": VERSION, "pinned_id": pinned_id, "explored": explored.duplicate(true), "activated": activated.duplicate(true)}
 
 
-func restore(raw: Variant, catalog: QuestCatalog, maps: QuestMapIndex) -> void:
+func restore(raw: Variant, catalog: QuestCatalog, maps: QuestMapIndex, notify := true) -> void:
 	pinned_id = ""
 	explored.clear()
 	activated.clear()
@@ -106,7 +106,10 @@ func restore(raw: Variant, catalog: QuestCatalog, maps: QuestMapIndex) -> void:
 			issues.append("navigation.activated: 必須是物件，改用未啟用狀態。")
 	for issue in issues:
 		push_warning("[QuestMap] %s" % issue)
-	_touch()
+	if notify:
+		_touch()
+	else:
+		revision += 1
 
 
 static func _parse_cell(key: Variant, layout: LevelLayout) -> Vector2i:

@@ -450,7 +450,7 @@ func snapshot() -> Dictionary:
 
 
 ## 從快照還原；資料損毀、型別不符或引用到已不存在的改裝時略過該部分，保證不崩潰。
-func restore(data: Dictionary) -> void:
+func restore(data: Dictionary, notify := true) -> void:
 	_story_transactions.restore(data.get("story_transactions"), data.has("story_transactions"))
 	credits = int(RunSaveCodec.number(data.get("credits"), 0, 0, MAX_CREDITS))
 	_upgrades.clear()
@@ -469,6 +469,12 @@ func restore(data: Dictionary) -> void:
 				_upgrades[StringName(str(weapon_id))] = valid
 	_restore_abilities(data)
 	_restore_pawned(data)
+	if notify:
+		publish_restored()
+
+
+## 整輪還原先裝齊故事、物品及世界，再通知介面與存檔監聽者。
+func publish_restored() -> void:
 	credits_changed.emit(credits, 0)
 	upgrades_changed.emit()
 	abilities_changed.emit()

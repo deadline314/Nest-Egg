@@ -1,0 +1,46 @@
+{
+  "base": "eadc5f8f04bd1bfbdfaaefe489d1127de355a647",
+  "engine": "Godot 4.7.2",
+  "renderer": "Forward+ Vulkan 1.4.356",
+  "gpu": "Intel Arc B580",
+  "aggregate_vram_available": false,
+  "vram_query_error": "Windows performance counter enumeration unavailable: 00000422",
+  "sources": [
+    {
+      "path": "autoload/game_state.gd",
+      "sha256": "1a958d59d7864cc590a74a8afda3c6ec6195fda7c4552180b4789e82149bb14f"
+    },
+    {
+      "path": "autoload/progression.gd",
+      "sha256": "7dcbee41e73d11e5c3f7b5bd9b68869e1591f2c62acb0d3dcadf5e02a688496c"
+    },
+    {
+      "path": "autoload/story.gd",
+      "sha256": "2d87e41d333bf2e6c7979818146c5d4a32c94536d04f6e4ebded71ef80a01ecc"
+    },
+    {
+      "path": "core/navigation/quest_map_state.gd",
+      "sha256": "1e8893631c4f3acc920accf5d983b9851efd21cc6625d4654e8a1038a7bcecc6"
+    },
+    {
+      "path": "core/run_snapshot.gd",
+      "sha256": "2740ff16fe2c56cc2974ca73263ed7b427f91980ad91c932241ef1457eea9121"
+    },
+    {
+      "path": "game/main.gd",
+      "sha256": "baed92bd3f13c1a5e186f91974bf28595d4b0cc014759eab9b25d69a83b38767"
+    },
+    {
+      "path": "tests/suite/test_run_save.gd",
+      "sha256": "929e00dda7ef74b5f7c85aa09ad4d5c29ec092ed5449c30d455722abd033c6b3"
+    },
+    {
+      "path": "tests/helpers/run_restore_checks.gd",
+      "sha256": "04dc2a529304c289985aa5e7545926a084c6acd2c8e7b5f57a8811086e3d79ab"
+    },
+    {
+      "path": "tools/run_save_probe.gd",
+      "sha256": "ba3693fbf1206216b8123a01ed63e0cdbe82f44139e1c0cb31ac0fcfd54cfc6c"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "changed-shard-0.log": {
+    "suites": 65,
+    "results": [
+      "checks: 42226, failures: 0"
+    ],
+    "script_errors": 0,
+    "unexpected_errors": [],
+    "original_filter_errors": 73,
+    "exit_errors": [
+      "ERROR: 7 RID allocations of type 'P11GodotArea2D' were leaked at exit.",
+      "ERROR: 13 resources still in use at exit (run with --verbose for details)."
+    ],
+    "exit_warnings": [
+      "WARNING: 8 RIDs of type \"CanvasItem\" were leaked.",
+      "WARNING: 26 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+    ],
+    "original_filters_unchanged": true
+  },
+  "integrated-shard-0.log": {
+    "suites": 3,
+    "results": [
+      "checks: 1954, failures: 0"
+    ],
+    "script_errors": 0,
+    "unexpected_errors": [],
+    "original_filter_errors": 11,
+    "exit_errors": [
+      "ERROR: 5 resources still in use at exit (run with --verbose for details)."
+    ],
+    "exit_warnings": [
+      "WARNING: 1 RID of type \"CanvasItem\" was leaked.",
+      "WARNING: 9 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+    ],
+    "original_filters_unchanged": true
+  }
+}

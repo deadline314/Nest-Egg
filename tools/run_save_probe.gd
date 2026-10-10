@@ -91,6 +91,7 @@ func _run() -> void:
 			"aim_read": await _aim_read(level)
 			"second_write": await _second_write(level)
 			"second_read": await _second_read(level)
+			"restore_order": await _restore_order(level)
 			_: _check(false, "unknown probe mode")
 	if not _closing:
 		await _finish()
@@ -147,6 +148,59 @@ func _route() -> void:
 	_main.call("_on_area_requested", "res://data/levels/ne230_missing.tres")
 	await get_tree().create_timer(1.5).timeout
 	_check(_main.get("_screen") is MainMenu and not _main.get("_destination_pending"), "invalid destination still falls back to safe menu without pending save lock")
+
+
+func _restore_order(level: Level) -> void:
+	var actor: NpcActor
+	for node in get_tree().get_nodes_in_group(NpcActor.GROUP):
+		if node is NpcActor and level.is_ancestor_of(node):
+			actor = node
+			break
+	_check(actor != null, "restore ordering uses a real stateful chapter-one NPC")
+	if actor == null:
+		return
+	actor.talk_count = 5
+	var actor_key := actor.state_key()
+	Progression.add_credits(73)
+	GameState.world_flags["restore_probe_marker"] = "saved"
+	_main.call("_save_run")
+	var store: RunSaveStore = _main.get("_run_store")
+	var saved := store.read()
+	_check(not saved.is_empty(), "real Main writes the complete ordering fixture")
+	if saved.is_empty():
+		return
+	_main.call("_show_main_menu")
+	await _frames(3)
+	var observations: Array[Dictionary] = []
+	var observer := func(value: int, _delta: int) -> void:
+		var restored := _main.get("_screen") as Level
+		var restored_actor: NpcActor
+		if restored != null:
+			for node in get_tree().get_nodes_in_group(NpcActor.GROUP):
+				if node is NpcActor and restored.is_ancestor_of(node) and node.state_key() == actor_key:
+					restored_actor = node
+		observations.append({"wallet": value, "level": restored != null and restored.is_inside_tree(),
+			"player": restored != null and is_instance_valid(restored.player),
+			"talks": restored_actor.talk_count if restored_actor != null else -1,
+			"marker": GameState.world_flags.get("restore_probe_marker"),
+			"guarded": _main.get("_publishing_restore")})
+		# 同步監聽者不能在半個載入流程裡再開始另一局或另一份續玩。
+		_main.call("_on_start_requested", GameState.difficulties[2])
+		_main.call("_on_continue_requested")
+	Progression.credits_changed.connect(observer)
+	_main.call("_on_continue_requested")
+	await _frames(6)
+	Progression.credits_changed.disconnect(observer)
+	_check(observations.size() == 1, "Continue publishes one complete wallet notification")
+	if observations.size() == 1:
+		var first: Dictionary = observations[0]
+		_check(first["level"] and first["player"] and first["talks"] == 5, "first Continue observer sees resumed Level player and restored actual NPC state")
+		_check(first["wallet"] == saved["progression"]["credits"] and first["marker"] == "saved" and first["guarded"], "first Continue observer sees matching wallet/story with route guard held")
+	_check(GameState.difficulty.resource_path == saved["difficulty"] and not _main.get("_restore_publish_pending"), "reentrant observer cannot replace the resumed difficulty or leave restore pending")
+	if DisplayServer.get_name() != "headless":
+		await _frames(20)
+		await RenderingServer.frame_post_draw
+		preload("res://tools/viewport_capture.gd").image(get_viewport()).save_png(_directory.path_join("restore-order.png"))
 
 
 func _write(level: Level) -> void:

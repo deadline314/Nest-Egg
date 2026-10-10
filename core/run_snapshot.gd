@@ -150,9 +150,8 @@ static func prepare(raw: Dictionary) -> Dictionary:
 	return {"data": result}
 
 
-## Additive data-owner preparation only. Main/Level/navigation installation and
-## old-state presentation cancellation must be supplied by a later coordinator.
-## Existing apply/rollback intentionally keep their legacy behavior this phase.
+## Strict preparation for the future atomic-result coordinator. Legacy restore
+## below retains migration rules and separates installation from publication.
 static func prepare_install(raw: Dictionary) -> Dictionary:
 	var checked := prepare(raw)
 	if checked.has("error"):
@@ -160,32 +159,42 @@ static func prepare_install(raw: Dictionary) -> Dictionary:
 	return StoryInstallBundle.prepare_components(checked["data"])
 
 
-static func apply(data: Dictionary) -> void:
-	# 呼叫端只交 prepare 的結果；此處沒有新的讀檔或任意資源載入。
+static func apply(data: Dictionary, notify := true) -> void:
+	# 舊演出的取消通知先看到完整舊局。還原時不呼叫新遊戲，避免
+	# wallet=0、物品清空、死亡歸零等中間狀態觸發監聽與保存。
+	Story.reset_active_presentation(&"load")
 	GameState.story_autosave = false
-	GameState.start_new_run(load(data["difficulty"]) as DifficultyData)
-	_apply_components(data)
+	GameState.difficulty = load(data["difficulty"]) as DifficultyData
+	GameState._carried_loadout = {}
+	_apply_components_silent(data)
+	if notify:
+		publish_restored()
 
 
 ## 中止演出時撤回暫定效果，保留場景中的玩家死亡事實；死亡計數／費用由Level隨後結算。
-static func rollback_presentation(data: Dictionary) -> void:
+static func rollback_presentation(data: Dictionary, notify := true) -> void:
 	# 演出期間經過的時計、戰鬥統計與live死亡事實並非劇情暫定效果。
 	var actual: Dictionary = {}
 	for key in ["run_time", "kills", "finishers", "deaths", "lives_left", "last_death_clock"]:
 		actual[key] = GameState.get(key)
-	_apply_components(data.duplicate(true))
+	var restored := data.duplicate(true)
 	for key in actual:
-		GameState.set(key, actual[key])
+		restored["state"][key] = actual[key]
+	restored["story"]["deaths"] = actual["deaths"]
+	# 由取消回呼呼叫；不再次取消正在退場的請求。
+	_apply_components_silent(restored)
+	if notify:
+		publish_restored()
 
 
-static func _apply_components(data: Dictionary) -> void:
+static func _apply_components_silent(data: Dictionary) -> void:
 	var state: Dictionary = data["state"]
 	for key: String in SCALARS + DICTIONARIES:
 		GameState.set(key, state[key])
 	GameState.checkpoint_position = RunSaveCodec.vector(state["checkpoint_position"])
 	GameState.pending_portal = StringName(state["pending_portal"])
-	Progression.restore(data["progression"])
-	GameState.restore_story_progress(data["story"], "run/story")
+	Progression.restore(data["progression"], false)
+	GameState.restore_story_progress(data["story"], "run/story", false)
 	# 先還原故事與 area_states，再建正式導覽索引。
 	var catalog := QuestCatalog.new()
 	catalog.load_story_sources()
@@ -194,7 +203,13 @@ static func _apply_components(data: Dictionary) -> void:
 		var source := QuestMapIndex.for_chapter(chapter)
 		index.areas.merge(source.areas)
 		index.checkpoint_keys.append_array(source.checkpoint_keys)
-	QuestMapState.for_run().restore(data["navigation"], catalog, index)
+	QuestMapState.for_run().restore(data["navigation"], catalog, index, false)
+
+
+## 呼叫端先還原 live Level 及 Main 路由欄位，再開放觀察者。
+static func publish_restored() -> void:
+	Progression.publish_restored()
+	QuestMapState.for_run().changed.emit()
 	EventBus.lives_changed.emit(GameState.lives_left)
 
 
