@@ -28,15 +28,36 @@
 
 未修改任何 session/global Full access、proxy、CA、network policy 或憑證。之後已授權的必要 Git 網路操作，沿用現有正式命令審查通道；工具不支援、權限政策不允許或審查拒絕時停止並保留錯誤，不繞過。新 session 派工門檻是正確 repo/引擎、當前官方政策，以及實際 Git 成功，不能只看狀態燈。
 
-BG-25 的唯一雲端 owner 已轉交 A2；舊 A 已收到停止 source/Git mutation、保留診斷 log 的移交。A2 已收到完整票務、範圍、局部測試、截圖與逐票快轉推 main 的實作指令。此處的連線恢復不是 BG-25 完成交付，B/C 仍待各自新 session 的真實預檢。
+BG-25 的唯一雲端 owner 已轉交 A2；舊 A 已收到停止 source/Git mutation、保留診斷 log 的移交。A2 已收到完整票務、範圍、局部測試、截圖與逐票快轉推 main 的實作指令。連線恢復不是 BG-25 完成交付。
+
+## B/C 平行派工預檢
+
+2026-10-10 另建兩個獨立工作頁，送出前各自確認 `Cloud` → `Nest-Egg`，預檢完成後才送出正式實作任務。兩邊均沿既有正式單次命令審查通道，未調整持久權限或代理設定。
+
+| 項目 | 雲端 B：武器與近戰連段 | 雲端 C：累積章節打包 |
+|---|---|---|
+| session / host | `01a12433-dc1b-73b7-9b03-7d75f9d78091` / `durable` | `01a12435-097e-7623-bbbb-df838dc7c0bc` / `durable` |
+| 實際 hostname | `95f13671d68f` | `415f826d087f` |
+| repo / remote | `/workspace/Nest-Egg` / `https://github.com/deadline314/Nest-Egg.git` | 同左，獨立環境與工作樹 |
+| OS / Godot | Debian 13.6 / `4.7.2.stable.official.ed1daf0bf` | 同左 |
+| 官方當前狀態 | `observations_current=true`、`running / connected`、`unrestricted / enforced` | 同左 |
+| CPU / RAM 上限 | `cpu.max=400000 100000`（4 核）/ `memory.max=17179869184`（16 GiB） | 同左 |
+| 預檢時磁碟可用 bytes | `32034643968` | `32032587776` |
+| `git ls-remote origin HEAD` | exit 0 | exit 0 |
+| `git fetch origin main` | exit 0 | exit 0 |
+| fetch 後 `origin/main` / `FETCH_HEAD` | `b4c186ea401dfb29b92e28a0a9c8e7de46f604e3` | 同左 |
+
+兩邊預檢時 source 工作樹乾淨，但環境快照的 HEAD 為 `7e05a6e78623e620482caa527d480cbc52b13a0c`，落後當時 main 32 個 commit；正式任務要求從重新 fetch 的最新 main 建 feature branch。以上 SHA 是預檢時觀測值，不是未來推送可沿用的固定基線。
+
+B 已正式收到 NE-236、NE-237 與 NE-231 近戰成長範圍；C 已正式收到 NE-232 下一階段管線。兩邊正式實作採 GPT-6.1 Sol High，先核對現有資料與介面、列出檔案 ownership 再開始。NE-237 的存檔依賴與 NE-232 的真章節 readiness 尚未全部交付，不因環境連線或管線測試通過便勾完成。
 
 ## 分工
 
 | 工作 | 票 | 範圍 | 實際派工狀態 |
 |---|---|---|---|
 | 雲端 A2：場景動態 | BG-25 | PropData/PropNode、局部動畫元件/shader、相關道具資料與測試；先做水管水流 | 已驗證正式單次 Git 命令通道並取得 main，已正式派工；尚未完成票 |
-| 雲端 B：武器差異與連段 | NE-236、NE-237；NE-231 僅近戰部分 | MeleeSet/連段處理、Player 近戰與相應成長、測試；不碰角色基礎 rig 或故事存檔 | 待 A 完成連線核對後，另建明確選環境的 session；尚未開始 |
-| 雲端 C：累積章節打包 | NE-232 | 發行工具、真章節 readiness、產物清單/校驗、相關測試 | 待 A 完成連線核對後另建；尚未開始，不製造三份相同占位包 |
+| 雲端 B：武器差異與連段 | NE-236、NE-237；NE-231 僅近戰部分 | MeleeSet/連段處理、Player 近戰與相應成長、測試；不碰角色基礎 rig、shared Fx 或故事存檔 | 獨立環境、引擎及兩個 Git 命令通過，已正式派工 |
+| 雲端 C：累積章節打包 | NE-232 | 發行工具、真章節 readiness、產物清單/校驗、相關測試；不碰 Main/Story 或存檔 | 獨立環境、引擎及兩個 Git 命令通過，已正式派工；正式章節完成前不製造占位包 |
 
 主 session 保留 ST-3/9 原子故事結果與世界存檔、第一章生成器、ST-10 構圖、ST-19 第二章候選與正式接線、本機 ComfyUI 及實體 GPU 驗收。另一台電腦保留 NE-222/221/218/79/80/81/90/224/242，以及 CharacterRig/HumanoidAnimator/RigInput/PlayerVisual；所有雲端任務都不得搶寫。
 
