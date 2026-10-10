@@ -1,0 +1,107 @@
+{
+  "conclusion": "success",
+  "headSha": "d74625fd7d6b503656215774738cbcc0adfeabb8",
+  "jobs": [
+    {
+      "completedAt": "2026-10-10T17:49:15Z",
+      "conclusion": "success",
+      "databaseId": 114272925994,
+      "name": "full",
+      "startedAt": "2026-10-10T17:39:03Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-10T17:39:04Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-10T17:39:04Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-10T17:40:19Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-10-10T17:39:04Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-10T17:40:19Z",
+          "conclusion": "skipped",
+          "name": "Skip when nothing changed since the last green run",
+          "number": 3,
+          "startedAt": "2026-10-10T17:40:19Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-10T17:40:21Z",
+          "conclusion": "success",
+          "name": "Download Godot",
+          "number": 4,
+          "startedAt": "2026-10-10T17:40:19Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-10T17:40:32Z",
+          "conclusion": "success",
+          "name": "Cache the import folder",
+          "number": 5,
+          "startedAt": "2026-10-10T17:40:21Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-10T17:43:42Z",
+          "conclusion": "success",
+          "name": "Import the project",
+          "number": 6,
+          "startedAt": "2026-10-10T17:40:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-10T17:49:05Z",
+          "conclusion": "success",
+          "name": "Run all tests (parallel)",
+          "number": 7,
+          "startedAt": "2026-10-10T17:43:42Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-10T17:49:05Z",
+          "conclusion": "skipped",
+          "name": "Upload the test logs",
+          "number": 8,
+          "startedAt": "2026-10-10T17:49:05Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-10T17:49:13Z",
+          "conclusion": "success",
+          "name": "Post Cache the import folder",
+          "number": 15,
+          "startedAt": "2026-10-10T17:49:05Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-10T17:49:13Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 16,
+          "startedAt": "2026-10-10T17:49:13Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-10T17:49:13Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 17,
+          "startedAt": "2026-10-10T17:49:13Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/deadline314/Nest-Egg/actions/runs/38072594244/job/114272925994"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/deadline314/Nest-Egg/actions/runs/38072594244"
+}
