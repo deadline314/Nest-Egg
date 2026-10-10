@@ -62,11 +62,44 @@ func _test_banner_kinds() -> void:
 	check(Hud._toast_kind("警告：回收部接近") == UiBanner.Kind.WARNING, "警告類提示是警告橫幅")
 	check(Hud._toast_kind("檢查點") == UiBanner.Kind.INFO, "其他是一般橫幅")
 	var level := await start_level(PropsSuite.level_data())
-	level.hud.show_toast("取得 測試")
+	level.hud.show_toast("檢查點已啟用")
 	await frames(10)
 	check(level.hud.toast_banner.is_showing(), "提示用橫幅顯示")
 	check(absf(level.hud.toast_banner.position.x + level.hud.toast_banner.size.x * 0.5 - 320.0) < 3.0, "橫幅水平置中")
+	await _check_pickup_feed(level.hud)
 	await end_level(level)
+
+
+## 取得類提示進左下的拾取紀錄，不佔畫面中央；同一句計次，列數有上限，時間到淡出。
+func _check_pickup_feed(hud: Hud) -> void:
+	var feed := hud.pickup_feed
+	hud.show_toast("取得 測試護符")
+	await frames(2)
+	check(feed.lines() == PackedStringArray(["取得 測試護符"]) and hud.toast_banner._label.text != "取得 測試護符", "取得類提示進入拾取紀錄，不顯示中央橫幅")
+	hud.show_toast("取得 測試護符")
+	check(feed.lines() == PackedStringArray(["取得 測試護符 ×2"]), "同一句再出現時計次，不洗版")
+	for i in 5:
+		hud.show_toast("取得 測試零件 %d" % i)
+	check(feed.lines().size() == PickupFeed.MAX_ROWS and feed.lines()[-1] == "取得 測試零件 4", "超過上限時換掉最舊的一行，最新的在最下面")
+	await frames(1)
+	var credits := hud.credits_tag.get_global_rect()
+	var newest := (feed.get_child(feed.get_child_count() - 1) as Control).get_global_rect()
+	check(newest.position.y >= credits.end.y and absf(newest.end.x - credits.end.x) < 16.0 and newest.size.x < 200.0, "拾取紀錄在右上角信用點下方靠右，每行只和文字一樣寬")
+	Story._scenes["ne228_feed_radio"] = {"mode": "radio", "lines": [{"speaker": "mei", "text": "測試通訊。"}]}
+	Story.play(&"ne228_feed_radio", false)
+	await frames(2)
+	var kept: float = (feed.get_child(feed.get_child_count() - 1) as PickupFeed._Row).left
+	await frames(5)
+	check(not feed.visible and is_equal_approx((feed.get_child(feed.get_child_count() - 1) as PickupFeed._Row).left, kept), "通訊出現時拾取紀錄讓位，剩餘時間保留")
+	Story._scenes.erase("ne228_feed_radio")
+	Story._layer.cancel_radio()
+	await frames(2)
+	check(feed.visible and feed.lines().size() == PickupFeed.MAX_ROWS, "通訊結束後拾取紀錄回來")
+	var deadline := Time.get_ticks_msec() + int((PickupFeed.HOLD + 1.5) * 1000.0)
+	while Time.get_ticks_msec() < deadline and not feed.lines().is_empty():
+		await runner.get_tree().process_frame
+	await frames(1)
+	check(feed.lines().is_empty() and not feed.is_processing(), "時間到後全部淡出，閒置時不再每影格更新")
 
 
 func _test_tooltips() -> void:

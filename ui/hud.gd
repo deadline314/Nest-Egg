@@ -15,6 +15,7 @@ var ammo_tray: AmmoTray
 var _gauges: _Gauges
 var weapon_bar: WeaponBar
 var hover_guard: BackgroundHoverGuard
+var pickup_feed: PickupFeed
 var _items_label: Label
 var _lives_label: Label
 var _timer_label: Label
@@ -73,6 +74,11 @@ func _ready() -> void:
 	_items_label.mouse_filter = Control.MOUSE_FILTER_PASS
 	_items_label.tooltip_text = "攜帶的消耗品；快速鍵使用醫療針，其他在背包使用"
 	root.add_child(_items_label)
+	# 拾取紀錄在右上角信用點下方：角色常站的左下與中央都不擋。
+	pickup_feed = PickupFeed.new()
+	pickup_feed.position = Vector2(330, 40)
+	pickup_feed.size = Vector2(300, 72)
+	root.add_child(pickup_feed)
 
 	add_child(Crosshair.new())
 	ammo_ring = AmmoRing.new()
@@ -329,9 +335,13 @@ func _process(delta: float) -> void:
 				_dismiss_controls()
 
 
-## 取得、檢查點、警告都用橫幅；種類依文字判斷（取得／警告），其餘是一般提示。
+## 取得類放進左上角的拾取紀錄（不擋戰鬥畫面）；檢查點、警告與其他提示用畫面中央的橫幅。
 func show_toast(text: String) -> void:
-	toast_banner.show_text(text, _toast_kind(text), TOAST_TIME)
+	var kind := _toast_kind(text)
+	if kind == UiBanner.Kind.ITEM and pickup_feed != null:
+		pickup_feed.push(text)
+		return
+	toast_banner.show_text(text, kind, TOAST_TIME)
 
 
 static func _toast_kind(text: String) -> UiBanner.Kind:
