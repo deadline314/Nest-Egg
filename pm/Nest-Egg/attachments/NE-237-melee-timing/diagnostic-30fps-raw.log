@@ -1,0 +1,23 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+MELEE_COMBO_TRACE {"aim":[-1.0,0.0],"deadline_ms":6657,"facing":-1,"frozen":false,"index":0,"label":"early-windup-queued","landed":false,"phase":1,"phase_time":0.0,"remaining":0.22,"target_hp":999,"target_offset":[-16.0,0.0],"wall_ms":6437}
+MELEE_COMBO_TRACE {"aim":[-1.0,0.0],"deadline_ms":6657,"facing":-1,"frozen":false,"index":0,"label":"first-recovery","landed":true,"phase":3,"phase_time":0.0,"remaining":0.029,"target_hp":997,"target_offset":[-19.1584930419922,-0.109710693359375],"wall_ms":6628}
+MELEE_COMBO_TRACE {"aim":[-1.0,0.0],"deadline_ms":6657,"facing":-1,"frozen":false,"index":-1,"label":"second-observation","landed":true,"phase":0,"phase_time":0.166666666666667,"remaining":0.0,"target_hp":997,"target_offset":[-19.7585144042969,-0.074737548828125],"wall_ms":7296}
+MELEE_COMBO_TRACE {"aim":[-1.0,0.0],"deadline_ms":0,"facing":-1,"frozen":false,"index":0,"label":"third-observation","landed":true,"phase":3,"phase_time":0.0,"remaining":0.0,"target_hp":995,"target_offset":[-22.8922576904297,-0.17486572265625],"wall_ms":7495}
+ERROR: [MeleeSet] res://data/feel/melee.json 沒有招式「test_no_such_attack」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:87)
+       [1] attack (res://game/player/melee_data.gd:57)
+       [2] _test_bad_data (res://tests/suite/test_melee.gd:143)
+       [3] run (res://tests/suite/test_melee.gd:16)
+       [4] _test_trails (res://tests/suite/test_melee.gd:166)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:605)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME MeleeSuite 4.4
+checks: 25, failures: 3
+FAIL: the buffered press chains into the second swing
+FAIL: a hit cancels the recovery early (41 frames of 9)
+FAIL: the third swing of the combo is the heavy slash

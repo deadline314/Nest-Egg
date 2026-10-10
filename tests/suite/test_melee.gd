@@ -10,6 +10,7 @@ func run() -> void:
 	_test_data()
 	await _test_phases_and_single_hit()
 	await _test_whiff_recovers_fully()
+	await _test_expired_early_command()
 	await _test_hit_cancel_and_combo()
 	await _test_dash_lock()
 	await _test_trails()
@@ -85,31 +86,72 @@ func _test_whiff_recovers_fully() -> void:
 	await end_level(level)
 
 
+func _test_expired_early_command() -> void:
+	await open_level(10.0)
+	var player := level.player
+	# 用真長起手武器確保期限先到；快速頭招在正常速度下可能合法接續。
+	player.loadout.reset(load("res://data/weapons/melee/melee_maul.tres") as WeaponData)
+	var enemy := await _target_at(-16.0)
+	check(player._try_melee() and player._try_melee(), "an early windup press queues one real command")
+	var damage := int(player._melee_attack["damage"])
+	check(float(player._melee_attack["windup"]) > MeleeData.buffer_time(), "the real long windup outlasts the command without changing timing data")
+	var deadline := player._melee_commands._deadline_ms
+	var observed_hitstop := false
+	var auto_chained := false
+	var guard := 180
+	while player._melee_phase != Player.MeleePhase.NONE and guard > 0:
+		observed_hitstop = observed_hitstop or Fx._frozen.has(player)
+		auto_chained = auto_chained or player._melee_index > 0
+		await physics_frames(1)
+		guard -= 1
+	check(guard > 0, "the expired-command swing naturally finishes within its physics guard")
+	check(observed_hitstop and enemy.health.current == 999 - damage, "the early-command regression includes one real hit and natural local hitstop")
+	check(player._melee_commands.remaining() == 0.0 and player._melee_commands._deadline_ms == deadline, "the old command really expires without extending its deadline through hitstop")
+	check(not auto_chained, "an early command that expires before cancellation cannot automatically advance the combo")
+	_combo_trace("expired-early-command", player, enemy)
+	await _frames_until(player, Player.MeleePhase.NONE)
+	await physics_frames(3)
+	await end_level(level)
+
+
 func _test_hit_cancel_and_combo() -> void:
 	await open_level(10.0)
+	# 擷取分支讓正式章節卡自然淡出，避免文字遮住原生動作；一般測試不等。
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--melee-evidence-out="):
+			await runner.get_tree().create_timer(4.2, true, false, true).timeout
 	var player := level.player
 	player.facing = -1
 	var enemy := await _target_at(-16.0)
-	player._try_melee()
-	player._try_melee()  # 出招期間再按：緩衝
-	check(player._melee_buffer_left > 0.0, "pressing during the swing is buffered")
+	check(player._try_melee(), "the first combo swing starts")
 	await _frames_until(player, Player.MeleePhase.RECOVERY)
 	check(player._melee_landed, "the first swing connected")
+	check(player.facing == -1 and player._melee_swing_direction == Vector2.LEFT, "the fixture keeps actual aim and locked swing direction toward the target")
+	check(not player.is_melee_cancellable(), "the fresh recovery press precedes the paid cancel window")
+	# 期限按實際時間走；起手同格點兩次會在低 render rate 的真 hitstop 後過期。
+	# 有效接續在收招初期點按，不延長 buffer、不跳過 hitstop 或取消成本。
+	check(player._try_melee(), "the fresh recovery command is accepted")
+	check(player._melee_buffer_left > 0.0, "pressing during the swing is buffered")
+	_combo_trace("fresh-first-recovery-command", player, enemy)
 	var cancel_frames := 0
 	while player._melee_index == 0 and cancel_frames < 60:
 		await physics_frames(1)
 		cancel_frames += 1
+	_combo_trace("second-observation", player, enemy)
 	var first: Dictionary = MeleeData.attack(str(MeleeData.combo()[0]))
 	check(player._melee_index == 1, "the buffered press chains into the second swing")
 	check(cancel_frames <= int(float(first["recovery"]) * 60.0) - 3, "a hit cancels the recovery early (%d frames of %d)" % [cancel_frames, int(float(first["recovery"]) * 60.0)])
-	# 第三段是重斬。
-	player._try_melee()
+	# 第三段仍用真有效期限；第二招若揮空，保留完整收招成本。
 	await _frames_until(player, Player.MeleePhase.RECOVERY)
+	check(player._try_melee(), "the third command is buffered during the second recovery")
+	_combo_trace("fresh-second-recovery-command", player, enemy)
 	var guard := 0
 	while player._melee_index == 1 and guard < 60:
 		await physics_frames(1)
 		guard += 1
 	check(player._melee_index == 2 and int(player._melee_attack["damage"]) == int(MeleeData.attack("heavy")["damage"]), "the third swing of the combo is the heavy slash")
+	_combo_trace("third-observation", player, enemy)
+	await _capture_combo(player)
 	# 連段視窗過了就回到第一招。
 	player._end_melee()
 	await physics_frames(int(MeleeData.combo_window() * 60.0) + 10)
@@ -160,3 +202,37 @@ func _test_trails() -> void:
 	check(float((bad["trail"] as Dictionary)["brightness"]) <= MeleeData.TRAIL_BRIGHTNESS_MAX, "default trail is under the brightness cap")
 	await physics_frames(3)
 	await end_level(level)
+
+
+func _combo_trace(label: String, player: Player, enemy: Enemy) -> void:
+	print("MELEE_COMBO_TRACE ", JSON.stringify({"label":label,"wall_ms":Time.get_ticks_msec(),
+		"phase":player._melee_phase,"phase_time":player._melee_time,"index":player._melee_index,
+		"remaining":player._melee_commands.remaining(),"deadline_ms":player._melee_commands._deadline_ms,
+		"frozen":Fx._frozen.has(player),"landed":player._melee_landed,"facing":player.facing,
+		"aim": [player.aim_dir.x,player.aim_dir.y],"target_hp":enemy.health.current,
+		"target_offset":[enemy.global_position.x-player.global_position.x,enemy.global_position.y-player.global_position.y]}))
+
+
+## 可選真 Forward+ 證據；一般 headless suite 不擷取、不改鏡頭。
+func _capture_combo(player: Player) -> void:
+	var out := ""
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--melee-evidence-out="):
+			out = argument.trim_prefix("--melee-evidence-out=")
+	if out.is_empty():
+		return
+	check(out.is_absolute_path() and RenderingServer.get_current_rendering_method() == "forward_plus", "combo evidence uses an absolute destination and actual Forward+ renderer")
+	if not out.is_absolute_path():
+		return
+	DirAccess.make_dir_recursive_absolute(out)
+	var camera := runner.get_viewport().get_camera_2d()
+	camera.set_physics_process(false)
+	camera.zoom = Vector2.ONE * 3.4
+	camera.global_position = player.global_position + Vector2(-25.0, -42.0)
+	await _frames_until(player, Player.MeleePhase.ACTIVE)
+	await RenderingServer.frame_post_draw
+	var image := preload("res://tools/viewport_capture.gd").image(runner.get_viewport())
+	check(image.save_png(out.path_join("NE-237-default-combo-natural.png")) == OK, "the natural third combo frame is saved at native viewport resolution")
+	print("MELEE_COMBO_RENDER ", JSON.stringify({"renderer":RenderingServer.get_current_rendering_method(),
+		"adapter":RenderingServer.get_video_adapter_name(),"width":image.get_width(),"height":image.get_height(),
+		"phase":player._melee_phase,"index":player._melee_index,"pose_t":player.melee_pose_progress(),"zoom":camera.zoom.x}))

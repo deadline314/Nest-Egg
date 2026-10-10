@@ -1,0 +1,91 @@
+{
+  "original-normal": {
+    "exit_code": 0,
+    "checks_summary": [
+      "checks: 25, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 9 s)"
+    ],
+    "failures": []
+  },
+  "original-30fps": {
+    "exit_code": 1,
+    "checks_summary": [
+      "checks: 25, failures: 3"
+    ],
+    "failures": [
+      "FAIL: the buffered press chains into the second swing",
+      "FAIL: a hit cancels the recovery early (41 frames of 9)",
+      "FAIL: the third swing of the combo is the heavy slash"
+    ]
+  },
+  "diagnostic-30fps": {
+    "exit_code": 1,
+    "checks_summary": [
+      "checks: 25, failures: 3"
+    ],
+    "failures": [
+      "FAIL: the buffered press chains into the second swing",
+      "FAIL: a hit cancels the recovery early (41 frames of 9)",
+      "FAIL: the third swing of the combo is the heavy slash"
+    ]
+  },
+  "negative-first-failed": {
+    "exit_code": 1,
+    "checks_summary": [
+      "checks: 34, new failures: 3, known failures (tests/known_failures.txt): 0  (wall time 10 s)"
+    ],
+    "failures": [
+      "[process 0] NEW FAILURE: the early-command regression includes one real hit and natural local hitstop",
+      "[process 0] NEW FAILURE: the old command really expires without extending its deadline through hitstop",
+      "[process 0] NEW FAILURE: an early command that expires before cancellation cannot automatically advance the combo"
+    ]
+  },
+  "changed-final": {
+    "exit_code": 0,
+    "checks_summary": [
+      "checks: 36, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 10 s)"
+    ],
+    "failures": []
+  },
+  "final-30fps": {
+    "exit_code": 0,
+    "checks_summary": [
+      "checks: 36, failures: 0"
+    ],
+    "failures": []
+  },
+  "combined": {
+    "exit_code": 0,
+    "checks_summary": [
+      "checks: 2574, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 179 s)"
+    ],
+    "failures": []
+  },
+  "forward-title-obscured": {
+    "exit_code": 0,
+    "checks_summary": [
+      "checks: 38, failures: 0"
+    ],
+    "failures": []
+  },
+  "forward": {
+    "exit_code": 0,
+    "checks_summary": [
+      "checks: 38, failures: 0"
+    ],
+    "failures": []
+  },
+  "latest-final": {
+    "exit_code": 0,
+    "checks_summary": [
+      "checks: 36, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 11 s)"
+    ],
+    "failures": []
+  },
+  "latest-30fps": {
+    "exit_code": 0,
+    "checks_summary": [
+      "checks: 36, failures: 0"
+    ],
+    "failures": []
+  }
+}

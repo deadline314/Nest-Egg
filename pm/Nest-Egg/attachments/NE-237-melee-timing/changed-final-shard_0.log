@@ -1,0 +1,21 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+MELEE_COMBO_TRACE {"aim":[-1.0,0.0],"deadline_ms":5881,"facing":-1,"frozen":false,"index":0,"label":"expired-early-command","landed":true,"phase":0,"phase_time":0.516666666666667,"remaining":0.0,"target_hp":993,"target_offset":[-38.1593246459961,-0.074737548828125],"wall_ms":6691}
+MELEE_COMBO_TRACE {"aim":[-1.0,0.0],"deadline_ms":7248,"facing":-1,"frozen":false,"index":0,"label":"fresh-first-recovery-command","landed":true,"phase":3,"phase_time":0.0,"remaining":0.22,"target_hp":997,"target_offset":[-19.1584930419922,-0.109710693359375],"wall_ms":7028}
+MELEE_COMBO_TRACE {"aim":[-1.0,0.0],"deadline_ms":0,"facing":-1,"frozen":false,"index":1,"label":"second-observation","landed":false,"phase":1,"phase_time":0.0,"remaining":0.0,"target_hp":997,"target_offset":[-19.7585144042969,-0.074737548828125],"wall_ms":7076}
+MELEE_COMBO_TRACE {"aim":[-1.0,0.0],"deadline_ms":7469,"facing":-1,"frozen":false,"index":1,"label":"fresh-second-recovery-command","landed":true,"phase":3,"phase_time":0.0,"remaining":0.22,"target_hp":995,"target_offset":[-23.4254455566406,-0.074737548828125],"wall_ms":7249}
+MELEE_COMBO_TRACE {"aim":[-1.0,0.0],"deadline_ms":0,"facing":-1,"frozen":false,"index":2,"label":"third-observation","landed":false,"phase":1,"phase_time":0.0,"remaining":0.0,"target_hp":995,"target_offset":[-24.4254455566406,-0.074737548828125],"wall_ms":7297}
+ERROR: [MeleeSet] res://data/feel/melee.json 沒有招式「test_no_such_attack」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:87)
+       [1] attack (res://game/player/melee_data.gd:57)
+       [2] _test_bad_data (res://tests/suite/test_melee.gd:177)
+       [3] run (res://tests/suite/test_melee.gd:17)
+       [4] _test_trails (res://tests/suite/test_melee.gd:200)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:605)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME MeleeSuite 4.9
+checks: 36, failures: 0

@@ -1,0 +1,7 @@
+受影響的測試：MeleeSuite
+Running 1 groups in 1 processes (logs: /workspace/work/cloud-weapon-combos/melee-regression/changed)
+  process 0 (estimated 3 s): MeleeSuite
+[process 0] NEW FAILURE: the early-command regression includes one real hit and natural local hitstop
+[process 0] NEW FAILURE: the old command really expires without extending its deadline through hitstop
+[process 0] NEW FAILURE: an early command that expires before cancellation cannot automatically advance the combo
+checks: 34, new failures: 3, known failures (tests/known_failures.txt): 0  (wall time 10 s)
