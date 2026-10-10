@@ -1,0 +1,16 @@
+{
+  "scope": "Filesystem mechanism only; these illustrative strings are not accepted RunSave snapshots. Actual Godot regression still needed.",
+  "directory": "C:\\tmp\\st3-durable-independent\\alias-case-d64d0355a603404ebd28c02319a85fb9",
+  "same_file_before": true,
+  "before": {
+    "C:\\tmp\\st3-durable-independent\\alias-case-d64d0355a603404ebd28c02319a85fb9\\slot.json": "869c18baa56b65e6ea8e361a10b2aaf0bfc970d3d262dabf0564ffd3e5b849c0",
+    "C:\\tmp\\st3-durable-independent\\alias-case-d64d0355a603404ebd28c02319a85fb9\\slot.json.tmp": "869c18baa56b65e6ea8e361a10b2aaf0bfc970d3d262dabf0564ffd3e5b849c0"
+  },
+  "after": {
+    "C:\\tmp\\st3-durable-independent\\alias-case-d64d0355a603404ebd28c02319a85fb9\\slot.json": "4dcf2945a61c8dc128381525d35a5374951dba19cf8a63d40f4b7a4045de01ab",
+    "C:\\tmp\\st3-durable-independent\\alias-case-d64d0355a603404ebd28c02319a85fb9\\slot.json.tmp": "4dcf2945a61c8dc128381525d35a5374951dba19cf8a63d40f4b7a4045de01ab"
+  },
+  "primary_changed_before_rotation": true,
+  "source_stale_comparison_would_reject": true,
+  "implication": "Existing accepted .tmp hardlinked to primary can modify the primary before commit point, then rotation_preflight reports committed=false."
+}

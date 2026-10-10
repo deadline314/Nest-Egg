@@ -1,0 +1,26 @@
+{
+  "scope": "Actual Windows filesystem mechanism only. Illustrative bytes, no Godot, no RunSave fixture, no engine acceptance claim.",
+  "cases": [
+    {
+      "target": "primary",
+      "directory": "C:\\tmp\\st3-durable-independent\\unlink-case-64968cc94cff4cd2ac25415a87fa08ef",
+      "protected_unchanged_before_rotation": true,
+      "temp_physically_independent_after_unlink_create": true,
+      "temp_sha256": "4dcf2945a61c8dc128381525d35a5374951dba19cf8a63d40f4b7a4045de01ab"
+    },
+    {
+      "target": "backup",
+      "directory": "C:\\tmp\\st3-durable-independent\\unlink-case-ead3866e62a34ac89913f255a2b4df9d",
+      "protected_unchanged_before_rotation": true,
+      "temp_physically_independent_after_unlink_create": true,
+      "temp_sha256": "4dcf2945a61c8dc128381525d35a5374951dba19cf8a63d40f4b7a4045de01ab"
+    },
+    {
+      "target": "external",
+      "directory": "C:\\tmp\\st3-durable-independent\\unlink-case-0970ca6b238747e482ad2a12c359eed3",
+      "protected_unchanged_before_rotation": true,
+      "temp_physically_independent_after_unlink_create": true,
+      "temp_sha256": "4dcf2945a61c8dc128381525d35a5374951dba19cf8a63d40f4b7a4045de01ab"
+    }
+  ]
+}

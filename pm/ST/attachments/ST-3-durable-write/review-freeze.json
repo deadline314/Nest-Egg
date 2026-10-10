@@ -1,0 +1,14 @@
+{
+  "manifest": "C:\\tmp\\st3-durable-json-boundary-source-sha.json",
+  "all_six_hashes_match": true,
+  "checks": {
+    "core/run_save_store.gd": true,
+    "tests/helpers/story_durable_write_checks.gd": true,
+    "tests/suite/test_run_save.gd": true,
+    "tools/story_durable_write_probe.gd": true,
+    "tools/story_durable_write_probe.tscn": true,
+    "design/20-campaign-experience/STORY_DURABLE_WRITE.md": true
+  },
+  "diff_sha": "793a8cf7388975b2cca3e31002f9745242e35b5feb8817ea29af00602bed5ba5",
+  "bounded_conclusion": "No assertion weakening found: expected OLD derives from independent seeded envelope through Codec decode and RunSnapshot prepare; entire normalized envelope equality retained; exact old bytes check added. Store/probe/suite/scene hashes unchanged from independently accepted alias freeze. Native results are root-owned evidence."
+}

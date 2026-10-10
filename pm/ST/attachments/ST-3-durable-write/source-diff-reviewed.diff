@@ -1,0 +1,1135 @@
+--- a/core/run_save_store.gd
++++ b/core/run_save_store.gd
+@@ -273,3 +273,348 @@
+ 	issues.append("%s：%s" % [where, reason])
+ 	push_warning("[RunSave] %s" % issues[-1])
+ 	return false
++
++
++# Additive existing-run writer. The legacy methods above intentionally remain
++# unchanged. Only a trusted synchronous coordinator may own this instance.
++enum DurablePhase { TEMP_CLOSED, BACKUP_REMOVED, PRIMARY_ROTATED, PRIMARY_COMMITTED }
++
++class PreparedExistingWrite extends RefCounted:
++	var _owner_id: int
++	var _path: String
++	var _absolute: String
++	var _profile: Dictionary
++	var _snapshot: Dictionary
++	var _encoded: String
++	var _checksum: String
++	var _seal: String
++	var _consumed := false
++
++	func snapshot() -> Dictionary:
++		# The tree was bounded before allocation. No caller gets the stored alias.
++		if not RunSaveCodec.validate_tree(_snapshot).is_empty():
++			return {}
++		return _snapshot.duplicate(true)
++
++
++class DurableWriteOutcome extends RefCounted:
++	enum Status { REJECTED, COMMITTED }
++	var status: Status = Status.REJECTED
++	var committed := false
++	var stage := "preflight"
++	var error: Error = OK
++	var requires_recovery := false
++	var checksum := ""
++	var issues := PackedStringArray()
++
++	func reject(where: String, reason: String, code: Error = ERR_INVALID_DATA) -> void:
++		# A later diagnostic must never erase the durable commit fact.
++		stage = where
++		error = code
++		if issues.size() < 8:
++			issues.append((where + ": " + reason).left(RunSaveCodec.MAX_DIAGNOSTIC_PATH))
++
++
++var _durable_busy := false
++
++
++func _durable_declared_version(component: Dictionary, supported: int, where: String) -> Dictionary:
++	if not component.has("version"):
++		return {}  # Published versionless legacy defaults/repairs stay available.
++	if not RunSaveCodec.valid_version(component["version"]):
++		return {"error": "durable/" + where + "/version invalid"}
++	if component["version"] != supported:
++		return {"error": "durable/" + where + "/version unsupported", "unknown_version": true}
++	return {}
++
++
++## Fixed owner proofs; no arbitrary validator, producer registry or live install.
++func _durable_prepare_snapshot(raw: Variant) -> Dictionary:
++	var errors := RunSaveCodec.validate_tree(raw)
++	if not errors.is_empty():
++		return {"error": errors[0]}
++	if not raw is Dictionary:
++		return {"error": "durable/run must be an object"}
++	# RunSnapshot normalization supplies mag=[], so it cannot preserve the
++	# published Loadout.restore branch that consumes old total-ammo snapshots.
++	# Refuse BEFORE normalization instead of silently overwriting that data.
++	for entry: Array in [[raw.get("runtime", {}), "loadout", "runtime/loadout"], [raw.get("state", {}), "checkpoint_loadout", "state/checkpoint_loadout"], [raw.get("state", {}), "level_start_loadout", "state/level_start_loadout"]]:
++		if entry[0] is Dictionary:
++			var loadout: Variant = entry[0].get(entry[1], {})
++			if loadout is Dictionary and loadout.has("ammo") and not loadout.has("mag"):
++				return {"error": "durable/" + entry[2] + ": requires_legacy_loadout_migration"}
++	var checked := RunSnapshot.prepare(raw)
++	if checked.has("error"):
++		return checked
++	var data: Dictionary = checked["data"]
++	var story: Dictionary = data["story"]
++	var version := _durable_declared_version(story, 1, "story")
++	if version.has("error"):
++		return version
++	version = _durable_declared_version(data["navigation"], QuestMapState.VERSION, "navigation")
++	if version.has("error"):
++		return version
++	for entry: Array in [[data["runtime"]["loadout"], "runtime/loadout"], [data["state"]["checkpoint_loadout"], "state/checkpoint_loadout"], [data["state"]["level_start_loadout"], "state/level_start_loadout"]]:
++		version = _durable_declared_version(entry[0], Loadout.SNAPSHOT_VERSION, entry[1])
++		if version.has("error"):
++			return version
++	for component: Dictionary in [data["progression"], data["state"]["checkpoint_progress"], data["state"]["level_start_progress"]]:
++		var progression := Progression.prepare_install(component)
++		if progression.has("error"):
++			return progression
++	var custody := StoryItems.prepare_install(story["items"])
++	if custody.has("error"):
++		return custody
++	var game := GameState.prepare_install(data["state"], story["flags"], data["difficulty"], true)
++	if game.has("error"):
++		return game
++	# Missing declared defaults and JSON integer flag types have one target for
++	# disk and the future silent bundle. The owner only allocates local state.
++	data["story"]["flags"] = game["data"].flags
++	# Validate completion identities without any live request/reset operation.
++	var seen: Dictionary = {}
++	for id: Variant in story["seen"]:
++		if not Story.has_scene(StringName(id)) or seen.has(StringName(id)):
++			return {"error": "durable/story/seen unknown or repeated scene"}
++		seen[StringName(id)] = true
++	return {"data": data}
++
++
++## At most three 4 MiB files; exact byte hashes and no directory enumeration.
++func _durable_file_profile(candidate: String) -> Dictionary:
++	var directory := DirAccess.open(candidate.get_base_dir())
++	if directory == null:
++		return {"error": "durable/source parent cannot open: " + candidate}
++	# file_exists follows targets on Unix and can miss a dangling link. Reject the
++	# directory entry first, including Windows reparse points, without writing it.
++	if directory.is_link(candidate):
++		return {"error": "durable/source symbolic/reparse entry refused: " + candidate}
++	if DirAccess.dir_exists_absolute(candidate):
++		return {"error": "durable/source is a directory: " + candidate}
++	if not FileAccess.file_exists(candidate):
++		return {"exists": false}
++	var file := FileAccess.open(candidate, FileAccess.READ)
++	if file == null:
++		return {"error": "durable/source cannot open: " + candidate}
++	var length := file.get_length()
++	if length > RunSaveCodec.MAX_BYTES:
++		file.close()
++		return {"error": "durable/source exceeds size limit: " + candidate}
++	var bytes := file.get_buffer(length)
++	var error := file.get_error()
++	file.close()
++	if bytes.size() != length or error not in [OK, ERR_FILE_EOF]:
++		return {"error": "durable/source short read: " + candidate}
++	var text := bytes.get_string_from_utf8()
++	if text.to_utf8_buffer() != bytes:
++		return {"error": "durable/source is not canonical UTF-8: " + candidate}
++	var hash := HashingContext.new()
++	hash.start(HashingContext.HASH_SHA256)
++	hash.update(bytes)
++	return {"exists": true, "length": length, "checksum": hash.finish().hex_encode(), "text": text}
++
++
++func _durable_profile(absolute: String, prove: bool) -> Dictionary:
++	if overwrite_authorized or _durable_busy:
++		return {"error": "durable/store overwrite-authorized or busy"}
++	var directory := DirAccess.open(absolute.get_base_dir())
++	if directory == null:
++		return {"error": "durable/source parent cannot open"}
++	if directory.is_link(absolute + ".newrun") or FileAccess.file_exists(absolute + ".newrun") or DirAccess.dir_exists_absolute(absolute + ".newrun"):
++		return {"error": "durable/new-run marker requires legacy recovery"}
++	if FileAccess.file_exists(absolute) and FileAccess.file_exists(absolute + ".bak") and directory.is_equivalent(absolute, absolute + ".bak"):
++		return {"error": "durable/primary and backup alias the same filesystem object"}
++	var profile: Dictionary = {}
++	for suffix: String in ["", ".bak", ".tmp"]:
++		var found := _durable_file_profile(absolute + suffix)
++		if found.has("error"):
++			return found
++		if suffix.is_empty() and not found["exists"]:
++			return {"error": "durable/base slot has no supported primary"}
++		if prove and found["exists"]:
++			var decoded := RunSaveCodec.decode(found["text"])
++			if decoded.has("error"):
++				return {"error": "durable/source " + suffix + ": " + decoded["error"], "unknown_version": decoded.get("unknown_version", false)}
++			var prepared := _durable_prepare_snapshot(decoded["data"])
++			if prepared.has("error"):
++				return {"error": "durable/source " + suffix + ": " + prepared["error"], "unknown_version": prepared.get("unknown_version", false)}
++		found.erase("text")
++		profile[suffix] = found
++	return {"data": profile}
++
++
++func prepare_existing_write(raw: Variant) -> Dictionary:
++	var absolute := ProjectSettings.globalize_path(path).simplify_path()
++	if not absolute.is_absolute_path() or absolute.get_file().is_empty():
++		return {"error": "durable/path must resolve to an absolute slot"}
++	var source := _durable_profile(absolute, true)
++	if source.has("error"):
++		return source
++	var checked := _durable_prepare_snapshot(raw)
++	if checked.has("error"):
++		return checked
++	# Normalize through the actual JSON boundary, then prove the exact returned
++	# candidate; the later coordinator must use snapshot(), never the original raw.
++	var encoded := RunSaveCodec.encode(checked["data"])
++	var decoded := RunSaveCodec.decode(encoded)
++	if decoded.has("error"):
++		return decoded
++	checked = _durable_prepare_snapshot(decoded["data"])
++	if checked.has("error"):
++		return checked
++	encoded = RunSaveCodec.encode(checked["data"])
++	if encoded.is_empty() or encoded.to_utf8_buffer().size() > RunSaveCodec.MAX_BYTES:
++		return {"error": "durable/candidate encoding exceeds budget"}
++	var prepared := PreparedExistingWrite.new()
++	prepared._owner_id = get_instance_id()
++	prepared._path = path
++	prepared._absolute = absolute
++	prepared._profile = source["data"]
++	prepared._snapshot = checked["data"]
++	prepared._encoded = encoded
++	prepared._checksum = encoded.sha256_text()
++	prepared._seal = _durable_seal(prepared)
++	return {"data": prepared}
++
++
++func _durable_seal(prepared: PreparedExistingWrite) -> String:
++	var hash := HashingContext.new()
++	hash.start(HashingContext.HASH_SHA256)
++	hash.update(var_to_bytes([prepared._owner_id, prepared._path, prepared._absolute,
++		prepared._profile, prepared._snapshot, prepared._encoded, prepared._checksum]))
++	return hash.finish().hex_encode()
++
++
++func preflight_existing_write(prepared: PreparedExistingWrite) -> Dictionary:
++	if prepared == null or prepared._owner_id != get_instance_id():
++		return {"error": "durable/prepared belongs to another store"}
++	if prepared._consumed:
++		return {"error": "durable/prepared already consumed"}
++	if path != prepared._path or ProjectSettings.globalize_path(path).simplify_path() != prepared._absolute:
++		return {"error": "durable/prepared path changed"}
++	if not RunSaveCodec.validate_tree(prepared._snapshot).is_empty() or not RunSaveCodec.validate_tree(prepared._profile).is_empty():
++		return {"error": "durable/prepared data damaged"}
++	if prepared._encoded.to_utf8_buffer().size() > RunSaveCodec.MAX_BYTES or _durable_seal(prepared) != prepared._seal:
++		return {"error": "durable/prepared content changed"}
++	var source := _durable_profile(prepared._absolute, false)
++	if source.has("error"):
++		return source
++	if source["data"] != prepared._profile:
++		return {"error": "durable/source stale; prepare from current slot"}
++	return {"ready": true}
++
++
++func commit_existing_write(prepared: PreparedExistingWrite) -> DurableWriteOutcome:
++	var outcome := DurableWriteOutcome.new()
++	var checked := preflight_existing_write(prepared)
++	if prepared != null and prepared._owner_id == get_instance_id():
++		prepared._consumed = true
++		outcome.checksum = prepared._checksum
++	if checked.has("error"):
++		outcome.reject("preflight", checked["error"])
++		return outcome
++	_durable_busy = true
++	var absolute := prepared._absolute
++	var error := _durable_write_temp(absolute, prepared._encoded)
++	if error == OK:
++		_durable_phase(DurablePhase.TEMP_CLOSED, absolute)
++		var verified := _durable_file_profile(absolute + ".tmp")
++		if verified.has("error") or not verified.get("exists", false) or verified.get("checksum") != prepared._checksum:
++			error = ERR_FILE_CORRUPT
++	if error != OK:
++		outcome.reject("temp", "temporary write or exact verification failed", error)
++		_durable_busy = false
++		return outcome
++	# Recheck authoritative files before first rotation; tmp is our verified output.
++	for suffix: String in ["", ".bak"]:
++		var found := _durable_file_profile(absolute + suffix)
++		found.erase("text")
++		if found != prepared._profile[suffix]:
++			outcome.reject("rotation_preflight", "authoritative file changed")
++			_durable_busy = false
++			return outcome
++	var directory := DirAccess.open(absolute.get_base_dir())
++	if directory == null or directory.is_link(absolute + ".newrun") or overwrite_authorized or FileAccess.file_exists(absolute + ".newrun") or DirAccess.dir_exists_absolute(absolute + ".newrun") or path != prepared._path:
++		outcome.reject("rotation_preflight", "marker, authorization or path changed")
++		_durable_busy = false
++		return outcome
++	if prepared._profile[".bak"]["exists"]:
++		error = _durable_remove_backup(absolute)
++		if error != OK:
++			outcome.reject("backup_remove", "old backup could not be removed", error)
++			_durable_busy = false
++			return outcome
++	_durable_phase(DurablePhase.BACKUP_REMOVED, absolute)
++	error = _durable_rename(absolute, DurablePhase.PRIMARY_ROTATED)
++	if error != OK:
++		outcome.reject("primary_rotate", "primary could not rotate to backup", error)
++		_durable_busy = false
++		return outcome
++	_durable_phase(DurablePhase.PRIMARY_ROTATED, absolute)
++	error = _durable_rename(absolute, DurablePhase.PRIMARY_COMMITTED)
++	if error != OK:
++		outcome.reject("primary_commit", "candidate could not replace primary", error)
++		var rollback := _durable_rollback(absolute)
++		if rollback != OK:
++			outcome.requires_recovery = true
++			outcome.reject("rollback", "old complete backup retained; legacy read required", rollback)
++		_durable_busy = false
++		return outcome
++	# The commit fact precedes every subsequent seam or diagnostic. No cleanup.
++	outcome.committed = true
++	outcome.status = DurableWriteOutcome.Status.COMMITTED
++	outcome.stage = "primary_committed"
++	_durable_phase(DurablePhase.PRIMARY_COMMITTED, absolute)
++	_durable_busy = false
++	return outcome
++
++
++func _durable_detach_temp(absolute: String) -> Error:
++	var directory := DirAccess.open(absolute.get_base_dir())
++	if directory == null or directory.is_link(absolute + ".tmp"):
++		return ERR_INVALID_DATA
++	# A validated existing regular file can still be a hardlink to primary, bak,
++	# or an unrelated file. Unlink this entry BEFORE opening WRITE; never truncate
++	# the old inode. Failure here precedes every authoritative mutation.
++	if FileAccess.file_exists(absolute + ".tmp"):
++		var removal := DirAccess.remove_absolute(absolute + ".tmp")
++		if removal != OK:
++			return removal
++		if FileAccess.file_exists(absolute + ".tmp") or directory.is_link(absolute + ".tmp"):
++			return ERR_CANT_CREATE
++	return OK
++
++
++func _durable_write_temp(absolute: String, encoded: String) -> Error:
++	var detached := _durable_detach_temp(absolute)
++	if detached != OK:
++		return detached
++	var file := FileAccess.open(absolute + ".tmp", FileAccess.WRITE)
++	if file == null:
++		return FileAccess.get_open_error()
++	file.store_string(encoded)
++	file.flush()
++	var error := file.get_error()
++	file.close()
++	return error
++
++
++func _durable_remove_backup(absolute: String) -> Error:
++	return DirAccess.remove_absolute(absolute + ".bak")
++
++
++func _durable_rename(absolute: String, phase: DurablePhase) -> Error:
++	if phase == DurablePhase.PRIMARY_ROTATED:
++		return DirAccess.rename_absolute(absolute, absolute + ".bak")
++	if phase == DurablePhase.PRIMARY_COMMITTED:
++		return DirAccess.rename_absolute(absolute + ".tmp", absolute)
++	return ERR_INVALID_PARAMETER
++
++
++func _durable_rollback(absolute: String) -> Error:
++	return DirAccess.rename_absolute(absolute + ".bak", absolute)
++
++
++## Trusted test subclasses only. Production never accepts a handler/stage input.
++func _durable_phase(_phase: DurablePhase, _absolute: String) -> void:
++	pass
+--- a/tests/helpers/story_durable_write_checks.gd
++++ b/tests/helpers/story_durable_write_checks.gd
+@@ -0,0 +1,503 @@
++extends RefCounted
++## Real filesystem and actual autoload/resource proofs. No production producer.
++
++const FIRST := "res://data/levels/ch1_pawnshop.tres"
++
++class FaultStore extends RunSaveStore:
++	enum Fault { NONE, TEMP_OPEN, TEMP_CORRUPT, BACKUP_REMOVE, ROTATE, COMMIT, ROLLBACK, AFTER_UNLINK_OPEN }
++	var fault: Fault = Fault.NONE
++	var scope := ""
++
++	func _durable_detach_temp(absolute: String) -> Error:
++		if absolute != scope:
++			return ERR_INVALID_PARAMETER
++		var detached := super._durable_detach_temp(absolute)
++		if detached == OK and fault == Fault.AFTER_UNLINK_OPEN:
++			DirAccess.make_dir_absolute(absolute + ".tmp")
++		return detached
++
++	func _durable_write_temp(absolute: String, encoded: String) -> Error:
++		if absolute != scope:
++			return ERR_INVALID_PARAMETER
++		if fault == Fault.TEMP_OPEN:
++			DirAccess.make_dir_absolute(absolute + ".tmp")
++		return super._durable_write_temp(absolute, encoded)
++
++	func _durable_phase(phase: DurablePhase, absolute: String) -> void:
++		if absolute == scope and phase == DurablePhase.TEMP_CLOSED and fault == Fault.TEMP_CORRUPT:
++			var file := FileAccess.open(absolute + ".tmp", FileAccess.WRITE)
++			file.store_string("{}")
++			file.close()
++
++	func _durable_remove_backup(absolute: String) -> Error:
++		if absolute != scope:
++			return ERR_INVALID_PARAMETER
++		if fault == Fault.BACKUP_REMOVE:
++			DirAccess.rename_absolute(absolute + ".bak", absolute + ".fault-bak")
++			DirAccess.make_dir_absolute(absolute + ".bak")
++			var file := FileAccess.open(absolute + ".bak/blocker", FileAccess.WRITE)
++			file.store_string("block")
++			file.close()
++		return super._durable_remove_backup(absolute)
++
++	func _durable_rename(absolute: String, phase: DurablePhase) -> Error:
++		if absolute != scope:
++			return ERR_INVALID_PARAMETER
++		if phase == DurablePhase.PRIMARY_ROTATED and fault == Fault.ROTATE:
++			DirAccess.make_dir_absolute(absolute + ".bak")
++		if phase == DurablePhase.PRIMARY_COMMITTED and fault in [Fault.COMMIT, Fault.ROLLBACK]:
++			DirAccess.rename_absolute(absolute + ".tmp", absolute + ".fault-tmp")
++			if fault == Fault.ROLLBACK:
++				DirAccess.make_dir_absolute(absolute)
++		return super._durable_rename(absolute, phase)
++
++
++class AliasStore extends RunSaveStore:
++	var scope := ""
++	var old_primary := ""
++	var old_backup := ""
++	var external := ""
++	var old_external := ""
++	var temp_checked := false
++	var temp_safe := false
++	var block_after_unlink := false
++
++	func _durable_detach_temp(absolute: String) -> Error:
++		if absolute != scope:
++			return ERR_INVALID_PARAMETER
++		var detached := super._durable_detach_temp(absolute)
++		if detached == OK and block_after_unlink:
++			DirAccess.make_dir_absolute(absolute + ".tmp")
++		return detached
++
++	func _durable_phase(phase: DurablePhase, absolute: String) -> void:
++		if absolute != scope or phase != DurablePhase.TEMP_CLOSED:
++			return
++		temp_checked = true
++		temp_safe = FileAccess.get_file_as_string(absolute) == old_primary and FileAccess.get_file_as_string(absolute + ".bak") == old_backup
++		if not external.is_empty():
++			temp_safe = temp_safe and FileAccess.get_file_as_string(external) == old_external
++
++
++static func _write(path: String, text: String) -> void:
++	var file := FileAccess.open(path, FileAccess.WRITE)
++	if file != null:
++		file.store_string(text)
++		file.close()
++
++
++static func _cleanup(path: String) -> void:
++	# Only known single files/empty dirs under this helper's fixed slot. No recursion.
++	for suffix: String in [".bak/blocker", "", ".bak", ".tmp", ".newrun", ".newrun.tmp", ".freshbak", ".previous", ".previous.bak", ".fault-bak", ".fault-tmp", ".external"]:
++		DirAccess.remove_absolute(ProjectSettings.globalize_path(path + suffix))
++
++
++static func _live() -> PackedByteArray:
++	return var_to_bytes([GameState._install_source(), Progression.snapshot(), StoryItems.snapshot(), Story._install_source()])
++
++
++## Shared actual resource fixture for suite and independent-process probe.
++## This supplies persistence facts, not an admitted producer or story capability.
++static func fixture() -> Dictionary:
++	var data := RunSnapshot.capture(FIRST, {"position": [100, 160], "health": 4, "world": {}, "loadout": {}})
++	var definitions: Dictionary = {}
++	for resource: StoryTransactionData in ResourceCatalog.load_dir("res://data/story_transactions", StoryTransactionData, "DurableChecks"):
++		definitions[String(resource.id)] = resource
++	if definitions.size() != 7 or StoryItems.find(&"ch1_data_disk") == null or StoryItems.find(&"ch1_grey_cloth") == null:
++		return {"error": "canonical fixture resources missing"}
++	var ledger := StoryTransactionLedger.new()
++	var wallet := 1000
++	for id: String in ["ch1.revival_meal.order", "ch1.revival_meal.paid"]:
++		if not definitions.has(id):
++			return {"error": "canonical fixture transaction missing"}
++		var result := ledger.commit(definitions[id], wallet, Progression.MAX_CREDITS)
++		if not result["applied"]:
++			return {"error": result["status"]}
++		wallet = result["credits_after"]
++	data["progression"]["credits"] = wallet
++	data["progression"]["story_transactions"] = ledger.snapshot()
++	data["progression"]["upgrades"] = {"pistol": ["quick_reload"]}
++	data["progression"]["abilities"] = ["emp_pulse", "overclock"]
++	data["progression"]["equipped"] = "overclock"
++	data["progression"]["pawned"] = {"med_injector": 2}
++	data["story"]["items"] = {"custody_version": StoryItems.CUSTODY_VERSION,
++		"owned": ["ch1_data_disk", "ch1_grey_cloth"], "held": ["ch1_data_disk"], "transferred": ["ch1_grey_cloth"], "unseen": ["ch1_data_disk"]}
++	for id: String in Story._scenes:
++		data["story"]["seen"] = [id]
++		break
++	data["state"]["kills"] = 19
++	data["runtime"]["loadout"] = {"version": Loadout.SNAPSHOT_VERSION, "weapons": ["res://data/weapons/pistol.tres"], "mag": [7], "reserve": [-1], "active": 0, "consumables": {"med_injector": 1}}
++	data["runtime"]["facing"] = -1
++	return {"data": data}
++
++
++static func _reject(s: TestSuite, store: RunSaveStore, raw: Variant, label: String) -> void:
++	var before := _live()
++	var disk := _files(store.path)
++	var input := var_to_bytes(raw)
++	var result := store.prepare_existing_write(raw)
++	s.check(result.has("error"), "durable refuses " + label)
++	s.check(_live() == before and var_to_bytes(raw) == input and _files(store.path) == disk, "durable refusal preserves owners/input/all source files: " + label)
++
++
++static func _files(path: String) -> PackedByteArray:
++	var files: Array = []
++	var directory := DirAccess.open(ProjectSettings.globalize_path(path).get_base_dir())
++	for suffix: String in ["", ".bak", ".tmp", ".newrun"]:
++		var absolute := ProjectSettings.globalize_path(path + suffix)
++		var linked: bool = directory != null and directory.is_link(absolute)
++		files.append([linked, directory.read_link(absolute) if linked else "", DirAccess.dir_exists_absolute(absolute), FileAccess.file_exists(absolute), FileAccess.get_file_as_bytes(absolute) if not linked and FileAccess.file_exists(absolute) else PackedByteArray()])
++	return var_to_bytes(files)
++
++
++## Root creates REAL hardlinks before this independent-process probe enters.
++## No fake equality bool; source topology must be recognized by native DirAccess.
++static func check_external_alias(path: String, kind: String, candidate: Dictionary) -> Dictionary:
++	if kind not in ["tmp_primary", "tmp_backup", "tmp_external", "primary_backup", "tmp_dangling", "tmp_symlink", "tmp_primary_open_fail"]:
++		return {"error": "unknown fixed alias test"}
++	var absolute := ProjectSettings.globalize_path(path).simplify_path()
++	var directory := DirAccess.open(absolute.get_base_dir())
++	if directory == null:
++		return {"error": "alias test parent cannot open"}
++	var external := absolute.get_base_dir().path_join("external.json")
++	var rejected: bool = kind in ["primary_backup", "tmp_dangling", "tmp_symlink"]
++	var paired := absolute
++	if kind == "tmp_backup":
++		paired += ".bak"
++	elif kind == "tmp_external":
++		paired = external
++	if kind == "primary_backup":
++		if not directory.is_equivalent(absolute, absolute + ".bak"):
++			return {"error": "required real primary/backup hardlink not recognized"}
++	elif kind in ["tmp_dangling", "tmp_symlink"]:
++		if not directory.is_link(absolute + ".tmp"):
++			return {"error": "required real symbolic/reparse tmp not recognized"}
++		if kind == "tmp_dangling":
++			# Windows file_exists reports attributes of the link entry itself.
++			var target := FileAccess.open(absolute + ".tmp", FileAccess.READ)
++			if target != null:
++				target.close()
++				return {"error": "dangling-link fixture unexpectedly has a readable target"}
++	elif directory.is_link(absolute + ".tmp") or not directory.is_equivalent(paired, absolute + ".tmp"):
++		return {"error": "required real tmp hardlink not recognized"}
++	var old_files := _files(absolute)
++	var live := _live()
++	var raw := var_to_bytes(candidate)
++	var store := AliasStore.new(path)
++	store.scope = absolute
++	store.old_primary = FileAccess.get_file_as_string(absolute)
++	store.old_backup = FileAccess.get_file_as_string(absolute + ".bak")
++	if kind == "tmp_external":
++		store.external = external
++		store.old_external = FileAccess.get_file_as_string(external)
++	var ready := store.prepare_existing_write(candidate)
++	if rejected:
++		if not ready.has("error") or old_files != _files(absolute) or live != _live() or raw != var_to_bytes(candidate):
++			return {"error": "rejected filesystem alias changed source or live data"}
++		return {"valid": true, "committed": false, "kind": kind}
++	if not ready.has("data"):
++		return {"error": "safe hardlink preparation rejected: " + ready.get("error", "unknown")}
++	store.block_after_unlink = kind == "tmp_primary_open_fail"
++	var outcome := store.commit_existing_write(ready["data"])
++	if kind == "tmp_primary_open_fail":
++		if outcome.committed or outcome.error == OK or FileAccess.get_file_as_string(absolute) != store.old_primary or FileAccess.get_file_as_string(absolute + ".bak") != store.old_backup or live != _live() or raw != var_to_bytes(candidate):
++			return {"error": "temp open failure after unlink changed primary or backup"}
++		return {"valid": true, "committed": false, "kind": kind}
++	if not outcome.committed or not store.temp_checked or not store.temp_safe or live != _live() or raw != var_to_bytes(candidate):
++		return {"error": "hardlink temp detach failed exact precommit old-state invariant"}
++	if not store.external.is_empty() and FileAccess.get_file_as_string(external) != store.old_external:
++		return {"error": "hardlink write changed unrelated external file"}
++	var reader := RunSaveStore.new(path)
++	reader.validator = RunSnapshot.prepare
++	if RunSaveCodec.encode(reader.read()) != RunSaveCodec.encode(ready["data"].snapshot()) or FileAccess.get_file_as_string(absolute + ".bak") != store.old_primary:
++		return {"error": "hardlink write did not preserve complete old backup/new primary"}
++	return {"valid": true, "committed": true, "kind": kind}
++
++
++static func run(s: TestSuite) -> void:
++	GameState.story_autosave = false
++	GameState.start_new_run(GameState.difficulties[1])
++	var captured := fixture()
++	s.check(captured.has("data"), "durable fixtures use canonical seven resources, actual custody and scene")
++	if not captured.has("data"):
++		return
++	var next: Dictionary = captured["data"]
++	var old := RunSnapshot.capture(FIRST, {"position": [80, 160], "health": 3, "world": {}, "loadout": {}})
++	var directory := String(s.get("directory")).path_join("durable")
++	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(directory))
++	var path := directory.path_join("slot.json")
++	_cleanup(path)
++	var store := RunSaveStore.new(path)
++	store.validator = RunSnapshot.prepare
++	s.check(store.write(old, true), "durable base uses real established supported primary and backup")
++	var before := _live()
++	var calls := {"count": 0}
++	store.validator = func(_raw: Dictionary) -> Dictionary:
++		calls["count"] += 1
++		return {"error": "arbitrary validator must never run"}
++	var events := {"count": 0}
++	var on_simple := func() -> void: events["count"] += 1
++	var on_credits := func(_credits: int, _delta: int) -> void: events["count"] += 1
++	var on_item := func(_item: StoryItemData) -> void: events["count"] += 1
++	var on_id := func(_id: StringName) -> void: events["count"] += 1
++	var on_request := func(_request: int, _completed: bool) -> void: events["count"] += 1
++	var on_lives := func(_lives: int) -> void: events["count"] += 1
++	GameState.run_save_requested.connect(on_simple)
++	Progression.credits_changed.connect(on_credits)
++	Progression.story_transaction_committed.connect(on_id)
++	StoryItems.acquired.connect(on_item)
++	StoryItems.transferred.connect(on_item)
++	Story.scene_finished.connect(on_id)
++	Story.request_settled.connect(on_request)
++	EventBus.lives_changed.connect(on_lives)
++	var input_before := var_to_bytes(next)
++	var prepared := store.prepare_existing_write(next)
++	s.check(prepared.has("data"), "durable prepares normalized all-component candidate without arbitrary validator")
++	if prepared.has("data"):
++		var candidate: RunSaveStore.PreparedExistingWrite = prepared["data"]
++		var snapshot := candidate.snapshot()
++		snapshot["progression"]["credits"] = 0
++		snapshot["story"]["items"]["held"].clear()
++		s.check(candidate.snapshot()["progression"]["credits"] == next["progression"]["credits"] and candidate.snapshot()["story"]["items"]["held"].size() == 1, "durable getter aliases never touch stored candidate or caller input")
++		s.check(var_to_bytes(next) == input_before, "durable preparation and returned alias edits leave source bytes unchanged")
++		var foreign := RunSaveStore.new(path)
++		s.check(not foreign.commit_existing_write(candidate).committed and store.preflight_existing_write(candidate).has("ready"), "wrong owner cannot use or consume preparation")
++		var outcome := store.commit_existing_write(candidate)
++		s.check(outcome.committed and outcome.status == RunSaveStore.DurableWriteOutcome.Status.COMMITTED and outcome.error == OK and not outcome.requires_recovery, "successful primary rename returns sticky typed commit fact")
++		outcome.reject("later_diagnostic", "does not reverse a commit")
++		s.check(outcome.committed, "later diagnostic cannot demote committed outcome")
++		s.check(not store.commit_existing_write(candidate).committed, "same prepared write is one-shot without rotating again")
++		var reader := RunSaveStore.new(path)
++		reader.validator = RunSnapshot.prepare
++		var read := reader.read()
++		s.check(RunSaveCodec.encode(read) == RunSaveCodec.encode(candidate.snapshot()), "actual fresh store reads complete normalized candidate, not receipt-only delta")
++		s.check(FileAccess.get_file_as_string(path + ".bak") == RunSaveCodec.encode(old), "backup rotation retains exact previous whole run")
++	s.check(calls["count"] == 0 and events["count"] == 0 and _live() == before, "prepare/commit/reject never invoke arbitrary validator, live mutation, signals or save requests")
++	store.validator = RunSnapshot.prepare
++	var repaired_raw := old.duplicate(true)
++	repaired_raw["progression"]["credits"] = "legacy bad scalar"
++	repaired_raw["progression"]["abilities"] = ["overclock", 99]
++	var repaired := store.prepare_existing_write(repaired_raw)
++	s.check(repaired.has("data"), "durable candidate keeps published raw scalar/filter repair policy")
++	if repaired.has("data"):
++		var snapshot: Dictionary = repaired["data"].snapshot()
++		s.check(snapshot["progression"]["credits"] == 0 and snapshot["progression"]["abilities"] == ["overclock"], "owner proof applies to normalized zero credits and filtered ability list")
++	var legacy := old.duplicate(true)
++	legacy["progression"].erase("version")
++	legacy["navigation"].erase("version")
++	legacy["story"]["items"] = {"owned": ["ch1_data_disk"], "unseen": []}
++	var migrated := store.prepare_existing_write(legacy)
++	s.check(migrated.has("data"), "versionless legacy progression and custody still prepare")
++	if migrated.has("data"):
++		var snapshot: Dictionary = migrated["data"].snapshot()
++		s.check(snapshot["story"]["items"]["custody_version"] == StoryItems.CUSTODY_VERSION and String(snapshot["story"]["items"]["held"][0]) == "ch1_data_disk" and snapshot["story"]["items"]["transferred"].is_empty(), "legacy acquisition history migrates to held/current canonical custody")
++	for component: String in ["runtime", "checkpoint", "entry"]:
++		var legacy_ammo := old.duplicate(true)
++		var ammo_loadout := {"weapons": ["res://data/weapons/pistol.tres"], "ammo": [17], "active": 0}
++		match component:
++			"runtime": legacy_ammo["runtime"]["loadout"] = ammo_loadout
++			"checkpoint": legacy_ammo["state"]["checkpoint_loadout"] = ammo_loadout
++			"entry": legacy_ammo["state"]["level_start_loadout"] = ammo_loadout
++		_reject(s, store, legacy_ammo, "candidate total-ammo migration required: " + component)
++		var refused := store.prepare_existing_write(legacy_ammo)
++		s.check(String(refused.get("error", "")).contains("requires_legacy_loadout_migration"), "legacy ammo refusal identifies missing migration: " + component)
++		for suffix: String in ["", ".bak", ".tmp"]:
++			var ammo_path := directory.path_join("ammo_%s_%d.json" % [component, suffix.length()])
++			_cleanup(ammo_path)
++			var ammo_store := RunSaveStore.new(ammo_path)
++			ammo_store.write(old, true)
++			_write(ammo_path + suffix, RunSaveCodec.encode(legacy_ammo))
++			_reject(s, ammo_store, next, "source total-ammo migration required: %s/%s" % [component, suffix])
++			s.check(FileAccess.get_file_as_string(ammo_path + suffix) == RunSaveCodec.encode(legacy_ammo), "raw legacy ammo source is not normalized or consumed: %s/%s" % [component, suffix])
++			_cleanup(ammo_path)
++	var mutable := next.duplicate(true)
++	var detached := store.prepare_existing_write(mutable)
++	if detached.has("data"):
++		var candidate: RunSaveStore.PreparedExistingWrite = detached["data"]
++		var expected := candidate.snapshot()
++		mutable["progression"]["credits"] = 0
++		mutable["story"]["seen"].clear()
++		mutable["story"]["items"]["held"].clear()
++		mutable["runtime"]["loadout"]["mag"].clear()
++		s.check(store.commit_existing_write(candidate).committed and RunSaveCodec.encode(store.read()) == RunSaveCodec.encode(expected), "post-prepare raw alias mutation cannot change disk candidate")
++	var changed_path := store.prepare_existing_write(next)
++	store.path = path + ".other"
++	if changed_path.has("data"):
++		s.check(not store.commit_existing_write(changed_path["data"]).committed and not FileAccess.file_exists(store.path), "prepared path bound rejects before writing foreign slot")
++	store.path = path
++	for field: String in ["version", "progression", "story", "custody", "ledger", "checkpoint", "entry", "navigation", "runtime_loadout", "checkpoint_loadout", "entry_loadout"]:
++		var bad := next.duplicate(true)
++		match field:
++			"version": bad["version"] = 999
++			"progression": bad["progression"]["version"] = 999
++			"story": bad["story"]["version"] = 999
++			"custody": bad["story"]["items"]["custody_version"] = 999
++			"ledger": bad["progression"]["story_transactions"]["version"] = 999
++			"checkpoint": bad["state"]["checkpoint_progress"]["version"] = 999
++			"entry": bad["state"]["level_start_progress"]["version"] = 999
++			"navigation": bad["navigation"]["version"] = 999
++			"runtime_loadout": bad["runtime"]["loadout"]["version"] = 999
++			"checkpoint_loadout": bad["state"]["checkpoint_loadout"]["version"] = 999
++			"entry_loadout": bad["state"]["level_start_loadout"]["version"] = 999
++		_reject(s, store, bad, "future " + field)
++	for malformed: Variant in [null, "1", 1.5]:
++		var bad := next.duplicate(true)
++		bad["progression"]["version"] = malformed
++		_reject(s, store, bad, "malformed declared nested version")
++		bad = next.duplicate(true)
++		bad["navigation"]["version"] = malformed
++		_reject(s, store, bad, "malformed declared navigation version")
++		bad = next.duplicate(true)
++		bad["runtime"]["loadout"]["version"] = malformed
++		_reject(s, store, bad, "malformed declared loadout version")
++	for flag: String in GameState.flag_defaults:
++		if GameState.flag_defaults[flag] is bool:
++			var wrong_flags := next.duplicate(true)
++			wrong_flags["story"]["flags"][flag] = "wrong type"
++			_reject(s, store, wrong_flags, "wrong declared flag type")
++			break
++	var corrupt := next.duplicate(true)
++	corrupt["progression"]["story_transactions"]["receipts"]["ch1.revival_meal.paid"]["credits_delta"] += 1
++	_reject(s, store, corrupt, "canonical receipt delta mismatch")
++	corrupt = next.duplicate(true)
++	corrupt["story"]["items"]["held"] = ["unknown"]
++	_reject(s, store, corrupt, "unknown custody item")
++	_reject(s, store, {"bad": s}, "object input")
++	var bytes_before := _files(path)
++	var damaged := store.prepare_existing_write(next)
++	if damaged.has("data"):
++		var candidate: RunSaveStore.PreparedExistingWrite = damaged["data"]
++		candidate._snapshot["progression"]["credits"] -= 1
++		s.check(not store.commit_existing_write(candidate).committed and _files(path) == bytes_before, "damaged opaque preparation seal rejects before filesystem mutation")
++	var stale := store.prepare_existing_write(next)
++	var stale_old := next.duplicate(true)
++	stale_old["progression"]["credits"] -= 1
++	s.check(RunSaveStore.new(path).write(stale_old), "real second store replaces source after preparation")
++	if stale.has("data"):
++		s.check(not store.commit_existing_write(stale["data"]).committed and not store.preflight_existing_write(stale["data"]).has("ready"), "stale same-owner attempt rejects and consumes preparation")
++	for suffix: String in ["", ".bak", ".tmp"]:
++		var protected_path := directory.path_join("future_%d.json" % suffix.length())
++		_cleanup(protected_path)
++		var protected_store := RunSaveStore.new(protected_path)
++		protected_store.write(old, true)
++		_write(protected_path + suffix, '{"version":999}')
++		_reject(s, protected_store, next, "future source " + suffix)
++		s.check(FileAccess.get_file_as_string(protected_path + suffix) == '{"version":999}', "future primary/bak/tmp bytes remain untouched: " + suffix)
++		_cleanup(protected_path)
++	for suffix: String in [".bak", ".tmp"]:
++		var nested_future := next.duplicate(true)
++		nested_future["progression"]["story_transactions"]["version"] = 999
++		_write(path + suffix, RunSaveCodec.encode(nested_future))
++		_reject(s, store, next, "future nested source ledger " + suffix)
++		DirAccess.remove_absolute(ProjectSettings.globalize_path(path + suffix))
++	for suffix: String in ["", ".bak", ".tmp"]:
++		for component: String in ["navigation", "runtime_loadout", "checkpoint_loadout", "entry_loadout"]:
++			var guard_path := directory.path_join("guard_%d_%s.json" % [suffix.length(), component])
++			_cleanup(guard_path)
++			var guarded := RunSaveStore.new(guard_path)
++			guarded.write(old, true)
++			var future := old.duplicate(true)
++			match component:
++				"navigation": future["navigation"]["version"] = 999
++				"runtime_loadout": future["runtime"]["loadout"]["version"] = 999
++				"checkpoint_loadout": future["state"]["checkpoint_loadout"]["version"] = 999
++				"entry_loadout": future["state"]["level_start_loadout"]["version"] = 999
++			_write(guard_path + suffix, RunSaveCodec.encode(future))
++			_reject(s, guarded, next, "future source %s at %s" % [component, suffix])
++			_cleanup(guard_path)
++	for suffix: String in [".bak", ".tmp"]:
++		_write(path + suffix, "{broken")
++		_reject(s, store, next, "unreadable source " + suffix)
++		DirAccess.remove_absolute(ProjectSettings.globalize_path(path + suffix))
++	var base_bytes := FileAccess.get_file_as_string(path)
++	_write(path + ".bak", base_bytes)
++	_write(path, "{broken")
++	_reject(s, store, next, "corrupt primary despite supported backup")
++	DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
++	_reject(s, store, next, "missing primary despite supported backup")
++	_write(path, base_bytes)
++	_write(path + ".newrun", "marker")
++	_reject(s, store, next, "unresolved new-run marker")
++	DirAccess.remove_absolute(ProjectSettings.globalize_path(path + ".newrun"))
++	DirAccess.make_dir_absolute(ProjectSettings.globalize_path(path + ".newrun"))
++	_reject(s, store, next, "new-run marker directory")
++	DirAccess.remove_absolute(ProjectSettings.globalize_path(path + ".newrun"))
++	store.overwrite_authorized = true
++	_reject(s, store, next, "pending overwrite authorization")
++	store.overwrite_authorized = false
++	for suffix: String in ["", ".bak", ".tmp", ".newrun", ".dangling"]:
++		var link_path := directory.path_join("link_%d.json" % suffix.length())
++		_cleanup(link_path)
++		var linked := RunSaveStore.new(link_path)
++		linked.write(old, true)
++		var absolute := ProjectSettings.globalize_path(link_path)
++		var links := DirAccess.open(absolute.get_base_dir())
++		_write(absolute + ".external", RunSaveCodec.encode(old))
++		var source := absolute + ".external"
++		var target := absolute + suffix
++		if suffix == ".dangling":
++			source = absolute + ".external-missing"
++			target = absolute + ".tmp"
++		DirAccess.remove_absolute(target)
++		var creation := links.create_link(source, target)
++		if creation != OK:
++			print("[StoryDurableChecks] SKIP symbolic/reparse case %s: platform permission/API %s; not validated" % [suffix, creation])
++		else:
++			s.check(links.is_link(target), "real symbolic/reparse directory entry recognized: " + suffix)
++			_reject(s, linked, next, "symbolic/reparse source including dangling " + suffix)
++			s.check(FileAccess.get_file_as_string(absolute + ".external") == RunSaveCodec.encode(old) and not FileAccess.file_exists(absolute + ".external-missing"), "symbolic rejection never writes real or dangling target: " + suffix)
++		_cleanup(link_path)
++	for fault: FaultStore.Fault in [FaultStore.Fault.TEMP_OPEN, FaultStore.Fault.TEMP_CORRUPT, FaultStore.Fault.BACKUP_REMOVE, FaultStore.Fault.ROTATE, FaultStore.Fault.COMMIT, FaultStore.Fault.ROLLBACK, FaultStore.Fault.AFTER_UNLINK_OPEN]:
++		var fault_path := directory.path_join("fault_%d.json" % fault)
++		_cleanup(fault_path)
++		var broken := FaultStore.new(fault_path)
++		broken.scope = ProjectSettings.globalize_path(fault_path).simplify_path()
++		# Derive the expected whole OLD run from the independently captured seed,
++		# through the same published JSON boundary a fresh reader must consume.
++		# A raw-memory prepare skips JSON numeric conversion (notably zero flags).
++		var old_encoded := RunSaveCodec.encode(old)
++		var old_decoded := RunSaveCodec.decode(old_encoded)
++		var expected_old: Dictionary = RunSnapshot.prepare(old_decoded["data"])["data"]
++		s.check(broken.write(old, true) and FileAccess.get_file_as_string(fault_path) == old_encoded, "fault seed preserves independent complete old envelope: %d" % fault)
++		if fault == FaultStore.Fault.TEMP_OPEN:
++			var raw_expected: Dictionary = RunSnapshot.prepare(old)["data"]
++			for key: String in expected_old:
++				if JSON.stringify(expected_old[key]) != JSON.stringify(raw_expected.get(key)):
++					print("[StoryDurableChecks] old seed JSON boundary changes encoding of component: " + key)
++		if fault == FaultStore.Fault.AFTER_UNLINK_OPEN:
++			_write(fault_path + ".tmp", RunSaveCodec.encode(old))
++		var ready := broken.prepare_existing_write(next)
++		s.check(ready.has("data"), "fault injection starts after valid preparation: %d" % fault)
++		if ready.has("data"):
++			var live_before := _live()
++			var input_bytes := var_to_bytes(next)
++			broken.fault = fault
++			var outcome := broken.commit_existing_write(ready["data"])
++			s.check(not outcome.committed and outcome.error != OK and outcome.requires_recovery == (fault == FaultStore.Fault.ROLLBACK), "real filesystem fault has precise precommit/recovery outcome: %d" % fault)
++			s.check(_live() == live_before and var_to_bytes(next) == input_bytes, "disk fault leaves live owners and input bytes unchanged: %d" % fault)
++			if fault == FaultStore.Fault.ROLLBACK:
++				DirAccess.remove_absolute(broken.scope)
++			var reader := RunSaveStore.new(fault_path)
++			reader.validator = RunSnapshot.prepare
++			var recovered := reader.read()
++			var preserved := false
++			for suffix: String in ["", ".bak"]:
++				if not DirAccess.dir_exists_absolute(broken.scope + suffix) and FileAccess.file_exists(fault_path + suffix):
++					preserved = preserved or FileAccess.get_file_as_string(fault_path + suffix) == old_encoded
++			s.check(preserved, "failed disk stage retains exact independent old envelope in primary or backup: %d" % fault)
++			s.check(RunSaveCodec.encode(recovered) == RunSaveCodec.encode(expected_old), "new store recovers whole old state at failed disk stage: %d" % fault)
++			if RunSaveCodec.encode(recovered) != RunSaveCodec.encode(expected_old):
++				for key: String in expected_old:
++					if JSON.stringify(recovered.get(key)) != JSON.stringify(expected_old[key]):
++						print("[StoryDurableChecks] recovery mismatch at fault %d component %s" % [fault, key])
++		_cleanup(fault_path)
++	s.check(events["count"] == 0 and _live() == before and var_to_bytes(next) == input_before, "all success/future/stale/IO failure paths keep live owners, source input and observers unchanged")
++	GameState.run_save_requested.disconnect(on_simple)
++	Progression.credits_changed.disconnect(on_credits)
++	Progression.story_transaction_committed.disconnect(on_id)
++	StoryItems.acquired.disconnect(on_item)
++	StoryItems.transferred.disconnect(on_item)
++	Story.scene_finished.disconnect(on_id)
++	Story.request_settled.disconnect(on_request)
++	EventBus.lives_changed.disconnect(on_lives)
++	_cleanup(path)
+--- a/tests/suite/test_run_save.gd
++++ b/tests/suite/test_run_save.gd
+@@ -206,4 +206,5 @@
+ 	AimInput._last_stick_msec = previous_msec
+ 	check(AimInput.using_gamepad == previous_gamepad and AimInput._last_stick_dir == previous_direction and AimInput._last_stick_msec == previous_msec, "suite restores aim source direction and timestamp without polluting later suites")
+ 	preload("res://tests/helpers/story_install_checks.gd").run(self)
++	preload("res://tests/helpers/story_durable_write_checks.gd").run(self)
+ 	GameState.start_new_run(GameState.difficulties[1])
+--- a/tools/story_durable_write_probe.gd
++++ b/tools/story_durable_write_probe.gd
+@@ -0,0 +1,190 @@
++extends Node
++## Independent process persistence probe. Never creates or quits through Main.
++## Root owns process allocation and kills the writer after barrier.json appears.
++
++const Checks = preload("res://tests/helpers/story_durable_write_checks.gd")
++const PHASES := ["temp_closed", "backup_removed", "primary_rotated", "primary_committed"]
++var _directory := ""
++var _mode := ""
++var _phase := ""
++var _expect := ""
++var _alias := ""
++var _timeout := 15000
++var _failures := 0
++
++class BarrierStore extends RunSaveStore:
++	var scope := ""
++	var stop_phase: DurablePhase = DurablePhase.TEMP_CLOSED
++	var timeout_msec := 15000
++	var timed_out := false
++	var reached := false
++
++	func _durable_phase(phase: DurablePhase, absolute: String) -> void:
++		if absolute != scope or phase != stop_phase:
++			return
++		reached = true
++		var barrier := FileAccess.open(absolute.get_base_dir().path_join("barrier.json"), FileAccess.WRITE)
++		if barrier == null:
++			timed_out = true
++			return
++		barrier.store_string(JSON.stringify({"version": 1, "pid": OS.get_process_id(), "phase": phase, "slot": absolute}))
++		barrier.flush()
++		barrier.close()
++		# Intentional bounded test-only block at the precise disk instruction.
++		# External controller force-terminates this process, then starts fresh read.
++		var until := Time.get_ticks_msec() + timeout_msec
++		while Time.get_ticks_msec() < until:
++			OS.delay_msec(10)
++		timed_out = true
++
++
++func _ready() -> void:
++	for argument: String in OS.get_cmdline_user_args():
++		if argument.begins_with("--save-dir="):
++			_directory = argument.trim_prefix("--save-dir=").replace("\\", "/")
++		elif argument.begins_with("--mode="):
++			_mode = argument.trim_prefix("--mode=")
++		elif argument.begins_with("--phase="):
++			_phase = argument.trim_prefix("--phase=")
++		elif argument.begins_with("--expect="):
++			_expect = argument.trim_prefix("--expect=")
++		elif argument.begins_with("--alias="):
++			_alias = argument.trim_prefix("--alias=")
++		elif argument.begins_with("--barrier-timeout-ms="):
++			var text := argument.trim_prefix("--barrier-timeout-ms=")
++			if not text.is_valid_int() or int(text) < 1000 or int(text) > 30000:
++				_finish(2, "timeout must be integer 1000..30000")
++				return
++			_timeout = int(text)
++	var canonical := _directory.simplify_path().trim_suffix("/")
++	var project := ProjectSettings.globalize_path("res://").replace("\\", "/").trim_suffix("/")
++	var user := ProjectSettings.globalize_path("user://").replace("\\", "/").trim_suffix("/")
++	if not _directory.is_absolute_path() or canonical != _directory or not canonical.get_file().begins_with("ne-story-durable-") or canonical.to_lower().begins_with(project.to_lower()) or canonical.to_lower().begins_with(user.to_lower()) or canonical.get_base_dir().is_empty():
++		_finish(2, "--save-dir must be canonical absolute isolated ne-story-durable-* directory outside project/user")
++		return
++	if _mode not in ["seed", "write", "read", "alias_check"] or (_mode == "write" and _phase not in PHASES) or (_mode == "read" and _expect not in ["old", "new"]) or (_mode == "alias_check" and _alias.is_empty()):
++		_finish(2, "mode=seed/write/read/alias_check; write phase/read expect/alias kind required")
++		return
++	_run.call_deferred()
++
++
++func _run() -> void:
++	GameState.story_autosave = false
++	GameState.start_new_run(GameState.difficulties[1])
++	var slot := _directory.path_join("slot.json")
++	var owner_path := _directory.path_join("probe-owner.json")
++	if _mode == "seed":
++		if DirAccess.dir_exists_absolute(_directory) or FileAccess.file_exists(_directory):
++			_finish(2, "seed requires a new absent isolated directory; no cleanup of existing data")
++			return
++		if DirAccess.make_dir_recursive_absolute(_directory) != OK:
++			_finish(2, "cannot create isolated directory")
++			return
++		var fixture := Checks.fixture()
++		if not fixture.has("data"):
++			_finish(2, "canonical fixture preparation failed")
++			return
++		var old := RunSnapshot.capture(Checks.FIRST, {"position": [80, 160], "health": 3, "world": {}, "loadout": {}})
++		var store := RunSaveStore.new(slot)
++		store.validator = RunSnapshot.prepare
++		if not store.write(old, true):
++			_finish(2, "cannot seed real legacy slot")
++			return
++		var candidate := store.prepare_existing_write(fixture["data"])
++		if not candidate.has("data"):
++			_finish(2, "prepared existing writer rejected canonical candidate: " + candidate.get("error", "unknown"))
++			return
++		var prepared: RunSaveStore.PreparedExistingWrite = candidate["data"]
++		if not _write(_directory.path_join("expected-old.json"), RunSaveCodec.encode(store.read())) or not _write(_directory.path_join("expected-new.json"), RunSaveCodec.encode(prepared.snapshot())) or not _write(owner_path, JSON.stringify({"version": 1, "directory": _directory})):
++			_finish(2, "cannot write fixed probe manifests")
++			return
++		print("[StoryDurableProbe] Hardlink crash variant: after seed EOF, root os.link(%s, %s) and verifies os.path.samefile; then normal write phase/external kill/fresh read." % [slot, slot + ".tmp"])
++		_finish(0, "seed complete; seven canonical transactions/custody persistence fixture only")
++		return
++	var owner := _read_text(owner_path, 2048)
++	var parsed: Variant = JSON.parse_string(owner)
++	if not parsed is Dictionary or parsed.get("version") != 1 or parsed.get("directory") != _directory:
++		_finish(2, "missing matching probe-owner manifest; no slot mutation")
++		return
++	if _mode == "alias_check":
++		var candidate := RunSaveCodec.decode(_read_text(_directory.path_join("expected-new.json"), RunSaveCodec.MAX_BYTES))
++		if not candidate.has("data"):
++			_finish(2, "alias new manifest invalid")
++			return
++		var result := Checks.check_external_alias(slot, _alias, candidate["data"])
++		_finish(0 if result.get("valid", false) else 1, "REAL alias result " + JSON.stringify(result))
++		return
++	if _mode == "write":
++		if FileAccess.file_exists(_directory.path_join("barrier.json")):
++			_finish(2, "barrier already exists; use a new seed directory")
++			return
++		var data := RunSaveCodec.decode(_read_text(_directory.path_join("expected-new.json"), RunSaveCodec.MAX_BYTES))
++		if not data.has("data"):
++			_finish(2, "new candidate manifest invalid")
++			return
++		var store := BarrierStore.new(slot)
++		store.scope = slot
++		match _phase:
++			"temp_closed": store.stop_phase = RunSaveStore.DurablePhase.TEMP_CLOSED
++			"backup_removed": store.stop_phase = RunSaveStore.DurablePhase.BACKUP_REMOVED
++			"primary_rotated": store.stop_phase = RunSaveStore.DurablePhase.PRIMARY_ROTATED
++			"primary_committed": store.stop_phase = RunSaveStore.DurablePhase.PRIMARY_COMMITTED
++		store.timeout_msec = _timeout
++		var ready := store.prepare_existing_write(data["data"])
++		if not ready.has("data"):
++			_finish(2, "write preparation rejected: " + ready.get("error", "unknown"))
++			return
++		var outcome := store.commit_existing_write(ready["data"])
++		# A successfully completed process is not a crash-window test.
++		_finish(3, "external kill did not occur; reached=%s timed_out=%s committed=%s" % [store.reached, store.timed_out, outcome.committed])
++		return
++	var expected := RunSaveCodec.decode(_read_text(_directory.path_join("expected-" + _expect + ".json"), RunSaveCodec.MAX_BYTES))
++	if not expected.has("data"):
++		_finish(2, "expected manifest invalid")
++		return
++	var reader := RunSaveStore.new(slot)
++	reader.validator = RunSnapshot.prepare
++	var actual := reader.read()
++	var normalized := RunSnapshot.prepare(expected["data"])
++	_check(normalized.has("data") and not actual.is_empty(), "fresh process reads supported whole run")
++	if normalized.has("data") and not actual.is_empty():
++		for key: String in ["state", "progression", "story", "navigation", "runtime", "cinematic", "cinematic_context", "chapter_complete", "level", "difficulty", "release", "saved_at", "version"]:
++			_check(JSON.stringify(actual.get(key)) == JSON.stringify(normalized["data"].get(key)), "all-component field matches expected " + key)
++		_check(not Progression.prepare_install(actual["progression"]).has("error"), "fresh canonical ledger/progression proof")
++		_check(not StoryItems.prepare_install(actual["story"]["items"]).has("error"), "fresh custody proof")
++		_check(RunSaveCodec.encode(actual) == RunSaveCodec.encode(normalized["data"]), "entire normalized snapshot matches, including compatible fields")
++	_finish(0 if _failures == 0 else 1, "fresh read checks failures=%d expected=%s; no Main/save/live install" % [_failures, _expect])
++
++
++func _read_text(path: String, limit: int) -> String:
++	var file := FileAccess.open(path, FileAccess.READ)
++	if file == null:
++		return ""
++	if file.get_length() > limit:
++		file.close()
++		return ""
++	var text := file.get_as_text()
++	file.close()
++	return text
++
++
++func _write(path: String, text: String) -> bool:
++	var file := FileAccess.open(path, FileAccess.WRITE)
++	if file == null:
++		return false
++	file.store_string(text)
++	file.flush()
++	var error := file.get_error()
++	file.close()
++	return error == OK
++
++
++func _check(ok: bool, label: String) -> void:
++	if not ok:
++		_failures += 1
++	print("[StoryDurableProbe] %s %s" % ["PASS" if ok else "FAIL", label])
++
++
++func _finish(code: int, message: String) -> void:
++	print("[StoryDurableProbe] " + message)
++	get_tree().quit(code)
+--- a/tools/story_durable_write_probe.tscn
++++ b/tools/story_durable_write_probe.tscn
+@@ -0,0 +1,6 @@
++[gd_scene load_steps=2 format=3]
++
++[ext_resource type="Script" path="res://tools/story_durable_write_probe.gd" id="1"]
++
++[node name="StoryDurableWriteProbe" type="Node"]
++script = ExtResource("1")
+--- a/design/20-campaign-experience/STORY_DURABLE_WRITE.md
++++ b/design/20-campaign-experience/STORY_DURABLE_WRITE.md
+@@ -0,0 +1,65 @@
++# 已有整輪存檔的 prepared durable writer
++
++本階段只新增 RunSaveStore 的低層資料／磁碟 API。既有 read、write、新遊戲 marker 恢復與 Main 路徑維持原行為，沒有啟用 atomic story capability。Main 的 guard、Level 共用 `_area` 引用、世界物件安裝、通知／dirty-save coordinator 仍依 STORY_ATOMIC_INSTALL_PLAN 待後續實作。
++
++`prepare_existing_write(raw)` 回傳獨立的 `PreparedExistingWrite` 或具體 error。只接受可完整驗證的 supported primary；primary 缺漏／損毀即使有健康 backup 也拒絕，呼叫端須先透過既有恢復流程建立可用槽。`.newrun`（檔案、目錄或 symbolic/reparse entry）或 `overwrite_authorized` 一律拒絕，不恢復、不代表新遊戲授權。primary／bak／tmp 都有固定大小、檔案種類、完整 bytes checksum 與版本保護；存在而不能讀懂的 bak／tmp 亦拒絕，保留原件供診斷。沒有掃目錄或讀取任意 suffix。
++
++候選先經 RunSnapshot.prepare 的有界正規化，再用 Progression.prepare_install 的現行 canonical transaction proof、StoryItems.prepare_install 的 custody proof、GameState.prepare_install 的 state／declared flag types／difficulty proof。progression／checkpoint／level-start、story 的已宣告版本均須有效。GameState 準備物的獨立 flags 用於補齊既有宣告 defaults／還原整數型別，成為相同的 normalized disk/install target；不改 live flags。沒有複製帳本 predicate、金額或資源 fingerprint；不呼叫 store.validator、作者 Callable 或 trusted bool。候選 getter 只給有界獨立副本，future coordinator 必須準備及安裝同一正規化結果。completion 只檢查現行 Story scene identities；不借用需要 idle presentation 的 whole-run Story bundle來阻擋正在完成的場景。
++
++`preflight_existing_write(prepared)` 核對 owner、原始與 globalized path、one-shot、payload checksum、三份 source file profile、marker 與授權。`commit_existing_write(prepared)` 的同 owner 嘗試消耗一次機會，包括 stale 拒絕；錯 owner 不得消耗另一 owner 的準備物。成功前回傳 typed `DurableWriteOutcome` 的 `committed=false`。既存已驗證 tmp **先 unlink 目錄項再新建檔**，flush／close／bytes digest 回讀驗證後，移除 old bak、primary→bak、tmp→primary。最後 rename 成功當刻先設 sticky `committed=true`，再到 probe seam 或返回。此方案沒有 postcommit cleanup；不得把不存在的 backup cleanup 當測試或在之後改回未 commit。
++
++失敗窗口：temp／backup removal／primary rotation 失敗時 primary 仍是完整 old；tmp→primary 失敗嘗試 bak→primary 回滾，回滾失敗則 `requires_recovery=true`，保留完整 old bak 與候選 tmp。既有 reader 不採 unmarked tmp；fresh process 在成功 rename 前讀 old，在成功後讀 new。legacy new-run 的 false／marker 恢復歧義不套用此 API，故它拒絕 marker／overwrite 授權。後續 primary 腐敗仍依既有政策讀上一份完整 backup，本層不保證持久單調性。
++
++固定 protected I/O methods 與四個 typed phase seam 僅供可信測試 subclass 做真 filesystem 故障與 barrier，正式 base seam 無動作。API 不接受執行 handler 或作者指定 stage。呼叫端保證同一 main thread 的獨占 writer／服務 guard；profile 是 stale 檢查，沒有宣稱 OS 跨程序 lock，最後核對後外部程序介入仍不受此 API 防護。Godot flush 與成功 rename 是程序 crash 邊界，沒有宣稱斷電 fsync 保證。
++
++## 既存 filesystem alias 保護
++
++第一稿只比較 lexical path／bytes，漏掉既存 `.tmp` 與 primary 的 hardlink：FileAccess.WRITE 會在 rotation preflight前截斷同一個 inode。這是已修正的實際 blocker，不能把 prepare 前 alias 當成外部 TOCTOU。
++
++現在每個固定 source entry 先 `DirAccess.open(parent)`（失敗拒絕），再 `is_link(entry)`，最後才 `file_exists`；symbolic/reparse（含 dangling）一律拒絕，目標及 entry 均不動。primary／bak 的 `is_equivalent=true` 額外保守拒絕；`false` 不是 physical independence proof，API fallback／查詢無法判定時不據此宣稱兩者独立。核心安全不依賴 false：primary 從不以 WRITE 開啟，backup 只 unlink 自己的目錄項，tmp 的既存 regular entry 一律 unlink 後確認不存在，再開 WRITE 建新 inode。這也保護 tmp↔primary、tmp↔bak、tmp↔外部檔案的 hardlink；unlink／再次open失敗時 primary、bak 仍完整。已有 tmp 的版本／schema拒絕全在 unlink 前完成。
++
++API 出處是 [Godot 4.7 DirAccess 文件](https://docs.godotengine.org/en/4.7/classes/class_diraccess.html)，unlink機制另核對官方 [Windows driver source（4.6）](https://github.com/godotengine/godot/blob/4.6/drivers/windows/dir_access_windows.cpp)、[Unix driver source（master）](https://github.com/godotengine/godot/blob/master/drivers/unix/dir_access_unix.cpp)；Windows symbolic entry 的刪除語義見 [Microsoft DeleteFileW](https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-deletefilew)。source/API證據不等同於本機 4.7.2 binary測試。
++
++## 已發布版本盤點
++
++fixed proof涵蓋實際RunSnapshot持久資料的全部已宣告版本：Codec envelope與run version／release；story version1；progression version（current/checkpoint/entry）及各自story_transactions ledger；StoryItems custody；QuestMapState.VERSION（navigation）；Loadout.SNAPSHOT_VERSION（runtime/checkpoint/level-start loadout）。navigation及loadout的declared欄位必須valid integer且等於owner現行constant，不能接受999之後讓legacy restore靜默清空／當舊欄位讀。version缺漏依既有legacy policy保持可準備，不猜一個舊declared schema；loadout目前constant2且無來源宣告version1 schema可準備。WorldState／area、ConsumableBag、dynamic runtime／cinematic_context沒有已宣告版本，不增加臆測guard。helper對candidate和primary/bak/tmp均寫真future navigation／三處loadout envelope並確認拒絕不改source。
++
++驗收來源階段：helper 保留原 RunSaveSuite 及 silent helper，新增真檔案版本／stale／alias／one-shot／typed fault regressions；獨立 Node probe 不載 Main，以 external barrier+kill 驗四個精確磁碟窗與全新程序 all-components read。原 runner、selector、known-failure filter 不變。CPU grammar 檢查不等於 Godot 型別／執行或 crash 驗收，native evidence 由 root 執行後補記。
++
++舊 loadout 的 total `ammo` 且缺 `mag` 走現行 Loadout.restore 的 legacy 分支；RunSnapshot.prepare 卻會補 `mag=[]`，因此本 writer 不具備保值遷移能力。三處 raw loadout 在正規化前一律具體拒絕 `requires_legacy_loadout_migration`，candidate 及 primary/bak/tmp 同樣保護，保留原 bytes。version 缺漏且已用 `mag` 格式仍可依既有政策準備；不以直接 Loadout.restore smoke 宣稱整輪舊 ammo 保值。既有 legacy read/write bodies 不在本輪修改。
++
++## Probe 操作契約
++
++每個窗使用全新且不存在的 canonical absolute `ne-story-durable-*` 目錄；不能位在 res://／user:// 下，不提供 cleanup／刪除模式。`seed` 建立實際舊槽及 expected-old/new（相同 Codec envelope）與綁定絕對目錄的 probe-owner；已有目錄一律拒絕。
++
++啟動 Node 場景 `res://tools/story_durable_write_probe.tscn`，依次傳：
++
++1. `--mode=seed --save-dir=C:/tmp/ne-story-durable-<unique>`，等 EOF／exit0。
++2. `--mode=write --phase=temp_closed|backup_removed|primary_rotated|primary_committed --save-dir=<same> --barrier-timeout-ms=15000`。外部 controller 讀 `<same>/barrier.json` 核對 pid、slot、phase（enum 0..3），強制 terminate 該 pid，確認 EOF／終止；不能正常 quit、WM_CLOSE 或 Main._quit。timeout 只接受 1000..30000，未被 kill 的 writer 必定 exit3，不能當 crash 測試通過。
++3. 前三個窗新程序 `--mode=read --expect=old --save-dir=<same>`；最後一個窗 `--expect=new`。檢查每個 all-component field、整份 normalized envelope及共用 ledger/custody proof，exit0 才通過。reader 不安裝 live owner，也不重存／補寫槽，沒有上一程序 last_outcome 可參考。
++
++同一四窗再各用全新seed目錄驗 existing hardlink variant：seed EOF後root CPU `os.link(slot, slot + '.tmp')`（native PowerShell HardLink亦可），先記錄真 `os.path.samefile(slot,tmp)==true`／native檔案ID，再執行原 `--mode=write --phase=...`／external kill。準備允許已驗證且版本current的tmp hardlink，必先unlink重建才open WRITE；前三窗 fresh old、postcommit fresh new。不能以lexical不同或CPU機制測試代稱這四個Godot crash窗已跑。
++
++probe fixture 使用實際七份 transaction resources 中的 order+paid（含零元 order receipt）、現行 item catalog、真 scene id、upgrades／abilities／equipped／pawned／player loadout。它不提供 production producer 或 world adapter 的證據。四窗須 serial 使用 root 分配的 engine slot，前一程序結束後才能啟動下一程序。
++
++## 真 alias probe 與 failed/skip 規則
++
++每組重新 seed／EOF，root用原生 filesystem 操作在同一已綁定隔離目錄建立下面拓樸，再執行 `--mode=alias_check --alias=<kind> --save-dir=<same>`；probe會用實際 `DirAccess.is_equivalent`／`is_link`確認fixture，無alias時測試失敗，不能以傳參數充當存在證據。
++
++| kind | root 建立的真拓樸 | 必須結果／後續 fresh read |
++|---|---|---|
++| tmp_primary | `slot.json.tmp` hardlink到`slot.json` | TEMP_CLOSED原primary/bak bytes仍old；commit true；fresh `--expect=new` |
++| tmp_backup | tmp hardlink到bak | 同上，whole old backup保留；fresh new |
++| tmp_external | 先把primary完整copy為固定`external.json`，tmp hardlink到external | external全bytes不變，commit true；fresh new |
++| primary_backup | unlink seed bak entry，再bak hardlink到primary | preparation明拒、四固定source entries全部不變；fresh old |
++| tmp_primary_open_fail | tmp hardlink到primary；test subclass在成功unlink後建立tmp directory，使真FileAccess.WRITE失敗 | committed false、oldprimary/bak不變；fresh old |
++| tmp_symlink | tmp symbolic link到primary（或完整external） | preparation明拒、entry/target不變；fresh old |
++| tmp_dangling | tmp symbolic link到固定不存在的target | 不依file_exists真假判斷target；READ不能open且is_link=true，preparation拒絕、target未建立；fresh old |
++
++root的 Windows hardlink 可用原生 `New-Item -ItemType HardLink`（或 CPU Python os.link），僅在上述新隔離目錄操作，保留native stdout／fresh-process raw logs。helper亦用真正 `DirAccess.create_link` 測 primary/bak/tmp/newrun/dangling symbolic entries；Windows若缺elevation／Developer Mode，明印 `SKIP ... not validated`，不能計作全驗。hardlink模式不可skip為通過，必須由root真正建立並在Godot binary及fresh reader驗證。reviewer的Windows CPU unlink機制驗證是獨立佐證，沒有替代native引擎矩陣。
++
++## CPU source freeze
++
++root 的首次 Godot import 已 natural EOF／exit0，完整 log 無 SCRIPT／Parse／Compile／ERROR。首次 RunSaveSuite 350 checks、7 failures，均是 fault stage 1..7 的 whole-old 比對；其餘 outcome／source guards／live observers 檢查通過，五個 symbolic cases 因權限／API1 明記 SKIP、未驗。raw 保留於 `C:/tmp/st3-durable-target/shard_0.log` 及 `C:/tmp/st3-durable-target-console.log`。CPU trace 發現期望值直接 prepare 記憶體 seed，略過 reader 的 Codec JSON parse 邊界；[Godot JSON source](https://github.com/godotengine/godot/blob/master/core/io/json.cpp) 的 int／float序列化（尤其0與0.0）不同，RunSnapshot 保留部分 nested 欄位型別。helper 改以獨立 seed envelope 經 decode／prepare 建立完整 old 期望，仍比較整份 normalized envelope，另加 primary 或 bak 的精確原始 old bytes 保留斷言。Store、probe、原 runner／filter 均未改；有界 component診斷供 root 新一輪驗證此根因，尚未宣稱修後native通過。
++
++2026-10-10：四份 GDScript 經 gdparse（CPU grammar）exit0；既有 Store 全部原方法 bodies 保留，RunSaveSuite 只增加一行 invocation。alias修正後新增 genuine symlink helper、root external hardlink probe模式、unlink後真open failure，以及明確 raw normalizations／versionless legacy、navigation／三處 loadout declared versions／raw legacy-ammo拒絕 regression。Windows linked entry 的 file_exists可能只反映link attributes，helper記錄link拓樸而不讀dangling bytes，probe以READ open驗dangling fixture；沒有宣稱symbolic權限測試已驗。沒有由實作代理啟動 Godot，尚未宣稱 native import、semantic types、Suite 或 forced-process crash／alias 通過。root 需先完整 import／檢查 SCRIPT/Parse/Compile log，再 RunSaveSuite、原 tools/run_tests_changed.sh selector/filter，以及上述獨立程序矩陣；raw failed logs須保留，任何 semantic/runtime fix 重新 source review。

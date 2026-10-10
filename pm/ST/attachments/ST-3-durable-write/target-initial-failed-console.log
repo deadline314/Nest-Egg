@@ -1,0 +1,10 @@
+Running 1 groups in 1 processes (logs: C:/tmp/st3-durable-target)
+  process 0 (estimated 25 s): RunSaveSuite
+[process 0] NEW FAILURE: new store recovers whole old state at failed disk stage: 1
+[process 0] NEW FAILURE: new store recovers whole old state at failed disk stage: 2
+[process 0] NEW FAILURE: new store recovers whole old state at failed disk stage: 3
+[process 0] NEW FAILURE: new store recovers whole old state at failed disk stage: 4
+[process 0] NEW FAILURE: new store recovers whole old state at failed disk stage: 5
+[process 0] NEW FAILURE: new store recovers whole old state at failed disk stage: 6
+[process 0] NEW FAILURE: new store recovers whole old state at failed disk stage: 7
+checks: 350, new failures: 7, known failures (tests/known_failures.txt): 0  (wall time 17 s)

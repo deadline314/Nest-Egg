@@ -1,0 +1,44 @@
+standard-temp_closed-seed EOF0
+standard-temp_closed-fresh-read EOF0
+standard-temp_closed forced OS termination + complete fresh old verified
+standard-backup_removed-seed EOF0
+standard-backup_removed-fresh-read EOF0
+standard-backup_removed forced OS termination + complete fresh old verified
+standard-primary_rotated-seed EOF0
+standard-primary_rotated-fresh-read EOF0
+standard-primary_rotated forced OS termination + complete fresh old verified
+standard-primary_committed-seed EOF0
+standard-primary_committed-fresh-read EOF0
+standard-primary_committed forced OS termination + complete fresh new verified
+hardlink-temp_closed-seed EOF0
+hardlink-temp_closed-fresh-read EOF0
+hardlink-temp_closed forced OS termination + complete fresh old verified
+hardlink-backup_removed-seed EOF0
+hardlink-backup_removed-fresh-read EOF0
+hardlink-backup_removed forced OS termination + complete fresh old verified
+hardlink-primary_rotated-seed EOF0
+hardlink-primary_rotated-fresh-read EOF0
+hardlink-primary_rotated forced OS termination + complete fresh old verified
+hardlink-primary_committed-seed EOF0
+hardlink-primary_committed-fresh-read EOF0
+hardlink-primary_committed forced OS termination + complete fresh new verified
+alias-tmp_primary-seed EOF0
+alias-tmp_primary-native EOF0
+alias-tmp_primary-fresh-read EOF0
+alias-tmp_backup-seed EOF0
+alias-tmp_backup-native EOF0
+alias-tmp_backup-fresh-read EOF0
+alias-tmp_external-seed EOF0
+alias-tmp_external-native EOF0
+alias-tmp_external-fresh-read EOF0
+alias-primary_backup-seed EOF0
+alias-primary_backup-native EOF0
+alias-primary_backup-fresh-read EOF0
+alias-tmp_primary_open_fail-seed EOF0
+alias-tmp_primary_open_fail-native EOF0
+alias-tmp_primary_open_fail-fresh-read EOF0
+alias-tmp_symlink-seed EOF0
+alias-tmp_symlink SKIP not validated [WinError 1314] 用戶端沒有這項特殊權限。: 'C:\\tmp\\ne-story-durable-alias-tmp_symlink-edd2a76488\\slot.json' -> 'C:\\tmp\\ne-story-durable-alias-tmp_symlink-edd2a76488\\slot.json.tmp'
+alias-tmp_dangling-seed EOF0
+alias-tmp_dangling SKIP not validated [WinError 1314] 用戶端沒有這項特殊權限。: 'C:\\tmp\\ne-story-durable-alias-tmp_dangling-d9f40487df\\absent-target.json' -> 'C:\\tmp\\ne-story-durable-alias-tmp_dangling-d9f40487df\\slot.json.tmp'
+COMPLETE: eight forced-process windows, five native aliases; symbolic permissions reported separately.

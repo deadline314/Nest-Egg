@@ -1,0 +1,38 @@
+{
+  "worktree": "C:\\tmp\\Nest-Egg-story-durable-write",
+  "verification": "CPU gdparse four scripts exit 0; root first native import clean, first suite 350 checks 7 failures preserved; corrected helper awaits native rerun",
+  "legacy_store_prefix_unchanged": true,
+  "suite_one_additive_invocation_only": true,
+  "files": {
+    "core/run_save_store.gd": {
+      "sha256": "d4c84cff4f0bdf87524c17718a0d58b30bfd8dcd5a0410250cb9ac902a1d177d",
+      "bytes": 27970,
+      "changed_from_alias_freeze": false
+    },
+    "tests/helpers/story_durable_write_checks.gd": {
+      "sha256": "c54bd20add0bd92798825825006e794a1673c70be24390cf76a68253e8a30162",
+      "bytes": 28959,
+      "changed_from_alias_freeze": true
+    },
+    "tests/suite/test_run_save.gd": {
+      "sha256": "d825672185af5d9df075be45d36fbf10711ad863d7aaaf2e0fd6409a6c841390",
+      "bytes": 14884,
+      "changed_from_alias_freeze": false
+    },
+    "tools/story_durable_write_probe.gd": {
+      "sha256": "14e57dfef2bb45d74fe2a0b6738e669667fc89cc6d1e6c4e31aa90aa2d1fa0b5",
+      "bytes": 9113,
+      "changed_from_alias_freeze": false
+    },
+    "tools/story_durable_write_probe.tscn": {
+      "sha256": "5d37e2da962f5a74720d3e67f18a190b1cecfe575d2a93d947473edf4a998229",
+      "bytes": 194,
+      "changed_from_alias_freeze": false
+    },
+    "design/20-campaign-experience/STORY_DURABLE_WRITE.md": {
+      "sha256": "15385f52ab1ea86d176325ba2b1c0225985487c12e1b98081e845195ea4e04da",
+      "bytes": 13218,
+      "changed_from_alias_freeze": true
+    }
+  }
+}

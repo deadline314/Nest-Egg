@@ -1,0 +1,89 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+[RunSaveSuite] initial preparation: OK
+WARNING: [RunSave] run/loadout/weapons/0 無效資源：res://autoload/story.gd，略過該欄
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _loadout (res://core/run_snapshot.gd:226)
+       [1] prepare (res://core/run_snapshot.gd:96)
+       [2] run (res://tests/suite/test_run_save.gd:91)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] user://story_progress.json/items/owned 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] restore_story_progress (res://autoload/game_state.gd:454)
+       [2] run (res://tests/suite/test_run_save.gd:102)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [RunSave] user://ne230-suite/unit.json：未知版本保留；請明確選擇新遊戲覆寫
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:86)
+       [2] run (res://tests/suite/test_run_save.gd:124)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [RunSave] user://ne230-suite/unknown_backup.json：未知版本保留；請明確選擇新遊戲覆寫
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:86)
+       [2] run (res://tests/suite/test_run_save.gd:132)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [RunSave] user://ne230-suite/unknown_backup.json：未知版本保留；請明確選擇新遊戲覆寫
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:86)
+       [2] run (res://tests/suite/test_run_save.gd:137)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [RunSave] user://ne230-suite/unit.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:97)
+       [2] run (res://tests/suite/test_run_save.gd:144)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [RunSave] user://ne230-suite/unit.json/blocked.json.tmp：無法寫入（7）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:97)
+       [2] run (res://tests/suite/test_run_save.gd:149)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [RunSave] user://ne230-suite/rollback.json：新輪替換失敗；原存檔已回復
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] _install_new_run (res://core/run_save_store.gd:168)
+       [2] write (res://core/run_save_store.gd:106)
+       [3] run (res://tests/suite/test_run_save.gd:164)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+WARNING: [RunSave] user://ne230-suite/unknown_transaction.json.newrun：user://ne230-suite/unknown_transaction.json版本較新，新輪恢復未覆寫原件
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] read (res://core/run_save_store.gd:30)
+       [2] run (res://tests/suite/test_run_save.gd:202)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+[StoryDurableChecks] SKIP symbolic/reparse case : platform permission/API 1; not validated
+[StoryDurableChecks] SKIP symbolic/reparse case .bak: platform permission/API 1; not validated
+[StoryDurableChecks] SKIP symbolic/reparse case .tmp: platform permission/API 1; not validated
+[StoryDurableChecks] SKIP symbolic/reparse case .newrun: platform permission/API 1; not validated
+[StoryDurableChecks] SKIP symbolic/reparse case .dangling: platform permission/API 1; not validated
+[StoryDurableChecks] old seed JSON boundary changes encoding of component: navigation
+[StoryDurableChecks] old seed JSON boundary changes encoding of component: progression
+[StoryDurableChecks] old seed JSON boundary changes encoding of component: state
+[StoryDurableChecks] old seed JSON boundary changes encoding of component: story
+[StoryDurableChecks] old seed JSON boundary changes encoding of component: version
+SUITE_TIME RunSaveSuite 9.2
+checks: 364, failures: 0

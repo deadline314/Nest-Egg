@@ -273,3 +273,348 @@ func _failure(where: String, reason: String) -> bool:
 	issues.append("%s：%s" % [where, reason])
 	push_warning("[RunSave] %s" % issues[-1])
 	return false
+
+
+# Additive existing-run writer. The legacy methods above intentionally remain
+# unchanged. Only a trusted synchronous coordinator may own this instance.
+enum DurablePhase { TEMP_CLOSED, BACKUP_REMOVED, PRIMARY_ROTATED, PRIMARY_COMMITTED }
+
+class PreparedExistingWrite extends RefCounted:
+	var _owner_id: int
+	var _path: String
+	var _absolute: String
+	var _profile: Dictionary
+	var _snapshot: Dictionary
+	var _encoded: String
+	var _checksum: String
+	var _seal: String
+	var _consumed := false
+
+	func snapshot() -> Dictionary:
+		# The tree was bounded before allocation. No caller gets the stored alias.
+		if not RunSaveCodec.validate_tree(_snapshot).is_empty():
+			return {}
+		return _snapshot.duplicate(true)
+
+
+class DurableWriteOutcome extends RefCounted:
+	enum Status { REJECTED, COMMITTED }
+	var status: Status = Status.REJECTED
+	var committed := false
+	var stage := "preflight"
+	var error: Error = OK
+	var requires_recovery := false
+	var checksum := ""
+	var issues := PackedStringArray()
+
+	func reject(where: String, reason: String, code: Error = ERR_INVALID_DATA) -> void:
+		# A later diagnostic must never erase the durable commit fact.
+		stage = where
+		error = code
+		if issues.size() < 8:
+			issues.append((where + ": " + reason).left(RunSaveCodec.MAX_DIAGNOSTIC_PATH))
+
+
+var _durable_busy := false
+
+
+func _durable_declared_version(component: Dictionary, supported: int, where: String) -> Dictionary:
+	if not component.has("version"):
+		return {}  # Published versionless legacy defaults/repairs stay available.
+	if not RunSaveCodec.valid_version(component["version"]):
+		return {"error": "durable/" + where + "/version invalid"}
+	if component["version"] != supported:
+		return {"error": "durable/" + where + "/version unsupported", "unknown_version": true}
+	return {}
+
+
+## Fixed owner proofs; no arbitrary validator, producer registry or live install.
+func _durable_prepare_snapshot(raw: Variant) -> Dictionary:
+	var errors := RunSaveCodec.validate_tree(raw)
+	if not errors.is_empty():
+		return {"error": errors[0]}
+	if not raw is Dictionary:
+		return {"error": "durable/run must be an object"}
+	# RunSnapshot normalization supplies mag=[], so it cannot preserve the
+	# published Loadout.restore branch that consumes old total-ammo snapshots.
+	# Refuse BEFORE normalization instead of silently overwriting that data.
+	for entry: Array in [[raw.get("runtime", {}), "loadout", "runtime/loadout"], [raw.get("state", {}), "checkpoint_loadout", "state/checkpoint_loadout"], [raw.get("state", {}), "level_start_loadout", "state/level_start_loadout"]]:
+		if entry[0] is Dictionary:
+			var loadout: Variant = entry[0].get(entry[1], {})
+			if loadout is Dictionary and loadout.has("ammo") and not loadout.has("mag"):
+				return {"error": "durable/" + entry[2] + ": requires_legacy_loadout_migration"}
+	var checked := RunSnapshot.prepare(raw)
+	if checked.has("error"):
+		return checked
+	var data: Dictionary = checked["data"]
+	var story: Dictionary = data["story"]
+	var version := _durable_declared_version(story, 1, "story")
+	if version.has("error"):
+		return version
+	version = _durable_declared_version(data["navigation"], QuestMapState.VERSION, "navigation")
+	if version.has("error"):
+		return version
+	for entry: Array in [[data["runtime"]["loadout"], "runtime/loadout"], [data["state"]["checkpoint_loadout"], "state/checkpoint_loadout"], [data["state"]["level_start_loadout"], "state/level_start_loadout"]]:
+		version = _durable_declared_version(entry[0], Loadout.SNAPSHOT_VERSION, entry[1])
+		if version.has("error"):
+			return version
+	for component: Dictionary in [data["progression"], data["state"]["checkpoint_progress"], data["state"]["level_start_progress"]]:
+		var progression := Progression.prepare_install(component)
+		if progression.has("error"):
+			return progression
+	var custody := StoryItems.prepare_install(story["items"])
+	if custody.has("error"):
+		return custody
+	var game := GameState.prepare_install(data["state"], story["flags"], data["difficulty"], true)
+	if game.has("error"):
+		return game
+	# Missing declared defaults and JSON integer flag types have one target for
+	# disk and the future silent bundle. The owner only allocates local state.
+	data["story"]["flags"] = game["data"].flags
+	# Validate completion identities without any live request/reset operation.
+	var seen: Dictionary = {}
+	for id: Variant in story["seen"]:
+		if not Story.has_scene(StringName(id)) or seen.has(StringName(id)):
+			return {"error": "durable/story/seen unknown or repeated scene"}
+		seen[StringName(id)] = true
+	return {"data": data}
+
+
+## At most three 4 MiB files; exact byte hashes and no directory enumeration.
+func _durable_file_profile(candidate: String) -> Dictionary:
+	var directory := DirAccess.open(candidate.get_base_dir())
+	if directory == null:
+		return {"error": "durable/source parent cannot open: " + candidate}
+	# file_exists follows targets on Unix and can miss a dangling link. Reject the
+	# directory entry first, including Windows reparse points, without writing it.
+	if directory.is_link(candidate):
+		return {"error": "durable/source symbolic/reparse entry refused: " + candidate}
+	if DirAccess.dir_exists_absolute(candidate):
+		return {"error": "durable/source is a directory: " + candidate}
+	if not FileAccess.file_exists(candidate):
+		return {"exists": false}
+	var file := FileAccess.open(candidate, FileAccess.READ)
+	if file == null:
+		return {"error": "durable/source cannot open: " + candidate}
+	var length := file.get_length()
+	if length > RunSaveCodec.MAX_BYTES:
+		file.close()
+		return {"error": "durable/source exceeds size limit: " + candidate}
+	var bytes := file.get_buffer(length)
+	var error := file.get_error()
+	file.close()
+	if bytes.size() != length or error not in [OK, ERR_FILE_EOF]:
+		return {"error": "durable/source short read: " + candidate}
+	var text := bytes.get_string_from_utf8()
+	if text.to_utf8_buffer() != bytes:
+		return {"error": "durable/source is not canonical UTF-8: " + candidate}
+	var hash := HashingContext.new()
+	hash.start(HashingContext.HASH_SHA256)
+	hash.update(bytes)
+	return {"exists": true, "length": length, "checksum": hash.finish().hex_encode(), "text": text}
+
+
+func _durable_profile(absolute: String, prove: bool) -> Dictionary:
+	if overwrite_authorized or _durable_busy:
+		return {"error": "durable/store overwrite-authorized or busy"}
+	var directory := DirAccess.open(absolute.get_base_dir())
+	if directory == null:
+		return {"error": "durable/source parent cannot open"}
+	if directory.is_link(absolute + ".newrun") or FileAccess.file_exists(absolute + ".newrun") or DirAccess.dir_exists_absolute(absolute + ".newrun"):
+		return {"error": "durable/new-run marker requires legacy recovery"}
+	if FileAccess.file_exists(absolute) and FileAccess.file_exists(absolute + ".bak") and directory.is_equivalent(absolute, absolute + ".bak"):
+		return {"error": "durable/primary and backup alias the same filesystem object"}
+	var profile: Dictionary = {}
+	for suffix: String in ["", ".bak", ".tmp"]:
+		var found := _durable_file_profile(absolute + suffix)
+		if found.has("error"):
+			return found
+		if suffix.is_empty() and not found["exists"]:
+			return {"error": "durable/base slot has no supported primary"}
+		if prove and found["exists"]:
+			var decoded := RunSaveCodec.decode(found["text"])
+			if decoded.has("error"):
+				return {"error": "durable/source " + suffix + ": " + decoded["error"], "unknown_version": decoded.get("unknown_version", false)}
+			var prepared := _durable_prepare_snapshot(decoded["data"])
+			if prepared.has("error"):
+				return {"error": "durable/source " + suffix + ": " + prepared["error"], "unknown_version": prepared.get("unknown_version", false)}
+		found.erase("text")
+		profile[suffix] = found
+	return {"data": profile}
+
+
+func prepare_existing_write(raw: Variant) -> Dictionary:
+	var absolute := ProjectSettings.globalize_path(path).simplify_path()
+	if not absolute.is_absolute_path() or absolute.get_file().is_empty():
+		return {"error": "durable/path must resolve to an absolute slot"}
+	var source := _durable_profile(absolute, true)
+	if source.has("error"):
+		return source
+	var checked := _durable_prepare_snapshot(raw)
+	if checked.has("error"):
+		return checked
+	# Normalize through the actual JSON boundary, then prove the exact returned
+	# candidate; the later coordinator must use snapshot(), never the original raw.
+	var encoded := RunSaveCodec.encode(checked["data"])
+	var decoded := RunSaveCodec.decode(encoded)
+	if decoded.has("error"):
+		return decoded
+	checked = _durable_prepare_snapshot(decoded["data"])
+	if checked.has("error"):
+		return checked
+	encoded = RunSaveCodec.encode(checked["data"])
+	if encoded.is_empty() or encoded.to_utf8_buffer().size() > RunSaveCodec.MAX_BYTES:
+		return {"error": "durable/candidate encoding exceeds budget"}
+	var prepared := PreparedExistingWrite.new()
+	prepared._owner_id = get_instance_id()
+	prepared._path = path
+	prepared._absolute = absolute
+	prepared._profile = source["data"]
+	prepared._snapshot = checked["data"]
+	prepared._encoded = encoded
+	prepared._checksum = encoded.sha256_text()
+	prepared._seal = _durable_seal(prepared)
+	return {"data": prepared}
+
+
+func _durable_seal(prepared: PreparedExistingWrite) -> String:
+	var hash := HashingContext.new()
+	hash.start(HashingContext.HASH_SHA256)
+	hash.update(var_to_bytes([prepared._owner_id, prepared._path, prepared._absolute,
+		prepared._profile, prepared._snapshot, prepared._encoded, prepared._checksum]))
+	return hash.finish().hex_encode()
+
+
+func preflight_existing_write(prepared: PreparedExistingWrite) -> Dictionary:
+	if prepared == null or prepared._owner_id != get_instance_id():
+		return {"error": "durable/prepared belongs to another store"}
+	if prepared._consumed:
+		return {"error": "durable/prepared already consumed"}
+	if path != prepared._path or ProjectSettings.globalize_path(path).simplify_path() != prepared._absolute:
+		return {"error": "durable/prepared path changed"}
+	if not RunSaveCodec.validate_tree(prepared._snapshot).is_empty() or not RunSaveCodec.validate_tree(prepared._profile).is_empty():
+		return {"error": "durable/prepared data damaged"}
+	if prepared._encoded.to_utf8_buffer().size() > RunSaveCodec.MAX_BYTES or _durable_seal(prepared) != prepared._seal:
+		return {"error": "durable/prepared content changed"}
+	var source := _durable_profile(prepared._absolute, false)
+	if source.has("error"):
+		return source
+	if source["data"] != prepared._profile:
+		return {"error": "durable/source stale; prepare from current slot"}
+	return {"ready": true}
+
+
+func commit_existing_write(prepared: PreparedExistingWrite) -> DurableWriteOutcome:
+	var outcome := DurableWriteOutcome.new()
+	var checked := preflight_existing_write(prepared)
+	if prepared != null and prepared._owner_id == get_instance_id():
+		prepared._consumed = true
+		outcome.checksum = prepared._checksum
+	if checked.has("error"):
+		outcome.reject("preflight", checked["error"])
+		return outcome
+	_durable_busy = true
+	var absolute := prepared._absolute
+	var error := _durable_write_temp(absolute, prepared._encoded)
+	if error == OK:
+		_durable_phase(DurablePhase.TEMP_CLOSED, absolute)
+		var verified := _durable_file_profile(absolute + ".tmp")
+		if verified.has("error") or not verified.get("exists", false) or verified.get("checksum") != prepared._checksum:
+			error = ERR_FILE_CORRUPT
+	if error != OK:
+		outcome.reject("temp", "temporary write or exact verification failed", error)
+		_durable_busy = false
+		return outcome
+	# Recheck authoritative files before first rotation; tmp is our verified output.
+	for suffix: String in ["", ".bak"]:
+		var found := _durable_file_profile(absolute + suffix)
+		found.erase("text")
+		if found != prepared._profile[suffix]:
+			outcome.reject("rotation_preflight", "authoritative file changed")
+			_durable_busy = false
+			return outcome
+	var directory := DirAccess.open(absolute.get_base_dir())
+	if directory == null or directory.is_link(absolute + ".newrun") or overwrite_authorized or FileAccess.file_exists(absolute + ".newrun") or DirAccess.dir_exists_absolute(absolute + ".newrun") or path != prepared._path:
+		outcome.reject("rotation_preflight", "marker, authorization or path changed")
+		_durable_busy = false
+		return outcome
+	if prepared._profile[".bak"]["exists"]:
+		error = _durable_remove_backup(absolute)
+		if error != OK:
+			outcome.reject("backup_remove", "old backup could not be removed", error)
+			_durable_busy = false
+			return outcome
+	_durable_phase(DurablePhase.BACKUP_REMOVED, absolute)
+	error = _durable_rename(absolute, DurablePhase.PRIMARY_ROTATED)
+	if error != OK:
+		outcome.reject("primary_rotate", "primary could not rotate to backup", error)
+		_durable_busy = false
+		return outcome
+	_durable_phase(DurablePhase.PRIMARY_ROTATED, absolute)
+	error = _durable_rename(absolute, DurablePhase.PRIMARY_COMMITTED)
+	if error != OK:
+		outcome.reject("primary_commit", "candidate could not replace primary", error)
+		var rollback := _durable_rollback(absolute)
+		if rollback != OK:
+			outcome.requires_recovery = true
+			outcome.reject("rollback", "old complete backup retained; legacy read required", rollback)
+		_durable_busy = false
+		return outcome
+	# The commit fact precedes every subsequent seam or diagnostic. No cleanup.
+	outcome.committed = true
+	outcome.status = DurableWriteOutcome.Status.COMMITTED
+	outcome.stage = "primary_committed"
+	_durable_phase(DurablePhase.PRIMARY_COMMITTED, absolute)
+	_durable_busy = false
+	return outcome
+
+
+func _durable_detach_temp(absolute: String) -> Error:
+	var directory := DirAccess.open(absolute.get_base_dir())
+	if directory == null or directory.is_link(absolute + ".tmp"):
+		return ERR_INVALID_DATA
+	# A validated existing regular file can still be a hardlink to primary, bak,
+	# or an unrelated file. Unlink this entry BEFORE opening WRITE; never truncate
+	# the old inode. Failure here precedes every authoritative mutation.
+	if FileAccess.file_exists(absolute + ".tmp"):
+		var removal := DirAccess.remove_absolute(absolute + ".tmp")
+		if removal != OK:
+			return removal
+		if FileAccess.file_exists(absolute + ".tmp") or directory.is_link(absolute + ".tmp"):
+			return ERR_CANT_CREATE
+	return OK
+
+
+func _durable_write_temp(absolute: String, encoded: String) -> Error:
+	var detached := _durable_detach_temp(absolute)
+	if detached != OK:
+		return detached
+	var file := FileAccess.open(absolute + ".tmp", FileAccess.WRITE)
+	if file == null:
+		return FileAccess.get_open_error()
+	file.store_string(encoded)
+	file.flush()
+	var error := file.get_error()
+	file.close()
+	return error
+
+
+func _durable_remove_backup(absolute: String) -> Error:
+	return DirAccess.remove_absolute(absolute + ".bak")
+
+
+func _durable_rename(absolute: String, phase: DurablePhase) -> Error:
+	if phase == DurablePhase.PRIMARY_ROTATED:
+		return DirAccess.rename_absolute(absolute, absolute + ".bak")
+	if phase == DurablePhase.PRIMARY_COMMITTED:
+		return DirAccess.rename_absolute(absolute + ".tmp", absolute)
+	return ERR_INVALID_PARAMETER
+
+
+func _durable_rollback(absolute: String) -> Error:
+	return DirAccess.rename_absolute(absolute + ".bak", absolute)
+
+
+## Trusted test subclasses only. Production never accepts a handler/stage input.
+func _durable_phase(_phase: DurablePhase, _absolute: String) -> void:
+	pass

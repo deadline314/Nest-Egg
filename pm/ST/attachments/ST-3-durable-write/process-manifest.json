@@ -1,0 +1,468 @@
+{
+  "baseline": "29d45a8ee95e2cd8da864a8116bf9ccf47ec1d38",
+  "engine": "Godot 4.7.2 Windows native headless",
+  "source_freeze": "st3-durable-json-boundary-source-sha.json",
+  "scope": "existing-run prepared writer only; real Windows hardlinks and forced-process termination; no production Main/world/producer installation, no power-loss proof",
+  "standard_windows": 4,
+  "hardlink_windows": 4,
+  "alias_native_cases": 5,
+  "symbolic_cases": "not validated if skipped for Windows privileges",
+  "records": [
+    {
+      "label": "standard-temp_closed",
+      "directory": "C:\\tmp\\ne-story-durable-standard-temp_closed-5da2f2e2b0",
+      "seed": {
+        "mode": "seed",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\standard-temp_closed-seed.log",
+        "sha256": "f65cb5df7e6baec45892b1a7fdcfc1b939e15147762d26aa3300b7dc970d4789"
+      },
+      "fixture": {
+        "hardlink": false
+      },
+      "barrier": {
+        "phase": 0,
+        "pid": 16788,
+        "slot": "C:/tmp/ne-story-durable-standard-temp_closed-5da2f2e2b0/slot.json",
+        "version": 1
+      },
+      "killed_process": {
+        "ProcessId": 16788,
+        "ParentProcessId": 17956,
+        "ExecutablePath": "C:\\Tools\\Godot\\Godot_v4.7.2-stable_win64.exe",
+        "CommandLine": "C:\\Tools\\Godot\\Godot_v4.7.2-stable_win64.exe --headless --path C:\\tmp\\Nest-Egg-story-durable-write res://tools/story_durable_write_probe.tscn -- --mode=write --save-dir=C:/tmp/ne-story-durable-standard-temp_closed-5da2f2e2b0 --phase=temp_closed --barrier-timeout-ms=15000"
+      },
+      "forced_writer_exit": 9,
+      "writer_log": "C:\\tmp\\st3-durable-native-matrix\\standard-temp_closed-write.log",
+      "writer_log_sha256": "83cf0b082206af2aa236c83064fbcfa76be1e00a4aa3558574b2f65965d9481c",
+      "expected": "old",
+      "reader": {
+        "mode": "read",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\standard-temp_closed-fresh-read.log",
+        "sha256": "cd70e22509934267362b9b019bfbd266d6315798e5796a43f078af1212c8aace"
+      },
+      "whole_run_fresh_read": true,
+      "no_Main": true
+    },
+    {
+      "label": "standard-backup_removed",
+      "directory": "C:\\tmp\\ne-story-durable-standard-backup_removed-f949755383",
+      "seed": {
+        "mode": "seed",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\standard-backup_removed-seed.log",
+        "sha256": "21f7c61383de55c0575e687de94fbe71c9c1bd80b58b5d0f717ebe5b728d4546"
+      },
+      "fixture": {
+        "hardlink": false
+      },
+      "barrier": {
+        "phase": 1,
+        "pid": 25572,
+        "slot": "C:/tmp/ne-story-durable-standard-backup_removed-f949755383/slot.json",
+        "version": 1
+      },
+      "killed_process": {
+        "ProcessId": 25572,
+        "ParentProcessId": 31096,
+        "ExecutablePath": "C:\\Tools\\Godot\\Godot_v4.7.2-stable_win64.exe",
+        "CommandLine": "C:\\Tools\\Godot\\Godot_v4.7.2-stable_win64.exe --headless --path C:\\tmp\\Nest-Egg-story-durable-write res://tools/story_durable_write_probe.tscn -- --mode=write --save-dir=C:/tmp/ne-story-durable-standard-backup_removed-f949755383 --phase=backup_removed --barrier-timeout-ms=15000"
+      },
+      "forced_writer_exit": 9,
+      "writer_log": "C:\\tmp\\st3-durable-native-matrix\\standard-backup_removed-write.log",
+      "writer_log_sha256": "83cf0b082206af2aa236c83064fbcfa76be1e00a4aa3558574b2f65965d9481c",
+      "expected": "old",
+      "reader": {
+        "mode": "read",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\standard-backup_removed-fresh-read.log",
+        "sha256": "cd70e22509934267362b9b019bfbd266d6315798e5796a43f078af1212c8aace"
+      },
+      "whole_run_fresh_read": true,
+      "no_Main": true
+    },
+    {
+      "label": "standard-primary_rotated",
+      "directory": "C:\\tmp\\ne-story-durable-standard-primary_rotated-78947e55eb",
+      "seed": {
+        "mode": "seed",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\standard-primary_rotated-seed.log",
+        "sha256": "075dd49f64e87f1c329f2cf81ec9fe2e4070531e9b06b8f722eb3d348aaf079b"
+      },
+      "fixture": {
+        "hardlink": false
+      },
+      "barrier": {
+        "phase": 2,
+        "pid": 33364,
+        "slot": "C:/tmp/ne-story-durable-standard-primary_rotated-78947e55eb/slot.json",
+        "version": 1
+      },
+      "killed_process": {
+        "ProcessId": 33364,
+        "ParentProcessId": 16776,
+        "ExecutablePath": "C:\\Tools\\Godot\\Godot_v4.7.2-stable_win64.exe",
+        "CommandLine": "C:\\Tools\\Godot\\Godot_v4.7.2-stable_win64.exe --headless --path C:\\tmp\\Nest-Egg-story-durable-write res://tools/story_durable_write_probe.tscn -- --mode=write --save-dir=C:/tmp/ne-story-durable-standard-primary_rotated-78947e55eb --phase=primary_rotated --barrier-timeout-ms=15000"
+      },
+      "forced_writer_exit": 9,
+      "writer_log": "C:\\tmp\\st3-durable-native-matrix\\standard-primary_rotated-write.log",
+      "writer_log_sha256": "83cf0b082206af2aa236c83064fbcfa76be1e00a4aa3558574b2f65965d9481c",
+      "expected": "old",
+      "reader": {
+        "mode": "read",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\standard-primary_rotated-fresh-read.log",
+        "sha256": "cd70e22509934267362b9b019bfbd266d6315798e5796a43f078af1212c8aace"
+      },
+      "whole_run_fresh_read": true,
+      "no_Main": true
+    },
+    {
+      "label": "standard-primary_committed",
+      "directory": "C:\\tmp\\ne-story-durable-standard-primary_committed-1da393b81b",
+      "seed": {
+        "mode": "seed",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\standard-primary_committed-seed.log",
+        "sha256": "52e9417cf7bf63216b65f85c37706e2ee63ef56ea27170cf4648ecd7c9e68a7c"
+      },
+      "fixture": {
+        "hardlink": false
+      },
+      "barrier": {
+        "phase": 3,
+        "pid": 15256,
+        "slot": "C:/tmp/ne-story-durable-standard-primary_committed-1da393b81b/slot.json",
+        "version": 1
+      },
+      "killed_process": {
+        "ProcessId": 15256,
+        "ParentProcessId": 9676,
+        "ExecutablePath": "C:\\Tools\\Godot\\Godot_v4.7.2-stable_win64.exe",
+        "CommandLine": "C:\\Tools\\Godot\\Godot_v4.7.2-stable_win64.exe --headless --path C:\\tmp\\Nest-Egg-story-durable-write res://tools/story_durable_write_probe.tscn -- --mode=write --save-dir=C:/tmp/ne-story-durable-standard-primary_committed-1da393b81b --phase=primary_committed --barrier-timeout-ms=15000"
+      },
+      "forced_writer_exit": 9,
+      "writer_log": "C:\\tmp\\st3-durable-native-matrix\\standard-primary_committed-write.log",
+      "writer_log_sha256": "83cf0b082206af2aa236c83064fbcfa76be1e00a4aa3558574b2f65965d9481c",
+      "expected": "new",
+      "reader": {
+        "mode": "read",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\standard-primary_committed-fresh-read.log",
+        "sha256": "5af356de762c748ffc2da5ed01d9ac89ddf7f5846e263c212f91448e918976e7"
+      },
+      "whole_run_fresh_read": true,
+      "no_Main": true
+    },
+    {
+      "label": "hardlink-temp_closed",
+      "directory": "C:\\tmp\\ne-story-durable-hardlink-temp_closed-cdb2fbb38e",
+      "seed": {
+        "mode": "seed",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\hardlink-temp_closed-seed.log",
+        "sha256": "2cf9ce03225ecdbb78d5745d1e6db25f6906c9871d7e2dde2c7871e073a2e52e"
+      },
+      "fixture": {
+        "hardlink": true,
+        "before_samefile": true,
+        "old_file_id": 5629499535490102,
+        "tmp_file_id": 5629499535490102,
+        "at_temp_closed_samefile": false,
+        "new_tmp_file_id": 7881299349174867
+      },
+      "barrier": {
+        "phase": 0,
+        "pid": 29044,
+        "slot": "C:/tmp/ne-story-durable-hardlink-temp_closed-cdb2fbb38e/slot.json",
+        "version": 1
+      },
+      "killed_process": {
+        "ProcessId": 29044,
+        "ParentProcessId": 31212,
+        "ExecutablePath": "C:\\Tools\\Godot\\Godot_v4.7.2-stable_win64.exe",
+        "CommandLine": "C:\\Tools\\Godot\\Godot_v4.7.2-stable_win64.exe --headless --path C:\\tmp\\Nest-Egg-story-durable-write res://tools/story_durable_write_probe.tscn -- --mode=write --save-dir=C:/tmp/ne-story-durable-hardlink-temp_closed-cdb2fbb38e --phase=temp_closed --barrier-timeout-ms=15000"
+      },
+      "forced_writer_exit": 9,
+      "writer_log": "C:\\tmp\\st3-durable-native-matrix\\hardlink-temp_closed-write.log",
+      "writer_log_sha256": "83cf0b082206af2aa236c83064fbcfa76be1e00a4aa3558574b2f65965d9481c",
+      "expected": "old",
+      "reader": {
+        "mode": "read",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\hardlink-temp_closed-fresh-read.log",
+        "sha256": "cd70e22509934267362b9b019bfbd266d6315798e5796a43f078af1212c8aace"
+      },
+      "whole_run_fresh_read": true,
+      "no_Main": true
+    },
+    {
+      "label": "hardlink-backup_removed",
+      "directory": "C:\\tmp\\ne-story-durable-hardlink-backup_removed-e7b1342203",
+      "seed": {
+        "mode": "seed",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\hardlink-backup_removed-seed.log",
+        "sha256": "c1a62101bbc832578a408a18c623bab36ab7b59f5b0a02816c0c94e23ab2ef35"
+      },
+      "fixture": {
+        "hardlink": true,
+        "before_samefile": true,
+        "old_file_id": 75716768736443882,
+        "tmp_file_id": 75716768736443882
+      },
+      "barrier": {
+        "phase": 1,
+        "pid": 27680,
+        "slot": "C:/tmp/ne-story-durable-hardlink-backup_removed-e7b1342203/slot.json",
+        "version": 1
+      },
+      "killed_process": {
+        "ProcessId": 27680,
+        "ParentProcessId": 26224,
+        "ExecutablePath": "C:\\Tools\\Godot\\Godot_v4.7.2-stable_win64.exe",
+        "CommandLine": "C:\\Tools\\Godot\\Godot_v4.7.2-stable_win64.exe --headless --path C:\\tmp\\Nest-Egg-story-durable-write res://tools/story_durable_write_probe.tscn -- --mode=write --save-dir=C:/tmp/ne-story-durable-hardlink-backup_removed-e7b1342203 --phase=backup_removed --barrier-timeout-ms=15000"
+      },
+      "forced_writer_exit": 9,
+      "writer_log": "C:\\tmp\\st3-durable-native-matrix\\hardlink-backup_removed-write.log",
+      "writer_log_sha256": "83cf0b082206af2aa236c83064fbcfa76be1e00a4aa3558574b2f65965d9481c",
+      "expected": "old",
+      "reader": {
+        "mode": "read",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\hardlink-backup_removed-fresh-read.log",
+        "sha256": "cd70e22509934267362b9b019bfbd266d6315798e5796a43f078af1212c8aace"
+      },
+      "whole_run_fresh_read": true,
+      "no_Main": true
+    },
+    {
+      "label": "hardlink-primary_rotated",
+      "directory": "C:\\tmp\\ne-story-durable-hardlink-primary_rotated-089c60ebb7",
+      "seed": {
+        "mode": "seed",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\hardlink-primary_rotated-seed.log",
+        "sha256": "8dbec7654c6ee907bd1fc3186c1e495d41e513aa74873951c7285d69d6512f60"
+      },
+      "fixture": {
+        "hardlink": true,
+        "before_samefile": true,
+        "old_file_id": 5348024558780032,
+        "tmp_file_id": 5348024558780032
+      },
+      "barrier": {
+        "phase": 2,
+        "pid": 19472,
+        "slot": "C:/tmp/ne-story-durable-hardlink-primary_rotated-089c60ebb7/slot.json",
+        "version": 1
+      },
+      "killed_process": {
+        "ProcessId": 19472,
+        "ParentProcessId": 24580,
+        "ExecutablePath": "C:\\Tools\\Godot\\Godot_v4.7.2-stable_win64.exe",
+        "CommandLine": "C:\\Tools\\Godot\\Godot_v4.7.2-stable_win64.exe --headless --path C:\\tmp\\Nest-Egg-story-durable-write res://tools/story_durable_write_probe.tscn -- --mode=write --save-dir=C:/tmp/ne-story-durable-hardlink-primary_rotated-089c60ebb7 --phase=primary_rotated --barrier-timeout-ms=15000"
+      },
+      "forced_writer_exit": 9,
+      "writer_log": "C:\\tmp\\st3-durable-native-matrix\\hardlink-primary_rotated-write.log",
+      "writer_log_sha256": "83cf0b082206af2aa236c83064fbcfa76be1e00a4aa3558574b2f65965d9481c",
+      "expected": "old",
+      "reader": {
+        "mode": "read",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\hardlink-primary_rotated-fresh-read.log",
+        "sha256": "cd70e22509934267362b9b019bfbd266d6315798e5796a43f078af1212c8aace"
+      },
+      "whole_run_fresh_read": true,
+      "no_Main": true
+    },
+    {
+      "label": "hardlink-primary_committed",
+      "directory": "C:\\tmp\\ne-story-durable-hardlink-primary_committed-5ab43210f4",
+      "seed": {
+        "mode": "seed",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\hardlink-primary_committed-seed.log",
+        "sha256": "1b8156539b12cc921dc2267e3a1a2484be252cb897e330bb40a6da911cfa58b4"
+      },
+      "fixture": {
+        "hardlink": true,
+        "before_samefile": true,
+        "old_file_id": 6473924465622727,
+        "tmp_file_id": 6473924465622727
+      },
+      "barrier": {
+        "phase": 3,
+        "pid": 30052,
+        "slot": "C:/tmp/ne-story-durable-hardlink-primary_committed-5ab43210f4/slot.json",
+        "version": 1
+      },
+      "killed_process": {
+        "ProcessId": 30052,
+        "ParentProcessId": 24664,
+        "ExecutablePath": "C:\\Tools\\Godot\\Godot_v4.7.2-stable_win64.exe",
+        "CommandLine": "C:\\Tools\\Godot\\Godot_v4.7.2-stable_win64.exe --headless --path C:\\tmp\\Nest-Egg-story-durable-write res://tools/story_durable_write_probe.tscn -- --mode=write --save-dir=C:/tmp/ne-story-durable-hardlink-primary_committed-5ab43210f4 --phase=primary_committed --barrier-timeout-ms=15000"
+      },
+      "forced_writer_exit": 9,
+      "writer_log": "C:\\tmp\\st3-durable-native-matrix\\hardlink-primary_committed-write.log",
+      "writer_log_sha256": "83cf0b082206af2aa236c83064fbcfa76be1e00a4aa3558574b2f65965d9481c",
+      "expected": "new",
+      "reader": {
+        "mode": "read",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\hardlink-primary_committed-fresh-read.log",
+        "sha256": "5af356de762c748ffc2da5ed01d9ac89ddf7f5846e263c212f91448e918976e7"
+      },
+      "whole_run_fresh_read": true,
+      "no_Main": true
+    },
+    {
+      "label": "alias-tmp_primary",
+      "directory": "C:\\tmp\\ne-story-durable-alias-tmp_primary-4a5a749181",
+      "seed": {
+        "mode": "seed",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\alias-tmp_primary-seed.log",
+        "sha256": "62e486084a2679fdec0b8f2aa20deed10e29ac6db33aa63851a3dbc3b9dc2a8c"
+      },
+      "status": "native verified",
+      "native": {
+        "mode": "alias_check",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\alias-tmp_primary-native.log",
+        "sha256": "653cec81c0c4dc794dae122a94fe49c3b92ab64120d01d9fe74eb28a13fbfbca"
+      },
+      "reader": {
+        "mode": "read",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\alias-tmp_primary-fresh-read.log",
+        "sha256": "5af356de762c748ffc2da5ed01d9ac89ddf7f5846e263c212f91448e918976e7"
+      },
+      "expected": "new"
+    },
+    {
+      "label": "alias-tmp_backup",
+      "directory": "C:\\tmp\\ne-story-durable-alias-tmp_backup-4b252c4421",
+      "seed": {
+        "mode": "seed",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\alias-tmp_backup-seed.log",
+        "sha256": "605b982ead9df7a561bffc4797c5091d7e277f6f3e7c9126e952581a517d2d04"
+      },
+      "status": "native verified",
+      "native": {
+        "mode": "alias_check",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\alias-tmp_backup-native.log",
+        "sha256": "5a343721e87664fbdc334f57ca4a40c151a8c67aeb7d071a28003d9797c40c74"
+      },
+      "reader": {
+        "mode": "read",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\alias-tmp_backup-fresh-read.log",
+        "sha256": "5af356de762c748ffc2da5ed01d9ac89ddf7f5846e263c212f91448e918976e7"
+      },
+      "expected": "new"
+    },
+    {
+      "label": "alias-tmp_external",
+      "directory": "C:\\tmp\\ne-story-durable-alias-tmp_external-5370e23b72",
+      "seed": {
+        "mode": "seed",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\alias-tmp_external-seed.log",
+        "sha256": "05b7d296cd682e54e76129c35f8888155e7f50242b31a1761d2dd23e17954b48"
+      },
+      "status": "native verified",
+      "native": {
+        "mode": "alias_check",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\alias-tmp_external-native.log",
+        "sha256": "a9f388f66cb23a0246b21851c98d62102dfc4bf36eb283c24d9bc8ff2c4730eb"
+      },
+      "reader": {
+        "mode": "read",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\alias-tmp_external-fresh-read.log",
+        "sha256": "5af356de762c748ffc2da5ed01d9ac89ddf7f5846e263c212f91448e918976e7"
+      },
+      "expected": "new"
+    },
+    {
+      "label": "alias-primary_backup",
+      "directory": "C:\\tmp\\ne-story-durable-alias-primary_backup-eecf9c546b",
+      "seed": {
+        "mode": "seed",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\alias-primary_backup-seed.log",
+        "sha256": "4060921cf29fa1295fd4f62f1b80a0bf7b52bbc313de6790f8fc91fba2e3a0c1"
+      },
+      "status": "native verified",
+      "native": {
+        "mode": "alias_check",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\alias-primary_backup-native.log",
+        "sha256": "83bf1759296d4f6639af15de5dd52a602a92f6e67502478b77061d8bb2a88250"
+      },
+      "reader": {
+        "mode": "read",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\alias-primary_backup-fresh-read.log",
+        "sha256": "cd70e22509934267362b9b019bfbd266d6315798e5796a43f078af1212c8aace"
+      },
+      "expected": "old"
+    },
+    {
+      "label": "alias-tmp_primary_open_fail",
+      "directory": "C:\\tmp\\ne-story-durable-alias-tmp_primary_open_fail-e5434d73e4",
+      "seed": {
+        "mode": "seed",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\alias-tmp_primary_open_fail-seed.log",
+        "sha256": "53b7334d949f7c9decc1a2cb790b35d72687f29cb702e40d5e731bb4db549b55"
+      },
+      "status": "native verified",
+      "native": {
+        "mode": "alias_check",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\alias-tmp_primary_open_fail-native.log",
+        "sha256": "cf181f93833057669c99d627d43db969e0523bc4ebaaafa4fe97c107ce9579db"
+      },
+      "reader": {
+        "mode": "read",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\alias-tmp_primary_open_fail-fresh-read.log",
+        "sha256": "cd70e22509934267362b9b019bfbd266d6315798e5796a43f078af1212c8aace"
+      },
+      "expected": "old"
+    },
+    {
+      "label": "alias-tmp_symlink",
+      "directory": "C:\\tmp\\ne-story-durable-alias-tmp_symlink-edd2a76488",
+      "seed": {
+        "mode": "seed",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\alias-tmp_symlink-seed.log",
+        "sha256": "847906b6a6c1248fd9193c460c5c5b6db10b17af9374565c5089ef9597f66a4c"
+      },
+      "status": "SKIP not validated",
+      "winerror": 1314,
+      "message": "[WinError 1314] 用戶端沒有這項特殊權限。: 'C:\\\\tmp\\\\ne-story-durable-alias-tmp_symlink-edd2a76488\\\\slot.json' -> 'C:\\\\tmp\\\\ne-story-durable-alias-tmp_symlink-edd2a76488\\\\slot.json.tmp'"
+    },
+    {
+      "label": "alias-tmp_dangling",
+      "directory": "C:\\tmp\\ne-story-durable-alias-tmp_dangling-d9f40487df",
+      "seed": {
+        "mode": "seed",
+        "exit": 0,
+        "log": "C:\\tmp\\st3-durable-native-matrix\\alias-tmp_dangling-seed.log",
+        "sha256": "209ea7a47a78ec1955e5171a435cbdccb0a0eec45a863996562cf3b7b82249a2"
+      },
+      "status": "SKIP not validated",
+      "winerror": 1314,
+      "message": "[WinError 1314] 用戶端沒有這項特殊權限。: 'C:\\\\tmp\\\\ne-story-durable-alias-tmp_dangling-d9f40487df\\\\absent-target.json' -> 'C:\\\\tmp\\\\ne-story-durable-alias-tmp_dangling-d9f40487df\\\\slot.json.tmp'"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+受影響的測試：Chapter1MapSuite,Chapter2Suite,CollectiblesSuite,DeathReactionSuite,InputFeelSuite,RunSaveSuite,UiScreensSuite
+Running 7 groups in 1 processes (logs: C:/tmp/st3-durable-changed-main29)
+  process 0 (estimated 159 s): UiScreensSuite,InputFeelSuite,DeathReactionSuite,CollectiblesSuite,Chapter2Suite,Chapter1MapSuite,RunSaveSuite
+checks: 2555, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 165 s)
