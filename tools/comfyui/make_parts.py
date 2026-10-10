@@ -54,6 +54,7 @@ from sam_masks import SAM_CKPT, segment, segment_points, slug  # noqa: E402
 
 TEXT_MASK_THRESHOLD = 0.4
 TEXT_MASK_REFINE = 2
+POINT_MASK_REFINE = 2
 TEXT_MASK_CACHE_VERSION = 1
 TEXT_MASK_CACHE_NAME = ".text_mask_cache.json"
 
@@ -99,8 +100,9 @@ def dilate(mask: np.ndarray, r: int) -> np.ndarray:
 
 
 def near_leg_key(cfg: dict, image: Path) -> str:
-    """A regenerated underlayer invalidates its point masks even when the points stay the same."""
-    return json.dumps([cfg["pos"], cfg.get("neg", []), cfg.get("threshold", 0.3), hashlib.sha256(image.read_bytes()).hexdigest()])
+    """A changed source or SAM configuration invalidates its point masks."""
+    return json.dumps([cfg["pos"], cfg.get("neg", []), cfg.get("threshold", 0.3),
+                       hashlib.sha256(image.read_bytes()).hexdigest(), SAM_CKPT, POINT_MASK_REFINE])
 
 
 def text_mask_key(image: Path, stage: str, prompt: str, threshold: float = TEXT_MASK_THRESHOLD,
@@ -422,7 +424,7 @@ def main() -> None:
         if not mask_png.exists() or not key_json.exists() or key_json.read_text(encoding="utf8") != key:
             print("SAM 3.1 near_leg:", nl_cfg["pos"], nl_cfg.get("neg", []))
             segment_points(str(leg_image), str(leg_sam_dir), {"near_leg": {"pos": [tuple(q) for q in nl_cfg["pos"]], "neg": [tuple(q) for q in nl_cfg.get("neg", [])]}},
-                           threshold=nl_cfg.get("threshold", 0.3))
+                           threshold=nl_cfg.get("threshold", 0.3), refine=POINT_MASK_REFINE)
             key_json.write_text(key, encoding="utf8")
         near = (np.array(Image.open(mask_png).convert("L").resize((W, H))) > 127) & leg_alpha
         far = np.zeros((H, W), bool)
@@ -430,7 +432,7 @@ def main() -> None:
             far_png, far_json = leg_sam_dir / "near_leg_far.png", leg_sam_dir / "near_leg_far.json"
             if not far_png.exists() or not far_json.exists() or far_json.read_text(encoding="utf8") != key:
                 segment_points(str(leg_image), str(leg_sam_dir), {"near_leg_far": {"pos": [tuple(q) for q in nl_cfg["neg"]], "neg": [tuple(q) for q in nl_cfg["pos"]]}},
-                               threshold=nl_cfg.get("threshold", 0.3))
+                               threshold=nl_cfg.get("threshold", 0.3), refine=POINT_MASK_REFINE)
                 far_json.write_text(key, encoding="utf8")
             far = (np.array(Image.open(far_png).convert("L").resize((W, H))) > 127) & ~near
         if leg_stage and nl_cfg.get("stage_until"):
@@ -454,10 +456,10 @@ def main() -> None:
             occ_leg |= V[g_]
         for i_, cv_ in enumerate(nl_cfg.get("cover", [])):  # things in front of the leg that no group claims (a hand SAM took for the body)
             cpng, cjson = leg_sam_dir / f"near_leg_cover{i_}.png", leg_sam_dir / f"near_leg_cover{i_}.json"
-            ckey = json.dumps([cv_, nl_cfg.get("threshold", 0.3)])
+            ckey = near_leg_key({**cv_, "threshold": nl_cfg.get("threshold", 0.3)}, leg_image)
             if not cpng.exists() or not cjson.exists() or cjson.read_text(encoding="utf8") != ckey:
                 segment_points(str(leg_image), str(leg_sam_dir), {f"near_leg_cover{i_}": {"pos": [tuple(q) for q in cv_["pos"]], "neg": [tuple(q) for q in cv_.get("neg", [])]}},
-                               threshold=nl_cfg.get("threshold", 0.3))
+                               threshold=nl_cfg.get("threshold", 0.3), refine=POINT_MASK_REFINE)
                 cjson.write_text(ckey, encoding="utf8")
             occ_leg |= np.array(Image.open(cpng).convert("L").resize((W, H))) > 127
         occ_leg = dilate(occ_leg, nl_cfg.get("fill_grow", 3))

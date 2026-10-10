@@ -61,6 +61,8 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
 
 文字遮罩快取綁定目前 RGBA 灰底參考的 SHA-256、階段、提示、SAM 模型、threshold／refine，並核對遮罩 PNG 的 SHA-256 與原生尺寸。灰底每次由当前 RGBA 重建；未變的來源可重用，來源或遮罩改動、缺鍵或壞鍵只使受影響遮罩失效。生成失敗保留舊 PNG、撤銷其有效鍵並停止，不拿舊圖繼續交付；新結果全部驗證後才替換。快取可追溯不代替所有權、解剖或動畫驗收。離線重現檢查為 `python tools/comfyui/test_mask_delivery.py`。
 
+近腿、遠腿與局部遮擋的點提示快取也綁定實際灰底來源 SHA-256、正／負點、threshold、SAM 模型名稱及 refine。換過來源而點位不變時，不能沿用舊遮擋遮罩；同一輸入仍命中快取，其他獨立點提示不受影響。舊格式鍵在受影響分割步驟下次執行時才失效，不重畫原立繪。模型檔若以同名替換，需另外移除相應點遮罩鍵；目前鍵記錄模型名稱，並未計算模型權重 SHA。CPU 呼叫路徑回歸：`python tools/comfyui/test_point_mask_cache.py`；遮罩所有權、底層與動態接縫另驗。
+
 1. **分群**（spec `groups`）：SAM 3.1 對每個文字提示（"hand"、"chrome robotic arm"、"jacket"、"ponytail"、"head"、"boot"、"thigh holster"、"torso"、"skin"、"black stockings leg"）給一張遮罩。前面的群組優先；沒被任何遮罩認領的零星像素分給最近的群組。
 2. **補全**：只有**被別的東西擋住**的群組需要。
    - 手臂（肘被夾克袖子擋住）：把殘缺手臂裁出來當第一張參考圖，手臂附近的原圖當第二張，請 Qwen 補成完整一條。

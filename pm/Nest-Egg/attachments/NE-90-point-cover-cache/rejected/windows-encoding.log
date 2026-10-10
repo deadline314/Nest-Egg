@@ -1,0 +1,17 @@
+parts: arm=32, head=32, connector=8
+parts: arm=32, head=64, connector=8
+refined 3 parts -> C:\Users\stanl\AppData\Local\Temp\tmp3j87e6un\07_refined
+refined 1 parts -> C:\Users\stanl\AppData\Local\Temp\tmp3j87e6un\07_refined
+parts: body=36
+parts: body=36
+parts: body=37
+Traceback (most recent call last):
+  File "C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\tools\comfyui\test_mask_delivery.py", line 377, in <module>
+    main()
+  File "C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\tools\comfyui\test_mask_delivery.py", line 235, in main
+    recipe = json.loads((root / "tools/comfyui/recipes/enforcer.json").read_text())
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\stanl\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\pathlib.py", line 1028, in read_text
+    return f.read()
+           ^^^^^^^^
+UnicodeDecodeError: 'cp950' codec can't decode byte 0xe9 in position 21: illegal multibyte sequence

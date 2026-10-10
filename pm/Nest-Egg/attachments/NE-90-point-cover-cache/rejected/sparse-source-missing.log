@@ -1,0 +1,31 @@
+Traceback (most recent call last):
+parts: arm=32, head=32, connector=8
+parts: arm=32, head=64, connector=8
+refined 3 parts -> C:\Users\stanl\AppData\Local\Temp\tmp7xj8ur_7\07_refined
+refined 1 parts -> C:\Users\stanl\AppData\Local\Temp\tmp7xj8ur_7\07_refined
+parts: body=36
+parts: body=36
+parts: body=37
+rig bones: 1  textures: 0  parts: 0
+rig bones: 1  textures: 0  parts: 0
+rig bones: 1  textures: 0  parts: 0
+  panel: 13x13 pivot=(7.0,7.0)
+rig bones: 1  textures: 1  parts: 0
+  panel: 13x13 pivot=(7.0,7.0)
+  panel: 13x13 pivot=(7.0,7.0)
+  panel: 13x13 pivot=(7.0,7.0)
+  File "D:\NestEggVerification\ne90-point-cover-81d30718\tools\comfyui\test_mask_delivery.py", line 324, in main
+    build.step_textures()
+  File "D:\NestEggVerification\ne90-point-cover-81d30718\tools\comfyui\build_character.py", line 171, in step_textures
+    sys.exit(f"[textures] invalid registered source rebuild: {registered}")
+SystemExit: [textures] invalid registered source rebuild: art_src/characters/enforcer/wrist_repair/rebuild.py
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\NestEggVerification\ne90-point-cover-81d30718\tools\comfyui\test_mask_delivery.py", line 377, in <module>
+    main()
+  File "D:\NestEggVerification\ne90-point-cover-81d30718\tools\comfyui\test_mask_delivery.py", line 326, in main
+    assert "override" in str(error) and str(override) in str(error)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

@@ -1,0 +1,36 @@
+...F..FF..
+======================================================================
+FAIL: test_model_name_in_key_invalidates_masks (__main__.PointMaskCacheMainTests.test_model_name_in_key_invalidates_masks)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\tools\comfyui\test_point_mask_cache.py", line 172, in test_model_name_in_key_invalidates_masks
+    self.assertEqual(self._called("near_leg", "near_leg_far", "near_leg_cover0"), {
+AssertionError: Items in the second set but not the first:
+'near_leg_far'
+'near_leg'
+'near_leg_cover0'
+
+======================================================================
+FAIL: test_refine_value_in_key_matches_point_segmentation_calls (__main__.PointMaskCacheMainTests.test_refine_value_in_key_matches_point_segmentation_calls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\tools\comfyui\test_point_mask_cache.py", line 182, in test_refine_value_in_key_matches_point_segmentation_calls
+    self.assertEqual(self._called("near_leg", "near_leg_far", "near_leg_cover0"), {
+AssertionError: Items in the second set but not the first:
+'near_leg_far'
+'near_leg'
+'near_leg_cover0'
+
+======================================================================
+FAIL: test_same_size_source_edit_invalidates_near_far_and_cover (__main__.PointMaskCacheMainTests.test_same_size_source_edit_invalidates_near_far_and_cover)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\tools\comfyui\test_point_mask_cache.py", line 124, in test_same_size_source_edit_invalidates_near_far_and_cover
+    self.assertEqual(self._called("near_leg", "near_leg_far", "near_leg_cover0"), {
+AssertionError: Items in the second set but not the first:
+'near_leg_cover0'
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.350s
+
+FAILED (failures=3)
