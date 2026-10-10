@@ -359,15 +359,19 @@ class _Motes:
 ## 顆粒雜訊（老舊畫面、記憶、過曝）：每隔一小段時間重新撒點。
 class _Grain:
 	extends Node2D
+	## 特殊舞台的顆粒上限：再多就會蓋過人物與字幕。
+	const MAX_GRAIN := 200
 	var _amount: int
 	var _color: Color
 	var _t := 0.0
 	var _seed := 0
 
 	func _init(def: Dictionary) -> void:
-		_amount = clampi(int(def.get("amount", 160)), 0, 600)
+		_amount = clampi(int(def.get("amount", 160)), 0, MAX_GRAIN)
 		_color = StageLayers.color_of(def.get("color", "#ffffff"))
 		_color.a = float(def.get("opacity", 0.18))
+		# 減少閃光時不畫會跳動的顆粒。
+		visible = not Settings.get_reduce_flashes()
 
 	func _process(delta: float) -> void:
 		_t += delta

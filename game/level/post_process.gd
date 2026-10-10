@@ -65,7 +65,8 @@ func apply(profile: LightingProfile) -> void:
 	_write_param(&"vignette", profile.vignette)
 	# 顆粒與色差依光影品質縮放（中、低檔關閉）。
 	var effects := LightQuality.post_effects()
-	_write_param(&"grain", profile.grain * effects)
+	# 顆粒會跳動：減少閃光時關閉。
+	_write_param(&"grain", 0.0 if Settings.get_reduce_flashes() else profile.grain * effects)
 	_write_param(&"aberration", profile.aberration * effects)
 
 

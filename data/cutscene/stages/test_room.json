@@ -6,6 +6,6 @@
     {"kind": "stripes", "rect": [40, 280, 120, 10], "color": "#ffd23f", "gap": 8},
     {"kind": "glow", "pos": [480, 120], "radius": 120, "color": "#ffb066", "intensity": 1.2, "flicker": 0.1},
     {"kind": "text", "text": "TEST", "pos": [60, 90], "color": "#35e0ff"},
-    {"kind": "grain", "amount": 80, "depth": "front"}
+    {"kind": "grain", "amount": 80, "depth": "front", "reason": "測試用舞台：驗證前層與顆粒圖層。"}
   ]
 }

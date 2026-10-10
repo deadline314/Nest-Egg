@@ -66,6 +66,8 @@ static func validate(id: StringName) -> PackedStringArray:
 				problems.append("過場場景 %s 第 %d 層（%s）缺少「%s」" % [id, index, kind, key])
 		if kind == "sprite" and RigLibrary.optional_texture(str(layer.get("path", ""))) == null:
 			problems.append("過場場景 %s 第 %d 層圖片不存在：%s" % [id, index, layer.get("path", "")])
+		if kind == "grain" and str(layer.get("reason", "")).strip_edges().is_empty():
+			problems.append("過場場景 %s 第 %d 層是顆粒卻沒寫 reason：一般舞台不加顆粒，回憶或非現實的舞台要寫明理由" % [id, index])
 		if kind == "sprite" and life_covers_stage(layer):
 			problems.append("過場場景 %s 第 %d 層是整張背景卻開了 life：窗光閃爍會把整張圖切成一格一格忽明忽暗的方塊，life 只能用在窗光等小面積的層" % [id, index])
 		var anchor_issue := ScenerySupport.stage_anchor_issue(layer, def)

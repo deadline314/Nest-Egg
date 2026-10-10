@@ -11,6 +11,8 @@ const BLENDED: Array[StringName] = [
 
 ## 角色最低可讀亮度（0~1）：環境光再暗，角色補光後至少要有這個亮度。
 const MIN_READABLE_CHARACTER_LUMA := 0.2
+## 特殊情境的顆粒上限：再高就會蓋過文字與人物。
+const MAX_SPECIAL_GRAIN := 0.05
 
 @export var id: StringName = &"lighting"
 @export_group("Ambient")
@@ -57,8 +59,10 @@ const MIN_READABLE_CHARACTER_LUMA := 0.2
 @export_group("Screen")
 ## 暗角強度（0 = 沒有）：畫面邊緣壓暗。
 @export_range(0.0, 1.5, 0.01) var vignette: float = 0.0
-## 底片顆粒強度（0 = 沒有）。
+## 畫面顆粒強度（0 = 沒有）。一般遊玩一律 0；只有回憶、訊號干擾這類特殊情境才用，而且要在 grain_reason 寫明理由。
 @export_range(0.0, 0.3, 0.005) var grain: float = 0.0
+## 這份設定為什麼需要顆粒（玩家當下處在什麼特殊情境）。grain 大於 0 時必填。
+@export var grain_reason: String = ""
 ## 邊緣色差（螢幕寬度的比例，0 = 沒有）：只在畫面邊緣偏移紅藍通道。
 @export_range(0.0, 0.01, 0.0005) var aberration: float = 0.0
 
@@ -102,6 +106,10 @@ func validate() -> PackedStringArray:
 		problems.append("%s 的飽和度不能是負的、對比必須大於 0" % id)
 	if vignette < 0.0 or grain < 0.0 or aberration < 0.0:
 		problems.append("%s 的暗角、顆粒、色差不能是負的" % id)
+	if grain > MAX_SPECIAL_GRAIN:
+		problems.append("%s 的顆粒 %.3f 超過特殊情境的上限 %.3f" % [id, grain, MAX_SPECIAL_GRAIN])
+	if grain > 0.0 and grain_reason.strip_edges().is_empty():
+		problems.append("%s 有顆粒卻沒寫 grain_reason：一般遊玩不加顆粒，特殊情境要寫明理由" % id)
 	if glow_threshold <= 0.0:
 		problems.append("%s 的泛光門檻必須大於 0" % id)
 	return problems

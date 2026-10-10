@@ -1205,6 +1205,29 @@ func _test_lighting() -> void:
 	bad_grade.grain = -0.1
 	bad_grade.contrast = 0.0
 	_check(bad_grade.validate().size() >= 2, "invalid grade values are reported")
+	# 顆粒只給特殊情境：一般光影設定一律 0；大於 0 要寫理由，而且不能超過上限（BG-27）。
+	var grainy := LightingProfile.new()
+	grainy.grain = 0.03
+	_check(not grainy.validate().is_empty(), "grain without a stated reason is reported")
+	grainy.grain_reason = "回憶"
+	_check(grainy.validate().is_empty(), "grain with a stated reason is accepted")
+	grainy.grain = LightingProfile.MAX_SPECIAL_GRAIN + 0.01
+	_check(not grainy.validate().is_empty(), "grain above the special-situation cap is reported")
+	var everyday_grain := 0
+	var special_grain := 0
+	for file in DirAccess.get_files_at("res://data/lighting"):
+		if not file.ends_with(".tres"):
+			continue
+		var grain_profile := load("res://data/lighting/" + file) as LightingProfile
+		if grain_profile == null or grain_profile.grain <= 0.0:
+			continue
+		if grain_profile.grain_reason.strip_edges().is_empty():
+			everyday_grain += 1
+		else:
+			special_grain += 1
+	_check(everyday_grain == 0 and special_grain >= 1, "only lighting profiles with a stated special reason carry grain (%d without, %d with)" % [everyday_grain, special_grain])
+	for zone: LightingZone in zones:
+		_check(is_zero_approx(zone.profile.grain), "everyday level lighting has no grain: " + String(zone.profile.id))
 	var scratch := LightingProfile.new()
 	LightingProfile.blend_into(scratch, zones[0].profile, zones[1].profile, 0.5)
 	_check(is_equal_approx(scratch.vignette, lerpf(zones[0].profile.vignette, zones[1].profile.vignette, 0.5)), "grade values blend between zones")
@@ -1276,7 +1299,18 @@ func _test_lighting() -> void:
 	Settings.set_light_quality(LightQuality.Tier.HIGH)
 	await get_tree().process_frame
 	await get_tree().process_frame
-	_check(post.parameter(&"grain") > 0.0, "high quality brings grain back")
+	_check(is_zero_approx(post.parameter(&"grain")), "everyday lighting stays free of grain at high quality")
+	# 特殊情境的光影設定才有顆粒；減少閃光時關閉；回到一般設定就恢復乾淨。
+	var special := load("res://data/lighting/broadcast_storm.tres") as LightingProfile
+	post.apply(special)
+	_check(is_equal_approx(post.parameter(&"grain"), special.grain * LightQuality.post_effects()) and post.parameter(&"grain") > 0.0,
+			"a special-situation profile brings a small amount of grain")
+	Settings.set_reduce_flashes(true)
+	post.apply(special)
+	_check(is_zero_approx(post.parameter(&"grain")), "reduce flashes turns the special grain off")
+	Settings.set_reduce_flashes(false)
+	post.apply(grade)
+	_check(is_zero_approx(post.parameter(&"grain")), "leaving the special situation returns to a clean picture")
 	Settings.set_value(Settings.DISPLAY_SECTION, "light_quality", "oops")
 	_check(Settings.get_light_quality() == LightQuality.DEFAULT_TIER, "corrupt light quality falls back to the default")
 	Settings.set_light_quality(99)

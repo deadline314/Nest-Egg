@@ -82,8 +82,9 @@ def motes(count, color, opacity, area, drift, size, seed) -> dict:
     return {"kind": "motes", "count": count, "color": color, "opacity": opacity, "area": area, "drift": drift, "size": size, "seed": seed}
 
 
-def grain(amount, opacity, **extra) -> dict:
-    layer = {"kind": "grain", "amount": amount, "opacity": opacity, "depth": "front"}
+def grain(amount, opacity, reason, **extra) -> dict:
+    """畫面顆粒只給回憶、非現實這類特殊舞台用，reason 寫明理由；一般舞台不加（BG-27）。"""
+    layer = {"kind": "grain", "amount": amount, "opacity": opacity, "depth": "front", "reason": reason}
     layer.update(extra)
     return layer
 
@@ -96,7 +97,6 @@ STAGE_LAYERS = {
         glow([321, 40], 250, "#ffb066", 0.9, 0.5, flicker=0.05),
         glow([14, 112], 120, "#a070e8", 0.8, 0.45, flicker=0.12),
         motes(46, "#ffd9a0", 0.55, [150, 30, 360, 260], [2, -4], 1.3, 4),
-        grain(50, 0.06),
     ],
     "old_k_shop_dawn": [
         {"kind": "gradient", "top": "#10161c", "bottom": "#222a30", "parallax": 0.0},
@@ -104,7 +104,6 @@ STAGE_LAYERS = {
         bed("old_k_shop_dawn_bed", modulate=[1.15, 1.15, 1.2, 1.0]),
         glow([26, 110], 170, "#9ab8d8", 0.8, 0.45, pulse=0.08, pulse_depth=0.25),
         motes(30, "#cfe0ff", 0.4, [0, 30, 320, 260], [3, -3], 1.2, 6),
-        grain(50, 0.06),
     ],
     "hangar_red": [
         {"kind": "gradient", "top": "#120508", "bottom": "#2a0c10", "parallax": 0.0},
@@ -116,7 +115,6 @@ STAGE_LAYERS = {
         glow([677, 168], 130, "#ff2a1a", 1.0, 0.55, pulse=0.9, pulse_depth=0.8, phase=0.75),
         {"kind": "sprite", "path": "res://art/environment/props/fuel_tank.png", "pos": [30, 200], "scale": 0.6},
         motes(54, "#ff7a45", 0.6, [0, 40, 640, 230], [5, -10], 1.2, 12),
-        grain(60, 0.08),
     ],
     "terminal_room": [
         {"kind": "gradient", "top": "#060c12", "bottom": "#10202c", "parallax": 0.0},
@@ -125,7 +123,6 @@ STAGE_LAYERS = {
         {"kind": "sprite", "path": "res://art/environment/props/terminal_holo.png", "pos": [265, 132.36], "scale": 0.205, "filter": "linear", "source_width": 487,
          "support_rect": [258, 216, 116, 4]},
         motes(64, "#35e0ff", 0.6, [0, 30, 640, 240], [0, -9], 1.1, 21),
-        grain(40, 0.07),
     ],
     "transfer_corridor": [
         {"kind": "gradient", "top": "#0c1218", "bottom": "#18222c", "parallax": 0.0},
@@ -134,7 +131,6 @@ STAGE_LAYERS = {
         glow([306, 16], 190, "#cfe8ff", 0.9, 0.3),
         glow([612, 16], 170, "#cfe8ff", 0.9, 0.3, flicker=0.1),
         motes(26, "#cfe0ff", 0.3, [0, 40, 640, 220], [2, -2], 1.0, 33),
-        grain(50, 0.07),
     ],
     "white_room": [
         {"kind": "gradient", "top": "#f2f1ec", "bottom": "#d8d4c8", "parallax": 0.0},
@@ -142,7 +138,7 @@ STAGE_LAYERS = {
         glow([320, 100], 260, "#ffffff", 0.5, 0.3, pulse=0.07, pulse_depth=0.3),
         {"_build": "white_room_feet", "_fallback_kind": "poly"},
         motes(36, "#fffdf2", 0.55, [0, 20, 640, 260], [1.5, -2.5], 1.4, 41),
-        grain(420, 0.35, color="#7a7266"),
+        grain(140, 0.2, "白房間是記憶裡的畫面，少量顆粒表示這不是現實。", color="#7a7266"),
         {"kind": "rect", "rect": [-100, -100, 840, 520], "color": "#f8f2e0", "alpha": 0.18, "depth": "front"},
     ],
 }

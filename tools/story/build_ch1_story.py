@@ -129,7 +129,6 @@ def write_stage(stage_id, scene, top, bottom, rain, glow, extra):
     if rain:
         layers.append({"kind": "rain", "depth": "front", "opacity": 0.35})
     layers.append({"kind": "motes", "count": 24, "color": "#cfe0ff", "opacity": 0.3, "area": [0, 30, 640, 280], "drift": [2, -3], "size": 1.1, "seed": 7})
-    layers.append({"kind": "grain", "amount": 50, "opacity": 0.05, "depth": "front"})
     data = {"camera": {"pos": [320, 180], "zoom": 1.0}, "floor": FLOOR[stage_id], "layers": layers}
     with open(os.path.join(STAGE_DIR, f'{stage_id}.json'), 'w') as f:
         json.dump(data, f, ensure_ascii=False, indent=1)

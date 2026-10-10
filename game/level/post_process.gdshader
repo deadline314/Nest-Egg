@@ -52,9 +52,14 @@ void fragment() {
 	// 玩家的亮度設定（gamma）：大於 1 提亮暗部，黑色與暗角的黑維持不變。
 	color = pow(max(color, vec3(0.0)), vec3(1.0 / brightness));
 
-	// 顆粒在暗部較明顯，亮部（子彈、霓虹）保持乾淨。
-	float noise = hash(floor(uv * vec2(640.0, 360.0)) + vec2(grain_seed)) - 0.5;
-	color += vec3(noise * grain * (1.0 - clamp(luma, 0.0, 1.0)));
+	// 顆粒（只有特殊情境的光影設定才大於 0）：畫面是線性 HDR，直接相加會讓暗部變成一片雪花，
+	// 所以換到接近螢幕顯示的亮度再加，暗部與亮部看起來一樣輕；亮部（子彈、霓虹）保持乾淨。
+	if (grain > 0.0) {
+		float noise = hash(floor(uv * vec2(640.0, 360.0)) + vec2(grain_seed)) - 0.5;
+		vec3 shown = pow(max(color, vec3(0.0)), vec3(1.0 / 2.2));
+		shown += vec3(noise * grain * (1.0 - clamp(dot(shown, vec3(0.2126, 0.7152, 0.0722)), 0.0, 1.0)));
+		color = pow(max(shown, vec3(0.0)), vec3(2.2));
+	}
 
 	COLOR = vec4(color, 1.0);
 }
