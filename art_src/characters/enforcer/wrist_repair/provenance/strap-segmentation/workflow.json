@@ -1,0 +1,51 @@
+{
+  "load": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "base_rgba.png"
+    }
+  },
+  "ckpt": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "sam3.1_multiplex_fp16.safetensors"
+    }
+  },
+  "d0": {
+    "class_type": "SAM3_Detect",
+    "inputs": {
+      "model": [
+        "ckpt",
+        0
+      ],
+      "image": [
+        "load",
+        0
+      ],
+      "threshold": 0.3,
+      "refine_iterations": 2,
+      "individual_masks": false,
+      "positive_coords": "[{\"x\": 370, \"y\": 612}, {\"x\": 344, \"y\": 617}, {\"x\": 387, \"y\": 605}, {\"x\": 375, \"y\": 660}]",
+      "negative_coords": "[{\"x\": 335, \"y\": 575}, {\"x\": 366, \"y\": 580}, {\"x\": 450, \"y\": 647}, {\"x\": 450, \"y\": 715}, {\"x\": 290, \"y\": 620}]"
+    }
+  },
+  "m0": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "d0",
+        0
+      ]
+    }
+  },
+  "s0": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "m0",
+        0
+      ],
+      "filename_prefix": "sampt_7dc970_0"
+    }
+  }
+}

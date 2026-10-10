@@ -1,0 +1,9 @@
+受影響的測試：ApplyPanelSuite,AudioSuite,Chapter1EnemiesSuite,Chapter1MapSuite,Chapter2Suite,CharactersSuite,ClipEditorSuite,CombatHudSuite,ContinuitySuite,CutsceneSuite,DeathFlowSuite,DeathReactionSuite,DevMenuSuite,EconomySuite,EnemyArtDeliverySuite,EnemyVfxSuite,FeelLabSuite,FeelSuite,HitReactionSuite,InputFeelSuite,LayerOrderSuite,MapBubblesSuite,MusicSuite,NpcAnimationSuite,NpcSuite,ProgressionSuite,ProtagonistMotionSuite,QuestMapSuite,ReadabilityTargetsSuite,RigActionsSuite,RigMeshSuite,RunSaveSuite,SceneSanitySuite,SoundLabSuite,SoundStageSuite,StageCoverageCharactersSuite,StageCoverageWeaponsSuite,StageCoverageWorldSuite,StrikeEnemiesSuite,UiScreensSuite,WatchdogQuadrupedSuite,main
+Running 42 groups in 6 processes (logs: C:/Users/stanl/.codex/worktrees/character-art-baseline/Nest-Egg/.godot/ne90-enforcer-replay/affected-tests)
+  process 0 (estimated 148 s): StageCoverageWorldSuite
+  process 1 (estimated 113 s): main,UiScreensSuite,MapBubblesSuite,CutsceneSuite,NpcAnimationSuite,QuestMapSuite
+  process 2 (estimated 113 s): Chapter2Suite,WatchdogQuadrupedSuite,EnemyArtDeliverySuite,SoundLabSuite,LayerOrderSuite,ProtagonistMotionSuite
+  process 3 (estimated 113 s): StageCoverageWeaponsSuite,StrikeEnemiesSuite,RunSaveSuite,DeathFlowSuite,ProgressionSuite,FeelSuite,ApplyPanelSuite
+  process 4 (estimated 113 s): Chapter1MapSuite,StageCoverageCharactersSuite,DeathReactionSuite,Chapter1EnemiesSuite,RigMeshSuite,NpcSuite,FeelLabSuite
+  process 5 (estimated 112 s): ContinuitySuite,SoundStageSuite,HitReactionSuite,AudioSuite,CombatHudSuite,MusicSuite,SceneSanitySuite,RigActionsSuite,ReadabilityTargetsSuite,InputFeelSuite,EnemyVfxSuite,EconomySuite,DevMenuSuite,ClipEditorSuite,CharactersSuite
+checks: 38913, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 160 s)

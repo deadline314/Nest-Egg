@@ -1,0 +1,77 @@
+{
+  "source_candidate": ".godot/ne90-enforcer-strap-review/candidate-run-002-a",
+  "status": "source replay masks; no formal texture or pose acceptance",
+  "native_canvas": [
+    832,
+    1216
+  ],
+  "candidate_sha256": {
+    "arm_lower_full_canvas.png": "f651d8b1b6139fe7d80d11ebed1063f0126acf438d9c5a7970e9c903128d715f",
+    "hand_full_canvas.png": "cf013374e0184eb70bcef7349656b6310dbc7103ad15982088ca2cfec8e57b53"
+  },
+  "candidate_decoded_rgba_sha256": {
+    "arm_lower_full_canvas.png": "5ba8f592c4e135b590afee9c101121fb5db96be3f761334e66c2bba12e45a1dc",
+    "hand_full_canvas.png": "07e277410ef549c4b73c3eadf91f6ce740a1878e35661b6834e2af2eba4c6daa"
+  },
+  "cut_layers_candidate_sha256": {
+    "parts/arm_lower.png": "51f2dac017d37eb437d5bca720e9330419313e435c3dedae0a0a6d5651a75b95",
+    "parts/arm_lower_n.png": "ff0d36aa1cec85d1d33d9a125334083825007ce2da538282c419bb09cd912cc7",
+    "parts/hand.png": "d90ee46e9f457ced959d3d6ae8de4ce837e85bc37d0612052bc6f883a22a5967",
+    "parts/hand_n.png": "9cde2d25a13f260e8acdb54ff5c35556c07decb51c185acd423fc0f6bf4d883c"
+  },
+  "source_sha256": {
+    "base_rgba.png": "046fc689ee025174875a098a92c0b2555b683b0021ffb9aad398ef18f82dd18f",
+    "04_stages/P.png": "7477e641207ba5f8a44504214501cf80282d727dd936a355553e2c85f9bab559",
+    "07_refined/arm_lower.png": "14a8a771f3e6da21de8049c1635026891c7663a52815f96d25e562390dec4e7e",
+    "sam/arm_sleeve.png": "e3422d0b72bcd2f29b067e57a4d7c5f46f95c59d05ca4d09698e01dc960727af",
+    "sam/gloved_hand.png": "565069db0f8ddcefb0e49b60542ca947c5f05b756405b34ed2159ab3e943f1e2",
+    "04_stages/sam_P/arm_sleeve.png": "cd22238a11e0162aed9827d8b952a370b2ea37b91bdaabc4ec81419209e00dc8"
+  },
+  "owner_masks": {
+    "owners/arm_lower_base.png": {
+      "sha256": "c2cf81d450c6552e6ae8dc9df03e321961277ea334f8c6e29a7510374b5ee0a7",
+      "pixels": 2743,
+      "source": "base_rgba.png"
+    },
+    "owners/arm_lower_stage_P.png": {
+      "sha256": "403ef8ad280aa37d9dccd0f0db84d8664593e10bc3869723c276a8784c789338",
+      "pixels": 18919,
+      "source": "04_stages/P.png"
+    },
+    "owners/arm_lower_existing_07_refined.png": {
+      "sha256": "c119a7fb415a04738587323bb0706d07626ee010e7015ff2331557a7eed29856",
+      "pixels": 73,
+      "source": "07_refined/arm_lower.png"
+    },
+    "owners/hand_base.png": {
+      "sha256": "068c16743d686de24f8e1281fc7719f271fbbc80673dff18fb451a402c92ab1f",
+      "pixels": 9154,
+      "source": "base_rgba.png"
+    },
+    "owners/seam_clear_overlap.png": {
+      "sha256": "f2de42f7c0125bd50995695f792d0e60ccbe9239b1f33591ec981daf0ab74735",
+      "pixels": 14,
+      "source": "sam/arm_sleeve.png AND root-reviewed hand-union-fullcanvas alpha, y>=588",
+      "role": "clear duplicate base RGB/alpha under the hand at shared cuff seam; not a pixel owner"
+    }
+  },
+  "ownership_rule": "Each nontransparent candidate arm pixel is assigned to first exact RGBA match by priority base_rgba, 04_stages/P, then existing 07_refined/arm_lower; owner masks are binary/disjoint and union exactly equals candidate alpha. The hand candidate is exact base RGBA under the root-reviewed hand-union selection (alpha owner mask).",
+  "counts": {
+    "arm_lower_base": 2743,
+    "arm_lower_stage_P": 18919,
+    "arm_lower_existing_07_refined": 73,
+    "hand_base": 9154,
+    "seam_clear_overlap": 14
+  },
+  "provenance_sha256": {
+    "provenance/root-hand-selection/hand-union-fullcanvas.png": "cf013374e0184eb70bcef7349656b6310dbc7103ad15982088ca2cfec8e57b53",
+    "provenance/root-hand-selection/old-gloved-hand-mask.png": "565069db0f8ddcefb0e49b60542ca947c5f05b756405b34ed2159ab3e943f1e2",
+    "provenance/strap-segmentation/job-name.txt": "aeb17b7447181920a41d7acee885e3b39f6459cdff673e9b0f847f68e5b78e3d",
+    "provenance/strap-segmentation/points-proposed.json": "aaa6c8164f65c18d9ba9aabb115478a20fa25cc187698bf41c66cc7e2a4fe7f8",
+    "provenance/strap-segmentation/raw-sam.png": "84266557b0269203b815a6c8df0789bced33dd1d210336a1cd5da86060b5bfef",
+    "provenance/strap-segmentation/sam-glove-wrist-strap-mask.png": "84266557b0269203b815a6c8df0789bced33dd1d210336a1cd5da86060b5bfef",
+    "provenance/strap-segmentation/workflow.json": "4dd0e6a2d7648c0d790078df83ada83c55507815aa6e9e72afea1df590ade514"
+  },
+  "zero_alpha_rgb_rule": "Initialize candidate from existing 07_refined/arm_lower RGBA to preserve its transparent RGB; clear alpha outside source owners; zero the 14 reviewed SAM-cuff/hand-union seam pixels, matching candidate-run-002-a RGBA exactly.",
+  "provenance_text_format": "Repository LF line endings; JSON payload and generation parameters preserved."
+}

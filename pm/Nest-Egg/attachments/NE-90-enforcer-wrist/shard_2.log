@@ -1,0 +1,52 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME Chapter2Suite 59.0
+LEGACY_GRIP trooper_elite/rifle facing 1 speed 46.0 front=0.000 back=0.000
+LEGACY_GRIP trooper_elite/rifle facing 1 speed 92.0 front=0.000 back=0.000
+LEGACY_GRIP trooper_elite/rifle facing -1 speed 46.0 front=0.000 back=0.000
+LEGACY_GRIP trooper_elite/rifle facing -1 speed 92.0 front=0.000 back=0.000
+LEGACY_GRIP flamer/flamethrower facing 1 speed 28.0 front=0.000 back=0.000
+LEGACY_GRIP flamer/flamethrower facing 1 speed 56.0 front=0.000 back=0.000
+LEGACY_GRIP flamer/flamethrower facing -1 speed 28.0 front=0.000 back=0.000
+LEGACY_GRIP flamer/flamethrower facing -1 speed 56.0 front=0.000 back=0.000
+LEGACY_GRIP grenadier/launcher facing 1 speed 55.0 front=0.000 back=0.000
+LEGACY_GRIP grenadier/launcher facing 1 speed 110.0 front=0.000 back=0.000
+LEGACY_GRIP grenadier/launcher facing -1 speed 55.0 front=0.000 back=0.000
+LEGACY_GRIP grenadier/launcher facing -1 speed 110.0 front=0.000 back=0.000
+LEGACY_GRIP sniper/sniper facing 1 speed 22.0 front=0.000 back=0.000
+LEGACY_GRIP sniper/sniper facing 1 speed 44.0 front=0.000 back=0.000
+LEGACY_GRIP sniper/sniper facing -1 speed 22.0 front=0.000 back=0.000
+LEGACY_GRIP sniper/sniper facing -1 speed 44.0 front=0.000 back=0.000
+LEGACY_GRIP stalker/rifle facing 1 speed 46.0 front=0.000 back=0.000
+LEGACY_GRIP stalker/rifle facing 1 speed 92.0 front=0.000 back=0.000
+LEGACY_GRIP stalker/rifle facing -1 speed 46.0 front=0.000 back=0.000
+LEGACY_GRIP stalker/rifle facing -1 speed 92.0 front=0.000 back=0.000
+SUITE_TIME ProtagonistMotionSuite 1.0
+ERROR: 音效實驗室：版面比例檔 user://test_audio_lab_layout.cfg 的 [split_ratios] rows 不是 0.1 到 0.9 的數字，改用預設比例
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _load (res://tools/sound_lab/lab_layout.gd:66)
+       [1] _init (res://tools/sound_lab/lab_layout.gd:19)
+       [2] _test_layout_store (res://tests/suite/test_sound_lab.gd:135)
+       [3] run (res://tests/suite/test_sound_lab.gd:18)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_protagonist_motion.gd:32)
+       [6] _test_legacy_two_hand_grips (res://tests/suite/test_protagonist_motion.gd:417)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: 音效實驗室：版面比例檔 user://test_audio_lab_layout.cfg 的 [split_ratios] cols 不是 0.1 到 0.9 的數字，改用預設比例
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _load (res://tools/sound_lab/lab_layout.gd:66)
+       [1] _init (res://tools/sound_lab/lab_layout.gd:19)
+       [2] _test_layout_store (res://tests/suite/test_sound_lab.gd:135)
+       [3] run (res://tests/suite/test_sound_lab.gd:18)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_protagonist_motion.gd:32)
+       [6] _test_legacy_two_hand_grips (res://tests/suite/test_protagonist_motion.gd:417)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME SoundLabSuite 3.0
+SUITE_TIME LayerOrderSuite 0.7
+checks: 2996, failures: 0

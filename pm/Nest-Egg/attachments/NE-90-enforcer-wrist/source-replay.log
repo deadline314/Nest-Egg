@@ -1,0 +1,159 @@
+{
+  "status": "source replay and formal cut outputs verified; not complete pose acceptance",
+  "temporary_clones": 2,
+  "same_replay_and_cut_results": true,
+  "formal_character_metadata": {
+    "arm_lower": {
+      "file": "parts/arm_lower.png",
+      "size": [
+        132,
+        206
+      ],
+      "pivot": [
+        51.61,
+        10.58
+      ]
+    },
+    "hand": {
+      "file": "parts/hand.png",
+      "size": [
+        111,
+        107
+      ],
+      "pivot": [
+        -5.66,
+        75.01
+      ]
+    }
+  },
+  "runs": [
+    {
+      "source_replay": {
+        "arm_lower": {
+          "pixels": 21735,
+          "rgba_sha256": "5ba8f592c4e135b590afee9c101121fb5db96be3f761334e66c2bba12e45a1dc"
+        },
+        "hand": {
+          "pixels": 9154,
+          "rgba_sha256": "07e277410ef549c4b73c3eadf91f6ce740a1878e35661b6834e2af2eba4c6daa"
+        }
+      },
+      "formal_pngs": {
+        "arm_lower": {
+          "texture_sha256": "51f2dac017d37eb437d5bca720e9330419313e435c3dedae0a0a6d5651a75b95",
+          "normal_sha256": "ff0d36aa1cec85d1d33d9a125334083825007ce2da538282c419bb09cd912cc7"
+        },
+        "hand": {
+          "texture_sha256": "d90ee46e9f457ced959d3d6ae8de4ce837e85bc37d0612052bc6f883a22a5967",
+          "normal_sha256": "9cde2d25a13f260e8acdb54ff5c35556c07decb51c185acd423fc0f6bf4d883c"
+        }
+      },
+      "cut": {
+        "arm_lower": {
+          "size": [
+            132,
+            206
+          ],
+          "pivot": [
+            51.61,
+            10.58
+          ],
+          "checks": {
+            "size_matches_manifest": true,
+            "pivot_matches_manifest": true,
+            "texture_matches_manifest": true,
+            "normal_matches_manifest": true,
+            "texture_matches_formal": true,
+            "normal_matches_formal": true
+          }
+        },
+        "hand": {
+          "size": [
+            111,
+            107
+          ],
+          "pivot": [
+            -5.66,
+            75.01
+          ],
+          "checks": {
+            "size_matches_manifest": true,
+            "pivot_matches_manifest": true,
+            "texture_matches_manifest": true,
+            "normal_matches_manifest": true,
+            "texture_matches_formal": true,
+            "normal_matches_formal": true
+          }
+        }
+      }
+    },
+    {
+      "source_replay": {
+        "arm_lower": {
+          "pixels": 21735,
+          "rgba_sha256": "5ba8f592c4e135b590afee9c101121fb5db96be3f761334e66c2bba12e45a1dc"
+        },
+        "hand": {
+          "pixels": 9154,
+          "rgba_sha256": "07e277410ef549c4b73c3eadf91f6ce740a1878e35661b6834e2af2eba4c6daa"
+        }
+      },
+      "formal_pngs": {
+        "arm_lower": {
+          "texture_sha256": "51f2dac017d37eb437d5bca720e9330419313e435c3dedae0a0a6d5651a75b95",
+          "normal_sha256": "ff0d36aa1cec85d1d33d9a125334083825007ce2da538282c419bb09cd912cc7"
+        },
+        "hand": {
+          "texture_sha256": "d90ee46e9f457ced959d3d6ae8de4ce837e85bc37d0612052bc6f883a22a5967",
+          "normal_sha256": "9cde2d25a13f260e8acdb54ff5c35556c07decb51c185acd423fc0f6bf4d883c"
+        }
+      },
+      "cut": {
+        "arm_lower": {
+          "size": [
+            132,
+            206
+          ],
+          "pivot": [
+            51.61,
+            10.58
+          ],
+          "checks": {
+            "size_matches_manifest": true,
+            "pivot_matches_manifest": true,
+            "texture_matches_manifest": true,
+            "normal_matches_manifest": true,
+            "texture_matches_formal": true,
+            "normal_matches_formal": true
+          }
+        },
+        "hand": {
+          "size": [
+            111,
+            107
+          ],
+          "pivot": [
+            -5.66,
+            75.01
+          ],
+          "checks": {
+            "size_matches_manifest": true,
+            "pivot_matches_manifest": true,
+            "texture_matches_manifest": true,
+            "normal_matches_manifest": true,
+            "texture_matches_formal": true,
+            "normal_matches_formal": true
+          }
+        }
+      }
+    }
+  ],
+  "negative_controls": {
+    "source_sha_mutation_rejected": true,
+    "one_pixel_hole_rejected": true,
+    "one_owner_pixel_removed_rejected": true,
+    "extra_source_pixel_rejected": true,
+    "bad_mask_fails_before_output_write": true
+  },
+  "native_scope": "Seven non-dead wrist poses passed with zero failures across 6,720 samples; all eight poses total 7,680 samples. The dead-pose wrist check has 256 failed samples and the elbow check has 208 failed samples; this CPU verifier does not change those results."
+}
