@@ -43,10 +43,10 @@ void fragment() {
 	color = max((color - vec3(CONTRAST_PIVOT)) * contrast + vec3(CONTRAST_PIVOT), vec3(0.0));
 	color *= mix(shadow_tint, highlight_tint, smoothstep(0.05, 0.6, luma));
 
-	// 危險（低血量）：暗角收緊並帶紅色，強度由程式端脈動。
-	float falloff = smoothstep(0.3 - danger * 0.12, 1.05 - danger * 0.2, length(centered) * 1.7);
+	// 危險（低血量）：畫面邊緣帶紅色並由程式端脈動。只稍微往內收，中間的角色、敵人與提示文字保持乾淨。
+	float falloff = smoothstep(0.3 - danger * 0.04, 1.05 - danger * 0.1, length(centered) * 1.7);
 	vec3 edge_color = mix(vignette_color, vec3(0.32, 0.015, 0.03), clamp(danger, 0.0, 1.0));
-	color = mix(color, edge_color, clamp(falloff * (vignette + pulse_vignette + danger * 0.5), 0.0, 1.0));
+	color = mix(color, edge_color, clamp(falloff * (vignette + pulse_vignette + danger * 0.35), 0.0, 1.0));
 	color += pulse_color * pulse_amount;
 
 	// 玩家的亮度設定（gamma）：大於 1 提亮暗部，黑色與暗角的黑維持不變。

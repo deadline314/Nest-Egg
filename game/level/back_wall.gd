@@ -9,6 +9,8 @@ extends ChunkedDrawer
 const PANEL_TILES := 4
 const PILLAR_EVERY := 12
 const HOLE_CHANCE := 0.22
+## 背牆（含上面的窗光）整體比可玩層暗一階、略偏冷：角色、敵人與可走的地面才會從牆面前跳出來。
+const RECEDE_TINT := Color(1.22, 1.22, 1.3)
 const WALL_COLOR := Color("1a2030")
 const SEAM_COLOR := Color("262e42")
 const PILLAR_COLOR := Color("1d2436")
@@ -36,6 +38,7 @@ func setup(layout: LevelLayout, p_seed := 1, theme: EnvironmentTheme = null) -> 
 	_seed = p_seed
 	_theme = theme
 	z_index = WorldLayers.BACK_WALL
+	modulate = RECEDE_TINT
 	var size := layout.pixel_size()
 	geometry.setup(layout, p_seed, theme)
 	_columns = geometry.columns

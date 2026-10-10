@@ -568,6 +568,7 @@ func _spawn_atmosphere() -> void:
 	_fog = FogLayer.new()
 	_fog.z_index = 7
 	_fog.ground_y = _layout.ground_y
+	_fog.layout = _layout
 	_fog.color = data.fog_color
 	_world.add_child(_fog)
 	if data.rain:

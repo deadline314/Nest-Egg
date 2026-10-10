@@ -617,7 +617,7 @@ def build_booth_alley():
     a.prop('anchor_phone_booth__flicker_lamp_post', 31)
     a.prop('anchor_phone_booth__gutter_downpipe', 20)
     a.lamp(26, 8)
-    a.zone(0, 'neutral')
+    a.zone(0, 'alley_calm')  # 安全的小巷：和街道同一片夜色，但光較平、沒有閃電
     a.features = {'landmark': '備份亭與復原箭頭（x=48～51）：巷子盡頭發光的電話亭', 'reward': '兩處信用點（x=18、x=44）'}
     return a
 

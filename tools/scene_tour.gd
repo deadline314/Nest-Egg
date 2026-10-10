@@ -4,7 +4,10 @@ extends Node
 ##
 ## 用法（原生 Forward+）：
 ##   godot --path . res://tools/scene_tour.tscn -- --out=<絕對資料夾> --level=<關卡檔名，逗號分隔> [--tag=<標籤>]
-##     [--cells=<欄:列，逗號分隔；只拍指定格>] [--no-enemies] [--show-player] [--flat]
+##     [--cells=<欄:列，逗號分隔；只拍指定格>] [--no-enemies] [--show-player] [--player] [--flat]
+## --player：每一格把主角放在畫面中央下方最近的地面上（帶著他自己的光），看實際遊玩時的光影；沒有地面的格子不放。
+##   同時量主角、畫面內敵人的輪廓對比與腳下地面亮邊（算法與門檻同 tools/contrast_probe.gd），寫進索引。
+## --quality=low|medium|high：這次巡覽改用該光影品質（結束時還原）。
 ## --flat 是盤點用的診斷畫面：環境光與背景調成全亮、關掉後製，只看擺放、支撐與圖層；不能拿來驗收光影。
 ## 輸出 <關卡>/<標籤>-c<欄>-r<列>.png 與 <關卡>/<標籤>-index.json（每格實際拍到的世界範圍）。
 ## 敵人與主角停在原地不動；主角預設隱藏。拼圖用 tools/scene_tour_sheet.py。
@@ -13,6 +16,9 @@ const Capture := preload("res://tools/viewport_capture.gd")
 const SETTLE_FRAMES := 24
 ## 相鄰兩格重疊的比例，避免物件剛好被格線切開。
 const OVERLAP := 0.08
+## 量對比時取幾次樣（燈會閃爍、脈動，取中位數）。
+const CONTRAST_SAMPLES := 5
+const QUALITY := {"low": LightQuality.Tier.LOW, "medium": LightQuality.Tier.MEDIUM, "high": LightQuality.Tier.HIGH}
 
 var _out := ""
 var _levels: PackedStringArray = []
@@ -21,6 +27,8 @@ var _cells: Dictionary = {}
 var _keep_enemies := true
 var _show_player := false
 var _flat := false
+var _walk_player := false
+var _quality := ""
 
 
 func _ready() -> void:
@@ -40,6 +48,10 @@ func _ready() -> void:
 			_show_player = true
 		elif argument == "--flat":
 			_flat = true
+		elif argument == "--player":
+			_walk_player = true
+		elif argument.begins_with("--quality="):
+			_quality = argument.trim_prefix("--quality=")
 	if not _out.is_absolute_path() or _levels.is_empty() or DisplayServer.get_name() == "headless":
 		push_error("[SceneTour] 需要原生視窗、--out=<絕對資料夾> 與 --level=<關卡檔名>")
 		get_tree().quit(2)
@@ -55,14 +67,85 @@ func _settle(frames: int) -> void:
 
 func _run() -> void:
 	var failures := 0
+	var quality_before := Settings.get_light_quality()
+	if QUALITY.has(_quality):
+		Settings.set_light_quality(QUALITY[_quality])
 	Story.auto_skip = true
 	for id: String in Story.scene_ids():
 		Story._seen[StringName(id)] = true
+	# 主角被放到各處會觸發地圖上的通訊；通訊框不是場景的一部分，巡覽時不顯示。
+	Story._layer.visible = false
 	for level_id: String in _levels:
 		if not await _tour(level_id):
 			failures += 1
+	if QUALITY.has(_quality):
+		Settings.set_light_quality(quality_before)
 	await AudioRelease.settle(get_tree())
 	get_tree().quit(1 if failures > 0 else 0)
+
+
+## 把停住的主角放到這一格中央往下最近的地面；整格沒有地面就藏起來。
+## 主角停住是為了不觸發換區與劇情；他的補光與自己的光改由 _sync_player_light 在拍攝前更新成這一格的值。
+func _place_player(level: Level, center: Vector2, view: Vector2) -> void:
+	var layout := level._layout
+	var column := clampi(int(center.x / layout.tile_size), 0, layout.width - 1)
+	var from_row := maxi(0, int((center.y - view.y * 0.25) / layout.tile_size))
+	var floor_y := layout.floor_below(column, from_row)
+	var on_screen := floor_y != INF and floor_y > center.y - view.y * 0.5 + 60.0 and floor_y < center.y + view.y * 0.5
+	level.player.visible = on_screen
+	if on_screen:
+		level.player.global_position = Vector2(column * layout.tile_size + layout.tile_size * 0.5, floor_y - 2.0)
+
+
+## 這一格的可讀性：主角與畫面內每個敵人的輪廓對比、腳下地面亮邊、整格平均亮度；取 CONTRAST_SAMPLES 次的中位數。
+func _measure(level: Level, world: Rect2) -> Dictionary:
+	var player_values: Array[float] = []
+	var edge_values: Array[float] = []
+	var luma_values: Array[float] = []
+	var enemy_values: Dictionary = {}
+	var inner := world.grow(-24.0)
+	for sample in CONTRAST_SAMPLES:
+		await _settle(3)
+		var probe := ContrastProbe.capture(get_viewport())
+		luma_values.append(probe.mean_luma(world))
+		if level.player.visible:
+			player_values.append(probe.character_contrast(level.player.global_position))
+			edge_values.append(probe.edge_contrast(level.player.global_position))
+		for node: Node in get_tree().get_nodes_in_group(&"enemies"):
+			var enemy := node as Node2D
+			if enemy == null or not enemy.is_visible_in_tree() or not inner.has_point(enemy.global_position):
+				continue
+			if not enemy_values.has(enemy.get_instance_id()):
+				enemy_values[enemy.get_instance_id()] = []
+			(enemy_values[enemy.get_instance_id()] as Array).append(probe.character_contrast(enemy.global_position))
+	var result := {"mean_luma": _median(luma_values)}
+	if not player_values.is_empty():
+		result["player_contrast"] = _median(player_values)
+		result["edge_contrast"] = _median(edge_values)
+	var enemies: Array[float] = []
+	for values: Array in enemy_values.values():
+		var typed: Array[float] = []
+		typed.assign(values)
+		enemies.append(_median(typed))
+	if not enemies.is_empty():
+		result["enemy_contrast"] = enemies
+	return result
+
+
+func _median(values: Array[float]) -> float:
+	if values.is_empty():
+		return 0.0
+	var sorted := values.duplicate()
+	sorted.sort()
+	return sorted[sorted.size() / 2]
+
+
+## 停住的主角不會自己更新：把光影控制器算出的補光倍率、單盞光上限與自身光源亮度套上去。
+func _sync_player_light(player: Player) -> void:
+	var rig: CharacterRig = player._visual.rig
+	rig._apply_fill(LightKit.character_fill)
+	rig._apply_light_cap(LightKit.character_light_cap)
+	player._light.energy = LightKit.player_light_energy
 
 
 func _tour(level_id: String) -> bool:
@@ -120,10 +203,15 @@ func _tour(level_id: String) -> bool:
 				continue
 			var center := Vector2(minf(view.x * 0.5 + step.x * column, maxf(view.x * 0.5, size.x - view.x * 0.5)),
 				minf(view.y * 0.5 + step.y * row, maxf(view.y * 0.5, size.y - view.y * 0.5)))
+			if _walk_player:
+				_place_player(level, center, view)
 			camera.global_position = center
 			camera.reset_smoothing()
 			camera.force_update_scroll()
 			await _settle(SETTLE_FRAMES)
+			if _walk_player and level.player.visible:
+				_sync_player_light(level.player)
+				await _settle(4)
 			var to_world := (get_viewport().get_final_transform() * get_viewport().get_canvas_transform()).affine_inverse()
 			var window := Vector2(get_viewport().get_window().size)
 			var top_left := to_world * Vector2.ZERO
@@ -133,8 +221,11 @@ func _tour(level_id: String) -> bool:
 				push_error("[SceneTour] 無法寫入：%s" % folder.path_join(file))
 				level.queue_free()
 				return false
-			shots.append({"file": file, "column": column, "row": row,
-				"world": [top_left.x, top_left.y, bottom_right.x - top_left.x, bottom_right.y - top_left.y]})
+			var shot := {"file": file, "column": column, "row": row,
+				"world": [top_left.x, top_left.y, bottom_right.x - top_left.x, bottom_right.y - top_left.y]}
+			if _walk_player:
+				shot.merge(await _measure(level, Rect2(top_left, bottom_right - top_left)))
+			shots.append(shot)
 	var index := {"level": level_id, "tag": _tag, "level_size": [size.x, size.y], "view": [view.x, view.y],
 		"columns": columns, "rows": rows, "tile": level._layout.tile_size, "shots": shots}
 	var writer := FileAccess.open(folder.path_join(_tag + "-index.json"), FileAccess.WRITE)
