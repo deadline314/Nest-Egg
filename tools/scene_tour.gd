@@ -8,6 +8,7 @@ extends Node
 ## --player：每一格把主角放在畫面中央下方最近的地面上（帶著他自己的光），看實際遊玩時的光影；沒有地面的格子不放。
 ##   同時量主角、畫面內敵人的輪廓對比與腳下地面亮邊（算法與門檻同 tools/contrast_probe.gd），寫進索引。
 ## --quality=low|medium|high：這次巡覽改用該光影品質（結束時還原）。
+## --no-shadows：拿掉角色腳下的接觸陰影（量陰影成本時當對照）。索引會記錄每關的陰影數與每格平均的處理時間。
 ## --flat 是盤點用的診斷畫面：環境光與背景調成全亮、關掉後製，只看擺放、支撐與圖層；不能拿來驗收光影。
 ## 輸出 <關卡>/<標籤>-c<欄>-r<列>.png 與 <關卡>/<標籤>-index.json（每格實際拍到的世界範圍）。
 ## 敵人與主角停在原地不動；主角預設隱藏。拼圖用 tools/scene_tour_sheet.py。
@@ -29,6 +30,7 @@ var _show_player := false
 var _flat := false
 var _walk_player := false
 var _quality := ""
+var _no_shadows := false
 
 
 func _ready() -> void:
@@ -50,6 +52,8 @@ func _ready() -> void:
 			_flat = true
 		elif argument == "--player":
 			_walk_player = true
+		elif argument == "--no-shadows":
+			_no_shadows = true
 		elif argument.begins_with("--quality="):
 			_quality = argument.trim_prefix("--quality=")
 	if not _out.is_absolute_path() or _levels.is_empty() or DisplayServer.get_name() == "headless":
@@ -176,6 +180,15 @@ func _tour(level_id: String) -> bool:
 			node.process_mode = Node.PROCESS_MODE_DISABLED
 		else:
 			node.queue_free()
+	# 角色停住時，腳下的陰影仍要依所在位置更新。
+	var shadows := level.find_children("ContactShadow", "Node2D", true, false)
+	for shadow: Node in shadows:
+		if _no_shadows:
+			shadow.free()
+		else:
+			shadow.process_mode = Node.PROCESS_MODE_ALWAYS
+	var physics_ms: Array[float] = []
+	var process_ms: Array[float] = []
 	if _flat:
 		level._lighting.process_mode = Node.PROCESS_MODE_DISABLED
 		level._lighting._modulate.color = Color.WHITE
@@ -221,13 +234,17 @@ func _tour(level_id: String) -> bool:
 				push_error("[SceneTour] 無法寫入：%s" % folder.path_join(file))
 				level.queue_free()
 				return false
+			physics_ms.append(Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS) * 1000.0)
+			process_ms.append(Performance.get_monitor(Performance.TIME_PROCESS) * 1000.0)
 			var shot := {"file": file, "column": column, "row": row,
 				"world": [top_left.x, top_left.y, bottom_right.x - top_left.x, bottom_right.y - top_left.y]}
 			if _walk_player:
 				shot.merge(await _measure(level, Rect2(top_left, bottom_right - top_left)))
 			shots.append(shot)
 	var index := {"level": level_id, "tag": _tag, "level_size": [size.x, size.y], "view": [view.x, view.y],
-		"columns": columns, "rows": rows, "tile": level._layout.tile_size, "shots": shots}
+		"columns": columns, "rows": rows, "tile": level._layout.tile_size, "shots": shots,
+		"contact_shadows": 0 if _no_shadows else shadows.size(),
+		"physics_ms_median": _median(physics_ms), "process_ms_median": _median(process_ms)}
 	var writer := FileAccess.open(folder.path_join(_tag + "-index.json"), FileAccess.WRITE)
 	if writer == null:
 		push_error("[SceneTour] 無法寫入索引：%s" % folder)

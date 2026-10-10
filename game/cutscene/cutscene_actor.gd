@@ -3,6 +3,10 @@ extends Node2D
 ## 過場裡的角色。有骨架外觀（art/characters/<kind>/）就用骨架（與遊戲內同一套動畫）；
 ## 沒有骨架的角色用頭像做剪影，輕微呼吸起伏。座標是舞台座標，原點在腳底。
 
+## 舞台陰影：腳印半寬（演員縮放前的像素）、倒地時放寬的倍率、腳底可以比地面線低多少仍算著地。
+const STAGE_SHADOW_HALF_WIDTH := 11.0
+const STAGE_SHADOW_LYING := 2.4
+const STAGE_SHADOW_SINK := 4.0
 const POSES: PackedStringArray = ["idle", "walk", "run", "crouch", "aim_up", "block", "dead", "jump", "sit", "lean", "squat", "wave", "listen"]
 const BREATH_PERIOD := 3.2
 
@@ -25,6 +29,7 @@ var _t := 0.0
 var _last_position := Vector2.ZERO
 var _position_known := false
 var _listen_flag := false
+var _shadow_pose: StringName = &""
 
 
 func _init() -> void:
@@ -102,8 +107,26 @@ func _process(delta: float) -> void:
 		rig.animate(delta, _input)
 	elif _portrait != null:
 		_portrait.position.y = -32.0 + sin(_t * TAU / BREATH_PERIOD) * 0.8
+	if position != _last_position or pose != _shadow_pose:
+		_shadow_pose = pose
+		queue_redraw()
 	_last_position = position
 	_position_known = true
+
+
+## 舞台上的接觸陰影（只有登記了地面線的舞台才畫）：落在演員正下方的地面線上，離地越高越小越淡；倒地時較寬。
+## 關卡裡的人物不走這裡，由 ContactShadow 依實際地形處理。
+func _draw() -> void:
+	if is_nan(ground_y) or scale.y <= 0.0:
+		return
+	var drop := (ground_y - position.y) / scale.y
+	if drop < -STAGE_SHADOW_SINK or drop > ContactShadow.MAX_DROP:
+		return
+	var height := clampf(drop / ContactShadow.MAX_DROP, 0.0, 1.0)
+	var half := STAGE_SHADOW_HALF_WIDTH * (STAGE_SHADOW_LYING if pose == &"dead" else 1.0) * lerpf(1.0, ContactShadow.HEIGHT_SHRINK, height)
+	var size := Vector2(half * 2.0, half * 2.0 * ContactShadow.FLATTEN)
+	draw_texture_rect(LightKit.soft_texture(), Rect2(Vector2(-half, drop - size.y * 0.5 + 1.0), size), false,
+			Color(0.0, 0.0, 0.0, ContactShadow.BASE_ALPHA * pow(1.0 - height, 1.5)))
 
 
 func _apply_pose(velocity: Vector2) -> void:

@@ -152,6 +152,9 @@ func _ready() -> void:
 
 func _build_components() -> void:
 	var size := data.body_size
+	# 站在地上的敵人才有腳下的陰影；飛行、掛牆與固定在天花板的沒有。
+	if data.uses_gravity:
+		ContactShadow.attach(self, size.x * 0.5 + 3.0)
 	var center := Vector2(0, -size.y * 0.5)
 	var body := CollisionShape2D.new()
 	var body_shape := RectangleShape2D.new()

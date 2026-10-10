@@ -69,6 +69,7 @@ func _ready() -> void:
 	body_exited.connect(_on_body_exited)
 	if data.kind == NpcData.Kind.PERSON:
 		_build_visual()
+		ContactShadow.attach(self, FIGURE_HALF_WIDTH)
 	_prompt = WorldPrompt.new()
 	_prompt.text = data.prompt_text()
 	_prompt.radius = PROMPT_RADIUS

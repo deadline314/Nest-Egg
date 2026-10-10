@@ -22,6 +22,7 @@ func run() -> void:
 	await _test_level_with_environment()
 	await _test_level_without_environment()
 	_test_chapter_one()
+	await _test_contact_shadow()
 	_test_import_policy("res://art/environment")
 
 
@@ -510,3 +511,60 @@ func _test_kettle_steam_anchor() -> void:
 	check(is_equal_approx(fallback._steam_spread, 2.0), "非法散布退回既有預設")
 	fallback.queue_free()
 	await _motion_process_frames(2)
+
+
+## 角色腳下的接觸陰影（BG-29）：落在實際的支撐面上；離地越高越小；太高或腳下沒有地就不畫；
+## 站在邊緣時不懸空；上層有地板時不穿到下一層。
+func _test_contact_shadow() -> void:
+	var world := Node2D.new()
+	runner.add_child(world)
+	world.position = Vector2(-4000.0, -4000.0)
+	var upper := _shadow_floor(world, Rect2(0.0, 100.0, 200.0, 16.0))
+	var lower := _shadow_floor(world, Rect2(0.0, 300.0, 400.0, 16.0))
+	var body := Node2D.new()
+	world.add_child(body)
+	body.position = Vector2(100.0, 100.0)
+	var shadow := ContactShadow.attach(body, 12.0)
+	await physics_frames(3)
+	var grounded := shadow.world_rect()
+	check(shadow.is_cast() and absf(grounded.position.y - (world.position.y + 100.0 - ContactShadow.SURFACE_LIP)) < 0.5,
+			"contact shadow lies on the floor under the feet")
+	check(grounded.size.x > 20.0 and grounded.size.y <= ContactShadow.MAX_HEIGHT, "grounded shadow spans the footprint and stays on the floor face")
+	body.position = Vector2(100.0, 40.0)
+	await physics_frames(3)
+	var raised := shadow.world_rect()
+	check(shadow.is_cast() and raised.size.x < grounded.size.x - 2.0 and is_equal_approx(raised.position.y, grounded.position.y),
+			"jumping keeps the shadow on the same floor but smaller")
+	body.position = Vector2(100.0, 100.0 - ContactShadow.MAX_DROP - 20.0)
+	await physics_frames(3)
+	check(not shadow.is_cast(), "no shadow when the floor is farther than the maximum drop")
+	body.position = Vector2(198.0, 100.0)
+	await physics_frames(3)
+	var edge := shadow.world_rect()
+	check(shadow.is_cast() and edge.end.x <= world.position.x + 200.0 + 4.0 and edge.size.x < grounded.size.x - 4.0,
+			"standing on a ledge keeps the shadow on the ledge instead of hanging in the air")
+	check(absf(edge.position.y - grounded.position.y) < 0.5, "a shadow on the upper floor does not fall through to the floor below")
+	body.position = Vector2(300.0, 290.0)
+	await physics_frames(3)
+	check(shadow.is_cast() and absf(shadow.world_rect().position.y - (world.position.y + 300.0 - ContactShadow.SURFACE_LIP)) < 0.5,
+			"the shadow follows the character onto the lower floor")
+	body.position = Vector2(600.0, 100.0)
+	await physics_frames(3)
+	check(not shadow.is_cast(), "no shadow over a pit")
+	upper.queue_free()
+	lower.queue_free()
+	world.queue_free()
+
+
+func _shadow_floor(parent: Node2D, rect: Rect2) -> StaticBody2D:
+	var floor_body := StaticBody2D.new()
+	floor_body.collision_layer = Layers.WORLD
+	floor_body.collision_mask = 0
+	var shape := RectangleShape2D.new()
+	shape.size = rect.size
+	var node := CollisionShape2D.new()
+	node.shape = shape
+	node.position = rect.get_center()
+	floor_body.add_child(node)
+	parent.add_child(floor_body)
+	return floor_body

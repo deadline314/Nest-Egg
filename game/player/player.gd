@@ -73,6 +73,7 @@ var _visual: PlayerVisual
 ## 自己那盞光調整到目標能量的速度（每秒）。
 const LIGHT_EASE := 1.5
 var _light: PointLight2D
+var _contact_shadow: ContactShadow
 var _was_on_floor := true
 var _fall_speed_before_move := 0.0
 var _max_health := 6
@@ -167,6 +168,8 @@ func _ready() -> void:
 	body.shape = body_shape
 	body.position = Vector2(0, -BODY_SIZE.y * 0.5)
 	add_child(body)
+	# 腳下的接觸陰影：比碰撞箱略寬，接近雙腳站開的寬度。
+	_contact_shadow = ContactShadow.attach(self, BODY_SIZE.x * 0.5 + 5.0)
 
 	health = HealthComponent.new()
 	health.setup(_max_health, tuning.hurt_invulnerability)
@@ -1340,6 +1343,8 @@ func _on_damaged(info: DamageInfo) -> void:
 func _on_died(info: DamageInfo) -> void:
 	_interrupt_melee()
 	state = State.DEAD
+	# 倒地後身體橫躺：陰影放寬成身長的一半。
+	_contact_shadow.half_width = BODY_SIZE.y * 0.5
 	if is_instance_valid(_visual):
 		_visual.clear_dash_silhouettes()
 	hurtbox.enabled = false
