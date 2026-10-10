@@ -74,7 +74,7 @@ func _ready() -> void:
 	_play_noise_in(root)
 	if sequence.get("steps") is Array and not sequence.steps.is_empty():
 		_sequence_label = UiKit.label("", UiKit.FS_BODY, Palette.CYAN, HORIZONTAL_ALIGNMENT_CENTER)
-		_sequence_label.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
+		_sequence_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		column.add_child(_sequence_label)
 		column.move_child(_sequence_label, 2)
 		_sequence_card = file
@@ -93,13 +93,13 @@ func _make_file_card() -> Control:
 		panel.body.add_child(UiKit.label("NEW　新解鎖", UiKit.FS_BODY, Palette.NEON_YELLOW))
 	panel.body.add_child(UiKit.label(str(_card.get("title", "???")), UiKit.FS_TITLE, Palette.UI_TEXT))
 	var text := UiKit.label(str(_card.get("text", "")), UiKit.FS_BODY, Palette.UI_MUTED)
-	text.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
+	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	panel.body.add_child(text)
 	var hint_text := str(_card.get("hint", ""))
 	if not hint_text.is_empty():
 		panel.body.add_child(UiDivider.new())
 		var hint := UiKit.label("攻略　" + hint_text, UiKit.FS_BODY, Palette.CYAN)
-		hint.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
+		hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		panel.body.add_child(hint)
 	if not _can_continue:
 		panel.body.add_child(UiKit.label("殘機用盡，將從關卡開頭重新開始。", UiKit.FS_BODY, Palette.DANGER))

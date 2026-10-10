@@ -33,7 +33,7 @@ func _ready() -> void:
 	center.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(center)
 	var panel := UiPanel.new("結算")
-	panel.custom_minimum_size = Vector2(380, 0)
+	panel.custom_minimum_size = Vector2(460, 0)
 	center.add_child(panel)
 
 	var info := Story.chapter_info(chapter)
@@ -47,9 +47,14 @@ func _ready() -> void:
 	panel.body.add_child(heading)
 	panel.body.add_child(UiDivider.new())
 
+	# 評價兩欄排列：放大文字時整張結算仍在畫面內，按鈕不會被擠出畫面。
+	var stats := GridContainer.new()
+	stats.columns = 2
+	stats.add_theme_constant_override(&"h_separation", 16)
+	panel.body.add_child(stats)
 	for entry in _stat_entries():
 		var row := _stat_row(entry["label"], str(entry["value"]), entry.get("color", Palette.UI_TEXT))
-		panel.body.add_child(row)
+		stats.add_child(row)
 		_rows.append(row)
 	var teaser := str(info.get("teaser", ""))
 	# 累積版本的最後一章：同一行說清楚內容到此、進度已保存，不讓玩家以為下一章壞掉，也不加高面板。
@@ -75,7 +80,7 @@ func _ready() -> void:
 		b.disabled = true
 	replay.grab_focus.call_deferred()
 	# 鍵盤與手把移動焦點時，在底部顯示同一句說明。
-	FocusHintBar.attach(self, FocusHintBar.Placement.BOTTOM_RIGHT)
+	FocusHintBar.attach(self, FocusHintBar.Placement.INLINE, buttons)
 	_run_reveal.call_deferred()
 
 
@@ -97,7 +102,7 @@ func _stat_entries() -> Array[Dictionary]:
 func _stat_row(label_text: String, value_text: String, color: Color) -> Control:
 	var row := HBoxContainer.new()
 	var name_label := UiKit.label(label_text, UiKit.FS_BODY, Palette.UI_MUTED)
-	name_label.custom_minimum_size = Vector2(110, 0)
+	name_label.custom_minimum_size = Vector2(90, 0)
 	row.add_child(name_label)
 	row.add_child(UiKit.label(value_text, UiKit.FS_BODY, color))
 	return row

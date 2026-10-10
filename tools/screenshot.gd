@@ -53,6 +53,17 @@ func _ready() -> void:
 			CharacterRig.force_rigid_limbs = true  # 角色維持剛體零件（NE-204 修前畫面）
 		elif arg == "--hurtboxes":
 			Enemy.debug_hurtboxes = true  # 開發檢查：畫出敵人的部位受擊框（黃＝弱點、青＝一般部位）
+		elif arg.begins_with("--text-scale="):
+			# 文字放大檢查（NE-228）：改用獨立設定檔，不寫進玩家的設定。
+			Settings.use_storage("user://screenshot-probe-settings.cfg")
+			Settings.set_ui_text_scale(float(arg.trim_prefix("--text-scale=")))
+		elif arg.begins_with("--size="):
+			var dims := arg.trim_prefix("--size=").split("x")
+			if dims.size() == 2 and int(dims[0]) >= 640 and int(dims[1]) >= 360:
+				get_window().size = Vector2i(int(dims[0]), int(dims[1]))
+				DisplayMode.ensure_scaling(get_window())
+			else:
+				push_error("[screenshot] --size 格式是 寬x高，且不小於 640x360：%s" % arg)
 	DirAccess.make_dir_recursive_absolute(_out_dir)
 	_run.call_deferred()
 

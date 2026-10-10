@@ -2,10 +2,11 @@ class_name FocusHintBar
 extends PanelContainer
 ## 聚焦說明列：鍵盤或手把移動焦點時，把該控制項的 tooltip 顯示在畫面底部，說明不再只靠滑鼠 Hover。
 ## 只回應 scope 底下的控制項；滑鼠移動時收起（滑鼠已有原生 tooltip），焦點離開或 scope 隱藏時跟著消失。
-## 用法：`FocusHintBar.attach(root)`；版面底部有東西時改用 `BOTTOM_RIGHT` 或 `BELOW`（貼在指定面板下方）。
+## 用法：`FocusHintBar.attach(root)`；版面底部有東西時改用 `BOTTOM_RIGHT`、`BELOW`（貼在指定面板下方）
+## 或 `INLINE`（放進指定的排版容器，例如按鈕列旁邊，由容器決定位置）。
 ## 整個視窗只連一次焦點訊號，按鈕動態增減也不用逐一接線。
 
-enum Placement { BOTTOM_CENTER, BOTTOM_RIGHT, BELOW }
+enum Placement { BOTTOM_CENTER, BOTTOM_RIGHT, BELOW, INLINE }
 
 const MARGIN := 6.0
 
@@ -21,10 +22,17 @@ static func attach(scope: Control, where := Placement.BOTTOM_CENTER, anchor: Con
 	bar._scope = scope
 	bar.placement = where
 	bar._anchor = anchor
-	if where == Placement.BELOW and anchor == null:
-		push_error("[FocusHintBar] %s：BELOW 需要指定面板，改放底部置中" % scope.name)
+	if (where == Placement.BELOW or where == Placement.INLINE) and anchor == null:
+		push_error("[FocusHintBar] %s：BELOW／INLINE 需要指定面板或容器，改放底部置中" % scope.name)
 		bar.placement = Placement.BOTTOM_CENTER
-	scope.add_child(bar)
+	if bar.placement == Placement.INLINE:
+		# 放在按鈕旁時不加框，避免看起來像另一顆按鈕。
+		bar.add_theme_stylebox_override(&"panel", StyleBoxEmpty.new())
+		bar._label.theme_type_variation = &""
+		bar._label.add_theme_color_override(&"font_color", Palette.UI_MUTED)
+		anchor.add_child(bar)
+	else:
+		scope.add_child(bar)
 	return bar
 
 
@@ -47,7 +55,7 @@ func _ready() -> void:
 		return
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 	_scope.visibility_changed.connect(_refresh)
-	if is_instance_valid(_anchor):
+	if is_instance_valid(_anchor) and placement == Placement.BELOW:
 		# 面板滑入或改版面時跟著移動；只在面板實際移動時觸發，不每影格計算。
 		_anchor.item_rect_changed.connect(func() -> void:
 			if visible:
@@ -79,7 +87,8 @@ func _refresh() -> void:
 	if visible:
 		# 文字長短不同：依內容重算大小後再放到指定位置，並夾在畫面內。
 		reset_size()
-		_place()
+		if placement != Placement.INLINE:
+			_place()
 
 
 func _place() -> void:

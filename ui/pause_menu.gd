@@ -46,7 +46,8 @@ func _ready() -> void:
 	_root.add_child(shade)
 
 	var menu := UiPanel.new("暫停")
-	menu.position = Vector2(36, 48)
+	# 上緣只留給計時器：放大文字時「目前進度」的完整操作表仍在畫面內。
+	menu.position = Vector2(36, 28)
 	menu.custom_minimum_size = Vector2(190, 0)
 	_root.add_child(menu)
 	_menu_panel = menu
@@ -67,7 +68,7 @@ func _ready() -> void:
 	menu.body.add_child(UiKit.button("回主選單", _on_menu, "返回主選單；會嘗試保存進度"))
 
 	var info := UiPanel.new("目前進度", Palette.NEON_YELLOW)
-	info.position = Vector2(250, 48)
+	info.position = Vector2(250, 28)
 	info.custom_minimum_size = Vector2(354, 0)
 	_root.add_child(info)
 	_info_panel = info

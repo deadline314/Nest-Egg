@@ -62,8 +62,8 @@ static func _check_victory(suite: TestSuite) -> void:
 			break
 	await suite.frames(2)
 	suite.check(screen._buttons[0].has_focus(), "手把 A 略過結算逐項顯示，焦點落在「再玩一次」")
-	var bar := screen.get_node("FocusHintBar") as FocusHintBar
-	suite.check(bar != null and bar.text() == screen._buttons[0].tooltip_text, "結算畫面聚焦按鈕時底部顯示說明")
+	var bar := screen.find_child("FocusHintBar", true, false) as FocusHintBar
+	suite.check(bar != null and bar.text() == screen._buttons[0].tooltip_text, "結算畫面聚焦按鈕時在按鈕旁顯示說明")
 	await _joy(suite, JOY_BUTTON_DPAD_RIGHT)
 	suite.check(screen._buttons[1].has_focus() and bar.text() == screen._buttons[1].tooltip_text, "方向鍵移到「回主選單」並換說明")
 	var to_menu := [false]

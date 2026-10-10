@@ -86,14 +86,14 @@ func _build_detail() -> Control:
 	_detail_number = UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED)
 	panel.body.add_child(_detail_number)
 	_detail_title = UiKit.label("", UiKit.FS_TITLE, Palette.UI_TEXT)
-	_detail_title.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
+	_detail_title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	panel.body.add_child(_detail_title)
 	_detail_text = UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED)
-	_detail_text.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
+	_detail_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	panel.body.add_child(_detail_text)
 	panel.body.add_child(UiDivider.new())
 	_detail_hint = UiKit.label("", UiKit.FS_BODY, Palette.CYAN)
-	_detail_hint.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
+	_detail_hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	panel.body.add_child(_detail_hint)
 	return panel
 
