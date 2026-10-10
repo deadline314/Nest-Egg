@@ -1,0 +1,932 @@
+{
+  "basis_commit": "ff4b9dd095eab83076e030c92bb8625168f3cf43",
+  "method": "LevelData layout_path -> map JSON segments; LevelData legend glyph -> ExtResource path; validate path against data/enemies/**/*.tres with script_class EnemyData and resource id; Counter each grid character by segment, then aggregate by EnemyData id.",
+  "enemy_data_resource_count": 38,
+  "roster_sha256": "cf8110646ddd957875c2d0658a8e595fca4162c42a382634daa4d43c0ad09824",
+  "formal_ch1": {
+    "roster_enemy_ids": [
+      "sweeper",
+      "collector_gunner",
+      "collector_brute",
+      "drone",
+      "watchdog",
+      "ch1_inspector"
+    ],
+    "level_ids": [
+      "ch1_pawnshop",
+      "ch1_rooftop",
+      "ch1_street",
+      "ch1_booth_alley",
+      "ch1_warehouse",
+      "ch1_vault",
+      "ch1_lounge",
+      "ch1_stall",
+      "ch1_pawnshop_dawn"
+    ],
+    "unique_maps": [
+      {
+        "level_id": "ch1_pawnshop",
+        "level_data": "data/levels/ch1_pawnshop.tres",
+        "level_data_sha256": "16e807ae44bcca29a9e20bddbe0a3c115714de3c6295b40f339c0f7b7bac07cc",
+        "map_json": "data/levels/ch1_pawnshop_map.json",
+        "map_sha256": "616c065a87b59780da426317ce3052336c334b7f66f9bba438d9b43209e01f4c",
+        "legend_glyph_to_enemy_data_id": {},
+        "segments": [
+          {
+            "segment": 1,
+            "glyph_to_enemy_data_id": {},
+            "counter_by_id": {},
+            "enemy_count": 0
+          },
+          {
+            "segment": 2,
+            "glyph_to_enemy_data_id": {},
+            "counter_by_id": {},
+            "enemy_count": 0
+          },
+          {
+            "segment": 3,
+            "glyph_to_enemy_data_id": {},
+            "counter_by_id": {},
+            "enemy_count": 0
+          }
+        ],
+        "counter_by_id": {},
+        "enemy_count": 0,
+        "identity_count": 0
+      },
+      {
+        "level_id": "ch1_rooftop",
+        "level_data": "data/levels/ch1_rooftop.tres",
+        "level_data_sha256": "4c3259c135404d85a60b066b26fd8f5a7be362ae46f7f846527952640e869294",
+        "map_json": "data/levels/ch1_rooftop_map.json",
+        "map_sha256": "0e5e165b74ad2f32be724939c2469cb070fc459806ba73a55d0d6db3708db67c",
+        "legend_glyph_to_enemy_data_id": {},
+        "segments": [
+          {
+            "segment": 1,
+            "glyph_to_enemy_data_id": {},
+            "counter_by_id": {},
+            "enemy_count": 0
+          },
+          {
+            "segment": 2,
+            "glyph_to_enemy_data_id": {},
+            "counter_by_id": {},
+            "enemy_count": 0
+          }
+        ],
+        "counter_by_id": {},
+        "enemy_count": 0,
+        "identity_count": 0
+      },
+      {
+        "level_id": "ch1_street",
+        "level_data": "data/levels/ch1_street.tres",
+        "level_data_sha256": "437a57abe0eabc769b4606302ddb768e4e6fb3740d9386af5536a1e07a2fc0d3",
+        "map_json": "data/levels/ch1_street_map.json",
+        "map_sha256": "385b777c3dea7e2cbdabf293a6642be3abb461ac469c8f0531ff288df2b0981a",
+        "legend_glyph_to_enemy_data_id": {
+          "b": {
+            "id": "collector_brute",
+            "resource": "res://data/enemies/collector_brute.tres"
+          },
+          "d": {
+            "id": "drone",
+            "resource": "res://data/enemies/drone.tres"
+          },
+          "g": {
+            "id": "sweeper",
+            "resource": "res://data/enemies/sweeper.tres"
+          },
+          "k": {
+            "id": "collector_gunner",
+            "resource": "res://data/enemies/collector_gunner.tres"
+          },
+          "z": {
+            "id": "ch1_inspector",
+            "resource": "res://data/enemies/ch1_inspector.tres"
+          }
+        },
+        "segments": [
+          {
+            "segment": 1,
+            "glyph_to_enemy_data_id": {},
+            "counter_by_id": {},
+            "enemy_count": 0
+          },
+          {
+            "segment": 2,
+            "glyph_to_enemy_data_id": {
+              "g": {
+                "id": "sweeper",
+                "resource": "res://data/enemies/sweeper.tres",
+                "count": 4
+              },
+              "k": {
+                "id": "collector_gunner",
+                "resource": "res://data/enemies/collector_gunner.tres",
+                "count": 1
+              }
+            },
+            "counter_by_id": {
+              "collector_gunner": 1,
+              "sweeper": 4
+            },
+            "enemy_count": 5
+          },
+          {
+            "segment": 3,
+            "glyph_to_enemy_data_id": {
+              "b": {
+                "id": "collector_brute",
+                "resource": "res://data/enemies/collector_brute.tres",
+                "count": 1
+              },
+              "d": {
+                "id": "drone",
+                "resource": "res://data/enemies/drone.tres",
+                "count": 2
+              },
+              "g": {
+                "id": "sweeper",
+                "resource": "res://data/enemies/sweeper.tres",
+                "count": 3
+              }
+            },
+            "counter_by_id": {
+              "collector_brute": 1,
+              "drone": 2,
+              "sweeper": 3
+            },
+            "enemy_count": 6
+          },
+          {
+            "segment": 4,
+            "glyph_to_enemy_data_id": {
+              "d": {
+                "id": "drone",
+                "resource": "res://data/enemies/drone.tres",
+                "count": 2
+              },
+              "k": {
+                "id": "collector_gunner",
+                "resource": "res://data/enemies/collector_gunner.tres",
+                "count": 2
+              },
+              "z": {
+                "id": "ch1_inspector",
+                "resource": "res://data/enemies/ch1_inspector.tres",
+                "count": 1
+              }
+            },
+            "counter_by_id": {
+              "ch1_inspector": 1,
+              "collector_gunner": 2,
+              "drone": 2
+            },
+            "enemy_count": 5
+          },
+          {
+            "segment": 5,
+            "glyph_to_enemy_data_id": {},
+            "counter_by_id": {},
+            "enemy_count": 0
+          }
+        ],
+        "counter_by_id": {
+          "ch1_inspector": 1,
+          "collector_brute": 1,
+          "collector_gunner": 3,
+          "drone": 4,
+          "sweeper": 7
+        },
+        "enemy_count": 16,
+        "identity_count": 5
+      },
+      {
+        "level_id": "ch1_booth_alley",
+        "level_data": "data/levels/ch1_booth_alley.tres",
+        "level_data_sha256": "aa5b73cf53403beafd3bc34224987164e7c55c0eb1ea7d6c0c9c6c76a80c4df9",
+        "map_json": "data/levels/ch1_booth_alley_map.json",
+        "map_sha256": "1ea857320b434e843294a7b78eade548e766671ef87baab79144e52929bf0653",
+        "legend_glyph_to_enemy_data_id": {},
+        "segments": [
+          {
+            "segment": 1,
+            "glyph_to_enemy_data_id": {},
+            "counter_by_id": {},
+            "enemy_count": 0
+          },
+          {
+            "segment": 2,
+            "glyph_to_enemy_data_id": {},
+            "counter_by_id": {},
+            "enemy_count": 0
+          }
+        ],
+        "counter_by_id": {},
+        "enemy_count": 0,
+        "identity_count": 0
+      },
+      {
+        "level_id": "ch1_warehouse",
+        "level_data": "data/levels/ch1_warehouse.tres",
+        "level_data_sha256": "d5127f3ffff2a223e9e3c97031e423c9c9751dd459fca184f1e83492d0a42c01",
+        "map_json": "data/levels/ch1_warehouse_map.json",
+        "map_sha256": "64101482b40251ab9f7bb7b389887f28bc22795b32f7d7a5128fad4035460cf3",
+        "legend_glyph_to_enemy_data_id": {
+          "b": {
+            "id": "collector_brute",
+            "resource": "res://data/enemies/collector_brute.tres"
+          },
+          "d": {
+            "id": "drone",
+            "resource": "res://data/enemies/drone.tres"
+          },
+          "g": {
+            "id": "sweeper",
+            "resource": "res://data/enemies/sweeper.tres"
+          },
+          "k": {
+            "id": "collector_gunner",
+            "resource": "res://data/enemies/collector_gunner.tres"
+          },
+          "w": {
+            "id": "watchdog",
+            "resource": "res://data/enemies/watchdog.tres"
+          }
+        },
+        "segments": [
+          {
+            "segment": 1,
+            "glyph_to_enemy_data_id": {
+              "g": {
+                "id": "sweeper",
+                "resource": "res://data/enemies/sweeper.tres",
+                "count": 2
+              },
+              "k": {
+                "id": "collector_gunner",
+                "resource": "res://data/enemies/collector_gunner.tres",
+                "count": 2
+              }
+            },
+            "counter_by_id": {
+              "collector_gunner": 2,
+              "sweeper": 2
+            },
+            "enemy_count": 4
+          },
+          {
+            "segment": 2,
+            "glyph_to_enemy_data_id": {
+              "b": {
+                "id": "collector_brute",
+                "resource": "res://data/enemies/collector_brute.tres",
+                "count": 1
+              },
+              "w": {
+                "id": "watchdog",
+                "resource": "res://data/enemies/watchdog.tres",
+                "count": 1
+              }
+            },
+            "counter_by_id": {
+              "collector_brute": 1,
+              "watchdog": 1
+            },
+            "enemy_count": 2
+          },
+          {
+            "segment": 3,
+            "glyph_to_enemy_data_id": {
+              "b": {
+                "id": "collector_brute",
+                "resource": "res://data/enemies/collector_brute.tres",
+                "count": 1
+              },
+              "d": {
+                "id": "drone",
+                "resource": "res://data/enemies/drone.tres",
+                "count": 3
+              },
+              "g": {
+                "id": "sweeper",
+                "resource": "res://data/enemies/sweeper.tres",
+                "count": 2
+              },
+              "k": {
+                "id": "collector_gunner",
+                "resource": "res://data/enemies/collector_gunner.tres",
+                "count": 1
+              }
+            },
+            "counter_by_id": {
+              "collector_brute": 1,
+              "collector_gunner": 1,
+              "drone": 3,
+              "sweeper": 2
+            },
+            "enemy_count": 7
+          },
+          {
+            "segment": 4,
+            "glyph_to_enemy_data_id": {},
+            "counter_by_id": {},
+            "enemy_count": 0
+          }
+        ],
+        "counter_by_id": {
+          "collector_brute": 2,
+          "collector_gunner": 3,
+          "drone": 3,
+          "sweeper": 4,
+          "watchdog": 1
+        },
+        "enemy_count": 13,
+        "identity_count": 5
+      },
+      {
+        "level_id": "ch1_vault",
+        "level_data": "data/levels/ch1_vault.tres",
+        "level_data_sha256": "461655734e29ac6fd02e4382f67d4dfb0faf6012d174187503caf6efe8c2ba86",
+        "map_json": "data/levels/ch1_vault_map.json",
+        "map_sha256": "1695d36f48ed9cc6a7863ad3c6473e1a8b61a278c42d1a6e8e4e7a1ee7742e23",
+        "legend_glyph_to_enemy_data_id": {
+          "d": {
+            "id": "drone",
+            "resource": "res://data/enemies/drone.tres"
+          },
+          "g": {
+            "id": "sweeper",
+            "resource": "res://data/enemies/sweeper.tres"
+          },
+          "k": {
+            "id": "collector_gunner",
+            "resource": "res://data/enemies/collector_gunner.tres"
+          },
+          "z": {
+            "id": "ch1_inspector",
+            "resource": "res://data/enemies/ch1_inspector.tres"
+          }
+        },
+        "segments": [
+          {
+            "segment": 1,
+            "glyph_to_enemy_data_id": {
+              "k": {
+                "id": "collector_gunner",
+                "resource": "res://data/enemies/collector_gunner.tres",
+                "count": 1
+              },
+              "z": {
+                "id": "ch1_inspector",
+                "resource": "res://data/enemies/ch1_inspector.tres",
+                "count": 1
+              }
+            },
+            "counter_by_id": {
+              "ch1_inspector": 1,
+              "collector_gunner": 1
+            },
+            "enemy_count": 2
+          },
+          {
+            "segment": 2,
+            "glyph_to_enemy_data_id": {
+              "d": {
+                "id": "drone",
+                "resource": "res://data/enemies/drone.tres",
+                "count": 2
+              },
+              "g": {
+                "id": "sweeper",
+                "resource": "res://data/enemies/sweeper.tres",
+                "count": 2
+              },
+              "k": {
+                "id": "collector_gunner",
+                "resource": "res://data/enemies/collector_gunner.tres",
+                "count": 1
+              }
+            },
+            "counter_by_id": {
+              "collector_gunner": 1,
+              "drone": 2,
+              "sweeper": 2
+            },
+            "enemy_count": 5
+          },
+          {
+            "segment": 3,
+            "glyph_to_enemy_data_id": {},
+            "counter_by_id": {},
+            "enemy_count": 0
+          }
+        ],
+        "counter_by_id": {
+          "ch1_inspector": 1,
+          "collector_gunner": 2,
+          "drone": 2,
+          "sweeper": 2
+        },
+        "enemy_count": 7,
+        "identity_count": 4
+      },
+      {
+        "level_id": "ch1_lounge",
+        "level_data": "data/levels/ch1_lounge.tres",
+        "level_data_sha256": "1c2673251b8003a0d0586fb91416d4a64f269d0e1819138f330bb0daaebfc0a2",
+        "map_json": "data/levels/ch1_lounge_map.json",
+        "map_sha256": "240e683efb8b3fdd5f01121c8f703b2edc3c93e92adcbbde13009dcd4f0c516a",
+        "legend_glyph_to_enemy_data_id": {},
+        "segments": [
+          {
+            "segment": 1,
+            "glyph_to_enemy_data_id": {},
+            "counter_by_id": {},
+            "enemy_count": 0
+          },
+          {
+            "segment": 2,
+            "glyph_to_enemy_data_id": {},
+            "counter_by_id": {},
+            "enemy_count": 0
+          }
+        ],
+        "counter_by_id": {},
+        "enemy_count": 0,
+        "identity_count": 0
+      },
+      {
+        "level_id": "ch1_stall",
+        "level_data": "data/levels/ch1_stall.tres",
+        "level_data_sha256": "693c6f892f64dbe35845bd7e2b8a73aaea4c94d4be0cd14e82b4531e69ad91d8",
+        "map_json": "data/levels/ch1_stall_map.json",
+        "map_sha256": "f621429142c398745733059700970e1a7679ed99ee4927bbf6256cbe8f15cc70",
+        "legend_glyph_to_enemy_data_id": {},
+        "segments": [
+          {
+            "segment": 1,
+            "glyph_to_enemy_data_id": {},
+            "counter_by_id": {},
+            "enemy_count": 0
+          }
+        ],
+        "counter_by_id": {},
+        "enemy_count": 0,
+        "identity_count": 0
+      }
+    ],
+    "counter_by_id": {
+      "ch1_inspector": 2,
+      "collector_brute": 3,
+      "collector_gunner": 8,
+      "drone": 9,
+      "sweeper": 13,
+      "watchdog": 1
+    },
+    "enemy_count": 36,
+    "identity_count": 6,
+    "segment_enemy_count_sum": 36
+  },
+  "legacy_chapter_02": {
+    "roster_enemy_ids": [
+      "elite_grunt",
+      "slasher",
+      "stalker",
+      "repair_drone",
+      "flamer",
+      "heavy_gunner",
+      "searchlight_drone",
+      "sniper",
+      "shaft_bat",
+      "wall_gecko",
+      "tangle_wire",
+      "rail_cannon",
+      "custodian",
+      "reclaimer",
+      "chainsaw_arm",
+      "hydraulic_claw",
+      "plasma_whip",
+      "chain_hook"
+    ],
+    "level_ids": [
+      "level_02"
+    ],
+    "maps": [
+      {
+        "level_id": "level_02",
+        "level_data": "data/levels/level_02.tres",
+        "level_data_sha256": "07228a60980e9166c92dddb9058d6a70a6760e6337854de14bc2e806b72e6d16",
+        "map_json": "data/levels/level_02_map.json",
+        "map_sha256": "9557d0ba0f7876ee877c4c8bc26cb3fc9a96046e62467626154304d2266a2599",
+        "legend_glyph_to_enemy_data_id": {
+          "+": {
+            "id": "shaft_bat",
+            "resource": "res://data/enemies/shaft_bat.tres"
+          },
+          "<": {
+            "id": "tangle_wire",
+            "resource": "res://data/enemies/tangle_wire.tres"
+          },
+          ">": {
+            "id": "rail_cannon",
+            "resource": "res://data/enemies/rail_cannon.tres"
+          },
+          "E": {
+            "id": "elite_grunt",
+            "resource": "res://data/enemies/elite_grunt.tres"
+          },
+          "M": {
+            "id": "repair_drone",
+            "resource": "res://data/enemies/repair_drone.tres"
+          },
+          "O": {
+            "id": "flamer",
+            "resource": "res://data/enemies/flamer.tres"
+          },
+          "S": {
+            "id": "wall_gecko",
+            "resource": "res://data/enemies/wall_gecko.tres"
+          },
+          "Y": {
+            "id": "reclaimer",
+            "resource": "res://data/enemies/reclaimer.tres"
+          },
+          "Z": {
+            "id": "sniper",
+            "resource": "res://data/enemies/sniper.tres"
+          },
+          "b": {
+            "id": "custodian",
+            "resource": "res://data/enemies/custodian.tres"
+          },
+          "k": {
+            "id": "slasher",
+            "resource": "res://data/enemies/slasher.tres"
+          },
+          "n": {
+            "id": "searchlight_drone",
+            "resource": "res://data/enemies/searchlight_drone.tres"
+          },
+          "s": {
+            "id": "stalker",
+            "resource": "res://data/enemies/stalker.tres"
+          },
+          "v": {
+            "id": "heavy_gunner",
+            "resource": "res://data/enemies/heavy_gunner.tres"
+          },
+          "λ": {
+            "id": "chainsaw_arm",
+            "resource": "res://data/enemies/strike/chainsaw_arm.tres"
+          },
+          "μ": {
+            "id": "hydraulic_claw",
+            "resource": "res://data/enemies/strike/hydraulic_claw.tres"
+          },
+          "ν": {
+            "id": "plasma_whip",
+            "resource": "res://data/enemies/strike/plasma_whip.tres"
+          },
+          "ξ": {
+            "id": "chain_hook",
+            "resource": "res://data/enemies/strike/chain_hook.tres"
+          }
+        },
+        "segments": [
+          {
+            "segment": 1,
+            "glyph_to_enemy_data_id": {
+              "E": {
+                "id": "elite_grunt",
+                "resource": "res://data/enemies/elite_grunt.tres",
+                "count": 2
+              }
+            },
+            "counter_by_id": {
+              "elite_grunt": 2
+            },
+            "enemy_count": 2
+          },
+          {
+            "segment": 2,
+            "glyph_to_enemy_data_id": {
+              "+": {
+                "id": "shaft_bat",
+                "resource": "res://data/enemies/shaft_bat.tres",
+                "count": 1
+              }
+            },
+            "counter_by_id": {
+              "shaft_bat": 1
+            },
+            "enemy_count": 1
+          },
+          {
+            "segment": 3,
+            "glyph_to_enemy_data_id": {
+              "+": {
+                "id": "shaft_bat",
+                "resource": "res://data/enemies/shaft_bat.tres",
+                "count": 1
+              },
+              ">": {
+                "id": "rail_cannon",
+                "resource": "res://data/enemies/rail_cannon.tres",
+                "count": 1
+              },
+              "E": {
+                "id": "elite_grunt",
+                "resource": "res://data/enemies/elite_grunt.tres",
+                "count": 1
+              },
+              "O": {
+                "id": "flamer",
+                "resource": "res://data/enemies/flamer.tres",
+                "count": 1
+              },
+              "S": {
+                "id": "wall_gecko",
+                "resource": "res://data/enemies/wall_gecko.tres",
+                "count": 1
+              },
+              "k": {
+                "id": "slasher",
+                "resource": "res://data/enemies/slasher.tres",
+                "count": 2
+              }
+            },
+            "counter_by_id": {
+              "elite_grunt": 1,
+              "flamer": 1,
+              "rail_cannon": 1,
+              "shaft_bat": 1,
+              "slasher": 2,
+              "wall_gecko": 1
+            },
+            "enemy_count": 7
+          },
+          {
+            "segment": 4,
+            "glyph_to_enemy_data_id": {
+              "E": {
+                "id": "elite_grunt",
+                "resource": "res://data/enemies/elite_grunt.tres",
+                "count": 1
+              },
+              "Z": {
+                "id": "sniper",
+                "resource": "res://data/enemies/sniper.tres",
+                "count": 1
+              },
+              "n": {
+                "id": "searchlight_drone",
+                "resource": "res://data/enemies/searchlight_drone.tres",
+                "count": 1
+              },
+              "s": {
+                "id": "stalker",
+                "resource": "res://data/enemies/stalker.tres",
+                "count": 3
+              },
+              "μ": {
+                "id": "hydraulic_claw",
+                "resource": "res://data/enemies/strike/hydraulic_claw.tres",
+                "count": 1
+              }
+            },
+            "counter_by_id": {
+              "elite_grunt": 1,
+              "hydraulic_claw": 1,
+              "searchlight_drone": 1,
+              "sniper": 1,
+              "stalker": 3
+            },
+            "enemy_count": 7
+          },
+          {
+            "segment": 5,
+            "glyph_to_enemy_data_id": {
+              "+": {
+                "id": "shaft_bat",
+                "resource": "res://data/enemies/shaft_bat.tres",
+                "count": 1
+              },
+              "S": {
+                "id": "wall_gecko",
+                "resource": "res://data/enemies/wall_gecko.tres",
+                "count": 2
+              },
+              "s": {
+                "id": "stalker",
+                "resource": "res://data/enemies/stalker.tres",
+                "count": 1
+              },
+              "v": {
+                "id": "heavy_gunner",
+                "resource": "res://data/enemies/heavy_gunner.tres",
+                "count": 1
+              },
+              "λ": {
+                "id": "chainsaw_arm",
+                "resource": "res://data/enemies/strike/chainsaw_arm.tres",
+                "count": 1
+              }
+            },
+            "counter_by_id": {
+              "chainsaw_arm": 1,
+              "heavy_gunner": 1,
+              "shaft_bat": 1,
+              "stalker": 1,
+              "wall_gecko": 2
+            },
+            "enemy_count": 6
+          },
+          {
+            "segment": 6,
+            "glyph_to_enemy_data_id": {},
+            "counter_by_id": {},
+            "enemy_count": 0
+          },
+          {
+            "segment": 7,
+            "glyph_to_enemy_data_id": {
+              "O": {
+                "id": "flamer",
+                "resource": "res://data/enemies/flamer.tres",
+                "count": 1
+              }
+            },
+            "counter_by_id": {
+              "flamer": 1
+            },
+            "enemy_count": 1
+          },
+          {
+            "segment": 8,
+            "glyph_to_enemy_data_id": {
+              "<": {
+                "id": "tangle_wire",
+                "resource": "res://data/enemies/tangle_wire.tres",
+                "count": 1
+              },
+              ">": {
+                "id": "rail_cannon",
+                "resource": "res://data/enemies/rail_cannon.tres",
+                "count": 1
+              },
+              "E": {
+                "id": "elite_grunt",
+                "resource": "res://data/enemies/elite_grunt.tres",
+                "count": 1
+              },
+              "M": {
+                "id": "repair_drone",
+                "resource": "res://data/enemies/repair_drone.tres",
+                "count": 1
+              },
+              "S": {
+                "id": "wall_gecko",
+                "resource": "res://data/enemies/wall_gecko.tres",
+                "count": 1
+              },
+              "v": {
+                "id": "heavy_gunner",
+                "resource": "res://data/enemies/heavy_gunner.tres",
+                "count": 1
+              },
+              "ν": {
+                "id": "plasma_whip",
+                "resource": "res://data/enemies/strike/plasma_whip.tres",
+                "count": 1
+              }
+            },
+            "counter_by_id": {
+              "elite_grunt": 1,
+              "heavy_gunner": 1,
+              "plasma_whip": 1,
+              "rail_cannon": 1,
+              "repair_drone": 1,
+              "tangle_wire": 1,
+              "wall_gecko": 1
+            },
+            "enemy_count": 7
+          },
+          {
+            "segment": 9,
+            "glyph_to_enemy_data_id": {
+              "S": {
+                "id": "wall_gecko",
+                "resource": "res://data/enemies/wall_gecko.tres",
+                "count": 1
+              },
+              "b": {
+                "id": "custodian",
+                "resource": "res://data/enemies/custodian.tres",
+                "count": 1
+              },
+              "ξ": {
+                "id": "chain_hook",
+                "resource": "res://data/enemies/strike/chain_hook.tres",
+                "count": 1
+              }
+            },
+            "counter_by_id": {
+              "chain_hook": 1,
+              "custodian": 1,
+              "wall_gecko": 1
+            },
+            "enemy_count": 3
+          },
+          {
+            "segment": 10,
+            "glyph_to_enemy_data_id": {
+              ">": {
+                "id": "rail_cannon",
+                "resource": "res://data/enemies/rail_cannon.tres",
+                "count": 1
+              }
+            },
+            "counter_by_id": {
+              "rail_cannon": 1
+            },
+            "enemy_count": 1
+          },
+          {
+            "segment": 11,
+            "glyph_to_enemy_data_id": {
+              "Y": {
+                "id": "reclaimer",
+                "resource": "res://data/enemies/reclaimer.tres",
+                "count": 1
+              }
+            },
+            "counter_by_id": {
+              "reclaimer": 1
+            },
+            "enemy_count": 1
+          }
+        ],
+        "counter_by_id": {
+          "chain_hook": 1,
+          "chainsaw_arm": 1,
+          "custodian": 1,
+          "elite_grunt": 5,
+          "flamer": 2,
+          "heavy_gunner": 2,
+          "hydraulic_claw": 1,
+          "plasma_whip": 1,
+          "rail_cannon": 3,
+          "reclaimer": 1,
+          "repair_drone": 1,
+          "searchlight_drone": 1,
+          "shaft_bat": 3,
+          "slasher": 2,
+          "sniper": 1,
+          "stalker": 4,
+          "tangle_wire": 1,
+          "wall_gecko": 5
+        },
+        "enemy_count": 36,
+        "identity_count": 18
+      }
+    ],
+    "counter_by_id": {
+      "chain_hook": 1,
+      "chainsaw_arm": 1,
+      "custodian": 1,
+      "elite_grunt": 5,
+      "flamer": 2,
+      "heavy_gunner": 2,
+      "hydraulic_claw": 1,
+      "plasma_whip": 1,
+      "rail_cannon": 3,
+      "reclaimer": 1,
+      "repair_drone": 1,
+      "searchlight_drone": 1,
+      "shaft_bat": 3,
+      "slasher": 2,
+      "sniper": 1,
+      "stalker": 4,
+      "tangle_wire": 1,
+      "wall_gecko": 5
+    },
+    "enemy_count": 36,
+    "identity_count": 18,
+    "segment_enemy_count_sum": 36
+  },
+  "chapter_03_roster": {
+    "levels": [],
+    "enemies": [],
+    "demo_levels": [],
+    "demo_enemies": [],
+    "reserved": [
+      "cloud_jelly",
+      "cloud_serpent",
+      "swarm_bee"
+    ]
+  }
+}
