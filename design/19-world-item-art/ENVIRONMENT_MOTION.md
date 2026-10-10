@@ -50,3 +50,8 @@ BG-19 保持支撐規則；BG-20 管用途與密度；NE-95 管既有共用特�
 以上是逐區資料盤點；只有本階段水流、街道蒸汽拍攝與自動 lifecycle 檢查能算實測。全室內、布條、風扇及人工戰鬥／對話等驗收不以盤點代稱通過。
 
 已於 2026-10-10 重讀上列 Godot CanvasItem 與 Dead Cells 開發者原文。Godot 明載 TIME 不隨 SceneTree pause，fragment COLOR 已含貼圖色，故局部時計由節點提供，頂點 tint 另傳到 fragment 避免重複乘貼圖；Dead Cells 的視覺優先序用於限制水流反光，不將裝飾提高到敵人與投射物亮度。
+
+
+## 2026-10-10 本機水管複驗
+
+雲端 BG-25 水管階段已在 Intel Arc B580、Godot 4.7.2 Forward+ 執行原生 probe：三品質连续畫面、暫停恢復與十次切區，原始 log 無錯誤／警告，水流局部實體均釋放。完整紀錄位於 `pm/Nest-Egg/attachments/BG-25-local-native/`。觀察到的引擎配置量及部分貼圖計數不等於程序 RSS 或總 VRAM；缺少完整同機前後性能對照，因此此結果只接受水管的畫面、時鐘與生命週期階段。
