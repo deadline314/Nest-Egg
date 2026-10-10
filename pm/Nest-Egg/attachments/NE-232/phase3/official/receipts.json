@@ -1,0 +1,15 @@
+{
+  "version": "4.7.2-stable",
+  "successful_read": {
+    "url": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/platform/windows/os_windows.cpp",
+    "bytes": 94874,
+    "sha256": "cc6cdd8db3232ceee474ad3bc55fedb207d55be8e6d350fdbf04101101d11dd7",
+    "curl_exit_code": 0
+  },
+  "unused_failed_read": {
+    "url": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/editor/editor_paths.cpp",
+    "curl_exit_code": 22,
+    "error": "curl: (22) The requested URL returned error: 404",
+    "retried": false
+  }
+}

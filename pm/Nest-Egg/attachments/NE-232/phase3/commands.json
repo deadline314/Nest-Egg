@@ -1,0 +1,61 @@
+[
+  {
+    "command": "python3 -m unittest discover -s tools/release -p \"test_*.py\" -v",
+    "exit_code": 0,
+    "passed": 57,
+    "skipped": 2,
+    "failures": 0,
+    "errors": 0,
+    "log": "unit.log"
+  },
+  {
+    "command": "tools/run_tests_changed.sh 01af65b05d015141a0ee2ae18797f6dc397ecc81",
+    "exit_code": 0,
+    "affected_game_suites": 0,
+    "log": "changed.log"
+  },
+  {
+    "command": "campaign_build.py verify-stage (original eadc5f8f isolated source and cache)",
+    "exit_code": 0,
+    "source_inputs": 6957,
+    "exported": false,
+    "log": "existing-stage-verify.log"
+  },
+  {
+    "command": "campaign_build.py probe --out /workspace/work/ne232/tool-probe-platform-1 (official editor and templates; normal single-command review)",
+    "exit_code": 0,
+    "log": "probe/command.log",
+    "scope": "fixture only",
+    "native_host": "linux",
+    "native_windows_verified": false
+  },
+  {
+    "command": "python3 -m unittest discover -s tools/release -p test_campaign_build.py -v (initial regression harness)",
+    "exit_code": 1,
+    "log": "regression-initial.log",
+    "stage": "test harness before platform import"
+  },
+  {
+    "command": "python3 -m unittest discover -s tools/release -p test_campaign_build.py -v (regression before fix)",
+    "exit_code": 1,
+    "log": "regression-red.log",
+    "stage": "Windows wrong native executable and reparse regression reproduced"
+  },
+  {
+    "command": "python3 -m unittest discover -s tools/release -p test_campaign_build.py -k windows_child_appdata -v",
+    "exit_code": 1,
+    "log": "appdata-red.log",
+    "stage": "Windows child data directory regression before fix"
+  },
+  {
+    "command": "git fetch origin main (delivery check)",
+    "exit_code": 0,
+    "origin_main_sha": "01af65b05d015141a0ee2ae18797f6dc397ecc81",
+    "output": "From https://github.com/deadline314/Nest-Egg\n * branch              main       -> FETCH_HEAD\n   cd0d454f..01af65b0  main       -> origin/main\n"
+  },
+  {
+    "command": "git rebase origin/main",
+    "exit_code": 0,
+    "output": "Successfully rebased and updated refs/heads/codex/cloud-release-platform.\n"
+  }
+]

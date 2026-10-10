@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "kind": "tool-fixture-export-probe",
+  "is_campaign_product": false,
+  "engine": {
+    "editor_version": "4.7.2.stable.official.ed1daf0bf",
+    "template_version": "4.7.2.stable",
+    "provenance": {
+      "tag": "4.7.2-stable",
+      "url": "https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz",
+      "archive_sha256": "f298490b8d44d934be425a5a65a51bf15f422428b229a06a6e11d9ffea248011",
+      "archive_bytes": 1281349702,
+      "files": {
+        "linux_release.x86_64": {
+          "bytes": 73519416,
+          "sha256": "d9f79ab89b5ae369aeed11c6052d402e8218cd503bf85b4a235f9c30c46a7c63"
+        },
+        "windows_release_x86_64.exe": {
+          "bytes": 109268480,
+          "sha256": "d34d36f3be1a6c49c56525ae86469b92e4f417ddf0b43cf00dd80c385c4b0562"
+        },
+        "version.txt": {
+          "bytes": 13,
+          "sha256": "38885c88f75abbc797a1db7559719800279a00cfb9fa8b2e2868a7f6f84bad2e"
+        }
+      }
+    }
+  },
+  "commands": [
+    {
+      "log": "import.log",
+      "exit_code": 0,
+      "sha256": "144ae68317a1b6b92bf004b39c4dcee8569ad6dcab84fca6f99cdf29927f4aa2"
+    },
+    {
+      "log": "export-linux.log",
+      "exit_code": 0,
+      "sha256": "3232916cb65c94fdab34e9983d3919289f7e7865fd51a73efd7e2aa857c97cc0"
+    },
+    {
+      "log": "export-windows.log",
+      "exit_code": 0,
+      "sha256": "329255aef4719fe4f0043831ed1d47ba14ac1b7aa2f4407eac59e83bb33a3a02"
+    },
+    {
+      "log": "native-linux.log",
+      "exit_code": 0,
+      "sha256": "46b09d3860870fcb2c48271a594569bea445539057b91a93a41fba1aae17a163"
+    }
+  ],
+  "native_launch": {
+    "target": "linux",
+    "platform": "linux",
+    "architecture": "x86_64",
+    "artifact": "NE232_TOOL_PROBE.x86_64",
+    "log": "native-linux.log",
+    "scope": "tool fixture only; not chapter acceptance"
+  },
+  "native_linux_fixture_launch_verified": true,
+  "native_windows_fixture_launch_verified": false,
+  "native_windows_launch_verified": false,
+  "chapter_acceptance_verified": false
+}

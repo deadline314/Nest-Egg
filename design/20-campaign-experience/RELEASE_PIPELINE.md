@@ -66,3 +66,15 @@ python3 -m unittest discover -s tools/release -v
 工具探針實際為PCK格式4；Linux單檔73,522,720 bytes、Windows EXE109,271,792 bytes，兩個PCK均10 entries，全項完整性通過。Linux真新程序在只有執行檔的乾淨目錄載入JSON、掃描目錄并載入後章樣本，exit0、無ERROR。Windows僅完成Linux上跨平台匯出與bytes檢查，`native_windows_launch_verified=false`，必須交回Windows真機另驗。這兩個檔名均明標 `NE232_TOOL_PROBE`，不是任何章節包。
 
 首次未隔離XDG／普通沙盒探針雖exit0，Godot log有家目錄與IPC ERROR，工具正確拒絕；原始log保留。後續探針及真來源匯入都走正常單次命令審查，没有修改全域或thread權限、proxy、CA或網路政策。最終來源／工具／失敗證據见[Commit-2索引](../../pm/Nest-Egg/attachments/NE-232/phase2/README.md)。
+
+## 跨平台探針與連結測試（Commit-3）
+
+探針仍匯出兩種官方 x86_64 單檔，但原生啟動依實際 host 選擇：Linux只執行 `.x86_64`、Windows只執行 `.exe`；其他 OS／架構拒絕。乾淨啟動目錄只放該平台一個執行檔。必須 exit0、無引擎錯誤且印出 JSON／目錄／後章样本斷言才記錄成功。兩個平台的 native fixture 欄位各自記錄，不把Windows執行代稱Linux原生通過，也不把 fixture native 通過代稱章節包。PCK檢查本身仍只證明 bytes，不設定原生啟動欄位。
+
+官方4.7.2的 [Windows OS路徑](https://github.com/godotengine/godot/blob/4.7.2-stable/platform/windows/os_windows.cpp)以 `APPDATA` 作資料／設定根、`LOCALAPPDATA` 作快取根。Windows子程序除XDG外，這兩者分別指向本次建置 `user/roaming`、`user/local`；不修改父程序、玩家存檔、proxy／CA或任何全域設定。既有 `native_windows_launch_verified` 在probe receipt中代表該receipt明標的fixture，與新增 `native_windows_fixture_launch_verified` 同值；正式章節驗收仍false，pack inspector的同名欄位仍false。
+
+測試明確區分真檔案系統能力及模擬分支。Windows建立真symlink若回WinError1314，僅該真symlink案例skip並列出原因；Linux與其他錯誤仍須執行／失敗，拒絕斷言不刪除。Windows另在暫存目錄建立不需symlink權限的真junction，核對輸出父目錄與staging reparse拒絕；Linux記錄Windows專屬案例skip。拒絕涵蓋lstat的reparse屬性，不依賴Python是否提供 `Path.is_junction()`，不提升權限或修改系統設定。
+
+原Commit-2總數49是 `test_campaign_build.py` 37項＋`test_campaign_release.py` 12項，沒有 `test_chapter_release.py`。正式總命令為 `python -m unittest discover -s tools/release -p "test_*.py" -v`；Windows可用 `python`，Linux可用 `python3`。新增回歸後依實際run／skip分別記錄，不把skip算通過。Windows本機舊log由主session保存在 `C:/tmp/ch1-runtime-checks/release-unit-local.log`，雲端不宣稱讀取或重現該WinError。
+
+Commit-3共59項，雲端Linux為57通過、2項Windows真junction明確skip；Windows平台選擇與資料隔離的CPU回歸不代稱Windows原生執行。最新真探針和完整失敗／成功紀錄見[Commit-3證據](../../pm/Nest-Egg/attachments/NE-232/phase3/README.md)。

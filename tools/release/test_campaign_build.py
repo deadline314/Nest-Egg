@@ -4,16 +4,47 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import stat
 import struct
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 
 import campaign_build as build
 import campaign_release as audit
 import pack_integrity as pack
+
+
+def real_symlink(link: Path, target, *, directory=False) -> None:
+    """Skip only the known Windows capability failure, never a rejection check."""
+    try:
+        link.symlink_to(target, target_is_directory=directory)
+    except OSError as exc:
+        if sys.platform == "win32" and getattr(exc, "winerror", None) == 1314:
+            raise unittest.SkipTest(
+                f"native Windows symlink unavailable (WinError 1314, no creation privilege): {link.name}; "
+                "rejection assertion requires a real link; Linux coverage retained"
+            ) from exc
+        raise
+
+
+def real_junction(link: Path, target: Path) -> None:
+    """Create a real Windows junction with inherited permissions in the test temp."""
+    if sys.platform != "win32":
+        raise unittest.SkipTest("native Windows junction/reparse test; current host is not Windows")
+    command = ["powershell.exe", "-NoProfile", "-NonInteractive", "-Command",
+               "$ErrorActionPreference='Stop'; New-Item -ItemType Junction "
+               "-Path $env:NE232_TEST_JUNCTION -Target $env:NE232_TEST_TARGET | Out-Null"]
+    environment = {**os.environ, "NE232_TEST_JUNCTION": str(link), "NE232_TEST_TARGET": str(target)}
+    result = subprocess.run(command, capture_output=True, text=True, env=environment, timeout=30)
+    if result.returncode:
+        raise AssertionError(f"native junction creation failed (exit {result.returncode}): {result.stdout}\n{result.stderr}")
+    if not getattr(link.lstat(), "st_file_attributes", 0) & stat.FILE_ATTRIBUTE_REPARSE_POINT:
+        raise AssertionError("created junction has no native reparse attribute")
 
 
 def pck_bytes(entries=None, version=4, engine=(4, 7, 2)) -> bytes:
@@ -114,7 +145,8 @@ class ImmutableStageTests(unittest.TestCase):
                 build.prepare(self.root, self.base / "builds", sha, "one", "test", self.policy)
 
     def test_real_committed_symlink_is_rejected(self):
-        (self.root / "data/link.tres").symlink_to("entry.tres")
+        real_symlink(self.root / "data/link.tres", "entry.tres")
+        self.git("config", "core.symlinks", "true")  # This disposable fixture repo only.
         self.commit()
         self.sha = self.git("rev-parse", "HEAD").strip()
         with self.assertRaisesRegex(audit.AuditError, "linked"):
@@ -124,9 +156,65 @@ class ImmutableStageTests(unittest.TestCase):
         real = self.base / "real"
         real.mkdir()
         link = self.base / "linked"
-        link.symlink_to(real, target_is_directory=True)
+        real_symlink(link, real, directory=True)
         with self.assertRaisesRegex(audit.AuditError, "linked output"):
             build.prepare(self.root, link, self.sha, "one", "test", self.policy)
+
+    def test_native_windows_output_parent_junction_is_rejected(self):
+        real = self.base / "junction-target"
+        real.mkdir()
+        link = self.base / "junction-output"
+        real_junction(link, real)
+        try:
+            with self.assertRaisesRegex(audit.AuditError, "linked output"):
+                build.prepare(self.root, link, self.sha, "one", "test", self.policy)
+            self.assertEqual(list(real.iterdir()), [])
+        finally:
+            link.rmdir()  # Remove the junction itself, never recurse through target.
+
+    def test_native_windows_staged_directory_junction_is_rejected(self):
+        if sys.platform != "win32":
+            self.skipTest("native Windows junction/reparse test; current host is not Windows")
+        destination, _ = self.prepare()
+        stage = destination / "project"
+        real = stage / "original-data"
+        (stage / "data").rename(real)
+        link = stage / "data"
+        real_junction(link, real)
+        try:
+            with self.assertRaisesRegex(audit.AuditError, "linked output"):
+                build.verify_stage(destination)
+            self.assertTrue((real / "story/one.json").is_file())
+        finally:
+            link.rmdir()
+
+    def test_windows_symlink_privilege_skip_is_narrow(self):
+        error = OSError("a required privilege is not held")
+        error.winerror = 1314
+        link = self.base / "fixture-link"
+        with patch.object(Path, "symlink_to", side_effect=error), patch.object(sys, "platform", "win32"):
+            with self.assertRaisesRegex(unittest.SkipTest, "WinError 1314"):
+                real_symlink(link, "target")
+        with patch.object(Path, "symlink_to", side_effect=error), patch.object(sys, "platform", "linux"):
+            with self.assertRaises(OSError):
+                real_symlink(link, "target")
+        other = OSError("unexpected failure")
+        other.winerror = 5
+        with patch.object(Path, "symlink_to", side_effect=other), patch.object(sys, "platform", "win32"):
+            with self.assertRaises(OSError):
+                real_symlink(link, "target")
+
+    def test_reparse_attribute_rejects_without_path_is_junction_api(self):
+        sentinel = self.base / "reparse-sentinel"
+        sentinel.mkdir()
+        original = Path.lstat
+
+        def reparse_lstat(path):
+            info = original(path)
+            return SimpleNamespace(st_mode=info.st_mode, st_file_attributes=0x400) if path == sentinel else info
+
+        with patch.object(Path, "lstat", reparse_lstat), self.assertRaisesRegex(audit.AuditError, "linked output"):
+            build.no_links(sentinel / "not-created")
 
     def test_verification_detects_same_size_content_corruption(self):
         destination, _ = self.prepare()
@@ -235,6 +323,21 @@ class ImmutableStageTests(unittest.TestCase):
         build.run_logged(command, log, self.base)
         self.assertTrue((self.base / "user/data").is_dir())
 
+    def test_windows_child_appdata_is_scoped_and_parent_environment_preserved(self):
+        log = self.base / "windows-scope.log"
+        command = [sys.executable, "-c", "import os; "
+                   f"assert os.environ['APPDATA'] == {str(self.base / 'user/roaming')!r}; "
+                   f"assert os.environ['LOCALAPPDATA'] == {str(self.base / 'user/local')!r}; "
+                   "assert os.environ['HTTP_PROXY'] == 'test-proxy-sentinel'; "
+                   "assert os.environ['SSL_CERT_FILE'] == 'test-ca-sentinel'; print('WINDOWS_SCOPE_PASS')"]
+        sentinels = {"APPDATA": "parent-roaming", "LOCALAPPDATA": "parent-local",
+                     "HTTP_PROXY": "test-proxy-sentinel", "SSL_CERT_FILE": "test-ca-sentinel"}
+        with patch.dict(os.environ, sentinels), patch.object(sys, "platform", "win32"):
+            before = dict(os.environ)
+            build.run_logged(command, log, self.base)
+            self.assertEqual(dict(os.environ), before)
+        self.assertIn("WINDOWS_SCOPE_PASS", log.read_text())
+
     def test_global_class_dependency_is_kept_and_unused_development_script_is_pruned(self):
         self.put("data/a.gd", 'class_name RuntimeA\nextends Resource\nvar other: RuntimeB\n')
         self.put("data/b.gd", 'class_name RuntimeB\nextends Resource\n')
@@ -313,6 +416,99 @@ class ImmutableStageTests(unittest.TestCase):
         result = subprocess.CompletedProcess([], 0, stdout="4.7.2.stable.official.fixture\n", stderr="")
         with patch.object(build.subprocess, "run", return_value=result), self.assertRaisesRegex(audit.AuditError, "provenance"):
             build.engine_templates(self.base / "editor", templates)
+
+
+class ProbePlatformTests(unittest.TestCase):
+    """Mock the engine process only; use real files and the real PCK inspector."""
+
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.base = Path(self.temp.name)
+        self.native_commands = []
+        self.native_failure = False
+        self.native_marker = True
+
+    def tearDown(self):
+        self.temp.cleanup()
+
+    def fake_engine(self, command, log, cwd, timeout=900):
+        if "--export-release" in command:
+            path = Path(command[-1])
+            payload = pck_bytes([("data/probe.json", (cwd / "data/probe.json").read_bytes()),
+                                 ("data/dynamic/later.tres", (cwd / "data/dynamic/later.tres").read_bytes())])
+            header = bytearray(128)
+            if path.suffix == ".exe":
+                header[:2] = b"MZ"
+                struct.pack_into("<I", header, 0x3C, 64)
+                header[64:68] = b"PE\x00\x00"
+                struct.pack_into("<H", header, 68, 0x8664)
+            else:
+                header[:4] = b"\x7fELF"
+                struct.pack_into("<H", header, 18, 62)
+            path.write_bytes(header + payload + struct.pack("<Q4s", len(payload), b"GDPC"))
+        elif "--import" not in command:
+            self.native_commands.append((command, cwd))
+            self.assertEqual([p.name for p in cwd.iterdir()], [Path(command[0]).name])
+            if self.native_failure:
+                log.write_text("SCRIPT ERROR: simulated native failure\nexit_code=1\n")
+                raise audit.AuditError("simulated native failure; log retained")
+        log.write_text("NE232_TOOL_PROBE_PASS\nexit_code=0\n" if self.native_marker else "exit_code=0\n")
+        return {"log": log.name, "exit_code": 0, "sha256": audit.digest(log)}
+
+    def probe(self, host):
+        with patch.object(sys, "platform", host), patch.object(build.platform, "machine", return_value="AMD64"), \
+                patch.object(build, "engine_templates", return_value={"test_only": True}), \
+                patch.object(build, "run_logged", side_effect=self.fake_engine):
+            return build.probe(self.base / "probe", self.base / "godot", self.base / "templates")
+
+    def test_windows_probe_launches_only_exe_and_never_claims_native_linux(self):
+        result = self.probe("win32")
+        self.assertEqual(Path(self.native_commands[0][0][0]).name, "NE232_TOOL_PROBE.exe")
+        self.assertEqual(len(self.native_commands), 1)
+        self.assertFalse(result["native_linux_fixture_launch_verified"])
+        self.assertTrue(result["native_windows_fixture_launch_verified"])
+        self.assertTrue(result["native_windows_launch_verified"])
+        self.assertFalse(result["artifacts"]["windows"]["native_windows_launch_verified"])
+        self.assertEqual(result["native_launch"]["target"], "windows")
+        self.assertFalse(result["is_campaign_product"])
+        self.assertFalse(result["chapter_acceptance_verified"])
+        self.assertTrue((self.base / "probe/native-windows.log").is_file())
+        self.assertFalse((self.base / "probe/native-linux.log").exists())
+
+    def test_linux_probe_launches_only_elf_and_never_claims_native_windows(self):
+        result = self.probe("linux")
+        self.assertEqual(Path(self.native_commands[0][0][0]).name, "NE232_TOOL_PROBE.x86_64")
+        self.assertEqual(len(self.native_commands), 1)
+        self.assertTrue(result["native_linux_fixture_launch_verified"])
+        self.assertFalse(result["native_windows_fixture_launch_verified"])
+        self.assertFalse(result["native_windows_launch_verified"])
+        self.assertEqual(result["native_launch"]["target"], "linux")
+        self.assertFalse((self.base / "probe/native-windows.log").exists())
+
+    def test_native_failure_retains_log_and_never_writes_success_manifest(self):
+        self.native_failure = True
+        with self.assertRaisesRegex(audit.AuditError, "native failure"):
+            self.probe("win32")
+        destination = self.base / "probe"
+        self.assertIn("SCRIPT ERROR", (destination / "native-windows.log").read_text())
+        self.assertTrue((destination / "failure.json").is_file())
+        self.assertFalse((destination / "probe-manifest.json").exists())
+        self.assertFalse((destination / "checksums.sha256").exists())
+
+    def test_zero_exit_without_runtime_assertions_is_rejected(self):
+        self.native_marker = False
+        with self.assertRaisesRegex(audit.AuditError, "without runtime assertions"):
+            self.probe("win32")
+        self.assertFalse((self.base / "probe/probe-manifest.json").exists())
+
+    def test_unsupported_host_or_architecture_fails_before_output_reservation(self):
+        for host, machine in (("darwin", "x86_64"), ("linux", "aarch64"), ("win32", "ARM64")):
+            with self.subTest(host=host, machine=machine), patch.object(sys, "platform", host), \
+                    patch.object(build.platform, "machine", return_value=machine), \
+                    patch.object(build, "engine_templates") as templates, self.assertRaisesRegex(audit.AuditError, "native probe host"):
+                build.probe(self.base / "probe", self.base / "godot", self.base / "templates")
+            templates.assert_not_called()
+            self.assertFalse((self.base / "probe").exists())
 
 
 class PackIntegrityTests(unittest.TestCase):

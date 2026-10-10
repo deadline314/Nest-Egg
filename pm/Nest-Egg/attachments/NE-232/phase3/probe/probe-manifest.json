@@ -1,0 +1,231 @@
+{
+  "schema": 1,
+  "kind": "tool-fixture-export-probe",
+  "is_campaign_product": false,
+  "engine": {
+    "editor_version": "4.7.2.stable.official.ed1daf0bf",
+    "template_version": "4.7.2.stable",
+    "provenance": {
+      "tag": "4.7.2-stable",
+      "url": "https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz",
+      "archive_sha256": "f298490b8d44d934be425a5a65a51bf15f422428b229a06a6e11d9ffea248011",
+      "archive_bytes": 1281349702,
+      "files": {
+        "linux_release.x86_64": {
+          "bytes": 73519416,
+          "sha256": "d9f79ab89b5ae369aeed11c6052d402e8218cd503bf85b4a235f9c30c46a7c63"
+        },
+        "windows_release_x86_64.exe": {
+          "bytes": 109268480,
+          "sha256": "d34d36f3be1a6c49c56525ae86469b92e4f417ddf0b43cf00dd80c385c4b0562"
+        },
+        "version.txt": {
+          "bytes": 13,
+          "sha256": "38885c88f75abbc797a1db7559719800279a00cfb9fa8b2e2868a7f6f84bad2e"
+        }
+      }
+    }
+  },
+  "commands": [
+    {
+      "log": "import.log",
+      "exit_code": 0,
+      "sha256": "144ae68317a1b6b92bf004b39c4dcee8569ad6dcab84fca6f99cdf29927f4aa2"
+    },
+    {
+      "log": "export-linux.log",
+      "exit_code": 0,
+      "sha256": "3232916cb65c94fdab34e9983d3919289f7e7865fd51a73efd7e2aa857c97cc0"
+    },
+    {
+      "log": "export-windows.log",
+      "exit_code": 0,
+      "sha256": "329255aef4719fe4f0043831ed1d47ba14ac1b7aa2f4407eac59e83bb33a3a02"
+    },
+    {
+      "log": "native-linux.log",
+      "exit_code": 0,
+      "sha256": "46b09d3860870fcb2c48271a594569bea445539057b91a93a41fba1aae17a163"
+    }
+  ],
+  "artifacts": {
+    "linux": {
+      "target": "linux",
+      "bytes": 73522720,
+      "sha256": "60afb5a95560fb5e6f61b9fe1ea333977b3da2ab57c82f7c02e4b0533b63e688",
+      "pck_bytes": 3292,
+      "pck_format": 4,
+      "engine_version": "4.7.2",
+      "embedded": true,
+      "files": [
+        {
+          "path": ".godot/exported/133200997/export-3070c538c03ee49b7677ff960a3f5195-main.scn",
+          "offset": 73519840,
+          "bytes": 673,
+          "md5": "b29c3523d0e00aa8e195a48df0610568",
+          "sha256": "25c77c0a45a98a2a2e157c577575eacbacbc7af88f381b184ce2899eb47a30e0"
+        },
+        {
+          "path": ".godot/exported/133200997/export-afa50cfc482ce726b5b4690f9cabfba6-later.res",
+          "offset": 73519520,
+          "bytes": 275,
+          "md5": "9fd8d2d1add9f5ad14a328d388201850",
+          "sha256": "d18a8ff858ea840f69de6677662c365b88d3748d763bd54e25f43027e1f489a1"
+        },
+        {
+          "path": ".godot/global_script_class_cache.cfg",
+          "offset": 73521744,
+          "bytes": 8,
+          "md5": "393edccab1b3701df5cb9b4f4cfc3775",
+          "sha256": "f61aa7ad3097022d6a9d110ca3f73fa7bb348ec2cf9a6e7c9523574dc75f5a16"
+        },
+        {
+          "path": ".godot/uid_cache.bin",
+          "offset": 73521760,
+          "bytes": 30,
+          "md5": "556279e4cad047c7c1d5fad39cb9ebc0",
+          "sha256": "9ae23c752a13f3fbde152109c48728e358ae1d71fda51f26fe50d04e2a1a3f34"
+        },
+        {
+          "path": "data/dynamic/later.tres.remap",
+          "offset": 73521488,
+          "bytes": 98,
+          "md5": "77a505570f9d5e1cf0f743d8855779aa",
+          "sha256": "e1c7ffd7f3e23a4463a5f5ce41133c24d16bec64928086aad63191e17775c022"
+        },
+        {
+          "path": "data/probe.json",
+          "offset": 73519808,
+          "bytes": 30,
+          "md5": "6c93ac8cd729939f21d1f4ff176a774a",
+          "sha256": "67f60ae2972d902b184e2a52e392be0a2e551164c851b5dc04ff302242a68514"
+        },
+        {
+          "path": "main.tscn.remap",
+          "offset": 73521600,
+          "bytes": 97,
+          "md5": "c74a9853779200b38c91a70cebd41c10",
+          "sha256": "d9c97331527c6a3b9104e4fa99f521a20116b428cb40fad052d76a8c7ffd0500"
+        },
+        {
+          "path": "probe.gd.remap",
+          "offset": 73521712,
+          "bytes": 32,
+          "md5": "66779367ba72a23d88eeb0b97487b723",
+          "sha256": "5a992fd1204644366e0dc63a47baea8e2eab1863b1bc66200b7df7091d313f8e"
+        },
+        {
+          "path": "probe.gdc",
+          "offset": 73520528,
+          "bytes": 955,
+          "md5": "2fa59807c5527ed0da10a6c31d5c4a9d",
+          "sha256": "1a998d7eaa6560791df65041b3e7ec081bd7f051686019c693e656689014e904"
+        },
+        {
+          "path": "project.binary",
+          "offset": 73521792,
+          "bytes": 180,
+          "md5": "705de69ca80db112fb16911026376b71",
+          "sha256": "ecb1834f6f39138f7fca98a6f4136a3ee48b3f5635a4b8ca4482764e48ed2eb7"
+        }
+      ],
+      "integrity_verified": true,
+      "native_windows_launch_verified": false
+    },
+    "windows": {
+      "target": "windows",
+      "bytes": 109271792,
+      "sha256": "f65cfbcd184fc8dbce5c6885caf8469ca7cf178b2b088f95854327bfceceb2ae",
+      "pck_bytes": 3300,
+      "pck_format": 4,
+      "engine_version": "4.7.2",
+      "embedded": true,
+      "files": [
+        {
+          "path": ".godot/exported/133200997/export-3070c538c03ee49b7677ff960a3f5195-main.scn",
+          "offset": 109268912,
+          "bytes": 673,
+          "md5": "b29c3523d0e00aa8e195a48df0610568",
+          "sha256": "25c77c0a45a98a2a2e157c577575eacbacbc7af88f381b184ce2899eb47a30e0"
+        },
+        {
+          "path": ".godot/exported/133200997/export-afa50cfc482ce726b5b4690f9cabfba6-later.res",
+          "offset": 109268592,
+          "bytes": 275,
+          "md5": "9fd8d2d1add9f5ad14a328d388201850",
+          "sha256": "d18a8ff858ea840f69de6677662c365b88d3748d763bd54e25f43027e1f489a1"
+        },
+        {
+          "path": ".godot/global_script_class_cache.cfg",
+          "offset": 109270816,
+          "bytes": 8,
+          "md5": "393edccab1b3701df5cb9b4f4cfc3775",
+          "sha256": "f61aa7ad3097022d6a9d110ca3f73fa7bb348ec2cf9a6e7c9523574dc75f5a16"
+        },
+        {
+          "path": ".godot/uid_cache.bin",
+          "offset": 109270832,
+          "bytes": 30,
+          "md5": "556279e4cad047c7c1d5fad39cb9ebc0",
+          "sha256": "9ae23c752a13f3fbde152109c48728e358ae1d71fda51f26fe50d04e2a1a3f34"
+        },
+        {
+          "path": "data/dynamic/later.tres.remap",
+          "offset": 109270560,
+          "bytes": 98,
+          "md5": "77a505570f9d5e1cf0f743d8855779aa",
+          "sha256": "e1c7ffd7f3e23a4463a5f5ce41133c24d16bec64928086aad63191e17775c022"
+        },
+        {
+          "path": "data/probe.json",
+          "offset": 109268880,
+          "bytes": 30,
+          "md5": "6c93ac8cd729939f21d1f4ff176a774a",
+          "sha256": "67f60ae2972d902b184e2a52e392be0a2e551164c851b5dc04ff302242a68514"
+        },
+        {
+          "path": "main.tscn.remap",
+          "offset": 109270672,
+          "bytes": 97,
+          "md5": "c74a9853779200b38c91a70cebd41c10",
+          "sha256": "d9c97331527c6a3b9104e4fa99f521a20116b428cb40fad052d76a8c7ffd0500"
+        },
+        {
+          "path": "probe.gd.remap",
+          "offset": 109270784,
+          "bytes": 32,
+          "md5": "66779367ba72a23d88eeb0b97487b723",
+          "sha256": "5a992fd1204644366e0dc63a47baea8e2eab1863b1bc66200b7df7091d313f8e"
+        },
+        {
+          "path": "probe.gdc",
+          "offset": 109269600,
+          "bytes": 955,
+          "md5": "2fa59807c5527ed0da10a6c31d5c4a9d",
+          "sha256": "1a998d7eaa6560791df65041b3e7ec081bd7f051686019c693e656689014e904"
+        },
+        {
+          "path": "project.binary",
+          "offset": 109270864,
+          "bytes": 180,
+          "md5": "705de69ca80db112fb16911026376b71",
+          "sha256": "ecb1834f6f39138f7fca98a6f4136a3ee48b3f5635a4b8ca4482764e48ed2eb7"
+        }
+      ],
+      "integrity_verified": true,
+      "native_windows_launch_verified": false
+    }
+  },
+  "native_launch": {
+    "target": "linux",
+    "platform": "linux",
+    "architecture": "x86_64",
+    "artifact": "NE232_TOOL_PROBE.x86_64",
+    "log": "native-linux.log",
+    "scope": "tool fixture only; not chapter acceptance"
+  },
+  "native_linux_fixture_launch_verified": true,
+  "native_windows_fixture_launch_verified": false,
+  "native_windows_launch_verified": false,
+  "chapter_acceptance_verified": false
+}

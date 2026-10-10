@@ -1,0 +1,16 @@
+test_windows_child_appdata_is_scoped_and_parent_environment_preserved (test_campaign_build.ImmutableStageTests.test_windows_child_appdata_is_scoped_and_parent_environment_preserved) ... ERROR
+
+======================================================================
+ERROR: test_windows_child_appdata_is_scoped_and_parent_environment_preserved (test_campaign_build.ImmutableStageTests.test_windows_child_appdata_is_scoped_and_parent_environment_preserved)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/Nest-Egg/tools/release/test_campaign_build.py", line 337, in test_windows_child_appdata_is_scoped_and_parent_environment_preserved
+    build.run_logged(command, log, self.base)
+  File "/workspace/Nest-Egg/tools/release/campaign_build.py", line 568, in run_logged
+    raise audit.AuditError(f"command failed (exit={code}, error_log={has_error}); log retained: {log}")
+campaign_release.AuditError: command failed (exit=1, error_log=False); log retained: /tmp/tmpclxtz6h_/windows-scope.log
+
+----------------------------------------------------------------------
+Ran 1 test in 0.028s
+
+FAILED (errors=1)

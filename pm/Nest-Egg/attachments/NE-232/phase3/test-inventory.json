@@ -1,0 +1,83 @@
+{
+  "original_commit2_counts": {
+    "test_campaign_build.py": 37,
+    "test_campaign_release.py": 12
+  },
+  "current": [
+    {
+      "file": "tools/release/test_campaign_build.py",
+      "methods": [
+        "ImmutableStageTests.test_dirty_and_untracked_inputs_never_enter_commit_snapshot",
+        "ImmutableStageTests.test_all_later_story_sources_are_preserved",
+        "ImmutableStageTests.test_existing_stage_is_preserved_even_when_previous_build_failed",
+        "ImmutableStageTests.test_outputs_inside_repo_are_rejected_before_writes",
+        "ImmutableStageTests.test_unknown_chapter_and_unsafe_version_do_not_reserve_stage",
+        "ImmutableStageTests.test_only_full_existing_commit_sha_is_accepted",
+        "ImmutableStageTests.test_real_committed_symlink_is_rejected",
+        "ImmutableStageTests.test_output_parent_symlink_is_rejected",
+        "ImmutableStageTests.test_native_windows_output_parent_junction_is_rejected",
+        "ImmutableStageTests.test_native_windows_staged_directory_junction_is_rejected",
+        "ImmutableStageTests.test_windows_symlink_privilege_skip_is_narrow",
+        "ImmutableStageTests.test_reparse_attribute_rejects_without_path_is_junction_api",
+        "ImmutableStageTests.test_verification_detects_same_size_content_corruption",
+        "ImmutableStageTests.test_verification_detects_extra_ignored_input",
+        "ImmutableStageTests.test_manifest_tampering_is_detected",
+        "ImmutableStageTests.test_draft_export_is_blocked_and_no_product_receipt_created",
+        "ImmutableStageTests.test_claimed_acceptance_with_blank_evidence_and_no_quests_is_blocked",
+        "ImmutableStageTests.test_unknown_dynamic_reference_blocks_and_known_directory_keeps_later_files",
+        "ImmutableStageTests.test_changed_directory_loader_contract_blocks",
+        "ImmutableStageTests.test_runtime_reference_to_development_file_blocks",
+        "ImmutableStageTests.test_malformed_import_mapping_blocks",
+        "ImmutableStageTests.test_invalid_policy_cannot_expand_exclusions_or_dynamic_roots",
+        "ImmutableStageTests.test_log_errors_fail_even_when_process_returns_zero_and_log_is_preserved",
+        "ImmutableStageTests.test_nonzero_export_retains_log",
+        "ImmutableStageTests.test_runtime_dirs_are_scoped_without_changing_proxy_or_home",
+        "ImmutableStageTests.test_windows_child_appdata_is_scoped_and_parent_environment_preserved",
+        "ImmutableStageTests.test_global_class_dependency_is_kept_and_unused_development_script_is_pruned",
+        "ImmutableStageTests.test_script_loaded_by_uid_is_retained_and_unresolved_required_uid_blocks",
+        "ImmutableStageTests.test_root_icon_import_settings_are_committed_inputs",
+        "ImmutableStageTests.test_import_cache_is_sealed_and_later_corruption_is_detected",
+        "ImmutableStageTests.test_import_cannot_change_committed_uid_or_generate_arbitrary_source",
+        "ImmutableStageTests.test_editor_template_version_mismatch_is_rejected",
+        "ImmutableStageTests.test_forged_template_provenance_is_rejected",
+        "ProbePlatformTests.test_windows_probe_launches_only_exe_and_never_claims_native_linux",
+        "ProbePlatformTests.test_linux_probe_launches_only_elf_and_never_claims_native_windows",
+        "ProbePlatformTests.test_native_failure_retains_log_and_never_writes_success_manifest",
+        "ProbePlatformTests.test_zero_exit_without_runtime_assertions_is_rejected",
+        "ProbePlatformTests.test_unsupported_host_or_architecture_fails_before_output_reservation",
+        "PackIntegrityTests.test_valid_v4_pack_streams_all_payload_hashes",
+        "PackIntegrityTests.test_embedded_linux_footer_and_architecture_are_verified",
+        "PackIntegrityTests.test_payload_corruption_same_size_fails_md5",
+        "PackIntegrityTests.test_truncated_and_oversized_directory_fields_are_rejected",
+        "PackIntegrityTests.test_unknown_engine_pack_version_and_encryption_are_rejected",
+        "PackIntegrityTests.test_duplicate_paths_and_traversal_are_rejected",
+        "PackIntegrityTests.test_development_artifact_and_missing_required_json_are_rejected",
+        "PackIntegrityTests.test_out_of_bounds_and_overlapping_payloads_are_rejected",
+        "PackIntegrityTests.test_actual_sparse_windows_file_at_4gib_boundary_is_rejected"
+      ],
+      "count": 47
+    },
+    {
+      "file": "tools/release/test_campaign_release.py",
+      "methods": [
+        "CampaignReleaseTests.test_local_path_rejects_traversal_absolute_and_hidden_paths",
+        "CampaignReleaseTests.test_inventory_rejects_symlink",
+        "CampaignReleaseTests.test_fixed_reference_to_missing_file_is_reported",
+        "CampaignReleaseTests.test_fixed_reference_to_existing_but_unincluded_file_is_reported",
+        "CampaignReleaseTests.test_gd_comments_are_ignored_but_hash_inside_string_is_not_comment",
+        "CampaignReleaseTests.test_malformed_spec_fields_report_audit_error",
+        "CampaignReleaseTests.test_formatted_dynamic_reference_is_listed_separately",
+        "CampaignReleaseTests.test_story_sources_reads_every_chapter_path_and_reports_counts",
+        "CampaignReleaseTests.test_story_source_missing_from_inventory_is_an_error",
+        "CampaignReleaseTests.test_draft_chapter_never_becomes_ready",
+        "CampaignReleaseTests.test_accepted_chapter_without_evidence_never_becomes_ready",
+        "CampaignReleaseTests.test_cli_report_is_created_once_and_existing_report_is_preserved"
+      ],
+      "count": 12
+    }
+  ],
+  "total": 59,
+  "linux_passed": 57,
+  "linux_skipped": 2,
+  "native_windows_run_performed_here": false
+}

@@ -10,8 +10,10 @@ import argparse
 import hashlib
 import json
 import os
+import platform
 import re
 import shutil
+import stat
 import subprocess
 import sys
 import tarfile
@@ -83,7 +85,11 @@ def safe_relative(path: str) -> str:
 
 def no_links(path: Path) -> None:
     for item in (path, *path.parents):
-        if item.is_symlink() or getattr(item, "is_junction", lambda: False)():
+        try:
+            info = item.lstat()  # Inspect the link/reparse point, never its target.
+        except FileNotFoundError:
+            continue  # New output components are allowed; existing parents still checked.
+        if stat.S_ISLNK(info.st_mode) or getattr(info, "st_file_attributes", 0) & 0x400:
             raise audit.AuditError(f"linked output/template path is unsupported: {item}")
 
 
@@ -539,7 +545,11 @@ def engine_templates(godot: Path, templates: Path) -> dict:
 def run_logged(command: list[str], log: Path, cwd: Path, timeout: int = 900) -> dict:
     # Logs are never replaced; capture to disk, not an unbounded in-memory buffer.
     environment = os.environ.copy()  # Inherit authentication/proxy/CA without inspecting values.
-    for key, folder in (("XDG_DATA_HOME", "data"), ("XDG_CONFIG_HOME", "config"), ("XDG_CACHE_HOME", "cache")):
+    user_paths = [("XDG_DATA_HOME", "data"), ("XDG_CONFIG_HOME", "config"), ("XDG_CACHE_HOME", "cache")]
+    if sys.platform == "win32":
+        # 4.7.2 OS_Windows reads these instead of XDG; override in the child only.
+        user_paths.extend((("APPDATA", "roaming"), ("LOCALAPPDATA", "local")))
+    for key, folder in user_paths:
         directory = log.parent / "user" / folder
         directory.mkdir(parents=True, exist_ok=True)
         environment[key] = str(directory)
@@ -644,7 +654,18 @@ func _ready() -> void:
 '''
 
 
+def native_probe_host() -> dict:
+    target = {"linux": "linux", "win32": "windows"}.get(sys.platform)
+    architecture = platform.machine()
+    if target is None or architecture.lower() not in {"x86_64", "amd64"}:
+        raise audit.AuditError(f"unsupported native probe host: {sys.platform}/{architecture}; requires Linux/Windows x86_64")
+    return {"target": target, "platform": sys.platform, "architecture": architecture,
+            "artifact": f"NE232_TOOL_PROBE.{('exe' if target == 'windows' else 'x86_64')}",
+            "log": f"native-{target}.log", "scope": "tool fixture only; not chapter acceptance"}
+
+
 def probe(output: Path, godot: Path, templates: Path) -> dict:
+    native = native_probe_host()
     engine = engine_templates(godot, templates)
     destination = new_directory(output)
     stage = destination / "project"
@@ -670,15 +691,19 @@ def probe(output: Path, godot: Path, templates: Path) -> dict:
         # Run a new native process with only the executable, no project or PCK nearby.
         clean = destination / "clean-launch"
         clean.mkdir()
-        executable = clean / "NE232_TOOL_PROBE.x86_64"
+        executable = clean / native["artifact"]
         shutil.copy2(product / executable.name, executable)
-        executable.chmod(0o755)
-        records.append(run_logged([str(executable), "--headless"], destination / "native-linux.log", clean, 60))
-        if "NE232_TOOL_PROBE_PASS" not in (destination / "native-linux.log").read_text():
+        if native["target"] == "linux":
+            executable.chmod(0o755)
+        records.append(run_logged([str(executable), "--headless"], destination / native["log"], clean, 60))
+        if "NE232_TOOL_PROBE_PASS" not in (destination / native["log"]).read_text(encoding="utf-8", errors="replace"):
             raise audit.AuditError("native probe exited without runtime assertions")
         receipt = {"schema": 1, "kind": "tool-fixture-export-probe", "is_campaign_product": False,
                    "engine": engine, "commands": records, "artifacts": artifacts,
-                   "native_linux_fixture_launch_verified": True, "native_windows_launch_verified": False,
+                   "native_launch": native,
+                   "native_linux_fixture_launch_verified": native["target"] == "linux",
+                   "native_windows_fixture_launch_verified": native["target"] == "windows",
+                   "native_windows_launch_verified": native["target"] == "windows",
                    "chapter_acceptance_verified": False}
         write_json(destination / "probe-manifest.json", receipt)
         (destination / "checksums.sha256").write_text("".join(f"{v['sha256']}  artifact/NE232_TOOL_PROBE.{('exe' if k == 'windows' else 'x86_64')}\n" for k, v in artifacts.items()), encoding="ascii")
