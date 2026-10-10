@@ -15,6 +15,7 @@ func run() -> void:
 	await _test_loops()
 	await _test_fallbacks()
 	await _test_combat_states_use_the_humanoid_animator()
+	await _test_springs_add_to_authored_pose()
 	_test_npc_data_validation()
 
 
@@ -198,6 +199,104 @@ func _test_combat_states_use_the_humanoid_animator() -> void:
 		rig.animate(1.0 / 60.0, armed)
 	await frames(1)
 	check(rig.bone(&"hand_front").global_position.distance_to(rig.weapon_root().global_position) < 2.0, "an armed npc actor still holds the weapon (IK)")
+
+
+func _test_springs_add_to_authored_pose() -> void:
+	# Rin uses the humanoid_tall spring rig. Give its coat bone an authored NPC pose
+	# through the same cached data path used by NpcAnimator, then restore that cache.
+	var had_cached_data := RigLibrary._json_cache.has(DATA_PATH)
+	var previous_data: Dictionary = RigLibrary._json_cache.get(DATA_PATH, {}).duplicate(true)
+	var test_data := RigLibrary.load_json(DATA_PATH).duplicate(true)
+	var poses: Dictionary = test_data["poses"]
+	(poses["stand"]["bones"] as Dictionary)["coat_1"] = 0.35
+	(poses["sit"]["bones"] as Dictionary)["coat_1"] = -0.35
+	RigLibrary._json_cache[DATA_PATH] = test_data
+
+	var holder := Node2D.new()
+	runner.get_tree().root.add_child(holder)
+	var rig := CharacterRig.new()
+	holder.add_child(rig)
+	check(rig.setup("rin", "npc"), "Rin rig loads for authored-cloth spring regression")
+	if rig.is_valid() and rig.animator is NpcAnimator and rig.has_bone(&"coat_1"):
+		var animator := rig.animator as NpcAnimator
+		var input := RigInput.new()
+		input.two_handed = false
+		input.npc_pose = &"stand"
+		for i in 90:
+			rig.animate(1.0 / 60.0, input)
+		var authored_stand := animator._angles[&"coat_1"]
+		var stand_spring := animator._spring_angle[&"coat_1"]
+		check(absf(authored_stand) > 0.2, "NPC pose data contributes a nonzero coat author angle (%.3f)" % authored_stand)
+		check(is_equal_approx(rig.bone(&"coat_1").rotation, authored_stand + animator._overlay.get(&"coat_1", 0.0) + stand_spring), "spring is added to the authored NPC angle, not substituted")
+		var saved_author: float = animator._angles[&"coat_1"]
+		var saved_overlay: float = animator._overlay.get(&"coat_1", 0.0)
+		var saved_spring: float = animator._spring_angle[&"coat_1"]
+		animator._angles[&"coat_1"] = 0.41
+		animator._overlay[&"coat_1"] = -0.07
+		animator._spring_angle[&"coat_1"] = 0.09
+		animator._apply_body()
+		var composed_angle := 0.43
+		check(is_equal_approx(rig.bone(&"coat_1").rotation, composed_angle), "nonzero authored angle, overlay and spring compose exactly once")
+		animator._apply_body()
+		check(is_equal_approx(rig.bone(&"coat_1").rotation, composed_angle), "reapplying the body does not accumulate overlay or spring rotation")
+		animator._angles[&"coat_1"] = saved_author
+		animator._overlay[&"coat_1"] = saved_overlay
+		animator._spring_angle[&"coat_1"] = saved_spring
+		animator._apply_body()
+
+		# Transition using actual stand/sit pose blending; spring stays separately bounded.
+		input.npc_pose = &"sit"
+		rig.animate(1.0 / 60.0, input)
+		var transition_angle := animator._angles[&"coat_1"]
+		check(absf(transition_angle - authored_stand) < 0.7 and not is_equal_approx(transition_angle, -0.35), "stand-to-sit cloth angle transitions instead of snapping")
+		for i in 120:
+			rig.animate(1.0 / 60.0, input)
+		check(absf(animator._angles[&"coat_1"] - -0.35) < 0.04, "sit pose blend reaches its authored cloth angle")
+
+		# The configured spring limits constrain the secondary component independently
+		# from the authored pose, which may lie outside those limits.
+		animator._spring_velocity[&"coat_1"] = 1000.0
+		rig.animate(1.0 / 60.0, input)
+		var spring_offset := animator._spring_angle[&"coat_1"]
+		check(spring_offset >= -0.120001 and spring_offset <= 0.160001, "spring offset remains within configured min/max (%.3f)" % spring_offset)
+		check(is_equal_approx(rig.bone(&"coat_1").rotation, animator._angles[&"coat_1"] + animator._overlay.get(&"coat_1", 0.0) + spring_offset), "spring offset is applied exactly once over the NPC pose")
+
+		# Zero authored angle remains the previous spring-only result.
+		(poses["stand"]["bones"] as Dictionary)["coat_1"] = 0.0
+		input.npc_pose = &"stand"
+		for i in 120:
+			rig.animate(1.0 / 60.0, input)
+		check(absf(animator._angles[&"coat_1"]) < 0.001, "zero-authored spring bone retains its legacy base angle")
+		check(is_equal_approx(rig.bone(&"coat_1").rotation, animator._spring_angle[&"coat_1"]), "zero-authored spring bone exactly matches the previous spring-only output")
+	else:
+		check(false, "Rin spring fixture exposes the NPC animator and coat_1 bone")
+	holder.queue_free()
+	var spring_30 := _spring_offset_after(30)
+	var spring_60 := _spring_offset_after(60)
+	var spring_120 := _spring_offset_after(120)
+	check(maxf(absf(spring_30 - spring_60), absf(spring_60 - spring_120)) < 0.01, "spring offset is stable at 30/60/120 FPS (%.4f / %.4f / %.4f)" % [spring_30, spring_60, spring_120])
+	if had_cached_data:
+		RigLibrary._json_cache[DATA_PATH] = previous_data
+	else:
+		RigLibrary._json_cache.erase(DATA_PATH)
+	await frames(1)
+
+
+func _spring_offset_after(fps: int) -> float:
+	var holder := Node2D.new()
+	runner.get_tree().root.add_child(holder)
+	var rig := CharacterRig.new()
+	holder.add_child(rig)
+	var result := 0.0
+	if rig.setup("rin", "npc") and rig.animator is NpcAnimator and rig.has_bone(&"coat_1"):
+		var input := RigInput.new()
+		input.two_handed = false
+		input.velocity = Vector2(120.0, 0.0)
+		for i in fps * 2:
+			rig.animate(1.0 / float(fps), input)
+		result = (rig.animator as NpcAnimator)._spring_angle[&"coat_1"]
+	holder.queue_free()
+	return result
 
 
 func _test_npc_data_validation() -> void:

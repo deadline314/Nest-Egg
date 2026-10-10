@@ -1,0 +1,93 @@
+{
+  "base_commit": "bdd46937d29313e3d76764d19f81dd6a84fa796c",
+  "affected_registered_groups": [
+    "AmmoIconsSuite",
+    "AmmoTraySuite",
+    "AnimAuditSuite",
+    "ApplyPanelSuite",
+    "Chapter1MapSuite",
+    "Chapter2ExpansionSuite",
+    "Chapter2Suite",
+    "ChapterCutscenesSuite",
+    "CharactersSuite",
+    "ClipEditorSuite",
+    "CollectiblesSuite",
+    "CombatHudSuite",
+    "ContinuitySuite",
+    "CutsceneSuite",
+    "DeathFlowSuite",
+    "DeathReactionSuite",
+    "EconomySuite",
+    "FeelSuite",
+    "FxMeleePickupsSuite",
+    "FxUpgradesSuite",
+    "InputFeelSuite",
+    "LayerOrderSuite",
+    "LocomotionSuite",
+    "MeleeSuite",
+    "MusicSuite",
+    "NpcAnimationSuite",
+    "NpcLifeSuite",
+    "NpcSuite",
+    "PacingSuite",
+    "PhoneBoothSuite",
+    "PoseMeshSuite",
+    "PostureSuite",
+    "PropsSuite",
+    "ProtagonistMotionSuite",
+    "QuestMapSuite",
+    "ReadabilityTargetsSuite",
+    "RigActionsSuite",
+    "RigMeshSuite",
+    "RunSaveSuite",
+    "SceneSanitySuite",
+    "SoundLabSuite",
+    "SoundStageSuite",
+    "StageCoverageCharactersSuite",
+    "StageCoverageWeaponsSuite",
+    "StageCoverageWorldSuite",
+    "StrikeEnemiesSuite",
+    "SupplySuite",
+    "TransitionSuite",
+    "UiScreensSuite",
+    "main"
+  ],
+  "checks": 14859,
+  "new_failures": 0,
+  "known_failures": 0,
+  "seconds": 280,
+  "isolated_red": {
+    "checks": 307,
+    "failures": 4,
+    "runtime": "original baseline runtime; isolated checkout"
+  },
+  "native": {
+    "per_run_checks": 968,
+    "per_run_simulated_frames": 480,
+    "per_run_snapshots": 4,
+    "art_acceptance": false
+  },
+  "merged_commit": "3bdb827eab7e9158a977a1318bd28e84b5b2d4e1",
+  "merged_checks": {
+    "groups": [
+      "RunSaveSuite",
+      "ChapterCutscenesSuite",
+      "NpcAnimationSuite",
+      "PostureSuite"
+    ],
+    "checks": 879,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 21
+  },
+  "executed_sources_sha256": {
+    "game\\rig\\humanoid_animator.gd": "381500a79bf923fcc8686e78269573dfdcb21964bb105b654eca4df6dc36a769",
+    "tests\\suite\\test_npc_animation.gd": "59e05f5aeab3afdb077a755e2231b871c383ab0ce7edb32bbec340307c71ce74",
+    "pm\\Nest-Egg\\attachments\\NE-221-spring-pose\\capture.gd": "6fd1c1154bf67fa9d51a52efc636ccb217641b641883530557f18d6596345030"
+  },
+  "git_source_sha256": {
+    "game/rig/humanoid_animator.gd": "381500a79bf923fcc8686e78269573dfdcb21964bb105b654eca4df6dc36a769",
+    "tests/suite/test_npc_animation.gd": "59e05f5aeab3afdb077a755e2231b871c383ab0ce7edb32bbec340307c71ce74",
+    "pm/Nest-Egg/attachments/NE-221-spring-pose/capture.gd": "6fd1c1154bf67fa9d51a52efc636ccb217641b641883530557f18d6596345030"
+  }
+}

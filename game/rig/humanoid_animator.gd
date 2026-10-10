@@ -733,7 +733,9 @@ func _apply_body() -> void:
 	if hip != null:
 		hip.position = _rig.rest(&"hip") + _hip_offset + Vector2(0.0, _ground_shift)
 	for bone_name: StringName in _spring_angle.keys():
-		_rig.bone(bone_name).rotation = _spring_angle[bone_name]
+		var bone := _rig.bone(bone_name)
+		if bone != null:
+			bone.rotation += _spring_angle[bone_name]
 
 
 func _forward_kinematics() -> void:

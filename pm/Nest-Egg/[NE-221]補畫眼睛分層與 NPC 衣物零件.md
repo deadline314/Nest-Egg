@@ -92,3 +92,30 @@ NPC 與凜的動作已有重心轉移、轉頭與說話手勢（NE-206），但�
 ![阿婆、渡、梅：實際NPC分支原生三狀態](images/NE-221-eyes-npc-branch/NE221-native-states-group2.png)
 
 [逐格分支與時序](images/NE-221-eyes-npc-branch/NE221.json) · [原生log](images/NE-221-eyes-npc-branch/ne221-eye-npc-branch-native.log) · [證據SHA索引](images/NE-221-eyes-npc-branch/manifest.json)
+
+# Commit-3
+
+## 內文
+
+衣物的彈簧餘勢原本會覆蓋角色姿勢：即使衣襬已有坐姿角度，最後仍只剩微小飄動角度。現在保留姿勢與疊加動作，再加上彈簧餘勢；反覆套用不累加，原本沒有姿勢角度的衣物維持既有結果。
+
+以原凜立繪與同一組診斷用NPC站／坐姿資料，在原程式和修正後分別擷取左右面向。原程式丟失正負0.35弧度的衣物姿勢；修正後保留該角度並疊上同一彈簧偏移。本次畫面只驗共用角度合成，診斷角度沒有加入遊戲資料；立繪、衣襬零件與全身動作不以此視為通過，原驗收條件維持不變，票仍進行中。
+
+### 測試結果
+
+| 項目 | 結果 |
+|---|---|
+| 修前重現 | 隔離checkout採bdd46937原程式與最終回歸，307項中4項失敗；修正後同項通過，沒有SCRIPT ERROR |
+| 受影響測試 | 固定bdd46937基準，run_tests_changed選出50個已登記群組，14,859項、零新／已知失敗，280秒；沒有執行完整測試 |
+| 合併核對 | 整合3bdb827e的存檔與舞台成果後重驗4群組、879項、零新／已知失敗，21秒 |
+| 次級動態 | 非零姿勢／疊加／彈簧各套用一次，站坐平滑切換、獨立彈簧限值、零姿勢相容與30／60／120Hz一致性通過 |
+| 原生對照 | Godot4.7.2、RTX4070SUPER、Forward+ HDR2D；修前／後各模擬480更新、968項檢查、4張1200×1400原生PNG；不是連續實時播放或全身美術驗收 |
+| CI | bdd46937的完整測試未啟動，GitHub Actions回報帳務／額度問題；不稱完整測試通過 |
+
+### 截圖
+
+![修前：同一原立繪與診斷坐姿，衣物姿勢角度被覆蓋；全身美術不作本次驗收](images/NE-221-spring-pose/legacy_sit_f1.png)
+
+![修後：保留診斷衣物姿勢再加餘勢；這不是新的遊戲坐姿](images/NE-221-spring-pose/composed_sit_f1.png)
+
+[對照重跑與範圍](attachments/NE-221-spring-pose/README.md) · [固定來源與受影響測試](attachments/NE-221-spring-pose/evidence/verification.json) · [原生修前](attachments/NE-221-spring-pose/evidence/native-before.json) · [原生修後](attachments/NE-221-spring-pose/evidence/native-after.json) · [證據SHA索引](attachments/NE-221-spring-pose/manifest.json)

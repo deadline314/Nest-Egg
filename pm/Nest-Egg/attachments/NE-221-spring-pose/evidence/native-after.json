@@ -1,0 +1,47 @@
+{
+	"art_acceptance": false,
+	"captures": [
+		{
+			"actual": 0.34714263677597,
+			"authored": 0.35,
+			"facing": 1,
+			"file": "composed_stand_f1.png",
+			"overlay": 0.0,
+			"pose": "stand",
+			"spring": -0.00285736429084895
+		},
+		{
+			"actual": -0.352857351303101,
+			"authored": -0.35,
+			"facing": 1,
+			"file": "composed_sit_f1.png",
+			"overlay": 0.0,
+			"pose": "sit",
+			"spring": -0.00285736429084895
+		},
+		{
+			"actual": 0.34714263677597,
+			"authored": 0.35,
+			"facing": -1,
+			"file": "composed_stand_f-1.png",
+			"overlay": 0.0,
+			"pose": "stand",
+			"spring": -0.00285736429084895
+		},
+		{
+			"actual": -0.352857351303101,
+			"authored": -0.35,
+			"facing": -1,
+			"file": "composed_sit_f-1.png",
+			"overlay": 0.0,
+			"pose": "sit",
+			"spring": -0.00285736429084895
+		}
+	],
+	"checks": 968,
+	"frames_simulated": 480,
+	"legacy": false,
+	"renderer": "forward_plus",
+	"scope": "Controlled NPC pose data demonstrates composition only; no gameplay pose or artwork changed.",
+	"snapshots": 4
+}
