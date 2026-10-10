@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -eu
+runtime_root=/workspace/scratch/6398cf5a29ce/ne79-runtime
+runtime_dir=$(mktemp -d "$runtime_root/invoke.XXXXXX")
+trap 'rm -f "$runtime_dir/godot"; rmdir "$runtime_dir" 2>/dev/null || true' EXIT
+unzip -p "$runtime_root/Godot_v4.7.2-stable_linux.x86_64.zip" Godot_v4.7.2-stable_linux.x86_64 > "$runtime_dir/godot"
+chmod u+x "$runtime_dir/godot"
+"$runtime_dir/godot" "$@"

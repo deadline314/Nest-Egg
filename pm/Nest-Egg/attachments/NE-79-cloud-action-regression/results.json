@@ -1,0 +1,71 @@
+{
+  "baseline": "aeb45f77f5b99ca962786fb28341f1a87fb9ad4f",
+  "environment": "current cloud scratch; not verified Nest-Egg named configuration",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "engine_version": "4.7.2.stable.official.ed1daf0bf",
+  "engine_zip_sha512": "9aa00f7a605200940bce3027a567b782f49bd8e940dd06ae9e987bd65aee1b1467edd56ed84fcdcbdd44354bf613bdbb4e5d2913e925850368e150c59ed54c65",
+  "engine_verified_unpacked_bytes": 146414384,
+  "baseline_related": {
+    "checks": 5904,
+    "exit": 0,
+    "suites": 7
+  },
+  "unregistered_changed": {
+    "checks": 0,
+    "exit": 0,
+    "accepted_as_pass": false
+  },
+  "registered_changed": {
+    "selector": "ALL",
+    "scope_guard_exit": 1,
+    "accepted_as_pass": false,
+    "full_tests_run": false,
+    "direct_guard_exit": 64
+  },
+  "final_related": {
+    "checks": 6890,
+    "exit": 0,
+    "suites": 8,
+    "new_failures": 0,
+    "known_failures": 0
+  },
+  "new_suite_checks": 986,
+  "sampled_frames_per_facing": 2635,
+  "dt": "1/60",
+  "rendering": "headless; no rendered frame or GPU/performance acceptance",
+  "baseline/related_diagnostics": {
+    "SCRIPT_ERROR_lines": 0,
+    "ERROR_lines": 3,
+    "FAIL_lines": 0
+  },
+  "final_diagnostics": {
+    "SCRIPT_ERROR_lines": 0,
+    "ERROR_lines": 3,
+    "FAIL_lines": 0
+  },
+  "isolated_final": {
+    "checks": 986,
+    "exit": 0,
+    "SCRIPT_ERROR_lines": 0,
+    "ERROR_lines": 0,
+    "seconds": 4.2
+  },
+  "post_rebase": {
+    "main": "7e36216690d32381861b554e4d263f6634dd7dfc",
+    "checks": 6890,
+    "exit": 0,
+    "suites": 8,
+    "wall_seconds": 27,
+    "diagnostics": {
+      "SCRIPT_ERROR_lines": 0,
+      "ERROR_lines": 3,
+      "FAIL_lines": 0
+    }
+  },
+  "post_rebase_empty_attempt": {
+    "checks": 0,
+    "exit": 0,
+    "accepted_as_pass": false,
+    "cause": "LOG_DIR omitted, readonly /tmp; runner returned empty success"
+  }
+}

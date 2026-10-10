@@ -1,0 +1,79 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME PostureSuite 1.9
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=0); keeping resting hand
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _build_parts (res://game/rig/character_rig.gd:611)
+         [1] setup (res://game/rig/character_rig.gd:118)
+         [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+         [3] run (res://tests/suite/test_characters.gd:45)
+         [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+         [5] frames (res://tests/suite/test_suite.gd:23)
+         [6] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=-1.0); keeping resting hand
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _build_parts (res://game/rig/character_rig.gd:611)
+         [1] setup (res://game/rig/character_rig.gd:118)
+         [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+         [3] run (res://tests/suite/test_characters.gd:45)
+         [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+         [5] frames (res://tests/suite/test_suite.gd:23)
+         [6] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=inf); keeping resting hand
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _build_parts (res://game/rig/character_rig.gd:611)
+         [1] setup (res://game/rig/character_rig.gd:118)
+         [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+         [3] run (res://tests/suite/test_characters.gd:45)
+         [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+         [5] frames (res://tests/suite/test_suite.gd:23)
+         [6] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=nan); keeping resting hand
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _build_parts (res://game/rig/character_rig.gd:611)
+         [1] setup (res://game/rig/character_rig.gd:118)
+         [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+         [3] run (res://tests/suite/test_characters.gd:45)
+         [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+         [5] frames (res://tests/suite/test_suite.gd:23)
+         [6] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=0.02); keeping resting hand
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _build_parts (res://game/rig/character_rig.gd:611)
+         [1] setup (res://game/rig/character_rig.gd:118)
+         [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+         [3] run (res://tests/suite/test_characters.gd:45)
+         [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+         [5] frames (res://tests/suite/test_suite.gd:23)
+         [6] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=true); keeping resting hand
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _build_parts (res://game/rig/character_rig.gd:611)
+         [1] setup (res://game/rig/character_rig.gd:118)
+         [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+         [3] run (res://tests/suite/test_characters.gd:45)
+         [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+         [5] frames (res://tests/suite/test_suite.gd:23)
+         [6] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=<null>); keeping resting hand
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _build_parts (res://game/rig/character_rig.gd:611)
+         [1] setup (res://game/rig/character_rig.gd:118)
+         [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+         [3] run (res://tests/suite/test_characters.gd:45)
+         [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+         [5] frames (res://tests/suite/test_suite.gd:23)
+         [6] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME CharactersSuite 1.5
+NE79_CPU_SAMPLES facing=1 fixed_60Hz_frames=2635 registered_actions={ "windup": "shield_rusher.brace", "dazed": "shield_rusher.stagger_back", "skid": "shield_rusher.skid" }
+NE79_CPU_SAMPLES facing=-1 fixed_60Hz_frames=2635 registered_actions={ "windup": "shield_rusher.brace", "dazed": "shield_rusher.stagger_back", "skid": "shield_rusher.skid" }
+SUITE_TIME EnforcerArtDeliverySuite 5.6
+checks: 1646, failures: 0

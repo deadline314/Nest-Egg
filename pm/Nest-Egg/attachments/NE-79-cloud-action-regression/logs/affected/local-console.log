@@ -1,0 +1,6 @@
+Running 8 groups in 4 processes (logs: /workspace/scratch/6398cf5a29ce/ne79-evidence/affected/local)
+  process 0 (estimated 13 s): HitReactionSuite
+  process 1 (estimated 13 s): AnimAuditSuite
+  process 2 (estimated 7 s): LocomotionSuite,RigActionsSuite,RigMeshSuite
+  process 3 (estimated 7 s): EnforcerArtDeliverySuite,PostureSuite,CharactersSuite
+checks: 6870, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 26 s)

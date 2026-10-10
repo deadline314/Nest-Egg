@@ -1,0 +1,15 @@
+mktemp: failed to create directory via template ‘/tmp/tmp.XXXXXXXXXX’: Read-only file system
+Running 8 groups in 4 processes (logs: )
+mkdir: cannot create directory ‘/data_0’: Read-only file system
+  process 0 (estimated 14 s): AnimAuditSuite
+tools/run_tests_parallel.sh: line 79: /shard_0.log: Read-only file system
+mkdir: cannot create directory ‘/data_1’: Read-only file system
+  process 1 (estimated 13 s): HitReactionSuite
+tools/run_tests_parallel.sh: line 79: /shard_1.log: Read-only file system
+mkdir: cannot create directory ‘/data_2’: Read-only file system
+  process 2 (estimated 8 s): LocomotionSuite,RigActionsSuite
+tools/run_tests_parallel.sh: line 79: /shard_2.log: Read-only file system
+mkdir: cannot create directory ‘/data_3’: Read-only file system
+  process 3 (estimated 7 s): EnforcerArtDeliverySuite,PostureSuite,CharactersSuite,RigMeshSuite
+tools/run_tests_parallel.sh: line 79: /shard_3.log: Read-only file system
+checks: 0, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 0 s)

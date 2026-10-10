@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+for argument in "$@"; do
+  if [ "$argument" = '--only=list' ]; then
+    echo 'NE-79 scope guard: selector requested ALL; refusing full-suite enumeration. Run the documented eight local suites explicitly.' >&2
+    exit 64
+  fi
+done
+exec /workspace/scratch/6398cf5a29ce/ne79-runtime/godot "$@"

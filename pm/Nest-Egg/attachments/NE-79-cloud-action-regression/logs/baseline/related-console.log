@@ -1,0 +1,6 @@
+Running 7 groups in 4 processes (logs: /workspace/scratch/6398cf5a29ce/ne79-evidence/baseline/related)
+  process 0 (estimated 50 s): RigMeshSuite,HitReactionSuite
+  process 1 (estimated 50 s): RigActionsSuite,CharactersSuite
+  process 2 (estimated 50 s): PostureSuite,AnimAuditSuite
+  process 3 (estimated 25 s): LocomotionSuite
+checks: 5904, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 24 s)
