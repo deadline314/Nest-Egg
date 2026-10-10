@@ -121,6 +121,6 @@
   },
   "talk_speed": 1.35,
   "talk_amp": 1.2,
-    "life": {"tempo": 1.2, "amount": 1.0, "glance": {"head": 0.22}}
+    "life": {"tempo": 1.2, "amount": 1.0, "glance": {"head": 0.22}, "beat": {"every": [0.5, 1.1], "speed": 1.3, "expanse": 1.0, "vocab": {"beat": 3, "open_palm": 2, "shrug": 2, "dismiss": 1, "self": 1}}, "fidget": {"every": [4.0, 8.0], "vocab": {"touch_headset": 2, "sleeve_tug": 2, "scratch_head": 0.5}}, "listen": {"nod_every": [1.5, 3.0], "nod": 0.7}, "posture": {"speed": 1.3, "lead": 0.8}}
  }
 }

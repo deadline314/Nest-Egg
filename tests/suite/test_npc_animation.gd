@@ -2,6 +2,7 @@ class_name NpcAnimationSuite
 extends TestSuite
 ## NPC 動畫（NE-83）：動畫資料引用的骨頭都存在、姿勢與循環能運作（坐下降低骨盆、說話改變頭與手臂、循環改變手臂、幅度可調）、
 ## 沒設定或設錯的循環不會崩潰、走動與持武器時退回人形動畫、NPC 資料的循環名稱會被驗證。
+## NE-250：起身前上身先前傾（預備）、坐下與起身沒有跳格；關鍵影格循環每一圈長度略有不同；手勢與切換資料只用每個 NPC 骨架都有的骨頭。
 
 const DATA_PATH := "res://art/rigs/npc_animations.json"
 const SKIN := "old_k"
@@ -18,6 +19,10 @@ func run() -> void:
 	await _test_springs_add_to_authored_pose()
 	_test_garment_hems_swing()
 	_test_npc_data_validation()
+	_test_keyed_tracks()
+	_test_motion_data_bones()
+	await _test_posture_transitions()
+	await _test_loop_cycles_vary()
 
 
 ## 建立一個 NPC 動畫器的骨架並跑幾格讓角度穩定。
@@ -333,3 +338,123 @@ func _test_npc_data_validation() -> void:
 	npc.loop = &"stir"
 	npc.loop_scale = 0.0
 	check("".join(npc.validate()).contains("loop_scale"), "a loop_scale of 0 is reported")
+
+
+const NPC_SKINS: Array[String] = ["old_k", "nurse", "night_worker", "resident", "mei", "wataru", "ah_po", "repairman_chen", "rin"]
+
+
+## 關鍵影格：緩動種類、繞回、格式錯誤略過。
+func _test_keyed_tracks() -> void:
+	check(is_equal_approx(NpcAnimator.keyed([[0.0, 0.0], [0.5, 1.0, "in"]], 0.25), 0.25), "ease-in key: halfway is a quarter")
+	check(is_equal_approx(NpcAnimator.keyed([[0.0, 0.0], [0.5, 1.0, "lin"]], 0.25), 0.5), "linear key")
+	check(is_equal_approx(NpcAnimator.keyed([[0.0, 0.0], [0.5, 1.0]], 0.75), 0.5), "after the last key it wraps back to the first")
+	check(is_equal_approx(NpcAnimator.keyed([[0.5, 1.0], "bad", [0.0, 0.0], ["x", 2]], 0.25), 0.5), "unsorted and broken keys are tolerated")
+	check(NpcAnimator.keyed([], 0.3) == 0.0 and NpcAnimator.keyed(["x"], 0.3) == 0.0, "no valid keys gives 0")
+	check(absf(NpcAnimator.breath_curve(0.0) + 1.0) < 0.001 and absf(NpcAnimator.breath_curve(0.4) - 1.0) < 0.001, "breathing in takes 40% of the cycle")
+	check(absf(NpcAnimator.breath_curve(0.999) + 1.0) < 0.01, "and breathing out the rest, back to the start")
+
+
+## 每個 NPC 骨架都有手勢、切換、循環用到的骨頭（新增角色時這裡會擋下缺骨頭的資料）。
+func _test_motion_data_bones() -> void:
+	var data := RigLibrary.load_json(DATA_PATH)
+	var used: Dictionary = {}
+	for gesture: Variant in (data.get("gestures", {}) as Dictionary).values():
+		for section: String in ["pose", "stroke", "sag", "drag", "drag_out"]:
+			for bone: Variant in ((gesture as Dictionary).get(section, {}) as Dictionary).keys():
+				used[str(bone)] = "gestures"
+		for wiggle: Variant in (gesture as Dictionary).get("wiggle", []):
+			used[str((wiggle as Dictionary).get("bone", ""))] = "gestures"
+	for transition: Variant in (data.get("transitions", {}) as Dictionary).values():
+		for bone: Variant in ((transition as Dictionary).get("lead", {}) as Dictionary).keys():
+			used[str(bone)] = "transitions"
+	check(used.size() > 8, "gestures and transitions use the arm, head and chest bones")
+	for skin in NPC_SKINS:
+		var bones: Array[String] = ["_hip_x", "_hip_y"]
+		for bone: Dictionary in RigLibrary.load_json(str(RigLibrary.character(skin).get("rig", ""))).get("bones", []):
+			bones.append(str(bone["name"]))
+		for name: String in used.keys():
+			check(bones.has(name), "%s has the bone %s used by %s" % [skin, name, used[name]])
+		# 角色挑的手勢都存在
+		var life: Dictionary = ((RigLibrary.load_json("res://art/motion/%s.json" % skin).get("npc", {}) as Dictionary).get("life", {}) as Dictionary)
+		for section: String in ["beat", "fidget"]:
+			for gesture_name: Variant in ((life.get(section, {}) as Dictionary).get("vocab", {}) as Dictionary).keys():
+				check((data.get("gestures", {}) as Dictionary).has(gesture_name), "%s's %s gesture exists: %s" % [skin, section, gesture_name])
+
+
+## 坐 3 秒再站起來：骨盆升起 20% 時上身已經比坐著時前傾（先把重心移到腳上）；坐下與起身全程沒有跳格。
+func _test_posture_transitions() -> void:
+	for skin in NPC_SKINS:
+		var holder := Node2D.new()
+		runner.get_tree().root.add_child(holder)
+		var rig := CharacterRig.new()
+		holder.add_child(rig)
+		check(rig.setup(skin, "npc"), "%s builds as an NPC" % skin)
+		var input := RigInput.new()
+		input.two_handed = false
+		var dt := 1.0 / 60.0
+		var watched: Array[StringName] = [&"chest", &"head", &"arm_front_upper", &"arm_front_lower", &"leg_front_upper", &"leg_front_lower"]
+		var series: Dictionary = {}
+		for bone in watched:
+			series[bone] = [] as Array[float]
+		var hips: Array[float] = []
+		var chests: Array[float] = []
+		for i in int(7.0 / dt):
+			var t := i * dt
+			input.npc_pose = &"sit" if t >= 1.0 and t < 4.0 else &"stand"
+			rig.animate(dt, input)
+			if t >= 0.5:
+				for bone in watched:
+					(series[bone] as Array[float]).append(rig.bone(bone).rotation)
+			if t >= 3.5:
+				hips.append(rig.bone(&"hip").global_position.y)
+				chests.append(rig.bone(&"chest").rotation)
+		var worst := 0.0
+		var where := ""
+		for bone in watched:
+			var values: Array[float] = series[bone]
+			for i in range(2, values.size()):
+				var jerk := absf(values[i] - 2.0 * values[i - 1] + values[i - 2])
+				if jerk > worst:
+					worst = jerk
+					where = "%s@%.2fs" % [bone, 0.5 + i * dt]
+		check(worst < 0.035, "%s: sitting down and standing up have no popping frames (%.4f at %s; old code 0.106)" % [skin, worst, where])
+		var seated_hip := hips[0]
+		var standing_hip := hips[hips.size() - 1]
+		var seated_chest := chests[0]
+		var lean := 0.0
+		for i in hips.size():
+			if (seated_hip - hips[i]) >= 0.2 * (seated_hip - standing_hip):
+				lean = chests[i] - seated_chest
+				break
+		check(seated_hip - standing_hip > 2.0, "%s: the hips rise when standing up (%.1f px)" % [skin, seated_hip - standing_hip])
+		check(lean > 0.08, "%s: leans the upper body forward before rising (%.3f rad)" % [skin, lean])
+		holder.queue_free()
+		await frames(1)
+
+
+## 敲打循環：每一圈的長度略有不同（不是機器重複），但都在資料的變化範圍內。
+func _test_loop_cycles_vary() -> void:
+	var input := RigInput.new()
+	input.two_handed = false
+	input.npc_loop = &"hammer"
+	var rig := await _rig_with(input, 1)
+	var dt := 1.0 / 120.0
+	var strikes: Array[float] = []
+	var previous := 0.0
+	for i in int(12.0 / dt):
+		rig.animate(dt, input)
+		var a := rig.bone(&"arm_front_upper").rotation
+		if i > 120 and previous < -1.0 and a >= -1.0:  # 手臂往下敲過 -1.0 弧度的瞬間
+			strikes.append(i * dt)
+		previous = a
+	var loop: Dictionary = RigLibrary.load_json(DATA_PATH)["loops"]["hammer"]
+	var period := float(loop["period"])
+	var vary := float(loop["vary"])
+	var gaps: Array[float] = []
+	for i in range(1, strikes.size()):
+		gaps.append(strikes[i] - strikes[i - 1])
+	check(gaps.size() >= 6, "the hammer strikes repeatedly (%d strikes)" % strikes.size())
+	if gaps.is_empty():
+		return
+	check(gaps.max() - gaps.min() > period * 0.04, "the strikes are not perfectly regular (%.3f–%.3f s)" % [gaps.min(), gaps.max()])
+	check(gaps.min() > period * (1.0 - vary) - 0.05 and gaps.max() < period * (1.0 + vary) + 0.05, "but stay within the data's variation (%.2f s ±%d%%)" % [period, int(vary * 100)])

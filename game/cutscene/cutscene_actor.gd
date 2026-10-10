@@ -18,9 +18,13 @@ var pose: StringName = &"idle"
 var layer_slot := 0
 ## 地面線（舞台座標的腳底 y；NAN＝沒有登記）：從坐姿站起來時，腳要落回這條線（坐在桌上、箱子上的演員不會站起來浮在半空）。
 var ground_y := NAN
-## 站起來落回地面的速度（舞台像素／秒）與是否正在落下。
+## 站起來落回地面的速度（舞台像素／秒）與是否正在落下。骨架在做「起身」切換時，落下跟著起身的進度走（NE-250：
+## 上身前傾、腳收回、骨盆升起的同時身體落到地面，而不是先瞬間掉到地上再慢慢站起來）；沒有切換（例如直接走開）時用固定速度。
 const SETTLE_SPEED := 160.0
 var _settling := false
+var _settle_from := 0.0
+var _settle_synced := false
+var _settle_wait := 0
 var facing := 1
 var rig: CharacterRig
 var _input := RigInput.new()
@@ -71,6 +75,9 @@ func set_pose(new_pose: StringName) -> void:
 	# 從坐姿換成站、走、跑…：位置還在座位的高度，要落回地面線，不能浮空。
 	if was_seated and new_pose != &"sit" and not is_nan(ground_y) and absf(position.y - ground_y) > 0.5:
 		_settling = true
+		_settle_from = position.y
+		_settle_synced = false
+		_settle_wait = 1
 
 
 ## 專屬工作循環（art/rigs/npc_animations.json 的 loops，空字串＝沒有）；scale 放大縮小幅度。
@@ -98,7 +105,14 @@ func face(direction: int) -> void:
 func _process(delta: float) -> void:
 	_t += delta
 	if _settling:
-		position.y = move_toward(position.y, ground_y, SETTLE_SPEED * delta)
+		var progress := (rig.animator as NpcAnimator).posture_progress() if rig != null and rig.animator is NpcAnimator else 1.0
+		if progress < 1.0:
+			_settle_synced = true
+			position.y = lerpf(_settle_from, ground_y, progress)
+		elif _settle_synced or _settle_wait <= 0:
+			position.y = move_toward(position.y, ground_y, SETTLE_SPEED * delta)
+		else:
+			_settle_wait -= 1  # 骨架下一格才開始起身切換：先等一格，免得先掉一點再被拉回
 		_settling = not is_equal_approx(position.y, ground_y)
 	if rig != null:
 		# Stage translation and enlarged actors must use the same space as the leg solver.

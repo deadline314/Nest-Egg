@@ -120,6 +120,6 @@
   },
   "talk_speed": 1.0,
   "talk_amp": 1.0,
-    "life": {"tempo": 0.9, "amount": 1.0, "shift": {"hip_x": 0.9}, "glance": {"head": 0.18}}
+    "life": {"tempo": 0.9, "amount": 1.0, "shift": {"hip_x": 0.9}, "glance": {"head": 0.18}, "beat": {"every": [0.8, 1.6], "speed": 1.0, "expanse": 1.1, "vocab": {"both_hands": 3, "point": 2, "weigh": 1, "beat": 1}}, "fidget": {"every": [6.0, 10.0], "vocab": {"rub_neck": 1, "adjust_collar": 1, "stretch_back": 1}}, "listen": {"nod_every": [2.5, 5.0], "nod": 0.8}, "posture": {"speed": 1.0, "lead": 1.0}}
  }
 }

@@ -64,6 +64,9 @@ description: 做或調整 Nest Egg 的骨架角色與動畫時使用：新增角
 - **已實作（NE-206，`NpcLife`，`game/rig/npc_life.gd`）**：預設在 `art/rigs/npc_animations.json` 的 `life`，每個角色在 `art/motion/<角色>.json` 的 `npc.life` 逐項蓋過（`tempo` 事件頻率、`amount` 整體幅度）。內容：drift（各骨頭兩個正弦疊起來、週期由「角色＋骨頭」決定且不同步）、breath（速率 ±10%、偶爾嘆氣只加深胸口不動骨盆）、shift（站著每 6–12 秒換腳，骨盆側移＋兩條大腿反向轉讓腳踝不動、空出來的腳膝微彎並把大腿反向轉一半，實測腳滑 ≤ 0.05 px）、glance（轉頭看一下，頭先動、頸與胸跟著）、beat（說話前吸氣、重音手勢與點頭、說完放鬆）、follow（頭、胸、前臂用欠阻尼二階彈簧追目標，有餘勢與過衝）。亂數種子是角色名稱：同一角色每次一樣，不同角色不同步。
 - 踩過的坑：腳踩實地的重心轉移**不能只移骨盆**（腳跟著滑）；空出來的腳彎膝也會讓腳踝後退，要同時把大腿反向轉一半；嘆氣的起伏不能加在骨盆上（腳被帶著上下）。`npc.stand` 的角色專屬站姿調整以前因為 `_merge_into` 對空字典逐鍵蓋過而**從來沒套用**，現在整份採用且只在站著時加。
 - 還做不到（需要美術，見 NE-221）：眨眼（頭是一整張圖、沒有眼睛分層）、大衣與圍裙的次級動態（NPC 骨架沒有衣襬骨頭與零件）。
+- **已實作（NE-250，詳見 `design/12-cast-redraw/NPC_PERFORMANCE.md`）**：說話不再用正弦循環，改成手勢（`NpcGesture`：反向蓄勢→準備→重音→停留→收回；`drag`／`drag_out` 讓舉起時手肘先彎、放下時肩先落；`sag` 讓停留不凍住）；角色的 `npc.life.beat` 有 `vocab`（手勢權重）、`every`（頻率）、`speed`、`expanse`、`rest`（手勢之間放下的機率）——Hu、Walker、Neff 的 rate／speed／expanse 個性參數；`listen` 點頭、`fidget` 角色專屬小動作（手忙或說話時不做）；`posture` 的 `speed`／`lead` 決定坐站切換的快慢與預備幅度。姿勢切換資料在 `npc_animations.json` 的 `transitions`（「舊>新」，time／delay／peak／lead），工作循環可用 `keys` 關鍵影格＋`period`＋`vary`（每圈不同）。新角色只要寫資料，不用改程式。
+- 檢查工具：`tools/npc_motion_strip.tscn`——連續畫面（`--script=converse|talk|sit_cycle|stand_up|lean_cycle|wave|idle|loop:名稱[@姿勢]|gallery:手勢,…`、`--zoom=3.4` 過場倍率、`--facing=-1`），`--metrics` 印 pop（跳格）、repeat（說話重複度）、same_pair（最同步的兩根骨頭），`--trace=骨頭@秒` 印逐格值找原因。
+- 踩過的坑（NE-250）：兩骨 IK 腿接近打直時膝角對骨盆高度是平方根關係，起身終點不能是打直的 IK（`poses.stand.feet_handoff` 保留膝彎）；`max(姿勢下沉, 搆腳下沉)` 交叉處骨盆急停（讓姿勢下沉收斂到交接位置的搆腳下沉）；IK 淡出時不要把下沉乘權重（骨盆升高把腿拉直），也不要在 IK 之後呼叫 `_apply_body()`（會蓋掉 IK 腿）；手勢總長要含最晚的拖曳延遲；舉手姿勢要算手的落點（揉後頸上臂 -1.75、前臂 -2.45 才在頸後），每個角色手臂長不同要逐一看畫面。
 
 ## 姿勢（坐、蹲、靠、起身）
 

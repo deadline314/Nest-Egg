@@ -121,6 +121,6 @@
   },
   "talk_speed": 0.8,
   "talk_amp": 0.7,
-    "life": {"tempo": 0.6, "amount": 1.1, "breath": {"sigh_every": [7.0, 13.0], "sigh_amp": 2.6}, "glance": {"every": [5.0, 11.0], "head": 0.14}}
+    "life": {"tempo": 0.6, "amount": 1.1, "breath": {"sigh_every": [7.0, 13.0], "sigh_amp": 2.6}, "glance": {"every": [5.0, 11.0], "head": 0.14}, "beat": {"rest": 0.6, "every": [1.4, 2.8], "speed": 0.75, "expanse": 0.7, "vocab": {"beat": 2, "dismiss": 2, "shrug": 1, "self": 0.5}}, "fidget": {"every": [6.0, 12.0], "vocab": {"rub_eyes": 3, "rub_neck": 2, "stretch_back": 1}}, "listen": {"nod_every": [3.5, 7.0], "nod": 0.7}, "posture": {"speed": 0.7, "lead": 1.0}}
  }
 }

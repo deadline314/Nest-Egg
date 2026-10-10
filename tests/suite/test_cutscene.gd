@@ -216,8 +216,11 @@ func _test_stand_up_returns_to_the_floor() -> void:
 	await frames(3)
 	check(is_equal_approx(actor.position.y, 232.0), "sitting keeps the seat height")
 	actor.set_pose(&"idle")
-	for i in 90:
+	# 起身有預備（上身前傾、腳收回）再升起，約 0.8～1.1 秒（NE-250），落回地面跟著起身的進度
+	for i in 300:
 		await runner.get_tree().process_frame
+		if not actor._settling:
+			break
 	check(is_equal_approx(actor.position.y, 280.0), "standing up puts the feet back on the floor line (%.1f)" % actor.position.y)
 	var free_actor := CutsceneActor.new()
 	runner.add_child(free_actor)
