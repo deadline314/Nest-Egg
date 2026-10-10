@@ -122,7 +122,9 @@ func _draw() -> void:
 		var ammo_rect := Rect2(rect.position + Vector2(CARD_SIZE.x - 22.0, CARD_SIZE.y - 26.0), AmmoIcons.CELL * 1.3)
 		draw_texture_rect(entry.ammo_icon, ammo_rect, false, Color(1, 1, 1, dim))
 	if not entry.badge.is_empty():
-		PixelUi.badge(self, rect.position + Vector2(CARD_SIZE.x - 8.0, 6.0), entry.badge, entry.badge_color)
+		# 有彈種圖示時徽章讓到圖示左邊，兩者不重疊（放大文字時徽章會變高）。
+		var badge_right := CARD_SIZE.x - (26.0 if entry.ammo_icon != null else 8.0)
+		PixelUi.badge(self, rect.position + Vector2(badge_right, 6.0), entry.badge, entry.badge_color)
 	if _shine >= 0.0:
 		_draw_shine(rect)
 	if _flash > 0.0:

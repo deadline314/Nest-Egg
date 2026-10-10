@@ -60,7 +60,8 @@ func _ready() -> void:
 
 func _make_row(def: Dictionary) -> Control:
 	var row := HBoxContainer.new()
-	row.custom_minimum_size = Vector2(ROW_WIDTH, 30)
+	# 列高由文字決定、最少 24：放大文字時七列仍在頁面內，不壓到底部說明列。
+	row.custom_minimum_size = Vector2(ROW_WIDTH, 24)
 	row.add_theme_constant_override(&"separation", 10)
 	row.tooltip_text = str(def["hint"])
 	row.mouse_filter = Control.MOUSE_FILTER_PASS

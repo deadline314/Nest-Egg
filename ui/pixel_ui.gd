@@ -42,7 +42,8 @@ static func badge(canvas: CanvasItem, right_top: Vector2, text: String, color: C
 	var size := Vector2(text_size.x + 8.0, text_size.y + 2.0)
 	var rect := Rect2((right_top - Vector2(size.x, 0)).round(), size.round())
 	frame(canvas, rect, Color(color, 0.22), color, 1)
-	canvas.draw_string(font, rect.position + Vector2(4, size.y - 3.0), text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
+	# 基線用字型上緣高度：放大文字時字仍在框內，不往下掉出邊框。
+	canvas.draw_string(font, rect.position + Vector2(4, 1.0 + font.get_ascent(font_size)), text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
 	return size.x
 
 
