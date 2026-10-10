@@ -33,6 +33,7 @@ var _radio_portrait: TextureRect
 var _radio_name: Label
 var _radio_bar: ColorRect
 var _radio_slide: Tween
+var _radio_fade: Tween
 var _radio_text: Label
 var _radio_queue: Array[Dictionary] = []  # { id, line, last }
 var _radio_hold := 0.0
@@ -112,6 +113,7 @@ func cancel_cinematic() -> void:
 
 
 func cancel_radio() -> void:
+	_cancel_radio_fade()
 	_radio_queue.clear()
 	_radio_active = false
 	_radio_wait = 0.0
@@ -161,11 +163,12 @@ func enqueue_radio(id: StringName, lines: Array[Dictionary]) -> void:
 
 
 func _next_radio() -> void:
+	_cancel_radio_fade()
 	if _radio_queue.is_empty():
 		_radio_active = false
-		var tween := create_tween()
-		tween.tween_property(_radio_root, "modulate:a", 0.0, 0.25)
-		tween.tween_callback(_radio_root.set.bind("visible", false))
+		_radio_fade = create_tween()
+		_radio_fade.tween_property(_radio_root, "modulate:a", 0.0, 0.25)
+		_radio_fade.tween_callback(_radio_root.set.bind("visible", false))
 		return
 	_radio_active = true
 	var entry: Dictionary = _radio_queue.front()
@@ -182,6 +185,13 @@ func _next_radio() -> void:
 	_radio_root.visible = not is_cinematic_active() and _radio_wait <= 0.0
 	if _radio_wait <= 0.0:
 		_reveal_radio(was_hidden)
+
+
+## 新句或取消取得廣播面板前，舊退場不能再改它的透明度／可見性。
+func _cancel_radio_fade() -> void:
+	if _radio_fade != null and _radio_fade.is_valid():
+		_radio_fade.kill()
+	_radio_fade = null
 
 
 func _process(delta: float) -> void:

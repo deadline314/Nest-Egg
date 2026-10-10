@@ -19,6 +19,7 @@ func run() -> void:
 	_test_respawn_reactions()
 	_test_bad_variant_data()
 	await _test_radio_delay()
+	await _test_radio_fade_lifecycle()
 	await _test_play_uses_variants()
 	await _test_level_respawn_reaction()
 	await _test_death_screen()
@@ -309,6 +310,46 @@ func _test_radio_delay() -> void:
 	Story._scenes.erase("test_radio_delay")
 	Story.auto_skip = true
 	Story.reset_progress()
+
+
+## 真播放完一段廣播，再於它的退場動畫尚未完成時接下一段。
+## 首句必須立即出現且連續可見；不能只等舊回呼執行後再判定成功。
+func _test_radio_fade_lifecycle() -> void:
+	var original_motion := Settings.get_reduce_ui_motion()
+	var layer := Story._layer
+	Story.auto_skip = false
+	for reduced in [false, true]:
+		Settings.set_reduce_ui_motion(reduced)
+		for route in ["next", "reset", "replay"]:
+			Story.reset_progress()
+			Story._scenes["test_radio_fade_old"] = {"mode": "radio", "lines": [{"speaker": "mei", "text": "先關了。"}]}
+			Story._scenes["test_radio_fade_new"] = {"mode": "radio", "lines": [{"speaker": "mei", "text": "先關了。"}]}
+			Story.play(&"test_radio_fade_old", false)
+			var deadline := Time.get_ticks_msec() + 4000
+			while layer._radio_active and Time.get_ticks_msec() < deadline:
+				await frames(1)
+			check(not layer._radio_active, "old radio actually completes before fade replacement: %s reduced=%s" % [route, reduced])
+			await runner.get_tree().create_timer(0.15).timeout
+			if route == "reset":
+				Story.reset_progress()
+				check(not layer._radio_root.visible and not layer._radio_active, "reset immediately cancels radio display and queue")
+			var scene := &"test_radio_fade_old" if route == "replay" else &"test_radio_fade_new"
+			Story.play(scene, false)
+			check(layer._radio_root.visible and layer._radio_text.text == "先關了。", "replacement first line appears synchronously: %s reduced=%s" % [route, reduced])
+			var interruptions: Array[Dictionary] = []
+			for frame in 18:
+				await frames(1)
+				if not layer._radio_root.visible or layer._radio_text.text != "先關了。" or not layer._radio_active:
+					interruptions.append({"frame": frame + 1, "visible": layer._radio_root.visible, "text": layer._radio_text.text, "active": layer._radio_active})
+			check(interruptions.is_empty(), "old radio fade never hides replacement first line: %s reduced=%s %s" % [route, reduced, interruptions])
+			Story.reset_progress()
+			await frames(18)
+			check(not layer._radio_root.visible and not layer._radio_active, "cancelled replacement remains hidden without delayed revival")
+	Story._scenes.erase("test_radio_fade_old")
+	Story._scenes.erase("test_radio_fade_new")
+	Story.reset_progress()
+	Settings.set_reduce_ui_motion(original_motion)
+	Story.auto_skip = true
 
 
 func _test_play_uses_variants() -> void:
