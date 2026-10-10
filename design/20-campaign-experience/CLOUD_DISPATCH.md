@@ -49,7 +49,9 @@ BG-25 的唯一雲端 owner 已轉交 A2；舊 A 已收到停止 source/Git muta
 
 兩邊預檢時 source 工作樹乾淨，但環境快照的 HEAD 為 `7e05a6e78623e620482caa527d480cbc52b13a0c`，落後當時 main 32 個 commit；正式任務要求從重新 fetch 的最新 main 建 feature branch。以上 SHA 是預檢時觀測值，不是未來推送可沿用的固定基線。
 
-B 已正式收到 NE-236、NE-237 與 NE-231 近戰成長範圍；C 已正式收到 NE-232 下一階段管線。兩邊正式實作採 GPT-6.1 Sol High，先核對現有資料與介面、列出檔案 ownership 再開始。NE-237 的存檔依賴與 NE-232 的真章節 readiness 尚未全部交付，不因環境連線或管線測試通過便勾完成。
+B 已正式收到 NE-236、NE-237 與 NE-231 近戰成長範圍；C 已正式收到 NE-232 下一階段管線。兩邊正式實作採 GPT-6.1 Sol，先核對現有資料與介面、列出檔案 ownership 再開始。NE-237 的存檔依賴與 NE-232 的真章節 readiness 尚未全部交付，不因環境連線或管線測試通過便勾完成。
+
+已確認 B 建立 `codex/cloud-weapon-combos`，C 建立 `codex/cloud-chapter-release`，兩者由正式 fetch 的 `b4c186ea…` 起步。B 第一項是近戰輸入／連段在換武器、受擊、死亡與能量不足時的安全邊界；C 下一階段是隔離匯出與可靠 readiness／產物報告。C 核對最新 NE-232 Commit-1 與原始測試實際為 **12 項**；早先派工文字的 37/37 是主 session 的敘述錯誤，已更正，不能作為既有測試基線或補足數量的要求。
 
 ## 分工
 
