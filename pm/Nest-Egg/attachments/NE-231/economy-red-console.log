@@ -1,0 +1,5 @@
+Running 1 groups in 1 processes (logs: C:/tmp/ne231-evidence/economy-delta-red)
+  process 0 (estimated 0 s): EconomySuite
+[process 0] NEW FAILURE: same fingerprint with corrupted receipt amount refuses preflight without mutation
+[process 0] NEW FAILURE: same fingerprint with corrupted receipt amount refuses commit and preserves wallet and evidence
+checks: 183, new failures: 2, known failures (tests/known_failures.txt): 0  (wall time 18 s)

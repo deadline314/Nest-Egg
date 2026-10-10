@@ -1,0 +1,53 @@
+[
+  {
+    "path": "C:/tmp/ne231-evidence/economy-delta-red/shard_0.log",
+    "script_error_lines": 0,
+    "parse_error_lines": 0,
+    "compile_error_lines": 0,
+    "error_counts": {
+      "fixture": 0,
+      "exit": 0,
+      "build": 0,
+      "unexpected": 0
+    },
+    "errors": {
+      "fixture": [],
+      "exit": [],
+      "build": [],
+      "unexpected": []
+    },
+    "exit_warnings": [],
+    "story_transaction_warning_count": 26,
+    "checks": [
+      "checks: 183, failures: 2"
+    ],
+    "failures": [
+      "FAIL: same fingerprint with corrupted receipt amount refuses preflight without mutation",
+      "FAIL: same fingerprint with corrupted receipt amount refuses commit and preserves wallet and evidence"
+    ]
+  },
+  {
+    "path": "C:/tmp/ne231-evidence/economy-delta-green/shard_0.log",
+    "script_error_lines": 0,
+    "parse_error_lines": 0,
+    "compile_error_lines": 0,
+    "error_counts": {
+      "fixture": 0,
+      "exit": 0,
+      "build": 0,
+      "unexpected": 0
+    },
+    "errors": {
+      "fixture": [],
+      "exit": [],
+      "build": [],
+      "unexpected": []
+    },
+    "exit_warnings": [],
+    "story_transaction_warning_count": 26,
+    "checks": [
+      "checks: 183, failures: 0"
+    ],
+    "failures": []
+  }
+]

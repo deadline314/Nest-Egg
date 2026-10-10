@@ -1,0 +1,127 @@
+{
+  "baseline": "a52e57ea47e775f9aefc229eca8f712dc8a0183e",
+  "phase": "transaction-framework-only",
+  "native_exit_code": 0,
+  "groups": 44,
+  "checks": 33631,
+  "new_failures": 0,
+  "known_failures": 0,
+  "script_errors": 0,
+  "runtime_story_integrated": false,
+  "evidence": [
+    {
+      "path": "earlier-changed-console.log",
+      "bytes": 1705,
+      "raw_sha256": "baa970f7056aebdd315692dd5e64e839ddc91e2723f8d61f8ab47e0d3406c12b",
+      "repository_lf_sha256": "baa970f7056aebdd315692dd5e64e839ddc91e2723f8d61f8ab47e0d3406c12b"
+    },
+    {
+      "path": "economy-diagnostics.json",
+      "bytes": 1249,
+      "raw_sha256": "177a6bf9e526bd5a6ac885d92b33c35ab1810cdecc48054db64ad752e3aba359",
+      "repository_lf_sha256": "177a6bf9e526bd5a6ac885d92b33c35ab1810cdecc48054db64ad752e3aba359"
+    },
+    {
+      "path": "economy-green-console.log",
+      "bytes": 216,
+      "raw_sha256": "872f0a3c6edff3b79ed70a0837035b74cc7111f08f237a1e28959afcf2fb6994",
+      "repository_lf_sha256": "872f0a3c6edff3b79ed70a0837035b74cc7111f08f237a1e28959afcf2fb6994"
+    },
+    {
+      "path": "economy-green-shard-0.log",
+      "bytes": 17946,
+      "raw_sha256": "a80a01e711097bd2edfed1673c95c0c381b88de773704e53424a8613e82edf14",
+      "repository_lf_sha256": "a80a01e711097bd2edfed1673c95c0c381b88de773704e53424a8613e82edf14"
+    },
+    {
+      "path": "economy-red-console.log",
+      "bytes": 443,
+      "raw_sha256": "e7880dff18bec92101383703adaf5919e8766c4e26a97a25c4e69ead5ce8d73a",
+      "repository_lf_sha256": "e7880dff18bec92101383703adaf5919e8766c4e26a97a25c4e69ead5ce8d73a"
+    },
+    {
+      "path": "economy-red-shard-0.log",
+      "bytes": 18136,
+      "raw_sha256": "ffac1ee53c6793d974ed1210fa9a65b33a95597afa6f00b525f54d9318a395d6",
+      "repository_lf_sha256": "ffac1ee53c6793d974ed1210fa9a65b33a95597afa6f00b525f54d9318a395d6"
+    },
+    {
+      "path": "final-console.log",
+      "bytes": 1627,
+      "raw_sha256": "06af264b133d8745cc41a9f6e0dd4b72148c5ef3f6c1d32399fb18814c630c0c",
+      "repository_lf_sha256": "06af264b133d8745cc41a9f6e0dd4b72148c5ef3f6c1d32399fb18814c630c0c"
+    },
+    {
+      "path": "final-diagnostics.json",
+      "bytes": 9483,
+      "raw_sha256": "710b4102da55f0c16873c6310af0ad342ad5fb87968d88a1a8b0557c2e38264a",
+      "repository_lf_sha256": "710b4102da55f0c16873c6310af0ad342ad5fb87968d88a1a8b0557c2e38264a"
+    },
+    {
+      "path": "final-shard-0.log",
+      "bytes": 96760,
+      "raw_sha256": "675dc44e876cc3bbc53419b2f6233a570c0d2d9728fbb37daa929e77281ee8cf",
+      "repository_lf_sha256": "675dc44e876cc3bbc53419b2f6233a570c0d2d9728fbb37daa929e77281ee8cf"
+    },
+    {
+      "path": "import.log",
+      "bytes": 2960,
+      "raw_sha256": "3489200bea98425e2145143e29d43933cf68203d7345990ce9d04203d935bb2b",
+      "repository_lf_sha256": "3489200bea98425e2145143e29d43933cf68203d7345990ce9d04203d935bb2b"
+    },
+    {
+      "path": "latest-import.log",
+      "bytes": 2623,
+      "raw_sha256": "611d5dc4a4f03376d248d1c0f5bbbbe764cdeae1fdec65d2b35f9573a1587892",
+      "repository_lf_sha256": "3aa8bab7ffda8419b9ab625f2206bcaaf2daac99b9ebf0809d002227c83146a9"
+    },
+    {
+      "path": "latest-integration.json",
+      "bytes": 447,
+      "raw_sha256": "9f50f179247fe823daf85a5ab54063b8236b488959bd011600c4b1992e693a1b",
+      "repository_lf_sha256": "23b77729664c555fa8a8796a00138e5a05372bd2e693f8b356a600665bef4cf8"
+    },
+    {
+      "path": "latest-target-console.log",
+      "bytes": 280,
+      "raw_sha256": "f042999c7022da95c45b72cfe899925ae07cb0e8cb60bca335e1f32b7cb91e22",
+      "repository_lf_sha256": "bac9e4298ff0ba001e8cbd68873204e842bc8c8ef025e85e6833a17b86edba2b"
+    },
+    {
+      "path": "latest-target-shard-0.log",
+      "bytes": 53682,
+      "raw_sha256": "b3f03bc650f940a0b7fa93bbf6fa01f712acbd284d64c37c6e9b204fa519214d",
+      "repository_lf_sha256": "49f2918ca918b71adb1d114190a33b50a95aaf1a0d9587d555f8d7ce15e57996"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1442,
+      "raw_sha256": "5d7d22e3902d6647ce1d85ea3e29039d75223f7759ffbdab69f595871657117d",
+      "repository_lf_sha256": "c59ea2aa10f10f7ce3df46f8b70f3235e11a76a582ccf40626e550c5246a10e6"
+    },
+    {
+      "path": "source-sha256.json",
+      "bytes": 5051,
+      "raw_sha256": "7e60743e45a41d7a5839da86c204466d807a7bf5ef8ae8399014f9768fffb89f",
+      "repository_lf_sha256": "7e60743e45a41d7a5839da86c204466d807a7bf5ef8ae8399014f9768fffb89f"
+    }
+  ],
+  "integration": {
+    "upstream_baseline": "6ea4c6ec8b261f78dd2c71062c7a5cb602cf7adc",
+    "source_sha256_unchanged": 15,
+    "groups": [
+      "EconomySuite",
+      "DeathReactionSuite",
+      "RigMeshSuite",
+      "RigActionsSuite",
+      "PostureSuite"
+    ],
+    "checks": 3055,
+    "new_failures": 0,
+    "known_failures": 0,
+    "natural_exit": 0,
+    "script_errors": 0,
+    "elapsed_seconds": 48,
+    "broad_test_baseline": "a52e57ea47e775f9aefc229eca8f712dc8a0183e"
+  }
+}

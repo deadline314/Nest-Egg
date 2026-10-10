@@ -1,0 +1,113 @@
+{
+  "baseline": "a52e57ea47e775f9aefc229eca8f712dc8a0183e",
+  "baseline_source": "root supplied verified rebase",
+  "source_count": 15,
+  "entries": [
+    {
+      "path": "autoload/progression.gd",
+      "sha256": "ffd253c1fdffa5885b62db19cf86fbf699f30ae687f6e6e4d53fd4b51a8c0d39",
+      "crc32": "3e3d89af",
+      "repository_lf_sha256": "ffd253c1fdffa5885b62db19cf86fbf699f30ae687f6e6e4d53fd4b51a8c0d39",
+      "repository_lf_crc32": "3e3d89af"
+    },
+    {
+      "path": "core/story_transaction_ledger.gd",
+      "sha256": "e68d99794a1dd35e30bf770b43a0c8f379322ca3fed3d2393c5628e3bcd4f62c",
+      "crc32": "91243109",
+      "repository_lf_sha256": "e68d99794a1dd35e30bf770b43a0c8f379322ca3fed3d2393c5628e3bcd4f62c",
+      "repository_lf_crc32": "91243109"
+    },
+    {
+      "path": "core/story_transaction_ledger.gd.uid",
+      "sha256": "3df192fd3d94371cfc393fbf0ddc2f8435b878b33fe15d383030c3e678d06346",
+      "crc32": "8edff14e",
+      "repository_lf_sha256": "3df192fd3d94371cfc393fbf0ddc2f8435b878b33fe15d383030c3e678d06346",
+      "repository_lf_crc32": "8edff14e"
+    },
+    {
+      "path": "data/scripts/story_transaction_data.gd",
+      "sha256": "3a581074d19921dec36d0be41b922f678a2f47e441aab6155b6907e411e3422d",
+      "crc32": "4af11a69",
+      "repository_lf_sha256": "3a581074d19921dec36d0be41b922f678a2f47e441aab6155b6907e411e3422d",
+      "repository_lf_crc32": "4af11a69"
+    },
+    {
+      "path": "data/scripts/story_transaction_data.gd.uid",
+      "sha256": "b4fd4b1f7f6ef532ee8e3c33be010752c28bf29ca23ea22fa6eae2c961a7e611",
+      "crc32": "715e2f90",
+      "repository_lf_sha256": "b4fd4b1f7f6ef532ee8e3c33be010752c28bf29ca23ea22fa6eae2c961a7e611",
+      "repository_lf_crc32": "715e2f90"
+    },
+    {
+      "path": "tests/helpers/story_transaction_checks.gd",
+      "sha256": "d97530a15b36475c00101d4f53b85ec3f857bb0bf0a3036756e77cb49861fa0e",
+      "crc32": "e0b99ae4",
+      "repository_lf_sha256": "d97530a15b36475c00101d4f53b85ec3f857bb0bf0a3036756e77cb49861fa0e",
+      "repository_lf_crc32": "e0b99ae4"
+    },
+    {
+      "path": "tests/helpers/story_transaction_checks.gd.uid",
+      "sha256": "dcd353cb49053751f49139eb291a8dcc80a1f9378f653d1ba0b2e714306df874",
+      "crc32": "ef344dbe",
+      "repository_lf_sha256": "dcd353cb49053751f49139eb291a8dcc80a1f9378f653d1ba0b2e714306df874",
+      "repository_lf_crc32": "ef344dbe"
+    },
+    {
+      "path": "tests/suite/test_economy.gd",
+      "sha256": "7cf62674249ccaf8223264f455559098d0be4536dec634fc51210e8769ecfd95",
+      "crc32": "1cdbb50b",
+      "repository_lf_sha256": "7cf62674249ccaf8223264f455559098d0be4536dec634fc51210e8769ecfd95",
+      "repository_lf_crc32": "1cdbb50b"
+    },
+    {
+      "path": "data/story_transactions/ch1_commission_settled.tres",
+      "sha256": "52e2a0c2f0e8660c95fac39e4b4073449d5a440fd864a5458af43461a36b47de",
+      "crc32": "cdc72e13",
+      "repository_lf_sha256": "52e2a0c2f0e8660c95fac39e4b4073449d5a440fd864a5458af43461a36b47de",
+      "repository_lf_crc32": "cdc72e13"
+    },
+    {
+      "path": "data/story_transactions/ch1_daily_dinner.tres",
+      "sha256": "3148bf5125cd698c331aa9cefda67a0413f4e7d35887b293d1a1e907534dc8c9",
+      "crc32": "4ed096fe",
+      "repository_lf_sha256": "3148bf5125cd698c331aa9cefda67a0413f4e7d35887b293d1a1e907534dc8c9",
+      "repository_lf_crc32": "4ed096fe"
+    },
+    {
+      "path": "data/story_transactions/ch1_revival_meal_gift.tres",
+      "sha256": "8cd9b1a0551ceb2d159e1f0467d19c7fb8619c95ca812a868d25830e16ff07d6",
+      "crc32": "7ff62d1c",
+      "repository_lf_sha256": "8cd9b1a0551ceb2d159e1f0467d19c7fb8619c95ca812a868d25830e16ff07d6",
+      "repository_lf_crc32": "7ff62d1c"
+    },
+    {
+      "path": "data/story_transactions/ch1_revival_meal_later_pay.tres",
+      "sha256": "571cffe636f3fcf94c0f6f736fde702ae78d48f5a9f994e4944491bffab8ee3f",
+      "crc32": "fb80b084",
+      "repository_lf_sha256": "571cffe636f3fcf94c0f6f736fde702ae78d48f5a9f994e4944491bffab8ee3f",
+      "repository_lf_crc32": "fb80b084"
+    },
+    {
+      "path": "data/story_transactions/ch1_revival_meal_order.tres",
+      "sha256": "6aa89d44e4204d1e13b6afa2eec5bcd5b5d04b55739581eb415b04c9c5bb10d5",
+      "crc32": "66dacf92",
+      "repository_lf_sha256": "6aa89d44e4204d1e13b6afa2eec5bcd5b5d04b55739581eb415b04c9c5bb10d5",
+      "repository_lf_crc32": "66dacf92"
+    },
+    {
+      "path": "data/story_transactions/ch1_revival_meal_paid.tres",
+      "sha256": "19333d49a73dde1142b0186cd2ebb61d5575df08a7b29576b2ca07a9333d8760",
+      "crc32": "420191e6",
+      "repository_lf_sha256": "19333d49a73dde1142b0186cd2ebb61d5575df08a7b29576b2ca07a9333d8760",
+      "repository_lf_crc32": "420191e6"
+    },
+    {
+      "path": "data/story_transactions/ch1_revival_meal_tab.tres",
+      "sha256": "5bf6ab5cc4880e215dc6969ebc1c71bab1157004cc795c77b01d62b57e16ce14",
+      "crc32": "e75616d6",
+      "repository_lf_sha256": "5bf6ab5cc4880e215dc6969ebc1c71bab1157004cc795c77b01d62b57e16ce14",
+      "repository_lf_crc32": "e75616d6"
+    }
+  ],
+  "revision": "same-fingerprint/different-delta rejection"
+}

@@ -7,6 +7,8 @@ signal credits_changed(credits: int, delta: int)
 signal upgrades_changed
 signal abilities_changed
 signal pawned_changed
+## 0元結果也需要保存；主流程接線由後續Story owner處理。
+signal story_transaction_committed(id: StringName)
 
 const UPGRADE_DIR := "res://data/upgrades"
 const ABILITY_DIR := "res://data/abilities"
@@ -30,6 +32,8 @@ var _unlocked_abilities: Dictionary[StringName, bool] = {}
 var _equipped_ability: StringName = &""
 ## 當票：消耗品 id -> 張數。
 var _pawned: Dictionary[StringName, int] = {}
+var _story_transactions := StoryTransactionLedger.new()
+var _story_transaction_busy := false
 
 
 # ---------------------------------------------------------------------------
@@ -73,6 +77,32 @@ func spend(cost: int) -> bool:
 		credits -= cost
 		credits_changed.emit(credits, -cost)
 	return true
+
+
+## 唯讀預檢不保證其後必定成功；提交時重新核對當刻餘額與收據。
+func story_transaction_status(transaction: StoryTransactionData) -> Dictionary:
+	return _story_transactions.status(transaction, credits, MAX_CREDITS)
+
+
+func story_receipt_status(id: StringName) -> Dictionary:
+	return _story_transactions.receipt_status(id)
+
+
+## 收據與錢包在同步段內全部完成後才通知，避免回呼重入再領。
+func apply_story_transaction(transaction: StoryTransactionData) -> Dictionary:
+	if _story_transaction_busy:
+		return StoryTransactionLedger.result("busy", String(transaction.id).left(64) if transaction != null else "", credits)
+	_story_transaction_busy = true
+	var committed := _story_transactions.commit(transaction, credits, MAX_CREDITS)
+	if committed["applied"]:
+		var before: int = committed["credits_before"]
+		var after: int = committed["credits_after"]
+		credits = after
+		if after != before:
+			credits_changed.emit(after, after - before)
+		story_transaction_committed.emit(StringName(committed["id"]))
+	_story_transaction_busy = false
+	return committed
 
 
 # ---------------------------------------------------------------------------
@@ -303,6 +333,7 @@ func equip_ability(id: StringName) -> bool:
 # ---------------------------------------------------------------------------
 
 func reset_run() -> void:
+	_story_transactions.reset()
 	credits = 0
 	_upgrades.clear()
 	_unlocked_abilities.clear()
@@ -324,11 +355,12 @@ func snapshot() -> Dictionary:
 	var pawned: Dictionary = {}
 	for id in _pawned:
 		pawned[String(id)] = _pawned[id]
-	return {"version": SNAPSHOT_VERSION, "credits": credits, "upgrades": upgrades, "abilities": abilities, "equipped": String(_equipped_ability), "pawned": pawned}
+	return {"version": SNAPSHOT_VERSION, "credits": credits, "upgrades": upgrades, "abilities": abilities, "equipped": String(_equipped_ability), "pawned": pawned, "story_transactions": _story_transactions.snapshot()}
 
 
 ## 從快照還原；資料損毀、型別不符或引用到已不存在的改裝時略過該部分，保證不崩潰。
 func restore(data: Dictionary) -> void:
+	_story_transactions.restore(data.get("story_transactions"), data.has("story_transactions"))
 	credits = int(RunSaveCodec.number(data.get("credits"), 0, 0, MAX_CREDITS))
 	_upgrades.clear()
 	var raw: Variant = data.get("upgrades", {})
