@@ -1340,6 +1340,8 @@ func _on_damaged(info: DamageInfo) -> void:
 func _on_died(info: DamageInfo) -> void:
 	_interrupt_melee()
 	state = State.DEAD
+	if is_instance_valid(_visual):
+		_visual.clear_dash_silhouettes()
 	hurtbox.enabled = false
 	is_crouching = false
 	Fx.burst(global_position + Vector2(0, -24), Palette.CYAN, 24, 200.0, 0.6)

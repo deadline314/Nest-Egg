@@ -217,6 +217,17 @@ func set_reduce_ui_motion(enabled: bool) -> void:
 	display_changed.emit()
 
 
+## 衝刺殘影獨立開關；只控制殘影，保留角色動作與其他回饋。
+func get_dash_silhouettes() -> bool:
+	var value: Variant = get_value(DISPLAY_SECTION, "dash_silhouettes", true)
+	return value if typeof(value) == TYPE_BOOL else true
+
+
+func set_dash_silhouettes(enabled: bool) -> void:
+	set_value(DISPLAY_SECTION, "dash_silhouettes", enabled)
+	display_changed.emit()
+
+
 ## 是否每次都跳過過場動畫（已看過的演出本來就不會重播）。
 func get_skip_cutscenes() -> bool:
 	var value: Variant = get_value(DISPLAY_SECTION, "skip_cutscenes", false)
@@ -310,6 +321,7 @@ func reset_display() -> void:
 	set_ui_text_scale(1.0)
 	set_reduce_flashes(false)
 	set_reduce_ui_motion(false)
+	set_dash_silhouettes(true)
 	set_hud_auto_hide(HUD_AUTO_HIDE_DEFAULT)
 	set_fullscreen(false)
 	set_brightness(BRIGHTNESS_DEFAULT)

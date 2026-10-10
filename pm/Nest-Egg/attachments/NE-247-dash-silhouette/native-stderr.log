@@ -1,0 +1,10 @@
+WARNING: [DashSilhouettePool] sample omitted: unsupported part type: @Node2D@1103
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _reject (res://game/player/dash_silhouette_pool.gd:238)
+       [1] capture (res://game/player/dash_silhouette_pool.gd:213)
+       [2] _unsupported (res://tools/dash_silhouette_native_probe.gd:395)
+       [3] _run (res://tools/dash_silhouette_native_probe.gd:148)
+       [4] _trail_toggle (res://tools/dash_silhouette_native_probe.gd:472)
+       [5] _dash_case (res://tools/dash_silhouette_native_probe.gd:287)
+       [6] _wait_seconds (res://tools/dash_silhouette_native_probe.gd:975)

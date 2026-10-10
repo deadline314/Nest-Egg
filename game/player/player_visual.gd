@@ -13,12 +13,9 @@ const SQUASH_RECOVERY := 14.0
 const SQUASH_SCALE := 0.3
 const PARRY_FLASH_TIME := 0.25
 const BLOCK_FLASH_TIME := 0.1
-const GHOST_INTERVAL := 0.03
-const GHOST_LIFETIME := 0.18
-const MAX_GHOSTS := 8
-## 衝刺速度線的條數與長度、重生淡入秒數、完美反彈星芒的射線數。
-const STREAK_COUNT := 3
-const STREAK_LENGTH := 34.0
+const GHOST_LIFETIME := DashSilhouettePool.LIFETIME
+const MAX_GHOSTS := DashSilhouettePool.CAPACITY
+## 重生淡入秒數。
 const MATERIALIZE_TIME := 0.7
 const LASH_SEGMENTS := 10
 ## 軌跡一開始就已經掃過的比例（0~1，掃出弧度的段落在前 40%）。
@@ -47,8 +44,7 @@ var _parry_flash := 0.0
 var _block_flash := 0.0
 var _squash := Vector2.ONE
 var _ghost_timer := 0.0
-var _ghosts: Array[Vector4] = []  # x, y, 剩餘時間, 衝刺方向（±1）；固定上限，見 MAX_GHOSTS
-var _dash_dir := 1.0
+var _ghost_pool: DashSilhouettePool
 ## 重生淡入剩餘秒數（0＝沒有在重生）。
 var _materialize_left := 0.0
 var _phone_t := -1.0  # 撥號動作已經過的秒數；負值＝不在撥號
@@ -65,6 +61,23 @@ func _ready() -> void:
 		push_error("[PlayerVisual] 主角骨架載入失敗，請確認 art/characters/%s。" % SKIN_ID)
 	# 骨架畫在本節點的疊加特效之下。
 	rig.show_behind_parent = true
+	# Attach a world-space sibling after the parent finishes spawning children.
+	_attach_ghost_pool.call_deferred()
+
+
+func _attach_ghost_pool() -> void:
+	if is_instance_valid(_ghost_pool) or not is_inside_tree() or not is_instance_valid(player) or not is_instance_valid(player.get_parent()):
+		return
+	_ghost_pool = DashSilhouettePool.new()
+	_ghost_pool.name = "DashSilhouettes"
+	player.get_parent().add_child(_ghost_pool)
+
+
+func _exit_tree() -> void:
+	if is_instance_valid(_ghost_pool):
+		_ghost_pool.clear()
+		_ghost_pool.queue_free()
+	_ghost_pool = null
 
 
 ## 身體中心離腳底的高度（近戰揮砍弧與終結技光環繞著它畫）：肩膀高度的約六成（原本 35 → 22）。
@@ -156,6 +169,14 @@ func notify_block(at := Vector2.INF) -> void:
 func notify_dash() -> void:
 	_squash = _soft_squash(Vector2(1.2, 0.86))
 	_input.dash_started = true
+
+
+## Death is synchronous; hitstop/modal pause may prevent the next process tick.
+## Retire all world-space samples before death FX or outward callbacks run.
+func clear_dash_silhouettes() -> void:
+	_ghost_timer = 0.0
+	if is_instance_valid(_ghost_pool):
+		_ghost_pool.clear()
 
 
 ## 重生：身體從光裡淡入（配合 PlayerFx.respawn 的光環與餘燼）。
@@ -257,7 +278,6 @@ func _process(delta: float) -> void:
 	_shield.update(delta, player.is_blocking, player.is_guard_broken(), player.aim_dir, player.tuning.block_arc_degrees)
 	_squash = _squash.lerp(Vector2.ONE, minf(1.0, SQUASH_RECOVERY * delta))
 	scale = _squash
-	_update_ghosts(delta)
 	# 受傷無敵期間閃爍（衝刺／終結技的無敵不閃爍）。
 	var blinking := player.health != null and player.health.is_invulnerable() \
 			and player.state == Player.State.NORMAL and int(_time * 20.0) % 2 == 0
@@ -266,22 +286,25 @@ func _process(delta: float) -> void:
 		_materialize_left = maxf(0.0, _materialize_left - delta)
 		modulate.a = minf(modulate.a, 1.0 - _materialize_left / MATERIALIZE_TIME)
 	visible = player.state != Player.State.MOUNTED
+	# Sample after the current frame visibility/materialize alpha is applied.
+	_update_ghosts(delta)
 	queue_redraw()
 
 
 func _update_ghosts(delta: float) -> void:
-	for i in range(_ghosts.size() - 1, -1, -1):
-		_ghosts[i].z -= delta
-		if _ghosts[i].z <= 0.0:
-			_ghosts.remove_at(i)
-	if player.state == Player.State.DASH:
-		_dash_dir = signf(player.velocity.x) if absf(player.velocity.x) > 1.0 else _dash_dir
-		_ghost_timer -= delta
-		if _ghost_timer <= 0.0:
-			_ghost_timer = GHOST_INTERVAL
-			if _ghosts.size() >= MAX_GHOSTS:
-				_ghosts.remove_at(0)
-			_ghosts.append(Vector4(global_position.x, global_position.y, GHOST_LIFETIME, _dash_dir))
+	if not is_instance_valid(_ghost_pool):
+		return
+	_ghost_pool.tick(delta)
+	if (player.state == Player.State.DEAD or player.state == Player.State.MOUNTED) or not is_visible_in_tree():
+		clear_dash_silhouettes()
+		return
+	if player.state != Player.State.DASH:
+		_ghost_timer = 0.0
+		return
+	_ghost_timer -= delta
+	if _ghost_timer <= 0.0:
+		_ghost_timer = DashSilhouettePool.sample_interval()
+		_ghost_pool.capture(self)
 
 
 ## 揮砍軌跡：依樣式畫——arc 弧線先快速掃出一個弧再整條淡出（帶一格較細、較早的殘影）、thrust 沿揮擊方向戳出一道漸細的亮線、
@@ -331,7 +354,6 @@ func _draw_trail(entry: Dictionary) -> void:
 func _draw() -> void:
 	if player == null:
 		return
-	_draw_ghosts()
 	_draw_materialize()
 	_draw_melee_weapon()
 	if _fire_flash > 0.0:
@@ -345,29 +367,6 @@ func _draw() -> void:
 	if _finisher_flash > 0.0:
 		var t := _finisher_flash / FINISHER_FLASH_TIME
 		draw_arc(Vector2(0, -body_center_height()), 26.0 * (1.5 - t), 0.0, TAU, 28, Color(LightKit.glow(Palette.WHITE, 2.0), t), 2.0)
-
-
-## 衝刺殘影：沿路徑留下漸淡的青色人形剪影（頭、前傾的軀幹、跨步的腿），加上身後幾道速度線。
-func _draw_ghosts() -> void:
-	for ghost in _ghosts:
-		var local := to_local(Vector2(ghost.x, ghost.y))
-		var alpha := ghost.z / GHOST_LIFETIME
-		var lean := ghost.w * 6.0
-		var body := Color(LightKit.glow(Palette.CYAN, 1.3), 0.3 * alpha)
-		var head := local + Vector2(lean * 1.4, -40.0)
-		var hip := local + Vector2(0.0, -18.0)
-		draw_circle(head, 4.2, body)
-		# 軀幹：肩寬、腰窄的梯形，朝衝刺方向前傾。
-		draw_colored_polygon(PackedVector2Array([head + Vector2(-5.0, 4.0), head + Vector2(5.0, 4.0), hip + Vector2(3.0, 0.0), hip + Vector2(-3.0, 0.0)]), body)
-		draw_line(hip, local + Vector2(-ghost.w * 6.0, 0.0), body, 3.5)
-		draw_line(hip, local + Vector2(ghost.w * 8.0, -2.0), body, 3.5)
-		draw_line(head + Vector2(0.0, 8.0), head + Vector2(ghost.w * 9.0, 12.0), body, 2.5)
-	if player.state == Player.State.DASH:
-		for i in STREAK_COUNT:
-			var y := -10.0 - float(i) * 12.0
-			var length := STREAK_LENGTH * (0.55 + 0.45 * float((i * 7) % 3) / 2.0)
-			var from := Vector2(-_dash_dir * 6.0, y)
-			draw_line(from, from + Vector2(-_dash_dir * length, 0.0), Color(LightKit.glow(Palette.CYAN, 1.4), 0.4), 1.2)
 
 
 ## 義體方向護盾：與實際方向判定共用身體中心；動畫不改防禦窗口。

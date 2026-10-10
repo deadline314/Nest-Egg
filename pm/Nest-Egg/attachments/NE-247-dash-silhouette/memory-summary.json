@@ -1,0 +1,50 @@
+{
+  "classification": "actual OS sampling; visual/native acceptance requires root review",
+  "samples": 161,
+  "phases_utc_ms": {
+    "stress-warm-baseline": 1791641347792,
+    "stress-final-drained": 1791641384064
+  },
+  "warm": {
+    "unix_ms": "1791641347625",
+    "pid": "11040",
+    "working_set_bytes": "610516992",
+    "private_bytes": "913952768"
+  },
+  "final": {
+    "unix_ms": "1791641384236",
+    "pid": "11040",
+    "working_set_bytes": "610459648",
+    "private_bytes": "913801216"
+  },
+  "working_set_peak": 638205952,
+  "private_bytes_peak": 942194688,
+  "claimed_vram_measurement": false,
+  "no_growth_accepted": false,
+  "working_set_delta": -57344,
+  "private_bytes_delta": -151552,
+  "engine_observations": {
+    "nodes": {
+      "warm": 942.0,
+      "final": 942.0,
+      "delta": 0.0
+    },
+    "objects": {
+      "warm": 6187.0,
+      "final": 6188.0,
+      "delta": 1.0
+    },
+    "resources": {
+      "warm": 1386.0,
+      "final": 1386.0,
+      "delta": 0.0
+    },
+    "engine_static_bytes": {
+      "warm": 200372168.0,
+      "final": 201594720.0,
+      "delta": 1222552.0
+    }
+  },
+  "fixed_pool_slot_ids_unchanged": true,
+  "fixed_pool_slot_count": 8
+}

@@ -1,0 +1,1546 @@
+{
+  "baseline": "aeb45f77f5b99ca962786fb28341f1a87fb9ad4f",
+  "scope": "native9 curated 385 runtime dependencies; exact LF source hashes for Linux/Git review",
+  "sources": {
+    "res://art/characters/rin/character.json": {
+      "bytes_sha256": "c689b235a056fb81a70b4d91cf156790b409e3eab3c73b3e22400c27d1d9cd00",
+      "lf_sha256": "c689b235a056fb81a70b4d91cf156790b409e3eab3c73b3e22400c27d1d9cd00"
+    },
+    "res://art/characters/rin/parts/arm_left_lower.png": {
+      "bytes_sha256": "5e13a611b7f3ce74ecdfbdca7220f6dbb1ad1fe85fafe0c6b82bfc04c70b2b59",
+      "lf_sha256": "170327b4650a6165f2ef5680abc81fda11d821379676173c19470a32a1ea18b6"
+    },
+    "res://art/characters/rin/parts/arm_left_lower_n.png": {
+      "bytes_sha256": "5b33c3126dc7c8ebbf2a7f615ad516f4395055eef6c0dd96c0efa2f4727da020",
+      "lf_sha256": "49241bdaf071823f38a7d27a68e15b4d26150e2c47519514a17467c3e83e0cca"
+    },
+    "res://art/characters/rin/parts/arm_left_upper.png": {
+      "bytes_sha256": "b0dbfc072577b20add0496eeda744ff015b190d0ba9c9a36e52b9b6a67f2a006",
+      "lf_sha256": "9ac941fd222b92beafbaef621ca1171fb81244c78c1d3e8642a8ff9b3f84a77d"
+    },
+    "res://art/characters/rin/parts/arm_left_upper_n.png": {
+      "bytes_sha256": "ea051bd73dd7064151b6df0fa920e64413c5ae49e14c0376c90eca5a1786df69",
+      "lf_sha256": "6ac7916e93a050a4450cd5aed2b5f3fce5f908c0aab48a98756be86755b281f9"
+    },
+    "res://art/characters/rin/parts/arm_lower.png": {
+      "bytes_sha256": "16dcc04f76d89cbcab2cd3ddf1ca2b634a96baef016bf4ae588e827c1a0911a8",
+      "lf_sha256": "4d5d223ffde6f428c7f87d8107f7305f53fa909f1e0521bda3fc0b00c804ad09"
+    },
+    "res://art/characters/rin/parts/arm_lower_n.png": {
+      "bytes_sha256": "15194d11c5e75b28ac9fa80cb4ec4c27aa67556af474c486f983f0ffee9f4d1c",
+      "lf_sha256": "2d208ab094a8ccd948c6e6d2676d0cc8518aca4cdf752443a4b21bff3e08c71f"
+    },
+    "res://art/characters/rin/parts/arm_upper.png": {
+      "bytes_sha256": "a153b20c67733c56561e8076acb2a83a65729e635c666c160d337873aa2d043e",
+      "lf_sha256": "25363597a68befe8ed90dd8a66eb2fc03521ab4d0d48a05496907e1f27cf68aa"
+    },
+    "res://art/characters/rin/parts/arm_upper_n.png": {
+      "bytes_sha256": "4b56e9d728bb677e75f30d5e77cc073444491049eac3cfa7530512bffd2314cd",
+      "lf_sha256": "daf510dcac6ee3c1fa70dcf59576c2c21c919f1b345aca891881bd638582bdd2"
+    },
+    "res://art/characters/rin/parts/armor_jacket.png": {
+      "bytes_sha256": "cc69d10458f55644f2cf3f1c34ab5918ae9251176898ec6573fc5eb7568100b6",
+      "lf_sha256": "190d8de8d68d0ad67bb1f9f1fdf7b014d52d35d2ff9cb3570132d138b0242587"
+    },
+    "res://art/characters/rin/parts/armor_jacket_n.png": {
+      "bytes_sha256": "6ce744297085b447ee09372110cf4442a222258eef636215e26b99fa7b2bdced",
+      "lf_sha256": "77ea0b26fb986484cb7f7ff3c04e157651fa85227653a5c694c5d017a4288751"
+    },
+    "res://art/characters/rin/parts/foot.png": {
+      "bytes_sha256": "1bfff06cfe3c11bcaf2182c4bb6db3513697ff58cde439c487594624ea36cae9",
+      "lf_sha256": "714cc135baf7ee8cc1d204697d737527f65dffcda5b936f3edd2d4a3d2135f35"
+    },
+    "res://art/characters/rin/parts/foot_glow.png": {
+      "bytes_sha256": "09bfe7d89e4b2f4927bfce3c468d19a7636e7a845ad3540ab03213d3bacbfe62",
+      "lf_sha256": "bc72d64a6eb335432f3c71ee580f323b3ae4e53300f9f557a80e2308c1ab9156"
+    },
+    "res://art/characters/rin/parts/foot_n.png": {
+      "bytes_sha256": "dfa19117a195d4e58daa56e10a2ab35b7eca06ac603c076b44832ab58d3a64db",
+      "lf_sha256": "83d8bd1c88d7c058b82ad3e93aeb66d7098027c84aca0a6c403ae6fb627ba5d2"
+    },
+    "res://art/characters/rin/parts/hair_back_1.png": {
+      "bytes_sha256": "8ccb56bab2f3a8fcb0ae9f2fdf9fbf434dc75228107702ff2ca74c0aaa008e63",
+      "lf_sha256": "60422e68bd3ad9225c9baceefc74e9af2c45f75ab8cafa0c52a3cefd161f0e3e"
+    },
+    "res://art/characters/rin/parts/hair_back_1_n.png": {
+      "bytes_sha256": "e8c97c029019ba17a78da25a7f114e1b609fc0194e296c9426a5d7c462f8a84a",
+      "lf_sha256": "52550a7b1c295dbfb69d382d68c943668fc18cc0e98d1ef4f0ec47df4541dcd9"
+    },
+    "res://art/characters/rin/parts/hair_back_2.png": {
+      "bytes_sha256": "1e5ee7326c1c3f4d6efd97aacc85c4b20cb2df236e479cd8f11ac1a4cb97fa79",
+      "lf_sha256": "a0796896d23cec5b2256d2d4a972cc7e0b01137832432726f679cc8cd78e34b4"
+    },
+    "res://art/characters/rin/parts/hair_back_2_n.png": {
+      "bytes_sha256": "198951e08b72fe7636f898bd76a346ed50554ec1fea5926473c916406e8868db",
+      "lf_sha256": "51b3da70dcc9989f92b17986041172f52f6a4f6ee0012b120337a96cbd70c851"
+    },
+    "res://art/characters/rin/parts/hand.png": {
+      "bytes_sha256": "db5db2e306cea2d67a7058d7aa14c580b79fecedc99b9f37c4beba6eecfe9a03",
+      "lf_sha256": "d498691ebb80eb910a633ddbced214b352a7784b436784b210674259933b5d66"
+    },
+    "res://art/characters/rin/parts/hand_grip.png": {
+      "bytes_sha256": "882f2d74588aed4669a6650386c4004c810b8e05ebda76b2816657a671171617",
+      "lf_sha256": "c25fd8b8f0848005c280bc60610e90f8e57f8dada8e52395f08d6bcf2b951bd3"
+    },
+    "res://art/characters/rin/parts/hand_grip_n.png": {
+      "bytes_sha256": "772fa95d2e86145cde4f673eeabe46e6fc6095aa5fbddd25bd1550c41b9ba792",
+      "lf_sha256": "e554525ce0f5a7070e965622f9a85aceb6804b961f5d797b3b982401f38c85d7"
+    },
+    "res://art/characters/rin/parts/hand_left.png": {
+      "bytes_sha256": "03696ce5f24f02c935be5b38163bc63e926807c9a42cc6eeba4c3c7caa6d5bde",
+      "lf_sha256": "c6fdadc66b6a7b0c2edc006279da12feed96e83a971cdacccd01ed9c65564df5"
+    },
+    "res://art/characters/rin/parts/hand_left_grip.png": {
+      "bytes_sha256": "d4da7778be1c6df46797795d2aff09799bb928fa645df278afe16825a2ee4f89",
+      "lf_sha256": "b65ff2cdcfacc1fa74c2d4209e8c75eb0093449fefffee98b534f7767226ef1b"
+    },
+    "res://art/characters/rin/parts/hand_left_grip_n.png": {
+      "bytes_sha256": "22e3eeeb6699cdfd7b0141b2418661b85d40e2ebe9ffb78afd33e96d5ef8e6a7",
+      "lf_sha256": "42b57a6c8778126d08e93697a4df5475887bbf119e0f06ba5e2254e7a457560d"
+    },
+    "res://art/characters/rin/parts/hand_left_n.png": {
+      "bytes_sha256": "adb1a2c2b41e95a015f56b29ccfa4abd042db64722e7860f9deced31814b51d4",
+      "lf_sha256": "c7e3ff758a92af357a30d81e24953ad244e95b2426f0524b7853db6d0ef7316a"
+    },
+    "res://art/characters/rin/parts/hand_n.png": {
+      "bytes_sha256": "764dc0862fbeeacb5f908f6a6863e518b66faac2b08e136ff16ee61197340065",
+      "lf_sha256": "2e67b5faa32f19cc153eb2fc6b89cb8d8dbd16e167f246c1d78090b487fe2c82"
+    },
+    "res://art/characters/rin/parts/head.png": {
+      "bytes_sha256": "a17f75ea88cadc52f7f9201508216c3fb2195024026469015a168bd850d1dc7e",
+      "lf_sha256": "af00058427ea7aec2cd89867d0437f74126a26d72a9a1c15fac69b65ce2d7783"
+    },
+    "res://art/characters/rin/parts/head_closed.png": {
+      "bytes_sha256": "6f62dd215f674d9789a3fb3f7cca2497689f9252b3db973b790c0c31dd6a4caf",
+      "lf_sha256": "8dd1e17176da8d1d579a29801895cc25372105941daded69000d683aaa0566e0"
+    },
+    "res://art/characters/rin/parts/head_closed_n.png": {
+      "bytes_sha256": "e5259bd412f7f3a14db8d1bd61273ca5e6c8e15339a87c051d45ed7d47b6c13d",
+      "lf_sha256": "cc3428261e910fb14953c1cdfc1ac428ffff2863d7fdbb68c674d5d673aeebaa"
+    },
+    "res://art/characters/rin/parts/head_half.png": {
+      "bytes_sha256": "a4dedd7ee5354d8921206eb9c6f40397807483236facc5f45e3e5a5702c18df2",
+      "lf_sha256": "8e940ed15bc2478b3a23d5ad276d0b35a30129949db98184ab36a3c424fa5d30"
+    },
+    "res://art/characters/rin/parts/head_half_n.png": {
+      "bytes_sha256": "d67809fa1332c58151e9e1a8f2d80efa5f9f3dad771e1972c16aa4559e0594c7",
+      "lf_sha256": "3694f6d4d5ccafac76bfa671ac269db50ba424a4eefc4b0d334a3fa9b8654550"
+    },
+    "res://art/characters/rin/parts/head_n.png": {
+      "bytes_sha256": "e3bc5f5f1d55c901b6174b8f22fab51181c87d33e25f3f5f9d66c75341ec3df4",
+      "lf_sha256": "b23eb316de4c8106253ba22903795838b5c5802396119cf3c50dd4cc5244d3c2"
+    },
+    "res://art/characters/rin/parts/holster.png": {
+      "bytes_sha256": "6a60b1c8b4c241de84876140e7c682c071d6ee396abec3042f2832610521eb98",
+      "lf_sha256": "767b84234d573183dbdc2d8a5182a2fb81fe2f4d7f0915b8b3969eb1f6408c0f"
+    },
+    "res://art/characters/rin/parts/holster_n.png": {
+      "bytes_sha256": "6e4c3ea67b010e9bf72336492244ba8d92e7ec08844b8bbd64c557d37015d90c",
+      "lf_sha256": "7452821909fde527a1dfa72653aab12615e69891ce35487dd40e9b508af97167"
+    },
+    "res://art/characters/rin/parts/jacket_hem.png": {
+      "bytes_sha256": "8c8a3b674b471e3e336592138097c04174fb99a45862f93f0ad5b4fedf55f130",
+      "lf_sha256": "d2ad6265bd1231a8329069e44b6e15e130b91ae65b94cc79a1f3d8108527a7c7"
+    },
+    "res://art/characters/rin/parts/jacket_hem_n.png": {
+      "bytes_sha256": "d419fc1a1dc0ddadab9003b0f4c6771d1dae8a9eb107001031e26b6065828e92",
+      "lf_sha256": "17e99de0770cd127cecf0780f54bb057c7e9fe8a4d7d5b7e93d96b37b790393a"
+    },
+    "res://art/characters/rin/parts/jacket_sleeve_lower.png": {
+      "bytes_sha256": "d43145d747f56682d6ae4e61e2031dd461661b98f4952edd773f7f31656d3a13",
+      "lf_sha256": "faab9ab7e0fc88060deec85644edbe12d758ba7cb72570d10aa6ed46cc5863ca"
+    },
+    "res://art/characters/rin/parts/jacket_sleeve_lower_n.png": {
+      "bytes_sha256": "6494d72f90386f59c28771ffeb5a4b8fc22c8de27d263c0f7d899858a2377d55",
+      "lf_sha256": "b14530c3b4c6d488582c5e79d3563fe31dd32decb83ab6ecb4562855449a3f51"
+    },
+    "res://art/characters/rin/parts/jacket_sleeve_upper.png": {
+      "bytes_sha256": "3d2b748276a40c10c4d842a0b24243d2a9cdeaad0f45cf07a04f3cd0b72b968d",
+      "lf_sha256": "b2c65b31707ae692af23024e489885f43447f7a88d9980ab410ade02a9b1d70b"
+    },
+    "res://art/characters/rin/parts/jacket_sleeve_upper_n.png": {
+      "bytes_sha256": "ec545876b38144a435164e2c59be4b1a6af08ec24215b147e00f3507857592b7",
+      "lf_sha256": "2c4888347dbf9439efe656833119b5b976bacf4c7dd746939c5af249372deda1"
+    },
+    "res://art/characters/rin/parts/leg_lower.png": {
+      "bytes_sha256": "414c016fe453c22470ee6a9eef5fa4c8e804d2df5016fa27cb743190f3a1c67d",
+      "lf_sha256": "dcdd65c0885387e23da757526ce81360ded34b9da354822339b96c0e455e5295"
+    },
+    "res://art/characters/rin/parts/leg_lower_dmg.png": {
+      "bytes_sha256": "4bc537ad1d090bed3beb95ce1d1f91e52dbd2474cdd0d8b5213ad6e0e82e8ad2",
+      "lf_sha256": "9a808955fcdf0b50ed374f59eea36a4c46b848c2a8ac810d2ebc4de114243bfb"
+    },
+    "res://art/characters/rin/parts/leg_lower_dmg_n.png": {
+      "bytes_sha256": "faddfc9fe0946fb091539a2457976b7f5f7a275d0a9f090d84f88f166335be76",
+      "lf_sha256": "d659be0e28c314eeb8fe7cb98d0c03669a4c066804163120dfefffffeec59c2a"
+    },
+    "res://art/characters/rin/parts/leg_lower_n.png": {
+      "bytes_sha256": "cb8ee1a0bda7b6d21e50a1d70b868e9f6213b19e79fc6ba8f1d7bce376bec2cc",
+      "lf_sha256": "aec358072e97382b38485f80e7c82860682a2bae1bc92e8fe7afdb80cf4cedd1"
+    },
+    "res://art/characters/rin/parts/leg_upper.png": {
+      "bytes_sha256": "c21fea7b2ea1cd4687b92162ca37ca7914a9d6274090bc3af60ffbcb1dc07f12",
+      "lf_sha256": "a1a9c333f4c545634e15ebb50a8c33aced24e4fee6a3b8cf8969d2ba9b249097"
+    },
+    "res://art/characters/rin/parts/leg_upper_dmg.png": {
+      "bytes_sha256": "4801cb6d5c5c6e0db605d103accca9786a8d8cf8c65fe7effafb7587a0d884c1",
+      "lf_sha256": "876b0c4089b348a4e6769aa54ea858b4abd97a5918f4f6ad6d3a4efe7efce551"
+    },
+    "res://art/characters/rin/parts/leg_upper_dmg_n.png": {
+      "bytes_sha256": "9d598e9ae97982178e69e7219f852a903e9b531235df47c5402b41a907f170e7",
+      "lf_sha256": "f1f296c84e90af0a485d3d0087b6b18ece19201d4d5ace21a73dc01c037bc431"
+    },
+    "res://art/characters/rin/parts/leg_upper_n.png": {
+      "bytes_sha256": "d9991a3f37c85136df972cc052b15dd0ef0cbaab30a2f311a44d77ef77c9ceee",
+      "lf_sha256": "22dedd29f291b19fb80d1d4fb043d19a98e0afd5f177864f5b3f9e75bdd3028c"
+    },
+    "res://art/characters/rin/parts/pelvis.png": {
+      "bytes_sha256": "f1eb1ffd402ce5a4ca3d5a0e054b76a16111e9878a8c9073c8a5ae9443807330",
+      "lf_sha256": "2c2e3e9e809e7bdeb61c59e6bb8ba4ad16e0f37c355e4fc733204bd0f501b070"
+    },
+    "res://art/characters/rin/parts/pelvis_dmg.png": {
+      "bytes_sha256": "62292217a0b4ec5a76393026415df903bc47f21ec033bca24d723b162d5a27f7",
+      "lf_sha256": "9eac87914a3e9afffa116ff1d8e77a6459a9bd84ce974d4f54e22d7a36807f90"
+    },
+    "res://art/characters/rin/parts/pelvis_dmg_n.png": {
+      "bytes_sha256": "fcf783ebed1173670c36073de6144b923e83042a95a6dbb6ce0f38be1c681d4d",
+      "lf_sha256": "215a1621cdfbe30e351d3a5f4d16b35b57d20b6624f42325a9d91bc975729f3f"
+    },
+    "res://art/characters/rin/parts/pelvis_glow.png": {
+      "bytes_sha256": "ba0c9e8ae5c85427a0cb4b565cf0895a5640d3a181015d47c1998081e4cc49d3",
+      "lf_sha256": "1833eb0f9bade6f4322d5afefacb54a98e933b9bde56a8b3e4b36bb15aa25de5"
+    },
+    "res://art/characters/rin/parts/pelvis_n.png": {
+      "bytes_sha256": "82437d14a17bd47c1554a5bb7701ac9b7d129447c261bd3fb52750b39a7e13ec",
+      "lf_sha256": "cdc2a5d95a2f4b70b40bc8905bac9c93146dace67438686918ea893b90eacfdc"
+    },
+    "res://art/characters/rin/parts/torso.png": {
+      "bytes_sha256": "9cb49daa7a166a2f7ed31e44f3995c8e5192446294f5c41d0aa67a40263e3d4f",
+      "lf_sha256": "97651106b87de24f249637bf3aec92ca463459fd859d5bdae755c26942725f58"
+    },
+    "res://art/characters/rin/parts/torso_dmg.png": {
+      "bytes_sha256": "63f88f3339bb2b14ff017213c06dfee702ecb6b7ed52523a8d9e1a384d480afa",
+      "lf_sha256": "bd0ee0a38d9b5ddcd389069f07ec5b38d62a224eb2e58aac567849822854b1a4"
+    },
+    "res://art/characters/rin/parts/torso_dmg_n.png": {
+      "bytes_sha256": "c8853eec0afb5b9c39310349523947c3a9ce8dbc05d882e88d173519e22e8795",
+      "lf_sha256": "a5e7dc583a67f5e321163275aeac4088ad5ab227a346767dfd521c4112f0f527"
+    },
+    "res://art/characters/rin/parts/torso_glow.png": {
+      "bytes_sha256": "f03c4ed588da7573e7e9808862ce83ea2929d4415e11310ae8b5858dfbdb82f7",
+      "lf_sha256": "e95251943b11837bcc79bc8ee2b71db65771b236d69db2ef33e418f235c37f77"
+    },
+    "res://art/characters/rin/parts/torso_n.png": {
+      "bytes_sha256": "4a5c7d2aaf076c12e5591cf790319322422f838858055950a90aa1ce22892ffa",
+      "lf_sha256": "8fde12cefff0661432bb4da2fbd0aa6ead96acd88a464092b64bc5072921414f"
+    },
+    "res://art/environment/backdrop/far_skyline.webp": {
+      "bytes_sha256": "a034ac7fcb1c3781a988a781ec5c47eb39e129d3d8ba510d25b1c6d3188ef449",
+      "lf_sha256": "a034ac7fcb1c3781a988a781ec5c47eb39e129d3d8ba510d25b1c6d3188ef449"
+    },
+    "res://art/environment/backdrop/mid_buildings.webp": {
+      "bytes_sha256": "090cf16689736b191774c17cbe66dbbd00c3cf8b255bb8d95ca2153ce1d9387c",
+      "lf_sha256": "1001b34bf5f7d2aa729702962fa8b9d932ad9ecd37904aa11f97dbceaad41f21"
+    },
+    "res://art/environment/backdrop/near_foreground.png": {
+      "bytes_sha256": "b90985d78943031e48a8f36b8c3db5f0f4ae2a70a85c3c73712cd81974e15bf4",
+      "lf_sha256": "f18d93d0c8aba89efdefa5a18b7e79943e232ad3309922b57beba72e5d3d2e9e"
+    },
+    "res://art/environment/backdrop/sky_dawn.webp": {
+      "bytes_sha256": "2c000f11a7b5efcae05ba54f48541d4cc8a38e80465dd3f41a80bd77e4a812cc",
+      "lf_sha256": "2c000f11a7b5efcae05ba54f48541d4cc8a38e80465dd3f41a80bd77e4a812cc"
+    },
+    "res://art/environment/backdrop/sky_storm.webp": {
+      "bytes_sha256": "b588d242378905668e3044c47ad3fe8883cb14b239054ab1ae27d317e731213c",
+      "lf_sha256": "b588d242378905668e3044c47ad3fe8883cb14b239054ab1ae27d317e731213c"
+    },
+    "res://art/environment/facades/apartment_b0.png": {
+      "bytes_sha256": "1b34255e7338b63837f64cb2a3cd191c79cf1bc4b4e24483ce01715e5c8e90fc",
+      "lf_sha256": "7a3319e501c6607e8c9d264a115fd4a1a4f322bc7cadb71de39d8bd7d50fbca2"
+    },
+    "res://art/environment/facades/apartment_b1.png": {
+      "bytes_sha256": "58b19a9bd19975638bf8ec126aa4c85dc6823009ecd78d0ae39aa0a660ef3052",
+      "lf_sha256": "ea5ca7a9561bbda2de4868d08aeb334cedbe3d13157532073dbc05b2228eb812"
+    },
+    "res://art/environment/facades/apartment_b2.png": {
+      "bytes_sha256": "1c7e47765776ca7f757bf06a2ee413abd735e44e616beb954129b04fda917a33",
+      "lf_sha256": "359480e9f83ff18c4b625162a07586e8818f2a1f205bb8d8c367c9053afea543"
+    },
+    "res://art/environment/facades/apartment_b3.png": {
+      "bytes_sha256": "97481d3821b4ab04eda11064c37c3409f634c40cc9db2858d4926354a74aca5b",
+      "lf_sha256": "4393a0d253f1111009803878573f90ce5aca0c10bf3fbae5cb2444bb75f6932b"
+    },
+    "res://art/environment/facades/apartment_cap0.png": {
+      "bytes_sha256": "3260ccafa24a6293c427f56266e423ad1e983858b591c9952b6c91c204d7a912",
+      "lf_sha256": "34be6f86588d6647469f8f4de68097b57d156a42e131b51d92b946e1ca45653e"
+    },
+    "res://art/environment/facades/apartment_g0.png": {
+      "bytes_sha256": "071076114b92eb0bb39ddc29850ff9d6bffd8bf71082cde9b29be3c88048f20f",
+      "lf_sha256": "13c324dbe0fa92cb02ba3d819bbc58323b46fdce8243e40aad707b23e80207e9"
+    },
+    "res://art/environment/facades/apartment_g1.png": {
+      "bytes_sha256": "63d10a8635528b96d43e3ea067bf9e95acb895bbfaf35fe56848a6b2fe870082",
+      "lf_sha256": "bf727d7d03645fa288d783bf26be5f594dfddecaef24f9028dca6aa6fcf21c4b"
+    },
+    "res://art/environment/facades/brick_block_b0.png": {
+      "bytes_sha256": "b9f3cbdec85bb6d779f36264b6dc6d169b2f84f7ce01ab4a13990bfdc9afbf4d",
+      "lf_sha256": "81588a45477ca942afcc4964260eecf4054b77237a10db9797c0ae0508541b22"
+    },
+    "res://art/environment/facades/brick_block_b1.png": {
+      "bytes_sha256": "9b076639a2288950506806cfdf9cb58057b28f47e3180de5df8fd7c894aad39f",
+      "lf_sha256": "813b7495c2429849b79881199d8c183100bca53866952725d9023867064dc107"
+    },
+    "res://art/environment/facades/brick_block_b2.png": {
+      "bytes_sha256": "109a2fb3d4497caf1afd0d6b44a1781117f9d9f38a17fb6172866574663642e9",
+      "lf_sha256": "80f805a7c55677e869cb0a5cd5aae18e3d0faef06e88c7037fddd0cec206bca9"
+    },
+    "res://art/environment/facades/brick_block_b3.png": {
+      "bytes_sha256": "d0f16f613d444033acc102c9463158e87f38eb43ed5145711cb824b0c1e221da",
+      "lf_sha256": "a72a293026c8b3e79686ff013156789617b14386fb94f651f89eebb257802b14"
+    },
+    "res://art/environment/facades/brick_block_b4.png": {
+      "bytes_sha256": "030406b69a1fb8817cb3f613531c0a033ec93e387c1c5f4b8163350485a2f815",
+      "lf_sha256": "3c720c8b6bfabe5b64ce73c6bd761c9f919a7b3fce7726d1142f4cd1878812c8"
+    },
+    "res://art/environment/facades/brick_block_b5.png": {
+      "bytes_sha256": "26d4854ea1566c28868eeedcbff98a3341d6680390a34faa0c0f76d1bf154a36",
+      "lf_sha256": "62eb8221b49a886d3ff1d4b03cb86f7ec66d6411499d46939f307a7a14be3f9e"
+    },
+    "res://art/environment/facades/brick_block_cap0.png": {
+      "bytes_sha256": "7a813ba29305fa17e6b8b0cb721683a711a11df568518f439bdd43238f7cbb85",
+      "lf_sha256": "c003dfe8fe2a8e992bcbe8bc76e1c652a016ef35c4362fcafb1aa005e41506dc"
+    },
+    "res://art/environment/facades/brick_block_g0.png": {
+      "bytes_sha256": "4cd876471d8402c51e110bb8d1cfc57e653a1abf930a5b8fd9fe11a560eaad5f",
+      "lf_sha256": "eaba37efb9f68757b1e41db5e24531f33123a9a16db4ec8ba6a36d7930992fa8"
+    },
+    "res://art/environment/facades/brick_block_g1.png": {
+      "bytes_sha256": "36236834865f45a4effa3fab123eacfe68b2a6b0bc3dc31014f32f7ed85929bd",
+      "lf_sha256": "75c9477d6fe12fb2460ebc770bf65cd77015b7a8f5eb0e6e869f297f65d586b1"
+    },
+    "res://art/environment/facades/brick_block_g2.png": {
+      "bytes_sha256": "e72c9718315c066e21fef81ffc6e9aae0fab0ab053ec31f921de732d95bf1b2b",
+      "lf_sha256": "9e11f3c42f5c2bc9a784e66f9658d5b9018fa1aeba2f413ca122a275ff75984a"
+    },
+    "res://art/environment/facades/facility_wall_b0.png": {
+      "bytes_sha256": "e6648bceb40769ba657ffa7bcb82f7f05e21f7f99d4e6024ddda2b15ca5d62f1",
+      "lf_sha256": "6e2e5bcedeeec8632744558f73e9e8ee87acf7ca3c5801ea5a9377c9ab6ccb5e"
+    },
+    "res://art/environment/facades/facility_wall_b1.png": {
+      "bytes_sha256": "1fa0af16d20e49f4a05a05d06019babb27cdaf48af586cdc0356160c50beffa8",
+      "lf_sha256": "12d5223d1c39efc9229c7a82d21ca0f83007e7b11b5f4b45dae9fda14150a299"
+    },
+    "res://art/environment/facades/facility_wall_b2.png": {
+      "bytes_sha256": "973e1790f1e14aa2f0ea39ef29fcfe70cf97b6c1441b91d5df38a53ddef869ed",
+      "lf_sha256": "503d0ae7429f837ceac7122352f21ff16ed8e556b63c1d41cc155b7a79ac9479"
+    },
+    "res://art/environment/facades/facility_wall_b3.png": {
+      "bytes_sha256": "a8c38c545bfa6b3a4e2c6a83a8d50e751f83c0e07f6dd2d82098d991675bc430",
+      "lf_sha256": "f3971b85f45ca083239eb87c66152df5ba3f46b96bb916054a60629db84fe95f"
+    },
+    "res://art/environment/facades/facility_wall_cap0.png": {
+      "bytes_sha256": "13f26f5903cebc3816eeed5a435dbc3e066dae87f0d10a70fa796264eb6c9f9c",
+      "lf_sha256": "5dd9001cbc5d41e3d65fb46903ed093260a2c38187afb769c467725fa0cefa92"
+    },
+    "res://art/environment/facades/facility_wall_g0.png": {
+      "bytes_sha256": "3ea1cb620679ffd66d3a1b712bda15d39203cb444b01676cb5f86306ee9dd7e3",
+      "lf_sha256": "57cdfe8e4a0d440006d3cb9926377619449be91209cd1db359eef7c42f3d4f90"
+    },
+    "res://art/environment/facades/facility_wall_g1.png": {
+      "bytes_sha256": "6a5fbb9439e7197717bd2ad8cd02fe2daef01fdea1f3bef08951ba40902e318a",
+      "lf_sha256": "5bf39fb6ad889b61d4696e29e3d38ab00eb72b6b4e9a883f2ad09ab9e25e6b7f"
+    },
+    "res://art/environment/facades/shopfront_b0.png": {
+      "bytes_sha256": "de860e968a150cf2480629917a3aadd53fed8651a05f5e86565899883d5a5365",
+      "lf_sha256": "fe1e044feb5621a293a71440d5a3905da6610e7cbf2d0cb86e3391a076a43c18"
+    },
+    "res://art/environment/facades/shopfront_b1.png": {
+      "bytes_sha256": "5ff01b9662f6016a4870f6f36d9f925a4778b4e1598a631b6d1a9116c572c375",
+      "lf_sha256": "8aa854c23bd9bcb1b95721853bd3eed273bf5fe8cc41d7d9659952c7c31880a8"
+    },
+    "res://art/environment/facades/shopfront_b2.png": {
+      "bytes_sha256": "b8cbd72384a0f081fcb3ded35bb4d273fc73c7201d66224e0a0f8033d85bb441",
+      "lf_sha256": "e9904820034481fc06875c18b65569966b6d3a1cbff86cb72452c026e9404b57"
+    },
+    "res://art/environment/facades/shopfront_b3.png": {
+      "bytes_sha256": "7053b44b580a00d03d6a92a27e42ee980202334e8909cc053397c586b05724a8",
+      "lf_sha256": "d1175029820cb3a02c28df377aaf4c36021eccc0937c51664dac7cfaae262455"
+    },
+    "res://art/environment/facades/shopfront_cap0.png": {
+      "bytes_sha256": "240a811d40a1124dd1b23c908f079df965565096b96b7f6b40de91048fb1f7a8",
+      "lf_sha256": "98979034484f35d1150d45b5e9644d1dc6344039d7ca44a6441478dbe6084ead"
+    },
+    "res://art/environment/facades/shopfront_g0.png": {
+      "bytes_sha256": "448a9da6b0e99abf407c6b07098be7df93b354f3ef9baaed8e96cf2fa484c5ae",
+      "lf_sha256": "766ea1f138ef8f759e3656cef815ae331a3b248ece91ff5a5a0ef2bc81b17ace"
+    },
+    "res://art/environment/facades/shopfront_g1.png": {
+      "bytes_sha256": "cec670d3e672224b4b741b3ae7c5dc1145072c7ee58f2b112ab592c231d2a0a6",
+      "lf_sha256": "db45b6d9cc9678d0794a0710756516e10cb8c271b8c4848d084810cb3cd7f5ba"
+    },
+    "res://art/environment/facades/shutter_block_b0.png": {
+      "bytes_sha256": "570c1afbea8ea752b0639ae5c341c72f0fba979dbabf425e34012ae06c81e674",
+      "lf_sha256": "f3909dab054bdc5883d1f962c761db60b4f39c0d4ddcfcf190d671716b05530e"
+    },
+    "res://art/environment/facades/shutter_block_b1.png": {
+      "bytes_sha256": "5b88ad7bb027caf248848f587c72776c432701e665dfdec3a700ceaad8a1e941",
+      "lf_sha256": "03cf21f3817c9e4e8098853a55fb8230f6a1168e34be001f2ae923aa38baad6f"
+    },
+    "res://art/environment/facades/shutter_block_b2.png": {
+      "bytes_sha256": "9b2d51f8d8eb6a8a7fd5439f213fea14aa8d0b6b60966b23c16dd9e8199fe397",
+      "lf_sha256": "7c7fcff29367abd7641c056cc3084dba1f1f6e4938362996917a2ad4d13efa86"
+    },
+    "res://art/environment/facades/shutter_block_b3.png": {
+      "bytes_sha256": "fe529ff222fa369b0d286eff4d9fef99a8b92895249b5b3d4916153ad4902af9",
+      "lf_sha256": "a991bdfd88613d5267588194c746ba66791b6ab368fd4c03332792de1eeb83f0"
+    },
+    "res://art/environment/facades/shutter_block_cap0.png": {
+      "bytes_sha256": "434ad78c7e0e0869ade35523075c40a4e28556f8abdf1c4db15f14460da45c35",
+      "lf_sha256": "193b919350d72a9dcd7f5991206496b6f30012fba6806e8ca0e4fa206d2e5ee9"
+    },
+    "res://art/environment/facades/shutter_block_g0.png": {
+      "bytes_sha256": "dac50795a827155e9780b55eeca8198ee7f268352b40a39ef803424fa9e510ff",
+      "lf_sha256": "9940ad51dc7cfa2371e5cd3a3927fe4cc3236e3d5d60ccbabc920299dc4d7b18"
+    },
+    "res://art/environment/facades/shutter_block_g1.png": {
+      "bytes_sha256": "f04e6deca114bd20461e5d6a8ef502df5d907526a20ba149dbb777de4deb8106",
+      "lf_sha256": "45bba8b5d051c726a98b7d157968f46483aa1e49406105613042bedfe7aeec46"
+    },
+    "res://art/environment/facades/warehouse_b0.png": {
+      "bytes_sha256": "e2cf59137b1674fa13c8aa5c916d529e13933067647104cc06e0efafb554f0c2",
+      "lf_sha256": "f9e01b6a5a9a7c189ffc46e527bc6602e9352a7d6920d2393a857e57458b5f68"
+    },
+    "res://art/environment/facades/warehouse_b1.png": {
+      "bytes_sha256": "55cce7bf427cd7e35f250624b973bd5042d6a5eaee4317835dbe985a84e3d236",
+      "lf_sha256": "ac0af972e375b3394fe35edd71f57ebe4058f62b897c19940022706b50b0c231"
+    },
+    "res://art/environment/facades/warehouse_b2.png": {
+      "bytes_sha256": "88113c2a760f71a26d393a3466dc2a9cc314da1fa6278f03bac190c2e5208b34",
+      "lf_sha256": "2ae18fa9e57801a2f5ca67d6d430ea14369adda83fa7bccbc965b7cf82c9c009"
+    },
+    "res://art/environment/facades/warehouse_b3.png": {
+      "bytes_sha256": "25eb80bc70b00eaf75b7543846044aecc49240714382286fd31ca21dc2f29442",
+      "lf_sha256": "55325375fa76074d575a44e0851f3889b1558d31a5384dfd42744fc4a68dd28f"
+    },
+    "res://art/environment/facades/warehouse_b4.png": {
+      "bytes_sha256": "8f5e233cc3cd4fe4e840caaafa3addf1e32fcbed742b3881da3ef508b016f02d",
+      "lf_sha256": "2225a96c480a54cf107e3242b46e0ab7720bc101b0879aa4e8490376495d8802"
+    },
+    "res://art/environment/facades/warehouse_b5.png": {
+      "bytes_sha256": "c95765af9eea0ac0775e8f835b3e5e32e261d3021ad72d68b94dc1c381fc149d",
+      "lf_sha256": "797702bdbb6b5168ddedd4329629b23eb98bf5223ab12704e5b7ca0f122f36f9"
+    },
+    "res://art/environment/facades/warehouse_cap0.png": {
+      "bytes_sha256": "7857e270efb55e2348df921fa9272d6b3c131039f5ac6c4b76eb84d191dce8b9",
+      "lf_sha256": "243014fee63ecc0213b91e21de5656d12576852d73323609c53e5458a1268f34"
+    },
+    "res://art/environment/facades/warehouse_g0.png": {
+      "bytes_sha256": "b7d7239f81db723cdc03b7f55ea6a45b3f60879e5f46b66826afb7deadc3729c",
+      "lf_sha256": "2dc1c92bc764787f23fbbe83213bf9e60283f99674bbad4c56f252b02be084c5"
+    },
+    "res://art/environment/facades/warehouse_g1.png": {
+      "bytes_sha256": "eb5910a843ea808ddc117fe989dcf5635aa13bb2d658ac37efb62be7d2940316",
+      "lf_sha256": "21f7fcf316cdf721147ef296620e9431c9e52a4464069a5844a69d0d39b2692b"
+    },
+    "res://art/environment/materials/asphalt_body.png": {
+      "bytes_sha256": "5306cd86f6e5d0faaaa54972197a7b9491d4ee6c8cb4b0e17678b9064e4cc5c4",
+      "lf_sha256": "974241c19a068d0c1a3accadaa89396da13e1598a50f0b07c49d87307b248b35"
+    },
+    "res://art/environment/materials/asphalt_side.png": {
+      "bytes_sha256": "7b6dacd5219e2eaac7e3e00657464c321fd397bb54b21dc7e33b4f2505814c6f",
+      "lf_sha256": "6f525243e0f962949b158cd9ff87562a8817ba74ee5e4a6422cabdf817753f18"
+    },
+    "res://art/environment/materials/asphalt_top.png": {
+      "bytes_sha256": "5b6e6f844cb81fb2870a37e292121b9da3a8a18ddb41298858baf35169a9af82",
+      "lf_sha256": "10357a06b4e1459d56a5b7cf9d232e4cee56274f67eb35c5f56dd53ed80bd7db"
+    },
+    "res://art/environment/materials/brick_body.png": {
+      "bytes_sha256": "93862ccdd17de9b3509aae3ade47a934352c08162d0dd97c65c5a2c42b2787da",
+      "lf_sha256": "5527b40f6600a0a0a3f79b8682eeb0e6baec84e4b6e3c0c200519e083ec69472"
+    },
+    "res://art/environment/materials/concrete_body.png": {
+      "bytes_sha256": "1cecda870b55d06f8827f15094d226aaae2c50d01d4369bc1b631e5b6166b140",
+      "lf_sha256": "4fece39a8e7c844f66add2f2bce44b39a7f40bf5291b2b2c7781f9317442c6bf"
+    },
+    "res://art/environment/materials/concrete_side.png": {
+      "bytes_sha256": "4ec4b630b64c461f6e8031eda0c534592a219f7b592aeb9a7c70919f2430a05c",
+      "lf_sha256": "43283d3823d90e5457500b1c5a6b44872825174221d359f1f5998b219937a0e6"
+    },
+    "res://art/environment/materials/concrete_top.png": {
+      "bytes_sha256": "c10cce0f8ddcfbf0e5840edb907c2defd29a2aabea2cdf51a898ef80aabaa3dd",
+      "lf_sha256": "ad2994366360d4a4feee437a28dbdfd7fdceda7a741314bf3d6c441812e02a3c"
+    },
+    "res://art/environment/materials/facility_floor_body.png": {
+      "bytes_sha256": "b4f20f4c2c7c9e1a39e8d7bac903abd040dd1e8f7c04d3cbfdb270ae642e4d1b",
+      "lf_sha256": "8ee7c4a62f0ab88f6dfbe23620ed9cc773836457b2203fd18dfc70eed7cd5291"
+    },
+    "res://art/environment/materials/facility_floor_side.png": {
+      "bytes_sha256": "0f98a5fabda82f2e9a8cd1564723f82765592f7f48710705c24eed4e44ce7d78",
+      "lf_sha256": "2162d4e5f25b311679c887d8f6e628a2f40507994fa9f51d18c3bfbc5482acbe"
+    },
+    "res://art/environment/materials/facility_floor_top.png": {
+      "bytes_sha256": "972d6efecddff0c373b318115ca38816667c889dbe8e84db50abd5baddff48ec",
+      "lf_sha256": "1326758897eee8cf302e4f3abb7510e718f94664518e6075db6222e823084486"
+    },
+    "res://art/environment/materials/facility_panel_body.png": {
+      "bytes_sha256": "cc9a065a505a173d1ebe5ec45be415e3050cf84328afb737037adba8f6dfbcfc",
+      "lf_sha256": "84d165e52c9cd06005e876c3ccd4efa0bc7b3660f966f308f94a04e2be89899e"
+    },
+    "res://art/environment/materials/hangar_wall_body.png": {
+      "bytes_sha256": "5fc16d540d8c21589a0f5c022b9d498a6f848f5d364f291d4ffc8092b5384212",
+      "lf_sha256": "1403df6abb6b3b0f60c57ce2d913db059d3478c283701b20da2a91c80fe2d047"
+    },
+    "res://art/environment/materials/rooftop_body.png": {
+      "bytes_sha256": "c8959c0603c2508c245a29a8f773ede501cfff9b8626e1bd40d933bbd201e4ae",
+      "lf_sha256": "8358cb84218b835c89e181b711559730606fcc3ad54b328c4298bd478f949316"
+    },
+    "res://art/environment/materials/rooftop_side.png": {
+      "bytes_sha256": "b2b4387c1f157d72c158ccf5da42ff1b8f5547dd1142b6821c7f48e92c9766b2",
+      "lf_sha256": "151efb77c1063ab8cd9394539c30c18e148736717ce830d1e85f4dbeccad203c"
+    },
+    "res://art/environment/materials/rooftop_top.png": {
+      "bytes_sha256": "d8b1195f78fe396828050f9c6d28faba88415dbbcf56bcee5a54f501fceb86c8",
+      "lf_sha256": "435aa8e6dcb471cca66ab128730ba78597314c8d1dd1e07aec13f1f1a5c7cbfb"
+    },
+    "res://art/motion/ah_po.json": {
+      "bytes_sha256": "b8b8ed906d3abf1836f6a34b11aae89a0dbab73685153795cd952433f8e71719",
+      "lf_sha256": "b8b8ed906d3abf1836f6a34b11aae89a0dbab73685153795cd952433f8e71719"
+    },
+    "res://art/motion/enforcer.json": {
+      "bytes_sha256": "3c991c5db8069b2c3a7af996245d8719f6b3806a92a84c67829caf82962cd622",
+      "lf_sha256": "3c991c5db8069b2c3a7af996245d8719f6b3806a92a84c67829caf82962cd622"
+    },
+    "res://art/motion/flamer.json": {
+      "bytes_sha256": "32a5a1b006fc9fc6869a972b95d2b29c8577b3c9af4b25a3e76e8753ca6a3c71",
+      "lf_sha256": "32a5a1b006fc9fc6869a972b95d2b29c8577b3c9af4b25a3e76e8753ca6a3c71"
+    },
+    "res://art/motion/grenadier.json": {
+      "bytes_sha256": "01bfb2a357d75c485ec4ee8c51f791745f17c3b86ac4bc5ee21ffc9e3facd8eb",
+      "lf_sha256": "01bfb2a357d75c485ec4ee8c51f791745f17c3b86ac4bc5ee21ffc9e3facd8eb"
+    },
+    "res://art/motion/heavy_gunner.json": {
+      "bytes_sha256": "b603034c7d99039a539f78f970e53a436fb49a5419887b3e3f39f063b1308eea",
+      "lf_sha256": "b603034c7d99039a539f78f970e53a436fb49a5419887b3e3f39f063b1308eea"
+    },
+    "res://art/motion/mei.json": {
+      "bytes_sha256": "f8ff835307b4baa835ad19f68958bf2494f536811211ed5623ee3a3540505e2b",
+      "lf_sha256": "f8ff835307b4baa835ad19f68958bf2494f536811211ed5623ee3a3540505e2b"
+    },
+    "res://art/motion/night_worker.json": {
+      "bytes_sha256": "1eb2b37d9a4c16c2f2aaba6f8410de81e48492c1cb5a91065877a48ac3ff7df9",
+      "lf_sha256": "1eb2b37d9a4c16c2f2aaba6f8410de81e48492c1cb5a91065877a48ac3ff7df9"
+    },
+    "res://art/motion/nurse.json": {
+      "bytes_sha256": "734a6087e3d0a199eb52c111d669141b9650da17e73f1ce4a9adfc8345bc383c",
+      "lf_sha256": "734a6087e3d0a199eb52c111d669141b9650da17e73f1ce4a9adfc8345bc383c"
+    },
+    "res://art/motion/old_k.json": {
+      "bytes_sha256": "c64364ecbf785ae904b08afbf5891fbafb8ede3b4484b46124dd01fb80ec6b60",
+      "lf_sha256": "c64364ecbf785ae904b08afbf5891fbafb8ede3b4484b46124dd01fb80ec6b60"
+    },
+    "res://art/motion/reclaimer.json": {
+      "bytes_sha256": "b407f7fe19035d0da3e7f9361d16d305f663a23d1ad534e56f5e9b444362e8b5",
+      "lf_sha256": "b407f7fe19035d0da3e7f9361d16d305f663a23d1ad534e56f5e9b444362e8b5"
+    },
+    "res://art/motion/repairman_chen.json": {
+      "bytes_sha256": "243a4a62aacc58e421dc9be211ce86bc3f778a2e000a7fb0639309d0ba70ad82",
+      "lf_sha256": "243a4a62aacc58e421dc9be211ce86bc3f778a2e000a7fb0639309d0ba70ad82"
+    },
+    "res://art/motion/resident.json": {
+      "bytes_sha256": "b14798a4ef21a4ac8d7af6e0f444fe0f98b3ee14b58ea3d1ba5abec062b14e02",
+      "lf_sha256": "b14798a4ef21a4ac8d7af6e0f444fe0f98b3ee14b58ea3d1ba5abec062b14e02"
+    },
+    "res://art/motion/rin.json": {
+      "bytes_sha256": "f4621c805707da10464ee809005ffed97f72dd3299fd5ae96c0848356d3508d7",
+      "lf_sha256": "f4621c805707da10464ee809005ffed97f72dd3299fd5ae96c0848356d3508d7"
+    },
+    "res://art/motion/slasher.json": {
+      "bytes_sha256": "21c95f41a645d9a79b2eb2d1db906b8467af578c56a5fee7ec609995f3bbdbd5",
+      "lf_sha256": "21c95f41a645d9a79b2eb2d1db906b8467af578c56a5fee7ec609995f3bbdbd5"
+    },
+    "res://art/motion/sniper.json": {
+      "bytes_sha256": "57c799f5201ed238d2684aa7dc02a3bb8bc4c97d2a52ee57b590e179310a9218",
+      "lf_sha256": "57c799f5201ed238d2684aa7dc02a3bb8bc4c97d2a52ee57b590e179310a9218"
+    },
+    "res://art/motion/stalker.json": {
+      "bytes_sha256": "2eb59642304320493928f0f0e8c65a3e88ed9a88d2816f29350a2a20511f098e",
+      "lf_sha256": "2eb59642304320493928f0f0e8c65a3e88ed9a88d2816f29350a2a20511f098e"
+    },
+    "res://art/motion/trooper.json": {
+      "bytes_sha256": "6264751c63b5dfb33a87807c8cc9177f2b2d0790dd5249e7d944eedda16b09e6",
+      "lf_sha256": "6264751c63b5dfb33a87807c8cc9177f2b2d0790dd5249e7d944eedda16b09e6"
+    },
+    "res://art/motion/trooper_elite.json": {
+      "bytes_sha256": "6d9bc8c1af63361b69cca2a6969adbc799f956073765af91bc6b3e5f86b67a08",
+      "lf_sha256": "6d9bc8c1af63361b69cca2a6969adbc799f956073765af91bc6b3e5f86b67a08"
+    },
+    "res://art/motion/warden.json": {
+      "bytes_sha256": "5d604a47e501a2744fd6f9dbe76280a0e7f50dde43b140dded665ec3241fa1b8",
+      "lf_sha256": "5d604a47e501a2744fd6f9dbe76280a0e7f50dde43b140dded665ec3241fa1b8"
+    },
+    "res://art/motion/wataru.json": {
+      "bytes_sha256": "c9ec6ab896994acb6e6b44c368dde98b70356c3d93035f2e803183896df0524d",
+      "lf_sha256": "c9ec6ab896994acb6e6b44c368dde98b70356c3d93035f2e803183896df0524d"
+    },
+    "res://art/rigs/action_poses.json": {
+      "bytes_sha256": "44b71391b45dee82bf2cee36f122dcfc62124cce689337353378f4f18a7f3b93",
+      "lf_sha256": "44b71391b45dee82bf2cee36f122dcfc62124cce689337353378f4f18a7f3b93"
+    },
+    "res://art/rigs/ah_po.json": {
+      "bytes_sha256": "8d890153bf7d4a23bc01b9f9f90f8bbb241e4520308c6e4555af3cbf1811caf6",
+      "lf_sha256": "8d890153bf7d4a23bc01b9f9f90f8bbb241e4520308c6e4555af3cbf1811caf6"
+    },
+    "res://art/rigs/enforcer.json": {
+      "bytes_sha256": "48d3de2bdc778c582382dd64d304073a065d641b7b3bb286db0329715349f3cd",
+      "lf_sha256": "48d3de2bdc778c582382dd64d304073a065d641b7b3bb286db0329715349f3cd"
+    },
+    "res://art/rigs/flamer.json": {
+      "bytes_sha256": "28b9d1bb74f559125d2932e80950cb0f10306251761dcdb280f0730097561161",
+      "lf_sha256": "28b9d1bb74f559125d2932e80950cb0f10306251761dcdb280f0730097561161"
+    },
+    "res://art/rigs/grenadier.json": {
+      "bytes_sha256": "c7d108e8d5186854878e140d337cd50cec5c412597c7da6a29e978d3e082e072",
+      "lf_sha256": "c7d108e8d5186854878e140d337cd50cec5c412597c7da6a29e978d3e082e072"
+    },
+    "res://art/rigs/heavy_gunner.json": {
+      "bytes_sha256": "5d887fe0441363d51cc10b4fe419053683d38cbdb934c42272eeec66c1610982",
+      "lf_sha256": "5d887fe0441363d51cc10b4fe419053683d38cbdb934c42272eeec66c1610982"
+    },
+    "res://art/rigs/humanoid.json": {
+      "bytes_sha256": "62537ed95a38b227183adc3924fc4bb3d2c9ccb53be13e9488141e3c8b2f263d",
+      "lf_sha256": "62537ed95a38b227183adc3924fc4bb3d2c9ccb53be13e9488141e3c8b2f263d"
+    },
+    "res://art/rigs/humanoid_tall.json": {
+      "bytes_sha256": "55292af1efa84dac219ba3e79c5b91c8ff7920630a5871bf8761973da5ad53e0",
+      "lf_sha256": "55292af1efa84dac219ba3e79c5b91c8ff7920630a5871bf8761973da5ad53e0"
+    },
+    "res://art/rigs/mei.json": {
+      "bytes_sha256": "848bc5b129fea0530f8d6fc4c60d9b9a5aac60826d55e75e5f267a19e74d6a92",
+      "lf_sha256": "848bc5b129fea0530f8d6fc4c60d9b9a5aac60826d55e75e5f267a19e74d6a92"
+    },
+    "res://art/rigs/night_worker.json": {
+      "bytes_sha256": "99056bc22a7e570d1d982c9469881695345a20157c38240200ac76e51dffd8ef",
+      "lf_sha256": "99056bc22a7e570d1d982c9469881695345a20157c38240200ac76e51dffd8ef"
+    },
+    "res://art/rigs/npc_animations.json": {
+      "bytes_sha256": "9949d5333ea60d3684ddc43968881a553f0c939fadaf0be6178f9358c68fd2ab",
+      "lf_sha256": "9949d5333ea60d3684ddc43968881a553f0c939fadaf0be6178f9358c68fd2ab"
+    },
+    "res://art/rigs/nurse.json": {
+      "bytes_sha256": "0df1210fb6aca170c3dbc2e3e046ae93b063eefb16303ffd724c85b81b6a75e3",
+      "lf_sha256": "0df1210fb6aca170c3dbc2e3e046ae93b063eefb16303ffd724c85b81b6a75e3"
+    },
+    "res://art/rigs/old_k.json": {
+      "bytes_sha256": "eaafe34a3c8c5fa5572f01e59aa9b70753051bbcf5f072c7dedb722b7f416dfa",
+      "lf_sha256": "eaafe34a3c8c5fa5572f01e59aa9b70753051bbcf5f072c7dedb722b7f416dfa"
+    },
+    "res://art/rigs/reclaimer.json": {
+      "bytes_sha256": "403fa6144dd932d2633619978e682b65c37e0e8ff08881bb585c25caa8d009ca",
+      "lf_sha256": "403fa6144dd932d2633619978e682b65c37e0e8ff08881bb585c25caa8d009ca"
+    },
+    "res://art/rigs/repairman_chen.json": {
+      "bytes_sha256": "d76c00e835c609a72b266696db2e161eca55c7c457ee02715259f786d7a98f65",
+      "lf_sha256": "d76c00e835c609a72b266696db2e161eca55c7c457ee02715259f786d7a98f65"
+    },
+    "res://art/rigs/resident.json": {
+      "bytes_sha256": "dd5984e01d91df02e8a2e6ee858cded59529a8bb260b8cb8b2c446a519a5c229",
+      "lf_sha256": "dd5984e01d91df02e8a2e6ee858cded59529a8bb260b8cb8b2c446a519a5c229"
+    },
+    "res://art/rigs/slasher.json": {
+      "bytes_sha256": "ea98e41846301b75b28e05d44fbe52d39d9991ae888b480c66f29ba0975ad2d4",
+      "lf_sha256": "ea98e41846301b75b28e05d44fbe52d39d9991ae888b480c66f29ba0975ad2d4"
+    },
+    "res://art/rigs/sniper.json": {
+      "bytes_sha256": "8e094d907e430287c411938a4ac9de77a2695ca12e09ea4c19bff0cc0c29f319",
+      "lf_sha256": "8e094d907e430287c411938a4ac9de77a2695ca12e09ea4c19bff0cc0c29f319"
+    },
+    "res://art/rigs/stalker.json": {
+      "bytes_sha256": "3e3df6aebebe01e92576eded3b41b3561d16483310ae0f548caf75ab6d599869",
+      "lf_sha256": "3e3df6aebebe01e92576eded3b41b3561d16483310ae0f548caf75ab6d599869"
+    },
+    "res://art/rigs/trooper.json": {
+      "bytes_sha256": "27c97ea3152a8e3bff9244217048b7f7552e50f477aa9b2f2d10a1f1c2b494ce",
+      "lf_sha256": "27c97ea3152a8e3bff9244217048b7f7552e50f477aa9b2f2d10a1f1c2b494ce"
+    },
+    "res://art/rigs/trooper_elite.json": {
+      "bytes_sha256": "073957777f9d3eba5eab8b4abb336e592f917a39e14b2b79a189952b55961e60",
+      "lf_sha256": "073957777f9d3eba5eab8b4abb336e592f917a39e14b2b79a189952b55961e60"
+    },
+    "res://art/rigs/warden.json": {
+      "bytes_sha256": "7a76ac14ac792fa070f03887200193cdd901ad5a7202ef960a963ca4c89ebe92",
+      "lf_sha256": "7a76ac14ac792fa070f03887200193cdd901ad5a7202ef960a963ca4c89ebe92"
+    },
+    "res://art/rigs/wataru.json": {
+      "bytes_sha256": "e584d47e69607d93e6682c381e177c74e2c7298439f04bd0e65a383b4d06b53b",
+      "lf_sha256": "e584d47e69607d93e6682c381e177c74e2c7298439f04bd0e65a383b4d06b53b"
+    },
+    "res://art/weapons/flamethrower.png": {
+      "bytes_sha256": "9b33733d9c2496cd3174b4e7e80a00199b9aee0c36ca6a064498d638ce4f0149",
+      "lf_sha256": "18f81636fee72177173366d1a809a0726bb44e074a19b3daaefc6e53a9a90e6a"
+    },
+    "res://art/weapons/flamethrower_glow.png": {
+      "bytes_sha256": "650bd3e83d21e8dc62f816a70e57ffd2181810508ee1bea2ac4c48ceb238a1e3",
+      "lf_sha256": "8aea439dd2ad4a0bf140ae9317d421d2847cb57ea33569cfe04bcc8344974d48"
+    },
+    "res://art/weapons/flamethrower_n.png": {
+      "bytes_sha256": "6c773254ac9eddaa244ad1b933346bc022c20ef40a7311358296556412cd304b",
+      "lf_sha256": "c28aa423d6698bb47954c4293795d6b25d1b3ccfc7de2850f3c294fbcd45e227"
+    },
+    "res://art/weapons/handset.png": {
+      "bytes_sha256": "2d88864a29f0f1dd3698e16afa0b35a298323499daf0ce0f93e60e2fe2a37e1a",
+      "lf_sha256": "c894b96cb98140d198c973321e029d8aecd8a48cb4c98112940c8d3ac12a5d2c"
+    },
+    "res://art/weapons/handset_glow.png": {
+      "bytes_sha256": "7ed85ae89b46bbf755975494811fad032a23fb8c83bdf8707451713186b7ab76",
+      "lf_sha256": "37a7dc8b1078b4998046443dbde3fbb9ae829b70ed471ee37ba326b71113ee9e"
+    },
+    "res://art/weapons/handset_n.png": {
+      "bytes_sha256": "c4b771607b1382196f81c85c421567acd9ce0194e9d813a3b710150da6c7b536",
+      "lf_sha256": "fea14b53b279e69c77ee70fe89b28e86710828a435287732372c5039f3e59bda"
+    },
+    "res://art/weapons/laser.png": {
+      "bytes_sha256": "fbc32cdf98d183ed7eec10d035e479444f9729bee97b6fdc6cefd8b763eecfe5",
+      "lf_sha256": "678c330de35592772bd3fe4a80667665aa7b8121e7fadfd9dd149dfce057cdf1"
+    },
+    "res://art/weapons/laser_glow.png": {
+      "bytes_sha256": "c709090df2b3b853ae65300f4bcfb79548093ecd7f780d3ada8ed83da30d3464",
+      "lf_sha256": "6654727e4560c4b0e85ab8cb9466af9fb43f0fc7714409f6b753f9b1bd24724a"
+    },
+    "res://art/weapons/laser_n.png": {
+      "bytes_sha256": "283899430d84d2361f50f0b1c719b7a8b3f9576c1e32c95e541a4282f0d1e2c2",
+      "lf_sha256": "9c6956aec87be7809bd09ae0e26d15804f5f5f59939a60b6f8b8d9e326ba3311"
+    },
+    "res://art/weapons/launcher.png": {
+      "bytes_sha256": "9c44de4da69fa5e6b013fa8af65cb6a0650834e5134c3777825d0800b2e74b87",
+      "lf_sha256": "a9f2202b5ffad8a9b7434129262c30d63b836fbf659f0c87719f6fb57e51974d"
+    },
+    "res://art/weapons/launcher_glow.png": {
+      "bytes_sha256": "6dfd961c69e5333adfb7f200f2f311710870190ba857994e726d9f867ebb7273",
+      "lf_sha256": "f558847f96cb262103f50db7dff8811e8660763fcedb6a74646dbadfab5b845b"
+    },
+    "res://art/weapons/launcher_n.png": {
+      "bytes_sha256": "1c8c594d708a4b4197e0e098aecabda4e47347f02d6c2f9c3882495303d2eb50",
+      "lf_sha256": "f5a10e3eb8a75d4b4c00ad3a2313ffbfba1d8531efc359696dd3570f2fc44aee"
+    },
+    "res://art/weapons/minigun.png": {
+      "bytes_sha256": "d35bd97b59a5ee90cf30434e30257713c255589b16b2ed28a4697988923f7e8c",
+      "lf_sha256": "e164baf2de422a70163d2b564d6292cbb103cb3e3e59524904b447087f6fe212"
+    },
+    "res://art/weapons/minigun_glow.png": {
+      "bytes_sha256": "d0e91baa8f60547be1070e7d8844591e8aeccf45bf2e96014a2a5867f88782d4",
+      "lf_sha256": "b96f91b599ac1c6a7dad3a9b9407f9bd1e3599b0280213ff79633af85e427bf9"
+    },
+    "res://art/weapons/minigun_n.png": {
+      "bytes_sha256": "6d1abe86f00758122b524219c47b32697ad2c66f3e27da04fb66bbba4fae192a",
+      "lf_sha256": "355e56cb6f29e834dce888ae1df03dd4b81c208afe12b0398b00dc99813f698a"
+    },
+    "res://art/weapons/pistol.png": {
+      "bytes_sha256": "1b8e00863030c21f986f49ccce8c8a37554dd4af6ada086184ff80b897d07813",
+      "lf_sha256": "798dc1c2aaaf70683305ceca9fb7ba0710834695682b1e38932ea8f23e4e8d19"
+    },
+    "res://art/weapons/pistol_glow.png": {
+      "bytes_sha256": "ef4017ad56432ff4e37d14c4e8aaa4bb7c33842a262d2ce3b531f593eb4c89a6",
+      "lf_sha256": "b954abf1a641895ca67e46bd2f1a1a5507bc4700bbd519ae4415355fae655353"
+    },
+    "res://art/weapons/pistol_n.png": {
+      "bytes_sha256": "5aa39014476078e5d1cbc12f6ea8bf2766087c3d636de3942563b718fefab49f",
+      "lf_sha256": "6d3e97c6a32a96b8f477d98607130f4b728a9ba419c82a932e957acb3d2630cd"
+    },
+    "res://art/weapons/railgun.png": {
+      "bytes_sha256": "dff436a09294672ecdfeff08fac03aac7474a9fb1920c656eacae58bf33e08f5",
+      "lf_sha256": "32ea017f28a5868ee102bfc6ed7e1d3495fd09087356c09834562560c735031d"
+    },
+    "res://art/weapons/railgun_glow.png": {
+      "bytes_sha256": "e19d805cdf0bf776cef1f77af7673d941719f022d242e06e9e3e3eaeed09507a",
+      "lf_sha256": "3f0dea0f827b513447d92a47af3f72848eea3367ba256a43fc192c94b0a7113c"
+    },
+    "res://art/weapons/railgun_n.png": {
+      "bytes_sha256": "de2d81a9e03ced60d9c6e8ea69ce61b951e05a909b53ad68d75ccf6e30996cc5",
+      "lf_sha256": "8bc83da0839ec0c7e4a6aa8e928cea0c0bf00b35a3f1a11a106561497a7d3efa"
+    },
+    "res://art/weapons/rifle.png": {
+      "bytes_sha256": "484f7756b0cf232fa9f52df1f0aff2851f1f37294172e9453f420afc1288ce5b",
+      "lf_sha256": "b04e22a6461ce4a7a5df4b90f6e000cba1fcb42e74d57ba6d064c95980e2a2df"
+    },
+    "res://art/weapons/rifle_glow.png": {
+      "bytes_sha256": "68c836e45dd6f452e73a302089f5af39f5428e7068977550342174ee8820972e",
+      "lf_sha256": "8c654a841432bfdb08527effc6d4e1a0ee24d536562a32ad03177c415b64d0a9"
+    },
+    "res://art/weapons/rifle_n.png": {
+      "bytes_sha256": "c87dbad7ec4b73f66a2c8c2b687b635e8a790c6341a339d11c1013e1dfae9e79",
+      "lf_sha256": "73e9758619b96f502b898e9471113896ada7b3eaa3793c6d5b6d7c85797c2db8"
+    },
+    "res://art/weapons/shotgun.png": {
+      "bytes_sha256": "eb1bcc3b2f3b0298d135cf3ca667cfe4e504b3c085324dba0e4e91e812f71ce0",
+      "lf_sha256": "b8bbaa6e3ad285edf0ea7346af560b0cafbe0059af68ddfbfbfe4a32eaa9a297"
+    },
+    "res://art/weapons/shotgun_glow.png": {
+      "bytes_sha256": "1fd042e636a848f4a5721b1f33257ae2cdddc1025f63f5f3656ebc56383b83f2",
+      "lf_sha256": "4ad88e529a4587c88d24be6a7df60e3ec788e448816cad9bd7bb17f814a95415"
+    },
+    "res://art/weapons/shotgun_n.png": {
+      "bytes_sha256": "d44fc8440714f30919913a70f27aac010b05fbeadd818dd7856774de75c9d0d9",
+      "lf_sha256": "9db1c7fbe4a197bbc17feb76592c1cd9939bc0d616ab6b978271882c88fcaa8e"
+    },
+    "res://art/weapons/smg.png": {
+      "bytes_sha256": "3c31230ab7980957e6f30a7f9cf346dcdc9e231f07c17026a72259c11127e32b",
+      "lf_sha256": "89a410eaa8773616feff014370325b8643e3c635c77cb5d16916ed7300e9fd80"
+    },
+    "res://art/weapons/smg_glow.png": {
+      "bytes_sha256": "eadfcd9c00152cbc074d3ee2050b4eebec7e781706ea929617a3839a6faee1b9",
+      "lf_sha256": "fdfe04e8c7e5f9b6e0a2480b3e107424415ac35ee34cca65885500c9462ba802"
+    },
+    "res://art/weapons/smg_n.png": {
+      "bytes_sha256": "54b29dfd7a23ef6ce11da214b29860abd6c92de8c8194c93b76d4e38bfc1c1de",
+      "lf_sha256": "194d5ee5f6788bfe719aee570f7a94966d7340c47566ef4c2bd32f248f8e5585"
+    },
+    "res://art/weapons/sniper.png": {
+      "bytes_sha256": "836a701d5dc0ea5991b756b5016f62bf2f2122dd65994e2a4758d1855207fe8c",
+      "lf_sha256": "bfaef8ab6eb21f154d2155e6cdb97169afed27f25e2e97148af3da148ad5023d"
+    },
+    "res://art/weapons/sniper_glow.png": {
+      "bytes_sha256": "89a8c436cddd649ce6ddf03b69b26936ee24f376963f4b3b9c97385c2d2543a3",
+      "lf_sha256": "159db80ded3b9155f056a4e6f608619e2cb57e318e02f822574557e1fb7c51ac"
+    },
+    "res://art/weapons/sniper_n.png": {
+      "bytes_sha256": "d1be14ff122586d0e32470feceffba98ef0c25615646799ca7e4fa2efb8321fb",
+      "lf_sha256": "c759312f0c8f27619d86ba0f120e160d21e12a0dac3305904fc4f51d86593437"
+    },
+    "res://art/weapons/weapons.json": {
+      "bytes_sha256": "4e284708a2df9dd154c1a15cd8526c48f527bb6b248c26e6a61ea55d9b0d3cde",
+      "lf_sha256": "4e284708a2df9dd154c1a15cd8526c48f527bb6b248c26e6a61ea55d9b0d3cde"
+    },
+    "res://autoload/fx.gd": {
+      "bytes_sha256": "f610b95735470417c15ffd6a8ca7df0e0b5f41ea89c527dc0b8ecd5831cf84a3",
+      "lf_sha256": "f610b95735470417c15ffd6a8ca7df0e0b5f41ea89c527dc0b8ecd5831cf84a3"
+    },
+    "res://autoload/game_state.gd": {
+      "bytes_sha256": "1a958d59d7864cc590a74a8afda3c6ec6195fda7c4552180b4789e82149bb14f",
+      "lf_sha256": "1a958d59d7864cc590a74a8afda3c6ec6195fda7c4552180b4789e82149bb14f"
+    },
+    "res://autoload/gameplay_lock.gd": {
+      "bytes_sha256": "ac2c053dc41f8eaf77b2f7d43e27843aefdd07c25bdb0ec1bef61d8f83275477",
+      "lf_sha256": "ac2c053dc41f8eaf77b2f7d43e27843aefdd07c25bdb0ec1bef61d8f83275477"
+    },
+    "res://autoload/input_bindings.gd": {
+      "bytes_sha256": "853bbf17b55fe84cfec4102eb6997aebbcf3c4bcaa83a5c1083750d00a605d70",
+      "lf_sha256": "853bbf17b55fe84cfec4102eb6997aebbcf3c4bcaa83a5c1083750d00a605d70"
+    },
+    "res://autoload/settings.gd": {
+      "bytes_sha256": "796ca45f5eb7e732997f93fd4af74114589c98fb8ad17082f482d1d9bae6256f",
+      "lf_sha256": "796ca45f5eb7e732997f93fd4af74114589c98fb8ad17082f482d1d9bae6256f"
+    },
+    "res://autoload/story.gd": {
+      "bytes_sha256": "2d87e41d333bf2e6c7979818146c5d4a32c94536d04f6e4ebded71ef80a01ecc",
+      "lf_sha256": "2d87e41d333bf2e6c7979818146c5d4a32c94536d04f6e4ebded71ef80a01ecc"
+    },
+    "res://core/aim_input.gd": {
+      "bytes_sha256": "09ed0f5a183528de692217bdce1a6af6e5becc7ec6d5977930ae8603f402d7d3",
+      "lf_sha256": "09ed0f5a183528de692217bdce1a6af6e5becc7ec6d5977930ae8603f402d7d3"
+    },
+    "res://core/components/health_component.gd": {
+      "bytes_sha256": "5cd2923185d78f20bf331c4f3f18fd87a55f178e76d1238cf9df361cd512fb82",
+      "lf_sha256": "5cd2923185d78f20bf331c4f3f18fd87a55f178e76d1238cf9df361cd512fb82"
+    },
+    "res://core/damage_info.gd": {
+      "bytes_sha256": "dbae0c29260885a6fb38fcf41d6873e1d6a1e0c725e346f802e4f5028cc415d9",
+      "lf_sha256": "dbae0c29260885a6fb38fcf41d6873e1d6a1e0c725e346f802e4f5028cc415d9"
+    },
+    "res://core/light_quality.gd": {
+      "bytes_sha256": "b1784745eea790f459008290ec258eef4189b216eda709ee902dc237ba46bbb9",
+      "lf_sha256": "b1784745eea790f459008290ec258eef4189b216eda709ee902dc237ba46bbb9"
+    },
+    "res://core/melee_art.gd": {
+      "bytes_sha256": "4ce1e9253d565921c43dd4fc2e72459d09053d18e28be61042bd5cb6c69912c5",
+      "lf_sha256": "4ce1e9253d565921c43dd4fc2e72459d09053d18e28be61042bd5cb6c69912c5"
+    },
+    "res://core/run_snapshot.gd": {
+      "bytes_sha256": "6cb33dcc84bd140cb277d4429d2cb37f553faadbd7731a4739326d51ef78ec98",
+      "lf_sha256": "6cb33dcc84bd140cb277d4429d2cb37f553faadbd7731a4739326d51ef78ec98"
+    },
+    "res://data/consumables/med_injector.tres": {
+      "bytes_sha256": "eb660ae7f5e6ad895c8ac3617b0f6408a6c3ca348636c667aa9aa89ceb0362c3",
+      "lf_sha256": "eb660ae7f5e6ad895c8ac3617b0f6408a6c3ca348636c667aa9aa89ceb0362c3"
+    },
+    "res://data/consumables/shield_cell.tres": {
+      "bytes_sha256": "a401acb78200ff7299b8ed317c070150de67aa5d3df27440632f4ab52c35657e",
+      "lf_sha256": "a401acb78200ff7299b8ed317c070150de67aa5d3df27440632f4ab52c35657e"
+    },
+    "res://data/enemies/ch1_inspector.tres": {
+      "bytes_sha256": "ed33c305c5e4fc015bc48674dc18337b9f4d1861a22a2763c164f45069d2759b",
+      "lf_sha256": "ed33c305c5e4fc015bc48674dc18337b9f4d1861a22a2763c164f45069d2759b"
+    },
+    "res://data/enemies/collector_brute.tres": {
+      "bytes_sha256": "82dfd18215bb20c365ebf7f53050fcd2fe2afa607f60afa74133abf0b91cdcea",
+      "lf_sha256": "82dfd18215bb20c365ebf7f53050fcd2fe2afa607f60afa74133abf0b91cdcea"
+    },
+    "res://data/enemies/collector_gunner.tres": {
+      "bytes_sha256": "c302b7fc30a9208cca5f697dc7d3e122011ec8331a9bfcdcbc7da82e1e569545",
+      "lf_sha256": "c302b7fc30a9208cca5f697dc7d3e122011ec8331a9bfcdcbc7da82e1e569545"
+    },
+    "res://data/enemies/drone.tres": {
+      "bytes_sha256": "34cd18c5a191ad29a8271d61ea1d74309fd471740431b185020c3e8de03d2374",
+      "lf_sha256": "34cd18c5a191ad29a8271d61ea1d74309fd471740431b185020c3e8de03d2374"
+    },
+    "res://data/enemies/sweeper.tres": {
+      "bytes_sha256": "62f183b9ffe83d61a4fb1cd67af8206ce9f6fbc77309e12d8434f6d58231e750",
+      "lf_sha256": "62f183b9ffe83d61a4fb1cd67af8206ce9f6fbc77309e12d8434f6d58231e750"
+    },
+    "res://data/enemies/watchdog.tres": {
+      "bytes_sha256": "8de31a4285c301db26c5e781ef204ada7f8a0738a1fcd88bb01f46f10fbbf2f7",
+      "lf_sha256": "8de31a4285c301db26c5e781ef204ada7f8a0738a1fcd88bb01f46f10fbbf2f7"
+    },
+    "res://data/environment/facades/apartment.tres": {
+      "bytes_sha256": "bf010624e52adcc522b3226208fb29ca8dc6c2818911661d41dde3e3323c6184",
+      "lf_sha256": "bf010624e52adcc522b3226208fb29ca8dc6c2818911661d41dde3e3323c6184"
+    },
+    "res://data/environment/facades/brick_block.tres": {
+      "bytes_sha256": "eb51e109bffb0138fb95ad566ed5f230135a14021b57cbc50e81da8dbfed1cb8",
+      "lf_sha256": "eb51e109bffb0138fb95ad566ed5f230135a14021b57cbc50e81da8dbfed1cb8"
+    },
+    "res://data/environment/facades/facility_wall.tres": {
+      "bytes_sha256": "50e91b981a48206305b75d9349868df82d24ec1809df471100e2c5f156341469",
+      "lf_sha256": "50e91b981a48206305b75d9349868df82d24ec1809df471100e2c5f156341469"
+    },
+    "res://data/environment/facades/shopfront.tres": {
+      "bytes_sha256": "43b5909dd3233770e869d7215a2f3069f7597aedd335bff4a7ea7abc78f41b8b",
+      "lf_sha256": "43b5909dd3233770e869d7215a2f3069f7597aedd335bff4a7ea7abc78f41b8b"
+    },
+    "res://data/environment/facades/shutter_block.tres": {
+      "bytes_sha256": "282dba225fb02a1f2ed9c28395f24fd26a40f7e8b6f57ea01a745b13817c81b6",
+      "lf_sha256": "282dba225fb02a1f2ed9c28395f24fd26a40f7e8b6f57ea01a745b13817c81b6"
+    },
+    "res://data/environment/facades/warehouse.tres": {
+      "bytes_sha256": "b0fc86b4e710fc40f44e88dfd4ec60ca23938113ff5ce13928fe8e9d290c4f42",
+      "lf_sha256": "b0fc86b4e710fc40f44e88dfd4ec60ca23938113ff5ce13928fe8e9d290c4f42"
+    },
+    "res://data/environment/materials/asphalt.tres": {
+      "bytes_sha256": "ea0a839616389864f58f5dfe0b443d365859d9286231ade65a3d2317143ba4e6",
+      "lf_sha256": "ea0a839616389864f58f5dfe0b443d365859d9286231ade65a3d2317143ba4e6"
+    },
+    "res://data/environment/materials/concrete.tres": {
+      "bytes_sha256": "71786249eab3fb61368391652a2a8b587334aba49226063c626b6bc7e6adcc43",
+      "lf_sha256": "71786249eab3fb61368391652a2a8b587334aba49226063c626b6bc7e6adcc43"
+    },
+    "res://data/environment/materials/facility_floor.tres": {
+      "bytes_sha256": "e4ec3bfb7115baa61dc221d06eb2741bdb72ea953331f0ed5d544277ae20c961",
+      "lf_sha256": "e4ec3bfb7115baa61dc221d06eb2741bdb72ea953331f0ed5d544277ae20c961"
+    },
+    "res://data/environment/materials/rooftop.tres": {
+      "bytes_sha256": "b6bbc7c81ee3e65d98d805ecfde4c8d6b86e4753119a4a1d23cdbd2c48d9d5f7",
+      "lf_sha256": "b6bbc7c81ee3e65d98d805ecfde4c8d6b86e4753119a4a1d23cdbd2c48d9d5f7"
+    },
+    "res://data/environment/themes/ch1_booth_alley.tres": {
+      "bytes_sha256": "46ded9bcf18b8a1e06442f7763d13aaea251ab1649eebb28f5242376a9ffd59c",
+      "lf_sha256": "46ded9bcf18b8a1e06442f7763d13aaea251ab1649eebb28f5242376a9ffd59c"
+    },
+    "res://data/environment/themes/ch1_lounge.tres": {
+      "bytes_sha256": "d4ca40e2265eb10d9e15f44e97a72855c72e5e0f80c83ea663d4fab244a2a0e4",
+      "lf_sha256": "d4ca40e2265eb10d9e15f44e97a72855c72e5e0f80c83ea663d4fab244a2a0e4"
+    },
+    "res://data/environment/themes/ch1_pawnshop.tres": {
+      "bytes_sha256": "73ce0d4b5e0908199a784c23cc697d2084ff2eda3c2e5a5442abbb91b1f28999",
+      "lf_sha256": "73ce0d4b5e0908199a784c23cc697d2084ff2eda3c2e5a5442abbb91b1f28999"
+    },
+    "res://data/environment/themes/ch1_rooftop.tres": {
+      "bytes_sha256": "dacb5f5f2a5824f68920a6bfcbe2f2b3949c7855aaaa6f046df59bb7202183f2",
+      "lf_sha256": "dacb5f5f2a5824f68920a6bfcbe2f2b3949c7855aaaa6f046df59bb7202183f2"
+    },
+    "res://data/environment/themes/ch1_stall.tres": {
+      "bytes_sha256": "cf4f002de137ea745466753e9dcf37954535c06c49fdd161c49e183000a16293",
+      "lf_sha256": "cf4f002de137ea745466753e9dcf37954535c06c49fdd161c49e183000a16293"
+    },
+    "res://data/environment/themes/ch1_street.tres": {
+      "bytes_sha256": "16c039496ca3821390520a207669b679ecc62d565ea8280db161604c569c5205",
+      "lf_sha256": "16c039496ca3821390520a207669b679ecc62d565ea8280db161604c569c5205"
+    },
+    "res://data/environment/themes/ch1_vault.tres": {
+      "bytes_sha256": "3b52cca011f0d18b59615ece3ba810475e1a078184de9b60c4eac843946cd040",
+      "lf_sha256": "3b52cca011f0d18b59615ece3ba810475e1a078184de9b60c4eac843946cd040"
+    },
+    "res://data/environment/themes/ch1_warehouse.tres": {
+      "bytes_sha256": "227563e5ca015d593b26e8de5d342f3febb702e43bbc312ebce2a992395d9c8c",
+      "lf_sha256": "227563e5ca015d593b26e8de5d342f3febb702e43bbc312ebce2a992395d9c8c"
+    },
+    "res://data/levels/ch1_booth_alley.tres": {
+      "bytes_sha256": "aa5b73cf53403beafd3bc34224987164e7c55c0eb1ea7d6c0c9c6c76a80c4df9",
+      "lf_sha256": "aa5b73cf53403beafd3bc34224987164e7c55c0eb1ea7d6c0c9c6c76a80c4df9"
+    },
+    "res://data/levels/ch1_booth_alley_map.json": {
+      "bytes_sha256": "1ea857320b434e843294a7b78eade548e766671ef87baab79144e52929bf0653",
+      "lf_sha256": "1ea857320b434e843294a7b78eade548e766671ef87baab79144e52929bf0653"
+    },
+    "res://data/levels/ch1_lounge.tres": {
+      "bytes_sha256": "1c2673251b8003a0d0586fb91416d4a64f269d0e1819138f330bb0daaebfc0a2",
+      "lf_sha256": "1c2673251b8003a0d0586fb91416d4a64f269d0e1819138f330bb0daaebfc0a2"
+    },
+    "res://data/levels/ch1_lounge_map.json": {
+      "bytes_sha256": "240e683efb8b3fdd5f01121c8f703b2edc3c93e92adcbbde13009dcd4f0c516a",
+      "lf_sha256": "240e683efb8b3fdd5f01121c8f703b2edc3c93e92adcbbde13009dcd4f0c516a"
+    },
+    "res://data/levels/ch1_pawnshop.tres": {
+      "bytes_sha256": "16e807ae44bcca29a9e20bddbe0a3c115714de3c6295b40f339c0f7b7bac07cc",
+      "lf_sha256": "16e807ae44bcca29a9e20bddbe0a3c115714de3c6295b40f339c0f7b7bac07cc"
+    },
+    "res://data/levels/ch1_pawnshop_dawn.tres": {
+      "bytes_sha256": "343ced95551684868b609d25002f05e0f610ac779b9d449abc2b1b1ed7e50bf5",
+      "lf_sha256": "343ced95551684868b609d25002f05e0f610ac779b9d449abc2b1b1ed7e50bf5"
+    },
+    "res://data/levels/ch1_pawnshop_map.json": {
+      "bytes_sha256": "616c065a87b59780da426317ce3052336c334b7f66f9bba438d9b43209e01f4c",
+      "lf_sha256": "616c065a87b59780da426317ce3052336c334b7f66f9bba438d9b43209e01f4c"
+    },
+    "res://data/levels/ch1_rooftop.tres": {
+      "bytes_sha256": "4c3259c135404d85a60b066b26fd8f5a7be362ae46f7f846527952640e869294",
+      "lf_sha256": "4c3259c135404d85a60b066b26fd8f5a7be362ae46f7f846527952640e869294"
+    },
+    "res://data/levels/ch1_rooftop_map.json": {
+      "bytes_sha256": "0e5e165b74ad2f32be724939c2469cb070fc459806ba73a55d0d6db3708db67c",
+      "lf_sha256": "0e5e165b74ad2f32be724939c2469cb070fc459806ba73a55d0d6db3708db67c"
+    },
+    "res://data/levels/ch1_stall.tres": {
+      "bytes_sha256": "693c6f892f64dbe35845bd7e2b8a73aaea4c94d4be0cd14e82b4531e69ad91d8",
+      "lf_sha256": "693c6f892f64dbe35845bd7e2b8a73aaea4c94d4be0cd14e82b4531e69ad91d8"
+    },
+    "res://data/levels/ch1_stall_map.json": {
+      "bytes_sha256": "f621429142c398745733059700970e1a7679ed99ee4927bbf6256cbe8f15cc70",
+      "lf_sha256": "f621429142c398745733059700970e1a7679ed99ee4927bbf6256cbe8f15cc70"
+    },
+    "res://data/levels/ch1_street.tres": {
+      "bytes_sha256": "437a57abe0eabc769b4606302ddb768e4e6fb3740d9386af5536a1e07a2fc0d3",
+      "lf_sha256": "437a57abe0eabc769b4606302ddb768e4e6fb3740d9386af5536a1e07a2fc0d3"
+    },
+    "res://data/levels/ch1_street_map.json": {
+      "bytes_sha256": "385b777c3dea7e2cbdabf293a6642be3abb461ac469c8f0531ff288df2b0981a",
+      "lf_sha256": "385b777c3dea7e2cbdabf293a6642be3abb461ac469c8f0531ff288df2b0981a"
+    },
+    "res://data/levels/ch1_vault.tres": {
+      "bytes_sha256": "461655734e29ac6fd02e4382f67d4dfb0faf6012d174187503caf6efe8c2ba86",
+      "lf_sha256": "461655734e29ac6fd02e4382f67d4dfb0faf6012d174187503caf6efe8c2ba86"
+    },
+    "res://data/levels/ch1_vault_map.json": {
+      "bytes_sha256": "1695d36f48ed9cc6a7863ad3c6473e1a8b61a278c42d1a6e8e4e7a1ee7742e23",
+      "lf_sha256": "1695d36f48ed9cc6a7863ad3c6473e1a8b61a278c42d1a6e8e4e7a1ee7742e23"
+    },
+    "res://data/levels/ch1_warehouse.tres": {
+      "bytes_sha256": "d5127f3ffff2a223e9e3c97031e423c9c9751dd459fca184f1e83492d0a42c01",
+      "lf_sha256": "d5127f3ffff2a223e9e3c97031e423c9c9751dd459fca184f1e83492d0a42c01"
+    },
+    "res://data/levels/ch1_warehouse_map.json": {
+      "bytes_sha256": "64101482b40251ab9f7bb7b389887f28bc22795b32f7d7a5128fad4035460cf3",
+      "lf_sha256": "64101482b40251ab9f7bb7b389887f28bc22795b32f7d7a5128fad4035460cf3"
+    },
+    "res://data/lighting/freight.tres": {
+      "bytes_sha256": "7bc68887231f86b358163fb26faacb0c767eb7e7b9680228c9a7864ff0276f9f",
+      "lf_sha256": "7bc68887231f86b358163fb26faacb0c767eb7e7b9680228c9a7864ff0276f9f"
+    },
+    "res://data/lighting/market.tres": {
+      "bytes_sha256": "4fa17c62c92ef7f1f217394957c52422029f9290c8609d24e9a1bea82b890d06",
+      "lf_sha256": "4fa17c62c92ef7f1f217394957c52422029f9290c8609d24e9a1bea82b890d06"
+    },
+    "res://data/lighting/mezzanine_gray.tres": {
+      "bytes_sha256": "749e938453f580f56825ebe5aaa52609681ed2a35167092d4f424a8ad0385bb7",
+      "lf_sha256": "749e938453f580f56825ebe5aaa52609681ed2a35167092d4f424a8ad0385bb7"
+    },
+    "res://data/lighting/neutral.tres": {
+      "bytes_sha256": "33f950056bf23c4b4be5a3310b9237d1c8ef9083c5584fec5d9594cc416c1e6f",
+      "lf_sha256": "33f950056bf23c4b4be5a3310b9237d1c8ef9083c5584fec5d9594cc416c1e6f"
+    },
+    "res://data/lighting/pawnshop_warm.tres": {
+      "bytes_sha256": "46a8b13ad2a0349cd265ee6644cdc3c389f453478ecb19a428324befba017a53",
+      "lf_sha256": "46a8b13ad2a0349cd265ee6644cdc3c389f453478ecb19a428324befba017a53"
+    },
+    "res://data/lighting/rooftop.tres": {
+      "bytes_sha256": "6968558cf4b89003d527f6b685730e1d2724ad8b412e9dd99a9e5e23737240be",
+      "lf_sha256": "6968558cf4b89003d527f6b685730e1d2724ad8b412e9dd99a9e5e23737240be"
+    },
+    "res://data/npcs/ch1_ali_lounge.tres": {
+      "bytes_sha256": "5c27760348254ac96967026aaa2554cc52e6ad1a7e0f02f6c198112b5f118db5",
+      "lf_sha256": "5c27760348254ac96967026aaa2554cc52e6ad1a7e0f02f6c198112b5f118db5"
+    },
+    "res://data/npcs/ch1_ali_stall.tres": {
+      "bytes_sha256": "7f4402ac8135ff0a8b57bfa1e5938c0c786b2cf9430b856f1aff9f5895a7ac01",
+      "lf_sha256": "7f4402ac8135ff0a8b57bfa1e5938c0c786b2cf9430b856f1aff9f5895a7ac01"
+    },
+    "res://data/npcs/ch1_egret.tres": {
+      "bytes_sha256": "c436ae174bbb9f99744eaff20b4b3f081c2a71594080cc26942924b9e54395e9",
+      "lf_sha256": "c436ae174bbb9f99744eaff20b4b3f081c2a71594080cc26942924b9e54395e9"
+    },
+    "res://data/npcs/ch1_old_k.tres": {
+      "bytes_sha256": "9942acc0e2d964183cb933b3a44eff53b78d6dd9b753e1a810ffa1ad27484e7f",
+      "lf_sha256": "9942acc0e2d964183cb933b3a44eff53b78d6dd9b753e1a810ffa1ad27484e7f"
+    },
+    "res://data/player/player_tuning.tres": {
+      "bytes_sha256": "495611fa31574ee4059ae1661294ebe05626c0fb07a9f2ab74f675da474d6d98",
+      "lf_sha256": "495611fa31574ee4059ae1661294ebe05626c0fb07a9f2ab74f675da474d6d98"
+    },
+    "res://data/projectiles/boss_burst.tres": {
+      "bytes_sha256": "183a95248c181a3370dfdc6e4ab4f23dbfe677a1caacf126d47888844dae2b29",
+      "lf_sha256": "183a95248c181a3370dfdc6e4ab4f23dbfe677a1caacf126d47888844dae2b29"
+    },
+    "res://data/projectiles/boss_fan.tres": {
+      "bytes_sha256": "92c8bb4aa3c531bf9fc07a283dcf52815ae490cd28c4c373b36b5b526cf6c86f",
+      "lf_sha256": "92c8bb4aa3c531bf9fc07a283dcf52815ae490cd28c4c373b36b5b526cf6c86f"
+    },
+    "res://data/projectiles/boss_shockwave.tres": {
+      "bytes_sha256": "20ebbb9ac7aa36646b42d9a86cfb6ac65c5696d77a2e1e420fd0b19344a7a216",
+      "lf_sha256": "20ebbb9ac7aa36646b42d9a86cfb6ac65c5696d77a2e1e420fd0b19344a7a216"
+    },
+    "res://data/projectiles/collector_shot.tres": {
+      "bytes_sha256": "b1fee16984a1301f52764c84e8ec0d88222bfd73dc061909c992f0681c53820c",
+      "lf_sha256": "b1fee16984a1301f52764c84e8ec0d88222bfd73dc061909c992f0681c53820c"
+    },
+    "res://data/projectiles/pistol_shot.tres": {
+      "bytes_sha256": "424eb245b7ffdf2216c96c484b93897b018cf3292cc672c6b06bac837a1021c7",
+      "lf_sha256": "424eb245b7ffdf2216c96c484b93897b018cf3292cc672c6b06bac837a1021c7"
+    },
+    "res://data/projectiles/sweeper_shot.tres": {
+      "bytes_sha256": "58b5adf9110a975d19b58fe041b6c0305c0ac217417e51b730bab02c86d509cb",
+      "lf_sha256": "58b5adf9110a975d19b58fe041b6c0305c0ac217417e51b730bab02c86d509cb"
+    },
+    "res://data/props/ch1_arena_street_blockade.tres": {
+      "bytes_sha256": "e3685fbeb5ac8d19f33d2b3eb658c8d3257128eb13a9d423b073256ffdeefcf3",
+      "lf_sha256": "e3685fbeb5ac8d19f33d2b3eb658c8d3257128eb13a9d423b073256ffdeefcf3"
+    },
+    "res://data/props/ch1_arena_street_plaza.tres": {
+      "bytes_sha256": "33ddd169a58b63fc22a97b32915b9bdd221f4e063195635970916e928b4f95ea",
+      "lf_sha256": "33ddd169a58b63fc22a97b32915b9bdd221f4e063195635970916e928b4f95ea"
+    },
+    "res://data/props/ch1_arena_warehouse_vault.tres": {
+      "bytes_sha256": "b4183bbcd23f1aaf477c7edec21f656c6c52250d3c0942692c9a9dc4ef43201b",
+      "lf_sha256": "b4183bbcd23f1aaf477c7edec21f656c6c52250d3c0942692c9a9dc4ef43201b"
+    },
+    "res://data/props/ch1_arena_warehouse_walkway.tres": {
+      "bytes_sha256": "76c45e754ad54077276b8798501a0999c98157f81d87b76b962c71eee34907ab",
+      "lf_sha256": "76c45e754ad54077276b8798501a0999c98157f81d87b76b962c71eee34907ab"
+    },
+    "res://data/props/ch1_crate.tres": {
+      "bytes_sha256": "a3a531b6ff155b875c462c669642ff20484d057f430450d6d02027d9788ee1bb",
+      "lf_sha256": "a3a531b6ff155b875c462c669642ff20484d057f430450d6d02027d9788ee1bb"
+    },
+    "res://data/props/ch1_enc_street_blockade.tres": {
+      "bytes_sha256": "123ebe8ff43553d9874fc1b5e1d423946e4152dd714f16b6bca94ebb231dc71e",
+      "lf_sha256": "123ebe8ff43553d9874fc1b5e1d423946e4152dd714f16b6bca94ebb231dc71e"
+    },
+    "res://data/props/ch1_enc_street_plaza.tres": {
+      "bytes_sha256": "cba1d7d24160a506f2ffe640cc6d0476a48119578a63a12b9e653bdff754556f",
+      "lf_sha256": "cba1d7d24160a506f2ffe640cc6d0476a48119578a63a12b9e653bdff754556f"
+    },
+    "res://data/props/ch1_enc_warehouse_vault.tres": {
+      "bytes_sha256": "d7c33ead421418c1cb838640cfc4b65c8525441e7f3c99b1452d207eb9535b2b",
+      "lf_sha256": "d7c33ead421418c1cb838640cfc4b65c8525441e7f3c99b1452d207eb9535b2b"
+    },
+    "res://data/props/ch1_enc_warehouse_walkway.tres": {
+      "bytes_sha256": "220b81a7b448f2d118236ecdd092a13756a2eb5ae66ba55f12784d2c606c9489",
+      "lf_sha256": "220b81a7b448f2d118236ecdd092a13756a2eb5ae66ba55f12784d2c606c9489"
+    },
+    "res://data/props/ch1_flood_pit.tres": {
+      "bytes_sha256": "c8769c4cc6590a60de17ec7b67740a2f2f9a95ba57bc6e2cc28264d3bf77a613",
+      "lf_sha256": "c8769c4cc6590a60de17ec7b67740a2f2f9a95ba57bc6e2cc28264d3bf77a613"
+    },
+    "res://data/props/ch1_gate_a.tres": {
+      "bytes_sha256": "9b5fc50dc7d2d8a8ffb9e840534321f742b14bf08657636e26fb322e029e6df0",
+      "lf_sha256": "9b5fc50dc7d2d8a8ffb9e840534321f742b14bf08657636e26fb322e029e6df0"
+    },
+    "res://data/props/ch1_gate_b.tres": {
+      "bytes_sha256": "9622afde51e855081cf7db3b599f55389ceb8c4317cd057a8082fe33d22f474d",
+      "lf_sha256": "9622afde51e855081cf7db3b599f55389ceb8c4317cd057a8082fe33d22f474d"
+    },
+    "res://data/props/ch1_gate_c.tres": {
+      "bytes_sha256": "da814fc186737ad86d2fc2f9ad1edb986447ed16c9806769a04553a9737af8f4",
+      "lf_sha256": "da814fc186737ad86d2fc2f9ad1edb986447ed16c9806769a04553a9737af8f4"
+    },
+    "res://data/props/ch1_gate_watchdog.tres": {
+      "bytes_sha256": "43145f43ef2548765b13b2f9d2d1df085568e5a1846a9542bb52f74358e8189a",
+      "lf_sha256": "43145f43ef2548765b13b2f9d2d1df085568e5a1846a9542bb52f74358e8189a"
+    },
+    "res://data/props/ch1_secret_wall.tres": {
+      "bytes_sha256": "81ec1e38419a28e5fce73bed97584cef540e9a0f8349899e52a175403a56ecfd",
+      "lf_sha256": "81ec1e38419a28e5fce73bed97584cef540e9a0f8349899e52a175403a56ecfd"
+    },
+    "res://data/props/ch1_switch_a.tres": {
+      "bytes_sha256": "f6fcb7f2839d932658a1b9938244d716b9b5afc2dd1f340a472b459cec87bf83",
+      "lf_sha256": "f6fcb7f2839d932658a1b9938244d716b9b5afc2dd1f340a472b459cec87bf83"
+    },
+    "res://data/props/ch1_switch_b.tres": {
+      "bytes_sha256": "47c013231650259bf408728c702c814db28e81870249588b4d8bd8beb3da2c09",
+      "lf_sha256": "47c013231650259bf408728c702c814db28e81870249588b4d8bd8beb3da2c09"
+    },
+    "res://data/props/credits_large.tres": {
+      "bytes_sha256": "3219f488733a09b8e1e8d6ebe21e41e72decc2dbef5d0c34162b8b32983beee7",
+      "lf_sha256": "3219f488733a09b8e1e8d6ebe21e41e72decc2dbef5d0c34162b8b32983beee7"
+    },
+    "res://data/props/credits_small.tres": {
+      "bytes_sha256": "4b43badb1a8793817bb0513783b9740c0d1eae51a5737f10f552e459046661c7",
+      "lf_sha256": "4b43badb1a8793817bb0513783b9740c0d1eae51a5737f10f552e459046661c7"
+    },
+    "res://data/scripts/backdrop_layer.gd": {
+      "bytes_sha256": "70670d2a3f53542f3d250969bf49c822f76fcebc3e840ca69c2796437dd76391",
+      "lf_sha256": "70670d2a3f53542f3d250969bf49c822f76fcebc3e840ca69c2796437dd76391"
+    },
+    "res://data/scripts/breakable_data.gd": {
+      "bytes_sha256": "c2da481f9d4c90c45a16deac83f41df3a48ec2ef4b62b28d928c5cfcc59f7bb0",
+      "lf_sha256": "c2da481f9d4c90c45a16deac83f41df3a48ec2ef4b62b28d928c5cfcc59f7bb0"
+    },
+    "res://data/scripts/consumable_data.gd": {
+      "bytes_sha256": "74961de559c70c0c1afc15654716d00ebce522a6e90558224776c1db14dba531",
+      "lf_sha256": "74961de559c70c0c1afc15654716d00ebce522a6e90558224776c1db14dba531"
+    },
+    "res://data/scripts/credit_pile_data.gd": {
+      "bytes_sha256": "fce754f2aa2f16ab92229b88a9a105b240fddb696cf574181a8b75ee57b3e7ed",
+      "lf_sha256": "fce754f2aa2f16ab92229b88a9a105b240fddb696cf574181a8b75ee57b3e7ed"
+    },
+    "res://data/scripts/enemy_data.gd": {
+      "bytes_sha256": "4799b766db6b54ea1bd83ca02e8e4c3adc588dddba7e6228cb2b59c289b2b37b",
+      "lf_sha256": "4799b766db6b54ea1bd83ca02e8e4c3adc588dddba7e6228cb2b59c289b2b37b"
+    },
+    "res://data/scripts/env_zone.gd": {
+      "bytes_sha256": "167d171f1b605003b22190522d82e948c1e54627cbcb0ae70967afd8e7d6d42f",
+      "lf_sha256": "167d171f1b605003b22190522d82e948c1e54627cbcb0ae70967afd8e7d6d42f"
+    },
+    "res://data/scripts/environment_theme.gd": {
+      "bytes_sha256": "8e73687644c11e8db3763a7807cd5cf526ee86b67b17ea41b138727bc82afb3c",
+      "lf_sha256": "8e73687644c11e8db3763a7807cd5cf526ee86b67b17ea41b138727bc82afb3c"
+    },
+    "res://data/scripts/facade_data.gd": {
+      "bytes_sha256": "ac25a041eca7e6ae30b0f5f2e13f9023789e15494c04b1afb9d575d4698be9e9",
+      "lf_sha256": "ac25a041eca7e6ae30b0f5f2e13f9023789e15494c04b1afb9d575d4698be9e9"
+    },
+    "res://data/scripts/lamp_style.gd": {
+      "bytes_sha256": "9379a38dc3b6c66084e7861921bf60f6ec8516b77cf315f3eec26b5e3ca4a270",
+      "lf_sha256": "9379a38dc3b6c66084e7861921bf60f6ec8516b77cf315f3eec26b5e3ca4a270"
+    },
+    "res://data/scripts/level_data.gd": {
+      "bytes_sha256": "b5a2a7d7dbc5d000cbcc95a4453e1db18786702d8fdda7153b7bb2820b0574b4",
+      "lf_sha256": "b5a2a7d7dbc5d000cbcc95a4453e1db18786702d8fdda7153b7bb2820b0574b4"
+    },
+    "res://data/scripts/lighting_profile.gd": {
+      "bytes_sha256": "21d79ef62622f59e41d276fca81b411a1b9ae3cc4be866468fce145864822964",
+      "lf_sha256": "21d79ef62622f59e41d276fca81b411a1b9ae3cc4be866468fce145864822964"
+    },
+    "res://data/scripts/lighting_zone.gd": {
+      "bytes_sha256": "0c617294f2595b0b44f45f3731da7f927ad99178570c9aabb6209f6e2d4bd2a0",
+      "lf_sha256": "0c617294f2595b0b44f45f3731da7f927ad99178570c9aabb6209f6e2d4bd2a0"
+    },
+    "res://data/scripts/mechanism_data.gd": {
+      "bytes_sha256": "f2ced07e16cf96c07bac3f1ae3c8361d8cce3a8a6d865cad5713c872efcde1d4",
+      "lf_sha256": "f2ced07e16cf96c07bac3f1ae3c8361d8cce3a8a6d865cad5713c872efcde1d4"
+    },
+    "res://data/scripts/npc_data.gd": {
+      "bytes_sha256": "b59c92672af53afa4dcb9ff934121448d80499bd526f3dcaf581d0f54b672753",
+      "lf_sha256": "b59c92672af53afa4dcb9ff934121448d80499bd526f3dcaf581d0f54b672753"
+    },
+    "res://data/scripts/npc_talk.gd": {
+      "bytes_sha256": "fb712eac9fdd2dbea3f4cdd8dd95dbd4c89f429124fb9158df9e2cfc57e78d65",
+      "lf_sha256": "fb712eac9fdd2dbea3f4cdd8dd95dbd4c89f429124fb9158df9e2cfc57e78d65"
+    },
+    "res://data/scripts/player_tuning.gd": {
+      "bytes_sha256": "486619a5a4d8e97edc1137b5bb2218018b1a80027ca8bcb77ab9648f884a2ee6",
+      "lf_sha256": "486619a5a4d8e97edc1137b5bb2218018b1a80027ca8bcb77ab9648f884a2ee6"
+    },
+    "res://data/scripts/portal_data.gd": {
+      "bytes_sha256": "7ecd48b339c23dab36b217175bca4eeb6dd846adb6aee684cc7a50a072d08d1c",
+      "lf_sha256": "7ecd48b339c23dab36b217175bca4eeb6dd846adb6aee684cc7a50a072d08d1c"
+    },
+    "res://data/scripts/projectile_spec.gd": {
+      "bytes_sha256": "ac55cbc9b8c615821ee86a3682d386c91c5e4dabba101d3ce2efedc289bbadf6",
+      "lf_sha256": "ac55cbc9b8c615821ee86a3682d386c91c5e4dabba101d3ce2efedc289bbadf6"
+    },
+    "res://data/scripts/shop_data.gd": {
+      "bytes_sha256": "3f048506d2828859bc20cdb6cea8709a554664aebc8fcabb59e491ce1a078ba8",
+      "lf_sha256": "3f048506d2828859bc20cdb6cea8709a554664aebc8fcabb59e491ce1a078ba8"
+    },
+    "res://data/scripts/story_item_data.gd": {
+      "bytes_sha256": "bca834e41af6e9b22564c9dae4977eb2de49111ba2a67152846936ee516952c8",
+      "lf_sha256": "bca834e41af6e9b22564c9dae4977eb2de49111ba2a67152846936ee516952c8"
+    },
+    "res://data/scripts/terrain_material_data.gd": {
+      "bytes_sha256": "b93838f0c08091ce24c2c304bd36690f33aae2c858d39bb7230346c858d2f051",
+      "lf_sha256": "b93838f0c08091ce24c2c304bd36690f33aae2c858d39bb7230346c858d2f051"
+    },
+    "res://data/scripts/weapon_data.gd": {
+      "bytes_sha256": "9a582e79d3021048e4fc8519bb1d8d3b03d0b473fe012770a11c295f9860fbad",
+      "lf_sha256": "9a582e79d3021048e4fc8519bb1d8d3b03d0b473fe012770a11c295f9860fbad"
+    },
+    "res://data/shops/ch1_pawn.tres": {
+      "bytes_sha256": "819b3fcfb34efe23d82e2d3c7a2c9ecb1db4138647c3da895c1ff3247fb4a854",
+      "lf_sha256": "819b3fcfb34efe23d82e2d3c7a2c9ecb1db4138647c3da895c1ff3247fb4a854"
+    },
+    "res://data/story/ch1_kasa.json": {
+      "bytes_sha256": "b7921adf4b0456f8ce7401493b137635696909956dfc8eca9a34aa5adb4f72fc",
+      "lf_sha256": "b7921adf4b0456f8ce7401493b137635696909956dfc8eca9a34aa5adb4f72fc"
+    },
+    "res://data/story_items/ch1_data_disk.tres": {
+      "bytes_sha256": "0e02c9c5be3799267d1ba79fd3ee95e79e9d1bb9a981188da4f4c4b6ee368adc",
+      "lf_sha256": "0e02c9c5be3799267d1ba79fd3ee95e79e9d1bb9a981188da4f4c4b6ee368adc"
+    },
+    "res://data/story_items/doc_collection_notice.tres": {
+      "bytes_sha256": "644e8d014ba2f91e356efe3a38ec83fd86447e3ca3f7e0aa7efaae78258d11e2",
+      "lf_sha256": "644e8d014ba2f91e356efe3a38ec83fd86447e3ca3f7e0aa7efaae78258d11e2"
+    },
+    "res://data/story_items/doc_dike_log.tres": {
+      "bytes_sha256": "2fc8f95249bed80d721dc47edfc8f73ab8c2fa5e82bdef6175c0c3bfeda2d0a0",
+      "lf_sha256": "2fc8f95249bed80d721dc47edfc8f73ab8c2fa5e82bdef6175c0c3bfeda2d0a0"
+    },
+    "res://data/story_items/doc_echo_flyer.tres": {
+      "bytes_sha256": "2409dea7c6bc0f4f270ec0508aa0b10a05388496c3ef2442c80e97722208b6d3",
+      "lf_sha256": "2409dea7c6bc0f4f270ec0508aa0b10a05388496c3ef2442c80e97722208b6d3"
+    },
+    "res://data/story_items/doc_pawn_stub.tres": {
+      "bytes_sha256": "dd4a44bb9b62391c128733c14a3196aa6a673dad46119503df52d75cef11ed78",
+      "lf_sha256": "dd4a44bb9b62391c128733c14a3196aa6a673dad46119503df52d75cef11ed78"
+    },
+    "res://data/story_items/doc_rain_news.tres": {
+      "bytes_sha256": "75fffea379a9bb060468eaf80625b2458ce976f7b10a95b0b00345da18587a28",
+      "lf_sha256": "75fffea379a9bb060468eaf80625b2458ce976f7b10a95b0b00345da18587a28"
+    },
+    "res://data/weapons/laser.tres": {
+      "bytes_sha256": "c056c28a48d07452ad71758210f4c955d46e54d85573515964182be81a4e4c0e",
+      "lf_sha256": "c056c28a48d07452ad71758210f4c955d46e54d85573515964182be81a4e4c0e"
+    },
+    "res://data/weapons/launcher.tres": {
+      "bytes_sha256": "9085c703e4d3cd2f7ebbc5c263b66d8f51e1406eea74d8fed463bbd5857e58b9",
+      "lf_sha256": "9085c703e4d3cd2f7ebbc5c263b66d8f51e1406eea74d8fed463bbd5857e58b9"
+    },
+    "res://data/weapons/mech_cannon.tres": {
+      "bytes_sha256": "0d206c214f89d15f6290f51ba9f13336e47620c208b313f31f08e576ee0415c3",
+      "lf_sha256": "0d206c214f89d15f6290f51ba9f13336e47620c208b313f31f08e576ee0415c3"
+    },
+    "res://data/weapons/melee/melee_blade.tres": {
+      "bytes_sha256": "e1039e5bbaaea87cc0c6f30ba0b90bf7f58ef798ac678088b032c271b5af766c",
+      "lf_sha256": "e1039e5bbaaea87cc0c6f30ba0b90bf7f58ef798ac678088b032c271b5af766c"
+    },
+    "res://data/weapons/melee/melee_dagger.tres": {
+      "bytes_sha256": "3e44d56386f63edda1700d5cfc81cc56fdbfe9bf50e53731b400f559e7c307b3",
+      "lf_sha256": "3e44d56386f63edda1700d5cfc81cc56fdbfe9bf50e53731b400f559e7c307b3"
+    },
+    "res://data/weapons/melee/melee_glaive.tres": {
+      "bytes_sha256": "f1af378fa2a9ea3764361ea3625f7b3b5c044bab2770026eb7feddff1545a979",
+      "lf_sha256": "f1af378fa2a9ea3764361ea3625f7b3b5c044bab2770026eb7feddff1545a979"
+    },
+    "res://data/weapons/melee/melee_maul.tres": {
+      "bytes_sha256": "723ff06555019d474271281e3d5981b0b55ed13ff07411feb538792c7f8977a2",
+      "lf_sha256": "723ff06555019d474271281e3d5981b0b55ed13ff07411feb538792c7f8977a2"
+    },
+    "res://data/weapons/melee/melee_whip.tres": {
+      "bytes_sha256": "ef234634f51045a49272a6a07629c48001a4bf58bf461bf127797f28725231d8",
+      "lf_sha256": "ef234634f51045a49272a6a07629c48001a4bf58bf461bf127797f28725231d8"
+    },
+    "res://data/weapons/pistol.tres": {
+      "bytes_sha256": "69ca264cd4ab2146777f12993e2f7cfcd5b91cc3e5cc9fe6b0473aa8d17dad8a",
+      "lf_sha256": "69ca264cd4ab2146777f12993e2f7cfcd5b91cc3e5cc9fe6b0473aa8d17dad8a"
+    },
+    "res://data/weapons/railgun.tres": {
+      "bytes_sha256": "b63f42e654de12779883d3941e2ebae548d6272456903828eca8d9b4903263ad",
+      "lf_sha256": "b63f42e654de12779883d3941e2ebae548d6272456903828eca8d9b4903263ad"
+    },
+    "res://data/weapons/rifle.tres": {
+      "bytes_sha256": "d8459950fa7875479865f9e8693daa3019ce64b500ddda6e2db3842fd675409b",
+      "lf_sha256": "d8459950fa7875479865f9e8693daa3019ce64b500ddda6e2db3842fd675409b"
+    },
+    "res://data/weapons/smg.tres": {
+      "bytes_sha256": "961c062e725729892eeacaae3b665140e28635c102487001c14ade2f189dfed0",
+      "lf_sha256": "961c062e725729892eeacaae3b665140e28635c102487001c14ade2f189dfed0"
+    },
+    "res://data/weapons/spread.tres": {
+      "bytes_sha256": "509bc32beff0309d1fa868621da25e5b63a5213ca324e687b9e6434c112346a3",
+      "lf_sha256": "509bc32beff0309d1fa868621da25e5b63a5213ca324e687b9e6434c112346a3"
+    },
+    "res://game/cutscene/cutscene_player.gd": {
+      "bytes_sha256": "1ce4e20fd0e68808126af3049391758488193437ac9fac2f307b003957c0edf7",
+      "lf_sha256": "1ce4e20fd0e68808126af3049391758488193437ac9fac2f307b003957c0edf7"
+    },
+    "res://game/enemies/drone.gd": {
+      "bytes_sha256": "0fffa62d3d241e57205120c549f3038d34edb36cc17f563c2b7310e9f3b1d740",
+      "lf_sha256": "0fffa62d3d241e57205120c549f3038d34edb36cc17f563c2b7310e9f3b1d740"
+    },
+    "res://game/enemies/grunt.gd": {
+      "bytes_sha256": "97b33174bcf9aef3106705a96dae6c7a81b81faeff195a844a42d36a8b39a5bd",
+      "lf_sha256": "97b33174bcf9aef3106705a96dae6c7a81b81faeff195a844a42d36a8b39a5bd"
+    },
+    "res://game/enemies/slasher.gd": {
+      "bytes_sha256": "c43252ad3c94c8fdb745b4e092c90ca826f8cc4340ffd4cf4660ec6f1bde13e2",
+      "lf_sha256": "c43252ad3c94c8fdb745b4e092c90ca826f8cc4340ffd4cf4660ec6f1bde13e2"
+    },
+    "res://game/enemies/watchdog.gd": {
+      "bytes_sha256": "098a68b4352926103b9855f54d799518e71dfb960747c8a439b7e25813d50230",
+      "lf_sha256": "098a68b4352926103b9855f54d799518e71dfb960747c8a439b7e25813d50230"
+    },
+    "res://game/level/level.gd": {
+      "bytes_sha256": "f9fdf1769a4f373d25b4639958041eb0323ef08e708e45479d125ab2127f18e7",
+      "lf_sha256": "f9fdf1769a4f373d25b4639958041eb0323ef08e708e45479d125ab2127f18e7"
+    },
+    "res://game/level/level_builder.gd": {
+      "bytes_sha256": "dd222eb7e34fc8896d173bf7dc9db6295842a42fe471a2b6f78fafc7f26e90a4",
+      "lf_sha256": "dd222eb7e34fc8896d173bf7dc9db6295842a42fe471a2b6f78fafc7f26e90a4"
+    },
+    "res://game/level/level_camera.gd": {
+      "bytes_sha256": "9aef480740d6c2ad48783d4f6b68b9a420549f768cc6c2b7a04cb72e08647de9",
+      "lf_sha256": "9aef480740d6c2ad48783d4f6b68b9a420549f768cc6c2b7a04cb72e08647de9"
+    },
+    "res://game/level/level_layout.gd": {
+      "bytes_sha256": "2829310a4d20e1afe310bb03547aafe8aa10a8f90c1948a8958b2fdd42f5aff9",
+      "lf_sha256": "2829310a4d20e1afe310bb03547aafe8aa10a8f90c1948a8958b2fdd42f5aff9"
+    },
+    "res://game/level/lighting_controller.gd": {
+      "bytes_sha256": "163b917358adb3396d0a2960757bd1d7c367771634fba923a82cfbbd323f99ee",
+      "lf_sha256": "163b917358adb3396d0a2960757bd1d7c367771634fba923a82cfbbd323f99ee"
+    },
+    "res://game/player/consumable_bag.gd": {
+      "bytes_sha256": "e4e351456ed93227d23544c2e0b795126e48ba8f348d227f78b4f1725dafb88d",
+      "lf_sha256": "e4e351456ed93227d23544c2e0b795126e48ba8f348d227f78b4f1725dafb88d"
+    },
+    "res://game/player/cyber_system.gd": {
+      "bytes_sha256": "ff782488791a35a4e8c044ed90993931bb6fd2dbe453abb2bbb2b63f94f612a0",
+      "lf_sha256": "ff782488791a35a4e8c044ed90993931bb6fd2dbe453abb2bbb2b63f94f612a0"
+    },
+    "res://game/player/dash_silhouette.gdshader": {
+      "bytes_sha256": "a8ab180afed7c78de58c2d0a34549be1b67401be7fdbf6409269142fb6748581",
+      "lf_sha256": "a8ab180afed7c78de58c2d0a34549be1b67401be7fdbf6409269142fb6748581"
+    },
+    "res://game/player/dash_silhouette_pool.gd": {
+      "bytes_sha256": "7643b4d77e58af7dd117dcc1a867f6641bd2622cf2bd0c417cfd8baa5fbb8ce8",
+      "lf_sha256": "7643b4d77e58af7dd117dcc1a867f6641bd2622cf2bd0c417cfd8baa5fbb8ce8"
+    },
+    "res://game/player/loadout.gd": {
+      "bytes_sha256": "5c2f370e966c22be7cb8a1aef223a974d983556a82897f319888ae311e6dfc1d",
+      "lf_sha256": "5c2f370e966c22be7cb8a1aef223a974d983556a82897f319888ae311e6dfc1d"
+    },
+    "res://game/player/melee_command_input.gd": {
+      "bytes_sha256": "76e6ff52dfd621b58426b58012fba740abc8242c82a8ef2ca5e8b629c3fe8ba2",
+      "lf_sha256": "76e6ff52dfd621b58426b58012fba740abc8242c82a8ef2ca5e8b629c3fe8ba2"
+    },
+    "res://game/player/melee_data.gd": {
+      "bytes_sha256": "52e14a7490c27ef6757d9fc0590d76b408eb3eb5c3bc267c291e3b19a76aba8a",
+      "lf_sha256": "52e14a7490c27ef6757d9fc0590d76b408eb3eb5c3bc267c291e3b19a76aba8a"
+    },
+    "res://game/player/melee_set.gd": {
+      "bytes_sha256": "f2d4f53b36c9bfd1e6d582db663cdbfe4c71d9fa423cb5eb0c1c36ef1f78e734",
+      "lf_sha256": "f2d4f53b36c9bfd1e6d582db663cdbfe4c71d9fa423cb5eb0c1c36ef1f78e734"
+    },
+    "res://game/player/player.gd": {
+      "bytes_sha256": "18515903534edebe4503a054b8667d324f494a75c7a9129d8d3eb1bad6314fa4",
+      "lf_sha256": "18515903534edebe4503a054b8667d324f494a75c7a9129d8d3eb1bad6314fa4"
+    },
+    "res://game/player/player_visual.gd": {
+      "bytes_sha256": "d168a657af4dee2f6d5563ec36a42245d1f695c3b150118ecca6af83ba44a1ae",
+      "lf_sha256": "d168a657af4dee2f6d5563ec36a42245d1f695c3b150118ecca6af83ba44a1ae"
+    },
+    "res://game/rig/anim_audit.gd": {
+      "bytes_sha256": "45ca7dde855d2d8a9be20fb776f9b999b6c59a996dbf5b96cc4930dd2513d92d",
+      "lf_sha256": "45ca7dde855d2d8a9be20fb776f9b999b6c59a996dbf5b96cc4930dd2513d92d"
+    },
+    "res://game/rig/character_rig.gd": {
+      "bytes_sha256": "c345420e4ba825c34ab6a9cb417179c8845546878d72d28f355ccfa69f3ce45e",
+      "lf_sha256": "c345420e4ba825c34ab6a9cb417179c8845546878d72d28f355ccfa69f3ce45e"
+    },
+    "res://game/rig/eye_blink.gd": {
+      "bytes_sha256": "51391cde90709bd0e06a312d04e90d222804081a4fd6caeb567de99e47794505",
+      "lf_sha256": "51391cde90709bd0e06a312d04e90d222804081a4fd6caeb567de99e47794505"
+    },
+    "res://game/rig/gait_shape.gd": {
+      "bytes_sha256": "925627d3439af42bb28ac826d568ae6e1d6c4e73320b552dbf355ee135c81d89",
+      "lf_sha256": "925627d3439af42bb28ac826d568ae6e1d6c4e73320b552dbf355ee135c81d89"
+    },
+    "res://game/rig/humanoid_animator.gd": {
+      "bytes_sha256": "5e8468977264cadd2772f45779b3dd127fa332e2dce14e2f644e094d427e93fc",
+      "lf_sha256": "5e8468977264cadd2772f45779b3dd127fa332e2dce14e2f644e094d427e93fc"
+    },
+    "res://game/rig/inertia_lean.gd": {
+      "bytes_sha256": "03156957eb2b6a3d80e732db7422f10752f86e1c345837fc1009eab987060672",
+      "lf_sha256": "03156957eb2b6a3d80e732db7422f10752f86e1c345837fc1009eab987060672"
+    },
+    "res://game/rig/locomotion_audit.gd": {
+      "bytes_sha256": "86f8cda01ffb7dd1f42f5b04d191527efc15522e18a88bd57c7f414396a9647e",
+      "lf_sha256": "86f8cda01ffb7dd1f42f5b04d191527efc15522e18a88bd57c7f414396a9647e"
+    },
+    "res://game/rig/npc_animator.gd": {
+      "bytes_sha256": "9de3155e6e5c2c51c484f5fa8a3404318e8d00eeed6233c4b6ec7cddbc87d8ae",
+      "lf_sha256": "9de3155e6e5c2c51c484f5fa8a3404318e8d00eeed6233c4b6ec7cddbc87d8ae"
+    },
+    "res://game/rig/npc_life.gd": {
+      "bytes_sha256": "56b62851188bd69e56542b73104ec98ce03d20e02b54524150132564bcb2ebd3",
+      "lf_sha256": "56b62851188bd69e56542b73104ec98ce03d20e02b54524150132564bcb2ebd3"
+    },
+    "res://game/rig/rig_debris.gd": {
+      "bytes_sha256": "5bd01987586390836c2205a5a0472b3ba46bd91ead9a5206619778bfe8cc6742",
+      "lf_sha256": "5bd01987586390836c2205a5a0472b3ba46bd91ead9a5206619778bfe8cc6742"
+    },
+    "res://game/rig/rig_input.gd": {
+      "bytes_sha256": "1807cc5e7318be6a3564d37f41870807010ad80277c17b557b90d373d5d03350",
+      "lf_sha256": "1807cc5e7318be6a3564d37f41870807010ad80277c17b557b90d373d5d03350"
+    },
+    "res://game/rig/rig_library.gd": {
+      "bytes_sha256": "cfc5ce7838172bb16e2f10e55ec578c00c4c171b5f3bfe0fc5c65d0c15331e26",
+      "lf_sha256": "cfc5ce7838172bb16e2f10e55ec578c00c4c171b5f3bfe0fc5c65d0c15331e26"
+    },
+    "res://game/rig/rig_part_mesh.gd": {
+      "bytes_sha256": "dfd10fad29e68084c5cf87b7caa6a0a2633b11c4170295dc139cb4c7dc203021",
+      "lf_sha256": "dfd10fad29e68084c5cf87b7caa6a0a2633b11c4170295dc139cb4c7dc203021"
+    },
+    "res://project.godot": {
+      "bytes_sha256": "3816650dfb5570f2ba965947c84d105cfa15f043fae335e0c1b01e422d39ef31",
+      "lf_sha256": "3816650dfb5570f2ba965947c84d105cfa15f043fae335e0c1b01e422d39ef31"
+    },
+    "res://tests/helpers/dash_silhouette_checks.gd": {
+      "bytes_sha256": "b286f02b19147ad6f92949575f68a830fdd544d28233808cf5958c2d73321da1",
+      "lf_sha256": "b286f02b19147ad6f92949575f68a830fdd544d28233808cf5958c2d73321da1"
+    },
+    "res://tests/smoke_test.gd": {
+      "bytes_sha256": "87245f0f65ea0be72849ae3ee954350497c90b6530a6c40f7a92f13fd0ca4c9f",
+      "lf_sha256": "87245f0f65ea0be72849ae3ee954350497c90b6530a6c40f7a92f13fd0ca4c9f"
+    },
+    "res://tests/suite/test_fx_upgrades.gd": {
+      "bytes_sha256": "0117176d0cc1592bdbeb5f955626aa1e516f2d264bba23ded11e8ae0d832b23d",
+      "lf_sha256": "01c348670b7387840a9b9ea9e8e036c1e2faea1b8a265109c1b257ea47a678d9"
+    },
+    "res://tests/suite/test_pose_mesh.gd": {
+      "bytes_sha256": "068f89493157c205814a43bc19303b915cbc52280b4f7a628781e4bcd9f50e68",
+      "lf_sha256": "068f89493157c205814a43bc19303b915cbc52280b4f7a628781e4bcd9f50e68"
+    },
+    "res://tests/suite/test_suite.gd": {
+      "bytes_sha256": "ac678fa9813ef2902dbb10a26bc455e91319e7ae5b8828640656471f67bd1ba0",
+      "lf_sha256": "ac678fa9813ef2902dbb10a26bc455e91319e7ae5b8828640656471f67bd1ba0"
+    },
+    "res://tools/dash_silhouette_native_probe.gd": {
+      "bytes_sha256": "870ec89318be0fdf04b3507a3924f7f448e2de60452b8325ba5d8b98eb23bc48",
+      "lf_sha256": "870ec89318be0fdf04b3507a3924f7f448e2de60452b8325ba5d8b98eb23bc48"
+    },
+    "res://tools/dash_silhouette_native_probe.tscn": {
+      "bytes_sha256": "e75e6c77080fa8978340c6dcda8c3dbc31e23e83f57d53d5cded4a1165cd6fc6",
+      "lf_sha256": "e75e6c77080fa8978340c6dcda8c3dbc31e23e83f57d53d5cded4a1165cd6fc6"
+    },
+    "res://tools/viewport_capture.gd": {
+      "bytes_sha256": "3a41272cf893fd32f7a4db93d4843f46ebee9dffb8881487f172b123466e05f3",
+      "lf_sha256": "3a41272cf893fd32f7a4db93d4843f46ebee9dffb8881487f172b123466e05f3"
+    },
+    "res://ui/kit/ui_motion.gd": {
+      "bytes_sha256": "01849bffb38532f0cfdb17c016230b3879f859d5db70cba30ddfedef736c2b39",
+      "lf_sha256": "01849bffb38532f0cfdb17c016230b3879f859d5db70cba30ddfedef736c2b39"
+    },
+    "res://ui/kit/ui_overlay.gd": {
+      "bytes_sha256": "49c0a5e9a1b4af0fa1c1e702d76730ce2875ee4ddcecc108ad64a64636702a94",
+      "lf_sha256": "49c0a5e9a1b4af0fa1c1e702d76730ce2875ee4ddcecc108ad64a64636702a94"
+    },
+    "res://ui/pause_menu.gd": {
+      "bytes_sha256": "07bd0cad90feb737be8dd44f971ba62e4f38c98b5ca7289afacb977363e7f543",
+      "lf_sha256": "07bd0cad90feb737be8dd44f971ba62e4f38c98b5ca7289afacb977363e7f543"
+    },
+    "res://ui/pixel_ui.gd": {
+      "bytes_sha256": "bc1e3e7bdcc0d54a27db24a0e1c7e8bbfc780ea3d006ac2659086494bac72105",
+      "lf_sha256": "bc1e3e7bdcc0d54a27db24a0e1c7e8bbfc780ea3d006ac2659086494bac72105"
+    },
+    "res://ui/settings_screen.gd": {
+      "bytes_sha256": "1d51b5fddd48eb7e1af285a014bd0ace0df3e1dbd98d54ef59f46cc526a8037f",
+      "lf_sha256": "1d51b5fddd48eb7e1af285a014bd0ace0df3e1dbd98d54ef59f46cc526a8037f"
+    },
+    "res://ui/ui_kit.gd": {
+      "bytes_sha256": "60e3b6f1f1e0ba3425488279cb08f4637586be3c64902d3f1e2346bcbac37196",
+      "lf_sha256": "60e3b6f1f1e0ba3425488279cb08f4637586be3c64902d3f1e2346bcbac37196"
+    },
+    "res://ui/ui_layers.gd": {
+      "bytes_sha256": "533d54ba41778e52d6e005bac2f4c2573bc9a9c21b0552cc4c2fb0bff6dbcaa0",
+      "lf_sha256": "533d54ba41778e52d6e005bac2f4c2573bc9a9c21b0552cc4c2fb0bff6dbcaa0"
+    }
+  }
+}

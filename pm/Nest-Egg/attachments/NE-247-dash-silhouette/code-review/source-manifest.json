@@ -1,0 +1,143 @@
+{
+  "scope": "Independent CPU review of exact nine NE247 product/test sources; no engine/Git/PM/repo mutation",
+  "native8_manifest_sha256": "6a403290a482b8830ba40bf82b59303ed088c11cbce663bf699f91c656b8dcad",
+  "native8_baseline_head": "81d30718b551c06eeae2b6a1c399eee54ffdd611",
+  "sources": [
+    {
+      "path": "game/player/dash_silhouette.gdshader",
+      "bytes_sha256": "a8ab180afed7c78de58c2d0a34549be1b67401be7fdbf6409269142fb6748581",
+      "lf_sha256": "a8ab180afed7c78de58c2d0a34549be1b67401be7fdbf6409269142fb6748581",
+      "bytes": 276,
+      "lines": 8,
+      "native8_match": true,
+      "gdparse": "shader read-only; no engine compile"
+    },
+    {
+      "path": "game/player/dash_silhouette_pool.gd",
+      "bytes_sha256": "7643b4d77e58af7dd117dcc1a867f6641bd2622cf2bd0c417cfd8baa5fbb8ce8",
+      "lf_sha256": "7643b4d77e58af7dd117dcc1a867f6641bd2622cf2bd0c417cfd8baa5fbb8ce8",
+      "bytes": 14725,
+      "lines": 384,
+      "native8_match": true,
+      "gdparse": "PASS syntax only"
+    },
+    {
+      "path": "game/player/player_visual.gd",
+      "bytes_sha256": "d168a657af4dee2f6d5563ec36a42245d1f695c3b150118ecca6af83ba44a1ae",
+      "lf_sha256": "d168a657af4dee2f6d5563ec36a42245d1f695c3b150118ecca6af83ba44a1ae",
+      "bytes": 16338,
+      "lines": 403,
+      "native8_match": true,
+      "gdparse": "PASS syntax only"
+    },
+    {
+      "path": "tests/helpers/dash_silhouette_checks.gd",
+      "bytes_sha256": "b286f02b19147ad6f92949575f68a830fdd544d28233808cf5958c2d73321da1",
+      "lf_sha256": "b286f02b19147ad6f92949575f68a830fdd544d28233808cf5958c2d73321da1",
+      "bytes": 17592,
+      "lines": 321,
+      "native8_match": true,
+      "gdparse": "PASS syntax only"
+    },
+    {
+      "path": "tests/suite/test_fx_upgrades.gd",
+      "bytes_sha256": "0117176d0cc1592bdbeb5f955626aa1e516f2d264bba23ded11e8ae0d832b23d",
+      "lf_sha256": "01c348670b7387840a9b9ea9e8e036c1e2faea1b8a265109c1b257ea47a678d9",
+      "bytes": 24584,
+      "lines": 483,
+      "native8_match": true,
+      "gdparse": "PASS syntax only"
+    },
+    {
+      "path": "autoload/settings.gd",
+      "bytes_sha256": "796ca45f5eb7e732997f93fd4af74114589c98fb8ad17082f482d1d9bae6256f",
+      "lf_sha256": "796ca45f5eb7e732997f93fd4af74114589c98fb8ad17082f482d1d9bae6256f",
+      "bytes": 13140,
+      "lines": 375,
+      "native8_match": true,
+      "gdparse": "PASS syntax only"
+    },
+    {
+      "path": "ui/settings_screen.gd",
+      "bytes_sha256": "1d51b5fddd48eb7e1af285a014bd0ace0df3e1dbd98d54ef59f46cc526a8037f",
+      "lf_sha256": "1d51b5fddd48eb7e1af285a014bd0ace0df3e1dbd98d54ef59f46cc526a8037f",
+      "bytes": 27743,
+      "lines": 684,
+      "native8_match": true,
+      "gdparse": "PASS syntax only"
+    },
+    {
+      "path": "tests/smoke_test.gd",
+      "bytes_sha256": "87245f0f65ea0be72849ae3ee954350497c90b6530a6c40f7a92f13fd0ca4c9f",
+      "lf_sha256": "87245f0f65ea0be72849ae3ee954350497c90b6530a6c40f7a92f13fd0ca4c9f",
+      "bytes": 98940,
+      "lines": 1869,
+      "native8_match": true,
+      "gdparse": "PASS syntax only"
+    },
+    {
+      "path": "game/player/player.gd",
+      "bytes_sha256": "18515903534edebe4503a054b8667d324f494a75c7a9129d8d3eb1bad6314fa4",
+      "lf_sha256": "18515903534edebe4503a054b8667d324f494a75c7a9129d8d3eb1bad6314fa4",
+      "bytes": 54883,
+      "lines": 1418,
+      "native8_match": true,
+      "gdparse": "gdtoolkit grammar limitation: existing local identifier set at755 treated as keyword; not an engine rejection"
+    }
+  ],
+  "read_only_dependencies": {
+    "game/rig/character_rig.gd": {
+      "bytes_sha256": "c345420e4ba825c34ab6a9cb417179c8845546878d72d28f355ccfa69f3ce45e",
+      "native8_manifest_present": true,
+      "native8_match": true
+    },
+    "game/rig/rig_part_mesh.gd": {
+      "bytes_sha256": "dfd10fad29e68084c5cf87b7caa6a0a2633b11c4170295dc139cb4c7dc203021",
+      "native8_manifest_present": true,
+      "native8_match": true
+    },
+    "game/level/world_layers.gd": {
+      "bytes_sha256": "31abd99829afd45a2a81651ac7ddf0360806699eb91dc2759122b5204ad6fb72",
+      "native8_manifest_present": false,
+      "native8_match": false
+    },
+    "core/lit_textures.gd": {
+      "bytes_sha256": "f182155263f59d82ebb649d2b1c98739260a8e5e8b379966bb08ef07897a8082",
+      "native8_manifest_present": false,
+      "native8_match": false
+    },
+    "core/light_quality.gd": {
+      "bytes_sha256": "b1784745eea790f459008290ec258eef4189b216eda709ee902dc237ba46bbb9",
+      "native8_manifest_present": true,
+      "native8_match": true
+    },
+    "game/vehicles/vehicle.gd": {
+      "bytes_sha256": "4b62ceca4deb734fd7d5a23721eb7ff49b7b9e5e9873454c5cbadbc0b443854e",
+      "native8_manifest_present": false,
+      "native8_match": false
+    },
+    "art/shaders/character_light.gdshader": {
+      "bytes_sha256": "2fc5c7fd795065424271d4f8b4b1aadfc025f2ef7be8e3c7e30a963d23e284ec",
+      "native8_manifest_present": false,
+      "native8_match": false
+    },
+    "ui/pause_menu.gd": {
+      "bytes_sha256": "07bd0cad90feb737be8dd44f971ba62e4f38c98b5ca7289afacb977363e7f543",
+      "native8_manifest_present": false,
+      "native8_match": false
+    },
+    "ui/kit/ui_overlay.gd": {
+      "bytes_sha256": "49c0a5e9a1b4af0fa1c1e702d76730ce2875ee4ddcecc108ad64a64636702a94",
+      "native8_manifest_present": false,
+      "native8_match": false
+    },
+    "ui/kit/ui_motion.gd": {
+      "bytes_sha256": "01849bffb38532f0cfdb17c016230b3879f859d5db70cba30ddfedef736c2b39",
+      "native8_manifest_present": false,
+      "native8_match": false
+    }
+  },
+  "engine_executed": false,
+  "native_visual_accepted": false,
+  "tests_executed_here": false
+}
