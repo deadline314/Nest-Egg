@@ -60,6 +60,12 @@ enum Kind {
 @export var blackout_profile: LightingProfile
 
 
+
+## 舊的一般遭遇門：沒有封路用途，遊戲中不建立、地圖不標示、鎖門稽核也不要求說明。
+func is_retired_arena_gate() -> bool:
+	return kind == Kind.GATE and arena_gate and not lock_combat_area
+
+
 func validate() -> PackedStringArray:
 	var problems := PackedStringArray()
 	if id == &"":

@@ -29,7 +29,7 @@ func _ready() -> void:
 		push_error("[Gate] 未指定 MechanismData，已移除。")
 		queue_free()
 		return
-	if data.arena_gate and not data.lock_combat_area:
+	if data.is_retired_arena_gate():
 		# 舊的一般遭遇門沒有封路用途：不建立碰撞、遮光或門板，也不加入持久世界。
 		is_open = true
 		collision_layer = 0
@@ -84,6 +84,9 @@ func _set_open(open: bool, silent: bool) -> void:
 		return
 	is_open = open
 	_shape_node.set_deferred(&"disabled", open)
+	# 說明講的是「為什麼關著」，打開後就收起。
+	if _prompt != null:
+		_prompt.enabled = not open
 	if silent:
 		_openness = 1.0 if open else 0.0
 		queue_redraw()
@@ -101,7 +104,7 @@ func capture_state() -> Variant:
 
 
 func restore_state(state: Variant) -> void:
-	if data != null and data.arena_gate and not data.lock_combat_area:
+	if data != null and data.is_retired_arena_gate():
 		is_open = true
 		return
 	_set_open(state == true, true)

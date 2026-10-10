@@ -42,6 +42,8 @@ func add_area(data: LevelData) -> void:
 		markers.append(_marker("pickup", "在這裡拾取回復道具。", position, data.tile_size))
 	for spawn in layout.spawns:
 		var resource: Resource = spawn["resource"]
+		if resource is MechanismData and resource.is_retired_arena_gate():
+			continue
 		var marker := _marker("", "", spawn["position"], data.tile_size)
 		marker["resource"] = resource
 		marker["cell"] = spawn["cell"]

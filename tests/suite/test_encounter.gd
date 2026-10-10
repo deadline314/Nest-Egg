@@ -263,3 +263,34 @@ func _test_arena_gate_is_not_persisted() -> void:
 	EventBus.mechanism_toggled.emit(&"test_arena", false)
 	check(gate.is_open, "and opens when it ends")
 	await end_level(level)
+	await _test_gate_reason_only_while_closed()
+
+
+## NE-223：閘門的原因說明只在關著時顯示；第一章每道鎖場閘門都有完整原因。
+func _test_gate_reason_only_while_closed() -> void:
+	await open_level(4.0)
+	var data := _arena_gate(&"test_reason")
+	data.hint = "這一帶的敵人全部倒下後，閘門就會打開。"
+	var gate := Gate.new()
+	gate.configure(data, Vector2i(10, 20), 16)
+	gate.position = Vector2(160.0, FLOOR_Y)
+	level._entities.add_child(gate)
+	await physics_frames(2)
+	var prompt: WorldPrompt = gate._prompt
+	check(prompt != null and not prompt.enabled, "閘門打開時不顯示關閉原因")
+	EventBus.mechanism_toggled.emit(&"test_reason", true)
+	check(prompt.enabled, "閘門關上時顯示關閉原因")
+	EventBus.mechanism_toggled.emit(&"test_reason", false)
+	check(not prompt.enabled, "閘門再打開後收起原因")
+	await end_level(level)
+	# 第一章的一般遭遇門已停用：遊戲中不出現，地圖也不能標出一道不存在的「可通行閘門」。
+	var retired := load("res://data/props/ch1_arena_street_plaza.tres") as MechanismData
+	check(retired != null and retired.is_retired_arena_gate(), "第一章一般遭遇門標記為停用")
+	var index := QuestMapIndex.new()
+	index.load_chapter(&"ch1_kasa")
+	var phantom := 0
+	for path: String in index.areas:
+		for marker: Dictionary in index.areas[path]["markers"]:
+			if marker.get("resource") is MechanismData and (marker["resource"] as MechanismData).is_retired_arena_gate():
+				phantom += 1
+	check(phantom == 0, "地圖沒有停用遭遇門的標記")

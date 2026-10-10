@@ -21,7 +21,7 @@ func _run() -> void:
 			var resource: Resource = marker.get("resource")
 			if resource is PortalData and (resource.is_locked_door() or resource.requires_flag != &""):
 				lock_sources.append({"level": path, "id": String(resource.id), "requires_flag": String(resource.requires_flag), "text": resource.locked_text})
-			elif resource is MechanismData and resource.kind == MechanismData.Kind.GATE:
+			elif resource is MechanismData and resource.kind == MechanismData.Kind.GATE and not resource.is_retired_arena_gate():
 				lock_sources.append({"level": path, "id": String(resource.id), "channel": String(resource.channel), "text": resource.hint})
 	var story: Dictionary = get_tree().root.get_node("Story").audit_data()
 	var table := ContinuityAudit.flag_table(story["scenes"], story["death"], ContinuityAudit.read_text_files())
