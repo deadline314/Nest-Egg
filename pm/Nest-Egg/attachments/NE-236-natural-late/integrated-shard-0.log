@@ -1,0 +1,107 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+WARNING: [StateMachine] 未知狀態：missing
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] transition (res://core/state_machine.gd:44)
+         [1] _test_state_machine (res://tests/smoke_test.gd:201)
+         [2] _run_main (res://tests/smoke_test.gd:51)
+         [3] _run (res://tests/smoke_test.gd:37)
+ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/missing_part.png
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] texture (res://game/rig/rig_library.gd:81)
+       [2] _test_rigs (res://tests/smoke_test.gd:317)
+       [3] _frames (res://tests/smoke_test.gd:122)
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/no_such_character/character.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] load_json (res://game/rig/rig_library.gd:21)
+       [2] character (res://game/rig/rig_library.gd:29)
+       [3] setup (res://game/rig/character_rig.gd:99)
+       [4] _test_rigs (res://tests/smoke_test.gd:319)
+       [5] _frames (res://tests/smoke_test.gd:122)
+WARNING: [InputBindings] 按鍵設定來自舊版操作，已改回新預設。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] reload_from_settings (res://autoload/input_bindings.gd:429)
+         [1] _test_settings_and_bindings (res://tests/smoke_test.gd:544)
+         [2] _run_main (res://tests/smoke_test.gd:54)
+         [3] _test_rigs (res://tests/smoke_test.gd:320)
+         [4] _frames (res://tests/smoke_test.gd:122)
+WARNING: [Story] 找不到章節：no_such_chapter
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] chapter_info (res://autoload/story.gd:208)
+         [1] _test_story (res://tests/smoke_test.gd:367)
+         [2] _run_main (res://tests/smoke_test.gd:55)
+         [3] _test_settings_and_bindings (res://tests/smoke_test.gd:583)
+         [4] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] 找不到劇情道具：no_such_item
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] acquire (res://autoload/story_items.gd:149)
+         [1] _test_story_items (res://tests/smoke_test.gd:440)
+         [2] _run_main (res://tests/smoke_test.gd:56)
+         [3] _test_story (res://tests/smoke_test.gd:404)
+         [4] _end_level (res://tests/smoke_test.gd:605)
+         [5] _frames (res://tests/smoke_test.gd:122)
+ERROR: [test_catalog] id「fixture_a」重複：user://test_catalog/a.tres 與 user://test_catalog/c_duplicate.tres，已略過後者
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_dir (res://core/resource_catalog.gd:31)
+       [1] _test_story_items (res://tests/smoke_test.gd:490)
+       [2] _end_level (res://tests/smoke_test.gd:605)
+       [3] _frames (res://tests/smoke_test.gd:122)
+ERROR: [test_catalog] 無法讀取或型別不符：user://test_catalog/d_wrong_type.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_dir (res://core/resource_catalog.gd:27)
+       [1] _test_story_items (res://tests/smoke_test.gd:490)
+       [2] _end_level (res://tests/smoke_test.gd:605)
+       [3] _frames (res://tests/smoke_test.gd:122)
+ERROR: [test_catalog] 找不到資料夾：user://no_such_catalog_dir
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_dir (res://core/resource_catalog.gd:12)
+       [1] _test_story_items (res://tests/smoke_test.gd:492)
+       [2] _end_level (res://tests/smoke_test.gd:605)
+       [3] _frames (res://tests/smoke_test.gd:122)
+ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/items/icons/no_such_icon.png
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] texture (res://game/rig/rig_library.gd:81)
+       [2] item (res://core/item_icons.gd:30)
+       [3] _test_inventory (res://tests/smoke_test.gd:946)
+       [4] _run_main (res://tests/smoke_test.gd:61)
+       [5] _test_consumables (res://tests/smoke_test.gd:913)
+       [6] _end_level (res://tests/smoke_test.gd:605)
+       [7] _frames (res://tests/smoke_test.gd:122)
+ERROR: [LightingController] 略過沒有光影設定的區段（起點 987654）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] setup (res://game/level/lighting_controller.gd:58)
+       [1] _test_lighting (res://tests/smoke_test.gd:1110)
+       [2] _run_main (res://tests/smoke_test.gd:62)
+       [3] _test_inventory (res://tests/smoke_test.gd:1052)
+       [4] _end_level (res://tests/smoke_test.gd:605)
+       [5] _frames (res://tests/smoke_test.gd:122)
+WARNING: [LitTextures] 沒有法線貼圖，改用平面貼圖：res://icon_n.png（可用 tools/art/paint_normals.tscn 產生）
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] load_texture (res://core/lit_textures.gd:34)
+         [1] _test_lighting (res://tests/smoke_test.gd:1457)
+ERROR: Parameter "body->get_space()" is null.
+   at: body_test_motion (modules/godot_physics_2d/godot_physics_server_2d.cpp:996)
+   GDScript backtrace (most recent call first):
+       [0] _physics_process (res://game/enemies/enemy.gd:459)
+ERROR: Parameter "body->get_space()" is null.
+   at: body_test_motion (modules/godot_physics_2d/godot_physics_server_2d.cpp:996)
+   GDScript backtrace (most recent call first):
+       [0] _physics_process (res://game/enemies/enemy.gd:459)
+SUITE_TIME main 98.9
+checks: 1490, failures: 0

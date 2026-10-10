@@ -316,13 +316,29 @@ func _test_held_input() -> void:
 		await end_level(level)
 
 
-## 真實傷害接線：後進入 sweep 的敵人仍受擊，但不能再次延長攻擊者的停頓。
+## 第三物件必須真的持續跑 physics，不能只檢查它不在 freeze 名單。
+class PhysicsPulse extends Node:
+	var ticks := 0
+	func _physics_process(_delta: float) -> void:
+		ticks += 1
+
+
+## 自然 ACTIVE sweep：不手動判定、不提前 thaw；晚進的真 Hurtbox 保留自身受擊反應。
 func _test_late_target_hitstop() -> void:
 	await open_level(10.0)
 	var player := _arm("melee_blade")
 	var first := _dummy(24.0)
 	var late := _dummy(150.0)
-	var unrelated := _dummy(200.0)
+	var unrelated := PhysicsPulse.new()
+	level.add_child(unrelated)
+	var late_hits: Array[Dictionary] = []
+	late.health.damaged.connect(func(info: DamageInfo) -> void:
+		late_hits.append({"frame": Engine.get_physics_frames(), "amount": info.amount,
+			"velocity_x": late.velocity.x, "velocity_y": late.velocity.y,
+			"flash": late._flash_left, "flinch": late._flinch_left, "stun": late._stun_left,
+			"true_attacker": info.attacker != null and info.attacker.get_ref() == player,
+			"freeze_attacker": info.freeze_attacker, "third_ticks": unrelated.ticks,
+			"phase": player._melee_phase}))
 	await physics_frames(3)
 	player._try_melee()
 	var guard := 120
@@ -330,17 +346,37 @@ func _test_late_target_hitstop() -> void:
 		await physics_frames(1)
 		guard -= 1
 	await level.get_tree().process_frame
-	check(player._melee_landed and first.health.current < 999, "the first sweep target receives real damage and contact feedback")
-	Fx.thaw_all()
+	check(player._melee_landed and first.health.current < 999, "the first natural sweep target receives damage and contact feedback")
+	check(player._melee_phase == Player.MeleePhase.ACTIVE, "the second Hurtbox enters while the real attack is ACTIVE")
+	var pause: Array = Fx._frozen.get(player, [])
+	check(not pause.is_empty(), "the first real contact actually pauses the attacker")
+	var maximum_ms := int(ceil(0.1 * Settings.get_feel_scale("hitstop") * Feel.preset_scale("hitstop") * 1000.0)) + 10
+	check(pause.is_empty() or int(pause[0]) - Time.get_ticks_msec() <= maximum_ms, "first target freeze has a finite configured bound")
+	var third_before := unrelated.ticks
 	var before := late.health.current
 	late.global_position.x = player.global_position.x + 24.0
-	await physics_frames(2)
-	player._melee_hit_pass()
+	guard = 120
+	while late_hits.is_empty() and player._melee_phase != Player.MeleePhase.NONE and guard > 0:
+		await physics_frames(1)
+		guard -= 1
 	await level.get_tree().process_frame
-	check(late.health.current < before, "a later sweep target receives damage once")
-	check(not Fx._frozen.has(player), "a later target cannot refreeze the attacker after its first contact pause")
-	check(not Fx._frozen.has(unrelated), "an uninvolved enemy keeps running during melee hitstop")
-	var after := late.health.current
-	player._melee_hit_pass()
-	check(late.health.current == after, "repeated sweep queries never damage the same late target twice")
+	check(late_hits.size() == 1 and late.health.current < before, "natural ACTIVE physics sweeps damage the late real Hurtbox")
+	if not late_hits.is_empty():
+		var hit := late_hits[0]
+		check(not is_zero_approx(float(hit["velocity_x"])), "the late enemy receives nonzero actual knockback")
+		check(float(hit["flash"]) > 0.0 or float(hit["flinch"]) > 0.0 or float(hit["stun"]) > 0.0, "the late enemy keeps its own actual hit reaction")
+		check(bool(hit["true_attacker"]) and not bool(hit["freeze_attacker"]), "the late hit retains the real attacker without requesting another attacker freeze")
+		check(int(hit["phase"]) == Player.MeleePhase.ACTIVE, "late damage originates from the naturally running ACTIVE phase")
+	check(not Fx._frozen.has(player) and player.is_physics_processing(), "the attacker runs after its first contact pause and is not refrozen by the late enemy")
+	check(not Fx._frozen.has(unrelated) and unrelated.ticks > third_before, "the unrelated third object actually advances physics during contact pauses")
+	guard = 120
+	while player._melee_phase != Player.MeleePhase.NONE and guard > 0:
+		await physics_frames(1)
+		guard -= 1
+	check(player._melee_phase == Player.MeleePhase.NONE and late_hits.size() == 1, "the complete natural swing recovers and damages the late target exactly once")
+	if not late_hits.is_empty():
+		check(before - late.health.current == int(late_hits[0]["amount"]), "late health loss equals the one real damage event")
+	print("NE236_NATURAL_LATE_HIT ", JSON.stringify({"first_health": first.health.current,
+		"first_pause_deadline": pause[0] if not pause.is_empty() else -1, "late_before": before, "late_after": late.health.current, "hits": late_hits,
+		"third_before": third_before, "third_after": unrelated.ticks, "attacker_frozen": Fx._frozen.has(player)}))
 	await end_level(level)
