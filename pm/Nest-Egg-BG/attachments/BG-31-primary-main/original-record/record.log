@@ -1,0 +1,146 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.356 - Forward+ - Using Device #0: Intel - Intel(R) Arc(TM) B580 Graphics
+
+BG31_MAIN_STAGE:{"display":"Windows","engine":{"build":"official","hash":"ed1daf0bf001b61586d9930840f2f1394092c079","hex":263938,"major":4,"minor":7,"patch":2,"status":"stable","string":"4.7.2-stable (official)","timestamp":0},"engine_node_count":90,"engine_static_bytes":121068855,"phase":"record","physics_frame":1,"pid":26448,"policy":"threaded-native","prefetch":{"cached":0,"collected_total":0,"estimated_bytes":0,"evicted_total":0,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":0,"retiring":0,"scope":""},"prefetch_sha256":"899a16248df56a7da81ed857bb96840c2463b94bb9f2e698fe53212f78643528","process_frame":0,"renderer":"forward_plus","slot":"C:/tmp/bg31-primary-delivery/main-native-5/native/slot.json","stage":"probe-entry","ticks_ms":6074}
+BG31_MAIN_CHECK:PASS:declared comparison factor matches exact original/repaired prefetch source
+BG31_MAIN_CHECK:PASS:existing genuine no-skip settings; no toggled Story state
+BG31_MAIN_CHECK:PASS:fresh isolated record slot/output; no overwrite or reused evidence
+BG31_MAIN_CHECK:PASS:real Main initial menu route
+BG31_MAIN_STAGE:{"engine_node_count":162,"engine_static_bytes":129059006,"physics_frame":60,"pid":26448,"prefetch":{"cached":64,"collected_total":112,"estimated_bytes":56142510,"evicted_total":48,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":112,"retiring":0,"scope":"level:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":132,"stage":"initial-menu","ticks_ms":7307}
+BG31_MAIN_CHECK:PASS:fresh loaded Start menu
+BG31_MAIN_CHECK:PASS:initial menu animation and visible Start
+BG31_MAIN_CHECK:PASS:bounded genuine viewport capture: menu
+BG31_MAIN_CHECK:PASS:capture still matches actual displayed stage: menu
+BG31_MAIN_CHECK:PASS:capture never overwrites earlier evidence: menu
+BG31_MAIN_CHECK:PASS:full viewport PNG: menu
+BG31_MAIN_STAGE:{"engine_node_count":162,"engine_static_bytes":134836838,"kind":"menu","path":"C:/tmp/bg31-primary-delivery/main-native-5/native/BG31-primary-menu.png","physics_frame":81,"pid":26448,"prefetch":{"cached":64,"collected_total":112,"estimated_bytes":56142510,"evicted_total":48,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":112,"retiring":0,"scope":"level:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":199,"stage":"viewport-captured","ticks_ms":7715}
+BG31_MAIN_CHECK:PASS:loaded visible Button: MainMenu / 開始任務
+BG31_MAIN_CHECK:PASS:actual focus: MainMenu / 開始任務
+BG31_MAIN_STAGE:{"button":"MainMenu / 開始任務","engine_node_count":162,"engine_static_bytes":134838714,"instance":430402702138,"physics_frame":81,"pid":26448,"prefetch":{"cached":64,"collected_total":112,"estimated_bytes":56142510,"evicted_total":48,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":112,"retiring":0,"scope":"level:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":199,"stage":"button-input","ticks_ms":7721}
+BG31_MAIN_CHECK:PASS:actual loaded difficulty page and default selection
+BG31_MAIN_CHECK:PASS:loaded visible Button: difficulty / 出發
+BG31_MAIN_CHECK:PASS:actual focus: difficulty / 出發
+BG31_MAIN_STAGE:{"button":"difficulty / 出發","engine_node_count":162,"engine_static_bytes":129867142,"instance":431962983319,"physics_frame":87,"pid":26448,"prefetch":{"cached":64,"collected_total":112,"estimated_bytes":56142510,"evicted_total":48,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":112,"retiring":0,"scope":"level:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":201,"stage":"button-input","ticks_ms":7742}
+BG31_MAIN_STAGE:{"engine_node_count":946,"engine_static_bytes":150341485,"mode":"animated","physics_frame":118,"pid":26448,"prefetch":{"cached":64,"collected_total":112,"estimated_bytes":56142510,"evicted_total":48,"failed_total":0,"inflight":4,"inflight_limit":4,"queued":149,"requested_total":116,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":291,"scene":"ch1_c01_open","stage":"story-started","ticks_ms":10281}
+BG31_MAIN_CHECK:PASS:bounded genuine viewport capture: cinematic
+BG31_MAIN_CHECK:PASS:capture still matches actual displayed stage: cinematic
+BG31_MAIN_CHECK:PASS:capture never overwrites earlier evidence: cinematic
+BG31_MAIN_CHECK:PASS:full viewport PNG: cinematic
+BG31_MAIN_STAGE:{"engine_node_count":1076,"engine_static_bytes":156211591,"kind":"cinematic","path":"C:/tmp/bg31-primary-delivery/main-native-5/native/BG31-primary-cinematic.png","physics_frame":619,"pid":26448,"prefetch":{"cached":64,"collected_total":265,"estimated_bytes":20874690,"evicted_total":201,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":265,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":1912,"stage":"viewport-captured","ticks_ms":18985}
+BG31_MAIN_STAGE:{"engine_node_count":1076,"engine_static_bytes":156212987,"physics_frame":619,"pid":26448,"prefetch":{"cached":64,"collected_total":265,"estimated_bytes":20874690,"evicted_total":201,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":265,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":1912,"scene":"ch1_c01_open","stage":"authored-line-accept","text":"鷺是接案的，她在屋頂等你。","ticks_ms":18988,"where":"場景 ch1_c01_open 第 10 步（say）"}
+BG31_MAIN_STAGE:{"engine_node_count":1076,"engine_static_bytes":150463083,"physics_frame":666,"pid":26448,"prefetch":{"cached":64,"collected_total":265,"estimated_bytes":20874690,"evicted_total":201,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":265,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":2040,"scene":"ch1_c01_open","stage":"authored-line-accept","text":"管著這座城的天穹又找我？你還抽一成保我復原？","ticks_ms":19620,"where":"場景 ch1_c01_open 第 12 步（say）"}
+BG31_MAIN_STAGE:{"engine_node_count":1076,"engine_static_bytes":150470659,"physics_frame":699,"pid":26448,"prefetch":{"cached":64,"collected_total":265,"estimated_bytes":20874690,"evicted_total":201,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":265,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":2149,"scene":"ch1_c01_open","stage":"authored-line-accept","text":"保費照抽喔。先去後面試槍。","ticks_ms":20161,"where":"場景 ch1_c01_open 第 13 步（say）"}
+BG31_MAIN_STAGE:{"engine_node_count":1076,"engine_static_bytes":150461607,"physics_frame":747,"pid":26448,"prefetch":{"cached":64,"collected_total":265,"estimated_bytes":20874690,"evicted_total":201,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":265,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":2310,"scene":"ch1_c01_open","stage":"story-finished","ticks_ms":20961}
+BG31_MAIN_CHECK:PASS:natural pawnshop opening: three actual complete lines, one start/completion, playable world
+BG31_MAIN_STAGE:{"engine_node_count":951,"engine_static_bytes":149611617,"physics_frame":750,"pid":26448,"prefetch":{"cached":64,"collected_total":265,"estimated_bytes":20874690,"evicted_total":201,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":265,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":2311,"stage":"initial-world","ticks_ms":21046}
+BG31_MAIN_CHECK:PASS:bounded genuine viewport capture: world
+BG31_MAIN_CHECK:PASS:capture still matches actual displayed stage: world
+BG31_MAIN_CHECK:PASS:capture never overwrites earlier evidence: world
+BG31_MAIN_CHECK:PASS:full viewport PNG: world
+BG31_MAIN_STAGE:{"engine_node_count":951,"engine_static_bytes":155433863,"kind":"world","path":"C:/tmp/bg31-primary-delivery/main-native-5/native/BG31-primary-world.png","physics_frame":750,"pid":26448,"prefetch":{"cached":64,"collected_total":265,"estimated_bytes":20874690,"evicted_total":201,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":265,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":2311,"stage":"viewport-captured","ticks_ms":21827}
+BG31_MAIN_CHECK:PASS:live playable Level before PauseMenu: record-round-1
+BG31_MAIN_STAGE:{"engine_node_count":951,"engine_static_bytes":155436411,"label":"record-round-1","level":458638756775,"physics_frame":750,"pid":26448,"player":628994609237,"prefetch":{"cached":64,"collected_total":265,"estimated_bytes":20874690,"evicted_total":201,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":265,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":2311,"stage":"pause-open-input","ticks_ms":21832}
+BG31_MAIN_CHECK:PASS:actual PauseMenu opens: record-round-1
+BG31_MAIN_CHECK:PASS:actual live HUD timer exists during PauseMenu: record-round-1
+BG31_MAIN_CHECK:PASS:real pause blocks Main/Level, preserves matching HUD clock and keeps Pause UI processing: record-round-1
+BG31_MAIN_STAGE:{"elapsed_ms":304,"engine_node_count":951,"engine_static_bytes":149959807,"hud_after":"00:00.06","hud_before":"00:00.06","label":"record-round-1","level_can_process":false,"main_can_process":false,"observed_process_frames":62,"pause_can_process":true,"physics_frame":778,"pid":26448,"prefetch":{"cached":64,"collected_total":265,"estimated_bytes":20874690,"evicted_total":201,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":265,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":2374,"run_time_after":0.06,"run_time_before":0.06,"stage":"timed-pause-observed","ticks_ms":22151}
+BG31_MAIN_CHECK:PASS:timed 300ms real Pause holds runtime/HUD exactly; original menu Button follows: record-round-1
+BG31_MAIN_CHECK:PASS:actual PauseMenu menu Button found: record-round-1
+BG31_MAIN_CHECK:PASS:loaded visible Button: PauseMenu / 回主選單 / record-round-1
+BG31_MAIN_CHECK:PASS:actual focus: PauseMenu / 回主選單 / record-round-1
+BG31_MAIN_STAGE:{"button":"PauseMenu / 回主選單 / record-round-1","engine_node_count":951,"engine_static_bytes":149969799,"instance":658002415932,"physics_frame":778,"pid":26448,"prefetch":{"cached":64,"collected_total":265,"estimated_bytes":20874690,"evicted_total":201,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":265,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":2374,"stage":"button-input","ticks_ms":22164}
+BG31_MAIN_CHECK:PASS:natural Main menu after loaded Pause callback: record-round-1
+BG31_MAIN_CHECK:PASS:old Level and Player freed by actual route: record-round-1
+BG31_MAIN_CHECK:PASS:genuine canonical completed-opening slot: record-round-1
+BG31_MAIN_STAGE:{"engine_node_count":163,"engine_static_bytes":142155098,"label":"record-round-1","physics_frame":839,"pid":26448,"prefetch":{"cached":64,"collected_total":377,"estimated_bytes":54875480,"evicted_total":249,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":377,"retiring":0,"scope":"level:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":2563,"slot_sha256":"86b08bc24b08a920cf3188b99ca3bc171681b87a25fa274daaa595def57cd165","stage":"menu-settled","ticks_ms":23194}
+BG31_MAIN_CHECK:PASS:actual menu ready to Continue: record-round-1
+BG31_MAIN_CHECK:PASS:loaded Continue available: record-round-1
+BG31_MAIN_CHECK:PASS:loaded visible Button: MainMenu / 繼續遊戲 / record-round-1
+BG31_MAIN_CHECK:PASS:actual focus: MainMenu / 繼續遊戲 / record-round-1
+BG31_MAIN_STAGE:{"button":"MainMenu / 繼續遊戲 / record-round-1","engine_node_count":163,"engine_static_bytes":142153030,"instance":923250199361,"physics_frame":859,"pid":26448,"prefetch":{"cached":64,"collected_total":377,"estimated_bytes":54875480,"evicted_total":249,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":377,"retiring":0,"scope":"level:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":2624,"stage":"button-input","ticks_ms":23495}
+BG31_MAIN_CHECK:PASS:actual Main Continue restored pawnshop: record-round-1
+BG31_MAIN_CHECK:PASS:restored live capture still validates: record-round-1
+BG31_MAIN_CHECK:PASS:real restored and saved projections JSON roundtrip: record-round-1
+BG31_MAIN_CHECK:PASS:Continue preserves real position/health/story/custody/progression; old menu freed: record-round-1
+BG31_MAIN_STAGE:{"engine_node_count":946,"engine_static_bytes":150999235,"label":"record-round-1","level":962542439356,"physics_frame":921,"pid":26448,"player":983279079757,"position":[648.0,320.0],"prefetch":{"cached":64,"collected_total":530,"estimated_bytes":21021084,"evicted_total":402,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":530,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":2774,"stage":"continue-world","ticks_ms":24581}
+BG31_MAIN_CHECK:PASS:live playable Level before PauseMenu: record-round-2
+BG31_MAIN_STAGE:{"engine_node_count":946,"engine_static_bytes":151002155,"label":"record-round-2","level":962542439356,"physics_frame":921,"pid":26448,"player":983279079757,"prefetch":{"cached":64,"collected_total":530,"estimated_bytes":21021084,"evicted_total":402,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":530,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":2774,"stage":"pause-open-input","ticks_ms":24585}
+BG31_MAIN_CHECK:PASS:actual PauseMenu opens: record-round-2
+BG31_MAIN_CHECK:PASS:actual live HUD timer exists during PauseMenu: record-round-2
+BG31_MAIN_CHECK:PASS:real pause blocks Main/Level, preserves matching HUD clock and keeps Pause UI processing: record-round-2
+BG31_MAIN_STAGE:{"elapsed_ms":303,"engine_node_count":946,"engine_static_bytes":150917467,"hud_after":"00:00.09","hud_before":"00:00.09","label":"record-round-2","level_can_process":false,"main_can_process":false,"observed_process_frames":63,"pause_can_process":true,"physics_frame":942,"pid":26448,"prefetch":{"cached":64,"collected_total":530,"estimated_bytes":21021084,"evicted_total":402,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":530,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":2838,"run_time_after":0.085299,"run_time_before":0.085299,"stage":"timed-pause-observed","ticks_ms":24906}
+BG31_MAIN_CHECK:PASS:timed 300ms real Pause holds runtime/HUD exactly; original menu Button follows: record-round-2
+BG31_MAIN_CHECK:PASS:actual PauseMenu menu Button found: record-round-2
+BG31_MAIN_CHECK:PASS:loaded visible Button: PauseMenu / 回主選單 / record-round-2
+BG31_MAIN_CHECK:PASS:actual focus: PauseMenu / 回主選單 / record-round-2
+BG31_MAIN_STAGE:{"button":"PauseMenu / 回主選單 / record-round-2","engine_node_count":946,"engine_static_bytes":150927483,"instance":987339166156,"physics_frame":942,"pid":26448,"prefetch":{"cached":64,"collected_total":530,"estimated_bytes":21021084,"evicted_total":402,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":530,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":2838,"stage":"button-input","ticks_ms":24917}
+BG31_MAIN_CHECK:PASS:natural Main menu after loaded Pause callback: record-round-2
+BG31_MAIN_CHECK:PASS:old Level and Player freed by actual route: record-round-2
+BG31_MAIN_CHECK:PASS:genuine canonical completed-opening slot: record-round-2
+BG31_MAIN_STAGE:{"engine_node_count":163,"engine_static_bytes":143109490,"label":"record-round-2","physics_frame":1004,"pid":26448,"prefetch":{"cached":64,"collected_total":642,"estimated_bytes":54875480,"evicted_total":450,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":642,"retiring":0,"scope":"level:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":3032,"slot_sha256":"71a85cc2c0c6144634d9cd7c1fec1f251dc55fda1ff2ba946d4d8d9d1f417343","stage":"menu-settled","ticks_ms":25961}
+BG31_MAIN_CHECK:PASS:actual menu ready to Continue: record-round-2
+BG31_MAIN_CHECK:PASS:loaded Continue available: record-round-2
+BG31_MAIN_CHECK:PASS:loaded visible Button: MainMenu / 繼續遊戲 / record-round-2
+BG31_MAIN_CHECK:PASS:actual focus: MainMenu / 繼續遊戲 / record-round-2
+BG31_MAIN_STAGE:{"button":"MainMenu / 繼續遊戲 / record-round-2","engine_node_count":163,"engine_static_bytes":143105706,"instance":1098991536976,"physics_frame":1024,"pid":26448,"prefetch":{"cached":64,"collected_total":642,"estimated_bytes":54875480,"evicted_total":450,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":642,"retiring":0,"scope":"level:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":3094,"stage":"button-input","ticks_ms":26266}
+BG31_MAIN_CHECK:PASS:actual Main Continue restored pawnshop: record-round-2
+BG31_MAIN_CHECK:PASS:restored live capture still validates: record-round-2
+BG31_MAIN_CHECK:PASS:real restored and saved projections JSON roundtrip: record-round-2
+BG31_MAIN_CHECK:PASS:Continue preserves real position/health/story/custody/progression; old menu freed: record-round-2
+BG31_MAIN_STAGE:{"engine_node_count":946,"engine_static_bytes":151029475,"label":"record-round-2","level":1113101176749,"physics_frame":1086,"pid":26448,"player":1135867858493,"position":[648.0,320.0],"prefetch":{"cached":64,"collected_total":795,"estimated_bytes":21021084,"evicted_total":603,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":795,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":3272,"stage":"continue-world","ticks_ms":27338}
+BG31_MAIN_CHECK:PASS:live playable Level before PauseMenu: record-round-3
+BG31_MAIN_STAGE:{"engine_node_count":946,"engine_static_bytes":151032131,"label":"record-round-3","level":1113101176749,"physics_frame":1086,"pid":26448,"player":1135867858493,"prefetch":{"cached":64,"collected_total":795,"estimated_bytes":21021084,"evicted_total":603,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":795,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":3272,"stage":"pause-open-input","ticks_ms":27343}
+BG31_MAIN_CHECK:PASS:actual PauseMenu opens: record-round-3
+BG31_MAIN_CHECK:PASS:actual live HUD timer exists during PauseMenu: record-round-3
+BG31_MAIN_CHECK:PASS:real pause blocks Main/Level, preserves matching HUD clock and keeps Pause UI processing: record-round-3
+BG31_MAIN_STAGE:{"elapsed_ms":300,"engine_node_count":946,"engine_static_bytes":150942819,"hud_after":"00:00.10","hud_before":"00:00.10","label":"record-round-3","level_can_process":false,"main_can_process":false,"observed_process_frames":63,"pause_can_process":true,"physics_frame":1108,"pid":26448,"prefetch":{"cached":64,"collected_total":795,"estimated_bytes":21021084,"evicted_total":603,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":795,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":3336,"run_time_after":0.100299,"run_time_before":0.100299,"stage":"timed-pause-observed","ticks_ms":27661}
+BG31_MAIN_CHECK:PASS:timed 300ms real Pause holds runtime/HUD exactly; original menu Button follows: record-round-3
+BG31_MAIN_CHECK:PASS:actual PauseMenu menu Button found: record-round-3
+BG31_MAIN_CHECK:PASS:loaded visible Button: PauseMenu / 回主選單 / record-round-3
+BG31_MAIN_CHECK:PASS:actual focus: PauseMenu / 回主選單 / record-round-3
+BG31_MAIN_STAGE:{"button":"PauseMenu / 回主選單 / record-round-3","engine_node_count":946,"engine_static_bytes":150951787,"instance":1139927944984,"physics_frame":1108,"pid":26448,"prefetch":{"cached":64,"collected_total":795,"estimated_bytes":21021084,"evicted_total":603,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":795,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":3336,"stage":"button-input","ticks_ms":27674}
+BG31_MAIN_CHECK:PASS:natural Main menu after loaded Pause callback: record-round-3
+BG31_MAIN_CHECK:PASS:old Level and Player freed by actual route: record-round-3
+BG31_MAIN_CHECK:PASS:genuine canonical completed-opening slot: record-round-3
+BG31_MAIN_STAGE:{"engine_node_count":163,"engine_static_bytes":143128174,"label":"record-round-3","physics_frame":1170,"pid":26448,"prefetch":{"cached":64,"collected_total":907,"estimated_bytes":54875480,"evicted_total":651,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":907,"retiring":0,"scope":"level:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":3530,"slot_sha256":"c7dd60484879eab8b3dba8ddbe257c4139f79098c727ca7c43e66de7e5be0bbc","stage":"menu-settled","ticks_ms":28721}
+BG31_MAIN_CHECK:PASS:actual menu ready to Continue: record-round-3
+BG31_MAIN_CHECK:PASS:loaded Continue available: record-round-3
+BG31_MAIN_CHECK:PASS:loaded visible Button: MainMenu / 繼續遊戲 / record-round-3
+BG31_MAIN_CHECK:PASS:actual focus: MainMenu / 繼續遊戲 / record-round-3
+BG31_MAIN_STAGE:{"button":"MainMenu / 繼續遊戲 / record-round-3","engine_node_count":163,"engine_static_bytes":143124414,"instance":1251345435459,"physics_frame":1190,"pid":26448,"prefetch":{"cached":64,"collected_total":907,"estimated_bytes":54875480,"evicted_total":651,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":907,"retiring":0,"scope":"level:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":3591,"stage":"button-input","ticks_ms":29021}
+BG31_MAIN_CHECK:PASS:actual Main Continue restored pawnshop: record-round-3
+BG31_MAIN_CHECK:PASS:restored live capture still validates: record-round-3
+BG31_MAIN_CHECK:PASS:real restored and saved projections JSON roundtrip: record-round-3
+BG31_MAIN_CHECK:PASS:Continue preserves real position/health/story/custody/progression; old menu freed: record-round-3
+BG31_MAIN_STAGE:{"engine_node_count":946,"engine_static_bytes":151046243,"label":"record-round-3","level":1265404742652,"physics_frame":1252,"pid":26448,"player":1288171425124,"position":[648.0,320.0],"prefetch":{"cached":64,"collected_total":1060,"estimated_bytes":20874690,"evicted_total":804,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":1060,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":3773,"stage":"continue-world","ticks_ms":30081}
+BG31_MAIN_CHECK:PASS:live playable Level before PauseMenu: record-terminal
+BG31_MAIN_STAGE:{"engine_node_count":946,"engine_static_bytes":151048895,"label":"record-terminal","level":1265404742652,"physics_frame":1252,"pid":26448,"player":1288171425124,"prefetch":{"cached":64,"collected_total":1060,"estimated_bytes":20874690,"evicted_total":804,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":1060,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":3773,"stage":"pause-open-input","ticks_ms":30085}
+BG31_MAIN_CHECK:PASS:actual PauseMenu opens: record-terminal
+BG31_MAIN_CHECK:PASS:actual live HUD timer exists during PauseMenu: record-terminal
+BG31_MAIN_CHECK:PASS:real pause blocks Main/Level, preserves matching HUD clock and keeps Pause UI processing: record-terminal
+BG31_MAIN_STAGE:{"elapsed_ms":304,"engine_node_count":946,"engine_static_bytes":150961111,"hud_after":"00:00.12","hud_before":"00:00.12","label":"record-terminal","level_can_process":false,"main_can_process":false,"observed_process_frames":64,"pause_can_process":true,"physics_frame":1272,"pid":26448,"prefetch":{"cached":64,"collected_total":1060,"estimated_bytes":20874690,"evicted_total":804,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":1060,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":3838,"run_time_after":0.120299,"run_time_before":0.120299,"stage":"timed-pause-observed","ticks_ms":30406}
+BG31_MAIN_CHECK:PASS:timed 300ms real Pause holds runtime/HUD exactly; original menu Button follows: record-terminal
+BG31_MAIN_CHECK:PASS:actual PauseMenu menu Button found: record-terminal
+BG31_MAIN_CHECK:PASS:loaded visible Button: PauseMenu / 回主選單 / record-terminal
+BG31_MAIN_CHECK:PASS:actual focus: PauseMenu / 回主選單 / record-terminal
+BG31_MAIN_STAGE:{"button":"PauseMenu / 回主選單 / record-terminal","engine_node_count":946,"engine_static_bytes":150970551,"instance":1292231510930,"physics_frame":1272,"pid":26448,"prefetch":{"cached":64,"collected_total":1060,"estimated_bytes":20874690,"evicted_total":804,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":1060,"retiring":0,"scope":"neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":3838,"stage":"button-input","ticks_ms":30418}
+BG31_MAIN_CHECK:PASS:natural Main menu after loaded Pause callback: record-terminal
+BG31_MAIN_CHECK:PASS:old Level and Player freed by actual route: record-terminal
+BG31_MAIN_CHECK:PASS:genuine canonical completed-opening slot: record-terminal
+BG31_MAIN_STAGE:{"engine_node_count":163,"engine_static_bytes":143146494,"label":"record-terminal","physics_frame":1334,"pid":26448,"prefetch":{"cached":64,"collected_total":1172,"estimated_bytes":54875480,"evicted_total":852,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":1172,"retiring":0,"scope":"level:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":4029,"slot_sha256":"162c608c6115203792950caa65b94113ddcce576772ddc94148ee897888b7ddb","stage":"menu-settled","ticks_ms":31440}
+BG31_MAIN_CHECK:PASS:completed opening never replays across genuine Continue routes
+BG31_MAIN_CHECK:PASS:naturally retired screen/actor weak reference released
+BG31_MAIN_CHECK:PASS:naturally retired screen/actor weak reference released
+BG31_MAIN_CHECK:PASS:naturally retired screen/actor weak reference released
+BG31_MAIN_CHECK:PASS:naturally retired screen/actor weak reference released
+BG31_MAIN_CHECK:PASS:naturally retired screen/actor weak reference released
+BG31_MAIN_CHECK:PASS:naturally retired screen/actor weak reference released
+BG31_MAIN_CHECK:PASS:naturally retired screen/actor weak reference released
+BG31_MAIN_CHECK:PASS:naturally retired screen/actor weak reference released
+BG31_MAIN_CHECK:PASS:naturally retired screen/actor weak reference released
+BG31_MAIN_CHECK:PASS:naturally retired screen/actor weak reference released
+BG31_MAIN_CHECK:PASS:naturally retired screen/actor weak reference released
+BG31_MAIN_CHECK:PASS:exact menu/cinematic/world evidence cap; no cold duplicate captures
+BG31_MAIN_CHECK:PASS:exact original four-slot native async policy exercised without failed loads
+BG31_MAIN_STAGE:{"engine_node_count":163,"engine_static_bytes":143143294,"failures":0,"physics_frame":1334,"pid":26448,"prefetch":{"cached":64,"collected_total":1172,"estimated_bytes":54875480,"evicted_total":852,"failed_total":0,"inflight":0,"inflight_limit":4,"queued":0,"requested_total":1172,"retiring":0,"scope":"level:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop"},"process_frame":4029,"stage":"pre-real-main-quit","ticks_ms":31472}
+BG31_MAIN_RESULT:106 checks / 0 failures / PID 26448

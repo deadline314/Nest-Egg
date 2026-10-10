@@ -1,0 +1,52 @@
+{
+  "utc": "2026-10-10T18:47:22.234755+00:00",
+  "phase": "original-record",
+  "policy": "threaded-native",
+  "actual_pid": 26448,
+  "dry_run": false,
+  "accepted": true,
+  "verdict": "original run clean; specific RID NOT reproduced this run",
+  "rid_error_count": 0,
+  "raw_error_count": 0,
+  "exit": 0,
+  "checks": 106,
+  "failures": 0,
+  "before_source_manifest": {
+    "sha256": "ddc043f42b8a0465329a79d547a81a25d5fc02ebf52e9b5ca6ed51b3eef1533e",
+    "bytes": 1344867
+  },
+  "after_source_file": "C:\\tmp\\bg31-primary-delivery\\main-factor-control-3\\original-record-after-sources.json",
+  "source_drift": [],
+  "wrapper": {
+    "sha256": "a1adb771ebdb617fe203dcc17c7f8f7779289c811b20498c4a0144dda11c8612",
+    "bytes": 684
+  },
+  "raw_log": {
+    "sha256": "19cb1fa692c0a9288f64f022b747b20dd2454c87ef898e2c973cca1e0c8af9a1",
+    "bytes": 27886
+  },
+  "summary": {
+    "sha256": "94546051dc1958a35cec2b1283f537763f8119ccd004e9afa9b8c2c2a49233ec",
+    "bytes": 25195
+  },
+  "memory_csv": {
+    "sha256": "0ff308d64011ab40bbbda0876736293a6734a8adba6650a613874d80176afe22",
+    "bytes": 5772
+  },
+  "memory": {
+    "samples": 124,
+    "peak_ws": 599089152,
+    "peak_private": 1173553152,
+    "monitor_errors": [],
+    "vram_measured": false
+  },
+  "terminal_slot": {
+    "sha256": "162c608c6115203792950caa65b94113ddcce576772ddc94148ee897888b7ddb",
+    "bytes": 2915
+  },
+  "limit": "Exact bounded primary Main tool route only; no upstream owner fix/all Main RID/full chapter/NE246/VRAM claim",
+  "after_source_manifest": {
+    "sha256": "f48920010df47b1dfa8aa5756d091eaa9ddf78f0e7fc15e1a54c5e694dc24659",
+    "bytes": 1343940
+  }
+}

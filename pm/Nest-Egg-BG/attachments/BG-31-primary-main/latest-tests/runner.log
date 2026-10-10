@@ -1,0 +1,4 @@
+受影響的測試：Chapter1MapSuite,Chapter2Suite,DeathReactionSuite,EncounterSuite,InputFeelSuite,RunSaveSuite,UiScreensSuite
+Running 7 groups in 1 processes (logs: C:/tmp/bg31-primary-delivery/tests-4/shards)
+  process 0 (estimated 180 s): Chapter2Suite,Chapter1MapSuite,DeathReactionSuite,UiScreensSuite,EncounterSuite,RunSaveSuite,InputFeelSuite
+checks: 2576, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 189 s)

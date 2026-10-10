@@ -1,0 +1,18 @@
+{
+  "utc": "2026-10-10T18:47:24.635182+00:00",
+  "action": "restore",
+  "exact_changed": [
+    "core/asset_prefetch.gd"
+  ],
+  "before_sha256": "899a16248df56a7da81ed857bb96840c2463b94bb9f2e698fe53212f78643528",
+  "after_sha256": "7d338a07ba48c7d716d465d63276ac6fa92fbcdbc79778068a762dd50eb5f558",
+  "source_file_count": 7790,
+  "engine_started_by_helper": false,
+  "complete_inventory_restored": true,
+  "dry_run": false,
+  "actual_after_drift": [],
+  "after_inventory": {
+    "sha256": "fb9e0857438b667d785b8ea642a573682d88584f735030c7d3c6c9959521f6be",
+    "bytes": 1343911
+  }
+}

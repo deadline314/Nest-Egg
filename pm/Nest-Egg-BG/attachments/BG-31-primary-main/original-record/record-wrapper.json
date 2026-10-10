@@ -1,0 +1,24 @@
+{
+  "phase": "record",
+  "actual_pid": 26448,
+  "elapsed_seconds": 35.34300000000803,
+  "exit": 0,
+  "natural_exit": true,
+  "forced_stop": null,
+  "checks": 106,
+  "failures": 0,
+  "raw_errors": [],
+  "source_drift": [],
+  "memory": {
+    "samples": 124,
+    "peak_ws": 599089152,
+    "peak_private": 1173553152,
+    "monitor_errors": [],
+    "vram_measured": false
+  },
+  "log_sha256": "19cb1fa692c0a9288f64f022b747b20dd2454c87ef898e2c973cca1e0c8af9a1",
+  "source_manifest_sha256": "ddc043f42b8a0465329a79d547a81a25d5fc02ebf52e9b5ca6ed51b3eef1533e",
+  "slot_sha256": "162c608c6115203792950caa65b94113ddcce576772ddc94148ee897888b7ddb",
+  "visual_accepted": false,
+  "passed": true
+}

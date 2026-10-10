@@ -1,0 +1,277 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+[RunSaveSuite] initial preparation: OK
+WARNING: [RunSave] run/loadout/weapons/0 無效資源：res://autoload/story.gd，略過該欄
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _loadout (res://core/run_snapshot.gd:242)
+       [1] prepare (res://core/run_snapshot.gd:97)
+       [2] run (res://tests/suite/test_run_save.gd:91)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] user://story_progress.json/items/owned 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] restore_story_progress (res://autoload/game_state.gd:457)
+       [2] run (res://tests/suite/test_run_save.gd:102)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [RunSave] user://ne230-suite/unit.json：未知版本保留；請明確選擇新遊戲覆寫
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:86)
+       [2] run (res://tests/suite/test_run_save.gd:124)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [RunSave] user://ne230-suite/unknown_backup.json：未知版本保留；請明確選擇新遊戲覆寫
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:86)
+       [2] run (res://tests/suite/test_run_save.gd:132)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [RunSave] user://ne230-suite/unknown_backup.json：未知版本保留；請明確選擇新遊戲覆寫
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:86)
+       [2] run (res://tests/suite/test_run_save.gd:137)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [RunSave] user://ne230-suite/unit.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:97)
+       [2] run (res://tests/suite/test_run_save.gd:144)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [RunSave] user://ne230-suite/unit.json/blocked.json.tmp：無法寫入（7）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:97)
+       [2] run (res://tests/suite/test_run_save.gd:149)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [RunSave] user://ne230-suite/rollback.json：新輪替換失敗；原存檔已回復
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] _install_new_run (res://core/run_save_store.gd:168)
+       [2] write (res://core/run_save_store.gd:106)
+       [3] run (res://tests/suite/test_run_save.gd:164)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] _run (res://tests/smoke_test.gd:38)
+WARNING: [RunSave] user://ne230-suite/unknown_transaction.json.newrun：user://ne230-suite/unknown_transaction.json版本較新，新輪恢復未覆寫原件
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] read (res://core/run_save_store.gd:30)
+       [2] run (res://tests/suite/test_run_save.gd:202)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+[StoryDurableChecks] SKIP symbolic/reparse case : platform permission/API 1; not validated
+[StoryDurableChecks] SKIP symbolic/reparse case .bak: platform permission/API 1; not validated
+[StoryDurableChecks] SKIP symbolic/reparse case .tmp: platform permission/API 1; not validated
+[StoryDurableChecks] SKIP symbolic/reparse case .newrun: platform permission/API 1; not validated
+[StoryDurableChecks] SKIP symbolic/reparse case .dangling: platform permission/API 1; not validated
+[StoryDurableChecks] old seed JSON boundary changes encoding of component: navigation
+[StoryDurableChecks] old seed JSON boundary changes encoding of component: progression
+[StoryDurableChecks] old seed JSON boundary changes encoding of component: state
+[StoryDurableChecks] old seed JSON boundary changes encoding of component: story
+[StoryDurableChecks] old seed JSON boundary changes encoding of component: version
+SUITE_TIME RunSaveSuite 11.7
+SUITE_TIME Chapter2Suite 60.1
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/test_no_such_character/character.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] load_json (res://game/rig/rig_library.gd:21)
+       [2] character (res://game/rig/rig_library.gd:29)
+       [3] setup (res://game/rig/character_rig.gd:101)
+       [4] _ready (res://ui/inventory/hd_portrait.gd:48)
+       [5] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:340)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+ERROR: [HdPortrait] 找不到角色骨架「test_no_such_character」，立繪不顯示。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://ui/inventory/hd_portrait.gd:49)
+       [1] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:340)
+       [2] frames (res://tests/suite/test_ui_screens.gd:9)
+SUITE_TIME UiScreensSuite 14.8
+SUITE_TIME DeathReactionSuite 27.8
+WARNING: [QuestMap] navigation.explored.: 無效區域，已略過。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _apply_components_silent (res://core/run_snapshot.gd:207)
+       [2] apply (res://core/run_snapshot.gd:170)
+       [3] _roundtrip (res://tests/helpers/encounter_resume_checks.gd:145)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:632)
+       [6] _frames (res://tests/smoke_test.gd:123)
+WARNING: [QuestMap] navigation.explored.: 無效區域，已略過。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _apply_components_silent (res://core/run_snapshot.gd:207)
+       [2] apply (res://core/run_snapshot.gd:170)
+       [3] _roundtrip (res://tests/helpers/encounter_resume_checks.gd:184)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:632)
+       [6] _frames (res://tests/smoke_test.gd:123)
+WARNING: [Level] run/runtime/enemies/11/key重複或敵人已消滅：sweeper@98,19；返回主選單，未套用遭遇狀態。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/level/level.gd:104)
+       [1] _swap_screen (res://game/main.gd:68)
+       [2] _failed_restore (res://tests/helpers/encounter_restore_guard_checks.gd:154)
+       [3] run (res://tests/helpers/encounter_restore_guard_checks.gd:101)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:632)
+       [6] _frames (res://tests/smoke_test.gd:123)
+WARNING: [Level] run/runtime/enemies/enemy:11/key：sweeper@98,19 無法還原已識別敵人；返回主選單，原存檔保留。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _restore_run_entities (res://game/level/level.gd:1275)
+       [1] _restore_run_entities (res://tests/helpers/encounter_restore_guard_checks.gd:23)
+       [2] _ready (res://game/level/level.gd:225)
+       [3] _swap_screen (res://game/main.gd:68)
+       [4] _failed_restore (res://tests/helpers/encounter_restore_guard_checks.gd:154)
+       [5] run (res://tests/helpers/encounter_restore_guard_checks.gd:101)
+       [6] _failed_restore (res://tests/helpers/encounter_restore_guard_checks.gd:178)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:123)
+WARNING: [Level] run/runtime/enemies/enemy:16/key： 無法還原已識別敵人；返回主選單，原存檔保留。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _restore_run_entities (res://game/level/level.gd:1275)
+       [1] _restore_run_entities (res://tests/helpers/encounter_restore_guard_checks.gd:23)
+       [2] _ready (res://game/level/level.gd:225)
+       [3] _swap_screen (res://game/main.gd:68)
+       [4] _failed_restore (res://tests/helpers/encounter_restore_guard_checks.gd:154)
+       [5] run (res://tests/helpers/encounter_restore_guard_checks.gd:101)
+       [6] _failed_restore (res://tests/helpers/encounter_restore_guard_checks.gd:178)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:123)
+WARNING: [EncounterZone] test_encounter（格 (30, 20)）鎖場超過 10 秒，強制解鎖（還有 1 個成員活著）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _physics_process (res://game/props/encounter_zone.gd:115)
+SUITE_TIME EncounterSuite 13.2
+ERROR: [InputFeel] res://data/feel/input.json 沒有 windows.test_no_such_window，改用預設 0.07
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://core/input_feel.gd:140)
+       [1] window (res://core/input_feel.gd:37)
+       [2] _test_windows_from_data (res://tests/suite/test_input_feel.gd:229)
+       [3] run (res://tests/suite/test_input_feel.gd:7)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] run (res://tests/suite/test_encounter.gd:21)
+       [6] _test_arena_gate_is_not_persisted (res://tests/suite/test_encounter.gd:265)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:632)
+       [9] _frames (res://tests/smoke_test.gd:123)
+WARNING: [InputBindings] controller/aim_deadzone 不是有效數值，使用預設值。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _number_option (res://autoload/input_bindings.gd:626)
+       [1] _reload_controller_options (res://autoload/input_bindings.gd:612)
+       [2] reload_from_settings (res://autoload/input_bindings.gd:419)
+       [3] _test_controller_options (res://tests/suite/test_input_feel.gd:121)
+       [4] _test_controller_flow (res://tests/suite/test_input_feel.gd:48)
+       [5] run (res://tests/suite/test_input_feel.gd:10)
+       [6] _run_suites (res://tests/smoke_test.gd:110)
+       [7] run (res://tests/suite/test_encounter.gd:21)
+       [8] _test_arena_gate_is_not_persisted (res://tests/suite/test_encounter.gd:265)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:632)
+       [11] _frames (res://tests/smoke_test.gd:123)
+WARNING: [InputBindings] controller/vibration_strength 不是有效數值，使用預設值。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _number_option (res://autoload/input_bindings.gd:626)
+       [1] _reload_controller_options (res://autoload/input_bindings.gd:613)
+       [2] reload_from_settings (res://autoload/input_bindings.gd:419)
+       [3] _test_controller_options (res://tests/suite/test_input_feel.gd:121)
+       [4] _test_controller_flow (res://tests/suite/test_input_feel.gd:48)
+       [5] run (res://tests/suite/test_input_feel.gd:10)
+       [6] _run_suites (res://tests/smoke_test.gd:110)
+       [7] run (res://tests/suite/test_encounter.gd:21)
+       [8] _test_arena_gate_is_not_persisted (res://tests/suite/test_encounter.gd:265)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:632)
+       [11] _frames (res://tests/smoke_test.gd:123)
+WARNING: [InputBindings] controller/invert_aim_y 不是布林值，使用預設值。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _reload_controller_options (res://autoload/input_bindings.gd:617)
+       [1] reload_from_settings (res://autoload/input_bindings.gd:419)
+       [2] _test_controller_options (res://tests/suite/test_input_feel.gd:121)
+       [3] _test_controller_flow (res://tests/suite/test_input_feel.gd:48)
+       [4] run (res://tests/suite/test_input_feel.gd:10)
+       [5] _run_suites (res://tests/smoke_test.gd:110)
+       [6] run (res://tests/suite/test_encounter.gd:21)
+       [7] _test_arena_gate_is_not_persisted (res://tests/suite/test_encounter.gd:265)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:632)
+       [10] _frames (res://tests/smoke_test.gd:123)
+NE229_PHYSICAL_JOYPADS [] | probe uses synthetic device 999
+NE229_SYNTHETIC_FLOW checks=36 failures=0
+SUITE_TIME InputFeelSuite 3.9
+WARNING: [AssetPrefetch] 找不到要預載的貼圖：res://art/no_such_prefetch_texture.png
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:121)
+       [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:540)
+       [2] run (res://tests/suite/test_ch1_map.gd:44)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] run (res://tests/suite/test_input_feel.gd:12)
+       [5] _test_dash_buffer (res://tests/suite/test_input_feel.gd:291)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:632)
+       [8] _frames (res://tests/smoke_test.gd:123)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://data/levels/no_such_level.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _resolve_level (res://core/asset_prefetch.gd:74)
+       [1] warm_level (res://core/asset_prefetch.gd:59)
+       [2] _test_prefetch (res://tests/suite/test_ch1_map.gd:542)
+       [3] run (res://tests/suite/test_ch1_map.gd:44)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] run (res://tests/suite/test_input_feel.gd:12)
+       [6] _test_dash_buffer (res://tests/suite/test_input_feel.gd:291)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:632)
+       [9] _frames (res://tests/smoke_test.gd:123)
+WARNING: [AssetPrefetch] 待載已達 512，略過本次剩餘貼圖（首項：res://art/characters/trooper_elite/parts/armor_chest.png）。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:124)
+       [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:599)
+       [2] _prefetch_drain (res://tests/suite/test_ch1_map.gd:751)
+WARNING: [AssetPrefetch] 待載已達 512，略過本次剩餘貼圖（首項：res://art/creatures/tangle_wire/body_n.png）。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:124)
+       [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:599)
+       [2] _prefetch_drain (res://tests/suite/test_ch1_map.gd:751)
+WARNING: [AssetPrefetch] 待載已達 512，略過本次剩餘貼圖（首項：res://art/characters/trooper_elite/parts/armor_chest.png）。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:124)
+       [1] _run_main_thread_prefetch_fixture (res://tests/suite/test_ch1_map.gd:724)
+       [2] _prefetch_drain (res://tests/suite/test_ch1_map.gd:751)
+WARNING: [AssetPrefetch] 待載已達 512，略過本次剩餘貼圖（首項：res://art/creatures/tangle_wire/tentacle.png）。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:124)
+       [1] _run_main_thread_prefetch_fixture (res://tests/suite/test_ch1_map.gd:724)
+       [2] _prefetch_drain (res://tests/suite/test_ch1_map.gd:751)
+SUITE_TIME Chapter1MapSuite 49.7
+checks: 2576, failures: 0

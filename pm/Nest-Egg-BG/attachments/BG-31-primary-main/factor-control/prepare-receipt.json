@@ -1,0 +1,52 @@
+{
+  "utc": "2026-10-10T18:46:35.860952+00:00",
+  "old_number": 5,
+  "repair_number": 6,
+  "accepted_import_source": {
+    "sha256": "9bb4c6ff61866583969cdd92d2734cd8f53caf4bfb52ddd29feb954c7879bcca",
+    "bytes": 1344182
+  },
+  "source_file_count": 7790,
+  "scope": [
+    "autoload",
+    "core",
+    "game",
+    "ui",
+    "tools",
+    "tests",
+    "data",
+    "scenes",
+    "art",
+    "audio",
+    "project.godot"
+  ],
+  "excluded": [
+    ".godot caches",
+    ".git",
+    "PM/design",
+    "assets_src/art_src",
+    "Python caches"
+  ],
+  "launcher": {
+    "sha256": "089b84a07a80cd71c7828f05ef1c397125e107823d2762b5ebd8e08a685b306e",
+    "bytes": 5272
+  },
+  "launcher_dependency": {
+    "sha256": "5ec40febf6f25ecf926ac01b0706aa770fa64cbeb4269f629943eda383cd2000",
+    "bytes": 19587
+  },
+  "engine": {
+    "sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+    "bytes": 180858888
+  },
+  "original_prefetch": {
+    "sha256": "899a16248df56a7da81ed857bb96840c2463b94bb9f2e698fe53212f78643528",
+    "bytes": 13071
+  },
+  "repaired_prefetch": {
+    "sha256": "7d338a07ba48c7d716d465d63276ac6fa92fbcdbc79778068a762dd50eb5f558",
+    "bytes": 17028
+  },
+  "tool_sha256": "c48429123908ccd2264d7cd4b225b7c3f14307440e5d82bf745cdd4bc6605ae7",
+  "engine_started_by_helper": false
+}

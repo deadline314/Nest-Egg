@@ -1,0 +1,52 @@
+{
+  "utc": "2026-10-10T18:48:10.119643+00:00",
+  "phase": "repaired-record",
+  "policy": "main-thread-rd-472",
+  "actual_pid": 30336,
+  "dry_run": false,
+  "accepted": true,
+  "verdict": "repaired phase accepted within this route only",
+  "rid_error_count": 0,
+  "raw_error_count": 0,
+  "exit": 0,
+  "checks": 106,
+  "failures": 0,
+  "before_source_manifest": {
+    "sha256": "64c06eec2fe67099979545d8d3c716f0d41e19283ebb1598fe7b8660ee25343d",
+    "bytes": 1344870
+  },
+  "after_source_file": "C:\\tmp\\bg31-primary-delivery\\main-factor-control-3\\repaired-record-after-sources.json",
+  "source_drift": [],
+  "wrapper": {
+    "sha256": "3ac28c277bece173261194f53f8b4fc3952833836d5c79ffa2ece60a2d106eca",
+    "bytes": 684
+  },
+  "raw_log": {
+    "sha256": "4dfa4ddffbeb179e564b3eb61587ab66b0c23a11dc3274605180fdf8c53522e2",
+    "bytes": 38207
+  },
+  "summary": {
+    "sha256": "54ee45c8722ab9059fc1d44c2704925141507c17f35fd4ac0e4334c7e6cc61f3",
+    "bytes": 38103
+  },
+  "memory_csv": {
+    "sha256": "c2bcee0d8aea46ff47eca4acf7e16e3da5cc13d0d13b7196f26515d9723fad62",
+    "bytes": 5557
+  },
+  "memory": {
+    "samples": 124,
+    "peak_ws": 596135936,
+    "peak_private": 1179049984,
+    "monitor_errors": [],
+    "vram_measured": false
+  },
+  "terminal_slot": {
+    "sha256": "44abb35343b9dcea76d63212e8c3da036a836630a295eb066ec568277af4974c",
+    "bytes": 2924
+  },
+  "limit": "Exact bounded primary Main tool route only; no upstream owner fix/all Main RID/full chapter/NE246/VRAM claim",
+  "after_source_manifest": {
+    "sha256": "7fb5e106c4cd63a5a065922ec74ee6b49d3e1f362b27197c0850fed85dbf47f9",
+    "bytes": 1343940
+  }
+}
