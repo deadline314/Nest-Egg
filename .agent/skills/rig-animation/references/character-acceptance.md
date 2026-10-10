@@ -268,3 +268,11 @@ python tools/comfyui/gpu_lock.py -- $env:GODOT --headless --path . res://tools/r
 共享接邊使用同一source-space頂點及權重，貼圖仍各自只包含自己的部件。source RGBA不變的控制組與原生渲染各自保存；任一新增單像素孔洞即拒收。原生bind必須記錄全部既有骨頭的局部Transform2D，網格頂點位於根縮放前的Skeleton2D坐標。骨頭權重路徑由Skeleton2D解析，不能由Polygon2D驗證冒充GPU成功。清除與網格／剛體切換須還原rests、骨長、掛點、圖層、normal/glow及損傷狀態；即使局部480樣本全過，仍逐一驗全身、所有动作與實際遊戲品質。不得把未驗的人體輪廓或合成損傷控制列為完成。
 
 原生姿勢網格必須實際進入外觀 bounds 與 AnimAudit 的 mesh_fold：用只有原生部件、沒有舊肢體網格的負控制故意翻面，確認原門檻會拒收；另驗證非零 authored bind、兩骨不同動作的加權端點、根縮放／反射／旋轉只套一次，以及隱藏、損傷、切換與清除。發光子層及未顯示替代件不能重複計入。mesh_fold 只量三角形翻面，不能代表原生網格縮窄、面積壓縮、來源 alpha 接縫或人體輪廓已通過；這些仍各自逐格與原生畫面檢查。
+
+### Polygon2D 來源域覆蓋（NE-222）
+
+- 對每件網格固定並核對來源 owner mask、source-to-texture／atlas-to-UV 對應（包含裁切原點、padding／trim 與 atlas 區域）。在貼圖域逐一檢查 owner mask 的每個來源像素中心是否落在至少一個有效 UV 三角形內，且該點依 UV 映回預期來源 texel；任何未覆蓋像素（含單一像素）或錯映都拒收。原始 RGBA hash 不變、零 alpha 孔洞或匯出尺寸一致，都不能證明 Polygon2D 保留了完整來源輪廓。
+- 覆蓋判定以 owner 像素中心和正確 texel 對應為準；透明 padding 上的網格頂點可以合法存在，不要求每個頂點都壓在不透明像素上。不得為了讓頂點看起來都落在材質內而向內縮網格或裁掉鞋跟、鞋尖及其他已歸屬輪廓。
+- 網格域覆蓋只證明已歸屬的來源像素能由 UV 三角形取樣，不證明 mask 把正確解剖分給該部件；source ownership／語意正確性須獨立驗證。CPU 幾何檢查也不能代替各面向、各要求姿勢的原生渲染與接縫驗收。
+- 加入固定負控制：把測試 mesh／UV 覆蓋域沿已歸屬來源輪廓向內縮 1 source pixel，再跑同一 pixel-center coverage check，必須報出未覆蓋來源座標並失敗。若負控制仍通過，表示檢查器漏報，不能以容差、膨脹 mask 或降低門檻掩蓋。
+- 映射負控制另把 UV 整體移動 1 source pixel 而保持骨架頂點不動；即使 owner 域覆蓋仍全部通過，source-to-skeleton 對應檢查也須拒絕。公開可重跑的兩隻靴子範例見 [NE-222 來源域檢查](../../../../pm/Nest-Egg/attachments/NE-222-source-domain-review/README.md)；此範例是 CPU 反例與固定來源檢查，不是正式姿勢採用。

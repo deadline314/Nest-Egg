@@ -1,0 +1,15 @@
+NE-222 source-domain CPU verifier: PASS
+source: 74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed RGBA 1440x736; alpha floor 40
+front_boot: owner=36817 RGBA crop mismatches=0
+  v1: vertices=9 triangles=8 covered=22257 missing=14560 domain=FAIL mapping=PASS max_error_px=1.16781910206e-13
+  v2: vertices=9 triangles=12 covered=36817 missing=0 domain=PASS mapping=PASS max_error_px=2.33563820413e-13
+  V2 owned-edge 1px inset: FAIL as expected; edge samples=18 missing=18; transparent padding used=no
+  V2 UV +1px mapping control: domain missing=0, mapping=FAIL (must fail), max_error_px=1
+back_boot: owner=36133 RGBA crop mismatches=0
+  v1: vertices=9 triangles=8 covered=18285 missing=17848 domain=FAIL mapping=PASS max_error_px=2.33563820413e-13
+  v2: vertices=9 triangles=12 covered=36133 missing=0 domain=PASS mapping=PASS max_error_px=2.33563820413e-13
+  V2 owned-edge 1px inset: FAIL as expected; edge samples=16 missing=16; transparent padding used=no
+  V2 UV +1px mapping control: domain missing=0, mapping=FAIL (must fail), max_error_px=1
+repeat: analysis and all 3 image hashes identical across 2 builds
+report: C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\pm\Nest-Egg\attachments\NE-222-source-domain-review\results\verification.json
+images: C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\pm\Nest-Egg\images\NE-222-source-domain-review
