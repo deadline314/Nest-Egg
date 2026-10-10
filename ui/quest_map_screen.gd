@@ -22,6 +22,8 @@ var _status: Label
 var _canvas: QuestMapCanvas
 var _list: VBoxContainer
 var _details: VBoxContainer
+## 任務細節的操作（釘選、前往地圖）固定在細節下方，不跟著內文捲走或被裁掉一半。
+var _actions: HFlowContainer
 var _title: Label
 var _buttons: Array[Button] = []
 
@@ -104,6 +106,7 @@ func _build() -> void:
 	_buttons.clear()
 	_canvas = null
 	_details = null
+	_actions = null
 	_title.text = "任務目錄" if _page == "quests" else "世界地圖" if _page == "world" else "區域地圖"
 	if _page == "quests":
 		_build_quests()
@@ -151,6 +154,10 @@ func _build_quests() -> void:
 	_details = VBoxContainer.new()
 	_details.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	detail_scroll.add_child(_details)
+	_actions = HFlowContainer.new()
+	_actions.add_theme_constant_override(&"h_separation", 6)
+	_actions.add_theme_constant_override(&"v_separation", 4)
+	right.body.add_child(_actions)
 	var quests := catalog.list_for(chapter, _kind, _completed, GameState.world_flags)
 	if quests.is_empty():
 		_wrapped(_list, "目前沒有已完成的任務。" if _completed else "目前尚無可追蹤的任務。")
@@ -186,7 +193,7 @@ func _filter(value: String) -> void:
 
 func _select(id: String, focus_details := false) -> void:
 	_selected = id
-	for child in _details.get_children():
+	for child in _details.get_children() + _actions.get_children():
 		child.get_parent().remove_child(child)
 		child.queue_free()
 	var quest := catalog.find(id)
@@ -204,15 +211,17 @@ func _select(id: String, focus_details := false) -> void:
 		_wrapped(_details, ("✓ " if complete else "○ ") + str(step["title"]))
 	_wrapped(_details, "獎勵：%s" % quest["reward"], Palette.NEON_YELLOW)
 	if status != "completed":
-		_details.add_child(_button("取消釘選" if state.pinned_id == id else "釘選這項任務", _pin.bind(id), "讓目標列與方向箭頭追蹤這項任務。"))
+		_actions.add_child(_button("取消釘選" if state.pinned_id == id else "釘選這項任務", _pin.bind(id), "讓目標列與方向箭頭追蹤這項任務。"))
 	var step := QuestCatalog.current_step(quest, GameState.world_flags)
 	if step.is_empty():
 		step = quest["steps"].back()
 	var location: Dictionary = step["location"]
 	var data: LevelData = maps.areas.get(location["level"], {}).get("data")
 	if data != null:
-		_details.add_child(_button("前往%s的地圖" % data.display_name, _jump_to_map.bind(location["level"]), "查看選中任務的目的地，返回後回到任務細節。"))
+		_actions.add_child(_button("前往%s的地圖" % data.display_name, _jump_to_map.bind(location["level"]), "查看選中任務的目的地，返回後回到任務細節。"))
+	_link_actions()
 	_bind_hints(_details)
+	_bind_hints(_actions)
 	if focus_details:
 		_focus_details.call_deferred()
 
@@ -320,8 +329,19 @@ func _restore_focus(text: String) -> void:
 			return
 
 
+## 操作按鈕並排顯示，但方向鍵上下也能在它們之間移動，和原本直排時的操作習慣一致。
+func _link_actions() -> void:
+	var buttons := _actions.get_children()
+	for i in range(1, buttons.size()):
+		var prev := buttons[i - 1] as Control
+		var next := buttons[i] as Control
+		prev.focus_neighbor_bottom = prev.get_path_to(next)
+		next.focus_neighbor_top = next.get_path_to(prev)
+
+
 func _focus_details() -> void:
-	if is_instance_valid(_details) and _details.is_inside_tree():
-		for button: Button in _details.find_children("*", "Button", true, false):
-			button.grab_focus()
-			return
+	for box: Control in [_actions, _details]:
+		if is_instance_valid(box) and box.is_inside_tree():
+			for button: Button in box.find_children("*", "Button", true, false):
+				button.grab_focus()
+				return

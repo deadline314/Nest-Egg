@@ -7,6 +7,7 @@ var _only_page := ""
 var _width := 1280
 var _height := 720
 var _level_id := "pawnshop"
+var _text_scale := 1.0
 var _watermark: Label
 var _layout_issues := PackedStringArray()
 
@@ -23,6 +24,8 @@ func _ready() -> void:
 			_width = int(arg.trim_prefix("--width="))
 		elif arg.begins_with("--height="):
 			_height = int(arg.trim_prefix("--height="))
+		elif arg.begins_with("--text-scale="):
+			_text_scale = float(arg.trim_prefix("--text-scale="))
 		elif arg.begins_with("--level="):
 			_level_id = arg.trim_prefix("--level=")
 	get_window().size = Vector2i(_width, _height)
@@ -33,6 +36,7 @@ func _ready() -> void:
 func _run() -> void:
 	DirAccess.make_dir_recursive_absolute(_out)
 	Settings.use_storage("user://ne223-probe-settings.cfg")
+	Settings.set_ui_text_scale(_text_scale)
 	Story.auto_skip = true
 	GameState.start_new_run(GameState.difficulties[0])
 	add_child(LightKit.create_environment())
