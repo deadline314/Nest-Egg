@@ -1,0 +1,7 @@
+受影響的測試：LayerOrderSuite,NpcAnimationSuite,RigActionsSuite,RigMeshSuite
+Running 4 groups in 4 processes (logs: C:/Users/stanl/.codex/worktrees/heavy-affected-tests/Nest-Egg/.godot/heavy-affected-tests/test-logs)
+  process 0 (estimated 25 s): RigMeshSuite
+  process 1 (estimated 25 s): RigActionsSuite
+  process 2 (estimated 25 s): NpcAnimationSuite
+  process 3 (estimated 25 s): LayerOrderSuite
+checks: 2942, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 11 s)

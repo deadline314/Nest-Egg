@@ -1,0 +1,63 @@
+{
+  "status": "Adopted single forearm source replay; 827/53760 formal joint failures remain; not full pose acceptance",
+  "native_canvas": [
+    832,
+    1216
+  ],
+  "candidate": {
+    "path": "overrides/refined/arm_lower.png (rebuilt in source clone)",
+    "png_sha256": "19840911d255cf45192a6cbd6ed2a1a9d339a0ce05bf5e1497e5aefc29a398ec",
+    "decoded_rgba_sha256": "55c3d94a8ce1e6a18e4c602b6d41531550788f06b804bdfbad0c46214ad4fac5",
+    "opaque_pixels": 22108
+  },
+  "baseline_underlay": {
+    "private_reference": ".godot/ne90-heavy-wrist-repair/revision-v3/arm_lower_fullcanvas.png",
+    "png_sha256": "c0ca5e6b8e31155212540162fe38e2547b7ef3040f978e1abf67b6598714875f",
+    "origin_rule": "First exact RGBA source at same native pixel: base_rgba, then stage P, then existing 07_refined/arm_lower. Transparent RGB is preserved from existing 07_refined/arm_lower."
+  },
+  "underlap": {
+    "mask": "owners/upper_band18.png",
+    "source": "07_refined/arm_upper.png",
+    "mask_sha256": "bb9ee878e8db941c4a06024f721499c90e9d2ca886f72f3372c2f52910820a9c",
+    "pixels": 3400,
+    "projection_interval_source_pixels": [
+      -18,
+      18
+    ],
+    "note": "The mask is the candidate-reviewed connected upper-arm alpha component selected in the elbow-to-palm band. It replaces only the v3 underlay owner region with exact original arm_upper RGBA."
+  },
+  "owners": {
+    "base.png": {
+      "source": "base_rgba.png",
+      "source_sha256": "50ad19cfbac08512068e870298354b9881b923482e5866a858bd9f55ad0894a0",
+      "mask_sha256": "702af51d263f2ebd535f1316503d2d48de8f2b183a1efc7710d193edb9d13028",
+      "pixels": 10
+    },
+    "stage_P.png": {
+      "source": "04_stages/P.png",
+      "source_sha256": "2d433d2f90d21d24276dc7ef12a6a1ac8abb7e635f2fd474ffeaa092b3ebc761",
+      "mask_sha256": "be7b35ce51087e1dd950a4977918817e0d7feba9ce01cc60356073298c71c810",
+      "pixels": 18687
+    },
+    "lower_07.png": {
+      "source": "07_refined/arm_lower.png",
+      "source_sha256": "bd2837c4817e6d87e4000ffddc4c69bd8f71f518d6784c846c9015fabcb33e41",
+      "mask_sha256": "889df694636f7f0f6b420ddc9c6e3a8e87705379575f2e05bff656449894e214",
+      "pixels": 11
+    },
+    "upper_band18.png": {
+      "source": "07_refined/arm_upper.png",
+      "source_sha256": "74ef8fe79df12343e361b831ba1f1717fa2990b65e3aeb1c07d96ece526a3943",
+      "mask_sha256": "bb9ee878e8db941c4a06024f721499c90e9d2ca886f72f3372c2f52910820a9c",
+      "pixels": 3400
+    }
+  },
+  "candidate_validation": {
+    "owner_union_pixels": 22108,
+    "components": 1,
+    "holes": 0,
+    "source_unmatched_pixels": 0,
+    "source_RGBA_reconstruction_exact": true,
+    "all_owner_masks_disjoint": true
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "status": "two source-only CPU rebuilds match formal arm_lower diffuse/normal and metadata",
+  "temporary_builds": [
+    {
+      "source_replay": {
+        "opaque_pixels": 22108,
+        "decoded_rgba_sha256": "55c3d94a8ce1e6a18e4c602b6d41531550788f06b804bdfbad0c46214ad4fac5"
+      },
+      "fullcanvas_png_sha256": "19840911d255cf45192a6cbd6ed2a1a9d339a0ce05bf5e1497e5aefc29a398ec",
+      "cut_size": [
+        162,
+        230
+      ],
+      "cut_pivot": [
+        64.15,
+        21.87
+      ],
+      "formal": {
+        "character_metadata": {
+          "file": "parts/arm_lower.png",
+          "size": [
+            162,
+            230
+          ],
+          "pivot": [
+            64.15,
+            21.87
+          ]
+        },
+        "diffuse_sha256": "88a893bab6ffa739a9d6a6ad67482d1b6248f3551e72a22d71c6ad790f54854a",
+        "normal_sha256": "bbdb15ff0c61827683352ce8f75cd0c98933921a6a9fb1ced5a9820b63784218",
+        "diffuse_pixel_match": true,
+        "normal_pixel_match": true
+      }
+    },
+    {
+      "source_replay": {
+        "opaque_pixels": 22108,
+        "decoded_rgba_sha256": "55c3d94a8ce1e6a18e4c602b6d41531550788f06b804bdfbad0c46214ad4fac5"
+      },
+      "fullcanvas_png_sha256": "19840911d255cf45192a6cbd6ed2a1a9d339a0ce05bf5e1497e5aefc29a398ec",
+      "cut_size": [
+        162,
+        230
+      ],
+      "cut_pivot": [
+        64.15,
+        21.87
+      ],
+      "formal": {
+        "character_metadata": {
+          "file": "parts/arm_lower.png",
+          "size": [
+            162,
+            230
+          ],
+          "pivot": [
+            64.15,
+            21.87
+          ]
+        },
+        "diffuse_sha256": "88a893bab6ffa739a9d6a6ad67482d1b6248f3551e72a22d71c6ad790f54854a",
+        "normal_sha256": "bbdb15ff0c61827683352ce8f75cd0c98933921a6a9fb1ced5a9820b63784218",
+        "diffuse_pixel_match": true,
+        "normal_pixel_match": true
+      }
+    }
+  ],
+  "same_two_builds": true,
+  "negative_controls": {
+    "corrupt_source_rejected_before_write": true,
+    "owner_omission_rejected_before_write": true,
+    "extra_owner_pixel_rejected_before_write": true,
+    "one_pixel_enclosed_hole_rejected": true,
+    "corrupt_band_mask_rejected_before_write": true
+  },
+  "native_limit": "This verifier covers source replay and cut output only. Final 14-joint Forward+ acceptance must be reported separately by root; no native pass is inferred here."
+}

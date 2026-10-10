@@ -1,0 +1,20 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+ERROR: [HumanoidAnimator] res://art/rigs/action_poses.json 沒有專屬動作「no_such_action」
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] report_once (res://game/rig/rig_library.gd:125)
+       [2] _apply_action (res://game/rig/humanoid_animator.gd:872)
+       [3] update (res://game/rig/humanoid_animator.gd:248)
+       [4] animate (res://game/rig/character_rig.gd:215)
+       [5] _rig (res://tests/suite/test_rig_actions.gd:26)
+       [6] _test_unknown_action (res://tests/suite/test_rig_actions.gd:116)
+       [7] run (res://tests/suite/test_rig_actions.gd:13)
+       [8] _test_playback (res://tests/suite/test_rig_actions.gd:75)
+       [9] _rig (res://tests/suite/test_rig_actions.gd:28)
+       [10] frames (res://tests/suite/test_suite.gd:23)
+       [11] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME RigActionsSuite 1.1
+checks: 2354, failures: 0
