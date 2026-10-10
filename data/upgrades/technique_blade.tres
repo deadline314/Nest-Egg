@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponUpgradeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/weapon_upgrade_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"technique_blade"
+display_name = "突進斬"
+effect = 3
+optional_purchase = true
+cost = 100
+melee_weapon_id = &"melee_blade"
+description = "3→可選4段：收招後再點按突進斬，護盾 −18，收招 0.42 秒；按住維持首招"
+order = 10

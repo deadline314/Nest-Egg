@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponUpgradeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/weapon_upgrade_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"technique_whip"
+display_name = "回甩"
+effect = 3
+optional_purchase = true
+cost = 100
+melee_weapon_id = &"melee_whip"
+description = "1→可選2段：收招後再點按回甩，護盾 −16，收招 0.50 秒；按住維持首招"
+order = 10

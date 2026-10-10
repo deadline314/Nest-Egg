@@ -87,6 +87,8 @@ enum MeleePhase { NONE, WINDUP, ACTIVE, RECOVERY }
 var _melee_phase := MeleePhase.NONE
 var _melee_time := 0.0
 var _melee_attack: Dictionary = {}
+var _melee_chain: Array = []
+var _melee_commands: MeleeCommandInput
 ## 這一段連段用的招式組：沒拿近戰武器是預設近戰，拿著近戰武器是那把武器的組；中途換武器就從第一招重新開始。
 var _melee_set: MeleeSet = MeleeData.default_set()
 ## 這一揮的命中回饋（頓幀、命中聲）是否已經播過；持續判定的招式只在第一個命中時播一次。
@@ -139,6 +141,9 @@ func _ready() -> void:
 	if tuning == null:
 		push_warning("[Player] 未指定 PlayerTuning，使用預設值。")
 		tuning = PlayerTuning.new()
+	_melee_commands = MeleeCommandInput.new()
+	_melee_commands.player = self
+	add_child(_melee_commands)
 	add_to_group(&"player")
 	GameplayLock.started.connect(_clear_input_buffers)
 	collision_layer = Layers.PLAYER
@@ -386,14 +391,20 @@ func _process_normal(delta: float) -> void:
 
 	if Input.is_action_just_pressed(&"interact") and _try_mount():
 		return
-	if Input.is_action_just_pressed(&"melee") and _try_melee():
-		return
+	for action: StringName in [&"melee", &"shoot"]:
+		if action == &"shoot" and not holds_melee_weapon():
+			continue
+		_melee_commands.poll(action)
+	if _melee_commands.remaining() > 0.0:
+		if _melee_phase == MeleePhase.NONE:
+			_try_melee()
+			return
+		else:
+			_melee_buffer_left = _melee_commands.remaining()
 	if Input.is_action_just_pressed(&"dash"):
 		_try_dash(input_x)
 	if holds_melee_weapon() and not is_blocking:
-		if Input.is_action_just_pressed(&"shoot"):
-			_try_melee()
-		elif _melee_phase == MeleePhase.NONE and (Input.is_action_pressed(&"shoot") or Input.is_action_pressed(&"melee")):
+		if _melee_phase == MeleePhase.NONE and (Input.is_action_pressed(&"shoot") or Input.is_action_pressed(&"melee")):
 			_try_melee(false)
 	elif Input.is_action_pressed(&"shoot") and not is_blocking:
 		if not is_melee_locked():
@@ -532,6 +543,8 @@ func _is_low_ammo(weapon: WeaponData) -> bool:
 
 
 func _try_fire() -> void:
+	if state not in [State.NORMAL, State.DASH] or is_blocking or is_melee_locked() or GameplayLock.is_locked() or get_tree().paused:
+		return
 	if _fire_cooldown_left > 0.0 or _melee_cooldown_left > 0.0:
 		return
 	var weapon := loadout.active_weapon()
@@ -542,6 +555,8 @@ func _try_fire() -> void:
 		if dry:
 			_dry_fire()
 		return
+	if _melee_phase != MeleePhase.NONE:
+		_end_melee(false)
 	_fire_cooldown_left = weapon.fire_interval / cyber.fire_rate_scale()
 	InputFeel.resolve(&"shoot")
 	var muzzle := muzzle_position()
@@ -660,7 +675,8 @@ func _try_melee(continue_combo := true) -> bool:
 	if state != State.NORMAL or is_blocking or GameplayLock.is_locked() or get_tree().paused:
 		return false
 	if _melee_phase != MeleePhase.NONE:
-		_melee_buffer_left = MeleeData.buffer_time()
+		_melee_commands.queue_command()
+		_melee_buffer_left = _melee_commands.remaining()
 		return true
 	if _melee_cooldown_left > 0.0:
 		return false
@@ -669,6 +685,7 @@ func _try_melee(continue_combo := true) -> bool:
 		loadout.cancel_reload()  # 近戰武器的「換彈」是充電，揮擊不取消它
 	var target := _find_finisher_target() if not armed else null
 	if target != null:
+		_melee_commands.consume()
 		_start_finisher(target)
 		return true
 	return _start_melee_attack(continue_combo and _melee_combo_left > 0.0)
@@ -678,9 +695,17 @@ func _try_melee(continue_combo := true) -> bool:
 func _start_melee_attack(continue_combo: bool) -> bool:
 	var weapon := loadout.active_weapon()
 	var set := MeleeData.set_of(weapon)
-	var combo := set.combo()
-	# 尾招收招不可環回首招；結束後須重新起手，保留反制時間。
-	if continue_combo and set == _melee_set and _melee_index >= combo.size() - 1:
+	if set != _melee_set:
+		continue_combo = false
+	var combo := _melee_chain if continue_combo and not _melee_chain.is_empty() else set.combo(weapon != null and Progression.has_upgrade(weapon, set.extension_upgrade()))
+	# 尾招不能環回首招；整條招式於首招選定。
+	if continue_combo and _melee_index >= combo.size() - 1:
+		return false
+	var next_index := _melee_index + 1 if continue_combo and _melee_index >= 0 else 0
+	var attack := set.attack(str(combo[next_index]))
+	var cost := float(attack["guard_cost"])
+	if not is_finite(cost) or cost < 0.0 or cost > guard or (cost > 0.0 and _guard_lockout_left > 0.0):
+		_end_melee(false)
 		return false
 	if weapon != null and weapon.is_melee() and not _spend_melee_charge(weapon):
 		_end_melee(false)
@@ -688,12 +713,16 @@ func _start_melee_attack(continue_combo: bool) -> bool:
 	if loadout.active_weapon() != weapon:
 		_end_melee(false)
 		return false
+	if cost > 0.0:
+		guard -= cost
+		_guard_regen_delay_left = float(attack["windup"]) + float(attack["active"]) + float(attack["recovery"]) + tuning.guard_regen_delay
+		_emit_guard()
 	InputFeel.resolve(&"melee")
-	if set != _melee_set:
-		_melee_set = set
-		continue_combo = false
-	_melee_index = _melee_index + 1 if continue_combo and _melee_index >= 0 else 0
-	_melee_attack = set.attack(str(combo[_melee_index]))
+	_melee_set = set
+	_melee_chain = combo
+	_melee_index = next_index
+	_melee_attack = attack
+	_melee_commands.consume()
 	_melee_weapon_id = weapon.id if weapon != null else &""
 	_melee_facing = facing
 	_melee_swing_direction = _aim_melee_direction(_melee_attack)
@@ -718,17 +747,16 @@ func _spend_melee_charge(weapon: WeaponData) -> bool:
 
 ## 每個物理影格推進近戰三段。
 func _tick_melee(delta: float) -> void:
+	_melee_buffer_left = _melee_commands.remaining()
 	if _melee_phase == MeleePhase.NONE:
-		_melee_buffer_left = maxf(0.0, _melee_buffer_left - delta)
 		_melee_combo_left = maxf(0.0, _melee_combo_left - delta)
 		if _melee_combo_left <= 0.0:
 			_melee_index = -1
 		return
-	if state == State.DEAD or state == State.FINISHER or state == State.STAGGERED or state == State.MOUNTED:
+	if state == State.DEAD or state == State.FINISHER or state == State.STAGGERED or state == State.MOUNTED or state == State.PHONE:
 		_end_melee(false)
 		return
 	_melee_time += delta
-	_melee_buffer_left = maxf(0.0, _melee_buffer_left - delta)
 	match _melee_phase:
 		MeleePhase.WINDUP:
 			if _melee_time >= float(_melee_attack["windup"]):
@@ -742,7 +770,7 @@ func _tick_melee(delta: float) -> void:
 				_melee_phase = MeleePhase.RECOVERY
 				_melee_time = 0.0
 		MeleePhase.RECOVERY:
-			if _melee_buffer_left > 0.0 and is_melee_cancellable() and _melee_index < _melee_set.combo().size() - 1:
+			if _melee_buffer_left > 0.0 and is_melee_cancellable() and _melee_index < _melee_chain.size() - 1:
 				if not _start_melee_attack(true):
 					_end_melee()
 			elif _melee_time >= float(_melee_attack["recovery"]):
@@ -772,8 +800,11 @@ func _end_melee(keep_combo := true) -> void:
 	if was_active:
 		_melee_combo_left = _melee_set.combo_window() if _melee_landed or _melee_buffer_left > 0.0 else _melee_set.combo_window() * 0.5
 		_melee_cooldown_left = 0.0
-	if not keep_combo or _melee_index >= _melee_set.combo().size() - 1:
+	if not keep_combo or _melee_index >= _melee_chain.size() - 1:
 		_melee_index = -1
+		_melee_chain.clear()
+		if _melee_commands != null:
+			_melee_commands.clear()
 		_melee_combo_left = 0.0
 		_melee_buffer_left = 0.0
 		_melee_hit_ids.clear()
@@ -1064,9 +1095,9 @@ func _try_mount() -> bool:
 
 
 func mount_vehicle(vehicle: Vehicle) -> void:
-	_interrupt_melee(true)
 	if vehicle == null or state == State.DEAD:
 		return
+	_interrupt_melee(true)
 	state = State.MOUNTED
 	mounted_vehicle = vehicle
 	velocity = Vector2.ZERO
@@ -1120,8 +1151,10 @@ func _process_mounted() -> void:
 func _update_blocking() -> void:
 	var pressed := Input.is_action_pressed(&"block") and _guard_lockout_left <= 0.0
 	# 舉盾需要最低能量；已經舉著的盾可以一直撐到能量耗盡。
-	var wants := pressed and (guard >= tuning.guard_min_to_raise if not is_blocking else guard > 0.0)
+	var wants := pressed and not is_melee_locked() and (guard >= tuning.guard_min_to_raise if not is_blocking else guard > 0.0)
 	if wants and not is_blocking:
+		if _melee_phase != MeleePhase.NONE:
+			_end_melee(false)
 		_block_time = 0.0
 		# 放開後很快又舉盾：完美格擋窗口縮短，不能狂按亂彈。
 		_window_scale = tuning.parry_window_repeat_scale if _since_block_release < tuning.parry_repeat_time else 1.0

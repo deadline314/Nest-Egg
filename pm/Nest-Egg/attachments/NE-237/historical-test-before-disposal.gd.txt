@@ -1,0 +1,697 @@
+class_name MeleeWeaponsSuite
+extends EnemySuiteBase
+## 近戰武器（NE-117）：武器是資料（.tres 指向 data/melee/<id>.json）；判定只在出招區間、同一目標只算一次、
+## 距離與死角、電量消耗與充電、任兩把有取捨、武器欄與背包能顯示、既有槍械不受影響。
+
+const WEAPONS: Array[String] = ["melee_dagger", "melee_blade", "melee_maul", "melee_glaive", "melee_whip"]
+
+
+func run() -> void:
+	_test_growth_contract()
+	_test_data()
+	_test_balance()
+	_test_loadout()
+	await _test_reach_and_dead_zone()
+	await _test_single_hit_and_windows()
+	await _test_charge()
+	await _test_ui()
+	await _test_gun_unchanged()
+	await _test_interruptions()
+	await _test_blocked_contact()
+	await _test_held_input()
+	await _test_late_target_hitstop()
+	await _test_optional_tails()
+	await _test_command_paths()
+	await _test_refusals_and_extra_interruptions()
+	await _test_paid_cancels_and_facing()
+	await _test_tail_contacts()
+	AimInput.using_gamepad = false
+
+
+func _weapon(id: String) -> WeaponData:
+	return load("res://data/weapons/melee/%s.tres" % id) as WeaponData
+
+
+func _test_data() -> void:
+	for id in WEAPONS:
+		var weapon := _weapon(id)
+		check(weapon != null and weapon.is_melee() and weapon.is_valid(), "%s is a valid melee weapon" % id)
+		if weapon == null:
+			continue
+		var errors := MeleeData.set_of(weapon).validate()
+		check(errors.is_empty(), "%s melee data has no errors: %s" % [id, ", ".join(errors)])
+		check(not weapon.description.is_empty() and not weapon.short_name.is_empty(), "%s has a one-line description" % id)
+		check(WeaponSounds.name_for(weapon.id, &"empty") != &"", "%s falls back to the default empty-click sound" % id)
+		check(WeaponSystem.fire(weapon, Vector2.ZERO, Vector2.RIGHT, Combat.Team.PLAYER) == 0, "%s fires no bullets" % id)
+	var bad := WeaponData.new()
+	bad.melee_profile = "test_no_such_attack"
+	var fallback := MeleeData.set_of(bad).attack("whatever")
+	check(float(fallback["windup"]) > 0.0, "a missing profile falls back to safe defaults instead of crashing")
+
+
+## 速度、威力、距離、衝擊力四軸：任兩把都要各有勝負，沒有哪一把全面勝過其他。
+func _test_balance() -> void:
+	var stats: Dictionary = {}
+	for id in WEAPONS:
+		var set := MeleeData.set_of(_weapon(id))
+		var first := set.attack(str(set.combo()[0]))
+		var impact := 0.0
+		for attack_id: Variant in set.combo():
+			impact = maxf(impact, float(set.attack(str(attack_id))["impact"]))
+		stats[id] = {"speed": -float(first["windup"]), "dps": set.damage_per_second(), "reach": set.max_range(), "impact": impact}
+	for a in WEAPONS:
+		for b in WEAPONS:
+			if a >= b:
+				continue
+			var a_wins := 0
+			var b_wins := 0
+			for axis: String in ["speed", "dps", "reach", "impact"]:
+				if float(stats[a][axis]) > float(stats[b][axis]):
+					a_wins += 1
+				elif float(stats[a][axis]) < float(stats[b][axis]):
+					b_wins += 1
+			check(a_wins > 0 and b_wins > 0, "%s and %s trade off (wins %d vs %d)" % [a, b, a_wins, b_wins])
+	check(float(stats["melee_dagger"]["speed"]) > float(stats["melee_blade"]["speed"]), "the dagger starts swinging fastest")
+	check(float(stats["melee_whip"]["reach"]) > float(stats["melee_glaive"]["reach"]) and float(stats["melee_glaive"]["reach"]) > float(stats["melee_blade"]["reach"]), "whip reaches farther than the glaive, glaive farther than the blade")
+	check(float(stats["melee_maul"]["impact"]) > float(stats["melee_blade"]["impact"]), "the maul hits hardest")
+	var stagger := MeleeData.set_of(_weapon("melee_maul")).attack("smash")
+	check(int(stagger["stagger"]) >= 3 and float(stagger["impact"]) >= 9.0, "the maul can stagger enemies (impact tier)")
+
+
+func _test_loadout() -> void:
+	var loadout := Loadout.new()
+	loadout.reset(load("res://data/weapons/pistol.tres") as WeaponData)
+	loadout.equip(_weapon("melee_blade"))
+	loadout.equip(_weapon("melee_whip"))
+	check(loadout.weapon_in(1).id == &"melee_blade" and loadout.active_weapon().id == &"melee_whip", "melee weapons are picked up and equipped like guns")
+	loadout.select(1)
+	check(loadout.active_weapon().id == &"melee_blade", "a melee weapon can be switched to")
+	var restored := Loadout.new()
+	restored.restore(loadout.snapshot(), load("res://data/weapons/pistol.tres") as WeaponData)
+	check(restored.find_slot(&"melee_whip") >= 0 and restored.active_weapon().id == &"melee_blade", "the loadout snapshot keeps melee weapons")
+
+
+## 瞄準方向固定（模擬手把右搖桿），不受測試環境的滑鼠位置影響。
+func _aim(player: Player, dir: Vector2) -> void:
+	AimInput.using_gamepad = true
+	AimInput._last_stick_dir = dir.normalized()
+	player.aim_dir = dir.normalized()
+	player.facing = 1 if dir.x >= 0.0 else -1
+
+
+func _arm(weapon_id: String) -> Player:
+	var player := level.player
+	player.loadout.equip(_weapon(weapon_id))
+	_aim(player, Vector2.RIGHT)
+	player._melee_cooldown_left = 0.0
+	return player
+
+
+func _dummy(offset_px: float) -> Enemy:
+	var enemy := spawn(GRUNT_PATH, 10.0)
+	enemy.position = Vector2(level.player.global_position.x + offset_px, FLOOR_Y)
+	enemy.data = enemy.data.duplicate()
+	enemy.data.detect_range = 0.0
+	enemy.data.attack_range = 0.0
+	enemy.data.move_speed = 0.0
+	enemy.health.setup(999, 0.0)
+	return enemy
+
+
+## 揮一次並等到收招結束，回傳目標損失的生命。
+func _swing_at(weapon_id: String, offset_px: float, aim := Vector2.RIGHT) -> int:
+	await open_level(10.0)
+	var player := _arm(weapon_id)
+	_aim(player, aim)
+	var enemy := _dummy(offset_px)
+	await physics_frames(3)
+	var before := enemy.health.current
+	player._try_melee()
+	var frames_left := 200
+	while player._melee_phase != Player.MeleePhase.NONE and frames_left > 0:
+		await physics_frames(1)
+		frames_left -= 1
+	var lost := before - enemy.health.current
+	enemy.queue_free()
+	await physics_frames(3)
+	await end_level(level)
+	return lost
+
+
+func _test_reach_and_dead_zone() -> void:
+	check(await _swing_at("melee_dagger", 80.0) == 0, "the dagger cannot reach 80 px")
+	check(await _swing_at("melee_dagger", 14.0) > 0, "the dagger hits at close range")
+	check(await _swing_at("melee_glaive", 50.0) > 0, "the glaive hits at 50 px")
+	check(await _swing_at("melee_glaive", 14.0) == 0, "the glaive has a dead zone up close")
+	check(await _swing_at("melee_whip", 85.0) > 0, "the whip hits at 85 px")
+	check(await _swing_at("melee_whip", 18.0) == 0, "the whip cannot hit at point-blank range")
+	check(await _swing_at("melee_blade", 85.0) == 0, "the blade cannot reach 85 px")
+
+
+func _test_single_hit_and_windows() -> void:
+	await open_level(10.0)
+	var player := _arm("melee_blade")
+	var enemy := _dummy(24.0)
+	await physics_frames(3)
+	var before := enemy.health.current
+	player._try_melee()
+	check(enemy.health.current == before, "the wind-up deals no damage")
+	var attack: Dictionary = player._melee_attack
+	var guard := 0
+	while player._melee_phase != Player.MeleePhase.NONE and guard < 120:
+		await physics_frames(1)
+		guard += 1
+	check(before - enemy.health.current == int(attack["damage"]), "a sweeping swing hits the same target only once (%d damage)" % (before - enemy.health.current))
+	# 出招區間內才走進範圍的目標也算（持續判定），但出招結束後走進來的不算。
+	enemy.queue_free()  # 命中會讓玩家頓幀；第二次揮擊只留下要測的目標
+	await physics_frames(2)
+	var late := _dummy(120.0)
+	await physics_frames(3)
+	player._melee_cooldown_left = 0.0
+	player._melee_combo_left = 0.0
+	player._try_melee()
+	while player._melee_phase == Player.MeleePhase.WINDUP:
+		await physics_frames(1)
+	late.global_position.x = player.global_position.x + 24.0
+	await physics_frames(2)
+	check(late.health.current < 999 or player._melee_phase != Player.MeleePhase.ACTIVE, "a target stepping in during the active window can be hit")
+	while player._melee_phase != Player.MeleePhase.NONE:
+		await physics_frames(1)
+	var hp_after := late.health.current
+	late.global_position.x = player.global_position.x + 20.0
+	await physics_frames(6)
+	check(late.health.current == hp_after, "nothing is hit after the active window ends")
+	late.queue_free()
+	await physics_frames(3)
+	await end_level(level)
+
+
+func _test_charge() -> void:
+	await open_level(10.0)
+	var player := _arm("melee_maul")
+	var weapon := player.loadout.active_weapon()
+	var swings := 0
+	for i in weapon.magazine_size + 2:
+		player._melee_cooldown_left = 0.0
+		player._melee_combo_left = 0.0
+		player._try_melee()
+		if player._melee_phase != Player.MeleePhase.NONE:
+			swings += 1
+		player._end_melee()
+		await physics_frames(2)
+	check(swings == weapon.magazine_size, "the maul swings %d times then needs charging (swung %d)" % [weapon.magazine_size, swings])
+	check(player.loadout.is_reloading(), "an empty charge starts recharging")
+	await physics_frames(int(weapon.reload_time * 60.0) + 20)
+	check(player.loadout.mag_in(player.loadout.active_slot) == weapon.magazine_size, "the charge is full again after recharging")
+	var free := _arm("melee_blade")
+	check(not free.loadout.active_weapon().has_magazine(), "a charge-free blade never runs out")
+	await physics_frames(3)
+	await end_level(level)
+
+
+func _test_ui() -> void:
+	await open_level(10.0)
+	var player := _arm("melee_blade")
+	player.loadout.equip(_weapon("melee_maul"))
+	var bar := WeaponBar.new()
+	level.add_child(bar)
+	bar.update_from(player.loadout)
+	check(bar.row_count() == Loadout.MAX_SLOTS and bar.row_state(1) == AmmoIcons.State.FULL, "the weapon bar shows melee weapons")
+	for id in WEAPONS:
+		var weapon := _weapon(id)
+		check(MeleeArt.item_icon(weapon).get_size() == Vector2(MeleeArt.ITEM_SIZE), "%s has a card icon" % id)
+		check(AmmoIcons.for_weapon(weapon).get_size() == Vector2(MeleeArt.AMMO_SIZE), "%s has a weapon-bar icon" % id)
+	var page := WeaponsPage.new()
+	check(page._kind_text(_weapon("melee_blade")) == "近戰", "inventory cards label melee weapons")
+	bar.queue_free()
+	await physics_frames(3)
+	await end_level(level)
+
+
+func _test_gun_unchanged() -> void:
+	await open_level(10.0)
+	var player := level.player
+	_aim(player, Vector2.RIGHT)
+	check(not player.holds_melee_weapon(), "the starting pistol is not a melee weapon")
+	var enemy := _dummy(24.0)
+	await physics_frames(3)
+	var before := enemy.health.current
+	player._try_melee()
+	var guard := 0
+	while player._melee_phase != Player.MeleePhase.NONE and guard < 120:
+		await physics_frames(1)
+		guard += 1
+	check(before - enemy.health.current == int(MeleeData.attack(str(MeleeData.combo()[0]))["damage"]), "the melee key with a gun still uses the default light slash")
+	var mag := player.loadout.mag_in(player.loadout.active_slot)
+	player._fire_cooldown_left = 0.0
+	player._try_fire()
+	check(player.loadout.mag_in(player.loadout.active_slot) == mag - 1, "the pistol still fires")
+	enemy.queue_free()
+	await physics_frames(3)
+	await end_level(level)
+
+
+## 實際裝備與傷害事件：不能把舊招式／buffer 帶到新武器或復原後。
+func _test_interruptions() -> void:
+	await open_level(10.0)
+	var player := _arm("melee_maul")
+	player._try_melee()
+	player._try_melee()
+	player.loadout.select(0)
+	check(player._melee_phase == Player.MeleePhase.NONE and player._melee_buffer_left == 0.0 and player._melee_index == -1,
+		"switching weapons immediately discards the old melee attack and buffer")
+	check(player._melee_cooldown_left > 0.0, "switching cannot erase an unpaid windup/recovery")
+	var ammo := player.loadout.mag_in(0)
+	player._try_fire()
+	check(player.loadout.mag_in(0) == ammo, "switching to a gun cannot bypass unpaid melee recovery")
+	player = _arm("melee_blade")
+	player._try_melee()
+	player._try_melee()
+	var incoming := DamageInfo.create(1, Combat.Team.ENEMY, &"test", Vector2.LEFT)
+	incoming.ignore_invulnerability = true
+	player.health.take_damage(incoming)
+	check(player._melee_phase == Player.MeleePhase.NONE and player._melee_buffer_left == 0.0 and player._melee_combo_left == 0.0,
+		"ordinary damage immediately interrupts melee and removes the continuation")
+	Fx.thaw_all()
+	player._melee_cooldown_left = 0.0
+	player._try_melee()
+	player._try_melee()
+	player.health.kill(incoming)
+	check(player._melee_phase == Player.MeleePhase.NONE and player._melee_buffer_left == 0.0 and player._melee_index == -1,
+		"death immediately clears the attack and its queued input")
+	check(not player._try_melee(), "dead players cannot start or buffer melee through the public command")
+	await end_level(level)
+
+
+func _test_blocked_contact() -> void:
+	await open_level(10.0)
+	var player := _arm("melee_blade")
+	var enemy := _dummy(24.0)
+	enemy.hurtbox.guard = func(_info: DamageInfo) -> int: return Hurtbox.Guard.BLOCK
+	await physics_frames(3)
+	var before := enemy.health.current
+	player._try_melee()
+	var ticks := 0
+	while player._melee_phase != Player.MeleePhase.RECOVERY and ticks < 120:
+		await physics_frames(1)
+		ticks += 1
+	check(enemy.health.current == before and not player._melee_landed and not player._melee_feedback_done,
+		"a blocked contact is not damage, a hit cancel, or melee hit feedback")
+	check(player._melee_hit_ids.size() == 1, "a blocked target is contacted only once per swing")
+	await end_level(level)
+
+
+## action_press 是輪詢路徑合成輸入，並非實體手把；兩個近戰按鍵的 hold 規則相同。
+func _test_held_input() -> void:
+	for id in WEAPONS:
+		for action: StringName in [&"melee", &"shoot"]:
+			await open_level(10.0)
+			var player := _arm(id)
+			Progression.add_credits(1000)
+			Progression.buy_upgrade(player.loadout.active_weapon(), Progression.find_upgrade(MeleeData.set_of(player.loadout.active_weapon()).extension_upgrade()))
+			var offset := 50.0 if id == "melee_glaive" else 72.0 if id == "melee_whip" else 20.0
+			var enemy := _dummy(offset)
+			await physics_frames(3)
+			Input.action_press(action)
+			var advanced := false
+			var starts := 0
+			var previous_phase := Player.MeleePhase.NONE
+			for tick in 180:
+				enemy.global_position.x = player.global_position.x + offset
+				await physics_frames(1)
+				advanced = advanced or player._melee_index > 0
+				if player._melee_phase == Player.MeleePhase.WINDUP and previous_phase != Player.MeleePhase.WINDUP:
+					starts += 1
+				previous_phase = player._melee_phase
+			Input.action_release(action)
+			check(enemy.health.current < 999, "%s hold %s includes real landed contacts" % [id, action])
+			check(not advanced, "%s holding %s never selects an unrequested later/heavy attack" % [id, action])
+			check(starts > 1, "%s holding %s repeats the short first attack after full recovery" % [id, action])
+			await end_level(level)
+
+
+## 第三物件必須真的持續跑 physics，不能只檢查它不在 freeze 名單。
+class PhysicsPulse extends Node:
+	var ticks := 0
+	func _physics_process(_delta: float) -> void:
+		ticks += 1
+
+
+## 自然 ACTIVE sweep：不手動判定、不提前 thaw；晚進的真 Hurtbox 保留自身受擊反應。
+func _test_late_target_hitstop() -> void:
+	await open_level(10.0)
+	var player := _arm("melee_blade")
+	var first := _dummy(24.0)
+	var late := _dummy(150.0)
+	var unrelated := PhysicsPulse.new()
+	level.add_child(unrelated)
+	var late_hits: Array[Dictionary] = []
+	late.health.damaged.connect(func(info: DamageInfo) -> void:
+		late_hits.append({"frame": Engine.get_physics_frames(), "amount": info.amount,
+			"velocity_x": late.velocity.x, "velocity_y": late.velocity.y,
+			"flash": late._flash_left, "flinch": late._flinch_left, "stun": late._stun_left,
+			"true_attacker": info.attacker != null and info.attacker.get_ref() == player,
+			"freeze_attacker": info.freeze_attacker, "third_ticks": unrelated.ticks,
+			"phase": player._melee_phase}))
+	await physics_frames(3)
+	player._try_melee()
+	var guard := 120
+	while not player._melee_feedback_done and guard > 0:
+		await physics_frames(1)
+		guard -= 1
+	await level.get_tree().process_frame
+	check(player._melee_landed and first.health.current < 999, "the first natural sweep target receives damage and contact feedback")
+	check(player._melee_phase == Player.MeleePhase.ACTIVE, "the second Hurtbox enters while the real attack is ACTIVE")
+	var pause: Array = Fx._frozen.get(player, [])
+	check(not pause.is_empty(), "the first real contact actually pauses the attacker")
+	var maximum_ms := int(ceil(0.1 * Settings.get_feel_scale("hitstop") * Feel.preset_scale("hitstop") * 1000.0)) + 10
+	check(pause.is_empty() or int(pause[0]) - Time.get_ticks_msec() <= maximum_ms, "first target freeze has a finite configured bound")
+	var third_before := unrelated.ticks
+	var before := late.health.current
+	late.global_position.x = player.global_position.x + 24.0
+	guard = 120
+	while late_hits.is_empty() and player._melee_phase != Player.MeleePhase.NONE and guard > 0:
+		await physics_frames(1)
+		guard -= 1
+	await level.get_tree().process_frame
+	check(late_hits.size() == 1 and late.health.current < before, "natural ACTIVE physics sweeps damage the late real Hurtbox")
+	if not late_hits.is_empty():
+		var hit := late_hits[0]
+		check(not is_zero_approx(float(hit["velocity_x"])), "the late enemy receives nonzero actual knockback")
+		check(float(hit["flash"]) > 0.0 or float(hit["flinch"]) > 0.0 or float(hit["stun"]) > 0.0, "the late enemy keeps its own actual hit reaction")
+		check(bool(hit["true_attacker"]) and not bool(hit["freeze_attacker"]), "the late hit retains the real attacker without requesting another attacker freeze")
+		check(int(hit["phase"]) == Player.MeleePhase.ACTIVE, "late damage originates from the naturally running ACTIVE phase")
+	check(not Fx._frozen.has(player) and player.is_physics_processing(), "the attacker runs after its first contact pause and is not refrozen by the late enemy")
+	check(not Fx._frozen.has(unrelated) and unrelated.ticks > third_before, "the unrelated third object actually advances physics during contact pauses")
+	guard = 120
+	while player._melee_phase != Player.MeleePhase.NONE and guard > 0:
+		await physics_frames(1)
+		guard -= 1
+	check(player._melee_phase == Player.MeleePhase.NONE and late_hits.size() == 1, "the complete natural swing recovers and damages the late target exactly once")
+	if not late_hits.is_empty():
+		check(before - late.health.current == int(late_hits[0]["amount"]), "late health loss equals the one real damage event")
+	print("NE236_NATURAL_LATE_HIT ", JSON.stringify({"first_health": first.health.current,
+		"first_pause_deadline": pause[0] if not pause.is_empty() else -1, "late_before": before, "late_after": late.health.current, "hits": late_hits,
+		"third_before": third_before, "third_after": unrelated.ticks, "attacker_frozen": Fx._frozen.has(player)}))
+	await end_level(level)
+
+
+func _test_growth_contract() -> void:
+	var saved := Progression.snapshot()
+	Progression.reset_run()
+	Progression.add_credits(1000)
+	for id in WEAPONS:
+		var weapon := _weapon(id)
+		var set := MeleeData.set_of(weapon)
+		var upgrade := Progression.find_upgrade(set.extension_upgrade())
+		check(upgrade != null and upgrade.validate().is_empty(), "%s has a valid catalog technique" % id)
+		if upgrade == null:
+			continue
+		check(upgrade.applies_to(weapon) and not upgrade.applies_to(load("res://data/weapons/pistol.tres")) and not upgrade.applies_to(_weapon(WEAPONS[(WEAPONS.find(id) + 1) % WEAPONS.size()])), "%s technique applies only to its own weapon" % id)
+		var before := Progression.credits
+		check(Progression.buy_upgrade(weapon, upgrade) and Progression.credits == before - upgrade.cost, "%s purchase pays the exact catalog price" % id)
+		check(not Progression.buy_upgrade(weapon, upgrade) and Progression.credits == before - upgrade.cost, "%s duplicate purchase is rejected without spending" % id)
+		var tuned := Progression.tuned(weapon)
+		check(tuned.fire_interval == weapon.fire_interval and tuned.magazine_size == weapon.magazine_size, "%s unlock is not a passive damage/charge buff" % id)
+		var entry := UpgradesPage.new()._entry_for(tuned, upgrade)
+		check(entry.dimmed and not entry.action_enabled and entry.detail_body.contains("按住") and entry.detail_body.contains("護盾"), "%s existing upgrade card explains optional input and energy" % id)
+	var prices := EconomyReport.price_list()
+	check(prices.required == 570 and prices.optional == 540 and prices.upgrades == 910 and prices.optional_list.size() == 5, "optional melee costs remain visible without raising the original 570-credit required budget")
+	print("NE237_ECONOMY ",JSON.stringify(prices))
+	var bought := Progression.snapshot()
+	var install := Progression.prepare_install(bought)
+	print("NE237_INSTALL_CONTRACT ", install.get("error", "accepted"))
+	check(not install.has("error") or str(install.get("error", "")).contains("unknown weapon"), "strict install accepts the melee catalog or reports the explicit NE-230 missing-catalog dependency")
+	Progression.reset_run()
+	Progression.restore(bought)
+	for id in WEAPONS:
+		check(Progression.has_upgrade(_weapon(id), MeleeData.set_of(_weapon(id)).extension_upgrade()), "%s snapshot restores the unlock (not a real exit/resume test)" % id)
+	var foreign := bought.duplicate(true)
+	foreign.upgrades.melee_blade = ["technique_dagger"]
+	check(Progression.prepare_install(foreign).has("error"), "strict install rejects a technique saved under the wrong weapon")
+	Progression.reset_run()
+	var first := Progression.find_upgrade(&"technique_dagger")
+	check(not Progression.buy_upgrade(_weapon(WEAPONS[0]), first) and Progression.credits == 0, "insufficient credits do not buy or spend")
+	Progression.restore(saved)
+
+
+func _finish_swing(player: Player) -> void:
+	var ticks := 240
+	while player._melee_phase != Player.MeleePhase.NONE and ticks > 0:
+		await physics_frames(1)
+		ticks -= 1
+	check(ticks > 0, "the actual melee action finishes within four seconds")
+
+
+func _test_optional_tails() -> void:
+	for id in WEAPONS:
+		await open_level(10.0)
+		var player := _arm(id)
+		var weapon := player.loadout.active_weapon()
+		var set := MeleeData.set_of(weapon)
+		Progression.add_credits(1000)
+		check(Progression.buy_upgrade(weapon, Progression.find_upgrade(set.extension_upgrade())), "%s tail bought through public progression" % id)
+		var chain := set.combo(true)
+		for index in chain.size():
+			var before_guard := player.guard
+			check(player._try_melee() and player._melee_index == index, "%s explicit tap selects step %d" % [id, index])
+			var attack: Dictionary = player._melee_attack
+			check(is_equal_approx(before_guard - player.guard, float(attack.guard_cost)), "%s step %d pays its real guard cost" % [id, index])
+			if index == chain.size() - 1:
+				check(float(attack.cancel_after) == float(attack.recovery) and float(attack.guard_cost) > 0.0, "%s optional tail must pay full recovery and energy" % id)
+				player._try_melee() # 不能借尾招循環 buffer 取消。
+			await _finish_swing(player)
+		check(player._melee_index == -1 and player._melee_buffer_left == 0.0, "%s terminal action clears continuation and cannot loop" % id)
+		await end_level(level)
+	# 有電量的錘：缺護盾的尾招拒絕不先消耗電量。
+	await open_level(10.0)
+	var player := _arm("melee_maul")
+	Progression.add_credits(1000)
+	Progression.buy_upgrade(player.loadout.active_weapon(), Progression.find_upgrade(&"technique_maul"))
+	for step in 2:
+		player._try_melee()
+		await _finish_swing(player)
+	player.guard = 29.0
+	player._guard_regen_delay_left = 10.0
+	var charge := player.loadout.mag_in(player.loadout.active_slot)
+	check(not player._try_melee() and player.guard == 29.0 and player.loadout.mag_in(player.loadout.active_slot) == charge, "insufficient tail energy rejects atomically before charge spending")
+	check(player._melee_phase == Player.MeleePhase.NONE and player._melee_index == -1 and player._melee_commands.remaining() == 0.0, "energy refusal clears the chain and command")
+	await end_level(level)
+
+
+func _event_tap(action: StringName) -> void:
+	var event := InputEventAction.new()
+	event.action = action
+	event.pressed = true
+	Input.parse_input_event(event)
+	event = event.duplicate()
+	event.pressed = false
+	Input.parse_input_event(event)
+	Input.flush_buffered_events()
+
+
+func _test_command_paths() -> void:
+	for event_path in [false, true]:
+		await open_level(10.0)
+		var player := _arm("melee_blade")
+		if event_path:
+			_event_tap(&"melee")
+		else:
+			Input.action_press(&"melee")
+		await physics_frames(2)
+		Input.action_release(&"melee")
+		print("COMMAND_DIAG event=", event_path, " phase=", player._melee_phase, " index=", player._melee_index, " pending=", player._melee_commands.remaining())
+		check(player._melee_phase != Player.MeleePhase.NONE and player._melee_index == 0, "event=%s starts exactly one first swing" % event_path)
+		var ticks := 120
+		while player._melee_phase != Player.MeleePhase.RECOVERY and ticks > 0:
+			await physics_frames(1)
+			ticks -= 1
+		# 揮空收招末端才點按，防止超過短 buffer。
+		while player._melee_time < float(player._melee_attack.recovery) - 0.08:
+			await physics_frames(1)
+		if event_path:
+			_event_tap(&"shoot")
+		else:
+			Input.action_press(&"shoot")
+		await physics_frames(2)
+		Input.action_release(&"shoot")
+		ticks = 40
+		while player._melee_index == 0 and ticks > 0:
+			await physics_frames(1)
+			ticks -= 1
+		check(player._melee_index == 1, "event=%s second input starts the second swing once" % event_path)
+		await _finish_swing(player)
+		check(player._melee_index == 1, "event=%s event/poll dedup does not fabricate a third tap" % event_path)
+		await end_level(level)
+	# 真正的 mapped JoypadButton 事件，合成而非實體手把。
+	await open_level(10.0)
+	var player := _arm("melee_blade")
+	var joy: InputEventJoypadButton
+	for binding in InputMap.action_get_events(&"melee"):
+		if binding is InputEventJoypadButton:
+			joy = binding.duplicate()
+			break
+	check(joy != null, "melee has an actual mapped controller button")
+	if joy != null:
+		joy.pressed = true
+		Input.parse_input_event(joy)
+		await level.get_tree().process_frame
+		await level.get_tree().process_frame
+		await physics_frames(2)
+		joy = joy.duplicate()
+		joy.pressed = false
+		Input.parse_input_event(joy)
+		check(player._melee_index == 0 and player._melee_phase != Player.MeleePhase.NONE, "synthetic mapped controller event starts the same first swing")
+	await end_level(level)
+	# 局部凍結仍接受短點按；長凍結的 command 到期不能保存到恢復之後。
+	await open_level(10.0)
+	player = _arm("melee_blade")
+	player._try_melee()
+	Fx.freeze([player], MeleeData.buffer_time() + 0.15)
+	_event_tap(&"melee")
+	await level.get_tree().process_frame
+	check(player._melee_commands.remaining() > 0.0 and player.process_mode == Node.PROCESS_MODE_DISABLED, "input child receives a tap while actual Fx freezes the attacker")
+	var expiry := Time.get_ticks_msec() + int(MeleeData.buffer_time() * 1000.0) + 30
+	while Time.get_ticks_msec() < expiry:
+		await level.get_tree().process_frame
+	print("FROZEN_BUFFER_DIAG remaining=",player._melee_commands.remaining()," time=",Time.get_ticks_msec())
+	check(player._melee_commands.remaining() == 0.0, "buffer expires by monotonic time while the parent is frozen")
+	Fx.thaw_all()
+	await _finish_swing(player)
+	check(player._melee_index == 0, "an expired frozen command cannot advance the chain")
+	await end_level(level)
+
+
+func _test_refusals_and_extra_interruptions() -> void:
+	await open_level(10.0)
+	var player := _arm("melee_blade")
+	player._try_melee()
+	player.mount_vehicle(null)
+	check(player._melee_phase == Player.MeleePhase.WINDUP, "an invalid mount request does not erase the paid swing")
+	Input.action_press(&"block")
+	player._update_blocking()
+	check(not player.is_blocking and player._melee_phase == Player.MeleePhase.WINDUP, "guard cannot cancel the unpaid windup")
+	Input.action_release(&"block")
+	player._try_melee()
+	check(player.begin_phone_call(1), "a grounded player can use the real phone command")
+	check(player._melee_phase == Player.MeleePhase.NONE and player._melee_commands.remaining() == 0.0, "phone entry clears the active action and command")
+	check(not player._try_melee(), "phone state rejects melee")
+	await end_level(level)
+	await open_level(10.0)
+	player = _arm("melee_blade")
+	player._try_melee()
+	player._try_melee()
+	player._guard_break()
+	check(player._melee_phase == Player.MeleePhase.NONE and player._melee_index == -1 and not player._try_melee(), "guard break clears action and rejects staggered commands")
+	await end_level(level)
+	await open_level(10.0)
+	player = _arm("melee_blade")
+	var vehicle := Vehicle.new()
+	vehicle.configure(load("res://data/vehicles/bulwark.tres"))
+	level.add_child(vehicle)
+	player._try_melee()
+	player._try_melee()
+	player.mount_vehicle(vehicle)
+	check(player.state == Player.State.MOUNTED and player._melee_phase == Player.MeleePhase.NONE and player._melee_commands.remaining() == 0.0 and not player._try_melee(), "valid vehicle mount interrupts and mounted input is rejected")
+	player.dismount_vehicle(false)
+	player._melee_cooldown_left = 0.0
+	player._try_melee()
+	var token := GameplayLock.acquire(level)
+	_event_tap(&"melee")
+	check(player._melee_commands.remaining() == 0.0 and player._melee_phase == Player.MeleePhase.NONE and not player._try_melee(), "real gameplay lock clears input and refuses both event and direct paths")
+	GameplayLock.release(token)
+	level.get_tree().paused = true
+	_event_tap(&"melee")
+	check(player._melee_commands.remaining() == 0.0 and not player._try_melee(), "paused input refuses event and direct paths")
+	level.get_tree().paused = false
+	player.loadout.select(0)
+	player._melee_cooldown_left = 0.0
+	player._try_melee()
+	var ammo := player.loadout.mag_in(0)
+	player._try_fire()
+	check(player.loadout.mag_in(0) == ammo, "direct gun command cannot cancel melee windup")
+	await end_level(level)
+
+
+func _test_paid_cancels_and_facing() -> void:
+	await open_level(10.0)
+	var player := _arm("melee_blade")
+	var enemy := _dummy(20.0)
+	await physics_frames(3)
+	player._try_melee()
+	var direction := player._melee_direction(player._melee_attack)
+	_aim(player, Vector2.LEFT)
+	await physics_frames(1)
+	check(player.facing == 1 and player._melee_direction(player._melee_attack).is_equal_approx(direction), "aim changes during windup do not rotate the paid swing")
+	var ticks := 120
+	while not player.is_melee_cancellable() and ticks > 0:
+		await physics_frames(1)
+		ticks -= 1
+	check(player._melee_landed and ticks > 0, "locked original-facing swing lands and reaches its paid cancel window")
+	Input.action_press(&"block")
+	player._update_blocking()
+	Input.action_release(&"block")
+	check(player.is_blocking and player._melee_phase == Player.MeleePhase.NONE and player._melee_index == -1 and player._melee_commands.remaining() == 0.0, "guard at a paid cancel window ends the old action and chain")
+	await end_level(level)
+	await open_level(10.0)
+	player = level.player # 槍械的預設近戰，有真命中後才准許射擊取消。
+	_aim(player, Vector2.RIGHT)
+	enemy = _dummy(20.0)
+	await physics_frames(3)
+	player._try_melee()
+	ticks = 120
+	while not player.is_melee_cancellable() and ticks > 0:
+		await physics_frames(1)
+		ticks -= 1
+	var ammo := player.loadout.mag_in(0)
+	player._try_fire()
+	check(player.loadout.mag_in(0) == ammo - 1 and player._melee_phase == Player.MeleePhase.NONE and player._melee_index == -1, "gun fire after a landed paid cancel consumes ammo and clears the melee chain")
+	await end_level(level)
+	await open_level(10.0)
+	player = _arm("melee_maul")
+	enemy = _dummy(20.0)
+	enemy._is_finishable = true
+	await physics_frames(3)
+	var charge := player.loadout.mag_in(player.loadout.active_slot)
+	check(player._try_melee() and player.state == Player.State.NORMAL and player.loadout.mag_in(player.loadout.active_slot) == charge - 1, "armed melee never replaces a paid swing with a free nearby finisher")
+	var info := DamageInfo.create(999, Combat.Team.ENEMY, &"test")
+	player.health.kill(info)
+	_event_tap(&"melee")
+	await level.get_tree().process_frame
+	check(player._melee_commands.remaining() == 0.0 and not player._try_melee(), "dead state rejects buffered event and direct commands")
+	await end_level(level)
+
+
+func _test_tail_contacts() -> void:
+	var offsets := [20.0, 24.0, 24.0, 50.0, 72.0]
+	for id in WEAPONS:
+		await open_level(10.0)
+		var player := _arm(id)
+		var weapon := player.loadout.active_weapon()
+		var set := MeleeData.set_of(weapon)
+		Progression.add_credits(1000)
+		Progression.buy_upgrade(weapon, Progression.find_upgrade(set.extension_upgrade()))
+		for step in set.combo().size():
+			player._try_melee()
+			await _finish_swing(player)
+		var target := _dummy(offsets[WEAPONS.find(id)])
+		var far := _dummy(220.0)
+		var close: Enemy
+		if id in ["melee_glaive", "melee_whip"]:
+			close = _dummy(14.0)
+		await physics_frames(3)
+		check(player._try_melee() and player._melee_index == set.combo().size(), "%s actual tail starts for contact testing" % id)
+		var expected := int(player._melee_attack.damage)
+		var limit := 240
+		while player._melee_phase != Player.MeleePhase.ACTIVE and limit > 0:
+			await physics_frames(1)
+			limit -= 1
+		check(limit > 0 and player._melee_landed, "%s tail deals damage only at its actual active window" % id)
+		if player._melee_phase == Player.MeleePhase.ACTIVE:
+			player._melee_hit_pass()
+		await _finish_swing(player)
+		check(999 - target.health.current == expected, "%s entire sweep plus repeated query hits a HealthComponent exactly once" % id)
+		check(far.health.current == 999, "%s tail cannot hit a distant target" % id)
+		if is_instance_valid(close):
+			check(close.health.current == 999, "%s optional tail preserves its close dead zone" % id)
+		await end_level(level)

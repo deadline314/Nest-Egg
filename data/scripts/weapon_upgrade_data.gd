@@ -10,6 +10,8 @@ enum Effect {
 	SPREAD,
 	## 換彈時間減少 amount 倍（0.25 = -25%）。
 	RELOAD,
+	## 解鎖專屬近戰接續，不被動調整伤害／射速。
+	MELEE_TECHNIQUE,
 }
 
 @export var id: StringName = &"upgrade"
@@ -21,6 +23,9 @@ enum Effect {
 @export var description: String = ""
 ## 排序（小的在前）。
 @export var order: int = 0
+@export var melee_weapon_id: StringName = &""
+## 選購不計入章節最低必要準備，仍列在總價目與選購合計。
+@export var optional_purchase: bool = false
 
 
 ## 這項改裝對這把武器有意義嗎（沒有彈匣的武器不能擴彈匣、沒有散佈的不能減散佈）。
@@ -28,6 +33,8 @@ func applies_to(weapon: WeaponData) -> bool:
 	if weapon == null:
 		return false
 	match effect:
+		Effect.MELEE_TECHNIQUE:
+			return weapon.is_melee() and weapon.id == melee_weapon_id and melee_weapon_id != &""
 		Effect.MAGAZINE, Effect.RELOAD:
 			return weapon.has_magazine()
 		Effect.SPREAD:
@@ -41,7 +48,9 @@ func validate() -> PackedStringArray:
 		problems.append("改裝缺少 id")
 	if cost < 1:
 		problems.append("%s 的價格必須至少 1" % id)
-	if amount <= 0.0 or amount > 0.9:
+	if effect == Effect.MELEE_TECHNIQUE and melee_weapon_id == &"":
+		problems.append("%s 缺少近戰適用武器" % id)
+	if effect != Effect.MELEE_TECHNIQUE and (amount <= 0.0 or amount > 0.9):
 		problems.append("%s 的幅度必須在 0～0.9 之間" % id)
 	if description.is_empty():
 		problems.append("%s 缺少說明" % id)

@@ -1,0 +1,41 @@
+{
+  "changed_original": {
+    "baseline": "cd0d454f6211fb83e1ab06e183257b1fb469c726",
+    "exit": 1,
+    "checks": 55867,
+    "new_failures": 2
+  },
+  "changed_approved": {
+    "baseline": "cd0d454f6211fb83e1ab06e183257b1fb469c726",
+    "exit": 0,
+    "checks": 55907
+  },
+  "changed_latest": {
+    "baseline": "700f1dd8a931b4f1d88d68f13614b9da4256edf1",
+    "exit": 0,
+    "checks": 55932,
+    "seconds": 467,
+    "shards": 2
+  },
+  "capture_first_hit": {
+    "exit": 1
+  },
+  "capture_final_hit": {
+    "exit": 0,
+    "images": 20
+  },
+  "capture_preparation": {
+    "exit": 0,
+    "images": 70
+  },
+  "capture_maul_framed": {
+    "exit": 0,
+    "images": 12,
+    "replaces_existing": true
+  },
+  "fetch": {
+    "command": "git fetch origin main",
+    "exit": 0,
+    "origin_main": "700f1dd8a931b4f1d88d68f13614b9da4256edf1"
+  }
+}

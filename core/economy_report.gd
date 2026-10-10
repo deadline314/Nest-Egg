@@ -43,13 +43,20 @@ static func chapter_income(level_paths: Array) -> Dictionary:
 	return result
 
 
-## 價目表：{ upgrades（全部改裝合計）, supplies（必要補給合計）, required（兩者相加）, list（每項的名稱與價格，報表用） }。
+## 價目表：全部改裝總價、必要補給、必要準備與選購分列；選購的真價格仍保留。
 static func price_list() -> Dictionary:
 	var list: Array[String] = []
 	var upgrades := 0
+	var optional := 0
+	var optional_list: Array[String] = []
 	for upgrade in Progression.upgrade_catalog():
 		upgrades += upgrade.cost
-		list.append("改裝・%s ¥%d" % [upgrade.display_name, upgrade.cost])
+		var item := "改裝・%s ¥%d" % [upgrade.display_name, upgrade.cost]
+		if upgrade.optional_purchase:
+			optional += upgrade.cost
+			optional_list.append(item)
+		else:
+			list.append(item)
 	var supplies := 0
 	for id: StringName in REQUIRED_SUPPLIES:
 		var item := ConsumableBag.find(id)
@@ -58,7 +65,7 @@ static func price_list() -> Dictionary:
 			continue
 		supplies += item.price * int(REQUIRED_SUPPLIES[id])
 		list.append("%s ×%d ¥%d" % [item.display_name, int(REQUIRED_SUPPLIES[id]), item.price * int(REQUIRED_SUPPLIES[id])])
-	return {"upgrades": upgrades, "supplies": supplies, "required": upgrades + supplies, "list": list}
+	return {"upgrades": upgrades, "supplies": supplies, "required": upgrades - optional + supplies, "list": list, "optional": optional, "optional_list": optional_list}
 
 
 ## 一段人看的對帳文字。

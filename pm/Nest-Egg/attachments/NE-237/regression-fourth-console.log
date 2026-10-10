@@ -1,0 +1,4 @@
+Running 2 groups in 1 processes (logs: /workspace/Nest-Egg/work/ne237/regression-fourth)
+  process 0 (estimated 34 s): MeleeWeaponsSuite,MeleeSuite
+[process 0] NEW FAILURE: buffer expires by monotonic time while the parent is frozen
+checks: 244, new failures: 1, known failures (tests/known_failures.txt): 0  (wall time 39 s)

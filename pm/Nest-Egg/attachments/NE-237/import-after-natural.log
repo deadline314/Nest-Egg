@@ -1,0 +1,175 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "_sock == -1" is true. Returning: FAILED
+   at: _inet_open (drivers/unix/net_socket_unix.cpp:288)
+ERROR: Condition "err != OK" is true. Returning: ERR_CANT_CREATE
+   at: listen (core/io/tcp_server.cpp:56)
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Registering global classes... (22 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   4% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   8% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  13% ] [90m[1mupdate_scripts_classes[22m | QuestMapState[39m[0m
+[  17% ] [90m[1mupdate_scripts_classes[22m | EconomyReport[39m[0m
+[  21% ] [90m[1mupdate_scripts_classes[22m | RunSnapshot[39m[0m
+[  26% ] [90m[1mupdate_scripts_classes[22m | PropData[39m[0m
+[  30% ] [90m[1mupdate_scripts_classes[22m | WeaponUpgradeData[39m[0m
+[  34% ] [90m[1mupdate_scripts_classes[22m | PropNode[39m[0m
+[  39% ] [90m[1mupdate_scripts_classes[22m | MeleeCommandInput[39m[0m
+[  43% ] [90m[1mupdate_scripts_classes[22m | MeleeSet[39m[0m
+[  47% ] [90m[1mupdate_scripts_classes[22m | Player[39m[0m
+[  52% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  56% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | EnvironmentSuite[39m[0m
+[  65% ] [90m[1mupdate_scripts_classes[22m | MeleeWeaponsSuite[39m[0m
+[  69% ] [90m[1mupdate_scripts_classes[22m | RunSaveSuite[39m[0m
+[  73% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  78% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  82% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  86% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  91% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started Scanning actions... (106 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | BG-25-local-shooting.png[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | BG-25-local-street-steam.png[39m[0m
+[   1% ] [90m[1m_update_scan_actions[22m | BG-25-local-water-q0-t1.png[39m[0m
+[   2% ] [90m[1m_update_scan_actions[22m | BG-25-local-water-q2-t1.png[39m[0m
+[   3% ] [90m[1m_update_scan_actions[22m | BG-25-steam-after-q0-t1.png[39m[0m
+[   4% ] [90m[1m_update_scan_actions[22m | BG-25-steam-after-q2-t0.png[39m[0m
+[   5% ] [90m[1m_update_scan_actions[22m | BG-25-steam-after-q2-t1.png[39m[0m
+[   6% ] [90m[1m_update_scan_actions[22m | BG-25-steam-after-q2-t2.png[39m[0m
+[   7% ] [90m[1m_update_scan_actions[22m | BG-25-steam-before-q2-t1.png[39m[0m
+[   8% ] [90m[1m_update_scan_actions[22m | NE-230-restore-order-1280.png[39m[0m
+[   9% ] [90m[1m_update_scan_actions[22m | NE-236-natural-late-contact.png[39m[0m
+[  10% ] [90m[1m_update_scan_actions[22m | NE-236-natural-late-recovered.png[39m[0m
+[  11% ] [90m[1m_update_scan_actions[22m | NE-237-blade-hit-left-2-high.png[39m[0m
+[  12% ] [90m[1m_update_scan_actions[22m | NE-237-blade-hit-left-2-low.png[39m[0m
+[  13% ] [90m[1m_update_scan_actions[22m | NE-237-blade-hit-right-2-high.png[39m[0m
+[  14% ] [90m[1m_update_scan_actions[22m | NE-237-blade-hit-right-2-low.png[39m[0m
+[  14% ] [90m[1m_update_scan_actions[22m | NE-237-blade-shop-after.png[39m[0m
+[  15% ] [90m[1m_update_scan_actions[22m | NE-237-blade-shop-before.png[39m[0m
+[  16% ] [90m[1m_update_scan_actions[22m | NE-237-blade-tail-left-1-high.png[39m[0m
+[  17% ] [90m[1m_update_scan_actions[22m | NE-237-blade-tail-left-1-low.png[39m[0m
+[  18% ] [90m[1m_update_scan_actions[22m | NE-237-blade-tail-left-2-high.png[39m[0m
+[  19% ] [90m[1m_update_scan_actions[22m | NE-237-blade-tail-left-2-low.png[39m[0m
+[  20% ] [90m[1m_update_scan_actions[22m | NE-237-blade-tail-left-3-high.png[39m[0m
+[  21% ] [90m[1m_update_scan_actions[22m | NE-237-blade-tail-left-3-low.png[39m[0m
+[  22% ] [90m[1m_update_scan_actions[22m | NE-237-blade-tail-right-1-high.png[39m[0m
+[  23% ] [90m[1m_update_scan_actions[22m | NE-237-blade-tail-right-1-low.png[39m[0m
+[  24% ] [90m[1m_update_scan_actions[22m | NE-237-blade-tail-right-2-high.png[39m[0m
+[  25% ] [90m[1m_update_scan_actions[22m | NE-237-blade-tail-right-2-low.png[39m[0m
+[  26% ] [90m[1m_update_scan_actions[22m | NE-237-blade-tail-right-3-high.png[39m[0m
+[  27% ] [90m[1m_update_scan_actions[22m | NE-237-blade-tail-right-3-low.png[39m[0m
+[  28% ] [90m[1m_update_scan_actions[22m | NE-237-dagger-hit-left-2-high.png[39m[0m
+[  28% ] [90m[1m_update_scan_actions[22m | NE-237-dagger-hit-left-2-low.png[39m[0m
+[  29% ] [90m[1m_update_scan_actions[22m | NE-237-dagger-hit-right-2-high.png[39m[0m
+[  30% ] [90m[1m_update_scan_actions[22m | NE-237-dagger-hit-right-2-low.png[39m[0m
+[  31% ] [90m[1m_update_scan_actions[22m | NE-237-dagger-shop-after.png[39m[0m
+[  32% ] [90m[1m_update_scan_actions[22m | NE-237-dagger-shop-before.png[39m[0m
+[  33% ] [90m[1m_update_scan_actions[22m | NE-237-dagger-tail-left-1-high.png[39m[0m
+[  34% ] [90m[1m_update_scan_actions[22m | NE-237-dagger-tail-left-1-low.png[39m[0m
+[  35% ] [90m[1m_update_scan_actions[22m | NE-237-dagger-tail-left-2-high.png[39m[0m
+[  36% ] [90m[1m_update_scan_actions[22m | NE-237-dagger-tail-left-2-low.png[39m[0m
+[  37% ] [90m[1m_update_scan_actions[22m | NE-237-dagger-tail-left-3-high.png[39m[0m
+[  38% ] [90m[1m_update_scan_actions[22m | NE-237-dagger-tail-left-3-low.png[39m[0m
+[  39% ] [90m[1m_update_scan_actions[22m | NE-237-dagger-tail-right-1-high.png[39m[0m
+[  40% ] [90m[1m_update_scan_actions[22m | NE-237-dagger-tail-right-1-low.png[39m[0m
+[  41% ] [90m[1m_update_scan_actions[22m | NE-237-dagger-tail-right-2-high.png[39m[0m
+[  42% ] [90m[1m_update_scan_actions[22m | NE-237-dagger-tail-right-2-low.png[39m[0m
+[  42% ] [90m[1m_update_scan_actions[22m | NE-237-dagger-tail-right-3-high.png[39m[0m
+[  43% ] [90m[1m_update_scan_actions[22m | NE-237-dagger-tail-right-3-low.png[39m[0m
+[  44% ] [90m[1m_update_scan_actions[22m | NE-237-glaive-hit-left-2-high.png[39m[0m
+[  45% ] [90m[1m_update_scan_actions[22m | NE-237-glaive-hit-left-2-low.png[39m[0m
+[  46% ] [90m[1m_update_scan_actions[22m | NE-237-glaive-hit-right-2-high.png[39m[0m
+[  47% ] [90m[1m_update_scan_actions[22m | NE-237-glaive-hit-right-2-low.png[39m[0m
+[  48% ] [90m[1m_update_scan_actions[22m | NE-237-glaive-shop-after.png[39m[0m
+[  49% ] [90m[1m_update_scan_actions[22m | NE-237-glaive-shop-before.png[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | NE-237-glaive-tail-left-1-high.png[39m[0m
+[  51% ] [90m[1m_update_scan_actions[22m | NE-237-glaive-tail-left-1-low.png[39m[0m
+[  52% ] [90m[1m_update_scan_actions[22m | NE-237-glaive-tail-left-2-high.png[39m[0m
+[  53% ] [90m[1m_update_scan_actions[22m | NE-237-glaive-tail-left-2-low.png[39m[0m
+[  54% ] [90m[1m_update_scan_actions[22m | NE-237-glaive-tail-left-3-high.png[39m[0m
+[  55% ] [90m[1m_update_scan_actions[22m | NE-237-glaive-tail-left-3-low.png[39m[0m
+[  56% ] [90m[1m_update_scan_actions[22m | NE-237-glaive-tail-right-1-high.png[39m[0m
+[  57% ] [90m[1m_update_scan_actions[22m | NE-237-glaive-tail-right-1-low.png[39m[0m
+[  57% ] [90m[1m_update_scan_actions[22m | NE-237-glaive-tail-right-2-high.png[39m[0m
+[  58% ] [90m[1m_update_scan_actions[22m | NE-237-glaive-tail-right-2-low.png[39m[0m
+[  59% ] [90m[1m_update_scan_actions[22m | NE-237-glaive-tail-right-3-high.png[39m[0m
+[  60% ] [90m[1m_update_scan_actions[22m | NE-237-glaive-tail-right-3-low.png[39m[0m
+[  61% ] [90m[1m_update_scan_actions[22m | NE-237-maul-hit-left-2-high.png[39m[0m
+[  62% ] [90m[1m_update_scan_actions[22m | NE-237-maul-hit-left-2-low.png[39m[0m
+[  63% ] [90m[1m_update_scan_actions[22m | NE-237-maul-hit-right-2-high.png[39m[0m
+[  64% ] [90m[1m_update_scan_actions[22m | NE-237-maul-hit-right-2-low.png[39m[0m
+[  65% ] [90m[1m_update_scan_actions[22m | NE-237-maul-shop-after.png[39m[0m
+[  66% ] [90m[1m_update_scan_actions[22m | NE-237-maul-shop-before.png[39m[0m
+[  67% ] [90m[1m_update_scan_actions[22m | NE-237-maul-tail-left-1-high.png[39m[0m
+[  68% ] [90m[1m_update_scan_actions[22m | NE-237-maul-tail-left-1-low.png[39m[0m
+[  69% ] [90m[1m_update_scan_actions[22m | NE-237-maul-tail-left-2-high.png[39m[0m
+[  70% ] [90m[1m_update_scan_actions[22m | NE-237-maul-tail-left-2-low.png[39m[0m
+[  71% ] [90m[1m_update_scan_actions[22m | NE-237-maul-tail-left-3-high.png[39m[0m
+[  71% ] [90m[1m_update_scan_actions[22m | NE-237-maul-tail-left-3-low.png[39m[0m
+[  72% ] [90m[1m_update_scan_actions[22m | NE-237-maul-tail-right-1-high.png[39m[0m
+[  73% ] [90m[1m_update_scan_actions[22m | NE-237-maul-tail-right-1-low.png[39m[0m
+[  74% ] [90m[1m_update_scan_actions[22m | NE-237-maul-tail-right-2-high.png[39m[0m
+[  75% ] [90m[1m_update_scan_actions[22m | NE-237-maul-tail-right-2-low.png[39m[0m
+[  76% ] [90m[1m_update_scan_actions[22m | NE-237-maul-tail-right-3-high.png[39m[0m
+[  77% ] [90m[1m_update_scan_actions[22m | NE-237-maul-tail-right-3-low.png[39m[0m
+[  78% ] [90m[1m_update_scan_actions[22m | NE-237-whip-hit-left-2-high.png[39m[0m
+[  79% ] [90m[1m_update_scan_actions[22m | NE-237-whip-hit-left-2-low.png[39m[0m
+[  80% ] [90m[1m_update_scan_actions[22m | NE-237-whip-hit-right-2-high.png[39m[0m
+[  81% ] [90m[1m_update_scan_actions[22m | NE-237-whip-hit-right-2-low.png[39m[0m
+[  82% ] [90m[1m_update_scan_actions[22m | NE-237-whip-shop-after.png[39m[0m
+[  83% ] [90m[1m_update_scan_actions[22m | NE-237-whip-shop-before.png[39m[0m
+[  84% ] [90m[1m_update_scan_actions[22m | NE-237-whip-tail-left-1-high.png[39m[0m
+[  85% ] [90m[1m_update_scan_actions[22m | NE-237-whip-tail-left-1-low.png[39m[0m
+[  85% ] [90m[1m_update_scan_actions[22m | NE-237-whip-tail-left-2-high.png[39m[0m
+[  86% ] [90m[1m_update_scan_actions[22m | NE-237-whip-tail-left-2-low.png[39m[0m
+[  87% ] [90m[1m_update_scan_actions[22m | NE-237-whip-tail-left-3-high.png[39m[0m
+[  88% ] [90m[1m_update_scan_actions[22m | NE-237-whip-tail-left-3-low.png[39m[0m
+[  89% ] [90m[1m_update_scan_actions[22m | NE-237-whip-tail-right-1-high.png[39m[0m
+[  90% ] [90m[1m_update_scan_actions[22m | NE-237-whip-tail-right-1-low.png[39m[0m
+[  91% ] [90m[1m_update_scan_actions[22m | NE-237-whip-tail-right-2-high.png[39m[0m
+[  92% ] [90m[1m_update_scan_actions[22m | NE-237-whip-tail-right-2-low.png[39m[0m
+[  93% ] [90m[1m_update_scan_actions[22m | NE-237-whip-tail-right-3-high.png[39m[0m
+[  94% ] [90m[1m_update_scan_actions[22m | NE-237-whip-tail-right-3-low.png[39m[0m
+[  95% ] [90m[1m_update_scan_actions[22m | NE-237-blade-tail-left-1-low.png[39m[0m
+[  96% ] [90m[1m_update_scan_actions[22m | NE-237-blade-tail-left-3-low.png[39m[0m
+[  97% ] [90m[1m_update_scan_actions[22m | NE-237-maul-tail-right-1-high.png[39m[0m
+[  98% ] [90m[1m_update_scan_actions[22m | NE-237-maul-tail-right-3-high.png[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (4 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  20% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  40% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  60% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   0% ] [90m[1mreimport[22m | Executing pre-reimport operations...[39m[0m
+[   0% ] [90m[1mreimport[22m | NE-237-blade-tail-left-1-low.png[39m[0m
+[  20% ] [90m[1mreimport[22m | NE-237-blade-tail-left-3-low.png[39m[0m
+[  40% ] [90m[1mreimport[22m | NE-237-maul-tail-right-1-high.png[39m[0m
+[  60% ] [90m[1mreimport[22m | NE-237-maul-tail-right-3-high.png[39m[0m
+[  80% ] [90m[1mreimport[22m | Finalizing Asset Import...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (4 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Executing post-reimport operations...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+ERROR: Condition "_sock == -1" is true. Returning: FAILED
+   at: _inet_open (drivers/unix/net_socket_unix.cpp:288)
+ERROR: Condition "err != OK" is true. Returning: ERR_CANT_CREATE
+   at: listen (core/io/tcp_server.cpp:56)

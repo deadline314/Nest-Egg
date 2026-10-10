@@ -2075,6 +2075,416 @@
           }
         }
       ]
+    },
+    "rin.melee_mono_dagger_return_cut": {
+      "duration": 0.32,
+      "skip_ik": true,
+      "blend": 60,
+      "keys": [
+        {
+          "t": 0,
+          "bones": {
+            "chest": 0.0,
+            "head": 0.0,
+            "arm_front_upper": -0.9,
+            "arm_front_lower": -0.3,
+            "arm_back_upper": 0.2,
+            "arm_back_lower": -0.25,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        },
+        {
+          "t": 0.26,
+          "bones": {
+            "chest": -0.33999999999999997,
+            "head": -0.1,
+            "arm_front_upper": 2.3,
+            "arm_front_lower": 0.3,
+            "arm_back_upper": -0.7,
+            "arm_back_lower": -0.8,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        },
+        {
+          "t": 0.4,
+          "bones": {
+            "chest": 0.18,
+            "head": 0.1,
+            "arm_front_upper": -1.35,
+            "arm_front_lower": -0.25,
+            "arm_back_upper": 0.2,
+            "arm_back_lower": -0.25,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        },
+        {
+          "t": 0.7,
+          "bones": {
+            "chest": 0.35,
+            "head": 0.1,
+            "arm_front_upper": -1.7,
+            "arm_front_lower": -0.2,
+            "arm_back_upper": 0.2,
+            "arm_back_lower": -0.25,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        },
+        {
+          "t": 1,
+          "bones": {
+            "chest": 0.0,
+            "head": 0.0,
+            "arm_front_upper": -0.9,
+            "arm_front_lower": -0.3,
+            "arm_back_upper": 0.2,
+            "arm_back_lower": -0.25,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        }
+      ]
+    },
+    "rin.melee_thermal_blade_lunge": {
+      "duration": 0.67,
+      "skip_ik": true,
+      "blend": 60,
+      "keys": [
+        {
+          "t": 0,
+          "bones": {
+            "chest": 0.0,
+            "head": 0.0,
+            "arm_front_upper": -1.0,
+            "arm_front_lower": -0.3,
+            "arm_back_upper": 0.2,
+            "arm_back_lower": -0.25,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        },
+        {
+          "t": 0.26,
+          "bones": {
+            "chest": -0.21,
+            "head": 0.0,
+            "arm_front_upper": 0.1,
+            "arm_front_lower": -1.3,
+            "arm_back_upper": 0.4,
+            "arm_back_lower": -0.4,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        },
+        {
+          "t": 0.4,
+          "bones": {
+            "chest": 0.4,
+            "head": 0.1,
+            "arm_front_upper": -1.55,
+            "arm_front_lower": -0.05,
+            "arm_back_upper": 0.2,
+            "arm_back_lower": -0.25,
+            "leg_front_upper": -0.5,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.4,
+            "leg_back_lower": 0.0
+          }
+        },
+        {
+          "t": 0.7,
+          "bones": {
+            "chest": 0.3,
+            "head": 0.1,
+            "arm_front_upper": -1.55,
+            "arm_front_lower": -0.05,
+            "arm_back_upper": 0.2,
+            "arm_back_lower": -0.25,
+            "leg_front_upper": -0.5,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.4,
+            "leg_back_lower": 0.0
+          }
+        },
+        {
+          "t": 1,
+          "bones": {
+            "chest": 0.0,
+            "head": 0.0,
+            "arm_front_upper": -1.0,
+            "arm_front_lower": -0.3,
+            "arm_back_upper": 0.2,
+            "arm_back_lower": -0.25,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        }
+      ]
+    },
+    "rin.melee_hydraulic_maul_crush": {
+      "duration": 1.45,
+      "skip_ik": true,
+      "blend": 60,
+      "keys": [
+        {
+          "t": 0,
+          "bones": {
+            "chest": 0.0,
+            "head": 0.0,
+            "arm_front_upper": -1.0,
+            "arm_front_lower": -0.3,
+            "arm_back_upper": 0.2,
+            "arm_back_lower": -0.25,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        },
+        {
+          "t": 0.26,
+          "bones": {
+            "chest": -0.32,
+            "head": 0.0,
+            "arm_front_upper": -2.9,
+            "arm_front_lower": -0.4,
+            "arm_back_upper": -2.7,
+            "arm_back_lower": -0.4,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        },
+        {
+          "t": 0.4,
+          "bones": {
+            "chest": 0.48000000000000004,
+            "head": 0.2,
+            "arm_front_upper": -0.6,
+            "arm_front_lower": -0.15,
+            "arm_back_upper": -0.5,
+            "arm_back_lower": -0.2,
+            "leg_front_upper": -0.4,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.35,
+            "leg_back_lower": 0.0
+          }
+        },
+        {
+          "t": 0.7,
+          "bones": {
+            "chest": 0.4,
+            "head": 0.2,
+            "arm_front_upper": -0.6,
+            "arm_front_lower": -0.15,
+            "arm_back_upper": -0.5,
+            "arm_back_lower": -0.2,
+            "leg_front_upper": -0.4,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.35,
+            "leg_back_lower": 0.0
+          }
+        },
+        {
+          "t": 1,
+          "bones": {
+            "chest": 0.0,
+            "head": 0.0,
+            "arm_front_upper": -1.0,
+            "arm_front_lower": -0.3,
+            "arm_back_upper": 0.2,
+            "arm_back_lower": -0.25,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        }
+      ]
+    },
+    "rin.melee_ion_glaive_cross_sweep": {
+      "duration": 0.82,
+      "skip_ik": true,
+      "blend": 60,
+      "keys": [
+        {
+          "t": 0,
+          "bones": {
+            "chest": 0.0,
+            "head": 0.0,
+            "arm_front_upper": -1.0,
+            "arm_front_lower": -0.3,
+            "arm_back_upper": 0.2,
+            "arm_back_lower": -0.25,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        },
+        {
+          "t": 0.26,
+          "bones": {
+            "chest": -0.39999999999999997,
+            "head": -0.1,
+            "arm_front_upper": 2.6,
+            "arm_front_lower": 0.2,
+            "arm_back_upper": -0.9,
+            "arm_back_lower": -0.7,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        },
+        {
+          "t": 0.4,
+          "bones": {
+            "chest": 0.49,
+            "head": 0.12,
+            "arm_front_upper": -1.9,
+            "arm_front_lower": -0.1,
+            "arm_back_upper": 0.2,
+            "arm_back_lower": -0.25,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        },
+        {
+          "t": 0.7,
+          "bones": {
+            "chest": 0.45,
+            "head": 0.12,
+            "arm_front_upper": -1.9,
+            "arm_front_lower": -0.1,
+            "arm_back_upper": 0.2,
+            "arm_back_lower": -0.25,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        },
+        {
+          "t": 1,
+          "bones": {
+            "chest": 0.0,
+            "head": 0.0,
+            "arm_front_upper": -1.0,
+            "arm_front_lower": -0.3,
+            "arm_back_upper": 0.2,
+            "arm_back_lower": -0.25,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        }
+      ]
+    },
+    "rin.melee_mono_whip_return_lash": {
+      "duration": 0.84,
+      "skip_ik": true,
+      "blend": 60,
+      "keys": [
+        {
+          "t": 0,
+          "bones": {
+            "chest": 0.0,
+            "head": 0.0,
+            "arm_front_upper": -1.0,
+            "arm_front_lower": -0.3,
+            "arm_back_upper": 0.2,
+            "arm_back_lower": -0.25,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        },
+        {
+          "t": 0.26,
+          "bones": {
+            "chest": -0.43,
+            "head": -0.1,
+            "arm_front_upper": 2.1,
+            "arm_front_lower": 0.45,
+            "arm_back_upper": -1.0,
+            "arm_back_lower": -0.6,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        },
+        {
+          "t": 0.4,
+          "bones": {
+            "chest": 0.38,
+            "head": 0.12,
+            "arm_front_upper": -1.9,
+            "arm_front_lower": -0.1,
+            "arm_back_upper": 0.2,
+            "arm_back_lower": -0.25,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        },
+        {
+          "t": 0.7,
+          "bones": {
+            "chest": 0.45,
+            "head": 0.12,
+            "arm_front_upper": -1.9,
+            "arm_front_lower": -0.1,
+            "arm_back_upper": 0.2,
+            "arm_back_lower": -0.25,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        },
+        {
+          "t": 1,
+          "bones": {
+            "chest": 0.0,
+            "head": 0.0,
+            "arm_front_upper": -1.0,
+            "arm_front_lower": -0.3,
+            "arm_back_upper": 0.2,
+            "arm_back_lower": -0.25,
+            "leg_front_upper": 0.0,
+            "leg_front_lower": 0.0,
+            "leg_back_upper": 0.0,
+            "leg_back_lower": 0.0
+          }
+        }
+      ]
     }
   }
 }

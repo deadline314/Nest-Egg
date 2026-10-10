@@ -1,0 +1,1639 @@
+diff --git a/art/rigs/action_poses.json b/art/rigs/action_poses.json
+index 6eab6962..40f66de0 100644
+--- a/art/rigs/action_poses.json
++++ b/art/rigs/action_poses.json
+@@ -2077,0 +2078,410 @@
++    },
++    "rin.melee_mono_dagger_return_cut": {
++      "duration": 0.32,
++      "skip_ik": true,
++      "blend": 60,
++      "keys": [
++        {
++          "t": 0,
++          "bones": {
++            "chest": 0.0,
++            "head": 0.0,
++            "arm_front_upper": -0.9,
++            "arm_front_lower": -0.3,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        },
++        {
++          "t": 0.26,
++          "bones": {
++            "chest": -0.33999999999999997,
++            "head": -0.1,
++            "arm_front_upper": 2.3,
++            "arm_front_lower": 0.3,
++            "arm_back_upper": -0.7,
++            "arm_back_lower": -0.8,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        },
++        {
++          "t": 0.4,
++          "bones": {
++            "chest": 0.18,
++            "head": 0.1,
++            "arm_front_upper": -1.35,
++            "arm_front_lower": -0.25,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        },
++        {
++          "t": 0.7,
++          "bones": {
++            "chest": 0.35,
++            "head": 0.1,
++            "arm_front_upper": -1.7,
++            "arm_front_lower": -0.2,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        },
++        {
++          "t": 1,
++          "bones": {
++            "chest": 0.0,
++            "head": 0.0,
++            "arm_front_upper": -0.9,
++            "arm_front_lower": -0.3,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        }
++      ]
++    },
++    "rin.melee_thermal_blade_lunge": {
++      "duration": 0.67,
++      "skip_ik": true,
++      "blend": 60,
++      "keys": [
++        {
++          "t": 0,
++          "bones": {
++            "chest": 0.0,
++            "head": 0.0,
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        },
++        {
++          "t": 0.26,
++          "bones": {
++            "chest": -0.21,
++            "head": 0.0,
++            "arm_front_upper": 0.1,
++            "arm_front_lower": -1.3,
++            "arm_back_upper": 0.4,
++            "arm_back_lower": -0.4,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        },
++        {
++          "t": 0.4,
++          "bones": {
++            "chest": 0.4,
++            "head": 0.1,
++            "arm_front_upper": -1.55,
++            "arm_front_lower": -0.05,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25,
++            "leg_front_upper": -0.5,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.4,
++            "leg_back_lower": 0.0
++          }
++        },
++        {
++          "t": 0.7,
++          "bones": {
++            "chest": 0.3,
++            "head": 0.1,
++            "arm_front_upper": -1.55,
++            "arm_front_lower": -0.05,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25,
++            "leg_front_upper": -0.5,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.4,
++            "leg_back_lower": 0.0
++          }
++        },
++        {
++          "t": 1,
++          "bones": {
++            "chest": 0.0,
++            "head": 0.0,
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        }
++      ]
++    },
++    "rin.melee_hydraulic_maul_crush": {
++      "duration": 1.45,
++      "skip_ik": true,
++      "blend": 60,
++      "keys": [
++        {
++          "t": 0,
++          "bones": {
++            "chest": 0.0,
++            "head": 0.0,
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        },
++        {
++          "t": 0.26,
++          "bones": {
++            "chest": -0.32,
++            "head": 0.0,
++            "arm_front_upper": -2.9,
++            "arm_front_lower": -0.4,
++            "arm_back_upper": -2.7,
++            "arm_back_lower": -0.4,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        },
++        {
++          "t": 0.4,
++          "bones": {
++            "chest": 0.48000000000000004,
++            "head": 0.2,
++            "arm_front_upper": -0.6,
++            "arm_front_lower": -0.15,
++            "arm_back_upper": -0.5,
++            "arm_back_lower": -0.2,
++            "leg_front_upper": -0.4,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.35,
++            "leg_back_lower": 0.0
++          }
++        },
++        {
++          "t": 0.7,
++          "bones": {
++            "chest": 0.4,
++            "head": 0.2,
++            "arm_front_upper": -0.6,
++            "arm_front_lower": -0.15,
++            "arm_back_upper": -0.5,
++            "arm_back_lower": -0.2,
++            "leg_front_upper": -0.4,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.35,
++            "leg_back_lower": 0.0
++          }
++        },
++        {
++          "t": 1,
++          "bones": {
++            "chest": 0.0,
++            "head": 0.0,
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        }
++      ]
++    },
++    "rin.melee_ion_glaive_cross_sweep": {
++      "duration": 0.82,
++      "skip_ik": true,
++      "blend": 60,
++      "keys": [
++        {
++          "t": 0,
++          "bones": {
++            "chest": 0.0,
++            "head": 0.0,
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        },
++        {
++          "t": 0.26,
++          "bones": {
++            "chest": -0.39999999999999997,
++            "head": -0.1,
++            "arm_front_upper": 2.6,
++            "arm_front_lower": 0.2,
++            "arm_back_upper": -0.9,
++            "arm_back_lower": -0.7,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        },
++        {
++          "t": 0.4,
++          "bones": {
++            "chest": 0.49,
++            "head": 0.12,
++            "arm_front_upper": -1.9,
++            "arm_front_lower": -0.1,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        },
++        {
++          "t": 0.7,
++          "bones": {
++            "chest": 0.45,
++            "head": 0.12,
++            "arm_front_upper": -1.9,
++            "arm_front_lower": -0.1,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        },
++        {
++          "t": 1,
++          "bones": {
++            "chest": 0.0,
++            "head": 0.0,
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        }
++      ]
++    },
++    "rin.melee_mono_whip_return_lash": {
++      "duration": 0.84,
++      "skip_ik": true,
++      "blend": 60,
++      "keys": [
++        {
++          "t": 0,
++          "bones": {
++            "chest": 0.0,
++            "head": 0.0,
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        },
++        {
++          "t": 0.26,
++          "bones": {
++            "chest": -0.43,
++            "head": -0.1,
++            "arm_front_upper": 2.1,
++            "arm_front_lower": 0.45,
++            "arm_back_upper": -1.0,
++            "arm_back_lower": -0.6,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        },
++        {
++          "t": 0.4,
++          "bones": {
++            "chest": 0.38,
++            "head": 0.12,
++            "arm_front_upper": -1.9,
++            "arm_front_lower": -0.1,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        },
++        {
++          "t": 0.7,
++          "bones": {
++            "chest": 0.45,
++            "head": 0.12,
++            "arm_front_upper": -1.9,
++            "arm_front_lower": -0.1,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        },
++        {
++          "t": 1,
++          "bones": {
++            "chest": 0.0,
++            "head": 0.0,
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25,
++            "leg_front_upper": 0.0,
++            "leg_front_lower": 0.0,
++            "leg_back_upper": 0.0,
++            "leg_back_lower": 0.0
++          }
++        }
++      ]
+diff --git a/core/economy_report.gd b/core/economy_report.gd
+index 9dde1925..ea6bf6df 100644
+--- a/core/economy_report.gd
++++ b/core/economy_report.gd
+@@ -46 +46 @@ static func chapter_income(level_paths: Array) -> Dictionary:
+-## 價目表：{ upgrades（全部改裝合計）, supplies（必要補給合計）, required（兩者相加）, list（每項的名稱與價格，報表用） }。
++## 價目表：全部改裝總價、必要補給、必要準備與選購分列；選購的真價格仍保留。
+@@ -49,0 +50,2 @@ static func price_list() -> Dictionary:
++	var optional := 0
++	var optional_list: Array[String] = []
+@@ -52 +54,6 @@ static func price_list() -> Dictionary:
+-		list.append("改裝・%s ¥%d" % [upgrade.display_name, upgrade.cost])
++		var item := "改裝・%s ¥%d" % [upgrade.display_name, upgrade.cost]
++		if upgrade.optional_purchase:
++			optional += upgrade.cost
++			optional_list.append(item)
++		else:
++			list.append(item)
+@@ -61 +68 @@ static func price_list() -> Dictionary:
+-	return {"upgrades": upgrades, "supplies": supplies, "required": upgrades + supplies, "list": list}
++	return {"upgrades": upgrades, "supplies": supplies, "required": upgrades - optional + supplies, "list": list, "optional": optional, "optional_list": optional_list}
+diff --git a/data/melee/hydraulic_maul.json b/data/melee/hydraulic_maul.json
+index 8b019eca..c2b44190 100644
+--- a/data/melee/hydraulic_maul.json
++++ b/data/melee/hydraulic_maul.json
+@@ -87,0 +88,41 @@
++  },
++  "crush": {
++   "windup": 0.52,
++   "active": 0.15,
++   "recovery": 0.78,
++   "cancel_after": 0.78,
++   "damage": 11,
++   "range": 36,
++   "advance": 0,
++   "move_scale": 0.1,
++   "stagger": 3,
++   "impact": 15,
++   "knockback": [
++    580,
++    -50
++   ],
++   "event": "player_melee_heavy",
++   "shape": "arc",
++   "height": 0,
++   "arc_degrees": 180,
++   "min_range": 0,
++   "aim_follow": false,
++   "sweep": true,
++   "hitstop": 0.09,
++   "pose": "hydraulic_maul_crush",
++   "trail": {
++    "radius": 36,
++    "arc": 180,
++    "life": 0.12,
++    "width": 6.0,
++    "brightness": 1.8,
++    "afterimage": true,
++    "color": "#ffd24a",
++    "style": "arc"
++   },
++   "sounds": {
++    "swing": "melee_swing_heavy",
++    "hit": "melee_hit_heavy"
++   },
++   "impact_fx": "crush",
++   "guard_cost": 30
+@@ -88,0 +130,4 @@
++ },
++ "extension": {
++  "upgrade": "technique_maul",
++  "attack": "crush"
+diff --git a/data/melee/ion_glaive.json b/data/melee/ion_glaive.json
+index 7d3219b1..a079363a 100644
+--- a/data/melee/ion_glaive.json
++++ b/data/melee/ion_glaive.json
+@@ -87,0 +88,41 @@
++  },
++  "cross_sweep": {
++   "windup": 0.22,
++   "active": 0.12,
++   "recovery": 0.48,
++   "cancel_after": 0.48,
++   "damage": 4,
++   "range": 68,
++   "advance": 35,
++   "move_scale": 0.25,
++   "stagger": 2,
++   "impact": 8,
++   "knockback": [
++    300,
++    -35
++   ],
++   "event": "player_melee_hit",
++   "shape": "arc",
++   "height": 0,
++   "arc_degrees": 260,
++   "min_range": 22,
++   "aim_follow": false,
++   "sweep": true,
++   "hitstop": 0.05,
++   "pose": "ion_glaive_cross_sweep",
++   "trail": {
++    "radius": 68,
++    "arc": 230,
++    "life": 0.12,
++    "width": 4.0,
++    "brightness": 1.8,
++    "afterimage": true,
++    "color": "#8fb0ff",
++    "style": "arc"
++   },
++   "sounds": {
++    "swing": "melee_swing",
++    "hit": "melee_hit"
++   },
++   "impact_fx": "slash",
++   "guard_cost": 20
+@@ -88,0 +130,4 @@
++ },
++ "extension": {
++  "upgrade": "technique_glaive",
++  "attack": "cross_sweep"
+diff --git a/data/melee/mono_dagger.json b/data/melee/mono_dagger.json
+index 8e12ac15..7ca20e0a 100644
+--- a/data/melee/mono_dagger.json
++++ b/data/melee/mono_dagger.json
+@@ -128,0 +129,41 @@
++  },
++  "return_cut": {
++   "windup": 0.04,
++   "active": 0.06,
++   "recovery": 0.22,
++   "cancel_after": 0.22,
++   "damage": 2,
++   "range": 23,
++   "advance": 35,
++   "move_scale": 0.4,
++   "stagger": 2,
++   "impact": 4.5,
++   "knockback": [
++    160,
++    -30
++   ],
++   "event": "player_melee_hit",
++   "shape": "arc",
++   "height": 0,
++   "arc_degrees": 220,
++   "min_range": 0,
++   "aim_follow": false,
++   "sweep": true,
++   "hitstop": 0.05,
++   "pose": "mono_dagger_return_cut",
++   "trail": {
++    "radius": 23,
++    "arc": 220,
++    "life": 0.12,
++    "width": 3.0,
++    "brightness": 1.8,
++    "afterimage": true,
++    "color": "#9fe8ff",
++    "style": "arc"
++   },
++   "sounds": {
++    "swing": "melee_swing",
++    "hit": "melee_hit"
++   },
++   "impact_fx": "slash",
++   "guard_cost": 8
+@@ -129,0 +171,4 @@
++ },
++ "extension": {
++  "upgrade": "technique_dagger",
++  "attack": "return_cut"
+diff --git a/data/melee/mono_whip.json b/data/melee/mono_whip.json
+index a5160aab..d507c721 100644
+--- a/data/melee/mono_whip.json
++++ b/data/melee/mono_whip.json
+@@ -46,0 +47,41 @@
++  },
++  "return_lash": {
++   "windup": 0.2,
++   "active": 0.14,
++   "recovery": 0.5,
++   "cancel_after": 0.5,
++   "damage": 3,
++   "range": 80,
++   "advance": 0,
++   "move_scale": 0.5,
++   "stagger": 2,
++   "impact": 5,
++   "knockback": [
++    160,
++    -20
++   ],
++   "event": "player_melee_hit",
++   "shape": "arc",
++   "height": 0,
++   "arc_degrees": 160,
++   "min_range": 34,
++   "aim_follow": true,
++   "sweep": true,
++   "hitstop": 0.05,
++   "pose": "mono_whip_return_lash",
++   "trail": {
++    "radius": 68,
++    "arc": 160,
++    "life": 0.12,
++    "width": 2.4,
++    "brightness": 1.8,
++    "afterimage": true,
++    "color": "#d27bff",
++    "style": "lash"
++   },
++   "sounds": {
++    "swing": "melee_swing",
++    "hit": "melee_hit"
++   },
++   "impact_fx": "slash",
++   "guard_cost": 16
+@@ -47,0 +89,4 @@
++ },
++ "extension": {
++  "upgrade": "technique_whip",
++  "attack": "return_lash"
+diff --git a/data/melee/thermal_blade.json b/data/melee/thermal_blade.json
+index d648139f..eda1c2e4 100644
+--- a/data/melee/thermal_blade.json
++++ b/data/melee/thermal_blade.json
+@@ -128,0 +129,41 @@
++  },
++  "lunge": {
++   "windup": 0.16,
++   "active": 0.09,
++   "recovery": 0.42,
++   "cancel_after": 0.42,
++   "damage": 5,
++   "range": 44,
++   "advance": 120,
++   "move_scale": 0.4,
++   "stagger": 2,
++   "impact": 8,
++   "knockback": [
++    260,
++    -45
++   ],
++   "event": "player_melee_heavy",
++   "shape": "box",
++   "height": 28,
++   "arc_degrees": 120,
++   "min_range": 0,
++   "aim_follow": false,
++   "sweep": true,
++   "hitstop": 0.05,
++   "pose": "thermal_blade_lunge",
++   "trail": {
++    "radius": 44,
++    "arc": 120,
++    "life": 0.12,
++    "width": 4.2,
++    "brightness": 1.8,
++    "afterimage": true,
++    "color": "#ff8c3a",
++    "style": "thrust"
++   },
++   "sounds": {
++    "swing": "melee_swing_heavy",
++    "hit": "melee_hit_heavy"
++   },
++   "impact_fx": "pierce",
++   "guard_cost": 18
+@@ -129,0 +171,4 @@
++ },
++ "extension": {
++  "upgrade": "technique_blade",
++  "attack": "lunge"
+diff --git a/data/scripts/weapon_upgrade_data.gd b/data/scripts/weapon_upgrade_data.gd
+index f2938fa9..1a00a846 100644
+--- a/data/scripts/weapon_upgrade_data.gd
++++ b/data/scripts/weapon_upgrade_data.gd
+@@ -12,0 +13,2 @@ enum Effect {
++	## 解鎖專屬近戰接續，不被動調整伤害／射速。
++	MELEE_TECHNIQUE,
+@@ -23,0 +26,3 @@ enum Effect {
++@export var melee_weapon_id: StringName = &""
++## 選購不計入章節最低必要準備，仍列在總價目與選購合計。
++@export var optional_purchase: bool = false
+@@ -30,0 +36,2 @@ func applies_to(weapon: WeaponData) -> bool:
++		Effect.MELEE_TECHNIQUE:
++			return weapon.is_melee() and weapon.id == melee_weapon_id and melee_weapon_id != &""
+@@ -44 +51,3 @@ func validate() -> PackedStringArray:
+-	if amount <= 0.0 or amount > 0.9:
++	if effect == Effect.MELEE_TECHNIQUE and melee_weapon_id == &"":
++		problems.append("%s 缺少近戰適用武器" % id)
++	if effect != Effect.MELEE_TECHNIQUE and (amount <= 0.0 or amount > 0.9):
+diff --git a/data/upgrades/technique_blade.tres b/data/upgrades/technique_blade.tres
+new file mode 100644
+index 00000000..2e95e1b6
+--- /dev/null
++++ b/data/upgrades/technique_blade.tres
+@@ -0,0 +1,14 @@
++[gd_resource type="Resource" script_class="WeaponUpgradeData" load_steps=2 format=3]
++
++[ext_resource type="Script" path="res://data/scripts/weapon_upgrade_data.gd" id="1_script"]
++
++[resource]
++script = ExtResource("1_script")
++id = &"technique_blade"
++display_name = "突進斬"
++effect = 3
++optional_purchase = true
++cost = 100
++melee_weapon_id = &"melee_blade"
++description = "3→可選4段：收招後再點按突進斬，護盾 −18，收招 0.42 秒；按住維持首招"
++order = 10
+diff --git a/data/upgrades/technique_dagger.tres b/data/upgrades/technique_dagger.tres
+new file mode 100644
+index 00000000..e4f26c37
+--- /dev/null
++++ b/data/upgrades/technique_dagger.tres
+@@ -0,0 +1,14 @@
++[gd_resource type="Resource" script_class="WeaponUpgradeData" load_steps=2 format=3]
++
++[ext_resource type="Script" path="res://data/scripts/weapon_upgrade_data.gd" id="1_script"]
++
++[resource]
++script = ExtResource("1_script")
++id = &"technique_dagger"
++display_name = "回切"
++effect = 3
++optional_purchase = true
++cost = 80
++melee_weapon_id = &"melee_dagger"
++description = "3→可選4段：收招後再點按回切，護盾 −8，收招 0.22 秒；按住維持首招"
++order = 10
+diff --git a/data/upgrades/technique_glaive.tres b/data/upgrades/technique_glaive.tres
+new file mode 100644
+index 00000000..fcebbf67
+--- /dev/null
++++ b/data/upgrades/technique_glaive.tres
+@@ -0,0 +1,14 @@
++[gd_resource type="Resource" script_class="WeaponUpgradeData" load_steps=2 format=3]
++
++[ext_resource type="Script" path="res://data/scripts/weapon_upgrade_data.gd" id="1_script"]
++
++[resource]
++script = ExtResource("1_script")
++id = &"technique_glaive"
++display_name = "交叉掃"
++effect = 3
++optional_purchase = true
++cost = 120
++melee_weapon_id = &"melee_glaive"
++description = "2→可選3段：收招後再點按交叉掃，護盾 −20，收招 0.48 秒；按住維持首招"
++order = 10
+diff --git a/data/upgrades/technique_maul.tres b/data/upgrades/technique_maul.tres
+new file mode 100644
+index 00000000..f199dd72
+--- /dev/null
++++ b/data/upgrades/technique_maul.tres
+@@ -0,0 +1,14 @@
++[gd_resource type="Resource" script_class="WeaponUpgradeData" load_steps=2 format=3]
++
++[ext_resource type="Script" path="res://data/scripts/weapon_upgrade_data.gd" id="1_script"]
++
++[resource]
++script = ExtResource("1_script")
++id = &"technique_maul"
++display_name = "蓄力砸擊"
++effect = 3
++optional_purchase = true
++cost = 140
++melee_weapon_id = &"melee_maul"
++description = "2→可選3段：收招後再點按蓄力砸擊，護盾 −30，收招 0.78 秒；按住維持首招，每揮另耗一格電量"
++order = 10
+diff --git a/data/upgrades/technique_whip.tres b/data/upgrades/technique_whip.tres
+new file mode 100644
+index 00000000..0fd3498d
+--- /dev/null
++++ b/data/upgrades/technique_whip.tres
+@@ -0,0 +1,14 @@
++[gd_resource type="Resource" script_class="WeaponUpgradeData" load_steps=2 format=3]
++
++[ext_resource type="Script" path="res://data/scripts/weapon_upgrade_data.gd" id="1_script"]
++
++[resource]
++script = ExtResource("1_script")
++id = &"technique_whip"
++display_name = "回甩"
++effect = 3
++optional_purchase = true
++cost = 100
++melee_weapon_id = &"melee_whip"
++description = "1→可選2段：收招後再點按回甩，護盾 −16，收招 0.50 秒；按住維持首招"
++order = 10
+diff --git a/design/20-campaign-experience/WEAPON_COMBOS.md b/design/20-campaign-experience/WEAPON_COMBOS.md
+index cdd2db88..b9a38192 100644
+--- a/design/20-campaign-experience/WEAPON_COMBOS.md
++++ b/design/20-campaign-experience/WEAPON_COMBOS.md
+@@ -39 +39 @@
+-| 單分子鞭 | 遠距甩擊 | 更大近身死角、低持續输出；可選回拉，不永久硬直 |
++| 單分子鞭 | 遠距甩擊 | 更大近身死角、低持續输出；可選回甩，不永久硬直 |
+@@ -51,0 +52,33 @@ NE-236 包括全部槍械，近戰階段不可勾整票完成。手槍、衝鋒
++
++## NE-237 第一階段：可購買尾招
++
++五筆既有改裝型錄資料逐武器解鎖一招尾招，原傷害／射速不被動加倍。購買沿既有信用點，描述在既有改裝卡中顯示「原段數→可選段數」、再點按、護盾成本與收招。價格是近戰選擇成本，不代表已驗章節收入。
++
++| 武器／追加招 | 價格 | 基礎→可選段數 | 起手／有效／收招秒 | 傷害 | 護盾成本 | 距離與用途 |
++|---|---:|---:|---|---:|---:|---|
++| 匕首／回切 | 80 | 3→4 | .04/.06/.22 | 2 | 8 | 23px，快速近身補刀 |
++| 熱刃／突進斬 | 100 | 3→4 | .16/.09/.42 | 5 | 18 | 44px，付能量換前進與較長風險 |
++| 液壓錘／蓄力砸擊 | 140 | 2→3 | .52/.15/.78 | 11 | 30 | 36px，另付一格電量，少段重擊 |
++| 長柄／交叉掃 | 120 | 2→3 | .22/.12/.48 | 4 | 20 | 68px，仍留22px死角 |
++| 鞭／回甩 | 100 | 1→2 | .20/.14/.50 | 3 | 16 | 80px，仍留34px死角 |
++
++尾招護盾和電量先一起檢查，能量不足不部分扣款；消耗後護盾回充延遲覆蓋整招與原回充延遲。每條連段於首招凍結已選招式清單，不因中途購買突變。尾招 cancel_after 等於完整 recovery，不環回首招；命中、揮空都付完整尾招收招。
++
++近戰命令由專用輸入子節點以單筆單調時鐘期限保存，停頓仍收事件，暫停／演出／死亡拒絕；輪詢邊緣與事件邊緣去重。有效期不因 hitstop 延長，hold 不接尾招。子節點只記本次輸入，不參與保存。舉盾與射擊取消必須已到命中後取消點；空載具請求不應中斷正在支付的招式。
++
++NE-231 的近戰成長覆蓋在這五筆價格／耗能比較，保留既有章節 ledger。公開快照買入／還原只驗既有契約，NE-230 真退出續玩仍未驗。
++
++實際驗到保存接點缺口：Progression.prepare_install 以 ResourceCatalog.load_dir("res://data/weapons", ...) 掃根目錄；該載入器不遞迴，所以 `data/weapons/melee/*.tres` 會回 `install/progression/upgrades unknown weapon or invalid list`。請 NE-230 owner 把合法近戰武器加入嚴格安裝型錄，並驗退出／重開；本組沒有改 Progression 或通用載入器。snapshot／restore 可買回招式，但不能因此勾真續玩。
++
++2026-10-10 經濟接點已授權：僅 core/economy_report.gd.price_list 以 WeaponUpgradeData.optional_purchase 分列真選購價格。三筆原槍械改裝合計370，加必要補給200，必要準備570；五招合計540另列，全部改裝總價910不隱藏。既有第一章靜態區域收入888的對帳為64%；這是報表資料核對，不代稱序章／第一章真人全流程收入或續玩已驗。未更動 ledger、收益、全域 Progression／存檔或 shared Fx。
++
++
++## 六秒真傷害量測與驗收分界
++
++每模式50筆（45組三難度普通／裝甲／看門狗，另5組遠距揮空），60Hz合成點按、目標固定相對距離；公開購買後驗upgrade_owned及每組真tail damage event。不是人工實戰或真手把測試。
++
++standard grunt基礎→追加DPS：匕首5.67→5.67、熱刃6.02→6.50、重錘5.72→6.51、長柄4.54→4.33、鞭2.66→2.83；相應鎖定比例95→100%、95.8→98.1%、78.9→92.5%、94.2→96.4%、90.3→95.8%。物理首擊33.3／83.3／350／150／183.3ms維持基礎首招。有限六秒值受點按相位與排程影響；長柄以更寬掃擊和較重單擊付更長風險，不保證每招式必然提高DPS。真尾招雜兵受力速度64／104／232／120／64，頭目保持0；頭目暈眩亦0。
++
++原升級量測購買早於Level ready還原，實際丟失解鎖，已排除並保留錯誤raw；修正工具在spawn後購買並重新跑50筆，不能拿舊flag冒稱升級效果。詳見NE-237附件配對與原始事件。
++
++完整關節／IK、空中／蹲盾姿態、真人難度實戰、聲音人工試聽、實機手把與真退出續玩仍各自驗收；本組照片与訓練場不替代上述條件。NE-236全部遠程驗收、NE-237最後保存與NE-231正式跨章路線依實際進度保持未完成。
+diff --git a/game/player/melee_command_input.gd b/game/player/melee_command_input.gd
+new file mode 100644
+index 00000000..1266cb9f
+--- /dev/null
++++ b/game/player/melee_command_input.gd
+@@ -0,0 +1,54 @@
++class_name MeleeCommandInput
++extends Node
++## 僅保存一筆短近戰命令。自己在局部 hitstop 仍接收事件，期限不隨父節點凍結延長。
++
++var player: Player
++var _deadline_ms := 0
++var _held_actions: Dictionary = {}
++
++
++func _ready() -> void:
++	process_mode = Node.PROCESS_MODE_ALWAYS
++
++
++func _unhandled_input(event: InputEvent) -> void:
++	if event.is_echo() or not accepts_input():
++		return
++	for action: StringName in [&"melee", &"shoot"]:
++		if action == &"shoot" and not player.holds_melee_weapon():
++			continue
++		if event.is_action_released(action):
++			_held_actions[action] = false
++		if event.is_action_pressed(action):
++			_held_actions[action] = true
++			queue_command()
++
++
++func accepts_input() -> bool:
++	return is_instance_valid(player) and player.state == Player.State.NORMAL and not player.is_blocking and not GameplayLock.is_locked() and not get_tree().paused
++
++
++## action_press 的輪詢路徑；held latch 避免同一邊緣跨補步重複入列。
++func poll(action: StringName) -> void:
++	var pressed := Input.is_action_pressed(action)
++	var was_pressed: bool = _held_actions.get(action, false)
++	_held_actions[action] = pressed
++	if pressed and not was_pressed:
++		queue_command()
++
++
++func queue_command() -> void:
++	if accepts_input():
++		_deadline_ms = Time.get_ticks_msec() + int(MeleeData.buffer_time() * 1000.0)
++
++
++func remaining() -> float:
++	return maxf(0.0, (_deadline_ms - Time.get_ticks_msec()) / 1000.0)
++
++
++func consume() -> void:
++	_deadline_ms = 0
++
++
++func clear() -> void:
++	consume()
+diff --git a/game/player/melee_set.gd b/game/player/melee_set.gd
+index fd3a6d1c..96737863 100644
+--- a/game/player/melee_set.gd
++++ b/game/player/melee_set.gd
+@@ -8 +8 @@ const FIELDS: PackedStringArray = ["windup", "active", "recovery", "cancel_after
+-		"shape", "height", "arc_degrees", "min_range", "aim_follow", "sweep", "hitstop", "pose", "impact_fx"]
++		"shape", "height", "arc_degrees", "min_range", "aim_follow", "sweep", "hitstop", "pose", "impact_fx", "guard_cost"]
+@@ -20 +20 @@ const DEFAULT_ATTACK := {"windup": 0.05, "active": 0.06, "recovery": 0.16, "canc
+-		"shape": "box", "height": 0.0, "arc_degrees": 120.0, "min_range": 0.0, "aim_follow": false, "sweep": false, "hitstop": 0.0, "pose": "slash", "impact_fx": "slash"}
++		"shape": "box", "height": 0.0, "arc_degrees": 120.0, "min_range": 0.0, "aim_follow": false, "sweep": false, "hitstop": 0.0, "pose": "slash", "impact_fx": "slash", "guard_cost": 0.0}
+@@ -49 +49 @@ func reload() -> void:
+-func combo() -> Array:
++func combo(extended := false) -> Array:
+@@ -52 +52,15 @@ func combo() -> Array:
+-	return list if typeof(list) == TYPE_ARRAY and not (list as Array).is_empty() else ["light_1"]
++	var result: Array = (list as Array).duplicate() if typeof(list) == TYPE_ARRAY and not (list as Array).is_empty() else ["light_1"]
++	var extension: Variant = _data.get("extension", {})
++	if extended and extension is Dictionary and not extension_upgrade().is_empty():
++		var id := str(extension.get("attack", ""))
++		var tail := live_attack(id)
++		var cost := float(tail.get("guard_cost", 0.0))
++		if not tail.is_empty() and is_finite(cost) and cost > 0.0 and cost <= 100.0 and not result.has(id):
++			result.append(id)
++	return result
++
++
++func extension_upgrade() -> StringName:
++	_ensure_loaded()
++	var extension: Variant = _data.get("extension", {})
++	return StringName(str(extension.get("upgrade", ""))) if extension is Dictionary else &""
+@@ -107,0 +122,6 @@ func validate() -> PackedStringArray:
++	if _data.has("extension"):
++		var extension: Variant = _data["extension"]
++		if not extension is Dictionary or extension_upgrade().is_empty() or combo(true).size() != combo().size() + 1:
++			errors.append("%s 的 extension 必須引用有效、有正護盾成本的尾招與 upgrade" % path)
++		elif float(attack(str(extension.attack))["cancel_after"]) != float(attack(str(extension.attack))["recovery"]):
++			errors.append("%s 的可選尾招必須付完整 recovery" % path)
+@@ -113,0 +134,3 @@ func validate() -> PackedStringArray:
++		var cost := float(d.get("guard_cost", 0.0))
++		if not is_finite(cost) or cost < 0.0 or cost > 100.0:
++			errors.append("%s 的招式「%s」的 guard_cost 必須有限且在 0–100" % [path, id])
+diff --git a/game/player/player.gd b/game/player/player.gd
+index ca39ff1c..b3dccd50 100644
+--- a/game/player/player.gd
++++ b/game/player/player.gd
+@@ -89,0 +90,2 @@ var _melee_attack: Dictionary = {}
++var _melee_chain: Array = []
++var _melee_commands: MeleeCommandInput
+@@ -141,0 +144,3 @@ func _ready() -> void:
++	_melee_commands = MeleeCommandInput.new()
++	_melee_commands.player = self
++	add_child(_melee_commands)
+@@ -389,2 +394,10 @@ func _process_normal(delta: float) -> void:
+-	if Input.is_action_just_pressed(&"melee") and _try_melee():
+-		return
++	for action: StringName in [&"melee", &"shoot"]:
++		if action == &"shoot" and not holds_melee_weapon():
++			continue
++		_melee_commands.poll(action)
++	if _melee_commands.remaining() > 0.0:
++		if _melee_phase == MeleePhase.NONE:
++			_try_melee()
++			return
++		else:
++			_melee_buffer_left = _melee_commands.remaining()
+@@ -394,3 +407 @@ func _process_normal(delta: float) -> void:
+-		if Input.is_action_just_pressed(&"shoot"):
+-			_try_melee()
+-		elif _melee_phase == MeleePhase.NONE and (Input.is_action_pressed(&"shoot") or Input.is_action_pressed(&"melee")):
++		if _melee_phase == MeleePhase.NONE and (Input.is_action_pressed(&"shoot") or Input.is_action_pressed(&"melee")):
+@@ -534,0 +546,2 @@ func _try_fire() -> void:
++	if state not in [State.NORMAL, State.DASH] or is_blocking or is_melee_locked() or GameplayLock.is_locked() or get_tree().paused:
++		return
+@@ -544,0 +558,2 @@ func _try_fire() -> void:
++	if _melee_phase != MeleePhase.NONE:
++		_end_melee(false)
+@@ -663 +678,2 @@ func _try_melee(continue_combo := true) -> bool:
+-		_melee_buffer_left = MeleeData.buffer_time()
++		_melee_commands.queue_command()
++		_melee_buffer_left = _melee_commands.remaining()
+@@ -671,0 +688 @@ func _try_melee(continue_combo := true) -> bool:
++		_melee_commands.consume()
+@@ -681,3 +698,11 @@ func _start_melee_attack(continue_combo: bool) -> bool:
+-	var combo := set.combo()
+-	# 尾招收招不可環回首招；結束後須重新起手，保留反制時間。
+-	if continue_combo and set == _melee_set and _melee_index >= combo.size() - 1:
++	if set != _melee_set:
++		continue_combo = false
++	var combo := _melee_chain if continue_combo and not _melee_chain.is_empty() else set.combo(weapon != null and Progression.has_upgrade(weapon, set.extension_upgrade()))
++	# 尾招不能環回首招；整條招式於首招選定。
++	if continue_combo and _melee_index >= combo.size() - 1:
++		return false
++	var next_index := _melee_index + 1 if continue_combo and _melee_index >= 0 else 0
++	var attack := set.attack(str(combo[next_index]))
++	var cost := float(attack["guard_cost"])
++	if not is_finite(cost) or cost < 0.0 or cost > guard or (cost > 0.0 and _guard_lockout_left > 0.0):
++		_end_melee(false)
+@@ -690,0 +716,4 @@ func _start_melee_attack(continue_combo: bool) -> bool:
++	if cost > 0.0:
++		guard -= cost
++		_guard_regen_delay_left = float(attack["windup"]) + float(attack["active"]) + float(attack["recovery"]) + tuning.guard_regen_delay
++		_emit_guard()
+@@ -692,5 +721,5 @@ func _start_melee_attack(continue_combo: bool) -> bool:
+-	if set != _melee_set:
+-		_melee_set = set
+-		continue_combo = false
+-	_melee_index = _melee_index + 1 if continue_combo and _melee_index >= 0 else 0
+-	_melee_attack = set.attack(str(combo[_melee_index]))
++	_melee_set = set
++	_melee_chain = combo
++	_melee_index = next_index
++	_melee_attack = attack
++	_melee_commands.consume()
+@@ -720,0 +750 @@ func _tick_melee(delta: float) -> void:
++	_melee_buffer_left = _melee_commands.remaining()
+@@ -722 +751,0 @@ func _tick_melee(delta: float) -> void:
+-		_melee_buffer_left = maxf(0.0, _melee_buffer_left - delta)
+@@ -727 +756 @@ func _tick_melee(delta: float) -> void:
+-	if state == State.DEAD or state == State.FINISHER or state == State.STAGGERED or state == State.MOUNTED:
++	if state == State.DEAD or state == State.FINISHER or state == State.STAGGERED or state == State.MOUNTED or state == State.PHONE:
+@@ -731 +759,0 @@ func _tick_melee(delta: float) -> void:
+-	_melee_buffer_left = maxf(0.0, _melee_buffer_left - delta)
+@@ -745 +773 @@ func _tick_melee(delta: float) -> void:
+-			if _melee_buffer_left > 0.0 and is_melee_cancellable() and _melee_index < _melee_set.combo().size() - 1:
++			if _melee_buffer_left > 0.0 and is_melee_cancellable() and _melee_index < _melee_chain.size() - 1:
+@@ -775 +803 @@ func _end_melee(keep_combo := true) -> void:
+-	if not keep_combo or _melee_index >= _melee_set.combo().size() - 1:
++	if not keep_combo or _melee_index >= _melee_chain.size() - 1:
+@@ -776,0 +805,3 @@ func _end_melee(keep_combo := true) -> void:
++		_melee_chain.clear()
++		if _melee_commands != null:
++			_melee_commands.clear()
+@@ -1067 +1097,0 @@ func mount_vehicle(vehicle: Vehicle) -> void:
+-	_interrupt_melee(true)
+@@ -1069,0 +1100 @@ func mount_vehicle(vehicle: Vehicle) -> void:
++	_interrupt_melee(true)
+@@ -1123 +1154 @@ func _update_blocking() -> void:
+-	var wants := pressed and (guard >= tuning.guard_min_to_raise if not is_blocking else guard > 0.0)
++	var wants := pressed and not is_melee_locked() and (guard >= tuning.guard_min_to_raise if not is_blocking else guard > 0.0)
+@@ -1124,0 +1156,2 @@ func _update_blocking() -> void:
++		if _melee_phase != MeleePhase.NONE:
++			_end_melee(false)
+diff --git a/tests/suite/test_melee_weapons.gd b/tests/suite/test_melee_weapons.gd
+index 805eeb06..d0b219d7 100644
+--- a/tests/suite/test_melee_weapons.gd
++++ b/tests/suite/test_melee_weapons.gd
+@@ -9,0 +10 @@ func run() -> void:
++	_test_growth_contract()
+@@ -21,0 +23,5 @@ func run() -> void:
++	await _test_optional_tails()
++	await _test_command_paths()
++	await _test_refusals_and_extra_interruptions()
++	await _test_paid_cancels_and_facing()
++	await _test_tail_contacts()
+@@ -300,17 +306,25 @@ func _test_held_input() -> void:
+-	for action: StringName in [&"melee", &"shoot"]:
+-		await open_level(10.0)
+-		var player := _arm("melee_blade")
+-		Input.action_press(action)
+-		var advanced := false
+-		var starts := 0
+-		var previous_phase := Player.MeleePhase.NONE
+-		for tick in 100:
+-			await physics_frames(1)
+-			advanced = advanced or player._melee_index > 0
+-			if player._melee_phase == Player.MeleePhase.WINDUP and previous_phase != Player.MeleePhase.WINDUP:
+-				starts += 1
+-			previous_phase = player._melee_phase
+-		Input.action_release(action)
+-		check(not advanced, "holding %s never selects an unrequested later/heavy attack" % action)
+-		check(starts > 1, "holding %s repeats the short first attack after full recovery" % action)
+-		await end_level(level)
++	for id in WEAPONS:
++		for action: StringName in [&"melee", &"shoot"]:
++			await open_level(10.0)
++			var player := _arm(id)
++			Progression.add_credits(1000)
++			Progression.buy_upgrade(player.loadout.active_weapon(), Progression.find_upgrade(MeleeData.set_of(player.loadout.active_weapon()).extension_upgrade()))
++			var offset := 50.0 if id == "melee_glaive" else 72.0 if id == "melee_whip" else 20.0
++			var enemy := _dummy(offset)
++			await physics_frames(3)
++			Input.action_press(action)
++			var advanced := false
++			var starts := 0
++			var previous_phase := Player.MeleePhase.NONE
++			for tick in 180:
++				enemy.global_position.x = player.global_position.x + offset
++				await physics_frames(1)
++				advanced = advanced or player._melee_index > 0
++				if player._melee_phase == Player.MeleePhase.WINDUP and previous_phase != Player.MeleePhase.WINDUP:
++					starts += 1
++				previous_phase = player._melee_phase
++			Input.action_release(action)
++			check(enemy.health.current < 999, "%s hold %s includes real landed contacts" % [id, action])
++			check(not advanced, "%s holding %s never selects an unrequested later/heavy attack" % [id, action])
++			check(starts > 1, "%s holding %s repeats the short first attack after full recovery" % [id, action])
++			await end_level(level)
+@@ -382,0 +397,303 @@ func _test_late_target_hitstop() -> void:
++
++
++func _test_growth_contract() -> void:
++	var saved := Progression.snapshot()
++	Progression.reset_run()
++	Progression.add_credits(1000)
++	for id in WEAPONS:
++		var weapon := _weapon(id)
++		var set := MeleeData.set_of(weapon)
++		var upgrade := Progression.find_upgrade(set.extension_upgrade())
++		check(upgrade != null and upgrade.validate().is_empty(), "%s has a valid catalog technique" % id)
++		if upgrade == null:
++			continue
++		check(upgrade.applies_to(weapon) and not upgrade.applies_to(load("res://data/weapons/pistol.tres")) and not upgrade.applies_to(_weapon(WEAPONS[(WEAPONS.find(id) + 1) % WEAPONS.size()])), "%s technique applies only to its own weapon" % id)
++		var before := Progression.credits
++		check(Progression.buy_upgrade(weapon, upgrade) and Progression.credits == before - upgrade.cost, "%s purchase pays the exact catalog price" % id)
++		check(not Progression.buy_upgrade(weapon, upgrade) and Progression.credits == before - upgrade.cost, "%s duplicate purchase is rejected without spending" % id)
++		var tuned := Progression.tuned(weapon)
++		check(tuned.fire_interval == weapon.fire_interval and tuned.magazine_size == weapon.magazine_size, "%s unlock is not a passive damage/charge buff" % id)
++		var page := UpgradesPage.new()
++		var entry := page._entry_for(tuned, upgrade)
++		page.free() # 型錄描述檢查不留下未進 tree 的 UI 節點。
++		check(entry.dimmed and not entry.action_enabled and entry.detail_body.contains("按住") and entry.detail_body.contains("護盾"), "%s existing upgrade card explains optional input and energy" % id)
++	var prices := EconomyReport.price_list()
++	check(prices.required == 570 and prices.optional == 540 and prices.upgrades == 910 and prices.optional_list.size() == 5, "optional melee costs remain visible without raising the original 570-credit required budget")
++	print("NE237_ECONOMY ",JSON.stringify(prices))
++	var bought := Progression.snapshot()
++	var install := Progression.prepare_install(bought)
++	print("NE237_INSTALL_CONTRACT ", install.get("error", "accepted"))
++	check(not install.has("error") or str(install.get("error", "")).contains("unknown weapon"), "strict install accepts the melee catalog or reports the explicit NE-230 missing-catalog dependency")
++	Progression.reset_run()
++	Progression.restore(bought)
++	for id in WEAPONS:
++		check(Progression.has_upgrade(_weapon(id), MeleeData.set_of(_weapon(id)).extension_upgrade()), "%s snapshot restores the unlock (not a real exit/resume test)" % id)
++	var foreign := bought.duplicate(true)
++	foreign.upgrades.melee_blade = ["technique_dagger"]
++	check(Progression.prepare_install(foreign).has("error"), "strict install rejects a technique saved under the wrong weapon")
++	Progression.reset_run()
++	var first := Progression.find_upgrade(&"technique_dagger")
++	check(not Progression.buy_upgrade(_weapon(WEAPONS[0]), first) and Progression.credits == 0, "insufficient credits do not buy or spend")
++	Progression.restore(saved)
++
++
++func _finish_swing(player: Player) -> void:
++	var ticks := 240
++	while player._melee_phase != Player.MeleePhase.NONE and ticks > 0:
++		await physics_frames(1)
++		ticks -= 1
++	check(ticks > 0, "the actual melee action finishes within four seconds")
++
++
++func _test_optional_tails() -> void:
++	for id in WEAPONS:
++		await open_level(10.0)
++		var player := _arm(id)
++		var weapon := player.loadout.active_weapon()
++		var set := MeleeData.set_of(weapon)
++		Progression.add_credits(1000)
++		check(Progression.buy_upgrade(weapon, Progression.find_upgrade(set.extension_upgrade())), "%s tail bought through public progression" % id)
++		var chain := set.combo(true)
++		for index in chain.size():
++			var before_guard := player.guard
++			check(player._try_melee() and player._melee_index == index, "%s explicit tap selects step %d" % [id, index])
++			var attack: Dictionary = player._melee_attack
++			check(is_equal_approx(before_guard - player.guard, float(attack.guard_cost)), "%s step %d pays its real guard cost" % [id, index])
++			if index == chain.size() - 1:
++				check(float(attack.cancel_after) == float(attack.recovery) and float(attack.guard_cost) > 0.0, "%s optional tail must pay full recovery and energy" % id)
++				player._try_melee() # 不能借尾招循環 buffer 取消。
++			await _finish_swing(player)
++		check(player._melee_index == -1 and player._melee_buffer_left == 0.0, "%s terminal action clears continuation and cannot loop" % id)
++		await end_level(level)
++	# 有電量的錘：缺護盾的尾招拒絕不先消耗電量。
++	await open_level(10.0)
++	var player := _arm("melee_maul")
++	Progression.add_credits(1000)
++	Progression.buy_upgrade(player.loadout.active_weapon(), Progression.find_upgrade(&"technique_maul"))
++	for step in 2:
++		player._try_melee()
++		await _finish_swing(player)
++	player.guard = 29.0
++	player._guard_regen_delay_left = 10.0
++	var charge := player.loadout.mag_in(player.loadout.active_slot)
++	check(not player._try_melee() and player.guard == 29.0 and player.loadout.mag_in(player.loadout.active_slot) == charge, "insufficient tail energy rejects atomically before charge spending")
++	check(player._melee_phase == Player.MeleePhase.NONE and player._melee_index == -1 and player._melee_commands.remaining() == 0.0, "energy refusal clears the chain and command")
++	await end_level(level)
++
++
++func _event_tap(action: StringName) -> void:
++	var event := InputEventAction.new()
++	event.action = action
++	event.pressed = true
++	Input.parse_input_event(event)
++	event = event.duplicate()
++	event.pressed = false
++	Input.parse_input_event(event)
++	Input.flush_buffered_events()
++
++
++func _test_command_paths() -> void:
++	for event_path in [false, true]:
++		await open_level(10.0)
++		var player := _arm("melee_blade")
++		if event_path:
++			_event_tap(&"melee")
++		else:
++			Input.action_press(&"melee")
++		await physics_frames(2)
++		Input.action_release(&"melee")
++		print("COMMAND_DIAG event=", event_path, " phase=", player._melee_phase, " index=", player._melee_index, " pending=", player._melee_commands.remaining())
++		check(player._melee_phase != Player.MeleePhase.NONE and player._melee_index == 0, "event=%s starts exactly one first swing" % event_path)
++		var ticks := 120
++		while player._melee_phase != Player.MeleePhase.RECOVERY and ticks > 0:
++			await physics_frames(1)
++			ticks -= 1
++		# 揮空收招末端才點按，防止超過短 buffer。
++		while player._melee_time < float(player._melee_attack.recovery) - 0.08:
++			await physics_frames(1)
++		if event_path:
++			_event_tap(&"shoot")
++		else:
++			Input.action_press(&"shoot")
++		await physics_frames(2)
++		Input.action_release(&"shoot")
++		ticks = 40
++		while player._melee_index == 0 and ticks > 0:
++			await physics_frames(1)
++			ticks -= 1
++		check(player._melee_index == 1, "event=%s second input starts the second swing once" % event_path)
++		await _finish_swing(player)
++		check(player._melee_index == 1, "event=%s event/poll dedup does not fabricate a third tap" % event_path)
++		await end_level(level)
++	# 真正的 mapped JoypadButton 事件，合成而非實體手把。
++	await open_level(10.0)
++	var player := _arm("melee_blade")
++	var joy: InputEventJoypadButton
++	for binding in InputMap.action_get_events(&"melee"):
++		if binding is InputEventJoypadButton:
++			joy = binding.duplicate()
++			break
++	check(joy != null, "melee has an actual mapped controller button")
++	if joy != null:
++		joy.pressed = true
++		Input.parse_input_event(joy)
++		await level.get_tree().process_frame
++		await level.get_tree().process_frame
++		await physics_frames(2)
++		joy = joy.duplicate()
++		joy.pressed = false
++		Input.parse_input_event(joy)
++		check(player._melee_index == 0 and player._melee_phase != Player.MeleePhase.NONE, "synthetic mapped controller event starts the same first swing")
++	await end_level(level)
++	# 局部凍結仍接受短點按；長凍結的 command 到期不能保存到恢復之後。
++	await open_level(10.0)
++	player = _arm("melee_blade")
++	player._try_melee()
++	Fx.freeze([player], MeleeData.buffer_time() + 0.15)
++	_event_tap(&"melee")
++	await level.get_tree().process_frame
++	check(player._melee_commands.remaining() > 0.0 and player.process_mode == Node.PROCESS_MODE_DISABLED, "input child receives a tap while actual Fx freezes the attacker")
++	var expiry := Time.get_ticks_msec() + int(MeleeData.buffer_time() * 1000.0) + 30
++	while Time.get_ticks_msec() < expiry:
++		await level.get_tree().process_frame
++	print("FROZEN_BUFFER_DIAG remaining=",player._melee_commands.remaining()," time=",Time.get_ticks_msec())
++	check(player._melee_commands.remaining() == 0.0, "buffer expires by monotonic time while the parent is frozen")
++	Fx.thaw_all()
++	await _finish_swing(player)
++	check(player._melee_index == 0, "an expired frozen command cannot advance the chain")
++	await end_level(level)
++
++
++func _test_refusals_and_extra_interruptions() -> void:
++	await open_level(10.0)
++	var player := _arm("melee_blade")
++	player._try_melee()
++	player.mount_vehicle(null)
++	check(player._melee_phase == Player.MeleePhase.WINDUP, "an invalid mount request does not erase the paid swing")
++	Input.action_press(&"block")
++	player._update_blocking()
++	check(not player.is_blocking and player._melee_phase == Player.MeleePhase.WINDUP, "guard cannot cancel the unpaid windup")
++	Input.action_release(&"block")
++	player._try_melee()
++	check(player.begin_phone_call(1), "a grounded player can use the real phone command")
++	check(player._melee_phase == Player.MeleePhase.NONE and player._melee_commands.remaining() == 0.0, "phone entry clears the active action and command")
++	check(not player._try_melee(), "phone state rejects melee")
++	await end_level(level)
++	await open_level(10.0)
++	player = _arm("melee_blade")
++	player._try_melee()
++	player._try_melee()
++	player._guard_break()
++	check(player._melee_phase == Player.MeleePhase.NONE and player._melee_index == -1 and not player._try_melee(), "guard break clears action and rejects staggered commands")
++	await end_level(level)
++	await open_level(10.0)
++	player = _arm("melee_blade")
++	var vehicle := Vehicle.new()
++	vehicle.configure(load("res://data/vehicles/bulwark.tres"))
++	level.add_child(vehicle)
++	player._try_melee()
++	player._try_melee()
++	player.mount_vehicle(vehicle)
++	check(player.state == Player.State.MOUNTED and player._melee_phase == Player.MeleePhase.NONE and player._melee_commands.remaining() == 0.0 and not player._try_melee(), "valid vehicle mount interrupts and mounted input is rejected")
++	player.dismount_vehicle(false)
++	player._melee_cooldown_left = 0.0
++	player._try_melee()
++	var token := GameplayLock.acquire(level)
++	_event_tap(&"melee")
++	check(player._melee_commands.remaining() == 0.0 and player._melee_phase == Player.MeleePhase.NONE and not player._try_melee(), "real gameplay lock clears input and refuses both event and direct paths")
++	GameplayLock.release(token)
++	level.get_tree().paused = true
++	_event_tap(&"melee")
++	check(player._melee_commands.remaining() == 0.0 and not player._try_melee(), "paused input refuses event and direct paths")
++	level.get_tree().paused = false
++	player.loadout.select(0)
++	player._melee_cooldown_left = 0.0
++	player._try_melee()
++	var ammo := player.loadout.mag_in(0)
++	player._try_fire()
++	check(player.loadout.mag_in(0) == ammo, "direct gun command cannot cancel melee windup")
++	await end_level(level)
++
++
++func _test_paid_cancels_and_facing() -> void:
++	await open_level(10.0)
++	var player := _arm("melee_blade")
++	var enemy := _dummy(20.0)
++	await physics_frames(3)
++	player._try_melee()
++	var direction := player._melee_direction(player._melee_attack)
++	_aim(player, Vector2.LEFT)
++	await physics_frames(1)
++	check(player.facing == 1 and player._melee_direction(player._melee_attack).is_equal_approx(direction), "aim changes during windup do not rotate the paid swing")
++	var ticks := 120
++	while not player.is_melee_cancellable() and ticks > 0:
++		await physics_frames(1)
++		ticks -= 1
++	check(player._melee_landed and ticks > 0, "locked original-facing swing lands and reaches its paid cancel window")
++	Input.action_press(&"block")
++	player._update_blocking()
++	Input.action_release(&"block")
++	check(player.is_blocking and player._melee_phase == Player.MeleePhase.NONE and player._melee_index == -1 and player._melee_commands.remaining() == 0.0, "guard at a paid cancel window ends the old action and chain")
++	await end_level(level)
++	await open_level(10.0)
++	player = level.player # 槍械的預設近戰，有真命中後才准許射擊取消。
++	_aim(player, Vector2.RIGHT)
++	enemy = _dummy(20.0)
++	await physics_frames(3)
++	player._try_melee()
++	ticks = 120
++	while not player.is_melee_cancellable() and ticks > 0:
++		await physics_frames(1)
++		ticks -= 1
++	var ammo := player.loadout.mag_in(0)
++	player._try_fire()
++	check(player.loadout.mag_in(0) == ammo - 1 and player._melee_phase == Player.MeleePhase.NONE and player._melee_index == -1, "gun fire after a landed paid cancel consumes ammo and clears the melee chain")
++	await end_level(level)
++	await open_level(10.0)
++	player = _arm("melee_maul")
++	enemy = _dummy(20.0)
++	enemy._is_finishable = true
++	await physics_frames(3)
++	var charge := player.loadout.mag_in(player.loadout.active_slot)
++	check(player._try_melee() and player.state == Player.State.NORMAL and player.loadout.mag_in(player.loadout.active_slot) == charge - 1, "armed melee never replaces a paid swing with a free nearby finisher")
++	var info := DamageInfo.create(999, Combat.Team.ENEMY, &"test")
++	player.health.kill(info)
++	_event_tap(&"melee")
++	await level.get_tree().process_frame
++	check(player._melee_commands.remaining() == 0.0 and not player._try_melee(), "dead state rejects buffered event and direct commands")
++	await end_level(level)
++
++
++func _test_tail_contacts() -> void:
++	var offsets := [20.0, 24.0, 24.0, 50.0, 72.0]
++	for id in WEAPONS:
++		await open_level(10.0)
++		var player := _arm(id)
++		var weapon := player.loadout.active_weapon()
++		var set := MeleeData.set_of(weapon)
++		Progression.add_credits(1000)
++		Progression.buy_upgrade(weapon, Progression.find_upgrade(set.extension_upgrade()))
++		for step in set.combo().size():
++			player._try_melee()
++			await _finish_swing(player)
++		var target := _dummy(offsets[WEAPONS.find(id)])
++		var far := _dummy(220.0)
++		var close: Enemy
++		if id in ["melee_glaive", "melee_whip"]:
++			close = _dummy(14.0)
++		await physics_frames(3)
++		check(player._try_melee() and player._melee_index == set.combo().size(), "%s actual tail starts for contact testing" % id)
++		var expected := int(player._melee_attack.damage)
++		var limit := 240
++		while player._melee_phase != Player.MeleePhase.ACTIVE and limit > 0:
++			await physics_frames(1)
++			limit -= 1
++		check(limit > 0 and player._melee_landed, "%s tail deals damage only at its actual active window" % id)
++		if player._melee_phase == Player.MeleePhase.ACTIVE:
++			player._melee_hit_pass()
++		await _finish_swing(player)
++		check(999 - target.health.current == expected, "%s entire sweep plus repeated query hits a HealthComponent exactly once" % id)
++		check(far.health.current == 999, "%s tail cannot hit a distant target" % id)
++		if is_instance_valid(close):
++			check(close.health.current == 999, "%s optional tail preserves its close dead zone" % id)
++		await end_level(level)
+diff --git a/tools/weapon_balance_probe.gd b/tools/weapon_balance_probe.gd
+index d631615e..3ec6cc7d 100644
+--- a/tools/weapon_balance_probe.gd
++++ b/tools/weapon_balance_probe.gd
+@@ -35 +35 @@ func _run() -> void:
+-		"method": "6s 60Hz synthetic taps every 8 ticks; target pinned at documented offset, real damage/reaction/charge; miss at +180px; wall-clock hitstop included",
++		"method": "6s 60Hz Input.action_press/release polling taps every 8 ticks; target pinned at documented offset, real damage/reaction/charge; miss at +180px; wall-clock hitstop included",
+@@ -45,7 +44,0 @@ func _sample(index: int, target_id: String, difficulty: int, miss: bool) -> void
+-	if upgraded:
+-		Progression.add_credits(1000)
+-		var upgrade := Progression.find_upgrade(StringName("technique_" + IDS[index]))
+-		if upgrade == null or not Progression.buy_upgrade(weapon, upgrade):
+-			push_error("upgrade unavailable: " + IDS[index])
+-			get_tree().quit(1)
+-			return
+@@ -60,0 +54,11 @@ func _sample(index: int, target_id: String, difficulty: int, miss: bool) -> void
++	if upgraded:
++		Progression.add_credits(1000)
++		var upgrade := Progression.find_upgrade(StringName("technique_" + IDS[index]))
++		if upgrade == null or not Progression.buy_upgrade(weapon, upgrade):
++			push_error("upgrade unavailable: " + IDS[index])
++			get_tree().quit(1)
++			return
++	if upgraded and not Progression.has_upgrade(player.loadout.active_weapon(), StringName("technique_" + IDS[index])):
++		push_error("measurement lost the purchased technique after spawn")
++		get_tree().quit(1)
++		return
+@@ -78 +82 @@ func _sample(index: int, target_id: String, difficulty: int, miss: bool) -> void
+-			"response_velocity_x": enemy.velocity.x, "stun_s": enemy._stun_left, "impact": info.get_impact()}))
++			"response_velocity_x": enemy.velocity.x, "stun_s": enemy._stun_left, "impact": info.get_impact(), "attack": player.melee_pose(), "guard_at_hit": player.guard}))
+@@ -81,0 +86 @@ func _sample(index: int, target_id: String, difficulty: int, miss: bool) -> void
++	var max_step := 0
+@@ -86 +91,3 @@ func _sample(index: int, target_id: String, difficulty: int, miss: bool) -> void
+-			player._try_melee()
++			Input.action_press(&"melee")
++		elif tick % 8 == 1:
++			Input.action_release(&"melee")
+@@ -91,0 +99 @@ func _sample(index: int, target_id: String, difficulty: int, miss: bool) -> void
++		max_step = maxi(max_step, player._melee_index)
+@@ -92,0 +101 @@ func _sample(index: int, target_id: String, difficulty: int, miss: bool) -> void
++	Input.action_release(&"melee")
+@@ -103 +112 @@ func _sample(index: int, target_id: String, difficulty: int, miss: bool) -> void
+-		"locked_physics_ticks": locked, "swings": swings, "guard_remaining": player.guard,
++		"locked_physics_ticks": locked, "swings": swings, "max_combo_step": max_step, "guard_remaining": player.guard,
+@@ -104,0 +114,5 @@ func _sample(index: int, target_id: String, difficulty: int, miss: bool) -> void
++	row["upgrade_owned"] = Progression.has_upgrade(player.loadout.active_weapon(), StringName("technique_" + IDS[index]))
++	if upgraded and not miss and max_step < MeleeData.set_of(weapon).combo().size():
++		push_error("upgraded measurement did not exercise the optional tail: " + IDS[index])
++		get_tree().quit(1)
++		return
+diff --git a/tools/weapon_growth_capture.gd b/tools/weapon_growth_capture.gd
+new file mode 100644
+index 00000000..279bc048
+--- /dev/null
++++ b/tools/weapon_growth_capture.gd
+@@ -0,0 +1,161 @@
++extends ScenarioBase
++## 沿公開購買與真實三階段拍可選尾招，兩面向／低特效；不覆蓋 NE-236 證據。
++const WEAPONS := ["dagger", "blade", "maul", "glaive", "whip"]
++const CONTACT_OFFSET := [20.0, 24.0, 24.0, 50.0, 72.0]
++var hit_capture := false
++var only_weapon := ""
++
++
++func _ready() -> void:
++	hit_capture = OS.get_cmdline_user_args().has("--hit")
++	for arg in OS.get_cmdline_user_args():
++		if arg.begins_with("--weapon="):
++			only_weapon = arg.trim_prefix("--weapon=")
++	out_dir = "res://pm/Nest-Egg/images"
++	DirAccess.make_dir_recursive_absolute(out_dir)
++	_run.call_deferred()
++
++
++func _run() -> void:
++	print("NE237_RENDERER ", RenderingServer.get_current_rendering_method(), " | ", RenderingServer.get_video_adapter_name())
++	Story.auto_skip = true
++	await open_arena("res://data/lighting/neutral.tres", 12.0)
++	var camera := get_viewport().get_camera_2d()
++	camera.set_physics_process(false)
++	camera.zoom = Vector2.ONE * 3.4
++	var overlay := CanvasLayer.new()
++	add_child(overlay)
++	var label := Label.new()
++	label.add_theme_font_size_override("font_size", 16)
++	label.position = Vector2(16, 16)
++	overlay.add_child(label)
++	if not hit_capture and only_weapon.is_empty():
++		await _capture_shop()
++	AimInput.using_gamepad = true
++	for quality in [LightQuality.Tier.HIGH, LightQuality.Tier.LOW]:
++		Settings.set_light_quality(quality)
++		Settings.set_feel_scale("particles", 0.25 if quality == LightQuality.Tier.LOW else 1.0)
++		Settings.set_feel_scale("shake", 0.0 if quality == LightQuality.Tier.LOW else 1.0)
++		Settings.set_reduce_flashes(quality == LightQuality.Tier.LOW)
++		for weapon_id in WEAPONS:
++			if not only_weapon.is_empty() and weapon_id != only_weapon:
++				continue
++			var weapon := load("res://data/weapons/melee/melee_%s.tres" % weapon_id) as WeaponData
++			var upgrade := Progression.find_upgrade(StringName("technique_" + weapon_id))
++			Progression.add_credits(1000)
++			if not Progression.has_upgrade(weapon, upgrade.id) and not Progression.buy_upgrade(weapon, upgrade):
++				push_error("capture cannot buy " + weapon_id)
++				get_tree().quit(1)
++				return
++			for face in [1, -1]:
++				player._interrupt_melee()
++				player.loadout.reset(weapon)
++				player._melee_cooldown_left = 0.0
++				player.guard = player.tuning.guard_max
++				place_player(12.0)
++				player.facing = face
++				player.aim_dir = Vector2(float(face), 0)
++				AimInput._last_stick_dir = player.aim_dir
++				camera.global_position = player.global_position + Vector2(face * 30, -44 if weapon_id == "maul" else -32)
++				await settle(3)
++				var target: Enemy
++				if hit_capture:
++					target = level._create_enemy(load("res://data/enemies/grunt.tres"))
++					target.position = player.position + Vector2(face * 160.0, 0)
++					level._entities.add_child(target)
++					target.data = target.data.duplicate()
++					target.data.detect_range = 0.0
++					target.data.attack_range = 0.0
++					target.data.move_speed = 0.0
++					target.health.setup(999, 0.0)
++
++				for step in MeleeData.set_of(weapon).combo().size():
++					if not player._try_melee():
++						push_error("capture failed base step")
++						get_tree().quit(1)
++						return
++					var wait := 240
++					while player._melee_phase != Player.MeleePhase.NONE and wait > 0:
++						await get_tree().physics_frame
++						wait -= 1
++				if hit_capture:
++					target.global_position = player.global_position + Vector2(face * CONTACT_OFFSET[WEAPONS.find(weapon_id)], 0)
++					await get_tree().physics_frame
++					await get_tree().physics_frame
++					print("NE237_TARGET ready enabled=", target.hurtbox.enabled, " at=",target.global_position," player=",player.global_position)
++				if not player._try_melee():
++					push_error("capture failed tail")
++					get_tree().quit(1)
++					return
++				camera.global_position = player.global_position + Vector2(face * 30, -44 if weapon_id == "maul" else -32)
++				var phases := [Player.MeleePhase.ACTIVE] if hit_capture else [Player.MeleePhase.WINDUP, Player.MeleePhase.ACTIVE, Player.MeleePhase.RECOVERY]
++				for phase in phases:
++					var limit := 240
++					while player._melee_phase != phase and limit > 0:
++						await get_tree().physics_frame
++						limit -= 1
++					if limit == 0:
++						push_error("capture missed phase")
++						get_tree().quit(1)
++						return
++					if hit_capture and (not player._melee_landed or target.health.current >= 999):
++						push_error("capture contact failed %s step=%s enabled=%s targets=%s" % [weapon_id, player._melee_index, target.hurtbox.enabled, player._melee_targets(player._melee_attack).size()])
++						get_tree().quit(1)
++						return
++					# 拍前搖中段的預備峰值，而非起點的中性姿勢；有效段仍拍真接觸起點。
++					if phase == Player.MeleePhase.WINDUP:
++						var prepare_at := float(player._melee_attack.windup) * 0.65
++						while player._melee_phase == phase and player._melee_time < prepare_at:
++							await get_tree().physics_frame
++						if player._melee_phase != phase:
++							push_error("capture missed natural preparation window")
++							get_tree().quit(1)
++							return
++					player.set_physics_process(false)
++					label.text = "%s / optional %s / %s / %s" % [weapon_id, "right" if face > 0 else "left", ["idle", "windup", "active", "recovery"][phase], "high" if quality == LightQuality.Tier.HIGH else "low FX, no shake, reduced flash"]
++					await settle(3)
++					await RenderingServer.frame_post_draw
++					capture("NE-237-%s-%s-%s-%s-%s" % [weapon_id, "hit" if hit_capture else "tail", "right" if face > 0 else "left", phase, "high" if quality == LightQuality.Tier.HIGH else "low"])
++					print("NE237_PHASE ", weapon_id, " ", face, " ", phase, " step=", player._melee_index, " pose_t=",player.melee_pose_progress()," guard=",player.guard," hit=",player._melee_landed," target_hp=",target.health.current if is_instance_valid(target) else -1," zoom=",camera.zoom," camera=",camera.global_position)
++					player.set_physics_process(true)
++				player._interrupt_melee()
++				if is_instance_valid(target):
++					Fx.thaw_all()
++					target.queue_free()
++					await settle(2)
++	await finish()
++	get_tree().quit()
++
++
++func _capture_shop() -> void:
++	for id in WEAPONS:
++		Progression.reset_run()
++		Progression.add_credits(1000)
++		var weapon := load("res://data/weapons/melee/melee_%s.tres" % id) as WeaponData
++		player.loadout.reset(weapon)
++		var screen := InventoryScreen.new()
++		screen.configure(player)
++		add_child(screen)
++		screen.open()
++		screen.select_tab(screen.page_index(UpgradesPage))
++		var page := screen._pages[screen._current] as UpgradesPage
++		var index := -1
++		for i in page._targets.size():
++			if page._targets[i].upgrade.id == StringName("technique_" + id):
++				index = i
++		if index < 0:
++			push_error("shop has no technique for " + id)
++			get_tree().quit(1)
++			return
++		page._select(index)
++		await get_tree().create_timer(0.45, true).timeout
++		await RenderingServer.frame_post_draw
++		capture("NE-237-%s-shop-before" % id)
++		page.activate()
++		await get_tree().create_timer(0.25, true).timeout
++		await RenderingServer.frame_post_draw
++		capture("NE-237-%s-shop-after" % id)
++		print("NE237_SHOP ",id," credits=",Progression.credits," owned=",Progression.has_upgrade(weapon,StringName("technique_"+id)))
++		screen.close()
++		screen.queue_free()
++		await settle(3)
+diff --git a/tools/weapon_growth_capture.tscn b/tools/weapon_growth_capture.tscn
+new file mode 100644
+index 00000000..60a39520
+--- /dev/null
++++ b/tools/weapon_growth_capture.tscn
+@@ -0,0 +1,4 @@
++[gd_scene load_steps=2 format=3]
++[ext_resource type="Script" path="res://tools/weapon_growth_capture.gd" id="1"]
++[node name="WeaponGrowthCapture" type="Node2D"]
++script = ExtResource("1")

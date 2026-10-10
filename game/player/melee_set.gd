@@ -5,7 +5,7 @@ extends RefCounted
 ## 資料缺漏或損毀時記錄「檔案、招式、欄位」並退回內建的安全預設（單一輕斬），不崩潰。
 
 const FIELDS: PackedStringArray = ["windup", "active", "recovery", "cancel_after", "damage", "range", "advance", "move_scale", "stagger", "impact", "knockback", "event", "trail", "sounds",
-		"shape", "height", "arc_degrees", "min_range", "aim_follow", "sweep", "hitstop", "pose", "impact_fx"]
+		"shape", "height", "arc_degrees", "min_range", "aim_follow", "sweep", "hitstop", "pose", "impact_fx", "guard_cost"]
 ## 判定形狀：box＝面前的矩形（range 長 × height 高）；arc＝以身體為圓心、半徑 range 的扇形（arc_degrees 為總角度，360＝繞身一圈）。
 const SHAPES: PackedStringArray = ["box", "arc"]
 ## 軌跡樣式：arc 弧形揮砍、thrust 沿揮擊方向的直線刺擊、lash 甩動的鞭痕；命中與揮擊特效種類見 MeleeFx.KINDS。
@@ -17,7 +17,7 @@ const TRAIL_BRIGHTNESS_MAX := 2.2
 const DEFAULT_ATTACK := {"windup": 0.05, "active": 0.06, "recovery": 0.16, "cancel_after": 0.05, "damage": 2, "range": 26.0, "advance": 0.0, "move_scale": 0.4, "stagger": 2, "impact": 6.0,
 		"knockback": [180.0, -60.0], "event": "player_melee_hit", "trail": {"radius": 20.0, "arc": 130.0, "life": 0.09, "width": 3.0, "brightness": 1.7, "afterimage": true},
 		"sounds": {"swing": "melee_swing", "hit": "melee_hit"},
-		"shape": "box", "height": 0.0, "arc_degrees": 120.0, "min_range": 0.0, "aim_follow": false, "sweep": false, "hitstop": 0.0, "pose": "slash", "impact_fx": "slash"}
+		"shape": "box", "height": 0.0, "arc_degrees": 120.0, "min_range": 0.0, "aim_follow": false, "sweep": false, "hitstop": 0.0, "pose": "slash", "impact_fx": "slash", "guard_cost": 0.0}
 
 var path := ""
 var _data: Dictionary = {}
@@ -46,10 +46,24 @@ func reload() -> void:
 	_ensure_loaded()
 
 
-func combo() -> Array:
+func combo(extended := false) -> Array:
 	_ensure_loaded()
 	var list: Variant = _data.get("combo", [])
-	return list if typeof(list) == TYPE_ARRAY and not (list as Array).is_empty() else ["light_1"]
+	var result: Array = (list as Array).duplicate() if typeof(list) == TYPE_ARRAY and not (list as Array).is_empty() else ["light_1"]
+	var extension: Variant = _data.get("extension", {})
+	if extended and extension is Dictionary and not extension_upgrade().is_empty():
+		var id := str(extension.get("attack", ""))
+		var tail := live_attack(id)
+		var cost := float(tail.get("guard_cost", 0.0))
+		if not tail.is_empty() and is_finite(cost) and cost > 0.0 and cost <= 100.0 and not result.has(id):
+			result.append(id)
+	return result
+
+
+func extension_upgrade() -> StringName:
+	_ensure_loaded()
+	var extension: Variant = _data.get("extension", {})
+	return StringName(str(extension.get("upgrade", ""))) if extension is Dictionary else &""
 
 
 func combo_window() -> float:
@@ -105,12 +119,21 @@ func validate() -> PackedStringArray:
 	for id: Variant in combo():
 		if not attacks.has(str(id)):
 			errors.append("%s 的 combo 引用不存在的招式「%s」" % [path, id])
+	if _data.has("extension"):
+		var extension: Variant = _data["extension"]
+		if not extension is Dictionary or extension_upgrade().is_empty() or combo(true).size() != combo().size() + 1:
+			errors.append("%s 的 extension 必須引用有效、有正護盾成本的尾招與 upgrade" % path)
+		elif float(attack(str(extension.attack))["cancel_after"]) != float(attack(str(extension.attack))["recovery"]):
+			errors.append("%s 的可選尾招必須付完整 recovery" % path)
 	for id: String in attacks.keys():
 		var def: Variant = attacks[id]
 		if typeof(def) != TYPE_DICTIONARY:
 			errors.append("%s 的招式「%s」不是字典" % [path, id])
 			continue
 		var d := def as Dictionary
+		var cost := float(d.get("guard_cost", 0.0))
+		if not is_finite(cost) or cost < 0.0 or cost > 100.0:
+			errors.append("%s 的招式「%s」的 guard_cost 必須有限且在 0–100" % [path, id])
 		for field in ["windup", "active", "recovery", "damage", "range"]:
 			if float(d.get(field, 0.0)) <= 0.0:
 				errors.append("%s 的招式「%s」的 %s 要大於 0" % [path, id, field])

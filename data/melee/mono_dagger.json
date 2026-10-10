@@ -126,6 +126,51 @@
     "hit": "melee_hit"
    },
    "impact_fx": "slash"
+  },
+  "return_cut": {
+   "windup": 0.04,
+   "active": 0.06,
+   "recovery": 0.22,
+   "cancel_after": 0.22,
+   "damage": 2,
+   "range": 23,
+   "advance": 35,
+   "move_scale": 0.4,
+   "stagger": 2,
+   "impact": 4.5,
+   "knockback": [
+    160,
+    -30
+   ],
+   "event": "player_melee_hit",
+   "shape": "arc",
+   "height": 0,
+   "arc_degrees": 220,
+   "min_range": 0,
+   "aim_follow": false,
+   "sweep": true,
+   "hitstop": 0.05,
+   "pose": "mono_dagger_return_cut",
+   "trail": {
+    "radius": 23,
+    "arc": 220,
+    "life": 0.12,
+    "width": 3.0,
+    "brightness": 1.8,
+    "afterimage": true,
+    "color": "#9fe8ff",
+    "style": "arc"
+   },
+   "sounds": {
+    "swing": "melee_swing",
+    "hit": "melee_hit"
+   },
+   "impact_fx": "slash",
+   "guard_cost": 8
   }
+ },
+ "extension": {
+  "upgrade": "technique_dagger",
+  "attack": "return_cut"
  }
 }

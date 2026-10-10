@@ -44,6 +44,51 @@
     "hit": "melee_hit"
    },
    "impact_fx": "slash"
+  },
+  "return_lash": {
+   "windup": 0.2,
+   "active": 0.14,
+   "recovery": 0.5,
+   "cancel_after": 0.5,
+   "damage": 3,
+   "range": 80,
+   "advance": 0,
+   "move_scale": 0.5,
+   "stagger": 2,
+   "impact": 5,
+   "knockback": [
+    160,
+    -20
+   ],
+   "event": "player_melee_hit",
+   "shape": "arc",
+   "height": 0,
+   "arc_degrees": 160,
+   "min_range": 34,
+   "aim_follow": true,
+   "sweep": true,
+   "hitstop": 0.05,
+   "pose": "mono_whip_return_lash",
+   "trail": {
+    "radius": 68,
+    "arc": 160,
+    "life": 0.12,
+    "width": 2.4,
+    "brightness": 1.8,
+    "afterimage": true,
+    "color": "#d27bff",
+    "style": "lash"
+   },
+   "sounds": {
+    "swing": "melee_swing",
+    "hit": "melee_hit"
+   },
+   "impact_fx": "slash",
+   "guard_cost": 16
   }
+ },
+ "extension": {
+  "upgrade": "technique_whip",
+  "attack": "return_lash"
  }
 }

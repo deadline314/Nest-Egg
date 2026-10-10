@@ -1,0 +1,161 @@
+extends ScenarioBase
+## 沿公開購買與真實三階段拍可選尾招，兩面向／低特效；不覆蓋 NE-236 證據。
+const WEAPONS := ["dagger", "blade", "maul", "glaive", "whip"]
+const CONTACT_OFFSET := [20.0, 24.0, 24.0, 50.0, 72.0]
+var hit_capture := false
+var only_weapon := ""
+
+
+func _ready() -> void:
+	hit_capture = OS.get_cmdline_user_args().has("--hit")
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--weapon="):
+			only_weapon = arg.trim_prefix("--weapon=")
+	out_dir = "res://pm/Nest-Egg/images"
+	DirAccess.make_dir_recursive_absolute(out_dir)
+	_run.call_deferred()
+
+
+func _run() -> void:
+	print("NE237_RENDERER ", RenderingServer.get_current_rendering_method(), " | ", RenderingServer.get_video_adapter_name())
+	Story.auto_skip = true
+	await open_arena("res://data/lighting/neutral.tres", 12.0)
+	var camera := get_viewport().get_camera_2d()
+	camera.set_physics_process(false)
+	camera.zoom = Vector2.ONE * 3.4
+	var overlay := CanvasLayer.new()
+	add_child(overlay)
+	var label := Label.new()
+	label.add_theme_font_size_override("font_size", 16)
+	label.position = Vector2(16, 16)
+	overlay.add_child(label)
+	if not hit_capture and only_weapon.is_empty():
+		await _capture_shop()
+	AimInput.using_gamepad = true
+	for quality in [LightQuality.Tier.HIGH, LightQuality.Tier.LOW]:
+		Settings.set_light_quality(quality)
+		Settings.set_feel_scale("particles", 0.25 if quality == LightQuality.Tier.LOW else 1.0)
+		Settings.set_feel_scale("shake", 0.0 if quality == LightQuality.Tier.LOW else 1.0)
+		Settings.set_reduce_flashes(quality == LightQuality.Tier.LOW)
+		for weapon_id in WEAPONS:
+			if not only_weapon.is_empty() and weapon_id != only_weapon:
+				continue
+			var weapon := load("res://data/weapons/melee/melee_%s.tres" % weapon_id) as WeaponData
+			var upgrade := Progression.find_upgrade(StringName("technique_" + weapon_id))
+			Progression.add_credits(1000)
+			if not Progression.has_upgrade(weapon, upgrade.id) and not Progression.buy_upgrade(weapon, upgrade):
+				push_error("capture cannot buy " + weapon_id)
+				get_tree().quit(1)
+				return
+			for face in [1, -1]:
+				player._interrupt_melee()
+				player.loadout.reset(weapon)
+				player._melee_cooldown_left = 0.0
+				player.guard = player.tuning.guard_max
+				place_player(12.0)
+				player.facing = face
+				player.aim_dir = Vector2(float(face), 0)
+				AimInput._last_stick_dir = player.aim_dir
+				camera.global_position = player.global_position + Vector2(face * 30, -44 if weapon_id == "maul" else -32)
+				await settle(3)
+				var target: Enemy
+				if hit_capture:
+					target = level._create_enemy(load("res://data/enemies/grunt.tres"))
+					target.position = player.position + Vector2(face * 160.0, 0)
+					level._entities.add_child(target)
+					target.data = target.data.duplicate()
+					target.data.detect_range = 0.0
+					target.data.attack_range = 0.0
+					target.data.move_speed = 0.0
+					target.health.setup(999, 0.0)
+
+				for step in MeleeData.set_of(weapon).combo().size():
+					if not player._try_melee():
+						push_error("capture failed base step")
+						get_tree().quit(1)
+						return
+					var wait := 240
+					while player._melee_phase != Player.MeleePhase.NONE and wait > 0:
+						await get_tree().physics_frame
+						wait -= 1
+				if hit_capture:
+					target.global_position = player.global_position + Vector2(face * CONTACT_OFFSET[WEAPONS.find(weapon_id)], 0)
+					await get_tree().physics_frame
+					await get_tree().physics_frame
+					print("NE237_TARGET ready enabled=", target.hurtbox.enabled, " at=",target.global_position," player=",player.global_position)
+				if not player._try_melee():
+					push_error("capture failed tail")
+					get_tree().quit(1)
+					return
+				camera.global_position = player.global_position + Vector2(face * 30, -44 if weapon_id == "maul" else -32)
+				var phases := [Player.MeleePhase.ACTIVE] if hit_capture else [Player.MeleePhase.WINDUP, Player.MeleePhase.ACTIVE, Player.MeleePhase.RECOVERY]
+				for phase in phases:
+					var limit := 240
+					while player._melee_phase != phase and limit > 0:
+						await get_tree().physics_frame
+						limit -= 1
+					if limit == 0:
+						push_error("capture missed phase")
+						get_tree().quit(1)
+						return
+					if hit_capture and (not player._melee_landed or target.health.current >= 999):
+						push_error("capture contact failed %s step=%s enabled=%s targets=%s" % [weapon_id, player._melee_index, target.hurtbox.enabled, player._melee_targets(player._melee_attack).size()])
+						get_tree().quit(1)
+						return
+					# 拍前搖中段的預備峰值，而非起點的中性姿勢；有效段仍拍真接觸起點。
+					if phase == Player.MeleePhase.WINDUP:
+						var prepare_at := float(player._melee_attack.windup) * 0.65
+						while player._melee_phase == phase and player._melee_time < prepare_at:
+							await get_tree().physics_frame
+						if player._melee_phase != phase:
+							push_error("capture missed natural preparation window")
+							get_tree().quit(1)
+							return
+					player.set_physics_process(false)
+					label.text = "%s / optional %s / %s / %s" % [weapon_id, "right" if face > 0 else "left", ["idle", "windup", "active", "recovery"][phase], "high" if quality == LightQuality.Tier.HIGH else "low FX, no shake, reduced flash"]
+					await settle(3)
+					await RenderingServer.frame_post_draw
+					capture("NE-237-%s-%s-%s-%s-%s" % [weapon_id, "hit" if hit_capture else "tail", "right" if face > 0 else "left", phase, "high" if quality == LightQuality.Tier.HIGH else "low"])
+					print("NE237_PHASE ", weapon_id, " ", face, " ", phase, " step=", player._melee_index, " pose_t=",player.melee_pose_progress()," guard=",player.guard," hit=",player._melee_landed," target_hp=",target.health.current if is_instance_valid(target) else -1," zoom=",camera.zoom," camera=",camera.global_position)
+					player.set_physics_process(true)
+				player._interrupt_melee()
+				if is_instance_valid(target):
+					Fx.thaw_all()
+					target.queue_free()
+					await settle(2)
+	await finish()
+	get_tree().quit()
+
+
+func _capture_shop() -> void:
+	for id in WEAPONS:
+		Progression.reset_run()
+		Progression.add_credits(1000)
+		var weapon := load("res://data/weapons/melee/melee_%s.tres" % id) as WeaponData
+		player.loadout.reset(weapon)
+		var screen := InventoryScreen.new()
+		screen.configure(player)
+		add_child(screen)
+		screen.open()
+		screen.select_tab(screen.page_index(UpgradesPage))
+		var page := screen._pages[screen._current] as UpgradesPage
+		var index := -1
+		for i in page._targets.size():
+			if page._targets[i].upgrade.id == StringName("technique_" + id):
+				index = i
+		if index < 0:
+			push_error("shop has no technique for " + id)
+			get_tree().quit(1)
+			return
+		page._select(index)
+		await get_tree().create_timer(0.45, true).timeout
+		await RenderingServer.frame_post_draw
+		capture("NE-237-%s-shop-before" % id)
+		page.activate()
+		await get_tree().create_timer(0.25, true).timeout
+		await RenderingServer.frame_post_draw
+		capture("NE-237-%s-shop-after" % id)
+		print("NE237_SHOP ",id," credits=",Progression.credits," owned=",Progression.has_upgrade(weapon,StringName("technique_"+id)))
+		screen.close()
+		screen.queue_free()
+		await settle(3)

@@ -126,6 +126,51 @@
     "hit": "melee_hit_heavy"
    },
    "impact_fx": "slash"
+  },
+  "lunge": {
+   "windup": 0.16,
+   "active": 0.09,
+   "recovery": 0.42,
+   "cancel_after": 0.42,
+   "damage": 5,
+   "range": 44,
+   "advance": 120,
+   "move_scale": 0.4,
+   "stagger": 2,
+   "impact": 8,
+   "knockback": [
+    260,
+    -45
+   ],
+   "event": "player_melee_heavy",
+   "shape": "box",
+   "height": 28,
+   "arc_degrees": 120,
+   "min_range": 0,
+   "aim_follow": false,
+   "sweep": true,
+   "hitstop": 0.05,
+   "pose": "thermal_blade_lunge",
+   "trail": {
+    "radius": 44,
+    "arc": 120,
+    "life": 0.12,
+    "width": 4.2,
+    "brightness": 1.8,
+    "afterimage": true,
+    "color": "#ff8c3a",
+    "style": "thrust"
+   },
+   "sounds": {
+    "swing": "melee_swing_heavy",
+    "hit": "melee_hit_heavy"
+   },
+   "impact_fx": "pierce",
+   "guard_cost": 18
   }
+ },
+ "extension": {
+  "upgrade": "technique_blade",
+  "attack": "lunge"
  }
 }

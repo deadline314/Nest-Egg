@@ -85,6 +85,51 @@
     "hit": "melee_hit"
    },
    "impact_fx": "slash"
+  },
+  "cross_sweep": {
+   "windup": 0.22,
+   "active": 0.12,
+   "recovery": 0.48,
+   "cancel_after": 0.48,
+   "damage": 4,
+   "range": 68,
+   "advance": 35,
+   "move_scale": 0.25,
+   "stagger": 2,
+   "impact": 8,
+   "knockback": [
+    300,
+    -35
+   ],
+   "event": "player_melee_hit",
+   "shape": "arc",
+   "height": 0,
+   "arc_degrees": 260,
+   "min_range": 22,
+   "aim_follow": false,
+   "sweep": true,
+   "hitstop": 0.05,
+   "pose": "ion_glaive_cross_sweep",
+   "trail": {
+    "radius": 68,
+    "arc": 230,
+    "life": 0.12,
+    "width": 4.0,
+    "brightness": 1.8,
+    "afterimage": true,
+    "color": "#8fb0ff",
+    "style": "arc"
+   },
+   "sounds": {
+    "swing": "melee_swing",
+    "hit": "melee_hit"
+   },
+   "impact_fx": "slash",
+   "guard_cost": 20
   }
+ },
+ "extension": {
+  "upgrade": "technique_glaive",
+  "attack": "cross_sweep"
  }
 }

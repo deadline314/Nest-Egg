@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponUpgradeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/weapon_upgrade_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"technique_maul"
+display_name = "蓄力砸擊"
+effect = 3
+optional_purchase = true
+cost = 140
+melee_weapon_id = &"melee_maul"
+description = "2→可選3段：收招後再點按蓄力砸擊，護盾 −30，收招 0.78 秒；按住維持首招，每揮另耗一格電量"
+order = 10

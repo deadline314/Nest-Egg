@@ -1,0 +1,8 @@
+Running 2 groups in 1 processes (logs: work/ne237/regression-first)
+  process 0 (estimated 17 s): MeleeWeaponsSuite,MeleeSuite
+[process 0] NEW FAILURE: event=true starts exactly one first swing
+[process 0] NEW FAILURE: synthetic mapped controller event starts the same first swing
+[process 0] NEW FAILURE: input child receives a tap while actual Fx freezes the attacker
+[process 0] NEW FAILURE: buffer expires by monotonic time while the parent is frozen
+Detected script errors in output of process 0: work/ne237/regression-first/shard_0.log
+checks: 206, new failures: 4, known failures (tests/known_failures.txt): 0  (wall time 39 s)
