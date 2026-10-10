@@ -276,3 +276,12 @@ python tools/comfyui/gpu_lock.py -- $env:GODOT --headless --path . res://tools/r
 - 網格域覆蓋只證明已歸屬的來源像素能由 UV 三角形取樣，不證明 mask 把正確解剖分給該部件；source ownership／語意正確性須獨立驗證。CPU 幾何檢查也不能代替各面向、各要求姿勢的原生渲染與接縫驗收。
 - 加入固定負控制：把測試 mesh／UV 覆蓋域沿已歸屬來源輪廓向內縮 1 source pixel，再跑同一 pixel-center coverage check，必須報出未覆蓋來源座標並失敗。若負控制仍通過，表示檢查器漏報，不能以容差、膨脹 mask 或降低門檻掩蓋。
 - 映射負控制另把 UV 整體移動 1 source pixel 而保持骨架頂點不動；即使 owner 域覆蓋仍全部通過，source-to-skeleton 對應檢查也須拒絕。公開可重跑的兩隻靴子範例見 [NE-222 來源域檢查](../../../../pm/Nest-Egg/attachments/NE-222-source-domain-review/README.md)；此範例是 CPU 反例與固定來源檢查，不是正式姿勢採用。
+
+
+## 材質方向與骨軸必須分別校準
+
+新姿勢分件先記錄每件原圖座標、pivot、骨軸及材質方向（例如腕→掌→手指、踝→鞋底→鞋尖）。以實際貼圖與已核對的點位判定方向，不能把所有手／腳默認成骨頭的局部 +Y。近遠側以角色的機械手／自然手等實際身份對照，不按圖片左右交換所有權。
+
+先重建正式骨架的實際 setup/current transforms，再驗證 `current × inverse(bind)` 的頂點、接點與材質向量。動畫器的非零手部角度與貼圖 pivot 都是契約的一部分，不能用 identity basis 或猜測 pivot 代替。FK 通過後另跑真正的 Skeleton2D／Polygon2D 渲染：原來源姿勢、已知錯軸負控制及修正候選使用同一 RGBA、UV、倍率和光照。負控制須在同一檢查中失敗；修正件的手指、鞋底、領口與袖口須目視合理，仍另做全部件接縫／全動作驗收。
+
+NE-222 的可重跑來源與單手原生反例見 `art_src/characters/rin_walk_source_ig01/registration/README.md`。此例只證明材質軸校準，不能代替全身姿勢、分割語意、normal/glow 或走路驗收；肩／髖／衣襬的剩餘來源分支誤差仍須修正。

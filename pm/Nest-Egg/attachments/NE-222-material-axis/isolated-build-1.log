@@ -1,0 +1,105 @@
+{
+  "fk_max_error": 3.45925024034339e-11,
+  "material_axis_controls": [
+    {
+      "bone": "hand_front",
+      "formal_texture": "hand",
+      "formal_sha256": "db5db2e306cea2d67a7058d7aa14c580b79fecedc99b9f37c4beba6eecfe9a03",
+      "formal_pivot_xy": [
+        38.06,
+        29.43
+      ],
+      "formal_material_endpoint_xy": [
+        120,
+        32
+      ],
+      "source_pivot_xy": [
+        386,
+        711
+      ],
+      "source_material_endpoint_xy": [
+        373,
+        817
+      ],
+      "local_material_axis_degrees": 1.79645957049973,
+      "canonical_material_world_axis_degrees": 82.01055088881498,
+      "new_material_error_degrees": 0.0,
+      "v4_wrong_material_axis_error_degrees": 88.20354042953922
+    },
+    {
+      "bone": "hand_back",
+      "formal_texture": "hand_left",
+      "formal_sha256": "03696ce5f24f02c935be5b38163bc63e926807c9a42cc6eeba4c3c7caa6d5bde",
+      "formal_pivot_xy": [
+        24.91,
+        29.83
+      ],
+      "formal_material_endpoint_xy": [
+        116,
+        32
+      ],
+      "source_pivot_xy": [
+        764,
+        682
+      ],
+      "source_material_endpoint_xy": [
+        790,
+        749
+      ],
+      "local_material_axis_degrees": 1.3646759188534041,
+      "canonical_material_world_axis_degrees": 81.57876723716866,
+      "new_material_error_degrees": 0.0,
+      "v4_wrong_material_axis_error_degrees": 88.63532408116106
+    },
+    {
+      "bone": "foot_front",
+      "formal_texture": "foot",
+      "formal_sha256": "1bfff06cfe3c11bcaf2182c4bb6db3513697ff58cde439c487594624ea36cae9",
+      "formal_pivot_xy": [
+        57.0,
+        72.0
+      ],
+      "formal_material_endpoint_xy": [
+        153,
+        168
+      ],
+      "source_pivot_xy": [
+        755,
+        1348
+      ],
+      "source_material_endpoint_xy": [
+        886,
+        1447
+      ],
+      "local_material_axis_degrees": 45.0,
+      "canonical_material_world_axis_degrees": 45.0,
+      "new_material_error_degrees": 0.0,
+      "v4_wrong_material_axis_error_degrees": 44.99999999995817
+    },
+    {
+      "bone": "foot_back",
+      "formal_texture": "foot",
+      "formal_sha256": "1bfff06cfe3c11bcaf2182c4bb6db3513697ff58cde439c487594624ea36cae9",
+      "formal_pivot_xy": [
+        57.0,
+        72.0
+      ],
+      "formal_material_endpoint_xy": [
+        153,
+        168
+      ],
+      "source_pivot_xy": [
+        300,
+        1290
+      ],
+      "source_material_endpoint_xy": [
+        336,
+        1432
+      ],
+      "local_material_axis_degrees": 45.0,
+      "canonical_material_world_axis_degrees": 45.0,
+      "new_material_error_degrees": 0.0,
+      "v4_wrong_material_axis_error_degrees": 44.999999999985114
+    }
+  ]
+}

@@ -1,0 +1,978 @@
+{
+  "version": 4,
+  "status": "PRIVATE CPU SOURCE REGISTRATION CANDIDATE; not anatomy, Godot/import, GPU, rendering, or walk acceptance",
+  "source": {
+    "path": "art_src/characters/rin_walk_source_ig01/raw/source.png",
+    "sha256": "3af1fa39fd7325c92ed8f1dd75562a98f7636ce723f619643a8eb4235ed71c75",
+    "size": [
+      1037,
+      1516
+    ]
+  },
+  "protected_legacy_source": {
+    "path": "art_src/characters/rin2/base_rgba.png",
+    "sha256": "401888dc14dcca469428e4df45c07648e36fd1822497031f8c28213fafc24fd9"
+  },
+  "asset_contract_sha256": {
+    "rin_character_json": "c689b235a056fb81a70b4d91cf156790b409e3eab3c73b3e22400c27d1d9cd00",
+    "humanoid_tall_json": "5d9f2e3bb53d28410533fc9682fd54f8c6a56274fd8ecda2e0eb5a28bb42ff44",
+    "character_rig_gd": "c345420e4ba825c34ab6a9cb417179c8845546878d72d28f355ccfa69f3ce45e",
+    "humanoid_animator_gd": "5e8468977264cadd2772f45779b3dd127fa332e2dce14e2f644e094d427e93fc"
+  },
+  "scale_origin": {
+    "texture_scale": 0.03387914691943128,
+    "source_origin_xy": [
+      548.0,
+      1502.0
+    ],
+    "mapping": "skeleton=(source_xy-origin)*texture_scale",
+    "root_scale": 1.15
+  },
+  "canonical_setup": {
+    "source": "humanoid_tall.json + CharacterRig._build_skeleton + HumanoidAnimator._init",
+    "bone_count": 20,
+    "local_rotations_rad": {
+      "hip": 0.0,
+      "chest": 0.0,
+      "neck": 0.0,
+      "head": 0.0,
+      "hair_1": 0.0,
+      "hair_2": 0.0,
+      "arm_back_upper": 0.0,
+      "arm_back_lower": 0.0,
+      "hand_back": 1.4,
+      "arm_front_upper": 0.0,
+      "arm_front_lower": 0.0,
+      "hand_front": 1.4,
+      "leg_back_upper": 0.0,
+      "leg_back_lower": 0.0,
+      "foot_back": 0.0,
+      "leg_front_upper": 0.0,
+      "leg_front_lower": 0.0,
+      "foot_front": 0.0,
+      "coat_1": 0.0,
+      "coat_2": 0.0
+    },
+    "hands_world_x_basis_angle_deg": 80.21409131831524,
+    "hands_world_positive_y_probe_angle_deg": 170.21409131831524,
+    "note": "Bone2D rest is Transform2D(0,pos); animator current transform has 1.4 rad for both hand bones at setup."
+  },
+  "formal_source_owner_ledger": [
+    {
+      "logical_bone": "arm_front_upper",
+      "formal_part": "arm_front_upper",
+      "formal_texture": "arm_upper",
+      "source_xy": [
+        465,
+        350
+      ],
+      "rgba": [
+        35,
+        37,
+        63,
+        253
+      ],
+      "ownership_decision": "front=image-left mechanical"
+    },
+    {
+      "logical_bone": "arm_front_lower",
+      "formal_part": "arm_front_lower",
+      "formal_texture": "arm_lower",
+      "source_xy": [
+        421,
+        550
+      ],
+      "rgba": [
+        12,
+        11,
+        11,
+        253
+      ],
+      "ownership_decision": "front=image-left mechanical"
+    },
+    {
+      "logical_bone": "hand_front",
+      "formal_part": "hand_front",
+      "formal_texture": "hand",
+      "source_xy": [
+        386,
+        711
+      ],
+      "rgba": [
+        16,
+        10,
+        15,
+        250
+      ],
+      "ownership_decision": "front=image-left mechanical"
+    },
+    {
+      "logical_bone": "arm_back_upper",
+      "formal_part": "arm_back_upper",
+      "formal_texture": "arm_left_upper",
+      "source_xy": [
+        613,
+        356
+      ],
+      "rgba": [
+        245,
+        236,
+        237,
+        253
+      ],
+      "ownership_decision": "back=image-right natural"
+    },
+    {
+      "logical_bone": "arm_back_lower",
+      "formal_part": "arm_back_lower",
+      "formal_texture": "arm_left_lower",
+      "source_xy": [
+        665,
+        527
+      ],
+      "rgba": [
+        19,
+        19,
+        39,
+        253
+      ],
+      "ownership_decision": "back=image-right natural"
+    },
+    {
+      "logical_bone": "hand_back",
+      "formal_part": "hand_back",
+      "formal_texture": "hand_left",
+      "source_xy": [
+        764,
+        682
+      ],
+      "rgba": [
+        227,
+        174,
+        152,
+        253
+      ],
+      "ownership_decision": "back=image-right natural"
+    }
+  ],
+  "source_pivots_native": {
+    "hip": [
+      546,
+      690
+    ],
+    "chest": [
+      548,
+      550
+    ],
+    "neck": [
+      550,
+      281
+    ],
+    "head": [
+      550,
+      273
+    ],
+    "hair_1": [
+      493,
+      68
+    ],
+    "hair_2": [
+      414,
+      292
+    ],
+    "arm_front_upper": [
+      465,
+      350
+    ],
+    "arm_front_lower": [
+      421,
+      550
+    ],
+    "hand_front": [
+      386,
+      711
+    ],
+    "arm_back_upper": [
+      613,
+      356
+    ],
+    "arm_back_lower": [
+      665,
+      527
+    ],
+    "hand_back": [
+      764,
+      682
+    ],
+    "leg_back_upper": [
+      522,
+      707
+    ],
+    "leg_back_lower": [
+      458,
+      1001
+    ],
+    "foot_back": [
+      300,
+      1290
+    ],
+    "leg_front_upper": [
+      571,
+      690
+    ],
+    "leg_front_lower": [
+      681,
+      985
+    ],
+    "foot_front": [
+      755,
+      1348
+    ],
+    "coat_1": [
+      510,
+      536
+    ],
+    "coat_2": [
+      526,
+      546
+    ]
+  },
+  "terminal_probes_native": {
+    "hand_front": [
+      373,
+      817
+    ],
+    "hand_back": [
+      790,
+      749
+    ],
+    "foot_back": [
+      336,
+      1432
+    ],
+    "foot_front": [
+      886,
+      1447
+    ],
+    "hair_2": [
+      300,
+      480
+    ]
+  },
+  "bind_pose_local_order": "[xx,xy,yx,yy,ox,oy]",
+  "bind_pose": {
+    "hip": [
+      0.997829922549,
+      0.065844101225,
+      -0.065844101225,
+      0.997829922549,
+      -0.067758294,
+      -27.509867299
+    ],
+    "chest": [
+      0.999778887867,
+      -0.021027966485,
+      0.021027966485,
+      0.999778887867,
+      -0.244692624,
+      -4.7372492
+    ],
+    "neck": [
+      0.998993857801,
+      -0.044847208127,
+      0.044847208127,
+      0.998993857801,
+      -0.341024487,
+      -9.107359824
+    ],
+    "head": [
+      0.997319776638,
+      -0.07316599707,
+      0.07316599707,
+      0.997319776638,
+      0.0,
+      -0.271033175
+    ],
+    "hair_1": [
+      0.916205397943,
+      0.400708957699,
+      -0.400708957699,
+      0.916205397943,
+      -1.417781244,
+      -7.067902053
+    ],
+    "hair_2": [
+      0.978848627685,
+      0.204585835482,
+      -0.204585835482,
+      0.978848627685,
+      0.0,
+      8.047064095
+    ],
+    "arm_back_upper": [
+      0.942731195135,
+      -0.33355343458,
+      0.33355343458,
+      0.942731195135,
+      1.90516816,
+      -6.664701613
+    ],
+    "arm_back_lower": [
+      0.962915348518,
+      -0.269803690835,
+      0.269803690835,
+      0.962915348518,
+      -0.0,
+      6.055275572
+    ],
+    "hand_back": [
+      0.980417387273,
+      0.196930817121,
+      -0.196930817121,
+      0.980417387273,
+      -0.0,
+      6.231000534
+    ],
+    "arm_front_upper": [
+      0.985297774579,
+      0.170845823504,
+      -0.170845823504,
+      0.985297774579,
+      -3.113016984,
+      -6.642902968
+    ],
+    "arm_front_lower": [
+      0.999996900894,
+      -0.00248961884,
+      0.00248961884,
+      0.999996900894,
+      0.0,
+      6.937866967
+    ],
+    "hand_front": [
+      0.995768359429,
+      -0.09189871795,
+      0.09189871795,
+      0.995768359429,
+      0.0,
+      5.581942887
+    ],
+    "leg_back_upper": [
+      0.98900132423,
+      0.147906662023,
+      -0.147906662023,
+      0.98900132423,
+      -0.773412423,
+      0.628233459
+    ],
+    "leg_back_lower": [
+      0.959387672073,
+      0.282090933344,
+      -0.282090933344,
+      0.959387672073,
+      -0.0,
+      10.193739325
+    ],
+    "foot_back": [
+      0.732638458913,
+      -0.680618019539,
+      0.680618019539,
+      0.732638458913,
+      0.0,
+      11.158795352
+    ],
+    "leg_front_upper": [
+      0.911942111818,
+      -0.410318881717,
+      0.410318881717,
+      0.911942111818,
+      0.845140664,
+      -0.055768549
+    ],
+    "leg_front_lower": [
+      0.987886045649,
+      0.155181058158,
+      -0.155181058158,
+      0.987886045649,
+      0.0,
+      10.666552282
+    ],
+    "foot_front": [
+      0.750128504005,
+      -0.661292089382,
+      0.661292089382,
+      0.750128504005,
+      0.0,
+      12.551069429
+    ],
+    "coat_1": [
+      0.491435329273,
+      -0.870914069896,
+      0.870914069896,
+      0.491435329273,
+      -1.30738366,
+      -0.4160942
+    ],
+    "coat_2": [
+      0.529998940003,
+      0.847998304005,
+      -0.847998304005,
+      0.529998940003,
+      0.0,
+      0.639230466
+    ]
+  },
+  "source_axis_probes": [
+    {
+      "bone": "hip",
+      "source_axis_kind": "skeleton child pivot",
+      "source_end_xy": [
+        548,
+        550
+      ],
+      "source_axis_angle_deg": -89.18154453831139,
+      "canonical_world_target_angle_deg": -92.95686495219647,
+      "canonical_global_basis_angle_deg": 0.0,
+      "mapped_axis_error_deg": 0.0
+    },
+    {
+      "bone": "chest",
+      "source_axis_kind": "skeleton child pivot",
+      "source_end_xy": [
+        550,
+        281
+      ],
+      "source_axis_angle_deg": -89.57401692335685,
+      "canonical_world_target_angle_deg": -92.144434798431,
+      "canonical_global_basis_angle_deg": 0.0,
+      "mapped_axis_error_deg": 0.0
+    },
+    {
+      "bone": "neck",
+      "source_axis_kind": "skeleton child pivot",
+      "source_end_xy": [
+        550,
+        273
+      ],
+      "source_axis_angle_deg": -90.0,
+      "canonical_world_target_angle_deg": -90.0,
+      "canonical_global_basis_angle_deg": 0.0,
+      "mapped_axis_error_deg": 0.0
+    },
+    {
+      "bone": "head",
+      "source_axis_kind": "skeleton child pivot",
+      "source_end_xy": [
+        493,
+        68
+      ],
+      "source_axis_angle_deg": -105.53852502903209,
+      "canonical_world_target_angle_deg": -101.34267291589268,
+      "canonical_global_basis_angle_deg": 0.0,
+      "mapped_axis_error_deg": 0.0
+    },
+    {
+      "bone": "hair_1",
+      "source_axis_kind": "skeleton child pivot",
+      "source_end_xy": [
+        414,
+        292
+      ],
+      "source_axis_angle_deg": 109.42665421666955,
+      "canonical_world_target_angle_deg": 90.0,
+      "canonical_global_basis_angle_deg": 0.0,
+      "mapped_axis_error_deg": 0.0
+    },
+    {
+      "bone": "hair_2",
+      "source_axis_kind": "authored terminal anatomy tangent",
+      "source_end_xy": [
+        300,
+        480
+      ],
+      "source_axis_angle_deg": 121.231909548517,
+      "canonical_world_target_angle_deg": 90.0,
+      "canonical_global_basis_angle_deg": 0.0,
+      "mapped_axis_error_deg": 0.0
+    },
+    {
+      "bone": "arm_back_upper",
+      "source_axis_kind": "skeleton child pivot",
+      "source_end_xy": [
+        665,
+        527
+      ],
+      "source_axis_angle_deg": 73.08582083822176,
+      "canonical_world_target_angle_deg": 90.0,
+      "canonical_global_basis_angle_deg": 0.0,
+      "mapped_axis_error_deg": 0.0
+    },
+    {
+      "bone": "arm_back_lower",
+      "source_axis_kind": "skeleton child pivot",
+      "source_end_xy": [
+        764,
+        682
+      ],
+      "source_axis_angle_deg": 57.433235188095644,
+      "canonical_world_target_angle_deg": 90.0,
+      "canonical_global_basis_angle_deg": 0.0,
+      "mapped_axis_error_deg": 0.0
+    },
+    {
+      "bone": "hand_back",
+      "source_axis_kind": "authored terminal anatomy tangent",
+      "source_end_xy": [
+        790,
+        749
+      ],
+      "source_axis_angle_deg": 68.7907738657772,
+      "canonical_world_target_angle_deg": 170.21409131831524,
+      "canonical_global_basis_angle_deg": 80.21409131831524,
+      "mapped_axis_error_deg": 2.5444437451708134e-14
+    },
+    {
+      "bone": "arm_front_upper",
+      "source_axis_kind": "skeleton child pivot",
+      "source_end_xy": [
+        421,
+        550
+      ],
+      "source_axis_angle_deg": 102.40741852740075,
+      "canonical_world_target_angle_deg": 90.0,
+      "canonical_global_basis_angle_deg": 0.0,
+      "mapped_axis_error_deg": 0.0
+    },
+    {
+      "bone": "arm_front_lower",
+      "source_axis_kind": "skeleton child pivot",
+      "source_end_xy": [
+        386,
+        711
+      ],
+      "source_axis_angle_deg": 102.2647737278924,
+      "canonical_world_target_angle_deg": 90.0,
+      "canonical_global_basis_angle_deg": 0.0,
+      "mapped_axis_error_deg": 0.0
+    },
+    {
+      "bone": "hand_front",
+      "source_axis_kind": "authored terminal anatomy tangent",
+      "source_end_xy": [
+        373,
+        817
+      ],
+      "source_axis_angle_deg": 96.9919253466678,
+      "canonical_world_target_angle_deg": 170.21409131831524,
+      "canonical_global_basis_angle_deg": 80.21409131831524,
+      "mapped_axis_error_deg": 2.5444437451708134e-14
+    },
+    {
+      "bone": "leg_back_upper",
+      "source_axis_kind": "skeleton child pivot",
+      "source_end_xy": [
+        458,
+        1001
+      ],
+      "source_axis_angle_deg": 102.28095440509938,
+      "canonical_world_target_angle_deg": 90.0,
+      "canonical_global_basis_angle_deg": 0.0,
+      "mapped_axis_error_deg": 0.0
+    },
+    {
+      "bone": "leg_back_lower",
+      "source_axis_kind": "skeleton child pivot",
+      "source_end_xy": [
+        300,
+        1290
+      ],
+      "source_axis_angle_deg": 118.66599226744025,
+      "canonical_world_target_angle_deg": 90.0,
+      "canonical_global_basis_angle_deg": 0.0,
+      "mapped_axis_error_deg": 0.0
+    },
+    {
+      "bone": "foot_back",
+      "source_axis_kind": "authored terminal anatomy tangent",
+      "source_end_xy": [
+        336,
+        1432
+      ],
+      "source_axis_angle_deg": 75.77403610124821,
+      "canonical_world_target_angle_deg": 90.0,
+      "canonical_global_basis_angle_deg": 0.0,
+      "mapped_axis_error_deg": 0.0
+    },
+    {
+      "bone": "leg_front_upper",
+      "source_axis_kind": "skeleton child pivot",
+      "source_end_xy": [
+        681,
+        985
+      ],
+      "source_axis_angle_deg": 69.55045238920742,
+      "canonical_world_target_angle_deg": 90.0,
+      "canonical_global_basis_angle_deg": 0.0,
+      "mapped_axis_error_deg": 0.0
+    },
+    {
+      "bone": "leg_front_lower",
+      "source_axis_kind": "skeleton child pivot",
+      "source_end_xy": [
+        755,
+        1348
+      ],
+      "source_axis_angle_deg": 78.47774956897587,
+      "canonical_world_target_angle_deg": 90.0,
+      "canonical_global_basis_angle_deg": 0.0,
+      "mapped_axis_error_deg": 0.0
+    },
+    {
+      "bone": "foot_front",
+      "source_axis_kind": "authored terminal anatomy tangent",
+      "source_end_xy": [
+        886,
+        1447
+      ],
+      "source_axis_angle_deg": 37.07926009835893,
+      "canonical_world_target_angle_deg": 90.0,
+      "canonical_global_basis_angle_deg": 0.0,
+      "mapped_axis_error_deg": 0.0
+    },
+    {
+      "bone": "coat_1",
+      "source_axis_kind": "skeleton child pivot",
+      "source_end_xy": [
+        526,
+        546
+      ],
+      "source_axis_angle_deg": 32.005383208083494,
+      "canonical_world_target_angle_deg": 90.0,
+      "canonical_global_basis_angle_deg": 0.0,
+      "mapped_axis_error_deg": 0.0
+    },
+    {
+      "bone": "coat_2",
+      "source_axis_kind": "degenerate +Y fallback probe; no independent anatomy validation",
+      "source_end_xy": [
+        526,
+        547
+      ],
+      "source_axis_angle_deg": 90.0,
+      "canonical_world_target_angle_deg": 90.0,
+      "canonical_global_basis_angle_deg": 0.0,
+      "mapped_axis_error_deg": 0.0
+    }
+  ],
+  "branch_geometry_endpoint_residuals": [
+    {
+      "branch": "hip->chest",
+      "mapped_source_endpoint_edge": [
+        -0.2446926239921302,
+        -4.737249200487625
+      ],
+      "canonical_endpoint_edge": [
+        -0.25,
+        -4.840000000000003
+      ],
+      "endpoint_residual_units": 0.10288777886863872,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "chest->neck",
+      "mapped_source_endpoint_edge": [
+        -0.34102448681057324,
+        -9.107359824235392
+      ],
+      "canonical_endpoint_edge": [
+        -0.3400000000000001,
+        -9.079999999999998
+      ],
+      "endpoint_residual_units": 0.027378998437062277,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "neck->head",
+      "mapped_source_endpoint_edge": [
+        0.0,
+        -0.27103317535544846
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        -0.25
+      ],
+      "endpoint_residual_units": 0.021033175355448464,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "head->hair_1",
+      "mapped_source_endpoint_edge": [
+        -1.4177812439204833,
+        -7.0679020530258185
+      ],
+      "canonical_endpoint_edge": [
+        -1.35,
+        -6.730000000000004
+      ],
+      "endpoint_residual_units": 0.3446332753325895,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "hair_1->hair_2",
+      "mapped_source_endpoint_edge": [
+        9.036600621151062e-16,
+        8.047064095424997
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        7.980000000000004
+      ],
+      "endpoint_residual_units": 0.06706409542499259,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "chest->arm_back_upper",
+      "mapped_source_endpoint_edge": [
+        1.9051681595104055,
+        -6.664701612874997
+      ],
+      "canonical_endpoint_edge": [
+        -2.28,
+        -7.649999999999999
+      ],
+      "endpoint_residual_units": 4.299586658627879,
+      "angular_residual_deg": 32.54920714292619,
+      "status": "UNRESOLVED"
+    },
+    {
+      "branch": "arm_back_upper->arm_back_lower",
+      "mapped_source_endpoint_edge": [
+        -1.0496804121140293e-15,
+        6.055275572494597
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        6.619999999999997
+      ],
+      "endpoint_residual_units": 0.5647244275054009,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "arm_back_lower->hand_back",
+      "mapped_source_endpoint_edge": [
+        -1.211472928219778e-15,
+        6.231000534095949
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        6.539999999999999
+      ],
+      "endpoint_residual_units": 0.3089994659040505,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "chest->arm_front_upper",
+      "mapped_source_endpoint_edge": [
+        -3.1130169840530093,
+        -6.642902968303695
+      ],
+      "canonical_endpoint_edge": [
+        -1.68,
+        -7.649999999999999
+      ],
+      "endpoint_residual_units": 1.7515085234836534,
+      "angular_residual_deg": 12.722882792975708,
+      "status": "UNRESOLVED"
+    },
+    {
+      "branch": "arm_front_upper->arm_front_lower",
+      "mapped_source_endpoint_edge": [
+        1.2370141870831679e-15,
+        6.937866966825606
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        6.619999999999997
+      ],
+      "endpoint_residual_units": 0.31786696682560844,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "arm_front_lower->hand_front",
+      "mapped_source_endpoint_edge": [
+        6.285058676151933e-16,
+        5.5819428870870205
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        6.539999999999999
+      ],
+      "endpoint_residual_units": 0.9580571129129787,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "hip->leg_back_upper",
+      "mapped_source_endpoint_edge": [
+        -0.7734124234732169,
+        0.6282334587931947
+      ],
+      "canonical_endpoint_edge": [
+        -0.7,
+        0.0
+      ],
+      "endpoint_residual_units": 0.6325082313041243,
+      "angular_residual_deg": 39.086533853518304,
+      "status": "UNRESOLVED"
+    },
+    {
+      "branch": "leg_back_upper->leg_back_lower",
+      "mapped_source_endpoint_edge": [
+        -1.8919886123289892e-15,
+        10.193739325096692
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        10.310000000000002
+      ],
+      "endpoint_residual_units": 0.1162606749033106,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "leg_back_lower->foot_back",
+      "mapped_source_endpoint_edge": [
+        1.6042427703911e-15,
+        11.158795352357828
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        11.4
+      ],
+      "endpoint_residual_units": 0.24120464764217253,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "hip->leg_front_upper",
+      "mapped_source_endpoint_edge": [
+        0.8451406636659395,
+        -0.05576854947953666
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        0.0
+      ],
+      "endpoint_residual_units": 0.846978672985782,
+      "angular_residual_deg": null,
+      "status": "UNSCORABLE_CANONICAL_ZERO_EDGE"
+    },
+    {
+      "branch": "leg_front_upper->leg_front_lower",
+      "mapped_source_endpoint_edge": [
+        2.5333918054779724e-15,
+        10.66655228165836
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        10.310000000000002
+      ],
+      "endpoint_residual_units": 0.35655228165835773,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "leg_front_lower->foot_front",
+      "mapped_source_endpoint_edge": [
+        4.3353593617585804e-15,
+        12.551069429193248
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        11.4
+      ],
+      "endpoint_residual_units": 1.1510694291932477,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "chest->coat_1",
+      "mapped_source_endpoint_edge": [
+        -1.307383659984022,
+        -0.4160941997045514
+      ],
+      "canonical_endpoint_edge": [
+        1.68,
+        -3.3599999999999994
+      ],
+      "endpoint_residual_units": 4.194167675827078,
+      "angular_residual_deg": 98.91060962098425,
+      "status": "UNRESOLVED"
+    },
+    {
+      "branch": "coat_1->coat_2",
+      "mapped_source_endpoint_edge": [
+        4.283662568060345e-16,
+        0.6392304656161764
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        0.6300000000000026
+      ],
+      "endpoint_residual_units": 0.0092304656161738,
+      "angular_residual_deg": 5.088887490341627e-14,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    }
+  ],
+  "errors": {
+    "fk_position_units": 1.7763568394002505e-15,
+    "fk_basis_max_abs": 2.220446049250313e-16,
+    "current_inverse_bind_reconstruction_units": 1.1102230246251565e-16,
+    "max_axis_probe_deg": 2.5444437451708134e-14,
+    "identity_basis_negative_control_max_deg": 57.9946167919165
+  },
+  "negative_controls": {
+    "wrong_owner": {
+      "image_left_mechanical_probe_xy": [
+        420,
+        600
+      ],
+      "rgba": [
+        157,
+        151,
+        159,
+        253
+      ],
+      "image_right_natural_probe_xy": [
+        800,
+        750
+      ],
+      "image_right_rgba": [
+        116,
+        70,
+        61,
+        253
+      ],
+      "incorrect_v3_assignment": "arm_back/arm_left_upper natural asset",
+      "expected": "reject by owner ledger"
+    },
+    "v3_swapped_owner_map_rejected": true,
+    "identity_basis": {
+      "max_bent_axis_error_deg": 57.9946167919165,
+      "rejected": true
+    }
+  },
+  "limits": [
+    "CPU FK/source registration only; CPU pass does not establish anatomy or visual quality.",
+    "No Godot/import/runtime, GPU, native image, animation, or full character acceptance was run.",
+    "Four known non-primary branches remain unresolved; endpoint geometry is measured below."
+  ]
+}

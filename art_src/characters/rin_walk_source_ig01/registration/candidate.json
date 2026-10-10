@@ -1,0 +1,647 @@
+{
+  "status": "SOURCE ONLY MATERIAL-AXIS CONTROL; no anatomy, mesh loader, seams, outfit or walk acceptance",
+  "source_sha256": "3af1fa39fd7325c92ed8f1dd75562a98f7636ce723f619643a8eb4235ed71c75",
+  "protected_standing_sha256": "401888dc14dcca469428e4df45c07648e36fd1822497031f8c28213fafc24fd9",
+  "parent_order": [
+    "hip",
+    "chest",
+    "neck",
+    "head",
+    "hair_1",
+    "hair_2",
+    "arm_back_upper",
+    "arm_back_lower",
+    "hand_back",
+    "arm_front_upper",
+    "arm_front_lower",
+    "hand_front",
+    "leg_back_upper",
+    "leg_back_lower",
+    "foot_back",
+    "leg_front_upper",
+    "leg_front_lower",
+    "foot_front",
+    "coat_1",
+    "coat_2"
+  ],
+  "bind_pose": {
+    "hip": [
+      0.997829922549,
+      0.065844101225,
+      -0.065844101225,
+      0.997829922549,
+      -0.067758294,
+      -27.509867299
+    ],
+    "chest": [
+      0.9997788878672713,
+      -0.021027966485005697,
+      0.0210279664850057,
+      0.9997788878672713,
+      -0.2446926240000665,
+      -4.737249200001287
+    ],
+    "neck": [
+      0.9989938578003418,
+      -0.04484720812697045,
+      0.04484720812697045,
+      0.9989938578003418,
+      -0.3410244869997752,
+      -9.107359823993997
+    ],
+    "head": [
+      0.9973197766382516,
+      -0.07316599707001846,
+      0.07316599707001846,
+      0.9973197766382516,
+      2.4281853713110726e-18,
+      -0.2710331750000692
+    ],
+    "hair_1": [
+      0.9162053979437053,
+      0.4007089576993084,
+      -0.40070895769930837,
+      0.9162053979437051,
+      -1.417781244001091,
+      -7.067902053005437
+    ],
+    "hair_2": [
+      0.9788486276858612,
+      0.2045858354821799,
+      -0.20458583548217998,
+      0.978848627685861,
+      -1.2007783359297365e-16,
+      8.047064095007078
+    ],
+    "arm_back_upper": [
+      0.9427311951343788,
+      -0.33355343457978015,
+      0.33355343457978015,
+      0.9427311951343788,
+      1.9051681599987444,
+      -6.664701612995609
+    ],
+    "arm_back_lower": [
+      0.9629153485181163,
+      -0.2698036908350326,
+      0.2698036908350326,
+      0.9629153485181162,
+      1.9841624456942598e-16,
+      6.055275572000731
+    ],
+    "hand_back": [
+      -0.17352550043546996,
+      0.9848293764396299,
+      -0.9848293764396299,
+      -0.17352550043546996,
+      -1.4141443962802737e-15,
+      6.231000533999069
+    ],
+    "arm_front_upper": [
+      0.9852977745783507,
+      0.1708458235038874,
+      -0.1708458235038874,
+      0.9852977745783508,
+      -3.1130169839979485,
+      -6.642902967995621
+    ],
+    "arm_front_lower": [
+      0.9999969008924309,
+      -0.002489618839996112,
+      0.0024896188399960903,
+      0.9999969008924309,
+      1.6197788361931307e-16,
+      6.937866966989113
+    ],
+    "hand_front": [
+      0.12306988934187496,
+      0.9923980060113898,
+      -0.9923980060113898,
+      0.12306988934187495,
+      6.946340334959299e-16,
+      5.581942886988859
+    ],
+    "leg_back_upper": [
+      0.9890013242302684,
+      0.14790666202304015,
+      -0.1479066620230402,
+      0.9890013242302685,
+      -0.7734124230002098,
+      0.6282334590001717
+    ],
+    "leg_back_lower": [
+      0.959387672072761,
+      0.2820909333439297,
+      -0.28209093334392976,
+      0.9593876720727612,
+      -3.47650352162545e-16,
+      10.19373932499746
+    ],
+    "foot_back": [
+      0.9993232394695803,
+      0.03678400544141192,
+      -0.03678400544141193,
+      0.9993232394695805,
+      6.3768428619943595e-18,
+      11.15879535200324
+    ],
+    "leg_front_upper": [
+      0.9119421118182476,
+      -0.4103188817171114,
+      0.4103188817171114,
+      0.9119421118182476,
+      0.8451406640002295,
+      -0.055768549000015946
+    ],
+    "leg_front_lower": [
+      0.9878860456498243,
+      0.15518105815812952,
+      -0.15518105815812955,
+      0.9878860456498244,
+      1.0301702784104743e-16,
+      10.666552282008901
+    ],
+    "foot_front": [
+      0.9980250726902837,
+      0.06281683119549146,
+      -0.06281683119549146,
+      0.9980250726902838,
+      1.4278048349269294e-16,
+      12.55106942899861
+    ],
+    "coat_1": [
+      0.49143532927267614,
+      -0.870914069895426,
+      0.870914069895426,
+      0.49143532927267614,
+      -1.3073836599991384,
+      -0.4160941999997278
+    ],
+    "coat_2": [
+      0.5299989400029034,
+      0.8479983040048453,
+      -0.8479983040048453,
+      0.5299989400029034,
+      -1.9728093960399245e-15,
+      0.6392304659998846
+    ]
+  },
+  "source_pivots_native": {
+    "hip": [
+      546,
+      690
+    ],
+    "chest": [
+      548,
+      550
+    ],
+    "neck": [
+      550,
+      281
+    ],
+    "head": [
+      550,
+      273
+    ],
+    "hair_1": [
+      493,
+      68
+    ],
+    "hair_2": [
+      414,
+      292
+    ],
+    "arm_front_upper": [
+      465,
+      350
+    ],
+    "arm_front_lower": [
+      421,
+      550
+    ],
+    "hand_front": [
+      386,
+      711
+    ],
+    "arm_back_upper": [
+      613,
+      356
+    ],
+    "arm_back_lower": [
+      665,
+      527
+    ],
+    "hand_back": [
+      764,
+      682
+    ],
+    "leg_back_upper": [
+      522,
+      707
+    ],
+    "leg_back_lower": [
+      458,
+      1001
+    ],
+    "foot_back": [
+      300,
+      1290
+    ],
+    "leg_front_upper": [
+      571,
+      690
+    ],
+    "leg_front_lower": [
+      681,
+      985
+    ],
+    "foot_front": [
+      755,
+      1348
+    ],
+    "coat_1": [
+      510,
+      536
+    ],
+    "coat_2": [
+      526,
+      546
+    ]
+  },
+  "material_axis_controls": [
+    {
+      "bone": "hand_front",
+      "formal_texture": "hand",
+      "formal_sha256": "db5db2e306cea2d67a7058d7aa14c580b79fecedc99b9f37c4beba6eecfe9a03",
+      "formal_pivot_xy": [
+        38.06,
+        29.43
+      ],
+      "formal_material_endpoint_xy": [
+        120,
+        32
+      ],
+      "source_pivot_xy": [
+        386,
+        711
+      ],
+      "source_material_endpoint_xy": [
+        373,
+        817
+      ],
+      "local_material_axis_degrees": 1.79645957049973,
+      "canonical_material_world_axis_degrees": 82.01055088881498,
+      "new_material_error_degrees": 0.0,
+      "v4_wrong_material_axis_error_degrees": 88.20354042953922
+    },
+    {
+      "bone": "hand_back",
+      "formal_texture": "hand_left",
+      "formal_sha256": "03696ce5f24f02c935be5b38163bc63e926807c9a42cc6eeba4c3c7caa6d5bde",
+      "formal_pivot_xy": [
+        24.91,
+        29.83
+      ],
+      "formal_material_endpoint_xy": [
+        116,
+        32
+      ],
+      "source_pivot_xy": [
+        764,
+        682
+      ],
+      "source_material_endpoint_xy": [
+        790,
+        749
+      ],
+      "local_material_axis_degrees": 1.3646759188534041,
+      "canonical_material_world_axis_degrees": 81.57876723716866,
+      "new_material_error_degrees": 0.0,
+      "v4_wrong_material_axis_error_degrees": 88.63532408116106
+    },
+    {
+      "bone": "foot_front",
+      "formal_texture": "foot",
+      "formal_sha256": "1bfff06cfe3c11bcaf2182c4bb6db3513697ff58cde439c487594624ea36cae9",
+      "formal_pivot_xy": [
+        57.0,
+        72.0
+      ],
+      "formal_material_endpoint_xy": [
+        153,
+        168
+      ],
+      "source_pivot_xy": [
+        755,
+        1348
+      ],
+      "source_material_endpoint_xy": [
+        886,
+        1447
+      ],
+      "local_material_axis_degrees": 45.0,
+      "canonical_material_world_axis_degrees": 45.0,
+      "new_material_error_degrees": 0.0,
+      "v4_wrong_material_axis_error_degrees": 44.99999999995817
+    },
+    {
+      "bone": "foot_back",
+      "formal_texture": "foot",
+      "formal_sha256": "1bfff06cfe3c11bcaf2182c4bb6db3513697ff58cde439c487594624ea36cae9",
+      "formal_pivot_xy": [
+        57.0,
+        72.0
+      ],
+      "formal_material_endpoint_xy": [
+        153,
+        168
+      ],
+      "source_pivot_xy": [
+        300,
+        1290
+      ],
+      "source_material_endpoint_xy": [
+        336,
+        1432
+      ],
+      "local_material_axis_degrees": 45.0,
+      "canonical_material_world_axis_degrees": 45.0,
+      "new_material_error_degrees": 0.0,
+      "v4_wrong_material_axis_error_degrees": 44.999999999985114
+    }
+  ],
+  "fk_max_error": 3.45925024034339e-11,
+  "wrong_material_axis_controls_rejected": 4,
+  "v4_branch_residuals_preserved": [
+    {
+      "branch": "hip->chest",
+      "mapped_source_endpoint_edge": [
+        -0.2446926239921302,
+        -4.737249200487625
+      ],
+      "canonical_endpoint_edge": [
+        -0.25,
+        -4.840000000000003
+      ],
+      "endpoint_residual_units": 0.10288777886863872,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "chest->neck",
+      "mapped_source_endpoint_edge": [
+        -0.34102448681057324,
+        -9.107359824235392
+      ],
+      "canonical_endpoint_edge": [
+        -0.3400000000000001,
+        -9.079999999999998
+      ],
+      "endpoint_residual_units": 0.027378998437062277,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "neck->head",
+      "mapped_source_endpoint_edge": [
+        0.0,
+        -0.27103317535544846
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        -0.25
+      ],
+      "endpoint_residual_units": 0.021033175355448464,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "head->hair_1",
+      "mapped_source_endpoint_edge": [
+        -1.4177812439204833,
+        -7.0679020530258185
+      ],
+      "canonical_endpoint_edge": [
+        -1.35,
+        -6.730000000000004
+      ],
+      "endpoint_residual_units": 0.3446332753325895,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "hair_1->hair_2",
+      "mapped_source_endpoint_edge": [
+        9.036600621151062e-16,
+        8.047064095424997
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        7.980000000000004
+      ],
+      "endpoint_residual_units": 0.06706409542499259,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "chest->arm_back_upper",
+      "mapped_source_endpoint_edge": [
+        1.9051681595104055,
+        -6.664701612874997
+      ],
+      "canonical_endpoint_edge": [
+        -2.28,
+        -7.649999999999999
+      ],
+      "endpoint_residual_units": 4.299586658627879,
+      "angular_residual_deg": 32.54920714292619,
+      "status": "UNRESOLVED"
+    },
+    {
+      "branch": "arm_back_upper->arm_back_lower",
+      "mapped_source_endpoint_edge": [
+        -1.0496804121140293e-15,
+        6.055275572494597
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        6.619999999999997
+      ],
+      "endpoint_residual_units": 0.5647244275054009,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "arm_back_lower->hand_back",
+      "mapped_source_endpoint_edge": [
+        -1.211472928219778e-15,
+        6.231000534095949
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        6.539999999999999
+      ],
+      "endpoint_residual_units": 0.3089994659040505,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "chest->arm_front_upper",
+      "mapped_source_endpoint_edge": [
+        -3.1130169840530093,
+        -6.642902968303695
+      ],
+      "canonical_endpoint_edge": [
+        -1.68,
+        -7.649999999999999
+      ],
+      "endpoint_residual_units": 1.7515085234836534,
+      "angular_residual_deg": 12.722882792975708,
+      "status": "UNRESOLVED"
+    },
+    {
+      "branch": "arm_front_upper->arm_front_lower",
+      "mapped_source_endpoint_edge": [
+        1.2370141870831679e-15,
+        6.937866966825606
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        6.619999999999997
+      ],
+      "endpoint_residual_units": 0.31786696682560844,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "arm_front_lower->hand_front",
+      "mapped_source_endpoint_edge": [
+        6.285058676151933e-16,
+        5.5819428870870205
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        6.539999999999999
+      ],
+      "endpoint_residual_units": 0.9580571129129787,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "hip->leg_back_upper",
+      "mapped_source_endpoint_edge": [
+        -0.7734124234732169,
+        0.6282334587931947
+      ],
+      "canonical_endpoint_edge": [
+        -0.7,
+        0.0
+      ],
+      "endpoint_residual_units": 0.6325082313041243,
+      "angular_residual_deg": 39.086533853518304,
+      "status": "UNRESOLVED"
+    },
+    {
+      "branch": "leg_back_upper->leg_back_lower",
+      "mapped_source_endpoint_edge": [
+        -1.8919886123289892e-15,
+        10.193739325096692
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        10.310000000000002
+      ],
+      "endpoint_residual_units": 0.1162606749033106,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "leg_back_lower->foot_back",
+      "mapped_source_endpoint_edge": [
+        1.6042427703911e-15,
+        11.158795352357828
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        11.4
+      ],
+      "endpoint_residual_units": 0.24120464764217253,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "hip->leg_front_upper",
+      "mapped_source_endpoint_edge": [
+        0.8451406636659395,
+        -0.05576854947953666
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        0.0
+      ],
+      "endpoint_residual_units": 0.846978672985782,
+      "angular_residual_deg": null,
+      "status": "UNSCORABLE_CANONICAL_ZERO_EDGE"
+    },
+    {
+      "branch": "leg_front_upper->leg_front_lower",
+      "mapped_source_endpoint_edge": [
+        2.5333918054779724e-15,
+        10.66655228165836
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        10.310000000000002
+      ],
+      "endpoint_residual_units": 0.35655228165835773,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "leg_front_lower->foot_front",
+      "mapped_source_endpoint_edge": [
+        4.3353593617585804e-15,
+        12.551069429193248
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        11.4
+      ],
+      "endpoint_residual_units": 1.1510694291932477,
+      "angular_residual_deg": 0.0,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    },
+    {
+      "branch": "chest->coat_1",
+      "mapped_source_endpoint_edge": [
+        -1.307383659984022,
+        -0.4160941997045514
+      ],
+      "canonical_endpoint_edge": [
+        1.68,
+        -3.3599999999999994
+      ],
+      "endpoint_residual_units": 4.194167675827078,
+      "angular_residual_deg": 98.91060962098425,
+      "status": "UNRESOLVED"
+    },
+    {
+      "branch": "coat_1->coat_2",
+      "mapped_source_endpoint_edge": [
+        4.283662568060345e-16,
+        0.6392304656161764
+      ],
+      "canonical_endpoint_edge": [
+        0.0,
+        0.6300000000000026
+      ],
+      "endpoint_residual_units": 0.0092304656161738,
+      "angular_residual_deg": 5.088887490341627e-14,
+      "status": "ENDPOINT_RESIDUAL_RECORDED"
+    }
+  ],
+  "limits": [
+    "Material landmarks are author-reviewed source pixel probes, not animation approval.",
+    "The four nonprimary branch residuals remain; no production resource changed."
+  ]
+}
