@@ -1,0 +1,535 @@
+{
+  "scope": "Private read-only diagnosis; no runtime/art/PM/Git/GPU writes.",
+  "observed_head": "cd96d6b00eccf28712e4b7de5c854cb3edea5d4e",
+  "files": {
+    "approved_fullbody": {
+      "path": "art_src/characters/rin2/01_design/design_s33.png",
+      "sha256": "401888dc14dcca469428e4df45c07648e36fd1822497031f8c28213fafc24fd9",
+      "size_bytes": 893605
+    },
+    "source_rgba": {
+      "path": "art_src/characters/rin2/base_rgba.png",
+      "sha256": "401888dc14dcca469428e4df45c07648e36fd1822497031f8c28213fafc24fd9",
+      "size_bytes": 893605
+    },
+    "refined_torso_source": {
+      "path": "art_src/characters/rin2/07_refined/torso.png",
+      "sha256": "cf47f9c327421963a8db2069d422bc0058e987a3462a762b83bae6b5258ac8eb",
+      "size_bytes": 738419
+    },
+    "legacy_rin2_refined_jacket_not_runtime_source": {
+      "path": "art_src/characters/rin2/07_refined/jacket.png",
+      "sha256": "184324346a9ba0313200908b6b465ced7b58153ac6ebf84d3bcf4a6924f10d3d",
+      "size_bytes": 629525
+    },
+    "worn_coat_rebuild": {
+      "path": "art_src/characters/rin_worn_coat/rebuild.py",
+      "sha256": "d5bdf58e4ba37550b4a94a833add14aff91f3136492b2b07b878445994782772",
+      "size_bytes": 3056
+    },
+    "worn_coat_manifest": {
+      "path": "art_src/characters/rin_worn_coat/manifest.json",
+      "sha256": "a543c8dfef58adc44a4e1bfb73a60517975564efd33d43f8cb038748a89528d7",
+      "size_bytes": 3095
+    },
+    "worn_coat_generated_jacket_stage": {
+      "path": "art_src/characters/rin_worn_coat/source/_gen/rin_worn_coat_J_0.png",
+      "sha256": "4a7de6240cea956fb8ca2b9b7c75e6089e2cd6b79dd7c7dbaf657676684a0cdc",
+      "size_bytes": 877846
+    },
+    "worn_coat_generated_jacket_job": {
+      "path": "art_src/characters/rin_worn_coat/source/_gen/rin_worn_coat_J.job.json",
+      "sha256": "163be79387df938426d0e89f39e346c8449f52fabbaa7dd95302fb1a07495428",
+      "size_bytes": 66
+    },
+    "worn_coat_jacket_builder_input": {
+      "path": "art_src/characters/rin_worn_coat/source/07_refined/jacket.png",
+      "sha256": "c9be1714423334c25935c6ebf4da836e1af2e6c31bc20b7f6eec35efd2c07436",
+      "size_bytes": 631424
+    },
+    "registered_jacket_override": {
+      "path": "art_src/characters/rin2/overrides/refined/armor_jacket.png",
+      "sha256": "6ba3f842b6f6c53866e5baa29956503f6791413dfb8e084743bf058adb51e0be",
+      "size_bytes": 30358
+    },
+    "current_torso": {
+      "path": "art/characters/rin/parts/torso.png",
+      "sha256": "9cb49daa7a166a2f7ed31e44f3995c8e5192446294f5c41d0aa67a40263e3d4f",
+      "size_bytes": 66066
+    },
+    "current_torso_damage": {
+      "path": "art/characters/rin/parts/torso_dmg.png",
+      "sha256": "63f88f3339bb2b14ff017213c06dfee702ecb6b7ed52523a8d9e1a384d480afa",
+      "size_bytes": 75433
+    },
+    "current_jacket": {
+      "path": "art/characters/rin/parts/armor_jacket.png",
+      "sha256": "cc69d10458f55644f2cf3f1c34ab5918ae9251176898ec6573fc5eb7568100b6",
+      "size_bytes": 22425
+    },
+    "current_jacket_hem": {
+      "path": "art/characters/rin/parts/jacket_hem.png",
+      "sha256": "8c8a3b674b471e3e336592138097c04174fb99a45862f93f0ad5b4fedf55f130",
+      "size_bytes": 4875
+    },
+    "current_sleeve_upper": {
+      "path": "art/characters/rin/parts/jacket_sleeve_upper.png",
+      "sha256": "3d2b748276a40c10c4d842a0b24243d2a9cdeaad0f45cf07a04f3cd0b72b968d",
+      "size_bytes": 27303
+    },
+    "current_sleeve_lower": {
+      "path": "art/characters/rin/parts/jacket_sleeve_lower.png",
+      "sha256": "d43145d747f56682d6ae4e61e2031dd461661b98f4952edd773f7f31656d3a13",
+      "size_bytes": 13332
+    },
+    "character": {
+      "path": "art/characters/rin/character.json",
+      "sha256": "c689b235a056fb81a70b4d91cf156790b409e3eab3c73b3e22400c27d1d9cd00",
+      "size_bytes": 12142
+    },
+    "rig": {
+      "path": "art/rigs/humanoid_tall.json",
+      "sha256": "5d9f2e3bb53d28410533fc9682fd54f8c6a56274fd8ecda2e0eb5a28bb42ff44",
+      "size_bytes": 3475
+    },
+    "motion": {
+      "path": "art/motion/rin.json",
+      "sha256": "f4621c805707da10464ee809005ffed97f72dd3299fd5ae96c0848356d3508d7",
+      "size_bytes": 3083
+    },
+    "cut_spec": {
+      "path": "tools/comfyui/specs/rin_side.json",
+      "sha256": "a67e87de30122d1ded684290b6b31d50b0696b849ea75a86c83c0dc07996dcba",
+      "size_bytes": 22574
+    },
+    "recipe": {
+      "path": "tools/comfyui/recipes/rin.json",
+      "sha256": "af18ed6501f6617176f776b6d4b878943f075926ee780df0cf2ac96baa8d8dcc",
+      "size_bytes": 1511
+    }
+  },
+  "recipe_design_prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat colors, bold clean black outlines, hard-edged two-tone shading, saturated neon accents. Full body, strict side view facing right, standing relaxed with arms slightly bent. Tall elegant realistic 7.5-head-tall proportions, long legs, mature curvy figure with a large bust, narrow waist and wide hips. An adult woman mercenary in her mid twenties with a calm serious expression. Long white hair in a high ponytail with hot-pink dyed tips, cyan glowing eyes. Her right arm is a chrome military cybernetic prosthetic. She wears a high-cut white and black bodysuit with side cut-outs and thin cyan neon trim, black thigh-high stockings with a tactical thigh holster strap, black chunky-heeled combat boots with glowing pink soles, and a short dark navy open jacket with magenta lining hanging off her shoulders.",
+  "design_size": [
+    832,
+    1216
+  ],
+  "design_pick": 33,
+  "source_joints": {
+    "waist": [
+      412,
+      430
+    ],
+    "neck": [
+      404,
+      214
+    ],
+    "shoulder": [
+      372,
+      248
+    ],
+    "hip": [
+      418,
+      545
+    ]
+  },
+  "character_scale": 1.15,
+  "texture_scale": 0.04205,
+  "motion": {
+    "move": {
+      "stride": 80.0,
+      "swing": 0.8,
+      "knee_bend": 1.2,
+      "knee_base": 0.15,
+      "hip_bounce": 1.4,
+      "chest_lean": 0.16,
+      "threshold": 0.08,
+      "duty": 0.3,
+      "lift": 6.0,
+      "reach": 0.97,
+      "bounce": 1.0,
+      "rise": 0.6,
+      "stride_exp": 1.0,
+      "stride_floor": 0.4,
+      "level": 1.0,
+      "bob_slow": 0.8
+    },
+    "inertia": {
+      "gain": 0.2,
+      "ref_accel": 1600.0,
+      "stiffness": 90.0,
+      "damping": 11.0,
+      "max": 0.3
+    },
+    "torso": {
+      "hip_swing": 0.05,
+      "chest_counter": 1.4,
+      "chest_wobble": 0.035,
+      "wobble_phase": 0.0,
+      "head_hold": 0.9
+    },
+    "look": {
+      "chest": 0.12,
+      "neck": 0.12,
+      "head": 0.3,
+      "head_min": -0.35,
+      "head_max": 0.3
+    }
+  },
+  "bone_rest": {
+    "hip": [
+      0.0,
+      -27.42
+    ],
+    "chest": [
+      -0.25,
+      -4.84
+    ],
+    "neck": [
+      -0.34,
+      -9.08
+    ],
+    "head": [
+      0.0,
+      -0.25
+    ],
+    "coat_1": [
+      1.68,
+      -3.36
+    ],
+    "coat_2": [
+      0.0,
+      0.63
+    ]
+  },
+  "current_part_nodes": {
+    "jacket_sleeve_back_upper": {
+      "texture": "jacket_sleeve_upper",
+      "bone": "arm_back_upper",
+      "z": -6,
+      "under": false,
+      "armor_order": 1,
+      "root_attach": true,
+      "bend_partner": null
+    },
+    "jacket_sleeve_back_lower": {
+      "texture": "jacket_sleeve_lower",
+      "bone": "arm_back_lower",
+      "z": -6,
+      "under": false,
+      "armor_order": 1,
+      "root_attach": false,
+      "bend_partner": null
+    },
+    "torso_dmg": {
+      "texture": "torso_dmg",
+      "bone": "chest",
+      "z": 0,
+      "under": true,
+      "armor_order": null,
+      "root_attach": false,
+      "bend_partner": null
+    },
+    "armor_torso": {
+      "texture": "torso",
+      "bone": "chest",
+      "z": 1,
+      "under": false,
+      "armor_order": 2,
+      "root_attach": false,
+      "bend_partner": null
+    },
+    "armor_jacket": {
+      "texture": "armor_jacket",
+      "bone": "chest",
+      "z": 4,
+      "under": false,
+      "armor_order": 1,
+      "root_attach": false,
+      "bend_partner": null
+    },
+    "jacket_hem": {
+      "texture": "jacket_hem",
+      "bone": "coat_1",
+      "z": 4,
+      "under": false,
+      "armor_order": 1,
+      "root_attach": true,
+      "bend_partner": "coat_2"
+    },
+    "head": {
+      "texture": "head",
+      "bone": "head",
+      "z": 5,
+      "under": false,
+      "armor_order": null,
+      "root_attach": false,
+      "bend_partner": null
+    },
+    "jacket_sleeve_front_upper": {
+      "texture": "jacket_sleeve_upper",
+      "bone": "arm_front_upper",
+      "z": 9,
+      "under": false,
+      "armor_order": 1,
+      "root_attach": true,
+      "bend_partner": null
+    },
+    "jacket_sleeve_front_lower": {
+      "texture": "jacket_sleeve_lower",
+      "bone": "arm_front_lower",
+      "z": 9,
+      "under": false,
+      "armor_order": 1,
+      "root_attach": false,
+      "bend_partner": null
+    }
+  },
+  "texture_records": {},
+  "walk_angle_estimates": [
+    {
+      "case": "game_slow_walk",
+      "source_velocity_world_px_s": 30.0,
+      "run_speed": 150.0,
+      "speed_ratio": 0.2,
+      "chest_lean_rad": 0.032,
+      "chest_lean_deg": 1.8334649444186344,
+      "body_scale": 1.15
+    },
+    {
+      "case": "game_walk",
+      "source_velocity_world_px_s": 70.0,
+      "run_speed": 150.0,
+      "speed_ratio": 0.4666666666666667,
+      "chest_lean_rad": 0.07466666666666667,
+      "chest_lean_deg": 4.278084870310147,
+      "body_scale": 1.15
+    },
+    {
+      "case": "game_fast_walk",
+      "source_velocity_world_px_s": 105.0,
+      "run_speed": 150.0,
+      "speed_ratio": 0.7,
+      "chest_lean_rad": 0.11199999999999999,
+      "chest_lean_deg": 6.417127305465219,
+      "body_scale": 1.15
+    },
+    {
+      "case": "game_full_speed",
+      "source_velocity_world_px_s": 150.0,
+      "run_speed": 150.0,
+      "speed_ratio": 1.0,
+      "chest_lean_rad": 0.16,
+      "chest_lean_deg": 9.167324722093172,
+      "body_scale": 1.15
+    },
+    {
+      "case": "cutscene_ch1_c14_rin_walk_constant_segment",
+      "stage_distance_px": 245,
+      "duration_s": 2.6,
+      "stage_velocity_px_s": 94.23076923076923,
+      "actor_scale": 3.8,
+      "rig_body_scale": 1.15,
+      "rig_input_velocity_px_s": 21.56310508713255,
+      "RigInput_run_speed_default_px_s": 150.0,
+      "speed_ratio": 0.14375403391421698,
+      "chest_lean_rad_without_inertia": 0.023000645426274717,
+      "chest_lean_deg_without_inertia": 1.3178399090024215,
+      "notes": "Excludes start/stop _lean inertia; computed from cutscene_actor.gd normalization."
+    }
+  ],
+  "walk_angle_measurement_status": "Formula estimates from recorded motion/input values; not sampled from an executing Godot rig or native rendering.",
+  "jacket_source_selection": {
+    "recipe_registered_rebuild": "art_src/characters/rin_worn_coat/rebuild.py",
+    "registered_rebuild_runs_before_cut_layers": true,
+    "cut_layers_override_priority": "<work>/overrides/refined/<part>.png is selected before <work>/07_refined/<part>.png",
+    "active_source_override": "art_src/characters/rin2/overrides/refined/armor_jacket.png",
+    "active_source_override_sha256": "6ba3f842b6f6c53866e5baa29956503f6791413dfb8e084743bf058adb51e0be",
+    "registered_generation_source": "art_src/characters/rin_worn_coat/source/_gen/rin_worn_coat_J_0.png",
+    "registered_generation_job": "art_src/characters/rin_worn_coat/source/_gen/rin_worn_coat_J.job.json",
+    "job_seed": 22261,
+    "legacy_lookalike_not_selected": "art_src/characters/rin2/07_refined/jacket.png",
+    "runtime_cut": "art/characters/rin/parts/armor_jacket.png",
+    "runtime_cut_sha256": "cc69d10458f55644f2cf3f1c34ab5918ae9251176898ec6573fc5eb7568100b6"
+  },
+  "animation_path_finding": {
+    "gameplay": "PlayerVisual._physics_process copies Player velocity, Player.tuning.run_speed, facing and state to a persistent RigInput, then calls CharacterRig.animate(delta,input).",
+    "cutscene": "CutsceneActor._process computes stage delta/(delta*abs(scale.x)*rig.body_scale()), maps pose=walk/run to input.velocity=(velocity.x,0), leaves RigInput.run_speed at its default 150, then calls the same CharacterRig.animate.",
+    "cutscene_walker_animator": "CutsceneActor.setup requests animator_kind npc. NpcAnimator._is_npc_state returns false whenever velocity.length() >= 1, so moving cutscene actors delegate to HumanoidAnimator._body_pose; movement does not use NPC idle pose/life overlay.",
+    "comparison": "Both are HumanoidAnimator while moving. At equal normalized local velocity and run_speed=150 their base chest_lean is the same. Differences can arise from velocity normalization/scale, player tuning, discrete acceleration/inertia, scene light/zoom, not a separate cutscene walking chest pose."
+  },
+  "relevant_tests": [
+    "LocomotionSuite",
+    "AnimAuditSuite",
+    "CutsceneSuite (_test_walk_matches_stage_motion)",
+    "ChapterCutscenesSuite",
+    "RigMeshSuite (pose-part attachment plumbing only)"
+  ],
+  "evidence_images": [
+    "approved-s33-source-landmarks.png",
+    "current-torso-jacket-parts-native-contact.png"
+  ],
+  "current_parts": {
+    "armor_torso": {
+      "texture": "torso",
+      "bone": "chest",
+      "z": 1,
+      "under": false,
+      "armor_order": 2,
+      "root_attach": false,
+      "bend_partner": null,
+      "texture_size": [
+        200,
+        336
+      ],
+      "pivot": [
+        55.0,
+        306.0
+      ],
+      "texture_sha256": "9cb49daa7a166a2f7ed31e44f3995c8e5192446294f5c41d0aa67a40263e3d4f"
+    },
+    "torso_dmg": {
+      "texture": "torso_dmg",
+      "bone": "chest",
+      "z": 0,
+      "under": true,
+      "armor_order": null,
+      "root_attach": false,
+      "bend_partner": null,
+      "texture_size": [
+        200,
+        336
+      ],
+      "pivot": [
+        55.0,
+        306.0
+      ],
+      "texture_sha256": "63f88f3339bb2b14ff017213c06dfee702ecb6b7ed52523a8d9e1a384d480afa"
+    },
+    "armor_jacket": {
+      "texture": "armor_jacket",
+      "bone": "chest",
+      "z": 4,
+      "under": false,
+      "armor_order": 1,
+      "root_attach": false,
+      "bend_partner": null,
+      "texture_size": [
+        157,
+        185
+      ],
+      "pivot": [
+        68.0,
+        260.0
+      ],
+      "texture_sha256": "cc69d10458f55644f2cf3f1c34ab5918ae9251176898ec6573fc5eb7568100b6"
+    },
+    "jacket_hem": {
+      "texture": "jacket_hem",
+      "bone": "coat_1",
+      "z": 4,
+      "under": false,
+      "armor_order": 1,
+      "root_attach": true,
+      "bend_partner": "coat_2",
+      "texture_size": [
+        104,
+        52
+      ],
+      "pivot": [
+        56.0,
+        10.0
+      ],
+      "texture_sha256": "8c8a3b674b471e3e336592138097c04174fb99a45862f93f0ad5b4fedf55f130"
+    },
+    "head": {
+      "texture": "head",
+      "bone": "head",
+      "z": 5,
+      "under": false,
+      "armor_order": null,
+      "root_attach": false,
+      "bend_partner": null,
+      "texture_size": [
+        133,
+        141
+      ],
+      "pivot": [
+        51.0,
+        175.0
+      ],
+      "texture_sha256": "a17f75ea88cadc52f7f9201508216c3fb2195024026469015a168bd850d1dc7e"
+    },
+    "jacket_sleeve_back_upper": {
+      "texture": "jacket_sleeve_upper",
+      "bone": "arm_back_upper",
+      "z": -6,
+      "under": false,
+      "armor_order": 1,
+      "root_attach": true,
+      "bend_partner": null,
+      "texture_size": [
+        99,
+        244
+      ],
+      "pivot": [
+        28.71,
+        69.76
+      ],
+      "texture_sha256": "3d2b748276a40c10c4d842a0b24243d2a9cdeaad0f45cf07a04f3cd0b72b968d"
+    },
+    "jacket_sleeve_back_lower": {
+      "texture": "jacket_sleeve_lower",
+      "bone": "arm_back_lower",
+      "z": -6,
+      "under": false,
+      "armor_order": 1,
+      "root_attach": false,
+      "bend_partner": null,
+      "texture_size": [
+        72,
+        174
+      ],
+      "pivot": [
+        29.01,
+        21.64
+      ],
+      "texture_sha256": "d43145d747f56682d6ae4e61e2031dd461661b98f4952edd773f7f31656d3a13"
+    },
+    "jacket_sleeve_front_upper": {
+      "texture": "jacket_sleeve_upper",
+      "bone": "arm_front_upper",
+      "z": 9,
+      "under": false,
+      "armor_order": 1,
+      "root_attach": true,
+      "bend_partner": null,
+      "texture_size": [
+        99,
+        244
+      ],
+      "pivot": [
+        28.71,
+        69.76
+      ],
+      "texture_sha256": "3d2b748276a40c10c4d842a0b24243d2a9cdeaad0f45cf07a04f3cd0b72b968d"
+    },
+    "jacket_sleeve_front_lower": {
+      "texture": "jacket_sleeve_lower",
+      "bone": "arm_front_lower",
+      "z": 9,
+      "under": false,
+      "armor_order": 1,
+      "root_attach": false,
+      "bend_partner": null,
+      "texture_size": [
+        72,
+        174
+      ],
+      "pivot": [
+        29.01,
+        21.64
+      ],
+      "texture_sha256": "d43145d747f56682d6ae4e61e2031dd461661b98f4952edd773f7f31656d3a13"
+    }
+  }
+}
