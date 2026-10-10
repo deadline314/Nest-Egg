@@ -1,0 +1,65 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+NE249_INPUT mode=mouse using_gamepad=false last_direction=(1.0, 0.0)
+== Nest Egg smoke test ==
+NE249_EXIT actual_x=59.25 facing=-1 velocity_x=-150.0 aim_dir=(-0.249053, -0.96849) passed=true
+WARNING: [QuestMap] navigation.explored.: 無效區域，已略過。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _apply_components_silent (res://core/run_snapshot.gd:207)
+       [2] apply (res://core/run_snapshot.gd:170)
+       [3] _roundtrip (res://tests/helpers/encounter_resume_checks.gd:145)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:632)
+       [6] _frames (res://tests/smoke_test.gd:123)
+WARNING: [QuestMap] navigation.explored.: 無效區域，已略過。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _apply_components_silent (res://core/run_snapshot.gd:207)
+       [2] apply (res://core/run_snapshot.gd:170)
+       [3] _roundtrip (res://tests/helpers/encounter_resume_checks.gd:184)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:632)
+       [6] _frames (res://tests/smoke_test.gd:123)
+WARNING: [Level] run/runtime/enemies/11/key重複或敵人已消滅：sweeper@98,19；返回主選單，未套用遭遇狀態。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/level/level.gd:104)
+       [1] _swap_screen (res://game/main.gd:68)
+       [2] _failed_restore (res://tests/helpers/encounter_restore_guard_checks.gd:154)
+       [3] run (res://tests/helpers/encounter_restore_guard_checks.gd:101)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:632)
+       [6] _frames (res://tests/smoke_test.gd:123)
+WARNING: [Level] run/runtime/enemies/enemy:11/key：sweeper@98,19 無法還原已識別敵人；返回主選單，原存檔保留。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _restore_run_entities (res://game/level/level.gd:1275)
+       [1] _restore_run_entities (res://tests/helpers/encounter_restore_guard_checks.gd:23)
+       [2] _ready (res://game/level/level.gd:225)
+       [3] _swap_screen (res://game/main.gd:68)
+       [4] _failed_restore (res://tests/helpers/encounter_restore_guard_checks.gd:154)
+       [5] run (res://tests/helpers/encounter_restore_guard_checks.gd:101)
+       [6] _failed_restore (res://tests/helpers/encounter_restore_guard_checks.gd:178)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:123)
+WARNING: [Level] run/runtime/enemies/enemy:16/key： 無法還原已識別敵人；返回主選單，原存檔保留。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _restore_run_entities (res://game/level/level.gd:1275)
+       [1] _restore_run_entities (res://tests/helpers/encounter_restore_guard_checks.gd:23)
+       [2] _ready (res://game/level/level.gd:225)
+       [3] _swap_screen (res://game/main.gd:68)
+       [4] _failed_restore (res://tests/helpers/encounter_restore_guard_checks.gd:154)
+       [5] run (res://tests/helpers/encounter_restore_guard_checks.gd:101)
+       [6] _failed_restore (res://tests/helpers/encounter_restore_guard_checks.gd:178)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:123)
+WARNING: [EncounterZone] test_encounter（格 (30, 20)）鎖場超過 10 秒，強制解鎖（還有 1 個成員活著）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _physics_process (res://game/props/encounter_zone.gd:115)
+SUITE_TIME EncounterSuite 14.3
+checks: 157, failures: 0
