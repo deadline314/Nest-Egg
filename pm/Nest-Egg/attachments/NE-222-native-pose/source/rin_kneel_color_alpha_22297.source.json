@@ -1,0 +1,24 @@
+{
+  "status": "PRIVATE COLOR/ALPHA REPAIR CANDIDATE; NOT ACCEPTED",
+  "seed": 22297,
+  "steps": 30,
+  "prompt": "Edit IMAGE 1 only: keep the exact side-view kneeling lower-body silhouette, all waist, hip, knee and ankle positions, the two separate legs and the two boots exactly where they are. Replace only the lavender fabric color with IMAGE 2 actual Rin tight-leg material: dark charcoal-black stockings with subdued purple-gray hard cel shadows, crisp thin dark anime contour. Match IMAGE 3 Rin cyberpunk palette. Keep the compact pelvis contour and the single natural hip crease, no round buttock patch or inflated shadows. Preserve the two original black high-top boots with magenta neon trim and all existing boot details. Remove the white background completely into native RGBA alpha-zero transparency outside the silhouette, including between the two legs and below the boots. Do not draw any floor line or cast shadow. The complete waist and both boots must remain uncropped. No torso, head, arms, hands, holster, text, debug lines, extra limbs, extra boots, glossy airbrushing or photorealistic shading. Only change the cloth palette and background alpha; do not move or reshape any anatomy, boot or fold. Full canvas 1440 by736 with exact same framing.",
+  "inputs": {
+    "art_src/characters/rin_pose_variants/05_canonical_kneel/_gen/rin_kneel_canonical_22296_0.png": "325cb975ad2429afdcbb6175d9aac64d872346b3fada654bd90ffc77720b6569",
+    "art/characters/rin/parts/leg_upper.png": "c21fea7b2ea1cd4687b92162ca37ca7914a9d6274090bc3af60ffbcb1dc07f12",
+    "pm/Nest-Egg/images/NE-17-step6-design-a-s33.png": "440199e0001b458c95ead3e0a99b59cdba8e350fff846a662f7a26d3e01ea430"
+  },
+  "output": {
+    "path": "art_src/characters/rin_pose_variants/05_canonical_kneel/_gen/rin_kneel_color_alpha_22297_0.png",
+    "sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed",
+    "size": [
+      1440,
+      736
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  }
+}

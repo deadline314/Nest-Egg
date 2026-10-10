@@ -1,0 +1,15 @@
+受影響的測試：AmmoIconsSuite,AmmoTraySuite,AnimAuditSuite,ApplyPanelSuite,ChainCreatureSuite,Chapter1EnemiesSuite,Chapter1MapSuite,Chapter2ExpansionSuite,Chapter2Suite,ChapterCutscenesSuite,CharactersSuite,ClipEditorSuite,CollectiblesSuite,CombatHudSuite,ContinuitySuite,CutsceneSuite,DeathFlowSuite,DeathReactionSuite,DevMenuSuite,EconomySuite,EnemyVfxSuite,ExoticEnemiesSuite,ExposureSuite,EyeBlinkSuite,FeelSuite,FxMeleePickupsSuite,FxUpgradesSuite,HitReactionSuite,InputFeelSuite,LayerOrderSuite,LocomotionSuite,MeleeSuite,MeleeWeaponsSuite,MusicSuite,NpcAnimationSuite,NpcLifeSuite,NpcSuite,PacingSuite,PhoneBoothSuite,PoseMeshSuite,PostureSuite,ProgressionSuite,PropsSuite,ProtagonistMotionSuite,QuestMapSuite,ReadabilityTargetsSuite,RigActionsSuite,RigMeshSuite,RunSaveSuite,SceneSanitySuite,SoundLabSuite,SoundStageSuite,StageCoverageCharactersSuite,StageCoverageWeaponsSuite,StageCoverageWorldSuite,StrikeEnemiesSuite,SupplySuite,TransitionSuite,UiScreensSuite,main
+Running 60 groups in 12 processes (logs: D:/NestEggVerification/ne222-native-pose-c744/affected-logs)
+  process 0 (estimated 240 s): main
+  process 1 (estimated 150 s): UiScreensSuite,RigMeshSuite,NpcSuite,FxMeleePickupsSuite,ContinuitySuite,ApplyPanelSuite
+  process 2 (estimated 150 s): TransitionSuite,RigActionsSuite,NpcLifeSuite,FeelSuite,CombatHudSuite,AnimAuditSuite
+  process 3 (estimated 150 s): SupplySuite,ReadabilityTargetsSuite,NpcAnimationSuite,EyeBlinkSuite,CollectiblesSuite,AmmoTraySuite
+  process 4 (estimated 150 s): StrikeEnemiesSuite,QuestMapSuite,MusicSuite,ExposureSuite,ClipEditorSuite,AmmoIconsSuite
+  process 5 (estimated 125 s): StageCoverageWorldSuite,ProtagonistMotionSuite,MeleeWeaponsSuite,ExoticEnemiesSuite,CharactersSuite
+  process 6 (estimated 125 s): StageCoverageWeaponsSuite,PropsSuite,MeleeSuite,EnemyVfxSuite,ChapterCutscenesSuite
+  process 7 (estimated 125 s): StageCoverageCharactersSuite,ProgressionSuite,LocomotionSuite,EconomySuite,Chapter2Suite
+  process 8 (estimated 125 s): SoundStageSuite,PostureSuite,LayerOrderSuite,DevMenuSuite,Chapter2ExpansionSuite
+  process 9 (estimated 125 s): SoundLabSuite,PoseMeshSuite,InputFeelSuite,DeathReactionSuite,Chapter1MapSuite
+  process 10 (estimated 125 s): SceneSanitySuite,PhoneBoothSuite,HitReactionSuite,DeathFlowSuite,Chapter1EnemiesSuite
+  process 11 (estimated 125 s): RunSaveSuite,PacingSuite,FxUpgradesSuite,CutsceneSuite,ChainCreatureSuite
+checks: 16163, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 204 s)

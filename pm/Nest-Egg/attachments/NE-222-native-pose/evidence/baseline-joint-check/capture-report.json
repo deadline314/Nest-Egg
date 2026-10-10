@@ -1,0 +1,132 @@
+{
+  "acceptance": false,
+  "canonical_bones": 20,
+  "capture_adapter": "tools/viewport_capture.gd",
+  "capture_revision": "v6_one_joint_mode_comparison; v5 centering, process frame, two post-draws, empty-cell rejection",
+  "checker": "tools/check_joint_frames.py frames.json format",
+  "checks": 3403,
+  "facings": [
+    1,
+    -1
+  ],
+  "failures": [],
+  "fixture": "kneel_22297_registration_v3_fixture",
+  "frame_groups": 4,
+  "geometry_uv_export": "not included; diagnostic dump referenced private source-candidate textures",
+  "guide_sha256": "ace2230bc83ab1d57424c0e32136c7d5b42b4148da743e1c973a9b7de7e588a3",
+  "limitations": [
+    "The capture reports isolated alpha geometry; root must visually inspect the images before any seam or animation acceptance.",
+    "It isolates exactly front_thigh and front_calf pose-source slots and hides every unrelated part and child glow.",
+    "The 128-pixel alpha bands are joint audit crops, not full-character visual, anatomy, transition, or gameplay acceptance.",
+    "Candidate modes swap only the two diffuse atlas paths and sizes/pivots needed for the expanded crop; existing normal texels are source-copied or carried with the source pixel, and glow, owner ledger, canonical bones, and rest lengths remain unchanged.",
+    "Each sample waits one process frame and two frame_post_draw events; empty sheet/cells are failures, never reused or skipped."
+  ],
+  "material_mode": "unshaded alpha-geometry audit, matching tools/rig_joint_audit.gd",
+  "nonempty_cells": 480,
+  "rendering_method": "forward_plus",
+  "samples_per_group": 120,
+  "seam_condition_groups": 4,
+  "seam_groups": [
+    {
+      "body_scale": 1.15,
+      "bone": "leg_front_lower",
+      "canonical_angle_radians": 1.22228300571442,
+      "facing": 1,
+      "joint": "knee_front",
+      "owners": [
+        "front_thigh",
+        "front_calf"
+      ],
+      "radius": 10,
+      "slots": [
+        "armor_thigh",
+        "armor_calf"
+      ],
+      "zoom": 1.0
+    },
+    {
+      "body_scale": 1.15,
+      "bone": "leg_front_lower",
+      "canonical_angle_radians": 1.22228300571442,
+      "facing": -1,
+      "joint": "knee_front",
+      "owners": [
+        "front_thigh",
+        "front_calf"
+      ],
+      "radius": 10,
+      "slots": [
+        "armor_thigh",
+        "armor_calf"
+      ],
+      "zoom": 1.0
+    },
+    {
+      "body_scale": 1.15,
+      "bone": "leg_front_lower",
+      "canonical_angle_radians": 1.22228300571442,
+      "facing": 1,
+      "joint": "knee_front",
+      "owners": [
+        "front_thigh",
+        "front_calf"
+      ],
+      "radius": 32,
+      "slots": [
+        "armor_thigh",
+        "armor_calf"
+      ],
+      "zoom": 3.4
+    },
+    {
+      "body_scale": 1.15,
+      "bone": "leg_front_lower",
+      "canonical_angle_radians": 1.22228300571442,
+      "facing": -1,
+      "joint": "knee_front",
+      "owners": [
+        "front_thigh",
+        "front_calf"
+      ],
+      "radius": 32,
+      "slots": [
+        "armor_thigh",
+        "armor_calf"
+      ],
+      "zoom": 3.4
+    }
+  ],
+  "source_sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed",
+  "status": "PRIVATE_FRONT_KNEE_CAPTURED_NOT_VISUAL_OR_RUNTIME_ACCEPTANCE",
+  "texture_mode": "baseline",
+  "viewport_size": [
+    128,
+    128
+  ],
+  "viewport_use_hdr_2d": true,
+  "viewport_used": true,
+  "waypoint_angles_degrees": [
+    0.0,
+    -5.0,
+    5.0,
+    -15.0,
+    15.0,
+    -30.0,
+    30.0,
+    0.0
+  ],
+  "waypoint_frame_indices": [
+    0,
+    17,
+    34,
+    51,
+    68,
+    85,
+    102,
+    119
+  ],
+  "zooms": [
+    1.0,
+    3.4
+  ]
+}

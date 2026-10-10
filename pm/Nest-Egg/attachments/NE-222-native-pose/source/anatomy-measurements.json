@@ -1,0 +1,1650 @@
+{
+  "status": "CPU_SOURCE_GEOMETRY_DIAGNOSTIC_NOT_ANATOMY_OR_ART_ACCEPTANCE",
+  "head": "33df641d839485808e925c6bc86d3f6e2ee13f5a",
+  "inputs": {
+    "source": {
+      "path": "source/rin_kneel_color_alpha_22297_0.png",
+      "sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed",
+      "size": [
+        1440,
+        736
+      ]
+    },
+    "guide": {
+      "path": "source/kneel_source_23p78x_facing_right.json",
+      "sha256": "ace2230bc83ab1d57424c0e32136c7d5b42b4148da743e1c973a9b7de7e588a3"
+    },
+    "proposal": {
+      "path": "source/pose-owner-proposal.json",
+      "sha256": "10b6f3704e78d454654dd54f606f7754b612c6b0127a78f5838178de76655824"
+    },
+    "v2_manifest": {
+      "path": "source/historical-v2-manifest-not-included.json",
+      "sha256": "1fa907b2e0cd57c2daeefd448b1880e450e12d82e5e88b4bd460695c912e620f"
+    }
+  },
+  "coords": {
+    "axes": "native source x right, y down",
+    "density_source_px_per_skeleton_world": 32.87118545557699,
+    "world_per_source_px": 0.030421780843633613,
+    "alpha_floor": 40,
+    "anchor_xy": {
+      "H": [
+        668.083345289024,
+        312.2407625991241
+      ],
+      "FHU": [
+        668.083345289024,
+        312.2407625991241
+      ],
+      "FK": [
+        986.5470282502092,
+        196.32953522798385
+      ],
+      "FA": [
+        1227.261109009811,
+        483.52359727149474
+      ],
+      "BHU": [
+        645.0735356453462,
+        312.2407625991241
+      ],
+      "BK": [
+        615.5362697594953,
+        649.8530102253756
+      ],
+      "BA": [
+        250.70826458811604,
+        564.2712381964735
+      ]
+    }
+  },
+  "segments": [
+    {
+      "segment": "front_femur",
+      "from": "H",
+      "to": "FK",
+      "guide_anchor_span_px": 338.90194746546746,
+      "canonical_rest_world": 10.3100004196167,
+      "rest_length_at_source_density_px": 338.90193584029714,
+      "delta_px": 1.1625170316165168E-05,
+      "delta_world": 3.5365838362829163E-07
+    },
+    {
+      "segment": "front_shin",
+      "from": "FK",
+      "to": "FA",
+      "guide_anchor_span_px": 374.7315011431412,
+      "canonical_rest_world": 11.3999996185303,
+      "rest_length_at_source_density_px": 374.73150165421646,
+      "delta_px": -5.110752567816235E-07,
+      "delta_world": -1.5547819456414323E-08
+    },
+    {
+      "segment": "back_femur",
+      "from": "BHU",
+      "to": "BK",
+      "guide_anchor_span_px": 338.9018734431263,
+      "canonical_rest_world": 10.3100004196167,
+      "rest_length_at_source_density_px": 338.90193584029714,
+      "delta_px": -6.239717083644791E-05,
+      "delta_world": -1.8982330564491851E-06
+    },
+    {
+      "segment": "back_shin",
+      "from": "BK",
+      "to": "BA",
+      "guide_anchor_span_px": 374.73152130683496,
+      "canonical_rest_world": 11.3999996185303,
+      "rest_length_at_source_density_px": 374.73150165421646,
+      "delta_px": 1.9652618505006103E-05,
+      "delta_world": 5.978676531628341E-07
+    }
+  ],
+  "nearest_owner_pixels_to_anchors": {
+    "hip": {
+      "guide_anchor_xy": [
+        668.083345289024,
+        312.2407625991241
+      ],
+      "nearest_owner_pixels": [
+        {
+          "owner": "unknown_hip",
+          "nearest_xy": [
+            668,
+            312
+          ],
+          "distance_px": 0.2547804277009502,
+          "distance_world": 0.0077508743347655465,
+          "source_alpha": 255
+        },
+        {
+          "owner": "back_thigh",
+          "nearest_xy": [
+            662,
+            335
+          ],
+          "distance_px": 23.558225250958948,
+          "distance_world": 0.7166831656496286,
+          "source_alpha": 255
+        },
+        {
+          "owner": "front_thigh",
+          "nearest_xy": [
+            668,
+            273
+          ],
+          "distance_px": 39.240851109500895,
+          "distance_world": 1.193776572570893,
+          "source_alpha": 255
+        },
+        {
+          "owner": "pelvis",
+          "nearest_xy": [
+            661,
+            273
+          ],
+          "distance_px": 39.87494488829237,
+          "distance_world": 1.2130668345435989,
+          "source_alpha": 255
+        },
+        {
+          "owner": "unknown_remainder",
+          "nearest_xy": [
+            589,
+            287
+          ],
+          "distance_px": 83.01368320155622,
+          "distance_world": 2.5254240773805727,
+          "source_alpha": 255
+        }
+      ]
+    },
+    "front_knee": {
+      "guide_anchor_xy": [
+        986.5470282502092,
+        196.32953522798385
+      ],
+      "nearest_owner_pixels": [
+        {
+          "owner": "front_calf",
+          "nearest_xy": [
+            987,
+            196
+          ],
+          "distance_px": 0.5601578996951563,
+          "distance_world": 0.017041000862356145,
+          "source_alpha": 255
+        },
+        {
+          "owner": "front_thigh",
+          "nearest_xy": [
+            982,
+            199
+          ],
+          "distance_px": 5.27321988985667,
+          "distance_world": 0.1604207398295094,
+          "source_alpha": 255
+        },
+        {
+          "owner": "unknown_remainder",
+          "nearest_xy": [
+            986,
+            216
+          ],
+          "distance_px": 19.678069627218395,
+          "distance_world": 0.5986419216250011,
+          "source_alpha": 255
+        },
+        {
+          "owner": "front_boot",
+          "nearest_xy": [
+            1180,
+            389
+          ],
+          "distance_px": 273.0310610064175,
+          "distance_world": 8.306091101441991,
+          "source_alpha": 255
+        }
+      ]
+    },
+    "front_ankle": {
+      "guide_anchor_xy": [
+        1227.261109009811,
+        483.52359727149474
+      ],
+      "nearest_owner_pixels": [
+        {
+          "owner": "front_boot",
+          "nearest_xy": [
+            1227,
+            484
+          ],
+          "distance_px": 0.5432655655678262,
+          "distance_world": 0.016527105975597076,
+          "source_alpha": 255
+        },
+        {
+          "owner": "front_calf",
+          "nearest_xy": [
+            1184,
+            474
+          ],
+          "distance_px": 44.296980232837214,
+          "distance_world": 1.347593024678144,
+          "source_alpha": 251
+        },
+        {
+          "owner": "unknown_remainder",
+          "nearest_xy": [
+            1188,
+            388
+          ],
+          "distance_px": 103.27725943481933,
+          "distance_world": 3.1418781526571657,
+          "source_alpha": 64
+        }
+      ]
+    },
+    "back_hip": {
+      "guide_anchor_xy": [
+        645.0735356453462,
+        312.2407625991241
+      ],
+      "nearest_owner_pixels": [
+        {
+          "owner": "unknown_hip",
+          "nearest_xy": [
+            645,
+            312
+          ],
+          "distance_px": 0.2517421702326827,
+          "distance_world": 0.007658445131919379,
+          "source_alpha": 255
+        },
+        {
+          "owner": "back_thigh",
+          "nearest_xy": [
+            645,
+            334
+          ],
+          "distance_px": 21.759361657889087,
+          "distance_world": 0.661958531653666,
+          "source_alpha": 255
+        },
+        {
+          "owner": "pelvis",
+          "nearest_xy": [
+            645,
+            273
+          ],
+          "distance_px": 39.240831500516805,
+          "distance_world": 1.1937759760306765,
+          "source_alpha": 255
+        },
+        {
+          "owner": "unknown_remainder",
+          "nearest_xy": [
+            589,
+            287
+          ],
+          "distance_px": 61.49258082366724,
+          "distance_world": 1.8707138173270317,
+          "source_alpha": 255
+        }
+      ]
+    },
+    "back_knee": {
+      "guide_anchor_xy": [
+        615.5362697594953,
+        649.8530102253756
+      ],
+      "nearest_owner_pixels": [
+        {
+          "owner": "back_calf",
+          "nearest_xy": [
+            616,
+            650
+          ],
+          "distance_px": 0.4864686318794539,
+          "distance_world": 0.014799242106339023,
+          "source_alpha": 255
+        },
+        {
+          "owner": "back_thigh",
+          "nearest_xy": [
+            632,
+            626
+          ],
+          "distance_px": 28.983107325543596,
+          "distance_world": 0.8817177392251992,
+          "source_alpha": 255
+        },
+        {
+          "owner": "unknown_remainder",
+          "nearest_xy": [
+            555,
+            672
+          ],
+          "distance_px": 64.46029097414709,
+          "distance_world": 1.9609968451323565,
+          "source_alpha": 54
+        },
+        {
+          "owner": "back_boot",
+          "nearest_xy": [
+            340,
+            583
+          ],
+          "distance_px": 283.53052909549535,
+          "distance_world": 8.625503618622643,
+          "source_alpha": 255
+        }
+      ]
+    },
+    "back_ankle": {
+      "guide_anchor_xy": [
+        250.70826458811604,
+        564.2712381964735
+      ],
+      "nearest_owner_pixels": [
+        {
+          "owner": "back_boot",
+          "nearest_xy": [
+            251,
+            564
+          ],
+          "distance_px": 0.39834621847497487,
+          "distance_world": 0.012118401358335881,
+          "source_alpha": 255
+        },
+        {
+          "owner": "unknown_remainder",
+          "nearest_xy": [
+            330,
+            605
+          ],
+          "distance_px": 89.14040241482316,
+          "distance_world": 2.7118097865770587,
+          "source_alpha": 255
+        },
+        {
+          "owner": "back_calf",
+          "nearest_xy": [
+            337,
+            590
+          ],
+          "distance_px": 90.04572607479598,
+          "distance_world": 2.739351344553308,
+          "source_alpha": 255
+        }
+      ]
+    }
+  },
+  "v2_owner_stats": {
+    "pelvis": {
+      "count": 16995,
+      "bbox_xyxy_inclusive": [
+        573,
+        117,
+        780,
+        285
+      ]
+    },
+    "front_thigh": {
+      "count": 34420,
+      "bbox_xyxy_inclusive": [
+        662,
+        132,
+        1014,
+        311
+      ]
+    },
+    "front_calf": {
+      "count": 19537,
+      "bbox_xyxy_inclusive": [
+        973,
+        137,
+        1185,
+        474
+      ]
+    },
+    "front_boot": {
+      "count": 36183,
+      "bbox_xyxy_inclusive": [
+        1152,
+        389,
+        1374,
+        675
+      ]
+    },
+    "back_thigh": {
+      "count": 30423,
+      "bbox_xyxy_inclusive": [
+        583,
+        290,
+        726,
+        638
+      ]
+    },
+    "back_calf": {
+      "count": 21189,
+      "bbox_xyxy_inclusive": [
+        337,
+        543,
+        651,
+        686
+      ]
+    },
+    "back_boot": {
+      "count": 35915,
+      "bbox_xyxy_inclusive": [
+        38,
+        456,
+        345,
+        672
+      ]
+    },
+    "unknown_hip": {
+      "count": 9585,
+      "bbox_xyxy_inclusive": [
+        589,
+        274,
+        753,
+        338
+      ]
+    },
+    "unknown_remainder": {
+      "count": 7743,
+      "bbox_xyxy_inclusive": [
+        326,
+        112,
+        1188,
+        672
+      ]
+    }
+  },
+  "unknown_hip_polygon_native_source_xy": [
+    [
+      590,
+      274
+    ],
+    [
+      753,
+      274
+    ],
+    [
+      753,
+      340
+    ],
+    [
+      588,
+      330
+    ]
+  ],
+  "unknown_pixels_intersecting_candidate_owner_polygons": {
+    "back_boot": {
+      "unknown_alpha_pixels_inside_candidate_polygon": 0,
+      "all_alpha_pixels_inside_candidate_polygon": 35915
+    },
+    "front_boot": {
+      "unknown_alpha_pixels_inside_candidate_polygon": 0,
+      "all_alpha_pixels_inside_candidate_polygon": 36817
+    },
+    "front_calf": {
+      "unknown_alpha_pixels_inside_candidate_polygon": 0,
+      "all_alpha_pixels_inside_candidate_polygon": 20350
+    },
+    "front_thigh": {
+      "unknown_alpha_pixels_inside_candidate_polygon": 4482,
+      "all_alpha_pixels_inside_candidate_polygon": 41051
+    },
+    "back_calf": {
+      "unknown_alpha_pixels_inside_candidate_polygon": 0,
+      "all_alpha_pixels_inside_candidate_polygon": 21828
+    },
+    "back_thigh": {
+      "unknown_alpha_pixels_inside_candidate_polygon": 5217,
+      "all_alpha_pixels_inside_candidate_polygon": 39023
+    },
+    "pelvis": {
+      "unknown_alpha_pixels_inside_candidate_polygon": 2851,
+      "all_alpha_pixels_inside_candidate_polygon": 24074
+    }
+  },
+  "bounded_back_thigh_review_candidate": {
+    "rule": "unknown_hip alpha>=40 AND existing manual back_thigh polygon AND NOT existing manual front_thigh polygon AND NOT existing manual pelvis polygon",
+    "pixel_count": 2600,
+    "bbox_xyxy_inclusive": [
+      589,
+      290,
+      728,
+      338
+    ],
+    "eight_connected_components": 2,
+    "status": "REVIEW_CANDIDATE_ONLY_NOT_REASSIGNED_OR_ACCEPTED"
+  },
+  "nearest_pelvis_root_shift_counterfactual": {
+    "label": "move each hip root to its nearest currently assigned pelvis alpha pixel; diagnostic counterfactual only",
+    "back_pelvis_pixel_xy": [
+      645,
+      273
+    ],
+    "back_knee_target_xy": [
+      615.5362697594953,
+      649.8530102253756
+    ],
+    "back_distance_px": 378.0030459078501,
+    "back_distance_world": 11.499525820834592,
+    "back_femur_rest_world": 10.3100004196167,
+    "back_overreach_world": 1.1895254012178924,
+    "front_pelvis_pixel_xy": [
+      661,
+      273
+    ],
+    "front_knee_target_xy": [
+      986.5470282502092,
+      196.32953522798385
+    ],
+    "front_distance_px": 334.4536257403999,
+    "front_distance_world": 10.174674904633104,
+    "front_femur_rest_world": 10.3100004196167,
+    "front_overreach_world": -0.13532551498359524,
+    "interpretation": "This counterfactual is not an anatomical hip annotation. It shows that moving the common hip roots to the nearest assigned pelvis pixels would make the unchanged rear femur unable to reach the guide rear knee; do not retune roots/rest lengths from source silhouette alone.",
+    "root_suspected_y225_xy": [
+      668.0,
+      225.0
+    ],
+    "suspected_y225_to_back_knee_px": 428.08004308576625,
+    "suspected_y225_to_back_knee_world": 13.022957254288416,
+    "suspected_y225_back_femur_overreach_world": 2.7129568346717168
+  },
+  "guide_anchor_polygon_membership": {
+    "H": {
+      "rounded_source_xy": [
+        668,
+        312
+      ],
+      "source_alpha": 255,
+      "source_rgba": [
+        27,
+        25,
+        30,
+        255
+      ],
+      "current_owner": [
+        "unknown_hip"
+      ],
+      "candidate_polygons_containing_point": [
+        "back_thigh"
+      ],
+      "inside_unknown_hip_polygon": true
+    },
+    "FHU": {
+      "rounded_source_xy": [
+        668,
+        312
+      ],
+      "source_alpha": 255,
+      "source_rgba": [
+        27,
+        25,
+        30,
+        255
+      ],
+      "current_owner": [
+        "unknown_hip"
+      ],
+      "candidate_polygons_containing_point": [
+        "back_thigh"
+      ],
+      "inside_unknown_hip_polygon": true
+    },
+    "FK": {
+      "rounded_source_xy": [
+        987,
+        196
+      ],
+      "source_alpha": 255,
+      "source_rgba": [
+        47,
+        42,
+        48,
+        255
+      ],
+      "current_owner": [
+        "front_calf"
+      ],
+      "candidate_polygons_containing_point": [
+        "front_calf",
+        "front_thigh"
+      ],
+      "inside_unknown_hip_polygon": false
+    },
+    "FA": {
+      "rounded_source_xy": [
+        1227,
+        484
+      ],
+      "source_alpha": 255,
+      "source_rgba": [
+        31,
+        29,
+        34,
+        255
+      ],
+      "current_owner": [
+        "front_boot"
+      ],
+      "candidate_polygons_containing_point": [
+        "front_boot"
+      ],
+      "inside_unknown_hip_polygon": false
+    },
+    "BHU": {
+      "rounded_source_xy": [
+        645,
+        312
+      ],
+      "source_alpha": 255,
+      "source_rgba": [
+        27,
+        25,
+        30,
+        255
+      ],
+      "current_owner": [
+        "unknown_hip"
+      ],
+      "candidate_polygons_containing_point": [
+        "back_thigh",
+        "pelvis"
+      ],
+      "inside_unknown_hip_polygon": true
+    },
+    "BK": {
+      "rounded_source_xy": [
+        616,
+        650
+      ],
+      "source_alpha": 255,
+      "source_rgba": [
+        53,
+        47,
+        52,
+        255
+      ],
+      "current_owner": [
+        "back_calf"
+      ],
+      "candidate_polygons_containing_point": [
+        "back_calf",
+        "back_thigh"
+      ],
+      "inside_unknown_hip_polygon": false
+    },
+    "BA": {
+      "rounded_source_xy": [
+        251,
+        564
+      ],
+      "source_alpha": 255,
+      "source_rgba": [
+        29,
+        28,
+        33,
+        255
+      ],
+      "current_owner": [
+        "back_boot"
+      ],
+      "candidate_polygons_containing_point": [
+        "back_boot"
+      ],
+      "inside_unknown_hip_polygon": false
+    }
+  },
+  "unknown_remainder_component_count_8_connected": 23,
+  "unknown_remainder_components": [
+    {
+      "component": 3,
+      "pixels": 4027,
+      "bbox_xyxy_inclusive": [
+        997,
+        131,
+        1188,
+        388
+      ],
+      "centroid_xy": [
+        1097.3657809783958,
+        251.47752669481002
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "front_thigh",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            997,
+            132
+          ]
+        },
+        {
+          "owner": "front_calf",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            1024,
+            136
+          ]
+        },
+        {
+          "owner": "front_boot",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            1180,
+            388
+          ]
+        }
+      ]
+    },
+    {
+      "component": 4,
+      "pixels": 2105,
+      "bbox_xyxy_inclusive": [
+        980,
+        216,
+        1079,
+        348
+      ],
+      "centroid_xy": [
+        1025.750593824228,
+        276.17577197149643
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "front_thigh",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            985,
+            216
+          ]
+        },
+        {
+          "owner": "front_calf",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            986,
+            216
+          ]
+        },
+        {
+          "owner": "front_boot",
+          "min_distance_px": 109.00458705944443,
+          "source_component_xy": [
+            1079,
+            348
+          ]
+        }
+      ]
+    },
+    {
+      "component": 1,
+      "pixels": 673,
+      "bbox_xyxy_inclusive": [
+        639,
+        112,
+        748,
+        127
+      ],
+      "centroid_xy": [
+        689.8499257057949,
+        118.18276374442793
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "pelvis",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            639,
+            116
+          ]
+        },
+        {
+          "owner": "front_thigh",
+          "min_distance_px": 30.59411708155671,
+          "source_component_xy": [
+            748,
+            127
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 181.3201588351389,
+          "source_component_xy": [
+            639,
+            116
+          ]
+        }
+      ]
+    },
+    {
+      "component": 15,
+      "pixels": 357,
+      "bbox_xyxy_inclusive": [
+        399,
+        622,
+        532,
+        664
+      ],
+      "centroid_xy": [
+        463.0980392156863,
+        641.5602240896359
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "back_calf",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            399,
+            622
+          ]
+        },
+        {
+          "owner": "back_boot",
+          "min_distance_px": 70.00714249274856,
+          "source_component_xy": [
+            399,
+            622
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 83.24061508662703,
+          "source_component_xy": [
+            532,
+            664
+          ]
+        }
+      ]
+    },
+    {
+      "component": 8,
+      "pixels": 275,
+      "bbox_xyxy_inclusive": [
+        446,
+        562,
+        520,
+        579
+      ],
+      "centroid_xy": [
+        482.3636363636364,
+        568.6763636363636
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "back_calf",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            446,
+            562
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 64.38167441127949,
+          "source_component_xy": [
+            520,
+            579
+          ]
+        },
+        {
+          "owner": "back_boot",
+          "min_distance_px": 101.96568050084302,
+          "source_component_xy": [
+            446,
+            562
+          ]
+        }
+      ]
+    },
+    {
+      "component": 10,
+      "pixels": 217,
+      "bbox_xyxy_inclusive": [
+        326,
+        592,
+        342,
+        616
+      ],
+      "centroid_xy": [
+        334.49769585253455,
+        606.2534562211981
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "back_calf",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            337,
+            592
+          ]
+        },
+        {
+          "owner": "back_boot",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            336,
+            592
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 241.13274352522097,
+          "source_component_xy": [
+            342,
+            606
+          ]
+        }
+      ]
+    },
+    {
+      "component": 7,
+      "pixels": 34,
+      "bbox_xyxy_inclusive": [
+        581,
+        280,
+        589,
+        289
+      ],
+      "centroid_xy": [
+        585.5294117647059,
+        284.97058823529414
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "pelvis",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            581,
+            280
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            587,
+            289
+          ]
+        },
+        {
+          "owner": "front_thigh",
+          "min_distance_px": 74.14849964766651,
+          "source_component_xy": [
+            589,
+            286
+          ]
+        }
+      ]
+    },
+    {
+      "component": 5,
+      "pixels": 32,
+      "bbox_xyxy_inclusive": [
+        573,
+        251,
+        578,
+        274
+      ],
+      "centroid_xy": [
+        575.25,
+        262.9375
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "pelvis",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            573,
+            251
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 18.35755975068582,
+          "source_component_xy": [
+            578,
+            274
+          ]
+        },
+        {
+          "owner": "front_thigh",
+          "min_distance_px": 84.0,
+          "source_component_xy": [
+            578,
+            272
+          ]
+        }
+      ]
+    },
+    {
+      "component": 2,
+      "pixels": 3,
+      "bbox_xyxy_inclusive": [
+        750,
+        128,
+        752,
+        128
+      ],
+      "centroid_xy": [
+        751.0,
+        128.0
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "pelvis",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            750,
+            128
+          ]
+        },
+        {
+          "owner": "front_thigh",
+          "min_distance_px": 28.460498941515414,
+          "source_component_xy": [
+            752,
+            128
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 212.3605424743495,
+          "source_component_xy": [
+            750,
+            128
+          ]
+        }
+      ]
+    },
+    {
+      "component": 13,
+      "pixels": 2,
+      "bbox_xyxy_inclusive": [
+        393,
+        620,
+        394,
+        620
+      ],
+      "centroid_xy": [
+        393.5,
+        620.0
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "back_calf",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            393,
+            620
+          ]
+        },
+        {
+          "owner": "back_boot",
+          "min_distance_px": 63.694583757176716,
+          "source_component_xy": [
+            393,
+            620
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 190.2761151589973,
+          "source_component_xy": [
+            394,
+            620
+          ]
+        }
+      ]
+    },
+    {
+      "component": 14,
+      "pixels": 2,
+      "bbox_xyxy_inclusive": [
+        396,
+        621,
+        397,
+        621
+      ],
+      "centroid_xy": [
+        396.5,
+        621.0
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "back_calf",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            396,
+            621
+          ]
+        },
+        {
+          "owner": "back_boot",
+          "min_distance_px": 66.85057965343307,
+          "source_component_xy": [
+            396,
+            621
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 187.41664813991312,
+          "source_component_xy": [
+            397,
+            621
+          ]
+        }
+      ]
+    },
+    {
+      "component": 16,
+      "pixels": 2,
+      "bbox_xyxy_inclusive": [
+        534,
+        665,
+        535,
+        665
+      ],
+      "centroid_xy": [
+        534.5,
+        665.0
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "back_calf",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            534,
+            665
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 82.20097323024831,
+          "source_component_xy": [
+            535,
+            665
+          ]
+        },
+        {
+          "owner": "back_boot",
+          "min_distance_px": 210.61813787041228,
+          "source_component_xy": [
+            534,
+            665
+          ]
+        }
+      ]
+    },
+    {
+      "component": 17,
+      "pixels": 2,
+      "bbox_xyxy_inclusive": [
+        537,
+        666,
+        538,
+        666
+      ],
+      "centroid_xy": [
+        537.5,
+        666.0
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "back_calf",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            537,
+            666
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 81.27115109311545,
+          "source_component_xy": [
+            538,
+            666
+          ]
+        },
+        {
+          "owner": "back_boot",
+          "min_distance_px": 213.77090541044166,
+          "source_component_xy": [
+            537,
+            666
+          ]
+        }
+      ]
+    },
+    {
+      "component": 18,
+      "pixels": 2,
+      "bbox_xyxy_inclusive": [
+        540,
+        667,
+        541,
+        667
+      ],
+      "centroid_xy": [
+        540.5,
+        667.0
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "back_calf",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            540,
+            667
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 80.45495634204272,
+          "source_component_xy": [
+            541,
+            667
+          ]
+        },
+        {
+          "owner": "back_boot",
+          "min_distance_px": 216.92394980729998,
+          "source_component_xy": [
+            540,
+            667
+          ]
+        }
+      ]
+    },
+    {
+      "component": 19,
+      "pixels": 2,
+      "bbox_xyxy_inclusive": [
+        543,
+        668,
+        544,
+        668
+      ],
+      "centroid_xy": [
+        543.5,
+        668.0
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "back_calf",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            543,
+            668
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 79.75587752636166,
+          "source_component_xy": [
+            544,
+            668
+          ]
+        },
+        {
+          "owner": "back_boot",
+          "min_distance_px": 220.0772591614136,
+          "source_component_xy": [
+            543,
+            668
+          ]
+        }
+      ]
+    },
+    {
+      "component": 6,
+      "pixels": 1,
+      "bbox_xyxy_inclusive": [
+        579,
+        276,
+        579,
+        276
+      ],
+      "centroid_xy": [
+        579.0,
+        276.0
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "pelvis",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            579,
+            276
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 16.1245154965971,
+          "source_component_xy": [
+            579,
+            276
+          ]
+        },
+        {
+          "owner": "front_thigh",
+          "min_distance_px": 83.05419917138447,
+          "source_component_xy": [
+            579,
+            276
+          ]
+        }
+      ]
+    },
+    {
+      "component": 9,
+      "pixels": 1,
+      "bbox_xyxy_inclusive": [
+        522,
+        580,
+        522,
+        580
+      ],
+      "centroid_xy": [
+        522.0,
+        580.0
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "back_calf",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            522,
+            580
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 62.289646009589745,
+          "source_component_xy": [
+            522,
+            580
+          ]
+        },
+        {
+          "owner": "back_boot",
+          "min_distance_px": 179.61069010501575,
+          "source_component_xy": [
+            522,
+            580
+          ]
+        }
+      ]
+    },
+    {
+      "component": 11,
+      "pixels": 1,
+      "bbox_xyxy_inclusive": [
+        387,
+        618,
+        387,
+        618
+      ],
+      "centroid_xy": [
+        387.0,
+        618.0
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "back_calf",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            387,
+            618
+          ]
+        },
+        {
+          "owner": "back_boot",
+          "min_distance_px": 57.38466694161429,
+          "source_component_xy": [
+            387,
+            618
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 197.01776569639603,
+          "source_component_xy": [
+            387,
+            618
+          ]
+        }
+      ]
+    },
+    {
+      "component": 12,
+      "pixels": 1,
+      "bbox_xyxy_inclusive": [
+        390,
+        619,
+        390,
+        619
+      ],
+      "centroid_xy": [
+        390.0,
+        619.0
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "back_calf",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            390,
+            619
+          ]
+        },
+        {
+          "owner": "back_boot",
+          "min_distance_px": 60.53924347066124,
+          "source_component_xy": [
+            390,
+            619
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 194.1391253714717,
+          "source_component_xy": [
+            390,
+            619
+          ]
+        }
+      ]
+    },
+    {
+      "component": 20,
+      "pixels": 1,
+      "bbox_xyxy_inclusive": [
+        546,
+        669,
+        546,
+        669
+      ],
+      "centroid_xy": [
+        546.0,
+        669.0
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "back_calf",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            546,
+            669
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 79.64923100695951,
+          "source_component_xy": [
+            546,
+            669
+          ]
+        },
+        {
+          "owner": "back_boot",
+          "min_distance_px": 223.23082224459955,
+          "source_component_xy": [
+            546,
+            669
+          ]
+        }
+      ]
+    },
+    {
+      "component": 21,
+      "pixels": 1,
+      "bbox_xyxy_inclusive": [
+        549,
+        670,
+        549,
+        670
+      ],
+      "centroid_xy": [
+        549.0,
+        670.0
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "back_calf",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            549,
+            670
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 79.1580697086532,
+          "source_component_xy": [
+            549,
+            670
+          ]
+        },
+        {
+          "owner": "back_boot",
+          "min_distance_px": 226.38462845343543,
+          "source_component_xy": [
+            549,
+            670
+          ]
+        }
+      ]
+    },
+    {
+      "component": 22,
+      "pixels": 1,
+      "bbox_xyxy_inclusive": [
+        552,
+        671,
+        552,
+        671
+      ],
+      "centroid_xy": [
+        552.0,
+        671.0
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "back_calf",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            552,
+            671
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 78.54934754662193,
+          "source_component_xy": [
+            552,
+            671
+          ]
+        },
+        {
+          "owner": "back_boot",
+          "min_distance_px": 229.53866776645717,
+          "source_component_xy": [
+            552,
+            671
+          ]
+        }
+      ]
+    },
+    {
+      "component": 23,
+      "pixels": 1,
+      "bbox_xyxy_inclusive": [
+        555,
+        672,
+        555,
+        672
+      ],
+      "centroid_xy": [
+        555.0,
+        672.0
+      ],
+      "nearest_owner_proximity": [
+        {
+          "owner": "back_calf",
+          "min_distance_px": 1.0,
+          "source_component_xy": [
+            555,
+            672
+          ]
+        },
+        {
+          "owner": "back_thigh",
+          "min_distance_px": 77.89736837660179,
+          "source_component_xy": [
+            555,
+            672
+          ]
+        },
+        {
+          "owner": "back_boot",
+          "min_distance_px": 232.69293070482394,
+          "source_component_xy": [
+            555,
+            672
+          ]
+        }
+      ]
+    }
+  ],
+  "semantic_findings": [
+    "Guide anchors/segment endpoints are mathematical rig targets, not independent anatomy annotations.",
+    "Nearest alpha pixels indicate proximity only; they do not establish which source pixels are pelvis, limb, cuff, or underlap.",
+    "The proximal garment contour is a connected stylized silhouette; this source alone does not prove which concealed boundary should belong to the rear thigh versus pelvis. Keep unknown_hip and unknown_remainder unassigned.",
+    "The guide hip at source (668.08,312.24) lies near the underside/crotch-side edge of the visible trousers. A separate anatomical femoral head/hip crease is not explicitly labeled, so the root hypothesis that the bone root is too low is plausible but not proven from this image alone.",
+    "The leg anchor spans exactly encode unchanged canonical rest lengths at the registered density; changing bone roots or rest lengths to force contour matches is not supported by this measurement. Revisit localized per-pose crop/ownership only after art-owner boundary review; if hidden underlap does not exist in source, author completion is required."
+  ],
+  "limitations": [
+    "No GPU, ComfyUI, Godot, source edit, mask edit, or adoption was performed.",
+    "No art, alpha/matte, transition, armor-underlayer, animation, grip, or gameplay acceptance is claimed."
+  ],
+  "images": [
+    "images/source-three-mattes-native.png",
+    "images/source-owner-overlay-native.png",
+    "images/joint-contacts-native-3x.png",
+    "images/hip-owner-map-3x.png",
+    "images/back-thigh-unique-candidate-4x.png",
+    "images/unknown-remainder-components-native.png",
+    "../ne222-kneel-parts-v2/all-parts-black-gray-white-native.png"
+  ]
+}

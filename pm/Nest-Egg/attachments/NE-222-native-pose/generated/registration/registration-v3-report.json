@@ -1,0 +1,714 @@
+{
+  "status": "PRIVATE_V3_SOURCE_REGISTRATION_FIXTURE_NOT_VISUAL_OR_RUNTIME_ACCEPTANCE",
+  "fixture_id": "NE222.KneelRegistration.22297.v3.source-exact",
+  "source": {
+    "path": "pm\\Nest-Egg\\attachments\\NE-222-native-pose\\source\\rin_kneel_color_alpha_22297_0.png",
+    "sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed",
+    "size": [
+      1440,
+      736
+    ],
+    "mode": "RGBA",
+    "alpha_floor": 40,
+    "retained_pixels": 211990,
+    "owner_manifest": "pm\\Nest-Egg\\attachments\\NE-222-native-pose\\generated\\ownership\\manifest-v3.json",
+    "owner_manifest_sha256": "0faa30113e70881a8cca5c6b90a3806bf65370d1b6cc5391fc66ae94556c7b43",
+    "manual_guide_sha256": "10b6f3704e78d454654dd54f606f7754b612c6b0127a78f5838178de76655824",
+    "canonical_guide_sha256": "ace2230bc83ab1d57424c0e32136c7d5b42b4148da743e1c973a9b7de7e588a3"
+  },
+  "guide": {
+    "path": "pm\\Nest-Egg\\attachments\\NE-222-native-pose\\source\\kneel_source_23p78x_facing_right.json",
+    "sha256": "ace2230bc83ab1d57424c0e32136c7d5b42b4148da743e1c973a9b7de7e588a3",
+    "bones": 20,
+    "pose_texture_scale_world_per_pixel": 0.030421780843633617,
+    "pose_density_source_px_per_world": 32.87118545557699,
+    "source_density_px_per_world": 32.87118545557699,
+    "character_scale": 1.15,
+    "character_root_scale": 1.15,
+    "holder_scale_source_px_per_skeleton_unit": 28.58363952658869,
+    "holder_scale_source_px_per_unscaled_unit": 28.58363952658869,
+    "holder_scale_source_px_per_unscaled_skeleton_unit": 28.58363952658869,
+    "root_origin_source_xy": [
+      668.0833452890239,
+      672.8894947383479
+    ],
+    "skeleton_root_origin_source_xy": [
+      668.0833452890239,
+      672.8894947383479
+    ],
+    "floor_y_source_px": 672.8894947383479,
+    "source_to_skeleton": [
+      0.030421780843633617,
+      0.0,
+      0.0,
+      0.030421780843633624,
+      -20.324285115664292,
+      -20.470496740913383
+    ]
+  },
+  "canonical_skeleton": {
+    "rig": "pm\\Nest-Egg\\attachments\\NE-222-native-pose\\source\\context\\humanoid_tall.json",
+    "bone_count": 20,
+    "rest_lengths_world": {
+      "chest": 4.846452310711413,
+      "neck": 9.086363408977213,
+      "head": 0.25,
+      "hair_1": 6.86406585049998,
+      "hair_2": 7.98,
+      "arm_back_upper": 7.982537190643086,
+      "arm_back_lower": 6.62,
+      "hand_back": 6.54,
+      "arm_front_upper": 7.832298513207984,
+      "arm_front_lower": 6.62,
+      "hand_front": 6.54,
+      "leg_back_upper": 0.7,
+      "leg_back_lower": 10.31,
+      "foot_back": 11.4,
+      "leg_front_upper": 0.0,
+      "leg_front_lower": 10.31,
+      "foot_front": 11.4,
+      "coat_1": 3.7565942021996466,
+      "coat_2": 0.63
+    },
+    "rest_positions_unchanged": true
+  },
+  "owners": {
+    "pelvis": {
+      "bone": "hip",
+      "slot_names": [
+        "armor_pelvis",
+        "pelvis_dmg"
+      ],
+      "anchor_source_xy": [
+        668.083345289024,
+        312.2407625991241
+      ],
+      "anchor_semantics": "canonical guide bone-root target, not independently measured anatomy",
+      "pivot_source_xy": [
+        668.083345289024,
+        312.2407625991241
+      ],
+      "pivot_local_xy": [
+        97.08334528902401,
+        202.24076259912408
+      ],
+      "mask_bbox_xyxy_half_open": [
+        573,
+        112,
+        781,
+        324
+      ],
+      "crop_bbox_xyxy_half_open": [
+        571,
+        110,
+        783,
+        326
+      ],
+      "native_crop_size": [
+        212,
+        216
+      ],
+      "owned_alpha_ge40_pixels": 20212,
+      "source_rgba_exact": true,
+      "bone_local_offset": [
+        0.0,
+        3.552713678800501e-15
+      ],
+      "bone_local_rotation_radians": 0.0,
+      "texture_scale_world_per_pixel": 0.030421780843633617,
+      "linear_affine_error": 6.938893903907228e-18,
+      "max_corner_and_anchor_reprojection_world": 2.808666774861361e-15,
+      "source_sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed",
+      "color_sha256": "9fb4aaea1ed00f6bce837c95e162a025697906288189c93e48ca821e801a721b",
+      "normal_sha256": "3be395e28d207cea8c96fe5712b35a76410328f5f00564828e761a8eabb02925",
+      "normal_method": "tools/comfyui/cut_layers.py make_normal_map CPU port of NormalMapMaker.make(source,2,3.0,1.4)",
+      "glow_sha256": "528d29ef5cc9839331bd83e4d4b077e83e7a34017f495d4049ef44d95bbfc3f2",
+      "glow_extraction": "tools/comfyui/cut_parts.py glow_layer kind=c; Rin source recipe",
+      "counterpart_slots_share_same_visible_crop_geometry_only": true
+    },
+    "front_thigh": {
+      "bone": "leg_front_upper",
+      "slot_names": [
+        "armor_thigh",
+        "thigh_dmg"
+      ],
+      "anchor_source_xy": [
+        668.083345289024,
+        312.2407625991241
+      ],
+      "anchor_semantics": "canonical guide bone-root target, not independently measured anatomy",
+      "pivot_source_xy": [
+        668.083345289024,
+        312.2407625991241
+      ],
+      "pivot_local_xy": [
+        12.08334528902401,
+        182.24076259912408
+      ],
+      "mask_bbox_xyxy_half_open": [
+        658,
+        132,
+        1015,
+        338
+      ],
+      "crop_bbox_xyxy_half_open": [
+        656,
+        130,
+        1017,
+        340
+      ],
+      "native_crop_size": [
+        361,
+        210
+      ],
+      "owned_alpha_ge40_pixels": 38915,
+      "source_rgba_exact": true,
+      "bone_local_offset": [
+        -7.105427357601002e-15,
+        1.7763568394002505e-15
+      ],
+      "bone_local_rotation_radians": 1.91986203193665,
+      "texture_scale_world_per_pixel": 0.030421780843633617,
+      "linear_affine_error": 6.938893903907228e-18,
+      "max_corner_and_anchor_reprojection_world": 5.0242958677880805e-15,
+      "source_sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed",
+      "color_sha256": "c5a6a358cfd760e599187f5a90c68e26ab058a79c0b63fb7f6479685caabb9f2",
+      "normal_sha256": "1edeb661e011cfc2c7af5d96aeaca4c9c47c14a73a8aae7b60f4972093b06c36",
+      "normal_method": "tools/comfyui/cut_layers.py make_normal_map CPU port of NormalMapMaker.make(source,2,3.0,1.4)",
+      "glow_sha256": null,
+      "glow_extraction": null,
+      "counterpart_slots_share_same_visible_crop_geometry_only": true
+    },
+    "front_calf": {
+      "bone": "leg_front_lower",
+      "slot_names": [
+        "armor_calf",
+        "calf_dmg"
+      ],
+      "anchor_source_xy": [
+        986.5470282502092,
+        196.32953522798385
+      ],
+      "anchor_semantics": "canonical guide bone-root target, not independently measured anatomy",
+      "pivot_source_xy": [
+        986.5470282502092,
+        196.32953522798385
+      ],
+      "pivot_local_xy": [
+        15.547028250209223,
+        67.32953522798385
+      ],
+      "mask_bbox_xyxy_half_open": [
+        973,
+        131,
+        1189,
+        458
+      ],
+      "crop_bbox_xyxy_half_open": [
+        971,
+        129,
+        1191,
+        460
+      ],
+      "native_crop_size": [
+        220,
+        331
+      ],
+      "owned_alpha_ge40_pixels": 25035,
+      "source_rgba_exact": true,
+      "bone_local_offset": [
+        1.2216809608389667e-07,
+        6.993681473943525e-07
+      ],
+      "bone_local_rotation_radians": 0.6975790262222299,
+      "texture_scale_world_per_pixel": 0.030421780843633617,
+      "linear_affine_error": 3.469446951953614e-18,
+      "max_corner_and_anchor_reprojection_world": 4.869818370658876e-15,
+      "source_sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed",
+      "color_sha256": "fd4d69236ce049bbc9c2010379620f48b267d5a8cc7fd559d144423707ee1f6f",
+      "normal_sha256": "6c4130e5bacdc3c114f4489835921e01ea37eceb16c5a802928d63c3023af922",
+      "normal_method": "tools/comfyui/cut_layers.py make_normal_map CPU port of NormalMapMaker.make(source,2,3.0,1.4)",
+      "glow_sha256": null,
+      "glow_extraction": null,
+      "counterpart_slots_share_same_visible_crop_geometry_only": true
+    },
+    "front_boot": {
+      "bone": "foot_front",
+      "slot_names": [
+        "foot_front"
+      ],
+      "anchor_source_xy": [
+        1227.261109009811,
+        483.52359727149474
+      ],
+      "anchor_semantics": "canonical guide bone-root target, not independently measured anatomy",
+      "pivot_source_xy": [
+        1227.261109009811,
+        483.52359727149474
+      ],
+      "pivot_local_xy": [
+        77.26110900981098,
+        96.52359727149474
+      ],
+      "mask_bbox_xyxy_half_open": [
+        1152,
+        389,
+        1375,
+        676
+      ],
+      "crop_bbox_xyxy_half_open": [
+        1150,
+        387,
+        1377,
+        678
+      ],
+      "native_crop_size": [
+        227,
+        291
+      ],
+      "owned_alpha_ge40_pixels": 36817,
+      "source_rgba_exact": true,
+      "bone_local_offset": [
+        6.227026858596219e-07,
+        3.703269797483699e-07
+      ],
+      "bone_local_rotation_radians": -5.960464416476799e-08,
+      "texture_scale_world_per_pixel": 0.030421780843633617,
+      "linear_affine_error": 3.469446951953614e-18,
+      "max_corner_and_anchor_reprojection_world": 6.720289191984444e-15,
+      "source_sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed",
+      "color_sha256": "c60c56c8dbb69f3bf9024798c95083f1f2e967cb93a754b4ab52267e61fd6168",
+      "normal_sha256": "14c49b51fd0ddf91f48755031e03f9b65f8395e198cc42c61c68faba17a87400",
+      "normal_method": "tools/comfyui/cut_layers.py make_normal_map CPU port of NormalMapMaker.make(source,2,3.0,1.4)",
+      "glow_sha256": "4c71f7bc5ee005cf8c5feab0998796d675c00418b6d818a5e703a080bf8cd17f",
+      "glow_extraction": "tools/comfyui/cut_parts.py glow_layer kind=m; Rin source recipe",
+      "counterpart_slots_share_same_visible_crop_geometry_only": false
+    },
+    "back_thigh": {
+      "bone": "leg_back_upper",
+      "slot_names": [
+        "leg_back_upper",
+        "leg_back_upper_dmg"
+      ],
+      "anchor_source_xy": [
+        645.0735356453462,
+        312.2407625991241
+      ],
+      "anchor_semantics": "canonical guide bone-root target, not independently measured anatomy",
+      "pivot_source_xy": [
+        645.0735356453462,
+        312.2407625991241
+      ],
+      "pivot_local_xy": [
+        66.07353564534617,
+        34.24076259912408
+      ],
+      "mask_bbox_xyxy_half_open": [
+        581,
+        280,
+        729,
+        639
+      ],
+      "crop_bbox_xyxy_half_open": [
+        579,
+        278,
+        731,
+        641
+      ],
+      "native_crop_size": [
+        152,
+        363
+      ],
+      "owned_alpha_ge40_pixels": 33039,
+      "source_rgba_exact": true,
+      "bone_local_offset": [
+        5.995551681792222e-07,
+        -5.2454369736665285e-08
+      ],
+      "bone_local_rotation_radians": -0.0872666165232658,
+      "texture_scale_world_per_pixel": 0.030421780843633617,
+      "linear_affine_error": 6.938893903907228e-18,
+      "max_corner_and_anchor_reprojection_world": 5.617333549722722e-15,
+      "source_sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed",
+      "color_sha256": "6d3ebf94162cb0c00d0ab9b044b8c35baa4adf490abbcb5bb276fd657547bda1",
+      "normal_sha256": "e183fd01353bff342238d80e53338391f5df36292af8a0e5c9c3c8308790230c",
+      "normal_method": "tools/comfyui/cut_layers.py make_normal_map CPU port of NormalMapMaker.make(source,2,3.0,1.4)",
+      "glow_sha256": null,
+      "glow_extraction": null,
+      "counterpart_slots_share_same_visible_crop_geometry_only": true
+    },
+    "back_calf": {
+      "bone": "leg_back_lower",
+      "slot_names": [
+        "leg_back_lower",
+        "leg_back_lower_dmg"
+      ],
+      "anchor_source_xy": [
+        615.5362697594953,
+        649.8530102253756
+      ],
+      "anchor_semantics": "canonical guide bone-root target, not independently measured anatomy",
+      "pivot_source_xy": [
+        615.5362697594953,
+        649.8530102253756
+      ],
+      "pivot_local_xy": [
+        280.5362697594953,
+        108.85301022537556
+      ],
+      "mask_bbox_xyxy_half_open": [
+        337,
+        543,
+        652,
+        687
+      ],
+      "crop_bbox_xyxy_half_open": [
+        335,
+        541,
+        654,
+        689
+      ],
+      "native_crop_size": [
+        319,
+        148
+      ],
+      "owned_alpha_ge40_pixels": 21839,
+      "source_rgba_exact": true,
+      "bone_local_offset": [
+        -2.149487343672263e-06,
+        -1.2394115671554573e-06
+      ],
+      "bone_local_rotation_radians": -1.8012112900614758,
+      "texture_scale_world_per_pixel": 0.030421780843633617,
+      "linear_affine_error": 1.0408340855860843e-17,
+      "max_corner_and_anchor_reprojection_world": 4.440892098500626e-15,
+      "source_sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed",
+      "color_sha256": "b4316c1fbf994ba2ea98e9b9b1e4ac58286a69fac065986655a82d309822945b",
+      "normal_sha256": "893c4257777396018285b9d429b511637b13d96018d75549dfbedf7c06cfdea1",
+      "normal_method": "tools/comfyui/cut_layers.py make_normal_map CPU port of NormalMapMaker.make(source,2,3.0,1.4)",
+      "glow_sha256": null,
+      "glow_extraction": null,
+      "counterpart_slots_share_same_visible_crop_geometry_only": true
+    },
+    "back_boot": {
+      "bone": "foot_back",
+      "slot_names": [
+        "foot_back"
+      ],
+      "anchor_source_xy": [
+        250.70826458811604,
+        564.2712381964735
+      ],
+      "anchor_semantics": "canonical guide bone-root target, not independently measured anatomy",
+      "pivot_source_xy": [
+        250.70826458811604,
+        564.2712381964735
+      ],
+      "pivot_local_xy": [
+        214.70826458811604,
+        110.27123819647352
+      ],
+      "mask_bbox_xyxy_half_open": [
+        38,
+        456,
+        346,
+        673
+      ],
+      "crop_bbox_xyxy_half_open": [
+        36,
+        454,
+        348,
+        675
+      ],
+      "native_crop_size": [
+        312,
+        221
+      ],
+      "owned_alpha_ge40_pixels": 36133,
+      "source_rgba_exact": true,
+      "bone_local_offset": [
+        -2.4689947117906286e-06,
+        -6.415445046314971e-07
+      ],
+      "bone_local_rotation_radians": -1.8012110516428967,
+      "texture_scale_world_per_pixel": 0.030421780843633617,
+      "linear_affine_error": 6.938893903907228e-18,
+      "max_corner_and_anchor_reprojection_world": 1.6011864169946884e-15,
+      "source_sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed",
+      "color_sha256": "8e3d9fbd02d40497f345b886aaef48b1acb704d1b88b92d32d3045c3d6934276",
+      "normal_sha256": "c3935149ec645d007b65cd3e22af65bfeb06f855a18ce2b5632e9c72203f6ef3",
+      "normal_method": "tools/comfyui/cut_layers.py make_normal_map CPU port of NormalMapMaker.make(source,2,3.0,1.4)",
+      "glow_sha256": "c6eb75a70ae8be2625ed25fe6327944a3445d5bd8746cc82c8b0e1ed92bda3bd",
+      "glow_extraction": "tools/comfyui/cut_parts.py glow_layer kind=m; Rin source recipe",
+      "counterpart_slots_share_same_visible_crop_geometry_only": false
+    }
+  },
+  "pose_parts": {
+    "texture_scale": 0.030421780843633617,
+    "parts": [
+      {
+        "slot": "armor_pelvis",
+        "texture": "kneel_v3_pelvis",
+        "bone": "hip",
+        "offset": [
+          0.0,
+          3.552713678800501e-15
+        ],
+        "rotation": 0.0
+      },
+      {
+        "slot": "pelvis_dmg",
+        "texture": "kneel_v3_pelvis",
+        "bone": "hip",
+        "offset": [
+          0.0,
+          3.552713678800501e-15
+        ],
+        "rotation": 0.0
+      },
+      {
+        "slot": "armor_thigh",
+        "texture": "kneel_v3_front_thigh",
+        "bone": "leg_front_upper",
+        "offset": [
+          -7.105427357601002e-15,
+          1.7763568394002505e-15
+        ],
+        "rotation": 1.91986203193665
+      },
+      {
+        "slot": "thigh_dmg",
+        "texture": "kneel_v3_front_thigh",
+        "bone": "leg_front_upper",
+        "offset": [
+          -7.105427357601002e-15,
+          1.7763568394002505e-15
+        ],
+        "rotation": 1.91986203193665
+      },
+      {
+        "slot": "armor_calf",
+        "texture": "kneel_v3_front_calf",
+        "bone": "leg_front_lower",
+        "offset": [
+          1.2216809608389667e-07,
+          6.993681473943525e-07
+        ],
+        "rotation": 0.6975790262222299
+      },
+      {
+        "slot": "calf_dmg",
+        "texture": "kneel_v3_front_calf",
+        "bone": "leg_front_lower",
+        "offset": [
+          1.2216809608389667e-07,
+          6.993681473943525e-07
+        ],
+        "rotation": 0.6975790262222299
+      },
+      {
+        "slot": "foot_front",
+        "texture": "kneel_v3_front_boot",
+        "bone": "foot_front",
+        "offset": [
+          6.227026858596219e-07,
+          3.703269797483699e-07
+        ],
+        "rotation": -5.960464416476799e-08
+      },
+      {
+        "slot": "leg_back_upper",
+        "texture": "kneel_v3_back_thigh",
+        "bone": "leg_back_upper",
+        "offset": [
+          5.995551681792222e-07,
+          -5.2454369736665285e-08
+        ],
+        "rotation": -0.0872666165232658
+      },
+      {
+        "slot": "leg_back_upper_dmg",
+        "texture": "kneel_v3_back_thigh",
+        "bone": "leg_back_upper",
+        "offset": [
+          5.995551681792222e-07,
+          -5.2454369736665285e-08
+        ],
+        "rotation": -0.0872666165232658
+      },
+      {
+        "slot": "leg_back_lower",
+        "texture": "kneel_v3_back_calf",
+        "bone": "leg_back_lower",
+        "offset": [
+          -2.149487343672263e-06,
+          -1.2394115671554573e-06
+        ],
+        "rotation": -1.8012112900614758
+      },
+      {
+        "slot": "leg_back_lower_dmg",
+        "texture": "kneel_v3_back_calf",
+        "bone": "leg_back_lower",
+        "offset": [
+          -2.149487343672263e-06,
+          -1.2394115671554573e-06
+        ],
+        "rotation": -1.8012112900614758
+      },
+      {
+        "slot": "foot_back",
+        "texture": "kneel_v3_back_boot",
+        "bone": "foot_back",
+        "offset": [
+          -2.4689947117906286e-06,
+          -6.415445046314971e-07
+        ],
+        "rotation": -1.8012110516428967
+      }
+    ]
+  },
+  "textures": {
+    "kneel_v3_pelvis": {
+      "file": "../../../pm/Nest-Egg/attachments/NE-222-native-pose/generated/registration/textures/pelvis.png",
+      "size": [
+        212,
+        216
+      ],
+      "pivot": [
+        97.08334528902401,
+        202.24076259912408
+      ],
+      "note": "PRIVATE source-exact 22297 v3 owner; not accepted pose art",
+      "glow": "../../../pm/Nest-Egg/attachments/NE-222-native-pose/generated/registration/textures/pelvis_glow.png"
+    },
+    "kneel_v3_front_thigh": {
+      "file": "../../../pm/Nest-Egg/attachments/NE-222-native-pose/generated/registration/textures/front_thigh.png",
+      "size": [
+        361,
+        210
+      ],
+      "pivot": [
+        12.08334528902401,
+        182.24076259912408
+      ],
+      "note": "PRIVATE source-exact 22297 v3 owner; not accepted pose art"
+    },
+    "kneel_v3_front_calf": {
+      "file": "../../../pm/Nest-Egg/attachments/NE-222-native-pose/generated/registration/textures/front_calf.png",
+      "size": [
+        220,
+        331
+      ],
+      "pivot": [
+        15.547028250209223,
+        67.32953522798385
+      ],
+      "note": "PRIVATE source-exact 22297 v3 owner; not accepted pose art"
+    },
+    "kneel_v3_front_boot": {
+      "file": "../../../pm/Nest-Egg/attachments/NE-222-native-pose/generated/registration/textures/front_boot.png",
+      "size": [
+        227,
+        291
+      ],
+      "pivot": [
+        77.26110900981098,
+        96.52359727149474
+      ],
+      "note": "PRIVATE source-exact 22297 v3 owner; not accepted pose art",
+      "glow": "../../../pm/Nest-Egg/attachments/NE-222-native-pose/generated/registration/textures/front_boot_glow.png"
+    },
+    "kneel_v3_back_thigh": {
+      "file": "../../../pm/Nest-Egg/attachments/NE-222-native-pose/generated/registration/textures/back_thigh.png",
+      "size": [
+        152,
+        363
+      ],
+      "pivot": [
+        66.07353564534617,
+        34.24076259912408
+      ],
+      "note": "PRIVATE source-exact 22297 v3 owner; not accepted pose art"
+    },
+    "kneel_v3_back_calf": {
+      "file": "../../../pm/Nest-Egg/attachments/NE-222-native-pose/generated/registration/textures/back_calf.png",
+      "size": [
+        319,
+        148
+      ],
+      "pivot": [
+        280.5362697594953,
+        108.85301022537556
+      ],
+      "note": "PRIVATE source-exact 22297 v3 owner; not accepted pose art"
+    },
+    "kneel_v3_back_boot": {
+      "file": "../../../pm/Nest-Egg/attachments/NE-222-native-pose/generated/registration/textures/back_boot.png",
+      "size": [
+        312,
+        221
+      ],
+      "pivot": [
+        214.70826458811604,
+        110.27123819647352
+      ],
+      "note": "PRIVATE source-exact 22297 v3 owner; not accepted pose art",
+      "glow": "../../../pm/Nest-Egg/attachments/NE-222-native-pose/generated/registration/textures/back_boot_glow.png"
+    }
+  },
+  "source_reconstruction": {
+    "native_size": [
+      1440,
+      736
+    ],
+    "rgba_exact_for_alpha_ge40": true,
+    "unowned_pixels": 847850,
+    "image": "source-reassembly-black-gray-white-native.png",
+    "owner_contact": "seven-parts-black-gray-white-native.png"
+  },
+  "cuffs_vs_ankles": {
+    "front_boot_cuff_source_low_confidence": [
+      1181,
+      389
+    ],
+    "front_ankle_bone_root_guide_target": [
+      1227.261109009811,
+      483.52359727149474
+    ],
+    "back_boot_cuff_source_low_confidence": [
+      337,
+      594
+    ],
+    "back_ankle_bone_root_guide_target": [
+      250.70826458811604,
+      564.2712381964735
+    ],
+    "rule": "Boot slot pivot remains at canonical ankle bone root inside the boot canvas; cuff location is a separate visible landmark and never moves the bone."
+  },
+  "checks": {
+    "source_hash_pinned": true,
+    "guide_hash_pinned": true,
+    "owners_partition_all_alpha_ge40": true,
+    "owner_masks_nonoverlap": true,
+    "all_seven_source_parts_registered": true,
+    "front_boot_replaces_foot_front": true,
+    "back_boot_replaces_foot_back": true,
+    "canonical_foot_bones_unchanged": true,
+    "all_crops_native_resolution": true,
+    "normal_map_outputs_native_size": true,
+    "source_pixels_preserved": true,
+    "negative_source_hash_incomplete_duplicate_and_transform_controls_reject": true,
+    "all_source_rgba_unchanged_after_build": true
+  },
+  "limitations": [
+    "The seven-part source ownership is manually reviewed but remains a proposal; this registration does not grant art acceptance.",
+    "Guide anchors are target bone roots, not all independently measured anatomical landmarks. Hip and calf/ankle registration must be visually judged.",
+    "Armor/damage counterpart slots reuse the same visible source crop for geometry/API plumbing only; no real hidden damaged underlayer exists.",
+    "Rin source glow is extracted using existing recipe kinds (pelvis=c, boot=m); this does not approve lighting or materials.",
+    "Normals are generated by the repository's existing CPU normal-map helper from the same crop; their visual material response is not approved.",
+    "The prior standing boot affines are not included in the kneel pose set; the new pose-specific boots attach to existing foot bones without changing bone rest or pose transforms.",
+    "No underlap is added in this first registration. Any seam gap must be separately evidenced and reviewed before using source-exact seam candidates.",
+    "No Godot capture, Forward+ rendering, animation transition, full-body appearance, or gameplay acceptance is claimed by this builder."
+  ]
+}

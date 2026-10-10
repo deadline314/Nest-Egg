@@ -1,0 +1,288 @@
+{
+	"acceptance": false,
+	"canonical_bones": 20,
+	"capture_adapter": "tools/viewport_capture.gd",
+	"checks": 2018,
+	"cpu_metrics": {
+		"angles_degrees": [
+			-30.0,
+			-15.0,
+			-5.0,
+			0.0,
+			5.0,
+			15.0,
+			30.0
+		],
+		"bone_snapshot_nonhinge_unchanged": true,
+		"max_canonical_position_error": 0.0,
+		"max_deformed_vertex_displacement_rig_units": 0.0,
+		"note": "finite displacement is descriptive only; it is not a source/visual acceptance metric",
+		"parented_projection": {
+			"max_error_rig_units": 0.00000234556368879765,
+			"samples": [
+				{
+					"affine_rig_local": [
+						9.688232421875,
+						-14.497802734375
+					],
+					"facing": 1,
+					"hinge_global": [
+						11.1414661407471,
+						-16.6724739074707
+					],
+					"hinge_rig_local": [
+						9.68823146820068,
+						-14.4978036880493
+					],
+					"holder_global_transform": [
+						1.0,
+						0.0,
+						0.0,
+						1.0,
+						0.0,
+						0.0
+					],
+					"projection_error_rig_units": 0.00000134869912926661,
+					"rig_global_transform": [
+						1.14999997615814,
+						0.0,
+						0.0,
+						1.14999997615814,
+						0.0,
+						0.0
+					],
+					"shared_global": [
+						11.1414670944214,
+						-16.6724720001221
+					],
+					"shared_rig_local": [
+						9.688232421875,
+						-14.497802734375
+					],
+					"source_xy": [
+						986.54702825,
+						196.329535228
+					],
+					"zoom": 1.0
+				},
+				{
+					"affine_rig_local": [
+						9.688232421875,
+						-14.497802734375
+					],
+					"facing": -1,
+					"hinge_global": [
+						-11.1414661407471,
+						-16.6724739074707
+					],
+					"hinge_rig_local": [
+						9.68823146820068,
+						-14.4978036880493
+					],
+					"holder_global_transform": [
+						1.0,
+						0.0,
+						0.0,
+						1.0,
+						0.0,
+						0.0
+					],
+					"projection_error_rig_units": 0.00000134869912926661,
+					"rig_global_transform": [
+						-1.14999997615814,
+						0.0,
+						0.0,
+						1.14999997615814,
+						0.0,
+						0.0
+					],
+					"shared_global": [
+						-11.1414670944214,
+						-16.6724720001221
+					],
+					"shared_rig_local": [
+						9.688232421875,
+						-14.497802734375
+					],
+					"source_xy": [
+						986.54702825,
+						196.329535228
+					],
+					"zoom": 1.0
+				},
+				{
+					"affine_rig_local": [
+						9.688232421875,
+						-14.497802734375
+					],
+					"facing": 1,
+					"hinge_global": [
+						37.8809852600098,
+						-56.686408996582
+					],
+					"hinge_rig_local": [
+						9.688232421875,
+						-14.4978046417236
+					],
+					"holder_global_transform": [
+						3.40000009536743,
+						0.0,
+						0.0,
+						3.40000009536743,
+						0.0,
+						0.0
+					],
+					"projection_error_rig_units": 0.00000234556368879765,
+					"rig_global_transform": [
+						3.91000008583069,
+						0.0,
+						0.0,
+						3.91000008583069,
+						0.0,
+						0.0
+					],
+					"shared_global": [
+						37.880989074707,
+						-56.686408996582
+					],
+					"shared_rig_local": [
+						9.688232421875,
+						-14.497802734375
+					],
+					"source_xy": [
+						986.54702825,
+						196.329535228
+					],
+					"zoom": 3.4
+				},
+				{
+					"affine_rig_local": [
+						9.688232421875,
+						-14.497802734375
+					],
+					"facing": -1,
+					"hinge_global": [
+						-37.8809852600098,
+						-56.686408996582
+					],
+					"hinge_rig_local": [
+						9.688232421875,
+						-14.4978046417236
+					],
+					"holder_global_transform": [
+						3.40000009536743,
+						0.0,
+						0.0,
+						3.40000009536743,
+						0.0,
+						0.0
+					],
+					"projection_error_rig_units": 0.00000234556368879765,
+					"rig_global_transform": [
+						-3.91000008583069,
+						0.0,
+						0.0,
+						3.91000008583069,
+						0.0,
+						0.0
+					],
+					"shared_global": [
+						-37.880989074707,
+						-56.686408996582
+					],
+					"shared_rig_local": [
+						9.688232421875,
+						-14.497802734375
+					],
+					"source_xy": [
+						986.54702825,
+						196.329535228
+					],
+					"zoom": 3.4
+				}
+			],
+			"source_point_xy": [
+				986.54702825,
+				196.329535228
+			]
+		}
+	},
+	"failures": [],
+	"frame_groups": 4,
+	"grid": "res://pm/Nest-Egg/attachments/NE-222-native-pose/shared_grid.json",
+	"limitations": [
+		"CPU geometry and viewport fixture only; this is not visual, runtime, transition, armor-underlayer, source-anatomy, or acceptance evidence.",
+		"Both owner polygons use the same grid, UVs and weights; source ownership/masks remain exclusive and RGBA is copied from 22297 only.",
+		"The bind transform is sampled from the existing canonical 20-bone pose before knee rotation changes; it is not the standing zero-angle mesh bind."
+	],
+	"mode": "native_bind",
+	"rendering_method": "forward_plus",
+	"rig_records": [
+		{
+			"active_source_owners": [
+				"front_thigh",
+				"front_calf"
+			],
+			"canonical_bones": 20,
+			"char": "rin",
+			"facing": 1,
+			"hinge": "leg_front_lower",
+			"joint": "knee_front",
+			"mode": "native_bind",
+			"radius": 10,
+			"source_sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed",
+			"zoom": 1.0
+		},
+		{
+			"active_source_owners": [
+				"front_thigh",
+				"front_calf"
+			],
+			"canonical_bones": 20,
+			"char": "rin",
+			"facing": -1,
+			"hinge": "leg_front_lower",
+			"joint": "knee_front",
+			"mode": "native_bind",
+			"radius": 10,
+			"source_sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed",
+			"zoom": 1.0
+		},
+		{
+			"active_source_owners": [
+				"front_thigh",
+				"front_calf"
+			],
+			"canonical_bones": 20,
+			"char": "rin",
+			"facing": 1,
+			"hinge": "leg_front_lower",
+			"joint": "knee_front",
+			"mode": "native_bind",
+			"radius": 32,
+			"source_sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed",
+			"zoom": 3.4
+		},
+		{
+			"active_source_owners": [
+				"front_thigh",
+				"front_calf"
+			],
+			"canonical_bones": 20,
+			"char": "rin",
+			"facing": -1,
+			"hinge": "leg_front_lower",
+			"joint": "knee_front",
+			"mode": "native_bind",
+			"radius": 32,
+			"source_sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed",
+			"zoom": 3.4
+		}
+	],
+	"samples_per_group": 120,
+	"shared_bind": true,
+	"source_sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed",
+	"status": "PRIVATE_SHARED_BIND_CAPTURED_NOT_ACCEPTED",
+	"viewport_use_hdr_2d": true,
+	"viewport_used": true
+}

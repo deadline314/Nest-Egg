@@ -1,0 +1,28 @@
+{
+  "status": "HISTORICAL_FAILURES_RETAINED_NOT_ACCEPTED",
+  "items": [
+    {
+      "id": "json-index-type",
+      "files": ["failed/failed-01-prepare-json-indices.log", "failed/failed-02-prepare-json-indices.log"],
+      "result": "The first production API prepare-check rejected integer-valued JSON triangle indices because JSON.parse_string represented them as floats. The runtime parser and its JSON round-trip test were corrected afterward."
+    },
+    {
+      "id": "polygon-bone-path-origin",
+      "files": ["failed/failed-03-native-blank.log", "failed/formal-native-v1/capture-report.json"],
+      "result": "The initial native Polygon2D capture produced blank cells: bone paths had been authored relative to Polygon2D while Godot resolves Polygon2D bone-weight paths from Skeleton2D. This attempt is retained as failed evidence."
+    },
+    {
+      "id": "source-sprite-joint-baseline",
+      "files": ["baseline-joint-check/report.json", "baseline-joint-check/front-knee-baseline-checker.log"],
+      "result": "The source-sprite baseline has 64/480 failing joint samples, all at zoom 3.4 across both facings."
+    },
+    {
+      "id": "round44-underlap-attempt",
+      "files": ["failed/round44-underlap-attempt/report.json", "failed/round44-underlap-attempt/front-knee-round44-checker.log"],
+      "result": "The round-44 source overlap candidate still has 46/480 failing samples and remains rejected."
+    }
+  ],
+  "final_native_capture": "formal-native-v2/capture-report.json",
+  "final_native_joint_report": "formal-native-v2/report.json",
+  "warning": "Historical failure outputs are retained to show the debugging sequence; they are not acceptance evidence."
+}

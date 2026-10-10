@@ -1,0 +1,43 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: [CharacterRig] rin.pose_parts.kneel_22297_registration_v3_fixture invalid; slot 'armor_thigh' mesh triangle indices must be integers; rejecting this set
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _pose_warning (res://game/rig/character_rig.gd:1020)
+       [1] _build_pose_parts (res://game/rig/character_rig.gd:755)
+       [2] setup (res://game/rig/character_rig.gd:119)
+       [3] _make_rig (res://pm/Nest-Egg/attachments/NE-222-native-pose/capture_shared_bind.gd:268)
+       [4] _make_rig (res://pm/Nest-Egg/attachments/NE-222-native-pose/formal_pose_native.gd:20)
+       [5] _run (res://pm/Nest-Egg/attachments/NE-222-native-pose/capture_shared_bind.gd:79)
+FAIL: production API validates the complete authored mesh pose
+OWNER_POINT owner=0 source=(986.5471, 196.3295) affine_rig_local=(9.688233, -14.4978) shared_rig_local=(9.688232, -14.4978) sprite_rig_local=(9.688232, -14.4978) sprite_global=(11.14147, -16.67247)
+OWNER_POINT owner=1 source=(986.5471, 196.3295) affine_rig_local=(9.688233, -14.4978) shared_rig_local=(9.688232, -14.4978) sprite_rig_local=(9.688233, -14.4978) sprite_global=(11.14147, -16.67247)
+WARNING: [CharacterRig] rin.pose_parts.kneel_22297_registration_v3_fixture is unavailable; keeping pose set ''
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] set_pose_parts (res://game/rig/character_rig.gd:389)
+       [1] _set_native_bind_rest (res://pm/Nest-Egg/attachments/NE-222-native-pose/formal_pose_native.gd:26)
+       [2] _run (res://pm/Nest-Egg/attachments/NE-222-native-pose/capture_shared_bind.gd:106)
+FAIL: native Polygon2D bind records all 20 canonical Bone2D transforms as rest
+SCRIPT ERROR: Invalid access to property or key 'armor_thigh' on a base object of type 'Dictionary[StringName, Dictionary]'.
+   at: _make_shared_polygons (res://pm/Nest-Egg/attachments/NE-222-native-pose/formal_pose_native.gd:31)
+   GDScript backtrace (most recent call first):
+       [0] _make_shared_polygons (res://pm/Nest-Egg/attachments/NE-222-native-pose/formal_pose_native.gd:31)
+       [1] _run (res://pm/Nest-Egg/attachments/NE-222-native-pose/capture_shared_bind.gd:117)
+FAIL: two owner polygons use the same UV/template/weight array and distinct source masks
+FAIL: upper/lower polygons have byte-identical grid UVs, topology and bind vertices
+FAIL: native Skeleton2D paths resolve and both bone-weight fields are finite, complementary and vertex-aligned
+OWNER_POINT owner=0 source=(986.5471, 196.3295) affine_rig_local=(9.688233, -14.4978) shared_rig_local=(9.688232, -14.4978) sprite_rig_local=(9.688232, -14.4978) sprite_global=(11.14147, -16.67247)
+OWNER_POINT owner=1 source=(986.5471, 196.3295) affine_rig_local=(9.688233, -14.4978) shared_rig_local=(9.688232, -14.4978) sprite_rig_local=(9.688232, -14.4978) sprite_global=(11.14147, -16.67247)
+OWNER_POINT owner=0 source=(986.5471, 196.3295) affine_rig_local=(9.688233, -14.4978) shared_rig_local=(9.688232, -14.4978) sprite_rig_local=(9.688232, -14.4978) sprite_global=(-11.14147, -16.67247)
+OWNER_POINT owner=1 source=(986.5471, 196.3295) affine_rig_local=(9.688233, -14.4978) shared_rig_local=(9.688232, -14.4978) sprite_rig_local=(9.688232, -14.4978) sprite_global=(-11.14147, -16.67247)
+OWNER_POINT owner=0 source=(986.5471, 196.3295) affine_rig_local=(9.688233, -14.4978) shared_rig_local=(9.688232, -14.4978) sprite_rig_local=(9.688234, -14.4978) sprite_global=(37.88099, -56.68641)
+OWNER_POINT owner=1 source=(986.5471, 196.3295) affine_rig_local=(9.688233, -14.4978) shared_rig_local=(9.688232, -14.4978) sprite_rig_local=(9.688233, -14.4978) sprite_global=(37.88099, -56.68641)
+OWNER_POINT owner=0 source=(986.5471, 196.3295) affine_rig_local=(9.688233, -14.4978) shared_rig_local=(9.688232, -14.4978) sprite_rig_local=(9.688234, -14.4978) sprite_global=(-37.88099, -56.68641)
+OWNER_POINT owner=1 source=(986.5471, 196.3295) affine_rig_local=(9.688233, -14.4978) shared_rig_local=(9.688232, -14.4978) sprite_rig_local=(9.688233, -14.4978) sprite_global=(-37.88099, -56.68641)
+NE222_SHARED_BIND mode=native_bind checks=30 failures=5 viewport=false status=PRIVATE_SHARED_BIND_CPU_PREPARED_NOT_ACCEPTED
+FAIL: production API validates the complete authored mesh pose
+FAIL: native Polygon2D bind records all 20 canonical Bone2D transforms as rest
+FAIL: two owner polygons use the same UV/template/weight array and distinct source masks
+FAIL: upper/lower polygons have byte-identical grid UVs, topology and bind vertices
+FAIL: native Skeleton2D paths resolve and both bone-weight fields are finite, complementary and vertex-aligned

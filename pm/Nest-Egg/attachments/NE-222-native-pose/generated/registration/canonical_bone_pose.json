@@ -1,0 +1,242 @@
+{
+  "hip": {
+    "parent": "",
+    "local_position": [
+      0.0,
+      -10.9715766906738
+    ],
+    "local_rotation_radians": 0.0,
+    "rest_position": [
+      0.0,
+      -27.4200000762939
+    ]
+  },
+  "chest": {
+    "parent": "hip",
+    "local_position": [
+      -0.25,
+      -4.84000015258789
+    ],
+    "local_rotation_radians": 0.0399999991059303,
+    "rest_position": [
+      -0.25,
+      -4.84000015258789
+    ]
+  },
+  "neck": {
+    "parent": "chest",
+    "local_position": [
+      -0.340000003576279,
+      -9.07999992370605
+    ],
+    "local_rotation_radians": -0.0399999991059303,
+    "rest_position": [
+      -0.340000003576279,
+      -9.07999992370605
+    ]
+  },
+  "head": {
+    "parent": "neck",
+    "local_position": [
+      0.0,
+      -0.25
+    ],
+    "local_rotation_radians": 0.0,
+    "rest_position": [
+      0.0,
+      -0.25
+    ]
+  },
+  "hair_1": {
+    "parent": "head",
+    "local_position": [
+      -1.35000002384186,
+      -6.73000001907349
+    ],
+    "local_rotation_radians": 0.24495854973793,
+    "rest_position": [
+      -1.35000002384186,
+      -6.73000001907349
+    ]
+  },
+  "hair_2": {
+    "parent": "hair_1",
+    "local_position": [
+      0.0,
+      7.98000001907349
+    ],
+    "local_rotation_radians": -0.00403445865958929,
+    "rest_position": [
+      0.0,
+      7.98000001907349
+    ]
+  },
+  "arm_back_upper": {
+    "parent": "chest",
+    "local_position": [
+      -2.27999997138977,
+      -7.65000009536743
+    ],
+    "local_rotation_radians": -1.55907464027405,
+    "rest_position": [
+      -2.27999997138977,
+      -7.65000009536743
+    ]
+  },
+  "arm_back_lower": {
+    "parent": "arm_back_upper",
+    "local_position": [
+      0.0,
+      6.61999988555908
+    ],
+    "local_rotation_radians": -0.0779754742980003,
+    "rest_position": [
+      0.0,
+      6.61999988555908
+    ]
+  },
+  "hand_back": {
+    "parent": "arm_back_lower",
+    "local_position": [
+      0.0,
+      6.53999996185303
+    ],
+    "local_rotation_radians": 1.59705018997192,
+    "rest_position": [
+      0.0,
+      6.53999996185303
+    ]
+  },
+  "arm_front_upper": {
+    "parent": "chest",
+    "local_position": [
+      -1.67999994754791,
+      -7.65000009536743
+    ],
+    "local_rotation_radians": -0.32379812002182,
+    "rest_position": [
+      -1.67999994754791,
+      -7.65000009536743
+    ]
+  },
+  "arm_front_lower": {
+    "parent": "arm_front_upper",
+    "local_position": [
+      0.0,
+      6.61999988555908
+    ],
+    "local_rotation_radians": -2.42978143692017,
+    "rest_position": [
+      0.0,
+      6.61999988555908
+    ]
+  },
+  "hand_front": {
+    "parent": "arm_front_lower",
+    "local_position": [
+      0.0,
+      6.53999996185303
+    ],
+    "local_rotation_radians": 2.7135796546936,
+    "rest_position": [
+      0.0,
+      6.53999996185303
+    ]
+  },
+  "leg_back_upper": {
+    "parent": "hip",
+    "local_position": [
+      -0.699999988079071,
+      0.0
+    ],
+    "local_rotation_radians": 0.0872666165232658,
+    "rest_position": [
+      -0.699999988079071,
+      0.0
+    ]
+  },
+  "leg_back_lower": {
+    "parent": "leg_back_upper",
+    "local_position": [
+      0.0,
+      10.3100004196167
+    ],
+    "local_rotation_radians": 1.71394467353821,
+    "rest_position": [
+      0.0,
+      10.3100004196167
+    ]
+  },
+  "foot_back": {
+    "parent": "leg_back_lower",
+    "local_position": [
+      0.0,
+      11.3999996185303
+    ],
+    "local_rotation_radians": -2.38418579101563e-07,
+    "rest_position": [
+      0.0,
+      11.3999996185303
+    ]
+  },
+  "leg_front_upper": {
+    "parent": "hip",
+    "local_position": [
+      0.0,
+      0.0
+    ],
+    "local_rotation_radians": -1.91986203193665,
+    "rest_position": [
+      0.0,
+      0.0
+    ]
+  },
+  "leg_front_lower": {
+    "parent": "leg_front_upper",
+    "local_position": [
+      0.0,
+      10.3100004196167
+    ],
+    "local_rotation_radians": 1.22228300571442,
+    "rest_position": [
+      0.0,
+      10.3100004196167
+    ]
+  },
+  "foot_front": {
+    "parent": "leg_front_lower",
+    "local_position": [
+      0.0,
+      11.3999996185303
+    ],
+    "local_rotation_radians": 0.697579085826874,
+    "rest_position": [
+      0.0,
+      11.3999996185303
+    ]
+  },
+  "coat_1": {
+    "parent": "chest",
+    "local_position": [
+      1.67999994754791,
+      -3.35999989509583
+    ],
+    "local_rotation_radians": -0.00217729317955673,
+    "rest_position": [
+      1.67999994754791,
+      -3.35999989509583
+    ]
+  },
+  "coat_2": {
+    "parent": "coat_1",
+    "local_position": [
+      0.0,
+      0.629999995231628
+    ],
+    "local_rotation_radians": -0.00118746049702168,
+    "rest_position": [
+      0.0,
+      0.629999995231628
+    ]
+  }
+}

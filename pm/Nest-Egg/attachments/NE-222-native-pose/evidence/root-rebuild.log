@@ -1,0 +1,170 @@
+{
+  "status": "PRIVATE_V3_SEVEN_PART_SOURCE_OWNERSHIP_PROPOSAL_NOT_ACCEPTED",
+  "retained": 211990,
+  "owner_counts": {
+    "pelvis": 20212,
+    "front_thigh": 38915,
+    "front_calf": 25035,
+    "front_boot": 36817,
+    "back_thigh": 33039,
+    "back_calf": 21839,
+    "back_boot": 36133
+  },
+  "components": {
+    "pelvis": 1,
+    "front_thigh": 1,
+    "front_calf": 1,
+    "front_boot": 1,
+    "back_thigh": 1,
+    "back_calf": 1,
+    "back_boot": 1
+  },
+  "holes": {
+    "pelvis": 0,
+    "front_thigh": 0,
+    "front_calf": 0,
+    "front_boot": 0,
+    "back_thigh": 0,
+    "back_calf": 0,
+    "back_boot": 0
+  },
+  "roundtrip": true,
+  "source_hash_unchanged": true,
+  "rerun": "TWO_RUNS_BYTE_IDENTICAL"
+}
+{
+  "status": "PRIVATE_V3_SOURCE_REGISTRATION_FIXTURE_NOT_VISUAL_OR_RUNTIME_ACCEPTANCE",
+  "parts": 7,
+  "slots": 12,
+  "source_pixels": 211990,
+  "texture_scale": 0.030421780843633617,
+  "max_reprojection_error_world": 6.720289191984444e-15,
+  "source_sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed"
+}
+{
+  "status": "PRIVATE_SHARED_BIND_GRID_SOURCE_FIXTURE_NOT_ACCEPTANCE",
+  "source_sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed",
+  "bbox": [
+    656,
+    129,
+    1191,
+    460
+  ],
+  "grid": [
+    5,
+    5
+  ],
+  "vertices": 25,
+  "triangles": 32,
+  "retained_pixels": {
+    "front_thigh": 38915,
+    "front_calf": 25035
+  },
+  "texture_sha256": {
+    "front_thigh": "df7b925049f9f00e4db0f6fc4f29acf10085807c6c1120f089fc58744010ab3e",
+    "front_calf": "8a18e6f78a0c27939b49eafd157a82112c17eaaeebe2ee3c87f824040c50013e"
+  },
+  "canonical_error": 0.0,
+  "one_px_negative_error": 0.03042178084363556
+}
+{
+  "status": "prepared_not_rendered",
+  "path": "pm/Nest-Egg/attachments/NE-222-native-pose/formal_pose_data.json",
+  "owners": [
+    "probe_front_thigh",
+    "probe_front_calf"
+  ],
+  "size": [
+    535,
+    331
+  ],
+  "acceptance": false
+}
+{
+  "status": "PRIVATE_V3_SEVEN_PART_SOURCE_OWNERSHIP_PROPOSAL_NOT_ACCEPTED",
+  "retained": 211990,
+  "owner_counts": {
+    "pelvis": 20212,
+    "front_thigh": 38915,
+    "front_calf": 25035,
+    "front_boot": 36817,
+    "back_thigh": 33039,
+    "back_calf": 21839,
+    "back_boot": 36133
+  },
+  "components": {
+    "pelvis": 1,
+    "front_thigh": 1,
+    "front_calf": 1,
+    "front_boot": 1,
+    "back_thigh": 1,
+    "back_calf": 1,
+    "back_boot": 1
+  },
+  "holes": {
+    "pelvis": 0,
+    "front_thigh": 0,
+    "front_calf": 0,
+    "front_boot": 0,
+    "back_thigh": 0,
+    "back_calf": 0,
+    "back_boot": 0
+  },
+  "roundtrip": true,
+  "source_hash_unchanged": true,
+  "rerun": "TWO_RUNS_BYTE_IDENTICAL"
+}
+{
+  "status": "PRIVATE_V3_SOURCE_REGISTRATION_FIXTURE_NOT_VISUAL_OR_RUNTIME_ACCEPTANCE",
+  "parts": 7,
+  "slots": 12,
+  "source_pixels": 211990,
+  "texture_scale": 0.030421780843633617,
+  "max_reprojection_error_world": 6.720289191984444e-15,
+  "source_sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed"
+}
+{
+  "status": "PRIVATE_SHARED_BIND_GRID_SOURCE_FIXTURE_NOT_ACCEPTANCE",
+  "source_sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed",
+  "bbox": [
+    656,
+    129,
+    1191,
+    460
+  ],
+  "grid": [
+    5,
+    5
+  ],
+  "vertices": 25,
+  "triangles": 32,
+  "retained_pixels": {
+    "front_thigh": 38915,
+    "front_calf": 25035
+  },
+  "texture_sha256": {
+    "front_thigh": "df7b925049f9f00e4db0f6fc4f29acf10085807c6c1120f089fc58744010ab3e",
+    "front_calf": "8a18e6f78a0c27939b49eafd157a82112c17eaaeebe2ee3c87f824040c50013e"
+  },
+  "canonical_error": 0.0,
+  "one_px_negative_error": 0.03042178084363556
+}
+{
+  "status": "prepared_not_rendered",
+  "path": "pm/Nest-Egg/attachments/NE-222-native-pose/formal_pose_data.json",
+  "owners": [
+    "probe_front_thigh",
+    "probe_front_calf"
+  ],
+  "size": [
+    535,
+    331
+  ],
+  "acceptance": false
+}
+{
+  "status": "CPU_REBUILD_DETERMINISTIC_NOT_RENDER_ACCEPTANCE",
+  "generated_file_count": 115,
+  "two_full_runs_byte_identical": true,
+  "acceptance": false
+}

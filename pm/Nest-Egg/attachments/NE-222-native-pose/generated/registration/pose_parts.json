@@ -1,0 +1,127 @@
+{
+  "kneel_22297_registration_v3_fixture": {
+    "texture_scale": 0.030421780843633617,
+    "parts": [
+      {
+        "slot": "armor_pelvis",
+        "texture": "kneel_v3_pelvis",
+        "bone": "hip",
+        "offset": [
+          0.0,
+          3.552713678800501e-15
+        ],
+        "rotation": 0.0
+      },
+      {
+        "slot": "pelvis_dmg",
+        "texture": "kneel_v3_pelvis",
+        "bone": "hip",
+        "offset": [
+          0.0,
+          3.552713678800501e-15
+        ],
+        "rotation": 0.0
+      },
+      {
+        "slot": "armor_thigh",
+        "texture": "kneel_v3_front_thigh",
+        "bone": "leg_front_upper",
+        "offset": [
+          -7.105427357601002e-15,
+          1.7763568394002505e-15
+        ],
+        "rotation": 1.91986203193665
+      },
+      {
+        "slot": "thigh_dmg",
+        "texture": "kneel_v3_front_thigh",
+        "bone": "leg_front_upper",
+        "offset": [
+          -7.105427357601002e-15,
+          1.7763568394002505e-15
+        ],
+        "rotation": 1.91986203193665
+      },
+      {
+        "slot": "armor_calf",
+        "texture": "kneel_v3_front_calf",
+        "bone": "leg_front_lower",
+        "offset": [
+          1.2216809608389667e-07,
+          6.993681473943525e-07
+        ],
+        "rotation": 0.6975790262222299
+      },
+      {
+        "slot": "calf_dmg",
+        "texture": "kneel_v3_front_calf",
+        "bone": "leg_front_lower",
+        "offset": [
+          1.2216809608389667e-07,
+          6.993681473943525e-07
+        ],
+        "rotation": 0.6975790262222299
+      },
+      {
+        "slot": "foot_front",
+        "texture": "kneel_v3_front_boot",
+        "bone": "foot_front",
+        "offset": [
+          6.227026858596219e-07,
+          3.703269797483699e-07
+        ],
+        "rotation": -5.960464416476799e-08
+      },
+      {
+        "slot": "leg_back_upper",
+        "texture": "kneel_v3_back_thigh",
+        "bone": "leg_back_upper",
+        "offset": [
+          5.995551681792222e-07,
+          -5.2454369736665285e-08
+        ],
+        "rotation": -0.0872666165232658
+      },
+      {
+        "slot": "leg_back_upper_dmg",
+        "texture": "kneel_v3_back_thigh",
+        "bone": "leg_back_upper",
+        "offset": [
+          5.995551681792222e-07,
+          -5.2454369736665285e-08
+        ],
+        "rotation": -0.0872666165232658
+      },
+      {
+        "slot": "leg_back_lower",
+        "texture": "kneel_v3_back_calf",
+        "bone": "leg_back_lower",
+        "offset": [
+          -2.149487343672263e-06,
+          -1.2394115671554573e-06
+        ],
+        "rotation": -1.8012112900614758
+      },
+      {
+        "slot": "leg_back_lower_dmg",
+        "texture": "kneel_v3_back_calf",
+        "bone": "leg_back_lower",
+        "offset": [
+          -2.149487343672263e-06,
+          -1.2394115671554573e-06
+        ],
+        "rotation": -1.8012112900614758
+      },
+      {
+        "slot": "foot_back",
+        "texture": "kneel_v3_back_boot",
+        "bone": "foot_back",
+        "offset": [
+          -2.4689947117906286e-06,
+          -6.415445046314971e-07
+        ],
+        "rotation": -1.8012110516428967
+      }
+    ]
+  }
+}

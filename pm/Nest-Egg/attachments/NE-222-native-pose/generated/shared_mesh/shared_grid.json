@@ -1,0 +1,330 @@
+{
+  "status": "PRIVATE_SHARED_BIND_GRID_SOURCE_FIXTURE_NOT_ACCEPTANCE",
+  "source": {
+    "path": "pm/Nest-Egg/attachments/NE-222-native-pose/source/rin_kneel_color_alpha_22297_0.png",
+    "sha256": "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed",
+    "size": [
+      1440,
+      736
+    ],
+    "mode": "RGBA",
+    "alpha_floor": 40
+  },
+  "owner_masks": {
+    "front_thigh": {
+      "path": "pm/Nest-Egg/attachments/NE-222-native-pose/generated/ownership/masks/front_thigh.png",
+      "sha256": "da5d2fcd1809dc0c0db1bc40043f0665f414d3946cbbc954b34d5a73d7a2d407"
+    },
+    "front_calf": {
+      "path": "pm/Nest-Egg/attachments/NE-222-native-pose/generated/ownership/masks/front_calf.png",
+      "sha256": "d9771c5d6e61cbad8386d16f8a70d0de947e923838f4fb24a21626b3d2b41293"
+    }
+  },
+  "common_bbox_xyxy_half_open": [
+    656,
+    129,
+    1191,
+    460
+  ],
+  "common_texture_size": [
+    535,
+    331
+  ],
+  "textures": {
+    "front_thigh": {
+      "file": "front_thigh_common_bbox.png",
+      "sha256": "df7b925049f9f00e4db0f6fc4f29acf10085807c6c1120f089fc58744010ab3e"
+    },
+    "front_calf": {
+      "file": "front_calf_common_bbox.png",
+      "sha256": "8a18e6f78a0c27939b49eafd157a82112c17eaaeebe2ee3c87f824040c50013e"
+    }
+  },
+  "retained_pixels": {
+    "front_thigh": 38915,
+    "front_calf": 25035
+  },
+  "joint_source_xy": [
+    986.5470282502092,
+    196.32953522798385
+  ],
+  "thigh_axis_unit": [
+    0.93969269,
+    -0.34201995
+  ],
+  "calf_axis_unit": [
+    0.64236415,
+    0.76639957
+  ],
+  "bisector_unit": [
+    0.9658542433284012,
+    0.25908604872613555
+  ],
+  "half_band_source_px": 44.0,
+  "grid": {
+    "columns": 5,
+    "rows": 5,
+    "vertices": 25,
+    "triangles": [
+      0,
+      1,
+      6,
+      0,
+      6,
+      5,
+      1,
+      2,
+      7,
+      1,
+      7,
+      6,
+      2,
+      3,
+      8,
+      2,
+      8,
+      7,
+      3,
+      4,
+      9,
+      3,
+      9,
+      8,
+      5,
+      6,
+      11,
+      5,
+      11,
+      10,
+      6,
+      7,
+      12,
+      6,
+      12,
+      11,
+      7,
+      8,
+      13,
+      7,
+      13,
+      12,
+      8,
+      9,
+      14,
+      8,
+      14,
+      13,
+      10,
+      11,
+      16,
+      10,
+      16,
+      15,
+      11,
+      12,
+      17,
+      11,
+      17,
+      16,
+      12,
+      13,
+      18,
+      12,
+      18,
+      17,
+      13,
+      14,
+      19,
+      13,
+      19,
+      18,
+      15,
+      16,
+      21,
+      15,
+      21,
+      20,
+      16,
+      17,
+      22,
+      16,
+      22,
+      21,
+      17,
+      18,
+      23,
+      17,
+      23,
+      22,
+      18,
+      19,
+      24,
+      18,
+      24,
+      23
+    ],
+    "x_source_px": [
+      656.0,
+      944.049441544,
+      986.54702825,
+      1029.044614957,
+      1191.0
+    ],
+    "y_source_px": [
+      129.0,
+      184.929749084,
+      196.329535228,
+      207.729321372,
+      460.0
+    ],
+    "points_source_xy": [
+      [
+        656.0,
+        129.0
+      ],
+      [
+        944.049441544,
+        129.0
+      ],
+      [
+        986.54702825,
+        129.0
+      ],
+      [
+        1029.044614957,
+        129.0
+      ],
+      [
+        1191.0,
+        129.0
+      ],
+      [
+        656.0,
+        184.929749084
+      ],
+      [
+        944.049441544,
+        184.929749084
+      ],
+      [
+        986.54702825,
+        184.929749084
+      ],
+      [
+        1029.044614957,
+        184.929749084
+      ],
+      [
+        1191.0,
+        184.929749084
+      ],
+      [
+        656.0,
+        196.329535228
+      ],
+      [
+        944.049441544,
+        196.329535228
+      ],
+      [
+        986.54702825,
+        196.329535228
+      ],
+      [
+        1029.044614957,
+        196.329535228
+      ],
+      [
+        1191.0,
+        196.329535228
+      ],
+      [
+        656.0,
+        207.729321372
+      ],
+      [
+        944.049441544,
+        207.729321372
+      ],
+      [
+        986.54702825,
+        207.729321372
+      ],
+      [
+        1029.044614957,
+        207.729321372
+      ],
+      [
+        1191.0,
+        207.729321372
+      ],
+      [
+        656.0,
+        460.0
+      ],
+      [
+        944.049441544,
+        460.0
+      ],
+      [
+        986.54702825,
+        460.0
+      ],
+      [
+        1029.044614957,
+        460.0
+      ],
+      [
+        1191.0,
+        460.0
+      ]
+    ],
+    "lower_weights": [
+      0.0,
+      0.0,
+      0.3017710994887781,
+      0.7682083091725574,
+      1.0,
+      0.0,
+      2.539705819386158e-12,
+      0.4664372096753436,
+      0.9328744193591231,
+      1.0,
+      0.0,
+      0.03356279032494774,
+      0.49999999999775163,
+      0.966437209681531,
+      1.0,
+      0.0,
+      0.06712558064735577,
+      0.5335627903201596,
+      1.0,
+      1.0,
+      0.0,
+      0.8098507321835977,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "source_to_rig_local": [
+    0.030421780843633617,
+    0.0,
+    0.0,
+    0.030421780843633617,
+    -20.324285115664292,
+    -20.470496740913383
+  ],
+  "guard_results": {
+    "max_canonical_roundtrip_error_rig_units": 0.0,
+    "deliberate_1px_uv_error_rig_units": 0.03042178084363556,
+    "1px_negative_rejected": true
+  },
+  "source_rgba_exact": true,
+  "same_grid_and_weight_field_for_both_parts": true,
+  "acceptance": false,
+  "limitations": [
+    "This source-space test does not validate mesh bending, edge alpha, visual quality, or runtime acceptance.",
+    "The two source owners remain exclusive; identical UV/template geometry is shared, not source pixels or material ownership."
+  ]
+}

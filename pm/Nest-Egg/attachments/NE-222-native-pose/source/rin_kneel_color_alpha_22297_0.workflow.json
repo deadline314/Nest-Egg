@@ -1,0 +1,139 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "qwen-image-2.1-UC-int8_convrot.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "1c": {
+    "class_type": "QwenImage21Cache",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "device": "cpu",
+      "dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+      "type": "qwen_image",
+      "device": "default"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+    }
+  },
+  "4": {
+    "class_type": "TextEncodeQwenImage21",
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "prompt": "Edit IMAGE 1 only: keep the exact side-view kneeling lower-body silhouette, all waist, hip, knee and ankle positions, the two separate legs and the two boots exactly where they are. Replace only the lavender fabric color with IMAGE 2 actual Rin tight-leg material: dark charcoal-black stockings with subdued purple-gray hard cel shadows, crisp thin dark anime contour. Match IMAGE 3 Rin cyberpunk palette. Keep the compact pelvis contour and the single natural hip crease, no round buttock patch or inflated shadows. Preserve the two original black high-top boots with magenta neon trim and all existing boot details. Remove the white background completely into native RGBA alpha-zero transparency outside the silhouette, including between the two legs and below the boots. Do not draw any floor line or cast shadow. The complete waist and both boots must remain uncropped. No torso, head, arms, hands, holster, text, debug lines, extra limbs, extra boots, glossy airbrushing or photorealistic shading. Only change the cloth palette and background alpha; do not move or reshape any anatomy, boot or fold. Full canvas 1440 by736 with exact same framing.",
+      "negative_prompt": "",
+      "vae": [
+        "3",
+        0
+      ],
+      "resolution": 1024,
+      "images.image_1": [
+        "L0",
+        0
+      ],
+      "images.image_2": [
+        "L1",
+        0
+      ],
+      "images.image_3": [
+        "L2",
+        0
+      ]
+    }
+  },
+  "6": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": [
+        "1c",
+        0
+      ],
+      "positive": [
+        "4",
+        0
+      ],
+      "negative": [
+        "4",
+        1
+      ],
+      "latent_image": [
+        "4",
+        2
+      ],
+      "seed": 22297,
+      "steps": 30,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0
+    }
+  },
+  "7": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "6",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "8": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "7",
+        0
+      ],
+      "filename_prefix": "rin_kneel_color_alpha_22297"
+    }
+  },
+  "L0": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "rin_kneel_canonical_22296_0.png"
+    },
+    "is_changed": [
+      "325cb975ad2429afdcbb6175d9aac64d872346b3fada654bd90ffc77720b6569"
+    ]
+  },
+  "L1": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "leg_upper.png"
+    },
+    "is_changed": [
+      "c21fea7b2ea1cd4687b92162ca37ca7914a9d6274090bc3af60ffbcb1dc07f12"
+    ]
+  },
+  "L2": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "NE-17-step6-design-a-s33.png"
+    },
+    "is_changed": [
+      "440199e0001b458c95ead3e0a99b59cdba8e350fff846a662f7a26d3e01ea430"
+    ]
+  }
+}

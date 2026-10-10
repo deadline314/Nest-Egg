@@ -1,0 +1,102 @@
+[
+	{
+		"delta_degrees": 2.14227559535925,
+		"facing": 1,
+		"frame": 28,
+		"geometry": {
+			"file": "res://pm/Nest-Egg/attachments/NE-222-native-pose/generated/registration/textures/front_thigh.png",
+			"kind": "sprite",
+			"tex_size": [
+				361,
+				210
+			],
+			"xform": [
+				0.11894915997982,
+				0.0,
+				0.0,
+				0.11894915997982,
+				24.6817111968994,
+				56.1101570129395
+			]
+		},
+		"joint": "knee_front",
+		"owner": "front_thigh",
+		"slot": "armor_thigh",
+		"zoom": 3.4
+	},
+	{
+		"delta_degrees": 2.14227559535925,
+		"facing": 1,
+		"frame": 28,
+		"geometry": {
+			"file": "res://pm/Nest-Egg/attachments/NE-222-native-pose/generated/registration/textures/front_calf.png",
+			"kind": "sprite",
+			"tex_size": [
+				220,
+				331
+			],
+			"xform": [
+				0.11886602640152,
+				0.00444644689559937,
+				-0.00444644689559937,
+				0.11886602640152,
+				62.4513626098633,
+				55.927677154541
+			]
+		},
+		"joint": "knee_front",
+		"owner": "front_calf",
+		"slot": "armor_calf",
+		"zoom": 3.4
+	},
+	{
+		"delta_degrees": 2.14227559535925,
+		"facing": -1,
+		"frame": 28,
+		"geometry": {
+			"file": "res://pm/Nest-Egg/attachments/NE-222-native-pose/generated/registration/textures/front_thigh.png",
+			"kind": "sprite",
+			"tex_size": [
+				361,
+				210
+			],
+			"xform": [
+				-0.11894915997982,
+				0.0,
+				0.0,
+				0.11894915997982,
+				103.318283081055,
+				56.1101570129395
+			]
+		},
+		"joint": "knee_front",
+		"owner": "front_thigh",
+		"slot": "armor_thigh",
+		"zoom": 3.4
+	},
+	{
+		"delta_degrees": 2.14227559535925,
+		"facing": -1,
+		"frame": 28,
+		"geometry": {
+			"file": "res://pm/Nest-Egg/attachments/NE-222-native-pose/generated/registration/textures/front_calf.png",
+			"kind": "sprite",
+			"tex_size": [
+				220,
+				331
+			],
+			"xform": [
+				-0.11886602640152,
+				0.00444644689559937,
+				0.00444644689559937,
+				0.11886602640152,
+				65.5486297607422,
+				55.927677154541
+			]
+		},
+		"joint": "knee_front",
+		"owner": "front_calf",
+		"slot": "armor_calf",
+		"zoom": 3.4
+	}
+]

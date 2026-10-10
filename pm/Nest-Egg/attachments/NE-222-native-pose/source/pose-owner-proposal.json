@@ -1,0 +1,630 @@
+{
+  "status": "PRIVATE_MANUAL_OWNERSHIP_PROPOSAL_NOT_ACCEPTED",
+  "candidate": "22297 color/alpha output only; generated source remains unaccepted",
+  "source_path": "art_src/characters/rin_pose_variants/05_canonical_kneel/_gen/rin_kneel_color_alpha_22297_0.png",
+  "source_sha256_before_after": [
+    "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed",
+    "74044963a9ff8d2bc47b5bceed04d8763b856b252069c4817c7f0685b1bd33ed"
+  ],
+  "source_sha_matches_generation_metadata": true,
+  "source_dimensions": [
+    1440,
+    736
+  ],
+  "source_alpha_floor": 40,
+  "alpha_floor_metrics": {
+    "retained_alpha_ge_40_pixels": 211990,
+    "alpha_lt_40_nonzero_pixels_removed_from_parts": 484704,
+    "alpha_lt_40_nonzero_magenta_like_rgb_pixels_removed": 480405,
+    "alpha_lt_40_nonzero_rgb_mean": [
+      164.402,
+      57.273,
+      207.956
+    ],
+    "alpha_lt_40_nonzero_rgb_median": [
+      165,
+      56,
+      209
+    ],
+    "white_edge_alpha_1_to_127_pixels": 2,
+    "white_edge_gate": "counted for review; no white RGB/halo pixels were repainted"
+  },
+  "canonical_json": "pm/Nest-Egg/images/NE-222-leg-ik/kneel_source_23p78x_facing_right.json",
+  "canonical_json_sha256": "ace2230bc83ab1d57424c0e32136c7d5b42b4148da743e1c973a9b7de7e588a3",
+  "guide_coordinate_contract": {
+    "bone_positions": "canonical animator_skeleton_position in skeleton-world units; exact capture positions from global_position_capture",
+    "capture_scale_px_per_skeleton_unit": 27.3470001220703,
+    "capture_crop_xyxy_px": [
+      0.0,
+      390.0,
+      1198.0,
+      1002.3111111111111
+    ],
+    "guide_canvas_px": [
+      1440,
+      736
+    ],
+    "capture_to_guide_scale_xy": [
+      1.2020033388981637,
+      1.2020033388981635
+    ],
+    "rest_lengths_world": {
+      "front_femur": 10.3100004196167,
+      "front_tibia": 11.3999996185303,
+      "back_femur": 10.3100004196167,
+      "back_tibia": 11.3999996185303
+    },
+    "measured_capture_lengths_world": {
+      "front_femur": 10.310000773275087,
+      "front_tibia": 11.399999602982483,
+      "back_femur": 10.309998521383648,
+      "back_tibia": 11.400000216397956
+    },
+    "measured_animator_skeleton_lengths_world": {
+      "front_femur": 10.30999995599954,
+      "front_tibia": 11.399999702930044,
+      "back_femur": 10.310000011478486,
+      "back_tibia": 11.399999326639255
+    },
+    "all_rest_length_checks_within_world_tolerance": 0.015
+  },
+  "exact_guide_anchors_source_xy": {
+    "hip": [
+      668.083345289024,
+      312.2407625991241
+    ],
+    "leg_front_upper": [
+      668.083345289024,
+      312.2407625991241
+    ],
+    "leg_front_lower": [
+      986.5470282502092,
+      196.32953522798385
+    ],
+    "foot_front": [
+      1227.261109009811,
+      483.52359727149474
+    ],
+    "leg_back_upper": [
+      645.0735356453462,
+      312.2407625991241
+    ],
+    "leg_back_lower": [
+      615.5362697594953,
+      649.8530102253756
+    ],
+    "foot_back": [
+      250.70826458811604,
+      564.2712381964735
+    ]
+  },
+  "manual_owner_polygons_native_source_xy": {
+    "back_boot": [
+      [
+        28,
+        443
+      ],
+      [
+        322,
+        443
+      ],
+      [
+        336,
+        526
+      ],
+      [
+        345,
+        545
+      ],
+      [
+        340,
+        582
+      ],
+      [
+        322,
+        621
+      ],
+      [
+        324,
+        696
+      ],
+      [
+        20,
+        696
+      ]
+    ],
+    "front_boot": [
+      [
+        1179,
+        389
+      ],
+      [
+        1268,
+        389
+      ],
+      [
+        1280,
+        423
+      ],
+      [
+        1300,
+        475
+      ],
+      [
+        1357,
+        556
+      ],
+      [
+        1378,
+        589
+      ],
+      [
+        1380,
+        690
+      ],
+      [
+        1138,
+        690
+      ],
+      [
+        1145,
+        548
+      ],
+      [
+        1168,
+        474
+      ]
+    ],
+    "front_calf": [
+      [
+        973,
+        154
+      ],
+      [
+        1025,
+        137
+      ],
+      [
+        1080,
+        244
+      ],
+      [
+        1177,
+        386
+      ],
+      [
+        1200,
+        420
+      ],
+      [
+        1184,
+        474
+      ],
+      [
+        1148,
+        439
+      ],
+      [
+        1075,
+        342
+      ],
+      [
+        1018,
+        244
+      ],
+      [
+        986,
+        215
+      ]
+    ],
+    "front_thigh": [
+      [
+        658,
+        294
+      ],
+      [
+        668,
+        238
+      ],
+      [
+        694,
+        190
+      ],
+      [
+        739,
+        162
+      ],
+      [
+        815,
+        139
+      ],
+      [
+        977,
+        125
+      ],
+      [
+        1024,
+        143
+      ],
+      [
+        1001,
+        205
+      ],
+      [
+        932,
+        248
+      ],
+      [
+        851,
+        282
+      ],
+      [
+        760,
+        319
+      ],
+      [
+        700,
+        337
+      ]
+    ],
+    "back_calf": [
+      [
+        320,
+        539
+      ],
+      [
+        350,
+        536
+      ],
+      [
+        455,
+        565
+      ],
+      [
+        567,
+        591
+      ],
+      [
+        617,
+        617
+      ],
+      [
+        651,
+        639
+      ],
+      [
+        654,
+        676
+      ],
+      [
+        618,
+        693
+      ],
+      [
+        562,
+        674
+      ],
+      [
+        468,
+        640
+      ],
+      [
+        342,
+        605
+      ]
+    ],
+    "back_thigh": [
+      [
+        582,
+        289
+      ],
+      [
+        647,
+        296
+      ],
+      [
+        716,
+        303
+      ],
+      [
+        738,
+        326
+      ],
+      [
+        716,
+        396
+      ],
+      [
+        680,
+        527
+      ],
+      [
+        655,
+        633
+      ],
+      [
+        648,
+        668
+      ],
+      [
+        617,
+        677
+      ],
+      [
+        582,
+        647
+      ],
+      [
+        576,
+        485
+      ]
+    ],
+    "pelvis": [
+      [
+        574,
+        110
+      ],
+      [
+        783,
+        132
+      ],
+      [
+        785,
+        168
+      ],
+      [
+        751,
+        186
+      ],
+      [
+        718,
+        208
+      ],
+      [
+        690,
+        246
+      ],
+      [
+        675,
+        282
+      ],
+      [
+        662,
+        309
+      ],
+      [
+        640,
+        323
+      ],
+      [
+        612,
+        303
+      ],
+      [
+        580,
+        278
+      ],
+      [
+        571,
+        240
+      ],
+      [
+        574,
+        185
+      ]
+    ]
+  },
+  "manual_owner_priority": [
+    "back_boot",
+    "front_boot",
+    "front_calf",
+    "back_calf",
+    "front_thigh",
+    "back_thigh",
+    "pelvis"
+  ],
+  "part_counts_and_bounds": {
+    "back_boot": {
+      "pixels_alpha_ge_40": 35915,
+      "bbox_xyxy_half_open": [
+        38,
+        456,
+        346,
+        673
+      ],
+      "source_rgb_exact_at_owned_pixels": true,
+      "source_alpha_exact_at_owned_pixels": true,
+      "is_accepted_part": false
+    },
+    "front_boot": {
+      "pixels_alpha_ge_40": 36817,
+      "bbox_xyxy_half_open": [
+        1152,
+        389,
+        1375,
+        676
+      ],
+      "source_rgb_exact_at_owned_pixels": true,
+      "source_alpha_exact_at_owned_pixels": true,
+      "is_accepted_part": false
+    },
+    "front_calf": {
+      "pixels_alpha_ge_40": 18903,
+      "bbox_xyxy_half_open": [
+        973,
+        137,
+        1179,
+        458
+      ],
+      "source_rgb_exact_at_owned_pixels": true,
+      "source_alpha_exact_at_owned_pixels": true,
+      "is_accepted_part": false
+    },
+    "back_calf": {
+      "pixels_alpha_ge_40": 21189,
+      "bbox_xyxy_half_open": [
+        337,
+        543,
+        652,
+        687
+      ],
+      "source_rgb_exact_at_owned_pixels": true,
+      "source_alpha_exact_at_owned_pixels": true,
+      "is_accepted_part": false
+    },
+    "front_thigh": {
+      "pixels_alpha_ge_40": 34420,
+      "bbox_xyxy_half_open": [
+        662,
+        132,
+        1015,
+        312
+      ],
+      "source_rgb_exact_at_owned_pixels": true,
+      "source_alpha_exact_at_owned_pixels": true,
+      "is_accepted_part": false
+    },
+    "back_thigh": {
+      "pixels_alpha_ge_40": 30423,
+      "bbox_xyxy_half_open": [
+        583,
+        290,
+        727,
+        639
+      ],
+      "source_rgb_exact_at_owned_pixels": true,
+      "source_alpha_exact_at_owned_pixels": true,
+      "is_accepted_part": false
+    },
+    "pelvis": {
+      "pixels_alpha_ge_40": 16995,
+      "bbox_xyxy_half_open": [
+        573,
+        117,
+        781,
+        286
+      ],
+      "source_rgb_exact_at_owned_pixels": true,
+      "source_alpha_exact_at_owned_pixels": true,
+      "is_accepted_part": false
+    },
+    "unknown_hip": {
+      "pixels_alpha_ge_40": 9585,
+      "bbox_xyxy_half_open": [
+        589,
+        274,
+        754,
+        339
+      ],
+      "source_rgb_exact_at_owned_pixels": true,
+      "source_alpha_exact_at_owned_pixels": true,
+      "is_accepted_part": false
+    },
+    "unknown_remainder": {
+      "pixels_alpha_ge_40": 7743,
+      "bbox_xyxy_half_open": [
+        326,
+        112,
+        1189,
+        673
+      ],
+      "source_rgb_exact_at_owned_pixels": true,
+      "source_alpha_exact_at_owned_pixels": true,
+      "is_accepted_part": false
+    }
+  },
+  "unknown_hip_pixels": 9585,
+  "unknown_remainder_pixels": 7743,
+  "geometry_polygon_intersection_pixel_count_before_priority": 15434,
+  "ownership_exactness": {
+    "retained_source_pixels_missing_owner": 0,
+    "retained_source_pixels_with_double_visible_owners": 0,
+    "exact_reassembly_after_alpha_floor": true,
+    "negative_control_1_pixel_omission_detected": true,
+    "negative_control_duplicate_visible_owner_detected": true,
+    "interpretation": "Partition/roundtrip checks validate only these proposed source pixels and polygon priorities, not anatomy, cut appropriateness, or hidden overlap."
+  },
+  "joint_overlap_targets": {
+    "front_knee": {
+      "guide_xy": [
+        986.5470282502092,
+        196.32953522798385
+      ],
+      "visible_width_approx_px": 52,
+      "overlap_25pct_px": 13,
+      "width_method": "manual native-source contour estimate; not independently measured",
+      "hidden_underlap_source_available": false
+    },
+    "back_knee": {
+      "guide_xy": [
+        615.5362697594953,
+        649.8530102253756
+      ],
+      "visible_width_approx_px": 56,
+      "overlap_25pct_px": 14,
+      "width_method": "manual native-source contour estimate; not independently measured",
+      "hidden_underlap_source_available": false
+    },
+    "front_ankle_boot_cuff": {
+      "guide_xy": [
+        1227.261109009811,
+        483.52359727149474
+      ],
+      "visible_width_approx_px": 58,
+      "overlap_25pct_px": 15,
+      "width_method": "manual native-source cuff contour estimate; not independently measured",
+      "hidden_underlap_source_available": false
+    },
+    "back_ankle_boot_cuff": {
+      "guide_xy": [
+        250.70826458811604,
+        564.2712381964735
+      ],
+      "visible_width_approx_px": 48,
+      "overlap_25pct_px": 12,
+      "width_method": "manual native-source cuff contour estimate; not independently measured",
+      "hidden_underlap_source_available": false
+    },
+    "hip": {
+      "guide_xy": [
+        668.083345289024,
+        312.2407625991241
+      ],
+      "visible_width_approx_px": null,
+      "overlap_25pct_px": null,
+      "hidden_underlap_source_available": false
+    }
+  },
+  "existing_foot_reference": {
+    "path": "art/characters/rin/parts/foot.png",
+    "sha256_before_after": [
+      "1bfff06cfe3c11bcaf2182c4bb6db3513697ff58cde439c487594624ea36cae9",
+      "1bfff06cfe3c11bcaf2182c4bb6db3513697ff58cde439c487594624ea36cae9"
+    ],
+    "preview": "22297-private-existing-boots-affine-preview.png",
+    "limitations": "Generated boot polygons were masked in the private preview and the exact recorded foot affine was composited. Gaps from mismatched contours remain transparent; no legs, color, or hidden pixels are fabricated."
+  },
+  "source_findings": {
+    "pelvis": "Single visible compact hip volume is present; boundary against the front thigh is visually ambiguous. Hip overlap band is therefore separately labeled unknown; do not duplicate the pelvis into either thigh.",
+    "front_thigh": "Visible raised thigh can be region-seeded, but SAM result was reported as holey. Polygon is a manual candidate only and requires root review.",
+    "back_thigh": "Visible descending thigh follows the canonical hip-to-back-knee chain. SAM result was reported empty. Polygon records visible pixels only; hidden overlap beneath pelvis is absent.",
+    "front_calf": "Visible diagonal shin follows front knee-to-ankle chain. SAM result was reported empty; polygon remains unverified and cannot imply acceptance.",
+    "back_calf": "Horizontal/rearward shin is visibly separable from left boot by a proposed cuff plane, but the knee and boot overlap zones need source/art review.",
+    "boots": "Two distinct candidate boots exist. Both are replaced only in the private diagnostic preview by the existing canonical foot texture affines. Original candidate texture pixels remain in source and part masks for audit; no formal asset changes.",
+    "missing_hidden_material": "The source is one already-posed raster. It does not provide recoverable hidden thigh/pelvis underlap, far-side skin beneath the front thigh, or waist/torso continuation. No pixel synthesis is performed. Rig-ready hidden overlap and moving-pose coverage are not established.",
+    "alpha": "All alpha<40 content is excluded from candidate parts. This removes the broad magenta low-alpha field documented in the preceding source review; this is a private alpha-floor extraction only, not repair/adoption."
+  },
+  "artifacts": [
+    "22297-native-owner-boundaries-gray.png",
+    "22297-parts-contact-black-gray-white.png",
+    "22297-private-existing-boots-affine-preview.png",
+    "22297-parts-reassembled-alpha40.png",
+    "masks/ (full-canvas binary masks)",
+    "parts/ (full-canvas exact-source RGBA candidates and per-part crops)"
+  ],
+  "limitations": [
+    "Manual polygons and inferred owner priority require root visual approval.",
+    "This is not a production cut and does not pass NE-222 source, anatomy, binding, native runtime, or pose acceptance.",
+    "No hidden layers or 25% joint overlap have been manufactured; all such source requirements remain unresolved."
+  ]
+}

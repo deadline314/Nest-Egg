@@ -1,0 +1,272 @@
+{
+  "status": "PRIVATE CONTROL GUIDE ONLY; NOT GENERATED ART, NOT A SOURCE ACCEPTANCE, NOT BOUND",
+  "purpose": "geometry-controlled waist-to-floor Rin kneeling draft guide; seed 22296 is reserved for explicit root-run generation",
+  "inputs": {
+    "pm/Nest-Egg/images/NE-222-leg-ik/kneel_source_23p78x_facing_right.json": "ace2230bc83ab1d57424c0e32136c7d5b42b4148da743e1c973a9b7de7e588a3",
+    "pm/Nest-Egg/images/NE-17-step6-design-a-s33.png": "440199e0001b458c95ead3e0a99b59cdba8e350fff846a662f7a26d3e01ea430",
+    "art/characters/rin/parts/foot.png": "1bfff06cfe3c11bcaf2182c4bb6db3513697ff58cde439c487594624ea36cae9"
+  },
+  "canonical_reference": "pm/Nest-Egg/images/NE-222-leg-ik/kneel_source_23p78x_facing_right.json",
+  "coordinate_contract": {
+    "bone_positions": "canonical animator_skeleton_position in skeleton-world units; exact capture positions from global_position_capture",
+    "capture_scale_px_per_skeleton_unit": 27.3470001220703,
+    "capture_crop_xyxy_px": [
+      0.0,
+      390.0,
+      1198.0,
+      1002.3111111111111
+    ],
+    "guide_canvas_px": [
+      1440,
+      736
+    ],
+    "capture_to_guide_scale_xy": [
+      1.2020033388981637,
+      1.2020033388981635
+    ],
+    "rest_lengths_world": {
+      "front_femur": 10.3100004196167,
+      "front_tibia": 11.3999996185303,
+      "back_femur": 10.3100004196167,
+      "back_tibia": 11.3999996185303
+    },
+    "measured_capture_lengths_world": {
+      "front_femur": 10.310000773275087,
+      "front_tibia": 11.399999602982483,
+      "back_femur": 10.309998521383648,
+      "back_tibia": 11.400000216397956
+    },
+    "measured_animator_skeleton_lengths_world": {
+      "front_femur": 10.30999995599954,
+      "front_tibia": 11.399999702930044,
+      "back_femur": 10.310000011478486,
+      "back_tibia": 11.399999326639255
+    },
+    "all_rest_length_checks_within_world_tolerance": 0.015
+  },
+  "anchors": {
+    "hip": {
+      "capture_px": [
+        555.808227539063,
+        649.766967773438
+      ],
+      "skeleton_world_animator": [
+        0.0,
+        -10.9715766906738
+      ],
+      "guide_px": [
+        668.083345289024,
+        312.2407625991241
+      ],
+      "source_label": "hip"
+    },
+    "leg_front_upper": {
+      "capture_px": [
+        555.808227539063,
+        649.766967773438
+      ],
+      "skeleton_world_animator": [
+        0.0,
+        -10.9715766906738
+      ],
+      "guide_px": [
+        668.083345289024,
+        312.2407625991241
+      ],
+      "source_label": "leg_front_upper"
+    },
+    "leg_front_lower": {
+      "capture_px": [
+        820.752319335938,
+        553.335266113281
+      ],
+      "skeleton_world_animator": [
+        9.68823146820068,
+        -14.497802734375
+      ],
+      "guide_px": [
+        986.5470282502092,
+        196.32953522798385
+      ],
+      "source_label": "leg_front_lower"
+    },
+    "foot_front": {
+      "capture_px": [
+        1021.01306152344,
+        792.264770507813
+      ],
+      "skeleton_world_animator": [
+        17.0111827850342,
+        -5.76084804534912
+      ],
+      "guide_px": [
+        1227.261109009811,
+        483.52359727149474
+      ],
+      "source_label": "foot_front"
+    },
+    "leg_back_upper": {
+      "capture_px": [
+        536.665344238281,
+        649.766967773438
+      ],
+      "skeleton_world_animator": [
+        -0.699999988079071,
+        -10.9715766906738
+      ],
+      "guide_px": [
+        645.0735356453462,
+        312.2407625991241
+      ],
+      "source_label": "leg_back_upper"
+    },
+    "leg_back_lower": {
+      "capture_px": [
+        512.091979980469,
+        930.6416015625
+      ],
+      "skeleton_world_animator": [
+        -1.59857726097107,
+        -0.700809478759766
+      ],
+      "guide_px": [
+        615.5362697594953,
+        649.8530102253756
+      ],
+      "source_label": "leg_back_lower"
+    },
+    "foot_back": {
+      "capture_px": [
+        208.575347900391,
+        859.442321777344
+      ],
+      "skeleton_world_animator": [
+        -12.6972942352295,
+        -3.30435824394226
+      ],
+      "guide_px": [
+        250.70826458811604,
+        564.2712381964735
+      ],
+      "source_label": "foot_back"
+    }
+  },
+  "body_shape_notes": {
+    "waist_seam_illustrative_capture_px": [
+      [
+        492.0,
+        529.0
+      ],
+      [
+        620.0,
+        529.0
+      ]
+    ],
+    "waist_seam_status": "low-confidence drafting cue; not present in canonical bone data and not a recovered source seam",
+    "pelvis_width_status": "low-confidence single-shape drafting width; does not alter hip bone or leg lengths",
+    "crop_is_complete_draft_region": true
+  },
+  "shoe_source": {
+    "diffuse": "art/characters/rin/parts/foot.png",
+    "normal_map_used": false,
+    "source_dimensions_px": [
+      163,
+      212
+    ],
+    "source_pixels_to_capture_front": [
+      1.14994132518768,
+      8.02040105440938e-08,
+      -8.02040105440938e-08,
+      1.14994132518768,
+      955.466430664063,
+      709.468994140625
+    ],
+    "source_pixels_to_capture_back": [
+      -0.262625098228455,
+      1.11955046653748,
+      -1.11955046653748,
+      -0.262625098228455,
+      304.152618408203,
+      814.536926269531
+    ],
+    "front_capture_bone_anchor_px": [
+      1021.01306152344,
+      792.264770507813
+    ],
+    "back_capture_bone_anchor_px": [
+      208.575347900391,
+      859.442321777344
+    ],
+    "guide_opaque_bounds_front_xyxy": [
+      1151,
+      387,
+      1373,
+      676
+    ],
+    "guide_opaque_bounds_back_xyxy": [
+      38,
+      455,
+      352,
+      675
+    ],
+    "floor_guide_y_px": 672.8895245330757,
+    "front_sole_bottom_delta_to_floor_guide_px": 3.1104754669242993,
+    "back_sole_bottom_delta_to_floor_guide_px": 2.1104754669242993,
+    "rear_knee_draft_polygon_intersects_floor": true,
+    "separate_layers_preserved": true
+  },
+  "draft_artifacts": {
+    "control_guide": "kneel-draft-control-guide.png",
+    "annotation_overlay": "kneel-draft-anchors-overlay.png",
+    "control_guide_sha256": "970453c5b1aa095c040750a0807e3394693780cbcade7b3bf49107db3a05d4bc",
+    "annotation_overlay_sha256": "c307bf9461ab4fe76178d922c669c90919c0976c0a9d63413edfde9e712aed9b",
+    "canvas": [
+      1440,
+      736
+    ],
+    "source_boots_are_exact_affine_resamples": true
+  },
+  "generation_plan": {
+    "requested_seed": 22296,
+    "steps": 30,
+    "cfg": 1.0,
+    "sampler": "euler",
+    "scheduler": "simple",
+    "output_prefix": "rin_kneel_canonical_22296",
+    "planned_prompt": "IMAGE 1 is a geometry-locked drafting guide for an adult woman kneeling in side view, facing right. Follow the exact centers, directions and distances of both separate leg chains and keep both boots in their exact guide positions. The near/front thigh rises about 20 degrees toward its raised knee; its shin descends about 40 degrees from vertical to the planted front boot. The rear knee is grounded and its calf extends backward to the other lifted-heel boot. The near/front shoe and rear knee meet the same floor line. IMAGE 2 provides the approved Rin anime linework, cyberpunk palette and restrained cel-shadow style. IMAGE 3 is Rin's actual single-foot diffuse texture and supplies boot detail; preserve each of the two distinct boots in IMAGE 1 without merging them. Draw only a complete waist-to-floor lower-body draft: one compact connected pelvis, two tapered thighs, two calves, and exactly two legs and two boots. Draw a complete visible waist material seam at the top of the draft, a natural modest posterior continuous with the pelvis and one short natural hip crease. Use normal human pelvis anatomy and a restrained single cel-shadow fold. Do not create a round or oval buttock patch, inflated spherical shading, or a second buttock. Keep the exact guide bone centers, shared rest knee/ankle positions, chain lengths, facing direction, knee bend and sole contact. Match IMAGE 2's crisp hand-drawn anime contours, flat colors and restrained hard-edged shadows. The guide widths are approximate; retain normal tapered thigh volume and a compact pelvis connected without moving its joint anchors. Make the waist seam exactly follow the visible top edge of the guide, with no long triangular waist extension. Keep the canvas transparent outside the complete lower-body silhouette, with alpha zero in empty background. No opaque backdrop, floor shadow, floor line, horizontal line, text, labels, guide lines, circles, or debug colors. No head, hair, torso above waist, arms, hands, weapon, holster, straps, extra limb, third leg, duplicate knee, duplicate shoe, extra toe, gloss, airbrush, photorealism, or cropped waist/boots. Retain the exact canvas aspect and the full width and height of IMAGE 1; do not crop the waist seam, either boot, heel or sole.",
+    "rerun_command": "D:/ComfyUI/.venv/Scripts/python.exe art_src/characters/rin_pose_variants/05_canonical_kneel/prepare_kneel_draft.py --generate",
+    "reference_order": [
+      "kneel-draft-control-guide.png",
+      "pm/Nest-Egg/images/NE-17-step6-design-a-s33.png",
+      "art/characters/rin/parts/foot.png"
+    ],
+    "model_invoked": false,
+    "raw_output_not_adopted": true
+  },
+  "generation": {
+    "status": "RAW PRIVATE CANDIDATE; HUMAN/OWNERSHIP/POSE REVIEW REQUIRED",
+    "prompt": "IMAGE 1 is a geometry-locked drafting guide for an adult woman kneeling in side view, facing right. Follow the exact centers, directions and distances of both separate leg chains and keep both boots in their exact guide positions. The near/front thigh rises about 20 degrees toward its raised knee; its shin descends about 40 degrees from vertical to the planted front boot. The rear knee is grounded and its calf extends backward to the other lifted-heel boot. The near/front shoe and rear knee meet the same floor line. IMAGE 2 provides the approved Rin anime linework, cyberpunk palette and restrained cel-shadow style. IMAGE 3 is Rin's actual single-foot diffuse texture and supplies boot detail; preserve each of the two distinct boots in IMAGE 1 without merging them. Draw only a complete waist-to-floor lower-body draft: one compact connected pelvis, two tapered thighs, two calves, and exactly two legs and two boots. Draw a complete visible waist material seam at the top of the draft, a natural modest posterior continuous with the pelvis and one short natural hip crease. Use normal human pelvis anatomy and a restrained single cel-shadow fold. Do not create a round or oval buttock patch, inflated spherical shading, or a second buttock. Keep the exact guide bone centers, shared rest knee/ankle positions, chain lengths, facing direction, knee bend and sole contact. Match IMAGE 2's crisp hand-drawn anime contours, flat colors and restrained hard-edged shadows. The guide widths are approximate; retain normal tapered thigh volume and a compact pelvis connected without moving its joint anchors. Make the waist seam exactly follow the visible top edge of the guide, with no long triangular waist extension. Keep the canvas transparent outside the complete lower-body silhouette, with alpha zero in empty background. No opaque backdrop, floor shadow, floor line, horizontal line, text, labels, guide lines, circles, or debug colors. No head, hair, torso above waist, arms, hands, weapon, holster, straps, extra limb, third leg, duplicate knee, duplicate shoe, extra toe, gloss, airbrush, photorealism, or cropped waist/boots. Retain the exact canvas aspect and the full width and height of IMAGE 1; do not crop the waist seam, either boot, heel or sole.",
+    "raw_output": "art_src/characters/rin_pose_variants/05_canonical_kneel/_gen/rin_kneel_canonical_22296_0.png",
+    "raw_output_sha256": "325cb975ad2429afdcbb6175d9aac64d872346b3fada654bd90ffc77720b6569",
+    "workflow": "rin_kneel_canonical_22296_0.workflow.json",
+    "workflow_sha256": "0c83eba91440518dcde9299ad98dc2dddcc9c7eb0a8eb875a125ce3ee8af7ee5",
+    "actual_size_px": [
+      1440,
+      736
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      248,
+      255
+    ],
+    "alpha_extrema_are_metadata_only_not_visual_acceptance": true,
+    "actual_seed": 22296,
+    "models": [
+      "qwen-image-2.1-UC-int8_convrot.safetensors",
+      "qwen3vl_8b_int8_convrot.safetensors",
+      "qwen_image_2.1_vae_bf16.safetensors"
+    ],
+    "model_invoked": true,
+    "must_not_overwrite_source": true
+  }
+}

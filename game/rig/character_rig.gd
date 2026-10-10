@@ -50,8 +50,9 @@ var _parts: Array[CanvasItem] = []
 ## A slot keeps the armor-controlled base visibility separately from the currently selected node.
 var _pose_slots: Dictionary[StringName, Dictionary] = {}
 var _pose_slot_by_base_id: Dictionary[int, StringName] = {}
-var _pose_sets: Dictionary[StringName, bool] = {}
+var _pose_sets: Dictionary[StringName, Dictionary] = {}
 var _active_pose_set: StringName = &""
+var _pose_rest_snapshot: Dictionary[StringName, Transform2D] = {}
 ## 做成可彎曲網格的肢體零件（RigPartMesh；也在 _parts 裡）：每格動畫之後依骨頭姿勢重算關節附近的頂點。
 var _meshes: Array[RigPartMesh] = []
 var _hand_grips: Array[Dictionary] = []
@@ -94,6 +95,7 @@ func setup(p_skin_id: String, animator_kind := "") -> bool:
 	_pose_slot_by_base_id.clear()
 	_pose_sets.clear()
 	_active_pose_set = &""
+	_pose_rest_snapshot.clear()
 	var skin := RigLibrary.character(skin_id)
 	if skin.is_empty():
 		return false
@@ -388,6 +390,16 @@ func set_pose_parts(pose_key: StringName) -> bool:
 		return false
 	if pose_key == _active_pose_set:
 		return true
+	var previous_pose: Dictionary = _pose_sets.get(_active_pose_set, {})
+	var pose_def: Dictionary = _pose_sets.get(pose_key, {})
+	if not _restore_pose_rests():
+		return false
+	var bind_pose: Dictionary = pose_def.get("bind_pose", {})
+	if not bind_pose.is_empty() and not _apply_pose_bind_pose(bind_pose):
+		var previous_bind: Dictionary = previous_pose.get("bind_pose", {})
+		if not previous_bind.is_empty():
+			_apply_pose_bind_pose(previous_bind)
+		return false
 	_active_pose_set = pose_key
 	_apply_pose_part_visibility()
 	return true
@@ -395,6 +407,32 @@ func set_pose_parts(pose_key: StringName) -> bool:
 
 func active_pose_parts() -> StringName:
 	return _active_pose_set
+
+
+func _apply_pose_bind_pose(bind_pose: Dictionary) -> bool:
+	var current: Dictionary[StringName, Transform2D] = {}
+	for bone_name in _order:
+		var bone_node: Bone2D = _bones[bone_name]
+		current[bone_name] = bone_node.transform
+		_pose_rest_snapshot[bone_name] = bone_node.rest
+	for bone_name in _order:
+		_bones[bone_name].rest = bind_pose[bone_name]
+	for bone_name in _order:
+		if _bones[bone_name].transform != current[bone_name]:
+			push_warning("[CharacterRig] %s.pose_parts changed current bone transform while applying bind pose; restoring prior rests" % skin_id)
+			_restore_pose_rests()
+			return false
+	return true
+
+
+func _restore_pose_rests() -> bool:
+	if _pose_rest_snapshot.is_empty():
+		return true
+	for bone_name in _order:
+		if _pose_rest_snapshot.has(bone_name):
+			_bones[bone_name].rest = _pose_rest_snapshot[bone_name]
+	_pose_rest_snapshot.clear()
+	return true
 
 
 # ---------------------------------------------------------------------------
@@ -584,6 +622,17 @@ func _build_pose_parts(skin: Dictionary) -> void:
 		var seen_slots: Dictionary[StringName, bool] = {}
 		var pending: Array[Dictionary] = []
 		var failure := ""
+		var contains_mesh := false
+		for pose_entry: Variant in pose_entries_value:
+			if typeof(pose_entry) == TYPE_DICTIONARY and (pose_entry as Dictionary).has("mesh"):
+				contains_mesh = true
+				break
+		var bind_pose: Dictionary = {}
+		if contains_mesh:
+			var bind_error := _parse_pose_bind_pose(pose_def.get("bind_pose"), bind_pose)
+			if not bind_error.is_empty():
+				_pose_warning(field, "%s; rejecting this set" % bind_error)
+				continue
 		for entry: Variant in pose_entries_value:
 			if typeof(entry) != TYPE_DICTIONARY:
 				failure = "entries must be dictionaries"
@@ -606,9 +655,13 @@ func _build_pose_parts(skin: Dictionary) -> void:
 				failure = "slot '%s' is controlled by eye_states blink and cannot be replaced by pose_parts" % slot_name
 				break
 			var base_bone := StringName(str(base_def.get("bone", "")))
+			var is_mesh := alternative.has("mesh")
 			var alternative_bone := StringName(str(alternative.get("bone", "")))
-			if base_bone == &"" or alternative_bone != base_bone or base_part.get_parent() != _bones.get(base_bone):
-				failure = "slot '%s' must keep its existing bone '%s'" % [slot_name, base_bone]
+			if base_bone == &"" or base_part.get_parent() != _bones.get(base_bone) or (not is_mesh and alternative_bone != base_bone):
+				failure = "slot '%s' must resolve to its existing base bone '%s'" % [slot_name, base_bone]
+				break
+			if is_mesh and (typeof(alternative["mesh"]) != TYPE_DICTIONARY or alternative.has("offset") or alternative.has("rotation")):
+				failure = "slot '%s' mesh must be a dictionary in skeleton-local coordinates without sprite offset/rotation" % slot_name
 				break
 			var texture_key := str(alternative.get("texture", ""))
 			if texture_key.is_empty() or typeof(textures.get(texture_key)) != TYPE_DICTIONARY:
@@ -688,11 +741,24 @@ func _build_pose_parts(skin: Dictionary) -> void:
 				if not lit_texture is CanvasTexture or (lit_texture as CanvasTexture).normal_texture == null:
 					failure = "texture '%s' did not retain its CanvasTexture normal channel" % texture_key
 					break
-			pending.append({"slot": slot_name, "base": base_part, "texture": lit_texture, "glow": glow_texture,
-				"size": size, "pivot": pivot, "offset": offset, "rotation": rotation, "texture_scale": pose_texture_scale})
+			var pending_item := {"slot": slot_name, "base": base_part, "texture": lit_texture, "glow": glow_texture,
+				"size": size, "pivot": pivot, "offset": offset, "rotation": rotation, "texture_scale": pose_texture_scale}
+			if is_mesh:
+				var mesh_data: Dictionary = {}
+				var mesh_error := _parse_pose_mesh(alternative["mesh"], size, mesh_data)
+				if not mesh_error.is_empty():
+					failure = "slot '%s' %s" % [slot_name, mesh_error]
+					break
+				pending_item["mesh"] = mesh_data
+			pending.append(pending_item)
 		if not failure.is_empty():
 			_pose_warning(field, "%s; rejecting this set" % failure)
 			continue
+		if contains_mesh:
+			failure = _pose_mesh_budget_error(seen_slots, pending)
+			if not failure.is_empty():
+				_pose_warning(field, "%s; rejecting this set" % failure)
+				continue
 		failure = _pose_layer_counterpart_error(seen_slots, base_entries)
 		if not failure.is_empty():
 			_pose_warning(field, "%s; rejecting this set" % failure)
@@ -703,18 +769,27 @@ func _build_pose_parts(skin: Dictionary) -> void:
 			if not _pose_slots.has(slot_name):
 				_pose_slots[slot_name] = {"base": base_part, "base_visible": base_part.visible, "alternatives": {}}
 			_pose_slot_by_base_id[base_part.get_instance_id()] = slot_name
-			var alternate := _make_sprite(item["texture"], item["glow"], item["pivot"], item["offset"], item["rotation"], base_part.self_modulate.r)
-			alternate.scale = Vector2.ONE * float(item["texture_scale"])
+			var alternate: CanvasItem
+			if item.has("mesh"):
+				alternate = _make_pose_mesh(item["mesh"], item["texture"], item["glow"], base_part.self_modulate.r)
+			else:
+				var sprite := _make_sprite(item["texture"], item["glow"], item["pivot"], item["offset"], item["rotation"], base_part.self_modulate.r)
+				sprite.scale = Vector2.ONE * float(item["texture_scale"])
+				alternate = sprite
 			alternate.name = "Pose_%s__%s" % [pose_key, slot_name]
 			alternate.material = _light_material
 			alternate.z_index = base_part.z_index
 			alternate.self_modulate = base_part.self_modulate
 			alternate.visible = false
-			(base_part.get_parent() as Node).add_child(alternate)
+			if item.has("mesh"):
+				_skeleton.add_child(alternate)
+				_configure_pose_mesh_bones(alternate as Polygon2D, item["mesh"])
+			else:
+				(base_part.get_parent() as Node).add_child(alternate)
 			(_pose_slots[slot_name]["alternatives"] as Dictionary)[pose_key] = alternate
 			_parts.append(alternate)
 			_part_tints.append(base_part.self_modulate.r)
-		_pose_sets[pose_key] = true
+		_pose_sets[pose_key] = {"bind_pose": bind_pose if contains_mesh else {}}
 	_active_pose_set = &""
 	_apply_pose_part_visibility()
 
@@ -747,6 +822,190 @@ func _pose_numeric_pair(value: Variant, integral: bool) -> bool:
 		if integral and not is_equal_approx(float(component), roundf(float(component))):
 			return false
 	return true
+
+
+func _parse_pose_bind_pose(value: Variant, result: Dictionary) -> String:
+	# Bind data is Bone2D-local Transform2D order [xx,xy,yx,yy,ox,oy] for every canonical bone.
+	if typeof(value) != TYPE_DICTIONARY:
+		return "mesh pose requires a complete bind_pose dictionary"
+	var raw: Dictionary = value
+	if raw.size() != _order.size():
+		return "bind_pose must define every existing bone exactly once (%d required)" % _order.size()
+	for bone_name in _order:
+		if not raw.has(str(bone_name)):
+			return "bind_pose is missing existing bone '%s'" % bone_name
+		var matrix: Variant = raw[str(bone_name)]
+		if typeof(matrix) != TYPE_ARRAY or (matrix as Array).size() != 6:
+			return "bind_pose.%s must be [xx,xy,yx,yy,ox,oy]" % bone_name
+		var values: Array = matrix
+		var components := PackedFloat32Array()
+		for component: Variant in values:
+			if typeof(component) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(component)):
+				return "bind_pose.%s contains a non-finite transform component" % bone_name
+			components.append(float(component))
+		for component in components:
+			if not is_finite(component):
+				return "bind_pose.%s exceeds native transform precision" % bone_name
+		var transform := Transform2D(Vector2(components[0], components[1]), Vector2(components[2], components[3]), Vector2(components[4], components[5]))
+		if not transform.x.is_finite() or not transform.y.is_finite() or not transform.origin.is_finite() or not is_finite(transform.determinant()):
+			return "bind_pose.%s exceeds native transform precision" % bone_name
+		if absf(transform.determinant()) <= 0.000001:
+			return "bind_pose.%s must be invertible" % bone_name
+		result[bone_name] = transform
+	for key: Variant in raw.keys():
+		if not _bones.has(StringName(str(key))):
+			return "bind_pose names unknown bone '%s'" % key
+	return ""
+
+
+func _parse_pose_mesh(value: Dictionary, texture_size: Vector2i, result: Dictionary) -> String:
+	# Mesh vertices are in Skeleton2D-local space before the character root transform; UVs stay in native pixels.
+	var vertices_value: Variant = value.get("vertices")
+	var uvs_value: Variant = value.get("uvs")
+	var triangles_value: Variant = value.get("triangles")
+	var weights_value: Variant = value.get("weights")
+	if typeof(vertices_value) != TYPE_ARRAY or typeof(uvs_value) != TYPE_ARRAY or typeof(triangles_value) != TYPE_ARRAY or typeof(weights_value) != TYPE_ARRAY:
+		return "mesh requires vertices, uvs, triangles and weights arrays"
+	var raw_vertices: Array = vertices_value
+	var raw_uvs: Array = uvs_value
+	var raw_triangles: Array = triangles_value
+	var raw_weights: Array = weights_value
+	if raw_vertices.size() < 3 or raw_uvs.size() != raw_vertices.size() or raw_triangles.size() < 3 or raw_triangles.size() % 3 != 0:
+		return "mesh vertex/UV/topology counts are incomplete or mismatched"
+	var vertices := PackedVector2Array()
+	var uvs := PackedVector2Array()
+	for i in raw_vertices.size():
+		if not _pose_numeric_pair(raw_vertices[i], false) or not _pose_numeric_pair(raw_uvs[i], false):
+			return "mesh vertices and UVs must be finite numeric pairs"
+		var vertex_pair: Array = raw_vertices[i]
+		var uv_pair: Array = raw_uvs[i]
+		var vertex := Vector2(float(vertex_pair[0]), float(vertex_pair[1]))
+		var uv_point := Vector2(float(uv_pair[0]), float(uv_pair[1]))
+		if not vertex.is_finite() or not uv_point.is_finite():
+			return "mesh vertex or UV %d exceeds native coordinate precision" % i
+		if uv_point.x < 0.0 or uv_point.y < 0.0 or uv_point.x > texture_size.x or uv_point.y > texture_size.y:
+			return "mesh UV %d lies outside native texture bounds %s" % [i, texture_size]
+		vertices.append(vertex)
+		uvs.append(uv_point)
+	var triangles := PackedInt32Array()
+	var referenced: Dictionary[int, bool] = {}
+	for raw_index: Variant in raw_triangles:
+		if typeof(raw_index) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(raw_index)) or float(raw_index) != roundf(float(raw_index)):
+			return "mesh triangle indices must be finite integers"
+		var numeric_index := float(raw_index)
+		if numeric_index < 0.0 or numeric_index >= vertices.size():
+			return "mesh triangle index %s is outside %d vertices" % [raw_index, vertices.size()]
+		var index := int(numeric_index)
+		if index < 0 or index >= vertices.size():
+			return "mesh triangle index %d is outside %d vertices" % [index, vertices.size()]
+		triangles.append(index)
+		referenced[index] = true
+	for i in range(0, triangles.size(), 3):
+		var a := triangles[i]
+		var b := triangles[i + 1]
+		var c := triangles[i + 2]
+		if a == b or b == c or a == c or absf((vertices[b] - vertices[a]).cross(vertices[c] - vertices[a])) <= 0.000001:
+			return "mesh triangle %d is degenerate" % (i / 3)
+	if referenced.size() != vertices.size():
+		return "every mesh vertex must be used by explicit topology"
+	if raw_weights.is_empty() or raw_weights.size() > 4:
+		return "mesh weights require one to four bone influence arrays"
+	var weight_bones: Array[StringName] = []
+	var weight_values: Array[PackedFloat32Array] = []
+	var unique_bones: Dictionary[StringName, bool] = {}
+	var sums := PackedFloat32Array()
+	var positive_counts := PackedByteArray()
+	sums.resize(vertices.size())
+	positive_counts.resize(vertices.size())
+	for weight_entry: Variant in raw_weights:
+		if typeof(weight_entry) != TYPE_DICTIONARY:
+			return "each mesh weight entry must be a {bone, values} dictionary"
+		var entry: Dictionary = weight_entry
+		var bone_name := StringName(str(entry.get("bone", "")))
+		var values_value: Variant = entry.get("values")
+		if bone_name == &"" or not _bones.has(bone_name):
+			return "mesh weights reference missing bone '%s'" % bone_name
+		if unique_bones.has(bone_name):
+			return "mesh weights repeat bone '%s'" % bone_name
+		if typeof(values_value) != TYPE_ARRAY or (values_value as Array).size() != vertices.size():
+			return "mesh weight array for '%s' must match vertex count %d" % [bone_name, vertices.size()]
+		var values := PackedFloat32Array()
+		for i in vertices.size():
+			var component: Variant = values_value[i]
+			if typeof(component) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(component)) or float(component) < 0.0 or float(component) > 1.0:
+				return "mesh weight '%s' at vertex %d must be finite and in [0,1]" % [bone_name, i]
+			var weight := float(component)
+			values.append(weight)
+			sums[i] += weight
+			if weight > 0.0:
+				positive_counts[i] += 1
+		unique_bones[bone_name] = true
+		weight_bones.append(bone_name)
+		weight_values.append(values)
+	for i in vertices.size():
+		if not is_equal_approx(sums[i], 1.0):
+			return "mesh weights at vertex %d sum to %s, expected 1" % [i, sums[i]]
+		if positive_counts[i] > 4:
+			return "mesh vertex %d exceeds four bone influences" % i
+	result["vertices"] = vertices
+	result["uvs"] = uvs
+	result["triangles"] = triangles
+	result["weight_bones"] = weight_bones
+	result["weight_values"] = weight_values
+	return ""
+
+
+func _pose_mesh_budget_error(replaced_slots: Dictionary[StringName, bool], pending: Array[Dictionary]) -> String:
+	var active_vertices := 0
+	for mesh in _meshes:
+		if not replaced_slots.has(StringName(str(mesh.name))):
+			active_vertices += mesh.polygon.size()
+	for item: Dictionary in pending:
+		if item.has("mesh"):
+			active_vertices += (item["mesh"]["vertices"] as PackedVector2Array).size()
+	return "active logical mesh geometry uses %d vertices; the existing limit is 500" % active_vertices if active_vertices > 500 else ""
+
+
+func _make_pose_mesh(mesh_data: Dictionary, texture: Texture2D, glow_texture: Texture2D, tint: float) -> Polygon2D:
+	var polygon := Polygon2D.new()
+	polygon.texture = texture
+	polygon.polygon = mesh_data["vertices"]
+	polygon.uv = mesh_data["uvs"]
+	polygon.polygons = _pose_mesh_triangles(mesh_data["triangles"])
+	polygon.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	if glow_texture != null:
+		var glow := Polygon2D.new()
+		glow.name = "Glow"
+		glow.texture = glow_texture
+		glow.polygon = polygon.polygon
+		glow.uv = polygon.uv
+		glow.polygons = polygon.polygons
+		glow.light_mask = 0
+		glow.material = _glow_material()
+		glow.self_modulate = Color(GLOW_INTENSITY * tint, GLOW_INTENSITY * tint, GLOW_INTENSITY * tint, 1.0)
+		glow.texture_filter = polygon.texture_filter
+		polygon.add_child(glow)
+	return polygon
+
+
+func _pose_mesh_triangles(indices: PackedInt32Array) -> Array[PackedInt32Array]:
+	var triangles: Array[PackedInt32Array] = []
+	for i in range(0, indices.size(), 3):
+		triangles.append(PackedInt32Array([indices[i], indices[i + 1], indices[i + 2]]))
+	return triangles
+
+
+func _configure_pose_mesh_bones(polygon: Polygon2D, mesh_data: Dictionary) -> void:
+	polygon.skeleton = polygon.get_path_to(_skeleton)
+	var bones: Array[StringName] = mesh_data["weight_bones"]
+	var weights: Array[PackedFloat32Array] = mesh_data["weight_values"]
+	for i in bones.size():
+		polygon.add_bone(_skeleton.get_path_to(_bones[bones[i]]), weights[i])
+	var glow := polygon.get_node_or_null("Glow") as Polygon2D
+	if glow != null:
+		glow.skeleton = glow.get_path_to(_skeleton)
+		for i in bones.size():
+			glow.add_bone(_skeleton.get_path_to(_bones[bones[i]]), weights[i])
 
 
 func _normal_path(texture_path: String) -> String:
