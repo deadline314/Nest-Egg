@@ -1,0 +1,180 @@
+{
+  "baseline": "3b14844a089a08f6b0720e4d2f54a0dd3dc7fdca",
+  "engine": "Godot 4.7.2 native Forward+ Intel Arc B580",
+  "scope": "weather only; no story/camera/character/furniture/framing changes",
+  "rain_stage_audit": [
+    {
+      "stage": "ch1_pawnshop_front",
+      "only_change": "remove authored full-screen rain layer",
+      "removed": [
+        {
+          "kind": "rain",
+          "depth": "front",
+          "opacity": 0.35
+        }
+      ]
+    },
+    {
+      "stage": "shaft_descent",
+      "only_change": "remove authored full-screen rain layer",
+      "removed": [
+        {
+          "kind": "rain",
+          "count": 50,
+          "depth": "front",
+          "opacity": 0.25
+        }
+      ]
+    }
+  ],
+  "remaining_outdoor_rain_stages": [
+    "rainy_harbor",
+    "ch1_rooftop",
+    "ch1_dawn_noodle_stall"
+  ],
+  "tests": {
+    "selected_groups": 32,
+    "checks": 5962,
+    "new_failures": 0,
+    "known_failures": 0,
+    "natural_exit": 0,
+    "raw_expected_fixture_errors": 31,
+    "cpu_regressions": 3,
+    "cpu_resource_warnings": 3
+  },
+  "sources": {
+    "tools/story/build_ch1_story.py": {
+      "sha256": "8a6c09fdf968af8c29030ba09a1fe51f72e4b2ec4f23a2bdc42ff5b83c35a155",
+      "git_lf_sha256": "8a6c09fdf968af8c29030ba09a1fe51f72e4b2ec4f23a2bdc42ff5b83c35a155"
+    },
+    "tools/story/test_stage_weather.py": {
+      "sha256": "d9197e319bcafc454310a13e4ca0b6141f24e51089432dcde38fc41b68e602fc",
+      "git_lf_sha256": "d9197e319bcafc454310a13e4ca0b6141f24e51089432dcde38fc41b68e602fc"
+    },
+    "data/cutscene/stages/ch1_pawnshop_front.json": {
+      "sha256": "5cff4e6a0269444b282ce08963026dceaf8ae492b6c0356875de279a7e987de4",
+      "git_lf_sha256": "5cff4e6a0269444b282ce08963026dceaf8ae492b6c0356875de279a7e987de4"
+    },
+    "data/cutscene/stages/shaft_descent.json": {
+      "sha256": "d33a28702a59fa03d191dfcf42139d1e7a027bf732f7b015d6fd9aac83b1f372",
+      "git_lf_sha256": "d33a28702a59fa03d191dfcf42139d1e7a027bf732f7b015d6fd9aac83b1f372"
+    },
+    "design/20-campaign-experience/INDOOR_STAGE_WEATHER.md": {
+      "sha256": "8de241587e2b42708446225d4c2791f5a14ac3e75faf750256a85cceddc89d32",
+      "git_lf_sha256": "8de241587e2b42708446225d4c2791f5a14ac3e75faf750256a85cceddc89d32"
+    }
+  },
+  "images": [
+    {
+      "path": "pm/Nest-Egg/images/BG-24-front-before.png",
+      "sha256": "3ac5a20c29284cc04d43ec2cebd21e0eda61532021ab1f115395f861fe09f3e4",
+      "stage": "ch1_pawnshop_front",
+      "phase": "before",
+      "scope": "native authored-stage preview, no synthetic actors and no full chapter framing acceptance"
+    },
+    {
+      "path": "pm/Nest-Egg/images/BG-24-shaft-before.png",
+      "sha256": "26d013e3fd2a2c1ffcb6cb73885cedbeffe125f642573810e549badd74b864c2",
+      "stage": "shaft_descent",
+      "phase": "before",
+      "scope": "native authored-stage preview, no synthetic actors and no full chapter framing acceptance"
+    },
+    {
+      "path": "pm/Nest-Egg/images/BG-24-front-after.png",
+      "sha256": "0e9afe39761473798a847884712bbbbbb08a2ff8b55a02094f2d238299272f81",
+      "stage": "ch1_pawnshop_front",
+      "phase": "after",
+      "scope": "native authored-stage preview, no synthetic actors and no full chapter framing acceptance"
+    },
+    {
+      "path": "pm/Nest-Egg/images/BG-24-shaft-after.png",
+      "sha256": "bd040d973e5af166ce18e35dfdcc10c51459d0337fa922f751f6c9ebd7092db8",
+      "stage": "shaft_descent",
+      "phase": "after",
+      "scope": "native authored-stage preview, no synthetic actors and no full chapter framing acceptance"
+    },
+    {
+      "path": "pm/Nest-Egg/images/BG-24-front-formal.png",
+      "sha256": "74a0ad3079db6951e1377443a13b768c56e9972e7951b6640cb70a3ec232b5e7",
+      "scope": "original authored ch1_c01_open CutscenePlayer playback, native Forward+, original camera/actors/scale; no rain; framing acceptance belongs to ST-10"
+    }
+  ],
+  "raw_files": {
+    "after-ch1_pawnshop_front.log": {
+      "sha256": "59d41fa9126aea049e397e9b05648d85eb1c0b86c8120abff78e941f65718dcf",
+      "bytes": 268,
+      "git_lf_sha256": "62f7d42dec8e66c42c0fbcb82c3751738f181dc3e3f3e4852b9854e65cae0161"
+    },
+    "after-shaft_descent.log": {
+      "sha256": "f530d9554acf26df66111c256d7b9474ae0bdaa1cd9205b74a3c925fa9bcc9a9",
+      "bytes": 258,
+      "git_lf_sha256": "cf8b8195a388735561b92cf06baf32da32ef5fb68901ee6848d70d46d99aa5ae"
+    },
+    "before-ch1_pawnshop_front.log": {
+      "sha256": "b8fac78915520991b355aa7ec85f23faf1840673c83a6101672eee28098821af",
+      "bytes": 269,
+      "git_lf_sha256": "ee917c57df900ddbfeabe877c7e1dc041846ee7a0cad6c90352db4cb3090b57c"
+    },
+    "before-shaft_descent.log": {
+      "sha256": "dbaad3b9dff7716f16badfbb0bf587e8c4fd5c04d6214711fa5cc56114763b2d",
+      "bytes": 259,
+      "git_lf_sha256": "aff7988c2d89ca4e78625e87f227d7db72fcef4f92c577742f965a908e1d99db"
+    },
+    "changed-console.log": {
+      "sha256": "d4635aab4055c5a67b74d7f437df2c771686287d1dc5b489273391230f50db46",
+      "bytes": 1254,
+      "git_lf_sha256": "97961d9b7a3f60af46ca89337fc90f62b1b04a33f8a5dc644a23cda3999c6c95"
+    },
+    "changed-raw.log": {
+      "sha256": "57aeb3ac606dde3a4f5e86e49029b84c1bec3e84b5f8887dc73c12902d22efae",
+      "bytes": 70384,
+      "git_lf_sha256": "996541eb19b0af55095d25dc27d3dfea85e7baaaf8fd057893f77975be93a369"
+    },
+    "changed.exit": {
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "bytes": 3,
+      "git_lf_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "cpu-final.exit": {
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "bytes": 3,
+      "git_lf_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "cpu-final.log": {
+      "sha256": "66a17f97094c40a4be9042b5db36f11188aa95ec1d5f34fcebb56200489a11be",
+      "bytes": 1738,
+      "git_lf_sha256": "b0d9ff54812ca2690c431d4c08c1bcf576d2f63c7cab5b1859e20ea4d901fe71"
+    },
+    "formal-front.exit": {
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+      "bytes": 1,
+      "git_lf_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    "formal-front.log": {
+      "sha256": "57e3d5f0a34f6cd42f2cd581eb1b56c670fbb12a623e8962fc1686c49b5acd6c",
+      "bytes": 816,
+      "git_lf_sha256": "546cb168dcda616699234ae78a3df8f287e55f5cc319ccab4631808183bdcc2c"
+    },
+    "import.exit": {
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "bytes": 3,
+      "git_lf_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "import.log": {
+      "sha256": "8de6c4db0c05663cda2c284d344756eae915ecb7ec2737fb4a9a3ddb8c189773",
+      "bytes": 256608,
+      "git_lf_sha256": "3be443a9a6030fd0e3de5b221307a0045d3600788bfe21cacec33e7cb9f07cab"
+    },
+    "native-capture.json": {
+      "sha256": "2cefac8cd477d96079a8c34960b22c101755de8a7bd33ad70e79f49c8fb4ca21",
+      "bytes": 2219,
+      "git_lf_sha256": "f3cb1bcf30e3b8e4aa2bdb394b64b3dc196ab73421afba37d9e3730e52a28af4"
+    },
+    "selector.log": {
+      "sha256": "4663f075c118c800056d7f6217a01c6123840a4fc4485244000441e8f84ba4c1",
+      "bytes": 7381,
+      "git_lf_sha256": "555e1362bbedf642f0577d23c1ebb7cfe9f144161552e782e9f695b5114f611b"
+    }
+  },
+  "line_endings": "sha256 records captured original file bytes; git_lf_sha256 records Git-normalized UTF-8 logs. Full output retained; no line filtering."
+}

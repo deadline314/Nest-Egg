@@ -1,0 +1,17 @@
+test_all_rain_stages_have_authored_outdoor_support (__main__.StageWeatherRegression.test_all_rain_stages_have_authored_outdoor_support) ... ok
+test_chapter_story_output_remains_unchanged (__main__.StageWeatherRegression.test_chapter_story_output_remains_unchanged) ... ok
+test_generator_outputs_match_formal_chapter_one_stages (__main__.StageWeatherRegression.test_generator_outputs_match_formal_chapter_one_stages) ... C:\tmp\Nest-Egg-indoor-stage-weather\tools\story\build_ch1_story.py:97: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\tmp\\Nest-Egg-indoor-stage-weather\\tools\\story\\..\\..\\art\\environment\\scene_props\\dawn_noodle_stall\\dawn_noodle_stall__ali_noodle_cart.png'>
+  tex_w = Image.open(disk % name).size[0]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\tmp\Nest-Egg-indoor-stage-weather\tools\story\build_ch1_story.py:97: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\tmp\\Nest-Egg-indoor-stage-weather\\tools\\story\\..\\..\\art\\environment\\scene_props\\dawn_noodle_stall\\dawn_noodle_stall__noodle_bowls_table.png'>
+  tex_w = Image.open(disk % name).size[0]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\tmp\Nest-Egg-indoor-stage-weather\tools\story\build_ch1_story.py:97: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\tmp\\Nest-Egg-indoor-stage-weather\\tools\\story\\..\\..\\art\\environment\\scene_props\\dawn_noodle_stall\\dawn_noodle_stall__hanging_lantern.png'>
+  tex_w = Image.open(disk % name).size[0]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.074s
+
+OK

@@ -1,0 +1,42 @@
+[
+  {
+    "phase": "before",
+    "stage": "ch1_pawnshop_front",
+    "exit": 0,
+    "source_sha256": "ca4af617b226e39c45d9ef1d51cfdd5d35a6cbe63b177e971794362c47971990",
+    "image": "C:\\tmp\\ne-stage-weather-native\\before\\ch1_pawnshop_front\\BG-19-stage-ch1_pawnshop_front.png",
+    "image_sha256": "3ac5a20c29284cc04d43ec2cebd21e0eda61532021ab1f115395f861fe09f3e4",
+    "log": "C:\\tmp\\ne-stage-weather-native\\before-ch1_pawnshop_front.log",
+    "scope": "native authored-stage preview, no synthetic actors and no full chapter framing acceptance"
+  },
+  {
+    "phase": "before",
+    "stage": "shaft_descent",
+    "exit": 0,
+    "source_sha256": "afe0d7f3c89038b3ad1ab878ed115e70171897b9912871c75e84298f44a1846e",
+    "image": "C:\\tmp\\ne-stage-weather-native\\before\\shaft_descent\\BG-19-stage-shaft_descent.png",
+    "image_sha256": "26d013e3fd2a2c1ffcb6cb73885cedbeffe125f642573810e549badd74b864c2",
+    "log": "C:\\tmp\\ne-stage-weather-native\\before-shaft_descent.log",
+    "scope": "native authored-stage preview, no synthetic actors and no full chapter framing acceptance"
+  },
+  {
+    "phase": "after",
+    "stage": "ch1_pawnshop_front",
+    "exit": 0,
+    "source_sha256": "5cff4e6a0269444b282ce08963026dceaf8ae492b6c0356875de279a7e987de4",
+    "image": "C:\\tmp\\ne-stage-weather-native\\after\\ch1_pawnshop_front\\BG-19-stage-ch1_pawnshop_front.png",
+    "image_sha256": "0e9afe39761473798a847884712bbbbbb08a2ff8b55a02094f2d238299272f81",
+    "log": "C:\\tmp\\ne-stage-weather-native\\after-ch1_pawnshop_front.log",
+    "scope": "native authored-stage preview, no synthetic actors and no full chapter framing acceptance"
+  },
+  {
+    "phase": "after",
+    "stage": "shaft_descent",
+    "exit": 0,
+    "source_sha256": "d33a28702a59fa03d191dfcf42139d1e7a027bf732f7b015d6fd9aac83b1f372",
+    "image": "C:\\tmp\\ne-stage-weather-native\\after\\shaft_descent\\BG-19-stage-shaft_descent.png",
+    "image_sha256": "bd040d973e5af166ce18e35dfdcc10c51459d0337fa922f751f6c9ebd7092db8",
+    "log": "C:\\tmp\\ne-stage-weather-native\\after-shaft_descent.log",
+    "scope": "native authored-stage preview, no synthetic actors and no full chapter framing acceptance"
+  }
+]

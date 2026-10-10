@@ -49,7 +49,7 @@ SPEAKERS = {
 # 舞台座標除了立繪還有：腳底的地面線、各演員的縮放、預設的鏡頭（對話框在畫面下緣約 22%，所以腳底要落在畫面約 70% 以上）。
 STAGES = {
     # 舞台 id: (場景立繪, 底色上, 底色下, 雨, 光暈, 額外圖層)
-    'ch1_pawnshop_front': ('pawnshop_front', '#120d09', '#241810', True, [330, 70, 230, '#ffb066'], []),
+    'ch1_pawnshop_front': ('pawnshop_front', '#120d09', '#241810', False, [330, 70, 230, '#ffb066'], []),
     'ch1_pawnshop_kitchen': ('pawnshop_kitchen', '#0d1410', '#1b241a', False, [300, 40, 200, '#e8e090'], []),
     'ch1_rooftop': ('rooftop', '#06101f', '#0c1c33', True, [560, 40, 200, '#ffd77a'], []),
     'ch1_revival_room': ('revival_room', '#d8e4ee', '#f4f8fb', False, [320, 60, 260, '#ffffff'], []),
