@@ -14,13 +14,27 @@
 
 已請同一 session 透過既有 Cloud Environment 官方能力檢查網路就緒與正常等待／重連入口，只在狀態變化後有限重試一次 fetch。不能停用或繞過代理、網路政策，不能取出憑證，不能用另一份 clone 冒充設定好的環境。這個錯誤不是 remote 403；真正權限拒絕仍不重試或繞過。
 
-後續核對：官方狀態 revision 由 2 變為 5，回報 `running / connected`，網路政策就緒仍為 `unknown`。狀態變化後僅重試一次 fetch，仍 exit 128、相同 proxy 8080 錯誤。代理 TCP 檢查回報 `Operation not permitted`，官方能力沒有 reconnect 入口，因此沒有继续重試或繞過。原始 log 位於該雲端環境 `/workspace/Nest-Egg/work/bg25-network/fetch-origin-main.log`；session 已停止 source 工作、保留環境，BG-25 尚未實作，B/C 尚未派到正確環境。這是環境連線阻擋，不能誤稱任務已在背景開發。
+後續核對：官方狀態 revision 由 2 變為 5，再變為 7，回報 `running / connected`，網路政策就緒仍為 `unknown`。早先狀態變化後僅重試一次 fetch，仍 exit 128、相同 proxy 8080 錯誤；最新核對未再發網路命令。代理 TCP 檢查回報 `Operation not permitted`。原始 log 位於該雲端環境 `/workspace/Nest-Egg/work/bg25-network/fetch-origin-main.log`；舊 session 已停止 source 工作、保留環境，沒有任何 source 交付。這不能推論整個平台 Proxy 故障；`connected` 也不等於網路政策或 shell 權限已就緒。
+
+## 權限比對與恢復
+
+使用者手動建立的「盤點目前可見內容」（`01a12411-12a5-761f-a328-15abf29e409d`）在同一專案路徑及 remote，普通 `git ls-remote origin HEAD` exit 0、代理 TCP 8080 connected、GitHub HTTP 200；官方政策為 `unrestricted / enforced`。工作頁權限實際為 **Full access**。沒有向這個使用者 session 傳送任務或修改設定。
+
+新建立的「雲端 A2：Nest-Egg 預檢與場景動態」（`01a12420-974e-73e7-8853-5ff215a3d0a7`）明確選擇 Cloud → Nest-Egg，使用與舊 A 相同的已發佈 config/version。確認 repo、remote、Godot 4.7.2，官方 `observations_current=true`、`running / connected`、`unrestricted / enforced`；但普通 sandbox 的 `ls-remote` 與 `fetch` 仍各 exit 128、連不上 proxy 8080。工作頁權限與舊 A 均為 **Approve for me**。
+
+[官方 Permissions](https://learn.chatgpt.com/docs/permission-modes) 與 [Auto-review](https://learn.chatgpt.com/docs/sandboxing/auto-review) 說明：Approve for me 保留 workspace-write sandbox，改的是額外操作的審查者，不會自動開放網路。Full access 移除相應 sandbox 邊界。因此環境政策與實際 shell 執行權限必須分別核對，不能因為選到正確環境或政策 enforced 就當成普通 Git 已可連線。
+
+在 A2 的既有正式單次命令審查通道，僅對該 repo 的 `git ls-remote origin HEAD` 與 `git fetch origin main` 提出正常 escalation 後，兩個命令均 exit 0。工具接受並執行，未回報拒絕；沒有另提供審查裁決內容，不能虛構 reviewer 的判斷。實際遠端及 fetch 後 `origin/main` 都為 `252d09e9853b1310be127bc37f9a03ea3a8436a3`，工作目錄乾淨。這支持 sandbox 執行權限是造成前後差異的關鍵；沒有證據斷定舊 A 的 unknown 狀態具有相同唯一根因。
+
+未修改任何 session/global Full access、proxy、CA、network policy 或憑證。之後已授權的必要 Git 網路操作，沿用現有正式命令審查通道；工具不支援、權限政策不允許或審查拒絕時停止並保留錯誤，不繞過。新 session 派工門檻是正確 repo/引擎、當前官方政策，以及實際 Git 成功，不能只看狀態燈。
+
+BG-25 的唯一雲端 owner 已轉交 A2；舊 A 已收到停止 source/Git mutation、保留診斷 log 的移交。A2 已收到完整票務、範圍、局部測試、截圖與逐票快轉推 main 的實作指令。此處的連線恢復不是 BG-25 完成交付，B/C 仍待各自新 session 的真實預檢。
 
 ## 分工
 
 | 工作 | 票 | 範圍 | 實際派工狀態 |
 |---|---|---|---|
-| 雲端 A：場景動態 | BG-25 | PropData/PropNode、局部動畫元件/shader、相關道具資料與測試；先做水管水流 | 已進入正確環境，等網路同步最新 main |
+| 雲端 A2：場景動態 | BG-25 | PropData/PropNode、局部動畫元件/shader、相關道具資料與測試；先做水管水流 | 已驗證正式單次 Git 命令通道並取得 main，已正式派工；尚未完成票 |
 | 雲端 B：武器差異與連段 | NE-236、NE-237；NE-231 僅近戰部分 | MeleeSet/連段處理、Player 近戰與相應成長、測試；不碰角色基礎 rig 或故事存檔 | 待 A 完成連線核對後，另建明確選環境的 session；尚未開始 |
 | 雲端 C：累積章節打包 | NE-232 | 發行工具、真章節 readiness、產物清單/校驗、相關測試 | 待 A 完成連線核對後另建；尚未開始，不製造三份相同占位包 |
 
