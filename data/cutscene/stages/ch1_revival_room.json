@@ -23,7 +23,8 @@
    ],
    "scale": 0.5,
    "filter": "linear",
-   "source_width": 1536
+   "source_width": 1536,
+   "modulate": "#b4c6d4"
   },
   {
    "kind": "glow",
@@ -32,10 +33,10 @@
     60
    ],
    "radius": 260,
-   "color": "#ffffff",
+   "color": "#8fd8ff",
    "intensity": 0.7,
    "additive": true,
-   "alpha": 0.35,
+   "alpha": 0.22,
    "pulse": 0.06,
    "pulse_depth": 0.2
   },

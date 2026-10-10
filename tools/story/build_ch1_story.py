@@ -52,9 +52,14 @@ STAGES = {
     'ch1_pawnshop_front': ('pawnshop_front', '#120d09', '#241810', False, [330, 70, 230, '#ffb066'], []),
     'ch1_pawnshop_kitchen': ('pawnshop_kitchen', '#0d1410', '#1b241a', False, [300, 40, 200, '#e8e090'], []),
     'ch1_rooftop': ('rooftop', '#06101f', '#0c1c33', True, [560, 40, 200, '#ffd77a'], []),
-    'ch1_revival_room': ('revival_room', '#d8e4ee', '#f4f8fb', False, [320, 60, 260, '#ffffff'], []),
+    'ch1_revival_room': ('revival_room', '#d8e4ee', '#f4f8fb', False, [320, 60, 260, '#8fd8ff'], []),
     'ch1_revival_lounge': ('revival_lounge', '#160812', '#2a1022', False, [320, 120, 240, '#ff3fa4'], []),
     'ch1_dawn_noodle_stall': ('dawn_noodle_stall', '#1a2230', '#3a4658', True, [330, 140, 220, '#cfe0ff'], 'stall'),
+}
+# 立繪的色調與光暈強度（沒列的用原圖與預設光暈）。全白的房間要把背景壓到比白髮暗一階並改用冷色光暈，
+# 頭髮與臉才不會和窗糊成一片（NE-251；量測：tools/ne251_wake_probe.tscn 的 washed 要低於 5%）。
+STAGE_TONE = {
+    'ch1_revival_room': {'modulate': '#b4c6d4', 'glow_alpha': 0.22},
 }
 # 地面線（腳底 y）與座位（座面 y；沒有就是 None）。
 FLOOR = {
@@ -103,13 +108,16 @@ def stall_layers(scale):
 
 
 def write_stage(stage_id, scene, top, bottom, rain, glow, extra):
+    tone = STAGE_TONE.get(stage_id, {})
     layers = [
         {"kind": "gradient", "top": top, "bottom": bottom, "parallax": 0.0},
         {"kind": "sprite", "path": f"res://art/environment/scenes/{scene}.webp", "pos": [-64, -36.0], "scale": 0.5,
          "filter": "linear", "source_width": 1536},  # 原設計寬度；保留縮圖快取下的舞台比例。不能開 life。
         {"kind": "glow", "pos": [glow[0], glow[1]], "radius": glow[2], "color": glow[3], "intensity": 0.7, "additive": True,
-         "alpha": 0.35, "pulse": 0.06, "pulse_depth": 0.2},
+         "alpha": tone.get('glow_alpha', 0.35), "pulse": 0.06, "pulse_depth": 0.2},
     ]
+    if 'modulate' in tone:
+        layers[1]["modulate"] = tone['modulate']
     if extra == 'stall':
         scale = SCALE[stage_id]['rin']
         layers.extend(stall_layers(scale))

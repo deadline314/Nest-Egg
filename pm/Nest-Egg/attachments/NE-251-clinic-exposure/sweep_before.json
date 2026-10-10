@@ -1,0 +1,431 @@
+{
+	"cause": "flood",
+	"checks": 46,
+	"events": [
+		{
+			"cause": "flood",
+			"engine_node_count": 90,
+			"engine_object_count": 2642,
+			"engine_orphan_nodes": 0,
+			"engine_static_bytes": 122468435,
+			"mode": "sweep",
+			"physics_frame": 1,
+			"pid": 29940,
+			"prefetch": {
+				"cached": 0,
+				"collected_total": 0,
+				"estimated_bytes": 0,
+				"evicted_total": 0,
+				"failed_total": 0,
+				"generation": 0,
+				"inflight": 0,
+				"inflight_limit": 1,
+				"main_assets_per_frame_limit": 1,
+				"main_last_frame": -1,
+				"main_last_load_us": 0,
+				"main_last_work_us": 0,
+				"main_load_total": 0,
+				"main_max_load_us": 0,
+				"main_max_work_us": 0,
+				"main_over_budget_total": 0,
+				"main_soft_budget_us": 2000,
+				"queued": 0,
+				"requested_total": 0,
+				"retiring": 0,
+				"scope": "",
+				"strategy": 2,
+				"threaded_request_calls": 0
+			},
+			"process_frame": 0,
+			"render_texture_bytes": 0,
+			"render_video_bytes": 0,
+			"renderer": "forward_plus",
+			"stage": "probe-entry",
+			"ticks_ms": 4856
+		}
+	],
+	"failures": 0,
+	"legacy_fill": false,
+	"mode": "sweep",
+	"pid": 29940,
+	"scope": "real Main, real death flow and wake cutscene; warehouse entry by Main's area route and pit by placement",
+	"sweep": [
+		{
+			"actor_fill": 1.0,
+			"actor_light_cap": 0.2,
+			"behind_luma": 0.155535677527732,
+			"bright": 0.229941730165845,
+			"centered": false,
+			"clipped": 0.00134468848050202,
+			"halo": 1.11494252873563,
+			"hdr_format": 14,
+			"head_pixels": 4462,
+			"luma": 0.53368980095828,
+			"over_one": 0.0248767368892873,
+			"passed": true,
+			"peak": 8.5859375,
+			"peak_color": [
+				0.279296875,
+				8.5859375,
+				8.171875
+			],
+			"pos": [
+				385.0,
+				348.0
+			],
+			"pose": "idle",
+			"rect": [
+				736,
+				124,
+				102,
+				146
+			],
+			"scale": 3.4,
+			"scene": "ch1_c01_open",
+			"shot": "sweep-00-ch1_pawnshop_front",
+			"stage": "ch1_pawnshop_front",
+			"use_level_lighting": false,
+			"washed": 0.00717167189601076
+		},
+		{
+			"actor_fill": 1.0,
+			"actor_light_cap": 0.2,
+			"behind_luma": 0.922391473806806,
+			"bright": 0.195361911454673,
+			"centered": false,
+			"clipped": 0.016865776528461,
+			"halo": 1.11520376175549,
+			"hdr_format": 14,
+			"head_pixels": 4269,
+			"luma": 0.475721238095554,
+			"over_one": 0.0236589365190911,
+			"passed": false,
+			"peak": 8.4765625,
+			"peak_color": [
+				1.060546875,
+				8.4765625,
+				7.828125
+			],
+			"pos": [
+				316.0,
+				230.8
+			],
+			"pose": "sit",
+			"rect": [
+				564,
+				56,
+				113,
+				150
+			],
+			"scale": 2.5,
+			"scene": "ch1_c09_wake",
+			"shot": "sweep-01-ch1_revival_room",
+			"stage": "ch1_revival_room",
+			"use_level_lighting": false,
+			"washed": 0.103302881236824
+		},
+		{
+			"actor_fill": 1.0,
+			"actor_light_cap": 0.2,
+			"behind_luma": 0.189751759953018,
+			"bright": 0.0974532224532225,
+			"centered": false,
+			"clipped": 0.00025987525987526,
+			"halo": 1.1685393258427,
+			"hdr_format": 14,
+			"head_pixels": 3848,
+			"luma": 0.46434357411813,
+			"over_one": 0.031964656964657,
+			"passed": true,
+			"peak": 8.578125,
+			"peak_color": [
+				0.33447265625,
+				8.578125,
+				8.453125
+			],
+			"pos": [
+				575.0,
+				304.0
+			],
+			"pose": "",
+			"rect": [
+				1112,
+				42,
+				113,
+				162
+			],
+			"scale": 3.8,
+			"scene": "ch1_c14_home",
+			"shot": "sweep-02-ch1_pawnshop_kitchen",
+			"stage": "ch1_pawnshop_kitchen",
+			"use_level_lighting": false,
+			"washed": 0.0103950103950104
+		},
+		{
+			"actor_fill": 1.0,
+			"actor_light_cap": 0.2,
+			"behind_luma": 0.0469807029374985,
+			"bright": 0.225689027561102,
+			"centered": false,
+			"clipped": 0.00208008320332813,
+			"halo": 1.01263823064771,
+			"hdr_format": 14,
+			"head_pixels": 1923,
+			"luma": 0.479537069833867,
+			"over_one": 0.0,
+			"passed": true,
+			"peak": 1.0,
+			"peak_color": [
+				1.0,
+				0.970703125,
+				0.96728515625
+			],
+			"pos": [
+				215.0,
+				298.0
+			],
+			"pose": "crouch",
+			"rect": [
+				313,
+				349,
+				88,
+				106
+			],
+			"scale": 2.0,
+			"scene": "cut_c1_shop",
+			"shot": "sweep-03-old_k_shop",
+			"stage": "old_k_shop",
+			"use_level_lighting": false,
+			"washed": 0.0
+		},
+		{
+			"actor_fill": 1.0,
+			"actor_light_cap": 0.2,
+			"behind_luma": 0.15193234780969,
+			"bright": 0.206847360912981,
+			"centered": false,
+			"clipped": 0.0021398002853067,
+			"halo": 1.2276707530648,
+			"hdr_format": 14,
+			"head_pixels": 1402,
+			"luma": 0.493210795951629,
+			"over_one": 0.0385164051355207,
+			"passed": true,
+			"peak": 8.5859375,
+			"peak_color": [
+				0.258544921875,
+				8.5859375,
+				8.3984375
+			],
+			"pos": [
+				110.0,
+				250.0
+			],
+			"pose": "",
+			"rect": [
+				327,
+				252,
+				64,
+				83
+			],
+			"scale": 1.8,
+			"scene": "cut_c2_hangar",
+			"shot": "sweep-04-hangar_red",
+			"stage": "hangar_red",
+			"use_level_lighting": false,
+			"washed": 0.0135520684736091
+		},
+		{
+			"actor_fill": 1.0,
+			"actor_light_cap": 0.2,
+			"behind_luma": 0.0665605115733715,
+			"bright": 0.231338679827267,
+			"centered": false,
+			"clipped": 0.00185070943861814,
+			"halo": 1.02078085642317,
+			"hdr_format": 14,
+			"head_pixels": 1621,
+			"luma": 0.476979211530739,
+			"over_one": 0.00123380629241209,
+			"passed": true,
+			"peak": 2.080078125,
+			"peak_color": [
+				0.10723876953125,
+				1.7470703125,
+				2.080078125
+			],
+			"pos": [
+				170.0,
+				268.0
+			],
+			"pose": "crouch",
+			"rect": [
+				262,
+				297,
+				82,
+				98
+			],
+			"scale": 2.0,
+			"scene": "cut_c3_terminal",
+			"shot": "sweep-05-terminal_room",
+			"stage": "terminal_room",
+			"use_level_lighting": false,
+			"washed": 0.00123380629241209
+		},
+		{
+			"actor_fill": 1.0,
+			"actor_light_cap": 0.2,
+			"behind_luma": 0.23283944961653,
+			"bright": 0.22654028436019,
+			"centered": true,
+			"clipped": 0.0014218009478673,
+			"halo": 1.15111838516094,
+			"hdr_format": 14,
+			"head_pixels": 2110,
+			"luma": 0.534377739643904,
+			"over_one": 0.0255924170616114,
+			"passed": true,
+			"peak": 8.4609375,
+			"peak_color": [
+				0.178466796875,
+				8.4609375,
+				7.99609375
+			],
+			"pos": [
+				330.0,
+				298.0
+			],
+			"pose": "",
+			"rect": [
+				615,
+				276,
+				73,
+				103
+			],
+			"scale": 2.0,
+			"scene": "cut_c4_dawn",
+			"shot": "sweep-06-old_k_shop_dawn-centered",
+			"stage": "old_k_shop_dawn",
+			"use_level_lighting": false,
+			"washed": 0.00853080568720379
+		},
+		{
+			"actor_fill": 1.0,
+			"actor_light_cap": 0.2,
+			"behind_luma": 0.461554123557977,
+			"bright": 0.219419924337957,
+			"centered": false,
+			"clipped": 0.00189155107187894,
+			"halo": 1.1551347414421,
+			"hdr_format": 14,
+			"head_pixels": 1586,
+			"luma": 0.531524652581617,
+			"over_one": 0.021437578814628,
+			"passed": true,
+			"peak": 8.546875,
+			"peak_color": [
+				0.10003662109375,
+				8.546875,
+				8.328125
+			],
+			"pos": [
+				110.0,
+				276.0
+			],
+			"pose": "",
+			"rect": [
+				156,
+				274,
+				65,
+				91
+			],
+			"scale": 2.0,
+			"scene": "cut_c6_corridor",
+			"shot": "sweep-07-transfer_corridor",
+			"stage": "transfer_corridor",
+			"use_level_lighting": false,
+			"washed": 0.00693568726355612
+		},
+		{
+			"actor_fill": 1.0,
+			"actor_light_cap": 0.2,
+			"behind_luma": 0.382128253124743,
+			"bright": 0.231903485254692,
+			"centered": false,
+			"clipped": 0.00223413762287757,
+			"halo": 1.01038374717833,
+			"hdr_format": 14,
+			"head_pixels": 2238,
+			"luma": 0.489581891764179,
+			"over_one": 0.000446827524575514,
+			"passed": true,
+			"peak": 2.513671875,
+			"peak_color": [
+				0.1319580078125,
+				2.15625,
+				2.513671875
+			],
+			"pos": [
+				470.0,
+				276.0
+			],
+			"pose": "crouch",
+			"rect": [
+				715,
+				281,
+				95,
+				113
+			],
+			"scale": 2.0,
+			"scene": "cut_c7_elevator",
+			"shot": "sweep-08-transfer_corridor",
+			"stage": "transfer_corridor",
+			"use_level_lighting": false,
+			"washed": 0.000446827524575514
+		},
+		{
+			"actor_fill": 1.0,
+			"actor_light_cap": 0.2,
+			"behind_luma": 0.270684695250471,
+			"bright": 0.221378874130297,
+			"centered": false,
+			"clipped": 0.00189753320683112,
+			"halo": 1.13333333333333,
+			"hdr_format": 14,
+			"head_pixels": 1581,
+			"luma": 0.528616332972887,
+			"over_one": 0.021505376344086,
+			"passed": true,
+			"peak": 8.546875,
+			"peak_color": [
+				0.10089111328125,
+				8.546875,
+				8.328125
+			],
+			"pos": [
+				320.0,
+				272.0
+			],
+			"pose": "",
+			"rect": [
+				596,
+				306,
+				65,
+				91
+			],
+			"scale": 2.0,
+			"scene": "cut_c7_elevator",
+			"shot": "sweep-09-elevator_rise",
+			"stage": "elevator_rise",
+			"use_level_lighting": false,
+			"washed": 0.00885515496521189
+		}
+	],
+	"thresholds": {
+		"clipped": 0.02,
+		"washed": 0.05,
+		"washed_gap": 0.2,
+		"washed_luma": 0.75
+	},
+	"wake_starts": 0
+}

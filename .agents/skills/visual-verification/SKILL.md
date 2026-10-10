@@ -33,6 +33,7 @@ xvfb-run -a -s "-screen 0 1280x720x24" godot_x11 --path . --rendering-driver vul
 | `--scenario=exposure_sweep@關卡檔@間隔` | 整張地圖每隔幾欄量一次 |
 | `tools/rig_preview.tscn` | 角色姿勢、動作、接縫（`--chars --closeup --zoom --joints --level --rigid --gait --action`） |
 | `tools/rig_perf_probe.tscn` | 骨架動畫每格成本 |
+| `tools/ne251_wake_probe.tscn -- --mode=route\|isolated\|resume\|sweep` | 過場舞台上主角頭部的純白比例，以及白髮和正後方背景分不分得開（`route` 走真正的倉庫溺斃 → 診間醒來；`sweep` 量所有有主角登場的舞台）；門檻純白 2%、糊掉 5% |
 
 量測陷阱（都踩過）：
 - 專案用 stretch，螢幕座標要用 `get_viewport().get_final_transform() * get_viewport().get_canvas_transform()`，只用 `canvas_transform` 會量到錯的地方。
@@ -40,6 +41,7 @@ xvfb-run -a -s "-screen 0 1280x720x24" godot_x11 --path . --rendering-driver vul
 - 材質、modulate 的實驗要先確認真的套到目標節點（印出 `material`），否則會得到「沒有差別」的錯誤結論。
 - 截圖是 HDR 浮點影像，像素值可以大於 1；「全白」用每個色版 > 0.92 判斷。
 - 在地圖裡擺放主角：`layout.floor_below(欄, 4)`；有些位置在牆裡或鏡頭沒跟上，截圖看過再信數字。
+- 過場的問題要走實際路線量一次：關卡在過場播放時還留在底下（補光倍率、泛光設定都是那一關的），單獨播放場景量到的不一定是玩家看到的（NE-251）。
 
 ## 驗收規則
 
