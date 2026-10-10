@@ -37,9 +37,14 @@
 
 開始角色美術或動畫工作前，完整讀取適用的 Skill，再依規範執行。
 
+
 | 技能 | 何時使用 | 規範 |
 |---|---|---|
-| `character-art-pipeline` | 生成或替換角色立繪、透明背景、分件、補全與遊戲貼圖；依固定 SOP 交付 | [.claude/skills/character-art-pipeline/SKILL.md](.claude/skills/character-art-pipeline/SKILL.md) |
-| `rig-animation` | 角色部件接合、骨架綁定、全動作、操作手感、Forward+ 與效能驗證 | [.claude/skills/rig-animation/SKILL.md](.claude/skills/rig-animation/SKILL.md) |
+| `pm-ticket` | 開票、改票、補票、交付紀錄；修改 `pm/` 下的 Markdown 前必讀 | [.agents/skills/pm-ticket/SKILL.md](.agents/skills/pm-ticket/SKILL.md) |
+| `audio-pipeline` | 新增、替換或尋找音效、環境音與配樂素材 | [.agents/skills/audio-pipeline/SKILL.md](.agents/skills/audio-pipeline/SKILL.md) |
+| `free-asset-pipeline` | 新增、替換或尋找場景、背景、道具、天空與光影素材 | [.agents/skills/free-asset-pipeline/SKILL.md](.agents/skills/free-asset-pipeline/SKILL.md) |
+| `character-art-pipeline` | 生成或替換角色立繪、透明背景、分件、補全與遊戲貼圖；依固定 SOP 交付 | [.agents/skills/character-art-pipeline/SKILL.md](.agents/skills/character-art-pipeline/SKILL.md) |
+| `rig-animation` | 角色部件接合、骨架綁定、全動作、操作手感、Forward+ 與效能驗證 | [.agents/skills/rig-animation/SKILL.md](.agents/skills/rig-animation/SKILL.md) |
+
 
 修改共用角色 Skill 時同步 `.agents/skills/`、`.claude/skills/` 與 `.agent/skills/` 的相同副本，避免規則分歧。
