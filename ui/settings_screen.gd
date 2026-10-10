@@ -18,6 +18,7 @@ var _hud_auto_hide: CheckButton
 var _quality_option: OptionButton
 var _reduce_flashes: CheckButton
 var _reduce_ui_motion: CheckButton
+var _dash_silhouettes: CheckButton
 var _skip_cutscenes: CheckButton
 var _smooth_font: CheckButton
 var _text_scale_option: OptionButton
@@ -235,6 +236,17 @@ func _build_display_tab() -> Control:
 		Settings.set_reduce_ui_motion(on)
 		Sfx.play(&"ui_confirm", -6.0, 0.0))
 	box.add_child(_reduce_ui_motion)
+	_dash_silhouettes = CheckButton.new()
+	_dash_silhouettes.text = "衝刺殘影"
+	_dash_silhouettes.tooltip_text = "關閉衝刺殘影，角色動作照常"
+	_dash_silhouettes.focus_mode = Control.FOCUS_ALL
+	_dash_silhouettes.button_pressed = Settings.get_dash_silhouettes()
+	_dash_silhouettes.toggled.connect(func(on: bool) -> void:
+		Settings.set_dash_silhouettes(on)
+		Sfx.play(&"ui_confirm", -6.0, 0.0))
+	box.add_child(_dash_silhouettes)
+	Settings.display_changed.connect(_sync_dash_silhouettes)
+	tree_exiting.connect(func() -> void: Settings.display_changed.disconnect(_sync_dash_silhouettes))
 	_smooth_font = CheckButton.new()
 	_smooth_font.text = "平滑字型"
 	_smooth_font.tooltip_text = "開啟後立即改用平滑黑體，關閉後改用像素字。"
@@ -293,6 +305,11 @@ func _build_display_tab() -> Control:
 func _sync_fullscreen() -> void:
 	if is_instance_valid(_fullscreen):
 		_fullscreen.set_pressed_no_signal(Settings.get_fullscreen())
+
+
+func _sync_dash_silhouettes() -> void:
+	if is_instance_valid(_dash_silhouettes):
+		_dash_silhouettes.set_pressed_no_signal(Settings.get_dash_silhouettes())
 
 
 ## 打擊回饋強度滑桿：[設定鍵, 名稱, 提示]。
@@ -639,6 +656,7 @@ func _reset_current_tab() -> void:
 		_select_quality_item()
 		_reduce_flashes.set_pressed_no_signal(Settings.get_reduce_flashes())
 		_reduce_ui_motion.set_pressed_no_signal(Settings.get_reduce_ui_motion())
+		_sync_dash_silhouettes()
 		_skip_cutscenes.set_pressed_no_signal(Settings.get_skip_cutscenes())
 		_smooth_font.set_pressed_no_signal(Settings.get_ui_font() == "smooth")
 		_text_scale_option.select(1 if Settings.get_ui_text_scale() > 1.1 else 0)

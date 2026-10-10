@@ -1,0 +1,25 @@
+{
+  "visual_accepted": false,
+  "natural_eof": true,
+  "samples": 161,
+  "arguments": [
+    "--path",
+    "\"C:/Users/stanl/.codex/worktrees/contextual-game-ui/Nest-Egg\"",
+    "--rendering-method",
+    "forward_plus",
+    "--rendering-driver",
+    "vulkan",
+    "--resolution",
+    "1600x900",
+    "res://tools/dash_silhouette_native_probe.tscn",
+    "--",
+    "--out=\"C:/tmp/ne247-native-check-9\"",
+    "--manifest=\"C:\\tmp\\ne247-native-check-9\\runtime-manifest.json\""
+  ],
+  "manifest_sha256": "4ee20c8ee030c69fe4745b0508c07eb3c1b4191bffb71f816dceb5ffd30e9198",
+  "elapsed_seconds": 83.1368694,
+  "interpretation": "Direct Godot engine PID WorkingSet/PrivateBytes, not console launcher; neither VRAM nor managed allocation cap",
+  "sampled_executable": "C:/Tools/Godot/Godot_v4.7.2-stable_win64.exe",
+  "baseline": "aeb45f77f5b99ca962786fb28341f1a87fb9ad4f",
+  "exit": 0
+}

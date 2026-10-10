@@ -18,6 +18,7 @@ func run() -> void:
 	await _test_player_fx()
 	await _test_shield_presentation()
 	await _test_dash_and_materialize()
+	await DashSilhouetteChecks.run(self)
 	await _test_environment()
 
 
@@ -225,10 +226,13 @@ func _test_dash_and_materialize() -> void:
 	player._dash_cooldown_left = 0.0
 	player._try_dash(1.0)
 	await physics_frames(12)
-	check(visual._ghosts.size() > 0 and visual._ghosts.size() <= PlayerVisual.MAX_GHOSTS, "dash leaves a capped number of afterimages (%d)" % visual._ghosts.size())
-	check(visual._ghosts.is_empty() or visual._ghosts[0].w == 1.0, "afterimages remember the dash direction")
+	check(is_instance_valid(visual._ghost_pool) and visual._ghost_pool.active_count() > 0 and visual._ghost_pool.active_count() <= PlayerVisual.MAX_GHOSTS, "real dash leaves bounded actual-pose silhouettes")
+	if is_instance_valid(visual._ghost_pool):
+		for slot in visual._ghost_pool.slots:
+			if slot.visible:
+				check(absf(slot.facing) == 1.0 and slot.used > 0, "actual-pose snapshot stores a valid captured rig facing and geometry")
 	await physics_frames(60)
-	check(visual._ghosts.is_empty(), "afterimages fade out")
+	check(is_instance_valid(visual._ghost_pool) and visual._ghost_pool.active_count() == 0, "afterimages fade out and release source texture leases")
 	visual.notify_parry()
 	await frames(2)
 	check(visual._parry_flash > 0.0, "the parry starburst is playing")

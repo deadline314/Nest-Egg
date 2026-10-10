@@ -1,0 +1,95 @@
+--- a/tools/dash_silhouette_native_probe.gd
++++ b/tools/dash_silhouette_native_probe.gd
+@@ -518,6 +518,10 @@
+ 	var visual := level.player._visual
+ 	var original_rig := visual.rig
+ 	var original_visible := original_rig.visible
++	var original_components := _alignment_components(original_rig)
++	var player_before := _alignment_components(level.player)
++	var visual_before := _alignment_components(visual)
++	var original_state_before := _alignment_state(original_rig)
+ 	var fixture_globals := {}
+ 	var fixture: CharacterRig
+ 	if synthetic:
+@@ -527,7 +531,9 @@
+ 		var suite := PoseFixture.new(self)
+ 		fixture = suite._new_rig(suite._fixture())
+ 		fixture.reparent(visual, false)
+-		fixture.transform = original_rig.transform
++		# A negative-X matrix assignment would decompose into PI rotation / -Y
++		# scale; the later real facing setter would then invert the fixture too.
++		_restore_alignment_components(fixture, original_components)
+ 		_check(fixture.set_pose_parts(&"mesh_a"), "clearly synthetic native PoseMesh fixture activates")
+ 		_check(not fixture.active_pose_mesh_geometries().is_empty(), "synthetic native alignment uses actual weighted Polygon2D geometry")
+ 		fixture.bone(&"hip").rotation += 0.21
+@@ -572,6 +578,8 @@
+ 	var source_parent := rig.get_parent()
+ 	var source_index := rig.get_index()
+ 	var source_transform := rig.transform
++	var source_components := _alignment_components(rig)
++	var source_state_before := _alignment_state(rig)
+ 	var source_process_mode := rig.process_mode
+ 	rig.process_mode = Node.PROCESS_MODE_DISABLED
+ 	var world_transform := rig.global_transform
+@@ -612,7 +620,12 @@
+ 	source_image = null # One source alpha fixed buffer, no retained Image collection.
+ 	rig.reparent(source_parent, false)
+ 	source_parent.move_child(rig, source_index)
+-	rig.transform = source_transform
++	# Restore the exact captured representation as well as its matrix. Facing
++	# animates scale, so matrix-equivalent PI/-Y decomposition is not equivalent.
++	_restore_alignment_components(rig, source_components)
++	_check(rig.transform == source_transform and _alignment_components_match(rig, source_components), "alignment restores exact actual source matrix and position rotation scale skew components")
++	_check(_alignment_components_match(level.player, player_before) and _alignment_components_match(visual, visual_before), "alignment staging never mutates actual Player or Visual matrix/components")
++	var source_state_restored := _alignment_state(rig)
+ 	rig.process_mode = source_process_mode
+ 	for entry: Dictionary in restore:
+ 		var item := entry.item as CanvasItem
+@@ -654,8 +667,47 @@
+ 	replay.free()
+ 	pool.clear()
+ 	_restore_alignment_fixture(visual, original_rig, original_visible, fixture, fixture_globals)
++	_check(visual.rig == original_rig and _alignment_components_match(original_rig, original_components), "alignment returns the identical formal Rig with exact pre-diagnostic components")
++	var original_state_restored := _alignment_state(original_rig)
+ 	get_tree().paused = false
+ 	await _frames(2)
++	# Observe actual resumed animation; never write a pose or reset live transforms.
++	_check(original_rig.rotation == float(original_components.rotation) and original_rig.skew == float(original_components.skew) and original_rig.position == original_components.position,
++		"two real resumed frames retain original rig rotation skew and local origin")
++	_check(original_rig.scale == Vector2(original_rig._base_scale * original_rig.facing, original_rig._base_scale) and original_rig.transform.y.dot((original_components.transform as Transform2D).y) > 0.0,
++		"actual resumed facing updates scale without vertical inversion after alignment")
++	rows.append({"event": "alignment-staging-restore", "label": label, "classification": "probe-only negative-X decomposition regression", "source_before": source_state_before, "source_restored": source_state_restored, "formal_before": original_state_before, "formal_restored": original_state_restored, "formal_after_two_actual_frames": _alignment_state(original_rig), "player_before": _alignment_json_components(player_before), "player_after_two_actual_frames": _alignment_state(level.player), "visual_before": _alignment_json_components(visual_before), "visual_after_two_actual_frames": _alignment_state(visual), "scope": "saved exact pre-staging components restored only on moved diagnostic Rig; actual resumed animation observed, no manual Player/Visual/pose reset"})
++
++
++func _alignment_components(node: Node2D) -> Dictionary:
++	return {"transform": node.transform, "position": node.position, "rotation": node.rotation, "scale": node.scale, "skew": node.skew}
++
++
++func _restore_alignment_components(node: Node2D, components: Dictionary) -> void:
++	node.position = components.position
++	node.rotation = float(components.rotation)
++	node.scale = components.scale
++	node.skew = float(components.skew)
++
++
++func _alignment_components_match(node: Node2D, components: Dictionary) -> bool:
++	return node.transform == components.transform and node.position == components.position and node.rotation == float(components.rotation) \
++		and node.scale == components.scale and node.skew == float(components.skew)
++
++
++func _alignment_json_components(components: Dictionary) -> Dictionary:
++	return {"local_transform": _xf_values(components.transform), "position": _v(components.position), "rotation": components.rotation, "scale": _v(components.scale), "skew": components.skew}
++
++
++func _alignment_state(node: Node2D) -> Dictionary:
++	var state := _alignment_json_components(_alignment_components(node))
++	state["global_transform"] = _xf_values(node.global_transform)
++	state["node_id"] = node.get_instance_id()
++	state["parent_id"] = node.get_parent().get_instance_id()
++	if node is CharacterRig:
++		state["actual_facing"] = (node as CharacterRig).facing
++		state["actual_pose_parts"] = str((node as CharacterRig).active_pose_parts())
++	return state
+ 
+ 
+ func _restore_alignment_fixture(visual: PlayerVisual, original: CharacterRig, original_visible: bool,

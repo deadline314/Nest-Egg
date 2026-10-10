@@ -502,6 +502,14 @@ func _test_settings_and_bindings() -> void:
 	Settings.use_storage(test_path)
 	InputBindings.reload_from_settings()
 
+	_check(Settings.get_dash_silhouettes(), "missing dash preference defaults on")
+	Settings.set_value(Settings.DISPLAY_SECTION, "dash_silhouettes", "corrupt")
+	_check(Settings.get_dash_silhouettes(), "malformed dash preference safely defaults on")
+	Settings.set_dash_silhouettes(false)
+	Settings.save_now()
+	Settings.use_storage(test_path)
+	_check(not Settings.get_dash_silhouettes(), "dash preference reloads false from real settings disk")
+
 	Settings.set_volume(&"SFX", 0.5)
 	var sfx_bus := AudioServer.get_bus_index(&"SFX")
 	_check(sfx_bus >= 0 and is_equal_approx(AudioServer.get_bus_volume_db(sfx_bus), linear_to_db(0.5)), "sfx volume applied")
@@ -571,6 +579,24 @@ func _test_settings_and_bindings() -> void:
 	esc.pressed = true
 	screen._input(esc)
 	_check(InputBindings.get_code(&"dash", 1) == KEY_G and not screen._capturing, "escape cancels capture")
+	screen._tabs.current_tab = 2
+	await _frames(2)
+	var trail_button := screen._dash_silhouettes
+	_check(not trail_button.button_pressed and trail_button.text == "衝刺殘影", "settings screen uses persisted independent dash preference")
+	_check(trail_button.focus_mode == Control.FOCUS_ALL and (screen._tabs.get_current_tab_control() as ScrollContainer).follow_focus, "dash toggle participates in keyboard and gamepad scrolling focus")
+	trail_button.grab_focus()
+	_check(get_viewport().gui_get_focus_owner() == trail_button and screen._status.text == trail_button.tooltip_text, "focused dash toggle exposes its hint to keyboard and gamepad users")
+	_check(trail_button.find_next_valid_focus() != trail_button and trail_button.find_prev_valid_focus() != trail_button, "dash toggle joins native forward and reverse focus traversal")
+	trail_button.button_pressed = true
+	_check(Settings.get_dash_silhouettes(), "actual CheckButton handler enables dash silhouettes")
+	Settings.set_dash_silhouettes(false)
+	_check(not trail_button.button_pressed, "external dash setting updates open CheckButton without a second toggle")
+	screen._reset_current_tab()
+	_check(Settings.get_dash_silhouettes() and trail_button.button_pressed, "display reset restores dash default and synchronizes CheckButton")
+	trail_button.button_pressed = false
+	Settings.save_now()
+	var trail_config := ConfigFile.new()
+	_check(trail_config.load(test_path) == OK and trail_config.get_value(Settings.DISPLAY_SECTION, "dash_silhouettes", true) == false, "CheckButton off choice persists to actual settings disk")
 	screen.close()
 	await _frames(1)
 
