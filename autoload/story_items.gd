@@ -250,6 +250,37 @@ func prepare_snapshot(raw: Variant, where := "story/items") -> Dictionary:
 	return {"data": result}
 
 
+class PreparedInstall extends RefCounted:
+	var owned: Dictionary[StringName, bool] = {}
+	var held: Dictionary[StringName, bool] = {}
+	var transferred: Dictionary[StringName, bool] = {}
+	var unseen: Dictionary[StringName, bool] = {}
+
+
+func prepare_install(raw: Variant) -> Dictionary:
+	var checked := prepare_snapshot(raw, "install/items")
+	if checked.has("error"):
+		return checked
+	var prepared := PreparedInstall.new()
+	for id: StringName in checked["data"]["owned"]:
+		prepared.owned[id] = true
+	for id: StringName in checked["data"]["held"]:
+		prepared.held[id] = true
+	for id: StringName in checked["data"]["transferred"]:
+		prepared.transferred[id] = true
+	for id: StringName in checked["data"]["unseen"]:
+		prepared.unseen[id] = true
+	return {"data": prepared}
+
+
+## Prepared containers are handed to the owner; no grant/save/signal or copy.
+func _install_prepared(prepared: PreparedInstall) -> void:
+	_owned = prepared.owned
+	_held = prepared.held
+	_transferred = prepared.transferred
+	_unseen = prepared.unseen
+
+
 func restore(raw: Variant, where := "story/items") -> bool:
 	var prepared := prepare_snapshot(raw, where)
 	if prepared.has("error"):

@@ -150,6 +150,16 @@ static func prepare(raw: Dictionary) -> Dictionary:
 	return {"data": result}
 
 
+## Additive data-owner preparation only. Main/Level/navigation installation and
+## old-state presentation cancellation must be supplied by a later coordinator.
+## Existing apply/rollback intentionally keep their legacy behavior this phase.
+static func prepare_install(raw: Dictionary) -> Dictionary:
+	var checked := prepare(raw)
+	if checked.has("error"):
+		return checked
+	return StoryInstallBundle.prepare_components(checked["data"])
+
+
 static func apply(data: Dictionary) -> void:
 	# 呼叫端只交 prepare 的結果；此處沒有新的讀檔或任意資源載入。
 	GameState.story_autosave = false

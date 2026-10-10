@@ -61,6 +61,173 @@ var kills := 0
 var finishers := 0
 var run_time := 0.0
 
+const INSTALL_SCALARS := ["lives_left", "deaths", "kills", "finishers", "run_time", "last_death_clock", "respawn_pending", "checkpoint_notice_pending", "has_checkpoint", "checkpoint_level_path", "current_level_path", "carried_health"]
+const INSTALL_DICTIONARIES := ["area_states", "checkpoint_world", "checkpoint_progress", "level_start_progress", "level_start_loadout", "checkpoint_loadout"]
+
+class PreparedInstall extends RefCounted:
+	var lives_left: int
+	var deaths: int
+	var kills: int
+	var finishers: int
+	var run_time: float
+	var last_death_clock: String
+	var respawn_pending: bool
+	var checkpoint_notice_pending: bool
+	var has_checkpoint: bool
+	var checkpoint_level_path: String
+	var current_level_path: String
+	var carried_health: int
+	var area_states: Dictionary = {}
+	var checkpoint_world: Dictionary = {}
+	var checkpoint_progress: Dictionary = {}
+	var level_start_progress: Dictionary = {}
+	var level_start_loadout: Dictionary = {}
+	var checkpoint_loadout: Dictionary = {}
+	var flags: Dictionary = {}
+	var position: Vector2
+	var portal: StringName
+	var difficulty: DifficultyData
+	var carried_loadout: Dictionary = {}
+
+
+## Complete data-owner projection; used before mutation to reject stale proposals.
+func _install_source() -> Dictionary:
+	var state: Dictionary = {}
+	for key: String in INSTALL_SCALARS + INSTALL_DICTIONARIES:
+		state[key] = get(key)
+	state["checkpoint_position"] = [checkpoint_position.x, checkpoint_position.y]
+	state["pending_portal"] = String(pending_portal)
+	return {"state": state, "flags": world_flags, "defaults": flag_defaults, "carried": _carried_loadout,
+		"difficulty": difficulty.resource_path if difficulty != null else "", "autosave": story_autosave, "save_queued": _story_save_queued}
+
+
+## All resources/containers are prepared before the bundle starts assignment.
+func prepare_install(state: Variant, flags: Variant, difficulty_path: String, whole_run: bool) -> Dictionary:
+	var errors := RunSaveCodec.validate_tree({"state": state, "flags": flags})
+	if not errors.is_empty():
+		return {"error": errors[0]}
+	if not state is Dictionary or not flags is Dictionary or flags.size() > 1024:
+		return {"error": "install/state or flags invalid"}
+	for key: Variant in state:
+		if not key is String or (not INSTALL_SCALARS.has(key) and not INSTALL_DICTIONARIES.has(key) and key not in ["checkpoint_position", "pending_portal"]):
+			return {"error": "install/state unsupported field: %s" % key}
+	var prepared := PreparedInstall.new()
+	for key: String in INSTALL_SCALARS + INSTALL_DICTIONARIES:
+		if not state.has(key):
+			return {"error": "install/state/%s missing" % key}
+	for key: String in INSTALL_DICTIONARIES:
+		if not state[key] is Dictionary:
+			return {"error": "install/state/%s must be an object" % key}
+	for key: String in ["has_checkpoint", "respawn_pending", "checkpoint_notice_pending"]:
+		if not state[key] is bool:
+			return {"error": "install/state/%s must be boolean" % key}
+	for key: String in ["last_death_clock", "checkpoint_level_path", "current_level_path"]:
+		if not state[key] is String:
+			return {"error": "install/state/%s must be text" % key}
+	for key: String in ["deaths", "kills", "finishers"]:
+		if not StoryTransactionData.integer_in(state[key], 0, 1000000):
+			return {"error": "install/state/%s invalid count" % key}
+	for key: String in ["lives_left", "carried_health"]:
+		if not StoryTransactionData.integer_in(state[key], -1, 1000):
+			return {"error": "install/state/%s invalid count" % key}
+	var clock: Variant = state["run_time"]
+	if typeof(clock) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(clock)) or clock < 0 or clock > 100000000:
+		return {"error": "install/state/run_time invalid"}
+	var position: Variant = state.get("checkpoint_position")
+	if not position is Array or position.size() != 2 or typeof(position[0]) not in [TYPE_INT, TYPE_FLOAT] or typeof(position[1]) not in [TYPE_INT, TYPE_FLOAT] or not state.get("pending_portal") is String:
+		return {"error": "install/state checkpoint position or portal invalid"}
+	for id: Variant in state["area_states"]:
+		var area: Variant = state["area_states"][id]
+		if not id is String or not area is Dictionary or not area.get("consumed") is Dictionary or not area.get("damage") is Dictionary or not area.get("world") is Dictionary:
+			return {"error": "install/state/area_states invalid area"}
+		if not whole_run and not area_states.has(id):
+			return {"error": "install/state/area_states batch cannot create an unbound area"}
+		for slot: Variant in area["consumed"]:
+			if not slot is String or not area["consumed"][slot] is bool:
+				return {"error": "install/state/area_states invalid consumed marker"}
+		for slot: Variant in area["damage"]:
+			if not slot is String or not StoryTransactionData.integer_in(area["damage"][slot], 0, 1000000):
+				return {"error": "install/state/area_states invalid damage marker"}
+	if not whole_run:
+		for id: Variant in area_states:
+			if not state["area_states"].has(id):
+				return {"error": "install/state/area_states batch cannot erase an existing area"}
+	prepared.flags = flag_defaults.duplicate(true)
+	for flag: Variant in flags:
+		var value: Variant = flags[flag]
+		if not flag is String or flag.is_empty() or not _flag_value_valid(value):
+			return {"error": "install/flags invalid flag"}
+		if flag_defaults.has(flag):
+			var fallback: Variant = flag_defaults[flag]
+			if typeof(value) != typeof(fallback) and not (value is float and fallback is int and value == floor(value)):
+				return {"error": "install/flags/%s does not match its declared type" % flag}
+			prepared.flags[flag] = int(value) if fallback is int else value
+		else:
+			# Published legacy scenes declare boolean set_flags without defaults.
+			if not whole_run and (not world_flags.has(flag) or world_flags[flag] != value or typeof(world_flags[flag]) != typeof(value)):
+				return {"error": "install/flags/%s batch needs a declared default" % flag}
+			prepared.flags[flag] = value
+	if not whole_run:
+		for flag: Variant in world_flags:
+			if not flag_defaults.has(flag) and not flags.has(flag):
+				return {"error": "install/flags batch cannot erase legacy flags"}
+	prepared.difficulty = difficulty
+	if whole_run:
+		prepared.difficulty = RunSaveCodec.resource(difficulty_path, "difficulty", "res://data/difficulty/") as DifficultyData
+		if prepared.difficulty == null:
+			return {"error": "install/difficulty requires a canonical resource"}
+	else:
+		prepared.carried_loadout = _carried_loadout.duplicate(true)
+	var values: Dictionary = state.duplicate(true)
+	prepared.lives_left = int(values["lives_left"])
+	prepared.deaths = int(values["deaths"])
+	prepared.kills = int(values["kills"])
+	prepared.finishers = int(values["finishers"])
+	prepared.run_time = float(values["run_time"])
+	prepared.last_death_clock = values["last_death_clock"]
+	prepared.respawn_pending = values["respawn_pending"]
+	prepared.checkpoint_notice_pending = values["checkpoint_notice_pending"]
+	prepared.has_checkpoint = values["has_checkpoint"]
+	prepared.checkpoint_level_path = values["checkpoint_level_path"]
+	prepared.current_level_path = values["current_level_path"]
+	prepared.carried_health = int(values["carried_health"])
+	prepared.area_states = values["area_states"]
+	prepared.checkpoint_world = values["checkpoint_world"]
+	prepared.checkpoint_progress = values["checkpoint_progress"]
+	prepared.level_start_progress = values["level_start_progress"]
+	prepared.level_start_loadout = values["level_start_loadout"]
+	prepared.checkpoint_loadout = values["checkpoint_loadout"]
+	prepared.position = Vector2(position[0], position[1])
+	prepared.portal = StringName(state["pending_portal"])
+	return {"data": prepared}
+
+
+## Explicit plain-field assignment: never start_new_run/reset/save or signal.
+func _install_prepared(prepared: PreparedInstall) -> void:
+	lives_left = prepared.lives_left
+	deaths = prepared.deaths
+	kills = prepared.kills
+	finishers = prepared.finishers
+	run_time = prepared.run_time
+	last_death_clock = prepared.last_death_clock
+	respawn_pending = prepared.respawn_pending
+	checkpoint_notice_pending = prepared.checkpoint_notice_pending
+	has_checkpoint = prepared.has_checkpoint
+	checkpoint_level_path = prepared.checkpoint_level_path
+	current_level_path = prepared.current_level_path
+	carried_health = prepared.carried_health
+	area_states = prepared.area_states
+	checkpoint_world = prepared.checkpoint_world
+	checkpoint_progress = prepared.checkpoint_progress
+	level_start_progress = prepared.level_start_progress
+	level_start_loadout = prepared.level_start_loadout
+	checkpoint_loadout = prepared.checkpoint_loadout
+	checkpoint_position = prepared.position
+	pending_portal = prepared.portal
+	difficulty = prepared.difficulty
+	_carried_loadout = prepared.carried_loadout
+	world_flags = prepared.flags
+
 ## 世界時鐘：一輪從晚上 21:00 開始，現實 1 秒是世界 10 秒（第一章結束時剛好是凌晨三點多）。
 const WORLD_CLOCK_START_MINUTES := 21 * 60
 const WORLD_SECONDS_PER_SECOND := 10.0

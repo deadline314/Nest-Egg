@@ -76,6 +76,55 @@ var framing: CinematicFraming
 var _layer: DialogueLayer
 var _player: CutscenePlayer
 
+class PreparedInstall extends RefCounted:
+	var seen: Dictionary[StringName, bool] = {}
+	var completed: Dictionary[StringName, bool] = {}
+
+
+func _install_source() -> Dictionary:
+	var waiters: Array = []
+	var results: Array = []
+	for request: int in _waiters:
+		waiters.append([request, _waiters[request]])
+	for request: int in _request_results:
+		results.append([request, _request_results[request]])
+	return {"seen": _seen, "completed": _completed, "generation": _presentation_generation,
+		"request_serial": _request_serial, "current_request": _current_request, "finished_request": _finished_request,
+		"cinematic": String(_current_cinematic), "context": _presentation_context, "queue": _cinematic_queue,
+		"waiters": waiters, "results": results, "passive": _passive_requests, "resetting": _resetting_presentation,
+		"scenes": _scenes}
+
+
+## Full restores require the caller to cancel presentation while the old run is intact.
+## Story batches only replace progress, retaining current pending/queued reservations.
+func prepare_install(raw: Variant, whole_run: bool) -> Dictionary:
+	var errors := RunSaveCodec.validate_tree(raw)
+	if not errors.is_empty():
+		return {"error": errors[0]}
+	if not raw is Array or raw.size() > _scenes.size():
+		return {"error": "install/story/completed must be a bounded scene list"}
+	if whole_run and (_current_cinematic != &"" or _current_request != 0 or _finished_request != 0 or not _cinematic_queue.is_empty() or not _passive_requests.is_empty() or not _waiters.is_empty() or _resetting_presentation):
+		return {"error": "install/story/presentation must settle before whole-run preparation"}
+	var prepared := PreparedInstall.new()
+	if not whole_run:
+		prepared.seen = _seen.duplicate()
+	for value: Variant in raw:
+		if typeof(value) not in [TYPE_STRING, TYPE_STRING_NAME] or not has_scene(StringName(value)) or prepared.completed.has(StringName(value)):
+			return {"error": "install/story/completed unknown or repeated scene"}
+		prepared.completed[StringName(value)] = true
+		prepared.seen[StringName(value)] = true
+	if not whole_run:
+		for id: StringName in _completed:
+			if not prepared.completed.has(id):
+				return {"error": "install/story/batch cannot remove completed scenes"}
+	return {"data": prepared}
+
+
+## Never clears requests, callbacks, framing or queues, and emits nothing.
+func _install_prepared(prepared: PreparedInstall) -> void:
+	_seen = prepared.seen
+	_completed = prepared.completed
+
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS

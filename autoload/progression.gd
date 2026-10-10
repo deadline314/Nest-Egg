@@ -35,6 +35,97 @@ var _pawned: Dictionary[StringName, int] = {}
 var _story_transactions := StoryTransactionLedger.new()
 var _story_transaction_busy := false
 
+## Opaque owner state: only the synchronous install bundle may hand this back.
+class PreparedInstall extends RefCounted:
+	var credits: int
+	var upgrades: Dictionary[StringName, Array] = {}
+	var abilities: Dictionary[StringName, bool] = {}
+	var equipped: StringName = &""
+	var pawned: Dictionary[StringName, int] = {}
+	var ledger: StoryTransactionLedger
+
+
+## Strict additive interface; legacy restore's repair/notification policy stays unchanged.
+func prepare_install(raw: Variant) -> Dictionary:
+	var errors := RunSaveCodec.validate_tree(raw)
+	if not errors.is_empty():
+		return {"error": errors[0]}
+	if not raw is Dictionary:
+		return {"error": "install/progression must be an object"}
+	if raw.has("version"):
+		if not RunSaveCodec.valid_version(raw["version"]):
+			return {"error": "install/progression/version invalid"}
+		if raw["version"] != SNAPSHOT_VERSION:
+			return {"error": "install/progression/version unsupported", "unknown_version": true}
+	for key: Variant in raw:
+		if not key is String or key not in ["version", "credits", "upgrades", "abilities", "equipped", "pawned", "story_transactions"]:
+			return {"error": "install/progression unknown field: %s" % key}
+	if not StoryTransactionData.integer_in(raw.get("credits"), 0, MAX_CREDITS):
+		return {"error": "install/progression/credits invalid"}
+	if not raw.get("upgrades", {}) is Dictionary or not raw.get("abilities", []) is Array or not raw.get("pawned", {}) is Dictionary or not raw.get("equipped", "") is String:
+		return {"error": "install/progression containers invalid"}
+	var prepared := PreparedInstall.new()
+	prepared.credits = int(raw["credits"])
+	var weapons: Array[Resource] = ResourceCatalog.load_dir("res://data/weapons", WeaponData, "StoryInstall")
+	var weapon_ids: Dictionary = {}
+	for weapon: WeaponData in weapons:
+		weapon_ids[String(weapon.id)] = weapon
+	for weapon: Variant in raw.get("upgrades", {}):
+		if not weapon is String or not weapon_ids.has(weapon) or not raw["upgrades"][weapon] is Array:
+			return {"error": "install/progression/upgrades unknown weapon or invalid list"}
+		var ids: Array = []
+		for id: Variant in raw["upgrades"][weapon]:
+			if not id is String or find_upgrade(StringName(id)) == null or ids.has(StringName(id)):
+				return {"error": "install/progression/upgrades unknown or repeated upgrade"}
+			if not find_upgrade(StringName(id)).applies_to(weapon_ids[weapon]):
+				return {"error": "install/progression/upgrades does not apply to this weapon"}
+			ids.append(StringName(id))
+		if not ids.is_empty():
+			prepared.upgrades[StringName(weapon)] = ids
+	for id: Variant in raw.get("abilities", []):
+		if not id is String or find_ability(StringName(id)) == null or prepared.abilities.has(StringName(id)):
+			return {"error": "install/progression/abilities unknown or repeated ability"}
+		prepared.abilities[StringName(id)] = true
+	prepared.equipped = StringName(raw.get("equipped", ""))
+	if prepared.equipped != &"" and not prepared.abilities.has(prepared.equipped):
+		return {"error": "install/progression/equipped is not unlocked"}
+	var total := 0
+	for id: Variant in raw.get("pawned", {}):
+		var count: Variant = raw["pawned"][id]
+		if not id is String or ConsumableBag.find(StringName(id)) == null or not StoryTransactionData.integer_in(count, 1, MAX_PAWNED):
+			return {"error": "install/progression/pawned unknown consumable or invalid count"}
+		total += int(count)
+		if total > MAX_PAWNED:
+			return {"error": "install/progression/pawned exceeds capacity"}
+		prepared.pawned[StringName(id)] = int(count)
+	var ledger: Variant = raw.get("story_transactions", {"version": StoryTransactionLedger.VERSION, "receipts": {}})
+	var checked := StoryTransactionLedger.validate_snapshot(ledger)
+	if not checked["valid"]:
+		return {"error": checked["issues"][0], "unknown_version": not checked["supported"]}
+	var definitions: Dictionary = {}
+	for resource: StoryTransactionData in ResourceCatalog.load_dir("res://data/story_transactions", StoryTransactionData, "StoryInstall"):
+		var description := resource.descriptor()
+		if description.has("error") or definitions.has(String(resource.id)):
+			return {"error": "install/progression canonical transaction resources invalid"}
+		definitions[String(resource.id)] = description
+	var proof := StoryConditionTree.verify_ledger({"ledger": ledger}, {"ledger_locked": false, "transaction_definitions": definitions})
+	if not proof["valid"]:
+		return {"error": "install/progression " + proof["error"]}
+	prepared.ledger = StoryTransactionLedger.new()
+	# The snapshot was fully proved; restore cannot warn or lock this local ledger.
+	prepared.ledger.restore(ledger, true)
+	return {"data": prepared}
+
+
+## No loading, validation, allocation, reset, notification or save here.
+func _install_prepared(prepared: PreparedInstall) -> void:
+	credits = prepared.credits
+	_upgrades = prepared.upgrades
+	_unlocked_abilities = prepared.abilities
+	_equipped_ability = prepared.equipped
+	_pawned = prepared.pawned
+	_story_transactions = prepared.ledger
+
 
 # ---------------------------------------------------------------------------
 # 信用點

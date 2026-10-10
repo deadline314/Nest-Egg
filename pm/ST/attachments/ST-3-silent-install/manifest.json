@@ -1,0 +1,196 @@
+{
+  "baseline": "951f3add2981bd69c04609a21b87fa8d42139597",
+  "source_lf_sha256": {
+    "autoload/progression.gd": "b4be6a74b3137265c487265c34859846787ff9bbfd8ab94d3b45d622b22885b6",
+    "autoload/story_items.gd": "72209434573fe9c03cc32f4c469257fadca63c6ae55958540cb89bc377876448",
+    "autoload/game_state.gd": "06dfe6fa1c866f836d4160868491463567a77fe6292273ceb544edd1b778309a",
+    "autoload/story.gd": "77ff586fcac56d2b936b657cbc5859980ec65f7679b7a9b3a593e3ac7c9a6caa",
+    "core/run_snapshot.gd": "bd000651dbee2a663c153373e8e60903cf552c2ec1976278e05c5e5c3ca82c3c",
+    "core/story_install_bundle.gd": "cb9280f25bde8c64bc918a75b5b45c3e575a4b36d0195827e3c025ee90d2b4f3",
+    "tests/helpers/story_install_checks.gd": "c2128f7e2ef413708980dd3a72a808e7a66e5b53923d32892c0bdfc3ecf76111",
+    "tests/suite/test_run_save.gd": "3871529e320f6738d5ec8d6fb5e4173d94907daeb4337ece3ce707c86947d3d3",
+    "design/20-campaign-experience/STORY_SILENT_INSTALL.md": "3434fc317b0f1c118373d0c9ef6c488e3b24875e9c0af17751b35fb4fbbd040a",
+    "core/story_install_bundle.gd.uid": "a5f717e4e24bb3def60d99bd2d424a445fdd23d198cb1a2f6164d864cb0a7399",
+    "tests/helpers/story_install_checks.gd.uid": "b7d4e2de01703b0ff89c37563c98e292d7793604b0154836d4c964c25d06e725"
+  },
+  "evidence_hashes": {
+    "import-raw.log": {
+      "raw_sha256": "94ae2854e2c34e1e4bc816507def961e57076936c662d7162bd7e5833c18bea4",
+      "git_lf_sha256": "0fd4b48035db07b2def539104150a10f0ca88abfa36aed44f4dd41c69c37f64c"
+    },
+    "target-console-raw.log": {
+      "raw_sha256": "406eb00df596a71653231387557124878b38d28573d8bf152e8ee8b08d06d6f9",
+      "git_lf_sha256": "a443a6d4860d3e06d3c676b74ae29c0d5b2d127413a2be1fa032ac7b87c35980"
+    },
+    "target-raw.log": {
+      "raw_sha256": "a13318ddbdee60e03b7e070e7af2afa7e7c6afbe59fbf790119a75ccc21701a0",
+      "git_lf_sha256": "2d1d689124b6c39fde0c5b0d970b2a134b356c91fb0061d1ce9e26206a325092"
+    },
+    "changed-console-raw.log": {
+      "raw_sha256": "37fb448a5f4bbc74356f16330b720bdfb8f187d9d792195fd2292ed8b1cba3a9",
+      "git_lf_sha256": "0e762a38b71c1441a9ced814c04bccae35e805f55af1b083a85a033b6a61cbeb"
+    },
+    "changed-raw.log": {
+      "raw_sha256": "f879247772c73403c608b12720dc29043ce49c04d065b76501711dd915063c73",
+      "git_lf_sha256": "6bb20195716c6fd43955070cf75d10dbbc10092ed7b0232ad50e9ddf2534bfa0"
+    },
+    "import-exit.txt": {
+      "raw_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_lf_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "target-exit.txt": {
+      "raw_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_lf_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "changed-exit.txt": {
+      "raw_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_lf_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "import-444-raw.log": {
+      "raw_sha256": "6cd49743ee38506da3b5d6d55f9b4645704331b5be9384c70556849cd5310889",
+      "git_lf_sha256": "c42ab9b74a0533ad63636690735f98edc1fff54b742581d70d9a1f007bff4884"
+    },
+    "import-444-exit.txt": {
+      "raw_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_lf_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "integration-444-console-raw.log": {
+      "raw_sha256": "a384d17e2087d021dd21366cdfb81fcb5349096f130e4c2923d6cf835fc5efd9",
+      "git_lf_sha256": "391ba8f5cd69e8da22f06a4a15e279d0193b2c6e5157b1db943f81c8bd1a9eac"
+    },
+    "integration-444-raw.log": {
+      "raw_sha256": "c7b7fb6f0f2ff95982e57621309cd833c88564da6526684ee3e6d5cb27bccf56",
+      "git_lf_sha256": "7fa9b6832bb757a0c448d5dd4761ed0575181290e0a734e7105d81ccb166d359"
+    },
+    "integration-444-exit.txt": {
+      "raw_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_lf_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    }
+  },
+  "target_checks": 167,
+  "changed_groups": 65,
+  "changed_checks": 41891,
+  "changed_wall_seconds": 1153,
+  "runner_exit": 0,
+  "script_errors": 0,
+  "raw_error_lines": [
+    "ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/missing_part.png",
+    "ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/no_such_character/character.json",
+    "ERROR: [test_catalog] id「fixture_a」重複：user://test_catalog/a.tres 與 user://test_catalog/c_duplicate.tres，已略過後者",
+    "ERROR: [test_catalog] 無法讀取或型別不符：user://test_catalog/d_wrong_type.tres",
+    "ERROR: [test_catalog] 找不到資料夾：user://no_such_catalog_dir",
+    "ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/items/icons/no_such_icon.png",
+    "ERROR: [LightingController] 略過沒有光影設定的區段（起點 987654）",
+    "ERROR: Parameter \"body->get_space()\" is null.",
+    "ERROR: Parameter \"body->get_space()\" is null.",
+    "ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/test_no_such_character/character.json",
+    "ERROR: [HdPortrait] 找不到角色骨架「test_no_such_character」，立繪不顯示。",
+    "ERROR: [Stage] test_bad_cutscene 圖層：gradient 圖層缺少欄位「top」",
+    "ERROR: [Stage] test_bad_cutscene 圖層：未知的圖層種類「nonsense」",
+    "ERROR: [Cutscene] 場景 test_bad_cutscene 第 1 步（move）：找不到角色「ghost」，已略過",
+    "ERROR: [Cutscene] 場景 test_bad_cutscene 第 2 步（scene）：場景「no_such_stage」不存在，保留原本的場景",
+    "ERROR: [Cutscene] 場景 test_bad_cutscene 第 4 步（actor）：角色「bad」沒有可用的外觀或頭像，已略過",
+    "ERROR: [Cutscene] 場景 test_bad_cutscene 第 5 步的動作「dance」不存在，已略過",
+    "ERROR: [Cutscene] 場景 test_bad_cutscene 第 6 步不是物件，已略過",
+    "ERROR: [Cutscene] 場景 test_bad_cutscene 第 8 步（transition）：轉場「spin」不存在，已略過",
+    "ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/ammo/test_missing_ammo.png",
+    "ERROR: [NpcActor] 格 (34, 19)：人物 test_npc_bad 沒有任何對話",
+    "ERROR: [NpcAnimator] res://art/rigs/npc_animations.json 沒有 poses「no_such_pose」，改用「stand」。",
+    "ERROR: [NpcAnimator] res://art/rigs/npc_animations.json 沒有 loops「no_such_loop」，改用無。",
+    "ERROR: [Level] ch1_stall 沒有電話亭可登記復原點（res://data/levels/ch1_stall_map.json），重生會退回區域起點",
+    "ERROR: [Level] ch1_stall 沒有電話亭可登記復原點（res://data/levels/ch1_stall_map.json），重生會退回區域起點",
+    "ERROR: [Level] ch1_booth_alley 的復原點位置無效（(0.0, 0.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點",
+    "ERROR: [Level] ch1_booth_alley 的復原點位置無效（(-500.0, 100.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點",
+    "ERROR: [Level] ch1_booth_alley 的復原點位置無效（(99999.0, 99999.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點",
+    "ERROR: [Level] ch1_stall 的復原點位置無效（(0.0, 0.0)，地圖範圍 [P: (0.0, 0.0), S: (768.0, 384.0)]），改用最近的電話亭或起點",
+    "ERROR: [AttackTokens] 區域覆蓋的群組「test_no_such_group」不存在（有：[&\"melee\", &\"ranged\"]）",
+    "ERROR: [Enemy] test_missing_part 的 hurt_parts 有無效的部位（id、size、mult）：{ \"id\": \"\", \"size\": (4.0, 4.0), \"mult\": 2.0 }",
+    "ERROR: [EnemyVfx] res://art/vfx/enemies/test_missing_part.json 沒有特效資料，不播放專屬特效。",
+    "ERROR: [RigLibrary] 無法讀取定義檔：res://art/creatures/no_such_creature.json",
+    "ERROR: [Feel] 沒有這個回饋事件「test_no_such_feel_event」（res://data/feel/events.json）",
+    "ERROR: [Sfx] 沒有這個聲音事件「test_no_such_sound_event」（res://data/feel/sound_events.json），改播「hit」",
+    "ERROR: [HitFeedback] 沒有這個命中材質「test_no_such_material」（res://data/feel/materials.json），改用 generic",
+    "ERROR: [Feel] 沒有這個預設組合「test_no_such_preset」（res://data/feel/presets.json）",
+    "ERROR: [MeleeSet] res://data/feel/melee.json 沒有招式「test_no_such_attack」，改用預設",
+    "ERROR: [MeleeSet] 無法讀取近戰資料：res://data/melee/test_no_such_attack.json（需要 attacks 字典），改用內建預設",
+    "ERROR: [MeleeSet] res://data/melee/test_no_such_attack.json 沒有招式「whatever」，改用預設",
+    "ERROR: [MeleeSet] 無法讀取近戰資料：res://data/melee/test_no_such_attack.json（需要 attacks 字典），改用內建預設",
+    "ERROR: [MeleeSet] res://data/melee/test_no_such_attack.json 沒有招式「x」，改用預設",
+    "ERROR: [FeelLab] 沒有這把武器：res://data/weapons/test_no_such_weapon.tres",
+    "ERROR: [FeelLab] 沒有這個敵人：res://data/enemies/test_no_such_enemy.tres",
+    "ERROR: [InputFeel] res://data/feel/input.json 沒有 windows.test_no_such_window，改用預設 0.07",
+    "ERROR: [SoundBank] 音效「test_audio_half」的檔案無法載入：res://tests/fixtures/audio/test_audio_missing_a.ogg（res://tests/fixtures/audio/bank_ok.json），改用其他變體或合成音",
+    "ERROR: [SoundBank] 音效「test_audio_none」的檔案無法載入：res://tests/fixtures/audio/test_audio_missing_b.ogg（res://tests/fixtures/audio/bank_ok.json），改用其他變體或合成音",
+    "ERROR: [SoundBank] 找不到資料檔：res://tests/fixtures/audio/test_audio_missing_bank.json",
+    "ERROR: [SoundBank] 音效「test_audio_badext」的檔案無法載入：res://tests/fixtures/audio/bank_ok.json（res://tests/fixtures/audio/bank_bad.json），改用其他變體或合成音",
+    "ERROR: [SoundBank] 音效「test_audio_gone」的檔案無法載入：res://tests/fixtures/audio/test_audio_missing_c.ogg（res://tests/fixtures/audio/bank_bad.json），改用其他變體或合成音",
+    "ERROR: [SoundBank] 音效「test_audio_halffast」的 1.5 倍加速檔無法載入：res://tests/fixtures/audio/test_audio_missing_fast.ogg（res://tests/fixtures/audio/bank_speed.json），這一級退回原速",
+    "ERROR: [SoundBank] 音效「test_audio_not_a_table」的 speed_files 要是 {倍率: [檔案]}（res://tests/fixtures/audio/bank_speed_bad.json）",
+    "ERROR: [SoundBank] 音效「test_audio_slow」的 speed_files「0.5」要是大於 1 的倍率加檔案陣列（res://tests/fixtures/audio/bank_speed_bad.json），略過",
+    "ERROR: [SoundBank] 音效「test_audio_gone」的 1.5 倍加速檔無法載入：res://tests/fixtures/audio/test_audio_missing_speed.ogg（res://tests/fixtures/audio/bank_speed_bad.json），這一級退回原速",
+    "ERROR: [AudioSuite] 找不到資料檔：res://tests/fixtures/audio/test_audio_missing_profiles.json",
+    "ERROR: [PlacementDoc] user://test_audio_placements.md 沒有位置「P-XXX-999」，無法寫入",
+    "ERROR: [PlacementDoc] 找不到位置清單文件：user://test_audio_no_such_placements.md（先執行 tools/audio/build_slots.py）",
+    "ERROR: [Music] cue「c_gone」的曲目「t_gone」找不到檔案：res://tests/fixtures/audio/test_audio_missing_track.ogg（res://tests/fixtures/audio/music_bad.json），維持靜音",
+    "ERROR: [Music] 沒有這個 cue「test_audio_no_such_cue」（res://tests/fixtures/audio/music_bad.json），維持目前的音樂",
+    "ERROR: [ReloadCues] test_audio_cue_broken 的換彈時間軸有問題，改用內建三段：第 1 段 的 at 要在 0 到 1 之間（7.0）",
+    "ERROR: 音效實驗室：版面比例檔 user://test_audio_lab_layout.cfg 的 [split_ratios] rows 不是 0.1 到 0.9 的數字，改用預設比例",
+    "ERROR: 音效實驗室：版面比例檔 user://test_audio_lab_layout.cfg 的 [split_ratios] cols 不是 0.1 到 0.9 的數字，改用預設比例",
+    "ERROR: [StageScenes] 找不到資料檔：res://tests/fixtures/audio/no_such_scenes.json",
+    "ERROR: [DevMenu] 工具清單格式錯誤（要有 tools 陣列）：res://tests/fixtures/dev_menu/bad_format.json",
+    "ERROR: [DevMenu] res://tests/fixtures/dev_menu/mixed.json 的第 2 個工具缺少 id、name 或 scene，已略過",
+    "ERROR: [DevMenu] res://tests/fixtures/dev_menu/mixed.json 的工具 id 重複：ok_tool，已略過",
+    "ERROR: [DevMenu] 找不到 test_dev_menu_missing 的場景：res://tools/test_dev_menu_missing.tscn",
+    "ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres",
+    "ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres",
+    "ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres",
+    "ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres",
+    "ERROR: [Level] test_area_b 的出入口「test_area_bad_missing」目標不是可載入的區域：res://tests/fixtures/areas/no_such_level.tres",
+    "ERROR: [Level] test_area_a 沒有出入口「test_area_bad_entry」（res://tests/fixtures/areas/area_map_a.json），改用起點",
+    "ERROR: 7 RID allocations of type 'P11GodotArea2D' were leaked at exit.",
+    "ERROR: 13 resources still in use at exit (run with --verbose for details)."
+  ],
+  "raw_error_count": 75,
+  "formal_scene_installed": false,
+  "durable_coordinator_implemented": false,
+  "gameplay_bundle_used": false,
+  "screenshots": "N/A backend source phase, no new UI",
+  "integration": {
+    "baseline": "4440a79fc176f3cd2d4b94b57ce337157d10a856",
+    "checks": 3855,
+    "groups": [
+      "main",
+      "RunSaveSuite",
+      "StoryLintSuite",
+      "StoryContentSuite",
+      "EconomySuite",
+      "CollectiblesSuite",
+      "CutsceneSuite",
+      "PoseMeshSuite"
+    ],
+    "wall_seconds": 112,
+    "runner_exit": 0,
+    "source_unchanged": true,
+    "raw_errors": [
+      "ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/missing_part.png",
+      "ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/no_such_character/character.json",
+      "ERROR: [test_catalog] id「fixture_a」重複：user://test_catalog/a.tres 與 user://test_catalog/c_duplicate.tres，已略過後者",
+      "ERROR: [test_catalog] 無法讀取或型別不符：user://test_catalog/d_wrong_type.tres",
+      "ERROR: [test_catalog] 找不到資料夾：user://no_such_catalog_dir",
+      "ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/items/icons/no_such_icon.png",
+      "ERROR: [LightingController] 略過沒有光影設定的區段（起點 987654）",
+      "ERROR: Parameter \"body->get_space()\" is null.",
+      "ERROR: Parameter \"body->get_space()\" is null.",
+      "ERROR: [Stage] test_bad_cutscene 圖層：gradient 圖層缺少欄位「top」",
+      "ERROR: [Stage] test_bad_cutscene 圖層：未知的圖層種類「nonsense」",
+      "ERROR: [Cutscene] 場景 test_bad_cutscene 第 1 步（move）：找不到角色「ghost」，已略過",
+      "ERROR: [Cutscene] 場景 test_bad_cutscene 第 2 步（scene）：場景「no_such_stage」不存在，保留原本的場景",
+      "ERROR: [Cutscene] 場景 test_bad_cutscene 第 4 步（actor）：角色「bad」沒有可用的外觀或頭像，已略過",
+      "ERROR: [Cutscene] 場景 test_bad_cutscene 第 5 步的動作「dance」不存在，已略過",
+      "ERROR: [Cutscene] 場景 test_bad_cutscene 第 6 步不是物件，已略過",
+      "ERROR: [Cutscene] 場景 test_bad_cutscene 第 8 步（transition）：轉場「spin」不存在，已略過"
+    ],
+    "script_errors": 0,
+    "scope": "Targeted integration after upstream native pose mesh implementation, original 65-group source run retained at 951f3add2."
+  }
+}

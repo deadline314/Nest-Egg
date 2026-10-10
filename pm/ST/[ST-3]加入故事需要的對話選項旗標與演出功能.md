@@ -198,3 +198,24 @@ NE-223 交接指出 Godot 4.7 沒有 `bool(String)` 建構子。ST-3 的旗標�
 | 截圖 | 不適用；本階段沒有新增遊戲畫面 |
 
 [完整來源與原始驗證紀錄](attachments/ST-3-result-plan/manifest.json)／[驗證界線](../../design/20-campaign-experience/STORY_RESULT_BATCH.md)。
+
+
+# Commit-8
+
+## 內文
+
+故事的一段結果原先只能逐份還原，通知可能看到尚未全部更新的資料。新增完整準備與靜默資料交接的框架：先確認所有資料可接受，再一起交接；準備失敗、來源已改變或重複使用都在寫入之前拒絕。準備與交接不發物、不扣款、不保存或呼叫通知；交接後的一般花費也不會被旧候選覆蓋。
+
+### 測試結果
+
+| 項目 | 結果 |
+|---|---|
+| 存檔局部回歸 | 167項、0失敗、9秒，自然退出0 |
+| 原受影響範圍（951f3add2） | 65組、41891項、0新失敗、0已知失敗，1153秒，原runner自然退出0 |
+| 引擎匯入與腳本診斷 | 最後匯入與測試無SCRIPT ERROR、Parse Error或Compile Error |
+| 同步4440a79fc後整合 | 含新增姿勢網格，8組3855項、0新失敗、0已知失敗，112秒，原runner自然退出0 |
+| 原始紀錄 | 75行ERROR完整保留，原filter未發現非預期腳本錯誤；局部存檔測試無ERROR |
+| 來源核對 | 已測來源与提交來源SHA一致，原功能本文、測試選取及已知失敗保留 |
+| 截圖 | 不適用；本階段沒有新增遊戲畫面 |
+
+[完整來源與原始驗證紀錄](attachments/ST-3-silent-install/manifest.json)／[驗證界線](../../design/20-campaign-experience/STORY_SILENT_INSTALL.md)。
