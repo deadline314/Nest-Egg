@@ -1,0 +1,50 @@
+{
+  "baseline": "ea48f8c6ed1911b5266694a5b3543a9cfc4fcb0b",
+  "source_lf_sha256": {
+    "core/story_condition_tree.gd": "1fd998979967700288ae4031b158fc0a3d0cdf4fbfea029d2dc04108025a06cb",
+    "core/story_condition_tree.gd.uid": "686f9fac3933689ebef08ded2ce0f0b75c0251ff913fa44fe061599844f27179",
+    "tests/suite/test_story_content.gd": "b327fdb3e21988af8006bc5e69ff6b55fbd81ccfc8f93819c77bec57c1f5bd7f",
+    "design/20-campaign-experience/STORY_CONDITION_CONTRACT.md": "aeb0ca984708c832d12b52e928e2fb46e2fe2cc644e780130662b1669c4bf4c5"
+  },
+  "evidence_hashes": {
+    "initial-runtime-failure-raw.log": {
+      "raw_sha256": "324938435cd7140abdc1ef27ebf175292259dbcf1490a6706fb4418e59ebd9c2",
+      "git_lf_sha256": "b99792ad4d5b531b90881113d8389dc1f52badcc06f7b35d9ccb3e47a8b69e33"
+    },
+    "initial-console-raw.log": {
+      "raw_sha256": "d567e29dd6eade8df83dd45041726f2fbfc08304fadb065f81f8e7bcf1355623",
+      "git_lf_sha256": "ad43cb8c62be324cd929eded949238b869b9837ef6100da8f9dca113b162e20b"
+    },
+    "repaired-import-raw.log": {
+      "raw_sha256": "7272f1a616b95db4510273232271ced55a1c572c7648ad7c5e53b3f97730858b",
+      "git_lf_sha256": "d57a20406fef665b7bd0c3b0aac6cf731c1d2153cc41ad970ce34f2a3b2ce4cc"
+    },
+    "repaired-runtime-raw.log": {
+      "raw_sha256": "17bda7283bf9d96fbeb45b4e12893de0453c1f2b81be833f221627c8648d068a",
+      "git_lf_sha256": "5647715f3b8a6517316f01b6aa62694b967c023201dd705e959d879abd677e60"
+    },
+    "repaired-console-raw.log": {
+      "raw_sha256": "58fa8451bc4e8ac484e54e399f7255d65b023cff849f62cafbd0146ca8a0feba",
+      "git_lf_sha256": "0439feb79e1d6469bbeaf4fa018ab9c2c429d4dd4a90dfc7e3359f751d58237e"
+    },
+    "latest-import-raw.log": {
+      "raw_sha256": "9d7d5acf43bb9763418323d50029657a07f4345693b7891d31bf36f22355452b",
+      "git_lf_sha256": "a8c3204bdb86c52f6312f6fcee811578367db53e1a7e159837f01ab8a6b5e893"
+    },
+    "latest-integration-raw.log": {
+      "raw_sha256": "5e1e159de04d22186f8c38ca0225715655b94e5af0254ce739f91fa555049f13",
+      "git_lf_sha256": "433ce84ca4dfbfc91d9b6bedbe1cb392a00a964b777b36f777d1dfa4a7fe8434"
+    },
+    "latest-integration-console-raw.log": {
+      "raw_sha256": "538162068a08ed162b5c3836a1b8e8f862fc3f25435629642a5fab9793e19e80",
+      "git_lf_sha256": "539de431295bd4786f686a2ead994be746818d18e4199dcf8dc604d65f49339b"
+    }
+  },
+  "changed_checks": 1133,
+  "latest_integration_checks": 1512,
+  "latest_raw_errors": 0,
+  "latest_script_errors": 0,
+  "runner_exit": 0,
+  "formal_scene_wired": false,
+  "screenshots": "N/A backend source-only phase"
+}

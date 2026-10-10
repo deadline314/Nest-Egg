@@ -160,3 +160,22 @@ NE-223 交接指出 Godot 4.7 沒有 `bool(String)` 建構子。ST-3 的旗標�
 | 截圖 | 不適用；本階段沒有新增遊戲畫面 |
 
 [完整來源與原始驗證紀錄](attachments/ST-3-custody/manifest.json)／[驗證界線](../../design/20-campaign-experience/STORY_ITEM_CUSTODY.md)。
+
+
+# Commit-6
+
+## 內文
+
+新劇本需要同時檢查明確選擇、實際持有物及帳務證據。現在可驗證組合條件；缺值、錯型別、壞收據或未知條件會拒絕，不會因反向條件或另一個成立分支而誤放行。餐費只接受六種合法收據組合，不另存一份付款旗標當帳本。
+
+### 測試結果
+
+| 項目 | 結果 |
+|---|---|
+| 原受影響測試 | 1133項、0新失敗、0已知失敗，原runner自然退出0 |
+| 同步ea48f8c6e後整合複驗 | 條件、物品、存檔三組1512項全過，14秒，原runner自然退出0 |
+| 最後執行紀錄 | 無SCRIPT ERROR、Parse Error、Compile Error或ERROR；負向案例警告保留 |
+| 失敗追蹤 | 首次實際載入型別錯誤與修正結果均保留，未將0斷言失敗誤記成通過 |
+| 截圖 | 不適用；本階段沒有新增遊戲畫面 |
+
+[完整來源與原始驗證紀錄](attachments/ST-3-conditions/manifest.json)／[正式接入界線](../../design/20-campaign-experience/STORY_CONDITION_CONTRACT.md)。

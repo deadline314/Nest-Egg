@@ -1,5 +1,7 @@
 class_name StoryContentSuite
 extends TestSuite
+
+const CONDITION_TREE = preload("res://core/story_condition_tree.gd")
 ## 劇本內容（NE-49、NE-50）：場景清單齊全、各場景類型的長度、講者各有各的聲音、
 ## 伏筆表（design/04-story/FORESHADOWING.md）列的埋設點都有對應的文字或細節，每條至少一顯一隱。
 
@@ -112,6 +114,7 @@ const REQUIRED_DETAILS := [
 
 
 func run() -> void:
+	_test_condition_contract()
 	_test_required_scenes()
 	_test_scene_shapes()
 	_test_voices()
@@ -271,3 +274,207 @@ func _test_variant_answers() -> void:
 					check(answer.contains("沒有在這裡停過") and not answer.contains("錢"), "memory variant answers the location question: %s" % id)
 					checked += 1
 	check(checked >= 6, "all six memory-question variants are checked")
+
+
+## 從正式 NE-231 資源取得測試定義，fixture 不另寫金額或指紋。
+func _condition_context() -> Dictionary:
+	var definitions := {}
+	for name in ["daily_dinner", "commission_settled", "revival_meal_order", "revival_meal_paid", "revival_meal_tab", "revival_meal_gift", "revival_meal_later_pay"]:
+		var path := "res://data/story_transactions/ch1_%s.tres" % name
+		var resource: Variant = load(path) if ResourceLoader.exists(path) else null
+		check(resource != null and resource.has_method("descriptor"), "condition contract has canonical resource " + path)
+		if resource == null or not resource.has_method("descriptor"):
+			return {}
+		var descriptor: Dictionary = resource.descriptor()
+		check(not descriptor.has("error"), "condition descriptor is valid " + path)
+		if descriptor.has("error"):
+			return {}
+		definitions[descriptor["id"]] = descriptor
+	return {"ledger_locked": false, "transaction_definitions": definitions}
+
+
+func _condition_facts(context: Dictionary, ids: Array = []) -> Dictionary:
+	var receipts := {}
+	for id: String in ids:
+		var definition: Dictionary = context["transaction_definitions"][id]
+		receipts[id] = {"definition_fingerprint": definition["fingerprint"], "credits_delta": definition["credits_delta"]}
+	return {"flags": {"ready": true, "blocked": false, "choice": "unset", "count": 1},
+		"items": {"ch1_data_disk": false, "ch1_grey_cloth": true}, "ledger": {"version": 1, "receipts": receipts}}
+
+
+func _condition_check(result: Dictionary, valid: bool, value: bool, label: String) -> void:
+	check(result["valid"] == valid and result["value"] == value and (result["error"].is_empty() == valid), label)
+
+
+func _condition_refresh_fingerprint(definition: Dictionary) -> void:
+	definition["fingerprint"] = JSON.stringify([definition["id"], 1, int(definition["credits_delta"]), definition["required"], definition["excluded"]]).sha256_text()
+
+
+func _test_condition_contract() -> void:
+	var context := _condition_context()
+	if context.is_empty():
+		return
+	var facts := _condition_facts(context)
+	var ready := {"flag": "ready", "equals": true}
+	var blocked := {"flag": "blocked", "equals": true}
+	var none := {"account": "ch1_lounge", "equals": "none"}
+	var verified := CONDITION_TREE.verify_ledger(facts, context)
+	check(verified["valid"] and verified["account"] == "none", "public ledger proof verifies unconditional result batch")
+	for malformed: Variant in [null, [], {"account": "paid200"}, {"ledger": {"version": 1, "receipts": {"unknown": {}}}}]:
+		check(not CONDITION_TREE.verify_ledger(malformed, context)["valid"], "public ledger proof refuses malformed facts")
+	check(not CONDITION_TREE.verify_ledger(facts, {"ledger_locked": true, "transaction_definitions": context["transaction_definitions"]})["valid"], "public ledger proof refuses locked ledger")
+	var proof_before := JSON.stringify([facts, context])
+	verified["account"] = "paid200"
+	check(CONDITION_TREE.verify_ledger(facts, context)["account"] == "none" and JSON.stringify([facts, context]) == proof_before, "public ledger proof is independent and does not mutate source facts")
+	_condition_check(CONDITION_TREE.evaluate({}, {}), true, true, "author empty condition is unconditional")
+	_condition_check(CONDITION_TREE.evaluate({"all": [ready, {"not": blocked}]}, facts), true, true, "nested all/not accepts complete facts")
+	_condition_check(CONDITION_TREE.evaluate({"any": [blocked, ready]}, facts), true, true, "any evaluates declared flags")
+	_condition_check(CONDITION_TREE.evaluate({"flag": "choice", "equals": "unset"}, facts), true, true, "author string flag default is exact")
+	_condition_check(CONDITION_TREE.evaluate({"flag": "count", "equals": true}, facts), true, false, "numeric flag cannot impersonate boolean")
+	_condition_check(CONDITION_TREE.evaluate({"flag": "count", "equals": 1.0}, facts), true, true, "JSON numeric representations compare numerically")
+	_condition_check(CONDITION_TREE.evaluate({"item": "ch1_data_disk"}, facts), true, false, "item means current holds after disk transfer")
+	_condition_check(CONDITION_TREE.evaluate({"item": "ch1_grey_cloth"}, facts), true, true, "item reads actual held cloth")
+	_condition_check(CONDITION_TREE.evaluate({"not": {"flag": "unknown", "equals": true}}, facts), false, false, "missing flag cannot become eligible under not")
+	_condition_check(CONDITION_TREE.evaluate({"not": {"item": "unknown"}}, facts), false, false, "missing item declaration is invalid")
+	for bad: Variant in [null, false, [], {"all": []}, {"any": []}, {"not": []}, {"flag": "ready"}, {"flag": "ready", "equals": []}, {"flag": "ready", "equals": true, "item": "ch1_grey_cloth"}, {"receipt": "ch1.unknown", "status": "recorded"}, {"receipt": "ch1.daily_dinner", "status": "missing"}, {"account": "unknown", "equals": "none"}, {"account": "ch1_lounge", "equals": "bad"}, {"requires_item": "ch1_data_disk"}]:
+		_condition_check(CONDITION_TREE.evaluate(bad, facts, context), false, false, "unknown/malformed condition refuses eligibility")
+	for expression in [{"all": [blocked, {"typo": true}]}, {"any": [ready, {"typo": true}]}, {"any": [ready, {"item": "unknown"}]}]:
+		var result := CONDITION_TREE.evaluate(expression, facts, context)
+		_condition_check(result, false, false, "boolean branch cannot conceal invalid schema/fact")
+		check(result["error"].contains("[1]"), "invalid branch identifies precise condition path")
+	_test_condition_meal_subsets(context)
+	_test_condition_receipt_trust(context)
+	_test_condition_limits(facts)
+	var shared := {"flag": "ready", "equals": true}
+	var aliases := {"all": [shared, shared]}
+	var before := JSON.stringify([aliases, facts, context])
+	var first := CONDITION_TREE.evaluate(aliases, facts, context)
+	first["value"] = false
+	_condition_check(CONDITION_TREE.evaluate(aliases, facts, context), true, true, "result mutation and reused child alias cannot alter evaluation")
+	check(JSON.stringify([aliases, facts, context]) == before, "condition/context/facts remain byte-equivalent after evaluation")
+	_condition_check(CONDITION_TREE.evaluate(none, facts, {"locked": false, "definitions": context["transaction_definitions"]}), false, false, "context aliases are refused")
+	var fake := facts.duplicate(true)
+	fake["account"] = "paid200"
+	_condition_check(CONDITION_TREE.evaluate(none, fake, context), false, false, "saved account alias cannot impersonate canonical receipts")
+	fake = facts.duplicate(true)
+	fake["flags"]["ready"] = 1
+	_condition_check(CONDITION_TREE.evaluate(ready, fake), true, false, "flag type replacement cannot become boolean true")
+	fake["items"]["ch1_data_disk"] = 1
+	_condition_check(CONDITION_TREE.evaluate(ready, fake), false, false, "item facts require exact boolean values")
+
+
+func _test_condition_meal_subsets(context: Dictionary) -> void:
+	# Independent authored matrix: six legal exact sets, all 26 others invalid.
+	var expected := {0: "none", 1: "open200", 3: "paid200", 5: "owed200", 9: "gifted200", 21: "paid200"}
+	var ids := ["ch1.revival_meal.order", "ch1.revival_meal.paid", "ch1.revival_meal.tab", "ch1.revival_meal.gift", "ch1.revival_meal.later_pay"]
+	var legal := 0
+	var invalid := 0
+	for mask in 32:
+		var recorded: Array = ["ch1.daily_dinner", "ch1.commission.settled"]
+		for i in 5:
+			if mask & (1 << i):
+				recorded.append(ids[i])
+		var facts := _condition_facts(context, recorded)
+		for state in ["none", "open200", "paid200", "owed200", "gifted200"]:
+			var result := CONDITION_TREE.evaluate({"account": "ch1_lounge", "equals": state}, facts, context)
+			_condition_check(result, expected.has(mask), expected.get(mask) == state, "canonical exact meal subset %d vs %s" % [mask, state])
+		if expected.has(mask):
+			legal += 1
+		else:
+			invalid += 1
+	check(legal == 6 and invalid == 26, "all 32 meal subsets: exactly six legal and 26 invalid")
+
+
+func _test_condition_receipt_trust(context: Dictionary) -> void:
+	var order := "ch1.revival_meal.order"
+	var recorded := {"receipt": order, "status": "recorded"}
+	var none := {"account": "ch1_lounge", "equals": "none"}
+	_condition_check(CONDITION_TREE.evaluate(recorded, _condition_facts(context), context), true, false, "trusted missing receipt is false")
+	_condition_check(CONDITION_TREE.evaluate({"not": recorded}, _condition_facts(context), context), true, true, "not missing trusted receipt is true")
+	_condition_check(CONDITION_TREE.evaluate(recorded, _condition_facts(context, [order]), context), true, true, "matching recorded receipt is true")
+	for id: String in context["transaction_definitions"]:
+		var changed := context.duplicate(true)
+		changed["transaction_definitions"][id]["credits_delta"] += 1
+		_condition_refresh_fingerprint(changed["transaction_definitions"][id])
+		var held: Array = [order] if id == order else ([order, id] if id in ["ch1.revival_meal.paid", "ch1.revival_meal.tab", "ch1.revival_meal.gift"] else ([order, "ch1.revival_meal.tab", id] if id == "ch1.revival_meal.later_pay" else [id]))
+		var facts := _condition_facts(context, held)
+		_condition_check(CONDITION_TREE.evaluate(none, facts, changed), false, false, "all seven recorded definitions detect current resource drift " + id)
+		_condition_check(CONDITION_TREE.evaluate({"not": {"receipt": id, "status": "recorded"}}, facts, changed), false, false, "not cannot invert drifted receipt " + id)
+		_condition_check(CONDITION_TREE.evaluate(none, _condition_facts(context), changed), true, true, "empty ledger may use complete valid current definitions " + id)
+		var malformed := context.duplicate(true)
+		malformed["transaction_definitions"][id]["fingerprint"] = "a".repeat(64)
+		_condition_check(CONDITION_TREE.evaluate(none, _condition_facts(context), malformed), false, false, "descriptor must prove its own current fingerprint " + id)
+	var facts := _condition_facts(context, [order])
+	for field in ["definition_fingerprint", "credits_delta"]:
+		var broken := facts.duplicate(true)
+		broken["ledger"]["receipts"][order][field] = "untrusted"
+		_condition_check(CONDITION_TREE.evaluate({"not": recorded}, broken, context), false, false, "not malformed receipt stays invalid " + field)
+		_condition_check(CONDITION_TREE.evaluate({"any": [{}, recorded]}, broken, context), false, false, "true any cannot conceal untrusted receipt " + field)
+		_condition_check(CONDITION_TREE.evaluate({"all": [{"flag": "blocked", "equals": true}, recorded]}, broken, context), false, false, "false all cannot conceal untrusted receipt " + field)
+	var locked := context.duplicate(true)
+	locked["ledger_locked"] = true
+	_condition_check(CONDITION_TREE.evaluate(none, _condition_facts(context), locked), false, false, "locked empty ledger never maps to none")
+	locked["ledger_locked"] = "false"
+	_condition_check(CONDITION_TREE.evaluate(none, facts, locked), false, false, "trust state requires exact bool")
+	var untrusted := _condition_facts(context)
+	untrusted["ledger"] = {"version": 1, "receipts": {}, "status": "untrusted"}
+	_condition_check(CONDITION_TREE.evaluate(none, untrusted, context), false, false, "untrusted ledger cannot be normalized to none")
+	for key in ["id", "required", "excluded", "credits_delta", "fingerprint"]:
+		var missing := context.duplicate(true)
+		missing["transaction_definitions"][order].erase(key)
+		_condition_check(CONDITION_TREE.evaluate(none, _condition_facts(context), missing), false, false, "complete current descriptor required: " + key)
+	var wrong_amount := facts.duplicate(true)
+	wrong_amount["ledger"]["receipts"][order]["credits_delta"] += 1
+	_condition_check(CONDITION_TREE.evaluate(recorded, wrong_amount, context), false, false, "matching fingerprint alone cannot authenticate wrong receipt delta")
+	for change in [{"id": "ch1.daily_dinner"}, {"required": [order]}, {"required": ["ch1.unknown"]}, {"excluded": [order]}, {"credits_delta": true}, {"credits_delta": 0.5}]:
+		var malformed := context.duplicate(true)
+		malformed["transaction_definitions"][order].merge(change, true)
+		_condition_check(CONDITION_TREE.evaluate(none, _condition_facts(context), malformed), false, false, "malformed current descriptor never authenticates empty ledger")
+	for bad_snapshot: Variant in [null, [], {"version": true, "receipts": {}}, {"version": 2, "receipts": {}}, {"version": 1, "receipts": []}, {"version": 1, "receipts": {"ch1.unknown": {}}}]:
+		var malformed := _condition_facts(context)
+		malformed["ledger"] = bad_snapshot
+		_condition_check(CONDITION_TREE.evaluate({"not": none}, malformed, context), false, false, "malformed ledger never becomes eligible under not")
+
+
+func _test_condition_limits(facts: Dictionary) -> void:
+	var nested: Dictionary = {}
+	for i in CONDITION_TREE.MAX_DEPTH - 1:
+		nested = {"not": nested}
+	check(CONDITION_TREE.validate(nested)["valid"], "condition exactly at depth limit is valid")
+	check(not CONDITION_TREE.validate({"not": nested})["valid"], "depth limit plus one is invalid")
+	var cyclic := {}
+	cyclic["not"] = cyclic
+	var cycle_result := CONDITION_TREE.validate(cyclic)
+	check(not cycle_result["valid"] and cycle_result["error"].length() <= 512, "cycle returns bounded invalid diagnostic without deep duplication")
+	cyclic.erase("not")
+	var children: Array = []
+	for i in CONDITION_TREE.MAX_CHILDREN:
+		children.append({})
+	check(CONDITION_TREE.validate({"all": children})["valid"], "exact child limit is valid")
+	children.append({})
+	check(not CONDITION_TREE.validate({"all": children})["valid"], "child limit plus one is invalid")
+	var groups: Array = []
+	for i in 8:
+		var leaves: Array = []
+		for j in (32 if i < 7 else 23):
+			leaves.append({})
+		groups.append({"all": leaves})
+	check(CONDITION_TREE.validate({"all": groups})["valid"], "exact 256-node budget is valid")
+	groups[7]["all"].append({})
+	check(not CONDITION_TREE.validate({"all": groups})["valid"], "257-node condition is invalid")
+	var id := "a".repeat(CONDITION_TREE.MAX_ID_LENGTH)
+	var bounded := facts.duplicate(true)
+	bounded["flags"][id] = true
+	_condition_check(CONDITION_TREE.evaluate({"flag": id, "equals": true}, bounded), true, true, "exact ID length limit is valid")
+	_condition_check(CONDITION_TREE.evaluate({"flag": id + "a", "equals": true}, bounded), false, false, "long ID is invalid")
+	for bad_id in ["", "Upper", "a/b", "a b", "1flag"]:
+		check(not CONDITION_TREE.validate({"item": bad_id})["valid"], "invalid ID alphabet is rejected")
+	check(not CONDITION_TREE.validate({"flag": "ready", "equals": INF})["valid"], "infinite scalar is invalid")
+	check(not CONDITION_TREE.validate({"flag": "ready", "equals": NAN})["valid"], "NaN scalar is invalid")
+	check(not CONDITION_TREE.validate({"flag": "ready", "equals": "a".repeat(CONDITION_TREE.MAX_TEXT_LENGTH + 1)})["valid"], "long scalar text is invalid")
+	var many_facts := {"flags": {}}
+	for i in CONDITION_TREE.MAX_FACTS:
+		many_facts["flags"]["f%d" % i] = false
+	_condition_check(CONDITION_TREE.evaluate({}, many_facts), true, true, "exact fact count limit is valid")
+	many_facts["flags"]["one_more"] = false
+	_condition_check(CONDITION_TREE.evaluate({}, many_facts), false, false, "fact count limit plus one is invalid")
