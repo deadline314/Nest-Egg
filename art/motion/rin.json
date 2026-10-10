@@ -42,13 +42,20 @@
  },
  "crouch": {
   "hip_drop": 8.0,
-  "chest": 0.18,
+  "chest": 0.1,
   "legs": [
    -1.25,
    2.05,
    -0.55,
    1.85
-  ]
+  ],
+  "kneel": {
+   "back_thigh": 0.2,
+   "back_shin": 1.44,
+   "back_foot": -0.18,
+   "knee_radius": 0.2,
+   "front_foot_x": 1.1
+  }
  },
  "air": {
   "rise": {

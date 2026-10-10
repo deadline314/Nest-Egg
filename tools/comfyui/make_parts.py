@@ -13,6 +13,13 @@ Outputs (in --work):
 How a pixel gets its part: SAM masks give the group (hand, arm, holster, jacket, hair, boot, head, body); groups hidden by
 something in front of them are completed by Qwen (the gap only); limb groups are then cut at the joints (spec.cuts).
 
+parts.<name>.caps (NE-222): [{"joint": "hip", "radius": 80, "feather": 10}] adds the group's pixels inside a disc around a joint to the part,
+on top of its straight cut, and fades the disc's rim over `feather` px. Give it to BOTH parts of a rigid joint (pelvis and thigh at the hip,
+torso and sleeve at the shoulder...): the two discs stay on top of each other at every angle, so the silhouette stays round and closed.
+radius = about half the limb's width at the joint, in pixels of base_rgba.png. "sam": ["black stockings leg"] keeps only the cap pixels of
+those SAM prompts. The part drawn on top gets the larger, feathered cap; the part under it a smaller hard one that the top cap always covers
+(smaller than the shortest distance from the joint to the top part's outline), or its rim shows when the joint turns.
+
 spec["near_leg"] (NE-152): in a side view both legs and both shoes are in the picture, but the rig draws ONE leg texture twice (the far
 copy dimmed), so a leg part must hold exactly one leg. near_leg picks the near (front, unobstructed) leg with SAM point prompts and
 makes it a group of its own ("group": "near_leg" in the parts):
@@ -97,6 +104,23 @@ def dilate(mask: np.ndarray, r: int) -> np.ndarray:
     if r <= 0:
         return mask
     return cv2.dilate(mask.astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * r + 1, 2 * r + 1))) > 0
+
+
+def cap_distance(shape: tuple[int, int], joint) -> np.ndarray:
+    """Distance of every pixel to a joint (pixels of base_rgba.png)."""
+    yy, xx = np.mgrid[0:shape[0], 0:shape[1]]
+    return np.hypot(xx - float(joint[0]), yy - float(joint[1]))
+
+
+def cap_alpha(alpha: np.ndarray, straight: np.ndarray, caps: list[tuple[np.ndarray, float, float]]) -> np.ndarray:
+    """Fade the rim of a part's round joint caps (spec parts.caps): alpha stays whole inside the straight cut and inside each cap, and
+    falls to 0 over the cap's last `feather` px. A hard rim drawn over the neighbouring part shows as a line once the joint turns.
+    caps = [(distance to the joint, radius, feather)]."""
+    keep = np.zeros(alpha.shape, np.float32)
+    for dist, radius, feather in caps:
+        keep = np.maximum(keep, np.clip((radius - dist) / max(feather, 1e-6), 0.0, 1.0))
+    keep[straight] = 1.0
+    return (alpha.astype(np.float32) * keep).round().astype(np.uint8)
 
 
 def near_leg_key(cfg: dict, image: Path) -> str:
@@ -232,7 +256,8 @@ def main() -> None:
 
     # ---- SAM masks --------------------------------------------------------------------------------------------
     prompts = sorted({p for g in spec["groups"].values() for p in g["sam"]} | {p for g in spec["groups"].values() for p in g.get("minus", [])}
-                     | set(spec.get("near_leg", {}).get("extra", [])))
+                     | set(spec.get("near_leg", {}).get("extra", []))
+                     | {p for part in spec["parts"].values() for cap in part.get("caps", []) for p in cap.get("sam", [])})
     sam_dir = work / "sam"
     grey = work / "base_grey.png"
     write_grey_composite(rgba, grey)
@@ -368,6 +393,18 @@ def main() -> None:
                     gap_fill |= ndimage.binary_fill_holes(final | gap_fill) & ~final
                     color = row_fill(color, gap_fill, final)
                     final = final | gap_fill
+            if c.get("keep_rim"):
+                # trim took a ring of the group's own pixels away and the stage picture gives back only its opaque inside: along the stage's
+                # soft outer edge nothing came back, and the part's outline had 1 px breaks wherever it used to touch the thing in front
+                # Their colour comes from the stage picture where it has any (its soft edge is still the right material), else from the
+                # nearest pixel already kept: the original pixel there is a blend with the thing that was in front (white hair on a navy sleeve).
+                lost = V[name] & ~final
+                if lost.any() and final.any():
+                    st_ = stage_rgba[c["stage"]]
+                    idx = ndimage.distance_transform_edt(~final, return_distances=False, return_indices=True)
+                    near_color = color[idx[0], idx[1]]
+                    color = np.where(lost[:, :, None], np.where((st_[:, :, 3] > 127)[:, :, None], st_[:, :, :3], near_color), color)
+                    final = final | lost
             layer = np.dstack([color, (final * 255).astype(np.uint8)])
             Image.fromarray(layer).save(done)
             complete[name] = layer
@@ -522,6 +559,7 @@ def main() -> None:
     yy, xx = np.mgrid[0:H, 0:W]
     seam = spec.get("seam", 10)
     parts: dict[str, np.ndarray] = {}
+    straight: dict[str, np.ndarray] = {}  # the part before its round joint caps were added
     for pname, pdef in spec["parts"].items():
         if "damage_of" in pdef:
             continue  # torn-clothes layers are made by make_damage.py
@@ -540,6 +578,17 @@ def main() -> None:
                 region &= (s_ >= (lo - a_[1]) / d_[1] if lo > 0 else True) & (s_ < (hi - a_[1]) / d_[1] if hi < H else True)
             else:
                 region &= (yy >= lo) & (yy < hi)
+        straight[pname] = region
+        # caps: a rigid joint (hip, shoulder, wrist, ankle, neck) turns without showing a corner or a gap only when both parts keep a round
+        # disc of the group around the joint they turn on; a straight cut alone leaves an angular silhouette as soon as the limb swings.
+        for cap in pdef.get("caps", []):
+            disc = (grp[:, :, 3] > 127) & (cap_distance((H, W), spec["joints"][cap["joint"]]) <= cap["radius"])
+            if "sam" in cap:  # only this material: a thigh's cap must not carry a sliver of the bodysuit around with it
+                wanted = np.zeros((H, W), bool)
+                for prompt in cap["sam"]:
+                    wanted |= M[prompt]
+                disc &= dilate(wanted, 2)
+            region = region | disc
         if "within" in pdef:  # keep the pixels of this group that fall inside another group's visible mask (e.g. the hand inside the arm group)
             region &= dilate(V[pdef["within"]], pdef.get("within_grow", 3))
         if "not_within" in pdef:
@@ -569,6 +618,11 @@ def main() -> None:
         grown = largest_blobs(grown)
         layer = grp.copy()
         layer[:, :, 3] = (grown * 255).astype(np.uint8)
+        if pdef.get("caps"):
+            part_seam = pdef.get("seam", seam)
+            layer[:, :, 3] = cap_alpha(layer[:, :, 3], dilate(straight[pname], part_seam) & grown,
+                                       [(cap_distance((H, W), spec["joints"][cap["joint"]]), cap["radius"] + part_seam, cap.get("feather", 0))
+                                        for cap in pdef["caps"]])
         Image.fromarray(layer).save(pdir / f"{pname}.png")
         parts[pname] = grown
     rng = np.random.default_rng(5)

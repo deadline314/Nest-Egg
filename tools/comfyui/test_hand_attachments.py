@@ -29,8 +29,8 @@ for hand in hands:
     variant = spec["parts"][hand["grip_texture"]]
     from cut_rig_parts import frame
     import numpy as np
-    wrist = np.array(spec["joints"]["palm"])
-    tip = np.array(spec["joints"]["fingertip"])
+    wrist = np.array(spec["joints"][variant["from"]])  # each hand is cut at its own wrist: the far hand is drawn elsewhere in the picture
+    tip = np.array(spec["joints"][variant["to"]])
     x, y = frame("hand", wrist, tip)
     displacement = np.array(variant["grasp"]) - wrist
     expected = np.array([displacement @ x, displacement @ y]) / spec["illustration_px_per_wp"]
@@ -38,7 +38,7 @@ for hand in hands:
 print("hand attachments: missing references/wrong bones/unreferenced layers/nonfinite anchors rejected; two independent slots and exported palm offsets agree")
 from cut_layers import load_native_grips
 native = load_native_grips(spec, root)
-assert set(native) == {"hand_left_grip"}
+assert set(native) == {"hand_grip", "hand_left_grip"}  # both gripping hands are kept at their own density (NE-222)
 data, definition = native["hand_left_grip"]
 assert definition["size"] == [226, 142] and definition["pivot"] == [26.0822, 25.9259]
 assert definition["texture_scale"] == 0.018283541156251144

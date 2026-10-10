@@ -8,6 +8,12 @@ Outputs: <work>/07_refined/<part>.png   same size and pixel coordinates as the i
 spec["refine"] (every key is optional):
   far_side   {"parts": [...], "min_area": N, "y_min": Y}        remove the far-side leg / boot that Qwen drew as a flat teal silhouette behind the near leg
   erase      [{"part": p, "poly": [[x, y], ...]}]    clear a polygon (pixel coordinates of base_rgba.png)
+  inpaint    [{"part": p, "poly": [[x, y], ...]}]    repaint a polygon of the part from the colours around it, alpha unchanged: something
+                                                      that belongs to another part was painted onto this one (an earring on the neck under the head)
+  underlap   [{"part": p, "under": q, "poly": [[x, y], ...], "inset": 2}]  grow part p into the polygon, only where part q covers it (q's
+                                                      outline pulled in by `inset` px), with the colour of p's nearest pixel. Two parts of
+                                                      different groups only touch: the neck under the head, the shin inside the boot and the
+                                                      forearm under the hand need this hidden overlap or the joint opens when it turns
   repaint    [{"parts": [...], "group": g, "y": [lo, hi]}] throw away what Qwen painted into the hidden gap of group g inside the y range and
                                                       refill it with a colour ramp from the visible pixels above and below (removes the seams drawn on the thigh)
   close_fill {"parts": [...], "radius": N}           close holes cut into a part by something in front of it (the holster behind the hand)
@@ -15,6 +21,8 @@ spec["refine"] (every key is optional):
                                                       a sliver between two outlines would show the background as a bright dot (check_parts.py lists them)
   magenta_specks {"parts": [...], "max_area": N}     delete tiny magenta fringe flecks on the listed parts
   white_specks {"parts": [...], "max_area": N}       same for tiny near-white flecks (only use on dark parts)
+  trim_spikes {"parts": [...], "radius": N}          cut off outline features thinner than about 2N px (a lace tip, a strap end): on screen
+                                                      they are less than a pixel wide and show up as a detached speck next to the part
   smooth_alpha {"parts": [...], "sigma": S}          round off the stair-stepped outline of the listed parts
   defringe   {"width": N}                            recolour the outer N px of every part from its inside (kills the white Qwen halo)
   speckle    N                                       delete detached islands smaller than N px
@@ -142,6 +150,27 @@ def main() -> None:
         layers[e["part"]][:, :, 3][m > 0] = 0
         print(f"  erase {e['part']}: {int(m.sum())} px")
 
+    for e in cfg.get("inpaint", []):
+        m = np.zeros((H, W), np.uint8)
+        cv2.fillPoly(m, [np.array(e["poly"], np.int32)], 1)
+        L = layers[e["part"]]
+        m &= (L[:, :, 3] > 0).astype(np.uint8)
+        L[:, :, :3] = cv2.inpaint(L[:, :, :3], m * 255, 5, cv2.INPAINT_TELEA)
+        print(f"  inpaint {e['part']}: {int(m.sum())} px")
+
+    for e in cfg.get("underlap", []):
+        m = np.zeros((H, W), np.uint8)
+        cv2.fillPoly(m, [np.array(e["poly"], np.int32)], 1)
+        L, cover = layers[e["part"]], layers[e["under"]][:, :, 3] > 127
+        own = L[:, :, 3] > 127
+        cover = ndimage.binary_fill_holes(cv2.morphologyEx(cover.astype(np.uint8), cv2.MORPH_CLOSE, ell(4)) > 0)  # lace loops and finger gaps would punch the overlap
+        grow = (m > 0) & ~own & (cv2.erode(cover.astype(np.uint8), ell(e.get("inset", 2))) > 0)
+        if own.any() and grow.any():
+            idx = ndimage.distance_transform_edt(~own, return_distances=False, return_indices=True)
+            L[:, :, :3][grow] = L[:, :, :3][idx[0][grow], idx[1][grow]]
+            L[:, :, 3][grow] = 255
+        print(f"  underlap {e['part']} under {e['under']}: +{int(grow.sum())} px")
+
     ec = cfg.get("magenta_specks")
     if ec:  # tiny magenta flecks (hair / jacket fringe that Qwen dragged onto neighbouring parts)
         for n in ec["parts"]:
@@ -185,6 +214,15 @@ def main() -> None:
             L[:, :, :3] = cv2.inpaint(L[:, :, :3], new.astype(np.uint8) * 255, 5, cv2.INPAINT_TELEA)
             L[:, :, 3][new] = 255
             print(f"  close_fill {n}: +{int(new.sum())} px")
+
+    ts = cfg.get("trim_spikes")
+    if ts:
+        for n in ts["parts"]:
+            L = layers[n]
+            solid = (L[:, :, 3] > 127).astype(np.uint8)
+            spikes = (solid > 0) & ~(cv2.morphologyEx(solid, cv2.MORPH_OPEN, ell(ts.get("radius", 2))) > 0)
+            L[:, :, 3][spikes] = 0
+            print(f"  trim_spikes {n}: -{int(spikes.sum())} px")
 
     sm = cfg.get("smooth_alpha")
     for n, L in layers.items():

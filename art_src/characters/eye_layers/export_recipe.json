@@ -3,10 +3,6 @@
   "candidate_manifest": "art_src/characters/eye_layers/corrected_candidates/manifest.json",
   "output": ".godot/eye-state-export",
   "characters": {
-    "rin": {
-      "candidate_id": "rin",
-      "recipe": "tools/comfyui/recipes/rin.json"
-    },
     "old_k": {
       "candidate_id": "old_k",
       "recipe": "tools/comfyui/recipes/old_k.json"
@@ -39,5 +35,6 @@
       "candidate_id": "mei",
       "recipe": "tools/comfyui/recipes/mei.json"
     }
-  }
+  },
+  "note": "rin 不在這裡：遊戲內的凜改用功能姿勢外觀（NE-222），眼睛圖層由 art_src/characters/rin_field/extras/register.py 產生、cut_layers 驗證；s33 頭部的候選保留在 corrected_candidates 供 recipes/rin_s33.json 重建。"
 }

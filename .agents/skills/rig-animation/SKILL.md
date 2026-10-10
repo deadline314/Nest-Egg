@@ -188,3 +188,11 @@ SAM遮罩、顏色刪除規則和關節裁切須分別核對原图：金屬洋�
 - `Polygon2D.skeleton`路徑相對polygon；`add_bone`的骨頭路徑相對Skeleton2D。必須檢查實際Forward+輸出，不能僅以CPU能找到節點就通過；錯誤路徑可能讓全部頂點塌縮。
 - 保留原解析度UV與normal／glow。JSON索引先驗有限整數與範圍再轉型；坐標／bind轉成原生精度後再驗finite。維持500邏輯網格頂點預算及最多四骨影響；隱藏損傷配對也計入該姿勢，glow沿用既有計數政策。
 - 先跑原位、單骨及負控制，再跑120格、兩面向、1×／3.4×逐格檢查。alpha-only零孔洞只驗幾何，不代表全彩解剖、全部接點、正常光照、姿勢進出、護甲脫落、效能或操作手感合格。原失敗與修後同條件截圖／hash／命令都保存。介面見`design/12-cast-redraw/POSE_PART_ATTACHMENTS.md`。
+
+## 持槍蹲下＝單膝跪（NE-222，2026-10-11）
+
+動作資料 `crouch.kneel` 有內容時，蹲下改用單膝跪：`HumanoidAnimator._kneel` 依後大腿角度與膝蓋半徑算骨盆高度，後腿用資料的三個角度，前腳踝用 IK 平放在地面，約 0.15 秒淡入淡出，途中把最低的腳放回地面。欄位：`back_thigh`、`back_shin`、`back_foot`（弧度）、`knee_radius`（世界像素）、`front_foot_x`（大腿長的倍數）。沒有 `kneel` 的角色維持原本的蹲姿角度。玩家蹲下時不能移動，所以沒有蹲走。
+
+- 調數字時看 `rig_preview --chars=<角色> --weapon=rifle` 的第四格：後膝與前腳底要貼地、前小腿接近直立、上身直立。
+- 直接改骨頭角度之後不能再呼叫 `_apply_body()`（它會把腿換回姿勢資料的角度）；要移動身體就改骨盆位置再 `_forward_kinematics()`。
+- 稽核的「stand-up」會檢查起身途中腳有沒有陷地。

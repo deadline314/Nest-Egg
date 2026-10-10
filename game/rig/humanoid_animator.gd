@@ -46,7 +46,7 @@ const DEFAULT_MOTION := {
 	"foot": {"droop": 0.25, "heel": 0.0, "toe_off": 0.0},
 	"torso": {"hip_swing": 0.0, "chest_counter": 0.0, "chest_wobble": 0.0, "wobble_phase": 0.0, "head_hold": 0.0},
 	"inertia": {"gain": 0.0, "ref_accel": 1600.0, "stiffness": 90.0, "damping": 11.0, "max": 0.3},
-	"crouch": {"hip_drop": 8.0, "chest": 0.18, "legs": [-1.25, 2.05, -0.55, 1.85]},
+	"crouch": {"hip_drop": 8.0, "chest": 0.18, "legs": [-1.25, 2.05, -0.55, 1.85], "kneel": {}},
 	"air": {"rise": {"chest": 0.05, "legs": [-0.95, 1.4, 0.35, 0.7]}, "fall": {"chest": -0.05, "legs": [-0.35, 0.45, 0.45, 0.25]},
 			"apex": {"chest": 0.0, "legs": [-0.6, 0.9, 0.4, 0.5]}, "apex_speed": 0.0, "takeoff": {"time": 0.0, "chest": 0.0, "legs": [0.0, 0.0, 0.0, 0.0]}},
 	"dash": {"forward": {"chest": 0.38, "legs": [-1.0, 0.6, 0.85, 1.0]}, "back": {"chest": -0.22, "legs": [0.5, 0.9, -0.7, 0.4]}, "hip_drop": 0.0},
@@ -85,6 +85,8 @@ const DEATH_FORCE_ROTATION := 1.12
 ## 倒下的身體最多轉多少（超過 100° 腳會翹到空中）。
 const DEATH_MAX_ROTATION := 1.75
 const CROUCH_DROP := 8.0
+## 單膝跪姿淡入淡出的速度（每秒）：約 0.15 秒跪到位，起身一樣快，不拖住操作。
+const KNEEL_BLEND_SPEED := 7.0
 
 const LEGS: Array[StringName] = [&"leg_front_upper", &"leg_front_lower", &"leg_back_upper", &"leg_back_lower"]
 ## 兩條腿的骨頭鏈（大腿、小腿、腳掌），順序＝前腳、後腳。
@@ -145,6 +147,7 @@ var _land_v := 0.0
 ## 待機：腳固定在地上（重心轉移）時兩腳的固定位置（骨架空間 x，前腳與後腳）、這一格是不是待機、固定的權重。
 var _idle_on := false
 var _idle_pin_w := 0.0
+var _kneel_w := 0.0
 var _idle_foot_x: Array[float] = [0.0, 0.0]
 ## 放鬆程度 0（舉槍）～1（槍垂下）。
 var _relax := 0.0
@@ -259,6 +262,7 @@ func update(delta: float, input: RigInput) -> void:
 	_forward_kinematics()
 	_feet_placed = false
 	_post_pose(delta, input)
+	_kneel(delta, input)
 	var can_plant := bool(_motion.get("grounding", false)) and input.on_floor and not input.dead and not input.dashing and not input.crouching
 	var can_pin := can_plant and _idle_on and not input.blocking and not input.staggered
 	_gait_w = move_toward(_gait_w, 1.0 if _gait_on and can_plant else 0.0, GAIT_BLEND_SPEED * delta)
@@ -521,6 +525,47 @@ func _place_feet(offsets: Array[Vector2], angles: Array[float], weight: float, f
 		_rig.bone(upper).rotation = lerp_angle(before[0], _rig.bone(upper).rotation, weight)
 		_rig.bone(lower).rotation = lerp_angle(before[1], _rig.bone(lower).rotation, weight)
 		_rig.bone(foot).rotation = lerp_angle(before[2], _rig.bone(foot).rotation, weight)
+	_forward_kinematics()
+
+
+## 單膝跪（動作資料 crouch.kneel 有內容時，蹲下就用它）：後膝著地、後腳腳尖點地，前腳掌用 IK 平放在地上。
+## 骨盆高度由後大腿的角度與膝蓋半徑算出來，不是手調的 hip_drop，所以腿長不同的骨架用同一份資料也不會懸空或陷進地面。
+## kneel：{"back_thigh": 後大腿相對直立的角度, "back_shin": 後小腿相對大腿, "back_foot": 後腳相對小腿（都是弧度，正的往後折）,
+##         "knee_radius": 膝蓋中心離地（世界像素）, "front_foot_x": 前腳踝在骨盆前方多遠（大腿長的倍數）}。
+## 骨架原點在腳底，所以地面是 y = 0；_ground_y 是站立時腳踝的高度，前腳踝就放在那裡。
+func _kneel(delta: float, input: RigInput) -> void:
+	var kneel: Dictionary = (_motion["crouch"] as Dictionary).get("kneel", {})
+	var want := 1.0 if input.crouching and input.on_floor and not input.dead and not kneel.is_empty() else 0.0
+	_kneel_w = move_toward(_kneel_w, want, KNEEL_BLEND_SPEED * delta)
+	if _kneel_w <= 0.001 or kneel.is_empty():
+		return
+	var bones: Array[StringName] = [&"leg_back_upper", &"leg_back_lower", &"foot_back", &"leg_front_upper", &"leg_front_lower", &"foot_front"]
+	for bone_name in bones:
+		if not _rig.has_bone(bone_name):
+			return
+	_feet_placed = true
+	var thigh := _rig.rest(&"leg_back_lower").length()
+	var back_thigh := float(kneel.get("back_thigh", 0.0))
+	var hip_y := -float(kneel.get("knee_radius", 0.0)) - thigh * cos(back_thigh)
+	_ground_shift = lerpf(_ground_shift, hip_y - _rig.rest(&"leg_back_upper").y - _rig.rest(&"hip").y - _hip_offset.y, _kneel_w)
+	_apply_body()
+	_forward_kinematics()
+	var before: Array[float] = []
+	for bone_name in bones:
+		before.append(_rig.bone(bone_name).rotation)
+	_rig.bone(&"leg_back_upper").rotation = back_thigh - float(_global_angle.get(&"hip", 0.0))
+	_rig.bone(&"leg_back_lower").rotation = float(kneel.get("back_shin", 0.0))
+	_rig.bone(&"foot_back").rotation = float(kneel.get("back_foot", 0.0))
+	var hip: Vector2 = _global_pos[&"leg_front_upper"]
+	_reach_leg(&"leg_front_upper", &"leg_front_lower", &"foot_front", Vector2(hip.x + float(kneel.get("front_foot_x", 1.0)) * thigh, _ground_y), 0.0)
+	for i in bones.size():
+		_rig.bone(bones[i]).rotation = lerp_angle(before[i], _rig.bone(bones[i]).rotation, _kneel_w)
+	_forward_kinematics()
+	# 跪下與起身的途中兩個姿勢各佔一部分，腳可能陷進地面或懸空：把最低的那隻腳放回地面（跪到位時前腳本來就在地上，這裡是 0）。
+	# 只移骨盆：_apply_body 會把腿的角度換回姿勢資料的值。
+	var lift := _ground_y - _lowest_foot_y()
+	_ground_shift += lift
+	_rig.bone(&"hip").position.y += lift
 	_forward_kinematics()
 
 

@@ -393,7 +393,7 @@ def test_private_export_reproducibility() -> None:
         for path, expected in open_hashes.items():
             if sha256(path) != expected:
                 raise AssertionError(f"published open head changed during export test: {path}")
-    print("PASS: shared cut helpers match old rendering byte-for-byte across all nine recipe part sets; all nine open heads rebuild byte-exactly and preserve size/pivot; deterministic rerun, source/open hashes unchanged")
+    print("PASS: shared cut helpers match old rendering byte-for-byte across every recipe part set; every open head rebuilds byte-exactly and preserve size/pivot; deterministic rerun, source/open hashes unchanged")
 
 
 def main() -> None:

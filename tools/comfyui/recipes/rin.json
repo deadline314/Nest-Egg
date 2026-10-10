@@ -1,20 +1,18 @@
 {
-  "description": "凜（7.5 頭身）的建置配方：build_character.py 依這份檔案從頭產出角色。每個步驟的輸入輸出見 design/03-art-pipeline/CHARACTER_PIPELINE.md。",
+  "description": "凜（遊戲內骨架，NE-222 功能姿勢外觀）：來源由 art_src/characters/rin_field/01_design/generate.py 以 Qwen 參考編輯產生（s33 定稿當身份參照），不是 design.prompt 的文生圖；建置從 pose 或之後的步驟開始。s33 定稿的配方在 recipes/rin_s33.json。",
   "id": "rin",
   "spec": "tools/comfyui/specs/rin_side.json",
   "rig": "art/rigs/humanoid_tall.json",
-  "work": "art_src/characters/rin2",
+  "work": "art_src/characters/rin_field",
   "design": {
     "size": [
-      832,
-      1216
+      1056,
+      1536
     ],
-    "pick": 33,
-    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat colors, bold clean black outlines, hard-edged two-tone shading, saturated neon accents. Full body, strict side view facing right, standing relaxed with arms slightly bent. Tall elegant realistic 7.5-head-tall proportions, long legs, mature curvy figure with a large bust, narrow waist and wide hips. An adult woman mercenary in her mid twenties with a calm serious expression. Long white hair in a high ponytail with hot-pink dyed tips, cyan glowing eyes. Her right arm is a chrome military cybernetic prosthetic. She wears a high-cut white and black bodysuit with side cut-outs and thin cyan neon trim, black thigh-high stockings with a tactical thigh holster strap, black chunky-heeled combat boots with glowing pink soles, and a short dark navy open jacket with magenta lining hanging off her shoulders."
+    "pick": 22401,
+    "prompt": "Redraw the same adult woman from image1 in exactly the same Cyberpunk Edgerunners anime cel-shaded style: flat colors, bold clean black outlines, hard-edged two-tone shading. Same face, same long white high ponytail with hot-pink dyed tips, same chrome cybernetic right arm, same white and black high-cut bodysuit with thin cyan trim, same black thigh-high stockings with a tactical thigh holster, same black chunky-heeled combat boots with glowing pink soles. Full body, strict side view facing right, the whole figure from the top of the hair to the boot soles inside the frame with empty margin. New pose: a natural relaxed walk, mid-stride with a moderate step. Upright relaxed torso with a neutral straight back, ribcage stacked directly over the pelvis, no arched lower back, no chest thrust, hips not pushed back, head level looking forward. Near leg forward and far leg back, both legs and both boots clearly separated with a gap between the thighs below the hip. The near chrome cybernetic arm hangs relaxed and swings slightly behind the torso, the far natural-skin arm swings slightly forward; both hands relaxed, each hand clearly separated from the body. She now wears the short dark navy bomber jacket properly: sitting on both shoulders, collar standing, both sleeves fully on both arms down to the ribbed cuffs, front open showing the bodysuit, magenta lining and zipper trim; the jacket is not hanging off the shoulders. Believable adult anatomy and proportions, exactly two arms, two legs, five fingers per hand. Even soft light from the upper left, no bloom, no glow halo, no extra objects, no weapon, no text."
   },
   "source_rebuilds": [
-    "art_src/characters/rin_worn_coat/rebuild.py",
-    "art_src/characters/rin_hands/rebuild.py",
-    "art_src/characters/rin_support_grip_22308/rebuild.py"
+    "art_src/characters/rin_field/extras/register.py"
   ]
 }
