@@ -7,104 +7,121 @@
     "sha256": "8c986ecb0e9767db03465fc462de7115c23613c45fa7d8ad8ace5bf5bef45de9",
     "bytes": 3959710,
     "verify": "PASS",
-    "prerequisite": "full latest main history; run git bundle verify before restoration"
+    "prerequisite": "full latest main history; run git bundle verify before restoration",
+    "refs_saved": 13
   },
   "refs": [
     {
       "ref": "refs/heads/codex/chapter-one-producers",
       "head": "a5f2a1ba9eb64233b56108c3e930c68bffa52158",
       "ancestor_of_main": false,
-      "disposition": "archived_unaccepted_not_merged"
+      "disposition": "archived_unaccepted_not_merged",
+      "in_bundle": true
     },
     {
       "ref": "refs/heads/codex/chapter2-layout",
       "head": "6eab4af4b51049296e66f2724aa9c32fd18bc02a",
       "ancestor_of_main": true,
-      "disposition": "already_merged"
+      "disposition": "already_merged",
+      "in_bundle": false
     },
     {
       "ref": "refs/heads/codex/stage-framing",
       "head": "480ff6bf0975d57f76b78a38478eb9d45efa8718",
       "ancestor_of_main": true,
-      "disposition": "already_merged"
+      "disposition": "already_merged",
+      "in_bundle": false
     },
     {
       "ref": "refs/heads/codex/world-ui-clarity",
       "head": "5300e7c06c68cd2852e731041ac44a8334ddab66",
       "ancestor_of_main": true,
-      "disposition": "already_merged"
+      "disposition": "already_merged",
+      "in_bundle": false
     },
     {
       "ref": "refs/remotes/origin/codex/chapter-one-producers",
       "head": "a5f2a1ba9eb64233b56108c3e930c68bffa52158",
       "ancestor_of_main": false,
-      "disposition": "archived_unaccepted_not_merged"
+      "disposition": "archived_unaccepted_not_merged",
+      "in_bundle": true
     },
     {
       "ref": "refs/remotes/origin/codex/cloud-melee-catalog-review",
       "head": "89abdc388c9cc0938af25c576131b6ce42320cb3",
       "ancestor_of_main": false,
-      "disposition": "archived_unaccepted_not_merged"
+      "disposition": "archived_unaccepted_not_merged",
+      "in_bundle": true
     },
     {
       "ref": "refs/remotes/origin/codex/cloud-radio-reading",
       "head": "5226457788f42b6826b6a55e5512609a110b845e",
       "ancestor_of_main": false,
-      "disposition": "archived_unaccepted_not_merged"
+      "disposition": "archived_unaccepted_not_merged",
+      "in_bundle": true
     },
     {
       "ref": "refs/remotes/origin/codex/cloud-weapon-balance-audit",
       "head": "c5b8a6b3959871a0eb5829d1e8322d25fe1d62b2",
       "ancestor_of_main": false,
-      "disposition": "archived_unaccepted_not_merged"
+      "disposition": "archived_unaccepted_not_merged",
+      "in_bundle": true
     },
     {
       "ref": "refs/remotes/origin/codex/cloud-weapon-caller-safety-review",
       "head": "9333c0d1713bddb6c787d6684241de461d7d84f4",
       "ancestor_of_main": false,
-      "disposition": "archived_unaccepted_not_merged"
+      "disposition": "archived_unaccepted_not_merged",
+      "in_bundle": true
     },
     {
       "ref": "refs/remotes/origin/codex/cloud-weapon-catalog-fix",
       "head": "1b09688eadcca7543d695a7e1b47e6500e2778ed",
       "ancestor_of_main": false,
-      "disposition": "archived_unaccepted_not_merged"
+      "disposition": "archived_unaccepted_not_merged",
+      "in_bundle": true
     },
     {
       "ref": "refs/remotes/origin/codex/cloud-weapon-phone-context-review",
       "head": "41f326ab09060ebff2b58907ac50122926b9f17d",
       "ancestor_of_main": false,
-      "disposition": "archived_unaccepted_not_merged"
+      "disposition": "archived_unaccepted_not_merged",
+      "in_bundle": true
     },
     {
       "ref": "refs/remotes/origin/codex/cloud-weapon-safety-89-review",
       "head": "77c2e51795428a8ad390de1b21b80f3cc44db1df",
       "ancestor_of_main": false,
-      "disposition": "archived_unaccepted_not_merged"
+      "disposition": "archived_unaccepted_not_merged",
+      "in_bundle": true
     },
     {
       "ref": "refs/remotes/origin/codex/cloud-weapon-safety-b9-review",
       "head": "df8118666b5f5593d0b4f99a96c351d0162b19c3",
       "ancestor_of_main": false,
-      "disposition": "archived_unaccepted_not_merged"
+      "disposition": "archived_unaccepted_not_merged",
+      "in_bundle": true
     },
     {
       "ref": "refs/remotes/origin/codex/cloud-weapon-safety-bounds",
       "head": "deb4608eec7376582e6bb86069d0a5e66d9875dc",
       "ancestor_of_main": false,
-      "disposition": "archived_unaccepted_not_merged"
+      "disposition": "archived_unaccepted_not_merged",
+      "in_bundle": true
     },
     {
       "ref": "refs/remotes/origin/codex/ne245-validation-evidence",
       "head": "fc2b1b4c9733d703bbb5a117e142515af0220b91",
       "ancestor_of_main": false,
-      "disposition": "archived_unaccepted_not_merged"
+      "disposition": "archived_unaccepted_not_merged",
+      "in_bundle": true
     },
     {
       "ref": "refs/remotes/origin/codex/ne246-story-cloud-evidence",
       "head": "16d448d8ed10ae90ba1514c8aaeb942b218ebd2c",
       "ancestor_of_main": false,
-      "disposition": "archived_unaccepted_not_merged"
+      "disposition": "archived_unaccepted_not_merged",
+      "in_bundle": true
     }
   ],
   "worktrees": [
@@ -376,7 +393,8 @@
           "tracked_change": false
         }
       ],
-      "cleanup_status": "PENDING"
+      "cleanup_status": "REMOVED_AFTER_VERIFIED_ARCHIVE",
+      "removal_method": "git worktree remove after verified ZIP and original source inventory"
     },
     {
       "name": "stage-framing",
@@ -514,7 +532,8 @@
           "tracked_change": false
         }
       ],
-      "cleanup_status": "PENDING"
+      "cleanup_status": "REMOVED_AFTER_VERIFIED_ARCHIVE",
+      "removal_method": "git worktree remove after verified ZIP and original source inventory"
     },
     {
       "name": "chapter-one-runtime",
@@ -754,7 +773,9 @@
           "tracked_change": false
         }
       ],
-      "cleanup_status": "PENDING"
+      "cleanup_status": "REMOVED_AFTER_VERIFIED_ARCHIVE",
+      "app_archive_status": "ARCHIVED_WORKTREE_ATTACHMENT_CONFIRMED",
+      "app_archive_identity": "C:\\Users\\stanl\\.codex\\worktrees\\chapter-one-runtime\\Nest-Egg"
     },
     {
       "name": "contextual-game-ui",
@@ -970,7 +991,9 @@
           "tracked_change": false
         }
       ],
-      "cleanup_status": "PENDING"
+      "cleanup_status": "REMOVED_AFTER_VERIFIED_ARCHIVE",
+      "app_archive_status": "ARCHIVED_WORKTREE_ATTACHMENT_CONFIRMED",
+      "app_archive_identity": "C:\\Users\\stanl\\.codex\\worktrees\\contextual-game-ui\\Nest-Egg"
     }
   ],
   "primary_unaccepted_ticket_edits": {
@@ -988,8 +1011,69 @@
     ],
     "status": "PRESERVED_THEN_RESTORED_TO_MAIN"
   },
-  "remote_deletions": [],
-  "status": "BACKUPS_VERIFIED_CLEANUP_PENDING",
+  "remote_deletions": [
+    {
+      "ref": "refs/remotes/origin/codex/chapter-one-producers",
+      "expected_head": "a5f2a1ba9eb64233b56108c3e930c68bffa52158",
+      "status": "DELETED"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/cloud-melee-catalog-review",
+      "expected_head": "89abdc388c9cc0938af25c576131b6ce42320cb3",
+      "status": "DELETED"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/cloud-radio-reading",
+      "expected_head": "5226457788f42b6826b6a55e5512609a110b845e",
+      "status": "DELETED"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/cloud-weapon-balance-audit",
+      "expected_head": "c5b8a6b3959871a0eb5829d1e8322d25fe1d62b2",
+      "status": "DELETED"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/cloud-weapon-caller-safety-review",
+      "expected_head": "9333c0d1713bddb6c787d6684241de461d7d84f4",
+      "status": "DELETED"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/cloud-weapon-catalog-fix",
+      "expected_head": "1b09688eadcca7543d695a7e1b47e6500e2778ed",
+      "status": "DELETED"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/cloud-weapon-phone-context-review",
+      "expected_head": "41f326ab09060ebff2b58907ac50122926b9f17d",
+      "status": "DELETED"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/cloud-weapon-safety-89-review",
+      "expected_head": "77c2e51795428a8ad390de1b21b80f3cc44db1df",
+      "status": "DELETED"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/cloud-weapon-safety-b9-review",
+      "expected_head": "df8118666b5f5593d0b4f99a96c351d0162b19c3",
+      "status": "DELETED"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/cloud-weapon-safety-bounds",
+      "expected_head": "deb4608eec7376582e6bb86069d0a5e66d9875dc",
+      "status": "DELETED"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/ne245-validation-evidence",
+      "expected_head": "fc2b1b4c9733d703bbb5a117e142515af0220b91",
+      "status": "DELETED"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/ne246-story-cloud-evidence",
+      "expected_head": "16d448d8ed10ae90ba1514c8aaeb942b218ebd2c",
+      "status": "DELETED"
+    }
+  ],
+  "status": "COMPLETED_FOUR_WORKTREES_FOUR_OLD_LOCAL_BRANCHES_TWELVE_REMOTE_BRANCHES",
   "preserved_local_stashes": [
     {
       "sha": "0b8c174149b4c5a68b7ac4655cd1a549f8a1a58a",
@@ -1003,5 +1087,21 @@
       "sha": "e82df9606148603f783c3d04154fe08095e627eb",
       "message": "On main: pre-rebase local files"
     }
-  ]
+  ],
+  "local_branches_removed": [
+    "codex/chapter2-layout",
+    "codex/stage-framing",
+    "codex/world-ui-clarity",
+    "codex/chapter-one-producers"
+  ],
+  "cleanup_backup_published_commit": "d7973022aec112df8145a96746efe7c25a165a0d",
+  "main_at_post_cleanup_verification": "d7973022aec112df8145a96746efe7c25a165a0d",
+  "generated_metadata_cleanup": {
+    "requested_command": "REJECTED_BY_AUTOMATIC_REVIEW_NOT_EXECUTED",
+    "replacement": "managed app recoverable worktree archive completed; cache removed with checkout",
+    "no_bulk_shell_file_deletion": true,
+    "residual_empty_directory": "removed nonrecursively after empty/path/reparse checks"
+  },
+  "final_work_branch": "codex/session-handoff-cleanup will be removed after final documentation push",
+  "runtime_merge_boundary": "No failed or unaccepted runtime adopted. All merged old branch history retained in main; unpublished source preserved in verified bundle/ZIP."
 }

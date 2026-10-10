@@ -13,7 +13,7 @@
 
 ## 恢復提交歷史
 
-`preserved-branches.bundle` 保存 manifest 中 16 個當時的 branch／remote ref，包含其未合併歷史；不複製 main 已有的全部歷史，因此需要完整 main 歷史。淺 clone 先補齊 main 歷史。所有 hash 與原始 ref 名稱見 manifest。驗證和取出只會建立新審查分支，不改 main。
+盤點共 16 個舊 branch／remote ref；`preserved-branches.bundle` 保存其中 **13 個未合併 ref** 與相關歷史，另外三個已合併來源隨 main 的歷史保留。bundle 不複製 main 已有的全部歷史，因此需要完整 main 歷史。淺 clone 先補齊 main 歷史。所有 hash 與原始 ref 名稱見 manifest。驗證和取出只會建立新審查分支，不改 main。
 
 ```bash
 git fetch origin main
@@ -30,6 +30,12 @@ git fetch pm/attachments/worktree-retirement-2026-10-11/preserved-branches.bundl
 各 `*-uncommitted.zip` 有原 HEAD、原始檔 bytes、SHA256、tracked-change.patch 和 manifest。`stage-framing` 的 patch 只對舊來源 HEAD 適用，新 main 先比對或用三方審查，不能盲解壓覆蓋正式來源。`chapter2-layout` 是未採用新版第二章候選，不在本輪第一章開發目標。
 
 第一章和 contextual UI 的 ZIP 只保存自然生成 UID；數千個可重建 `.import` 與 translation 不重複保存。各 worktree 的 `.godot` 匯入快取及 Python bytecode 可重建；沒有其他 ignored 原始來源。managed worktree 另以 app 歸檔機制保存可恢復快照，實際結果見 manifest。
+
+## 已執行清理
+
+四個額外 checkout 均已移除：第二章布局、舞台構圖、第一章 runtime、contextual UI。四個舊本機分支與十二個遠端舊分支已移除；遠端刪除先核對原 HEAD，使用各分支 expected-head lease 與 atomic 更新，未 force main。最後只留主 checkout 和 main（本次文件工作分支完成後亦移除）。兩個 managed checkout 在 app 中仍有可恢復 archived_worktree 附件；本聊天的釘選位置已恢復。
+
+批次刪除匯入檔的 shell 命令被自動審查拒絕（僅回報 blocked by policy，未執行）。改用 app 的可恢復 worktree 歸檔完成 managed checkout 清理；臨時 checkout 則在逐檔原始 SHA、未提交清單與原 HEAD 不變後才由 Git 移除，不直接掃目錄刪檔。這不是將未驗收程式合入 main。
 
 主 checkout 的兩個既有驗收打勾另存 `primary-unaccepted-ticket-edits.zip`，只是原始現場；沒有新增證據支持 BG-17 暗場量測、ST-1 使用者確認，不能把這兩個修改當作本輪已驗收。原三個 stash 保留在本機 Git，不清空、不自動套入新分支；其 ref SHA 記在 manifest，若需要先逐檔核對內容。
 
