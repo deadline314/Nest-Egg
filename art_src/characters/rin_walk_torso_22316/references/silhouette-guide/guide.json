@@ -1,0 +1,28 @@
+{
+  "status": "PROPOSED_CONSTRUCTION_GUIDE_NOT_ANATOMY_ACCEPTANCE_OR_GAME_ART",
+  "reference_crop": [
+    200,
+    336
+  ],
+  "output": [
+    864,
+    1408
+  ],
+  "margin_pixels": 32,
+  "purpose": "Constrain a new torso contour; preserve formal rest attachment axes, do not warp approved art.",
+  "formal_neck_axis_local": [
+    47,
+    90
+  ],
+  "formal_waist_axis_local": [
+    55,
+    306
+  ],
+  "formal_shoulder_pivot_local": [
+    15,
+    124
+  ],
+  "axis_source": "approved rin_side spec minus formal crop offset [357,124]",
+  "contour": "manual proposed construction, requires full-color anatomy review before use",
+  "sha256": "64c7495caadcea55fea08c9eef42f3de2ce1a56a22854b0fc83fc5154df47a70"
+}

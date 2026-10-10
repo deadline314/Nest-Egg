@@ -1,0 +1,210 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "qwen-image-2.1-UC-int8_convrot.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "1c": {
+    "class_type": "QwenImage21Cache",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "device": "off",
+      "dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+      "type": "qwen_image",
+      "device": "default"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+    }
+  },
+  "T": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "neutral-torso-target.png"
+    },
+    "is_changed": [
+      "9354e63da7c25f413c27fe0d145875b8199b73338f015bd44586338ca5167b30"
+    ]
+  },
+  "TA": {
+    "class_type": "JoinImageWithAlpha",
+    "inputs": {
+      "image": [
+        "T",
+        0
+      ],
+      "alpha": [
+        "T",
+        1
+      ]
+    }
+  },
+  "R": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "torso.png"
+    },
+    "is_changed": [
+      "9cb49daa7a166a2f7ed31e44f3995c8e5192446294f5c41d0aa67a40263e3d4f"
+    ]
+  },
+  "RA": {
+    "class_type": "JoinImageWithAlpha",
+    "inputs": {
+      "image": [
+        "R",
+        0
+      ],
+      "alpha": [
+        "R",
+        1
+      ]
+    }
+  },
+  "M": {
+    "class_type": "LoadImageMask",
+    "inputs": {
+      "image": "torso-edit-mask.png",
+      "channel": "red"
+    },
+    "is_changed": [
+      "87d89d1bd5dbc1485650f1d2c554653ddc6ac74f66d8f659022b9cd7d4bd5bf0"
+    ]
+  },
+  "4": {
+    "class_type": "TextEncodeQwenImage21",
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "prompt": "Paint the isolated side-view adult female torso in image1. The masked silhouette is the fixed neutral walking shape: relaxed ribcage, natural gently curved back, no arched lower back, no chest-thrust pose. Image2 is only the costume and linework reference. Same white fitted cyberpunk bodysuit, narrow cyan collar and armhole trim, black side panel, warm skin at a small shoulder attachment, understated two-tone cel shadows and clean deliberate dark ink contours. One consistent upper-left light. One torso attachment only, short high collar through waist with brief lower overlap; no head, hair, earrings, arms, hands, legs, hip, buttocks, extra breasts or detached parts. Finish all material inside the silhouette, do not draw a grey guide. No bloom, ornate decoration, glossy gradients or realistic rendering. Transparent background. Remove the background, and output a PNG image.",
+      "negative_prompt": "",
+      "vae": [
+        "3",
+        0
+      ],
+      "resolution": 0,
+      "images.image_1": [
+        "TA",
+        0
+      ],
+      "images.image_2": [
+        "RA",
+        0
+      ]
+    }
+  },
+  "5": {
+    "class_type": "VAEEncodeForInpaint",
+    "inputs": {
+      "pixels": [
+        "TA",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ],
+      "mask": [
+        "M",
+        0
+      ],
+      "grow_mask_by": 0
+    }
+  },
+  "6": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": [
+        "1c",
+        0
+      ],
+      "positive": [
+        "4",
+        0
+      ],
+      "negative": [
+        "4",
+        1
+      ],
+      "latent_image": [
+        "5",
+        0
+      ],
+      "seed": 22316,
+      "steps": 25,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0
+    }
+  },
+  "7": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "6",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "C": {
+    "class_type": "ImageCompositeMasked",
+    "inputs": {
+      "destination": [
+        "TA",
+        0
+      ],
+      "source": [
+        "7",
+        0
+      ],
+      "x": 0,
+      "y": 0,
+      "resize_source": false,
+      "mask": [
+        "M",
+        0
+      ]
+    }
+  },
+  "RAW": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "7",
+        0
+      ],
+      "filename_prefix": "rin_walk_22316_raw"
+    }
+  },
+  "FINAL": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "C",
+        0
+      ],
+      "filename_prefix": "rin_walk_22316_composite"
+    }
+  }
+}

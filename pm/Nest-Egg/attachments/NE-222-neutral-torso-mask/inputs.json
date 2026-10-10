@@ -1,0 +1,46 @@
+{
+  "status": "PRIVATE_INTACT_ARMOR_ONLY_NOT_ACCEPTED",
+  "source_sha256": "b23eb0134bdda1f677751b2b7022e3b7ab747c2acc5906aa6aa706be55a3c5af",
+  "components_alpha_gt_0": 1,
+  "component_areas": [
+    520056
+  ],
+  "enclosed_background_pixels": 0,
+  "native_size": [
+    864,
+    1408
+  ],
+  "density": 0.0105125,
+  "pivot": [
+    252,
+    1256
+  ],
+  "axis_mapping": "new_source=(formal_crop_local*4)+32; proposed guide, not a human anatomy calibration",
+  "source_to_world_anchor_error": 0.0,
+  "omissions": [
+    "damage counterpart",
+    "alpha seams",
+    "actual gameplay/cutscene",
+    "cyan armhole trim absent",
+    "outline cut by hard silhouette"
+  ],
+  "runtime_inputs": {
+    "game/rig/character_rig.gd": "c345420e4ba825c34ab6a9cb417179c8845546878d72d28f355ccfa69f3ce45e",
+    "game/rig/humanoid_animator.gd": "5e8468977264cadd2772f45779b3dd127fa332e2dce14e2f644e094d427e93fc",
+    "game/rig/rig_part_mesh.gd": "dfd10fad29e68084c5cf87b7caa6a0a2633b11c4170295dc139cb4c7dc203021",
+    "art/characters/rin/character.json": "c689b235a056fb81a70b4d91cf156790b409e3eab3c73b3e22400c27d1d9cd00",
+    "art/rigs/humanoid_tall.json": "55292af1efa84dac219ba3e79c5b91c8ff7920630a5871bf8761973da5ad53e0",
+    "art/motion/rin.json": "f4621c805707da10464ee809005ffed97f72dd3299fd5ae96c0848356d3508d7"
+  },
+  "private_inputs": {
+    "capture.gd": "11a9617af55b427111ada28e59a04935a1e0c5a2b6b27d296665d6926a73631d",
+    "capture.tscn": "fb82f2529fa449f318d2ad811de686966465c6f335200f3c1dc4316f6ccf8ae0",
+    "torso.png": "b23eb0134bdda1f677751b2b7022e3b7ab747c2acc5906aa6aa706be55a3c5af",
+    "torso_glow.png": "35e0d8ec3270e0bd1861405aa29de6e6b50a079163b1610f39dd8e8ffc03390f",
+    "torso_n.png": "77a8a452f2d59fdfbd1350812334e17e2c4901fdfe96257dbb598ed638f29489"
+  },
+  "runtime_base": "eb7ac9d5603692aaa8b36aab48996e385ef529bd",
+  "latest_main": "2777047065f22c46087601263a6c7c88af6638ed",
+  "content_equivalence": "Six recorded runtime files compared after CRLF-to-LF normalization; raw runtime hashes retained separately. No game/core/autoload/art/data/scenes/ui tracked diff between these revisions.",
+  "execution": "Corrected v2 capture; earlier v1 failed at Sprite2D cast and was rejected. This is not a rerun of v1."
+}
