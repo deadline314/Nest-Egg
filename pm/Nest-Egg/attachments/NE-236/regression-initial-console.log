@@ -1,0 +1,4 @@
+Running 2 groups in 1 processes (logs: /workspace/Nest-Egg/work/cloud-weapon-combos/contact-regression2)
+  process 0 (estimated 17 s): MeleeWeaponsSuite,MeleeSuite
+[process 0] NEW FAILURE: a later sweep target receives damage once
+checks: 114, new failures: 1, known failures (tests/known_failures.txt): 0  (wall time 24 s)

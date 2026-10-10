@@ -1,0 +1,12 @@
+Running 1 groups in 1 processes (logs: /workspace/Nest-Egg/work/cloud-weapon-combos/baseline-regression)
+  process 0 (estimated 25 s): MeleeWeaponsSuite
+[process 0] NEW FAILURE: switching weapons immediately discards the old melee attack and buffer
+[process 0] NEW FAILURE: switching cannot erase an unpaid windup/recovery
+[process 0] NEW FAILURE: ordinary damage immediately interrupts melee and removes the continuation
+[process 0] NEW FAILURE: death immediately clears the attack and its queued input
+[process 0] NEW FAILURE: dead players cannot start or buffer melee through the public command
+[process 0] NEW FAILURE: a blocked contact is not damage, a hit cancel, or melee hit feedback
+[process 0] NEW FAILURE: holding melee repeats the short first attack after full recovery
+[process 0] NEW FAILURE: holding shoot never selects an unrequested later/heavy attack
+[process 0] NEW FAILURE: holding shoot repeats the short first attack after full recovery
+checks: 84, new failures: 9, known failures (tests/known_failures.txt): 0  (wall time 22 s)

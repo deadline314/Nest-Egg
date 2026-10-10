@@ -15,6 +15,10 @@ func run() -> void:
 	await _test_charge()
 	await _test_ui()
 	await _test_gun_unchanged()
+	await _test_interruptions()
+	await _test_blocked_contact()
+	await _test_held_input()
+	await _test_late_target_hitstop()
 	AimInput.using_gamepad = false
 
 
@@ -238,4 +242,105 @@ func _test_gun_unchanged() -> void:
 	check(player.loadout.mag_in(player.loadout.active_slot) == mag - 1, "the pistol still fires")
 	enemy.queue_free()
 	await physics_frames(3)
+	await end_level(level)
+
+
+## 實際裝備與傷害事件：不能把舊招式／buffer 帶到新武器或復原後。
+func _test_interruptions() -> void:
+	await open_level(10.0)
+	var player := _arm("melee_maul")
+	player._try_melee()
+	player._try_melee()
+	player.loadout.select(0)
+	check(player._melee_phase == Player.MeleePhase.NONE and player._melee_buffer_left == 0.0 and player._melee_index == -1,
+		"switching weapons immediately discards the old melee attack and buffer")
+	check(player._melee_cooldown_left > 0.0, "switching cannot erase an unpaid windup/recovery")
+	var ammo := player.loadout.mag_in(0)
+	player._try_fire()
+	check(player.loadout.mag_in(0) == ammo, "switching to a gun cannot bypass unpaid melee recovery")
+	player = _arm("melee_blade")
+	player._try_melee()
+	player._try_melee()
+	var incoming := DamageInfo.create(1, Combat.Team.ENEMY, &"test", Vector2.LEFT)
+	incoming.ignore_invulnerability = true
+	player.health.take_damage(incoming)
+	check(player._melee_phase == Player.MeleePhase.NONE and player._melee_buffer_left == 0.0 and player._melee_combo_left == 0.0,
+		"ordinary damage immediately interrupts melee and removes the continuation")
+	Fx.thaw_all()
+	player._melee_cooldown_left = 0.0
+	player._try_melee()
+	player._try_melee()
+	player.health.kill(incoming)
+	check(player._melee_phase == Player.MeleePhase.NONE and player._melee_buffer_left == 0.0 and player._melee_index == -1,
+		"death immediately clears the attack and its queued input")
+	check(not player._try_melee(), "dead players cannot start or buffer melee through the public command")
+	await end_level(level)
+
+
+func _test_blocked_contact() -> void:
+	await open_level(10.0)
+	var player := _arm("melee_blade")
+	var enemy := _dummy(24.0)
+	enemy.hurtbox.guard = func(_info: DamageInfo) -> int: return Hurtbox.Guard.BLOCK
+	await physics_frames(3)
+	var before := enemy.health.current
+	player._try_melee()
+	var ticks := 0
+	while player._melee_phase != Player.MeleePhase.RECOVERY and ticks < 120:
+		await physics_frames(1)
+		ticks += 1
+	check(enemy.health.current == before and not player._melee_landed and not player._melee_feedback_done,
+		"a blocked contact is not damage, a hit cancel, or melee hit feedback")
+	check(player._melee_hit_ids.size() == 1, "a blocked target is contacted only once per swing")
+	await end_level(level)
+
+
+## action_press 是輪詢路徑合成輸入，並非實體手把；兩個近戰按鍵的 hold 規則相同。
+func _test_held_input() -> void:
+	for action: StringName in [&"melee", &"shoot"]:
+		await open_level(10.0)
+		var player := _arm("melee_blade")
+		Input.action_press(action)
+		var advanced := false
+		var starts := 0
+		var previous_phase := Player.MeleePhase.NONE
+		for tick in 100:
+			await physics_frames(1)
+			advanced = advanced or player._melee_index > 0
+			if player._melee_phase == Player.MeleePhase.WINDUP and previous_phase != Player.MeleePhase.WINDUP:
+				starts += 1
+			previous_phase = player._melee_phase
+		Input.action_release(action)
+		check(not advanced, "holding %s never selects an unrequested later/heavy attack" % action)
+		check(starts > 1, "holding %s repeats the short first attack after full recovery" % action)
+		await end_level(level)
+
+
+## 真實傷害接線：後進入 sweep 的敵人仍受擊，但不能再次延長攻擊者的停頓。
+func _test_late_target_hitstop() -> void:
+	await open_level(10.0)
+	var player := _arm("melee_blade")
+	var first := _dummy(24.0)
+	var late := _dummy(150.0)
+	var unrelated := _dummy(200.0)
+	await physics_frames(3)
+	player._try_melee()
+	var guard := 120
+	while not player._melee_feedback_done and guard > 0:
+		await physics_frames(1)
+		guard -= 1
+	await level.get_tree().process_frame
+	check(player._melee_landed and first.health.current < 999, "the first sweep target receives real damage and contact feedback")
+	Fx.thaw_all()
+	var before := late.health.current
+	late.global_position.x = player.global_position.x + 24.0
+	await physics_frames(2)
+	player._melee_hit_pass()
+	await level.get_tree().process_frame
+	check(late.health.current < before, "a later sweep target receives damage once")
+	check(not Fx._frozen.has(player), "a later target cannot refreeze the attacker after its first contact pause")
+	check(not Fx._frozen.has(unrelated), "an uninvolved enemy keeps running during melee hitstop")
+	var after := late.health.current
+	player._melee_hit_pass()
+	check(late.health.current == after, "repeated sweep queries never damage the same late target twice")
 	await end_level(level)

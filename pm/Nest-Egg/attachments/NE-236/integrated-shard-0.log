@@ -1,0 +1,18 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME ExposureSuite 3.0
+ERROR: [MeleeSet] res://data/feel/melee.json 沒有招式「test_no_such_attack」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:73)
+       [1] attack (res://game/player/melee_data.gd:57)
+       [2] _test_bad_data (res://tests/suite/test_melee.gd:139)
+       [3] run (res://tests/suite/test_melee.gd:16)
+       [4] _test_trails (res://tests/suite/test_melee.gd:162)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:605)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME MeleeSuite 3.7
+SUITE_TIME HeavyEnemiesSuite 44.4
+checks: 365, failures: 0

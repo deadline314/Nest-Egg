@@ -732,11 +732,11 @@ func _apply_hit_tier(tier: HitTier, info: DamageInfo) -> void:
 	if tier == HitTier.FLINCH:
 		_flinch_left = data.flinch_time
 		_reaction_grace_left = REACTION_GRACE + data.flinch_time
-		Feel.play(&"enemy_flinch", {"targets": [self, info.get_attacker()]})
+		Feel.play(&"enemy_flinch", {"targets": [self, info.attacker_feedback_target()]})
 		return
 	stun(data.stagger_time)
 	_reaction_grace_left = REACTION_GRACE + data.stagger_time
-	Feel.play(&"enemy_stagger", {"targets": [self, info.get_attacker()]})
+	Feel.play(&"enemy_stagger", {"targets": [self, info.attacker_feedback_target()]})
 
 
 func _on_blocked(_info: DamageInfo) -> void:
@@ -797,7 +797,7 @@ func _on_died(info: DamageInfo) -> void:
 		Fx.flash_light(center, data.color, 70.0, 1.2, 0.25)
 	if by_finisher:
 		Fx.burst(center, Palette.CYAN, 24, 240.0, 0.5)
-	Feel.play(&"enemy_kill", {"targets": [self, info.get_attacker() if info != null else null]})
+	Feel.play(&"enemy_kill", {"targets": [self, info.attacker_feedback_target() if info != null else null]})
 	CharacterSounds.play(data.id, &"death")
 	if by_player:
 		_note_kill()

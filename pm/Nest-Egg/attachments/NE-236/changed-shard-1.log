@@ -1,0 +1,1723 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME PropsSuite 10.1
+WARNING: [StoryItems] transfer/unknown_item 未知道具，交付未生效
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] transfer (res://autoload/story_items.gd:111)
+         [1] _test_item_custody (res://tests/suite/test_collectibles.gd:45)
+         [2] run (res://tests/suite/test_collectibles.gd:14)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items 必須是完整物品物件，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/owned 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/unseen 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/custody_version 缺漏或損毀，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/custody_version 缺漏或損毀，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/held 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/held 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/transferred 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/transferred 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/owned 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/owned 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/unseen 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/unseen 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/custody_version 不支援，原檔保留；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/custody_version 缺漏或損毀，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/custody_version 缺漏或損毀，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/custody_version 缺漏或損毀，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/owned/2 未知或重複物品 id，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/owned/1 未知或重複物品 id，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/owned/0 必須是物品 id，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/owned 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/unseen/1 未知或重複物品 id，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/unseen/1 未知或重複物品 id，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/unseen/0 必須是物品 id，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/unseen 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/held/1 未知或重複物品 id，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/held/1 未知或重複物品 id，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/held/0 必須是物品 id，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/held 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/transferred/1 未知或重複物品 id，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/transferred/1 未知或重複物品 id，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/transferred/0 必須是物品 id，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/transferred 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/held/ch1_data_disk 必須且只能屬於 held 或 transferred，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/held/doc_nest_log 不在取得史，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/held/ch1_data_disk 必須且只能屬於 held 或 transferred，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/unseen/doc_nest_log 不在取得史，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/owned/2 未知或重複物品 id，保留原資料；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+         [2] run (res://tests/suite/test_collectibles.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [RunSave] user://st3_custody_suite.json.tmp：寫入或驗證失敗（run/story/items/held 必須是有界物品陣列（上限 30），保留原資料），原檔保留
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _failure (res://core/run_save_store.gd:274)
+         [1] write (res://core/run_save_store.gd:104)
+         [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:148)
+         [3] run (res://tests/suite/test_collectibles.gd:15)
+         [4] _run_suites (res://tests/smoke_test.gd:109)
+         [5] run (res://tests/suite/test_props.gd:24)
+         [6] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [7] end_level (res://tests/suite/test_suite.gd:47)
+         [8] _end_level (res://tests/smoke_test.gd:605)
+         [9] _frames (res://tests/smoke_test.gd:122)
+WARNING: [RunSave] user://st3_custody_suite.json：未知版本保留；請明確選擇新遊戲覆寫
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _failure (res://core/run_save_store.gd:274)
+         [1] write (res://core/run_save_store.gd:86)
+         [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:159)
+         [3] run (res://tests/suite/test_collectibles.gd:15)
+         [4] _run_suites (res://tests/smoke_test.gd:109)
+         [5] run (res://tests/suite/test_props.gd:24)
+         [6] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [7] end_level (res://tests/suite/test_suite.gd:47)
+         [8] _end_level (res://tests/smoke_test.gd:605)
+         [9] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/held/0：文字超過上限；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_bounded_input (res://tests/suite/test_collectibles.gd:185)
+         [2] run (res://tests/suite/test_collectibles.gd:16)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/extra/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0：資料數量或深度超過上限；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_bounded_input (res://tests/suite/test_collectibles.gd:185)
+         [2] run (res://tests/suite/test_collectibles.gd:16)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] custody_fixture/items/extra/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0：資料數量或深度超過上限；目前物品保持
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://autoload/story_items.gd:287)
+         [1] _test_custody_bounded_input (res://tests/suite/test_collectibles.gd:185)
+         [2] run (res://tests/suite/test_collectibles.gd:16)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_props.gd:24)
+         [5] _test_checkpoint_restore (res://tests/suite/test_props.gd:282)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.activated.@3,20: 找不到存檔點，已略過。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://core/navigation/quest_map_state.gd:108)
+         [1] _apply_components (res://core/run_snapshot.gd:197)
+         [2] rollback_presentation (res://core/run_snapshot.gd:176)
+         [3] _test_custody_lifecycle (res://tests/suite/test_collectibles.gd:198)
+         [4] start_level (res://tests/suite/test_suite.gd:34)
+         [5] spawn_level (res://tests/suite/test_suite.gd:43)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME CollectiblesSuite 5.5
+SUITE_TIME SupplySuite 8.0
+SUITE_TIME ReclaimerSuite 141.7
+SUITE_TIME Chapter2Suite 65.8
+SUITE_TIME TransitionSuite 3.9
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/test_no_such_character/character.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] load_json (res://game/rig/rig_library.gd:21)
+       [2] character (res://game/rig/rig_library.gd:29)
+       [3] setup (res://game/rig/character_rig.gd:99)
+       [4] _ready (res://ui/inventory/hd_portrait.gd:48)
+       [5] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:338)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+ERROR: [HdPortrait] 找不到角色骨架「test_no_such_character」，立繪不顯示。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://ui/inventory/hd_portrait.gd:49)
+       [1] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:338)
+       [2] frames (res://tests/suite/test_ui_screens.gd:9)
+SUITE_TIME UiScreensSuite 14.6
+WARNING: [PropLibrary] 找不到道具「no_such_prop」（res://data/environment/props）
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] find (res://core/prop_library.gd:14)
+         [1] _test_props (res://tests/suite/test_environment.gd:95)
+         [2] run (res://tests/suite/test_environment.gd:10)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_ui_screens.gd:24)
+         [5] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:341)
+         [6] frames (res://tests/suite/test_ui_screens.gd:9)
+ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/environment/props/test_missing_prop.png
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] texture (res://game/rig/rig_library.gd:81)
+       [2] load_texture (res://core/lit_textures.gd:20)
+       [3] _ready (res://game/level/environment/prop_node.gd:41)
+       [4] _test_missing_texture (res://tests/suite/test_environment.gd:157)
+       [5] run (res://tests/suite/test_environment.gd:14)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] run (res://tests/suite/test_ui_screens.gd:24)
+       [8] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:341)
+       [9] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [LevelBackground] 找不到天空貼圖，改用程式天空：res://art/environment/backdrop/test_missing_prop_sky.webp
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _add_photo_sky (res://game/level/level_background.gd:46)
+         [1] _ready (res://game/level/level_background.gd:24)
+         [2] _test_sky (res://tests/suite/test_environment.gd:184)
+         [3] run (res://tests/suite/test_environment.gd:15)
+         [4] _run_suites (res://tests/smoke_test.gd:109)
+         [5] run (res://tests/suite/test_ui_screens.gd:24)
+         [6] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:341)
+         [7] frames (res://tests/suite/test_ui_screens.gd:9)
+ERROR: [Foreground] 找不到前景貼圖，改用程式繪製的剪影：res://art/test_missing_prop_fg.webp
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _add_strip (res://game/level/environment/foreground_layer.gd:63)
+       [1] _test_foreground (res://tests/suite/test_environment.gd:314)
+       [2] run (res://tests/suite/test_environment.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_ui_screens.gd:24)
+       [5] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:341)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+SUITE_TIME EnvironmentSuite 2.1
+ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/ammo/test_missing_ammo.png
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] texture (res://game/rig/rig_library.gd:81)
+       [2] texture (res://core/ammo_icons.gd:36)
+       [3] _test_missing_icon (res://tests/suite/test_ammo_icons.gd:48)
+       [4] run (res://tests/suite/test_ammo_icons.gd:10)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] run (res://tests/suite/test_environment.gd:23)
+       [7] _test_level_without_environment (res://tests/suite/test_environment.gd:360)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:605)
+       [10] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME AmmoIconsSuite 0.6
+ERROR: [NpcActor] 格 (34, 19)：人物 test_npc_bad 沒有任何對話
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/npc/npc_actor.gd:55)
+       [1] _spawn_static_entities (res://game/level/level.gd:442)
+       [2] _ready (res://game/level/level.gd:181)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_fallbacks (res://tests/suite/test_npc.gd:648)
+       [6] run (res://tests/suite/test_npc.gd:28)
+       [7] _test_real_npcs (res://tests/suite/test_npc.gd:636)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:605)
+       [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [Story] 找不到劇情場景：test_no_such_scene
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _enqueue_request (res://autoload/story.gd:622)
+         [1] play_and_wait (res://autoload/story.gd:664)
+         [2] _present_talk (res://game/npc/npc_actor.gd:187)
+         [3] _talk (res://game/npc/npc_actor.gd:175)
+         [4] _test_fallbacks (res://tests/suite/test_npc.gd:669)
+         [5] frames (res://tests/suite/test_suite.gd:23)
+         [6] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME NpcSuite 10.2
+ERROR: [NpcAnimator] res://art/rigs/npc_animations.json 沒有 poses「no_such_pose」，改用「stand」。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _entry (res://game/rig/npc_animator.gd:191)
+       [1] _body_pose (res://game/rig/npc_animator.gd:50)
+       [2] update (res://game/rig/humanoid_animator.gd:242)
+       [3] animate (res://game/rig/character_rig.gd:217)
+       [4] _rig_with (res://tests/suite/test_npc_animation.gd:30)
+       [5] _test_fallbacks (res://tests/suite/test_npc_animation.gd:179)
+       [6] run (res://tests/suite/test_npc_animation.gd:16)
+       [7] _test_loops (res://tests/suite/test_npc_animation.gd:162)
+       [8] _rig_with (res://tests/suite/test_npc_animation.gd:32)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:122)
+ERROR: [NpcAnimator] res://art/rigs/npc_animations.json 沒有 loops「no_such_loop」，改用無。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _entry (res://game/rig/npc_animator.gd:191)
+       [1] _body_pose (res://game/rig/npc_animator.gd:78)
+       [2] update (res://game/rig/humanoid_animator.gd:242)
+       [3] animate (res://game/rig/character_rig.gd:217)
+       [4] _rig_with (res://tests/suite/test_npc_animation.gd:30)
+       [5] _test_fallbacks (res://tests/suite/test_npc_animation.gd:179)
+       [6] run (res://tests/suite/test_npc_animation.gd:16)
+       [7] _test_loops (res://tests/suite/test_npc_animation.gd:162)
+       [8] _rig_with (res://tests/suite/test_npc_animation.gd:32)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME NpcAnimationSuite 1.8
+SUITE_TIME StoryLintSuite 0.4
+ERROR: [Level] ch1_stall 沒有電話亭可登記復原點（res://data/levels/ch1_stall_map.json），重生會退回區域起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _register_nearest_checkpoint (res://game/level/level.gd:902)
+       [1] _test_unfinished_scene_plays_again (res://tests/suite/test_death_flow.gd:204)
+       [2] spawn_level (res://tests/suite/test_suite.gd:43)
+       [3] frames (res://tests/suite/test_suite.gd:23)
+       [4] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME DeathFlowSuite 5.3
+WARN 場景「c2_boss_intro」沒有任何地方引用
+WARN 場景「c2_epilogue」沒有任何地方引用
+WARN 場景「c2_memory」沒有任何地方引用
+WARN 場景「c2_prologue」沒有任何地方引用
+WARN 場景「epilogue」沒有任何地方引用
+WARN 場景「prologue」沒有任何地方引用
+WARN 場景「radio_arm」沒有任何地方引用
+ERROR: [Level] ch1_stall 沒有電話亭可登記復原點（res://data/levels/ch1_stall_map.json），重生會退回區域起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _register_nearest_checkpoint (res://game/level/level.gd:902)
+       [1] _run_death_scene (res://game/level/level.gd:891)
+       [2] _play_flow_scene (res://game/level/level.gd:1105)
+       [3] play_and_wait (res://autoload/story.gd:672)
+       [4] _complete_request (res://autoload/story.gd:680)
+       [5] _on_cinematic_finished (res://autoload/story.gd:737)
+       [6] _finish_auto_skip (res://autoload/story.gd:720)
+WARNING: [Story] 找不到劇情場景：test_no_such_scene
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _enqueue_request (res://autoload/story.gd:622)
+         [1] play_and_wait (res://autoload/story.gd:664)
+         [2] _play_flow_scene (res://game/level/level.gd:1104)
+         [3] _run_death_scene (res://game/level/level.gd:887)
+         [4] _test_death_matrix (res://tests/suite/test_continuity.gd:313)
+         [5] spawn_level (res://tests/suite/test_suite.gd:43)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Level] ch1_booth_alley 的復原點位置無效（(0.0, 0.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _checked_checkpoint_position (res://game/level/level.gd:779)
+       [1] _entry_position (res://game/level/level.gd:769)
+       [2] _spawn_player (res://game/level/level.gd:730)
+       [3] _ready (res://game/level/level.gd:183)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_lost_checkpoint_field (res://tests/suite/test_continuity.gd:207)
+       [6] run (res://tests/suite/test_continuity.gd:21)
+       [7] _test_death_matrix (res://tests/suite/test_continuity.gd:316)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:605)
+       [10] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Level] ch1_booth_alley 的復原點位置無效（(-500.0, 100.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _checked_checkpoint_position (res://game/level/level.gd:779)
+       [1] _entry_position (res://game/level/level.gd:769)
+       [2] _spawn_player (res://game/level/level.gd:730)
+       [3] _ready (res://game/level/level.gd:183)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_lost_checkpoint_field (res://tests/suite/test_continuity.gd:207)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Level] ch1_booth_alley 的復原點位置無效（(99999.0, 99999.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _checked_checkpoint_position (res://game/level/level.gd:779)
+       [1] _entry_position (res://game/level/level.gd:769)
+       [2] _spawn_player (res://game/level/level.gd:730)
+       [3] _ready (res://game/level/level.gd:183)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_lost_checkpoint_field (res://tests/suite/test_continuity.gd:207)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Level] ch1_stall 的復原點位置無效（(0.0, 0.0)，地圖範圍 [P: (0.0, 0.0), S: (768.0, 384.0)]），改用最近的電話亭或起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _checked_checkpoint_position (res://game/level/level.gd:779)
+       [1] _entry_position (res://game/level/level.gd:769)
+       [2] _spawn_player (res://game/level/level.gd:730)
+       [3] _ready (res://game/level/level.gd:183)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_lost_checkpoint_field (res://tests/suite/test_continuity.gd:217)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME ContinuitySuite 46.1
+ERROR: [AttackTokens] 區域覆蓋的群組「test_no_such_group」不存在（有：[&"melee", &"ranged"]）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://core/attack_tokens.gd:42)
+       [1] _test_overrides_and_bad_data (res://tests/suite/test_attack_tokens.gd:49)
+       [2] run (res://tests/suite/test_attack_tokens.gd:12)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_continuity.gd:25)
+       [5] _test_death_soak (res://tests/suite/test_continuity.gd:257)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME AttackTokensSuite 20.4
+WARNING: [EncounterZone] test_encounter（格 (30, 20)）鎖場超過 10 秒，強制解鎖（還有 1 個成員活著）
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _physics_process (res://game/props/encounter_zone.gd:110)
+SUITE_TIME EncounterSuite 5.2
+SUITE_TIME ExposureSuite 2.6
+SUITE_TIME PostureSuite 1.1
+SUITE_TIME AnimAuditSuite 14.2
+WARNING: No Bone2D children of node @Bone2D@83219. Cannot calculate bone length or angle reliably.
+Using transform rotation for bone angle.
+     at: calculate_length_and_rotation (scene/2d/skeleton_2d.cpp:451)
+     GDScript backtrace (most recent call first):
+         [0] _chain (res://tests/suite/test_rig_mesh.gd:36)
+         [1] _test_synthetic (res://tests/suite/test_rig_mesh.gd:57)
+         [2] run (res://tests/suite/test_rig_mesh.gd:13)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_anim_audit.gd:24)
+         [5] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: No Bone2D children of node @Bone2D@83224. Cannot calculate bone length or angle reliably.
+Using transform rotation for bone angle.
+     at: calculate_length_and_rotation (scene/2d/skeleton_2d.cpp:451)
+     GDScript backtrace (most recent call first):
+         [0] _chain (res://tests/suite/test_rig_mesh.gd:36)
+         [1] _test_upward_waist (res://tests/suite/test_rig_mesh.gd:99)
+         [2] run (res://tests/suite/test_rig_mesh.gd:14)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_anim_audit.gd:24)
+         [5] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: No Bone2D children of node @Bone2D@83229. Cannot calculate bone length or angle reliably.
+Using transform rotation for bone angle.
+     at: calculate_length_and_rotation (scene/2d/skeleton_2d.cpp:451)
+     GDScript backtrace (most recent call first):
+         [0] _chain (res://tests/suite/test_rig_mesh.gd:36)
+         [1] _test_limb_root (res://tests/suite/test_rig_mesh.gd:126)
+         [2] run (res://tests/suite/test_rig_mesh.gd:15)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_anim_audit.gd:24)
+         [5] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: No Bone2D children of node @Bone2D@83231. Cannot calculate bone length or angle reliably.
+Using transform rotation for bone angle.
+     at: calculate_length_and_rotation (scene/2d/skeleton_2d.cpp:451)
+     GDScript backtrace (most recent call first):
+         [0] _test_limb_root (res://tests/suite/test_rig_mesh.gd:128)
+         [1] run (res://tests/suite/test_rig_mesh.gd:15)
+         [2] _run_suites (res://tests/smoke_test.gd:109)
+         [3] run (res://tests/suite/test_anim_audit.gd:24)
+         [4] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [5] frames (res://tests/suite/test_suite.gd:23)
+         [6] _frames (res://tests/smoke_test.gd:122)
+WARNING: No Bone2D children of node @Bone2D@83234. Cannot calculate bone length or angle reliably.
+Using transform rotation for bone angle.
+     at: calculate_length_and_rotation (scene/2d/skeleton_2d.cpp:451)
+     GDScript backtrace (most recent call first):
+         [0] _chain (res://tests/suite/test_rig_mesh.gd:36)
+         [1] _test_reference_geometry (res://tests/suite/test_rig_mesh.gd:407)
+         [2] run (res://tests/suite/test_rig_mesh.gd:16)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_anim_audit.gd:24)
+         [5] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/coat_1 bend_partner must be an immediate child bone: missing; using rigid part
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _make_limb_mesh (res://game/rig/character_rig.gd:1439)
+         [1] _test_cloth_binding (res://tests/suite/test_rig_mesh.gd:168)
+         [2] run (res://tests/suite/test_rig_mesh.gd:17)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_anim_audit.gd:24)
+         [5] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/coat_1 bend_partner must be an immediate child bone: chest; using rigid part
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _make_limb_mesh (res://game/rig/character_rig.gd:1439)
+         [1] _test_cloth_binding (res://tests/suite/test_rig_mesh.gd:169)
+         [2] run (res://tests/suite/test_rig_mesh.gd:17)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_anim_audit.gd:24)
+         [5] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.not_configured is unavailable; keeping pose set 'kneel'
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+         [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:219)
+         [2] run (res://tests/suite/test_rig_mesh.gd:18)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_anim_audit.gd:24)
+         [5] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; texture 'fixture_pose_pelvis' file is missing: res://art/characters/rin/parts/no_such_pose_texture.png; rejecting this set
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+         [1] _build_pose_parts (res://game/rig/character_rig.gd:821)
+         [2] setup (res://game/rig/character_rig.gd:119)
+         [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+         [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+         [5] run (res://tests/suite/test_rig_mesh.gd:18)
+         [6] _run_suites (res://tests/smoke_test.gd:109)
+         [7] run (res://tests/suite/test_anim_audit.gd:24)
+         [8] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [9] frames (res://tests/suite/test_suite.gd:23)
+         [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+         [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+         [2] run (res://tests/suite/test_rig_mesh.gd:18)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_anim_audit.gd:24)
+         [5] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; texture 'fixture_pose_pelvis' has an invalid native size or out-of-canvas pivot; rejecting this set
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+         [1] _build_pose_parts (res://game/rig/character_rig.gd:821)
+         [2] setup (res://game/rig/character_rig.gd:119)
+         [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+         [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+         [5] run (res://tests/suite/test_rig_mesh.gd:18)
+         [6] _run_suites (res://tests/smoke_test.gd:109)
+         [7] run (res://tests/suite/test_anim_audit.gd:24)
+         [8] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [9] frames (res://tests/suite/test_suite.gd:23)
+         [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+         [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+         [2] run (res://tests/suite/test_rig_mesh.gd:18)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_anim_audit.gd:24)
+         [5] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; texture 'fixture_pose_pelvis' native size exceeds Vector2i limits; rejecting this set
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+         [1] _build_pose_parts (res://game/rig/character_rig.gd:821)
+         [2] setup (res://game/rig/character_rig.gd:119)
+         [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+         [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+         [5] run (res://tests/suite/test_rig_mesh.gd:18)
+         [6] _run_suites (res://tests/smoke_test.gd:109)
+         [7] run (res://tests/suite/test_anim_audit.gd:24)
+         [8] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [9] frames (res://tests/suite/test_suite.gd:23)
+         [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+         [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+         [2] run (res://tests/suite/test_rig_mesh.gd:18)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_anim_audit.gd:24)
+         [5] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; texture 'fixture_pose_pelvis' has an invalid native size or out-of-canvas pivot; rejecting this set
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+         [1] _build_pose_parts (res://game/rig/character_rig.gd:821)
+         [2] setup (res://game/rig/character_rig.gd:119)
+         [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+         [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+         [5] run (res://tests/suite/test_rig_mesh.gd:18)
+         [6] _run_suites (res://tests/smoke_test.gd:109)
+         [7] run (res://tests/suite/test_anim_audit.gd:24)
+         [8] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [9] frames (res://tests/suite/test_suite.gd:23)
+         [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+         [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+         [2] run (res://tests/suite/test_rig_mesh.gd:18)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_anim_audit.gd:24)
+         [5] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; slot 'armor_pelvis' must resolve to its existing base bone 'hip'; rejecting this set
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+         [1] _build_pose_parts (res://game/rig/character_rig.gd:821)
+         [2] setup (res://game/rig/character_rig.gd:119)
+         [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+         [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+         [5] run (res://tests/suite/test_rig_mesh.gd:18)
+         [6] _run_suites (res://tests/smoke_test.gd:109)
+         [7] run (res://tests/suite/test_anim_audit.gd:24)
+         [8] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [9] frames (res://tests/suite/test_suite.gd:23)
+         [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+         [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+         [2] run (res://tests/suite/test_rig_mesh.gd:18)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_anim_audit.gd:24)
+         [5] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; texture 'fixture_pose_pelvis' requires a matching normal map: res://art/characters/rin/../../portraits/rin_n.png; rejecting this set
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+         [1] _build_pose_parts (res://game/rig/character_rig.gd:821)
+         [2] setup (res://game/rig/character_rig.gd:119)
+         [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+         [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+         [5] run (res://tests/suite/test_rig_mesh.gd:18)
+         [6] _run_suites (res://tests/smoke_test.gd:109)
+         [7] run (res://tests/suite/test_anim_audit.gd:24)
+         [8] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [9] frames (res://tests/suite/test_suite.gd:23)
+         [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+         [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+         [2] run (res://tests/suite/test_rig_mesh.gd:18)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_anim_audit.gd:24)
+         [5] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [LitTextures] 沒有法線貼圖，改用平面貼圖：res://art/characters/rin/../../../.godot/ne222-pose-fixture/base_n.tres（可用 tools/art/paint_normals.tscn 產生）
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] load_texture (res://core/lit_textures.gd:34)
+         [1] _build_parts (res://game/rig/character_rig.gd:587)
+         [2] setup (res://game/rig/character_rig.gd:118)
+         [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+         [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+         [5] run (res://tests/suite/test_rig_mesh.gd:18)
+         [6] _run_suites (res://tests/smoke_test.gd:109)
+         [7] run (res://tests/suite/test_anim_audit.gd:24)
+         [8] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [9] frames (res://tests/suite/test_suite.gd:23)
+         [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; texture 'fixture_pose_foot' normal map must match native size (16, 16): res://art/characters/rin/../../../.godot/ne222-pose-fixture/alt_n.tres; rejecting this set
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+         [1] _build_pose_parts (res://game/rig/character_rig.gd:821)
+         [2] setup (res://game/rig/character_rig.gd:119)
+         [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+         [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+         [5] run (res://tests/suite/test_rig_mesh.gd:18)
+         [6] _run_suites (res://tests/smoke_test.gd:109)
+         [7] run (res://tests/suite/test_anim_audit.gd:24)
+         [8] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [9] frames (res://tests/suite/test_suite.gd:23)
+         [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+         [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+         [2] run (res://tests/suite/test_rig_mesh.gd:18)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_anim_audit.gd:24)
+         [5] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; duplicate logical slot 'armor_pelvis'; rejecting this set
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+         [1] _build_pose_parts (res://game/rig/character_rig.gd:821)
+         [2] setup (res://game/rig/character_rig.gd:119)
+         [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+         [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+         [5] run (res://tests/suite/test_rig_mesh.gd:18)
+         [6] _run_suites (res://tests/smoke_test.gd:109)
+         [7] run (res://tests/suite/test_anim_audit.gd:24)
+         [8] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [9] frames (res://tests/suite/test_suite.gd:23)
+         [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+         [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+         [2] run (res://tests/suite/test_rig_mesh.gd:18)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_anim_audit.gd:24)
+         [5] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; texture_scale must be a finite positive number; rejecting this set
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+         [1] _build_pose_parts (res://game/rig/character_rig.gd:682)
+         [2] setup (res://game/rig/character_rig.gd:119)
+         [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+         [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+         [5] run (res://tests/suite/test_rig_mesh.gd:18)
+         [6] _run_suites (res://tests/smoke_test.gd:109)
+         [7] run (res://tests/suite/test_anim_audit.gd:24)
+         [8] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [9] frames (res://tests/suite/test_suite.gd:23)
+         [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+         [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+         [2] run (res://tests/suite/test_rig_mesh.gd:18)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_anim_audit.gd:24)
+         [5] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; slot 'armor_pelvis' must include same-bone armor/damage counterpart 'pelvis_dmg'; rejecting this set
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+         [1] _build_pose_parts (res://game/rig/character_rig.gd:830)
+         [2] setup (res://game/rig/character_rig.gd:119)
+         [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+         [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+         [5] run (res://tests/suite/test_rig_mesh.gd:18)
+         [6] _run_suites (res://tests/smoke_test.gd:109)
+         [7] run (res://tests/suite/test_anim_audit.gd:24)
+         [8] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [9] frames (res://tests/suite/test_suite.gd:23)
+         [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+         [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+         [2] run (res://tests/suite/test_rig_mesh.gd:18)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_anim_audit.gd:24)
+         [5] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; slot 'pelvis_dmg' must include same-bone armor/damage counterpart 'armor_pelvis'; rejecting this set
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+         [1] _build_pose_parts (res://game/rig/character_rig.gd:830)
+         [2] setup (res://game/rig/character_rig.gd:119)
+         [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+         [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+         [5] run (res://tests/suite/test_rig_mesh.gd:18)
+         [6] _run_suites (res://tests/smoke_test.gd:109)
+         [7] run (res://tests/suite/test_anim_audit.gd:24)
+         [8] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [9] frames (res://tests/suite/test_suite.gd:23)
+         [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+         [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+         [2] run (res://tests/suite/test_rig_mesh.gd:18)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_anim_audit.gd:24)
+         [5] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel invalid; slot 'head' is controlled by eye_states blink and cannot be replaced by pose_parts; rejecting this set
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _pose_warning (res://game/rig/character_rig.gd:1091)
+         [1] _build_pose_parts (res://game/rig/character_rig.gd:821)
+         [2] setup (res://game/rig/character_rig.gd:119)
+         [3] _setup_pose_fixture (res://tests/suite/test_rig_mesh.gd:350)
+         [4] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:254)
+         [5] run (res://tests/suite/test_rig_mesh.gd:18)
+         [6] _run_suites (res://tests/smoke_test.gd:109)
+         [7] run (res://tests/suite/test_anim_audit.gd:24)
+         [8] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [9] frames (res://tests/suite/test_suite.gd:23)
+         [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin.pose_parts.kneel is unavailable; keeping pose set ''
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] set_pose_parts (res://game/rig/character_rig.gd:455)
+         [1] _test_pose_part_attachments (res://tests/suite/test_rig_mesh.gd:257)
+         [2] run (res://tests/suite/test_rig_mesh.gd:18)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_anim_audit.gd:24)
+         [5] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/armor_debris must be a boolean; using true
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] setup (res://game/rig/character_rig.gd:107)
+         [1] _test_part_behaviour (res://tests/suite/test_rig_mesh.gd:517)
+         [2] run (res://tests/suite/test_rig_mesh.gd:20)
+         [3] _test_real_rigs (res://tests/suite/test_rig_mesh.gd:503)
+         [4] frames (res://tests/suite/test_suite.gd:23)
+         [5] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME RigMeshSuite 0.3
+SUITE_TIME LocomotionSuite 5.3
+SUITE_TIME PhoneBoothSuite 9.5
+WORM_TURN_METRICS max_visible_uv_step=3.70000123977661 opposing_tail_samples=3
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/creatures/no_such_creature.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] load_json (res://game/rig/rig_library.gd:21)
+       [2] setup (res://game/creature/chain_creature.gd:80)
+       [3] _test_bad_data_is_safe (res://tests/suite/test_chain_creature.gd:281)
+       [4] run (res://tests/suite/test_chain_creature.gd:22)
+       [5] _test_severing (res://tests/suite/test_chain_creature.gd:275)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME ChainCreatureSuite 18.8
+SUITE_TIME Chapter2ArtSuite 0.7
+ERROR: [Feel] 沒有這個回饋事件「test_no_such_feel_event」（res://data/feel/events.json）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://autoload/feel.gd:241)
+       [1] play (res://autoload/feel.gd:126)
+       [2] _test_bad_events_are_safe (res://tests/suite/test_feel.gd:89)
+       [3] run (res://tests/suite/test_feel.gd:13)
+       [4] _test_shake_duration_is_honored (res://tests/suite/test_feel.gd:84)
+ERROR: [Sfx] 沒有這個聲音事件「test_no_such_sound_event」（res://data/feel/sound_events.json），改播「hit」
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report_once (res://autoload/sfx.gd:734)
+       [1] play_event (res://autoload/sfx.gd:650)
+       [2] _test_sound_events (res://tests/suite/test_feel.gd:317)
+ERROR: [HitFeedback] 沒有這個命中材質「test_no_such_material」（res://data/feel/materials.json），改用 generic
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/fx/hit_feedback.gd:159)
+       [1] play (res://game/fx/hit_feedback.gd:81)
+       [2] _test_hit_materials (res://tests/suite/test_feel.gd:334)
+       [3] run (res://tests/suite/test_feel.gd:19)
+       [4] _test_sound_events (res://tests/suite/test_feel.gd:318)
+ERROR: [Feel] 沒有這個預設組合「test_no_such_preset」（res://data/feel/presets.json）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://autoload/feel.gd:241)
+       [1] set_preset (res://autoload/feel.gd:62)
+       [2] _test_params_and_presets (res://tests/suite/test_feel.gd:496)
+       [3] run (res://tests/suite/test_feel.gd:23)
+       [4] _test_block_feel (res://tests/suite/test_feel.gd:468)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:605)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME FeelSuite 2.9
+ERROR: [MeleeSet] 無法讀取近戰資料：res://data/melee/test_no_such_attack.json（需要 attacks 字典），改用內建預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_loaded (res://game/player/melee_set.gd:37)
+       [1] attack (res://game/player/melee_set.gd:69)
+       [2] _test_melee_data (res://tests/suite/test_fx_melee_pickups.gd:103)
+       [3] run (res://tests/suite/test_fx_melee_pickups.gd:13)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_feel.gd:30)
+       [6] _test_damage_numbers (res://tests/suite/test_feel.gd:760)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:605)
+       [9] _frames (res://tests/smoke_test.gd:122)
+ERROR: [MeleeSet] res://data/melee/test_no_such_attack.json 沒有招式「x」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:73)
+       [1] _test_melee_data (res://tests/suite/test_fx_melee_pickups.gd:103)
+       [2] run (res://tests/suite/test_fx_melee_pickups.gd:13)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_feel.gd:30)
+       [5] _test_damage_numbers (res://tests/suite/test_feel.gd:760)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+FX_PERF idle=8.15 ms, 12 explosions=1.52 ms per frame, particles=291, nodes +0
+SUITE_TIME FxMeleePickupsSuite 19.1
+ERROR: [InputFeel] res://data/feel/input.json 沒有 windows.test_no_such_window，改用預設 0.07
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://core/input_feel.gd:140)
+       [1] window (res://core/input_feel.gd:37)
+       [2] _test_windows_from_data (res://tests/suite/test_input_feel.gd:229)
+       [3] run (res://tests/suite/test_input_feel.gd:7)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_fx_melee_pickups.gd:20)
+       [6] _test_explosion_budget (res://tests/suite/test_fx_melee_pickups.gd:219)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:605)
+       [9] _frames (res://tests/smoke_test.gd:122)
+WARNING: [InputBindings] controller/aim_deadzone 不是有效數值，使用預設值。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _number_option (res://autoload/input_bindings.gd:626)
+         [1] _reload_controller_options (res://autoload/input_bindings.gd:612)
+         [2] reload_from_settings (res://autoload/input_bindings.gd:419)
+         [3] _test_controller_options (res://tests/suite/test_input_feel.gd:121)
+         [4] _test_controller_flow (res://tests/suite/test_input_feel.gd:48)
+         [5] run (res://tests/suite/test_input_feel.gd:10)
+         [6] _run_suites (res://tests/smoke_test.gd:109)
+         [7] run (res://tests/suite/test_fx_melee_pickups.gd:20)
+         [8] _test_explosion_budget (res://tests/suite/test_fx_melee_pickups.gd:219)
+         [9] end_level (res://tests/suite/test_suite.gd:47)
+         [10] _end_level (res://tests/smoke_test.gd:605)
+         [11] _frames (res://tests/smoke_test.gd:122)
+WARNING: [InputBindings] controller/vibration_strength 不是有效數值，使用預設值。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _number_option (res://autoload/input_bindings.gd:626)
+         [1] _reload_controller_options (res://autoload/input_bindings.gd:613)
+         [2] reload_from_settings (res://autoload/input_bindings.gd:419)
+         [3] _test_controller_options (res://tests/suite/test_input_feel.gd:121)
+         [4] _test_controller_flow (res://tests/suite/test_input_feel.gd:48)
+         [5] run (res://tests/suite/test_input_feel.gd:10)
+         [6] _run_suites (res://tests/smoke_test.gd:109)
+         [7] run (res://tests/suite/test_fx_melee_pickups.gd:20)
+         [8] _test_explosion_budget (res://tests/suite/test_fx_melee_pickups.gd:219)
+         [9] end_level (res://tests/suite/test_suite.gd:47)
+         [10] _end_level (res://tests/smoke_test.gd:605)
+         [11] _frames (res://tests/smoke_test.gd:122)
+WARNING: [InputBindings] controller/invert_aim_y 不是布林值，使用預設值。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _reload_controller_options (res://autoload/input_bindings.gd:617)
+         [1] reload_from_settings (res://autoload/input_bindings.gd:419)
+         [2] _test_controller_options (res://tests/suite/test_input_feel.gd:121)
+         [3] _test_controller_flow (res://tests/suite/test_input_feel.gd:48)
+         [4] run (res://tests/suite/test_input_feel.gd:10)
+         [5] _run_suites (res://tests/smoke_test.gd:109)
+         [6] run (res://tests/suite/test_fx_melee_pickups.gd:20)
+         [7] _test_explosion_budget (res://tests/suite/test_fx_melee_pickups.gd:219)
+         [8] end_level (res://tests/suite/test_suite.gd:47)
+         [9] _end_level (res://tests/smoke_test.gd:605)
+         [10] _frames (res://tests/smoke_test.gd:122)
+NE229_PHYSICAL_JOYPADS [] | probe uses synthetic device 999
+NE229_SYNTHETIC_FLOW checks=36 failures=0
+SUITE_TIME InputFeelSuite 4.2
+ERROR: [Music] cue「c_gone」的曲目「t_gone」找不到檔案：res://tests/fixtures/audio/test_audio_missing_track.ogg（res://tests/fixtures/audio/music_bad.json），維持靜音
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_stream (res://autoload/music.gd:270)
+       [2] _switch_to (res://autoload/music.gd:246)
+       [3] play_cue (res://autoload/music.gd:143)
+       [4] _test_missing_track (res://tests/suite/test_music.gd:137)
+       [5] run (res://tests/suite/test_music.gd:17)
+       [6] _test_playback_and_crossfade (res://tests/suite/test_music.gd:131)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Music] 沒有這個 cue「test_audio_no_such_cue」（res://tests/fixtures/audio/music_bad.json），維持目前的音樂
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _switch_to (res://autoload/music.gd:241)
+       [2] play_cue (res://autoload/music.gd:143)
+       [3] _test_missing_track (res://tests/suite/test_music.gd:139)
+       [4] run (res://tests/suite/test_music.gd:17)
+       [5] _test_playback_and_crossfade (res://tests/suite/test_music.gd:131)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME MusicSuite 3.2
+ERROR: [ReloadCues] test_audio_cue_broken 的換彈時間軸有問題，改用內建三段：第 1 段 的 at 要在 0 到 1 之間（7.0）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] for_weapon (res://core/audio/reload_cues.gd:44)
+       [2] _cues (res://tests/suite/test_reload_cues.gd:20)
+       [3] _test_broken_data_falls_back (res://tests/suite/test_reload_cues.gd:84)
+       [4] run (res://tests/suite/test_reload_cues.gd:12)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] run (res://tests/suite/test_music.gd:22)
+       [7] _test_death_and_screens (res://tests/suite/test_music.gd:203)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:605)
+       [10] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME ReloadCuesSuite 4.3
+ERROR: 音效實驗室：版面比例檔 user://test_audio_lab_layout.cfg 的 [split_ratios] rows 不是 0.1 到 0.9 的數字，改用預設比例
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _load (res://tools/sound_lab/lab_layout.gd:66)
+       [1] _init (res://tools/sound_lab/lab_layout.gd:19)
+       [2] _test_layout_store (res://tests/suite/test_sound_lab.gd:135)
+       [3] run (res://tests/suite/test_sound_lab.gd:18)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_reload_cues.gd:16)
+       [6] _test_in_play (res://tests/suite/test_reload_cues.gd:185)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:605)
+       [9] _frames (res://tests/smoke_test.gd:122)
+ERROR: 音效實驗室：版面比例檔 user://test_audio_lab_layout.cfg 的 [split_ratios] cols 不是 0.1 到 0.9 的數字，改用預設比例
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _load (res://tools/sound_lab/lab_layout.gd:66)
+       [1] _init (res://tools/sound_lab/lab_layout.gd:19)
+       [2] _test_layout_store (res://tests/suite/test_sound_lab.gd:135)
+       [3] run (res://tests/suite/test_sound_lab.gd:18)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_reload_cues.gd:16)
+       [6] _test_in_play (res://tests/suite/test_reload_cues.gd:185)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:605)
+       [9] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME SoundLabSuite 3.1
+SUITE_TIME StageCoverageCharactersSuite 37.9
+SUITE_TIME StageCoverageWorldSuite 153.3
+ERROR: [DevMenu] 工具清單格式錯誤（要有 tools 陣列）：res://tests/fixtures/dev_menu/bad_format.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_entries (res://autoload/dev_menu.gd:44)
+       [1] _test_tool_list_validation (res://tests/suite/test_dev_menu.gd:37)
+       [2] run (res://tests/suite/test_dev_menu.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_stage_coverage_world.gd:10)
+       [5] _close_stage (res://tests/suite/stage_suite_base.gd:29)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+ERROR: [DevMenu] res://tests/fixtures/dev_menu/mixed.json 的第 2 個工具缺少 id、name 或 scene，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_entries (res://autoload/dev_menu.gd:50)
+       [1] _test_tool_list_validation (res://tests/suite/test_dev_menu.gd:38)
+       [2] run (res://tests/suite/test_dev_menu.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_stage_coverage_world.gd:10)
+       [5] _close_stage (res://tests/suite/stage_suite_base.gd:29)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+ERROR: [DevMenu] res://tests/fixtures/dev_menu/mixed.json 的工具 id 重複：ok_tool，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_entries (res://autoload/dev_menu.gd:53)
+       [1] _test_tool_list_validation (res://tests/suite/test_dev_menu.gd:38)
+       [2] run (res://tests/suite/test_dev_menu.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_stage_coverage_world.gd:10)
+       [5] _close_stage (res://tests/suite/stage_suite_base.gd:29)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+ERROR: [DevMenu] 找不到 test_dev_menu_missing 的場景：res://tools/test_dev_menu_missing.tscn
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] choose (res://autoload/dev_menu.gd:109)
+       [1] _test_choose (res://tests/suite/test_dev_menu.gd:80)
+       [2] run (res://tests/suite/test_dev_menu.gd:12)
+       [3] _test_open_close (res://tests/suite/test_dev_menu.gd:64)
+       [4] frames (res://tests/suite/test_suite.gd:23)
+       [5] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME DevMenuSuite 0.0
+SUITE_TIME CharactersSuite 0.5
+SUITE_TIME HeavyEnemiesSuite 42.9
+[QuestMap] Current story quest count: 0; chapter walkthrough requires Session 3 sources.
+WARNING: [QuestMap] navigation.version: 格式不符，改用預設導覽狀態。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://core/navigation/quest_map_state.gd:108)
+         [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+         [2] run (res://tests/suite/test_quest_map.gd:16)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_heavy_enemies.gd:22)
+         [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.version: 格式不符，改用預設導覽狀態。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://core/navigation/quest_map_state.gd:108)
+         [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+         [2] run (res://tests/suite/test_quest_map.gd:16)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_heavy_enemies.gd:22)
+         [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.version: 格式不符，改用預設導覽狀態。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://core/navigation/quest_map_state.gd:108)
+         [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+         [2] run (res://tests/suite/test_quest_map.gd:16)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_heavy_enemies.gd:22)
+         [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.pinned_id: 找不到任務，改為追蹤主線。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://core/navigation/quest_map_state.gd:108)
+         [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+         [2] run (res://tests/suite/test_quest_map.gd:16)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_heavy_enemies.gd:22)
+         [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.explored: 必須是物件，改用未探索狀態。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://core/navigation/quest_map_state.gd:108)
+         [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+         [2] run (res://tests/suite/test_quest_map.gd:16)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_heavy_enemies.gd:22)
+         [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.activated: 必須是物件，改用未啟用狀態。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://core/navigation/quest_map_state.gd:108)
+         [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+         [2] run (res://tests/suite/test_quest_map.gd:16)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_heavy_enemies.gd:22)
+         [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.pinned_id: 找不到任務，改為追蹤主線。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://core/navigation/quest_map_state.gd:108)
+         [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+         [2] run (res://tests/suite/test_quest_map.gd:16)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_heavy_enemies.gd:22)
+         [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.explored.res://data/levels/ch1_pawnshop.tres.bad: 無效格座標，已略過。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://core/navigation/quest_map_state.gd:108)
+         [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+         [2] run (res://tests/suite/test_quest_map.gd:16)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_heavy_enemies.gd:22)
+         [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.explored.res://data/levels/ch1_pawnshop.tres.9999,1: 無效格座標，已略過。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://core/navigation/quest_map_state.gd:108)
+         [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+         [2] run (res://tests/suite/test_quest_map.gd:16)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_heavy_enemies.gd:22)
+         [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [QuestMap] navigation.activated.fake: 找不到存檔點，已略過。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore (res://core/navigation/quest_map_state.gd:108)
+         [1] _test_state (res://tests/suite/test_quest_map.gd:107)
+         [2] run (res://tests/suite/test_quest_map.gd:16)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_heavy_enemies.gd:22)
+         [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME QuestMapSuite 2.0
+ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/props/portal.gd:36)
+       [1] _spawn_static_entities (res://game/level/level.gd:442)
+       [2] _ready (res://game/level/level.gd:181)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] _test_entry_and_walk (res://tests/suite/test_areas.gd:137)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:605)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://tests/fixtures/areas/no_such_level.tres
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _resolve_level (res://core/asset_prefetch.gd:60)
+         [1] warm_neighbors (res://core/asset_prefetch.gd:75)
+ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/props/portal.gd:36)
+       [1] _spawn_static_entities (res://game/level/level.gd:442)
+       [2] _ready (res://game/level/level.gd:181)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] _test_checkpoint_area (res://tests/suite/test_areas.gd:247)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:605)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://tests/fixtures/areas/no_such_level.tres
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _resolve_level (res://core/asset_prefetch.gd:60)
+         [1] warm_neighbors (res://core/asset_prefetch.gd:75)
+ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/props/portal.gd:36)
+       [1] _spawn_static_entities (res://game/level/level.gd:442)
+       [2] _ready (res://game/level/level.gd:181)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_locked_and_flagged_doors (res://tests/suite/test_areas.gd:267)
+       [6] run (res://tests/suite/test_areas.gd:23)
+       [7] _test_checkpoint_area (res://tests/suite/test_areas.gd:259)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:605)
+       [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://tests/fixtures/areas/no_such_level.tres
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _resolve_level (res://core/asset_prefetch.gd:60)
+         [1] warm_neighbors (res://core/asset_prefetch.gd:75)
+ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/props/portal.gd:36)
+       [1] _spawn_static_entities (res://game/level/level.gd:442)
+       [2] _ready (res://game/level/level.gd:181)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_bad_data (res://tests/suite/test_areas.gd:284)
+       [6] run (res://tests/suite/test_areas.gd:24)
+       [7] _test_locked_and_flagged_doors (res://tests/suite/test_areas.gd:280)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:605)
+       [10] _frames (res://tests/smoke_test.gd:122)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://tests/fixtures/areas/no_such_level.tres
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _resolve_level (res://core/asset_prefetch.gd:60)
+         [1] warm_neighbors (res://core/asset_prefetch.gd:75)
+ERROR: [Level] test_area_b 的出入口「test_area_bad_missing」目標不是可載入的區域：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _on_portal_used (res://game/level/level.gd:971)
+       [1] try_use (res://game/props/portal.gd:110)
+       [2] _test_bad_data (res://tests/suite/test_areas.gd:287)
+       [3] start_level (res://tests/suite/test_suite.gd:34)
+       [4] spawn_level (res://tests/suite/test_suite.gd:43)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Level] test_area_a 沒有出入口「test_area_bad_entry」（res://tests/fixtures/areas/area_map_a.json），改用起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _entry_position (res://game/level/level.gd:767)
+       [1] _spawn_player (res://game/level/level.gd:730)
+       [2] _ready (res://game/level/level.gd:183)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] _test_bad_data (res://tests/suite/test_areas.gd:294)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:605)
+       [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [Story] 找不到章節：test_area_no_chapter
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] chapter_info (res://autoload/story.gd:208)
+         [1] _run_ending (res://game/level/level.gd:934)
+         [2] _begin_intro (res://game/level/level.gd:294)
+SUITE_TIME AreasSuite 2.4
+WARNING: [AssetPrefetch] 找不到要預載的貼圖：res://art/no_such_prefetch_texture.png
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] request (res://core/asset_prefetch.gd:107)
+         [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:533)
+         [2] run (res://tests/suite/test_ch1_map.gd:44)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] run (res://tests/suite/test_areas.gd:26)
+         [5] _test_after_intro (res://tests/suite/test_areas.gd:329)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:605)
+         [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://data/levels/no_such_level.tres
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _resolve_level (res://core/asset_prefetch.gd:60)
+         [1] warm_level (res://core/asset_prefetch.gd:45)
+         [2] _test_prefetch (res://tests/suite/test_ch1_map.gd:535)
+         [3] run (res://tests/suite/test_ch1_map.gd:44)
+         [4] _run_suites (res://tests/smoke_test.gd:109)
+         [5] run (res://tests/suite/test_areas.gd:26)
+         [6] _test_after_intro (res://tests/suite/test_areas.gd:329)
+         [7] end_level (res://tests/suite/test_suite.gd:47)
+         [8] _end_level (res://tests/smoke_test.gd:605)
+         [9] _frames (res://tests/smoke_test.gd:122)
+WARNING: [AssetPrefetch] 待載已達 512，略過本次剩餘貼圖（首項：res://art/characters/trooper_elite/parts/armor_chest.png）。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] request (res://core/asset_prefetch.gd:110)
+         [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:592)
+         [2] _prefetch_drain (res://tests/suite/test_ch1_map.gd:613)
+WARNING: [AssetPrefetch] 待載已達 512，略過本次剩餘貼圖（首項：res://art/creatures/tangle_wire/body_n.png）。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] request (res://core/asset_prefetch.gd:110)
+         [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:592)
+         [2] _prefetch_drain (res://tests/suite/test_ch1_map.gd:613)
+SUITE_TIME Chapter1MapSuite 50.5
+checks: 17732, failures: 0
+WARNING: 6 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 16 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+ERROR: 6 RID allocations of type 'P11GodotArea2D' were leaked at exit.

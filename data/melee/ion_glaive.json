@@ -29,7 +29,7 @@
    "aim_follow": true,
    "sweep": true,
    "hitstop": 0.0,
-   "pose": "thrust",
+   "pose": "ion_glaive_thrust",
    "trail": {
     "radius": 60,
     "arc": 26,
@@ -50,7 +50,7 @@
    "windup": 0.2,
    "active": 0.12,
    "recovery": 0.36,
-   "cancel_after": 0.18,
+   "cancel_after": 0.36,
    "damage": 3,
    "range": 58,
    "advance": 0,
@@ -69,7 +69,7 @@
    "aim_follow": false,
    "sweep": true,
    "hitstop": 0.0,
-   "pose": "sweep",
+   "pose": "ion_glaive_sweep",
    "trail": {
     "radius": 54,
     "arc": 150,

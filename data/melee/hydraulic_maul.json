@@ -29,7 +29,7 @@
    "aim_follow": false,
    "sweep": true,
    "hitstop": 0.07,
-   "pose": "overhead",
+   "pose": "hydraulic_maul_smash",
    "trail": {
     "radius": 32,
     "arc": 170,
@@ -50,7 +50,7 @@
    "windup": 0.4,
    "active": 0.14,
    "recovery": 0.62,
-   "cancel_after": 0.34,
+   "cancel_after": 0.62,
    "damage": 8,
    "range": 42,
    "advance": 30,
@@ -69,7 +69,7 @@
    "aim_follow": false,
    "sweep": true,
    "hitstop": 0.09,
-   "pose": "overhead",
+   "pose": "hydraulic_maul_slam",
    "trail": {
     "radius": 34,
     "arc": 180,

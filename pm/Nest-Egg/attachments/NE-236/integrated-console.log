@@ -1,0 +1,4 @@
+Running 7 groups in 2 processes (logs: /workspace/Nest-Egg/work/cloud-weapon-combos/integrated-ne236)
+  process 0 (estimated 47 s): HeavyEnemiesSuite,MeleeSuite,ExposureSuite
+  process 1 (estimated 47 s): MeleeWeaponsSuite,HitReactionSuite,AnimAuditSuite,EnvironmentSuite
+checks: 7017, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 62 s)

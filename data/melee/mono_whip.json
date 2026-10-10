@@ -9,7 +9,7 @@
    "windup": 0.17,
    "active": 0.14,
    "recovery": 0.32,
-   "cancel_after": 0.16,
+   "cancel_after": 0.32,
    "damage": 2,
    "range": 100,
    "advance": 0,
@@ -28,7 +28,7 @@
    "aim_follow": true,
    "sweep": true,
    "hitstop": 0.0,
-   "pose": "sweep",
+   "pose": "mono_whip_lash",
    "trail": {
     "radius": 92,
     "arc": 64,

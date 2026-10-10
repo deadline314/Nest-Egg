@@ -1,0 +1,1298 @@
+diff --git a/art/rigs/action_poses.json b/art/rigs/action_poses.json
+index dc4f9fb8..6eab6962 100644
+--- a/art/rigs/action_poses.json
++++ b/art/rigs/action_poses.json
+@@ -1431,0 +1432,646 @@
++    },
++    "rin.melee_hydraulic_maul_smash": {
++      "duration": 0.96,
++      "skip_ik": true,
++      "blend": 60,
++      "keys": [
++        {
++          "t": 0.0,
++          "bones": {
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        },
++        {
++          "t": 0.26,
++          "bones": {
++            "arm_front_upper": -2.9,
++            "arm_front_lower": -0.4,
++            "arm_back_upper": -2.7,
++            "arm_back_lower": -0.4,
++            "chest": -0.07
++          }
++        },
++        {
++          "t": 0.4,
++          "bones": {
++            "arm_front_upper": -0.6,
++            "arm_front_lower": -0.15,
++            "arm_back_upper": -0.5,
++            "arm_back_lower": -0.2,
++            "chest": 0.53,
++            "head": 0.2,
++            "leg_front_upper": -0.4,
++            "leg_back_upper": 0.35
++          }
++        },
++        {
++          "t": 0.7,
++          "bones": {
++            "arm_front_upper": -0.48,
++            "arm_front_lower": -0.15,
++            "arm_back_upper": -0.5,
++            "arm_back_lower": -0.2,
++            "chest": 0.53,
++            "head": 0.2,
++            "leg_front_upper": -0.4,
++            "leg_back_upper": 0.35
++          }
++        },
++        {
++          "t": 1.0,
++          "bones": {
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        }
++      ]
++    },
++    "rin.melee_hydraulic_maul_slam": {
++      "duration": 1.16,
++      "skip_ik": true,
++      "blend": 60,
++      "keys": [
++        {
++          "t": 0.0,
++          "bones": {
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        },
++        {
++          "t": 0.26,
++          "bones": {
++            "arm_front_upper": -2.9,
++            "arm_front_lower": -0.4,
++            "arm_back_upper": -2.7,
++            "arm_back_lower": -0.4,
++            "chest": -0.07
++          }
++        },
++        {
++          "t": 0.4,
++          "bones": {
++            "arm_front_upper": -0.48,
++            "arm_front_lower": -0.15,
++            "arm_back_upper": -0.5,
++            "arm_back_lower": -0.2,
++            "chest": 0.53,
++            "head": 0.2,
++            "leg_front_upper": -0.4,
++            "leg_back_upper": 0.35
++          }
++        },
++        {
++          "t": 0.7,
++          "bones": {
++            "arm_front_upper": -0.36,
++            "arm_front_lower": -0.15,
++            "arm_back_upper": -0.5,
++            "arm_back_lower": -0.2,
++            "chest": 0.53,
++            "head": 0.2,
++            "leg_front_upper": -0.4,
++            "leg_back_upper": 0.35
++          }
++        },
++        {
++          "t": 1.0,
++          "bones": {
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        }
++      ]
++    },
++    "rin.melee_ion_glaive_thrust": {
++      "duration": 0.55,
++      "skip_ik": true,
++      "blend": 60,
++      "keys": [
++        {
++          "t": 0.0,
++          "bones": {
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        },
++        {
++          "t": 0.26,
++          "bones": {
++            "arm_front_upper": 0.1,
++            "arm_front_lower": -1.3,
++            "chest": -0.19,
++            "arm_back_upper": 0.4,
++            "arm_back_lower": -0.4
++          }
++        },
++        {
++          "t": 0.4,
++          "bones": {
++            "arm_front_upper": -1.55,
++            "arm_front_lower": -0.05,
++            "chest": 0.26,
++            "head": 0.1,
++            "leg_front_upper": -0.5,
++            "leg_back_upper": 0.4
++          }
++        },
++        {
++          "t": 0.7,
++          "bones": {
++            "arm_front_upper": -1.69,
++            "arm_front_lower": -0.05,
++            "chest": 0.26,
++            "head": 0.1,
++            "leg_front_upper": -0.5,
++            "leg_back_upper": 0.4
++          }
++        },
++        {
++          "t": 1.0,
++          "bones": {
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        }
++      ]
++    },
++    "rin.melee_ion_glaive_sweep": {
++      "duration": 0.68,
++      "skip_ik": true,
++      "blend": 60,
++      "keys": [
++        {
++          "t": 0.0,
++          "bones": {
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        },
++        {
++          "t": 0.26,
++          "bones": {
++            "arm_front_upper": 2.6,
++            "arm_front_lower": 0.2,
++            "chest": -0.38999999999999996,
++            "head": -0.1,
++            "arm_back_upper": -1.0,
++            "arm_back_lower": -0.6
++          }
++        },
++        {
++          "t": 0.4,
++          "bones": {
++            "arm_front_upper": -1.7799999999999998,
++            "arm_front_lower": -0.1,
++            "chest": 0.41000000000000003,
++            "head": 0.12
++          }
++        },
++        {
++          "t": 0.7,
++          "bones": {
++            "arm_front_upper": -1.92,
++            "arm_front_lower": -0.1,
++            "chest": 0.41000000000000003,
++            "head": 0.12
++          }
++        },
++        {
++          "t": 1.0,
++          "bones": {
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        }
++      ]
++    },
++    "rin.melee_mono_dagger_stab_1": {
++      "duration": 0.19,
++      "skip_ik": true,
++      "blend": 60,
++      "keys": [
++        {
++          "t": 0.0,
++          "bones": {
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        },
++        {
++          "t": 0.26,
++          "bones": {
++            "arm_front_upper": 0.1,
++            "arm_front_lower": -1.3,
++            "chest": -0.22,
++            "arm_back_upper": 0.4,
++            "arm_back_lower": -0.4
++          }
++        },
++        {
++          "t": 0.4,
++          "bones": {
++            "arm_front_upper": -1.55,
++            "arm_front_lower": -0.05,
++            "chest": 0.22999999999999998,
++            "head": 0.1,
++            "leg_front_upper": -0.5,
++            "leg_back_upper": 0.4
++          }
++        },
++        {
++          "t": 0.7,
++          "bones": {
++            "arm_front_upper": -1.69,
++            "arm_front_lower": -0.05,
++            "chest": 0.22999999999999998,
++            "head": 0.1,
++            "leg_front_upper": -0.5,
++            "leg_back_upper": 0.4
++          }
++        },
++        {
++          "t": 1.0,
++          "bones": {
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        }
++      ]
++    },
++    "rin.melee_mono_dagger_stab_2": {
++      "duration": 0.19,
++      "skip_ik": true,
++      "blend": 60,
++      "keys": [
++        {
++          "t": 0.0,
++          "bones": {
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        },
++        {
++          "t": 0.26,
++          "bones": {
++            "arm_front_upper": 0.1,
++            "arm_front_lower": -1.3,
++            "chest": -0.22,
++            "arm_back_upper": 0.4,
++            "arm_back_lower": -0.4
++          }
++        },
++        {
++          "t": 0.4,
++          "bones": {
++            "arm_front_upper": -1.4300000000000002,
++            "arm_front_lower": -0.05,
++            "chest": 0.22999999999999998,
++            "head": 0.1,
++            "leg_front_upper": -0.5,
++            "leg_back_upper": 0.4
++          }
++        },
++        {
++          "t": 0.7,
++          "bones": {
++            "arm_front_upper": -1.5700000000000003,
++            "arm_front_lower": -0.05,
++            "chest": 0.22999999999999998,
++            "head": 0.1,
++            "leg_front_upper": -0.5,
++            "leg_back_upper": 0.4
++          }
++        },
++        {
++          "t": 1.0,
++          "bones": {
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        }
++      ]
++    },
++    "rin.melee_mono_dagger_flurry": {
++      "duration": 0.27,
++      "skip_ik": true,
++      "blend": 60,
++      "keys": [
++        {
++          "t": 0.0,
++          "bones": {
++            "arm_front_upper": -0.9,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        },
++        {
++          "t": 0.26,
++          "bones": {
++            "arm_front_upper": 2.3,
++            "arm_front_lower": 0.3,
++            "chest": -0.32,
++            "head": -0.1,
++            "arm_back_upper": -0.7,
++            "arm_back_lower": -0.8
++          }
++        },
++        {
++          "t": 0.4,
++          "bones": {
++            "arm_front_upper": -1.7,
++            "arm_front_lower": -0.2,
++            "chest": 0.27999999999999997,
++            "head": 0.1
++          }
++        },
++        {
++          "t": 0.7,
++          "bones": {
++            "arm_front_upper": -1.8399999999999999,
++            "arm_front_lower": -0.2,
++            "chest": 0.27999999999999997,
++            "head": 0.1
++          }
++        },
++        {
++          "t": 1.0,
++          "bones": {
++            "arm_front_upper": -0.9,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        }
++      ]
++    },
++    "rin.melee_mono_whip_lash": {
++      "duration": 0.63,
++      "skip_ik": true,
++      "blend": 60,
++      "keys": [
++        {
++          "t": 0.0,
++          "bones": {
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        },
++        {
++          "t": 0.26,
++          "bones": {
++            "arm_front_upper": 2.6,
++            "arm_front_lower": 0.2,
++            "chest": -0.24999999999999997,
++            "head": -0.1,
++            "arm_back_upper": -1.0,
++            "arm_back_lower": -0.6
++          }
++        },
++        {
++          "t": 0.4,
++          "bones": {
++            "arm_front_upper": -1.9,
++            "arm_front_lower": -0.1,
++            "chest": 0.55,
++            "head": 0.12
++          }
++        },
++        {
++          "t": 0.7,
++          "bones": {
++            "arm_front_upper": -2.04,
++            "arm_front_lower": -0.1,
++            "chest": 0.55,
++            "head": 0.12
++          }
++        },
++        {
++          "t": 1.0,
++          "bones": {
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        }
++      ]
++    },
++    "rin.melee_thermal_blade_cut_1": {
++      "duration": 0.36,
++      "skip_ik": true,
++      "blend": 60,
++      "keys": [
++        {
++          "t": 0.0,
++          "bones": {
++            "arm_front_upper": -0.9,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        },
++        {
++          "t": 0.26,
++          "bones": {
++            "arm_front_upper": 2.3,
++            "arm_front_lower": 0.3,
++            "chest": -0.19,
++            "head": -0.1,
++            "arm_back_upper": -0.7,
++            "arm_back_lower": -0.8
++          }
++        },
++        {
++          "t": 0.4,
++          "bones": {
++            "arm_front_upper": -1.7,
++            "arm_front_lower": -0.2,
++            "chest": 0.41,
++            "head": 0.1
++          }
++        },
++        {
++          "t": 0.7,
++          "bones": {
++            "arm_front_upper": -1.8399999999999999,
++            "arm_front_lower": -0.2,
++            "chest": 0.41,
++            "head": 0.1
++          }
++        },
++        {
++          "t": 1.0,
++          "bones": {
++            "arm_front_upper": -0.9,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        }
++      ]
++    },
++    "rin.melee_thermal_blade_cut_2": {
++      "duration": 0.35,
++      "skip_ik": true,
++      "blend": 60,
++      "keys": [
++        {
++          "t": 0.0,
++          "bones": {
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        },
++        {
++          "t": 0.26,
++          "bones": {
++            "arm_front_upper": 2.6,
++            "arm_front_lower": 0.2,
++            "chest": -0.29,
++            "head": -0.1,
++            "arm_back_upper": -1.0,
++            "arm_back_lower": -0.6
++          }
++        },
++        {
++          "t": 0.4,
++          "bones": {
++            "arm_front_upper": -1.7799999999999998,
++            "arm_front_lower": -0.1,
++            "chest": 0.51,
++            "head": 0.12
++          }
++        },
++        {
++          "t": 0.7,
++          "bones": {
++            "arm_front_upper": -1.92,
++            "arm_front_lower": -0.1,
++            "chest": 0.51,
++            "head": 0.12
++          }
++        },
++        {
++          "t": 1.0,
++          "bones": {
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        }
++      ]
++    },
++    "rin.melee_thermal_blade_cut_3": {
++      "duration": 0.5,
++      "skip_ik": true,
++      "blend": 60,
++      "keys": [
++        {
++          "t": 0.0,
++          "bones": {
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        },
++        {
++          "t": 0.26,
++          "bones": {
++            "arm_front_upper": -2.9,
++            "arm_front_lower": -0.4,
++            "arm_back_upper": -2.7,
++            "arm_back_lower": -0.4,
++            "chest": -0.14
++          }
++        },
++        {
++          "t": 0.4,
++          "bones": {
++            "arm_front_upper": -0.6,
++            "arm_front_lower": -0.15,
++            "arm_back_upper": -0.5,
++            "arm_back_lower": -0.2,
++            "chest": 0.46,
++            "head": 0.2,
++            "leg_front_upper": -0.4,
++            "leg_back_upper": 0.35
++          }
++        },
++        {
++          "t": 0.7,
++          "bones": {
++            "arm_front_upper": -0.48,
++            "arm_front_lower": -0.15,
++            "arm_back_upper": -0.5,
++            "arm_back_lower": -0.2,
++            "chest": 0.46,
++            "head": 0.2,
++            "leg_front_upper": -0.4,
++            "leg_back_upper": 0.35
++          }
++        },
++        {
++          "t": 1.0,
++          "bones": {
++            "arm_front_upper": -1.0,
++            "arm_front_lower": -0.3,
++            "chest": 0.0,
++            "arm_back_upper": 0.2,
++            "arm_back_lower": -0.25
++          }
++        }
++      ]
+diff --git a/core/damage_info.gd b/core/damage_info.gd
+index 8e362dd4..097c28c1 100644
+--- a/core/damage_info.gd
++++ b/core/damage_info.gd
+@@ -20,0 +21,2 @@ var attacker: WeakRef = null
++## 一次近戰的後續目標只凍結受擊方，仍保留 attacker 身分與傷害來源。
++var freeze_attacker := true
+@@ -36,0 +39,4 @@ func get_attacker() -> Node:
++func attacker_feedback_target() -> Node:
++	return get_attacker() if freeze_attacker else null
++
++
+diff --git a/data/melee/hydraulic_maul.json b/data/melee/hydraulic_maul.json
+index 55d751e0..8b019eca 100644
+--- a/data/melee/hydraulic_maul.json
++++ b/data/melee/hydraulic_maul.json
+@@ -32 +32 @@
+-   "pose": "overhead",
++   "pose": "hydraulic_maul_smash",
+@@ -53 +53 @@
+-   "cancel_after": 0.34,
++   "cancel_after": 0.62,
+@@ -72 +72 @@
+-   "pose": "overhead",
++   "pose": "hydraulic_maul_slam",
+@@ -90 +90 @@
+-}
+\ No newline at end of file
++}
+diff --git a/data/melee/ion_glaive.json b/data/melee/ion_glaive.json
+index e98dab39..7d3219b1 100644
+--- a/data/melee/ion_glaive.json
++++ b/data/melee/ion_glaive.json
+@@ -32 +32 @@
+-   "pose": "thrust",
++   "pose": "ion_glaive_thrust",
+@@ -53 +53 @@
+-   "cancel_after": 0.18,
++   "cancel_after": 0.36,
+@@ -72 +72 @@
+-   "pose": "sweep",
++   "pose": "ion_glaive_sweep",
+@@ -90 +90 @@
+-}
+\ No newline at end of file
++}
+diff --git a/data/melee/mono_dagger.json b/data/melee/mono_dagger.json
+index de5531ac..8e12ac15 100644
+--- a/data/melee/mono_dagger.json
++++ b/data/melee/mono_dagger.json
+@@ -33 +33 @@
+-   "pose": "thrust",
++   "pose": "mono_dagger_stab_1",
+@@ -73 +73 @@
+-   "pose": "thrust",
++   "pose": "mono_dagger_stab_2",
+@@ -94 +94 @@
+-   "cancel_after": 0.05,
++   "cancel_after": 0.16,
+@@ -113 +113 @@
+-   "pose": "slash",
++   "pose": "mono_dagger_flurry",
+@@ -131 +131 @@
+-}
+\ No newline at end of file
++}
+diff --git a/data/melee/mono_whip.json b/data/melee/mono_whip.json
+index 2343d6ed..a5160aab 100644
+--- a/data/melee/mono_whip.json
++++ b/data/melee/mono_whip.json
+@@ -12 +12 @@
+-   "cancel_after": 0.16,
++   "cancel_after": 0.32,
+@@ -31 +31 @@
+-   "pose": "sweep",
++   "pose": "mono_whip_lash",
+@@ -49 +49 @@
+-}
+\ No newline at end of file
++}
+diff --git a/data/melee/thermal_blade.json b/data/melee/thermal_blade.json
+index 587cae66..d648139f 100644
+--- a/data/melee/thermal_blade.json
++++ b/data/melee/thermal_blade.json
+@@ -33 +33 @@
+-   "pose": "slash",
++   "pose": "thermal_blade_cut_1",
+@@ -73 +73 @@
+-   "pose": "sweep",
++   "pose": "thermal_blade_cut_2",
+@@ -94 +94 @@
+-   "cancel_after": 0.1,
++   "cancel_after": 0.3,
+@@ -113 +113 @@
+-   "pose": "overhead",
++   "pose": "thermal_blade_cut_3",
+@@ -131 +131 @@
+-}
+\ No newline at end of file
++}
+diff --git a/design/20-campaign-experience/WEAPON_COMBOS.md b/design/20-campaign-experience/WEAPON_COMBOS.md
+new file mode 100644
+index 00000000..cdd2db88
+--- /dev/null
++++ b/design/20-campaign-experience/WEAPON_COMBOS.md
+@@ -0,0 +1,51 @@
++# 武器節奏、接續與成長實作邊界
++
++2026-10-10，NE-236／NE-237；初始驗證基準 `b4c186ea401dfb29b92e28a0a9c8e7de46f604e3`。
++
++本文件補充 DESIGN，不覆寫章節帳務 ledger。雲端只提供 Godot 4.7.2、Forward+ 軟體 Vulkan與合成輸入證據；人工遊玩、實體手把、硬體 GPU／HDR 分別驗收。
++
++## 來源與採用
++
++本輪核對 [Godot Input 官方文件](https://docs.godotengine.org/en/stable/classes/class_input.html)：按下邊緣與按住是不同狀態；Input.action_press 不等於真實裝置事件。事件與輪詢兩路都測，不能用合成輸入冒稱實機手把。
++
++核對 [PlayStation 開發者談戰鬥](https://blog.playstation.com/2022/10/04/game-developers-explain-what-makes-god-of-war-2018s-combat-tick/)：聲音、動作與受擊停頓共同表現接觸，畫面清楚亦須考慮。以下時序、價格、連段數與成本是本專案的設計／實測值，不是玩家一致最愛或通用業界門檻。
++
++## Ownership 與公開契約
++
++- 本組：game/player/player.gd 的近戰與輸入接點、MeleeSet／MeleeData、data/melee、近戰專用動作 namespace、近戰測試與專用擷取／量測工具。
++- art/rigs/action_poses.json 只新增 rin.melee_<武器>_<招式>，不改敵人／NPC／電話動作；沿現有 PlayerVisual 的 pose 與 phase progress 契約接線。
++- NE-237 的購買沿 Progression.buy_upgrade／has_upgrade／snapshot／restore；僅擴充武器改裝資料的近戰招式種類與適用武器，不另造貨幣或保存服務。
++- 不修改 Story／Main、世界與死亡存檔、章節產生器、CharacterRig／HumanoidAnimator／RigInput／PlayerVisual、共享 Fx、全域 Progression、環境 props／shader 或 release tools。
++- 真退出續玩依賴 NE-230；snapshot 回歸只能证明契約，不代稱整輪續玩。近戰購買介面若缺數值對照，交 UI owner 接入既有 description／招式資料。
++
++## 可操作規則
++
++點按近戰鍵或持近戰武器的射擊鍵可以接續；按住只重複第一招，兩鍵一致。每次點按最多保留一筆 buffer，時間到即消失。停止輸入吃完整收招，不強迫打完整連段。命中只在 recovery 的 cancel_after 後准許接續／衝刺；揮空吃滿 recovery。連段尾端不可循環取消回首招。
++
++換武器、受擊、死亡、破盾、電話與載具中斷會清掉 buffer、招式索引與命中集合。換武器保留尚未支付完的動作時間，避免切武器消除揮空風險。攻擊方向於起手鎖定，後续瞄準不把舊傷害框轉到另一側。
++
++近戰武器不靠自動終結技免費跳過電量。充電沿現有 Loadout；每次揮击扣武器電量，可選終段另扣護盾能量。能量不足不消耗部分成本，不啟動招式、不留下連段接續。終段有較長收招且不提早取消。
++
++每 swing 每個 HealthComponent 最多接觸一次；被格擋亦記下接觸，但不當成造成傷害。只有 DAMAGED 產生命中聲、粒子、命中取消與攻擊方停頓；敵人與反應抗性沿既有契約。多目標的同時 freeze 使用 Fx 的 max 規則、不相加；晚進入 sweep 的目標仍須量測累積上限，不改共享 Fx 取得通過。
++
++## 辨識矩陣與分階段交付
++
++| 武器 | 基礎用途 | 風險／選擇 |
++|---|---|---|
++| 單分子匕首 | 近身快速刺擊、小位移 | 短距離、低單擊衝擊；可選快速追加，停止仍留短招 |
++| 熱刃 | 中距離斜斬與反向斬 | 中等收招；可選終段以能量換重擊 |
++| 液壓錘 | 低速重擊、少段 | 長起手／收招、有限電量；可選強招保留充電與反制 |
++| 離子長柄 | 準星方向刺擊與橫掃 | 近身死角；可選範圍接續不抹除距離取捨 |
++| 單分子鞭 | 遠距甩擊 | 更大近身死角、低持續输出；可選回拉，不永久硬直 |
++
++NE-236 包括全部槍械，近戰階段不可勾整票完成。手槍、衝鋒槍、步槍、散彈、雷射、軌道槍、發射器及機甲炮各列姿態／射擊節奏／後座／彈體／命中資料與實際證據。槍械姿態若需要新 rig 接口，由原 owner 實作；本組提出精確要求，不搶寫。
++
++每武器記錄首次傷害延遲、完整時間／取消時間、實际有效距離、持續 DPS、擊退、護盾能量／電量與充電。基礎／升級、揮空／命中、普通／裝甲／頭目及難度分列；資料計算與實際戰鬥量測分開，不用常數表冒充遊玩。
++
++## 遠程動作接點需求（交角色 owner，尚未實作）
++
++目前 PlayerVisual.notify_fired(color) 將每種槍械的 RigInput.recoil 固定為 1.0，武器的 camera_kick 不會改身體／持槍後座。因此單改槍口顏色或鏡頭位移，不能驗收各槍的身體動作。
++
++請原 owner 保持相容地提供 `PlayerVisual.notify_fired(color: Color, strength: float = 1.0)`：既有閃光路由不變，有限、非負的 strength（建議界線 0–2）送既有單幀 RigInput.recoil；非法值安全回落 1。保留既有清脈衝、握持 IK、兩手、空中／蹲／盾／受擊優先序，不新增另一套動畫器。本組可在 WeaponData 與 Player 射擊呼叫端接每武器 strength，原 owner 驗兩面向與接點。此為提出的需求，沒有冒稱接口已存在。
++
++對 railgun／launcher 若需要起手或較長持槍收招，另請原 owner 提供與現有 action/action_t 相容的遠程優先序：電話、受擊、死亡與盾高於射擊，近戰與遠程不互覆。槍械動作由射擊成功與真實 fire_interval 驅動；空彈匣不觸發開火動作，換武器清舊後座，後座不改實際準星／子彈方向。接口交付前，NE-236 的「全部現有槍械」與完整動作驗收保持未勾。
+diff --git a/game/enemies/enemy.gd b/game/enemies/enemy.gd
+index 7e98b489..06ed1275 100644
+--- a/game/enemies/enemy.gd
++++ b/game/enemies/enemy.gd
+@@ -735 +735 @@ func _apply_hit_tier(tier: HitTier, info: DamageInfo) -> void:
+-		Feel.play(&"enemy_flinch", {"targets": [self, info.get_attacker()]})
++		Feel.play(&"enemy_flinch", {"targets": [self, info.attacker_feedback_target()]})
+@@ -739 +739 @@ func _apply_hit_tier(tier: HitTier, info: DamageInfo) -> void:
+-	Feel.play(&"enemy_stagger", {"targets": [self, info.get_attacker()]})
++	Feel.play(&"enemy_stagger", {"targets": [self, info.attacker_feedback_target()]})
+@@ -800 +800 @@ func _on_died(info: DamageInfo) -> void:
+-	Feel.play(&"enemy_kill", {"targets": [self, info.get_attacker() if info != null else null]})
++	Feel.play(&"enemy_kill", {"targets": [self, info.attacker_feedback_target() if info != null else null]})
+diff --git a/game/player/player.gd b/game/player/player.gd
+index d9b79230..ca39ff1c 100644
+--- a/game/player/player.gd
++++ b/game/player/player.gd
+@@ -93,0 +94,3 @@ var _melee_feedback_done := false
++var _melee_weapon_id: StringName = &""
++var _melee_facing := 1
++var _melee_swing_direction := Vector2.RIGHT
+@@ -302 +305 @@ func _clear_input_buffers() -> void:
+-	_melee_buffer_left = 0.0
++	_interrupt_melee(true)
+@@ -390,6 +393,7 @@ func _process_normal(delta: float) -> void:
+-	if Input.is_action_pressed(&"shoot") and not is_blocking:
+-		if holds_melee_weapon():
+-			# 近戰武器：按住射擊鍵＝連續揮擊；出招中按下會緩衝，收招結束接下一段。
+-			if Input.is_action_just_pressed(&"shoot") or _melee_phase == MeleePhase.NONE:
+-				_try_melee()
+-		elif not is_melee_locked():
++	if holds_melee_weapon() and not is_blocking:
++		if Input.is_action_just_pressed(&"shoot"):
++			_try_melee()
++		elif _melee_phase == MeleePhase.NONE and (Input.is_action_pressed(&"shoot") or Input.is_action_pressed(&"melee")):
++			_try_melee(false)
++	elif Input.is_action_pressed(&"shoot") and not is_blocking:
++		if not is_melee_locked():
+@@ -488 +492,3 @@ func _update_aim(_delta: float) -> void:
+-	if absf(aim_dir.x) > 0.05 and state != State.DASH and state != State.MOUNTED and state != State.PHONE:
++	if _melee_phase != MeleePhase.NONE:
++		facing = _melee_facing
++	elif absf(aim_dir.x) > 0.05 and state != State.DASH and state != State.MOUNTED and state != State.PHONE:
+@@ -529 +535 @@ func _try_fire() -> void:
+-	if _fire_cooldown_left > 0.0:
++	if _fire_cooldown_left > 0.0 or _melee_cooldown_left > 0.0:
+@@ -565 +571 @@ func _try_dash(input_x: float) -> void:
+-		_end_melee()
++		_end_melee(false)
+@@ -653 +659,3 @@ func holds_melee_weapon() -> bool:
+-func _try_melee() -> bool:
++func _try_melee(continue_combo := true) -> bool:
++	if state != State.NORMAL or is_blocking or GameplayLock.is_locked() or get_tree().paused:
++		return false
+@@ -662 +670 @@ func _try_melee() -> bool:
+-	var target := _find_finisher_target()
++	var target := _find_finisher_target() if not armed else null
+@@ -666,2 +674 @@ func _try_melee() -> bool:
+-	_start_melee_attack(_melee_combo_left > 0.0)
+-	return true
++	return _start_melee_attack(continue_combo and _melee_combo_left > 0.0)
+@@ -673,0 +681,4 @@ func _start_melee_attack(continue_combo: bool) -> bool:
++	var combo := set.combo()
++	# 尾招收招不可環回首招；結束後須重新起手，保留反制時間。
++	if continue_combo and set == _melee_set and _melee_index >= combo.size() - 1:
++		return false
+@@ -674,0 +686,4 @@ func _start_melee_attack(continue_combo: bool) -> bool:
++		_end_melee(false)
++		return false
++	if loadout.active_weapon() != weapon:
++		_end_melee(false)
+@@ -680,2 +695 @@ func _start_melee_attack(continue_combo: bool) -> bool:
+-	var combo := set.combo()
+-	_melee_index = (_melee_index + 1) % combo.size() if continue_combo and _melee_index >= 0 else 0
++	_melee_index = _melee_index + 1 if continue_combo and _melee_index >= 0 else 0
+@@ -682,0 +697,3 @@ func _start_melee_attack(continue_combo: bool) -> bool:
++	_melee_weapon_id = weapon.id if weapon != null else &""
++	_melee_facing = facing
++	_melee_swing_direction = _aim_melee_direction(_melee_attack)
+@@ -711 +728 @@ func _tick_melee(delta: float) -> void:
+-		_end_melee()
++		_end_melee(false)
+@@ -728 +745 @@ func _tick_melee(delta: float) -> void:
+-			if _melee_buffer_left > 0.0 and is_melee_cancellable():
++			if _melee_buffer_left > 0.0 and is_melee_cancellable() and _melee_index < _melee_set.combo().size() - 1:
+@@ -751 +768 @@ func melee_move_scale() -> float:
+-func _end_melee() -> void:
++func _end_melee(keep_combo := true) -> void:
+@@ -757,0 +775,25 @@ func _end_melee() -> void:
++	if not keep_combo or _melee_index >= _melee_set.combo().size() - 1:
++		_melee_index = -1
++		_melee_combo_left = 0.0
++		_melee_buffer_left = 0.0
++		_melee_hit_ids.clear()
++		_melee_attack = {}
++		_melee_time = 0.0
++		_melee_landed = false
++		_melee_feedback_done = false
++
++
++## 中斷不保留連段；換武器亦不能免費消除尚未承擔的動作時間。
++func _interrupt_melee(preserve_risk := false) -> void:
++	var remaining := 0.0
++	if preserve_risk and _melee_phase != MeleePhase.NONE:
++		remaining = float(_melee_attack["recovery"])
++		if _melee_phase == MeleePhase.WINDUP:
++			remaining += maxf(0.0, float(_melee_attack["windup"]) - _melee_time) + float(_melee_attack["active"])
++		elif _melee_phase == MeleePhase.ACTIVE:
++			remaining += maxf(0.0, float(_melee_attack["active"]) - _melee_time)
++		else:
++			remaining = maxf(0.0, remaining - _melee_time)
++	var cooldown := _melee_cooldown_left
++	_end_melee(false)
++	_melee_cooldown_left = maxf(cooldown, remaining)
+@@ -763 +805 @@ func _melee_strike() -> void:
+-	velocity.x += float(facing) * float(attack["advance"])
++	velocity.x += float(_melee_facing) * float(attack["advance"])
+@@ -781,0 +824,6 @@ func _melee_direction(attack: Dictionary) -> Vector2:
++	if _melee_phase != MeleePhase.NONE:
++		return _melee_swing_direction
++	return _aim_melee_direction(attack)
++
++
++func _aim_melee_direction(attack: Dictionary) -> Vector2:
+@@ -798 +846 @@ func _melee_hit_pass() -> void:
+-		var info := DamageInfo.create(int(attack["damage"]), Combat.Team.PLAYER, &"melee", Vector2(facing * float(knock[0]), float(knock[1])))
++		var info := DamageInfo.create(int(attack["damage"]), Combat.Team.PLAYER, &"melee", Vector2(_melee_facing * float(knock[0]), float(knock[1])))
+@@ -801,0 +850 @@ func _melee_hit_pass() -> void:
++		info.freeze_attacker = not _melee_feedback_done and _melee_hit_ids.is_empty()
+@@ -803 +852,2 @@ func _melee_hit_pass() -> void:
+-		if target_hurtbox.receive(info) != Hurtbox.Result.IGNORED:
++		var result := target_hurtbox.receive(info)
++		if result != Hurtbox.Result.IGNORED:
+@@ -804,0 +855 @@ func _melee_hit_pass() -> void:
++		if result == Hurtbox.Result.DAMAGED:
+@@ -912,0 +964 @@ func begin_phone_call(face: int) -> bool:
++	_interrupt_melee(true)
+@@ -1014,0 +1067 @@ func mount_vehicle(vehicle: Vehicle) -> void:
++	_interrupt_melee(true)
+@@ -1164,0 +1218 @@ func _guard_break() -> void:
++	_interrupt_melee(true)
+@@ -1181,0 +1236 @@ func _on_damaged(info: DamageInfo) -> void:
++	_interrupt_melee()
+@@ -1195,0 +1251 @@ func _on_died(info: DamageInfo) -> void:
++	_interrupt_melee()
+@@ -1216,0 +1273,4 @@ func _on_loadout_changed() -> void:
++	var weapon_id := weapon.id if weapon != null else &""
++	if weapon_id != _melee_weapon_id:
++		_interrupt_melee(true)
++		_melee_weapon_id = weapon_id
+diff --git a/tests/suite/test_melee_weapons.gd b/tests/suite/test_melee_weapons.gd
+index fd2753bd..78a4b4d4 100644
+--- a/tests/suite/test_melee_weapons.gd
++++ b/tests/suite/test_melee_weapons.gd
+@@ -17,0 +18,4 @@ func run() -> void:
++	await _test_interruptions()
++	await _test_blocked_contact()
++	await _test_held_input()
++	await _test_late_target_hitstop()
+@@ -241,0 +246,101 @@ func _test_gun_unchanged() -> void:
++
++
++## 實際裝備與傷害事件：不能把舊招式／buffer 帶到新武器或復原後。
++func _test_interruptions() -> void:
++	await open_level(10.0)
++	var player := _arm("melee_maul")
++	player._try_melee()
++	player._try_melee()
++	player.loadout.select(0)
++	check(player._melee_phase == Player.MeleePhase.NONE and player._melee_buffer_left == 0.0 and player._melee_index == -1,
++		"switching weapons immediately discards the old melee attack and buffer")
++	check(player._melee_cooldown_left > 0.0, "switching cannot erase an unpaid windup/recovery")
++	var ammo := player.loadout.mag_in(0)
++	player._try_fire()
++	check(player.loadout.mag_in(0) == ammo, "switching to a gun cannot bypass unpaid melee recovery")
++	player = _arm("melee_blade")
++	player._try_melee()
++	player._try_melee()
++	var incoming := DamageInfo.create(1, Combat.Team.ENEMY, &"test", Vector2.LEFT)
++	incoming.ignore_invulnerability = true
++	player.health.take_damage(incoming)
++	check(player._melee_phase == Player.MeleePhase.NONE and player._melee_buffer_left == 0.0 and player._melee_combo_left == 0.0,
++		"ordinary damage immediately interrupts melee and removes the continuation")
++	Fx.thaw_all()
++	player._melee_cooldown_left = 0.0
++	player._try_melee()
++	player._try_melee()
++	player.health.kill(incoming)
++	check(player._melee_phase == Player.MeleePhase.NONE and player._melee_buffer_left == 0.0 and player._melee_index == -1,
++		"death immediately clears the attack and its queued input")
++	check(not player._try_melee(), "dead players cannot start or buffer melee through the public command")
++	await end_level(level)
++
++
++func _test_blocked_contact() -> void:
++	await open_level(10.0)
++	var player := _arm("melee_blade")
++	var enemy := _dummy(24.0)
++	enemy.hurtbox.guard = func(_info: DamageInfo) -> int: return Hurtbox.Guard.BLOCK
++	await physics_frames(3)
++	var before := enemy.health.current
++	player._try_melee()
++	var ticks := 0
++	while player._melee_phase != Player.MeleePhase.RECOVERY and ticks < 120:
++		await physics_frames(1)
++		ticks += 1
++	check(enemy.health.current == before and not player._melee_landed and not player._melee_feedback_done,
++		"a blocked contact is not damage, a hit cancel, or melee hit feedback")
++	check(player._melee_hit_ids.size() == 1, "a blocked target is contacted only once per swing")
++	await end_level(level)
++
++
++## action_press 是輪詢路徑合成輸入，並非實體手把；兩個近戰按鍵的 hold 規則相同。
++func _test_held_input() -> void:
++	for action: StringName in [&"melee", &"shoot"]:
++		await open_level(10.0)
++		var player := _arm("melee_blade")
++		Input.action_press(action)
++		var advanced := false
++		var starts := 0
++		var previous_phase := Player.MeleePhase.NONE
++		for tick in 100:
++			await physics_frames(1)
++			advanced = advanced or player._melee_index > 0
++			if player._melee_phase == Player.MeleePhase.WINDUP and previous_phase != Player.MeleePhase.WINDUP:
++				starts += 1
++			previous_phase = player._melee_phase
++		Input.action_release(action)
++		check(not advanced, "holding %s never selects an unrequested later/heavy attack" % action)
++		check(starts > 1, "holding %s repeats the short first attack after full recovery" % action)
++		await end_level(level)
++
++
++## 真實傷害接線：後進入 sweep 的敵人仍受擊，但不能再次延長攻擊者的停頓。
++func _test_late_target_hitstop() -> void:
++	await open_level(10.0)
++	var player := _arm("melee_blade")
++	var first := _dummy(24.0)
++	var late := _dummy(150.0)
++	var unrelated := _dummy(200.0)
++	await physics_frames(3)
++	player._try_melee()
++	var guard := 120
++	while not player._melee_feedback_done and guard > 0:
++		await physics_frames(1)
++		guard -= 1
++	await level.get_tree().process_frame
++	check(player._melee_landed and first.health.current < 999, "the first sweep target receives real damage and contact feedback")
++	Fx.thaw_all()
++	var before := late.health.current
++	late.global_position.x = player.global_position.x + 24.0
++	await physics_frames(2)
++	player._melee_hit_pass()
++	await level.get_tree().process_frame
++	check(late.health.current < before, "a later sweep target receives damage once")
++	check(not Fx._frozen.has(player), "a later target cannot refreeze the attacker after its first contact pause")
++	check(not Fx._frozen.has(unrelated), "an uninvolved enemy keeps running during melee hitstop")
++	var after := late.health.current
++	player._melee_hit_pass()
++	check(late.health.current == after, "repeated sweep queries never damage the same late target twice")
++	await end_level(level)
+diff --git a/tools/weapon_balance_probe.gd b/tools/weapon_balance_probe.gd
+new file mode 100644
+index 00000000..d631615e
+--- /dev/null
++++ b/tools/weapon_balance_probe.gd
+@@ -0,0 +1,110 @@
++extends Node
++## 60 Hz 真實 Player/Hurtbox/Enemy 的訓練場量測。固定目標距離以分開測攻擊節奏與追逐；不是人工遊玩。
++const IDS := ["dagger", "blade", "maul", "glaive", "whip"]
++const OFFSETS := [20.0, 24.0, 24.0, 50.0, 72.0]
++const TARGETS := ["grunt", "collector_brute", "watchdog"]
++var output := "res://pm/Nest-Egg/attachments/NE-236-measurements.json"
++var samples: Array[Dictionary] = []
++var upgraded := false
++
++
++func _ready() -> void:
++	for arg in OS.get_cmdline_user_args():
++		if arg.begins_with("--out="):
++			output = arg.trim_prefix("--out=")
++		if arg == "--upgraded":
++			upgraded = true
++	_run.call_deferred()
++
++
++func _run() -> void:
++	Story.auto_skip = true
++	# headless 沒有繪製可見區域，與正式測試相同地停用畫面外的 activation culling。
++	Enemy.activation_culling_enabled = false
++	AimInput.using_gamepad = true
++	AimInput._last_stick_dir = Vector2.RIGHT
++	for difficulty in GameState.difficulties.size():
++		for target in TARGETS:
++			for i in IDS.size():
++				await _sample(i, target, difficulty, false)
++	for i in IDS.size():
++		await _sample(i, "grunt", 1, true)
++	DirAccess.make_dir_recursive_absolute(output.get_base_dir())
++	var file := FileAccess.open(output, FileAccess.WRITE)
++	file.store_string(JSON.stringify({"engine": Engine.get_version_info().string, "hz": Engine.physics_ticks_per_second,
++		"method": "6s 60Hz synthetic taps every 8 ticks; target pinned at documented offset, real damage/reaction/charge; miss at +180px; wall-clock hitstop included",
++		"upgraded": upgraded, "samples": samples}, "\t") + "\n")
++	file.close()
++	print("BALANCE_SAMPLES ", samples.size(), " ", output)
++	get_tree().quit()
++
++
++func _sample(index: int, target_id: String, difficulty: int, miss: bool) -> void:
++	GameState.start_new_run(GameState.difficulties[difficulty])
++	var weapon := load("res://data/weapons/melee/melee_%s.tres" % IDS[index]) as WeaponData
++	if upgraded:
++		Progression.add_credits(1000)
++		var upgrade := Progression.find_upgrade(StringName("technique_" + IDS[index]))
++		if upgrade == null or not Progression.buy_upgrade(weapon, upgrade):
++			push_error("upgrade unavailable: " + IDS[index])
++			get_tree().quit(1)
++			return
++	var level := Level.new()
++	level.configure(EnemySuiteBase.map_data())
++	add_child(level)
++	for tick in 8:
++		await get_tree().physics_frame
++	var player := level.player
++	player.global_position = Vector2(160.0, EnemySuiteBase.FLOOR_Y)
++	player.health.setup(999, 0.0)
++	player.loadout.reset(weapon)
++	player.facing = 1
++	player.aim_dir = Vector2.RIGHT
++	player._melee_cooldown_left = 0.0
++	var enemy := level._create_enemy(load("res://data/enemies/%s.tres" % target_id))
++	enemy.position = player.position + Vector2(OFFSETS[index] + (180.0 if miss else 0.0), 0)
++	level._entities.add_child(enemy)
++	enemy.data = enemy.data.duplicate()
++	enemy.data.detect_range = 0.0
++	enemy.data.attack_range = 0.0
++	enemy.data.move_speed = 0.0
++	enemy.health.setup(999, 0.0)
++	var hits: Array[Dictionary] = []
++	var started := Time.get_ticks_msec()
++	var first_physics_frame := Engine.get_physics_frames()
++	enemy.health.damaged.connect(func(info: DamageInfo) -> void:
++		hits.append({"at_ms": Time.get_ticks_msec() - started, "damage": info.amount, "knockback_x": info.knockback.x,
++			"physics_tick": Engine.get_physics_frames() - first_physics_frame, "source": info.source_id,
++			"response_velocity_x": enemy.velocity.x, "stun_s": enemy._stun_left, "impact": info.get_impact()}))
++	var locked := 0
++	var swings := 0
++	var previous_phase := Player.MeleePhase.NONE
++	for tick in 360:
++		enemy.global_position = Vector2(player.global_position.x + OFFSETS[index] + (180.0 if miss else 0.0), EnemySuiteBase.FLOOR_Y)
++		enemy.velocity = Vector2.ZERO
++		if tick % 8 == 0:
++			player._try_melee()
++		await get_tree().physics_frame
++		if player.is_melee_locked() or player._melee_cooldown_left > 0.0:
++			locked += 1
++		if player._melee_phase == Player.MeleePhase.WINDUP and previous_phase != Player.MeleePhase.WINDUP:
++			swings += 1
++		previous_phase = player._melee_phase
++	var elapsed := (Time.get_ticks_msec() - started) / 1000.0
++	var damage := 999 - enemy.health.current
++	if not miss and damage <= 0:
++		push_error("measurement fixture failed to connect: %s / %s" % [weapon.id, target_id])
++		get_tree().quit(1)
++		return
++	var row := {"weapon": weapon.id, "target": target_id, "difficulty": GameState.difficulties[difficulty].id,
++		"miss": miss, "offset_px": OFFSETS[index] + (180.0 if miss else 0.0), "wall_seconds": elapsed,
++		"damage": damage, "dps": damage / maxf(elapsed, 0.01), "first_hit_ms": hits[0].at_ms if not hits.is_empty() else -1,
++		"first_hit_physics_ms": hits[0].physics_tick * 1000.0 / Engine.physics_ticks_per_second if not hits.is_empty() else -1,
++		"locked_physics_ticks": locked, "swings": swings, "guard_remaining": player.guard,
++		"charge_remaining": player.loadout.mag_in(0), "hits": hits}
++	samples.append(row)
++	print("BALANCE_ROW ", JSON.stringify(row))
++	Fx.thaw_all()
++	level.queue_free()
++	for tick in 4:
++		await get_tree().physics_frame
+diff --git a/tools/weapon_balance_probe.gd.uid b/tools/weapon_balance_probe.gd.uid
+new file mode 100644
+index 00000000..c9843927
+--- /dev/null
++++ b/tools/weapon_balance_probe.gd.uid
+@@ -0,0 +1 @@
++uid://dd5c1rj7d04p1
+diff --git a/tools/weapon_balance_probe.tscn b/tools/weapon_balance_probe.tscn
+new file mode 100644
+index 00000000..03235e89
+--- /dev/null
++++ b/tools/weapon_balance_probe.tscn
+@@ -0,0 +1,6 @@
++[gd_scene load_steps=2 format=3]
++
++[ext_resource type="Script" path="res://tools/weapon_balance_probe.gd" id="1"]
++
++[node name="WeaponBalanceProbe" type="Node"]
++script = ExtResource("1")
+diff --git a/tools/weapon_combo_capture.gd b/tools/weapon_combo_capture.gd
+new file mode 100644
+index 00000000..177ae319
+--- /dev/null
++++ b/tools/weapon_combo_capture.gd
+@@ -0,0 +1,69 @@
++extends ScenarioBase
++## 真實 Level／Player／Forward+；不手設 action_t，按實際三階段各捕獲一格。
++const WEAPONS := ["dagger", "blade", "maul", "glaive", "whip"]
++const LEGACY := {"dagger": "thrust", "blade": "slash", "maul": "overhead", "glaive": "thrust", "whip": "sweep"}
++
++
++func _ready() -> void:
++	out_dir = "res://pm/Nest-Egg/images"
++	for arg in OS.get_cmdline_user_args():
++		if arg.begins_with("--out="):
++			out_dir = arg.trim_prefix("--out=")
++	DirAccess.make_dir_recursive_absolute(out_dir)
++	_run.call_deferred()
++
++
++func _run() -> void:
++	print("NE236_RENDERER ", RenderingServer.get_current_rendering_method(), " | ", RenderingServer.get_video_adapter_name())
++	Story.auto_skip = true
++	await open_arena("res://data/lighting/neutral.tres", 12.0)
++	var camera := get_viewport().get_camera_2d()
++	# LevelCamera 每 physics step 重設 ZOOM，拍摄用镜头先停自動更新。
++	camera.set_physics_process(false)
++	camera.zoom = Vector2.ONE * 3.4
++	var label := Label.new()
++	label.add_theme_font_size_override("font_size", 16)
++	label.position = Vector2(16, 16)
++	var overlay := CanvasLayer.new()
++	add_child(overlay)
++	overlay.add_child(label)
++	AimInput.using_gamepad = true
++	AimInput._last_stick_dir = Vector2.RIGHT
++	for quality in [LightQuality.Tier.HIGH, LightQuality.Tier.LOW]:
++		Settings.set_light_quality(quality)
++		for weapon_id in WEAPONS:
++			var weapon := load("res://data/weapons/melee/melee_%s.tres" % weapon_id) as WeaponData
++			for legacy in [true, false]:
++				if legacy and quality == LightQuality.Tier.LOW:
++					continue
++				player._interrupt_melee()
++				player.loadout.reset(weapon)
++				player._melee_cooldown_left = 0.0
++				place_player(12.0)
++				camera.global_position = player.global_position + Vector2(30, -32)
++				player.facing = 1
++				player.aim_dir = Vector2.RIGHT
++				await settle(3)
++				player._try_melee()
++				if legacy:
++					# 同一招／時序；僅回放原動作，以直接比較接觸姿勢。
++					player._melee_attack["pose"] = LEGACY[weapon_id]
++				for phase in [Player.MeleePhase.WINDUP, Player.MeleePhase.ACTIVE, Player.MeleePhase.RECOVERY]:
++					var limit := 180
++					while player._melee_phase != phase and limit > 0:
++						await get_tree().physics_frame
++						limit -= 1
++					if limit == 0:
++						push_error("capture missed phase %s" % phase)
++						get_tree().quit(1)
++						return
++					player.set_physics_process(false)
++					label.text = "%s / %s / %s / %s" % [weapon_id, "legacy" if legacy else "weapon pose", ["idle", "windup", "active", "recovery"][phase], LightQuality.NAMES[quality]]
++					await settle(3)
++					await RenderingServer.frame_post_draw
++					capture("NE-236-%s-%s-%s-%s" % [weapon_id, "before" if legacy else "after", phase, "high" if quality == LightQuality.Tier.HIGH else "low"])
++					print("NE236_PHASE ", weapon_id, " ", phase, " pose_t=", player.melee_pose_progress(), " hit=", player._melee_landed, " zoom=", camera.zoom)
++					player.set_physics_process(true)
++				player._interrupt_melee()
++	await finish()
++	get_tree().quit()
+diff --git a/tools/weapon_combo_capture.gd.uid b/tools/weapon_combo_capture.gd.uid
+new file mode 100644
+index 00000000..b3563b0f
+--- /dev/null
++++ b/tools/weapon_combo_capture.gd.uid
+@@ -0,0 +1 @@
++uid://bug0a7lr77fgk
+diff --git a/tools/weapon_combo_capture.tscn b/tools/weapon_combo_capture.tscn
+new file mode 100644
+index 00000000..13d0bb9f
+--- /dev/null
++++ b/tools/weapon_combo_capture.tscn
+@@ -0,0 +1,6 @@
++[gd_scene load_steps=2 format=3]
++
++[ext_resource type="Script" path="res://tools/weapon_combo_capture.gd" id="1"]
++
++[node name="WeaponComboCapture" type="Node"]
++script = ExtResource("1")

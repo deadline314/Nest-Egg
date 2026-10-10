@@ -1,0 +1,140 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+WARNING: [PropLibrary] 找不到道具「no_such_prop」（res://data/environment/props）
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] find (res://core/prop_library.gd:14)
+         [1] _test_props (res://tests/suite/test_environment.gd:96)
+         [2] run (res://tests/suite/test_environment.gd:10)
+         [3] _run_suites (res://tests/smoke_test.gd:109)
+         [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/environment/props/test_missing_prop.png
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] texture (res://game/rig/rig_library.gd:81)
+       [2] load_texture (res://core/lit_textures.gd:20)
+       [3] _ready (res://game/level/environment/prop_node.gd:42)
+       [4] _test_missing_texture (res://tests/suite/test_environment.gd:158)
+       [5] run (res://tests/suite/test_environment.gd:14)
+       [6] _run_suites (res://tests/smoke_test.gd:109)
+       [7] _run (res://tests/smoke_test.gd:38)
+WARNING: [LevelBackground] 找不到天空貼圖，改用程式天空：res://art/environment/backdrop/test_missing_prop_sky.webp
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _add_photo_sky (res://game/level/level_background.gd:46)
+         [1] _ready (res://game/level/level_background.gd:24)
+         [2] _test_sky (res://tests/suite/test_environment.gd:185)
+         [3] run (res://tests/suite/test_environment.gd:15)
+         [4] _run_suites (res://tests/smoke_test.gd:109)
+         [5] _run (res://tests/smoke_test.gd:38)
+BG25_TEST_RESUME before=0.126521 after=0.143188
+WARNING: [PropNode] anchor_phone_booth__gutter_downpipe 局部水流 UV 無效，保留靜態圖
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _ready (res://game/level/environment/prop_node.gd:71)
+         [1] _test_local_water_flow (res://tests/suite/test_environment.gd:478)
+         [2] _motion_process_frames (res://tests/suite/test_environment.gd:486)
+ERROR: [Foreground] 找不到前景貼圖，改用程式繪製的剪影：res://art/test_missing_prop_fg.webp
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _add_strip (res://game/level/environment/foreground_layer.gd:63)
+       [1] _test_foreground (res://tests/suite/test_environment.gd:315)
+       [2] run (res://tests/suite/test_environment.gd:20)
+       [3] _test_local_water_flow (res://tests/suite/test_environment.gd:481)
+       [4] _motion_process_frames (res://tests/suite/test_environment.gd:486)
+SUITE_TIME EnvironmentSuite 3.0
+ERROR: [Enemy] test_missing_part 的 hurt_parts 有無效的部位（id、size、mult）：{ "id": "", "size": (4.0, 4.0), "mult": 2.0 }
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _build_hurt_parts (res://game/enemies/enemy.gd:242)
+       [1] _build_components (res://game/enemies/enemy.gd:180)
+       [2] _ready (res://game/enemies/enemy.gd:140)
+       [3] _test_bad_part_data (res://tests/suite/test_hit_reaction.gd:507)
+       [4] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [5] start_level (res://tests/suite/test_suite.gd:34)
+       [6] spawn_level (res://tests/suite/test_suite.gd:43)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [Enemy] test_missing_part 的部位 ok 找不到骨頭 no_such_bone，改用固定位置。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _build_hurt_parts (res://game/enemies/enemy.gd:246)
+         [1] _build_components (res://game/enemies/enemy.gd:180)
+         [2] _ready (res://game/enemies/enemy.gd:140)
+         [3] _test_bad_part_data (res://tests/suite/test_hit_reaction.gd:507)
+         [4] open_level (res://tests/suite/enemy_suite_base.gd:32)
+         [5] start_level (res://tests/suite/test_suite.gd:34)
+         [6] spawn_level (res://tests/suite/test_suite.gd:43)
+         [7] frames (res://tests/suite/test_suite.gd:23)
+         [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [EnemyVfx] res://art/vfx/enemies/test_missing_part.json 沒有特效資料，不播放專屬特效。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] report_once (res://game/rig/rig_library.gd:125)
+       [2] load_for (res://game/enemies/enemy_vfx.gd:31)
+       [3] _ready (res://game/enemies/enemy.gd:148)
+       [4] _test_bad_part_data (res://tests/suite/test_hit_reaction.gd:507)
+       [5] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [6] start_level (res://tests/suite/test_suite.gd:34)
+       [7] spawn_level (res://tests/suite/test_suite.gd:43)
+       [8] frames (res://tests/suite/test_suite.gd:23)
+       [9] _frames (res://tests/smoke_test.gd:122)
+WARNING: [LitTextures] 沒有法線貼圖，改用平面貼圖：res://art/creatures/test_tentacle_n.png（可用 tools/art/paint_normals.tscn 產生）
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] load_texture (res://core/lit_textures.gd:34)
+         [1] setup (res://game/creature/chain_creature.gd:88)
+         [2] _test_tentacle_wave_and_sever (res://tests/suite/test_hit_reaction.gd:586)
+         [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+         [4] start_level (res://tests/suite/test_suite.gd:34)
+         [5] spawn_level (res://tests/suite/test_suite.gd:43)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:122)
+WARNING: [LitTextures] 沒有法線貼圖，改用平面貼圖：res://art/creatures/test_body_n.png（可用 tools/art/paint_normals.tscn 產生）
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] load_texture (res://core/lit_textures.gd:34)
+         [1] _build_body (res://game/creature/chain_creature.gd:125)
+         [2] setup (res://game/creature/chain_creature.gd:99)
+         [3] _test_tentacle_wave_and_sever (res://tests/suite/test_hit_reaction.gd:586)
+         [4] open_level (res://tests/suite/enemy_suite_base.gd:32)
+         [5] start_level (res://tests/suite/test_suite.gd:34)
+         [6] spawn_level (res://tests/suite/test_suite.gd:43)
+         [7] frames (res://tests/suite/test_suite.gd:23)
+         [8] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME HitReactionSuite 14.8
+SUITE_TIME AnimAuditSuite 14.1
+ERROR: [MeleeSet] 無法讀取近戰資料：res://data/melee/test_no_such_attack.json（需要 attacks 字典），改用內建預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_loaded (res://game/player/melee_set.gd:37)
+       [1] attack (res://game/player/melee_set.gd:69)
+       [2] _test_data (res://tests/suite/test_melee_weapons.gd:42)
+       [3] run (res://tests/suite/test_melee_weapons.gd:10)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_anim_audit.gd:24)
+       [6] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [MeleeSet] res://data/melee/test_no_such_attack.json 沒有招式「whatever」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:73)
+       [1] _test_data (res://tests/suite/test_melee_weapons.gd:42)
+       [2] run (res://tests/suite/test_melee_weapons.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_anim_audit.gd:24)
+       [5] _audit_npc (res://tests/suite/test_anim_audit.gd:70)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME MeleeWeaponsSuite 14.4
+checks: 6652, failures: 0
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 9 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 5 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
