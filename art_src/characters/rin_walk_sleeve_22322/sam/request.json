@@ -1,0 +1,46 @@
+{
+  "jobs": {
+    "single_sleeve": {
+      "pos": [
+        [
+          180,
+          110
+        ],
+        [
+          145,
+          180
+        ],
+        [
+          100,
+          276
+        ],
+        [
+          128,
+          349
+        ]
+      ],
+      "neg": [
+        [
+          20,
+          20
+        ],
+        [
+          330,
+          250
+        ],
+        [
+          180,
+          460
+        ],
+        [
+          300,
+          100
+        ]
+      ]
+    }
+  },
+  "threshold": 0.3,
+  "refine": 2,
+  "source_rgba_sha256": "f3d42cbbc32ac4c237ed1dfbab240491a885d98269c1f67cdad8c601a655bae8",
+  "sam_input_sha256": "8ddfe7c2f5aebe71f1dac5a0fbbf85b4dda5153aea844b0b648140dbe43d21f9"
+}

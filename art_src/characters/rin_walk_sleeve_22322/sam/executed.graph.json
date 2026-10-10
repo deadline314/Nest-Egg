@@ -1,0 +1,54 @@
+{
+  "load": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "gray-native.png"
+    },
+    "is_changed": [
+      "8ddfe7c2f5aebe71f1dac5a0fbbf85b4dda5153aea844b0b648140dbe43d21f9"
+    ]
+  },
+  "ckpt": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "sam3.1_multiplex_fp16.safetensors"
+    }
+  },
+  "d0": {
+    "class_type": "SAM3_Detect",
+    "inputs": {
+      "model": [
+        "ckpt",
+        0
+      ],
+      "image": [
+        "load",
+        0
+      ],
+      "threshold": 0.3,
+      "refine_iterations": 2,
+      "individual_masks": false,
+      "positive_coords": "[{\"x\": 180, \"y\": 110}, {\"x\": 145, \"y\": 180}, {\"x\": 100, \"y\": 276}, {\"x\": 128, \"y\": 349}]",
+      "negative_coords": "[{\"x\": 20, \"y\": 20}, {\"x\": 330, \"y\": 250}, {\"x\": 180, \"y\": 460}, {\"x\": 300, \"y\": 100}]"
+    }
+  },
+  "m0": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "d0",
+        0
+      ]
+    }
+  },
+  "s0": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "m0",
+        0
+      ],
+      "filename_prefix": "sampt_e5194a_0"
+    }
+  }
+}

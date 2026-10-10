@@ -1,0 +1,126 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "qwen-image-2.1-UC-int8_convrot.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "1c": {
+    "class_type": "QwenImage21Cache",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "device": "off",
+      "dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+      "type": "qwen_image",
+      "device": "default"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+    }
+  },
+  "4": {
+    "class_type": "TextEncodeQwenImage21",
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "prompt": "Edit this reference into exactly ONE isolated navy blue cyberpunk jacket upper-arm sleeve attachment, the image-left sleeve with the small flap pocket, one silver pocket button and vertical magenta rectangular tab. The adult character wears a short jacket; the sleeve runs from its rounded shoulder cap to the ribbed elbow cuff above the mechanical forearm. Keep the same sleeve silhouette, native size, downward-backward angle, pocket position and clean dark ink linework. Remove all hair, collar, torso, white bodysuit, skin, mechanical arm, hands, legs and accessories. Complete only the small shoulder cap surface previously hidden behind the hair, using the same navy two-tone cel-shaded cloth. The sleeve is NOT a whole jacket and is NOT an arm with skin or metal. One consistent subtle upper-left light; no glossy rendering, bloom, extra decoration, heavy gradients, AI embellishments or other objects. Centered at its original image coordinates with generous empty padding; do not zoom or change canvas size. Transparent background. Remove the background, and output a PNG image.",
+      "negative_prompt": "",
+      "vae": [
+        "3",
+        0
+      ],
+      "resolution": 0,
+      "images.image_1": [
+        "A0",
+        0
+      ]
+    }
+  },
+  "6": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": [
+        "1c",
+        0
+      ],
+      "positive": [
+        "4",
+        0
+      ],
+      "negative": [
+        "4",
+        1
+      ],
+      "latent_image": [
+        "4",
+        2
+      ],
+      "seed": 22322,
+      "steps": 25,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0
+    }
+  },
+  "7": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "6",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "8": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "7",
+        0
+      ],
+      "filename_prefix": "rin_walk_near_sleeve_22322"
+    }
+  },
+  "L0": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "source-crop.png"
+    },
+    "is_changed": [
+      "d35005eeb49b8fed8f4567cb0bb5e36037dc328d5df8630a44d56fc1ad97d4e5"
+    ]
+  },
+  "A0": {
+    "class_type": "JoinImageWithAlpha",
+    "inputs": {
+      "image": [
+        "L0",
+        0
+      ],
+      "alpha": [
+        "L0",
+        1
+      ]
+    }
+  }
+}

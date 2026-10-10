@@ -1,0 +1,118 @@
+{
+  "status": "SOURCE SLEEVE ONLY; no runtime adoption",
+  "raw_sha256": "f3d42cbbc32ac4c237ed1dfbab240491a885d98269c1f67cdad8c601a655bae8",
+  "sam_sha256": "964e24b40b20eaeb762af54d72b5a6909841c5f908e80cfc40182b427c532317",
+  "source_size": [
+    384,
+    512
+  ],
+  "sam_threshold": 127,
+  "mask_expand_chebyshev_px": 2,
+  "reviewed_extra_edge_xy": [
+    [
+      65,
+      354
+    ],
+    [
+      65,
+      355
+    ],
+    [
+      65,
+      356
+    ],
+    [
+      65,
+      357
+    ]
+  ],
+  "edge_review": "At native black/gray/white, four alpha-2/3 cuff-edge samples lie outside the expanded SAM contour; retain them. Five alpha-2/3 outer-canvas corner pixels are background. No global alpha-floor conversion. SAM alone clips 524 material-core pixels and is rejected.",
+  "expected_retained_pixels": 34835,
+  "expected_bbox": [
+    59,
+    71,
+    240,
+    382
+  ],
+  "positive_xy": [
+    [
+      180,
+      110
+    ],
+    [
+      145,
+      180
+    ],
+    [
+      100,
+      276
+    ],
+    [
+      128,
+      349
+    ],
+    [
+      65,
+      355
+    ]
+  ],
+  "negative_xy": [
+    [
+      20,
+      20
+    ],
+    [
+      330,
+      250
+    ],
+    [
+      180,
+      460
+    ],
+    [
+      300,
+      100
+    ],
+    [
+      0,
+      3
+    ],
+    [
+      383,
+      510
+    ]
+  ],
+  "liked_standing_sha256": "401888dc14dcca469428e4df45c07648e36fd1822497031f8c28213fafc24fd9",
+  "cuff_opaque_polygon_xy": [
+    [
+      69,
+      351
+    ],
+    [
+      103,
+      344
+    ],
+    [
+      146,
+      351
+    ],
+    [
+      158,
+      369
+    ],
+    [
+      147,
+      381
+    ],
+    [
+      108,
+      381
+    ],
+    [
+      69,
+      367
+    ]
+  ],
+  "cuff_opaque_min_sam_inside_distance_px": 2.0,
+  "cuff_alpha_reason": "Native Forward+ black/gray/white capture revealed unintended background transmission through solid navy cuff material (alpha188 at120368; alpha189 at128349). Restore opacity only within the reviewed closed cuff-material polygon and SAM interior, preserving all RGB and outer antialias pixels. Raw generation retained unchanged."
+}
