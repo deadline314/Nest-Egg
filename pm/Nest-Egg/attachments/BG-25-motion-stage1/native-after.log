@@ -1,0 +1,41 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.305 - Forward+ - Using Device #0: Unknown - llvmpipe (LLVM 19.1.7, 256 bits)
+
+BG25_FRAME quality=0 index=0 clock=7.641232
+saved /workspace/Nest-Egg/work/bg25/verified-after/BG-25-water-q0-t0.png (OK)
+BG25_FRAME quality=0 index=1 clock=8.225350
+saved /workspace/Nest-Egg/work/bg25/verified-after/BG-25-water-q0-t1.png (OK)
+BG25_FRAME quality=0 index=2 clock=8.771232
+saved /workspace/Nest-Egg/work/bg25/verified-after/BG-25-water-q0-t2.png (OK)
+BG25_FRAME quality=1 index=0 clock=9.631050
+saved /workspace/Nest-Egg/work/bg25/verified-after/BG-25-water-q1-t0.png (OK)
+BG25_FRAME quality=1 index=1 clock=0.150399
+saved /workspace/Nest-Egg/work/bg25/verified-after/BG-25-water-q1-t1.png (OK)
+BG25_FRAME quality=1 index=2 clock=0.690673
+saved /workspace/Nest-Egg/work/bg25/verified-after/BG-25-water-q1-t2.png (OK)
+BG25_FRAME quality=2 index=0 clock=1.633732
+saved /workspace/Nest-Egg/work/bg25/verified-after/BG-25-water-q2-t0.png (OK)
+BG25_FRAME quality=2 index=1 clock=2.153635
+saved /workspace/Nest-Egg/work/bg25/verified-after/BG-25-water-q2-t1.png (OK)
+BG25_FRAME quality=2 index=2 clock=2.698985
+saved /workspace/Nest-Egg/work/bg25/verified-after/BG-25-water-q2-t2.png (OK)
+saved /workspace/Nest-Egg/work/bg25/verified-after/BG-25-paused.png (OK)
+BG25_PAUSE clock_before=3.230905 clock_after=3.230905
+saved /workspace/Nest-Egg/work/bg25/verified-after/BG-25-resumed.png (OK)
+saved /workspace/Nest-Egg/work/bg25/verified-after/BG-25-shooting.png (OK)
+BG25_PERF baseline=false samples_us=[109653, 98294, 104447, 105192, 103219, 106337, 128163, 117330, 106004, 117697, 106768, 122156, 141383, 120577, 134589, 156887, 134264, 164917, 138411, 159806, 136428, 153972, 143686, 168911, 145369, 161531, 196356, 213885, 196100, 199360, 193934, 191543, 193169, 141543, 180386, 164084, 148420, 171421, 108715, 134883, 159412, 131015, 153503, 160677, 144131, 128580, 124841, 149525, 215512, 170631, 167544, 191311, 161443, 178068, 132026, 133543, 141387, 124978, 113138, 158920] static_memory=150933503 texture_bytes=144710656 nodes=773
+saved /workspace/Nest-Egg/work/bg25/verified-after/BG-25-street-steam.png (OK)
+BG25_SWITCH cycle=1 local_released=true static_memory=149099206 nodes=89
+BG25_SWITCH cycle=2 local_released=true static_memory=149041890 nodes=89
+BG25_SWITCH cycle=3 local_released=true static_memory=149008224 nodes=89
+BG25_SWITCH cycle=4 local_released=true static_memory=149010180 nodes=89
+BG25_SWITCH cycle=5 local_released=true static_memory=149017214 nodes=89
+BG25_SWITCH cycle=6 local_released=true static_memory=149013448 nodes=89
+BG25_SWITCH cycle=7 local_released=true static_memory=149015164 nodes=89
+BG25_SWITCH cycle=8 local_released=true static_memory=149017492 nodes=89
+BG25_SWITCH cycle=9 local_released=true static_memory=149020156 nodes=89
+BG25_SWITCH cycle=10 local_released=true static_memory=149020960 nodes=89
+WARNING: 16 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 5 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

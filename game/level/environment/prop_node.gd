@@ -9,6 +9,7 @@ const SWAY_EMISSIVE_SHADER := preload("res://game/level/environment/sway_emissiv
 const GLOW_SCAN_SHADER := preload("res://game/level/environment/glow_scan.gdshader")
 const RIPPLE_SHADER := preload("res://game/level/environment/puddle_ripple.gdshader")
 const STEAM_INTERVAL := 0.3
+const LOCAL_FLOW := preload("res://game/level/environment/local_water_flow.gd")
 
 ## 搖動（幅度、是否懸掛、是否自發光）→ 共用材質（同設定的道具共用同一份，數量再多也只有幾份）。
 static var _sway_materials: Dictionary[Vector3, ShaderMaterial] = {}
@@ -60,6 +61,14 @@ func _ready() -> void:
 		_add_occluder()
 	if data.steam:
 		_add_steam_gate()
+	if data.has_local_flow():
+		if data.local_flow_valid() and ResourceLoader.exists(data.texture):
+			var flow := LOCAL_FLOW.new()
+			flow.name = "LocalWaterFlow"
+			add_child(flow)
+			flow.setup(data, sprite, _glow_sprite)
+		else:
+			push_warning("[PropNode] %s 局部水流 UV 無效，保留靜態圖" % data.id)
 	set_process(data.has_glow or data.light_radius > 0.0 or data.steam)
 	_time = randf() * 10.0
 
@@ -115,7 +124,7 @@ func _add_glow() -> void:
 	if data.sway > 0.0:
 		# 自發光層跟著本體一起搖（窗光生命與螢幕掃描在搖動的道具上不使用）
 		_glow_sprite.material = sway_material(data.sway, data.sway_hang, true)
-	elif data.ripple:
+	elif data.ripple and not data.has_local_flow():
 		_glow_sprite.material = ripple_material()
 	elif data.glow_life:
 		_glow_sprite.material = LightKit.window_life_material()
@@ -178,7 +187,7 @@ func _process(delta: float) -> void:
 		_steam_timer -= delta
 		if _steam_timer <= 0.0:
 			_steam_timer = STEAM_INTERVAL * randf_range(0.7, 1.4)
-			Fx.steam(global_position + data.steam_offset + Vector2(randf_range(-2.0, 2.0), 0.0))
+			Fx.steam(steam_world_position(Vector2(randf_range(-2.0, 2.0), 0.0)))
 	var gate := LightKit.power_gate(LightKit.lamp_power, _power_threshold) if data.light_radius > 0.0 else 1.0
 	var flick := 1.0
 	if data.flicker > 0.0:
@@ -189,3 +198,11 @@ func _process(delta: float) -> void:
 	if _glow_sprite != null:
 		var k := flick * gate if data.light_radius > 0.0 else flick
 		_glow_sprite.self_modulate = LightKit.glow(Color(1, 1, 1, clampf(k, 0.0, 1.0)), data.glow_intensity)
+
+
+## 噴口與本體同一座標契約：支援鏡像與父節點縮放，避免蒸汽離開真正噴口。
+func steam_world_position(jitter := Vector2.ZERO) -> Vector2:
+	var offset := data.steam_offset if data.steam_offset.is_finite() else Vector2.ZERO
+	if flip:
+		offset.x = data.size.x - offset.x
+	return to_global(offset + jitter)

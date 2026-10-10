@@ -40,6 +40,12 @@ const TEXTURE_SCALE := 4
 @export_range(0.0, 1.0) var glow_scan: float = 0.0
 ## 水窪：自發光層（霓虹倒影）上有雨滴漣漪向外擴散。
 @export var ripple: bool = false
+## BG-25：來源貼圖 UV 的局部水柱與承接面；零矩形表示保持原靜態圖。
+@export var flow_region: Rect2 = Rect2()
+@export var flow_surface: Rect2 = Rect2()
+## 水柱原圖亮部只保留克制反光，不模仿發光彈道。
+@export_range(0.0, 1.0) var flow_glow_gain: float = 0.4
+
 ## 冒蒸汽（煙囪、通風管）；位置相對於道具左上角。
 @export var steam: bool = false
 @export var steam_offset: Vector2 = Vector2.ZERO
@@ -59,8 +65,25 @@ func validate() -> PackedStringArray:
 		problems.append("道具 %s 標示有自發光層，但找不到：%s" % [id, glow_path()])
 	if size.x <= 0.0 or size.y <= 0.0:
 		problems.append("道具 %s 的大小無效" % id)
+	if has_local_flow() and not local_flow_valid():
+		problems.append("道具 %s 局部水流 UV 無效" % id)
 	return problems
 
 
 func glow_path() -> String:
 	return texture.get_basename() + "_glow." + texture.get_extension()
+
+
+func has_local_flow() -> bool:
+	return flow_region.size != Vector2.ZERO
+
+
+func local_flow_valid() -> bool:
+	if not is_finite(flow_glow_gain) or flow_glow_gain < 0.0 or flow_glow_gain > 1.0:
+		return false
+	for rect in [flow_region, flow_surface]:
+		if not rect.position.is_finite() or not rect.size.is_finite() or rect.size.x <= 0.0 or rect.size.y <= 0.0:
+			return false
+		if not Rect2(Vector2.ZERO, Vector2.ONE).encloses(rect):
+			return false
+	return flow_surface.position.y >= flow_region.end.y

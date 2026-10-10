@@ -16,6 +16,7 @@ func run() -> void:
 	_test_backdrop_import_scale()
 	_test_trees()
 	_test_prop_animation()
+	await _test_local_water_flow()
 	_test_foreground()
 	await _test_level_with_environment()
 	await _test_level_without_environment()
@@ -428,3 +429,58 @@ func _test_backdrop_import_scale() -> void:
 	check(is_equal_approx(layer.pixel_scale(texture), 0.25), "舊背景資料未記錄來源尺寸時保留原倍率")
 	check(is_equal_approx(StageLayers.sprite_scale({"source_width": 128, "scale": 0.25}, texture) * texture.get_width(), 32.0), "舞台縮圖不改家具世界寬度")
 	check(is_equal_approx(StageLayers.sprite_scale({"scale": 0.25}, texture), 0.25), "舊舞台資料保留原倍率")
+
+
+func _test_local_water_flow() -> void:
+	var source := load("res://data/environment/scene_props/anchor_phone_booth/anchor_phone_booth__gutter_downpipe.tres") as PropData
+	check(source != null and source.local_flow_valid(), "電話亭水流來源與承接面有效")
+	if source == null:
+		return
+	var prop := PropNode.new()
+	prop.setup(source, Vector2(80, 80), true)
+	runner.add_child(prop)
+	var flow: Node = prop.get_node("LocalWaterFlow")
+	check(flow != null and flow._materials.size() == 2, "base 與 glow 各一局部材質，不新增貼圖粒子")
+	check((prop.get_child(0) as Sprite2D).flip_h and prop._glow_sprite.flip_h, "base 與 glow 同步鏡像，shader 沿來源 UV 選區")
+	prop.scale = Vector2(2, 2)
+	check(prop.steam_world_position().is_equal_approx(prop.to_global(Vector2(source.size.x - source.steam_offset.x, source.steam_offset.y))), "噴口座標支援鏡像與父縮放")
+	# Headless suite cameras vary after other suites. Isolate the pause clock
+	# from asynchronous visibility notifications; real visibility is exercised
+	# by the chapter rendering probe and its ten zone transitions.
+	for child in prop.get_children():
+		if child is VisibleOnScreenNotifier2D:
+			child.queue_free()
+	await _motion_process_frames(2)
+	flow.on_screen = true
+	await _motion_process_frames(3)
+	var clock: float = flow.clock
+	runner.get_tree().paused = true
+	await _motion_process_frames(3)
+	check(is_equal_approx(flow.clock, clock), "真 SceneTree 暫停停止水流時鐘")
+	runner.get_tree().paused = false
+	flow.on_screen = true
+	await _motion_process_frames(3)
+	print("BG25_TEST_RESUME before=%f after=%f" % [clock, flow.clock])
+	check(flow.clock > clock, "恢復後水流繼續")
+	flow.on_screen = false
+	clock = flow.clock
+	await _motion_process_frames(3)
+	check(is_equal_approx(flow.clock, clock), "離開視野停止局部時計")
+	var weak: WeakRef = weakref(flow)
+	prop.queue_free()
+	await _motion_process_frames(2)
+	check(weak.get_ref() == null, "切區釋放局部元件與材質")
+	var bad := source.duplicate() as PropData
+	bad.flow_region = Rect2(-1, 0, 1, 1)
+	check(not bad.local_flow_valid() and not bad.validate().is_empty(), "損毀 UV 被驗證攔下")
+	var fallback := PropNode.new()
+	fallback.setup(bad, Vector2.ZERO)
+	runner.add_child(fallback)
+	check(not fallback.has_node("LocalWaterFlow"), "無效區域退回靜態原圖")
+	fallback.queue_free()
+	await _motion_process_frames(2)
+
+
+func _motion_process_frames(count: int) -> void:
+	for frame in count:
+		await runner.get_tree().process_frame
