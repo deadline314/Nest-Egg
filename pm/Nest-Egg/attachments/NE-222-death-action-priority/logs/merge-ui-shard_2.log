@@ -1,0 +1,68 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Identifier "DialogueMaterial" not declared in the current scope.
+   at: GDScript::reload (res://ui/dialogue_layer.gd:106)
+SCRIPT ERROR: Parse Error: Identifier "DialogueMaterial" not declared in the current scope.
+   at: GDScript::reload (res://ui/dialogue_layer.gd:169)
+SCRIPT ERROR: Parse Error: Identifier "DialogueMaterial" not declared in the current scope.
+   at: GDScript::reload (res://ui/dialogue_layer.gd:171)
+SCRIPT ERROR: Parse Error: Identifier "DialogueMaterial" not declared in the current scope.
+   at: GDScript::reload (res://ui/dialogue_layer.gd:220)
+SCRIPT ERROR: Parse Error: Identifier "DialogueMaterial" not declared in the current scope.
+   at: GDScript::reload (res://ui/dialogue_layer.gd:290)
+SCRIPT ERROR: Parse Error: Identifier "DialogueMaterial" not declared in the current scope.
+   at: GDScript::reload (res://ui/dialogue_layer.gd:297)
+SCRIPT ERROR: Parse Error: Identifier "DialogueMaterial" not declared in the current scope.
+   at: GDScript::reload (res://ui/dialogue_layer.gd:301)
+SCRIPT ERROR: Parse Error: Identifier "DialogueMaterial" not declared in the current scope.
+   at: GDScript::reload (res://ui/dialogue_layer.gd:399)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "box" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://ui/dialogue_layer.gd:399)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://game/level/map_bubbles.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://autoload/story.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://game/level/world_prompt.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://game/vehicles/vehicle.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://game/player/player.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://game/pickups/pickup.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://game/pickups/health_pickup.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://game/enemies/enemy.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://autoload/feel.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://autoload/sfx.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://ui/kit/ui_button.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://ui/ui_kit.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://autoload/settings.gd:0)
+ERROR: Failed to load script "res://autoload/settings.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+SCRIPT ERROR: Parse Error: Identifier "ContextualUiChecks" not declared in the current scope.
+   at: GDScript::reload (res://tests/suite/test_ui_screens.gd:25)
+SCRIPT ERROR: Parse Error: Identifier "ContextualPriorityChecks" not declared in the current scope.
+   at: GDScript::reload (res://tests/suite/test_ui_screens.gd:26)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://tests/smoke_test.gd:0)
+ERROR: Failed to load script "res://tests/smoke_test.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: _ready (res://autoload/story.gd:133)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://autoload/story.gd:133)
+== Nest Egg smoke test ==
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: _suites (res://tests/smoke_test.gd:86)
+   GDScript backtrace (most recent call first):
+       [0] _suites (res://tests/smoke_test.gd:86)
+       [1] _run_suites (res://tests/smoke_test.gd:105)
+       [2] _run (res://tests/smoke_test.gd:38)
+checks: 0, failures: 0

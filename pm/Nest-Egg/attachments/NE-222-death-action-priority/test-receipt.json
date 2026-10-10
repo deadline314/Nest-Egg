@@ -1,0 +1,49 @@
+{
+  "tested_base": "978cbc497061d779e52573017e4724800d120604",
+  "changed_runtime_and_test_files": [
+    "game/rig/humanoid_animator.gd",
+    "tests/suite/test_rig_actions.gd"
+  ],
+  "selection": "tools/run_tests_changed.sh with the exact tested base",
+  "affected": {
+    "groups": 50,
+    "processes": 8,
+    "checks": 17212,
+    "new_failures": 0,
+    "known_failures": 0,
+    "exit": 0,
+    "wall_seconds": 186
+  },
+  "supplement": {
+    "groups": [
+      "HeavyEnemiesSuite",
+      "HitReactionSuite"
+    ],
+    "checks": 415,
+    "failures": 0,
+    "exit": 0
+  },
+  "regression": {
+    "checks": 4382,
+    "before_failures": 24,
+    "after_failures": 0
+  },
+  "public_fixture_preflight": {
+    "checks": 36,
+    "failures": 0,
+    "exit": 0
+  },
+  "captured_base": "a5efd3e48d85b10addfbdbda198cb7f2c395c1af",
+  "limits": "staged real Hurtbox death; not full pose, anatomy, joint, ground contact or organic combat acceptance",
+  "merged_base": "82882bb455ad2d57a5904a6cfbdf6b9c8d6645fa",
+  "merge_regression": {
+    "groups": 8,
+    "processes": 4,
+    "checks": 5050,
+    "new_failures": 0,
+    "known_failures": 0,
+    "exit": 0,
+    "wall_seconds": 28
+  },
+  "initial_merge_attempt": "Invalid: new DialogueMaterial global class was absent in the old Godot cache; script errors and 0 checks. Reimported latest main before the successful merge regression. Original failed logs are preserved."
+}

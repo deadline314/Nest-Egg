@@ -1,0 +1,11 @@
+受影響的測試：AmmoIconsSuite,AmmoTraySuite,AnimAuditSuite,ApplyPanelSuite,Chapter1MapSuite,Chapter2ExpansionSuite,Chapter2Suite,ChapterCutscenesSuite,CharactersSuite,ClipEditorSuite,CollectiblesSuite,CombatHudSuite,ContinuitySuite,CutsceneSuite,DeathFlowSuite,DeathReactionSuite,EconomySuite,FeelSuite,FxMeleePickupsSuite,FxUpgradesSuite,InputFeelSuite,LayerOrderSuite,LocomotionSuite,MeleeSuite,MusicSuite,NpcAnimationSuite,NpcLifeSuite,NpcSuite,PacingSuite,PhoneBoothSuite,PoseMeshSuite,PostureSuite,PropsSuite,ProtagonistMotionSuite,QuestMapSuite,ReadabilityTargetsSuite,RigActionsSuite,RigMeshSuite,RunSaveSuite,SceneSanitySuite,SoundLabSuite,SoundStageSuite,StageCoverageCharactersSuite,StageCoverageWeaponsSuite,StageCoverageWorldSuite,StrikeEnemiesSuite,SupplySuite,TransitionSuite,UiScreensSuite,main
+Running 50 groups in 8 processes (logs: D:/NestEggVerification/ne90-cache-0a09/.godot/ne222-death-action-priority/affected-latest)
+  process 0 (estimated 240 s): main
+  process 1 (estimated 175 s): UiScreensSuite,SoundStageSuite,QuestMapSuite,NpcSuite,InputFeelSuite,CutsceneSuite,Chapter2Suite
+  process 2 (estimated 175 s): TransitionSuite,SoundLabSuite,ProtagonistMotionSuite,NpcLifeSuite,FxUpgradesSuite,ContinuitySuite,Chapter2ExpansionSuite
+  process 3 (estimated 175 s): SupplySuite,SceneSanitySuite,PropsSuite,NpcAnimationSuite,FxMeleePickupsSuite,CombatHudSuite,Chapter1MapSuite
+  process 4 (estimated 175 s): StrikeEnemiesSuite,RunSaveSuite,PostureSuite,MusicSuite,FeelSuite,CollectiblesSuite,ApplyPanelSuite
+  process 5 (estimated 175 s): StageCoverageWorldSuite,RigMeshSuite,PoseMeshSuite,MeleeSuite,EconomySuite,ClipEditorSuite,AnimAuditSuite
+  process 6 (estimated 175 s): StageCoverageWeaponsSuite,RigActionsSuite,PhoneBoothSuite,LocomotionSuite,DeathReactionSuite,CharactersSuite,AmmoTraySuite
+  process 7 (estimated 175 s): StageCoverageCharactersSuite,ReadabilityTargetsSuite,PacingSuite,LayerOrderSuite,DeathFlowSuite,ChapterCutscenesSuite,AmmoIconsSuite
+checks: 17212, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 186 s)

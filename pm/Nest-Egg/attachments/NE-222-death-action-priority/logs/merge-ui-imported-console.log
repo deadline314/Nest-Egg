@@ -1,0 +1,6 @@
+Running 8 groups in 4 processes (logs: D:/NestEggVerification/ne90-cache-0a09/.godot/ne222-death-action-priority/merge-ui-imported)
+  process 0 (estimated 25 s): WorldPromptSuite
+  process 1 (estimated 25 s): MapBubblesSuite
+  process 2 (estimated 11 s): UiScreensSuite,RigActionsSuite
+  process 3 (estimated 9 s): CutsceneSuite,CombatHudSuite,ReadabilityTargetsSuite,ChapterCutscenesSuite
+checks: 5050, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 28 s)

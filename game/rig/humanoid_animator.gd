@@ -865,6 +865,12 @@ func _reach_arm(upper: StringName, lower: StringName, hand: StringName, target: 
 
 ## 專屬動作：把目前進度的骨頭角度（keys 之間緩動內插）依權重混進目標姿勢；沒有動作時權重淡出到 0。
 func _apply_action(delta: float, input: RigInput, target: Dictionary) -> void:
+	if input.dead:
+		_action_w = 0.0
+		_action_pose.clear()
+		_action_skip_ik = false
+		_action_weapon_angle = NAN
+		return
 	var def: Dictionary = {}
 	if input.action != &"":
 		var actions: Variant = RigLibrary.load_json(ACTIONS_PATH).get("actions", {})

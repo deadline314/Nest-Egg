@@ -10,6 +10,7 @@ const SKINS: Array[String] = ["trooper", "warden", "rin"]
 func run() -> void:
 	_test_data()
 	await _test_playback()
+	await _test_death_overrides_enemy_actions()
 	await _test_unknown_action()
 	await _test_hands_follow_forearm()
 	await _test_enemy_data()
@@ -73,6 +74,71 @@ func _test_playback() -> void:
 	input.action = &""
 	var after := await _rig("trooper", input, 80)
 	check(absf(after.bone(&"arm_front_upper").rotation - idle_arm) < 0.3, "after the action the arm goes back to the normal pose")
+
+
+## Enemy FSMs stop ticking after death and can leave their last action set. Death must take priority in the shared animator.
+func _test_death_overrides_enemy_actions() -> void:
+	var cases: Array[Dictionary] = [
+		{"skin": "enforcer", "action": &"shield_rusher.stagger_back"},
+		{"skin": "heavy_gunner", "action": &"heavy_gunner.vent"},
+		{"skin": "warden", "action": &"warden.vent"},
+	]
+	for case: Dictionary in cases:
+		for facing in [-1, 1]:
+			for force in [0.0, 1.0]:
+				var action_input := RigInput.new()
+				action_input.facing = facing
+				action_input.action = case["action"]
+				action_input.action_t = 1.0
+				var action_rig := await _rig(case["skin"], action_input, 90)
+				check(float(action_rig.animator._action_w) > 0.99, "%s action is active before death (facing %d, force %.1f)" % [case["skin"], facing, force])
+				var action_chest := action_rig.bone(&"chest").rotation
+
+				var clear_input := RigInput.new()
+				clear_input.facing = facing
+				var clear_rig := await _rig(case["skin"], clear_input, 90)
+				check(absf(action_chest - clear_rig.bone(&"chest").rotation) > 0.025, "%s action changes the living pose before death" % case["skin"])
+
+				action_input.dead = true
+				action_input.death_dir = -1.0 if facing < 0 else 1.0
+				action_input.death_force = force
+				clear_input.dead = true
+				clear_input.death_dir = action_input.death_dir
+				clear_input.death_force = force
+				for frame in 90:
+					action_rig.animate(1.0 / 60.0, action_input)
+					clear_rig.animate(1.0 / 60.0, clear_input)
+				var action_pose := _death_pose_signature(action_rig)
+				var clear_pose := _death_pose_signature(clear_rig)
+				check(_pose_distance(action_pose, clear_pose) < 0.001, "%s death pose ignores the stale action (facing %d, force %.1f; delta %.5f)" % [case["skin"], facing, force, _pose_distance(action_pose, clear_pose)])
+				check(float(action_rig.animator._action_w) <= 0.001, "%s clears action weight while dead" % case["skin"])
+				check(not action_rig.weapon_root().visible, "%s hides weapon while dead" % case["skin"])
+
+				# Clearing the action and reviving must not resurrect stale action state.
+				action_input.dead = false
+				action_input.action = &""
+				clear_input.dead = false
+				for frame in 90:
+					action_rig.animate(1.0 / 60.0, action_input)
+					clear_rig.animate(1.0 / 60.0, clear_input)
+				check(float(action_rig.animator._action_w) <= 0.001, "%s has no stale action after revival" % case["skin"])
+				check(_pose_distance(_death_pose_signature(action_rig), _death_pose_signature(clear_rig)) < 0.001, "%s returns to the same non-action pose after revival" % case["skin"])
+				action_rig.get_parent().queue_free()
+				clear_rig.get_parent().queue_free()
+
+
+func _death_pose_signature(rig: CharacterRig) -> PackedFloat32Array:
+	var values := PackedFloat32Array([rig.animator._hip_offset.x, rig.animator._hip_offset.y])
+	for bone_name: StringName in [&"hip", &"chest", &"head", &"leg_front_upper", &"leg_front_lower", &"leg_back_upper", &"leg_back_lower"]:
+		values.append(rig.bone(bone_name).rotation)
+	return values
+
+
+func _pose_distance(a: PackedFloat32Array, b: PackedFloat32Array) -> float:
+	var difference := 0.0
+	for i in a.size():
+		difference = maxf(difference, absf(a[i] - b[i]))
+	return difference
 
 
 ## 手的貼圖朝 +X 畫：手臂垂下、沒握武器的手要順著前臂（不然手腕折成直角）；人物與 NPC 站著、走路、蹲下都一樣。

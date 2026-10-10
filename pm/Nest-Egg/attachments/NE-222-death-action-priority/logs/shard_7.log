@@ -1,0 +1,29 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/ammo/test_missing_ammo.png
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] texture (res://game/rig/rig_library.gd:81)
+       [2] texture (res://core/ammo_icons.gd:36)
+       [3] _test_missing_icon (res://tests/suite/test_ammo_icons.gd:48)
+       [4] run (res://tests/suite/test_ammo_icons.gd:10)
+       [5] _run_suites (res://tests/smoke_test.gd:109)
+       [6] _run (res://tests/smoke_test.gd:38)
+SUITE_TIME AmmoIconsSuite 1.2
+SUITE_TIME ChapterCutscenesSuite 0.3
+ERROR: [Level] ch1_stall 沒有電話亭可登記復原點（res://data/levels/ch1_stall_map.json），重生會退回區域起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _register_nearest_checkpoint (res://game/level/level.gd:902)
+       [1] _test_unfinished_scene_plays_again (res://tests/suite/test_death_flow.gd:204)
+       [2] spawn_level (res://tests/suite/test_suite.gd:43)
+       [3] frames (res://tests/suite/test_suite.gd:23)
+       [4] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME DeathFlowSuite 5.4
+SUITE_TIME PacingSuite 0.1
+SUITE_TIME LayerOrderSuite 2.1
+SUITE_TIME StageCoverageCharactersSuite 37.4
+SUITE_TIME ReadabilityTargetsSuite 0.1
+checks: 498, failures: 0

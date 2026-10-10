@@ -1,0 +1,135 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME TransitionSuite 4.0
+SUITE_TIME NpcLifeSuite 4.2
+WARN 場景「c2_boss_intro」沒有任何地方引用
+WARN 場景「c2_epilogue」沒有任何地方引用
+WARN 場景「c2_memory」沒有任何地方引用
+WARN 場景「c2_prologue」沒有任何地方引用
+WARN 場景「epilogue」沒有任何地方引用
+WARN 場景「prologue」沒有任何地方引用
+WARN 場景「radio_arm」沒有任何地方引用
+ERROR: [Level] ch1_stall 沒有電話亭可登記復原點（res://data/levels/ch1_stall_map.json），重生會退回區域起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _register_nearest_checkpoint (res://game/level/level.gd:902)
+       [1] _run_death_scene (res://game/level/level.gd:891)
+       [2] _play_flow_scene (res://game/level/level.gd:1105)
+       [3] play_and_wait (res://autoload/story.gd:672)
+       [4] _complete_request (res://autoload/story.gd:680)
+       [5] _on_cinematic_finished (res://autoload/story.gd:737)
+       [6] _finish_auto_skip (res://autoload/story.gd:720)
+WARNING: [Story] 找不到劇情場景：test_no_such_scene
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _enqueue_request (res://autoload/story.gd:622)
+       [1] play_and_wait (res://autoload/story.gd:664)
+       [2] _play_flow_scene (res://game/level/level.gd:1104)
+       [3] _run_death_scene (res://game/level/level.gd:887)
+       [4] _test_death_matrix (res://tests/suite/test_continuity.gd:313)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Level] ch1_booth_alley 的復原點位置無效（(0.0, 0.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _checked_checkpoint_position (res://game/level/level.gd:779)
+       [1] _entry_position (res://game/level/level.gd:769)
+       [2] _spawn_player (res://game/level/level.gd:730)
+       [3] _ready (res://game/level/level.gd:183)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_lost_checkpoint_field (res://tests/suite/test_continuity.gd:207)
+       [6] run (res://tests/suite/test_continuity.gd:21)
+       [7] _test_death_matrix (res://tests/suite/test_continuity.gd:316)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:605)
+       [10] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Level] ch1_booth_alley 的復原點位置無效（(-500.0, 100.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _checked_checkpoint_position (res://game/level/level.gd:779)
+       [1] _entry_position (res://game/level/level.gd:769)
+       [2] _spawn_player (res://game/level/level.gd:730)
+       [3] _ready (res://game/level/level.gd:183)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_lost_checkpoint_field (res://tests/suite/test_continuity.gd:207)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Level] ch1_booth_alley 的復原點位置無效（(99999.0, 99999.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _checked_checkpoint_position (res://game/level/level.gd:779)
+       [1] _entry_position (res://game/level/level.gd:769)
+       [2] _spawn_player (res://game/level/level.gd:730)
+       [3] _ready (res://game/level/level.gd:183)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_lost_checkpoint_field (res://tests/suite/test_continuity.gd:207)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Level] ch1_stall 的復原點位置無效（(0.0, 0.0)，地圖範圍 [P: (0.0, 0.0), S: (768.0, 384.0)]），改用最近的電話亭或起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _checked_checkpoint_position (res://game/level/level.gd:779)
+       [1] _entry_position (res://game/level/level.gd:769)
+       [2] _spawn_player (res://game/level/level.gd:730)
+       [3] _ready (res://game/level/level.gd:183)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_lost_checkpoint_field (res://tests/suite/test_continuity.gd:217)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME ContinuitySuite 44.7
+LEGACY_GRIP trooper_elite/rifle facing 1 speed 46.0 front=0.000 back=0.000
+LEGACY_GRIP trooper_elite/rifle facing 1 speed 92.0 front=0.000 back=0.000
+LEGACY_GRIP trooper_elite/rifle facing -1 speed 46.0 front=0.000 back=0.000
+LEGACY_GRIP trooper_elite/rifle facing -1 speed 92.0 front=0.000 back=0.000
+LEGACY_GRIP flamer/flamethrower facing 1 speed 28.0 front=0.000 back=0.000
+LEGACY_GRIP flamer/flamethrower facing 1 speed 56.0 front=0.000 back=0.000
+LEGACY_GRIP flamer/flamethrower facing -1 speed 28.0 front=0.000 back=0.000
+LEGACY_GRIP flamer/flamethrower facing -1 speed 56.0 front=0.000 back=0.000
+LEGACY_GRIP grenadier/launcher facing 1 speed 55.0 front=0.000 back=0.000
+LEGACY_GRIP grenadier/launcher facing 1 speed 110.0 front=0.000 back=0.000
+LEGACY_GRIP grenadier/launcher facing -1 speed 55.0 front=0.000 back=0.000
+LEGACY_GRIP grenadier/launcher facing -1 speed 110.0 front=0.000 back=0.000
+LEGACY_GRIP sniper/sniper facing 1 speed 22.0 front=0.000 back=0.000
+LEGACY_GRIP sniper/sniper facing 1 speed 44.0 front=0.000 back=0.000
+LEGACY_GRIP sniper/sniper facing -1 speed 22.0 front=0.000 back=0.000
+LEGACY_GRIP sniper/sniper facing -1 speed 44.0 front=0.000 back=0.000
+LEGACY_GRIP stalker/rifle facing 1 speed 46.0 front=0.000 back=0.000
+LEGACY_GRIP stalker/rifle facing 1 speed 92.0 front=0.000 back=0.000
+LEGACY_GRIP stalker/rifle facing -1 speed 46.0 front=0.000 back=0.000
+LEGACY_GRIP stalker/rifle facing -1 speed 92.0 front=0.000 back=0.000
+SUITE_TIME ProtagonistMotionSuite 1.2
+SUITE_TIME Chapter2ExpansionSuite 27.5
+SUITE_TIME FxUpgradesSuite 10.0
+ERROR: 音效實驗室：版面比例檔 user://test_audio_lab_layout.cfg 的 [split_ratios] rows 不是 0.1 到 0.9 的數字，改用預設比例
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _load (res://tools/sound_lab/lab_layout.gd:66)
+       [1] _init (res://tools/sound_lab/lab_layout.gd:19)
+       [2] _test_layout_store (res://tests/suite/test_sound_lab.gd:135)
+       [3] run (res://tests/suite/test_sound_lab.gd:18)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_fx_upgrades.gd:21)
+       [6] _test_environment (res://tests/suite/test_fx_upgrades.gd:297)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:605)
+       [9] _frames (res://tests/smoke_test.gd:122)
+ERROR: 音效實驗室：版面比例檔 user://test_audio_lab_layout.cfg 的 [split_ratios] cols 不是 0.1 到 0.9 的數字，改用預設比例
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _load (res://tools/sound_lab/lab_layout.gd:66)
+       [1] _init (res://tools/sound_lab/lab_layout.gd:19)
+       [2] _test_layout_store (res://tests/suite/test_sound_lab.gd:135)
+       [3] run (res://tests/suite/test_sound_lab.gd:18)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_fx_upgrades.gd:21)
+       [6] _test_environment (res://tests/suite/test_fx_upgrades.gd:297)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:605)
+       [9] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME SoundLabSuite 2.6
+checks: 3279, failures: 0

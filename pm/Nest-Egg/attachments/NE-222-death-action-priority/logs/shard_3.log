@@ -1,0 +1,107 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME PropsSuite 10.2
+SUITE_TIME SupplySuite 8.0
+SUITE_TIME CombatHudSuite 4.8
+ERROR: [NpcAnimator] res://art/rigs/npc_animations.json 沒有 poses「no_such_pose」，改用「stand」。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _entry (res://game/rig/npc_animator.gd:191)
+       [1] _body_pose (res://game/rig/npc_animator.gd:50)
+       [2] update (res://game/rig/humanoid_animator.gd:242)
+       [3] animate (res://game/rig/character_rig.gd:217)
+       [4] _rig_with (res://tests/suite/test_npc_animation.gd:30)
+       [5] _test_fallbacks (res://tests/suite/test_npc_animation.gd:179)
+       [6] run (res://tests/suite/test_npc_animation.gd:16)
+       [7] _test_loops (res://tests/suite/test_npc_animation.gd:162)
+       [8] _rig_with (res://tests/suite/test_npc_animation.gd:32)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:122)
+ERROR: [NpcAnimator] res://art/rigs/npc_animations.json 沒有 loops「no_such_loop」，改用無。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _entry (res://game/rig/npc_animator.gd:191)
+       [1] _body_pose (res://game/rig/npc_animator.gd:78)
+       [2] update (res://game/rig/humanoid_animator.gd:242)
+       [3] animate (res://game/rig/character_rig.gd:217)
+       [4] _rig_with (res://tests/suite/test_npc_animation.gd:30)
+       [5] _test_fallbacks (res://tests/suite/test_npc_animation.gd:179)
+       [6] run (res://tests/suite/test_npc_animation.gd:16)
+       [7] _test_loops (res://tests/suite/test_npc_animation.gd:162)
+       [8] _rig_with (res://tests/suite/test_npc_animation.gd:32)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME NpcAnimationSuite 2.2
+SUITE_TIME SceneSanitySuite 1.6
+ERROR: [MeleeSet] 無法讀取近戰資料：res://data/melee/test_no_such_attack.json（需要 attacks 字典），改用內建預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_loaded (res://game/player/melee_set.gd:37)
+       [1] attack (res://game/player/melee_set.gd:83)
+       [2] _test_melee_data (res://tests/suite/test_fx_melee_pickups.gd:103)
+       [3] run (res://tests/suite/test_fx_melee_pickups.gd:13)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_npc_animation.gd:19)
+       [6] _test_springs_add_to_authored_pose (res://tests/suite/test_npc_animation.gd:282)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:122)
+ERROR: [MeleeSet] res://data/melee/test_no_such_attack.json 沒有招式「x」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:87)
+       [1] _test_melee_data (res://tests/suite/test_fx_melee_pickups.gd:103)
+       [2] run (res://tests/suite/test_fx_melee_pickups.gd:13)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_npc_animation.gd:19)
+       [5] _test_springs_add_to_authored_pose (res://tests/suite/test_npc_animation.gd:282)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+FX_PERF idle=1.18 ms, 12 explosions=3.85 ms per frame, particles=291, nodes +0
+SUITE_TIME FxMeleePickupsSuite 19.0
+WARNING: [AssetPrefetch] 找不到要預載的貼圖：res://art/no_such_prefetch_texture.png
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:107)
+       [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:533)
+       [2] run (res://tests/suite/test_ch1_map.gd:44)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_fx_melee_pickups.gd:20)
+       [5] _test_explosion_budget (res://tests/suite/test_fx_melee_pickups.gd:219)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://data/levels/no_such_level.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _resolve_level (res://core/asset_prefetch.gd:60)
+       [1] warm_level (res://core/asset_prefetch.gd:45)
+       [2] _test_prefetch (res://tests/suite/test_ch1_map.gd:535)
+       [3] run (res://tests/suite/test_ch1_map.gd:44)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_fx_melee_pickups.gd:20)
+       [6] _test_explosion_budget (res://tests/suite/test_fx_melee_pickups.gd:219)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:605)
+       [9] _frames (res://tests/smoke_test.gd:122)
+WARNING: [AssetPrefetch] 待載已達 512，略過本次剩餘貼圖（首項：res://art/characters/trooper_elite/parts/armor_chest.png）。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:110)
+       [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:592)
+       [2] _prefetch_drain (res://tests/suite/test_ch1_map.gd:613)
+WARNING: [AssetPrefetch] 待載已達 512，略過本次剩餘貼圖（首項：res://art/creatures/tangle_wire/body_n.png）。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:110)
+       [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:592)
+       [2] _prefetch_drain (res://tests/suite/test_ch1_map.gd:613)
+SUITE_TIME Chapter1MapSuite 49.9
+checks: 2219, failures: 0
+ERROR: 6 RID allocations of type 'P11GodotArea2D' were leaked at exit.
+WARNING: 6 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 16 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

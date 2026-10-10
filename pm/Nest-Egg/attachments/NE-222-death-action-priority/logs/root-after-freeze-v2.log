@@ -1,0 +1,21 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 SUPER
+
+CAPTURE_FIXTURE_READY
+DEATH_ACTION_CAPTURE_START staged_fsm=true facing=1 incoming=front
+CAPTURE_LEVEL_START
+CAPTURE_LEVEL_ADDED
+CAPTURE_LEVEL_FRAMES
+CAPTURE_SPAWN shield_rusher 1
+CAPTURE_ENEMY_ADDED shield_rusher
+CAPTURE_ENEMY_PHYSICS shield_rusher
+DEATH_CASE_BEGIN enforcer {"action_at_hit":"shield_rusher.stagger_back","action_t_at_hit":0.130718954248366,"front_hit":true,"hit_result":3,"physics_processing":true,"staged_fsm_state":"dazed"}
+CAPTURE_SPAWN heavy_gunner 1
+CAPTURE_ENEMY_ADDED heavy_gunner
+CAPTURE_ENEMY_PHYSICS heavy_gunner
+DEATH_CASE_BEGIN heavy_gunner {"action_at_hit":"heavy_gunner.vent","action_t_at_hit":0.0512820512820513,"front_hit":true,"hit_result":3,"physics_processing":true,"staged_fsm_state":"vent"}
+CAPTURE_SPAWN warden 1
+CAPTURE_ENEMY_ADDED warden
+CAPTURE_ENEMY_PHYSICS warden
+DEATH_CASE_BEGIN warden {"action_at_hit":"warden.vent","action_t_at_hit":0.0666666666666667,"front_hit":true,"hit_result":3,"physics_processing":true,"staged_fsm_state":"phase_shift"}
+DEATH_ACTION_CAPTURE_RESULT checks=158 failures=0 frames=15 output=D:/NestEggVerification/ne222-death-action-priority-fixed-freeze-v2

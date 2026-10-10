@@ -1,0 +1,1646 @@
+{
+	"checkout_head": "a5efd3e48d85b10addfbdbda198cb7f2c395c1af",
+	"checks": 158,
+	"enemy_physics_enabled": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"facing": 1,
+	"failures": [],
+	"frames": [
+		{
+			"action": "shield_rusher.stagger_back",
+			"action_at_capture": "shield_rusher.stagger_back",
+			"action_t": 0.065359477124183,
+			"action_t_at_capture": 0.065359477124183,
+			"action_weight_at_capture": 1.0,
+			"actor_bounds_screen": [
+				536.562866210938,
+				755.281188964844,
+				102.841064453125,
+				194.692932128906
+			],
+			"actor_bounds_world": [
+				419.589385986328,
+				256.792510986328,
+				30.2473754882813,
+				57.2626342773438
+			],
+			"actor_fully_in_frame": true,
+			"actual_death_time_at_capture": 0.0166666666666667,
+			"armor_open": false,
+			"camera_framing": "diagnostic_actor_bounds",
+			"camera_global_transform": [
+				[
+					1.0,
+					0.0
+				],
+				[
+					0.0,
+					1.0
+				],
+				[
+					434.713073730469,
+					285.423828125
+				]
+			],
+			"camera_zoom": [
+				3.40000009536743,
+				3.40000009536743
+			],
+			"capture_scene_tree_paused": true,
+			"capture_simulation_advanced": false,
+			"capture_source": "actual-hurtbox-death-timeline",
+			"content_scale_mode": 0,
+			"content_scale_size": [
+				640,
+				360
+			],
+			"core_damage_scale": 1.0,
+			"death_time_after_render_freeze": 0.0166666666666667,
+			"death_time_before_render_freeze": 0.0166666666666667,
+			"enemy_data": "res://data/enemies/shield_rusher.tres",
+			"enemy_dying": true,
+			"enemy_physics_processing": true,
+			"enemy_physics_processing_enabled_during_freeze": true,
+			"facing": 1,
+			"fsm_state": "dazed",
+			"fsm_state_at_capture": "dazed",
+			"fsm_time": 0.0166666666666667,
+			"fsm_time_at_capture": 0.0166666666666667,
+			"health_ratio": 0.0,
+			"image_sha256": "44176101d51084fc06323a1cf1e2ecea512680925c74e9444f5650c1bddbc8f2",
+			"image_size": [
+				1536,
+				1400
+			],
+			"muzzle_world": [
+				416.771484375,
+				270.003936767578
+			],
+			"old_action_at_hit": "shield_rusher.stagger_back",
+			"old_action_still_selected": true,
+			"path": "enforcer/death_t0p000_level_f1_z3.4_s0001_ft0p017_at0p065.png",
+			"physical_window_size": [
+				1536,
+				1400
+			],
+			"requested_zoom": 3.4,
+			"rig_dead_input": true,
+			"sample_target_death_time": 0.0,
+			"skin": "enforcer",
+			"state": "death_t0p000",
+			"target_angle": "level",
+			"viewport_canvas_transform": [
+				[
+					3.40000009536743,
+					0.0
+				],
+				[
+					0.0,
+					3.40000009536743
+				],
+				[
+					-890.041137695313,
+					-117.813354492188
+				]
+			],
+			"viewport_render_size": [
+				1536,
+				1400
+			],
+			"viewport_size": [
+				1536.0,
+				1400.0
+			],
+			"weapon_sprite_visible": true
+		},
+		{
+			"action": "shield_rusher.stagger_back",
+			"action_at_capture": "shield_rusher.stagger_back",
+			"action_t": 0.065359477124183,
+			"action_t_at_capture": 0.065359477124183,
+			"action_weight_at_capture": 1.0,
+			"actor_bounds_screen": [
+				663.977661132813,
+				786.575073242188,
+				203.467163085938,
+				100.249389648438
+			],
+			"actor_bounds_world": [
+				404.029388427734,
+				278.835296630859,
+				59.84326171875,
+				29.485107421875
+			],
+			"actor_fully_in_frame": true,
+			"actual_death_time_at_capture": 0.216666666666667,
+			"armor_open": false,
+			"camera_framing": "diagnostic_actor_bounds",
+			"camera_global_transform": [
+				[
+					1.0,
+					0.0
+				],
+				[
+					0.0,
+					1.0
+				],
+				[
+					433.951019287109,
+					293.577850341797
+				]
+			],
+			"camera_zoom": [
+				3.40000009536743,
+				3.40000009536743
+			],
+			"capture_scene_tree_paused": true,
+			"capture_simulation_advanced": false,
+			"capture_source": "actual-hurtbox-death-timeline",
+			"content_scale_mode": 0,
+			"content_scale_size": [
+				640,
+				360
+			],
+			"core_damage_scale": 1.0,
+			"death_time_after_render_freeze": 0.216666666666667,
+			"death_time_before_render_freeze": 0.216666666666667,
+			"enemy_data": "res://data/enemies/shield_rusher.tres",
+			"enemy_dying": true,
+			"enemy_physics_processing": true,
+			"enemy_physics_processing_enabled_during_freeze": true,
+			"facing": 1,
+			"fsm_state": "dazed",
+			"fsm_state_at_capture": "dazed",
+			"fsm_time": 0.0166666666666667,
+			"fsm_time_at_capture": 0.0166666666666667,
+			"health_ratio": 0.0,
+			"image_sha256": "6c2ee322cd447e95c248c77a8cb3ea53cd5340bda48b9e67013c92b45d6af9e7",
+			"image_size": [
+				1536,
+				1400
+			],
+			"muzzle_world": [
+				416.771484375,
+				273.300811767578
+			],
+			"old_action_at_hit": "shield_rusher.stagger_back",
+			"old_action_still_selected": true,
+			"path": "enforcer/death_t0p200_level_f1_z3.4_s0002_ft0p017_at0p065.png",
+			"physical_window_size": [
+				1536,
+				1400
+			],
+			"requested_zoom": 3.4,
+			"rig_dead_input": true,
+			"sample_target_death_time": 0.2,
+			"skin": "enforcer",
+			"state": "death_t0p200",
+			"target_angle": "level",
+			"viewport_canvas_transform": [
+				[
+					3.40000009536743,
+					0.0
+				],
+				[
+					0.0,
+					3.40000009536743
+				],
+				[
+					-709.722290039063,
+					-161.464935302734
+				]
+			],
+			"viewport_render_size": [
+				1536,
+				1400
+			],
+			"viewport_size": [
+				1536.0,
+				1400.0
+			],
+			"weapon_sprite_visible": true
+		},
+		{
+			"action": "shield_rusher.stagger_back",
+			"action_at_capture": "shield_rusher.stagger_back",
+			"action_t": 0.065359477124183,
+			"action_t_at_capture": 0.065359477124183,
+			"action_weight_at_capture": 1.0,
+			"actor_bounds_screen": [
+				667.03955078125,
+				758.875244140625,
+				202.6279296875,
+				103.647583007813
+			],
+			"actor_bounds_world": [
+				404.2705078125,
+				287.732543945313,
+				59.5964660644531,
+				30.4845581054688
+			],
+			"actor_fully_in_frame": true,
+			"actual_death_time_at_capture": 0.516666666666667,
+			"armor_open": false,
+			"camera_framing": "diagnostic_actor_bounds",
+			"camera_global_transform": [
+				[
+					1.0,
+					0.0
+				],
+				[
+					0.0,
+					1.0
+				],
+				[
+					434.068725585938,
+					302.974822998047
+				]
+			],
+			"camera_zoom": [
+				3.40000009536743,
+				3.40000009536743
+			],
+			"capture_scene_tree_paused": true,
+			"capture_simulation_advanced": false,
+			"capture_source": "actual-hurtbox-death-timeline",
+			"content_scale_mode": 0,
+			"content_scale_size": [
+				640,
+				360
+			],
+			"core_damage_scale": 1.0,
+			"death_time_after_render_freeze": 0.516666666666667,
+			"death_time_before_render_freeze": 0.516666666666667,
+			"enemy_data": "res://data/enemies/shield_rusher.tres",
+			"enemy_dying": true,
+			"enemy_physics_processing": true,
+			"enemy_physics_processing_enabled_during_freeze": true,
+			"facing": 1,
+			"fsm_state": "dazed",
+			"fsm_state_at_capture": "dazed",
+			"fsm_time": 0.0166666666666667,
+			"fsm_time_at_capture": 0.0166666666666667,
+			"health_ratio": 0.0,
+			"image_sha256": "3629e492a28d9b720b2a7160d4978f89cf5f1fd1b85fa1890ebe284274622c84",
+			"image_size": [
+				1536,
+				1400
+			],
+			"muzzle_world": [
+				416.771484375,
+				273.300811767578
+			],
+			"old_action_at_hit": "shield_rusher.stagger_back",
+			"old_action_still_selected": true,
+			"path": "enforcer/death_t0p500_level_f1_z3.4_s0003_ft0p017_at0p065.png",
+			"physical_window_size": [
+				1536,
+				1400
+			],
+			"requested_zoom": 3.4,
+			"rig_dead_input": true,
+			"sample_target_death_time": 0.5,
+			"skin": "enforcer",
+			"state": "death_t0p500",
+			"target_angle": "level",
+			"viewport_canvas_transform": [
+				[
+					3.40000009536743,
+					0.0
+				],
+				[
+					0.0,
+					3.40000009536743
+				],
+				[
+					-707.480224609375,
+					-219.415435791016
+				]
+			],
+			"viewport_render_size": [
+				1536,
+				1400
+			],
+			"viewport_size": [
+				1536.0,
+				1400.0
+			],
+			"weapon_sprite_visible": true
+		},
+		{
+			"action": "shield_rusher.stagger_back",
+			"action_at_capture": "shield_rusher.stagger_back",
+			"action_t": 0.065359477124183,
+			"action_t_at_capture": 0.065359477124183,
+			"action_weight_at_capture": 1.0,
+			"actor_bounds_screen": [
+				666.689880371094,
+				738.71044921875,
+				202.623657226563,
+				103.662292480469
+			],
+			"actor_bounds_world": [
+				404.271697998047,
+				287.724334716797,
+				59.5951843261719,
+				30.4888916015625
+			],
+			"actor_fully_in_frame": true,
+			"actual_death_time_at_capture": 0.800000000000001,
+			"armor_open": false,
+			"camera_framing": "diagnostic_actor_bounds",
+			"camera_global_transform": [
+				[
+					1.0,
+					0.0
+				],
+				[
+					0.0,
+					1.0
+				],
+				[
+					434.069274902344,
+					302.968780517578
+				]
+			],
+			"camera_zoom": [
+				3.40000009536743,
+				3.40000009536743
+			],
+			"capture_scene_tree_paused": true,
+			"capture_simulation_advanced": false,
+			"capture_source": "actual-hurtbox-death-timeline",
+			"content_scale_mode": 0,
+			"content_scale_size": [
+				640,
+				360
+			],
+			"core_damage_scale": 1.0,
+			"death_time_after_render_freeze": 0.800000000000001,
+			"death_time_before_render_freeze": 0.800000000000001,
+			"enemy_data": "res://data/enemies/shield_rusher.tres",
+			"enemy_dying": true,
+			"enemy_physics_processing": true,
+			"enemy_physics_processing_enabled_during_freeze": true,
+			"facing": 1,
+			"fsm_state": "dazed",
+			"fsm_state_at_capture": "dazed",
+			"fsm_time": 0.0166666666666667,
+			"fsm_time_at_capture": 0.0166666666666667,
+			"health_ratio": 0.0,
+			"image_sha256": "6c29e9e813bbe0b23204fe8183de6305582ec3e7ed3d02b1d1738652930bc645",
+			"image_size": [
+				1536,
+				1400
+			],
+			"muzzle_world": [
+				416.771484375,
+				273.300811767578
+			],
+			"old_action_at_hit": "shield_rusher.stagger_back",
+			"old_action_still_selected": true,
+			"path": "enforcer/death_t0p800_level_f1_z3.4_s0004_ft0p017_at0p065.png",
+			"physical_window_size": [
+				1536,
+				1400
+			],
+			"requested_zoom": 3.4,
+			"rig_dead_input": true,
+			"sample_target_death_time": 0.8,
+			"skin": "enforcer",
+			"state": "death_t0p800",
+			"target_angle": "level",
+			"viewport_canvas_transform": [
+				[
+					3.40000009536743,
+					0.0
+				],
+				[
+					0.0,
+					3.40000009536743
+				],
+				[
+					-707.833923339844,
+					-239.552307128906
+				]
+			],
+			"viewport_render_size": [
+				1536,
+				1400
+			],
+			"viewport_size": [
+				1536.0,
+				1400.0
+			],
+			"weapon_sprite_visible": true
+		},
+		{
+			"action": "shield_rusher.stagger_back",
+			"action_at_capture": "shield_rusher.stagger_back",
+			"action_t": 0.065359477124183,
+			"action_t_at_capture": 0.065359477124183,
+			"action_weight_at_capture": 1.0,
+			"actor_bounds_screen": [
+				666.688232421875,
+				941.629150390625,
+				202.623657226563,
+				103.662353515625
+			],
+			"actor_bounds_world": [
+				404.271697998047,
+				287.724334716797,
+				59.5951843261719,
+				30.4888916015625
+			],
+			"actor_fully_in_frame": true,
+			"actual_death_time_at_capture": 0.850000000000001,
+			"armor_open": false,
+			"camera_framing": "diagnostic_actor_bounds",
+			"camera_global_transform": [
+				[
+					1.0,
+					0.0
+				],
+				[
+					0.0,
+					1.0
+				],
+				[
+					434.069274902344,
+					302.968780517578
+				]
+			],
+			"camera_zoom": [
+				3.40000009536743,
+				3.40000009536743
+			],
+			"capture_scene_tree_paused": true,
+			"capture_simulation_advanced": false,
+			"capture_source": "actual-hurtbox-death-timeline",
+			"content_scale_mode": 0,
+			"content_scale_size": [
+				640,
+				360
+			],
+			"core_damage_scale": 1.0,
+			"death_time_after_render_freeze": 0.850000000000001,
+			"death_time_before_render_freeze": 0.850000000000001,
+			"enemy_data": "res://data/enemies/shield_rusher.tres",
+			"enemy_dying": true,
+			"enemy_physics_processing": true,
+			"enemy_physics_processing_enabled_during_freeze": true,
+			"facing": 1,
+			"fsm_state": "dazed",
+			"fsm_state_at_capture": "dazed",
+			"fsm_time": 0.0166666666666667,
+			"fsm_time_at_capture": 0.0166666666666667,
+			"health_ratio": 0.0,
+			"image_sha256": "36af52ae6c612d8ba8d9d3e7710bc128ad9c7ef50c3dfa01aaa794ae3f25c1cd",
+			"image_size": [
+				1536,
+				1400
+			],
+			"muzzle_world": [
+				416.771484375,
+				273.300811767578
+			],
+			"old_action_at_hit": "shield_rusher.stagger_back",
+			"old_action_still_selected": true,
+			"path": "enforcer/death_pre_fade_t0p840_level_f1_z3.4_s0005_ft0p017_at0p065.png",
+			"physical_window_size": [
+				1536,
+				1400
+			],
+			"pre_fade_sample": true,
+			"requested_zoom": 3.4,
+			"rig_dead_input": true,
+			"sample_target_death_time": 0.84,
+			"skin": "enforcer",
+			"state": "death_pre_fade_t0p840",
+			"target_angle": "level",
+			"viewport_canvas_transform": [
+				[
+					3.40000009536743,
+					0.0
+				],
+				[
+					0.0,
+					3.40000009536743
+				],
+				[
+					-707.835571289063,
+					-36.6335792541504
+				]
+			],
+			"viewport_render_size": [
+				1536,
+				1400
+			],
+			"viewport_size": [
+				1536.0,
+				1400.0
+			],
+			"weapon_sprite_visible": true
+		},
+		{
+			"action": "heavy_gunner.vent",
+			"action_at_capture": "heavy_gunner.vent",
+			"action_t": 0.0512820512820513,
+			"action_t_at_capture": 0.0512820512820513,
+			"action_weight_at_capture": 0.5,
+			"actor_bounds_screen": [
+				507.090942382813,
+				630.698059082031,
+				138.124633789063,
+				238.516296386719
+			],
+			"actor_bounds_world": [
+				410.461578369141,
+				246.328826904297,
+				40.6249084472656,
+				70.1518249511719
+			],
+			"actor_fully_in_frame": true,
+			"actual_death_time_at_capture": 0.0166666666666667,
+			"armor_open": true,
+			"camera_framing": "diagnostic_actor_bounds",
+			"camera_global_transform": [
+				[
+					1.0,
+					0.0
+				],
+				[
+					0.0,
+					1.0
+				],
+				[
+					430.774047851563,
+					281.404724121094
+				]
+			],
+			"camera_zoom": [
+				3.40000009536743,
+				3.40000009536743
+			],
+			"capture_scene_tree_paused": true,
+			"capture_simulation_advanced": false,
+			"capture_source": "actual-hurtbox-death-timeline",
+			"content_scale_mode": 0,
+			"content_scale_size": [
+				640,
+				360
+			],
+			"core_damage_scale": 1.0,
+			"death_time_after_render_freeze": 0.0166666666666667,
+			"death_time_before_render_freeze": 0.0166666666666667,
+			"enemy_data": "res://data/enemies/heavy_gunner.tres",
+			"enemy_dying": true,
+			"enemy_physics_processing": true,
+			"enemy_physics_processing_enabled_during_freeze": true,
+			"facing": 1,
+			"fsm_state": "vent",
+			"fsm_state_at_capture": "vent",
+			"fsm_time": 0.0333333333333333,
+			"fsm_time_at_capture": 0.0333333333333333,
+			"health_ratio": 0.0,
+			"image_sha256": "76dd724b7e8978e43d6eeb884bc67384240421df15e5a8f5aa765903b2f58f76",
+			"image_size": [
+				1536,
+				1400
+			],
+			"muzzle_world": [
+				402.927001953125,
+				266.119354248047
+			],
+			"old_action_at_hit": "heavy_gunner.vent",
+			"old_action_still_selected": true,
+			"path": "heavy_gunner/death_t0p000_level_f1_z3.4_s0006_ft0p033_at0p051.png",
+			"physical_window_size": [
+				1536,
+				1400
+			],
+			"requested_zoom": 3.4,
+			"rig_dead_input": true,
+			"sample_target_death_time": 0.0,
+			"skin": "heavy_gunner",
+			"state": "death_t0p000",
+			"target_angle": "level",
+			"viewport_canvas_transform": [
+				[
+					3.40000009536743,
+					0.0
+				],
+				[
+					0.0,
+					3.40000009536743
+				],
+				[
+					-888.478515625,
+					-206.819931030273
+				]
+			],
+			"viewport_render_size": [
+				1536,
+				1400
+			],
+			"viewport_size": [
+				1536.0,
+				1400.0
+			],
+			"weapon_sprite_visible": true
+		},
+		{
+			"action": "heavy_gunner.vent",
+			"action_at_capture": "heavy_gunner.vent",
+			"action_t": 0.0512820512820513,
+			"action_t_at_capture": 0.0512820512820513,
+			"action_weight_at_capture": 1.0,
+			"actor_bounds_screen": [
+				687.424987792969,
+				765.641662597656,
+				194.81201171875,
+				144.380249023438
+			],
+			"actor_bounds_world": [
+				407.729339599609,
+				269.929443359375,
+				57.2976379394531,
+				42.4647827148438
+			],
+			"actor_fully_in_frame": true,
+			"actual_death_time_at_capture": 0.216666666666667,
+			"armor_open": true,
+			"camera_framing": "diagnostic_actor_bounds",
+			"camera_global_transform": [
+				[
+					1.0,
+					0.0
+				],
+				[
+					0.0,
+					1.0
+				],
+				[
+					436.378173828125,
+					291.161834716797
+				]
+			],
+			"camera_zoom": [
+				3.40000009536743,
+				3.40000009536743
+			],
+			"capture_scene_tree_paused": true,
+			"capture_simulation_advanced": false,
+			"capture_source": "actual-hurtbox-death-timeline",
+			"content_scale_mode": 0,
+			"content_scale_size": [
+				640,
+				360
+			],
+			"core_damage_scale": 1.0,
+			"death_time_after_render_freeze": 0.216666666666667,
+			"death_time_before_render_freeze": 0.216666666666667,
+			"enemy_data": "res://data/enemies/heavy_gunner.tres",
+			"enemy_dying": true,
+			"enemy_physics_processing": true,
+			"enemy_physics_processing_enabled_during_freeze": true,
+			"facing": 1,
+			"fsm_state": "vent",
+			"fsm_state_at_capture": "vent",
+			"fsm_time": 0.0333333333333333,
+			"fsm_time_at_capture": 0.0333333333333333,
+			"health_ratio": 0.0,
+			"image_sha256": "0f087ce113f06f27ca60601f37c2be92da566b9cfa1146ed592ae1d64d63b254",
+			"image_size": [
+				1536,
+				1400
+			],
+			"muzzle_world": [
+				402.927001953125,
+				267.619354248047
+			],
+			"old_action_at_hit": "heavy_gunner.vent",
+			"old_action_still_selected": true,
+			"path": "heavy_gunner/death_t0p200_level_f1_z3.4_s0007_ft0p033_at0p051.png",
+			"physical_window_size": [
+				1536,
+				1400
+			],
+			"requested_zoom": 3.4,
+			"rig_dead_input": true,
+			"sample_target_death_time": 0.2,
+			"skin": "heavy_gunner",
+			"state": "death_t0p200",
+			"target_angle": "level",
+			"viewport_canvas_transform": [
+				[
+					3.40000009536743,
+					0.0
+				],
+				[
+					0.0,
+					3.40000009536743
+				],
+				[
+					-698.854797363281,
+					-152.118453979492
+				]
+			],
+			"viewport_render_size": [
+				1536,
+				1400
+			],
+			"viewport_size": [
+				1536.0,
+				1400.0
+			],
+			"weapon_sprite_visible": true
+		},
+		{
+			"action": "heavy_gunner.vent",
+			"action_at_capture": "heavy_gunner.vent",
+			"action_t": 0.0512820512820513,
+			"action_t_at_capture": 0.0512820512820513,
+			"action_weight_at_capture": 1.0,
+			"actor_bounds_screen": [
+				678.134765625,
+				707.301147460938,
+				192.5263671875,
+				142.559326171875
+			],
+			"actor_bounds_world": [
+				410.195770263672,
+				270.658386230469,
+				56.6253967285156,
+				41.92919921875
+			],
+			"actor_fully_in_frame": true,
+			"actual_death_time_at_capture": 0.516666666666667,
+			"armor_open": true,
+			"camera_framing": "diagnostic_actor_bounds",
+			"camera_global_transform": [
+				[
+					1.0,
+					0.0
+				],
+				[
+					0.0,
+					1.0
+				],
+				[
+					438.508483886719,
+					291.622985839844
+				]
+			],
+			"camera_zoom": [
+				3.40000009536743,
+				3.40000009536743
+			],
+			"capture_scene_tree_paused": true,
+			"capture_simulation_advanced": false,
+			"capture_source": "actual-hurtbox-death-timeline",
+			"content_scale_mode": 0,
+			"content_scale_size": [
+				640,
+				360
+			],
+			"core_damage_scale": 1.0,
+			"death_time_after_render_freeze": 0.516666666666667,
+			"death_time_before_render_freeze": 0.516666666666667,
+			"enemy_data": "res://data/enemies/heavy_gunner.tres",
+			"enemy_dying": true,
+			"enemy_physics_processing": true,
+			"enemy_physics_processing_enabled_during_freeze": true,
+			"facing": 1,
+			"fsm_state": "vent",
+			"fsm_state_at_capture": "vent",
+			"fsm_time": 0.0333333333333333,
+			"fsm_time_at_capture": 0.0333333333333333,
+			"health_ratio": 0.0,
+			"image_sha256": "c92b767052a56b77bd73bc920fffd6d2578b1fe64f6ebb416fbffdca4a341a94",
+			"image_size": [
+				1536,
+				1400
+			],
+			"muzzle_world": [
+				402.927001953125,
+				267.619354248047
+			],
+			"old_action_at_hit": "heavy_gunner.vent",
+			"old_action_still_selected": true,
+			"path": "heavy_gunner/death_t0p500_level_f1_z3.4_s0008_ft0p033_at0p051.png",
+			"physical_window_size": [
+				1536,
+				1400
+			],
+			"requested_zoom": 3.4,
+			"rig_dead_input": true,
+			"sample_target_death_time": 0.5,
+			"skin": "heavy_gunner",
+			"state": "death_t0p500",
+			"target_angle": "level",
+			"viewport_canvas_transform": [
+				[
+					3.40000009536743,
+					0.0
+				],
+				[
+					0.0,
+					3.40000009536743
+				],
+				[
+					-716.530883789063,
+					-212.937408447266
+				]
+			],
+			"viewport_render_size": [
+				1536,
+				1400
+			],
+			"viewport_size": [
+				1536.0,
+				1400.0
+			],
+			"weapon_sprite_visible": true
+		},
+		{
+			"action": "heavy_gunner.vent",
+			"action_at_capture": "heavy_gunner.vent",
+			"action_t": 0.0512820512820513,
+			"action_t_at_capture": 0.0512820512820513,
+			"action_weight_at_capture": 1.0,
+			"actor_bounds_screen": [
+				675.507263183594,
+				733.744506835938,
+				192.498901367188,
+				142.332580566406
+			],
+			"actor_bounds_world": [
+				411.45068359375,
+				277.453338623047,
+				56.6173095703125,
+				41.8625183105469
+			],
+			"actor_fully_in_frame": true,
+			"actual_death_time_at_capture": 0.800000000000001,
+			"armor_open": true,
+			"camera_framing": "diagnostic_actor_bounds",
+			"camera_global_transform": [
+				[
+					1.0,
+					0.0
+				],
+				[
+					0.0,
+					1.0
+				],
+				[
+					439.759338378906,
+					298.384582519531
+				]
+			],
+			"camera_zoom": [
+				3.40000009536743,
+				3.40000009536743
+			],
+			"capture_scene_tree_paused": true,
+			"capture_simulation_advanced": false,
+			"capture_source": "actual-hurtbox-death-timeline",
+			"content_scale_mode": 0,
+			"content_scale_size": [
+				640,
+				360
+			],
+			"core_damage_scale": 1.0,
+			"death_time_after_render_freeze": 0.800000000000001,
+			"death_time_before_render_freeze": 0.800000000000001,
+			"enemy_data": "res://data/enemies/heavy_gunner.tres",
+			"enemy_dying": true,
+			"enemy_physics_processing": true,
+			"enemy_physics_processing_enabled_during_freeze": true,
+			"facing": 1,
+			"fsm_state": "vent",
+			"fsm_state_at_capture": "vent",
+			"fsm_time": 0.0333333333333333,
+			"fsm_time_at_capture": 0.0333333333333333,
+			"health_ratio": 0.0,
+			"image_sha256": "d22eb905658d6201f68ad3a26723dadba9a2021c27d5cd182f7a4abd76d007a0",
+			"image_size": [
+				1536,
+				1400
+			],
+			"muzzle_world": [
+				402.927001953125,
+				267.619354248047
+			],
+			"old_action_at_hit": "heavy_gunner.vent",
+			"old_action_still_selected": true,
+			"path": "heavy_gunner/death_t0p800_level_f1_z3.4_s0009_ft0p033_at0p051.png",
+			"physical_window_size": [
+				1536,
+				1400
+			],
+			"requested_zoom": 3.4,
+			"rig_dead_input": true,
+			"sample_target_death_time": 0.8,
+			"skin": "heavy_gunner",
+			"state": "death_t0p800",
+			"target_angle": "level",
+			"viewport_canvas_transform": [
+				[
+					3.40000009536743,
+					0.0
+				],
+				[
+					0.0,
+					3.40000009536743
+				],
+				[
+					-723.425109863281,
+					-209.596862792969
+				]
+			],
+			"viewport_render_size": [
+				1536,
+				1400
+			],
+			"viewport_size": [
+				1536.0,
+				1400.0
+			],
+			"weapon_sprite_visible": true
+		},
+		{
+			"action": "heavy_gunner.vent",
+			"action_at_capture": "heavy_gunner.vent",
+			"action_t": 0.0512820512820513,
+			"action_t_at_capture": 0.0512820512820513,
+			"action_weight_at_capture": 1.0,
+			"actor_bounds_screen": [
+				671.765808105469,
+				910.978210449219,
+				192.497802734375,
+				142.328430175781
+			],
+			"actor_bounds_world": [
+				411.455749511719,
+				277.450988769531,
+				56.6170043945313,
+				41.8612976074219
+			],
+			"actor_fully_in_frame": true,
+			"actual_death_time_at_capture": 0.850000000000001,
+			"armor_open": true,
+			"camera_framing": "diagnostic_actor_bounds",
+			"camera_global_transform": [
+				[
+					1.0,
+					0.0
+				],
+				[
+					0.0,
+					1.0
+				],
+				[
+					439.764251708984,
+					298.381652832031
+				]
+			],
+			"camera_zoom": [
+				3.40000009536743,
+				3.40000009536743
+			],
+			"capture_scene_tree_paused": true,
+			"capture_simulation_advanced": false,
+			"capture_source": "actual-hurtbox-death-timeline",
+			"content_scale_mode": 0,
+			"content_scale_size": [
+				640,
+				360
+			],
+			"core_damage_scale": 1.0,
+			"death_time_after_render_freeze": 0.850000000000001,
+			"death_time_before_render_freeze": 0.850000000000001,
+			"enemy_data": "res://data/enemies/heavy_gunner.tres",
+			"enemy_dying": true,
+			"enemy_physics_processing": true,
+			"enemy_physics_processing_enabled_during_freeze": true,
+			"facing": 1,
+			"fsm_state": "vent",
+			"fsm_state_at_capture": "vent",
+			"fsm_time": 0.0333333333333333,
+			"fsm_time_at_capture": 0.0333333333333333,
+			"health_ratio": 0.0,
+			"image_sha256": "1b358a0615be183ddbeb75c6f9fc86ccebb94fac5233e9af5f16393a0e474c63",
+			"image_size": [
+				1536,
+				1400
+			],
+			"muzzle_world": [
+				402.927001953125,
+				267.619354248047
+			],
+			"old_action_at_hit": "heavy_gunner.vent",
+			"old_action_still_selected": true,
+			"path": "heavy_gunner/death_pre_fade_t0p840_level_f1_z3.4_s0010_ft0p033_at0p051.png",
+			"physical_window_size": [
+				1536,
+				1400
+			],
+			"pre_fade_sample": true,
+			"requested_zoom": 3.4,
+			"rig_dead_input": true,
+			"sample_target_death_time": 0.84,
+			"skin": "heavy_gunner",
+			"state": "death_pre_fade_t0p840",
+			"target_angle": "level",
+			"viewport_canvas_transform": [
+				[
+					3.40000009536743,
+					0.0
+				],
+				[
+					0.0,
+					3.40000009536743
+				],
+				[
+					-727.183776855469,
+					-32.3551483154297
+				]
+			],
+			"viewport_render_size": [
+				1536,
+				1400
+			],
+			"viewport_size": [
+				1536.0,
+				1400.0
+			],
+			"weapon_sprite_visible": true
+		},
+		{
+			"action": "warden.vent",
+			"action_at_capture": "warden.vent",
+			"action_t": 0.0666666666666667,
+			"action_t_at_capture": 0.0666666666666667,
+			"action_weight_at_capture": 0.416666666666667,
+			"actor_bounds_screen": [
+				499.29736328125,
+				525.398193359375,
+				179.733032226563,
+				339.455139160156
+			],
+			"actor_bounds_world": [
+				412.363464355469,
+				220.820358276367,
+				52.8626403808594,
+				99.8397369384766
+			],
+			"actor_fully_in_frame": true,
+			"actual_death_time_at_capture": 0.00833333333333333,
+			"armor_open": false,
+			"camera_framing": "diagnostic_actor_bounds",
+			"camera_global_transform": [
+				[
+					1.0,
+					0.0
+				],
+				[
+					0.0,
+					1.0
+				],
+				[
+					438.794799804688,
+					270.740234375
+				]
+			],
+			"camera_zoom": [
+				3.40000009536743,
+				3.40000009536743
+			],
+			"capture_scene_tree_paused": true,
+			"capture_simulation_advanced": false,
+			"capture_source": "actual-hurtbox-death-timeline",
+			"content_scale_mode": 0,
+			"content_scale_size": [
+				640,
+				360
+			],
+			"core_damage_scale": 1.0,
+			"death_time_after_render_freeze": 0.00833333333333333,
+			"death_time_before_render_freeze": 0.00833333333333333,
+			"enemy_data": "res://data/enemies/warden.tres",
+			"enemy_dying": true,
+			"enemy_physics_processing": true,
+			"enemy_physics_processing_enabled_during_freeze": true,
+			"facing": 1,
+			"fsm_state": "phase_shift",
+			"fsm_state_at_capture": "phase_shift",
+			"fsm_time": 0.0333333333333333,
+			"fsm_time_at_capture": 0.0333333333333333,
+			"health_ratio": 0.0,
+			"image_sha256": "20f337d6c516e8e2e510cab0126a8e1638d96a3a43614584bf9ecd8ce97eef0e",
+			"image_size": [
+				1536,
+				1400
+			],
+			"muzzle_world": [
+				398.662475585938,
+				248.52180480957
+			],
+			"old_action_at_hit": "warden.vent",
+			"old_action_still_selected": true,
+			"path": "warden/death_t0p000_level_f1_z3.4_s0011_ft0p033_at0p067.png",
+			"physical_window_size": [
+				1536,
+				1400
+			],
+			"requested_zoom": 3.4,
+			"rig_dead_input": true,
+			"sample_target_death_time": 0.0,
+			"skin": "warden",
+			"state": "death_t0p000",
+			"target_angle": "level",
+			"viewport_canvas_transform": [
+				[
+					3.40000009536743,
+					0.0
+				],
+				[
+					0.0,
+					3.40000009536743
+				],
+				[
+					-902.738403320313,
+					-225.391067504883
+				]
+			],
+			"viewport_render_size": [
+				1536,
+				1400
+			],
+			"viewport_size": [
+				1536.0,
+				1400.0
+			],
+			"weapon_sprite_visible": true
+		},
+		{
+			"action": "warden.vent",
+			"action_at_capture": "warden.vent",
+			"action_t": 0.0666666666666667,
+			"action_t_at_capture": 0.0666666666666667,
+			"action_weight_at_capture": 1.0,
+			"actor_bounds_screen": [
+				590.255493164063,
+				686.633056640625,
+				344.127685546875,
+				158.11083984375
+			],
+			"actor_bounds_world": [
+				386.296356201172,
+				239.196685791016,
+				101.214019775391,
+				46.503173828125
+			],
+			"actor_fully_in_frame": true,
+			"actual_death_time_at_capture": 0.208333333333333,
+			"armor_open": false,
+			"camera_framing": "diagnostic_actor_bounds",
+			"camera_global_transform": [
+				[
+					1.0,
+					0.0
+				],
+				[
+					0.0,
+					1.0
+				],
+				[
+					436.903381347656,
+					262.448272705078
+				]
+			],
+			"camera_zoom": [
+				3.40000009536743,
+				3.40000009536743
+			],
+			"capture_scene_tree_paused": true,
+			"capture_simulation_advanced": false,
+			"capture_source": "actual-hurtbox-death-timeline",
+			"content_scale_mode": 0,
+			"content_scale_size": [
+				640,
+				360
+			],
+			"core_damage_scale": 1.0,
+			"death_time_after_render_freeze": 0.208333333333333,
+			"death_time_before_render_freeze": 0.208333333333333,
+			"enemy_data": "res://data/enemies/warden.tres",
+			"enemy_dying": true,
+			"enemy_physics_processing": true,
+			"enemy_physics_processing_enabled_during_freeze": true,
+			"facing": 1,
+			"fsm_state": "phase_shift",
+			"fsm_state_at_capture": "phase_shift",
+			"fsm_time": 0.0333333333333333,
+			"fsm_time_at_capture": 0.0333333333333333,
+			"health_ratio": 0.0,
+			"image_sha256": "8b99dc107949d9a24418b38adb852818a201a34a74e5afda9883b1e335717fc1",
+			"image_size": [
+				1536,
+				1400
+			],
+			"muzzle_world": [
+				398.662475585938,
+				248.52180480957
+			],
+			"old_action_at_hit": "warden.vent",
+			"old_action_still_selected": true,
+			"path": "warden/death_t0p200_level_f1_z3.4_s0012_ft0p033_at0p067.png",
+			"physical_window_size": [
+				1536,
+				1400
+			],
+			"requested_zoom": 3.4,
+			"rig_dead_input": true,
+			"sample_target_death_time": 0.2,
+			"skin": "warden",
+			"state": "death_t0p200",
+			"target_angle": "level",
+			"viewport_canvas_transform": [
+				[
+					3.40000009536743,
+					0.0
+				],
+				[
+					0.0,
+					3.40000009536743
+				],
+				[
+					-723.152099609375,
+					-126.635681152344
+				]
+			],
+			"viewport_render_size": [
+				1536,
+				1400
+			],
+			"viewport_size": [
+				1536.0,
+				1400.0
+			],
+			"weapon_sprite_visible": true
+		},
+		{
+			"action": "warden.vent",
+			"action_at_capture": "warden.vent",
+			"action_t": 0.0666666666666667,
+			"action_t_at_capture": 0.0666666666666667,
+			"action_weight_at_capture": 1.0,
+			"actor_bounds_screen": [
+				593.942687988281,
+				653.941162109375,
+				332.04296875,
+				179.669555664063
+			],
+			"actor_bounds_world": [
+				385.397918701172,
+				232.319915771484,
+				97.65966796875,
+				52.843994140625
+			],
+			"actor_fully_in_frame": true,
+			"actual_death_time_at_capture": 0.508333333333333,
+			"armor_open": false,
+			"camera_framing": "diagnostic_actor_bounds",
+			"camera_global_transform": [
+				[
+					1.0,
+					0.0
+				],
+				[
+					0.0,
+					1.0
+				],
+				[
+					434.227752685547,
+					258.741912841797
+				]
+			],
+			"camera_zoom": [
+				3.40000009536743,
+				3.40000009536743
+			],
+			"capture_scene_tree_paused": true,
+			"capture_simulation_advanced": false,
+			"capture_source": "actual-hurtbox-death-timeline",
+			"content_scale_mode": 0,
+			"content_scale_size": [
+				640,
+				360
+			],
+			"core_damage_scale": 1.0,
+			"death_time_after_render_freeze": 0.508333333333333,
+			"death_time_before_render_freeze": 0.508333333333333,
+			"enemy_data": "res://data/enemies/warden.tres",
+			"enemy_dying": true,
+			"enemy_physics_processing": true,
+			"enemy_physics_processing_enabled_during_freeze": true,
+			"facing": 1,
+			"fsm_state": "phase_shift",
+			"fsm_state_at_capture": "phase_shift",
+			"fsm_time": 0.0333333333333333,
+			"fsm_time_at_capture": 0.0333333333333333,
+			"health_ratio": 0.0,
+			"image_sha256": "53e97ac3f024eca394b01a815463e6bade1981a92316ac1b48246b68bcf12e09",
+			"image_size": [
+				1536,
+				1400
+			],
+			"muzzle_world": [
+				398.662475585938,
+				248.52180480957
+			],
+			"old_action_at_hit": "warden.vent",
+			"old_action_still_selected": true,
+			"path": "warden/death_t0p500_level_f1_z3.4_s0013_ft0p033_at0p067.png",
+			"physical_window_size": [
+				1536,
+				1400
+			],
+			"requested_zoom": 3.4,
+			"rig_dead_input": true,
+			"sample_target_death_time": 0.5,
+			"skin": "warden",
+			"state": "death_t0p500",
+			"target_angle": "level",
+			"viewport_canvas_transform": [
+				[
+					3.40000009536743,
+					0.0
+				],
+				[
+					0.0,
+					3.40000009536743
+				],
+				[
+					-716.410217285156,
+					-135.946563720703
+				]
+			],
+			"viewport_render_size": [
+				1536,
+				1400
+			],
+			"viewport_size": [
+				1536.0,
+				1400.0
+			],
+			"weapon_sprite_visible": true
+		},
+		{
+			"action": "warden.vent",
+			"action_at_capture": "warden.vent",
+			"action_t": 0.0666666666666667,
+			"action_t_at_capture": 0.0666666666666667,
+			"action_weight_at_capture": 1.0,
+			"actor_bounds_screen": [
+				591.876892089844,
+				817.571411132813,
+				344.94140625,
+				148.934875488281
+			],
+			"actor_bounds_world": [
+				382.284973144531,
+				277.523498535156,
+				101.453338623047,
+				43.8043518066406
+			],
+			"actor_fully_in_frame": true,
+			"actual_death_time_at_capture": 0.808333333333334,
+			"armor_open": false,
+			"camera_framing": "diagnostic_actor_bounds",
+			"camera_global_transform": [
+				[
+					1.0,
+					0.0
+				],
+				[
+					0.0,
+					1.0
+				],
+				[
+					433.011657714844,
+					299.425659179688
+				]
+			],
+			"camera_zoom": [
+				3.40000009536743,
+				3.40000009536743
+			],
+			"capture_scene_tree_paused": true,
+			"capture_simulation_advanced": false,
+			"capture_source": "actual-hurtbox-death-timeline",
+			"content_scale_mode": 0,
+			"content_scale_size": [
+				640,
+				360
+			],
+			"core_damage_scale": 1.0,
+			"death_time_after_render_freeze": 0.808333333333334,
+			"death_time_before_render_freeze": 0.808333333333334,
+			"enemy_data": "res://data/enemies/warden.tres",
+			"enemy_dying": true,
+			"enemy_physics_processing": true,
+			"enemy_physics_processing_enabled_during_freeze": true,
+			"facing": 1,
+			"fsm_state": "phase_shift",
+			"fsm_state_at_capture": "phase_shift",
+			"fsm_time": 0.0333333333333333,
+			"fsm_time_at_capture": 0.0333333333333333,
+			"health_ratio": 0.0,
+			"image_sha256": "5c8c9c5408303ecd17ef83be43b5bf926d730bf822cde700dc3944aab7d1fecd",
+			"image_size": [
+				1536,
+				1400
+			],
+			"muzzle_world": [
+				398.662475585938,
+				248.52180480957
+			],
+			"old_action_at_hit": "warden.vent",
+			"old_action_still_selected": true,
+			"path": "warden/death_t0p800_level_f1_z3.4_s0014_ft0p033_at0p067.png",
+			"physical_window_size": [
+				1536,
+				1400
+			],
+			"requested_zoom": 3.4,
+			"rig_dead_input": true,
+			"sample_target_death_time": 0.8,
+			"skin": "warden",
+			"state": "death_t0p800",
+			"target_angle": "level",
+			"viewport_canvas_transform": [
+				[
+					3.40000009536743,
+					0.0
+				],
+				[
+					0.0,
+					3.40000009536743
+				],
+				[
+					-707.892028808594,
+					-126.008506774902
+				]
+			],
+			"viewport_render_size": [
+				1536,
+				1400
+			],
+			"viewport_size": [
+				1536.0,
+				1400.0
+			],
+			"weapon_sprite_visible": true
+		},
+		{
+			"action": "warden.vent",
+			"action_at_capture": "warden.vent",
+			"action_t": 0.0666666666666667,
+			"action_t_at_capture": 0.0666666666666667,
+			"action_weight_at_capture": 1.0,
+			"actor_bounds_screen": [
+				595.33154296875,
+				689.927368164063,
+				344.842163085938,
+				147.985473632813
+			],
+			"actor_bounds_world": [
+				382.217224121094,
+				277.803802490234,
+				101.424163818359,
+				43.525146484375
+			],
+			"actor_fully_in_frame": true,
+			"actual_death_time_at_capture": 1.20833333333333,
+			"armor_open": false,
+			"camera_framing": "diagnostic_actor_bounds",
+			"camera_global_transform": [
+				[
+					1.0,
+					0.0
+				],
+				[
+					0.0,
+					1.0
+				],
+				[
+					432.929321289063,
+					299.566375732422
+				]
+			],
+			"camera_zoom": [
+				3.40000009536743,
+				3.40000009536743
+			],
+			"capture_scene_tree_paused": true,
+			"capture_simulation_advanced": false,
+			"capture_source": "actual-hurtbox-death-timeline",
+			"content_scale_mode": 0,
+			"content_scale_size": [
+				640,
+				360
+			],
+			"core_damage_scale": 1.0,
+			"death_time_after_render_freeze": 1.20833333333333,
+			"death_time_before_render_freeze": 1.20833333333333,
+			"enemy_data": "res://data/enemies/warden.tres",
+			"enemy_dying": true,
+			"enemy_physics_processing": true,
+			"enemy_physics_processing_enabled_during_freeze": true,
+			"facing": 1,
+			"fsm_state": "phase_shift",
+			"fsm_state_at_capture": "phase_shift",
+			"fsm_time": 0.0333333333333333,
+			"fsm_time_at_capture": 0.0333333333333333,
+			"health_ratio": 0.0,
+			"image_sha256": "00d82c5698c7ad3647f2323a4d532865886d6204c41ad0e3156f217018300c30",
+			"image_size": [
+				1536,
+				1400
+			],
+			"muzzle_world": [
+				398.662475585938,
+				248.52180480957
+			],
+			"old_action_at_hit": "warden.vent",
+			"old_action_still_selected": true,
+			"path": "warden/death_pre_fade_t1p200_level_f1_z3.4_s0015_ft0p033_at0p067.png",
+			"physical_window_size": [
+				1536,
+				1400
+			],
+			"pre_fade_sample": true,
+			"requested_zoom": 3.4,
+			"rig_dead_input": true,
+			"sample_target_death_time": 1.2,
+			"skin": "warden",
+			"state": "death_pre_fade_t1p200",
+			"target_angle": "level",
+			"viewport_canvas_transform": [
+				[
+					3.40000009536743,
+					0.0
+				],
+				[
+					0.0,
+					3.40000009536743
+				],
+				[
+					-704.20703125,
+					-254.605560302734
+				]
+			],
+			"viewport_render_size": [
+				1536,
+				1400
+			],
+			"viewport_size": [
+				1536.0,
+				1400.0
+			],
+			"weapon_sprite_visible": true
+		}
+	],
+	"frames_count": 15,
+	"hit_direction": "front; source origin = enemy position + facing * 24px",
+	"purpose": "actual enemy death-animation timeline; staged preceding FSM states, not organic combat",
+	"renderer": "forward_plus",
+	"samples_requested_seconds": [
+		0.0,
+		0.2,
+		0.5,
+		0.8
+	],
+	"source_sha256": {
+		".godot/ne90-mask-cache-repair/native-capture/capture.gd": "58d055d2f355025afb725325f4f75581c43dd0a35bacc7e13b0a831006f59567",
+		"art/rigs/action_poses.json": "44b71391b45dee82bf2cee36f122dcfc62124cce689337353378f4f18a7f3b93",
+		"game/enemies/enemy.gd": "95cf1cc9ef2e9b15b2d95f5e79955a75869461026c9df2fb3bd637eaa8fa6ce2",
+		"game/enemies/warden_boss.gd": "3410ce2b8680b63b92f8f88b6f65e5cb42d3d9fed32f28bf29b63f5549054aba",
+		"game/rig/humanoid_animator.gd": "381500a79bf923fcc8686e78269573dfdcb21964bb105b654eca4df6dc36a769"
+	},
+	"unique_paths": 15
+}
