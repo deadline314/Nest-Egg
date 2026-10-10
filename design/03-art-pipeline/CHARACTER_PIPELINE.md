@@ -51,6 +51,10 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
 
 **透明來源核對**：本 repo 的 `build_character.py` 已在既有 Qwen 提示詞前後加上 RGBA／透明背景說明，`comfy_api.py` 也已接 Qwen Image 2.1 VAE；不用重複加提示詞。官方工作流說明 VAE 支援四通道 alpha，可直接生成透明背景圖（[Comfy-Org：Qwen Image 2.1](https://github.com/Comfy-Org/docs/blob/main/tutorials/image/qwen/qwen-image-2-1.mdx)）。提示詞與工作流只說明預期，交付仍須檢查實際 PNG：分開記錄 RGBA 模式、alpha 分布與人物 bbox，並把原圖以最近鄰原尺寸分別合成黑、灰、白底檢視，也要在實際 Forward+ 場景檢查最終貼圖。alpha=0 的 RGB 值不表示有可見雜點；alpha=1 的洋紅點及帶色半透明邊緣則要看合成後是否形成彩邊，不可只看棋盤格或 `RGBA` 字樣判定透明品質。來源 alpha、SAM 遮罩所有權、最終貼圖外觀及動畫接合是不同檢查；任一項通過都不代替其他項。沿用 `refine.speckle: 30`（`components` 最小連通像素數）與 `alpha_floor: 40` 等既有設定做指定零件清理，不把它們當成容許碎片／孔洞的新驗收門檻；一像素裂縫仍失敗。
 
+**參考圖的透明通道與編輯尺寸（2026-10-10）**：`LoadImage` 把 RGB 和反向 alpha 分成兩個輸出，不能只將 RGB 接到 `TextEncodeQwenImage21`。現有 API 在每個參考槽以 `JoinImageWithAlpha` 合回 RGBA，再交給 Qwen：文字編碼器按 alpha 合成白底，VAE 保留四通道。參考編輯快取已區分這個工作流版本，舊 RGB-only 編輯結果不視為新圖命中；文生圖快取不變，既有定稿不自動重跑或覆寫。真節點 Load→Join→Save 的合成測試保留透明／不透明範圍與 RGB，但浮點合併再存 uint8 可令部分 alpha 相差 1，不能宣稱全部 RGBA byte-exact；精確保留的來源必須另走原圖／遮罩契約，不由模型或 PNG 回存替代。這個輸入修正不保證生成後 alpha、輪廓或解剖合格。
+
+編輯時 `w`／`h` 不決定畫布：取樣 latent 來自第一張參考圖。`resolution>0` 按約 resolution² 面積與長寬比縮放，再取 32 的倍數；`resolution=0` 保留第一張參考的尺寸並取 32 的倍數。例如 864×1408 在 1024 參考解析度得到 800×1312，必須記錄實際輸出，不以 requested_canvas 當來源尺寸。需要局部像素鎖定時先定義原尺寸編輯遮罩，使用實際已存在、相容的 mask／合成節點並逐像素驗證外部 RGBA；Qwen 編碼器本身沒有硬遮罩、depth 或 keypoint 輸入，文字「只改這裡」及參考草圖不能作硬約束證據。[官方節點契約](https://docs.comfy.org/built-in-nodes/TextEncodeQwenImage21)。
+
 ### 第 3 步細節：怎麼分、怎麼補
 
 文字遮罩快取綁定目前 RGBA 灰底參考的 SHA-256、階段、提示、SAM 模型、threshold／refine，並核對遮罩 PNG 的 SHA-256 與原生尺寸。灰底每次由当前 RGBA 重建；未變的來源可重用，來源或遮罩改動、缺鍵或壞鍵只使受影響遮罩失效。生成失敗保留舊 PNG、撤銷其有效鍵並停止，不拿舊圖繼續交付；新結果全部驗證後才替換。快取可追溯不代替所有權、解剖或動畫驗收。離線重現檢查為 `python tools/comfyui/test_mask_delivery.py`。

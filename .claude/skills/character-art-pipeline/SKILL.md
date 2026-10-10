@@ -68,6 +68,13 @@ texture_scale = 1 / tex_px_per_wp
 
 透明提示詞、RGBA 輸出模式與實際 alpha 是三件事：本 repo 的 `build_character.py` 已把 RGBA／透明背景說明加到現有提示詞，`comfy_api.py` 已接 Qwen Image 2.1 VAE；不要假設忘記提示詞，也不要用提示詞代替 PNG 驗證。官方工作流文件指出該 VAE 支援四通道 alpha 與透明背景（[Comfy-Org：Qwen Image 2.1](https://github.com/Comfy-Org/docs/blob/main/tutorials/image/qwen/qwen-image-2-1.mdx)）。記錄 RGBA 模式、alpha 分布與人物 bbox；將原始來源以最近鄰原尺寸分別合成黑、灰、白底檢視，並在最終貼圖與實際 Forward+ 畫面複查。alpha=0 的 RGB 可任意，不視為可見雜點；alpha=1 的洋紅點與帶色半透明邊緣可能在重採樣或合成時形成彩邊，須依可見結果判斷，不把整張來源一律閾值化。透明宣告／來源 alpha、分件所有權、最終材質與動態接合各自記錄，不互相代替。沿用現有 `refine.speckle: 30`（`components` 最小連通像素數）、`alpha_floor: 40` 設定清理指定零件；這些是處理參數，不是孔洞或碎片的通過容差，一像素裂縫仍失敗。
 
+### Qwen 參考編輯的實際資料契約
+
+- `LoadImage` 的 IMAGE 是 RGB，MASK 是 `1-alpha`。本 repo 以 `JoinImageWithAlpha` 接回四通道後才傳入每個 Qwen 2.1 參考槽；檢查實際 graph 的連線，不能以來源檔是 RGBA 推定 VAE 收到 RGBA。Qwen 的 vision 分支按 alpha 合成白底，VAE 分支保留四通道。
+- 舊 RGB-only 編輯 job key 與此工作流版本分開；文生圖 key 不變。只重跑本次受影響編輯，不自動覆寫既有定稿。離線回歸：`python tools/comfyui/test_cache_options.py`；實際 Load→Join→Save 真節點測試另列，不冒充模型生成驗收。
+- 編輯 latent 由第一張參考圖決定，`w`／`h` 不決定編輯輸出。`resolution>0` 依約 resolution² 面積保持比例，再取 32 倍數；`resolution=0` 以原參考尺寸取 32 倍數。保存 requested 與 actual 尺寸，分件坐標依 actual 驗證。不可因此重採樣原定稿來配錯誤的 spec。
+- Load→Join→Save 的浮點與 uint8 回存可能讓部分 alpha 相差 1；這不是接縫通過容差，也不代表可修改原圖。要保存未編輯區的來源四通道，直接以原 RGBA／原尺寸硬遮罩合成並驗證輸出，不能用模型「保持不變」的提示詞或節點回存代替 byte-exact 檢查。
+- 目前 Qwen 2.1 編碼器沒有 mask、depth、edge 或 keypoint socket。通用 mask sampling／final composite 必須確認實際 graph 相容並實測；參考圖輪廓與官方 local edit 範例不代表硬幾何約束。沒有安裝相容 control checkpoint 時不得聲稱有 ControlNet 控制。參考 alpha 保留、生成 alpha、分件所有權、動態與人体品質仍逐關驗收。
 ## 3. 骨架定位與座標契約
 
 1. 原圖不搬移；SAM 3D Body 需要灰底時另存參考圖，不破壞原生 alpha。

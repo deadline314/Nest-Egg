@@ -1,0 +1,7 @@
+  [comfy] ComfyUI ready on port 8188 (log: D:\ComfyUI\nest_egg\comfy.log)
+  [comfy] no websocket heartbeat (ModuleNotFoundError); relying on log and RAM checks
+Traceback (most recent call last):
+  File "C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\.godot\ne90-reference-rgba\verify_roundtrip.py", line 41, in <module>
+    before = next(v for k,v in arrays.items() if 'before_rgb' in k)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+StopIteration

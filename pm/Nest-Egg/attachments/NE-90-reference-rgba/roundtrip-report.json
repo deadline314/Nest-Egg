@@ -1,0 +1,130 @@
+{
+  "status": "actual_comfy_load_join_save_no_model",
+  "model_loaded": false,
+  "graph": {
+    "L0": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "reference.png"
+      }
+    },
+    "A0": {
+      "class_type": "JoinImageWithAlpha",
+      "inputs": {
+        "image": [
+          "L0",
+          0
+        ],
+        "alpha": [
+          "L0",
+          1
+        ]
+      }
+    },
+    "L1": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "reference_rgb.png"
+      }
+    },
+    "A1": {
+      "class_type": "JoinImageWithAlpha",
+      "inputs": {
+        "image": [
+          "L1",
+          0
+        ],
+        "alpha": [
+          "L1",
+          1
+        ]
+      }
+    },
+    "S0": {
+      "class_type": "SaveImage",
+      "inputs": {
+        "images": [
+          "L0",
+          0
+        ],
+        "filename_prefix": "NE90_reference_before_rgb"
+      }
+    },
+    "S1": {
+      "class_type": "SaveImage",
+      "inputs": {
+        "images": [
+          "A0",
+          0
+        ],
+        "filename_prefix": "NE90_reference_after_rgba"
+      }
+    },
+    "S2": {
+      "class_type": "SaveImage",
+      "inputs": {
+        "images": [
+          "A1",
+          0
+        ],
+        "filename_prefix": "NE90_reference_opaque_rgb"
+      }
+    }
+  },
+  "source_sha256": "755cde9d707fae9ee9508fe33b9bc6d1dc4f417d4b888517805dbcad0ab60cad",
+  "input_alphas": [
+    0,
+    1,
+    39,
+    40,
+    128,
+    254,
+    255,
+    64
+  ],
+  "output_alphas": [
+    0,
+    0,
+    38,
+    39,
+    128,
+    254,
+    255,
+    63
+  ],
+  "alpha_byte_different_pixels": 128,
+  "max_alpha_byte_difference": 1,
+  "rgb_byte_equal": true,
+  "opaque_rgb_alpha_255": true,
+  "outputs": {
+    "NE90_reference_roundtrip_S0_0": {
+      "mode": "RGB",
+      "size": [
+        16,
+        16
+      ],
+      "sha256": "3b2fa1220b6f35fba8a4c4d28c3999c4223be7b3c08af06365f4b1f7373b855e"
+    },
+    "NE90_reference_roundtrip_S1_0": {
+      "mode": "RGBA",
+      "size": [
+        16,
+        16
+      ],
+      "sha256": "8d6b1ee52f761fe1d67bee9e5049e38bbe23d54ee027b7bb65a1452727851f8c"
+    },
+    "NE90_reference_roundtrip_S2_0": {
+      "mode": "RGBA",
+      "size": [
+        16,
+        16
+      ],
+      "sha256": "a855c33d97dbe649f4ae28ad8f4337197273c28a96a9e7a4cd929959ead01592"
+    }
+  },
+  "node_source_sha256": {
+    "nodes.py": "893dda8ff54bb82813a785177843376c17fb7e78a7c3c4946a7e3bcc5a19c565",
+    "comfy_extras/nodes_compositing.py": "20f091f143ce9f0b586a7dc49688b91bf7cb626a121af3f6ec67540fd49db256",
+    "comfy_extras/nodes_qwen.py": "61a5e27f90bb786cd4f6e76ee86920582ffef2ee3e65cde7b2278c7171c559e8"
+  }
+}

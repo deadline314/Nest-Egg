@@ -122,7 +122,10 @@ def run(graph, name, retries=None):
 def _job_key(prompt, w, h, steps, seed, resolution, images):
     """Everything that decides the picture (same key = same image), so a finished job is never generated twice."""
     refs = [hashlib.sha1(Path(p).read_bytes()).hexdigest() for p in images]
-    blob = json.dumps([QWEN_UNET, prompt, w, h, steps, seed, resolution, refs], ensure_ascii=False)
+    inputs = [QWEN_UNET, prompt, w, h, steps, seed, resolution, refs]
+    if refs:
+        inputs.append("reference-rgba-v1")  # RGB-only edit jobs cannot satisfy the restored alpha contract.
+    blob = json.dumps(inputs, ensure_ascii=False)
     return hashlib.sha1(blob.encode("utf-8")).hexdigest()
 
 
@@ -172,7 +175,9 @@ def qwen(prompt, w=1024, h=1024, steps=25, seed=None, prefix="qwen", images=(), 
         }
         for i, name in enumerate(names):
             g[f"L{i}"] = {"class_type": "LoadImage", "inputs": {"image": name}}
-            g["4"]["inputs"][f"images.image_{i + 1}"] = [f"L{i}", 0]
+            # LoadImage splits RGB and inverted alpha; the Qwen VAE needs all four channels.
+            g[f"A{i}"] = {"class_type": "JoinImageWithAlpha", "inputs": {"image": [f"L{i}", 0], "alpha": [f"L{i}", 1]}}
+            g["4"]["inputs"][f"images.image_{i + 1}"] = [f"A{i}", 0]
         if names:
             # Edit mode: sample on the latent sized like the first reference image.
             g["6"]["inputs"]["latent_image"] = ["4", 2]

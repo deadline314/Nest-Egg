@@ -1,0 +1,40 @@
+{
+  "base": "eb7ac9d5603692aaa8b36aab48996e385ef529bd",
+  "packet": {
+    ".gitattributes": "d63ee73e00c9734f0ed5446c050accab94bb949633d18ce2352ff778d45da0b2",
+    "affected.log": "8b4beb6d944339a1a7d1d2729730ba259cd580e8d03d8a9b48f2f6407a289039",
+    "capture.gd": "fde9faaeae7f1b414f6184946298b899c591f4f8f3cc7ebc5a8fe39cd7931cf6",
+    "capture.tscn": "425b06b70404e31c9e505be010f382bf2fe80d180a77deb37c505a331d278759",
+    "isolated-cache-tests.log": "1c680da4782529e957cbda01ec77e674692d689a0b3ead8649026f802174c8ca",
+    "native-capture.log": "d3b6981a0013c14298699771f85ce37c2cc8999f514c026657c996b0bebe73bc",
+    "README.md": "971e275e16c21e3cd425ac8fb0b018fb07af11d2433a163c61ba76a2d6cb2045",
+    "reference.png": "755cde9d707fae9ee9508fe33b9bc6d1dc4f417d4b888517805dbcad0ab60cad",
+    "reference_rgb.png": "99254593f0da2429281a2979cd01f9d8135675ad20814e7e91195fa9ec0a7d32",
+    "rgba-green.log": "433c96e9dc18bd20f08fd7ee2bed7a370143bd107759080d13a536658eb95d78",
+    "rgba-red.log": "2cb33ba201a7bcbdf11af49c23491c412dbf2506b49ca3115af68a1e97fbd9b6",
+    "roundtrip-report.json": "42266a03fd2031ce4352d1193d73770323cb3b5dc55d2293caedcc455f9068a4",
+    "roundtrip-v2.log": "18382883a9d5dcdccac3e5c10856cd0421c8cb663ec19ad23c1f0e2928ae7198",
+    "roundtrip.log": "f2cac5cede9fb00c6f0da78013cdb8cb97410831a31fb6343e1f97e6980a8032",
+    "verify_roundtrip.py": "873be9e92e5eb29c491e85196b3eb39862504ab9ee4ed2beeba5df1e7812b15a",
+    "outputs/NE90_reference_roundtrip_S0_0.png": "3b2fa1220b6f35fba8a4c4d28c3999c4223be7b3c08af06365f4b1f7373b855e",
+    "outputs/NE90_reference_roundtrip_S1_0.png": "8d6b1ee52f761fe1d67bee9e5049e38bbe23d54ee027b7bb65a1452727851f8c",
+    "outputs/NE90_reference_roundtrip_S2_0.png": "a855c33d97dbe649f4ae28ad8f4337197273c28a96a9e7a4cd929959ead01592"
+  },
+  "screenshot_sha256": "864ae1564beb2fe4a865fcebfec9a8483a3c333a8e0a373222f54cc75169264d",
+  "formal_working_copy_sha256": {
+    "tools/comfyui/comfy_api.py": "e128571f9bcd3e3e880d0056fccab5c7f13863ab05046d54b7c26105e763f675",
+    "tools/comfyui/test_cache_options.py": "7c54b17b29ebdfa749041cf2f5ad436a91e57fa48ec2e5d43f39a295cc5c8e25",
+    "design/03-art-pipeline/CHARACTER_PIPELINE.md": "699bb0e719f5b0dea3440c42785984f7a1e31e418da8d455054701b459584e64",
+    ".agent/skills/character-art-pipeline/SKILL.md": "134c4257a7a1c979dfbb901401232064f71830dc419545a100e61797006ce393",
+    ".agents/skills/character-art-pipeline/SKILL.md": "134c4257a7a1c979dfbb901401232064f71830dc419545a100e61797006ce393",
+    ".claude/skills/character-art-pipeline/SKILL.md": "134c4257a7a1c979dfbb901401232064f71830dc419545a100e61797006ce393"
+  },
+  "formal_staged_blob_sha256": {
+    "tools/comfyui/comfy_api.py": "e128571f9bcd3e3e880d0056fccab5c7f13863ab05046d54b7c26105e763f675",
+    "tools/comfyui/test_cache_options.py": "7c54b17b29ebdfa749041cf2f5ad436a91e57fa48ec2e5d43f39a295cc5c8e25",
+    "design/03-art-pipeline/CHARACTER_PIPELINE.md": "699bb0e719f5b0dea3440c42785984f7a1e31e418da8d455054701b459584e64",
+    ".agent/skills/character-art-pipeline/SKILL.md": "134c4257a7a1c979dfbb901401232064f71830dc419545a100e61797006ce393",
+    ".agents/skills/character-art-pipeline/SKILL.md": "134c4257a7a1c979dfbb901401232064f71830dc419545a100e61797006ce393",
+    ".claude/skills/character-art-pipeline/SKILL.md": "134c4257a7a1c979dfbb901401232064f71830dc419545a100e61797006ce393"
+  }
+}
