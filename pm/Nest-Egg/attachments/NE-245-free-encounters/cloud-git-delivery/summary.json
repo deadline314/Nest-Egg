@@ -1,0 +1,48 @@
+{
+  "tested_head": "48752f1edb6ca18517e2ddd5a9b0ff70898bcbc9",
+  "comparison_base": "7b7b3fad166a0f6f007a6fd330df88dd9471c772",
+  "scope": "Linux CPU/headless review checkpoint only; no ticket completion or native/Main chapter acceptance claim",
+  "command": [
+    "tools/run_tests_changed.sh",
+    "origin/main"
+  ],
+  "shards": 3,
+  "v4": {
+    "groups": 81,
+    "checks": 58494,
+    "new_failures": 0,
+    "known_failures": 0,
+    "script_errors": 0,
+    "exit_code": 0,
+    "elapsed_seconds": 574.3845253399995,
+    "peak_observed_bytes": {
+      "memory_current": 17178742784,
+      "anon": 2108198912,
+      "process_group_rss_bytes": 2168639488
+    },
+    "coverage_matches": true,
+    "passed": true,
+    "final_import_exit": 0,
+    "final_import_errors": [],
+    "initial_import_socket_errors": 4,
+    "initial_import_diagnosis": "Shell sandbox denied local TCP sockets (EPERM); unchanged cached import retried with managed network permission, retaining original raw errors.",
+    "manifest_LF_files": 24,
+    "tracked_sources_checked": 20855,
+    "tracked_source_changes": 0
+  },
+  "v3_rejected": {
+    "groups": 81,
+    "checks": 58456,
+    "new_failures": [
+      "[process 1] NEW FAILURE: street: both arena gates of ch1_enc_street_plaza close (0)",
+      "[process 1] NEW FAILURE: street: both arena gates of ch1_enc_street_blockade close (0)",
+      "[process 1] NEW FAILURE: vault: both arena gates of ch1_enc_warehouse_walkway close (0)",
+      "[process 1] NEW FAILURE: vault: both arena gates of ch1_enc_warehouse_vault close (0)"
+    ],
+    "known_failures": 0,
+    "script_errors": 0,
+    "exit_code": 1,
+    "final_candidate": false,
+    "original_capsule_unchanged": true
+  }
+}

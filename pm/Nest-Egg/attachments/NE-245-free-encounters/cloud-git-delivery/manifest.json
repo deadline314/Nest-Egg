@@ -1,0 +1,32 @@
+{
+  "tested_head": "48752f1edb6ca18517e2ddd5a9b0ff70898bcbc9",
+  "comparison_base": "7b7b3fad166a0f6f007a6fd330df88dd9471c772",
+  "source_manifest_path": "../source-manifest.json",
+  "source_manifest_raw_sha256": "254126e224acf8e0d75619317fcf35e0898c577c94169a7f42f6e4cfd9aa5840",
+  "artifacts": [
+    {
+      "version": "v3",
+      "path": "v3-rejected-evidence.tar.gz",
+      "bytes": 120231,
+      "sha256": "eda3b7d106087dfd709018b639c3caebdaafa3aa1af850dd53cd8585617508f7",
+      "regular_file_members": 59
+    },
+    {
+      "version": "v4",
+      "path": "v4-evidence.tar.gz",
+      "bytes": 155562,
+      "sha256": "1acc85626d21ce8c797350daab6ab27736b12104cec273030a853d1ac8d75ae6",
+      "regular_file_members": 45
+    }
+  ],
+  "metadata": {
+    "summary.json": {
+      "bytes": 1701,
+      "sha256": "e4be6fe46dfdbb1b850d1ad89a3edd6b0a08fbde658be8cdb5e07789c3e47788"
+    },
+    "runtime.json": {
+      "bytes": 2079,
+      "sha256": "1e25571fb0d116f761cc6cb7e47bb8b696115ea0462e5cbd30547ebf820eb18c"
+    }
+  }
+}
