@@ -1,0 +1,15 @@
+{
+  "baseline": "90a73316ef4a74f1bc78c487937f796be0b7d47b",
+  "stage": "documents and evidence only; no new runtime code",
+  "changed_command": "SHARDS=1 tools/run_tests_changed.sh 90a73316ef4a74f1bc78c487937f796be0b7d47b",
+  "changed_exit_code": 0,
+  "changed_runtime_groups": 0,
+  "actual_local_suite": "EconomySuite,ProgressionSuite",
+  "suite_exit_code": 0,
+  "checks": 412,
+  "new_failures": 0,
+  "known_failures": 0,
+  "original_ledger_prefix_bytes": 3533,
+  "original_ledger_prefix_sha256": "94f0c184ab5e3577e22e084e1448679da443f98dde9f95d155ce915e185307f2",
+  "source_credits_for_shop_capture": 1000
+}
