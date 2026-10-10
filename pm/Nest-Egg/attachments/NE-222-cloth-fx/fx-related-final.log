@@ -1,0 +1,51 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+ERROR: [EnemyVfx] res://art/vfx/enemies/test_no_such_enemy.json 沒有特效資料，不播放專屬特效。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] report_once (res://game/rig/rig_library.gd:125)
+       [2] load_for (res://game/enemies/enemy_vfx.gd:31)
+       [3] _test_missing_file_is_safe (res://tests/suite/test_enemy_vfx.gd:69)
+       [4] run (res://tests/suite/test_enemy_vfx.gd:13)
+       [5] _test_playback (res://tests/suite/test_enemy_vfx.gd:65)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME EnemyVfxSuite 0.3
+SUITE_TIME FxUpgradesSuite 10.1
+ERROR: [MeleeSet] 無法讀取近戰資料：res://data/melee/test_no_such_attack.json（需要 attacks 字典），改用內建預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_loaded (res://game/player/melee_set.gd:37)
+       [1] attack (res://game/player/melee_set.gd:69)
+       [2] _test_melee_data (res://tests/suite/test_fx_melee_pickups.gd:103)
+       [3] run (res://tests/suite/test_fx_melee_pickups.gd:13)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] run (res://tests/suite/test_fx_upgrades.gd:21)
+       [6] _test_environment (res://tests/suite/test_fx_upgrades.gd:297)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:605)
+       [9] _frames (res://tests/smoke_test.gd:122)
+ERROR: [MeleeSet] res://data/melee/test_no_such_attack.json 沒有招式「x」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:73)
+       [1] _test_melee_data (res://tests/suite/test_fx_melee_pickups.gd:103)
+       [2] run (res://tests/suite/test_fx_melee_pickups.gd:13)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_fx_upgrades.gd:21)
+       [5] _test_environment (res://tests/suite/test_fx_upgrades.gd:297)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+FX_PERF idle=0.85 ms, 12 explosions=0.93 ms per frame, particles=293, nodes +0
+SUITE_TIME FxMeleePickupsSuite 19.1
+checks: 443, failures: 0
+ERROR: 6 RID allocations of type 'P11GodotArea2D' were leaked at exit.
+WARNING: 6 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 16 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

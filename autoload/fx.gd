@@ -24,6 +24,7 @@ const RING_POOL_SIZE := 5
 const PARTICLE_SCALE := 0.5
 const FLARE_SCALE := 0.7
 const SHOCK_SCALE := 0.55
+const CLOTH_TEAR_COLOR := Color(0.24, 0.27, 0.32, 0.9)
 ## 特效的 HDR 亮度上限（同 LightKit.HDR_PEAK_MAX，LightKit.glow 本身就會夾住）：測試（FxUpgradesSuite）會掃描程式裡寫死的倍率，
 ## 並對每個光影設定檢查泛光超出量在預算內。Fx.hdr() 只是讓呼叫端更明白「這裡有上限」。
 const HDR_PEAK_MAX := LightKit.HDR_PEAK_MAX
@@ -328,6 +329,23 @@ func shards(position: Vector2, color: Color, amount := 6, speed := 200.0, life :
 		var c := Color(color.r * 0.55 + 0.1, color.g * 0.55 + 0.1, color.b * 0.55 + 0.12, 1.0)
 		_soft.emit_ex(position, v, life * randf_range(0.7, 1.3), VfxAtlas.Cell.SHARD, size * randf_range(0.6, 1.3), size * 0.5, c,
 				Color(c.r * 0.35, c.g * 0.35, c.b * 0.35, 0.0), 620.0, 0.9, randf() * TAU, randf_range(-14.0, 14.0))
+
+
+## 布料脫落：少量暗色碎布沿角色面向外散開，不使用發光層或整件身體碎片。
+func cloth_tear(position: Vector2, facing: int) -> void:
+	if _soft == null or _container == null or not position.is_finite():
+		return
+	var amount := _particle_count(6)
+	if amount <= 0:
+		return
+	var direction := -1.0 if facing < 0 else 1.0
+	for i in mini(amount, 3):
+		var side := direction * (1.0 if i != 1 else -1.0)
+		var velocity := Vector2(side * randf_range(24.0, 52.0), randf_range(-62.0, -28.0))
+		var life := randf_range(0.32, 0.48)
+		_soft.emit_ex(position, velocity, life, VfxAtlas.Cell.SHARD, randf_range(2.6, 4.2), 1.0,
+				CLOTH_TEAR_COLOR, Color(CLOTH_TEAR_COLOR.r, CLOTH_TEAR_COLOR.g, CLOTH_TEAR_COLOR.b, 0.0), 110.0, 2.8,
+				randf() * TAU, randf_range(-4.5, 4.5))
 
 
 ## 星芒與光暈的閃光：一瞬間的十字星芒加一圈光暈（槍口、擊殺、鎖定）。

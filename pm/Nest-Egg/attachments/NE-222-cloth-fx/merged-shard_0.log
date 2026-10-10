@@ -1,0 +1,34 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+WARNING: [AssetPrefetch] 找不到要預載的貼圖：res://art/no_such_prefetch_texture.png
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:107)
+       [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:533)
+       [2] run (res://tests/suite/test_ch1_map.gd:44)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://data/levels/no_such_level.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _resolve_level (res://core/asset_prefetch.gd:60)
+       [1] warm_level (res://core/asset_prefetch.gd:45)
+       [2] _test_prefetch (res://tests/suite/test_ch1_map.gd:535)
+       [3] run (res://tests/suite/test_ch1_map.gd:44)
+       [4] _run_suites (res://tests/smoke_test.gd:109)
+       [5] _run (res://tests/smoke_test.gd:38)
+WARNING: [AssetPrefetch] 待載已達 512，略過本次剩餘貼圖（首項：res://art/characters/trooper_elite/parts/armor_chest.png）。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:110)
+       [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:592)
+       [2] _prefetch_drain (res://tests/suite/test_ch1_map.gd:613)
+WARNING: [AssetPrefetch] 待載已達 512，略過本次剩餘貼圖（首項：res://art/creatures/tangle_wire/body_n.png）。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:110)
+       [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:592)
+       [2] _prefetch_drain (res://tests/suite/test_ch1_map.gd:613)
+SUITE_TIME Chapter1MapSuite 50.6
+checks: 1374, failures: 0

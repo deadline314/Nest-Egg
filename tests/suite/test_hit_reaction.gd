@@ -330,18 +330,48 @@ func _test_player_clothing_does_not_fly_off() -> void:
 			var player := level.player
 			var rig: CharacterRig = player._visual.rig
 			player.facing = facing
+			var cloth_before_setup := _cloth_scrap_count()
 			player.health.setup(6, 0.0)
 			rig.set_armor_ratio(1.0, false)
 			var before := RigDebris._active
+			_test_cloth_debris_origins(rig)
+			player.health.setup(100, 0.0)
+			var low_damage_armor := rig._armor_visible
+			var low_damage_cloth := _cloth_scrap_count()
+			var low_damage := DamageInfo.create(1, Combat.Team.ENEMY, &"clothing_threshold_test")
+			low_damage.origin = player.global_position + Vector2(side * 30, 0)
+			low_damage.ignore_invulnerability = true
+			check(player.health.take_damage(low_damage) and player.health.current == 99, "sub-threshold clothing case applies real health damage")
+			check(rig._armor_visible == low_damage_armor and _cloth_scrap_count() == low_damage_cloth,
+					"health damage that does not cross an armor step emits no cloth scraps")
+			Fx.cloth_tear(Vector2.INF, facing)
+			Fx.cloth_tear(Vector2(NAN, NAN), facing)
+			check(_cloth_scrap_count() == low_damage_cloth, "non-finite cloth particle origins are safely ignored")
+			player.health.setup(6, 0.0)
+			var cloth_budget := 0
+			for armor_step: Array in rig._armor:
+				cloth_budget += armor_step.size() * 3
+			check(_cloth_scrap_count() == cloth_before_setup, "Rin setup and full armor do not emit cloth scraps")
 			for i in 5:
+				var armor_before := rig._armor_visible
+				var cloth_before_hit := _cloth_scrap_count()
 				var info := DamageInfo.create(1, Combat.Team.ENEMY, &"clothing_test")
 				info.origin = player.global_position + Vector2(side * 30, 0)
 				info.ignore_invulnerability = true
 				player.health.take_damage(info)
 				check(RigDebris._active == before, "Rin's damaged clothing never spawns a complete body part")
+				if rig._armor_visible < armor_before:
+					check(_cloth_scrap_count() > cloth_before_hit, "a real clothing break emits bounded matte cloth scraps")
+					check(_has_valid_cloth_scraps(), "cloth scraps use small, fading, non-additive cloth parameters")
+					check(_cloth_scrap_count() <= cloth_budget and Fx._soft.alive_count() <= ParticleField.CAPACITY and Fx._soft.get_child_count() == 0,
+							"repeated clothing breaks stay within the fixed particle pool without allocating nodes")
 			check(rig._armor_visible < rig.armor_count() and rig._under.all(func(part: CanvasItem) -> bool: return part.visible), "Rin's existing clothing damage remains visible")
+			var before_heal := _cloth_scrap_count()
 			player.health.heal(6)
 			check(rig._armor_visible == rig.armor_count(), "healing still restores Rin's clothing")
+			check(_cloth_scrap_count() == before_heal, "healing restores clothing without emitting more scraps")
+			await physics_frames(40)
+			check(_cloth_scrap_count() == 0, "cloth scraps expire from the fixed particle field")
 			var fatal := DamageInfo.create(9999, Combat.Team.ENEMY, &"clothing_test")
 			fatal.origin = player.global_position + Vector2(side * 30, 0)
 			fatal.ignore_invulnerability = true
@@ -349,6 +379,56 @@ func _test_player_clothing_does_not_fly_off() -> void:
 			await physics_frames(2)
 			check(player.is_dead() and rig._armor_visible == 0 and RigDebris._active == before, "a real fatal hit leaves Rin's body intact without physical body-part debris")
 			await end_level(level)
+
+
+func _test_cloth_debris_origins(rig: CharacterRig) -> void:
+	var jacket := rig.find_child("armor_jacket", true, false) as CanvasItem
+	var thigh := rig.find_child("armor_thigh", true, false) as CanvasItem
+	var calf := rig.find_child("armor_calf", true, false) as CanvasItem
+	check(jacket != null and thigh != null and calf != null, "Rin cloth anchors exist for chest, thigh, and calf parts")
+	if jacket == null or thigh == null or calf == null:
+		return
+	check(rig._cloth_debris_origin(jacket).is_equal_approx(jacket.global_position)
+			and rig._cloth_debris_origin(thigh).is_equal_approx(thigh.global_position)
+			and rig._cloth_debris_origin(calf).is_equal_approx(calf.global_position)
+			and jacket.global_position.distance_to(thigh.global_position) > 1.0
+			and thigh.global_position.distance_to(calf.global_position) > 1.0,
+			"cloth tear anchors follow distinct chest, thigh, and calf part transforms")
+	var original_pose := rig._active_pose_set
+	var fixture_key: StringName = &"cloth_origin_fixture"
+	var fixture_mesh := Polygon2D.new()
+	fixture_mesh.position = Vector2(10000.0, 10000.0)
+	rig._skeleton.add_child(fixture_mesh)
+	rig._pose_slots[fixture_key] = {"base": jacket, "alternatives": {fixture_key: fixture_mesh}}
+	rig._active_pose_set = fixture_key
+	check(rig._cloth_debris_origin(fixture_mesh).is_equal_approx(jacket.global_position),
+			"a skeleton-origin pose mesh resolves to its logical garment anchor instead of its off-body node origin")
+	rig._pose_slots.erase(fixture_key)
+	rig._active_pose_set = original_pose
+	fixture_mesh.queue_free()
+
+
+func _cloth_scrap_count() -> int:
+	if Fx._soft == null:
+		return 0
+	var count := 0
+	for i in ParticleField.CAPACITY:
+		if Fx._soft._life[i] > 0.0 and Fx._soft._cell[i] == VfxAtlas.Cell.SHARD and Fx._soft._col0[i].is_equal_approx(Fx.CLOTH_TEAR_COLOR):
+			count += 1
+	return count
+
+
+func _has_valid_cloth_scraps() -> bool:
+	if Fx._soft == null or Fx._soft.additive:
+		return false
+	var checked := 0
+	for i in ParticleField.CAPACITY:
+		if Fx._soft._life[i] <= 0.0 or Fx._soft._cell[i] != VfxAtlas.Cell.SHARD or not Fx._soft._col0[i].is_equal_approx(Fx.CLOTH_TEAR_COLOR):
+			continue
+		checked += 1
+		if Fx._soft._size0[i] < 2.6 or Fx._soft._size0[i] > 4.2 or Fx._soft._max_life[i] < 0.32 or Fx._soft._max_life[i] > 0.48 or Fx._soft._col1[i].a != 0.0 or not is_equal_approx(Fx._soft._gravity[i], 110.0) or not is_equal_approx(Fx._soft._drag[i], 2.8):
+			return false
+	return checked > 0
 
 
 func _head_point(enemy: Enemy) -> Vector2:

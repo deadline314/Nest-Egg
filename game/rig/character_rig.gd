@@ -1513,4 +1513,20 @@ func _spawn_debris(part: CanvasItem) -> void:
 		var debris := RigDebris.spawn(texture, part.global_transform, offset, Vector2(BREAK_IMPULSE.x * -facing * randf_range(0.6, 1.2), BREAK_IMPULSE.y * randf_range(0.8, 1.2)))
 		if debris != null and not Fx.add_world_node(debris):
 			debris.cancel()
-	Fx.burst(part.global_position, Palette.ARMOR, 6, 120.0, 0.3)
+		Fx.burst(part.global_position, Palette.ARMOR, 6, 120.0, 0.3)
+	else:
+		Fx.cloth_tear(_cloth_debris_origin(part), facing)
+
+
+## Pose mesh alternatives live at Skeleton origin; resolve them back to their logical part's bone anchor.
+func _cloth_debris_origin(part: CanvasItem) -> Vector2:
+	if not part is Polygon2D or part is RigPartMesh or part.get_parent() != _skeleton:
+		return part.global_position
+	for slot_name: StringName in _pose_slots:
+		var slot_data: Dictionary = _pose_slots[slot_name]
+		var alternatives: Dictionary = slot_data.get("alternatives", {})
+		if alternatives.get(_active_pose_set) != part:
+			continue
+		var base_part := slot_data.get("base") as CanvasItem
+		return base_part.global_position if base_part != null else Vector2.INF
+	return Vector2.INF

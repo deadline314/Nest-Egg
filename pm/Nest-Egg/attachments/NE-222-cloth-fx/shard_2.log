@@ -1,0 +1,207 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME ReclaimerSuite 141.1
+SUITE_TIME Chapter2Suite 57.7
+WARNING: [GameState] user://test_story_progress.json:0 存檔損毀：Expected key，故事進度退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] load_story_progress (res://autoload/game_state.gd:488)
+       [1] _test_story_features (res://tests/suite/test_cutscene.gd:628)
+       [2] frames (res://tests/suite/test_suite.gd:23)
+       [3] _frames (res://tests/smoke_test.gd:122)
+WARNING: [GameState] user://test_story_progress.json/flags/test_story_decision 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:452)
+       [1] load_story_progress (res://autoload/game_state.gd:489)
+       [2] _test_story_features (res://tests/suite/test_cutscene.gd:628)
+       [3] frames (res://tests/suite/test_suite.gd:23)
+       [4] _frames (res://tests/smoke_test.gd:122)
+WARNING: [GameState] user://test_story_progress.json/flags/test_story_visits 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:452)
+       [1] load_story_progress (res://autoload/game_state.gd:489)
+       [2] _test_story_features (res://tests/suite/test_cutscene.gd:628)
+       [3] frames (res://tests/suite/test_suite.gd:23)
+       [4] _frames (res://tests/smoke_test.gd:122)
+WARNING: [GameState] user://test_story_progress.json/flags/test_story_route 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:452)
+       [1] load_story_progress (res://autoload/game_state.gd:489)
+       [2] _test_story_features (res://tests/suite/test_cutscene.gd:628)
+       [3] frames (res://tests/suite/test_suite.gd:23)
+       [4] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] user://test_story_progress.json/items/owned 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] restore_story_progress (res://autoload/game_state.gd:454)
+       [2] load_story_progress (res://autoload/game_state.gd:489)
+       [3] _test_story_features (res://tests/suite/test_cutscene.gd:628)
+       [4] frames (res://tests/suite/test_suite.gd:23)
+       [5] _frames (res://tests/smoke_test.gd:122)
+WARNING: [GameState] test_bad_cutscene/save/flags/test_story_visits 損毀，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:449)
+       [1] _test_story_features (res://tests/suite/test_cutscene.gd:629)
+       [2] frames (res://tests/suite/test_suite.gd:23)
+       [3] _frames (res://tests/smoke_test.gd:122)
+WARNING: [GameState] test_bad_cutscene/save/flags/test_story_decision 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:452)
+       [1] _test_story_features (res://tests/suite/test_cutscene.gd:629)
+       [2] frames (res://tests/suite/test_suite.gd:23)
+       [3] _frames (res://tests/smoke_test.gd:122)
+WARNING: [GameState] test_bad_cutscene/save/flags/test_story_route 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:452)
+       [1] _test_story_features (res://tests/suite/test_cutscene.gd:629)
+       [2] frames (res://tests/suite/test_suite.gd:23)
+       [3] _frames (res://tests/smoke_test.gd:122)
+WARNING: [StoryItems] test_bad_cutscene/save/items/owned 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] restore_story_progress (res://autoload/game_state.gd:454)
+       [2] _test_story_features (res://tests/suite/test_cutscene.gd:629)
+       [3] frames (res://tests/suite/test_suite.gd:23)
+       [4] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Stage] test_bad_cutscene 圖層：gradient 圖層缺少欄位「top」
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] create (res://game/cutscene/stage_layers.gd:39)
+       [1] _test_stages (res://tests/suite/test_cutscene.gd:378)
+       [2] run (res://tests/suite/test_cutscene.gd:40)
+       [3] _test_story_features (res://tests/suite/test_cutscene.gd:674)
+       [4] frames (res://tests/suite/test_suite.gd:23)
+       [5] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Stage] test_bad_cutscene 圖層：未知的圖層種類「nonsense」
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] create (res://game/cutscene/stage_layers.gd:35)
+       [1] _test_stages (res://tests/suite/test_cutscene.gd:380)
+       [2] run (res://tests/suite/test_cutscene.gd:40)
+       [3] _test_story_features (res://tests/suite/test_cutscene.gd:674)
+       [4] frames (res://tests/suite/test_suite.gd:23)
+       [5] _frames (res://tests/smoke_test.gd:122)
+ERROR: [Cutscene] 場景 test_bad_cutscene 第 1 步（move）：找不到角色「ghost」，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _need_actor (res://game/cutscene/cutscene_player.gd:349)
+       [1] _do_move (res://game/cutscene/cutscene_player.gd:470)
+       [2] _run (res://game/cutscene/cutscene_player.gd:138)
+ERROR: [Cutscene] 場景 test_bad_cutscene 第 2 步（scene）：場景「no_such_stage」不存在，保留原本的場景
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _do_scene (res://game/cutscene/cutscene_player.gd:364)
+       [1] _run (res://game/cutscene/cutscene_player.gd:138)
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/no_such_character/character.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] load_json (res://game/rig/rig_library.gd:21)
+       [2] character (res://game/rig/rig_library.gd:29)
+       [3] setup (res://game/cutscene/cutscene_actor.gd:39)
+       [4] _do_actor (res://game/cutscene/cutscene_player.gd:405)
+       [5] _run (res://game/cutscene/cutscene_player.gd:138)
+       [6] _do_scene (res://game/cutscene/cutscene_player.gd:377)
+       [7] _do_fade (res://game/cutscene/cutscene_player.gd:615)
+       [8] _wait_tween (res://game/cutscene/cutscene_player.gd:342)
+ERROR: [Cutscene] 場景 test_bad_cutscene 第 4 步（actor）：角色「bad」沒有可用的外觀或頭像，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _do_actor (res://game/cutscene/cutscene_player.gd:408)
+       [1] _run (res://game/cutscene/cutscene_player.gd:138)
+       [2] _do_scene (res://game/cutscene/cutscene_player.gd:377)
+       [3] _do_fade (res://game/cutscene/cutscene_player.gd:615)
+       [4] _wait_tween (res://game/cutscene/cutscene_player.gd:342)
+ERROR: [Cutscene] 場景 test_bad_cutscene 第 5 步的動作「dance」不存在，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://game/cutscene/cutscene_player.gd:133)
+       [1] _do_scene (res://game/cutscene/cutscene_player.gd:377)
+       [2] _do_fade (res://game/cutscene/cutscene_player.gd:615)
+       [3] _wait_tween (res://game/cutscene/cutscene_player.gd:342)
+ERROR: [Cutscene] 場景 test_bad_cutscene 第 6 步不是物件，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://game/cutscene/cutscene_player.gd:125)
+       [1] _do_scene (res://game/cutscene/cutscene_player.gd:377)
+       [2] _do_fade (res://game/cutscene/cutscene_player.gd:615)
+       [3] _wait_tween (res://game/cutscene/cutscene_player.gd:342)
+ERROR: [Cutscene] 場景 test_bad_cutscene 第 8 步（transition）：轉場「spin」不存在，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _do_transition (res://game/cutscene/cutscene_player.gd:621)
+       [1] _run (res://game/cutscene/cutscene_player.gd:138)
+       [2] _do_scene (res://game/cutscene/cutscene_player.gd:377)
+       [3] _do_fade (res://game/cutscene/cutscene_player.gd:615)
+       [4] _wait_tween (res://game/cutscene/cutscene_player.gd:342)
+SUITE_TIME CutsceneSuite 5.6
+ERROR: [EnemyVfx] res://art/vfx/enemies/test_no_such_enemy.json 沒有特效資料，不播放專屬特效。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] report_once (res://game/rig/rig_library.gd:125)
+       [2] load_for (res://game/enemies/enemy_vfx.gd:31)
+       [3] _test_missing_file_is_safe (res://tests/suite/test_enemy_vfx.gd:69)
+       [4] run (res://tests/suite/test_enemy_vfx.gd:13)
+       [5] _test_playback (res://tests/suite/test_enemy_vfx.gd:65)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME EnemyVfxSuite 0.1
+ERROR: [AttackTokens] 區域覆蓋的群組「test_no_such_group」不存在（有：[&"melee", &"ranged"]）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://core/attack_tokens.gd:42)
+       [1] _test_overrides_and_bad_data (res://tests/suite/test_attack_tokens.gd:49)
+       [2] run (res://tests/suite/test_attack_tokens.gd:12)
+       [3] _run_suites (res://tests/smoke_test.gd:109)
+       [4] run (res://tests/suite/test_enemy_vfx.gd:14)
+       [5] _test_vfx2_pieces (res://tests/suite/test_enemy_vfx.gd:120)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME AttackTokensSuite 20.2
+SUITE_TIME PhoneBoothSuite 9.1
+ERROR: [Feel] 沒有這個回饋事件「test_no_such_feel_event」（res://data/feel/events.json）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://autoload/feel.gd:241)
+       [1] play (res://autoload/feel.gd:126)
+       [2] _test_bad_events_are_safe (res://tests/suite/test_feel.gd:89)
+       [3] run (res://tests/suite/test_feel.gd:13)
+       [4] _test_shake_duration_is_honored (res://tests/suite/test_feel.gd:84)
+ERROR: [Sfx] 沒有這個聲音事件「test_no_such_sound_event」（res://data/feel/sound_events.json），改播「hit」
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report_once (res://autoload/sfx.gd:734)
+       [1] play_event (res://autoload/sfx.gd:650)
+       [2] _test_sound_events (res://tests/suite/test_feel.gd:317)
+ERROR: [HitFeedback] 沒有這個命中材質「test_no_such_material」（res://data/feel/materials.json），改用 generic
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/fx/hit_feedback.gd:159)
+       [1] play (res://game/fx/hit_feedback.gd:81)
+       [2] _test_hit_materials (res://tests/suite/test_feel.gd:334)
+       [3] run (res://tests/suite/test_feel.gd:19)
+       [4] _test_sound_events (res://tests/suite/test_feel.gd:318)
+ERROR: [Feel] 沒有這個預設組合「test_no_such_preset」（res://data/feel/presets.json）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://autoload/feel.gd:241)
+       [1] set_preset (res://autoload/feel.gd:62)
+       [2] _test_params_and_presets (res://tests/suite/test_feel.gd:496)
+       [3] run (res://tests/suite/test_feel.gd:23)
+       [4] _test_block_feel (res://tests/suite/test_feel.gd:468)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:605)
+       [7] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME FeelSuite 2.6
+SUITE_TIME FloodPitSuite 2.6
+checks: 1483, failures: 0
