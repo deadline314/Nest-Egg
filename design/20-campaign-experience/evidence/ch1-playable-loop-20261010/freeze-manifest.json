@@ -1,0 +1,541 @@
+{
+  "reviewed_at_utc": "2026-10-10T12:35:38.921990+00:00",
+  "worktree": "C:\\Users\\stanl\\.codex\\worktrees\\chapter-one-runtime\\Nest-Egg",
+  "mode": "CPU read-only; no engine; no adoption/PM/Git mutation",
+  "files": [
+    {
+      "path": ".agents/skills/chapter-design/SKILL.md",
+      "bytes_sha256": "e469972f324962d8bf478aca1d5e56943543b769db4b029e52222aecccb53be4",
+      "lf_sha256": "e469972f324962d8bf478aca1d5e56943543b769db4b029e52222aecccb53be4",
+      "lines": 126
+    },
+    {
+      "path": ".agents/skills/continuity-qa/SKILL.md",
+      "bytes_sha256": "19174bd3670f8d63f74526bab5458674c856066cd1bbbea2e324737c7a744912",
+      "lf_sha256": "19174bd3670f8d63f74526bab5458674c856066cd1bbbea2e324737c7a744912",
+      "lines": 138
+    },
+    {
+      "path": "autoload/game_state.gd",
+      "bytes_sha256": "33e0a616db26c7e71c83f2a0a68d82ddb8ddbf7f2a9c9e23ea82538ce5261c2f",
+      "lf_sha256": "33e0a616db26c7e71c83f2a0a68d82ddb8ddbf7f2a9c9e23ea82538ce5261c2f",
+      "lines": 516
+    },
+    {
+      "path": "autoload/story.gd",
+      "bytes_sha256": "30ebbd0e66ddc27d1b1dd187a7a2d53ba451d85f3f8b46fa82e7980285eb9e70",
+      "lf_sha256": "ffb94ef1e60231b6adde303853e8a792a1a5e970b74f790e8d83692764054faf",
+      "lines": 1991
+    },
+    {
+      "path": "core/navigation/quest_catalog.gd",
+      "bytes_sha256": "28166a276a320fc9847bbd3fa3935da19b79300cf695022b7098270a5cf1ffe5",
+      "lf_sha256": "28166a276a320fc9847bbd3fa3935da19b79300cf695022b7098270a5cf1ffe5",
+      "lines": 378
+    },
+    {
+      "path": "core/story_condition_tree.gd",
+      "bytes_sha256": "500b300cece59854308fe6addb829b2963a159bece653b4bd88375e807eff2b4",
+      "lf_sha256": "500b300cece59854308fe6addb829b2963a159bece653b4bd88375e807eff2b4",
+      "lines": 251
+    },
+    {
+      "path": "core/story_run_source.gd",
+      "bytes_sha256": "cf1e279f486d0e9497150d9ff3639f651960db70b5ce4f4e307a21f9037b80e4",
+      "lf_sha256": "cf1e279f486d0e9497150d9ff3639f651960db70b5ce4f4e307a21f9037b80e4",
+      "lines": 833
+    },
+    {
+      "path": "core/story_runtime_facts.gd",
+      "bytes_sha256": "b4f88f646c47dc0c99d43de85c702757bec2bc5211cd0ffd65ad1b08b440becf",
+      "lf_sha256": "142df9ec8bf4e860436a0c4c6c178e41a2675e0760d79f34481d918798c9cd47",
+      "lines": 155
+    },
+    {
+      "path": "data/cutscene/stages/ch1_pawnshop_kitchen.json",
+      "bytes_sha256": "fc7f1a1e09bd5fb2c378b2badeea7a5baa7507960278de58ae1416827b152e70",
+      "lf_sha256": "fc7f1a1e09bd5fb2c378b2badeea7a5baa7507960278de58ae1416827b152e70",
+      "lines": 67
+    },
+    {
+      "path": "data/levels/ch1_booth_alley.tres",
+      "bytes_sha256": "aa5b73cf53403beafd3bc34224987164e7c55c0eb1ea7d6c0c9c6c76a80c4df9",
+      "lf_sha256": "aa5b73cf53403beafd3bc34224987164e7c55c0eb1ea7d6c0c9c6c76a80c4df9",
+      "lines": 46
+    },
+    {
+      "path": "data/levels/ch1_booth_alley_map.json",
+      "bytes_sha256": "1ea857320b434e843294a7b78eade548e766671ef87baab79144e52929bf0653",
+      "lf_sha256": "1ea857320b434e843294a7b78eade548e766671ef87baab79144e52929bf0653",
+      "lines": 67
+    },
+    {
+      "path": "data/levels/ch1_handoff.tres",
+      "bytes_sha256": "b03a5990e1150dd64b1037dce5d1ea5e7abe5ce8c8c447bed9c11837e02a6f63",
+      "lf_sha256": "b03a5990e1150dd64b1037dce5d1ea5e7abe5ce8c8c447bed9c11837e02a6f63",
+      "lines": 57
+    },
+    {
+      "path": "data/levels/ch1_handoff_map.json",
+      "bytes_sha256": "ccb427edeb35b5d8f56223f6b35fba739e9d455d8d1f0c2ef592041c57d0cc17",
+      "lf_sha256": "ccb427edeb35b5d8f56223f6b35fba739e9d455d8d1f0c2ef592041c57d0cc17",
+      "lines": 33
+    },
+    {
+      "path": "data/levels/ch1_lounge.tres",
+      "bytes_sha256": "d74993d905c5b15f813bb4a9305969f3d82819c1d67c385f269a93a542e7d322",
+      "lf_sha256": "d74993d905c5b15f813bb4a9305969f3d82819c1d67c385f269a93a542e7d322",
+      "lines": 56
+    },
+    {
+      "path": "data/levels/ch1_lounge_map.json",
+      "bytes_sha256": "5ba02bc468f32e60a089a9c3305526ffba8893cfc83109e58f0ffe522947c196",
+      "lf_sha256": "5ba02bc468f32e60a089a9c3305526ffba8893cfc83109e58f0ffe522947c196",
+      "lines": 67
+    },
+    {
+      "path": "data/levels/ch1_pawnshop.tres",
+      "bytes_sha256": "61926b08ca9053b1b962dfea82c173cf11cd89c515c83af50209a4b009bd8b05",
+      "lf_sha256": "61926b08ca9053b1b962dfea82c173cf11cd89c515c83af50209a4b009bd8b05",
+      "lines": 90
+    },
+    {
+      "path": "data/levels/ch1_pawnshop_dawn.tres",
+      "bytes_sha256": "846f1aa6bf7122297c0f9bdb85324d90a3299406361e7c2e193fba2770e9d1b7",
+      "lf_sha256": "846f1aa6bf7122297c0f9bdb85324d90a3299406361e7c2e193fba2770e9d1b7",
+      "lines": 85
+    },
+    {
+      "path": "data/levels/ch1_pawnshop_map.json",
+      "bytes_sha256": "3d3fa262d4cc7fc39324377190757fdfafad386fcb329fdbf08fbc4f8382f229",
+      "lf_sha256": "3d3fa262d4cc7fc39324377190757fdfafad386fcb329fdbf08fbc4f8382f229",
+      "lines": 104
+    },
+    {
+      "path": "data/levels/ch1_rooftop.tres",
+      "bytes_sha256": "4c3259c135404d85a60b066b26fd8f5a7be362ae46f7f846527952640e869294",
+      "lf_sha256": "4c3259c135404d85a60b066b26fd8f5a7be362ae46f7f846527952640e869294",
+      "lines": 46
+    },
+    {
+      "path": "data/levels/ch1_rooftop_map.json",
+      "bytes_sha256": "0e5e165b74ad2f32be724939c2469cb070fc459806ba73a55d0d6db3708db67c",
+      "lf_sha256": "0e5e165b74ad2f32be724939c2469cb070fc459806ba73a55d0d6db3708db67c",
+      "lines": 66
+    },
+    {
+      "path": "data/levels/ch1_stall.tres",
+      "bytes_sha256": "8daf7f367763019eadfca08886e9ebbe5567f9983a7a81d10888e9c4c78dac87",
+      "lf_sha256": "8daf7f367763019eadfca08886e9ebbe5567f9983a7a81d10888e9c4c78dac87",
+      "lines": 45
+    },
+    {
+      "path": "data/levels/ch1_stall_map.json",
+      "bytes_sha256": "f621429142c398745733059700970e1a7679ed99ee4927bbf6256cbe8f15cc70",
+      "lf_sha256": "f621429142c398745733059700970e1a7679ed99ee4927bbf6256cbe8f15cc70",
+      "lines": 38
+    },
+    {
+      "path": "data/levels/ch1_street.tres",
+      "bytes_sha256": "437a57abe0eabc769b4606302ddb768e4e6fb3740d9386af5536a1e07a2fc0d3",
+      "lf_sha256": "437a57abe0eabc769b4606302ddb768e4e6fb3740d9386af5536a1e07a2fc0d3",
+      "lines": 111
+    },
+    {
+      "path": "data/levels/ch1_street_map.json",
+      "bytes_sha256": "385b777c3dea7e2cbdabf293a6642be3abb461ac469c8f0531ff288df2b0981a",
+      "lf_sha256": "385b777c3dea7e2cbdabf293a6642be3abb461ac469c8f0531ff288df2b0981a",
+      "lines": 146
+    },
+    {
+      "path": "data/levels/ch1_vault.tres",
+      "bytes_sha256": "3904d3a0e55f4f92529e11ebd2cd6b6e9c5d1101ae755536cdf6d12003878d72",
+      "lf_sha256": "3904d3a0e55f4f92529e11ebd2cd6b6e9c5d1101ae755536cdf6d12003878d72",
+      "lines": 79
+    },
+    {
+      "path": "data/levels/ch1_vault_map.json",
+      "bytes_sha256": "31d5548bdb12c6648e973cb7c3b4497e22398d2e9e3244c46ece812751e121f7",
+      "lf_sha256": "70cd361c056020a0dae74ef88308bd3e1fb5ee6235dbb41c492cc3c94eb9780c",
+      "lines": 85
+    },
+    {
+      "path": "data/levels/ch1_warehouse.tres",
+      "bytes_sha256": "d5127f3ffff2a223e9e3c97031e423c9c9751dd459fca184f1e83492d0a42c01",
+      "lf_sha256": "d5127f3ffff2a223e9e3c97031e423c9c9751dd459fca184f1e83492d0a42c01",
+      "lines": 84
+    },
+    {
+      "path": "data/levels/ch1_warehouse_map.json",
+      "bytes_sha256": "64101482b40251ab9f7bb7b389887f28bc22795b32f7d7a5128fad4035460cf3",
+      "lf_sha256": "64101482b40251ab9f7bb7b389887f28bc22795b32f7d7a5128fad4035460cf3",
+      "lines": 125
+    },
+    {
+      "path": "data/npcs/ch1_ali_lounge.tres",
+      "bytes_sha256": "f063c5fc09b623a7972c55265e9963d91638811113504b04fbf2fb6b4f748529",
+      "lf_sha256": "f063c5fc09b623a7972c55265e9963d91638811113504b04fbf2fb6b4f748529",
+      "lines": 20
+    },
+    {
+      "path": "data/npcs/ch1_ali_stall.tres",
+      "bytes_sha256": "42e906c2530d5e2ee1fbb15f58a399d22f202cdda8a51be6e6d99b0d058678fe",
+      "lf_sha256": "42e906c2530d5e2ee1fbb15f58a399d22f202cdda8a51be6e6d99b0d058678fe",
+      "lines": 20
+    },
+    {
+      "path": "data/npcs/ch1_egret.tres",
+      "bytes_sha256": "2af383fc9bd0059bbcb39a4f9de4338e32fd6b60ecc0c0b033ce6560e8bd477b",
+      "lf_sha256": "2af383fc9bd0059bbcb39a4f9de4338e32fd6b60ecc0c0b033ce6560e8bd477b",
+      "lines": 20
+    },
+    {
+      "path": "data/npcs/ch1_handoff_cabinet.tres",
+      "bytes_sha256": "93b5415e38ca46c1aa09fff479f00adf5e354a34bb3946ad0f0195084f91bab1",
+      "lf_sha256": "93b5415e38ca46c1aa09fff479f00adf5e354a34bb3946ad0f0195084f91bab1",
+      "lines": 20
+    },
+    {
+      "path": "data/npcs/ch1_label_fare.tres",
+      "bytes_sha256": "5b704565d8928d3e2563ba122f76f86bd2b566d0fec7e7e66702948df5503b89",
+      "lf_sha256": "5b704565d8928d3e2563ba122f76f86bd2b566d0fec7e7e66702948df5503b89",
+      "lines": 20
+    },
+    {
+      "path": "data/npcs/ch1_label_guitar.tres",
+      "bytes_sha256": "f0c00b5fa565010e622b86d638b2b0570f619095c208c0e659129d12f51a5f11",
+      "lf_sha256": "f0c00b5fa565010e622b86d638b2b0570f619095c208c0e659129d12f51a5f11",
+      "lines": 20
+    },
+    {
+      "path": "data/npcs/ch1_label_raincoat.tres",
+      "bytes_sha256": "81a0cbd19808727299ba4ed60c723d866c5596712bf30a679b3d7e37d8ea5f7f",
+      "lf_sha256": "81a0cbd19808727299ba4ed60c723d866c5596712bf30a679b3d7e37d8ea5f7f",
+      "lines": 20
+    },
+    {
+      "path": "data/npcs/ch1_label_watch.tres",
+      "bytes_sha256": "eeaf76f69bda5b2954500763a634adc82167f9a6c4b50ea9e482a8d6f0ed9cfa",
+      "lf_sha256": "eeaf76f69bda5b2954500763a634adc82167f9a6c4b50ea9e482a8d6f0ed9cfa",
+      "lines": 20
+    },
+    {
+      "path": "data/npcs/ch1_old_k.tres",
+      "bytes_sha256": "9942acc0e2d964183cb933b3a44eff53b78d6dd9b753e1a810ffa1ad27484e7f",
+      "lf_sha256": "9942acc0e2d964183cb933b3a44eff53b78d6dd9b753e1a810ffa1ad27484e7f",
+      "lines": 36
+    },
+    {
+      "path": "data/props/ch1_arena_street_blockade.tres",
+      "bytes_sha256": "e3685fbeb5ac8d19f33d2b3eb658c8d3257128eb13a9d423b073256ffdeefcf3",
+      "lf_sha256": "e3685fbeb5ac8d19f33d2b3eb658c8d3257128eb13a9d423b073256ffdeefcf3",
+      "lines": 14
+    },
+    {
+      "path": "data/props/ch1_arena_street_plaza.tres",
+      "bytes_sha256": "33ddd169a58b63fc22a97b32915b9bdd221f4e063195635970916e928b4f95ea",
+      "lf_sha256": "33ddd169a58b63fc22a97b32915b9bdd221f4e063195635970916e928b4f95ea",
+      "lines": 14
+    },
+    {
+      "path": "data/props/ch1_arena_warehouse_vault.tres",
+      "bytes_sha256": "b4183bbcd23f1aaf477c7edec21f656c6c52250d3c0942692c9a9dc4ef43201b",
+      "lf_sha256": "b4183bbcd23f1aaf477c7edec21f656c6c52250d3c0942692c9a9dc4ef43201b",
+      "lines": 14
+    },
+    {
+      "path": "data/props/ch1_arena_warehouse_walkway.tres",
+      "bytes_sha256": "76c45e754ad54077276b8798501a0999c98157f81d87b76b962c71eee34907ab",
+      "lf_sha256": "76c45e754ad54077276b8798501a0999c98157f81d87b76b962c71eee34907ab",
+      "lines": 14
+    },
+    {
+      "path": "data/props/ch1_crate.tres",
+      "bytes_sha256": "a3a531b6ff155b875c462c669642ff20484d057f430450d6d02027d9788ee1bb",
+      "lf_sha256": "a3a531b6ff155b875c462c669642ff20484d057f430450d6d02027d9788ee1bb",
+      "lines": 14
+    },
+    {
+      "path": "data/props/ch1_enc_street_blockade.tres",
+      "bytes_sha256": "b0ccaedbf56b97f5016d5d56e66dcd561620cd4f3a7302a7e81bf21e8c8f56be",
+      "lf_sha256": "b0ccaedbf56b97f5016d5d56e66dcd561620cd4f3a7302a7e81bf21e8c8f56be",
+      "lines": 18
+    },
+    {
+      "path": "data/props/ch1_enc_street_plaza.tres",
+      "bytes_sha256": "c3b48680f13c5e905b44ed99fe27c585826ac38d4ecb9253f1914340d866a076",
+      "lf_sha256": "c3b48680f13c5e905b44ed99fe27c585826ac38d4ecb9253f1914340d866a076",
+      "lines": 18
+    },
+    {
+      "path": "data/props/ch1_enc_warehouse_vault.tres",
+      "bytes_sha256": "5cd002a33c1fba2d2b545a52e6414708a7ee6c8e1e28813faacbef23c216bbc0",
+      "lf_sha256": "5cd002a33c1fba2d2b545a52e6414708a7ee6c8e1e28813faacbef23c216bbc0",
+      "lines": 18
+    },
+    {
+      "path": "data/props/ch1_enc_warehouse_walkway.tres",
+      "bytes_sha256": "1862a054d6bbe6bc00bf64347136c563f78408602f27c68e85c5c597c7bd3b8f",
+      "lf_sha256": "1862a054d6bbe6bc00bf64347136c563f78408602f27c68e85c5c597c7bd3b8f",
+      "lines": 18
+    },
+    {
+      "path": "data/props/ch1_flood_pit.tres",
+      "bytes_sha256": "c8769c4cc6590a60de17ec7b67740a2f2f9a95ba57bc6e2cc28264d3bf77a613",
+      "lf_sha256": "c8769c4cc6590a60de17ec7b67740a2f2f9a95ba57bc6e2cc28264d3bf77a613",
+      "lines": 13
+    },
+    {
+      "path": "data/props/ch1_gate_a.tres",
+      "bytes_sha256": "9b5fc50dc7d2d8a8ffb9e840534321f742b14bf08657636e26fb322e029e6df0",
+      "lf_sha256": "9b5fc50dc7d2d8a8ffb9e840534321f742b14bf08657636e26fb322e029e6df0",
+      "lines": 13
+    },
+    {
+      "path": "data/props/ch1_gate_b.tres",
+      "bytes_sha256": "9622afde51e855081cf7db3b599f55389ceb8c4317cd057a8082fe33d22f474d",
+      "lf_sha256": "9622afde51e855081cf7db3b599f55389ceb8c4317cd057a8082fe33d22f474d",
+      "lines": 13
+    },
+    {
+      "path": "data/props/ch1_gate_c.tres",
+      "bytes_sha256": "da814fc186737ad86d2fc2f9ad1edb986447ed16c9806769a04553a9737af8f4",
+      "lf_sha256": "da814fc186737ad86d2fc2f9ad1edb986447ed16c9806769a04553a9737af8f4",
+      "lines": 13
+    },
+    {
+      "path": "data/props/ch1_gate_watchdog.tres",
+      "bytes_sha256": "43145f43ef2548765b13b2f9d2d1df085568e5a1846a9542bb52f74358e8189a",
+      "lf_sha256": "43145f43ef2548765b13b2f9d2d1df085568e5a1846a9542bb52f74358e8189a",
+      "lines": 13
+    },
+    {
+      "path": "data/props/ch1_secret_wall.tres",
+      "bytes_sha256": "81ec1e38419a28e5fce73bed97584cef540e9a0f8349899e52a175403a56ecfd",
+      "lf_sha256": "81ec1e38419a28e5fce73bed97584cef540e9a0f8349899e52a175403a56ecfd",
+      "lines": 13
+    },
+    {
+      "path": "data/props/ch1_switch_a.tres",
+      "bytes_sha256": "f6fcb7f2839d932658a1b9938244d716b9b5afc2dd1f340a472b459cec87bf83",
+      "lf_sha256": "f6fcb7f2839d932658a1b9938244d716b9b5afc2dd1f340a472b459cec87bf83",
+      "lines": 12
+    },
+    {
+      "path": "data/props/ch1_switch_b.tres",
+      "bytes_sha256": "47c013231650259bf408728c702c814db28e81870249588b4d8bd8beb3da2c09",
+      "lf_sha256": "47c013231650259bf408728c702c814db28e81870249588b4d8bd8beb3da2c09",
+      "lines": 12
+    },
+    {
+      "path": "data/scripts/level_data.gd",
+      "bytes_sha256": "488610cdac7b8acf8062c2e9070a21f7115acea22c2bbbc94ed5d43cf2368e9d",
+      "lf_sha256": "488610cdac7b8acf8062c2e9070a21f7115acea22c2bbbc94ed5d43cf2368e9d",
+      "lines": 186
+    },
+    {
+      "path": "data/story/ch1_kasa.json",
+      "bytes_sha256": "d933a66a3509d9049e2801ed2277ef45a9d6a1c14623215220aab5a715ef674a",
+      "lf_sha256": "74aab49f9d1c26867eaa53760f656457bc8a86fa399f9e14360fefde90a99db0",
+      "lines": 10981
+    },
+    {
+      "path": "design/13-story-v2/CH01_CLOSURE_SCRIPT.md",
+      "bytes_sha256": "945df45c172b6bcb3d3ca621a115e1935ef9b7056d9d820c95458c8e7b6ad1eb",
+      "lf_sha256": "945df45c172b6bcb3d3ca621a115e1935ef9b7056d9d820c95458c8e7b6ad1eb",
+      "lines": 413
+    },
+    {
+      "path": "design/13-story-v2/CH01_ENVIRONMENT_AUDIT.md",
+      "bytes_sha256": "6d3fa34adc71fdc1806f1203b48cf1be2657f83a2bb6698587e8a1e3d96293b9",
+      "lf_sha256": "6d3fa34adc71fdc1806f1203b48cf1be2657f83a2bb6698587e8a1e3d96293b9",
+      "lines": 70
+    },
+    {
+      "path": "design/13-story-v2/CH01_LEVEL.md",
+      "bytes_sha256": "001477a31565a71d7381c947e0ddeda240b77f2aac1663dbc865f65d90057632",
+      "lf_sha256": "001477a31565a71d7381c947e0ddeda240b77f2aac1663dbc865f65d90057632",
+      "lines": 422
+    },
+    {
+      "path": "design/13-story-v2/CH01_MAP_REVIEW.md",
+      "bytes_sha256": "78f85367051b1067093dc455aa9f2493baa26017fd93a4b7eda24ee07bd2d731",
+      "lf_sha256": "78f85367051b1067093dc455aa9f2493baa26017fd93a4b7eda24ee07bd2d731",
+      "lines": 193
+    },
+    {
+      "path": "design/13-story-v2/CH01_NARRATIVE_V2.md",
+      "bytes_sha256": "cb3a6cf67d820ae9abe38cecec6e0faabf5123f06653432f1472d22032e0ef22",
+      "lf_sha256": "cb3a6cf67d820ae9abe38cecec6e0faabf5123f06653432f1472d22032e0ef22",
+      "lines": 70
+    },
+    {
+      "path": "design/13-story-v2/CH01_PACING_V2.md",
+      "bytes_sha256": "6023733f59b0cae12bf91dbed5dae3b22ddd2aa5bc320649bf1afedf6bd510d4",
+      "lf_sha256": "6023733f59b0cae12bf91dbed5dae3b22ddd2aa5bc320649bf1afedf6bd510d4",
+      "lines": 136
+    },
+    {
+      "path": "design/13-story-v2/CH01_SCRIPT_REVIEW.md",
+      "bytes_sha256": "d48a59483ef675ba70a0b60b5fa62c50660fef1495c2caaa23e1aadc11d0a825",
+      "lf_sha256": "d48a59483ef675ba70a0b60b5fa62c50660fef1495c2caaa23e1aadc11d0a825",
+      "lines": 106
+    },
+    {
+      "path": "design/13-story-v2/PROLOGUE.md",
+      "bytes_sha256": "d8753de9111147a35bd0e4018b276941885ff7be11d1c464d0866ad7465023a4",
+      "lf_sha256": "d8753de9111147a35bd0e4018b276941885ff7be11d1c464d0866ad7465023a4",
+      "lines": 27
+    },
+    {
+      "path": "design/13-story-v2/PROLOGUE_SCRIPT.md",
+      "bytes_sha256": "1dd72db75cb2926dc9019fee0352a961979ac1033c647ab7324a2e632b12bde6",
+      "lf_sha256": "1dd72db75cb2926dc9019fee0352a961979ac1033c647ab7324a2e632b12bde6",
+      "lines": 283
+    },
+    {
+      "path": "design/13-story-v2/SCRIPT_CH01.md",
+      "bytes_sha256": "558d7366a8e9687aef664131e66707f8e1376896075d525efbb7dae77030b97e",
+      "lf_sha256": "558d7366a8e9687aef664131e66707f8e1376896075d525efbb7dae77030b97e",
+      "lines": 1192
+    },
+    {
+      "path": "design/13-story-v2/SCRIPT_CH02.md",
+      "bytes_sha256": "0a786f1d8a694ba9c5006f67f78c29a4e846520d401f76256f86bbdbf082fbe4",
+      "lf_sha256": "0a786f1d8a694ba9c5006f67f78c29a4e846520d401f76256f86bbdbf082fbe4",
+      "lines": 586
+    },
+    {
+      "path": "design/13-story-v2/SCRIPT_CH03.md",
+      "bytes_sha256": "c70cae7cd2f26207e676cbff55f4c37c0614069bebc927169ee152f056d48701",
+      "lf_sha256": "c70cae7cd2f26207e676cbff55f4c37c0614069bebc927169ee152f056d48701",
+      "lines": 579
+    },
+    {
+      "path": "design/20-campaign-experience/DESIGN.md",
+      "bytes_sha256": "2cf2997dd6329cbff7feab308a518b3ab58095adfc2a495e20bf9603edc4c45d",
+      "lf_sha256": "2cf2997dd6329cbff7feab308a518b3ab58095adfc2a495e20bf9603edc4c45d",
+      "lines": 101
+    },
+    {
+      "path": "game/level/checkpoint.gd",
+      "bytes_sha256": "0c9cd3f3834c9db8fab060087c1a482146b993c6b12f77593a4e2837a778009e",
+      "lf_sha256": "0c9cd3f3834c9db8fab060087c1a482146b993c6b12f77593a4e2837a778009e",
+      "lines": 312
+    },
+    {
+      "path": "game/level/level.gd",
+      "bytes_sha256": "7db12e205aea372f1730f325d9fd95dff888fb4a916e303ba47c156c1a31be57",
+      "lf_sha256": "14a8cf612ca4514661089fe13ee88807cddf6e3d0785eba3ac2d7c61c6d3efac",
+      "lines": 1567
+    },
+    {
+      "path": "game/main.gd",
+      "bytes_sha256": "7db0ab42e6aa5c4670f95ff28490796529249ea2cce7b03ed8828823b9304cd4",
+      "lf_sha256": "237cb8be6060b07fce93ef7f88281de48366c17990e80b4f358ce333d510f99b",
+      "lines": 695
+    },
+    {
+      "path": "game/npc/npc_actor.gd",
+      "bytes_sha256": "be2c25deba76120be18cf10e970152df4e24fdeff0749de09dfcf39fa2222b20",
+      "lf_sha256": "be2c25deba76120be18cf10e970152df4e24fdeff0749de09dfcf39fa2222b20",
+      "lines": 434
+    },
+    {
+      "path": "game/props/encounter_zone.gd",
+      "bytes_sha256": "2bb968c3bc5e2e0a162078a30724f82354c1ae613c1f763004aa9597fe6dfeb3",
+      "lf_sha256": "2bb968c3bc5e2e0a162078a30724f82354c1ae613c1f763004aa9597fe6dfeb3",
+      "lines": 155
+    },
+    {
+      "path": "game/props/flood_pit.gd",
+      "bytes_sha256": "9d7033301e00ad4a7e86a204c7a66b57d31125b1a31c18751615a9c2e26018ae",
+      "lf_sha256": "9d7033301e00ad4a7e86a204c7a66b57d31125b1a31c18751615a9c2e26018ae",
+      "lines": 195
+    },
+    {
+      "path": "game/props/gate.gd",
+      "bytes_sha256": "050ba1044aa091b14b2cfd32200e298997a2f59f0234bc29146235dbfd15f3ae",
+      "lf_sha256": "050ba1044aa091b14b2cfd32200e298997a2f59f0234bc29146235dbfd15f3ae",
+      "lines": 111
+    },
+    {
+      "path": "pm/Nest-Egg/[NE-178]重做第一章關卡依新劇情改寫場景與流程.md",
+      "bytes_sha256": "0348e8059682b9356c07ad6bceb8c85fbd314c3ea69f8408fa34962d5b254483",
+      "lf_sha256": "0348e8059682b9356c07ad6bceb8c85fbd314c3ea69f8408fa34962d5b254483",
+      "lines": 44
+    },
+    {
+      "path": "pm/Nest-Egg/[NE-223]設計任務目錄與地圖指引介面.md",
+      "bytes_sha256": "8fdf93e4f3799465a5d40a92d90dc8a643528e00962e29c745018bd5836b47c5",
+      "lf_sha256": "8fdf93e4f3799465a5d40a92d90dc8a643528e00962e29c745018bd5836b47c5",
+      "lines": 144
+    },
+    {
+      "path": "pm/ST/[ST-10]檢查並修正過場舞台的佈景比例與位置.md",
+      "bytes_sha256": "e05cc63f07a58964a280d0cea953fa164f1768f7b9104ec5ace0ce95c649174c",
+      "lf_sha256": "e05cc63f07a58964a280d0cea953fa164f1768f7b9104ec5ace0ce95c649174c",
+      "lines": 82
+    },
+    {
+      "path": "pm/ST/[ST-16]加入序章補上遊戲開頭.md",
+      "bytes_sha256": "50c3e07e969cc29d97810f490927e6f1edb76f0c9f7ff889d2ada10db6493d27",
+      "lf_sha256": "50c3e07e969cc29d97810f490927e6f1edb76f0c9f7ff889d2ada10db6493d27",
+      "lines": 67
+    },
+    {
+      "path": "pm/ST/[ST-1]撰寫第一章傘的劇本.md",
+      "bytes_sha256": "63089ccf677f78e7d65492b623bc907dbd86c2016b82686f0ed3ea894213737e",
+      "lf_sha256": "63089ccf677f78e7d65492b623bc907dbd86c2016b82686f0ed3ea894213737e",
+      "lines": 65
+    },
+    {
+      "path": "pm/ST/[ST-2]把第一章劇本轉成腳本資料.md",
+      "bytes_sha256": "e6bd2647b65907fb5f70f5d0a2b70903769cb4aff1086df0205ad425b705a1e8",
+      "lf_sha256": "e6bd2647b65907fb5f70f5d0a2b70903769cb4aff1086df0205ad425b705a1e8",
+      "lines": 49
+    },
+    {
+      "path": "pm/ST/[ST-9]把第一章劇本接進遊戲.md",
+      "bytes_sha256": "750071aee73bea59bfd44326f8c9455945d6d66cc98e08f249df3765519d7a3f",
+      "lf_sha256": "750071aee73bea59bfd44326f8c9455945d6d66cc98e08f249df3765519d7a3f",
+      "lines": 103
+    },
+    {
+      "path": "tools/level/build_ch1.py",
+      "bytes_sha256": "e01bd7c206076cc93f1cf77e5f475378ac7dee232a4d4ae14f646d7216dd6217",
+      "lf_sha256": "e01bd7c206076cc93f1cf77e5f475378ac7dee232a4d4ae14f646d7216dd6217",
+      "lines": 1201
+    },
+    {
+      "path": "tools/level/ch1_production_bindings.py",
+      "bytes_sha256": "b8b262945f974ad7dda7c0753bad0b31c785e40d2d77b6486f565be35a08c6c8",
+      "lf_sha256": "b8b262945f974ad7dda7c0753bad0b31c785e40d2d77b6486f565be35a08c6c8",
+      "lines": 151
+    },
+    {
+      "path": "tools/story/build_ch1_story.py",
+      "bytes_sha256": "f215e39f3ccd764a7757fa5aa8fa0a7b1aa205056d15e3963f2cbe0bff337321",
+      "lf_sha256": "f215e39f3ccd764a7757fa5aa8fa0a7b1aa205056d15e3963f2cbe0bff337321",
+      "lines": 604
+    },
+    {
+      "path": "tools/story/ch1_closure.py",
+      "bytes_sha256": "90ef9581e5fb3814b9cfa46d9594d9c7438e5e96f8bef88ef0d2f96f6e25f576",
+      "lf_sha256": "90ef9581e5fb3814b9cfa46d9594d9c7438e5e96f8bef88ef0d2f96f6e25f576",
+      "lines": 988
+    },
+    {
+      "path": "tools/story/ch1_production_backend.py",
+      "bytes_sha256": "3dc0c47b1c5e88d952da69768d8d90281fec87a3847c6d545678e29d45aa3c21",
+      "lf_sha256": "3dc0c47b1c5e88d952da69768d8d90281fec87a3847c6d545678e29d45aa3c21",
+      "lines": 322
+    },
+    {
+      "path": "ui/victory_screen.gd",
+      "bytes_sha256": "dcdc3af63cc43ef3ff6e8ba8ec127c0f95070d739317df461536ca293f976323",
+      "lf_sha256": "dcdc3af63cc43ef3ff6e8ba8ec127c0f95070d739317df461536ca293f976323",
+      "lines": 109
+    }
+  ]
+}
