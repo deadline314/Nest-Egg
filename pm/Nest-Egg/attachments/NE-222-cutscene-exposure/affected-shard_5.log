@@ -1,0 +1,620 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+NE80_CYCLE idle weapon= facing=-1 frames=660 dt=1/60
+NE80_CYCLE run weapon= facing=-1 frames=660 dt=1/60
+NE80_CYCLE aim weapon= facing=-1 frames=660 dt=1/60
+NE80_CYCLE crouch weapon= facing=-1 frames=660 dt=1/60
+NE80_CYCLE jump weapon= facing=-1 frames=660 dt=1/60
+NE80_CYCLE block weapon= facing=-1 frames=660 dt=1/60
+NE80_CYCLE stagger weapon= facing=-1 frames=660 dt=1/60
+NE80_CYCLE dead weapon= facing=-1 frames=660 dt=1/60
+NE80_CYCLE walk weapon= facing=-1 frames=660 dt=1/60
+NE80_CYCLE idle weapon= facing=1 frames=660 dt=1/60
+NE80_CYCLE run weapon= facing=1 frames=660 dt=1/60
+NE80_CYCLE aim weapon= facing=1 frames=660 dt=1/60
+NE80_CYCLE crouch weapon= facing=1 frames=660 dt=1/60
+NE80_CYCLE jump weapon= facing=1 frames=660 dt=1/60
+NE80_CYCLE block weapon= facing=1 frames=660 dt=1/60
+NE80_CYCLE stagger weapon= facing=1 frames=660 dt=1/60
+NE80_CYCLE dead weapon= facing=1 frames=660 dt=1/60
+NE80_CYCLE walk weapon= facing=1 frames=660 dt=1/60
+NE80_CYCLE idle weapon=minigun facing=-1 frames=660 dt=1/60
+NE80_CYCLE run weapon=minigun facing=-1 frames=660 dt=1/60
+NE80_CYCLE aim weapon=minigun facing=-1 frames=660 dt=1/60
+NE80_CYCLE crouch weapon=minigun facing=-1 frames=660 dt=1/60
+NE80_CYCLE jump weapon=minigun facing=-1 frames=660 dt=1/60
+NE80_CYCLE block weapon=minigun facing=-1 frames=660 dt=1/60
+NE80_CYCLE stagger weapon=minigun facing=-1 frames=660 dt=1/60
+NE80_CYCLE dead weapon=minigun facing=-1 frames=660 dt=1/60
+NE80_CYCLE walk weapon=minigun facing=-1 frames=660 dt=1/60
+NE80_CYCLE idle weapon=minigun facing=1 frames=660 dt=1/60
+NE80_CYCLE run weapon=minigun facing=1 frames=660 dt=1/60
+NE80_CYCLE aim weapon=minigun facing=1 frames=660 dt=1/60
+NE80_CYCLE crouch weapon=minigun facing=1 frames=660 dt=1/60
+NE80_CYCLE jump weapon=minigun facing=1 frames=660 dt=1/60
+NE80_CYCLE block weapon=minigun facing=1 frames=660 dt=1/60
+NE80_CYCLE stagger weapon=minigun facing=1 frames=660 dt=1/60
+NE80_CYCLE dead weapon=minigun facing=1 frames=660 dt=1/60
+NE80_CYCLE walk weapon=minigun facing=1 frames=660 dt=1/60
+NE80_NEGATIVE mount:torso check=mount:torso rejected=true
+NE80_NEGATIVE length:hand_front check=length:hand_front rejected=true
+NE80_NEGATIVE hidden-underlayer check=slot:torso rejected=true
+NE80_NEGATIVE duplicate-visible-slot check=slot:torso rejected=true
+NE80_NEGATIVE bind:hand_front check=bind:hand_front rejected=true
+NE80_NEGATIVE facing check=facing rejected=true
+NE80_NEGATIVE weapon-mount check=weapon-mount rejected=true
+NE80_COMBAT closed=1 vent=3 final_hp=12 shots=13
+SUITE_TIME HeavyGunnerArtDeliverySuite 15.4
+WARNING: [GameState] user://test_story_progress.json:0 存檔損毀：Expected key，故事進度退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] load_story_progress (res://autoload/game_state.gd:491)
+       [1] _test_story_features (res://tests/suite/test_cutscene.gd:653)
+       [2] frames (res://tests/suite/test_suite.gd:23)
+       [3] _frames (res://tests/smoke_test.gd:123)
+WARNING: [GameState] user://test_story_progress.json/flags/test_story_decision 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:455)
+       [1] load_story_progress (res://autoload/game_state.gd:492)
+       [2] _test_story_features (res://tests/suite/test_cutscene.gd:653)
+       [3] frames (res://tests/suite/test_suite.gd:23)
+       [4] _frames (res://tests/smoke_test.gd:123)
+WARNING: [GameState] user://test_story_progress.json/flags/test_story_visits 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:455)
+       [1] load_story_progress (res://autoload/game_state.gd:492)
+       [2] _test_story_features (res://tests/suite/test_cutscene.gd:653)
+       [3] frames (res://tests/suite/test_suite.gd:23)
+       [4] _frames (res://tests/smoke_test.gd:123)
+WARNING: [GameState] user://test_story_progress.json/flags/test_story_route 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:455)
+       [1] load_story_progress (res://autoload/game_state.gd:492)
+       [2] _test_story_features (res://tests/suite/test_cutscene.gd:653)
+       [3] frames (res://tests/suite/test_suite.gd:23)
+       [4] _frames (res://tests/smoke_test.gd:123)
+WARNING: [StoryItems] user://test_story_progress.json/items/owned 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] restore_story_progress (res://autoload/game_state.gd:457)
+       [2] load_story_progress (res://autoload/game_state.gd:492)
+       [3] _test_story_features (res://tests/suite/test_cutscene.gd:653)
+       [4] frames (res://tests/suite/test_suite.gd:23)
+       [5] _frames (res://tests/smoke_test.gd:123)
+WARNING: [GameState] test_bad_cutscene/save/flags/test_story_visits 損毀，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:452)
+       [1] _test_story_features (res://tests/suite/test_cutscene.gd:654)
+       [2] frames (res://tests/suite/test_suite.gd:23)
+       [3] _frames (res://tests/smoke_test.gd:123)
+WARNING: [GameState] test_bad_cutscene/save/flags/test_story_decision 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:455)
+       [1] _test_story_features (res://tests/suite/test_cutscene.gd:654)
+       [2] frames (res://tests/suite/test_suite.gd:23)
+       [3] _frames (res://tests/smoke_test.gd:123)
+WARNING: [GameState] test_bad_cutscene/save/flags/test_story_route 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:455)
+       [1] _test_story_features (res://tests/suite/test_cutscene.gd:654)
+       [2] frames (res://tests/suite/test_suite.gd:23)
+       [3] _frames (res://tests/smoke_test.gd:123)
+WARNING: [StoryItems] test_bad_cutscene/save/items/owned 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] restore_story_progress (res://autoload/game_state.gd:457)
+       [2] _test_story_features (res://tests/suite/test_cutscene.gd:654)
+       [3] frames (res://tests/suite/test_suite.gd:23)
+       [4] _frames (res://tests/smoke_test.gd:123)
+ERROR: [Stage] test_bad_cutscene 圖層：gradient 圖層缺少欄位「top」
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] create (res://game/cutscene/stage_layers.gd:39)
+       [1] _test_stages (res://tests/suite/test_cutscene.gd:403)
+       [2] run (res://tests/suite/test_cutscene.gd:40)
+       [3] _test_story_features (res://tests/suite/test_cutscene.gd:699)
+       [4] frames (res://tests/suite/test_suite.gd:23)
+       [5] _frames (res://tests/smoke_test.gd:123)
+ERROR: [Stage] test_bad_cutscene 圖層：未知的圖層種類「nonsense」
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] create (res://game/cutscene/stage_layers.gd:35)
+       [1] _test_stages (res://tests/suite/test_cutscene.gd:405)
+       [2] run (res://tests/suite/test_cutscene.gd:40)
+       [3] _test_story_features (res://tests/suite/test_cutscene.gd:699)
+       [4] frames (res://tests/suite/test_suite.gd:23)
+       [5] _frames (res://tests/smoke_test.gd:123)
+ERROR: [Cutscene] 場景 test_bad_cutscene 第 1 步（move）：找不到角色「ghost」，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _need_actor (res://game/cutscene/cutscene_player.gd:349)
+       [1] _do_move (res://game/cutscene/cutscene_player.gd:470)
+       [2] _run (res://game/cutscene/cutscene_player.gd:138)
+ERROR: [Cutscene] 場景 test_bad_cutscene 第 2 步（scene）：場景「no_such_stage」不存在，保留原本的場景
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _do_scene (res://game/cutscene/cutscene_player.gd:364)
+       [1] _run (res://game/cutscene/cutscene_player.gd:138)
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/no_such_character/character.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] load_json (res://game/rig/rig_library.gd:21)
+       [2] character (res://game/rig/rig_library.gd:29)
+       [3] setup (res://game/cutscene/cutscene_actor.gd:39)
+       [4] _do_actor (res://game/cutscene/cutscene_player.gd:405)
+       [5] _run (res://game/cutscene/cutscene_player.gd:138)
+       [6] _do_scene (res://game/cutscene/cutscene_player.gd:377)
+       [7] _do_fade (res://game/cutscene/cutscene_player.gd:615)
+       [8] _wait_tween (res://game/cutscene/cutscene_player.gd:342)
+ERROR: [Cutscene] 場景 test_bad_cutscene 第 4 步（actor）：角色「bad」沒有可用的外觀或頭像，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _do_actor (res://game/cutscene/cutscene_player.gd:408)
+       [1] _run (res://game/cutscene/cutscene_player.gd:138)
+       [2] _do_scene (res://game/cutscene/cutscene_player.gd:377)
+       [3] _do_fade (res://game/cutscene/cutscene_player.gd:615)
+       [4] _wait_tween (res://game/cutscene/cutscene_player.gd:342)
+ERROR: [Cutscene] 場景 test_bad_cutscene 第 5 步的動作「dance」不存在，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://game/cutscene/cutscene_player.gd:133)
+       [1] _do_scene (res://game/cutscene/cutscene_player.gd:377)
+       [2] _do_fade (res://game/cutscene/cutscene_player.gd:615)
+       [3] _wait_tween (res://game/cutscene/cutscene_player.gd:342)
+ERROR: [Cutscene] 場景 test_bad_cutscene 第 6 步不是物件，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://game/cutscene/cutscene_player.gd:125)
+       [1] _do_scene (res://game/cutscene/cutscene_player.gd:377)
+       [2] _do_fade (res://game/cutscene/cutscene_player.gd:615)
+       [3] _wait_tween (res://game/cutscene/cutscene_player.gd:342)
+ERROR: [Cutscene] 場景 test_bad_cutscene 第 8 步（transition）：轉場「spin」不存在，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _do_transition (res://game/cutscene/cutscene_player.gd:621)
+       [1] _run (res://game/cutscene/cutscene_player.gd:138)
+       [2] _do_scene (res://game/cutscene/cutscene_player.gd:377)
+       [3] _do_fade (res://game/cutscene/cutscene_player.gd:615)
+       [4] _wait_tween (res://game/cutscene/cutscene_player.gd:342)
+SUITE_TIME CutsceneSuite 6.7
+SUITE_TIME ChapterCutscenesSuite 0.3
+SUITE_TIME NpcLifeSuite 3.8
+WARNING: [EyeBlink] bad_config.config.median_interval invalid; using safe default (expected a finite number in [0.5, 60.0])
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _warn_invalid (res://game/rig/eye_blink.gd:130)
+       [1] _number (res://game/rig/eye_blink.gd:121)
+       [2] setup (res://game/rig/eye_blink.gd:39)
+       [3] _new_blink (res://tests/suite/test_eye_blink.gd:25)
+       [4] _test_safe_inputs (res://tests/suite/test_eye_blink.gd:108)
+       [5] run (res://tests/suite/test_eye_blink.gd:19)
+       [6] _run_suites (res://tests/smoke_test.gd:110)
+       [7] run (res://tests/suite/test_npc_life.gd:15)
+       [8] _test_feet_stay_planted (res://tests/suite/test_npc_life.gd:227)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:123)
+WARNING: [EyeBlink] bad_config.config.log_sigma invalid; using safe default (expected a finite number in [0.0, 0.8])
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _warn_invalid (res://game/rig/eye_blink.gd:130)
+       [1] _number (res://game/rig/eye_blink.gd:121)
+       [2] setup (res://game/rig/eye_blink.gd:40)
+       [3] _new_blink (res://tests/suite/test_eye_blink.gd:25)
+       [4] _test_safe_inputs (res://tests/suite/test_eye_blink.gd:108)
+       [5] run (res://tests/suite/test_eye_blink.gd:19)
+       [6] _run_suites (res://tests/smoke_test.gd:110)
+       [7] run (res://tests/suite/test_npc_life.gd:15)
+       [8] _test_feet_stay_planted (res://tests/suite/test_npc_life.gd:227)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:123)
+WARNING: [EyeBlink] bad_config.config.talking_frequency invalid; using safe default (expected a finite number in [1.0, 4.0])
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _warn_invalid (res://game/rig/eye_blink.gd:130)
+       [1] _number (res://game/rig/eye_blink.gd:121)
+       [2] setup (res://game/rig/eye_blink.gd:41)
+       [3] _new_blink (res://tests/suite/test_eye_blink.gd:25)
+       [4] _test_safe_inputs (res://tests/suite/test_eye_blink.gd:108)
+       [5] run (res://tests/suite/test_eye_blink.gd:19)
+       [6] _run_suites (res://tests/smoke_test.gd:110)
+       [7] run (res://tests/suite/test_npc_life.gd:15)
+       [8] _test_feet_stay_planted (res://tests/suite/test_npc_life.gd:227)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:123)
+WARNING: [EyeBlink] bad_config.config.duration_range invalid; using safe default (expected finite ordered seconds within 0.12–0.15)
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _warn_invalid (res://game/rig/eye_blink.gd:130)
+       [1] setup (res://game/rig/eye_blink.gd:53)
+       [2] _new_blink (res://tests/suite/test_eye_blink.gd:25)
+       [3] _test_safe_inputs (res://tests/suite/test_eye_blink.gd:108)
+       [4] run (res://tests/suite/test_eye_blink.gd:19)
+       [5] _run_suites (res://tests/smoke_test.gd:110)
+       [6] run (res://tests/suite/test_npc_life.gd:15)
+       [7] _test_feet_stay_planted (res://tests/suite/test_npc_life.gd:227)
+       [8] frames (res://tests/suite/test_suite.gd:23)
+       [9] _frames (res://tests/smoke_test.gd:123)
+WARNING: [EyeBlink] bad_config.config.seed invalid; using safe default (expected an integer)
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _warn_invalid (res://game/rig/eye_blink.gd:130)
+       [1] setup (res://game/rig/eye_blink.gd:61)
+       [2] _new_blink (res://tests/suite/test_eye_blink.gd:25)
+       [3] _test_safe_inputs (res://tests/suite/test_eye_blink.gd:108)
+       [4] run (res://tests/suite/test_eye_blink.gd:19)
+       [5] _run_suites (res://tests/smoke_test.gd:110)
+       [6] run (res://tests/suite/test_npc_life.gd:15)
+       [7] _test_feet_stay_planted (res://tests/suite/test_npc_life.gd:227)
+       [8] frames (res://tests/suite/test_suite.gd:23)
+       [9] _frames (res://tests/smoke_test.gd:123)
+WARNING: [EyeBlink] bad_config.config.median_interval invalid; using safe default (expected a finite number in [0.5, 60.0])
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _warn_invalid (res://game/rig/eye_blink.gd:130)
+       [1] _number (res://game/rig/eye_blink.gd:121)
+       [2] setup (res://game/rig/eye_blink.gd:39)
+       [3] _new_blink (res://tests/suite/test_eye_blink.gd:25)
+       [4] _test_safe_inputs (res://tests/suite/test_eye_blink.gd:112)
+       [5] run (res://tests/suite/test_eye_blink.gd:19)
+       [6] _run_suites (res://tests/smoke_test.gd:110)
+       [7] run (res://tests/suite/test_npc_life.gd:15)
+       [8] _test_feet_stay_planted (res://tests/suite/test_npc_life.gd:227)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:123)
+WARNING: [EyeBlink] bad_config.config.log_sigma invalid; using safe default (expected a finite number in [0.0, 0.8])
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _warn_invalid (res://game/rig/eye_blink.gd:130)
+       [1] _number (res://game/rig/eye_blink.gd:121)
+       [2] setup (res://game/rig/eye_blink.gd:40)
+       [3] _new_blink (res://tests/suite/test_eye_blink.gd:25)
+       [4] _test_safe_inputs (res://tests/suite/test_eye_blink.gd:112)
+       [5] run (res://tests/suite/test_eye_blink.gd:19)
+       [6] _run_suites (res://tests/smoke_test.gd:110)
+       [7] run (res://tests/suite/test_npc_life.gd:15)
+       [8] _test_feet_stay_planted (res://tests/suite/test_npc_life.gd:227)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:123)
+WARNING: [EyeBlink] bad_config.config.talking_frequency invalid; using safe default (expected a finite number in [1.0, 4.0])
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _warn_invalid (res://game/rig/eye_blink.gd:130)
+       [1] _number (res://game/rig/eye_blink.gd:121)
+       [2] setup (res://game/rig/eye_blink.gd:41)
+       [3] _new_blink (res://tests/suite/test_eye_blink.gd:25)
+       [4] _test_safe_inputs (res://tests/suite/test_eye_blink.gd:112)
+       [5] run (res://tests/suite/test_eye_blink.gd:19)
+       [6] _run_suites (res://tests/smoke_test.gd:110)
+       [7] run (res://tests/suite/test_npc_life.gd:15)
+       [8] _test_feet_stay_planted (res://tests/suite/test_npc_life.gd:227)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:123)
+WARNING: [EyeBlink] bad_config.config.duration_range invalid; using safe default (expected two numeric seconds within 0.12–0.15)
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _warn_invalid (res://game/rig/eye_blink.gd:130)
+       [1] setup (res://game/rig/eye_blink.gd:55)
+       [2] _new_blink (res://tests/suite/test_eye_blink.gd:25)
+       [3] _test_safe_inputs (res://tests/suite/test_eye_blink.gd:112)
+       [4] run (res://tests/suite/test_eye_blink.gd:19)
+       [5] _run_suites (res://tests/smoke_test.gd:110)
+       [6] run (res://tests/suite/test_npc_life.gd:15)
+       [7] _test_feet_stay_planted (res://tests/suite/test_npc_life.gd:227)
+       [8] frames (res://tests/suite/test_suite.gd:23)
+       [9] _frames (res://tests/smoke_test.gd:123)
+WARNING: [CharacterRig] rin.eye_states.part invalid; does not resolve to a textured Sprite2D; keeping the original head
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _eye_warning (res://game/rig/character_rig.gd:1384)
+       [1] _setup_eye_states (res://game/rig/character_rig.gd:1169)
+       [2] _build_parts (res://game/rig/character_rig.gd:634)
+       [3] setup (res://game/rig/character_rig.gd:120)
+       [4] _rig_with_eye_states (res://tests/suite/test_eye_blink.gd:306)
+       [5] _test_character_rig_eye_states (res://tests/suite/test_eye_blink.gd:199)
+       [6] run (res://tests/suite/test_eye_blink.gd:20)
+       [7] _run_suites (res://tests/smoke_test.gd:110)
+       [8] run (res://tests/suite/test_npc_life.gd:15)
+       [9] _test_feet_stay_planted (res://tests/suite/test_npc_life.gd:227)
+       [10] frames (res://tests/suite/test_suite.gd:23)
+       [11] _frames (res://tests/smoke_test.gd:123)
+WARNING: [CharacterRig] rin.eye_states.half_texture invalid; texture 'no_such_eye' is missing; keeping the original head
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _eye_warning (res://game/rig/character_rig.gd:1384)
+       [1] _load_eye_state_texture (res://game/rig/character_rig.gd:1312)
+       [2] _setup_eye_states (res://game/rig/character_rig.gd:1226)
+       [3] _build_parts (res://game/rig/character_rig.gd:634)
+       [4] setup (res://game/rig/character_rig.gd:120)
+       [5] _rig_with_eye_states (res://tests/suite/test_eye_blink.gd:306)
+       [6] _test_character_rig_eye_states (res://tests/suite/test_eye_blink.gd:202)
+       [7] run (res://tests/suite/test_eye_blink.gd:20)
+       [8] _run_suites (res://tests/smoke_test.gd:110)
+       [9] run (res://tests/suite/test_npc_life.gd:15)
+       [10] _test_feet_stay_planted (res://tests/suite/test_npc_life.gd:227)
+       [11] frames (res://tests/suite/test_suite.gd:23)
+       [12] _frames (res://tests/smoke_test.gd:123)
+WARNING: [CharacterRig] rin.eye_states.half_texture invalid; texture size must match the original head canvas (133, 141)
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _eye_warning (res://game/rig/character_rig.gd:1384)
+       [1] _valid_eye_metadata (res://game/rig/character_rig.gd:1297)
+       [2] _load_eye_state_texture (res://game/rig/character_rig.gd:1315)
+       [3] _setup_eye_states (res://game/rig/character_rig.gd:1226)
+       [4] _build_parts (res://game/rig/character_rig.gd:634)
+       [5] setup (res://game/rig/character_rig.gd:120)
+       [6] _rig_with_eye_states (res://tests/suite/test_eye_blink.gd:306)
+       [7] _test_character_rig_eye_states (res://tests/suite/test_eye_blink.gd:205)
+       [8] run (res://tests/suite/test_eye_blink.gd:20)
+       [9] _run_suites (res://tests/smoke_test.gd:110)
+       [10] run (res://tests/suite/test_npc_life.gd:15)
+       [11] _test_feet_stay_planted (res://tests/suite/test_npc_life.gd:227)
+       [12] frames (res://tests/suite/test_suite.gd:23)
+       [13] _frames (res://tests/smoke_test.gd:123)
+WARNING: [CharacterRig] rin.eye_states.half_texture invalid; source file is missing: res://art/characters/rin/parts/eye_state_file_missing.png; keeping the original head
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _eye_warning (res://game/rig/character_rig.gd:1384)
+       [1] _load_eye_state_texture (res://game/rig/character_rig.gd:1319)
+       [2] _setup_eye_states (res://game/rig/character_rig.gd:1226)
+       [3] _build_parts (res://game/rig/character_rig.gd:634)
+       [4] setup (res://game/rig/character_rig.gd:120)
+       [5] _rig_with_eye_states (res://tests/suite/test_eye_blink.gd:306)
+       [6] _test_character_rig_eye_states (res://tests/suite/test_eye_blink.gd:214)
+       [7] run (res://tests/suite/test_eye_blink.gd:20)
+       [8] _run_suites (res://tests/smoke_test.gd:110)
+       [9] run (res://tests/suite/test_npc_life.gd:15)
+       [10] _test_feet_stay_planted (res://tests/suite/test_npc_life.gd:227)
+       [11] frames (res://tests/suite/test_suite.gd:23)
+       [12] _frames (res://tests/smoke_test.gd:123)
+WARNING: [EyeBlink] rin.config.median_interval invalid; using safe default (expected a finite number in [0.5, 60.0])
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _warn_invalid (res://game/rig/eye_blink.gd:130)
+       [1] _number (res://game/rig/eye_blink.gd:121)
+       [2] setup (res://game/rig/eye_blink.gd:39)
+       [3] _setup_eye_states (res://game/rig/character_rig.gd:1258)
+       [4] _build_parts (res://game/rig/character_rig.gd:634)
+       [5] setup (res://game/rig/character_rig.gd:120)
+       [6] _rig_with_eye_states (res://tests/suite/test_eye_blink.gd:306)
+       [7] _test_character_rig_eye_states (res://tests/suite/test_eye_blink.gd:219)
+       [8] run (res://tests/suite/test_eye_blink.gd:20)
+       [9] _run_suites (res://tests/smoke_test.gd:110)
+       [10] run (res://tests/suite/test_npc_life.gd:15)
+       [11] _test_feet_stay_planted (res://tests/suite/test_npc_life.gd:227)
+       [12] frames (res://tests/suite/test_suite.gd:23)
+       [13] _frames (res://tests/smoke_test.gd:123)
+WARNING: [EyeBlink] rin.config.talking_frequency invalid; using safe default (expected a finite number in [1.0, 4.0])
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _warn_invalid (res://game/rig/eye_blink.gd:130)
+       [1] _number (res://game/rig/eye_blink.gd:121)
+       [2] setup (res://game/rig/eye_blink.gd:41)
+       [3] _setup_eye_states (res://game/rig/character_rig.gd:1258)
+       [4] _build_parts (res://game/rig/character_rig.gd:634)
+       [5] setup (res://game/rig/character_rig.gd:120)
+       [6] _rig_with_eye_states (res://tests/suite/test_eye_blink.gd:306)
+       [7] _test_character_rig_eye_states (res://tests/suite/test_eye_blink.gd:219)
+       [8] run (res://tests/suite/test_eye_blink.gd:20)
+       [9] _run_suites (res://tests/smoke_test.gd:110)
+       [10] run (res://tests/suite/test_npc_life.gd:15)
+       [11] _test_feet_stay_planted (res://tests/suite/test_npc_life.gd:227)
+       [12] frames (res://tests/suite/test_suite.gd:23)
+       [13] _frames (res://tests/smoke_test.gd:123)
+WARNING: [EyeBlink] rin.config.duration_range invalid; using safe default (expected finite ordered seconds within 0.12–0.15)
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _warn_invalid (res://game/rig/eye_blink.gd:130)
+       [1] setup (res://game/rig/eye_blink.gd:53)
+       [2] _setup_eye_states (res://game/rig/character_rig.gd:1258)
+       [3] _build_parts (res://game/rig/character_rig.gd:634)
+       [4] setup (res://game/rig/character_rig.gd:120)
+       [5] _rig_with_eye_states (res://tests/suite/test_eye_blink.gd:306)
+       [6] _test_character_rig_eye_states (res://tests/suite/test_eye_blink.gd:219)
+       [7] run (res://tests/suite/test_eye_blink.gd:20)
+       [8] _run_suites (res://tests/smoke_test.gd:110)
+       [9] run (res://tests/suite/test_npc_life.gd:15)
+       [10] _test_feet_stay_planted (res://tests/suite/test_npc_life.gd:227)
+       [11] frames (res://tests/suite/test_suite.gd:23)
+       [12] _frames (res://tests/smoke_test.gd:123)
+SUITE_TIME EyeBlinkSuite 0.9
+SUITE_TIME MapBubblesSuite 5.2
+WARNING: [QuestMap] navigation.explored.: 無效區域，已略過。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _apply_components_silent (res://core/run_snapshot.gd:207)
+       [2] apply (res://core/run_snapshot.gd:170)
+       [3] _roundtrip (res://tests/helpers/encounter_resume_checks.gd:145)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:632)
+       [6] _frames (res://tests/smoke_test.gd:123)
+WARNING: [QuestMap] navigation.explored.: 無效區域，已略過。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _apply_components_silent (res://core/run_snapshot.gd:207)
+       [2] apply (res://core/run_snapshot.gd:170)
+       [3] _roundtrip (res://tests/helpers/encounter_resume_checks.gd:184)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:632)
+       [6] _frames (res://tests/smoke_test.gd:123)
+WARNING: [Level] run/runtime/enemies/11/key重複或敵人已消滅：sweeper@98,19；返回主選單，未套用遭遇狀態。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/level/level.gd:104)
+       [1] _swap_screen (res://game/main.gd:68)
+       [2] _failed_restore (res://tests/helpers/encounter_restore_guard_checks.gd:154)
+       [3] run (res://tests/helpers/encounter_restore_guard_checks.gd:101)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:632)
+       [6] _frames (res://tests/smoke_test.gd:123)
+WARNING: [Level] run/runtime/enemies/enemy:11/key：sweeper@98,19 無法還原已識別敵人；返回主選單，原存檔保留。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _restore_run_entities (res://game/level/level.gd:1275)
+       [1] _restore_run_entities (res://tests/helpers/encounter_restore_guard_checks.gd:23)
+       [2] _ready (res://game/level/level.gd:225)
+       [3] _swap_screen (res://game/main.gd:68)
+       [4] _failed_restore (res://tests/helpers/encounter_restore_guard_checks.gd:154)
+       [5] run (res://tests/helpers/encounter_restore_guard_checks.gd:101)
+       [6] _failed_restore (res://tests/helpers/encounter_restore_guard_checks.gd:178)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:123)
+WARNING: [Level] run/runtime/enemies/enemy:16/key： 無法還原已識別敵人；返回主選單，原存檔保留。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _restore_run_entities (res://game/level/level.gd:1275)
+       [1] _restore_run_entities (res://tests/helpers/encounter_restore_guard_checks.gd:23)
+       [2] _ready (res://game/level/level.gd:225)
+       [3] _swap_screen (res://game/main.gd:68)
+       [4] _failed_restore (res://tests/helpers/encounter_restore_guard_checks.gd:154)
+       [5] run (res://tests/helpers/encounter_restore_guard_checks.gd:101)
+       [6] _failed_restore (res://tests/helpers/encounter_restore_guard_checks.gd:178)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:123)
+WARNING: [EncounterZone] test_encounter（格 (30, 20)）鎖場超過 10 秒，強制解鎖（還有 1 個成員活著）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _physics_process (res://game/props/encounter_zone.gd:115)
+SUITE_TIME EncounterSuite 12.7
+SUITE_TIME PostureSuite 0.9
+SUITE_TIME StrikeEnemiesSuite 27.6
+ERROR: 音效實驗室：版面比例檔 user://test_audio_lab_layout.cfg 的 [split_ratios] rows 不是 0.1 到 0.9 的數字，改用預設比例
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _load (res://tools/sound_lab/lab_layout.gd:66)
+       [1] _init (res://tools/sound_lab/lab_layout.gd:19)
+       [2] _test_layout_store (res://tests/suite/test_sound_lab.gd:135)
+       [3] run (res://tests/suite/test_sound_lab.gd:18)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] run (res://tests/suite/test_strike_enemies.gd:17)
+       [6] _test_hook_blocked_by_wall (res://tests/suite/test_strike_enemies.gd:243)
+       [7] _finish (res://tests/suite/test_strike_enemies.gd:81)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:632)
+       [10] _frames (res://tests/smoke_test.gd:123)
+ERROR: 音效實驗室：版面比例檔 user://test_audio_lab_layout.cfg 的 [split_ratios] cols 不是 0.1 到 0.9 的數字，改用預設比例
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _load (res://tools/sound_lab/lab_layout.gd:66)
+       [1] _init (res://tools/sound_lab/lab_layout.gd:19)
+       [2] _test_layout_store (res://tests/suite/test_sound_lab.gd:135)
+       [3] run (res://tests/suite/test_sound_lab.gd:18)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] run (res://tests/suite/test_strike_enemies.gd:17)
+       [6] _test_hook_blocked_by_wall (res://tests/suite/test_strike_enemies.gd:243)
+       [7] _finish (res://tests/suite/test_strike_enemies.gd:81)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:632)
+       [10] _frames (res://tests/smoke_test.gd:123)
+SUITE_TIME SoundLabSuite 2.7
+SUITE_TIME ReadabilityTargetsSuite 0.1
+ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/props/portal.gd:36)
+       [1] _spawn_static_entities (res://game/level/level.gd:463)
+       [2] _ready (res://game/level/level.gd:196)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] _test_entry_and_walk (res://tests/suite/test_areas.gd:137)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:632)
+       [7] _frames (res://tests/smoke_test.gd:123)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://tests/fixtures/areas/no_such_level.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _resolve_level (res://core/asset_prefetch.gd:60)
+       [1] warm_neighbors (res://core/asset_prefetch.gd:75)
+ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/props/portal.gd:36)
+       [1] _spawn_static_entities (res://game/level/level.gd:463)
+       [2] _ready (res://game/level/level.gd:196)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] _test_checkpoint_area (res://tests/suite/test_areas.gd:247)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:632)
+       [7] _frames (res://tests/smoke_test.gd:123)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://tests/fixtures/areas/no_such_level.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _resolve_level (res://core/asset_prefetch.gd:60)
+       [1] warm_neighbors (res://core/asset_prefetch.gd:75)
+ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/props/portal.gd:36)
+       [1] _spawn_static_entities (res://game/level/level.gd:463)
+       [2] _ready (res://game/level/level.gd:196)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_locked_and_flagged_doors (res://tests/suite/test_areas.gd:267)
+       [6] run (res://tests/suite/test_areas.gd:23)
+       [7] _test_checkpoint_area (res://tests/suite/test_areas.gd:259)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:632)
+       [10] _frames (res://tests/smoke_test.gd:123)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://tests/fixtures/areas/no_such_level.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _resolve_level (res://core/asset_prefetch.gd:60)
+       [1] warm_neighbors (res://core/asset_prefetch.gd:75)
+ERROR: [Portal] 出入口 test_area_bad_missing 的目標區域不存在：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/props/portal.gd:36)
+       [1] _spawn_static_entities (res://game/level/level.gd:463)
+       [2] _ready (res://game/level/level.gd:196)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_bad_data (res://tests/suite/test_areas.gd:284)
+       [6] run (res://tests/suite/test_areas.gd:24)
+       [7] _test_locked_and_flagged_doors (res://tests/suite/test_areas.gd:280)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:632)
+       [10] _frames (res://tests/smoke_test.gd:123)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://tests/fixtures/areas/no_such_level.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _resolve_level (res://core/asset_prefetch.gd:60)
+       [1] warm_neighbors (res://core/asset_prefetch.gd:75)
+ERROR: [Level] test_area_b 的出入口「test_area_bad_missing」目標不是可載入的區域：res://tests/fixtures/areas/no_such_level.tres
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _on_portal_used (res://game/level/level.gd:995)
+       [1] try_use (res://game/props/portal.gd:110)
+       [2] _test_bad_data (res://tests/suite/test_areas.gd:287)
+       [3] start_level (res://tests/suite/test_suite.gd:34)
+       [4] spawn_level (res://tests/suite/test_suite.gd:43)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:123)
+ERROR: [Level] test_area_a 沒有出入口「test_area_bad_entry」（res://tests/fixtures/areas/area_map_a.json），改用起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _entry_position (res://game/level/level.gd:788)
+       [1] _spawn_player (res://game/level/level.gd:751)
+       [2] _ready (res://game/level/level.gd:198)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] _test_bad_data (res://tests/suite/test_areas.gd:294)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:632)
+       [7] _frames (res://tests/smoke_test.gd:123)
+WARNING: [Story] 找不到章節：test_area_no_chapter
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] chapter_info (res://autoload/story.gd:208)
+       [1] _run_ending (res://game/level/level.gd:958)
+       [2] _begin_intro (res://game/level/level.gd:315)
+SUITE_TIME AreasSuite 2.2
+checks: 27074, failures: 0

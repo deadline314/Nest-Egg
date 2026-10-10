@@ -1,0 +1,281 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME ProgressionSuite 4.2
+SUITE_TIME SupplySuite 8.0
+ERROR: [NpcActor] 格 (34, 19)：人物 test_npc_bad 沒有任何對話
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/npc/npc_actor.gd:55)
+       [1] _spawn_static_entities (res://game/level/level.gd:463)
+       [2] _ready (res://game/level/level.gd:196)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_fallbacks (res://tests/suite/test_npc.gd:648)
+       [6] run (res://tests/suite/test_npc.gd:28)
+       [7] _test_real_npcs (res://tests/suite/test_npc.gd:636)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:632)
+       [10] _frames (res://tests/smoke_test.gd:123)
+WARNING: [Story] 找不到劇情場景：test_no_such_scene
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _enqueue_request (res://autoload/story.gd:622)
+       [1] play_and_wait (res://autoload/story.gd:664)
+       [2] _present_talk (res://game/npc/npc_actor.gd:187)
+       [3] _talk (res://game/npc/npc_actor.gd:175)
+       [4] _test_fallbacks (res://tests/suite/test_npc.gd:669)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:123)
+SUITE_TIME NpcSuite 8.3
+ERROR: [HumanoidAnimator] res://art/rigs/action_poses.json 沒有專屬動作「no_such_action」
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] report_once (res://game/rig/rig_library.gd:125)
+       [2] _apply_action (res://game/rig/humanoid_animator.gd:880)
+       [3] update (res://game/rig/humanoid_animator.gd:248)
+       [4] animate (res://game/rig/character_rig.gd:219)
+       [5] _rig (res://tests/suite/test_rig_actions.gd:27)
+       [6] _test_unknown_action (res://tests/suite/test_rig_actions.gd:182)
+       [7] run (res://tests/suite/test_rig_actions.gd:14)
+       [8] _test_death_overrides_enemy_actions (res://tests/suite/test_rig_actions.gd:127)
+       [9] _rig (res://tests/suite/test_rig_actions.gd:29)
+       [10] frames (res://tests/suite/test_suite.gd:23)
+       [11] _frames (res://tests/smoke_test.gd:123)
+SUITE_TIME RigActionsSuite 1.3
+ERROR: [EnemyVfx] res://art/vfx/enemies/test_no_such_enemy.json 沒有特效資料，不播放專屬特效。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] report_once (res://game/rig/rig_library.gd:125)
+       [2] load_for (res://game/enemies/enemy_vfx.gd:31)
+       [3] _test_missing_file_is_safe (res://tests/suite/test_enemy_vfx.gd:69)
+       [4] run (res://tests/suite/test_enemy_vfx.gd:13)
+       [5] _test_playback (res://tests/suite/test_enemy_vfx.gd:65)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:123)
+SUITE_TIME EnemyVfxSuite 0.1
+ERROR: [Level] ch1_stall 沒有電話亭可登記復原點（res://data/levels/ch1_stall_map.json），重生會退回區域起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _register_nearest_checkpoint (res://game/level/level.gd:926)
+       [1] _test_unfinished_scene_plays_again (res://tests/suite/test_death_flow.gd:204)
+       [2] spawn_level (res://tests/suite/test_suite.gd:43)
+       [3] frames (res://tests/suite/test_suite.gd:23)
+       [4] _frames (res://tests/smoke_test.gd:123)
+SUITE_TIME DeathFlowSuite 5.0
+ERROR: [Enemy] test_missing_part 的 hurt_parts 有無效的部位（id、size、mult）：{ "id": "", "size": (4.0, 4.0), "mult": 2.0 }
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _build_hurt_parts (res://game/enemies/enemy.gd:242)
+       [1] _build_components (res://game/enemies/enemy.gd:180)
+       [2] _ready (res://game/enemies/enemy.gd:140)
+       [3] _test_bad_part_data (res://tests/suite/test_hit_reaction.gd:507)
+       [4] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [5] start_level (res://tests/suite/test_suite.gd:34)
+       [6] spawn_level (res://tests/suite/test_suite.gd:43)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:123)
+WARNING: [Enemy] test_missing_part 的部位 ok 找不到骨頭 no_such_bone，改用固定位置。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _build_hurt_parts (res://game/enemies/enemy.gd:246)
+       [1] _build_components (res://game/enemies/enemy.gd:180)
+       [2] _ready (res://game/enemies/enemy.gd:140)
+       [3] _test_bad_part_data (res://tests/suite/test_hit_reaction.gd:507)
+       [4] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [5] start_level (res://tests/suite/test_suite.gd:34)
+       [6] spawn_level (res://tests/suite/test_suite.gd:43)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:123)
+ERROR: [EnemyVfx] res://art/vfx/enemies/test_missing_part.json 沒有特效資料，不播放專屬特效。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] report_once (res://game/rig/rig_library.gd:125)
+       [2] load_for (res://game/enemies/enemy_vfx.gd:31)
+       [3] _ready (res://game/enemies/enemy.gd:148)
+       [4] _test_bad_part_data (res://tests/suite/test_hit_reaction.gd:507)
+       [5] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [6] start_level (res://tests/suite/test_suite.gd:34)
+       [7] spawn_level (res://tests/suite/test_suite.gd:43)
+       [8] frames (res://tests/suite/test_suite.gd:23)
+       [9] _frames (res://tests/smoke_test.gd:123)
+WARNING: [LitTextures] 沒有法線貼圖，改用平面貼圖：res://art/creatures/test_tentacle_n.png（可用 tools/art/paint_normals.tscn 產生）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] load_texture (res://core/lit_textures.gd:34)
+       [1] setup (res://game/creature/chain_creature.gd:88)
+       [2] _test_tentacle_wave_and_sever (res://tests/suite/test_hit_reaction.gd:586)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:123)
+WARNING: [LitTextures] 沒有法線貼圖，改用平面貼圖：res://art/creatures/test_body_n.png（可用 tools/art/paint_normals.tscn 產生）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] load_texture (res://core/lit_textures.gd:34)
+       [1] _build_body (res://game/creature/chain_creature.gd:125)
+       [2] setup (res://game/creature/chain_creature.gd:99)
+       [3] _test_tentacle_wave_and_sever (res://tests/suite/test_hit_reaction.gd:586)
+       [4] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [5] start_level (res://tests/suite/test_suite.gd:34)
+       [6] spawn_level (res://tests/suite/test_suite.gd:43)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:123)
+SUITE_TIME HitReactionSuite 12.5
+WORM_TURN_METRICS max_visible_uv_step=3.70000123977661 opposing_tail_samples=3
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/creatures/no_such_creature.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] load_json (res://game/rig/rig_library.gd:21)
+       [2] setup (res://game/creature/chain_creature.gd:80)
+       [3] _test_bad_data_is_safe (res://tests/suite/test_chain_creature.gd:281)
+       [4] run (res://tests/suite/test_chain_creature.gd:22)
+       [5] _test_severing (res://tests/suite/test_chain_creature.gd:275)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:632)
+       [8] _frames (res://tests/smoke_test.gd:123)
+SUITE_TIME ChainCreatureSuite 18.5
+ERROR: [Feel] 沒有這個回饋事件「test_no_such_feel_event」（res://data/feel/events.json）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://autoload/feel.gd:241)
+       [1] play (res://autoload/feel.gd:126)
+       [2] _test_bad_events_are_safe (res://tests/suite/test_feel.gd:89)
+       [3] run (res://tests/suite/test_feel.gd:13)
+       [4] _test_shake_duration_is_honored (res://tests/suite/test_feel.gd:84)
+ERROR: [Sfx] 沒有這個聲音事件「test_no_such_sound_event」（res://data/feel/sound_events.json），改播「hit」
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report_once (res://autoload/sfx.gd:734)
+       [1] play_event (res://autoload/sfx.gd:650)
+       [2] _test_sound_events (res://tests/suite/test_feel.gd:317)
+ERROR: [HitFeedback] 沒有這個命中材質「test_no_such_material」（res://data/feel/materials.json），改用 generic
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/fx/hit_feedback.gd:159)
+       [1] play (res://game/fx/hit_feedback.gd:81)
+       [2] _test_hit_materials (res://tests/suite/test_feel.gd:334)
+       [3] run (res://tests/suite/test_feel.gd:19)
+       [4] _test_sound_events (res://tests/suite/test_feel.gd:318)
+ERROR: [Feel] 沒有這個預設組合「test_no_such_preset」（res://data/feel/presets.json）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://autoload/feel.gd:241)
+       [1] set_preset (res://autoload/feel.gd:62)
+       [2] _test_params_and_presets (res://tests/suite/test_feel.gd:496)
+       [3] run (res://tests/suite/test_feel.gd:23)
+       [4] _test_block_feel (res://tests/suite/test_feel.gd:468)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:632)
+       [7] _frames (res://tests/smoke_test.gd:123)
+SUITE_TIME FeelSuite 2.6
+MELEE_COMBO_TRACE {"aim":[-1.0,0.0],"deadline_ms":73363,"facing":-1,"frozen":false,"index":0,"label":"expired-early-command","landed":true,"phase":0,"phase_time":0.516666666666667,"remaining":0.0,"target_hp":993,"target_offset":[-38.1593246459961,-0.074737548828125],"wall_ms":74211}
+MELEE_COMBO_TRACE {"aim":[-1.0,0.0],"deadline_ms":74776,"facing":-1,"frozen":false,"index":0,"label":"fresh-first-recovery-command","landed":true,"phase":3,"phase_time":0.0,"remaining":0.22,"target_hp":997,"target_offset":[-19.1584930419922,-0.109710693359375],"wall_ms":74556}
+MELEE_COMBO_TRACE {"aim":[-1.0,0.0],"deadline_ms":0,"facing":-1,"frozen":false,"index":1,"label":"second-observation","landed":false,"phase":1,"phase_time":0.0,"remaining":0.0,"target_hp":997,"target_offset":[-19.7585144042969,-0.074737548828125],"wall_ms":74611}
+MELEE_COMBO_TRACE {"aim":[-1.0,0.0],"deadline_ms":74997,"facing":-1,"frozen":false,"index":1,"label":"fresh-second-recovery-command","landed":true,"phase":3,"phase_time":0.0,"remaining":0.22,"target_hp":995,"target_offset":[-23.4254455566406,-0.074737548828125],"wall_ms":74777}
+MELEE_COMBO_TRACE {"aim":[-1.0,0.0],"deadline_ms":0,"facing":-1,"frozen":false,"index":2,"label":"third-observation","landed":false,"phase":1,"phase_time":0.0,"remaining":0.0,"target_hp":995,"target_offset":[-24.4254455566406,-0.074737548828125],"wall_ms":74825}
+ERROR: [MeleeSet] res://data/feel/melee.json 沒有招式「test_no_such_attack」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:87)
+       [1] attack (res://game/player/melee_data.gd:57)
+       [2] _test_bad_data (res://tests/suite/test_melee.gd:181)
+       [3] run (res://tests/suite/test_melee.gd:17)
+       [4] _test_trails (res://tests/suite/test_melee.gd:204)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:632)
+       [7] _frames (res://tests/smoke_test.gd:123)
+SUITE_TIME MeleeSuite 4.7
+ERROR: [StageScenes] 找不到資料檔：res://tests/fixtures/audio/no_such_scenes.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] read_root (res://core/audio/audio_data.gd:13)
+       [2] reload (res://core/audio/stage_scenes.gd:37)
+       [3] _init (res://core/audio/stage_scenes.gd:30)
+       [4] _test_scene_data (res://tests/suite/test_sound_stage.gd:61)
+       [5] run (res://tests/suite/test_sound_stage.gd:9)
+       [6] _run_suites (res://tests/smoke_test.gd:110)
+       [7] run (res://tests/suite/test_melee.gd:17)
+       [8] _test_trails (res://tests/suite/test_melee.gd:204)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:632)
+       [11] _frames (res://tests/smoke_test.gd:123)
+SUITE_TIME SoundStageSuite 46.3
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=0); keeping resting hand
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _build_parts (res://game/rig/character_rig.gd:613)
+       [1] setup (res://game/rig/character_rig.gd:120)
+       [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+       [3] run (res://tests/suite/test_characters.gd:45)
+       [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:123)
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=-1.0); keeping resting hand
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _build_parts (res://game/rig/character_rig.gd:613)
+       [1] setup (res://game/rig/character_rig.gd:120)
+       [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+       [3] run (res://tests/suite/test_characters.gd:45)
+       [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:123)
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=inf); keeping resting hand
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _build_parts (res://game/rig/character_rig.gd:613)
+       [1] setup (res://game/rig/character_rig.gd:120)
+       [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+       [3] run (res://tests/suite/test_characters.gd:45)
+       [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:123)
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=nan); keeping resting hand
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _build_parts (res://game/rig/character_rig.gd:613)
+       [1] setup (res://game/rig/character_rig.gd:120)
+       [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+       [3] run (res://tests/suite/test_characters.gd:45)
+       [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:123)
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=0.02); keeping resting hand
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _build_parts (res://game/rig/character_rig.gd:613)
+       [1] setup (res://game/rig/character_rig.gd:120)
+       [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+       [3] run (res://tests/suite/test_characters.gd:45)
+       [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:123)
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=true); keeping resting hand
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _build_parts (res://game/rig/character_rig.gd:613)
+       [1] setup (res://game/rig/character_rig.gd:120)
+       [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+       [3] run (res://tests/suite/test_characters.gd:45)
+       [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:123)
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=<null>); keeping resting hand
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _build_parts (res://game/rig/character_rig.gd:613)
+       [1] setup (res://game/rig/character_rig.gd:120)
+       [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+       [3] run (res://tests/suite/test_characters.gd:45)
+       [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:123)
+SUITE_TIME CharactersSuite 0.6
+checks: 7168, failures: 0

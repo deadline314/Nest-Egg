@@ -285,3 +285,7 @@ python tools/comfyui/gpu_lock.py -- $env:GODOT --headless --path . res://tools/r
 先重建正式骨架的實際 setup/current transforms，再驗證 `current × inverse(bind)` 的頂點、接點與材質向量。動畫器的非零手部角度與貼圖 pivot 都是契約的一部分，不能用 identity basis 或猜測 pivot 代替。FK 通過後另跑真正的 Skeleton2D／Polygon2D 渲染：原來源姿勢、已知錯軸負控制及修正候選使用同一 RGBA、UV、倍率和光照。負控制須在同一檢查中失敗；修正件的手指、鞋底、領口與袖口須目視合理，仍另做全部件接縫／全動作驗收。
 
 NE-222 的可重跑來源與單手原生反例見 `art_src/characters/rin_walk_source_ig01/registration/README.md`。此例只證明材質軸校準，不能代替全身姿勢、分割語意、normal/glow 或走路驗收；肩／髖／衣襬的剩餘來源分支誤差仍須修正。
+
+## 明暗環境切換與HDR讀回（NE-222）
+
+角色曝光須測一般關卡、同一關卡內的燈、以及暗关卡→獨立CanvasLayer過場→回關卡。保持相同來源、normal、glow、姿勢、鏡頭、倍率；前一关fill=4與fill=1都重現，過場本身沒有CanvasModulate時不能繼承關卡補光，不能藉更改全域數值影響其他角色。自訂light需保留Godot的LIGHT_ENERGY；對Sprite2D與Polygon2D逐燈隔離，以0／0.15／0.75能量的原生HDR像素驗響應，再檢查霓虹仍顯示。允許RGBH／RGBAH／RGBF／RGBAF的實際HDR格式，不用無頭渲染代替。PNG另作linear→sRGB，原浮點量測保留。工具本身的空畫面、錯採樣、錯格式與parser失敗要先修正并保存，不能算成正式素材失敗或通過。完整重現見design/12-cast-redraw/RIG_QUALITY.md的2026-10-11補記。

@@ -1,0 +1,28 @@
+{
+	"capture_camera_y": 205.0,
+	"legacy_level_fill": true,
+	"records": [
+		{
+			"actor_cap": 0.5,
+			"actor_fill": 1.0,
+			"hdr_format": 14,
+			"image_size": [
+				1280,
+				720
+			],
+			"level_fill": 1.0
+		},
+		{
+			"actor_cap": 0.5,
+			"actor_fill": 4.0,
+			"hdr_format": 14,
+			"image_size": [
+				1280,
+				720
+			],
+			"level_fill": 4.0
+		}
+	],
+	"result": "FAIL",
+	"scope": "actual clinic stage with diagnostic framing; not hip/anatomy or shipped camera acceptance"
+}

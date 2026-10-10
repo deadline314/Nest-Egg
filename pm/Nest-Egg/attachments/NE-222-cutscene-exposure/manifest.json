@@ -1,0 +1,350 @@
+{
+  "schema": "ne222-cutscene-exposure-evidence/v1",
+  "repository": {
+    "head": "7e3289808d00e339c0662f26d1ab61c02de0f9d6",
+    "note": "Working tree had concurrent unrelated modifications; evidence is tied to the file hashes below, not claimed as a clean commit snapshot."
+  },
+  "environment": {
+    "godot": "4.7.2.stable.official.ed1daf0bf",
+    "renderer": "Forward+",
+    "graphics": "Vulkan; NVIDIA GeForce RTX 4070 SUPER",
+    "clinic_viewport": "1280x720",
+    "clinic_hdr_image_format": 14
+  },
+  "clinic_comparison": {
+    "before_report": "clinic-before-report.json",
+    "before_result": "FAIL",
+    "before_legacy_level_fill": true,
+    "before_levels": [
+      1.0,
+      4.0
+    ],
+    "before_actor_fill": 1.0,
+    "before_actor_cap": 0.5,
+    "after_report": "clinic-after-report.json",
+    "after_result": "PASS",
+    "after_legacy_level_fill": false,
+    "after_levels": [
+      1.0,
+      4.0
+    ],
+    "after_actor_fill": 1.0,
+    "after_actor_cap": 0.2,
+    "diagnostic_camera_y": 205.0,
+    "limitation": "Shipped camera Y=221.4 may crop hair; this is not pose/anatomy/whole-cutscene acceptance.",
+    "legacy_fill_baseline_report": "legacy-fill-baseline-report.json",
+    "legacy_fill_baseline_result": "FAIL"
+  },
+  "light_probe": {
+    "baseline_report": "light-isolated-baseline-report.json",
+    "baseline_result": "FAIL",
+    "baseline_shader_sha256": "2fc5c7fd795065424271d4f8b4b1aadfc025f2ef7be8e3c7e30a963d23e284ec",
+    "candidate_report": "light-isolated-candidate-report.json",
+    "candidate_result": "PASS",
+    "candidate_shader_sha256": "0151d06c26060ce4c5844daf87f0597cb00f15079f0d952e9aa2cf62dcaae887",
+    "candidate_point_sprite_luminance": [
+      0.0330810546875,
+      0.1763916015625,
+      0.478515625
+    ],
+    "candidate_point_polygon_luminance": [
+      0.0330810546875,
+      0.1763916015625,
+      0.478515625
+    ],
+    "energies": [
+      0.0,
+      0.15,
+      0.75
+    ],
+    "limitation": "Bounded Sprite2D/Polygon2D normal-map probe only; does not establish all scene lighting."
+  },
+  "lamp_after": {
+    "log": "lamp-after.log",
+    "samples": [
+      {
+        "white_pixel_ratio": 0.012,
+        "gap": 12,
+        "png": "lamp-after-gap-12.png",
+        "sampled_head_peak": 9.39
+      },
+      {
+        "white_pixel_ratio": 0.0,
+        "gap": 40,
+        "png": "lamp-after-gap-40.png",
+        "sampled_head_peak": 5.39
+      },
+      {
+        "white_pixel_ratio": 0.001,
+        "gap": 80,
+        "png": "lamp-after-gap-80.png",
+        "sampled_head_peak": 7.8
+      }
+    ],
+    "limitation": "Sampling rectangle includes lamp, background, and glow; peak is not a pure hair-highlight measurement."
+  },
+  "affected_tests": {
+    "summary": "affected-tests-summary.log",
+    "shards": [
+      "affected-shard_0.log",
+      "affected-shard_1.log",
+      "affected-shard_2.log",
+      "affected-shard_3.log",
+      "affected-shard_4.log",
+      "affected-shard_5.log"
+    ],
+    "groups": 67,
+    "checks": 46532,
+    "new_failures": 0,
+    "known_failures": 0,
+    "wall_seconds": 228,
+    "scope": "Root-reported isolated changed-suite run; source logs included."
+  },
+  "files": {
+    "attachment": [
+      {
+        "path": "affected-shard_0.log",
+        "bytes": 11473,
+        "sha256": "66ef3969a7f51f0e0a7fd49c1fc138fcce6a7d9e8ae7e3f6645135e65e1b2e0c"
+      },
+      {
+        "path": "affected-shard_1.log",
+        "bytes": 55234,
+        "sha256": "26a70485f45877d02deaceefb6bd5d46006612a7bc8e5a2d500382c3762452cc"
+      },
+      {
+        "path": "affected-shard_2.log",
+        "bytes": 43895,
+        "sha256": "9646d27eef9f3dacf6ee96666f4684318682c435463f3a9e0ec7056c247f930b"
+      },
+      {
+        "path": "affected-shard_3.log",
+        "bytes": 46985,
+        "sha256": "8cde63f231f399146e6d5f8651863f115e96a1b05a44b043304763ce7d321232"
+      },
+      {
+        "path": "affected-shard_4.log",
+        "bytes": 18668,
+        "sha256": "1ba81d8060743bc5fe38323ba62aaf40b87c3cfa2aa9d09f573e36626cc5002c"
+      },
+      {
+        "path": "affected-shard_5.log",
+        "bytes": 39830,
+        "sha256": "16ce06459b7454b6e50df61effe85d94242a9239ebd571aec5ce6322887b0a92"
+      },
+      {
+        "path": "affected-tests-summary.log",
+        "bytes": 2590,
+        "sha256": "d4e3652aa85ed74b6b37f42363c7fa8b9ecc4c3e691997ac3be598a7c00e0f9d"
+      },
+      {
+        "path": "clinic-after-report.json",
+        "bytes": 472,
+        "sha256": "3265a63e504568c840b30109550c66440c59b12fb2bbcfa5b14276ead1723a03"
+      },
+      {
+        "path": "clinic-after.log",
+        "bytes": 526,
+        "sha256": "6f46f53baa8fc4f435e9ae38d0cba044f0f5f9e886c2aae4c67efd399089896d"
+      },
+      {
+        "path": "clinic-before-report.json",
+        "bytes": 471,
+        "sha256": "fcbf404b1741bb51d755753b0e6ff2af918bd3c32df86ba885c3d5173b86b5b5"
+      },
+      {
+        "path": "clinic-before.log",
+        "bytes": 525,
+        "sha256": "052e9512021e1b6a628742ae4faf898f5b350d71c5dbaf0227b410eddfcaafa8"
+      },
+      {
+        "path": "cpu-baseline-valid-rejected.log",
+        "bytes": 9570,
+        "sha256": "3417a529e4917f3549140672b8ed1abf3893bfac82a502b8efb35916fa03a900"
+      },
+      {
+        "path": "lamp-after-gap-12.png",
+        "bytes": 477278,
+        "sha256": "fa8abfc4df6863fa1d0a062b3426ab9fa7209455275eadd84d6e11c117581e1d"
+      },
+      {
+        "path": "lamp-after-gap-40.png",
+        "bytes": 520894,
+        "sha256": "caa30ba60c866b77af945c8436ddeb240e1168fe1e0fa5b4e61b0abb52cbdc76"
+      },
+      {
+        "path": "lamp-after-gap-80.png",
+        "bytes": 617140,
+        "sha256": "80162862c354d3289827f6acebab5c7c9ce6b6d29de441bbb706fabbef23adf5"
+      },
+      {
+        "path": "lamp-after.log",
+        "bytes": 672,
+        "sha256": "5eeb4d825cd8c51d8d4940968b5fd36aaedf19f94a3f45b45b84ebbe5c6b432c"
+      },
+      {
+        "path": "legacy-fill-baseline-report.json",
+        "bytes": 434,
+        "sha256": "2dfd2f979ce40de84f8e2c592ea1f04a8133dac4c3babaaa71afacfdf8e1dbd7"
+      },
+      {
+        "path": "legacy-fill-baseline.log",
+        "bytes": 494,
+        "sha256": "675ba9922bebc935cb301c7ff79313e97851632c21e4fcfbf644514e7f2aafa1"
+      },
+      {
+        "path": "light-baseline-directional-sprite-075.png",
+        "bytes": 5389,
+        "sha256": "23ff368326e692c4725e0953799776ab8851c309d72adf4f13407f1ee512c571"
+      },
+      {
+        "path": "light-baseline-point-sprite-075.png",
+        "bytes": 5674,
+        "sha256": "53cb81d3ee060479366e3a8213966fd63b480df23135099217973c9d69099900"
+      },
+      {
+        "path": "light-candidate-directional-sprite-075.png",
+        "bytes": 5390,
+        "sha256": "6e0cf0cde8a96663bde2eecae10975b974abe4d61f344e0a9328bcb2515c00c3"
+      },
+      {
+        "path": "light-candidate-point-sprite-075.png",
+        "bytes": 5990,
+        "sha256": "fbf7121f8462678ab02a67c4c943ed789b1d4994586f7938466fefe2e5e942cb"
+      },
+      {
+        "path": "light-isolated-baseline-report.json",
+        "bytes": 3511,
+        "sha256": "ba637c24380d35e925f22a69f2efcd9a315c8163fa002a3a4076ddfd51a78f34"
+      },
+      {
+        "path": "light-isolated-baseline.log",
+        "bytes": 3079,
+        "sha256": "c27d4f888a7f14a1188a633819304561da1fad26455b7fe8dfd4b233ffc4d192"
+      },
+      {
+        "path": "light-isolated-candidate-report.json",
+        "bytes": 3123,
+        "sha256": "0c2a1c05fee2192c253a83eae8ac2fb4fc551ca52d2ab3f25b92ea7c4d9481a3"
+      },
+      {
+        "path": "light-isolated-candidate.log",
+        "bytes": 283,
+        "sha256": "a681869b302062688caf0e2874aada690300c627fec0e7425a65f76441374edd"
+      },
+      {
+        "path": "rejected-clinic-fill-early.log",
+        "bytes": 397,
+        "sha256": "cbbf8c77a540c6419668482b6426f2d1f2c3e36c08fed4d9b6a93505c45df034"
+      },
+      {
+        "path": "rejected-light-before-fixed-harness.log",
+        "bytes": 8154,
+        "sha256": "4ddfaa618de59f75e1360a2ae0cfbb434f4a72751cc1954ddba8e7d86966548c"
+      },
+      {
+        "path": "rejected-light-unisolated-baseline.log",
+        "bytes": 3070,
+        "sha256": "1a885d1940ba2358b2f66c927822285c55dbedd7b82f0d58c601b46e3456d411"
+      },
+      {
+        "path": "README.md",
+        "bytes": 5196,
+        "sha256": "6220d7a2553193c8f76d25a67598605b79d85406919910885006b4b9d83e32a2"
+      },
+      {
+        "path": ".gitattributes",
+        "bytes": 29,
+        "sha256": "730a35ae3d558080083c3103d9ac8100c3f6561678092abe341701dfa331eb1d"
+      }
+    ],
+    "project_images": [
+      {
+        "path": "../../images/NE-222-clinic-fill-before.png",
+        "source": "D:/NestEggVerification/ne222-user-hip-light/full-before/clinic_fill_4.png",
+        "width": 1280,
+        "height": 720,
+        "mode": "RGBA",
+        "bytes": 222208,
+        "sha256": "2d7a8e87f1173624ea02d5d85c1db7ec5e0f5344bb1ca1607726d1de0ce50eda"
+      },
+      {
+        "path": "../../images/NE-222-clinic-fill-after.png",
+        "source": "D:/NestEggVerification/ne222-user-hip-light/full-after/clinic_fill_4.png",
+        "width": 1280,
+        "height": 720,
+        "mode": "RGBA",
+        "bytes": 227278,
+        "sha256": "ef69b3e02ef30e5245f2d6f63209b799323e370bbdf0eaac79c5fbf723ca378a"
+      },
+      {
+        "path": "../../images/NE-222-user-hip-kneel-latest.png",
+        "source": "C:/Users/stanl/.codex/attachments/494429b2-fc12-4d73-a31b-526bb8bfffd9/codex-clipboard-f3b6e54b-e8f1-49dc-8687-b944c74c8d5d.png",
+        "width": 1920,
+        "height": 1080,
+        "mode": "RGB",
+        "bytes": 150368,
+        "sha256": "feac0413df30709b1a2a4cc4384f0899cda29e45d254b1e99089a570d612346c"
+      },
+      {
+        "path": "../../images/NE-222-user-hip-shadow-line.png",
+        "source": "C:/Users/stanl/.codex/attachments/8d17af4d-3c8e-4156-892a-0860f313d1de/codex-clipboard-78dbad95-0ce0-4ebf-acb0-c6ed698ab60b.png",
+        "width": 651,
+        "height": 497,
+        "mode": "RGBA",
+        "bytes": 270350,
+        "sha256": "63477fef23668361c7352cf7df1cbbbf932e35e5a7689d157767e8692471b232"
+      }
+    ]
+  },
+  "project_sources": [
+    {
+      "path": "art/shaders/character_light.gdshader",
+      "sha256": "0151d06c26060ce4c5844daf87f0597cb00f15079f0d952e9aa2cf62dcaae887"
+    },
+    {
+      "path": "tools/ne222_light_energy_probe.gd",
+      "sha256": "452d423cb02d4d399cfcaae1a55fed91fc35a7b491907cc4f30f44ac26c7f524",
+      "capture_worktree_sha256": "f3f40fe676024418bae53704a3170f62683a867f97057e02ec3cf2f93d1abe9d",
+      "note": "Published GDScript normalizes CRLF to LF; only line endings changed after captures."
+    },
+    {
+      "path": "tools/ne222_cutscene_fill_probe.gd",
+      "sha256": "30426617e9ff193b63f16bc7f56b49b42de9b25514f6bcbcae6f955ff713f335"
+    },
+    {
+      "path": "game/cutscene/cutscene_actor.gd",
+      "sha256": "b68eb8de5fb7032dca0a4116ab239e4ce4e31a93c7cbffb54c77d2d303c57d17"
+    },
+    {
+      "path": "game/rig/character_rig.gd",
+      "sha256": "e6bec61294cbe3f6a259d574b81ff2f868195d497c4a16783715967bddb57001"
+    }
+  ],
+  "rejected_runs": [
+    {
+      "id": "early-clinic-script-error",
+      "source": "D:/NestEggVerification/ne222-user-hip-light/fill-before.log",
+      "packaged_as": "rejected-clinic-fill-early.log",
+      "reason": "Probe stopped on invalid float constructor; no capture result accepted."
+    },
+    {
+      "id": "light-before-fixed-harness",
+      "source": "D:/NestEggVerification/ne222-light-energy-probe/before-fixed-harness.log",
+      "packaged_as": "rejected-light-before-fixed-harness.log",
+      "reason": "Harness incorrectly expected a different HDR readback format; retain as failed attempt only."
+    },
+    {
+      "id": "light-unisolated-baseline",
+      "source": "D:/NestEggVerification/ne222-light-energy-probe/baseline.log",
+      "packaged_as": "rejected-light-unisolated-baseline.log",
+      "reason": "Concurrent GPU job was active; not the isolated baseline."
+    },
+    {
+      "id": "cpu-cutscene-baseline",
+      "source": "D:/NestEggVerification/ne222-user-hip-light/cpu-baseline-valid.log",
+      "packaged_as": "cpu-baseline-valid-rejected.log",
+      "reason": "222 CutsceneSuite checks, two fill/cap assertion failures; invalid-scene ERROR logs are test fixtures, not a clean pass."
+    }
+  ]
+}

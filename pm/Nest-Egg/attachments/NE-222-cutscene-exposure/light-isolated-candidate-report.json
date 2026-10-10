@@ -1,0 +1,161 @@
+{
+	"canvas_modulate_linear": [
+		0.2,
+		0.2,
+		0.2
+	],
+	"energies": [
+		0.0,
+		0.15,
+		0.75
+	],
+	"failures": [],
+	"note": "CPU harness validation is not anatomy, art, or final-screen acceptance.",
+	"receivers": [
+		{
+			"energy": 0.0,
+			"image_format": 14,
+			"linear_luminance": 0.0330810546875,
+			"linear_rgb": [
+				0.0330810546875,
+				0.0330810546875,
+				0.0330810546875
+			],
+			"sample": "directional_sprite@0.00"
+		},
+		{
+			"energy": 0.15,
+			"image_format": 14,
+			"linear_luminance": 0.04888916015625,
+			"linear_rgb": [
+				0.04888916015625,
+				0.04888916015625,
+				0.04888916015625
+			],
+			"sample": "directional_sprite@0.15"
+		},
+		{
+			"energy": 0.75,
+			"image_format": 14,
+			"linear_luminance": 0.328857421875,
+			"linear_rgb": [
+				0.328857421875,
+				0.328857421875,
+				0.328857421875
+			],
+			"sample": "directional_sprite@0.75"
+		},
+		{
+			"energy": 0.0,
+			"image_format": 14,
+			"linear_luminance": 0.0330810546875,
+			"linear_rgb": [
+				0.0330810546875,
+				0.0330810546875,
+				0.0330810546875
+			],
+			"sample": "directional_polygon@0.00"
+		},
+		{
+			"energy": 0.15,
+			"image_format": 14,
+			"linear_luminance": 0.04888916015625,
+			"linear_rgb": [
+				0.04888916015625,
+				0.04888916015625,
+				0.04888916015625
+			],
+			"sample": "directional_polygon@0.15"
+		},
+		{
+			"energy": 0.75,
+			"image_format": 14,
+			"linear_luminance": 0.328857421875,
+			"linear_rgb": [
+				0.328857421875,
+				0.328857421875,
+				0.328857421875
+			],
+			"sample": "directional_polygon@0.75"
+		},
+		{
+			"energy": 0.0,
+			"image_format": 14,
+			"linear_luminance": 0.0330810546875,
+			"linear_rgb": [
+				0.0330810546875,
+				0.0330810546875,
+				0.0330810546875
+			],
+			"sample": "point_sprite@0.00"
+		},
+		{
+			"energy": 0.15,
+			"image_format": 14,
+			"linear_luminance": 0.1763916015625,
+			"linear_rgb": [
+				0.1763916015625,
+				0.1763916015625,
+				0.1763916015625
+			],
+			"sample": "point_sprite@0.15"
+		},
+		{
+			"energy": 0.75,
+			"image_format": 14,
+			"linear_luminance": 0.478515625,
+			"linear_rgb": [
+				0.478515625,
+				0.478515625,
+				0.478515625
+			],
+			"sample": "point_sprite@0.75"
+		},
+		{
+			"energy": 0.0,
+			"image_format": 14,
+			"linear_luminance": 0.0330810546875,
+			"linear_rgb": [
+				0.0330810546875,
+				0.0330810546875,
+				0.0330810546875
+			],
+			"sample": "point_polygon@0.00"
+		},
+		{
+			"energy": 0.15,
+			"image_format": 14,
+			"linear_luminance": 0.1763916015625,
+			"linear_rgb": [
+				0.1763916015625,
+				0.1763916015625,
+				0.1763916015625
+			],
+			"sample": "point_polygon@0.15"
+		},
+		{
+			"energy": 0.75,
+			"image_format": 14,
+			"linear_luminance": 0.478515625,
+			"linear_rgb": [
+				0.478515625,
+				0.478515625,
+				0.478515625
+			],
+			"sample": "point_polygon@0.75"
+		}
+	],
+	"renderer_expected": "Forward+ HDR 2D",
+	"result": "PASS",
+	"shader_resource": "res://art/shaders/character_light.gdshader",
+	"source_shader_sha256": "0151d06c26060ce4c5844daf87f0597cb00f15079f0d952e9aa2cf62dcaae887",
+	"uniforms": {
+		"fill": 1.0,
+		"light_cap": 0.5
+	},
+	"unshaded_gray_reference_linear": [
+		0.2139892578125,
+		0.2139892578125,
+		0.2139892578125
+	]
+}

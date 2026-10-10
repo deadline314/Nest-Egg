@@ -38,6 +38,7 @@ func setup(id: StringName, kind: String, portrait_path: String, unit_scale: floa
 	scale = Vector2.ONE * unit_scale
 	if kind != "" and not RigLibrary.character(kind).is_empty():
 		rig = CharacterRig.new()
+		rig.use_level_lighting = false
 		add_child(rig)
 		if rig.setup(kind, "npc"):
 			rig.set_weapon(weapon)

@@ -25,6 +25,8 @@ static var _glow_shared: CanvasItemMaterial
 static var force_rigid_limbs := false
 
 var skin_id := ""
+## Stage actors have their own full-bright canvas, outside the level's CanvasModulate.
+var use_level_lighting := true
 var animator: HumanoidAnimator  # 或它的子類別（NpcAnimator）
 var facing := 1:
 	set(value):
@@ -211,8 +213,8 @@ func animate(delta: float, input: RigInput) -> void:
 	if not _valid:
 		return
 	facing = input.facing
-	_apply_fill(LightKit.character_fill)
-	_apply_light_cap(LightKit.character_light_cap)
+	_apply_fill(LightKit.character_fill if use_level_lighting else 1.0)
+	_apply_light_cap(LightKit.character_light_cap if use_level_lighting else LightKit.character_light_cap_for(1.0, 1.0))
 	_update_hand_grips(input)
 	animator.update(delta, input)
 	var scene_tree := get_tree()

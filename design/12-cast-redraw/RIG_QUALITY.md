@@ -129,3 +129,13 @@ NE-222 Commit-9 的測試與原生連續演出保存在 `pm/Nest-Egg/images/NE-2
 使用者指出凜的步行有挺胸造成的姿勢問題，同時肯定並要求保留現有立繪。步行診斷分開核對來源胸腹輪廓、綁定與胸骨角度、軀幹擺動，以及關卡／過場速度。若來源的挺胸輪廓不能自然表達步行，另製同角色、同服装的步行軀幹及相連外套部件，保留已批准的s33定稿與可追溯來源；原版適用的展示、待機或演出需另驗，不自動宣稱全部適用。
 
 不以胸骨大旋轉、胸腹壓縮或頭頸前伸掩蓋解剖問題。來源與分件帳本須明確標出原版、新部件及適用動作；換件經過全部件、原生全彩、逐格接點及實機檢查。兩面向、空手／持槍、一般／過場倍率、起停、走跑切換與其他姿勢回歸，同時維持原操作時序。這是新增的驗收要求，尚不是步行修復完成的結論；證據與進度記於NE-222。
+
+## 補記（2026-10-11，診間髮色過曝與坐姿退件）
+
+以實際ch1_c09_wake舞台、鏡頭與Rin坐姿，僅改前一關卡補光倍率1→4，即能重現白髮／臉部被剪成白色。過場舞台位於獨立CanvasLayer，沒有關卡CanvasModulate；演員不能繼承用來補償暗關卡的倍率。過場角色使用其自身全亮畫布的補光及光上限，不改共享LightKit狀態，普通關卡角色仍沿用關卡設定。需要舞台暗化時，必須先建立舞台本身的ambient契約，再決定補光，不借前一關的數值。
+
+角色自訂light函式須包含LIGHT_ENERGY。Godot官方CanvasItem範例及4.7 canvas.glsl將PointLight的能量分開傳入；原程式漏乘此值，實際Sprite2D與Polygon2D在0、0.15、0.75的點光下保持同亮度。驗證保留原生HDR浮點讀回、固定來源／normal／fill／cap，逐燈獨立啟閉，修前必須失敗、修後能量響應通過。PNG另轉sRGB，不能把浮點或截圖色彩空間錯誤當成角色來源缺陷。
+
+參考：[Godot CanvasItem light](https://docs.godotengine.org/en/stable/tutorials/shaders/shader_reference/canvas_item_shader.html)、[Godot 4.7原始渲染程式](https://github.com/godotengine/godot/blob/4.7/servers/rendering/renderer_rd/shaders/canvas.glsl)、[Spine姿勢專用部件](https://esotericsoftware.com/blog/Rigging-new-poses-tutorial)、[Spine權重工作流程](https://esotericsoftware.com/blog/Mesh-weight-workflows)。官方流程支持先製作新姿勢的對應部件，再核對bind與權重；不是把站姿髖部反覆旋轉成坐姿。
+
+使用者這次的診間坐姿及跪姿臀腿輪廓仍為拒收：球狀／扭曲臀部、折片及尖角不是曝光修正的驗收範圍。坐姿與跪姿各自需要來源歸屬、正確人體及新部件；透明接點、骨長、來源完整度、inverse bind、共享接邊、500頂點／四骨影響、進出、兩面向及實際舞台支撐分開通過後才能採用。原站姿定稿保留。原生照片與回歸記錄見NE-222 Commit-38。

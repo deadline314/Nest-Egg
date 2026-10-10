@@ -8,7 +8,7 @@ uniform float light_cap : hint_range(0.05, 4.0) = 0.5;
 
 void light() {
 	float n_dot_l = max(0.0, dot(NORMAL, LIGHT_DIRECTION));
-	vec3 lit = LIGHT_COLOR.rgb * COLOR.rgb * n_dot_l / max(fill, 0.0001);
+	vec3 lit = LIGHT_COLOR.rgb * LIGHT_ENERGY * COLOR.rgb * n_dot_l / max(fill, 0.0001);
 	float peak = max(lit.r, max(lit.g, lit.b));
 	float keep = peak > 0.0001 ? light_cap * tanh(peak / light_cap) / peak : 1.0;
 	LIGHT = vec4(lit * keep, LIGHT_COLOR.a);

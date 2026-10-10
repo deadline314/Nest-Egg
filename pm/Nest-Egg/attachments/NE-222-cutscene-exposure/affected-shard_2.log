@@ -1,0 +1,672 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+WARNING: [StoryItems] transfer/unknown_item 未知道具，交付未生效
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] transfer (res://autoload/story_items.gd:111)
+       [1] _test_item_custody (res://tests/suite/test_collectibles.gd:45)
+       [2] run (res://tests/suite/test_collectibles.gd:14)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items 必須是完整物品物件，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/owned 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/unseen 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/custody_version 缺漏或損毀，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/custody_version 缺漏或損毀，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/held 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/held 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/transferred 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/transferred 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/owned 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/owned 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/unseen 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/unseen 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/custody_version 不支援，原檔保留；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/custody_version 缺漏或損毀，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/custody_version 缺漏或損毀，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/custody_version 缺漏或損毀，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/owned/2 未知或重複物品 id，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/owned/1 未知或重複物品 id，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/owned/0 必須是物品 id，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/owned 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/unseen/1 未知或重複物品 id，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/unseen/1 未知或重複物品 id，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/unseen/0 必須是物品 id，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/unseen 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/held/1 未知或重複物品 id，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/held/1 未知或重複物品 id，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/held/0 必須是物品 id，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/held 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/transferred/1 未知或重複物品 id，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/transferred/1 未知或重複物品 id，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/transferred/0 必須是物品 id，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/transferred 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/held/ch1_data_disk 必須且只能屬於 held 或 transferred，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/held/doc_nest_log 不在取得史，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/held/ch1_data_disk 必須且只能屬於 held 或 transferred，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/unseen/doc_nest_log 不在取得史，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/owned/2 未知或重複物品 id，保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_validation (res://tests/suite/test_collectibles.gd:131)
+       [2] run (res://tests/suite/test_collectibles.gd:15)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [RunSave] user://st3_custody_suite.json.tmp：寫入或驗證失敗（run/story/items/held 必須是有界物品陣列（上限 30），保留原資料），原檔保留
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:104)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:148)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] _run (res://tests/smoke_test.gd:38)
+WARNING: [RunSave] user://st3_custody_suite.json：未知版本保留；請明確選擇新遊戲覆寫
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:86)
+       [2] _test_custody_validation (res://tests/suite/test_collectibles.gd:159)
+       [3] run (res://tests/suite/test_collectibles.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/held/0：文字超過上限；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_bounded_input (res://tests/suite/test_collectibles.gd:185)
+       [2] run (res://tests/suite/test_collectibles.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/extra/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0：資料數量或深度超過上限；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_bounded_input (res://tests/suite/test_collectibles.gd:185)
+       [2] run (res://tests/suite/test_collectibles.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [StoryItems] custody_fixture/items/extra/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0：資料數量或深度超過上限；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] _test_custody_bounded_input (res://tests/suite/test_collectibles.gd:185)
+       [2] run (res://tests/suite/test_collectibles.gd:16)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [QuestMap] navigation.activated.@3,20: 找不到存檔點，已略過。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:108)
+       [1] _apply_components_silent (res://core/run_snapshot.gd:207)
+       [2] rollback_presentation (res://core/run_snapshot.gd:186)
+       [3] _test_custody_lifecycle (res://tests/suite/test_collectibles.gd:198)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:123)
+SUITE_TIME CollectiblesSuite 6.5
+[RunSaveSuite] initial preparation: OK
+WARNING: [RunSave] run/loadout/weapons/0 無效資源：res://autoload/story.gd，略過該欄
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _loadout (res://core/run_snapshot.gd:242)
+       [1] prepare (res://core/run_snapshot.gd:97)
+       [2] run (res://tests/suite/test_run_save.gd:91)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] run (res://tests/suite/test_collectibles.gd:22)
+       [5] _test_hidden_room (res://tests/suite/test_collectibles.gd:361)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:632)
+       [8] _frames (res://tests/smoke_test.gd:123)
+WARNING: [StoryItems] user://story_progress.json/items/owned 必須是有界物品陣列（上限 30），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:287)
+       [1] restore_story_progress (res://autoload/game_state.gd:457)
+       [2] run (res://tests/suite/test_run_save.gd:102)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] run (res://tests/suite/test_collectibles.gd:22)
+       [5] _test_hidden_room (res://tests/suite/test_collectibles.gd:361)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:632)
+       [8] _frames (res://tests/smoke_test.gd:123)
+WARNING: [RunSave] user://ne230-suite/unit.json：未知版本保留；請明確選擇新遊戲覆寫
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:86)
+       [2] run (res://tests/suite/test_run_save.gd:124)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] run (res://tests/suite/test_collectibles.gd:22)
+       [5] _test_hidden_room (res://tests/suite/test_collectibles.gd:361)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:632)
+       [8] _frames (res://tests/smoke_test.gd:123)
+WARNING: [RunSave] user://ne230-suite/unknown_backup.json：未知版本保留；請明確選擇新遊戲覆寫
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:86)
+       [2] run (res://tests/suite/test_run_save.gd:132)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] run (res://tests/suite/test_collectibles.gd:22)
+       [5] _test_hidden_room (res://tests/suite/test_collectibles.gd:361)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:632)
+       [8] _frames (res://tests/smoke_test.gd:123)
+WARNING: [RunSave] user://ne230-suite/unknown_backup.json：未知版本保留；請明確選擇新遊戲覆寫
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:86)
+       [2] run (res://tests/suite/test_run_save.gd:137)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] run (res://tests/suite/test_collectibles.gd:22)
+       [5] _test_hidden_room (res://tests/suite/test_collectibles.gd:361)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:632)
+       [8] _frames (res://tests/smoke_test.gd:123)
+WARNING: [RunSave] user://ne230-suite/unit.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:97)
+       [2] run (res://tests/suite/test_run_save.gd:144)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] run (res://tests/suite/test_collectibles.gd:22)
+       [5] _test_hidden_room (res://tests/suite/test_collectibles.gd:361)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:632)
+       [8] _frames (res://tests/smoke_test.gd:123)
+WARNING: [RunSave] user://ne230-suite/unit.json/blocked.json.tmp：無法寫入（7）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] write (res://core/run_save_store.gd:97)
+       [2] run (res://tests/suite/test_run_save.gd:149)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] run (res://tests/suite/test_collectibles.gd:22)
+       [5] _test_hidden_room (res://tests/suite/test_collectibles.gd:361)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:632)
+       [8] _frames (res://tests/smoke_test.gd:123)
+WARNING: [RunSave] user://ne230-suite/rollback.json：新輪替換失敗；原存檔已回復
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] _install_new_run (res://core/run_save_store.gd:168)
+       [2] write (res://core/run_save_store.gd:106)
+       [3] run (res://tests/suite/test_run_save.gd:164)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] run (res://tests/suite/test_collectibles.gd:22)
+       [6] _test_hidden_room (res://tests/suite/test_collectibles.gd:361)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:632)
+       [9] _frames (res://tests/smoke_test.gd:123)
+WARNING: [RunSave] user://ne230-suite/unknown_transaction.json.newrun：user://ne230-suite/unknown_transaction.json版本較新，新輪恢復未覆寫原件
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:274)
+       [1] read (res://core/run_save_store.gd:30)
+       [2] run (res://tests/suite/test_run_save.gd:202)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] run (res://tests/suite/test_collectibles.gd:22)
+       [5] _test_hidden_room (res://tests/suite/test_collectibles.gd:361)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:632)
+       [8] _frames (res://tests/smoke_test.gd:123)
+[StoryDurableChecks] SKIP symbolic/reparse case : platform permission/API 1; not validated
+[StoryDurableChecks] SKIP symbolic/reparse case .bak: platform permission/API 1; not validated
+[StoryDurableChecks] SKIP symbolic/reparse case .tmp: platform permission/API 1; not validated
+[StoryDurableChecks] SKIP symbolic/reparse case .newrun: platform permission/API 1; not validated
+[StoryDurableChecks] SKIP symbolic/reparse case .dangling: platform permission/API 1; not validated
+[StoryDurableChecks] old seed JSON boundary changes encoding of component: navigation
+[StoryDurableChecks] old seed JSON boundary changes encoding of component: progression
+[StoryDurableChecks] old seed JSON boundary changes encoding of component: state
+[StoryDurableChecks] old seed JSON boundary changes encoding of component: story
+[StoryDurableChecks] old seed JSON boundary changes encoding of component: version
+SUITE_TIME RunSaveSuite 5.4
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/test_no_such_character/character.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] load_json (res://game/rig/rig_library.gd:21)
+       [2] character (res://game/rig/rig_library.gd:29)
+       [3] setup (res://game/rig/character_rig.gd:101)
+       [4] _ready (res://ui/inventory/hd_portrait.gd:48)
+       [5] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:340)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+ERROR: [HdPortrait] 找不到角色骨架「test_no_such_character」，立繪不顯示。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://ui/inventory/hd_portrait.gd:49)
+       [1] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:340)
+       [2] frames (res://tests/suite/test_ui_screens.gd:9)
+SUITE_TIME UiScreensSuite 15.2
+SUITE_TIME AmmoTraySuite 9.2
+LEGACY_GRIP trooper_elite/rifle facing 1 speed 46.0 front=0.000 back=0.000
+LEGACY_GRIP trooper_elite/rifle facing 1 speed 92.0 front=0.000 back=0.000
+LEGACY_GRIP trooper_elite/rifle facing -1 speed 46.0 front=0.000 back=0.000
+LEGACY_GRIP trooper_elite/rifle facing -1 speed 92.0 front=0.000 back=0.000
+LEGACY_GRIP flamer/flamethrower facing 1 speed 28.0 front=0.000 back=0.000
+LEGACY_GRIP flamer/flamethrower facing 1 speed 56.0 front=0.000 back=0.000
+LEGACY_GRIP flamer/flamethrower facing -1 speed 28.0 front=0.000 back=0.000
+LEGACY_GRIP flamer/flamethrower facing -1 speed 56.0 front=0.000 back=0.000
+LEGACY_GRIP grenadier/launcher facing 1 speed 55.0 front=0.000 back=0.000
+LEGACY_GRIP grenadier/launcher facing 1 speed 110.0 front=0.000 back=0.000
+LEGACY_GRIP grenadier/launcher facing -1 speed 55.0 front=0.000 back=0.000
+LEGACY_GRIP grenadier/launcher facing -1 speed 110.0 front=0.000 back=0.000
+LEGACY_GRIP sniper/sniper facing 1 speed 22.0 front=0.000 back=0.000
+LEGACY_GRIP sniper/sniper facing 1 speed 44.0 front=0.000 back=0.000
+LEGACY_GRIP sniper/sniper facing -1 speed 22.0 front=0.000 back=0.000
+LEGACY_GRIP sniper/sniper facing -1 speed 44.0 front=0.000 back=0.000
+LEGACY_GRIP stalker/rifle facing 1 speed 46.0 front=0.000 back=0.000
+LEGACY_GRIP stalker/rifle facing 1 speed 92.0 front=0.000 back=0.000
+LEGACY_GRIP stalker/rifle facing -1 speed 46.0 front=0.000 back=0.000
+LEGACY_GRIP stalker/rifle facing -1 speed 92.0 front=0.000 back=0.000
+SUITE_TIME ProtagonistMotionSuite 1.1
+SUITE_TIME PhoneBoothSuite 9.0
+[swarm] steering 24 bees costs 0.137 ms per frame
+SUITE_TIME ExoticEnemiesSuite 23.4
+ERROR: [MeleeSet] 無法讀取近戰資料：res://data/melee/test_no_such_attack.json（需要 attacks 字典），改用內建預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_loaded (res://game/player/melee_set.gd:37)
+       [1] attack (res://game/player/melee_set.gd:83)
+       [2] _test_melee_data (res://tests/suite/test_fx_melee_pickups.gd:103)
+       [3] run (res://tests/suite/test_fx_melee_pickups.gd:13)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] run (res://tests/suite/test_exotic_enemies.gd:30)
+       [6] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:632)
+       [9] _frames (res://tests/smoke_test.gd:123)
+ERROR: [MeleeSet] res://data/melee/test_no_such_attack.json 沒有招式「x」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:87)
+       [1] _test_melee_data (res://tests/suite/test_fx_melee_pickups.gd:103)
+       [2] run (res://tests/suite/test_fx_melee_pickups.gd:13)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] run (res://tests/suite/test_exotic_enemies.gd:30)
+       [5] check_defeatable_on_every_difficulty (res://tests/suite/enemy_suite_base.gd:121)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:632)
+       [8] _frames (res://tests/smoke_test.gd:123)
+FX_PERF idle=0.90 ms, 12 explosions=0.99 ms per frame, particles=290, nodes +0
+SUITE_TIME FxMeleePickupsSuite 19.1
+ERROR: [Music] cue「c_gone」的曲目「t_gone」找不到檔案：res://tests/fixtures/audio/test_audio_missing_track.ogg（res://tests/fixtures/audio/music_bad.json），維持靜音
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _load_stream (res://autoload/music.gd:270)
+       [2] _switch_to (res://autoload/music.gd:246)
+       [3] play_cue (res://autoload/music.gd:143)
+       [4] _test_missing_track (res://tests/suite/test_music.gd:137)
+       [5] run (res://tests/suite/test_music.gd:17)
+       [6] _test_playback_and_crossfade (res://tests/suite/test_music.gd:131)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:123)
+ERROR: [Music] 沒有這個 cue「test_audio_no_such_cue」（res://tests/fixtures/audio/music_bad.json），維持目前的音樂
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] report (res://core/audio/audio_data.gd:33)
+       [1] _switch_to (res://autoload/music.gd:241)
+       [2] play_cue (res://autoload/music.gd:143)
+       [3] _test_missing_track (res://tests/suite/test_music.gd:139)
+       [4] run (res://tests/suite/test_music.gd:17)
+       [5] _test_playback_and_crossfade (res://tests/suite/test_music.gd:131)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:123)
+SUITE_TIME MusicSuite 2.7
+SUITE_TIME LayerOrderSuite 0.7
+SUITE_TIME StageCoverageWeaponsSuite 50.8
+ERROR: [DevMenu] 工具清單格式錯誤（要有 tools 陣列）：res://tests/fixtures/dev_menu/bad_format.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_entries (res://autoload/dev_menu.gd:44)
+       [1] _test_tool_list_validation (res://tests/suite/test_dev_menu.gd:37)
+       [2] run (res://tests/suite/test_dev_menu.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] run (res://tests/suite/test_stage_coverage_weapons.gd:10)
+       [5] _close_stage (res://tests/suite/stage_suite_base.gd:29)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:123)
+ERROR: [DevMenu] res://tests/fixtures/dev_menu/mixed.json 的第 2 個工具缺少 id、name 或 scene，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_entries (res://autoload/dev_menu.gd:50)
+       [1] _test_tool_list_validation (res://tests/suite/test_dev_menu.gd:38)
+       [2] run (res://tests/suite/test_dev_menu.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] run (res://tests/suite/test_stage_coverage_weapons.gd:10)
+       [5] _close_stage (res://tests/suite/stage_suite_base.gd:29)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:123)
+ERROR: [DevMenu] res://tests/fixtures/dev_menu/mixed.json 的工具 id 重複：ok_tool，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_entries (res://autoload/dev_menu.gd:53)
+       [1] _test_tool_list_validation (res://tests/suite/test_dev_menu.gd:38)
+       [2] run (res://tests/suite/test_dev_menu.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] run (res://tests/suite/test_stage_coverage_weapons.gd:10)
+       [5] _close_stage (res://tests/suite/stage_suite_base.gd:29)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:123)
+ERROR: [DevMenu] 找不到 test_dev_menu_missing 的場景：res://tools/test_dev_menu_missing.tscn
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] choose (res://autoload/dev_menu.gd:109)
+       [1] _test_choose (res://tests/suite/test_dev_menu.gd:80)
+       [2] run (res://tests/suite/test_dev_menu.gd:12)
+       [3] _test_open_close (res://tests/suite/test_dev_menu.gd:64)
+       [4] frames (res://tests/suite/test_suite.gd:23)
+       [5] _frames (res://tests/smoke_test.gd:123)
+SUITE_TIME DevMenuSuite 0.0
+WARNING: [AssetPrefetch] 找不到要預載的貼圖：res://art/no_such_prefetch_texture.png
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:107)
+       [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:535)
+       [2] run (res://tests/suite/test_ch1_map.gd:44)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] run (res://tests/suite/test_dev_menu.gd:12)
+       [5] _test_choose (res://tests/suite/test_dev_menu.gd:84)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:123)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://data/levels/no_such_level.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _resolve_level (res://core/asset_prefetch.gd:60)
+       [1] warm_level (res://core/asset_prefetch.gd:45)
+       [2] _test_prefetch (res://tests/suite/test_ch1_map.gd:537)
+       [3] run (res://tests/suite/test_ch1_map.gd:44)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] run (res://tests/suite/test_dev_menu.gd:12)
+       [6] _test_choose (res://tests/suite/test_dev_menu.gd:84)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:123)
+WARNING: [AssetPrefetch] 待載已達 512，略過本次剩餘貼圖（首項：res://art/characters/trooper_elite/parts/armor_chest.png）。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:110)
+       [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:594)
+       [2] _prefetch_drain (res://tests/suite/test_ch1_map.gd:615)
+WARNING: [AssetPrefetch] 待載已達 512，略過本次剩餘貼圖（首項：res://art/creatures/tangle_wire/body_n.png）。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:110)
+       [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:594)
+       [2] _prefetch_drain (res://tests/suite/test_ch1_map.gd:615)
+SUITE_TIME Chapter1MapSuite 49.4
+checks: 5574, failures: 0
+ERROR: 7 RID allocations of type 'P11GodotArea2D' were leaked at exit.
+WARNING: 7 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 17 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

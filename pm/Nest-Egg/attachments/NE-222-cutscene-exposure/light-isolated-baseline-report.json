@@ -1,0 +1,168 @@
+{
+	"canvas_modulate_linear": [
+		0.2,
+		0.2,
+		0.2
+	],
+	"energies": [
+		0.0,
+		0.15,
+		0.75
+	],
+	"failures": [
+		"point_sprite: energy 0.15 did not contribute above zero (delta 0.000000)",
+		"point_sprite: energy 0.75 did not contribute above 0.15 (delta 0.000000)",
+		"point_sprite: energy response is not monotonic",
+		"point_polygon: energy 0.15 did not contribute above zero (delta 0.000000)",
+		"point_polygon: energy 0.75 did not contribute above 0.15 (delta 0.000000)",
+		"point_polygon: energy response is not monotonic"
+	],
+	"note": "CPU harness validation is not anatomy, art, or final-screen acceptance.",
+	"receivers": [
+		{
+			"energy": 0.0,
+			"image_format": 14,
+			"linear_luminance": 0.0330810546875,
+			"linear_rgb": [
+				0.0330810546875,
+				0.0330810546875,
+				0.0330810546875
+			],
+			"sample": "directional_sprite@0.00"
+		},
+		{
+			"energy": 0.15,
+			"image_format": 14,
+			"linear_luminance": 0.099853515625,
+			"linear_rgb": [
+				0.099853515625,
+				0.099853515625,
+				0.099853515625
+			],
+			"sample": "directional_sprite@0.15"
+		},
+		{
+			"energy": 0.75,
+			"image_format": 14,
+			"linear_luminance": 0.366943359375,
+			"linear_rgb": [
+				0.366943359375,
+				0.366943359375,
+				0.366943359375
+			],
+			"sample": "directional_sprite@0.75"
+		},
+		{
+			"energy": 0.0,
+			"image_format": 14,
+			"linear_luminance": 0.0330810546875,
+			"linear_rgb": [
+				0.0330810546875,
+				0.0330810546875,
+				0.0330810546875
+			],
+			"sample": "directional_polygon@0.00"
+		},
+		{
+			"energy": 0.15,
+			"image_format": 14,
+			"linear_luminance": 0.099853515625,
+			"linear_rgb": [
+				0.099853515625,
+				0.099853515625,
+				0.099853515625
+			],
+			"sample": "directional_polygon@0.15"
+		},
+		{
+			"energy": 0.75,
+			"image_format": 14,
+			"linear_luminance": 0.366943359375,
+			"linear_rgb": [
+				0.366943359375,
+				0.366943359375,
+				0.366943359375
+			],
+			"sample": "directional_polygon@0.75"
+		},
+		{
+			"energy": 0.0,
+			"image_format": 14,
+			"linear_luminance": 0.50732421875,
+			"linear_rgb": [
+				0.50732421875,
+				0.50732421875,
+				0.50732421875
+			],
+			"sample": "point_sprite@0.00"
+		},
+		{
+			"energy": 0.15,
+			"image_format": 14,
+			"linear_luminance": 0.50732421875,
+			"linear_rgb": [
+				0.50732421875,
+				0.50732421875,
+				0.50732421875
+			],
+			"sample": "point_sprite@0.15"
+		},
+		{
+			"energy": 0.75,
+			"image_format": 14,
+			"linear_luminance": 0.50732421875,
+			"linear_rgb": [
+				0.50732421875,
+				0.50732421875,
+				0.50732421875
+			],
+			"sample": "point_sprite@0.75"
+		},
+		{
+			"energy": 0.0,
+			"image_format": 14,
+			"linear_luminance": 0.50732421875,
+			"linear_rgb": [
+				0.50732421875,
+				0.50732421875,
+				0.50732421875
+			],
+			"sample": "point_polygon@0.00"
+		},
+		{
+			"energy": 0.15,
+			"image_format": 14,
+			"linear_luminance": 0.50732421875,
+			"linear_rgb": [
+				0.50732421875,
+				0.50732421875,
+				0.50732421875
+			],
+			"sample": "point_polygon@0.15"
+		},
+		{
+			"energy": 0.75,
+			"image_format": 14,
+			"linear_luminance": 0.50732421875,
+			"linear_rgb": [
+				0.50732421875,
+				0.50732421875,
+				0.50732421875
+			],
+			"sample": "point_polygon@0.75"
+		}
+	],
+	"renderer_expected": "Forward+ HDR 2D",
+	"result": "FAIL",
+	"shader_resource": "res://art/shaders/character_light.gdshader",
+	"source_shader_sha256": "2fc5c7fd795065424271d4f8b4b1aadfc025f2ef7be8e3c7e30a963d23e284ec",
+	"uniforms": {
+		"fill": 1.0,
+		"light_cap": 0.5
+	},
+	"unshaded_gray_reference_linear": [
+		0.2139892578125,
+		0.2139892578125,
+		0.2139892578125
+	]
+}

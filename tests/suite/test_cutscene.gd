@@ -46,6 +46,7 @@ func run() -> void:
 	await _test_overlay_and_layers()
 	await _test_stand_up_returns_to_the_floor()
 	_test_walk_matches_stage_motion()
+	_test_stage_lighting_is_independent()
 	await _test_lock_lifecycle()
 	await _test_gameplay_input_lock()
 	await _test_skip_covered_transition()
@@ -150,6 +151,30 @@ func _test_framing_lifecycle() -> void:
 	overlay.cancel()
 	await frames(2)
 	Settings.set_reduce_ui_motion(reduced)
+
+
+func _test_stage_lighting_is_independent() -> void:
+	var old_fill := LightKit.character_fill
+	var old_cap := LightKit.character_light_cap
+	LightKit.character_fill = 4.0
+	LightKit.character_light_cap = 0.5
+	var actor := CutsceneActor.new()
+	runner.add_child(actor)
+	check(actor.setup(&"lighting_probe", "rin", "", 2.5, "rifle"), "stage lighting actor builds")
+	actor.set_pose(&"sit")
+	actor._process(1.0 / 60.0)
+	check(is_equal_approx(actor.rig._fill, 1.0), "full-bright stage does not inherit dark-level fill")
+	check(is_equal_approx(actor.rig._light_cap, LightKit.character_light_cap_for(1.0, 1.0)), "stage light cap uses its own canvas")
+	var level_rig := CharacterRig.new()
+	runner.add_child(level_rig)
+	check(level_rig.setup("rin"), "level lighting control builds")
+	level_rig.animate(1.0 / 60.0, RigInput.new())
+	check(is_equal_approx(level_rig._fill, 4.0) and is_equal_approx(level_rig._light_cap, 0.5), "level characters retain their level lighting")
+	check(is_equal_approx(LightKit.character_fill, 4.0) and is_equal_approx(LightKit.character_light_cap, 0.5), "stage lighting leaves shared level state intact")
+	actor.free()
+	level_rig.free()
+	LightKit.character_fill = old_fill
+	LightKit.character_light_cap = old_cap
 
 
 func _test_walk_matches_stage_motion() -> void:
