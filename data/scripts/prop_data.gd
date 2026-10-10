@@ -49,6 +49,8 @@ const TEXTURE_SCALE := 4
 ## 冒蒸汽（煙囪、通風管）；位置相對於道具左上角。
 @export var steam: bool = false
 @export var steam_offset: Vector2 = Vector2.ZERO
+## 噴口水平散布半徑（世界像素）；窄壺嘴可單獨限制。
+@export_range(0.0, 8.0) var steam_spread: float = 2.0
 ## 是否遮擋光線（產生影子）。
 @export var casts_shadow: bool = false
 ## 裝飾分類（預覽與檢查用）。
@@ -65,6 +67,8 @@ func validate() -> PackedStringArray:
 		problems.append("道具 %s 標示有自發光層，但找不到：%s" % [id, glow_path()])
 	if size.x <= 0.0 or size.y <= 0.0:
 		problems.append("道具 %s 的大小無效" % id)
+	if steam and not steam_spread_valid():
+		problems.append("道具 %s 蒸汽散布無效" % id)
 	if has_local_flow() and not local_flow_valid():
 		problems.append("道具 %s 局部水流 UV 無效" % id)
 	return problems
@@ -87,3 +91,7 @@ func local_flow_valid() -> bool:
 		if not Rect2(Vector2.ZERO, Vector2.ONE).encloses(rect):
 			return false
 	return flow_surface.position.y >= flow_region.end.y
+
+
+func steam_spread_valid() -> bool:
+	return is_finite(steam_spread) and steam_spread >= 0.0 and steam_spread <= 8.0

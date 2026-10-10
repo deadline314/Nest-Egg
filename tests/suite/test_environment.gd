@@ -17,6 +17,7 @@ func run() -> void:
 	_test_trees()
 	_test_prop_animation()
 	await _test_local_water_flow()
+	await _test_kettle_steam_anchor()
 	_test_foreground()
 	await _test_level_with_environment()
 	await _test_level_without_environment()
@@ -484,3 +485,28 @@ func _test_local_water_flow() -> void:
 func _motion_process_frames(count: int) -> void:
 	for frame in count:
 		await runner.get_tree().process_frame
+
+
+func _test_kettle_steam_anchor() -> void:
+	var data := load("res://data/environment/scene_props/pawnshop_kitchen/pawnshop_kitchen__kettle_stove.tres") as PropData
+	check(data.steam and data.steam_offset.is_equal_approx(Vector2(1.5, 7.5)), "壺嘴蒸汽從左側真出氣口開始")
+	check(data.steam_spread_valid() and is_equal_approx(data.steam_spread, 0.25), "小壺嘴不沿用排水孔的寬散布")
+	for mirrored in [false, true]:
+		var prop := PropNode.new()
+		prop.setup(data, Vector2(120, 60), mirrored)
+		prop.scale = Vector2(1.5, 2)
+		runner.add_child(prop)
+		var x: float = data.size.x - 1.5 if mirrored else 1.5
+		check(prop.steam_world_position().is_equal_approx(prop.to_global(Vector2(x, 7.5))), "壺嘴接點與鏡像縮放本體相同")
+		check(is_equal_approx(prop._steam_spread, 0.25), "壺嘴實體採用局部半徑")
+		prop.queue_free()
+	await _motion_process_frames(2)
+	var bad := data.duplicate() as PropData
+	bad.steam_spread = NAN
+	check(not bad.steam_spread_valid() and not bad.validate().is_empty(), "損毀散布資料被驗證攔下")
+	var fallback := PropNode.new()
+	fallback.setup(bad, Vector2.ZERO)
+	runner.add_child(fallback)
+	check(is_equal_approx(fallback._steam_spread, 2.0), "非法散布退回既有預設")
+	fallback.queue_free()
+	await _motion_process_frames(2)

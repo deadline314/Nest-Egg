@@ -24,6 +24,7 @@ var _glow_sprite: Sprite2D
 var _light: PointLight2D
 var _time := 0.0
 var _steam_timer := 0.0
+var _steam_spread := 2.0
 var _on_screen := false
 var _power_threshold := randf_range(0.1, 0.95)
 
@@ -60,6 +61,10 @@ func _ready() -> void:
 	if data.casts_shadow:
 		_add_occluder()
 	if data.steam:
+		if data.steam_spread_valid():
+			_steam_spread = data.steam_spread
+		else:
+			push_warning("[PropNode] %s 蒸汽散布無效，使用預設 2" % data.id)
 		_add_steam_gate()
 	if data.has_local_flow():
 		if data.local_flow_valid() and ResourceLoader.exists(data.texture):
@@ -187,7 +192,7 @@ func _process(delta: float) -> void:
 		_steam_timer -= delta
 		if _steam_timer <= 0.0:
 			_steam_timer = STEAM_INTERVAL * randf_range(0.7, 1.4)
-			Fx.steam(steam_world_position(Vector2(randf_range(-2.0, 2.0), 0.0)))
+			Fx.steam(steam_world_position(Vector2(randf_range(-_steam_spread, _steam_spread), 0.0)))
 	var gate := LightKit.power_gate(LightKit.lamp_power, _power_threshold) if data.light_radius > 0.0 else 1.0
 	var flick := 1.0
 	if data.flicker > 0.0:
