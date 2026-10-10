@@ -1,0 +1,73 @@
+extends Node
+
+const Capture := preload("res://tools/viewport_capture.gd")
+var capture_path := ""
+var capture_after_msec := -1
+var capture_start := 0
+var captured := false
+var samples: Array[Dictionary] = []
+
+func _ready() -> void:
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture="):
+			capture_path = argument.trim_prefix("--capture=")
+		elif argument.begins_with("--at="):
+			capture_after_msec = int(argument.trim_prefix("--at="))
+	if not capture_path.is_empty():
+		Engine.max_fps = 60
+		DisplayMode.ensure_scaling(get_tree().root)
+		get_tree().root.size = Vector2i(1280, 720)
+		var backdrop := ColorRect.new()
+		backdrop.color = Color(0.055, 0.065, 0.09, 1.0)
+		backdrop.size = Vector2(640, 360)
+		add_child(backdrop)
+		RenderingServer.frame_post_draw.connect(_capture_frame)
+	_run.call_deferred()
+
+func _capture_frame() -> void:
+	if captured or capture_start == 0:
+		return
+	var layer: DialogueLayer = Story._layer
+	var elapsed := Time.get_ticks_msec() - capture_start
+	if (capture_after_msec < 0 and not layer._radio_root.visible) or (capture_after_msec >= 0 and elapsed >= capture_after_msec):
+		captured = true
+		var png_error := Capture.image(get_viewport()).save_png(capture_path)
+		var metadata := {"msec": elapsed, "visible": layer._radio_root.visible, "text": layer._radio_text.text, "active": layer._radio_active, "hdr_2d": get_viewport().use_hdr_2d, "viewport": [get_viewport().get_visible_rect().size.x, get_viewport().get_visible_rect().size.y], "method": RenderingServer.get_current_rendering_method(), "synthetic": "neutral backdrop; actual Story/DialogueLayer old radio completion and replacement"}
+		var file := FileAccess.open(capture_path + ".json", FileAccess.WRITE)
+		file.store_string(JSON.stringify(metadata, "\t"))
+		print("CAPTURE ", JSON.stringify(metadata), " png_error=", png_error)
+
+func _run() -> void:
+	Story.reset_progress()
+	Story.auto_skip = false
+	Story._scenes["ne231_radio_old"] = {"mode": "radio", "lines": [{"speaker": "mei", "text": "舊。"}]}
+	Story._scenes["ne231_radio_new"] = {"mode": "radio", "lines": [{"speaker": "mei", "text": "先關了。"}, {"speaker": "mei", "text": "回來了。", "delay": 0.6}]}
+	var layer: DialogueLayer = Story._layer
+	Story.play(&"ne231_radio_old")
+	var deadline := Time.get_ticks_msec() + 4000
+	while layer._radio_active and Time.get_ticks_msec() < deadline:
+		await get_tree().process_frame
+	print("OLD_FINISHED ", not layer._radio_active)
+	await get_tree().create_timer(0.15).timeout
+	Story.reset_progress()
+	Story.play(&"ne231_radio_new")
+	var start := Time.get_ticks_msec()
+	capture_start = start
+	print("NEW_IMMEDIATE ", JSON.stringify({"visible": layer._radio_root.visible, "text": layer._radio_text.text, "active": layer._radio_active, "cinematic": layer.is_cinematic_active()}))
+	var hidden := 0
+	for frame in 18:
+		await get_tree().physics_frame
+		var state := {"frame": frame + 1, "msec": Time.get_ticks_msec() - start, "visible": layer._radio_root.visible, "alpha": layer._radio_root.modulate.a, "text": layer._radio_text.text, "active": layer._radio_active, "cinematic": layer.is_cinematic_active()}
+		print("NEW_FRAME ", JSON.stringify(state))
+		samples.append(state)
+		if not layer._radio_root.visible or layer._radio_text.text != "先關了。":
+			hidden += 1
+	capture_start = 0
+	Story.reset_progress()
+	Story._scenes.erase("ne231_radio_old")
+	Story._scenes.erase("ne231_radio_new")
+	Sfx.stop_all()
+	await get_tree().create_timer(0.3).timeout
+	print("RADIO_OLD_FADE_HIDDEN_FRAMES ", hidden)
+	print("CAPTURE_COMPLETED ", captured if not capture_path.is_empty() else true)
+	get_tree().quit(1 if hidden or (not capture_path.is_empty() and not captured) else 0)

@@ -1,0 +1,7 @@
+Running 1 groups in 1 processes (logs: C:/tmp/ne231-evidence/radio-red)
+  process 0 (estimated 25 s): DeathReactionSuite
+[process 0] NEW FAILURE: old radio fade never hides replacement first line: next reduced=false [{ "frame": 6, "visible": false, "text": "先關了。", "active": true }]
+[process 0] NEW FAILURE: old radio fade never hides replacement first line: replay reduced=false [{ "frame": 6, "visible": false, "text": "先關了。", "active": true }]
+[process 0] NEW FAILURE: old radio fade never hides replacement first line: next reduced=true [{ "frame": 5, "visible": false, "text": "先關了。", "active": true }]
+[process 0] NEW FAILURE: old radio fade never hides replacement first line: replay reduced=true [{ "frame": 6, "visible": false, "text": "先關了。", "active": true }]
+checks: 154, new failures: 4, known failures (tests/known_failures.txt): 0  (wall time 37 s)

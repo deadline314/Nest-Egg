@@ -1,0 +1,148 @@
+{
+  "test_baseline": "3c053d316fc4da97b00887c2cbbed60b19a12334",
+  "integration_baseline": "62c6cb30fb5e7e5ad8a12774625ba624b08377de",
+  "source": {
+    "ui/dialogue_layer.gd": {
+      "tested_local_sha256": "b1e3a464387a26d39da9d1191c017c50e3fc2c34b44ab3691fa97df8c28e59e7",
+      "repository_sha256": "b1e3a464387a26d39da9d1191c017c50e3fc2c34b44ab3691fa97df8c28e59e7"
+    },
+    "tests/suite/test_death_reactions.gd": {
+      "tested_local_sha256": "a5ede137fa9ec0405a54e2a70b0660b9915088980e24f585a8e44ab5bff51f94",
+      "repository_sha256": "a5ede137fa9ec0405a54e2a70b0660b9915088980e24f585a8e44ab5bff51f94"
+    }
+  },
+  "evidence": [
+    {
+      "path": "pm/ST/attachments/ST-3-radio-baseline-import.log",
+      "original_sha256": "106434393f64e18f7e5edf07a3d7492ed85251987fe7b8dab4439a937a8aa223",
+      "repository_log_sha256": "d00ddd96b2d6fabd61be227ff7063dcac8f80692a7a5c33616f49a7ecfa024c4"
+    },
+    {
+      "path": "pm/ST/attachments/ST-3-radio-baseline-probe.log",
+      "original_sha256": "268131a2a3075b51508ec2a8323bf4956ba460e34b2470aaa2dc40be4c6fea2b",
+      "repository_log_sha256": "8ddd6767d9c4264bdcd9c9312390c4ba4ab4a6e12cdb3a0a90470eac230a9a3a"
+    },
+    {
+      "path": "pm/ST/attachments/ST-3-radio-probe.log",
+      "original_sha256": "fadf628ced3bc1340aa319b96bd4ab2ec25b3f53eac26a54a5f9da9c86a79b16",
+      "repository_log_sha256": "fcf04c1ec8c82c3e70967ab16470fac8ac30a38667f2bfb26a4afd0e3cfbd2fd"
+    },
+    {
+      "path": "pm/ST/attachments/ST-3-radio-red-console.log",
+      "original_sha256": "e0c2fe0121fc40ea2fe795e17574755dc9b20a38b479d584607f3ec73eae65bf",
+      "repository_log_sha256": "71afb2184d3836200e963196eb2befa7289eac86857ba733cc9c26bb53aed960"
+    },
+    {
+      "path": "pm/ST/attachments/ST-3-radio-red-shard_0.log",
+      "original_sha256": "a401ac18a4f3a5e7c6caf71c54710db29fc56fd0bb54403037c7a32bb17f7dde",
+      "repository_log_sha256": "ca91aa3df0ff67d0dccbdd92a7aab27b6eeed81b918fa443e22f08eeca18d223"
+    },
+    {
+      "path": "pm/ST/attachments/ST-3-radio-green-console.log",
+      "original_sha256": "53dfddb988358194e529c3e383abc8b70286940ba8743fa2a2ca74bf513c5661",
+      "repository_log_sha256": "275960541169990e62b550d7c14ab9f0c02691a2ca4b53d947fec81d05aeabe9"
+    },
+    {
+      "path": "pm/ST/attachments/ST-3-radio-green-shard_0.log",
+      "original_sha256": "715d1fb38bd893efacf7692802d1de9e188cd186be7dd92fcdf1cfd6f6e193fd",
+      "repository_log_sha256": "c82098b87070cfa2a52ca0b5b1ce5b1cd8847bff63d2597a4b361021b54bd918"
+    },
+    {
+      "path": "pm/ST/attachments/ST-3-radio-changed-console.log",
+      "original_sha256": "d52ddfc2e94819ed9bda6053dfd4651ae775d505f3d6fb050ea9f7587cd3f5d2",
+      "repository_log_sha256": "286be69e57f637b0671892108e9e3c37b638e1ed3256347814a64c2beaa8b369"
+    },
+    {
+      "path": "pm/ST/attachments/ST-3-radio-changed-shard_0.log",
+      "original_sha256": "58e0c193118e1c698b88ef756688fa07faf0be365294bfa95eca3915b1a69ebc",
+      "repository_log_sha256": "792b83d77fadf1ebe879c8b091651cf3eaf156e52a1843b9fb34e9645d80149a"
+    },
+    {
+      "path": "pm/ST/attachments/ST-3-radio-before-forward.log",
+      "original_sha256": "0ac1c82942e336ababeb8d82a85981c9bbd22ad62689366c6c31f79f7a6327e2",
+      "repository_log_sha256": "c41a07e670bba0aef57e47ee1f97918ec1451e32c1b03a69f52c24a30f5a03b2"
+    },
+    {
+      "path": "pm/ST/attachments/ST-3-radio-after-forward.log",
+      "original_sha256": "f6d43e293c515a25b4b7dabef24a567fbd7c4b673850114cecb5560a7f1cbd00",
+      "repository_log_sha256": "b991b629bb6a542c2744c63a7c1ba54855705c3fb9ad7fc8a3c881bb1b8e2528"
+    },
+    {
+      "path": "pm/ST/attachments/ST-3-radio-before.png.json",
+      "original_sha256": "b738fcc39ea2164015bfbabcd302699c5c5399d14cbd5ac6e0dc14dc3d5de989",
+      "repository_log_sha256": "b738fcc39ea2164015bfbabcd302699c5c5399d14cbd5ac6e0dc14dc3d5de989"
+    },
+    {
+      "path": "pm/ST/attachments/ST-3-radio-after.png.json",
+      "original_sha256": "50f9e895ba047f98d85acb68cc468540f75b04a58477007c67384b3951cd2cfe",
+      "repository_log_sha256": "50f9e895ba047f98d85acb68cc468540f75b04a58477007c67384b3951cd2cfe"
+    },
+    {
+      "path": "pm/ST/attachments/ST-3-radio-radio_lifecycle_probe.gd.txt",
+      "original_sha256": "b735dda0023e6e3be1aeacd96124bdcaa004a550e9eda49232976ac8d6685514",
+      "repository_log_sha256": "b735dda0023e6e3be1aeacd96124bdcaa004a550e9eda49232976ac8d6685514"
+    },
+    {
+      "path": "pm/ST/attachments/ST-3-radio-radio_lifecycle_probe.tscn.txt",
+      "original_sha256": "93051305927a8df0b161f0973d2a52eff299371e98468262257156f1d3e37c15",
+      "repository_log_sha256": "93051305927a8df0b161f0973d2a52eff299371e98468262257156f1d3e37c15"
+    },
+    {
+      "path": "pm/Nest-Egg/images/ST-3-radio-before.png",
+      "original_sha256": "4932ed0c574cff1229812813ddb2ed5a5c0e8b0ff8794d15df19175fffdd30e2"
+    },
+    {
+      "path": "pm/Nest-Egg/images/ST-3-radio-after.png",
+      "original_sha256": "3bc0ace0bc80c61fb53b91aefe05090fcd81dbfbabac2f3ff2f52c4b95d63386"
+    },
+    {
+      "path": "pm/ST/attachments/ST-3-radio-latest-import.log",
+      "original_sha256": "cbaec753066c413321e07eced2dd8590032e9c8dbf2c0d5279055d461531a830",
+      "repository_log_sha256": "502eed53a413f1a05693443d85fb1250b74ff10d13eadbc4c107c1f8a037ca31"
+    },
+    {
+      "path": "pm/ST/attachments/ST-3-radio-latest-changed-console.log",
+      "original_sha256": "2412f427a371022168cc51c035c4e2a7da7e99adbf64ebe6301ef8b91a2d0ddb",
+      "repository_log_sha256": "b4b9e4d2e411811c72bb71873f8b31303ef497cd8cdfc6bb81d49d2a5cb778df"
+    },
+    {
+      "path": "pm/ST/attachments/ST-3-radio-latest-changed-shard_0.log",
+      "original_sha256": "76c08c28240aa93c64eb7071ad22a94a4107ff99f77abb1ccd48f5fa73b6bee3",
+      "repository_log_sha256": "445c026fac45aa3cb06fa167486326764265daa58e0433c093f57bd502123ffb"
+    }
+  ],
+  "changed": {
+    "suites": [
+      "CombatHudSuite",
+      "DeathReactionSuite"
+    ],
+    "checks": 180,
+    "new_failures": 0,
+    "known_failures": 0,
+    "exit_code": 0,
+    "seconds": 51
+  },
+  "negative": {
+    "checks": 154,
+    "new_failures": 4,
+    "exit_code": 1
+  },
+  "capture_scope": "neutral synthetic background; actual Story/DialogueLayer; native Forward+ HDR 2D",
+  "capture_before_ms": 84,
+  "capture_after_ms": 99,
+  "capture_times_identical": false,
+  "root_viewed_before_and_after": true,
+  "hash_kind": "original local bytes; repository LF normalization has a separate hash",
+  "latest_main_retest": {
+    "baseline": "62c6cb30fb5e7e5ad8a12774625ba624b08377de",
+    "suites": [
+      "CombatHudSuite",
+      "DeathReactionSuite"
+    ],
+    "checks": 180,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 41,
+    "exit_code": 0
+  }
+}
