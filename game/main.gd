@@ -6,9 +6,6 @@ extends Node
 const FIRST_LEVEL := "res://data/levels/ch1_pawnshop.tres"
 const RETRY_CAPTION := "NEST 回溯紀錄 #%d"
 const RETRY_HOLD := 0.22
-## 結束前等音訊釋放的上限與要看到的混音次數（停止要求在下一次混音才生效）。
-const AUDIO_RELEASE_TIMEOUT_MS := 400
-const AUDIO_RELEASE_MIXES := 2
 
 var _screen: Node
 ## 目前這一關的資料路徑（重試會重載同一關；通關後依 LevelData.next_level 接續）。
@@ -420,24 +417,5 @@ func _quit(exit_code := 0) -> void:
 	if is_instance_valid(_screen):
 		_screen.queue_free()
 	await get_tree().process_frame
-	await _release_audio()
+	await AudioRelease.settle(get_tree())
 	get_tree().quit(exit_code)
-
-
-## 結束前停掉配樂、環境音與音效，等混音端放掉播放中的串流，程序才不會帶著未回收的音訊資源結束。
-## 最多等 AUDIO_RELEASE_TIMEOUT_MS；逾時照常結束。
-func _release_audio() -> void:
-	Music.stop(0.0)
-	Ambience.stop_all(0.0)
-	Sfx.stop_all()
-	var deadline := Time.get_ticks_msec() + AUDIO_RELEASE_TIMEOUT_MS
-	var since_mix := AudioServer.get_time_since_last_mix()
-	var mixes := 0
-	while mixes < AUDIO_RELEASE_MIXES and Time.get_ticks_msec() < deadline:
-		await get_tree().process_frame
-		var now := AudioServer.get_time_since_last_mix()
-		if now < since_mix:
-			mixes += 1
-		since_mix = now
-	# 混音端移除後，主執行緒再跑一格才真正釋放。
-	await get_tree().process_frame

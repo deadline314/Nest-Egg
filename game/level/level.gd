@@ -182,6 +182,9 @@ func _ready() -> void:
 	_spawn_atmosphere()
 	_foreground = ForegroundLayer.new()
 	_foreground.ground_y = _layout.ground_y
+	_foreground.rain = data.rain
+	_foreground.covered_columns = _layout.covered_columns
+	_foreground.tile_size = _layout.tile_size
 	add_child(_foreground)
 
 	hud = Hud.new()
@@ -440,6 +443,7 @@ func _spawn_static_entities() -> void:
 		# 風格由所在區段決定；沒有區段時維持霓虹三原色交錯。
 		var tile := int(lamp.position.x / _layout.tile_size)
 		lamp.floor_y = _layout.floor_below(tile, int(lamp.position.y / _layout.tile_size))
+		lamp.rain_streaks = data.rain and tile >= 0 and tile < _layout.covered_columns.size() and _layout.covered_columns[tile] == 0
 		var profile := data.profile_at_tile(tile)
 		if profile != null and profile.lamp_style != null:
 			lamp.apply_style(profile.lamp_style, hash(Vector2i(tile, int(lamp.position.y))))

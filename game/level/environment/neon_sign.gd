@@ -5,7 +5,6 @@ extends Node2D
 const FONT_SIZE := 11
 const CHAR_STEP := 12.0
 const PADDING := 5.0
-const REFLECTION_DEPTH := 26.0
 ## 重新點亮的瞬間：持續秒數與額外亮度倍率（合計仍在 Fx.HDR_PEAK_MAX 內）。
 const RESTRIKE_TIME := 0.07
 const RESTRIKE_BOOST := 1.25
@@ -90,12 +89,8 @@ func _draw() -> void:
 	_draw_reflection(lit)
 
 
-## 濕地倒影：在地面下方畫一條由亮到暗的垂直色帶，寬度與招牌相同。
+## 招牌打在地面上的反光：落在地形頂面的一條亮帶，寬度與招牌相同。
 func _draw_reflection(lit: bool) -> void:
 	if floor_y == INF or not lit:
 		return
-	var top := floor_y - global_position.y + 1.0
-	var rect := PackedVector2Array([
-		Vector2(0, top), Vector2(_size.x, top), Vector2(_size.x * 0.9, top + REFLECTION_DEPTH), Vector2(_size.x * 0.1, top + REFLECTION_DEPTH)])
-	var colors := PackedColorArray([Color(LightKit.glow(color, 1.4), 0.35), Color(LightKit.glow(color, 1.4), 0.35), Color(color, 0.0), Color(color, 0.0)])
-	draw_polygon(rect, colors)
+	LightShaft.draw_floor_sheen(self, 0.0, _size.x, floor_y - global_position.y, LightKit.glow(color, 1.4), 0.35)

@@ -14,6 +14,8 @@ var pulse_hz := 0.0
 var dead := false
 ## 燈下地面的世界 y 座標（濕地倒影）；INF 代表不畫。
 var floor_y := INF
+## 光錐裡要不要有雨絲：只有下雨的關卡、頭上沒有屋頂的燈才有。
+var rain_streaks := false
 
 var _light: PointLight2D
 var _shaft: LightShaft
@@ -52,6 +54,7 @@ func _ready() -> void:
 	_shaft.length = minf(radius * 0.7, 150.0)
 	_shaft.half_width = _shaft.length * 0.32
 	_shaft.floor_y = floor_y
+	_shaft.rain_streaks = rain_streaks
 	_shaft.source = _light
 	_shaft.position = Vector2(0, 3)
 	add_child(_shaft)

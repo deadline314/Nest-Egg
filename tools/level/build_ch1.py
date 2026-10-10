@@ -69,7 +69,8 @@ PORTALS = {
               requires='ch1_heard_brief', locked='先去屋頂：鷺在等你。'),
     'S': dict(id='pawn_stairs', to=AREA('rooftop'), target='roof_stairs', mode=0, prompt='{interact} 上屋頂', style='ladder', w=20, h=152,
               requires='ch1_dinner_done', locked='先吃晚飯。老 K 在等。'),
-    'K': dict(id='pawn_basement', to='', target='', mode=0, prompt='{interact} 地下室', locked='地下室正在漏水，請別開門。', style='door'),
+    # 鐵門的圖就是擺設 basement_door__locked_iron_door，出入口只留互動範圍，不再疊一個門框。
+    'K': dict(id='pawn_basement', to='', target='', mode=0, prompt='{interact} 地下室', locked='地下室正在漏水，請別開門。', style='hidden', w=32, h=48),
     # 屋頂
     'T': dict(id='roof_stairs', to=AREA('pawnshop'), target='pawn_stairs', mode=0, prompt='{interact} 下樓', style='hidden', w=24, h=44),
     # 街道
@@ -704,6 +705,10 @@ def build_warehouse_full():
     a.stand(167, 'i')
     a.trigger(168, 'ch1_g10_disk')
     a.prop('dock_warehouse__open_container', 143)
+    # 倉庫深處原本只有一個貨櫃：補上倉庫自己的物件（棧板、警示燈、探照燈），都貼地、放在戰鬥落點之外。
+    a.prop('dock_warehouse__wrapped_pallets', 153)
+    a.prop('dock_warehouse__rotating_beacon', 166)
+    a.prop('dock_warehouse__searchlight_post', 182)
     # 上層走道：階梯平台通往右側的高處走道
     a.platform(168, 171, 14)
     a.platform(173, 176, 12)

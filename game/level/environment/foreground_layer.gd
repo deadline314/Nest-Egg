@@ -20,6 +20,11 @@ const SWAY_AMPLITUDE := 2.2
 
 ## 街道地面上緣的世界 y 座標，由關卡設定（欄杆畫在它下方，不蓋住角色腳下）。
 var ground_y := 320.0
+## 這一關有沒有下雨；沒有就不畫雨簾。
+var rain := true
+## 每一欄頭上有沒有屋頂（1＝有）與格子大小，由關卡設定：鏡頭在屋頂下時不畫雨簾。
+var covered_columns := PackedByteArray()
+var tile_size := 16
 
 var _static: _Static
 var _curtain: _Curtain
@@ -40,6 +45,18 @@ func _ready() -> void:
 
 func _refresh_visibility() -> void:
 	visible = LightQuality.volumetrics()
+
+
+func _process(_delta: float) -> void:
+	_curtain.visible = rain and not _camera_under_roof()
+
+
+func _camera_under_roof() -> bool:
+	var camera := get_viewport().get_camera_2d()
+	if camera == null or covered_columns.is_empty():
+		return false
+	var column := clampi(int(camera.get_screen_center_position().x / tile_size), 0, covered_columns.size() - 1)
+	return covered_columns[column] == 1
 
 
 ## 靜態剪影：頂端的橫管與吊纜、地面下的欄杆柱。
