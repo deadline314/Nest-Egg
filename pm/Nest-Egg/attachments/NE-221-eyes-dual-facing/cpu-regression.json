@@ -1,0 +1,526 @@
+{
+	"checks": 36,
+	"cycle_recorder_cases": {
+		"complete_cycle_control": true,
+		"driver_spike_delta_seconds": 0.1430267,
+		"subthreshold_deltas_seconds": [
+			0.055057,
+			0.0666667,
+			0.0597183
+		]
+	},
+	"errors": [],
+	"evidence_type": "manual delta stepping through production CharacterRig.animate with real EyeBlink state machine; no rendering",
+	"roles": [
+		{
+			"cycles": 11,
+			"facing": 1,
+			"hz": 60,
+			"interrupted_cycles": 0,
+			"skin_id": "rin",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 44,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 11,
+			"facing": -1,
+			"hz": 60,
+			"interrupted_cycles": 0,
+			"skin_id": "rin",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 44,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 11,
+			"facing": 1,
+			"hz": 60,
+			"interrupted_cycles": 0,
+			"skin_id": "old_k",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 44,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 11,
+			"facing": -1,
+			"hz": 60,
+			"interrupted_cycles": 0,
+			"skin_id": "old_k",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 44,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 11,
+			"facing": 1,
+			"hz": 60,
+			"interrupted_cycles": 0,
+			"skin_id": "nurse",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 44,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 11,
+			"facing": -1,
+			"hz": 60,
+			"interrupted_cycles": 0,
+			"skin_id": "nurse",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 44,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 12,
+			"facing": 1,
+			"hz": 60,
+			"interrupted_cycles": 0,
+			"skin_id": "night_worker",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 48,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 12,
+			"facing": -1,
+			"hz": 60,
+			"interrupted_cycles": 0,
+			"skin_id": "night_worker",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 48,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 13,
+			"facing": 1,
+			"hz": 60,
+			"interrupted_cycles": 0,
+			"skin_id": "repairman_chen",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 52,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 13,
+			"facing": -1,
+			"hz": 60,
+			"interrupted_cycles": 0,
+			"skin_id": "repairman_chen",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 52,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 13,
+			"facing": 1,
+			"hz": 60,
+			"interrupted_cycles": 0,
+			"skin_id": "resident",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 52,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 13,
+			"facing": -1,
+			"hz": 60,
+			"interrupted_cycles": 0,
+			"skin_id": "resident",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 52,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 10,
+			"facing": 1,
+			"hz": 60,
+			"interrupted_cycles": 0,
+			"skin_id": "ah_po",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 40,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 10,
+			"facing": -1,
+			"hz": 60,
+			"interrupted_cycles": 0,
+			"skin_id": "ah_po",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 40,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 11,
+			"facing": 1,
+			"hz": 60,
+			"interrupted_cycles": 0,
+			"skin_id": "wataru",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 44,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 11,
+			"facing": -1,
+			"hz": 60,
+			"interrupted_cycles": 0,
+			"skin_id": "wataru",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 44,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 12,
+			"facing": 1,
+			"hz": 60,
+			"interrupted_cycles": 0,
+			"skin_id": "mei",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 48,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 12,
+			"facing": -1,
+			"hz": 60,
+			"interrupted_cycles": 0,
+			"skin_id": "mei",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 48,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 11,
+			"facing": 1,
+			"hz": 120,
+			"interrupted_cycles": 0,
+			"skin_id": "rin",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 44,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 11,
+			"facing": -1,
+			"hz": 120,
+			"interrupted_cycles": 0,
+			"skin_id": "rin",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 44,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 11,
+			"facing": 1,
+			"hz": 120,
+			"interrupted_cycles": 0,
+			"skin_id": "old_k",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 44,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 11,
+			"facing": -1,
+			"hz": 120,
+			"interrupted_cycles": 0,
+			"skin_id": "old_k",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 44,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 11,
+			"facing": 1,
+			"hz": 120,
+			"interrupted_cycles": 0,
+			"skin_id": "nurse",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 44,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 11,
+			"facing": -1,
+			"hz": 120,
+			"interrupted_cycles": 0,
+			"skin_id": "nurse",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 44,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 12,
+			"facing": 1,
+			"hz": 120,
+			"interrupted_cycles": 0,
+			"skin_id": "night_worker",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 48,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 12,
+			"facing": -1,
+			"hz": 120,
+			"interrupted_cycles": 0,
+			"skin_id": "night_worker",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 48,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 13,
+			"facing": 1,
+			"hz": 120,
+			"interrupted_cycles": 0,
+			"skin_id": "repairman_chen",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 52,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 13,
+			"facing": -1,
+			"hz": 120,
+			"interrupted_cycles": 0,
+			"skin_id": "repairman_chen",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 52,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 13,
+			"facing": 1,
+			"hz": 120,
+			"interrupted_cycles": 0,
+			"skin_id": "resident",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 52,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 13,
+			"facing": -1,
+			"hz": 120,
+			"interrupted_cycles": 0,
+			"skin_id": "resident",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 52,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 10,
+			"facing": 1,
+			"hz": 120,
+			"interrupted_cycles": 0,
+			"skin_id": "ah_po",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 40,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 10,
+			"facing": -1,
+			"hz": 120,
+			"interrupted_cycles": 0,
+			"skin_id": "ah_po",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 40,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 11,
+			"facing": 1,
+			"hz": 120,
+			"interrupted_cycles": 0,
+			"skin_id": "wataru",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 44,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 11,
+			"facing": -1,
+			"hz": 120,
+			"interrupted_cycles": 0,
+			"skin_id": "wataru",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 44,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 12,
+			"facing": 1,
+			"hz": 120,
+			"interrupted_cycles": 0,
+			"skin_id": "mei",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 48,
+			"valid_cycle": true
+		},
+		{
+			"cycles": 12,
+			"facing": -1,
+			"hz": 120,
+			"interrupted_cycles": 0,
+			"skin_id": "mei",
+			"states_seen": {
+				"closed": true,
+				"half": true,
+				"open": true
+			},
+			"transitions": 48,
+			"valid_cycle": true
+		}
+	],
+	"seconds_per_simulation": 30.0,
+	"status": "passed",
+	"target_hz": [
+		60,
+		120
+	]
+}

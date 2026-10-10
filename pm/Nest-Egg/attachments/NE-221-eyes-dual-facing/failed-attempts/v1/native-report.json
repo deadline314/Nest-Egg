@@ -1,0 +1,1578 @@
+{
+	"adapter": "NVIDIA GeForce RTX 4070 SUPER",
+	"capture_states_are_natural": true,
+	"characters": [
+		{
+			"blink_cycles": [],
+			"eye_canvas": [
+				133.0,
+				141.0
+			],
+			"eye_local_transform": [
+				0.0420500002801418,
+				0.0,
+				0.0,
+				0.0420500002801418,
+				0.0,
+				0.0
+			],
+			"eye_material_class": "ShaderMaterial",
+			"eye_node_id": 269542754885,
+			"eye_offset": [
+				-51.0,
+				-175.0
+			],
+			"eye_parent_bone": "head",
+			"eye_parent_id": 250198624712,
+			"facing": 1,
+			"part_count": 30,
+			"rendered_crops": {},
+			"skin_id": "rin",
+			"source_density_holder_scale": [
+				20.6793155670166,
+				20.6793155670166
+			],
+			"source_files": {
+				"closed": {
+					"res_path": "res://art/characters/rin/parts/head_closed.png",
+					"sha256": "6f62dd215f674d9789a3fb3f7cca2497689f9252b3db973b790c0c31dd6a4caf",
+					"size_bytes": 28384
+				},
+				"closed_normal": {
+					"res_path": "res://art/characters/rin/parts/head_closed_n.png",
+					"sha256": "e5259bd412f7f3a14db8d1bd61273ca5e6c8e15339a87c051d45ed7d47b6c13d",
+					"size_bytes": 27379
+				},
+				"half": {
+					"res_path": "res://art/characters/rin/parts/head_half.png",
+					"sha256": "a4dedd7ee5354d8921206eb9c6f40397807483236facc5f45e3e5a5702c18df2",
+					"size_bytes": 28614
+				},
+				"half_normal": {
+					"res_path": "res://art/characters/rin/parts/head_half_n.png",
+					"sha256": "d67809fa1332c58151e9e1a8f2d80efa5f9f3dad771e1972c16aa4559e0594c7",
+					"size_bytes": 27560
+				},
+				"open": {
+					"res_path": "res://art/characters/rin/parts/head.png",
+					"sha256": "a17f75ea88cadc52f7f9201508216c3fb2195024026469015a168bd850d1dc7e",
+					"size_bytes": 28695
+				},
+				"open_normal": {
+					"res_path": "res://art/characters/rin/parts/head_n.png",
+					"sha256": "e3bc5f5f1d55c901b6174b8f22fab51181c87d33e25f3f5f9d66c75341ec3df4",
+					"size_bytes": 26151
+				}
+			},
+			"stage_frames": {},
+			"state": "open",
+			"state_frame_counts": {
+				"idle": {
+					"closed": 0,
+					"half": 0,
+					"open": 1
+				},
+				"talking": {
+					"closed": 0,
+					"half": 0,
+					"open": 0
+				}
+			},
+			"texture_filter": 0,
+			"timing_config": {},
+			"transitions": []
+		},
+		{
+			"blink_cycles": [],
+			"eye_canvas": [
+				133.0,
+				141.0
+			],
+			"eye_local_transform": [
+				0.0420500002801418,
+				0.0,
+				0.0,
+				0.0420500002801418,
+				0.0,
+				0.0
+			],
+			"eye_material_class": "ShaderMaterial",
+			"eye_node_id": 277964917393,
+			"eye_offset": [
+				-51.0,
+				-175.0
+			],
+			"eye_parent_bone": "head",
+			"eye_parent_id": 276454967905,
+			"facing": -1,
+			"part_count": 30,
+			"rendered_crops": {},
+			"skin_id": "rin",
+			"source_density_holder_scale": [
+				20.6793155670166,
+				20.6793155670166
+			],
+			"source_files": {
+				"closed": {
+					"res_path": "res://art/characters/rin/parts/head_closed.png",
+					"sha256": "6f62dd215f674d9789a3fb3f7cca2497689f9252b3db973b790c0c31dd6a4caf",
+					"size_bytes": 28384
+				},
+				"closed_normal": {
+					"res_path": "res://art/characters/rin/parts/head_closed_n.png",
+					"sha256": "e5259bd412f7f3a14db8d1bd61273ca5e6c8e15339a87c051d45ed7d47b6c13d",
+					"size_bytes": 27379
+				},
+				"half": {
+					"res_path": "res://art/characters/rin/parts/head_half.png",
+					"sha256": "a4dedd7ee5354d8921206eb9c6f40397807483236facc5f45e3e5a5702c18df2",
+					"size_bytes": 28614
+				},
+				"half_normal": {
+					"res_path": "res://art/characters/rin/parts/head_half_n.png",
+					"sha256": "d67809fa1332c58151e9e1a8f2d80efa5f9f3dad771e1972c16aa4559e0594c7",
+					"size_bytes": 27560
+				},
+				"open": {
+					"res_path": "res://art/characters/rin/parts/head.png",
+					"sha256": "a17f75ea88cadc52f7f9201508216c3fb2195024026469015a168bd850d1dc7e",
+					"size_bytes": 28695
+				},
+				"open_normal": {
+					"res_path": "res://art/characters/rin/parts/head_n.png",
+					"sha256": "e3bc5f5f1d55c901b6174b8f22fab51181c87d33e25f3f5f9d66c75341ec3df4",
+					"size_bytes": 26151
+				}
+			},
+			"stage_frames": {},
+			"state": "open",
+			"state_frame_counts": {
+				"idle": {
+					"closed": 0,
+					"half": 0,
+					"open": 1
+				},
+				"talking": {
+					"closed": 0,
+					"half": 0,
+					"open": 0
+				}
+			},
+			"texture_filter": 0,
+			"timing_config": {},
+			"transitions": []
+		},
+		{
+			"blink_cycles": [],
+			"eye_canvas": [
+				147.0,
+				168.0
+			],
+			"eye_local_transform": [
+				0.0500000007450581,
+				0.0,
+				0.0,
+				0.0500000007450581,
+				0.0,
+				0.0
+			],
+			"eye_material_class": "ShaderMaterial",
+			"eye_node_id": 287544707815,
+			"eye_offset": [
+				-35.5900001525879,
+				-183.720001220703
+			],
+			"eye_parent_bone": "head",
+			"eye_parent_id": 279206431397,
+			"facing": 1,
+			"part_count": 15,
+			"rendered_crops": {},
+			"skin_id": "old_k",
+			"source_density_holder_scale": [
+				20.0,
+				20.0
+			],
+			"source_files": {
+				"closed": {
+					"res_path": "res://art/characters/old_k/parts/head_closed.png",
+					"sha256": "4bd99d66ee42cde2bf8d5046639f16af3b84672a5774bee5c0eada0b6ac61587",
+					"size_bytes": 31976
+				},
+				"closed_normal": {
+					"res_path": "res://art/characters/old_k/parts/head_closed_n.png",
+					"sha256": "f2f0ccb981f6f21f0ef91a18b3b5db9296162cce45d2574c2b2c504b68a7d472",
+					"size_bytes": 32509
+				},
+				"half": {
+					"res_path": "res://art/characters/old_k/parts/head_half.png",
+					"sha256": "fda05f55a3580604a675541fc69991d7f81e24eefd6327af40c8ea2ff4445205",
+					"size_bytes": 32021
+				},
+				"half_normal": {
+					"res_path": "res://art/characters/old_k/parts/head_half_n.png",
+					"sha256": "9a4a32676db5de98f4e1a7a9aba9376c1fbef575bce72f63083add653280b92e",
+					"size_bytes": 32570
+				},
+				"open": {
+					"res_path": "res://art/characters/old_k/parts/head.png",
+					"sha256": "3ce37289ba5352af5c48bb0433d71c335eebf28f5b5fe71c6c5835c626e9fea2",
+					"size_bytes": 32085
+				},
+				"open_normal": {
+					"res_path": "res://art/characters/old_k/parts/head_n.png",
+					"sha256": "42dbfe4619096cb015521ca281f8ea7455ea30a6289c8082441f038af6b2bba2",
+					"size_bytes": 30618
+				}
+			},
+			"stage_frames": {},
+			"state": "open",
+			"state_frame_counts": {
+				"idle": {
+					"closed": 0,
+					"half": 0,
+					"open": 1
+				},
+				"talking": {
+					"closed": 0,
+					"half": 0,
+					"open": 0
+				}
+			},
+			"texture_filter": 0,
+			"timing_config": {},
+			"transitions": []
+		},
+		{
+			"blink_cycles": [],
+			"eye_canvas": [
+				147.0,
+				168.0
+			],
+			"eye_local_transform": [
+				0.0500000007450581,
+				0.0,
+				0.0,
+				0.0500000007450581,
+				0.0,
+				0.0
+			],
+			"eye_material_class": "ShaderMaterial",
+			"eye_node_id": 291839675153,
+			"eye_offset": [
+				-35.5900001525879,
+				-183.720001220703
+			],
+			"eye_parent_bone": "head",
+			"eye_parent_id": 291000814325,
+			"facing": -1,
+			"part_count": 15,
+			"rendered_crops": {},
+			"skin_id": "old_k",
+			"source_density_holder_scale": [
+				20.0,
+				20.0
+			],
+			"source_files": {
+				"closed": {
+					"res_path": "res://art/characters/old_k/parts/head_closed.png",
+					"sha256": "4bd99d66ee42cde2bf8d5046639f16af3b84672a5774bee5c0eada0b6ac61587",
+					"size_bytes": 31976
+				},
+				"closed_normal": {
+					"res_path": "res://art/characters/old_k/parts/head_closed_n.png",
+					"sha256": "f2f0ccb981f6f21f0ef91a18b3b5db9296162cce45d2574c2b2c504b68a7d472",
+					"size_bytes": 32509
+				},
+				"half": {
+					"res_path": "res://art/characters/old_k/parts/head_half.png",
+					"sha256": "fda05f55a3580604a675541fc69991d7f81e24eefd6327af40c8ea2ff4445205",
+					"size_bytes": 32021
+				},
+				"half_normal": {
+					"res_path": "res://art/characters/old_k/parts/head_half_n.png",
+					"sha256": "9a4a32676db5de98f4e1a7a9aba9376c1fbef575bce72f63083add653280b92e",
+					"size_bytes": 32570
+				},
+				"open": {
+					"res_path": "res://art/characters/old_k/parts/head.png",
+					"sha256": "3ce37289ba5352af5c48bb0433d71c335eebf28f5b5fe71c6c5835c626e9fea2",
+					"size_bytes": 32085
+				},
+				"open_normal": {
+					"res_path": "res://art/characters/old_k/parts/head_n.png",
+					"sha256": "42dbfe4619096cb015521ca281f8ea7455ea30a6289c8082441f038af6b2bba2",
+					"size_bytes": 30618
+				}
+			},
+			"stage_frames": {},
+			"state": "open",
+			"state_frame_counts": {
+				"idle": {
+					"closed": 0,
+					"half": 0,
+					"open": 1
+				},
+				"talking": {
+					"closed": 0,
+					"half": 0,
+					"open": 0
+				}
+			},
+			"texture_filter": 0,
+			"timing_config": {},
+			"transitions": []
+		},
+		{
+			"blink_cycles": [],
+			"eye_canvas": [
+				212.0,
+				190.0
+			],
+			"eye_local_transform": [
+				0.0500000007450581,
+				0.0,
+				0.0,
+				0.0500000007450581,
+				0.0,
+				0.0
+			],
+			"eye_material_class": "ShaderMaterial",
+			"eye_node_id": 301486574437,
+			"eye_offset": [
+				-97.0999984741211,
+				-198.669998168945
+			],
+			"eye_parent_bone": "head",
+			"eye_parent_id": 293165075235,
+			"facing": 1,
+			"part_count": 15,
+			"rendered_crops": {},
+			"skin_id": "nurse",
+			"source_density_holder_scale": [
+				20.0,
+				20.0
+			],
+			"source_files": {
+				"closed": {
+					"res_path": "res://art/characters/nurse/parts/head_closed.png",
+					"sha256": "6cb5106507653a0cf654645ab645095df8e6b9337be23abc309165b733714851",
+					"size_bytes": 45822
+				},
+				"closed_normal": {
+					"res_path": "res://art/characters/nurse/parts/head_closed_n.png",
+					"sha256": "10fe9623bb0e13404d1f649c8cf9df7fec097ef45a19e2e3e4c4476942ca34d7",
+					"size_bytes": 48730
+				},
+				"half": {
+					"res_path": "res://art/characters/nurse/parts/head_half.png",
+					"sha256": "990fb5d3075fc0158d60e90a617394a58a309d4cccc667afb7649619f0617873",
+					"size_bytes": 45903
+				},
+				"half_normal": {
+					"res_path": "res://art/characters/nurse/parts/head_half_n.png",
+					"sha256": "3434c44608637b6ba67ef10290314aa91b46c489ec705d934d9c978298c1d5cd",
+					"size_bytes": 48853
+				},
+				"open": {
+					"res_path": "res://art/characters/nurse/parts/head.png",
+					"sha256": "991fa4bba84327726eff4db0f68c04f60ea258a413f753d3f54f698f82a03570",
+					"size_bytes": 45963
+				},
+				"open_normal": {
+					"res_path": "res://art/characters/nurse/parts/head_n.png",
+					"sha256": "d8963f1bedc119f4bac6fb72168274de2f50743504bcf0b47361849f574b8c89",
+					"size_bytes": 46120
+				}
+			},
+			"stage_frames": {},
+			"state": "open",
+			"state_frame_counts": {
+				"idle": {
+					"closed": 0,
+					"half": 0,
+					"open": 1
+				},
+				"talking": {
+					"closed": 0,
+					"half": 0,
+					"open": 0
+				}
+			},
+			"texture_filter": 0,
+			"timing_config": {},
+			"transitions": []
+		},
+		{
+			"blink_cycles": [],
+			"eye_canvas": [
+				212.0,
+				190.0
+			],
+			"eye_local_transform": [
+				0.0500000007450581,
+				0.0,
+				0.0,
+				0.0500000007450581,
+				0.0,
+				0.0
+			],
+			"eye_material_class": "ShaderMaterial",
+			"eye_node_id": 305781541775,
+			"eye_offset": [
+				-97.0999984741211,
+				-198.669998168945
+			],
+			"eye_parent_bone": "head",
+			"eye_parent_id": 304942680947,
+			"facing": -1,
+			"part_count": 15,
+			"rendered_crops": {},
+			"skin_id": "nurse",
+			"source_density_holder_scale": [
+				20.0,
+				20.0
+			],
+			"source_files": {
+				"closed": {
+					"res_path": "res://art/characters/nurse/parts/head_closed.png",
+					"sha256": "6cb5106507653a0cf654645ab645095df8e6b9337be23abc309165b733714851",
+					"size_bytes": 45822
+				},
+				"closed_normal": {
+					"res_path": "res://art/characters/nurse/parts/head_closed_n.png",
+					"sha256": "10fe9623bb0e13404d1f649c8cf9df7fec097ef45a19e2e3e4c4476942ca34d7",
+					"size_bytes": 48730
+				},
+				"half": {
+					"res_path": "res://art/characters/nurse/parts/head_half.png",
+					"sha256": "990fb5d3075fc0158d60e90a617394a58a309d4cccc667afb7649619f0617873",
+					"size_bytes": 45903
+				},
+				"half_normal": {
+					"res_path": "res://art/characters/nurse/parts/head_half_n.png",
+					"sha256": "3434c44608637b6ba67ef10290314aa91b46c489ec705d934d9c978298c1d5cd",
+					"size_bytes": 48853
+				},
+				"open": {
+					"res_path": "res://art/characters/nurse/parts/head.png",
+					"sha256": "991fa4bba84327726eff4db0f68c04f60ea258a413f753d3f54f698f82a03570",
+					"size_bytes": 45963
+				},
+				"open_normal": {
+					"res_path": "res://art/characters/nurse/parts/head_n.png",
+					"sha256": "d8963f1bedc119f4bac6fb72168274de2f50743504bcf0b47361849f574b8c89",
+					"size_bytes": 46120
+				}
+			},
+			"stage_frames": {},
+			"state": "open",
+			"state_frame_counts": {
+				"idle": {
+					"closed": 0,
+					"half": 0,
+					"open": 1
+				},
+				"talking": {
+					"closed": 0,
+					"half": 0,
+					"open": 0
+				}
+			},
+			"texture_filter": 0,
+			"timing_config": {},
+			"transitions": []
+		},
+		{
+			"blink_cycles": [],
+			"eye_canvas": [
+				196.0,
+				212.0
+			],
+			"eye_local_transform": [
+				0.0500000007450581,
+				0.0,
+				0.0,
+				0.0500000007450581,
+				0.0,
+				0.0
+			],
+			"eye_material_class": "ShaderMaterial",
+			"eye_node_id": 315092896737,
+			"eye_offset": [
+				-21.6000003814697,
+				-207.600006103516
+			],
+			"eye_parent_bone": "head",
+			"eye_parent_id": 307106941857,
+			"facing": 1,
+			"part_count": 15,
+			"rendered_crops": {},
+			"skin_id": "night_worker",
+			"source_density_holder_scale": [
+				20.0,
+				20.0
+			],
+			"source_files": {
+				"closed": {
+					"res_path": "res://art/characters/night_worker/parts/head_closed.png",
+					"sha256": "568d2978983535f7660460f530964d1494c8ebd6ac18354773b8bda04d432e04",
+					"size_bytes": 50990
+				},
+				"closed_normal": {
+					"res_path": "res://art/characters/night_worker/parts/head_closed_n.png",
+					"sha256": "28d710b65145d19e6d9cede6c8e3f5cef125fa7742d424f19276118ef43c57c8",
+					"size_bytes": 45778
+				},
+				"half": {
+					"res_path": "res://art/characters/night_worker/parts/head_half.png",
+					"sha256": "c084c2a5a8ebd3ba2e643a96ad1e52787bae6c619b5c1945c5ade33a828cd5ac",
+					"size_bytes": 51138
+				},
+				"half_normal": {
+					"res_path": "res://art/characters/night_worker/parts/head_half_n.png",
+					"sha256": "604cb3d5b4156176fe094d9cfb70ebf95333d6ab710b32a922345c57527b18bc",
+					"size_bytes": 45910
+				},
+				"open": {
+					"res_path": "res://art/characters/night_worker/parts/head.png",
+					"sha256": "c0e71121b11f0bf4245913fecb0765663d4f639606df64d33c3e38ba1e7eef4f",
+					"size_bytes": 51207
+				},
+				"open_normal": {
+					"res_path": "res://art/characters/night_worker/parts/head_n.png",
+					"sha256": "db0115f677cbc3dacc5d66d2771f7dbbd0a1266577017e64acafbc88ddbcce81",
+					"size_bytes": 42480
+				}
+			},
+			"stage_frames": {},
+			"state": "open",
+			"state_frame_counts": {
+				"idle": {
+					"closed": 0,
+					"half": 0,
+					"open": 1
+				},
+				"talking": {
+					"closed": 0,
+					"half": 0,
+					"open": 0
+				}
+			},
+			"texture_filter": 0,
+			"timing_config": {},
+			"transitions": []
+		},
+		{
+			"blink_cycles": [],
+			"eye_canvas": [
+				196.0,
+				212.0
+			],
+			"eye_local_transform": [
+				0.0500000007450581,
+				0.0,
+				0.0,
+				0.0500000007450581,
+				0.0,
+				0.0
+			],
+			"eye_material_class": "ShaderMaterial",
+			"eye_node_id": 319404641290,
+			"eye_offset": [
+				-21.6000003814697,
+				-207.600006103516
+			],
+			"eye_parent_bone": "head",
+			"eye_parent_id": 318549003247,
+			"facing": -1,
+			"part_count": 15,
+			"rendered_crops": {},
+			"skin_id": "night_worker",
+			"source_density_holder_scale": [
+				20.0,
+				20.0
+			],
+			"source_files": {
+				"closed": {
+					"res_path": "res://art/characters/night_worker/parts/head_closed.png",
+					"sha256": "568d2978983535f7660460f530964d1494c8ebd6ac18354773b8bda04d432e04",
+					"size_bytes": 50990
+				},
+				"closed_normal": {
+					"res_path": "res://art/characters/night_worker/parts/head_closed_n.png",
+					"sha256": "28d710b65145d19e6d9cede6c8e3f5cef125fa7742d424f19276118ef43c57c8",
+					"size_bytes": 45778
+				},
+				"half": {
+					"res_path": "res://art/characters/night_worker/parts/head_half.png",
+					"sha256": "c084c2a5a8ebd3ba2e643a96ad1e52787bae6c619b5c1945c5ade33a828cd5ac",
+					"size_bytes": 51138
+				},
+				"half_normal": {
+					"res_path": "res://art/characters/night_worker/parts/head_half_n.png",
+					"sha256": "604cb3d5b4156176fe094d9cfb70ebf95333d6ab710b32a922345c57527b18bc",
+					"size_bytes": 45910
+				},
+				"open": {
+					"res_path": "res://art/characters/night_worker/parts/head.png",
+					"sha256": "c0e71121b11f0bf4245913fecb0765663d4f639606df64d33c3e38ba1e7eef4f",
+					"size_bytes": 51207
+				},
+				"open_normal": {
+					"res_path": "res://art/characters/night_worker/parts/head_n.png",
+					"sha256": "db0115f677cbc3dacc5d66d2771f7dbbd0a1266577017e64acafbc88ddbcce81",
+					"size_bytes": 42480
+				}
+			},
+			"stage_frames": {},
+			"state": "open",
+			"state_frame_counts": {
+				"idle": {
+					"closed": 0,
+					"half": 0,
+					"open": 1
+				},
+				"talking": {
+					"closed": 0,
+					"half": 0,
+					"open": 0
+				}
+			},
+			"texture_filter": 0,
+			"timing_config": {},
+			"transitions": []
+		},
+		{
+			"blink_cycles": [],
+			"eye_canvas": [
+				164.0,
+				173.0
+			],
+			"eye_local_transform": [
+				0.0500000007450581,
+				0.0,
+				0.0,
+				0.0500000007450581,
+				0.0,
+				0.0
+			],
+			"eye_material_class": "ShaderMaterial",
+			"eye_node_id": 328749550684,
+			"eye_offset": [
+				-52.7599983215332,
+				-188.070007324219
+			],
+			"eye_parent_bone": "head",
+			"eye_parent_id": 320730041372,
+			"facing": 1,
+			"part_count": 15,
+			"rendered_crops": {},
+			"skin_id": "repairman_chen",
+			"source_density_holder_scale": [
+				20.0,
+				20.0
+			],
+			"source_files": {
+				"closed": {
+					"res_path": "res://art/characters/repairman_chen/parts/head_closed.png",
+					"sha256": "c0db68b4a34c1b24b3d990b4cd6cd3b70846e80f7308c8ab573e302e4a5bc28b",
+					"size_bytes": 38994
+				},
+				"closed_normal": {
+					"res_path": "res://art/characters/repairman_chen/parts/head_closed_n.png",
+					"sha256": "e9811aba3175c7ee7510be05cdfeffb0db2ec613b0fe893ef7351f4c62e5c026",
+					"size_bytes": 37162
+				},
+				"half": {
+					"res_path": "res://art/characters/repairman_chen/parts/head_half.png",
+					"sha256": "25bc3bbededf85ee036884b66c07e0759751a763923700da4201002d7c225946",
+					"size_bytes": 39052
+				},
+				"half_normal": {
+					"res_path": "res://art/characters/repairman_chen/parts/head_half_n.png",
+					"sha256": "0d7548222546bbcf1fb74a5c973b0e8a7ff85c7084dbcb69f23e93451d6dee98",
+					"size_bytes": 37315
+				},
+				"open": {
+					"res_path": "res://art/characters/repairman_chen/parts/head.png",
+					"sha256": "ae30a6f4d25f234cd695c270357b2e3b36a163c7a3af667ddf113f2435e2574b",
+					"size_bytes": 39090
+				},
+				"open_normal": {
+					"res_path": "res://art/characters/repairman_chen/parts/head_n.png",
+					"sha256": "7e74d0bf21d5e72f2c483b4184dad317eca38d15db0730bed860140379ea07a5",
+					"size_bytes": 35663
+				}
+			},
+			"stage_frames": {},
+			"state": "open",
+			"state_frame_counts": {
+				"idle": {
+					"closed": 0,
+					"half": 0,
+					"open": 1
+				},
+				"talking": {
+					"closed": 0,
+					"half": 0,
+					"open": 0
+				}
+			},
+			"texture_filter": 0,
+			"timing_config": {},
+			"transitions": []
+		},
+		{
+			"blink_cycles": [],
+			"eye_canvas": [
+				164.0,
+				173.0
+			],
+			"eye_local_transform": [
+				0.0500000007450581,
+				0.0,
+				0.0,
+				0.0500000007450581,
+				0.0,
+				0.0
+			],
+			"eye_material_class": "ShaderMaterial",
+			"eye_node_id": 333061295237,
+			"eye_offset": [
+				-52.7599983215332,
+				-188.070007324219
+			],
+			"eye_parent_bone": "head",
+			"eye_parent_id": 332205657194,
+			"facing": -1,
+			"part_count": 15,
+			"rendered_crops": {},
+			"skin_id": "repairman_chen",
+			"source_density_holder_scale": [
+				20.0,
+				20.0
+			],
+			"source_files": {
+				"closed": {
+					"res_path": "res://art/characters/repairman_chen/parts/head_closed.png",
+					"sha256": "c0db68b4a34c1b24b3d990b4cd6cd3b70846e80f7308c8ab573e302e4a5bc28b",
+					"size_bytes": 38994
+				},
+				"closed_normal": {
+					"res_path": "res://art/characters/repairman_chen/parts/head_closed_n.png",
+					"sha256": "e9811aba3175c7ee7510be05cdfeffb0db2ec613b0fe893ef7351f4c62e5c026",
+					"size_bytes": 37162
+				},
+				"half": {
+					"res_path": "res://art/characters/repairman_chen/parts/head_half.png",
+					"sha256": "25bc3bbededf85ee036884b66c07e0759751a763923700da4201002d7c225946",
+					"size_bytes": 39052
+				},
+				"half_normal": {
+					"res_path": "res://art/characters/repairman_chen/parts/head_half_n.png",
+					"sha256": "0d7548222546bbcf1fb74a5c973b0e8a7ff85c7084dbcb69f23e93451d6dee98",
+					"size_bytes": 37315
+				},
+				"open": {
+					"res_path": "res://art/characters/repairman_chen/parts/head.png",
+					"sha256": "ae30a6f4d25f234cd695c270357b2e3b36a163c7a3af667ddf113f2435e2574b",
+					"size_bytes": 39090
+				},
+				"open_normal": {
+					"res_path": "res://art/characters/repairman_chen/parts/head_n.png",
+					"sha256": "7e74d0bf21d5e72f2c483b4184dad317eca38d15db0730bed860140379ea07a5",
+					"size_bytes": 35663
+				}
+			},
+			"stage_frames": {},
+			"state": "open",
+			"state_frame_counts": {
+				"idle": {
+					"closed": 0,
+					"half": 0,
+					"open": 1
+				},
+				"talking": {
+					"closed": 0,
+					"half": 0,
+					"open": 0
+				}
+			},
+			"texture_filter": 0,
+			"timing_config": {},
+			"transitions": []
+		},
+		{
+			"blink_cycles": [],
+			"eye_canvas": [
+				169.0,
+				170.0
+			],
+			"eye_local_transform": [
+				0.0500000007450581,
+				0.0,
+				0.0,
+				0.0500000007450581,
+				0.0,
+				0.0
+			],
+			"eye_material_class": "ShaderMaterial",
+			"eye_node_id": 342372650199,
+			"eye_offset": [
+				-49.0200004577637,
+				-186.649993896484
+			],
+			"eye_parent_bone": "head",
+			"eye_parent_id": 334386695319,
+			"facing": 1,
+			"part_count": 15,
+			"rendered_crops": {},
+			"skin_id": "resident",
+			"source_density_holder_scale": [
+				20.0,
+				20.0
+			],
+			"source_files": {
+				"closed": {
+					"res_path": "res://art/characters/resident/parts/head_closed.png",
+					"sha256": "b1404b27ff8f4de7ffd017782ce159e4906731419a8e064e07fc9000c628d399",
+					"size_bytes": 32921
+				},
+				"closed_normal": {
+					"res_path": "res://art/characters/resident/parts/head_closed_n.png",
+					"sha256": "bcaf7b7eb64b01b2911ef8c83e71346ee3e8807aff4dc1f923e296a94a4b2275",
+					"size_bytes": 33576
+				},
+				"half": {
+					"res_path": "res://art/characters/resident/parts/head_half.png",
+					"sha256": "df7373ff17dee35bb7cc3723c731a590f557eaa28c7775a407b552c6c8117d5a",
+					"size_bytes": 32996
+				},
+				"half_normal": {
+					"res_path": "res://art/characters/resident/parts/head_half_n.png",
+					"sha256": "71602991c0b2d40ed1dca223446e9099d9f2110910e9cb7f09ff9b13afbb8ce5",
+					"size_bytes": 33663
+				},
+				"open": {
+					"res_path": "res://art/characters/resident/parts/head.png",
+					"sha256": "a43668f7360c3fae00935530235998ad0eee2084dbadc5db76e4ac89d277ecf4",
+					"size_bytes": 33033
+				},
+				"open_normal": {
+					"res_path": "res://art/characters/resident/parts/head_n.png",
+					"sha256": "a1441746064c3363ce77f575bab74c207c4de074d51b1d04073fbda5f390f9ec",
+					"size_bytes": 32174
+				}
+			},
+			"stage_frames": {},
+			"state": "open",
+			"state_frame_counts": {
+				"idle": {
+					"closed": 0,
+					"half": 0,
+					"open": 1
+				},
+				"talking": {
+					"closed": 0,
+					"half": 0,
+					"open": 0
+				}
+			},
+			"texture_filter": 0,
+			"timing_config": {},
+			"transitions": []
+		},
+		{
+			"blink_cycles": [],
+			"eye_canvas": [
+				169.0,
+				170.0
+			],
+			"eye_local_transform": [
+				0.0500000007450581,
+				0.0,
+				0.0,
+				0.0500000007450581,
+				0.0,
+				0.0
+			],
+			"eye_material_class": "ShaderMaterial",
+			"eye_node_id": 346684394752,
+			"eye_offset": [
+				-49.0200004577637,
+				-186.649993896484
+			],
+			"eye_parent_bone": "head",
+			"eye_parent_id": 345828756709,
+			"facing": -1,
+			"part_count": 15,
+			"rendered_crops": {},
+			"skin_id": "resident",
+			"source_density_holder_scale": [
+				20.0,
+				20.0
+			],
+			"source_files": {
+				"closed": {
+					"res_path": "res://art/characters/resident/parts/head_closed.png",
+					"sha256": "b1404b27ff8f4de7ffd017782ce159e4906731419a8e064e07fc9000c628d399",
+					"size_bytes": 32921
+				},
+				"closed_normal": {
+					"res_path": "res://art/characters/resident/parts/head_closed_n.png",
+					"sha256": "bcaf7b7eb64b01b2911ef8c83e71346ee3e8807aff4dc1f923e296a94a4b2275",
+					"size_bytes": 33576
+				},
+				"half": {
+					"res_path": "res://art/characters/resident/parts/head_half.png",
+					"sha256": "df7373ff17dee35bb7cc3723c731a590f557eaa28c7775a407b552c6c8117d5a",
+					"size_bytes": 32996
+				},
+				"half_normal": {
+					"res_path": "res://art/characters/resident/parts/head_half_n.png",
+					"sha256": "71602991c0b2d40ed1dca223446e9099d9f2110910e9cb7f09ff9b13afbb8ce5",
+					"size_bytes": 33663
+				},
+				"open": {
+					"res_path": "res://art/characters/resident/parts/head.png",
+					"sha256": "a43668f7360c3fae00935530235998ad0eee2084dbadc5db76e4ac89d277ecf4",
+					"size_bytes": 33033
+				},
+				"open_normal": {
+					"res_path": "res://art/characters/resident/parts/head_n.png",
+					"sha256": "a1441746064c3363ce77f575bab74c207c4de074d51b1d04073fbda5f390f9ec",
+					"size_bytes": 32174
+				}
+			},
+			"stage_frames": {},
+			"state": "open",
+			"state_frame_counts": {
+				"idle": {
+					"closed": 0,
+					"half": 0,
+					"open": 1
+				},
+				"talking": {
+					"closed": 0,
+					"half": 0,
+					"open": 0
+				}
+			},
+			"texture_filter": 0,
+			"timing_config": {},
+			"transitions": []
+		},
+		{
+			"blink_cycles": [],
+			"eye_canvas": [
+				195.0,
+				168.0
+			],
+			"eye_local_transform": [
+				0.0500000007450581,
+				0.0,
+				0.0,
+				0.0500000007450581,
+				0.0,
+				0.0
+			],
+			"eye_material_class": "ShaderMaterial",
+			"eye_node_id": 358092901724,
+			"eye_offset": [
+				-92.3399963378906,
+				-173.309997558594
+			],
+			"eye_parent_bone": "head",
+			"eye_parent_id": 348009794834,
+			"facing": 1,
+			"part_count": 17,
+			"rendered_crops": {},
+			"skin_id": "ah_po",
+			"source_density_holder_scale": [
+				20.0,
+				20.0
+			],
+			"source_files": {
+				"closed": {
+					"res_path": "res://art/characters/ah_po/parts/head_closed.png",
+					"sha256": "6b997bf3ed883bade4a65b54f047ffc036793619f4011b039cba1ea4ae761911",
+					"size_bytes": 45144
+				},
+				"closed_normal": {
+					"res_path": "res://art/characters/ah_po/parts/head_closed_n.png",
+					"sha256": "f38589d12a282bdf5fc4817ea5f1a98b41f301184ae7df493692ce2ff5fde98e",
+					"size_bytes": 45824
+				},
+				"half": {
+					"res_path": "res://art/characters/ah_po/parts/head_half.png",
+					"sha256": "267e0362f240d5b98f8d2ca486e38ddc6013845bb1ec840566ffe45bc33f9bf7",
+					"size_bytes": 45224
+				},
+				"half_normal": {
+					"res_path": "res://art/characters/ah_po/parts/head_half_n.png",
+					"sha256": "9af991bc23507d077a5dfc2437bebc00b5c406cc4280c2c7b33e418290ae14be",
+					"size_bytes": 45915
+				},
+				"open": {
+					"res_path": "res://art/characters/ah_po/parts/head.png",
+					"sha256": "38e65ea70f5bbfb7ba71243f0d744931430c5a39474cd68513786521b52c49dc",
+					"size_bytes": 45268
+				},
+				"open_normal": {
+					"res_path": "res://art/characters/ah_po/parts/head_n.png",
+					"sha256": "3975cfab1bb9609a4688bd7c23e566a81f50eda961112eb4577d6abfdf4b664c",
+					"size_bytes": 43383
+				}
+			},
+			"stage_frames": {},
+			"state": "open",
+			"state_frame_counts": {
+				"idle": {
+					"closed": 0,
+					"half": 0,
+					"open": 1
+				},
+				"talking": {
+					"closed": 0,
+					"half": 0,
+					"open": 0
+				}
+			},
+			"texture_filter": 0,
+			"timing_config": {},
+			"transitions": []
+		},
+		{
+			"blink_cycles": [],
+			"eye_canvas": [
+				195.0,
+				168.0
+			],
+			"eye_local_transform": [
+				0.0500000007450581,
+				0.0,
+				0.0,
+				0.0500000007450581,
+				0.0,
+				0.0
+			],
+			"eye_material_class": "ShaderMaterial",
+			"eye_node_id": 362488532360,
+			"eye_offset": [
+				-92.3399963378906,
+				-173.309997558594
+			],
+			"eye_parent_bone": "head",
+			"eye_parent_id": 361549008234,
+			"facing": -1,
+			"part_count": 17,
+			"rendered_crops": {},
+			"skin_id": "ah_po",
+			"source_density_holder_scale": [
+				20.0,
+				20.0
+			],
+			"source_files": {
+				"closed": {
+					"res_path": "res://art/characters/ah_po/parts/head_closed.png",
+					"sha256": "6b997bf3ed883bade4a65b54f047ffc036793619f4011b039cba1ea4ae761911",
+					"size_bytes": 45144
+				},
+				"closed_normal": {
+					"res_path": "res://art/characters/ah_po/parts/head_closed_n.png",
+					"sha256": "f38589d12a282bdf5fc4817ea5f1a98b41f301184ae7df493692ce2ff5fde98e",
+					"size_bytes": 45824
+				},
+				"half": {
+					"res_path": "res://art/characters/ah_po/parts/head_half.png",
+					"sha256": "267e0362f240d5b98f8d2ca486e38ddc6013845bb1ec840566ffe45bc33f9bf7",
+					"size_bytes": 45224
+				},
+				"half_normal": {
+					"res_path": "res://art/characters/ah_po/parts/head_half_n.png",
+					"sha256": "9af991bc23507d077a5dfc2437bebc00b5c406cc4280c2c7b33e418290ae14be",
+					"size_bytes": 45915
+				},
+				"open": {
+					"res_path": "res://art/characters/ah_po/parts/head.png",
+					"sha256": "38e65ea70f5bbfb7ba71243f0d744931430c5a39474cd68513786521b52c49dc",
+					"size_bytes": 45268
+				},
+				"open_normal": {
+					"res_path": "res://art/characters/ah_po/parts/head_n.png",
+					"sha256": "3975cfab1bb9609a4688bd7c23e566a81f50eda961112eb4577d6abfdf4b664c",
+					"size_bytes": 43383
+				}
+			},
+			"stage_frames": {},
+			"state": "open",
+			"state_frame_counts": {
+				"idle": {
+					"closed": 0,
+					"half": 0,
+					"open": 1
+				},
+				"talking": {
+					"closed": 0,
+					"half": 0,
+					"open": 0
+				}
+			},
+			"texture_filter": 0,
+			"timing_config": {},
+			"transitions": []
+		},
+		{
+			"blink_cycles": [],
+			"eye_canvas": [
+				187.0,
+				173.0
+			],
+			"eye_local_transform": [
+				0.0500000007450581,
+				0.0,
+				0.0,
+				0.0500000007450581,
+				0.0,
+				0.0
+			],
+			"eye_material_class": "ShaderMaterial",
+			"eye_node_id": 371481120218,
+			"eye_offset": [
+				-77.4300003051758,
+				-178.589996337891
+			],
+			"eye_parent_bone": "head",
+			"eye_parent_id": 363629383066,
+			"facing": 1,
+			"part_count": 15,
+			"rendered_crops": {},
+			"skin_id": "wataru",
+			"source_density_holder_scale": [
+				20.0,
+				20.0
+			],
+			"source_files": {
+				"closed": {
+					"res_path": "res://art/characters/wataru/parts/head_closed.png",
+					"sha256": "1f4466a3a52dc275703f7bc0f46a806c29141efeed877f33e004ea1f2e852d38",
+					"size_bytes": 31047
+				},
+				"closed_normal": {
+					"res_path": "res://art/characters/wataru/parts/head_closed_n.png",
+					"sha256": "4ee0d75b88640ed5c409383723e593c3327ca52e85188ce58b7166578b6c2027",
+					"size_bytes": 35032
+				},
+				"half": {
+					"res_path": "res://art/characters/wataru/parts/head_half.png",
+					"sha256": "cf27542a0ff2c886e7645e7b963fa7bb8c1f6af93130d463d1d18eb71ec1835d",
+					"size_bytes": 31138
+				},
+				"half_normal": {
+					"res_path": "res://art/characters/wataru/parts/head_half_n.png",
+					"sha256": "830692f7cd40473e9bad52dd77f4c45935df20e62b6550fda0313b8522e59839",
+					"size_bytes": 35128
+				},
+				"open": {
+					"res_path": "res://art/characters/wataru/parts/head.png",
+					"sha256": "2a02df12e9e7c3191ae3cbbfd505cca2210bf99bca6a5ca72ca9838f60460018",
+					"size_bytes": 31211
+				},
+				"open_normal": {
+					"res_path": "res://art/characters/wataru/parts/head_n.png",
+					"sha256": "2c63e0c72280d3e6e5e94f7a3838d6a48aeb6d170e3b53c459667afb871b9fd9",
+					"size_bytes": 33141
+				}
+			},
+			"stage_frames": {},
+			"state": "open",
+			"state_frame_counts": {
+				"idle": {
+					"closed": 0,
+					"half": 0,
+					"open": 1
+				},
+				"talking": {
+					"closed": 0,
+					"half": 0,
+					"open": 0
+				}
+			},
+			"texture_filter": 0,
+			"timing_config": {},
+			"transitions": []
+		},
+		{
+			"blink_cycles": [],
+			"eye_canvas": [
+				187.0,
+				173.0
+			],
+			"eye_local_transform": [
+				0.0500000007450581,
+				0.0,
+				0.0,
+				0.0500000007450581,
+				0.0,
+				0.0
+			],
+			"eye_material_class": "ShaderMaterial",
+			"eye_node_id": 375792864771,
+			"eye_offset": [
+				-77.4300003051758,
+				-178.589996337891
+			],
+			"eye_parent_bone": "head",
+			"eye_parent_id": 374937226728,
+			"facing": -1,
+			"part_count": 15,
+			"rendered_crops": {},
+			"skin_id": "wataru",
+			"source_density_holder_scale": [
+				20.0,
+				20.0
+			],
+			"source_files": {
+				"closed": {
+					"res_path": "res://art/characters/wataru/parts/head_closed.png",
+					"sha256": "1f4466a3a52dc275703f7bc0f46a806c29141efeed877f33e004ea1f2e852d38",
+					"size_bytes": 31047
+				},
+				"closed_normal": {
+					"res_path": "res://art/characters/wataru/parts/head_closed_n.png",
+					"sha256": "4ee0d75b88640ed5c409383723e593c3327ca52e85188ce58b7166578b6c2027",
+					"size_bytes": 35032
+				},
+				"half": {
+					"res_path": "res://art/characters/wataru/parts/head_half.png",
+					"sha256": "cf27542a0ff2c886e7645e7b963fa7bb8c1f6af93130d463d1d18eb71ec1835d",
+					"size_bytes": 31138
+				},
+				"half_normal": {
+					"res_path": "res://art/characters/wataru/parts/head_half_n.png",
+					"sha256": "830692f7cd40473e9bad52dd77f4c45935df20e62b6550fda0313b8522e59839",
+					"size_bytes": 35128
+				},
+				"open": {
+					"res_path": "res://art/characters/wataru/parts/head.png",
+					"sha256": "2a02df12e9e7c3191ae3cbbfd505cca2210bf99bca6a5ca72ca9838f60460018",
+					"size_bytes": 31211
+				},
+				"open_normal": {
+					"res_path": "res://art/characters/wataru/parts/head_n.png",
+					"sha256": "2c63e0c72280d3e6e5e94f7a3838d6a48aeb6d170e3b53c459667afb871b9fd9",
+					"size_bytes": 33141
+				}
+			},
+			"stage_frames": {},
+			"state": "open",
+			"state_frame_counts": {
+				"idle": {
+					"closed": 0,
+					"half": 0,
+					"open": 1
+				},
+				"talking": {
+					"closed": 0,
+					"half": 0,
+					"open": 0
+				}
+			},
+			"texture_filter": 0,
+			"timing_config": {},
+			"transitions": []
+		},
+		{
+			"blink_cycles": [],
+			"eye_canvas": [
+				199.0,
+				182.0
+			],
+			"eye_local_transform": [
+				0.0500000007450581,
+				0.0,
+				0.0,
+				0.0500000007450581,
+				0.0,
+				0.0
+			],
+			"eye_material_class": "ShaderMaterial",
+			"eye_node_id": 393912258175,
+			"eye_offset": [
+				-103.069999694824,
+				-186.139999389648
+			],
+			"eye_parent_bone": "head",
+			"eye_parent_id": 377118264853,
+			"facing": 1,
+			"part_count": 31,
+			"rendered_crops": {},
+			"skin_id": "mei",
+			"source_density_holder_scale": [
+				20.0,
+				20.0
+			],
+			"source_files": {
+				"closed": {
+					"res_path": "res://art/characters/mei/parts/head_closed.png",
+					"sha256": "6cad3d6672f80ca1b55184350faaf4b3473185c6df0ab40d9e701bae71919c0e",
+					"size_bytes": 49367
+				},
+				"closed_glow": {
+					"res_path": "res://art/characters/mei/parts/head_closed_glow.png",
+					"sha256": "6d46158b7c9d5940f5b2c853727bfae7adeee7e23d160c5ed383c4952dc639c5",
+					"size_bytes": 8505
+				},
+				"closed_normal": {
+					"res_path": "res://art/characters/mei/parts/head_closed_n.png",
+					"sha256": "f304de88d7530fbc687704870ef30a147834102572014f32e3a022d224d9e63e",
+					"size_bytes": 41360
+				},
+				"half": {
+					"res_path": "res://art/characters/mei/parts/head_half.png",
+					"sha256": "0e27147d6ab893890916f5e7e7b43185af07fe0cebd1fdc5225ac2c760463cba",
+					"size_bytes": 49594
+				},
+				"half_glow": {
+					"res_path": "res://art/characters/mei/parts/head_half_glow.png",
+					"sha256": "158689657c581790d47d1eadceadb229581583ef9e74390ac55869b475a6b8a0",
+					"size_bytes": 8589
+				},
+				"half_normal": {
+					"res_path": "res://art/characters/mei/parts/head_half_n.png",
+					"sha256": "cdb38f7d0f43474c8d8ba681ec2b524ae5498f044d5ad4281c301555eb911817",
+					"size_bytes": 41501
+				},
+				"open": {
+					"res_path": "res://art/characters/mei/parts/head.png",
+					"sha256": "8fd25b75a2e84c18706c3163008fcd9a5e11e00100b78228ab2e801b0ee38984",
+					"size_bytes": 49661
+				},
+				"open_glow": {
+					"res_path": "res://art/characters/mei/parts/head_glow.png",
+					"sha256": "f46a281e18e4c662fb7a4aac78ddc9f0e620a0e0871e67a886d44e636146504f",
+					"size_bytes": 8609
+				},
+				"open_normal": {
+					"res_path": "res://art/characters/mei/parts/head_n.png",
+					"sha256": "2348e117bd158dfa33147416399f688f6d2ad5de6555d1646b5249d37518c49c",
+					"size_bytes": 38790
+				}
+			},
+			"stage_frames": {},
+			"state": "open",
+			"state_frame_counts": {
+				"idle": {
+					"closed": 0,
+					"half": 0,
+					"open": 1
+				},
+				"talking": {
+					"closed": 0,
+					"half": 0,
+					"open": 0
+				}
+			},
+			"texture_filter": 0,
+			"timing_config": {},
+			"transitions": []
+		},
+		{
+			"blink_cycles": [],
+			"eye_canvas": [
+				199.0,
+				182.0
+			],
+			"eye_local_transform": [
+				0.0500000007450581,
+				0.0,
+				0.0,
+				0.0500000007450581,
+				0.0,
+				0.0
+			],
+			"eye_material_class": "ShaderMaterial",
+			"eye_node_id": 400086273724,
+			"eye_offset": [
+				-103.069999694824,
+				-186.139999389648
+			],
+			"eye_parent_bone": "head",
+			"eye_parent_id": 398660210325,
+			"facing": -1,
+			"part_count": 31,
+			"rendered_crops": {},
+			"skin_id": "mei",
+			"source_density_holder_scale": [
+				20.0,
+				20.0
+			],
+			"source_files": {
+				"closed": {
+					"res_path": "res://art/characters/mei/parts/head_closed.png",
+					"sha256": "6cad3d6672f80ca1b55184350faaf4b3473185c6df0ab40d9e701bae71919c0e",
+					"size_bytes": 49367
+				},
+				"closed_glow": {
+					"res_path": "res://art/characters/mei/parts/head_closed_glow.png",
+					"sha256": "6d46158b7c9d5940f5b2c853727bfae7adeee7e23d160c5ed383c4952dc639c5",
+					"size_bytes": 8505
+				},
+				"closed_normal": {
+					"res_path": "res://art/characters/mei/parts/head_closed_n.png",
+					"sha256": "f304de88d7530fbc687704870ef30a147834102572014f32e3a022d224d9e63e",
+					"size_bytes": 41360
+				},
+				"half": {
+					"res_path": "res://art/characters/mei/parts/head_half.png",
+					"sha256": "0e27147d6ab893890916f5e7e7b43185af07fe0cebd1fdc5225ac2c760463cba",
+					"size_bytes": 49594
+				},
+				"half_glow": {
+					"res_path": "res://art/characters/mei/parts/head_half_glow.png",
+					"sha256": "158689657c581790d47d1eadceadb229581583ef9e74390ac55869b475a6b8a0",
+					"size_bytes": 8589
+				},
+				"half_normal": {
+					"res_path": "res://art/characters/mei/parts/head_half_n.png",
+					"sha256": "cdb38f7d0f43474c8d8ba681ec2b524ae5498f044d5ad4281c301555eb911817",
+					"size_bytes": 41501
+				},
+				"open": {
+					"res_path": "res://art/characters/mei/parts/head.png",
+					"sha256": "8fd25b75a2e84c18706c3163008fcd9a5e11e00100b78228ab2e801b0ee38984",
+					"size_bytes": 49661
+				},
+				"open_glow": {
+					"res_path": "res://art/characters/mei/parts/head_glow.png",
+					"sha256": "f46a281e18e4c662fb7a4aac78ddc9f0e620a0e0871e67a886d44e636146504f",
+					"size_bytes": 8609
+				},
+				"open_normal": {
+					"res_path": "res://art/characters/mei/parts/head_n.png",
+					"sha256": "2348e117bd158dfa33147416399f688f6d2ad5de6555d1646b5249d37518c49c",
+					"size_bytes": 38790
+				}
+			},
+			"stage_frames": {},
+			"state": "open",
+			"state_frame_counts": {
+				"idle": {
+					"closed": 0,
+					"half": 0,
+					"open": 1
+				},
+				"talking": {
+					"closed": 0,
+					"half": 0,
+					"open": 0
+				}
+			},
+			"texture_filter": 0,
+			"timing_config": {},
+			"transitions": []
+		}
+	],
+	"driver": "vulkan",
+	"errors": [
+		"unexpected screenshot format: 14",
+		"native wall runtime shorter than required 30000 ms: 86",
+		"rin face 1 missing natural rendered open state",
+		"rin face 1 missing natural rendered half state",
+		"rin face 1 missing natural rendered closed state",
+		"rin face 1 had no complete natural blink cycle",
+		"rin face -1 missing natural rendered open state",
+		"rin face -1 missing natural rendered half state",
+		"rin face -1 missing natural rendered closed state",
+		"rin face -1 had no complete natural blink cycle",
+		"old_k face 1 missing natural rendered open state",
+		"old_k face 1 missing natural rendered half state",
+		"old_k face 1 missing natural rendered closed state",
+		"old_k face 1 had no complete natural blink cycle",
+		"old_k face -1 missing natural rendered open state",
+		"old_k face -1 missing natural rendered half state",
+		"old_k face -1 missing natural rendered closed state",
+		"old_k face -1 had no complete natural blink cycle",
+		"nurse face 1 missing natural rendered open state",
+		"nurse face 1 missing natural rendered half state",
+		"nurse face 1 missing natural rendered closed state",
+		"nurse face 1 had no complete natural blink cycle",
+		"nurse face -1 missing natural rendered open state",
+		"nurse face -1 missing natural rendered half state",
+		"nurse face -1 missing natural rendered closed state",
+		"nurse face -1 had no complete natural blink cycle",
+		"night_worker face 1 missing natural rendered open state",
+		"night_worker face 1 missing natural rendered half state",
+		"night_worker face 1 missing natural rendered closed state",
+		"night_worker face 1 had no complete natural blink cycle",
+		"night_worker face -1 missing natural rendered open state",
+		"night_worker face -1 missing natural rendered half state",
+		"night_worker face -1 missing natural rendered closed state",
+		"night_worker face -1 had no complete natural blink cycle",
+		"repairman_chen face 1 missing natural rendered open state",
+		"repairman_chen face 1 missing natural rendered half state",
+		"repairman_chen face 1 missing natural rendered closed state",
+		"repairman_chen face 1 had no complete natural blink cycle",
+		"repairman_chen face -1 missing natural rendered open state",
+		"repairman_chen face -1 missing natural rendered half state",
+		"repairman_chen face -1 missing natural rendered closed state",
+		"repairman_chen face -1 had no complete natural blink cycle",
+		"resident face 1 missing natural rendered open state",
+		"resident face 1 missing natural rendered half state",
+		"resident face 1 missing natural rendered closed state",
+		"resident face 1 had no complete natural blink cycle",
+		"resident face -1 missing natural rendered open state",
+		"resident face -1 missing natural rendered half state",
+		"resident face -1 missing natural rendered closed state",
+		"resident face -1 had no complete natural blink cycle",
+		"ah_po face 1 missing natural rendered open state",
+		"ah_po face 1 missing natural rendered half state",
+		"ah_po face 1 missing natural rendered closed state",
+		"ah_po face 1 had no complete natural blink cycle",
+		"ah_po face -1 missing natural rendered open state",
+		"ah_po face -1 missing natural rendered half state",
+		"ah_po face -1 missing natural rendered closed state",
+		"ah_po face -1 had no complete natural blink cycle",
+		"wataru face 1 missing natural rendered open state",
+		"wataru face 1 missing natural rendered half state",
+		"wataru face 1 missing natural rendered closed state",
+		"wataru face 1 had no complete natural blink cycle",
+		"wataru face -1 missing natural rendered open state",
+		"wataru face -1 missing natural rendered half state",
+		"wataru face -1 missing natural rendered closed state",
+		"wataru face -1 had no complete natural blink cycle",
+		"mei face 1 missing natural rendered open state",
+		"mei face 1 missing natural rendered half state",
+		"mei face 1 missing natural rendered closed state",
+		"mei face 1 had no complete natural blink cycle",
+		"mei face -1 missing natural rendered open state",
+		"mei face -1 missing natural rendered half state",
+		"mei face -1 missing natural rendered closed state",
+		"mei face -1 had no complete natural blink cycle"
+	],
+	"eye_state_configured_characters": [
+		"rin",
+		"old_k",
+		"nurse",
+		"night_worker",
+		"repairman_chen",
+		"resident",
+		"ah_po",
+		"wataru",
+		"mei"
+	],
+	"forced_states": false,
+	"full_character_or_clothing_acceptance": false,
+	"hdr_2d": true,
+	"native_density_definition": "viewport output crop; one screen pixel per source texel by holder-scale compensation, no post-capture resampling",
+	"processed_frames": 1,
+	"renderer": "forward_plus",
+	"simulation_delta_sum_seconds": 0.15,
+	"start_utc": "2026-10-10 10:11:00",
+	"status": "failed",
+	"wall_elapsed_ms": 144,
+	"window_size": [
+		1536,
+		1400
+	]
+}

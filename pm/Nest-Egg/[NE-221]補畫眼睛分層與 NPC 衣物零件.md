@@ -119,3 +119,32 @@ NPC 與凜的動作已有重心轉移、轉頭與說話手勢（NE-206），但�
 ![修後：保留診斷衣物姿勢再加餘勢；這不是新的遊戲坐姿](images/NE-221-spring-pose/composed_sit_f1.png)
 
 [對照重跑與範圍](attachments/NE-221-spring-pose/README.md) · [固定來源與受影響測試](attachments/NE-221-spring-pose/evidence/verification.json) · [原生修前](attachments/NE-221-spring-pose/evidence/native-before.json) · [原生修後](attachments/NE-221-spring-pose/evidence/native-after.json) · [證據SHA索引](attachments/NE-221-spring-pose/manifest.json)
+
+
+# Commit-4
+
+## 內文
+
+補上九個已配置角色的左右面向眼部執行證據。使用正式 NPC 頭部節點與自然眨眼時序，擷取睜眼、半閉、閉眼畫面；原始頭部、部件支點與本地姿勢不變。眼部特寫以來源像素密度呈現，另存待機／說話舞台畫面與逐格時序，沒有強制指定眼睛狀態。
+
+原生擷取實際播放30.218秒、4,115格，九角色各左右面向共18列，errors為空；記錄206次完整有效週期及2次中斷週期。中斷週期獨立記錄，不計入完成數；眨眼驅動器的最大影格時間與原時序門檻均未更改。這是頭部專項診斷，不代表遊戲正常比例的全身呈現，也不驗收衣物或所有動作；本票後兩項仍未完成，票狀態維持進行中。
+
+### 測試結果
+
+| 項目 | 結果 |
+|---|---|
+| 原生眼部擷取 | Godot 4.7.2、RTX 4070 SUPER、Forward+、HDR 2D；30.218秒／4,115格，18列皆取得自然睜眼、半閉、閉眼影格，錯誤為0 |
+| 眨眼週期 | 206次完整週期通過原時序與狀態順序；2次影格中斷另列且未計為通過週期；每列至少10次完整週期 |
+| 原生證據 | 54張頭部狀態裁切與3張舞台PNG，共57張；來源像素密度1:1，HDR輸出使用共用線性轉sRGB讀回流程 |
+| 證據重驗 | `verify_capture.py` 通過：18列、57張PNG及SHA、57筆目前來源雜湊、裁切尺寸與密度、完成週期及30秒牆鐘一致 |
+| CPU眨眼回歸 | 九角色×兩面向×60／120Hz，共36列，零腳本錯誤；另驗證三個低於最大影格時間的跳相例、0.143秒中斷分支及完整週期控制 |
+| 眨眼套件 | `EyeBlinkSuite` 256項、零失敗；無效設定的安全預設警告為預期測試結果 |
+| 完整測試 | 未執行完整測試；本次證據不勾選衣物或全動作驗收 |
+
+### 截圖
+
+![左右面向的九角色待機／說話頭部舞台；隔離頭部的來源密度診斷](images/NE-221-eyes-dual-facing/eye-stage-15.png)
+
+![凜睜眼](images/NE-221-eyes-dual-facing/rin_face_1_open.png) · ![凜半閉](images/NE-221-eyes-dual-facing/rin_face_1_half.png) · ![凜閉眼](images/NE-221-eyes-dual-facing/rin_face_1_closed.png)
+
+[擷取與驗證工具、原始報告及測試](attachments/NE-221-eyes-dual-facing/README.md) · [57張PNG與報告雜湊](attachments/NE-221-eyes-dual-facing/capture-manifest.json) · [原生報告](attachments/NE-221-eyes-dual-facing/native-report.json) · [原生log](attachments/NE-221-eyes-dual-facing/native-run.log)
