@@ -1,0 +1,34 @@
+diff --git a/tests/suite/test_encounter.gd b/tests/suite/test_encounter.gd
+index 80efffd9..aa79b6a6 100644
+--- a/tests/suite/test_encounter.gd
++++ b/tests/suite/test_encounter.gd
+@@ -90,6 +90,9 @@ func _test_data_rules() -> void:
+ 
+ 
+ func _test_free_encounter() -> void:
++	var previous_gamepad := AimInput.using_gamepad
++	var previous_direction := AimInput._last_stick_dir
++	var previous_msec := AimInput._last_stick_msec
+ 	await open_level(4.0)
+ 	var first := spawn(GRUNT, 14.0)
+ 	var second := spawn(GRUNT, 18.0)
+@@ -100,6 +103,8 @@ func _test_free_encounter() -> void:
+ 	var gates: Array = set_up["gates"]
+ 	check(_all_open(gates) and not gates[0].visible and not gates[1].visible, "ordinary combat gates have no visible panel")
+ 	check(gates[0].collision_layer == 0 and gates[1].collision_layer == 0, "ordinary combat gates have no world collision")
++	AimInput.using_gamepad = true
++	AimInput.restore_direction(Vector2.LEFT)
+ 	Input.action_press(&"move_right")
+ 	await physics_frames(60)
+ 	Input.action_release(&"move_right")
+@@ -116,6 +121,10 @@ func _test_free_encounter() -> void:
+ 	await physics_frames(60)
+ 	check(zone.state == &"cleared" and zone.capture_state() == true and _all_open(gates), "actual member deaths complete and persist the free encounter")
+ 	await end_level(level)
++	AimInput.using_gamepad = previous_gamepad
++	AimInput._last_stick_dir = previous_direction
++	AimInput._last_stick_msec = previous_msec
++	check(AimInput.using_gamepad == previous_gamepad and AimInput._last_stick_dir == previous_direction and AimInput._last_stick_msec == previous_msec, "free encounter restores aim source direction and timestamp")
+ 
+ 
+ func _test_special_entry_inset() -> void:

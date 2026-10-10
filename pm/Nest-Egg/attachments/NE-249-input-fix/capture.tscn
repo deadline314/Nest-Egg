@@ -1,0 +1,4 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://pm/Nest-Egg/attachments/NE-249-input-fix/capture.gd" id="1"]
+[node name="NE249Native" type="Node"]
+script = ExtResource("1")
