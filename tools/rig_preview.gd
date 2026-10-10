@@ -9,7 +9,7 @@ extends Node2D
 ## 要看遊戲裡全速奔跑的樣子就讓兩者相同，例如 --speed=150 --run-speed=150），檢查落腳、腳底貼地與滑步。
 ## --weapon=武器外觀 id（搭配 --chars）：改用指定的手持武器（空字串＝空手），例如 --weapon=handset。
 ## --seq=名稱（搭配 --chars，用第一個角色）：依時間序列取樣八格，看隨時間變化的動作。名稱見 SEQUENCES
-## （start 起步、stop 煞車、idle 待機八秒、jump 起跳到落地、land 原地落下、dash 衝刺）；速度依玩家的數值模擬（加速 1600／2100 px/s²、跳躍 420、重力 1000、衝刺 360 持續 0.17 秒），
+## （start 起步、stop 煞車、idle 待機八秒、jump 起跳到落地、land 原地落下、dash 衝刺、die_front 正面中彈倒下、die_back 背後中彈倒下）；速度依玩家的數值模擬（加速 1600／2100 px/s²、跳躍 420、重力 1000、衝刺 360 持續 0.17 秒），
 ## 每格都是從頭模擬到該時間點，所以不受取樣影響。
 ## --relaxed（搭配 --chars）：模擬還沒發現玩家的放鬆姿勢（槍垂下），舉槍與格擋除外。
 ## --bare（搭配 --damage）：不拿武器、手臂垂向前下方，看得到上半身的衣物。
@@ -32,6 +32,8 @@ const SEQUENCES := {
 	"jump": {"pre": 0.6, "times": [0.0, 0.06, 0.18, 0.42, 0.66, 0.84, 0.92, 1.1]},
 	"dash": {"pre": 0.6, "times": [0.0, 0.03, 0.07, 0.12, 0.17, 0.22, 0.3, 0.5]},
 	"land": {"pre": 0.2, "times": [0.0, 0.03, 0.06, 0.1, 0.15, 0.22, 0.3, 0.5]},
+	"die_front": {"pre": 0.3, "times": [0.0, 0.1, 0.2, 0.32, 0.45, 0.6, 0.8, 1.3]},
+	"die_back": {"pre": 0.3, "times": [0.0, 0.1, 0.2, 0.32, 0.45, 0.6, 0.8, 1.3]},
 }
 const SEQ_JUMP_VELOCITY := 420.0
 const SEQ_GRAVITY := 1000.0
@@ -342,6 +344,10 @@ func _seq_apply(input: RigInput, t: float, prev_t: float) -> void:
 				input.velocity.y = SEQ_JUMP_VELOCITY
 			if prev_t < 0.0 and t >= 0.0:
 				input.landed = SEQ_JUMP_VELOCITY / 560.0
+		"die_front", "die_back":  # 取樣時間 0 是致命一擊：正面中彈向後仰躺，背後中彈向前俯臥
+			if t >= 0.0:
+				input.dead = true
+				input.death_dir = 1.0 if _seq == "die_front" else -1.0
 		"dash":
 			if t >= 0.0 and t < SEQ_DASH_TIME:
 				speed = SEQ_DASH_SPEED

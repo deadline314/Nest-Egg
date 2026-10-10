@@ -59,7 +59,7 @@ const DEFAULT_MOTION := {
 	"relax": {"aim": 0.75, "reach": 0.8, "chest": -0.04, "speed": 6.0},
 	"recoil": {"chest": 0.06, "reach": 2.5, "hip": 0.0, "decay": 9.0},
 	"death": {"duration": 0.45, "rotation": -1.56, "drop": 21.0, "hip_x": -6.0, "chest": 0.15, "head": 0.35, "fold": 0.0, "fold_keep": 0.4, "ease": "out_cubic",
-			"legs": [0.3, 0.1, 0.45, 0.05], "fold_legs": [-1.4, 2.0, -1.2, 1.9]},
+			"legs": [0.3, 0.1, 0.45, 0.05], "fold_legs": [-1.4, 2.0, -1.2, 1.9], "keys": {}, "rest_height": -1.0},
 }
 ## 空著的手：手的貼圖是五指朝 +X 畫的（握槍時沿瞄準方向），手臂自然垂著時必須轉 90 度才會順著前臂；
 ## 不轉的話手腕會折成直角（看起來像手腕錯位）。稍微小於 90 度，手腕保持一點自然的彎。
@@ -397,6 +397,10 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 ## 死亡姿勢（每個角色自己的死法）：fold＝先把腿折起來的程度（0＝直接倒，1＝先跪下／癱坐），rotation＝身體倒下的角度（負＝向後、正＝向前），
 ## ease＝倒下的節奏（out_cubic 先快後慢、linear、in_cubic 先慢後快）。
 func _death_pose(pose: Dictionary, d: Dictionary) -> void:
+	var keyed := _death_keys()
+	if not keyed.is_empty():
+		_death_keyed_pose(pose, keyed)
+		return
 	var rotation := float(d["rotation"])
 	# 從背後中彈：向後倒的角色改成向前撲（腿不先折起來），其他倒法不變。
 	var flipped := _death_dir < 0.0 and rotation < 0.0
@@ -430,6 +434,59 @@ func _death_pose(pose: Dictionary, d: Dictionary) -> void:
 	for i in 4:
 		var bone: StringName = [&"leg_front_upper", &"leg_front_lower", &"leg_back_upper", &"leg_back_lower"][i]
 		pose[bone] = lerpf(float(legs[i]), float(folded[i]), fold * fold_t * (1.0 - eased * (1.0 - float(d["fold_keep"]))))
+
+
+## 分段倒地（動作資料 death.keys 有內容時使用）：正面中彈用 supine（向後仰躺、臉朝上），背後中彈用 prone（向前俯臥、臉朝下）。
+## 每一種是一串關鍵姿勢：{"duration": 秒, "frames": [{"t": 0~1, "hip_y": 骨盆下沉, "hip_x": 骨盆前後移, "bones": {骨頭: 角度}}, ...]}，
+## 依序是失衡、重心下降、軀幹落地、四肢跟隨、停止；相鄰兩格之間平滑內插，某一格沒寫的骨頭沿用它上一次出現的角度。
+## 力道大的一擊倒得比較快（和舊的倒法同一個倍率）。沒有這份資料的角色維持原本的倒法。
+func _death_keys() -> Dictionary:
+	var keys: Variant = (_motion["death"] as Dictionary).get("keys", {})
+	if typeof(keys) != TYPE_DICTIONARY:
+		return {}
+	var chosen: Variant = (keys as Dictionary).get("prone" if _death_dir < 0.0 else "supine", {})
+	if typeof(chosen) != TYPE_DICTIONARY or typeof((chosen as Dictionary).get("frames")) != TYPE_ARRAY or ((chosen as Dictionary)["frames"] as Array).size() < 2:
+		return {}
+	return chosen
+
+
+## 這次倒地從開始到躺定要多久（秒）。
+func _death_duration() -> float:
+	var keyed := _death_keys()
+	var base := float(keyed.get("duration", 0.9)) if not keyed.is_empty() else float(_motion["death"]["duration"])
+	return base * lerpf(1.0, DEATH_FORCE_TIME, _death_force)
+
+
+func _death_keyed_pose(pose: Dictionary, keyed: Dictionary) -> void:
+	var frames: Array = keyed["frames"]
+	var t := clampf(_death_time / maxf(0.05, _death_duration()), 0.0, 1.0)
+	var next := 1
+	while next < frames.size() - 1 and float((frames[next] as Dictionary).get("t", 1.0)) < t:
+		next += 1
+	var from: Dictionary = frames[next - 1]
+	var to: Dictionary = frames[next]
+	var t0 := float(from.get("t", 0.0))
+	var span := maxf(0.0001, float(to.get("t", 1.0)) - t0)
+	var w := smoothstep(0.0, 1.0, clampf((t - t0) / span, 0.0, 1.0))
+	pose[&"_hip_y"] = lerpf(float(from.get("hip_y", 0.0)), float(to.get("hip_y", 0.0)), w)
+	pose[&"_hip_x"] = lerpf(float(from.get("hip_x", 0.0)), float(to.get("hip_x", 0.0)), w)
+	for bone_name in _rig.bone_order():
+		var key := String(bone_name)
+		var a := _death_key_angle(frames, next - 1, key)
+		var b := _death_key_angle(frames, next, key)
+		if is_nan(a) and is_nan(b):
+			continue
+		var rest := HAND_FOLLOWS_FOREARM if bone_name in [&"hand_front", &"hand_back"] else 0.0
+		pose[bone_name] = lerp_angle(rest if is_nan(a) else a, rest if is_nan(b) else b, w)
+
+
+## 某根骨頭在第 index 格（或更早的格）最後一次寫下的角度；從來沒寫過就回傳 NAN。
+func _death_key_angle(frames: Array, index: int, key: String) -> float:
+	for i in range(index, -1, -1):
+		var bones: Variant = (frames[i] as Dictionary).get("bones", {})
+		if typeof(bones) == TYPE_DICTIONARY and (bones as Dictionary).has(key):
+			return float((bones as Dictionary)[key])
+	return NAN
 
 
 static func _ease(t: float, kind: String) -> float:
@@ -706,13 +763,27 @@ func _reach_leg(upper: StringName, lower: StringName, foot: StringName, target: 
 func _rest_corpse() -> void:
 	var low := -INF
 	for bone_name in _rig.bone_order():
+		if _spring_angle.has(bone_name):
+			continue  # 頭髮與衣襬的彈簧骨垂在身體下面時，不能把整個身體墊高
 		low = maxf(low, _global_pos[bone_name].y)
-	var target := _ground_y - CORPSE_THICKNESS
-	var settled := _death_time >= float(_motion["death"]["duration"]) * lerpf(1.0, DEATH_FORCE_TIME, _death_force) * 1.05
+	# rest_height（動作資料）：躺定時最低的骨頭離腳底地面多高，也就是身體厚度的一半；負值＝沒設定，用舊的固定值（相對腳踝高度）。
+	var rest_height := _death_rest_height()
+	var target := -rest_height if rest_height >= 0.0 else _ground_y - CORPSE_THICKNESS
+	var settled := _death_time >= _death_duration() * 1.05
 	var shift := target - low
 	_ground_shift = shift if settled else minf(0.0, shift)
 	_apply_body()
 	_forward_kinematics()
+
+
+## 躺定時最低的骨頭離腳底地面多高（動作資料 death.rest_height，仰躺與俯臥可以在 keys 裡各寫各的）；負值＝沒設定。
+func _death_rest_height() -> float:
+	return float(_death_keys().get("rest_height", (_motion["death"] as Dictionary).get("rest_height", -1.0)))
+
+
+## 倒地的身體貼著哪個高度（骨架空間）：有設定 rest_height 的角色躺在腳底的地面上（骨架原點），其他角色沿用舊規則（站立時腳踝的高度）。稽核用。
+func corpse_floor() -> float:
+	return 0.0 if _death_rest_height() >= 0.0 else _ground_y
 
 
 ## 目前身體整個往下沉了多少（骨架空間，往下為正）：蹲下時槍口與準星的高度由它算出。

@@ -241,7 +241,7 @@ static func _death(ctx: Dictionary, rig: CharacterRig, dir: float, force: float)
 static func _final_corpse(ctx: Dictionary, label: String) -> void:
 	var rig: CharacterRig = ctx["rig"]
 	var animator := rig.animator
-	var ground := animator.ground_level()
+	var ground := animator.corpse_floor()
 	var top := INF
 	var bottom := -INF
 	var top_bone := &""
