@@ -53,6 +53,7 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	# 過場會暫停遊戲；仍要處理才能淡出隱藏。
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	PromptLayout.add_obstacle(self, prompt_obstacle_rect)
 	_auto_hide = Settings.get_hud_auto_hide()
 	Settings.display_changed.connect(func() -> void: _auto_hide = Settings.get_hud_auto_hide())
 	EventBus.player_health_changed.connect(_on_health_changed)
@@ -115,6 +116,26 @@ func _content_width() -> float:
 	if max_health > MAX_PIPS:
 		return BAR_WIDTH
 	return maxf(PIP_STEP, max_health * PIP_STEP - (PIP_STEP - PIP_W) + PIP_SKEW)
+
+
+## Actual screen-space tag becomes a world-space reading obstacle. Include
+## pop, shake and leader; invisible tags reserve no space. No rig/HUD relocation.
+func prompt_obstacle_rect() -> Rect2:
+	if not is_visible_in_tree() or presence.alpha <= 0.01 or max_health <= 0 or not _has_pos:
+		return Rect2()
+	var canvas := get_viewport().get_canvas_transform()
+	if not is_finite(canvas.determinant()) or is_zero_approx(canvas.determinant()):
+		return Rect2()
+	var extent := Vector2(_content_width() + PAD * 2.0, PAD + PIP_H + 3.0 + GUARD_H + PAD)
+	var pop_scale := 1.0 + 0.18 * ease(presence.pop, 0.5)
+	var rect := Rect2(_pos + extent * (1.0 - pop_scale) * 0.5, extent * pop_scale)
+	# The tag's leader, BREAK caption and damage fragments extend outside its plate.
+	var margin := 10.0
+	for age in _lost_time:
+		if age >= 0.0:
+			margin = 20.0
+			break
+	return canvas.affine_inverse() * (get_global_transform() * rect.grow(margin * pop_scale))
 
 
 # ---------------------------------------------------------------------------

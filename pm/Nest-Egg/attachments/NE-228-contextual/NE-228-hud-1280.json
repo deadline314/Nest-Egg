@@ -1,0 +1,45 @@
+{
+	"checks": 26,
+	"controlled_scene": "ch1_street; intro and triggers disabled only in capture copy; isolated synthetic HUD cue is not a training outcome",
+	"failures": 0,
+	"layouts": [
+		{
+			"panel": [
+				512.0,
+				321.0,
+				116.0,
+				27.0
+			],
+			"tag": "keyboard",
+			"text": "跨過矮牆。",
+			"text_lines": 1
+		},
+		{
+			"panel": [
+				496.0,
+				318.0,
+				132.0,
+				30.0
+			],
+			"tag": "large-text",
+			"text": "跨過矮牆。",
+			"text_lines": 1
+		},
+		{
+			"panel": [
+				486.0,
+				318.0,
+				142.0,
+				30.0
+			],
+			"tag": "gamepad-synthetic",
+			"text": "跨過矮牆。",
+			"text_lines": 1
+		}
+	],
+	"physical_controller": false,
+	"resolution": [
+		1280,
+		720
+	]
+}

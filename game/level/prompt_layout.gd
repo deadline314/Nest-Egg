@@ -12,7 +12,7 @@ const OBSTACLE_MARGIN := 2.0
 const MAX_STACK := 6
 
 static var _prompts: Array[WorldPrompt] = []
-static var _obstacles: Dictionary[Node2D, Callable] = {}
+static var _obstacles: Dictionary[Node, Callable] = {}
 static var _frame := -1
 # 重複使用的暫存，避免每影格配置。
 static var _active: Array[WorldPrompt] = []
@@ -30,16 +30,19 @@ static func register(prompt: WorldPrompt) -> void:
 
 static func unregister(prompt: WorldPrompt) -> void:
 	_prompts.erase(prompt)
+	_active.erase(prompt)
+	_frame = -1
 
 
 ## owner 是障礙物所在的節點；rect_getter 回傳它目前在世界座標的矩形。節點離開場景樹時自動取消。
-static func add_obstacle(owner: Node2D, rect_getter: Callable) -> void:
+static func add_obstacle(owner: Node, rect_getter: Callable) -> void:
 	_obstacles[owner] = rect_getter
 	owner.tree_exiting.connect(remove_obstacle.bind(owner), CONNECT_ONE_SHOT)
 
 
-static func remove_obstacle(owner: Node2D) -> void:
+static func remove_obstacle(owner: Node) -> void:
 	_obstacles.erase(owner)
+	_frame = -1
 
 
 ## 每影格由正在顯示的提示呼叫；同一影格只算一次。
@@ -60,7 +63,9 @@ static func update() -> void:
 	_obstacle_rects.clear()
 	for owner in _obstacles:
 		if is_instance_valid(owner):
-			_obstacle_rects.append(_obstacles[owner].call())
+			var rect: Rect2 = _obstacles[owner].call()
+			if rect.has_area() and rect.position.is_finite() and rect.size.is_finite():
+				_obstacle_rects.append(rect)
 	solve(_rects, _obstacle_rects)
 	for i in _active.size():
 		_active[i].set_nudge_target(_nudges[i])

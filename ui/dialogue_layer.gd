@@ -13,8 +13,11 @@ const RADIO_HOLD_BASE := 1.6
 const RADIO_HOLD_PER_CHAR := 0.055
 const PORTRAIT_SIZE := 56.0
 const RADIO_PORTRAIT_SIZE := 32.0
-const RADIO_HOME := Vector2(170, 46)
+const RADIO_HOME := Vector2(170, 82)
 const RADIO_SLIDE := 28.0
+
+## Weak observers only; neither the query nor this table owns a removed layer.
+static var _radio_layers: Dictionary[int, WeakRef] = {}
 
 var _cinematic_root: Control
 var _portrait: TextureRect
@@ -41,6 +44,14 @@ var _radio_hold := 0.0
 var _radio_wait := 0.0
 var _radio_active := false
 var _time := 0.0
+var _name_plate: Panel
+var _portrait_plate: Panel
+var _dialogue_kind := "dialogue"
+var _reading_title := ""
+var _dim: ColorRect
+var _safe_rect := Rect2(Vector2.ZERO, Vector2(640, 360))
+var _radio_home := RADIO_HOME
+var _laying_out := false
 
 
 func _ready() -> void:
@@ -48,9 +59,26 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_build_cinematic()
 	_build_radio()
+	_radio_layers[get_instance_id()] = weakref(self)
 	Story.framing.safe_rect_changed.connect(_layout_cinematic)
 	InputBindings.bindings_changed.connect(_refresh_skip_hint)
+	Settings.display_changed.connect(_display_changed)
 	_layout_cinematic(Story.framing.safe_rect())
+
+
+## Presentation only: delay is not visible; a fade-out panel still owns reading space.
+## No queue, clock, Story result, or completion is changed by this readonly query.
+static func radio_visible() -> bool:
+	for id: int in _radio_layers:
+		var owner: Variant = _radio_layers[id].get_ref()
+		if is_instance_valid(owner) and owner.is_inside_tree() and not owner.is_queued_for_deletion() \
+				and is_instance_valid(owner._radio_root) and owner._radio_root.is_visible_in_tree():
+			return true
+	return false
+
+
+func _exit_tree() -> void:
+	_radio_layers.erase(get_instance_id())
 
 
 # ---------------------------------------------------------------------------
@@ -65,7 +93,20 @@ func start_cinematic(id: StringName, lines: Array[Dictionary]) -> void:
 		cinematic_finished.emit(id)
 		return
 	_cinematic_id = id
-	_cinematic_lines = lines
+	# 真入隊來源只決定外觀，沒有新增 Story／結果語義。
+	var context := Story.current_presentation_context()
+	_dialogue_kind = "object" if str(context.get("framing_source", "")) == "object" else "dialogue"
+	_reading_title = ""
+	if _dialogue_kind == "object":
+		for node in get_tree().get_nodes_in_group(NpcActor.GROUP):
+			var actor := node as NpcActor
+			if is_instance_valid(actor) and not actor.is_queued_for_deletion() and actor.data != null and actor.data.kind == NpcData.Kind.OBJECT and actor.state_key() == str(context.get("source_id", "")):
+				_reading_title = actor.data.display_name
+				break
+	_dialogue_panel.add_theme_stylebox_override(&"panel", DialogueMaterial.panel(_dialogue_kind))
+	_dim.color.a = 0.12 if _dialogue_kind == "object" else 0.18
+	# Cancelling this presentation must not clear the caller's reusable line array.
+	_cinematic_lines = lines.duplicate()
 	_cinematic_index = 0
 	_lock_token = GameplayLock.acquire(self, Input.MOUSE_MODE_VISIBLE)
 	Fx.reset_time()
@@ -125,11 +166,14 @@ func cancel_radio() -> void:
 
 func _show_line() -> void:
 	var line := _cinematic_lines[_cinematic_index]
-	_name.text = line["name"]
+	_name.text = DialogueMaterial.header(_dialogue_kind, _reading_title if not _reading_title.is_empty() else str(line["name"]))
 	_name.add_theme_color_override(&"font_color", line["color"])
+	_name_plate.add_theme_stylebox_override(&"panel", DialogueMaterial.nameplate(_dialogue_kind))
 	_text.text = line["text"]
 	_text.visible_ratio = 0.0
 	_portrait.texture = _portrait_texture(line["portrait"])
+	_portrait.visible = _dialogue_kind != "object" and _portrait.texture != null
+	_layout_cinematic(_safe_rect)
 
 
 func _input(event: InputEvent) -> void:
@@ -173,12 +217,14 @@ func _next_radio() -> void:
 	_radio_active = true
 	var entry: Dictionary = _radio_queue.front()
 	var line: Dictionary = entry["line"]
-	_radio_name.text = line["name"]
+	_radio_name.text = DialogueMaterial.header("radio", str(line["name"]))
 	_radio_name.add_theme_color_override(&"font_color", line["color"])
 	_radio_bar.color = line["color"]
 	_radio_text.text = line["text"]
 	_radio_text.visible_ratio = 0.0
 	_radio_portrait.texture = _portrait_texture(line["portrait"])
+	_radio_portrait.visible = _radio_portrait.texture != null
+	_layout_radio()
 	_radio_hold = RADIO_HOLD_BASE + str(line["text"]).length() * RADIO_HOLD_PER_CHAR
 	_radio_wait = float(line.get("delay", 0.0))
 	var was_hidden := not _radio_root.visible or _radio_root.modulate.a < 0.5
@@ -201,7 +247,11 @@ func _process(delta: float) -> void:
 			_text.visible_ratio = minf(1.0, _text.visible_ratio + delta * CHARS_PER_SECOND / maxf(1.0, _text.text.length()))
 		_continue.visible = _text.visible_ratio >= 1.0 and (Settings.get_reduce_ui_motion() or int(_time * 3.0) % 2 == 0)
 		return
-	if not _radio_active or get_tree().paused:
+	if get_tree().paused:
+		# A pause/block card owns the screen; preserve the exact unread radio clocks.
+		_radio_root.hide()
+		return
+	if not _radio_active:
 		return
 	if _radio_wait > 0.0:
 		_radio_wait -= delta
@@ -232,17 +282,26 @@ func _build_cinematic() -> void:
 	_cinematic_root.mouse_filter = Control.MOUSE_FILTER_STOP
 	_cinematic_root.visible = false
 	add_child(_cinematic_root)
-	var dim := ColorRect.new()
-	dim.color = Color(0, 0, 0, 0.35)
-	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
-	_cinematic_root.add_child(dim)
+	_dim = ColorRect.new()
+	_dim.color = Color(0, 0, 0, 0.18)
+	_dim.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_cinematic_root.add_child(_dim)
 	_dialogue_panel = Panel.new()
-	_dialogue_panel.add_theme_stylebox_override(&"panel", UiKit.theme().get_stylebox(&"panel", &"PanelContainer"))
+	_dialogue_panel.add_theme_stylebox_override(&"panel", DialogueMaterial.panel("dialogue"))
 	_dialogue_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_cinematic_root.add_child(_dialogue_panel)
 	_skip = UiKit.label(InputBindings.format("{ui_cancel} 跳過"), UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
 	_cinematic_root.add_child(_skip)
+	_name_plate = Panel.new()
+	_name_plate.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_name_plate.add_theme_stylebox_override(&"panel", DialogueMaterial.nameplate("dialogue"))
+	_cinematic_root.add_child(_name_plate)
+	_portrait_plate = Panel.new()
+	_portrait_plate.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_portrait_plate.add_theme_stylebox_override(&"panel", DialogueMaterial.nameplate("dialogue"))
+	_cinematic_root.add_child(_portrait_plate)
 	_portrait = TextureRect.new()
+	_portrait.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	_portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	_portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	_portrait.custom_minimum_size = Vector2(PORTRAIT_SIZE, PORTRAIT_SIZE)
@@ -256,36 +315,78 @@ func _build_cinematic() -> void:
 	_text.custom_minimum_size = Vector2(500, 0)
 	_place(_text, Control.PRESET_BOTTOM_LEFT, Rect2(92, -70, 500, 50))
 	_cinematic_root.add_child(_text)
-	_continue = UiKit.label("▼", 10, Palette.CYAN, HORIZONTAL_ALIGNMENT_RIGHT)
+	_text.minimum_size_changed.connect(func() -> void: _layout_cinematic(_safe_rect))
+	_continue = UiKit.label(InputBindings.format("{ui_accept} 繼續"), UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
 	_place(_continue, Control.PRESET_BOTTOM_RIGHT, Rect2(-40, -26, 20, 14))
 	_cinematic_root.add_child(_continue)
 
 
 func _layout_cinematic(rect: Rect2) -> void:
-	if _portrait == null:
+	_safe_rect = rect
+	if _portrait == null or _laying_out:
 		return
+	_laying_out = true
+	# 88px 舞台保留區不變。閱讀物件不浪費空頭像欄；大字仍用完整可換行寬度。
 	var height := minf(88.0, rect.size.y * 0.36)
 	var top := rect.end.y - height - 6.0
-	_dialogue_panel.position = Vector2(16, top)
+	_dialogue_panel.position = Vector2(rect.position.x + 16, top)
 	_dialogue_panel.size = Vector2(maxf(0, rect.size.x - 32), height)
 	_skip.set_anchors_preset(Control.PRESET_TOP_LEFT)
-	_skip.position = Vector2(maxf(8, rect.end.x - 96), rect.position.y + 6)
-	_skip.size = Vector2(88, 14)
+	_skip.position = Vector2(maxf(rect.position.x + 8, rect.end.x - 136), rect.position.y + 6)
+	_skip.size = Vector2(128, 18)
 	for control in [_portrait, _name, _text, _continue]:
 		control.set_anchors_preset(Control.PRESET_TOP_LEFT)
-	_portrait.position = Vector2(24, top + 10)
+	_portrait.position = Vector2(rect.position.x + 24, top + 10)
 	_portrait.size = Vector2(PORTRAIT_SIZE, PORTRAIT_SIZE)
-	_name.position = Vector2(92, top + 8)
-	_name.size = Vector2(maxf(0, rect.size.x - 124), 16)
-	_text.position = Vector2(92, top + 26)
-	_text.custom_minimum_size.x = maxf(0, rect.size.x - 124)
-	_text.size = Vector2(maxf(0, rect.size.x - 124), height - 32)
-	_continue.position = Vector2(rect.end.x - 40, rect.end.y - 26)
-	_continue.size = Vector2(20, 14)
+	var left := rect.position.x + (92.0 if _portrait.visible else 32.0)
+	var width := maxf(0, rect.end.x - left - 32)
+	_name.position = Vector2(left, top + 7)
+	_name.size = Vector2(maxf(0, width - 128), 18)
+	_name.clip_text = true
+	var name_width := _name.get_theme_font(&"font").get_string_size(_name.text, HORIZONTAL_ALIGNMENT_LEFT, -1, _name.get_theme_font_size(&"font_size")).x
+	_name_plate.position = _name.position - Vector2(6, 2)
+	_name_plate.size = Vector2(minf(name_width + 12, maxf(0, width - 116)), 22)
+	_portrait_plate.visible = _portrait.visible
+	_portrait_plate.position = _portrait.position - Vector2(2, 2)
+	_portrait_plate.size = _portrait.size + Vector2(4, 4)
+	# Scaled labels have a real minimum height; leave a gap beneath the shared
+	# name/continue row rather than trusting the unscaled 16px requested size.
+	var body_top := maxf(27.0, maxf(8.0 + _continue.get_combined_minimum_size().y,
+			7.0 + _name.get_combined_minimum_size().y) + 4.0)
+	_text.position = Vector2(left, top + body_top)
+	_text.custom_minimum_size.x = width
+	_text.size = Vector2(width, maxf(0.0, height - body_top - 7.0))
+	# 控制提示與名牌同列，不占用正文或舞台。
+	_continue.position = Vector2(rect.end.x - 144, top + 8)
+	_continue.size = Vector2(112, 16)
+	_layout_radio()
+	_laying_out = false
+
+
+func _layout_radio() -> void:
+	if _radio_root == null:
+		return
+	# 正式任務列位於 y52；通訊不蓋該列，亦不進入21:9遮幅。
+	_radio_home = Vector2(maxf(_safe_rect.position.x + 8, RADIO_HOME.x), maxf(RADIO_HOME.y, _safe_rect.position.y + 8))
+	if _radio_slide == null or not _radio_slide.is_valid():
+		_radio_root.position = _radio_home
+	var width := minf(300.0, maxf(160.0, _safe_rect.end.x - _radio_home.x - 8))
+	_radio_root.custom_minimum_size.x = width
+	_radio_root.size.x = width
+	_radio_text.custom_minimum_size.x = maxf(64, width - 74)
+
+
+func _display_changed() -> void:
+	if Settings.get_reduce_ui_motion() and _radio_slide != null and _radio_slide.is_valid():
+		_radio_slide.kill()
+		_radio_root.position = _radio_home
+		_radio_root.modulate.a = 1.0
+	_layout_cinematic(Story.framing.safe_rect())
 
 
 func _refresh_skip_hint() -> void:
 	_skip.text = InputBindings.format("{ui_cancel} 跳過")
+	_continue.text = InputBindings.format("{ui_accept} 繼續")
 
 
 func _build_radio() -> void:
@@ -295,9 +396,7 @@ func _build_radio() -> void:
 	_radio_root.custom_minimum_size = Vector2(300, 0)
 	_radio_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_radio_root.visible = false
-	var box := ChamferBox.make(Color(0.02, 0.04, 0.07, 0.9), Palette.CYAN_DIM, 4)
-	box.bracket = Palette.CYAN
-	box.scanlines = 0.1
+	var box := DialogueMaterial.panel("radio")
 	box.margins(8, 6, 10, 6)
 	_radio_root.add_theme_stylebox_override(&"panel", box)
 	add_child(_radio_root)
@@ -325,9 +424,10 @@ func _build_radio() -> void:
 	column.add_theme_constant_override(&"separation", 0)
 	row.add_child(column)
 	_radio_name = UiKit.label("", UiKit.FS_BODY, Palette.CYAN)
+	_radio_name.clip_text = true
 	column.add_child(_radio_name)
 	_radio_text = UiKit.label("", UiKit.FS_BODY, Palette.UI_TEXT)
-	_radio_text.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
+	_radio_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_radio_text.custom_minimum_size = Vector2(240, 0)
 	column.add_child(_radio_text)
 
@@ -345,10 +445,15 @@ func _reveal_radio(slide: bool) -> void:
 func _slide_radio_in() -> void:
 	if _radio_slide != null and _radio_slide.is_valid():
 		_radio_slide.kill()
-	_radio_root.position = RADIO_HOME + Vector2(-RADIO_SLIDE, 0)
+	_layout_radio()
+	if Settings.get_reduce_ui_motion():
+		_radio_root.position = _radio_home
+		_radio_root.modulate.a = 1.0
+		return
+	_radio_root.position = _radio_home + Vector2(-RADIO_SLIDE, 0)
 	_radio_root.modulate.a = 0.0
 	_radio_slide = create_tween().set_parallel(true)
-	_radio_slide.tween_property(_radio_root, "position", RADIO_HOME, 0.2).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	_radio_slide.tween_property(_radio_root, "position", _radio_home, 0.2).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	_radio_slide.tween_property(_radio_root, "modulate:a", 1.0, 0.15)
 
 

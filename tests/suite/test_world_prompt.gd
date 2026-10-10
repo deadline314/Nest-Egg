@@ -7,6 +7,23 @@ func run() -> void:
 	_test_solver()
 	await _test_nodes()
 	await _test_npc_obstacle()
+	await _test_modal_suppression()
+
+
+func _test_modal_suppression() -> void:
+	var stage := Node2D.new()
+	runner.add_child(stage)
+	var prompt := _spawn_prompt(stage, 0.0, "{interact} 交談")
+	prompt._process(1.0)
+	check(prompt.is_showing(), "reachable interaction is visible before a modal starts")
+	var lock := GameplayLock.acquire(stage)
+	prompt._process(1.0)
+	check(not prompt.is_showing() and prompt._alpha == 0.0, "a modal hides the invitation instead of advertising a blocked interaction")
+	GameplayLock.release(lock)
+	prompt._process(1.0)
+	check(prompt.is_showing(), "releasing modal control restores the actual reachable invitation")
+	stage.queue_free()
+	await frames(2)
 
 
 func _rect(x: float, y := 0.0, w := 60.0, h := 15.0) -> Rect2:

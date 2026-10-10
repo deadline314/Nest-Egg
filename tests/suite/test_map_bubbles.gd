@@ -70,6 +70,15 @@ func _test_in_level() -> void:
 	check(started, "the scene starts")
 	check(not runner.get_tree().paused, "a bubble scene never pauses the game")
 	check(not Story.is_cinematic_active(), "a bubble scene is not a cinematic")
+	host._process(0.0)
+	var age := float(host._active[0]["age"])
+	var queued := host._queue.size()
+	var modal_lock := GameplayLock.acquire(level)
+	host._process(5.0)
+	check(not host.visible and float(host._active[0]["age"]) == age and host._queue.size() == queued and not finished.has(&"test_bubble_a"), "a modal hides bubbles and preserves unread lines without a false completion")
+	GameplayLock.release(modal_lock)
+	host._process(0.0)
+	check(host.visible and float(host._active[0]["age"]) == age, "releasing modal resumes the same bubble with its original reading time")
 	var guard := 0
 	while not finished.has(&"test_bubble_a") and guard < 900:
 		await frames(1)

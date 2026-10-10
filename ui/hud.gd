@@ -1,11 +1,11 @@
 class_name Hud
 extends CanvasLayer
-## 遊戲 HUD：完全透過 EventBus 更新，不持有任何遊戲物件參照（物件被移除也不會出錯）。
+## 遊戲 HUD：數值透過 EventBus 更新；操作 cue 只持有同關卡 owner 的 WeakRef。
 ## 滑鼠移到各區塊上會顯示一句重點說明（tooltip）。
 ## 生命、護盾、彈藥改由動態元件顯示（跟著角色與準星），見 design/05-dynamic-hud。
 
 const TOAST_TIME := 2.2
-const CONTROLS_HINT_TIME := 14.0
+const CONTROLS_HINT_TIME := 5.0
 ## {動作} 會換成玩家目前設定的按鍵（見 InputBindings.format）。
 const CONTROLS_TEMPLATE := "移動 {move_left}/{move_right}　跳 {jump}　射擊 {shoot}　格擋 {block}　衝刺 {dash}　終結 {melee}　換彈 {reload}　換武器 {weapon_next}／1～4　搭乘 {interact}　背包 {inventory}　暫停 {pause}"
 
@@ -29,6 +29,16 @@ var _controls_dismissing := false
 var _controls_framed := false
 var _framing_edge_root: Control
 var _items_template := ""
+var _hint_template := "{pause} 開啟操作說明"
+var _hint_owner: WeakRef
+var _hint_cleanup: Callable
+var _hint_token := 0
+var _hint_tween: Tween
+var _hint_expired := false
+var _hint_row: HBoxContainer
+var _hint_caps: Array[PanelContainer] = []
+const HINT_ACTIONS := ["move_left", "move_right", "move_down", "jump", "shoot", "block", "dash", "melee", "reload", "interact", "inventory", "pause", "use_item", "ability", "weapon_next", "weapon_prev"]
+
 
 
 func _ready() -> void:
@@ -93,18 +103,24 @@ func _ready() -> void:
 	_controls_card.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	root.add_child(_controls_card)
 	_controls_card.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
-	_controls_card.offset_left = -476
+	_controls_card.offset_left = -252
 	_controls_card.offset_right = -12
-	_controls_card.offset_top = -52
+	_controls_card.offset_top = -34
 	_controls_card.offset_bottom = -12
 	_controls_card.grow_vertical = Control.GROW_DIRECTION_BEGIN
 	var hint_box := ChamferBox.make(UiTheme.PANEL_BODY, UiTheme.PANEL_EDGE, 3)
-	hint_box.margins(10, 6, 10, 6)
+	hint_box.margins(8, 4, 8, 4)
 	_controls_card.add_theme_stylebox_override(&"panel", hint_box)
 	_controls = UiKit.label(quick_controls_hint(), UiKit.FS_BODY, Palette.UI_TEXT)
 	_controls.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_controls.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_controls_card.add_child(_controls)
+	_hint_row = HBoxContainer.new()
+	_hint_row.add_theme_constant_override(&"separation", 6)
+	_hint_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_controls_card.add_child(_hint_row)
+	_controls.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_hint_row.add_child(_controls)
+	_render_hint()
 	_controls.minimum_size_changed.connect(_layout_controls)
 	root.resized.connect(_layout_controls)
 	_layout_controls()
@@ -133,10 +149,15 @@ func _ready() -> void:
 	Progression.credits_changed.connect(_on_credits_changed)
 	_on_credits_changed(Progression.credits, 0)
 	_on_lives_changed(GameState.lives_left)
+	var level := get_parent() as Level
+	# 真入區／重生／續玩不重播開場說明；新機關 cue 仍可隨時取得。
+	if level != null and (level._entry_portal != &"" or level._from_checkpoint or not level._resume.is_empty()):
+		_hint_expired = true
+		_controls_card.hide()
 
 
 func _refresh_controls() -> void:
-	_controls.text = quick_controls_hint()
+	_render_hint()
 	_layout_controls()
 	_items_label.text = InputBindings.format(_items_template)
 	cyber_gauge.tooltip_text = InputBindings.format("義體能力：{ability} 使用；電量隨時間與擊敗敵人回復")
@@ -148,8 +169,10 @@ func _layout_controls() -> void:
 	var font_size := _controls.get_theme_font_size(&"font_size")
 	for line in _controls.text.split("\n"):
 		width = maxf(width, font.get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x)
-	var available := maxf(64.0, minf(464.0, get_viewport().get_visible_rect().size.x - 164.0))
-	var left := -minf(ceilf(width + 20.0), available) - 12.0
+	for cap in _hint_caps:
+		width += cap.get_combined_minimum_size().x + 6.0
+	var available := maxf(64.0, minf(280.0, get_viewport().get_visible_rect().size.x - 164.0))
+	var left := -minf(ceilf(width + 16.0), available) - 12.0
 	if not is_equal_approx(_controls_card.offset_left, left):
 		_controls_card.offset_left = left
 
@@ -160,7 +183,8 @@ func _dismiss_controls() -> void:
 		_controls_card.modulate.a = 0.0
 		_controls_card.hide()
 	else:
-		create_tween().tween_property(_controls_card, "modulate:a", 0.0, 1.0)
+		_hint_tween = create_tween()
+		_hint_tween.tween_property(_controls_card, "modulate:a", 0.0, 0.35)
 
 
 static func controls_hint() -> String:
@@ -170,23 +194,124 @@ static func controls_hint() -> String:
 	return InputBindings.format(template)
 
 
-## 遊戲中先給基本操作；完整清單仍由暫停頁使用 controls_hint()。
+## 完整清單在暫停頁；預設只提示如何重看，不推定玩家完成了教學。
 static func quick_controls_hint() -> String:
-	var movement := "移動 左搖桿" if InputBindings.using_gamepad else "移動 {move_left}/{move_right}"
-	return InputBindings.format(movement + "　跳躍 {jump}　衝刺 {dash}\n射擊 {shoot}　格擋 {block}　完整操作 {pause}")
+	return InputBindings.format("{pause} 開啟操作說明")
+
+
+## Runtime-only：真機關判定適用情境後呼叫。HUD 不判定成功、不保存教學進度。
+## owner 必須位於同關卡子樹。離開觸發區／成功時 caller clear(token)。
+## 至多兩種動作；過期只是收起提示，不能當成完成教學。
+func show_context_hint(owner: Node, template: String, seconds := 8.0) -> int:
+	if not is_instance_valid(owner) or not owner.is_inside_tree() or owner.is_queued_for_deletion():
+		return 0
+	var level := get_parent() as Level
+	if level == null or owner == self or not level.is_ancestor_of(owner) or not _valid_hint(template, seconds):
+		return 0
+	_detach_hint_owner()
+	_hint_token += 1
+	_hint_owner = weakref(owner)
+	_hint_cleanup = clear_context_hint.bind(_hint_token)
+	owner.tree_exiting.connect(_hint_cleanup, CONNECT_ONE_SHOT)
+	_hint_template = template
+	_controls_read_time = seconds
+	_controls_dismissing = false
+	_hint_expired = false
+	if _hint_tween != null and _hint_tween.is_valid():
+		_hint_tween.kill()
+	_controls_card.modulate.a = 1.0
+	_refresh_controls()
+	return _hint_token
+
+
+static func _valid_hint(template: String, seconds: float) -> bool:
+	if not is_finite(seconds) or seconds <= 0.0 or seconds > 15.0 or template.length() > 96 or template.strip_edges().is_empty() or template.contains("\n") or template.contains("\r"):
+		return false
+	var actions: Dictionary = {}
+	var remainder := template
+	var matches := RegEx.create_from_string("\\{([a-z_0-9]+)\\}").search_all(template)
+	if matches.is_empty() or matches.size() > 2:
+		return false
+	# Keycaps precede the instruction visually. Accept a complete plain instruction
+	# with only whitespace-separated trailing tokens, never embedded fragments.
+	var instruction := template.substr(0, matches[0].get_start()).strip_edges()
+	if instruction.is_empty():
+		return false
+	var tail := template.substr(matches[0].get_start())
+	for found in matches:
+		var action := found.get_string(1)
+		if action not in HINT_ACTIONS:
+			return false
+		actions[action] = true
+		remainder = remainder.replace(found.get_string(), "")
+		tail = tail.replace(found.get_string(), "")
+	return tail.strip_edges().is_empty() and not remainder.contains("{") and not remainder.contains("}")
+
+
+func clear_context_hint(token: int) -> void:
+	if token != _hint_token or _hint_owner == null:
+		return
+	_detach_hint_owner()
+	_hint_expired = true
+	_controls_card.hide()
+
+
+func _detach_hint_owner() -> void:
+	var owner: Node = _hint_owner.get_ref() as Node if _hint_owner != null else null
+	if is_instance_valid(owner) and owner.tree_exiting.is_connected(_hint_cleanup):
+		owner.tree_exiting.disconnect(_hint_cleanup)
+	_hint_owner = null
+
+
+func _render_hint() -> void:
+	# 只在 cue／綁定變更時建立至多兩個按鍵帽，沒有每影格字串掃描／節點配置。
+	for cap in _hint_caps:
+		_hint_row.remove_child(cap)
+		cap.queue_free()
+	_hint_caps.clear()
+	var instruction := _hint_template
+	var shown: Dictionary = {}
+	for found in RegEx.create_from_string("\\{([a-z_0-9]+)\\}").search_all(_hint_template):
+		var action := StringName(found.get_string(1))
+		instruction = instruction.replace(found.get_string(), "")
+		if shown.has(action):
+			continue
+		shown[action] = true
+		var cap := PanelContainer.new()
+		cap.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var box := ChamferBox.make(Color("20333f"), Color("6c8997"), 2)
+		box.margins(4, 1, 4, 1)
+		cap.add_theme_stylebox_override(&"panel", box)
+		cap.add_child(UiKit.label(InputBindings.primary_label(action), UiKit.FS_BODY, Palette.UI_TEXT))
+		_hint_row.add_child(cap)
+		_hint_row.move_child(cap, _hint_caps.size())
+		_hint_caps.append(cap)
+	_controls.text = instruction.strip_edges()
+
+
+func _exit_tree() -> void:
+	_detach_hint_owner()
 
 
 func _on_framing_safe_rect(rect: Rect2) -> void:
 	_controls_framed = rect.position.y > 0.01
-	_framing_edge_root.visible = not _controls_framed
+	_framing_edge_root.visible = not _controls_framed and not Story.is_cinematic_active()
 	if _controls_framed:
 		_controls_card.hide()
 
 
 func _process(delta: float) -> void:
 	_timer_label.text = UiKit.format_time(GameState.run_time)
+	# Object reading has no black bars, but still owns a modal's header and skip key.
+	_framing_edge_root.visible = not _controls_framed and not Story.is_cinematic_active()
+	if _hint_owner != null:
+		var owner: Node = _hint_owner.get_ref() as Node
+		if not is_instance_valid(owner) or not owner.is_inside_tree() or owner.is_queued_for_deletion() or not get_parent().is_ancestor_of(owner):
+			clear_context_hint(_hint_token)
+	var level := get_parent() as Level
+	var dead := level != null and (level.died or (is_instance_valid(level.player) and level.player.is_dead()))
 	if _controls_card.modulate.a > 0.0:
-		_controls_card.visible = not get_tree().paused and not Story.is_cinematic_active() and not GameplayLock.is_locked() and not _controls_framed
+		_controls_card.visible = not _hint_expired and not dead and not get_tree().paused and not Story.is_cinematic_active() and not GameplayLock.is_locked() and not _controls_framed and Music.engaged_enemies() == 0 and not toast_banner.is_showing()
 		if _controls_card.visible and not _controls_dismissing:
 			_controls_read_time -= delta
 			if _controls_read_time <= 0.0:

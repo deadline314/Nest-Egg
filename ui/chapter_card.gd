@@ -13,6 +13,8 @@ var block := false
 
 var _root: Control
 var _lock_token := 0
+var _tween: Tween
+var _presentation_suspended := false
 
 
 func _ready() -> void:
@@ -38,17 +40,31 @@ func _ready() -> void:
 	_root.add_child(box)
 	box.add_child(UiKit.label(title, 22, LightKit.glow(Palette.MAGENTA, 1.4), HORIZONTAL_ALIGNMENT_CENTER))
 	box.add_child(UiKit.label(subtitle, 11, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_CENTER))
-	var tween := create_tween()
+	_tween = create_tween()
 	# 開場標題卡遇到暫停（暫停選單、背包）就凍結並藏起來；章節結束卡本身就是暫停，照常播放。
-	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS if block else Tween.TWEEN_PAUSE_STOP)
-	tween.tween_property(_root, "modulate:a", 1.0, FADE)
-	tween.tween_interval(hold)
-	tween.tween_property(_root, "modulate:a", 0.0, FADE)
-	tween.tween_callback(_done)
+	_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS if block else Tween.TWEEN_PAUSE_STOP)
+	_tween.tween_property(_root, "modulate:a", 1.0, FADE)
+	_tween.tween_interval(hold)
+	_tween.tween_property(_root, "modulate:a", 0.0, FADE)
+	_tween.tween_callback(_done)
+	_update_presentation()
 
 
 func _process(_delta: float) -> void:
-	_root.visible = block or not get_tree().paused
+	_update_presentation()
+
+
+func _update_presentation() -> void:
+	var suspended := not block and (get_tree().paused or DialogueLayer.radio_visible())
+	_root.visible = not suspended
+	if suspended == _presentation_suspended:
+		return
+	_presentation_suspended = suspended
+	if _tween != null and _tween.is_valid():
+		if suspended:
+			_tween.pause()
+		else:
+			_tween.play()
 
 
 func _input(_event: InputEvent) -> void:

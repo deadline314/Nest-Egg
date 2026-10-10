@@ -58,6 +58,10 @@ func _run() -> void:
 	level.camera.snap_to_target()
 	level.camera.force_update_scroll()
 	var hud := level.hud
+	var cue_owner := Node.new()
+	level.add_child(cue_owner)
+	# Synthetic UI cue only: no mounted training object or gameplay-success claim.
+	hud.show_context_hint(cue_owner, "跨過矮牆。 {jump}", 15.0)
 	var initial_key := InputEventKey.new()
 	initial_key.physical_keycode = KEY_A
 	initial_key.pressed = true
@@ -69,14 +73,14 @@ func _run() -> void:
 	button.button_index = JOY_BUTTON_A
 	button.pressed = true
 	InputBindings.observe_device(button)
-	_check(hud._controls.text.contains("左搖桿") and not hud._controls.text.contains("{jump}"), "controller prompt follows recent input")
+	_check((hud._hint_caps[0].get_child(0) as Label).text == InputBindings.joy_label(&"jump") and not hud._controls.text.contains("{jump}"), "controller keycap follows recent input")
 	await _capture("gamepad-synthetic", hud)
 	var key := InputEventKey.new()
 	key.physical_keycode = KEY_V
 	key.pressed = true
 	InputBindings.observe_device(key)
 	InputBindings.set_code(&"jump", 0, KEY_V)
-	_check(hud._controls.text.contains("跳躍 V"), "rebound keyboard prompt refreshes")
+	_check((hud._hint_caps[0].get_child(0) as Label).text == "V", "rebound keyboard keycap refreshes")
 	_check(Hud.controls_hint().contains(InputBindings.format("{reload}")) and Hud.controls_hint().contains(InputBindings.format("{inventory}")), "pause reference retains full controls")
 	var remaining := hud._controls_read_time
 	var lock := GameplayLock.acquire(self)
@@ -100,7 +104,7 @@ func _run() -> void:
 	var file := FileAccess.open(_out.path_join("NE-228-hud-%d.json" % _width), FileAccess.WRITE)
 	_check(file != null, "layout report opens")
 	if file != null:
-		var report := {"checks": _checks, "failures": _failures, "resolution": [_width, _height], "controlled_scene": "ch1_street; intro and triggers disabled only in capture copy", "physical_controller": false, "layouts": _rows}
+		var report := {"checks": _checks, "failures": _failures, "resolution": [_width, _height], "controlled_scene": "ch1_street; intro and triggers disabled only in capture copy; isolated synthetic HUD cue is not a training outcome", "physical_controller": false, "layouts": _rows}
 		file.store_string(JSON.stringify(report, "\t"))
 		file.close()
 	level.queue_free()

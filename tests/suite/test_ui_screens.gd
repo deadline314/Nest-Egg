@@ -22,6 +22,8 @@ func run() -> void:
 	await _test_death_screen()
 	await _test_victory_screen()
 	await _test_hd_portrait()
+	await ContextualUiChecks.run(self)
+	await ContextualPriorityChecks.run(self)
 
 
 ## 進入點啟動後一定要出現主選單（預載或資料出錯曾讓 F5 只剩黑畫面）。

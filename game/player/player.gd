@@ -16,6 +16,10 @@ const STEP_LOUD_DB := -14.0
 const STEP_CROUCH_DB := -8.0
 
 const BODY_SIZE := Vector2(12, 44)
+
+## Breathing, stance interpolation and weapon-hand motion need a small UI gutter.
+## This is a reading-space proxy, not a continuous combat collision envelope.
+const PROMPT_ANIMATION_MARGIN := 6.0
 const CROUCH_HEIGHT := 30.0
 ## 瞄準基準點（肩膀）的高度：站姿／蹲姿。
 ## 外觀載入失敗時才用的後備值；平常肩膀高度由骨架量出（PlayerVisual.shoulder_height）。
@@ -128,6 +132,14 @@ var _last_health := 0
 var _last_safe_position := Vector2.ZERO
 var _query_shape := RectangleShape2D.new()
 var _query_circle := CircleShape2D.new()
+## Measured only on setup/equip; following the head is O(1), not a mesh scan.
+var _prompt_half_width := BODY_SIZE.x * 0.5
+var _prompt_top := -BODY_SIZE.y
+var _prompt_bottom := 0.0
+var _prompt_head_gap := 0.0
+var _prompt_has_head := false
+var _prompt_bounds_ready := false
+var _prompt_weapon_visual := ""
 
 
 ## 加入場景樹前呼叫。
@@ -199,9 +211,54 @@ func _ready() -> void:
 	consumables.changed.connect(func() -> void: EventBus.player_consumables_changed.emit(consumables))
 	consumables.restore(_loadout_snapshot.get("consumables", {}))
 	_last_safe_position = global_position
+	_refresh_prompt_obstacle_bounds()
+	PromptLayout.add_obstacle(self, prompt_obstacle_rect)
 	EventBus.player_spawned.emit(self)
 	_on_health_changed(health.current, health.max_health)
 	_emit_guard()
+
+
+## Actual standing presentation bounds, mirrored for both facings. The head
+## position follows actual crouch/stand animation without per-frame font/mesh work.
+func _refresh_prompt_obstacle_bounds() -> void:
+	var visual_id := _visual_id_of(loadout.active_weapon())
+	if _prompt_bounds_ready and visual_id == _prompt_weapon_visual:
+		return
+	_prompt_bounds_ready = true
+	_prompt_weapon_visual = visual_id
+	_prompt_half_width = BODY_SIZE.x * 0.5
+	_prompt_top = -BODY_SIZE.y
+	_prompt_bottom = 0.0
+	_prompt_has_head = false
+	if not is_instance_valid(_visual) or not is_instance_valid(_visual.rig) or not _visual.rig.is_valid():
+		return
+	if not is_finite(global_transform.determinant()) or is_zero_approx(global_transform.determinant()):
+		return
+	var rig: CharacterRig = _visual.rig
+	var bounds := rig.visual_bounds()
+	var weapon: Sprite2D = rig._weapon_sprite
+	if is_instance_valid(weapon) and weapon.is_visible_in_tree() and weapon.texture != null:
+		var weapon_bounds: Rect2 = weapon.get_global_transform() * weapon.get_rect()
+		bounds = bounds.merge(weapon_bounds) if bounds.has_area() else weapon_bounds
+	if bounds.has_area() and bounds.position.is_finite() and bounds.size.is_finite():
+		var local: Rect2 = (global_transform.affine_inverse() * bounds).grow(PROMPT_ANIMATION_MARGIN)
+		_prompt_half_width = maxf(_prompt_half_width, maxf(absf(local.position.x), absf(local.end.x)))
+		_prompt_top = minf(_prompt_top, local.position.y)
+		_prompt_bottom = maxf(_prompt_bottom, local.end.y)
+	if rig.has_bone(&"head"):
+		_prompt_head_gap = _prompt_top - to_local(rig.bone(&"head").global_position).y
+		_prompt_has_head = true
+
+
+func prompt_obstacle_rect() -> Rect2:
+	var height := CROUCH_HEIGHT if is_crouching else BODY_SIZE.y
+	var top := _prompt_top
+	if _prompt_has_head and is_instance_valid(_visual) and is_instance_valid(_visual.rig) and _visual.rig.has_bone(&"head") \
+			and is_finite(global_transform.determinant()) and not is_zero_approx(global_transform.determinant()):
+		top = to_local(_visual.rig.bone(&"head").global_position).y + _prompt_head_gap
+	# Physical torso remains protected even while pose transitions or art is absent.
+	top = minf(top, -height)
+	return global_transform * Rect2(-_prompt_half_width, top, _prompt_half_width * 2.0, _prompt_bottom - top)
 
 
 func is_targetable() -> bool:
@@ -1308,6 +1365,7 @@ func _on_loadout_changed() -> void:
 		_interrupt_melee(true)
 		_melee_weapon_id = weapon_id
 	_visual.set_weapon_visual(_visual_id_of(weapon))
+	_refresh_prompt_obstacle_bounds()
 	EventBus.player_loadout_changed.emit(loadout)
 
 

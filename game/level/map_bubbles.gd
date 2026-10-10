@@ -35,6 +35,9 @@ var _active: Array[Dictionary] = []
 
 
 func _ready() -> void:
+	# Continue observing modal ownership while the world is paused, without
+	# consuming an unseen line's reading time or reporting its completion.
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	z_index = 30
 	_font = UiKit.font()
 	LightKit.mark_emissive(self)
@@ -96,6 +99,10 @@ func _pending_scene_ids() -> Array[StringName]:
 
 
 func _process(delta: float) -> void:
+	var suspended := get_tree().paused or GameplayLock.is_locked() or Story.is_cinematic_active() or DialogueLayer.radio_visible()
+	visible = not suspended
+	if suspended:
+		return
 	for bubble in _active:
 		bubble["age"] = float(bubble["age"]) + delta
 	_start_next()
@@ -154,7 +161,7 @@ func _retire_finished(delta: float) -> void:
 # ---------------------------------------------------------------------------
 
 func _draw() -> void:
-	if _font == null:
+	if _font == null or DialogueLayer.radio_visible():
 		return
 	var camera_rect := _visible_world_rect()
 	var stack_offset := {}
