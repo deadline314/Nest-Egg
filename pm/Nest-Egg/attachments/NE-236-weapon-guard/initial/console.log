@@ -1,0 +1,11 @@
+Running 1 groups in 1 processes (logs: /workspace/work/cloud-weapon-combos/weapon-guard/initial)
+  process 0 (estimated 69 s): MeleeWeaponsSuite
+[process 0] NEW FAILURE: melee_dagger natural completion raises shield and clears the expired swing
+[process 0] NEW FAILURE: melee_dagger a new tap immediately after lowering begins a fresh first swing, not the old missed chain
+[process 0] NEW FAILURE: melee_blade natural completion raises shield and clears the expired swing
+[process 0] NEW FAILURE: melee_blade a new tap immediately after lowering begins a fresh first swing, not the old missed chain
+[process 0] NEW FAILURE: melee_maul natural completion raises shield and clears the expired swing
+[process 0] NEW FAILURE: melee_maul a new tap immediately after lowering begins a fresh first swing, not the old missed chain
+[process 0] NEW FAILURE: melee_glaive natural completion raises shield and clears the expired swing
+[process 0] NEW FAILURE: melee_glaive a new tap immediately after lowering begins a fresh first swing, not the old missed chain
+checks: 591, new failures: 8, known failures (tests/known_failures.txt): 0  (wall time 122 s)

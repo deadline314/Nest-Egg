@@ -25,6 +25,7 @@ func run() -> void:
 	await _test_command_paths()
 	await _test_refusals_and_extra_interruptions()
 	await _test_paid_cancels_and_facing()
+	await _test_weapon_guard_transition()
 	await _test_tail_contacts()
 	AimInput.using_gamepad = false
 
@@ -638,6 +639,171 @@ func _test_refusals_and_extra_interruptions() -> void:
 	player._try_fire()
 	check(player.loadout.mag_in(0) == ammo, "direct gun command cannot cancel melee windup")
 	await end_level(level)
+
+
+## Actual physics owns raising/cancelling and projectile contact. No direct guard,
+## contact query, phase advancement, hitstop release or altered weapon timings.
+func _test_weapon_guard_transition() -> void:
+	var reaches := {"melee_dagger":14.0, "melee_blade":24.0, "melee_maul":20.0, "melee_glaive":50.0, "melee_whip":70.0}
+	var spec := load("res://data/projectiles/grunt_shot.tres") as ProjectileSpec
+	for id in WEAPONS:
+		for face in [1, -1]:
+			for outcome in ["block", "parry", "rear"]:
+				await open_level(10.0)
+				var player := _arm(id)
+				for arg in OS.get_cmdline_user_args():
+					if arg.begins_with("--weapon-guard-evidence-out="):
+						# Software rendering can consume 4.2 wall seconds before the
+						# real presentation tween has finished. Await its real signal.
+						for child in level.get_children():
+							if child is ChapterCard:
+								await child.finished
+				_aim(player, Vector2(face, 0.0))
+				var target := _dummy(float(reaches[id]) * face)
+				await physics_frames(3)
+				var label := "%s face=%d %s" % [id, face, outcome]
+				check(player._try_melee(), label + " begins a paid real swing")
+				var attack := player._melee_attack.duplicate(true)
+				var ticks := 180
+				var hitstop_seen := false
+				while not player.is_melee_cancellable() and ticks > 0:
+					hitstop_seen = hitstop_seen or Fx._frozen.has(player)
+					await physics_frames(1)
+					ticks -= 1
+				check(ticks > 0 and hitstop_seen and target.health.current == 999 - int(attack.damage)
+					and (player._melee_landed or (player._melee_phase == Player.MeleePhase.NONE and float(attack.cancel_after) >= float(attack.recovery))),
+					label + " naturally lands and pays through local hitstop to its cancel window")
+				# The return recipient is a different real Enemy, not a mocked receive().
+				target.queue_free()
+				var recipient := _dummy(100.0 * face)
+				var return_hits: Array[int] = []
+				recipient.health.damaged.connect(func(info: DamageInfo) -> void: return_hits.append(info.amount))
+				await physics_frames(2)
+				_guard_input(face < 0, true)
+				ticks = 60
+				while not player.is_blocking and ticks > 0:
+					await physics_frames(1)
+					ticks -= 1
+				check(ticks > 0 and player._melee_phase == Player.MeleePhase.NONE and player._melee_index == -1
+					and player._melee_commands.remaining() == 0.0, label + " real held block cancels only after payment and clears the old chain")
+				if outcome != "parry":
+					ticks = 60
+					while player._block_time <= player.parry_window_length() + 0.03 and ticks > 0:
+						await physics_frames(1)
+						ticks -= 1
+					check(ticks > 0 and player.is_blocking and not player.is_parry_window(), label + " naturally reaches the normal guard window")
+				var hp := player.health.current
+				var energy := player.guard
+				var damage_hits: Array[int] = []
+				player.health.damaged.connect(func(info: DamageInfo) -> void: damage_hits.append(info.amount))
+				var side: int = -face if outcome == "rear" else face
+				var shot := ProjectilePool.spawn(spec, player.global_position + Vector2(side * 20.0, -22.0), Vector2(-side, 0.0), Combat.Team.ENEMY)
+				check(shot != null, label + " spawns through the real projectile pool")
+				ticks = 90
+				var reflected := false
+				while shot != null and shot.active and ticks > 0:
+					await physics_frames(1)
+					reflected = reflected or shot.team == Combat.Team.PLAYER
+					ticks -= 1
+				check(ticks > 0, label + " contact and any return flight naturally finish")
+				if outcome == "parry":
+					check(reflected and return_hits == [spec.damage * 2] and recipient.health.current == 999 - spec.damage * 2,
+						label + " window reflects a real projectile into exactly one doubled-damage enemy hit")
+					check(player.health.current == hp and damage_hits.is_empty() and is_equal_approx(player.guard, energy),
+						label + " parry preserves player health and energy")
+				elif outcome == "block":
+					check(not reflected and return_hits.is_empty() and player.health.current == hp and damage_hits.is_empty()
+						and is_equal_approx(energy - player.guard, spec.damage * player.tuning.guard_cost_per_damage),
+						label + " late front contact spends exactly guard cost without health damage or return hit")
+				else:
+					check(not reflected and return_hits.is_empty() and damage_hits == [spec.damage] and player.health.current == hp - spec.damage
+						and is_equal_approx(player.guard, energy), label + " rear contact deals one health hit without spending directional guard")
+				var charge := player.loadout.mag_in(player.loadout.active_slot)
+				var contact_hp := player.health.current
+				var contact_guard := player.guard
+				# Both production command paths must refuse a tap while the shield is held.
+				_event_tap(&"melee")
+				Input.action_press(&"shoot")
+				await physics_frames(2)
+				Input.action_release(&"shoot")
+				check(player._melee_commands.remaining() == 0.0 and player._melee_phase == Player.MeleePhase.NONE
+					and player.loadout.mag_in(player.loadout.active_slot) == charge, label + " event melee and polled shoot cannot queue or spend through a held shield")
+				await _guard_capture(id, face, outcome, player)
+				_guard_input(face < 0, false)
+				await physics_frames(18)
+				check(player._melee_phase == Player.MeleePhase.NONE and player._melee_index == -1
+					and player.loadout.mag_in(player.loadout.active_slot) == charge, label + " lowering shield cannot replay a refused or old combo")
+				print("NE236_WEAPON_GUARD ", JSON.stringify({"weapon":id, "face":face, "outcome":outcome, "input":"event" if face < 0 else "poll",
+					"natural_hitstop":hitstop_seen, "health_before":hp, "health_after":contact_hp, "guard_before":energy,
+					"guard_after":contact_guard, "reflected":reflected, "return_hits":return_hits, "player_hits":damage_hits,
+					"pending":player._melee_commands.remaining(), "final_index":player._melee_index}))
+				await end_level(level)
+		# A held shield during a miss cannot erase windup, active or full recovery.
+		await open_level(10.0)
+		var player := _arm(id)
+		check(player._try_melee(), id + " whiff starts naturally")
+		var recovery := float(player._melee_attack.recovery)
+		_guard_input(false, true)
+		var ticks := 180
+		var recovery_frames := 0
+		var early_shield := false
+		while player._melee_phase != Player.MeleePhase.NONE and ticks > 0:
+			early_shield = early_shield or player.is_blocking
+			if player._melee_phase == Player.MeleePhase.RECOVERY:
+				recovery_frames += 1
+			await physics_frames(1)
+			ticks -= 1
+		await physics_frames(2)
+		check(ticks > 0 and not early_shield and recovery_frames >= int(recovery * 60.0) - 1,
+			id + " held shield never cancels a whiff before its real full recovery (%d frames)" % recovery_frames)
+		check(player.is_blocking and player._melee_index == -1 and player._melee_commands.remaining() == 0.0,
+			id + " natural completion raises shield and clears the expired swing")
+		print("NE236_GUARD_WHIFF ", JSON.stringify({"weapon":id, "recovery_seconds":recovery, "recovery_frames":recovery_frames,
+			"early_shield":early_shield, "blocking":player.is_blocking, "index_on_raise":player._melee_index}))
+		_guard_input(false, false)
+		await physics_frames(2)
+		_event_tap(&"melee")
+		await physics_frames(2)
+		check(player._melee_index == 0, id + " a new tap immediately after lowering begins a fresh first swing, not the old missed chain")
+		print("NE236_GUARD_FRESH_TAP ", JSON.stringify({"weapon":id, "phase":player._melee_phase, "index":player._melee_index}))
+		await _finish_swing(player)
+		await physics_frames(3)
+		await end_level(level)
+
+
+func _guard_input(event_path: bool, pressed: bool) -> void:
+	if event_path:
+		var event := InputEventAction.new()
+		event.action = &"block"
+		event.pressed = pressed
+		Input.parse_input_event(event)
+	else:
+		if pressed:
+			Input.action_press(&"block")
+		else:
+			Input.action_release(&"block")
+
+
+func _guard_capture(id: String, face: int, outcome: String, player: Player) -> void:
+	for arg in OS.get_cmdline_user_args():
+		if not arg.begins_with("--weapon-guard-evidence-out="):
+			continue
+		var out := arg.trim_prefix("--weapon-guard-evidence-out=")
+		DirAccess.make_dir_recursive_absolute(out)
+		var camera := runner.get_viewport().get_camera_2d()
+		camera.set_physics_process(false)
+		camera.zoom = Vector2.ONE * 3.4
+		camera.global_position = player.global_position + Vector2(face * 26.0, -34.0)
+		camera.reset_smoothing()
+		await RenderingServer.frame_post_draw
+		await RenderingServer.frame_post_draw
+		var image := preload("res://tools/viewport_capture.gd").image(runner.get_viewport())
+		var name := "NE-236-weapon-guard-%s-%s-%s.png" % [id, "left" if face < 0 else "right", outcome]
+		check(image.save_png(out.path_join(name)) == OK, "native guard capture saves " + name)
+		print("NE236_GUARD_CAPTURE ", JSON.stringify({"image":name, "renderer":RenderingServer.get_current_rendering_method(),
+			"adapter":RenderingServer.get_video_adapter_name(), "width":image.get_width(), "height":image.get_height(),
+			"zoom":str(camera.zoom), "blocking":player.is_blocking, "block_time":player._block_time,
+			"health":player.health.current, "guard":player.guard, "phase":player._melee_phase}))
 
 
 func _test_paid_cancels_and_facing() -> void:

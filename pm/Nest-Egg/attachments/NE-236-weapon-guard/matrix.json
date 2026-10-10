@@ -1,0 +1,2837 @@
+{
+  "base": "82882bb455ad2d57a5904a6cfbdf6b9c8d6645fa",
+  "rows": [
+    {
+      "variant": "initial",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "initial",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "initial",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "initial",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "initial",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "initial",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "initial",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "initial",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "initial",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "initial",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "initial",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "initial",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "initial",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "initial",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "initial",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "initial",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "initial",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "initial",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "initial",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "initial",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "initial",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "initial",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "initial",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "initial",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "initial",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "initial",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "initial",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "initial",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "initial",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "initial",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "native-low",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "native-low",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "native-low",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "native-low",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "native-low",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "native-low",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "native-low",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "native-low",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "native-low",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "native-low",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "native-low",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "native-low",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "native-low",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "native-low",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "native-low",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "native-low",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "native-low",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "native-low",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "native-low",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "native-low",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "native-low",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "native-low",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "native-low",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "native-low",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "native-low",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "native-low",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "native-low",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "native-low",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "native-low",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "native-low",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "native-high",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "native-high",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "native-high",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "native-high",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "native-high",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "native-high",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "native-high",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "native-high",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "native-high",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "native-high",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "native-high",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "native-high",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "native-high",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "native-high",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "native-high",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "native-high",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "native-high",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "native-high",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "native-high",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "native-high",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "native-high",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "native-high",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "native-high",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "native-high",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "native-high",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "native-high",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "native-high",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "native-high",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "native-high",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "native-high",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "native-low-final",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "native-low-final",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "native-low-final",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "native-low-final",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "native-low-final",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "native-low-final",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_dagger"
+    },
+    {
+      "variant": "native-low-final",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "native-low-final",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "native-low-final",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "native-low-final",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "native-low-final",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "native-low-final",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_blade"
+    },
+    {
+      "variant": "native-low-final",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "native-low-final",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "native-low-final",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "native-low-final",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "native-low-final",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "native-low-final",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_maul"
+    },
+    {
+      "variant": "native-low-final",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "native-low-final",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "native-low-final",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "native-low-final",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "native-low-final",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "native-low-final",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_glaive"
+    },
+    {
+      "variant": "native-low-final",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "native-low-final",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "native-low-final",
+      "face": 1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "poll",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "native-low-final",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 76.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "block",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "native-low-final",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 999,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "parry",
+      "pending": 0.0,
+      "player_hits": [],
+      "reflected": true,
+      "return_hits": [
+        2
+      ],
+      "weapon": "melee_whip"
+    },
+    {
+      "variant": "native-low-final",
+      "face": -1,
+      "final_index": -1,
+      "guard_after": 100.0,
+      "guard_before": 100.0,
+      "health_after": 998,
+      "health_before": 999,
+      "input": "event",
+      "natural_hitstop": true,
+      "outcome": "rear",
+      "pending": 0.0,
+      "player_hits": [
+        1
+      ],
+      "reflected": false,
+      "return_hits": [],
+      "weapon": "melee_whip"
+    }
+  ],
+  "captures": [
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_blade-left-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-left-block-rejected.png",
+      "sha256": "9be18593329a1d76bd2fc24580e107e3dae117f9c3693f9935397d6d73e4f91c",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_blade-left-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-left-parry-rejected.png",
+      "sha256": "f46e57e4a5bb93d4eba0377d0355f378d9efa12fff3378b058764533cca5b8ef",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_blade-left-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-left-rear-rejected.png",
+      "sha256": "e4ca0cf3766d60772a075b15a5d29f771ab915f06b5ed9d1a874448589326b28",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_blade-right-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-right-block-rejected.png",
+      "sha256": "296e24d46dd65f9be850b32a7f306540f62792b0002f549eb378b8e2e3a431af",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_blade-right-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-right-parry-rejected.png",
+      "sha256": "741f6e435206aa152f03435e84c6de65ac433b392d75a7e9cbd430cae7679660",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_blade-right-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-right-rear-rejected.png",
+      "sha256": "1d1905b084f17bc64b3a6b3dcdec0d782974557e6815f997e674e67ccb2141c5",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_dagger-left-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-left-block-rejected.png",
+      "sha256": "014dc3ac71612191ac13689803faba9d8b26b0a2d7fbf44dd3838566b84620d3",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_dagger-left-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-left-parry-rejected.png",
+      "sha256": "b974210b3e0e2a2db398af4f09e06efcf1a9d2cf6824fd64759422f709f315dc",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_dagger-left-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-left-rear-rejected.png",
+      "sha256": "a75c7a68702b0ef2ed7604b65973f401373bc315423e939140f4c951a4ed9dd3",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_dagger-right-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-right-block-rejected.png",
+      "sha256": "51e6623d1580af747ed4d128ad6f754645f5252ee2b056058322ad4f6b8c7855",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_dagger-right-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-right-parry-rejected.png",
+      "sha256": "197e9fcc7daa4756f2f6910e800a2a5a75e693d3fef9b6a8a62b821178090569",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_dagger-right-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-right-rear-rejected.png",
+      "sha256": "f128b371261b8b72a2ac70ef5fc291d0ecb172312adc0ccf50d123564de50ee3",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_glaive-left-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-left-block-rejected.png",
+      "sha256": "b6f646ac635045fa1f439b588d9d22bd1b7c8869b335aefc8e0d6ea07506a9d6",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_glaive-left-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-left-parry-rejected.png",
+      "sha256": "872e4b18ff232c2624590f3a3c519a8cb13f4b11b72c0c15334bd1465f7177be",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_glaive-left-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-left-rear-rejected.png",
+      "sha256": "28d851f8ff5ed1c27dbecb6c6b04003ebe615d6a3c990e8135a4bf6785c6f2a1",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_glaive-right-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-right-block-rejected.png",
+      "sha256": "32587d468076c8b071bf1409491d9cfe1f83a2d385083bfde3e9f4edffb0d9b5",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_glaive-right-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-right-parry-rejected.png",
+      "sha256": "3d7350a9a0c8a6d2405571fb73975e021aa6a1407c30621289a342c9621bc72c",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_glaive-right-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-right-rear-rejected.png",
+      "sha256": "dcc940ad8773ef13f2641f622804fb63d9674133a4536194e7a8ecac817dfb97",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_maul-left-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-left-block-rejected.png",
+      "sha256": "39db3607053390558b239415440faa6c8d3f6756ff0b5ce388348ecf88c59d48",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_maul-left-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-left-parry-rejected.png",
+      "sha256": "7bc9f62e8137b626a8b23c3161918f6006fd9d1a056e82f9e7ad5d077a6e5055",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_maul-left-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-left-rear-rejected.png",
+      "sha256": "4b089e61507cda7dbf3f0d02c14261c0c7ae06973d2dafb5a61a2b51a8ebeafa",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_maul-right-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-right-block-rejected.png",
+      "sha256": "c0fc4199bc9fdd2b281be3900d3e3db1bd49027b649a111e860c66a62ec0d6ba",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_maul-right-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-right-parry-rejected.png",
+      "sha256": "c3c8fd90809b553c74d348499371e06c01dc759aa78d4a09e4cacd720eb3aa55",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_maul-right-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-right-rear-rejected.png",
+      "sha256": "f6ac22df0fdc76ef5621c1b14d537547467618d060cddc6c34bc236169c40682",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_whip-left-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-left-block-rejected.png",
+      "sha256": "53ec35613011ef9d36122fc876b0d72816e6d493b6a57157ed5ace39df36dfc7",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_whip-left-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-left-parry-rejected.png",
+      "sha256": "665f2892288f0a20335432372e304748768e0c34ef781cabf26b381c11906ab5",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_whip-left-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-left-rear-rejected.png",
+      "sha256": "a4da3e0f1e6c0fa8df16dd51bb9781552ca5ab37b386ad23b5b284f35ea03636",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_whip-right-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-right-block-rejected.png",
+      "sha256": "f448faf51bbfc88f2f8c91eb4c391650f7f8593b08a31b1022e23ad44650bc59",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_whip-right-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-right-parry-rejected.png",
+      "sha256": "7580710562876bb6166961481c2178a13f9fb219408d9c2d7052ba2b4d7fff28",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-low",
+      "raw_image": "NE-236-weapon-guard-melee_whip-right-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-right-rear-rejected.png",
+      "sha256": "5b91b6892cfae6585fdae0a444e283fdd72ac312d3cd36fdf6907a48094f52eb",
+      "visual_use": "rejected title/camera"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_blade-left-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-left-block-high.png",
+      "sha256": "b33ccf494cfc1502f1bb8c254b686596c75f13eb48066dbd98799efe6d08eb22",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_blade-left-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-left-parry-high.png",
+      "sha256": "41a531a05ff9011ef34bf888dfc8a8ca635ff99920585b37b4c9600d2658ae91",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_blade-left-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-left-rear-high.png",
+      "sha256": "61aa933588837dbcb3139e9216a6c67bc5662a89618b2a50973c3b1316dc0661",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_blade-right-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-right-block-high.png",
+      "sha256": "fa039c7b827a606fa0706192f5dd315a4d3efb522d46a5c6d8c2a111127c309d",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_blade-right-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-right-parry-high.png",
+      "sha256": "1ced81ae821c288f2ebd4746cfa993b2542a9a57e564a4faafe430034fd46026",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_blade-right-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-right-rear-high.png",
+      "sha256": "5d87758aa84cc150bf248c071d5df7fdbbf5bc457e9898fb857c4785a2de8412",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_dagger-left-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-left-block-high.png",
+      "sha256": "69797c74d70eae629e51af3343afcd8cad7ffccd8ff4a8490fced09c6c1450a8",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_dagger-left-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-left-parry-high.png",
+      "sha256": "5458706f298920eab79ff624eb0bf8d17db291201d07e9a6f235666086a1bca9",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_dagger-left-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-left-rear-high.png",
+      "sha256": "60bf5b29a0c8e0929033c210f8cfbe5fb00b3c2cf0184a61e1722312df916bb9",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_dagger-right-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-right-block-high.png",
+      "sha256": "ef5c8f6bc9cb59583088c2533d97aebdcab3504e04a9d35864d41be01d1981b0",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_dagger-right-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-right-parry-high.png",
+      "sha256": "e351c70bc7f60d6898150414ea107022e7472561ac7fe7f782b7394997ecaf03",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_dagger-right-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-right-rear-high.png",
+      "sha256": "7fede981c17deb73cef94fcb230952e67eed41b2b8116ab8c59ef7338941cfe9",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_glaive-left-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-left-block-high.png",
+      "sha256": "df19d7a9adec919e5f1f54fc33ba153355d129bc6225642d35a184ed595986d1",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_glaive-left-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-left-parry-high.png",
+      "sha256": "2a3a354c198bae8d4b8de9843596bd3952268fa5ba7e0205689e1bac833de345",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_glaive-left-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-left-rear-high.png",
+      "sha256": "8495e23b79cd958d8c49c58fe184654fac38760d3fd09eae3954664e43e0d4f4",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_glaive-right-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-right-block-high.png",
+      "sha256": "87664a4fe63b26331095246fe09af963bb75ca9ab9fc5aaa3f6657074408e781",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_glaive-right-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-right-parry-high.png",
+      "sha256": "b998d92d61f5309916f84e6c8d70659b939a0565f0b120d1787b1c7ef81cd05b",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_glaive-right-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-right-rear-high.png",
+      "sha256": "7c2aaa608d9f980d69de2b8d30b624e926db5a69b28656dfa8128b098a6bd183",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_maul-left-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-left-block-high.png",
+      "sha256": "df671b601b996b6e5895ff962ec46014561d460d444e5bd8a56854f6878f6654",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_maul-left-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-left-parry-high.png",
+      "sha256": "43db3a9630ff994d956a7073203694a8732a6a50c27c1f26a4a33104e2b16e20",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_maul-left-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-left-rear-high.png",
+      "sha256": "c5c0e2cbba494cde76193b0a0f91207282bb0616dcbd99765f465d2c46f3a069",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_maul-right-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-right-block-high.png",
+      "sha256": "cbbbe610ba53a18542a725aefb2c79dae8a21452ddaf7b46725009c32cb3c36d",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_maul-right-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-right-parry-high.png",
+      "sha256": "a94f5d56df50e4e79d4d3ed8df424da2f6d496e644a139b7b3d3bbe2044015fa",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_maul-right-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-right-rear-high.png",
+      "sha256": "a0b88348f7f5b07f754f440ea4f9573197c92c6aa43e07996d62828fdf3a79a8",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_whip-left-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-left-block-high.png",
+      "sha256": "f79a0f19565c39e801e220ff7f541ad2004a5fe01027b8ace072750a1bc59df7",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_whip-left-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-left-parry-high.png",
+      "sha256": "0d89e812576adbdbe52dfc1f6c6fb68841d212804bb101761395020753b6a3e8",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_whip-left-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-left-rear-high.png",
+      "sha256": "fd124e0cdba3fc70e873516069d80ef8836338ed856558802e5bc2b42231e523",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_whip-right-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-right-block-high.png",
+      "sha256": "fd79e3d8c0148c541ba71ae57fe0e73f713099dc92586d03c9eedb79d6deed54",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_whip-right-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-right-parry-high.png",
+      "sha256": "c27583273d9d635d62f040e0c30a12e59d41dbfabf964dc862fbddef03b1f817",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-high",
+      "raw_image": "NE-236-weapon-guard-melee_whip-right-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-right-rear-high.png",
+      "sha256": "9e7da671679f3c2a67585d05321de17f94c2bbda37823aef64748524ca84d732",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_blade-left-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-left-block-low.png",
+      "sha256": "dd37cb7ea5c3775f12b1d9b3b1fefa89e7b3f2e569ca4d4c54e3b6c9098dd959",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_blade-left-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-left-parry-low.png",
+      "sha256": "273c80df1a8194c2e9d9374a4b2126dcd1500799dad0e2971ef18fdc71120254",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_blade-left-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-left-rear-low.png",
+      "sha256": "a3853f8d42cffb888a9d0fdd856f6f19ee2a073f164ae5d31370afc04db30d01",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_blade-right-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-right-block-low.png",
+      "sha256": "5ef113d044f994696c635b5fb9077397871e06e411f59f1ddc70ec024c3fe801",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_blade-right-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-right-parry-low.png",
+      "sha256": "33b3155315d50910ae0daace55c86b17a5bd056ccd0690582ca7af08d9b8cb31",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_blade-right-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-right-rear-low.png",
+      "sha256": "ccf4ee0e0f6c9648e6ba7b1a80cec63345d30204b7b80655ef84132d8e51532f",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_dagger-left-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-left-block-low.png",
+      "sha256": "2f252ff1d3240b040c44153440135c648855c762550ba3e9400d6b4a4bddb59a",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_dagger-left-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-left-parry-low.png",
+      "sha256": "f14b7cfb7fd82fd54808ce554ac81364159994e9058c479dc9694c2a17cf22ce",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_dagger-left-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-left-rear-low.png",
+      "sha256": "cfce4eda28476b32b1edee7f4fcf1b04df4f414ac442f2eda4aacf5f5d34eca9",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_dagger-right-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-right-block-low.png",
+      "sha256": "6ad99a570750100e02dda246b41fa85654b4213f8bb822aef84fd315266453de",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_dagger-right-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-right-parry-low.png",
+      "sha256": "d8e52083ecbd21f85e92a10d98ec11cb2c0fcae715d8aba42e8a53dc92acac43",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_dagger-right-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-right-rear-low.png",
+      "sha256": "e4dbfcf2bf396209f49b45d449b8b357a0af2a5f968231d7e70021f0afd5c86d",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_glaive-left-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-left-block-low.png",
+      "sha256": "3dd5fbf8c16b773317bddeaf94de0fe9d293cfbd8b630f3fde2ccd6051e59bc9",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_glaive-left-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-left-parry-low.png",
+      "sha256": "f378ac2b5e64d22041709d2f81d095d11e76256361bec93d6ce87d43358437c7",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_glaive-left-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-left-rear-low.png",
+      "sha256": "b7470fec4a276299575f5de5eb7bad8923528f32b6f8f7d7aed38e757b18519d",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_glaive-right-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-right-block-low.png",
+      "sha256": "d6215b302710796eb2cfdcfe2c6f6cad4b123aae6244fef2ed072262b62eb913",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_glaive-right-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-right-parry-low.png",
+      "sha256": "dcaec9a684fab2f7ce474c54cd8804f4e9c3af91b936733b231d900ed2e3950b",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_glaive-right-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-right-rear-low.png",
+      "sha256": "64ac93b8897127868b4beaaacd40ecd10fd9585b793e560cfc5f00f4a402459b",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_maul-left-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-left-block-low.png",
+      "sha256": "0c74df4de2461fedc10e7e3e52d0101e283161643d768fd841961736fee63b17",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_maul-left-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-left-parry-low.png",
+      "sha256": "af153cfeef7171355ba7877f477d261df10d6f58dfa791e24fa80b935703c709",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_maul-left-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-left-rear-low.png",
+      "sha256": "ba33773df4f5b8a4f4ca549235f880816c74d6ac178683f31f8c02bb608e8033",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_maul-right-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-right-block-low.png",
+      "sha256": "960460096f9e83d3766101d3e33846dc96b88ff795772680f05ae326cb5b54f8",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_maul-right-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-right-parry-low.png",
+      "sha256": "c1ee81843e78584e081905bbcefff9897534db3176e42f08d2e171bb073d06ae",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_maul-right-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-right-rear-low.png",
+      "sha256": "367d0e1ac4a3992a06480a0899d89cf45f031587d091025b66911fe163660b3d",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_whip-left-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-left-block-low.png",
+      "sha256": "0701f1ffca03e33789018c7725885c7ef5ba179856fff8217335780cbac6e8c2",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_whip-left-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-left-parry-low.png",
+      "sha256": "dfac2968cc0c629685aaaba37fd8b04d7bf60b4fd2762ccb9bc2cd20214f4e07",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_whip-left-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-left-rear-low.png",
+      "sha256": "abbc482114d1e20ef5ef8eb78415777c7f3906a23e74eb8b57a70c5cfdf076fe",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_whip-right-block.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-right-block-low.png",
+      "sha256": "3661ff955c42ab76ce3c25687829f5f497a0bab0e5432c194ab465165dbef5c7",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_whip-right-parry.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-right-parry-low.png",
+      "sha256": "e045b823b1b0e3b01feea7325716e896537549ce348810631d13d05818bb0401",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    },
+    {
+      "variant": "native-low-final",
+      "raw_image": "NE-236-weapon-guard-melee_whip-right-rear.png",
+      "committed_path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-right-rear-low.png",
+      "sha256": "0cbd6e2699d4b8eb1b41176166322df47131f25f5f5626fec37d408710506fa7",
+      "visual_use": "post-contact functional sample, not art acceptance"
+    }
+  ]
+}

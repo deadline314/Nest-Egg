@@ -1,0 +1,92 @@
+{
+  "base": "212768fa4a98e9db5bb1b3f4c067ef6027c7547d",
+  "player_only_documented_change": true,
+  "all_original_melee_weapons_tests_preserved": true,
+  "files": [
+    {
+      "path": "game/player/player_visual.gd",
+      "sha256": "5bc6a6d2e5a9a510412acd735025c0fe537bd616510780c9a36d23764cf80f56",
+      "unchanged": true
+    },
+    {
+      "path": "game/rig/character_rig.gd",
+      "sha256": "c345420e4ba825c34ab6a9cb417179c8845546878d72d28f355ccfa69f3ce45e",
+      "unchanged": true
+    },
+    {
+      "path": "game/rig/humanoid_animator.gd",
+      "sha256": "5e8468977264cadd2772f45779b3dd127fa332e2dce14e2f644e094d427e93fc",
+      "unchanged": true
+    },
+    {
+      "path": "game/rig/rig_input.gd",
+      "sha256": "1807cc5e7318be6a3564d37f41870807010ad80277c17b557b90d373d5d03350",
+      "unchanged": true
+    },
+    {
+      "path": "game/level/level.gd",
+      "sha256": "c85262f80873b64581d8c07fd5832310e851be01001ef14c3eba321942815d1c",
+      "unchanged": true
+    },
+    {
+      "path": "autoload/fx.gd",
+      "sha256": "f610b95735470417c15ffd6a8ca7df0e0b5f41ea89c527dc0b8ecd5831cf84a3",
+      "unchanged": true
+    },
+    {
+      "path": "autoload/progression.gd",
+      "sha256": "7dcbee41e73d11e5c3f7b5bd9b68869e1591f2c62acb0d3dcadf5e02a688496c",
+      "unchanged": true
+    },
+    {
+      "path": "game/main.gd",
+      "sha256": "baed92bd3f13c1a5e186f91974bf28595d4b0cc014759eab9b25d69a83b38767",
+      "unchanged": true
+    },
+    {
+      "path": "autoload/story.gd",
+      "sha256": "2d87e41d333bf2e6c7979818146c5d4a32c94536d04f6e4ebded71ef80a01ecc",
+      "unchanged": true
+    },
+    {
+      "path": "core/run_snapshot.gd",
+      "sha256": "2740ff16fe2c56cc2974ca73263ed7b427f91980ad91c932241ef1457eea9121",
+      "unchanged": true
+    },
+    {
+      "path": "tools/run_tests_changed.sh",
+      "sha256": "14d71b3922cd580b9f85b774d431a3ff7e1e7e2ff0c1d5052740aac8b3ae604a",
+      "unchanged": true
+    },
+    {
+      "path": "tools/run_tests_parallel.sh",
+      "sha256": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba",
+      "unchanged": true
+    },
+    {
+      "path": "tools/select_tests.py",
+      "sha256": "9ba6c288341e885979d7e171509e907b46b2b7347f1fc99e4145ec5d83986c03",
+      "unchanged": true
+    },
+    {
+      "path": "tools/test_filters.sh",
+      "sha256": "319fea9acacfdad9f7dab7948ea5a2d76652757623b428829605160a210e678a",
+      "unchanged": true
+    },
+    {
+      "path": "tests/known_failures.txt",
+      "sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf",
+      "unchanged": true
+    },
+    {
+      "path": "tests/smoke_test.gd",
+      "sha256": "fcef9118c7b7df128d9f409748492ec64beb22c815f4c09b400e5e5846438849",
+      "unchanged": true
+    },
+    {
+      "path": "tests/suite/test_rig_actions.gd",
+      "sha256": "3144f8b3da2497bda28f7abd051c609c4e3b2498225d8564de13c2668309e43c",
+      "unchanged": true
+    }
+  ]
+}

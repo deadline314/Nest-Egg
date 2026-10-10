@@ -1,0 +1,720 @@
+{
+  "base": "82882bb455ad2d57a5904a6cfbdf6b9c8d6645fa",
+  "files": [
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/changed/console.log",
+      "sha256": "52e1326639b8c35fa01343d32bac40078f817651f211f67175770e24c7974034",
+      "bytes": 2491
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/changed/exit.txt",
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+      "bytes": 2
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/changed/shard_0.log",
+      "sha256": "6b291c4163abdfc63f030e01c58163140efa51b4b7e137a10626a81fec708173",
+      "bytes": 66613
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/changed/shard_1.log",
+      "sha256": "be18f7c8d9e4191b9e1e61a47529c2a9897387a795503b5d8c1f565ee5e3ad3b",
+      "bytes": 57748
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/changed-single/console.log",
+      "sha256": "d86c671c8f0e81906205a85cd7661275ef277ed3e16bc81bc5b4c207b83aa12f",
+      "bytes": 2162
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/changed-single/exit.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "bytes": 2
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/changed-single/shard_0.log",
+      "sha256": "71f5deeda158158a10ab6eec92a9cc59768b6ecbdf6319cca7ba4ed40b9df947",
+      "bytes": 163494
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/fetch-check-exit.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "bytes": 2
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/fetch-check.log",
+      "sha256": "1e5144663c85c99947186b5c0b2d5696807b8e8e024ba1bcbb905e281ac8eaef",
+      "bytes": 142
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/import.log",
+      "sha256": "d82ace99aa72be52562cfa5b17a603ca8ad075f116dc2b3fb8a418fdb9e52fea",
+      "bytes": 765645
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/initial/console.log",
+      "sha256": "8f147511523a701ca9e9d98032286ceecf75516f32211598f540712651eccdaa",
+      "bytes": 1145
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/initial/exit.txt",
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+      "bytes": 2
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/initial/player.gd.txt",
+      "sha256": "4a2abf7533d4cb5ab19e4fa188424f48ceb52168c4f2470db539b63a8a9ed55c",
+      "bytes": 54787
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/initial/shard_0.log",
+      "sha256": "a8cb2f0a24592a0d04a3edba7ac8373a35caf0ff1e264ac13a1412437da70138",
+      "bytes": 12298
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/initial/source.gd.txt",
+      "sha256": "6fbe47b76b812c31a302deb7fc8360e2a34b0ed8b898b341dfb9e3bf4e1872c1",
+      "bytes": 43608
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/matrix.json",
+      "sha256": "030b309ec7d371e28d51fd23fe5c1cb08f4f6b71b942cb3d14dc3c763862e3bb",
+      "bytes": 82873
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/memory-events-after-abort.txt",
+      "sha256": "28fe05a1d7b8467a03fb54454f7b6a130fab752864d0454f5f6c4a4b6ce307f2",
+      "bytes": 53
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/native-high/exit.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "bytes": 2
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/native-high/raw.log",
+      "sha256": "7690c4f140e39dcb7c969860d8d2e9c0cce9f06fa73d21a86ee8bfae4ed2024a",
+      "bytes": 18065
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/native-low/exit.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "bytes": 2
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/native-low/raw.log",
+      "sha256": "a744176eddd2234712e340bd957d989ad3b3100d7c7d64d358ee51ffb9fdae85",
+      "bytes": 17987
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/native-low-final/exit.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "bytes": 2
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/native-low-final/raw.log",
+      "sha256": "95d5f87f9789344c09574c15845ba5195d0f598be6b70012bf09fc271d1230fc",
+      "bytes": 18037
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/preservation.json",
+      "sha256": "9bb1756c7fe04397fd52e209a9e78af6c574109449b4aee744ac886f2bea2ae7",
+      "bytes": 1713
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/rebase-checks/console.log",
+      "sha256": "d15e89b2c6c6b45da56962ac16e0dfb28a9f035017ed8ffcd869c73c0ac66d16",
+      "bytes": 330
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/rebase-checks/exit.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "bytes": 2
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/rebase-checks/shard_0.log",
+      "sha256": "13b06188fb65d52286aa2d3fdb5ed5558866a84ee81c93649c67b55154557b5a",
+      "bytes": 29409
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/rebase-import-exit.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "bytes": 2
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/rebase-import.log",
+      "sha256": "a66abce8e4fc238db84c16ed38316622b04c1936d5c7e485b6ef7cfb4bf31efa",
+      "bytes": 10811
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/rebase-preservation.json",
+      "sha256": "706c06bbc4295a470b6f1f157263d592008c79c28c692f9471b6f65562407602",
+      "bytes": 2909
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/red/console.log",
+      "sha256": "5a03bf98fa5c566911d2b3a755144f3a5b029287d09d07c60430e5aa2ccbbd2e",
+      "bytes": 343
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/red/exit.txt",
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+      "bytes": 2
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/red/shard_0.log",
+      "sha256": "338c259a0b50d559b204c85821abe04dda66c70cc3d987bb8e2ad0df8f279957",
+      "bytes": 945
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/red/source.gd.txt",
+      "sha256": "fadbb1f3e247eb7c5db777aaba473cc0c7939e6a2f0eedb240036ae455af0ee9",
+      "bytes": 43604
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/results.json",
+      "sha256": "92b767d342244ac070dfccbe6378b5f9695c8ee55e5f66e72dd4f4d4391c0619",
+      "bytes": 2156
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/source-at-changed/player.gd.txt",
+      "sha256": "6ba9447d438180e2872e97f97a01fb136fb86b3cc7359f57a5654de9e95c1d11",
+      "bytes": 54816
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/source-at-changed/probe.gd.txt",
+      "sha256": "7423d294c0432cb32080521b620259c683558303d37ddfd1bb3c8b88384f97f9",
+      "bytes": 953
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/source-at-changed/test.gd.txt",
+      "sha256": "a825b8f2f8a9ef67f5ee05e1d04dacc3ad1219419e10f0e458cda8735404dbe3",
+      "bytes": 43731
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/source-before-cleanup/test.gd.txt",
+      "sha256": "bcb6b0eefd4066cd676329ffc883b4888fb26c9466f60d6dcb41a4b7008441d0",
+      "bytes": 43961
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/source-final/WEAPON_COMBOS.md.txt",
+      "sha256": "481ff37c0ba0977ba7afcc6328dc4ba68d2c21c1bf56e90c000192d4be456038",
+      "bytes": 13595
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/source-final/player.gd.txt",
+      "sha256": "6ba9447d438180e2872e97f97a01fb136fb86b3cc7359f57a5654de9e95c1d11",
+      "bytes": 54816
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/source-final/test_melee_weapons.gd.txt",
+      "sha256": "1c10898e124e4b3327ebb27ba37da13a9c554c164832c058839234e5c523d1b4",
+      "bytes": 44017
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/source-final/weapon_guard_probe.gd.txt",
+      "sha256": "7423d294c0432cb32080521b620259c683558303d37ddfd1bb3c8b88384f97f9",
+      "bytes": 953
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/source-final/weapon_guard_probe.gd.uid.txt",
+      "sha256": "7bb6be59fbcb6e62bbe84c8937df61adb806a040a11b7c0a0b421dc6fcb1050a",
+      "bytes": 20
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/source-final/weapon_guard_probe.tscn.txt",
+      "sha256": "36aa2cfd4e70aff6fc45b08941caf42245a6696c329ac26cde9cc50534102955",
+      "bytes": 179
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/source.diff",
+      "sha256": "358af16631892459fc6f9263360f0ea0b8c022440cef8a77ed072a7f53289662",
+      "bytes": 14855
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-236-weapon-guard/visual-review.md",
+      "sha256": "78117c21331f69bd8008e5f99638f60c0cd3275d129e5152a324fb7762082c81",
+      "bytes": 2345
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-left-block-high.png",
+      "sha256": "b33ccf494cfc1502f1bb8c254b686596c75f13eb48066dbd98799efe6d08eb22",
+      "bytes": 185019
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-left-block-low.png",
+      "sha256": "dd37cb7ea5c3775f12b1d9b3b1fefa89e7b3f2e569ca4d4c54e3b6c9098dd959",
+      "bytes": 183852
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-left-block-rejected.png",
+      "sha256": "9be18593329a1d76bd2fc24580e107e3dae117f9c3693f9935397d6d73e4f91c",
+      "bytes": 92159
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-left-parry-high.png",
+      "sha256": "41a531a05ff9011ef34bf888dfc8a8ca635ff99920585b37b4c9600d2658ae91",
+      "bytes": 187940
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-left-parry-low.png",
+      "sha256": "273c80df1a8194c2e9d9374a4b2126dcd1500799dad0e2971ef18fdc71120254",
+      "bytes": 183528
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-left-parry-rejected.png",
+      "sha256": "f46e57e4a5bb93d4eba0377d0355f378d9efa12fff3378b058764533cca5b8ef",
+      "bytes": 83360
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-left-rear-high.png",
+      "sha256": "61aa933588837dbcb3139e9216a6c67bc5662a89618b2a50973c3b1316dc0661",
+      "bytes": 186096
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-left-rear-low.png",
+      "sha256": "a3853f8d42cffb888a9d0fdd856f6f19ee2a073f164ae5d31370afc04db30d01",
+      "bytes": 184535
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-left-rear-rejected.png",
+      "sha256": "e4ca0cf3766d60772a075b15a5d29f771ab915f06b5ed9d1a874448589326b28",
+      "bytes": 110292
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-right-block-high.png",
+      "sha256": "fa039c7b827a606fa0706192f5dd315a4d3efb522d46a5c6d8c2a111127c309d",
+      "bytes": 184540
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-right-block-low.png",
+      "sha256": "5ef113d044f994696c635b5fb9077397871e06e411f59f1ddc70ec024c3fe801",
+      "bytes": 187089
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-right-block-rejected.png",
+      "sha256": "296e24d46dd65f9be850b32a7f306540f62792b0002f549eb378b8e2e3a431af",
+      "bytes": 156202
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-right-parry-high.png",
+      "sha256": "1ced81ae821c288f2ebd4746cfa993b2542a9a57e564a4faafe430034fd46026",
+      "bytes": 189145
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-right-parry-low.png",
+      "sha256": "33b3155315d50910ae0daace55c86b17a5bd056ccd0690582ca7af08d9b8cb31",
+      "bytes": 178534
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-right-parry-rejected.png",
+      "sha256": "741f6e435206aa152f03435e84c6de65ac433b392d75a7e9cbd430cae7679660",
+      "bytes": 119359
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-right-rear-high.png",
+      "sha256": "5d87758aa84cc150bf248c071d5df7fdbbf5bc457e9898fb857c4785a2de8412",
+      "bytes": 186046
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-right-rear-low.png",
+      "sha256": "ccf4ee0e0f6c9648e6ba7b1a80cec63345d30204b7b80655ef84132d8e51532f",
+      "bytes": 190207
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_blade-right-rear-rejected.png",
+      "sha256": "1d1905b084f17bc64b3a6b3dcdec0d782974557e6815f997e674e67ccb2141c5",
+      "bytes": 155409
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-left-block-high.png",
+      "sha256": "69797c74d70eae629e51af3343afcd8cad7ffccd8ff4a8490fced09c6c1450a8",
+      "bytes": 184617
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-left-block-low.png",
+      "sha256": "2f252ff1d3240b040c44153440135c648855c762550ba3e9400d6b4a4bddb59a",
+      "bytes": 184477
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-left-block-rejected.png",
+      "sha256": "014dc3ac71612191ac13689803faba9d8b26b0a2d7fbf44dd3838566b84620d3",
+      "bytes": 99992
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-left-parry-high.png",
+      "sha256": "5458706f298920eab79ff624eb0bf8d17db291201d07e9a6f235666086a1bca9",
+      "bytes": 184396
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-left-parry-low.png",
+      "sha256": "f14b7cfb7fd82fd54808ce554ac81364159994e9058c479dc9694c2a17cf22ce",
+      "bytes": 185696
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-left-parry-rejected.png",
+      "sha256": "b974210b3e0e2a2db398af4f09e06efcf1a9d2cf6824fd64759422f709f315dc",
+      "bytes": 110199
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-left-rear-high.png",
+      "sha256": "60bf5b29a0c8e0929033c210f8cfbe5fb00b3c2cf0184a61e1722312df916bb9",
+      "bytes": 187841
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-left-rear-low.png",
+      "sha256": "cfce4eda28476b32b1edee7f4fcf1b04df4f414ac442f2eda4aacf5f5d34eca9",
+      "bytes": 196822
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-left-rear-rejected.png",
+      "sha256": "a75c7a68702b0ef2ed7604b65973f401373bc315423e939140f4c951a4ed9dd3",
+      "bytes": 114816
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-right-block-high.png",
+      "sha256": "ef5c8f6bc9cb59583088c2533d97aebdcab3504e04a9d35864d41be01d1981b0",
+      "bytes": 188156
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-right-block-low.png",
+      "sha256": "6ad99a570750100e02dda246b41fa85654b4213f8bb822aef84fd315266453de",
+      "bytes": 188992
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-right-block-rejected.png",
+      "sha256": "51e6623d1580af747ed4d128ad6f754645f5252ee2b056058322ad4f6b8c7855",
+      "bytes": 158382
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-right-parry-high.png",
+      "sha256": "e351c70bc7f60d6898150414ea107022e7472561ac7fe7f782b7394997ecaf03",
+      "bytes": 178827
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-right-parry-low.png",
+      "sha256": "d8e52083ecbd21f85e92a10d98ec11cb2c0fcae715d8aba42e8a53dc92acac43",
+      "bytes": 185894
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-right-parry-rejected.png",
+      "sha256": "197e9fcc7daa4756f2f6910e800a2a5a75e693d3fef9b6a8a62b821178090569",
+      "bytes": 117904
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-right-rear-high.png",
+      "sha256": "7fede981c17deb73cef94fcb230952e67eed41b2b8116ab8c59ef7338941cfe9",
+      "bytes": 188332
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-right-rear-low.png",
+      "sha256": "e4dbfcf2bf396209f49b45d449b8b357a0af2a5f968231d7e70021f0afd5c86d",
+      "bytes": 184571
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_dagger-right-rear-rejected.png",
+      "sha256": "f128b371261b8b72a2ac70ef5fc291d0ecb172312adc0ccf50d123564de50ee3",
+      "bytes": 158666
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-left-block-high.png",
+      "sha256": "df19d7a9adec919e5f1f54fc33ba153355d129bc6225642d35a184ed595986d1",
+      "bytes": 184995
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-left-block-low.png",
+      "sha256": "3dd5fbf8c16b773317bddeaf94de0fe9d293cfbd8b630f3fde2ccd6051e59bc9",
+      "bytes": 184151
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-left-block-rejected.png",
+      "sha256": "b6f646ac635045fa1f439b588d9d22bd1b7c8869b335aefc8e0d6ea07506a9d6",
+      "bytes": 92267
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-left-parry-high.png",
+      "sha256": "2a3a354c198bae8d4b8de9843596bd3952268fa5ba7e0205689e1bac833de345",
+      "bytes": 187038
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-left-parry-low.png",
+      "sha256": "f378ac2b5e64d22041709d2f81d095d11e76256361bec93d6ce87d43358437c7",
+      "bytes": 186155
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-left-parry-rejected.png",
+      "sha256": "872e4b18ff232c2624590f3a3c519a8cb13f4b11b72c0c15334bd1465f7177be",
+      "bytes": 108040
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-left-rear-high.png",
+      "sha256": "8495e23b79cd958d8c49c58fe184654fac38760d3fd09eae3954664e43e0d4f4",
+      "bytes": 189597
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-left-rear-low.png",
+      "sha256": "b7470fec4a276299575f5de5eb7bad8923528f32b6f8f7d7aed38e757b18519d",
+      "bytes": 186792
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-left-rear-rejected.png",
+      "sha256": "28d851f8ff5ed1c27dbecb6c6b04003ebe615d6a3c990e8135a4bf6785c6f2a1",
+      "bytes": 113921
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-right-block-high.png",
+      "sha256": "87664a4fe63b26331095246fe09af963bb75ca9ab9fc5aaa3f6657074408e781",
+      "bytes": 186146
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-right-block-low.png",
+      "sha256": "d6215b302710796eb2cfdcfe2c6f6cad4b123aae6244fef2ed072262b62eb913",
+      "bytes": 187263
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-right-block-rejected.png",
+      "sha256": "32587d468076c8b071bf1409491d9cfe1f83a2d385083bfde3e9f4edffb0d9b5",
+      "bytes": 127800
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-right-parry-high.png",
+      "sha256": "b998d92d61f5309916f84e6c8d70659b939a0565f0b120d1787b1c7ef81cd05b",
+      "bytes": 188876
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-right-parry-low.png",
+      "sha256": "dcaec9a684fab2f7ce474c54cd8804f4e9c3af91b936733b231d900ed2e3950b",
+      "bytes": 179910
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-right-parry-rejected.png",
+      "sha256": "3d7350a9a0c8a6d2405571fb73975e021aa6a1407c30621289a342c9621bc72c",
+      "bytes": 107825
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-right-rear-high.png",
+      "sha256": "7c2aaa608d9f980d69de2b8d30b624e926db5a69b28656dfa8128b098a6bd183",
+      "bytes": 189412
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-right-rear-low.png",
+      "sha256": "64ac93b8897127868b4beaaacd40ecd10fd9585b793e560cfc5f00f4a402459b",
+      "bytes": 186986
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_glaive-right-rear-rejected.png",
+      "sha256": "dcc940ad8773ef13f2641f622804fb63d9674133a4536194e7a8ecac817dfb97",
+      "bytes": 130514
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-left-block-high.png",
+      "sha256": "df671b601b996b6e5895ff962ec46014561d460d444e5bd8a56854f6878f6654",
+      "bytes": 188866
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-left-block-low.png",
+      "sha256": "0c74df4de2461fedc10e7e3e52d0101e283161643d768fd841961736fee63b17",
+      "bytes": 187749
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-left-block-rejected.png",
+      "sha256": "39db3607053390558b239415440faa6c8d3f6756ff0b5ce388348ecf88c59d48",
+      "bytes": 103491
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-left-parry-high.png",
+      "sha256": "43db3a9630ff994d956a7073203694a8732a6a50c27c1f26a4a33104e2b16e20",
+      "bytes": 191454
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-left-parry-low.png",
+      "sha256": "af153cfeef7171355ba7877f477d261df10d6f58dfa791e24fa80b935703c709",
+      "bytes": 179184
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-left-parry-rejected.png",
+      "sha256": "7bc9f62e8137b626a8b23c3161918f6006fd9d1a056e82f9e7ad5d077a6e5055",
+      "bytes": 77253
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-left-rear-high.png",
+      "sha256": "c5c0e2cbba494cde76193b0a0f91207282bb0616dcbd99765f465d2c46f3a069",
+      "bytes": 190600
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-left-rear-low.png",
+      "sha256": "ba33773df4f5b8a4f4ca549235f880816c74d6ac178683f31f8c02bb608e8033",
+      "bytes": 186823
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-left-rear-rejected.png",
+      "sha256": "4b089e61507cda7dbf3f0d02c14261c0c7ae06973d2dafb5a61a2b51a8ebeafa",
+      "bytes": 120035
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-right-block-high.png",
+      "sha256": "cbbbe610ba53a18542a725aefb2c79dae8a21452ddaf7b46725009c32cb3c36d",
+      "bytes": 187594
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-right-block-low.png",
+      "sha256": "960460096f9e83d3766101d3e33846dc96b88ff795772680f05ae326cb5b54f8",
+      "bytes": 186744
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-right-block-rejected.png",
+      "sha256": "c0fc4199bc9fdd2b281be3900d3e3db1bd49027b649a111e860c66a62ec0d6ba",
+      "bytes": 123047
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-right-parry-high.png",
+      "sha256": "a94f5d56df50e4e79d4d3ed8df424da2f6d496e644a139b7b3d3bbe2044015fa",
+      "bytes": 182346
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-right-parry-low.png",
+      "sha256": "c1ee81843e78584e081905bbcefff9897534db3176e42f08d2e171bb073d06ae",
+      "bytes": 190796
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-right-parry-rejected.png",
+      "sha256": "c3c8fd90809b553c74d348499371e06c01dc759aa78d4a09e4cacd720eb3aa55",
+      "bytes": 112106
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-right-rear-high.png",
+      "sha256": "a0b88348f7f5b07f754f440ea4f9573197c92c6aa43e07996d62828fdf3a79a8",
+      "bytes": 187853
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-right-rear-low.png",
+      "sha256": "367d0e1ac4a3992a06480a0899d89cf45f031587d091025b66911fe163660b3d",
+      "bytes": 209621
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_maul-right-rear-rejected.png",
+      "sha256": "f6ac22df0fdc76ef5621c1b14d537547467618d060cddc6c34bc236169c40682",
+      "bytes": 127160
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-left-block-high.png",
+      "sha256": "f79a0f19565c39e801e220ff7f541ad2004a5fe01027b8ace072750a1bc59df7",
+      "bytes": 187687
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-left-block-low.png",
+      "sha256": "0701f1ffca03e33789018c7725885c7ef5ba179856fff8217335780cbac6e8c2",
+      "bytes": 184096
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-left-block-rejected.png",
+      "sha256": "53ec35613011ef9d36122fc876b0d72816e6d493b6a57157ed5ace39df36dfc7",
+      "bytes": 100467
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-left-parry-high.png",
+      "sha256": "0d89e812576adbdbe52dfc1f6c6fb68841d212804bb101761395020753b6a3e8",
+      "bytes": 189896
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-left-parry-low.png",
+      "sha256": "dfac2968cc0c629685aaaba37fd8b04d7bf60b4fd2762ccb9bc2cd20214f4e07",
+      "bytes": 187218
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-left-parry-rejected.png",
+      "sha256": "665f2892288f0a20335432372e304748768e0c34ef781cabf26b381c11906ab5",
+      "bytes": 73563
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-left-rear-high.png",
+      "sha256": "fd124e0cdba3fc70e873516069d80ef8836338ed856558802e5bc2b42231e523",
+      "bytes": 193532
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-left-rear-low.png",
+      "sha256": "abbc482114d1e20ef5ef8eb78415777c7f3906a23e74eb8b57a70c5cfdf076fe",
+      "bytes": 189208
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-left-rear-rejected.png",
+      "sha256": "a4da3e0f1e6c0fa8df16dd51bb9781552ca5ab37b386ad23b5b284f35ea03636",
+      "bytes": 114818
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-right-block-high.png",
+      "sha256": "fd79e3d8c0148c541ba71ae57fe0e73f713099dc92586d03c9eedb79d6deed54",
+      "bytes": 186575
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-right-block-low.png",
+      "sha256": "3661ff955c42ab76ce3c25687829f5f497a0bab0e5432c194ab465165dbef5c7",
+      "bytes": 185951
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-right-block-rejected.png",
+      "sha256": "f448faf51bbfc88f2f8c91eb4c391650f7f8593b08a31b1022e23ad44650bc59",
+      "bytes": 145196
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-right-parry-high.png",
+      "sha256": "c27583273d9d635d62f040e0c30a12e59d41dbfabf964dc862fbddef03b1f817",
+      "bytes": 190077
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-right-parry-low.png",
+      "sha256": "e045b823b1b0e3b01feea7325716e896537549ce348810631d13d05818bb0401",
+      "bytes": 179138
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-right-parry-rejected.png",
+      "sha256": "7580710562876bb6166961481c2178a13f9fb219408d9c2d7052ba2b4d7fff28",
+      "bytes": 110256
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-right-rear-high.png",
+      "sha256": "9e7da671679f3c2a67585d05321de17f94c2bbda37823aef64748524ca84d732",
+      "bytes": 190035
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-right-rear-low.png",
+      "sha256": "0cbd6e2699d4b8eb1b41176166322df47131f25f5f5626fec37d408710506fa7",
+      "bytes": 186466
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-236-weapon-guard-melee_whip-right-rear-rejected.png",
+      "sha256": "5b91b6892cfae6585fdae0a444e283fdd72ac312d3cd36fdf6907a48094f52eb",
+      "bytes": 160701
+    },
+    {
+      "path": "game/player/player.gd",
+      "sha256": "6ba9447d438180e2872e97f97a01fb136fb86b3cc7359f57a5654de9e95c1d11",
+      "bytes": 54816
+    },
+    {
+      "path": "tests/suite/test_melee_weapons.gd",
+      "sha256": "1c10898e124e4b3327ebb27ba37da13a9c554c164832c058839234e5c523d1b4",
+      "bytes": 44017
+    },
+    {
+      "path": "tools/weapon_guard_probe.gd",
+      "sha256": "7423d294c0432cb32080521b620259c683558303d37ddfd1bb3c8b88384f97f9",
+      "bytes": 953
+    },
+    {
+      "path": "tools/weapon_guard_probe.tscn",
+      "sha256": "36aa2cfd4e70aff6fc45b08941caf42245a6696c329ac26cde9cc50534102955",
+      "bytes": 179
+    },
+    {
+      "path": "design/20-campaign-experience/WEAPON_COMBOS.md",
+      "sha256": "481ff37c0ba0977ba7afcc6328dc4ba68d2c21c1bf56e90c000192d4be456038",
+      "bytes": 13595
+    },
+    {
+      "path": "tools/weapon_guard_probe.gd.uid",
+      "sha256": "7bb6be59fbcb6e62bbe84c8937df61adb806a040a11b7c0a0b421dc6fcb1050a",
+      "bytes": 20
+    }
+  ]
+}

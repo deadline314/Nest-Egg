@@ -1210,8 +1210,8 @@ func _update_blocking() -> void:
 	# 舉盾需要最低能量；已經舉著的盾可以一直撐到能量耗盡。
 	var wants := pressed and not is_melee_locked() and (guard >= tuning.guard_min_to_raise if not is_blocking else guard > 0.0)
 	if wants and not is_blocking:
-		if _melee_phase != MeleePhase.NONE:
-			_end_melee(false)
+		# 舉盾也結束已收完、仍在接續窗口內的舊連段。
+		_end_melee(false)
 		_block_time = 0.0
 		# 放開後很快又舉盾：完美格擋窗口縮短，不能狂按亂彈。
 		_window_scale = tuning.parry_window_repeat_scale if _since_block_release < tuning.parry_repeat_time else 1.0

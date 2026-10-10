@@ -1,0 +1,79 @@
+{
+  "red": {
+    "exit_code": 1,
+    "script_error_lines": 3,
+    "abort_heap_corruption": false,
+    "result_lines": [
+      "checks: 0, failures: 0",
+      "checks: 0, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 6 s)"
+    ],
+    "accepted_for_delivery": false
+  },
+  "initial": {
+    "exit_code": 1,
+    "script_error_lines": 0,
+    "abort_heap_corruption": false,
+    "result_lines": [
+      "checks: 591, failures: 8",
+      "checks: 591, new failures: 8, known failures (tests/known_failures.txt): 0  (wall time 122 s)"
+    ],
+    "accepted_for_delivery": false
+  },
+  "changed": {
+    "exit_code": 1,
+    "script_error_lines": 0,
+    "abort_heap_corruption": true,
+    "result_lines": [
+      "checks: 6915, failures: 0",
+      "checks: 6915, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 598 s)"
+    ],
+    "accepted_for_delivery": false
+  },
+  "changed-single": {
+    "exit_code": 0,
+    "script_error_lines": 0,
+    "abort_heap_corruption": false,
+    "result_lines": [
+      "checks: 54807, failures: 0",
+      "checks: 54807, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 954 s)"
+    ],
+    "accepted_for_delivery": true
+  },
+  "native-low": {
+    "exit_code": 0,
+    "script_error_lines": 0,
+    "abort_heap_corruption": false,
+    "result_lines": [
+      "checks: 320, failures: 0"
+    ],
+    "accepted_for_delivery": false
+  },
+  "native-high": {
+    "exit_code": 0,
+    "script_error_lines": 0,
+    "abort_heap_corruption": false,
+    "result_lines": [
+      "checks: 320, failures: 0"
+    ],
+    "accepted_for_delivery": true
+  },
+  "native-low-final": {
+    "exit_code": 0,
+    "script_error_lines": 0,
+    "abort_heap_corruption": false,
+    "result_lines": [
+      "checks: 325, failures: 0"
+    ],
+    "accepted_for_delivery": true
+  },
+  "rebase-checks": {
+    "exit_code": 0,
+    "script_error_lines": 0,
+    "abort_heap_corruption": false,
+    "result_lines": [
+      "checks: 6971, failures: 0",
+      "checks: 6971, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 279 s)"
+    ],
+    "accepted_for_delivery": true
+  }
+}
