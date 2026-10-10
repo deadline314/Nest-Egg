@@ -1,0 +1,82 @@
+{
+  "kind": "product-export-blocked",
+  "source_sha": "eadc5f8f04bd1bfbdfaaefe489d1127de355a647",
+  "readiness": {
+    "ready_for_product_export": false,
+    "chapters": [
+      {
+        "id": "prologue",
+        "acceptance_ticket": "ST-16",
+        "entry": "",
+        "terminal": "",
+        "evidence": [],
+        "issues": [
+          "chapter is draft, not accepted production",
+          "production entry missing",
+          "production terminal missing",
+          "acceptance ticket is incomplete",
+          "no committed chapter acceptance evidence",
+          "published production main quests absent",
+          "production entry/exit and story-result producer acceptance not handed over"
+        ]
+      },
+      {
+        "id": "ch1_kasa",
+        "acceptance_ticket": "NE-233",
+        "entry": "data/levels/ch1_pawnshop.tres",
+        "terminal": "data/levels/ch1_pawnshop_dawn.tres",
+        "evidence": [],
+        "issues": [
+          "chapter is draft, not accepted production",
+          "acceptance ticket is incomplete",
+          "no committed chapter acceptance evidence",
+          "published production main quests absent",
+          "production entry/exit and story-result producer acceptance not handed over"
+        ]
+      }
+    ],
+    "loaded_story_sources": [
+      {
+        "path": "data/story/chapter_01.json",
+        "quests": 0,
+        "scenes": 19
+      },
+      {
+        "path": "data/story/chapter_02.json",
+        "quests": 0,
+        "scenes": 28
+      },
+      {
+        "path": "data/story/ch1_kasa.json",
+        "quests": 0,
+        "scenes": 36
+      },
+      {
+        "path": "data/story/cutscenes_ch1.json",
+        "quests": 0,
+        "scenes": 5
+      },
+      {
+        "path": "data/story/cutscenes_ch2.json",
+        "quests": 0,
+        "scenes": 5
+      }
+    ],
+    "owner_blockers": [
+      "NE-230 has no published selectable cumulative release identity/terminal routing/save compatibility contract",
+      "production producer/backend handover is missing; no CLI override is supported"
+    ],
+    "observed_public_source": {
+      "core/run_snapshot.gd": {
+        "sha256": "bd000651dbee2a663c153373e8e60903cf552c2ec1976278e05c5e5c3ca82c3c",
+        "snapshot_release": "demo-0.1"
+      },
+      "tools/story/build_ch1_story.py": {
+        "sha256": "8a6c09fdf968af8c29030ba09a1fe51f72e4b2ec4f23a2bdc42ff5b83c35a155",
+        "backend_returns_none": true
+      }
+    }
+  },
+  "resource_closure_issues": [],
+  "exported": false
+}

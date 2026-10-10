@@ -1,0 +1,25 @@
+{
+  "baseline": "eadc5f8f04bd1bfbdfaaefe489d1127de355a647",
+  "files": [
+    {
+      "path": "tools/release/build_policy.json",
+      "bytes": 1921,
+      "sha256": "7d7810893944c37476ff546b344ab41c3f26f5307796e1a07483d5a6b0fbbf9d"
+    },
+    {
+      "path": "tools/release/campaign_build.py",
+      "bytes": 40677,
+      "sha256": "1ece723e253b8d1fef9c65b91032ac57b66b652ab325a3820ee2e13ade9adda1"
+    },
+    {
+      "path": "tools/release/pack_integrity.py",
+      "bytes": 7603,
+      "sha256": "d6484952d0744418707369a6175c075f52d3c485a4f2d97e2f8ac35f42d4dbce"
+    },
+    {
+      "path": "tools/release/test_campaign_build.py",
+      "bytes": 21913,
+      "sha256": "7499537a607ae42b705b0802ca98966f2e5dc63d2ed5defacebdf794866b53a5"
+    }
+  ]
+}

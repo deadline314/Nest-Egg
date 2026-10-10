@@ -1,0 +1,173 @@
+{
+  "kind": "reinspection-of-existing-tool-fixtures",
+  "artifacts": {
+    "linux": {
+      "target": "linux",
+      "bytes": 73522720,
+      "sha256": "7789257773c33d70e6d7cd1e9b02f302845a849f0f11854d281b915475fb5535",
+      "pck_bytes": 3292,
+      "pck_format": 4,
+      "engine_version": "4.7.2",
+      "embedded": true,
+      "files": [
+        {
+          "path": ".godot/exported/133200997/export-3070c538c03ee49b7677ff960a3f5195-main.scn",
+          "offset": 73519840,
+          "bytes": 673,
+          "md5": "ec55872dd1217513f6dee589e14303f6",
+          "sha256": "1ec9bffd2090684c3955c81fc1c18735b9347714273e90d6b875e427288e7c8c"
+        },
+        {
+          "path": ".godot/exported/133200997/export-afa50cfc482ce726b5b4690f9cabfba6-later.res",
+          "offset": 73519520,
+          "bytes": 275,
+          "md5": "9fd8d2d1add9f5ad14a328d388201850",
+          "sha256": "d18a8ff858ea840f69de6677662c365b88d3748d763bd54e25f43027e1f489a1"
+        },
+        {
+          "path": ".godot/global_script_class_cache.cfg",
+          "offset": 73521744,
+          "bytes": 8,
+          "md5": "393edccab1b3701df5cb9b4f4cfc3775",
+          "sha256": "f61aa7ad3097022d6a9d110ca3f73fa7bb348ec2cf9a6e7c9523574dc75f5a16"
+        },
+        {
+          "path": ".godot/uid_cache.bin",
+          "offset": 73521760,
+          "bytes": 30,
+          "md5": "556279e4cad047c7c1d5fad39cb9ebc0",
+          "sha256": "9ae23c752a13f3fbde152109c48728e358ae1d71fda51f26fe50d04e2a1a3f34"
+        },
+        {
+          "path": "data/dynamic/later.tres.remap",
+          "offset": 73521488,
+          "bytes": 98,
+          "md5": "77a505570f9d5e1cf0f743d8855779aa",
+          "sha256": "e1c7ffd7f3e23a4463a5f5ce41133c24d16bec64928086aad63191e17775c022"
+        },
+        {
+          "path": "data/probe.json",
+          "offset": 73519808,
+          "bytes": 30,
+          "md5": "6c93ac8cd729939f21d1f4ff176a774a",
+          "sha256": "67f60ae2972d902b184e2a52e392be0a2e551164c851b5dc04ff302242a68514"
+        },
+        {
+          "path": "main.tscn.remap",
+          "offset": 73521600,
+          "bytes": 97,
+          "md5": "c74a9853779200b38c91a70cebd41c10",
+          "sha256": "d9c97331527c6a3b9104e4fa99f521a20116b428cb40fad052d76a8c7ffd0500"
+        },
+        {
+          "path": "probe.gd.remap",
+          "offset": 73521712,
+          "bytes": 32,
+          "md5": "66779367ba72a23d88eeb0b97487b723",
+          "sha256": "5a992fd1204644366e0dc63a47baea8e2eab1863b1bc66200b7df7091d313f8e"
+        },
+        {
+          "path": "probe.gdc",
+          "offset": 73520528,
+          "bytes": 955,
+          "md5": "2fa59807c5527ed0da10a6c31d5c4a9d",
+          "sha256": "1a998d7eaa6560791df65041b3e7ec081bd7f051686019c693e656689014e904"
+        },
+        {
+          "path": "project.binary",
+          "offset": 73521792,
+          "bytes": 180,
+          "md5": "705de69ca80db112fb16911026376b71",
+          "sha256": "ecb1834f6f39138f7fca98a6f4136a3ee48b3f5635a4b8ca4482764e48ed2eb7"
+        }
+      ],
+      "integrity_verified": true,
+      "native_windows_launch_verified": false
+    },
+    "windows": {
+      "target": "windows",
+      "bytes": 109271792,
+      "sha256": "a7fd87b0aca55f202a680b6ec78c2c2d2fe3311382d505a745fed9f35a0253aa",
+      "pck_bytes": 3300,
+      "pck_format": 4,
+      "engine_version": "4.7.2",
+      "embedded": true,
+      "files": [
+        {
+          "path": ".godot/exported/133200997/export-3070c538c03ee49b7677ff960a3f5195-main.scn",
+          "offset": 109268912,
+          "bytes": 673,
+          "md5": "ec55872dd1217513f6dee589e14303f6",
+          "sha256": "1ec9bffd2090684c3955c81fc1c18735b9347714273e90d6b875e427288e7c8c"
+        },
+        {
+          "path": ".godot/exported/133200997/export-afa50cfc482ce726b5b4690f9cabfba6-later.res",
+          "offset": 109268592,
+          "bytes": 275,
+          "md5": "9fd8d2d1add9f5ad14a328d388201850",
+          "sha256": "d18a8ff858ea840f69de6677662c365b88d3748d763bd54e25f43027e1f489a1"
+        },
+        {
+          "path": ".godot/global_script_class_cache.cfg",
+          "offset": 109270816,
+          "bytes": 8,
+          "md5": "393edccab1b3701df5cb9b4f4cfc3775",
+          "sha256": "f61aa7ad3097022d6a9d110ca3f73fa7bb348ec2cf9a6e7c9523574dc75f5a16"
+        },
+        {
+          "path": ".godot/uid_cache.bin",
+          "offset": 109270832,
+          "bytes": 30,
+          "md5": "556279e4cad047c7c1d5fad39cb9ebc0",
+          "sha256": "9ae23c752a13f3fbde152109c48728e358ae1d71fda51f26fe50d04e2a1a3f34"
+        },
+        {
+          "path": "data/dynamic/later.tres.remap",
+          "offset": 109270560,
+          "bytes": 98,
+          "md5": "77a505570f9d5e1cf0f743d8855779aa",
+          "sha256": "e1c7ffd7f3e23a4463a5f5ce41133c24d16bec64928086aad63191e17775c022"
+        },
+        {
+          "path": "data/probe.json",
+          "offset": 109268880,
+          "bytes": 30,
+          "md5": "6c93ac8cd729939f21d1f4ff176a774a",
+          "sha256": "67f60ae2972d902b184e2a52e392be0a2e551164c851b5dc04ff302242a68514"
+        },
+        {
+          "path": "main.tscn.remap",
+          "offset": 109270672,
+          "bytes": 97,
+          "md5": "c74a9853779200b38c91a70cebd41c10",
+          "sha256": "d9c97331527c6a3b9104e4fa99f521a20116b428cb40fad052d76a8c7ffd0500"
+        },
+        {
+          "path": "probe.gd.remap",
+          "offset": 109270784,
+          "bytes": 32,
+          "md5": "66779367ba72a23d88eeb0b97487b723",
+          "sha256": "5a992fd1204644366e0dc63a47baea8e2eab1863b1bc66200b7df7091d313f8e"
+        },
+        {
+          "path": "probe.gdc",
+          "offset": 109269600,
+          "bytes": 955,
+          "md5": "2fa59807c5527ed0da10a6c31d5c4a9d",
+          "sha256": "1a998d7eaa6560791df65041b3e7ec081bd7f051686019c693e656689014e904"
+        },
+        {
+          "path": "project.binary",
+          "offset": 109270864,
+          "bytes": 180,
+          "md5": "705de69ca80db112fb16911026376b71",
+          "sha256": "ecb1834f6f39138f7fca98a6f4136a3ee48b3f5635a4b8ca4482764e48ed2eb7"
+        }
+      ],
+      "integrity_verified": true,
+      "native_windows_launch_verified": false
+    }
+  },
+  "native_windows_launch_verified": false,
+  "chapter_acceptance_verified": false
+}

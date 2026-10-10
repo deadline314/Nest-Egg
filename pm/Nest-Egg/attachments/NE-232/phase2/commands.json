@@ -1,0 +1,54 @@
+[
+  {
+    "command": "python3 -m unittest discover -s tools/release -v",
+    "exit_code": 0,
+    "tests_passed": 49,
+    "log": "unit.log"
+  },
+  {
+    "command": "tools/run_tests_changed.sh eadc5f8f04bd1bfbdfaaefe489d1127de355a647",
+    "exit_code": 0,
+    "affected_game_suites": 0,
+    "log": "changed.log"
+  },
+  {
+    "command": "campaign_build.py prepare --source eadc5f8f04bd1bfbdfaaefe489d1127de355a647 --through ch1_kasa --version release-pipeline-check",
+    "exit_code": 0,
+    "log": "source/prepare.log"
+  },
+  {
+    "command": "campaign_build.py import-stage (latest isolated stage)",
+    "exit_code": 0,
+    "log": "source/import-command.log",
+    "engine_log": "source/import.log"
+  },
+  {
+    "command": "campaign_build.py verify-stage (latest isolated stage)",
+    "exit_code": 0,
+    "log": "source/verify.log"
+  },
+  {
+    "command": "campaign_build.py export (latest isolated stage)",
+    "exit_code": 1,
+    "expected": "fail-closed product readiness refusal",
+    "log": "source/export-blocked.log"
+  },
+  {
+    "command": "campaign_build.py probe (first ordinary sandbox attempt)",
+    "exit_code": 1,
+    "godot_exit_code": 0,
+    "expected": "actual ERROR lines reject success",
+    "log": "first-failure/command.log"
+  },
+  {
+    "command": "campaign_build.py probe (normal single-command review, per-build XDG)",
+    "exit_code": 0,
+    "log": "probe/command.log"
+  },
+  {
+    "command": "git fetch origin main (final check before delivery)",
+    "exit_code": 0,
+    "output": "From https://github.com/deadline314/Nest-Egg\n * branch              main       -> FETCH_HEAD\n",
+    "origin_main_sha": "eadc5f8f04bd1bfbdfaaefe489d1127de355a647"
+  }
+]
