@@ -1,0 +1,50 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+NE80_CYCLE idle weapon= facing=-1 frames=660 dt=1/60
+NE80_CYCLE run weapon= facing=-1 frames=660 dt=1/60
+NE80_CYCLE aim weapon= facing=-1 frames=660 dt=1/60
+NE80_CYCLE crouch weapon= facing=-1 frames=660 dt=1/60
+NE80_CYCLE jump weapon= facing=-1 frames=660 dt=1/60
+NE80_CYCLE block weapon= facing=-1 frames=660 dt=1/60
+NE80_CYCLE stagger weapon= facing=-1 frames=660 dt=1/60
+NE80_CYCLE dead weapon= facing=-1 frames=660 dt=1/60
+NE80_CYCLE walk weapon= facing=-1 frames=660 dt=1/60
+NE80_CYCLE idle weapon= facing=1 frames=660 dt=1/60
+NE80_CYCLE run weapon= facing=1 frames=660 dt=1/60
+NE80_CYCLE aim weapon= facing=1 frames=660 dt=1/60
+NE80_CYCLE crouch weapon= facing=1 frames=660 dt=1/60
+NE80_CYCLE jump weapon= facing=1 frames=660 dt=1/60
+NE80_CYCLE block weapon= facing=1 frames=660 dt=1/60
+NE80_CYCLE stagger weapon= facing=1 frames=660 dt=1/60
+NE80_CYCLE dead weapon= facing=1 frames=660 dt=1/60
+NE80_CYCLE walk weapon= facing=1 frames=660 dt=1/60
+NE80_CYCLE idle weapon=minigun facing=-1 frames=660 dt=1/60
+NE80_CYCLE run weapon=minigun facing=-1 frames=660 dt=1/60
+NE80_CYCLE aim weapon=minigun facing=-1 frames=660 dt=1/60
+NE80_CYCLE crouch weapon=minigun facing=-1 frames=660 dt=1/60
+NE80_CYCLE jump weapon=minigun facing=-1 frames=660 dt=1/60
+NE80_CYCLE block weapon=minigun facing=-1 frames=660 dt=1/60
+NE80_CYCLE stagger weapon=minigun facing=-1 frames=660 dt=1/60
+NE80_CYCLE dead weapon=minigun facing=-1 frames=660 dt=1/60
+NE80_CYCLE walk weapon=minigun facing=-1 frames=660 dt=1/60
+NE80_CYCLE idle weapon=minigun facing=1 frames=660 dt=1/60
+NE80_CYCLE run weapon=minigun facing=1 frames=660 dt=1/60
+NE80_CYCLE aim weapon=minigun facing=1 frames=660 dt=1/60
+NE80_CYCLE crouch weapon=minigun facing=1 frames=660 dt=1/60
+NE80_CYCLE jump weapon=minigun facing=1 frames=660 dt=1/60
+NE80_CYCLE block weapon=minigun facing=1 frames=660 dt=1/60
+NE80_CYCLE stagger weapon=minigun facing=1 frames=660 dt=1/60
+NE80_CYCLE dead weapon=minigun facing=1 frames=660 dt=1/60
+NE80_CYCLE walk weapon=minigun facing=1 frames=660 dt=1/60
+NE80_NEGATIVE mount:torso check=mount:torso rejected=true
+NE80_NEGATIVE length:hand_front check=length:hand_front rejected=true
+NE80_NEGATIVE hidden-underlayer check=slot:torso rejected=true
+NE80_NEGATIVE duplicate-visible-slot check=slot:torso rejected=true
+NE80_NEGATIVE bind:hand_front check=bind:hand_front rejected=true
+NE80_NEGATIVE facing check=facing rejected=true
+NE80_NEGATIVE weapon-mount check=weapon-mount rejected=true
+NE80_COMBAT closed=1 vent=3 final_hp=12 shots=13
+SUITE_TIME HeavyGunnerArtDeliverySuite 15.2
+SUITE_TIME AnimAuditSuite 8.6
+checks: 25802, failures: 0

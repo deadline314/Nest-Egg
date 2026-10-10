@@ -1,0 +1,28 @@
+WARNING: Couldn't get executable path from /proc/self/exe, using argv[0]
+     at: get_executable_path (drivers/unix/os_unix.cpp:1157)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+LEGACY_GRIP trooper_elite/rifle facing 1 speed 46.0 front=0.000 back=0.000
+LEGACY_GRIP trooper_elite/rifle facing 1 speed 92.0 front=0.000 back=0.000
+LEGACY_GRIP trooper_elite/rifle facing -1 speed 46.0 front=0.000 back=0.000
+LEGACY_GRIP trooper_elite/rifle facing -1 speed 92.0 front=0.000 back=0.000
+LEGACY_GRIP flamer/flamethrower facing 1 speed 28.0 front=0.000 back=0.000
+LEGACY_GRIP flamer/flamethrower facing 1 speed 56.0 front=0.000 back=0.000
+LEGACY_GRIP flamer/flamethrower facing -1 speed 28.0 front=0.000 back=0.000
+LEGACY_GRIP flamer/flamethrower facing -1 speed 56.0 front=0.000 back=0.000
+LEGACY_GRIP grenadier/launcher facing 1 speed 55.0 front=0.000 back=0.000
+LEGACY_GRIP grenadier/launcher facing 1 speed 110.0 front=0.000 back=0.000
+LEGACY_GRIP grenadier/launcher facing -1 speed 55.0 front=0.000 back=0.000
+LEGACY_GRIP grenadier/launcher facing -1 speed 110.0 front=0.000 back=0.000
+LEGACY_GRIP sniper/sniper facing 1 speed 22.0 front=0.000 back=0.000
+LEGACY_GRIP sniper/sniper facing 1 speed 44.0 front=0.000 back=0.000
+LEGACY_GRIP sniper/sniper facing -1 speed 22.0 front=0.000 back=0.000
+LEGACY_GRIP sniper/sniper facing -1 speed 44.0 front=0.000 back=0.000
+LEGACY_GRIP stalker/rifle facing 1 speed 46.0 front=0.000 back=0.000
+LEGACY_GRIP stalker/rifle facing 1 speed 92.0 front=0.000 back=0.000
+LEGACY_GRIP stalker/rifle facing -1 speed 46.0 front=0.000 back=0.000
+LEGACY_GRIP stalker/rifle facing -1 speed 92.0 front=0.000 back=0.000
+SUITE_TIME ProtagonistMotionSuite 1.8
+SUITE_TIME HeavyEnemiesSuite 45.6
+checks: 2804, failures: 0

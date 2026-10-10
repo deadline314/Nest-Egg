@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "curl",
+    "--connect-timeout",
+    "10",
+    "--max-time",
+    "30",
+    "-fL",
+    "https://api.github.com/repos/deadline314/Nest-Egg/actions/runs?head_sha=89b16e63d39ca18a7385d930a744f09c28846d61&per_page=5",
+    "-o",
+    "pm/Nest-Egg/attachments/NE-80-cloud-art-regression/ci-final.json"
+  ],
+  "cwd": "/workspace/scratch/e472a761dd3a/nest-egg-ne80",
+  "env": {
+    "GODOT": "/workspace/scratch/e472a761dd3a/nest-egg-ne80/pm/Nest-Egg/attachments/NE-80-cloud-art-regression/headless-godot.sh",
+    "NE80_GODOT_BIN": "/workspace/scratch/e472a761dd3a/godot-official/Godot_v4.7.2-stable_linux.x86_64",
+    "LOG_DIR": "/workspace/scratch/e472a761dd3a/nest-egg-ne80/pm/Nest-Egg/attachments/NE-80-cloud-art-regression/ci-final-shards",
+    "SHARDS": "4"
+  },
+  "exit": 0,
+  "seconds": 7.28,
+  "head": "89b16e63d39ca18a7385d930a744f09c28846d61",
+  "stdout": "ci-final.stdout.log",
+  "stderr": "ci-final.stderr.log"
+}

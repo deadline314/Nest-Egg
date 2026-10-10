@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "bash",
+    "-c",
+    "exec() { if [ \"$1\" = tools/run_tests_parallel.sh ] && [ \"$#\" = 1 ]; then echo \"NE80 scope guard: selector ALL recorded; full suite not executed; run explicit dependency --only list.\"; exit 3; fi; builtin exec \"$@\"; }; export -f exec; tools/run_tests_changed.sh 89b16e63d39ca18a7385d930a744f09c28846d61"
+  ],
+  "cwd": "/workspace/scratch/e472a761dd3a/nest-egg-ne80",
+  "env": {
+    "GODOT": "/workspace/scratch/e472a761dd3a/godot-official/Godot_v4.7.2-stable_linux.x86_64",
+    "LOG_DIR": "/workspace/scratch/e472a761dd3a/nest-egg-ne80/pm/Nest-Egg/attachments/NE-80-cloud-art-regression/changed-selector-guarded-shards",
+    "SHARDS": "4"
+  },
+  "exit": 3,
+  "seconds": 0.535,
+  "head": "89b16e63d39ca18a7385d930a744f09c28846d61",
+  "stdout": "changed-selector-guarded.stdout.log",
+  "stderr": "changed-selector-guarded.stderr.log"
+}

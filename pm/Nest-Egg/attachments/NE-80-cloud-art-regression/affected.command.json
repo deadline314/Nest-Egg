@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "tools/run_tests_parallel.sh",
+    "--only=HeavyGunnerArtDeliverySuite,HeavyEnemiesSuite,CharactersSuite,RigMeshSuite,PoseMeshSuite,AnimAuditSuite,RigActionsSuite,HitReactionSuite,ProtagonistMotionSuite,DeathReactionSuite,LocomotionSuite",
+    "4"
+  ],
+  "cwd": "/workspace/scratch/e472a761dd3a/nest-egg-ne80",
+  "env": {
+    "GODOT": "/workspace/scratch/e472a761dd3a/nest-egg-ne80/pm/Nest-Egg/attachments/NE-80-cloud-art-regression/headless-godot.sh",
+    "NE80_GODOT_BIN": "/workspace/scratch/e472a761dd3a/godot-official/Godot_v4.7.2-stable_linux.x86_64",
+    "LOG_DIR": "/workspace/scratch/e472a761dd3a/nest-egg-ne80/pm/Nest-Egg/attachments/NE-80-cloud-art-regression/affected-shards",
+    "SHARDS": "4"
+  },
+  "exit": 0,
+  "seconds": 53.736,
+  "head": "89b16e63d39ca18a7385d930a744f09c28846d61",
+  "stdout": "affected.stdout.log",
+  "stderr": "affected.stderr.log"
+}

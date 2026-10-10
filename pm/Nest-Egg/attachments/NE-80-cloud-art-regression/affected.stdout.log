@@ -1,0 +1,6 @@
+Running 11 groups in 4 processes (logs: /workspace/scratch/e472a761dd3a/nest-egg-ne80/pm/Nest-Egg/attachments/NE-80-cloud-art-regression/affected-shards)
+  process 0 (estimated 45 s): HeavyEnemiesSuite
+  process 1 (estimated 31 s): DeathReactionSuite,RigMeshSuite
+  process 2 (estimated 31 s): HeavyGunnerArtDeliverySuite,LocomotionSuite,ProtagonistMotionSuite
+  process 3 (estimated 30 s): AnimAuditSuite,HitReactionSuite,RigActionsSuite,PoseMeshSuite,CharactersSuite
+checks: 34410, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 54 s)

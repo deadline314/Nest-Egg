@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "python3",
+    "tools/comfyui/gpu_lock.py",
+    "--",
+    "../godot-official/Godot_v4.7.2-stable_linux.x86_64",
+    "--headless",
+    "--audio-driver",
+    "Dummy",
+    "--path",
+    ".",
+    "--editor",
+    "--quit"
+  ],
+  "cwd": "/workspace/scratch/e472a761dd3a/nest-egg-ne80",
+  "exit": 0,
+  "stdout": "import.stdout.log.gz",
+  "stderr": "import.stderr.log.gz",
+  "head": "89b16e63d39ca18a7385d930a744f09c28846d61",
+  "note": "Original stdout/stderr captured by shell redirection; exit returned by shell echo; timing not captured."
+}

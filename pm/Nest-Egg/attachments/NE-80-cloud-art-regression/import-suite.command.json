@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "python3",
+    "tools/comfyui/gpu_lock.py",
+    "--",
+    "/workspace/scratch/e472a761dd3a/godot-official/Godot_v4.7.2-stable_linux.x86_64",
+    "--headless",
+    "--audio-driver",
+    "Dummy",
+    "--path",
+    ".",
+    "--editor",
+    "--quit"
+  ],
+  "cwd": "/workspace/scratch/e472a761dd3a/nest-egg-ne80",
+  "env": {
+    "GODOT": "/workspace/scratch/e472a761dd3a/godot-official/Godot_v4.7.2-stable_linux.x86_64",
+    "LOG_DIR": "/workspace/scratch/e472a761dd3a/nest-egg-ne80/pm/Nest-Egg/attachments/NE-80-cloud-art-regression/import-suite-shards",
+    "SHARDS": "4"
+  },
+  "exit": 0,
+  "seconds": 11.592,
+  "head": "89b16e63d39ca18a7385d930a744f09c28846d61",
+  "stdout": "import-suite.stdout.log",
+  "stderr": "import-suite.stderr.log"
+}

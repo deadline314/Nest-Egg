@@ -84,6 +84,7 @@ func _finish() -> void:
 ## 功能套件（tests/suite/）。開發時可用 `-- --only=套件類別名` 只跑其中一份（逗號分隔可以跑多份），例如 UiKitSuite。
 func _suites() -> Array[TestSuite]:
 	return [
+		HeavyGunnerArtDeliverySuite.new(self),
 		PropsSuite.new(self), NewEnemiesSuite.new(self), CollectiblesSuite.new(self),
 		ProgressionSuite.new(self), SupplySuite.new(self), ReclaimerSuite.new(self), RunSaveSuite.new(self),
 		Chapter2Suite.new(self), UiKitSuite.new(self), TransitionSuite.new(self), UiScreensSuite.new(self), CutsceneSuite.new(self), EnvironmentSuite.new(self), AmmoIconsSuite.new(self), AmmoTraySuite.new(self), CombatHudSuite.new(self), ChapterCutscenesSuite.new(self),

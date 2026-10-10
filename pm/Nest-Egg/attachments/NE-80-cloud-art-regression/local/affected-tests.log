@@ -1,0 +1,6 @@
+Running 12 groups in 4 processes (logs: D:/NestEggVerification/ne79-cloud-f7c108f3/.godot-transfer/local-evidence/NE80-suites)
+  process 0 (estimated 50 s): ProtagonistMotionSuite,DeathReactionSuite
+  process 1 (estimated 37 s): PoseMeshSuite,HitReactionSuite
+  process 2 (estimated 34 s): HeavyGunnerArtDeliverySuite,AnimAuditSuite
+  process 3 (estimated 33 s): HeavyEnemiesSuite,LocomotionSuite,EnforcerArtDeliverySuite,RigActionsSuite,RigMeshSuite,CharactersSuite
+checks: 35396, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 65 s)

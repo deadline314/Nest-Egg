@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "bash",
+    "-c",
+    "exec() { if [ \"$1\" = tools/run_tests_parallel.sh ] && [ \"$#\" = 1 ]; then echo \"NE80 scope guard: selector ALL recorded; full suite not executed; run explicit dependency --only list.\"; return 3; fi; builtin exec \"$@\"; }; export -f exec; tools/run_tests_changed.sh 89b16e63d39ca18a7385d930a744f09c28846d61"
+  ],
+  "cwd": "/workspace/scratch/e472a761dd3a/nest-egg-ne80",
+  "exit": 130,
+  "status": "interrupted; invalid pre-import --only=ALL fallthrough, not an accepted test result",
+  "stdout": "changed-selector.stdout.log",
+  "stderr": "changed-selector.stderr.log",
+  "shard": "changed-selector-shards/shard_0.log.gz"
+}
