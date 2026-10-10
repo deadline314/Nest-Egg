@@ -305,6 +305,12 @@ func _on_framing_safe_rect(rect: Rect2) -> void:
 		_controls_card.hide()
 
 
+func _notification(what: int) -> void:
+	# 暫停後 HUD 不再跑 _process：操作邀請卡要在暫停當下收起，恢復後由 _process 依情境重新判斷。
+	if what == NOTIFICATION_PAUSED and _controls_card != null:
+		_controls_card.visible = false
+
+
 func _process(delta: float) -> void:
 	_timer_label.text = UiKit.format_time(GameState.run_time)
 	# Object reading has no black bars, but still owns a modal's header and skip key.

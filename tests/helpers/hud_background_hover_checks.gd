@@ -70,6 +70,18 @@ static func run(suite: TestSuite) -> void:
 			break
 	suite.check(not hud.hover_guard.blocked, "通訊結束後守門解除")
 	_park(vp)
+
+	# 4. 操作提示卡：暫停頁打開時收起，關閉後依情境回來，閱讀時間不被暫停吃掉。
+	await suite.frames(2)
+	suite.check(hud._controls_card.visible, "新遊戲的操作提示正常顯示（前置條件）")
+	var read_left: float = hud._controls_read_time
+	pause.open()
+	await suite.frames(3)
+	suite.check(not hud._controls_card.visible, "暫停頁打開時背景的操作提示收起")
+	suite.check(is_equal_approx(hud._controls_read_time, read_left), "暫停期間不消耗提示的閱讀時間")
+	pause.close()
+	await suite.frames(2)
+	suite.check(hud._controls_card.visible, "關閉暫停頁後操作提示回來")
 	await suite.end_level(level)
 
 
