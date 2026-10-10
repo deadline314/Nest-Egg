@@ -1,0 +1,12 @@
+{
+  "command": [
+    "C:\\Users\\stanl\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "tools/comfyui/gpu_lock.py",
+    "--",
+    "C:/Program Files/Git/bin/bash.exe",
+    "tools/run_tests_parallel.sh",
+    "--only=EncounterSuite,RunSaveSuite"
+  ],
+  "exit_code": 1,
+  "log_sha256": "31e6355e585bf854662280d6a37bf1a7943bd4ce100042913325f7be8e3685c1"
+}

@@ -1,0 +1,691 @@
+{
+	"checks": 85,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"failures": 0,
+	"native_driver": "Windows",
+	"records": [
+		{
+			"after": [
+				1464.55541992188,
+				319.997741699219
+			],
+			"before": [
+				1520.0,
+				319.997741699219
+			],
+			"crossed": true,
+			"dash": false,
+			"direction": -1.0,
+			"encounter": "ch1_enc_street_plaza",
+			"gate_cell": [
+				92,
+				19
+			],
+			"level": "res://data/levels/ch1_street.tres",
+			"living_members": 2,
+			"state": "active"
+		},
+		{
+			"after": [
+				1430.00390625,
+				319.997741699219
+			],
+			"before": [
+				1520.0,
+				319.997741699219
+			],
+			"crossed": true,
+			"dash": true,
+			"direction": -1.0,
+			"encounter": "ch1_enc_street_plaza",
+			"gate_cell": [
+				92,
+				19
+			],
+			"level": "res://data/levels/ch1_street.tres",
+			"living_members": 2,
+			"state": "active"
+		},
+		{
+			"after": [
+				1504.16674804688,
+				319.997741699219
+			],
+			"before": [
+				1440.0,
+				319.997741699219
+			],
+			"crossed": true,
+			"dash": false,
+			"direction": 1.0,
+			"encounter": "ch1_enc_street_plaza",
+			"gate_cell": [
+				92,
+				19
+			],
+			"level": "res://data/levels/ch1_street.tres",
+			"living_members": 2,
+			"state": "active"
+		},
+		{
+			"after": [
+				1549.5,
+				319.997741699219
+			],
+			"before": [
+				1440.0,
+				319.997741699219
+			],
+			"crossed": true,
+			"dash": true,
+			"direction": 1.0,
+			"encounter": "ch1_enc_street_plaza",
+			"gate_cell": [
+				92,
+				19
+			],
+			"level": "res://data/levels/ch1_street.tres",
+			"living_members": 2,
+			"state": "active"
+		},
+		{
+			"after": [
+				1880.55541992188,
+				319.997741699219
+			],
+			"before": [
+				1936.0,
+				319.997741699219
+			],
+			"crossed": true,
+			"dash": false,
+			"direction": -1.0,
+			"encounter": "ch1_enc_street_plaza",
+			"gate_cell": [
+				118,
+				19
+			],
+			"level": "res://data/levels/ch1_street.tres",
+			"living_members": 2,
+			"state": "active"
+		},
+		{
+			"after": [
+				1846.00390625,
+				319.997741699219
+			],
+			"before": [
+				1936.0,
+				319.997741699219
+			],
+			"crossed": true,
+			"dash": true,
+			"direction": -1.0,
+			"encounter": "ch1_enc_street_plaza",
+			"gate_cell": [
+				118,
+				19
+			],
+			"level": "res://data/levels/ch1_street.tres",
+			"living_members": 2,
+			"state": "active"
+		},
+		{
+			"after": [
+				1920.16674804688,
+				319.997741699219
+			],
+			"before": [
+				1856.0,
+				319.997741699219
+			],
+			"crossed": true,
+			"dash": false,
+			"direction": 1.0,
+			"encounter": "ch1_enc_street_plaza",
+			"gate_cell": [
+				118,
+				19
+			],
+			"level": "res://data/levels/ch1_street.tres",
+			"living_members": 2,
+			"state": "active"
+		},
+		{
+			"after": [
+				1965.5,
+				319.997741699219
+			],
+			"before": [
+				1856.0,
+				319.997741699219
+			],
+			"crossed": true,
+			"dash": true,
+			"direction": 1.0,
+			"encounter": "ch1_enc_street_plaza",
+			"gate_cell": [
+				118,
+				19
+			],
+			"level": "res://data/levels/ch1_street.tres",
+			"living_members": 2,
+			"state": "active"
+		},
+		{
+			"after": [
+				2424.5556640625,
+				319.997741699219
+			],
+			"before": [
+				2480.0,
+				319.997741699219
+			],
+			"crossed": true,
+			"dash": false,
+			"direction": -1.0,
+			"encounter": "ch1_enc_street_blockade",
+			"gate_cell": [
+				152,
+				19
+			],
+			"level": "res://data/levels/ch1_street.tres",
+			"living_members": 3,
+			"state": "active"
+		},
+		{
+			"after": [
+				2376.125,
+				319.997741699219
+			],
+			"before": [
+				2480.0,
+				319.997741699219
+			],
+			"crossed": true,
+			"dash": true,
+			"direction": -1.0,
+			"encounter": "ch1_enc_street_blockade",
+			"gate_cell": [
+				152,
+				19
+			],
+			"level": "res://data/levels/ch1_street.tres",
+			"living_members": 3,
+			"state": "active"
+		},
+		{
+			"after": [
+				2464.16650390625,
+				319.997741699219
+			],
+			"before": [
+				2400.0,
+				319.997741699219
+			],
+			"crossed": true,
+			"dash": false,
+			"direction": 1.0,
+			"encounter": "ch1_enc_street_blockade",
+			"gate_cell": [
+				152,
+				19
+			],
+			"level": "res://data/levels/ch1_street.tres",
+			"living_members": 3,
+			"state": "active"
+		},
+		{
+			"after": [
+				2509.5,
+				319.997741699219
+			],
+			"before": [
+				2400.0,
+				319.997741699219
+			],
+			"crossed": true,
+			"dash": true,
+			"direction": 1.0,
+			"encounter": "ch1_enc_street_blockade",
+			"gate_cell": [
+				152,
+				19
+			],
+			"level": "res://data/levels/ch1_street.tres",
+			"living_members": 3,
+			"state": "active"
+		},
+		{
+			"after": [
+				2904.5556640625,
+				319.997741699219
+			],
+			"before": [
+				2960.0,
+				319.997741699219
+			],
+			"crossed": true,
+			"dash": false,
+			"direction": -1.0,
+			"encounter": "ch1_enc_street_blockade",
+			"gate_cell": [
+				182,
+				19
+			],
+			"level": "res://data/levels/ch1_street.tres",
+			"living_members": 3,
+			"state": "active"
+		},
+		{
+			"after": [
+				2856.125,
+				319.997741699219
+			],
+			"before": [
+				2960.0,
+				319.997741699219
+			],
+			"crossed": true,
+			"dash": true,
+			"direction": -1.0,
+			"encounter": "ch1_enc_street_blockade",
+			"gate_cell": [
+				182,
+				19
+			],
+			"level": "res://data/levels/ch1_street.tres",
+			"living_members": 3,
+			"state": "active"
+		},
+		{
+			"after": [
+				2944.16650390625,
+				319.997741699219
+			],
+			"before": [
+				2880.0,
+				319.997741699219
+			],
+			"crossed": true,
+			"dash": false,
+			"direction": 1.0,
+			"encounter": "ch1_enc_street_blockade",
+			"gate_cell": [
+				182,
+				19
+			],
+			"level": "res://data/levels/ch1_street.tres",
+			"living_members": 3,
+			"state": "active"
+		},
+		{
+			"after": [
+				2985.994140625,
+				319.997741699219
+			],
+			"before": [
+				2880.0,
+				319.997741699219
+			],
+			"crossed": true,
+			"dash": true,
+			"direction": 1.0,
+			"encounter": "ch1_enc_street_blockade",
+			"gate_cell": [
+				182,
+				19
+			],
+			"level": "res://data/levels/ch1_street.tres",
+			"living_members": 3,
+			"state": "active"
+		},
+		{
+			"after": [
+				1032.55541992188,
+				143.997741699219
+			],
+			"before": [
+				1088.0,
+				143.997741699219
+			],
+			"crossed": true,
+			"dash": false,
+			"direction": -1.0,
+			"encounter": "ch1_enc_warehouse_walkway",
+			"gate_cell": [
+				65,
+				8
+			],
+			"level": "res://data/levels/ch1_vault.tres",
+			"living_members": 4,
+			"state": "active"
+		},
+		{
+			"after": [
+				984.125,
+				156.331069946289
+			],
+			"before": [
+				1088.0,
+				143.997741699219
+			],
+			"crossed": true,
+			"dash": true,
+			"direction": -1.0,
+			"encounter": "ch1_enc_warehouse_walkway",
+			"gate_cell": [
+				65,
+				8
+			],
+			"level": "res://data/levels/ch1_vault.tres",
+			"living_members": 4,
+			"state": "active"
+		},
+		{
+			"after": [
+				1072.16674804688,
+				143.997741699219
+			],
+			"before": [
+				1008.0,
+				143.997741699219
+			],
+			"crossed": true,
+			"dash": false,
+			"direction": 1.0,
+			"encounter": "ch1_enc_warehouse_walkway",
+			"gate_cell": [
+				65,
+				8
+			],
+			"level": "res://data/levels/ch1_vault.tres",
+			"living_members": 4,
+			"state": "active"
+		},
+		{
+			"after": [
+				1117.5,
+				143.997741699219
+			],
+			"before": [
+				1008.0,
+				143.997741699219
+			],
+			"crossed": true,
+			"dash": true,
+			"direction": 1.0,
+			"encounter": "ch1_enc_warehouse_walkway",
+			"gate_cell": [
+				65,
+				8
+			],
+			"level": "res://data/levels/ch1_vault.tres",
+			"living_members": 4,
+			"state": "active"
+		},
+		{
+			"after": [
+				1832.55541992188,
+				143.997741699219
+			],
+			"before": [
+				1888.0,
+				143.997741699219
+			],
+			"crossed": true,
+			"dash": false,
+			"direction": -1.0,
+			"encounter": "ch1_enc_warehouse_walkway",
+			"gate_cell": [
+				115,
+				8
+			],
+			"level": "res://data/levels/ch1_vault.tres",
+			"living_members": 4,
+			"state": "active"
+		},
+		{
+			"after": [
+				1784.125,
+				143.997741699219
+			],
+			"before": [
+				1888.0,
+				143.997741699219
+			],
+			"crossed": true,
+			"dash": true,
+			"direction": -1.0,
+			"encounter": "ch1_enc_warehouse_walkway",
+			"gate_cell": [
+				115,
+				8
+			],
+			"level": "res://data/levels/ch1_vault.tres",
+			"living_members": 4,
+			"state": "active"
+		},
+		{
+			"after": [
+				1872.16674804688,
+				143.997741699219
+			],
+			"before": [
+				1808.0,
+				143.997741699219
+			],
+			"crossed": true,
+			"dash": false,
+			"direction": 1.0,
+			"encounter": "ch1_enc_warehouse_walkway",
+			"gate_cell": [
+				115,
+				8
+			],
+			"level": "res://data/levels/ch1_vault.tres",
+			"living_members": 4,
+			"state": "active"
+		},
+		{
+			"after": [
+				1917.5,
+				143.997741699219
+			],
+			"before": [
+				1808.0,
+				143.997741699219
+			],
+			"crossed": true,
+			"dash": true,
+			"direction": 1.0,
+			"encounter": "ch1_enc_warehouse_walkway",
+			"gate_cell": [
+				115,
+				8
+			],
+			"level": "res://data/levels/ch1_vault.tres",
+			"living_members": 4,
+			"state": "active"
+		},
+		{
+			"after": [
+				344.555541992188,
+				271.997741699219
+			],
+			"before": [
+				400.0,
+				271.997741699219
+			],
+			"crossed": true,
+			"dash": false,
+			"direction": -1.0,
+			"encounter": "ch1_enc_warehouse_vault",
+			"gate_cell": [
+				22,
+				16
+			],
+			"level": "res://data/levels/ch1_vault.tres",
+			"living_members": 2,
+			"state": "active"
+		},
+		{
+			"after": [
+				296.125,
+				271.997741699219
+			],
+			"before": [
+				400.0,
+				271.997741699219
+			],
+			"crossed": true,
+			"dash": true,
+			"direction": -1.0,
+			"encounter": "ch1_enc_warehouse_vault",
+			"gate_cell": [
+				22,
+				16
+			],
+			"level": "res://data/levels/ch1_vault.tres",
+			"living_members": 2,
+			"state": "active"
+		},
+		{
+			"after": [
+				384.166687011719,
+				271.997741699219
+			],
+			"before": [
+				320.0,
+				271.997741699219
+			],
+			"crossed": true,
+			"dash": false,
+			"direction": 1.0,
+			"encounter": "ch1_enc_warehouse_vault",
+			"gate_cell": [
+				22,
+				16
+			],
+			"level": "res://data/levels/ch1_vault.tres",
+			"living_members": 2,
+			"state": "active"
+		},
+		{
+			"after": [
+				429.5,
+				271.997741699219
+			],
+			"before": [
+				320.0,
+				271.997741699219
+			],
+			"crossed": true,
+			"dash": true,
+			"direction": 1.0,
+			"encounter": "ch1_enc_warehouse_vault",
+			"gate_cell": [
+				22,
+				16
+			],
+			"level": "res://data/levels/ch1_vault.tres",
+			"living_members": 2,
+			"state": "active"
+		},
+		{
+			"after": [
+				728.555541992188,
+				271.997741699219
+			],
+			"before": [
+				784.0,
+				271.997741699219
+			],
+			"crossed": true,
+			"dash": false,
+			"direction": -1.0,
+			"encounter": "ch1_enc_warehouse_vault",
+			"gate_cell": [
+				46,
+				16
+			],
+			"level": "res://data/levels/ch1_vault.tres",
+			"living_members": 2,
+			"state": "active"
+		},
+		{
+			"after": [
+				680.125,
+				271.997741699219
+			],
+			"before": [
+				784.0,
+				271.997741699219
+			],
+			"crossed": true,
+			"dash": true,
+			"direction": -1.0,
+			"encounter": "ch1_enc_warehouse_vault",
+			"gate_cell": [
+				46,
+				16
+			],
+			"level": "res://data/levels/ch1_vault.tres",
+			"living_members": 2,
+			"state": "active"
+		},
+		{
+			"after": [
+				768.166687011719,
+				271.997741699219
+			],
+			"before": [
+				704.0,
+				271.997741699219
+			],
+			"crossed": true,
+			"dash": false,
+			"direction": 1.0,
+			"encounter": "ch1_enc_warehouse_vault",
+			"gate_cell": [
+				46,
+				16
+			],
+			"level": "res://data/levels/ch1_vault.tres",
+			"living_members": 2,
+			"state": "active"
+		},
+		{
+			"after": [
+				813.5,
+				271.997741699219
+			],
+			"before": [
+				704.0,
+				271.997741699219
+			],
+			"crossed": true,
+			"dash": true,
+			"direction": 1.0,
+			"encounter": "ch1_enc_warehouse_vault",
+			"gate_cell": [
+				46,
+				16
+			],
+			"level": "res://data/levels/ch1_vault.tres",
+			"living_members": 2,
+			"state": "active"
+		}
+	],
+	"scope": "arranged actual authored Levels and Input actions; story intro/triggers/start cues suppressed; temporary invulnerability; not human/full Main playthrough"
+}

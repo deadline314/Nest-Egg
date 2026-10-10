@@ -1,0 +1,15 @@
+{
+  "command": [
+    "C:\\Users\\stanl\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "tools/comfyui/gpu_lock.py",
+    "--",
+    "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+    "--path",
+    "C:\\Users\\stanl\\.codex\\worktrees\\contextual-game-ui\\Nest-Egg",
+    "res://tools/free_encounter_native_probe.tscn",
+    "--",
+    "--out=C:\\tmp\\ne245-free-encounters\\repaired-checks-3\\native"
+  ],
+  "exit_code": 0,
+  "log_sha256": "7f9bd25887414e41dd3b9811adf34f0e03cc8da35b2f7e556d4ea74e04ceb6b1"
+}

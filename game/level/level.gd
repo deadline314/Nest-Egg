@@ -10,6 +10,7 @@ signal critical_save_requested
 ## 玩家穿過出入口：請 Main 載入目標區域（路徑是 LevelData 的 .tres）。
 signal area_requested(level_path: String)
 
+const ENCOUNTER_SNAPSHOT = preload("res://game/level/encounter_snapshot.gd")
 const PLAYER_TUNING_PATH := "res://data/player/player_tuning.tres"
 const DEATH_SCREEN_DELAY := 1.1
 const VICTORY_DELAY := 2.8
@@ -71,6 +72,8 @@ var _resume_presentation_generation := 0
 var _tracked: Dictionary = {}
 var _portals: Dictionary[StringName, Portal] = {}
 var _resume: Dictionary = {}
+## True only after the entire live scene and resume state have been installed.
+var _initialization_complete := false
 var _death_entry: Dictionary = {}
 var _death_cause: StringName = &""
 
@@ -83,6 +86,10 @@ func configure_resume(snapshot: Dictionary) -> void:
 	_resume = snapshot
 
 
+func is_initialized() -> bool:
+	return _initialization_complete
+
+
 func _ready() -> void:
 	_layout = LevelBuilder.parse(data)
 	if not _layout.is_valid():
@@ -90,6 +97,14 @@ func _ready() -> void:
 		menu_requested.emit.call_deferred()
 		return
 
+	# Direct resume callers must obey the same strict identity boundary as RunSave.
+	if not _resume.is_empty():
+		var membership := ENCOUNTER_SNAPSHOT.prepare(_resume, data, _layout)
+		if membership.has("error"):
+			push_warning("[Level] %s；返回主選單，未套用遭遇狀態。" % membership["error"])
+			process_mode = Node.PROCESS_MODE_DISABLED
+			menu_requested.emit.call_deferred()
+			return
 	_persistent = data.persistent_world
 	if _resume.get("dead", false):
 		died = true
@@ -207,7 +222,10 @@ func _ready() -> void:
 	camera.target = player
 	camera.snap_to_target()
 	# 恢復arena會鎖camera；須在玩家與鏡頭完成初始化後領回runtime。
-	_restore_run_entities()
+	if not _restore_run_entities():
+		process_mode = Node.PROCESS_MODE_DISABLED
+		menu_requested.emit.call_deferred()
+		return
 
 	_tokens = AttackTokens.new(data.attack_caps)
 	AttackTokens.active = _tokens
@@ -238,6 +256,9 @@ func _ready() -> void:
 	if not data.channel_scenes.is_empty():
 		EventBus.mechanism_toggled.connect(_on_channel_toggled)  # 關卡釋放時自動斷線
 	# 玩家在這個區域的時候，背景預載鄰居與接下來的過場舞台（下次進場不用當場解碼貼圖）。
+	_initialization_complete = true
+	if _arena_triggered and not _boss_spawned and not _resume.get("ending", false) and not _resume.get("dead", false):
+		_resume_pending_boss.call_deferred()
 	AssetPrefetch.warm_neighbors.call_deferred(data)
 	if _resume.get("dead", false):
 		_resume_death.call_deferred()
@@ -251,12 +272,12 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if not _finished and is_instance_valid(player) and not player.is_dead():
+	if _initialization_complete and not _finished and is_instance_valid(player) and not player.is_dead():
 		GameState.run_time += delta
 
 
 func _physics_process(_delta: float) -> void:
-	if _layout == null or not is_instance_valid(player):
+	if not _initialization_complete or _layout == null or not is_instance_valid(player):
 		return
 	_check_story_triggers()
 	_update_lighting_events()
@@ -796,6 +817,10 @@ func _fall_limit() -> float:
 
 func _lock_boss_arena() -> void:
 	_arena_triggered = true
+	if data.boss_lighting != null:
+		EventBus.lighting_override_requested.emit(BOSS_LIGHTING_ID, data.boss_lighting, BOSS_LIGHTING_FADE)
+	if not data.lock_boss_arena:
+		return
 	var tile := float(_layout.tile_size)
 	# 關上身後的閘門並鎖住鏡頭左界。
 	var gate := StaticBody2D.new()
@@ -812,13 +837,12 @@ func _lock_boss_arena() -> void:
 	gate_visual.size = Vector2(tile, _layout.pixel_size().y)
 	_world.add_child(gate_visual)
 	camera.lock_left(_layout.arena_x)
-	if data.boss_lighting != null:
-		EventBus.lighting_override_requested.emit(BOSS_LIGHTING_ID, data.boss_lighting, BOSS_LIGHTING_FADE)
 
 
 func _start_boss_fight() -> void:
 	_lock_boss_arena()
-	Feel.play(&"boss_arena_lock")
+	if data.lock_boss_arena:
+		Feel.play(&"boss_arena_lock")
 	EventBus.toast_requested.emit("警告：偵測到大型反應")
 	if _layout.boss_spawn.is_empty():
 		push_warning("[Level] 有戰場標記 B 但沒有頭目")
@@ -1030,8 +1054,11 @@ func _request_menu() -> void:
 
 ## 只在保存事件或退出時捕捉，不每影格複製世界。
 func run_snapshot() -> Dictionary:
-	if not is_instance_valid(player) or _layout == null:
+	if not _initialization_complete or not is_instance_valid(player) or _layout == null:
 		return {}
+	var enemy_ids: Dictionary = {}
+	var enemies := _capture_enemies(enemy_ids)
+	var encounters := _capture_encounters(enemy_ids)
 	var area := _capture_run_area()
 	if _persistent and not died:
 		_area.merge(area, true)
@@ -1042,7 +1069,8 @@ func run_snapshot() -> Dictionary:
 		"area": area, "dead": died, "death_cause": String(_death_cause), "death_entry": _death_entry,
 		"ending": _finished and not died, "arena": _arena_triggered, "boss_pending": _arena_triggered and not _boss_spawned,
 		"can_continue": _death_can_continue,
-		"loose": _capture_loose(), "enemies": _capture_enemies(), "encounters": _capture_encounters()}
+		"loose": _capture_loose(), "enemies": enemies, "encounters": encounters,
+		"encounter_members_version": ENCOUNTER_SNAPSHOT.MEMBERS_VERSION}
 
 
 func _capture_run_area() -> Dictionary:
@@ -1157,7 +1185,11 @@ func _resume_ending() -> void:
 
 
 func _resume_pending_boss() -> void:
+	if not _initialization_complete or not is_inside_tree():
+		return
 	await get_tree().process_frame
+	if not _initialization_complete or not is_inside_tree():
+		return
 	if _resume.get("cinematic", "") != "":
 		var generation := _resume_presentation_generation
 		while not _resumed_presentation_settled and generation == _resume_presentation_generation and is_inside_tree():
@@ -1191,7 +1223,7 @@ func _capture_loose() -> Array:
 	return result
 
 
-func _capture_enemies() -> Array:
+func _capture_enemies(enemy_ids: Dictionary = {}) -> Array:
 	var result: Array = []
 	for node in _entities.get_children():
 		if not node is Enemy or node.is_dying() or node.is_queued_for_deletion():
@@ -1201,24 +1233,26 @@ func _capture_enemies() -> Array:
 			if is_same(_tracked[tracked_key], node):
 				key = tracked_key
 				break
-		result.append({"key": key, "resource": node.data.resource_path, "position": [node.position.x, node.position.y], "lost": node.lost_health()})
+		var snapshot_id := "enemy:%d" % result.size()
+		enemy_ids[node.get_instance_id()] = snapshot_id
+		result.append({"snapshot_id": snapshot_id, "key": key, "resource": node.data.resource_path,
+			"position": [node.position.x, node.position.y], "lost": node.lost_health()})
 	return result
 
 
-func _capture_encounters() -> Dictionary:
+func _capture_encounters(enemy_ids: Dictionary) -> Dictionary:
 	var result: Dictionary = {}
 	for node in _entities.get_children():
 		if node is EncounterZone and node.state == &"active":
-			result[node.state_key()] = {"reinforce": node.get("_reinforce_index"), "time": node.get("_lock_time")}
+			result[node.state_key()] = {"reinforce": node.get("_reinforce_index"), "time": node.get("_lock_time"),
+				"members": node.capture_members(enemy_ids)}
 	return result
 
 
-func _restore_run_entities() -> void:
+func _restore_run_entities() -> bool:
 	if _resume.get("arena", false) and _layout.arena_x >= 0.0:
 		_lock_boss_arena()
 		_boss_spawned = not _resume.get("boss_pending", false)
-		if not _boss_spawned and not _resume.get("ending", false) and not _resume.get("dead", false):
-			_resume_pending_boss.call_deferred()
 	for entry: Dictionary in _resume.get("loose", []):
 		var node: Node2D
 		match entry["kind"]:
@@ -1230,15 +1264,21 @@ func _restore_run_entities() -> void:
 		if node != null:
 			node.position = RunSaveCodec.vector(entry["position"])
 			_entities.add_child(node)
+	var snapshot_enemies: Dictionary = {}
 	for entry: Dictionary in _resume.get("enemies", []):
 		var node := _tracked.get(entry["key"]) as Enemy if entry["key"] != "" else null
 		if node == null and entry["key"] == "":
 			node = _create_enemy(load(entry["resource"]) as EnemyData)
 			if node != null:
 				_entities.add_child(node)
+		if node == null and _resume.has("encounter_members_version"):
+			push_warning("[Level] run/runtime/enemies/%s/key：%s 無法還原已識別敵人；返回主選單，原存檔保留。" % [entry["snapshot_id"], entry["key"]])
+			return false
 		if node != null:
 			node.position = RunSaveCodec.vector(entry["position"])
 			node.restore_lost_health(entry["lost"])
+			if _resume.has("encounter_members_version"):
+				snapshot_enemies[entry["snapshot_id"]] = node
 			if node.has_method(&"set_arena") and _arena_triggered:
 				node.call(&"set_arena", Rect2(_layout.arena_x, 0.0, _layout.pixel_size().x - _layout.arena_x - _layout.tile_size, _layout.pixel_size().y))
 	for node in _entities.get_children():
@@ -1249,11 +1289,22 @@ func _restore_run_entities() -> void:
 		node.set("_reinforce_index", clampi(entry["reinforce"], 0, node.data.reinforcements.size()))
 		node.set("_lock_time", minf(entry["time"], node.data.max_lock_seconds))
 		var members: Array[WeakRef] = []
-		for enemy in _entities.get_children():
-			if enemy is Enemy and node.call("_zone_world_rect").has_point(enemy.position):
+		if _resume.has("encounter_members_version"):
+			for snapshot_id: String in entry["members"]:
+				var enemy := snapshot_enemies.get(snapshot_id) as Enemy
+				if enemy == null:
+					# Resource/map creation failure must not masquerade as a defeated member.
+					push_warning("[Level] run/runtime/encounters/%s/members：%s 無法還原；返回主選單，原存檔保留。" % [node.state_key(), snapshot_id])
+					return false
 				members.append(weakref(enemy))
+		else:
+			# Explicit compatibility for valid older snapshots lacking identities.
+			for enemy in _entities.get_children():
+				if enemy is Enemy and node.call("_zone_world_rect").has_point(enemy.position):
+					members.append(weakref(enemy))
 		node.set("_members", members)
 		node.set_physics_process(true)
+	return true
 
 
 ## 頭目戰閘門外觀。

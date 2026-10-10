@@ -8,11 +8,11 @@
 script = ExtResource("1_mechanism_data")
 id = &"ch1_enc_warehouse_vault"
 kind = 5
-display_name = "鎖場：保險箱守衛"
+display_name = "遭遇：保險箱守衛"
 channel = &"arena_warehouse_vault"
 size_tiles = Vector2i(25, 13)
 max_lock_seconds = 90.0
 reinforcements = Array[ExtResource("2_enemy_data")]([ExtResource("3_collector_brute")])
-start_text = "保險箱有人守著：撐住"
+start_text = "有人看守保險箱，小心。"
 clear_text = "保險箱安全了"
 start_scene = &"ch1_k_vault"

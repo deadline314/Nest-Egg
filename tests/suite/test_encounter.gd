@@ -8,6 +8,11 @@ const GRUNT := "res://data/enemies/sweeper.tres"
 
 func run() -> void:
 	_test_data_rules()
+	await _test_free_encounter()
+	await preload("res://tests/helpers/encounter_resume_checks.gd").run(self)
+	await preload("res://tests/helpers/encounter_restore_guard_checks.gd").run(self)
+	await _test_special_entry_inset()
+	await _test_special_boss_boundary()
 	await _test_lock_and_clear()
 	await _test_reinforcements()
 	await _test_empty_zone_does_not_lock()
@@ -16,7 +21,7 @@ func run() -> void:
 	GameState.start_new_run(GameState.difficulties[1])
 
 
-func _encounter(channel := &"test_arena", reinforcements: Array[EnemyData] = [], max_lock := 90.0) -> MechanismData:
+func _encounter(channel := &"test_arena", reinforcements: Array[EnemyData] = [], max_lock := 90.0, locked := true) -> MechanismData:
 	var data := MechanismData.new()
 	data.id = &"test_encounter"
 	data.kind = MechanismData.Kind.ENCOUNTER
@@ -24,17 +29,19 @@ func _encounter(channel := &"test_arena", reinforcements: Array[EnemyData] = [],
 	data.size_tiles = Vector2i(20, 8)
 	data.reinforcements = reinforcements
 	data.max_lock_seconds = max_lock
+	data.lock_combat_area = locked
 	data.clear_text = "通道打開了"
 	return data
 
 
-func _arena_gate(channel := &"test_arena") -> MechanismData:
+func _arena_gate(channel := &"test_arena", locked := true) -> MechanismData:
 	var data := MechanismData.new()
 	data.id = &"test_arena_gate"
 	data.kind = MechanismData.Kind.GATE
 	data.channel = channel
 	data.size_tiles = Vector2i(1, 8)
 	data.arena_gate = true
+	data.lock_combat_area = locked
 	return data
 
 
@@ -48,7 +55,7 @@ func _setup(center_tile: float, data: MechanismData) -> Dictionary:
 	var gates: Array[Gate] = []
 	for offset in [-11.0, 11.0]:
 		var gate := Gate.new()
-		gate.configure(_arena_gate(data.channel), Vector2i(int(center_tile + offset), 20), 16)
+		gate.configure(_arena_gate(data.channel, data.lock_combat_area), Vector2i(int(center_tile + offset), 20), 16)
 		gate.position = Vector2((center_tile + offset) * 16.0, FLOOR_Y)
 		level._entities.add_child(gate)
 		gates.append(gate)
@@ -65,6 +72,7 @@ func _all_open(gates: Array) -> bool:
 
 
 func _test_data_rules() -> void:
+	check(not MechanismData.new().lock_combat_area and not LevelData.new().lock_boss_arena, "new encounter and boss areas default to free movement")
 	check(_encounter().validate().is_empty(), "a valid encounter has no problems")
 	var no_channel := _encounter(&"")
 	check(not no_channel.validate().is_empty(), "an encounter needs a channel")
@@ -76,6 +84,65 @@ func _test_data_rules() -> void:
 	var holes := _encounter()
 	holes.reinforcements = [null]
 	check(not holes.validate().is_empty(), "an empty reinforcement slot is reported")
+	for path in ["res://data/props/ch1_arena_street_blockade.tres", "res://data/props/ch1_arena_street_plaza.tres", "res://data/props/ch1_arena_warehouse_vault.tres", "res://data/props/ch1_arena_warehouse_walkway.tres"]:
+		var gate_data := load(path) as MechanismData
+		check(gate_data != null and gate_data.arena_gate and not gate_data.lock_combat_area, "authored ordinary combat gate is disabled: %s" % path)
+
+
+func _test_free_encounter() -> void:
+	await open_level(4.0)
+	var first := spawn(GRUNT, 14.0)
+	var second := spawn(GRUNT, 18.0)
+	first.set_physics_process(false)
+	second.set_physics_process(false)
+	var set_up := await _setup(16.0, _encounter(&"free_encounter", [], 10.0, false))
+	var zone: EncounterZone = set_up["zone"]
+	var gates: Array = set_up["gates"]
+	check(_all_open(gates) and not gates[0].visible and not gates[1].visible, "ordinary combat gates have no visible panel")
+	check(gates[0].collision_layer == 0 and gates[1].collision_layer == 0, "ordinary combat gates have no world collision")
+	Input.action_press(&"move_right")
+	await physics_frames(60)
+	Input.action_release(&"move_right")
+	check(level.player.global_position.x > gates[0].global_position.x + 24.0 and zone.state == &"active", "real movement crosses the former entry gate and starts combat")
+	Input.action_press(&"move_left")
+	await physics_frames(60)
+	Input.action_release(&"move_left")
+	check(level.player.global_position.x < gates[0].global_position.x - 12.0 and zone.state == &"active", "the player can physically leave while both members remain alive")
+	zone._lock_time = 100.0
+	await physics_frames(20)
+	check(zone.state == &"active" and zone.capture_state() == false, "a free encounter never awards completion from an old lock timeout")
+	first.health.take_damage(lethal())
+	second.health.take_damage(lethal())
+	await physics_frames(60)
+	check(zone.state == &"cleared" and zone.capture_state() == true and _all_open(gates), "actual member deaths complete and persist the free encounter")
+	await end_level(level)
+
+
+func _test_special_entry_inset() -> void:
+	await open_level(4.0)
+	var enemy := spawn(GRUNT, 16.0)
+	enemy.set_physics_process(false)
+	var set_up := await _setup(16.0, _encounter())
+	var zone: EncounterZone = set_up["zone"]
+	place_player(6.0)
+	await physics_frames(6)
+	check(zone.state == &"idle" and _all_open(set_up["gates"]), "a special arena does not close at its outer boundary")
+	place_player(8.5)
+	await physics_frames(6)
+	check(zone.state == &"active" and _all_closed(set_up["gates"]), "only entering the inset safe range closes an explicitly authored special arena")
+	await end_level(level)
+
+
+func _test_special_boss_boundary() -> void:
+	var special := (load("res://data/levels/level_01.tres") as LevelData).duplicate() as LevelData
+	special.lock_boss_arena = true
+	special.intro_scene = &""
+	var arena := await start_level(special)
+	var initial_children := arena._world.get_child_count()
+	arena._lock_boss_arena()
+	await physics_frames(2)
+	check(arena._world.get_child_count() == initial_children + 2 and arena.camera.limit_left == int(arena._layout.arena_x), "an explicit special boss arena still creates its boundary and camera lock")
+	await end_level(arena)
 
 
 func _test_lock_and_clear() -> void:

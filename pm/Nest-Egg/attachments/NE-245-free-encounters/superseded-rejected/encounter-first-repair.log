@@ -1,0 +1,4 @@
+Running 2 groups in 1 processes (logs: C:\tmp\ne245-free-encounters\repaired-checks\affected)
+  process 0 (estimated 19 s): EncounterSuite,RunSaveSuite
+Detected script errors in output of process 0: C:\tmp\ne245-free-encounters\repaired-checks\affected/shard_0.log
+checks: 497, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 31 s)

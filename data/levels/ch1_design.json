@@ -32,6 +32,7 @@
     {
      "name": "接觸",
      "lock": false,
+     "wave_zone": false,
      "x0": 62,
      "x1": 70,
      "members": [
@@ -42,6 +43,7 @@
     {
      "name": "高台",
      "lock": false,
+     "wave_zone": false,
      "x0": 76,
      "x1": 86,
      "members": [
@@ -53,6 +55,7 @@
     {
      "name": "格擋",
      "lock": false,
+     "wave_zone": false,
      "x0": 89,
      "x1": 90,
      "members": [
@@ -62,7 +65,8 @@
     },
     {
      "name": "街心",
-     "lock": true,
+     "lock": false,
+     "wave_zone": true,
      "x0": 92,
      "x1": 118,
      "members": [
@@ -77,6 +81,7 @@
     {
      "name": "近戰",
      "lock": false,
+     "wave_zone": false,
      "x0": 124,
      "x1": 140,
      "members": [
@@ -88,6 +93,7 @@
     {
      "name": "高路",
      "lock": false,
+     "wave_zone": false,
      "x0": 141,
      "x1": 146,
      "members": [
@@ -98,6 +104,7 @@
     {
      "name": "空襲",
      "lock": false,
+     "wave_zone": false,
      "x0": 147,
      "x1": 150,
      "members": [
@@ -107,7 +114,8 @@
     },
     {
      "name": "路障",
-     "lock": true,
+     "lock": false,
+     "wave_zone": true,
      "x0": 152,
      "x1": 182,
      "members": [
@@ -123,6 +131,7 @@
     {
      "name": "出口伏擊",
      "lock": false,
+     "wave_zone": false,
      "x0": 183,
      "x1": 187,
      "members": [
@@ -154,6 +163,7 @@
     {
      "name": "貨櫃頂",
      "lock": false,
+     "wave_zone": false,
      "x0": 20,
      "x1": 26,
      "members": [
@@ -164,6 +174,7 @@
     {
      "name": "前廳左",
      "lock": false,
+     "wave_zone": false,
      "x0": 28,
      "x1": 34,
      "members": [
@@ -174,6 +185,7 @@
     {
      "name": "前廳右",
      "lock": false,
+     "wave_zone": false,
      "x0": 36,
      "x1": 42,
      "members": [
@@ -184,6 +196,7 @@
     {
      "name": "吊車下",
      "lock": false,
+     "wave_zone": false,
      "x0": 44,
      "x1": 50,
      "members": [
@@ -194,6 +207,7 @@
     {
      "name": "看門狗",
      "lock": false,
+     "wave_zone": false,
      "x0": 52,
      "x1": 60,
      "members": [
@@ -204,6 +218,7 @@
     {
      "name": "開關守衛",
      "lock": false,
+     "wave_zone": false,
      "x0": 93,
      "x1": 96,
      "members": [
@@ -214,6 +229,7 @@
     {
      "name": "高處無人機",
      "lock": false,
+     "wave_zone": false,
      "x0": 98,
      "x1": 110,
      "members": [
@@ -225,6 +241,7 @@
     {
      "name": "坑前",
      "lock": false,
+     "wave_zone": false,
      "x0": 114,
      "x1": 116,
      "members": [
@@ -236,6 +253,7 @@
     {
      "name": "坑上",
      "lock": false,
+     "wave_zone": false,
      "x0": 119,
      "x1": 128,
      "members": [
@@ -246,6 +264,7 @@
     {
      "name": "坑對岸",
      "lock": false,
+     "wave_zone": false,
      "x0": 134,
      "x1": 140,
      "members": [
@@ -267,7 +286,8 @@
    "encounters": [
     {
      "name": "保險箱守衛",
-     "lock": true,
+     "lock": false,
+     "wave_zone": true,
      "x0": 22,
      "x1": 46,
      "members": [
@@ -281,6 +301,7 @@
     {
      "name": "階梯",
      "lock": false,
+     "wave_zone": false,
      "x0": 49,
      "x1": 61,
      "members": [
@@ -290,7 +311,8 @@
     },
     {
      "name": "上層走道",
-     "lock": true,
+     "lock": false,
+     "wave_zone": true,
      "x0": 65,
      "x1": 115,
      "members": [

@@ -1,0 +1,11 @@
+{
+  "command": [
+    "C:\\Users\\stanl\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "tools/comfyui/gpu_lock.py",
+    "--",
+    "C:/Program Files/Git/bin/bash.exe",
+    "tools/run_tests_changed.sh"
+  ],
+  "exit_code": 1,
+  "log_sha256": "cf14c27fdfea8774c61529e6f42562dfc381ab61f878675cbd282c6f722f11a6"
+}

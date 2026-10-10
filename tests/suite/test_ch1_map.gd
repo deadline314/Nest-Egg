@@ -6,10 +6,10 @@ extends TestSuite
 const IDS: Array[String] = ["pawnshop", "rooftop", "street", "booth_alley", "warehouse", "vault", "lounge", "stall", "pawnshop_dawn"]
 const ROSTER_PATH := "res://data/combat/chapter_rosters.json"
 const DESIGN_PATH := "res://data/levels/ch1_design.json"
-## 遭遇總數與鎖場、迷你頭目的下限（design/13-story-v2/CH01_PACING_V2.md）。
+## 遭遇總數與波次區的下限；NE-245 普通遭遇保留波次但不鎖場。
 const MIN_ENCOUNTERS := 22
 const MAX_ENCOUNTERS := 26
-const MIN_LOCKED := 4
+const MIN_WAVE_ZONES := 4
 const NEW_KIND_GAP := 12.0
 ## 劇情：動畫過場全章 ≤ 3 次（開場 ≤ 20 秒、診間 ≤ 45 秒、章末 ≤ 60 秒預估），其餘用氣泡、廣播與人物對話。
 const MAX_CUTSCENES := 3
@@ -46,7 +46,7 @@ func run() -> void:
 	await _test_story_flags()
 	await _test_scenes_play_through()
 	await _test_every_area_builds()
-	await _test_locked_encounters_play_through()
+	await _test_free_encounters_play_through()
 	await _test_walkthrough()
 	await _test_state_across_areas()
 
@@ -288,13 +288,14 @@ func _test_encounters() -> void:
 	var design := _design()
 	check(not design.is_empty(), "the design data exists (%s)" % DESIGN_PATH)
 	var total := 0
-	var locked := 0
+	var wave_zones := 0
 	for id in design:
 		for encounter: Dictionary in design[id]["encounters"]:
 			total += 1
-			locked += 1 if bool(encounter["lock"]) else 0
+			check(encounter["lock"] == false, "%s: ordinary authored encounter never requires a combat lock" % encounter["name"])
+			wave_zones += 1 if encounter.get("wave_zone", false) == true else 0
 	check(total >= MIN_ENCOUNTERS and total <= MAX_ENCOUNTERS, "%d to %d encounters in the chapter (%d)" % [MIN_ENCOUNTERS, MAX_ENCOUNTERS, total])
-	check(locked >= MIN_LOCKED, "at least %d locked encounters (%d)" % [MIN_LOCKED, locked])
+	check(wave_zones >= MIN_WAVE_ZONES, "at least %d live wave encounters remain (%d)" % [MIN_WAVE_ZONES, wave_zones])
 	var zone_count := 0
 	for id in IDS:
 		if id == "pawnshop_dawn":
@@ -317,6 +318,7 @@ func _test_encounters() -> void:
 		var ranges: Array[Vector2i] = []
 		for spawn in zones:
 			var zone := spawn["resource"] as MechanismData
+			check(not zone.lock_combat_area, "%s: %s is an authored free encounter" % [id, zone.id])
 			var center := (spawn["cell"] as Vector2i).x
 			var left := center - zone.size_tiles.x / 2
 			var right := center + zone.size_tiles.x / 2
@@ -333,11 +335,11 @@ func _test_encounters() -> void:
 				inside += 1 if x >= left and x <= right else 0
 			check(inside >= 1 and inside <= 4, "%s: %s has one to four members inside (%d)" % [id, zone.id, inside])
 			check(inside + zone.reinforcements.size() <= 6, "%s: %s keeps at most six enemies alive at once (%d + %d)" % [id, zone.id, inside, zone.reinforcements.size()])
-	var locked_in_design := 0
+	var waves_in_design := 0
 	for id in design:
 		for encounter: Dictionary in design[id]["encounters"]:
-			locked_in_design += 1 if bool(encounter["lock"]) else 0
-	check(zone_count == locked_in_design, "every locked encounter in the design is on a map (%d vs %d)" % [zone_count, locked_in_design])
+			waves_in_design += 1 if encounter.get("wave_zone", false) == true else 0
+	check(zone_count == waves_in_design, "every wave encounter in the design is on a map (%d vs %d)" % [zone_count, waves_in_design])
 	# 休息的谷（當舖、屋頂、電話亭巷）：一個可看的地標與一件小獎勵（CH01_PACING_V2 §4）
 	for id in ["pawnshop", "rooftop", "booth_alley"]:
 		for key in ["landmark", "reward"]:
@@ -760,8 +762,8 @@ func _test_walkthrough() -> void:
 	await end_level(level)
 
 
-## 每場鎖場都能真的打完：把玩家放進範圍 → 閘門關上 → 一直打倒範圍內的敵人（含增援）→ 閘門打開、不再鎖人。
-func _test_locked_encounters_play_through() -> void:
+## 每場普通波次區都能真的打完：進場仍暢通，敵人與增援全倒才完成；全程不建立封路門。
+func _test_free_encounters_play_through() -> void:
 	for id in ["street", "warehouse", "vault"]:
 		GameState.start_new_run(GameState.difficulties[1])
 		var level := await spawn_level(_datas[id])
@@ -778,9 +780,12 @@ func _test_locked_encounters_play_through() -> void:
 			check(zone.state == &"active", "%s: %s starts when the player walks in (%s)" % [id, zone.data.id, zone.state])
 			var gates := 0
 			for node in level._entities.get_children():
-				if node is Gate and (node as Gate).data.channel == zone.data.channel and not (node as Gate).is_open:
+				if node is Gate and (node as Gate).data.channel == zone.data.channel:
 					gates += 1
-			check(gates == 2, "%s: both arena gates of %s close (%d)" % [id, zone.data.id, gates])
+					check(node.is_open and not node.visible and node.collision_layer == 0 and node.get_child_count() == 0,
+						"%s: %s legacy gate is open, hidden, nonblocking and creates no wall, occluder or prompt" % [id, zone.data.id])
+			check(gates == 2 and not zone.data.lock_combat_area, "%s: both original boundary anchors of %s remain free (%d)" % [id, zone.data.id, gates])
+			check(zone.living_members() > 0, "%s: %s still has true living encounter members" % [id, zone.data.id])
 			var guard := 0
 			while zone.state == &"active" and guard < 60 * 25:
 				for enemy in get_tree_enemies_of(level):

@@ -1729,6 +1729,7 @@ func _test_enemy_behaviours() -> void:
 
 func _test_boss_and_victory() -> void:
 	var level := await _start_level()
+	var free_camera_left := level.camera.limit_left
 	var completed := [false]
 	level.completed.connect(func() -> void: completed[0] = true)
 	var player := level.player
@@ -1745,7 +1746,7 @@ func _test_boss_and_victory() -> void:
 	if boss == null:
 		await _end_level(level)
 		return
-	_check(level.camera.limit_left == int(layout.arena_x), "camera locked to arena")
+	_check(not level.data.lock_boss_arena and level.camera.limit_left == free_camera_left, "ordinary boss encounter leaves the route and camera unlocked")
 	_check(level._lighting.has_override(&"boss"), "boss fight switches to the alarm lighting")
 	var attacks := {}
 	for i in 600:

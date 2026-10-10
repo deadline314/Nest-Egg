@@ -15,7 +15,7 @@ enum Kind {
 	## 水坑（以死解謎）：站上坑底的踏板，水在幾秒內漲滿並淹死玩家；channel 的閘門隨之打開，水位與閘門在死後保留，
 	## 漲滿的水面上會浮起一排貨櫃讓人走過去。size_tiles 是坑的內部寬×深（格），原點是踏板所在格的底邊中點（坑底正中）。
 	FLOOD_PIT,
-	## 鎖場遭遇（區域高潮）：玩家走進範圍就鎖住 channel 的競技場閘門（GATE 且 arena_gate），範圍內的敵人（加上增援）全部倒下才打開。
+	## 遭遇：玩家進入範圍後追蹤敵人與增援；一般路線可自由進出，只有明確指定的特殊場地才鎖門。
 	## size_tiles 是範圍的寬×高（格），原點是範圍底邊的中點；範圍內事先放好的敵人就是這場遭遇的成員。
 	ENCOUNTER,
 }
@@ -32,6 +32,8 @@ enum Kind {
 @export var size_tiles := Vector2i(1, 4)
 ## 競技場閘門（只對 GATE）：平常打開，所屬 channel 的鎖場遭遇開始時放下、結束時升起；不存進世界狀態（重生時一定是打開的，不會把人關在裡面）。
 @export var arena_gate := false
+## 只供明確設計的競技場／特殊空間：遭遇與其 arena_gate 都需指定。普通路線預設不封路。
+@export var lock_combat_area := false
 @export_group("Lift")
 ## 升降梯往上移動的格數。
 @export var travel_tiles: int = 6

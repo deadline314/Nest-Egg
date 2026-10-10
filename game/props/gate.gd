@@ -27,6 +27,13 @@ func _ready() -> void:
 		push_error("[Gate] 未指定 MechanismData，已移除。")
 		queue_free()
 		return
+	if data.arena_gate and not data.lock_combat_area:
+		# 舊的一般遭遇門沒有封路用途：不建立碰撞、遮光或門板，也不加入持久世界。
+		is_open = true
+		collision_layer = 0
+		hide()
+		set_process(false)
+		return
 	LightKit.mark_emissive(self)
 	collision_layer = Layers.WORLD
 	collision_mask = 0
@@ -91,6 +98,9 @@ func capture_state() -> Variant:
 
 
 func restore_state(state: Variant) -> void:
+	if data != null and data.arena_gate and not data.lock_combat_area:
+		is_open = true
+		return
 	_set_open(state == true, true)
 
 

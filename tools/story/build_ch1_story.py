@@ -405,8 +405,8 @@ def build():
         ('lamp', "倉庫就在碼頭盡頭，我會在耳機裡陪你。"),
     ])
     # 鎖場開始時凜的戰鬥短句（≤16 字、≤2 句）
-    lines_scene('ch1_k_plaza', 'bubbles', [('rin', "路封了。")], bark=True)
-    lines_scene('ch1_k_blockade', 'bubbles', [('rin', "收帳人擋住路了。")], bark=True)
+    lines_scene('ch1_k_plaza', 'bubbles', [('rin', "廣場有人巡邏，小心。")], bark=True)
+    lines_scene('ch1_k_blockade', 'bubbles', [('rin', "收帳人在前面搜查。")], bark=True)
     lines_scene('ch1_k_vault', 'bubbles', [('rin', "有人守著。")], bark=True)
     lines_scene('ch1_k_walkway', 'bubbles', [('rin', "上面有人。")], bark=True)
 

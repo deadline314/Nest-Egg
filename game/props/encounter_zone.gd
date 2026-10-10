@@ -1,6 +1,6 @@
 class_name EncounterZone
 extends Node2D
-## 鎖場遭遇（ST-11，區域高潮）：玩家走進範圍 → 鎖上 channel 的競技場閘門 → 範圍內的敵人（加上增援）全部倒下 → 閘門升起。
+## 遭遇：追蹤範圍內敵人與增援，普通路線自由進出。只有明確的特殊場地才允許鎖門。
 ## 範圍由 data.size_tiles 決定，原點是範圍底邊的中點；成員是玩家走進時範圍內還活著的敵人，所以敵人只要事先擺在範圍裡就好。
 ##
 ## 容錯：成員全部已經死了（持久世界裡先前殺光）就直接視為完成、不鎖人；鎖了超過 data.max_lock_seconds 強制解鎖並記錄；
@@ -9,6 +9,7 @@ extends Node2D
 const SIDE_MARGIN := 24.0
 const CHECK_INTERVAL := 0.25
 const FEET_MARGIN := 8.0
+const LOCK_ENTRY_MARGIN_TILES := 2.0
 
 ## 生成增援敵人：Callable(EnemyData, Vector2 世界座標) -> Enemy（由 Level 指定）。
 var spawner: Callable
@@ -44,6 +45,9 @@ func _ready() -> void:
 	_area.monitorable = false
 	var shape := RectangleShape2D.new()
 	shape.size = _zone.size
+	if data.lock_combat_area:
+		# 區域兩端向內留兩格，完整角色越過門邊才觸發特殊鎖場。
+		shape.size.x = maxf(float(_tile), shape.size.x - float(_tile) * LOCK_ENTRY_MARGIN_TILES * 2.0)
 	var shape_node := CollisionShape2D.new()
 	shape_node.shape = shape
 	shape_node.position = _zone.get_center()
@@ -75,7 +79,8 @@ func begin() -> void:
 	_lock_time = 0.0
 	_reinforce_index = 0
 	EventBus.mechanism_toggled.emit(data.channel, true)
-	Sfx.play(&"gate", -3.0)
+	if data.lock_combat_area:
+		Sfx.play(&"gate", -3.0)
 	if not data.start_text.is_empty():
 		EventBus.toast_requested.emit(data.start_text)
 	if data.start_scene != &"":
@@ -106,7 +111,7 @@ func _physics_process(delta: float) -> void:
 	if _check_left > 0.0:
 		return
 	_check_left = CHECK_INTERVAL
-	if _lock_time >= data.max_lock_seconds:
+	if data.lock_combat_area and _lock_time >= data.max_lock_seconds:
 		push_warning("[EncounterZone] %s（格 %s）鎖場超過 %.0f 秒，強制解鎖（還有 %d 個成員活著）" % [data.id, cell, data.max_lock_seconds, living_members()])
 		_finish(true)
 		return
@@ -136,9 +141,24 @@ func _finish(forced: bool) -> void:
 	state = &"cleared"
 	set_physics_process(false)
 	EventBus.mechanism_toggled.emit(data.channel, false)
-	Sfx.play(&"gate", -3.0)
+	if data.lock_combat_area:
+		Sfx.play(&"gate", -3.0)
 	if not forced and not data.clear_text.is_empty():
 		EventBus.toast_requested.emit(data.clear_text)
+
+
+## Snapshot-local IDs for the actual living members, including those outside the zone.
+func capture_members(enemy_ids: Dictionary) -> Array:
+	var result: Array = []
+	for ref in _members:
+		var enemy := ref.get_ref() as Enemy
+		if enemy == null or not is_instance_valid(enemy) or enemy.is_dying() or enemy.is_queued_for_deletion():
+			continue
+		var snapshot_id: String = enemy_ids.get(enemy.get_instance_id(), "")
+		# Missing capture identity remains an invalid reference for strict save validation.
+		if not result.has(snapshot_id):
+			result.append(snapshot_id)
+	return result
 
 
 func state_key() -> String:

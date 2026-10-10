@@ -36,6 +36,8 @@ extends Resource
 @export var intro_scene: StringName = &""
 ## 進入頭目戰場時播放的過場（播完才出現頭目）。
 @export var boss_scene: StringName = &""
+## 僅明確設計的特殊頭目空間封路與鎖鏡頭；一般關卡頭目出場不關住玩家。
+@export var lock_boss_arena := false
 ## 擊敗頭目後播放的過場。
 @export var outro_scene: StringName = &""
 ## 機關頻道被啟動時播放的場景（頻道 -> 場景 id），例如打倒迷你頭目後隔牆升起的通訊；每輪只播一次。

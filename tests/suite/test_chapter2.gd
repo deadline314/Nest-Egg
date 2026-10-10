@@ -274,6 +274,7 @@ func _test_difficulties() -> void:
 	var layout := LevelBuilder.parse(data)
 	for difficulty_index in GameState.difficulties.size():
 		var level := await start_level(data, difficulty_index)
+		var free_camera_left := level.camera.limit_left
 		var done := [false]
 		level.completed.connect(func() -> void: done[0] = true)
 		level.player.health.setup(999, 0.5)
@@ -289,7 +290,7 @@ func _test_difficulties() -> void:
 		var difficulty := GameState.difficulties[difficulty_index]
 		check(boss != null and boss.data.id == &"reclaimer", "%s: the reclaimer appears in the arena" % difficulty.id)
 		check(level._lighting.has_override(&"boss") or level._lighting.has_override(&"boss"), "%s: the boss lighting is applied" % difficulty.id)
-		check(is_equal_approx(float(level.camera.limit_left), layout.arena_x), "%s: the camera locks to the arena" % difficulty.id)
+		check(not data.lock_boss_arena and level.camera.limit_left == free_camera_left, "%s: the ordinary boss encounter keeps the camera unlocked" % difficulty.id)
 		if boss != null:
 			await physics_frames(60)
 			var lethal := DamageInfo.create(9999, Combat.Team.PLAYER, &"test")

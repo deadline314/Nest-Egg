@@ -8,11 +8,11 @@
 script = ExtResource("1_mechanism_data")
 id = &"ch1_enc_street_plaza"
 kind = 5
-display_name = "鎖場：街心"
+display_name = "遭遇：街心"
 channel = &"arena_street_plaza"
 size_tiles = Vector2i(27, 9)
 max_lock_seconds = 90.0
 reinforcements = Array[ExtResource("2_enemy_data")]([ExtResource("3_collector_gunner")])
-start_text = "路被封住了：打倒他們"
-clear_text = "街道通了"
+start_text = "廣場有收帳人巡邏，留意增援。"
+clear_text = "廣場暫時安全了。"
 start_scene = &"ch1_k_plaza"

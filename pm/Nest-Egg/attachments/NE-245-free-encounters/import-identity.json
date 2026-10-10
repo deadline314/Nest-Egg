@@ -1,0 +1,15 @@
+{
+  "command": [
+    "C:\\Users\\stanl\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "tools/comfyui/gpu_lock.py",
+    "--",
+    "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+    "--headless",
+    "--editor",
+    "--path",
+    "C:\\Users\\stanl\\.codex\\worktrees\\contextual-game-ui\\Nest-Egg",
+    "--quit"
+  ],
+  "exit_code": 0,
+  "log_sha256": "9196b3b3d6f9227e06d6473bdb5e2dc0b22da80782d913fc2f712baeee4db742"
+}

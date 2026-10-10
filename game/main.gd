@@ -66,6 +66,9 @@ func _swap_screen(screen: Node) -> void:
 	Fx.reset_time()
 	_screen = screen
 	add_child(screen)
+	if screen is Level and not screen.is_initialized():
+		_restore_publish_pending = false
+		return  # Failed initialization emits menu_requested; never publish or save its partial scene.
 	# Level._ready 已裝齊玩家、世界及續玩資料，通知才可離開 Main。
 	if _restore_publish_pending:
 		_restore_publish_pending = false

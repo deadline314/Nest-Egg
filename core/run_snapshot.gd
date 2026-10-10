@@ -2,6 +2,7 @@ class_name RunSnapshot
 extends RefCounted
 ## 整輪資料的唯一聚合邊界。先準備完整有效快照，再套用單例。
 
+const ENCOUNTER_SNAPSHOT = preload("res://game/level/encounter_snapshot.gd")
 const SCALARS := ["lives_left", "deaths", "kills", "finishers", "run_time", "last_death_clock", "respawn_pending", "checkpoint_notice_pending", "has_checkpoint", "checkpoint_level_path", "current_level_path", "carried_health"]
 const DICTIONARIES := ["area_states", "checkpoint_world", "checkpoint_progress", "level_start_progress", "level_start_loadout", "checkpoint_loadout"]
 
@@ -131,7 +132,7 @@ static func prepare(raw: Dictionary) -> Dictionary:
 	for key in ["register_checkpoint", "free"]:
 		if runtime["death_entry"].has(key):
 			runtime["death_entry"][key] = runtime["death_entry"][key] == true
-	var dynamic := _dynamic(runtime)
+	var dynamic := _dynamic(runtime, level)
 	if dynamic.has("error"):
 		return dynamic
 	runtime.merge(dynamic, true)
@@ -272,7 +273,10 @@ static func _world(raw: Dictionary) -> Dictionary:
 	return result
 
 
-static func _dynamic(runtime: Dictionary) -> Dictionary:
+static func _dynamic(runtime: Dictionary, level: LevelData = null) -> Dictionary:
+	var membership := ENCOUNTER_SNAPSHOT.prepare(runtime, level)
+	if membership.has("error"):
+		return membership
 	var result := {"loose": [], "enemies": [], "encounters": {}}
 	for key in ["loose", "enemies"]:
 		if not runtime.get(key, []) is Array or runtime.get(key, []).size() > 1024:
@@ -306,4 +310,8 @@ static func _dynamic(runtime: Dictionary) -> Dictionary:
 		if not entry is Dictionary:
 			return {"error": "run/runtime/encounters/%s必須是物件" % key}
 		result["encounters"][key] = {"reinforce": int(RunSaveCodec.number(entry.get("reinforce"), 0, 0, 1024)), "time": RunSaveCodec.number(entry.get("time"), 0, 0, 3600)}
+		if membership["data"].has("encounter_members_version"):
+			result["encounters"][key]["members"] = membership["data"]["members"][key]
+	if membership["data"].has("encounter_members_version"):
+		result["encounter_members_version"] = ENCOUNTER_SNAPSHOT.MEMBERS_VERSION
 	return result

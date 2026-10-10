@@ -1,0 +1,12 @@
+{
+  "command": [
+    "C:\\Users\\stanl\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "tools/comfyui/gpu_lock.py",
+    "--",
+    "C:/Program Files/Git/bin/bash.exe",
+    "tools/run_tests_parallel.sh",
+    "--only=Chapter1MapSuite"
+  ],
+  "exit_code": 1,
+  "log_sha256": "c392aa4e880b670a22b0df868714ff86d3591806d39b90e80e4b9a7b93b1d4a6"
+}

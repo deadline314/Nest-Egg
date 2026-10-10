@@ -164,7 +164,8 @@ class Area:
     def encounter(self, name, x0, x1, members, reinforcements=(), lock=False, slug='', gate_h=10, floor_row=None,
                   start_text='', clear_text='', start_scene='', max_lock=90.0):
         """一場遭遇（ST-11）。members：[(欄, 字元)] 或 [(欄, 字元, 列)]（站在平台上或飛行時指定列），放在 x0～x1 之間。
-        lock＝True：在 x0、x1 放競技場閘門（高 gate_h 格），玩家走進範圍就鎖場，成員與增援（reinforcements：字元清單）全倒才打開。
+        lock 為舊版的波次區參數：保留 x0、x1 門位供舊地圖相容，正式普通遭遇不封路。
+        波次區成員與增援（reinforcements：字元清單）全倒才算完成；設計輸出分開記錄 wave_zone 與 lock。
         floor_row：閘門與範圍字元站的列（預設地面上一列）。成員必須剛好是範圍內的所有敵人（check 會數）。"""
         placed = []
         for m in members:
@@ -538,7 +539,7 @@ def build_street():
     a.platform(106, 111, 13)
     a.block(113, 114, 18, 19)
     a.encounter('街心', 92, 118, [(98, 'g'), (111, 'g'), (104, 'd', 9)], reinforcements=['k'], lock=True, slug='plaza', gate_h=9,
-                start_text='路被封住了：打倒他們', clear_text='街道通了', start_scene='ch1_k_plaza')
+                start_text='廣場有收帳人巡邏，留意增援。', clear_text='廣場暫時安全了。', start_scene='ch1_k_plaza')
     a.stand(121, 'i')
     # 近戰與高路（x=122～147）
     a.trigger(120, 'ch1_g06_tip_blade')
@@ -559,7 +560,7 @@ def build_street():
     a.block(171, 172, 18, 19)
     a.platform(175, 179, 15)
     a.encounter('路障', 152, 182, [(168, 'z'), (166, 'k', 14), (177, 'k', 14)], reinforcements=['g', 'g'], lock=True, slug='blockade', gate_h=9,
-                start_text='收帳人封路：撐住', clear_text='路障清掉了', start_scene='ch1_k_blockade')
+                start_text='收帳人正在前方搜查，小心。', clear_text='前方的追兵清掉了。', start_scene='ch1_k_blockade')
     a.stand(185, 'o')
     a.stand(184, 'c')
     a.stand(186, 'm')
@@ -696,7 +697,7 @@ def build_warehouse_full():
     a.block(150, 151, 14, 16)
     a.platform(158, 163, 13)
     a.encounter('保險箱守衛', 142, 166, [(157, 'z'), (148, 'k')], reinforcements=['b'], lock=True, slug='vault', gate_h=13,
-                start_text='保險箱有人守著：撐住', clear_text='保險箱安全了', start_scene='ch1_k_vault')
+                start_text='有人看守保險箱，小心。', clear_text='保險箱安全了', start_scene='ch1_k_vault')
     a.stand(160, 'y')
     a.hint(156, '保險箱裡有一片資料盤：拿了就能從上層通道離開')
     a.stand(146, 'c')
@@ -713,7 +714,7 @@ def build_warehouse_full():
     a.put(240, 8, 'L')
     a.stand(190, 'c', row=8)
     a.encounter('上層走道', 185, 235, [(192, 'g', 8), (204, 'g', 8), (216, 'k', 8), (210, 'd', 6)], reinforcements=['k'], lock=True, slug='walkway',
-                gate_h=5, floor_row=8, start_text='走道上有人：清乾淨再走', clear_text='走道通了', start_scene='ch1_k_walkway')
+                gate_h=5, floor_row=8, start_text='走道有守衛，留意增援。', clear_text='走道暫時安全了。', start_scene='ch1_k_walkway')
     # 下層走道（走道下面）：秘密房
     a.stand(210, 'c', row=16)
     a.stand(200, 'i', row=16)
@@ -897,7 +898,7 @@ def write_encounter_files(areas):
             w = TresWriter('MechanismData', 'res://data/scripts/mechanism_data.gd')
             width = e['x1'] - e['x0'] + 1
             lines = [f'script = ExtResource("{w.script_id}")', f'id = &"ch1_enc_{e["key"]}"', 'kind = 5',
-                     f'display_name = {json.dumps("鎖場：" + e["name"], ensure_ascii=False)}', f'channel = &"{channel}"',
+                     f'display_name = {json.dumps("遭遇：" + e["name"], ensure_ascii=False)}', f'channel = &"{channel}"',
                      f'size_tiles = Vector2i({width}, {e["gate_h"]})', f'max_lock_seconds = {float(e["max_lock"])}']
             if e['reinforcements']:
                 enemy_script = w.ext('res://data/scripts/enemy_data.gd', 'Script')
@@ -935,7 +936,7 @@ def write_design(areas):
     for a in areas:
         data['areas'][a.id] = {
             'combat': a.combat, 'group': a.group, 'features': a.features,
-            'encounters': [{'name': e['name'], 'lock': e['lock'], 'x0': e['x0'], 'x1': e['x1'], 'members': [ENEMY_NAMES[c] for c in e['members']],
+            'encounters': [{'name': e['name'], 'lock': False, 'wave_zone': e['lock'], 'x0': e['x0'], 'x1': e['x1'], 'members': [ENEMY_NAMES[c] for c in e['members']],
                             'reinforcements': [ENEMY_NAMES[c] for c in e['reinforcements']]} for e in a.encounters],
         }
     with open(os.path.join(LEVEL_DIR, 'ch1_design.json'), 'w', encoding='utf-8') as f:
