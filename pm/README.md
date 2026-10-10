@@ -2,6 +2,8 @@
 
 角色製作及交接入口：[user_guide.md](user_guide.md) · [2026-10-11 停工交接](handoff/character-art-2026-10-11.md)。包含使用者品質要求、來源／部件SOP、業界參考、拒收圖與各票真實狀態。
 
+分工與各 Session 指令（最新）：[SESSION_PROMPTS_2026-10-11.md](SESSION_PROMPTS_2026-10-11.md)。
+
 故事／關卡接手：[本機 Session 交接](SESSION_HANDOFF_2026-10-11.md) · [直接貼到新 Session 的指令](NEXT_SESSION_PROMPT.md) · [舊分支與 worktree 封存／恢復](attachments/worktree-retirement-2026-10-11/README.md)。
 
 票放在 `pm/<專案名稱>/`，每個專案各自編號。格式見 Skill `pm-ticket`。
