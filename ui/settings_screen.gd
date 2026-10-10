@@ -7,6 +7,9 @@ signal closed
 
 const JOY_SLOT := -1
 const LABEL_WIDTH := 120.0
+## 列標題的左內距，與切換鈕的內距相同，整頁每一列的文字對齊。
+const ROW_INDENT := 6.0
+static var _indent_box: StyleBoxEmpty
 const BINDING_WIDTH := 92.0
 
 var _tabs: TabContainer
@@ -136,6 +139,7 @@ func _build_audio_tab() -> Control:
 		row.tooltip_text = entry["tooltip"]
 		var name_label := UiKit.label(entry["label"], 12)
 		name_label.custom_minimum_size = Vector2(LABEL_WIDTH, 0)
+		_indent(name_label)
 		row.add_child(name_label)
 		var slider := HSlider.new()
 		slider.min_value = 0
@@ -259,6 +263,7 @@ func _build_display_tab() -> Control:
 	var text_row := HBoxContainer.new()
 	var text_label := UiKit.label("介面文字")
 	text_label.custom_minimum_size.x = LABEL_WIDTH
+	_indent(text_label)
 	text_row.add_child(text_label)
 	_text_scale_option = OptionButton.new()
 	_text_scale_option.add_item("標準（100%）", 100)
@@ -326,6 +331,7 @@ func _build_feel_row(key: String, label: String, tooltip: String) -> Control:
 	row.tooltip_text = tooltip
 	var name_label := UiKit.label(label, 12)
 	name_label.custom_minimum_size = Vector2(LABEL_WIDTH, 0)
+	_indent(name_label)
 	row.add_child(name_label)
 	var slider := HSlider.new()
 	slider.min_value = 0
@@ -359,6 +365,7 @@ func _build_quality_row() -> Control:
 	row.tooltip_text = "光影品質：機器跑不順時調低；每一檔的差異見選項說明"
 	var name_label := UiKit.label("光影品質", 12)
 	name_label.custom_minimum_size = Vector2(LABEL_WIDTH, 0)
+	_indent(name_label)
 	row.add_child(name_label)
 	_quality_option = OptionButton.new()
 	_quality_option.focus_mode = Control.FOCUS_ALL
@@ -391,6 +398,7 @@ func _build_brightness_row() -> Control:
 	row.tooltip_text = tooltip
 	var name_label := UiKit.label("亮度", 12)
 	name_label.custom_minimum_size = Vector2(LABEL_WIDTH, 0)
+	_indent(name_label)
 	row.add_child(name_label)
 	_brightness_slider = HSlider.new()
 	_brightness_slider.min_value = 0
@@ -438,13 +446,17 @@ func _build_bindings_tab() -> Control:
 	for slot in InputBindings.KEY_SLOTS:
 		headers.append("鍵盤／滑鼠 %d" % (slot + 1))
 	headers.append("手把")
-	for header in headers:
-		grid.add_child(UiKit.label(header, 10, Palette.UI_MUTED))
+	for i in headers.size():
+		var head := UiKit.label(headers[i], 10, Palette.UI_MUTED)
+		if i == 0:
+			_indent(head)
+		grid.add_child(head)
 
 	for entry in InputBindings.ACTIONS:
 		var action: StringName = entry["id"]
 		var label := UiKit.label(entry["label"], 11)
 		label.custom_minimum_size = Vector2(LABEL_WIDTH, 0)
+		_indent(label)
 		grid.add_child(label)
 		for slot in InputBindings.KEY_SLOTS:
 			grid.add_child(_make_binding_button(action, slot, "點擊後按下新按鍵或滑鼠鍵；Backspace 清除"))
@@ -481,6 +493,7 @@ func _controller_row(key: String, title: String, hint: String, minimum: float, m
 	row.add_theme_constant_override(&"separation", 10)
 	var label := UiKit.label(title, 12)
 	label.custom_minimum_size.x = LABEL_WIDTH
+	_indent(label)
 	row.add_child(label)
 	var slider := HSlider.new()
 	slider.min_value = minimum
@@ -682,3 +695,10 @@ func _focus_first() -> void:
 		if control.is_visible_in_tree() and control.focus_mode == Control.FOCUS_ALL:
 			control.grab_focus()
 			return
+
+
+static func _indent(label: Label) -> void:
+	if _indent_box == null:
+		_indent_box = StyleBoxEmpty.new()
+		_indent_box.content_margin_left = ROW_INDENT
+	label.add_theme_stylebox_override(&"normal", _indent_box)

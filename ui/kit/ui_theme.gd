@@ -113,7 +113,11 @@ static func _toggles(t: Theme) -> void:
 		t.set_color(&"font_focus_color", kind, Palette.CYAN)
 		t.set_color(&"font_pressed_color", kind, Palette.UI_TEXT)
 		t.set_color(&"font_hover_pressed_color", kind, Palette.CYAN)
+		# 透明底但留內距：焦點框圍住文字，而不是壓在第一個字上。
 		var empty := StyleBoxEmpty.new()
+		empty.set_content_margin_all(2.0)
+		empty.content_margin_left = 6.0
+		empty.content_margin_right = 6.0
 		for state: StringName in [&"normal", &"hover", &"pressed", &"hover_pressed", &"disabled"]:
 			t.set_stylebox(state, kind, empty)
 		var focus := ChamferBox.make(Color(0, 0, 0, 0), Palette.WHITE, 2, 2)
