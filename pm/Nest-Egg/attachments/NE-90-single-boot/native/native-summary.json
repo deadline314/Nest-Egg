@@ -1,0 +1,279 @@
+{
+  "repo_head": "2dab08d7a433d49af5ae8419ddcc794a16c83994",
+  "source_audit_report": "source/audit.json",
+  "native_report": "native/ankle-120/report.json",
+  "native_frame_metadata": "native/ankle-120/frames.json",
+  "native_group_count": 16,
+  "native_pose_zoom_groups": [
+    {
+      "pose": "idle",
+      "zoom": 1.0,
+      "frames": 120,
+      "facing_sides": [
+        -1,
+        1
+      ],
+      "joints": [
+        "ankle_back",
+        "ankle_front"
+      ]
+    },
+    {
+      "pose": "run",
+      "zoom": 1.0,
+      "frames": 120,
+      "facing_sides": [
+        -1,
+        1
+      ],
+      "joints": [
+        "ankle_back",
+        "ankle_front"
+      ]
+    },
+    {
+      "pose": "aim_up",
+      "zoom": 1.0,
+      "frames": 120,
+      "facing_sides": [
+        -1,
+        1
+      ],
+      "joints": [
+        "ankle_back",
+        "ankle_front"
+      ]
+    },
+    {
+      "pose": "crouch",
+      "zoom": 1.0,
+      "frames": 120,
+      "facing_sides": [
+        -1,
+        1
+      ],
+      "joints": [
+        "ankle_back",
+        "ankle_front"
+      ]
+    },
+    {
+      "pose": "jump",
+      "zoom": 1.0,
+      "frames": 120,
+      "facing_sides": [
+        -1,
+        1
+      ],
+      "joints": [
+        "ankle_back",
+        "ankle_front"
+      ]
+    },
+    {
+      "pose": "block",
+      "zoom": 1.0,
+      "frames": 120,
+      "facing_sides": [
+        -1,
+        1
+      ],
+      "joints": [
+        "ankle_back",
+        "ankle_front"
+      ]
+    },
+    {
+      "pose": "stagger",
+      "zoom": 1.0,
+      "frames": 120,
+      "facing_sides": [
+        -1,
+        1
+      ],
+      "joints": [
+        "ankle_back",
+        "ankle_front"
+      ]
+    },
+    {
+      "pose": "dead",
+      "zoom": 1.0,
+      "frames": 120,
+      "facing_sides": [
+        -1,
+        1
+      ],
+      "joints": [
+        "ankle_back",
+        "ankle_front"
+      ]
+    },
+    {
+      "pose": "idle",
+      "zoom": 3.4,
+      "frames": 120,
+      "facing_sides": [
+        -1,
+        1
+      ],
+      "joints": [
+        "ankle_back",
+        "ankle_front"
+      ]
+    },
+    {
+      "pose": "run",
+      "zoom": 3.4,
+      "frames": 120,
+      "facing_sides": [
+        -1,
+        1
+      ],
+      "joints": [
+        "ankle_back",
+        "ankle_front"
+      ]
+    },
+    {
+      "pose": "aim_up",
+      "zoom": 3.4,
+      "frames": 120,
+      "facing_sides": [
+        -1,
+        1
+      ],
+      "joints": [
+        "ankle_back",
+        "ankle_front"
+      ]
+    },
+    {
+      "pose": "crouch",
+      "zoom": 3.4,
+      "frames": 120,
+      "facing_sides": [
+        -1,
+        1
+      ],
+      "joints": [
+        "ankle_back",
+        "ankle_front"
+      ]
+    },
+    {
+      "pose": "jump",
+      "zoom": 3.4,
+      "frames": 120,
+      "facing_sides": [
+        -1,
+        1
+      ],
+      "joints": [
+        "ankle_back",
+        "ankle_front"
+      ]
+    },
+    {
+      "pose": "block",
+      "zoom": 3.4,
+      "frames": 120,
+      "facing_sides": [
+        -1,
+        1
+      ],
+      "joints": [
+        "ankle_back",
+        "ankle_front"
+      ]
+    },
+    {
+      "pose": "stagger",
+      "zoom": 3.4,
+      "frames": 120,
+      "facing_sides": [
+        -1,
+        1
+      ],
+      "joints": [
+        "ankle_back",
+        "ankle_front"
+      ]
+    },
+    {
+      "pose": "dead",
+      "zoom": 3.4,
+      "frames": 120,
+      "facing_sides": [
+        -1,
+        1
+      ],
+      "joints": [
+        "ankle_back",
+        "ankle_front"
+      ]
+    }
+  ],
+  "native_raw_png_count": 1920,
+  "native_failed_samples": 0,
+  "native_total_samples": 7680,
+  "selected_native_frames": {
+    "idle": {
+      "source_file": "native/ankle-120/idle_3.4_000.png",
+      "published_file": "pm/Nest-Egg/images/NE-90-single-boot-idle-3.4.png",
+      "sha256": "19ebd7e40f5dcb714f1a42fd180819aa65e426927927ac13847764253db65cd2",
+      "size_px": [
+        512,
+        128
+      ],
+      "mode": "RGBA",
+      "frame": 0,
+      "zoom": 3.4
+    },
+    "run": {
+      "source_file": "native/ankle-120/run_3.4_000.png",
+      "published_file": "pm/Nest-Egg/images/NE-90-single-boot-run-3.4.png",
+      "sha256": "dd7f77ab690e1e7331c6040d48f3d141ace105ecd8736c4ec5a84dd0aeb3b4be",
+      "size_px": [
+        512,
+        128
+      ],
+      "mode": "RGBA",
+      "frame": 0,
+      "zoom": 3.4
+    },
+    "crouch": {
+      "source_file": "native/ankle-120/crouch_3.4_060.png",
+      "published_file": "pm/Nest-Egg/images/NE-90-single-boot-crouch-3.4.png",
+      "sha256": "03d21bc7fd80e94a1f34ce1399cb6ee5280f7ede41c5a0079be5de6a9173e64d",
+      "size_px": [
+        512,
+        128
+      ],
+      "mode": "RGBA",
+      "frame": 60,
+      "zoom": 3.4
+    },
+    "dead": {
+      "source_file": "native/ankle-120/dead_3.4_060.png",
+      "published_file": "pm/Nest-Egg/images/NE-90-single-boot-dead-3.4.png",
+      "sha256": "c0f47988879ed4152456bbcf2074824f911a1449b9dd3c5d9d88fb7bafc90d5a",
+      "size_px": [
+        512,
+        128
+      ],
+      "mode": "RGBA",
+      "frame": 60,
+      "zoom": 3.4
+    }
+  },
+  "gait_capture": {
+    "source_file": "native/slasher-gait.png",
+    "published_file": "pm/Nest-Egg/images/NE-90-single-boot-gait.png",
+    "sha256": "60ce7e9fd81e7fa8735edb8bfdc981d448184bf95b41124b069d3447e8fd6d1b",
+    "size_px": [
+      1280,
+      720
+    ]
+  }
+}

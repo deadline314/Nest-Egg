@@ -1,0 +1,120 @@
+{
+  "status": "EVIDENCE_PACKET; LIMITED_SOURCE_AND_ANKLE_SCOPE",
+  "repo_head": "2dab08d7a433d49af5ae8419ddcc794a16c83994",
+  "source_sha256": {
+    "art_src/characters/slasher/base_rgba.png": "ba9af5139d225d492019c24c261bcd1ba9387d1bca7d10e7fd0fa3f5f1931bf3",
+    "art_src/characters/slasher/near_hand_repair/near_foot.png": "f72640cc2736ce50335a8c719e4362e3bac6e0eecd9513c30e12e5e6ef709a85",
+    "art_src/characters/slasher/near_hand_repair/foot-mask-source.json": "83a0393d4bd9f759e09dc3c187a54e8e09f7caf40f6b4f97ec7e4f323c00dbd0",
+    "art_src/characters/slasher/near_hand_repair/rebuild.py": "15f6d6399ae9e8882be8971dc4ba39e438168b33a774220aa0977d22a4ee1a7d",
+    "art_src/characters/slasher/near_hand_repair/far_hand_current.png": "718b09533a53441f2143cd9133d4714fdebcd6b1c923fe90f087c817c245f610",
+    "art_src/characters/slasher/sam/near_leg.png": "2eff088320af6c76406afb9866987af9e4b3f1cacf3cea62d871f0e031cc0e59",
+    "art_src/characters/slasher/sam/boot.png": "aee48cb8b271db1c9edf3ce58d78448161433b613b222f4ca767f8829a7bed14",
+    "art_src/characters/slasher/06_parts/leg_upper.png": "b80b1840f4de2a1a706d926e77119fccfaab91bd9e7673e1e23b84e2c576b6a5",
+    "art_src/characters/slasher/07_refined/leg_upper.png": "f3bff90fa46785af4ff94a820b92826d6bf9bd0d434e8493ebfb61c4e75767fb",
+    "art_src/characters/slasher/06_parts/leg_lower.png": "83e23d539de420dd2b62fdb45153472a03d860de3d7c1be796cc0bc21a57190b",
+    "art_src/characters/slasher/07_refined/leg_lower.png": "d99c714c36731bf636516d02410d23c415feb3cd452d19aef1b1c3d63cdd52f0",
+    "art_src/characters/slasher/06_parts/foot.png": "cd27087da5583fbfefe9d211dd98bf3b0fb2a8c9126559a49dbc2332d9fe59da",
+    "art_src/characters/slasher/07_refined/foot.png": "5e09df5d2d8554bf02421b31836aaf4aeded721cc5c0a22d9028e594666aa47d",
+    "art_src/characters/slasher/overrides/refined/foot.png": "702d37fd217b851a5aae959b657471eafd1bd847d3b236a90a73576e45943c36",
+    "art/characters/slasher/parts/leg_upper.png": "2e96d417a1b8876d3a8fcfbd91c2c3880ed3e608f99ab36306730b656f3ee5d9",
+    "art/characters/slasher/parts/leg_lower.png": "ed353f97e9a340d3cfba333a05008cdec085386a84da88e6862174460dd95c9a",
+    "art/characters/slasher/parts/foot.png": "a7df6bcb13a9ddb43dc10ccc0f06f8a92f02a398a67cb573f6206aeb3f8b2ec2",
+    "art/characters/slasher/character.json": "1ea3670b7859552d6198899679950d99a41627dfbf15a3f68ec094d9213b2225",
+    "art/rigs/slasher.json": "ea98e41846301b75b28e05d44fbe52d39d9991ae888b480c66f29ba0975ad2d4",
+    "tools/comfyui/recipes/slasher.json": "cd28f0075545b0d45ccb733cfc941ab4009d4e03c45cba6b9e57baa6a1ab7581",
+    "tools/comfyui/specs/slasher_side.json": "b489984c89e80e610ee181da12c781499821cf3c47d68e64aac206705efe2827"
+  },
+  "selected_native_frames": {
+    "idle": {
+      "source_file": "native/ankle-120/idle_3.4_000.png",
+      "published_file": "pm/Nest-Egg/images/NE-90-single-boot-idle-3.4.png",
+      "sha256": "19ebd7e40f5dcb714f1a42fd180819aa65e426927927ac13847764253db65cd2",
+      "size_px": [
+        512,
+        128
+      ],
+      "mode": "RGBA",
+      "frame": 0,
+      "zoom": 3.4
+    },
+    "run": {
+      "source_file": "native/ankle-120/run_3.4_000.png",
+      "published_file": "pm/Nest-Egg/images/NE-90-single-boot-run-3.4.png",
+      "sha256": "dd7f77ab690e1e7331c6040d48f3d141ace105ecd8736c4ec5a84dd0aeb3b4be",
+      "size_px": [
+        512,
+        128
+      ],
+      "mode": "RGBA",
+      "frame": 0,
+      "zoom": 3.4
+    },
+    "crouch": {
+      "source_file": "native/ankle-120/crouch_3.4_060.png",
+      "published_file": "pm/Nest-Egg/images/NE-90-single-boot-crouch-3.4.png",
+      "sha256": "03d21bc7fd80e94a1f34ce1399cb6ee5280f7ede41c5a0079be5de6a9173e64d",
+      "size_px": [
+        512,
+        128
+      ],
+      "mode": "RGBA",
+      "frame": 60,
+      "zoom": 3.4
+    },
+    "dead": {
+      "source_file": "native/ankle-120/dead_3.4_060.png",
+      "published_file": "pm/Nest-Egg/images/NE-90-single-boot-dead-3.4.png",
+      "sha256": "c0f47988879ed4152456bbcf2074824f911a1449b9dd3c5d9d88fb7bafc90d5a",
+      "size_px": [
+        512,
+        128
+      ],
+      "mode": "RGBA",
+      "frame": 60,
+      "zoom": 3.4
+    }
+  },
+  "gait_capture": {
+    "source_file": "native/slasher-gait.png",
+    "published_file": "pm/Nest-Egg/images/NE-90-single-boot-gait.png",
+    "sha256": "60ce7e9fd81e7fa8735edb8bfdc981d448184bf95b41124b069d3447e8fd6d1b",
+    "size_px": [
+      1280,
+      720
+    ]
+  },
+  "raw_native_frame_index": {
+    "path": "native/ankle-120/raw-frame-sha256.json",
+    "count": 1920,
+    "raw_pngs_copied": false
+  },
+  "packet_files": {
+    "pm/Nest-Egg/attachments/NE-90-single-boot/audit.py": "b47e77fce6562574247dbefada0044c470389c6fa02c2b209c3071091acd150b",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/native/ankle-120/frames.json": "0edf680e026e2113a40c54106b29953418293fd92ca4b5ff79487dca2115cb32",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/native/ankle-120/raw-frame-sha256.json": "faf0b75bd8413a0c1dd677b8712fe4bf2ed19729506d0d090a1382ade0f59157",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/native/ankle-120/report.json": "05fc88b6fa2af201406eed799459baad1368072a3d092ef2af84b7ac7fcc50a4",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/native/logs/ankle-120.log": "fa039b21eb7ff5be66774d583fd37222ef507bb6ccae9c6902ba24680e789c0e",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/native/logs/ankle-check.log": "bae7b890cef869ae205b4c0a254d2dceee0df950a89a7fa933681088aa5b7c5e",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/native/logs/gait.log": "e0ce1e3773e2858af82a13a64120aead5120394539a31871a214f03e0d17be17",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/native/native-summary.json": "52bf7578fcd77d1a08f5fc8a8a20e1624643fe61824b046e4bb7b2633f103053",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/README.md": "5a19f49cbcccd04e80810123edc7d1026aaa8452013a9f10234486b70eb7123a",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/source/audit.json": "e92dce326acfd8ea621a59e05fa49b7a97b0c1f5c358abac19f726e5d7f49445",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/source/prior-run.log": "fd983b662f376234fbb672ae8dc9bb688eed6ce86cc7b360571cd7157165fbd6",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/source/replay/foot-run-1.png": "702d37fd217b851a5aae959b657471eafd1bd847d3b236a90a73576e45943c36",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/source/replay/foot-run-2.png": "702d37fd217b851a5aae959b657471eafd1bd847d3b236a90a73576e45943c36",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/source/review/slasher-foot-owner-source-3x.png": "1b013b4993f231049a8436e24006a2fb57f8226381b2c7ea36be40851b309ea9",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/source/review/slasher-leg-lower-to-boot-cuff-native4x.png": "dbee20e8928637fb7b10be2c1eeaf73ee70717276bc213d03faea14031371afd",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/source/review/slasher-leg-parts-gray-2x.png": "23ab64d648a09472a8803e783c63545449ddd791ed403c7beb844d93f3f8241a",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/source/review/slasher-leg-source-1x.png": "4c5e5e73a6a3eaaf978707f261b3df46f10c1bf4f792bceeb0df5e8c0625b88b",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/source/review/slasher-source-boot-context-native.png": "52abf99d9b8d5bb4dd510a2098b1dd030812debef4b3bf688f2e95fb454e99bc",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/source/review/slasher-source-foot-native-1x.png": "542848c987655254ad97ae591f3422f320ad67c1081f4775287a6cb7417c7063",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/source-audit.log": "883d104a5ef1a44f6c859b13656cea5d24824865ba80ab1de9987923965d3531",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/verify_packet.py": "8a8c28b90668211e0f8b3c8132a2e9bc9f05ad9704e8ab1a000c12f76c7c731f",
+    "pm/Nest-Egg/images/NE-90-single-boot-crouch-3.4.png": "03d21bc7fd80e94a1f34ce1399cb6ee5280f7ede41c5a0079be5de6a9173e64d",
+    "pm/Nest-Egg/images/NE-90-single-boot-dead-3.4.png": "c0f47988879ed4152456bbcf2074824f911a1449b9dd3c5d9d88fb7bafc90d5a",
+    "pm/Nest-Egg/images/NE-90-single-boot-gait.png": "60ce7e9fd81e7fa8735edb8bfdc981d448184bf95b41124b069d3447e8fd6d1b",
+    "pm/Nest-Egg/images/NE-90-single-boot-idle-3.4.png": "19ebd7e40f5dcb714f1a42fd180819aa65e426927927ac13847764253db65cd2",
+    "pm/Nest-Egg/images/NE-90-single-boot-run-3.4.png": "dd7f77ab690e1e7331c6040d48f3d141ace105ecd8736c4ec5a84dd0aeb3b4be",
+    "pm/Nest-Egg/attachments/NE-90-single-boot/.gitattributes": "f06202a408fef9b9ea69bb6b1cb8160dbb0378c5bb67a444d510d231813824c8"
+  }
+}

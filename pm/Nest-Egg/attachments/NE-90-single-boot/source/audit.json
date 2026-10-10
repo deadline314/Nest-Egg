@@ -1,0 +1,1255 @@
+{
+  "status": "SOURCE_AND_FORMAL_TEXTURE_PROVENANCE_REVIEW; NOT_ANATOMY_OR_RUNTIME_ACCEPTANCE",
+  "target": {
+    "id": "slasher",
+    "name": "切割者",
+    "identity_evidence": "recipe id and source drawing match the red visor, dark red/purple combat suit; reviewed source is slasher, not stalker"
+  },
+  "head_sha256": "2dab08d7a433d49af5ae8419ddcc794a16c83994",
+  "source_resolution_mode": {
+    "base_rgba": "RGBA 832x1216",
+    "mask": "RGB 832x1216",
+    "mask_model": "sam3.1_multiplex_fp16.safetensors",
+    "threshold": 0.3,
+    "refine": 2,
+    "SAM_seed": "not recorded in this mask-source JSON; not inferred"
+  },
+  "input_sha256": {
+    "art_src/characters/slasher/base_rgba.png": "ba9af5139d225d492019c24c261bcd1ba9387d1bca7d10e7fd0fa3f5f1931bf3",
+    "art_src/characters/slasher/near_hand_repair/near_foot.png": "f72640cc2736ce50335a8c719e4362e3bac6e0eecd9513c30e12e5e6ef709a85",
+    "art_src/characters/slasher/near_hand_repair/foot-mask-source.json": "83a0393d4bd9f759e09dc3c187a54e8e09f7caf40f6b4f97ec7e4f323c00dbd0",
+    "art_src/characters/slasher/near_hand_repair/rebuild.py": "15f6d6399ae9e8882be8971dc4ba39e438168b33a774220aa0977d22a4ee1a7d",
+    "art_src/characters/slasher/near_hand_repair/far_hand_current.png": "718b09533a53441f2143cd9133d4714fdebcd6b1c923fe90f087c817c245f610",
+    "art_src/characters/slasher/sam/near_leg.png": "2eff088320af6c76406afb9866987af9e4b3f1cacf3cea62d871f0e031cc0e59",
+    "art_src/characters/slasher/sam/boot.png": "aee48cb8b271db1c9edf3ce58d78448161433b613b222f4ca767f8829a7bed14",
+    "art_src/characters/slasher/06_parts/leg_upper.png": "b80b1840f4de2a1a706d926e77119fccfaab91bd9e7673e1e23b84e2c576b6a5",
+    "art_src/characters/slasher/07_refined/leg_upper.png": "f3bff90fa46785af4ff94a820b92826d6bf9bd0d434e8493ebfb61c4e75767fb",
+    "art_src/characters/slasher/06_parts/leg_lower.png": "83e23d539de420dd2b62fdb45153472a03d860de3d7c1be796cc0bc21a57190b",
+    "art_src/characters/slasher/07_refined/leg_lower.png": "d99c714c36731bf636516d02410d23c415feb3cd452d19aef1b1c3d63cdd52f0",
+    "art_src/characters/slasher/06_parts/foot.png": "cd27087da5583fbfefe9d211dd98bf3b0fb2a8c9126559a49dbc2332d9fe59da",
+    "art_src/characters/slasher/07_refined/foot.png": "5e09df5d2d8554bf02421b31836aaf4aeded721cc5c0a22d9028e594666aa47d",
+    "art_src/characters/slasher/overrides/refined/foot.png": "702d37fd217b851a5aae959b657471eafd1bd847d3b236a90a73576e45943c36",
+    "art/characters/slasher/parts/leg_upper.png": "2e96d417a1b8876d3a8fcfbd91c2c3880ed3e608f99ab36306730b656f3ee5d9",
+    "art/characters/slasher/parts/leg_lower.png": "ed353f97e9a340d3cfba333a05008cdec085386a84da88e6862174460dd95c9a",
+    "art/characters/slasher/parts/foot.png": "a7df6bcb13a9ddb43dc10ccc0f06f8a92f02a398a67cb573f6206aeb3f8b2ec2",
+    "art/characters/slasher/character.json": "1ea3670b7859552d6198899679950d99a41627dfbf15a3f68ec094d9213b2225",
+    "art/rigs/slasher.json": "ea98e41846301b75b28e05d44fbe52d39d9991ae888b480c66f29ba0975ad2d4",
+    "tools/comfyui/recipes/slasher.json": "cd28f0075545b0d45ccb733cfc941ab4009d4e03c45cba6b9e57baa6a1ab7581",
+    "tools/comfyui/specs/slasher_side.json": "b489984c89e80e610ee181da12c781499821cf3c47d68e64aac206705efe2827"
+  },
+  "official_point_audit": [
+    {
+      "kind": "recorded_positive",
+      "xy": [
+        347,
+        1085
+      ],
+      "mask_value": 255,
+      "source_rgba": [
+        16,
+        15,
+        23,
+        255
+      ],
+      "selected": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "kind": "recorded_positive",
+      "xy": [
+        354,
+        1144
+      ],
+      "mask_value": 255,
+      "source_rgba": [
+        15,
+        16,
+        24,
+        255
+      ],
+      "selected": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "kind": "recorded_positive",
+      "xy": [
+        412,
+        1176
+      ],
+      "mask_value": 255,
+      "source_rgba": [
+        13,
+        13,
+        21,
+        255
+      ],
+      "selected": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "kind": "recorded_positive",
+      "xy": [
+        327,
+        1180
+      ],
+      "mask_value": 255,
+      "source_rgba": [
+        11,
+        10,
+        19,
+        255
+      ],
+      "selected": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "kind": "recorded_negative",
+      "xy": [
+        439,
+        1138
+      ],
+      "mask_value": 0,
+      "source_rgba": [
+        16,
+        10,
+        24,
+        255
+      ],
+      "selected": false,
+      "expected": false,
+      "pass": true
+    },
+    {
+      "kind": "recorded_negative",
+      "xy": [
+        491,
+        1159
+      ],
+      "mask_value": 0,
+      "source_rgba": [
+        145,
+        69,
+        177,
+        0
+      ],
+      "selected": false,
+      "expected": false,
+      "pass": true
+    },
+    {
+      "kind": "recorded_negative",
+      "xy": [
+        370,
+        1026
+      ],
+      "mask_value": 0,
+      "source_rgba": [
+        3,
+        1,
+        9,
+        255
+      ],
+      "selected": false,
+      "expected": false,
+      "pass": true
+    },
+    {
+      "kind": "recorded_negative",
+      "xy": [
+        279,
+        1160
+      ],
+      "mask_value": 0,
+      "source_rgba": [
+        165,
+        56,
+        209,
+        0
+      ],
+      "selected": false,
+      "expected": false,
+      "pass": true
+    },
+    {
+      "kind": "manual_semantic_anchor",
+      "name": "boot cuff / top edge, not ankle pivot",
+      "xy": [
+        335,
+        1055
+      ],
+      "mask_value": 255,
+      "source_rgba": [
+        2,
+        1,
+        2,
+        255
+      ],
+      "selected": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "kind": "manual_semantic_anchor",
+      "name": "shaft",
+      "xy": [
+        350,
+        1090
+      ],
+      "mask_value": 255,
+      "source_rgba": [
+        16,
+        15,
+        24,
+        255
+      ],
+      "selected": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "kind": "manual_semantic_anchor",
+      "name": "heel side",
+      "xy": [
+        310,
+        1155
+      ],
+      "mask_value": 255,
+      "source_rgba": [
+        3,
+        3,
+        12,
+        255
+      ],
+      "selected": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "kind": "manual_semantic_anchor",
+      "name": "sole",
+      "xy": [
+        400,
+        1188
+      ],
+      "mask_value": 255,
+      "source_rgba": [
+        1,
+        2,
+        6,
+        255
+      ],
+      "selected": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "kind": "manual_semantic_anchor",
+      "name": "toe",
+      "xy": [
+        472,
+        1176
+      ],
+      "mask_value": 255,
+      "source_rgba": [
+        0,
+        0,
+        0,
+        251
+      ],
+      "selected": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "kind": "manual_semantic_anchor",
+      "name": "spec ankle pivot (inside shaft)",
+      "xy": [
+        346,
+        1113
+      ],
+      "mask_value": 255,
+      "source_rgba": [
+        15,
+        15,
+        24,
+        255
+      ],
+      "selected": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "kind": "manual_semantic_anchor",
+      "name": "exposed opposite/far boot",
+      "xy": [
+        439,
+        1138
+      ],
+      "mask_value": 0,
+      "source_rgba": [
+        16,
+        10,
+        24,
+        255
+      ],
+      "selected": false,
+      "expected": false,
+      "pass": true
+    },
+    {
+      "kind": "manual_semantic_anchor",
+      "name": "exposed opposite/far boot outer edge",
+      "xy": [
+        460,
+        1140
+      ],
+      "mask_value": 0,
+      "source_rgba": [
+        12,
+        9,
+        20,
+        255
+      ],
+      "selected": false,
+      "expected": false,
+      "pass": true
+    },
+    {
+      "kind": "manual_semantic_anchor",
+      "name": "transparent outside boot",
+      "xy": [
+        491,
+        1159
+      ],
+      "mask_value": 0,
+      "source_rgba": [
+        145,
+        69,
+        177,
+        0
+      ],
+      "selected": false,
+      "expected": false,
+      "pass": true
+    }
+  ],
+  "source_masks": {
+    "near_leg": {
+      "path": "art_src/characters/slasher/sam/near_leg.png",
+      "sha256": "2eff088320af6c76406afb9866987af9e4b3f1cacf3cea62d871f0e031cc0e59",
+      "stats": {
+        "pixels": 55783,
+        "components": 22,
+        "component_sizes_desc": [
+          54895,
+          294,
+          149,
+          144,
+          105,
+          58,
+          53,
+          14,
+          9,
+          8,
+          8,
+          7
+        ],
+        "bbox_xyxy": [
+          264,
+          250,
+          482,
+          1191
+        ]
+      }
+    },
+    "boot": {
+      "path": "art_src/characters/slasher/sam/boot.png",
+      "sha256": "aee48cb8b271db1c9edf3ce58d78448161433b613b222f4ca767f8829a7bed14",
+      "stats": {
+        "pixels": 3489,
+        "components": 1,
+        "component_sizes_desc": [
+          3489
+        ],
+        "bbox_xyxy": [
+          363,
+          1052,
+          488,
+          1173
+        ]
+      }
+    },
+    "far_hand_subtraction": {
+      "path": "art_src/characters/slasher/near_hand_repair/far_hand_current.png",
+      "sha256": "718b09533a53441f2143cd9133d4714fdebcd6b1c923fe90f087c817c245f610",
+      "stats": {
+        "pixels": 4029,
+        "components": 1,
+        "component_sizes_desc": [
+          4029
+        ],
+        "bbox_xyxy": [
+          405,
+          549,
+          445,
+          687
+        ]
+      }
+    },
+    "near_foot": {
+      "path": "art_src/characters/slasher/near_hand_repair/near_foot.png",
+      "sha256": "f72640cc2736ce50335a8c719e4362e3bac6e0eecd9513c30e12e5e6ef709a85",
+      "stats": {
+        "pixels": 12371,
+        "components": 3,
+        "component_sizes_desc": [
+          12365,
+          5,
+          1
+        ],
+        "bbox_xyxy": [
+          306,
+          689,
+          474,
+          1193
+        ]
+      }
+    }
+  },
+  "manual_semantic_landmarks": {
+    "positive": [
+      {
+        "name": "boot cuff / top edge, not ankle pivot",
+        "xy": [
+          335,
+          1055
+        ],
+        "mask_value": 255,
+        "source_rgba": [
+          2,
+          1,
+          2,
+          255
+        ],
+        "selected": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "shaft",
+        "xy": [
+          350,
+          1090
+        ],
+        "mask_value": 255,
+        "source_rgba": [
+          16,
+          15,
+          24,
+          255
+        ],
+        "selected": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "heel side",
+        "xy": [
+          310,
+          1155
+        ],
+        "mask_value": 255,
+        "source_rgba": [
+          3,
+          3,
+          12,
+          255
+        ],
+        "selected": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "sole",
+        "xy": [
+          400,
+          1188
+        ],
+        "mask_value": 255,
+        "source_rgba": [
+          1,
+          2,
+          6,
+          255
+        ],
+        "selected": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "toe",
+        "xy": [
+          472,
+          1176
+        ],
+        "mask_value": 255,
+        "source_rgba": [
+          0,
+          0,
+          0,
+          251
+        ],
+        "selected": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "spec ankle pivot (inside shaft)",
+        "xy": [
+          346,
+          1113
+        ],
+        "mask_value": 255,
+        "source_rgba": [
+          15,
+          15,
+          24,
+          255
+        ],
+        "selected": true,
+        "expected": true,
+        "pass": true
+      }
+    ],
+    "negative": [
+      {
+        "name": "exposed opposite/far boot",
+        "xy": [
+          439,
+          1138
+        ],
+        "mask_value": 0,
+        "source_rgba": [
+          16,
+          10,
+          24,
+          255
+        ],
+        "selected": false,
+        "expected": false,
+        "pass": true
+      },
+      {
+        "name": "exposed opposite/far boot outer edge",
+        "xy": [
+          460,
+          1140
+        ],
+        "mask_value": 0,
+        "source_rgba": [
+          12,
+          9,
+          20,
+          255
+        ],
+        "selected": false,
+        "expected": false,
+        "pass": true
+      },
+      {
+        "name": "transparent outside boot",
+        "xy": [
+          491,
+          1159
+        ],
+        "mask_value": 0,
+        "source_rgba": [
+          145,
+          69,
+          177,
+          0
+        ],
+        "selected": false,
+        "expected": false,
+        "pass": true
+      }
+    ],
+    "coordinate_note": "Boot cuff is sampled separately from the spec ankle pivot; cuff is not labeled as the ankle."
+  },
+  "owner_mask": {
+    "binary_mask": {
+      "pixels": 12371,
+      "components": 3,
+      "component_sizes_desc": [
+        12365,
+        5,
+        1
+      ],
+      "bbox_xyxy": [
+        306,
+        689,
+        474,
+        1193
+      ]
+    },
+    "selected_source_alpha_ge_40_before_speckle": {
+      "pixels": 12371,
+      "components": 3,
+      "component_sizes_desc": [
+        12365,
+        5,
+        1
+      ],
+      "bbox_xyxy": [
+        306,
+        689,
+        474,
+        1193
+      ]
+    },
+    "accepted_owner_after_existing_min_area_30": {
+      "pixels": 12365,
+      "components": 1,
+      "component_sizes_desc": [
+        12365
+      ],
+      "bbox_xyxy": [
+        306,
+        1053,
+        474,
+        1193
+      ]
+    },
+    "discarded_by_existing_min_area_30": [
+      {
+        "component_id": 1,
+        "pixels": 5,
+        "bbox_xyxy": [
+          366,
+          689,
+          369,
+          691
+        ],
+        "source_RGBA_at_pixels": [
+          [
+            66,
+            30,
+            45,
+            255
+          ],
+          [
+            69,
+            33,
+            48,
+            255
+          ],
+          [
+            62,
+            28,
+            43,
+            255
+          ],
+          [
+            69,
+            32,
+            48,
+            255
+          ],
+          [
+            69,
+            33,
+            48,
+            255
+          ]
+        ],
+        "review": "outside footwear source region; suit/arm-leg area, not a boot; excluded by existing rebuild rule"
+      },
+      {
+        "component_id": 2,
+        "pixels": 1,
+        "bbox_xyxy": [
+          345,
+          1040,
+          346,
+          1041
+        ],
+        "source_RGBA": [
+          16,
+          15,
+          23,
+          255
+        ],
+        "review": "isolated pixel above the visually continuous boot-cuff contour; excluded by existing rebuild rule"
+      }
+    ],
+    "candidate_equals_registered_override_pixels": true,
+    "scratch_replay_png_sha256": [
+      "702d37fd217b851a5aae959b657471eafd1bd847d3b236a90a73576e45943c36",
+      "702d37fd217b851a5aae959b657471eafd1bd847d3b236a90a73576e45943c36"
+    ],
+    "repeat_bytes_identical": true,
+    "mask_semantic_visual": "review/slasher-foot-owner-source-3x.png"
+  },
+  "one_pixel_negative_controls": {
+    "omit_near_toe_source_pixel": {
+      "xy": [
+        472,
+        1176
+      ],
+      "detected": true
+    },
+    "include_visible_opposite_boot_pixel": {
+      "xy": [
+        439,
+        1138
+      ],
+      "source_rgba": [
+        16,
+        10,
+        24,
+        255
+      ],
+      "detected": true
+    }
+  },
+  "official_texture_replay": {
+    "k_tex_px_per_wp_over_illustration_px_per_wp": 0.8865248226950355,
+    "parts": {
+      "leg_lower": {
+        "source_path": "art_src/characters/slasher/07_refined/leg_lower.png",
+        "source_sha256": "d99c714c36731bf636516d02410d23c415feb3cd452d19aef1b1c3d63cdd52f0",
+        "formal_path": "art/characters/slasher/parts/leg_lower.png",
+        "formal_sha256": "ed353f97e9a340d3cfba333a05008cdec085386a84da88e6862174460dd95c9a",
+        "recomputed_size_px": [
+          101,
+          261
+        ],
+        "metadata_size_px": [
+          101,
+          261
+        ],
+        "recomputed_pivot": [
+          62.32,
+          9.22
+        ],
+        "metadata_pivot": [
+          62.32,
+          9.22
+        ],
+        "pixel_exact": true,
+        "rendered_alpha_ge_40": {
+          "pixels": 17397,
+          "components": 1,
+          "component_sizes_desc": [
+            17397
+          ],
+          "bbox_xyxy": [
+            3,
+            0,
+            98,
+            259
+          ]
+        }
+      },
+      "foot": {
+        "source_path": "art_src/characters/slasher/overrides/refined/foot.png",
+        "source_sha256": "702d37fd217b851a5aae959b657471eafd1bd847d3b236a90a73576e45943c36",
+        "formal_path": "art/characters/slasher/parts/foot.png",
+        "formal_sha256": "a7df6bcb13a9ddb43dc10ccc0f06f8a92f02a398a67cb573f6206aeb3f8b2ec2",
+        "recomputed_size_px": [
+          155,
+          130
+        ],
+        "metadata_size_px": [
+          155,
+          130
+        ],
+        "recomputed_pivot": [
+          38.74,
+          57.06
+        ],
+        "metadata_pivot": [
+          38.74,
+          57.06
+        ],
+        "pixel_exact": true,
+        "rendered_alpha_ge_40": {
+          "pixels": 9871,
+          "components": 1,
+          "component_sizes_desc": [
+            9871
+          ],
+          "bbox_xyxy": [
+            3,
+            3,
+            152,
+            128
+          ]
+        }
+      }
+    },
+    "foot_recomputed_exact_formal_texture": true
+  },
+  "intermediate_and_formal_asset_stats": {
+    "06_parts/leg_upper.png": {
+      "path": "art_src/characters/slasher/06_parts/leg_upper.png",
+      "sha256": "b80b1840f4de2a1a706d926e77119fccfaab91bd9e7673e1e23b84e2c576b6a5",
+      "mode": "RGBA",
+      "size_px": [
+        832,
+        1216
+      ],
+      "alpha_ge_40": {
+        "pixels": 30407,
+        "components": 1,
+        "component_sizes_desc": [
+          30407
+        ],
+        "bbox_xyxy": [
+          287,
+          542,
+          438,
+          833
+        ]
+      }
+    },
+    "07_refined/leg_upper.png": {
+      "path": "art_src/characters/slasher/07_refined/leg_upper.png",
+      "sha256": "f3bff90fa46785af4ff94a820b92826d6bf9bd0d434e8493ebfb61c4e75767fb",
+      "mode": "RGBA",
+      "size_px": [
+        832,
+        1216
+      ],
+      "alpha_ge_40": {
+        "pixels": 30540,
+        "components": 1,
+        "component_sizes_desc": [
+          30540
+        ],
+        "bbox_xyxy": [
+          288,
+          542,
+          438,
+          833
+        ]
+      }
+    },
+    "06_parts/leg_lower.png": {
+      "path": "art_src/characters/slasher/06_parts/leg_lower.png",
+      "sha256": "83e23d539de420dd2b62fdb45153472a03d860de3d7c1be796cc0bc21a57190b",
+      "mode": "RGBA",
+      "size_px": [
+        832,
+        1216
+      ],
+      "alpha_ge_40": {
+        "pixels": 21748,
+        "components": 1,
+        "component_sizes_desc": [
+          21748
+        ],
+        "bbox_xyxy": [
+          301,
+          801,
+          414,
+          1093
+        ]
+      }
+    },
+    "07_refined/leg_lower.png": {
+      "path": "art_src/characters/slasher/07_refined/leg_lower.png",
+      "sha256": "d99c714c36731bf636516d02410d23c415feb3cd452d19aef1b1c3d63cdd52f0",
+      "mode": "RGBA",
+      "size_px": [
+        832,
+        1216
+      ],
+      "alpha_ge_40": {
+        "pixels": 21855,
+        "components": 1,
+        "component_sizes_desc": [
+          21855
+        ],
+        "bbox_xyxy": [
+          301,
+          802,
+          414,
+          1093
+        ]
+      }
+    },
+    "06_parts/foot.png": {
+      "path": "art_src/characters/slasher/06_parts/foot.png",
+      "sha256": "cd27087da5583fbfefe9d211dd98bf3b0fb2a8c9126559a49dbc2332d9fe59da",
+      "mode": "RGBA",
+      "size_px": [
+        832,
+        1216
+      ],
+      "alpha_ge_40": {
+        "pixels": 15454,
+        "components": 1,
+        "component_sizes_desc": [
+          15454
+        ],
+        "bbox_xyxy": [
+          307,
+          1038,
+          482,
+          1193
+        ]
+      }
+    },
+    "07_refined/foot.png": {
+      "path": "art_src/characters/slasher/07_refined/foot.png",
+      "sha256": "5e09df5d2d8554bf02421b31836aaf4aeded721cc5c0a22d9028e594666aa47d",
+      "mode": "RGBA",
+      "size_px": [
+        832,
+        1216
+      ],
+      "alpha_ge_40": {
+        "pixels": 15556,
+        "components": 1,
+        "component_sizes_desc": [
+          15556
+        ],
+        "bbox_xyxy": [
+          307,
+          1039,
+          482,
+          1193
+        ]
+      }
+    },
+    "override/refined/foot.png": {
+      "path": "art_src/characters/slasher/overrides/refined/foot.png",
+      "sha256": "702d37fd217b851a5aae959b657471eafd1bd847d3b236a90a73576e45943c36",
+      "mode": "RGBA",
+      "size_px": [
+        832,
+        1216
+      ],
+      "alpha_ge_40": {
+        "pixels": 12365,
+        "components": 1,
+        "component_sizes_desc": [
+          12365
+        ],
+        "bbox_xyxy": [
+          306,
+          1053,
+          474,
+          1193
+        ]
+      }
+    },
+    "formal/leg_upper.png": {
+      "path": "art/characters/slasher/parts/leg_upper.png",
+      "sha256": "2e96d417a1b8876d3a8fcfbd91c2c3880ed3e608f99ab36306730b656f3ee5d9",
+      "mode": "RGBA",
+      "size_px": [
+        119,
+        251
+      ],
+      "alpha_ge_40": {
+        "pixels": 22496,
+        "components": 1,
+        "component_sizes_desc": [
+          22496
+        ],
+        "bbox_xyxy": [
+          3,
+          0,
+          116,
+          250
+        ]
+      }
+    },
+    "formal/leg_lower.png": {
+      "path": "art/characters/slasher/parts/leg_lower.png",
+      "sha256": "ed353f97e9a340d3cfba333a05008cdec085386a84da88e6862174460dd95c9a",
+      "mode": "RGBA",
+      "size_px": [
+        101,
+        261
+      ],
+      "alpha_ge_40": {
+        "pixels": 17397,
+        "components": 1,
+        "component_sizes_desc": [
+          17397
+        ],
+        "bbox_xyxy": [
+          3,
+          0,
+          98,
+          259
+        ]
+      }
+    },
+    "formal/foot.png": {
+      "path": "art/characters/slasher/parts/foot.png",
+      "sha256": "a7df6bcb13a9ddb43dc10ccc0f06f8a92f02a398a67cb573f6206aeb3f8b2ec2",
+      "mode": "RGBA",
+      "size_px": [
+        155,
+        130
+      ],
+      "alpha_ge_40": {
+        "pixels": 9871,
+        "components": 1,
+        "component_sizes_desc": [
+          9871
+        ],
+        "bbox_xyxy": [
+          3,
+          3,
+          152,
+          128
+        ]
+      }
+    }
+  },
+  "intermediate_foot_vs_near_owner": {
+    "06_parts/foot.png": {
+      "alpha_ge_40_pixels": 15454,
+      "also_in_semantic_near_foot_owner": 12155,
+      "outside_semantic_near_foot_owner": 3299,
+      "semantic_owner_not_in_asset": 210,
+      "outside_owner_bbox_xyxy": [
+        317,
+        1038,
+        482,
+        1193
+      ]
+    },
+    "07_refined/foot.png": {
+      "alpha_ge_40_pixels": 15556,
+      "also_in_semantic_near_foot_owner": 12181,
+      "outside_semantic_near_foot_owner": 3375,
+      "semantic_owner_not_in_asset": 184,
+      "outside_owner_bbox_xyxy": [
+        314,
+        1039,
+        482,
+        1193
+      ]
+    },
+    "override/refined/foot.png": {
+      "alpha_ge_40_pixels": 12365,
+      "also_in_semantic_near_foot_owner": 12365,
+      "outside_semantic_near_foot_owner": 0,
+      "semantic_owner_not_in_asset": 0,
+      "outside_owner_bbox_xyxy": null
+    }
+  },
+  "lower_to_near_boot_cuff_overlap": {
+    "source_pixel_overlap_count": 1002,
+    "bbox_xyxy": [
+      314,
+      1053,
+      364,
+      1093
+    ],
+    "overlap_pixels_where_refined_lower_rgba_differs_from_base_source": 76,
+    "difference_bbox_xyxy": [
+      314,
+      1055,
+      364,
+      1093
+    ],
+    "review_image": "review/slasher-leg-lower-to-boot-cuff-native4x.png",
+    "interpretation": "The overlap is a localized cuff underlap in source coordinates; the 76 changed RGBA pixels are an image-review item, not proof of a seam defect and not runtime acceptance."
+  },
+  "logical_slot_ledger": [
+    {
+      "slot": "leg_back_upper",
+      "texture_key": "leg_upper",
+      "texture_path": "art/characters/slasher/parts/leg_upper.png",
+      "texture_sha256": "2e96d417a1b8876d3a8fcfbd91c2c3880ed3e608f99ab36306730b656f3ee5d9",
+      "texture_size_px": [
+        119,
+        251
+      ],
+      "pivot_px": [
+        59.47,
+        -7.86
+      ],
+      "source_path": "art_src/characters/slasher/07_refined/leg_upper.png",
+      "source_sha256": "f3bff90fa46785af4ff94a820b92826d6bf9bd0d434e8493ebfb61c4e75767fb",
+      "mask_paths": [
+        "art_src/characters/slasher/near_hand_repair/far_hand_current.png"
+      ],
+      "mask_sha256": [
+        "718b09533a53441f2143cd9133d4714fdebcd6b1c923fe90f087c817c245f610"
+      ],
+      "mask_role": "remove separately identified far-hand lobe from upper-leg source; registered rebuild.py creates the source override",
+      "bone": "leg_back_upper",
+      "z": -5,
+      "tint": 1.6,
+      "instances_using_texture": 2
+    },
+    {
+      "slot": "leg_back_lower",
+      "texture_key": "leg_lower",
+      "texture_path": "art/characters/slasher/parts/leg_lower.png",
+      "texture_sha256": "ed353f97e9a340d3cfba333a05008cdec085386a84da88e6862174460dd95c9a",
+      "texture_size_px": [
+        101,
+        261
+      ],
+      "pivot_px": [
+        62.32,
+        9.22
+      ],
+      "source_path": "art_src/characters/slasher/07_refined/leg_lower.png",
+      "source_sha256": "d99c714c36731bf636516d02410d23c415feb3cd452d19aef1b1c3d63cdd52f0",
+      "mask_paths": [
+        "art_src/characters/slasher/sam/near_leg.png",
+        "art_src/characters/slasher/sam/boot.png"
+      ],
+      "mask_sha256": [
+        "2eff088320af6c76406afb9866987af9e4b3f1cacf3cea62d871f0e031cc0e59",
+        "aee48cb8b271db1c9edf3ce58d78448161433b613b222f4ca767f8829a7bed14"
+      ],
+      "mask_role": "near_leg group with spec.parts.leg_lower.not_within=boot",
+      "bone": "leg_back_lower",
+      "z": -5,
+      "tint": 1.6,
+      "instances_using_texture": 2
+    },
+    {
+      "slot": "foot_back",
+      "texture_key": "foot",
+      "texture_path": "art/characters/slasher/parts/foot.png",
+      "texture_sha256": "a7df6bcb13a9ddb43dc10ccc0f06f8a92f02a398a67cb573f6206aeb3f8b2ec2",
+      "texture_size_px": [
+        155,
+        130
+      ],
+      "pivot_px": [
+        38.74,
+        57.06
+      ],
+      "source_path": "art_src/characters/slasher/base_rgba.png",
+      "source_sha256": "ba9af5139d225d492019c24c261bcd1ba9387d1bca7d10e7fd0fa3f5f1931bf3",
+      "mask_paths": [
+        "art_src/characters/slasher/near_hand_repair/near_foot.png"
+      ],
+      "mask_sha256": [
+        "f72640cc2736ce50335a8c719e4362e3bac6e0eecd9513c30e12e5e6ef709a85"
+      ],
+      "mask_role": "pinned original-source near-foot mask, existing alpha>=40 and connected-component min_area=30 rule",
+      "bone": "foot_back",
+      "z": -5,
+      "tint": 1.6,
+      "instances_using_texture": 2
+    },
+    {
+      "slot": "leg_front_upper",
+      "texture_key": "leg_upper",
+      "texture_path": "art/characters/slasher/parts/leg_upper.png",
+      "texture_sha256": "2e96d417a1b8876d3a8fcfbd91c2c3880ed3e608f99ab36306730b656f3ee5d9",
+      "texture_size_px": [
+        119,
+        251
+      ],
+      "pivot_px": [
+        59.47,
+        -7.86
+      ],
+      "source_path": "art_src/characters/slasher/07_refined/leg_upper.png",
+      "source_sha256": "f3bff90fa46785af4ff94a820b92826d6bf9bd0d434e8493ebfb61c4e75767fb",
+      "mask_paths": [
+        "art_src/characters/slasher/near_hand_repair/far_hand_current.png"
+      ],
+      "mask_sha256": [
+        "718b09533a53441f2143cd9133d4714fdebcd6b1c923fe90f087c817c245f610"
+      ],
+      "mask_role": "remove separately identified far-hand lobe from upper-leg source; registered rebuild.py creates the source override",
+      "bone": "leg_front_upper",
+      "z": 3,
+      "tint": 2.0,
+      "instances_using_texture": 2
+    },
+    {
+      "slot": "leg_front_lower",
+      "texture_key": "leg_lower",
+      "texture_path": "art/characters/slasher/parts/leg_lower.png",
+      "texture_sha256": "ed353f97e9a340d3cfba333a05008cdec085386a84da88e6862174460dd95c9a",
+      "texture_size_px": [
+        101,
+        261
+      ],
+      "pivot_px": [
+        62.32,
+        9.22
+      ],
+      "source_path": "art_src/characters/slasher/07_refined/leg_lower.png",
+      "source_sha256": "d99c714c36731bf636516d02410d23c415feb3cd452d19aef1b1c3d63cdd52f0",
+      "mask_paths": [
+        "art_src/characters/slasher/sam/near_leg.png",
+        "art_src/characters/slasher/sam/boot.png"
+      ],
+      "mask_sha256": [
+        "2eff088320af6c76406afb9866987af9e4b3f1cacf3cea62d871f0e031cc0e59",
+        "aee48cb8b271db1c9edf3ce58d78448161433b613b222f4ca767f8829a7bed14"
+      ],
+      "mask_role": "near_leg group with spec.parts.leg_lower.not_within=boot",
+      "bone": "leg_front_lower",
+      "z": 3,
+      "tint": 2.0,
+      "instances_using_texture": 2
+    },
+    {
+      "slot": "foot_front",
+      "texture_key": "foot",
+      "texture_path": "art/characters/slasher/parts/foot.png",
+      "texture_sha256": "a7df6bcb13a9ddb43dc10ccc0f06f8a92f02a398a67cb573f6206aeb3f8b2ec2",
+      "texture_size_px": [
+        155,
+        130
+      ],
+      "pivot_px": [
+        38.74,
+        57.06
+      ],
+      "source_path": "art_src/characters/slasher/base_rgba.png",
+      "source_sha256": "ba9af5139d225d492019c24c261bcd1ba9387d1bca7d10e7fd0fa3f5f1931bf3",
+      "mask_paths": [
+        "art_src/characters/slasher/near_hand_repair/near_foot.png"
+      ],
+      "mask_sha256": [
+        "f72640cc2736ce50335a8c719e4362e3bac6e0eecd9513c30e12e5e6ef709a85"
+      ],
+      "mask_role": "pinned original-source near-foot mask, existing alpha>=40 and connected-component min_area=30 rule",
+      "bone": "foot_front",
+      "z": 3,
+      "tint": 2.0,
+      "instances_using_texture": 2
+    }
+  ],
+  "ownership_conclusion": {
+    "foot": "06_parts/foot and 07_refined/foot retain extra opposite-foot pixels; registered source override applies pinned near_foot mask plus existing connected-component area>=30 rule, yielding exactly one source-designated near boot. The scratch replay equals that override pixel-for-pixel and cut_layers output equals formal parts/foot.png pixel-for-pixel. Formal foot texture is then reused in two separate rig slots with distinct bones/z/tints; it is one single-foot image, not a two-boot atlas.",
+    "leg_upper": "One shared texture is used by back/front upper-leg slots. The registered leg_upper source override removes a separately identified hand lobe from the 07_refined layer; formal texture is exact output from cut_layers over this override. The requested source inspection does not prove full posed anatomy.",
+    "leg_lower": "One shared texture is used by back/front lower-leg slots. Spec excludes the boot group from leg_lower and the formal texture is exact cut_layers output from 07_refined/leg_lower. This confirms provenance and single-piece mapping, not movement-quality."
+  },
+  "source_hashes_unchanged": true,
+  "images": [
+    "review/slasher-source-boot-context-native.png",
+    "review/slasher-foot-owner-source-3x.png",
+    "review/slasher-leg-parts-gray-2x.png",
+    "review/slasher-leg-lower-to-boot-cuff-native4x.png"
+  ],
+  "limitations": [
+    "No edits were made to formal files; no Godot, Forward+, gameplay, or dynamic motion was run.",
+    "A component count is not anatomy acceptance; source ownership conclusion relies on the displayed source-cropped semantic contour plus pinned point locations, not alpha counts alone.",
+    "One-foot asset reuse across back/front slots is a rig design choice; whether both placements and movement are visually correct requires native game review."
+  ]
+}
